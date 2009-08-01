@@ -5239,7 +5239,8 @@ interface IAnjutaSymbolManager
 	* @include_types: Should the result contain or exclude the match_types? TRUE to include them,
 	*				  FALSE to exclude. For example use may want all symbols but classes.
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
-	* @match_name: fixme
+	* @match_name: Name of the symbol you want to search for. If you just want to get all the
+	*              symbols then you need to use "%" as pattern. NULL _is not_ accepted.
 	* @partial_name_match: if TRUE it will search for %match_name%, it FALSE for the exact
 	* 					string match_name.
 	* @filescope_search: if #IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC it will search only for public/extern functions. 
@@ -5267,7 +5268,8 @@ interface IAnjutaSymbolManager
 	*				  FALSE to exclude. For example use may want all symbols but classes.
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
 	* @pattern Pattern you want to search for. It can me something like 'foo_func' (exact match)
-	* or something like 'foo_fun%' (LIKE match, matching all the symbol prefixed with 'foo_fun'
+	*          or something like 'foo_fun%' (LIKE match, matching all the symbol prefixed with 
+	*          'foo_fun'). NULL _is not_ accepted
 	* @results_limit: Limit results to an upper bound. -1 If you don't want to use this par.
 	* @results_offset: Skip results_offset results. -1 If you don't want to use this par.	 
 	* @err: Error propagation and reporting.	 
@@ -5289,7 +5291,8 @@ interface IAnjutaSymbolManager
 	*				  FALSE to exclude. For example use may want all symbols but classes.
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
 	* @pattern Pattern you want to search for. It can me something like 'foo_func' (exact match)
-	* or something like 'foo_fun%' (LIKE match, matching all the symbol prefixed with 'foo_fun'
+	*          or something like 'foo_fun%' (LIKE match, matching all the symbol prefixed with 
+	*          'foo_fun'). NULL _is not_ accepted
 	* @results_limit: Limit results to an upper bound. -1 If you don't want to use this par.
 	* @results_offset: Skip results_offset results. -1 If you don't want to use this par.	 
 	* @cancel: An optional #GCancellable object to cancel the operation, or NULL.
@@ -5315,7 +5318,8 @@ interface IAnjutaSymbolManager
 	*				  FALSE to exclude. For example use may want all symbols but classes.
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
 	* @pattern Pattern you want to search for. It can me something like 'foo_func' (exact match)
-	* or something like 'foo_fun%' (LIKE match, matching all the symbol prefixed with 'foo_fun'
+	*          or something like 'foo_fun%' (LIKE match, matching all the symbol prefixed with 
+	*          'foo_fun'). NULL _is not_ accepted
 	* @results_limit: Limit results to an upper bound. -1 If you don't want to use this par.
 	* @results_offset: Skip results_offset results. -1 If you don't want to use this par.	 
 	* @err: Error propagation and reporting.	 
@@ -5336,8 +5340,9 @@ interface IAnjutaSymbolManager
 	*				  FALSE to exclude. For example use may want all symbols but classes.
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
 	* @pattern Pattern you want to search for. It can me something like 'foo_func' (exact match)
-	* or something like 'foo_fun%' (LIKE match, matching all the symbol prefixed with 'foo_fun'
-	* @results_limit: Limit results to an upper bound. -1 If you don't want to use this par.
+	*          or something like 'foo_fun%' (LIKE match, matching all the symbol prefixed with 
+	*          'foo_fun'). NULL _is not_ accepted	
+    * @results_limit: Limit results to an upper bound. -1 If you don't want to use this par.
 	* @results_offset: Skip results_offset results. -1 If you don't want to use this par.	 
 	* @cancel: An optional #GCancellable object to cancel the operation, or NULL.
 	* @notify: #AnjutaAsyncNotify object for finish notification and error reporting.
@@ -5362,7 +5367,8 @@ interface IAnjutaSymbolManager
 	*				  FALSE to exclude. For example use may want all symbols but classes.
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
 	* @pattern Pattern you want to search for. It can me something like 'foo_func' (exact match)
-	* or something like 'foo_fun%' (LIKE match, matching all the symbol prefixed with 'foo_fun'
+	*          or something like 'foo_fun%' (LIKE match, matching all the symbol prefixed with 
+	*          'foo_fun'). NULL _is not_ accepted
 	* @file GFile of the file, belonging to the project, which you want to scan symbols for.
 	* @results_limit: Limit results to an upper bound. -1 If you don't want to use this par.
 	* @results_offset: Skip results_offset results. -1 If you don't want to use this par.	 
@@ -5384,7 +5390,8 @@ interface IAnjutaSymbolManager
 	*				  FALSE to exclude. For example use may want all symbols but classes.
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
 	* @pattern Pattern you want to search for. It can me something like 'foo_func' (exact match)
-	* or something like 'foo_fun%' (LIKE match, matching all the symbol prefixed with 'foo_fun'
+	*          or something like 'foo_fun%' (LIKE match, matching all the symbol prefixed with 
+	*          'foo_fun'). NULL _is not_ accepted
 	* @file GFile of the file, belonging to the project, which you want to scan symbols for.
 	* @results_limit: Limit results to an upper bound. -1 If you don't want to use this par.
 	* @results_offset: Skip results_offset results. -1 If you don't want to use this par.	 
