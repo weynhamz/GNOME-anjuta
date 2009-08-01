@@ -537,14 +537,14 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist)
 										   IANJUTA_SYMBOL_TYPE_MAX,
 										   TRUE,
 										   IANJUTA_SYMBOL_FIELD_SIMPLE|IANJUTA_SYMBOL_FIELD_TYPE,
-										   pattern, -1, -1, NULL);
+										   pattern, IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC, -1, -1, NULL);
 		
 		IAnjutaIterable* iter_globals = 
 			ianjuta_symbol_manager_search_system (assist->priv->isymbol_manager,
 										   IANJUTA_SYMBOL_TYPE_MAX,
 										   TRUE,
 										   IANJUTA_SYMBOL_FIELD_SIMPLE|IANJUTA_SYMBOL_FIELD_TYPE,
-										   pattern, -1, -1, NULL);
+										   pattern, IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC, -1, -1, NULL);
 		g_free (pattern);
 
 		if (iter_project) 
@@ -733,7 +733,7 @@ cpp_java_assist_show_calltip (CppJavaAssist *assist, gchar *call_context,
 									   IANJUTA_SYMBOL_TYPE_METHOD|
 									   IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG,
 									   TRUE, IANJUTA_SYMBOL_FIELD_SIMPLE,
-									   call_context,
+									   call_context, IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC,
 									   max_completions, -1, NULL);
 	if (iter_project)
 	{
@@ -749,7 +749,7 @@ cpp_java_assist_show_calltip (CppJavaAssist *assist, gchar *call_context,
 									   IANJUTA_SYMBOL_TYPE_METHOD|
 									   IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG,
 									   TRUE, IANJUTA_SYMBOL_FIELD_SIMPLE,
-									   call_context, 
+									   call_context, IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC,
 									   max_completions, -1, NULL);
 	if (iter_global)
 	{
