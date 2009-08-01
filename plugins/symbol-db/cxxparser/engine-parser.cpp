@@ -182,6 +182,284 @@ EngineParser::trim (string& str, string trimChars /* = "{};\r\n\t\v " */)
 	}
 }
 
+/**
+ * Return NULL on global 
+ */
+SymbolDBEngineIterator *
+EngineParser::getCurrentScopeChainByFileLine (const char* full_file_path, 
+    										  int linenum)
+{	
+	SymbolDBEngineIterator *iter = 
+		symbol_db_engine_get_scope_chain_by_file_line (_dbe,
+	   		full_file_path, linenum, SYMINFO_SIMPLE);
+
+	cout << "checking for completion scope..";
+	/* it's a global one if it's NULL or if it has just only one element */
+	if (iter == NULL || symbol_db_engine_iterator_get_n_items (iter) <= 1)
+	{
+		cout << "...we've a global completion scope" << endl;
+		if (iter != NULL)
+		{
+			g_object_unref (iter);
+		}
+
+		iter = NULL;
+	}
+	else 
+	{
+		// DEBUG PRINT
+		do 
+		{
+			SymbolDBEngineIteratorNode *node = 
+				SYMBOL_DB_ENGINE_ITERATOR_NODE (iter);
+			cout << "DEBUG: got completion scope name: " << 
+				symbol_db_engine_iterator_node_get_symbol_name (node) << endl;					
+		} while (symbol_db_engine_iterator_move_next (iter) == TRUE);
+	}
+	
+	return iter;
+}
+
+bool
+EngineParser::getTypeNameAndScopeByToken (ExpressionResult &result, 
+    									  string &token,
+    									  string &op,
+    									  const string& full_file_path, 
+    									  unsigned long linenum,
+    									  const string& above_text,
+    									  string &out_type_name, 
+    									  string &out_type_scope)
+{
+	// no tokens before this, what we need to do now, is find the TagEntry
+	// that corresponds to the result
+	if (result.m_isaType) 
+	{
+		cout << "*** Found a cast expression" << endl;
+		/*
+		 * Handle type (usually when casting is found)
+		 */
+		if (result.m_isPtr && op == ".") 
+		{
+			cout << "Did you mean to use '->' instead of '.' ?" << endl;
+			return false;
+		}
+		
+		if (!result.m_isPtr && op == "->") 
+		{
+			cout << "Can not use '->' operator on a non pointer object" << endl;
+			return false;
+		}
+		
+		out_type_scope = result.m_scope.empty() ? "" : result.m_scope.c_str();
+		out_type_name = result.m_name.c_str();
+		return true;
+	} 
+	else if (result.m_isThis) 
+	{
+		cout << "*** Found 'this'" << endl;
+		
+		/*
+		 * special handle for 'this' keyword
+		 */
+		out_type_scope = result.m_scope.empty() ? "" : result.m_scope.c_str();
+		// FIXME
+//		if (scope_name.empty ()) 
+//		{
+//			cout << "'this' can not be used in the global scope" << endl;
+//			return false;
+//		}
+		
+		if (op == "::") 
+		{
+			cout << "'this' can not be used with operator ::" << endl;
+			return false;
+		}
+
+		if (result.m_isPtr && op == ".") 
+		{
+			cout << "Did you mean to use '->' instead of '.' ?" << endl;
+			return false;
+		}
+			
+		if (!result.m_isPtr && op == "->") 
+		{
+			cout << "Can not use '->' operator on a non pointer object" << endl;
+			return false;
+		}
+// FIXME
+//		out_type_name = scope_name;
+		return true;
+	}
+	else 
+	{
+		/*
+		 * Found an identifier (can be a local variable, a global one etc)
+		 */			
+		cout << "*** Found an identifier or local variable..." << endl;
+
+
+		/* this can be NULL if the scope is global */
+//		SymbolDBEngineIterator *scope_chain_iter = 
+//			getCurrentScopeChainByFileLine (full_file_path.c_str(), linenum);
+
+		/* optimize scope'll clear the scopes leaving the local variables */
+		string optimized_scope = optimizeScope(above_text);
+		cout << "here it is the optimized buffer scope " << optimized_scope << endl;
+
+		VariableList li;
+		std::map<std::string, std::string> ignoreTokens;
+		get_variables(optimized_scope, li, ignoreTokens, false);
+
+		/* here the trick is to start from the end of the found variables
+		 * up to the begin. This because the local variable declaration should be found
+		 * just above to the statement line 
+		 */
+		cout << "variables found are..." << endl;
+		for (VariableList::reverse_iterator iter = li.rbegin(); iter != li.rend(); iter++) {
+			Variable var = (*iter);
+			var.print ();
+			
+			if (token == var.m_name) 
+			{
+				cout << "wh0a! we found the variable type to parse... it's \"" << 
+					var.m_type << "\"" << endl;
+				out_type_name = var.m_type;
+				out_type_scope = var.m_typeScope;
+
+				return true;
+			}
+		}
+
+		/* if we reach this point it's likely that we missed the right var type */
+		cout << "## Wrong detection of the variable type" << endl;
+	}
+	return false;
+}
+
+SymbolDBEngineIterator *
+EngineParser::getCurrentSearchableScope (string &type_name, string &type_scope)
+{
+	// FIXME: case of more results now it's hardcoded to 1
+	SymbolDBEngineIterator *curr_searchable_scope =
+		symbol_db_engine_find_symbol_by_name_pattern_filtered (
+		    			_dbe, type_name.c_str (), 
+					    SYMTYPE_SCOPE_CONTAINER, TRUE, 
+					    SYMSEARCH_FILESCOPE_IGNORE, NULL, 1, 
+		    			-1, (SymExtraInfo)(SYMINFO_SIMPLE | SYMINFO_KIND));
+	
+	if (curr_searchable_scope != NULL)
+	{
+		SymbolDBEngineIteratorNode *node;
+
+		node = SYMBOL_DB_ENGINE_ITERATOR_NODE (curr_searchable_scope);
+	
+		cout << "Current Searchable Scope " <<
+    		symbol_db_engine_iterator_node_get_symbol_name (node) << 					
+			" and id "<< symbol_db_engine_iterator_node_get_symbol_id (node) << 
+			endl;
+
+		/* is it a typedef? In that case find the parent struct */
+		if (g_strcmp0 (symbol_db_engine_iterator_node_get_symbol_extra_string (node,
+		    SYMINFO_KIND), "typedef") == 0)
+		{
+			cout << "it's a struct!" << endl;
+			int struct_id = symbol_db_engine_get_parent_scope_id_by_symbol_id (_dbe, 
+			    symbol_db_engine_iterator_node_get_symbol_id (node),
+			    NULL);
+
+			g_object_unref (curr_searchable_scope);
+			curr_searchable_scope = symbol_db_engine_get_symbol_info_by_id (_dbe,
+				    struct_id,
+				    (SymExtraInfo)(SYMINFO_SIMPLE | SYMINFO_KIND));
+
+			node = SYMBOL_DB_ENGINE_ITERATOR_NODE (curr_searchable_scope);
+			cout << "(NEW) Current Searchable Scope " <<
+				symbol_db_engine_iterator_node_get_symbol_name (node) << 					
+				" and id "<< symbol_db_engine_iterator_node_get_symbol_id (node) << 
+				endl;					
+		}
+	}
+	else
+	{
+		cout << "Current Searchable Scope NULL" << endl;
+	}
+
+	return curr_searchable_scope;
+}
+
+SymbolDBEngineIterator *
+EngineParser::processExpression(const string& stmt, 
+    							const string& above_text,
+    							const string& full_file_path, 
+    							unsigned long linenum)
+{
+	ExpressionResult result;
+	string current_token;
+	string op;
+	string type_name;
+	string type_scope;
+
+	/* first token */
+	_tokenizer->setText (stmt.c_str ());
+
+	/* get the fist one */
+	nextToken (current_token, op);	
+	trim (current_token);	
+
+	cout << "--------\nFirst token \"" << current_token << "\" with op \"" << op 
+		 << "\"" << endl; 
+		
+	/* parse the current sub-expression of a statement and fill up 
+	 * ExpressionResult object
+	 */
+	result = parseExpression (current_token);	
+
+	/* fine. Get the type name and type scope given the above result for the first 
+	 * and most important token.
+	 */	
+	bool process_res = getTypeNameAndScopeByToken (result, 
+    									  current_token,
+    									  op,
+    									  full_file_path, 
+    									  linenum,
+    									  above_text,
+    									  type_name, 
+    									  type_scope);
+
+	if (process_res == false)
+	{
+		cout << "Well, you haven't much luck, the first token failed and then "  <<
+			"I cannot continue. " << endl;
+		return NULL;
+	}
+
+	cout << "Going to search for curr_searchable_scope with type_name " << type_name <<
+		" and type_scope " << type_scope << endl;
+
+	/* at this time we're enough ready to issue a first query to out db. 
+	 * We absolutely need to find the searchable object scope of the first result 
+	 * type. From this one we can iterate the tree of scopes and reach a result.
+	 */	
+	SymbolDBEngineIterator *curr_searchable_scope =
+		getCurrentSearchableScope (type_name, type_scope);
+
+	if (curr_searchable_scope == NULL)
+	{
+		cout << "curr_searchable_scope failed to process, check the problem please" 
+			<< endl;
+		return NULL;
+	}
+
+	/* fine. Have we more tokens left? */
+	while (nextToken (current_token, op)) 
+	{
+		
+	}
+	
+	return curr_searchable_scope;
+}
+
+#if 0
 /* FIXME TODO: error processing. Find out a way to notify the caller of the occurred 
  * error. The "cout" method cannot be used
  */
@@ -484,7 +762,7 @@ EngineParser::processExpression(const string& stmt,
 
 	return evaluation_succeed;
 }
-
+#endif
 
 /// Return the visible scope until pchStopWord is encountered
 string 
@@ -624,6 +902,43 @@ SymbolDBEngineIterator *
 engine_parser_process_expression (const char *stmt, const char * above_text, 
     const char * full_file_path, unsigned long linenum)
 {
+	SymbolDBEngine * dbe = EngineParser::getInstance ()->getSymbolManager ();
+
+	SymbolDBEngineIterator *iter = 
+		EngineParser::getInstance ()->processExpression (stmt, 
+		    											above_text,  
+	    												full_file_path, 
+		    											linenum);
+
+	if (iter == NULL)
+	{
+		cout << "## No way. Expression not parsed" << endl;
+		return NULL;
+	}
+
+	SymbolDBEngineIteratorNode *node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iter);
+	
+	// print the scope members
+	SymbolDBEngineIterator * children = 
+		symbol_db_engine_get_scope_members_by_symbol_id (dbe, 
+			symbol_db_engine_iterator_node_get_symbol_id (node), 
+			-1,
+			-1,
+			SYMINFO_SIMPLE);
+	
+	if (children != NULL)
+	{
+		cout << "scope children are: " << endl;
+		do {
+			SymbolDBEngineIteratorNode *child = 
+				SYMBOL_DB_ENGINE_ITERATOR_NODE (children);
+			cout << "SymbolDBEngine: Searched var got name: " << 
+				symbol_db_engine_iterator_node_get_symbol_name (child) << endl;
+		}while (symbol_db_engine_iterator_move_next (children) == TRUE);						
+	} 
+	
+	
+#if 0
 	string out_type_name;
 	string out_type_scope;
 	string out_oper;
@@ -673,7 +988,7 @@ engine_parser_process_expression (const char *stmt, const char * above_text,
 			}while (symbol_db_engine_iterator_move_next (children) == TRUE);						
 		} 
 	}	
-
+#endif
 	//  FIXME
 	return NULL;
 }

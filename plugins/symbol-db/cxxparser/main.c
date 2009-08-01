@@ -63,7 +63,7 @@ on_test_complex_struct_scan_end (SymbolDBEngine* dbe, gpointer user_data)
 	gchar *file_content;
 	g_file_get_contents (associated_source_file, &file_content, NULL, NULL);
 
-	engine_parser_process_expression ("((foo*)var)->asd_struct->", file_content, 
+	engine_parser_process_expression ("((_foo*)var)->asd_struct->", file_content, 
 	    associated_source_file, 18);
 
 	g_free (file_content);
@@ -84,7 +84,7 @@ on_test_cast_simple_struct_scan_end (SymbolDBEngine* dbe, gpointer user_data)
 	gchar *file_content;
 	g_file_get_contents (associated_source_file, &file_content, NULL, NULL);
 
-	engine_parser_process_expression ("((foo)var).", file_content, 
+	engine_parser_process_expression ("((_foo)var).", file_content, 
 	    associated_source_file, 15);
 
 	g_free (file_content);
@@ -136,7 +136,7 @@ int	main (int argc, char *argv[])
  	g_test_init (&argc, &argv, NULL);
 
 	g_test_add_func ("/simple_c/test-simple-struct", test_simple_struct);
-//	g_test_add_func ("/simple_c/test-cast-simple-struct", test_cast_simple_struct);
+	g_test_add_func ("/simple_c/test-cast-simple-struct", test_cast_simple_struct);
 //	g_test_add_func ("/complex_c/test-complex-struct", test_complex_struct);
 
 	g_test_run ();

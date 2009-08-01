@@ -47,15 +47,26 @@ public:
 	/* getter for the IAnjutaSymbolManager. */
 	SymbolDBEngine * getSymbolManager ();
 
+	SymbolDBEngineIterator * getCurrentScopeChainByFileLine (const char* full_file_path,
+	    													int linenum);
+
+	SymbolDBEngineIterator * getCurrentSearchableScope (string &type_name, 
+	    												string &type_scope);
+	
+	bool getTypeNameAndScopeByToken (ExpressionResult &result, 
+	    							string &token,
+	    							string &op,
+	    							const string& full_file_path, 
+    								unsigned long linenum,
+	    							const string& above_text,
+    								string &out_type_name, 		// out
+	    							string &out_type_scope);	// out
+		
 	// FIXME comments.
-	bool
-	processExpression(const string& stmt, 
-    				  const string& above_text,
-    				  const string& full_file_path, 
-    				  unsigned long linenum,
-    				  string &out_type_name, 
-    				  string &out_type_scope, 
-    				  string &out_oper);
+	SymbolDBEngineIterator * processExpression (const string& stmt, 
+    				  							const string& above_text,
+    				  							const string& full_file_path, 
+    				  							unsigned long linenum);
 
 	void testParseExpression (const string &in);
 
