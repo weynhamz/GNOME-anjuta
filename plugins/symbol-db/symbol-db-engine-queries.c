@@ -1949,6 +1949,23 @@ select * from symbol where scope_definition_id = (
 	return res;
 }
 
+SymbolDBEngineIterator *
+symbol_db_engine_get_parent_scope_by_symbol_id (SymbolDBEngine *dbe, 
+									gint scoped_symbol_id,
+									const gchar* db_file,
+    								SymExtraInfo sym_info)
+{
+	/* no need to lock */
+	gint parent_sym_id = symbol_db_engine_get_parent_scope_id_by_symbol_id (dbe,
+	    								scoped_symbol_id, db_file);
+
+	if (parent_sym_id < 0)
+		return NULL;
+	
+	/* get the info now */
+	return symbol_db_engine_get_symbol_info_by_id (dbe, parent_sym_id, sym_info);
+}
+
 static GdaDataModel *
 sdb_engine_get_symbol_info_by_id_1 (SymbolDBEngine *dbe, 
 									gint sym_id, SymExtraInfo sym_info)
