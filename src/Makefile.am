@@ -45,6 +45,7 @@ anjuta_LDADD =  \
 	$(GCONF_LIBS) \
 	$(GDL_LIBS) \
 	$(GLADE_LIBS)\
+	$(GLIB_LIBS) \
 	$(top_builddir)/libanjuta/libanjuta.la
 
 anjuta_LDFLAGS = $(ANJUTA_LDFLAGS)
