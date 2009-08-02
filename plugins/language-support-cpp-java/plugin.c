@@ -56,8 +56,6 @@
 /* Preferences keys */
 
 #define PREF_INDENT_AUTOMATIC "language.cpp.indent.automatic"
-#define PREF_INDENT_ADAPTIVE "language.cpp.indent.adaptive"
-#define PREF_INDENT_TAB_INDENTS "language.cpp.indent.tab.indents"
 #define PREF_INDENT_STATEMENT_SIZE "language.cpp.indent.statement.size"
 #define PREF_INDENT_BRACE_SIZE "language.cpp.indent.brace.size"
 #define PREF_INDENT_PARANTHESE_LINEUP "language.cpp.indent.paranthese.lineup"
@@ -587,6 +585,11 @@ initialize_indentation_params (CppJavaPlugin *plugin)
 	gboolean line_comment = FALSE;
 	gchar mini_buffer[MINI_BUFFER_SIZE] = {0};
 	
+	plugin->smart_indentation = anjuta_preferences_get_bool (plugin->prefs, PREF_INDENT_AUTOMATIC);
+	/* Disable editor intern auto-indent if smart indentation is enabled */
+	ianjuta_editor_set_auto_indent (IANJUTA_EDITOR(plugin->current_editor),
+								    !plugin->smart_indentation, NULL);
+
 	/* Initialize indentation parameters */
 	plugin->param_tab_size = -1;
 	plugin->param_statement_indentation = -1;
@@ -1414,7 +1417,7 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 	iter = ianjuta_iterable_clone (insert_pos, NULL);
 	
 	/* If autoindent is enabled*/
-	if (anjuta_preferences_get_bool (plugin->prefs, PREF_INDENT_AUTOMATIC))
+	if (plugin->smart_indentation)
 	{
 	
 		/* DEBUG_PRINT ("Char added at position %d: '%c'", insert_pos, ch); */	
@@ -1618,9 +1621,6 @@ install_support (CppJavaPlugin *lang_plugin)
 	}
 	
 	initialize_indentation_params (lang_plugin);
-	/* Disable editor intern auto-indent */
-	ianjuta_editor_set_auto_indent (IANJUTA_EDITOR(lang_plugin->current_editor),
-								    FALSE, NULL);
 	
 	if (IANJUTA_IS_EDITOR_ASSIST (lang_plugin->current_editor) &&
 		!g_str_equal (lang_plugin->current_language, "Vala"))
