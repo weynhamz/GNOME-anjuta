@@ -107,10 +107,16 @@ on_remote_list_command_data_arrived (AnjutaCommand *command, GitUIData *data)
 	{
 		remote_name = g_queue_pop_head (output_queue);
 
-		gtk_list_store_append (remote_list_model, &iter);
-		gtk_list_store_set (remote_list_model, &iter, 0, remote_name, -1);
-
-		if (strcmp (remote_name, "origin") == 0)
+		/* Don't show the origin branch in the list. Origin is specified by 
+		 * enabling the origin checkbox. As use of origin is such a common 
+		 * operation, give access to it in one click. Keep the checkbox disabled
+		 * if no origin branch exists. */
+		if (strcmp (remote_name, "origin") != 0)
+		{
+			gtk_list_store_append (remote_list_model, &iter);
+			gtk_list_store_set (remote_list_model, &iter, 0, remote_name, -1);
+		}
+		else
 			gtk_widget_set_sensitive (push_origin_check, TRUE);
 		
 		g_free (remote_name);
