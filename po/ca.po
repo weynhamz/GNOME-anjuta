@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-17 14:09+0200\n"
-"PO-Revision-Date: 2009-04-15 22:54+0200\n"
+"POT-Creation-Date: 2009-08-03 09:58+0200\n"
+"PO-Revision-Date: 2009-08-03 10:00+0200\n"
 "Last-Translator: Joan Duran <jodufi@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -241,7 +241,7 @@ msgstr "Carrega"
 msgid "Available Plugins"
 msgstr "Connectors disponibles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:663
+#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:661
 msgid "Preferred plugins"
 msgstr "Connectors preferits"
 
@@ -411,7 +411,7 @@ msgstr "Categoria"
 #: ../plugins/gbf-am/gbf-am-dialogs.glade.h:4
 #: ../plugins/profiler/profiler.glade.h:15
 #: ../plugins/valgrind/vggeneralprefs.c:172 ../src/anjuta.glade.h:16
-#: ../src/anjuta-app.c:650
+#: ../src/anjuta-app.c:648
 msgid "General"
 msgstr "General"
 
@@ -2331,7 +2331,7 @@ msgstr "Marc"
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:630
 #: ../plugins/debug-manager/threads.c:450 ../plugins/tools/tool.c:100
-#: ../src/anjuta-app.c:422
+#: ../src/anjuta-app.c:420
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
 msgstr "Fitxer"
@@ -2537,7 +2537,7 @@ msgstr "Contingut"
 msgid "Search"
 msgstr "Cerca"
 
-#: ../plugins/devhelp/plugin.c:420 ../src/anjuta-app.c:439
+#: ../plugins/devhelp/plugin.c:420 ../src/anjuta-app.c:437
 msgid "Help"
 msgstr "Ajuda"
 
@@ -3747,8 +3747,8 @@ msgstr "No existeix l'objectiu"
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2845
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3008
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3068
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3295
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3356
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3300
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3361
 msgid "Unable to update project"
 msgstr "No s'ha pogut actualitzar el projecte"
 
@@ -3881,7 +3881,7 @@ msgstr "Mòdul de Python"
 #: ../plugins/gbf-am/gbf-am-project.c:3261
 #: ../plugins/gbf-am/gbf-am-project.c:3514
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3143
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3333
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3338
 msgid "Source doesn't exist"
 msgstr "No existeix la font"
 
@@ -3910,8 +3910,8 @@ msgstr "No s'ha pogut eliminar la font"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3708
 #: ../plugins/gbf-am/gbf-am-project.c:3709
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3445
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3446
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3450
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3451
 msgid "Project directory"
 msgstr "Directori del projecte"
 
@@ -4095,20 +4095,20 @@ msgstr "No s'ha pogut crear l'objectiu"
 msgid "Target coudn't be removed"
 msgstr "No s'ha pogut suprimir l'objectiu"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3248
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3253
 msgid "Source file must be inside the project directory"
 msgstr "El fitxer font ha de ser dins del directori del projecte"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3260
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3265
 msgid "Source is already in target"
 msgstr "La font ja és a l'objectiu"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3277
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3309
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3282
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3314
 msgid "Source couldn't be added"
 msgstr "No s'ha pogut afegir la font"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3341
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3346
 msgid "Source coudn't be removed"
 msgstr "No s'ha pogut suprimir la font"
 
@@ -5962,32 +5962,32 @@ msgstr "Fitxer amb el pedaç"
 msgid "Patches"
 msgstr "Pedaços"
 
-#: ../plugins/patch/patch-plugin.c:159 ../plugins/patch/patch-plugin.glade.h:3
+#: ../plugins/patch/patch-plugin.c:160 ../plugins/patch/patch-plugin.glade.h:3
 msgid "Patch"
 msgstr "Aplica un pedaç"
 
-#: ../plugins/patch/patch-plugin.c:174
+#: ../plugins/patch/patch-plugin.c:180
 msgid "Please select the directory where the patch should be applied"
 msgstr "Seleccioneu el directori on s'aplicarà el pedaç"
 
-#: ../plugins/patch/patch-plugin.c:185
+#: ../plugins/patch/patch-plugin.c:191
 #, c-format
 msgid "Patching %s using %s\n"
 msgstr "S'està aplicant el pedaç a %s fent servir %s\n"
 
-#: ../plugins/patch/patch-plugin.c:194
+#: ../plugins/patch/patch-plugin.c:203
 msgid "Patching...\n"
 msgstr "S'està aplicant un pedaç...\n"
 
-#: ../plugins/patch/patch-plugin.c:204
+#: ../plugins/patch/patch-plugin.c:213
 msgid "Patching..."
 msgstr "S'està aplicant un pedaç..."
 
-#: ../plugins/patch/patch-plugin.c:209
+#: ../plugins/patch/patch-plugin.c:218
 msgid "There are unfinished jobs, please wait until they are finished."
 msgstr "Hi ha tasques sense finalitzar, espereu fins que hagin finalitzat."
 
-#: ../plugins/patch/patch-plugin.c:251
+#: ../plugins/patch/patch-plugin.c:260
 msgid ""
 "Patch failed.\n"
 "Please review the failure messages.\n"
@@ -5997,7 +5997,7 @@ msgstr ""
 "Reviseu els missatges d'error.\n"
 "Examineu i suprimiu els fitxers rebutjats.\n"
 
-#: ../plugins/patch/patch-plugin.c:257
+#: ../plugins/patch/patch-plugin.c:266
 msgid "Patching complete"
 msgstr "S'ha completat l'aplicació del pedaç"
 
@@ -8144,8 +8144,8 @@ msgstr "S'ha obtingut el nombre màxim de resultats."
 #, c-format
 msgid "%d match has been replaced."
 msgid_plural "%d matches have been replaced."
-msgstr[0] "s'ha reeemplaçat %d concordança."
-msgstr[1] "s'han reeemplaçat %d concordances."
+msgstr[0] "s'ha reemplaçat %d concordança."
+msgstr[1] "s'han reemplaçat %d concordances."
 
 #: ../plugins/search/search-replace.c:1292
 msgid "Unable to build user interface for Search And Replace"
@@ -9781,23 +9781,23 @@ msgstr "_Quant als connectors externs"
 msgid "About third party Anjuta plugins"
 msgstr "Quant als connectors externs de l'Anjuta"
 
-#: ../src/anjuta-app.c:426
+#: ../src/anjuta-app.c:424
 msgid "Edit"
 msgstr "Edita"
 
-#: ../src/anjuta-app.c:430 ../src/anjuta-app.c:435
+#: ../src/anjuta-app.c:428 ../src/anjuta-app.c:433
 msgid "View"
 msgstr "Visualitza"
 
-#: ../src/anjuta-app.c:661
+#: ../src/anjuta-app.c:659
 msgid "Installed plugins"
 msgstr "Connectors instal·lats"
 
-#: ../src/anjuta-app.c:665
+#: ../src/anjuta-app.c:663
 msgid "Shortcuts"
 msgstr "Dreceres"
 
-#: ../src/anjuta-app.c:737
+#: ../src/anjuta-app.c:735
 #, c-format
 msgid "Value doesn't exist"
 msgstr "No existeix el valor"
@@ -9810,7 +9810,7 @@ msgstr "Especifiqueu la mida i la ubicació de la finestra principal"
 #. * of the window on command line
 #: ../src/main.c:65
 msgid "WIDTHxHEIGHT+XOFF+YOFF"
-msgstr "AMPLADAxALÇADAxDESPLAÇAMENTX+DESPLAÇAMENTY"
+msgstr "AMPLADAxALÇADA+DESPLAÇAMENTX+DESPLAÇAMENTY"
 
 #: ../src/main.c:70
 msgid "Do not show the splashscreen"
