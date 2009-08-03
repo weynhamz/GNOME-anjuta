@@ -26,6 +26,7 @@
 #define _GIT_PULL_DIALOG_H
 
 #include "git-pull-command.h"
+#include "git-remote-list-command.h"
 #include "git-ui-utils.h"
 
 void on_menu_git_pull (GtkAction *action, Git *plugin);

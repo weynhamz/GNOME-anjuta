@@ -89,59 +89,6 @@ on_push_all_check_toggled (GtkToggleButton *toggle_button,
 }
 
 static void
-on_remote_list_command_data_arrived (AnjutaCommand *command, GitUIData *data)
-{
-	GtkListStore *remote_list_model;
-	GtkWidget *push_origin_check;
-	GQueue *output_queue;
-	gchar *remote_name;
-	GtkTreeIter iter;
-	
-	remote_list_model = GTK_LIST_STORE (gtk_builder_get_object (data->bxml,
-	                                                        	"remote_list_model"));
-	push_origin_check = GTK_WIDGET (gtk_builder_get_object (data->bxml,
-	                                                        "push_origin_check"));
-	output_queue = git_raw_output_command_get_output (GIT_RAW_OUTPUT_COMMAND (command));
-	
-	while (g_queue_peek_head (output_queue))
-	{
-		remote_name = g_queue_pop_head (output_queue);
-
-		/* Don't show the origin branch in the list. Origin is specified by 
-		 * enabling the origin checkbox. As use of origin is such a common 
-		 * operation, give access to it in one click. Keep the checkbox disabled
-		 * if no origin branch exists. */
-		if (strcmp (remote_name, "origin") != 0)
-		{
-			gtk_list_store_append (remote_list_model, &iter);
-			gtk_list_store_set (remote_list_model, &iter, 0, remote_name, -1);
-		}
-		else
-			gtk_widget_set_sensitive (push_origin_check, TRUE);
-		
-		g_free (remote_name);
-	}
-}
-
-static void
-on_notebook_button_toggled (GtkToggleButton *toggle_button, GitUIData *data)
-{
-	GtkWidget *push_repository_notebook;
-	gint tab_index;
-
-	if (gtk_toggle_button_get_active (toggle_button))
-	{
-		push_repository_notebook = GTK_WIDGET (gtk_builder_get_object (data->bxml,
-		                                                               "push_repository_notebook"));
-		tab_index = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (toggle_button),
-		                                                "tab-index"));
-
-		gtk_notebook_set_current_page (GTK_NOTEBOOK (push_repository_notebook), 
-		                               tab_index);
-	}
-}
-
-static void
 on_push_dialog_response (GtkDialog *dialog, gint response_id, 
 						 GitUIData *data)
 {
@@ -155,7 +102,7 @@ on_push_dialog_response (GtkDialog *dialog, gint response_id,
 	GtkTreeModel *remote_list_model;
 	GtkTreeModel *branch_list_model;
 	GtkTreeModel *tag_list_model;
-	GtkWidget *focus_widget;
+	GtkWidget *input_widget;
 	const gchar *input_error;
 	GtkTreeSelection *selection;
 	GtkTreeIter iter;
@@ -189,10 +136,10 @@ on_push_dialog_response (GtkDialog *dialog, gint response_id,
 		tag_list_model = GTK_TREE_MODEL (gtk_builder_get_object (data->bxml,
 																  "tag_list_model"));
 
-		/* The "focus widget" is the widget that should receive focus if the
+		/* The "input widget" is the widget that should receive focus if the
 		 * user does not properly enter anything */
 		input_error = _("Please select a remote to push to.");
-		focus_widget = push_remote_view;
+		input_widget = push_remote_view;
 
 		url = NULL;
 
@@ -208,11 +155,11 @@ on_push_dialog_response (GtkDialog *dialog, gint response_id,
 		else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (push_url_toggle)))
 		{
 			url = gtk_editable_get_chars (GTK_EDITABLE (push_url_entry), 0, -1);
-			focus_widget = push_url_entry;
+			input_widget = push_url_entry;
 			input_error = _("Please enter the URL of the repository to push to.");
 		}
 
-		if (!git_check_input (GTK_WIDGET (dialog), focus_widget, url, 
+		if (!git_check_input (GTK_WIDGET (dialog), input_widget, url, 
 							  input_error))
 		{
 			g_free (url);
@@ -282,12 +229,14 @@ push_dialog (Git *plugin)
 						"tag_list_model", NULL};
 	GError *error;
 	GtkWidget *dialog;
+	GtkWidget *push_repository_notebook;
 	GtkWidget *push_remote_toggle;
 	GtkWidget *push_url_toggle;
 	GtkWidget *push_origin_check;
 	GtkWidget *push_repository_vbox;
 	GtkWidget *push_tags_check;
 	GtkWidget *push_all_check;
+	GtkListStore *remote_list_model;
 	GtkListStore *branch_list_model;
 	GtkListStore *tag_list_model;
 	GtkCellRenderer *push_branches_view_selected_renderer;
@@ -309,6 +258,8 @@ push_dialog (Git *plugin)
 	}
 	
 	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, "push_dialog"));
+	push_repository_notebook = GTK_WIDGET (gtk_builder_get_object (bxml,
+	                                                               "push_repository_notebook"));
 	push_remote_toggle = GTK_WIDGET (gtk_builder_get_object (bxml,
 	                                                         "push_remote_toggle"));
 	push_url_toggle = GTK_WIDGET (gtk_builder_get_object (bxml,
@@ -321,6 +272,8 @@ push_dialog (Git *plugin)
 		                                                 "push_all_check"));
 	push_tags_check = GTK_WIDGET (gtk_builder_get_object (bxml, 
 		                                                  "push_tags_check"));
+	remote_list_model = GTK_LIST_STORE (gtk_builder_get_object (bxml,
+	                                                            "remote_list_model"));
 	branch_list_model = GTK_LIST_STORE (gtk_builder_get_object (bxml,
 																"branch_list_model"));
 	tag_list_model = GTK_LIST_STORE (gtk_builder_get_object (bxml,
@@ -338,9 +291,12 @@ push_dialog (Git *plugin)
 													   GIT_BRANCH_TYPE_LOCAL);
 	tag_list_command = git_tag_list_command_new (plugin->project_root_directory);
 
+	g_object_set_data (G_OBJECT (remote_list_command), "origin-check", 
+	                   push_origin_check);
+
 	g_signal_connect (G_OBJECT (remote_list_command), "data-arrived",
-	                  G_CALLBACK (on_remote_list_command_data_arrived),
-	                  data);
+	                  G_CALLBACK (on_git_remote_list_command_data_arrived),
+	                  remote_list_model);
 
 	g_signal_connect (G_OBJECT (remote_list_command), "command-finished",
 	                  G_CALLBACK (on_git_command_finished),
@@ -377,12 +333,12 @@ push_dialog (Git *plugin)
 	                   GINT_TO_POINTER (1));
 
 	g_signal_connect (G_OBJECT (push_remote_toggle), "toggled",
-	                  G_CALLBACK (on_notebook_button_toggled),
-	                  data);
+	                  G_CALLBACK (on_git_notebook_button_toggled),
+	                  push_repository_notebook);
 
 	g_signal_connect (G_OBJECT (push_url_toggle), "toggled",
-	                  G_CALLBACK (on_notebook_button_toggled),
-	                  data);
+	                  G_CALLBACK (on_git_notebook_button_toggled),
+	                  push_repository_notebook);
 
 	g_signal_connect (G_OBJECT (push_origin_check), "toggled",
 	                  G_CALLBACK (on_git_origin_check_toggled),

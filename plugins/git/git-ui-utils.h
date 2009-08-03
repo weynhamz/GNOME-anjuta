@@ -89,12 +89,15 @@ void on_git_stash_save_command_finished (AnjutaCommand *command,
 										 guint return_code, Git *plugin);
 void on_git_stash_apply_command_finished (AnjutaCommand *command,
 										  guint return_code, Git *plugin);
+void on_git_remote_list_command_data_arrived (AnjutaCommand *command,
+                                              GtkListStore *remote_list_model);
+void on_git_notebook_button_toggled (GtkToggleButton *toggle_button,
+                                     GtkNotebook *notebook);
 void git_select_all_status_items (GtkButton *select_all_button, 
 								  AnjutaVcsStatusTreeView *tree_view);
 void git_clear_all_status_selections (GtkButton *clear_button,
 									  AnjutaVcsStatusTreeView *tree_view);
 void on_git_origin_check_toggled (GtkToggleButton *button, GtkWidget *widget);
-
 void git_init_whole_project (Git *plugin, GtkWidget* project,
 							 gboolean active);
 void on_git_whole_project_toggled (GtkToggleButton* project, Git *plugin);

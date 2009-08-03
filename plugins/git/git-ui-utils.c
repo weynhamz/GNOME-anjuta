@@ -554,6 +554,53 @@ on_git_stash_apply_command_finished (AnjutaCommand *command, guint return_code,
 }
 
 void
+on_git_remote_list_command_data_arrived (AnjutaCommand *command,
+                                         GtkListStore *remote_list_model)
+{
+	GtkWidget *origin_check;
+	GQueue *output_queue;
+	gchar *remote_name;
+	GtkTreeIter iter;
+	
+	origin_check = g_object_get_data (G_OBJECT (command), "origin-check");
+	output_queue = git_raw_output_command_get_output (GIT_RAW_OUTPUT_COMMAND (command));
+	
+	while (g_queue_peek_head (output_queue))
+	{
+		remote_name = g_queue_pop_head (output_queue);
+
+		/* Don't show the origin branch in the list. Origin is specified by 
+		 * enabling the origin checkbox. As use of origin is such a common 
+		 * operation, give access to it in one click. Keep the checkbox disabled
+		 * if no origin branch exists. */
+		if (strcmp (remote_name, "origin") != 0)
+		{
+			gtk_list_store_append (remote_list_model, &iter);
+			gtk_list_store_set (remote_list_model, &iter, 0, remote_name, -1);
+		}
+		else
+			gtk_widget_set_sensitive (origin_check, TRUE);
+		
+		g_free (remote_name);
+	}
+}
+
+void
+on_git_notebook_button_toggled (GtkToggleButton *toggle_button,
+                                GtkNotebook *notebook)
+{
+	gint tab_index;
+
+	if (gtk_toggle_button_get_active (toggle_button))
+	{
+		tab_index = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (toggle_button),
+		                                                "tab-index"));
+
+		gtk_notebook_set_current_page (notebook, tab_index);
+	}
+}
+
+void
 git_select_all_status_items (GtkButton *select_all_button,
 							 AnjutaVcsStatusTreeView *tree_view)
 {
