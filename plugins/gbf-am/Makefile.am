@@ -61,7 +61,6 @@ test_SOURCES = \
 	gbf-am-properties.c
 
 test_LDADD = \
-	libgbf-am.la \
 	$(LIBANJUTA_LIBS) \
 	$(LIBXML_LIBS)
 # This last line do nothing but it is needed to avoid the error
