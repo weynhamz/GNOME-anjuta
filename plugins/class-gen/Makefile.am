@@ -30,8 +30,8 @@ AM_CPPFLAGS = \
 
 libanjuta_class_gen_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
+#${top_builddir}/plugins/project-wizard/libanjuta-project-wizard.la \
 libanjuta_class_gen_la_LIBADD = \
-	${top_builddir}/plugins/project-wizard/libanjuta-project-wizard.la \
 	$(GIO_LIBS) \
 	$(LIBANJUTA_LIBS)
 
@@ -51,7 +51,11 @@ libanjuta_class_gen_la_SOURCES= \
 	validator.c \
 	validator.h \
 	window.c \
-	window.h
+	window.h \
+	../project-wizard/autogen.c \
+	../project-wizard/autogen.h \
+	../project-wizard/values.c \
+	../project-wizard/values.h
 	
 EXTRA_DIST = \
 	$(plugin_in_files) \
