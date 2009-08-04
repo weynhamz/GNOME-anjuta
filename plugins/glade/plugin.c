@@ -1413,10 +1413,10 @@ const LanguageSyntax _default_syntax_Python = {
 
 typedef enum
 {
-	LANGUAGE_NONE,
-	LANGUAGE_C,
-	LANGUAGE_PYTHON,
-	LANGUAGE_VALA
+	ANJUTA_LANGUAGE_NONE,
+	ANJUTA_LANGUAGE_C,
+	ANJUTA_LANGUAGE_PYTHON,
+	ANJUTA_LANGUAGE_VALA
 } LanguageId;
 
 LanguageSyntax const *default_syntax_C = &_default_syntax_C;
@@ -1903,14 +1903,14 @@ glade_plugin_fetch_last_signal (GladePlugin *plugin)
 static LanguageId
 language_name_to_id (const gchar *lang_name)
 {
-	LanguageId lang_id = LANGUAGE_NONE;
+	LanguageId lang_id = ANJUTA_LANGUAGE_NONE;
 
 	if (g_str_equal (lang_name, "C") || g_str_equal (lang_name, "C++"))
-		lang_id = LANGUAGE_C;
+		lang_id = ANJUTA_LANGUAGE_C;
 	else if (g_str_equal (lang_name, "Python"))
-		lang_id = LANGUAGE_PYTHON;
+		lang_id = ANJUTA_LANGUAGE_PYTHON;
 	else if (g_str_equal (lang_name, "Vala"))
-		lang_id = LANGUAGE_VALA;
+		lang_id = ANJUTA_LANGUAGE_VALA;
 
 	return lang_id;
 }
@@ -1963,7 +1963,7 @@ insert_handler_stub_auto (IAnjutaDocument *doc, GladePlugin *plugin,
 	lang_id = language_name_to_id (lang_name);
 	switch (lang_id)
 	{
-	case LANGUAGE_NONE:
+	case ANJUTA_LANGUAGE_NONE:
 		{
 			gchar *uri = get_uri_from_ianjuta_file (IANJUTA_FILE (editor));
 			g_set_error (error,
@@ -1973,13 +1973,13 @@ insert_handler_stub_auto (IAnjutaDocument *doc, GladePlugin *plugin,
 			g_free (uri);
 			return;
 		}
-	case LANGUAGE_C:
+	case ANJUTA_LANGUAGE_C:
 		syntax = default_syntax_C;
 		break;
-	case LANGUAGE_PYTHON:
+	case ANJUTA_LANGUAGE_PYTHON:
 		syntax = default_syntax_Python;
 		break;
-	case LANGUAGE_VALA:
+	case ANJUTA_LANGUAGE_VALA:
 		syntax = default_syntax_Vala;
 		break;
 	}
@@ -1993,10 +1993,10 @@ insert_handler_stub_auto (IAnjutaDocument *doc, GladePlugin *plugin,
 
 	switch (lang_id)
 	{
-	case LANGUAGE_NONE:
+	case ANJUTA_LANGUAGE_NONE:
 		g_assert_not_reached();
 		return;
-	case LANGUAGE_C:
+	case ANJUTA_LANGUAGE_C:
 		do_insert_handler_stub_C (docman, editor, position, position_type,
 		                          plugin->priv->last_object_type,
 		                          plugin->priv->last_object_name,
@@ -2004,7 +2004,7 @@ insert_handler_stub_auto (IAnjutaDocument *doc, GladePlugin *plugin,
 		                          plugin->priv->last_handler_name,
 		                          raise_editor, error);
 		break;
-	case LANGUAGE_PYTHON:
+	case ANJUTA_LANGUAGE_PYTHON:
 		do_insert_handler_stub_Python (docman, editor, position, position_type,
 		                               plugin->priv->last_object_type,
 		                               plugin->priv->last_object_name,
@@ -2012,7 +2012,7 @@ insert_handler_stub_auto (IAnjutaDocument *doc, GladePlugin *plugin,
 		                               plugin->priv->last_handler_name,
 		                               raise_editor, error);
 		break;
-	case LANGUAGE_VALA:
+	case ANJUTA_LANGUAGE_VALA:
 		do_insert_handler_stub_Vala (docman, editor, position, position_type,
 		                             plugin->priv->last_object_type,
 		                             plugin->priv->last_object_name,
@@ -2083,8 +2083,8 @@ insert_handler_stub_manual (GladePlugin* plugin, gboolean raise_editor)
 
 	switch (language_name_to_id (lang_name))
 	{
-	case LANGUAGE_NONE:
-	case LANGUAGE_C:
+	case ANJUTA_LANGUAGE_NONE:
+	case ANJUTA_LANGUAGE_C:
 		do_insert_handler_stub_C (docman, editor, position, iptCurrent,
 		                          plugin->priv->last_object_type,
 		                          plugin->priv->last_object_name,
@@ -2092,7 +2092,7 @@ insert_handler_stub_manual (GladePlugin* plugin, gboolean raise_editor)
 		                          plugin->priv->last_handler_name,
 		                          TRUE, &error);
 		break;
-	case LANGUAGE_PYTHON:
+	case ANJUTA_LANGUAGE_PYTHON:
 		do_insert_handler_stub_Python (docman, editor, position, iptCurrent,
 		                               plugin->priv->last_object_type,
 		                               plugin->priv->last_object_name,
@@ -2100,7 +2100,7 @@ insert_handler_stub_manual (GladePlugin* plugin, gboolean raise_editor)
 		                               plugin->priv->last_handler_name,
 		                               TRUE, &error);
 		break;
-	case LANGUAGE_VALA:
+	case ANJUTA_LANGUAGE_VALA:
 		do_insert_handler_stub_Vala (docman, editor, position, iptCurrent,
 		                             plugin->priv->last_object_type,
 		                             plugin->priv->last_object_name,
