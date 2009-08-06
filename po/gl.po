@@ -1,4 +1,4 @@
-# translation of anjuta-master-po-gl.po to Galician
+# translation of anjuta.master.po to Galician
 # translation of anjuta.HEAD.gl.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
@@ -12,10 +12,10 @@
 # Fran Dieguez <fran.dieguez@glug.es>, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta-master-po-gl\n"
+"Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-21 19:13+0200\n"
-"PO-Revision-Date: 2009-07-14 11:57+0200\n"
+"POT-Creation-Date: 2009-08-06 18:59+0200\n"
+"PO-Revision-Date: 2009-08-05 10:38+0200\n"
 "Last-Translator: Antón Méixome <meixome@mancomun.org>\n"
 "Language-Team: Galician <gnome@mancomun.org>\n"
 "MIME-Version: 1.0\n"
@@ -212,7 +212,7 @@ msgstr "Non é posíbel executar a orde: \"%s\""
 
 #: ../libanjuta/anjuta-launcher.c:1151
 msgid "execvp failed"
-msgstr "fallou execvp"
+msgstr "fallou o execvp"
 
 #: ../libanjuta/anjuta-plugin.c:327 ../libanjuta/anjuta-plugin-manager.c:2310
 msgid "Anjuta Shell"
@@ -265,8 +265,8 @@ msgid ""
 "you again to choose different plugin."
 msgstr ""
 "Estes son os plugins que vostede seleccionou cando o Anjuta lle pediu que "
-"escollese un entre varios que eran adecuados. Ao eliminar o plugin preferido "
-"o Anjuta pediralle outra vez que escolla outro diferente."
+"escollese un, entre varios que eran adecuados. Ao eliminar o plugin "
+"preferido, o Anjuta pediralle outra vez que escolla outro diferente."
 
 #: ../libanjuta/anjuta-plugin-manager.c:1223
 msgid "Forget selected plugin"
@@ -406,7 +406,7 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../libanjuta/anjuta-preferences.c:1538 ../plugins/git/plugin.c:382
+#: ../libanjuta/anjuta-preferences.c:1538 ../plugins/git/plugin.c:415
 msgid "_Reset"
 msgstr "_Reinicializar"
 
@@ -499,17 +499,17 @@ msgstr ""
 "Instálea."
 
 #. Try xterm
-#: ../libanjuta/anjuta-utils.c:971
+#: ../libanjuta/anjuta-utils.c:986
 msgid "Cannot find a terminal, using xterm, even if it may not work"
 msgstr "Non se pode encontrar un terminal, usar xterm, mesmo se non funciona"
 
-#: ../libanjuta/anjuta-utils.c:1007 ../libanjuta/anjuta-utils.c:1011
-#: ../libanjuta/anjuta-utils.c:1039 ../libanjuta/anjuta-utils.c:1043
+#: ../libanjuta/anjuta-utils.c:1022 ../libanjuta/anjuta-utils.c:1026
+#: ../libanjuta/anjuta-utils.c:1054 ../libanjuta/anjuta-utils.c:1058
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "Non é posíbel executar a orde: %s (usando o intérprete de ordes %s)\n"
 
-#: ../libanjuta/anjuta-utils.c:1677
+#: ../libanjuta/anjuta-utils.c:1692
 msgid ""
 "Unable to display help. Please make sure Anjuta documentation package is "
 "install. It can be downloaded from http://anjuta.org"
@@ -517,7 +517,7 @@ msgstr ""
 "Non é posíbel mostrar a axuda. Asegúrese de que o paquete de documentación "
 "do Anjuta está instalado. Pódese baixar desde http://anjuta.org"
 
-#: ../libanjuta/anjuta-utils.c:2116
+#: ../libanjuta/anjuta-utils.c:2131
 #, c-format
 msgid "Unable to load user interface file: %s"
 msgstr "Non é posíbel cargar un ficheiro de interface de usuario: %s"
@@ -1094,7 +1094,7 @@ msgid "GObject Prefix and Type:"
 msgstr "Prefixo GObject e Tipo:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:17
-#: ../plugins/file-wizard/file.c:100
+#: ../plugins/file-wizard/file.c:102
 #: ../plugins/project-wizard/templates/translatable-strings.h:47
 msgid "General Public License (GPL)"
 msgstr "Licenza pública xeral (GPL)"
@@ -1112,7 +1112,7 @@ msgid "Inline the declaration and implementation"
 msgstr "Acompañar tanto a declaración como a implantación"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:21
-#: ../plugins/file-wizard/file.c:101
+#: ../plugins/file-wizard/file.c:103
 #: ../plugins/project-wizard/templates/translatable-strings.h:60
 msgid "Lesser General Public License (LGPL)"
 msgstr "Licenza pública xeral menor (LGPL)"
@@ -1239,7 +1239,7 @@ msgid "Be verbose"
 msgstr "Saída detallada"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:10
-#: ../plugins/git/anjuta-git.ui.h:23
+#: ../plugins/git/anjuta-git.ui.h:27
 #: ../plugins/subversion/anjuta-subversion.ui.h:3
 #: ../plugins/tools/anjuta-tools.ui.h:2
 msgid "Browse..."
@@ -1349,12 +1349,12 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "Ignorar o ficheiro .cvsrc (recomendado)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:36
-#: ../plugins/symbol-db/plugin.c:2247 ../plugins/symbol-db/plugin.c:2311
+#: ../plugins/symbol-db/plugin.c:2332 ../plugins/symbol-db/plugin.c:2396
 msgid "Local"
 msgstr "Local"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:37
-#: ../plugins/git/anjuta-git.ui.h:56
+#: ../plugins/git/anjuta-git.ui.h:62
 msgid "Log message:"
 msgstr "Mensaxe de rexistro:"
 
@@ -1392,7 +1392,7 @@ msgid "Reset sticky tags"
 msgstr "Redefinir as etiquetas persistentes"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:46
-#: ../plugins/git/anjuta-git.ui.h:81
+#: ../plugins/git/anjuta-git.ui.h:89
 #: ../plugins/subversion/anjuta-subversion.ui.h:37
 msgid "Revision:"
 msgstr "Revisión:"
@@ -1424,7 +1424,7 @@ msgid "Vendor tag:"
 msgstr "Etiqueta do provedor:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:53
-#: ../plugins/git/anjuta-git.ui.h:109
+#: ../plugins/git/anjuta-git.ui.h:123
 #: ../plugins/subversion/anjuta-subversion.ui.h:60
 msgid "Whole project"
 msgstr "Proxecto enteiro"
@@ -1449,7 +1449,7 @@ msgstr "Non é posíbel eliminar o ficheiro"
 #: ../plugins/cvs-plugin/cvs-callbacks.c:244
 #: ../plugins/git/git-commit-dialog.c:79
 #: ../plugins/git/git-create-tag-dialog.c:130
-#: ../plugins/git/git-merge-dialog.c:87
+#: ../plugins/git/git-merge-dialog.c:91
 #: ../plugins/subversion/subversion-commit-dialog.c:88
 msgid "Are you sure that you want to pass an empty log message?"
 msgstr "Está seguro de que quere introducir unha mensaxe de rexistro baleira?"
@@ -1861,14 +1861,6 @@ msgstr "_Eliminar todo"
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:55
 msgid "_Value:"
 msgstr "_Valor:"
-
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:56
-msgid "gtk-cancel"
-msgstr "gtk-anular"
-
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:57
-msgid "gtk-execute"
-msgstr "executar-gtk"
 
 #: ../plugins/debug-manager/breakpoints.c:1673
 msgid "Are you sure you want to delete all the breakpoints?"
@@ -2315,11 +2307,11 @@ msgstr "Actualizar"
 msgid "Shared Object"
 msgstr "Obxecto compartido"
 
-#: ../plugins/debug-manager/sharedlib.c:173 ../plugins/git/anjuta-git.ui.h:47
+#: ../plugins/debug-manager/sharedlib.c:173 ../plugins/git/anjuta-git.ui.h:53
 msgid "From"
 msgstr "De"
 
-#: ../plugins/debug-manager/sharedlib.c:180 ../plugins/git/anjuta-git.ui.h:101
+#: ../plugins/debug-manager/sharedlib.c:180 ../plugins/git/anjuta-git.ui.h:114
 msgid "To"
 msgstr "Para"
 
@@ -2591,12 +2583,12 @@ msgstr "Operacións da axuda"
 msgid "Contents"
 msgstr "Contidos"
 
-#: ../plugins/devhelp/plugin.c:369 ../plugins/search/search-replace.c:1034
-#: ../plugins/search/search-replace.c:1710
+#: ../plugins/devhelp/plugin.c:369 ../plugins/search/search-replace.c:1041
 #: ../plugins/search/search-replace.c:1717
-#: ../plugins/search/search-replace.c:1729
-#: ../plugins/search/search-replace.c:2058 ../plugins/symbol-db/plugin.c:2249
-#: ../plugins/symbol-db/plugin.c:2361
+#: ../plugins/search/search-replace.c:1724
+#: ../plugins/search/search-replace.c:1736
+#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2334
+#: ../plugins/symbol-db/plugin.c:2446
 msgid "Search"
 msgstr "Buscar"
 
@@ -2649,8 +2641,8 @@ msgid "Path:"
 msgstr "Camiño:"
 
 #: ../plugins/document-manager/anjuta-docman.c:565
-#: ../plugins/file-loader/plugin.c:590 ../plugins/file-loader/plugin.c:893
-#: ../plugins/file-loader/plugin.c:903 ../plugins/file-loader/plugin.c:916
+#: ../plugins/file-loader/plugin.c:591 ../plugins/file-loader/plugin.c:894
+#: ../plugins/file-loader/plugin.c:904 ../plugins/file-loader/plugin.c:917
 msgid "Open file"
 msgstr "Abrir ficheiro"
 
@@ -2987,7 +2979,7 @@ msgstr "Repetir a busca rápida"
 
 #: ../plugins/document-manager/plugin.c:268 ../plugins/gtodo/interface.c:168
 #: ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:1910
+#: ../plugins/language-support-cpp-java/plugin.c:1915
 msgid "_Edit"
 msgstr "_Editar"
 
@@ -3405,7 +3397,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../plugins/file-loader/plugin.c:256
+#: ../plugins/file-loader/plugin.c:257
 #, c-format
 msgid ""
 "<b>Cannot open \"%s\"</b>.\n"
@@ -3426,147 +3418,147 @@ msgstr ""
 "\n"
 "Pode escoller abrir o ficheiro cos seguintes plugins ou aplicativos."
 
-#: ../plugins/file-loader/plugin.c:279
+#: ../plugins/file-loader/plugin.c:280
 msgid "Open with:"
 msgstr "Abrir con:"
 
 #. Document manager plugin
-#: ../plugins/file-loader/plugin.c:285
+#: ../plugins/file-loader/plugin.c:286
 #: ../plugins/document-manager/anjuta-document-manager.plugin.in.h:1
 msgid "Document Manager"
 msgstr "Xesto de documentos"
 
-#: ../plugins/file-loader/plugin.c:496 ../plugins/patch/patch-plugin.c:122
+#: ../plugins/file-loader/plugin.c:497 ../plugins/patch/patch-plugin.c:122
 #: ../plugins/run-program/parameters.c:308
 msgid "All files"
 msgstr "Todos os ficheiros"
 
-#: ../plugins/file-loader/plugin.c:501
+#: ../plugins/file-loader/plugin.c:502
 msgid "Anjuta Projects"
 msgstr "Proxectos do Anjuta"
 
-#: ../plugins/file-loader/plugin.c:507
+#: ../plugins/file-loader/plugin.c:508
 msgid "C/C++ source files"
 msgstr "Ficheiros fonte C/C++"
 
-#: ../plugins/file-loader/plugin.c:519
+#: ../plugins/file-loader/plugin.c:520
 msgid "C# source files"
 msgstr "Ficheiros fonte C#"
 
-#: ../plugins/file-loader/plugin.c:525
+#: ../plugins/file-loader/plugin.c:526
 msgid "Java source files"
 msgstr "Ficheiros fonte Java"
 
-#: ../plugins/file-loader/plugin.c:531
+#: ../plugins/file-loader/plugin.c:532
 msgid "Pascal source files"
 msgstr "Ficheiros fonte Pascal"
 
-#: ../plugins/file-loader/plugin.c:536
+#: ../plugins/file-loader/plugin.c:537
 msgid "PHP source files"
 msgstr "Ficheiros fonte PHP"
 
-#: ../plugins/file-loader/plugin.c:543
+#: ../plugins/file-loader/plugin.c:544
 msgid "Perl source files"
 msgstr "Ficheiros fonte Perl"
 
-#: ../plugins/file-loader/plugin.c:549
+#: ../plugins/file-loader/plugin.c:550
 msgid "Python source files"
 msgstr "Ficheiros fonte Python"
 
-#: ../plugins/file-loader/plugin.c:554
+#: ../plugins/file-loader/plugin.c:555
 msgid "Hyper text markup files"
 msgstr "Ficheiros HTML"
 
-#: ../plugins/file-loader/plugin.c:563
+#: ../plugins/file-loader/plugin.c:564
 msgid "Shell scripts files"
 msgstr "Ficheiros de script de intérprete de ordes"
 
-#: ../plugins/file-loader/plugin.c:568
+#: ../plugins/file-loader/plugin.c:569
 msgid "Makefiles"
 msgstr "Makefiles"
 
-#: ../plugins/file-loader/plugin.c:574
+#: ../plugins/file-loader/plugin.c:575
 msgid "Lua files"
 msgstr "Ficheiros Lua"
 
-#: ../plugins/file-loader/plugin.c:579
+#: ../plugins/file-loader/plugin.c:580
 msgid "Diff files"
 msgstr "Ficheiros Diff"
 
-#: ../plugins/file-loader/plugin.c:822
+#: ../plugins/file-loader/plugin.c:823
 #, c-format
 msgid "Failed to activate plugin: %s"
 msgstr "Fallou ao activar o plugin: %s"
 
-#: ../plugins/file-loader/plugin.c:883
+#: ../plugins/file-loader/plugin.c:884
 msgid "_New"
 msgstr "_Novo"
 
-#: ../plugins/file-loader/plugin.c:885
+#: ../plugins/file-loader/plugin.c:886
 msgid "New empty file"
 msgstr "Ficheiro baleiro novo"
 
-#: ../plugins/file-loader/plugin.c:891
+#: ../plugins/file-loader/plugin.c:892
 msgid "_Open..."
 msgstr "_Abrir..."
 
-#: ../plugins/file-loader/plugin.c:902 ../plugins/file-loader/plugin.c:915
+#: ../plugins/file-loader/plugin.c:903 ../plugins/file-loader/plugin.c:916
 msgid "_Open"
 msgstr "_Abrir"
 
-#: ../plugins/file-loader/plugin.c:909 ../plugins/file-loader/plugin.c:922
+#: ../plugins/file-loader/plugin.c:910 ../plugins/file-loader/plugin.c:923
 msgid "Open _With"
 msgstr "Abrir _con"
 
-#: ../plugins/file-loader/plugin.c:910 ../plugins/file-loader/plugin.c:923
+#: ../plugins/file-loader/plugin.c:911 ../plugins/file-loader/plugin.c:924
 msgid "Open with"
 msgstr "Abrir con"
 
-#: ../plugins/file-loader/plugin.c:1244 ../plugins/file-loader/plugin.c:1250
+#: ../plugins/file-loader/plugin.c:1245 ../plugins/file-loader/plugin.c:1251
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:1
 msgid "File Loader"
 msgstr "Cargador de ficheiros"
 
-#: ../plugins/file-loader/plugin.c:1254
+#: ../plugins/file-loader/plugin.c:1255
 msgid "New"
 msgstr "Novo"
 
-#: ../plugins/file-loader/plugin.c:1255
+#: ../plugins/file-loader/plugin.c:1256
 msgid "New file, project and project components."
 msgstr "Ficheiro novo, proxecto e compoñentes do proxecto."
 
-#: ../plugins/file-loader/plugin.c:1262 ../plugins/file-loader/plugin.c:1302
+#: ../plugins/file-loader/plugin.c:1263 ../plugins/file-loader/plugin.c:1303
 msgid "Open"
 msgstr "Abrir"
 
-#: ../plugins/file-loader/plugin.c:1266
+#: ../plugins/file-loader/plugin.c:1267
 msgid "Open _Recent"
 msgstr "Abrir _recentes"
 
-#: ../plugins/file-loader/plugin.c:1267 ../plugins/file-loader/plugin.c:1304
+#: ../plugins/file-loader/plugin.c:1268 ../plugins/file-loader/plugin.c:1305
 msgid "Open recent file"
 msgstr "Abrir ficheiro recente"
 
-#: ../plugins/file-loader/plugin.c:1273
+#: ../plugins/file-loader/plugin.c:1274
 msgid "Open recent files"
 msgstr "Abrir ficheiros recentes"
 
-#: ../plugins/file-loader/plugin.c:1303
+#: ../plugins/file-loader/plugin.c:1304
 msgid "Open a file"
 msgstr "Abrir un ficheiro"
 
-#: ../plugins/file-loader/plugin.c:1419 ../plugins/file-loader/plugin.c:1421
+#: ../plugins/file-loader/plugin.c:1420 ../plugins/file-loader/plugin.c:1422
 #, c-format
 msgid "File not found"
 msgstr "Non se encontrou o ficheiro"
 
 #. %s is name of file that will be opened
-#: ../plugins/file-loader/plugin.c:1440
+#: ../plugins/file-loader/plugin.c:1441
 #, c-format
 msgid "Please select a plugin to open <b>%s</b>."
 msgstr "Seleccione un plugin para abrir <b>%s</b>."
 
-#: ../plugins/file-loader/plugin.c:1444
+#: ../plugins/file-loader/plugin.c:1445
 msgid "Open With"
 msgstr "Abrir con"
 
@@ -3595,7 +3587,7 @@ msgid "Filter"
 msgstr "Filtro"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2248 ../plugins/symbol-db/plugin.c:2337
+#: ../plugins/symbol-db/plugin.c:2333 ../plugins/symbol-db/plugin.c:2422
 msgid "Global"
 msgstr "Global"
 
@@ -3674,7 +3666,7 @@ msgstr ""
 "A extensión será engadida segundo o tipo de ficheiro."
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:10
-#: ../plugins/git/anjuta-git.ui.h:61 ../plugins/macro/anjuta-macro.ui.h:6
+#: ../plugins/git/anjuta-git.ui.h:67 ../plugins/macro/anjuta-macro.ui.h:6
 #: ../plugins/tools/anjuta-tools.ui.h:7
 msgid "Name:"
 msgstr "Nome:"
@@ -3694,47 +3686,47 @@ msgstr "Tipo:"
 msgid "Use Template for the Header file"
 msgstr "Empregar modelo para o ficheiro de cabeceiras"
 
-#: ../plugins/file-wizard/file.c:81
+#: ../plugins/file-wizard/file.c:83
 msgid "C Source File"
 msgstr "Ficheiro fonte C"
 
-#: ../plugins/file-wizard/file.c:82
+#: ../plugins/file-wizard/file.c:84
 msgid "C/C++ Header File"
 msgstr "Ficheiro fonte C/C++"
 
-#: ../plugins/file-wizard/file.c:83
+#: ../plugins/file-wizard/file.c:85
 msgid "C++ Source File"
 msgstr "Ficheiro fonte C++"
 
-#: ../plugins/file-wizard/file.c:84
+#: ../plugins/file-wizard/file.c:86
 msgid "C# Source File"
 msgstr "Ficheiro fonte C#"
 
-#: ../plugins/file-wizard/file.c:85
+#: ../plugins/file-wizard/file.c:87
 msgid "Java Source File"
 msgstr "Ficheiro fonte Java"
 
-#: ../plugins/file-wizard/file.c:86
+#: ../plugins/file-wizard/file.c:88
 msgid "Perl Source File"
 msgstr "Ficheiro fonte Perl"
 
-#: ../plugins/file-wizard/file.c:87
+#: ../plugins/file-wizard/file.c:89
 msgid "Python Source File"
 msgstr "Ficheiro fonte Python"
 
-#: ../plugins/file-wizard/file.c:88
+#: ../plugins/file-wizard/file.c:90
 msgid "Shell Script File"
 msgstr "Ficheiro de script do intérprete de ordes"
 
-#: ../plugins/file-wizard/file.c:89
+#: ../plugins/file-wizard/file.c:91
 msgid "Other"
 msgstr "Outros"
 
-#: ../plugins/file-wizard/file.c:102
+#: ../plugins/file-wizard/file.c:104
 msgid "BSD Public License"
 msgstr "Licenza pública BSD"
 
-#: ../plugins/file-wizard/file.c:179
+#: ../plugins/file-wizard/file.c:182
 msgid "Unable to build user interface for New File"
 msgstr "Non é posíbel construír unha interface de usuario para o ficheiro novo"
 
@@ -4356,415 +4348,483 @@ msgid "Cannot start terminal for debugging."
 msgstr "Non é posíbel iniciar o terminal para a depuración."
 
 #: ../plugins/git/anjuta-git.ui.h:2
+msgid "<b>Stash Message (Optional)</b>"
+msgstr "<b>Mensaxe reservada (opcional)</b>"
+
+#: ../plugins/git/anjuta-git.ui.h:3
+msgid "<b>Stash to Apply</b>"
+msgstr "<b>Reserva para aplicar</b>"
+
+#: ../plugins/git/anjuta-git.ui.h:4
 msgid "<b>Tags</b>"
 msgstr "<b>Etiquetas</b>"
 
-#: ../plugins/git/anjuta-git.ui.h:3
+#: ../plugins/git/anjuta-git.ui.h:5
 msgid "Add File"
 msgstr "Engadir ficheiro"
 
-#: ../plugins/git/anjuta-git.ui.h:4
+#: ../plugins/git/anjuta-git.ui.h:6
 msgid "Add Remote Branch"
 msgstr "Engadir ramificación remota"
 
 #. A signed off by line is something git adds to the end of a commit message that indicates that a patch passes your scrutiny as you commit it to your git tree.
-#: ../plugins/git/anjuta-git.ui.h:6
+#: ../plugins/git/anjuta-git.ui.h:8
 msgid "Add signed off by line"
 msgstr "Engadir unha liña \"asinado por\""
 
-#: ../plugins/git/anjuta-git.ui.h:7
+#: ../plugins/git/anjuta-git.ui.h:9
 msgid "Add signed-off by line"
 msgstr "Engadir unha liña \"asinado por\""
 
-#: ../plugins/git/anjuta-git.ui.h:8
+#: ../plugins/git/anjuta-git.ui.h:10
 msgid "Amend the previous commit"
 msgstr "Emendar a remisión previa"
 
-#: ../plugins/git/anjuta-git.ui.h:9
+#: ../plugins/git/anjuta-git.ui.h:11
 msgid "Annotate this tag"
 msgstr "Anotar esta etiqueta"
 
 #. Normally when you fetch new objets from a remote branch you are tracking, git overwrites the data from the last fetch. With this option, data will be appended to the previous information, preserving it if the user should need it.
-#: ../plugins/git/anjuta-git.ui.h:11
+#: ../plugins/git/anjuta-git.ui.h:13
 msgid "Append fetch data"
 msgstr "Engadir a data de obtención"
 
+#: ../plugins/git/anjuta-git.ui.h:14
+msgid "Apply Stash"
+msgstr "Aplicar a reserva"
+
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/anjuta-git.ui.h:12 ../plugins/git/plugin.c:214
+#: ../plugins/git/anjuta-git.ui.h:15 ../plugins/git/plugin.c:247
 msgid "Apply mailbox files"
 msgstr "Aplicar os ficheiros da caixa de correo"
 
+#: ../plugins/git/anjuta-git.ui.h:16
+msgid "Apply the selected stash"
+msgstr "Aplicar a reserva seleccionada"
+
 #. "Author" means search for commits whose author matches the given grep expression. "Grep" searches through commit logs and patches.
-#: ../plugins/git/anjuta-git.ui.h:14
+#: ../plugins/git/anjuta-git.ui.h:18
 msgid "Author/Grep"
 msgstr "Autor/Grep"
 
-#: ../plugins/git/anjuta-git.ui.h:15
+#: ../plugins/git/anjuta-git.ui.h:19
 #: ../plugins/project-wizard/templates/translatable-strings.h:24
 msgid "Author:"
 msgstr "Autor:"
 
-#: ../plugins/git/anjuta-git.ui.h:16
+#: ../plugins/git/anjuta-git.ui.h:20
 msgid "Bad revision:"
 msgstr "Revisión incorrecta:"
 
-#: ../plugins/git/anjuta-git.ui.h:17
+#: ../plugins/git/anjuta-git.ui.h:21
 msgid "Branch name:"
 msgstr "Nome da ramificación:"
 
-#: ../plugins/git/anjuta-git.ui.h:18
+#: ../plugins/git/anjuta-git.ui.h:22
 msgid "Branch to switch to:"
 msgstr "Ramificación para a que cambiar:"
 
-#: ../plugins/git/anjuta-git.ui.h:19
+#: ../plugins/git/anjuta-git.ui.h:23
 msgid "Branch:"
 msgstr "_Rama:"
 
-#: ../plugins/git/anjuta-git.ui.h:20
+#: ../plugins/git/anjuta-git.ui.h:24
 msgid "Branches"
 msgstr "_Ramas"
 
-#: ../plugins/git/anjuta-git.ui.h:21
+#: ../plugins/git/anjuta-git.ui.h:25
 msgid "Branches must be fully merged"
 msgstr "As ramas debeb combinarse completamente"
 
-#: ../plugins/git/anjuta-git.ui.h:22
+#: ../plugins/git/anjuta-git.ui.h:26
 msgid "Branches to delete:"
 msgstr "Ramas para eliminar:"
 
-#: ../plugins/git/anjuta-git.ui.h:24
+#: ../plugins/git/anjuta-git.ui.h:28
 #: ../plugins/subversion/anjuta-subversion.ui.h:4
 msgid "Changes:"
 msgstr "Cambios:"
 
-#: ../plugins/git/anjuta-git.ui.h:25
+#: ../plugins/git/anjuta-git.ui.h:29
 msgid "Check Out Files"
-msgstr "Descargar ficheiros (check out)"
+msgstr "Descargar os ficheiros (check out)"
 
-#: ../plugins/git/anjuta-git.ui.h:26
+#: ../plugins/git/anjuta-git.ui.h:30
 msgid "Check out all local changes"
-msgstr ""
+msgstr "Descargar todos os cambios locais"
 
-#: ../plugins/git/anjuta-git.ui.h:27
+#: ../plugins/git/anjuta-git.ui.h:31
 msgid "Check out the branch after it is created"
 msgstr "Descargar a ramificación despois de que sexa creada"
 
-#: ../plugins/git/anjuta-git.ui.h:28
+#: ../plugins/git/anjuta-git.ui.h:32
 msgid "Cherry Pick"
 msgstr "Escolma de parches"
 
-#: ../plugins/git/anjuta-git.ui.h:29
+#: ../plugins/git/anjuta-git.ui.h:33
+msgid "Clear all stashes"
+msgstr "Limpar todas as reservas"
+
+#: ../plugins/git/anjuta-git.ui.h:34
 #: ../plugins/subversion/anjuta-subversion.ui.h:7
 msgid "Commit Changes"
 msgstr "Actualizar os cambios"
 
-#: ../plugins/git/anjuta-git.ui.h:30
+#: ../plugins/git/anjuta-git.ui.h:35
 msgid "Commit on fast-forward merges"
 msgstr "Actualizar ao combinar no modo de avance rápido"
 
-#: ../plugins/git/anjuta-git.ui.h:31
+#: ../plugins/git/anjuta-git.ui.h:36
 msgid "Commit to Cherry Pick:"
 msgstr "Remitir para o escolmando:"
 
-#: ../plugins/git/anjuta-git.ui.h:32
+#: ../plugins/git/anjuta-git.ui.h:37
 msgid "Commit to revert:"
 msgstr "Remitir para reverter:"
 
-#: ../plugins/git/anjuta-git.ui.h:33
+#: ../plugins/git/anjuta-git.ui.h:38
 msgid "Create Branch"
 msgstr "Crear ramificación"
 
-#: ../plugins/git/anjuta-git.ui.h:34
+#: ../plugins/git/anjuta-git.ui.h:39
 msgid "Create Tag"
 msgstr "Crear etiqueta"
 
-#: ../plugins/git/anjuta-git.ui.h:35
+#: ../plugins/git/anjuta-git.ui.h:40
 msgid "Create patch series"
 msgstr "Crear series de parches"
 
-#: ../plugins/git/anjuta-git.ui.h:36 ../plugins/git/git-log-dialog.c:189
+#: ../plugins/git/anjuta-git.ui.h:41 ../plugins/git/git-log-dialog.c:189
 #: ../plugins/subversion/subversion-log-dialog.c:141
 msgid "Date"
 msgstr "Data"
 
-#: ../plugins/git/anjuta-git.ui.h:37
+#: ../plugins/git/anjuta-git.ui.h:42
 msgid "Delete Branch"
 msgstr "Eliminar ramificación"
 
-#: ../plugins/git/anjuta-git.ui.h:38
+#: ../plugins/git/anjuta-git.ui.h:43
 msgid "Delete Remote Branch"
 msgstr "Eliminar ramificación remota"
 
-#: ../plugins/git/anjuta-git.ui.h:39
+#: ../plugins/git/anjuta-git.ui.h:44
 msgid "Delete Tags"
 msgstr "Eliminar etiquetas"
 
-#: ../plugins/git/anjuta-git.ui.h:40
+#: ../plugins/git/anjuta-git.ui.h:45
 msgid "Do not commit"
 msgstr "Non actualizar"
 
-#: ../plugins/git/anjuta-git.ui.h:41
+#: ../plugins/git/anjuta-git.ui.h:46
 msgid "Do not follow tags"
 msgstr "Non seguir as etiquetas"
 
-#: ../plugins/git/anjuta-git.ui.h:42
+#: ../plugins/git/anjuta-git.ui.h:47
+msgid "Drop the selected stash"
+msgstr "Ceibar a reserva seleccionada"
+
+#: ../plugins/git/anjuta-git.ui.h:48
 msgid "E-mail:"
 msgstr "Correo-e:"
 
-#: ../plugins/git/anjuta-git.ui.h:43
+#: ../plugins/git/anjuta-git.ui.h:49
 msgid "Fetch remote branches after creation"
 msgstr "Obter as ramificacións remotas despois de crealas"
 
-#: ../plugins/git/anjuta-git.ui.h:44
+#: ../plugins/git/anjuta-git.ui.h:50
 msgid "Filters"
 msgstr "Filtros"
 
-#: ../plugins/git/anjuta-git.ui.h:45
+#: ../plugins/git/anjuta-git.ui.h:51
 msgid "Folder to create patches in:"
 msgstr "Cartafol no que crear parches:"
 
-#: ../plugins/git/anjuta-git.ui.h:46
+#: ../plugins/git/anjuta-git.ui.h:52
 #: ../plugins/subversion/anjuta-subversion.ui.h:19
 msgid "Force"
 msgstr "Forza"
 
-#: ../plugins/git/anjuta-git.ui.h:48
+#: ../plugins/git/anjuta-git.ui.h:54
 msgid "From:"
 msgstr "Desde:"
 
-#: ../plugins/git/anjuta-git.ui.h:49
+#: ../plugins/git/anjuta-git.ui.h:55
 msgid "Generate patches relative to:"
 msgstr "Xerar parches relativos a:"
 
-#: ../plugins/git/anjuta-git.ui.h:50
+#: ../plugins/git/anjuta-git.ui.h:56
 msgid "Good revision:"
 msgstr "Revisión correcta:"
 
-#: ../plugins/git/anjuta-git.ui.h:51
+#: ../plugins/git/anjuta-git.ui.h:57
 msgid "Grep:"
 msgstr "Grep:"
 
-#: ../plugins/git/anjuta-git.ui.h:52
+#: ../plugins/git/anjuta-git.ui.h:58
 msgid "Hard"
 msgstr "Hard"
 
-#: ../plugins/git/anjuta-git.ui.h:53
+#: ../plugins/git/anjuta-git.ui.h:59
 msgid "Head"
 msgstr "Cabeceira"
 
-#: ../plugins/git/anjuta-git.ui.h:54
+#: ../plugins/git/anjuta-git.ui.h:60
 msgid "Ignore Files"
 msgstr "Ignorar ficheiros"
 
-#: ../plugins/git/anjuta-git.ui.h:55
+#: ../plugins/git/anjuta-git.ui.h:61
 #: ../plugins/subversion/anjuta-subversion.ui.h:21
 msgid "Log Message:"
 msgstr "Mensaxe de rexistro:"
 
-#: ../plugins/git/anjuta-git.ui.h:57
+#: ../plugins/git/anjuta-git.ui.h:63
 msgid "Mailbox file containing patches:"
 msgstr "Caixa de correo que contén parches:"
 
-#: ../plugins/git/anjuta-git.ui.h:58
+#: ../plugins/git/anjuta-git.ui.h:64
 msgid "Merge"
 msgstr "Combinar"
 
-#: ../plugins/git/anjuta-git.ui.h:59
+#: ../plugins/git/anjuta-git.ui.h:65
 msgid "Mixed"
 msgstr "Mesturado"
 
-#: ../plugins/git/anjuta-git.ui.h:60
+#: ../plugins/git/anjuta-git.ui.h:66
 msgid "Mode:"
 msgstr "Modo:"
 
-#: ../plugins/git/anjuta-git.ui.h:62
+#: ../plugins/git/anjuta-git.ui.h:68
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:10
 #: ../plugins/subversion/anjuta-subversion.ui.h:23
 msgid "Options"
 msgstr "Opcións"
 
-#: ../plugins/git/anjuta-git.ui.h:63
+#: ../plugins/git/anjuta-git.ui.h:69
 #: ../plugins/subversion/anjuta-subversion.ui.h:24
 msgid "Options:"
-msgstr "Opcións"
+msgstr "Opcións:"
 
-#: ../plugins/git/anjuta-git.ui.h:64
+#: ../plugins/git/anjuta-git.ui.h:70
 msgid "Previous commit"
 msgstr "Actualización anterior"
 
-#: ../plugins/git/anjuta-git.ui.h:65
+#: ../plugins/git/anjuta-git.ui.h:71
 msgid "Pull"
 msgstr "Descargar (pull)"
 
-#: ../plugins/git/anjuta-git.ui.h:66
+#: ../plugins/git/anjuta-git.ui.h:72
 msgid "Push"
 msgstr "Descargar"
 
-#: ../plugins/git/anjuta-git.ui.h:67
+#: ../plugins/git/anjuta-git.ui.h:73
 msgid "Push all branches and tags"
 msgstr "Mandou todas as ramas e etiquetas"
 
-#: ../plugins/git/anjuta-git.ui.h:68
+#: ../plugins/git/anjuta-git.ui.h:74
 msgid "Push all tags"
 msgstr "Mandar todas as etiquetas"
 
-#: ../plugins/git/anjuta-git.ui.h:69
+#: ../plugins/git/anjuta-git.ui.h:75
 msgid "Rebase"
 msgstr "Restruturar (rebase)"
 
-#: ../plugins/git/anjuta-git.ui.h:70
+#: ../plugins/git/anjuta-git.ui.h:76
+msgid "Remote"
+msgstr "Remoto"
+
+#: ../plugins/git/anjuta-git.ui.h:77
 msgid "Remote branch to rebase from:"
 msgstr "Ramificación remota desde a que restruturar (rebase):"
 
-#: ../plugins/git/anjuta-git.ui.h:71
+#: ../plugins/git/anjuta-git.ui.h:78
 msgid "Remote to delete:"
 msgstr "Remoto para eliminar:"
 
-#: ../plugins/git/anjuta-git.ui.h:72
+#: ../plugins/git/anjuta-git.ui.h:79
 msgid "Remove File"
 msgstr "Eliminar ficheiro"
 
-#: ../plugins/git/anjuta-git.ui.h:73
+#: ../plugins/git/anjuta-git.ui.h:80
 msgid "Repository origin"
 msgstr "Orixe do repositorio"
 
-#: ../plugins/git/anjuta-git.ui.h:74
+#: ../plugins/git/anjuta-git.ui.h:81
 msgid "Repository to pull from:"
 msgstr "Repositorio desde o que descargar (pull):"
 
-#: ../plugins/git/anjuta-git.ui.h:75
+#: ../plugins/git/anjuta-git.ui.h:82
 msgid "Repository to push to:"
 msgstr "Repositorio para enviarr:"
 
-#: ../plugins/git/anjuta-git.ui.h:76
+#: ../plugins/git/anjuta-git.ui.h:83
 msgid "Reset Tree"
 msgstr "Restabelecer árbore"
 
-#: ../plugins/git/anjuta-git.ui.h:77
+#: ../plugins/git/anjuta-git.ui.h:84
 msgid "Reset to:"
 msgstr "Restabelecer como:"
 
-#: ../plugins/git/anjuta-git.ui.h:78
+#: ../plugins/git/anjuta-git.ui.h:85
+msgid "Restore index"
+msgstr "Restabelecer o índice"
+
+#: ../plugins/git/anjuta-git.ui.h:86
 #: ../plugins/subversion/anjuta-subversion.ui.h:35
 msgid "Retrieving status..."
 msgstr "Obtendo o estado..."
 
-#: ../plugins/git/anjuta-git.ui.h:79
+#: ../plugins/git/anjuta-git.ui.h:87
 msgid "Revert Commit"
 msgstr "Reverter actualización"
 
-#: ../plugins/git/anjuta-git.ui.h:80
+#: ../plugins/git/anjuta-git.ui.h:88
 msgid "Revision/Tag:"
 msgstr "Revisión/Etiqueta:"
 
-#: ../plugins/git/anjuta-git.ui.h:82
+#: ../plugins/git/anjuta-git.ui.h:90
 msgid "Select A Folder"
 msgstr "Seleccionar un cartafol"
 
-#: ../plugins/git/anjuta-git.ui.h:83
+#: ../plugins/git/anjuta-git.ui.h:91
 msgid "Select Files to Check Out:"
 msgstr "Seleccionar os ficheiros para descargar (check out):"
 
-#: ../plugins/git/anjuta-git.ui.h:84
+#: ../plugins/git/anjuta-git.ui.h:92
 #: ../plugins/subversion/anjuta-subversion.ui.h:41
 msgid "Select Files to Commit:"
 msgstr "Seleccionar os ficheiros para remitir:"
 
-#: ../plugins/git/anjuta-git.ui.h:85
+#: ../plugins/git/anjuta-git.ui.h:93
 msgid "Select Files to Ignore:"
 msgstr "Seleccionar os ficheiros para ignorar:"
 
-#: ../plugins/git/anjuta-git.ui.h:86
+#: ../plugins/git/anjuta-git.ui.h:94
 #: ../plugins/subversion/anjuta-subversion.ui.h:42
 msgid "Select Files to Mark as Resolved:"
 msgstr "Seleccionar os ficheiros que se van marcar como resoltos:"
 
-#: ../plugins/git/anjuta-git.ui.h:87
+#: ../plugins/git/anjuta-git.ui.h:95
 msgid "Select Files to Unstage:"
 msgstr "Seleccionar os ficheiros para deseleccionar (unstage):"
 
-#: ../plugins/git/anjuta-git.ui.h:88
+#: ../plugins/git/anjuta-git.ui.h:96
 msgid "Select Mailbox File"
 msgstr "Seleccionar o ficheiro de caixa de correo"
 
-#: ../plugins/git/anjuta-git.ui.h:89
+#: ../plugins/git/anjuta-git.ui.h:97
 msgid "Select file to add:"
 msgstr "Seleccione o ficheiro para engadir:"
 
-#: ../plugins/git/anjuta-git.ui.h:90
+#: ../plugins/git/anjuta-git.ui.h:98
 msgid "Select file to remove:"
 msgstr "Seleccione o ficheiro para eliminar:"
 
-#: ../plugins/git/anjuta-git.ui.h:91
+#: ../plugins/git/anjuta-git.ui.h:99
 #: ../plugins/subversion/anjuta-subversion.ui.h:43
 msgid "Set Conflicts as Resolved"
 msgstr "Definir os conflitos como resoltos"
 
-#: ../plugins/git/anjuta-git.ui.h:92
+#: ../plugins/git/anjuta-git.ui.h:100
 msgid "Show source revision in log message"
 msgstr "Mostrar revisión da fonte na mensaxe de rexistro"
 
-#: ../plugins/git/anjuta-git.ui.h:93
+#: ../plugins/git/anjuta-git.ui.h:101
+msgid "Show the contents of the selected stash in an editor"
+msgstr "Mostrar os contidos da reserva seleccionada nun editor"
+
+#: ../plugins/git/anjuta-git.ui.h:102
 msgid "Sign this tag"
 msgstr "Asinar esta etiqueta"
 
-#: ../plugins/git/anjuta-git.ui.h:94
+#: ../plugins/git/anjuta-git.ui.h:103
 msgid "Soft"
 msgstr "Soft"
 
-#: ../plugins/git/anjuta-git.ui.h:95
+#: ../plugins/git/anjuta-git.ui.h:104
 msgid "Squash"
 msgstr "Comprimir (squash)"
 
-#: ../plugins/git/anjuta-git.ui.h:96
+#: ../plugins/git/anjuta-git.ui.h:105 ../plugins/git/plugin.c:776
+msgid "Stash"
+msgstr "Reservar"
+
+#: ../plugins/git/anjuta-git.ui.h:106
+msgid "Stash Uncommitted Changes"
+msgstr "Gardar os cambios non remitidos"
+
+#: ../plugins/git/anjuta-git.ui.h:107
+msgid "Stash indexed changes"
+msgstr "Reservar os cambios indexados"
+
+#: ../plugins/git/anjuta-git.ui.h:108
+msgid "Stash the working tree's uncommitted changes"
+msgstr "Reservar a árbore de traballo dos cambios non remitidos"
+
+#: ../plugins/git/anjuta-git.ui.h:109
 msgid "Switch to Another Branch"
 msgstr "Cambiar a outra ramificación"
 
-#: ../plugins/git/anjuta-git.ui.h:97
+#: ../plugins/git/anjuta-git.ui.h:110
 msgid "Tag name:"
 msgstr "Nome da etiqueta:"
 
-#: ../plugins/git/anjuta-git.ui.h:98
+#: ../plugins/git/anjuta-git.ui.h:111
 msgid "Tag/Commit"
 msgstr "Etiqueta/Actualizar"
 
-#: ../plugins/git/anjuta-git.ui.h:99
+#: ../plugins/git/anjuta-git.ui.h:112
 msgid "Tags to delete:"
 msgstr "Etiqueta para eliminar:"
 
-#: ../plugins/git/anjuta-git.ui.h:100
+#: ../plugins/git/anjuta-git.ui.h:113
 msgid "This commit concludes a failed merge (use -i)"
 msgstr "Esta actualización termina cunha combinación con fallos (use -i)"
 
-#: ../plugins/git/anjuta-git.ui.h:102
+#: ../plugins/git/anjuta-git.ui.h:115
 msgid "To:"
 msgstr "Até:"
 
-#: ../plugins/git/anjuta-git.ui.h:103
+#: ../plugins/git/anjuta-git.ui.h:116
+msgid "URL"
+msgstr "URL"
+
+#: ../plugins/git/anjuta-git.ui.h:117
 msgid "URL:"
 msgstr "URL:"
 
-#: ../plugins/git/anjuta-git.ui.h:104
+#: ../plugins/git/anjuta-git.ui.h:118
 msgid "Unstage Files"
 msgstr "Deseleccionar ficheiros (unstage)"
 
-#: ../plugins/git/anjuta-git.ui.h:105
+#: ../plugins/git/anjuta-git.ui.h:119
 msgid "Use a custom log message"
 msgstr "Usar unha mensaxe de rexistro personalizada"
 
-#: ../plugins/git/anjuta-git.ui.h:106
+#: ../plugins/git/anjuta-git.ui.h:120
 msgid "Use custom author information:"
 msgstr "Usar información de autor personalizada:"
 
-#: ../plugins/git/anjuta-git.ui.h:107
+#: ../plugins/git/anjuta-git.ui.h:121
 msgid "View log"
 msgstr "Ver o rexistro"
 
-#: ../plugins/git/anjuta-git.ui.h:108
+#: ../plugins/git/anjuta-git.ui.h:122
 #: ../plugins/subversion/anjuta-subversion.ui.h:58
 msgid "View the Log for File/Folder:"
 msgstr "Ver o rexistro para o ficheiro/cartafol:"
+
+#: ../plugins/git/anjuta-git.ui.h:124
+msgid "page 1"
+msgstr "páxina 1"
+
+#: ../plugins/git/anjuta-git.ui.h:125
+msgid "page 2"
+msgstr "páxina 2"
+
+#: ../plugins/git/anjuta-git.ui.h:126
+msgid "page 3"
+msgstr "páxina 3"
 
 #: ../plugins/git/git-add-dialog.c:36
 msgid "Git: File staged for add."
@@ -4845,6 +4905,10 @@ msgstr "Introduza un nome de etiqueta."
 msgid "Git: Deleted selected branches."
 msgstr "Git: Eliminaronse as ramas seleccionadas."
 
+#: ../plugins/git/git-delete-tag-dialog.c:37
+msgid "Git: Deleted selected tages."
+msgstr "Git: Eliminaronse as etiquetas seleccionadas."
+
 #: ../plugins/git/git-fetch-dialog.c:40
 msgid "Git: Fetch complete."
 msgstr "Git: Obtención terminada."
@@ -4893,6 +4957,10 @@ msgstr "<b>Etiqueta:</b> %s"
 msgid "<b>Remote:</b> %s"
 msgstr "<b>Remoto:</b> %s"
 
+#: ../plugins/git/git-log-dialog.c:849 ../plugins/git/plugin.c:832
+msgid "Branch"
+msgstr "Rama"
+
 #: ../plugins/git/git-merge-dialog.c:36
 msgid "Git: Merge complete."
 msgstr "Git: Combinación terminada."
@@ -4901,7 +4969,13 @@ msgstr "Git: Combinación terminada."
 msgid "Git: Pull complete."
 msgstr "Git: Descarga (pull) terminada."
 
-#: ../plugins/git/git-pull-dialog.c:87
+#. The "input widget" is the widget that should receive focus if the
+#. * user does not properly enter anything
+#: ../plugins/git/git-pull-dialog.c:124
+msgid "Please select a remote to pull from."
+msgstr "Seleccione o repositorio remoto desde o que descargar."
+
+#: ../plugins/git/git-pull-dialog.c:142
 msgid "Please enter the URL of the repository to pull from."
 msgstr "Introduza o URL do repositorio desde o que descargar (pull)."
 
@@ -4909,11 +4983,17 @@ msgstr "Introduza o URL do repositorio desde o que descargar (pull)."
 msgid "Git: Push complete."
 msgstr "Git: Remisión (push) terminada."
 
-#: ../plugins/git/git-push-dialog.c:131
+#. The "input widget" is the widget that should receive focus if the
+#. * user does not properly enter anything
+#: ../plugins/git/git-push-dialog.c:141
+msgid "Please select a remote to push to."
+msgstr "Seleccione un repositorio remoto ao que remitir."
+
+#: ../plugins/git/git-push-dialog.c:159
 msgid "Please enter the URL of the repository to push to."
 msgstr "Introduza o URL do repositorio ao que remitir (push)."
 
-#: ../plugins/git/git-push-dialog.c:161
+#: ../plugins/git/git-push-dialog.c:193
 msgid "Git: Pushing..."
 msgstr "Git: Remitindo..."
 
@@ -4929,16 +5009,40 @@ msgstr "Git: Ficheiro eliminado."
 msgid "Git: Resolve complete."
 msgstr "Git: Resolución terminada."
 
+#: ../plugins/git/git-stash-widget.c:219
+msgid "Git: Stash dropped."
+msgstr "Git: Reserva ceibada."
+
+#: ../plugins/git/git-stash-widget.c:275
+msgid "Git: All stashes cleared."
+msgstr "Git: Todas as reservas están limpas."
+
 #: ../plugins/git/git-switch-dialog.c:36
 msgid "Git: Branch checkout complete."
 msgstr "Git: Descarga (checkout) da ramificación terminada."
 
-#: ../plugins/git/git-ui-utils.c:94 ../plugins/git/git-ui-utils.c:99
+#: ../plugins/git/git-ui-utils.c:89 ../plugins/git/git-ui-utils.c:94
 #: ../plugins/git/git.plugin.in.h:1
 msgid "Git"
 msgstr "Git"
 
-#: ../plugins/git/git-ui-utils.c:501
+#: ../plugins/git/git-ui-utils.c:158
+msgid "There are no branches available."
+msgstr "Non hai ramificación dispoñíbel."
+
+#: ../plugins/git/git-ui-utils.c:194
+msgid "Please select a stash"
+msgstr "Seleccione unha reserva"
+
+#: ../plugins/git/git-ui-utils.c:533
+msgid "Git: Changes stored in a stash."
+msgstr "Git: Cambios gardados nunha reserva."
+
+#: ../plugins/git/git-ui-utils.c:549
+msgid "Git: Stashed changes applied."
+msgstr "Git: Os cambios reservados foron aplicados."
+
+#: ../plugins/git/git-ui-utils.c:673
 msgid "Git: Diff complete."
 msgstr "Git: Diferencial terminado."
 
@@ -4948,262 +5052,292 @@ msgstr "Git: Ficheiros deseleccionados (unstage)."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:62 ../plugins/git/plugin.c:502
+#: ../plugins/git/plugin.c:68 ../plugins/git/plugin.c:543
 msgid "_Git"
 msgstr "_Git"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:70 ../plugins/subversion/plugin.c:76
+#: ../plugins/git/plugin.c:79 ../plugins/subversion/plugin.c:76
 msgid "_Commit..."
-msgstr "_Actualizar..."
+msgstr "_Remitir..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:72
+#: ../plugins/git/plugin.c:81
 msgid "Commit changes to the local repository"
-msgstr "Subversion: Actualizando os cambios no repositorio..."
+msgstr "Remitir cambios ao repositorio local"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:78
+#: ../plugins/git/plugin.c:87
 msgid "_Fetch"
 msgstr "_Obter"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:80
+#: ../plugins/git/plugin.c:89
 msgid "Update remote branches"
 msgstr "Actualizar as ramificacións remotas"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:86
+#: ../plugins/git/plugin.c:95
 msgid "_Rebase"
 msgstr "_Restruturar"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:88
+#: ../plugins/git/plugin.c:97
 msgid "Merge your changes with an upstream remote branch"
 msgstr "Fusionar os seus cambios cunha rama remota de upstream"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:94 ../plugins/git/plugin.c:374
+#: ../plugins/git/plugin.c:103 ../plugins/git/plugin.c:407
 msgid "_Start..."
 msgstr "Come_zar..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:96
+#: ../plugins/git/plugin.c:105
 msgid "Start a rebase"
-msgstr "Iniciar a base"
+msgstr "Iniciar a restruturación"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:102
+#: ../plugins/git/plugin.c:111
 msgid "_Continue"
 msgstr "_Continuar"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:104
+#: ../plugins/git/plugin.c:113
 msgid "Continue a rebase that stopped because of conflicts"
-msgstr "Continuar unha base que se detivo debido a conflitos"
+msgstr "Continuar unha restruturación que se detivo debido a conflitos"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:110
+#: ../plugins/git/plugin.c:119
 msgid "_Skip"
 msgstr "_Omitir"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:112
+#: ../plugins/git/plugin.c:121
 msgid "Skip the current conflicted commmit and continue"
 msgstr "Saltar a remisión conflitiva e continuar"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:118 ../plugins/git/plugin.c:246
+#: ../plugins/git/plugin.c:127 ../plugins/git/plugin.c:279
 msgid "_Abort"
 msgstr "_Abortar"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:120
+#: ../plugins/git/plugin.c:129
 msgid "Abort the rebase and put the repository in its original state"
-msgstr "Abortar o rebase e poñer o repositorio no seu estado orixinal"
+msgstr "Abortar a restruturación e poñer o repositorio no seu estado orixinal"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:126
+#: ../plugins/git/plugin.c:135
 msgid "_Push..."
-msgstr "_Descargar..."
+msgstr "_Enviar..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:128
+#: ../plugins/git/plugin.c:137
 msgid "Push changes to a remote repository"
 msgstr "Enviar cambios ao repositorio remoto"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:134
+#: ../plugins/git/plugin.c:143
 msgid "_Pull..."
 msgstr "_Descargar (pull)..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:136
+#: ../plugins/git/plugin.c:145
 msgid "Update the working copy"
 msgstr "Actualizar a copia de traballo."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:142
+#: ../plugins/git/plugin.c:151
 msgid "_Diff uncommitted changes"
-msgstr "Facer un _diferencial sobre os cambios sen actualizar"
+msgstr "Facer un _diferencial cos cambios sen actualizar"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:144
+#: ../plugins/git/plugin.c:153
 msgid "Show uncommitted changes"
 msgstr "Mostrar os cambios non remitidos"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:150 ../plugins/git/plugin.c:310
-#: ../plugins/git/plugin.c:518 ../plugins/subversion/plugin.c:60
+#: ../plugins/git/plugin.c:159
+msgid "_Stash"
+msgstr "_Reservar"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:167
+msgid "_Stash uncommitted changes..."
+msgstr "_Reservar os cambios non remitidos..."
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:169
+msgid "Save ucommitted changes and re-apply them later"
+msgstr "Gardar os cambios non remitidos e reaplicalos máis tarde"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:175
+msgid "_Apply stashed changes..."
+msgstr "_Aplicar os cambios reservados..."
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:177
+msgid "Apply stashed changes to the working tree"
+msgstr "Actualizar os cambios reservados na árbore de traballo"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:183 ../plugins/git/plugin.c:343
+#: ../plugins/git/plugin.c:559 ../plugins/subversion/plugin.c:60
 #: ../plugins/subversion/plugin.c:175
 msgid "_Add..."
 msgstr "_Engadir..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:152
+#: ../plugins/git/plugin.c:185
 msgid "Add files to the repository"
 msgstr "Engadir ficheiros ao repositorio"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:158 ../plugins/git/plugin.c:526
+#: ../plugins/git/plugin.c:191 ../plugins/git/plugin.c:567
 #: ../plugins/subversion/plugin.c:68 ../plugins/subversion/plugin.c:183
 msgid "_Remove..."
 msgstr "E_liminar..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:160
+#: ../plugins/git/plugin.c:193
 msgid "Remove files from the repository"
 msgstr "Eliminar ficheiros do repositorio"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:166
+#: ../plugins/git/plugin.c:199
 msgid "_Ignore..."
 msgstr "_Ignorar..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:168
+#: ../plugins/git/plugin.c:201
 msgid "Ignore files"
 msgstr "Ignorar ficheiros"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:174
+#: ../plugins/git/plugin.c:207
 msgid "_Check out files..."
 msgstr "De_scargar ficheiros (check out)..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:176
+#: ../plugins/git/plugin.c:209
 msgid "Revert uncommitted changes to files"
 msgstr "Reverter cambios non remitidos a ficheiros"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:182
+#: ../plugins/git/plugin.c:215
 msgid "_Unstage files..."
 msgstr "D_eseleccionar ficheiros (unstage)..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:184
+#: ../plugins/git/plugin.c:217
 msgid "Remove files from the commit index"
 msgstr "Eliminar os ficheiros desde o índice de remisión"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:190
+#: ../plugins/git/plugin.c:223
 msgid "_Resolve conflicts..."
 msgstr "_Resolver os conflitos..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:192
+#: ../plugins/git/plugin.c:225
 msgid "Mark conflicted files as resolved"
 msgstr "Marcar os ficheiros conflitivos como resoltos"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:198 ../plugins/patch/patch-plugin.c:117
+#: ../plugins/git/plugin.c:231 ../plugins/patch/patch-plugin.c:117
 msgid "Patches"
 msgstr "Parches"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:206
+#: ../plugins/git/plugin.c:239
 msgid "Create patch series..."
 msgstr "Crear series de parches..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:208
+#: ../plugins/git/plugin.c:241
 msgid "Generate patch files for submission upstream"
 msgstr "Xerar ficheiros de parche para a remisión en upstream"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:222
+#: ../plugins/git/plugin.c:255
 msgid "_Apply..."
 msgstr "_Aplicar..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:224
+#: ../plugins/git/plugin.c:257
 msgid "Start applying a patch series"
 msgstr "Comezar a aplicar series de parches"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:230
+#: ../plugins/git/plugin.c:263
 msgid "_Continue with resolved conflicts"
 msgstr "_Continuar con resolver os conflitos"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:232
+#: ../plugins/git/plugin.c:265
 msgid "Continue applying a series after resolving conflicts"
 msgstr "Continuar aplicando series tras resolver os conflitos"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:238
+#: ../plugins/git/plugin.c:271
 msgid "_Skip current patch"
 msgstr "_Omitir o parche actual"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:240
+#: ../plugins/git/plugin.c:273
 msgid "Skip the current patch in the series and continue"
 msgstr "Saltar o parche actual nas series e continuar"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:248
+#: ../plugins/git/plugin.c:281
 msgid ""
 "Stop applying the series and return the repository to its original state"
 msgstr ""
@@ -5212,67 +5346,67 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:254
+#: ../plugins/git/plugin.c:287
 msgid "_Branches"
 msgstr "_Ramificacións"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:262 ../plugins/git/plugin.c:434
+#: ../plugins/git/plugin.c:295 ../plugins/git/plugin.c:475
 msgid "_Create branch..."
 msgstr "_Crear ramificación..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:264
+#: ../plugins/git/plugin.c:297
 msgid "Create a branch"
 msgstr "Crear rama"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:270
+#: ../plugins/git/plugin.c:303
 msgid "_Delete branch..."
 msgstr "_Eliminar ramificación..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:272
+#: ../plugins/git/plugin.c:305
 msgid "Delete branches"
 msgstr "Eliminar rama"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:278
+#: ../plugins/git/plugin.c:311
 msgid "_Switch to another branch..."
 msgstr "Ca_mbiar a outra ramificación..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:280
+#: ../plugins/git/plugin.c:313
 msgid "Switch to another branch"
 msgstr "Ca_mbiar a outra rama"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:286
+#: ../plugins/git/plugin.c:319
 msgid "_Merge..."
 msgstr "Com_binar..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:288
+#: ../plugins/git/plugin.c:321
 msgid "Merge changes from another branch into the current one"
 msgstr "Fusionar cambios desde outra rama na actual"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:294 ../plugins/git/plugin.c:466
+#: ../plugins/git/plugin.c:327 ../plugins/git/plugin.c:507
 msgid "_Cherry pick..."
 msgstr "Es_colma de parches..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:296
+#: ../plugins/git/plugin.c:329
 msgid ""
 "Selectively merge individual changes from other branches into the currrent "
 "one"
@@ -5281,251 +5415,267 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:302
+#: ../plugins/git/plugin.c:335
 msgid "_Remote branches"
 msgstr "Ramificacións _remotas"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:312
+#: ../plugins/git/plugin.c:345
 msgid "Add a remote branch"
 msgstr "Engadir unha rama remota"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:318
+#: ../plugins/git/plugin.c:351
 msgid "_Delete..."
 msgstr "_Eliminar..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:320
+#: ../plugins/git/plugin.c:353
 msgid "Delete a remote branch"
 msgstr "Eliminar unha rama remota"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:326
+#: ../plugins/git/plugin.c:359
 msgid "Tags"
 msgstr "Etiquetas"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:334 ../plugins/git/plugin.c:442
+#: ../plugins/git/plugin.c:367 ../plugins/git/plugin.c:483
 msgid "_Create tag..."
 msgstr "_Crear etiqueta..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:336
+#: ../plugins/git/plugin.c:369
 msgid "Create a tag"
 msgstr "Crear unha etiqueta"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:342
+#: ../plugins/git/plugin.c:375
 msgid "_Delete tag..."
 msgstr "_Eliminar etiqueta..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:344
+#: ../plugins/git/plugin.c:377
 msgid "Delete tags"
 msgstr "Eliminar etiquetas"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:350 ../plugins/git/plugin.c:450
+#: ../plugins/git/plugin.c:383 ../plugins/git/plugin.c:491
 msgid "_Reset tree..."
 msgstr "_Restabelecer árbore..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:352
+#: ../plugins/git/plugin.c:385
 msgid "Reset repository head to any past state"
 msgstr "Reinicializar a cabeceira do repositorio a calquera estado anterior "
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:358 ../plugins/git/plugin.c:458
+#: ../plugins/git/plugin.c:391 ../plugins/git/plugin.c:499
 msgid "_Revert commit..."
 msgstr "_Reverter actualización..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:360
+#: ../plugins/git/plugin.c:393
 msgid "Revert a commit"
 msgstr "Reverter unha remisión"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:366
+#: ../plugins/git/plugin.c:399
 msgid "Bisect"
 msgstr "_Biseccionar"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:376
+#: ../plugins/git/plugin.c:409
 msgid "Start a bisect operation"
 msgstr "Iniciar unha operación bisect"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:384
+#: ../plugins/git/plugin.c:417
 msgid "Stop the bisect and bring the tree back to normal"
 msgstr "Deter a bisect e traer a árbore ao estado normal"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:390
+#: ../plugins/git/plugin.c:423
 msgid "_Good"
 msgstr "_Correcto"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:392
+#: ../plugins/git/plugin.c:425
 msgid "Mark the current head revision as good"
 msgstr "Marcar a actual revisión superior como boa"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:398
+#: ../plugins/git/plugin.c:431
 msgid "_Bad"
 msgstr "_Incorrecto"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:400
+#: ../plugins/git/plugin.c:433
 msgid "Mark the current head revision as bad"
 msgstr "Marcar a actual revisión superior como mala"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:406 ../plugins/git/plugin.c:510
+#: ../plugins/git/plugin.c:439 ../plugins/git/plugin.c:551
 msgid "_View log..."
 msgstr "_Ver rexistro..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:408
+#: ../plugins/git/plugin.c:441
 msgid "View change history"
 msgstr "Ver o historial do ficheiro"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:418
+#: ../plugins/git/plugin.c:447
+msgid "_Initialize repository"
+msgstr "_Inicializar o repositorio"
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:449
+msgid "Create a new git repository or reinitialize an existing one"
+msgstr "Crear un novo repositorio de git ou reinicializar outra existente"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:459
 msgid "_Show commit diff"
 msgstr "_Mostrar o diferencial da remisión"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:420
+#: ../plugins/git/plugin.c:461
 msgid "Show changes introduced by this commit"
 msgstr "Mostrar os cambios introducidos por estes commit"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:426
+#: ../plugins/git/plugin.c:467
 msgid "_View selected revision"
 msgstr "_Ver a revisión seleccionada"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:428
+#: ../plugins/git/plugin.c:469
 msgid "View a copy of this file at this revision"
 msgstr "Ver unha copia deste ficheiro nesta revisión"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:436
+#: ../plugins/git/plugin.c:477
 msgid "Create a branch with the selected revision as its head"
 msgstr "Crear unha rama coa revisión seleccionada como superior"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:444
+#: ../plugins/git/plugin.c:485
 msgid "Create a tag at this revision"
 msgstr "Crea unha etiqueta nesta revisión"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:452
+#: ../plugins/git/plugin.c:493
 msgid "Reset repository head to this revision"
 msgstr "Restabelecer a cabeceira do repositorio a esta revisión"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:460
+#: ../plugins/git/plugin.c:501
 msgid "Revert this commit"
 msgstr "Reverter remisión"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:468
+#: ../plugins/git/plugin.c:509
 msgid "Merge this commit into the current branch"
 msgstr "Fusionar esta remisión coa rama actual"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:474
+#: ../plugins/git/plugin.c:515
 msgid "_Bisect"
 msgstr "_Biseccionar (bisect)"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:482
+#: ../plugins/git/plugin.c:523
 msgid "_Set good revision"
 msgstr "_Definir como revisión correcta"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:484
+#: ../plugins/git/plugin.c:525
 msgid "Mark this revision as good"
 msgstr "Marcar esta revisión como boa"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:490
+#: ../plugins/git/plugin.c:531
 msgid "_Set bad revision"
 msgstr "_Definir como revisión incorrecta"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:492
+#: ../plugins/git/plugin.c:533
 msgid "Mark this revision as bad"
 msgstr "Marcar esta revisión como mala"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:512
+#: ../plugins/git/plugin.c:553
 msgid "View changes to this file or folder"
 msgstr "Ver cambios neste ficheiro ou cartafol"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:520
+#: ../plugins/git/plugin.c:561
 msgid "Add this file or folder to the repository"
 msgstr "Engadir este ficheiro ou cartafol ao repositorio"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:528
+#: ../plugins/git/plugin.c:569
 msgid "Remove this file or folder from the repository"
 msgstr "Eliminar este ficheiro ou cartafol do repositorio"
 
-#: ../plugins/git/plugin.c:688
+#: ../plugins/git/plugin.c:731
+msgid "Top level git menu item"
+msgstr "Ítem de máximo nivel no menú de git"
+
+#: ../plugins/git/plugin.c:739
 msgid "Git operations"
 msgstr "Operacións do Git"
 
-#: ../plugins/git/plugin.c:693
+#: ../plugins/git/plugin.c:744
 msgid "Git log operations"
 msgstr "Operacións de rexistro do Git"
 
-#: ../plugins/git/plugin.c:698
+#: ../plugins/git/plugin.c:749
 msgid "Git FM operations"
 msgstr "Operacións FM do Git"
 
-#: ../plugins/git/plugin.c:713
+#: ../plugins/git/plugin.c:764
 msgid "Git Log"
 msgstr "Rexistro do Git"
 
@@ -6647,7 +6797,7 @@ msgstr "Novo destino"
 
 #: ../plugins/project-manager/create_dialogs.ui.h:4
 msgid "Select the _target for the new source files:"
-msgstr "Seleccionar o des_tino para os novos ficheiros orixe: "
+msgstr "Seleccionar o des_tino para os novos ficheiros orixe:"
 
 #: ../plugins/project-manager/create_dialogs.ui.h:5
 msgid "Source files:"
@@ -7943,35 +8093,35 @@ msgstr "Substituír"
 msgid "Search complete"
 msgstr "Terminou a busca"
 
-#: ../plugins/search/search-replace.c:1037
-#: ../plugins/search/search-replace.c:1724
+#: ../plugins/search/search-replace.c:1044
+#: ../plugins/search/search-replace.c:1731
 msgid "Replace All"
 msgstr "Substituír todo"
 
-#: ../plugins/search/search-replace.c:1076
+#: ../plugins/search/search-replace.c:1083
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
 msgstr ""
 "Non se encontrou a coincidencia \"%s\". Quere comezar desde o inicio do "
 "documento?"
 
-#: ../plugins/search/search-replace.c:1096
+#: ../plugins/search/search-replace.c:1103
 #, c-format
 msgid "The match \"%s\" was not found."
 msgstr "Non se encontrou a coincidencia \"%s\"."
 
-#: ../plugins/search/search-replace.c:1111
+#: ../plugins/search/search-replace.c:1118
 msgid "The maximum number of results has been reached."
 msgstr "Chegouse ao número máximo de resultados."
 
-#: ../plugins/search/search-replace.c:1124
+#: ../plugins/search/search-replace.c:1131
 #, c-format
 msgid "%d match has been replaced."
 msgid_plural "%d matches have been replaced."
 msgstr[0] "Substituíuse %d coincidencia."
 msgstr[1] "Substituíronse %d coincidencias."
 
-#: ../plugins/search/search-replace.c:1291
+#: ../plugins/search/search-replace.c:1298
 msgid "Unable to build user interface for Search And Replace"
 msgstr ""
 "Non foi posíbel construír a interface de usuario para Buscar e substituír"
@@ -8676,39 +8826,39 @@ msgstr "_Buscar símbolo..."
 msgid "Find Symbol"
 msgstr "Encontrar símbolo"
 
-#: ../plugins/symbol-db/plugin.c:1111
+#: ../plugins/symbol-db/plugin.c:1169
 #, c-format
 msgid "%s: Generating inheritances..."
 msgstr "%s: Xerando herdanzas..."
 
-#: ../plugins/symbol-db/plugin.c:1116
+#: ../plugins/symbol-db/plugin.c:1174
 #, c-format
 msgid "%s: %d files scanned out of %d"
 msgstr "%s: %d ficheiros escaneados fóra de %d"
 
-#: ../plugins/symbol-db/plugin.c:1147
+#: ../plugins/symbol-db/plugin.c:1205
 #, c-format
 msgid "Generating inheritances..."
 msgstr "Xeración de herdanzas..."
 
-#: ../plugins/symbol-db/plugin.c:1149
+#: ../plugins/symbol-db/plugin.c:1207
 #, c-format
 msgid "%d files scanned out of %d"
 msgstr "%d ficheiros escaneados fora de %d"
 
-#: ../plugins/symbol-db/plugin.c:1909
+#: ../plugins/symbol-db/plugin.c:1967
 msgid "Populating symbols' db..."
 msgstr "Poboar a bd con símbolos..."
 
-#: ../plugins/symbol-db/plugin.c:2266 ../plugins/symbol-db/plugin.c:2394
+#: ../plugins/symbol-db/plugin.c:2351 ../plugins/symbol-db/plugin.c:2479
 msgid "Symbols"
 msgstr "Símbolos"
 
-#: ../plugins/symbol-db/plugin.c:2403
+#: ../plugins/symbol-db/plugin.c:2488
 msgid "SymbolDb popup actions"
 msgstr "Accións en xanelas emerxentes de SymbolDb"
 
-#: ../plugins/symbol-db/plugin.c:2411
+#: ../plugins/symbol-db/plugin.c:2496
 msgid "SymbolDb menu actions"
 msgstr "Accións do menú de SymbolDb"
 
@@ -8730,8 +8880,8 @@ msgstr "Etiquetas API"
 msgid "Resuming glb scan."
 msgstr "Reanudar a análise glb."
 
-#: ../plugins/symbol-db/symbol-db-view-locals.c:315
-#: ../plugins/symbol-db/symbol-db-view.c:1426
+#: ../plugins/symbol-db/symbol-db-view-locals.c:326
+#: ../plugins/symbol-db/symbol-db-view.c:1413
 msgid "Symbol"
 msgstr "Símbolo"
 
@@ -9457,85 +9607,77 @@ msgid "Calltips"
 msgstr "Caixa de suxestións"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:8
-msgid "Enable adaptive indentation"
-msgstr "Activar a sangría"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:9
 msgid "Enable code completion"
 msgstr "Activar o completado de código"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:10
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:9
 msgid "Enable smart brace completion"
 msgstr "Activar o completado intelixente de chave"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:11
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:10
 msgid "Enable smart indentation"
 msgstr "Activar a sangria intelixente"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:12
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:11
 msgid "Indent:"
 msgstr "Sangrar:"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:13
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:12
 msgid "Indentation parameters"
 msgstr "Parámetros da s_angría"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:13
 msgid "Line up parentheses"
 msgstr "Aliñar as parénteses"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
 msgid "Parenthese indentation"
 msgstr "Sangría de paréntese"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
-msgid "Pressing tab indents"
-msgstr "Sangrar ao premer o tabulador"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:17
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
 msgid "Show calltips"
 msgstr "Mostrar caixas de suxestión"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:18
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
 msgid "Smart Indentation"
 msgstr "Sangría intelixente"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:19
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:17
 msgid "Statement indentation size in spaces:"
 msgstr "Instrución do tamaño da sangría en espazos:"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1916
+#: ../plugins/language-support-cpp-java/plugin.c:1921
 msgid "_AutoComplete"
 msgstr "Completar _automaticamente"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1917
+#: ../plugins/language-support-cpp-java/plugin.c:1922
 msgid "AutoComplete the current word"
 msgstr "Completar automaticamente a palabra actual"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1923
+#: ../plugins/language-support-cpp-java/plugin.c:1928
 msgid "Auto Indent"
 msgstr "Sangrar automaticamente"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1924
+#: ../plugins/language-support-cpp-java/plugin.c:1929
 msgid "Auto indent current line or selection based on indentation settings"
 msgstr ""
 "Sangrar automaticamente a liña ou selección actual segundo os parámetros da "
 "sangría"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1929
+#: ../plugins/language-support-cpp-java/plugin.c:1934
 msgid "Swap .h/.c"
 msgstr "Intercambiar .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1930
+#: ../plugins/language-support-cpp-java/plugin.c:1935
 msgid "Swap c header and source files"
 msgstr "Intercambiar os ficheiros C da cabeceira e da fonte"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1973
+#: ../plugins/language-support-cpp-java/plugin.c:1978
 msgid "C++/Java Assistance"
 msgstr "Asistencia C++/Java"
 
-#: ../plugins/language-support-cpp-java/plugin.c:2066
-#: ../plugins/language-support-cpp-java/plugin.c:2075
+#: ../plugins/language-support-cpp-java/plugin.c:2071
+#: ../plugins/language-support-cpp-java/plugin.c:2080
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -9710,8 +9852,8 @@ msgid "Project Manager Plugin for Anjuta."
 msgstr "Plugin do xestor de proxectos para o Anjuta."
 
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:2
-msgid "Symbol Database Plugin for Anjuta (unstable)."
-msgstr "Plugin de base de datos de símbolos para o Anjuta (inestábel)."
+msgid "Symbol Database Plugin for Anjuta."
+msgstr "Plugin de base de datos de símbolos para o Anjuta."
 
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Manages messages from external apps"
