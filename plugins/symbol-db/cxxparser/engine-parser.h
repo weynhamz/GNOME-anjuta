@@ -33,6 +33,8 @@ void engine_parser_test_print_tokens (const char *str);
 
 void engine_parser_parse_expression (const char*str);	
 
+void engine_parser_test_get_variables ();
+	
 /**
  * The function parse the C++ statement, try to get the type of objects to be
  * completed and returns an iterator with those symbols.

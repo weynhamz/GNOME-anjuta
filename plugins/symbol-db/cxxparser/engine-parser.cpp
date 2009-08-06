@@ -52,6 +52,8 @@ EngineParser::EngineParser ()
 bool 
 EngineParser::nextToken (string &out_token, string &out_delimiter)
 {
+	out_token.clear ();
+	
 	int type(0);
 	int depth(0);
 	while ( (type = _tokenizer->yylex()) != 0 ) 
@@ -64,6 +66,7 @@ EngineParser::nextToken (string &out_token, string &out_delimiter)
 			if (depth == 0) 
 			{
 				out_delimiter = _tokenizer->YYText();
+				trim (out_token);
 				return true;
 			} else 
 			{
@@ -92,6 +95,7 @@ EngineParser::nextToken (string &out_token, string &out_delimiter)
 			break;
 		}
 	}
+	trim (out_token);
 	return false;
 }
 
@@ -387,6 +391,71 @@ EngineParser::getCurrentSearchableScope (string &type_name, string &type_scope)
 	return curr_searchable_scope;
 }
 
+/**
+ * @param test Must be searched with SYMINFO_KIND 
+ * @return or the same test or a new struct. In that second case test is unreffed
+ * 
+ */
+SymbolDBEngineIterator *
+EngineParser::switchTypedefToStruct (SymbolDBEngineIterator * test)
+{
+	SymbolDBEngineIteratorNode *node = SYMBOL_DB_ENGINE_ITERATOR_NODE (test);	
+	SymbolDBEngineIterator *new_struct;
+	gint symbol_id = symbol_db_engine_iterator_node_get_symbol_id (node);
+
+	cout << "Switching typedef to struct " << endl;
+	
+	new_struct = symbol_db_engine_get_parent_scope_by_symbol_id (_dbe,
+		    symbol_id, NULL, 
+		    (SymExtraInfo)(SYMINFO_SIMPLE | SYMINFO_KIND));
+
+	if (new_struct != NULL)
+	{
+		/* kill the old one */
+		g_object_unref (test);
+
+		test = new_struct;
+	}
+	else 
+	{
+		cout << "Couldn't find a parent for typedef. We'll return the same object" << endl;
+	}	
+
+	return test;
+}
+
+SymbolDBEngineIterator *
+EngineParser::switchMemberToContainer (SymbolDBEngineIterator * test)
+{
+	SymbolDBEngineIteratorNode *node = SYMBOL_DB_ENGINE_ITERATOR_NODE (test);	
+	SymbolDBEngineIterator *new_container;
+	const gchar* sym_type_name = 
+		symbol_db_engine_iterator_node_get_symbol_extra_string (node, SYMINFO_TYPE_NAME);
+
+	cout << "Switching container with type_name " << sym_type_name << endl;
+	/* hopefully we'll find a new container for the type_name of test param */
+	new_container = symbol_db_engine_find_symbol_by_name_pattern_filtered (_dbe,
+	    sym_type_name, SYMTYPE_SCOPE_CONTAINER, TRUE, SYMSEARCH_FILESCOPE_IGNORE, 
+	    NULL, -1, -1, (SymExtraInfo)(SYMINFO_SIMPLE | SYMINFO_KIND | 
+	                                 SYMINFO_TYPE_NAME));
+	    
+	if (new_container != NULL)
+	{
+		g_object_unref (test);
+
+		test = new_container;
+
+		cout << ".. found new conainer with n items " << 
+			symbol_db_engine_iterator_get_n_items (test) << endl;
+	}
+	else 
+	{
+		cout << "Couldn't find a container to substitute sym_type_name " << sym_type_name << endl;
+	}	
+
+	return test;
+}
+
 SymbolDBEngineIterator *
 EngineParser::processExpression(const string& stmt, 
     							const string& above_text,
@@ -403,8 +472,7 @@ EngineParser::processExpression(const string& stmt,
 	_tokenizer->setText (stmt.c_str ());
 
 	/* get the fist one */
-	nextToken (current_token, op);	
-	trim (current_token);	
+	nextToken (current_token, op);		
 
 	cout << "--------\nFirst token \"" << current_token << "\" with op \"" << op 
 		 << "\"" << endl; 
@@ -412,7 +480,7 @@ EngineParser::processExpression(const string& stmt,
 	/* parse the current sub-expression of a statement and fill up 
 	 * ExpressionResult object
 	 */
-	result = parseExpression (current_token);	
+	result = parseExpression (current_token);
 
 	/* fine. Get the type name and type scope given the above result for the first 
 	 * and most important token.
@@ -436,9 +504,9 @@ EngineParser::processExpression(const string& stmt,
 	cout << "Going to search for curr_searchable_scope with type_name " << type_name <<
 		" and type_scope " << type_scope << endl;
 
-	/* at this time we're enough ready to issue a first query to out db. 
+	/* at this time we're enough ready to issue a first query to our db. 
 	 * We absolutely need to find the searchable object scope of the first result 
-	 * type. From this one we can iterate the tree of scopes and reach a result.
+	 * type. By this one we can iterate the tree of scopes and reach a result.
 	 */	
 	SymbolDBEngineIterator *curr_searchable_scope =
 		getCurrentSearchableScope (type_name, type_scope);
@@ -448,14 +516,96 @@ EngineParser::processExpression(const string& stmt,
 		cout << "curr_searchable_scope failed to process, check the problem please" 
 			<< endl;
 		return NULL;
-	}
-
+	}	
+	
 	/* fine. Have we more tokens left? */
 	while (nextToken (current_token, op)) 
 	{
+		cout << "--------\nNext token \"" << current_token << "\" with op \"" << op 
+			 << "\"" << endl;
+
+		/* parse the current sub-expression of a statement and fill up 
+	 	 * ExpressionResult object
+	 	 */
+		result = parseExpression (current_token);		
+/*		
+		bool process_res = getTypeNameAndScopeByToken (result, 
+    										  current_token,
+    										  op,
+    										  full_file_path, 
+    										  linenum,
+    										  above_text,
+    										  type_name, 
+    										  type_scope);
+*/
+		if (process_res == false)
+		{
+			cout << "Well, you haven't much luck on the NEXT token, the NEXT token failed and then "  <<
+				"I cannot continue. " << endl;
+			return NULL;
+		}
 		
+		/* check if the name of the result is valuable or not */
+		SymbolDBEngineIteratorNode *node;
+		int search_scope_id;
+		SymbolDBEngineIterator * iter;
+
+		node = SYMBOL_DB_ENGINE_ITERATOR_NODE (curr_searchable_scope);
+
+		search_scope_id =
+				symbol_db_engine_iterator_node_get_symbol_id (node);
+			
+		iter = symbol_db_engine_find_symbol_in_scope (_dbe, result.m_name.c_str (), 
+			    search_scope_id,
+			    SYMTYPE_UNDEF,
+			    TRUE,
+			    -1, -1, (SymExtraInfo)(SYMINFO_SIMPLE | SYMINFO_KIND |
+				    					SYMINFO_TYPE | SYMINFO_TYPE_NAME));
+			
+		if (iter == NULL)
+		{
+			cout << "Warning, the result.m_name does not belong to scope" << endl;
+			// FIXME unref
+			return NULL;
+		}
+		else 
+		{
+			const gchar *sym_kind;
+			cout << "Good element " << result.m_name << endl;			
+			
+
+			node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iter);
+
+			sym_kind = symbol_db_engine_iterator_node_get_symbol_extra_string (node, 
+		    										SymExtraInfo (SYMINFO_KIND));
+			
+			cout << ".. it has sym_kind " << sym_kind << endl;
+			
+			if (g_strcmp0 (sym_kind, "member") == 0)
+			{
+				iter = switchMemberToContainer (iter);
+			}
+
+			node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iter);
+			
+			/* check for any typedef */
+			if (g_strcmp0 (symbol_db_engine_iterator_node_get_symbol_extra_string (node, 
+		    										SymExtraInfo (SYMINFO_KIND)),
+	    											"typedef") == 0)
+			{			
+				iter = switchTypedefToStruct (iter);
+			}
+			
+			/* remove the 'old' curr_searchable_scope and replace with 
+			 * this new one
+			 */			
+			g_object_unref (curr_searchable_scope);			
+			curr_searchable_scope = iter;
+			continue;
+		}
 	}
-	
+
+	cout << "returning curr_searchable_scope" << endl;
 	return curr_searchable_scope;
 }
 
@@ -886,6 +1036,90 @@ engine_parser_init (SymbolDBEngine* manager)
 }
 //*/
 
+
+void 
+engine_parser_test_get_variables ()
+{
+/*
+* this regexp catches things like:
+* a) std::vector<char*> exp1[124] [12], *exp2, expr;
+* b) QClass* expr1, expr2, expr;
+* c) int a,b; char r[12] = "test, argument", q[2] = { 't', 'e' }, expr;
+*
+* it CAN be fooled, if you really want it, but it should
+* work for 99% of all situations.
+*
+* QString
+* var;
+* in 2 lines does not work, because //-comments would often bring wrong results
+*/
+#define STRING      "\\\".*\\\""
+#define BRACKETEXPR "\\{.*\\}"
+#define IDENT       "[a-zA-Z_][a-zA-Z0-9_]*"
+#define WS          "[ \t\n]*"
+#define PTR         "[\\*&]?\\*?"
+#define INITIALIZER "=(" WS IDENT WS ")|=(" WS STRING WS ")|=(" WS BRACKETEXPR WS ")" WS
+#define ARRAY 		WS "\\[" WS "[0-9]*" WS "\\]" WS
+
+	char *res = NULL;
+	static char pattern[512] =
+//		"(" IDENT "\\Z)" 	// the 'std' in example a)
+//		"(::" IDENT ")*"	// ::vector
+//		"(" WS "<[^>;]*>)?"	// <char *>
+		"(" WS PTR WS IDENT WS "(" ARRAY ")*" "(" INITIALIZER ")?," WS ")*" // other variables for the same ident (string i,j,k;)
+//		"[ \t\\*&]*"		// check again for pointer/reference type
+;
+	/* must add a 'termination' symbol to the regexp, otherwise
+	 * 'exp' would match 'expr' */
+	char regexp[512];
+
+
+	char *statement = "char a, b";
+//	snprintf(regexp, 512, "%s\\<%s\\>", pattern, "a");
+	g_snprintf (regexp, 512, "%s\\A%s\\Z", pattern, "b");
+	g_print ("checking with regexp %s\n", regexp);
+	GError* error = NULL;	
+	GRegexCompileFlags compile_flags = (GRegexCompileFlags)(G_REGEX_EXTENDED);
+	GRegexMatchFlags match_flags = (GRegexMatchFlags)(0);
+	
+	match_flags = (GRegexMatchFlags)(match_flags | G_REGEX_MATCH_NOTEMPTY);
+
+	GMatchInfo *match_info;
+	GRegex *regex = g_regex_new (regexp, compile_flags,
+									 (GRegexMatchFlags)(match_flags), &error);
+	g_print ("we\n");
+	if (error != NULL)
+		g_print ("err = %s", error->message); 
+	g_regex_match (regex, statement, (GRegexMatchFlags)(0), &match_info);
+  	while (g_match_info_matches (match_info))
+    {
+      gchar *word = g_match_info_fetch (match_info, 0);
+      g_print ("Found: %s\n", word);
+      g_free (word);
+      g_match_info_next (match_info, NULL);
+    }	
+
+#if 0	
+	VariableList li;
+	std::map<std::string, std::string> ignoreTokens;
+	get_variables("char c, d, *e;", li, ignoreTokens, false);
+
+	/* here the trick is to start from the end of the found variables
+	 * up to the begin. This because the local variable declaration should be found
+	 * just above to the statement line 
+	 */
+	cout << "variables found are..." << endl;
+	for (VariableList::reverse_iterator iter = li.rbegin(); iter != li.rend(); iter++) {
+		Variable var = (*iter);
+		var.print ();
+				
+		cout << "wh0a! we found the variable type to parse... it's \"" << 
+			var.m_type << "\" and type scope \"" << var.m_typeScope << "\"" <<
+			endl;
+
+	}
+#endif	
+}
 void
 engine_parser_test_print_tokens (const char *str)
 {
@@ -917,6 +1151,10 @@ engine_parser_process_expression (const char *stmt, const char * above_text,
 	}
 
 	SymbolDBEngineIteratorNode *node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iter);
+	if (node != NULL)
+	{
+		cout << "parent id is " << symbol_db_engine_iterator_node_get_symbol_id (node) << endl; 
+	}
 	
 	// print the scope members
 	SymbolDBEngineIterator * children = 
@@ -936,6 +1174,11 @@ engine_parser_process_expression (const char *stmt, const char * above_text,
 				symbol_db_engine_iterator_node_get_symbol_name (child) << endl;
 		}while (symbol_db_engine_iterator_move_next (children) == TRUE);						
 	} 
+	else 
+	{
+		cout << "scope _has NOT_ children. " << 
+			symbol_db_engine_iterator_node_get_symbol_name (node) << endl;
+	}
 	
 	
 #if 0

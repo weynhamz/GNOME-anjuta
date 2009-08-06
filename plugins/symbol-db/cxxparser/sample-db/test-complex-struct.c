@@ -1,4 +1,4 @@
-
+int var_alone;
 
 typedef struct _asd {
 	char a; 

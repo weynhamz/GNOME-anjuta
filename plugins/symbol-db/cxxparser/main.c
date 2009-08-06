@@ -132,12 +132,12 @@ int	main (int argc, char *argv[])
 	gda_init ();	
 
 	main_loop = g_main_loop_new (NULL, FALSE);
-	
+
  	g_test_init (&argc, &argv, NULL);
 
-	g_test_add_func ("/simple_c/test-simple-struct", test_simple_struct);
-	g_test_add_func ("/simple_c/test-cast-simple-struct", test_cast_simple_struct);
-//	g_test_add_func ("/complex_c/test-complex-struct", test_complex_struct);
+//	g_test_add_func ("/simple_c/test-simple-struct", test_simple_struct);
+//	g_test_add_func ("/simple_c/test-cast-simple-struct", test_cast_simple_struct);
+	g_test_add_func ("/complex_c/test-complex-struct", test_complex_struct);
 
 	g_test_run ();
 	g_message ("test run finished");

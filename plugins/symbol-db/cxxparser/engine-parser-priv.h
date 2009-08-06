@@ -61,7 +61,10 @@ public:
 	    							const string& above_text,
     								string &out_type_name, 		// out
 	    							string &out_type_scope);	// out
-		
+
+	SymbolDBEngineIterator * switchTypedefToStruct (SymbolDBEngineIterator * test);
+
+	SymbolDBEngineIterator * switchMemberToContainer (SymbolDBEngineIterator * test);
 	// FIXME comments.
 	SymbolDBEngineIterator * processExpression (const string& stmt, 
     				  							const string& above_text,
