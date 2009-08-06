@@ -3723,6 +3723,85 @@ symbol_db_engine_add_new_files_full (SymbolDBEngine * dbe,
 	return ret_id;
 }
 
+/* FIXME */
+/* IComplete code */
+#include <regex.h>
+char* extract_type_qualifier(const char *string, const char *expr )
+{
+	/* check with a regular expression for the type */
+	regex_t re;
+	regmatch_t pm[8]; // 7 sub expression -> 8 matches
+	memset (&pm, -1, sizeof(pm));
+	/*
+	 * this regexp catches things like:
+	 * a) std::vector<char*> exp1[124] [12], *exp2, expr;
+	 * b) QClass* expr1, expr2, expr;
+	 * c) int a,b; char r[12] = "test, argument", q[2] = { 't', 'e' }, expr;
+	 *
+	 * it CAN be fooled, if you really want it, but it should
+	 * work for 99% of all situations.
+	 *
+	 * QString
+	 * 		var;
+	 * in 2 lines does not work, because //-comments would often bring wrong results
+	 */
+
+#define STRING      "\\\".*\\\""
+#define BRACKETEXPR "\\{.*\\}"
+#define IDENT       "[a-zA-Z_][a-zA-Z0-9_]*"
+#define WS          "[ \t\n]*"
+#define PTR         "[\\*&]?\\*?"
+#define INITIALIZER "=(" WS IDENT WS ")|=(" WS STRING WS ")|=(" WS BRACKETEXPR WS ")" WS
+#define ARRAY 		WS "\\[" WS "[0-9]*" WS "\\]" WS
+
+	char *res = NULL;
+	static char pattern[512] =
+		"(" IDENT "\\>)" 	// the 'std' in example a)
+		"(::" IDENT ")*"	// ::vector
+		"(" WS "<[^>;]*>)?"	// <char *>
+		"(" WS PTR WS IDENT WS "(" ARRAY ")*" "(" INITIALIZER ")?," WS ")*" // other variables for the same ident (string i,j,k;)
+		"[ \t\\*&]*";		// check again for pointer/reference type
+
+	/* must add a 'termination' symbol to the regexp, otherwise
+	 * 'exp' would match 'expr' */
+	char regexp[512];
+	snprintf(regexp, 512, "%s\\<%s\\>", pattern, expr);
+
+	/* compile regular expression */
+	int error = regcomp (&re, regexp, REG_EXTENDED) ;
+	if (error)
+		return NULL;
+
+	/* this call to regexec finds the first match on the line */
+	error = regexec (&re, string, 8, &pm[0], 0) ;
+	while (error == 0) /* while matches found */
+	{   
+		/* subString found between pm.rm_so and pm.rm_eo */
+		/* only include the ::vector part in the indentifier, if the second subpattern matches at all */
+		int len = (pm[2].rm_so != -1 ? pm[2].rm_eo : pm[1].rm_eo) - pm[1].rm_so;
+		if (res)
+			free (res);
+		res = (char*) malloc (len + 1);
+		if (!res)
+		{
+			regfree (&re);
+			return NULL;
+		}
+		strncpy (res, string + pm[1].rm_so, len); 
+		res[len] = '\0';
+
+		/* This call to regexec finds the next match */
+		error = regexec (&re, string + pm[0].rm_eo, 8, &pm[0], 0) ;
+		break;
+	}
+	regfree(&re);
+
+	/* we if the proposed type is a keyword, we did something wrong, return NULL instead */
+/*    static char *keywords[] = { "if", "else", "goto", "for", "do", "while", "const", "static", "volatile",*/
+/*        "register", "break", "continue", "return", "switch", "case", "new", "typedef", "inline"};*/
+	return res;
+}
+
 /* ### Thread note: this function inherits the mutex lock ### */
 static GNUC_INLINE gint
 sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, const tagEntry * tag_entry)
@@ -3744,12 +3823,24 @@ sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 	SymbolDBEnginePriv *priv;
 	GValue *ret_value;
 	gboolean ret_bool;
+	gchar *type_regex = NULL;
 	
 	priv = dbe->priv;
 
 	/* we assume that tag_entry is != NULL */
 	type = tag_entry->kind;
-	type_name = tag_entry->name;
+	fix here.
+	if (g_strcmp0 (type, "member") == 0 || 
+	    g_strcmp0 (type, "variable") == 0 || 
+	    g_strcmp0 (type, "field"))
+	{
+		type_regex = extract_type_qualifier (tag_entry->address.pattern, tag_entry->name);
+		type_name = type_regex;
+	}
+	else 
+	{		
+		type_name = tag_entry->name;
+	}
 	
 	/* it does not exist. Create a new tuple. */
 	if ((stmt = sdb_engine_get_statement_by_query_id (dbe, PREP_QUERY_SYM_TYPE_NEW))
@@ -3800,7 +3891,8 @@ sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 		{
 			table_id = -1;
 		}
-		
+
+		g_free (type_regex);
 		return table_id;
 	}	
 	else 
@@ -3811,6 +3903,7 @@ sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 	
 	if (last_inserted)
 		g_object_unref (last_inserted);	
+	g_free (type_regex);
 	return table_id;
 }
 

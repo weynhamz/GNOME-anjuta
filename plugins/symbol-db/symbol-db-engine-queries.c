@@ -3149,7 +3149,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 
 	MP_SET_HOLDER_BATCH_STR(priv, param, pattern, ret_bool, ret_value);
 	
-	/*DEBUG_PRINT ("symbol_db_engine_find_symbol_by_name_pattern_filtered query: %s",
+	/*DEBUG_PRINT ("query: %s",
 				 dyn_node->query_str);*/
 
 	/* execute the query with parametes just set */

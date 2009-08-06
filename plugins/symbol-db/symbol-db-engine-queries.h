@@ -129,6 +129,13 @@ symbol_db_engine_find_symbol_in_scope (SymbolDBEngine *dbe,
     								SymExtraInfo sym_info);
 
 /**
+ * TODO: Implement a function that, given a container_symbol_id, is able to determine
+ * if a query_symbol_id is under the scope of container_symbol_id, in a multi level fashion.
+ * Infact it wouldn't be performant to use symbol_db_engine_find_symbol_in_scope ()
+ * and recursively search for every sub-scope looking for the query_symbol_id.
+ */
+
+/**
  * Return an iterator to the data retrieved from database. 
  * The iterator, if not null, will contain a list of parent classes for the 
  * given symbol name.
