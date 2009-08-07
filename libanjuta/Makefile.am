@@ -79,7 +79,9 @@ libanjuta_la_SOURCES= \
 	anjuta-debug.c \
 	anjuta-debug.h \
 	gbf-project.c \
-	gbf-project.h
+	gbf-project.h \
+	anjuta-command-queue.c \
+	anjuta-command-queue.h
 
 if HAVE_PLUGIN_GLADE
 
@@ -137,7 +139,8 @@ libanjuta_include = \
 	anjuta-async-notify.h \
 	anjuta-sync-command.h \
 	anjuta-version.h \
-	gbf-project.h
+	gbf-project.h \
+	anjuta-command-queue.h
 
 libanjutainclude_HEADERS = \
 	$(libanjuta_include) \

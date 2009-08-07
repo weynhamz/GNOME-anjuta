@@ -269,7 +269,8 @@ git_ivcs_query_status (IAnjutaVcs *obj, GFile *file,
 		                          notify);
 	}
 
-	anjuta_command_start (ANJUTA_COMMAND (status_command));
+	anjuta_command_queue_push (ANJUTA_PLUGIN_GIT (obj)->command_queue,
+	                           ANJUTA_COMMAND (status_command));
 }
 
 void 

@@ -31,6 +31,7 @@
 #include <libanjuta/interfaces/ianjuta-file-manager.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-command-queue.h>
 
 extern GType git_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_GIT         (git_get_type (NULL))
@@ -55,6 +56,7 @@ struct _Git
 	gchar *current_editor_filename;
 	gchar *current_fm_filename;
 	IAnjutaMessageView *message_view;
+	AnjutaCommandQueue *command_queue;
 	
 	/* Watches */
 	gint project_root_watch_id;
