@@ -3829,7 +3829,7 @@ sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 
 	/* we assume that tag_entry is != NULL */
 	type = tag_entry->kind;
-	fix here.
+	
 	if (g_strcmp0 (type, "member") == 0 || 
 	    g_strcmp0 (type, "variable") == 0 || 
 	    g_strcmp0 (type, "field"))
