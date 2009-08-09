@@ -101,11 +101,13 @@ void on_git_origin_check_toggled (GtkToggleButton *button, GtkWidget *widget);
 void git_init_whole_project (Git *plugin, GtkWidget* project,
 							 gboolean active);
 void on_git_whole_project_toggled (GtkToggleButton* project, Git *plugin);
-
 void on_git_diff_command_finished (AnjutaCommand *command, guint return_code, 
 								   Git *plugin);
 void git_send_raw_command_output_to_editor (AnjutaCommand *command, 
 											IAnjutaEditor *editor);
+void git_set_log_view_column_label (GtkTextBuffer *text_buffer, 
+                                    GtkTextIter *location, 
+                                    GtkTextMark *mark, GtkLabel *column_label);
 void git_stop_status_bar_progress_pulse (AnjutaCommand *command, 
 										 guint return_code, gpointer timer_id);
 void git_hide_pulse_progress_bar (AnjutaCommand *command, guint return_code,

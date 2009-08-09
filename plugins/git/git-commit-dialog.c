@@ -171,8 +171,7 @@ on_commit_custom_author_info_check_toggled (GtkToggleButton *button,
 static void
 on_commit_amend_check_toggled (GtkToggleButton *toggle_button, GitUIData *data)
 {
-	GtkTextView *commit_log_view;
-	GtkTextBuffer *buffer;
+	GtkTextBuffer *log_view_buffer;
 	gchar *commit_message_path;
 	GFile *commit_message_file;
 	GFileInfo *file_info;
@@ -180,9 +179,8 @@ on_commit_amend_check_toggled (GtkToggleButton *toggle_button, GitUIData *data)
 	guint64 file_size;
 	GFileInputStream *stream;
 
-	commit_log_view = GTK_TEXT_VIEW (gtk_builder_get_object (data->bxml,
-	                                                         "commit_log_view"));
-	buffer = gtk_text_view_get_buffer (commit_log_view);
+	log_view_buffer = GTK_TEXT_BUFFER (gtk_builder_get_object (data->bxml,
+	                                                           "log_view_buffer"));
 
 	if (gtk_toggle_button_get_active (toggle_button))
 	{
@@ -210,7 +208,8 @@ on_commit_amend_check_toggled (GtkToggleButton *toggle_button, GitUIData *data)
 				g_input_stream_close (G_INPUT_STREAM (stream), NULL, NULL);
 				g_object_unref (stream);
 
-				gtk_text_buffer_set_text (buffer, commit_message, file_size);
+				gtk_text_buffer_set_text (log_view_buffer, commit_message, 
+				                          file_size);
 
 				g_free (commit_message);
 
@@ -224,16 +223,18 @@ on_commit_amend_check_toggled (GtkToggleButton *toggle_button, GitUIData *data)
 		g_object_unref (commit_message_file);
 	}
 	else
-		gtk_text_buffer_set_text (buffer, "", 0);
+		gtk_text_buffer_set_text (log_view_buffer, "", 0);
 }
 
 static void
 commit_dialog (Git *plugin)
 {
 	GtkBuilder *bxml;
-	gchar *objects[] = {"commit_dialog", NULL};
+	gchar *objects[] = {"commit_dialog", "log_view_buffer", NULL};
 	GError *error;
 	GtkWidget *dialog;
+	GtkTextBuffer *log_view_buffer;
+	GtkWidget *commit_log_column_label;
 	GtkWidget *commit_amend_check;
 	GtkWidget *commit_custom_author_info_check;
 	GtkWidget *commit_author_info_alignment;
@@ -255,6 +256,10 @@ commit_dialog (Git *plugin)
 	}
 	
 	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, "commit_dialog"));
+	log_view_buffer = GTK_TEXT_BUFFER (gtk_builder_get_object (bxml, 
+	                                                   		   "log_view_buffer"));
+	commit_log_column_label = GTK_WIDGET (gtk_builder_get_object (bxml,
+	                                                              "commit_log_column_label"));
 	commit_amend_check = GTK_WIDGET (gtk_builder_get_object (bxml, "commit_amend_check"));
 	commit_custom_author_info_check = GTK_WIDGET (gtk_builder_get_object (bxml, "commit_custom_author_info_check"));
 	commit_author_info_alignment = GTK_WIDGET (gtk_builder_get_object (bxml, "commit_author_info_alignment"));
@@ -267,6 +272,10 @@ commit_dialog (Git *plugin)
 											 GIT_STATUS_SECTION_MODIFIED);
 
 	data = git_ui_data_new (plugin, bxml);
+
+	g_signal_connect (G_OBJECT (log_view_buffer), "mark-set",
+	                  G_CALLBACK (git_set_log_view_column_label),
+	                  commit_log_column_label);
 	
 	g_signal_connect (G_OBJECT (commit_amend_check), "toggled",
 	                  G_CALLBACK (on_commit_amend_check_toggled),
