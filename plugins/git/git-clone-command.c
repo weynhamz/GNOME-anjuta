@@ -24,49 +24,44 @@
 
 #include "git-clone-command.h"
 
-
-G_DEFINE_TYPE (GitCloneCommand, git_clone_command, GIT_TYPE_COMMAND);
-
-typedef struct _GitCloneCommandPrivate GitCloneCommandPrivate;
-
-struct _GitCloneCommandPrivate
+struct _GitCloneCommandPriv
 {
-	gchar *uri;
+	gchar *url;
 	gchar *repository_name;
 };
 
-#define GET_PRIVATE(o)  \
-   (G_TYPE_INSTANCE_GET_PRIVATE ((o), GIT_TYPE_CLONE_COMMAND, GitCloneCommandPrivate))
+G_DEFINE_TYPE (GitCloneCommand, git_clone_command, GIT_TYPE_COMMAND);
 
 static guint
 git_clone_command_run (AnjutaCommand *command)
 {
-	GitCloneCommandPrivate *priv;
-	GitCommand *self;
+	GitCloneCommand *self;
 
-	priv = GET_PRIVATE (command);
-	self = GIT_COMMAND (command);
+	self = GIT_CLONE_COMMAND (command);
 	
-	git_command_add_arg (self, "clone");
-	git_command_add_arg (self, priv->uri);
-	git_command_add_arg (self, priv->repository_name);
+	git_command_add_arg (GIT_COMMAND (self), "clone");
+	git_command_add_arg (GIT_COMMAND (self), self->priv->url);
+	git_command_add_arg (GIT_COMMAND (self), self->priv->repository_name);
 	
 	return 0;
 }
 
 static void
-git_clone_command_init (GitCloneCommand *object)
+git_clone_command_init (GitCloneCommand *self)
 {
-	/* TODO: Add initialization code here */
+	self->priv = g_new0 (GitCloneCommandPriv, 1);
 }
 
 static void
 git_clone_command_finalize (GObject *object)
 {
-	GitCloneCommandPrivate *priv = GET_PRIVATE (object);
+	GitCloneCommand *self;
 
-	g_free (priv->uri);
-	g_free (priv->repository_name);
+	self = GIT_CLONE_COMMAND (object);
+
+	g_free (self->priv->url);
+	g_free (self->priv->repository_name);
+	g_free (self->priv);
 
 	G_OBJECT_CLASS (git_clone_command_parent_class)->finalize (object);
 }
@@ -81,29 +76,21 @@ git_clone_command_class_init (GitCloneCommandClass *klass)
 	object_class->finalize = git_clone_command_finalize;
 	parent_class->output_handler = git_command_send_output_to_info;
 	command_class->run = git_clone_command_run;
-
-	g_type_class_add_private (klass, sizeof (GitCloneCommandPrivate));
 }
 
 GitCloneCommand *
-git_clone_command_new (const gchar *uri, const gchar *working_directory,
+git_clone_command_new (const gchar *working_directory, const gchar *url, 
                        const gchar *repository_name)
 {
-	GitCloneCommand *clone_command;
-	GitCloneCommandPrivate *priv;
+	GitCloneCommand *self;
 
-	g_assert (uri != NULL);
-	g_assert (working_directory != NULL);
-	g_assert (repository_name != NULL);
+	self = g_object_new (GIT_TYPE_CLONE_COMMAND,
+	                     "working-directory", working_directory,
+	                     "single-line-output", TRUE,
+	                     NULL);
 	
-	clone_command = g_object_new (GIT_TYPE_CLONE_COMMAND,
-	                              "working-directory", working_directory,
-	                              "single-line-output", TRUE,
-	                              NULL);
+	self->priv->url = g_strdup (url);
+	self->priv->repository_name = g_strdup (repository_name);
 	
-	priv = GET_PRIVATE (clone_command);
-	priv->uri = g_strdup (uri);
-	priv->repository_name = g_strdup (repository_name);
-	
-	return clone_command;
+	return self;
 }

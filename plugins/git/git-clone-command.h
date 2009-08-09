@@ -39,6 +39,7 @@ G_BEGIN_DECLS
 
 typedef struct _GitCloneCommandClass GitCloneCommandClass;
 typedef struct _GitCloneCommand GitCloneCommand;
+typedef struct _GitCloneCommandPriv GitCloneCommandPriv;
 
 struct _GitCloneCommandClass
 {
@@ -48,12 +49,15 @@ struct _GitCloneCommandClass
 struct _GitCloneCommand
 {
 	GitCommand parent_instance;
+
+	GitCloneCommandPriv *priv;
 };
 
 GType git_clone_command_get_type (void) G_GNUC_CONST;
 
-GitCloneCommand *git_clone_command_new (const gchar *uri, const gchar *working_directory,
-                                        const gchar *repository_name);
+GitCloneCommand *git_clone_command_new (const gchar *working_directory, 
+                                        const gchar *url, 
+                                        const gchar *repository_name);                       
 
 G_END_DECLS
 
