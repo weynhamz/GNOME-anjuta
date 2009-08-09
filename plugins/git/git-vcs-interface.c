@@ -97,6 +97,10 @@ git_ivcs_checkout (IAnjutaVcs *obj,
 	                  G_CALLBACK (on_git_command_info_arrived),
 	                  plugin);
 
+	g_signal_connect (G_OBJECT (clone_command), "command-finished",
+	                  G_CALLBACK (g_object_unref),
+	                  NULL);
+
 	if (cancel)
 	{
 		g_signal_connect_swapped (G_OBJECT (cancel), "cancelled",
