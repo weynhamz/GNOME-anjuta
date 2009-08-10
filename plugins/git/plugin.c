@@ -74,76 +74,20 @@ static GtkActionEntry action_git_menu_toplevel =
 static GtkActionEntry actions_git[] = 
 {
 	{
+		"ActionMenuGitChanges",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Changes"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		NULL    /* action callback */
+	},
+	{
 		"ActionGitCommit",                       /* Action name */
 		GTK_STOCK_YES,                            /* Stock icon, if any */
 		N_("_Commit..."),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Commit changes to the local repository"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_commit)    /* action callback */
-	},
-	{
-		"ActionGitFetch",                       /* Action name */
-		GTK_STOCK_CONNECT,                            /* Stock icon, if any */
-		N_("_Fetch"),                     /* Display label */
-		NULL,                                     /* short-cut */
-		N_("Update remote branches"),                      /* Tooltip */
-		G_CALLBACK (on_menu_git_fetch)    /* action callback */
-	},
-	{
-		"ActionMenuGitRebase",                       /* Action name */
-		NULL,                            /* Stock icon, if any */
-		N_("_Rebase"),                     /* Display label */
-		NULL,                                     /* short-cut */
-		N_("Merge your changes with an upstream remote branch"),                      /* Tooltip */
-		NULL    /* action callback */
-	},
-	{
-		"ActionGitRebaseStart",                       /* Action name */
-		NULL,                            /* Stock icon, if any */
-		N_("_Start..."),                     /* Display label */
-		NULL,                                     /* short-cut */
-		N_("Start a rebase"),                      /* Tooltip */
-		G_CALLBACK (on_menu_git_rebase_start)    /* action callback */
-	},
-	{
-		"ActionGitRebaseContinue",                       /* Action name */
-		NULL,                            /* Stock icon, if any */
-		N_("_Continue"),                     /* Display label */
-		NULL,                                     /* short-cut */
-		N_("Continue a rebase that stopped because of conflicts"),                      /* Tooltip */
-		G_CALLBACK (on_menu_git_rebase_continue)    /* action callback */
-	},
-	{
-		"ActionGitRebaseSkip",                       /* Action name */
-		NULL,                            /* Stock icon, if any */
-		N_("_Skip"),                     /* Display label */
-		NULL,                                     /* short-cut */
-		N_("Skip the current conflicted commmit and continue"),                      /* Tooltip */
-		G_CALLBACK (on_menu_git_rebase_skip)    /* action callback */
-	},
-	{
-		"ActionGitRebaseAbort",                       /* Action name */
-		NULL,                            /* Stock icon, if any */
-		N_("_Abort"),                     /* Display label */
-		NULL,                                     /* short-cut */
-		N_("Abort the rebase and put the repository in its original state"),                      /* Tooltip */
-		G_CALLBACK (on_menu_git_rebase_abort)    /* action callback */
-	},
-		{
-		"ActionGitPush",                       /* Action name */
-		GTK_STOCK_GO_FORWARD,                            /* Stock icon, if any */
-		N_("_Push..."),                     /* Display label */
-		NULL,                                     /* short-cut */
-		N_("Push changes to a remote repository"),                      /* Tooltip */
-		G_CALLBACK (on_menu_git_push)    /* action callback */
-	},
-	{
-		"ActionGitPull",                       /* Action name */
-		GTK_STOCK_GO_BACK,                            /* Stock icon, if any */
-		N_("_Pull..."),                     /* Display label */
-		NULL,                                     /* short-cut */
-		N_("Update the working copy"),                      /* Tooltip */
-		G_CALLBACK (on_menu_git_pull)    /* action callback */
 	},
 	{
 		"ActionGitDiffUncommitted",                       /* Action name */
@@ -176,6 +120,54 @@ static GtkActionEntry actions_git[] =
 		NULL,                                     /* short-cut */
 		N_("Apply stashed changes to the working tree"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_apply_stash)    /* action callback */
+	},
+	{
+		"ActionGitLog",                       /* Action name */
+		GTK_STOCK_ZOOM_100,                            /* Stock icon, if any */
+		N_("_View log..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("View change history"),                      /* Tooltip */
+		G_CALLBACK (on_menu_git_log)    /* action callback */
+	},
+	{
+		"ActionMenuGitRemoteRepository",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Remote repository"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		NULL    /* action callback */
+	},
+	{
+		"ActionGitPush",                       /* Action name */
+		GTK_STOCK_GO_FORWARD,                            /* Stock icon, if any */
+		N_("_Push..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Push changes to a remote repository"),                      /* Tooltip */
+		G_CALLBACK (on_menu_git_push)    /* action callback */
+	},
+	{
+		"ActionGitPull",                       /* Action name */
+		GTK_STOCK_GO_BACK,                            /* Stock icon, if any */
+		N_("_Pull..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Update the working copy"),                      /* Tooltip */
+		G_CALLBACK (on_menu_git_pull)    /* action callback */
+	},
+	{
+		"ActionGitFetch",                       /* Action name */
+		GTK_STOCK_CONNECT,                            /* Stock icon, if any */
+		N_("_Fetch"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Update remote branches"),                      /* Tooltip */
+		G_CALLBACK (on_menu_git_fetch)    /* action callback */
+	},
+	{
+		"ActionMenuGitFiles",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Files"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		NULL    /* action callback */
 	},
 	{
 		"ActionGitAdd",                       /* Action name */
@@ -322,6 +314,46 @@ static GtkActionEntry actions_git[] =
 		G_CALLBACK (on_menu_git_merge)    /* action callback */
 	},
 	{
+		"ActionMenuGitRebase",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Rebase"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Merge your changes with an upstream remote branch"),                      /* Tooltip */
+		NULL    /* action callback */
+	},
+	{
+		"ActionGitRebaseStart",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Start..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Start a rebase"),                      /* Tooltip */
+		G_CALLBACK (on_menu_git_rebase_start)    /* action callback */
+	},
+	{
+		"ActionGitRebaseContinue",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Continue"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Continue a rebase that stopped because of conflicts"),                      /* Tooltip */
+		G_CALLBACK (on_menu_git_rebase_continue)    /* action callback */
+	},
+	{
+		"ActionGitRebaseSkip",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Skip"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Skip the current conflicted commmit and continue"),                      /* Tooltip */
+		G_CALLBACK (on_menu_git_rebase_skip)    /* action callback */
+	},
+	{
+		"ActionGitRebaseAbort",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Abort"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Abort the rebase and put the repository in its original state"),                      /* Tooltip */
+		G_CALLBACK (on_menu_git_rebase_abort)    /* action callback */
+	},
+	{
 		"ActionGitCherryPick",                       /* Action name */
 		NULL,                            /* Stock icon, if any */
 		N_("_Cherry pick..."),                     /* Display label */
@@ -378,6 +410,14 @@ static GtkActionEntry actions_git[] =
 		G_CALLBACK (on_menu_git_delete_tag)    /* action callback */
 	},
 	{
+		"ActionMenuGitResetRevert",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Reset/Revert"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		NULL    /* action callback */
+	},
+	{
 		"ActionGitReset",                       /* Action name */
 		GTK_STOCK_REFRESH,                            /* Stock icon, if any */
 		N_("_Reset tree..."),                     /* Display label */
@@ -432,14 +472,6 @@ static GtkActionEntry actions_git[] =
 		NULL,                                     /* short-cut */
 		N_("Mark the current head revision as bad"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_bisect_bad)    /* action callback */
-	},
-	{
-		"ActionGitLog",                       /* Action name */
-		GTK_STOCK_ZOOM_100,                            /* Stock icon, if any */
-		N_("_View log..."),                     /* Display label */
-		NULL,                                     /* short-cut */
-		N_("View change history"),                      /* Tooltip */
-		G_CALLBACK (on_menu_git_log)    /* action callback */
 	},
 	{
 		"ActionGitInit",                       /* Action name */
