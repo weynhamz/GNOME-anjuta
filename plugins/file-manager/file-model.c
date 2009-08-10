@@ -367,7 +367,6 @@ file_model_update_file (FileModel* model,
 	if (is_dir)
 	{
 		file_model_add_dummy(model, iter);
-		file_model_get_vcs_status (model, iter, file);
 	}
 	if (!is_dir && !add)
 	{
