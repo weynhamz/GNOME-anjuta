@@ -387,8 +387,9 @@ fi
 dnl Check for bind in libsocket (needed on Solaris)
 AC_CHECK_LIB(socket, bind)
 
-dnl Check for function forkpty in libutil
-AC_CHECK_LIB(util, forkpty)
+dnl Check for function forkpty and related headers
+AC_SEARCH_LIBS(forkpty, util, , AC_DEFINE(EMULATE_FORKPTY, [], [Need  to implement our own forkpty()]))
+AC_CHECK_HEADERS(libutil.h util.h pty.h)
 
 dnl Checks for library functions.
 AC_CHECK_FUNCS(fnmatch)

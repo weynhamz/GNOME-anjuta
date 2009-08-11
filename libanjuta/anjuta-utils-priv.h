@@ -22,9 +22,9 @@
 
 #include "config.h"
 
-#ifndef HAVE_LIBUTIL
+#ifdef EMULATE_FORKPTY
 #include <grp.h>
 int forkpty(int *amaster, char *name, struct termios *termp, struct winsize *winp);
-#endif /* HAVE_LIBUTIL */
+#endif /* EMULATE_FORKPTY */
 
 #endif

@@ -1358,7 +1358,7 @@ anjuta_util_get_local_path_from_uri (const gchar *uri)
 	return local_path;
 }
 
-#ifndef HAVE_LIBUTIL
+#ifdef EMULATE_FORKPTY
 #include <grp.h>
 
 static int ptym_open (char *pts_name);
@@ -1650,7 +1650,7 @@ int scandir(const char *dir, struct dirent ***namelist,
   return(i);
 }
 
-#endif /* HAVE_LIBUTIL */
+#endif /* EMULATE_FORKPTY */
 
 void
 anjuta_util_help_display (GtkWidget   *parent,

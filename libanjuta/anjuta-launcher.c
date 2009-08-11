@@ -36,11 +36,15 @@
 #include <fcntl.h>
 #include <signal.h>
 
-#if defined(__FreeBSD__)
+/* not sure if any platform has more than one of these, so play it
+   safe and use any-and-all-found rather than elif fallback */
+#ifdef HAVE_LIBUTIL_H
 #  include <libutil.h>
-#elif defined(__OpenBSD__) || defined(__NetBSD__)
+#endif
+#ifdef HAVE_UTIL_H
 #  include <util.h>
-#elif !defined(__sun)
+#endif
+#ifdef HAVE_PTY_H
 #  include <pty.h>
 #endif
 
