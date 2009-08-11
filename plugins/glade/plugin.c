@@ -1185,10 +1185,10 @@ enum
 };
 
 const gchar *ipt_names [count_ipt + 1] = {
-	/* iptCurrent: */       "Current",
-	/* iptBeforeEnd: */     "Before end",
-	/* iptAfterBegin: */    "After begin",
-	/* ipEOF: */            "End of file",
+	/* iptCurrent: */       N_("Current"),
+	/* iptBeforeEnd: */     N_("Before end"),
+	/* iptAfterBegin: */    N_("After begin"),
+	/* ipEOF: */            N_("End of file"),
 	NULL
 };
 
@@ -2311,7 +2311,7 @@ switch_designer_and_editor (GladePlugin* plugin)
 	if (!assoc_file)
 	{
 		anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
-		                           "Couldn't find an associated document");
+		                           _("Couldn't find an associated document"));
 		return;
 	}
 
@@ -2386,7 +2386,7 @@ associate_designer_and_editor (DesignerAssociations *associations,
 	item = designer_associations_item_from_data (editor,
 	                                             NULL, designer,
 	                                             NULL, project_root);
-	designer_associations_item_set_option (item, "position_type", ipt_names[3]);
+	designer_associations_item_set_option (item, "position_type", _(ipt_names[3]));
 	designer_associations_add_item (associations, item);
 }
 
@@ -2659,7 +2659,7 @@ fill_position_type_combobox_model (GtkListStore *model)
 		gtk_list_store_append (model, &iter);
 		gtk_list_store_set (model, &iter,
 		                    0, i,
-		                    1, ipt_names[i],
+		                    1, _(ipt_names[i]),
 		                    -1);
 	}
 }
@@ -2784,7 +2784,7 @@ associations_dialog_commit_all_fields (GladePlugin *plugin)
 		combobox = GTK_COMBO_BOX (plugin->priv->dialog_data->options_entries[DO_POSITION_TYPE]);
 		i = gtk_combo_box_get_active (combobox);
 		if (i >= 0 && i < count_ipt)
-			designer_associations_item_set_option (item, "position_type", ipt_names[i]);
+			designer_associations_item_set_option (item, "position_type", _(ipt_names[i]));
 		else
 			g_warning ("Invalid item index of position type");
 	}
@@ -3081,10 +3081,10 @@ show_associations_dialog (GladePlugin* plugin)
 		                            G_TYPE_STRING);
 		gtk_tree_view_set_model (treeview, GTK_TREE_MODEL (model));
 
-		associations_dialog_insert_text_column (treeview, "designer", DESIGNER_COLUMN, 200);
-		associations_dialog_insert_text_column (treeview, "toplevel widget", WIDGET_COLUMN, 150);
-		associations_dialog_insert_text_column (treeview, "editor", EDITOR_COLUMN, 200);
-		associations_dialog_insert_text_column (treeview, "options", OPTIONS_COLUMN, 200);
+		associations_dialog_insert_text_column (treeview, _("Designer"), DESIGNER_COLUMN, 200);
+		associations_dialog_insert_text_column (treeview, _("Top level widget"), WIDGET_COLUMN, 150);
+		associations_dialog_insert_text_column (treeview, _("Editor"), EDITOR_COLUMN, 200);
+		associations_dialog_insert_text_column (treeview, _("Options"), OPTIONS_COLUMN, 200);
 
 		g_object_set_data (G_OBJECT (dialog), ASSOCIATIONS_TREEVIEW_NAME, treeview);
 		gtk_tree_selection_set_mode (gtk_tree_view_get_selection (treeview),
