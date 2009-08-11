@@ -1319,8 +1319,6 @@ anjuta_util_get_file_mime_type (GFile *file)
 			const static struct {gchar *extension; gchar *type;} anjuta_types[] = {
 									{"anjuta", "application/x-anjuta"},
 									{"prj", "application/x-anjuta-old"},
-									{"ui", "text/xml"},
-									{"glade", "application/x-glade"},
 									{NULL, NULL}};
 			gint i;
 				
