@@ -6,7 +6,7 @@ anjuta_uidir = $(anjuta_ui_dir)
 anjuta_ui_DATA =  anjuta-debug-manager.xml
 
 schemadir = @GCONF_SCHEMA_FILE_DIR@
-schema_in_files = anjuta-debug-manager.schemas
+schema_in_files = anjuta-debug-manager.schemas.in
 schema_DATA = $(schema_in_files:.schemas.in=.schemas)
 @INTLTOOL_SCHEMAS_RULE@
 
@@ -43,11 +43,11 @@ anjuta-marshal.c: anjuta-marshal.list
 	glib-genmarshal $< --body --prefix=anjuta_marshal >> $@
 
 if GCONF_SCHEMAS_INSTALL
-install-data-local:
-	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-install-rule $(builddir)/$(schema_DATA)
+install-data-local: $(schema_DATA)
+	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-install-rule $<
 
-uninstall-local:
-	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-uninstall-rule $(builddir)/$(schema_DATA)
+uninstall-local: $(schema_DATA)
+	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-uninstall-rule $<
 else
 install-data-local:
 

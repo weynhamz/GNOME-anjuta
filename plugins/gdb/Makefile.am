@@ -4,7 +4,7 @@ gdb_ui_DATA =
 
 # Plugin glade file
 anjuta_gladedir = $(anjuta_glade_dir)
-anjuta_glade_DATA = anjuta-gdb.glade
+anjuta_glade_DATA =
 
 anjuta_datadir = $(anjuta_data_dir)
 anjuta_data_DATA = gdb.init
