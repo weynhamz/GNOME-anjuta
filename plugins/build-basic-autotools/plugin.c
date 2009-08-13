@@ -1744,6 +1744,8 @@ build_compile_file (BasicAutotoolsPlugin *plugin, const gchar *filename)
 		g_hash_table_insert (target_ext, ".cxx", ".o");
 		g_hash_table_insert (target_ext, ".c++", ".o");
 		g_hash_table_insert (target_ext, ".cc", ".o");
+		g_hash_table_insert (target_ext, ".y", ".o");
+		g_hash_table_insert (target_ext, ".l", ".o");
 		g_hash_table_insert (target_ext, ".in", "");
 		g_hash_table_insert (target_ext, ".in.in", ".in");
 		g_hash_table_insert (target_ext, ".la", ".la");
@@ -3050,7 +3052,8 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 		filename = g_file_get_path(file);
 		g_object_unref (file);
 		g_return_if_fail (filename != NULL);
-		ba_plugin->current_editor_filename = filename;
+		ba_plugin->current_editor_filename = anjuta_util_get_real_path (filename);
+		g_free (filename);
 		update_module_ui (ba_plugin);
 	}
 	g_idle_add (on_update_indicators_idle, plugin);
