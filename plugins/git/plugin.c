@@ -810,8 +810,6 @@ git_activate_plugin (AnjutaPlugin *plugin)
 									git_plugin->stash_widget_grip,
 									ANJUTA_SHELL_PLACEMENT_LEFT,
 									NULL);
-
-	git_plugin->command_queue = anjuta_command_queue_new ();
 	
 	/* Add watches */
 	git_plugin->project_root_watch_id = anjuta_plugin_add_watch (plugin,
@@ -876,7 +874,7 @@ git_deactivate_plugin (AnjutaPlugin *plugin)
 	g_free (git_plugin->project_root_directory);
 	g_free (git_plugin->current_editor_filename);
 	g_free (git_plugin->current_fm_filename);
-	g_object_unref (git_plugin->command_queue);
+	
 	
 	anjuta_shell_remove_widget (plugin->shell, git_plugin->log_viewer, NULL);
 	anjuta_shell_remove_widget (plugin->shell, git_plugin->stash_widget, NULL);
@@ -888,7 +886,12 @@ git_deactivate_plugin (AnjutaPlugin *plugin)
 static void
 git_finalize (GObject *obj)
 {
-	/* Finalization codes here */
+	Git *git_plugin;
+
+	git_plugin = ANJUTA_PLUGIN_GIT (obj);
+
+	g_object_unref (git_plugin->command_queue);
+	
 	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
@@ -904,6 +907,8 @@ git_instance_init (GObject *obj)
 {
 	Git *plugin = ANJUTA_PLUGIN_GIT (obj);
 	plugin->uiid = 0;
+
+	plugin->command_queue = anjuta_command_queue_new ();
 }
 
 static void
