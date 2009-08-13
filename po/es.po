@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2009-08-10 08:03+0000\n"
-"PO-Revision-Date: 2009-08-10 20:00+0200\n"
+"POT-Creation-Date: 2009-08-11 17:07+0000\n"
+"PO-Revision-Date: 2009-08-13 16:00+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -512,7 +512,7 @@ msgstr ""
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "No se puede ejecutar el comando: %s (usando shell %s)\n"
 
-#: ../libanjuta/anjuta-utils.c:1692
+#: ../libanjuta/anjuta-utils.c:1690
 msgid ""
 "Unable to display help. Please make sure Anjuta documentation package is "
 "install. It can be downloaded from http://anjuta.org"
@@ -520,7 +520,7 @@ msgstr ""
 "No se puede mostrar la ayuda. Asegúrese de que el paquete de documentación "
 "de Anjuta está instalado. Puede ser descargado desde http://anjuta.org"
 
-#: ../libanjuta/anjuta-utils.c:2131
+#: ../libanjuta/anjuta-utils.c:2129
 #, c-format
 msgid "Unable to load user interface file: %s"
 msgstr "No se pudo cargar el archivo de interfaz de usuario: %s"
@@ -1545,7 +1545,6 @@ msgstr "Efectuar cambios al árbol CVS"
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:76 ../plugins/cvs-plugin/plugin.c:135
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:54
-#: ../plugins/gdb/anjuta-gdb.glade.h:38
 msgid "_Update"
 msgstr "_Actualizar"
 
@@ -1644,23 +1643,19 @@ msgid "Address:"
 msgstr "Dirección:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:8
-#: ../plugins/gdb/anjuta-gdb.glade.h:2
 msgid "Attach to process"
 msgstr "Acoplar al proceso"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:9
-#: ../plugins/gdb/anjuta-gdb.glade.h:3
 msgid "Breakpoint properties"
 msgstr "Propiedades de los puntos de parada"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:10
 #: ../plugins/debug-manager/breakpoints.c:1980
-#: ../plugins/gdb/anjuta-gdb.glade.h:4
 msgid "Breakpoints"
 msgstr "Puntos de parada"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:11
-#: ../plugins/gdb/anjuta-gdb.glade.h:5
 msgid "CPU Registers"
 msgstr "Registros CPU"
 
@@ -1673,17 +1668,14 @@ msgid "Connect to remote target"
 msgstr "Conectar con objetivo remoto"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:14
-#: ../plugins/gdb/anjuta-gdb.glade.h:7
 msgid "Debugger command"
 msgstr "Comando del depurador"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:15
-#: ../plugins/gdb/anjuta-gdb.glade.h:8
 msgid "Debugger command:"
 msgstr "Comando del depurador:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:16
-#: ../plugins/gdb/anjuta-gdb.glade.h:9
 #: ../plugins/project-wizard/templates/translatable-strings.h:33
 msgid "Description:"
 msgstr "Descripción:"
@@ -1693,7 +1685,6 @@ msgid "Disable"
 msgstr "Desactivar"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:18
-#: ../plugins/gdb/anjuta-gdb.glade.h:10
 msgid "Display process _tree"
 msgstr "Mostrar _árbol de procesos"
 
@@ -1702,7 +1693,6 @@ msgid "Do not show again"
 msgstr "No mostrar de nuevo"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:20
-#: ../plugins/gdb/anjuta-gdb.glade.h:11
 msgid "Enable _all"
 msgstr "Activar _todos"
 
@@ -1711,12 +1701,10 @@ msgid "Enter an address in hexadecimal or select one in the data"
 msgstr "Introduzca una dirección hexadecimal o seleccione una en los datos"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:22
-#: ../plugins/gdb/anjuta-gdb.glade.h:14
 msgid "Hide process para_meters"
 msgstr "Ocultar pará_metros del proceso"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:23
-#: ../plugins/gdb/anjuta-gdb.glade.h:15
 msgid "Inspect"
 msgstr "Inspeccionar"
 
@@ -1726,23 +1714,21 @@ msgstr "Inspeccionar/Evaluar"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:25
 #: ../plugins/debug-manager/plugin.c:945
-#: ../plugins/debug-manager/plugin.c:1045 ../plugins/gdb/anjuta-gdb.glade.h:16
+#: ../plugins/debug-manager/plugin.c:1045
 msgid "Kernel Signals"
 msgstr "Señales del núcleo"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:26
 #: ../plugins/debug-manager/breakpoints.c:1907
-#: ../plugins/gdb/anjuta-gdb.glade.h:17
 msgid "Location"
 msgstr "Ubicación"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:27
-#: ../plugins/debug-manager/memory.c:180 ../plugins/gdb/anjuta-gdb.glade.h:18
+#: ../plugins/debug-manager/memory.c:180
 msgid "Memory"
 msgstr "Memoria"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:28
-#: ../plugins/gdb/anjuta-gdb.glade.h:19
 msgid "Pass:"
 msgstr "Pasar:"
 
@@ -1751,17 +1737,14 @@ msgid "Port:"
 msgstr "Puerto:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:30
-#: ../plugins/gdb/anjuta-gdb.glade.h:20
 msgid "Print:"
 msgstr "Imprimir:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:31
-#: ../plugins/gdb/anjuta-gdb.glade.h:21
 msgid "Program Interrupt"
 msgstr "Interrupción del programa"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:32
-#: ../plugins/gdb/anjuta-gdb.glade.h:23
 msgid "SIGINT"
 msgstr "SIGINT"
 
@@ -1774,23 +1757,19 @@ msgid "Serial Line Connection"
 msgstr "Conexión serie"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:35
-#: ../plugins/gdb/anjuta-gdb.glade.h:24
 msgid "Set Signal Property"
 msgstr "Propiedades de la señal"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:36
 #: ../plugins/debug-manager/sharedlib.c:214
-#: ../plugins/gdb/anjuta-gdb.glade.h:25
 msgid "Shared libraries"
 msgstr "Bibliotecas compartidas"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:37
-#: ../plugins/gdb/anjuta-gdb.glade.h:26
 msgid "Signal:"
 msgstr "Señal:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:38
-#: ../plugins/gdb/anjuta-gdb.glade.h:27
 msgid "Source Directories"
 msgstr "Directorios de fuentes"
 
@@ -1799,7 +1778,6 @@ msgid "Start Debugger"
 msgstr "Iniciar el depurador"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:40
-#: ../plugins/gdb/anjuta-gdb.glade.h:28
 msgid "Stop:"
 msgstr "Detener:"
 
@@ -1808,13 +1786,11 @@ msgid "TCP/IP Connection"
 msgstr "Conexión TCP/IP"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:42
-#: ../plugins/gdb/anjuta-gdb.glade.h:29
 #: ../plugins/project-wizard/property.c:286
 msgid "Yes"
 msgstr "Sí"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:43
-#: ../plugins/gdb/anjuta-gdb.glade.h:30
 msgid "_Attach"
 msgstr "_Acoplar"
 
@@ -1823,22 +1799,18 @@ msgid "_Automatic update"
 msgstr "_Autoactualizar"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:45
-#: ../plugins/gdb/anjuta-gdb.glade.h:31
 msgid "_Condition:"
 msgstr "_Condición:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:46
-#: ../plugins/gdb/anjuta-gdb.glade.h:32
 msgid "_Disable all"
 msgstr "_Desactivar todos"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:47
-#: ../plugins/gdb/anjuta-gdb.glade.h:33
 msgid "_Hide paths"
 msgstr "_Ocultar rutas"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:48
-#: ../plugins/gdb/anjuta-gdb.glade.h:34
 msgid "_Location:"
 msgstr "_Ubicación:"
 
@@ -1852,12 +1824,10 @@ msgid "_Pass count:"
 msgstr "Conteo de _pasadas:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:52
-#: ../plugins/gdb/anjuta-gdb.glade.h:36
 msgid "_Process to attach to:"
 msgstr "_Proceso al que acoplarse:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:53
-#: ../plugins/gdb/anjuta-gdb.glade.h:37
 msgid "_Remove all"
 msgstr "Elimina_r todo"
 
@@ -4172,30 +4142,6 @@ msgstr "No se pudo eliminar el código"
 msgid "Includes:"
 msgstr "Inclusiones:"
 
-#: ../plugins/gdb/anjuta-gdb.glade.h:1
-msgid "*"
-msgstr "*"
-
-#: ../plugins/gdb/anjuta-gdb.glade.h:6
-msgid "Command Line Parameters"
-msgstr "Parámetros de la línea de comandos"
-
-#: ../plugins/gdb/anjuta-gdb.glade.h:12
-msgid "Enter a Hexa adress or select one in the data"
-msgstr "Introduzca una dirección hex. o seleccione una en los datos"
-
-#: ../plugins/gdb/anjuta-gdb.glade.h:13
-msgid "Execute Program"
-msgstr "Ejecutar el programa"
-
-#: ../plugins/gdb/anjuta-gdb.glade.h:22
-msgid "Run in Terminal"
-msgstr "Ejecutar en un terminal"
-
-#: ../plugins/gdb/anjuta-gdb.glade.h:35
-msgid "_Pass:"
-msgstr "_Pasada:"
-
 #. The %s argument is a program name, anjuta by example
 #: ../plugins/gdb/debugger.c:691
 #, c-format
@@ -4604,7 +4550,7 @@ msgstr "Mezclado"
 msgid "Mode:"
 msgstr "Modo:"
 
-#: ../plugins/git/anjuta-git.ui.h:69
+#: ../plugins/git/anjuta-git.ui.h:69 ../plugins/glade/plugin.c:3087
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:10
 #: ../plugins/subversion/anjuta-subversion.ui.h:23
 msgid "Options"
@@ -5074,7 +5020,6 @@ msgstr "_Git"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:79
-#| msgid "Changes:"
 msgid "_Changes"
 msgstr "_Cambios"
 
@@ -5147,7 +5092,6 @@ msgstr "Ver el histórico de cambios"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:135
-#| msgid "_Initialize repository"
 msgid "_Remote repository"
 msgstr "Repositorio _remoto"
 
@@ -5190,7 +5134,6 @@ msgstr "Actualizar las ramas remotas"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:167
-#| msgid "Files"
 msgid "_Files"
 msgstr "_Archivos"
 
@@ -5519,7 +5462,6 @@ msgstr "Borrar etiquetas"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:415
-#| msgid "_Reset"
 msgid "_Reset/Revert"
 msgstr "_Restablecer/revertir"
 
@@ -5744,10 +5686,11 @@ msgid "Automatically add resources"
 msgstr "Añadir recursos automáticamente"
 
 #: ../plugins/glade/anjuta-glade.glade.h:6 ../plugins/glade/plugin.c:755
+#: ../plugins/glade/plugin.c:3084
 msgid "Designer"
 msgstr "Diseñador"
 
-#: ../plugins/glade/anjuta-glade.glade.h:7
+#: ../plugins/glade/anjuta-glade.glade.h:7 ../plugins/glade/plugin.c:3086
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:3
 msgid "Editor"
 msgstr "Editor"
@@ -5827,6 +5770,29 @@ msgstr ""
 msgid "Failed to save associations"
 msgstr "Falló al guardar las asociaciones"
 
+#. iptCurrent:
+#: ../plugins/glade/plugin.c:1188
+#| msgid "Current Block"
+msgid "Current"
+msgstr "Actual"
+
+#. iptBeforeEnd:
+#: ../plugins/glade/plugin.c:1189
+#| msgid "Restore index"
+msgid "Before end"
+msgstr "Antes del final"
+
+#. iptAfterBegin:
+#: ../plugins/glade/plugin.c:1190
+msgid "After begin"
+msgstr "Después del principio"
+
+#. ipEOF:
+#: ../plugins/glade/plugin.c:1191
+#| msgid "_End of Block"
+msgid "End of file"
+msgstr "Final del archivo"
+
 #: ../plugins/glade/plugin.c:1360
 #, c-format
 msgid "Couldn't introspect the signal"
@@ -5876,6 +5842,11 @@ msgstr ""
 "Para evitar estos mensajes desactive la opción «Insertar manejador al editar» "
 "en Preferencias->Diseñador de IGU Glade"
 
+#: ../plugins/glade/plugin.c:2314
+#| msgid "Couldn't find a signal information"
+msgid "Couldn't find an associated document"
+msgstr "No se pudo encontrar una documento asociado"
+
 #: ../plugins/glade/plugin.c:2380
 msgid "Those documents are already associated"
 msgstr "Esos documentos ya están asociados"
@@ -5884,6 +5855,11 @@ msgstr "Esos documentos ya están asociados"
 #, c-format
 msgid "Unable to read file: %s."
 msgstr "No se puede leer el archivo: %s."
+
+#: ../plugins/glade/plugin.c:3085
+#| msgid "Top level git menu item"
+msgid "Top level widget"
+msgstr "Widget de nivel superior"
 
 #: ../plugins/glade/plugin.c:3676
 msgid "Couldn't find a default signal name"
@@ -9623,6 +9599,12 @@ msgstr "Sólo texto"
 msgid "Toolbar button labels:"
 msgstr "Etiquetas de los botones de la barra de herramientas:"
 
+#: ../plugins/debug-manager/anjuta-debug-manager.schemas.in.h:1
+msgid "Do not display warning if not using a Debug configuration"
+msgstr ""
+"No mostrar la advertencia si no se está usando una configuración de "
+"depuración"
+
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:1
 msgid "Add '(' after function call autocompletion"
 msgstr "Añadir «(» después de la llamada de autocompletado de la función"
@@ -9950,6 +9932,24 @@ msgstr "Backend de autotools"
 #: ../plugins/gbf-am/gbf-am.plugin.in.h:2
 msgid "Autotools backend for project manager"
 msgstr "Backend de autotools para el gestor de proyectos"
+
+#~ msgid "*"
+#~ msgstr "*"
+
+#~ msgid "Command Line Parameters"
+#~ msgstr "Parámetros de la línea de comandos"
+
+#~ msgid "Enter a Hexa adress or select one in the data"
+#~ msgstr "Introduzca una dirección hex. o seleccione una en los datos"
+
+#~ msgid "Execute Program"
+#~ msgstr "Ejecutar el programa"
+
+#~ msgid "Run in Terminal"
+#~ msgstr "Ejecutar en un terminal"
+
+#~ msgid "_Pass:"
+#~ msgstr "_Pasada:"
 
 #~ msgid "Ctags executable:"
 #~ msgstr "Ctags ejecutables:"
