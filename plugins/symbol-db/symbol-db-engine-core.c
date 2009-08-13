@@ -1,8 +1,11 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * anjuta
- * Copyright (C) Massimo Cora' 2007-2008 <maxcvs@email.it>
+ * Copyright (C) Massimo Cora' 2007-2009 <maxcvs@email.it>
  * 
+ * Some code from IComplete of Martin Stubenschrott <stubenschrott@gmx.net>
+ * has been used here.
+ *
  * anjuta is free software.
  * 
  * You may redistribute it and/or modify it under the terms of the
@@ -23,8 +26,7 @@
  */
 
 /*
-
-interesting queries:
+Interesting queries:
 
 ------------------------
 * get all namespaces.
@@ -50,7 +52,6 @@ select * from symbol where scope_id = (select scope_definition_id from symbol jo
 	sym_type on symbol.type_id = sym_type.type_id where symbol.name = 
 	"First" and sym_type.type_type = "namespace");
 
-
 ------------------------
 * get a symbol by its name and type. In this case we want to search for the
   class Fourth_2_class
@@ -68,8 +69,8 @@ sqlite> select * from symbol join sym_kind on symbol.kind_id = sym_kind.sym_kind
 183|13|Fourth_2_class|52|0||140|137|175|8|-1|-1|0|8|class|137|Fourth|172|172|namespace|Fourth
 
 * OR * 
-		
-= get the *derived symbol*
+------------------------		
+* get the *derived symbol*
 select * from symbol 
 	join sym_kind on symbol.kind_id = sym_kind.sym_kind_id 
 	where symbol.name = "Fourth_2_class" 
@@ -79,7 +80,8 @@ select * from symbol
 									where sym_type.type = 'namespace' 
 										and sym_type.type_name = 'Fourth');
 
-query that get the symbol's parent classes
+------------------------
+* query that get the symbol's parent classes
 
 select symbol_id_base, symbol.name from heritage 
 	join symbol on heritage.symbol_id_base = symbol.symbol_id 
@@ -96,7 +98,6 @@ select symbol_id_base, symbol.name from heritage
 					)
 		);
 
-
 182|Fourth_1_class
 
 */
@@ -109,6 +110,7 @@ select symbol_id_base, symbol.name from heritage
 #include <signal.h>
 #include <fcntl.h>           /* For O_* constants */
 #include <string.h>
+#include <regex.h>
 
 #include <gio/gio.h>
 #include <libanjuta/interfaces/ianjuta-symbol.h>
@@ -3723,10 +3725,30 @@ symbol_db_engine_add_new_files_full (SymbolDBEngine * dbe,
 	return ret_id;
 }
 
-/* FIXME */
-/* IComplete code */
-#include <regex.h>
-char* extract_type_qualifier(const char *string, const char *expr )
+
+/**
+ * We'll use the GNU regular expressions instead of the glib's GRegex ones because
+ * the latters are a wrapper of pcre (www.pcre.org) that don't implement the 
+ * \< (begin of word)) and \> (end of word) boundaries.
+ * Since the regex used here is something complex to reproduce on GRegex 
+ * I don't see any reason to reinvent the (already) working wheel.
+ * I didn't find a valuable replacement for \< and \> neither on 
+ * http://www.regular-expressions.info/wordboundaries.html nor elsewhere.
+ * But if some regex geek thinks I'm wrong I'll be glad to see his solution.
+ *
+ * @return NULL on error.
+ */
+#define RX_STRING      "\\\".*\\\""
+#define RX_BRACKETEXPR "\\{.*\\}"
+#define RX_IDENT       "[a-zA-Z_][a-zA-Z0-9_]*"
+#define RX_WS          "[ \t\n]*"
+#define RX_PTR         "[\\*&]?\\*?"
+#define RX_INITIALIZER "=(" RX_WS RX_IDENT RX_WS ")|=(" RX_WS RX_STRING RX_WS \
+						")|=(" RX_WS RX_BRACKETEXPR RX_WS ")" RX_WS
+#define RX_ARRAY 	   RX_WS "\\[" RX_WS "[0-9]*" RX_WS "\\]" RX_WS
+
+static gchar* 
+sdb_engine_extract_type_qualifier (const gchar *string, const gchar *expr)
 {
 	/* check with a regular expression for the type */
 	regex_t re;
@@ -3746,26 +3768,20 @@ char* extract_type_qualifier(const char *string, const char *expr )
 	 * in 2 lines does not work, because //-comments would often bring wrong results
 	 */
 
-#define STRING      "\\\".*\\\""
-#define BRACKETEXPR "\\{.*\\}"
-#define IDENT       "[a-zA-Z_][a-zA-Z0-9_]*"
-#define WS          "[ \t\n]*"
-#define PTR         "[\\*&]?\\*?"
-#define INITIALIZER "=(" WS IDENT WS ")|=(" WS STRING WS ")|=(" WS BRACKETEXPR WS ")" WS
-#define ARRAY 		WS "\\[" WS "[0-9]*" WS "\\]" WS
-
-	char *res = NULL;
+	gchar *res = NULL;
 	static char pattern[512] =
-		"(" IDENT "\\>)" 	// the 'std' in example a)
-		"(::" IDENT ")*"	// ::vector
-		"(" WS "<[^>;]*>)?"	// <char *>
-		"(" WS PTR WS IDENT WS "(" ARRAY ")*" "(" INITIALIZER ")?," WS ")*" // other variables for the same ident (string i,j,k;)
-		"[ \t\\*&]*";		// check again for pointer/reference type
+		"(" RX_IDENT "\\>)" 	/* the 'std' in example a) */
+		"(::" RX_IDENT ")*"	/* ::vector */
+		"(" RX_WS "<[^>;]*>)?"	/* <char *> */
+		/* other variables for the same ident (string i,j,k;) */
+		"(" RX_WS RX_PTR RX_WS RX_IDENT RX_WS "(" RX_ARRAY ")*" "(" RX_INITIALIZER ")?," RX_WS ")*" 
+		"[ \t\\*&]*";		/* check again for pointer/reference type */
 
 	/* must add a 'termination' symbol to the regexp, otherwise
-	 * 'exp' would match 'expr' */
-	char regexp[512];
-	snprintf(regexp, 512, "%s\\<%s\\>", pattern, expr);
+	 * 'exp' would match 'expr' 
+	 */
+	gchar regexp[512];
+	g_snprintf (regexp, sizeof (regexp), "%s\\<%s\\>", pattern, expr);
 
 	/* compile regular expression */
 	int error = regcomp (&re, regexp, REG_EXTENDED) ;
@@ -3774,14 +3790,18 @@ char* extract_type_qualifier(const char *string, const char *expr )
 
 	/* this call to regexec finds the first match on the line */
 	error = regexec (&re, string, 8, &pm[0], 0) ;
-	while (error == 0) /* while matches found */
+
+	/* while matches found */
+	while (error == 0) 
 	{   
 		/* subString found between pm.rm_so and pm.rm_eo */
-		/* only include the ::vector part in the indentifier, if the second subpattern matches at all */
+		/* only include the ::vector part in the indentifier, if the second 
+		 * subpattern matches at all 
+		 */
 		int len = (pm[2].rm_so != -1 ? pm[2].rm_eo : pm[1].rm_eo) - pm[1].rm_so;
 		if (res)
 			free (res);
-		res = (char*) malloc (len + 1);
+		res = (gchar*) g_malloc0 (len + 1);
 		if (!res)
 		{
 			regfree (&re);
@@ -3796,9 +3816,6 @@ char* extract_type_qualifier(const char *string, const char *expr )
 	}
 	regfree(&re);
 
-	/* we if the proposed type is a keyword, we did something wrong, return NULL instead */
-/*    static char *keywords[] = { "if", "else", "goto", "for", "do", "while", "const", "static", "volatile",*/
-/*        "register", "break", "continue", "return", "switch", "case", "new", "typedef", "inline"};*/
 	return res;
 }
 
@@ -3834,7 +3851,8 @@ sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 	    g_strcmp0 (type, "variable") == 0 || 
 	    g_strcmp0 (type, "field"))
 	{
-		type_regex = extract_type_qualifier (tag_entry->address.pattern, tag_entry->name);
+		type_regex = sdb_engine_extract_type_qualifier (tag_entry->address.pattern, 
+		                                                tag_entry->name);
 		type_name = type_regex;
 	}
 	else 
