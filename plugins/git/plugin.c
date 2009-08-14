@@ -649,8 +649,10 @@ on_project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	AnjutaUI *ui;
 	GtkAction *git_fm_menu_action;
 	Git *git_plugin;
+	AnjutaStatus *status;
 	
 	git_plugin = ANJUTA_PLUGIN_GIT (plugin);
+	status = anjuta_shell_get_status (plugin->shell, NULL);
 	
 	g_free (git_plugin->project_root_directory);
 	git_plugin->project_root_directory = NULL;
@@ -669,6 +671,7 @@ on_project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 
 	git_log_window_clear (git_plugin);
 	git_stash_widget_clear (git_plugin);
+	anjuta_status_set_default (status, _("Branch"), NULL);
 	
 	g_file_monitor_cancel (git_plugin->bisect_file_monitor);
 	g_file_monitor_cancel (git_plugin->log_branch_refresh_monitor);
