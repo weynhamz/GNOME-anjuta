@@ -73,28 +73,31 @@ static void
 on_delete_branch_dialog_response (GtkDialog *dialog, gint response_id, 
 								  GitUIData *data)
 {
+	GtkWidget *delete_branch_remote_toggle;
 	GtkWidget *delete_branch_view;
 	GtkWidget *require_merged_check;
-	GtkTreeModel *branch_list_model;
+	GtkTreeModel *model;
 	GList *selected_branches;
 	GitBranchDeleteCommand *delete_command;
 	
 	if (response_id == GTK_RESPONSE_OK)
 	{	
+		delete_branch_remote_toggle = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+		                                                                  "delete_branch_remote_toggle"));
 		delete_branch_view = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
 		                                                         "delete_branch_view"));
 		require_merged_check = GTK_WIDGET (gtk_builder_get_object (data->bxml,
 																   "require_merged_check"));
-		branch_list_model = GTK_TREE_MODEL (gtk_builder_get_object (data->bxml,
-		                                                             "branch_list_model"));
+		model = gtk_tree_view_get_model (GTK_TREE_VIEW (delete_branch_view));
 
 		selected_branches = NULL;
-		gtk_tree_model_foreach (branch_list_model, 
-								(GtkTreeModelForeachFunc) git_get_selected_refs,
-								&selected_branches);
+		gtk_tree_model_foreach (model, 
+		                        (GtkTreeModelForeachFunc) git_get_selected_refs,
+		                        &selected_branches);
 		
 		delete_command = git_branch_delete_command_new (data->plugin->project_root_directory,
 														selected_branches,
+		                                                gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (delete_branch_remote_toggle)),
 														gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (require_merged_check)));
 		
 		git_command_free_string_list (selected_branches);
@@ -117,17 +120,50 @@ on_delete_branch_dialog_response (GtkDialog *dialog, gint response_id,
 }
 
 static void
+on_branch_type_toggle_toggled (GtkToggleButton *toggle_button,
+                               GitUIData *data)
+{
+	GtkWidget *delete_branch_view;
+	GtkTreeModel *old_model;
+	GtkTreeModel *new_model;
+	GtkCellRenderer *delete_branch_selected_renderer;
+
+	delete_branch_view = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
+	                                                         "delete_branch_view"));
+	old_model = gtk_tree_view_get_model (GTK_TREE_VIEW (delete_branch_view));
+	new_model = g_object_get_data (G_OBJECT (toggle_button), "model");
+	delete_branch_selected_renderer = GTK_CELL_RENDERER (gtk_builder_get_object (data->bxml,
+																				 "delete_branch_selected_renderer"));
+	/* Disconnect the toggled signal on the cell render and then reconnect it
+	 * with the new model */
+	g_signal_handlers_disconnect_by_func (delete_branch_selected_renderer,
+	                                      on_git_selected_column_toggled,
+	                                      old_model);
+
+	gtk_tree_view_set_model (GTK_TREE_VIEW (delete_branch_view), new_model);
+
+	g_signal_connect (G_OBJECT (delete_branch_selected_renderer), "toggled",
+	                  G_CALLBACK (on_git_selected_column_toggled),
+	                  new_model);
+}
+
+static void
 delete_branch_dialog (Git *plugin)
 {
 	GtkBuilder *bxml;
-	gchar *objects[] = {"delete_branch_dialog", "branch_list_model", NULL};
+	gchar *objects[] = {"delete_branch_dialog", "branch_list_model",
+						"remote_branch_list_model", NULL};
 	GError *error;
 	GtkWidget *dialog;
+	GtkWidget *delete_branch_local_toggle;
+	GtkWidget *delete_branch_remote_toggle;
 	GtkWidget *delete_branch_view;
 	GtkListStore *branch_list_model;
+	GtkListStore *remote_branch_list_model;
 	GtkCellRenderer *delete_branch_selected_renderer;
 	GitUIData *data;
-	GitBranchListCommand *list_command;
+	GitBranchListCommand *local_list_command;
+	GitBranchListCommand *remote_list_command;
 	
 	bxml = gtk_builder_new ();
 	error = NULL;
@@ -140,26 +176,43 @@ delete_branch_dialog (Git *plugin)
 	}
 	
 	dialog = GTK_WIDGET (gtk_builder_get_object (bxml, "delete_branch_dialog"));
+	delete_branch_local_toggle = GTK_WIDGET (gtk_builder_get_object (bxml,
+	                                                                 "delete_branch_local_toggle"));
+	delete_branch_remote_toggle = GTK_WIDGET (gtk_builder_get_object (bxml,
+	                                                                  "delete_branch_remote_toggle"));
 	delete_branch_view = GTK_WIDGET (gtk_builder_get_object (bxml, "delete_branch_view"));
 	branch_list_model = GTK_LIST_STORE (gtk_builder_get_object (bxml, 
 	                                                            "branch_list_model"));
+	remote_branch_list_model = GTK_LIST_STORE (gtk_builder_get_object (bxml,
+	                                                                   "remote_branch_list_model"));
 	delete_branch_selected_renderer = GTK_CELL_RENDERER (gtk_builder_get_object (bxml,
-																				 "delete_branch_selected_renderer")),
+																				 "delete_branch_selected_renderer"));
 	
 	data = git_ui_data_new (plugin, bxml);
-	                                     
-	list_command = git_branch_list_command_new (plugin->project_root_directory,
-												GIT_BRANCH_TYPE_LOCAL);
+
+	local_list_command = git_branch_list_command_new (plugin->project_root_directory,
+	                                                  GIT_BRANCH_TYPE_LOCAL);
+	remote_list_command = git_branch_list_command_new (plugin->project_root_directory,
+	                                                   GIT_BRANCH_TYPE_REMOTE);
 	
-	g_signal_connect (G_OBJECT (list_command), "data-arrived", 
+	g_signal_connect (G_OBJECT (local_list_command), "data-arrived", 
 					  G_CALLBACK (on_list_branch_command_data_arrived), 
 					  branch_list_model);
 	
-	g_signal_connect (G_OBJECT (list_command), "command-finished", 
+	g_signal_connect (G_OBJECT (local_list_command), "command-finished", 
+					  G_CALLBACK (on_git_command_finished), 
+					  NULL);
+
+	g_signal_connect (G_OBJECT (remote_list_command), "data-arrived", 
+					  G_CALLBACK (on_list_branch_command_data_arrived), 
+					  remote_branch_list_model);
+	
+	g_signal_connect (G_OBJECT (remote_list_command), "command-finished", 
 					  G_CALLBACK (on_git_command_finished), 
 					  NULL);
 	
-	anjuta_command_start (ANJUTA_COMMAND (list_command));
+	anjuta_command_start (ANJUTA_COMMAND (local_list_command));
+	anjuta_command_start (ANJUTA_COMMAND (remote_list_command));
 	
 	g_signal_connect (G_OBJECT (dialog), "response", 
 					  G_CALLBACK (on_delete_branch_dialog_response), 
@@ -168,6 +221,19 @@ delete_branch_dialog (Git *plugin)
 	g_signal_connect (G_OBJECT (delete_branch_selected_renderer), "toggled",
 					  G_CALLBACK (on_git_selected_column_toggled),
 					  branch_list_model);
+
+	g_object_set_data (G_OBJECT (delete_branch_local_toggle), "model", 
+	                   branch_list_model);
+	g_object_set_data (G_OBJECT (delete_branch_remote_toggle), "model",
+	                   remote_branch_list_model);
+
+	g_signal_connect (G_OBJECT (delete_branch_local_toggle), "toggled",
+	                  G_CALLBACK (on_branch_type_toggle_toggled),
+	                  data);
+
+	g_signal_connect (G_OBJECT (delete_branch_remote_toggle), "toggled",
+	                  G_CALLBACK (on_branch_type_toggle_toggled),
+	                  data);
 	
 	gtk_widget_show_all (dialog);
 }
