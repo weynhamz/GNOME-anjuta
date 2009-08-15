@@ -79,6 +79,7 @@ on_delete_branch_dialog_response (GtkDialog *dialog, gint response_id,
 	GtkTreeModel *model;
 	GList *selected_branches;
 	GitBranchDeleteCommand *delete_command;
+	GtkWidget *error_dialog;
 	
 	if (response_id == GTK_RESPONSE_OK)
 	{	
@@ -94,6 +95,23 @@ on_delete_branch_dialog_response (GtkDialog *dialog, gint response_id,
 		gtk_tree_model_foreach (model, 
 		                        (GtkTreeModelForeachFunc) git_get_selected_refs,
 		                        &selected_branches);
+
+		if (!selected_branches)
+		{
+			error_dialog = gtk_message_dialog_new (GTK_WINDOW (dialog),
+			                                       GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+			                                       GTK_MESSAGE_WARNING,
+			                                       GTK_BUTTONS_CLOSE,
+			                                       "%s",
+			                                       _("Please select branches to delete"));
+
+			gtk_dialog_run (GTK_DIALOG (error_dialog));
+			gtk_widget_destroy (error_dialog);
+
+			return;
+			                                 
+		}
+		                      
 		
 		delete_command = git_branch_delete_command_new (data->plugin->project_root_directory,
 														selected_branches,
