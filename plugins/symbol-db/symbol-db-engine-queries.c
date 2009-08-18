@@ -2751,7 +2751,7 @@ symbol_db_engine_find_symbol_in_scope (SymbolDBEngine *dbe,
 	MP_SET_HOLDER_BATCH_INT(priv, param, container_symbol_id, ret_bool, ret_value);
 	
 	
-	/* DEBUG_PRINT ("query: %s", dyn_node->query_str); */
+	DEBUG_PRINT ("query: %s", dyn_node->query_str);
 
 	/* execute the query with parametes just set */
 	data = gda_connection_statement_execute_select (priv->db_connection, 

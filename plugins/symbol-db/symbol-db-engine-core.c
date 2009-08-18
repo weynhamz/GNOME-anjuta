@@ -3849,14 +3849,20 @@ sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 	
 	if (g_strcmp0 (type, "member") == 0 || 
 	    g_strcmp0 (type, "variable") == 0 || 
-	    g_strcmp0 (type, "field"))
+	    g_strcmp0 (type, "field") == 0)
 	{
 		type_regex = sdb_engine_extract_type_qualifier (tag_entry->address.pattern, 
 		                                                tag_entry->name);
+		DEBUG_PRINT ("type_regex for %s [kind %s] is %s", tag_entry->name, 
+		             tag_entry->kind, type_regex);
 		type_name = type_regex;
+
+		/* if the extractor failed we should fallback to the default one */
+		if (type_name == NULL)
+			type_name = tag_entry->name;
 	}
 	else 
-	{		
+	{
 		type_name = tag_entry->name;
 	}
 	
