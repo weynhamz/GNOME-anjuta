@@ -1830,10 +1830,11 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 	if (priv->shared_mem_file == 0)
 	{
 		gchar *temp_file;
+		gint i = 0;
 		while (TRUE)
 		{
-			temp_file = g_strdup_printf ("/anjuta-%d_%ld.tags", getpid (),
-								 time (NULL));
+			temp_file = g_strdup_printf ("/anjuta-%d_%ld%d.tags", getpid (),
+								 time (NULL), i++);
 			gchar *test;
 			test = g_strconcat (SHARED_MEMORY_PREFIX, temp_file, NULL);
 			if (g_file_test (test, G_FILE_TEST_EXISTS) == TRUE)
