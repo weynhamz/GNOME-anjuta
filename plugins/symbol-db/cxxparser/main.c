@@ -32,6 +32,13 @@
 #define ANJUTA_TAGS "anjuta-tags"
 
 
+#define DBI_TEST_NAME(dbi, pos, name) { \
+	symbol_db_engine_iterator_set_position (dbi, pos); \
+	SymbolDBEngineIteratorNode *node = SYMBOL_DB_ENGINE_ITERATOR_NODE (dbi); \
+	const gchar *orig = symbol_db_engine_iterator_node_get_symbol_name (node); \
+	g_assert_cmpstr (orig, ==, name); \
+}
+
 
 /* source_file must be provided without extension */
 #define INIT_C_TEST(source_file,callback) { \
@@ -54,6 +61,38 @@
 	engine_parser_init (dbe);	\
 }
 
+static SymbolDBEngineIterator * 
+get_children_by_iterator (SymbolDBEngine *dbe, SymbolDBEngineIterator * iter)
+{
+
+	SymbolDBEngineIteratorNode *node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iter);
+	if (node != NULL)
+	{
+		g_print ("parent id is %d\n",
+		         symbol_db_engine_iterator_node_get_symbol_id (node));
+	}
+	
+	// print the scope members
+	SymbolDBEngineIterator * children = 
+		symbol_db_engine_get_scope_members_by_symbol_id (dbe, 
+			symbol_db_engine_iterator_node_get_symbol_id (node), 
+			-1,
+			-1,
+			SYMINFO_SIMPLE);
+	
+	if (children != NULL)
+	{
+		g_print ("scope children are:\n");
+		do {
+			SymbolDBEngineIteratorNode *child = 
+				SYMBOL_DB_ENGINE_ITERATOR_NODE (children);
+			g_print ("SymbolDBEngine: Searched var got name: %s\n",
+				symbol_db_engine_iterator_node_get_symbol_name (child));
+		}while (symbol_db_engine_iterator_move_next (children) == TRUE);						
+	}
+
+	return children;
+}
 
 /******************************************************************************/
 static void 
@@ -61,12 +100,28 @@ on_test_complex_struct_scan_end (SymbolDBEngine* dbe, gpointer user_data)
 {	
 	gchar *associated_source_file = SAMPLE_DB_ABS_PATH"test-complex-struct.c";	
 	gchar *file_content;
+	SymbolDBEngineIterator *iter;
+	SymbolDBEngineIterator *children;
+	
 	g_file_get_contents (associated_source_file, &file_content, NULL, NULL);
 
-	engine_parser_process_expression ("((_foo*)var)->asd_struct->", file_content, 
-	    associated_source_file, 18);
+	iter = engine_parser_process_expression ("((_foo*)var)->asd_struct->", 
+	                                         file_content, 
+	    									 associated_source_file, 
+	                                         18);
 
 	g_free (file_content);
+
+	/* process the reult */
+	g_assert (iter != NULL);
+
+	children = get_children_by_iterator (dbe, iter);
+	
+	DBI_TEST_NAME (children, 0, "a");
+	DBI_TEST_NAME (children, 1, "b");
+
+	g_object_unref (iter);
+	g_object_unref (children);	
 }
 
 static void
@@ -82,12 +137,28 @@ on_test_cast_simple_struct_scan_end (SymbolDBEngine* dbe, gpointer user_data)
 	g_message ("dbe %p user data is %p", dbe, user_data);
 	gchar *associated_source_file = SAMPLE_DB_ABS_PATH"test-cast-simple-struct.c";	
 	gchar *file_content;
+	SymbolDBEngineIterator *iter;
+	SymbolDBEngineIterator *children;
+	
 	g_file_get_contents (associated_source_file, &file_content, NULL, NULL);
 
-	engine_parser_process_expression ("((_foo)var).", file_content, 
-	    associated_source_file, 15);
+	iter = engine_parser_process_expression ("((_foo)var).", 
+	                                         file_content, 
+	    									 associated_source_file, 
+	                                         15);
 
 	g_free (file_content);
+
+	/* process the reult */
+	g_assert (iter != NULL);
+
+	children = get_children_by_iterator (dbe, iter);
+	
+	DBI_TEST_NAME (children, 0, "c");
+	DBI_TEST_NAME (children, 1, "d");
+
+	g_object_unref (iter);
+	g_object_unref (children);	
 }
 
 static void
@@ -102,11 +173,27 @@ on_test_simple_struct_scan_end (SymbolDBEngine* dbe, gpointer user_data)
 {	
 	gchar *associated_source_file = SAMPLE_DB_ABS_PATH"test-simple-struct.c";	
 	gchar *file_content;
-	g_file_get_contents (associated_source_file, &file_content, NULL, NULL);
+	SymbolDBEngineIterator *iter;
+	SymbolDBEngineIterator *children;
 
-	engine_parser_process_expression ("var.", file_content, associated_source_file, 9);
+	g_file_get_contents (associated_source_file, &file_content, NULL, NULL);
+	
+	iter = engine_parser_process_expression ("var.", 
+	                                         file_content, associated_source_file, 
+	                                         9);
 
 	g_free (file_content);
+
+	/* process the reult */
+	g_assert (iter != NULL);
+
+	children = get_children_by_iterator (dbe, iter);
+	
+	DBI_TEST_NAME (children, 0, "a");
+	DBI_TEST_NAME (children, 1, "b");
+
+	g_object_unref (iter);
+	g_object_unref (children);
 }
 
 static void
@@ -123,7 +210,6 @@ test_simple_struct ()
 int	main (int argc, char *argv[])
 {
 	GMainLoop * main_loop;
-  	//gtk_init(&argc, &argv);
 
 	if ( !g_thread_supported() )
   		g_thread_init( NULL );	
@@ -135,8 +221,8 @@ int	main (int argc, char *argv[])
 
  	g_test_init (&argc, &argv, NULL);
 
-//	g_test_add_func ("/simple_c/test-simple-struct", test_simple_struct);
-//	g_test_add_func ("/simple_c/test-cast-simple-struct", test_cast_simple_struct);
+	g_test_add_func ("/simple_c/test-simple-struct", test_simple_struct);
+	g_test_add_func ("/simple_c/test-cast-simple-struct", test_cast_simple_struct);
 	g_test_add_func ("/complex_c/test-complex-struct", test_complex_struct);
 
 	g_test_run ();

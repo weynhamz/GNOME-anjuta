@@ -234,8 +234,6 @@ EngineParser::getTypeNameAndScopeByToken (ExpressionResult &result,
     									  string &out_type_name, 
     									  string &out_type_scope)
 {
-	// no tokens before this, what we need to do now, is find the TagEntry
-	// that corresponds to the result
 	if (result.m_isaType) 
 	{
 		cout << "*** Found a cast expression" << endl;
@@ -266,12 +264,12 @@ EngineParser::getTypeNameAndScopeByToken (ExpressionResult &result,
 		 * special handle for 'this' keyword
 		 */
 		out_type_scope = result.m_scope.empty() ? "" : result.m_scope.c_str();
-		// FIXME
-//		if (scope_name.empty ()) 
-//		{
-//			cout << "'this' can not be used in the global scope" << endl;
-//			return false;
-//		}
+
+		if (out_type_scope.empty ()) 
+		{
+			cout << "'this' can not be used in the global scope" << endl;
+			return false;
+		}
 		
 		if (op == "::") 
 		{
@@ -340,6 +338,10 @@ EngineParser::getTypeNameAndScopeByToken (ExpressionResult &result,
 	return false;
 }
 
+/**
+ * Find a searchable scope (or container) from a type_name and type_scope strings.
+ * This function should usually be used to determine first token's scope.
+ */
 SymbolDBEngineIterator *
 EngineParser::getCurrentSearchableScope (string &type_name, string &type_scope)
 {
@@ -366,16 +368,10 @@ EngineParser::getCurrentSearchableScope (string &type_name, string &type_scope)
 		if (g_strcmp0 (symbol_db_engine_iterator_node_get_symbol_extra_string (node,
 		    SYMINFO_KIND), "typedef") == 0)
 		{
-			cout << "it's a struct!" << endl;
-			int struct_id = symbol_db_engine_get_parent_scope_id_by_symbol_id (_dbe, 
-			    symbol_db_engine_iterator_node_get_symbol_id (node),
-			    NULL);
+			cout << "it's a typedef... trying to find the associated struct...!" << endl;
 
-			g_object_unref (curr_searchable_scope);
-			curr_searchable_scope = symbol_db_engine_get_symbol_info_by_id (_dbe,
-				    struct_id,
-				    (SymExtraInfo)(SYMINFO_SIMPLE | SYMINFO_KIND));
-
+			curr_searchable_scope = switchTypedefToStruct (SYMBOL_DB_ENGINE_ITERATOR (node));
+			
 			node = SYMBOL_DB_ENGINE_ITERATOR_NODE (curr_searchable_scope);
 			cout << "(NEW) Current Searchable Scope " <<
 				symbol_db_engine_iterator_node_get_symbol_name (node) << 					
@@ -397,7 +393,9 @@ EngineParser::getCurrentSearchableScope (string &type_name, string &type_scope)
  * 
  */
 SymbolDBEngineIterator *
-EngineParser::switchTypedefToStruct (SymbolDBEngineIterator * test)
+EngineParser::switchTypedefToStruct (SymbolDBEngineIterator * test,
+                         			 SymExtraInfo sym_info 
+                                     /*= (SymExtraInfo)(SYMINFO_SIMPLE | SYMINFO_KIND)*/)
 {
 	SymbolDBEngineIteratorNode *node = SYMBOL_DB_ENGINE_ITERATOR_NODE (test);	
 	SymbolDBEngineIterator *new_struct;
@@ -406,8 +404,7 @@ EngineParser::switchTypedefToStruct (SymbolDBEngineIterator * test)
 	cout << "Switching typedef to struct " << endl;
 	
 	new_struct = symbol_db_engine_get_parent_scope_by_symbol_id (_dbe,
-		    symbol_id, NULL, 
-		    (SymExtraInfo)(SYMINFO_SIMPLE | SYMINFO_KIND));
+		    symbol_id, NULL, sym_info);
 
 	if (new_struct != NULL)
 	{
@@ -456,6 +453,9 @@ EngineParser::switchMemberToContainer (SymbolDBEngineIterator * test)
 	return test;
 }
 
+/* FIXME TODO: error processing. Find out a way to notify the caller of the occurred 
+ * error. The "cout" method cannot be used
+ */
 SymbolDBEngineIterator *
 EngineParser::processExpression(const string& stmt, 
     							const string& above_text,
@@ -474,7 +474,7 @@ EngineParser::processExpression(const string& stmt,
 	/* get the fist one */
 	nextToken (current_token, op);		
 
-	cout << "--------\nFirst token \"" << current_token << "\" with op \"" << op 
+	cout << "--------" << endl << "First token \"" << current_token << "\" with op \"" << op 
 		 << "\"" << endl; 
 		
 	/* parse the current sub-expression of a statement and fill up 
@@ -527,27 +527,21 @@ EngineParser::processExpression(const string& stmt,
 		/* parse the current sub-expression of a statement and fill up 
 	 	 * ExpressionResult object
 	 	 */
-		result = parseExpression (current_token);		
-/*		
-		bool process_res = getTypeNameAndScopeByToken (result, 
-    										  current_token,
-    										  op,
-    										  full_file_path, 
-    										  linenum,
-    										  above_text,
-    										  type_name, 
-    										  type_scope);
-*/
+		result = parseExpression (current_token);
+		
 		if (process_res == false)
 		{
 			cout << "Well, you haven't much luck on the NEXT token, the NEXT token failed and then "  <<
 				"I cannot continue. " << endl;
+
+			if (curr_searchable_scope != NULL)
+				g_object_unref (curr_searchable_scope );
 			return NULL;
 		}
 		
 		/* check if the name of the result is valuable or not */
 		SymbolDBEngineIteratorNode *node;
-		int search_scope_id;
+		gint search_scope_id;
 		SymbolDBEngineIterator * iter;
 
 		node = SYMBOL_DB_ENGINE_ITERATOR_NODE (curr_searchable_scope);
@@ -564,8 +558,12 @@ EngineParser::processExpression(const string& stmt,
 			
 		if (iter == NULL)
 		{
-			cout << "Warning, the result.m_name does not belong to scope" << endl;
-			// FIXME unref
+			cout << "Warning, the result.m_name " << result.m_name << 
+				" does not belong to scope (id " << search_scope_id << ")" << endl;
+			
+			if (curr_searchable_scope != NULL)
+				g_object_unref (curr_searchable_scope );
+			
 			return NULL;
 		}
 		else 
@@ -580,8 +578,11 @@ EngineParser::processExpression(const string& stmt,
 		    										SymExtraInfo (SYMINFO_KIND));
 			
 			cout << ".. it has sym_kind " << sym_kind << endl;
-			
-			if (g_strcmp0 (sym_kind, "member") == 0)
+
+			/* the same check as in the engine-core on sdb_engine_add_new_sym_type () */
+			if (g_strcmp0 (sym_kind, "member") == 0 || 
+	    		g_strcmp0 (sym_kind, "variable") == 0 || 
+	    		g_strcmp0 (sym_kind, "field") == 0)
 			{
 				iter = switchMemberToContainer (iter);
 			}
@@ -609,312 +610,9 @@ EngineParser::processExpression(const string& stmt,
 	return curr_searchable_scope;
 }
 
-#if 0
-/* FIXME TODO: error processing. Find out a way to notify the caller of the occurred 
- * error. The "cout" method cannot be used
+/**
+ * @return The visible scope until pchStopWord is encountered
  */
-bool
-EngineParser::processExpression(const string& stmt, 
-    							const string& above_text,
-    							const string& full_file_path, 
-    							unsigned long linenum,
-    							string &out_type_name, 
-    							string &out_type_scope, 
-    							string &out_oper)
-{
-	bool evaluation_succeed = false;
-	int loop_num = 0;
-
-	/* scope that'll follow the expression tokens.
-	 * it'll be consistent and'll change it's value as long as the 
-	 * expression is being solved
-	 *
-	 * The initial status is obviously a global status, so put it to NULL.
-	 */
-	SymbolDBEngineIterator *curr_searchable_scope = NULL;
-	
-	string current_token;
-	string op;
-	string scope_name;
-	string prev_token_type_name = "";
-	string prev_token_type_scope = "";
-	ExpressionResult result;
-
-	_tokenizer->setText (stmt.c_str ());
-	
-	while (nextToken (current_token, op)) 
-	{
-		trim (current_token);
-
-		if (loop_num > 0) 
-		{
-			// FIXME: case of more results
-			/* seems like we're at the second, or nth, loop */
-			curr_searchable_scope =
-					symbol_db_engine_find_symbol_by_name_pattern_filtered (
-		    			_dbe, prev_token_type_name.c_str (), 
-					    SYMTYPE_SCOPE_CONTAINER, TRUE, 
-					    SYMSEARCH_FILESCOPE_IGNORE, NULL, 1, 
-		    			-1, (SymExtraInfo)(SYMINFO_SIMPLE | SYMINFO_KIND));
-			if (curr_searchable_scope != NULL)
-			{
-				SymbolDBEngineIteratorNode *node;
-
-				node = SYMBOL_DB_ENGINE_ITERATOR_NODE (curr_searchable_scope);
-	
-				cout << "Current Searchable Scope " <<
-		    		symbol_db_engine_iterator_node_get_symbol_name (node) << 					
-					" and id "<< symbol_db_engine_iterator_node_get_symbol_id (node) << 
-					endl;
-
-				/* is it a typedef? In that case find the parent struct */
-				if (g_strcmp0 (symbol_db_engine_iterator_node_get_symbol_extra_string (node,
-				    SYMINFO_KIND), "typedef") == 0)
-				{
-					cout << "it's a struct!" << endl;
-					int struct_id = symbol_db_engine_get_parent_scope_id_by_symbol_id (_dbe, 
-					    symbol_db_engine_iterator_node_get_symbol_id (node),
-					    NULL);
-
-					g_object_unref (curr_searchable_scope);
-					curr_searchable_scope = symbol_db_engine_get_symbol_info_by_id (_dbe,
-					    struct_id,
-					    (SymExtraInfo)(SYMINFO_SIMPLE | SYMINFO_KIND));
-
-					node = SYMBOL_DB_ENGINE_ITERATOR_NODE (curr_searchable_scope);
-					cout << "(NEW) Current Searchable Scope " <<
-						symbol_db_engine_iterator_node_get_symbol_name (node) << 					
-						" and id "<< symbol_db_engine_iterator_node_get_symbol_id (node) << 
-						endl;					
-				}
-			}
-		}
-		
-		cout << "--------\nCurrent token \"" << current_token << "\" with op " << op << endl; 
-		out_oper = op;	
-		
-		/* parse the current sub-expression of a statement and fill up 
-		 * ExpressionResult object
-		 */
-		result = parseExpression (current_token);
-
-		/* is parsing failed? */
-		if (result.m_name.empty()) {
-			cout << "Failed to parse " << current_token << " from " << stmt << endl;
-			evaluation_succeed = false;
-			break;
-		}
-
-		// DEBUG PRINT
-		result.print ();
-
-
-		/* check if the name of the result if valuable or not */
-		// FIXME: move away this function.
-		if (loop_num > 0) 
-		{
-			SymbolDBEngineIteratorNode *node;
-			int search_scope_id;
-			SymbolDBEngineIterator * iter;
-
-			node = SYMBOL_DB_ENGINE_ITERATOR_NODE (curr_searchable_scope);
-
-			search_scope_id =
-				symbol_db_engine_iterator_node_get_symbol_id (node);
-			
-			iter = symbol_db_engine_find_symbol_in_scope (_dbe, result.m_name.c_str (), 
-			    search_scope_id,
-			    SYMTYPE_UNDEF,
-			    TRUE,
-			    -1, -1, SYMINFO_SIMPLE);
-			
-			if (iter == NULL)
-			{
-				cout << "Warning, the result.m_name does not belong to scope" << endl;
-				evaluation_succeed = false;
-				break;
-			}
-			else 
-			{
-				cout << "Good element " << result.m_name << endl;
-				out_type_name = result.m_name;
-				out_type_scope = symbol_db_engine_iterator_node_get_symbol_name (node);
-				evaluation_succeed = true;
-				continue;
-			}
-
-			// FIXME iter?
-		}
-		 
-		
-		// no tokens before this, what we need to do now, is find the TagEntry
-		// that corresponds to the result
-		if (result.m_isaType) 
-		{
-			cout << "*** Found a cast expression" << endl;
-			/*
-			 * Handle type (usually when casting is found)
-			 */
-			if (result.m_isPtr && op == ".") 
-			{
-				cout << "Did you mean to use '->' instead of '.' ?" << endl;
-				evaluation_succeed = false;
-				break;
-			}
-			
-			if (!result.m_isPtr && op == "->") 
-			{
-				cout << "Can not use '->' operator on a non pointer object" << endl;
-				evaluation_succeed = false;
-				break;
-			}
-			
-			out_type_scope = result.m_scope.empty() ? "" : result.m_scope.c_str();
-			out_type_name = result.m_name.c_str();
-			evaluation_succeed = true;
-		} 
-		else if (result.m_isThis) 
-		{
-			cout << "*** Found 'this'" << endl;
-			
-			/*
-			 * special handle for 'this' keyword
-			 */
-			out_type_scope = result.m_scope.empty() ? "" : result.m_scope.c_str();
-			if (scope_name.empty ()) 
-			{
-				cout << "'this' can not be used in the global scope" << endl;
-				evaluation_succeed = false;
-				break;
-			}
-			
-			if (op == "::") 
-			{
-				cout << "'this' can not be used with operator ::" << endl;
-				evaluation_succeed = false;
-				break;
-			}
-
-			if (result.m_isPtr && op == ".") 
-			{
-				cout << "Did you mean to use '->' instead of '.' ?" << endl;
-				evaluation_succeed = false;
-				break;
-			}
-			
-			if (!result.m_isPtr && op == "->") 
-			{
-				cout << "Can not use '->' operator on a non pointer object" << endl;
-				evaluation_succeed = false;
-				break;
-			}
-			out_type_name = scope_name;
-			evaluation_succeed = true;
-		}
- 		else 
-		{
-			/*
-			 * Found an identifier (can be a local variable, a global one etc)
-			 */			
-			cout << "*** Found an identifier or local variable..." << endl;
-
-			/* we have a previous global type with global scope (empty means global) */
-			if (prev_token_type_scope.empty () == true && 
-			    prev_token_type_name.empty () == false)
-			{
-				cout << "prev_tok scope empty | prev_tok name NOT emtpy (" <<
-					prev_token_type_name << ")" <<  endl;
-
-				SymbolDBEngineIterator *iter = 
-					symbol_db_engine_find_symbol_by_name_pattern_filtered (
-		    			_dbe, out_type_name.c_str (), SYMTYPE_UNDEF, TRUE, 
-					    SYMSEARCH_FILESCOPE_IGNORE, NULL, -1 , 
-		    			-1, SYMINFO_SIMPLE);
-
-				
-			}
-			/* TODO */
-			else if (prev_token_type_scope.empty () == false)
-			{
-				cout << "prev_tok scope NOT empty " << endl;				
-			}
-
-
-			
-			
-			SymbolDBEngineIterator *iter = 
-				symbol_db_engine_get_scope_chain_by_file_line (_dbe,
-			    		full_file_path.c_str (), linenum, SYMINFO_SIMPLE);
-
-			cout << "checking for completion scope..";
-			// it's a global one if it's NULL or if it has just only one element
-			if (iter == NULL || symbol_db_engine_iterator_get_n_items (iter) <= 1)
-			{
-				cout << "...we've a global completion scope" << endl;
-				
-			}
-			else 
-			{
-				// DEBUG PRINT
-				do 
-				{
-					SymbolDBEngineIteratorNode *node = 
-						SYMBOL_DB_ENGINE_ITERATOR_NODE (iter);
-					cout << "got completion scope name: " << 
-						symbol_db_engine_iterator_node_get_symbol_name (node) << endl;					
-				} while (symbol_db_engine_iterator_move_next (iter) == TRUE);
-			}			
-						    
-			/* optimize scope'll clear the scopes leaving the local variables */
-			string optimized_scope = optimizeScope(above_text);
-
-			cout << "here it is the optimized buffer scope " << optimized_scope << endl;
-
-			VariableList li;
-			std::map<std::string, std::string> ignoreTokens;
-			get_variables(optimized_scope, li, ignoreTokens, false);
-
-			/* here the trick is to start from the end of the found variables
-			 * up to the begin. This because the local variable declaration should be found
-			 * just above to the statement line 
-			 */
-			cout << "variables found are..." << endl;
-			for (VariableList::reverse_iterator iter = li.rbegin(); iter != li.rend(); iter++) {
-				Variable var = (*iter);
-				var.print ();
-				
-				if (current_token == var.m_name) {
-					cout << "wh0a! we found the variable type to parse... it's \"" << 
-						var.m_type << "\"" << endl;
-
-					out_type_name = var.m_type;
-					out_type_scope = var.m_typeScope;
-
-					evaluation_succeed = true;
-					break;
-				}
-			}
-
-			/* if we reach this point it's likely that we missed the right var type */
-			cout << "## Wrong detection of the variable type" << endl;
-		}
-
-		/* save the current type_name and type_scope */
-		cout << "** Saving prev_token_type_name \"" << out_type_name << 
-			"\" prev_token_type_scope \"" << out_type_scope << "\"" << endl;
-		prev_token_type_name = out_type_name;
-		prev_token_type_scope = out_type_scope;
-		
-		current_token.clear ();
-		/* increase the loop number */
-		loop_num++;		
-	}	
-
-	return evaluation_succeed;
-}
-#endif
-
-/// Return the visible scope until pchStopWord is encountered
 string 
 EngineParser::optimizeScope(const string& srcString)
 {
@@ -924,7 +622,7 @@ EngineParser::optimizeScope(const string& srcString)
 
 	int type;
 
-	// Initialize the scanner with the string to search
+	/* Initialize the scanner with the string to search */
 	const char * scannerText =  srcString.c_str ();
 	_tokenizer->setText (scannerText);
 	bool changedLine = false;
@@ -934,8 +632,7 @@ EngineParser::optimizeScope(const string& srcString)
 	{
 		type = _tokenizer->yylex();
 
-
-		// Eof ?
+		/* Eof ? */
 		if (type == 0) 
 		{
 			if (!currScope.empty())
@@ -943,7 +640,7 @@ EngineParser::optimizeScope(const string& srcString)
 			break;
 		}
 
-		// eat up all tokens until next line
+		/* eat up all tokens until next line */
 		if ( prepLine && _tokenizer->lineno() == curline) 
 		{
 			currScope += " ";
@@ -953,7 +650,7 @@ EngineParser::optimizeScope(const string& srcString)
 
 		prepLine = false;
 
-		// Get the current line number, it will help us detect preprocessor lines
+		/* Get the current line number, it will help us detect preprocessor lines */
 		changedLine = (_tokenizer->lineno() > curline);
 		if (changedLine) 
 		{
@@ -983,7 +680,7 @@ EngineParser::optimizeScope(const string& srcString)
 				currScope.clear();
 			break;
 		case (int)'}':
-			// Discard the current scope since it is completed
+			/* Discard the current scope since it is completed */
 			if ( !scope_stack.empty() ) {
 				currScope = scope_stack.back();
 				scope_stack.pop_back();
@@ -994,8 +691,9 @@ EngineParser::optimizeScope(const string& srcString)
 			break;
 		case (int)'#':
 			if (changedLine) {
-				// We are at the start of a new line
-				// consume everything until new line is found or end of text
+				/* We are at the start of a new line
+				 * consume everything until new line is found or end of text
+				 */
 				currScope += " ";
 				currScope += _tokenizer->YYText();
 				prepLine = true;
@@ -1018,7 +716,7 @@ EngineParser::optimizeScope(const string& srcString)
 	for (; i < scope_stack.size(); i++)
 		currScope += scope_stack.at(i);
 
-	// if the current scope is not empty, terminate it with ';' and return
+	/* if the current scope is not empty, terminate it with ';' and return */
 	if ( currScope.empty() == false ) {
 		currScope += ";";
 		return currScope.c_str();
@@ -1040,66 +738,6 @@ engine_parser_init (SymbolDBEngine* manager)
 void 
 engine_parser_test_get_variables ()
 {
-/*
-* this regexp catches things like:
-* a) std::vector<char*> exp1[124] [12], *exp2, expr;
-* b) QClass* expr1, expr2, expr;
-* c) int a,b; char r[12] = "test, argument", q[2] = { 't', 'e' }, expr;
-*
-* it CAN be fooled, if you really want it, but it should
-* work for 99% of all situations.
-*
-* QString
-* var;
-* in 2 lines does not work, because //-comments would often bring wrong results
-*/
-#define STRING      "\\\".*\\\""
-#define BRACKETEXPR "\\{.*\\}"
-#define IDENT       "[a-zA-Z_][a-zA-Z0-9_]*"
-#define WS          "[ \t\n]*"
-#define PTR         "[\\*&]?\\*?"
-#define INITIALIZER "=(" WS IDENT WS ")|=(" WS STRING WS ")|=(" WS BRACKETEXPR WS ")" WS
-#define ARRAY 		WS "\\[" WS "[0-9]*" WS "\\]" WS
-
-	char *res = NULL;
-	static char pattern[512] =
-//		"(" IDENT "\\Z)" 	// the 'std' in example a)
-//		"(::" IDENT ")*"	// ::vector
-//		"(" WS "<[^>;]*>)?"	// <char *>
-		"(" WS PTR WS IDENT WS "(" ARRAY ")*" "(" INITIALIZER ")?," WS ")*" // other variables for the same ident (string i,j,k;)
-//		"[ \t\\*&]*"		// check again for pointer/reference type
-;
-	/* must add a 'termination' symbol to the regexp, otherwise
-	 * 'exp' would match 'expr' */
-	char regexp[512];
-
-
-	char *statement = "char a, b";
-//	snprintf(regexp, 512, "%s\\<%s\\>", pattern, "a");
-	g_snprintf (regexp, 512, "%s\\A%s\\Z", pattern, "b");
-	g_print ("checking with regexp %s\n", regexp);
-	GError* error = NULL;	
-	GRegexCompileFlags compile_flags = (GRegexCompileFlags)(G_REGEX_EXTENDED);
-	GRegexMatchFlags match_flags = (GRegexMatchFlags)(0);
-	
-	match_flags = (GRegexMatchFlags)(match_flags | G_REGEX_MATCH_NOTEMPTY);
-
-	GMatchInfo *match_info;
-	GRegex *regex = g_regex_new (regexp, compile_flags,
-									 (GRegexMatchFlags)(match_flags), &error);
-	g_print ("we\n");
-	if (error != NULL)
-		g_print ("err = %s", error->message); 
-	g_regex_match (regex, statement, (GRegexMatchFlags)(0), &match_info);
-  	while (g_match_info_matches (match_info))
-    {
-      gchar *word = g_match_info_fetch (match_info, 0);
-      g_print ("Found: %s\n", word);
-      g_free (word);
-      g_match_info_next (match_info, NULL);
-    }	
-
-#if 0	
 	VariableList li;
 	std::map<std::string, std::string> ignoreTokens;
 	get_variables("char c, d, *e;", li, ignoreTokens, false);
@@ -1118,8 +756,8 @@ engine_parser_test_get_variables ()
 			endl;
 
 	}
-#endif	
 }
+
 void
 engine_parser_test_print_tokens (const char *str)
 {
@@ -1127,14 +765,14 @@ engine_parser_test_print_tokens (const char *str)
 }
 
 void 
-engine_parser_parse_expression (const char*str)
+engine_parser_parse_expression (const gchar*str)
 {
 	EngineParser::getInstance ()->testParseExpression (str);
 }
 
 SymbolDBEngineIterator *
-engine_parser_process_expression (const char *stmt, const char * above_text, 
-    const char * full_file_path, unsigned long linenum)
+engine_parser_process_expression (const gchar *stmt, const gchar * above_text, 
+    const gchar * full_file_path, gulong linenum)
 {
 	SymbolDBEngine * dbe = EngineParser::getInstance ()->getSymbolManager ();
 
@@ -1144,94 +782,5 @@ engine_parser_process_expression (const char *stmt, const char * above_text,
 	    												full_file_path, 
 		    											linenum);
 
-	if (iter == NULL)
-	{
-		cout << "## No way. Expression not parsed" << endl;
-		return NULL;
-	}
-
-	SymbolDBEngineIteratorNode *node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iter);
-	if (node != NULL)
-	{
-		cout << "parent id is " << symbol_db_engine_iterator_node_get_symbol_id (node) << endl; 
-	}
-	
-	// print the scope members
-	SymbolDBEngineIterator * children = 
-		symbol_db_engine_get_scope_members_by_symbol_id (dbe, 
-			symbol_db_engine_iterator_node_get_symbol_id (node), 
-			-1,
-			-1,
-			SYMINFO_SIMPLE);
-	
-	if (children != NULL)
-	{
-		cout << "scope children are: " << endl;
-		do {
-			SymbolDBEngineIteratorNode *child = 
-				SYMBOL_DB_ENGINE_ITERATOR_NODE (children);
-			cout << "SymbolDBEngine: Searched var got name: " << 
-				symbol_db_engine_iterator_node_get_symbol_name (child) << endl;
-		}while (symbol_db_engine_iterator_move_next (children) == TRUE);						
-	} 
-	else 
-	{
-		cout << "scope _has NOT_ children. " << 
-			symbol_db_engine_iterator_node_get_symbol_name (node) << endl;
-	}
-	
-	
-#if 0
-	string out_type_name;
-	string out_type_scope;
-	string out_oper;
-	
-	bool result = EngineParser::getInstance ()->processExpression (stmt, above_text,  
-	    full_file_path, linenum, out_type_name, out_type_scope, out_oper);
-
-	if (result == false)
-	{
-		cout << "Hey, something went wrong in processExpression, bailing out" << endl;
-		return NULL;
-	}
-	
-	SymbolDBEngine * dbe = EngineParser::getInstance ()->getSymbolManager ();
-
-	cout << "process expression result: " << endl << "out_type_name " << out_type_name <<  
-		endl << 
-	    "out_type_scope " << out_type_scope << endl << "out_oper " << out_oper << endl;
-					
-	SymbolDBEngineIterator *iter = 
-		symbol_db_engine_find_symbol_by_name_pattern_filtered (
-		    dbe, out_type_name.c_str (), SYMTYPE_UNDEF, TRUE, SYMSEARCH_FILESCOPE_IGNORE, NULL, -1 , 
-		    -1, SYMINFO_SIMPLE);
-
-	if (iter != NULL) {
-		SymbolDBEngineIteratorNode *node = 
-			SYMBOL_DB_ENGINE_ITERATOR_NODE (iter);
-		cout << "SymbolDBEngine: Searched var got name: " << 
-			symbol_db_engine_iterator_node_get_symbol_name (node) << endl;
-		
-		// print the scope members
-		SymbolDBEngineIterator * children = 
-			symbol_db_engine_get_scope_members_by_symbol_id (dbe, 
-				symbol_db_engine_iterator_node_get_symbol_id (node), 
-				-1,
-				-1,
-				SYMINFO_SIMPLE);
-		
-		if (children != NULL)
-		{
-			cout << "scope children are: " << endl;
-			do {
-				SymbolDBEngineIteratorNode *child = 
-					SYMBOL_DB_ENGINE_ITERATOR_NODE (children);
-				cout << "SymbolDBEngine: Searched var got name: " << 
-					symbol_db_engine_iterator_node_get_symbol_name (child) << endl;
-			}while (symbol_db_engine_iterator_move_next (children) == TRUE);						
-		} 
-	}	
-#endif
-	//  FIXME
-	return NULL;
+	return iter;
 }

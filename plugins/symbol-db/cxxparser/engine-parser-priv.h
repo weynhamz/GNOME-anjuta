@@ -50,8 +50,7 @@ public:
 	SymbolDBEngineIterator * getCurrentScopeChainByFileLine (const char* full_file_path,
 	    													int linenum);
 
-	SymbolDBEngineIterator * getCurrentSearchableScope (string &type_name, 
-	    												string &type_scope);
+	SymbolDBEngineIterator * getCurrentSearchableScope (string &type_name, string &type_scope);
 	
 	bool getTypeNameAndScopeByToken (ExpressionResult &result, 
 	    							string &token,
@@ -62,7 +61,8 @@ public:
     								string &out_type_name, 		// out
 	    							string &out_type_scope);	// out
 
-	SymbolDBEngineIterator * switchTypedefToStruct (SymbolDBEngineIterator * test);
+	SymbolDBEngineIterator * switchTypedefToStruct (SymbolDBEngineIterator * test, 
+					SymExtraInfo sym_info = (SymExtraInfo)(SYMINFO_SIMPLE | SYMINFO_KIND));
 
 	SymbolDBEngineIterator * switchMemberToContainer (SymbolDBEngineIterator * test);
 	// FIXME comments.
