@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-master-po-gl-1952\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-12 13:38+0200\n"
-"PO-Revision-Date: 2009-08-11 14:38+0200\n"
+"POT-Creation-Date: 2009-08-19 13:34+0200\n"
+"PO-Revision-Date: 2009-08-19 09:17+0200\n"
 "Last-Translator: Antón Méixome <meixome@mancomun.org>\n"
 "Language-Team: Galician <gnome@mancomun.org>\n"
 "MIME-Version: 1.0\n"
@@ -636,7 +636,7 @@ msgstr "Continuar nos erros"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:11
 msgid "Highlight message locations in editor"
-msgstr "Resaltar localizacións das mensaxes no editor"
+msgstr "Realzar as localizacións das mensaxes no editor"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:12
 msgid "Install as root:"
@@ -824,204 +824,204 @@ msgstr ""
 "Usando esta nova configuración, precísase eliminar a predefinida, Quere "
 "facelo?"
 
-#: ../plugins/build-basic-autotools/plugin.c:1800
+#: ../plugins/build-basic-autotools/plugin.c:1802
 #, c-format
 msgid "Can not compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 "Non é posíbel compilar \"%s\": Non se definiu ningunha regra de compilación "
 "para este tipo de ficheiro."
 
-#: ../plugins/build-basic-autotools/plugin.c:1926
+#: ../plugins/build-basic-autotools/plugin.c:1928
 #, c-format
 msgid "Can not configure project: Missing configure script in %s."
 msgstr ""
 "Non é posíbel configurar o proxecto: Falta un script de configuración en %s."
 
-#: ../plugins/build-basic-autotools/plugin.c:2392
-#: ../plugins/build-basic-autotools/plugin.c:2466
-#: ../plugins/build-basic-autotools/plugin.c:2476
-#: ../plugins/build-basic-autotools/plugin.c:2494
-#: ../plugins/build-basic-autotools/plugin.c:2504
-#: ../plugins/build-basic-autotools/plugin.c:2561
+#: ../plugins/build-basic-autotools/plugin.c:2394
+#: ../plugins/build-basic-autotools/plugin.c:2468
+#: ../plugins/build-basic-autotools/plugin.c:2478
+#: ../plugins/build-basic-autotools/plugin.c:2496
+#: ../plugins/build-basic-autotools/plugin.c:2506
+#: ../plugins/build-basic-autotools/plugin.c:2563
 #, c-format
 msgid "_Build"
 msgstr "_Construír"
 
-#: ../plugins/build-basic-autotools/plugin.c:2396
+#: ../plugins/build-basic-autotools/plugin.c:2398
 msgid "_Build Project"
 msgstr "_Construír o proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2397
+#: ../plugins/build-basic-autotools/plugin.c:2399
 msgid "Build whole project"
 msgstr "Construír todo o proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2402
+#: ../plugins/build-basic-autotools/plugin.c:2404
 msgid "_Install Project"
 msgstr "_Instalar o proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2403
+#: ../plugins/build-basic-autotools/plugin.c:2405
 msgid "Install whole project"
 msgstr "Instalar todo o proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2408
+#: ../plugins/build-basic-autotools/plugin.c:2410
 msgid "_Clean Project"
 msgstr "_Limpar o proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2409
+#: ../plugins/build-basic-autotools/plugin.c:2411
 msgid "Clean whole project"
 msgstr "Limpar todo o proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2414
+#: ../plugins/build-basic-autotools/plugin.c:2416
 msgid "C_onfigure Project..."
 msgstr "C_onfigurar un proxecto..."
 
-#: ../plugins/build-basic-autotools/plugin.c:2415
+#: ../plugins/build-basic-autotools/plugin.c:2417
 msgid "Configure project"
 msgstr "Configurar o proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2420
+#: ../plugins/build-basic-autotools/plugin.c:2422
 msgid "Build _Tarball"
 msgstr "Construír o arquivo _tar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2421
+#: ../plugins/build-basic-autotools/plugin.c:2423
 msgid "Build project tarball distribution"
 msgstr "Construír a distribución en arquivo tar do proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2426
+#: ../plugins/build-basic-autotools/plugin.c:2428
 msgid "_Build Module"
 msgstr "C_onstruír o módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2427
+#: ../plugins/build-basic-autotools/plugin.c:2429
 msgid "Build module associated with current file"
 msgstr "Construír o módulo asociado ao ficheiro actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:2432
+#: ../plugins/build-basic-autotools/plugin.c:2434
 msgid "_Install Module"
 msgstr "_Instalar o módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2433
+#: ../plugins/build-basic-autotools/plugin.c:2435
 msgid "Install module associated with current file"
 msgstr "Instalar o módulo asociado ao ficheiro actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:2438
+#: ../plugins/build-basic-autotools/plugin.c:2440
 msgid "_Clean Module"
 msgstr "_Limpar o módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2439
+#: ../plugins/build-basic-autotools/plugin.c:2441
 msgid "Clean module associated with current file"
 msgstr "Limpar o módulo asociado ao ficheiro actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:2444
+#: ../plugins/build-basic-autotools/plugin.c:2446
 msgid "Co_mpile File"
 msgstr "Co_mpilar o ficheiro"
 
-#: ../plugins/build-basic-autotools/plugin.c:2445
+#: ../plugins/build-basic-autotools/plugin.c:2447
 msgid "Compile current editor file"
 msgstr "Compilar o ficheiro actual do editor"
 
-#: ../plugins/build-basic-autotools/plugin.c:2450
+#: ../plugins/build-basic-autotools/plugin.c:2452
 msgid "Select Configuration"
 msgstr "Seleccionar a configuración"
 
-#: ../plugins/build-basic-autotools/plugin.c:2451
+#: ../plugins/build-basic-autotools/plugin.c:2453
 msgid "Select current configuration"
 msgstr "Seleccionar a configuración actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:2456
+#: ../plugins/build-basic-autotools/plugin.c:2458
 msgid "Remove Configuration"
 msgstr "Eliminar a configuración"
 
-#: ../plugins/build-basic-autotools/plugin.c:2457
+#: ../plugins/build-basic-autotools/plugin.c:2459
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr ""
 "Limpar o proxecto (distclean) e eliminar o directorio de configuración se "
 "for posíbel"
 
-#: ../plugins/build-basic-autotools/plugin.c:2470
-#: ../plugins/build-basic-autotools/plugin.c:2498
+#: ../plugins/build-basic-autotools/plugin.c:2472
+#: ../plugins/build-basic-autotools/plugin.c:2500
 msgid "_Compile"
 msgstr "_Compilar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2471
-#: ../plugins/build-basic-autotools/plugin.c:2499
+#: ../plugins/build-basic-autotools/plugin.c:2473
+#: ../plugins/build-basic-autotools/plugin.c:2501
 msgid "Compile file"
 msgstr "Compilar o ficheiro"
 
-#: ../plugins/build-basic-autotools/plugin.c:2477
-#: ../plugins/build-basic-autotools/plugin.c:2505
+#: ../plugins/build-basic-autotools/plugin.c:2479
+#: ../plugins/build-basic-autotools/plugin.c:2507
 msgid "Build module"
 msgstr "Construír o módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2482
-#: ../plugins/build-basic-autotools/plugin.c:2510
-#: ../plugins/build-basic-autotools/plugin.c:2568
+#: ../plugins/build-basic-autotools/plugin.c:2484
+#: ../plugins/build-basic-autotools/plugin.c:2512
+#: ../plugins/build-basic-autotools/plugin.c:2570
 #, c-format
 msgid "_Install"
 msgstr "_Instalar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2483
-#: ../plugins/build-basic-autotools/plugin.c:2511
+#: ../plugins/build-basic-autotools/plugin.c:2485
+#: ../plugins/build-basic-autotools/plugin.c:2513
 msgid "Install module"
 msgstr "Instalar o módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2488
-#: ../plugins/build-basic-autotools/plugin.c:2516
-#: ../plugins/build-basic-autotools/plugin.c:2575
+#: ../plugins/build-basic-autotools/plugin.c:2490
+#: ../plugins/build-basic-autotools/plugin.c:2518
+#: ../plugins/build-basic-autotools/plugin.c:2577
 #, c-format
 msgid "_Clean"
 msgstr "_Limpar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2489
-#: ../plugins/build-basic-autotools/plugin.c:2517
+#: ../plugins/build-basic-autotools/plugin.c:2491
+#: ../plugins/build-basic-autotools/plugin.c:2519
 msgid "Clean module"
 msgstr "Limpar o módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2522
+#: ../plugins/build-basic-autotools/plugin.c:2524
 msgid "_Cancel command"
 msgstr "_Cancelar a orde"
 
-#: ../plugins/build-basic-autotools/plugin.c:2523
+#: ../plugins/build-basic-autotools/plugin.c:2525
 msgid "Cancel build command"
 msgstr "Cancelar a orde de construción"
 
-#: ../plugins/build-basic-autotools/plugin.c:2561
+#: ../plugins/build-basic-autotools/plugin.c:2563
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Construír (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2568
+#: ../plugins/build-basic-autotools/plugin.c:2570
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Instalar (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2575
+#: ../plugins/build-basic-autotools/plugin.c:2577
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Limpar (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2583
+#: ../plugins/build-basic-autotools/plugin.c:2585
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Co_mpilar (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2583
+#: ../plugins/build-basic-autotools/plugin.c:2585
 #, c-format
 msgid "Co_mpile"
 msgstr "Co_mpilar"
 
-#: ../plugins/build-basic-autotools/plugin.c:3119
+#: ../plugins/build-basic-autotools/plugin.c:3122
 msgid "Build commands"
 msgstr "Ordes de construción"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:3128
+#: ../plugins/build-basic-autotools/plugin.c:3131
 msgid "Build popup commands"
 msgstr "Ordes de construción para xanelas emerxentes"
 
-#: ../plugins/build-basic-autotools/plugin.c:3510
-#: ../plugins/build-basic-autotools/plugin.c:3518
+#: ../plugins/build-basic-autotools/plugin.c:3513
+#: ../plugins/build-basic-autotools/plugin.c:3521
 msgid "Build Autotools"
 msgstr "Construír Autotools"
 
@@ -1349,12 +1349,13 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "Ignorar o ficheiro .cvsrc (recomendado)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:36
-#: ../plugins/symbol-db/plugin.c:2332 ../plugins/symbol-db/plugin.c:2396
+#: ../plugins/git/anjuta-git.ui.h:62 ../plugins/symbol-db/plugin.c:2332
+#: ../plugins/symbol-db/plugin.c:2396
 msgid "Local"
 msgstr "Local"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:37
-#: ../plugins/git/anjuta-git.ui.h:63
+#: ../plugins/git/anjuta-git.ui.h:64
 msgid "Log message:"
 msgstr "Mensaxe de rexistro:"
 
@@ -1392,7 +1393,7 @@ msgid "Reset sticky tags"
 msgstr "Redefinir as etiquetas persistentes"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:46
-#: ../plugins/git/anjuta-git.ui.h:90
+#: ../plugins/git/anjuta-git.ui.h:91
 #: ../plugins/subversion/anjuta-subversion.ui.h:37
 msgid "Revision:"
 msgstr "Revisión:"
@@ -1424,7 +1425,7 @@ msgid "Vendor tag:"
 msgstr "Etiqueta do provedor:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:53
-#: ../plugins/git/anjuta-git.ui.h:124
+#: ../plugins/git/anjuta-git.ui.h:125
 #: ../plugins/subversion/anjuta-subversion.ui.h:60
 msgid "Whole project"
 msgstr "Proxecto enteiro"
@@ -1625,7 +1626,7 @@ msgid ""
 "a strange way, especially steps."
 msgstr ""
 "<span weight=\"bold\" size=\"larger\">Está seguro de queres depurar un "
-"programa sen usar a configuración predeterminada?</span>\n"
+"programa sen usar a configuración predefinida?</span>\n"
 "\n"
 "Cando se activan as optimizacións, o depurador non sempre pode identificaro "
 "código fonte que correspond ás instrucións, algunha ordes poden producir un "
@@ -2281,7 +2282,7 @@ msgstr "Obxecto compartido"
 msgid "From"
 msgstr "De"
 
-#: ../plugins/debug-manager/sharedlib.c:180 ../plugins/git/anjuta-git.ui.h:115
+#: ../plugins/debug-manager/sharedlib.c:180 ../plugins/git/anjuta-git.ui.h:116
 msgid "To"
 msgstr "Para"
 
@@ -3381,7 +3382,7 @@ msgid ""
 msgstr ""
 "<b>Non é posíbel abrir \"%s\"</b>.\n"
 "\n"
-"Non hai ningún plugin, acción predeterminada ou aplicativo configurado para "
+"Non hai ningún plugin, acción predefinida ou aplicativo configurado para "
 "manexar este tipo de ficheiro.\n"
 "\n"
 "Tipo MIME: %s\n"
@@ -3636,7 +3637,7 @@ msgstr ""
 "A extensión será engadida segundo o tipo de ficheiro."
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:10
-#: ../plugins/git/anjuta-git.ui.h:68 ../plugins/macro/anjuta-macro.ui.h:6
+#: ../plugins/git/anjuta-git.ui.h:69 ../plugins/macro/anjuta-macro.ui.h:6
 #: ../plugins/tools/anjuta-tools.ui.h:7
 msgid "Name:"
 msgstr "Nome:"
@@ -4523,256 +4524,256 @@ msgstr "Cabeceira"
 msgid "Ignore Files"
 msgstr "Ignorar ficheiros"
 
-#: ../plugins/git/anjuta-git.ui.h:62
+#: ../plugins/git/anjuta-git.ui.h:63
 #: ../plugins/subversion/anjuta-subversion.ui.h:21
 msgid "Log Message:"
 msgstr "Mensaxe de rexistro:"
 
-#: ../plugins/git/anjuta-git.ui.h:64
+#: ../plugins/git/anjuta-git.ui.h:65
 msgid "Mailbox file containing patches:"
 msgstr "Caixa de correo que contén parches:"
 
-#: ../plugins/git/anjuta-git.ui.h:65
+#: ../plugins/git/anjuta-git.ui.h:66
 msgid "Merge"
 msgstr "Combinar"
 
-#: ../plugins/git/anjuta-git.ui.h:66
+#: ../plugins/git/anjuta-git.ui.h:67
 msgid "Mixed"
 msgstr "Mesturado"
 
-#: ../plugins/git/anjuta-git.ui.h:67
+#: ../plugins/git/anjuta-git.ui.h:68
 msgid "Mode:"
 msgstr "Modo:"
 
-#: ../plugins/git/anjuta-git.ui.h:69 ../plugins/glade/plugin.c:3087
+#: ../plugins/git/anjuta-git.ui.h:70 ../plugins/glade/plugin.c:3087
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:10
 #: ../plugins/subversion/anjuta-subversion.ui.h:23
 msgid "Options"
 msgstr "Opcións"
 
-#: ../plugins/git/anjuta-git.ui.h:70
+#: ../plugins/git/anjuta-git.ui.h:71
 #: ../plugins/subversion/anjuta-subversion.ui.h:24
 msgid "Options:"
 msgstr "Opcións:"
 
-#: ../plugins/git/anjuta-git.ui.h:71
+#: ../plugins/git/anjuta-git.ui.h:72
 msgid "Previous commit"
 msgstr "Actualización anterior"
 
-#: ../plugins/git/anjuta-git.ui.h:72
+#: ../plugins/git/anjuta-git.ui.h:73
 msgid "Pull"
 msgstr "Descargar (pull)"
 
-#: ../plugins/git/anjuta-git.ui.h:73
+#: ../plugins/git/anjuta-git.ui.h:74
 msgid "Push"
 msgstr "Descargar"
 
-#: ../plugins/git/anjuta-git.ui.h:74
+#: ../plugins/git/anjuta-git.ui.h:75
 msgid "Push all branches and tags"
 msgstr "Mandou todas as ramas e etiquetas"
 
-#: ../plugins/git/anjuta-git.ui.h:75
+#: ../plugins/git/anjuta-git.ui.h:76
 msgid "Push all tags"
 msgstr "Mandar todas as etiquetas"
 
-#: ../plugins/git/anjuta-git.ui.h:76
+#: ../plugins/git/anjuta-git.ui.h:77
 msgid "Rebase"
 msgstr "Restruturar (rebase)"
 
-#: ../plugins/git/anjuta-git.ui.h:77
+#: ../plugins/git/anjuta-git.ui.h:78
 msgid "Remote"
 msgstr "Remoto"
 
-#: ../plugins/git/anjuta-git.ui.h:78
+#: ../plugins/git/anjuta-git.ui.h:79
 msgid "Remote branch to rebase from:"
 msgstr "Ramificación remota desde a que restruturar (rebase):"
 
-#: ../plugins/git/anjuta-git.ui.h:79
+#: ../plugins/git/anjuta-git.ui.h:80
 msgid "Remote to delete:"
 msgstr "Remoto para eliminar:"
 
-#: ../plugins/git/anjuta-git.ui.h:80
+#: ../plugins/git/anjuta-git.ui.h:81
 msgid "Remove File"
 msgstr "Eliminar ficheiro"
 
-#: ../plugins/git/anjuta-git.ui.h:81
+#: ../plugins/git/anjuta-git.ui.h:82
 msgid "Repository origin"
 msgstr "Orixe do repositorio"
 
-#: ../plugins/git/anjuta-git.ui.h:82
+#: ../plugins/git/anjuta-git.ui.h:83
 msgid "Repository to pull from:"
 msgstr "Repositorio desde o que descargar (pull):"
 
-#: ../plugins/git/anjuta-git.ui.h:83
+#: ../plugins/git/anjuta-git.ui.h:84
 msgid "Repository to push to:"
 msgstr "Repositorio para enviarr:"
 
-#: ../plugins/git/anjuta-git.ui.h:84
+#: ../plugins/git/anjuta-git.ui.h:85
 msgid "Reset Tree"
 msgstr "Restabelecer árbore"
 
-#: ../plugins/git/anjuta-git.ui.h:85
+#: ../plugins/git/anjuta-git.ui.h:86
 msgid "Reset to:"
 msgstr "Restabelecer como:"
 
-#: ../plugins/git/anjuta-git.ui.h:86
+#: ../plugins/git/anjuta-git.ui.h:87
 msgid "Restore index"
 msgstr "Restabelecer o índice"
 
-#: ../plugins/git/anjuta-git.ui.h:87
+#: ../plugins/git/anjuta-git.ui.h:88
 #: ../plugins/subversion/anjuta-subversion.ui.h:35
 msgid "Retrieving status..."
 msgstr "Obtendo o estado..."
 
-#: ../plugins/git/anjuta-git.ui.h:88
+#: ../plugins/git/anjuta-git.ui.h:89
 msgid "Revert Commit"
 msgstr "Reverter actualización"
 
-#: ../plugins/git/anjuta-git.ui.h:89
+#: ../plugins/git/anjuta-git.ui.h:90
 msgid "Revision/Tag:"
 msgstr "Revisión/Etiqueta:"
 
-#: ../plugins/git/anjuta-git.ui.h:91
+#: ../plugins/git/anjuta-git.ui.h:92
 msgid "Select A Folder"
 msgstr "Seleccionar un cartafol"
 
-#: ../plugins/git/anjuta-git.ui.h:92
+#: ../plugins/git/anjuta-git.ui.h:93
 msgid "Select Files to Check Out:"
 msgstr "Seleccionar os ficheiros para descargar (check out):"
 
-#: ../plugins/git/anjuta-git.ui.h:93
+#: ../plugins/git/anjuta-git.ui.h:94
 #: ../plugins/subversion/anjuta-subversion.ui.h:41
 msgid "Select Files to Commit:"
 msgstr "Seleccionar os ficheiros para remitir:"
 
-#: ../plugins/git/anjuta-git.ui.h:94
+#: ../plugins/git/anjuta-git.ui.h:95
 msgid "Select Files to Ignore:"
 msgstr "Seleccionar os ficheiros para ignorar:"
 
-#: ../plugins/git/anjuta-git.ui.h:95
+#: ../plugins/git/anjuta-git.ui.h:96
 #: ../plugins/subversion/anjuta-subversion.ui.h:42
 msgid "Select Files to Mark as Resolved:"
 msgstr "Seleccionar os ficheiros que se van marcar como resoltos:"
 
-#: ../plugins/git/anjuta-git.ui.h:96
+#: ../plugins/git/anjuta-git.ui.h:97
 msgid "Select Files to Unstage:"
 msgstr "Seleccionar os ficheiros para deseleccionar (unstage):"
 
-#: ../plugins/git/anjuta-git.ui.h:97
+#: ../plugins/git/anjuta-git.ui.h:98
 msgid "Select Mailbox File"
 msgstr "Seleccionar o ficheiro de caixa de correo"
 
-#: ../plugins/git/anjuta-git.ui.h:98
+#: ../plugins/git/anjuta-git.ui.h:99
 msgid "Select file to add:"
 msgstr "Seleccione o ficheiro para engadir:"
 
-#: ../plugins/git/anjuta-git.ui.h:99
+#: ../plugins/git/anjuta-git.ui.h:100
 msgid "Select file to remove:"
 msgstr "Seleccione o ficheiro para eliminar:"
 
-#: ../plugins/git/anjuta-git.ui.h:100
+#: ../plugins/git/anjuta-git.ui.h:101
 #: ../plugins/subversion/anjuta-subversion.ui.h:43
 msgid "Set Conflicts as Resolved"
 msgstr "Definir os conflitos como resoltos"
 
-#: ../plugins/git/anjuta-git.ui.h:101
+#: ../plugins/git/anjuta-git.ui.h:102
 msgid "Show source revision in log message"
 msgstr "Mostrar revisión da fonte na mensaxe de rexistro"
 
-#: ../plugins/git/anjuta-git.ui.h:102
+#: ../plugins/git/anjuta-git.ui.h:103
 msgid "Show the contents of the selected stash in an editor"
 msgstr "Mostrar os contidos da reserva seleccionada nun editor"
 
-#: ../plugins/git/anjuta-git.ui.h:103
+#: ../plugins/git/anjuta-git.ui.h:104
 msgid "Sign this tag"
 msgstr "Asinar esta etiqueta"
 
-#: ../plugins/git/anjuta-git.ui.h:104
+#: ../plugins/git/anjuta-git.ui.h:105
 msgid "Soft"
 msgstr "Soft"
 
-#: ../plugins/git/anjuta-git.ui.h:105
+#: ../plugins/git/anjuta-git.ui.h:106
 msgid "Squash"
 msgstr "Comprimir (squash)"
 
-#: ../plugins/git/anjuta-git.ui.h:106 ../plugins/git/plugin.c:808
+#: ../plugins/git/anjuta-git.ui.h:107 ../plugins/git/plugin.c:811
 msgid "Stash"
 msgstr "Reservar"
 
-#: ../plugins/git/anjuta-git.ui.h:107
+#: ../plugins/git/anjuta-git.ui.h:108
 msgid "Stash Uncommitted Changes"
 msgstr "Gardar os cambios non remitidos"
 
-#: ../plugins/git/anjuta-git.ui.h:108
+#: ../plugins/git/anjuta-git.ui.h:109
 msgid "Stash indexed changes"
 msgstr "Reservar os cambios indexados"
 
-#: ../plugins/git/anjuta-git.ui.h:109
+#: ../plugins/git/anjuta-git.ui.h:110
 msgid "Stash the working tree's uncommitted changes"
 msgstr "Reservar a árbore de traballo dos cambios non remitidos"
 
-#: ../plugins/git/anjuta-git.ui.h:110
+#: ../plugins/git/anjuta-git.ui.h:111
 msgid "Switch to Another Branch"
 msgstr "Cambiar a outra ramificación"
 
-#: ../plugins/git/anjuta-git.ui.h:111
+#: ../plugins/git/anjuta-git.ui.h:112
 msgid "Tag name:"
 msgstr "Nome da etiqueta:"
 
-#: ../plugins/git/anjuta-git.ui.h:112
+#: ../plugins/git/anjuta-git.ui.h:113
 msgid "Tag/Commit"
 msgstr "Etiqueta/Actualizar"
 
-#: ../plugins/git/anjuta-git.ui.h:113
+#: ../plugins/git/anjuta-git.ui.h:114
 msgid "Tags to delete:"
 msgstr "Etiqueta para eliminar:"
 
-#: ../plugins/git/anjuta-git.ui.h:114
+#: ../plugins/git/anjuta-git.ui.h:115
 msgid "This commit concludes a failed merge (use -i)"
 msgstr "Esta actualización termina cunha combinación con fallos (use -i)"
 
-#: ../plugins/git/anjuta-git.ui.h:116
+#: ../plugins/git/anjuta-git.ui.h:117
 msgid "To:"
 msgstr "Até:"
 
-#: ../plugins/git/anjuta-git.ui.h:117
+#: ../plugins/git/anjuta-git.ui.h:118
 msgid "URL"
 msgstr "URL"
 
-#: ../plugins/git/anjuta-git.ui.h:118
+#: ../plugins/git/anjuta-git.ui.h:119
 msgid "URL:"
 msgstr "URL:"
 
-#: ../plugins/git/anjuta-git.ui.h:119
+#: ../plugins/git/anjuta-git.ui.h:120
 msgid "Unstage Files"
 msgstr "Deseleccionar ficheiros (unstage)"
 
-#: ../plugins/git/anjuta-git.ui.h:120
+#: ../plugins/git/anjuta-git.ui.h:121
 msgid "Use a custom log message"
 msgstr "Usar unha mensaxe de rexistro personalizada"
 
-#: ../plugins/git/anjuta-git.ui.h:121
+#: ../plugins/git/anjuta-git.ui.h:122
 msgid "Use custom author information:"
 msgstr "Usar información de autor personalizada:"
 
-#: ../plugins/git/anjuta-git.ui.h:122
+#: ../plugins/git/anjuta-git.ui.h:123
 msgid "View log"
 msgstr "Ver o rexistro"
 
-#: ../plugins/git/anjuta-git.ui.h:123
+#: ../plugins/git/anjuta-git.ui.h:124
 #: ../plugins/subversion/anjuta-subversion.ui.h:58
 msgid "View the Log for File/Folder:"
 msgstr "Ver o rexistro para o ficheiro/cartafol:"
 
-#: ../plugins/git/anjuta-git.ui.h:125
+#: ../plugins/git/anjuta-git.ui.h:126
 msgid "page 1"
 msgstr "páxina 1"
 
-#: ../plugins/git/anjuta-git.ui.h:126
+#: ../plugins/git/anjuta-git.ui.h:127
 msgid "page 2"
 msgstr "páxina 2"
 
-#: ../plugins/git/anjuta-git.ui.h:127
+#: ../plugins/git/anjuta-git.ui.h:128
 msgid "page 3"
 msgstr "páxina 3"
 
@@ -4855,6 +4856,10 @@ msgstr "Introduza un nome de etiqueta."
 msgid "Git: Deleted selected branches."
 msgstr "Git: Eliminaronse as ramas seleccionadas."
 
+#: ../plugins/git/git-delete-branch-dialog.c:106
+msgid "Please select branches to delete"
+msgstr "Seleccione as ramificacións a eliminar"
+
 #: ../plugins/git/git-delete-tag-dialog.c:37
 msgid "Git: Deleted selected tages."
 msgstr "Git: Eliminaronse as etiquetas seleccionadas."
@@ -4907,7 +4912,8 @@ msgstr "<b>Etiqueta:</b> %s"
 msgid "<b>Remote:</b> %s"
 msgstr "<b>Remoto:</b> %s"
 
-#: ../plugins/git/git-log-dialog.c:849 ../plugins/git/plugin.c:866
+#: ../plugins/git/git-log-dialog.c:849 ../plugins/git/plugin.c:674
+#: ../plugins/git/plugin.c:867
 msgid "Branch"
 msgstr "Rama"
 
@@ -5474,7 +5480,7 @@ msgstr "Reinicializar a cabeceira do repositorio a calquera estado anterior "
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:431 ../plugins/git/plugin.c:531
 msgid "_Revert commit..."
-msgstr "_Reverter actualización..."
+msgstr "_Reverter a actualización..."
 
 #. Display label
 #. short-cut
@@ -5492,13 +5498,13 @@ msgstr "_Biseccionar"
 #. short-cut
 #: ../plugins/git/plugin.c:449
 msgid "Start a bisect operation"
-msgstr "Iniciar unha operación bisect"
+msgstr "Iniciar unha operación de bisección (bisect)"
 
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:457
 msgid "Stop the bisect and bring the tree back to normal"
-msgstr "Deter a bisect e traer a árbore ao estado normal"
+msgstr "Deter a bisección (bisect) e traer a árbore ao estado normal"
 
 #. Action name
 #. Stock icon, if any
@@ -5516,7 +5522,7 @@ msgstr "Marcar a actual revisión superior como boa"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:471
 msgid "_Bad"
-msgstr "_Incorrecto"
+msgstr "_Mala"
 
 #. Display label
 #. short-cut
@@ -5540,13 +5546,13 @@ msgstr "Crear un novo repositorio de git ou reinicializar outra existente"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:491
 msgid "_Show commit diff"
-msgstr "_Mostrar o diferencial da remisión"
+msgstr "_Mostrar o diferencial (diff) da remisión"
 
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:493
 msgid "Show changes introduced by this commit"
-msgstr "Mostrar os cambios introducidos por estes commit"
+msgstr "Mostrar os cambios introducidos por esta remisión (commit)"
 
 #. Action name
 #. Stock icon, if any
@@ -5600,7 +5606,7 @@ msgstr "_Biseccionar (bisect)"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:555
 msgid "_Set good revision"
-msgstr "_Definir como revisión correcta"
+msgstr "_Definir como revisión boa"
 
 #. Display label
 #. short-cut
@@ -5612,7 +5618,7 @@ msgstr "Marcar esta revisión como boa"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:563
 msgid "_Set bad revision"
-msgstr "_Definir como revisión incorrecta"
+msgstr "_Definir como revisión mala"
 
 #. Display label
 #. short-cut
@@ -5638,23 +5644,23 @@ msgstr "Engadir este ficheiro ou cartafol ao repositorio"
 msgid "Remove this file or folder from the repository"
 msgstr "Eliminar este ficheiro ou cartafol do repositorio"
 
-#: ../plugins/git/plugin.c:763
+#: ../plugins/git/plugin.c:766
 msgid "Top level git menu item"
 msgstr "Ítem de máximo nivel no menú de git"
 
-#: ../plugins/git/plugin.c:771
+#: ../plugins/git/plugin.c:774
 msgid "Git operations"
 msgstr "Operacións do Git"
 
-#: ../plugins/git/plugin.c:776
+#: ../plugins/git/plugin.c:779
 msgid "Git log operations"
 msgstr "Operacións de rexistro do Git"
 
-#: ../plugins/git/plugin.c:781
+#: ../plugins/git/plugin.c:784
 msgid "Git FM operations"
 msgstr "Operacións FM do Git"
 
-#: ../plugins/git/plugin.c:796
+#: ../plugins/git/plugin.c:799
 msgid "Git Log"
 msgstr "Rexistro do Git"
 
@@ -5850,7 +5856,7 @@ msgstr "Widget de máximo nivel"
 
 #: ../plugins/glade/plugin.c:3676
 msgid "Couldn't find a default signal name"
-msgstr "Non foi posíbel encontrar un nome de sinal predeterminado"
+msgstr "Non foi posíbel encontrar un nome de sinal predefinido"
 
 #: ../plugins/glade/plugin.c:3886
 #, c-format
@@ -5903,11 +5909,11 @@ msgstr ""
 
 #: ../plugins/glade/plugin.c:4045 ../plugins/glade/plugin.c:4047
 msgid "Set as default resource target"
-msgstr "Definir como o destino de recurso predeterminado"
+msgstr "Definir como o destino de recurso predefinido"
 
 #: ../plugins/glade/plugin.c:4055
 msgid "Current default target"
-msgstr "Destino predeterminado actual"
+msgstr "Destino predefinido actual"
 
 #: ../plugins/glade/plugin.c:4063
 msgid "Close the current file"
@@ -6111,7 +6117,7 @@ msgstr "<b>Opcións de exportación HTML:</b>"
 
 #: ../plugins/gtodo/export.c:181
 msgid "Embed default (CSS) style sheet"
-msgstr "Incorporar a folla de estilo (CSS) predeterminada"
+msgstr "Incorporar a folla de estilo (CSS) predefinida"
 
 #: ../plugins/gtodo/export.c:185
 msgid "Custom (CSS) style sheet"
@@ -8272,7 +8278,7 @@ msgstr "Ver"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:24
 msgid "Wrap long lines to fit on paper"
-msgstr "Romper liñas longas para cubrir un papel"
+msgstr "Romper as liñas longas para cubrir un papel"
 
 #: ../plugins/starter/plugin.c:50 ../plugins/starter/starter.c:344
 #: ../plugins/starter/anjuta-starter.plugin.in.h:1
@@ -8333,7 +8339,7 @@ msgstr "Finalizar a revisión:"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:16
 msgid "File or directory to diff:"
-msgstr "Ficheiro ou cartafol para o diferencial:"
+msgstr "Ficheiro ou cartafol para o diferencial (diff):"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:17
 msgid "File/URL to Remove:"
@@ -9342,7 +9348,7 @@ msgstr "_Redefinir o deseño de ancoraxe"
 
 #: ../src/anjuta-actions.h:41
 msgid "Reset the widgets docking layout to default"
-msgstr "Cambiar deseño de ancoraxe dos widgets ao predeterminado"
+msgstr "Cambiar deseño de ancoraxe dos widgets ao predefinido"
 
 #: ../src/anjuta-actions.h:47
 msgid "_Full Screen"
@@ -9510,7 +9516,7 @@ msgstr "Aparencia"
 
 #: ../src/preferences.ui.h:3
 msgid "Default project directory:"
-msgstr "Directorio predeterminado do proxecto:"
+msgstr "Directorio predefinido do proxecto:"
 
 #: ../src/preferences.ui.h:4
 msgid "Developer email address:"
@@ -9547,7 +9553,7 @@ msgstr "Só iconas"
 
 #: ../src/preferences.ui.h:14
 msgid "Project Defaults"
-msgstr "Configuración predeterminada do proxecto"
+msgstr "Configuración predefinida do proxecto"
 
 #: ../src/preferences.ui.h:15
 msgid "Select projects directory"
@@ -9585,6 +9591,8 @@ msgstr "Etiquetas dos botóns da barra de ferramentas:"
 #: ../plugins/debug-manager/anjuta-debug-manager.schemas.in.h:1
 msgid "Do not display warning if not using a Debug configuration"
 msgstr ""
+"Non mostrar advertencias se non se está a empregar a configuración de "
+"depuración"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:1
 msgid "Add '(' after function call autocompletion"
@@ -9811,7 +9819,7 @@ msgstr "Editor do GtkSourceview"
 
 #: ../plugins/sourceview/sourceview.plugin.in.h:2
 msgid "The default editor based on GtkSourceview"
-msgstr "O editor predeterminado baseado en GtkSourceview"
+msgstr "O editor predefinido baseado en GtkSourceview"
 
 #: ../plugins/starter/anjuta-starter.plugin.in.h:2
 msgid "Welcome page with most common actions."
@@ -9911,21 +9919,3 @@ msgstr "Backend do Autotools"
 #: ../plugins/gbf-am/gbf-am.plugin.in.h:2
 msgid "Autotools backend for project manager"
 msgstr "Un backend do Autotools para o xestor de proxectos"
-
-#~ msgid "*"
-#~ msgstr "*"
-
-#~ msgid "Command Line Parameters"
-#~ msgstr "Parámetros da liña de ordes"
-
-#~ msgid "Enter a Hexa adress or select one in the data"
-#~ msgstr "Introducir un enderezo hexadecimal ou seleccionar un nos datos"
-
-#~ msgid "Execute Program"
-#~ msgstr "Executar o programa"
-
-#~ msgid "Run in Terminal"
-#~ msgstr "Executar nun terminal"
-
-#~ msgid "_Pass:"
-#~ msgstr "_Paso:"
