@@ -110,7 +110,7 @@ static GtkActionEntry actions_git[] =
 		NULL,                            /* Stock icon, if any */
 		N_("_Stash uncommitted changes..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		N_("Save ucommitted changes and re-apply them later"),                      /* Tooltip */
+		N_("Save uncommitted changes and re-apply them later"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_stash_changes)    /* action callback */
 	},
 	{
@@ -342,7 +342,7 @@ static GtkActionEntry actions_git[] =
 		NULL,                            /* Stock icon, if any */
 		N_("_Skip"),                     /* Display label */
 		NULL,                                     /* short-cut */
-		N_("Skip the current conflicted commmit and continue"),                      /* Tooltip */
+		N_("Skip the current conflicted commit and continue"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_rebase_skip)    /* action callback */
 	},
 	{

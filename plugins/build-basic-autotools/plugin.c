@@ -1496,7 +1496,7 @@ build_save_distclean_and_execute_command (BasicAutotoolsPlugin* bplugin, BuildPr
 		BuildProgram *new_prog;
 		
 		// Need to run make clean before
-		if (!anjuta_util_dialog_boolean_question (GTK_WINDOW (ANJUTA_PLUGIN (bplugin)->shell), _("To use this new configuration, the default configuration has to be removed. Do you want to do this?"), NULL))
+		if (!anjuta_util_dialog_boolean_question (GTK_WINDOW (ANJUTA_PLUGIN (bplugin)->shell), _("Before using this new configuration, the default one needs to be removed. Do you want to do that ?"), NULL))
 		{
 			GError *err;
 			

@@ -52,8 +52,8 @@ This means that you can't use Docbook SGML tags, unless specify the --sgml-mode
 option for gtkdoc-mkdb, which suppresses the escaping of '<', '>' and
 '&' and allows Docbook markup in inline comments.
 
-If you are using markup in inline comments, you must be careful to to
-not run into problems with the automatic splitting of the comment in
+If you are using markup in inline comments, you must be careful not to
+run into problems with the automatic splitting of the comment in
 paragraphs at empty lines. A line counts as empty for this purpose, if
 it is empty after the removal of the initial ' * ' prefix. Thus you
 can work around this problem by adding some trailing whitespace to
