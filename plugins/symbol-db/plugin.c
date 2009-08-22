@@ -318,6 +318,7 @@ static GtkActionEntry actions[] =
 	{
 		"ActionSymbolDBGotoImpl",
 		ANJUTA_STOCK_GOTO_IMPLEMENTATION,
+		/* Translators: Go to the line where the tag is implemented */
 		N_("Tag _Implementation"),
 		"<control>d",
 		N_("Goto symbol definition"),

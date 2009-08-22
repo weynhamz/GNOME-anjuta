@@ -44,6 +44,14 @@
 #define GLADE_PLUGIN_GLADE_UI_FILE PACKAGE_DATA_DIR"/glade/anjuta-glade.glade"
 #define ICON_FILE "anjuta-glade-plugin-48.png"
 
+#define PREFERENCES_PAGE_NAME "preferences_page"
+#define HANDLER_TEMPLATE_BUTTON0_NAME "handler_template_button0"
+#define HANDLER_TEMPLATE_BUTTON1_NAME "handler_template_button1"
+#define INSERT_HANDLER_ON_EDIT_NAME "insert_handler_on_edit"
+#define AUTO_ADD_RESOURCE_NAME "auto_add_resource"
+#define DEFAULT_RESOURCE_ENTRY_NAME "default_resource_entry"
+#define SEPARATED_DESIGNER_LAYOUT_NAME "separated_designer_layout"
+
 static gpointer parent_class;
 
 /* This is variable required from libdevhelp */
@@ -2240,8 +2248,10 @@ on_handler_editing_done (GladeSignalEditor *self, gchar *signal_name,
 				gchar *error_message =
 					g_strdup_printf(_("Error while adding a new handler stub: %s"),
 					                error->message);
+				GtkButton *button = GTK_BUTTON(gtk_builder_get_object (plugin->priv->xml,
+						       	INSERT_HANDLER_ON_EDIT_NAME));
 				gchar *hint_message =
-					g_strdup_printf(_("To avoid this messages turn off \"Insert handler on edit\" flag in Preferences->Glade GUI Designer"));
+					g_strdup_printf(_("To avoid this message turn off \"%s\" flag in Preferences->Glade GUI Designer"), gtk_button_get_label (button));
 
 				anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
 										   "%s. %s", error_message, hint_message);
@@ -4768,14 +4778,6 @@ iwizard_iface_init(IAnjutaWizardIface *iface)
 {
 	iface->activate = iwizard_activate;
 }
-
-#define PREFERENCES_PAGE_NAME "preferences_page"
-#define HANDLER_TEMPLATE_BUTTON0_NAME "handler_template_button0"
-#define HANDLER_TEMPLATE_BUTTON1_NAME "handler_template_button1"
-#define INSERT_HANDLER_ON_EDIT_NAME "insert_handler_on_edit"
-#define AUTO_ADD_RESOURCE_NAME "auto_add_resource"
-#define DEFAULT_RESOURCE_ENTRY_NAME "default_resource_entry"
-#define SEPARATED_DESIGNER_LAYOUT_NAME "separated_designer_layout"
 
 gboolean
 on_preferences_default_resource_entry_focus_out (GtkWidget *widget,
