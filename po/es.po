@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2009-08-15 02:27+0000\n"
-"PO-Revision-Date: 2009-08-15 12:40+0200\n"
+"POT-Creation-Date: 2009-08-22 19:49+0000\n"
+"PO-Revision-Date: 2009-08-23 22:49+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -223,7 +223,8 @@ msgstr "El shell de Anjuta que contendrá el complemento"
 
 #: ../libanjuta/anjuta-plugin-manager.c:733
 #, c-format
-msgid "Plugin '%s' do not want to be deactivated"
+#| msgid "Plugin '%s' do not want to be deactivated"
+msgid "Plugin '%s' does not want to be deactivated"
 msgstr "El complemento «%s» no quiere ser desactivado"
 
 #: ../libanjuta/anjuta-plugin-manager.c:764
@@ -286,7 +287,8 @@ msgstr "Seleccionar un complemento para activar"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1372
 #, c-format
-msgid "No plugin able to load other plugins in %s"
+#| msgid "No plugin able to load other plugins in %s"
+msgid "No plugin is able to load other plugins in %s"
 msgstr "No existe un complemento capaz de cargar otros complementos en %s"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1960
@@ -320,7 +322,8 @@ msgid "Currently activated plugins"
 msgstr "Complementos activados actualmente"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2311
-msgid "Anjuta shell for which the plugins are"
+#| msgid "Anjuta shell for which the plugins are"
+msgid "Anjuta shell for which the plugins are made"
 msgstr "El shell de Anjuta para el que son los complementos"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2319
@@ -585,8 +588,8 @@ msgstr "Objeto Pixbuf"
 msgid "The pixbuf to render."
 msgstr "El pixbuf a renderizar."
 
-#: ../libanjuta/resources.c:63 ../plugins/glade/plugin.c:3031
-#: ../plugins/glade/plugin.c:3066
+#: ../libanjuta/resources.c:63 ../plugins/glade/plugin.c:3041
+#: ../plugins/glade/plugin.c:3076
 #, c-format
 msgid "Widget not found: %s"
 msgstr "Widget no encontrado: %s"
@@ -820,11 +823,14 @@ msgstr "Construir %d: %s"
 
 #. Need to run make clean before
 #: ../plugins/build-basic-autotools/plugin.c:1499
+#| msgid ""
+#| "Using this new configuration, need to to remove the default one. Do you "
+#| "want to do it ?"
 msgid ""
-"Using this new configuration, need to to remove the default one. Do you want "
-"to do it ?"
+"Before using this new configuration, the default one needs to be removed. Do "
+"you want to do that ?"
 msgstr ""
-"Para usar esta nueva configuración se necesita quitar la predeterminada. "
+"Antes de usar esta nueva configuración necesita quitar la predeterminada. "
 "¿Quiere hacerlo?"
 
 #: ../plugins/build-basic-autotools/plugin.c:1802
@@ -1134,7 +1140,7 @@ msgid "No License"
 msgstr "Sin licencia"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:25
-#: ../plugins/glade/plugin.c:4436
+#: ../plugins/glade/plugin.c:4446
 msgid "Properties"
 msgstr "Propiedades"
 
@@ -1352,8 +1358,8 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "Ignorar el archivo .cvsrc (recomendado)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:36
-#: ../plugins/git/anjuta-git.ui.h:62 ../plugins/symbol-db/plugin.c:2332
-#: ../plugins/symbol-db/plugin.c:2396
+#: ../plugins/git/anjuta-git.ui.h:62 ../plugins/symbol-db/plugin.c:2333
+#: ../plugins/symbol-db/plugin.c:2397
 msgid "Local"
 msgstr "Local"
 
@@ -2563,8 +2569,8 @@ msgstr "Contenido"
 #: ../plugins/search/search-replace.c:1717
 #: ../plugins/search/search-replace.c:1724
 #: ../plugins/search/search-replace.c:1736
-#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2334
-#: ../plugins/symbol-db/plugin.c:2446
+#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2335
+#: ../plugins/symbol-db/plugin.c:2447
 msgid "Search"
 msgstr "Buscar"
 
@@ -2982,7 +2988,7 @@ msgstr "Quita la vista actual del documento"
 msgid "U_ndo"
 msgstr "Des_hacer"
 
-#: ../plugins/document-manager/plugin.c:283 ../plugins/glade/plugin.c:4079
+#: ../plugins/document-manager/plugin.c:283 ../plugins/glade/plugin.c:4089
 msgid "Undo the last action"
 msgstr "Deshace la última acción"
 
@@ -3561,7 +3567,7 @@ msgid "Filter"
 msgstr "Filtro"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2333 ../plugins/symbol-db/plugin.c:2422
+#: ../plugins/symbol-db/plugin.c:2334 ../plugins/symbol-db/plugin.c:2423
 msgid "Global"
 msgstr "Global"
 
@@ -4551,7 +4557,7 @@ msgstr "Mezclado"
 msgid "Mode:"
 msgstr "Modo:"
 
-#: ../plugins/git/anjuta-git.ui.h:70 ../plugins/glade/plugin.c:3087
+#: ../plugins/git/anjuta-git.ui.h:70 ../plugins/glade/plugin.c:3097
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:10
 #: ../plugins/subversion/anjuta-subversion.ui.h:23
 msgid "Options"
@@ -4863,12 +4869,12 @@ msgid "Git: Deleted selected branches."
 msgstr "Git: Ramas seleccionadas borradas."
 
 #: ../plugins/git/git-delete-branch-dialog.c:106
-#| msgid "Please select a file."
 msgid "Please select branches to delete"
 msgstr "Seleccione las ramas que borrar"
 
 #: ../plugins/git/git-delete-tag-dialog.c:37
-msgid "Git: Deleted selected tages."
+#| msgid "Git: Deleted selected tages."
+msgid "Git: Deleted selected tags."
 msgstr "Git: Etiquetas seleccionadas borradas."
 
 #: ../plugins/git/git-fetch-dialog.c:40
@@ -5069,7 +5075,8 @@ msgstr "Gua_rdar (stash) cambios sin subir…"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:113
-msgid "Save ucommitted changes and re-apply them later"
+#| msgid "Save ucommitted changes and re-apply them later"
+msgid "Save uncommitted changes and re-apply them later"
 msgstr "Guardar los cambios sin subir y aplicarlos de nuevo más tarde"
 
 #. Action name
@@ -5388,7 +5395,8 @@ msgstr "_Saltar"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:345
-msgid "Skip the current conflicted commmit and continue"
+#| msgid "Skip the current conflicted commmit and continue"
+msgid "Skip the current conflicted commit and continue"
 msgstr "Omitir el commit actual en conflicto y continuar"
 
 #. Display label
@@ -5684,51 +5692,44 @@ msgstr "<b>Gestionar asociaciones</b>"
 msgid "<b>New association</b>"
 msgstr "<b>Asociación nueva</b>"
 
-#: ../plugins/glade/anjuta-glade.glade.h:4
+#. Link a file with a widget
+#: ../plugins/glade/anjuta-glade.glade.h:5
 msgid "Associate"
 msgstr "Asociar"
 
-#: ../plugins/glade/anjuta-glade.glade.h:5
+#: ../plugins/glade/anjuta-glade.glade.h:6
 msgid "Automatically add resources"
 msgstr "Añadir recursos automáticamente"
 
-#: ../plugins/glade/anjuta-glade.glade.h:6 ../plugins/glade/plugin.c:755
-#: ../plugins/glade/plugin.c:3084
+#: ../plugins/glade/anjuta-glade.glade.h:7 ../plugins/glade/plugin.c:763
+#: ../plugins/glade/plugin.c:3094
 msgid "Designer"
 msgstr "Diseñador"
 
-#: ../plugins/glade/anjuta-glade.glade.h:7 ../plugins/glade/plugin.c:3086
+#: ../plugins/glade/anjuta-glade.glade.h:8 ../plugins/glade/plugin.c:3096
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:3
 msgid "Editor"
 msgstr "Editor"
 
-#: ../plugins/glade/anjuta-glade.glade.h:8
+#: ../plugins/glade/anjuta-glade.glade.h:9
 msgid "Insert handler on edit"
 msgstr "Insertar manejador al editar"
 
-#: ../plugins/glade/anjuta-glade.glade.h:9
+#: ../plugins/glade/anjuta-glade.glade.h:10
 msgid "Position type"
 msgstr "Tipo de posición"
 
-#: ../plugins/glade/anjuta-glade.glade.h:10
+#: ../plugins/glade/anjuta-glade.glade.h:11
 msgid "Separated designer layout"
 msgstr "Distribución del diseñador separada"
 
-#: ../plugins/glade/anjuta-glade.glade.h:11
+#: ../plugins/glade/anjuta-glade.glade.h:12
 msgid "Special regexp"
 msgstr "ExpReg especial"
 
-#: ../plugins/glade/anjuta-glade.glade.h:12
+#: ../plugins/glade/anjuta-glade.glade.h:13
 msgid "Widget name"
 msgstr "Nombre del widget"
-
-#: ../plugins/glade/anjuta-glade.glade.h:13
-msgid "on_widget_signal"
-msgstr "a_la_señal_del_widget"
-
-#: ../plugins/glade/anjuta-glade.glade.h:14
-msgid "widget_signal_cb"
-msgstr "señal_cb_del_widget"
 
 #: ../plugins/glade/designer-associations-item.c:243
 #, c-format
@@ -5760,237 +5761,239 @@ msgstr "valor de la propiedad %s no válido"
 msgid "Association item filename has no path"
 msgstr "El nombre del archivo del elemento de asociación no tiene ruta"
 
-#: ../plugins/glade/plugin.c:847
+#: ../plugins/glade/plugin.c:855
 #, c-format
 msgid "No associations initialized, nothing to save"
 msgstr "No se inicializó ninguna asociación, no hay nada que guardar"
 
-#: ../plugins/glade/plugin.c:854
+#: ../plugins/glade/plugin.c:862
 #, c-format
 msgid "Couldn't save associations because project root isn't set"
 msgstr ""
 "No se pudieron guardar las asociaciones porque el proyecto raíz no está "
 "configurado"
 
-#: ../plugins/glade/plugin.c:876
+#: ../plugins/glade/plugin.c:884
 #, c-format
 msgid "Failed to save associations"
 msgstr "Falló al guardar las asociaciones"
 
 #. iptCurrent:
-#: ../plugins/glade/plugin.c:1188
+#: ../plugins/glade/plugin.c:1196
 msgid "Current"
 msgstr "Actual"
 
 #. iptBeforeEnd:
-#: ../plugins/glade/plugin.c:1189
+#: ../plugins/glade/plugin.c:1197
 msgid "Before end"
 msgstr "Antes del final"
 
 #. iptAfterBegin:
-#: ../plugins/glade/plugin.c:1190
+#: ../plugins/glade/plugin.c:1198
 msgid "After begin"
 msgstr "Después del principio"
 
 #. ipEOF:
-#: ../plugins/glade/plugin.c:1191
+#: ../plugins/glade/plugin.c:1199
 msgid "End of file"
 msgstr "Final del archivo"
 
-#: ../plugins/glade/plugin.c:1360
+#: ../plugins/glade/plugin.c:1368
 #, c-format
 msgid "Couldn't introspect the signal"
 msgstr "No se pudo inspeccionar la señal"
 
-#: ../plugins/glade/plugin.c:1382
+#: ../plugins/glade/plugin.c:1390
 #, c-format
 msgid "Python language isn't supported yet"
 msgstr "El lenguaje Python no está soportado aún"
 
-#: ../plugins/glade/plugin.c:1395
+#: ../plugins/glade/plugin.c:1403
 #, c-format
 msgid "Vala language isn't supported yet"
 msgstr "El lenguaje Vala no está soportado aún"
 
-#: ../plugins/glade/plugin.c:1954
+#: ../plugins/glade/plugin.c:1962
 #, c-format
 msgid "There is no associated editor for the designer"
 msgstr "No hay un editor asociado para el diseñador"
 
-#: ../plugins/glade/plugin.c:1972
+#: ../plugins/glade/plugin.c:1980
 #, c-format
 msgid "Unknown language of the editor \"%s\""
 msgstr "Editor del lenguaje «%s» desconocido"
 
-#: ../plugins/glade/plugin.c:2039 ../plugins/glade/plugin.c:2116
-#: ../plugins/glade/plugin.c:2241
+#: ../plugins/glade/plugin.c:2047 ../plugins/glade/plugin.c:2124
+#: ../plugins/glade/plugin.c:2249
 #, c-format
 msgid "Error while adding a new handler stub: %s"
 msgstr "Error al añadir un nuevo manejador de esbozos: %s"
 
-#: ../plugins/glade/plugin.c:2046 ../plugins/glade/plugin.c:2130
+#: ../plugins/glade/plugin.c:2054 ../plugins/glade/plugin.c:2138
 msgid "Couldn't find a signal information"
 msgstr "No se pudo encontrar una señal de información"
 
-#: ../plugins/glade/plugin.c:2073
+#: ../plugins/glade/plugin.c:2081
 msgid "Error while adding a new handler stub: No current editor"
 msgstr ""
 "Error al añadir un nuevo manejador de esbozos: No existe un editor actual"
 
-#: ../plugins/glade/plugin.c:2244
+#: ../plugins/glade/plugin.c:2254
 #, c-format
+#| msgid ""
+#| "To avoid this messages turn off \"Insert handler on edit\" flag in "
+#| "Preferences->Glade GUI Designer"
 msgid ""
-"To avoid this messages turn off \"Insert handler on edit\" flag in "
-"Preferences->Glade GUI Designer"
+"To avoid this message turn off \"%s\" flag in Preferences->Glade GUI Designer"
 msgstr ""
-"Para evitar estos mensajes desactive la opción «Insertar manejador al editar» "
-"en Preferencias->Diseñador de IGU Glade"
+"Para evitar estos mensajes desactive la opción «%s» en Preferencias-"
+">Diseñador de IGU Glade"
 
-#: ../plugins/glade/plugin.c:2314
+#: ../plugins/glade/plugin.c:2324
 msgid "Couldn't find an associated document"
 msgstr "No se pudo encontrar una documento asociado"
 
-#: ../plugins/glade/plugin.c:2380
+#: ../plugins/glade/plugin.c:2390
 msgid "Those documents are already associated"
 msgstr "Esos documentos ya están asociados"
 
-#: ../plugins/glade/plugin.c:2418
+#: ../plugins/glade/plugin.c:2428
 #, c-format
 msgid "Unable to read file: %s."
 msgstr "No se puede leer el archivo: %s."
 
-#: ../plugins/glade/plugin.c:3085
+#: ../plugins/glade/plugin.c:3095
 msgid "Top level widget"
 msgstr "Widget de nivel superior"
 
-#: ../plugins/glade/plugin.c:3676
+#: ../plugins/glade/plugin.c:3686
 msgid "Couldn't find a default signal name"
 msgstr "No se pudo encontrar un nombre de señal predeterminado"
 
-#: ../plugins/glade/plugin.c:3886
+#: ../plugins/glade/plugin.c:3896
 #, c-format
 msgid "Project %s has no deprecated widgets or version mismatches."
 msgstr ""
 "El proyecto %s no tiene widgets obsoletos o inconsistencias entre versiones."
 
-#: ../plugins/glade/plugin.c:3903
+#: ../plugins/glade/plugin.c:3913
 msgid "There is no Glade project"
 msgstr "No hay ningún proyecto de Glade"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/glade/plugin.c:3989
+#: ../plugins/glade/plugin.c:3999
 msgid "_Glade"
 msgstr "_Glade"
 
-#: ../plugins/glade/plugin.c:3997 ../plugins/glade/plugin.c:3999
+#: ../plugins/glade/plugin.c:4007 ../plugins/glade/plugin.c:4009
 msgid "Switch between designer/code"
 msgstr "Cambiar entre diseñador/código"
 
-#: ../plugins/glade/plugin.c:4005 ../plugins/glade/plugin.c:4007
+#: ../plugins/glade/plugin.c:4015 ../plugins/glade/plugin.c:4017
 msgid "Insert handler stub"
 msgstr "Insertar manejador de esbozos"
 
-#: ../plugins/glade/plugin.c:4013 ../plugins/glade/plugin.c:4015
+#: ../plugins/glade/plugin.c:4023 ../plugins/glade/plugin.c:4025
 msgid "Insert handler stub, autoposition"
 msgstr "Insertar manejador de esbozos, posición automática"
 
-#: ../plugins/glade/plugin.c:4021
+#: ../plugins/glade/plugin.c:4031
 msgid "Associate last designer and last editor"
 msgstr "Asociar el último diseñador y el último editor"
 
-#: ../plugins/glade/plugin.c:4023
+#: ../plugins/glade/plugin.c:4033
 msgid "Associate last designer and editor"
 msgstr "Asociar el último diseñador y editor"
 
-#: ../plugins/glade/plugin.c:4029 ../plugins/glade/plugin.c:4031
+#: ../plugins/glade/plugin.c:4039 ../plugins/glade/plugin.c:4041
 msgid "Associations dialog..."
 msgstr "Diálogo de asociaciones…"
 
-#: ../plugins/glade/plugin.c:4037
+#: ../plugins/glade/plugin.c:4047
 msgid "Versioning..."
 msgstr "Versionado…"
 
-#: ../plugins/glade/plugin.c:4039
+#: ../plugins/glade/plugin.c:4049
 msgid "Switch between library versions and check deprecations"
 msgstr ""
 "Cambiar entre las versiones de bibliotecas y comprobar las obsolescencias"
 
-#: ../plugins/glade/plugin.c:4045 ../plugins/glade/plugin.c:4047
+#: ../plugins/glade/plugin.c:4055 ../plugins/glade/plugin.c:4057
 msgid "Set as default resource target"
 msgstr "Establecer como objetivo de recurso predeterminado"
 
-#: ../plugins/glade/plugin.c:4055
+#: ../plugins/glade/plugin.c:4065
 msgid "Current default target"
 msgstr "Objetivo predeterminado actual"
 
-#: ../plugins/glade/plugin.c:4063
+#: ../plugins/glade/plugin.c:4073
 msgid "Close the current file"
 msgstr "Cerrar el archivo actual"
 
-#: ../plugins/glade/plugin.c:4071
+#: ../plugins/glade/plugin.c:4081
 msgid "Save the current file"
 msgstr "Guardar el archivo actual"
 
-#: ../plugins/glade/plugin.c:4087
+#: ../plugins/glade/plugin.c:4097
 msgid "Redo the last action"
 msgstr "Rehacer la última acción"
 
-#: ../plugins/glade/plugin.c:4095
+#: ../plugins/glade/plugin.c:4105
 msgid "Cut the selection"
 msgstr "Cortar la selección"
 
-#: ../plugins/glade/plugin.c:4103
+#: ../plugins/glade/plugin.c:4113
 msgid "Copy the selection"
 msgstr "Copiar la selección"
 
-#: ../plugins/glade/plugin.c:4111
+#: ../plugins/glade/plugin.c:4121
 msgid "Paste the clipboard"
 msgstr "Pegar el contenido del portapapeles"
 
-#: ../plugins/glade/plugin.c:4119
+#: ../plugins/glade/plugin.c:4129
 msgid "Delete the selection"
 msgstr "Borrar la selección"
 
-#: ../plugins/glade/plugin.c:4297
+#: ../plugins/glade/plugin.c:4307
 msgid "Glade designer operations"
 msgstr "Operaciones del diseñador de Glade"
 
-#: ../plugins/glade/plugin.c:4397
+#: ../plugins/glade/plugin.c:4407
 msgid "Go back in undo history"
 msgstr "Ir atrás en el historial de deshacer"
 
-#: ../plugins/glade/plugin.c:4399
+#: ../plugins/glade/plugin.c:4409
 msgid "Go forward in undo history"
 msgstr "Ir adelante en el historial de deshacer"
 
-#: ../plugins/glade/plugin.c:4421
+#: ../plugins/glade/plugin.c:4431
 msgid "Glade Clipboard"
 msgstr "Portapapeles de Glade"
 
-#: ../plugins/glade/plugin.c:4426
+#: ../plugins/glade/plugin.c:4436
 msgid "Widgets"
 msgstr "Widgets"
 
-#: ../plugins/glade/plugin.c:4431
+#: ../plugins/glade/plugin.c:4441
 msgid "Palette"
 msgstr "Paleta"
 
-#: ../plugins/glade/plugin.c:4685
+#: ../plugins/glade/plugin.c:4695
 #, c-format
 msgid "Not local file: %s"
 msgstr "Archivo no local: %s"
 
-#: ../plugins/glade/plugin.c:4706
+#: ../plugins/glade/plugin.c:4716
 #, c-format
 msgid "Could not open %s"
 msgstr "No se pudo abrir: %s"
 
-#: ../plugins/glade/plugin.c:4757
+#: ../plugins/glade/plugin.c:4767
 msgid "Could not create a new glade project."
 msgstr "No se puede crear un proyecto nuevo de glade."
 
-#: ../plugins/glade/plugin.c:5027 ../plugins/glade/plugin.c:5052
+#: ../plugins/glade/plugin.c:5029 ../plugins/glade/plugin.c:5054
 msgid "Glade GUI Designer"
 msgstr "Diseñador de IGU Glade"
 
@@ -8827,55 +8830,56 @@ msgstr "Declaración de _etiqueta"
 msgid "Goto symbol declaration"
 msgstr "Ir a declaración del símbolo"
 
-#: ../plugins/symbol-db/plugin.c:321
+#. Translators: Go to the line where the tag is implemented
+#: ../plugins/symbol-db/plugin.c:322
 msgid "Tag _Implementation"
 msgstr "_Implementación de etiquetas"
 
-#: ../plugins/symbol-db/plugin.c:323
+#: ../plugins/symbol-db/plugin.c:324
 msgid "Goto symbol definition"
 msgstr "Ir a definición del símbolo"
 
-#: ../plugins/symbol-db/plugin.c:330
+#: ../plugins/symbol-db/plugin.c:331
 msgid "_Find Symbol..."
 msgstr "_Buscar símbolo…"
 
-#: ../plugins/symbol-db/plugin.c:331
+#: ../plugins/symbol-db/plugin.c:332
 msgid "Find Symbol"
 msgstr "Buscar símbolo"
 
-#: ../plugins/symbol-db/plugin.c:1169
+#: ../plugins/symbol-db/plugin.c:1170
 #, c-format
 msgid "%s: Generating inheritances..."
 msgstr "%s: Generando herencias…"
 
-#: ../plugins/symbol-db/plugin.c:1174
+#: ../plugins/symbol-db/plugin.c:1175
 #, c-format
 msgid "%s: %d files scanned out of %d"
 msgstr "%s: %d archivos analizados de %d"
 
-#: ../plugins/symbol-db/plugin.c:1205
+#: ../plugins/symbol-db/plugin.c:1206
 #, c-format
 msgid "Generating inheritances..."
 msgstr "Generando herencias…"
 
-#: ../plugins/symbol-db/plugin.c:1207
+#: ../plugins/symbol-db/plugin.c:1208
 #, c-format
 msgid "%d files scanned out of %d"
 msgstr "%d archivos analizados de %d"
 
-#: ../plugins/symbol-db/plugin.c:1967
+#: ../plugins/symbol-db/plugin.c:1968
 msgid "Populating symbols' db..."
 msgstr "Llenando la BB DD de símbolos…"
 
-#: ../plugins/symbol-db/plugin.c:2351 ../plugins/symbol-db/plugin.c:2479
+#: ../plugins/symbol-db/plugin.c:2352 ../plugins/symbol-db/plugin.c:2480
 msgid "Symbols"
 msgstr "Símbolos"
 
-#: ../plugins/symbol-db/plugin.c:2488
+#: ../plugins/symbol-db/plugin.c:2489
 msgid "SymbolDb popup actions"
 msgstr "Acciones emergentes de la BB DD de símbolos"
 
-#: ../plugins/symbol-db/plugin.c:2496
+#: ../plugins/symbol-db/plugin.c:2497
 msgid "SymbolDb menu actions"
 msgstr "Acciones del menú de la BB DD de símbolos"
 
@@ -9251,8 +9255,9 @@ msgid "Currently edited file directory"
 msgstr "Directorio de archivo editado actualmente"
 
 #: ../plugins/tools/variable.c:103
-msgid "Currently selection in editor"
-msgstr "Selección actual en el editor"
+#| msgid "Currently selection in editor"
+msgid "Currently selected text in editor"
+msgstr "Texto seleccionado actualmente en el editor"
 
 #: ../plugins/tools/variable.c:104
 msgid "Current word in editor"
@@ -9934,6 +9939,12 @@ msgstr "Backend de autotools"
 #: ../plugins/gbf-am/gbf-am.plugin.in.h:2
 msgid "Autotools backend for project manager"
 msgstr "Backend de autotools para el gestor de proyectos"
+
+#~ msgid "on_widget_signal"
+#~ msgstr "a_la_señal_del_widget"
+
+#~ msgid "widget_signal_cb"
+#~ msgstr "señal_cb_del_widget"
 
 #~ msgid "*"
 #~ msgstr "*"
