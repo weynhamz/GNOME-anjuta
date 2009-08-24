@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2009-08-21 16:00+0700\n"
-"PO-Revision-Date: 2009-08-21 17:55+0700\n"
+"POT-Creation-Date: 2009-08-23 21:04+0000\n"
+"PO-Revision-Date: 2009-08-24 12:39+0700\n"
 "Last-Translator: Akom C. <knight2000@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -213,7 +213,7 @@ msgstr "เชลล์แอนจูตาที่จะบรรจุปล
 
 #: ../libanjuta/anjuta-plugin-manager.c:733
 #, c-format
-msgid "Plugin '%s' do not want to be deactivated"
+msgid "Plugin '%s' does not want to be deactivated"
 msgstr "ปลั๊กอิน '%s' ไม่ต้องการปิดการทำงาน"
 
 #: ../libanjuta/anjuta-plugin-manager.c:764
@@ -273,7 +273,7 @@ msgstr "กรุณาเลือกปลั๊กอินเพื่อใ
 
 #: ../libanjuta/anjuta-plugin-manager.c:1372
 #, c-format
-msgid "No plugin able to load other plugins in %s"
+msgid "No plugin is able to load other plugins in %s"
 msgstr "ไม่มีปลั๊กอินที่สามารถโหลดปลั๊กอินอื่นใน %s"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1960
@@ -305,7 +305,7 @@ msgid "Currently activated plugins"
 msgstr "ปลั๊กอินปัจจุบันที่ทำงานอยู่"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2311
-msgid "Anjuta shell for which the plugins are"
+msgid "Anjuta shell for which the plugins are made"
 msgstr "เชลล์แอนจูตาที่ปลั๊กอินนี้ทำงานด้วย"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2319
@@ -562,8 +562,8 @@ msgstr "อ็อบเจกต์ Pixbuf"
 msgid "The pixbuf to render."
 msgstr "pixbuf ที่จะวาด"
 
-#: ../libanjuta/resources.c:63 ../plugins/glade/plugin.c:3031
-#: ../plugins/glade/plugin.c:3066
+#: ../libanjuta/resources.c:63 ../plugins/glade/plugin.c:3041
+#: ../plugins/glade/plugin.c:3076
 #, c-format
 msgid "Widget not found: %s"
 msgstr "ไม่พบวิดเจ็ต: %s"
@@ -798,9 +798,9 @@ msgstr "การประกอบสร้าง %d: %s"
 #. Need to run make clean before
 #: ../plugins/build-basic-autotools/plugin.c:1499
 msgid ""
-"Using this new configuration, need to to remove the default one. Do you want "
-"to do it ?"
-msgstr "การใช้การตั้งค่าใหม่นี้ ต้องลบค่าปริยายก่อน ยืนยันที่จะทำเช่นนั้นหรือไม่?"
+"Before using this new configuration, the default one needs to be removed. Do "
+"you want to do that ?"
+msgstr "ก่อนใช้การตั้งค่าใหม่นี้ ต้องลบค่าปริยายก่อน ยืนยันที่จะทำเช่นนั้นหรือไม่?"
 
 #: ../plugins/build-basic-autotools/plugin.c:1802
 #, c-format
@@ -1104,7 +1104,7 @@ msgid "No License"
 msgstr "ไม่มีสัญญาอนุญาต"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:25
-#: ../plugins/glade/plugin.c:4436
+#: ../plugins/glade/plugin.c:4446
 msgid "Properties"
 msgstr "คุณสมบัติ"
 
@@ -1321,8 +1321,8 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "ไม่สนใจแฟ้ม .cvsrc (แนะนำ)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:36
-#: ../plugins/git/anjuta-git.ui.h:62 ../plugins/symbol-db/plugin.c:2332
-#: ../plugins/symbol-db/plugin.c:2396
+#: ../plugins/git/anjuta-git.ui.h:62 ../plugins/symbol-db/plugin.c:2333
+#: ../plugins/symbol-db/plugin.c:2397
 msgid "Local"
 msgstr "เฉพาะที่"
 
@@ -2524,8 +2524,8 @@ msgstr "เนื้อหา"
 #: ../plugins/search/search-replace.c:1717
 #: ../plugins/search/search-replace.c:1724
 #: ../plugins/search/search-replace.c:1736
-#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2334
-#: ../plugins/symbol-db/plugin.c:2446
+#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2335
+#: ../plugins/symbol-db/plugin.c:2447
 msgid "Search"
 msgstr "ค้นหา"
 
@@ -2942,7 +2942,7 @@ msgstr "ลบมุมมองปัจจุบันของเอกสา
 msgid "U_ndo"
 msgstr "เรี_ยกคืน"
 
-#: ../plugins/document-manager/plugin.c:283 ../plugins/glade/plugin.c:4079
+#: ../plugins/document-manager/plugin.c:283 ../plugins/glade/plugin.c:4089
 msgid "Undo the last action"
 msgstr "เรียกคืนปฏิบัติการล่าสุด"
 
@@ -3518,7 +3518,7 @@ msgid "Filter"
 msgstr "ตัวกรอง"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2333 ../plugins/symbol-db/plugin.c:2422
+#: ../plugins/symbol-db/plugin.c:2334 ../plugins/symbol-db/plugin.c:2423
 msgid "Global"
 msgstr "ส่วนกลาง"
 
@@ -4495,7 +4495,7 @@ msgstr "ผสม"
 msgid "Mode:"
 msgstr "โหมด:"
 
-#: ../plugins/git/anjuta-git.ui.h:70 ../plugins/glade/plugin.c:3087
+#: ../plugins/git/anjuta-git.ui.h:70 ../plugins/glade/plugin.c:3097
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:10
 #: ../plugins/subversion/anjuta-subversion.ui.h:23
 msgid "Options"
@@ -4811,7 +4811,7 @@ msgid "Please select branches to delete"
 msgstr "กรุณาเลือกแขนงที่จะลบ"
 
 #: ../plugins/git/git-delete-tag-dialog.c:37
-msgid "Git: Deleted selected tages."
+msgid "Git: Deleted selected tags."
 msgstr "Git: ลบแท็กที่เลือกแล้ว"
 
 #: ../plugins/git/git-fetch-dialog.c:40
@@ -5012,7 +5012,7 @@ msgstr "_Stash การเปลี่ยนแปลงที่ยังไ�
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:113
-msgid "Save ucommitted changes and re-apply them later"
+msgid "Save uncommitted changes and re-apply them later"
 msgstr "บันทึกการเปลี่ยนแปลงที่ยังไม่ commit และนำไปใช้ภายหลัง"
 
 #. Action name
@@ -5331,7 +5331,7 @@ msgstr "_ข้าม"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:345
-msgid "Skip the current conflicted commmit and continue"
+msgid "Skip the current conflicted commit and continue"
 msgstr "ข้าม commit ปัจจุบันที่ขัดแย้งและดำเนินการต่อ"
 
 #. Display label
@@ -5626,51 +5626,44 @@ msgstr "<b>จัดการการเชื่อมโยง</b>"
 msgid "<b>New association</b>"
 msgstr "<b>รายการเชื่อมโยงใหม่</b>"
 
-#: ../plugins/glade/anjuta-glade.glade.h:4
+#. Link a file with a widget
+#: ../plugins/glade/anjuta-glade.glade.h:5
 msgid "Associate"
 msgstr "เชื่อมโยง"
 
-#: ../plugins/glade/anjuta-glade.glade.h:5
+#: ../plugins/glade/anjuta-glade.glade.h:6
 msgid "Automatically add resources"
 msgstr "เพิ่มทรัพยากรโดยอัตโนมัติ"
 
-#: ../plugins/glade/anjuta-glade.glade.h:6 ../plugins/glade/plugin.c:755
-#: ../plugins/glade/plugin.c:3084
+#: ../plugins/glade/anjuta-glade.glade.h:7 ../plugins/glade/plugin.c:763
+#: ../plugins/glade/plugin.c:3094
 msgid "Designer"
 msgstr "เครื่องมือออกแบบ"
 
-#: ../plugins/glade/anjuta-glade.glade.h:7 ../plugins/glade/plugin.c:3086
+#: ../plugins/glade/anjuta-glade.glade.h:8 ../plugins/glade/plugin.c:3096
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:3
 msgid "Editor"
 msgstr "เครื่องมือแก้ไข"
 
-#: ../plugins/glade/anjuta-glade.glade.h:8
+#: ../plugins/glade/anjuta-glade.glade.h:9
 msgid "Insert handler on edit"
 msgstr "แทรก handler เมื่อแก้ไข"
 
-#: ../plugins/glade/anjuta-glade.glade.h:9
+#: ../plugins/glade/anjuta-glade.glade.h:10
 msgid "Position type"
 msgstr "ประเภทตำแหน่ง"
 
-#: ../plugins/glade/anjuta-glade.glade.h:10
+#: ../plugins/glade/anjuta-glade.glade.h:11
 msgid "Separated designer layout"
 msgstr "จัดวางเครื่องมือออกแบบแบบแยก"
 
-#: ../plugins/glade/anjuta-glade.glade.h:11
+#: ../plugins/glade/anjuta-glade.glade.h:12
 msgid "Special regexp"
 msgstr "regexp พิเศษ"
 
-#: ../plugins/glade/anjuta-glade.glade.h:12
+#: ../plugins/glade/anjuta-glade.glade.h:13
 msgid "Widget name"
 msgstr "ชื่อวิดเจ็ต"
-
-#: ../plugins/glade/anjuta-glade.glade.h:13
-msgid "on_widget_signal"
-msgstr "on_widget_signal"
-
-#: ../plugins/glade/anjuta-glade.glade.h:14
-msgid "widget_signal_cb"
-msgstr "widget_signal_cb"
 
 #: ../plugins/glade/designer-associations-item.c:243
 #, c-format
@@ -5702,232 +5695,229 @@ msgstr "ค่าคุณสมบัติ %s ไม่ถูกต้อง"
 msgid "Association item filename has no path"
 msgstr "ชื่อแฟ้มของรายการการเชื่อมโยงไม่มีพาธ"
 
-#: ../plugins/glade/plugin.c:847
+#: ../plugins/glade/plugin.c:855
 #, c-format
 msgid "No associations initialized, nothing to save"
 msgstr "ไม่มีการกำหนดค่าเริ่มต้นการเชื่อมโยง จึงไม่มีอะไรจะบันทึก"
 
-#: ../plugins/glade/plugin.c:854
+#: ../plugins/glade/plugin.c:862
 #, c-format
 msgid "Couldn't save associations because project root isn't set"
 msgstr "ไม่สามารถบันทึกการเชื่อมโยง เนื่องจากไม่ได้กำหนดรากของโครงการ"
 
-#: ../plugins/glade/plugin.c:876
+#: ../plugins/glade/plugin.c:884
 #, c-format
 msgid "Failed to save associations"
 msgstr "บันทึกการเชื่อมโยงไม่สำเร็จ"
 
 #. iptCurrent:
-#: ../plugins/glade/plugin.c:1188
+#: ../plugins/glade/plugin.c:1196
 msgid "Current"
 msgstr "ปัจจุบัน"
 
 #. iptBeforeEnd:
-#: ../plugins/glade/plugin.c:1189
+#: ../plugins/glade/plugin.c:1197
 msgid "Before end"
 msgstr "ก่อนท้ายสุด"
 
 #. iptAfterBegin:
-#: ../plugins/glade/plugin.c:1190
+#: ../plugins/glade/plugin.c:1198
 msgid "After begin"
 msgstr "หลังจุดเริ่มต้น"
 
 #. ipEOF:
-#: ../plugins/glade/plugin.c:1191
+#: ../plugins/glade/plugin.c:1199
 msgid "End of file"
 msgstr "ท้ายแฟ้ม"
 
-#: ../plugins/glade/plugin.c:1360
+#: ../plugins/glade/plugin.c:1368
 #, c-format
 msgid "Couldn't introspect the signal"
 msgstr "ไม่สามารถเฝ้าสังเกตสัญญาณได้"
 
-#: ../plugins/glade/plugin.c:1382
+#: ../plugins/glade/plugin.c:1390
 #, c-format
 msgid "Python language isn't supported yet"
 msgstr "ยังไม่รองรับภาษาไพธอน"
 
-#: ../plugins/glade/plugin.c:1395
+#: ../plugins/glade/plugin.c:1403
 #, c-format
 msgid "Vala language isn't supported yet"
 msgstr "ยังไม่รองรับภาษา Vala"
 
-#: ../plugins/glade/plugin.c:1954
+#: ../plugins/glade/plugin.c:1962
 #, c-format
 msgid "There is no associated editor for the designer"
 msgstr "ไม่มีเครื่องมือแก้ไขที่เชื่อมโยงกับเครื่องมือออกแบบนี้"
 
-#: ../plugins/glade/plugin.c:1972
+#: ../plugins/glade/plugin.c:1980
 #, c-format
 msgid "Unknown language of the editor \"%s\""
 msgstr "ไม่ทราบภาษาของเครื่องมือแก้ไข \"%s\""
 
-#: ../plugins/glade/plugin.c:2039 ../plugins/glade/plugin.c:2116
-#: ../plugins/glade/plugin.c:2241
+#: ../plugins/glade/plugin.c:2047 ../plugins/glade/plugin.c:2124
+#: ../plugins/glade/plugin.c:2249
 #, c-format
 msgid "Error while adding a new handler stub: %s"
 msgstr "เกิดข้อผิดพลาดขณะเพิ่มเค้าโครง handler ใหม่: %s"
 
-#: ../plugins/glade/plugin.c:2046 ../plugins/glade/plugin.c:2130
+#: ../plugins/glade/plugin.c:2054 ../plugins/glade/plugin.c:2138
 msgid "Couldn't find a signal information"
 msgstr "หาข้อมูลของสัญญาณไม่พบ"
 
-#: ../plugins/glade/plugin.c:2073
+#: ../plugins/glade/plugin.c:2081
 msgid "Error while adding a new handler stub: No current editor"
 msgstr "เกิดข้อผิดพลาดขณะเพิ่มเค้าโครง handler ใหม่: ไม่มีเครื่องมือแก้ไขปัจจุบัน"
 
-#: ../plugins/glade/plugin.c:2244
+#: ../plugins/glade/plugin.c:2254
 #, c-format
 msgid ""
-"To avoid this messages turn off \"Insert handler on edit\" flag in "
-"Preferences->Glade GUI Designer"
-msgstr ""
-"การหลีกเลี่ยงข้อความนี้ ทำได้โดยปิด \"แทรก handler เมื่อแก้ไข\" ใน ปรับแต่ง-"
-">เครื่องมือออกแบบ GUI Glade"
+"To avoid this message turn off \"%s\" flag in Preferences->Glade GUI Designer"
+msgstr "การหลีกเลี่ยงข้อความนี้ ทำได้โดยปิด \"%s\" ใน ปรับแต่ง->เครื่องมือออกแบบ GUI Glade"
 
-#: ../plugins/glade/plugin.c:2314
+#: ../plugins/glade/plugin.c:2324
 msgid "Couldn't find an associated document"
 msgstr "หาเอกสารที่เชื่อมโยงไม่พบ"
 
-#: ../plugins/glade/plugin.c:2380
+#: ../plugins/glade/plugin.c:2390
 msgid "Those documents are already associated"
 msgstr "เอกสารเหล่านั้นได้เชื่อมโยงกันแล้ว"
 
-#: ../plugins/glade/plugin.c:2418
+#: ../plugins/glade/plugin.c:2428
 #, c-format
 msgid "Unable to read file: %s."
 msgstr "ไม่สามารถอ่านแฟ้ม: %s"
 
-#: ../plugins/glade/plugin.c:3085
+#: ../plugins/glade/plugin.c:3095
 msgid "Top level widget"
 msgstr "วิดเจ็ตระดับบนสุด"
 
-#: ../plugins/glade/plugin.c:3676
+#: ../plugins/glade/plugin.c:3686
 msgid "Couldn't find a default signal name"
 msgstr "หาชื่อสัญญาณปริยายไม่พบ"
 
-#: ../plugins/glade/plugin.c:3886
+#: ../plugins/glade/plugin.c:3896
 #, c-format
 msgid "Project %s has no deprecated widgets or version mismatches."
 msgstr "โครงการ %s ไม่มีวิดเจ็ตที่ไม่สนับสนุนให้ใช้ และไม่มีปัญหารุ่นไม่ตรงกัน"
 
-#: ../plugins/glade/plugin.c:3903
+#: ../plugins/glade/plugin.c:3913
 msgid "There is no Glade project"
 msgstr "ไม่มีโครงการ Glade"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/glade/plugin.c:3989
+#: ../plugins/glade/plugin.c:3999
 msgid "_Glade"
 msgstr "_Glade"
 
-#: ../plugins/glade/plugin.c:3997 ../plugins/glade/plugin.c:3999
+#: ../plugins/glade/plugin.c:4007 ../plugins/glade/plugin.c:4009
 msgid "Switch between designer/code"
 msgstr "สลับระหว่างเครื่องมือออกแบบ/โค้ด"
 
-#: ../plugins/glade/plugin.c:4005 ../plugins/glade/plugin.c:4007
+#: ../plugins/glade/plugin.c:4015 ../plugins/glade/plugin.c:4017
 msgid "Insert handler stub"
 msgstr "แทรกเค้าโครง handler"
 
-#: ../plugins/glade/plugin.c:4013 ../plugins/glade/plugin.c:4015
+#: ../plugins/glade/plugin.c:4023 ../plugins/glade/plugin.c:4025
 msgid "Insert handler stub, autoposition"
 msgstr "แทรกเค้าโครง handler, การจัดตำแหน่งอัตโนมัติ"
 
-#: ../plugins/glade/plugin.c:4021
+#: ../plugins/glade/plugin.c:4031
 msgid "Associate last designer and last editor"
 msgstr "เชื่อมโยงเครื่องมือออกแบบล่าสุดและเครื่องมือแก้ไขล่าสุดเข้าด้วยกัน"
 
-#: ../plugins/glade/plugin.c:4023
+#: ../plugins/glade/plugin.c:4033
 msgid "Associate last designer and editor"
 msgstr "เชื่อมโยงเครื่องมือออกแบบล่าสุดและเครื่องมือแก้ไขเข้าด้วยกัน"
 
-#: ../plugins/glade/plugin.c:4029 ../plugins/glade/plugin.c:4031
+#: ../plugins/glade/plugin.c:4039 ../plugins/glade/plugin.c:4041
 msgid "Associations dialog..."
 msgstr "กล่องโต้ตอบการเชื่อมโยง..."
 
-#: ../plugins/glade/plugin.c:4037
+#: ../plugins/glade/plugin.c:4047
 msgid "Versioning..."
 msgstr "การจัดการรุ่น..."
 
-#: ../plugins/glade/plugin.c:4039
+#: ../plugins/glade/plugin.c:4049
 msgid "Switch between library versions and check deprecations"
 msgstr "สลับระหว่างรุ่นต่างๆ ของไลบารี และตรวจสอบการใช้ฟังก์ชันที่ไม่สนับสนุนให้ใช้"
 
-#: ../plugins/glade/plugin.c:4045 ../plugins/glade/plugin.c:4047
+#: ../plugins/glade/plugin.c:4055 ../plugins/glade/plugin.c:4057
 msgid "Set as default resource target"
 msgstr "กำหนดเป็นเป้าหมายทรัพยากรปริยาย"
 
-#: ../plugins/glade/plugin.c:4055
+#: ../plugins/glade/plugin.c:4065
 msgid "Current default target"
 msgstr "เป้าหมายปริยายปัจจุบัน"
 
-#: ../plugins/glade/plugin.c:4063
+#: ../plugins/glade/plugin.c:4073
 msgid "Close the current file"
 msgstr "ปิดแฟ้มปัจจุบัน"
 
-#: ../plugins/glade/plugin.c:4071
+#: ../plugins/glade/plugin.c:4081
 msgid "Save the current file"
 msgstr "บันทึกแฟ้มปัจจุบัน"
 
-#: ../plugins/glade/plugin.c:4087
+#: ../plugins/glade/plugin.c:4097
 msgid "Redo the last action"
 msgstr "ทำซ้ำปฏิบัติการล่าสุด"
 
-#: ../plugins/glade/plugin.c:4095
+#: ../plugins/glade/plugin.c:4105
 msgid "Cut the selection"
 msgstr "ตัดสิ่งที่เลือก"
 
-#: ../plugins/glade/plugin.c:4103
+#: ../plugins/glade/plugin.c:4113
 msgid "Copy the selection"
 msgstr "คัดลอกสิ่งที่เลือก"
 
-#: ../plugins/glade/plugin.c:4111
+#: ../plugins/glade/plugin.c:4121
 msgid "Paste the clipboard"
 msgstr "แปะเนื้อหาจากคลิปบอร์ด"
 
-#: ../plugins/glade/plugin.c:4119
+#: ../plugins/glade/plugin.c:4129
 msgid "Delete the selection"
 msgstr "ลบสิ่งที่เลือก"
 
-#: ../plugins/glade/plugin.c:4297
+#: ../plugins/glade/plugin.c:4307
 msgid "Glade designer operations"
 msgstr "การกระทำเกี่ยวกับเครื่องมือออกแบบ Glade"
 
-#: ../plugins/glade/plugin.c:4397
+#: ../plugins/glade/plugin.c:4407
 msgid "Go back in undo history"
 msgstr "ย้อนกลับในประวัติการเรียกคืน"
 
-#: ../plugins/glade/plugin.c:4399
+#: ../plugins/glade/plugin.c:4409
 msgid "Go forward in undo history"
 msgstr "ไปข้างหน้าในประวัติการเรียกคืน"
 
-#: ../plugins/glade/plugin.c:4421
+#: ../plugins/glade/plugin.c:4431
 msgid "Glade Clipboard"
 msgstr "คลิปบอร์ด Glade"
 
-#: ../plugins/glade/plugin.c:4426
+#: ../plugins/glade/plugin.c:4436
 msgid "Widgets"
 msgstr "วิดเจ็ต"
 
-#: ../plugins/glade/plugin.c:4431
+#: ../plugins/glade/plugin.c:4441
 msgid "Palette"
 msgstr "จานสี"
 
-#: ../plugins/glade/plugin.c:4685
+#: ../plugins/glade/plugin.c:4695
 #, c-format
 msgid "Not local file: %s"
 msgstr "ไม่ใช่แฟ้มในเครื่อง: %s"
 
-#: ../plugins/glade/plugin.c:4706
+#: ../plugins/glade/plugin.c:4716
 #, c-format
 msgid "Could not open %s"
 msgstr "เปิด %s ไม่ได้"
 
-#: ../plugins/glade/plugin.c:4757
+#: ../plugins/glade/plugin.c:4767
 msgid "Could not create a new glade project."
 msgstr "สร้างโครงการ glade โครงการใหม่ไม่ได้"
 
-#: ../plugins/glade/plugin.c:5027 ../plugins/glade/plugin.c:5052
+#: ../plugins/glade/plugin.c:5029 ../plugins/glade/plugin.c:5054
 msgid "Glade GUI Designer"
 msgstr "เครื่องมือออกแบบ GUI Glade"
 
@@ -8723,55 +8713,56 @@ msgstr "การประกาศแ_ท็ก"
 msgid "Goto symbol declaration"
 msgstr "ไปยังการประกาศสัญลักษณ์"
 
-#: ../plugins/symbol-db/plugin.c:321
+#. Translators: Go to the line where the tag is implemented
+#: ../plugins/symbol-db/plugin.c:322
 msgid "Tag _Implementation"
 msgstr "เ_นื้อหาแท็ก"
 
-#: ../plugins/symbol-db/plugin.c:323
+#: ../plugins/symbol-db/plugin.c:324
 msgid "Goto symbol definition"
 msgstr "ไปยังตัวเนื้อหาของสัญลักษณ์"
 
-#: ../plugins/symbol-db/plugin.c:330
+#: ../plugins/symbol-db/plugin.c:331
 msgid "_Find Symbol..."
 msgstr "_หาสัญลักษณ์..."
 
-#: ../plugins/symbol-db/plugin.c:331
+#: ../plugins/symbol-db/plugin.c:332
 msgid "Find Symbol"
 msgstr "หาสัญลักษณ์"
 
-#: ../plugins/symbol-db/plugin.c:1169
+#: ../plugins/symbol-db/plugin.c:1170
 #, c-format
 msgid "%s: Generating inheritances..."
 msgstr "%s: กำลังสร้างโครงสร้างการสืบทอดคุณสมบัติ..."
 
-#: ../plugins/symbol-db/plugin.c:1174
+#: ../plugins/symbol-db/plugin.c:1175
 #, c-format
 msgid "%s: %d files scanned out of %d"
 msgstr "%s: สแกนแล้ว %d จาก %d แฟ้ม"
 
-#: ../plugins/symbol-db/plugin.c:1205
+#: ../plugins/symbol-db/plugin.c:1206
 #, c-format
 msgid "Generating inheritances..."
 msgstr "กำลังสร้างโครงสร้างการสืบทอดคุณสมบัติ..."
 
-#: ../plugins/symbol-db/plugin.c:1207
+#: ../plugins/symbol-db/plugin.c:1208
 #, c-format
 msgid "%d files scanned out of %d"
 msgstr "สแกนแล้ว %d จาก %d แฟ้ม"
 
-#: ../plugins/symbol-db/plugin.c:1967
+#: ../plugins/symbol-db/plugin.c:1968
 msgid "Populating symbols' db..."
 msgstr "กำลังเติมข้อมูลฐานข้อมูลสัญลักษณ์..."
 
-#: ../plugins/symbol-db/plugin.c:2351 ../plugins/symbol-db/plugin.c:2479
+#: ../plugins/symbol-db/plugin.c:2352 ../plugins/symbol-db/plugin.c:2480
 msgid "Symbols"
 msgstr "สัญลักษณ์"
 
-#: ../plugins/symbol-db/plugin.c:2488
+#: ../plugins/symbol-db/plugin.c:2489
 msgid "SymbolDb popup actions"
 msgstr "การกระทำในเมนูผุดขึ้นของฐานข้อมูลสัญลักษณ์"
 
-#: ../plugins/symbol-db/plugin.c:2496
+#: ../plugins/symbol-db/plugin.c:2497
 msgid "SymbolDb menu actions"
 msgstr "การกระทำในเมนูของฐานข้อมูลสัญลักษณ์"
 
@@ -9125,7 +9116,7 @@ msgid "Currently edited file directory"
 msgstr "ไดเรกทอรีของแฟ้มปัจจุบันที่แก้ไข"
 
 #: ../plugins/tools/variable.c:103
-msgid "Currently selection in editor"
+msgid "Currently selected text in editor"
 msgstr "สิ่งที่เลือกอยู่ในปัจจุบันในเครื่องมือแก้ไข"
 
 #: ../plugins/tools/variable.c:104
@@ -9794,6 +9785,12 @@ msgstr "แบ็กเอนด์ Autotools"
 #: ../plugins/gbf-am/gbf-am.plugin.in.h:2
 msgid "Autotools backend for project manager"
 msgstr "แบ็กเอนด์ Autotools สำหรับเครื่องมือจัดการโครงการ"
+
+#~ msgid "on_widget_signal"
+#~ msgstr "on_widget_signal"
+
+#~ msgid "widget_signal_cb"
+#~ msgstr "widget_signal_cb"
 
 #~ msgid "*"
 #~ msgstr "*"
