@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2009-08-22 19:49+0000\n"
+"POT-Creation-Date: 2009-08-26 19:09+0000\n"
 "PO-Revision-Date: 2009-08-26 21:05+0200\n"
 "Last-Translator: Claude Paroz <claude@2xlibre.net>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
@@ -836,8 +836,8 @@ msgid ""
 "Before using this new configuration, the default one needs to be removed. Do "
 "you want to do that ?"
 msgstr ""
-"Avant d'utiliser cette nouvelle configuration, celle par défaut doit être effacée. "
-"Voulez-vous réellement faire cela ?"
+"Avant d'utiliser cette nouvelle configuration, celle par défaut doit être "
+"effacée. Voulez-vous réellement faire cela ?"
 
 #: ../plugins/build-basic-autotools/plugin.c:1802
 #, c-format
@@ -4750,7 +4750,8 @@ msgstr "Mettre en réserve les modifications de l'index"
 
 #: ../plugins/git/anjuta-git.ui.h:110
 msgid "Stash the working tree's uncommitted changes"
-msgstr "Mettre en réserve les modifications non soumises de l'arborescence de travail"
+msgstr ""
+"Mettre en réserve les modifications non soumises de l'arborescence de travail"
 
 #: ../plugins/git/anjuta-git.ui.h:111
 msgid "Switch to Another Branch"
@@ -5104,7 +5105,8 @@ msgstr "_Mettre en réserve les modifications non commitées..."
 #: ../plugins/git/plugin.c:113
 msgid "Save uncommitted changes and re-apply them later"
 msgstr ""
-"Enregistre les modifications non commitées et les applique à nouveau plus tard"
+"Enregistre les modifications non commitées et les applique à nouveau plus "
+"tard"
 
 #. Action name
 #. Stock icon, if any
@@ -5321,8 +5323,7 @@ msgstr "_Abandonner"
 #: ../plugins/git/plugin.c:273
 msgid ""
 "Stop applying the series and return the repository to its original state"
-msgstr ""
-"Arrête d'appliquer la série et remet le dépôt dans son état d'origine"
+msgstr "Arrête d'appliquer la série et remet le dépôt dans son état d'origine"
 
 #. Action name
 #. Stock icon, if any
@@ -5413,8 +5414,7 @@ msgstr "Pour_suivre"
 #. short-cut
 #: ../plugins/git/plugin.c:337
 msgid "Continue a rebase that stopped because of conflicts"
-msgstr ""
-"Reprend un « rebase » qui a été interrompu pour cause de conflits"
+msgstr "Reprend un « rebase » qui a été interrompu pour cause de conflits"
 
 #. Action name
 #. Stock icon, if any
@@ -5432,8 +5432,7 @@ msgstr "Ignore la soumission actuelle en conflit et continue"
 #. short-cut
 #: ../plugins/git/plugin.c:353
 msgid "Abort the rebase and put the repository in its original state"
-msgstr ""
-"Abandonne le « rebase » et remet le dépôt dans son état d'origine"
+msgstr "Abandonne le « rebase » et remet le dépôt dans son état d'origine"
 
 #. Action name
 #. Stock icon, if any
@@ -5538,7 +5537,7 @@ msgstr "Annule un commit (revert)"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:439
-msgid "Bissect"
+msgid "Bisect"
 msgstr "Bissecter"
 
 #. Display label
@@ -5552,8 +5551,7 @@ msgstr "Démarre une opération « bisect »"
 #: ../plugins/git/plugin.c:457
 msgid "Stop the bisect and bring the tree back to normal"
 msgstr ""
-"Stoppe l'opération « bissect » et remet l'arborescence dans son état "
-"d'origine"
+"Stoppe l'opération « bissect » et remet l'arborescence dans son état d'origine"
 
 #. Action name
 #. Stock icon, if any
