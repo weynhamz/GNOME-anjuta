@@ -5350,7 +5350,7 @@ msgstr "เ_ก็บเกี่ยว..."
 #. short-cut
 #: ../plugins/git/plugin.c:361
 msgid ""
-"Selectively merge individual changes from other branches into the currrent "
+"Selectively merge individual changes from other branches into the current "
 "one"
 msgstr "เลือกผสานการเปลี่ยนแปลงทีละรายการจากแขนงอื่นเข้าในแขนงปัจจุบัน"
 

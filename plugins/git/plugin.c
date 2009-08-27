@@ -358,7 +358,7 @@ static GtkActionEntry actions_git[] =
 		NULL,                            /* Stock icon, if any */
 		N_("_Cherry pick..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		N_("Selectively merge individual changes from other branches into the currrent one"),                      /* Tooltip */
+		N_("Selectively merge individual changes from other branches into the current one"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_cherry_pick)    /* action callback */
 	},
 	{

@@ -5219,7 +5219,7 @@ msgstr "_Cherry pick..."
 #. short-cut
 #: ../plugins/git/plugin.c:296
 msgid ""
-"Selectively merge individual changes from other branches into the currrent "
+"Selectively merge individual changes from other branches into the current "
 "one"
 msgstr "Вибірково об'єднати окремі зміни з інших гілок у поточну "
 

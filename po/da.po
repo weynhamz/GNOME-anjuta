@@ -5426,7 +5426,7 @@ msgstr "_Cherry-pick..."
 #. short-cut
 #: ../plugins/git/plugin.c:361
 msgid ""
-"Selectively merge individual changes from other branches into the currrent "
+"Selectively merge individual changes from other branches into the current "
 "one"
 msgstr "Sammenføj selektivt enkelte ændringer fra andre grene til den aktuelle"
 

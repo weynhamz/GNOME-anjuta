@@ -5412,7 +5412,7 @@ msgstr ""
 #. short-cut
 #: ../plugins/git/plugin.c:329
 msgid ""
-"Selectively merge individual changes from other branches into the currrent "
+"Selectively merge individual changes from other branches into the current "
 "one"
 msgstr "選擇性的將個別變更從其他分支合併到目前的分支"
 

@@ -5399,7 +5399,7 @@ msgstr "Es_colma de parches..."
 #. short-cut
 #: ../plugins/git/plugin.c:361
 msgid ""
-"Selectively merge individual changes from other branches into the currrent "
+"Selectively merge individual changes from other branches into the current "
 "one"
 msgstr ""
 "Fusionar selectivamente cambios individuais desde outras ramas na actual"

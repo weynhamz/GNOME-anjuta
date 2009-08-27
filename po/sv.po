@@ -5430,7 +5430,7 @@ msgstr ""
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:328
-msgid "Selectively merge individual changes from other branches into the currrent one"
+msgid "Selectively merge individual changes from other branches into the current one"
 msgstr ""
 
 #. Action name

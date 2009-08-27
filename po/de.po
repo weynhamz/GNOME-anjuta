@@ -5457,7 +5457,7 @@ msgstr "_Handverlesen …"
 #. short-cut
 #: ../plugins/git/plugin.c:361
 msgid ""
-"Selectively merge individual changes from other branches into the currrent "
+"Selectively merge individual changes from other branches into the current "
 "one"
 msgstr ""
 "Handverlesene Änderungen aus anderen Zweigen mit dem aktuellen Zweig "
