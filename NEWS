@@ -1,3 +1,34 @@
+Anjuta 2.27.91 (27 August 2009) -- Johannes Schmid
+
+Updates:
+- Some git fixes (file-status, etc.)
+- Stability fixes on symbol-db
+
+Bugs fixed:
+Typo in Anjuta pot file (bgo#593236)
+bgo #592941 – Fixed errors in Anjuta IDE Manual (Greek translation)
+bgo #591758 -  Fix language mistakes
+bgo #591887 -  Bad strings for translation
+bgo #590117 – Build failure: local scandir() function collides with system's
+bgo #589828 – Can't open GtkBuilder files with the glade plugin
+bgo#590708 – Some untranslated strings
+project-wizard: bgo#591359 – Need an easier and intuitive way to create a shared library project
+bgo #590337 – Compile failure: not allowed to link against a -module
+bgo #590720 – glade plugin FTBFS on mips(el) and alpha, LANGUAGE_C built-in
+bgo#590337 – Compile failure: not allowed to link against a -module
+language-support: bgo#575926 – 'Maintain past indentation' disables itself
+bgo #578690 – Several components underlinked
+bgo #585428 – Context needed to translate
+bgo#590334 – Fix -I ordering
+bgo #590338 – Missing plugins flags
+git: Add init support (bgo 566698)
+language-support-cpp-java: fixed critical #588112 - infinite loop / freeze
+bgo#587248 – Encoding key in desktop file is deprecated
+bgo#588485 – fixes from running anjuta with G_DEBUG="fatal_warnings"
+bgo#589699 – When ~/.cache isn't exists, session data isn't saved
+bgo#588506 – Wrong value of PACKAGE_DOC_DIR
+bgo#589601 – "gtk-execute" and "gtk-cancel" marked for translation
+
 Anjuta 2.27.5 (27 July 2009) -- Johannes Schmid
 
 Updates:
