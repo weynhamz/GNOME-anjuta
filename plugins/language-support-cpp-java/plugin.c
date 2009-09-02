@@ -1063,7 +1063,7 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 			/* If we encounter a block-start before anything else, the
 			 * statement could hardly be incomplte.
 			 */
-			if (point_ch == '}' && *incomplete_statement == -1)
+			if (point_ch == '{' && *incomplete_statement == -1)
 				*incomplete_statement = 0;
 			
 			break;
