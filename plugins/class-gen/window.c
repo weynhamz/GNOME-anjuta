@@ -91,7 +91,7 @@ static const gchar *GO_SCOPE_LIST[] =
 
 static const gchar *GO_PARAMSPEC_LIST[] =
 {
-	"Guess from type",
+	N_("Guess from type"),
 	"g_param_spec_object",
 	"g_param_spec_pointer",
 	"g_param_spec_enum",
@@ -496,45 +496,45 @@ cg_window_set_builder (CgWindow *window,
 		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "cc_elements_add")),
 		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "cc_elements_remove")),
 		5,
-		"Scope", CG_ELEMENT_EDITOR_COLUMN_LIST, CC_SCOPE_LIST,
-		"Implementation", CG_ELEMENT_EDITOR_COLUMN_LIST, CC_IMPLEMENTATION_LIST,
-		"Type", CG_ELEMENT_EDITOR_COLUMN_STRING,
-		"Name", CG_ELEMENT_EDITOR_COLUMN_STRING,
-		"Arguments", CG_ELEMENT_EDITOR_COLUMN_ARGUMENTS);
+		_("Scope"), CG_ELEMENT_EDITOR_COLUMN_LIST, CC_SCOPE_LIST,
+		_("Implementation"), CG_ELEMENT_EDITOR_COLUMN_LIST, CC_IMPLEMENTATION_LIST,
+		_("Type"), CG_ELEMENT_EDITOR_COLUMN_STRING,
+		_("Name"), CG_ELEMENT_EDITOR_COLUMN_STRING,
+		_("Arguments"), CG_ELEMENT_EDITOR_COLUMN_ARGUMENTS);
 	
 	priv->editor_go_members = cg_element_editor_new (
 		GTK_TREE_VIEW (gtk_builder_get_object (priv->bxml, "go_members")),
 		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "go_members_add")),
 		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "go_members_remove")),
 		4,
-		"Scope", CG_ELEMENT_EDITOR_COLUMN_LIST, GO_SCOPE_LIST,
-		"Type", CG_ELEMENT_EDITOR_COLUMN_STRING,
-		"Name", CG_ELEMENT_EDITOR_COLUMN_STRING,
-		"Arguments", CG_ELEMENT_EDITOR_COLUMN_ARGUMENTS);
+		_("Scope"), CG_ELEMENT_EDITOR_COLUMN_LIST, GO_SCOPE_LIST,
+		_("Type"), CG_ELEMENT_EDITOR_COLUMN_STRING,
+		_("Name"), CG_ELEMENT_EDITOR_COLUMN_STRING,
+		_("Arguments"), CG_ELEMENT_EDITOR_COLUMN_ARGUMENTS);
 	
 	priv->editor_go_properties = cg_element_editor_new(
 		GTK_TREE_VIEW (gtk_builder_get_object (priv->bxml, "go_properties")),
 		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "go_properties_add")),
 		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "go_properties_remove")),
 		7,
-		"Name", CG_ELEMENT_EDITOR_COLUMN_STRING,
-		"Nick", CG_ELEMENT_EDITOR_COLUMN_STRING,
-		"Blurb", CG_ELEMENT_EDITOR_COLUMN_STRING,
-		"GType", CG_ELEMENT_EDITOR_COLUMN_STRING,
-		"ParamSpec", CG_ELEMENT_EDITOR_COLUMN_LIST, GO_PARAMSPEC_LIST,
-		"Default", CG_ELEMENT_EDITOR_COLUMN_STRING,
-		"Flags", CG_ELEMENT_EDITOR_COLUMN_FLAGS, GO_PROPERTY_FLAGS);
+		_("Name"), CG_ELEMENT_EDITOR_COLUMN_STRING,
+		_("Nick"), CG_ELEMENT_EDITOR_COLUMN_STRING,
+		_("Blurb"), CG_ELEMENT_EDITOR_COLUMN_STRING,
+		_("GType"), CG_ELEMENT_EDITOR_COLUMN_STRING,
+		_("ParamSpec"), CG_ELEMENT_EDITOR_COLUMN_LIST, GO_PARAMSPEC_LIST,
+		_("Default"), CG_ELEMENT_EDITOR_COLUMN_STRING,
+		_("Flags"), CG_ELEMENT_EDITOR_COLUMN_FLAGS, GO_PROPERTY_FLAGS);
 	
 	priv->editor_go_signals = cg_element_editor_new(
 		GTK_TREE_VIEW (gtk_builder_get_object (priv->bxml, "go_signals")),
 		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "go_signals_add")),
 		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "go_signals_remove")),
 		5,
-		"Type", CG_ELEMENT_EDITOR_COLUMN_STRING,
-		"Name", CG_ELEMENT_EDITOR_COLUMN_STRING,
-		"Arguments", CG_ELEMENT_EDITOR_COLUMN_ARGUMENTS, /* Somehow redundant with marshaller, but required for default handler */
-		"Flags", CG_ELEMENT_EDITOR_COLUMN_FLAGS, GO_SIGNAL_FLAGS,
-		"Marshaller", CG_ELEMENT_EDITOR_COLUMN_STRING);
+		_("Type"), CG_ELEMENT_EDITOR_COLUMN_STRING,
+		_("Name"), CG_ELEMENT_EDITOR_COLUMN_STRING,
+		_("Arguments"), CG_ELEMENT_EDITOR_COLUMN_ARGUMENTS, /* Somehow redundant with marshaller, but required for default handler */
+		_("Flags"), CG_ELEMENT_EDITOR_COLUMN_FLAGS, GO_SIGNAL_FLAGS,
+		_("Marshaller"), CG_ELEMENT_EDITOR_COLUMN_STRING);
 
 	/* Active item property in glade cannot be set because no GtkTreeModel
 	 * is assigned. */
@@ -612,7 +612,7 @@ cg_window_go_properties_transform_func (GHashTable *table,
 	cg_transform_string (table, "Blurb");
 
 	cg_transform_guess_paramspec (table, "ParamSpec",
-	                              "Type", GO_PARAMSPEC_LIST[0]);
+	                              "Type", _(GO_PARAMSPEC_LIST[0]));
 
 	cg_transform_flags (table, "Flags", GO_PROPERTY_FLAGS);
 

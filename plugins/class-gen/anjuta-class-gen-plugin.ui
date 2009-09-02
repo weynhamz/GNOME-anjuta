@@ -39,7 +39,7 @@
     </data>
   </object>
   <object class="GtkDialog" id="classgen_main">
-    <property name="title">Class Generator</property>
+    <property name="title" translatable="yes">Class Generator</property>
     <property name="default_height">582</property>
     <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
     <child internal-child="vbox">
