@@ -13,13 +13,14 @@
 # Jonh Wendell <wendell@bani.com.br>, 2008.
 # Leonardo Ferreira Fontenelle <leonardof@gnome.org>, 2008, 2009.
 # André Gondim <andregondim@ubuntu.com>, 2009.
+# Lucas Azevedo  <lucasazevedo9@gmail.com>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: Anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-28 20:57-0300\n"
-"PO-Revision-Date: 2009-08-28 17:19-0300\n"
-"Last-Translator: Rodrigo Luiz Marques Flores <mail@rodrigoflores.org>\n"
+"POT-Creation-Date: 2009-09-03 19:53-0300\n"
+"PO-Revision-Date: 2009-09-03 19:52-0300\n"
+"Last-Translator: Lucas Azevedo <lucasazevedo9@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -664,6 +665,7 @@ msgid "Translate messages"
 msgstr "Traduzir mensagens"
 
 #: ../plugins/build-basic-autotools/configuration-list.c:62
+#: ../plugins/class-gen/window.c:525
 #: ../plugins/search/search_preferences.c:523
 #: ../plugins/terminal/anjuta-terminal-plugin.ui.h:2 ../src/preferences.ui.h:2
 msgid "Default"
@@ -1073,88 +1075,93 @@ msgid "Class Function Prefix:"
 msgstr "Prefixo de função de classe:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:12
+#: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:3
+msgid "Class Generator"
+msgstr "Gerador de classe"
+
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:13
 msgid "Class Name:"
 msgstr "Nome da classe:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:13
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:14
 msgid "Class Options:"
 msgstr "Opções da classe:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:14
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:15
 msgid "Create"
 msgstr "Criar"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:15
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:16
 msgid "GObject Class\t"
 msgstr "Classe GObject\t"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:16
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:17
 msgid "GObject Prefix and Type:"
 msgstr "Prefixo e Tipo do GObject:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:17
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:18
 #: ../plugins/file-wizard/file.c:102
 #: ../plugins/project-wizard/templates/translatable-strings.h:47
 msgid "General Public License (GPL)"
 msgstr "General Public License (GPL)"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:18
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:19
 msgid "Generic C++ Class"
 msgstr "Classe C++ genérica"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:19
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:20
 msgid "Header File:"
 msgstr "Arquivo de cabeçalhos:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:20
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:21
 msgid "Inline the declaration and implementation"
 msgstr "Torna embutida a declaração e a implementação"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:21
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:22
 #: ../plugins/file-wizard/file.c:103
 #: ../plugins/project-wizard/templates/translatable-strings.h:60
 msgid "Lesser General Public License (LGPL)"
 msgstr "Lesser General Public License (LGPL)"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:22
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:23
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:9
 msgid "License:"
 msgstr "Licença:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:23
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:24
 msgid "Member Functions/Variables"
 msgstr "Funções-Membro/Variáveis"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:24
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:25
 msgid "No License"
 msgstr "Sem licença"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:25
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:26
 #: ../plugins/glade/plugin.c:4446
 msgid "Properties"
 msgstr "Propriedades"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:26
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:27
 msgid "Signals"
 msgstr "Sinais"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:27
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:28
 msgid "Source File:"
 msgstr "Arquivo fonte:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:28
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:29
 msgid "Source/Header Headings:"
 msgstr "Cabeçalhos dos arquivos Fonte/Cabeçalho:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:29
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:30
 msgid "private"
 msgstr "privado"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:30
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:31
 msgid "protected"
 msgstr "protegido"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:31
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:32
 msgid "public"
 msgstr "público"
 
@@ -1193,6 +1200,63 @@ msgstr ""
 #, c-format
 msgid "Failed to execute autogen: %s"
 msgstr "Falha ao executar o autogen: %s"
+
+#: ../plugins/class-gen/window.c:94
+msgid "Guess from type"
+msgstr "Adivinhar do tipo"
+
+#: ../plugins/class-gen/window.c:499 ../plugins/class-gen/window.c:510
+msgid "Scope"
+msgstr "Escopo"
+
+#: ../plugins/class-gen/window.c:500
+msgid "Implementation"
+msgstr "Implementação"
+
+#: ../plugins/class-gen/window.c:501 ../plugins/class-gen/window.c:511
+#: ../plugins/class-gen/window.c:533
+#: ../plugins/debug-manager/breakpoints.c:1907
+#: ../plugins/debug-manager/debug_tree.c:126
+msgid "Type"
+msgstr "Tipo"
+
+#: ../plugins/class-gen/window.c:502 ../plugins/class-gen/window.c:512
+#: ../plugins/class-gen/window.c:520 ../plugins/class-gen/window.c:534
+#: ../plugins/run-program/parameters.c:749
+#: ../plugins/search/search_preferences.c:534
+msgid "Name"
+msgstr "Nome"
+
+#: ../plugins/class-gen/window.c:503 ../plugins/class-gen/window.c:513
+#: ../plugins/class-gen/window.c:535
+#: ../plugins/debug-manager/stack_trace.c:679
+msgid "Arguments"
+msgstr "Argumentos"
+
+#: ../plugins/class-gen/window.c:521
+msgid "Nick"
+msgstr "Apelido"
+
+#: ../plugins/class-gen/window.c:522
+msgid "Blurb"
+msgstr "Sinopse"
+
+#: ../plugins/class-gen/window.c:523
+msgid "GType"
+msgstr "GType"
+
+#: ../plugins/class-gen/window.c:524
+msgid "ParamSpec"
+msgstr "Especificação de Parâmetros:"
+
+#. Somehow redundant with marshaller, but required for default handler
+#: ../plugins/class-gen/window.c:526 ../plugins/class-gen/window.c:536
+msgid "Flags"
+msgstr "Flags"
+
+#: ../plugins/class-gen/window.c:537
+msgid "Marshaller"
+msgstr "Organizador"
 
 #: ../plugins/class-gen/window.c:818
 msgid "XML description of the user interface"
@@ -1960,11 +2024,6 @@ msgstr "Habilitado"
 msgid "Address"
 msgstr "Endereço"
 
-#: ../plugins/debug-manager/breakpoints.c:1907
-#: ../plugins/debug-manager/debug_tree.c:126
-msgid "Type"
-msgstr "Tipo"
-
 #: ../plugins/debug-manager/breakpoints.c:1908
 msgid "Condition"
 msgstr "Condição"
@@ -2382,10 +2441,6 @@ msgstr "Linha"
 #: ../plugins/debug-manager/threads.c:469
 msgid "Function"
 msgstr "Função"
-
-#: ../plugins/debug-manager/stack_trace.c:679
-msgid "Arguments"
-msgstr "Argumentos"
 
 #: ../plugins/debug-manager/stack_trace.c:703
 msgid "Stack"
@@ -7780,11 +7835,6 @@ msgstr "Carregar o Alvo para execução"
 msgid "Missing file %s"
 msgstr "Falta o arquivo %s"
 
-#: ../plugins/run-program/parameters.c:749
-#: ../plugins/search/search_preferences.c:534
-msgid "Name"
-msgstr "Nome"
-
 #: ../plugins/run-program/plugin.c:191
 msgid ""
 "The program is running.\n"
@@ -9844,10 +9894,6 @@ msgstr "Plug-in Gerador de Classe para o Anjuta"
 msgid "C++/GObject Class"
 msgstr "Classe C++/GObject"
 
-#: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:3
-msgid "Class Generator"
-msgstr "Gerador de classe"
-
 #: ../plugins/project-manager/anjuta-project-manager.plugin.in.h:1
 msgid "Project Manager"
 msgstr "Gerenciador de projeto"
@@ -9966,993 +10012,3 @@ msgstr "Backend autotools para o gerenciador de projetos"
 
 #~ msgid "<b>Revision:</b>"
 #~ msgstr "<b>Revisão:</b>"
-
-# em analogia à mensagem do "check out"
-#~ msgid "<b>Select file to add:</b>"
-#~ msgstr "<b>Adicionar os arquivos:</b>"
-
-#~ msgid "<b>Tag name:</b>"
-#~ msgstr "<b>Nome da etiqueta:</b>"
-
-#~ msgid "<b>URL:</b>"
-#~ msgstr "<b>URL:</b>"
-
-#~ msgid "on_widget_signal"
-#~ msgstr "on_widget_signal"
-
-#~ msgid "widget_signal_cb"
-#~ msgstr "widget_signal_cb"
-
-#~ msgid ""
-#~ "Underline-Plain\n"
-#~ "Underline-Squiggle\n"
-#~ "Underline-TT\n"
-#~ "Diagonal\n"
-#~ "Strike-Out"
-#~ msgstr ""
-#~ "Underline-Plain\n"
-#~ "Underline-Squiggle\n"
-#~ "Underline-TT\n"
-#~ "Diagonal\n"
-#~ "Strike-Out"
-
-#~ msgid "Couldn't load glade file"
-#~ msgstr "Não foi possível carregar o arquivo glade"
-
-#~ msgid "Icon choice"
-#~ msgstr "Escolha do ícone"
-
-#~ msgid "<b>Scratchbox Options</b>\n"
-#~ msgstr "<b>Opções do Scratchbox</b>\n"
-
-#~ msgid "Scratchbox directory:"
-#~ msgstr "Diretório do scratchbox:"
-
-#~ msgid "Scratchbox target:"
-#~ msgstr "Alvo do scratchbox:"
-
-#~ msgid "Scratchbox version:"
-#~ msgstr "Versão do scratchbox:"
-
-#~ msgid "Scratchbox"
-#~ msgstr "Scratchbox"
-
-#~ msgid "<b>End Revision:</b>"
-#~ msgstr "<b>Revisão final:</b>"
-
-#~ msgid "<b>Subversion Options</b>"
-#~ msgstr "<b>Opções do Subversion</b>"
-
-#~ msgid "Ctags executable:"
-#~ msgstr "Executável do ctags:"
-
-#~ msgid ""
-#~ "Default\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Padrão\n"
-#~ "\n"
-
-#~ msgid "Unable to build user interface for tool variable"
-#~ msgstr ""
-#~ "Não foi possível criar interface de usuário para a variável da ferramenta"
-
-#~ msgid "Unable to build user interface for tool editor"
-#~ msgstr ""
-#~ "Não foi possível criar interface de usuário para o editor de ferramentas"
-
-#~ msgid "<b>Session</b>"
-#~ msgstr "<b>Sessão:</b>"
-
-#~ msgid ""
-#~ "Default\n"
-#~ "Text below icons\n"
-#~ "Text beside icons\n"
-#~ "Icons only\n"
-#~ "Text only"
-#~ msgstr ""
-#~ "Padrão\n"
-#~ "Texto abaixo dos ícones\n"
-#~ "Texto ao lado dos ícones\n"
-#~ "Apenas ícones\n"
-#~ "Apenas texto"
-
-#~ msgid ""
-#~ "Text\n"
-#~ "Icons\n"
-#~ "Text + Icons\n"
-#~ "Gnome toolbar setting\n"
-#~ "Tabs"
-#~ msgstr ""
-#~ "Texto\n"
-#~ "Ícones\n"
-#~ "Texto + ícontes\n"
-#~ "Configurações de barra de ferramentas do gNOME\n"
-#~ "Abas"
-
-#~ msgid "<b>Calltips</b>"
-#~ msgstr "<b>Dicas de funções</b>"
-
-#~ msgid "<b>Smart Indentation</b>"
-#~ msgstr "<b>Recuo inteligente</b>"
-
-#~ msgid "Enable adaptive indentation"
-#~ msgstr "Habilitar recuo adaptativo"
-
-#~ msgid "Pressing tab indents"
-#~ msgstr "Pressionar tab faz um recuo"
-
-#~ msgid "Fixed data-view"
-#~ msgstr "Visualização de dados fixa"
-
-#~ msgid "Inheritance Graph"
-#~ msgstr "Gráfico de herança"
-
-#~ msgid "Directory"
-#~ msgstr "Diretório"
-
-#~ msgid "No message details"
-#~ msgstr "Sem detalhes de mensagens"
-
-#~ msgid "Function Name"
-#~ msgstr "Nome da função"
-
-#~ msgid "Self"
-#~ msgstr "Self"
-
-#~ msgid "Children"
-#~ msgstr "Filhos"
-
-#~ msgid "% Time"
-#~ msgstr "% Tempo"
-
-#~ msgid "Cumulative Seconds"
-#~ msgstr "Segundos cumulativos"
-
-#~ msgid "Self Seconds"
-#~ msgstr "Segundos próprios"
-
-#~ msgid "Self ms/call"
-#~ msgstr "ms/call próprio"
-
-#~ msgid "Total ms/call"
-#~ msgstr "ms/call total"
-
-#~ msgid ""
-#~ "Could not get profiling data.\n"
-#~ "\n"
-#~ "Please check the path to this target's profiling data file."
-#~ msgstr ""
-#~ "Não foi possível obter os dados do perfilação.\n"
-#~ "\n"
-#~ "Por favor, verifique o caminho para o arquivo de dados de perfilação "
-#~ "deste alvo."
-
-#~ msgid ""
-#~ "This target does not have any profiling data.\n"
-#~ "\n"
-#~ "Please ensure that the target is complied with profiling support and that "
-#~ "it is run at least once."
-#~ msgstr ""
-#~ "Esse alvo não tem dados de perfilação.\n"
-#~ "\n"
-#~ "Por favor, certifique-se de que o alvo tenha sido compilado com suporte a "
-#~ "perfilação e que ele tenha sido executado pelo menos uma vez."
-
-#~ msgid "Profiler"
-#~ msgstr "Perfilador"
-
-#~ msgid "Select Target..."
-#~ msgstr "Escolher alvo..."
-
-#~ msgid "Refresh"
-#~ msgstr "Atualizar"
-
-#~ msgid "Application Performance Profiler"
-#~ msgstr "Perfilador de desempenho do aplicativo"
-
-#~ msgid "Flat Profile"
-#~ msgstr "Perfilação plana"
-
-#~ msgid "Call Graph"
-#~ msgstr "Gráfico das chamadas"
-
-#~ msgid "Function Call Tree"
-#~ msgstr "Árvore de chamadas de função"
-
-#~ msgid "Function Call Chart"
-#~ msgstr "Gráfico de chamada de função"
-
-#~ msgid "<b>Called By</b>"
-#~ msgstr "<b>Chamado por</b>"
-
-#~ msgid "<b>Called</b>"
-#~ msgstr "<b>Chamado</b>"
-
-#~ msgid "<b>Functions</b>"
-#~ msgstr "<b>Funções</b>"
-
-#~ msgid "<b>Profiling Data</b>"
-#~ msgstr "<b>Dados de perfilação</b>"
-
-#~ msgid "<b>Select Target to Profile</b>"
-#~ msgstr "<b>Escolha o alvo a perfilar</b>"
-
-#~ msgid "<b>Symbols</b>"
-#~ msgstr "<b>Símbolos</b>"
-
-#~ msgid "<b>Time Propagation</b>"
-#~ msgstr "<b>Propagação do tempo</b>"
-
-#~ msgid "Automatically refresh profile data display"
-#~ msgstr "Atualizar automaticamente a exibição dos dados de perfilação"
-
-#~ msgid "Do not propagate time for these symbols:"
-#~ msgstr "Não propagar o tempo para estes símbolos:"
-
-#~ msgid "Do not show static functions"
-#~ msgstr "Não mostrar funções estáticas"
-
-#~ msgid "Do not show these symbols:"
-#~ msgstr "Não mostrar esse símbolos:"
-
-#~ msgid ""
-#~ "Enter one symbol specification per line.\n"
-#~ "\n"
-#~ "For information on symbol specifications, see section \n"
-#~ "4.5 of the gprof info page."
-#~ msgstr ""
-#~ "Digite uma especificação de símbolo por linha.\n"
-#~ "\n"
-#~ "Para mais informações sobre especificações de símbolo, veja a seção \n"
-#~ "4.5 da página info do gprof. "
-
-#~ msgid "Options..."
-#~ msgstr "Opções..."
-
-#~ msgid "Profiling Options"
-#~ msgstr "Operações de perfilação"
-
-#~ msgid "Propagate time for all symbols"
-#~ msgstr "Propagar tempo para todos símbolos"
-
-#~ msgid "Propagate time for only these symbols:"
-#~ msgstr "Propagar tempo para apenas estes símbolos:"
-
-#~ msgid "Select Other Target..."
-#~ msgstr "Selecionar outro alvo..."
-
-#~ msgid "Select Profiling Target"
-#~ msgstr "Selecione o alvo de perfilação"
-
-#~ msgid "Show all symbols"
-#~ msgstr "Mostrar todos os símbolos"
-
-#~ msgid "Show functions that could have been called but never were"
-#~ msgstr "Mostrar funções que podem ter sido chamadas mas nunca foram"
-
-#~ msgid "Show only these symbols:"
-#~ msgstr "Mostrar apenas estes símbolos:"
-
-#~ msgid "Show uncalled functions"
-#~ msgstr "Mostrar funções não chamadas"
-
-#~ msgid "Use this profiling data file:"
-#~ msgstr "Use este arquivo de dados de perfilação:"
-
-#~ msgid "Please, fix the configuration"
-#~ msgstr "Por favor, corrija a configuração"
-
-#~ msgid ""
-#~ "Project name: %s\n"
-#~ "Project type: %s\n"
-#~ "Project path: %s\n"
-#~ msgstr ""
-#~ "Nome do projeto: %s\n"
-#~ "Tipo do projeto: %s\n"
-#~ "Caminho do projeto: %s\n"
-
-#~ msgid "This assistant will import an existing project into Anjuta."
-#~ msgstr "Este assistente importará um projeto existente para o Anjuta."
-
-#~ msgid "<b>Enter the project name:</b>"
-#~ msgstr "<b>Digite o nome do projeto:</b>"
-
-#~ msgid "<b>Enter the base path of your project:</b>"
-#~ msgstr "<b>Digite o diretório base do seu projeto:</b>"
-
-#~ msgid "Select project directory"
-#~ msgstr "Selecione o diretório do projeto"
-
-#~ msgid "Confirmation"
-#~ msgstr "Confirmação"
-
-#~ msgid "_Sample action"
-#~ msgstr "_Ação de exemplo"
-
-#~ msgid "Sample action"
-#~ msgstr "Ação de exemplo"
-
-#~ msgid "Sample file operations"
-#~ msgstr "Operações de arquivo de exemplo"
-
-#~ msgid "SamplePlugin"
-#~ msgstr "PlugInExemplo"
-
-#~ msgid "<b>Autocompletion</b>"
-#~ msgstr "<b>Completamento automático</b>"
-
-#~ msgid "<b>Basic Indentation</b>"
-#~ msgstr "<b>Recuo básico</b>"
-
-#~ msgid "<b>Code folding</b>"
-#~ msgstr "<b>Folding de código</b>"
-
-#~ msgid "<b>Highlight style</b>"
-#~ msgstr "<b>Estilo de realce</b>"
-
-#~ msgid "<b>Misc options</b>"
-#~ msgstr "<b>Miscelânea</b>"
-
-#~ msgid "<b>Other colors</b>"
-#~ msgstr "<b>Outras cores</b>"
-
-#~ msgid "Add line number every:"
-#~ msgstr "Adicionar um número de linha a cada:"
-
-#~ msgid "Add page header"
-#~ msgstr "Adicionar cabeçalho de página"
-
-#~ msgid "Attributes:"
-#~ msgstr "Atributos:"
-
-#~ msgid "Autocomplete XML/HTML closing tags"
-#~ msgstr "Completar automaticamente marcas de encerramento XML/HTML"
-
-#~ msgid "Background color:"
-#~ msgstr "Cor do plano de fundo:"
-
-#~ msgid "Basic Indentation"
-#~ msgstr "Recuo básico"
-
-#~ msgid "Bold"
-#~ msgstr "Negrito"
-
-#~ msgid "Calltip background:"
-#~ msgstr "Plano de fundo da caixa de dica:"
-
-#~ msgid "Caret (cursor) color:"
-#~ msgstr "Cor do cursor:"
-
-#~ msgid "Caret blink period in ms"
-#~ msgstr "Intervalo da piscada do cursor em milissegundos"
-
-#~ msgid "Choose autocomplete for single match"
-#~ msgstr "Escolher autocompletar para equivalência única"
-
-#~ msgid "Collapse all code folds on file open"
-#~ msgstr "Recolher todas os foldings de código ao abrir arquivo"
-
-#~ msgid "Colors & Fonts"
-#~ msgstr "Cores e fontes"
-
-#~ msgid "Colour"
-#~ msgstr "Colorido"
-
-#~ msgid "Compact folding"
-#~ msgstr "Folding compactado"
-
-#~ msgid "Disable syntax highlighting"
-#~ msgstr "Desabilitar realce de sintaxe"
-
-#~ msgid "Draw line below folded lines"
-#~ msgstr "Desenhar linhas abaixo das linhas em folding"
-
-#~ msgid "Edge column"
-#~ msgstr "Coluna da borda"
-
-#~ msgid "Editor caret (cursor) width in pixels"
-#~ msgstr "Largura do cursor de edição em pixels"
-
-#~ msgid "Enable HTML tags folding"
-#~ msgstr "Habilitar dobra de marcas HTML"
-
-#~ msgid "Enable automatic indentation"
-#~ msgstr "Habilitar recuo automático"
-
-#~ msgid "Enable braces check"
-#~ msgstr "Habilitar verificação de chaves"
-
-#~ msgid "Enable code folding"
-#~ msgstr "Habilitar folding de código"
-
-#~ msgid "Enable comments folding"
-#~ msgstr "Habilitar folding de comentários"
-
-#~ msgid "Enable line wrap"
-#~ msgstr "Habilitar quebra de linha"
-
-#~ msgid "Enable python comments folding"
-#~ msgstr "Habilitar folding de comentários python"
-
-#~ msgid "Enable python quoted strings folding"
-#~ msgstr "Habilitar folding de expressões python entre aspas"
-
-#~ msgid "Filter extraneous characters in DOS mode"
-#~ msgstr "Filtrar caracteres estranhos em modo DOS"
-
-#~ msgid "Fold style:"
-#~ msgstr "Estilo do indicador de folding:"
-
-#~ msgid "Fonts and colors for editor"
-#~ msgstr "Fontes e cores para o editor"
-
-#~ msgid "Foreground color:"
-#~ msgstr "Cor do texto:"
-
-#~ msgid "Indent closing braces"
-#~ msgstr "Recuar as chaves de fechamento"
-
-#~ msgid "Indent opening braces"
-#~ msgstr "Recuar as chaves de abertura"
-
-#~ msgid "Indentation size in spaces:"
-#~ msgstr "Tamanho do recuo, em espaços:"
-
-#~ msgid "Italic"
-#~ msgstr "Itálico"
-
-#~ msgid "Line numbers margin width in pixels"
-#~ msgstr "Largura da margem de números de linha em pixels"
-
-#~ msgid "Maintain past Indentation"
-#~ msgstr "Manter o recuo anterior"
-
-#~ msgid "Margin Fold visible"
-#~ msgstr "Fold de Margem visível"
-
-#~ msgid "Margin Linenum visible"
-#~ msgstr "Número da linha da margem visível"
-
-#~ msgid "Margin Marker visible"
-#~ msgstr "Marcador da Margem visível"
-
-#~ msgid "Monochrome"
-#~ msgstr "Monocromático"
-
-#~ msgid ""
-#~ "Plus/Minus\n"
-#~ "Arrows\n"
-#~ "Circular\n"
-#~ "Squares"
-#~ msgstr ""
-#~ "Mais/Menos\n"
-#~ "Setas\n"
-#~ "Círculos\n"
-#~ "Quadrados"
-
-#~ msgid "Pressing backspace un-indents"
-#~ msgstr "Pressionar backspace desfaz o recuo"
-
-#~ msgid "Pressing tab inserts indentation"
-#~ msgstr "Pressionar tab insere recuo"
-
-#~ msgid "Select highlight style to edit:"
-#~ msgstr "Selecione o estilo de realce a editar:"
-
-#~ msgid "Selection background:"
-#~ msgstr "Plano de fundo da seleção:"
-
-#~ msgid "Selection foreground:"
-#~ msgstr "Plano de frente da seleção:"
-
-#~ msgid "Strip trailling spaces on file save"
-#~ msgstr "Remover espaços no final de linhas ao salvar o arquivo"
-
-#~ msgid "Use default"
-#~ msgstr "Usar padrão"
-
-#~ msgid "View EOL chars"
-#~ msgstr "Mostra caracteres EOL"
-
-#~ msgid "View Indentation Guides"
-#~ msgstr "Ver guias de recuo"
-
-#~ msgid "View Line Wrap"
-#~ msgstr "Ver Quebra de linha"
-
-#~ msgid "View Whitespaces"
-#~ msgstr "Ver espaços em branco"
-
-#~ msgid "View indentation whitespaces"
-#~ msgstr "Ver espaços em branco de recuo"
-
-#~ msgid "Wrap bookmarks search around"
-#~ msgstr "Continuar a busca por marcadores na outra extremidade"
-
-#~ msgid "File: %s"
-#~ msgstr "Arquivo: %s"
-
-#~ msgid "Unable to get text buffer for printing"
-#~ msgstr "Não foi possível obter buffer de texto para impressão"
-
-#~ msgid "No file to print!"
-#~ msgstr "Nenhum arquivo para imprimir!"
-
-#~ msgid "Scintilla Editor"
-#~ msgstr "Editor Scintilla"
-
-#~ msgid ""
-#~ "The file '%s' has been changed.\n"
-#~ "Do you want to reload it ?"
-#~ msgstr ""
-#~ "O arquivo \"%s\" foi alterado.\n"
-#~ "Deseja recarregá-lo?"
-
-#~ msgid ""
-#~ "The file '%s' has been changed.\n"
-#~ "Do you want to loose your changes and reload it ?"
-#~ msgstr ""
-#~ "O arquivo \"%s\" foi alterado.\n"
-#~ "Deseja perder suas alterações e recarregá-lo?"
-
-#~ msgid ""
-#~ "The file '%s' has been deleted.\n"
-#~ "Do you confirm and close it ?"
-#~ msgstr ""
-#~ "O arquivo \"%s\" já foi excluído.\n"
-#~ "Você confirma e fecha-o?"
-
-#~ msgid ""
-#~ "The file '%s' has been deleted.\n"
-#~ "Do you want to loose your changes and close it ?"
-#~ msgstr ""
-#~ "O arquivo \"%s\" foi excluído.\n"
-#~ "Deseja perder suas alterações e fechá-lo?"
-
-#~ msgid "Could not get file info"
-#~ msgstr "Não foi possível obter as informações do arquivo"
-
-#~ msgid "This file is too big. Unable to allocate memory."
-#~ msgstr "O arquivo é muito grande. Não foi possível alocar memória."
-
-#~ msgid "Could not open file"
-#~ msgstr "Não foi possível abrir o arquivo"
-
-#~ msgid "Error while reading from file"
-#~ msgstr "Erro ao ler o arquivo"
-
-#~ msgid ""
-#~ "The file does not look like a text file or the file encoding is not "
-#~ "supported. Please check if the encoding of file is in the supported "
-#~ "encodings list. If not, add it from the preferences."
-#~ msgstr ""
-#~ "O arquivo parece não ser um arquivo de texto ou não há suporte para sua "
-#~ "codificação. Por favor, verifique se a codificação do arquivo está na "
-#~ "lista das que têm suporte. Se ela não estiver, adicione-a a partir de "
-#~ "Preferências."
-
-#~ msgid "Loading file..."
-#~ msgstr "Carregando arquivo..."
-
-#~ msgid ""
-#~ "Could not load file: %s\n"
-#~ "\n"
-#~ "Details: %s"
-#~ msgstr ""
-#~ "Não foi possível carregar o arquivo: %s\n"
-#~ "\n"
-#~ "Detalhes: %s"
-
-#~ msgid "File loaded successfully"
-#~ msgstr "Arquivo carregado com sucesso"
-
-#~ msgid "Saving file..."
-#~ msgstr "Salvando arquivo..."
-
-#~ msgid "Could not save intermediate file %s: %s"
-#~ msgstr "Não foi possível salvar o arquivo intermediário %s: %s"
-
-#~ msgid "File saved successfully"
-#~ msgstr "Arquivo salvo com sucesso"
-
-#~ msgid ""
-#~ "Cannot load Global defaults and configuration files:\n"
-#~ "%s.\n"
-#~ "This may result in improper behaviour or instabilities.\n"
-#~ "Anjuta will fall back to built in (limited) settings"
-#~ msgstr ""
-#~ "Não foi possível carregar padrões Globais e arquivos de configuração:\n"
-#~ "%s.\n"
-#~ "Isto pode resultar em um comportamento inapropriado ou instabilidades.\n"
-#~ "O Anjuta vai reverter para as definições (limitadas) padrões"
-
-#~ msgid "<b>Font:</b>"
-#~ msgstr "<b>Fonte:</b>"
-
-#~ msgid "<b>View</b>"
-#~ msgstr "<b>Ver</b>"
-
-#~ msgid "<b>Program to test:</b>"
-#~ msgstr "<b>Programa a testar:</b>"
-
-#~ msgid "<b>Valgrind</b>"
-#~ msgstr "<b>Valgrind</b>"
-
-#~ msgid ""
-#~ "Memcheck\n"
-#~ "Addrcheck\n"
-#~ "Helgrind"
-#~ msgstr ""
-#~ "Memcheck\n"
-#~ "Addrcheck\n"
-#~ "Helgrind"
-
-#~ msgid "Select Tool:"
-#~ msgstr "Ferramenta:"
-
-#~ msgid "Select Valgrind Target"
-#~ msgstr "Selecione o alvo do Valgrind"
-
-#~ msgid "Select debugging target"
-#~ msgstr "Selecione o alvo de depuração"
-
-#~ msgid "Valgrind"
-#~ msgstr "Valgrind"
-
-#~ msgid ""
-#~ "No executable target selected for debugging with Valgrind. Please select "
-#~ "one."
-#~ msgstr ""
-#~ "Nenhum executável selecionado para depuração com Valgrind. Por favor, "
-#~ "selecione um."
-
-#~ msgid ""
-#~ "There aren't any available executable targets for this project.\n"
-#~ "Please create one first."
-#~ msgstr ""
-#~ "Não existe nenhum alvo executável disponível para este projeto.\n"
-#~ "Por favor, crie um primeiro."
-
-#~ msgid "Choose file where to save Valgrind log"
-#~ msgstr "Escolha o arquivo para salvar o log do Valgrind"
-
-#~ msgid "Open Valgrind log file"
-#~ msgstr "Escolha um arquivo de log do Valgrind"
-
-#~ msgid "_Valgrind"
-#~ msgstr "_Valgrind"
-
-#~ msgid "_Select Tool and Run..."
-#~ msgstr "_Selecionar ferramenta e executar..."
-
-#~ msgid "_Kill Execution"
-#~ msgstr "_Encerrar execução"
-
-#~ msgid "_Load Log"
-#~ msgstr "_Carregar o log"
-
-#~ msgid "S_ave Log"
-#~ msgstr "S_alvar o log"
-
-#~ msgid "Edit Rules"
-#~ msgstr "Editar regras"
-
-#~ msgid "Use Valgrind debug tool"
-#~ msgstr "Usar ferramenta de depuração Valgrind"
-
-#~ msgid "<b>Valgrind general preferences</b>"
-#~ msgstr "<b>Preferências gerais do Valgrind</b>"
-
-#~ msgid "Valgrind binary file path:"
-#~ msgstr "Caminho do arquivo binário Valgrind:"
-
-#~ msgid "Choose Valgrind Binary File Path..."
-#~ msgstr "Escolher caminho do arquivo executável Valgrind..."
-
-#~ msgid "Preview"
-#~ msgstr "Visualizar"
-
-#~ msgid "lines above and below the target line."
-#~ msgstr "linhas acima e abaixo da linha principal."
-
-#~ msgid "Failed to create pipe to '%s': %s"
-#~ msgstr "Falha ao criar um pipe para \"%s\": %s"
-
-#~ msgid "Failed to create child process '%s': %s"
-#~ msgstr "Falha ao criar processo filho \"%s\": %s"
-
-#~ msgid ""
-#~ "Reached the end of the input file or error in parsing valgrind output."
-#~ msgstr ""
-#~ "Chegou ao fim do arquivo de entrada ou erro ao analisar a saída do "
-#~ "Valgrind."
-
-#~ msgid "Process exited."
-#~ msgstr "Processo encerrado."
-
-#~ msgid "Could not get the right valgrind-binary gconf key:"
-#~ msgstr "Não pôde obter a chave correta de valgrind-binary gconf"
-
-#~ msgid ""
-#~ "Valgrind binary [%s] does not exist. Please check the preferences or "
-#~ "install Valgrind package."
-#~ msgstr ""
-#~ "O binário Valgrind [%s] não existe. Por favor, verifique as preferências "
-#~ "ou instale o pacote Valgrind."
-
-#~ msgid "Could not get the right pipe for the process."
-#~ msgstr "Não foi possível obter o pipe correto para o processo."
-
-#~ msgid ""
-#~ "Invalid syntax in settings '%s'.\n"
-#~ "Please enter a value of the form \"<integer>,<integer>,<integer>\"."
-#~ msgstr ""
-#~ "Sintaxe inválida em  \"%s\".\n"
-#~ "Por favor, digite valor na forma \"<integer>,<integer>,<integer>\"."
-
-#~ msgid "Override default settings"
-#~ msgstr "Sobrescrever configuração padrão"
-
-#~ msgid "Enter <size>,<assoc>,<line_size>:"
-#~ msgstr "Digite <tamanho>,<assoc>,<taman_linha>:"
-
-#~ msgid "Cachegrind"
-#~ msgstr "Cachegrind"
-
-#~ msgid "Error contains"
-#~ msgstr "Erro contém"
-
-#~ msgid "Function contains"
-#~ msgstr "Função contém"
-
-#~ msgid "Object contains"
-#~ msgstr "Objeto contém"
-
-#~ msgid "Source filename contains"
-#~ msgstr "Nome do arquivo contém"
-
-#~ msgid "Invalid regular expression: '%s': %s"
-#~ msgstr "Expressão regular inválida: \"%s\": %s"
-
-#~ msgid "Valgrind Suppression Rules"
-#~ msgstr "Regras de supressão do Valgrind"
-
-#~ msgid "Valgrind Suppression"
-#~ msgstr "Supressão do Valgrind"
-
-#~ msgid "Cu_t"
-#~ msgstr "Recor_tar"
-
-#~ msgid "Suppress"
-#~ msgstr "Suprimir"
-
-#~ msgid "Edit in Custom Editor"
-#~ msgstr "Editar com editor personalizado"
-
-#~ msgid "Demangle C++ symbol names"
-#~ msgstr "Usar demangle nos nomes de símbolos C++"
-
-#~ msgid "Show"
-#~ msgstr "Mostrar"
-
-#~ msgid "callers in stack trace"
-#~ msgstr "elementos chamados na linha de pilha"
-
-#~ msgid "Stop showing errors if there are too many"
-#~ msgstr "Parar de mostrar erros caso sejam muitos"
-
-#~ msgid "Round malloc sizes to next word"
-#~ msgstr "Tamanho específico malloc para próxima palavra"
-
-#~ msgid "Trace any child processes forked off by the program being debugged"
-#~ msgstr "Seguir todo processo filho do programa sendo depurado"
-
-#~ msgid "Track open file descriptors"
-#~ msgstr "Acompanhar descritores do arquivo aberto"
-
-#~ msgid "Add time stamps to log messages"
-#~ msgstr "Adicionar hora em mensagens de log"
-
-#~ msgid "Call __libc_freeres() at exit before checking for memory leaks"
-#~ msgstr ""
-#~ "Chamar __libc_freeres() na saída antes da verificação de leaks de memória"
-
-#~ msgid "Suppressions File:"
-#~ msgstr "Arquivo de supressões:"
-
-#~ msgid "Choose Valgrind Suppressions File..."
-#~ msgstr "Escolher Arquivo de Supressão Valgrind..."
-
-#~ msgid "Helgrind"
-#~ msgstr "Helgrind"
-
-#~ msgid "Assume thread stacks are used privately"
-#~ msgstr "Supor que thread stacks são usadas privativamente"
-
-#~ msgid "Show location of last word access on error:"
-#~ msgstr "Mostrar localização do último acesso da palavra no erro:"
-
-#~ msgid "Memcheck"
-#~ msgstr "Memcheck"
-
-#~ msgid "Memory leaks"
-#~ msgstr "Fugas de memória"
-
-#~ msgid "Leak check:"
-#~ msgstr "Verificação de leak:"
-
-#~ msgid "Show reachable blocks in leak check"
-#~ msgstr "Mostrar blocos alcançáveis na verificação de leak"
-
-#~ msgid "Leak resolution:"
-#~ msgstr "Resolução de leak:"
-
-#~ msgid "Keep up to"
-#~ msgstr "Continuar até"
-
-#~ msgid "bytes in the queue after being free()'d"
-#~ msgstr "bytes na fila após serem liberados com free()"
-
-#~ msgid "Work around bugs generated by gcc 2.96"
-#~ msgstr "Contornar erros gerados pelo gcc 2.96"
-
-#~ msgid "Grow"
-#~ msgstr "Aumentar"
-
-#~ msgid "Shrink"
-#~ msgstr "Diminuir"
-
-#~ msgid "Rule name:"
-#~ msgstr "Nome da regra:"
-
-#~ msgid "Suppress messages of type:"
-#~ msgstr "Esconder mensagens do tipo:"
-
-#~ msgid "Suppress when using:"
-#~ msgstr "Esconder quando usar:"
-
-#~ msgid "System call:"
-#~ msgstr "Chamada do sistema:"
-
-#~ msgid "Call chain:"
-#~ msgstr "Cadeia de chamadas:"
-
-#~ msgid "Error saving to suppression file '%s': %s"
-#~ msgstr "Erro ao escrever no arquivo \"%s\": %s"
-
-#~ msgid "You have forgotten to name your suppression rule."
-#~ msgstr "Você esqueceu de nomear sua regra de supressão."
-
-#~ msgid "Cannot save suppression rules: %s"
-#~ msgstr "Erro ao salvar as regras de supressão: %s"
-
-#~ msgid "You have not set a suppressions file in your settings."
-#~ msgstr "Você não configurou um arquivo de supressão em seus ajustes."
-
-#~ msgid "A graph painter for the inheritance of the classes."
-#~ msgstr "Um criador de gráfico para herança de classe."
-
-#~ msgid "Class Inheritance"
-#~ msgstr "Herança de classe"
-
-#~ msgid "Sample Plugin"
-#~ msgstr "Plug-in de exemplo"
-
-#~ msgid "Sample Plugin for Anjuta."
-#~ msgstr "Exemplo de plug-in para o Anjuta."
-
-#~ msgid "An alternate editor based on Scintilla"
-#~ msgstr "Um editor alternativo baseado em GtkSourceview"
-
-#~ msgid "Change build commands to use scratchbox 1 or 2"
-#~ msgstr "Altere comandos de conmpilação para utilizar o scratchbox 1 ou 2 "
-
-#~ msgid "Application performance profiler"
-#~ msgstr "Perfilador de desempenho do aplicativo"
-
-#~ msgid "Profile"
-#~ msgstr "Perfilar"
-
-#~ msgid "Powerful debugging tool."
-#~ msgstr "Poderosa ferramenta de depuração."
-
-#~ msgid "Valgrind Plugin"
-#~ msgstr "Plug-in de Valgrind"
-
-#~ msgid "A generic GNOME project"
-#~ msgstr "Um projeto genérico para o GNOME"
-
-#~ msgid "GNOME"
-#~ msgstr "GNOME"
-
-#~ msgid "Use libglade for the UI"
-#~ msgstr "Usar a libglade para a interface"
-
-#~ msgid ""
-#~ "Use the libglade-2.0 library to load the glade interface file at runtime"
-#~ msgstr ""
-#~ "Usa a biblioteca libglade-2.0 para carregar a interface em tempo de "
-#~ "execução"
-
-#~ msgid "Revision: "
-#~ msgstr "Revisão: "
-
-#~ msgid "Modify Signal"
-#~ msgstr "Modificar sinal"
-
-#~ msgid "Select to _Brace"
-#~ msgstr "Selecionar até a _chave"
-
-#~ msgid "Select the text in the matching braces"
-#~ msgstr "Seleciona o texto entre as chaves correspondentes"
-
-#~ msgid "Print Preview"
-#~ msgstr "Visualizar impressão"
-
-#~ msgid "Show Notification Tray Icon"
-#~ msgstr "Mostrar notificação na área de notificações (Tray Icon)"
-
-#~ msgid "/_New"
-#~ msgstr "/_Novo"
-
-#~ msgid "/_Hide"
-#~ msgstr "/_Ocultar"
-
-#~ msgid "/_Show"
-#~ msgstr "/_Mostrar"
-
-#~ msgid "/_Quit"
-#~ msgstr "/Sai_r"
-
-#~ msgid "Todo List"
-#~ msgstr "Lista de tarefas"
-
-#~ msgid "Todo List Manager"
-#~ msgstr "Gerenciador de lista de tarefas"
-
-#~ msgid "The file you selected is a link and can't be added to the project"
-#~ msgstr ""
-#~ "O arquivo que você escolheu é um link e não pode ser adicionado ao projeto"
-
-#~ msgid "<b>Project description:</b>"
-#~ msgstr "<b>Descrição do projeto:</b>"
-
-#~ msgid "<b>Select the type of application to be developed</b>"
-#~ msgstr "<b>Selecione o tipo de aplicativo a ser desenvolvido</b>"
-
-#~ msgid "Application Assistant"
-#~ msgstr "Assistente de aplicativo"
-
-#~ msgid "Basic Information"
-#~ msgstr "Informações básicas"
-
-#~ msgid "Enter the basic Project information"
-#~ msgstr "Digite as informações básicas do projeto"
-
-#~ msgid "Project Type"
-#~ msgstr "Tipo de projeto"
-
-#~ msgid ""
-#~ "The Application Assistant will generate a basic skeleton for a project, "
-#~ "including all of the build files. It will ask for details of the initial "
-#~ "structure for the application. Please answer the questions carefully, as "
-#~ "it may not be possible to change some of the settings later."
-#~ msgstr ""
-#~ "O Assistente de Aplicativo irá gerar a estrutura básica de um projeto, "
-#~ "incluindo todos os arquivos de compilação (build files). Ele solicitará "
-#~ "alguns detalhes sobre a estrutura inicial do aplicativo. Por favor, "
-#~ "responda atentamente às questões, já que poderá não ser possível "
-#~ "modificar algumas destas definições posteriormente."
-
-#~ msgid "label"
-#~ msgstr "rótulo"
-
-#~ msgid "Scintilla based component for editing files"
-#~ msgstr "Componente baseado em Scintilla para edição de arquivos"
-
-#~ msgid " Stop: "
-#~ msgstr " Parar: "
-
-#~ msgid " Print: "
-#~ msgstr " Imprimir: "
