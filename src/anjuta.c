@@ -337,7 +337,7 @@ anjuta_new (gchar *prog_name, gchar **files, gboolean no_splash,
 		/* Identify non-project files and set them for loading in session */
 		for (node = files; *node != NULL; node++)
 		{
-			GFile* file = g_file_new_for_commandline_arg(*node);
+			GFile* file = g_file_new_for_uri (*node);
 			gchar *filename = g_file_get_path (file);
 			if (anjuta_util_is_project_file (filename))
 			{
@@ -406,7 +406,7 @@ anjuta_new (gchar *prog_name, gchar **files, gboolean no_splash,
 	/* Load project file */
 	if (project_file)
 	{
-		GFile* file = g_file_new_for_commandline_arg (project_file);
+		GFile* file = g_file_new_for_uri (project_file);
 		IAnjutaFileLoader *loader;
 		loader = anjuta_shell_get_interface (ANJUTA_SHELL (app),
 											 IAnjutaFileLoader, NULL);
