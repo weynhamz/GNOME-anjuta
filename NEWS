@@ -1,3 +1,11 @@
+Anjuta 2.27.92 (7 September 2009) -- Johannes Schmid
+
+Bugs fixed:
+class-gen: bgo #593532 - Untranslated strings
+language-support-cpp-java: bgo #593291 - fix small typo
+
+Thanks to all translators!
+
 Anjuta 2.27.91 (27 August 2009) -- Johannes Schmid
 
 Updates:
