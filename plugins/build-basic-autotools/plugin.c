@@ -3052,8 +3052,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 		filename = g_file_get_path(file);
 		g_object_unref (file);
 		g_return_if_fail (filename != NULL);
-		ba_plugin->current_editor_filename = anjuta_util_get_real_path (filename);
-		g_free (filename);
+		ba_plugin->current_editor_filename = filename;
 		update_module_ui (ba_plugin);
 	}
 	g_idle_add (on_update_indicators_idle, plugin);
