@@ -55,6 +55,8 @@
 #define GCONF_SILENT_BELL         "silent_bell"
 #define GCONF_USE_SYSTEM_FONT     "use_system_font"
 #define GCONF_WORD_CHARS          "word_chars"
+#define GCONF_LOGIN_SHELL         "login_shell"
+#define GCONF_UPDATE_RECORDS      "update_records"
 
 #define PREFS_TERMINAL_PROFILE_USE_DEFAULT    "terminal.default.profile"
 #define PREFS_TERMINAL_PROFILE                "terminal.profile"
@@ -93,6 +95,8 @@ struct _TerminalPlugin{
 	gboolean   widget_added_to_shell;
 	GList *gconf_notify_ids;
 	guint root_watch_id;
+	gboolean lastlog;
+	gboolean update_records;
 #if OLD_VTE == 1
 	gboolean first_time_realization;
 #endif
@@ -116,10 +120,30 @@ get_profile_key (const gchar *profile, const gchar *key)
 	return buffer;
 }
 
+static gboolean
+get_bool_default (GConfClient *client, const gchar *key, gboolean def)
+{
+	gboolean value = def;
+	GConfValue* val;
+
+	val = gconf_client_get (client, key, NULL);
+	if (val != NULL)
+	{
+	    value = gconf_value_get_bool (val);
+	    gconf_value_free (val);
+  	}
+		
+	return value;
+}
+
 #define GET_PROFILE_BOOL(key) \
 			gconf_client_get_bool (client, \
 								   get_profile_key (profile, key), \
 								   NULL);
+#define GET_PROFILE_BOOL_DEFAULT(key, value) \
+			get_bool_default (client, \
+								   get_profile_key (profile, key), \
+								   value);
 #define GET_PROFILE_INT(key) \
 			gconf_client_get_int (client, \
 								  get_profile_key (profile, key), \
@@ -130,7 +154,7 @@ get_profile_key (const gchar *profile, const gchar *key)
 									 NULL);
 
 static void
-terminal_set_preferences (VteTerminal *term, AnjutaPreferences *pref)
+terminal_set_preferences (VteTerminal *term, AnjutaPreferences *pref, TerminalPlugin *term_plugin)
 {
 	GConfClient *client;
 	char *text;
@@ -246,6 +270,12 @@ terminal_set_preferences (VteTerminal *term, AnjutaPreferences *pref)
 	 * which is not the case with vte_terminal_set_color_foreground and
 	 * vte_terminal_set_color_background */
 	vte_terminal_set_colors (term, foreground, background, NULL, 0);
+
+	/* vte_terminal is not working depending on update_records setting at least
+	 * on FreeBSD */
+	term_plugin->lastlog = GET_PROFILE_BOOL (GCONF_LOGIN_SHELL);
+	term_plugin->update_records = GET_PROFILE_BOOL_DEFAULT (GCONF_UPDATE_RECORDS, TRUE);
+	
 	g_free (profile);
 	g_object_unref (client);
 }
@@ -253,8 +283,8 @@ terminal_set_preferences (VteTerminal *term, AnjutaPreferences *pref)
 static void
 preferences_changed (AnjutaPreferences *prefs, TerminalPlugin *term)
 {
-	terminal_set_preferences (VTE_TERMINAL (term->shell), prefs);
-	terminal_set_preferences (VTE_TERMINAL (term->term), prefs);
+	terminal_set_preferences (VTE_TERMINAL (term->shell), prefs, term);
+	terminal_set_preferences (VTE_TERMINAL (term->term), prefs, term);
 }
 
 static void
@@ -379,9 +409,12 @@ terminal_execute (TerminalPlugin *term_plugin, const gchar *directory,
 	gtk_widget_show_all (term_plugin->term_box);
 	if (focus)
 		gtk_widget_grab_focus (term_plugin->term);
-		
+
 	term_plugin->child_pid = vte_terminal_fork_command (term, args[0], args,
-														environment, dir, 0, 0, 0);
+														environment, dir,
+	    												term_plugin->lastlog,
+	    												term_plugin->update_records,
+	    												term_plugin->update_records);
 	vte_reaper_add_child (term_plugin->child_pid);
 	
 	g_free (dir);
@@ -397,12 +430,14 @@ terminal_execute (TerminalPlugin *term_plugin, const gchar *directory,
 }
 
 static void
-init_shell (VteTerminal *term, const char *uri)
+init_shell (TerminalPlugin *term_plugin, const char *uri)
 {
 	struct passwd *pw;
 	const char *shell;
 	const char *dir;
 	static gboolean first_time = TRUE;
+	VteTerminal *term = VTE_TERMINAL (term_plugin->shell);
+	
 	
 	pw = getpwuid (getuid ());
 	if (pw) {
@@ -421,7 +456,10 @@ init_shell (VteTerminal *term, const char *uri)
 	else
 		first_time = FALSE;
 	
-	vte_terminal_fork_command (term, shell, NULL, NULL, dir, 0, 0, 0);
+	vte_terminal_fork_command (term, shell, NULL, NULL, dir,
+								term_plugin->lastlog,
+								term_plugin->update_records,
+								term_plugin->update_records);
 }
 
 static gboolean
@@ -584,7 +622,7 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 		file = g_file_new_for_uri (root_uri);
 		path = g_file_get_path (file);
 		
-		init_shell (VTE_TERMINAL (term_plugin->shell), path);
+		init_shell (term_plugin, path);
 		
 		g_object_unref (file);
 		g_free (path);
@@ -666,7 +704,7 @@ terminal_create (TerminalPlugin *term_plugin)
 	g_signal_connect (vte_reaper_get(), "child-exited",
 					  G_CALLBACK (terminal_child_exited_cb), term_plugin);
 	
-	init_shell (VTE_TERMINAL (term_plugin->shell), NULL);
+	init_shell (term_plugin, NULL);
 }
 
 static void
@@ -801,6 +839,8 @@ terminal_plugin_instance_init (GObject *obj)
 	term_plugin->pref_profile_combo = NULL;
 	term_plugin->uiid = 0;
 	term_plugin->action_group = NULL;
+	term_plugin->lastlog = FALSE;
+	term_plugin->update_records = TRUE;
 #if OLD_VTE == 1
 	plugin->first_time_realization = TRUE;
 #endif
