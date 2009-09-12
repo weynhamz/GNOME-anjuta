@@ -1696,6 +1696,13 @@ imark_mark(IAnjutaMarkable* mark, gint location, IAnjutaMarkableMarker marker,
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(mark);
 	SVMark* svmark = g_slice_new0 (SVMark);
+
+	if (location <= 0)
+	{
+		g_set_error (e, IANJUTA_MARKABLE_ERROR, IANJUTA_MARKABLE_INVALID_LOCATION,
+		             "Invalid marker location: %d!", location);
+		return -1;
+	}
 	
 	static gint marker_count = 0;
 	
