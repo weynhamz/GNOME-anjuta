@@ -240,7 +240,7 @@ anjuta_new (gchar *prog_name, gchar **files, gboolean no_splash,
 	AnjutaProfile *profile;
 	GFile *session_profile;
 	gchar *remembered_plugins;
-	gchar *project_file = NULL;
+	gchar *project_uri = NULL;
 	gchar *profile_name = NULL;
 	GError *error = NULL;
 	
@@ -326,7 +326,7 @@ anjuta_new (gchar *prog_name, gchar **files, gboolean no_splash,
 		/* Reset default session */
 		session_dir = USER_SESSION_PATH_NEW;
 		
-		project_file = extract_project_from_session (session_dir);
+		project_uri = extract_project_from_session (session_dir);
 		
 		session = anjuta_session_new (session_dir);
 		anjuta_session_clear (session);
@@ -337,20 +337,16 @@ anjuta_new (gchar *prog_name, gchar **files, gboolean no_splash,
 		/* Identify non-project files and set them for loading in session */
 		for (node = files; *node != NULL; node++)
 		{
-			GFile* file = g_file_new_for_uri (*node);
-			gchar *filename = g_file_get_path (file);
-			if (anjuta_util_is_project_file (filename))
+			if (anjuta_util_is_project_file (*node))
 			{
 				/* Pick up the first project file for loading later */
-				g_free (project_file);
-				project_file = g_strdup (filename);
+				g_free (project_uri);
+				project_uri = g_strdup (*node);
 			}
 			else
 			{
-				files_load = g_list_prepend (files_load, g_file_get_uri (file));
+				files_load = g_list_prepend (files_load, *node);
 			}
-			g_free (filename);
-			g_object_unref(file);
 		}
 		if (files_load)
 		{
@@ -395,7 +391,7 @@ anjuta_new (gchar *prog_name, gchar **files, gboolean no_splash,
 		/* Otherwise, load session normally */
 		else
 		{
-			project_file = extract_project_from_session (session_dir);
+			project_uri = extract_project_from_session (session_dir);
 		}
 		g_free (session_dir);
 	}
@@ -404,14 +400,14 @@ anjuta_new (gchar *prog_name, gchar **files, gboolean no_splash,
 	g_signal_connect (profile_manager, "profile-scoped",
 					  G_CALLBACK (on_profile_scoped), app);
 	/* Load project file */
-	if (project_file)
+	if (project_uri)
 	{
-		GFile* file = g_file_new_for_uri (project_file);
+		GFile* file = g_file_new_for_uri (project_uri);
 		IAnjutaFileLoader *loader;
 		loader = anjuta_shell_get_interface (ANJUTA_SHELL (app),
 											 IAnjutaFileLoader, NULL);
 		ianjuta_file_loader_load (loader, file, FALSE, NULL);
-		g_free (project_file);
+		g_free (project_uri);
 		g_object_unref (file);
 	}
 	anjuta_profile_manager_thaw (profile_manager, &error);
