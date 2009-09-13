@@ -30,8 +30,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-16 19:08+0200\n"
-"PO-Revision-Date: 2009-08-15 20:55+0200\n"
+"POT-Creation-Date: 2009-09-13 02:57+0200\n"
+"PO-Revision-Date: 2009-09-12 19:35+0200\n"
 "Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
 "Language-Team: <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
@@ -237,7 +237,7 @@ msgstr "Anjuta-skal som vil indeholde modulet"
 
 #: ../libanjuta/anjuta-plugin-manager.c:733
 #, c-format
-msgid "Plugin '%s' do not want to be deactivated"
+msgid "Plugin '%s' does not want to be deactivated"
 msgstr "Udvidelsesmodulet \"%s\" vil ikke deaktiveres"
 
 #: ../libanjuta/anjuta-plugin-manager.c:764
@@ -299,7 +299,7 @@ msgstr "Vælg et modul at aktivere"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1372
 #, c-format
-msgid "No plugin able to load other plugins in %s"
+msgid "No plugin is able to load other plugins in %s"
 msgstr "Intet modul kan indlæse andre moduler i %s"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1960
@@ -331,8 +331,8 @@ msgid "Currently activated plugins"
 msgstr "Aktive moduler"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2311
-msgid "Anjuta shell for which the plugins are"
-msgstr "Anjuta-skal hørende til modulerne"
+msgid "Anjuta shell for which the plugins are made"
+msgstr "Anjuta-skal, som modulere er skrevet til"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2319
 msgid "Anjuta Status"
@@ -595,8 +595,8 @@ msgstr "Pixbuf-objekt"
 msgid "The pixbuf to render."
 msgstr "Pixbuffen, der skal tegnes."
 
-#: ../libanjuta/resources.c:63 ../plugins/glade/plugin.c:3031
-#: ../plugins/glade/plugin.c:3066
+#: ../libanjuta/resources.c:63 ../plugins/glade/plugin.c:3041
+#: ../plugins/glade/plugin.c:3076
 #, c-format
 msgid "Widget not found: %s"
 msgstr "Kontrol blev ikke fundet: %s"
@@ -678,6 +678,7 @@ msgid "Translate messages"
 msgstr "Oversæt meddelelser"
 
 #: ../plugins/build-basic-autotools/configuration-list.c:62
+#: ../plugins/class-gen/window.c:525
 #: ../plugins/search/search_preferences.c:523
 #: ../plugins/terminal/anjuta-terminal-plugin.ui.h:2 ../src/preferences.ui.h:2
 msgid "Default"
@@ -834,11 +835,11 @@ msgstr "Bygning %d: %s"
 #. Need to run make clean before
 #: ../plugins/build-basic-autotools/plugin.c:1499
 msgid ""
-"Using this new configuration, need to to remove the default one. Do you want "
-"to do it ?"
+"Before using this new configuration, the default one needs to be removed. Do "
+"you want to do that ?"
 msgstr ""
-"Bruger denne nye konfiguration - skal fjerne standardkonfigurationen. Vil du "
-"gøre dette?"
+"Før du bruger denne nye konfiguration, skal standardkonfigurationen fjernes. "
+"Vil du gøre dette?"
 
 #: ../plugins/build-basic-autotools/plugin.c:1802
 #, c-format
@@ -1024,18 +1025,18 @@ msgstr "Ko_mpilér (%s)"
 msgid "Co_mpile"
 msgstr "Ko_mpilér"
 
-#: ../plugins/build-basic-autotools/plugin.c:3122
+#: ../plugins/build-basic-autotools/plugin.c:3121
 msgid "Build commands"
 msgstr "Byg kommandoer"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:3131
+#: ../plugins/build-basic-autotools/plugin.c:3130
 msgid "Build popup commands"
 msgstr "Byg pop op-kommandoer"
 
-#: ../plugins/build-basic-autotools/plugin.c:3513
-#: ../plugins/build-basic-autotools/plugin.c:3521
+#: ../plugins/build-basic-autotools/plugin.c:3512
+#: ../plugins/build-basic-autotools/plugin.c:3520
 msgid "Build Autotools"
 msgstr "Byg Autotools"
 
@@ -1089,89 +1090,94 @@ msgid "Class Function Prefix:"
 msgstr "Klassefunktionspræfix:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:12
+#: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:3
+msgid "Class Generator"
+msgstr "Klassegenerator"
+
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:13
 msgid "Class Name:"
 msgstr "Klassenavn:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:13
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:14
 msgid "Class Options:"
 msgstr "Klassetilvalg:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:14
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:15
 msgid "Create"
 msgstr "Opret"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:15
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:16
 msgid "GObject Class\t"
 msgstr "GObject-klasse\t"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:16
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:17
 msgid "GObject Prefix and Type:"
 msgstr "GObject-præfix og type:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:17
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:18
 #: ../plugins/file-wizard/file.c:102
 #: ../plugins/project-wizard/templates/translatable-strings.h:47
 msgid "General Public License (GPL)"
 msgstr "General Public License (GPL)"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:18
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:19
 msgid "Generic C++ Class"
 msgstr "Generisk C++-klasse"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:19
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:20
 msgid "Header File:"
 msgstr "Header-fil:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:20
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:21
 msgid "Inline the declaration and implementation"
 msgstr "Indlejr (inline) erklæringen og implementationen"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:21
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:22
 #: ../plugins/file-wizard/file.c:103
 #: ../plugins/project-wizard/templates/translatable-strings.h:60
 msgid "Lesser General Public License (LGPL)"
 msgstr "Lesser General Public License (LGPL)"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:22
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:23
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:9
 msgid "License:"
 msgstr "Licens:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:23
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:24
 msgid "Member Functions/Variables"
 msgstr "Medlemsfunktioner/variable"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:24
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:25
 msgid "No License"
 msgstr "Ingen licens"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:25
-#: ../plugins/glade/plugin.c:4436
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:26
+#: ../plugins/glade/plugin.c:4446
 msgid "Properties"
 msgstr "Egenskaber"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:26
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:27
 msgid "Signals"
 msgstr "Signaler"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:27
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:28
 msgid "Source File:"
 msgstr "Kildefil:"
 
 # ???
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:28
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:29
 msgid "Source/Header Headings:"
 msgstr "Kilde/header-overskrifter:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:29
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:30
 msgid "private"
 msgstr "privat"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:30
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:31
 msgid "protected"
 msgstr "beskyttet"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:31
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:32
 msgid "public"
 msgstr "offentlig"
 
@@ -1209,6 +1215,63 @@ msgstr ""
 #, c-format
 msgid "Failed to execute autogen: %s"
 msgstr "Kunne ikke køre autogen: %s"
+
+#: ../plugins/class-gen/window.c:94
+msgid "Guess from type"
+msgstr "Gæt udfra type"
+
+#: ../plugins/class-gen/window.c:499 ../plugins/class-gen/window.c:510
+msgid "Scope"
+msgstr "Scope"
+
+#: ../plugins/class-gen/window.c:500
+msgid "Implementation"
+msgstr "Implementation"
+
+#: ../plugins/class-gen/window.c:501 ../plugins/class-gen/window.c:511
+#: ../plugins/class-gen/window.c:533
+#: ../plugins/debug-manager/breakpoints.c:1907
+#: ../plugins/debug-manager/debug_tree.c:126
+msgid "Type"
+msgstr "Type"
+
+#: ../plugins/class-gen/window.c:502 ../plugins/class-gen/window.c:512
+#: ../plugins/class-gen/window.c:520 ../plugins/class-gen/window.c:534
+#: ../plugins/run-program/parameters.c:749
+#: ../plugins/search/search_preferences.c:534
+msgid "Name"
+msgstr "Navn"
+
+#: ../plugins/class-gen/window.c:503 ../plugins/class-gen/window.c:513
+#: ../plugins/class-gen/window.c:535
+#: ../plugins/debug-manager/stack_trace.c:679
+msgid "Arguments"
+msgstr "Argumenter"
+
+#: ../plugins/class-gen/window.c:521
+msgid "Nick"
+msgstr "Nick"
+
+#: ../plugins/class-gen/window.c:522
+msgid "Blurb"
+msgstr "Blurb"
+
+#: ../plugins/class-gen/window.c:523
+msgid "GType"
+msgstr "GType"
+
+#: ../plugins/class-gen/window.c:524
+msgid "ParamSpec"
+msgstr "ParamSpec"
+
+#. Somehow redundant with marshaller, but required for default handler
+#: ../plugins/class-gen/window.c:526 ../plugins/class-gen/window.c:536
+msgid "Flags"
+msgstr "Flag"
+
+#: ../plugins/class-gen/window.c:537
+msgid "Marshaller"
+msgstr "Marshaller"
 
 #: ../plugins/class-gen/window.c:818
 msgid "XML description of the user interface"
@@ -1365,8 +1428,8 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "Ignorér .cvsrc-fil (anbefalet)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:36
-#: ../plugins/git/anjuta-git.ui.h:62 ../plugins/symbol-db/plugin.c:2332
-#: ../plugins/symbol-db/plugin.c:2396
+#: ../plugins/git/anjuta-git.ui.h:62 ../plugins/symbol-db/plugin.c:2333
+#: ../plugins/symbol-db/plugin.c:2397
 msgid "Local"
 msgstr "Lokal"
 
@@ -1978,11 +2041,6 @@ msgstr "Slået til"
 msgid "Address"
 msgstr "Adresse"
 
-#: ../plugins/debug-manager/breakpoints.c:1907
-#: ../plugins/debug-manager/debug_tree.c:126
-msgid "Type"
-msgstr "Type"
-
 #: ../plugins/debug-manager/breakpoints.c:1908
 msgid "Condition"
 msgstr "Vilkår"
@@ -2405,10 +2463,6 @@ msgstr "Linje"
 msgid "Function"
 msgstr "Funktion"
 
-#: ../plugins/debug-manager/stack_trace.c:679
-msgid "Arguments"
-msgstr "Argumenter"
-
 #: ../plugins/debug-manager/stack_trace.c:703
 msgid "Stack"
 msgstr "Stak"
@@ -2578,8 +2632,8 @@ msgstr "Indhold"
 #: ../plugins/search/search-replace.c:1717
 #: ../plugins/search/search-replace.c:1724
 #: ../plugins/search/search-replace.c:1736
-#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2334
-#: ../plugins/symbol-db/plugin.c:2446
+#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2335
+#: ../plugins/symbol-db/plugin.c:2447
 msgid "Search"
 msgstr "Søg"
 
@@ -2996,7 +3050,7 @@ msgstr "Fjern den aktuelle visning af dokumentet"
 msgid "U_ndo"
 msgstr "_Fortryd"
 
-#: ../plugins/document-manager/plugin.c:283 ../plugins/glade/plugin.c:4079
+#: ../plugins/document-manager/plugin.c:283 ../plugins/glade/plugin.c:4089
 msgid "Undo the last action"
 msgstr "Fortryd sidste handling"
 
@@ -3577,7 +3631,7 @@ msgid "Filter"
 msgstr "Filter"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2333 ../plugins/symbol-db/plugin.c:2422
+#: ../plugins/symbol-db/plugin.c:2334 ../plugins/symbol-db/plugin.c:2423
 msgid "Global"
 msgstr "Global"
 
@@ -4568,7 +4622,7 @@ msgstr "Blandet"
 msgid "Mode:"
 msgstr "Tilstand:"
 
-#: ../plugins/git/anjuta-git.ui.h:70 ../plugins/glade/plugin.c:3087
+#: ../plugins/git/anjuta-git.ui.h:70 ../plugins/glade/plugin.c:3097
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:10
 #: ../plugins/subversion/anjuta-subversion.ui.h:23
 msgid "Options"
@@ -4880,13 +4934,12 @@ msgid "Git: Deleted selected branches."
 msgstr "Git: Slettede valgte grene."
 
 #: ../plugins/git/git-delete-branch-dialog.c:106
-#, fuzzy
 msgid "Please select branches to delete"
-msgstr "Vælg venligst en fil."
+msgstr "Vælg venligst grenene, der skal slettes"
 
 #: ../plugins/git/git-delete-tag-dialog.c:37
-msgid "Git: Deleted selected tages."
-msgstr "Git: Slettede de valgte grene."
+msgid "Git: Deleted selected tags."
+msgstr "Git: Slettede de valgte mærker."
 
 #: ../plugins/git/git-fetch-dialog.c:40
 msgid "Git: Fetch complete."
@@ -5086,7 +5139,7 @@ msgstr "_Gem uintegrerede ændringer..."
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:113
-msgid "Save ucommitted changes and re-apply them later"
+msgid "Save uncommitted changes and re-apply them later"
 msgstr "Gem uintegrerede ændringer og genanvend dem senere"
 
 #. Action name
@@ -5406,7 +5459,7 @@ msgstr "_Spring over"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:345
-msgid "Skip the current conflicted commmit and continue"
+msgid "Skip the current conflicted commit and continue"
 msgstr "Spring den aktuelle, konfliktramte integration over og fortsæt"
 
 #. Display label
@@ -5426,8 +5479,7 @@ msgstr "_Cherry-pick..."
 #. short-cut
 #: ../plugins/git/plugin.c:361
 msgid ""
-"Selectively merge individual changes from other branches into the current "
-"one"
+"Selectively merge individual changes from other branches into the current one"
 msgstr "Sammenføj selektivt enkelte ændringer fra andre grene til den aktuelle"
 
 #. Action name
@@ -5704,53 +5756,44 @@ msgstr "<b>Håndtér associationer</b>"
 msgid "<b>New association</b>"
 msgstr "<b>Ny association</b>"
 
-#: ../plugins/glade/anjuta-glade.glade.h:4
+#. Link a file with a widget
+#: ../plugins/glade/anjuta-glade.glade.h:5
 msgid "Associate"
 msgstr "Association"
 
-#: ../plugins/glade/anjuta-glade.glade.h:5
+#: ../plugins/glade/anjuta-glade.glade.h:6
 msgid "Automatically add resources"
 msgstr "Tilføj automatisk ressourcer"
 
-#: ../plugins/glade/anjuta-glade.glade.h:6 ../plugins/glade/plugin.c:755
-#: ../plugins/glade/plugin.c:3084
+#: ../plugins/glade/anjuta-glade.glade.h:7 ../plugins/glade/plugin.c:763
+#: ../plugins/glade/plugin.c:3094
 msgid "Designer"
 msgstr "Designer"
 
-#: ../plugins/glade/anjuta-glade.glade.h:7 ../plugins/glade/plugin.c:3086
+#: ../plugins/glade/anjuta-glade.glade.h:8 ../plugins/glade/plugin.c:3096
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:3
 msgid "Editor"
 msgstr "Redigering"
 
-#: ../plugins/glade/anjuta-glade.glade.h:8
+#: ../plugins/glade/anjuta-glade.glade.h:9
 msgid "Insert handler on edit"
 msgstr "Indsæt håndtering ved redigering"
 
-#: ../plugins/glade/anjuta-glade.glade.h:9
+#: ../plugins/glade/anjuta-glade.glade.h:10
 msgid "Position type"
 msgstr "Positionstype"
 
-#: ../plugins/glade/anjuta-glade.glade.h:10
+#: ../plugins/glade/anjuta-glade.glade.h:11
 msgid "Separated designer layout"
 msgstr "Separeret designerlayout"
 
-#: ../plugins/glade/anjuta-glade.glade.h:11
+#: ../plugins/glade/anjuta-glade.glade.h:12
 msgid "Special regexp"
 msgstr "Speciel regexp"
 
-#: ../plugins/glade/anjuta-glade.glade.h:12
+#: ../plugins/glade/anjuta-glade.glade.h:13
 msgid "Widget name"
 msgstr "Kontrolnavn"
-
-# ??? fejlrapport
-#: ../plugins/glade/anjuta-glade.glade.h:13
-msgid "on_widget_signal"
-msgstr "on_widget_signal"
-
-# fejlrapport
-#: ../plugins/glade/anjuta-glade.glade.h:14
-msgid "widget_signal_cb"
-msgstr "widget_signal_cb"
 
 #: ../plugins/glade/designer-associations-item.c:243
 #, c-format
@@ -5782,234 +5825,233 @@ msgstr "ugyldig %s-egenskabstype"
 msgid "Association item filename has no path"
 msgstr "Associationselementets filnavn har ingen sti"
 
-#: ../plugins/glade/plugin.c:847
+#: ../plugins/glade/plugin.c:855
 #, c-format
 msgid "No associations initialized, nothing to save"
 msgstr "Ingen associationer initieret, intet at gemme"
 
-#: ../plugins/glade/plugin.c:854
+#: ../plugins/glade/plugin.c:862
 #, c-format
 msgid "Couldn't save associations because project root isn't set"
 msgstr "Kunne ikke gemme associationer, da projektroden ikke er indstillet"
 
-#: ../plugins/glade/plugin.c:876
+#: ../plugins/glade/plugin.c:884
 #, c-format
 msgid "Failed to save associations"
 msgstr "Kunne ikke gemme associationer"
 
 #. iptCurrent:
-#: ../plugins/glade/plugin.c:1188
+#: ../plugins/glade/plugin.c:1196
 msgid "Current"
 msgstr "Aktuelle"
 
 #. iptBeforeEnd:
-#: ../plugins/glade/plugin.c:1189
+#: ../plugins/glade/plugin.c:1197
 msgid "Before end"
 msgstr "Før slutning"
 
 #. iptAfterBegin:
-#: ../plugins/glade/plugin.c:1190
+#: ../plugins/glade/plugin.c:1198
 msgid "After begin"
 msgstr "Efter begyndelse"
 
 #. ipEOF:
-#: ../plugins/glade/plugin.c:1191
+#: ../plugins/glade/plugin.c:1199
 msgid "End of file"
 msgstr "Slutning af fil"
 
-#: ../plugins/glade/plugin.c:1360
+#: ../plugins/glade/plugin.c:1368
 #, c-format
 msgid "Couldn't introspect the signal"
 msgstr "Kunne ikke introspicere signalet"
 
-#: ../plugins/glade/plugin.c:1382
+#: ../plugins/glade/plugin.c:1390
 #, c-format
 msgid "Python language isn't supported yet"
 msgstr "Sproget Python understøttes endnu ikke"
 
-#: ../plugins/glade/plugin.c:1395
+#: ../plugins/glade/plugin.c:1403
 #, c-format
 msgid "Vala language isn't supported yet"
 msgstr "Sproget Vala understøttes endnu ikke"
 
-#: ../plugins/glade/plugin.c:1954
+#: ../plugins/glade/plugin.c:1962
 #, c-format
 msgid "There is no associated editor for the designer"
 msgstr "Der er ingen associeret redigering for designeren"
 
-#: ../plugins/glade/plugin.c:1972
+#: ../plugins/glade/plugin.c:1980
 #, c-format
 msgid "Unknown language of the editor \"%s\""
 msgstr "Ukendt sprog for redigeringen \"%s\""
 
-#: ../plugins/glade/plugin.c:2039 ../plugins/glade/plugin.c:2116
-#: ../plugins/glade/plugin.c:2241
+#: ../plugins/glade/plugin.c:2047 ../plugins/glade/plugin.c:2124
+#: ../plugins/glade/plugin.c:2249
 #, c-format
 msgid "Error while adding a new handler stub: %s"
 msgstr "Fejl under tilføjelse af ny håndteringsstub: %s"
 
-#: ../plugins/glade/plugin.c:2046 ../plugins/glade/plugin.c:2130
+#: ../plugins/glade/plugin.c:2054 ../plugins/glade/plugin.c:2138
 msgid "Couldn't find a signal information"
 msgstr "Kunne ikke finde en signalinformation"
 
-#: ../plugins/glade/plugin.c:2073
+#: ../plugins/glade/plugin.c:2081
 msgid "Error while adding a new handler stub: No current editor"
 msgstr "Fejl under tilføjelse af ny håndteringsstub: Ingen aktuel redigering"
 
-#: ../plugins/glade/plugin.c:2244
+#: ../plugins/glade/plugin.c:2254
 #, c-format
 msgid ""
-"To avoid this messages turn off \"Insert handler on edit\" flag in "
-"Preferences->Glade GUI Designer"
+"To avoid this message turn off \"%s\" flag in Preferences->Glade GUI Designer"
 msgstr ""
-"Slå \"Indsæt håndtering ved redigering\" fra i Indstillinger->Glade "
-"grænsefladedesigner for at undgå denne meddelelse"
+"Slå flaget \"%s\" fra i Indstillinger->Glade grænsefladedesigner for at "
+"undgå denne meddelelse"
 
-#: ../plugins/glade/plugin.c:2314
+#: ../plugins/glade/plugin.c:2324
 msgid "Couldn't find an associated document"
 msgstr "Kunne ikke finde et tilknyttet dokument"
 
-#: ../plugins/glade/plugin.c:2380
+#: ../plugins/glade/plugin.c:2390
 msgid "Those documents are already associated"
 msgstr "De dokumenter er allerede associeret"
 
-#: ../plugins/glade/plugin.c:2418
+#: ../plugins/glade/plugin.c:2428
 #, c-format
 msgid "Unable to read file: %s."
 msgstr "Kan ikke læse filen: %s."
 
-#: ../plugins/glade/plugin.c:3085
+#: ../plugins/glade/plugin.c:3095
 msgid "Top level widget"
 msgstr "Topniveaukontrol"
 
-#: ../plugins/glade/plugin.c:3676
+#: ../plugins/glade/plugin.c:3686
 msgid "Couldn't find a default signal name"
 msgstr "Kunne ikke finde et standardsignalnavn"
 
-#: ../plugins/glade/plugin.c:3886
+#: ../plugins/glade/plugin.c:3896
 #, c-format
 msgid "Project %s has no deprecated widgets or version mismatches."
 msgstr ""
 "Projektet %s har ingen deprecierede kontroller eller versionskonflikter."
 
-#: ../plugins/glade/plugin.c:3903
+#: ../plugins/glade/plugin.c:3913
 msgid "There is no Glade project"
 msgstr "Der er intet Glade-projekt"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/glade/plugin.c:3989
+#: ../plugins/glade/plugin.c:3999
 msgid "_Glade"
 msgstr "_Glade"
 
-#: ../plugins/glade/plugin.c:3997 ../plugins/glade/plugin.c:3999
+#: ../plugins/glade/plugin.c:4007 ../plugins/glade/plugin.c:4009
 msgid "Switch between designer/code"
 msgstr "Skift mellem designer/kode"
 
-#: ../plugins/glade/plugin.c:4005 ../plugins/glade/plugin.c:4007
+#: ../plugins/glade/plugin.c:4015 ../plugins/glade/plugin.c:4017
 msgid "Insert handler stub"
 msgstr "Indsæt håndteringsstub"
 
-#: ../plugins/glade/plugin.c:4013 ../plugins/glade/plugin.c:4015
+#: ../plugins/glade/plugin.c:4023 ../plugins/glade/plugin.c:4025
 msgid "Insert handler stub, autoposition"
 msgstr "Indsæt håndteringsstub, autoplacér"
 
-#: ../plugins/glade/plugin.c:4021
+#: ../plugins/glade/plugin.c:4031
 msgid "Associate last designer and last editor"
 msgstr "Associér sidste designer og sidste redigering"
 
-#: ../plugins/glade/plugin.c:4023
+#: ../plugins/glade/plugin.c:4033
 msgid "Associate last designer and editor"
 msgstr "Associér sidste designer og redigering"
 
-#: ../plugins/glade/plugin.c:4029 ../plugins/glade/plugin.c:4031
+#: ../plugins/glade/plugin.c:4039 ../plugins/glade/plugin.c:4041
 msgid "Associations dialog..."
 msgstr "Dialogen associationer..."
 
 # Det står faktisk i RO
-#: ../plugins/glade/plugin.c:4037
+#: ../plugins/glade/plugin.c:4047
 msgid "Versioning..."
 msgstr "Versionerer..."
 
-#: ../plugins/glade/plugin.c:4039
+#: ../plugins/glade/plugin.c:4049
 msgid "Switch between library versions and check deprecations"
 msgstr "Skift mellem biblioteksversioner og kontrollér deprecieringer"
 
-#: ../plugins/glade/plugin.c:4045 ../plugins/glade/plugin.c:4047
+#: ../plugins/glade/plugin.c:4055 ../plugins/glade/plugin.c:4057
 msgid "Set as default resource target"
 msgstr "Sæt som standardressourcemål"
 
-#: ../plugins/glade/plugin.c:4055
+#: ../plugins/glade/plugin.c:4065
 msgid "Current default target"
 msgstr "Aktuelle standardmål"
 
-#: ../plugins/glade/plugin.c:4063
+#: ../plugins/glade/plugin.c:4073
 msgid "Close the current file"
 msgstr "Luk den aktuelle fil"
 
-#: ../plugins/glade/plugin.c:4071
+#: ../plugins/glade/plugin.c:4081
 msgid "Save the current file"
 msgstr "Gem den aktuelle fil"
 
-#: ../plugins/glade/plugin.c:4087
+#: ../plugins/glade/plugin.c:4097
 msgid "Redo the last action"
 msgstr "Omgør den sidste handling"
 
-#: ../plugins/glade/plugin.c:4095
+#: ../plugins/glade/plugin.c:4105
 msgid "Cut the selection"
 msgstr "Klip markeringen"
 
-#: ../plugins/glade/plugin.c:4103
+#: ../plugins/glade/plugin.c:4113
 msgid "Copy the selection"
 msgstr "Kopiér markeringen"
 
-#: ../plugins/glade/plugin.c:4111
+#: ../plugins/glade/plugin.c:4121
 msgid "Paste the clipboard"
 msgstr "Indsæt fra udklipsholderen"
 
-#: ../plugins/glade/plugin.c:4119
+#: ../plugins/glade/plugin.c:4129
 msgid "Delete the selection"
 msgstr "Slet markeringen"
 
-#: ../plugins/glade/plugin.c:4297
+#: ../plugins/glade/plugin.c:4307
 msgid "Glade designer operations"
 msgstr "Glade-designeroperationer"
 
-#: ../plugins/glade/plugin.c:4397
+#: ../plugins/glade/plugin.c:4407
 msgid "Go back in undo history"
 msgstr "Gå tilbage i fortrydehistorikken"
 
-#: ../plugins/glade/plugin.c:4399
+#: ../plugins/glade/plugin.c:4409
 msgid "Go forward in undo history"
 msgstr "Gå fremad i fortrydehistorikken"
 
-#: ../plugins/glade/plugin.c:4421
+#: ../plugins/glade/plugin.c:4431
 msgid "Glade Clipboard"
 msgstr "Glade-udklipsholder"
 
-#: ../plugins/glade/plugin.c:4426
+#: ../plugins/glade/plugin.c:4436
 msgid "Widgets"
 msgstr "Kontroller"
 
-#: ../plugins/glade/plugin.c:4431
+#: ../plugins/glade/plugin.c:4441
 msgid "Palette"
 msgstr "Palet"
 
-#: ../plugins/glade/plugin.c:4685
+#: ../plugins/glade/plugin.c:4695
 #, c-format
 msgid "Not local file: %s"
 msgstr "Ikke en lokal fil: %s"
 
-#: ../plugins/glade/plugin.c:4706
+#: ../plugins/glade/plugin.c:4716
 #, c-format
 msgid "Could not open %s"
 msgstr "Kan ikke åbne %s"
 
-#: ../plugins/glade/plugin.c:4757
+#: ../plugins/glade/plugin.c:4767
 msgid "Could not create a new glade project."
 msgstr "Kan ikke oprette et nyt glade-projekt."
 
-#: ../plugins/glade/plugin.c:5027 ../plugins/glade/plugin.c:5052
+#: ../plugins/glade/plugin.c:5029 ../plugins/glade/plugin.c:5054
 msgid "Glade GUI Designer"
 msgstr "Glade grænsefladedesigner"
 
@@ -7815,11 +7857,6 @@ msgstr "Indlæs mål for kørsel"
 msgid "Missing file %s"
 msgstr "Mangler filen %s"
 
-#: ../plugins/run-program/parameters.c:749
-#: ../plugins/search/search_preferences.c:534
-msgid "Name"
-msgstr "Navn"
-
 #: ../plugins/run-program/plugin.c:191
 msgid ""
 "The program is running.\n"
@@ -8842,55 +8879,56 @@ msgid "Goto symbol declaration"
 msgstr "Gå til symbolerklæring"
 
 # Eller mærk implementation?
-#: ../plugins/symbol-db/plugin.c:321
+#. Translators: Go to the line where the tag is implemented
+#: ../plugins/symbol-db/plugin.c:322
 msgid "Tag _Implementation"
 msgstr "Mærke_implementation"
 
-#: ../plugins/symbol-db/plugin.c:323
+#: ../plugins/symbol-db/plugin.c:324
 msgid "Goto symbol definition"
 msgstr "Gå til symboldefinition"
 
-#: ../plugins/symbol-db/plugin.c:330
+#: ../plugins/symbol-db/plugin.c:331
 msgid "_Find Symbol..."
 msgstr "_Find symbol..."
 
-#: ../plugins/symbol-db/plugin.c:331
+#: ../plugins/symbol-db/plugin.c:332
 msgid "Find Symbol"
 msgstr "Find symbol"
 
-#: ../plugins/symbol-db/plugin.c:1169
+#: ../plugins/symbol-db/plugin.c:1170
 #, c-format
 msgid "%s: Generating inheritances..."
 msgstr "%s: Genererer nedarvningsstruktur..."
 
-#: ../plugins/symbol-db/plugin.c:1174
+#: ../plugins/symbol-db/plugin.c:1175
 #, c-format
 msgid "%s: %d files scanned out of %d"
 msgstr "%s: %d af %d filer scannet"
 
-#: ../plugins/symbol-db/plugin.c:1205
+#: ../plugins/symbol-db/plugin.c:1206
 #, c-format
 msgid "Generating inheritances..."
 msgstr "Genererer nedarvningsstruktur..."
 
-#: ../plugins/symbol-db/plugin.c:1207
+#: ../plugins/symbol-db/plugin.c:1208
 #, c-format
 msgid "%d files scanned out of %d"
 msgstr "%d af %d filer scannet"
 
-#: ../plugins/symbol-db/plugin.c:1967
+#: ../plugins/symbol-db/plugin.c:1968
 msgid "Populating symbols' db..."
 msgstr "Opbygger symboldatabase..."
 
-#: ../plugins/symbol-db/plugin.c:2351 ../plugins/symbol-db/plugin.c:2479
+#: ../plugins/symbol-db/plugin.c:2352 ../plugins/symbol-db/plugin.c:2480
 msgid "Symbols"
 msgstr "Symboler"
 
-#: ../plugins/symbol-db/plugin.c:2488
+#: ../plugins/symbol-db/plugin.c:2489
 msgid "SymbolDb popup actions"
 msgstr "Pop op-handlinger for symboldatabase"
 
-#: ../plugins/symbol-db/plugin.c:2496
+#: ../plugins/symbol-db/plugin.c:2497
 msgid "SymbolDb menu actions"
 msgstr "Menuhandlinger for symboldatabase"
 
@@ -9249,7 +9287,7 @@ msgid "Currently edited file directory"
 msgstr "Mappen for den fil, der nu redigeres"
 
 #: ../plugins/tools/variable.c:103
-msgid "Currently selection in editor"
+msgid "Currently selected text in editor"
 msgstr "Nuværende markering i redigeringen"
 
 #: ../plugins/tools/variable.c:104
@@ -9513,7 +9551,7 @@ msgstr ""
 msgid "- Integrated Development Environment"
 msgstr "- Integreret udviklingsmiljø"
 
-#: ../src/main.c:216
+#: ../src/main.c:232
 msgid "Anjuta"
 msgstr "Anjuta"
 
@@ -9861,10 +9899,6 @@ msgstr "Klassegenerator-modul til Anjuta"
 msgid "C++/GObject Class"
 msgstr "C++/GObject-klasse"
 
-#: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:3
-msgid "Class Generator"
-msgstr "Klassegenerator"
-
 #: ../plugins/project-manager/anjuta-project-manager.plugin.in.h:1
 msgid "Project Manager"
 msgstr "Projekthåndtering"
@@ -9924,6 +9958,14 @@ msgstr "Autotools-backend"
 #: ../plugins/gbf-am/gbf-am.plugin.in.h:2
 msgid "Autotools backend for project manager"
 msgstr "Autotools-backend for projekthåndteringen"
+
+# ??? fejlrapport
+#~ msgid "on_widget_signal"
+#~ msgstr "on_widget_signal"
+
+# fejlrapport
+#~ msgid "widget_signal_cb"
+#~ msgstr "widget_signal_cb"
 
 #~ msgid "<b>Filter</b>"
 #~ msgstr "<b>Filter</b>"
