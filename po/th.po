@@ -10,8 +10,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
 "POT-Creation-Date: 2009-08-23 21:04+0000\n"
-"PO-Revision-Date: 2009-08-24 12:39+0700\n"
-"Last-Translator: Akom C. <knight2000@gmail.com>\n"
+"PO-Revision-Date: 2009-09-15 13:11+0700\n"
+"Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -587,7 +587,7 @@ msgstr "<b>ติดตั้ง</b>"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:4
 msgid "<b>Regenerate project</b>"
-msgstr "<b>สร้างข้อมูลโครงการ</b>"
+msgstr "<b>สร้างโครงการซ้ำ</b>"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:5
 msgid "<b>Select Program to run:</b>"
@@ -656,11 +656,11 @@ msgstr "ดีบั๊ก"
 
 #: ../plugins/build-basic-autotools/configuration-list.c:64
 msgid "Profiling"
-msgstr "การวัดประสิทธิภาพ"
+msgstr "วัดประสิทธิภาพ"
 
 #: ../plugins/build-basic-autotools/configuration-list.c:65
 msgid "Optimized"
-msgstr "ปรับให้เหมาะ"
+msgstr "ปรับประสิทธิภาพ"
 
 #: ../plugins/build-basic-autotools/executer.c:72
 msgid "No executables in this project!"
@@ -1599,7 +1599,7 @@ msgstr ""
 "<span weight=\"bold\" size=\"larger\">คุณแน่ใจหรือไม่ "
 "ว่าต้องการดีบั๊กโปรแกรมที่ไม่ได้ตั้งค่าไว้สำหรับดีบั๊ก?</span>\n"
 "\n"
-"เมื่อเปิดใช้การปรับโค้ดให้เหมาะที่สุด โปรแกรมดีบั๊กจะไม่สามารถระบุซอร์สโค้ดที่ตรงกับคำสั่งต่างๆ ได้ "
+"เมื่อเปิดใช้การปรับประสิทธิภาพ โปรแกรมดีบั๊กจะไม่สามารถระบุซอร์สโค้ดที่ตรงกับคำสั่งต่างๆ ได้ "
 "คำสั่งบางคำสั่งอาจทำงานผิดเพี้ยน โดยเฉพาะการทำคำสั่งทีละขั้น"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:6
@@ -1731,7 +1731,7 @@ msgstr "ตั้งค่าคุณสมบัติของสัญญา
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:36
 #: ../plugins/debug-manager/sharedlib.c:214
 msgid "Shared libraries"
-msgstr "ไลบารีใช้ร่วม"
+msgstr "ไลบรารีใช้ร่วม"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:37
 msgid "Signal:"
@@ -2123,12 +2123,12 @@ msgstr "แสดงเนื้อหาของ 'struct user' ของเค
 #: ../plugins/debug-manager/plugin.c:937
 #: ../plugins/debug-manager/plugin.c:1037
 msgid "Shared Libraries"
-msgstr "ไลบารีใช้ร่วม"
+msgstr "ไลบรารีใช้ร่วม"
 
 #: ../plugins/debug-manager/plugin.c:939
 #: ../plugins/debug-manager/plugin.c:1039
 msgid "Show shared libraries mappings"
-msgstr "แสดงผังการใช้ไลบารีใช้ร่วม"
+msgstr "แสดงผังการใช้ไลบรารีใช้ร่วม"
 
 #: ../plugins/debug-manager/plugin.c:947
 #: ../plugins/debug-manager/plugin.c:1047
@@ -2259,7 +2259,7 @@ msgstr "อ่านสัญลักษณ์แล้ว"
 
 #: ../plugins/debug-manager/sharedlib.c:338
 msgid "Shared library operations"
-msgstr "การกระทำเกี่ยวกับไลบารีใช้ร่วม"
+msgstr "การกระทำเกี่ยวกับไลบรารีใช้ร่วม"
 
 #: ../plugins/debug-manager/signals.c:291
 msgid "Signal"
@@ -3790,11 +3790,11 @@ msgstr "ชื่อเป้าหมายสามารถใช้ตัว
 
 #: ../plugins/gbf-am/gbf-am-project.c:3068
 msgid "Shared library target name must be of the form 'libxxx.la'"
-msgstr "เป้าหมายที่เป็นไลบารีใช้ร่วมจะต้องมีชื่อในรูป 'libxxx.la'"
+msgstr "เป้าหมายที่เป็นไลบรารีใช้ร่วมจะต้องมีชื่อในรูป 'libxxx.la'"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3077
 msgid "Static library target name must be of the form 'libxxx.a'"
-msgstr "เป้าหมายที่เป็นไลบารีสแตติกจะต้องมีชื่อในรูป 'libxxx.a'"
+msgstr "เป้าหมายที่เป็นไลบรารีสแตติกจะต้องมีชื่อในรูป 'libxxx.a'"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3089
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2984
@@ -3816,12 +3816,12 @@ msgstr "ไม่สามารถลบเป้าหมายได้"
 #: ../plugins/gbf-am/gbf-am-project.c:3184
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3078
 msgid "Static Library"
-msgstr "ไลบารีสแตติก"
+msgstr "ไลบรารีสแตติก"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3186
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3080
 msgid "Shared Library"
-msgstr "ไลบารีใช้ร่วม"
+msgstr "ไลบรารีใช้ร่วม"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3188
 msgid "Header Files"
@@ -3986,7 +3986,7 @@ msgstr "แฟล็กของคอมไพเลอร์ภาษาฟอ
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1342
 msgid "Includes (deprecated):"
-msgstr "พาธแฟ้มส่วนหัว (ไม่สนับสนุนให้ใช้):"
+msgstr "พาธแฟ้มส่วนหัว (ไม่แนะนำให้ใช้):"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1353
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:258
@@ -4008,12 +4008,12 @@ msgstr "แฟล็กของคอมไพเลอร์ gcj (ahead-of-tim
 #: ../plugins/gbf-am/gbf-am-properties.c:1431
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:410
 msgid "Linker flags:"
-msgstr "ค่าสถานะของโปรแกรมลิงก์:"
+msgstr "แฟล็กของลิงเกอร์:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1437
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:416
 msgid "Libraries:"
-msgstr "ไลบารี:"
+msgstr "ไลบรารี:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1443
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:422
@@ -5651,7 +5651,7 @@ msgstr "แทรก handler เมื่อแก้ไข"
 
 #: ../plugins/glade/anjuta-glade.glade.h:10
 msgid "Position type"
-msgstr "ประเภทตำแหน่ง"
+msgstr "ชนิดของตำแหน่ง"
 
 #: ../plugins/glade/anjuta-glade.glade.h:11
 msgid "Separated designer layout"
@@ -5799,7 +5799,7 @@ msgstr "หาชื่อสัญญาณปริยายไม่พบ"
 #: ../plugins/glade/plugin.c:3896
 #, c-format
 msgid "Project %s has no deprecated widgets or version mismatches."
-msgstr "โครงการ %s ไม่มีวิดเจ็ตที่ไม่สนับสนุนให้ใช้ และไม่มีปัญหารุ่นไม่ตรงกัน"
+msgstr "โครงการ %s ไม่มีวิดเจ็ตที่ไม่แนะนำให้ใช้ และไม่มีปัญหารุ่นไม่ตรงกัน"
 
 #: ../plugins/glade/plugin.c:3913
 msgid "There is no Glade project"
@@ -5821,15 +5821,15 @@ msgstr "แทรกเค้าโครง handler"
 
 #: ../plugins/glade/plugin.c:4023 ../plugins/glade/plugin.c:4025
 msgid "Insert handler stub, autoposition"
-msgstr "แทรกเค้าโครง handler, การจัดตำแหน่งอัตโนมัติ"
+msgstr "แทรกเค้าโครง handler, จัดตำแหน่งอัตโนมัติ"
 
 #: ../plugins/glade/plugin.c:4031
 msgid "Associate last designer and last editor"
-msgstr "เชื่อมโยงเครื่องมือออกแบบล่าสุดและเครื่องมือแก้ไขล่าสุดเข้าด้วยกัน"
+msgstr "เชื่อมโยงแฟ้มล่าสุดในเครื่องมือออกและเครื่องมือแก้ไขเข้าด้วยกัน"
 
 #: ../plugins/glade/plugin.c:4033
 msgid "Associate last designer and editor"
-msgstr "เชื่อมโยงเครื่องมือออกแบบล่าสุดและเครื่องมือแก้ไขเข้าด้วยกัน"
+msgstr "เชื่อมโยงแฟ้มล่าสุดในเครื่องมือออกและเครื่องมือแก้ไขเข้าด้วยกัน"
 
 #: ../plugins/glade/plugin.c:4039 ../plugins/glade/plugin.c:4041
 msgid "Associations dialog..."
@@ -5841,7 +5841,7 @@ msgstr "การจัดการรุ่น..."
 
 #: ../plugins/glade/plugin.c:4049
 msgid "Switch between library versions and check deprecations"
-msgstr "สลับระหว่างรุ่นต่างๆ ของไลบารี และตรวจสอบการใช้ฟังก์ชันที่ไม่สนับสนุนให้ใช้"
+msgstr "สลับระหว่างรุ่นต่างๆ ของไลบรารี และตรวจสอบการใช้ฟังก์ชันที่ไม่แนะนำให้ใช้"
 
 #: ../plugins/glade/plugin.c:4055 ../plugins/glade/plugin.c:4057
 msgid "Set as default resource target"
@@ -5901,7 +5901,7 @@ msgstr "วิดเจ็ต"
 
 #: ../plugins/glade/plugin.c:4441
 msgid "Palette"
-msgstr "จานสี"
+msgstr "กล่องเครื่องมือ"
 
 #: ../plugins/glade/plugin.c:4695
 #, c-format
@@ -6962,7 +6962,7 @@ msgstr "เ_พิ่มเข้าในโครงการ"
 
 #: ../plugins/project-manager/plugin.c:870
 msgid "Add _Group"
-msgstr "เพิ่มกลุ่ม"
+msgstr "เพิ่ม_กลุ่ม"
 
 #: ../plugins/project-manager/plugin.c:875
 msgid "Add _Target"
@@ -7298,7 +7298,7 @@ msgstr "เพิ่มการรองรับ C++ เข้าในโค�
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:19
 msgid "Adds support for building shared libraries in your project"
-msgstr "เพิ่มการรองรับการสร้างไลบารีใช้ร่วมในโครงการของคุณ"
+msgstr "เพิ่มการรองรับการสร้างไลบรารีใช้ร่วมในโครงการของคุณ"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:20
 msgid ""
@@ -7613,7 +7613,7 @@ msgstr "ค่าของเชลล์ที่จะเฝ้าดู"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:99
 msgid "Use pkg-config to add library support from other packages"
-msgstr "ใช้ pkg-config เพิ่มการรองรับไลบารีจากแพกเกจอื่น"
+msgstr "ใช้ pkg-config เพิ่มการรองรับไลบรารีจากแพกเกจอื่น"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:100
 msgid "Value Name:"
@@ -7968,7 +7968,7 @@ msgstr "ระบุแพตเทิร์นของแฟ้ม"
 
 #: ../plugins/search/search-replace.c:109
 msgid "Select next match"
-msgstr "เลือกข้อความถัดไปทึ่ตรงกัน"
+msgstr "เลือกข้อความถัดไปที่ตรงกัน"
 
 #: ../plugins/search/search-replace.c:110
 msgid "Bookmark all matched lines"
