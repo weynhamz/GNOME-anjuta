@@ -2192,3 +2192,30 @@ anjuta_util_builder_get_objects (GtkBuilder *builder, const gchar *first_widget,
 
 	return !missing;
 }
+
+/**
+ * anjuta_utils_drop_get_files:
+ * @selection_data: the #GtkSelectionData from drag_data_received
+ * @info: the info from drag_data_received
+ *
+ * Create a list of valid uri's from a uri-list drop.
+ * 
+ * Return value: a list of GFiles
+ */
+GSList*
+anjuta_utils_drop_get_files (GtkSelectionData *selection_data)
+{
+	gchar **uris;
+	gint i;
+	GSList* files = NULL;
+
+	uris = g_uri_list_extract_uris ((gchar *) gtk_selection_data_get_data (selection_data));
+
+	for (i = 0; uris[i] != NULL; i++)
+	{
+		GFile* file = g_file_new_for_commandline_arg (uris[0]);
+		files = g_slist_append(files, file);
+	}
+
+	return files;
+}

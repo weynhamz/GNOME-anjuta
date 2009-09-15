@@ -142,6 +142,9 @@ GList *anjuta_util_convert_gfile_list_to_relative_path_list (GList *list,
 GtkBuilder *anjuta_util_builder_new (const gchar *filename, GError **error);
 gboolean anjuta_util_builder_get_objects (GtkBuilder *builder, const gchar *first_widget,...);
 
+/* Helper for drag and drop */
+GSList *anjuta_utils_drop_get_files (GtkSelectionData *selection_data);
+
 /* Temporarily copied here */
 
 #define ANJUTA_TYPE_BEGIN(class_name, prefix, parent_type) \

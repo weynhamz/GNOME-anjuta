@@ -44,6 +44,8 @@
 
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-encodings.h>
+#include <libanjuta/anjuta-utils.h>
+#include <libanjuta/interfaces/ianjuta-file-loader.h>
 
 #include "anjuta-view.h"
 #include "sourceview.h"
@@ -51,6 +53,8 @@
 #include "anjuta-marshal.h"
 
 #define ANJUTA_VIEW_SCROLL_MARGIN 0.02
+
+#define TARGET_URI_LIST 100
 
 #define ANJUTA_VIEW_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE ((object), ANJUTA_TYPE_VIEW, AnjutaViewPrivate))
 
@@ -66,22 +70,22 @@ struct _AnjutaViewPrivate
   Sourceview* sv;
 };
 
-static void	anjuta_view_dispose		(GObject       *object);
-static void	anjuta_view_finalize		(GObject         *object);
-static void	anjuta_view_move_cursor		(GtkTextView     *text_view,
-						 GtkMovementStep  step,
-						 gint             count,
-						 gboolean         extend_selection);
-static gint     anjuta_view_focus_out		(GtkWidget       *widget,
-						 GdkEventFocus   *event);
+static void	anjuta_view_dispose	(GObject       *object);
+static void	anjuta_view_finalize (GObject         *object);
+static void	anjuta_view_move_cursor	(GtkTextView     *text_view,
+		                             GtkMovementStep  step,
+		                             gint             count,
+			                         gboolean         extend_selection);
+static gint     anjuta_view_focus_out (GtkWidget       *widget,
+		                              GdkEventFocus   *event);
 
-static gint	anjuta_view_expose	 	(GtkWidget       *widget,
-						 GdkEventExpose  *event);
-					
-static gboolean	anjuta_view_key_press_event		(GtkWidget         *widget,
-							 GdkEventKey       *event);
-static gboolean	anjuta_view_button_press_event		(GtkWidget         *widget,
-							 GdkEventButton       *event);
+static gint	anjuta_view_expose (GtkWidget       *widget,
+	                            GdkEventExpose  *event);
+
+static gboolean	anjuta_view_key_press_event	(GtkWidget         *widget,
+			                                 GdkEventKey       *event);
+static gboolean	anjuta_view_button_press_event (GtkWidget         *widget,
+			                                    GdkEventButton       *event);
 
 G_DEFINE_TYPE(AnjutaView, anjuta_view, GTK_TYPE_SOURCE_VIEW)
 
@@ -158,6 +162,86 @@ anjuta_view_get_property (GObject * object,
 	}
 }
 
+static GdkAtom
+drag_get_uri_target (GtkWidget      *widget,
+		     GdkDragContext *context)
+{
+	GdkAtom target;
+	GtkTargetList *tl;
+	
+	tl = gtk_target_list_new (NULL, 0);
+	gtk_target_list_add_uri_targets (tl, 0);
+	
+	target = gtk_drag_dest_find_target (widget, context, tl);
+	gtk_target_list_unref (tl);
+	
+	return target;	
+}
+
+static gboolean
+anjuta_view_drag_drop (GtkWidget      *widget,
+                       GdkDragContext *context,
+                       gint            x,
+                       gint            y,
+                       guint           timestamp)
+{
+	gboolean result;
+	GdkAtom target;
+
+	/* If this is a URL, just get the drag data */
+	target = drag_get_uri_target (widget, context);
+
+	if (target != GDK_NONE)
+	{
+		gtk_drag_get_data (widget, context, target, timestamp);
+		result = TRUE;
+	}
+	else
+	{
+		/* Chain up */
+		result = GTK_WIDGET_CLASS (anjuta_view_parent_class)->drag_drop (widget, context, x, y, timestamp);
+	}
+
+	return result;
+}
+
+static void
+anjuta_view_drag_data_received (GtkWidget        *widget,
+                                GdkDragContext   *context,
+                                gint              x,
+                                gint              y,
+                                GtkSelectionData *selection_data,
+                                guint             info,
+                                guint             timestamp)
+{
+  GSList* files;
+  AnjutaView* view = ANJUTA_VIEW (widget);
+  /* If this is an URL emit DROP_URIS, otherwise chain up the signal */
+  if (info == TARGET_URI_LIST)
+  {
+	files = anjuta_utils_drop_get_files (selection_data);
+
+	if (files != NULL)
+	{
+	  IAnjutaFileLoader* loader = anjuta_shell_get_interface (view->priv->sv->priv->plugin->shell, 
+	                                                          IAnjutaFileLoader, NULL);
+	  GSList* node;
+	  for (node = files; node != NULL; node = g_slist_next(node))
+	  {
+		GFile* file = node->data;
+		ianjuta_file_loader_load (loader, file, FALSE, NULL);
+		g_object_unref (file);
+	  }
+	  g_slist_free (files);
+	  gtk_drag_finish (context, TRUE, FALSE, timestamp);
+	}
+  }
+  else
+  {
+	GTK_WIDGET_CLASS (anjuta_view_parent_class)->drag_data_received (widget, context, x, y, selection_data, info, timestamp);
+  }
+}
+
 static void
 anjuta_view_class_init (AnjutaViewClass *klass)
 {
@@ -176,7 +260,9 @@ anjuta_view_class_init (AnjutaViewClass *klass)
 	widget_class->expose_event = anjuta_view_expose;
 	widget_class->key_press_event = anjuta_view_key_press_event;
 	widget_class->button_press_event = anjuta_view_button_press_event;
-
+	widget_class->drag_drop = anjuta_view_drag_drop;
+	widget_class->drag_data_received = anjuta_view_drag_data_received;
+  
 	textview_class->move_cursor = anjuta_view_move_cursor;
 
 	g_type_class_add_private (klass, sizeof (AnjutaViewPrivate));
@@ -291,23 +377,31 @@ anjuta_view_move_cursor (GtkTextView    *text_view,
 static void 
 anjuta_view_init (AnjutaView *view)
 {	
-	view->priv = ANJUTA_VIEW_GET_PRIVATE (view);
+  GtkTargetList* tl;
+  view->priv = ANJUTA_VIEW_GET_PRIVATE (view);
 
-	/*
-	 *  Set tab, fonts, wrap mode, colors, etc. according
-	 *  to preferences 
-	 */
-		
-	g_object_set (G_OBJECT (view), 
-		      "wrap-mode", FALSE,
-		      "show-line-numbers", TRUE,
-		      "auto-indent", TRUE,
-		      "tab-width", 4,
-		      "insert-spaces-instead-of-tabs", FALSE,
-		      "highlight-current-line", TRUE, 
-          "indent-on-tab", TRUE, /* Fix #388727 */
-		      "smart-home-end", FALSE, /* Never changes this */
-		      NULL);
+  /*
+   *  Set tab, fonts, wrap mode, colors, etc. according
+   *  to preferences 
+   */
+
+  g_object_set (G_OBJECT (view), 
+                "wrap-mode", FALSE,
+                "show-line-numbers", TRUE,
+                "auto-indent", TRUE,
+                "tab-width", 4,
+                "insert-spaces-instead-of-tabs", FALSE,
+                "highlight-current-line", TRUE, 
+                "indent-on-tab", TRUE, /* Fix #388727 */
+                "smart-home-end", FALSE, /* Never changes this */
+                NULL);
+
+  /* Drag and drop support */	
+  tl = gtk_drag_dest_get_target_list (GTK_WIDGET (view));
+
+  if (tl != NULL)
+	gtk_target_list_add_uri_targets (tl, TARGET_URI_LIST);
+  
 }
 
 static void
