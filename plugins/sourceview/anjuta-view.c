@@ -235,6 +235,7 @@ anjuta_view_drag_data_received (GtkWidget        *widget,
 	  g_slist_free (files);
 	  gtk_drag_finish (context, TRUE, FALSE, timestamp);
 	}
+	gtk_drag_finish (context, FALSE, FALSE, timestamp);
   }
   else
   {
