@@ -1,13 +1,13 @@
-# Norwegian Bokmål translation of anjuta.
+# Norwegian Bokmål translation of anjuta.
 # Copyright (C) 2001 Free Software Foundation, Inc.
 # Kjartan Maraas <kmaraas@gnome.org>, 2001-2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 2.27.x\n"
-"Report-Msgid-Bugs-To:\n"
-"POT-Creation-Date: 2009-09-01 10:56+0200\n"
-"PO-Revision-Date: 2009-09-01 11:29+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-09-16 13:28+0200\n"
+"PO-Revision-Date: 2009-09-16 14:31+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian/Bokmaal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -558,8 +558,8 @@ msgstr "Pixbuf-objekt"
 msgid "The pixbuf to render."
 msgstr "Pixbuf som skal rendres."
 
-#: ../libanjuta/resources.c:63 ../plugins/glade/plugin.c:3041
-#: ../plugins/glade/plugin.c:3076
+#: ../libanjuta/resources.c:63 ../plugins/glade/plugin.c:3043
+#: ../plugins/glade/plugin.c:3078
 #, c-format
 msgid "Widget not found: %s"
 msgstr "Komponent ikke funnet: %s"
@@ -640,6 +640,7 @@ msgid "Translate messages"
 msgstr "Oversett meldinger"
 
 #: ../plugins/build-basic-autotools/configuration-list.c:62
+#: ../plugins/class-gen/window.c:525
 #: ../plugins/search/search_preferences.c:523
 #: ../plugins/terminal/anjuta-terminal-plugin.ui.h:2 ../src/preferences.ui.h:2
 msgid "Default"
@@ -980,19 +981,18 @@ msgstr "Ko_mpiler (%s)"
 msgid "Co_mpile"
 msgstr "Ko_mpiler"
 
-#: ../plugins/build-basic-autotools/plugin.c:3122
+#: ../plugins/build-basic-autotools/plugin.c:3121
 msgid "Build commands"
 msgstr "Kommandoer for kompilering"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:3131
-#, fuzzy
+#: ../plugins/build-basic-autotools/plugin.c:3130
 msgid "Build popup commands"
-msgstr "Kommandoer for kompilering"
+msgstr "Byggkommandoer i oppsprettmenyer"
 
-#: ../plugins/build-basic-autotools/plugin.c:3513
-#: ../plugins/build-basic-autotools/plugin.c:3521
+#: ../plugins/build-basic-autotools/plugin.c:3512
+#: ../plugins/build-basic-autotools/plugin.c:3520
 msgid "Build Autotools"
 msgstr ""
 
@@ -1045,88 +1045,93 @@ msgid "Class Function Prefix:"
 msgstr "Prefiks for klassefunksjon:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:12
+#: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:3
+msgid "Class Generator"
+msgstr "Klassegenerator"
+
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:13
 msgid "Class Name:"
 msgstr "Klassenavn:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:13
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:14
 msgid "Class Options:"
 msgstr "Alternativer for klasse:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:14
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:15
 msgid "Create"
 msgstr "Opprett"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:15
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:16
 msgid "GObject Class\t"
 msgstr "GObject-klasse\t"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:16
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:17
 msgid "GObject Prefix and Type:"
 msgstr "Prefiks og type for GObject:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:17
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:18
 #: ../plugins/file-wizard/file.c:102
-#: ../plugins/project-wizard/templates/translatable-strings.h:47
+#: ../plugins/project-wizard/templates/translatable-strings.h:49
 msgid "General Public License (GPL)"
 msgstr "General Public License (GPL)"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:18
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:19
 msgid "Generic C++ Class"
 msgstr "Vanlig C++-klasse"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:19
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:20
 msgid "Header File:"
 msgstr "Header-fil:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:20
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:21
 msgid "Inline the declaration and implementation"
 msgstr ""
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:21
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:22
 #: ../plugins/file-wizard/file.c:103
-#: ../plugins/project-wizard/templates/translatable-strings.h:60
+#: ../plugins/project-wizard/templates/translatable-strings.h:62
 msgid "Lesser General Public License (LGPL)"
 msgstr "Lesser General Public License (LGPL)"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:22
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:23
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:9
 msgid "License:"
 msgstr "Lisens:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:23
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:24
 msgid "Member Functions/Variables"
 msgstr "Medlemsfunksjoner/variabler"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:24
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:25
 msgid "No License"
 msgstr "Ingen lisens"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:25
-#: ../plugins/glade/plugin.c:4446
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:26
+#: ../plugins/glade/plugin.c:4448
 msgid "Properties"
 msgstr "Egenskaper"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:26
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:27
 msgid "Signals"
 msgstr "Signaler"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:27
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:28
 msgid "Source File:"
 msgstr "Kildekodefil:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:28
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:29
 msgid "Source/Header Headings:"
 msgstr ""
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:29
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:30
 msgid "private"
 msgstr "privat"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:30
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:31
 msgid "protected"
 msgstr "beskyttet"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:31
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:32
 msgid "public"
 msgstr "offentlig"
 
@@ -1149,9 +1154,9 @@ msgid "File to which the processed template will be written"
 msgstr ""
 
 #: ../plugins/class-gen/generator.c:402
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to write autogen definition file"
-msgstr "Kan ikke åpne fil: %s\n"
+msgstr "Kan ikke å skrive definisjonsfil for autogen"
 
 #: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1040
 msgid ""
@@ -1163,6 +1168,63 @@ msgstr ""
 #, c-format
 msgid "Failed to execute autogen: %s"
 msgstr "Klarte ikke å kjøre autogen: %s"
+
+#: ../plugins/class-gen/window.c:94
+msgid "Guess from type"
+msgstr "Gjett fra type"
+
+#: ../plugins/class-gen/window.c:499 ../plugins/class-gen/window.c:510
+msgid "Scope"
+msgstr "Omfang"
+
+#: ../plugins/class-gen/window.c:500
+msgid "Implementation"
+msgstr "Implementering"
+
+#: ../plugins/class-gen/window.c:501 ../plugins/class-gen/window.c:511
+#: ../plugins/class-gen/window.c:533
+#: ../plugins/debug-manager/breakpoints.c:1907
+#: ../plugins/debug-manager/debug_tree.c:126
+msgid "Type"
+msgstr "Type"
+
+#: ../plugins/class-gen/window.c:502 ../plugins/class-gen/window.c:512
+#: ../plugins/class-gen/window.c:520 ../plugins/class-gen/window.c:534
+#: ../plugins/run-program/parameters.c:749
+#: ../plugins/search/search_preferences.c:534
+msgid "Name"
+msgstr "Navn"
+
+#: ../plugins/class-gen/window.c:503 ../plugins/class-gen/window.c:513
+#: ../plugins/class-gen/window.c:535
+#: ../plugins/debug-manager/stack_trace.c:679
+msgid "Arguments"
+msgstr "Argumenter"
+
+#: ../plugins/class-gen/window.c:521
+msgid "Nick"
+msgstr "Kallenavn"
+
+#: ../plugins/class-gen/window.c:522
+msgid "Blurb"
+msgstr ""
+
+#: ../plugins/class-gen/window.c:523
+msgid "GType"
+msgstr "GType"
+
+#: ../plugins/class-gen/window.c:524
+msgid "ParamSpec"
+msgstr "ParamSpec"
+
+#. Somehow redundant with marshaller, but required for default handler
+#: ../plugins/class-gen/window.c:526 ../plugins/class-gen/window.c:536
+msgid "Flags"
+msgstr "Flagg"
+
+#: ../plugins/class-gen/window.c:537
+msgid "Marshaller"
+msgstr ""
 
 #: ../plugins/class-gen/window.c:818
 msgid "XML description of the user interface"
@@ -1201,7 +1263,7 @@ msgstr "<b>Pakkelager: </b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:9
 msgid "Be verbose"
-msgstr ""
+msgstr "Vis mer informasjon"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:10
 #: ../plugins/git/anjuta-git.ui.h:27
@@ -1244,7 +1306,7 @@ msgstr "CVS: Status"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:19
 msgid "CVS: Status from file/directory"
-msgstr ""
+msgstr "CVS: Status fra fil/katalog"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:20
 msgid "CVS: Update file/directory"
@@ -1303,7 +1365,7 @@ msgstr "Ikke arbeid rekursivt"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:33
 msgid "Extern (rsh)"
-msgstr ""
+msgstr "Ekstern (rsh)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:34
 msgid "File is binary"
@@ -1581,7 +1643,7 @@ msgstr "<b>Feilsøking:</b>"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:2
 msgid "<b>Remote debugging</b>"
-msgstr "<b>Ekstern feilsøking</b>"
+msgstr "<b>Ekstern feilsøking</b>"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:3
 msgid ""
@@ -1635,7 +1697,7 @@ msgid "Debugger command:"
 msgstr "Feilsøkingskommando:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:16
-#: ../plugins/project-wizard/templates/translatable-strings.h:33
+#: ../plugins/project-wizard/templates/translatable-strings.h:35
 msgid "Description:"
 msgstr "Beskrivelse:"
 
@@ -1922,11 +1984,6 @@ msgstr "I bruk"
 msgid "Address"
 msgstr "Adresse"
 
-#: ../plugins/debug-manager/breakpoints.c:1907
-#: ../plugins/debug-manager/debug_tree.c:126
-msgid "Type"
-msgstr "Type"
-
 #: ../plugins/debug-manager/breakpoints.c:1908
 msgid "Condition"
 msgstr "Betingelse"
@@ -2048,9 +2105,8 @@ msgid "Start debugger and attach to a running program"
 msgstr "Start feilsøking og koble til et kjørende program"
 
 #: ../plugins/debug-manager/plugin.c:861
-#, fuzzy
 msgid "Debug _Remote Target..."
-msgstr "Alternativer for meldinger"
+msgstr "Feilsøk ekste_rnt mål..."
 
 #: ../plugins/debug-manager/plugin.c:863
 msgid "Connect to a remote debugging target"
@@ -2070,7 +2126,7 @@ msgstr "Legg til kildestier ..."
 
 #: ../plugins/debug-manager/plugin.c:879
 msgid "Add additional source paths"
-msgstr ""
+msgstr "Legg til flere stier til kildekode"
 
 #. Action name
 #. Stock icon, if any
@@ -2082,7 +2138,7 @@ msgstr "Feilsøkingskommando..."
 #. short-cut
 #: ../plugins/debug-manager/plugin.c:891 ../plugins/debug-manager/plugin.c:999
 msgid "Custom debugger command"
-msgstr ""
+msgstr "Egendefinert feilsøkingskommando"
 
 #: ../plugins/debug-manager/plugin.c:897
 #: ../plugins/debug-manager/plugin.c:1005
@@ -2346,10 +2402,6 @@ msgstr "Linje"
 #: ../plugins/debug-manager/threads.c:469
 msgid "Function"
 msgstr "Funksjon"
-
-#: ../plugins/debug-manager/stack_trace.c:679
-msgid "Arguments"
-msgstr "Argumenter"
 
 #: ../plugins/debug-manager/stack_trace.c:703
 msgid "Stack"
@@ -2940,7 +2992,7 @@ msgstr "Fjern denne visningen av dokumentet"
 msgid "U_ndo"
 msgstr "A_ngre"
 
-#: ../plugins/document-manager/plugin.c:283 ../plugins/glade/plugin.c:4089
+#: ../plugins/document-manager/plugin.c:283 ../plugins/glade/plugin.c:4091
 msgid "Undo the last action"
 msgstr "Angre forrige handling"
 
@@ -2962,7 +3014,7 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/document-manager/plugin.c:291 ../plugins/terminal/terminal.c:554
+#: ../plugins/document-manager/plugin.c:291 ../plugins/terminal/terminal.c:592
 msgid "_Copy"
 msgstr "_Kopier"
 
@@ -2970,7 +3022,7 @@ msgstr "_Kopier"
 msgid "Copy the selected text to the clipboard"
 msgstr "Kopier valgt tekst til utklippstavlen"
 
-#: ../plugins/document-manager/plugin.c:294 ../plugins/terminal/terminal.c:562
+#: ../plugins/document-manager/plugin.c:294 ../plugins/terminal/terminal.c:600
 msgid "_Paste"
 msgstr "_Lim inn"
 
@@ -3011,9 +3063,8 @@ msgid "Show/Hide code fold margin"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:318
-#, fuzzy
 msgid "_Indentation Guides"
-msgstr "Innrykk"
+msgstr "Regler for _innrykk"
 
 #: ../plugins/document-manager/plugin.c:319
 msgid "Show/Hide indentation guides"
@@ -3938,7 +3989,7 @@ msgid "Package name:"
 msgstr "Navn på pakke:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:860
-#: ../plugins/project-wizard/templates/translatable-strings.h:102
+#: ../plugins/project-wizard/templates/translatable-strings.h:109
 msgid "Version:"
 msgstr "Versjon:"
 
@@ -4306,14 +4357,13 @@ msgid "Author/Grep"
 msgstr "Forfatter:"
 
 #: ../plugins/git/anjuta-git.ui.h:19
-#: ../plugins/project-wizard/templates/translatable-strings.h:24
+#: ../plugins/project-wizard/templates/translatable-strings.h:25
 msgid "Author:"
 msgstr "Forfatter:"
 
 #: ../plugins/git/anjuta-git.ui.h:20
-#, fuzzy
 msgid "Bad revision:"
-msgstr "<b>Skrift:</b>"
+msgstr "Ugyldig revisjon:"
 
 #: ../plugins/git/anjuta-git.ui.h:21
 #, fuzzy
@@ -4515,7 +4565,7 @@ msgstr "Blandet"
 msgid "Mode:"
 msgstr "Modus:"
 
-#: ../plugins/git/anjuta-git.ui.h:70 ../plugins/glade/plugin.c:3097
+#: ../plugins/git/anjuta-git.ui.h:70 ../plugins/glade/plugin.c:3099
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:10
 #: ../plugins/subversion/anjuta-subversion.ui.h:23
 msgid "Options"
@@ -4615,9 +4665,8 @@ msgid "Select A Folder"
 msgstr "Velg en mappe"
 
 #: ../plugins/git/anjuta-git.ui.h:93
-#, fuzzy
 msgid "Select Files to Check Out:"
-msgstr "Søkevariabel"
+msgstr "Velg filer som skal sjekkes ut:"
 
 #: ../plugins/git/anjuta-git.ui.h:94
 #: ../plugins/subversion/anjuta-subversion.ui.h:41
@@ -4750,9 +4799,8 @@ msgstr "Vis logg"
 
 #: ../plugins/git/anjuta-git.ui.h:124
 #: ../plugins/subversion/anjuta-subversion.ui.h:58
-#, fuzzy
 msgid "View the Log for File/Folder:"
-msgstr "<b>Katalogfilter:</b>"
+msgstr "Vis logg for fil/mappe:"
 
 #: ../plugins/git/anjuta-git.ui.h:126
 msgid "page 1"
@@ -4806,18 +4854,16 @@ msgstr "Velg en fil."
 #: ../plugins/git/git-reset-dialog.c:57 ../plugins/git/git-revert-dialog.c:46
 #: ../plugins/subversion/subversion-copy-dialog.c:207
 #: ../plugins/subversion/subversion-switch-dialog.c:122
-#, fuzzy
 msgid "Please enter a revision."
-msgstr "Vennligst oppgi et filnavn!"
+msgstr "Oppgi en revisjon."
 
 #: ../plugins/git/git-cat-file-menu.c:36
-#, fuzzy
 msgid "Git: File retrieved."
-msgstr "Subversion: Legg til fil/katalog"
+msgstr "Git: Fil hentet."
 
 #: ../plugins/git/git-checkout-files-dialog.c:36
 msgid "Git: Files checked out."
-msgstr ""
+msgstr "Git: Filer sjekket ut."
 
 #: ../plugins/git/git-commit-dialog.c:36
 msgid "Git: Commit complete."
@@ -5679,20 +5725,19 @@ msgstr ""
 #. short-cut
 #: ../plugins/git/plugin.c:585
 msgid "View changes to this file or folder"
-msgstr ""
+msgstr "Vis endringer for denne filen eller katalogen"
 
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:593
 msgid "Add this file or folder to the repository"
-msgstr ""
+msgstr "Legg til denne filen eller mappen i lageret"
 
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:601
-#, fuzzy
 msgid "Remove this file or folder from the repository"
-msgstr "CVS: Fjern fil/katalog"
+msgstr "Fjern denne filen eller katalogen fra lageret"
 
 #: ../plugins/git/plugin.c:766
 msgid "Top level git menu item"
@@ -5722,30 +5767,28 @@ msgid "<b>Handler template</b>"
 msgstr "<b>Alternativer for utskrift</b>"
 
 #: ../plugins/glade/anjuta-glade.glade.h:2
-#, fuzzy
 msgid "<b>Manage associations</b>"
-msgstr "<b>Alternativer for meldinger</b>"
+msgstr "<b>Håndter assosiasjoner</b>"
 
 #: ../plugins/glade/anjuta-glade.glade.h:3
-#, fuzzy
 msgid "<b>New association</b>"
-msgstr "<b>Sesjon</b>"
+msgstr "<b>Ny assosiasjon</b>"
 
 #. Link a file with a widget
 #: ../plugins/glade/anjuta-glade.glade.h:5
 msgid "Associate"
-msgstr ""
+msgstr "Assosier"
 
 #: ../plugins/glade/anjuta-glade.glade.h:6
 msgid "Automatically add resources"
-msgstr ""
+msgstr "Legg til ressurser automatisk"
 
-#: ../plugins/glade/anjuta-glade.glade.h:7 ../plugins/glade/plugin.c:763
-#: ../plugins/glade/plugin.c:3094
+#: ../plugins/glade/anjuta-glade.glade.h:7 ../plugins/glade/plugin.c:765
+#: ../plugins/glade/plugin.c:3096
 msgid "Designer"
 msgstr "Utformer"
 
-#: ../plugins/glade/anjuta-glade.glade.h:8 ../plugins/glade/plugin.c:3096
+#: ../plugins/glade/anjuta-glade.glade.h:8 ../plugins/glade/plugin.c:3098
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:3
 msgid "Editor"
 msgstr "Editor"
@@ -5788,248 +5831,244 @@ msgstr ""
 #: ../plugins/glade/designer-associations-item.c:457
 #, c-format
 msgid "no filename found in the node %s"
-msgstr ""
+msgstr "ingen filnavn funnet i node %s"
 
 #: ../plugins/glade/designer-associations-item.c:478
 #, c-format
 msgid "invalid %s property value"
-msgstr ""
+msgstr "ugyldig verdi for egenskap %s"
 
 #: ../plugins/glade/designer-associations-item.c:496
 #, c-format
 msgid "Association item filename has no path"
 msgstr ""
 
-#: ../plugins/glade/plugin.c:855
+#: ../plugins/glade/plugin.c:857
 #, c-format
 msgid "No associations initialized, nothing to save"
 msgstr ""
 
-#: ../plugins/glade/plugin.c:862
+#: ../plugins/glade/plugin.c:864
 #, c-format
 msgid "Couldn't save associations because project root isn't set"
 msgstr ""
 
-#: ../plugins/glade/plugin.c:884
+#: ../plugins/glade/plugin.c:886
 #, c-format
 msgid "Failed to save associations"
 msgstr "Klarte ikke å lagre assosiasjoner"
 
 #. iptCurrent:
-#: ../plugins/glade/plugin.c:1196
+#: ../plugins/glade/plugin.c:1198
 #, fuzzy
 msgid "Current"
 msgstr "Denne blokken"
 
 #. iptBeforeEnd:
-#: ../plugins/glade/plugin.c:1197
+#: ../plugins/glade/plugin.c:1199
 msgid "Before end"
 msgstr "Før slutt"
 
 #. iptAfterBegin:
-#: ../plugins/glade/plugin.c:1198
+#: ../plugins/glade/plugin.c:1200
 msgid "After begin"
 msgstr "Etter start"
 
 #. ipEOF:
-#: ../plugins/glade/plugin.c:1199
+#: ../plugins/glade/plugin.c:1201
 msgid "End of file"
 msgstr "Slutt på fil"
 
-#: ../plugins/glade/plugin.c:1368
+#: ../plugins/glade/plugin.c:1370
 #, c-format
 msgid "Couldn't introspect the signal"
 msgstr ""
 
-#: ../plugins/glade/plugin.c:1390
+#: ../plugins/glade/plugin.c:1392
 #, c-format
 msgid "Python language isn't supported yet"
-msgstr ""
+msgstr "Python-språket er ikke støttet ennå"
 
-#: ../plugins/glade/plugin.c:1403
+#: ../plugins/glade/plugin.c:1405
 #, c-format
 msgid "Vala language isn't supported yet"
-msgstr ""
+msgstr "Vala-språket er ikke støttet ennå"
 
-#: ../plugins/glade/plugin.c:1962
+#: ../plugins/glade/plugin.c:1964
 #, c-format
 msgid "There is no associated editor for the designer"
 msgstr ""
 
-#: ../plugins/glade/plugin.c:1980
+#: ../plugins/glade/plugin.c:1982
 #, c-format
 msgid "Unknown language of the editor \"%s\""
-msgstr ""
+msgstr "Ukjent språk for redigeringsprogram «%s»"
 
-#: ../plugins/glade/plugin.c:2047 ../plugins/glade/plugin.c:2124
-#: ../plugins/glade/plugin.c:2249
+#: ../plugins/glade/plugin.c:2049 ../plugins/glade/plugin.c:2126
+#: ../plugins/glade/plugin.c:2251
 #, fuzzy, c-format
 msgid "Error while adding a new handler stub: %s"
 msgstr "Feil ved lesing fra filen"
 
-#: ../plugins/glade/plugin.c:2054 ../plugins/glade/plugin.c:2138
+#: ../plugins/glade/plugin.c:2056 ../plugins/glade/plugin.c:2140
 msgid "Couldn't find a signal information"
-msgstr ""
+msgstr "Kunne ikke finne informasjon om signal"
 
-#: ../plugins/glade/plugin.c:2081
+#: ../plugins/glade/plugin.c:2083
 msgid "Error while adding a new handler stub: No current editor"
 msgstr ""
 
-#: ../plugins/glade/plugin.c:2254
+#: ../plugins/glade/plugin.c:2256
 #, c-format
 msgid ""
 "To avoid this message turn off \"%s\" flag in Preferences->Glade GUI Designer"
 msgstr ""
 
-#: ../plugins/glade/plugin.c:2324
+#: ../plugins/glade/plugin.c:2326
 #, fuzzy
 msgid "Couldn't find an associated document"
 msgstr "Kunne ikke åpne fil"
 
-#: ../plugins/glade/plugin.c:2390
+#: ../plugins/glade/plugin.c:2392
 msgid "Those documents are already associated"
-msgstr ""
+msgstr "Disse dokumentene er allerede assosiert"
 
-#: ../plugins/glade/plugin.c:2428
+#: ../plugins/glade/plugin.c:2430
 #, c-format
 msgid "Unable to read file: %s."
 msgstr "Kan ikke lese fil: %s."
 
-#: ../plugins/glade/plugin.c:3095
+#: ../plugins/glade/plugin.c:3097
 msgid "Top level widget"
-msgstr ""
+msgstr "Toppkomponent"
 
-#: ../plugins/glade/plugin.c:3686
-#, fuzzy
+#: ../plugins/glade/plugin.c:3688
 msgid "Couldn't find a default signal name"
-msgstr "Kunne ikke åpne fil"
+msgstr "Kunne ikke finne forvalgt signalnavn"
 
-#: ../plugins/glade/plugin.c:3896
+#: ../plugins/glade/plugin.c:3898
 #, c-format
 msgid "Project %s has no deprecated widgets or version mismatches."
-msgstr ""
+msgstr "Prosjekt %s har ingen utgåtte komponenter eller versjonsfeil."
 
-#: ../plugins/glade/plugin.c:3913
-#, fuzzy
+#: ../plugins/glade/plugin.c:3915
 msgid "There is no Glade project"
-msgstr "Hele prosjektet"
+msgstr "Glade-prosjekt mangler"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/glade/plugin.c:3999
+#: ../plugins/glade/plugin.c:4001
 msgid "_Glade"
 msgstr "_Glade"
 
-#: ../plugins/glade/plugin.c:4007 ../plugins/glade/plugin.c:4009
+#: ../plugins/glade/plugin.c:4009 ../plugins/glade/plugin.c:4011
 msgid "Switch between designer/code"
 msgstr ""
 
-#: ../plugins/glade/plugin.c:4015 ../plugins/glade/plugin.c:4017
+#: ../plugins/glade/plugin.c:4017 ../plugins/glade/plugin.c:4019
 msgid "Insert handler stub"
 msgstr ""
 
-#: ../plugins/glade/plugin.c:4023 ../plugins/glade/plugin.c:4025
+#: ../plugins/glade/plugin.c:4025 ../plugins/glade/plugin.c:4027
 msgid "Insert handler stub, autoposition"
 msgstr ""
 
-#: ../plugins/glade/plugin.c:4031
+#: ../plugins/glade/plugin.c:4033
 msgid "Associate last designer and last editor"
 msgstr ""
 
-#: ../plugins/glade/plugin.c:4033
+#: ../plugins/glade/plugin.c:4035
 msgid "Associate last designer and editor"
 msgstr ""
 
-#: ../plugins/glade/plugin.c:4039 ../plugins/glade/plugin.c:4041
+#: ../plugins/glade/plugin.c:4041 ../plugins/glade/plugin.c:4043
 msgid "Associations dialog..."
 msgstr ""
 
-#: ../plugins/glade/plugin.c:4047
-#, fuzzy
-msgid "Versioning..."
-msgstr "Skriver ut..."
-
 #: ../plugins/glade/plugin.c:4049
+msgid "Versioning..."
+msgstr "Versjonering..."
+
+#: ../plugins/glade/plugin.c:4051
 msgid "Switch between library versions and check deprecations"
 msgstr ""
 
-#: ../plugins/glade/plugin.c:4055 ../plugins/glade/plugin.c:4057
+#: ../plugins/glade/plugin.c:4057 ../plugins/glade/plugin.c:4059
 msgid "Set as default resource target"
 msgstr ""
 
-#: ../plugins/glade/plugin.c:4065
-#, fuzzy
+#: ../plugins/glade/plugin.c:4067
 msgid "Current default target"
-msgstr "Aktivt utvalg"
+msgstr "Aktivt forvalgt mål"
 
-#: ../plugins/glade/plugin.c:4073
+#: ../plugins/glade/plugin.c:4075
 msgid "Close the current file"
 msgstr "Lukk denne filen"
 
-#: ../plugins/glade/plugin.c:4081
+#: ../plugins/glade/plugin.c:4083
 msgid "Save the current file"
 msgstr "Lagre denne filen"
 
-#: ../plugins/glade/plugin.c:4097
+#: ../plugins/glade/plugin.c:4099
 msgid "Redo the last action"
 msgstr "Gjenopprett forrige handling"
 
-#: ../plugins/glade/plugin.c:4105
+#: ../plugins/glade/plugin.c:4107
 msgid "Cut the selection"
 msgstr "Klipp ut utvalget"
 
-#: ../plugins/glade/plugin.c:4113
+#: ../plugins/glade/plugin.c:4115
 msgid "Copy the selection"
 msgstr "Kopier utvalget"
 
-#: ../plugins/glade/plugin.c:4121
+#: ../plugins/glade/plugin.c:4123
 msgid "Paste the clipboard"
 msgstr "Lim inn utklippstavlen"
 
-#: ../plugins/glade/plugin.c:4129
+#: ../plugins/glade/plugin.c:4131
 msgid "Delete the selection"
 msgstr "Slett utvalget"
 
-#: ../plugins/glade/plugin.c:4307
+#: ../plugins/glade/plugin.c:4309
 #, fuzzy
 msgid "Glade designer operations"
 msgstr "Alternativer for feilsøking"
 
-#: ../plugins/glade/plugin.c:4407
-msgid "Go back in undo history"
-msgstr ""
-
 #: ../plugins/glade/plugin.c:4409
+msgid "Go back in undo history"
+msgstr "Gå tilbake i angrehistorikken"
+
+#: ../plugins/glade/plugin.c:4411
 msgid "Go forward in undo history"
-msgstr ""
+msgstr "Gå fremover i angrehistorikken"
 
-#: ../plugins/glade/plugin.c:4431
+#: ../plugins/glade/plugin.c:4433
 msgid "Glade Clipboard"
-msgstr ""
+msgstr "Utklippstavle for Glade"
 
-#: ../plugins/glade/plugin.c:4436
+#: ../plugins/glade/plugin.c:4438
 msgid "Widgets"
 msgstr "Komponenter"
 
-#: ../plugins/glade/plugin.c:4441
+#: ../plugins/glade/plugin.c:4443
 msgid "Palette"
 msgstr "Palett"
 
-#: ../plugins/glade/plugin.c:4695
+#: ../plugins/glade/plugin.c:4697
 #, c-format
 msgid "Not local file: %s"
 msgstr "Ikke en lokal fil: %s"
 
-#: ../plugins/glade/plugin.c:4716
+#: ../plugins/glade/plugin.c:4718
 #, c-format
 msgid "Could not open %s"
-msgstr "Kunne ikke åpne %s"
+msgstr "Kunne ikke åpne %s"
 
-#: ../plugins/glade/plugin.c:4767
+#: ../plugins/glade/plugin.c:4769
 msgid "Could not create a new glade project."
 msgstr "Kunne ikke lage nytt glade-prosjekt."
 
-#: ../plugins/glade/plugin.c:5029 ../plugins/glade/plugin.c:5054
+#: ../plugins/glade/plugin.c:5031 ../plugins/glade/plugin.c:5056
 msgid "Glade GUI Designer"
 msgstr "Glade brukergrensesnittbygger"
 
@@ -6078,7 +6117,7 @@ msgstr "Ferdigdato:"
 
 #: ../plugins/gtodo/add_edit_item.c:224
 msgid "Notify when due"
-msgstr ""
+msgstr "Varsle når ferdig"
 
 #. label
 #: ../plugins/gtodo/add_edit_item.c:237 ../plugins/gtodo/list_tooltip.c:64
@@ -6113,32 +6152,31 @@ msgstr "stoppet:"
 
 #: ../plugins/gtodo/callback.c:17
 msgid "You need to select a todo item before you can remove it"
-msgstr ""
+msgstr "Du må velge en oppgavelisteoppføring før du kan fjerne den"
 
 #: ../plugins/gtodo/callback.c:20
-#, fuzzy
 msgid "Are you sure you want to remove the selected todo item?"
-msgstr "Er du sikker på at du vil slette alle stoppunkter?"
+msgstr "Er du sikker på at du vil fjerne valgt oppgavelisteoppføring?"
 
 #: ../plugins/gtodo/callback.c:20 ../plugins/gtodo/callback.c:101
 msgid "Remove"
 msgstr "Fjern"
 
 #: ../plugins/gtodo/callback.c:98
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to remove all the completed todo items?"
-msgstr "Er du sikker på at du vil slette alle stoppunkter?"
+msgstr "Er du sikker på at du vil fjerne alle fullførte oppgavelisteoppføringer?"
 
 #: ../plugins/gtodo/callback.c:99
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Are you sure you want to remove all the completed todo items in the category "
 "\"%s\"?"
-msgstr "Er du sikker på at du vil slette alle stoppunkter?"
+msgstr "Er du sikker på at du vil fjerne alle fullførte oppgavelisteoppføringer i kategori «%s»?"
 
 #: ../plugins/gtodo/export.c:47
 msgid "Export task list"
-msgstr ""
+msgstr "Eksporter oppgaveliste"
 
 #: ../plugins/gtodo/export.c:158
 msgid "XML"
@@ -6158,9 +6196,8 @@ msgid "Export current category only"
 msgstr ""
 
 #: ../plugins/gtodo/export.c:171
-#, fuzzy
 msgid "<b>HTML export options:</b>"
-msgstr "<b>Alternativer for utskrift</b>"
+msgstr "<b>Alternativer for eksport av HTML:</b>"
 
 #: ../plugins/gtodo/export.c:181
 msgid "Embed default (CSS) style sheet"
@@ -6168,7 +6205,7 @@ msgstr ""
 
 #: ../plugins/gtodo/export.c:185
 msgid "Custom (CSS) style sheet"
-msgstr ""
+msgstr "Egendefinert stilark (CSS)"
 
 #: ../plugins/gtodo/interface.c:34 ../src/anjuta-actions.h:38
 msgid "_View"
@@ -6207,12 +6244,12 @@ msgstr "Kunne ikke lese fil"
 #: ../plugins/gtodo/libgtodo.c:626 ../plugins/gtodo/libgtodo.c:637
 #, c-format
 msgid "Failed to parse xml structure"
-msgstr ""
+msgstr "Klarte ikke å tolke xml-struktur"
 
 #: ../plugins/gtodo/libgtodo.c:646
-#, fuzzy, c-format
+#, c-format
 msgid "File is not a valid gtodo file"
-msgstr "Kan ikke åpne fil: %s\n"
+msgstr "Filen er ikke en gyldig gtodo-fil"
 
 #: ../plugins/gtodo/libgtodo.c:662
 msgid "Personal"
@@ -6224,7 +6261,7 @@ msgstr "Arbeid"
 
 #: ../plugins/gtodo/libgtodo.c:666
 msgid "Unfiled"
-msgstr ""
+msgstr "Ikke arkivert"
 
 #: ../plugins/gtodo/libgtodo.c:755
 #, c-format
@@ -6247,7 +6284,7 @@ msgstr "Middels"
 
 #: ../plugins/gtodo/list_tooltip.c:77 ../plugins/gtodo/todo_db.c:132
 msgid "High"
-msgstr "Høy"
+msgstr "Høy"
 
 #: ../plugins/gtodo/mcategory.c:145
 #, c-format
@@ -6267,12 +6304,12 @@ msgstr "<Ny kategori (%d)>"
 #, c-format
 msgid "The following item is due in %i minute:"
 msgid_plural "The following item is due in %i minutes:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Følgende oppføring går ut om %i minutt:"
+msgstr[1] "Følgende oppføring går ut om %i minutter:"
 
 #: ../plugins/gtodo/notification.c:76
 msgid "The following item is due:"
-msgstr ""
+msgstr "Følgende oppføring er utgått:"
 
 #. gtk_container_set_border_width(GTK_CONTAINER(hbox), 9);
 #: ../plugins/gtodo/notification.c:116
@@ -6293,19 +6330,19 @@ msgstr "Skjul fullførte oppgaver"
 
 #: ../plugins/gtodo/plugin.c:83
 msgid "Hide Items Past _Due Date"
-msgstr ""
+msgstr "Skjul oppføringer som har _gått ut"
 
 #: ../plugins/gtodo/plugin.c:85
 msgid "Hide items that are past due date"
-msgstr ""
+msgstr "Skjul oppføringer som har gått ut"
 
 #: ../plugins/gtodo/plugin.c:92
 msgid "Hide Items Without _End Date"
-msgstr ""
+msgstr "Skjul oppføringer uten _sluttdato"
 
 #: ../plugins/gtodo/plugin.c:94
 msgid "Hide items without an end date"
-msgstr ""
+msgstr "Skjul oppføringer uten sluttdato"
 
 #: ../plugins/gtodo/plugin.c:122
 msgid "Tasks manager"
@@ -6313,7 +6350,7 @@ msgstr "Oppgavehåndtering"
 
 #: ../plugins/gtodo/plugin.c:128
 msgid "Tasks manager view"
-msgstr ""
+msgstr "Oppgavehåndteringsvisning"
 
 #: ../plugins/gtodo/plugin.c:134
 msgid "Tasks"
@@ -6370,8 +6407,8 @@ msgstr "Oppføringer som er utløpt"
 #, c-format
 msgid "Items that are due in the next %i day"
 msgid_plural "Items that are due in the next %i days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Oppføringer som går ut den neste %i dagen"
+msgstr[1] "Oppføringer som går ut de neste %i dagene"
 
 #: ../plugins/gtodo/preferences.c:168
 msgid "Misc"
@@ -6409,11 +6446,11 @@ msgstr[1] ""
 
 #: ../plugins/gtodo/tasklists.c:10
 msgid "Open a Task List"
-msgstr ""
+msgstr "Åpne en oppgaveliste"
 
 #: ../plugins/gtodo/tasklists.c:35
 msgid "Create a Task List"
-msgstr ""
+msgstr "Lag en oppgaveliste"
 
 #: ../plugins/gtodo/todo_db.c:165
 msgid "No Date"
@@ -6421,11 +6458,11 @@ msgstr "Ingen dato"
 
 #: ../plugins/macro/anjuta-macro.ui.h:1
 msgid "<b>Macro details:</b>"
-msgstr ""
+msgstr "<b>Detaljer for makro:</b>"
 
 #: ../plugins/macro/anjuta-macro.ui.h:2
 msgid "<b>Macro text:</b>"
-msgstr ""
+msgstr "<b>Tekst i makro:</b>"
 
 #: ../plugins/macro/anjuta-macro.ui.h:3
 msgid "<b>Macros:</b>"
@@ -6441,11 +6478,11 @@ msgstr "Snarvei:"
 
 #: ../plugins/macro/macro-actions.c:127
 msgid "Press macro shortcut..."
-msgstr ""
+msgstr "Trykk snarvei for makro..."
 
 #: ../plugins/macro/macro-actions.c:134
 msgid "Press shortcut"
-msgstr ""
+msgstr "Trykk snarvei"
 
 #: ../plugins/macro/macro-db.c:256
 msgid "Anjuta macros"
@@ -6462,6 +6499,9 @@ msgid ""
 "Category:\t %s\n"
 "Shortcut:\t %c\n"
 msgstr ""
+"Navn:\t %s\n"
+"Kategori:\t %s\n"
+"Snarvei:\t %c\n"
 
 #: ../plugins/macro/macro-dialog.c:276
 msgid "Insert"
@@ -6495,7 +6535,7 @@ msgstr "_Sett inn makro..."
 
 #: ../plugins/macro/plugin.c:44
 msgid "Insert a macro using a shortcut"
-msgstr ""
+msgstr "Sett inn makro med bruk av snarvei"
 
 #: ../plugins/macro/plugin.c:49
 msgid "_Add Macro..."
@@ -6511,7 +6551,7 @@ msgstr "Makroer ..."
 
 #: ../plugins/macro/plugin.c:58
 msgid "Add/Edit/Remove macros"
-msgstr ""
+msgstr "Legg til/rediger/fjern makroer"
 
 #: ../plugins/macro/plugin.c:116
 msgid "Macro operations"
@@ -6813,7 +6853,7 @@ msgid "<b>Project name</b>"
 msgstr "<b>Navn på prosjekt</b>"
 
 #: ../plugins/project-import/project-import.ui.h:3
-#: ../plugins/project-wizard/templates/translatable-strings.h:34
+#: ../plugins/project-wizard/templates/translatable-strings.h:36
 #: ../plugins/subversion/anjuta-subversion.ui.h:9
 msgid "Destination:"
 msgstr "Mål:"
@@ -6960,7 +7000,9 @@ msgstr "Klarte ikke å oppdatere prosjektet: %s"
 msgid ""
 "Are you sure you want to remove the following group from project?\n"
 "\n"
-msgstr "Er du sikker på at du vil fjerne følgende gruppe fra prosjektet?\n\n"
+msgstr ""
+"Er du sikker på at du vil fjerne følgende gruppe fra prosjektet?\n"
+"\n"
 
 #: ../plugins/project-manager/plugin.c:664
 #, c-format
@@ -7043,21 +7085,18 @@ msgstr "Legg _til mål ..."
 
 #: ../plugins/project-manager/plugin.c:841
 #: ../plugins/project-manager/plugin.c:875
-#, fuzzy
 msgid "Add a target to project"
-msgstr "Prosjekt"
+msgstr "Legg til et mål i et prosjekt"
 
 #: ../plugins/project-manager/plugin.c:846
-#, fuzzy
 msgid "Add _Source File..."
-msgstr "Kildemål:        "
+msgstr "Legg til kildekodeil..."
 
 #: ../plugins/project-manager/plugin.c:846
 #: ../plugins/project-manager/plugin.c:865
 #: ../plugins/project-manager/plugin.c:880
-#, fuzzy
 msgid "Add a source file to project"
-msgstr "Prosjekt"
+msgstr "Legg til en kildekodefil i prosjektet"
 
 #: ../plugins/project-manager/plugin.c:851
 msgid "Close Pro_ject"
@@ -7102,9 +7141,8 @@ msgid "Loading project: %s"
 msgstr "Laster prosjekt: %s"
 
 #: ../plugins/project-manager/plugin.c:1267
-#, fuzzy
 msgid "Created project view..."
-msgstr "Lagrer prosjekt...\n"
+msgstr "Laget prosjektvisning..."
 
 #: ../plugins/project-manager/plugin.c:1280
 #, c-format
@@ -7114,9 +7152,9 @@ msgid ""
 msgstr ""
 
 #: ../plugins/project-manager/plugin.c:1472
-#, fuzzy, c-format
+#, c-format
 msgid "Error closing project: %s"
-msgstr "Laster prosjekt: %s"
+msgstr "Feil ved lukking av prosjekt: %s"
 
 #: ../plugins/project-manager/plugin.c:1536
 #, fuzzy
@@ -7146,9 +7184,8 @@ msgid "Error"
 msgstr "Feil"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.ui.h:3
-#, fuzzy
 msgid "Select project type"
-msgstr "Velg en katalog for prosjektet"
+msgstr "Velg type prosjektet"
 
 #: ../plugins/project-wizard/druid.c:139 ../plugins/project-wizard/druid.c:143
 msgid "Warning"
@@ -7205,12 +7242,9 @@ msgid ""
 msgstr ""
 
 #: ../plugins/project-wizard/druid.c:624
-#, fuzzy, c-format
+#, c-format
 msgid "File \"%s\" already exists. Do you want to overwrite it?"
-msgstr ""
-"«%s»\n"
-"eksisterer ikke.\n"
-"Vil du opprette den nå?"
+msgstr "Filen «%s» eksisterer allerede. Vil du overskrive den?"
 
 #: ../plugins/project-wizard/druid.c:655
 msgid "Invalid entry"
@@ -7225,18 +7259,14 @@ msgstr "Tvilsom oppføring"
 msgid ""
 "\n"
 "Missing programs: %s."
-msgstr ""
-"\n"
-"Mangler programmer: %s."
+msgstr "\nProgrammer som mangler: %s."
 
 #: ../plugins/project-wizard/druid.c:787
 #, c-format
 msgid ""
 "\n"
 "Missing packages: %s."
-msgstr ""
-"\n"
-"Mangler pakker: %s."
+msgstr "\nPakker som mangler: %s."
 
 #: ../plugins/project-wizard/druid.c:795
 msgid ""
@@ -7275,7 +7305,7 @@ msgstr ""
 #: ../plugins/project-wizard/install.c:462
 #, c-format
 msgid "Skipping %s: file already exists"
-msgstr ""
+msgstr "Hopper over %s: filen eksisterer allerede"
 
 #: ../plugins/project-wizard/install.c:503
 #, c-format
@@ -7317,16 +7347,14 @@ msgid "Select file"
 msgstr "Velg fil"
 
 #: ../plugins/project-wizard/property.c:361 ../plugins/tools/editor.c:522
-#, fuzzy
 msgid "Select an Image File"
-msgstr "Velg pakke"
+msgstr "Velg en bildefil"
 
 #: ../plugins/project-wizard/property.c:386
 #: ../plugins/project-wizard/property.c:476 ../plugins/tools/editor.c:556
 #: ../plugins/tools/editor.c:703
-#, fuzzy
 msgid "Choose Icon"
-msgstr "Velg katalog"
+msgstr "Velg ikon"
 
 #: ../plugins/project-wizard/property.c:446
 msgid "Choose directory"
@@ -7337,18 +7365,16 @@ msgid "Choose file"
 msgstr "Velg fil"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:1
-#, fuzzy
 msgid "A GNOME applet project"
-msgstr "Legg til en gruppe i prosjektet"
+msgstr "Prosjekt for GNOME panelprogram"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:2
-#, fuzzy
 msgid "A generic C++ project"
-msgstr "Legg til en gruppe i prosjektet"
+msgstr "Vanlig C++-prosjekt"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:3
 msgid "A generic GTK+ project"
-msgstr ""
+msgstr "Vanlig GTK+-prosjekt"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:4
 msgid "A generic GTKmm (C++) project"
@@ -7395,387 +7421,411 @@ msgid "A sample SDL project"
 msgstr "Legg til en gruppe i prosjektet"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:14
+#, fuzzy
+msgid "A shared or a static library project"
+msgstr "Delte biblioteker"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:15
 msgid "Add C++ support:"
 msgstr "Legg til C++-støtte:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:15
-msgid "Add gtk-doc system:"
-msgstr ""
-
 #: ../plugins/project-wizard/templates/translatable-strings.h:16
-msgid "Add internationalization:"
-msgstr ""
+msgid "Add gtk-doc system:"
+msgstr "Legg til gtk-doc-systemet:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:17
+msgid "Add internationalization:"
+msgstr "Legg til internasjonalisering:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:18
 #, fuzzy
 msgid "Add shared library support:"
 msgstr "Delte biblioteker"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:18
+#: ../plugins/project-wizard/templates/translatable-strings.h:19
 msgid "Adds C++ support to the project so that C++ source files can be built"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:19
+#: ../plugins/project-wizard/templates/translatable-strings.h:20
 msgid "Adds support for building shared libraries in your project"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:20
+#: ../plugins/project-wizard/templates/translatable-strings.h:21
 msgid ""
 "Adds support for internationalization so that your project can have "
 "translations in different languages"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:21
+#: ../plugins/project-wizard/templates/translatable-strings.h:22
 msgid "Anjuta Plugin"
 msgstr "Anjuta tillegg"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:22
+#: ../plugins/project-wizard/templates/translatable-strings.h:23
 msgid "Anjuta plugin project that uses libanjuta framework"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:23
-#, fuzzy
+#: ../plugins/project-wizard/templates/translatable-strings.h:24
 msgid "Applet Title:"
-msgstr "Tittel for tillegg:"
+msgstr "Tittel for panelprogram:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:25
+#: ../plugins/project-wizard/templates/translatable-strings.h:26
 msgid "Basic information"
 msgstr "Grunnleggende informasjon"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:26
+#: ../plugins/project-wizard/templates/translatable-strings.h:27
 msgid "Berkeley Software Distribution License (BSD)"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:27
+#: ../plugins/project-wizard/templates/translatable-strings.h:28
+#, fuzzy
+msgid "Build library as"
+msgstr "Bygg-katalog:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:29
 msgid ""
 "Comma separated, other plugins that this plugin depends on. It could be "
 "either primary interface name or plugin location (library:class)"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:28
+#: ../plugins/project-wizard/templates/translatable-strings.h:30
 msgid "Configure external packages"
 msgstr "Konfigurer eksterne pakker"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:29
+#: ../plugins/project-wizard/templates/translatable-strings.h:31
 msgid "Configure external packages:"
 msgstr "Konfigurer eksterne pakker:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:30
+#: ../plugins/project-wizard/templates/translatable-strings.h:32
 msgid "Create Gtk Builder interface file"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:31
+#: ../plugins/project-wizard/templates/translatable-strings.h:33
 msgid "Create a template Gtk Builder interface file"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:32
+#: ../plugins/project-wizard/templates/translatable-strings.h:34
 msgid "Create a template gtk builder interface file"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:35
+#: ../plugins/project-wizard/templates/translatable-strings.h:37
 msgid "Display description of the applet"
 msgstr "Vis beskrivelse av panelprogrammet"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:36
+#: ../plugins/project-wizard/templates/translatable-strings.h:38
 msgid "Display description of the plugin"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:37
-msgid "Display title of the applet"
-msgstr ""
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:38
-msgid "Display title of the plugin"
-msgstr ""
-
 #: ../plugins/project-wizard/templates/translatable-strings.h:39
+msgid "Display title of the applet"
+msgstr "Vis tittel på panelprogrammet"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:40
+msgid "Display title of the plugin"
+msgstr "Vis tittel på tillegget"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:41
 msgid "Django Project"
 msgstr "Django-prosjekt"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:40
+#: ../plugins/project-wizard/templates/translatable-strings.h:42
 #, fuzzy
 msgid "Django Project information"
 msgstr "Skriv inn grunnleggende informasjon om prosjektet"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:41
+#: ../plugins/project-wizard/templates/translatable-strings.h:43
 msgid "Email address:"
 msgstr "E-postadresse:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:42
+#: ../plugins/project-wizard/templates/translatable-strings.h:44
 msgid "GCJ needs to know which class contains the main() function"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:43
+#: ../plugins/project-wizard/templates/translatable-strings.h:45
 msgid "GNOME Applet"
 msgstr "GNOME panelprogram"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:44
+#: ../plugins/project-wizard/templates/translatable-strings.h:46
 msgid "GTK+"
 msgstr "GTK+"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:45
+#: ../plugins/project-wizard/templates/translatable-strings.h:47
 msgid "GTKmm"
 msgstr "GTKmm"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:46
-#, fuzzy
-msgid "General Project Information"
-msgstr "Skriv inn grunnleggende informasjon om prosjektet"
-
 #: ../plugins/project-wizard/templates/translatable-strings.h:48
+msgid "General Project Information"
+msgstr "Generell informasjon om prosjektet"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:50
 msgid "Generic"
 msgstr "Vanlig"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:49
+#: ../plugins/project-wizard/templates/translatable-strings.h:51
 msgid "Generic (Minimal)"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:50
+#: ../plugins/project-wizard/templates/translatable-strings.h:52
 msgid "Generic C++"
 msgstr "Vanlig C++"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:51
+#: ../plugins/project-wizard/templates/translatable-strings.h:53
 msgid "Generic gcj compiled java"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:52
+#: ../plugins/project-wizard/templates/translatable-strings.h:54
 msgid "Generic java (automake)"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:53
+#: ../plugins/project-wizard/templates/translatable-strings.h:55
 msgid "Generic python (automake)"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:54
+#: ../plugins/project-wizard/templates/translatable-strings.h:56
 msgid ""
 "Give a package name that your project require. You may also mention what is "
 "the required version of the package. For example, 'libgnomeui-2.0' or "
 "'libgnomeui-2.0 >= 2.2.0'"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:55
+#: ../plugins/project-wizard/templates/translatable-strings.h:57
 msgid "Icon File:"
 msgstr "Ikonfil:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:56
+#: ../plugins/project-wizard/templates/translatable-strings.h:58
 msgid "Icon file for the plugin"
-msgstr ""
+msgstr "Ikonfil for tillegget"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:57
+#: ../plugins/project-wizard/templates/translatable-strings.h:59
 msgid "Implement plugin interfaces"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:58
+#: ../plugins/project-wizard/templates/translatable-strings.h:60
 msgid "Interface implemented by the plugin"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:59
+#: ../plugins/project-wizard/templates/translatable-strings.h:61
 msgid "Interface:"
 msgstr "Grensesnitt:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:61
+#: ../plugins/project-wizard/templates/translatable-strings.h:63
+msgid "Library"
+msgstr "Bibliotek"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:64
 msgid "License"
 msgstr "Lisens"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:62
+#: ../plugins/project-wizard/templates/translatable-strings.h:65
 msgid "Main Class:"
 msgstr "Hovedklasse:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:63
+#: ../plugins/project-wizard/templates/translatable-strings.h:66
 msgid "Main class"
 msgstr "Hovedklasse"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:64
+#: ../plugins/project-wizard/templates/translatable-strings.h:67
 #, fuzzy
 msgid "Makefile project"
 msgstr "Hele prosjektet"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:65
+#: ../plugins/project-wizard/templates/translatable-strings.h:68
 #, fuzzy
 msgid "Makefile-based project"
 msgstr "Lukk prosjekt"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:66
+#: ../plugins/project-wizard/templates/translatable-strings.h:69
 msgid "Mininum SDL version required"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:67
+#: ../plugins/project-wizard/templates/translatable-strings.h:70
 msgid "Name of the value to watch"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:68
+#: ../plugins/project-wizard/templates/translatable-strings.h:71
 msgid "No license"
 msgstr "Ingen lisens"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:69
+#: ../plugins/project-wizard/templates/translatable-strings.h:72
+msgid "Only Shared"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:73
+msgid "Only Static"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:74
 msgid "Options for project build system"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:70
-#, fuzzy
+#: ../plugins/project-wizard/templates/translatable-strings.h:75
 msgid "Plugin Class Name:"
-msgstr "* Klassenavn:"
+msgstr "Klassenavn for tillegg:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:71
+#: ../plugins/project-wizard/templates/translatable-strings.h:76
 msgid "Plugin Dependencies:"
-msgstr ""
+msgstr "Avhengigheter for tillegg:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:72
+#: ../plugins/project-wizard/templates/translatable-strings.h:77
 msgid "Plugin Description:"
 msgstr "Beskrivelse av tillegg:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:73
+#: ../plugins/project-wizard/templates/translatable-strings.h:78
 msgid "Plugin Title:"
 msgstr "Tittel for tillegg:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:74
-#, fuzzy
+#: ../plugins/project-wizard/templates/translatable-strings.h:79
 msgid "Plugin class name"
-msgstr "* Klassenavn:"
+msgstr "Klassenavn for tillegg"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:75
+#: ../plugins/project-wizard/templates/translatable-strings.h:80
 msgid "Plugin has menus or/and toolbars"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:76
+#: ../plugins/project-wizard/templates/translatable-strings.h:81
 msgid "Plugin interfaces to implement"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:77
+#: ../plugins/project-wizard/templates/translatable-strings.h:82
 msgid "Project Name:"
 msgstr "Prosjektnavn:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:78
+#: ../plugins/project-wizard/templates/translatable-strings.h:83
 msgid "Project directory, output file etc."
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:79
+#: ../plugins/project-wizard/templates/translatable-strings.h:84
 msgid "Project directory:"
 msgstr "Katalog for prosjektet:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:80
+#: ../plugins/project-wizard/templates/translatable-strings.h:85
 msgid ""
 "Project name must not contain spaces, because it will be the name of the "
 "project build target (executable, library etc.)"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:81
+#: ../plugins/project-wizard/templates/translatable-strings.h:86
 msgid "Project name:"
 msgstr "Prosjektnavn:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:82
+#: ../plugins/project-wizard/templates/translatable-strings.h:87
 msgid "Project options"
 msgstr "Alternativer for prosjekt"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:83
+#: ../plugins/project-wizard/templates/translatable-strings.h:88
 msgid "Python webproject using Django Web Framework"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:84
+#: ../plugins/project-wizard/templates/translatable-strings.h:89
 msgid "Require Package:"
 msgstr "Krever pakke:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:85
+#: ../plugins/project-wizard/templates/translatable-strings.h:90
 msgid "Require SDL version:"
 msgstr "Krever SDL-versjon:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:86
+#: ../plugins/project-wizard/templates/translatable-strings.h:91
 msgid "Require SDL_gfx library"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:87
+#: ../plugins/project-wizard/templates/translatable-strings.h:92
 msgid "Require SDL_gfx:"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:88
+#: ../plugins/project-wizard/templates/translatable-strings.h:93
 msgid "Require SDL_image library"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:89
+#: ../plugins/project-wizard/templates/translatable-strings.h:94
 msgid "Require SDL_image:"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:90
+#: ../plugins/project-wizard/templates/translatable-strings.h:95
 msgid "Require SDL_mixer library"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:91
+#: ../plugins/project-wizard/templates/translatable-strings.h:96
 msgid "Require SDL_mixer:"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:92
+#: ../plugins/project-wizard/templates/translatable-strings.h:97
 msgid "Require SDL_net library"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:93
+#: ../plugins/project-wizard/templates/translatable-strings.h:98
 msgid "Require SDL_net:"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:94
+#: ../plugins/project-wizard/templates/translatable-strings.h:99
 msgid "Require SDL_ttf library"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:95
+#: ../plugins/project-wizard/templates/translatable-strings.h:100
 msgid "Require SDL_ttf:"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:96
+#: ../plugins/project-wizard/templates/translatable-strings.h:101
 msgid "SDL"
-msgstr ""
+msgstr "SDL"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:97
-#, fuzzy
+#: ../plugins/project-wizard/templates/translatable-strings.h:102
 msgid "Select code license"
-msgstr "Velg header-fil"
+msgstr "Velg lisens for kode"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:98
+#: ../plugins/project-wizard/templates/translatable-strings.h:103
+msgid "Select library type to build"
+msgstr "Velg type bibliotek som skal bygges"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:104
+msgid "Shared and Static library"
+msgstr "Delt og statisk bibliotek"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:105
 msgid "Shell values to watch"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:99
+#: ../plugins/project-wizard/templates/translatable-strings.h:106
 msgid "Use pkg-config to add library support from other packages"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:100
+#: ../plugins/project-wizard/templates/translatable-strings.h:107
 msgid "Value Name:"
 msgstr "Navn på verdi:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:101
+#: ../plugins/project-wizard/templates/translatable-strings.h:108
 msgid "Values to watch"
-msgstr ""
+msgstr "Verdier som skal overvåkes"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:103
+#: ../plugins/project-wizard/templates/translatable-strings.h:110
 msgid "Whether the plugin has menus or toolbars"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:104
+#: ../plugins/project-wizard/templates/translatable-strings.h:111
 msgid "Wx Widgets"
 msgstr "Wx-komponenter"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:105
+#: ../plugins/project-wizard/templates/translatable-strings.h:112
 msgid "Xlib"
 msgstr "Xlib"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:106
+#: ../plugins/project-wizard/templates/translatable-strings.h:113
 msgid "Xlib dock"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:107
+#: ../plugins/project-wizard/templates/translatable-strings.h:114
 msgid "gtk-doc is used to compile API documentations for GObject based classes"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:108
+#: ../plugins/project-wizard/templates/translatable-strings.h:115
 msgid "project name"
 msgstr "Prosjektnavn"
 
 #: ../plugins/run-program/anjuta-run-program.ui.h:2
-#, fuzzy
 msgid "Choose a working directory"
-msgstr "Velg katalog"
+msgstr "Velg arbeidskatalog"
 
 #: ../plugins/run-program/anjuta-run-program.ui.h:3
 msgid "Environment Variables:"
-msgstr ""
+msgstr "Miljøvariabler:"
 
 #: ../plugins/run-program/anjuta-run-program.ui.h:4
 msgid "Program Parameters"
@@ -7800,9 +7850,9 @@ msgstr "Program «%s» eksisterer ikke"
 
 #. Only local directory are supported
 #: ../plugins/run-program/execute.c:107
-#, fuzzy, c-format
+#, c-format
 msgid "Program directory '%s' is not local"
-msgstr "Program «%s» er ikke en lokal fil"
+msgstr "Programkatalog «%s» er ikke lokal"
 
 #: ../plugins/run-program/parameters.c:300
 msgid "Load Target to run"
@@ -7812,11 +7862,6 @@ msgstr ""
 #, c-format
 msgid "Missing file %s"
 msgstr "Mangler filen %s"
-
-#: ../plugins/run-program/parameters.c:749
-#: ../plugins/search/search_preferences.c:534
-msgid "Name"
-msgstr "Navn"
 
 #: ../plugins/run-program/plugin.c:191
 msgid ""
@@ -7858,9 +7903,8 @@ msgid "Set current program, arguments and so on"
 msgstr ""
 
 #: ../plugins/run-program/plugin.c:280
-#, fuzzy
 msgid "Run operations"
-msgstr "CVS-operasjoner"
+msgstr "Kjør operasjoner"
 
 #: ../plugins/search/anjuta-search.ui.h:1
 msgid "<b>Actions</b>"
@@ -8045,9 +8089,8 @@ msgid "Search and Replace"
 msgstr "Søk og erstatt"
 
 #: ../plugins/search/plugin.c:85
-#, fuzzy
 msgid "Fin_d in Files..."
-msgstr "Bygger fil: %s ...\n"
+msgstr "_Finn i filer ..."
 
 #: ../plugins/search/plugin.c:86
 msgid "Search for a string in multiple files or directories"
@@ -8165,14 +8208,13 @@ msgid ""
 msgstr ""
 
 #: ../plugins/sourceview/sourceview.c:401
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The file '%s' has been deleted on the disk.\n"
 "Do you want to close it?"
 msgstr ""
-"«%s»\n"
-"eksisterer ikke.\n"
-"Vil du opprette den nå?"
+"«Filen «%s» er slettet på disk.\n"
+"Vil du lukke den?"
 
 #. Could not open <filename>: <error message>
 #: ../plugins/sourceview/sourceview.c:438
@@ -8183,7 +8225,7 @@ msgstr "Kunne ikke åpne %s: %s"
 #: ../plugins/sourceview/sourceview.c:492
 #, c-format
 msgid "The file '%s' is read-only! Edit anyway?"
-msgstr ""
+msgstr "Filen «%s» er skrivebeskyttet! Rediger likevel?"
 
 #. Could not open <filename>: <error message>
 #: ../plugins/sourceview/sourceview.c:551
@@ -8192,9 +8234,9 @@ msgid "Could not save %s: %s"
 msgstr "Kunne ikke lagre %s: %s"
 
 #: ../plugins/sourceview/sourceview-io.c:274
-#, fuzzy, c-format
+#, c-format
 msgid "Could not save file because filename not yet specified"
-msgstr "Kunne ikke lagre midlertidig fil %s: %s."
+msgstr "Kunne ikke lagre filen fordi filnavnet ikke er oppgitt ennå"
 
 #: ../plugins/sourceview/sourceview-io.c:504
 #, c-format
@@ -8203,17 +8245,15 @@ msgstr "Ny fil %d"
 
 #: ../plugins/sourceview/sourceview-print.c:47
 msgid "Preparing pages for printing"
-msgstr ""
+msgstr "Forbereder sider for utskrift"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:1
-#, fuzzy
 msgid "Color scheme:"
-msgstr "<b>Fargeskjema:</b>"
+msgstr "Fargeskjema"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:2
-#, fuzzy
 msgid "Create backup files"
-msgstr "Opprett nye kataloger"
+msgstr "Lag sikkerhetskopier"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:4
 msgid "Font"
@@ -8224,18 +8264,17 @@ msgid "Font:"
 msgstr "Skrifttype:"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:6
-#, fuzzy
 msgid "Highlight current line"
-msgstr "Lukk denne filen"
+msgstr "Merk denne filen"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:7
+#, fuzzy
 msgid "Highlight matching brackets"
-msgstr ""
+msgstr "Merk "
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:8
-#, fuzzy
 msgid "Highlight syntax"
-msgstr "Lukk denne filen"
+msgstr "Uthev syntaks"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:9
 msgid "Indentation and auto-format options"
@@ -8246,19 +8285,16 @@ msgid "Print Linenumbers"
 msgstr "Skriv ut linjenummer"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:12
-#, fuzzy
 msgid "Print options"
-msgstr "<b>Alternativer for utskrift</b>"
+msgstr "Alternativer for utskrift"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:13
-#, fuzzy
 msgid "Print page footer"
-msgstr "Forhåndsvisning av utskrift"
+msgstr "Skriv ut bunntekst for siden"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:14
-#, fuzzy
 msgid "Print page header"
-msgstr "Forhåndsvisning av utskrift"
+msgstr "Skriv ut topptekst for siden"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:15
 msgid "Printing"
@@ -8266,7 +8302,7 @@ msgstr "Skriver ut"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:16
 msgid "Right margin position in characters"
-msgstr ""
+msgstr "Plassering av høyre marg oppgitt i tegn"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:17
 msgid "Show line numbers"
@@ -8282,11 +8318,11 @@ msgstr "Vis høyre marg"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:20
 msgid "Tab size in spaces:"
-msgstr ""
+msgstr "Tabulatorstørrelse i antall mellomrom:"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:21
 msgid "Use tabs for indentation"
-msgstr ""
+msgstr "Bruk tabulator for innrykk"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:22
 msgid "Use theme font"
@@ -8299,23 +8335,20 @@ msgstr "Visning"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:24
 msgid "Wrap long lines to fit on paper"
-msgstr ""
+msgstr "Bryt lange linjer slik at de passer på papiret"
 
 #: ../plugins/starter/plugin.c:50 ../plugins/starter/starter.c:344
 #: ../plugins/starter/anjuta-starter.plugin.in.h:1
-#, fuzzy
 msgid "Starter"
-msgstr "Start"
+msgstr "Starter"
 
 #: ../plugins/starter/starter.c:385
-#, fuzzy
 msgid "Create File/Project"
-msgstr "R_ydd opp i prosjekt"
+msgstr "Lag fil/prosjekt"
 
 #: ../plugins/starter/starter.c:419
-#, fuzzy
 msgid "Recent Projects"
-msgstr "Anjuta prosjekter"
+msgstr "Siste prosjekter"
 
 #: ../plugins/starter/starter.c:450
 msgid "Links"
@@ -8370,28 +8403,24 @@ msgid "File or directory to diff:"
 msgstr "Velg kataloger"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:17
-#, fuzzy
 msgid "File/URL to Remove:"
-msgstr "<b>Fil/URL som skal fjernes:</b>"
+msgstr "Fil/URL som skal fjernes:"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:18
-#, fuzzy
 msgid "First Path:"
-msgstr "<b>Første sti:</b>"
+msgstr "Første sti:"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:20
-#, fuzzy
 msgid "Ignore ancestry"
-msgstr "Ignorer filer"
+msgstr "Ignorer opphav"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:22
 msgid "Merge changes into working copy"
 msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:25
-#, fuzzy
 msgid "Other Revision:"
-msgstr "Revisjon: "
+msgstr "Annen revisjon: "
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:27
 #, fuzzy
@@ -8444,9 +8473,8 @@ msgid "Second Path:"
 msgstr "<b>Andre sti:</b>"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:40
-#, fuzzy
 msgid "Select Changes to Revert:"
-msgstr "Søkevariabel"
+msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:44
 #, fuzzy
@@ -8975,9 +9003,8 @@ msgstr ""
 
 #: ../plugins/symbol-db/symbol-db-view-locals.c:326
 #: ../plugins/symbol-db/symbol-db-view.c:1413
-#, fuzzy
 msgid "Symbol"
-msgstr "Symboler lest"
+msgstr "Symbol"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:1
 #, fuzzy
@@ -9034,20 +9061,19 @@ msgstr ""
 msgid "Use currently selected profile in GNOME terminal"
 msgstr ""
 
-#: ../plugins/terminal/terminal.c:701
-#, fuzzy
+#: ../plugins/terminal/terminal.c:739
 msgid "terminal operations"
-msgstr "Operasjoner for hjelp"
+msgstr "terminaloperasjoner"
 
-#: ../plugins/terminal/terminal.c:719 ../plugins/terminal/terminal.c:886
-#: ../plugins/terminal/terminal.c:939
+#: ../plugins/terminal/terminal.c:757 ../plugins/terminal/terminal.c:926
+#: ../plugins/terminal/terminal.c:979
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
 msgid "Terminal"
 msgstr "Terminal"
 
 #: ../plugins/tools/anjuta-tools.ui.h:1
 msgid "<b>Tools</b>"
-msgstr "<b>Verktøy</b>"
+msgstr "<b>Verktøy</b>"
 
 #: ../plugins/tools/anjuta-tools.ui.h:3
 msgid "Command:"
@@ -9090,7 +9116,7 @@ msgstr ""
 
 #: ../plugins/tools/anjuta-tools.ui.h:18
 msgid "Tool Editor"
-msgstr "Redigering av verktøy"
+msgstr "Redigering av verktøy"
 
 #: ../plugins/tools/anjuta-tools.ui.h:19
 msgid "Variable list"
@@ -9396,7 +9422,7 @@ msgstr "Streng"
 msgid "Copyright (c) Naba Kumar"
 msgstr "Opphavsrett © Naba Kumar"
 
-#: ../src/anjuta.c:428
+#: ../src/anjuta.c:424
 msgid "Loaded Session..."
 msgstr "Lastet sesjon ..."
 
@@ -9580,14 +9606,13 @@ msgstr ""
 msgid "- Integrated Development Environment"
 msgstr "- Integrert utviklingsmiljø"
 
-#: ../src/main.c:216
+#: ../src/main.c:232
 msgid "Anjuta"
 msgstr "Anjuta"
 
 #: ../src/preferences.ui.h:1
-#, fuzzy
 msgid "Appearance"
-msgstr "<b>Utseende</b>"
+msgstr "Utseende"
 
 #: ../src/preferences.ui.h:3
 #, fuzzy
@@ -9620,14 +9645,12 @@ msgid "Gnome toolbar setting"
 msgstr ""
 
 #: ../src/preferences.ui.h:12
-#, fuzzy
 msgid "Icons"
-msgstr "Ikon"
+msgstr "Ikoner"
 
 #: ../src/preferences.ui.h:13
-#, fuzzy
 msgid "Icons only"
-msgstr "Ikonfil:"
+msgstr "Kun ikoner"
 
 #: ../src/preferences.ui.h:14
 #, fuzzy
@@ -9639,31 +9662,28 @@ msgid "Select projects directory"
 msgstr "Velg prosjektkatalog"
 
 #: ../src/preferences.ui.h:16
-#, fuzzy
 msgid "Session"
-msgstr "Versjon"
+msgstr "Sesjon"
 
 #: ../src/preferences.ui.h:17
-#, fuzzy
 msgid "Tabs"
-msgstr "Oppgaver"
+msgstr "Faner"
 
 #: ../src/preferences.ui.h:19
 msgid "Text + Icons"
-msgstr ""
+msgstr "Tekst + ikoner"
 
 #: ../src/preferences.ui.h:20
 msgid "Text below icons"
-msgstr ""
+msgstr "Tekst under ikoner"
 
 #: ../src/preferences.ui.h:21
 msgid "Text beside icons"
-msgstr ""
+msgstr "Tekst ved siden av ikoner"
 
 #: ../src/preferences.ui.h:22
-#, fuzzy
 msgid "Text only"
-msgstr "Tekst"
+msgstr "Kun tekst"
 
 #. translators: translate the same as in gnome-control-center
 #: ../src/preferences.ui.h:24
@@ -9687,9 +9707,8 @@ msgid "Autocomplete"
 msgstr "Automatisk fullføring"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:4
-#, fuzzy
 msgid "Autocompletion (C/C++/Java only)"
-msgstr "<b>Automatisk fullføring</b>"
+msgstr "Automatisk fullføring (kun C/C++/Java)"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:5
 msgid "Autocompletion pop up choices"
@@ -9720,9 +9739,8 @@ msgid "Enable smart indentation"
 msgstr "Kan ikke fullføre kopiering av fil"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:11
-#, fuzzy
 msgid "Indent:"
-msgstr "Automatisk innrykk"
+msgstr "Innrykk:"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:12
 #, fuzzy
@@ -9945,10 +9963,6 @@ msgstr "Klassegenerator"
 #: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:2
 msgid "C++/GObject Class"
 msgstr "C++/GObject-klasse"
-
-#: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:3
-msgid "Class Generator"
-msgstr "Klassegenerator"
 
 #: ../plugins/project-manager/anjuta-project-manager.plugin.in.h:1
 msgid "Project Manager"
