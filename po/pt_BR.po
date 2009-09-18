@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-03 19:53-0300\n"
-"PO-Revision-Date: 2009-09-03 19:52-0300\n"
-"Last-Translator: Lucas Azevedo <lucasazevedo9@gmail.com>\n"
+"POT-Creation-Date: 2009-09-18 19:27-0300\n"
+"PO-Revision-Date: 2009-09-18 19:23-0300\n"
+"Last-Translator: Rodrigo Flores <mail@rodrigoflores.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1011,18 +1011,18 @@ msgstr "Co_mpilar (%s)"
 msgid "Co_mpile"
 msgstr "Co_mpilar"
 
-#: ../plugins/build-basic-autotools/plugin.c:3122
+#: ../plugins/build-basic-autotools/plugin.c:3121
 msgid "Build commands"
 msgstr "Comandos de compilação"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:3131
+#: ../plugins/build-basic-autotools/plugin.c:3130
 msgid "Build popup commands"
 msgstr "Comandos do menu de contexto de compilação"
 
-#: ../plugins/build-basic-autotools/plugin.c:3513
-#: ../plugins/build-basic-autotools/plugin.c:3521
+#: ../plugins/build-basic-autotools/plugin.c:3512
+#: ../plugins/build-basic-autotools/plugin.c:3520
 msgid "Build Autotools"
 msgstr "Opções de construção"
 
@@ -2045,7 +2045,7 @@ msgstr "Operações com os pontos de interrupção"
 #: ../plugins/debug-manager/data_view.c:390
 #: ../plugins/debug-manager/sparse_view.c:498
 msgid "_Goto address"
-msgstr "Endereço de _goto"
+msgstr "Ir para endereço"
 
 #: ../plugins/debug-manager/debug_tree.c:126
 #: ../plugins/gbf-am/gbf-am-properties.c:971 ../plugins/tools/editor.c:468
@@ -3055,7 +3055,7 @@ msgstr "Corta o texto selecionado do editor para a área de transferência"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/document-manager/plugin.c:291 ../plugins/terminal/terminal.c:554
+#: ../plugins/document-manager/plugin.c:291 ../plugins/terminal/terminal.c:592
 msgid "_Copy"
 msgstr "_Copiar"
 
@@ -3063,7 +3063,7 @@ msgstr "_Copiar"
 msgid "Copy the selected text to the clipboard"
 msgstr "Copia o texto selecionado para a área de transferência"
 
-#: ../plugins/document-manager/plugin.c:294 ../plugins/terminal/terminal.c:562
+#: ../plugins/document-manager/plugin.c:294 ../plugins/terminal/terminal.c:600
 msgid "_Paste"
 msgstr "Col_ar"
 
@@ -7933,7 +7933,7 @@ msgstr "Avançar"
 #: ../plugins/search/anjuta-search.ui.h:14
 #: ../plugins/search/search-replace.c:90
 msgid "Full Buffer"
-msgstr "Buffer cheio"
+msgstr "Todo o buffer"
 
 # "Casar" expressão regular com metacaractere guloso
 #: ../plugins/search/anjuta-search.ui.h:15
@@ -8999,12 +8999,12 @@ msgstr "Usar perfil do Terminal do GNOME:"
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "Utiliza o perfil atualmente selecionado no Terminal do GNOME"
 
-#: ../plugins/terminal/terminal.c:701
+#: ../plugins/terminal/terminal.c:739
 msgid "terminal operations"
 msgstr "operações de terminal"
 
-#: ../plugins/terminal/terminal.c:719 ../plugins/terminal/terminal.c:886
-#: ../plugins/terminal/terminal.c:939
+#: ../plugins/terminal/terminal.c:757 ../plugins/terminal/terminal.c:926
+#: ../plugins/terminal/terminal.c:979
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
 msgid "Terminal"
 msgstr "Terminal"
@@ -9359,7 +9359,7 @@ msgstr "String"
 msgid "Copyright (c) Naba Kumar"
 msgstr "Copyright (c) Naba Kumar"
 
-#: ../src/anjuta.c:428
+#: ../src/anjuta.c:424
 msgid "Loaded Session..."
 msgstr "Sessão carregada..."
 
@@ -9547,7 +9547,7 @@ msgstr ""
 msgid "- Integrated Development Environment"
 msgstr "- Ambiente de desenvolvimento integrado (IDE)"
 
-#: ../src/main.c:216
+#: ../src/main.c:232
 msgid "Anjuta"
 msgstr "Anjuta"
 
