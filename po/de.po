@@ -30,8 +30,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 2.1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-23 00:19+0200\n"
-"PO-Revision-Date: 2009-08-23 01:08+0200\n"
+"POT-Creation-Date: 2009-09-18 21:28+0200\n"
+"PO-Revision-Date: 2009-09-16 12:48+0200\n"
 "Last-Translator: Christian Kirbach <Christian.Kirbach@googlemail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -684,6 +684,7 @@ msgid "Translate messages"
 msgstr "Nachricht übersetzen"
 
 #: ../plugins/build-basic-autotools/configuration-list.c:62
+#: ../plugins/class-gen/window.c:525
 #: ../plugins/search/search_preferences.c:523
 #: ../plugins/terminal/anjuta-terminal-plugin.ui.h:2 ../src/preferences.ui.h:2
 msgid "Default"
@@ -1032,18 +1033,18 @@ msgstr "_Übersetzen (%s)"
 msgid "Co_mpile"
 msgstr "_Übersetzen"
 
-#: ../plugins/build-basic-autotools/plugin.c:3122
+#: ../plugins/build-basic-autotools/plugin.c:3121
 msgid "Build commands"
 msgstr "Übersetzungsbefehle"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:3131
+#: ../plugins/build-basic-autotools/plugin.c:3130
 msgid "Build popup commands"
 msgstr "Kontextmenü der Übersetzungsbefehle"
 
-#: ../plugins/build-basic-autotools/plugin.c:3513
-#: ../plugins/build-basic-autotools/plugin.c:3521
+#: ../plugins/build-basic-autotools/plugin.c:3512
+#: ../plugins/build-basic-autotools/plugin.c:3520
 msgid "Build Autotools"
 msgstr "Autotools-Generierung"
 
@@ -1096,88 +1097,93 @@ msgid "Class Function Prefix:"
 msgstr "Klassen-Funktionspräfix"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:12
+#: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:3
+msgid "Class Generator"
+msgstr "Klassengenerator"
+
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:13
 msgid "Class Name:"
 msgstr "Klassenname:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:13
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:14
 msgid "Class Options:"
 msgstr "Klassenoptionen:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:14
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:15
 msgid "Create"
 msgstr "Erzeugen"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:15
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:16
 msgid "GObject Class\t"
 msgstr "GObject-Klasse\t"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:16
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:17
 msgid "GObject Prefix and Type:"
 msgstr "GObject-Präfix und -Typ:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:17
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:18
 #: ../plugins/file-wizard/file.c:102
 #: ../plugins/project-wizard/templates/translatable-strings.h:47
 msgid "General Public License (GPL)"
 msgstr "General Public License (GPL)"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:18
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:19
 msgid "Generic C++ Class"
 msgstr "Generische C++-Klasse"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:19
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:20
 msgid "Header File:"
 msgstr "Header-Datei:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:20
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:21
 msgid "Inline the declaration and implementation"
 msgstr "Deklaration und Implementation »inline«"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:21
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:22
 #: ../plugins/file-wizard/file.c:103
 #: ../plugins/project-wizard/templates/translatable-strings.h:60
 msgid "Lesser General Public License (LGPL)"
 msgstr "Lesser General Public License (LGPL)"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:22
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:23
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:9
 msgid "License:"
 msgstr "Lizenz:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:23
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:24
 msgid "Member Functions/Variables"
 msgstr "Element-Funktionen/Variablen"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:24
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:25
 msgid "No License"
 msgstr "Keine Lizenz"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:25
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:26
 #: ../plugins/glade/plugin.c:4446
 msgid "Properties"
 msgstr "Eigenschaften"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:26
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:27
 msgid "Signals"
 msgstr "Signale"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:27
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:28
 msgid "Source File:"
 msgstr "Quelldatei:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:28
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:29
 msgid "Source/Header Headings:"
 msgstr "Quelldatei-/Header-Kopfzeilen:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:29
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:30
 msgid "private"
 msgstr "privat"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:30
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:31
 msgid "protected"
 msgstr "geschützt"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:31
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:32
 msgid "public"
 msgstr "öffentlich"
 
@@ -1216,6 +1222,63 @@ msgstr ""
 #, c-format
 msgid "Failed to execute autogen: %s"
 msgstr "autogen konnte nicht ausgeführt werden: %s"
+
+#: ../plugins/class-gen/window.c:94
+msgid "Guess from type"
+msgstr "Vom Typ erraten"
+
+#: ../plugins/class-gen/window.c:499 ../plugins/class-gen/window.c:510
+msgid "Scope"
+msgstr "Geltungsbereich"
+
+#: ../plugins/class-gen/window.c:500
+msgid "Implementation"
+msgstr "Implementierung"
+
+#: ../plugins/class-gen/window.c:501 ../plugins/class-gen/window.c:511
+#: ../plugins/class-gen/window.c:533
+#: ../plugins/debug-manager/breakpoints.c:1907
+#: ../plugins/debug-manager/debug_tree.c:126
+msgid "Type"
+msgstr "Typ"
+
+#: ../plugins/class-gen/window.c:502 ../plugins/class-gen/window.c:512
+#: ../plugins/class-gen/window.c:520 ../plugins/class-gen/window.c:534
+#: ../plugins/run-program/parameters.c:749
+#: ../plugins/search/search_preferences.c:534
+msgid "Name"
+msgstr "Name"
+
+#: ../plugins/class-gen/window.c:503 ../plugins/class-gen/window.c:513
+#: ../plugins/class-gen/window.c:535
+#: ../plugins/debug-manager/stack_trace.c:679
+msgid "Arguments"
+msgstr "Argumente"
+
+#: ../plugins/class-gen/window.c:521
+msgid "Nick"
+msgstr "Spitzname"
+
+#: ../plugins/class-gen/window.c:522
+msgid "Blurb"
+msgstr "Werbetext"
+
+#: ../plugins/class-gen/window.c:523
+msgid "GType"
+msgstr "GType"
+
+#: ../plugins/class-gen/window.c:524
+msgid "ParamSpec"
+msgstr "Parameterspezifikation"
+
+#. Somehow redundant with marshaller, but required for default handler
+#: ../plugins/class-gen/window.c:526 ../plugins/class-gen/window.c:536
+msgid "Flags"
+msgstr "Flags"
+
+#: ../plugins/class-gen/window.c:537
+msgid "Marshaller"
+msgstr "Marshaller"
 
 #: ../plugins/class-gen/window.c:818
 msgid "XML description of the user interface"
@@ -1985,11 +2048,6 @@ msgstr "Aktiv"
 msgid "Address"
 msgstr "Adresse"
 
-#: ../plugins/debug-manager/breakpoints.c:1907
-#: ../plugins/debug-manager/debug_tree.c:126
-msgid "Type"
-msgstr "Typ"
-
 #: ../plugins/debug-manager/breakpoints.c:1908
 msgid "Condition"
 msgstr "Bedingung"
@@ -2411,10 +2469,6 @@ msgstr "Zeile"
 #: ../plugins/debug-manager/threads.c:469
 msgid "Function"
 msgstr "Funktion"
-
-#: ../plugins/debug-manager/stack_trace.c:679
-msgid "Arguments"
-msgstr "Argumente"
 
 #: ../plugins/debug-manager/stack_trace.c:703
 msgid "Stack"
@@ -3034,7 +3088,7 @@ msgstr "Den markierten Text aus dem Editor in die Zwischenablage ausschneiden"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/document-manager/plugin.c:291 ../plugins/terminal/terminal.c:554
+#: ../plugins/document-manager/plugin.c:291 ../plugins/terminal/terminal.c:592
 msgid "_Copy"
 msgstr "_Kopieren"
 
@@ -3042,7 +3096,7 @@ msgstr "_Kopieren"
 msgid "Copy the selected text to the clipboard"
 msgstr "Den markierten Text in die Zwischenablage kopieren"
 
-#: ../plugins/document-manager/plugin.c:294 ../plugins/terminal/terminal.c:562
+#: ../plugins/document-manager/plugin.c:294 ../plugins/terminal/terminal.c:600
 msgid "_Paste"
 msgstr "E_infügen"
 
@@ -4382,9 +4436,8 @@ msgstr "Sicherung wiederherstellen"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/anjuta-git.ui.h:15 ../plugins/git/plugin.c:239
-#, fuzzy
 msgid "Apply mailbox files"
-msgstr "Alle Dateien"
+msgstr "Mailbox-Dateien anwenden"
 
 #: ../plugins/git/anjuta-git.ui.h:16
 msgid "Apply the selected stash"
@@ -4468,7 +4521,6 @@ msgid "Commit on fast-forward merges"
 msgstr "Änderungen bei »fast-forward« einspielen"
 
 #: ../plugins/git/anjuta-git.ui.h:37
-#, fuzzy
 msgid "Commit to Cherry Pick:"
 msgstr "Handlese zum Einspielen:"
 
@@ -4628,7 +4680,6 @@ msgid "Remote"
 msgstr "Entfernt"
 
 #: ../plugins/git/anjuta-git.ui.h:79
-#, fuzzy
 msgid "Remote branch to rebase from:"
 msgstr "Entfernter Zweig, auf den umgestellt wird:"
 
@@ -4749,9 +4800,8 @@ msgid "Stash Uncommitted Changes"
 msgstr "Nicht eingespielte Änderungen sichern"
 
 #: ../plugins/git/anjuta-git.ui.h:109
-#, fuzzy
 msgid "Stash indexed changes"
-msgstr "Indizierte Änderungen sichern"
+msgstr "Indexierte Änderungen sichern"
 
 #: ../plugins/git/anjuta-git.ui.h:110
 msgid "Stash the working tree's uncommitted changes"
@@ -4853,9 +4903,8 @@ msgid "Git: Fetching..."
 msgstr "Git: Holen …"
 
 #: ../plugins/git/git-apply-mailbox-dialog.c:45
-#, fuzzy
 msgid "Please select a mailbox file."
-msgstr "Bitte wählen Sie eine Datei."
+msgstr "Bitte wählen Sie eine Mailbox-Datei."
 
 #: ../plugins/git/git-bisect-dialog.c:54
 #: ../plugins/git/git-cherry-pick-dialog.c:52
@@ -5250,7 +5299,6 @@ msgstr "Dateien _zurücknehmen …"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:209
-#, fuzzy
 msgid "Remove files from the commit index"
 msgstr "Dateien aus der Einspielliste entfernen"
 
@@ -5457,8 +5505,7 @@ msgstr "_Handverlesen …"
 #. short-cut
 #: ../plugins/git/plugin.c:361
 msgid ""
-"Selectively merge individual changes from other branches into the current "
-"one"
+"Selectively merge individual changes from other branches into the current one"
 msgstr ""
 "Handverlesene Änderungen aus anderen Zweigen mit dem aktuellen Zweig "
 "zusammenführen"
@@ -5550,7 +5597,6 @@ msgstr "Eine Einspielung zurücknehmen"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:439
-#, fuzzy
 msgid "Bisect"
 msgstr "Bisect"
 
@@ -5558,13 +5604,13 @@ msgstr "Bisect"
 #. short-cut
 #: ../plugins/git/plugin.c:449
 msgid "Start a bisect operation"
-msgstr ""
+msgstr "Einen Bisect-Vorgang beginnen"
 
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:457
 msgid "Stop the bisect and bring the tree back to normal"
-msgstr ""
+msgstr "Bisect abbrechen und den Baum wiederherstellen"
 
 #. Action name
 #. Stock icon, if any
@@ -5660,7 +5706,6 @@ msgstr "Diese Einspielung in den aktuellen Zweig einbringen"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:547
-#, fuzzy
 msgid "_Bisect"
 msgstr "_Bisect"
 
@@ -5708,7 +5753,7 @@ msgstr "Diese Datei oder diesen Ordner aus dem Bestand entfernen"
 
 #: ../plugins/git/plugin.c:766
 msgid "Top level git menu item"
-msgstr ""
+msgstr "Git-Menüeintrag in oberster Ebene"
 
 #: ../plugins/git/plugin.c:774
 msgid "Git operations"
@@ -7854,11 +7899,6 @@ msgstr "Ziel zur Ausführung laden"
 msgid "Missing file %s"
 msgstr "Datei %s fehlt"
 
-#: ../plugins/run-program/parameters.c:749
-#: ../plugins/search/search_preferences.c:534
-msgid "Name"
-msgstr "Name"
-
 #: ../plugins/run-program/plugin.c:191
 msgid ""
 "The program is running.\n"
@@ -8396,9 +8436,8 @@ msgid "Diff to Previous"
 msgstr "Vergleich zum Vorherigen"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:15
-#, fuzzy
 msgid "End Revision:"
-msgstr "Letzte Revision:"
+msgstr "Endrevision:"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:16
 msgid "File or directory to diff:"
@@ -9023,12 +9062,12 @@ msgstr "GNOME-Terminalprofil verwenden:"
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "Das momentan verwendete GNOME-Terminalprofil verwenden"
 
-#: ../plugins/terminal/terminal.c:701
+#: ../plugins/terminal/terminal.c:739
 msgid "terminal operations"
 msgstr "Terminal-Operationen"
 
-#: ../plugins/terminal/terminal.c:719 ../plugins/terminal/terminal.c:886
-#: ../plugins/terminal/terminal.c:939
+#: ../plugins/terminal/terminal.c:757 ../plugins/terminal/terminal.c:926
+#: ../plugins/terminal/terminal.c:979
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
 msgid "Terminal"
 msgstr "Terminal"
@@ -9218,12 +9257,10 @@ msgid "Tools"
 msgstr "Werkzeuge"
 
 #: ../plugins/tools/variable.c:84
-#, fuzzy
 msgid "Project root URI"
 msgstr "Adresse der Projektquelle"
 
 #: ../plugins/tools/variable.c:85
-#, fuzzy
 msgid "Project root path"
 msgstr "Pfad zur Projektquelle"
 
@@ -9383,7 +9420,7 @@ msgstr "Zeichenkette"
 msgid "Copyright (c) Naba Kumar"
 msgstr "Copyright (c) Naba Kumar"
 
-#: ../src/anjuta.c:428
+#: ../src/anjuta.c:424
 msgid "Loaded Session..."
 msgstr "Sitzung geladen …"
 
@@ -9571,7 +9608,7 @@ msgstr ""
 msgid "- Integrated Development Environment"
 msgstr "- Integrierte Entwicklungsumgebung"
 
-#: ../src/main.c:216
+#: ../src/main.c:232
 msgid "Anjuta"
 msgstr "Anjuta"
 
@@ -9920,10 +9957,6 @@ msgstr "Anjuta Klassengenerator-Komponente"
 #: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:2
 msgid "C++/GObject Class"
 msgstr "C++-/GObject-Klasse"
-
-#: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:3
-msgid "Class Generator"
-msgstr "Klassengenerator"
 
 #: ../plugins/project-manager/anjuta-project-manager.plugin.in.h:1
 msgid "Project Manager"
