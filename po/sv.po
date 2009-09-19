@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-07 17:18+0200\n"
-"PO-Revision-Date: 2009-09-07 17:52+0100\n"
+"POT-Creation-Date: 2009-09-19 10:52+0200\n"
+"PO-Revision-Date: 2009-09-19 11:22+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -819,7 +819,7 @@ msgstr "Bygg %d: %s"
 #. Need to run make clean before
 #: ../plugins/build-basic-autotools/plugin.c:1499
 msgid "Before using this new configuration, the default one needs to be removed. Do you want to do that ?"
-msgstr ""
+msgstr "Innan den nya konfigurationen kan användas så måste standardkonfigurationen tas bort. Vill du göra det?"
 
 #: ../plugins/build-basic-autotools/plugin.c:1802
 #, c-format
@@ -1001,18 +1001,18 @@ msgstr "Ko_mpilera (%s)"
 msgid "Co_mpile"
 msgstr "Ko_mpilera"
 
-#: ../plugins/build-basic-autotools/plugin.c:3122
+#: ../plugins/build-basic-autotools/plugin.c:3121
 msgid "Build commands"
 msgstr "Byggkommandon"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:3131
+#: ../plugins/build-basic-autotools/plugin.c:3130
 msgid "Build popup commands"
 msgstr "Bygg popup-kommandon"
 
-#: ../plugins/build-basic-autotools/plugin.c:3513
-#: ../plugins/build-basic-autotools/plugin.c:3521
+#: ../plugins/build-basic-autotools/plugin.c:3512
+#: ../plugins/build-basic-autotools/plugin.c:3520
 msgid "Build Autotools"
 msgstr "Bygg Autotools"
 
@@ -1283,7 +1283,7 @@ msgid ""
 msgstr ""
 "<b>Observera: </b>\n"
 "\n"
-"Tryck OK innebär att filen tas bort från disken och från CVS. Så klart kommer filen inte att tas bort från CVS innan du använder CVS Commit. <b>Du har blivit varnad!</b>"
+"Tryck OK innebär att filen tas bort från disken och från CVS. Så klart kommer filen inte att tas bort från CVS innan du använder CVS-incheckning. <b>Du har blivit varnad!</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:8
 msgid "<b>Repository: </b>"
@@ -1310,7 +1310,7 @@ msgstr "CVS: Lägg till fil/katalog"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:13
 msgid "CVS: Commit file/directory"
-msgstr "CVS: Verkställ fil/katalog"
+msgstr "CVS: Checka in fil/katalog"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:14
 msgid "CVS: Diff file/directory"
@@ -1351,7 +1351,7 @@ msgstr "Välj fil eller katalog att lägga till:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:23
 msgid "Choose file or directory to commit:"
-msgstr "Välj fil eller katalog att verkställa:"
+msgstr "Välj fil eller katalog att checka in:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:24
 msgid "Choose file or directory to diff:"
@@ -1590,14 +1590,14 @@ msgstr "Ta bort en fil/katalog från CVS-trädet"
 #: ../plugins/cvs-plugin/plugin.c:68
 #: ../plugins/cvs-plugin/plugin.c:127
 msgid "_Commit"
-msgstr "_Verkställ"
+msgstr "_Checka in"
 
 #. Display label
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:70
 #: ../plugins/cvs-plugin/plugin.c:129
 msgid "Commit your changes to the CVS tree"
-msgstr "Verkställ dina ändringar till CVS-trädet"
+msgstr "Checka in dina ändringar till CVS-trädet"
 
 #. Action name
 #. Stock icon, if any
@@ -1670,11 +1670,11 @@ msgstr "Importera ett nytt källkodsträd till CVS"
 
 #: ../plugins/cvs-plugin/plugin.c:360
 msgid "CVS operations"
-msgstr "CVS-operationer"
+msgstr "CVS-åtgärder"
 
 #: ../plugins/cvs-plugin/plugin.c:366
 msgid "CVS popup operations"
-msgstr "Popup för CVS-operationer"
+msgstr "Popup för CVS-åtgärder"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:1
 msgid "<b>Debugger:</b>"
@@ -1690,6 +1690,9 @@ msgid ""
 "\n"
 "When optimizations are enabled, the debugger cannot always identify the source code corresponding to the instructions, some commands can perform in a strange way, especially steps."
 msgstr ""
+"<span weight=\"bold\" size=\"larger\">Är du säker på att du vill felsöka ett program som inte använder felsökningskonfigurationen?</span>\n"
+"\n"
+"När optimeringar är aktiverade så kan inte felsökaren alltid identifiera källkoden som motsvarar instruktionerna och vissa kommandon kan genomföras på ett underligt sätt, speciellt stegningar."
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:6
 msgid "Add Watch"
@@ -2034,7 +2037,7 @@ msgstr "Tillstånd"
 #: ../plugins/debug-manager/breakpoints.c:1957
 #: ../plugins/debug-manager/breakpoints.c:1963
 msgid "Breakpoint operations"
-msgstr "Brytpunktsoperationer"
+msgstr "Brytpunktsåtgärder"
 
 #. create goto menu_item.
 #: ../plugins/debug-manager/data_view.c:390
@@ -2312,7 +2315,7 @@ msgstr "Gör paus i körningen av programmet"
 #: ../plugins/debug-manager/plugin.c:1111
 #: ../plugins/debug-manager/plugin.c:1117
 msgid "Debugger operations"
-msgstr "Felsökaroperationer"
+msgstr "Felsökaråtgärder"
 
 #: ../plugins/debug-manager/queue.c:543
 #, c-format
@@ -2352,7 +2355,7 @@ msgstr "Symboler inlästa"
 
 #: ../plugins/debug-manager/sharedlib.c:338
 msgid "Shared library operations"
-msgstr "Operationer för delade bibliotek"
+msgstr "Åtgärder för delade bibliotek"
 
 #: ../plugins/debug-manager/signals.c:291
 msgid "Signal"
@@ -2387,7 +2390,7 @@ msgstr "Kärnsignaler"
 #: ../plugins/debug-manager/signals.c:474
 #: ../plugins/debug-manager/signals.c:480
 msgid "Signal operations"
-msgstr "Signaloperationer"
+msgstr "Signalåtgärder"
 
 #: ../plugins/debug-manager/sparse_view.c:1202
 msgid "Show Line Numbers"
@@ -2451,7 +2454,7 @@ msgstr "Stack"
 
 #: ../plugins/debug-manager/stack_trace.c:770
 msgid "Stack frame operations"
-msgstr "Stackramsoperationer"
+msgstr "Stackramsåtgärder"
 
 #: ../plugins/debug-manager/start.c:98
 msgid "Pid"
@@ -2518,7 +2521,7 @@ msgstr "Tråd"
 
 #: ../plugins/debug-manager/threads.c:616
 msgid "Thread operations"
-msgstr "Trådoperationer"
+msgstr "Trådåtgärder"
 
 #. Action name
 #. Stock icon, if any
@@ -2565,11 +2568,11 @@ msgstr "Automatisk uppdatering"
 #: ../plugins/debug-manager/watch.c:457
 #: ../plugins/debug-manager/watch.c:463
 msgid "Watch operations"
-msgstr "Bevaka operationer"
+msgstr "Bevakningsåtgärder"
 
 #: ../plugins/debug-manager/watch.c:535
 msgid "Watches"
-msgstr "Bevakare"
+msgstr "Bevakningar"
 
 #: ../plugins/devhelp/plugin.c:201
 msgid "Search Help:"
@@ -2608,7 +2611,7 @@ msgstr "Sök efter en term i hjälpen"
 
 #: ../plugins/devhelp/plugin.c:358
 msgid "Help operations"
-msgstr "Hjälpoperationer"
+msgstr "Hjälpåtgärder"
 
 #: ../plugins/devhelp/plugin.c:368
 msgid "Contents"
@@ -3068,7 +3071,7 @@ msgstr "Klipp ut den markerade texten från redigeraren till urklipp"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/document-manager/plugin.c:291
-#: ../plugins/terminal/terminal.c:554
+#: ../plugins/terminal/terminal.c:592
 msgid "_Copy"
 msgstr "_Kopiera"
 
@@ -3077,7 +3080,7 @@ msgid "Copy the selected text to the clipboard"
 msgstr "Kopiera den markerade texten till urklipp"
 
 #: ../plugins/document-manager/plugin.c:294
-#: ../plugins/terminal/terminal.c:562
+#: ../plugins/terminal/terminal.c:600
 msgid "_Paste"
 msgstr "Klistra _in"
 
@@ -3251,11 +3254,11 @@ msgstr "Töm bokmärken"
 
 #: ../plugins/document-manager/plugin.c:398
 msgid "Editor file operations"
-msgstr "Filoperander för redigerare"
+msgstr "Filåtgärder för redigerare"
 
 #: ../plugins/document-manager/plugin.c:399
 msgid "Editor print operations"
-msgstr "Utskriftsoperationer för redigerare"
+msgstr "Utskriftsåtgärder för redigerare"
 
 #: ../plugins/document-manager/plugin.c:400
 msgid "Editor text transformation"
@@ -3276,11 +3279,11 @@ msgstr "Navigeringar för redigerare"
 
 #: ../plugins/document-manager/plugin.c:405
 msgid "Editor edit operations"
-msgstr "Redigeraroperationer för redigerare"
+msgstr "Redigeraråtgärder för redigerare"
 
 #: ../plugins/document-manager/plugin.c:406
 msgid "Editor zoom operations"
-msgstr "Zoomoperationer för redigerare"
+msgstr "Zoomåtgärder för redigerare"
 
 #: ../plugins/document-manager/plugin.c:407
 msgid "Editor syntax highlighting styles"
@@ -4358,14 +4361,12 @@ msgid "Cannot start terminal for debugging."
 msgstr "Kan inte starta terminal för felsökning."
 
 #: ../plugins/git/anjuta-git.ui.h:2
-#, fuzzy
 msgid "<b>Stash Message (Optional)</b>"
-msgstr "<b>Meddelandealternativ</b>"
+msgstr "<b>Lagringsmeddelande (valfritt)</b>"
 
 #: ../plugins/git/anjuta-git.ui.h:3
-#, fuzzy
 msgid "<b>Stash to Apply</b>"
-msgstr "<b>Omfång</b>"
+msgstr "<b>Lagring att tillämpa</b>"
 
 #: ../plugins/git/anjuta-git.ui.h:4
 msgid "<b>Tags</b>"
@@ -4389,9 +4390,8 @@ msgid "Add signed-off by line"
 msgstr "Lägg till signed-off vid rad"
 
 #: ../plugins/git/anjuta-git.ui.h:10
-#, fuzzy
 msgid "Amend the previous commit"
-msgstr "Föregående incheckning"
+msgstr "Ändra tidigare incheckning"
 
 #: ../plugins/git/anjuta-git.ui.h:11
 msgid "Annotate this tag"
@@ -4404,20 +4404,18 @@ msgstr "Lägg till hämtat data"
 
 #: ../plugins/git/anjuta-git.ui.h:14
 msgid "Apply Stash"
-msgstr ""
+msgstr "Tillämpa stash"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/anjuta-git.ui.h:15
 #: ../plugins/git/plugin.c:239
-#, fuzzy
 msgid "Apply mailbox files"
-msgstr "Alla filer"
+msgstr "Tillämpa brevlådefiler"
 
 #: ../plugins/git/anjuta-git.ui.h:16
-#, fuzzy
 msgid "Apply the selected stash"
-msgstr "Kopiera markeringen"
+msgstr "Tillämpa markerad stash"
 
 #. "Author" means search for commits whose author matches the given grep expression. "Grep" searches through commit logs and patches.
 #: ../plugins/git/anjuta-git.ui.h:18
@@ -4479,9 +4477,8 @@ msgid "Cherry Pick"
 msgstr "Cherry Pick"
 
 #: ../plugins/git/anjuta-git.ui.h:33
-#, fuzzy
 msgid "Clear all stashes"
-msgstr "Markera alla sökträffar"
+msgstr "Töm alla stashar"
 
 #: ../plugins/git/anjuta-git.ui.h:34
 msgid "Column 1"
@@ -4490,16 +4487,16 @@ msgstr "Kolumn 1"
 #: ../plugins/git/anjuta-git.ui.h:35
 #: ../plugins/subversion/anjuta-subversion.ui.h:7
 msgid "Commit Changes"
-msgstr "Verkställ ändringar"
+msgstr "Checka in ändringar"
 
 # fast-forward merge är en underlig term i git
 #: ../plugins/git/anjuta-git.ui.h:36
 msgid "Commit on fast-forward merges"
-msgstr "Verkställ på snabbspolade sammanfogningar"
+msgstr "Checka in på snabbspolade sammanfogningar"
 
 #: ../plugins/git/anjuta-git.ui.h:37
 msgid "Commit to Cherry Pick:"
-msgstr "Verkställ till Cherry Pick:"
+msgstr "Checka in till Cherry Pick:"
 
 #: ../plugins/git/anjuta-git.ui.h:38
 msgid "Commit to revert:"
@@ -4537,16 +4534,15 @@ msgstr "Ta bort taggar"
 
 #: ../plugins/git/anjuta-git.ui.h:46
 msgid "Do not commit"
-msgstr "Verkställ inte"
+msgstr "Checka inte in"
 
 #: ../plugins/git/anjuta-git.ui.h:47
 msgid "Do not follow tags"
 msgstr "Följ inte taggar"
 
 #: ../plugins/git/anjuta-git.ui.h:48
-#, fuzzy
 msgid "Drop the selected stash"
-msgstr "Kopiera markeringen"
+msgstr "Förkasta markerad stash"
 
 #: ../plugins/git/anjuta-git.ui.h:49
 msgid "E-mail:"
@@ -4604,7 +4600,7 @@ msgstr "Loggmeddelande:"
 
 #: ../plugins/git/anjuta-git.ui.h:65
 msgid "Mailbox file containing patches:"
-msgstr ""
+msgstr "Brevlådefil som innehåller patchar:"
 
 #: ../plugins/git/anjuta-git.ui.h:66
 msgid "Merge"
@@ -4671,9 +4667,8 @@ msgid "Remove File"
 msgstr "Ta bort fil"
 
 #: ../plugins/git/anjuta-git.ui.h:82
-#, fuzzy
 msgid "Repository origin"
-msgstr "Förrådsbehörighet"
+msgstr "Förrådsursprung"
 
 #: ../plugins/git/anjuta-git.ui.h:83
 msgid "Repository to pull from:"
@@ -4756,9 +4751,8 @@ msgid "Show source revision in log message"
 msgstr "Visa källrevision i loggmeddelande"
 
 #: ../plugins/git/anjuta-git.ui.h:103
-#, fuzzy
 msgid "Show the contents of the selected stash in an editor"
-msgstr "Flödeskommentera den markerade texten"
+msgstr "Visa innehållet i markerad stash i en redigerare"
 
 #: ../plugins/git/anjuta-git.ui.h:104
 msgid "Sign this tag"
@@ -4774,24 +4768,20 @@ msgstr "Squash"
 
 #: ../plugins/git/anjuta-git.ui.h:107
 #: ../plugins/git/plugin.c:811
-#, fuzzy
 msgid "Stash"
-msgstr "Squash"
+msgstr "Stash"
 
 #: ../plugins/git/anjuta-git.ui.h:108
-#, fuzzy
 msgid "Stash Uncommitted Changes"
-msgstr "Visa ej verkställda ändringar"
+msgstr "Lagra ej incheckade ändringar"
 
 #: ../plugins/git/anjuta-git.ui.h:109
-#, fuzzy
 msgid "Stash indexed changes"
-msgstr "Visa ej verkställda ändringar"
+msgstr "Lagra indexerade ändringar"
 
 #: ../plugins/git/anjuta-git.ui.h:110
-#, fuzzy
 msgid "Stash the working tree's uncommitted changes"
-msgstr "Visa ej verkställda ändringar"
+msgstr "Lagra arbetsträdets ej incheckade ändringar"
 
 #: ../plugins/git/anjuta-git.ui.h:111
 msgid "Switch to Another Branch"
@@ -4811,7 +4801,7 @@ msgstr "Taggar att ta bort:"
 
 #: ../plugins/git/anjuta-git.ui.h:115
 msgid "This commit concludes a failed merge (use -i)"
-msgstr "Detta verkställande innehåller en misslyckad sammanfogning (använd -i)"
+msgstr "Denna incheckning innehåller en misslyckad sammanfogning (använd -i)"
 
 #: ../plugins/git/anjuta-git.ui.h:117
 msgid "To:"
@@ -4911,11 +4901,11 @@ msgstr "Git: Filer utcheckade."
 
 #: ../plugins/git/git-commit-dialog.c:36
 msgid "Git: Commit complete."
-msgstr "Git: Verkställning färdig."
+msgstr "Git: Incheckningen är färdig."
 
 #: ../plugins/git/git-commit-dialog.c:105
 msgid "Please enter the commit author's name."
-msgstr "Ange upphovsmannens namn."
+msgstr "Ange upphovsmannens namn för incheckningen."
 
 #: ../plugins/git/git-commit-dialog.c:115
 msgid "Please enter the commit author's e-mail address."
@@ -5050,14 +5040,12 @@ msgid "Git: Resolve complete."
 msgstr "Git: Lösning färdig."
 
 #: ../plugins/git/git-stash-widget.c:219
-#, fuzzy
 msgid "Git: Stash dropped."
-msgstr "Git: Sändning färdig."
+msgstr "Git: Stash förkastad."
 
 #: ../plugins/git/git-stash-widget.c:275
-#, fuzzy
 msgid "Git: All stashes cleared."
-msgstr "Git: Filen köad för att läggas till."
+msgstr "Git: Alla stashar tömda."
 
 #: ../plugins/git/git-switch-dialog.c:36
 msgid "Git: Branch checkout complete."
@@ -5075,15 +5063,15 @@ msgstr "Det finns inga grenar tillgängliga."
 
 #: ../plugins/git/git-ui-utils.c:194
 msgid "Please select a stash"
-msgstr ""
+msgstr "Välj en stash"
 
 #: ../plugins/git/git-ui-utils.c:604
 msgid "Git: Changes stored in a stash."
-msgstr ""
+msgstr "Git: Ändringar lagrade i en stash."
 
 #: ../plugins/git/git-ui-utils.c:620
 msgid "Git: Stashed changes applied."
-msgstr ""
+msgstr "Git: Lagrade ändringar tillämpade."
 
 #: ../plugins/git/git-ui-utils.c:744
 msgid "Git: Diff complete."
@@ -5116,56 +5104,55 @@ msgstr "Än_dringar"
 #: ../plugins/git/plugin.c:87
 #: ../plugins/subversion/plugin.c:76
 msgid "_Commit..."
-msgstr "_Verkställ..."
+msgstr "_Checka in..."
 
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:89
 msgid "Commit changes to the local repository"
-msgstr "Verkställ ändringar till lokala förrådet"
+msgstr "Checka in ändringar till lokala förrådet"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:95
 msgid "_Diff uncommitted changes"
-msgstr "Kör _diff mot lokala ändringar"
+msgstr "Kör _diff mot ej incheckade ändringar"
 
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:97
 msgid "Show uncommitted changes"
-msgstr "Visa ej verkställda ändringar"
+msgstr "Visa ej incheckade ändringar"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:103
 msgid "_Stash"
-msgstr ""
+msgstr "_Stash"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:111
 msgid "_Stash uncommitted changes..."
-msgstr ""
+msgstr "_Lagra ej incheckade ändringar..."
 
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:113
 msgid "Save uncommitted changes and re-apply them later"
-msgstr "Spara ej verkställda ändringar och återverkställ dem senare"
+msgstr "Spara ej incheckade ändringar och verkställ dem igen senare"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:119
 msgid "_Apply stashed changes..."
-msgstr ""
+msgstr "_Tillämpa lagrade ändringar..."
 
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:121
-#, fuzzy
 msgid "Apply stashed changes to the working tree"
-msgstr "Verkställ dina ändringar till Subversion-trädet"
+msgstr "Tillämpa lagrade ändringar till arbetsträdet"
 
 #. Action name
 #. Stock icon, if any
@@ -5281,7 +5268,7 @@ msgstr "_Checka ut filer..."
 #. short-cut
 #: ../plugins/git/plugin.c:201
 msgid "Revert uncommitted changes to files"
-msgstr "Återställ ej verkställda ändringar till filer"
+msgstr "Återställ ej incheckade ändringar till filer"
 
 #. Action name
 #. Stock icon, if any
@@ -5293,7 +5280,7 @@ msgstr "A_vköa filer..."
 #. short-cut
 #: ../plugins/git/plugin.c:209
 msgid "Remove files from the commit index"
-msgstr "Ta bort filer från verkställningsindex"
+msgstr "Ta bort filer från incheckningsindexet"
 
 #. Action name
 #. Stock icon, if any
@@ -5477,13 +5464,13 @@ msgstr "_Hoppa över"
 #. short-cut
 #: ../plugins/git/plugin.c:345
 msgid "Skip the current conflicted commit and continue"
-msgstr "Hoppa över aktuellt verkställande som är i konflikt och fortsätt"
+msgstr "Hoppa över aktuell incheckning som är i konflikt och fortsätt"
 
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:353
 msgid "Abort the rebase and put the repository in its original state"
-msgstr ""
+msgstr "Avbryt rebase-åtgärden och återställ förrådet till dess ursprungliga tillstånd"
 
 #. Action name
 #. Stock icon, if any
@@ -5496,7 +5483,7 @@ msgstr "_Cherry pick..."
 #. short-cut
 #: ../plugins/git/plugin.c:361
 msgid "Selectively merge individual changes from other branches into the current one"
-msgstr ""
+msgstr "Sammanfoga selektivt individuella ändringar från andra grenar till den aktuella grenen"
 
 #. Action name
 #. Stock icon, if any
@@ -5570,7 +5557,7 @@ msgstr "_Återställ träd..."
 #. short-cut
 #: ../plugins/git/plugin.c:425
 msgid "Reset repository head to any past state"
-msgstr ""
+msgstr "Återställ förrådet till valfritt tidigare tillstånd"
 
 #. Action name
 #. Stock icon, if any
@@ -5595,15 +5582,14 @@ msgstr "Dela upp"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:449
-#, fuzzy
 msgid "Start a bisect operation"
-msgstr "Stackramsoperationer"
+msgstr "Starta en uppdelningsåtgärd"
 
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:457
 msgid "Stop the bisect and bring the tree back to normal"
-msgstr ""
+msgstr "Stoppa uppdelningen och återställ trädet till normalt"
 
 #. Action name
 #. Stock icon, if any
@@ -5680,9 +5666,8 @@ msgstr "Skapa en tagg i denna revision"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:525
-#, fuzzy
 msgid "Reset repository head to this revision"
-msgstr "Ange startrevisionen."
+msgstr "Återställ förrådet till denna revision"
 
 #. Display label
 #. short-cut
@@ -5746,21 +5731,20 @@ msgid "Remove this file or folder from the repository"
 msgstr "Ta bort denna fil eller mapp från förrådet"
 
 #: ../plugins/git/plugin.c:766
-#, fuzzy
 msgid "Top level git menu item"
-msgstr "Toppnivå Makefile.am"
+msgstr "Toppnivå git-menyobjekt"
 
 #: ../plugins/git/plugin.c:774
 msgid "Git operations"
-msgstr "Git-operationer"
+msgstr "Git-åtgärder"
 
 #: ../plugins/git/plugin.c:779
 msgid "Git log operations"
-msgstr "Logg för Git-operationer"
+msgstr "Logg för Git-åtgärder"
 
 #: ../plugins/git/plugin.c:784
 msgid "Git FM operations"
-msgstr "Git FM-operationer"
+msgstr "Git FM-åtgärder"
 
 #: ../plugins/git/plugin.c:799
 msgid "Git Log"
@@ -5927,9 +5911,9 @@ msgid "Error while adding a new handler stub: No current editor"
 msgstr "Fel när en ny hanterarstubbe lades till: Ingen aktuell redigerare"
 
 #: ../plugins/glade/plugin.c:2254
-#, fuzzy, c-format
+#, c-format
 msgid "To avoid this message turn off \"%s\" flag in Preferences->Glade GUI Designer"
-msgstr "Stäng av flaggan \"Infoga hanterare vid redigering\" i Inställningar->Glade GUI Designer för att undvika dessa meddelanden"
+msgstr "Stäng av flaggan \"%s\" i Inställningar->Glade GUI Designer för att undvika detta meddelande"
 
 #: ../plugins/glade/plugin.c:2324
 msgid "Couldn't find an associated document"
@@ -6042,7 +6026,7 @@ msgstr "Ta bort markeringen"
 
 #: ../plugins/glade/plugin.c:4307
 msgid "Glade designer operations"
-msgstr "Glade-designeroperationer"
+msgstr "Åtgärder för Glade-designer"
 
 #: ../plugins/glade/plugin.c:4407
 msgid "Go back in undo history"
@@ -6586,7 +6570,7 @@ msgstr "Lägg till/Redigera/Ta bort makron"
 
 #: ../plugins/macro/plugin.c:116
 msgid "Macro operations"
-msgstr "Makrooperationer"
+msgstr "Makroåtgärder"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:1
 msgid "<b>Indicators</b>"
@@ -6637,12 +6621,10 @@ msgid "Truncate long messages"
 msgstr "Kapa långa meddelanden"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:17
-#, fuzzy
 msgid "Underline-Plain"
 msgstr "Understruken-normal"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:18
-#, fuzzy
 msgid "Underline-Squiggle"
 msgstr "Understruken-snirklig"
 
@@ -7191,7 +7173,7 @@ msgstr "Fel vid stängning av projekt: %s"
 
 #: ../plugins/project-manager/plugin.c:1536
 msgid "Project manager actions"
-msgstr "Projekthanteringsoperationer"
+msgstr "Åtgärder för projekthantering"
 
 #: ../plugins/project-manager/plugin.c:1544
 msgid "Project manager popup actions"
@@ -7884,7 +7866,7 @@ msgstr "Ställ in aktuellt program, argument och så vidare"
 
 #: ../plugins/run-program/plugin.c:280
 msgid "Run operations"
-msgstr "Köroperationer"
+msgstr "Köråtgärder"
 
 #: ../plugins/search/anjuta-search.ui.h:1
 msgid "<b>Actions</b>"
@@ -8404,7 +8386,7 @@ msgstr "Annan revision:"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:27
 msgid "Previous Commit Messages:"
-msgstr "Föregående incheckningsmeddelande:"
+msgstr "Föregående incheckningsmeddelanden:"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:28
 msgid "Realm:"
@@ -8539,7 +8521,7 @@ msgstr "Ta bort en fil/katalog från Subversion-trädet"
 #. short-cut
 #: ../plugins/subversion/plugin.c:78
 msgid "Commit your changes to the Subversion tree"
-msgstr "Verkställ dina ändringar till Subversion-trädet"
+msgstr "Checka in dina ändringar till Subversion-trädet"
 
 #. Action name
 #. Stock icon, if any
@@ -8659,11 +8641,11 @@ msgstr "Diff..."
 
 #: ../plugins/subversion/plugin.c:488
 msgid "Subversion operations"
-msgstr "Subversion-operationer"
+msgstr "Subversion-åtgärder"
 
 #: ../plugins/subversion/plugin.c:494
 msgid "Subversion popup operations"
-msgstr "Subversion popup-operationer"
+msgstr "Subversion popup-åtgärder"
 
 #: ../plugins/subversion/plugin.c:526
 msgid "Subversion Log"
@@ -8671,15 +8653,15 @@ msgstr "Subversion-logg"
 
 #: ../plugins/subversion/subversion-add-dialog.c:41
 msgid "Subversion: File will be added on next commit."
-msgstr "Subversion: Filen kommer att läggas till vid nästa verkställning."
+msgstr "Subversion: Filen kommer att läggas till vid nästa incheckning."
 
 #: ../plugins/subversion/subversion-commit-dialog.c:39
 msgid "Subversion: Commit complete."
-msgstr "Subversion: Verkställning färdig."
+msgstr "Subversion: Incheckningen är färdig."
 
 #: ../plugins/subversion/subversion-commit-dialog.c:123
 msgid "Subversion: Committing changes to the repository..."
-msgstr "Subversion: Verkställer ändringar till förrådet..."
+msgstr "Subversion: Checkar in ändringar till förrådet..."
 
 #: ../plugins/subversion/subversion-copy-dialog.c:138
 msgid "Subversion: Copy complete."
@@ -8754,7 +8736,7 @@ msgstr "Ange slutrevisionen."
 
 #: ../plugins/subversion/subversion-remove-dialog.c:39
 msgid "Subversion: File will be removed on next commit."
-msgstr "Subversion: Filen kommer att tas bort vid nästa verkställning."
+msgstr "Subversion: Filen kommer att tas bort vid nästa incheckning."
 
 #: ../plugins/subversion/subversion-resolve-dialog.c:36
 msgid "Subversion: Resolve complete."
@@ -8978,15 +8960,15 @@ msgstr "Parallell avsökning av projekt- och allmänna symboler"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:7
 msgid "This option enables the default packages required by your opened project, e.g. glib and gtk+ if you create a Gtk+ project (may require more cpu work)"
-msgstr ""
+msgstr "Detta alternativ aktiverar standardpaketen som krävs av ditt öppnade projekt, t.ex. glib och gtk+ om du skapar ett Gtk+-projekt (kan kräva mer processorresurser)"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:8
 msgid "This option means that the global system packages will be scanned contemporary with the project's ones"
-msgstr ""
+msgstr "Detta alternativ betyder att de allmänna systempaketen kommer att genomsökas samtidigt som projektets paket"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:9
 msgid "Update automatically the file's symbols without saving. The update occurs after 10 seconds of no keypress by user."
-msgstr ""
+msgstr "Uppdatera automatiskt filens symboler utan att spara. Uppdateringen sker när användaren inte har använt tangentbordet på 10 sekunder."
 
 #: ../plugins/terminal/anjuta-terminal-plugin.ui.h:1
 msgid "<b>Terminal options</b>"
@@ -9000,13 +8982,13 @@ msgstr "Använd GNOME:s terminalprofil:"
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "Använd för tillfället vald profil i GNOME-terminalen"
 
-#: ../plugins/terminal/terminal.c:701
+#: ../plugins/terminal/terminal.c:739
 msgid "terminal operations"
-msgstr "terminaloperationer"
+msgstr "terminalåtgärder"
 
-#: ../plugins/terminal/terminal.c:719
-#: ../plugins/terminal/terminal.c:886
-#: ../plugins/terminal/terminal.c:939
+#: ../plugins/terminal/terminal.c:757
+#: ../plugins/terminal/terminal.c:926
+#: ../plugins/terminal/terminal.c:979
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
 msgid "Terminal"
 msgstr "Terminal"
@@ -9184,7 +9166,7 @@ msgstr "Kunde inte öppna %s för skrivning"
 
 #: ../plugins/tools/plugin.c:179
 msgid "Tool operations"
-msgstr "Verktygsoperationer"
+msgstr "Verktygsåtgärder"
 
 #: ../plugins/tools/plugin.c:256
 #: ../plugins/tools/plugin.c:263
@@ -9202,80 +9184,75 @@ msgstr "Sökväg för projektroten"
 
 #: ../plugins/tools/variable.c:86
 msgid "Selected URI in the file manager plugin"
-msgstr ""
+msgstr "Vald URI i insticket för filhantering"
 
 #: ../plugins/tools/variable.c:87
 msgid "Selected directory in the file manager plugin"
-msgstr ""
+msgstr "Vald katalog i insticket för filhantering"
 
 #: ../plugins/tools/variable.c:88
 msgid "Selected full file name in the file manager plugin"
-msgstr ""
+msgstr "Valt fullständigt filnamn i insticket för filhantering"
 
 #: ../plugins/tools/variable.c:89
 msgid "Selected full file name without extension in the file manager plugin"
-msgstr ""
+msgstr "Valt fullständigt filnamn utan filändelse i insticket för filhantering"
 
 #: ../plugins/tools/variable.c:90
 msgid "Selected file name in the file manager plugin"
-msgstr ""
+msgstr "Valt filnamn i insticket för filhantering"
 
 #: ../plugins/tools/variable.c:91
 msgid "Selected file name without extension in the file manager plugin"
-msgstr ""
+msgstr "Valt filnamn utan filändelse i insticket för filhantering"
 
 #: ../plugins/tools/variable.c:92
 msgid "Selected file's extension in the file manager plugin"
-msgstr ""
+msgstr "Vald filändelse i insticket för filhantering"
 
 #: ../plugins/tools/variable.c:93
 msgid "Selected URI in the project manager plugin"
-msgstr ""
+msgstr "Vald URI i insticket för projekthantering"
 
 #: ../plugins/tools/variable.c:94
-#, fuzzy
 msgid "Selected directory in the project manager plugin"
-msgstr "Rotkatalog om inget projekt har öppnats:"
+msgstr "Vald katalog i insticket för projekthantering"
 
 #: ../plugins/tools/variable.c:95
 msgid "Selected full file name in the project manager plugin"
-msgstr ""
+msgstr "Valt fullständigt filnamn i insticket för projekthantering"
 
 #: ../plugins/tools/variable.c:96
 msgid "Selected full file name without extension in the project manager plugin"
-msgstr ""
+msgstr "Valt fullständigt filnamn utan filändelse i insticket för projekthantering"
 
 #: ../plugins/tools/variable.c:97
-#, fuzzy
 msgid "Selected file name in the project manager plugin"
-msgstr "Makefile-bakände för projekthanterare"
+msgstr "Valt filnamn i insticket för projekthantering"
 
 #: ../plugins/tools/variable.c:98
 msgid "Selected file name without extension in the project manager plugin"
-msgstr ""
+msgstr "Valt filnamn utan filändelse i insticket för projekthantering"
 
 #: ../plugins/tools/variable.c:99
 msgid "Selected file extension in the project manager plugin"
-msgstr ""
+msgstr "Vald filändelse i insticket för projekthantering"
 
 #: ../plugins/tools/variable.c:100
-#, fuzzy
 msgid "Currently edited file name"
-msgstr "För närvarande aktiverade instick"
+msgstr "För närvarande redigerat filnamn"
 
 #: ../plugins/tools/variable.c:101
 msgid "Currently edited file name without extension"
-msgstr ""
+msgstr "För närvarande redigerat filnamn utan filändelse"
 
 #: ../plugins/tools/variable.c:102
-#, fuzzy
 msgid "Currently edited file directory"
-msgstr "CVS: Lägg till fil/katalog"
+msgstr "För närvarande redigerad filkatalog"
 
 #: ../plugins/tools/variable.c:103
-#, fuzzy
 msgid "Currently selected text in editor"
-msgstr "Aktuell markering"
+msgstr "För närvarande markerad text i redigerare "
 
 #: ../plugins/tools/variable.c:104
 msgid "Current word in editor"
@@ -9354,7 +9331,7 @@ msgstr "Sträng"
 msgid "Copyright (c) Naba Kumar"
 msgstr "Copyright © Naba Kumar"
 
-#: ../src/anjuta.c:428
+#: ../src/anjuta.c:424
 msgid "Loaded Session..."
 msgstr "Läste in session..."
 
@@ -9539,7 +9516,7 @@ msgstr "Stäng av anjuta på vanligt sätt för att släppa alla resurser (för 
 msgid "- Integrated Development Environment"
 msgstr "- Integrerad utvecklingsmiljö (IDE)"
 
-#: ../src/main.c:216
+#: ../src/main.c:232
 msgid "Anjuta"
 msgstr "Anjuta"
 
@@ -9574,7 +9551,7 @@ msgstr "Stil för dockväxlare:"
 
 #: ../src/preferences.ui.h:11
 msgid "Gnome toolbar setting"
-msgstr ""
+msgstr "Inställning i Gnome:s verktygsrad"
 
 #: ../src/preferences.ui.h:12
 msgid "Icons"
@@ -9650,9 +9627,8 @@ msgid "Brace indentation size in spaces:"
 msgstr "Indenteringsstorlek för klammerparentes i blanksteg:"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:7
-#, fuzzy
 msgid "Calltips"
-msgstr "Anrop"
+msgstr "Anropstips"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:8
 msgid "Enable code completion"
@@ -9854,7 +9830,7 @@ msgstr "Standardredigeraren baserad på GtkSourceview"
 
 #: ../plugins/starter/anjuta-starter.plugin.in.h:2
 msgid "Welcome page with most common actions."
-msgstr "Välkomstsida med de mest vanliga operationerna."
+msgstr "Välkomstsida med de mest vanliga åtgärderna."
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in.h:1
 msgid "C++ and Java support Plugin"
