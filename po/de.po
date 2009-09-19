@@ -30,8 +30,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 2.1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-18 21:28+0200\n"
-"PO-Revision-Date: 2009-09-16 12:48+0200\n"
+"POT-Creation-Date: 2009-09-20 00:58+0200\n"
+"PO-Revision-Date: 2009-09-20 01:00+0200\n"
 "Last-Translator: Christian Kirbach <Christian.Kirbach@googlemail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -697,7 +697,7 @@ msgstr "Fehlerdiagnose"
 
 #: ../plugins/build-basic-autotools/configuration-list.c:64
 msgid "Profiling"
-msgstr "Profilieren"
+msgstr "Effizienzanalyse"
 
 #: ../plugins/build-basic-autotools/configuration-list.c:65
 msgid "Optimized"
