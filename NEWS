@@ -1,3 +1,19 @@
+Anjuta 2.28.0 (28 September 2009) -- Johannes Schmid
+
+Bugs fixed:
+gdb: bgo#594665 -  Fix link of test program
+sourceview: Report error when location is > 0 for markers (bgo#593954)
+terminal: bgo#594648 -  Terminal does not work
+sourceview: #355151 -  drag/drop into editor window should open file
+
+And of course lots of translation updates!
+
+Anjuta is translated fully into the following languages:
+pt_BR, en_GB, bg, de, da, fr, gl, it, pt, sv, es, tr, uk, hu, th
+
+The manual is fully translated for:
+el, es and th
+
 Anjuta 2.27.92 (7 September 2009) -- Johannes Schmid
 
 Bugs fixed:
