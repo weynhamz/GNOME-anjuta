@@ -119,15 +119,15 @@ static void sourceview_create_markers(Sourceview* sv)
 	
 	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_BOOKMARK, NULL)))
 	{
-		gtk_source_view_set_mark_category_pixbuf (view, 
-			marker_types[IANJUTA_MARKABLE_BOOKMARK], pixbuf);
+		gtk_source_view_set_mark_category_icon_from_pixbuf (view, 
+		    marker_types[IANJUTA_MARKABLE_BOOKMARK], pixbuf);
 		gtk_source_view_set_mark_category_priority (view, marker_types [IANJUTA_MARKABLE_BOOKMARK],
 											 IANJUTA_MARKABLE_BOOKMARK);
 		g_object_unref (pixbuf);
 	}
 	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_BREAKPOINT_DISABLED, NULL)))
 	{
-		gtk_source_view_set_mark_category_pixbuf (view, 
+		gtk_source_view_set_mark_category_icon_from_pixbuf (view, 
 			marker_types[IANJUTA_MARKABLE_BREAKPOINT_DISABLED], pixbuf);
 		gtk_source_view_set_mark_category_priority (view, marker_types [IANJUTA_MARKABLE_BREAKPOINT_DISABLED],
 											 IANJUTA_MARKABLE_BREAKPOINT_DISABLED);
@@ -136,7 +136,7 @@ static void sourceview_create_markers(Sourceview* sv)
 	}
 	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_BREAKPOINT_ENABLED, NULL)))
 	{
-		gtk_source_view_set_mark_category_pixbuf (view, 
+		gtk_source_view_set_mark_category_icon_from_pixbuf (view, 
 			marker_types[IANJUTA_MARKABLE_BREAKPOINT_ENABLED], pixbuf);
 		gtk_source_view_set_mark_category_priority (view, marker_types [IANJUTA_MARKABLE_BREAKPOINT_ENABLED],
 											 IANJUTA_MARKABLE_BREAKPOINT_ENABLED);
@@ -144,7 +144,7 @@ static void sourceview_create_markers(Sourceview* sv)
 	}
 	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_PROGRAM_COUNTER, NULL)))
 	{
-		gtk_source_view_set_mark_category_pixbuf (view, 
+		gtk_source_view_set_mark_category_icon_from_pixbuf (view, 
 			marker_types[IANJUTA_MARKABLE_PROGRAM_COUNTER], pixbuf);
 		gtk_source_view_set_mark_category_priority (view, marker_types [IANJUTA_MARKABLE_PROGRAM_COUNTER],
 											 IANJUTA_MARKABLE_PROGRAM_COUNTER);
@@ -152,7 +152,7 @@ static void sourceview_create_markers(Sourceview* sv)
 	}
 	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_LINEMARKER, NULL)))
 	{
-		gtk_source_view_set_mark_category_pixbuf (view, 
+		gtk_source_view_set_mark_category_icon_from_pixbuf (view, 
 			marker_types[IANJUTA_MARKABLE_LINEMARKER], pixbuf);
 		gtk_source_view_set_mark_category_priority (view, marker_types [IANJUTA_MARKABLE_LINEMARKER],
 											 IANJUTA_MARKABLE_LINEMARKER);
