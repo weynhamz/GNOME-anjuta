@@ -77,25 +77,6 @@ struct _DmaDebuggerQueueClass {
 /* Queue function
  *---------------------------------------------------------------------------*/
 
-static void
-dma_queue_cancel (DmaDebuggerQueue *self, DmaCommandFlag flag)
-{
-	GList* node = g_queue_peek_head_link(self->queue);
-
-	/* Cancel all commands in queue with the flag */
-	while (node != NULL)
-	{
-		GList* next = g_list_next (node);
-		DmaQueueCommand* cmd = (DmaQueueCommand *)node->data;
-		
-		if (dma_command_has_flag (cmd, flag))
-		{
-			dma_command_cancel (cmd);
-			g_queue_delete_link (self->queue, node);
-		}
-		node = next;
-	}
-}
 
 /* Cancel all commands those cannot handle this unexpected state
  * Return TRUE if the state of the queue need to be changed too

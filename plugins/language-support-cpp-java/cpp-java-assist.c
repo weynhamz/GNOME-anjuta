@@ -254,40 +254,6 @@ cpp_java_assist_get_pre_word (IAnjutaEditor* editor, IAnjutaIterable *iter)
 	return preword_chars;
 }
 
-static gchar*
-cpp_java_assist_get_scope_operator (IAnjutaEditor* editor,
-									IAnjutaIterable *iter)
-{
-	gchar op[3] = {'\0', '\0', '\0'};
-	
-	op[1] = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);
-	if (op[1] == ':' || op[1] == '>' || op[1] == '.')
-	{
-		if (ianjuta_iterable_previous (iter, NULL))
-		{
-			op[0] = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter),
-												  0, NULL);
-			if ((op[0] == ':' && op[1] == ':') ||
-				(op[0] == '-' && op[1] == '>'))
-			{
-				ianjuta_iterable_previous (iter, NULL);
-				return g_strdup (op);
-			}
-			else
-			{
-				if (op[1] == '.')
-					return g_strdup (&op[1]);
-			}
-		}
-		else
-		{
-			if (op[1] == '.')
-				return g_strdup (&op[1]);
-		}
-	}
-	return NULL;
-}
-
 static void
 cpp_java_assist_destroy_completion_cache (CppJavaAssist *assist,
 										  gboolean cancel_idle)
@@ -318,98 +284,6 @@ cpp_java_assist_destroy_completion_cache (CppJavaAssist *assist,
 		g_source_remove (assist->priv->word_idle);
 		assist->priv->word_idle = 0;
 	}
-}
-
-static void
-cpp_java_assist_create_scope_completion_cache (CppJavaAssist *assist,
-											   const gchar *scope_operator,
-											   const gchar *scope_context)
-{		
-	DEBUG_PRINT ("scope context: %s", scope_context);
-	cpp_java_assist_destroy_completion_cache (assist, TRUE);
-	if (g_str_equal (scope_operator, "::"))
-	{
-		/* Go through the possible namespace (Gnome::Glade, for example) */
-		GStrv contexts = g_strsplit (scope_context, "::", -1);
-		gint cur_context = 0;
-		if (contexts[0] != NULL)
-		{
-			DEBUG_PRINT ("Scope[%d] = %s", cur_context, contexts[0]);
-			IAnjutaIterable* symbol = 
-				ianjuta_symbol_manager_search (assist->priv->isymbol_manager,
-											   IANJUTA_SYMBOL_TYPE_CLASS | IANJUTA_SYMBOL_TYPE_NAMESPACE,
-											   TRUE,
-											   IANJUTA_SYMBOL_FIELD_SIMPLE,
-											   contexts[0],
-											   FALSE,
-											   IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC,
-											   TRUE,
-											   1,
-											   -1,
-											   NULL);
-			if (symbol && ianjuta_iterable_get_length(symbol, NULL))
-			{
-				while (contexts[++cur_context] != NULL)
-				{							
-					DEBUG_PRINT ("Scope[%d] = %s", cur_context, contexts[0]);
-					IAnjutaIterable* members = 
-						ianjuta_symbol_manager_get_members(assist->priv->isymbol_manager,
-														   IANJUTA_SYMBOL(symbol),
-														   IANJUTA_SYMBOL_FIELD_SIMPLE,
-														   NULL);
-					if (members && ianjuta_iterable_get_length (members, NULL))
-					{
-						gboolean found = FALSE;
-						do
-						{
-							if (g_str_equal (ianjuta_symbol_get_name (IANJUTA_SYMBOL(members),
-																	  NULL),
-											 contexts[cur_context]))
-							{
-								g_object_unref (symbol);
-								symbol = members;
-								found = TRUE;
-								break;
-							}
-						}
-						while (ianjuta_iterable_next (members, NULL));
-						if (found)
-							continue;
-						else
-						{
-							g_object_unref (symbol);
-							symbol = NULL;
-							break;
-						}
-					}
-				}
-				if (symbol)
-				{
-					IAnjutaIterable* members = 
-						ianjuta_symbol_manager_get_members(assist->priv->isymbol_manager,
-														   IANJUTA_SYMBOL(symbol),
-														   IANJUTA_SYMBOL_FIELD_SIMPLE,
-														   NULL);
-					if (members)
-					{
-						assist->priv->completion_cache =
-							create_completion (assist->priv->iassist, members, NULL);
-						assist->priv->scope_context_cache = g_strdup (scope_context);
-						g_object_unref (members);
-					}
-					g_object_unref (symbol);
-				}
-			}
-		}
-		g_strfreev(contexts);
-	}
-	
-	else if (g_str_equal (scope_operator, ".") ||
-			 g_str_equal (scope_operator, "->"))	
-	{
-		/* TODO: Find the type of context by parsing the file somehow and
-		search for the member as it is done with the :: context */
-	}	
 }
 
 static gboolean
