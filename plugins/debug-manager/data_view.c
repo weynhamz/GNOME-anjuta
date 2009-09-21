@@ -227,7 +227,6 @@ dma_data_view_goto_activate (GtkWidget   *menu_item,
 	GtkWidget *toplevel;
 	GtkWidget *frame;
 	GtkWidget *vbox;
-	GtkWidget *icon;
 	
 	toplevel = gtk_widget_get_toplevel (GTK_WIDGET (view));
 	

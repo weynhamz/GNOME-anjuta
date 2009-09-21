@@ -1155,7 +1155,7 @@ cg_window_enable_add_to_project (CgWindow *window,
 	GtkWidget *widget;
 	
 	priv = CG_WINDOW_PRIVATE (window);
-	widget = gtk_builder_get_object (priv->bxml, "add_project");
+	widget = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "add_project"));
 	
 	gtk_widget_set_sensitive (widget, enable);
 }
