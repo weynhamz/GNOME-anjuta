@@ -2066,8 +2066,10 @@
                 <child type="label">
                   <object class="GtkLabel" id="label64">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">&lt;b&gt;Options&lt;/b&gt;</property>
-                    <property name="use_markup">True</property>
+                    <property name="label" translatable="yes">Options</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
                   </object>
                 </child>
               </object>
@@ -4964,8 +4966,10 @@
                 <child type="label">
                   <object class="GtkLabel" id="label63">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">&lt;b&gt;Tags&lt;/b&gt;</property>
-                    <property name="use_markup">True</property>
+                    <property name="label" translatable="yes">Tags</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
                   </object>
                 </child>
               </object>
@@ -5563,8 +5567,10 @@
                 <child type="label">
                   <object class="GtkLabel" id="label65">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">&lt;b&gt;Stash Message (Optional)&lt;/b&gt;</property>
-                    <property name="use_markup">True</property>
+                    <property name="label" translatable="yes">Stash Message (Optional)</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
                   </object>
                 </child>
               </object>
@@ -5595,8 +5601,10 @@
                 <child type="label">
                   <object class="GtkLabel" id="label66">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">&lt;b&gt;Options&lt;/b&gt;</property>
-                    <property name="use_markup">True</property>
+                    <property name="label" translatable="yes">Options</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
                   </object>
                 </child>
               </object>
@@ -5886,8 +5894,10 @@
                 <child type="label">
                   <object class="GtkLabel" id="label68">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">&lt;b&gt;Stash to Apply&lt;/b&gt;</property>
-                    <property name="use_markup">True</property>
+                    <property name="label" translatable="yes">Stash to Apply</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
                   </object>
                 </child>
               </object>
@@ -5918,8 +5928,10 @@
                 <child type="label">
                   <object class="GtkLabel" id="label69">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">&lt;b&gt;Options&lt;/b&gt;</property>
-                    <property name="use_markup">True</property>
+                    <property name="label" translatable="yes">Options</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
                   </object>
                 </child>
               </object>

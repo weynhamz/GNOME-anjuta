@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
-<!--*- mode: xml -*-->
 <interface>
+  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-naming-policy toplevel-contextual -->
   <object class="GtkVBox" id="macro_dialog_table">
     <property name="visible">True</property>
     <child>
@@ -16,12 +17,15 @@
               <object class="GtkLabel" id="label10">
                 <property name="visible">True</property>
                 <property name="xalign">0</property>
-                <property name="label" translatable="yes">&lt;b&gt;Macros:&lt;/b&gt;</property>
-                <property name="use_markup">True</property>
+                <property name="label" translatable="yes">Macros:</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
+                <property name="position">0</property>
               </packing>
             </child>
             <child>
@@ -29,9 +33,9 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="border_width">5</property>
-                <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-                <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-                <property name="shadow_type">GTK_SHADOW_IN</property>
+                <property name="hscrollbar_policy">automatic</property>
+                <property name="vscrollbar_policy">automatic</property>
+                <property name="shadow_type">in</property>
                 <child>
                   <object class="GtkTreeView" id="macro_tree">
                     <property name="visible">True</property>
@@ -68,12 +72,15 @@
               <object class="GtkLabel" id="label9">
                 <property name="visible">True</property>
                 <property name="xalign">0</property>
-                <property name="label" translatable="yes">&lt;b&gt;Macro text:&lt;/b&gt;</property>
-                <property name="use_markup">True</property>
+                <property name="label" translatable="yes">Macro text:</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
+                <property name="position">0</property>
               </packing>
             </child>
             <child>
@@ -81,9 +88,9 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="border_width">5</property>
-                <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-                <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-                <property name="shadow_type">GTK_SHADOW_IN</property>
+                <property name="hscrollbar_policy">automatic</property>
+                <property name="vscrollbar_policy">automatic</property>
+                <property name="shadow_type">in</property>
                 <child>
                   <object class="GtkTextView" id="macro_preview">
                     <property name="visible">True</property>
@@ -100,8 +107,10 @@
               <object class="GtkLabel" id="label11">
                 <property name="visible">True</property>
                 <property name="xalign">0</property>
-                <property name="label" translatable="yes">&lt;b&gt;Macro details:&lt;/b&gt;</property>
-                <property name="use_markup">True</property>
+                <property name="label" translatable="yes">Macro details:</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -127,46 +136,61 @@
           </packing>
         </child>
       </object>
+      <packing>
+        <property name="position">0</property>
+      </packing>
     </child>
     <child>
       <object class="GtkHButtonBox" id="hbuttonbox2">
         <property name="visible">True</property>
         <property name="border_width">5</property>
         <property name="spacing">5</property>
-        <property name="layout_style">GTK_BUTTONBOX_START</property>
+        <property name="layout_style">start</property>
         <child>
           <object class="GtkButton" id="macro_add">
+            <property name="label">gtk-add</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="can_default">True</property>
-            <property name="label">gtk-add</property>
+            <property name="receives_default">False</property>
             <property name="use_stock">True</property>
-            <signal handler="on_add_clicked" name="clicked"/>
+            <signal name="clicked" handler="on_add_clicked"/>
           </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
         </child>
         <child>
           <object class="GtkButton" id="macro_edit">
+            <property name="label" translatable="yes">Edit...</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="can_default">True</property>
-            <property name="label" translatable="yes">Edit...</property>
+            <property name="receives_default">False</property>
             <property name="use_underline">True</property>
-            <signal handler="on_edit_clicked" name="clicked"/>
+            <signal name="clicked" handler="on_edit_clicked"/>
           </object>
           <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
             <property name="position">1</property>
           </packing>
         </child>
         <child>
           <object class="GtkButton" id="macro_remove">
+            <property name="label">gtk-remove</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="can_default">True</property>
-            <property name="label">gtk-remove</property>
+            <property name="receives_default">False</property>
             <property name="use_stock">True</property>
-            <signal handler="on_remove_clicked" name="clicked"/>
+            <signal name="clicked" handler="on_remove_clicked"/>
           </object>
           <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
             <property name="position">2</property>
           </packing>
         </child>
@@ -186,34 +210,32 @@
     <property name="column_spacing">5</property>
     <property name="row_spacing">5</property>
     <child>
-      <placeholder/>
-    </child>
-    <child>
       <object class="GtkEntry" id="macro_shortcut">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="max_length">1</property>
-        <property name="invisible_char">*</property>
       </object>
       <packing>
         <property name="left_attach">1</property>
         <property name="right_attach">2</property>
         <property name="top_attach">3</property>
         <property name="bottom_attach">4</property>
-        <property name="y_options"/>
+        <property name="y_options"></property>
       </packing>
     </child>
     <child>
       <object class="GtkLabel" id="label12">
         <property name="visible">True</property>
         <property name="xalign">0</property>
-        <property name="label" translatable="yes">&lt;b&gt;Macro details:&lt;/b&gt;</property>
-        <property name="use_markup">True</property>
+        <property name="label" translatable="yes">Macro details:</property>
+        <attributes>
+          <attribute name="weight" value="bold"/>
+        </attributes>
       </object>
       <packing>
         <property name="right_attach">2</property>
         <property name="x_options">GTK_FILL</property>
-        <property name="y_options"/>
+        <property name="y_options"></property>
       </packing>
     </child>
     <child>
@@ -227,36 +249,37 @@
         <property name="top_attach">1</property>
         <property name="bottom_attach">2</property>
         <property name="x_options">GTK_FILL</property>
-        <property name="y_options"/>
+        <property name="y_options"></property>
       </packing>
     </child>
     <child>
       <object class="GtkEntry" id="macro_name">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
-        <property name="invisible_char">*</property>
       </object>
       <packing>
         <property name="left_attach">1</property>
         <property name="right_attach">2</property>
         <property name="top_attach">1</property>
         <property name="bottom_attach">2</property>
-        <property name="y_options"/>
+        <property name="y_options"></property>
       </packing>
     </child>
     <child>
       <object class="GtkLabel" id="label8">
         <property name="visible">True</property>
         <property name="xalign">0</property>
-        <property name="label" translatable="yes">&lt;b&gt;Macro text:&lt;/b&gt;</property>
-        <property name="use_markup">True</property>
+        <property name="label" translatable="yes">Macro text:</property>
+        <attributes>
+          <attribute name="weight" value="bold"/>
+        </attributes>
       </object>
       <packing>
         <property name="right_attach">2</property>
         <property name="top_attach">4</property>
         <property name="bottom_attach">5</property>
         <property name="x_options">GTK_FILL</property>
-        <property name="y_options"/>
+        <property name="y_options"></property>
       </packing>
     </child>
     <child>
@@ -264,9 +287,9 @@
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="border_width">5</property>
-        <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-        <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-        <property name="shadow_type">GTK_SHADOW_IN</property>
+        <property name="hscrollbar_policy">automatic</property>
+        <property name="vscrollbar_policy">automatic</property>
+        <property name="shadow_type">in</property>
         <child>
           <object class="GtkTextView" id="macro_text">
             <property name="visible">True</property>
@@ -292,7 +315,7 @@
         <property name="top_attach">3</property>
         <property name="bottom_attach">4</property>
         <property name="x_options">GTK_FILL</property>
-        <property name="y_options"/>
+        <property name="y_options"></property>
       </packing>
     </child>
     <child>
@@ -306,8 +329,11 @@
         <property name="top_attach">2</property>
         <property name="bottom_attach">3</property>
         <property name="x_options">GTK_FILL</property>
-        <property name="y_options"/>
+        <property name="y_options"></property>
       </packing>
+    </child>
+    <child>
+      <placeholder/>
     </child>
   </object>
 </interface>
