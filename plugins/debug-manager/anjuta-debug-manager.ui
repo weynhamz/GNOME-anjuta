@@ -485,6 +485,8 @@
               <object class="GtkEntry" id="add_watch_name_entry">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="has_focus">True</property>
+                <property name="activates_default">True</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -534,7 +536,6 @@
                 <property name="label">gtk-add</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="has_focus">True</property>
                 <property name="can_default">True</property>
                 <property name="has_default">True</property>
                 <property name="receives_default">False</property>
