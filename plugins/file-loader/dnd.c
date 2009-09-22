@@ -1,13 +1,5 @@
 /*
- * dnd.c - These are generic functions which add Drag N' Drop support
- * to an application.
- *
- * Copyright (C) 2000 JosÅÈ Antonio Caminero Granja
- *
- * Author(s): 
- * 	JosÅÈ Antonio Caminero Granja <JCamGra@alumnos.uva.es>>
- *  Archit Baweja <bighead@crosswinds.net>
- *
+ * dnd.c (c) Johannes Schmid, 2009
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
@@ -24,32 +16,55 @@
  * USA.
  */
 
-
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
-
-#include <stdarg.h>
 #include <gtk/gtk.h>
 #include <glib.h>
 #include <gdk/gdk.h>
 
+#include <libanjuta/anjuta-utils.h>
+
 #include "dnd.h"
 
-/*
- * Table (array) of mime types for which "droppings" will be accepted.
- */
-static GtkTargetEntry dnd_mime_accepted [DND_MAX_MIME_TYPES];
+#define TARGET_URI_LIST 100
 
-/*
- * Number of entries in the mime type table for "droppings".
- */
-static int dnd_mime_table_length = 0;
+void (* dnd_data_dropped) (GFile *uri, gpointer data) = NULL;
 
-/*
- * A pointer to the user supplied function which handles the "droppings".
- */
-static void (* dnd_data_dropped) (const gchar *uri, gpointer user_data) = NULL;
+static GdkAtom
+drag_get_uri_target (GtkWidget      *widget,
+		     GdkDragContext *context)
+{
+	GdkAtom target;
+	GtkTargetList *tl;
+	
+	tl = gtk_target_list_new (NULL, 0);
+	gtk_target_list_add_uri_targets (tl, 0);
+	
+	target = gtk_drag_dest_find_target (widget, context, tl);
+	gtk_target_list_unref (tl);
+	
+	return target;	
+}
+
+static gboolean
+dnd_drag_drop (GtkWidget      *widget,
+               GdkDragContext *context,
+               gint            x,
+               gint            y,
+               guint           timestamp)
+{
+  gboolean result = FALSE;
+  GdkAtom target;
+
+  /* If this is a URL, just get the drag data */
+  target = drag_get_uri_target (widget, context);
+
+  if (target != GDK_NONE)
+  {
+	gtk_drag_get_data (widget, context, target, timestamp);
+	result = TRUE;
+  }
+  
+  return result;
+}
 
 /*
  * Callback for the drag_data_received signal, emitted whenever something is
@@ -57,68 +72,29 @@ static void (* dnd_data_dropped) (const gchar *uri, gpointer user_data) = NULL;
  */
 static void
 drag_data_received_cb (GtkWidget *widget, GdkDragContext *context,
-		       gint x, gint y, GtkSelectionData *data,
-		       guint info, guint time, gpointer user_data)
+                       gint x, gint y, GtkSelectionData *data,
+                       guint info, guint time, gpointer user_data)
 {
-	gchar *current, *current_end /*, *current_fixed */;
-	/* gchar *hostname, *filename */;
-	
-	/*
-	 * Check to see that we got the name of the file. Impossible that it is
-	 * NULL.
-	 */	
-	g_return_if_fail (data->data != NULL);
+  GSList* files;
+  /* If this is an URL emit DROP_URIS, otherwise chain up the signal */
+  if (info == TARGET_URI_LIST)
+  {
+	files = anjuta_utils_drop_get_files (data);
 
-	current = (gchar *)data->data;
-
-	while (*current)
+	if (files != NULL)
 	{
-		/*
-		 * get each file:path in buffer and process
-		 */
-		current_end = current;
-		while (*current_end && *current_end != '\n') current_end++;
-
-		/* remove the \r if necessary and end the string */
-		if (*current_end == '\n' && current_end != current &&
-				*(current_end - 1) == '\r')
-		{
-			*(current_end - 1) = '\0';
-		}
-		else
-		{
-			*current_end = '\0';
-		}
-		dnd_data_dropped (current, user_data);
-		/*
-		filename = g_filename_from_uri (current, &hostname, NULL);
-		if (! filename && ! hostname)
-		{
-			// Some dumb software drops URI without "file:" in the begining
-			current_fixed = g_strconcat("file:", current, NULL);
-			filename = g_filename_from_uri (current, &hostname, NULL);
-			g_free (current_fixed);
-		}
-
-		if (filename)
-		{
-			if (hostname)
-			{
-				g_warning (_("File %s is not local."), filename);
-				g_free (hostname);
-			}
-			dnd_data_dropped (filename, user_data);
-			g_free (filename);
-		}
-		else
-		{
-			g_warning (_("Invalid filename %s."), current);
-		}
-		*/
-		current = current_end + 1;
+	  GSList* node;
+	  for (node = files; node != NULL; node = g_slist_next(node))
+	  {
+		GFile* file = node->data;
+		dnd_data_dropped (file, user_data);
+		g_object_unref (file);
+	  }
+	  g_slist_free (files);
+	  gtk_drag_finish (context, TRUE, FALSE, time);
 	}
-	
-	return;
+	gtk_drag_finish (context, FALSE, FALSE, time);
+  }
 }
 
 /*
@@ -127,67 +103,36 @@ drag_data_received_cb (GtkWidget *widget, GdkDragContext *context,
  */
 void
 dnd_drop_init (GtkWidget *widget,
-	       void (* data_dropped) (const gchar *uri, gpointer user_data),
-	       gpointer user_data, ...)
+               void (* data_dropped) (GFile* file, gpointer user_data),
+               gpointer user_data)
 {
-	va_list list;
-	gchar *mime_type;
+  GtkTargetList* tl;
+  GtkTargetEntry accepted[1];
 
-	/*
-	 * Defensive progamming at display! Check for NULL parameters.
-	 */
-	g_return_if_fail (widget != NULL);
-	g_return_if_fail (data_dropped != NULL);
-	g_return_if_fail (dnd_data_dropped == NULL);
-
-	/*
-	 * Get all the mime types given by user and prepare the GtkTargetEntry
-	 * structure.
-	 */
-	dnd_mime_table_length = 0;
-	va_start (list, user_data);
-	while ((mime_type = va_arg (list, gchar *)) != NULL) {
-		g_assert (mime_type != NULL);
-		g_assert (dnd_mime_table_length < DND_MAX_MIME_TYPES);
-
-		/*
-		 * Fill the values.
-		 */
-		dnd_mime_accepted [dnd_mime_table_length].target = mime_type;
-		dnd_mime_accepted [dnd_mime_table_length].flags = 0;
-		dnd_mime_accepted [dnd_mime_table_length].info =
-			dnd_mime_table_length;
-		dnd_mime_table_length++;
-	}
-	va_end (list);
-
-	/*
-	 * Assign the address of the user supplied function (which will handle
-	 * the "droppings") to our own global pointer. 
-	 */
-	dnd_data_dropped = *data_dropped;
-
-	/*
-	 * Set the widget to start accepting "droppings" for the given mime
-	 * types.
-	 */
-	gtk_drag_dest_set (widget, GTK_DEST_DEFAULT_ALL, dnd_mime_accepted,
-			   dnd_mime_table_length, GDK_ACTION_COPY);
-
-	/*
-	 * Connect callback for the "drag_data_received" signal, emitted by the
-	 * wigdet whenever a "drop" is made.
-	 */
-	g_signal_connect (G_OBJECT (widget), "drag_data_received",
-					  G_CALLBACK (drag_data_received_cb),
-					  (gpointer) user_data);
-	return;
+  accepted[0].target = "application-x/anjuta";
+  accepted[0].info = 0;
+  accepted[0].flags = 0;
+  
+  /* Drag and drop support */	  	
+  gtk_drag_dest_set (widget, GTK_DEST_DEFAULT_ALL, accepted, 1, GDK_ACTION_COPY);
+  tl = gtk_drag_dest_get_target_list (widget);	
+  gtk_target_list_add_uri_targets (tl, TARGET_URI_LIST);
+  dnd_data_dropped = *data_dropped;
+  g_signal_connect (G_OBJECT (widget), "drag_data_received", 
+                    G_CALLBACK (drag_data_received_cb),
+                    (gpointer) user_data);  	
+  g_signal_connect (G_OBJECT (widget), "drag-drop",
+                    G_CALLBACK (dnd_drag_drop), 
+                    (gpointer) user_data);  
+  return;
 }
 
 void
 dnd_drop_finalize (GtkWidget *widget, gpointer user_data)
 {
-	g_signal_handlers_disconnect_by_func (G_OBJECT (widget),
-					G_CALLBACK (drag_data_received_cb), user_data);
-	dnd_data_dropped = NULL;
+  g_signal_handlers_disconnect_by_func (G_OBJECT (widget),
+                                        G_CALLBACK (drag_data_received_cb), user_data);
+  g_signal_handlers_disconnect_by_func (G_OBJECT (widget),
+                                        G_CALLBACK (dnd_drag_drop), user_data);
+  dnd_data_dropped = NULL;
 }

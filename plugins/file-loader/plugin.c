@@ -1145,11 +1145,9 @@ value_removed_pm_current_uri (AnjutaPlugin *plugin,
 }
 
 static void
-dnd_dropped (const gchar *uri, gpointer plugin)
+dnd_dropped (GFile* file, gpointer plugin)
 {
-	GFile* file = g_file_new_for_uri (uri);
 	ianjuta_file_loader_load (IANJUTA_FILE_LOADER (plugin), file, FALSE, NULL);
-	g_object_unref (file);
 }
 
 static void
@@ -1306,9 +1304,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	g_signal_connect (widget, "clicked", G_CALLBACK (on_open_clicked), loader_plugin);
 
 	/* Install drag n drop handler */
-	dnd_drop_init (GTK_WIDGET (plugin->shell), dnd_dropped, plugin,
-				   "text/plain", "text/html", "text/source", "application-x/anjuta",
-				   NULL);
+	dnd_drop_init (GTK_WIDGET (plugin->shell), dnd_dropped, plugin);
 	
 	/* Add watches */
 	loader_plugin->fm_watch_id = 
