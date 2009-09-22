@@ -53,6 +53,8 @@ struct _AnjutaBookmarksPrivate
 	GtkWidget* button_add;
 	GtkWidget* button_remove;
 	GtkWidget* grip;
+
+	GtkWidget* menu;
 	
 	DocmanPlugin* docman;
 };
@@ -96,6 +98,38 @@ on_remove_clicked (GtkWidget* button, AnjutaBookmarks* bookmarks)
 }
 
 static void
+on_rename (GtkWidget* menuitem, AnjutaBookmarks* bookmarks)
+{
+	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);
+	GtkTreeSelection* selection = 
+			gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree));
+
+	GList* rows =
+		gtk_tree_selection_get_selected_rows (selection, NULL);
+
+	GtkTreePath* path;
+
+	// We shouldn't get here otherwise
+	g_assert (g_list_length(rows) == 1);
+	
+	g_object_set (G_OBJECT(priv->renderer), "editable", TRUE, NULL);
+
+	path = rows->data; // First and only row
+	anjuta_shell_present_widget (ANJUTA_PLUGIN(priv->docman)->shell,
+	                             priv->window, NULL);
+	gtk_widget_grab_focus (priv->tree);
+	gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW (priv->tree), path,
+	                              priv->column, FALSE, 0.0, 0.0);
+
+	gtk_tree_view_set_cursor_on_cell (GTK_TREE_VIEW (priv->tree), path,
+	                                  priv->column,
+	                                  priv->renderer,
+	                                  TRUE);
+	g_list_foreach (rows, (GFunc)gtk_tree_path_free, NULL);
+	g_list_free (rows);
+}
+
+static void
 on_row_activate (GtkTreeView* view, GtkTreePath* path,
 				 GtkTreeViewColumn* column, AnjutaBookmarks* bookmarks)
 {
@@ -111,6 +145,43 @@ on_row_activate (GtkTreeView* view, GtkTreePath* path,
 						-1);
 	editor = anjuta_docman_goto_file_line (ANJUTA_DOCMAN(priv->docman->docman), file, line);
 	g_object_unref (file);
+}
+
+static gboolean
+on_button_press_event (GtkWidget *widget, GdkEventButton *event, AnjutaBookmarks* bookmarks)
+{
+	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);
+	/* Ignore double-clicks and triple-clicks */
+	if (event->button == 3 && event->type == GDK_BUTTON_PRESS)
+	{
+		gint button;
+		gint event_time;
+		
+		GtkTreeSelection* selection = 
+			gtk_tree_view_get_selection (GTK_TREE_VIEW (widget));
+
+		if (gtk_tree_selection_count_selected_rows (selection) == 1)
+		{
+			/*g_signal_connect (menu, "deactivate", 
+			                  G_CALLBACK (gtk_widget_destroy), NULL);*/
+			
+			if (event)
+			{
+				button = event->button;
+				event_time = event->time;
+			}
+			else
+			{
+				button = 0;
+				event_time = gtk_get_current_event_time ();
+			}
+			gtk_menu_popup (GTK_MENU(priv->menu), NULL, NULL, NULL, NULL, button, event_time);
+
+			return TRUE;
+		}
+	}
+
+	return FALSE;
 }
 
 static void
@@ -185,9 +256,9 @@ on_title_edited (GtkCellRendererText *cell,
 	
 	gtk_tree_model_get_iter (model, &iter, path);
 	gtk_list_store_set (GTK_LIST_STORE (model), &iter, COLUMN_TEXT, new_text, -1);
-	
-	gtk_tree_path_free (path);
+
 	g_object_set (G_OBJECT(priv->renderer), "editable", FALSE, NULL);
+	gtk_tree_path_free (path);
 }
 
 static void
@@ -196,6 +267,9 @@ anjuta_bookmarks_init (AnjutaBookmarks *bookmarks)
 	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);
 	GtkWidget* scrolled_window;
 	GtkTreeSelection* selection;
+
+	GtkWidget* item_rename;
+	GtkWidget* item_remove;
 	
 	priv->window = gtk_vbox_new (FALSE, 5);
 	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
@@ -222,6 +296,8 @@ anjuta_bookmarks_init (AnjutaBookmarks *bookmarks)
 					   priv->tree);
 	
 	g_signal_connect (G_OBJECT(priv->tree), "row-activated", G_CALLBACK(on_row_activate),
+					  bookmarks);
+	g_signal_connect (G_OBJECT(priv->tree), "button-press-event", G_CALLBACK(on_button_press_event),
 					  bookmarks);
 	
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(priv->tree));
@@ -257,6 +333,20 @@ anjuta_bookmarks_init (AnjutaBookmarks *bookmarks)
 	gtk_box_pack_start (GTK_BOX(priv->grip), priv->button_add, FALSE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX(priv->grip), priv->button_remove, FALSE, FALSE, 0);
 	gtk_widget_show_all (priv->grip);
+
+	/* Create popup menu */
+	priv->menu = gtk_menu_new ();
+	item_rename = gtk_menu_item_new_with_label (_("Rename"));
+	item_remove = gtk_menu_item_new_with_label (_("Remove"));
+
+	g_signal_connect (item_rename, "activate", G_CALLBACK(on_rename), bookmarks);
+	g_signal_connect (item_remove, "activate", G_CALLBACK(on_remove_clicked), bookmarks);			
+
+	gtk_menu_shell_append (GTK_MENU_SHELL(priv->menu), item_rename);
+	gtk_menu_shell_append (GTK_MENU_SHELL(priv->menu), item_remove);
+
+	gtk_widget_show_all (priv->menu);
+	gtk_menu_attach_to_widget (GTK_MENU (priv->menu), priv->tree, NULL);
 	
 	gtk_widget_show_all (priv->window);
 }
@@ -266,6 +356,9 @@ anjuta_bookmarks_finalize (GObject *object)
 {
 	AnjutaBookmarks* bookmarks = ANJUTA_BOOKMARKS (object);
 	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);
+
+	gtk_widget_destroy (priv->menu);
+	
 	anjuta_shell_remove_widget (ANJUTA_PLUGIN(priv->docman)->shell,
 								priv->window,
 								NULL);
@@ -382,7 +475,6 @@ anjuta_bookmarks_add (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor, gint li
 	g_return_if_fail (IANJUTA_IS_MARKABLE(editor));
 	IAnjutaMarkable* markable = IANJUTA_MARKABLE(editor);
 	GtkTreeIter iter;
-	GtkTreePath* path;
 	gint handle;
 	gchar* text;
 	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);
@@ -411,24 +503,6 @@ anjuta_bookmarks_add (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor, gint li
 						-1);
 	g_free(text);
 	g_object_unref (file);
-
-	g_object_set (G_OBJECT(priv->renderer), "editable", TRUE, NULL);
-	
-	if (use_selection)
-	{
-		path = gtk_tree_model_get_path (priv->model, &iter);
-		anjuta_shell_present_widget (ANJUTA_PLUGIN(priv->docman)->shell,
-									 priv->window, NULL);
-		gtk_widget_grab_focus (priv->tree);
-		gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW (priv->tree), path,
-									  priv->column, FALSE, 0.0, 0.0);
-		
-		gtk_tree_view_set_cursor_on_cell (GTK_TREE_VIEW (priv->tree), path,
-										  priv->column,
-										  priv->renderer,
-										  TRUE);
-		gtk_tree_path_free (path);
-	}
 }
 
 void
@@ -495,7 +569,7 @@ anjuta_bookmarks_add_file (AnjutaBookmarks* bookmarks,
 	
 	if ((doc = anjuta_docman_get_document_for_file (ANJUTA_DOCMAN(priv->docman->docman), file)))
 	{
-		anjuta_bookmarks_add (bookmarks, IANJUTA_EDITOR(doc), line, NULL, FALSE);
+		anjuta_bookmarks_add (bookmarks, IANJUTA_EDITOR(doc), line, title, FALSE);
 	}
 	else
 	{
