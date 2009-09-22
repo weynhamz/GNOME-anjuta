@@ -761,30 +761,30 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
 	/* Add all our actions */
-	anjuta_ui_add_action_group_entries (ui,
-	                                    "ActionGroupGitToplevelMenu",
-	                                    _("Top level git menu item"),
-	                                    &action_git_menu_toplevel,
-	                                    1,
-	                                    GETTEXT_PACKAGE,
-	                                    TRUE,
-	                                    plugin);
+	git_plugin->git_top_actions = anjuta_ui_add_action_group_entries (ui,
+	                            									  "ActionGroupGitToplevelMenu",
+	                                								  _("Top level git menu item"),
+	                                								  &action_git_menu_toplevel,
+	                                								  1,
+	                                								  GETTEXT_PACKAGE,
+	                                								  TRUE,
+	                                								  plugin);
 	git_plugin->git_menu_actions = anjuta_ui_add_action_group_entries (ui, 
 	                                                                   "ActionGroupGit",
 	                                                                   _("Git operations"),
 	                                                                   actions_git,
 	                                                                   G_N_ELEMENTS (actions_git),
 	                                                                   GETTEXT_PACKAGE, TRUE, plugin);
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupGitLog",
-										_("Git log operations"),
-										actions_log,
-										G_N_ELEMENTS (actions_log),
-										GETTEXT_PACKAGE, TRUE, plugin);
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupGitFM",
-										_("Git FM operations"),
-										actions_fm,
-										G_N_ELEMENTS (actions_fm),
-										GETTEXT_PACKAGE, TRUE, plugin);
+	git_plugin->git_log_actions = anjuta_ui_add_action_group_entries (ui, "ActionGroupGitLog",
+																	   _("Git log operations"),
+																	   actions_log,
+																	   G_N_ELEMENTS (actions_log),
+																	   GETTEXT_PACKAGE, TRUE, plugin);
+	git_plugin->git_fm_actions = anjuta_ui_add_action_group_entries (ui, "ActionGroupGitFM",
+																	 _("Git FM operations"),
+																	 actions_fm,
+																	 G_N_ELEMENTS (actions_fm),
+																	 GETTEXT_PACKAGE, TRUE, plugin);
 										
 	git_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	
@@ -877,7 +877,11 @@ git_deactivate_plugin (AnjutaPlugin *plugin)
 	g_free (git_plugin->project_root_directory);
 	g_free (git_plugin->current_editor_filename);
 	g_free (git_plugin->current_fm_filename);
-	
+
+	anjuta_ui_remove_action_group (ui, git_plugin->git_top_actions);
+	anjuta_ui_remove_action_group (ui, git_plugin->git_menu_actions);
+	anjuta_ui_remove_action_group (ui, git_plugin->git_log_actions);
+	anjuta_ui_remove_action_group (ui, git_plugin->git_fm_actions);
 	
 	anjuta_shell_remove_widget (plugin->shell, git_plugin->log_viewer, NULL);
 	anjuta_shell_remove_widget (plugin->shell, git_plugin->stash_widget, NULL);
