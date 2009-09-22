@@ -28,7 +28,6 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/anjuta-async-notify.h>
-#include <libanjuta/interfaces/ianjuta-vcs.h>
 #include <gio/gio.h>
 #include <gtk/gtk.h>
 
@@ -67,6 +66,8 @@ struct _FileModelPrivate
 	gboolean filter_unversioned;
 	
 	GtkTreeView* view;
+
+	IAnjutaVcs *ivcs;
 };
 
 struct _FileModelAsyncData
@@ -293,8 +294,8 @@ file_model_get_vcs_status (FileModel* model,
 	GtkTreePath* path = gtk_tree_model_get_path (GTK_TREE_MODEL(model),
 												 iter);
 	FileModelPrivate* priv = FILE_MODEL_GET_PRIVATE(model);	
-	IAnjutaVcs* ivcs = g_object_get_data (G_OBJECT(priv->view), "__ivcs");
-	if (ivcs)
+	
+	if (priv->ivcs)
 	{	
 		VcsData* data = g_new0(VcsData, 1);
 		AnjutaAsyncNotify* notify = anjuta_async_notify_new();
@@ -305,7 +306,7 @@ file_model_get_vcs_status (FileModel* model,
 		g_signal_connect_swapped (G_OBJECT (notify), "finished", 
 								  G_CALLBACK (file_model_free_vcs_data), data);
 
-		ianjuta_vcs_query_status(ivcs,
+		ianjuta_vcs_query_status(priv->ivcs,
 								 file,
 								 file_model_vcs_status_callback,
 								 data,
@@ -618,7 +619,7 @@ file_model_row_collapsed (GtkTreeView* tree_view, GtkTreeIter* iter,
 	
 	gtk_tree_model_get (GTK_TREE_MODEL (model), &real_iter, 
 						COLUMN_FILE, &dir, -1);
-	
+
 	cancel = g_object_get_data (G_OBJECT(dir), "_cancel");
 	g_cancellable_cancel (cancel);
 	g_object_unref (cancel);
@@ -822,4 +823,12 @@ file_model_get_filename (FileModel* model, GtkTreeIter* iter)
 	gtk_tree_model_get (GTK_TREE_MODEL (model), iter, COLUMN_FILENAME, &filename, -1);
 	
 	return filename;
+}
+
+void
+file_model_set_ivcs (FileModel* model, IAnjutaVcs *ivcs)
+{
+	FileModelPrivate *priv = FILE_MODEL_GET_PRIVATE (model);
+
+	priv->ivcs = ivcs;
 }

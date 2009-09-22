@@ -29,6 +29,8 @@
 #include <gtk/gtk.h>
 #include <gio/gio.h>
 
+#include <libanjuta/interfaces/ianjuta-vcs.h>
+
 G_BEGIN_DECLS
 
 #define FILE_TYPE_MODEL             (file_model_get_type ())
@@ -79,6 +81,9 @@ file_model_get_file (FileModel* model, GtkTreeIter* iter);
 
 gchar*
 file_model_get_filename (FileModel* model, GtkTreeIter* iter);
+
+void
+file_model_set_ivcs (FileModel* model, IAnjutaVcs *ivcs);
 
 G_END_DECLS
 
