@@ -361,7 +361,7 @@ on_file_changed (SourceviewIO* sio, Sourceview* sv)
 	
 	buff =
 		g_strdup_printf (_
-						 ("The file '%s' on the disk is more recent than "
+						 ("The file \"%s\" on the disk is more recent than "
 						  "the current buffer.\nDo you want to reload it?"),
 						 filename);
 
@@ -398,7 +398,7 @@ on_file_deleted (SourceviewIO* sio, Sourceview* sv)
 	
 	buff =
 		g_strdup_printf (_
-						 ("The file '%s' has been deleted on the disk.\n"
+						 ("The file \"%s\" has been deleted on the disk.\n"
 						  "Do you want to close it?"),
 						 filename);
 
@@ -489,7 +489,7 @@ on_open_finish(SourceviewIO* io, Sourceview* sv)
 	if (sourceview_io_get_read_only (io))
 	{
 		gchar* filename = sourceview_io_get_filename (io);
-		gchar* buff = g_strdup_printf (_("The file '%s' is read-only! Edit anyway?"),
+		gchar* buff = g_strdup_printf (_("The file \"%s\" is read-only! Edit anyway?"),
 									   filename);
 		GtkWidget* message_area;
 		g_free (filename);

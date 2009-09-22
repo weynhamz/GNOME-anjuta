@@ -983,7 +983,7 @@ anjuta_util_user_terminal (void)
 	}
 
 	/* Try xterm */
-	g_warning (_("Cannot find a terminal, using "
+	g_warning (_("Cannot find a terminal; using "
 			"xterm, even if it may not work"));
 	terminal = g_strdup ("xterm");
 
@@ -1687,9 +1687,9 @@ anjuta_util_help_display (GtkWidget   *parent,
 
 	if (uri == NULL)
 	{
-		anjuta_util_dialog_error (GTK_WINDOW (parent), _("Unable to display help. Please make sure Anjuta "
-								  "documentation package is install. It can be downloaded "
-								  "from http://anjuta.org"));
+		anjuta_util_dialog_error (GTK_WINDOW (parent), _("Unable to display help. Please make sure the Anjuta "
+								  "documentation package is installed. It can be downloaded "
+								  "from http://anjuta.org."));
 
 		return;
 	}

@@ -206,7 +206,7 @@ on_ok_clicked (GtkButton *button, PatchPlugin* p_plugin)
 	
 	ianjuta_message_view_append (p_plugin->mesg_view,
 								 IANJUTA_MESSAGE_VIEW_TYPE_NORMAL,
-								 _("Patching...\n"), "", NULL);
+								 _("Patching…\n"), "", NULL);
 
 	g_signal_connect (p_plugin->launcher, "child-exited",
 					  G_CALLBACK (on_patch_terminated), p_plugin);
@@ -216,12 +216,12 @@ on_ok_clicked (GtkButton *button, PatchPlugin* p_plugin)
 		anjuta_launcher_execute (p_plugin->launcher, command->str,
 								 (AnjutaLauncherOutputCallback)on_msg_arrived, p_plugin);
 		p_plugin->executing = TRUE;
-		gtk_label_set_text(GTK_LABEL(p_plugin->output_label), _("Patching..."));
+		gtk_label_set_text(GTK_LABEL(p_plugin->output_label), _("Patching…"));
 		gtk_widget_set_sensitive(p_plugin->patch_button, FALSE);
 	}
 	else
 		anjuta_util_dialog_error(GTK_WINDOW(p_plugin->dialog),
-			_("There are unfinished jobs, please wait until they are finished."));
+			_("There are unfinished jobs: please wait until they are finished."));
 	g_string_free(command, TRUE);
 }
 

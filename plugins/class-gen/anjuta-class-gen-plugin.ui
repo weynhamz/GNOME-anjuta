@@ -841,7 +841,7 @@
                   <object class="GtkLabel" id="label14">
                     <property name="visible">True</property>
                     <property name="xalign">1</property>
-                    <property name="label" translatable="yes">Author Email:</property>
+                    <property name="label" translatable="yes">Author Email Address:</property>
                   </object>
                   <packing>
                     <property name="left_attach">2</property>

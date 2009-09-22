@@ -315,7 +315,7 @@ on_ref_command_finished (AnjutaCommand *command, guint return_code,
 	
 	pulse_timer_id = git_status_bar_progress_pulse (data->plugin,
 													_("Git: Retrieving"
-													  " log..."));
+													  " log…"));
 	
 	g_signal_connect (G_OBJECT (log_command), "command-finished",
 					  G_CALLBACK (git_stop_status_bar_progress_pulse),

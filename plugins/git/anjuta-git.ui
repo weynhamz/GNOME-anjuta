@@ -338,7 +338,7 @@
                 <property name="visible">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <property name="activity_mode">True</property>
-                <property name="text" translatable="yes">Retrieving status...</property>
+                <property name="text" translatable="yes">Retrieving status…</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -819,7 +819,7 @@
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <property name="activity_mode">True</property>
                 <property name="show_text">True</property>
-                <property name="text" translatable="yes">Retrieving status...</property>
+                <property name="text" translatable="yes">Retrieving status…</property>
               </object>
               <packing>
                 <property name="fill">False</property>
@@ -1815,7 +1815,7 @@
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <property name="activity_mode">True</property>
                 <property name="show_text">True</property>
-                <property name="text" translatable="yes">Retrieving status...</property>
+                <property name="text" translatable="yes">Retrieving status…</property>
               </object>
               <packing>
                 <property name="fill">False</property>
@@ -1994,7 +1994,7 @@
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <property name="activity_mode">True</property>
                 <property name="show_text">True</property>
-                <property name="text" translatable="yes">Retrieving status...</property>
+                <property name="text" translatable="yes">Retrieving status…</property>
               </object>
               <packing>
                 <property name="fill">False</property>
@@ -2174,7 +2174,7 @@
                             </child>
                             <child>
                               <object class="GtkButton" id="log_browse_button">
-                                <property name="label" translatable="yes">Browse...</property>
+                                <property name="label" translatable="yes">Browse…</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
@@ -3683,7 +3683,7 @@
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <property name="activity_mode">True</property>
                 <property name="show_text">True</property>
-                <property name="text" translatable="yes">Retrieving status...</property>
+                <property name="text" translatable="yes">Retrieving status…</property>
               </object>
               <packing>
                 <property name="fill">False</property>
@@ -4143,7 +4143,7 @@
                         <property name="visible">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                         <property name="action">select-folder</property>
-                        <property name="title" translatable="yes">Select A Folder</property>
+                        <property name="title" translatable="yes">Select a Folder</property>
                       </object>
                     </child>
                   </object>
@@ -4177,7 +4177,7 @@
                     <property name="left_padding">12</property>
                     <child>
                       <object class="GtkCheckButton" id="patch_series_signoff_check">
-                        <property name="label" translatable="yes" comments="A signed off by line is something git adds to the end of a commit message that indicates that a patch passes your scrutiny as you commit it to your git tree.">Add signed off by line</property>
+                        <property name="label" translatable="yes" comments="A signed off by line is something git adds to the end of a commit message that indicates that a patch passes your scrutiny as you commit it to your git tree.">Add signed-off-by line</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -5140,7 +5140,7 @@
                     <property name="left_padding">12</property>
                     <child>
                       <object class="GtkCheckButton" id="apply_mailbox_signoff_check">
-                        <property name="label" translatable="yes">Add signed off by line</property>
+                        <property name="label" translatable="yes">Add signed-off-by line</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -5311,7 +5311,7 @@
                         </child>
                         <child>
                           <object class="GtkCheckButton" id="cherry_pick_signoff_check">
-                            <property name="label" translatable="yes">Add signed-off by line</property>
+                            <property name="label" translatable="yes">Add signed-off-by line</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>

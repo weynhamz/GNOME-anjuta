@@ -95,9 +95,9 @@ activate_plugin (AnjutaPlugin *plugin)
 	{
 		anjuta_util_dialog_error(
 			NULL,
-			_("Could not find autogen version 5, please install the "
+			_("Could not find autogen version 5; please install the "
 			  "autogen package. You can get it from "
-			  "http://autogen.sourceforge.net"));
+			  "http://autogen.sourceforge.net."));
 
 		return FALSE;
 	}

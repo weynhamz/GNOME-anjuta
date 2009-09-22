@@ -306,13 +306,13 @@ on_find_symbol (GtkAction *action, SymbolDBPlugin *sdb_plugin)
 
 static GtkActionEntry actions[] = 
 {
-	{ "ActionMenuGoto", NULL, N_("_Goto"), NULL, NULL, NULL},
+	{ "ActionMenuGoto", NULL, N_("_Go to"), NULL, NULL, NULL},
 	{
 		"ActionSymbolDBGotoDecl",
 		ANJUTA_STOCK_GOTO_DECLARATION,
 		N_("Tag De_claration"),
 		"<shift><control>d",
-		N_("Goto symbol declaration"),
+		N_("Go to symbol declaration"),
 		G_CALLBACK (on_goto_file_tag_decl_activate)
 	},
 	{
@@ -321,14 +321,14 @@ static GtkActionEntry actions[] =
 		/* Translators: Go to the line where the tag is implemented */
 		N_("Tag _Implementation"),
 		"<control>d",
-		N_("Goto symbol definition"),
+		N_("Go to symbol definition"),
 		G_CALLBACK (on_goto_file_tag_impl_activate)
 	}	
 };
 
 static GtkActionEntry actions_search[] = {
   { 
-	"ActionEditSearchFindSymbol", GTK_STOCK_FIND, N_("_Find Symbol..."),
+	"ActionEditSearchFindSymbol", GTK_STOCK_FIND, N_("_Find Symbol…"),
 	"<control>l", N_("Find Symbol"),
     G_CALLBACK (on_find_symbol)
   }
@@ -541,7 +541,7 @@ on_editor_destroy (SymbolDBPlugin *sdb_plugin, IAnjutaEditor *editor)
 	DEBUG_PRINT ("%s", "on_editor_destroy ()");
 	if (!sdb_plugin->editor_connected || !sdb_plugin->dbv_view_tree)
 	{
-		DEBUG_PRINT ("%s", "on_editor_destroy (): returning....");
+		DEBUG_PRINT ("%s", "on_editor_destroy (): returning….");
 		return;
 	}
 	
@@ -551,7 +551,7 @@ on_editor_destroy (SymbolDBPlugin *sdb_plugin, IAnjutaEditor *editor)
 	/* was it the last file loaded? */
 	if (g_hash_table_size (sdb_plugin->editor_connected) <= 0)
 	{
-		DEBUG_PRINT ("%s", "displaying nothing...");
+		DEBUG_PRINT ("%s", "displaying nothing…");
 		symbol_db_view_locals_display_nothing (
 				SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), TRUE);
 	}
@@ -1167,7 +1167,7 @@ on_system_single_file_scan_end (SymbolDBEngine *dbe, gpointer data)
 	sdb_plugin->files_count_system_done++;	
 	if (sdb_plugin->files_count_system_done >= sdb_plugin->files_count_system)
 	{
-		message = g_strdup_printf (_("%s: Generating inheritances..."), 
+		message = g_strdup_printf (_("%s: Generating inheritances…"), 
 								   sdb_plugin->current_scanned_package);
 	}
 	else
@@ -1203,7 +1203,7 @@ on_project_single_file_scan_end (SymbolDBEngine *dbe, gpointer data)
 	
 	sdb_plugin->files_count_project_done++;	
 	if (sdb_plugin->files_count_project_done >= sdb_plugin->files_count_project)
-		message = g_strdup_printf (_("Generating inheritances..."));
+		message = g_strdup_printf (_("Generating inheritances…"));
 	else
 		message = g_strdup_printf (_("%d files scanned out of %d"), 
 							   sdb_plugin->files_count_project_done, sdb_plugin->files_count_project);
@@ -1428,7 +1428,7 @@ do_import_project_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 	sdb_plugin->is_project_importing = TRUE;
 	enable_view_signals (sdb_plugin, FALSE, TRUE);
 	
-	DEBUG_PRINT ("Retrieving %d gbf sources of the project...",
+	DEBUG_PRINT ("Retrieving %d gbf sources of the project…",
 					 g_list_length (prj_elements_list));
 
 	/* create the storage array. The file names will be strdup'd and put here. 
@@ -1965,7 +1965,7 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 			}				
 		}
 		gtk_progress_bar_set_text (GTK_PROGRESS_BAR (sdb_plugin->progress_bar_project),
-								   _("Populating symbols' db..."));
+								   _("Populating symbol database…"));
 		id = g_idle_add ((GSourceFunc) gtk_progress_bar_pulse, 
 						 sdb_plugin->progress_bar_project);
 		gtk_widget_show (sdb_plugin->progress_bar_project);
@@ -2198,7 +2198,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	gchar *ctags_path;
 	GtkWidget *label;
 	
-	DEBUG_PRINT ("SymbolDBPlugin: Activating SymbolDBPlugin plugin ...");
+	DEBUG_PRINT ("SymbolDBPlugin: Activating SymbolDBPlugin plugin …");
 	
 	/* Initialize gda library. */
 	gda_init ();
@@ -2526,7 +2526,7 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
 
-	DEBUG_PRINT ("%s", "SymbolDBPlugin: Dectivating SymbolDBPlugin plugin ...");
+	DEBUG_PRINT ("%s", "SymbolDBPlugin: Dectivating SymbolDBPlugin plugin …");
 	
 	/* disconnect some signals */
 	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->dbv_view_tree_locals),

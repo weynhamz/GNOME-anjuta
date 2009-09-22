@@ -146,7 +146,7 @@ static ShortcutMapping global_keymap[] = {
 static GtkActionEntry actions_file[] = {
   { "ActionFileSave", GTK_STOCK_SAVE, N_("_Save"), "<control>s",
 	N_("Save current file"), G_CALLBACK (on_save_activate)},
-  { "ActionFileSaveAs", GTK_STOCK_SAVE_AS, N_("Save _As..."),  "<shift><control>s",
+  { "ActionFileSaveAs", GTK_STOCK_SAVE_AS, N_("Save _As…"),  "<shift><control>s",
 	N_("Save the current file with a different name"),
     G_CALLBACK (on_save_as_activate)},
   { "ActionFileSaveAll", GTK_STOCK_SAVE, N_("Save A_ll"), "<shift><control>l",
@@ -165,7 +165,7 @@ static GtkActionEntry actions_file[] = {
 };
 
 static GtkActionEntry actions_print[] = {
-  { "ActionPrintFile", GTK_STOCK_PRINT, N_("_Print..."), "<control>p",
+  { "ActionPrintFile", GTK_STOCK_PRINT, N_("_Print…"), "<control>p",
 	N_("Print the current file"), G_CALLBACK (on_print_activate)},
   { "ActionPrintPreview",
 #ifdef GTK_STOCK_PRINT_PREVIEW
@@ -174,7 +174,7 @@ static GtkActionEntry actions_print[] = {
 	NULL
 #endif
 	, N_("_Print Preview"), NULL,
-	N_("Preview the current file in print-format"),
+	N_("Preview the current file in print format"),
     G_CALLBACK (on_print_preview_activate)},
 };
 
@@ -196,7 +196,7 @@ static GtkActionEntry actions_transform[] = {
 	N_("Convert End Of Line characters to Mac OS EOL (CR)"),
     G_CALLBACK (on_editor_command_eol_cr_activate)},
   { "ActionEditConvertEOL", NULL, N_("Convert EOL to Majority EOL"), NULL,
-	N_("Convert End Of Line characters to majority of the EOL found in the file"),
+	N_("Convert End Of Line characters to the most common EOL found in the file"),
     G_CALLBACK (on_transform_eolchars1_activate)},
 };
 
@@ -233,8 +233,8 @@ static GtkActionEntry actions_comment[] = {
 };
 
 static GtkActionEntry actions_navigation[] = {
-  { "ActionMenuGoto", NULL, N_("_Goto"), NULL, NULL, NULL},/* menu title */
-  { "ActionEditGotoLine", ANJUTA_STOCK_GOTO_LINE, N_("_Line Number..."),
+  { "ActionMenuGoto", NULL, N_("_Go to"), NULL, NULL, NULL},/* menu title */
+  { "ActionEditGotoLine", ANJUTA_STOCK_GOTO_LINE, N_("_Line Number…"),
 	"<control><alt>g", N_("Go to a particular line in the editor"),
     G_CALLBACK (on_goto_line_no1_activate)},
   { "ActionEditGotoMatchingBrace", GTK_STOCK_JUMP_TO, N_("Matching _Brace"),
@@ -247,10 +247,10 @@ static GtkActionEntry actions_navigation[] = {
 	"<control><alt>e", N_("Go to the end of the current block"),
     G_CALLBACK (on_goto_block_end1_activate)},
   { "ActionEditGotoHistoryPrev", ANJUTA_STOCK_HISTORY_PREV, N_("Previous _History"),
-	"<alt>Left", N_("Goto previous history"),
+	"<alt>Left", N_("Go to previous history"),
     G_CALLBACK (on_prev_history)},
   { "ActionEditGotoHistoryNext", ANJUTA_STOCK_HISTORY_NEXT, N_("Next Histor_y"),
-	"<alt>Right", N_("Goto next history"),
+	"<alt>Right", N_("Go to next history"),
     G_CALLBACK (on_next_history)}
 };
 
@@ -603,7 +603,7 @@ ui_give_shorter_names (AnjutaPlugin *plugin)
 	g_object_set (G_OBJECT (action), "is-important", TRUE, NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorNavigate",
 								   "ActionEditGotoLine");
-	g_object_set (G_OBJECT (action), "short-label", _("Goto"), NULL);
+	g_object_set (G_OBJECT (action), "short-label", _("Go to"), NULL);
 }
 
 static void
@@ -1642,7 +1642,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	static gboolean initialized = FALSE;
 	GList *actions, *act;
 	
-	DEBUG_PRINT ("%s", "DocmanPlugin: Activating document manager plugin...");
+	DEBUG_PRINT ("%s", "DocmanPlugin: Activating document manager plugin…");
 	
 	dplugin = ANJUTA_PLUGIN_DOCMAN (plugin);
 	dplugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
@@ -1768,7 +1768,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	AnjutaStatus *status;
 	GList *node;
 	
-	DEBUG_PRINT ("%s", "DocmanPlugin: Deactivating document manager plugin...");
+	DEBUG_PRINT ("%s", "DocmanPlugin: Deactivating document manager plugin…");
 	
 	eplugin = ANJUTA_PLUGIN_DOCMAN (plugin);
 

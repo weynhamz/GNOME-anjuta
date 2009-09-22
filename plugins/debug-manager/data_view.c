@@ -387,7 +387,7 @@ dma_data_view_populate_popup (GtkTextView *widget,
 	gtk_widget_show (menu_item);
 
 	/* create goto menu_item. */
-	menu_item = gtk_menu_item_new_with_mnemonic (_("_Goto address"));
+	menu_item = gtk_menu_item_new_with_mnemonic (_("_Go to address"));
 	g_signal_connect (G_OBJECT (menu_item), "activate",
 			  G_CALLBACK (dma_data_view_goto_activate), view);
 	gtk_menu_shell_prepend (GTK_MENU_SHELL (menu), menu_item);

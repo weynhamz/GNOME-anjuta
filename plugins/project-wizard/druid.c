@@ -587,7 +587,7 @@ cb_save_valid_property (NPWProperty* property, gpointer user_data)
 		{
 		case NPW_FILENAME_RESTRICTION:
 			g_string_append_printf (data->error,
-									_("Field \"%s\" must start with a letter, a digit or an underscore and contains only letters, digits, underscore, minus and dot. Please fix it."),
+									_("Field \"%s\" must start with a letter, a digit or an underscore and contain only letters, digits, underscore, minus and dot. Please fix it."),
 									_(npw_property_get_label (property)));
 			break;
 		default:
@@ -799,11 +799,11 @@ check_and_warn_missing (NPWDruid *druid)
 		npw_druid_fill_error_page (druid,
 								   GTK_MESSAGE_WARNING,
 								  _("The missing programs are usually part of some distrubution "
-									"packages and can be searched in your Application Manager. "
+									"packages and can be searched for in your Application Manager. "
 									"Similarly, the development packages are contained in special "
-									"packages that your distribution provide to allow development "
-									"of projects based on them. They usually end with -dev or "
-									"-devel suffix in package names and can be found by searching "
+									"packages that your distribution provides to allow development "
+									"of projects based on them. They usually end with a \"-dev\" or "
+									"\"-devel\" suffix in package names and can be found by searching "
 									"in your Application Manager."),
 									"<b>%s</b>\n\n%s",
 									_("Missing components"),
@@ -1037,7 +1037,7 @@ npw_druid_new (NPWPlugin* plugin)
 	/* Check if autogen is present */
 	if (!npw_check_autogen())
 	{
-		anjuta_util_dialog_error (NULL, _("Could not find autogen version 5, please install the autogen package. You can get it from http://autogen.sourceforge.net"));
+		anjuta_util_dialog_error (NULL, _("Could not find autogen version 5; please install the autogen package. You can get it from http://autogen.sourceforge.net."));
 		return NULL;
 	}	
 

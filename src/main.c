@@ -67,13 +67,13 @@ static const GOptionEntry anjuta_options[] = {
 	{
 		"no-splash", 's', 0, G_OPTION_ARG_NONE,
 		&no_splash,
-		N_("Do not show the splashscreen"),
+		N_("Do not show the splash screen"),
 		NULL
 	},
 	{
 		"no-client", 'c', 0, G_OPTION_ARG_NONE,
 		&no_client,
-		N_("Start a new instance and do not open the file in a existing"),
+		N_("Start a new instance and do not open the file in an existing instance"),
 		NULL
 	},
 	{
@@ -91,7 +91,7 @@ static const GOptionEntry anjuta_options[] = {
 	{
 		"proper-shutdown", 'p', 0, G_OPTION_ARG_NONE,
 		&proper_shutdown,
-		N_("Shutdown anjuta properly releasing all resources (for debugging)"),
+		N_("Shut down Anjuta properly, releasing all resources (for debugging)"),
 		NULL
 	},
 	{

@@ -1295,7 +1295,7 @@ create_dialog(void)
 	sg->bxml = gtk_builder_new ();
 	if (!gtk_builder_add_from_file (sg->bxml, BUILDER_FILE_SEARCH_REPLACE, &error))
 	{
-		anjuta_util_dialog_error(NULL, _("Unable to build user interface for Search And Replace"));
+		anjuta_util_dialog_error(NULL, _("Unable to build user interface for Search and Replace"));
 		g_free(sg);
 		sg = NULL;
 		g_error_free (error);

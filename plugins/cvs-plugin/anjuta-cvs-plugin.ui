@@ -202,7 +202,7 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="browse_button_add_dialog">
-                    <property name="label" translatable="yes">Browse...</property>
+                    <property name="label" translatable="yes">Browse…</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -329,7 +329,7 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="browse_button_remove_dialog">
-                    <property name="label" translatable="yes">Browse...</property>
+                    <property name="label" translatable="yes">Browse…</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -351,7 +351,7 @@
                 <property name="visible">True</property>
                 <property name="label" translatable="yes">&lt;b&gt;Please note: &lt;/b&gt;
 
-Pressing OK will delete the file from disk and from CVS. Of course the file won't be removed from CVS before you use CVS Commit. &lt;b&gt;You have been warned!&lt;/b&gt;</property>
+Pressing OK will delete the file from disk and from CVS. Of course, the file won't be removed from CVS before you use CVS Commit. &lt;b&gt;You have been warned!&lt;/b&gt;</property>
                 <property name="use_markup">True</property>
                 <property name="wrap">True</property>
               </object>
@@ -458,7 +458,7 @@ Pressing OK will delete the file from disk and from CVS. Of course the file won'
                 </child>
                 <child>
                   <object class="GtkButton" id="browse_button_commit_dialog">
-                    <property name="label" translatable="yes">Browse...</property>
+                    <property name="label" translatable="yes">Browse…</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -698,7 +698,7 @@ Pressing OK will delete the file from disk and from CVS. Of course the file won'
                 </child>
                 <child>
                   <object class="GtkButton" id="browse_button_update_dialog">
-                    <property name="label" translatable="yes">Browse...</property>
+                    <property name="label" translatable="yes">Browse…</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -968,7 +968,7 @@ Pressing OK will delete the file from disk and from CVS. Of course the file won'
                 </child>
                 <child>
                   <object class="GtkButton" id="browse_button_status_dialog">
-                    <property name="label" translatable="yes">Browse...</property>
+                    <property name="label" translatable="yes">Browse…</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -1155,7 +1155,7 @@ Pressing OK will delete the file from disk and from CVS. Of course the file won'
                 </child>
                 <child>
                   <object class="GtkButton" id="browse_button_diff_dialog">
-                    <property name="label" translatable="yes">Browse...</property>
+                    <property name="label" translatable="yes">Browse…</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -1367,7 +1367,7 @@ Pressing OK will delete the file from disk and from CVS. Of course the file won'
               <object class="GtkLabel" id="label19">
                 <property name="visible">True</property>
                 <property name="xalign">0</property>
-                <property name="label" translatable="yes">Choose file or directory to get log:</property>
+                <property name="label" translatable="yes">Choose file or directory to get log for:</property>
                 <property name="use_markup">True</property>
               </object>
               <packing>
@@ -1392,7 +1392,7 @@ Pressing OK will delete the file from disk and from CVS. Of course the file won'
                 </child>
                 <child>
                   <object class="GtkButton" id="browse_button_log_dialog">
-                    <property name="label" translatable="yes">Browse...</property>
+                    <property name="label" translatable="yes">Browse…</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>

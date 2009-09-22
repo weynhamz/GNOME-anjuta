@@ -255,7 +255,7 @@ subversion_show_log (LogData *data)
 		
 		pulse_timer_id = status_bar_progress_pulse (data->plugin,
 													  _("Subversion: Retrieving"
-														" log..."));
+														" log…"));
 		
 		g_signal_connect (G_OBJECT (log_command), "command-finished",
 						  G_CALLBACK (stop_status_bar_progress_pulse),
@@ -349,7 +349,7 @@ on_log_view_selected_button_clicked (GtkButton *button, LogData *data)
 	
 	pulse_timer_id = status_bar_progress_pulse (data->plugin,
 												_("Subversion: Retrieving "
-												  "file..."));
+												  "file…"));
 	
 	g_signal_connect (G_OBJECT (cat_command), "command-finished",
 					  G_CALLBACK (stop_status_bar_progress_pulse),
@@ -424,7 +424,7 @@ on_log_diff_selected_button_clicked (GtkButton *button, LogData *data)
 		
 		pulse_timer_id = status_bar_progress_pulse (data->plugin,
 													_("Subversion: Retrieving " 
-													  "diff..."));
+													  "diff…"));
 		
 		g_signal_connect (G_OBJECT (diff_command), "command-finished",
 						  G_CALLBACK (stop_status_bar_progress_pulse),
@@ -491,7 +491,7 @@ on_log_diff_previous_button_clicked (GtkButton *button, LogData *data)
 	
 	pulse_timer_id = status_bar_progress_pulse (data->plugin,
 												_("Subversion: Retrieving " 
-												  "diff..."));
+												  "diff…"));
 	
 	g_signal_connect (G_OBJECT (diff_command), "command-finished",
 					  G_CALLBACK (stop_status_bar_progress_pulse),

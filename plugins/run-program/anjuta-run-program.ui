@@ -23,7 +23,7 @@
               <object class="GtkCheckButton" id="parameter_run_in_term_check">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="label" translatable="yes">Run In Terminal</property>
+                <property name="label" translatable="yes">Run in Terminal</property>
                 <property name="use_underline">True</property>
                 <property name="draw_indicator">True</property>
               </object>

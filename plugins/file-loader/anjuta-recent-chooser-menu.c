@@ -667,7 +667,7 @@ anjuta_recent_chooser_menu_set_current_uri (GtkRecentChooser  *chooser,
     {
       g_set_error (error, GTK_RECENT_CHOOSER_ERROR,
       		   GTK_RECENT_CHOOSER_ERROR_NOT_FOUND,
-      		   _("No recently used resource found with URI `%s'"),
+      		   _("No recently used resource found with URI \"%s\""),
       		   uri);
     }
   
@@ -723,7 +723,7 @@ anjuta_recent_chooser_menu_select_uri (GtkRecentChooser  *chooser,
     {
       g_set_error (error, GTK_RECENT_CHOOSER_ERROR,
       		   GTK_RECENT_CHOOSER_ERROR_NOT_FOUND,
-      		   _("No recently used resource found with URI `%s'"),
+      		   _("No recently used resource found with URI \"%s\""),
       		   uri);
       return FALSE;
     }

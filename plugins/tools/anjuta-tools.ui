@@ -261,7 +261,7 @@
                     </child>
                     <child>
                       <object class="GtkButton" id="browse_button_directory_entry">
-                        <property name="label" translatable="yes">Browse...</property>
+                        <property name="label" translatable="yes">Browse…</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
@@ -279,7 +279,7 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="button22">
-                    <property name="label" translatable="yes">_Variable...</property>
+                    <property name="label" translatable="yes">_Variable…</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
@@ -329,7 +329,7 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="button20">
-                    <property name="label" translatable="yes">_Variable...</property>
+                    <property name="label" translatable="yes">_Variable…</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
@@ -519,7 +519,7 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="input_button">
-                    <property name="label" translatable="yes">_Variable...</property>
+                    <property name="label" translatable="yes">_Variable…</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
@@ -561,7 +561,7 @@
                     </child>
                     <child>
                       <object class="GtkButton" id="browse_button_command_entry">
-                        <property name="label" translatable="yes">Browse...</property>
+                        <property name="label" translatable="yes">Browse…</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>

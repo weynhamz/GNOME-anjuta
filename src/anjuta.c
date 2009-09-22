@@ -421,7 +421,7 @@ anjuta_new (gchar *prog_name, gchar **files, gboolean no_splash,
 	g_signal_connect (profile_manager, "profile-descoped",
 					  G_CALLBACK (on_profile_descoped), app);
 	
-	anjuta_status_progress_tick (status, NULL, _("Loaded Session..."));
+	anjuta_status_progress_tick (status, NULL, _("Loaded Session…"));
 	anjuta_status_disable_splash (status, TRUE);
 	return app;
 }

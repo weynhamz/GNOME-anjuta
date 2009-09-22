@@ -475,7 +475,7 @@ on_refresh_idle (gpointer user_data)
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (user_data);
 	
 	status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL);
-	anjuta_status_push (status, "Refreshing symbol tree...");
+	anjuta_status_push (status, _("Refreshing symbol tree…"));
 	anjuta_status_busy_push (status);
 	
 	gbf_project_refresh (GBF_PROJECT (plugin->project), &err);
@@ -660,16 +660,16 @@ confirm_removal (ProjectManagerPlugin *plugin, GbfTreeData *data)
 	switch (data->type)
 	{
 		case GBF_TREE_NODE_GROUP:
-			question = _("Are you sure you want to remove the following group from project?\n\n");
-			mesg = _("Group: %s\n\nThe group will not be deleted from file system.");
+			question = _("Are you sure you want to remove the following group from the project?\n\n");
+			mesg = _("Group: %s\n\nThe group will not be deleted from the file system.");
 			break;
 		case GBF_TREE_NODE_TARGET:
-			question = _("Are you sure you want to remove the following target from project?\n\n");
+			question = _("Are you sure you want to remove the following target from the project?\n\n");
 			mesg = _("Target: %s");
 			break;
 		case GBF_TREE_NODE_TARGET_SOURCE:
-			question = _("Are you sure you want to remove the following source file from project?\n\n");
-			mesg = _("Source: %s\n\nThe source file will not be deleted from file system.");
+			question = _("Are you sure you want to remove the following source file from the project?\n\n");
+			mesg = _("Source: %s\n\nThe source file will not be deleted from the file system.");
 			break;
 		default:
 			g_warning ("Unknown node");
@@ -833,17 +833,17 @@ static GtkActionEntry pm_actions[] =
 	},
 	{
 		"ActionProjectAddGroup", GTK_STOCK_ADD,
-		N_("Add _Group..."), NULL, N_("Add a group to project"),
+		N_("Add _Group…"), NULL, N_("Add a group to project"),
 		G_CALLBACK (on_add_group)
 	},
 	{
 		"ActionProjectAddTarget", GTK_STOCK_ADD,
-		N_("Add _Target..."), NULL, N_("Add a target to project"),
+		N_("Add _Target…"), NULL, N_("Add a target to project"),
 		G_CALLBACK (on_add_target)
 	},
 	{
 		"ActionProjectAddSource", GTK_STOCK_ADD,
-		N_("Add _Source File..."), NULL, N_("Add a source file to project"),
+		N_("Add _Source File…"), NULL, N_("Add a source file to project"),
 		G_CALLBACK (on_add_source)
 	},
 	{
@@ -862,7 +862,7 @@ static GtkActionEntry popup_actions[] =
 	},
 	{
 		"ActionPopupProjectAddToProject", GTK_STOCK_ADD,
-		N_("_Add To Project"), NULL, N_("Add a source file to project"),
+		N_("_Add to Project"), NULL, N_("Add a source file to project"),
 		G_CALLBACK (on_popup_add_to_project)
 	},
 	{
@@ -1198,7 +1198,7 @@ project_manager_load_gbf (ProjectManagerPlugin *pm_plugin)
 	if (pm_plugin->project != NULL)
 			g_object_unref (pm_plugin->project);
 	
-	DEBUG_PRINT ("loading gbf backend...\n");
+	DEBUG_PRINT ("loading gbf backend…\n");
 	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN(pm_plugin)->shell, NULL);
 	descs = anjuta_plugin_manager_query (plugin_manager,
 										 "Anjuta Plugin",
@@ -1264,7 +1264,7 @@ project_manager_load_gbf (ProjectManagerPlugin *pm_plugin)
 	 * was loaded successfully */
 	gbf_project_load (pm_plugin->project, dirname, &error);
 	
-	anjuta_status_progress_tick (status, NULL, _("Created project view..."));
+	anjuta_status_progress_tick (status, NULL, _("Created project view…"));
 	
 	if (error)
 	{
@@ -1486,7 +1486,7 @@ project_manager_plugin_activate_plugin (AnjutaPlugin *plugin)
 	/* GladeXML *gxml; */
 	ProjectManagerPlugin *pm_plugin;
 	
-	DEBUG_PRINT ("ProjectManagerPlugin: Activating Project Manager plugin %p...", plugin);
+	DEBUG_PRINT ("ProjectManagerPlugin: Activating Project Manager plugin %p…", plugin);
 	
 	if (!initialized)
 		register_stock_icons (plugin);
@@ -1598,7 +1598,7 @@ project_manager_plugin_deactivate_plugin (AnjutaPlugin *plugin)
 	ProjectManagerPlugin *pm_plugin;
 	pm_plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (plugin);
 
-	DEBUG_PRINT ("ProjectManagerPlugin: Deactivate Project Manager plugin...");
+	DEBUG_PRINT ("ProjectManagerPlugin: Deactivate Project Manager plugin…");
 	if (pm_plugin->close_project_idle > -1)
 	{
 		g_source_remove (pm_plugin->close_project_idle);
@@ -2638,7 +2638,7 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **e)
 	}
 	
 	anjuta_status_progress_tick (status, NULL,
-								 _("Initializing Project..."));
+								 _("Initializing Project…"));
 	update_ui (plugin);
 
 	anjuta_status_progress_tick (status, NULL, _("Project Loaded"));

@@ -1918,21 +1918,21 @@ static GtkActionEntry actions[] = {
 	{
 		"ActionEditAutocomplete",
 		ANJUTA_STOCK_AUTOCOMPLETE,
-		N_("_AutoComplete"), "<control>Return",
-		N_("AutoComplete the current word"),
+		N_("_Auto-Complete"), "<control>Return",
+		N_("Auto-complete the current word"),
 		G_CALLBACK (on_auto_complete)
 	},
 	{
 		"ActionEditAutoindent",
 		ANJUTA_STOCK_AUTOINDENT,
-		N_("Auto Indent"), "<control>i",
-		N_("Auto indent current line or selection based on indentation settings"),
+		N_("Auto-Indent"), "<control>i",
+		N_("Auto-indent current line or selection based on indentation settings"),
 		G_CALLBACK (on_auto_indent)
 	},
 	{   "ActionFileSwap", 
 		ANJUTA_STOCK_SWAP, 
 		N_("Swap .h/.c"), NULL,
-		N_("Swap c header and source files"),
+		N_("Swap C header and source files"),
 		G_CALLBACK (on_swap_activate)
 	}
 };

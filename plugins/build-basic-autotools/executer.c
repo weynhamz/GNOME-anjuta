@@ -307,7 +307,7 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 	{
 		error_condition = TRUE;
 		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
-								  _("Program '%s' does not exists"), target);
+								  _("Program '%s' does not exist"), target);
 	}
 	
 	if (!error_condition &&

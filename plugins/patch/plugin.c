@@ -58,7 +58,7 @@ static GtkActionEntry actions_tools[] = {
 	{
 		"ActionToolsPatch",		/* Action name */
 		"patch-plugin-icon",							/* Stock icon, if any */
-		N_("_Patch..."), 				/* Display label */
+		N_("_Patch…"), 				/* Display label */
 		NULL, 						/* short-cut */
 		NULL, 						/* Tooltip */
 		G_CALLBACK (on_patch_action_activate) /* action callback */
@@ -73,7 +73,7 @@ patch_plugin_activate (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 	PatchPlugin *p_plugin;
 	
-	DEBUG_PRINT ("%s", "PatchPlugin: Activating Patch plugin...");
+	DEBUG_PRINT ("%s", "PatchPlugin: Activating Patch plugin…");
 	
 	p_plugin = ANJUTA_PLUGIN_PATCH (plugin);
 
@@ -104,7 +104,7 @@ static gboolean
 patch_plugin_deactivate (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	DEBUG_PRINT ("%s", "AnjutaPatchPlugin: Dectivating Patch plugin ...");
+	DEBUG_PRINT ("%s", "AnjutaPatchPlugin: Dectivating Patch plugin …");
 
 	anjuta_ui_unmerge (ui, ANJUTA_PLUGIN_PATCH (plugin)->uiid);
 

@@ -190,7 +190,7 @@ on_push_dialog_response (GtkDialog *dialog, gint response_id,
 											 selected_refs,
 		                                     push_all_tags,
 		                                     push_all_refs);
-		progress_data = git_progress_data_new (data->plugin, _("Git: Pushing..."));
+		progress_data = git_progress_data_new (data->plugin, _("Git: Pushing…"));
 
 		g_free (url);
 		git_command_free_string_list (selected_refs);

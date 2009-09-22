@@ -2408,9 +2408,9 @@
                   <object class="GtkLabel" id="label5">
                     <property name="visible">True</property>
                     <property name="ypad">3</property>
-                    <property name="label" translatable="yes">&lt;span weight="bold" size="larger"&gt;Are you sure you want to debug a program not using the Debug configuration ?&lt;/span&gt;
+                    <property name="label" translatable="yes">&lt;span weight="bold" size="larger"&gt;Are you sure you want to debug a program not using the Debug configuration?&lt;/span&gt;
 
-When optimizations are enabled, the debugger cannot always identify the source code corresponding to the instructions, some commands can perform in a strange way, especially steps.</property>
+When optimizations are enabled, the debugger cannot always identify the source code corresponding to the instructions, so some commands can perform in a strange way, especially steps.</property>
                     <property name="use_markup">True</property>
                     <property name="wrap">True</property>
                     <property name="selectable">True</property>

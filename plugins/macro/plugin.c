@@ -39,21 +39,21 @@ static GtkActionEntry actions_macro[] = {
 	 {
 	 "ActionEditMacroInsert",
 	 NULL,
-	 N_("_Insert Macro..."),
+	 N_("_Insert Macro…"),
 	 "<control><alt>i",
 	 N_("Insert a macro using a shortcut"),
 	 G_CALLBACK (on_menu_insert_macro)},
 	 {
 	 "ActionEditMacroAdd",
 	 NULL,
-	 N_("_Add Macro..."),
+	 N_("_Add Macro…"),
 	 "<control>m",
 	 N_("Add a macro"),
 	 G_CALLBACK (on_menu_add_macro)},
 	 {
 	 "ActionEditMacroManager",
 	 NULL,
-	 N_("Macros..."),
+	 N_("Macros…"),
 	 NULL,
 	 N_("Add/Edit/Remove macros"),
 	 G_CALLBACK (on_menu_manage_macro)}
@@ -105,7 +105,7 @@ activate_plugin (AnjutaPlugin * plugin)
 	AnjutaUI *ui;
 	MacroPlugin *macro_plugin;
 
-	DEBUG_PRINT ("%s", "MacroPlugin: Activating Macro plugin...");
+	DEBUG_PRINT ("%s", "MacroPlugin: Activating Macro plugin…");
 
 	macro_plugin = ANJUTA_PLUGIN_MACRO (plugin);
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
@@ -135,7 +135,7 @@ deactivate_plugin (AnjutaPlugin * plugin)
 {
 	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
 
-	DEBUG_PRINT ("%s", "MacroPlugin: Deactivating Macro plugin...");
+	DEBUG_PRINT ("%s", "MacroPlugin: Deactivating Macro plugin…");
 
 	anjuta_plugin_remove_watch (plugin,
 								ANJUTA_PLUGIN_MACRO (plugin)->editor_watch_id,

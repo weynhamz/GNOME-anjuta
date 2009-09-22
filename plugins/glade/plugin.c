@@ -852,7 +852,7 @@ glade_plugin_do_save_associations (GladePlugin *plugin, GError **error)
 	{
 		g_set_error (error, PLUGIN_GLADE_ERROR,
 		             PLUGIN_GLADE_ERROR_GENERIC,
-		             _("No associations initialized, nothing to save"));
+		             _("No associations initialized: nothing to save"));
 		return FALSE;
 	}
 	if (!plugin->priv->project_root)
@@ -1977,7 +1977,7 @@ insert_handler_stub_auto (IAnjutaDocument *doc, GladePlugin *plugin,
 			g_set_error (error,
 			             PLUGIN_GLADE_ERROR,
 			             PLUGIN_GLADE_ERROR_GENERIC,
-			             _("Unknown language of the editor \"%s\""), uri);
+			             _("Unknown editor language \"%s\""), uri);
 			g_free (uri);
 			return;
 		}
@@ -2051,7 +2051,7 @@ on_insert_handler_stub_auto (GtkAction* action, GladePlugin* plugin)
 	}
 	else
 		anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
-		                            _("Couldn't find a signal information"));
+		                            _("Couldn't find signal information"));
 }
 
 static void
@@ -2135,7 +2135,7 @@ on_insert_handler_stub_manual (GtkAction* action, GladePlugin* plugin)
 		insert_handler_stub_manual (plugin, TRUE);
 	else
 		anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
-		                            _("Couldn't find a signal information"));
+		                            _("Couldn't find signal information"));
 }
 
 /* return true only if symbol definitely exists */
@@ -4036,15 +4036,15 @@ static GtkActionEntry actions_glade[] =
 	{
 		"ActionGladeAssociationsDialog",
 		NULL,
-		N_("Associations dialog..."),
+		N_("Associations dialog…"),
 		NULL,
-		N_("Associations dialog..."),
+		N_("Associations dialog…"),
 		G_CALLBACK (on_show_associations_dialog)
 	},
 	{
 		"ActionVersionDialog",
 		GTK_STOCK_PROPERTIES,
-		N_("Versioning..."),
+		N_("Versioning…"),
 		NULL,
 		N_("Switch between library versions and check deprecations"),
 		G_CALLBACK (on_glade_show_version_dialog)
@@ -4289,7 +4289,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	GtkCellRenderer *renderer;
 	GtkAction *action;
 
-	DEBUG_PRINT ("%s", "GladePlugin: Activating Glade plugin...");
+	DEBUG_PRINT ("%s", "GladePlugin: Activating Glade plugin…");
 
 	glade_plugin = ANJUTA_PLUGIN_GLADE (plugin);
 
@@ -4526,7 +4526,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 		return TRUE;
 	priv->deactivating = TRUE;
 
-	DEBUG_PRINT ("%s", "GladePlugin: Dectivating Glade plugin...");
+	DEBUG_PRINT ("%s", "GladePlugin: Dectivating Glade plugin…");
 
 	anjuta_plugin_remove_watch (plugin, priv->editor_watch_id, FALSE);
 	anjuta_plugin_remove_watch (plugin, priv->pm_current_uri_watch_id, FALSE);

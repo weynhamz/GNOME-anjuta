@@ -164,7 +164,7 @@
         </child>
         <child>
           <object class="GtkButton" id="macro_edit">
-            <property name="label" translatable="yes">Edit...</property>
+            <property name="label" translatable="yes">Edit&#x2026;</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="can_default">True</property>

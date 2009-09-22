@@ -286,14 +286,14 @@ void gui_add_todo_item(GtkWidget *useless, gpointer data, guint32 openid){
 		llabel = gtk_label_new("");
 
 		hbox2 = gtk_hbox_new(FALSE,12);
-		tempstr = g_strdup_printf("<i>%s %s</i>", _("started:"), _("n/a"));
+		tempstr = g_strdup_printf("<i>%s %s</i>", _("started:"), _("N/A"));
 		gtk_label_set_markup(GTK_LABEL(llabel), tempstr);
 		gtk_box_pack_start(GTK_BOX(hbox2),llabel, TRUE, TRUE, 6);
 		gtk_misc_set_alignment(GTK_MISC(llabel), 0,0.5);	
 		g_free(tempstr);
 
 		rlabel = gtk_label_new("");	
-		tempstr = g_strdup_printf("<i>%s %s</i>", _("stopped:"), _("n/a"));
+		tempstr = g_strdup_printf("<i>%s %s</i>", _("stopped:"), _("N/A"));
 		gtk_label_set_markup(GTK_LABEL(rlabel), tempstr);
 		gtk_box_pack_start(GTK_BOX(hbox2),rlabel, TRUE, TRUE, 6);
 		gtk_misc_set_alignment(GTK_MISC(rlabel), 1,0.5);
@@ -329,8 +329,8 @@ void gui_add_todo_item(GtkWidget *useless, gpointer data, guint32 openid){
 		gtk_text_buffer_set_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(text_view)), gtodo_todo_item_get_comment(item), -1);
 		{
 			gchar *buffer, *buffer1;
-			if((buffer1 = gtodo_todo_item_get_stop_date_as_string(item)) == NULL)  buffer1 = g_strdup_printf(_("n/a"));
-			if((buffer = gtodo_todo_item_get_start_date_as_string(item)) == NULL)  buffer = g_strdup_printf(_("n/a"));		
+			if((buffer1 = gtodo_todo_item_get_stop_date_as_string(item)) == NULL)  buffer1 = g_strdup_printf(_("N/A"));
+			if((buffer = gtodo_todo_item_get_start_date_as_string(item)) == NULL)  buffer = g_strdup_printf(_("N/A"));		
 
 			tempstr = g_strdup_printf("<i>%s %s</i>", _("started:"), buffer);
 			gtk_label_set_markup(GTK_LABEL(llabel),tempstr);
@@ -435,14 +435,14 @@ void add_edit_completed_toggled(GtkWidget *checkbox, GtkWidget *rlabel)
 		g_date_strftime(buffer, 64, "%x", date);
 		g_date_free(date);
 	}
-	else strcpy(buffer, "n/a");
+	else strcpy(buffer, "N/A");
 	if(stop_jul)
 	{
 		date1= g_date_new_julian(stop_jul);
 		g_date_strftime(buffer1, 64, "%x", date1);	
 		g_date_free(date1);
 	}
-	else strcpy(buffer1, "n/a");
+	else strcpy(buffer1, "N/A");
 	
 	tempstr = g_strdup_printf("<i>%s %s \t%s %s</i>",
 							  _("started:"), _("stopped:"),

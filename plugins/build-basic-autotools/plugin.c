@@ -1799,7 +1799,7 @@ build_compile_file (BasicAutotoolsPlugin *plugin, const gchar *filename)
 		*/
 		GtkWindow *window;
 		window = GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell);
-		anjuta_util_dialog_error (window, _("Can not compile \"%s\": No compile rule defined for this file type."), filename);
+		anjuta_util_dialog_error (window, _("Cannot compile \"%s\": No compile rule defined for this file type."), filename);
 	}
 	
 	return context;
@@ -1925,7 +1925,7 @@ build_configure_after_autogen (GObject *sender,
 			
 			return;
 		}
-		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell), _("Can not configure project: Missing configure script in %s."), plugin->project_root_dir);
+		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell), _("Cannot configure project: Missing configure script in %s."), plugin->project_root_dir);
 	}
 
 	if (pack)
@@ -2413,7 +2413,7 @@ static GtkActionEntry build_actions[] =
 	},
 	{
 		"ActionBuildConfigure", NULL,
-		N_("C_onfigure Project..."), NULL,
+		N_("C_onfigure Project…"), NULL,
 		N_("Configure project"),
 		G_CALLBACK (on_configure_project)
 	},

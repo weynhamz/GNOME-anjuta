@@ -122,13 +122,13 @@ on_cvs_terminated (AnjutaLauncher *launcher, gint child_pid, gint status,
 	{
 		ianjuta_message_view_append (plugin->mesg_view,
 									 IANJUTA_MESSAGE_VIEW_TYPE_INFO,
-			_("CVS command failed - See above for details"), "", NULL);
+			_("CVS command failed. See above for details"), "", NULL);
 	}
 	else
 	{
 		gchar *mesg;
-		mesg = g_strdup_printf (ngettext("CVS command successful! - Time taken: %ld second",
-										 "CVS command successful! - Time taken: %ld seconds",
+		mesg = g_strdup_printf (ngettext("CVS command successful! Time taken: %ld second",
+										 "CVS command successful! Time taken: %ld seconds",
 										 time_taken), time_taken);
 		ianjuta_message_view_append (plugin->mesg_view,
 									 IANJUTA_MESSAGE_VIEW_TYPE_INFO,
@@ -218,7 +218,7 @@ cvs_execute_common (CVSPlugin* plugin, const gchar* command, const gchar* dir,
 	if (plugin->executing_command)
 	{
 		anjuta_util_dialog_error
-			(NULL,_("CVS command is running - please wait until it finishes!"),
+			(NULL,_("CVS command is running — please wait until it finishes!"),
 			 NULL);
 		return;
 	}

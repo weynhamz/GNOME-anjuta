@@ -75,7 +75,7 @@ static GtkActionEntry actions_cvs[] = {
 		GTK_STOCK_REFRESH,         /* Stock icon, if any */
 		N_("_Update"),             /* Display label */
 		"<control>u",              /* short-cut */
-		N_("Sync your local copy with the CVS tree"), /* Tooltip */
+		N_("Syncronize your local copy with the CVS tree"), /* Tooltip */
 		G_CALLBACK (on_menu_cvs_update) /* action callback */
 	},
 	{
@@ -134,7 +134,7 @@ static GtkActionEntry popup_actions_cvs[] = {
 		GTK_STOCK_REFRESH,         /* Stock icon, if any */
 		N_("_Update"),             /* Display label */
 		NULL,                      /* short-cut */
-		N_("Sync your local copy with the CVS tree"), /* Tooltip */
+		N_("Syncronize your local copy with the CVS tree"), /* Tooltip */
 		G_CALLBACK (on_fm_cvs_update) /* action callback */
 	},
 	{

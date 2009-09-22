@@ -233,7 +233,7 @@ gbf_project_util_new_group (GbfProjectModel *model,
 		    
                     new_group = gbf_project_add_group (project, parent_id, name, &err);
                     if (err) {
-                        error_dialog (parent, _("Can not add group"), "%s",
+                        error_dialog (parent, _("Cannot add group"), "%s",
                                       err->message);
                         g_error_free (err);
                     } else {
@@ -241,7 +241,7 @@ gbf_project_util_new_group (GbfProjectModel *model,
 		    }
                     g_free (parent_id);
                 } else {
-                    error_dialog (parent, _("Can not add group"),
+                    error_dialog (parent, _("Cannot add group"),
 				  "%s", _("No parent group selected"));
                 }
                 g_free (name);
@@ -414,7 +414,7 @@ gbf_project_util_new_target (GbfProjectModel *model,
             
                     new_target = gbf_project_add_target (project, group_id, name, type, &err);
                     if (err) {
-                        error_dialog (parent, _("Can not add target"), "%s",
+                        error_dialog (parent, _("Cannot add target"), "%s",
                                       err->message);
                         g_error_free (err);
                     } else {
@@ -423,7 +423,7 @@ gbf_project_util_new_target (GbfProjectModel *model,
 		    g_free (group_id);
                     g_free (type);
                 } else {
-                    error_dialog (parent, _("Can not add target"), "%s",
+                    error_dialog (parent, _("Cannot add target"), "%s",
 				  _("No group selected"));
                 }
             
@@ -529,7 +529,7 @@ browse_button_clicked_cb (GtkWidget *widget, gpointer user_data)
 	else
 		uri = g_strdup("");
 	
-    dialog = GTK_FILE_CHOOSER_DIALOG(gtk_file_chooser_dialog_new (_("Select sources..."),
+    dialog = GTK_FILE_CHOOSER_DIALOG(gtk_file_chooser_dialog_new (_("Select sources…"),
 				      GTK_WINDOW (gtk_widget_get_toplevel (widget)),
 				      GTK_FILE_CHOOSER_ACTION_OPEN,
 				      GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
@@ -769,14 +769,14 @@ gbf_project_util_add_source_multi (GbfProjectModel *model,
                     g_free (target_id);
 		    
 		    if (err_mesg->str && strlen (err_mesg->str) > 0) {
-			error_dialog (parent, _("Can not add source files"),
+			error_dialog (parent, _("Cannot add source files"),
 				      "%s", err_mesg->str);
 		    } else {
 			finished = TRUE;
 		    }
 		    g_string_free (err_mesg, TRUE);
                 } else {
-                    error_dialog (parent, _("Can not add source files"),
+                    error_dialog (parent, _("Cannot add source files"),
 				  "%s", _("No target has been selected"));
                 }
                 
