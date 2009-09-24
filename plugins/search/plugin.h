@@ -34,7 +34,9 @@ typedef struct _SearchPluginClass SearchPluginClass;
 
 struct _SearchPlugin{
 	AnjutaPlugin parent;
-	
+
+  GtkActionGroup *action_group;
+  
 	gint uiid;
 	IAnjutaDocumentManager* docman;
 };
