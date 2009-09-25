@@ -58,7 +58,8 @@ GitPushCommand *git_push_command_new (const gchar *working_directory,
 									  const gchar *url,
 									  GList *refs,
 									  gboolean push_all, 
-                                      gboolean push_tags);
+                                      gboolean push_tags,
+                                      gboolean force);
 
 G_END_DECLS
 

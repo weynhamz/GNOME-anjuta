@@ -99,6 +99,7 @@ on_push_dialog_response (GtkDialog *dialog, gint response_id,
 	GtkWidget *push_url_entry;
 	GtkWidget *push_all_check;
 	GtkWidget *push_tags_check;
+	GtkWidget *push_force_check;
 	GtkTreeModel *remote_list_model;
 	GtkTreeModel *branch_list_model;
 	GtkTreeModel *tag_list_model;
@@ -129,6 +130,8 @@ on_push_dialog_response (GtkDialog *dialog, gint response_id,
 		                                                     "push_all_check"));
 		push_tags_check = GTK_WIDGET (gtk_builder_get_object (data->bxml, 
 		                                                      "push_tags_check"));
+		push_force_check = GTK_WIDGET (gtk_builder_get_object (data->bxml,
+		                                                       "push_force_check"));
 		remote_list_model = GTK_TREE_MODEL (gtk_builder_get_object (data->bxml,
 		                                                    		"remote_list_model"));
 		branch_list_model = GTK_TREE_MODEL (gtk_builder_get_object (data->bxml,
@@ -189,7 +192,8 @@ on_push_dialog_response (GtkDialog *dialog, gint response_id,
 		                                     url,
 											 selected_refs,
 		                                     push_all_tags,
-		                                     push_all_refs);
+		                                     push_all_refs,
+		                                     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (push_force_check)));
 		progress_data = git_progress_data_new (data->plugin, _("Git: Pushing…"));
 
 		g_free (url);
