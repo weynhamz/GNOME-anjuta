@@ -279,6 +279,7 @@ cb_druid_insert_project_icon (gpointer data, gpointer user_data)
 						DESC_COLUMN, _(npw_header_get_description (header)),
 						DATA_COLUMN, header,
 						-1);
+	
 	g_object_unref (pixbuf);
 }
 
@@ -311,6 +312,8 @@ cb_druid_insert_project_page (gpointer value, gpointer user_data)
 	
 	/* Fill icon view */
 	view = GTK_ICON_VIEW (gtk_builder_get_object (builder, PROJECT_LIST));
+	gtk_icon_view_set_pixbuf_column (view, PIXBUF_COLUMN);
+	gtk_icon_view_set_markup_column (view, TEXT_COLUMN);
 	store = gtk_list_store_new (4, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
 	g_list_foreach (template_list, cb_druid_insert_project_icon, store); 
 	gtk_icon_view_set_model (view, GTK_TREE_MODEL (store));
