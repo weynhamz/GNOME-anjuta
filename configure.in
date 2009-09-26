@@ -39,7 +39,7 @@ SVN_MAJOR=1
 SVN_MINOR=5
 SVN_PATCH=0
 SUBVERSION_REQUIRED=$SVN_MAJOR.$SVN_MINOR.$SVN_PATCH
-GTKSOURCEVIEW_REQUIRED=2.4.0
+GTKSOURCEVIEW_REQUIRED=2.8.0
 LIBWNCK_REQUIRED=2.12
 GDA_REQUIRED=4.0.0
 UNIQUE_REQUIRED=1.0.0
@@ -230,7 +230,7 @@ fi
 
 AM_CONDITIONAL(HAVE_PLUGIN_GLADE, [test x$gladeui_found = xyes])
 
-dnl Build gtksourceview plugin only on gnome 2.14 and gtk 2.10
+dnl Check for gtksourceview
 dnl -------------------------------------------------------------
 
 AC_ARG_ENABLE(plugin-sourceview,
