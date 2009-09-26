@@ -785,9 +785,6 @@ plugins/project-wizard/templates/gtk/po/Makefile
 plugins/project-wizard/templates/anjuta-plugin/Makefile
 plugins/project-wizard/templates/anjuta-plugin/src/Makefile
 plugins/project-wizard/templates/anjuta-plugin/po/Makefile
-plugins/project-wizard/templates/anjuta-plugin-vala/Makefile
-plugins/project-wizard/templates/anjuta-plugin-vala/src/Makefile
-plugins/project-wizard/templates/anjuta-plugin-vala/po/Makefile
 plugins/project-wizard/templates/gtkmm/Makefile
 plugins/project-wizard/templates/gtkmm/src/Makefile
 plugins/project-wizard/templates/gtkmm/po/Makefile
