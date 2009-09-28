@@ -31,6 +31,8 @@ SUBDIRS = . \
 	run-program \
 	gbf-am \
 	gbf-mkfile \
-	starter
+	starter \
+	js-debugger \
+	language-support-js
 
 -include $(top_srcdir)/git.mk

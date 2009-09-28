@@ -119,6 +119,14 @@ AC_PATH_PROG(GCONFTOOL, gconftool-2)
 AM_GCONF_SOURCE_2
 
 dnl ***************************************************************************
+dnl Set gjsdir && girdir
+dnl ***************************************************************************
+girdir=`pkg-config --variable=girdir gobject-introspection-1.0`
+gjsdir=`pkg-config --variable=jsdir gjs-1.0`
+AC_SUBST(girdir)
+AC_SUBST(gjsdir)
+
+dnl ***************************************************************************
 dnl Check for pkgconfig
 dnl ***************************************************************************
 AC_PATH_PROG(PKGCONFIG_CONFIG, pkg-config,no)
@@ -763,6 +771,7 @@ plugins/debug-manager/Makefile
 plugins/debug-manager/images/Makefile
 plugins/devhelp/Makefile
 plugins/glade/Makefile
+plugins/js-debugger/Makefile
 plugins/file-manager/Makefile
 plugins/file-loader/Makefile
 plugins/file-wizard/Makefile
@@ -795,6 +804,8 @@ plugins/project-wizard/templates/mkfile/Makefile
 plugins/project-wizard/templates/mkfile/src/Makefile
 plugins/project-wizard/templates/mkfile/po/Makefile
 plugins/project-wizard/templates/minimal/Makefile
+plugins/project-wizard/templates/js_minimal/Makefile
+plugins/project-wizard/templates/js_minimal/src/Makefile
 plugins/project-wizard/templates/terminal/Makefile
 plugins/project-wizard/templates/terminal/src/Makefile
 plugins/project-wizard/templates/terminal/po/Makefile
@@ -842,6 +853,7 @@ plugins/language-support-cpp-java/Makefile
 plugins/language-support-cpp-java/cxxparser/Makefile
 plugins/run-program/Makefile
 plugins/starter/Makefile
+plugins/language-support-js/Makefile
 anjuta.desktop.in
 manuals/Makefile
 manuals/reference/Makefile

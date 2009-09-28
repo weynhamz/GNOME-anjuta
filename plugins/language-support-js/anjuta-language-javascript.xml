@@ -1,0 +1,10 @@
+<!--*- xml -*-->
+<ui>
+	<menubar name="MenuMain">
+		<menu name="MenuEdit" action="ActionMenuEdit">
+			<placeholder name="PlaceholderEditMenus">
+			<menuitem name="CodeComplete" action="CodeComplete"/>
+			</placeholder>
+		</menu>
+	</menubar>
+</ui>

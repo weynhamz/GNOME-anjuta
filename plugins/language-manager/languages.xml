@@ -8,4 +8,5 @@
 	<language id="4" name="Python" strings="python" mime-types="text/x-python" />
 	<language id="5" name="C#" strings="c#,csharp" mime-types="text/x-csharp" />
 	<language id="6" name="Vala" strings="vala" mime-types="text/x-vala" />
+	<language id="7" name="JavaScript" strings="js,javascript" mime-types="application/javascript" />
 </languages>

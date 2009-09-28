@@ -8,9 +8,25 @@ AM_CPPFLAGS = \
 	-DPACKAGE_DATA_DIR=\""$(datadir)"\" 
 
 AM_CFLAGS =\
-	 -Wall
+	 -Wall \
+	 $(GLIB_CFLAGS) \
+	 $(LIBXML_CFLAGS)
 
 bin_PROGRAMS = anjuta-tags
+
+YACCFLAGS = -d -o ./parser/y.tab.c
+YACCFILE = ./parser/Grammar.y
+PARSER = bison
+
+parser/y.tab.c : ${YACCFILE}
+	${PARSER} ${YACCFLAGS} ${YACCFILE}
+
+LEXER = flex
+LEXFILE = ./parser/lex.l
+LEXCCFLAGS = -Cr -o parser/lex.yy.c --yylineno --bison-bridge
+
+parser/lex.yy.c : ${LEXFILE}
+	${LEXER} ${LEXCCFLAGS} ${LEXFILE}
 
 anjuta_tags_SOURCES = \
 	main.c        \
@@ -47,6 +63,7 @@ anjuta_tags_SOURCES = \
 	general.h        \
 	get.c        \
 	get.h        \
+	gir.c        \
 	html.c        \
 	jscript.c        \
 	keyword.c        \
@@ -58,7 +75,7 @@ anjuta_tags_SOURCES = \
 	make.c        \
 	Makefile.am        \
 	matlab.c        \
-  ocaml.c \
+	ocaml.c        \
 	options.c        \
 	options.h        \
 	parse.c        \
@@ -90,9 +107,19 @@ anjuta_tags_SOURCES = \
 	vim.c        \
 	vstring.c        \
 	vstring.h        \
-	yacc.c
+	yacc.c	\
+parser/y.tab.c	\
+parser/lex.yy.c   \
+parser/jsparse.c   \
+parser/js-context.c   \
+parser/js-node.c
 
-anjuta_tags_LDFLAGS = 
 
-anjuta_tags_LDADD = 
+anjuta_tags_LDFLAGS = \
+		$(GLIB_LDFLAGS) \
+		$(LIBXML_LDFLAGS)
+
+anjuta_tags_LDADD = \
+		$(GLIB_LIBS) \
+		$(LIBXML_LIBS)
 
