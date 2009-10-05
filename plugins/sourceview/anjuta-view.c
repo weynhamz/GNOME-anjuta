@@ -285,7 +285,7 @@ move_cursor (GtkTextView       *text_view,
 	     const GtkTextIter *new_location,
 	     gboolean           extend_selection)
 {
-	GtkTextBuffer *buffer = text_view->buffer;
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer (text_view);
 
 	if (extend_selection)
 		gtk_text_buffer_move_mark_by_name (buffer,
@@ -308,7 +308,7 @@ anjuta_view_move_cursor (GtkTextView    *text_view,
 			gint            count,
 			gboolean        extend_selection)
 {
-	GtkTextBuffer *buffer = text_view->buffer;
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer (text_view);
 	GtkTextMark *mark;
 	GtkTextIter cur, iter;
 

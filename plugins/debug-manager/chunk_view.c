@@ -47,13 +47,19 @@ static GtkWidgetClass *parent_class = NULL;
 static void
 set_adjustment_clamped (GtkAdjustment *adj, gdouble value)
 {
-	if (value < adj->lower)
+	gdouble lower, upper, page_size;
+
+	lower = gtk_adjustment_get_lower (adj);
+	upper = gtk_adjustment_get_upper (adj);
+	page_size = gtk_adjustment_get_page_size (adj);
+
+	if (value < lower)
 	{
-		value = adj->lower;
+		value = lower;
 	}
-	if (value > (adj->upper - adj->page_size))
+	if (value > (upper - page_size))
 	{
-		value = adj->upper - adj->page_size;
+		value = upper - page_size;
 	}
 	gtk_adjustment_set_value (adj, value);
 }
@@ -68,50 +74,52 @@ dma_chunk_view_move_cursor (GtkTextView *text_view,
 			     gboolean        extend_selection)
 {
 	DmaChunkView *view = DMA_CHUNK_VIEW (text_view);
-	gdouble value = view->vadjustment->value;
 	GtkTextMark *mark;
 	GtkTextBuffer *buffer;
 	GtkTextIter cur;
 	gint line;
+	gdouble value, step_increment;
 	
 	switch (step)
-    {
-    case GTK_MOVEMENT_LOGICAL_POSITIONS:
-    case GTK_MOVEMENT_VISUAL_POSITIONS:
+	{
+	case GTK_MOVEMENT_LOGICAL_POSITIONS:
+	case GTK_MOVEMENT_VISUAL_POSITIONS:
 	case GTK_MOVEMENT_WORDS:
-    case GTK_MOVEMENT_DISPLAY_LINE_ENDS:
-    case GTK_MOVEMENT_HORIZONTAL_PAGES:
+	case GTK_MOVEMENT_DISPLAY_LINE_ENDS:
+	case GTK_MOVEMENT_HORIZONTAL_PAGES:
 		break;
-    case GTK_MOVEMENT_DISPLAY_LINES:
-    case GTK_MOVEMENT_PARAGRAPHS:
-    case GTK_MOVEMENT_PARAGRAPH_ENDS:
+	case GTK_MOVEMENT_DISPLAY_LINES:
+	case GTK_MOVEMENT_PARAGRAPHS:
+	case GTK_MOVEMENT_PARAGRAPH_ENDS:
 		buffer = gtk_text_view_get_buffer (text_view);
-	    mark = gtk_text_buffer_get_insert (buffer);
-	    gtk_text_buffer_get_iter_at_mark (buffer, &cur, mark);
-	    line = gtk_text_iter_get_line (&cur);
+		mark = gtk_text_buffer_get_insert (buffer);
+		gtk_text_buffer_get_iter_at_mark (buffer, &cur, mark);
+		line = gtk_text_iter_get_line (&cur);
+		step_increment = gtk_adjustment_get_step_increment (view->vadjustment);
 	
 		if ((count < 0) && (line == 0))
 		{
-			value += count * view->vadjustment->step_increment;
+			value += count * step_increment;
 			set_adjustment_clamped (view->vadjustment, value);
 			return;
 		}
 		else if ((count > 0) && (line == gtk_text_buffer_get_line_count(buffer) - 1))
 		{
-			value += count * view->vadjustment->step_increment;
+			value += count * step_increment;
 			set_adjustment_clamped (view->vadjustment, value);
 			return;
 		}
 		break;
 	case GTK_MOVEMENT_PAGES:
-		value += count * view->vadjustment->page_increment;
+		value += count * gtk_adjustment_get_page_increment (view->vadjustment);
 		set_adjustment_clamped (view->vadjustment, value);
 		return;
 	case GTK_MOVEMENT_BUFFER_ENDS:
-		set_adjustment_clamped (view->vadjustment, count < 0 ? view->vadjustment->lower : view->vadjustment->upper);
+		set_adjustment_clamped (view->vadjustment,
+					count < 0 ? gtk_adjustment_get_lower (view->vadjustment) : gtk_adjustment_get_upper (view->vadjustment));
 		return;
-    default:
-        break;
+	default:
+		break;
     }
 	
 	GTK_TEXT_VIEW_CLASS (parent_class)->move_cursor (text_view,

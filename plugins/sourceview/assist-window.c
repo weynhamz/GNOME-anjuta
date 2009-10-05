@@ -89,7 +89,7 @@ assist_window_expose(GtkWidget* widget, GdkEventExpose* event)
                                         NULL, NULL, NULL, &height);
 
 	screen = gtk_widget_get_screen (text_view);
-	monitor_num = gdk_screen_get_monitor_at_window (screen, text_view->window);
+	monitor_num = gdk_screen_get_monitor_at_window (screen, gtk_widget_get_window (text_view));
 	gdk_screen_get_monitor_geometry (screen, monitor_num, &monitor);
 
 	gtk_widget_style_get (GTK_WIDGET (assistwin->priv->view),
@@ -103,10 +103,10 @@ assist_window_expose(GtkWidget* widget, GdkEventExpose* event)
 	{
 		int scrollbar_spacing;
 		GtkRequisition scrollbar_req;
-		gtk_widget_size_request (GTK_SCROLLED_WINDOW(assistwin->priv->scrolled_window)->vscrollbar,
-														 &scrollbar_req);
+		gtk_widget_size_request (gtk_scrolled_window_get_vscrollbar (GTK_SCROLLED_WINDOW (assistwin->priv->scrolled_window)),
+					 &scrollbar_req);
 		gtk_widget_style_get (GTK_WIDGET (assistwin->priv->scrolled_window),
-													"scrollbar-spacing", &scrollbar_spacing, NULL);
+				      "scrollbar-spacing", &scrollbar_spacing, NULL);
 		width += scrollbar_req.width + scrollbar_spacing;
 	}
 
@@ -269,7 +269,7 @@ static gboolean assist_window_select(AssistWindow* assistwin)
 	GtkTreeModel* model;
 	GtkTreeSelection* selection;
 	
-	if (!GTK_WIDGET_VISIBLE(GTK_WIDGET(assistwin)))
+	if (!gtk_widget_get_visible(GTK_WIDGET(assistwin)))
 		return FALSE;
 	
 	selection = gtk_tree_view_get_selection(assistwin->priv->view);
@@ -293,7 +293,7 @@ static gboolean assist_window_first(AssistWindow* assistwin)
 	GtkTreeModel* model;
 	GtkTreeSelection* selection;
 	
-	if (!GTK_WIDGET_VISIBLE(GTK_WIDGET(assistwin)))
+	if (!gtk_widget_get_visible(GTK_WIDGET(assistwin)))
 		return FALSE;
 	
 	selection = gtk_tree_view_get_selection(assistwin->priv->view);
@@ -319,7 +319,7 @@ static gboolean assist_window_last(AssistWindow* assistwin)
 	GtkTreePath* path;
 	gint children;
 	
-	if (!GTK_WIDGET_VISIBLE(GTK_WIDGET(assistwin)))
+	if (!gtk_widget_get_visible(GTK_WIDGET(assistwin)))
 		return FALSE;
 	
 	selection = gtk_tree_view_get_selection(assistwin->priv->view);
@@ -349,7 +349,7 @@ static gboolean assist_window_up(AssistWindow* assistwin, gint rows)
 	GtkTreeModel* model;
 	GtkTreeSelection* selection;
 	
-	if (!GTK_WIDGET_VISIBLE(GTK_WIDGET(assistwin)))
+	if (!gtk_widget_get_visible(GTK_WIDGET(assistwin)))
 		return FALSE;
 	
 	selection = gtk_tree_view_get_selection(assistwin->priv->view);
@@ -381,7 +381,7 @@ static gboolean assist_window_down(AssistWindow* assistwin, gint rows)
 	GtkTreeModel* model;
 	GtkTreeSelection* selection;
 	
-	if (!GTK_WIDGET_VISIBLE(GTK_WIDGET(assistwin)))
+	if (!gtk_widget_get_visible(GTK_WIDGET(assistwin)))
 		return FALSE;
 	
 	selection = gtk_tree_view_get_selection(assistwin->priv->view);
@@ -527,7 +527,7 @@ assist_window_filter_keypress(AssistWindow* assist_window, guint keyval)
 
 gboolean assist_window_is_active(AssistWindow* assistwin)
 {
-	return GTK_WIDGET_VISIBLE(GTK_WIDGET(assistwin));
+	return gtk_widget_get_visible(GTK_WIDGET(assistwin));
 }
 
 AssistWindow*

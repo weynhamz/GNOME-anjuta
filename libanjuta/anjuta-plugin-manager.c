@@ -1885,6 +1885,7 @@ anjuta_plugin_manager_select (AnjutaPluginManager *plugin_manager,
 	GtkCellRenderer *renderer;
 	GList *node;
 	GtkWidget *label;
+	GtkWidget *content_area;
 	GtkWidget *sc;
 	GtkWidget *remember_checkbox;
 	gint response;
@@ -1915,8 +1916,9 @@ anjuta_plugin_manager_select (AnjutaPluginManager *plugin_manager,
 	label = gtk_label_new (description);
 	gtk_label_set_use_markup (GTK_LABEL (label), TRUE);
 	gtk_widget_show (label);
-	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dlg)->vbox), label,
-						FALSE, FALSE, 5);
+	content_area = gtk_dialog_get_content_area (GTK_DIALOG (dlg));
+	gtk_box_pack_start (GTK_BOX (content_area), label,
+			    FALSE, FALSE, 5);
 	
 	sc = gtk_scrolled_window_new (NULL, NULL);
 	gtk_widget_show (sc);
@@ -1926,8 +1928,8 @@ anjuta_plugin_manager_select (AnjutaPluginManager *plugin_manager,
 									GTK_POLICY_AUTOMATIC,
 									GTK_POLICY_AUTOMATIC);
 	
-	gtk_box_pack_start (GTK_BOX (GTK_DIALOG(dlg)->vbox), sc,
-						TRUE, TRUE, 5);
+	gtk_box_pack_start (GTK_BOX (content_area), sc,
+			    TRUE, TRUE, 5);
 	
 	model = GTK_TREE_MODEL (gtk_list_store_new (N_COLUMNS, GDK_TYPE_PIXBUF,
 										   G_TYPE_STRING, G_TYPE_POINTER));
@@ -1960,7 +1962,7 @@ anjuta_plugin_manager_select (AnjutaPluginManager *plugin_manager,
 		gtk_check_button_new_with_label (_("Remember this selection"));
 	gtk_container_set_border_width (GTK_CONTAINER (remember_checkbox), 10);
 	gtk_widget_show (remember_checkbox);
-	gtk_box_pack_start (GTK_BOX (GTK_DIALOG(dlg)->vbox), remember_checkbox,
+	gtk_box_pack_start (GTK_BOX (content_area), remember_checkbox,
 						FALSE, FALSE, 0);
 	
 	node = plugin_descriptions;

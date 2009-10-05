@@ -141,10 +141,13 @@ recursive_config_foreach_cb (const gchar *key, GbfAmConfigValue *value,
 	GtkWidget *table;
 	GtkWidget *label;
 	GtkWidget *widget;
+	GList *children;
 	gint position;
 	
 	table = GTK_WIDGET (user_data);
-	position = g_list_length (GTK_TABLE (table)->children);
+	children = gtk_container_get_children (GTK_CONTAINER (table));
+	position = g_list_length (children);
+	g_list_free (children);
 	
 	label = gtk_label_new (key);
 	gtk_misc_set_alignment (GTK_MISC (label), 0, -1);
@@ -837,7 +840,7 @@ gbf_am_properties_get_widget (GbfAmProject *project, GError **error)
 	table = GTK_WIDGET (gtk_builder_get_object (bxml, "general_properties_table"));
 	
 	g_object_ref (top_level);
-	gtk_container_remove (GTK_CONTAINER(top_level->parent), top_level);
+	gtk_container_remove (GTK_CONTAINER (gtk_widget_get_parent (top_level)), top_level);
 	
 	g_signal_connect (add_module_button, "clicked",
 			  G_CALLBACK (add_package_module_clicked_cb),
@@ -1449,7 +1452,7 @@ on_advanced_clicked (GtkButton* button,
 					      GTK_STOCK_CLOSE,
 					      GTK_RESPONSE_CLOSE,
 					      NULL);
-	gtk_container_add (GTK_CONTAINER(GTK_DIALOG(dialog)->vbox), table_cflags);
+	gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG(dialog))), table_cflags);
 	gtk_widget_show_all (dialog);
 	
 	gtk_dialog_run (GTK_DIALOG (dialog));

@@ -101,17 +101,20 @@ get_response_data (GtkWidget *widget, gboolean create)
 static gboolean
 paint_message_area (GtkWidget *widget, GdkEventExpose *event, gpointer user_data)
 {
-	gtk_paint_flat_box (widget->style,
-	                    widget->window,
+	GtkAllocation allocation;
+
+	gtk_widget_get_allocation (widget, &allocation);
+	gtk_paint_flat_box (gtk_widget_get_style (widget),
+	                    gtk_widget_get_window (widget),
 	                    GTK_STATE_NORMAL,
 	                    GTK_SHADOW_OUT,
 	                    NULL,
 	                    widget,
 	                    "tooltip",
-	                    widget->allocation.x + 1,
-	                    widget->allocation.y + 1,
-	                    widget->allocation.width - 2,
-	                    widget->allocation.height - 2);
+	                    allocation.x + 1,
+	                    allocation.y + 1,
+	                    allocation.width - 2,
+	                    allocation.height - 2);
 
 	return FALSE;
 }
@@ -199,7 +202,7 @@ anjuta_message_area_init (AnjutaMessageArea *message_area)
 	gtk_label_set_use_markup (GTK_LABEL (label), TRUE);
 	gtk_label_set_line_wrap (GTK_LABEL (label), TRUE);
 	gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
-	GTK_WIDGET_SET_FLAGS (label, GTK_CAN_FOCUS);
+	gtk_widget_set_can_focus (label, TRUE);
 	gtk_label_set_selectable (GTK_LABEL (label), TRUE);
 	message_area->priv->label = label;
 
@@ -393,7 +396,7 @@ anjuta_message_area_add_button (AnjutaMessageArea *message_area,
 
 	button = gtk_button_new_from_stock (button_text);
 
-	GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
+	gtk_widget_set_can_default (button, TRUE);
 
 	gtk_widget_show (button);
 

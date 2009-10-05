@@ -283,7 +283,7 @@ sharedlibs_show (Sharedlibs* sl)
 	{
 		if(sl->is_showing)
 		{
-			gdk_window_raise(sl->widgets.window->window);
+			gdk_window_raise(gtk_widget_get_window (sl->widgets.window));
 		}
 		else
 		{
@@ -304,13 +304,16 @@ sharedlibs_show (Sharedlibs* sl)
 void
 sharedlibs_hide (Sharedlibs* sl)
 {
+	GdkWindow *window;
+
 	if(sl)
 	{
 		if(sl->is_showing == FALSE) return;
-			gdk_window_get_root_origin(sl->widgets.window->window,
-									   &sl->win_pos_x, &sl->win_pos_y);
-		gdk_drawable_get_size(sl ->widgets.window->window, &sl->win_width,
-							&sl->win_height);
+		window = gtk_widget_get_window (sl->widgets.window);
+		gdk_window_get_root_origin (window,
+					    &sl->win_pos_x, &sl->win_pos_y);
+		gdk_drawable_get_size (window,
+				       &sl->win_width, &sl->win_height);
 		gtk_widget_hide(sl->widgets.window);
 		sl->is_showing = FALSE;
 	}

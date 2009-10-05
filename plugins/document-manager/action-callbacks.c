@@ -81,7 +81,7 @@ get_current_popup_active (gpointer user_data)
 	if (widget)
 	{
 		widget = gtk_widget_get_toplevel (widget);
-		if (GTK_WIDGET_TOPLEVEL (widget))
+		if (gtk_widget_is_toplevel (widget))
 			return gtk_window_has_toplevel_focus (GTK_WINDOW (widget));
 	}
 	return FALSE;
@@ -844,7 +844,7 @@ on_repeat_quicksearch (GtkAction *action, gpointer user_data)
 	if (!gtk_widget_get_parent (search_box))
 		gtk_box_pack_end (GTK_BOX (plugin->vbox), search_box, FALSE, FALSE, 0);
 
-	if (!GTK_WIDGET_VISIBLE (search_box))
+	if (!gtk_widget_get_visible (search_box))
 		gtk_widget_show (search_box);
 	on_search_activated (NULL, SEARCH_BOX (search_box));
 }

@@ -35,7 +35,7 @@ struct _SymbolDBSearchCommandPriv {
 	IAnjutaSymbolType match_types;
 	gboolean include_types;
 	IAnjutaSymbolField info_fields;
-	const gchar *pattern;
+	gchar *pattern;
 	IAnjutaSymbolManagerSearchFileScope filescope_search;
 	gint results_limit;
 	gint results_offset;
@@ -179,7 +179,7 @@ sdb_search_command_run (AnjutaCommand *command)
 static void
 sdb_search_command_cancel(AnjutaCommand* command)
 {
-	command->priv->cancelled = TRUE;
+
 }
 
 static void

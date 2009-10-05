@@ -275,8 +275,8 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 	g_free (message);
 	
 	hbox = gtk_hbox_new (FALSE, 5);
-	gtk_box_pack_start (GTK_BOX (GTK_DIALOG(dialog)->vbox), hbox,
-						FALSE, FALSE, 5);
+	gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))),
+			    hbox, FALSE, FALSE, 5);
 	label = gtk_label_new (_("Open with:"));
 	options = gtk_combo_box_new_text ();
 	gtk_box_pack_end (GTK_BOX(hbox), options, FALSE, FALSE, 10);

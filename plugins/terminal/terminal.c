@@ -661,8 +661,8 @@ create_box (GtkWidget *term)
 	GtkWidget *sb, *hbox;
 	
 	sb = gtk_vscrollbar_new (GTK_ADJUSTMENT (VTE_TERMINAL (term)->adjustment));
-	GTK_WIDGET_UNSET_FLAGS (sb, GTK_CAN_FOCUS);
-	
+	gtk_widget_set_can_focus (sb, FALSE);
+
 	hbox = gtk_hbox_new (FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (hbox), term, TRUE, TRUE, 0);
 	gtk_box_pack_start (GTK_BOX (hbox), sb, FALSE, TRUE, 0);

@@ -272,8 +272,11 @@ anjuta_status_clear_stack (AnjutaStatus *status)
 static void
 foreach_widget_set_cursor (gpointer widget, gpointer value, gpointer cursor)
 {
-	if (GTK_WIDGET (widget)->window)
-		gdk_window_set_cursor (GTK_WIDGET (widget)->window, (GdkCursor*)cursor);
+	GdkWindow *window;
+
+	window = gtk_widget_get_window (widget);
+	if (window)
+		gdk_window_set_cursor (window, (GdkCursor*)cursor);
 }
 
 void
@@ -281,6 +284,7 @@ anjuta_status_busy_push (AnjutaStatus *status)
 {
 	GtkWidget *top;
 	GdkCursor *cursor;
+	GdkWindow *window;
 	
 	g_return_if_fail (ANJUTA_IS_STATUS (status));
 	
@@ -292,8 +296,9 @@ anjuta_status_busy_push (AnjutaStatus *status)
 	if (status->priv->busy_count > 1)
 		return;
 	cursor = gdk_cursor_new (GDK_WATCH);
-	if (GTK_WIDGET (top)->window)
-		gdk_window_set_cursor (GTK_WIDGET (top)->window, cursor);
+	window = gtk_widget_get_window (top);
+	if (window)
+		gdk_window_set_cursor (window, cursor);
 	if (status->priv->widgets)
 		g_hash_table_foreach (status->priv->widgets,
 							  foreach_widget_set_cursor, cursor);
@@ -306,6 +311,7 @@ void
 anjuta_status_busy_pop (AnjutaStatus *status)
 {
 	GtkWidget *top;
+	GdkWindow *window;
 	
 	g_return_if_fail (ANJUTA_IS_STATUS (status));
 	
@@ -318,8 +324,9 @@ anjuta_status_busy_pop (AnjutaStatus *status)
 		return;
 	
 	status->priv->busy_count = 0;
-	if (GTK_WIDGET (top)->window)
-		gdk_window_set_cursor (GTK_WIDGET (top)->window, NULL);
+	gtk_widget_get_window (top);
+	if (window)
+		gdk_window_set_cursor (window, NULL);
 	if (status->priv->widgets)
 		g_hash_table_foreach (status->priv->widgets,
 							  foreach_widget_set_cursor, NULL);
@@ -457,16 +464,17 @@ anjuta_status_progress_add_ticks (AnjutaStatus *status, gint ticks)
 	{	
 		if (status->priv->progress_bar && status->priv->status_bar)
 		{
+			GdkWindow *progressbar_window, *statusbar_window;
+
 			gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (status->priv->progress_bar),
 										   percentage);
 			gtk_widget_queue_draw (GTK_WIDGET (status->priv->status_bar));
 			gtk_widget_queue_draw (GTK_WIDGET (status->priv->progress_bar));
-			if (GTK_WIDGET(status->priv->progress_bar)->window != NULL &&
-				GDK_IS_WINDOW(GTK_WIDGET(status->priv->progress_bar)->window))
-				gdk_window_process_updates (GTK_WIDGET(status->priv->progress_bar)->window, TRUE);
-			if (GTK_WIDGET(status->priv->status_bar)->window != NULL &&
-				GDK_IS_WINDOW(GTK_WIDGET(status->priv->status_bar)->window))
-				gdk_window_process_updates (GTK_WIDGET(status->priv->status_bar)->window, TRUE);
+			progressbar_window = gtk_widget_get_window (GTK_WIDGET(status->priv->progress_bar));
+			if (progressbar_window != NULL)
+				gdk_window_process_updates (progressbar_window, TRUE);
+			if (statusbar_window != NULL)
+				gdk_window_process_updates (statusbar_window, TRUE);
 		}
 	}
 }
@@ -476,6 +484,7 @@ anjuta_status_progress_pulse (AnjutaStatus *status, const gchar *text)
 {
 	GtkProgressBar *progressbar;
 	GtkWidget *statusbar;
+	GdkWindow *progressbar_window, *statusbar_window;
 	
 	progressbar = GTK_PROGRESS_BAR (status->priv->progress_bar);
 	statusbar = status->priv->status_bar;
@@ -487,12 +496,12 @@ anjuta_status_progress_pulse (AnjutaStatus *status, const gchar *text)
 	
 	gtk_widget_queue_draw (GTK_WIDGET (statusbar));
 	gtk_widget_queue_draw (GTK_WIDGET (progressbar));
-	if (GTK_WIDGET(progressbar)->window != NULL &&
-		GDK_IS_WINDOW(GTK_WIDGET(progressbar)->window))
-		gdk_window_process_updates (GTK_WIDGET(progressbar)->window, TRUE);
-	if (GTK_WIDGET(statusbar)->window != NULL &&
-		GDK_IS_WINDOW(GTK_WIDGET(statusbar)->window))
-		gdk_window_process_updates (GTK_WIDGET(statusbar)->window, TRUE);
+	progressbar_window = gtk_widget_get_window (GTK_WIDGET (progressbar));
+	if (progressbar_window != NULL)
+		gdk_window_process_updates (progressbar_window, TRUE);
+	statusbar_window = gtk_widget_get_window (GTK_WIDGET (statusbar));
+	if (statusbar_window != NULL)
+		gdk_window_process_updates (statusbar_window, TRUE);
 }
 
 void
@@ -515,6 +524,7 @@ anjuta_status_progress_tick (AnjutaStatus *status,
 	{
 		GtkProgressBar *progressbar;
 		GtkWidget *statusbar;
+		GdkWindow *progressbar_window, *statusbar_window;
 		
 		if (text)
 			anjuta_status_set (status, "%s", text);
@@ -524,12 +534,12 @@ anjuta_status_progress_tick (AnjutaStatus *status,
 		statusbar = status->priv->status_bar;
 		gtk_widget_queue_draw (GTK_WIDGET (statusbar));
 		gtk_widget_queue_draw (GTK_WIDGET (progressbar));
-		if (GTK_WIDGET(progressbar)->window != NULL &&
-			GDK_IS_WINDOW(GTK_WIDGET(progressbar)->window))
-			gdk_window_process_updates (GTK_WIDGET(progressbar)->window, TRUE);
-		if (GTK_WIDGET(statusbar)->window != NULL &&
-			GDK_IS_WINDOW(GTK_WIDGET(statusbar)->window))
-			gdk_window_process_updates (GTK_WIDGET(statusbar)->window, TRUE);
+		progressbar_window = gtk_widget_get_window (GTK_WIDGET (progressbar));
+		if (progressbar_window != NULL)
+			gdk_window_process_updates (progressbar_window, TRUE);
+		statusbar_window = gtk_widget_get_window (GTK_WIDGET (statusbar));
+		if (statusbar_window != NULL)
+			gdk_window_process_updates (statusbar_window, TRUE);
 	}
 	if (status->priv->current_ticks >= status->priv->total_ticks)
 		anjuta_status_progress_reset (status);
@@ -540,6 +550,7 @@ anjuta_status_progress_increment_ticks (AnjutaStatus *status, gint ticks,
 										const gchar *text)
 {
 	gfloat percentage;
+	GdkWindow *progressbar_window, *statusbar_window;
 		
 	g_return_if_fail (ANJUTA_IS_STATUS (status));
 	g_return_if_fail (status->priv->total_ticks != 0);
@@ -558,12 +569,12 @@ anjuta_status_progress_increment_ticks (AnjutaStatus *status, gint ticks,
 	statusbar = status->priv->status_bar;
 	gtk_widget_queue_draw (GTK_WIDGET (statusbar));
 	gtk_widget_queue_draw (GTK_WIDGET (progressbar));
-	if (GTK_WIDGET(progressbar)->window != NULL &&
-		GDK_IS_WINDOW(GTK_WIDGET(progressbar)->window))
-		gdk_window_process_updates (GTK_WIDGET(progressbar)->window, TRUE);
-	if (GTK_WIDGET(statusbar)->window != NULL &&
-		GDK_IS_WINDOW(GTK_WIDGET(statusbar)->window))
-		gdk_window_process_updates (GTK_WIDGET(statusbar)->window, TRUE);
+	progressbar_window = gtk_widget_get_window (GTK_WIDGET(progressbar));
+	if (progressbar_window != NULL)
+		gdk_window_process_updates (progressbar_window, TRUE);
+	statusbar_window = gtk_widget_get_window (GTK_WIDGET(statusbar));
+	if (statusbar_window != NULL)
+		gdk_window_process_updates (statusbar_window, TRUE);
 	
 	if (status->priv->current_ticks >= status->priv->total_ticks)
 		anjuta_status_progress_reset (status);

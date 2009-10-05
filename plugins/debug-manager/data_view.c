@@ -24,7 +24,9 @@
 
 #include "anjuta-marshal.h"
 
+#if !GTK_CHECK_VERSION (2,16,0)
 #include "sexy-icon-entry.h"
+#endif
 
 #include <glib/gi18n.h>
 
@@ -177,7 +179,7 @@ dma_data_view_goto_position_func (DmaDataView *view)
 {
 	gint x, y;
 	gint win_x, win_y;
-	GdkWindow *window = GTK_WIDGET (view)->window;
+	GdkWindow *window = gtk_widget_get_window (GTK_WIDGET (view));
 	GdkScreen *screen = gdk_drawable_get_screen (window);
 	gint monitor_num;
 	GdkRectangle monitor;
@@ -209,7 +211,7 @@ send_focus_change (GtkWidget *widget,
                 GTK_WIDGET_UNSET_FLAGS (widget, GTK_HAS_FOCUS);
 
         fevent->focus_change.type = GDK_FOCUS_CHANGE;
-        fevent->focus_change.window = g_object_ref (widget->window);
+        fevent->focus_change.window = g_object_ref (gtk_widget_get_window (widget));
         fevent->focus_change.in = in;
 
         gtk_widget_event (widget, fevent);
@@ -222,31 +224,35 @@ send_focus_change (GtkWidget *widget,
 
 static void
 dma_data_view_goto_activate (GtkWidget   *menu_item,
-		       DmaDataView *view)
+			     DmaDataView *view)
 {
 	GtkWidget *toplevel;
 	GtkWidget *frame;
 	GtkWidget *vbox;
+	GtkWindowGroup *toplevel_group;
+	GtkWindowGroup *goto_window_group;
 	
 	toplevel = gtk_widget_get_toplevel (GTK_WIDGET (view));
+	toplevel_group = gtk_window_get_group (GTK_WINDOW (toplevel));
+	goto_window_group = gtk_window_get_group (GTK_WINDOW (view->goto_window));
 	
 	if (view->goto_window != NULL)
 	{
-		if (GTK_WINDOW (toplevel)->group)
-			gtk_window_group_add_window (GTK_WINDOW (toplevel)->group,
-										 GTK_WINDOW (view->goto_window)); 
-		else if (GTK_WINDOW (view->goto_window)->group)
-			gtk_window_group_remove_window (GTK_WINDOW (view->goto_window)->group,
-											GTK_WINDOW (view->goto_window)); 
+		if (toplevel_group)
+			gtk_window_group_add_window (toplevel_group,
+						     GTK_WINDOW (view->goto_window));
+		else if (goto_window_group)
+			gtk_window_group_remove_window (goto_window_group,
+							GTK_WINDOW (view->goto_window));
 	
 	}
 	else
 	{
 		view->goto_window = gtk_window_new (GTK_WINDOW_POPUP);
 
-		if (GTK_WINDOW (toplevel)->group)
-			gtk_window_group_add_window (GTK_WINDOW (toplevel)->group,
-										 GTK_WINDOW (view->goto_window));
+		if (toplevel_group)
+			gtk_window_group_add_window (toplevel_group,
+						     GTK_WINDOW (view->goto_window));
 
 		gtk_window_set_modal (GTK_WINDOW (view->goto_window), TRUE);
 		g_signal_connect (view->goto_window, "delete_event",
@@ -337,8 +343,8 @@ dma_data_view_data_size_request (DmaDataView *view,
 
 	context = gtk_widget_get_pango_context (view->data);
 	metrics = pango_context_get_metrics (context,
-				       view->data->style->font_desc,
-				       pango_context_get_language (context));
+					     gtk_widget_get_style (view->data)->font_desc,
+					     pango_context_get_language (context));
 
 	requisition->height = PANGO_PIXELS (pango_font_metrics_get_ascent (metrics) +
 							   pango_font_metrics_get_descent (metrics));
@@ -355,8 +361,8 @@ dma_data_view_ascii_size_request (DmaDataView *view,
 
 	context = gtk_widget_get_pango_context (view->ascii);
 	metrics = pango_context_get_metrics (context,
-				       view->ascii->style->font_desc,
-				       pango_context_get_language (context));
+					     gtk_widget_get_style (view->ascii)->font_desc,
+					     pango_context_get_language (context));
 
 	requisition->height = PANGO_PIXELS (pango_font_metrics_get_ascent (metrics) +
 							   pango_font_metrics_get_descent (metrics));
@@ -369,7 +375,10 @@ static void
 dma_data_view_value_changed (GtkAdjustment *adj,
                              DmaDataView   *view)
 {
-	view->start = ((gulong)adj->value) - (((gulong)adj->value) % view->bytes_by_line);
+	gboolean value;
+
+	value = gtk_adjustment_get_value (adj);
+	view->start = ((gulong) value) - (((gulong) value) % view->bytes_by_line);
 	dma_data_view_refresh (view);
 }
 
@@ -399,6 +408,7 @@ dma_data_view_size_request (GtkWidget *widget,
 {
 	DmaDataView *view = DMA_DATA_VIEW (widget);
 	GtkRequisition child_requisition;
+	GtkStyle *style;
 	
 	gtk_widget_size_request (view->range, requisition);
 	
@@ -418,8 +428,9 @@ dma_data_view_size_request (GtkWidget *widget,
 	
 	if (view->shadow_type != GTK_SHADOW_NONE)
 	{
-		requisition->width += 2 * widget->style->xthickness;
-		requisition->height += 2 * widget->style->ythickness;
+		style = gtk_widget_get_style (widget);
+		requisition->width += 2 * style->xthickness;
+		requisition->height += 2 * style->ythickness;
 	}
 	requisition->width += SCROLLBAR_SPACING;
 }
@@ -429,6 +440,7 @@ dma_data_view_size_allocate (GtkWidget *widget,
                              GtkAllocation *allocation)
 {
 	DmaDataView *view = DMA_DATA_VIEW (widget);
+	GtkStyle *style;
 	GtkAllocation child_allocation;
 	GtkRequisition range_requisition;
 	GtkRequisition address_requisition;
@@ -438,17 +450,20 @@ dma_data_view_size_allocate (GtkWidget *widget,
 	gint height;
 	gint bytes_by_line;
 	gint step;
+	guint border_width;
 	gboolean need_fill = FALSE;
 	
  	gtk_widget_get_child_requisition (view->range, &range_requisition);
+	border_width = gtk_container_get_border_width (GTK_CONTAINER (view));
+	style = gtk_widget_get_style (widget);
 	dma_data_view_address_size_request (view, &address_requisition);
 	dma_data_view_data_size_request (view, &data_requisition);
 	dma_data_view_ascii_size_request (view, &ascii_requisition);
 	
 	/* Compute number of byte per line */
 	width = allocation->width
-	        - 2 * GTK_CONTAINER (view)->border_width
-	        - (view->shadow_type == GTK_SHADOW_NONE ? 0 : 2 * widget->style->xthickness)
+	        - 2 * border_width
+	        - (view->shadow_type == GTK_SHADOW_NONE ? 0 : 2 * style->xthickness)
 	        - ADDRESS_BORDER
 	        - ASCII_BORDER
 	        - SCROLLBAR_SPACING
@@ -471,35 +486,37 @@ dma_data_view_size_allocate (GtkWidget *widget,
 
 	/* Compute number of line by page */
 	height = allocation->height
-	        - 2 * GTK_CONTAINER (view)->border_width
-	        - (view->shadow_type == GTK_SHADOW_NONE ? 0 : 2 * widget->style->ythickness);
+	        - 2 * border_width
+	        - (view->shadow_type == GTK_SHADOW_NONE ? 0 : 2 * style->ythickness);
 	
 	if (view->line_by_page != (height / address_requisition.height))
 	{
 		need_fill = TRUE;
 		view->line_by_page = (height / address_requisition.height);
 	}
-	
-	child_allocation.y = allocation->y + GTK_CONTAINER (view)->border_width;
-	child_allocation.height = MAX (1, (gint) allocation->height - (gint) GTK_CONTAINER (view)->border_width * 2);
+
+	child_allocation.y = allocation->y + border_width;
+	child_allocation.height = MAX (1, (gint) allocation->height - (gint) border_width * 2);
 
 	/* Scroll bar */
-	child_allocation.x = allocation->x + allocation->width - GTK_CONTAINER (view)->border_width - range_requisition.width;
+	child_allocation.x = allocation->x + allocation->width - border_width - range_requisition.width;
 	child_allocation.width = range_requisition.width;
 	gtk_widget_size_allocate (view->range, &child_allocation);
 
-	child_allocation.x = allocation->x + GTK_CONTAINER (view)->border_width;
+	child_allocation.x = allocation->x + border_width;
 	
 	/* Frame */
 	if (view->shadow_type != GTK_SHADOW_NONE)
 	{
-		view->frame.x = allocation->x + GTK_CONTAINER (view)->border_width;
-		view->frame.y = allocation->y + GTK_CONTAINER (view)->border_width;
-		view->frame.width = allocation->width - range_requisition.width - SCROLLBAR_SPACING - 2 * (GTK_CONTAINER (view)->border_width);
-		view->frame.height = allocation->height - 2 * (GTK_CONTAINER (view)->border_width);
-		child_allocation.x += widget->style->xthickness;
-		child_allocation.y += widget->style->ythickness;
-		child_allocation.height -= 2 * widget->style->ythickness;
+		GtkStyle *style = gtk_widget_get_style (widget);
+
+		view->frame.x = allocation->x + border_width;
+		view->frame.y = allocation->y + border_width;
+		view->frame.width = allocation->width - range_requisition.width - SCROLLBAR_SPACING - 2 * border_width;
+		view->frame.height = allocation->height - 2 * border_width;
+		child_allocation.x += style->xthickness;
+		child_allocation.y += style->ythickness;
+		child_allocation.height -= 2 * style->ythickness;
 	}
 	
 	/* Address */
@@ -524,13 +541,19 @@ dma_data_view_size_allocate (GtkWidget *widget,
 
 	if (need_fill)
 	{
-		view->buffer_range->step_increment = view->bytes_by_line;
-		view->buffer_range->page_increment = view->bytes_by_line * (view->line_by_page - 1);
-		view->buffer_range->page_size = (gulong)(view->buffer_range->upper) % (view->bytes_by_line) + view->buffer_range->page_increment;
+		gdouble page_increment, page_size, upper;
 
-		if (view->start + view->buffer_range->page_size > view->buffer_range->upper)
+		page_increment = view->bytes_by_line * (view->line_by_page - 1);
+		upper = gtk_adjustment_get_upper (view->buffer_range);
+                page_size = (gulong) upper % view->bytes_by_line + page_increment;
+
+		gtk_adjustment_set_step_increment (view->buffer_range, view->bytes_by_line);
+		gtk_adjustment_set_page_increment (view->buffer_range, page_increment);
+		gtk_adjustment_set_page_size (view->buffer_range, page_size);
+
+		if (view->start + page_size > upper)
 		{
-			view->start = view->buffer_range->upper - view->buffer_range->page_size + view->bytes_by_line - 1;
+			view->start = upper - page_size + view->bytes_by_line - 1;
 			view->start -= view->start % view->bytes_by_line;
 		}
 		dma_data_view_refresh (view);
@@ -545,14 +568,15 @@ dma_data_view_paint (GtkWidget    *widget,
 	DmaDataView *view = DMA_DATA_VIEW (widget);
 
 	if (view->shadow_type != GTK_SHADOW_NONE)
-    {
-		gtk_paint_shadow (widget->style, widget->window,
-                        GTK_STATE_NORMAL, view->shadow_type,
-                        area, widget, "dma_data_view",
-                        view->frame.x,
-                        view->frame.y,
-                        view->frame.width,
-                        view->frame.height);
+	{
+		gtk_paint_shadow (gtk_widget_get_style (widget),
+				  gtk_widget_get_window (widget),
+				  GTK_STATE_NORMAL, view->shadow_type,
+				  area, widget, "dma_data_view",
+				  view->frame.x,
+				  view->frame.y,
+				  view->frame.width,
+				  view->frame.height);
 	}
 }
 
@@ -560,7 +584,7 @@ static gint
 dma_data_view_expose (GtkWidget *widget,
                       GdkEventExpose *event)
 {
-	if (GTK_WIDGET_DRAWABLE (widget))
+	if (gtk_widget_is_drawable (widget))
 	{
 		dma_data_view_paint (widget, &event->area);
 
@@ -578,9 +602,9 @@ dma_data_view_create_widget (DmaDataView *view)
 	PangoFontDescription *font_desc;
 
 	wid = GTK_WIDGET (view);
-	
-	GTK_WIDGET_SET_FLAGS (wid, GTK_NO_WINDOW);
-	GTK_WIDGET_SET_FLAGS (wid, GTK_CAN_FOCUS);
+
+	gtk_widget_set_has_window (wid, FALSE);
+	gtk_widget_set_can_focus (wid, TRUE);
 	gtk_widget_set_redraw_on_allocate (wid, FALSE); 	
 	
 	view->char_by_byte = 2;

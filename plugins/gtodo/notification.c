@@ -43,6 +43,7 @@ void create_notification_window(GTodoItem *item)
 {
 	GtkWidget *dialog, *but_cancel, *image, *ck_but;
 	GtkWidget *hbox, *label, *vbox;
+	GtkWidget *content_area;
 	gchar *buffer, *tempstr;
 	if(table == NULL) table = g_array_new(TRUE, TRUE, sizeof(GtkWidget *));
 	else{
@@ -78,8 +79,9 @@ void create_notification_window(GTodoItem *item)
 	}
 	/* create image and more stuff in dialog */
 	dialog = gtk_dialog_new();
+	content_area = gtk_dialog_get_content_area (GTK_DIALOG(dialog));
 	gtk_container_set_border_width(GTK_CONTAINER(GTK_DIALOG(dialog)), 6);
-	gtk_container_set_border_width(GTK_CONTAINER(GTK_DIALOG(dialog)->vbox), 12);
+	gtk_container_set_border_width(GTK_CONTAINER(content_area), 12);
 	/* hig stuff */
 	gtk_dialog_set_has_separator(GTK_DIALOG(dialog), FALSE);
 	gtk_window_set_transient_for(GTK_WINDOW(dialog), GTK_WINDOW(mw.window)); 
@@ -94,7 +96,7 @@ void create_notification_window(GTodoItem *item)
 	gtk_container_set_border_width(GTK_CONTAINER(hbox), 12);
 	vbox= gtk_vbox_new(FALSE, 0);
 	
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->vbox), hbox, TRUE, TRUE,0);
+	gtk_box_pack_start(GTK_BOX(content_area), hbox, TRUE, TRUE,0);
 	/* Add the image */
 	image = gtk_image_new_from_stock(GTK_STOCK_DIALOG_INFO, GTK_ICON_SIZE_DIALOG);
 	label = gtk_alignment_new(0.5, 0,0,0);

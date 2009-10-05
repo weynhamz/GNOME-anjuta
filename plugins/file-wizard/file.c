@@ -272,7 +272,7 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 	source_type = gtk_combo_box_get_active(GTK_COMBO_BOX(optionmenu));
 	
 	checkbutton = GTK_WIDGET (gtk_builder_get_object (nfg->bxml, NEW_FILE_HEADER));
-	if (GTK_WIDGET_SENSITIVE(checkbutton) && 
+	if (gtk_widget_get_sensitive (checkbutton) &&
 			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton)))
 	{
 		if (name && strlen (name) > 0)
@@ -299,7 +299,7 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 	}
 
 	checkbutton = GTK_WIDGET (gtk_builder_get_object (nfg->bxml, NEW_FILE_TEMPLATE));
-	if (GTK_WIDGET_SENSITIVE(checkbutton) && 
+	if (gtk_widget_get_sensitive (checkbutton) &&
 			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton)))
 	{
 		insert_header(macro, source_type);
@@ -312,7 +312,7 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 	}
 	
 	checkbutton = GTK_WIDGET (gtk_builder_get_object (nfg->bxml, NEW_FILE_LICENSE));
-	if (GTK_WIDGET_SENSITIVE(checkbutton) && 
+	if (gtk_widget_get_sensitive (checkbutton) &&
 			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton)))
 	{
 		optionmenu = GTK_WIDGET (gtk_builder_get_object (nfg->bxml, NEW_FILE_MENU_LICENSE));

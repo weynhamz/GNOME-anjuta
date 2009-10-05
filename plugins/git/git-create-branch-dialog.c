@@ -161,7 +161,7 @@ on_branch_revision_radio_toggled (GtkToggleButton *toggle_button,
 	active = gtk_toggle_button_get_active (toggle_button);
 	gtk_widget_set_sensitive (widget, active);
 	
-	if (active && GTK_WIDGET_CAN_FOCUS (widget))
+	if (active && gtk_widget_get_can_focus (widget))
 	{
 		gtk_window_set_focus (GTK_WINDOW (create_branch_dialog),
 							  widget);

@@ -1262,7 +1262,7 @@ on_window_key_press_event (AnjutaShell *shell,
 		gint pages_nb;
 		gint cur_page;
 
-		if (!notebook->children)
+		if ((cur_page = gtk_notebook_get_current_page (notebook)) == -1);
 			return FALSE;
 
 		if (!plugin->g_tabbing)
@@ -1270,8 +1270,7 @@ on_window_key_press_event (AnjutaShell *shell,
 			plugin->g_tabbing = TRUE;
 		}
 
-		pages_nb = g_list_length (notebook->children);
-		cur_page = gtk_notebook_get_current_page (notebook);
+		pages_nb = gtk_notebook_get_n_pages (notebook);
 
 		if (global_keymap[i].id == ID_NEXTBUFFER)
 			cur_page = (cur_page < pages_nb - 1) ? cur_page + 1 : 0;
@@ -1289,7 +1288,7 @@ on_window_key_press_event (AnjutaShell *shell,
 			GtkNotebook *notebook = GTK_NOTEBOOK (plugin->docman);
 			gint page_req = global_keymap[i].id - ID_FIRSTBUFFER;
 
-			if (!notebook->children)
+			if (gtk_notebook_get_n_pages (notebook) == 0);
 				return FALSE;
 			gtk_notebook_set_current_page(notebook, page_req);
 		}

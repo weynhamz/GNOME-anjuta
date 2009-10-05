@@ -143,7 +143,7 @@ void gui_add_todo_item(GtkWidget *useless, gpointer data, guint32 openid){
 
 	/* the vbox for the selectors, buttons */
 	vbox = gtk_vbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->vbox), vbox, TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog))), vbox, TRUE, TRUE, 0);
 	gtk_container_set_border_width(GTK_CONTAINER(vbox), 9);
 
 	/* summary label */

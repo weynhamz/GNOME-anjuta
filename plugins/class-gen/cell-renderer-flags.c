@@ -333,6 +333,8 @@ cg_cell_renderer_flags_start_editing (GtkCellRenderer *cell,
 	CgCellRendererFlags *cell_flags;
 	CgCellRendererFlagsPrivate *priv;
 	GtkCellRendererText *cell_text;
+	gboolean editable;
+	gchar *text;
 	const gchar *prev;
 	const gchar *pos;
 
@@ -344,7 +346,13 @@ cg_cell_renderer_flags_start_editing (GtkCellRenderer *cell,
 	priv = CG_CELL_RENDERER_FLAGS_PRIVATE (cell_flags);
 
 	cell_text = GTK_CELL_RENDERER_TEXT (cell);
-	if (cell_text->editable == FALSE) return NULL;
+
+	g_object_get (cell_text,
+		      "editable", &editable,
+		      "text", &text,
+		      NULL);
+
+	if (editable == FALSE) return NULL;
 
 	if (priv->model == NULL || priv->text_column < 0 || priv->abbr_column < 0)
 		return NULL;
@@ -376,8 +384,8 @@ cg_cell_renderer_flags_start_editing (GtkCellRenderer *cell,
 	priv->edit_status = g_hash_table_new_full (g_str_hash, g_str_equal,
 	                                           (GDestroyNotify) g_free, NULL);
 
-	pos = cell_text->text;
-	prev = cell_text->text;
+	pos = text;
+	prev = text;
 
 	while (prev != NULL && *prev != '\0')
 	{
@@ -389,6 +397,7 @@ cg_cell_renderer_flags_start_editing (GtkCellRenderer *cell,
 		if(*pos != '\0') ++ pos;
 		prev = pos;
 	}
+	g_free (text);
 
 	g_object_set_data_full (G_OBJECT (combo), CG_CELL_RENDERER_FLAGS_PATH,
 	                        g_strdup (path), g_free);

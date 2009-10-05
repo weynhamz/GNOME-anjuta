@@ -824,15 +824,17 @@ get_time_string (guint8 hour, guint8 minute, guint8 second)
 popup_position (GtkWidget *widget, GtkWindow *popup)
 {
 	GtkRequisition requisition;
+	GtkAllocation allocation;
 	gint x, y, width, height;
 
 	gtk_widget_size_request (GTK_WIDGET (popup), &requisition);
-	gdk_window_get_origin (widget->window, &x, &y);
+	gdk_window_get_origin (gtk_widget_get_window (widget), &x, &y);
 
-	x += widget->allocation.x;
-	y += widget->allocation.y;
-	width  = widget->allocation.width;
-	height = widget->allocation.height;
+	gtk_widget_get_allocation (widget, &allocation);
+	x += allocation.x;
+	y += allocation.y;
+	width  = allocation.width;
+	height = allocation.height;
 
 	x += width - requisition.width;
 	y += height;
@@ -1029,7 +1031,7 @@ cal_popup_button_pressed (EggDateTime *edt, GdkEventButton *event, GtkWidget *wi
 		while (child) {
 			if (child == widget)
 				return FALSE;
-			child = child->parent;
+			child = gtk_widget_get_parent (child);
 		}
 	}
 
@@ -1103,7 +1105,8 @@ time_popup_changed (EggDateTime *edt, Timelist *timelist)
 
 	normalize_time (edt);
 
-	if(GTK_WIDGET_VISIBLE(timelist))update_time_label (edt);
+	if (gtk_widget_get_visible (timelist))
+		update_time_label (edt);
 
 	g_signal_emit (G_OBJECT (edt), egg_datetime_signals[SIGNAL_TIME_CHANGED], 0);
 }
@@ -1139,7 +1142,7 @@ time_popup_button_pressed (EggDateTime *edt, GdkEventButton *event, GtkWidget *w
 		while (child) {
 			if (child == widget)
 				return FALSE;
-			child = child->parent;
+			child = gtk_widget_get_parent (child);
 		}
 	}
 

@@ -116,10 +116,13 @@ recursive_config_foreach_cb (const gchar *key, GbfMkfileConfigValue *value,
 	GtkWidget *table;
 	GtkWidget *label;
 	GtkWidget *widget;
+	GList *children;
 	gint position;
 	
 	table = GTK_WIDGET (user_data);
-	position = g_list_length (GTK_TABLE (table)->children);
+	children = gtk_container_get_children (GTK_CONTAINER (table));
+	position = g_list_length (children);
+	g_list_free (children);
 	
 	label = gtk_label_new (key);
 	gtk_misc_set_alignment (GTK_MISC (label), 0, -1);

@@ -117,13 +117,15 @@ on_expose_event_cb (GtkWidget *widget, GdkEventExpose *event,
                     ESplash *splash)
 {
 	ESplashPrivate *priv;
+	GdkWindow *window;
 	cairo_t *cr;
 	gint inc_width;
 
 	priv = splash->priv;
+	window = gtk_widget_get_window (widget);
 
 	/* draw the background pixbuf */
-	cr = gdk_cairo_create (widget->window);
+	cr = gdk_cairo_create (window);
 	cairo_set_operator (cr, CAIRO_OPERATOR_SOURCE);
 	gdk_cairo_set_source_pixbuf (cr, priv->splash_image_pixbuf, 0, 0);
 
@@ -132,7 +134,7 @@ on_expose_event_cb (GtkWidget *widget, GdkEventExpose *event,
 	/* draw the plugin icon */
 	if (priv->icon_pixbuf)
 	{
-		cr = gdk_cairo_create (widget->window);
+		cr = gdk_cairo_create (window);
 		gdk_cairo_set_source_pixbuf (cr, priv->icon_pixbuf, ICON_X, ICON_Y);
 
 		cairo_paint (cr);
@@ -150,7 +152,7 @@ on_expose_event_cb (GtkWidget *widget, GdkEventExpose *event,
 		pango_layout_set_markup (layout, priv->title, -1);
 		pango_layout_get_size (layout, NULL, &layout_height);
 
-		cr = gdk_cairo_create (widget->window);
+		cr = gdk_cairo_create (window);
 		cairo_move_to (cr, ICON_X + ICON_SIZE + 10,
 		               ICON_Y + ICON_SIZE - PROGRESS_SIZE - PANGO_PIXELS (layout_height));
 		
@@ -163,14 +165,14 @@ on_expose_event_cb (GtkWidget *widget, GdkEventExpose *event,
 	inc_width = gdk_pixbuf_get_width (priv->splash_image_pixbuf);
 	inc_width -= (ICON_X + ICON_SIZE + 20);	
 	
-	cr = gdk_cairo_create (widget->window);
+	cr = gdk_cairo_create (window);
 	cairo_set_source_rgb (cr, 0.0, 0.0, 1.0);
 	cairo_rectangle (cr, ICON_X + ICON_SIZE + 10, ICON_Y + ICON_SIZE,
 	                 inc_width, PROGRESS_SIZE);
 
 	cairo_fill (cr);
 
-	cr = gdk_cairo_create (widget->window);
+	cr = gdk_cairo_create (window);
 	cairo_rectangle (cr, ICON_X + ICON_SIZE + 10, ICON_Y + ICON_SIZE,
 	                 (priv->progress_percentage * inc_width), PROGRESS_SIZE);
 

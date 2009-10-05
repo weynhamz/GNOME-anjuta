@@ -30,7 +30,9 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-markable.h>
 
+#if !GTK_CHECK_VERSION (2,16,0)
 #include "sexy-icon-entry.h"
+#endif
 
 #include <glib/gi18n.h>
 
@@ -114,7 +116,7 @@ send_focus_change (GtkWidget *widget,
                 GTK_WIDGET_UNSET_FLAGS (widget, GTK_HAS_FOCUS);
 
         fevent->focus_change.type = GDK_FOCUS_CHANGE;
-        fevent->focus_change.window = g_object_ref (widget->window);
+        fevent->focus_change.window = g_object_ref (gtk_widget_get_window (widget));
         fevent->focus_change.in = in;
 
         gtk_widget_event (widget, fevent);
@@ -194,7 +196,7 @@ dma_sparse_view_goto_position_func (DmaSparseView *view)
 {
 	gint x, y;
 	gint win_x, win_y;
-	GdkWindow *window = GTK_WIDGET (view)->window;
+	GdkWindow *window = gtk_widget_get_window (GTK_WIDGET (view));
 	GdkScreen *screen = gdk_drawable_get_screen (window);
 	gint monitor_num;
 	GdkRectangle monitor;
@@ -218,34 +220,38 @@ dma_sparse_view_goto_activate (GtkWidget   *menu_item,
 	GtkWidget *toplevel;
 	GtkWidget *frame;
 	GtkWidget *vbox;
+	GtkWindowGroup *toplevel_group, *goto_window_group;
 	
 	toplevel = gtk_widget_get_toplevel (GTK_WIDGET (view));
+	toplevel_group = gtk_window_get_group (GTK_WINDOW (toplevel));
 	
 	if (view->priv->goto_window != NULL)
 	{
-		if (GTK_WINDOW (toplevel)->group)
-			gtk_window_group_add_window (GTK_WINDOW (toplevel)->group,
-										 GTK_WINDOW (view->priv->goto_window)); 
-		else if (GTK_WINDOW (view->priv->goto_window)->group)
-			gtk_window_group_remove_window (GTK_WINDOW (view->priv->goto_window)->group,
-											GTK_WINDOW (view->priv->goto_window)); 
+		goto_window_group = gtk_window_get_group (GTK_WINDOW (view->priv->goto_window));
+
+		if (toplevel_group)
+			gtk_window_group_add_window (toplevel_group,
+						     GTK_WINDOW (view->priv->goto_window));
+		else if (goto_window_group)
+			gtk_window_group_remove_window (goto_window_group,
+							GTK_WINDOW (view->priv->goto_window));
 	
 	}
 	else
 	{
 		view->priv->goto_window = gtk_window_new (GTK_WINDOW_POPUP);
 
-		if (GTK_WINDOW (toplevel)->group)
-			gtk_window_group_add_window (GTK_WINDOW (toplevel)->group,
-										 GTK_WINDOW (view->priv->goto_window));
+		if (toplevel_group)
+			gtk_window_group_add_window (toplevel_group,
+						     GTK_WINDOW (view->priv->goto_window));
 
 		gtk_window_set_modal (GTK_WINDOW (view->priv->goto_window), TRUE);
 		g_signal_connect (view->priv->goto_window, "delete_event",
-						  G_CALLBACK (dma_sparse_view_goto_delete_event),
-						  view);
+				  G_CALLBACK (dma_sparse_view_goto_delete_event),
+				  view);
 		g_signal_connect (view->priv->goto_window, "key_press_event",
-						  G_CALLBACK (dma_sparse_view_goto_key_press_event),
-						  view);
+				  G_CALLBACK (dma_sparse_view_goto_key_press_event),
+				  view);
   
 		frame = gtk_frame_new (NULL);
 		gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_ETCHED_IN);
@@ -272,7 +278,7 @@ dma_sparse_view_goto_activate (GtkWidget   *menu_item,
 #endif
 		gtk_widget_show (view->priv->goto_entry);
 		gtk_container_add (GTK_CONTAINER (vbox),
-						   view->priv->goto_entry);
+				   view->priv->goto_entry);
 					   
 		gtk_widget_realize (view->priv->goto_entry);
 	}
@@ -282,8 +288,8 @@ dma_sparse_view_goto_activate (GtkWidget   *menu_item,
 	gtk_widget_show (view->priv->goto_window);
 	
 	gtk_text_view_set_cursor_visible (GTK_TEXT_VIEW (view), FALSE);
-    gtk_widget_grab_focus (view->priv->goto_entry);
-    send_focus_change (view->priv->goto_entry, TRUE);
+	gtk_widget_grab_focus (view->priv->goto_entry);
+	send_focus_change (view->priv->goto_entry, TRUE);
 	gtk_editable_set_position (GTK_EDITABLE (view->priv->goto_entry), -1);
 }
 
@@ -552,18 +558,19 @@ dma_sparse_view_synchronize_iter (DmaSparseView *view, DmaSparseIter *iter)
 
 	if (dist != 0)
 	{
-		if ((dist < 4.0 * (view->priv->vadjustment->page_size))
-			 && (dist > -4.0 * (view->priv->vadjustment->page_size)))
-        {
-			gint count = (gint)(dist / view->priv->vadjustment->step_increment);
-			
-        	dma_sparse_iter_forward_lines (iter, count);
-        }
-        else
+		gdouble page_size = gtk_adjustment_get_page_size (view->priv->vadjustment);
+
+		if ((dist < 4.0 * page_size) && (dist > -4.0 * page_size))
 		{
-        	dma_sparse_iter_move_at (iter, pos);
-            dma_sparse_iter_round (iter, FALSE);
-        }
+			gint count = (gint) (dist / gtk_adjustment_get_step_increment (view->priv->vadjustment));
+
+			dma_sparse_iter_forward_lines (iter, count);
+		}
+		else
+		{
+			dma_sparse_iter_move_at (iter, pos);
+			dma_sparse_iter_round (iter, FALSE);
+		}
 		gtk_adjustment_set_value (view->priv->vadjustment, (gdouble)dma_sparse_iter_get_address (iter));
 	}
 }
@@ -754,9 +761,9 @@ dma_sparse_view_paint_margin (DmaSparseView *view,
 			g_snprintf (str, sizeof (str),"0x%0*lX", margin_length, (long unsigned int)address);
 			pango_layout_set_markup (layout, str, -1);
 
-			gtk_paint_layout (GTK_WIDGET (view)->style,
+			gtk_paint_layout (gtk_widget_get_style (GTK_WIDGET (view)),
 					  win,
-					  GTK_WIDGET_STATE (view),
+					  gtk_widget_get_state (GTK_WIDGET (view)),
 					  FALSE,
 					  NULL,
 					  GTK_WIDGET (view),
@@ -812,10 +819,14 @@ dma_sparse_view_update_adjustement (DmaSparseView *view)
 	if (view->priv->vadjustment != NULL)
 	{
 		GtkAdjustment *vadj = view->priv->vadjustment;
+		gdouble step_increment, page_size;
+
+		step_increment = view->priv->char_by_line;
+		page_size = (view->priv->line_by_page - 1) * step_increment;
 		
-		vadj->step_increment = view->priv->char_by_line;
-		vadj->page_size = (view->priv->line_by_page - 1) * vadj->step_increment;
-		vadj->page_increment = vadj->page_size * 0.9;
+		gtk_adjustment_set_step_increment (vadj, step_increment);
+		gtk_adjustment_set_page_size (vadj, page_size);
+		gtk_adjustment_set_page_increment (vadj, page_size * 0.9);
 		gtk_adjustment_changed (vadj); 
 	}
 }
@@ -859,9 +870,9 @@ dma_sparse_view_set_scroll_adjustments (GtkTextView *text_view,
                         G_CALLBACK (dma_sparse_view_value_changed),
 						view);
 			
-			vadj->upper = dma_sparse_buffer_get_upper (view->priv->buffer);
-			vadj->lower = dma_sparse_buffer_get_lower (view->priv->buffer);
-			vadj->value = 0;
+			gtk_adjustment_set_upper (vadj, dma_sparse_buffer_get_upper (view->priv->buffer));
+			gtk_adjustment_set_lower (vadj, dma_sparse_buffer_get_lower (view->priv->buffer));
+			gtk_adjustment_set_value (vadj, 0);
 		}
 		view->priv->vadjustment = vadj;
 		dma_sparse_view_update_adjustement (view);
