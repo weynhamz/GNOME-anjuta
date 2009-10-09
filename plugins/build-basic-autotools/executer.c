@@ -410,14 +410,14 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 				{
 					gchar* oldcmd = cmd;
 				
-					cmd = g_strconcat ("anjuta_launcher ", oldcmd, NULL);
+					cmd = g_strconcat ("anjuta-launcher ", oldcmd, NULL);
 
 					g_free (oldcmd);
 					g_free (launcher_path);
 				}
 				else
 				{
-					DEBUG_PRINT("%s", "Missing anjuta_launcher");
+					DEBUG_PRINT("%s", "Missing anjuta-launcher");
 				}
 				
 			}
