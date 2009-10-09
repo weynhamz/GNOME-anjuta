@@ -116,7 +116,7 @@ gdb_plugin_start_terminal (GdbPlugin* plugin)
 	}
 
 	/* Launch terminal */
-	cmd = g_strconcat ("anjuta_launcher --__debug_terminal ", file, NULL);
+	cmd = g_strconcat ("anjuta-launcher --__debug_terminal ", file, NULL);
 	
 	/* Get terminal plugin */	
 	term = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell, IAnjutaTerminal, NULL);
