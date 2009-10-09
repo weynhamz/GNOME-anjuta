@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-01 20:48+0200\n"
-"PO-Revision-Date: 2009-08-18 23:29+0200\n"
+"POT-Creation-Date: 2009-10-09 17:38+0200\n"
+"PO-Revision-Date: 2009-10-03 19:38+0200\n"
 "Last-Translator: Joan Duran <jodufi@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -214,7 +214,7 @@ msgid "Anjuta shell that will contain the plugin"
 msgstr "Intèrpret d'ordres de l'Anjuta que contindrà el connector"
 
 #: ../libanjuta/anjuta-plugin-manager.c:733
-#, fuzzy, c-format
+#, c-format
 msgid "Plugin '%s' does not want to be deactivated"
 msgstr "El connector «%s» no es vol desactivar"
 
@@ -276,7 +276,7 @@ msgid "Please select a plugin to activate"
 msgstr "Seleccioneu un connector per a activar"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1372
-#, fuzzy, c-format
+#, c-format
 msgid "No plugin is able to load other plugins in %s"
 msgstr "No existeix cap connector capaç de carregar altres connectors a %s"
 
@@ -309,9 +309,8 @@ msgid "Currently activated plugins"
 msgstr "Connectors activats actualment"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2311
-#, fuzzy
 msgid "Anjuta shell for which the plugins are made"
-msgstr "Intèrpret d'ordres de l'Anjuta que contindrà el connector"
+msgstr "Intèrpret d'ordres de l'Anjuta pel qual s'han fet els connectors"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2319
 msgid "Anjuta Status"
@@ -1193,16 +1192,15 @@ msgstr "No es pot executar el autogen: %s"
 
 #: ../plugins/class-gen/window.c:94
 msgid "Guess from type"
-msgstr ""
+msgstr "Endevina-ho pel tipus"
 
 #: ../plugins/class-gen/window.c:499 ../plugins/class-gen/window.c:510
-#, fuzzy
 msgid "Scope"
-msgstr "Aturat"
+msgstr "Abast"
 
 #: ../plugins/class-gen/window.c:500
 msgid "Implementation"
-msgstr "_Implementació"
+msgstr "Implementació"
 
 #: ../plugins/class-gen/window.c:501 ../plugins/class-gen/window.c:511
 #: ../plugins/class-gen/window.c:533
@@ -1225,33 +1223,29 @@ msgid "Arguments"
 msgstr "Arguments"
 
 #: ../plugins/class-gen/window.c:521
-#, fuzzy
 msgid "Nick"
-msgstr "Nòrdic"
+msgstr "Sobrenom"
 
 #: ../plugins/class-gen/window.c:522
 msgid "Blurb"
-msgstr ""
+msgstr "Ressenya"
 
 #: ../plugins/class-gen/window.c:523
-#, fuzzy
 msgid "GType"
-msgstr "Tipus"
+msgstr "GType"
 
 #: ../plugins/class-gen/window.c:524
-#, fuzzy
 msgid "ParamSpec"
-msgstr "Paràmetres"
+msgstr "ParamSpec"
 
 #. Somehow redundant with marshaller, but required for default handler
 #: ../plugins/class-gen/window.c:526 ../plugins/class-gen/window.c:536
-#, fuzzy
 msgid "Flags"
-msgstr "Etiquetes"
+msgstr "Indicadors"
 
 #: ../plugins/class-gen/window.c:537
 msgid "Marshaller"
-msgstr ""
+msgstr "Marshaller"
 
 #: ../plugins/class-gen/window.c:818
 msgid "XML description of the user interface"
@@ -3634,7 +3628,6 @@ msgid "Base uri"
 msgstr "URI base"
 
 #: ../plugins/file-manager/file-view.c:591
-#, fuzzy
 msgid "Uri of the top-most path displayed"
 msgstr "URI del camí que s'ha mostrat més"
 
@@ -4351,12 +4344,10 @@ msgid "Cannot start terminal for debugging."
 msgstr "No es pot iniciar el terminal per a depurar."
 
 #: ../plugins/git/anjuta-git.ui.h:2
-#, fuzzy
 msgid "<b>Stash Message (Optional)</b>"
 msgstr "<b>Missatge del desat temporal (opcional)</b>"
 
 #: ../plugins/git/anjuta-git.ui.h:3
-#, fuzzy
 msgid "<b>Stash to Apply</b>"
 msgstr "<b>Desat temporal a aplicar</b>"
 
@@ -4378,7 +4369,6 @@ msgid "Add signed off by line"
 msgstr "Afegeix l'assignació per línia"
 
 #: ../plugins/git/anjuta-git.ui.h:9
-#, fuzzy
 msgid "Add signed-off by line"
 msgstr "Afegeix l'assignació per línia"
 
@@ -4473,9 +4463,8 @@ msgid "Clear all stashes"
 msgstr "Neteja tots els desats temporals"
 
 #: ../plugins/git/anjuta-git.ui.h:34
-#, fuzzy
 msgid "Column 1"
-msgstr "Primera columna"
+msgstr "Columna 1"
 
 #: ../plugins/git/anjuta-git.ui.h:35
 #: ../plugins/subversion/anjuta-subversion.ui.h:7
@@ -4644,9 +4633,8 @@ msgid "Rebase"
 msgstr "Ajusta a la base"
 
 #: ../plugins/git/anjuta-git.ui.h:78
-#, fuzzy
 msgid "Remote"
-msgstr "Suprimeix"
+msgstr "Remota"
 
 #: ../plugins/git/anjuta-git.ui.h:79
 msgid "Remote branch to rebase from:"
@@ -4921,12 +4909,10 @@ msgid "Git: Deleted selected branches."
 msgstr "Git: s'han suprimit les branques seleccionades."
 
 #: ../plugins/git/git-delete-branch-dialog.c:106
-#, fuzzy
 msgid "Please select branches to delete"
-msgstr "Seleccioneu un fitxer."
+msgstr "Seleccioneu les branques a suprimir"
 
 #: ../plugins/git/git-delete-tag-dialog.c:37
-#, fuzzy
 msgid "Git: Deleted selected tags."
 msgstr "Git: s'han suprimit les etiquetes seleccionades."
 
@@ -4996,9 +4982,8 @@ msgstr "Git: s'ha completat l'estirada."
 #. The "input widget" is the widget that should receive focus if the
 #. * user does not properly enter anything
 #: ../plugins/git/git-pull-dialog.c:124
-#, fuzzy
 msgid "Please select a remote to pull from."
-msgstr "Introduïu l'URL del dipòsit des d'on estirar."
+msgstr "Introduïu la ubicació remota des d'on estirar."
 
 #: ../plugins/git/git-pull-dialog.c:142
 msgid "Please enter the URL of the repository to pull from."
@@ -5011,9 +4996,8 @@ msgstr "Git: s'ha completat l'empenta."
 #. The "input widget" is the widget that should receive focus if the
 #. * user does not properly enter anything
 #: ../plugins/git/git-push-dialog.c:141
-#, fuzzy
 msgid "Please select a remote to push to."
-msgstr "Seleccioneu un desat temporal"
+msgstr "Seleccioneu una ubicació remota on empènyer."
 
 #: ../plugins/git/git-push-dialog.c:159
 msgid "Please enter the URL of the repository to push to."
@@ -5036,14 +5020,12 @@ msgid "Git: Resolve complete."
 msgstr "Git: s'ha completat la resolució."
 
 #: ../plugins/git/git-stash-widget.c:219
-#, fuzzy
 msgid "Git: Stash dropped."
-msgstr "Git: els canvis desats temporalment s'han aplicat."
+msgstr "Git: s'ha descartat el desat temporal."
 
 #: ../plugins/git/git-stash-widget.c:275
-#, fuzzy
 msgid "Git: All stashes cleared."
-msgstr "Git: els canvis desats temporalment s'han aplicat."
+msgstr "Git: s'han descartat tots els desats temporals."
 
 #: ../plugins/git/git-switch-dialog.c:36
 msgid "Git: Branch checkout complete."
@@ -5056,7 +5038,7 @@ msgstr "Git"
 
 #: ../plugins/git/git-ui-utils.c:158
 msgid "There are no branches available."
-msgstr ""
+msgstr "No hi ha cap branca disponible."
 
 #: ../plugins/git/git-ui-utils.c:194
 msgid "Please select a stash"
@@ -5077,7 +5059,7 @@ msgstr "Git: s'ha completat la diferència."
 #: ../plugins/git/git-ui-utils.c:760
 #, c-format
 msgid "Column %i"
-msgstr ""
+msgstr "Columna %i"
 
 #: ../plugins/git/git-unstage-dialog.c:36
 msgid "Git: Files unstaged."
@@ -5164,9 +5146,8 @@ msgstr "Visualitza l'historial de canvis"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:135
-#, fuzzy
 msgid "_Remote repository"
-msgstr "Suprimeix el punt de ruptura"
+msgstr "_Dipòsit remot"
 
 #. Action name
 #. Stock icon, if any
@@ -5208,9 +5189,8 @@ msgstr "Actualitza les branques remotes"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:167
-#, fuzzy
 msgid "_Files"
-msgstr "Fitxers"
+msgstr "_Fitxers"
 
 #. Action name
 #. Stock icon, if any
@@ -5536,9 +5516,8 @@ msgstr "Suprimeix les etiquetes"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:415
-#, fuzzy
 msgid "_Reset/Revert"
-msgstr "_Reinicia"
+msgstr "_Reinicia/desfés"
 
 #. Action name
 #. Stock icon, if any
@@ -5609,15 +5588,14 @@ msgstr "Marca la revisió de la capçalera actual com a dolenta"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:479
-#, fuzzy
 msgid "_Initialize repository"
-msgstr "Afegeix al dipòsit"
+msgstr "_Inicialitza un dipòsit"
 
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:481
 msgid "Create a new git repository or reinitialize an existing one"
-msgstr ""
+msgstr "Crea un dipòsit de Git nou o torna a inicialitzar-ne un d'existent"
 
 #. Action name
 #. Stock icon, if any
@@ -5723,7 +5701,7 @@ msgstr "Suprimeix aquest fitxer o carpeta del dipòsit"
 
 #: ../plugins/git/plugin.c:766
 msgid "Top level git menu item"
-msgstr ""
+msgstr "Element de nivell superior del menú del Git"
 
 #: ../plugins/git/plugin.c:774
 msgid "Git operations"
@@ -5841,27 +5819,23 @@ msgstr "No s'han pogut desar les associacions"
 
 #. iptCurrent:
 #: ../plugins/glade/plugin.c:1196
-#, fuzzy
 msgid "Current"
-msgstr "Bloc actual"
+msgstr "Actual"
 
 #. iptBeforeEnd:
 #: ../plugins/glade/plugin.c:1197
-#, fuzzy
 msgid "Before end"
-msgstr "Restaura l'arbre"
+msgstr "Abans del final"
 
 #. iptAfterBegin:
 #: ../plugins/glade/plugin.c:1198
-#, fuzzy
 msgid "After begin"
-msgstr "Després de les declaracions"
+msgstr "Després de l'inici"
 
 #. ipEOF:
 #: ../plugins/glade/plugin.c:1199
-#, fuzzy
 msgid "End of file"
-msgstr "_Fi del bloc"
+msgstr "Final del fitxer"
 
 #: ../plugins/glade/plugin.c:1368
 #, c-format
@@ -5904,17 +5878,16 @@ msgstr ""
 "S'ha produït un error en afegir un gestor d'estub nou: Sense editor actual"
 
 #: ../plugins/glade/plugin.c:2254
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "To avoid this message turn off \"%s\" flag in Preferences->Glade GUI Designer"
 msgstr ""
-"Per a evitar aquests missatges desactiveu l'indicador «Insereix un gestor en "
-"editar» a Preferències->Dissenyador d'IGU Glade"
+"Per a evitar aquests missatges desactiveu l'indicador «%s» a Preferències-"
+">Dissenyador d'IGU Glade"
 
 #: ../plugins/glade/plugin.c:2324
-#, fuzzy
 msgid "Couldn't find an associated document"
-msgstr "No s'ha pogut trobar una senyal d'informació"
+msgstr "No s'ha pogut trobar un document associat"
 
 #: ../plugins/glade/plugin.c:2390
 msgid "Those documents are already associated"
@@ -5927,7 +5900,7 @@ msgstr "No es pot llegir el fitxer: %s."
 
 #: ../plugins/glade/plugin.c:3095
 msgid "Top level widget"
-msgstr ""
+msgstr "Giny de nivell superior"
 
 #: ../plugins/glade/plugin.c:3686
 msgid "Couldn't find a default signal name"
@@ -6795,7 +6768,6 @@ msgid "Patch files/directories"
 msgstr "Aplica un pedaç a fitxers/directoris"
 
 #: ../plugins/project-import/plugin.c:66
-#, fuzzy
 msgid ""
 "Generation of project file failed. Cannot find an appropriate project "
 "template to use. Please make sure your version of Anjuta is up to date."
@@ -9661,6 +9633,7 @@ msgstr "Etiquetes dels botons de la barra d'eines:"
 #: ../plugins/debug-manager/anjuta-debug-manager.schemas.in.h:1
 msgid "Do not display warning if not using a Debug configuration"
 msgstr ""
+"No mostris els avisos si no s'està utilitzant una configuració de depuració"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:1
 msgid "Add '(' after function call autocompletion"
@@ -9933,9 +9906,8 @@ msgid "Project Manager Plugin for Anjuta."
 msgstr "Connector del gestor de projectes per a l'Anjuta."
 
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:2
-#, fuzzy
 msgid "Symbol Database Plugin for Anjuta."
-msgstr "Connector de la base de dades de símbols per a l'Anjuta (inestable)."
+msgstr "Base de dades de símbols per a l'Anjuta."
 
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Manages messages from external apps"
@@ -9985,358 +9957,6 @@ msgstr "Rerefons de les autotools"
 #: ../plugins/gbf-am/gbf-am.plugin.in.h:2
 msgid "Autotools backend for project manager"
 msgstr "Rerefons de les autotools per al gestor de projectes"
-
-#, fuzzy
-#~| msgid "_Build"
-#~ msgid "Build"
-#~ msgstr "_Munta"
-
-#, fuzzy
-#~| msgid "Confirmation"
-#~ msgid "Configuration:"
-#~ msgstr "Confirmació"
-
-#, fuzzy
-#~| msgid "_Install"
-#~ msgid "Install"
-#~ msgstr "_Instal·la"
-
-#, fuzzy
-#~| msgid "Configure Project"
-#~ msgid "C_onfigure Project…"
-#~ msgstr "Configura el projecte"
-
-#, fuzzy
-#~| msgid "CVS operations"
-#~ msgid "CVS Options"
-#~ msgstr "Operacions del CVS"
-
-#, fuzzy
-#~| msgid "Repository Head"
-#~ msgid "Repository:"
-#~ msgstr "Cap del dipòsit"
-
-#, fuzzy
-#~| msgid "Debugger"
-#~ msgid "Debugger:"
-#~ msgstr "Depurador"
-
-#, fuzzy
-#~| msgid "Debugger command"
-#~ msgid "Debugger Command…"
-#~ msgstr "Ordre del depurador"
-
-#, fuzzy
-#~| msgid "ID"
-#~ msgid "PID"
-#~ msgstr "ID"
-
-#~ msgid "ID"
-#~ msgstr "ID"
-
-#, fuzzy
-#~| msgid "Inspect/Evaluate"
-#~ msgid "Ins_pect/Evaluate…"
-#~ msgstr "Inspecciona/avalua"
-
-#, fuzzy
-#~| msgid "Add Watch"
-#~ msgid "Add Watch…"
-#~ msgstr "Afegeix vigilància"
-
-#, fuzzy
-#~| msgid "_Rename"
-#~ msgid "Rename"
-#~ msgstr "Canvia el _nom"
-
-#, fuzzy
-#~| msgid "<b>Autosave</b>"
-#~ msgid "Autosave"
-#~ msgstr "<b>Desa automàticament</b>"
-
-#, fuzzy
-#~| msgid "Print"
-#~ msgid "_Print…"
-#~ msgstr "Imprimeix"
-
-#, fuzzy
-#~| msgid "_Undo: %s"
-#~ msgctxt "recent menu label"
-#~ msgid "_%d. %s"
-#~ msgstr "_Desfés: %s"
-
-#, fuzzy
-#~| msgid "_Open"
-#~ msgid "_Open…"
-#~ msgstr "_Obre"
-
-#, fuzzy
-#~| msgid "URL:"
-#~ msgid "URI:"
-#~ msgstr "URL:"
-
-#, fuzzy
-#~| msgid "Advanced"
-#~ msgid "Advanced…"
-#~ msgstr "Avançat"
-
-#, fuzzy
-#~| msgid "_Commit"
-#~ msgid "_Commit…"
-#~ msgstr "Publica els _canvis"
-
-#, fuzzy
-#~| msgid "View log"
-#~ msgid "_View log…"
-#~ msgstr "Visualitza el registre"
-
-#, fuzzy
-#~| msgid "Push"
-#~ msgid "_Push…"
-#~ msgstr "Empeny"
-
-#, fuzzy
-#~| msgid "Pull"
-#~ msgid "_Pull…"
-#~ msgstr "Estira"
-
-#, fuzzy
-#~| msgid "_Add"
-#~ msgid "_Add…"
-#~ msgstr "_Afegeix"
-
-#, fuzzy
-#~| msgid "_Remove"
-#~ msgid "_Remove…"
-#~ msgstr "_Suprimeix"
-
-#, fuzzy
-#~| msgid "Ignored"
-#~ msgid "_Ignore…"
-#~ msgstr "Ignorat"
-
-#, fuzzy
-#~| msgid "Create patch series"
-#~ msgid "Create patch series…"
-#~ msgstr "Crea una sèrie de pedaços"
-
-#, fuzzy
-#~| msgid "Switch to another branch"
-#~ msgid "_Switch to another branch…"
-#~ msgstr "Commuta a una altra branca"
-
-#, fuzzy
-#~| msgid "Merge"
-#~ msgid "_Merge…"
-#~ msgstr "Combina"
-
-#, fuzzy
-#~| msgid "Delete"
-#~ msgid "_Delete…"
-#~ msgstr "Suprimeix"
-
-#, fuzzy
-#~| msgid "Delete tags"
-#~ msgid "_Delete tag…"
-#~ msgstr "Suprimeix les etiquetes"
-
-#, fuzzy
-#~| msgid "Unknown error in module %s"
-#~ msgid "Unknown editor language \"%s\""
-#~ msgstr "Error desconegut en el mòdul %s"
-
-#, fuzzy
-#~| msgid "Miscellaneous Data"
-#~ msgid "Miscellaneous"
-#~ msgstr "Dades diverses"
-
-#, fuzzy
-#~| msgid "<b>Macro text:</b>"
-#~ msgid "Macro text:"
-#~ msgstr "<b>Text de la macro:</b>"
-
-#, fuzzy
-#~| msgid "Macros"
-#~ msgid "Macros:"
-#~ msgstr "Macros"
-
-#, fuzzy
-#~| msgid "Macros"
-#~ msgid "Macros…"
-#~ msgstr "Macros"
-
-#, fuzzy
-#~| msgid "Patching...\n"
-#~ msgid "Patching…\n"
-#~ msgstr "S'està aplicant un pedaç...\n"
-
-#, fuzzy
-#~| msgid "Patching..."
-#~ msgid "Patching…"
-#~ msgstr "S'està aplicant un pedaç..."
-
-#, fuzzy
-#~| msgid "Patch"
-#~ msgid "_Patch…"
-#~ msgstr "Aplica un pedaç"
-
-#, fuzzy
-#~| msgid "Project name:"
-#~ msgid "Project name"
-#~ msgstr "Nom del projecte:"
-
-#, fuzzy
-#~| msgid "Select file to add:"
-#~ msgid "_Select file to add…"
-#~ msgstr "Seleccioneu un fitxer a afegir:"
-
-#, fuzzy
-#~| msgid "Refresh symbol browser tree"
-#~ msgid "Refreshing symbol tree…"
-#~ msgstr "Actualitza l'arbre del navegador de símbols"
-
-#, fuzzy
-#~| msgid "Add _Group"
-#~ msgid "Add _Group…"
-#~ msgstr "Afegeix un _grup"
-
-#, fuzzy
-#~| msgid "Add _Target"
-#~ msgid "Add _Target…"
-#~ msgstr "Afegeix un _objectiu"
-
-#, fuzzy
-#~| msgid "Add _Source File"
-#~ msgid "Add _Source File…"
-#~ msgstr "Afegeix un fitxer de _codi"
-
-#, fuzzy
-#~| msgid "Add to Project"
-#~ msgid "_Add to Project"
-#~ msgstr "Afegeix al projecte"
-
-#, fuzzy
-#~| msgid "<b>Details</b>"
-#~ msgid "Details"
-#~ msgstr "<b>Detalls</b>"
-
-#, fuzzy
-#~| msgid "Widgets"
-#~ msgid "wxWidgets"
-#~ msgstr "Ginys"
-
-#~ msgid "Run in Terminal"
-#~ msgstr "Executa en un terminal"
-
-#, fuzzy
-#~| msgid "Program Parameters"
-#~ msgid "Program Parameters…"
-#~ msgstr "Paràmetres del programa"
-
-#, fuzzy
-#~| msgid "Action"
-#~ msgid "Actions"
-#~ msgstr "Acció"
-
-#, fuzzy
-#~| msgid "<b>File Filter</b>"
-#~ msgid "File Filter"
-#~ msgstr "<b>Filtre de fitxers</b>"
-
-#~ msgid "Parameters"
-#~ msgstr "Paràmetres"
-
-#, fuzzy
-#~| msgid "_Find..."
-#~ msgid "_Find…"
-#~ msgstr "Ce_rca..."
-
-#, fuzzy
-#~| msgid "Searching"
-#~ msgid "Searching…"
-#~ msgstr "S'està cercant"
-
-#, fuzzy
-#~| msgid ""
-#~| "The file '%s' on the disk is more recent than the current buffer.\n"
-#~| "Do you want to reload it?"
-#~ msgid ""
-#~ "The file \"%s\" on the disk is more recent than the current buffer.\n"
-#~ "Do you want to reload it?"
-#~ msgstr ""
-#~ "La còpia del fitxer «%s» al disc és més nova que la carregada a la memòria "
-#~ "intermèdia.\n"
-#~ "Voleu tornar-lo a carregar?"
-
-#, fuzzy
-#~| msgid "Retrieving status..."
-#~ msgid "Retrieving status……"
-#~ msgstr "S'està obtenint l'estat..."
-
-#, fuzzy
-#~| msgid "_Revert..."
-#~ msgid "_Revert…"
-#~ msgstr "_Desfés..."
-
-#, fuzzy
-#~| msgid "_Update"
-#~ msgid "_Update…"
-#~ msgstr "Act_ualitza"
-
-#, fuzzy
-#~| msgid "Merge"
-#~ msgid "Merge…"
-#~ msgstr "Combina"
-
-#, fuzzy
-#~| msgid "View Log"
-#~ msgid "_View Log…"
-#~ msgstr "Visualitza el registre"
-
-#, fuzzy
-#~| msgid "_Diff"
-#~ msgid "_Diff…"
-#~ msgstr "_Diferències"
-
-#, fuzzy
-#~| msgid "Copy"
-#~ msgid "Copy…"
-#~ msgstr "Copia"
-
-#, fuzzy
-#~| msgid "Diff"
-#~ msgid "Diff…"
-#~ msgstr "Diferència"
-
-#, fuzzy
-#~| msgid "Find Symbol"
-#~ msgid "_Find Symbol…"
-#~ msgstr "Cerca un símbol"
-
-#, fuzzy
-#~| msgid "Loading"
-#~ msgid "Loading…"
-#~ msgstr "S'està carregant"
-
-#, fuzzy
-#~| msgid "<b>Available API tags</b>"
-#~ msgid "Available API tags"
-#~ msgstr "<b>Etiquetes de l'API disponibles</b>"
-
-#, fuzzy
-#~| msgid "terminal operations"
-#~ msgid "Terminal options"
-#~ msgstr "operacions del terminal"
-
-#, fuzzy
-#~| msgid "Variable"
-#~ msgid "_Variable…"
-#~ msgstr "Variable"
-
-#, fuzzy
-#~| msgid "GtkSourceView Editor"
-#~ msgid "GtkSourceView editor"
-#~ msgstr "Editor GtkSourceView"
 
 #~ msgid "gtk-cancel"
 #~ msgstr "gtk-cancel"
