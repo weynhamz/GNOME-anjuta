@@ -29,8 +29,8 @@ SUBDIRS = . \
 	git \
 	sourceview \
 	run-program \
-	gbf-am \
-	gbf-mkfile \
-	starter
+	starter \
+	am-project \
+	mk-project
 
 -include $(top_srcdir)/git.mk

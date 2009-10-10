@@ -81,7 +81,15 @@ libanjuta_la_SOURCES= \
 	gbf-project.c \
 	gbf-project.h \
 	anjuta-command-queue.c \
-	anjuta-command-queue.h
+	anjuta-command-queue.h \
+	anjuta-token.c \
+	anjuta-token.h \
+	anjuta-token-style.c \
+	anjuta-token-style.h \
+	anjuta-token-file.c \
+	anjuta-token-file.h \
+	anjuta-project.h \
+	anjuta-project.c
 
 if HAVE_PLUGIN_GLADE
 
@@ -140,7 +148,9 @@ libanjuta_include = \
 	anjuta-sync-command.h \
 	anjuta-version.h \
 	gbf-project.h \
-	anjuta-command-queue.h
+	anjuta-command-queue.h \
+	anjuta-project.h \
+	anjuta-token.h
 
 libanjutainclude_HEADERS = \
 	$(libanjuta_include) \

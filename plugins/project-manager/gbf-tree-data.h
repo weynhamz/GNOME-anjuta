@@ -25,7 +25,8 @@
 #define _GBF_TREE_DATA_H_
 
 #include <glib-object.h>
-#include <libanjuta/gbf-project.h>
+#include <libanjuta/interfaces/ianjuta-project.h>
+#include <libanjuta/anjuta-project.h>
 
 G_BEGIN_DECLS
 
@@ -42,24 +43,24 @@ typedef enum {
 
 struct _GbfTreeData
 {
-	GbfTreeNodeType  type;
-	gchar           *name;
-	gchar           *id;
-	gchar           *uri;
-	gboolean         is_shortcut;
-	gchar           *mime_type;
+	GbfTreeNodeType  	type;
+	gchar           	*name;
+	AnjutaProjectNode	*id;
+	gchar           	*uri;
+	gboolean         	is_shortcut;
+	gchar           	*mime_type;
 };
 
 GType          gbf_tree_data_get_type            (void);
-GbfTreeData   *gbf_tree_data_new_string          (const gchar                  *string);
-GbfTreeData   *gbf_tree_data_new_group           (GbfProject                   *project,
-						  const GbfProjectGroup        *group);
-GbfTreeData   *gbf_tree_data_new_target          (GbfProject                   *project,
-						  const GbfProjectTarget       *target);
-GbfTreeData   *gbf_tree_data_new_source          (GbfProject                   *project,
-						  const GbfProjectTargetSource *source);
-GbfTreeData   *gbf_tree_data_copy                (GbfTreeData                  *data);
-void           gbf_tree_data_free                (GbfTreeData                  *data);
+GbfTreeData   *gbf_tree_data_new_string          (const gchar            *string);
+GbfTreeData   *gbf_tree_data_new_group           (IAnjutaProject         *project,
+						  AnjutaProjectGroup     *group);
+GbfTreeData   *gbf_tree_data_new_target          (IAnjutaProject         *project,
+						  AnjutaProjectTarget    *target);
+GbfTreeData   *gbf_tree_data_new_source          (IAnjutaProject         *project,
+						  AnjutaProjectSource    *source);
+GbfTreeData   *gbf_tree_data_copy                (GbfTreeData            *data);
+void           gbf_tree_data_free                (GbfTreeData            *data);
 
 
 G_END_DECLS

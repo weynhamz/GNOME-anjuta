@@ -309,8 +309,8 @@ gbf_project_view_class_init (GbfProjectViewClass *klass)
 			      G_STRUCT_OFFSET (GbfProjectViewClass,
 					       target_selected),
 			      NULL, NULL,
-			      g_cclosure_marshal_VOID__STRING,
-			      G_TYPE_NONE, 1, G_TYPE_STRING);
+			      g_cclosure_marshal_VOID__POINTER,
+			      G_TYPE_NONE, 1, G_TYPE_POINTER);
 	signals [GROUP_SELECTED] = 
 		g_signal_new ("group_selected",
 			      GBF_TYPE_PROJECT_VIEW,
@@ -318,8 +318,8 @@ gbf_project_view_class_init (GbfProjectViewClass *klass)
 			      G_STRUCT_OFFSET (GbfProjectViewClass,
 					       group_selected),
 			      NULL, NULL,
-			      g_cclosure_marshal_VOID__STRING,
-			      G_TYPE_NONE, 1, G_TYPE_STRING);
+			      g_cclosure_marshal_VOID__POINTER,
+			      G_TYPE_NONE, 1, G_TYPE_POINTER);
 }
 
 static void 

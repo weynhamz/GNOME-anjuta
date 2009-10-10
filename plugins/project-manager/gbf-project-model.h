@@ -25,7 +25,8 @@
 
 #include <glib-object.h>
 #include <gtk/gtk.h>
-#include <libanjuta/gbf-project.h>
+#include <libanjuta/interfaces/ianjuta-project.h>
+#include <libanjuta/anjuta-project.h>
 #include "gbf-tree-data.h"
 
 #define GBF_TYPE_PROJECT_MODEL            (gbf_project_model_get_type ())
@@ -53,16 +54,16 @@ struct _GbfProjectModelClass {
 };
 
 GType            gbf_project_model_get_type          (void); 
-GbfProjectModel *gbf_project_model_new               (GbfProject      *project);
+GbfProjectModel *gbf_project_model_new               (IAnjutaProject    *project);
 
-void             gbf_project_model_set_project       (GbfProjectModel *model,
-                                                      GbfProject      *project);
-GbfProject      *gbf_project_model_get_project       (GbfProjectModel *model);
+void             gbf_project_model_set_project       (GbfProjectModel   *model,
+                                                      IAnjutaProject    *project);
+IAnjutaProject  *gbf_project_model_get_project       (GbfProjectModel   *model);
 
-GtkTreePath     *gbf_project_model_get_project_root  (GbfProjectModel *model);
-gboolean         gbf_project_model_find_id           (GbfProjectModel *model,
-                                                      GtkTreeIter     *iter,
-                                                      GbfTreeNodeType  type,
-                                                      const gchar     *id);
+GtkTreePath     *gbf_project_model_get_project_root  (GbfProjectModel   *model);
+gboolean         gbf_project_model_find_id           (GbfProjectModel   *model,
+                                                      GtkTreeIter       *iter,
+                                                      GbfTreeNodeType    type,
+                                                      AnjutaProjectNode *id);
 
 #endif

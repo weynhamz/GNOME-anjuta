@@ -36,6 +36,7 @@
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-macro.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
+#include <libanjuta/interfaces/ianjuta-project.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-vcs.h>
 
@@ -125,8 +126,8 @@ void
 display_new_file(AnjutaFileWizardPlugin *plugin,
 				 IAnjutaDocumentManager *docman)
 {
-	IAnjutaProjectManagerCapabilities caps =
-		IANJUTA_PROJECT_MANAGER_CAN_ADD_NONE;
+	IAnjutaProjectCapabilities caps =
+		IANJUTA_PROJECT_CAN_ADD_NONE;
 	
 	if (!nfg)
 		if (!create_new_file_dialog (docman))
@@ -147,7 +148,7 @@ display_new_file(AnjutaFileWizardPlugin *plugin,
 	                  G_CALLBACK(on_add_to_project_toggled),
 	                  nfg);
 	
-	if ((caps & IANJUTA_PROJECT_MANAGER_CAN_ADD_SOURCE) == FALSE) {
+	if ((caps & IANJUTA_PROJECT_CAN_ADD_SOURCE) == FALSE) {
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (nfg->add_to_project),
 									  FALSE);
 		gtk_widget_set_sensitive (nfg->add_to_project, FALSE);

@@ -316,9 +316,10 @@ value_added_pm_current_uri (AnjutaPlugin *plugin, const char *name,
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupGlade", "ActionSetDefaultTarget");
 	selected_id = ianjuta_project_manager_get_selected_id (projman,
-	                                                       IANJUTA_PROJECT_MANAGER_TARGET,
+	                                                       ANJUTA_PROJECT_TARGET,
 	                                                       NULL);
 	gtk_action_set_sensitive (action, selected_id != NULL);
+	g_free (selected_id);
 }
 
 static void
@@ -3871,7 +3872,7 @@ on_set_default_resource_target (GtkAction* action, GladePlugin* plugin)
 		anjuta_shell_get_interface (ANJUTA_PLUGIN(plugin)->shell,
 		                            IAnjutaProjectManager, NULL);
 
-	selected = ianjuta_project_manager_get_selected_id (projman, IANJUTA_PROJECT_MANAGER_TARGET, NULL);
+	selected = ianjuta_project_manager_get_selected_id (projman, ANJUTA_PROJECT_TARGET, NULL);
 	DEBUG_PRINT ("Selected element is %s", selected);
 	set_default_resource_target (selected, plugin);
 	g_free (selected);

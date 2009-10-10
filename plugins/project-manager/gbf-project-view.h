@@ -24,6 +24,7 @@
 #define _GBF_PROJECT_TREE_H_
 
 #include <gtk/gtk.h>
+#include <libanjuta/anjuta-project.h>
 #include "gbf-tree-data.h"
 
 G_BEGIN_DECLS
@@ -51,10 +52,10 @@ struct _GbfProjectViewClass {
 	void (* uri_activated)    (GbfProjectView *project_view,
 				   const char     *uri);
 
-	void (* target_selected)  (GbfProjectView *project_view,
-				   const gchar    *target_id);
-	void (* group_selected)  (GbfProjectView *project_view,
-				   const gchar    *group_id);
+	void (* target_selected)  (GbfProjectView      *project_view,
+				   AnjutaProjectTarget *target);
+	void (* group_selected)  (GbfProjectView       *project_view,
+				   AnjutaProjectGroup  *group);
 };
 
 GType                       gbf_project_view_get_type         (void);
