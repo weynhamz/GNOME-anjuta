@@ -7,17 +7,19 @@
 # Sergey Al. Safonov <spoof@spoofa.info>, 2008.
 # Lebedev Roman <roman@lebedev.com>, 2008.
 #
+# Alexander Saprykin <xelfium@gmail.com>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta trunk\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-12 11:21+0300\n"
-"PO-Revision-Date: 2009-10-11 20:37+0300\n"
-"Last-Translator: Yuri Myasoedov <omerta13@yandex.ru>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=anjuta&component=core application\n"
+"POT-Creation-Date: 2009-10-12 08:44+0000\n"
+"PO-Revision-Date: 2009-10-12 13:12+0400\n"
+"Last-Translator: Alexander Saprykin <xelfium@gmail.com>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: UTF-8\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Russian\n"
@@ -495,7 +497,7 @@ msgstr ""
 msgid "Cannot find a terminal, using xterm, even if it may not work"
 msgstr ""
 "Не удалось обнаружить терминал, будет использован xterm, даже если он может "
-"на работать"
+"не работать"
 
 #: ../libanjuta/anjuta-utils.c:1022 ../libanjuta/anjuta-utils.c:1026
 #: ../libanjuta/anjuta-utils.c:1054 ../libanjuta/anjuta-utils.c:1058
@@ -817,7 +819,7 @@ msgid ""
 "you want to do that ?"
 msgstr ""
 "Перед использованием новой конфигурации конфигурация по умолчанию должна "
-"быть удалена. Удалить её?"
+"быть удалена. Хотите удалить её?"
 
 #: ../plugins/build-basic-autotools/plugin.c:1802
 #, c-format
@@ -1038,7 +1040,7 @@ msgstr "Добавить к проекту"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:4
 msgid "Add to Repository"
-msgstr "Добавить в репозитарий"
+msgstr "Добавить в репозиторий"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:5
 msgid "Author Email:"
@@ -4978,7 +4980,7 @@ msgstr "Выберите удалённый репозиторий для пол
 
 #: ../plugins/git/git-pull-dialog.c:142
 msgid "Please enter the URL of the repository to pull from."
-msgstr "Введите URL репозитария для загрузки."
+msgstr "Введите URL репозитория для загрузки."
 
 #: ../plugins/git/git-push-dialog.c:36
 msgid "Git: Push complete."
@@ -4992,7 +4994,7 @@ msgstr "Выберите удалённые репозиторий для вне
 
 #: ../plugins/git/git-push-dialog.c:159
 msgid "Please enter the URL of the repository to push to."
-msgstr "Введите URL репозитария, в который необходимо внести изменения."
+msgstr "Введите URL репозитория, в который необходимо внести изменения."
 
 #: ../plugins/git/git-push-dialog.c:193
 msgid "Git: Pushing..."
@@ -8937,7 +8939,7 @@ msgid ""
 "g. glib and gtk+ if you create a Gtk+ project (may require more cpu work)"
 msgstr ""
 "Этот параметр включает пакеты по умолчанию, требуемые открытому проекту, "
-"напр. glib и gtk+, если вы создали проект Gtk+ (может дополнительно "
+"например glib и gtk+, если вы создали проект Gtk+ (может дополнительно "
 "нагружать ЦПУ)"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:8
@@ -8954,7 +8956,7 @@ msgid ""
 "after 10 seconds of no keypress by user."
 msgstr ""
 "Автоматически обновлять символы файлов без сохранения. Обновление происходит "
-"после 10 секунд, после последнего нажатия клавиши на клавиатуре."
+"спустя 10 секунд после последнего нажатия клавиши на клавиатуре."
 
 #: ../plugins/terminal/anjuta-terminal-plugin.ui.h:1
 msgid "<b>Terminal options</b>"
