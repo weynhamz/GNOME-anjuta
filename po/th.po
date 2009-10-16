@@ -9,9 +9,9 @@ msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2009-08-23 21:04+0000\n"
-"PO-Revision-Date: 2009-09-15 13:11+0700\n"
-"Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
+"POT-Creation-Date: 2009-09-22 20:00+0000\n"
+"PO-Revision-Date: 2009-10-16 20:03+0700\n"
+"Last-Translator: อาคม โชติพันธวานนท์ <knight2000@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -644,6 +644,7 @@ msgid "Translate messages"
 msgstr "แปลข้อความ"
 
 #: ../plugins/build-basic-autotools/configuration-list.c:62
+#: ../plugins/class-gen/window.c:525
 #: ../plugins/search/search_preferences.c:523
 #: ../plugins/terminal/anjuta-terminal-plugin.ui.h:2 ../src/preferences.ui.h:2
 msgid "Default"
@@ -983,18 +984,18 @@ msgstr "คอ_มไพล์ (%s)"
 msgid "Co_mpile"
 msgstr "คอ_มไพล์"
 
-#: ../plugins/build-basic-autotools/plugin.c:3122
+#: ../plugins/build-basic-autotools/plugin.c:3121
 msgid "Build commands"
 msgstr "คำสั่งประกอบสร้าง"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:3131
+#: ../plugins/build-basic-autotools/plugin.c:3130
 msgid "Build popup commands"
 msgstr "คำสั่งผุดขึ้นสำหรับประกอบสร้าง"
 
-#: ../plugins/build-basic-autotools/plugin.c:3513
-#: ../plugins/build-basic-autotools/plugin.c:3521
+#: ../plugins/build-basic-autotools/plugin.c:3512
+#: ../plugins/build-basic-autotools/plugin.c:3520
 msgid "Build Autotools"
 msgstr "เครื่องมืออัตโนมัติสำหรับประกอบสร้าง"
 
@@ -1047,88 +1048,93 @@ msgid "Class Function Prefix:"
 msgstr "คำนำหน้าฟังก์ชันคลาส:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:12
+#: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:3
+msgid "Class Generator"
+msgstr "เครื่องมือสร้างคลาส"
+
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:13
 msgid "Class Name:"
 msgstr "ชื่อคลาส:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:13
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:14
 msgid "Class Options:"
 msgstr "ตัวเลือกสำหรับคลาส:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:14
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:15
 msgid "Create"
 msgstr "สร้าง"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:15
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:16
 msgid "GObject Class\t"
 msgstr "คลาส GObject\t"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:16
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:17
 msgid "GObject Prefix and Type:"
 msgstr "คำนำหน้าและชนิด GObject:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:17
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:18
 #: ../plugins/file-wizard/file.c:102
 #: ../plugins/project-wizard/templates/translatable-strings.h:47
 msgid "General Public License (GPL)"
 msgstr "สัญญาอนุญาตสาธารณะทั่วไปกนู (GPL)"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:18
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:19
 msgid "Generic C++ Class"
 msgstr "คลาสแบบ generic ของ C++"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:19
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:20
 msgid "Header File:"
 msgstr "แฟ้มส่วนหัว:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:20
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:21
 msgid "Inline the declaration and implementation"
 msgstr "การประกาศและตัวฟังก์ชัน inline"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:21
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:22
 #: ../plugins/file-wizard/file.c:103
 #: ../plugins/project-wizard/templates/translatable-strings.h:60
 msgid "Lesser General Public License (LGPL)"
 msgstr "สัญญาอนุญาตสาธารณะทั่วไปแบบผ่อนปรนกนู (LGPL)"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:22
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:23
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:9
 msgid "License:"
 msgstr "สัญญาอนุญาต:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:23
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:24
 msgid "Member Functions/Variables"
 msgstr "ฟังก์ชัน/ตัวแปรสมาชิก"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:24
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:25
 msgid "No License"
 msgstr "ไม่มีสัญญาอนุญาต"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:25
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:26
 #: ../plugins/glade/plugin.c:4446
 msgid "Properties"
 msgstr "คุณสมบัติ"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:26
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:27
 msgid "Signals"
 msgstr "สัญญาณ"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:27
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:28
 msgid "Source File:"
 msgstr "แฟ้มซอร์ส:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:28
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:29
 msgid "Source/Header Headings:"
 msgstr "ส่วนต้นของแฟ้มซอร์ส/แฟ้มส่วนหัว:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:29
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:30
 msgid "private"
 msgstr "private"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:30
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:31
 msgid "protected"
 msgstr "protected"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:31
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:32
 msgid "public"
 msgstr "public"
 
@@ -1166,6 +1172,63 @@ msgstr ""
 #, c-format
 msgid "Failed to execute autogen: %s"
 msgstr "เรียก autogen ไม่สำเร็จ: %s"
+
+#: ../plugins/class-gen/window.c:94
+msgid "Guess from type"
+msgstr "เดาจากชนิด"
+
+#: ../plugins/class-gen/window.c:499 ../plugins/class-gen/window.c:510
+msgid "Scope"
+msgstr "ขอบเขต"
+
+#: ../plugins/class-gen/window.c:500
+msgid "Implementation"
+msgstr "การอิมพลีเมนต์"
+
+#: ../plugins/class-gen/window.c:501 ../plugins/class-gen/window.c:511
+#: ../plugins/class-gen/window.c:533
+#: ../plugins/debug-manager/breakpoints.c:1907
+#: ../plugins/debug-manager/debug_tree.c:126
+msgid "Type"
+msgstr "ชนิด"
+
+#: ../plugins/class-gen/window.c:502 ../plugins/class-gen/window.c:512
+#: ../plugins/class-gen/window.c:520 ../plugins/class-gen/window.c:534
+#: ../plugins/run-program/parameters.c:749
+#: ../plugins/search/search_preferences.c:534
+msgid "Name"
+msgstr "ชื่อ"
+
+#: ../plugins/class-gen/window.c:503 ../plugins/class-gen/window.c:513
+#: ../plugins/class-gen/window.c:535
+#: ../plugins/debug-manager/stack_trace.c:679
+msgid "Arguments"
+msgstr "อาร์กิวเมนต์"
+
+#: ../plugins/class-gen/window.c:521
+msgid "Nick"
+msgstr "ชื่อย่อ"
+
+#: ../plugins/class-gen/window.c:522
+msgid "Blurb"
+msgstr "คำบรรยายสั้น"
+
+#: ../plugins/class-gen/window.c:523
+msgid "GType"
+msgstr "GType"
+
+#: ../plugins/class-gen/window.c:524
+msgid "ParamSpec"
+msgstr "ParamSpec"
+
+#. Somehow redundant with marshaller, but required for default handler
+#: ../plugins/class-gen/window.c:526 ../plugins/class-gen/window.c:536
+msgid "Flags"
+msgstr "แฟล็ก"
+
+#: ../plugins/class-gen/window.c:537
+msgid "Marshaller"
+msgstr "Marshaller"
 
 #: ../plugins/class-gen/window.c:818
 msgid "XML description of the user interface"
@@ -1930,11 +1993,6 @@ msgstr "เปิดใช้งาน"
 msgid "Address"
 msgstr "แอดเดรส"
 
-#: ../plugins/debug-manager/breakpoints.c:1907
-#: ../plugins/debug-manager/debug_tree.c:126
-msgid "Type"
-msgstr "ชนิด"
-
 #: ../plugins/debug-manager/breakpoints.c:1908
 msgid "Condition"
 msgstr "เงื่อนไข"
@@ -2350,10 +2408,6 @@ msgstr "บรรทัด"
 #: ../plugins/debug-manager/threads.c:469
 msgid "Function"
 msgstr "ฟังก์ชัน"
-
-#: ../plugins/debug-manager/stack_trace.c:679
-msgid "Arguments"
-msgstr "อาร์กิวเมนต์"
 
 #: ../plugins/debug-manager/stack_trace.c:703
 msgid "Stack"
@@ -2964,7 +3018,7 @@ msgstr "ตัดข้อความที่เลือกจากเคร
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/document-manager/plugin.c:291 ../plugins/terminal/terminal.c:554
+#: ../plugins/document-manager/plugin.c:291 ../plugins/terminal/terminal.c:592
 msgid "_Copy"
 msgstr "_คัดลอก"
 
@@ -2972,7 +3026,7 @@ msgstr "_คัดลอก"
 msgid "Copy the selected text to the clipboard"
 msgstr "คัดลอกข้อความที่เลือกไปยังคลิปบอร์ด"
 
-#: ../plugins/document-manager/plugin.c:294 ../plugins/terminal/terminal.c:562
+#: ../plugins/document-manager/plugin.c:294 ../plugins/terminal/terminal.c:600
 msgid "_Paste"
 msgstr "_แปะ"
 
@@ -3445,51 +3499,51 @@ msgstr "เปิด_ด้วย"
 msgid "Open with"
 msgstr "เปิดด้วย"
 
-#: ../plugins/file-loader/plugin.c:1245 ../plugins/file-loader/plugin.c:1251
+#: ../plugins/file-loader/plugin.c:1243 ../plugins/file-loader/plugin.c:1249
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:1
 msgid "File Loader"
 msgstr "เครื่องมือโหลดแฟ้ม"
 
-#: ../plugins/file-loader/plugin.c:1255
+#: ../plugins/file-loader/plugin.c:1253
 msgid "New"
 msgstr "ใหม่"
 
-#: ../plugins/file-loader/plugin.c:1256
+#: ../plugins/file-loader/plugin.c:1254
 msgid "New file, project and project components."
 msgstr "สร้างแฟ้ม โครงการ และส่วนประกอบโครงการชิ้นใหม่"
 
-#: ../plugins/file-loader/plugin.c:1263 ../plugins/file-loader/plugin.c:1303
+#: ../plugins/file-loader/plugin.c:1261 ../plugins/file-loader/plugin.c:1301
 msgid "Open"
 msgstr "เปิด"
 
-#: ../plugins/file-loader/plugin.c:1267
+#: ../plugins/file-loader/plugin.c:1265
 msgid "Open _Recent"
 msgstr "เปิด_ล่าสุด"
 
-#: ../plugins/file-loader/plugin.c:1268 ../plugins/file-loader/plugin.c:1305
+#: ../plugins/file-loader/plugin.c:1266 ../plugins/file-loader/plugin.c:1303
 msgid "Open recent file"
 msgstr "เปิดแฟ้มล่าสุด"
 
-#: ../plugins/file-loader/plugin.c:1274
+#: ../plugins/file-loader/plugin.c:1272
 msgid "Open recent files"
 msgstr "เปิดแฟ้มล่าสุด"
 
-#: ../plugins/file-loader/plugin.c:1304
+#: ../plugins/file-loader/plugin.c:1302
 msgid "Open a file"
 msgstr "เปิดแฟ้ม"
 
-#: ../plugins/file-loader/plugin.c:1420 ../plugins/file-loader/plugin.c:1422
+#: ../plugins/file-loader/plugin.c:1416 ../plugins/file-loader/plugin.c:1418
 #, c-format
 msgid "File not found"
 msgstr "ไม่พบแฟ้ม"
 
 #. %s is name of file that will be opened
-#: ../plugins/file-loader/plugin.c:1441
+#: ../plugins/file-loader/plugin.c:1437
 #, c-format
 msgid "Please select a plugin to open <b>%s</b>."
 msgstr "กรุณาเลือกปลั๊กที่จะใช้เปิด <b>%s</b>"
 
-#: ../plugins/file-loader/plugin.c:1445
+#: ../plugins/file-loader/plugin.c:1441
 msgid "Open With"
 msgstr "เปิดด้วย"
 
@@ -5350,8 +5404,7 @@ msgstr "เ_ก็บเกี่ยว..."
 #. short-cut
 #: ../plugins/git/plugin.c:361
 msgid ""
-"Selectively merge individual changes from other branches into the current "
-"one"
+"Selectively merge individual changes from other branches into the current one"
 msgstr "เลือกผสานการเปลี่ยนแปลงทีละรายการจากแขนงอื่นเข้าในแขนงปัจจุบัน"
 
 #. Action name
@@ -7691,11 +7744,6 @@ msgstr "โหลดเป้าหมายที่จะเรียกทำ
 msgid "Missing file %s"
 msgstr "ขาดแฟ้ม %s"
 
-#: ../plugins/run-program/parameters.c:749
-#: ../plugins/search/search_preferences.c:534
-msgid "Name"
-msgstr "ชื่อ"
-
 #: ../plugins/run-program/plugin.c:191
 msgid ""
 "The program is running.\n"
@@ -8847,12 +8895,12 @@ msgstr "ใช้โพรไฟล์เทอร์มินัลของ GN
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "ใช้โพรไฟล์ที่เลือกไว้ในเทอร์มินัล GNOME"
 
-#: ../plugins/terminal/terminal.c:701
+#: ../plugins/terminal/terminal.c:739
 msgid "terminal operations"
 msgstr "การกระทำเกี่ยวกับเทอร์มินัล"
 
-#: ../plugins/terminal/terminal.c:719 ../plugins/terminal/terminal.c:886
-#: ../plugins/terminal/terminal.c:939
+#: ../plugins/terminal/terminal.c:757 ../plugins/terminal/terminal.c:926
+#: ../plugins/terminal/terminal.c:979
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
 msgid "Terminal"
 msgstr "เทอร์มินัล"
@@ -9196,7 +9244,7 @@ msgstr "สายอักขระ"
 msgid "Copyright (c) Naba Kumar"
 msgstr "Copyright (c) Naba Kumar"
 
-#: ../src/anjuta.c:428
+#: ../src/anjuta.c:424
 msgid "Loaded Session..."
 msgstr "โหลดวาระแล้ว..."
 
@@ -9379,7 +9427,7 @@ msgstr "การปิดแอนจูตาอย่างถูกต้อ
 msgid "- Integrated Development Environment"
 msgstr "- ชุดเครื่องมือพัฒนาเบ็ดเสร็จ"
 
-#: ../src/main.c:216
+#: ../src/main.c:232
 msgid "Anjuta"
 msgstr "แอนจูตา"
 
@@ -9721,10 +9769,6 @@ msgstr "ปลั๊กอินเครื่องมือสร้างค
 #: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:2
 msgid "C++/GObject Class"
 msgstr "คลาส C++/GObject"
-
-#: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:3
-msgid "Class Generator"
-msgstr "เครื่องมือสร้างคลาส"
 
 #: ../plugins/project-manager/anjuta-project-manager.plugin.in.h:1
 msgid "Project Manager"
