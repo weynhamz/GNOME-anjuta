@@ -1,9 +1,7 @@
-# translation of anjuta.HEAD.po to Greek
-# Greek translation for anjuta.
-# Copyright (C) 2001 Free Software Foundation.
+# Greek translation of Anjuta Documentation.
+# Copyright (C) 2001-2009 Free Software Foundation, Inc.
 #
 # simos (25Mar08): Reviewed first 1000 messages of translation
-#
 # Simos Xenitellis <simos@hellug.gr>, 2001.
 # Velonis Petros <velonis@freemail.gr>, 2004.
 # Socrates Vavilis <s_vavilis@yahoo.fr>,2005.
@@ -14,8 +12,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-13 21:44+0100\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=anjuta&component=core application\n"
+"POT-Creation-Date: 2009-05-15 02:27+0000\n"
 "PO-Revision-Date: 2009-03-02 01:41+0100\n"
 "Last-Translator: Jennie Petoumenou <epetoumenou@gmail.com>\n"
 "Language-Team: Greek <team@gnome.gr>\n"
@@ -23,9 +22,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 0.2\n"
-"X-Poedit-Language: Greek\n"
-"X-Poedit-Country: GREECE\n"
 
 #: ../anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
@@ -2084,7 +2080,7 @@ msgstr "Γραμμές"
 #. This is the list of local variables.
 #: ../plugins/debug-manager/locals.c:107
 msgid "Locals"
-msgstr "Τοπικά"
+msgstr "Τοπικές"
 
 #: ../plugins/debug-manager/plugin.c:312
 msgid "Debugger Log"
