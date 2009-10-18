@@ -2090,18 +2090,24 @@ static const gchar*
 build_get_uri_configuration (BasicAutotoolsPlugin *plugin, const gchar *uri)
 {
 	BuildConfiguration *cfg;
-	
+	BuildConfiguration *uri_cfg;
+	gsize uri_len = 0;
+
+	/* Check all configurations as other configuration directories are
+	 * normally child of default configuration directory */	
 	for (cfg = build_configuration_list_get_first (plugin->configurations); cfg != NULL; cfg = build_configuration_next (cfg))
 	{
 		const gchar *root = build_configuration_list_get_build_uri  (plugin->configurations, cfg);
+		gsize len = strlen (root);
 
-		if (strncmp (uri, root, strlen (root)) == 0)
+		if ((len > uri_len) && (strncmp (uri, root, len) == 0))
 		{
-			return build_configuration_get_name (cfg);
+			uri_cfg = cfg;
+			uri_len = len;
 		}
 	}
 
-	return NULL;
+	return uri_len == 0 ? NULL : build_configuration_get_name (uri_cfg);
 }
 
 
