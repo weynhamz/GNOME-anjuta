@@ -1059,7 +1059,7 @@ check_target (DmaStart *this, const gchar *target)
 		found = g_list_find_custom(cfg_list, IANJUTA_BUILDER_CONFIGURATION_DEBUG, (GCompareFunc)strcmp);
 		if (found != NULL)
 		{
-			if (ianjuta_builder_get_uri_configuration (builder, target, NULL) != (const gchar *)found)
+			if (ianjuta_builder_get_uri_configuration (builder, target, NULL) != found->data)
 			{
 				if (!show_check_debug_dialog (this)) return FALSE;
 			}
