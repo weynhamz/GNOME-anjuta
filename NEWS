@@ -1,3 +1,12 @@
+Anjuta 2.28.1 (19 October 2009) -- Johannes Schmid
+
+Bugs fixed:
+Fix check if the executable is part of the debug configuration
+bgo#597318 -  Anjuta terminal crashes X
+symbol-db: fix #597113
+subversion: Fix duplicate IDs in the glade file (bgo 596001)
+file-loader: bgo#567363 -  drag and drop from gnome-search-tool yields garbage message
+
 Anjuta 2.28.0 (28 September 2009) -- Johannes Schmid
 
 Bugs fixed:
