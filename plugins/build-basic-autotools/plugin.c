@@ -567,6 +567,7 @@ build_regex_load ()
 		
 		patterns_list = g_list_prepend (patterns_list, pattern);
 	}
+	fclose (fp);
 	patterns_list = g_list_reverse (patterns_list);
 }
 
