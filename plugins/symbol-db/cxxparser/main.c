@@ -28,7 +28,7 @@
 #include "engine-parser.h"
 
 
-#define SAMPLE_DB_ABS_PATH "/home/pescio/gitroot/anjuta/plugins/symbol-db/cxxparser/sample-db/"
+#define SAMPLE_DB_ABS_PATH CURR_DIR"/sample-db/"
 #define ANJUTA_TAGS "anjuta-tags"
 
 
@@ -219,6 +219,7 @@ int	main (int argc, char *argv[])
 
 	main_loop = g_main_loop_new (NULL, FALSE);
 
+	g_message ("SAMPLE_DB_ABS_PATH %s", SAMPLE_DB_ABS_PATH);
  	g_test_init (&argc, &argv, NULL);
 
 	g_test_add_func ("/simple_c/test-simple-struct", test_simple_struct);

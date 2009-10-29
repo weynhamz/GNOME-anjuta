@@ -10,7 +10,8 @@ AM_CPPFLAGS = \
 	$(LIBANJUTA_CFLAGS) \
 	$(PLUGIN_SYMBOL_DB_CFLAGS) \
   	-lc \
-	-DDEBUG
+	-DDEBUG \
+	-DCURR_DIR=\"`pwd`\"
 
 AM_CFLAGS =\
 	 -Wall\
