@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2009-11-02 12:33+0000\n"
-"PO-Revision-Date: 2009-11-03 21:02+0100\n"
+"POT-Creation-Date: 2009-11-03 20:03+0000\n"
+"PO-Revision-Date: 2009-11-04 19:55+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -366,7 +366,6 @@ msgid "Synchronization file"
 msgstr "Archivo de sincronización"
 
 #: ../libanjuta/anjuta-profile.c:281
-#| msgid "File to sync the profile xml"
 msgid "File to syncronize the profile XML"
 msgstr "Archivo en el que sincronizar el XML del perfil"
 
@@ -376,9 +375,6 @@ msgstr "Seleccione un complemento de la lista"
 
 #: ../libanjuta/anjuta-profile.c:672
 #, c-format
-#| msgid ""
-#| "Failed to read '%s': XML parse error. Invalid or corrupted anjuta plugins "
-#| "profile."
 msgid ""
 "Failed to read '%s': XML parse error. Invalid or corrupted Anjuta plugins "
 "profile."
@@ -505,7 +501,6 @@ msgstr ""
 
 #. Try xterm
 #: ../libanjuta/anjuta-utils.c:986
-#| msgid "Cannot find a terminal, using xterm, even if it may not work"
 msgid "Cannot find a terminal; using xterm, even if it may not work"
 msgstr ""
 "No se puede encontrar una terminal, usando xterm, aunque puede que no "
@@ -518,9 +513,6 @@ msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "No se puede ejecutar el comando: %s (usando shell %s)\n"
 
 #: ../libanjuta/anjuta-utils.c:1690
-#| msgid ""
-#| "Unable to display help. Please make sure Anjuta documentation package is "
-#| "install. It can be downloaded from http://anjuta.org"
 msgid ""
 "Unable to display help. Please make sure the Anjuta documentation package is "
 "installed. It can be downloaded from http://anjuta.org."
@@ -611,7 +603,6 @@ msgid "Arguments:"
 msgstr "Argumentos:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:2
-#| msgid "_Build"
 msgid "Build"
 msgstr "Construir"
 
@@ -620,7 +611,6 @@ msgid "Build Directory:"
 msgstr "Directorio de construcción:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:4
-#| msgid "Confirmation"
 msgid "Configuration:"
 msgstr "Configuración:"
 
@@ -641,7 +631,6 @@ msgid "Highlight message locations in editor"
 msgstr "Resaltar mensajes de ubicación en el editor"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:9
-#| msgid "_Install"
 msgid "Install"
 msgstr "Instalar"
 
@@ -650,7 +639,6 @@ msgid "Install as root:"
 msgstr "Instalar como root:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:11
-#| msgid "<b>Regenerate project</b>"
 msgid "Regenerate project"
 msgstr "Regenerar el proyecto"
 
@@ -668,7 +656,6 @@ msgid "Select Program"
 msgstr "Seleccione el programa"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:15
-#| msgid "<b>Select Program to run:</b>"
 msgid "Select Program to run:"
 msgstr "Seleccionar programa que ejecutar:"
 
@@ -845,7 +832,6 @@ msgstr ""
 
 #: ../plugins/build-basic-autotools/plugin.c:1803
 #, c-format
-#| msgid "Can not compile \"%s\": No compile rule defined for this file type."
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 "No se puede compilar «%s»: No se definió una regla de compilación para este "
@@ -853,7 +839,6 @@ msgstr ""
 
 #: ../plugins/build-basic-autotools/plugin.c:1929
 #, c-format
-#| msgid "Can not configure project: Missing configure script in %s."
 msgid "Cannot configure project: Missing configure script in %s."
 msgstr ""
 "No se puede configurar el proyecto: Falta el script de configuración en %s."
@@ -893,7 +878,6 @@ msgid "Clean whole project"
 msgstr "Limpia todo el proyecto"
 
 #: ../plugins/build-basic-autotools/plugin.c:2423
-#| msgid "Configure Project"
 msgid "C_onfigure Project…"
 msgstr "C_onfigurar el proyecto…"
 
@@ -1060,7 +1044,6 @@ msgid "Add to Repository"
 msgstr "Añadir al repositorio"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:3
-#| msgid "Author Email:"
 msgid "Author Email Address:"
 msgstr "Dirección de correo-e del autor:"
 
@@ -1085,7 +1068,6 @@ msgid "Base Class:"
 msgstr "Clase base:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:9
-#| msgid "<b>Class Elements</b>"
 msgid "Class Elements"
 msgstr "Elementos de la clase"
 
@@ -1119,7 +1101,6 @@ msgid "GObject Prefix and Type:"
 msgstr "Tipo y prefijo GObject:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:17
-#| msgid "<b>General Class Properties</b>"
 msgid "General Class Properties"
 msgstr "Propiedades generales de la clase"
 
@@ -1212,9 +1193,6 @@ msgid "Failed to write autogen definition file"
 msgstr "Falló al escribir el archivo de definición de Autogen"
 
 #: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1043
-#| msgid ""
-#| "Could not find autogen version 5, please install the autogen package. You "
-#| "can get it from http://autogen.sourceforge.net"
 msgid ""
 "Could not find autogen version 5; please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net."
@@ -1290,12 +1268,6 @@ msgid "XML description of the user interface"
 msgstr "Descripción XML de la interfaz de usuario"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:1
-#| msgid ""
-#| "<b>Please note: </b>\n"
-#| "\n"
-#| "Pressing OK will delete the file from disk and from CVS. Of course the "
-#| "file won't be removed from CVS before you use CVS Commit. <b>You have "
-#| "been warned!</b>"
 msgid ""
 "<b>Please note: </b>\n"
 "\n"
@@ -1317,12 +1289,10 @@ msgstr "Ser prolijo"
 #: ../plugins/git/anjuta-git.ui.h:22
 #: ../plugins/subversion/anjuta-subversion.ui.h:3
 #: ../plugins/tools/anjuta-tools.ui.h:1
-#| msgid "Browse..."
 msgid "Browse…"
 msgstr "Examinar…"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:6
-#| msgid "CVS operations"
 msgid "CVS Options"
 msgstr "Opciones de CVS"
 
@@ -1384,7 +1354,6 @@ msgid "Choose file or directory to diff:"
 msgstr "Elegir el archivo o directorio del que sacar diferencias:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:21
-#| msgid "Choose file or directory to get log:"
 msgid "Choose file or directory to get log for:"
 msgstr "Elegir el archivo o directorio del que obtener el registro:"
 
@@ -1442,7 +1411,6 @@ msgid "Log message:"
 msgstr "Mensaje de registro:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:34
-#| msgid "<b>Module Details:</b>"
 msgid "Module Details:"
 msgstr "Detalles del módulo:"
 
@@ -1491,7 +1459,6 @@ msgid "Release tag:"
 msgstr "Etiqueta de publicación [Release]:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:44
-#| msgid "Repository Head"
 msgid "Repository:"
 msgstr "Repositorio:"
 
@@ -1584,21 +1551,17 @@ msgid "Are you sure that you do not want a log message?"
 msgstr "¿Seguro que no quiere un mensaje de registro?"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:125
-#| msgid "CVS command failed - See above for details"
 msgid "CVS command failed. See above for details"
 msgstr "El comando CVS ha fallado. Mire arriba para los detalles."
 
 #: ../plugins/cvs-plugin/cvs-execute.c:130
 #, c-format
-#| msgid "CVS command successful! - Time taken: %ld second"
-#| msgid_plural "CVS command successful! - Time taken: %ld seconds"
 msgid "CVS command successful! Time taken: %ld second"
 msgid_plural "CVS command successful! Time taken: %ld seconds"
 msgstr[0] "Comando CVS con éxito; Tiempo empleado: %ld segundo"
 msgstr[1] "Comando CVS con éxito; Tiempo empleado: %ld segundos"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:221
-#| msgid "CVS command is running - please wait until it finishes!"
 msgid "CVS command is running — please wait until it finishes!"
 msgstr "Hay un comando CVS en ejecución; espere hasta que termine."
 
@@ -1660,7 +1623,6 @@ msgstr "_Actualizar"
 #. Display label
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:78 ../plugins/cvs-plugin/plugin.c:137
-#| msgid "Sync your local copy with the CVS tree"
 msgid "Syncronize your local copy with the CVS tree"
 msgstr "Sincronizar su copia local con el árbol CVS"
 
@@ -1721,7 +1683,6 @@ msgid "CVS popup operations"
 msgstr "Operaciones emergentes de CVS"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:1
-#, fuzzy
 #| msgid ""
 #| "<span weight=\"bold\" size=\"larger\">Are you sure you want to debug a "
 #| "program not using the Debug configuration ?</span>\n"
@@ -1786,7 +1747,6 @@ msgid "Debugger command:"
 msgstr "Comando del depurador:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:14
-#| msgid "Debugger"
 msgid "Debugger:"
 msgstr "Depurador:"
 
@@ -1860,7 +1820,6 @@ msgid "Program Interrupt"
 msgstr "Interrupción del programa"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:31
-#| msgid "<b>Remote debugging</b>"
 msgid "Remote debugging"
 msgstr "Depuración remota"
 
@@ -1980,7 +1939,6 @@ msgstr "Activar un punto de parada en la posición actual"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/breakpoints.c:1786
-#| msgid "Add Breakpoint..."
 msgid "Add Breakpoint…"
 msgstr "Añadir punto de parada…"
 
@@ -2103,7 +2061,6 @@ msgstr "Operaciones de los puntos de parada"
 #. create goto menu_item.
 #: ../plugins/debug-manager/data_view.c:389
 #: ../plugins/debug-manager/sparse_view.c:497
-#| msgid "_Goto address"
 msgid "_Go to address"
 msgstr "_Ir a la dirección"
 
@@ -2157,7 +2114,6 @@ msgid "Loaded"
 msgstr "Cargado"
 
 #: ../plugins/debug-manager/plugin.c:429
-#, fuzzy
 #| msgid "Running..."
 msgid "Running…"
 msgstr "Ejecutándose…"
@@ -2199,7 +2155,6 @@ msgid "Start debugger and load the program"
 msgstr "Iniciar el depurador y cargar el programa"
 
 #: ../plugins/debug-manager/plugin.c:853
-#, fuzzy
 #| msgid "_Debug Process..."
 msgid "_Debug Process…"
 msgstr "_Depurar proceso…"
@@ -2209,7 +2164,6 @@ msgid "Start debugger and attach to a running program"
 msgstr "Iniciar el depurador y acoplarlo al programa en ejecución"
 
 #: ../plugins/debug-manager/plugin.c:861
-#, fuzzy
 #| msgid "Debug _Remote Target..."
 msgid "Debug _Remote Target…"
 msgstr "Depurar objetivo _remoto…"
@@ -2227,7 +2181,6 @@ msgid "Say goodbye to the debugger"
 msgstr "Despídase del depurador"
 
 #: ../plugins/debug-manager/plugin.c:877
-#, fuzzy
 #| msgid "Add source paths..."
 msgid "Add source paths…"
 msgstr "Añadir rutas de fuentes…"
@@ -2239,10 +2192,9 @@ msgstr "Añadir rutas de fuentes adicionales"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/plugin.c:889 ../plugins/debug-manager/plugin.c:997
-#, fuzzy
 #| msgid "Debugger command"
 msgid "Debugger Command…"
-msgstr "Comando del depurador"
+msgstr "Comando del depurador…"
 
 #. Display label
 #. short-cut
@@ -2289,7 +2241,6 @@ msgstr "Bibliotecas compartidas"
 
 #: ../plugins/debug-manager/plugin.c:939
 #: ../plugins/debug-manager/plugin.c:1039
-#, fuzzy
 #| msgid "Show shared libraries mappings"
 msgid "Show shared library mappings"
 msgstr "Mostrar mapas de bibliotecas compartidas"
@@ -2332,7 +2283,6 @@ msgid "Step _Out"
 msgstr "Avanzar al fina_l"
 
 #: ../plugins/debug-manager/plugin.c:983
-#, fuzzy
 #| msgid "Single step out of the function"
 msgid "Single step out of function"
 msgstr "Avanzar hasta el final de la función actual"
@@ -2389,7 +2339,7 @@ msgid "Debugger operations"
 msgstr "Operaciones de depuración"
 
 #: ../plugins/debug-manager/queue.c:524
-#, fuzzy, c-format
+#, c-format
 #| msgid ""
 #| "Unable to find one debugger plugin supporting a target with %s mime type"
 msgid "Unable to find a debugger plugin supporting a target with %s MIME type"
@@ -2560,7 +2510,7 @@ msgid "Unable to open %s. Debugger cannot start."
 msgstr "No se pudo abrir %s. El depurador no puede iniciarse."
 
 #: ../plugins/debug-manager/start.c:975
-#, fuzzy, c-format
+#, c-format
 #| msgid "Unable to detect mime-type of %s. Debugger cannot start."
 msgid "Unable to detect MIME type of %s. Debugger cannot start."
 msgstr ""
@@ -2599,10 +2549,9 @@ msgstr "Operaciones con los hilos"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/watch.c:372
-#, fuzzy
 #| msgid "Inspect/Evaluate"
 msgid "Ins_pect/Evaluate…"
-msgstr "Inspeccionar/Evaluar"
+msgstr "In_speccionar/Evaluar…"
 
 #. Display label
 #. short-cut
@@ -2611,10 +2560,9 @@ msgid "Inspect or evaluate an expression or variable"
 msgstr "Inspeccionar o evaluar una expresión o variable"
 
 #: ../plugins/debug-manager/watch.c:380
-#, fuzzy
 #| msgid "Add Watch"
 msgid "Add Watch…"
-msgstr "Añadir vigilancia"
+msgstr "Añadir vigilancia…"
 
 #: ../plugins/debug-manager/watch.c:388
 msgid "Remove Watch"
@@ -2656,7 +2604,6 @@ msgstr "Buscar en la ayuda:"
 
 #: ../plugins/devhelp/plugin.c:222 ../plugins/document-manager/plugin.c:236
 #: ../plugins/message-view/plugin.c:76 ../plugins/symbol-db/plugin.c:309
-#, fuzzy
 #| msgid "_Goto"
 msgid "_Go to"
 msgstr "_Ir a"
@@ -2743,10 +2690,9 @@ msgid "Bookmarks"
 msgstr "Marcadores"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:339
-#, fuzzy
 #| msgid "_Rename"
 msgid "Rename"
-msgstr "_Renombrar"
+msgstr "Renombrar"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:340
 #: ../plugins/gtodo/callback.c:20 ../plugins/gtodo/callback.c:101
@@ -2790,10 +2736,9 @@ msgid "[read-only]"
 msgstr "[sólo-lectura]"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:1
-#, fuzzy
 #| msgid "<b>Autosave</b>"
 msgid "Autosave"
-msgstr "<b>Autoguardar</b>"
+msgstr "Autoguardar"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:2
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:1
@@ -2805,10 +2750,9 @@ msgid "Do not show tabs"
 msgstr "No mostrar tabuladores"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:4
-#, fuzzy
 #| msgid "<b>Editor tabs</b>"
 msgid "Editor tabs"
-msgstr "<b>Solapas del editor</b>"
+msgstr "Solapas del editor"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:5
 msgid "Enable files autosave"
@@ -2862,10 +2806,9 @@ msgid "Save current file"
 msgstr "Guarda el archivo actual"
 
 #: ../plugins/document-manager/plugin.c:149
-#, fuzzy
 #| msgid "Save _As..."
 msgid "Save _As…"
-msgstr "Guardar _como…"
+msgstr "Guardar co_mo…"
 
 #: ../plugins/document-manager/plugin.c:150
 msgid "Save the current file with a different name"
@@ -2908,10 +2851,9 @@ msgid "Recent _Files"
 msgstr "_Archivos recientes"
 
 #: ../plugins/document-manager/plugin.c:168
-#, fuzzy
 #| msgid "Print"
 msgid "_Print…"
-msgstr "Imprimir"
+msgstr "_Imprimir…"
 
 #: ../plugins/document-manager/plugin.c:169
 msgid "Print the current file"
@@ -2922,7 +2864,6 @@ msgid "_Print Preview"
 msgstr "Vista previa de im_presión"
 
 #: ../plugins/document-manager/plugin.c:177
-#, fuzzy
 #| msgid "Preview the current file in print-format"
 msgid "Preview the current file in print format"
 msgstr "Vista previa de impresión del archivo actual"
@@ -2977,12 +2918,11 @@ msgid "Convert EOL to Majority EOL"
 msgstr "Convertir EOL a mayoría de EOL"
 
 #: ../plugins/document-manager/plugin.c:199
-#, fuzzy
 #| msgid ""
 #| "Convert End Of Line characters to majority of the EOL found in the file"
 msgid "Convert End Of Line characters to the most common EOL found in the file"
 msgstr ""
-"Convierte caracteres de fin de línea a la mayoría de los EOL en el archivo"
+"Convertir caracteres de fin de línea a la mayoría de los EOL en el archivo"
 
 #: ../plugins/document-manager/plugin.c:204
 msgid "_Select"
