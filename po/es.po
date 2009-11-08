@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2009-11-04 19:01+0000\n"
-"PO-Revision-Date: 2009-11-07 12:43+0100\n"
+"POT-Creation-Date: 2009-11-07 11:57+0000\n"
+"PO-Revision-Date: 2009-11-08 14:25+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -2954,7 +2954,6 @@ msgstr "Comentar el texto seleccionado en flujo"
 
 #. menu title
 #: ../plugins/document-manager/plugin.c:237
-#| msgid "_Line Number..."
 msgid "_Line Number…"
 msgstr "_Número de línea…"
 
@@ -2991,7 +2990,6 @@ msgid "Previous _History"
 msgstr "_Histórico anterior"
 
 #: ../plugins/document-manager/plugin.c:250
-#| msgid "Goto previous history"
 msgid "Go to previous history"
 msgstr "Ir al histórico anterior"
 
@@ -3000,7 +2998,6 @@ msgid "Next Histor_y"
 msgstr "H_istórico siguiente"
 
 #: ../plugins/document-manager/plugin.c:253
-#| msgid "Goto next history"
 msgid "Go to next history"
 msgstr "Ir al siguiente histórico"
 
@@ -3318,7 +3315,6 @@ msgid "Reload"
 msgstr "Recargar"
 
 #: ../plugins/document-manager/plugin.c:606
-#| msgid "Goto"
 msgid "Go to"
 msgstr "Ir a"
 
@@ -3360,15 +3356,11 @@ msgstr "Completado el autoguardado"
 
 #: ../plugins/document-manager/search-box.c:383
 #, c-format
-#| msgid "Search for \"%s\" reached end and was continued on top."
 msgid "Search for \"%s\" reached the end and was continued at the top."
 msgstr "La búsqueda de «%s» llegó al final y continuó por el principio."
 
 #: ../plugins/document-manager/search-box.c:389
 #, c-format
-#| msgid ""
-#| "Search for \"%s\" reached end and was continued on top but no new match "
-#| "was found."
 msgid ""
 "Search for \"%s\" reached the end and was continued at the top but no new "
 "match was found."
@@ -3398,7 +3390,6 @@ msgstr "No se encontraron elementos"
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:670
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:726
 #, c-format
-#| msgid "No recently used resource found with URI `%s'"
 msgid "No recently used resource found with URI \"%s\""
 msgstr "No se ha encontrado el recurso reciente con URI «%s»"
 
@@ -3439,10 +3430,6 @@ msgstr "%d. %s"
 
 #: ../plugins/file-loader/plugin.c:116
 #, c-format
-#| msgid ""
-#| "Can not open \"%s\".\n"
-#| "\n"
-#| "%s"
 msgid ""
 "Cannot open \"%s\".\n"
 "\n"
@@ -3454,16 +3441,6 @@ msgstr ""
 
 #: ../plugins/file-loader/plugin.c:257
 #, c-format
-#| msgid ""
-#| "<b>Cannot open \"%s\"</b>.\n"
-#| "\n"
-#| "There is no plugin, default action, or application configured to handle "
-#| "this file type.\n"
-#| "\n"
-#| "Mime type: %s\n"
-#| "\n"
-#| "You may choose to try opening it with the following plugins or "
-#| "applications."
 msgid ""
 "<b>Cannot open \"%s\"</b>.\n"
 "\n"
@@ -3531,12 +3508,10 @@ msgid "Python source files"
 msgstr "Archivos de código fuente Python"
 
 #: ../plugins/file-loader/plugin.c:555
-#| msgid "Hyper text markup files"
 msgid "Hypertext markup files"
 msgstr "Archivos de marcado de hipertexto"
 
 #: ../plugins/file-loader/plugin.c:564
-#| msgid "Shell scripts files"
 msgid "Shell script files"
 msgstr "Archivos script de shell"
 
@@ -3566,7 +3541,6 @@ msgid "New empty file"
 msgstr "Archivo vacío nuevo"
 
 #: ../plugins/file-loader/plugin.c:892
-#| msgid "_Open"
 msgid "_Open…"
 msgstr "_Abrir…"
 
@@ -3673,12 +3647,10 @@ msgid "Filename"
 msgstr "Nombre de archivo"
 
 #: ../plugins/file-manager/file-view.c:590
-#| msgid "Base uri"
 msgid "Base URI"
 msgstr "URI base"
 
 #: ../plugins/file-manager/file-view.c:591
-#| msgid "Uri of the top-most path displayed"
 msgid "URI of the top-most path displayed"
 msgstr "URI de la ruta superior mostrada"
 
@@ -3728,7 +3700,6 @@ msgstr ""
 "La extensión será añadida de acuerdo con el tipo."
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:7
-#| msgid "<b>File Information</b>"
 msgid "File Information"
 msgstr "Información del archivo"
 
@@ -3814,7 +3785,6 @@ msgid "Packages"
 msgstr "Paquetes"
 
 #: ../plugins/gbf-am/gbf-am-dialogs.ui.h:5
-#| msgid "<b>Select Package to add:</b>"
 msgid "Select Package to add:"
 msgstr "Seleccionar un paquete para añadir:"
 
@@ -4090,7 +4060,6 @@ msgid "Version:"
 msgstr "Versión:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:863
-#| msgid "URL:"
 msgid "URI:"
 msgstr "URI:"
 
@@ -4193,7 +4162,6 @@ msgid "Install directory:"
 msgstr "Directorio de instalación:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1583
-#| msgid "Advanced"
 msgid "Advanced…"
 msgstr "Avanzado…"
 
@@ -4260,7 +4228,6 @@ msgstr ""
 "Asegúrese de que Anjuta está instalado correctamente."
 
 #: ../plugins/gdb/debugger.c:933
-#| msgid "Getting ready to start debugging session...\n"
 msgid "Getting ready to start debugging session…\n"
 msgstr "Preparándose para iniciar la sesión de depuración…\n"
 
@@ -4341,7 +4308,6 @@ msgstr "Programa acoplado\n"
 
 #: ../plugins/gdb/debugger.c:1970
 #, c-format
-#| msgid "Attaching to process: %d...\n"
 msgid "Attaching to process: %d…\n"
 msgstr "Acoplándose al proceso: %d…\n"
 
@@ -4367,7 +4333,6 @@ msgstr "Programa desacoplado\n"
 
 #: ../plugins/gdb/debugger.c:2098
 #, c-format
-#| msgid "Detaching the process...\n"
 msgid "Detaching the process…\n"
 msgstr "Desacoplando el proceso…\n"
 
@@ -4386,9 +4351,6 @@ msgstr "Error al mandar señales al proceso."
 
 #: ../plugins/gdb/plugin.c:112
 #, c-format
-#| msgid ""
-#| "Failed to create fifo file named %s. The program will run without a "
-#| "terminal."
 msgid ""
 "Failed to create FIFO file named %s. The program will run without a terminal."
 msgstr ""
@@ -4409,7 +4371,6 @@ msgstr "Añadir rama remota"
 
 #. A signed off by line is something git adds to the end of a commit message that indicates that a patch passes your scrutiny as you commit it to your git tree.
 #: ../plugins/git/anjuta-git.ui.h:4
-#| msgid "Add signed-off by line"
 msgid "Add signed-off-by line"
 msgstr "Añadir la línea «firmado por»"
 
@@ -4701,7 +4662,6 @@ msgstr "Restablecer índice"
 
 #: ../plugins/git/anjuta-git.ui.h:83
 #: ../plugins/subversion/anjuta-subversion.ui.h:35
-#| msgid "Retrieving status..."
 msgid "Retrieving status…"
 msgstr "Obteniendo el estado…"
 
@@ -4740,7 +4700,6 @@ msgid "Select Mailbox File"
 msgstr "Seleccionar el archivo del buzón de correo"
 
 #: ../plugins/git/anjuta-git.ui.h:93
-#| msgid "Select A Folder"
 msgid "Select a Folder"
 msgstr "Seleccionar una carpeta"
 
@@ -4782,7 +4741,6 @@ msgid "Stash"
 msgstr "Guardar (stash)"
 
 #: ../plugins/git/anjuta-git.ui.h:103
-#| msgid "<b>Stash Message (Optional)</b>"
 msgid "Stash Message (Optional)"
 msgstr "Mensaje guardado (stash; opcional)"
 
@@ -4799,7 +4757,6 @@ msgid "Stash the working tree's uncommitted changes"
 msgstr "Guardar (stash) los cambios no subidos del árbol de trabajo"
 
 #: ../plugins/git/anjuta-git.ui.h:107
-#| msgid "<b>Stash to Apply</b>"
 msgid "Stash to Apply"
 msgstr "Estado guardado (stash) para aplicar"
 
@@ -4898,7 +4855,6 @@ msgstr "Introduzca un URL."
 
 #: ../plugins/git/git-add-remote-dialog.c:111
 #: ../plugins/git/git-fetch-dialog.c:54
-#| msgid "Git: Fetching..."
 msgid "Git: Fetching…"
 msgstr "Git: Obteniendo…"
 
@@ -4980,7 +4936,6 @@ msgid "Author"
 msgstr "Autor"
 
 #: ../plugins/git/git-log-dialog.c:317
-#| msgid "Git: Retrieving log..."
 msgid "Git: Retrieving log…"
 msgstr "Git: Obteniendo el registro…"
 
@@ -5049,7 +5004,6 @@ msgid "Please enter the URL of the repository to push to."
 msgstr "Introduzca el URL del repositorio en el que subir."
 
 #: ../plugins/git/git-push-dialog.c:193
-#| msgid "Git: Pushing..."
 msgid "Git: Pushing…"
 msgstr "Git: Subiendo…"
 
@@ -5126,7 +5080,6 @@ msgstr "_Cambios"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:87 ../plugins/subversion/plugin.c:76
-#| msgid "_Commit"
 msgid "_Commit…"
 msgstr "_Efectuar…"
 
@@ -5157,7 +5110,6 @@ msgstr "Gua_rdar (stash)"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:111
-#| msgid "_Stash uncommitted changes..."
 msgid "_Stash uncommitted changes…"
 msgstr "Gua_rdar (stash) cambios sin subir…"
 
@@ -5170,7 +5122,6 @@ msgstr "Guardar los cambios sin subir y aplicarlos de nuevo más tarde"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:119
-#| msgid "_Apply stashed changes..."
 msgid "_Apply stashed changes…"
 msgstr "_Aplicar los cambios guardados (stash)…"
 
@@ -5183,7 +5134,6 @@ msgstr "Aplicar los cambios guardados (stash) al árbol de trabajo"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:127 ../plugins/git/plugin.c:583
-#| msgid "View log"
 msgid "_View log…"
 msgstr "_Ver el registro…"
 
@@ -5202,7 +5152,6 @@ msgstr "Repositorio _remoto"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:143
-#| msgid "Push"
 msgid "_Push…"
 msgstr "E_mpujar…"
 
@@ -5215,7 +5164,6 @@ msgstr "Empujar los cambios contra un repositorio remoto"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:151
-#| msgid "Pull"
 msgid "_Pull…"
 msgstr "_Descargar… (pull)"
 
@@ -5248,7 +5196,6 @@ msgstr "_Archivos"
 #: ../plugins/git/plugin.c:175 ../plugins/git/plugin.c:375
 #: ../plugins/git/plugin.c:591 ../plugins/subversion/plugin.c:60
 #: ../plugins/subversion/plugin.c:175
-#| msgid "_Add"
 msgid "_Add…"
 msgstr "_Añadir…"
 
@@ -5262,7 +5209,6 @@ msgstr "Añadir archivos al repositorio"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:183 ../plugins/git/plugin.c:599
 #: ../plugins/subversion/plugin.c:68 ../plugins/subversion/plugin.c:183
-#| msgid "_Remove"
 msgid "_Remove…"
 msgstr "_Quitar…"
 
@@ -5275,7 +5221,6 @@ msgstr "Quitar archivos del repositorio"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:191
-#| msgid "Ignored"
 msgid "_Ignore…"
 msgstr "_Ignorar…"
 
@@ -5288,7 +5233,6 @@ msgstr "Ignorar archivos"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:199
-#| msgid "_Check out files..."
 msgid "_Check out files…"
 msgstr "_Descargar (checkout) archivos…"
 
@@ -5301,7 +5245,6 @@ msgstr "Revertir los cambios sin subir en los archivos"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:207
-#| msgid "_Unstage files..."
 msgid "_Unstage files…"
 msgstr "Realizar «_unstage» de archivos…"
 
@@ -5314,7 +5257,6 @@ msgstr "Quitar archivos del índice del commit"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:215
-#| msgid "_Resolve conflicts..."
 msgid "_Resolve conflicts…"
 msgstr "_Resolver conflictos…"
 
@@ -5333,7 +5275,6 @@ msgstr "Parches"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:231
-#| msgid "Create patch series"
 msgid "Create patch series…"
 msgstr "Crear serie de parches…"
 
@@ -5346,7 +5287,6 @@ msgstr "Generar archivos de parches para enviar a «upstream»"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:247
-#| msgid "_Apply..."
 msgid "_Apply…"
 msgstr "_Aplicar…"
 
@@ -5405,7 +5345,6 @@ msgstr "_Ramas"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:287 ../plugins/git/plugin.c:507
-#| msgid "_Create branch..."
 msgid "_Create branch…"
 msgstr "_Crear rama…"
 
@@ -5418,7 +5357,6 @@ msgstr "Crear una rama"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:295
-#| msgid "_Delete branch..."
 msgid "_Delete branch…"
 msgstr "_Borrar rama…"
 
@@ -5431,7 +5369,6 @@ msgstr "Borrar ramas"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:303
-#| msgid "Switch to another branch"
 msgid "_Switch to another branch…"
 msgstr "Ca_mbiar a otra rama…"
 
@@ -5444,7 +5381,6 @@ msgstr "Cambiar a otra rama"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:311
-#| msgid "Merge"
 msgid "_Merge…"
 msgstr "_Mezclar…"
 
@@ -5469,7 +5405,6 @@ msgstr "Mezclar los cambios con una rama remota en «upstream»"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:327 ../plugins/git/plugin.c:447
-#| msgid "_Start..."
 msgid "_Start…"
 msgstr "_Iniciar…"
 
@@ -5512,7 +5447,6 @@ msgstr "Abortar el «rebase» y dejar el repositorio en su estado original"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:359 ../plugins/git/plugin.c:539
-#| msgid "_Cherry pick..."
 msgid "_Cherry pick…"
 msgstr "_Cherry pick…"
 
@@ -5539,7 +5473,6 @@ msgstr "Añadir una rama remota"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:383
-#| msgid "Delete"
 msgid "_Delete…"
 msgstr "_Borrar…"
 
@@ -5552,7 +5485,6 @@ msgstr "Borrar una rama remota"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:399 ../plugins/git/plugin.c:515
-#| msgid "_Create tag..."
 msgid "_Create tag…"
 msgstr "_Crear etiqueta…"
 
@@ -5565,7 +5497,6 @@ msgstr "Crear una etiqueta"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:407
-#| msgid "Delete tags"
 msgid "_Delete tag…"
 msgstr "_Borrar etiqueta…"
 
@@ -5584,7 +5515,6 @@ msgstr "_Restablecer/revertir"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:423 ../plugins/git/plugin.c:523
-#| msgid "_Reset tree..."
 msgid "_Reset tree…"
 msgstr "_Restablecer árbol…"
 
@@ -5597,7 +5527,6 @@ msgstr "Restablecer la cabecera del repositorio a cualquier estado pasado"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:431 ../plugins/git/plugin.c:531
-#| msgid "_Revert commit..."
 msgid "_Revert commit…"
 msgstr "_Revertir commit…"
 
@@ -5866,7 +5795,6 @@ msgstr "El nombre del archivo del elemento de asociación no tiene ruta"
 
 #: ../plugins/glade/plugin.c:855
 #, c-format
-#| msgid "No associations initialized, nothing to save"
 msgid "No associations initialized: nothing to save"
 msgstr "No se inicializó ninguna asociación, no hay nada que guardar"
 
@@ -5924,7 +5852,6 @@ msgstr "No hay un editor asociado para el diseñador"
 
 #: ../plugins/glade/plugin.c:1980
 #, c-format
-#| msgid "Unknown error in module %s"
 msgid "Unknown editor language \"%s\""
 msgstr "Idioma del editor desconocido «%s»"
 
@@ -5935,7 +5862,6 @@ msgid "Error while adding a new handler stub: %s"
 msgstr "Error al añadir un nuevo manejador de esbozos: %s"
 
 #: ../plugins/glade/plugin.c:2054 ../plugins/glade/plugin.c:2138
-#| msgid "Couldn't find a signal information"
 msgid "Couldn't find signal information"
 msgstr "No se pudo encontrar una señal de información"
 
@@ -6010,12 +5936,10 @@ msgid "Associate last designer and editor"
 msgstr "Asociar el último diseñador y editor"
 
 #: ../plugins/glade/plugin.c:4039 ../plugins/glade/plugin.c:4041
-#| msgid "Associations dialog..."
 msgid "Associations dialog…"
 msgstr "Diálogo de asociaciones…"
 
 #: ../plugins/glade/plugin.c:4047
-#| msgid "Versioning..."
 msgid "Versioning…"
 msgstr "Versionado…"
 
@@ -6110,7 +6034,6 @@ msgstr "Proyecto Glade «%s» guardado"
 
 #: ../plugins/glade/anjuta-design-document.c:379
 #: ../plugins/glade/anjuta-design-document.c:406
-#| msgid "Invalid glade file name"
 msgid "Invalid Glade file name"
 msgstr "Nombre de archivo Glade inválido"
 
@@ -6182,26 +6105,20 @@ msgid "stopped:"
 msgstr "detenido:"
 
 #: ../plugins/gtodo/callback.c:17
-#| msgid "You need to select a todo item before you can remove it"
 msgid "You need to select a to-do item before you can remove it"
 msgstr "Debe seleccionar un elemento pendiente antes de poder eliminarlo"
 
 #: ../plugins/gtodo/callback.c:20
-#| msgid "Are you sure you want to remove the selected todo item?"
 msgid "Are you sure you want to remove the selected to-do item?"
 msgstr "¿Seguro que quiere quitar el elemento pendiente seleccionado?"
 
 #: ../plugins/gtodo/callback.c:98
 #, c-format
-#| msgid "Are you sure you want to remove all the completed todo items?"
 msgid "Are you sure you want to remove all the completed to-do items?"
 msgstr "¿Seguro que quiere quitar todos los elementos pendientes completados?"
 
 #: ../plugins/gtodo/callback.c:99
 #, c-format
-#| msgid ""
-#| "Are you sure you want to remove all the completed todo items in the "
-#| "category \"%s\"?"
 msgid ""
 "Are you sure you want to remove all the completed to-do items in the "
 "category \"%s\"?"
@@ -6278,7 +6195,6 @@ msgstr "Falló al leer el archivo"
 
 #: ../plugins/gtodo/libgtodo.c:626 ../plugins/gtodo/libgtodo.c:637
 #, c-format
-#| msgid "Failed to parse xml structure"
 msgid "Failed to parse XML structure"
 msgstr "Falló al analizar la estructura XML"
 
@@ -6362,7 +6278,6 @@ msgid "Hide _Completed Items"
 msgstr "Ocultar elementos _completados"
 
 #: ../plugins/gtodo/plugin.c:76
-#| msgid "Hide completed todo items"
 msgid "Hide completed to-do items"
 msgstr "Ocultar elementos completados"
 
@@ -6383,12 +6298,10 @@ msgid "Hide items without an end date"
 msgstr "Ocultar elementos sin una fecha de terminación"
 
 #: ../plugins/gtodo/plugin.c:122
-#| msgid "Tasks manager"
 msgid "Task manager"
 msgstr "Gestor de tareas"
 
 #: ../plugins/gtodo/plugin.c:128
-#| msgid "Tasks manager view"
 msgid "Task manager view"
 msgstr "Vista del gestor de tareas"
 
@@ -6397,12 +6310,10 @@ msgid "Tasks"
 msgstr "Tareas"
 
 #: ../plugins/gtodo/plugin.c:342 ../plugins/gtodo/plugin.c:351
-#| msgid "Todo Manager"
 msgid "To-do Manager"
 msgstr "Gestión de pendientes"
 
 #: ../plugins/gtodo/preferences.c:21
-#| msgid "Todo List Preferences"
 msgid "To-do List Preferences"
 msgstr "Preferencias de la lista de pendientes"
 
@@ -6453,12 +6364,10 @@ msgstr[0] "Elementos que caducan en el siguiente %i día"
 msgstr[1] "Elementos que caducan en los siguientes %i días"
 
 #: ../plugins/gtodo/preferences.c:168
-#| msgid "Miscellaneous Data"
 msgid "Miscellaneous"
 msgstr "Miscelánea"
 
 #: ../plugins/gtodo/preferences.c:171
-#| msgid "Auto purge completed items"
 msgid "Auto-purge completed items"
 msgstr "Autopurgar elementos terminados"
 
@@ -6473,7 +6382,6 @@ msgid "days."
 msgstr "días."
 
 #: ../plugins/gtodo/preferences.c:195 ../plugins/gtodo/preferences.c:197
-#| msgid "Auto Purge"
 msgid "Auto-Purge"
 msgstr "Autopurgar"
 
@@ -6483,9 +6391,6 @@ msgstr "Notificación"
 
 #: ../plugins/gtodo/preferences.c:218
 #, c-format
-#| msgid "Allow todo items to notifiy me when they are due in %i minute"
-#| msgid_plural ""
-#| "Allow todo items to notifiy me when they are due in %i minutes"
 msgid "Allow to-do items to notify me when they are due in %i minute"
 msgid_plural "Allow to-do items to notify me when they are due in %i minutes"
 msgstr[0] ""
@@ -6596,7 +6501,7 @@ msgstr "Añade una macro"
 
 #: ../plugins/macro/plugin.c:56
 msgid "Macros…"
-msgstr "Macros..."
+msgstr "Macros…"
 
 #: ../plugins/macro/plugin.c:58
 msgid "Add/Edit/Remove macros"
@@ -6852,16 +6757,13 @@ msgstr "_Herramientas"
 #. Stock icon, if any
 #: ../plugins/patch/plugin.c:61
 msgid "_Patch…"
-msgstr "_Parchear..."
+msgstr "_Parchear…"
 
 #: ../plugins/patch/plugin.c:92
 msgid "Patch files/directories"
 msgstr "Parcheararchivos/directorios"
 
 #: ../plugins/project-import/plugin.c:66
-#| msgid ""
-#| "Generation of project file failed. Cannot find an appropriate project "
-#| "template to use. Please make sure your version of Anjuta is up to date."
 msgid ""
 "Generation of project file failed. Cannot find an appropriate project "
 "template to use. Please make sure your version of Anjuta is up-to-date."
@@ -6877,9 +6779,6 @@ msgstr "Ya existe un archivo llamado «%s». ¿Quiere reemplazarlo?"
 
 #: ../plugins/project-import/plugin.c:134
 #, c-format
-#| msgid ""
-#| "A file named \"%s\" cannot be written: %s.  Check if you have write "
-#| "access to the project directory."
 msgid ""
 "A file named \"%s\" cannot be written: %s. Check if you have write access to "
 "the project directory."
@@ -6889,10 +6788,6 @@ msgstr ""
 
 #: ../plugins/project-import/plugin.c:204
 #, c-format
-#| msgid ""
-#| "Could not find a valid project backend for the directory given (%s). "
-#| "Please select a different directory, or try upgrading to a newer version "
-#| "of Anjuta."
 msgid ""
 "Could not find a valid project backend for the given directory (%s). Please "
 "select a different directory, or try upgrading to a newer version of Anjuta."
@@ -6904,8 +6799,6 @@ msgstr ""
 #: ../plugins/project-import/plugin.c:274
 #: ../plugins/project-import/plugin.c:330
 #, c-format
-#| msgid ""
-#| "Couldn't checkout the supplied uri \"%s\", the error returned was: \"%s\""
 msgid ""
 "Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
 msgstr ""
@@ -6991,7 +6884,7 @@ msgstr "Nombre del _grupo:"
 
 #: ../plugins/project-manager/create_dialogs.ui.h:12
 msgid "_Select file to add…"
-msgstr "_Seleccionar archivo para añadir..."
+msgstr "_Seleccionar archivo para añadir…"
 
 #: ../plugins/project-manager/gbf-project-model.c:233
 #: ../plugins/project-manager/plugin.c:1301
@@ -7059,7 +6952,7 @@ msgstr "Sin propiedades disponibles para este destino"
 
 #: ../plugins/project-manager/plugin.c:478
 msgid "Refreshing symbol tree…"
-msgstr "Actualizando el árbol de símbolos..."
+msgstr "Actualizando el árbol de símbolos…"
 
 #: ../plugins/project-manager/plugin.c:485
 #, c-format
@@ -7067,9 +6960,6 @@ msgid "Failed to refresh project: %s"
 msgstr "Falló al refrescar el proyecto: %s"
 
 #: ../plugins/project-manager/plugin.c:663
-#| msgid ""
-#| "Are you sure you want to remove the following group from project?\n"
-#| "\n"
 msgid ""
 "Are you sure you want to remove the following group from the project?\n"
 "\n"
@@ -7079,10 +6969,6 @@ msgstr ""
 
 #: ../plugins/project-manager/plugin.c:664
 #, c-format
-#| msgid ""
-#| "Group: %s\n"
-#| "\n"
-#| "The group will not be deleted from file system."
 msgid ""
 "Group: %s\n"
 "\n"
@@ -7093,9 +6979,6 @@ msgstr ""
 "El grupo no se borrará del sistema de archivos."
 
 #: ../plugins/project-manager/plugin.c:667
-#| msgid ""
-#| "Are you sure you want to remove the following target from project?\n"
-#| "\n"
 msgid ""
 "Are you sure you want to remove the following target from the project?\n"
 "\n"
@@ -7109,9 +6992,6 @@ msgid "Target: %s"
 msgstr "Objetivo: %s"
 
 #: ../plugins/project-manager/plugin.c:671
-#| msgid ""
-#| "Are you sure you want to remove the following source file from project?\n"
-#| "\n"
 msgid ""
 "Are you sure you want to remove the following source file from the project?\n"
 "\n"
@@ -7121,10 +7001,6 @@ msgstr ""
 
 #: ../plugins/project-manager/plugin.c:672
 #, c-format
-#| msgid ""
-#| "Source: %s\n"
-#| "\n"
-#| "The source file will not be deleted from file system."
 msgid ""
 "Source: %s\n"
 "\n"
@@ -7167,7 +7043,7 @@ msgstr "Refrescar el árbol del adm. de proyectos"
 
 #: ../plugins/project-manager/plugin.c:836
 msgid "Add _Group…"
-msgstr "Añadir _grupo..."
+msgstr "Añadir _grupo…"
 
 #: ../plugins/project-manager/plugin.c:836
 #: ../plugins/project-manager/plugin.c:870
@@ -7176,7 +7052,7 @@ msgstr "Añade un grupo a un proyecto"
 
 #: ../plugins/project-manager/plugin.c:841
 msgid "Add _Target…"
-msgstr "Añadir _objetivo..."
+msgstr "Añadir _objetivo…"
 
 #: ../plugins/project-manager/plugin.c:841
 #: ../plugins/project-manager/plugin.c:875
@@ -7185,7 +7061,7 @@ msgstr "Añadir un objetivo al proyecto"
 
 #: ../plugins/project-manager/plugin.c:846
 msgid "Add _Source File…"
-msgstr "Añadir archivo _fuente..."
+msgstr "Añadir archivo _fuente…"
 
 #: ../plugins/project-manager/plugin.c:846
 #: ../plugins/project-manager/plugin.c:865
@@ -7206,7 +7082,6 @@ msgid "Properties of group/target/source"
 msgstr "Propiedades del grupo/objetivo/fuente"
 
 #: ../plugins/project-manager/plugin.c:865
-#| msgid "Add to Project"
 msgid "_Add to Project"
 msgstr "_Añadir al proyecto"
 
@@ -7236,7 +7111,6 @@ msgid "Loading project: %s"
 msgstr "Cargando proyecto: %s"
 
 #: ../plugins/project-manager/plugin.c:1267
-#| msgid "Created project view..."
 msgid "Created project view…"
 msgstr "Vista de proyecto creada…"
 
@@ -7263,7 +7137,6 @@ msgid "Project manager popup actions"
 msgstr "Acciones emergentes el administrador de proyectos"
 
 #: ../plugins/project-manager/plugin.c:2641
-#| msgid "Initializing Project..."
 msgid "Initializing Project…"
 msgstr "Inicializando el proyecto…"
 
@@ -7272,7 +7145,6 @@ msgid "Project Loaded"
 msgstr "Proyecto cargado"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.ui.h:1
-#| msgid "<b>Details</b>"
 msgid "Details"
 msgstr "Detalles"
 
@@ -7320,9 +7192,6 @@ msgstr ""
 
 #: ../plugins/project-wizard/druid.c:593
 #, c-format
-#| msgid ""
-#| "Field \"%s\" must start with a letter, a digit or an underscore and "
-#| "contains only letters, digits, underscore, minus and dot. Please fix it."
 msgid ""
 "Field \"%s\" must start with a letter, a digit or an underscore and contain "
 "only letters, digits, underscore, minus and dot. Please fix it."
@@ -7386,7 +7255,6 @@ msgstr ""
 "adecuadamente antes de generar el proyecto.\n"
 
 #: ../plugins/project-wizard/druid.c:804
-#, fuzzy
 #| msgid ""
 #| "The missing programs are usually part of some distrubution packages and "
 #| "can be searched in your Application Manager. Similarly, the development "
@@ -7406,7 +7274,7 @@ msgstr ""
 "paquetes y se pueden buscar en su Gestor de aplicaciones. De forma similar, "
 "los paquetes de desarrollo están contenidos en paquetes especiales que su "
 "distribución proporciona para permitir el desarrollo de proyectos basados en "
-"ellos. Generalmente acaban con el sufijo -dev o -devel en el nombre del "
+"ellos. Generalmente acaban con el sufijo «-dev» o «-devel» en el nombre del "
 "paquete y se pueden encontrar buscando en su Gestor de aplicaciones."
 
 #: ../plugins/project-wizard/druid.c:812
@@ -7434,20 +7302,19 @@ msgid "Skipping %s: file already exists"
 msgstr "Saltando %s: el archivo ya existe"
 
 #: ../plugins/project-wizard/install.c:503
-#, fuzzy, c-format
+#, c-format
 #| msgid "Creating %s ... Fail to create directory"
 msgid "Creating %s … Failed to create directory"
 msgstr "Creando %s … Falló al crear el directorio"
 
 #: ../plugins/project-wizard/install.c:519
-#, fuzzy, c-format
+#, c-format
 #| msgid "Creating %s (using AutoGen)... %s"
 msgid "Creating %s (using AutoGen)… %s"
 msgstr "Creando %s (usando AutoGen)… %s"
 
 #: ../plugins/project-wizard/install.c:524
 #, c-format
-#| msgid "Creating %s ... %s"
 msgid "Creating %s … %s"
 msgstr "Creando %s … %s"
 
@@ -7518,7 +7385,6 @@ msgid "A generic Xlib project"
 msgstr "Un proyecto Xlib genérico"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:7
-#, fuzzy
 #| msgid "A generic java project using automake project management"
 msgid "A generic Java project using automake project management"
 msgstr "Un proyecto Java genérico usando la gestión de proyectos de automake"
@@ -7528,7 +7394,6 @@ msgid "A generic minimal and flat project"
 msgstr "Un proyecto pequeño y plano genérico"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:9
-#, fuzzy
 #| msgid ""
 #| "A generic natively compiled java project using the GNU Java Compiler (gcj)"
 msgid ""
@@ -7542,13 +7407,11 @@ msgid "A generic project"
 msgstr "Un proyecto genérico"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:11
-#, fuzzy
 #| msgid "A generic python project using automake project management"
 msgid "A generic Python project using automake project management"
 msgstr "Un proyecto Python genérico usando la gestión de proyectos de automake"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:12
-#, fuzzy
 #| msgid "A generic wx Widgets project"
 msgid "A generic wxWidgets project"
 msgstr "Un proyecto wx Widgets genérico"
@@ -7613,7 +7476,6 @@ msgid "Berkeley Software Distribution License (BSD)"
 msgstr "Licencia de Distribución de Software Berkeley (BSD)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:27
-#, fuzzy
 #| msgid ""
 #| "Comma separated, other plugins that this plugin depends on. It could be "
 #| "either primary interface name or plugin location (library:class)"
@@ -7634,17 +7496,17 @@ msgid "Configure external packages:"
 msgstr "Configurar paquetes externos:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:30
-#, fuzzy
 #| msgid "Create Gtk Builder interface file"
 msgid "Create GtkBuilder interface file"
 msgstr "Crear un archivo de interfaz de constructor Gtk "
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:31
 #: ../plugins/project-wizard/templates/translatable-strings.h:32
-#, fuzzy
 #| msgid "Create a template Gtk Builder interface file"
 msgid "Create a template GtkBuilder interface file"
-msgstr "Crear un archivo de plantilla de constructor Gtk para la interfaz"
+msgstr ""
+"Crear un archivo de plantilla de constructor Gtk para el archivo de la "
+"interfaz"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:35
 msgid "Display description of the applet"
@@ -7707,19 +7569,16 @@ msgid "Generic C++"
 msgstr "C++ genérico"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:51
-#, fuzzy
 #| msgid "Generic gcj compiled java"
 msgid "Generic gcj compiled Java"
 msgstr "Java genérico compilado con gcj"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:52
-#, fuzzy
 #| msgid "Generic java (automake)"
 msgid "Generic Java (automake)"
 msgstr "Java genérico (automake)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:53
-#, fuzzy
 #| msgid "Generic python (automake)"
 msgid "Generic Python (automake)"
 msgstr "Python genérico (automake)"
@@ -7811,7 +7670,6 @@ msgid "Plugin class name"
 msgstr "Nombre de la clase del complemento"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:75
-#, fuzzy
 #| msgid "Plugin has menus or/and toolbars"
 msgid "Plugin has menus and/or toolbars"
 msgstr "El complemento tiene menús y/o barras de herramientas"
@@ -7825,7 +7683,6 @@ msgid "Project Name:"
 msgstr "Nombre del proyecto:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:78
-#, fuzzy
 #| msgid "Project directory, output file etc."
 msgid "Project directory, output file, etc."
 msgstr "Directorio del proyecto, archivo de salida, etc."
@@ -7835,7 +7692,6 @@ msgid "Project directory:"
 msgstr "Directorio del proyecto:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:80
-#, fuzzy
 #| msgid ""
 #| "Project name must not contain spaces, because it will be the name of the "
 #| "project build target (executable, library etc.)"
@@ -7855,7 +7711,6 @@ msgid "Project options"
 msgstr "Opciones del proyecto"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:83
-#, fuzzy
 #| msgid "Python webproject using Django Web Framework"
 msgid "Python web project using Django Web Framework"
 msgstr "Proyecto web Python usando el entorno de trabajo web Django"
@@ -7938,10 +7793,9 @@ msgid "Whether the plugin has menus or toolbars"
 msgstr "Indica si el complemento tiene menús o barras de herramientas"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:104
-#, fuzzy
 #| msgid "Widgets"
 msgid "wxWidgets"
-msgstr "Widgets"
+msgstr "wxWidgets"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:105
 msgid "Xlib"
@@ -7952,7 +7806,6 @@ msgid "Xlib dock"
 msgstr "Empotrable Xlib"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:107
-#, fuzzy
 #| msgid ""
 #| "gtk-doc is used to compile API documentations for GObject based classes"
 msgid "gtk-doc is used to compile API documentation for GObject-based classes"
@@ -8035,26 +7888,23 @@ msgid "Kill program"
 msgstr "Matar programa"
 
 #: ../plugins/run-program/plugin.c:253
-#, fuzzy
 #| msgid "Program Parameters"
 msgid "Program Parameters…"
-msgstr "Parámetros del programa"
+msgstr "Parámetros del programa…"
 
 #: ../plugins/run-program/plugin.c:255
-#, fuzzy
 #| msgid "Set current program, arguments and so on"
 msgid "Set current program, arguments, etc."
-msgstr "Establecer el programa actual, los argumentos y demás"
+msgstr "Establecer el programa actual, los argumentos, etc."
 
 #: ../plugins/run-program/plugin.c:280
 msgid "Run operations"
 msgstr "Ejecutar operaciones"
 
 #: ../plugins/search/anjuta-search.ui.h:1
-#, fuzzy
 #| msgid "Action"
 msgid "Actions"
-msgstr "Acción"
+msgstr "Acciones"
 
 #: ../plugins/search/anjuta-search.ui.h:2
 #: ../plugins/search/search-replace.c:92
@@ -8078,10 +7928,9 @@ msgid "Expand regex back references"
 msgstr "Expandir referencias hacia atrás de regex"
 
 #: ../plugins/search/anjuta-search.ui.h:7
-#, fuzzy
 #| msgid "<b>File Filter</b>"
 msgid "File Filter"
-msgstr "<b>Filtro de archivo</b>"
+msgstr "Filtro de archivo"
 
 #: ../plugins/search/anjuta-search.ui.h:8
 msgid "Find & Replace"
@@ -8152,10 +8001,9 @@ msgid "No Limit"
 msgstr "Sin límite"
 
 #: ../plugins/search/anjuta-search.ui.h:26
-#, fuzzy
 #| msgid "Parameters:"
 msgid "Parameters"
-msgstr "Parámetros:"
+msgstr "Parámetros"
 
 #: ../plugins/search/anjuta-search.ui.h:27
 msgid "Regular expression"
@@ -8197,17 +8045,15 @@ msgstr "Buscar objetivo"
 
 #. User can select variables that contain lists of files, so this is a combined noun
 #: ../plugins/search/anjuta-search.ui.h:40
-#, fuzzy
 #| msgid "<b>Search variable</b>"
 msgid "Search variable"
-msgstr "<b>Variable de búsqueda</b>"
+msgstr "Buscar variable"
 
 #: ../plugins/search/anjuta-search.ui.h:41
 msgid "Setting"
 msgstr "Ajuste"
 
 #: ../plugins/search/plugin.c:68
-#, fuzzy
 #| msgid "_Find..."
 msgid "_Find…"
 msgstr "_Buscar…"
@@ -8229,7 +8075,6 @@ msgid "Find _Previous"
 msgstr "Buscar _anterior"
 
 #: ../plugins/search/plugin.c:78
-#, fuzzy
 #| msgid "Find and R_eplace..."
 msgid "Find and R_eplace…"
 msgstr "Buscar y _reemplazar…"
@@ -8244,7 +8089,6 @@ msgid "Search and Replace"
 msgstr "Buscar y reemplazar"
 
 #: ../plugins/search/plugin.c:85
-#, fuzzy
 #| msgid "Fin_d in Files..."
 msgid "Fin_d in Files…"
 msgstr "_Buscar en archivos…"
@@ -8254,10 +8098,9 @@ msgid "Search for a string in multiple files or directories"
 msgstr "Buscar una cadena en múltiples archivos o directorios"
 
 #: ../plugins/search/plugin.c:102
-#, fuzzy
 #| msgid "Searching"
 msgid "Searching…"
-msgstr "Buscando"
+msgstr "Buscando…"
 
 #: ../plugins/search/search_preferences.c:44
 msgid "Basic Search"
@@ -8358,13 +8201,12 @@ msgstr[0] "Se ha reemplazado %d coincidencia."
 msgstr[1] "Se han reemplazado %d coincidencias."
 
 #: ../plugins/search/search-replace.c:1298
-#, fuzzy
 #| msgid "Unable to build user interface for Search And Replace"
 msgid "Unable to build user interface for Search and Replace"
 msgstr "No se pudo construir la interfaz de usuario para «Buscar y reemplazar»"
 
 #: ../plugins/sourceview/sourceview.c:364
-#, fuzzy, c-format
+#, c-format
 #| msgid ""
 #| "The file '%s' on the disk is more recent than the current buffer.\n"
 #| "Do you want to reload it?"
@@ -8376,7 +8218,7 @@ msgstr ""
 "¿Quiere recargarlo?"
 
 #: ../plugins/sourceview/sourceview.c:401
-#, fuzzy, c-format
+#, c-format
 #| msgid ""
 #| "The file '%s' has been deleted on the disk.\n"
 #| "Do you want to close it?"
@@ -8394,7 +8236,7 @@ msgid "Could not open %s: %s"
 msgstr "No se pudo abrir %s: %s"
 
 #: ../plugins/sourceview/sourceview.c:492
-#, fuzzy, c-format
+#, c-format
 #| msgid "The file '%s' is read-only! Edit anyway?"
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr "El archivo «%s» es de sólo lectura. ¿Editarlo de todas formas?"
@@ -8454,7 +8296,6 @@ msgid "Indentation and auto-format options"
 msgstr "Opciones de sangría y autoformato"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:11
-#, fuzzy
 #| msgid "Print Linenumbers"
 msgid "Print line numbers"
 msgstr "Imprimir números de línea"
@@ -8538,7 +8379,6 @@ msgid "Anjuta Manual"
 msgstr "Manual de Anjuta"
 
 #: ../plugins/starter/starter.c:481
-#, fuzzy
 #| msgid "Gnome Online API Documentation"
 msgid "GNOME Online API Documentation"
 msgstr "Documentación en línea de la API de GNOME"
@@ -8628,7 +8468,6 @@ msgid "Repository authorization"
 msgstr "Autorización del repositorio"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:36
-#, fuzzy
 #| msgid "Retrieving status..."
 msgid "Retrieving status……"
 msgstr "Obteniendo el estado…"
@@ -8740,7 +8579,6 @@ msgstr "Efectuar sus cambios al árbol Subversion"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:84 ../plugins/subversion/plugin.c:167
-#, fuzzy
 #| msgid "_Revert..."
 msgid "_Revert…"
 msgstr "_Revertir…"
@@ -8754,7 +8592,6 @@ msgstr "Revertir los cambios a su copia de trabajo."
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:92
-#, fuzzy
 #| msgid "_Resolve Conflicts..."
 msgid "_Resolve Conflicts…"
 msgstr "_Resolver conflictos…"
@@ -8768,15 +8605,13 @@ msgstr "Resolver conflictos en su copia de trabajo."
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:100 ../plugins/subversion/plugin.c:159
-#, fuzzy
 #| msgid "_Update"
 msgid "_Update…"
-msgstr "_Actualizar"
+msgstr "_Actualizar…"
 
 #. Display label
 #. short-cut
 #: ../plugins/subversion/plugin.c:102 ../plugins/subversion/plugin.c:161
-#, fuzzy
 #| msgid "Sync your local copy with the Subversion tree"
 msgid "Syncronize your local copy with the Subversion tree"
 msgstr "Sincronizar su copia local con el árbol Subversion"
@@ -8784,7 +8619,6 @@ msgstr "Sincronizar su copia local con el árbol Subversion"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:108
-#, fuzzy
 #| msgid "Copy Files/Folders..."
 msgid "Copy Files/Folders…"
 msgstr "Copiar archivos/carpetas…"
@@ -8798,7 +8632,6 @@ msgstr "Copiar archivos/carpetas en el repositorio"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:116
-#, fuzzy
 #| msgid "Switch to a Branch/Tag..."
 msgid "Switch to a Branch/Tag…"
 msgstr "Cambiar a una rama/etiqueta…"
@@ -8812,10 +8645,9 @@ msgstr "Cambiar su copia local por una rama o etiqueta del repositorio"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:124
-#, fuzzy
 #| msgid "Merge"
 msgid "Merge…"
-msgstr "Mezclar"
+msgstr "Mezclar…"
 
 #. Display label
 #. short-cut
@@ -8826,10 +8658,9 @@ msgstr "Mezclar los cambios en su copia de trabajo"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:132 ../plugins/subversion/plugin.c:191
-#, fuzzy
 #| msgid "View Log"
 msgid "_View Log…"
-msgstr "Ver el registro"
+msgstr "_Ver el registro…"
 
 #. Display label
 #. short-cut
@@ -8840,10 +8671,9 @@ msgstr "Ver el histórico del archivo"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:140
-#, fuzzy
 #| msgid "_Diff"
 msgid "_Diff…"
-msgstr "_Diff"
+msgstr "_Diff…"
 
 #. Display label
 #. short-cut
@@ -8854,18 +8684,16 @@ msgstr "Diff del árbol local con el repositorio"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:199
-#, fuzzy
 #| msgid "Copy"
 msgid "Copy…"
-msgstr "Copiar"
+msgstr "Copiar…"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:207
-#, fuzzy
 #| msgid "Diff"
 msgid "Diff…"
-msgstr "Diff"
+msgstr "Diff…"
 
 #: ../plugins/subversion/plugin.c:488
 msgid "Subversion operations"
@@ -8888,7 +8716,6 @@ msgid "Subversion: Commit complete."
 msgstr "Subversion: Carga completada."
 
 #: ../plugins/subversion/subversion-commit-dialog.c:123
-#, fuzzy
 #| msgid "Subversion: Committing changes to the repository..."
 msgid "Subversion: Committing changes to the repository…"
 msgstr "Subversion: Efectuando los cambios sobre el repositorio…"
@@ -8912,10 +8739,9 @@ msgstr "[Head/Copia de trabajo]"
 #: ../plugins/subversion/subversion-diff-dialog.c:61
 #: ../plugins/subversion/subversion-log-dialog.c:426
 #: ../plugins/subversion/subversion-log-dialog.c:493
-#, fuzzy
 #| msgid "Subversion: Retrieving diff..."
 msgid "Subversion: Retrieving diff…"
-msgstr "Subversion: Obteniendo Diff…"
+msgstr "Subversion: Obteniendo diff…"
 
 #: ../plugins/subversion/subversion-log-dialog.c:119
 msgid "Diff"
@@ -8930,7 +8756,6 @@ msgid "Short Log"
 msgstr "Registro corto"
 
 #: ../plugins/subversion/subversion-log-dialog.c:257
-#, fuzzy
 #| msgid "Subversion: Retrieving log..."
 msgid "Subversion: Retrieving log…"
 msgstr "Subversion: Obteniendo el registro…"
@@ -8940,7 +8765,6 @@ msgid "Subversion: File retrieved."
 msgstr "Subversion: Archivo obtenido."
 
 #: ../plugins/subversion/subversion-log-dialog.c:351
-#, fuzzy
 #| msgid "Subversion: Retrieving file..."
 msgid "Subversion: Retrieving file…"
 msgstr "Subversion: Obteniendo archivo…"
@@ -9090,7 +8914,6 @@ msgid "Tag De_claration"
 msgstr "Declaración de _etiqueta"
 
 #: ../plugins/symbol-db/plugin.c:315
-#, fuzzy
 #| msgid "Goto symbol declaration"
 msgid "Go to symbol declaration"
 msgstr "Ir a declaración del símbolo"
@@ -9101,23 +8924,21 @@ msgid "Tag _Implementation"
 msgstr "_Implementación de etiquetas"
 
 #: ../plugins/symbol-db/plugin.c:324
-#, fuzzy
 #| msgid "Goto symbol definition"
 msgid "Go to symbol definition"
 msgstr "Ir a definición del símbolo"
 
 #: ../plugins/symbol-db/plugin.c:331
-#, fuzzy
 #| msgid "Find Symbol"
 msgid "_Find Symbol…"
-msgstr "Buscar símbolo"
+msgstr "_Buscar símbolo…"
 
 #: ../plugins/symbol-db/plugin.c:332
 msgid "Find Symbol"
 msgstr "Buscar símbolo"
 
 #: ../plugins/symbol-db/plugin.c:1170
-#, fuzzy, c-format
+#, c-format
 #| msgid "%s: Generating inheritances..."
 msgid "%s: Generating inheritances…"
 msgstr "%s: Generando herencias…"
@@ -9128,7 +8949,7 @@ msgid "%s: %d files scanned out of %d"
 msgstr "%s: %d archivos analizados de %d"
 
 #: ../plugins/symbol-db/plugin.c:1206
-#, fuzzy, c-format
+#, c-format
 #| msgid "Generating inheritances..."
 msgid "Generating inheritances…"
 msgstr "Generando herencias…"
@@ -9139,10 +8960,9 @@ msgid "%d files scanned out of %d"
 msgstr "%d archivos analizados de %d"
 
 #: ../plugins/symbol-db/plugin.c:1968
-#, fuzzy
 #| msgid "Populating symbols' db..."
 msgid "Populating symbol database…"
-msgstr "Llenando la BB DD de símbolos…"
+msgstr "Llenando la BB. DD. de símbolos…"
 
 #: ../plugins/symbol-db/plugin.c:2352 ../plugins/symbol-db/plugin.c:2480
 msgid "Symbols"
@@ -9180,7 +9000,6 @@ msgid "Symbol"
 msgstr "Símbolo"
 
 #: ../plugins/symbol-db/symbol-db-view.c:799
-#, fuzzy
 #| msgid "Loading..."
 msgid "Loading…"
 msgstr "Cargando…"
@@ -9194,7 +9013,6 @@ msgid "Automatically update symbols without saving file"
 msgstr "Actualizar automáticamente los símbolos sin guardar el archivo"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:3
-#, fuzzy
 #| msgid ""
 #| "Update automatically the file's symbols without saving. The update occurs "
 #| "after 10 seconds of no keypress by user."
@@ -9207,13 +9025,11 @@ msgstr ""
 "tecla."
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:4
-#, fuzzy
 #| msgid "<b>Available API tags</b>"
 msgid "Available API tags"
-msgstr "<b>Etiquetas de la API disponibles</b>"
+msgstr "Etiquetas de la API disponibles"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:5
-#, fuzzy
 #| msgid "Checking if package is parseable..."
 msgid "Checking if package is parseable…"
 msgstr "Comprobando si el paquete se puede analizar…"
@@ -9223,7 +9039,6 @@ msgid "Parallel scan of project and global symbols"
 msgstr "Análisis paralelo de símbolos global y del proyecto"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:8
-#, fuzzy
 #| msgid ""
 #| "This option enables the default packages required by your opened project, "
 #| "e.g. glib and gtk+ if you create a Gtk+ project (may require more cpu "
@@ -9233,11 +9048,10 @@ msgid ""
 "g. Glib and GTK+ if you create a GTK+ project (may require more CPU work)"
 msgstr ""
 "Esta opción activa los paquetes predeterminados necesarios por su proyecto "
-"abierto, ej. glib y gtk+ y crea un proyecto GTK+ (puede necesitar más "
+"abierto, ej. Glib y GTK+ y crea un proyecto GTK+ (puede necesitar más "
 "trabajo de CPU)"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:9
-#, fuzzy
 #| msgid ""
 #| "This option means that the global system packages will be scanned "
 #| "contemporary with the project's ones"
@@ -9249,13 +9063,11 @@ msgstr ""
 "la vez que los del proyecto"
 
 #: ../plugins/terminal/anjuta-terminal-plugin.ui.h:2
-#, fuzzy
 #| msgid "terminal operations"
 msgid "Terminal options"
-msgstr "operaciones en la terminal"
+msgstr "Opciones de la terminal"
 
 #: ../plugins/terminal/anjuta-terminal-plugin.ui.h:3
-#, fuzzy
 #| msgid "Use GNOME terminal profile:"
 msgid "Use GNOME Terminal profile:"
 msgstr "Usar el perfil del terminal de GNOME:"
@@ -9331,10 +9143,9 @@ msgid "Working directory:"
 msgstr "Directorio de trabajo:"
 
 #: ../plugins/tools/anjuta-tools.ui.h:21
-#, fuzzy
 #| msgid "Variable"
 msgid "_Variable…"
-msgstr "Variable"
+msgstr "_Variable…"
 
 #: ../plugins/tools/dialog.c:177
 #, c-format
@@ -9386,7 +9197,6 @@ msgid "Unable to edit script"
 msgstr "No se puede editar el script"
 
 #: ../plugins/tools/editor.c:1044
-#, fuzzy
 #| msgid "New accelerator..."
 msgid "New accelerator…"
 msgstr "Acelerador nuevo…"
@@ -9414,7 +9224,7 @@ msgstr "(error)"
 
 #. Display the name of the command
 #: ../plugins/tools/execute.c:469
-#, fuzzy, c-format
+#, c-format
 #| msgid "Running command: %s...\n"
 msgid "Running command: %s…\n"
 msgstr "Comando en ejecución: %s…\n"
@@ -9425,16 +9235,14 @@ msgid "Completed unsuccessfully with status code %d\n"
 msgstr "Completado incorrectamente con el código de estado %d\n"
 
 #: ../plugins/tools/execute.c:629
-#, fuzzy
 #| msgid "Unable to create a buffer, command aborted"
 msgid "Unable to create a buffer: command aborted"
-msgstr "No se puede crear un búfer, comando abortado"
+msgstr "No se puede crear un búfer: comando abortado"
 
 #: ../plugins/tools/execute.c:641
-#, fuzzy
 #| msgid "No document currently open, command aborted"
 msgid "No document currently open: command aborted"
-msgstr "Actualmente no hay ningún documento abierto, comando abortado"
+msgstr "Actualmente no hay ningún documento abierto: comando abortado"
 
 #: ../plugins/tools/execute.c:1019
 #, c-format
@@ -9596,7 +9404,6 @@ msgid "Replace buffer"
 msgstr "Reemplazar búfer"
 
 #: ../plugins/tools/tool.c:86
-#, fuzzy
 #| msgid "Insert in buffer"
 msgid "Insert into buffer"
 msgstr "Insertar en el búfer"
@@ -9639,7 +9446,6 @@ msgid "Copyright (c) Naba Kumar"
 msgstr "Copyright © Naba Kumar"
 
 #: ../src/anjuta.c:424
-#, fuzzy
 #| msgid "Loaded Session..."
 msgid "Loaded Session…"
 msgstr "Sesión cargada…"
@@ -9773,7 +9579,6 @@ msgid "About External _Plugins"
 msgstr "Acerca de los com_plementos de Anjuta"
 
 #: ../src/anjuta-actions.h:96
-#, fuzzy
 #| msgid "About third party Anjuta plugins"
 msgid "About third-party Anjuta plugins"
 msgstr "Acerca de los complementos de terceros"
@@ -9806,13 +9611,11 @@ msgid "WIDTHxHEIGHT+XOFF+YOFF"
 msgstr "WIDTHxHEIGHT+XOFF+YOFF"
 
 #: ../src/main.c:70
-#, fuzzy
 #| msgid "Do not show the splashscreen"
 msgid "Do not show the splash screen"
 msgstr "No mostrar la pantalla de inicio"
 
 #: ../src/main.c:76
-#, fuzzy
 #| msgid "Start a new instance and do not open the file in a existing"
 msgid "Start a new instance and do not open the file in an existing instance"
 msgstr "Iniciar una instancia nueva y no abrir el archivo en la existente"
@@ -9826,11 +9629,10 @@ msgid "Do not open last project and files on startup"
 msgstr "No abrir el último proyecto y los archivos al iniciar"
 
 #: ../src/main.c:94
-#, fuzzy
 #| msgid "Shutdown anjuta properly releasing all resources (for debugging)"
 msgid "Shut down Anjuta properly, releasing all resources (for debugging)"
 msgstr ""
-"Detener anjuta apropiadamente liberando todos los recursos (para depuración)"
+"Detener Anjuta apropiadamente liberando todos los recursos (para depuración)"
 
 #: ../src/main.c:156
 msgid "- Integrated Development Environment"
@@ -9870,7 +9672,6 @@ msgid "Dock switcher style:"
 msgstr "Estilo de los anclajes:"
 
 #: ../src/preferences.ui.h:10
-#, fuzzy
 #| msgid "Gnome toolbar setting"
 msgid "GNOME toolbar setting"
 msgstr "Configuración de la barra de herramientas de GNOME"
@@ -9888,7 +9689,6 @@ msgid "Project Defaults"
 msgstr "Valores predeterminados del proyecto"
 
 #: ../src/preferences.ui.h:15
-#, fuzzy
 #| msgid "Select projects directory"
 msgid "Select project directory"
 msgstr "Seleccionar el directorio de proyectos"
@@ -9938,7 +9738,6 @@ msgstr ""
 "Añadir un espacio después de la llamada de autocompletado de la función"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:3
-#, fuzzy
 #| msgid "Autocomplete"
 msgid "Auto-complete"
 msgstr "Autocompletar"
@@ -9984,7 +9783,6 @@ msgid "Line up parentheses"
 msgstr "Alinear paréntesis"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
-#, fuzzy
 #| msgid "Parenthese indentation"
 msgid "Parenthesis indentation"
 msgstr "Sangrado de paréntesis"
@@ -10002,25 +9800,21 @@ msgid "Statement indentation size in spaces:"
 msgstr "Tamaño de sangría en espacios:"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1921
-#, fuzzy
 #| msgid "_AutoComplete"
 msgid "_Auto-Complete"
 msgstr "_Autocompletar"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1922
-#, fuzzy
 #| msgid "AutoComplete the current word"
 msgid "Auto-complete the current word"
 msgstr "Autocompletar la palabra actual"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1928
-#, fuzzy
 #| msgid "Auto Indent"
 msgid "Auto-Indent"
 msgstr "Sangría automática"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1929
-#, fuzzy
 #| msgid "Auto indent current line or selection based on indentation settings"
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr ""
@@ -10032,10 +9826,9 @@ msgid "Swap .h/.c"
 msgstr "Intercambiar .h/.c"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1935
-#, fuzzy
 #| msgid "Swap c header and source files"
 msgid "Swap C header and source files"
-msgstr "Intercambia la cabecera c y el archivo fuente"
+msgstr "Intercambia la cabecera C y el archivo fuente"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1978
 msgid "C++/Java Assistance"
@@ -10151,7 +9944,6 @@ msgid "CVS Plugin"
 msgstr "Complemento CVS"
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:1
-#, fuzzy
 #| msgid "Import an existing autotools project to anjuta"
 msgid "Import an existing autotools project to Anjuta"
 msgstr "Importar un proyecto de autotools existente en Anjuta"
@@ -10161,19 +9953,16 @@ msgid "Project Import Assistant"
 msgstr "Asistente de importación de proyectos"
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:3
-#, fuzzy
 #| msgid "Project From Existing Sources"
 msgid "Project from Existing Sources"
 msgstr "Proyecto desde fuentes existentes"
 
 #: ../plugins/sourceview/sourceview.plugin.in.h:1
-#, fuzzy
 #| msgid "GtkSourceView Editor"
 msgid "GtkSourceView editor"
 msgstr "Editor GtkSourceView"
 
 #: ../plugins/sourceview/sourceview.plugin.in.h:2
-#, fuzzy
 #| msgid "The default editor based on GtkSourceview"
 msgid "The default editor based on GtkSourceView"
 msgstr "El editor predeterminado basado en GtkSourceview"
@@ -10187,7 +9976,6 @@ msgid "C++ and Java support Plugin"
 msgstr "Complemento de soporte para C++ y Java"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in.h:2
-#, fuzzy
 #| msgid ""
 #| "C++ and Java support plugin for code completion, auto indentation etc."
 msgid "C++ and Java support plugin for code completion, auto-indentation, etc."
