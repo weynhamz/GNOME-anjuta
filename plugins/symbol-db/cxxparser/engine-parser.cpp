@@ -45,18 +45,19 @@ EngineParser::getInstance ()
 
 EngineParser::EngineParser ()
 {	
-	_tokenizer = new CppTokenizer ();	
+	_main_tokenizer = new CppTokenizer ();	
+	_extra_tokenizer = new CppTokenizer ();	
 	_dbe = NULL;
 }
 
 bool 
-EngineParser::nextToken (string &out_token, string &out_delimiter)
+EngineParser::nextMainToken (string &out_token, string &out_delimiter)
 {
 	out_token.clear ();
 	
 	int type(0);
 	int depth(0);
-	while ( (type = _tokenizer->yylex()) != 0 ) 
+	while ( (type = _main_tokenizer->yylex()) != 0 ) 
 	{		
 		switch (type) 
 		{			
@@ -65,12 +66,12 @@ EngineParser::nextToken (string &out_token, string &out_delimiter)
 		case lexARROW:
 			if (depth == 0) 
 			{
-				out_delimiter = _tokenizer->YYText();
+				out_delimiter = _main_tokenizer->YYText();
 				trim (out_token);
 				return true;
 			} else 
 			{
-				out_token.append (" ").append (_tokenizer->YYText());
+				out_token.append (" ").append (_main_tokenizer->YYText());
 			}
 			break;
 				
@@ -79,7 +80,7 @@ EngineParser::nextToken (string &out_token, string &out_delimiter)
 		case '(':
 		case '{':
 			depth++;
-			out_token.append (" ").append (_tokenizer->YYText());
+			out_token.append (" ").append (_main_tokenizer->YYText());
 			break;
 				
 		case '>':
@@ -87,11 +88,11 @@ EngineParser::nextToken (string &out_token, string &out_delimiter)
 		case ')':
 		case '}':
 			depth--;
-			out_token.append (" ").append (_tokenizer->YYText());
+			out_token.append (" ").append (_main_tokenizer->YYText());
 			break;
 				
 		default:
-			out_token.append (" ").append (_tokenizer->YYText());
+			out_token.append (" ").append (_main_tokenizer->YYText());
 			break;
 		}
 	}
@@ -103,12 +104,12 @@ void
 EngineParser::DEBUG_printTokens (const string& text)
 {
 	// FIXME
-	_tokenizer->setText (text.c_str ());
+	_main_tokenizer->setText (text.c_str ());
 
 	string op;
 	string token;
 	int i = 0;
-	while (nextToken(token, op)) 
+	while (nextMainToken(token, op)) 
 	{
 		printf ("tok %d %s [op %s]\n", i, token.c_str (), op.c_str ());
 		//ExpressionResult result = parse_expression(token);
@@ -132,13 +133,13 @@ EngineParser::parseExpression(const string &in)
 void
 EngineParser::testParseExpression (const string &str)
 {
-	_tokenizer->setText(str.c_str ());
+	_main_tokenizer->setText(str.c_str ());
 
 	string word;
 	string op;
 	ExpressionResult result;
 	
-	while (nextToken (word, op)) {
+	while (nextMainToken (word, op)) {
 
 		cout << "--------\ngot word " << word << " op " << op << endl; 
 		// fill up ExpressionResult
@@ -324,7 +325,7 @@ EngineParser::getTypeNameAndScopeByToken (ExpressionResult &result,
 			if (token == var.m_name) 
 			{
 				cout << "wh0a! we found the variable type to parse... it's \"" << 
-					var.m_type << "\"" << endl;
+					var.m_type << "\" with typescope \"" << var.m_typeScope << "\"" << endl;
 				out_type_name = var.m_type;
 				out_type_scope = var.m_typeScope;
 
@@ -358,10 +359,13 @@ EngineParser::getCurrentSearchableScope (string &type_name, string &type_scope)
 		SymbolDBEngineIteratorNode *node;
 
 		node = SYMBOL_DB_ENGINE_ITERATOR_NODE (curr_searchable_scope);
-	
-		cout << "Current Searchable Scope " <<
+
+		const gchar *skind = symbol_db_engine_iterator_node_get_symbol_extra_string (node,
+		    SYMINFO_KIND);
+		
+		cout << "Current Searchable Scope name \"" <<
     		symbol_db_engine_iterator_node_get_symbol_name (node) << 					
-			" and id "<< symbol_db_engine_iterator_node_get_symbol_id (node) << 
+			"\" kind \"" << skind << "\" and id "<< symbol_db_engine_iterator_node_get_symbol_id (node) << 
 			endl;
 
 		/* is it a typedef? In that case find the parent struct */
@@ -389,7 +393,8 @@ EngineParser::getCurrentSearchableScope (string &type_name, string &type_scope)
 
 /**
  * @param test Must be searched with SYMINFO_KIND 
- * @return or the same test or a new struct. In that second case test is unreffed
+ * @return or the same test iterator or a new struct. In that second case the input 
+ * iterator test is unreffed.
  * 
  */
 SymbolDBEngineIterator *
@@ -442,7 +447,7 @@ EngineParser::switchMemberToContainer (SymbolDBEngineIterator * test)
 
 		test = new_container;
 
-		cout << ".. found new conainer with n items " << 
+		cout << ".. found new container with n items " << 
 			symbol_db_engine_iterator_get_n_items (test) << endl;
 	}
 	else 
@@ -469,14 +474,15 @@ EngineParser::processExpression(const string& stmt,
 	string type_scope;
 
 	/* first token */
-	_tokenizer->setText (stmt.c_str ());
+	cout << "setting text " << stmt.c_str () << " to the tokenizer " << endl;
+	_main_tokenizer->setText (stmt.c_str ());
 
 	/* get the fist one */
-	nextToken (current_token, op);		
+	nextMainToken (current_token, op);		
 
-	cout << "--------" << endl << "First token \"" << current_token << "\" with op \"" << op 
+	cout << "--------" << endl << "First main token \"" << current_token << "\" with op \"" << op 
 		 << "\"" << endl; 
-		
+
 	/* parse the current sub-expression of a statement and fill up 
 	 * ExpressionResult object
 	 */
@@ -493,16 +499,15 @@ EngineParser::processExpression(const string& stmt,
     									  above_text,
     									  type_name, 
     									  type_scope);
-
 	if (process_res == false)
 	{
 		cout << "Well, you haven't much luck, the first token failed and then "  <<
 			"I cannot continue. " << endl;
 		return NULL;
 	}
-
-	cout << "Going to search for curr_searchable_scope with type_name " << type_name <<
-		" and type_scope " << type_scope << endl;
+	
+	cout << "Going to search for curr_searchable_scope with type_name \"" << type_name << "\"" << 
+		" and type_scope \"" << type_scope << "\"" << endl;
 
 	/* at this time we're enough ready to issue a first query to our db. 
 	 * We absolutely need to find the searchable object scope of the first result 
@@ -519,9 +524,9 @@ EngineParser::processExpression(const string& stmt,
 	}	
 	
 	/* fine. Have we more tokens left? */
-	while (nextToken (current_token, op)) 
+	while (nextMainToken (current_token, op) == 1) 
 	{
-		cout << "--------\nNext token \"" << current_token << "\" with op \"" << op 
+		cout << "--------\nNext main token \"" << current_token << "\" with op \"" << op 
 			 << "\"" << endl;
 
 		/* parse the current sub-expression of a statement and fill up 
@@ -577,7 +582,7 @@ EngineParser::processExpression(const string& stmt,
 			sym_kind = symbol_db_engine_iterator_node_get_symbol_extra_string (node, 
 		    										SymExtraInfo (SYMINFO_KIND));
 			
-			cout << ".. it has sym_kind " << sym_kind << endl;
+			cout << ".. it has sym_kind \"" << sym_kind << "\"" << endl;
 
 			/* the same check as in the engine-core on sdb_engine_add_new_sym_type () */
 			if (g_strcmp0 (sym_kind, "member") == 0 || 
@@ -606,7 +611,7 @@ EngineParser::processExpression(const string& stmt,
 		}
 	}
 
-	cout << "returning curr_searchable_scope" << endl;
+	cout << "END of expression processing. Returning curr_searchable_scope" << endl;
 	return curr_searchable_scope;
 }
 
@@ -624,13 +629,13 @@ EngineParser::optimizeScope(const string& srcString)
 
 	/* Initialize the scanner with the string to search */
 	const char * scannerText =  srcString.c_str ();
-	_tokenizer->setText (scannerText);
+	_extra_tokenizer->setText (scannerText);
 	bool changedLine = false;
 	bool prepLine = false;
 	int curline = 0;
 	while (true) 
 	{
-		type = _tokenizer->yylex();
+		type = _extra_tokenizer->yylex();
 
 		/* Eof ? */
 		if (type == 0) 
@@ -641,23 +646,23 @@ EngineParser::optimizeScope(const string& srcString)
 		}
 
 		/* eat up all tokens until next line */
-		if ( prepLine && _tokenizer->lineno() == curline) 
+		if ( prepLine && _extra_tokenizer->lineno() == curline) 
 		{
 			currScope += " ";
-			currScope += _tokenizer->YYText();
+			currScope += _extra_tokenizer->YYText();
 			continue;
 		}
 
 		prepLine = false;
 
 		/* Get the current line number, it will help us detect preprocessor lines */
-		changedLine = (_tokenizer->lineno() > curline);
+		changedLine = (_extra_tokenizer->lineno() > curline);
 		if (changedLine) 
 		{
 			currScope += "\n";
 		}
 
-		curline = _tokenizer->lineno();
+		curline = _extra_tokenizer->lineno();
 		switch (type) 
 		{
 		case (int)'(':
@@ -695,18 +700,18 @@ EngineParser::optimizeScope(const string& srcString)
 				 * consume everything until new line is found or end of text
 				 */
 				currScope += " ";
-				currScope += _tokenizer->YYText();
+				currScope += _extra_tokenizer->YYText();
 				prepLine = true;
 				break;
 			}
 		default:
 			currScope += " ";
-			currScope += _tokenizer->YYText();
+			currScope += _extra_tokenizer->YYText();
 			break;
 		}
 	}
 
-	_tokenizer->reset();
+	_extra_tokenizer->reset();
 
 	if (scope_stack.empty())
 		return srcString;

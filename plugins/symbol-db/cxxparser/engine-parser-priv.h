@@ -92,13 +92,13 @@ private:
 	
 	/**
 	 * Return the next token and the delimiter found, the source string is taken from the
-	 * _tokenizer member of this class.
+	 * _main_tokenizer member of this class.
 	 *
 	 * @param token Next token
 	 * @param delim Delimiter found (as ".", "::", or "->")
 	 * @return true If token was found false otherwise
 	 */	
-	bool nextToken (string &out_token, string &out_delimiter);
+	bool nextMainToken (string &out_token, string &out_delimiter);
 
 	/**
 	 * Trim a string using some default chars.
@@ -121,7 +121,8 @@ private:
 	 */	
 	static EngineParser *s_engine;	
 
-	CppTokenizer *_tokenizer;
+	CppTokenizer *_main_tokenizer;
+	CppTokenizer *_extra_tokenizer;
 	SymbolDBEngine *_dbe;
 };
 

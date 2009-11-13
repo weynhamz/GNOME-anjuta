@@ -61,6 +61,27 @@
 	engine_parser_init (dbe);	\
 }
 
+#define INIT_CXX_TEST(source_file,callback) { \
+	gchar *associated_source_file = SAMPLE_DB_ABS_PATH""source_file".cxx";	\
+	gchar *associated_db = source_file;	\
+	gchar *root_dir = SAMPLE_DB_ABS_PATH;	\
+	SymbolDBEngine *dbe = symbol_db_engine_new_full (ANJUTA_TAGS, associated_db);	\
+	symbol_db_engine_open_db (dbe, root_dir, root_dir);	\
+	symbol_db_engine_add_new_project (dbe, NULL, root_dir);	\
+	g_signal_connect (dbe, "scan-end", G_CALLBACK (callback), NULL);	\
+	\
+	GPtrArray *files_array = g_ptr_array_new ();	\
+	g_ptr_array_add (files_array, associated_source_file);	\
+	GPtrArray *source_array = g_ptr_array_new ();	\
+	g_ptr_array_add (source_array, "CXX");	\
+	\
+	if (symbol_db_engine_add_new_files_full (dbe, root_dir, files_array, source_array, TRUE) < 0)	\
+		g_warning ("Error on scanning");	\
+	\
+	engine_parser_init (dbe);	\
+}
+
+
 static SymbolDBEngineIterator * 
 get_children_by_iterator (SymbolDBEngine *dbe, SymbolDBEngineIterator * iter)
 {
@@ -94,6 +115,85 @@ get_children_by_iterator (SymbolDBEngine *dbe, SymbolDBEngineIterator * iter)
 	return children;
 }
 
+
+/******************************************************************************/
+static void 
+on_test_complex_klass_scan_end (SymbolDBEngine* dbe, gpointer user_data)
+{
+	gchar *associated_source_file = SAMPLE_DB_ABS_PATH"test-complex-klass.cxx";	
+	gchar *file_content;
+	SymbolDBEngineIterator *iter;
+	SymbolDBEngineIterator *children;
+	
+	g_file_get_contents (associated_source_file, &file_content, NULL, NULL);
+
+	iter = engine_parser_process_expression ("kl->pm_first_klass->", 
+	                                         file_content, 
+	    									 associated_source_file, 
+	                                         45);
+
+	g_free (file_content);
+
+	/* process the reult */
+	g_assert (iter != NULL);
+
+	children = get_children_by_iterator (dbe, iter);
+	
+	DBI_TEST_NAME (children, 0, "foo1_private");
+	DBI_TEST_NAME (children, 1, "foo2_private");
+	DBI_TEST_NAME (children, 2, "foo3_private");
+	DBI_TEST_NAME (children, 3, "FirstKlass");
+
+	g_object_unref (iter);
+	g_object_unref (children);		
+}
+
+static void
+test_complex_klass ()
+{		
+	INIT_CXX_TEST("test-complex-klass", on_test_complex_klass_scan_end);
+}
+
+
+/******************************************************************************/
+static void 
+on_test_simple_klass_scan_end (SymbolDBEngine* dbe, gpointer user_data)
+{
+	gchar *associated_source_file = SAMPLE_DB_ABS_PATH"test-simple-klass.cxx";	
+	gchar *file_content;
+	SymbolDBEngineIterator *iter;
+	SymbolDBEngineIterator *children;
+	
+	g_file_get_contents (associated_source_file, &file_content, NULL, NULL);
+
+	iter = engine_parser_process_expression ("kl->", 
+	                                         file_content, 
+	    									 associated_source_file, 
+	                                         23);
+
+	g_free (file_content);
+
+	/* process the reult */
+	g_assert (iter != NULL);
+
+	children = get_children_by_iterator (dbe, iter);
+	
+	DBI_TEST_NAME (children, 0, "foo1_private");
+	DBI_TEST_NAME (children, 1, "foo2_private");
+	DBI_TEST_NAME (children, 2, "foo3_private");
+	DBI_TEST_NAME (children, 3, "FirstKlass");
+
+	g_object_unref (iter);
+	g_object_unref (children);		
+}
+
+static void
+test_simple_klass ()
+{		
+	INIT_CXX_TEST("test-simple-klass", on_test_simple_klass_scan_end);
+}
+
+
 /******************************************************************************/
 static void 
 on_test_complex_struct_scan_end (SymbolDBEngine* dbe, gpointer user_data)
@@ -105,7 +205,7 @@ on_test_complex_struct_scan_end (SymbolDBEngine* dbe, gpointer user_data)
 	
 	g_file_get_contents (associated_source_file, &file_content, NULL, NULL);
 
-	iter = engine_parser_process_expression ("((_foo*)var)->asd_struct->", 
+	iter = engine_parser_process_expression ("((foo*)var)->asd_struct->", 
 	                                         file_content, 
 	    									 associated_source_file, 
 	                                         18);
@@ -221,11 +321,16 @@ int	main (int argc, char *argv[])
 
 	g_message ("SAMPLE_DB_ABS_PATH %s", SAMPLE_DB_ABS_PATH);
  	g_test_init (&argc, &argv, NULL);
-
+/*
+	g_test_add_func ("/complex_c/test-complex-struct", test_complex_struct);
 	g_test_add_func ("/simple_c/test-simple-struct", test_simple_struct);
 	g_test_add_func ("/simple_c/test-cast-simple-struct", test_cast_simple_struct);
-	g_test_add_func ("/complex_c/test-complex-struct", test_complex_struct);
 
+	g_test_add_func ("/simple_cxx/test_simple_klass", test_simple_klass);
+*/	
+	g_test_add_func ("/simple_cxx/test_complex_klass", test_complex_klass);
+	
+	
 	g_test_run ();
 	g_message ("test run finished");
 
