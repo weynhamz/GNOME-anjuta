@@ -80,6 +80,8 @@ protected:
 
 	EngineParser ();
 
+	virtual ~EngineParser ();
+
 	/**
 	 * Parse an expression and return the result. 
 	 * @param in Input string expression

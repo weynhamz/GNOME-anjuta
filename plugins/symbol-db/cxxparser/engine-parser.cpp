@@ -50,6 +50,12 @@ EngineParser::EngineParser ()
 	_dbe = NULL;
 }
 
+EngineParser::~EngineParser ()
+{
+	delete _main_tokenizer;
+	delete _extra_tokenizer;
+}
+
 bool 
 EngineParser::nextMainToken (string &out_token, string &out_delimiter)
 {
