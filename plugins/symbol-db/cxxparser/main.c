@@ -193,6 +193,41 @@ test_simple_klass ()
 	INIT_CXX_TEST("test-simple-klass", on_test_simple_klass_scan_end);
 }
 
+/******************************************************************************/
+static void 
+on_test_complex_struct2_scan_end (SymbolDBEngine* dbe, gpointer user_data)
+{	
+	gchar *associated_source_file = SAMPLE_DB_ABS_PATH"test-complex-struct2.c";	
+	gchar *file_content;
+	SymbolDBEngineIterator *iter;
+	SymbolDBEngineIterator *children;
+	
+	g_file_get_contents (associated_source_file, &file_content, NULL, NULL);
+
+	iter = engine_parser_process_expression ("var->asd_struct->qwe_struct->", 
+	                                         file_content, 
+	    									 associated_source_file, 
+	                                         27);
+
+	g_free (file_content);
+
+	/* process the reult */
+	g_assert (iter != NULL);
+
+	children = get_children_by_iterator (dbe, iter);
+	
+//	DBI_TEST_NAME (children, 0, "a");
+//	DBI_TEST_NAME (children, 1, "b");
+
+	g_object_unref (iter);
+	g_object_unref (children);	
+}
+
+static void
+test_complex_struct2 ()
+{		
+	INIT_C_TEST("test-complex-struct2", on_test_complex_struct2_scan_end);
+}
 
 /******************************************************************************/
 static void 
@@ -321,15 +356,17 @@ int	main (int argc, char *argv[])
 
 	g_message ("SAMPLE_DB_ABS_PATH %s", SAMPLE_DB_ABS_PATH);
  	g_test_init (&argc, &argv, NULL);
-/*
-	g_test_add_func ("/complex_c/test-complex-struct", test_complex_struct);
-	g_test_add_func ("/simple_c/test-simple-struct", test_simple_struct);
-	g_test_add_func ("/simple_c/test-cast-simple-struct", test_cast_simple_struct);
 
-	g_test_add_func ("/simple_cxx/test_simple_klass", test_simple_klass);
-*/	
-	g_test_add_func ("/simple_cxx/test_complex_klass", test_complex_klass);
+/*	g_test_add_func ("/simple_c/test-simple-struct", test_simple_struct);
+	g_test_add_func ("/simple_c/test-cast-simple-struct", test_cast_simple_struct);
 	
+	g_test_add_func ("/complex_c/test-complex-struct", test_complex_struct);
+	*/
+	g_test_add_func ("/complex_c/test-complex-struct2", test_complex_struct2);
+/*	
+	g_test_add_func ("/simple_cxx/test_simple_klass", test_simple_klass);
+	g_test_add_func ("/complex_cxx/test_complex_klass", test_complex_klass);
+*/	
 	
 	g_test_run ();
 	g_message ("test run finished");
