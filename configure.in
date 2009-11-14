@@ -85,7 +85,7 @@ AC_SUBST(AM_CFLAGS)
 
 ANJUTA_LDFLAGS="-no-undefined"
 ANJUTA_PLUGIN_LDFLAGS="-module -avoid-version -no-undefined"
-AC_SUBST(ANJUTA_LDFLAG)
+AC_SUBST(ANJUTA_LDFLAGS)
 AC_SUBST(ANJUTA_PLUGIN_LDFLAGS)
 
 dnl Disable deprecated APIs

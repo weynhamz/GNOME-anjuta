@@ -30,7 +30,6 @@ AM_CPPFLAGS = \
 
 libanjuta_class_gen_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
-#${top_builddir}/plugins/project-wizard/libanjuta-project-wizard.la \
 libanjuta_class_gen_la_LIBADD = \
 	$(GIO_LIBS) \
 	$(LIBANJUTA_LIBS)
