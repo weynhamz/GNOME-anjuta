@@ -42,7 +42,13 @@
 #define MAX_COMPLETIONS 10
 #define BRACE_SEARCH_LIMIT 500
 
-G_DEFINE_TYPE (CppJavaAssist, cpp_java_assist, G_TYPE_OBJECT);
+static void cpp_java_assist_iface_init(IAnjutaProviderIface* iface);
+
+G_DEFINE_TYPE_WITH_CODE (CppJavaAssist,
+			 cpp_java_assist,
+			 G_TYPE_OBJECT,
+			 G_IMPLEMENT_INTERFACE (IANJUTA_TYPE_PROVIDER,
+			                        cpp_java_assist_iface_init))
 
 typedef struct
 {
@@ -65,6 +71,7 @@ struct _CppJavaAssistPriv {
 	GCompletion *completion_cache;
 	gboolean editor_only;
 	guint word_idle;
+	IAnjutaIterable* start_iter;
 };
 
 static gchar*
@@ -119,6 +126,12 @@ is_word_character (gchar ch)
 	
 	return FALSE;
 }	
+
+static void
+on_search_complete (gint search_id, IAnjutaIterable* iter, CppJavaAssist* assist)
+{
+
+}
 
 /**
  * If mergeable is NULL than no merge will be made with iter elements, elsewhere
@@ -364,7 +377,7 @@ cpp_java_assist_show_autocomplete (CppJavaAssist *assist)
 	return FALSE;
 }
 
-static gboolean
+static void
 cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist)
 {
 	gint max_completions;
@@ -644,50 +657,19 @@ cpp_java_assist_show_calltip (CppJavaAssist *assist, gchar *call_context,
 }
 
 void
-cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
-					   gboolean calltips, gboolean backspace)
+cpp_java_assist_check (CppJavaAssist *assist
+					             gboolean calltips, gboolean backspace)
 {
 	IAnjutaEditor *editor;
 	IAnjutaIterable *iter;
 	
-	if (!autocomplete && !calltips)
+	if (!calltips)
 		return; /* Nothing to do */
 	
 	editor = IANJUTA_EDITOR (assist->priv->iassist);
 	
 	iter = ianjuta_editor_get_position (editor, NULL);
 	ianjuta_iterable_previous (iter, NULL);
-
-	if (autocomplete)
-	{
-		gboolean shown = FALSE;
-		g_free (assist->priv->pre_word);
-		assist->priv->pre_word = cpp_java_assist_get_pre_word (editor, iter);
-		DEBUG_PRINT ("Pre word: %s", assist->priv->pre_word);
-
-		if (assist->priv->pre_word && strlen (assist->priv->pre_word) > 3)
-		{
-			if (!assist->priv->search_cache ||
-			    !g_str_has_prefix (assist->priv->pre_word, assist->priv->search_cache))
-			{
-				if (!backspace)
-				{
-					g_idle_add_full (G_PRIORITY_LOW,
-					                 (GSourceFunc) cpp_java_assist_create_word_completion_cache,
-					                 assist,
-					                 NULL);
-					DEBUG_PRINT ("Idle source added");
-				}
-			}
-			shown = cpp_java_assist_show_autocomplete (assist);
-		}
-		else
-			shown = FALSE;
-		if (!shown)
-			ianjuta_editor_assist_hide_suggestions (assist->priv->iassist,
-			                                        NULL);
-		DEBUG_PRINT ("Show autocomplete: %d", shown);
-	}
 	if (calltips)
 	{
 		gchar *call_context =
@@ -728,28 +710,47 @@ static void
 on_editor_char_added (IAnjutaEditor *editor, IAnjutaIterable *insert_pos,
 					  gchar ch, CppJavaAssist *assist)
 {
-	gboolean enable_complete =
-		anjuta_preferences_get_bool_with_default (assist->priv->preferences,
-												 PREF_AUTOCOMPLETE_ENABLE,
-												 TRUE);
-	
 	gboolean enable_calltips =
 		anjuta_preferences_get_bool_with_default (assist->priv->preferences,
 												 PREF_CALLTIP_ENABLE,
 												 TRUE);
-	cpp_java_assist_check (assist, enable_complete, enable_calltips, ch == '\b');
+	cpp_java_assist_check (assist, enable_calltips, (ch == '\b'));
 }
 
 static void
-on_editor_backspace (IAnjutaEditor* editor, CppJavaAssist* assist)
+cpp_java_assist_populate (IAnjutaProvider* self, IAnjutaIterable* iter, GError** e)
 {
-	on_editor_char_added (editor, NULL, '\b', assist);
-}
+	CppJavaAssist* assist = CPP_JAVA_ASSIST (self);
+	IAnjutaEditor *editor;
+	gboolean autocomplete = anjuta_preferences_get_bool_with_default (assist->priv->prefs,
+	                                                                  AUTOCOMPLETE_ENABLE,
+	                                                                  TRUE);	
+	editor = IANJUTA_EDITOR (assist->priv->iassist);
+	
+	if (autocomplete)
+	{
+		gboolean shown = FALSE;
+		g_free (assist->priv->pre_word);
+		assist->priv->pre_word = cpp_java_assist_get_pre_word (editor, iter);
+		DEBUG_PRINT ("Pre word: %s", assist->priv->pre_word);
+
+		if (assist->priv->pre_word && strlen (assist->priv->pre_word) > 3)
+		{
+			if (!assist->priv->search_cache ||
+			    !g_str_has_prefix (assist->priv->pre_word, assist->priv->search_cache))
+			{
+					cpp_java_assist_create_word_completion_cache(assist);
+			}
+			else
+				shown = cpp_java_assist_update_autocomplete (assist);
+		}
+	}
+} 
 
 static void
-on_assist_chosen (IAnjutaEditorAssist* iassist, gint selection,
-				  CppJavaAssist* assist)
+cpp_java_assist_activate (IAnjutaProvider* self, IAnjutaIterable* cursor, gpointer data);
 {
+	CppJavaAssist assist = CPP_JAVA_ASSIST(self);
 	CppJavaAssistTag *tag;
 	IAnjutaIterable *cur_pos;
 	GString *assistance;
@@ -761,13 +762,7 @@ on_assist_chosen (IAnjutaEditorAssist* iassist, gint selection,
 	
 	//DEBUG_PRINT ("assist-chosen: %d", selection);
 	
-	if (assist->priv->completion_cache->cache)
-		tag = g_list_nth_data (assist->priv->completion_cache->cache,
-							   selection);
-	else
-		tag = g_list_nth_data (assist->priv->completion_cache->items,
-							   selection);
-	
+	tag = data;	
 	assistance = g_string_new (tag->name);
 	
 	if (tag->is_func)
@@ -788,38 +783,27 @@ on_assist_chosen (IAnjutaEditorAssist* iassist, gint selection,
 	}
 	
 	te = IANJUTA_EDITOR (assist->priv->iassist);
-	cur_pos = ianjuta_editor_get_position (te, NULL);
-	iter = ianjuta_iterable_clone (cur_pos, NULL);
-	
-	if (ianjuta_iterable_previous (iter, NULL))
-	{
-		pre_word = cpp_java_assist_get_pre_word (te, iter);
-	}
-	
+		
 	ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (te), NULL);
-	if (pre_word)
+	
+	if (ianjuta_iterable_compare(iter, assist->priv->start_iter) != 0)
 	{
-		ianjuta_iterable_next (iter, NULL);
 		ianjuta_editor_selection_set (IANJUTA_EDITOR_SELECTION (te),
-									  iter, cur_pos, FALSE, NULL);
+									  assist->priv->start_iter, iter, FALSE, NULL);
 		ianjuta_editor_selection_replace (IANJUTA_EDITOR_SELECTION (te),
 										  assistance->str, -1, NULL);
-		g_free (pre_word);
 	}
 	else
 	{
-		ianjuta_editor_insert (te, cur_pos, assistance->str, -1, NULL);
+		ianjuta_editor_insert (te, iter, assistance->str, NULL);
 	}
-	g_object_unref (iter);
-	g_object_unref (cur_pos);
-
+	g_object_unref (assist->priv->start_iter);
+	assist->priv->start_iter = NULL;
 	ianjuta_document_end_undo_action (IANJUTA_DOCUMENT (te), NULL);
-	
-	ianjuta_editor_assist_hide_suggestions (assist->priv->iassist, NULL);
 	
 	/* Show calltip if we completed function */
 	if (add_brace_after_func)
-		cpp_java_assist_check (assist, FALSE, TRUE, FALSE);
+		cpp_java_assist_check (assist, TRUE, FALSE);
 	
 	g_string_free (assistance, TRUE);
 }
@@ -829,27 +813,15 @@ cpp_java_assist_install (CppJavaAssist *assist, IAnjutaEditorAssist *iassist)
 {
 	g_return_if_fail (assist->priv->iassist == NULL);
 	
-	assist->priv->iassist = iassist;
-	g_signal_connect (iassist, "char-added",
-					  G_CALLBACK (on_editor_char_added), assist);
-	g_signal_connect (iassist, "backspace",
-					  G_CALLBACK (on_editor_backspace), assist);
-	g_signal_connect (iassist, "assist-chosen",
-					  G_CALLBACK(on_assist_chosen), assist);
+	ianjuta_editor_assist_add (iassist, IANJUTA_PROVIDER(assist));
 }
 
 static void
 cpp_java_assist_uninstall (CppJavaAssist *assist)
 {
 	g_return_if_fail (assist->priv->iassist != NULL);
-	g_signal_handlers_disconnect_by_func (assist->priv->iassist,
-										  G_CALLBACK(on_assist_chosen), assist);
-	g_signal_handlers_disconnect_by_func (assist->priv->iassist,
-										  G_CALLBACK (on_editor_char_added),
-										  assist);
- g_signal_handlers_disconnect_by_func (assist->priv->iassist,
 
-  G_CALLBACK (on_editor_backspace), assist);
+	ianjuta_editor_assist_remove (assist->priv->iassist, IANJUTA_PROVIDER(assist));
 
 	assist->priv->iassist = NULL;
 }
@@ -893,4 +865,12 @@ cpp_java_assist_new (IAnjutaEditorAssist *iassist,
 	assist->priv->preferences = prefs;
 	cpp_java_assist_install (assist, iassist);
 	return assist;
+}
+
+static void cpp_java_assist_iface_init(IAnjutaProviderIface* iface)
+{
+	iface->populate = cpp_java_assist_populate;
+	iface->get_start_iter = cpp_java_assist_get_start_iter;
+	iface->activate = cpp_java_assist_activate;
+	iface->cancelled = cpp_java_assist_cancelled;
 }

@@ -68,7 +68,6 @@ struct SourceviewPrivate {
 	GSList* idle_sources;
 	
 	/* Assist */
-	AssistWindow* assist_win;
 	AssistTip* assist_tip;
 	
 	/* Hover */

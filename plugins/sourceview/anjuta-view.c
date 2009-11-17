@@ -439,11 +439,7 @@ static gint
 anjuta_view_focus_out (GtkWidget *widget, GdkEventFocus *event)
 {
 	AnjutaView *view = ANJUTA_VIEW (widget);
-	AssistWindow* assist_win = view->priv->sv->priv->assist_win;
 	AssistTip* assist_tip = view->priv->sv->priv->assist_tip;
-	
-	if (assist_win)
-		gtk_widget_destroy(GTK_WIDGET(assist_win));
 	
 	if (assist_tip)
 		gtk_widget_destroy(GTK_WIDGET(assist_tip));
@@ -675,20 +671,10 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 {
 	GtkTextBuffer *buffer;
 	AnjutaView* view = ANJUTA_VIEW(widget);
-	AssistWindow* assist_win;
 	AssistTip* assist_tip;
 	
 	buffer  = gtk_text_view_get_buffer (GTK_TEXT_VIEW (view));
 	
-	assist_win = view->priv->sv->priv->assist_win;
-	if (assist_win)
-	{
-		if (assist_window_filter_keypress(assist_win, event->keyval))
-		{
-			DEBUG_PRINT("key filtered: %d", event->keyval);
-			return TRUE;
-		}
-	}
 	assist_tip = view->priv->sv->priv->assist_tip;
 	if (assist_tip)
 	{
@@ -713,11 +699,6 @@ anjuta_view_button_press_event	(GtkWidget *widget, GdkEventButton *event)
 	
   /* If we have a calltip shown - hide it */
   AssistTip* assist_tip = view->priv->sv->priv->assist_tip;
-  AssistWindow* assist_win = view->priv->sv->priv->assist_win;
-  if (assist_win)
-  {
-    gtk_widget_destroy (GTK_WIDGET (assist_win));
-  }
 	if (assist_tip)
 	{
     gtk_widget_destroy (GTK_WIDGET (assist_tip));

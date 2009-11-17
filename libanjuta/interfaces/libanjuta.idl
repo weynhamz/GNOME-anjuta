@@ -1931,45 +1931,10 @@ interface IAnjutaEditor
 	 * @include: libanjuta/interfaces/ianjuta-editor-assist.h
 	 * 
 	 */
-	interface IAnjutaEditorAssist
+	interface IAnjutaEditorTip
 	{
-		/* IAnjutaEdiotrAssist::assist_chosen:
-		 * @obj: self
-		 * @selection: The selection index
-		 * @err: Error propagation and reporting
-		 *
-		 * User's selection from the choices. It is the index of the choice
-		 * presented with ianjuta_editor_assist_suggest().
-		 */
-		void ::assist_chosen (gint selection);
-		
 		/**
-		 * ianjuta_editor_assist_suggest:
-		 * @obj: Self
-		 * @choices: list of choices.
- 		 * @char_alignment: Character alignment.
-		 * @err: Error propagation and reporting
-		 * 
-		 * Suggest a list of choices to the user. The suggestions are viewed 
-		 * at char_alignment which should be the beginning of the completed word.
-		 * If choices is NULL, and assist_end signal
-		 * will occur
-		 *
-		 */
-		void suggest (List<const gchar*> choices, IAnjutaIterable *position, int char_alignment);
-		
-		/**
-		 * ianjuta_editor_assist_hide_suggestions:
-		 * @obj: Self
-		 * @err: Error propagation and reporting
-		 *
-		 * Hide current suggestions but do not emit assist_end signal.
-		 * This is useful when temporary waiting for more context
-		 */
-		void hide_suggestions ();
-		
-		/**
-		 * ianjuta_editor_assist_tip:
+		 * ianjuta_editor_tip_show:
 		 * @obj: Self
 		 * @tips: list of alternative tips.
 		 * @char_alignment: Character alignment.
@@ -1983,42 +1948,93 @@ interface IAnjutaEditor
 		 * position when the choices are displayed.
 		 *
 		 */
-		void show_tips (List<const gchar*> tips, IAnjutaIterable *position, gint char_alignment);
+		void show (List<const gchar*> tips, IAnjutaIterable *position, gint char_alignment);
 		
 		/**
-		 * ianjuta_editor_assist_cancel_tip:
+		 * ianjuta_editor_tip_cancel
 		 * @obj: Self
 		 * @err: Error propagation and reporting
 		 *
 		 * Cancels the last shown tooltip
 		 */
-		void cancel_tips ();
+		void cancel ();
 		
 		/**
-		 * ianjuta_editor_assist_tip_shown:
+		 * ianjuta_editor_tip_visible:
 		 * @obj: Self
 		 * @err: Error propagation and reporting
 		 * 
 		 * Returns: whether a tooltip is crrently shown		
 		 */
-		gboolean tip_shown();
-		
-		/**
-		 * ianjuta_editor_assist_get_suggestions:
-		 * @obj: Self
-		 * @context: The context for the suggestions.
-		 * @err: Error propagation and reporting
-		 *
-		 * Usually the editor might have some suggestions to make
-		 * for a context. For example in a simple word completion context.
-		 * The list of suggestion returned is allocated dynamically. The whole
-		 * list, including the the strings should be freed when done.
-		 * If the editor has no suggestions to make, it returns NULL.
-		 * 
-		 * Returns: A list of dynamically allocated strings for the given context or NULL
-		 * if there is nothing to suggest.
-		 */
-		List<const gchar*> get_suggestions (const gchar *context);
+		gboolean visible();
+	}
+
+  /**
+	 * SECTION:ianjuta-editor-assist
+	 * @title: IAnjutaEditorAssist
+	 * @short_description: Text editor assist interface
+	 * @see_also: 
+	 * @stability: Unstable
+	 * @include: libanjuta/interfaces/ianjuta-editor-assist
+	 * 
+	 */
+  interface IAnjutaEditorAssist
+	{
+     #include <libanjuta/interfaces/ianjuta-provider.h>
+     
+     struct Proposal
+     {
+        gchar* label;
+        gchar* markup;
+        gchar* info;
+        gchar* text;
+        GdkPixbuf* icon;
+        gpointer data;
+     }
+     
+     /*
+      * ianjuta_editor_assist_add
+      * @obj: self
+      * @provider: a IAnjutaProvider
+      * @err: Error handling
+      *
+      * Add a provider to the list of completion providers
+      */
+      void add(IAnjutaProvider* provider);
+
+     /*
+      * ianjuta_editor_assist_remove
+      * @obj: self
+      * @provider: a IAnjutaProvider
+      * @err: Error handling
+      *
+      * Remove a provider from the list of completion providers
+      */
+      void remove(IAnjutaProvider* provider);
+      
+     /*
+      * ianjuta_editor_assist_invoke
+      * @obj: self
+      * @provider: a IAnjutaProvider
+      * @err: Error handling
+      *
+      * Force invokation of a provider at the current cursor position
+      */
+      void invoke(IAnjutaProvider* provider);
+      
+     /*
+      * ianjuta_editor_assist_proposals
+      * @obj: self
+      * @provider: a IAnjutaProvider
+      * @proposals: a list of IAnjutaProposals
+      * @finished: whether is was the last call in an async operation
+      * @err: Error handling
+      *
+      * Add the list of proposals for the current population. You can add
+      * proposals async as long as the last call sets finished to TRUE.
+      *
+      */
+      void proposals(IAnjutaProvider* provider, GList* proposals. gboolean finished);
 	}
 	
 	/**
@@ -2034,7 +2050,7 @@ interface IAnjutaEditor
 	{
 	  #include <libanjuta/interfaces/ianjuta-iterable.h>
 	  
-	  /* IAnjutaEditorAssist::hover-over:
+	  /* IAnjutaEditorHover::hover-over:
 		 * @obj: self
 		 * @position: IAnjutaEditorCell specifying the position the mouse is over
 		 *
@@ -2043,7 +2059,7 @@ interface IAnjutaEditor
 		 */
 		void ::hover_over (GObject* position);
 
-	  /* IAnjutaEditorAssist::hover-leave
+	  /* IAnjutaEditorHover::hover-leave
 		 * @obj: self
 		 * @position: IAnjutaEditorCell specifying the position the mouse was over
 		 *
@@ -2438,6 +2454,61 @@ interface IAnjutaEditorFactory
 	 * Return value: An object implementing IAnjutaEditor
 	 */
 	IAnjutaEditor* new_editor (GFile* file, const gchar* filename);
+}
+
+/**
+ * SECTION:ianjuta-provider
+ * @title: IAnjutaProvider
+ * @short_description: Provider for autocompletion features
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-provider.h
+ */
+interface IAnjutaProvider
+{
+  #include "ianjuta-iterable.h"
+  
+ /**
+	* ianjuta_provider_populate
+	* @obj: Self
+	* @iter: the text iter where the provider should be populated
+	* @err: Error propagation and reporting.
+	* 
+ 	* Show completion for the context at position @iter
+	*/
+  void populate(IAnjutaIterable* iter);
+  
+ /**
+	* ianjuta_provider_get_start_iter
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+ 	* Get the iter where the current completion started
+ 	*
+ 	* Returns: current start iter
+	*/
+  IAnjutaIterable* get_start_iter();
+ 
+ /**
+	* ianjuta_provider_activate
+	* @obj: Self
+	* @iter: position where the completion occurs
+	* @data: data assigned to the proposal
+	* @err: Error propagation and reporting.
+	* 
+ 	* Show completion for the context at position @iter
+	*/
+  void activate(IAnjutaIterable* iter, gpointer data);
+
+ /**
+	* ianjuta_provider_cancelled
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+ 	* Called when the current completion was cancelled
+	*/
+  void cancelled();
+
 }
 
 /**

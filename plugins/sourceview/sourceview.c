@@ -39,16 +39,19 @@
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
 #include <libanjuta/interfaces/ianjuta-editor-assist.h>
+#include <libanjuta/interfaces/ianjuta-editor-tip.h>
 #include <libanjuta/interfaces/ianjuta-editor-convert.h>
 #include <libanjuta/interfaces/ianjuta-editor-language.h>
 #include <libanjuta/interfaces/ianjuta-editor-search.h>
 #include <libanjuta/interfaces/ianjuta-editor-hover.h>
+#include <libanjuta/interfaces/ianjuta-provider.h>
 
 #include <gtksourceview/gtksourceview.h>
 #include <gtksourceview/gtksourcelanguage.h>
 #include <gtksourceview/gtksourcelanguagemanager.h>
 #include <gtksourceview/gtksourcebuffer.h>
 #include <gtksourceview/gtksourceiter.h>
+#include <gtksourceview/gtksourcecompletionitem.h>
 
 #include "config.h"
 #include "anjuta-view.h"
@@ -59,6 +62,7 @@
 #include "sourceview-prefs.h"
 #include "sourceview-print.h"
 #include "sourceview-cell.h"
+#include "sourceview-provider.h"
 #include "plugin.h"
 		 
 #define FORWARD 	0
@@ -222,32 +226,10 @@ sourceview_set_message_area (Sourceview* sv,  GtkWidget *message_area)
 }
 
 /* Callbacks */
-
-static void
-on_assist_window_destroyed (Sourceview* sv, gpointer where_object_was)
-{
-	sv->priv->assist_win = NULL;
-}
-
 static void 
 on_assist_tip_destroyed (Sourceview* sv, gpointer where_object_was)
 {
 	sv->priv->assist_tip = NULL;
-}
-
-static void 
-on_assist_chosen(AssistWindow* assist_win, gint num, Sourceview* sv)
-{
-	g_signal_emit_by_name(G_OBJECT(sv), "assist-chosen", num);
-}
-
-static void 
-on_assist_cancel(AssistWindow* assist_win, Sourceview* sv)
-{
-	if (sv->priv->assist_win)
-	{
-		gtk_widget_destroy(GTK_WIDGET(sv->priv->assist_win));
-	}
 }
 
 static void on_insert_text (GtkTextBuffer* buffer, 
@@ -597,9 +579,6 @@ static void
 sourceview_adjustment_changed(GtkAdjustment* ad, Sourceview* sv)
 {
 	/* Hide assistance windows when scrolling vertically */
-
-	if (sv->priv->assist_win)
-		gtk_widget_destroy (GTK_WIDGET (sv->priv->assist_win));
 	if (sv->priv->assist_tip)
 		gtk_widget_destroy (GTK_WIDGET (sv->priv->assist_tip));
 }
@@ -668,8 +647,6 @@ sourceview_dispose(GObject *object)
 {
 	Sourceview *cobj = ANJUTA_SOURCEVIEW(object);
 	GSList* node;
-	if (cobj->priv->assist_win)
-		on_assist_cancel(cobj->priv->assist_win, cobj);
 	if (cobj->priv->assist_tip)
 		gtk_widget_destroy(GTK_WIDGET(cobj->priv->assist_tip));
 	g_object_unref (cobj->priv->io);
@@ -1995,98 +1972,9 @@ ilanguage_iface_init (IAnjutaEditorLanguageIface *iface)
 	iface->set_language = ilanguage_set_language;
 }
 
-/* Maximal found autocompletition words */
-const gchar* AUTOCOMPLETE_REGEX = "\\s%s[\\w_*]*\\s";
-static GList*
-iassist_get_suggestions (IAnjutaEditorAssist *iassist, const gchar *context, GError **err)
-{
-	GList* words = NULL;
-	GError* error = NULL;
-	GMatchInfo *match_info;
-	gchar* text = ianjuta_editor_get_text_all (IANJUTA_EDITOR(iassist), NULL);
-	gchar* expr = g_strdup_printf (AUTOCOMPLETE_REGEX, context);
-	GRegex* regex = g_regex_new (expr, 0, 0, &error);
-	g_free(expr);
-	
-	if (error)
-	{
-		g_regex_unref(regex);
-		g_error_free(error);
-		return NULL;
-	}
-	
-	g_regex_match (regex, text, 0, &match_info);
-	while (g_match_info_matches (match_info))
-	{
-		gchar* word = g_match_info_fetch (match_info, 0);
-		g_strstrip(word);
-		if (strlen(word) <= 3 || g_str_equal (word, context) ||
-			g_list_find_custom (words, word, (GCompareFunc)strcmp) != NULL)
-			g_free(word);
-		else
-			words = g_list_prepend (words, word);
-		g_match_info_next (match_info, NULL);
-	}
-	g_match_info_free (match_info);
-	g_regex_unref (regex);
-	
-	return words;
-}
-
-static void
-iassist_suggest (IAnjutaEditorAssist *iassist, GList* choices, IAnjutaIterable* ipos,
-				 int char_alignment, GError **err)
-{
-	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
-	
-	if (choices == NULL)
-	{
-		if (sv->priv->assist_win)
-			gtk_widget_destroy(GTK_WIDGET(sv->priv->assist_win));
-	}
-	else
-	{
-		if (!sv->priv->assist_win)
-		{
-			sv->priv->assist_win = assist_window_new(GTK_TEXT_VIEW(sv->priv->view), NULL,
-													 ianjuta_iterable_get_position (ipos, NULL));
-			g_object_weak_ref (G_OBJECT(sv->priv->assist_win),
-			                   (GWeakNotify)on_assist_window_destroyed, sv);
-			g_signal_connect(G_OBJECT(sv->priv->assist_win), "chosen", 
-								 G_CALLBACK(on_assist_chosen), sv);
-			g_signal_connect(G_OBJECT(sv->priv->assist_win), "cancel", 
-								 G_CALLBACK(on_assist_cancel), sv);
-		}
-		assist_window_update(sv->priv->assist_win, choices);
-		gtk_widget_show(GTK_WIDGET(sv->priv->assist_win));
-		if (char_alignment > 0)
-		{
-			/* Calculate offset */
-			GtkTextIter cursor;
-			GtkTextBuffer* buffer = GTK_TEXT_BUFFER (sv->priv->document);
-			gtk_text_buffer_get_iter_at_mark (buffer,
-											  &cursor,
-											  gtk_text_buffer_get_insert(buffer));
-			
-			gint offset = gtk_text_iter_get_offset (&cursor);
-			assist_window_move(sv->priv->assist_win, offset - char_alignment);
-		}
-	}
-}
-
-static void
-iassist_hide_suggestions (IAnjutaEditorAssist* iassist, GError** err)
-{
-	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
-	if (sv->priv->assist_win)
-	{
-		gtk_widget_hide (GTK_WIDGET (sv->priv->assist_win));
-	}
-}
-
 static void 
-iassist_show_tips (IAnjutaEditorAssist *iassist, GList* tips, IAnjutaIterable* ipos,
-				   gint char_alignment, GError **err)
+itips_show (IAnjutaEditorTip *iassist, GList* tips, IAnjutaIterable* ipos,
+            gint char_alignment, GError **err)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
 	SourceviewCell* cell = SOURCEVIEW_CELL (ipos);
@@ -2113,7 +2001,7 @@ iassist_show_tips (IAnjutaEditorAssist *iassist, GList* tips, IAnjutaIterable* i
 }
 
 static void
-iassist_cancel_tips (IAnjutaEditorAssist* iassist, GError** err)
+itips_cancel (IAnjutaEditorTip* iassist, GError** err)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
 	if (sv->priv->assist_tip)
@@ -2121,22 +2009,123 @@ iassist_cancel_tips (IAnjutaEditorAssist* iassist, GError** err)
 }
 
 static gboolean
-iassist_tip_shown (IAnjutaEditorAssist* iassist, GError** err)
+itips_visible (IAnjutaEditorTip* iassist, GError** err)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
 	return (sv->priv->assist_tip != NULL);
 }
 
 static void
-iassist_iface_init(IAnjutaEditorAssistIface* iface)
+itip_iface_init(IAnjutaEditorTipIface* iface)
 {
-	iface->suggest = iassist_suggest;
-	iface->hide_suggestions = iassist_hide_suggestions;
-	iface->get_suggestions = iassist_get_suggestions;
-	iface->show_tips = iassist_show_tips;
-	iface->cancel_tips = iassist_cancel_tips;
-	iface->tip_shown = iassist_tip_shown;
+	iface->show = itips_show;
+	iface->cancel = itips_cancel;
+	iface->visible = itips_visible;
 }
+
+static void
+iassist_add(IAnjutaEditorAssist* iassist, 
+            IAnjutaProvider* provider,
+            GError** e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
+	GtkSourceCompletion* completion = gtk_source_view_get_completion(GTK_SOURCE_VIEW(sv->priv->view));
+	gtk_source_completion_add_provider(completion, 
+	                                   GTK_SOURCE_COMPLETION_PROVIDER(sourceview_provider_new(sv, provider)),
+	                                   NULL);
+}
+
+static void
+iassist_remove(IAnjutaEditorAssist* iassist, 
+               IAnjutaProvider* provider,
+               GError** e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
+	GtkSourceCompletion* completion = gtk_source_view_get_completion(GTK_SOURCE_VIEW(sv->priv->view));
+	gtk_source_completion_remove_provider(completion, 
+	                                      GTK_SOURCE_COMPLETION_PROVIDER(sourceview_provider_new(sv, provider)),
+	                                      NULL);
+}
+
+static void
+iassist_invoke(IAnjutaEditorAssist* iassist, 
+               IAnjutaProvider* provider,
+               GError** e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
+	GtkSourceCompletion* completion = gtk_source_view_get_completion(GTK_SOURCE_VIEW(sv->priv->view));
+	GList* node;
+	for (node = gtk_source_completion_get_providers(completion); node != NULL; node = g_list_next(node))
+	{
+		SourceviewProvider* prov = SOURCEVIEW_PROVIDER(node->data);
+		if (prov->iprov == provider)
+		{
+			GList* list = g_list_append(NULL, prov);
+			GtkTextIter iter;
+			GtkSourceCompletionContext* context;
+			gtk_text_buffer_get_iter_at_mark (GTK_TEXT_BUFFER (sv->priv->document),
+			                                  &iter,
+			                                  gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(sv->priv->document)));
+			context = 
+				gtk_source_completion_create_context(completion, &iter);
+			gtk_source_completion_show(completion, list, context);
+			g_list_free(list);
+		}
+	}
+}
+
+static void
+iassist_proposals(IAnjutaEditorAssist* iassist, 
+                  IAnjutaProvider* provider,
+                  GList* proposals,
+                  gboolean finished
+                  GError** e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
+	GtkSourceCompletion* completion = gtk_source_view_get_completion(GTK_SOURCE_VIEW(sv->priv->view));
+	GList* node;
+	for (node = gtk_source_completion_get_providers(completion); node != NULL; node = g_list_next(node))
+	{
+		SourceviewProvider* prov = SOURCEVIEW_PROVIDER(node->data);
+		if (prov->iprov == provider)
+		{
+    	GList* prop;
+   	  GList* items = NULL;
+    	for (prop = proposals; prop != NULL; prop = g_list_next(node))
+    	{
+    	  IAnjutaEditorAssistProposal* proposal = node->data;
+    	  GtkSourceCompletionItem* item;
+    	  if (proposal->markup)
+    	  {    	    
+    	     item = gtk_source_completion_item_new_with_markup(proposal->markup,
+									 		  	                                   proposal->text,
+    	             										                       proposal->icon,
+    	             										                       proposal->info);
+    	  }
+    	  else
+    	  {
+    	     item = gtk_source_completion_item_new_with_markup(proposal->markup,
+    	                                                       proposal->text,
+    	                                                       proposal->icon,
+    	                                    									 proposal->info);
+    	  }    	                                    
+    	  items = g_list_append (items, item);
+    	  g_object_set_data (G_OBJECT(item), "__data", proposal->data);
+    	}
+    	gtk_source_completion_context_add_proposals (prov->context, GTK_SOURCE_COMPLETION_PROVIDER(prov),
+    																							 items, finished);
+		}
+	}
+}
+	
+static void	iassist_iface_init(IAnjutaEditorAssistIface* iface)
+{
+	iface->add = iassist_add;
+	iface->remove = iassist_remove;
+	iface->invoke = iassist_invoke;
+	iface->proposals = iassist_proposals;
+}
+
 
 static gboolean
 isearch_forward (IAnjutaEditorSearch* isearch,
@@ -2324,6 +2313,7 @@ ANJUTA_TYPE_ADD_INTERFACE(imark, IANJUTA_TYPE_MARKABLE);
 ANJUTA_TYPE_ADD_INTERFACE(iindic, IANJUTA_TYPE_INDICABLE);
 ANJUTA_TYPE_ADD_INTERFACE(iselect, IANJUTA_TYPE_EDITOR_SELECTION);
 ANJUTA_TYPE_ADD_INTERFACE(iassist, IANJUTA_TYPE_EDITOR_ASSIST);
+ANJUTA_TYPE_ADD_INTERFACE(itip, IANJUTA_TYPE_EDITOR_TIP);
 ANJUTA_TYPE_ADD_INTERFACE(iconvert, IANJUTA_TYPE_EDITOR_CONVERT);
 ANJUTA_TYPE_ADD_INTERFACE(iprint, IANJUTA_TYPE_PRINT);
 ANJUTA_TYPE_ADD_INTERFACE(ilanguage, IANJUTA_TYPE_EDITOR_LANGUAGE);
