@@ -91,7 +91,6 @@ plugins/gbf-am/gbf-am-properties.c
 plugins/gbf-mkfile/gbf-mkfile-config.c
 plugins/gbf-mkfile/gbf-mkfile-project.c
 plugins/gbf-mkfile/gbf-mkfile-properties.c
-plugins/gdb/anjuta-gdb.glade
 plugins/gdb/debugger.c
 plugins/gdb/plugin.c
 plugins/gdb/utilities.c
@@ -107,6 +106,7 @@ plugins/git/git-commit-dialog.c
 plugins/git/git-create-branch-dialog.c
 plugins/git/git-create-tag-dialog.c
 plugins/git/git-delete-branch-dialog.c
+plugins/git/git-delete-tag-dialog.c
 plugins/git/git-fetch-dialog.c
 plugins/git/git-log-dialog.c
 plugins/git/git-merge-dialog.c
@@ -117,6 +117,7 @@ plugins/git/git-remove-dialog.c
 plugins/git/git-reset-dialog.c
 plugins/git/git-resolve-dialog.c
 plugins/git/git-revert-dialog.c
+plugins/git/git-stash-widget.c
 plugins/git/git-switch-dialog.c
 plugins/git/git-ui-utils.c
 plugins/git/git-unstage-dialog.c
@@ -229,6 +230,7 @@ plugins/debug-manager/signals.c
 plugins/debug-manager/stack_trace.c
 plugins/debug-manager/start.c
 plugins/debug-manager/watch.c
+plugins/debug-manager/anjuta-debug-manager.schemas.in
 [type: gettext/glade]plugins/language-support-cpp-java/anjuta-language-cpp-java.ui
 plugins/language-support-cpp-java/plugin.c
 plugins/sourceview/plugin.c

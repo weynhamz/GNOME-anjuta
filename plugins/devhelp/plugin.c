@@ -219,7 +219,7 @@ static GtkActionEntry actions[] = {
 	{
 		"ActionMenuGoto",
 		NULL,
-		N_("_Goto"),
+		N_("_Go to"),
 		NULL,
 		NULL,
 		NULL

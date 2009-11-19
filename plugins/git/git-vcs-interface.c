@@ -84,7 +84,7 @@ git_ivcs_checkout (IAnjutaVcs *obj,
 	path = g_file_get_path (parent);
 	dir_name = g_file_get_basename (dest);
 	
-	clone_command = git_clone_command_new (repository_location, path, dir_name);
+	clone_command = git_clone_command_new (path, repository_location, dir_name);
 	plugin = ANJUTA_PLUGIN_GIT (obj);
 
 	g_object_unref (parent);
@@ -96,6 +96,10 @@ git_ivcs_checkout (IAnjutaVcs *obj,
 	g_signal_connect (G_OBJECT (clone_command), "data-arrived",
 	                  G_CALLBACK (on_git_command_info_arrived),
 	                  plugin);
+
+	g_signal_connect (G_OBJECT (clone_command), "command-finished",
+	                  G_CALLBACK (g_object_unref),
+	                  NULL);
 
 	if (cancel)
 	{
@@ -269,7 +273,8 @@ git_ivcs_query_status (IAnjutaVcs *obj, GFile *file,
 		                          notify);
 	}
 
-	anjuta_command_start (ANJUTA_COMMAND (status_command));
+	anjuta_command_queue_push (ANJUTA_PLUGIN_GIT (obj)->command_queue,
+	                           ANJUTA_COMMAND (status_command));
 }
 
 void 

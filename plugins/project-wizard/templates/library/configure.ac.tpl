@@ -5,7 +5,7 @@ dnl Created by Anjuta application wizard.
 AC_INIT([+NameHLower+], [+Version+])
 
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
-AM_CONFIG_HEADER(config.h)
+AC_CONFIG_HEADERS([config.h])
 AM_MAINTAINER_MODE
 
 AC_ISC_POSIX
@@ -13,12 +13,14 @@ AC_PROG_CC
 AM_PROG_CC_STDC
 AC_HEADER_STDC
 
-AC_PATH_PROG(VALAC, valac)
-AC_SUBST(VALAC)
+[+IF (=(get "HaveLangCPP") "1")+]
+AC_PROG_CPP
+AC_PROG_CXX
+[+ENDIF+]
 
 [+IF (=(get "HaveI18n") "1")+]
 dnl ***************************************************************************
-dnl Internationalization
+dnl Internatinalization
 dnl ***************************************************************************
 GETTEXT_PACKAGE=[+NameHLower+]
 AC_SUBST(GETTEXT_PACKAGE)
@@ -27,36 +29,14 @@ AM_GLIB_GNU_GETTEXT
 IT_PROG_INTLTOOL([0.35.0])
 [+ENDIF+]
 
-[+IF (=(get "HaveSharedlib") "1")+]
-AM_PROG_LIBTOOL
-[+ENDIF+]
-
-PKG_CHECK_MODULES(LIBANJUTA, [libanjuta-1.0])
-AC_SUBST(LIBANJUTA_CFLAGS)
-AC_SUBST(LIBANJUTA_LIBS)
+[+CASE (get "LibraryType") +]
+[+ == "Static" +]AC_DISABLE_SHARED
+[+ == "Shared" +]AC_DISABLE_STATIC
+[+ESAC+]AM_PROG_LIBTOOL
 
 [+IF (=(get "HavePackage") "1")+]
 PKG_CHECK_MODULES([+NameCUpper+], [[+PackageModule1+] [+PackageModule2+] [+PackageModule3+] [+PackageModule4+] [+PackageModule5+]])
-AC_SUBST([+NameCUpper+]_CFLAGS)
-AC_SUBST([+NameCUpper+]_LIBS)
 [+ENDIF+]
-
-dnl Setup Plugin directories
-dnl ------------------------
-anjutalibdir=`pkg-config --variable=libdir libanjuta-1.0`
-anjutadatadir=`pkg-config --variable=datadir libanjuta-1.0`
-AC_SUBST(anjutalibdir)
-AC_SUBST(anjutadatadir)
-anjuta_plugin_dir='$(anjutalibdir)/anjuta'
-anjuta_data_dir='$(anjutadatadir)/anjuta'
-anjuta_ui_dir='$(anjutadatadir)/anjuta/ui'
-anjuta_glade_dir='$(anjutadatadir)/anjuta/glade'
-anjuta_image_dir='$(anjutadatadir)/pixmaps/anjuta'
-AC_SUBST(anjuta_plugin_dir)
-AC_SUBST(anjuta_data_dir)
-AC_SUBST(anjuta_ui_dir)
-AC_SUBST(anjuta_glade_dir)
-AC_SUBST(anjuta_image_dir)
 
 [+IF (=(get "HaveGtkDoc") "1")+]
 ##################################################
@@ -95,6 +75,6 @@ AM_CONDITIONAL(ENABLE_GTK_DOC, test x$enable_gtk_doc = xyes)
 
 AC_OUTPUT([
 Makefile
+src/lib[+NameHLower+]-[+Version+].pc
 src/Makefile
-[+IF (=(get "HaveI18n") "1")+]po/Makefile.in[+ENDIF+]
-])
+[+IF (=(get "HaveI18n") "1")+]po/Makefile.in[+ENDIF+]])

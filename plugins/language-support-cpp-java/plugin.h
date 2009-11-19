@@ -53,6 +53,7 @@ struct _CppJavaPlugin {
 	gint param_brace_indentation;
 	gint param_case_indentation;
 	gint param_label_indentation;
+	gboolean smart_indentation;
 	
 	/* Assist */
 	CppJavaAssist *assist;

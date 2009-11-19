@@ -307,7 +307,7 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 	{
 		error_condition = TRUE;
 		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
-								  _("Program '%s' does not exists"), target);
+								  _("Program '%s' does not exist"), target);
 	}
 	
 	if (!error_condition &&
@@ -404,20 +404,20 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 
 				g_free (oldcmd);
 			} else {
-				gchar* launcher_path = g_find_program_in_path("anjuta_launcher");
+				gchar* launcher_path = g_find_program_in_path("anjuta-launcher");
 
 				if (launcher_path != NULL)
 				{
 					gchar* oldcmd = cmd;
 				
-					cmd = g_strconcat ("anjuta_launcher ", oldcmd, NULL);
+					cmd = g_strconcat ("anjuta-launcher ", oldcmd, NULL);
 
 					g_free (oldcmd);
 					g_free (launcher_path);
 				}
 				else
 				{
-					DEBUG_PRINT("%s", "Missing anjuta_launcher");
+					DEBUG_PRINT("%s", "Missing anjuta-launcher");
 				}
 				
 			}

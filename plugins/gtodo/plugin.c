@@ -73,7 +73,7 @@ static GtkToggleActionEntry actions_view[] = {
 		NULL,
 		N_("Hide _Completed Items"),
 		NULL,
-		N_("Hide completed todo items"),
+		N_("Hide completed to-do items"),
 		G_CALLBACK (on_hide_completed_action_activate),
 		FALSE
 	},
@@ -119,13 +119,13 @@ create_gui (GTodoPlugin *gtodo_plugin)
 	/* Add all our editor actions */
 	gtodo_plugin->action_group = 
 		anjuta_ui_add_action_group_entries (ui, "ActionGroupTodoView",
-											_("Tasks manager"),
+											_("Task manager"),
 											actions_todo_view,
 											G_N_ELEMENTS (actions_todo_view),
 											GETTEXT_PACKAGE, FALSE, gtodo_plugin);
 	gtodo_plugin->action_group2 = 
 		anjuta_ui_add_toggle_action_group_entries (ui, "ActionGroupTodoViewOps",
-												_("Tasks manager view"),
+												_("Task manager view"),
 												actions_view,
 												G_N_ELEMENTS (actions_view),
 												GETTEXT_PACKAGE, TRUE, gtodo_plugin);
@@ -193,7 +193,7 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 		if (!gtodo_client_load (cl, file, &error))
 		{
 			remove_gui (ANJUTA_PLUGIN_GTODO (plugin));
-			anjuta_util_dialog_error (GTK_WINDOW (plugin->shell), "Unable to load todo file: %s", error->message);
+			anjuta_util_dialog_error (GTK_WINDOW (plugin->shell), "Unable to load TODO file: %s", error->message);
 			g_error_free (error);
 			error = NULL;
 		}
@@ -222,7 +222,7 @@ project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	if (!gtodo_client_load (cl, file, &error))
 	{
 		remove_gui (ANJUTA_PLUGIN_GTODO (plugin));
-		anjuta_util_dialog_error (GTK_WINDOW (plugin->shell), "Unable to load todo file: %s", error->message);
+		anjuta_util_dialog_error (GTK_WINDOW (plugin->shell), "Unable to load TODO file: %s", error->message);
 		g_error_free (error);
 		error = NULL;
 	}
@@ -339,7 +339,7 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 	gtodo_plugin->prefs = preferences_widget();
 	anjuta_preferences_dialog_add_page (ANJUTA_PREFERENCES_DIALOG (anjuta_preferences_get_dialog (prefs)), 
 										"GTodo",
-										_("Todo Manager"),
+										_("To-do Manager"),
 										pixbuf, gtodo_plugin->prefs);
 	g_object_unref (pixbuf);
 }
@@ -348,7 +348,7 @@ static void
 ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
 	preferences_remove_signals();
-	anjuta_preferences_remove_page(prefs, _("Todo Manager"));
+	anjuta_preferences_remove_page(prefs, _("To-do Manager"));
 }
 
 

@@ -816,6 +816,7 @@ anjuta_util_create_dir (const gchar* path)
 {
 	GFile *dir = g_file_new_for_path (path);
 	GError *err = NULL;
+	gchar *parent;
 
 	if (g_file_query_exists (dir, NULL))
 	{
@@ -832,11 +833,25 @@ anjuta_util_create_dir (const gchar* path)
 		}
 		g_object_unref (info);
 	}
-	else if (!g_file_make_directory (dir, NULL, &err))
+	else
 	{
-		g_warning ("Error directory:\n %s", err->message);
-		g_object_unref (dir);
-		return FALSE;
+		parent = g_path_get_dirname (path);
+		if (anjuta_util_create_dir (parent))
+		{
+			g_free (parent);
+			if (!g_file_make_directory (dir, NULL, &err))
+			{
+				g_warning ("Error directory:\n %s", err->message);
+				g_object_unref (dir);
+				return FALSE;
+			}
+		}
+		else
+		{
+			g_free (parent);
+			g_object_unref (dir);
+			return FALSE;
+		}
 	}
 	g_object_unref (dir);
 
@@ -968,7 +983,7 @@ anjuta_util_user_terminal (void)
 	}
 
 	/* Try xterm */
-	g_warning (_("Cannot find a terminal, using "
+	g_warning (_("Cannot find a terminal; using "
 			"xterm, even if it may not work"));
 	terminal = g_strdup ("xterm");
 
@@ -1304,8 +1319,6 @@ anjuta_util_get_file_mime_type (GFile *file)
 			const static struct {gchar *extension; gchar *type;} anjuta_types[] = {
 									{"anjuta", "application/x-anjuta"},
 									{"prj", "application/x-anjuta-old"},
-									{"ui", "text/xml"},
-									{"glade", "application/x-glade"},
 									{NULL, NULL}};
 			gint i;
 				
@@ -1345,7 +1358,7 @@ anjuta_util_get_local_path_from_uri (const gchar *uri)
 	return local_path;
 }
 
-#ifndef HAVE_LIBUTIL
+#ifdef EMULATE_FORKPTY
 #include <grp.h>
 
 static int ptym_open (char *pts_name);
@@ -1637,7 +1650,7 @@ int scandir(const char *dir, struct dirent ***namelist,
   return(i);
 }
 
-#endif /* HAVE_LIBUTIL */
+#endif /* EMULATE_FORKPTY */
 
 void
 anjuta_util_help_display (GtkWidget   *parent,
@@ -1674,9 +1687,9 @@ anjuta_util_help_display (GtkWidget   *parent,
 
 	if (uri == NULL)
 	{
-		anjuta_util_dialog_error (GTK_WINDOW (parent), _("Unable to display help. Please make sure Anjuta "
-								  "documentation package is install. It can be downloaded "
-								  "from http://anjuta.org"));
+		anjuta_util_dialog_error (GTK_WINDOW (parent), _("Unable to display help. Please make sure the Anjuta "
+								  "documentation package is installed. It can be downloaded "
+								  "from http://anjuta.org."));
 
 		return;
 	}
@@ -2178,4 +2191,31 @@ anjuta_util_builder_get_objects (GtkBuilder *builder, const gchar *first_widget,
 	 va_end (args);
 
 	return !missing;
+}
+
+/**
+ * anjuta_utils_drop_get_files:
+ * @selection_data: the #GtkSelectionData from drag_data_received
+ * @info: the info from drag_data_received
+ *
+ * Create a list of valid uri's from a uri-list drop.
+ * 
+ * Return value: a list of GFiles
+ */
+GSList*
+anjuta_utils_drop_get_files (GtkSelectionData *selection_data)
+{
+	gchar **uris;
+	gint i;
+	GSList* files = NULL;
+
+	uris = g_uri_list_extract_uris ((gchar *) gtk_selection_data_get_data (selection_data));
+
+	for (i = 0; uris[i] != NULL; i++)
+	{
+		GFile* file = g_file_new_for_commandline_arg (uris[0]);
+		files = g_slist_append(files, file);
+	}
+
+	return files;
 }

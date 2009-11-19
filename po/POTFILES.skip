@@ -13,11 +13,11 @@ plugins/macro/macros.xml
 plugins/profiler/gprof-function-call-chart-view.c
 plugins/profiler/main.c
 plugins/project-wizard/templates/anjuta-plugin/src/plugin.c
-plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade
+plugins/project-wizard/templates/anjuta-plugin/src/plugin.ui
 plugins/project-wizard/templates/gnome/src/main.c
-plugins/project-wizard/templates/gnome/src/project.glade
-plugins/project-wizard/templates/gtk/src/project.glade
-plugins/project-wizard/templates/gtkmm/src/project.glade
+plugins/project-wizard/templates/gnome/src/project.ui
+plugins/project-wizard/templates/gtk/src/project.ui
+plugins/project-wizard/templates/gtkmm/src/project.ui
 plugins/scintilla/text_editor_cbs.c
 plugins/symbol-db/symbol-db.glade
 src/anjuta_cbs.c

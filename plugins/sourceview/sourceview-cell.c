@@ -135,7 +135,6 @@ icell_get_char(IAnjutaEditorCell* icell, gint index, GError** e)
 static IAnjutaEditorAttribute
 icell_get_attribute (IAnjutaEditorCell* icell, GError **e)
 {
-	SourceviewCell* cell = SOURCEVIEW_CELL(icell);
 	IAnjutaEditorAttribute attrib = IANJUTA_EDITOR_TEXT;
 	return attrib;
 }

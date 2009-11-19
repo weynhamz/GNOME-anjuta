@@ -52,17 +52,31 @@
 #include "git-stash-changes-dialog.h"
 #include "git-stash-widget.h"
 #include "git-apply-stash-dialog.h"
+#include "git-init-dialog.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-git.xml"
 
 static gpointer parent_class;
 
+/* Give the top-level git menu its own action group. The items in the menu 
+ * are separated so that we can disable the menu's actions in one shot 
+ * without disabling the whole menu. */
+static GtkActionEntry action_git_menu_toplevel = 
+{
+	"ActionMenuGit",                       /* Action name */
+	NULL,                            /* Stock icon, if any */
+	N_("_Git"),                     /* Display label */
+	NULL,                                     /* short-cut */
+	NULL,                      /* Tooltip */
+	NULL    /* action callback */
+};
+
 static GtkActionEntry actions_git[] = 
 {
 	{
-		"ActionMenuGit",                       /* Action name */
+		"ActionMenuGitChanges",                       /* Action name */
 		NULL,                            /* Stock icon, if any */
-		N_("_Git"),                     /* Display label */
+		N_("_Changes"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		NULL,                      /* Tooltip */
 		NULL    /* action callback */
@@ -70,74 +84,10 @@ static GtkActionEntry actions_git[] =
 	{
 		"ActionGitCommit",                       /* Action name */
 		GTK_STOCK_YES,                            /* Stock icon, if any */
-		N_("_Commit..."),                     /* Display label */
+		N_("_Commit…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Commit changes to the local repository"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_commit)    /* action callback */
-	},
-	{
-		"ActionGitFetch",                       /* Action name */
-		GTK_STOCK_CONNECT,                            /* Stock icon, if any */
-		N_("_Fetch"),                     /* Display label */
-		NULL,                                     /* short-cut */
-		N_("Update remote branches"),                      /* Tooltip */
-		G_CALLBACK (on_menu_git_fetch)    /* action callback */
-	},
-	{
-		"ActionMenuGitRebase",                       /* Action name */
-		NULL,                            /* Stock icon, if any */
-		N_("_Rebase"),                     /* Display label */
-		NULL,                                     /* short-cut */
-		N_("Merge your changes with an upstream remote branch"),                      /* Tooltip */
-		NULL    /* action callback */
-	},
-	{
-		"ActionGitRebaseStart",                       /* Action name */
-		NULL,                            /* Stock icon, if any */
-		N_("_Start..."),                     /* Display label */
-		NULL,                                     /* short-cut */
-		N_("Start a rebase"),                      /* Tooltip */
-		G_CALLBACK (on_menu_git_rebase_start)    /* action callback */
-	},
-	{
-		"ActionGitRebaseContinue",                       /* Action name */
-		NULL,                            /* Stock icon, if any */
-		N_("_Continue"),                     /* Display label */
-		NULL,                                     /* short-cut */
-		N_("Continue a rebase that stopped because of conflicts"),                      /* Tooltip */
-		G_CALLBACK (on_menu_git_rebase_continue)    /* action callback */
-	},
-	{
-		"ActionGitRebaseSkip",                       /* Action name */
-		NULL,                            /* Stock icon, if any */
-		N_("_Skip"),                     /* Display label */
-		NULL,                                     /* short-cut */
-		N_("Skip the current conflicted commmit and continue"),                      /* Tooltip */
-		G_CALLBACK (on_menu_git_rebase_skip)    /* action callback */
-	},
-	{
-		"ActionGitRebaseAbort",                       /* Action name */
-		NULL,                            /* Stock icon, if any */
-		N_("_Abort"),                     /* Display label */
-		NULL,                                     /* short-cut */
-		N_("Abort the rebase and put the repository in its original state"),                      /* Tooltip */
-		G_CALLBACK (on_menu_git_rebase_abort)    /* action callback */
-	},
-		{
-		"ActionGitPush",                       /* Action name */
-		GTK_STOCK_GO_FORWARD,                            /* Stock icon, if any */
-		N_("_Push..."),                     /* Display label */
-		NULL,                                     /* short-cut */
-		N_("Push changes to a remote repository"),                      /* Tooltip */
-		G_CALLBACK (on_menu_git_push)    /* action callback */
-	},
-	{
-		"ActionGitPull",                       /* Action name */
-		GTK_STOCK_GO_BACK,                            /* Stock icon, if any */
-		N_("_Pull..."),                     /* Display label */
-		NULL,                                     /* short-cut */
-		N_("Update the working copy"),                      /* Tooltip */
-		G_CALLBACK (on_menu_git_pull)    /* action callback */
 	},
 	{
 		"ActionGitDiffUncommitted",                       /* Action name */
@@ -158,23 +108,71 @@ static GtkActionEntry actions_git[] =
 	{
 		"ActionGitStashUncommitted",                       /* Action name */
 		NULL,                            /* Stock icon, if any */
-		N_("_Stash uncommitted changes..."),                     /* Display label */
+		N_("_Stash uncommitted changes…"),                     /* Display label */
 		NULL,                                     /* short-cut */
-		N_("Save ucommitted changes and re-apply them later"),                      /* Tooltip */
+		N_("Save uncommitted changes and re-apply them later"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_stash_changes)    /* action callback */
 	},
 	{
 		"ActionGitApplyStash",                       /* Action name */
 		NULL,                            /* Stock icon, if any */
-		N_("_Apply stashed changes..."),                     /* Display label */
+		N_("_Apply stashed changes…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Apply stashed changes to the working tree"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_apply_stash)    /* action callback */
 	},
 	{
+		"ActionGitLog",                       /* Action name */
+		GTK_STOCK_ZOOM_100,                            /* Stock icon, if any */
+		N_("_View log…"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("View change history"),                      /* Tooltip */
+		G_CALLBACK (on_menu_git_log)    /* action callback */
+	},
+	{
+		"ActionMenuGitRemoteRepository",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Remote repository"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		NULL    /* action callback */
+	},
+	{
+		"ActionGitPush",                       /* Action name */
+		GTK_STOCK_GO_FORWARD,                            /* Stock icon, if any */
+		N_("_Push…"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Push changes to a remote repository"),                      /* Tooltip */
+		G_CALLBACK (on_menu_git_push)    /* action callback */
+	},
+	{
+		"ActionGitPull",                       /* Action name */
+		GTK_STOCK_GO_BACK,                            /* Stock icon, if any */
+		N_("_Pull…"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Update the working copy"),                      /* Tooltip */
+		G_CALLBACK (on_menu_git_pull)    /* action callback */
+	},
+	{
+		"ActionGitFetch",                       /* Action name */
+		GTK_STOCK_CONNECT,                            /* Stock icon, if any */
+		N_("_Fetch"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Update remote branches"),                      /* Tooltip */
+		G_CALLBACK (on_menu_git_fetch)    /* action callback */
+	},
+	{
+		"ActionMenuGitFiles",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Files"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		NULL    /* action callback */
+	},
+	{
 		"ActionGitAdd",                       /* Action name */
 		GTK_STOCK_ADD,                            /* Stock icon, if any */
-		N_("_Add..."),                     /* Display label */
+		N_("_Add…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Add files to the repository"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_add)    /* action callback */
@@ -182,7 +180,7 @@ static GtkActionEntry actions_git[] =
 	{
 		"ActionGitRemove",                       /* Action name */
 		GTK_STOCK_REMOVE,                            /* Stock icon, if any */
-		N_("_Remove..."),                     /* Display label */
+		N_("_Remove…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Remove files from the repository"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_remove)    /* action callback */
@@ -190,7 +188,7 @@ static GtkActionEntry actions_git[] =
 	{
 		"ActionGitIgnore",                       /* Action name */
 		GTK_STOCK_DIALOG_ERROR,                            /* Stock icon, if any */
-		N_("_Ignore..."),                     /* Display label */
+		N_("_Ignore…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Ignore files"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_ignore)    /* action callback */
@@ -198,7 +196,7 @@ static GtkActionEntry actions_git[] =
 	{
 		"ActionGitCheckoutFiles",                       /* Action name */
 		GTK_STOCK_UNDO,                            /* Stock icon, if any */
-		N_("_Check out files..."),                     /* Display label */
+		N_("_Check out files…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Revert uncommitted changes to files"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_checkout_files)    /* action callback */
@@ -206,7 +204,7 @@ static GtkActionEntry actions_git[] =
 	{
 		"ActionGitUnstageFiles",                       /* Action name */
 		GTK_STOCK_CANCEL,                            /* Stock icon, if any */
-		N_("_Unstage files..."),                     /* Display label */
+		N_("_Unstage files…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Remove files from the commit index"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_unstage)    /* action callback */
@@ -214,7 +212,7 @@ static GtkActionEntry actions_git[] =
 	{
 		"ActionGitResolve",                       /* Action name */
 		GTK_STOCK_PREFERENCES,                            /* Stock icon, if any */
-		N_("_Resolve conflicts..."),                     /* Display label */
+		N_("_Resolve conflicts…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Mark conflicted files as resolved"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_resolve)    /* action callback */
@@ -230,7 +228,7 @@ static GtkActionEntry actions_git[] =
 	{
 		"ActionGitCreatePatchSeries",                       /* Action name */
 		GTK_STOCK_DND_MULTIPLE,                            /* Stock icon, if any */
-		N_("Create patch series..."),                     /* Display label */
+		N_("Create patch series…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Generate patch files for submission upstream"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_create_patch_series)    /* action callback */
@@ -246,7 +244,7 @@ static GtkActionEntry actions_git[] =
 	{
 		"ActionGitApplyMailboxApply",                       /* Action name */
 		NULL,                            /* Stock icon, if any */
-		N_("_Apply..."),                     /* Display label */
+		N_("_Apply…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Start applying a patch series"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_apply_mailbox_apply)    /* action callback */
@@ -286,7 +284,7 @@ static GtkActionEntry actions_git[] =
 	{
 		"ActionGitCreateBranch",                       /* Action name */
 		NULL,                            /* Stock icon, if any */
-		N_("_Create branch..."),                     /* Display label */
+		N_("_Create branch…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Create a branch"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_create_branch)    /* action callback */
@@ -294,7 +292,7 @@ static GtkActionEntry actions_git[] =
 	{
 		"ActionGitDeleteBranch",                       /* Action name */
 		GTK_STOCK_DELETE,                            /* Stock icon, if any */
-		N_("_Delete branch..."),                     /* Display label */
+		N_("_Delete branch…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Delete branches"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_delete_branch)    /* action callback */
@@ -302,7 +300,7 @@ static GtkActionEntry actions_git[] =
 	{
 		"ActionGitSwitch",                       /* Action name */
 		GTK_STOCK_JUMP_TO,                            /* Stock icon, if any */
-		N_("_Switch to another branch..."),                     /* Display label */
+		N_("_Switch to another branch…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Switch to another branch"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_switch)    /* action callback */
@@ -310,17 +308,57 @@ static GtkActionEntry actions_git[] =
 	{
 		"ActionGitMerge",                       /* Action name */
 		GTK_STOCK_CONVERT,                            /* Stock icon, if any */
-		N_("_Merge..."),                     /* Display label */
+		N_("_Merge…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Merge changes from another branch into the current one"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_merge)    /* action callback */
 	},
 	{
+		"ActionMenuGitRebase",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Rebase"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Merge your changes with an upstream remote branch"),                      /* Tooltip */
+		NULL    /* action callback */
+	},
+	{
+		"ActionGitRebaseStart",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Start…"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Start a rebase"),                      /* Tooltip */
+		G_CALLBACK (on_menu_git_rebase_start)    /* action callback */
+	},
+	{
+		"ActionGitRebaseContinue",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Continue"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Continue a rebase that stopped because of conflicts"),                      /* Tooltip */
+		G_CALLBACK (on_menu_git_rebase_continue)    /* action callback */
+	},
+	{
+		"ActionGitRebaseSkip",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Skip"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Skip the current conflicted commit and continue"),                      /* Tooltip */
+		G_CALLBACK (on_menu_git_rebase_skip)    /* action callback */
+	},
+	{
+		"ActionGitRebaseAbort",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Abort"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Abort the rebase and put the repository in its original state"),                      /* Tooltip */
+		G_CALLBACK (on_menu_git_rebase_abort)    /* action callback */
+	},
+	{
 		"ActionGitCherryPick",                       /* Action name */
 		NULL,                            /* Stock icon, if any */
-		N_("_Cherry pick..."),                     /* Display label */
+		N_("_Cherry pick…"),                     /* Display label */
 		NULL,                                     /* short-cut */
-		N_("Selectively merge individual changes from other branches into the currrent one"),                      /* Tooltip */
+		N_("Selectively merge individual changes from other branches into the current one"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_cherry_pick)    /* action callback */
 	},
 	{
@@ -334,7 +372,7 @@ static GtkActionEntry actions_git[] =
 	{
 		"ActionGitRemoteAdd",                       /* Action name */
 		GTK_STOCK_ADD,                            /* Stock icon, if any */
-		N_("_Add..."),                     /* Display label */
+		N_("_Add…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Add a remote branch"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_add_remote)    /* action callback */
@@ -342,7 +380,7 @@ static GtkActionEntry actions_git[] =
 	{
 		"ActionGitRemoteDelete",                       /* Action name */
 		GTK_STOCK_DELETE,                            /* Stock icon, if any */
-		N_("_Delete..."),                     /* Display label */
+		N_("_Delete…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Delete a remote branch"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_delete_remote)    /* action callback */
@@ -358,7 +396,7 @@ static GtkActionEntry actions_git[] =
 	{
 		"ActionGitCreateTag",                       /* Action name */
 		NULL,                            /* Stock icon, if any */
-		N_("_Create tag..."),                     /* Display label */
+		N_("_Create tag…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Create a tag"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_create_tag)    /* action callback */
@@ -366,15 +404,23 @@ static GtkActionEntry actions_git[] =
 	{
 		"ActionGitDeleteTag",                       /* Action name */
 		NULL,                            /* Stock icon, if any */
-		N_("_Delete tag..."),                     /* Display label */
+		N_("_Delete tag…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Delete tags"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_delete_tag)    /* action callback */
 	},
 	{
+		"ActionMenuGitResetRevert",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Reset/Revert"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		NULL    /* action callback */
+	},
+	{
 		"ActionGitReset",                       /* Action name */
 		GTK_STOCK_REFRESH,                            /* Stock icon, if any */
-		N_("_Reset tree..."),                     /* Display label */
+		N_("_Reset tree…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Reset repository head to any past state"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_reset)    /* action callback */
@@ -382,7 +428,7 @@ static GtkActionEntry actions_git[] =
 	{
 		"ActionGitRevert",                       /* Action name */
 		GTK_STOCK_UNDO,                            /* Stock icon, if any */
-		N_("_Revert commit..."),                     /* Display label */
+		N_("_Revert commit…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Revert a commit"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_revert)    /* action callback */
@@ -398,7 +444,7 @@ static GtkActionEntry actions_git[] =
 	{
 		"ActionGitBisectStart",                       /* Action name */
 		GTK_STOCK_MEDIA_PLAY,                            /* Stock icon, if any */
-		N_("_Start..."),                     /* Display label */
+		N_("_Start…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Start a bisect operation"),                      /* Tooltip */
 		G_CALLBACK (on_menu_git_bisect_start)    /* action callback */
@@ -428,13 +474,13 @@ static GtkActionEntry actions_git[] =
 		G_CALLBACK (on_menu_git_bisect_bad)    /* action callback */
 	},
 	{
-		"ActionGitLog",                       /* Action name */
-		GTK_STOCK_ZOOM_100,                            /* Stock icon, if any */
-		N_("_View log..."),                     /* Display label */
+		"ActionGitInit",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_Initialize repository"),                     /* Display label */
 		NULL,                                     /* short-cut */
-		N_("View change history"),                      /* Tooltip */
-		G_CALLBACK (on_menu_git_log)    /* action callback */
-	}
+		N_("Create a new git repository or reinitialize an existing one"),                      /* Tooltip */
+		G_CALLBACK (on_menu_git_init)    /* action callback */
+	},
 };
 
 static GtkActionEntry actions_log[] =
@@ -458,7 +504,7 @@ static GtkActionEntry actions_log[] =
 	{
 		"ActionGitLogCreateBranch",                       /* Action name */
 		NULL,                            /* Stock icon, if any */
-		N_("_Create branch..."),                     /* Display label */
+		N_("_Create branch…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Create a branch with the selected revision as its head"),                      /* Tooltip */
 		G_CALLBACK (on_log_menu_git_create_branch)    /* action callback */
@@ -466,7 +512,7 @@ static GtkActionEntry actions_log[] =
 	{
 		"ActionGitLogCreateTag",                       /* Action name */
 		NULL,                            /* Stock icon, if any */
-		N_("_Create tag..."),                     /* Display label */
+		N_("_Create tag…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Create a tag at this revision"),                      /* Tooltip */
 		G_CALLBACK (on_log_menu_git_create_tag)    /* action callback */
@@ -474,7 +520,7 @@ static GtkActionEntry actions_log[] =
 	{
 		"ActionGitLogReset",                       /* Action name */
 		GTK_STOCK_REFRESH,                            /* Stock icon, if any */
-		N_("_Reset tree..."),               /* Display label */
+		N_("_Reset tree…"),               /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Reset repository head to this revision"),                      /* Tooltip */
 		G_CALLBACK (on_log_menu_git_reset)    /* action callback */
@@ -482,7 +528,7 @@ static GtkActionEntry actions_log[] =
 	{
 		"ActionGitLogRevert",                       /* Action name */
 		GTK_STOCK_UNDO,                            /* Stock icon, if any */
-		N_("_Revert commit..."),               /* Display label */
+		N_("_Revert commit…"),               /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Revert this commit"),                      /* Tooltip */
 		G_CALLBACK (on_log_menu_git_revert)    /* action callback */
@@ -490,7 +536,7 @@ static GtkActionEntry actions_log[] =
 	{
 		"ActionGitLogCherryPick",                       /* Action name */
 		NULL,                            /* Stock icon, if any */
-		N_("_Cherry pick..."),                     /* Display label */
+		N_("_Cherry pick…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Merge this commit into the current branch"),                      /* Tooltip */
 		G_CALLBACK (on_log_menu_git_cherry_pick)    /* action callback */
@@ -534,7 +580,7 @@ static GtkActionEntry actions_fm[] =
 	{
 		"ActionGitFMLog",                       /* Action name */
 		GTK_STOCK_ZOOM_100,                            /* Stock icon, if any */
-		N_("_View log..."),                     /* Display label */
+		N_("_View log…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("View changes to this file or folder"),                      /* Tooltip */
 		G_CALLBACK (on_fm_git_log)    /* action callback */
@@ -542,7 +588,7 @@ static GtkActionEntry actions_fm[] =
 	{
 		"ActionGitFMAdd",                       /* Action name */
 		GTK_STOCK_ADD,                            /* Stock icon, if any */
-		N_("_Add..."),                     /* Display label */
+		N_("_Add…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Add this file or folder to the repository"),                      /* Tooltip */
 		G_CALLBACK (on_fm_git_add)    /* action callback */
@@ -550,7 +596,7 @@ static GtkActionEntry actions_fm[] =
 	{
 		"ActionGitFMRemove",                       /* Action name */
 		GTK_STOCK_REMOVE,                            /* Stock icon, if any */
-		N_("_Remove..."),                     /* Display label */
+		N_("_Remove…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Remove this file or folder from the repository"),                      /* Tooltip */
 		G_CALLBACK (on_fm_git_remove)    /* action callback */
@@ -565,7 +611,6 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	gchar *project_root_uri;
 	GFile *file;
 	AnjutaUI *ui;
-	GtkAction *git_menu_action;
 	GtkAction *git_fm_menu_action;
 	
 	git_plugin = ANJUTA_PLUGIN_GIT (plugin);
@@ -577,14 +622,11 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	g_object_unref (file);
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	git_menu_action = anjuta_ui_get_action (ui, 
-											"ActionGroupGit",
-											"ActionMenuGit");
 	git_fm_menu_action = anjuta_ui_get_action (ui, 
 											   "ActionGroupGitFM",
 											   "ActionMenuGitFM");
 	
-	gtk_action_set_sensitive (git_menu_action, TRUE);
+	g_object_set (git_plugin->git_menu_actions, "sensitive", TRUE, NULL);
 	gtk_action_set_sensitive (git_fm_menu_action, TRUE);
 	gtk_widget_set_sensitive (git_plugin->log_viewer, TRUE);
 	gtk_widget_set_sensitive (git_plugin->stash_widget, TRUE);
@@ -605,25 +647,23 @@ on_project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 						 gpointer user_data)
 {
 	AnjutaUI *ui;
-	GtkAction *git_menu_action;
 	GtkAction *git_fm_menu_action;
 	Git *git_plugin;
+	AnjutaStatus *status;
 	
 	git_plugin = ANJUTA_PLUGIN_GIT (plugin);
+	status = anjuta_shell_get_status (plugin->shell, NULL);
 	
 	g_free (git_plugin->project_root_directory);
 	git_plugin->project_root_directory = NULL;
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
-	git_menu_action = anjuta_ui_get_action (ui, 
-											"ActionGroupGit",
-											"ActionMenuGit");
 	git_fm_menu_action = anjuta_ui_get_action (ui, 
 												"ActionGroupGitFM",
 												"ActionMenuGitFM");
 	
-	gtk_action_set_sensitive (git_menu_action, FALSE);
+	g_object_set (git_plugin->git_menu_actions, "sensitive", FALSE, NULL);
 	gtk_action_set_sensitive (git_fm_menu_action, FALSE);
 	gtk_widget_set_sensitive (git_plugin->log_viewer, FALSE);
 	gtk_widget_set_sensitive (git_plugin->stash_widget, FALSE);
@@ -631,6 +671,7 @@ on_project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 
 	git_log_window_clear (git_plugin);
 	git_stash_widget_clear (git_plugin);
+	anjuta_status_set_default (status, _("Branch"), NULL);
 	
 	g_file_monitor_cancel (git_plugin->bisect_file_monitor);
 	g_file_monitor_cancel (git_plugin->log_branch_refresh_monitor);
@@ -712,30 +753,38 @@ git_activate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui;
 	Git *git_plugin;
-	GtkAction *git_menu_action;
 	GtkAction *git_fm_menu_action;
 	
-	DEBUG_PRINT ("%s", "Git: Activating Git plugin ...");
+	DEBUG_PRINT ("%s", "Git: Activating Git plugin …");
 	
 	git_plugin = ANJUTA_PLUGIN_GIT (plugin);
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
 	/* Add all our actions */
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupGit",
-										_("Git operations"),
-										actions_git,
-										G_N_ELEMENTS (actions_git),
-										GETTEXT_PACKAGE, TRUE, plugin);
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupGitLog",
-										_("Git log operations"),
-										actions_log,
-										G_N_ELEMENTS (actions_log),
-										GETTEXT_PACKAGE, TRUE, plugin);
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupGitFM",
-										_("Git FM operations"),
-										actions_fm,
-										G_N_ELEMENTS (actions_fm),
-										GETTEXT_PACKAGE, TRUE, plugin);
+	git_plugin->git_top_actions = anjuta_ui_add_action_group_entries (ui,
+	                            									  "ActionGroupGitToplevelMenu",
+	                                								  _("Top level git menu item"),
+	                                								  &action_git_menu_toplevel,
+	                                								  1,
+	                                								  GETTEXT_PACKAGE,
+	                                								  TRUE,
+	                                								  plugin);
+	git_plugin->git_menu_actions = anjuta_ui_add_action_group_entries (ui, 
+	                                                                   "ActionGroupGit",
+	                                                                   _("Git operations"),
+	                                                                   actions_git,
+	                                                                   G_N_ELEMENTS (actions_git),
+	                                                                   GETTEXT_PACKAGE, TRUE, plugin);
+	git_plugin->git_log_actions = anjuta_ui_add_action_group_entries (ui, "ActionGroupGitLog",
+																	   _("Git log operations"),
+																	   actions_log,
+																	   G_N_ELEMENTS (actions_log),
+																	   GETTEXT_PACKAGE, TRUE, plugin);
+	git_plugin->git_fm_actions = anjuta_ui_add_action_group_entries (ui, "ActionGroupGitFM",
+																	 _("Git FM operations"),
+																	 actions_fm,
+																	 G_N_ELEMENTS (actions_fm),
+																	 GETTEXT_PACKAGE, TRUE, plugin);
 										
 	git_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	
@@ -788,10 +837,6 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	
 	/* Git needs a working directory to work with; it can't take full paths,
 	 * so make sure that Git can't be used if there's no project opened. */
-	git_menu_action = anjuta_ui_get_action (anjuta_shell_get_ui (plugin->shell, 
-																 NULL), 
-											"ActionGroupGit",
-											"ActionMenuGit");
 	git_fm_menu_action = anjuta_ui_get_action (anjuta_shell_get_ui (plugin->shell, 
 																	NULL), 
 											   "ActionGroupGitFM",
@@ -799,7 +844,7 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	
 	if (!git_plugin->project_root_directory)
 	{
-		gtk_action_set_sensitive (git_menu_action, FALSE);
+		g_object_set (git_plugin->git_menu_actions, "sensitive", FALSE, NULL);
 		gtk_action_set_sensitive (git_fm_menu_action, FALSE);
 		gtk_widget_set_sensitive (git_plugin->log_viewer, FALSE); 
 	}
@@ -817,7 +862,7 @@ git_deactivate_plugin (AnjutaPlugin *plugin)
 	git_plugin = ANJUTA_PLUGIN_GIT (plugin);
 	status = anjuta_shell_get_status (plugin->shell, NULL);
 	
-	DEBUG_PRINT ("%s", "Git: Dectivating Git plugin ...");
+	DEBUG_PRINT ("%s", "Git: Dectivating Git plugin …");
 
 	anjuta_status_set_default (status, _("Branch"), NULL);
 	
@@ -832,6 +877,11 @@ git_deactivate_plugin (AnjutaPlugin *plugin)
 	g_free (git_plugin->project_root_directory);
 	g_free (git_plugin->current_editor_filename);
 	g_free (git_plugin->current_fm_filename);
+
+	anjuta_ui_remove_action_group (ui, git_plugin->git_top_actions);
+	anjuta_ui_remove_action_group (ui, git_plugin->git_menu_actions);
+	anjuta_ui_remove_action_group (ui, git_plugin->git_log_actions);
+	anjuta_ui_remove_action_group (ui, git_plugin->git_fm_actions);
 	
 	anjuta_shell_remove_widget (plugin->shell, git_plugin->log_viewer, NULL);
 	anjuta_shell_remove_widget (plugin->shell, git_plugin->stash_widget, NULL);
@@ -843,7 +893,12 @@ git_deactivate_plugin (AnjutaPlugin *plugin)
 static void
 git_finalize (GObject *obj)
 {
-	/* Finalization codes here */
+	Git *git_plugin;
+
+	git_plugin = ANJUTA_PLUGIN_GIT (obj);
+
+	g_object_unref (git_plugin->command_queue);
+	
 	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
@@ -859,6 +914,8 @@ git_instance_init (GObject *obj)
 {
 	Git *plugin = ANJUTA_PLUGIN_GIT (obj);
 	plugin->uiid = 0;
+
+	plugin->command_queue = anjuta_command_queue_new ();
 }
 
 static void

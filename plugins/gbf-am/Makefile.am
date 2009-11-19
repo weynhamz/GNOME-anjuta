@@ -54,13 +54,19 @@ libgbf_am_la_LIBADD = \
 noinst_PROGRAMS = test
 
 test_SOURCES = \
-	test.c
+	test.c \
+	gbf-am-project.c \
+	gbf-am-project.h \
+	gbf-am-config.c \
+	gbf-am-properties.c
 
 test_LDADD = \
-	libgbf-am.la \
 	$(LIBANJUTA_LIBS) \
-  $(LIBXML_LIBS)
-
+	$(LIBXML_LIBS)
+# This last line do nothing but it is needed to avoid the error
+# gbf-am-*.o created with both libtool and without
+# Need AM_PROG_CC_C_0 in configure.in too
+test_CFLAGS = $(AM_CFLAGS)
 
 EXTRA_DIST = \
 	$(plugin_in_files) \

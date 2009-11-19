@@ -3,8 +3,8 @@ dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.59)
 
 m4_define(anjuta_major_version,  2)
-m4_define(anjuta_minor_version, 27)
-m4_define(anjuta_micro_version,  3)
+m4_define(anjuta_minor_version, 29)
+m4_define(anjuta_micro_version,  2)
 m4_define(anjuta_nano_version, 0)
 m4_define(anjuta_version, anjuta_major_version.anjuta_minor_version.anjuta_micro_version.anjuta_nano_version)
 
@@ -23,7 +23,7 @@ AC_SUBST(ANJUTA_VERSION)
 ANJUTA_VERSION=anjuta_version
 AC_SUBST(ANJUTA_VERSION)
 
-GLIB_REQUIRED=2.16.0
+GLIB_REQUIRED=2.18.0
 GDK_PIXBUF_REQUIRED=2.0.0
 GTK_REQUIRED=2.14.0
 ORBIT_REQUIRED=2.6.0
@@ -39,7 +39,7 @@ SVN_MAJOR=1
 SVN_MINOR=5
 SVN_PATCH=0
 SUBVERSION_REQUIRED=$SVN_MAJOR.$SVN_MINOR.$SVN_PATCH
-GTKSOURCEVIEW_REQUIRED=2.4.0
+GTKSOURCEVIEW_REQUIRED=2.8.0
 LIBWNCK_REQUIRED=2.12
 GDA_REQUIRED=4.0.0
 UNIQUE_REQUIRED=1.0.0
@@ -73,6 +73,7 @@ AC_PROG_CC
 AC_PROG_CPP
 AC_LANG_C
 AC_PROG_CXX
+AM_PROG_CC_C_O
 
 GNOME_COMPILE_WARNINGS(maximum)
 AM_CFLAGS="$AM_CFLAGS $WARN_CFLAGS"
@@ -85,7 +86,7 @@ AC_SUBST(AM_CFLAGS)
 
 ANJUTA_LDFLAGS="-no-undefined"
 ANJUTA_PLUGIN_LDFLAGS="-module -avoid-version -no-undefined"
-AC_SUBST(ANJUTA_LDFLAG)
+AC_SUBST(ANJUTA_LDFLAGS)
 AC_SUBST(ANJUTA_PLUGIN_LDFLAGS)
 
 dnl Disable deprecated APIs
@@ -230,7 +231,7 @@ fi
 
 AM_CONDITIONAL(HAVE_PLUGIN_GLADE, [test x$gladeui_found = xyes])
 
-dnl Build gtksourceview plugin only on gnome 2.14 and gtk 2.10
+dnl Check for gtksourceview
 dnl -------------------------------------------------------------
 
 AC_ARG_ENABLE(plugin-sourceview,
@@ -307,7 +308,7 @@ GETTEXT_PACKAGE=anjuta
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [GETTEXT package name])
 AM_GLIB_GNU_GETTEXT
-IT_PROG_INTLTOOL([0.35.0])
+IT_PROG_INTLTOOL([0.40.1])
 
 dnl ***************************************************************************
 dnl Check for gtk-doc.
@@ -387,8 +388,9 @@ fi
 dnl Check for bind in libsocket (needed on Solaris)
 AC_CHECK_LIB(socket, bind)
 
-dnl Check for function forkpty in libutil
-AC_CHECK_LIB(util, forkpty)
+dnl Check for function forkpty and related headers
+AC_SEARCH_LIBS(forkpty, util, , AC_DEFINE(EMULATE_FORKPTY, [], [Need  to implement our own forkpty()]))
+AC_CHECK_HEADERS(libutil.h util.h pty.h)
 
 dnl Checks for library functions.
 AC_CHECK_FUNCS(fnmatch)
@@ -721,7 +723,7 @@ pixmaps/Makefile
 data/Makefile
 data/welcome.txt
 doc/anjuta.1
-doc/anjuta_launcher.1
+doc/anjuta-launcher.1
 doc/Makefile
 scripts/Makefile
 launcher/Makefile
@@ -785,9 +787,6 @@ plugins/project-wizard/templates/gtk/po/Makefile
 plugins/project-wizard/templates/anjuta-plugin/Makefile
 plugins/project-wizard/templates/anjuta-plugin/src/Makefile
 plugins/project-wizard/templates/anjuta-plugin/po/Makefile
-plugins/project-wizard/templates/anjuta-plugin-vala/Makefile
-plugins/project-wizard/templates/anjuta-plugin-vala/src/Makefile
-plugins/project-wizard/templates/anjuta-plugin-vala/po/Makefile
 plugins/project-wizard/templates/gtkmm/Makefile
 plugins/project-wizard/templates/gtkmm/src/Makefile
 plugins/project-wizard/templates/gtkmm/po/Makefile
@@ -815,6 +814,9 @@ plugins/project-wizard/templates/licenses/Makefile
 plugins/project-wizard/templates/gnome-applet/Makefile
 plugins/project-wizard/templates/gnome-applet/src/Makefile
 plugins/project-wizard/templates/gnome-applet/po/Makefile
+plugins/project-wizard/templates/library/Makefile
+plugins/project-wizard/templates/library/src/Makefile
+plugins/project-wizard/templates/library/po/Makefile
 plugins/project-wizard/templates/m4/Makefile
 plugins/language-support-cpp-java/Makefile
 plugins/run-program/Makefile

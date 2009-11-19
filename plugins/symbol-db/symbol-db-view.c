@@ -796,7 +796,7 @@ sdb_view_do_add_hidden_dummy_child (SymbolDBView *dbv, SymbolDBEngine *dbe,
 		gtk_tree_store_append (store, &child_iter, parent_iter);			
 		gtk_tree_store_set (store, &child_iter,
 					COLUMN_PIXBUF, NULL,
-					COLUMN_NAME, _("Loading..."),
+					COLUMN_NAME, _("Loading…"),
 					COLUMN_SYMBOL_ID, DUMMY_SYMBOL_ID,
 					-1);
 

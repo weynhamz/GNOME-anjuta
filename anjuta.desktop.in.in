@@ -8,7 +8,6 @@ Terminal=false
 X-MultipleArgs=false
 Type=Application
 Categories=GNOME;GTK;Development;
-Encoding=UTF-8
 StartupNotify=true
 MimeType=application/x-anjuta;
 X-GNOME-DocPath=anjuta/anjuta-manual.xml

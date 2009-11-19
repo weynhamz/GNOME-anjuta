@@ -95,7 +95,7 @@ enum {
 };
 
 static char *column_names[COLUMNS_NB] = {
-	N_("Pid"), N_("User"), N_("Time"), N_("Command")
+	N_("PID"), N_("User"), N_("Time"), N_("Command")
 };
 
 enum {
@@ -972,7 +972,7 @@ load_target (DmaStart *this, const gchar *target)
 	if (mime_type == NULL)
 	{
 		anjuta_util_dialog_error(GTK_WINDOW (this->plugin->shell),
-				_("Unable to detect mime-type of %s. Debugger cannot start."), target);
+				_("Unable to detect MIME type of %s. Debugger cannot start."), target);
 		g_object_unref (file_info);
 		g_object_unref (file);
 		return FALSE;
@@ -1059,7 +1059,7 @@ check_target (DmaStart *this, const gchar *target)
 		found = g_list_find_custom(cfg_list, IANJUTA_BUILDER_CONFIGURATION_DEBUG, (GCompareFunc)strcmp);
 		if (found != NULL)
 		{
-			if (ianjuta_builder_get_uri_configuration (builder, target, NULL) != (const gchar *)found)
+			if (ianjuta_builder_get_uri_configuration (builder, target, NULL) != found->data)
 			{
 				if (!show_check_debug_dialog (this)) return FALSE;
 			}

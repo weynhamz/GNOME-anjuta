@@ -667,7 +667,7 @@ anjuta_recent_chooser_menu_set_current_uri (GtkRecentChooser  *chooser,
     {
       g_set_error (error, GTK_RECENT_CHOOSER_ERROR,
       		   GTK_RECENT_CHOOSER_ERROR_NOT_FOUND,
-      		   _("No recently used resource found with URI `%s'"),
+      		   _("No recently used resource found with URI \"%s\""),
       		   uri);
     }
   
@@ -723,7 +723,7 @@ anjuta_recent_chooser_menu_select_uri (GtkRecentChooser  *chooser,
     {
       g_set_error (error, GTK_RECENT_CHOOSER_ERROR,
       		   GTK_RECENT_CHOOSER_ERROR_NOT_FOUND,
-      		   _("No recently used resource found with URI `%s'"),
+      		   _("No recently used resource found with URI \"%s\""),
       		   uri);
       return FALSE;
     }
@@ -974,17 +974,13 @@ anjuta_recent_chooser_menu_create_item (AnjutaRecentChooserMenu *menu,
          * in a recent files menu. The %d is the number of the item,
          * the %s is the name of the item. Please keep the _ in front
          * of the number to give these menu items a mnemonic.
-         *
-         * Don't include the prefix "recent menu label|" in the translation.
          */
-        text = g_strdup_printf (Q_("recent menu label|_%d. %s"), count, escaped);
+        text = g_strdup_printf (C_("recent menu label", "_%d. %s"), count, escaped);
       else
         /* This is the format that is used for items in a recent files menu. 
          * The %d is the number of the item, the %s is the name of the item. 
-         *
-         * Don't include the prefix "recent menu label|" in the translation.
          */
-        text = g_strdup_printf (Q_("recent menu label|%d. %s"), count, escaped);
+        text = g_strdup_printf (C_("recent menu label", "%d. %s"), count, escaped);
       
       item = gtk_image_menu_item_new_with_mnemonic (text);
       

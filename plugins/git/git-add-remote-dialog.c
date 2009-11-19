@@ -108,7 +108,7 @@ on_add_remote_dialog_response (GtkDialog *dialog, gint response_id,
 		if (fetch)
 		{
 			progress_data = git_progress_data_new (data->plugin, 
-												   _("Git: Fetching..."));
+												   _("Git: Fetching…"));
 			
 			git_create_message_view (data->plugin);
 			

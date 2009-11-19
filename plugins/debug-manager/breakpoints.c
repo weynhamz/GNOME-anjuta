@@ -1783,7 +1783,7 @@ static GtkActionEntry actions_debugger_breakpoints[] = {
 	{
 		"ActionDmaSetBreakpoint",                 /* Action name */
 		ANJUTA_STOCK_BREAKPOINT_ENABLED,          /* Stock icon, if any */
-		N_("Add Breakpoint..."),                  /* Display label */
+		N_("Add Breakpoint…"),                  /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Add a breakpoint"),                   /* Tooltip */
 		G_CALLBACK (on_add_breakpoint_activate)   /* action callback */

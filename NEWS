@@ -1,3 +1,104 @@
+Anjuta 2.29.2 "Prager Herbst" (14 November 2009) -- Johannes Schmid
+
+Features:
+- New codename ;)
+- For upcoming features, see the new-project-manager and the cxxparser branches
+
+Bugs fixed:
+String review (thanks to Phillip Withnall)
+symbol-db: fix #597113
+search-plugin: unmerge ui and remove action group when the plugin is deactivated
+git: remove action groups when the plugin is deactivated
+file-manager: fix bug where we accessed the FileView even though it was freed
+debug-manager:bgo #596009 -  Easier adding of watches
+
+Anjuta 2.28.0 (28 September 2009) -- Johannes Schmid
+
+Bugs fixed:
+gdb: bgo#594665 -  Fix link of test program
+sourceview: Report error when location is > 0 for markers (bgo#593954)
+terminal: bgo#594648 -  Terminal does not work
+sourceview: #355151 -  drag/drop into editor window should open file
+
+And of course lots of translation updates!
+
+Anjuta is translated fully into the following languages:
+pt_BR, en_GB, bg, de, da, fr, gl, it, pt, sv, es, tr, uk, hu, th
+
+The manual is fully translated for:
+el, es and th
+
+Anjuta 2.27.92 (7 September 2009) -- Johannes Schmid
+
+Bugs fixed:
+class-gen: bgo #593532 - Untranslated strings
+language-support-cpp-java: bgo #593291 - fix small typo
+
+Thanks to all translators!
+
+Anjuta 2.27.91 (27 August 2009) -- Johannes Schmid
+
+Updates:
+- Some git fixes (file-status, etc.)
+- Stability fixes on symbol-db
+
+Bugs fixed:
+Typo in Anjuta pot file (bgo#593236)
+bgo #592941 – Fixed errors in Anjuta IDE Manual (Greek translation)
+bgo #591758 -  Fix language mistakes
+bgo #591887 -  Bad strings for translation
+bgo #590117 – Build failure: local scandir() function collides with system's
+bgo #589828 – Can't open GtkBuilder files with the glade plugin
+bgo#590708 – Some untranslated strings
+project-wizard: bgo#591359 – Need an easier and intuitive way to create a shared library project
+bgo #590337 – Compile failure: not allowed to link against a -module
+bgo #590720 – glade plugin FTBFS on mips(el) and alpha, LANGUAGE_C built-in
+bgo#590337 – Compile failure: not allowed to link against a -module
+language-support: bgo#575926 – 'Maintain past indentation' disables itself
+bgo #578690 – Several components underlinked
+bgo #585428 – Context needed to translate
+bgo#590334 – Fix -I ordering
+bgo #590338 – Missing plugins flags
+git: Add init support (bgo 566698)
+language-support-cpp-java: fixed critical #588112 - infinite loop / freeze
+bgo#587248 – Encoding key in desktop file is deprecated
+bgo#588485 – fixes from running anjuta with G_DEBUG="fatal_warnings"
+bgo#589699 – When ~/.cache isn't exists, session data isn't saved
+bgo#588506 – Wrong value of PACKAGE_DOC_DIR
+bgo#589601 – "gtk-execute" and "gtk-cancel" marked for translation
+
+Anjuta 2.27.5 (27 July 2009) -- Johannes Schmid
+
+Updates:
+- Even better git plugin (James Liggett)
+- Work to get C++ autocompletion done (Massimo' Cora)
+
+Bugs fixed:
+git: Show the active branch in the status bar (bgo 589401)
+symbol-db: #588387 make typeahead searching caseless
+Migrate anjuta project wizards from libglade to GtkBuilder (GnomeBug:530740)
+bgo #575147 – Headers of new C++/GObject classes have wrong copyright and license notices.
+bgo #577741 – "single step over function" does not always work as expected
+bgo #587957 – doap file missing bug-database
+bgo #583731 – Some untranslated strings
+git: Refresh the log view when switching branches (bgo 580276)
+bgo#578438 – broken svn libraries detection in configure
+git: Fix a typo in a menu tooltip (bgo 587191)
+gbf-am: build fix #586926
+#586926 – gdbmi_test build fails
+bgo#513156 – Get rid of libgnome(ui)
+git: Add descriptions to the menu items (bgo 577924)
+#586621 – Crash while loading project file
+go#586148 – Case had to be the other way around
+bgo#586148 – Fixing setting whitespace for the editor not working
+bgo#577924 – Fixing AnjutaStatusbar for displaying menu tags
+#577232 – run-program plugin: projects's working directory should be set to project root on start
+#586030 – Value of a new environment variable is not saved in run parameter dialog
+#584180 – Duplicate copy of GBF/General.pm installed to same location
+#582961 – Replace SexyIconEntry by GtkEntry icon functionality (available in GTK+ 2.16)
+subversion: Show conflicted files in the commit dialog (bgo 578411)
+symbol-db: #585498 – Completion stop working and strange warning
+
 Anjuta 2.27.3 (14 June 2009) -- Johannes Schmid
 
 Updates:

@@ -100,7 +100,7 @@ gdb_plugin_start_terminal (GdbPlugin* plugin)
 	gdb_plugin_stop_terminal (plugin);
 
 	/* Check if anjuta launcher is here */
-	if (anjuta_util_prog_is_installed ("anjuta_launcher", TRUE) == FALSE)
+	if (anjuta_util_prog_is_installed ("anjuta-launcher", TRUE) == FALSE)
 	{
 		return NULL;
 	}
@@ -109,14 +109,14 @@ gdb_plugin_start_terminal (GdbPlugin* plugin)
 	if (mkfifo (file, 0664) < 0)
 	{
 		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
-					  _("Failed to create fifo file named %s. The program will run without a terminal."), file);
+					  _("Failed to create FIFO file named %s. The program will run without a terminal."), file);
 		g_free (file);
 
 		return NULL;
 	}
 
 	/* Launch terminal */
-	cmd = g_strconcat ("anjuta_launcher --__debug_terminal ", file, NULL);
+	cmd = g_strconcat ("anjuta-launcher --__debug_terminal ", file, NULL);
 	
 	/* Get terminal plugin */	
 	term = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell, IAnjutaTerminal, NULL);

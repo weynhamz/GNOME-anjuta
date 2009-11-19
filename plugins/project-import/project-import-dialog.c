@@ -311,7 +311,6 @@ static void
 project_import_dialog_class_init (ProjectImportDialogClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
-	GtkDialogClass* parent_class = GTK_DIALOG_CLASS (klass);
 
 	object_class->finalize = project_import_dialog_finalize;
 

@@ -56,8 +56,6 @@
 /* Preferences keys */
 
 #define PREF_INDENT_AUTOMATIC "language.cpp.indent.automatic"
-#define PREF_INDENT_ADAPTIVE "language.cpp.indent.adaptive"
-#define PREF_INDENT_TAB_INDENTS "language.cpp.indent.tab.indents"
 #define PREF_INDENT_STATEMENT_SIZE "language.cpp.indent.statement.size"
 #define PREF_INDENT_BRACE_SIZE "language.cpp.indent.brace.size"
 #define PREF_INDENT_PARANTHESE_LINEUP "language.cpp.indent.paranthese.lineup"
@@ -587,6 +585,11 @@ initialize_indentation_params (CppJavaPlugin *plugin)
 	gboolean line_comment = FALSE;
 	gchar mini_buffer[MINI_BUFFER_SIZE] = {0};
 	
+	plugin->smart_indentation = anjuta_preferences_get_bool (plugin->prefs, PREF_INDENT_AUTOMATIC);
+	/* Disable editor intern auto-indent if smart indentation is enabled */
+	ianjuta_editor_set_auto_indent (IANJUTA_EDITOR(plugin->current_editor),
+								    !plugin->smart_indentation, NULL);
+
 	/* Initialize indentation parameters */
 	plugin->param_tab_size = -1;
 	plugin->param_statement_indentation = -1;
@@ -1060,7 +1063,7 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 			/* If we encounter a block-start before anything else, the
 			 * statement could hardly be incomplte.
 			 */
-			if (point_ch == '}' && *incomplete_statement == -1)
+			if (point_ch == '{' && *incomplete_statement == -1)
 				*incomplete_statement = 0;
 			
 			break;
@@ -1269,6 +1272,11 @@ get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 	gboolean colon_indent = FALSE;
 	
 	g_return_val_if_fail (line > 0, 0);
+
+	/* be sure to set a default if we're in the first line otherwise
+	 * the pointer'll be left hanging with no value.
+	 */
+	*line_indent_spaces = 0;
 	
 	if (line == 1) /* First line */
 	{
@@ -1409,7 +1417,7 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 	iter = ianjuta_iterable_clone (insert_pos, NULL);
 	
 	/* If autoindent is enabled*/
-	if (anjuta_preferences_get_bool (plugin->prefs, PREF_INDENT_AUTOMATIC))
+	if (plugin->smart_indentation)
 	{
 	
 		/* DEBUG_PRINT ("Char added at position %d: '%c'", insert_pos, ch); */	
@@ -1613,9 +1621,6 @@ install_support (CppJavaPlugin *lang_plugin)
 	}
 	
 	initialize_indentation_params (lang_plugin);
-	/* Disable editor intern auto-indent */
-	ianjuta_editor_set_auto_indent (IANJUTA_EDITOR(lang_plugin->current_editor),
-								    FALSE, NULL);
 	
 	if (IANJUTA_IS_EDITOR_ASSIST (lang_plugin->current_editor) &&
 		!g_str_equal (lang_plugin->current_language, "Vala"))
@@ -1913,21 +1918,21 @@ static GtkActionEntry actions[] = {
 	{
 		"ActionEditAutocomplete",
 		ANJUTA_STOCK_AUTOCOMPLETE,
-		N_("_AutoComplete"), "<control>Return",
-		N_("AutoComplete the current word"),
+		N_("_Auto-Complete"), "<control>Return",
+		N_("Auto-complete the current word"),
 		G_CALLBACK (on_auto_complete)
 	},
 	{
 		"ActionEditAutoindent",
 		ANJUTA_STOCK_AUTOINDENT,
-		N_("Auto Indent"), "<control>i",
-		N_("Auto indent current line or selection based on indentation settings"),
+		N_("Auto-Indent"), "<control>i",
+		N_("Auto-indent current line or selection based on indentation settings"),
 		G_CALLBACK (on_auto_indent)
 	},
 	{   "ActionFileSwap", 
 		ANJUTA_STOCK_SWAP, 
 		N_("Swap .h/.c"), NULL,
-		N_("Swap c header and source files"),
+		N_("Swap C header and source files"),
 		G_CALLBACK (on_swap_activate)
 	}
 };

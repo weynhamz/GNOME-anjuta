@@ -27,6 +27,7 @@
 
 #include "git-push-command.h"
 #include "git-tag-list-command.h"
+#include "git-remote-list-command.h"
 #include "git-ui-utils.h"
 
 void on_menu_git_push (GtkAction *action, Git *plugin);

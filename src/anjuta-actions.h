@@ -93,6 +93,6 @@ static GtkActionEntry menu_entries_help[] = {
     G_CALLBACK (on_about_activate)},
   { "ActionAboutPlugins", GTK_STOCK_ABOUT,
     N_("About External _Plugins"), NULL,
-	N_("About third party Anjuta plugins"),
+	N_("About third-party Anjuta plugins"),
     NULL}
 };

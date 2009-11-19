@@ -4,7 +4,7 @@ gdb_ui_DATA =
 
 # Plugin glade file
 anjuta_gladedir = $(anjuta_glade_dir)
-anjuta_glade_DATA = anjuta-gdb.glade
+anjuta_glade_DATA =
 
 anjuta_datadir = $(anjuta_data_dir)
 anjuta_data_DATA = gdb.init
@@ -46,8 +46,12 @@ libanjuta_gdb_la_SOURCES = \
 	utilities.h
 
 noinst_PROGRAMS = gdbmi-test
-gdbmi_test_SOURCES = gdbmi-test.c
-gdbmi_test_LDADD = libanjuta-gdb.la $(LIBANJUTA_LIBS) $(LIBXML_LIBS)
+gdbmi_test_SOURCES = gdbmi-test.c gdbmi.c gdbmi.h debugger.h
+gdbmi_test_LDADD = $(GTK_LIBS) $(LIBANJUTA_LIBS) $(LIBXML_LIBS)
+# This last line do nothing but it is needed to avoid the error
+# gdbmi.o created with both libtool and without
+# Need AM_PROG_CC_C_0 in configure.in too
+gdbmi_test_CFLAGS = $(AM_CFLAGS)
 
 EXTRA_DIST = \
 	$(plugin_pixmaps_DATA) \

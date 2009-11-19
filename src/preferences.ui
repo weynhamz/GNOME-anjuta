@@ -18,7 +18,7 @@
         <col id="0" translatable="yes">Text + Icons</col>
       </row>
       <row>
-        <col id="0" translatable="yes">Gnome toolbar setting</col>
+        <col id="0" translatable="yes">GNOME toolbar setting</col>
       </row>
       <row>
         <col id="0" translatable="yes">Tabs</col>
@@ -144,7 +144,7 @@
                             <property name="visible">True</property>
                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                             <property name="action">select-folder</property>
-                            <property name="title" translatable="yes">Select projects directory</property>
+                            <property name="title" translatable="yes">Select project directory</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>

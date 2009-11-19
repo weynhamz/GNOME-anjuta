@@ -860,7 +860,7 @@ gbf_am_properties_get_widget (GbfAmProject *project, GError **error)
 				_("Version:"), NULL, "package_version",
 				table, 2);
 	add_configure_property (project, config, GBF_AM_CONFIG_ENTRY,
-				_("Url:"), NULL, "package_url",
+				_("URI:"), NULL, "package_url",
 				table, 3);
 	
 	/* pkg config packages */
@@ -1580,7 +1580,7 @@ gbf_am_properties_get_target_widget (GbfAmProject *project,
 		GtkWidget* scrolled_window;
 		GtkWidget* view =  create_module_list(project, target, 
 						      config, group_config);
-		GtkWidget* button = gtk_button_new_with_label (_("Advanced..."));
+		GtkWidget* button = gtk_button_new_with_label (_("Advanced…"));
 		scrolled_window = gtk_scrolled_window_new (NULL, NULL);
 		gtk_container_add (GTK_CONTAINER(scrolled_window), view);
 		gtk_table_attach (GTK_TABLE (table), scrolled_window, 0, 2, 4, 5,

@@ -433,7 +433,7 @@ dma_threads_create_gui(DmaThreads *self)
 	
 	column = gtk_tree_view_column_new ();
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-	gtk_tree_view_column_set_title (column, _("Id"));
+	gtk_tree_view_column_set_title (column, _("ID"));
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (column, renderer, "text",

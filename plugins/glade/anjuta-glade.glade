@@ -76,7 +76,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="label" translatable="yes">Associate</property>
+                        <property name="label" translatable="yes" comments="Link a file with a widget" >Associate</property>
                         <signal name="clicked" handler="associations_dialog_button_associate_cb"/>
                       </object>
                       <packing>
@@ -425,7 +425,7 @@
                       <object class="GtkRadioButton" id="handler_template_button0">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="label" translatable="yes">on_widget_signal</property>
+                        <property name="label" translatable="no">on_widget_signal</property>
                         <property name="active">True</property>
                         <signal name="toggled" handler="on_set_default_data_signal_template0"/>
                       </object>
@@ -434,7 +434,7 @@
                       <object class="GtkRadioButton" id="handler_template_button1">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="label" translatable="yes">widget_signal_cb</property>
+                        <property name="label" translatable="no">widget_signal_cb</property>
                         <property name="active">True</property>
                         <property name="group">handler_template_button0</property>
                         <signal name="toggled" handler="on_set_default_data_signal_template1"/>

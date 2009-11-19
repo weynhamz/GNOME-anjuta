@@ -66,7 +66,7 @@ project_import_generate_file (AnjutaProjectImportPlugin* import_plugin, ProjectI
 		                          _("Generation of project file failed. Cannot "
 		                            "find an appropriate project template to "
 		                            "use. Please make sure your version of "
-		                            "Anjuta is up to date."));
+		                            "Anjuta is up-to-date."));
 		return FALSE;
 	}
 	
@@ -131,7 +131,7 @@ project_import_generate_file (AnjutaProjectImportPlugin* import_plugin, ProjectI
 		gtk_widget_show (GTK_WIDGET (import_dialog));
 		
 		anjuta_util_dialog_error (GTK_WINDOW (import_dialog),
-				_("A file named \"%s\" cannot be written: %s.  "
+				_("A file named \"%s\" cannot be written: %s. "
 				  "Check if you have write access to the project directory."),
 				  prjfile, error->message);
 
@@ -202,7 +202,7 @@ project_import_import_project (AnjutaProjectImportPlugin *import_plugin, Project
 
 		anjuta_util_dialog_error (GTK_WINDOW (import_dialog),
 		                          _("Could not find a valid project backend for the "
-		                            "directory given (%s). Please select a different "
+		                            "given directory (%s). Please select a different "
 		                            "directory, or try upgrading to a newer version of "
 		                            "Anjuta."), path);
 
@@ -271,8 +271,8 @@ checkout_finished (AnjutaAsyncNotify *async_notify, gpointer user_data)
 		
 		vcs_uri = project_import_dialog_get_vcs_uri (ch->import_dialog);
 		anjuta_util_dialog_error (GTK_WINDOW (ch->import_dialog),
-		                          _("Couldn't checkout the supplied uri "
-		                          "\"%s\", the error returned was: \"%s\""),
+		                          _("Couldn't check out the supplied URI "
+		                          "\"%s\". The error returned was: \"%s\""),
 		                          vcs_uri, err->message);
 
 		g_free (vcs_uri);
@@ -327,8 +327,8 @@ project_import_checkout_project (AnjutaProjectImportPlugin *import_plugin,
 	if (err)
 	{
 		anjuta_util_dialog_error (GTK_WINDOW (import_dialog),
-		                          _("Couldn't checkout the supplied uri "
-		                            "\"%s\", the error returned was: \"%s\""),
+		                          _("Couldn't check out the supplied URI "
+		                            "\"%s\". The error returned was: \"%s\""),
 		                          vcs_uri, err->message);
 
 		g_error_free (err);

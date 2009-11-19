@@ -1041,7 +1041,7 @@ atp_on_editor_shortcut_toggle (GtkToggleButton *tb, gpointer user_data)
 		gtk_grab_add(GTK_WIDGET(tb));
 
   		g_signal_connect (G_OBJECT (tb), "key_press_event", G_CALLBACK (on_editor_get_keys), this);
-  		gtk_button_set_label (GTK_BUTTON (tb), _("New accelerator..."));
+  		gtk_button_set_label (GTK_BUTTON (tb), _("New accelerator…"));
 	}
 	else
 	{

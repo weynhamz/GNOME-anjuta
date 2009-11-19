@@ -27,6 +27,7 @@
 struct _GitBranchDeleteCommandPriv
 {
 	GList *branches;
+	gboolean remote;
 	gboolean require_merged;
 };
 
@@ -59,6 +60,9 @@ git_branch_delete_command_run (AnjutaCommand *command)
 	self = GIT_BRANCH_DELETE_COMMAND (command);
 	
 	git_command_add_arg (GIT_COMMAND (command), "branch");
+
+	if (self->priv->remote)
+		git_command_add_arg (GIT_COMMAND (command), "-r");
 	
 	if (self->priv->require_merged)
 		git_command_add_arg (GIT_COMMAND (command), "-d");
@@ -85,7 +89,8 @@ git_branch_delete_command_class_init (GitBranchDeleteCommandClass *klass)
 
 GitBranchDeleteCommand *
 git_branch_delete_command_new (const gchar *working_directory, 
-							   GList *branches, 
+							   GList *branches,
+                               gboolean remote,
 							   gboolean require_merged)
 {
 	GitBranchDeleteCommand *self;
@@ -96,6 +101,7 @@ git_branch_delete_command_new (const gchar *working_directory,
 						 NULL);
 	
 	self->priv->branches = git_command_copy_string_list (branches);
+	self->priv->remote = remote;
 	self->priv->require_merged = require_merged;
 	
 	return self;

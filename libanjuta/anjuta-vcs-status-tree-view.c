@@ -102,7 +102,7 @@ anjuta_vcs_status_tree_view_status_function (GtkTreeViewColumn *tree_column,
 									NULL);
 			break;
 		case ANJUTA_VCS_STATUS_UPTODATE:
-			g_object_set (G_OBJECT (renderer), "text", _("Up to date"), 
+			g_object_set (G_OBJECT (renderer), "text", _("Up-to-date"), 
 						  NULL);
 			break;
 		case ANJUTA_VCS_STATUS_LOCKED:

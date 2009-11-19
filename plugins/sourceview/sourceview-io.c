@@ -81,7 +81,6 @@ static void
 sourceview_io_class_init (SourceviewIOClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
-	GObjectClass* parent_class = G_OBJECT_CLASS (klass);
 
 	object_class->finalize = sourceview_io_finalize;
 

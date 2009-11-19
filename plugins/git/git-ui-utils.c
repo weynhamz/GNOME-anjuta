@@ -66,12 +66,7 @@ git_progress_data_new (Git *plugin, const gchar *text)
 
 void
 git_progress_data_free (GitProgressData *data)
-{
-	AnjutaStatus *status;
-	
-	status = anjuta_shell_get_status (ANJUTA_PLUGIN (data->plugin)->shell, 
-									  NULL);
-	
+{	
 	g_free (data->text);
 	g_free (data);
 }
@@ -130,6 +125,7 @@ git_check_input (GtkWidget *parent, GtkWidget *widget, const gchar *input,
 										 GTK_DIALOG_DESTROY_WITH_PARENT,
 										 GTK_MESSAGE_WARNING,
 										 GTK_BUTTONS_OK,
+		                                 "%s",
 										 error_message);
 		
 		gtk_dialog_run (GTK_DIALOG (dialog));
@@ -139,6 +135,33 @@ git_check_input (GtkWidget *parent, GtkWidget *widget, const gchar *input,
 	}
 
 	
+	return ret;
+}
+
+gboolean
+git_check_branches (GtkComboBox *combo_box)
+{
+	gint ret;
+	GtkWidget *parent;
+	GtkWidget *dialog;
+	
+	ret = (gtk_combo_box_get_active (combo_box) > -1);
+
+	if (!ret)
+	{
+		parent = gtk_widget_get_toplevel (GTK_WIDGET (combo_box));
+		dialog = gtk_message_dialog_new (GTK_WINDOW (parent),
+										 GTK_DIALOG_DESTROY_WITH_PARENT,
+										 GTK_MESSAGE_WARNING,
+										 GTK_BUTTONS_OK,
+		                                 "%s",
+										 _("There are no branches available."));
+		
+		gtk_dialog_run (GTK_DIALOG (dialog));
+		gtk_widget_destroy (dialog);
+		
+	}
+
 	return ret;
 }
 
@@ -236,6 +259,77 @@ git_clear_status_bar_progress_pulse (guint timer_id)
 	g_source_remove (timer_id);
 }
 
+static void
+message_dialog (GtkMessageType message_type, const gchar *message)
+{
+	GtkWidget *dialog;
+	GtkWidget *close_button;
+	GtkWidget *content_area;
+	GtkWidget *hbox;
+	GtkWidget *image;
+	GtkWidget *scrolled_window;
+	GtkWidget *text_view;
+	GtkTextBuffer *text_buffer;
+
+	dialog = gtk_dialog_new_with_buttons (NULL,
+	                                      NULL,
+	                                      GTK_DIALOG_DESTROY_WITH_PARENT,
+	                                      NULL);
+
+	close_button = gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_CLOSE,
+	                                      GTK_RESPONSE_CLOSE);
+	content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
+	hbox = gtk_hbox_new (FALSE, 2);
+	image = gtk_image_new ();
+	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+	text_view = gtk_text_view_new ();
+	text_buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text_view));
+
+	switch (message_type)
+	{
+		case GTK_MESSAGE_ERROR:
+			gtk_image_set_from_icon_name (GTK_IMAGE (image), 
+			                              GTK_STOCK_DIALOG_ERROR, 
+			                              GTK_ICON_SIZE_DIALOG);
+			break;
+		case GTK_MESSAGE_WARNING:
+			gtk_image_set_from_icon_name (GTK_IMAGE (image), 
+			                              GTK_STOCK_DIALOG_WARNING,
+			                              GTK_ICON_SIZE_DIALOG);
+			break;
+		default:
+			break;
+	}
+
+	gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
+	gtk_widget_set_size_request (text_view, 500, 150);
+	
+	gtk_container_add (GTK_CONTAINER (scrolled_window), text_view);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_window),
+	                                     GTK_SHADOW_IN);
+
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
+	                                GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+
+	gtk_text_view_set_editable (GTK_TEXT_VIEW (text_view), FALSE);
+	gtk_text_buffer_set_text (text_buffer, message, strlen (message));
+
+	gtk_box_pack_start (GTK_BOX (hbox), image, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
+
+	gtk_box_pack_start (GTK_BOX (content_area), hbox, TRUE, TRUE, 0);
+
+	gtk_widget_grab_default (close_button);
+	gtk_widget_grab_focus (close_button);
+
+	g_signal_connect (G_OBJECT (dialog), "response",
+	                  G_CALLBACK (gtk_widget_destroy),
+	                  NULL);
+
+	gtk_widget_show_all (dialog);
+	
+}
+
 void
 git_report_errors (AnjutaCommand *command, guint return_code)
 {
@@ -249,9 +343,9 @@ git_report_errors (AnjutaCommand *command, guint return_code)
 	if (message)
 	{
 		if (return_code != 0)
-			anjuta_util_dialog_error (NULL, message);
+			message_dialog (GTK_MESSAGE_ERROR, message);
 		else
-			anjuta_util_dialog_warning (NULL, message);
+			message_dialog (GTK_MESSAGE_WARNING, message);
 		
 		g_free (message);
 	}
@@ -347,7 +441,7 @@ on_git_command_info_arrived (AnjutaCommand *command, Git *plugin)
 	{
 		message = g_queue_pop_head (info);
 		ianjuta_message_view_append (plugin->message_view, 
-								     IANJUTA_MESSAGE_VIEW_TYPE_INFO,
+								     IANJUTA_MESSAGE_VIEW_TYPE_NORMAL,
 									 message, "", NULL);
 		g_free (message);
 	}
@@ -531,6 +625,53 @@ on_git_stash_apply_command_finished (AnjutaCommand *command, guint return_code,
 }
 
 void
+on_git_remote_list_command_data_arrived (AnjutaCommand *command,
+                                         GtkListStore *remote_list_model)
+{
+	GtkWidget *origin_check;
+	GQueue *output_queue;
+	gchar *remote_name;
+	GtkTreeIter iter;
+	
+	origin_check = g_object_get_data (G_OBJECT (command), "origin-check");
+	output_queue = git_raw_output_command_get_output (GIT_RAW_OUTPUT_COMMAND (command));
+	
+	while (g_queue_peek_head (output_queue))
+	{
+		remote_name = g_queue_pop_head (output_queue);
+
+		/* Don't show the origin branch in the list. Origin is specified by 
+		 * enabling the origin checkbox. As use of origin is such a common 
+		 * operation, give access to it in one click. Keep the checkbox disabled
+		 * if no origin branch exists. */
+		if (strcmp (remote_name, "origin") != 0)
+		{
+			gtk_list_store_append (remote_list_model, &iter);
+			gtk_list_store_set (remote_list_model, &iter, 0, remote_name, -1);
+		}
+		else
+			gtk_widget_set_sensitive (origin_check, TRUE);
+		
+		g_free (remote_name);
+	}
+}
+
+void
+on_git_notebook_button_toggled (GtkToggleButton *toggle_button,
+                                GtkNotebook *notebook)
+{
+	gint tab_index;
+
+	if (gtk_toggle_button_get_active (toggle_button))
+	{
+		tab_index = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (toggle_button),
+		                                                "tab-index"));
+
+		gtk_notebook_set_current_page (notebook, tab_index);
+	}
+}
+
+void
 git_select_all_status_items (GtkButton *select_all_button,
 							 AnjutaVcsStatusTreeView *tree_view)
 {
@@ -605,6 +746,22 @@ on_git_diff_command_finished (AnjutaCommand *command, guint return_code,
 	git_report_errors (command, return_code);
 	
 	g_object_unref (command);	
+}
+
+void
+git_set_log_view_column_label (GtkTextBuffer *text_buffer,
+                               GtkTextIter *location, GtkTextMark *mark,
+                               GtkLabel *column_label)
+{
+	gint column;
+	gchar *text;
+
+	column = gtk_text_iter_get_line_offset (location) + 1;
+	text = g_strdup_printf (_("Column %i"), column);
+
+	gtk_label_set_text (column_label, text);
+
+	g_free (text);
 }
 
 void

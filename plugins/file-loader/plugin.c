@@ -113,7 +113,7 @@ launch_application_failure (AnjutaFileLoaderPlugin *plugin,
 		gtk_widget_get_toplevel (GTK_WIDGET(ANJUTA_PLUGIN (plugin)->shell));
 	basename = g_path_get_basename (uri);
 	anjuta_util_dialog_error (GTK_WINDOW (parent),
-							  _("Can not open \"%s\".\n\n%s"),
+							  _("Cannot open \"%s\".\n\n%s"),
 							  basename, errmsg);
 	g_free (basename);
 }
@@ -208,12 +208,13 @@ on_value_added_current_doc (AnjutaPlugin *plugin, const gchar *name,
 {
 	AnjutaFileLoaderPlugin *fplugin = ANJUTA_PLUGIN_FILE_LOADER (plugin);
 	IAnjutaDocument* doc = IANJUTA_DOCUMENT(g_value_get_object (value));
+	GFile *file;
 
 	g_free (fplugin->dm_current_uri);
 
-	if (IANJUTA_IS_FILE (doc))
+	if (IANJUTA_IS_FILE (doc) &&
+	    (file = ianjuta_file_get_file(IANJUTA_FILE (doc), NULL)))
 	{
-		GFile* file = ianjuta_file_get_file(IANJUTA_FILE (doc), NULL);
 		GFile* parent = g_file_get_parent (file);
 		fplugin->dm_current_uri = g_file_get_uri (parent);
 		g_object_unref (parent);
@@ -257,7 +258,7 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 								 "There is no plugin, default action, or application "
 								 "configured to handle this file type.\n"
 								 "\n"
-								 "Mime type: %s\n"
+								 "MIME type: %s\n"
 								 "\n"
 								 "You may choose to try opening it with the following "
 								 "plugins or applications."),
@@ -551,7 +552,7 @@ setup_file_filters (GtkFileChooser *fc)
 	gtk_file_chooser_add_filter (fc, filter);
 
 	filter = gtk_file_filter_new ();
-	gtk_file_filter_set_name (filter, _("Hyper text markup files"));
+	gtk_file_filter_set_name (filter, _("Hypertext markup files"));
 	gtk_file_filter_add_pattern (filter, "*.htm");
 	gtk_file_filter_add_pattern (filter, "*.html");
 	gtk_file_filter_add_pattern (filter, "*.xhtml");
@@ -560,7 +561,7 @@ setup_file_filters (GtkFileChooser *fc)
 	gtk_file_chooser_add_filter (fc, filter);
 
 	filter = gtk_file_filter_new ();
-	gtk_file_filter_set_name (filter, _("Shell scripts files"));
+	gtk_file_filter_set_name (filter, _("Shell script files"));
 	gtk_file_filter_add_pattern (filter, "*.sh");
 	gtk_file_chooser_add_filter (fc, filter);
 
@@ -888,7 +889,7 @@ static GtkActionEntry actions_file[] = {
 	{
 		"ActionFileOpen",
 		GTK_STOCK_OPEN,
-		N_("_Open..."),
+		N_("_Open…"),
 		"<control>o",
 		N_("Open file"),
 		G_CALLBACK (on_open_activate)
@@ -1144,11 +1145,9 @@ value_removed_pm_current_uri (AnjutaPlugin *plugin,
 }
 
 static void
-dnd_dropped (const gchar *uri, gpointer plugin)
+dnd_dropped (GFile* file, gpointer plugin)
 {
-	GFile* file = g_file_new_for_uri (uri);
 	ianjuta_file_loader_load (IANJUTA_FILE_LOADER (plugin), file, FALSE, NULL);
-	g_object_unref (file);
 }
 
 static void
@@ -1231,7 +1230,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	loader_plugin = ANJUTA_PLUGIN_FILE_LOADER (plugin);
 	
-	DEBUG_PRINT ("%s", "AnjutaFileLoaderPlugin: Activating File Loader plugin...");
+	DEBUG_PRINT ("%s", "AnjutaFileLoaderPlugin: Activating File Loader plugin…");
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
@@ -1305,9 +1304,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	g_signal_connect (widget, "clicked", G_CALLBACK (on_open_clicked), loader_plugin);
 
 	/* Install drag n drop handler */
-	dnd_drop_init (GTK_WIDGET (plugin->shell), dnd_dropped, plugin,
-				   "text/plain", "text/html", "text/source", "application-x/anjuta",
-				   NULL);
+	dnd_drop_init (GTK_WIDGET (plugin->shell), dnd_dropped, plugin);
 	
 	/* Add watches */
 	loader_plugin->fm_watch_id = 
@@ -1339,7 +1336,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	
 	loader_plugin = ANJUTA_PLUGIN_FILE_LOADER (plugin);
 	
-	DEBUG_PRINT ("%s", "AnjutaFileLoaderPlugin: Deactivating File Loader plugin...");
+	DEBUG_PRINT ("%s", "AnjutaFileLoaderPlugin: Deactivating File Loader plugin…");
 	
 	/* Disconnect session */
 	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),

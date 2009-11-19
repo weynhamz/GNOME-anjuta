@@ -57,7 +57,7 @@ static GtkActionEntry actions_subversion[] = {
 	{
 		"ActionSubversionAdd",                       /* Action name */
 		GTK_STOCK_ADD,                            /* Stock icon, if any */
-		N_("_Add..."),                     /* Display label */
+		N_("_Add…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Add a new file/directory to the Subversion tree"),                      /* Tooltip */
 		G_CALLBACK (on_menu_subversion_add)    /* action callback */
@@ -65,7 +65,7 @@ static GtkActionEntry actions_subversion[] = {
 	{
 		"ActionSubversionRemove",                       /* Action name */
 		GTK_STOCK_REMOVE,                            /* Stock icon, if any */
-		N_("_Remove..."),                     /* Display label */
+		N_("_Remove…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Remove a file/directory from Subversion tree"),                      /* Tooltip */
 		G_CALLBACK (on_menu_subversion_remove)    /* action callback */
@@ -73,7 +73,7 @@ static GtkActionEntry actions_subversion[] = {
 	{
 		"ActionSubversionCommit",                       /* Action name */
 		GTK_STOCK_YES,                            /* Stock icon, if any */
-		N_("_Commit..."),                     /* Display label */
+		N_("_Commit…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Commit your changes to the Subversion tree"),                      /* Tooltip */
 		G_CALLBACK (on_menu_subversion_commit)    /* action callback */
@@ -81,7 +81,7 @@ static GtkActionEntry actions_subversion[] = {
 	{
 		"ActionSubversionRevert",                       /* Action name */
 		GTK_STOCK_UNDO,                            /* Stock icon, if any */
-		N_("_Revert..."),                     /* Display label */
+		N_("_Revert…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Revert changes to your working copy."),                      /* Tooltip */
 		G_CALLBACK (on_menu_subversion_revert)    /* action callback */
@@ -89,7 +89,7 @@ static GtkActionEntry actions_subversion[] = {
 	{
 		"ActionSubversionResolve",                       /* Action name */
 		GTK_STOCK_PREFERENCES,                            /* Stock icon, if any */
-		N_("_Resolve Conflicts..."),                     /* Display label */
+		N_("_Resolve Conflicts…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Resolve conflicts in your working copy."),                      /* Tooltip */
 		G_CALLBACK (on_menu_subversion_resolve)    /* action callback */
@@ -97,15 +97,15 @@ static GtkActionEntry actions_subversion[] = {
 	{
 		"ActionSubversionUpdate",                       /* Action name */
 		GTK_STOCK_REFRESH,                            /* Stock icon, if any */
-		N_("_Update..."),                     /* Display label */
+		N_("_Update…"),                     /* Display label */
 		NULL,                                     /* short-cut */
-		N_("Sync your local copy with the Subversion tree"),                      /* Tooltip */
+		N_("Syncronize your local copy with the Subversion tree"),                      /* Tooltip */
 		G_CALLBACK (on_menu_subversion_update)    /* action callback */
 	},
 	{
 		"ActionSubversionCopy",                       /* Action name */
 		GTK_STOCK_COPY,                            /* Stock icon, if any */
-		N_("Copy Files/Folders..."),                     /* Display label */
+		N_("Copy Files/Folders…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Copy files/folders in the repository"),                      /* Tooltip */
 		G_CALLBACK (on_menu_subversion_copy)    /* action callback */
@@ -113,7 +113,7 @@ static GtkActionEntry actions_subversion[] = {
 	{
 		"ActionSubversionSwitch",                       /* Action name */
 		GTK_STOCK_JUMP_TO,                            /* Stock icon, if any */
-		N_("Switch to a Branch/Tag..."),                     /* Display label */
+		N_("Switch to a Branch/Tag…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Switch your local copy to a branch or tag in the repository"),                      /* Tooltip */
 		G_CALLBACK (on_menu_subversion_switch)    /* action callback */
@@ -121,7 +121,7 @@ static GtkActionEntry actions_subversion[] = {
 	{
 		"ActionSubversionMerge",                       /* Action name */
 		GTK_STOCK_CONVERT,                            /* Stock icon, if any */
-		N_("Merge..."),                     /* Display label */
+		N_("Merge…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Merge changes into your working copy"),                      /* Tooltip */
 		G_CALLBACK (on_menu_subversion_merge)    /* action callback */
@@ -129,7 +129,7 @@ static GtkActionEntry actions_subversion[] = {
 	{
 		"ActionSubversionLog",                       /* Action name */
 		GTK_STOCK_ZOOM_100,                            /* Stock icon, if any */
-		N_("_View Log..."),                     /* Display label */
+		N_("_View Log…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("View file history"),                      /* Tooltip */
 		G_CALLBACK (on_menu_subversion_log)    /* action callback */
@@ -137,7 +137,7 @@ static GtkActionEntry actions_subversion[] = {
 	{
 		"ActionSubversionDiff",                       /* Action name */
 		GTK_STOCK_ZOOM_100,                            /* Stock icon, if any */
-		N_("_Diff..."),                     /* Display label */
+		N_("_Diff…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Diff local tree with repository"),                      /* Tooltip */
 		G_CALLBACK (on_menu_subversion_diff)    /* action callback */
@@ -156,15 +156,15 @@ static GtkActionEntry popup_actions_subversion[] = {
 	{
 		"ActionPopupSubversionUpdate",                       /* Action name */
 		GTK_STOCK_REFRESH,                            /* Stock icon, if any */
-		N_("_Update..."),                     /* Display label */
+		N_("_Update…"),                     /* Display label */
 		NULL,                                     /* short-cut */
-		N_("Sync your local copy with the Subversion tree"),                      /* Tooltip */
+		N_("Syncronize your local copy with the Subversion tree"),                      /* Tooltip */
 		G_CALLBACK (on_fm_subversion_update)    /* action callback */
 	},
 	{
 		"ActionPopupSubversionRevert",                       /* Action name */
 		GTK_STOCK_UNDO,                            /* Stock icon, if any */
-		N_("_Revert..."),                     /* Display label */
+		N_("_Revert…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Revert changes to your working copy."),                      /* Tooltip */
 		G_CALLBACK (on_fm_subversion_revert)    /* action callback */
@@ -172,7 +172,7 @@ static GtkActionEntry popup_actions_subversion[] = {
 	{
 		"ActionPopupSubversionAdd",                       /* Action name */
 		GTK_STOCK_ADD,                            /* Stock icon, if any */
-		N_("_Add..."),                     /* Display label */
+		N_("_Add…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Add a new file/directory to the Subversion tree"),                      /* Tooltip */
 		G_CALLBACK (on_fm_subversion_add)    /* action callback */
@@ -180,7 +180,7 @@ static GtkActionEntry popup_actions_subversion[] = {
 	{
 		"ActionPopupSubversionRemove",                       /* Action name */
 		GTK_STOCK_REMOVE,                            /* Stock icon, if any */
-		N_("_Remove..."),                     /* Display label */
+		N_("_Remove…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Remove a file/directory from Subversion tree"),                      /* Tooltip */
 		G_CALLBACK (on_fm_subversion_remove)    /* action callback */
@@ -188,7 +188,7 @@ static GtkActionEntry popup_actions_subversion[] = {
 	{
 		"ActionPopupSubversionLog",                       /* Action name */
 		GTK_STOCK_ZOOM_100,                            /* Stock icon, if any */
-		N_("_View Log..."),                     /* Display label */
+		N_("_View Log…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("View file history"),                      /* Tooltip */
 		G_CALLBACK (on_fm_subversion_log)    /* action callback */
@@ -196,7 +196,7 @@ static GtkActionEntry popup_actions_subversion[] = {
 	{
 		"ActionPopupSubversionCopy",                       /* Action name */
 		GTK_STOCK_COPY,                            /* Stock icon, if any */
-		N_("Copy..."),                     /* Display label */
+		N_("Copy…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Copy files/folders in the repository"),                      /* Tooltip */
 		G_CALLBACK (on_fm_subversion_copy)    /* action callback */
@@ -204,7 +204,7 @@ static GtkActionEntry popup_actions_subversion[] = {
 	{
 		"ActionPopupSubversionDiff",                       /* Action name */
 		GTK_STOCK_ZOOM_100,                            /* Stock icon, if any */
-		N_("Diff..."),                     /* Display label */
+		N_("Diff…"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Diff local tree with repository"),                      /* Tooltip */
 		G_CALLBACK (on_fm_subversion_diff)    /* action callback */
@@ -477,7 +477,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	GtkAction *resolve_action;
 	GError* error = NULL;
 	
-	DEBUG_PRINT ("%s", "Subversion: Activating Subversion plugin ...");
+	DEBUG_PRINT ("%s", "Subversion: Activating Subversion plugin …");
 	subversion = ANJUTA_PLUGIN_SUBVERSION (plugin);
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
@@ -563,7 +563,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 {
 	Subversion *subversion = ANJUTA_PLUGIN_SUBVERSION (plugin);
 	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	DEBUG_PRINT ("%s", "Subversion: Dectivating Subversion plugin ...");
+	DEBUG_PRINT ("%s", "Subversion: Dectivating Subversion plugin …");
 	anjuta_plugin_remove_watch (plugin, subversion->fm_watch_id, TRUE);
 	anjuta_plugin_remove_watch (plugin, subversion->project_watch_id, TRUE);
 	anjuta_plugin_remove_watch (plugin, subversion->editor_watch_id, TRUE);

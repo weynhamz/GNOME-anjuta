@@ -1,5 +1,5 @@
 /*
-    anjuta_launcher.c
+    anjuta-launcher.c
     Copyright (C) 2000  Kh. Naba Kumar Singh
 
     This program is free software; you can redistribute it and/or modify
@@ -49,7 +49,7 @@ main (int argc, char **argv)
 
 	if (strcmp (argv[1], "--version") == 0)
 	{
-		printf ("anjuta_launcher version 0.1.2\n");
+		printf ("anjuta-launcher version 0.1.2\n");
 		exit (0);
 	}
 	if (strcmp (argv[1], "--__debug_terminal") == 0)

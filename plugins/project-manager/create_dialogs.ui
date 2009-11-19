@@ -391,7 +391,7 @@
                   <object class="GtkButton" id="browse_button">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="label" translatable="yes">_Select file to add...</property>
+                    <property name="label" translatable="yes">_Select file to add…</property>
                     <property name="use_underline">True</property>
                   </object>
                   <packing>

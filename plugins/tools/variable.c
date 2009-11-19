@@ -100,7 +100,7 @@ static const struct
  {"editor_current_filename", N_("Currently edited file name"), ATP_FILE_VARIABLE },
  {"editor_current_filename_without_ext", N_("Currently edited file name without extension"), ATP_FILE_VARIABLE },
  {"editor_current_directory", N_("Currently edited file directory"), ATP_DIRECTORY_VARIABLE },
- {"editor_current_selection", N_("Currently selection in editor"), ATP_FILE_VARIABLE },
+ {"editor_current_selection", N_("Currently selected text in editor"), ATP_FILE_VARIABLE },
  {"editor_current_word", N_("Current word in editor"), ATP_FILE_VARIABLE },
  {"editor_current_line", N_("Current line in editor"), ATP_FILE_VARIABLE },
  {"ask_user_string", N_("Ask the user to get additional parameters"), ATP_INTERACTIVE_VARIABLE }

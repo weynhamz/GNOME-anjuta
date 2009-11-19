@@ -95,6 +95,10 @@ subversion_ivcs_checkout (IAnjutaVcs *obj,
 	g_signal_connect (G_OBJECT (checkout_command), "data-arrived",
 					  G_CALLBACK (on_command_info_arrived),
 					  plugin);
+
+	g_signal_connect (G_OBJECT (checkout_command), "command-finished",
+	                  G_CALLBACK (g_object_unref),
+	                  NULL);
 	
 	if (cancel)
 	{

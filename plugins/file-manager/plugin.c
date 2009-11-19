@@ -155,24 +155,28 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 					const GValue *value, gpointer user_data)
 {
 	AnjutaFileManager* file_manager;
+	GtkTreeModelSort *tree_model;
+	FileModel *file_model;
 	const gchar *root_uri;
 
 	file_manager = (AnjutaFileManager*) plugin;
+	tree_model = GTK_TREE_MODEL_SORT (
+	    gtk_tree_view_get_model (GTK_TREE_VIEW (file_manager->fv)));
+	file_model = FILE_MODEL (gtk_tree_model_sort_get_model (tree_model));
+	
 	root_uri = g_value_get_string (value);
 	if (root_uri)
 	{
 		g_object_set (G_OBJECT(file_manager->fv), "base_uri", root_uri, NULL);
-		g_object_set_data (G_OBJECT(file_manager->fv), "__ivcs",
-						   get_vcs_plugin (file_manager,
-										   root_uri));
+		file_model_set_ivcs (file_model, get_vcs_plugin (file_manager,
+														 root_uri));
 		
 		file_view_refresh (file_manager->fv);
 		file_manager->have_project = TRUE;
 	}
 	else
 	{
-		g_object_set_data (G_OBJECT(file_manager->fv), "__ivcs",
-						   NULL);
+		file_model_set_ivcs(file_model, NULL);
 		file_manager_set_default_uri (file_manager);
 		file_view_refresh (file_manager->fv);
 	}

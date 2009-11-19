@@ -58,6 +58,12 @@ struct  _DefaultBuildConfiguration
 	gchar *args;
 };
 
+/* The name value is kept untranslated for saving in the session file or
+ * used as an id but a translated value is needed for displaying it.
+ * Some predefined names are defined using contants named
+ * IANJUTA_BUILDER_CONFIGURATION_*. They cannot be used in the name
+ * field as we need a translated value, so they are used in build
+ * directory instead */
 const DefaultBuildConfiguration default_config[] = {
 	{N_("Default"), NULL, "--enable-maintainer-mode"},
 	{N_("Debug"), IANJUTA_BUILDER_CONFIGURATION_DEBUG, "--enable-maintainer-mode 'CFLAGS=-g -O0' 'CXXFLAGS=-g -O0' 'JFLAGS=-g -O0' 'FFLAGS=-g -O0'"},

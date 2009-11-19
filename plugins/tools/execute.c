@@ -466,7 +466,7 @@ atp_output_context_print_command (ATPOutputContext *this, const gchar* command)
 	case ATP_TOUT_COMMON_PANE:
 	case ATP_TOUT_NEW_PANE:
 		/* Display the name of the command */
-		msg = g_strdup_printf(_("Running command: %s...\n"), command);	
+		msg = g_strdup_printf(_("Running command: %s…\n"), command);	
 		ok = atp_output_context_print (this, msg);
 		g_free (msg);
 		break;
@@ -626,7 +626,7 @@ atp_output_context_initialize (ATPOutputContext *this,
 		this->editor = get_current_editor(docman);
 		if (this->editor == NULL)
 		{
-			anjuta_util_dialog_warning (GTK_WINDOW (this->execution->plugin->shell), _("Unable to create a buffer, command aborted"));
+			anjuta_util_dialog_warning (GTK_WINDOW (this->execution->plugin->shell), _("Unable to create a buffer: command aborted"));
 			return NULL;
 		}
 		g_object_add_weak_pointer (G_OBJECT (this->editor), (gpointer *)(gpointer)&this->editor);
@@ -638,7 +638,7 @@ atp_output_context_initialize (ATPOutputContext *this,
 		this->editor = docman == NULL ? NULL : IANJUTA_EDITOR( ianjuta_document_manager_get_current_document (docman, NULL));
 		if (this->editor == NULL)
 		{
-			anjuta_util_dialog_warning (GTK_WINDOW (this->execution->plugin->shell), _("No document currently open, command aborted"));
+			anjuta_util_dialog_warning (GTK_WINDOW (this->execution->plugin->shell), _("No document currently open: command aborted"));
 			return NULL;
 		}
 		g_object_add_weak_pointer (G_OBJECT (this->editor), (gpointer *)(gpointer)&this->editor);

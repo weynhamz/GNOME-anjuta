@@ -29,6 +29,7 @@
 #include <libanjuta/anjuta-preferences.h>
 
 #include "file-view.h"
+#include "file-model.h"
 
 typedef struct _AnjutaFileManager AnjutaFileManager;
 typedef struct _AnjutaFileManagerClass AnjutaFileManagerClass;

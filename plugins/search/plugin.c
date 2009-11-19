@@ -65,7 +65,7 @@ on_findprevious1_activate (GtkAction * action, gpointer user_data)
 
 static GtkActionEntry actions_search[] = {
   { "ActionMenuEditSearch", NULL, N_("_Search"), NULL, NULL, NULL},
-  { "ActionEditSearchFind", GTK_STOCK_FIND, N_("_Find..."), "<control><alt>f",
+  { "ActionEditSearchFind", GTK_STOCK_FIND, N_("_Find…"), "<control><alt>f",
 	N_("Search for a string or regular expression in the editor"),
     G_CALLBACK (on_find1_activate)},
   { "ActionEditSearchFindNext", GTK_STOCK_FIND, N_("Find _Next"), "<control>g",
@@ -75,14 +75,14 @@ static GtkActionEntry actions_search[] = {
 	"<control><shift>g",
 	N_("Repeat the last Find command"),
 	G_CALLBACK (on_findprevious1_activate)},
-  { "ActionEditSearchReplace", GTK_STOCK_FIND_AND_REPLACE, N_("Find and R_eplace..."),
+  { "ActionEditSearchReplace", GTK_STOCK_FIND_AND_REPLACE, N_("Find and R_eplace…"),
 	"<control>h",
 	N_("Search for and replace a string or regular expression with another string"),
     G_CALLBACK (on_find_and_replace1_activate)},
   { "ActionEditAdvancedSearch", GTK_STOCK_FIND, N_("Search and Replace"),
 	NULL, N_("Search and Replace"),
 	G_CALLBACK (on_find1_activate)},
-  { "ActionEditSearchInFiles", NULL, N_("Fin_d in Files..."), NULL,
+  { "ActionEditSearchInFiles", NULL, N_("Fin_d in Files…"), NULL,
 	N_("Search for a string in multiple files or directories"),
     G_CALLBACK (on_find_in_files1_activate)},
 };
@@ -98,11 +98,11 @@ activate_plugin (AnjutaPlugin *plugin)
 																IAnjutaDocumentManager, NULL);
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupSearch",
-					_("Searching..."),
-					actions_search,
-					G_N_ELEMENTS (actions_search),
-					GETTEXT_PACKAGE, TRUE, plugin);
+	splugin->action_group = anjuta_ui_add_action_group_entries (ui, "ActionGroupSearch",
+	                                                            _("Searching…"),
+	                                                            actions_search,
+	                                                            G_N_ELEMENTS (actions_search),
+	                                                            GETTEXT_PACKAGE, TRUE, plugin);
 
 	
 	splugin->uiid = anjuta_ui_merge (ui, UI_FILE);
@@ -115,6 +115,13 @@ activate_plugin (AnjutaPlugin *plugin)
 static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
+	SearchPlugin* splugin = ANJUTA_PLUGIN_SEARCH (plugin);
+	AnjutaUI *ui;
+
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+
+	anjuta_ui_unmerge (ui, splugin->uiid);
+	anjuta_ui_remove_action_group (ui, splugin->action_group);
 	
 	return TRUE;
 }

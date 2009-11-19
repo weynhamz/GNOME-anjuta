@@ -119,15 +119,15 @@ static void sourceview_create_markers(Sourceview* sv)
 	
 	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_BOOKMARK, NULL)))
 	{
-		gtk_source_view_set_mark_category_pixbuf (view, 
-			marker_types[IANJUTA_MARKABLE_BOOKMARK], pixbuf);
+		gtk_source_view_set_mark_category_icon_from_pixbuf (view, 
+		    marker_types[IANJUTA_MARKABLE_BOOKMARK], pixbuf);
 		gtk_source_view_set_mark_category_priority (view, marker_types [IANJUTA_MARKABLE_BOOKMARK],
 											 IANJUTA_MARKABLE_BOOKMARK);
 		g_object_unref (pixbuf);
 	}
 	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_BREAKPOINT_DISABLED, NULL)))
 	{
-		gtk_source_view_set_mark_category_pixbuf (view, 
+		gtk_source_view_set_mark_category_icon_from_pixbuf (view, 
 			marker_types[IANJUTA_MARKABLE_BREAKPOINT_DISABLED], pixbuf);
 		gtk_source_view_set_mark_category_priority (view, marker_types [IANJUTA_MARKABLE_BREAKPOINT_DISABLED],
 											 IANJUTA_MARKABLE_BREAKPOINT_DISABLED);
@@ -136,7 +136,7 @@ static void sourceview_create_markers(Sourceview* sv)
 	}
 	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_BREAKPOINT_ENABLED, NULL)))
 	{
-		gtk_source_view_set_mark_category_pixbuf (view, 
+		gtk_source_view_set_mark_category_icon_from_pixbuf (view, 
 			marker_types[IANJUTA_MARKABLE_BREAKPOINT_ENABLED], pixbuf);
 		gtk_source_view_set_mark_category_priority (view, marker_types [IANJUTA_MARKABLE_BREAKPOINT_ENABLED],
 											 IANJUTA_MARKABLE_BREAKPOINT_ENABLED);
@@ -144,7 +144,7 @@ static void sourceview_create_markers(Sourceview* sv)
 	}
 	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_PROGRAM_COUNTER, NULL)))
 	{
-		gtk_source_view_set_mark_category_pixbuf (view, 
+		gtk_source_view_set_mark_category_icon_from_pixbuf (view, 
 			marker_types[IANJUTA_MARKABLE_PROGRAM_COUNTER], pixbuf);
 		gtk_source_view_set_mark_category_priority (view, marker_types [IANJUTA_MARKABLE_PROGRAM_COUNTER],
 											 IANJUTA_MARKABLE_PROGRAM_COUNTER);
@@ -152,7 +152,7 @@ static void sourceview_create_markers(Sourceview* sv)
 	}
 	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_LINEMARKER, NULL)))
 	{
-		gtk_source_view_set_mark_category_pixbuf (view, 
+		gtk_source_view_set_mark_category_icon_from_pixbuf (view, 
 			marker_types[IANJUTA_MARKABLE_LINEMARKER], pixbuf);
 		gtk_source_view_set_mark_category_priority (view, marker_types [IANJUTA_MARKABLE_LINEMARKER],
 											 IANJUTA_MARKABLE_LINEMARKER);
@@ -361,7 +361,7 @@ on_file_changed (SourceviewIO* sio, Sourceview* sv)
 	
 	buff =
 		g_strdup_printf (_
-						 ("The file '%s' on the disk is more recent than "
+						 ("The file \"%s\" on the disk is more recent than "
 						  "the current buffer.\nDo you want to reload it?"),
 						 filename);
 
@@ -398,7 +398,7 @@ on_file_deleted (SourceviewIO* sio, Sourceview* sv)
 	
 	buff =
 		g_strdup_printf (_
-						 ("The file '%s' has been deleted on the disk.\n"
+						 ("The file \"%s\" has been deleted on the disk.\n"
 						  "Do you want to close it?"),
 						 filename);
 
@@ -489,7 +489,7 @@ on_open_finish(SourceviewIO* io, Sourceview* sv)
 	if (sourceview_io_get_read_only (io))
 	{
 		gchar* filename = sourceview_io_get_filename (io);
-		gchar* buff = g_strdup_printf (_("The file '%s' is read-only! Edit anyway?"),
+		gchar* buff = g_strdup_printf (_("The file \"%s\" is read-only! Edit anyway?"),
 									   filename);
 		GtkWidget* message_area;
 		g_free (filename);
@@ -1696,6 +1696,13 @@ imark_mark(IAnjutaMarkable* mark, gint location, IAnjutaMarkableMarker marker,
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(mark);
 	SVMark* svmark = g_slice_new0 (SVMark);
+
+	if (location <= 0)
+	{
+		g_set_error (e, IANJUTA_MARKABLE_ERROR, IANJUTA_MARKABLE_INVALID_LOCATION,
+		             "Invalid marker location: %d!", location);
+		return -1;
+	}
 	
 	static gint marker_count = 0;
 	

@@ -4,34 +4,39 @@
 		<placeholder name="PlaceHolderVersionControlMenus">
 		<menu name="MenuGit" action="ActionMenuGit">
 			<placeholder name="PlaceholderGitMenus">
-				<menuitem name="Commit..." action="ActionGitCommit" />
-				<menuitem name="Fetch" action="ActionGitFetch" />
-				<placeholder name="PlaceholderRebaseMenu">
-					<menu name="Rebase" action="ActionMenuGitRebase">
-						<menuitem name="Start..." action="ActionGitRebaseStart" />
-						<separator name="rebase_separator1" />
-						<menuitem name="Continue" action="ActionGitRebaseContinue" />
-						<menuitem name="Skip" action="ActionGitRebaseSkip" />
-						<menuitem name="Abort" action="ActionGitRebaseAbort" />
+				<placeholder name="PlaceholderChangesMenu">
+					<menu name="Changes" action="ActionMenuGitChanges">
+						<menuitem name="Commit..." action="ActionGitCommit" />
+  						<menuitem name="Diff uncommitted changes" action="ActionGitDiffUncommitted" />
+  						<menuitem name="View log..." action="ActionGitLog" />
+  						<placeholder name="PlaceholderStashMenu">
+  							<menu name="Stash" action="ActionMenuGitStash">
+  								<menuitem name="Stash uncomitted changes..." action="ActionGitStashUncommitted" />
+  								<menuitem name="Apply stashed changes..." action="ActionGitApplyStash" />
+  							</menu>
+  						</placeholder>
 					</menu>
-  				</placeholder>
-  				<menuitem name="Push..." action="ActionGitPush" />
-  				<menuitem name="Pull..." action="ActionGitPull" />
-  				<menuitem name="Diff uncommitted changes" action="ActionGitDiffUncommitted" />
-  				<placeholder name="PlaceholderStashMenu">
-  					<menu name="Stash" action="ActionMenuGitStash">
-  						<menuitem name="Stash uncomitted changes..." action="ActionGitStashUncommitted" />
-  						<menuitem name="Apply stashed changes..." action="ActionGitApplyStash" />
+				</placeholder>
+  				<separator />
+  				<placeholder name="PlaceholderRemoteRepositoryMenu">
+  					<menu name="Remote repository" action="ActionMenuGitRemoteRepository">
+  						<menuitem name="Push..." action="ActionGitPush" />
+  						<menuitem name="Pull..." action="ActionGitPull" />
+  						<menuitem name="Fetch" action="ActionGitFetch" />
   					</menu>
   				</placeholder>
   				<separator />
-				<menuitem name="Add..." action="ActionGitAdd" />
-				<menuitem name="Remove..." action="ActionGitRemove" />
-				<menuitem name="Ignore..." action="ActionGitIgnore" />
-				<separator />
-				<menuitem name="Check out files..." action="ActionGitCheckoutFiles" />
-				<menuitem name="Unstage files..." action="ActionGitUnstageFiles" />
-				<menuitem name="Resolve conflicts..." action="ActionGitResolve" />
+  				<placeholder name="PlaceholderFilesMenu">
+  					<menu name="Files" action="ActionMenuGitFiles">
+						<menuitem name="Add..." action="ActionGitAdd" />
+						<menuitem name="Remove..." action="ActionGitRemove" />
+						<menuitem name="Ignore..." action="ActionGitIgnore" />
+						<separator />
+						<menuitem name="Check out files..." action="ActionGitCheckoutFiles" />
+						<menuitem name="Unstage files..." action="ActionGitUnstageFiles" />
+						<menuitem name="Resolve conflicts..." action="ActionGitResolve" />
+					</menu>
+				</placeholder>
 				<separator />
   				<placeholder name="PlaceholderPatchMenu">
   					<menu name="Patches" action="ActionMenuGitPatches">
@@ -54,6 +59,15 @@
 				  		<menuitem name="Delete branch..." action="ActionGitDeleteBranch" />
 				  		<menuitem name="Switch to another branch..." action="ActionGitSwitch" />
 				  		<menuitem name="Merge..." action="ActionGitMerge" />
+				  		<placeholder name="PlaceholderRebaseMenu">
+							<menu name="Rebase" action="ActionMenuGitRebase">
+								<menuitem name="Start..." action="ActionGitRebaseStart" />
+								<separator />
+								<menuitem name="Continue" action="ActionGitRebaseContinue" />
+								<menuitem name="Skip" action="ActionGitRebaseSkip" />
+								<menuitem name="Abort" action="ActionGitRebaseAbort" />
+							</menu>
+  						</placeholder>
 				  		<menuitem name="Cherry pick..." action="ActionGitCherryPick" />
 				  		<placeholder name="PlaceholderRemoteMenu">
 							<menu name="Remote branches" action="ActionMenuGitRemoteBranches">
@@ -63,7 +77,6 @@
 						</placeholder>
   		  			</menu>
 				</placeholder>
-				<separator />
 				<placeholder name="PlaceholderTags">
 					<menu name="TagsMenu" action="ActionMenuGitTags">
 						<menuitem name="Create tag..." action="ActionGitCreateTag" />
@@ -71,8 +84,12 @@
 					</menu>
 				</placeholder>
 				<separator />
-				<menuitem name="Reset tree..." action="ActionGitReset" />
-				<menuitem name="Revert commit..." action="ActionGitRevert" />
+				<placeholder name="PlaceholderResetRevert">
+					<menu name="Reset/Revert" action="ActionMenuGitResetRevert">
+						<menuitem name="Reset tree..." action="ActionGitReset" />
+						<menuitem name="Revert commit..." action="ActionGitRevert" />
+					</menu>
+				</placeholder>
 				<separator />
 				<placeholder name="PlaceholderBisectMenu">
 					<menu name="Bisect" action="ActionMenuGitBisect">
@@ -84,7 +101,7 @@
 					</menu>
 				</placeholder>
 				<separator />
-				<menuitem name="View log..." action="ActionGitLog" />
+				<menuitem name="Initialize repository" action="ActionGitInit" />
 			</placeholder>
 		</menu>
 		</placeholder>
