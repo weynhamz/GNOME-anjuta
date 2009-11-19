@@ -707,7 +707,7 @@ static gboolean
 on_message_clicked (GObject* object, gchar* message, gpointer data)
 {
 	gchar *ptr, *ptr2;
-	gchar *path, *nline, *real_path = NULL, *project_uri;
+	gchar *path, *nline;
 	GFile* file;
 	gint line;
 	
@@ -720,30 +720,37 @@ on_message_clicked (GObject* object, gchar* message, gpointer data)
 		return FALSE;
 	nline = g_strndup(ptr, ptr2 - ptr);
 	line = atoi(nline);
-	
-	anjuta_shell_get (ANJUTA_PLUGIN(sr->docman)->shell,
-	                  IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI, G_TYPE_STRING,
-	                  &project_uri, NULL);
-	
-	if (project_uri && strlen(project_uri))
+	g_free (nline);
+
+	if (!g_path_is_absolute (path))
 	{
-		gchar* project_path = g_filename_from_uri (project_uri, NULL, NULL);
-		if (project_path)
-		{
-			real_path = g_build_filename (project_path, path, NULL);
-			g_free(path);
-		}
-		g_free(project_path);
-	}
-	if (!real_path)
-		real_path = path;
+		gchar *project_uri = NULL;
+
+		anjuta_shell_get (ANJUTA_PLUGIN(sr->docman)->shell,
+		                  IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI, G_TYPE_STRING,
+	    	              &project_uri, NULL);
 	
-	file = g_file_new_for_path (real_path); 
+		if (project_uri && (*project_uri != '\0'))
+		{
+			gchar* project_path = g_filename_from_uri (project_uri, NULL, NULL);
+			if (project_path)
+			{
+				gchar *relative_path = path;
+
+				path = g_build_filename (project_path, path, NULL);
+
+				g_free(relative_path);
+			}
+			g_free (project_path);
+		}
+		g_free (project_uri);
+	}
+	
+	file = g_file_new_for_path (path); 
 	ianjuta_document_manager_goto_file_line_mark (sr->docman, file, line, TRUE, NULL);
 	g_object_unref (file);
-	g_free(real_path);
-	g_free(nline);
-	g_free(project_uri);
+	g_free(path);
+
 	return FALSE;
 }
 
@@ -1288,7 +1295,7 @@ create_dialog(void)
 	sg->bxml = gtk_builder_new ();
 	if (!gtk_builder_add_from_file (sg->bxml, BUILDER_FILE_SEARCH_REPLACE, &error))
 	{
-		anjuta_util_dialog_error(NULL, _("Unable to build user interface for Search And Replace"));
+		anjuta_util_dialog_error(NULL, _("Unable to build user interface for Search and Replace"));
 		g_free(sg);
 		sg = NULL;
 		g_error_free (error);

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <interface>
-  <!-- interface-requires gtk+ 2.12 -->
+  <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy toplevel-contextual -->
   <object class="GtkWindow" id="symbol_db_pref_window">
     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
@@ -36,7 +36,7 @@
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="has_tooltip">True</property>
-                            <property name="tooltip_text" translatable="yes">This option enables the default packages required by your opened project, e.g. glib and gtk+ if you create a Gtk+ project (may require more cpu work)</property>
+                            <property name="tooltip_text" translatable="yes">This option enables the default packages required by your opened project, e.g. Glib and GTK+ if you create a GTK+ project (may require more CPU work)</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
@@ -58,7 +58,7 @@
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="has_tooltip">True</property>
-                            <property name="tooltip_text" translatable="yes">This option means that the global system packages will be scanned contemporary with the project's ones</property>
+                            <property name="tooltip_text" translatable="yes">This option means that the global system packages will be scanned simultaneously with the project's ones</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
@@ -80,7 +80,7 @@
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="has_tooltip">True</property>
-                            <property name="tooltip_text" translatable="yes">Update automatically the file's symbols without saving. The update occurs after 10 seconds of no keypress by user.</property>
+                            <property name="tooltip_text" translatable="yes">Automatically update the file's symbols without saving. The update occurs after 10 seconds without keypresses by the user.</property>
                             <property name="active">True</property>
                             <property name="draw_indicator">True</property>
                           </object>
@@ -101,8 +101,10 @@
               <object class="GtkLabel" id="label1">
                 <property name="visible">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                <property name="label" translatable="yes">&lt;b&gt;Global&lt;/b&gt;</property>
-                <property name="use_markup">True</property>
+                <property name="label" translatable="yes">Global</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
               </object>
             </child>
           </object>
@@ -147,8 +149,10 @@
               <object class="GtkLabel" id="label3">
                 <property name="visible">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                <property name="label" translatable="yes">&lt;b&gt;Available API tags&lt;/b&gt;</property>
-                <property name="use_markup">True</property>
+                <property name="label" translatable="yes">Available API tags</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
               </object>
             </child>
           </object>
@@ -174,7 +178,7 @@
                         <property name="visible">True</property>
                         <property name="sensitive">False</property>
                         <property name="show_text">True</property>
-                        <property name="text" translatable="yes">Checking if package is parseable...</property>
+                        <property name="text" translatable="yes">Checking if package is parseable…</property>
                         <property name="ellipsize">end</property>
                       </object>
                       <packing>

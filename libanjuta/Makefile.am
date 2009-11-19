@@ -2,18 +2,19 @@
 SUBDIRS = interfaces 
 
 AM_CPPFLAGS = \
+	-I$(top_srcdir) \
+	-I . \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	$(GTK_CFLAGS) \
 	$(GCONF_CFLAGS) \
 	$(GLADE_DEPRECATED_CFLAGS) \
 	$(LIBXML_CFLAGS) \
-	-I$(top_srcdir) \
 	-DDATADIR="\"$(datadir)\"" \
 	-DPACKAGE_PIXMAPS_DIR="\"$(datadir)/pixmaps/$(PACKAGE)\"" \
 	-DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" \
 	-DPACKAGE_HELP_DIR="\"$(datadir)/gnome/help/$(PACKAGE)\"" \
-	-DPACKAGE_DOC_DIR="\"$(datadir)/doc/$(PACKAGE)\"" \
+	-DPACKAGE_DOC_DIR="\"$(docdir)\"" \
 	-DG_LOG_DOMAIN=\"libanjuta\"
 
 lib_LTLIBRARIES = libanjuta.la 
@@ -78,7 +79,9 @@ libanjuta_la_SOURCES= \
 	anjuta-debug.c \
 	anjuta-debug.h \
 	gbf-project.c \
-	gbf-project.h
+	gbf-project.h \
+	anjuta-command-queue.c \
+	anjuta-command-queue.h
 
 if HAVE_PLUGIN_GLADE
 
@@ -136,7 +139,8 @@ libanjuta_include = \
 	anjuta-async-notify.h \
 	anjuta-sync-command.h \
 	anjuta-version.h \
-	gbf-project.h
+	gbf-project.h \
+	anjuta-command-queue.h
 
 libanjutainclude_HEADERS = \
 	$(libanjuta_include) \

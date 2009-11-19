@@ -369,7 +369,7 @@ static GtkActionEntry actions_watch[] = {
     {
 		"ActionDmaInspect",                      /* Action name */
 		GTK_STOCK_DIALOG_INFO,                   /* Stock icon, if any */
-		N_("Ins_pect/Evaluate..."),              /* Display label */
+		N_("Ins_pect/Evaluate…"),              /* Display label */
 		NULL,                                    /* short-cut */
 		N_("Inspect or evaluate an expression or variable"), /* Tooltip */
 		G_CALLBACK (on_debug_tree_inspect) /* action callback */
@@ -377,7 +377,7 @@ static GtkActionEntry actions_watch[] = {
 	{
 		"ActionDmaAddWatch",                      
 		NULL,                                     
-		N_("Add Watch..."),                      
+		N_("Add Watch…"),                      
 		NULL,                                    
 		NULL,                                     
 		G_CALLBACK (on_debug_tree_add_watch)     

@@ -3342,7 +3342,7 @@ impl_remove_source (GbfProject  *_project,
 	doc = xml_new_change_doc (project);
 	if (!xml_write_remove_source (project, doc, g_node)) {
 		error_set (error, GBF_PROJECT_ERROR_DOESNT_EXIST,
-			   _("Source coudn't be removed"));
+			   _("Source couldn't be removed"));
 		xmlFreeDoc (doc);
 		return;
 	}

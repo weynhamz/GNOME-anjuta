@@ -34,7 +34,7 @@ on_delete_command_finished (AnjutaCommand *command, guint return_code,
 	{
 		status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell,
 										  NULL);
-		anjuta_status (status, _("Git: Deleted selected tages."), 5);
+		anjuta_status (status, _("Git: Deleted selected tags."), 5);
 	}
 	
 	git_report_errors (command, return_code);
@@ -49,7 +49,7 @@ on_delete_tag_dialog_response (GtkDialog *dialog, gint response_id,
 	GtkWidget *delete_tag_view;
 	GtkWidget *require_merged_check;
 	GtkTreeModel *tag_list_model;
-	GList *selected_tages;
+	GList *selected_tags;
 	GitTagDeleteCommand *delete_command;
 	
 	if (response_id == GTK_RESPONSE_OK)
@@ -61,15 +61,15 @@ on_delete_tag_dialog_response (GtkDialog *dialog, gint response_id,
 		tag_list_model = GTK_TREE_MODEL (gtk_builder_get_object (data->bxml,
 		                                                         "tag_list_model"));
 
-		selected_tages = NULL;
+		selected_tags = NULL;
 		gtk_tree_model_foreach (tag_list_model, 
 								(GtkTreeModelForeachFunc) git_get_selected_refs,
-								&selected_tages);
+								&selected_tags);
 		
 		delete_command = git_tag_delete_command_new (data->plugin->project_root_directory,
-													 selected_tages);
+													 selected_tags);
 		
-		git_command_free_string_list (selected_tages);
+		git_command_free_string_list (selected_tags);
 		
 		git_create_message_view (data->plugin);
 		

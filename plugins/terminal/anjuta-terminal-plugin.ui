@@ -1,8 +1,10 @@
 <?xml version="1.0"?>
-<!--*- mode: xml -*-->
 <interface>
+  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-naming-policy toplevel-contextual -->
   <object class="GtkListStore" id="model1">
     <columns>
+      <!-- column-name gchararray -->
       <column type="gchararray"/>
     </columns>
     <data>
@@ -18,7 +20,7 @@
         <property name="visible">True</property>
         <property name="border_width">5</property>
         <property name="label_xalign">0</property>
-        <property name="shadow_type">GTK_SHADOW_NONE</property>
+        <property name="shadow_type">none</property>
         <child>
           <object class="GtkTable" id="table24">
             <property name="visible">True</property>
@@ -42,14 +44,15 @@
               <packing>
                 <property name="left_attach">1</property>
                 <property name="right_attach">2</property>
-                <property name="y_options"/>
+                <property name="y_options"></property>
               </packing>
             </child>
             <child>
               <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:terminal.default.profile">
+                <property name="label" translatable="yes">Use currently selected profile in GNOME terminal</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="label" translatable="yes">Use currently selected profile in GNOME terminal</property>
+                <property name="receives_default">False</property>
                 <property name="use_underline">True</property>
                 <property name="draw_indicator">True</property>
               </object>
@@ -58,18 +61,18 @@
                 <property name="top_attach">1</property>
                 <property name="bottom_attach">2</property>
                 <property name="x_options">GTK_FILL</property>
-                <property name="y_options"/>
+                <property name="y_options"></property>
               </packing>
             </child>
             <child>
               <object class="GtkLabel" id="label167">
                 <property name="visible">True</property>
                 <property name="xalign">0</property>
-                <property name="label" translatable="yes">Use GNOME terminal profile:</property>
+                <property name="label" translatable="yes">Use GNOME Terminal profile:</property>
               </object>
               <packing>
                 <property name="x_options">GTK_FILL</property>
-                <property name="y_options"/>
+                <property name="y_options"></property>
               </packing>
             </child>
           </object>
@@ -77,8 +80,10 @@
         <child type="label">
           <object class="GtkLabel" id="label166">
             <property name="visible">True</property>
-            <property name="label" translatable="yes">&lt;b&gt;Terminal options&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Terminal options</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>

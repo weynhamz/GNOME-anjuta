@@ -3,14 +3,13 @@
 # Maxim Dziumanenko <dziumanenko@gmail.com>, 2008-2009
 #
 # wanderlust <wanderlust@ukr.net>, 2009.
-# Wanderlust <wanderlust@ukr.net>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta IDE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-09 23:59+0300\n"
-"PO-Revision-Date: 2009-07-09 15:38+0300\n"
-"Last-Translator: Wanderlust <wanderlust@ukr.net>\n"
+"POT-Creation-Date: 2009-09-16 15:03+0300\n"
+"PO-Revision-Date: 2009-09-16 15:38+0300\n"
+"Last-Translator: Maxim Dziumanenko <dziumanenko@gmail.com>\n"
 "Language-Team: ukrainian <Ukrainian <uk@li.org>>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -196,13 +195,13 @@ msgstr "Тайська"
 msgid "Unknown"
 msgstr "Невідома"
 
-#: ../libanjuta/anjuta-launcher.c:1147 ../libanjuta/resources.c:267
+#: ../libanjuta/anjuta-launcher.c:1154 ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276 ../plugins/gdb/utilities.c:282
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "Не вдалось виконати команду: \"%s\""
 
-#: ../libanjuta/anjuta-launcher.c:1148
+#: ../libanjuta/anjuta-launcher.c:1155
 msgid "execvp failed"
 msgstr "Помилка при execvp"
 
@@ -216,8 +215,8 @@ msgstr "Оболонка Anjuta яка міститиме модуль"
 
 #: ../libanjuta/anjuta-plugin-manager.c:733
 #, c-format
-msgid "Plugin '%s' do not want to be deactivated"
-msgstr "Роботу модуля '%s' не потрібно зупиняти"
+msgid "Plugin '%s' does not want to be deactivated"
+msgstr "Модуля '%s' не бажає припиняти роботу"
 
 #: ../libanjuta/anjuta-plugin-manager.c:764
 #, c-format
@@ -277,7 +276,7 @@ msgstr "Виберіть модуль, який треба активувати"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1372
 #, c-format
-msgid "No plugin able to load other plugins in %s"
+msgid "No plugin is able to load other plugins in %s"
 msgstr "Немає доповнення, здатного завантажити інше доповнення у %s"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1960
@@ -309,7 +308,7 @@ msgid "Currently activated plugins"
 msgstr "Наразі активовані доповнення"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2311
-msgid "Anjuta shell for which the plugins are"
+msgid "Anjuta shell for which the plugins are made"
 msgstr "Оболонка Anjuta для якої є доповнення"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2319
@@ -397,7 +396,7 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../libanjuta/anjuta-preferences.c:1538 ../plugins/git/plugin.c:382
+#: ../libanjuta/anjuta-preferences.c:1538 ../plugins/git/plugin.c:455
 msgid "_Reset"
 msgstr "_Скинути"
 
@@ -489,19 +488,19 @@ msgstr ""
 "Встановіть її."
 
 #. Try xterm
-#: ../libanjuta/anjuta-utils.c:971
+#: ../libanjuta/anjuta-utils.c:986
 msgid "Cannot find a terminal, using xterm, even if it may not work"
 msgstr ""
 "Не вдається знайти термінал, використовується xterm, навіть якщо він не "
 "працює"
 
-#: ../libanjuta/anjuta-utils.c:1007 ../libanjuta/anjuta-utils.c:1011
-#: ../libanjuta/anjuta-utils.c:1039 ../libanjuta/anjuta-utils.c:1043
+#: ../libanjuta/anjuta-utils.c:1022 ../libanjuta/anjuta-utils.c:1026
+#: ../libanjuta/anjuta-utils.c:1054 ../libanjuta/anjuta-utils.c:1058
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "Не вдається запустити команду: %s (використовуючи оболонку %s)\n"
 
-#: ../libanjuta/anjuta-utils.c:1677
+#: ../libanjuta/anjuta-utils.c:1690
 msgid ""
 "Unable to display help. Please make sure Anjuta documentation package is "
 "install. It can be downloaded from http://anjuta.org"
@@ -509,7 +508,7 @@ msgstr ""
 "Не вдається показати довідку. Перевірте, що пакет документації для Anjuta "
 "встановлено. Він може бути завантажений з http://anjuta.org"
 
-#: ../libanjuta/anjuta-utils.c:2116
+#: ../libanjuta/anjuta-utils.c:2129
 #, c-format
 msgid "Unable to load user interface file: %s"
 msgstr "Не вдається завантажити файл інтерфейсу користувача: %s"
@@ -574,8 +573,8 @@ msgstr "Об'єкт Pixbuf"
 msgid "The pixbuf to render."
 msgstr "Об'єкт Рixbuf для виведення"
 
-#: ../libanjuta/resources.c:63 ../plugins/glade/plugin.c:3031
-#: ../plugins/glade/plugin.c:3066
+#: ../libanjuta/resources.c:63 ../plugins/glade/plugin.c:3041
+#: ../plugins/glade/plugin.c:3076
 #, c-format
 msgid "Widget not found: %s"
 msgstr "Віджету не знайдено: %s"
@@ -655,22 +654,23 @@ msgstr "Вибрати каталог для збирання"
 msgid "Translate messages"
 msgstr "Перекладати повідомлення збирання"
 
-#: ../plugins/build-basic-autotools/configuration-list.c:61
+#: ../plugins/build-basic-autotools/configuration-list.c:62
+#: ../plugins/class-gen/window.c:525
 #: ../plugins/search/search_preferences.c:523
 #: ../plugins/terminal/anjuta-terminal-plugin.ui.h:2 ../src/preferences.ui.h:2
 msgid "Default"
 msgstr "Типово"
 
-#: ../plugins/build-basic-autotools/configuration-list.c:62
+#: ../plugins/build-basic-autotools/configuration-list.c:63
 #: ../plugins/gdb/utilities.c:297
 msgid "Debug"
 msgstr "Налагодження"
 
-#: ../plugins/build-basic-autotools/configuration-list.c:63
+#: ../plugins/build-basic-autotools/configuration-list.c:64
 msgid "Profiling"
 msgstr "Профілювання"
 
-#: ../plugins/build-basic-autotools/configuration-list.c:64
+#: ../plugins/build-basic-autotools/configuration-list.c:65
 msgid "Optimized"
 msgstr "Оптимізація"
 
@@ -767,6 +767,7 @@ msgid "Command exited with status %d"
 msgstr "Команда завершилася з результатом %d"
 
 #: ../plugins/build-basic-autotools/plugin.c:1029
+#: ../plugins/build-basic-autotools/plugin.c:1505
 #, c-format
 msgid "Command canceled by user"
 msgstr "Команда скасована користувачем"
@@ -785,224 +786,232 @@ msgstr "Виконання програми припинено з сигнало
 msgid "Command terminated for an unknown reason"
 msgstr "Виконання команди перервано з невідомої причини"
 
-#: ../plugins/build-basic-autotools/plugin.c:1064
+#: ../plugins/build-basic-autotools/plugin.c:1065
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "Всього зайняло часу: %lu секунд\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:1071
+#: ../plugins/build-basic-autotools/plugin.c:1072
 msgid "Completed unsuccessfully\n"
 msgstr "Завершено з помилкою\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:1079
+#: ../plugins/build-basic-autotools/plugin.c:1080
 #: ../plugins/tools/execute.c:516
 msgid "Completed successfully\n"
 msgstr "Завершено успішно\n"
 
 #. Translators: the first number is the number of the build attemp,
 #. the string is the directory where the build takes place
-#: ../plugins/build-basic-autotools/plugin.c:1167
+#: ../plugins/build-basic-autotools/plugin.c:1168
 #, c-format
 msgid "Build %d: %s"
 msgstr "Збірка %d: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:1727
+#. Need to run make clean before
+#: ../plugins/build-basic-autotools/plugin.c:1499
+msgid ""
+"Before using this new configuration, the default one needs to be removed. Do "
+"you want to do that ?"
+msgstr ""
+"Перед використанням нової конфігурації треба видалити типову. Зробити це зараз ?"
+
+#: ../plugins/build-basic-autotools/plugin.c:1802
 #, c-format
 msgid "Can not compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 "Не вдається скомпілювати «%s»: не визначені правила збірки для цього типу "
 "файлів."
 
-#: ../plugins/build-basic-autotools/plugin.c:1853
+#: ../plugins/build-basic-autotools/plugin.c:1928
 #, c-format
 msgid "Can not configure project: Missing configure script in %s."
 msgstr ""
 "Не вдається налаштувати проект: у %s відсутній конфігураційний сценарій."
 
-#: ../plugins/build-basic-autotools/plugin.c:2272
-#: ../plugins/build-basic-autotools/plugin.c:2346
-#: ../plugins/build-basic-autotools/plugin.c:2356
-#: ../plugins/build-basic-autotools/plugin.c:2374
-#: ../plugins/build-basic-autotools/plugin.c:2384
-#: ../plugins/build-basic-autotools/plugin.c:2441
+#: ../plugins/build-basic-autotools/plugin.c:2394
+#: ../plugins/build-basic-autotools/plugin.c:2468
+#: ../plugins/build-basic-autotools/plugin.c:2478
+#: ../plugins/build-basic-autotools/plugin.c:2496
+#: ../plugins/build-basic-autotools/plugin.c:2506
+#: ../plugins/build-basic-autotools/plugin.c:2563
 #, c-format
 msgid "_Build"
 msgstr "З_бірка"
 
-#: ../plugins/build-basic-autotools/plugin.c:2276
+#: ../plugins/build-basic-autotools/plugin.c:2398
 msgid "_Build Project"
 msgstr "Зібрати _проект"
 
-#: ../plugins/build-basic-autotools/plugin.c:2277
+#: ../plugins/build-basic-autotools/plugin.c:2399
 msgid "Build whole project"
 msgstr "Збірка усього проекту"
 
-#: ../plugins/build-basic-autotools/plugin.c:2282
+#: ../plugins/build-basic-autotools/plugin.c:2404
 msgid "_Install Project"
 msgstr "Встановити п_роект"
 
-#: ../plugins/build-basic-autotools/plugin.c:2283
+#: ../plugins/build-basic-autotools/plugin.c:2405
 msgid "Install whole project"
 msgstr "Встановлення всього проекту"
 
-#: ../plugins/build-basic-autotools/plugin.c:2288
+#: ../plugins/build-basic-autotools/plugin.c:2410
 msgid "_Clean Project"
 msgstr "_Очистити проект"
 
-#: ../plugins/build-basic-autotools/plugin.c:2289
+#: ../plugins/build-basic-autotools/plugin.c:2411
 msgid "Clean whole project"
 msgstr "Очищення всього проекту"
 
-#: ../plugins/build-basic-autotools/plugin.c:2294
+#: ../plugins/build-basic-autotools/plugin.c:2416
 msgid "C_onfigure Project..."
 msgstr "_Налаштувати проект..."
 
-#: ../plugins/build-basic-autotools/plugin.c:2295
+#: ../plugins/build-basic-autotools/plugin.c:2417
 msgid "Configure project"
 msgstr "Налаштувати проект"
 
-#: ../plugins/build-basic-autotools/plugin.c:2300
+#: ../plugins/build-basic-autotools/plugin.c:2422
 msgid "Build _Tarball"
 msgstr "Зібрати _архів з проектом"
 
-#: ../plugins/build-basic-autotools/plugin.c:2301
+#: ../plugins/build-basic-autotools/plugin.c:2423
 msgid "Build project tarball distribution"
 msgstr "Збірка дистрибутивного пакету проекту: "
 
-#: ../plugins/build-basic-autotools/plugin.c:2306
+#: ../plugins/build-basic-autotools/plugin.c:2428
 msgid "_Build Module"
 msgstr "З_ібрати модуль"
 
-#: ../plugins/build-basic-autotools/plugin.c:2307
+#: ../plugins/build-basic-autotools/plugin.c:2429
 msgid "Build module associated with current file"
 msgstr "Зібрати модуль, асоційований з даним файлом"
 
-#: ../plugins/build-basic-autotools/plugin.c:2312
+#: ../plugins/build-basic-autotools/plugin.c:2434
 msgid "_Install Module"
 msgstr "Встановити м_одуль"
 
-#: ../plugins/build-basic-autotools/plugin.c:2313
+#: ../plugins/build-basic-autotools/plugin.c:2435
 msgid "Install module associated with current file"
 msgstr "Встановити модуль, асоційований з цим файлом"
 
-#: ../plugins/build-basic-autotools/plugin.c:2318
+#: ../plugins/build-basic-autotools/plugin.c:2440
 msgid "_Clean Module"
 msgstr "Очистити _модуль"
 
-#: ../plugins/build-basic-autotools/plugin.c:2319
+#: ../plugins/build-basic-autotools/plugin.c:2441
 msgid "Clean module associated with current file"
 msgstr "Видалити модуль, асоційований з цим файлом"
 
-#: ../plugins/build-basic-autotools/plugin.c:2324
+#: ../plugins/build-basic-autotools/plugin.c:2446
 msgid "Co_mpile File"
 msgstr "_Компілювати файл"
 
-#: ../plugins/build-basic-autotools/plugin.c:2325
+#: ../plugins/build-basic-autotools/plugin.c:2447
 msgid "Compile current editor file"
 msgstr "Компілювати поточний редагований файл"
 
-#: ../plugins/build-basic-autotools/plugin.c:2330
+#: ../plugins/build-basic-autotools/plugin.c:2452
 msgid "Select Configuration"
 msgstr "Вибрати конфігурацію"
 
-#: ../plugins/build-basic-autotools/plugin.c:2331
+#: ../plugins/build-basic-autotools/plugin.c:2453
 msgid "Select current configuration"
 msgstr "Вибір поточної конфігурації"
 
-#: ../plugins/build-basic-autotools/plugin.c:2336
+#: ../plugins/build-basic-autotools/plugin.c:2458
 msgid "Remove Configuration"
 msgstr "Видалити конфігурацію"
 
-#: ../plugins/build-basic-autotools/plugin.c:2337
+#: ../plugins/build-basic-autotools/plugin.c:2459
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr ""
 "Очистити проект(distclean) та видалити конфігураційний каталог при можливості"
 
-#: ../plugins/build-basic-autotools/plugin.c:2350
-#: ../plugins/build-basic-autotools/plugin.c:2378
+#: ../plugins/build-basic-autotools/plugin.c:2472
+#: ../plugins/build-basic-autotools/plugin.c:2500
 msgid "_Compile"
 msgstr "С_компілювати"
 
-#: ../plugins/build-basic-autotools/plugin.c:2351
-#: ../plugins/build-basic-autotools/plugin.c:2379
+#: ../plugins/build-basic-autotools/plugin.c:2473
+#: ../plugins/build-basic-autotools/plugin.c:2501
 msgid "Compile file"
 msgstr "Компіляція файлу"
 
-#: ../plugins/build-basic-autotools/plugin.c:2357
-#: ../plugins/build-basic-autotools/plugin.c:2385
+#: ../plugins/build-basic-autotools/plugin.c:2479
+#: ../plugins/build-basic-autotools/plugin.c:2507
 msgid "Build module"
 msgstr "Збирання модуля"
 
-#: ../plugins/build-basic-autotools/plugin.c:2362
-#: ../plugins/build-basic-autotools/plugin.c:2390
-#: ../plugins/build-basic-autotools/plugin.c:2448
+#: ../plugins/build-basic-autotools/plugin.c:2484
+#: ../plugins/build-basic-autotools/plugin.c:2512
+#: ../plugins/build-basic-autotools/plugin.c:2570
 #, c-format
 msgid "_Install"
 msgstr "_Встановити"
 
-#: ../plugins/build-basic-autotools/plugin.c:2363
-#: ../plugins/build-basic-autotools/plugin.c:2391
+#: ../plugins/build-basic-autotools/plugin.c:2485
+#: ../plugins/build-basic-autotools/plugin.c:2513
 msgid "Install module"
 msgstr "Встановлення модуля"
 
-#: ../plugins/build-basic-autotools/plugin.c:2368
-#: ../plugins/build-basic-autotools/plugin.c:2396
-#: ../plugins/build-basic-autotools/plugin.c:2455
+#: ../plugins/build-basic-autotools/plugin.c:2490
+#: ../plugins/build-basic-autotools/plugin.c:2518
+#: ../plugins/build-basic-autotools/plugin.c:2577
 #, c-format
 msgid "_Clean"
 msgstr "О_чистити"
 
-#: ../plugins/build-basic-autotools/plugin.c:2369
-#: ../plugins/build-basic-autotools/plugin.c:2397
+#: ../plugins/build-basic-autotools/plugin.c:2491
+#: ../plugins/build-basic-autotools/plugin.c:2519
 msgid "Clean module"
 msgstr "Очищення модуля"
 
-#: ../plugins/build-basic-autotools/plugin.c:2402
+#: ../plugins/build-basic-autotools/plugin.c:2524
 msgid "_Cancel command"
 msgstr "_Зупинити виконання команди"
 
-#: ../plugins/build-basic-autotools/plugin.c:2403
+#: ../plugins/build-basic-autotools/plugin.c:2525
 msgid "Cancel build command"
 msgstr "Зупинити команду збирання"
 
-#: ../plugins/build-basic-autotools/plugin.c:2441
+#: ../plugins/build-basic-autotools/plugin.c:2563
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Зібрати (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2448
+#: ../plugins/build-basic-autotools/plugin.c:2570
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Встановити (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2455
+#: ../plugins/build-basic-autotools/plugin.c:2577
 #, c-format
 msgid "_Clean (%s)"
 msgstr "О_чистити (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2463
+#: ../plugins/build-basic-autotools/plugin.c:2585
 #, c-format
 msgid "Co_mpile (%s)"
-msgstr "_Компиляция (%s)"
+msgstr "_Компіляція (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2463
+#: ../plugins/build-basic-autotools/plugin.c:2585
 #, c-format
 msgid "Co_mpile"
 msgstr "_Компілювати"
 
-#: ../plugins/build-basic-autotools/plugin.c:2999
+#: ../plugins/build-basic-autotools/plugin.c:3121
 msgid "Build commands"
 msgstr "Команди для збирання"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:3008
+#: ../plugins/build-basic-autotools/plugin.c:3130
 msgid "Build popup commands"
 msgstr "Контекстні команди для збирання"
 
-#: ../plugins/build-basic-autotools/plugin.c:3372
-#: ../plugins/build-basic-autotools/plugin.c:3380
+#: ../plugins/build-basic-autotools/plugin.c:3512
+#: ../plugins/build-basic-autotools/plugin.c:3520
 msgid "Build Autotools"
 msgstr "Збірка з Autotools"
 
@@ -1055,88 +1064,93 @@ msgid "Class Function Prefix:"
 msgstr "Префікс функцій класу:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:12
+#: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:3
+msgid "Class Generator"
+msgstr "Генератор класів"
+
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:13
 msgid "Class Name:"
 msgstr "Назва класу:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:13
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:14
 msgid "Class Options:"
 msgstr "Параметри класу:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:14
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:15
 msgid "Create"
 msgstr "Створити"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:15
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:16
 msgid "GObject Class\t"
 msgstr "Клас GObject\t"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:16
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:17
 msgid "GObject Prefix and Type:"
 msgstr "Префікс та тип GObject:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:17
-#: ../plugins/file-wizard/file.c:100
-#: ../plugins/project-wizard/templates/translatable-strings.h:46
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:18
+#: ../plugins/file-wizard/file.c:102
+#: ../plugins/project-wizard/templates/translatable-strings.h:47
 msgid "General Public License (GPL)"
 msgstr "Універсальна суспільна ліцензія (GPL)"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:18
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:19
 msgid "Generic C++ Class"
 msgstr "Звичайний клас C++"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:19
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:20
 msgid "Header File:"
 msgstr "Файл заголовків"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:20
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:21
 msgid "Inline the declaration and implementation"
 msgstr "Спільне визначення та опис"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:21
-#: ../plugins/file-wizard/file.c:101
-#: ../plugins/project-wizard/templates/translatable-strings.h:59
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:22
+#: ../plugins/file-wizard/file.c:103
+#: ../plugins/project-wizard/templates/translatable-strings.h:60
 msgid "Lesser General Public License (LGPL)"
 msgstr "Обмежена універсальна суспільна ліцензія (LGPL)"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:22
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:23
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:9
 msgid "License:"
 msgstr "Ліцензія:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:23
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:24
 msgid "Member Functions/Variables"
 msgstr "Методи та змінні класу"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:24
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:25
 msgid "No License"
 msgstr "Ліцензія відсутня"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:25
-#: ../plugins/glade/plugin.c:4436
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:26
+#: ../plugins/glade/plugin.c:4446
 msgid "Properties"
 msgstr "Властивості"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:26
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:27
 msgid "Signals"
 msgstr "Сигнали"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:27
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:28
 msgid "Source File:"
 msgstr "Файл первинного коду:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:28
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:29
 msgid "Source/Header Headings:"
 msgstr "Заголовки файлу заголовків/первинного коду:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:29
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:30
 msgid "private"
 msgstr "private"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:30
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:31
 msgid "protected"
 msgstr "protected"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:31
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:32
 msgid "public"
 msgstr "public"
 
@@ -1175,6 +1189,63 @@ msgstr ""
 msgid "Failed to execute autogen: %s"
 msgstr "Не вдається виконати autogen: %s"
 
+#: ../plugins/class-gen/window.c:94
+msgid "Guess from type"
+msgstr "Визначити за типом"
+
+#: ../plugins/class-gen/window.c:499 ../plugins/class-gen/window.c:510
+msgid "Scope"
+msgstr "Область"
+
+#: ../plugins/class-gen/window.c:500
+msgid "Implementation"
+msgstr "Реалізація"
+
+#: ../plugins/class-gen/window.c:501 ../plugins/class-gen/window.c:511
+#: ../plugins/class-gen/window.c:533
+#: ../plugins/debug-manager/breakpoints.c:1907
+#: ../plugins/debug-manager/debug_tree.c:126
+msgid "Type"
+msgstr "Тип"
+
+#: ../plugins/class-gen/window.c:502 ../plugins/class-gen/window.c:512
+#: ../plugins/class-gen/window.c:520 ../plugins/class-gen/window.c:534
+#: ../plugins/run-program/parameters.c:749
+#: ../plugins/search/search_preferences.c:534
+msgid "Name"
+msgstr "Назва"
+
+#: ../plugins/class-gen/window.c:503 ../plugins/class-gen/window.c:513
+#: ../plugins/class-gen/window.c:535
+#: ../plugins/debug-manager/stack_trace.c:679
+msgid "Arguments"
+msgstr "Аргументи"
+
+#: ../plugins/class-gen/window.c:521
+msgid "Nick"
+msgstr "Північна"
+
+#: ../plugins/class-gen/window.c:522
+msgid "Blurb"
+msgstr "Blurb"
+
+#: ../plugins/class-gen/window.c:523
+msgid "GType"
+msgstr "GType"
+
+#: ../plugins/class-gen/window.c:524
+msgid "ParamSpec"
+msgstr "ParamSpec"
+
+#. Somehow redundant with marshaller, but required for default handler
+#: ../plugins/class-gen/window.c:526 ../plugins/class-gen/window.c:536
+msgid "Flags"
+msgstr "Ознаки"
+
+#: ../plugins/class-gen/window.c:537
+msgid "Marshaller"
+msgstr "Marshaller"
+
 #: ../plugins/class-gen/window.c:818
 msgid "XML description of the user interface"
 msgstr "XML-опис інтерфейсу користувача"
@@ -1193,7 +1264,7 @@ msgstr "<b>Параметри:</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:4
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:2
-#: ../plugins/search/anjuta-search.ui.h:3
+#: ../plugins/git/anjuta-git.ui.h:1 ../plugins/search/anjuta-search.ui.h:3
 msgid "<b>Options</b>"
 msgstr "<b>Параметри</b>"
 
@@ -1219,7 +1290,7 @@ msgid "Be verbose"
 msgstr "Докладний вывід"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:10
-#: ../plugins/git/anjuta-git.ui.h:22
+#: ../plugins/git/anjuta-git.ui.h:27
 #: ../plugins/subversion/anjuta-subversion.ui.h:3
 #: ../plugins/tools/anjuta-tools.ui.h:2
 msgid "Browse..."
@@ -1329,12 +1400,13 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "Ігнорувати файл .cvsrc (рекомендується)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:36
-#: ../plugins/symbol-db/plugin.c:2247 ../plugins/symbol-db/plugin.c:2311
+#: ../plugins/git/anjuta-git.ui.h:62 ../plugins/symbol-db/plugin.c:2333
+#: ../plugins/symbol-db/plugin.c:2397
 msgid "Local"
 msgstr "Локальні"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:37
-#: ../plugins/git/anjuta-git.ui.h:54
+#: ../plugins/git/anjuta-git.ui.h:64
 msgid "Log message:"
 msgstr "Повідомлення журналу:"
 
@@ -1372,7 +1444,7 @@ msgid "Reset sticky tags"
 msgstr "Скинути липкі позначки"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:46
-#: ../plugins/git/anjuta-git.ui.h:79
+#: ../plugins/git/anjuta-git.ui.h:91
 #: ../plugins/subversion/anjuta-subversion.ui.h:37
 msgid "Revision:"
 msgstr "Правка:"
@@ -1404,7 +1476,7 @@ msgid "Vendor tag:"
 msgstr "Позначка постачальника:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:53
-#: ../plugins/git/anjuta-git.ui.h:107
+#: ../plugins/git/anjuta-git.ui.h:125
 #: ../plugins/subversion/anjuta-subversion.ui.h:60
 msgid "Whole project"
 msgstr "Весь проект"
@@ -1429,7 +1501,7 @@ msgstr "Не вдається видалити файл"
 #: ../plugins/cvs-plugin/cvs-callbacks.c:244
 #: ../plugins/git/git-commit-dialog.c:79
 #: ../plugins/git/git-create-tag-dialog.c:130
-#: ../plugins/git/git-merge-dialog.c:87
+#: ../plugins/git/git-merge-dialog.c:91
 #: ../plugins/subversion/subversion-commit-dialog.c:88
 msgid "Are you sure that you want to pass an empty log message?"
 msgstr "Дійсно хочете залишити порожнім повідомлення журналу?"
@@ -1522,8 +1594,7 @@ msgstr "Зафіксувати зміни у дереві CVS"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:76 ../plugins/cvs-plugin/plugin.c:135
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:49
-#: ../plugins/gdb/anjuta-gdb.glade.h:38
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:54
 msgid "_Update"
 msgstr "_Оновити"
 
@@ -1598,376 +1669,361 @@ msgid "<b>Remote debugging</b>"
 msgstr "<b>Віддалене налагодження</b>"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:3
+msgid ""
+"<span weight=\"bold\" size=\"larger\">Are you sure you want to debug a "
+"program not using the Debug configuration ?</span>\n"
+"\n"
+"When optimizations are enabled, the debugger cannot always identify the "
+"source code corresponding to the instructions, some commands can perform in "
+"a strange way, especially steps."
+msgstr ""
+"<span weight=\"bold\" size=\"larger\">Дійсно хочете налагоджувати програму без налагоджувальної конфігурації ?</span>\n"
+"\n"
+"При вмиканні оптимізації, програма налагодження не завжди може визначити фрагмент коду "
+"що відповідає інструкціям, деякі команди можуть дивно поводитись, особливо покроковий прохід."
+
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:6
 msgid "Add Watch"
 msgstr "Добавить у вікно спостереження"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:4
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:7
 msgid "Address:"
 msgstr "Адреса:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:5
-#: ../plugins/gdb/anjuta-gdb.glade.h:2
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:8
 msgid "Attach to process"
 msgstr "Під'єднатись до процесу"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:6
-#: ../plugins/gdb/anjuta-gdb.glade.h:3
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:9
 msgid "Breakpoint properties"
 msgstr "Властивості точки зупинки"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:7
-#: ../plugins/debug-manager/breakpoints.c:1981
-#: ../plugins/gdb/anjuta-gdb.glade.h:4
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:10
+#: ../plugins/debug-manager/breakpoints.c:1980
 msgid "Breakpoints"
 msgstr "Точки зупинки"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:8
-#: ../plugins/gdb/anjuta-gdb.glade.h:5
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:11
 msgid "CPU Registers"
 msgstr "Регістри CPU"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:9
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:12
 msgid "Change Watch"
 msgstr "Змінити досліджуваний об'єкт"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:10
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:13
 msgid "Connect to remote target"
 msgstr "Під'єднатия до віддаленої цілі"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:11
-#: ../plugins/gdb/anjuta-gdb.glade.h:7
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:14
 msgid "Debugger command"
 msgstr "Команда налагодження"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:12
-#: ../plugins/gdb/anjuta-gdb.glade.h:8
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:15
 msgid "Debugger command:"
 msgstr "Команда налагодження:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:13
-#: ../plugins/gdb/anjuta-gdb.glade.h:9
-#: ../plugins/project-wizard/templates/translatable-strings.h:32
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:16
+#: ../plugins/project-wizard/templates/translatable-strings.h:33
 msgid "Description:"
 msgstr "Опис:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:14
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:17
 msgid "Disable"
 msgstr "Вимкнути"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:15
-#: ../plugins/gdb/anjuta-gdb.glade.h:10
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:18
 msgid "Display process _tree"
 msgstr "Показати _дерево процесів"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:16
-#: ../plugins/gdb/anjuta-gdb.glade.h:11
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:19
+msgid "Do not show again"
+msgstr "_Не показувати наступного разу"
+
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:20
 msgid "Enable _all"
 msgstr "Увімкнути _все"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:17
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:21
 msgid "Enter an address in hexadecimal or select one in the data"
 msgstr "Введіть адресу у шістнадцятковому вигляді або виберіть її у даних"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:18
-#: ../plugins/gdb/anjuta-gdb.glade.h:14
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:22
 msgid "Hide process para_meters"
 msgstr "Приховати п_араметри процесу"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:19
-#: ../plugins/gdb/anjuta-gdb.glade.h:15
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:23
 msgid "Inspect"
 msgstr "Переглянути"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:20
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:24
 msgid "Inspect/Evaluate"
 msgstr "Переглянути/обчислити"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:21
-#: ../plugins/debug-manager/plugin.c:931
-#: ../plugins/debug-manager/plugin.c:1031 ../plugins/gdb/anjuta-gdb.glade.h:16
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:25
+#: ../plugins/debug-manager/plugin.c:945
+#: ../plugins/debug-manager/plugin.c:1045
 msgid "Kernel Signals"
 msgstr "Сигнали ядра"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:22
-#: ../plugins/debug-manager/breakpoints.c:1908
-#: ../plugins/gdb/anjuta-gdb.glade.h:17
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:26
+#: ../plugins/debug-manager/breakpoints.c:1907
 msgid "Location"
 msgstr "Розташування"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:23
-#: ../plugins/debug-manager/memory.c:180 ../plugins/gdb/anjuta-gdb.glade.h:18
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:27
+#: ../plugins/debug-manager/memory.c:180
 msgid "Memory"
 msgstr "Пам'ять"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:24
-#: ../plugins/gdb/anjuta-gdb.glade.h:19
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:28
 msgid "Pass:"
 msgstr "Пропуск:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:25
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:29
 msgid "Port:"
 msgstr "Порт:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:26
-#: ../plugins/gdb/anjuta-gdb.glade.h:20
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:30
 msgid "Print:"
 msgstr "Друк:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:27
-#: ../plugins/gdb/anjuta-gdb.glade.h:21
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:31
 msgid "Program Interrupt"
 msgstr "Переривання програми"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:28
-#: ../plugins/gdb/anjuta-gdb.glade.h:23
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:32
 msgid "SIGINT"
 msgstr "SIGINT"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:29
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:33
 msgid "Select one directory"
 msgstr "Обрати каталог первинних текстів"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:30
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:34
 msgid "Serial Line Connection"
 msgstr "Підключення через послідовний порт"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:31
-#: ../plugins/gdb/anjuta-gdb.glade.h:24
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:35
 msgid "Set Signal Property"
 msgstr "Завдання параметрів сигналу"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:32
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:36
 #: ../plugins/debug-manager/sharedlib.c:214
-#: ../plugins/gdb/anjuta-gdb.glade.h:25
 msgid "Shared libraries"
 msgstr "Спільні бібліотеки"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:33
-#: ../plugins/gdb/anjuta-gdb.glade.h:26
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:37
 msgid "Signal:"
 msgstr "Сигнал"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:34
-#: ../plugins/gdb/anjuta-gdb.glade.h:27
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:38
 msgid "Source Directories"
 msgstr "Каталоги первинних текстів"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:35
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:39
 msgid "Start Debugger"
 msgstr "Запустити _налагодження"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:36
-#: ../plugins/gdb/anjuta-gdb.glade.h:28
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:40
 msgid "Stop:"
 msgstr "Зупинити:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:37
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:41
 msgid "TCP/IP Connection"
 msgstr "Підключення до TCP/IP"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:38
-#: ../plugins/gdb/anjuta-gdb.glade.h:29
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:42
 #: ../plugins/project-wizard/property.c:286
 msgid "Yes"
 msgstr "Так"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:39
-#: ../plugins/gdb/anjuta-gdb.glade.h:30
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:43
 msgid "_Attach"
 msgstr "_Під'єднатися"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:40
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:44
 msgid "_Automatic update"
 msgstr "_Автоматичне оновлення"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:41
-#: ../plugins/gdb/anjuta-gdb.glade.h:31
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:45
 msgid "_Condition:"
 msgstr "_Умова:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:42
-#: ../plugins/gdb/anjuta-gdb.glade.h:32
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:46
 msgid "_Disable all"
 msgstr "_Вимкнути все"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:43
-#: ../plugins/gdb/anjuta-gdb.glade.h:33
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:47
 msgid "_Hide paths"
 msgstr "Сховати _шляхи"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:44
-#: ../plugins/gdb/anjuta-gdb.glade.h:34
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:48
 msgid "_Location:"
 msgstr "_Розташування:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:45
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:49
 msgid "_Name:"
 msgstr "_Назва"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:46
+#. This is the number of time that the program executes the line where a breakpoint is located. It is used as a list header, so I have tried to find a quite short name.
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:51
 msgid "_Pass count:"
 msgstr "_Прохід:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:47
-#: ../plugins/gdb/anjuta-gdb.glade.h:36
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:52
 msgid "_Process to attach to:"
 msgstr "_Підключення до процесу:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:48
-#: ../plugins/gdb/anjuta-gdb.glade.h:37
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:53
 msgid "_Remove all"
 msgstr "_Видалити все"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:50
+#: ../plugins/debug-manager/anjuta-debug-manager.ui.h:55
 msgid "_Value:"
 msgstr "З_начення:"
 
-#: ../plugins/debug-manager/breakpoints.c:1674
+#: ../plugins/debug-manager/breakpoints.c:1673
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "Дійсно хочете видалити всі точки зупинки?"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1771
+#: ../plugins/debug-manager/breakpoints.c:1770
 msgid "_Breakpoints"
 msgstr "_Точки зупинки"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1779
+#: ../plugins/debug-manager/breakpoints.c:1778
 msgid "Toggle Breakpoint"
 msgstr "Перемикнути точку зупинки"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1781
+#: ../plugins/debug-manager/breakpoints.c:1780
 msgid "Toggle breakpoint at the current location"
 msgstr "Перемикнути точку зупинки у поточній позиції"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1787
+#: ../plugins/debug-manager/breakpoints.c:1786
 msgid "Add Breakpoint..."
 msgstr "Встановити точку зупинки..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1789
+#: ../plugins/debug-manager/breakpoints.c:1788
 msgid "Add a breakpoint"
 msgstr "Встановити точку зупинки"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1795
+#: ../plugins/debug-manager/breakpoints.c:1794
 msgid "Remove Breakpoint"
 msgstr "Видалити точку зупинки"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1797
+#: ../plugins/debug-manager/breakpoints.c:1796
 msgid "Remove a breakpoint"
 msgstr "Видалити точку зупинки"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1803
+#: ../plugins/debug-manager/breakpoints.c:1802
 msgid "Edit Breakpoint"
 msgstr "Редагувати точку зупинки"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1805
+#: ../plugins/debug-manager/breakpoints.c:1804
 msgid "Edit breakpoint properties"
 msgstr "Редагувати точку зупинки"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1811
-#: ../plugins/debug-manager/breakpoints.c:1882
+#: ../plugins/debug-manager/breakpoints.c:1810
+#: ../plugins/debug-manager/breakpoints.c:1881
 msgid "Enable Breakpoint"
 msgstr "Увімкнути точку зупинки"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1813
-#: ../plugins/debug-manager/breakpoints.c:1883
+#: ../plugins/debug-manager/breakpoints.c:1812
+#: ../plugins/debug-manager/breakpoints.c:1882
 msgid "Enable a breakpoint"
 msgstr "Увімкнути точку зупинки"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1819
+#: ../plugins/debug-manager/breakpoints.c:1818
 msgid "Disable All Breakpoints"
 msgstr "Вимкнути всі точки зупинки"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1821
+#: ../plugins/debug-manager/breakpoints.c:1820
 msgid "Deactivate all breakpoints"
 msgstr "Вимкнути всі точки зупинки"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1827
+#: ../plugins/debug-manager/breakpoints.c:1826
 msgid "R_emove All Breakpoints"
 msgstr "В_идалити всі точки зупинки"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1829
+#: ../plugins/debug-manager/breakpoints.c:1828
 msgid "Remove all breakpoints"
 msgstr "Видалити всі точки зупинки"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1838
+#: ../plugins/debug-manager/breakpoints.c:1837
 msgid "Jump to Breakpoint"
 msgstr "Перейти до точки зупинки"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1840
+#: ../plugins/debug-manager/breakpoints.c:1839
 msgid "Jump to breakpoint location"
 msgstr "Перейти до точки зупинки"
 
-#: ../plugins/debug-manager/breakpoints.c:1877
+#: ../plugins/debug-manager/breakpoints.c:1876
 msgid "Disable Breakpoint"
 msgstr "Вимкнути точку зупинки"
 
-#: ../plugins/debug-manager/breakpoints.c:1878
+#: ../plugins/debug-manager/breakpoints.c:1877
 msgid "Disable a breakpoint"
 msgstr "Вимкнути точку зупинки"
 
-#: ../plugins/debug-manager/breakpoints.c:1908
+#: ../plugins/debug-manager/breakpoints.c:1907
 #: ../plugins/tools/anjuta-tools.ui.h:6
 msgid "Enabled"
 msgstr "Увімкнено"
 
-#: ../plugins/debug-manager/breakpoints.c:1908
+#: ../plugins/debug-manager/breakpoints.c:1907
 #: ../plugins/debug-manager/stack_trace.c:667
 #: ../plugins/debug-manager/threads.c:481
 msgid "Address"
 msgstr "Адреса"
 
 #: ../plugins/debug-manager/breakpoints.c:1908
-#: ../plugins/debug-manager/debug_tree.c:126
-msgid "Type"
-msgstr "Тип"
-
-#: ../plugins/debug-manager/breakpoints.c:1909
 msgid "Condition"
 msgstr "Умова"
 
-#: ../plugins/debug-manager/breakpoints.c:1909
+#: ../plugins/debug-manager/breakpoints.c:1908
 msgid "Pass count"
 msgstr "Прохід"
 
-#: ../plugins/debug-manager/breakpoints.c:1909
+#: ../plugins/debug-manager/breakpoints.c:1908
 msgid "State"
 msgstr "Стан"
 
-#: ../plugins/debug-manager/breakpoints.c:1958
-#: ../plugins/debug-manager/breakpoints.c:1964
+#: ../plugins/debug-manager/breakpoints.c:1957
+#: ../plugins/debug-manager/breakpoints.c:1963
 msgid "Breakpoint operations"
 msgstr "Операції з точками зупинки"
 
@@ -2007,236 +2063,237 @@ msgstr "Рядки"
 msgid "Locals"
 msgstr "Локальні змінні"
 
-#: ../plugins/debug-manager/plugin.c:313
+#: ../plugins/debug-manager/plugin.c:315
 msgid "Debugger Log"
 msgstr "Журнал налагодження"
 
-#: ../plugins/debug-manager/plugin.c:387 ../plugins/debug-manager/plugin.c:407
-#: ../plugins/debug-manager/plugin.c:427 ../plugins/debug-manager/plugin.c:449
-#: ../plugins/debug-manager/plugin.c:483 ../plugins/debug-manager/plugin.c:518
+#: ../plugins/debug-manager/plugin.c:389 ../plugins/debug-manager/plugin.c:409
+#: ../plugins/debug-manager/plugin.c:429 ../plugins/debug-manager/plugin.c:451
+#: ../plugins/debug-manager/plugin.c:485 ../plugins/debug-manager/plugin.c:520
 #: ../plugins/debug-manager/anjuta-debug-manager.plugin.in.h:2
 msgid "Debugger"
 msgstr "Налагодження"
 
-#: ../plugins/debug-manager/plugin.c:387
+#: ../plugins/debug-manager/plugin.c:389
 msgid "Started"
 msgstr "Запущено"
 
-#: ../plugins/debug-manager/plugin.c:407
+#: ../plugins/debug-manager/plugin.c:409
 msgid "Loaded"
 msgstr "Завантажено"
 
-#: ../plugins/debug-manager/plugin.c:427
+#: ../plugins/debug-manager/plugin.c:429
 msgid "Running..."
 msgstr "Запущено..."
 
-#: ../plugins/debug-manager/plugin.c:449
+#: ../plugins/debug-manager/plugin.c:451
 msgid "Stopped"
 msgstr "Зупинено"
 
-#: ../plugins/debug-manager/plugin.c:483
+#: ../plugins/debug-manager/plugin.c:485
 msgid "Unloaded"
 msgstr "Вивантажено"
 
-#: ../plugins/debug-manager/plugin.c:524
+#: ../plugins/debug-manager/plugin.c:529
 #, c-format
 msgid "Debugger terminated with error %d: %s\n"
 msgstr "Програма завершилася з кодом помилки %d: %s\n"
 
-#: ../plugins/debug-manager/plugin.c:537
+#: ../plugins/debug-manager/plugin.c:542
 #, c-format
 msgid "Program has received signal: %s\n"
 msgstr "Програма·отримала·сигнал: %s\n"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:815
+#: ../plugins/debug-manager/plugin.c:829
 msgid "_Debug"
 msgstr "_Налагодження"
 
-#: ../plugins/debug-manager/plugin.c:823
+#: ../plugins/debug-manager/plugin.c:837
 msgid "_Start Debugger"
 msgstr "Запустити _налагодження"
 
-#: ../plugins/debug-manager/plugin.c:831
+#: ../plugins/debug-manager/plugin.c:845
 msgid "_Debug Program"
 msgstr "На_лагодити програму"
 
-#: ../plugins/debug-manager/plugin.c:833
+#: ../plugins/debug-manager/plugin.c:847
 msgid "Start debugger and load the program"
 msgstr "Запустити налагодження та завантажити програму"
 
-#: ../plugins/debug-manager/plugin.c:839
+#: ../plugins/debug-manager/plugin.c:853
 msgid "_Debug Process..."
 msgstr "_Під'єднатись до процесу..."
 
-#: ../plugins/debug-manager/plugin.c:841
+#: ../plugins/debug-manager/plugin.c:855
 msgid "Start debugger and attach to a running program"
 msgstr "Запустити налагодження та під'єднатись до запущеної програми"
 
-#: ../plugins/debug-manager/plugin.c:847
+#: ../plugins/debug-manager/plugin.c:861
 msgid "Debug _Remote Target..."
 msgstr "Налагодити _віддалену ціль..."
 
-#: ../plugins/debug-manager/plugin.c:849
+#: ../plugins/debug-manager/plugin.c:863
 msgid "Connect to a remote debugging target"
 msgstr "Під'єднатися до цілі, що налагоджується віддалено"
 
-#: ../plugins/debug-manager/plugin.c:855
+#: ../plugins/debug-manager/plugin.c:869
 msgid "Stop Debugger"
 msgstr "Зупинити налагодження"
 
-#: ../plugins/debug-manager/plugin.c:857
+#: ../plugins/debug-manager/plugin.c:871
 msgid "Say goodbye to the debugger"
 msgstr "Попрощатися з налагодженням"
 
-#: ../plugins/debug-manager/plugin.c:863
+#: ../plugins/debug-manager/plugin.c:877
 msgid "Add source paths..."
 msgstr "Додати каталог первинних текстів"
 
-#: ../plugins/debug-manager/plugin.c:865
+#: ../plugins/debug-manager/plugin.c:879
 msgid "Add additional source paths"
 msgstr "Добавить додаткові шляхи до первинних кодів"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:875 ../plugins/debug-manager/plugin.c:983
+#: ../plugins/debug-manager/plugin.c:889 ../plugins/debug-manager/plugin.c:997
 msgid "Debugger Command..."
 msgstr "Команда налагодження..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:877 ../plugins/debug-manager/plugin.c:985
+#: ../plugins/debug-manager/plugin.c:891 ../plugins/debug-manager/plugin.c:999
 msgid "Custom debugger command"
 msgstr "Додаткові команди налагодження"
 
-#: ../plugins/debug-manager/plugin.c:883 ../plugins/debug-manager/plugin.c:991
+#: ../plugins/debug-manager/plugin.c:897
+#: ../plugins/debug-manager/plugin.c:1005
 msgid "_Info"
 msgstr "_Інформація"
 
-#: ../plugins/debug-manager/plugin.c:891
+#: ../plugins/debug-manager/plugin.c:905
 msgid "Info _Target Files"
 msgstr "Ф_айли цілі"
 
-#: ../plugins/debug-manager/plugin.c:893
+#: ../plugins/debug-manager/plugin.c:907
 msgid "Display information on the files the debugger is active with"
 msgstr "Вивести інформацію по файли, з якими працює налагоджувач"
 
-#: ../plugins/debug-manager/plugin.c:899
+#: ../plugins/debug-manager/plugin.c:913
 msgid "Info _Program"
 msgstr "_Програма"
 
-#: ../plugins/debug-manager/plugin.c:901
+#: ../plugins/debug-manager/plugin.c:915
 msgid "Display information on the execution status of the program"
 msgstr "Вивести інформацію про стан виконання програми"
 
-#: ../plugins/debug-manager/plugin.c:907
+#: ../plugins/debug-manager/plugin.c:921
 msgid "Info _Kernel User Struct"
 msgstr "Структура user _ядра"
 
-#: ../plugins/debug-manager/plugin.c:909
+#: ../plugins/debug-manager/plugin.c:923
 msgid "Display the contents of kernel 'struct user' for current child"
 msgstr "Вивести зміст ядра 'struct user' для поточного дочірнього процесу"
 
-#: ../plugins/debug-manager/plugin.c:923
-#: ../plugins/debug-manager/plugin.c:1023
+#: ../plugins/debug-manager/plugin.c:937
+#: ../plugins/debug-manager/plugin.c:1037
 msgid "Shared Libraries"
 msgstr "Спільні бібліотеки"
 
-#: ../plugins/debug-manager/plugin.c:925
-#: ../plugins/debug-manager/plugin.c:1025
+#: ../plugins/debug-manager/plugin.c:939
+#: ../plugins/debug-manager/plugin.c:1039
 msgid "Show shared libraries mappings"
 msgstr "Показати карти спільних бібліотек"
 
-#: ../plugins/debug-manager/plugin.c:933
-#: ../plugins/debug-manager/plugin.c:1033
+#: ../plugins/debug-manager/plugin.c:947
+#: ../plugins/debug-manager/plugin.c:1047
 msgid "Show kernel signals"
 msgstr "Показати сигнали ядра"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:943
+#: ../plugins/debug-manager/plugin.c:957
 msgid "Run/_Continue"
 msgstr "Запустити/_продовжити"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:945
+#: ../plugins/debug-manager/plugin.c:959
 msgid "Continue the execution of the program"
 msgstr "Продовжити виконання програми"
 
-#: ../plugins/debug-manager/plugin.c:951
+#: ../plugins/debug-manager/plugin.c:965
 msgid "Step _In"
 msgstr "Крок _у"
 
-#: ../plugins/debug-manager/plugin.c:953
+#: ../plugins/debug-manager/plugin.c:967
 msgid "Single step into function"
 msgstr "Один крок у функцію"
 
-#: ../plugins/debug-manager/plugin.c:959
+#: ../plugins/debug-manager/plugin.c:973
 msgid "Step O_ver"
 msgstr "Крок _через"
 
-#: ../plugins/debug-manager/plugin.c:961
+#: ../plugins/debug-manager/plugin.c:975
 msgid "Single step over function"
 msgstr "Один крок через функцію"
 
-#: ../plugins/debug-manager/plugin.c:967
+#: ../plugins/debug-manager/plugin.c:981
 msgid "Step _Out"
 msgstr "Крок _з"
 
-#: ../plugins/debug-manager/plugin.c:969
+#: ../plugins/debug-manager/plugin.c:983
 msgid "Single step out of the function"
 msgstr "Один крок з функції"
 
-#: ../plugins/debug-manager/plugin.c:975
+#: ../plugins/debug-manager/plugin.c:989
 msgid "_Run to Cursor"
 msgstr "Виконати до _курсора"
 
-#: ../plugins/debug-manager/plugin.c:977
+#: ../plugins/debug-manager/plugin.c:991
 msgid "Run to the cursor"
 msgstr "Виконати до курсора"
 
-#: ../plugins/debug-manager/plugin.c:999
+#: ../plugins/debug-manager/plugin.c:1013
 msgid "Info _Global Variables"
 msgstr "_Глобальні змінні"
 
-#: ../plugins/debug-manager/plugin.c:1001
+#: ../plugins/debug-manager/plugin.c:1015
 msgid "Display all global and static variables of the program"
 msgstr "Показати всі глобальні та статичні змінні програми"
 
-#: ../plugins/debug-manager/plugin.c:1007
+#: ../plugins/debug-manager/plugin.c:1021
 msgid "Info _Current Frame"
 msgstr "Поточний _кадр рядка"
 
-#: ../plugins/debug-manager/plugin.c:1009
+#: ../plugins/debug-manager/plugin.c:1023
 msgid "Display information about the current frame of execution"
 msgstr "Вивести інформацію про поточний кадр стеку"
 
-#: ../plugins/debug-manager/plugin.c:1015
+#: ../plugins/debug-manager/plugin.c:1029
 msgid "Info Function _Arguments"
 msgstr "_Аргументи функції"
 
-#: ../plugins/debug-manager/plugin.c:1017
+#: ../plugins/debug-manager/plugin.c:1031
 msgid "Display function arguments of the current frame"
 msgstr "Вивести аргументи функції поточного кадру"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:1043
+#: ../plugins/debug-manager/plugin.c:1057
 msgid "Pa_use Program"
 msgstr "П_ризупинити виконання програми"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:1045
+#: ../plugins/debug-manager/plugin.c:1059
 msgid "Pauses the execution of the program"
 msgstr "Призупинити виконання програми"
 
-#: ../plugins/debug-manager/plugin.c:1085
-#: ../plugins/debug-manager/plugin.c:1091
-#: ../plugins/debug-manager/plugin.c:1097
-#: ../plugins/debug-manager/plugin.c:1103
+#: ../plugins/debug-manager/plugin.c:1099
+#: ../plugins/debug-manager/plugin.c:1105
+#: ../plugins/debug-manager/plugin.c:1111
+#: ../plugins/debug-manager/plugin.c:1117
 msgid "Debugger operations"
 msgstr "Операції налагоджувача"
 
@@ -2264,11 +2321,11 @@ msgstr "Оновити"
 msgid "Shared Object"
 msgstr " Спільний об'єкт"
 
-#: ../plugins/debug-manager/sharedlib.c:173 ../plugins/git/anjuta-git.ui.h:45
+#: ../plugins/debug-manager/sharedlib.c:173 ../plugins/git/anjuta-git.ui.h:54
 msgid "From"
 msgstr "З"
 
-#: ../plugins/debug-manager/sharedlib.c:180 ../plugins/git/anjuta-git.ui.h:99
+#: ../plugins/debug-manager/sharedlib.c:180 ../plugins/git/anjuta-git.ui.h:116
 msgid "To"
 msgstr "До"
 
@@ -2370,10 +2427,6 @@ msgstr "Рядок"
 msgid "Function"
 msgstr "Функція"
 
-#: ../plugins/debug-manager/stack_trace.c:679
-msgid "Arguments"
-msgstr "Аргументи"
-
 #: ../plugins/debug-manager/stack_trace.c:703
 msgid "Stack"
 msgstr "Стек"
@@ -2382,54 +2435,48 @@ msgstr "Стек"
 msgid "Stack frame operations"
 msgstr "Операції з кадром стеку"
 
-#: ../plugins/debug-manager/start.c:96
+#: ../plugins/debug-manager/start.c:98
 msgid "Pid"
 msgstr "PID"
 
-#: ../plugins/debug-manager/start.c:96
+#: ../plugins/debug-manager/start.c:98
 msgid "User"
 msgstr "Користувач"
 
-#: ../plugins/debug-manager/start.c:96
+#: ../plugins/debug-manager/start.c:98
 msgid "Time"
 msgstr "Час"
 
-#: ../plugins/debug-manager/start.c:96
+#: ../plugins/debug-manager/start.c:98
 msgid "Command"
 msgstr "Команда"
 
-#: ../plugins/debug-manager/start.c:620
+#: ../plugins/debug-manager/start.c:627
 #, c-format
 msgid "Unable to execute: %s."
 msgstr "Неможливо виконати: %s."
 
-#: ../plugins/debug-manager/start.c:634
+#: ../plugins/debug-manager/start.c:641
 #, c-format
 msgid "Unable to open the file: %s\n"
 msgstr "Неможливо відкрити файл: %s\n"
 
-#: ../plugins/debug-manager/start.c:918
+#: ../plugins/debug-manager/start.c:965
 #, c-format
 msgid "Unable to open %s. Debugger cannot start."
 msgstr "Неможливо відкрити файл: %s. Неможливо запустити налагодження"
 
-#: ../plugins/debug-manager/start.c:928
+#: ../plugins/debug-manager/start.c:975
 #, c-format
 msgid "Unable to detect mime-type of %s. Debugger cannot start."
 msgstr ""
 "Неможливо визначити тип MIME для %s. Налагодження не може бути запущено."
 
-#: ../plugins/debug-manager/start.c:1065 ../plugins/debug-manager/start.c:1260
-#: ../plugins/run-program/parameters.c:616
-#, c-format
-msgid "Missing file %s"
-msgstr "Не знайдено файл %s"
-
-#: ../plugins/debug-manager/start.c:1282
+#: ../plugins/debug-manager/start.c:1336
 msgid "Path"
 msgstr "Шлях"
 
-#: ../plugins/debug-manager/start.c:1330 ../plugins/gdb/debugger.c:1699
+#: ../plugins/debug-manager/start.c:1385 ../plugins/gdb/debugger.c:1699
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -2457,51 +2504,51 @@ msgstr "Операції з потоками"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/watch.c:390
+#: ../plugins/debug-manager/watch.c:372
 msgid "Ins_pect/Evaluate..."
 msgstr "Переглянути/_обчислити..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/watch.c:392
+#: ../plugins/debug-manager/watch.c:374
 msgid "Inspect or evaluate an expression or variable"
 msgstr "Переглянути змінну або обчислити вираз"
 
-#: ../plugins/debug-manager/watch.c:398
+#: ../plugins/debug-manager/watch.c:380
 msgid "Add Watch..."
 msgstr "Додати до вікна спостереження..."
 
-#: ../plugins/debug-manager/watch.c:406
+#: ../plugins/debug-manager/watch.c:388
 msgid "Remove Watch"
 msgstr "Припинити спостереження"
 
-#: ../plugins/debug-manager/watch.c:414
+#: ../plugins/debug-manager/watch.c:396
 msgid "Update Watch"
 msgstr "Оновити спостереження"
 
-#: ../plugins/debug-manager/watch.c:422
+#: ../plugins/debug-manager/watch.c:404
 msgid "Change Value"
 msgstr "Змінити значення"
 
-#: ../plugins/debug-manager/watch.c:430
+#: ../plugins/debug-manager/watch.c:412
 msgid "Update all"
 msgstr "Оновити все"
 
-#: ../plugins/debug-manager/watch.c:438
+#: ../plugins/debug-manager/watch.c:420
 msgid "Remove all"
 msgstr "Видалити все"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/watch.c:449
+#: ../plugins/debug-manager/watch.c:431
 msgid "Automatic update"
 msgstr "Оновлювати автоматично"
 
-#: ../plugins/debug-manager/watch.c:475 ../plugins/debug-manager/watch.c:481
+#: ../plugins/debug-manager/watch.c:457 ../plugins/debug-manager/watch.c:463
 msgid "Watch operations"
 msgstr "Операції з об'ектами спостереження"
 
-#: ../plugins/debug-manager/watch.c:553
+#: ../plugins/debug-manager/watch.c:535
 msgid "Watches"
 msgstr "Об'єкти спостереження"
 
@@ -2546,12 +2593,12 @@ msgstr "Операції з довідкою"
 msgid "Contents"
 msgstr "Зміст"
 
-#: ../plugins/devhelp/plugin.c:369 ../plugins/search/search-replace.c:1034
-#: ../plugins/search/search-replace.c:1710
+#: ../plugins/devhelp/plugin.c:369 ../plugins/search/search-replace.c:1041
 #: ../plugins/search/search-replace.c:1717
-#: ../plugins/search/search-replace.c:1729
-#: ../plugins/search/search-replace.c:2058 ../plugins/symbol-db/plugin.c:2249
-#: ../plugins/symbol-db/plugin.c:2361
+#: ../plugins/search/search-replace.c:1724
+#: ../plugins/search/search-replace.c:1736
+#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2335
+#: ../plugins/symbol-db/plugin.c:2447
 msgid "Search"
 msgstr "Пошук"
 
@@ -2604,8 +2651,8 @@ msgid "Path:"
 msgstr "Шлях:"
 
 #: ../plugins/document-manager/anjuta-docman.c:565
-#: ../plugins/file-loader/plugin.c:590 ../plugins/file-loader/plugin.c:893
-#: ../plugins/file-loader/plugin.c:903 ../plugins/file-loader/plugin.c:916
+#: ../plugins/file-loader/plugin.c:591 ../plugins/file-loader/plugin.c:894
+#: ../plugins/file-loader/plugin.c:904 ../plugins/file-loader/plugin.c:917
 msgid "Open file"
 msgstr "Відкрити файл"
 
@@ -2943,7 +2990,7 @@ msgstr "Повторити швидкий пошук"
 
 #: ../plugins/document-manager/plugin.c:268 ../plugins/gtodo/interface.c:168
 #: ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:1910
+#: ../plugins/language-support-cpp-java/plugin.c:1915
 msgid "_Edit"
 msgstr "_Правка"
 
@@ -2972,7 +3019,7 @@ msgstr "Видалити поточний вид документа"
 msgid "U_ndo"
 msgstr "В_ернути"
 
-#: ../plugins/document-manager/plugin.c:283 ../plugins/glade/plugin.c:4079
+#: ../plugins/document-manager/plugin.c:283 ../plugins/glade/plugin.c:4089
 msgid "Undo the last action"
 msgstr "Вернути останню дію"
 
@@ -2994,7 +3041,7 @@ msgstr "Вирізати виділений текст з редактора д�
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/document-manager/plugin.c:291 ../plugins/terminal/terminal.c:554
+#: ../plugins/document-manager/plugin.c:291 ../plugins/terminal/terminal.c:592
 msgid "_Copy"
 msgstr "_Копіювати"
 
@@ -3002,7 +3049,7 @@ msgstr "_Копіювати"
 msgid "Copy the selected text to the clipboard"
 msgstr "Скопіювати вибраний текст в буфер обміну"
 
-#: ../plugins/document-manager/plugin.c:294 ../plugins/terminal/terminal.c:562
+#: ../plugins/document-manager/plugin.c:294 ../plugins/terminal/terminal.c:600
 msgid "_Paste"
 msgstr "Вст_авити"
 
@@ -3361,7 +3408,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../plugins/file-loader/plugin.c:256
+#: ../plugins/file-loader/plugin.c:257
 #, c-format
 msgid ""
 "<b>Cannot open \"%s\"</b>.\n"
@@ -3381,147 +3428,147 @@ msgstr ""
 "\n"
 "Можна спробувати відкрити за допомогою наступних доповнень або програм."
 
-#: ../plugins/file-loader/plugin.c:279
+#: ../plugins/file-loader/plugin.c:280
 msgid "Open with:"
 msgstr "Відкрити за допомогою:"
 
 #. Document manager plugin
-#: ../plugins/file-loader/plugin.c:285
+#: ../plugins/file-loader/plugin.c:286
 #: ../plugins/document-manager/anjuta-document-manager.plugin.in.h:1
 msgid "Document Manager"
 msgstr "Диспетчер документів"
 
-#: ../plugins/file-loader/plugin.c:496 ../plugins/patch/patch-plugin.c:122
+#: ../plugins/file-loader/plugin.c:497 ../plugins/patch/patch-plugin.c:122
 #: ../plugins/run-program/parameters.c:308
 msgid "All files"
 msgstr "Усі файли"
 
-#: ../plugins/file-loader/plugin.c:501
+#: ../plugins/file-loader/plugin.c:502
 msgid "Anjuta Projects"
 msgstr "Проекти Anjuta"
 
-#: ../plugins/file-loader/plugin.c:507
+#: ../plugins/file-loader/plugin.c:508
 msgid "C/C++ source files"
 msgstr "Файли первинних текстів C/C++"
 
-#: ../plugins/file-loader/plugin.c:519
+#: ../plugins/file-loader/plugin.c:520
 msgid "C# source files"
 msgstr "Файли первинних текстів C#"
 
-#: ../plugins/file-loader/plugin.c:525
+#: ../plugins/file-loader/plugin.c:526
 msgid "Java source files"
 msgstr "Файл первинних текстів Java"
 
-#: ../plugins/file-loader/plugin.c:531
+#: ../plugins/file-loader/plugin.c:532
 msgid "Pascal source files"
 msgstr "Файл первинних текстів Pascal"
 
-#: ../plugins/file-loader/plugin.c:536
+#: ../plugins/file-loader/plugin.c:537
 msgid "PHP source files"
 msgstr "Файл первинних текстів PHP"
 
-#: ../plugins/file-loader/plugin.c:543
+#: ../plugins/file-loader/plugin.c:544
 msgid "Perl source files"
 msgstr "Файл первинних текстів Perl"
 
-#: ../plugins/file-loader/plugin.c:549
+#: ../plugins/file-loader/plugin.c:550
 msgid "Python source files"
 msgstr "Файл первинних текстів Python"
 
-#: ../plugins/file-loader/plugin.c:554
+#: ../plugins/file-loader/plugin.c:555
 msgid "Hyper text markup files"
 msgstr "Файли з гіпертекстом"
 
-#: ../plugins/file-loader/plugin.c:563
+#: ../plugins/file-loader/plugin.c:564
 msgid "Shell scripts files"
 msgstr "Файли сценаріїв оболонки"
 
-#: ../plugins/file-loader/plugin.c:568
+#: ../plugins/file-loader/plugin.c:569
 msgid "Makefiles"
 msgstr "Сценарії збирання (Makefiles)"
 
-#: ../plugins/file-loader/plugin.c:574
+#: ../plugins/file-loader/plugin.c:575
 msgid "Lua files"
 msgstr "Сценарії lua"
 
-#: ../plugins/file-loader/plugin.c:579
+#: ../plugins/file-loader/plugin.c:580
 msgid "Diff files"
 msgstr "Файли відмінностей"
 
-#: ../plugins/file-loader/plugin.c:822
+#: ../plugins/file-loader/plugin.c:823
 #, c-format
 msgid "Failed to activate plugin: %s"
 msgstr "Не вдається активувати додатковий модуль: %s"
 
-#: ../plugins/file-loader/plugin.c:883
+#: ../plugins/file-loader/plugin.c:884
 msgid "_New"
 msgstr "_Створити"
 
-#: ../plugins/file-loader/plugin.c:885
+#: ../plugins/file-loader/plugin.c:886
 msgid "New empty file"
 msgstr "Створити порожній файл"
 
-#: ../plugins/file-loader/plugin.c:891
+#: ../plugins/file-loader/plugin.c:892
 msgid "_Open..."
 msgstr "_Відкрити..."
 
-#: ../plugins/file-loader/plugin.c:902 ../plugins/file-loader/plugin.c:915
+#: ../plugins/file-loader/plugin.c:903 ../plugins/file-loader/plugin.c:916
 msgid "_Open"
 msgstr "_Відкрити"
 
-#: ../plugins/file-loader/plugin.c:909 ../plugins/file-loader/plugin.c:922
+#: ../plugins/file-loader/plugin.c:910 ../plugins/file-loader/plugin.c:923
 msgid "Open _With"
 msgstr "Відкрити у _іншій програмі"
 
-#: ../plugins/file-loader/plugin.c:910 ../plugins/file-loader/plugin.c:923
+#: ../plugins/file-loader/plugin.c:911 ../plugins/file-loader/plugin.c:924
 msgid "Open with"
 msgstr "Відкрити у іншій програмі"
 
-#: ../plugins/file-loader/plugin.c:1244 ../plugins/file-loader/plugin.c:1250
+#: ../plugins/file-loader/plugin.c:1245 ../plugins/file-loader/plugin.c:1251
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:1
 msgid "File Loader"
 msgstr "Завантажувач файлів"
 
-#: ../plugins/file-loader/plugin.c:1254
+#: ../plugins/file-loader/plugin.c:1255
 msgid "New"
 msgstr "Новий"
 
-#: ../plugins/file-loader/plugin.c:1255
+#: ../plugins/file-loader/plugin.c:1256
 msgid "New file, project and project components."
 msgstr "Створити файл, проект та компоненти проекту."
 
-#: ../plugins/file-loader/plugin.c:1262 ../plugins/file-loader/plugin.c:1302
+#: ../plugins/file-loader/plugin.c:1263 ../plugins/file-loader/plugin.c:1303
 msgid "Open"
 msgstr "Відкрити"
 
-#: ../plugins/file-loader/plugin.c:1266
+#: ../plugins/file-loader/plugin.c:1267
 msgid "Open _Recent"
 msgstr "Відкрити _недавній"
 
-#: ../plugins/file-loader/plugin.c:1267 ../plugins/file-loader/plugin.c:1304
+#: ../plugins/file-loader/plugin.c:1268 ../plugins/file-loader/plugin.c:1305
 msgid "Open recent file"
 msgstr "Відкрити останній файл"
 
-#: ../plugins/file-loader/plugin.c:1273
+#: ../plugins/file-loader/plugin.c:1274
 msgid "Open recent files"
 msgstr "Відкрити останні файли"
 
-#: ../plugins/file-loader/plugin.c:1303
+#: ../plugins/file-loader/plugin.c:1304
 msgid "Open a file"
 msgstr "Відкрити файл"
 
-#: ../plugins/file-loader/plugin.c:1419 ../plugins/file-loader/plugin.c:1421
+#: ../plugins/file-loader/plugin.c:1420 ../plugins/file-loader/plugin.c:1422
 #, c-format
 msgid "File not found"
 msgstr "Файл не знайдено"
 
 #. %s is name of file that will be opened
-#: ../plugins/file-loader/plugin.c:1440
+#: ../plugins/file-loader/plugin.c:1441
 #, c-format
 msgid "Please select a plugin to open <b>%s</b>."
 msgstr "Виберіть модуль, щоб відкрити <b>%s</b>."
 
-#: ../plugins/file-loader/plugin.c:1444
+#: ../plugins/file-loader/plugin.c:1445
 msgid "Open With"
 msgstr "Відкрити у іншій програмі"
 
@@ -3550,7 +3597,7 @@ msgid "Filter"
 msgstr "Фільтр"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2248 ../plugins/symbol-db/plugin.c:2337
+#: ../plugins/symbol-db/plugin.c:2334 ../plugins/symbol-db/plugin.c:2423
 msgid "Global"
 msgstr "Глобальні"
 
@@ -3629,7 +3676,7 @@ msgstr ""
 "Розширення буде додано відповідно до типу файлу."
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:10
-#: ../plugins/git/anjuta-git.ui.h:59 ../plugins/macro/anjuta-macro.ui.h:6
+#: ../plugins/git/anjuta-git.ui.h:69 ../plugins/macro/anjuta-macro.ui.h:6
 #: ../plugins/tools/anjuta-tools.ui.h:7
 msgid "Name:"
 msgstr "Назва:"
@@ -3649,47 +3696,47 @@ msgstr "Тип:"
 msgid "Use Template for the Header file"
 msgstr "Використовувати шаблон файлу заголовків"
 
-#: ../plugins/file-wizard/file.c:81
+#: ../plugins/file-wizard/file.c:83
 msgid "C Source File"
 msgstr "Файл первинних текстів на С"
 
-#: ../plugins/file-wizard/file.c:82
+#: ../plugins/file-wizard/file.c:84
 msgid "C/C++ Header File"
 msgstr "Файл заголовків C/C++"
 
-#: ../plugins/file-wizard/file.c:83
+#: ../plugins/file-wizard/file.c:85
 msgid "C++ Source File"
 msgstr "Файл первинних текстів C++"
 
-#: ../plugins/file-wizard/file.c:84
+#: ../plugins/file-wizard/file.c:86
 msgid "C# Source File"
 msgstr "Файл первинних текстів C#"
 
-#: ../plugins/file-wizard/file.c:85
+#: ../plugins/file-wizard/file.c:87
 msgid "Java Source File"
 msgstr "Файл первинних текстів Java"
 
-#: ../plugins/file-wizard/file.c:86
+#: ../plugins/file-wizard/file.c:88
 msgid "Perl Source File"
 msgstr "Файл первинних текстів Perl"
 
-#: ../plugins/file-wizard/file.c:87
+#: ../plugins/file-wizard/file.c:89
 msgid "Python Source File"
 msgstr "Файл первинних текстів Python"
 
-#: ../plugins/file-wizard/file.c:88
+#: ../plugins/file-wizard/file.c:90
 msgid "Shell Script File"
 msgstr "Файл сценарію оболонки"
 
-#: ../plugins/file-wizard/file.c:89
+#: ../plugins/file-wizard/file.c:91
 msgid "Other"
 msgstr "Інше"
 
-#: ../plugins/file-wizard/file.c:102
+#: ../plugins/file-wizard/file.c:104
 msgid "BSD Public License"
 msgstr "Суспільна ліцензія BSD"
 
-#: ../plugins/file-wizard/file.c:179
+#: ../plugins/file-wizard/file.c:182
 msgid "Unable to build user interface for New File"
 msgstr "Не вдається побудувати інтерфейс користувача для нового файла"
 
@@ -3971,7 +4018,7 @@ msgid "Package name:"
 msgstr "Назва пакету:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:860
-#: ../plugins/project-wizard/templates/translatable-strings.h:101
+#: ../plugins/project-wizard/templates/translatable-strings.h:102
 msgid "Version:"
 msgstr "Версія:"
 
@@ -4123,30 +4170,6 @@ msgstr "Файл первинного коду не може бути видал
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:247
 msgid "Includes:"
 msgstr "Включає:"
-
-#: ../plugins/gdb/anjuta-gdb.glade.h:1
-msgid "*"
-msgstr "*"
-
-#: ../plugins/gdb/anjuta-gdb.glade.h:6
-msgid "Command Line Parameters"
-msgstr "Параметри командного рядка"
-
-#: ../plugins/gdb/anjuta-gdb.glade.h:12
-msgid "Enter a Hexa adress or select one in the data"
-msgstr "Введіть шістнадцяткову адресу або виберіть її у даних"
-
-#: ../plugins/gdb/anjuta-gdb.glade.h:13
-msgid "Execute Program"
-msgstr "Виконати програму"
-
-#: ../plugins/gdb/anjuta-gdb.glade.h:22
-msgid "Run in Terminal"
-msgstr "Запустити в терміналі"
-
-#: ../plugins/gdb/anjuta-gdb.glade.h:35
-msgid "_Pass:"
-msgstr "_Прохід:"
 
 #. The %s argument is a program name, anjuta by example
 #: ../plugins/gdb/debugger.c:691
@@ -4305,412 +4328,488 @@ msgstr ""
 msgid "Cannot start terminal for debugging."
 msgstr "Неможливо запустити термінал для налагодження."
 
-#: ../plugins/git/anjuta-git.ui.h:1
+#: ../plugins/git/anjuta-git.ui.h:2
+msgid "<b>Stash Message (Optional)</b>"
+msgstr "<b>Параметри схованки (необов'язково)</b>"
+
+#: ../plugins/git/anjuta-git.ui.h:3
+msgid "<b>Stash to Apply</b>"
+msgstr "<b>Схованки, як застосувати</b>"
+
+#: ../plugins/git/anjuta-git.ui.h:4
 msgid "<b>Tags</b>"
 msgstr "<b>Теги:</b>"
 
-#: ../plugins/git/anjuta-git.ui.h:2
+#: ../plugins/git/anjuta-git.ui.h:5
 msgid "Add File"
 msgstr "Додати файл"
 
-#: ../plugins/git/anjuta-git.ui.h:3
+#: ../plugins/git/anjuta-git.ui.h:6
 msgid "Add Remote Branch"
 msgstr "Додати віддалену гілку"
 
 #. A signed off by line is something git adds to the end of a commit message that indicates that a patch passes your scrutiny as you commit it to your git tree.
-#: ../plugins/git/anjuta-git.ui.h:5
+#: ../plugins/git/anjuta-git.ui.h:8
 msgid "Add signed off by line"
 msgstr "Додати підпис"
 
-#: ../plugins/git/anjuta-git.ui.h:6
+#: ../plugins/git/anjuta-git.ui.h:9
 msgid "Add signed-off by line"
 msgstr "Додати рядок підпису"
 
-#: ../plugins/git/anjuta-git.ui.h:7
+#: ../plugins/git/anjuta-git.ui.h:10
 msgid "Amend the previous commit"
 msgstr "Внести зміни до попередньої публікації"
 
-#: ../plugins/git/anjuta-git.ui.h:8
+#: ../plugins/git/anjuta-git.ui.h:11
 msgid "Annotate this tag"
 msgstr "Позначити"
 
 #. Normally when you fetch new objets from a remote branch you are tracking, git overwrites the data from the last fetch. With this option, data will be appended to the previous information, preserving it if the user should need it.
-#: ../plugins/git/anjuta-git.ui.h:10
+#: ../plugins/git/anjuta-git.ui.h:13
 msgid "Append fetch data"
 msgstr "Додати отримані дані"
 
+#: ../plugins/git/anjuta-git.ui.h:14
+msgid "Apply Stash"
+msgstr "Застосувати схованку"
+
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/anjuta-git.ui.h:11 ../plugins/git/plugin.c:214
+#: ../plugins/git/anjuta-git.ui.h:15 ../plugins/git/plugin.c:239
 msgid "Apply mailbox files"
 msgstr "Застосувати файли mailbox"
 
+#: ../plugins/git/anjuta-git.ui.h:16
+msgid "Apply the selected stash"
+msgstr "Застосувати вибрані схованки"
+
 #. "Author" means search for commits whose author matches the given grep expression. "Grep" searches through commit logs and patches.
-#: ../plugins/git/anjuta-git.ui.h:13
+#: ../plugins/git/anjuta-git.ui.h:18
 msgid "Author/Grep"
 msgstr "Автор/Шаблон"
 
-#: ../plugins/git/anjuta-git.ui.h:14
+#: ../plugins/git/anjuta-git.ui.h:19
 #: ../plugins/project-wizard/templates/translatable-strings.h:24
 msgid "Author:"
 msgstr "Автор:"
 
-#: ../plugins/git/anjuta-git.ui.h:15
+#: ../plugins/git/anjuta-git.ui.h:20
 msgid "Bad revision:"
 msgstr "Неправильна правка:"
 
-#: ../plugins/git/anjuta-git.ui.h:16
+#: ../plugins/git/anjuta-git.ui.h:21
 msgid "Branch name:"
 msgstr "Назва гілки:"
 
-#: ../plugins/git/anjuta-git.ui.h:17
+#: ../plugins/git/anjuta-git.ui.h:22
 msgid "Branch to switch to:"
 msgstr "Галка для перемикання на неї:"
 
-#: ../plugins/git/anjuta-git.ui.h:18
+#: ../plugins/git/anjuta-git.ui.h:23
 msgid "Branch:"
 msgstr "Гілка:"
 
-#: ../plugins/git/anjuta-git.ui.h:19
+#: ../plugins/git/anjuta-git.ui.h:24
 msgid "Branches"
 msgstr "Гілки"
 
-#: ../plugins/git/anjuta-git.ui.h:20
+#: ../plugins/git/anjuta-git.ui.h:25
 msgid "Branches must be fully merged"
 msgstr "Гілка має бути повністю об'єднана"
 
-#: ../plugins/git/anjuta-git.ui.h:21
+#: ../plugins/git/anjuta-git.ui.h:26
 msgid "Branches to delete:"
 msgstr "Гілки для видалення:"
 
-#: ../plugins/git/anjuta-git.ui.h:23
+#: ../plugins/git/anjuta-git.ui.h:28
 #: ../plugins/subversion/anjuta-subversion.ui.h:4
 msgid "Changes:"
 msgstr "Зміни:"
 
-#: ../plugins/git/anjuta-git.ui.h:24
+#: ../plugins/git/anjuta-git.ui.h:29
 msgid "Check Out Files"
 msgstr "Отримати файли"
 
-#: ../plugins/git/anjuta-git.ui.h:25
+#: ../plugins/git/anjuta-git.ui.h:30
+msgid "Check out all local changes"
+msgstr "Отримати усі локальні зміни"
+
+#: ../plugins/git/anjuta-git.ui.h:31
 msgid "Check out the branch after it is created"
 msgstr "Отримати гілку після створення"
 
-#: ../plugins/git/anjuta-git.ui.h:26
+#: ../plugins/git/anjuta-git.ui.h:32
 msgid "Cherry Pick"
 msgstr "Cherry Pick"
 
-#: ../plugins/git/anjuta-git.ui.h:27
+#: ../plugins/git/anjuta-git.ui.h:33
+msgid "Clear all stashes"
+msgstr "Позначити всі схованки"
+
+#: ../plugins/git/anjuta-git.ui.h:34
+msgid "Column 1"
+msgstr "Стовпчик 1"
+
+#: ../plugins/git/anjuta-git.ui.h:35
 #: ../plugins/subversion/anjuta-subversion.ui.h:7
 msgid "Commit Changes"
 msgstr "Зафіксувати зміни"
 
-#: ../plugins/git/anjuta-git.ui.h:28
+#: ../plugins/git/anjuta-git.ui.h:36
 msgid "Commit on fast-forward merges"
 msgstr "Зафіксувати після швидкого об'єднання"
 
-#: ../plugins/git/anjuta-git.ui.h:29
+#: ../plugins/git/anjuta-git.ui.h:37
 msgid "Commit to Cherry Pick:"
 msgstr "Надіслати до Cherry Pick:"
 
-#: ../plugins/git/anjuta-git.ui.h:30
+#: ../plugins/git/anjuta-git.ui.h:38
 msgid "Commit to revert:"
 msgstr "Зафіксувати у відкаті:"
 
-#: ../plugins/git/anjuta-git.ui.h:31
+#: ../plugins/git/anjuta-git.ui.h:39
 msgid "Create Branch"
 msgstr "Створити гілку"
 
-#: ../plugins/git/anjuta-git.ui.h:32
+#: ../plugins/git/anjuta-git.ui.h:40
 msgid "Create Tag"
 msgstr "Створити позначку"
 
-#: ../plugins/git/anjuta-git.ui.h:33
+#: ../plugins/git/anjuta-git.ui.h:41
 msgid "Create patch series"
 msgstr "Створити серію латок"
 
-#: ../plugins/git/anjuta-git.ui.h:34 ../plugins/git/git-log-dialog.c:189
+#: ../plugins/git/anjuta-git.ui.h:42 ../plugins/git/git-log-dialog.c:189
 #: ../plugins/subversion/subversion-log-dialog.c:141
 msgid "Date"
 msgstr "Дата"
 
-#: ../plugins/git/anjuta-git.ui.h:35
+#: ../plugins/git/anjuta-git.ui.h:43
 msgid "Delete Branch"
 msgstr "Видалити гілку"
 
-#: ../plugins/git/anjuta-git.ui.h:36
+#: ../plugins/git/anjuta-git.ui.h:44
 msgid "Delete Remote Branch"
 msgstr "Видалити гілку у мережі"
 
-#: ../plugins/git/anjuta-git.ui.h:37
+#: ../plugins/git/anjuta-git.ui.h:45
 msgid "Delete Tags"
 msgstr "Видалити теги"
 
-#: ../plugins/git/anjuta-git.ui.h:38
+#: ../plugins/git/anjuta-git.ui.h:46
 msgid "Do not commit"
 msgstr "Не публікувати"
 
-#: ../plugins/git/anjuta-git.ui.h:39
+#: ../plugins/git/anjuta-git.ui.h:47
 msgid "Do not follow tags"
 msgstr "Не слідувати позначкам"
 
-#: ../plugins/git/anjuta-git.ui.h:40
+#: ../plugins/git/anjuta-git.ui.h:48
+msgid "Drop the selected stash"
+msgstr "Відкинути вибрану схованку"
+
+#: ../plugins/git/anjuta-git.ui.h:49
 msgid "E-mail:"
 msgstr "Ел. пошта:"
 
-#: ../plugins/git/anjuta-git.ui.h:41
+#: ../plugins/git/anjuta-git.ui.h:50
 msgid "Fetch remote branches after creation"
 msgstr "Отримувати віддалені гілки після створення"
 
-#: ../plugins/git/anjuta-git.ui.h:42
+#: ../plugins/git/anjuta-git.ui.h:51
 msgid "Filters"
 msgstr "Фільтри"
 
-#: ../plugins/git/anjuta-git.ui.h:43
+#: ../plugins/git/anjuta-git.ui.h:52
 msgid "Folder to create patches in:"
 msgstr "Каталог для створення латок у ньому:"
 
-#: ../plugins/git/anjuta-git.ui.h:44
+#: ../plugins/git/anjuta-git.ui.h:53
 #: ../plugins/subversion/anjuta-subversion.ui.h:19
 msgid "Force"
 msgstr "Примусово"
 
-#: ../plugins/git/anjuta-git.ui.h:46
+#: ../plugins/git/anjuta-git.ui.h:55
 msgid "From:"
 msgstr "З"
 
-#: ../plugins/git/anjuta-git.ui.h:47
+#: ../plugins/git/anjuta-git.ui.h:56
 msgid "Generate patches relative to:"
 msgstr "Створити латки відносно:"
 
-#: ../plugins/git/anjuta-git.ui.h:48
+#: ../plugins/git/anjuta-git.ui.h:57
 msgid "Good revision:"
 msgstr "Добра правка:"
 
-#: ../plugins/git/anjuta-git.ui.h:49
+#: ../plugins/git/anjuta-git.ui.h:58
 msgid "Grep:"
 msgstr "Шаблон:"
 
-#: ../plugins/git/anjuta-git.ui.h:50
+#: ../plugins/git/anjuta-git.ui.h:59
 msgid "Hard"
 msgstr "Жорсткий"
 
-#: ../plugins/git/anjuta-git.ui.h:51
+#: ../plugins/git/anjuta-git.ui.h:60
 msgid "Head"
 msgstr "Остання версія"
 
-#: ../plugins/git/anjuta-git.ui.h:52
+#: ../plugins/git/anjuta-git.ui.h:61
 msgid "Ignore Files"
 msgstr "Ігнорувати файли"
 
-#: ../plugins/git/anjuta-git.ui.h:53
+#: ../plugins/git/anjuta-git.ui.h:63
 #: ../plugins/subversion/anjuta-subversion.ui.h:21
 msgid "Log Message:"
 msgstr "Повідомлення журналу:"
 
-#: ../plugins/git/anjuta-git.ui.h:55
+#: ../plugins/git/anjuta-git.ui.h:65
 msgid "Mailbox file containing patches:"
 msgstr "Файл поштової скриньки, що містить латки:"
 
-#: ../plugins/git/anjuta-git.ui.h:56
+#: ../plugins/git/anjuta-git.ui.h:66
 msgid "Merge"
 msgstr "З об'єднанням"
 
-#: ../plugins/git/anjuta-git.ui.h:57
+#: ../plugins/git/anjuta-git.ui.h:67
 msgid "Mixed"
 msgstr "Змішаний"
 
-#: ../plugins/git/anjuta-git.ui.h:58
+#: ../plugins/git/anjuta-git.ui.h:68
 msgid "Mode:"
 msgstr "Модулі:"
 
-#: ../plugins/git/anjuta-git.ui.h:60
+#: ../plugins/git/anjuta-git.ui.h:70 ../plugins/glade/plugin.c:3097
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:10
 #: ../plugins/subversion/anjuta-subversion.ui.h:23
 msgid "Options"
 msgstr "Параметри"
 
-#: ../plugins/git/anjuta-git.ui.h:61
+#: ../plugins/git/anjuta-git.ui.h:71
 #: ../plugins/subversion/anjuta-subversion.ui.h:24
 msgid "Options:"
 msgstr "Параметри:"
 
-#: ../plugins/git/anjuta-git.ui.h:62
+#: ../plugins/git/anjuta-git.ui.h:72
 msgid "Previous commit"
 msgstr "Попередня публікація"
 
-#: ../plugins/git/anjuta-git.ui.h:63
+#: ../plugins/git/anjuta-git.ui.h:73
 msgid "Pull"
 msgstr "Отримання"
 
-#: ../plugins/git/anjuta-git.ui.h:64
+#: ../plugins/git/anjuta-git.ui.h:74
 msgid "Push"
 msgstr "Надіслати"
 
-#: ../plugins/git/anjuta-git.ui.h:65
+#: ../plugins/git/anjuta-git.ui.h:75
 msgid "Push all branches and tags"
 msgstr "Надіслати усі гілки та теги"
 
-#: ../plugins/git/anjuta-git.ui.h:66
+#: ../plugins/git/anjuta-git.ui.h:76
 msgid "Push all tags"
 msgstr "Надіслати усі теги"
 
-#: ../plugins/git/anjuta-git.ui.h:67
+#: ../plugins/git/anjuta-git.ui.h:77
 msgid "Rebase"
 msgstr "Переміщення"
 
-#: ../plugins/git/anjuta-git.ui.h:68
+#: ../plugins/git/anjuta-git.ui.h:78
+msgid "Remote"
+msgstr "Видалити"
+
+#: ../plugins/git/anjuta-git.ui.h:79
 msgid "Remote branch to rebase from:"
 msgstr "Віддалена гілка для переносу:"
 
-#: ../plugins/git/anjuta-git.ui.h:69
+#: ../plugins/git/anjuta-git.ui.h:80
 msgid "Remote to delete:"
 msgstr "Віддалений для видалення:"
 
-#: ../plugins/git/anjuta-git.ui.h:70
+#: ../plugins/git/anjuta-git.ui.h:81
 msgid "Remove File"
 msgstr "Видалити файл"
 
-#: ../plugins/git/anjuta-git.ui.h:71
+#: ../plugins/git/anjuta-git.ui.h:82
 msgid "Repository origin"
 msgstr "Джерело репозиторію"
 
-#: ../plugins/git/anjuta-git.ui.h:72
+#: ../plugins/git/anjuta-git.ui.h:83
 msgid "Repository to pull from:"
 msgstr "Репозиторій для завантаження:"
 
-#: ../plugins/git/anjuta-git.ui.h:73
+#: ../plugins/git/anjuta-git.ui.h:84
 msgid "Repository to push to:"
 msgstr "Репозиторій для надсилання:"
 
-#: ../plugins/git/anjuta-git.ui.h:74
+#: ../plugins/git/anjuta-git.ui.h:85
 msgid "Reset Tree"
 msgstr "Скинути дерево"
 
-#: ../plugins/git/anjuta-git.ui.h:75
+#: ../plugins/git/anjuta-git.ui.h:86
 msgid "Reset to:"
 msgstr "Скинути на:"
 
-#: ../plugins/git/anjuta-git.ui.h:76
+#: ../plugins/git/anjuta-git.ui.h:87
+msgid "Restore index"
+msgstr "Відновити покажчик"
+
+#: ../plugins/git/anjuta-git.ui.h:88
 #: ../plugins/subversion/anjuta-subversion.ui.h:35
 msgid "Retrieving status..."
 msgstr "Отримання статусу..."
 
-#: ../plugins/git/anjuta-git.ui.h:77
+#: ../plugins/git/anjuta-git.ui.h:89
 msgid "Revert Commit"
-msgstr "Скасувіии фіксацію"
+msgstr "Скасувати фіксацію"
 
-#: ../plugins/git/anjuta-git.ui.h:78
+#: ../plugins/git/anjuta-git.ui.h:90
 msgid "Revision/Tag:"
 msgstr "Правка/позначка:"
 
-#: ../plugins/git/anjuta-git.ui.h:80
+#: ../plugins/git/anjuta-git.ui.h:92
 msgid "Select A Folder"
 msgstr "Виберіть каталог"
 
-#: ../plugins/git/anjuta-git.ui.h:81
+#: ../plugins/git/anjuta-git.ui.h:93
 msgid "Select Files to Check Out:"
 msgstr "Виберіть файли для витягування:"
 
-#: ../plugins/git/anjuta-git.ui.h:82
+#: ../plugins/git/anjuta-git.ui.h:94
 #: ../plugins/subversion/anjuta-subversion.ui.h:41
 msgid "Select Files to Commit:"
 msgstr "Виберіть файли для фіксації:"
 
-#: ../plugins/git/anjuta-git.ui.h:83
+#: ../plugins/git/anjuta-git.ui.h:95
 msgid "Select Files to Ignore:"
 msgstr "Виберіть файли для ігнорування:"
 
-#: ../plugins/git/anjuta-git.ui.h:84
+#: ../plugins/git/anjuta-git.ui.h:96
 #: ../plugins/subversion/anjuta-subversion.ui.h:42
 msgid "Select Files to Mark as Resolved:"
 msgstr "Виберіть файли, для яких конфлікт розв'язано:"
 
-#: ../plugins/git/anjuta-git.ui.h:85
+#: ../plugins/git/anjuta-git.ui.h:97
 msgid "Select Files to Unstage:"
 msgstr "Виберіть файли для видалення:"
 
-#: ../plugins/git/anjuta-git.ui.h:86
+#: ../plugins/git/anjuta-git.ui.h:98
 msgid "Select Mailbox File"
 msgstr "Виберіть файл Mailbox"
 
-#: ../plugins/git/anjuta-git.ui.h:87
+#: ../plugins/git/anjuta-git.ui.h:99
 msgid "Select file to add:"
 msgstr "Виберіть файл для додавання:"
 
-#: ../plugins/git/anjuta-git.ui.h:88
+#: ../plugins/git/anjuta-git.ui.h:100
 msgid "Select file to remove:"
 msgstr "Виберіть файли для видалення:"
 
-#: ../plugins/git/anjuta-git.ui.h:89
+#: ../plugins/git/anjuta-git.ui.h:101
 #: ../plugins/subversion/anjuta-subversion.ui.h:43
 msgid "Set Conflicts as Resolved"
 msgstr "Позначити конфлікти як розв'язані"
 
-#: ../plugins/git/anjuta-git.ui.h:90
+#: ../plugins/git/anjuta-git.ui.h:102
 msgid "Show source revision in log message"
 msgstr "Показати первинну правку у повідомленні журналу"
 
-#: ../plugins/git/anjuta-git.ui.h:91
+#: ../plugins/git/anjuta-git.ui.h:103
+msgid "Show the contents of the selected stash in an editor"
+msgstr "Показувати зміст вибраної схованки у редакторі"
+
+#: ../plugins/git/anjuta-git.ui.h:104
 msgid "Sign this tag"
 msgstr "Підписати цю ціль"
 
-#: ../plugins/git/anjuta-git.ui.h:92
+#: ../plugins/git/anjuta-git.ui.h:105
 msgid "Soft"
 msgstr "М'який"
 
-#: ../plugins/git/anjuta-git.ui.h:93
+#: ../plugins/git/anjuta-git.ui.h:106
 msgid "Squash"
 msgstr "Зіштовхуючий"
 
-#: ../plugins/git/anjuta-git.ui.h:94
+#: ../plugins/git/anjuta-git.ui.h:107 ../plugins/git/plugin.c:811
+msgid "Stash"
+msgstr "Схованка"
+
+#: ../plugins/git/anjuta-git.ui.h:108
+msgid "Stash Uncommitted Changes"
+msgstr "Неопубліковані зміни у схованці"
+
+#: ../plugins/git/anjuta-git.ui.h:109
+msgid "Stash indexed changes"
+msgstr "Індексовані зміни у схованці"
+
+#: ../plugins/git/anjuta-git.ui.h:110
+msgid "Stash the working tree's uncommitted changes"
+msgstr "Сховати у схованку не затверджені зміни робочого дерева"
+
+#: ../plugins/git/anjuta-git.ui.h:111
 msgid "Switch to Another Branch"
 msgstr "Перемикнутися на іншу гілку"
 
-#: ../plugins/git/anjuta-git.ui.h:95
+#: ../plugins/git/anjuta-git.ui.h:112
 msgid "Tag name:"
 msgstr "Назва цілі:"
 
-#: ../plugins/git/anjuta-git.ui.h:96
+#: ../plugins/git/anjuta-git.ui.h:113
 msgid "Tag/Commit"
 msgstr "Позначити/Зафіксувати"
 
-#: ../plugins/git/anjuta-git.ui.h:97
+#: ../plugins/git/anjuta-git.ui.h:114
 msgid "Tags to delete:"
 msgstr "Цілі для видалення:"
 
-#: ../plugins/git/anjuta-git.ui.h:98
+#: ../plugins/git/anjuta-git.ui.h:115
 msgid "This commit concludes a failed merge (use -i)"
 msgstr "Ця фіксація містить результат невдалого об'єднання (використовуйте -i)"
 
-#: ../plugins/git/anjuta-git.ui.h:100
+#: ../plugins/git/anjuta-git.ui.h:117
 msgid "To:"
 msgstr "До:"
 
-#: ../plugins/git/anjuta-git.ui.h:101
+#: ../plugins/git/anjuta-git.ui.h:118
+msgid "URL"
+msgstr "URL"
+
+#: ../plugins/git/anjuta-git.ui.h:119
 msgid "URL:"
 msgstr "URL:"
 
-#: ../plugins/git/anjuta-git.ui.h:102
+#: ../plugins/git/anjuta-git.ui.h:120
 msgid "Unstage Files"
 msgstr "Прибрати файли"
 
-#: ../plugins/git/anjuta-git.ui.h:103
+#: ../plugins/git/anjuta-git.ui.h:121
 msgid "Use a custom log message"
 msgstr "Додати повідомлення до журналу"
 
-#: ../plugins/git/anjuta-git.ui.h:104
+#: ../plugins/git/anjuta-git.ui.h:122
 msgid "Use custom author information:"
 msgstr "Власна інформація про автора:"
 
-#: ../plugins/git/anjuta-git.ui.h:105
+#: ../plugins/git/anjuta-git.ui.h:123
 msgid "View log"
 msgstr "Показати журнал"
 
-#: ../plugins/git/anjuta-git.ui.h:106
+#: ../plugins/git/anjuta-git.ui.h:124
 #: ../plugins/subversion/anjuta-subversion.ui.h:58
 msgid "View the Log for File/Folder:"
 msgstr "Перегляд журналу для файлу/каталогу:"
+
+#: ../plugins/git/anjuta-git.ui.h:126
+msgid "page 1"
+msgstr "сторінка 1"
+
+#: ../plugins/git/anjuta-git.ui.h:127
+msgid "page 2"
+msgstr "сторінка 2"
+
+#: ../plugins/git/anjuta-git.ui.h:128
+msgid "page 3"
+msgstr "сторінка 3"
 
 #: ../plugins/git/git-add-dialog.c:36
 msgid "Git: File staged for add."
@@ -4741,7 +4840,7 @@ msgstr "Git: отримання..."
 
 #: ../plugins/git/git-apply-mailbox-dialog.c:45
 msgid "Please select a mailbox file."
-msgstr "Виберіть файл поштової сриньки."
+msgstr "Виберіть файл поштової скриньки."
 
 #: ../plugins/git/git-bisect-dialog.c:54
 #: ../plugins/git/git-cherry-pick-dialog.c:52
@@ -4789,6 +4888,14 @@ msgstr "Введіть назву познаки."
 
 #: ../plugins/git/git-delete-branch-dialog.c:37
 msgid "Git: Deleted selected branches."
+msgstr "Git: видалено обрані гілки."
+
+#: ../plugins/git/git-delete-branch-dialog.c:106
+msgid "Please select branches to delete"
+msgstr "Виберіть гілки для видалення"
+
+#: ../plugins/git/git-delete-tag-dialog.c:37
+msgid "Git: Deleted selected tags."
 msgstr "Git: видалено обрані гілки."
 
 #: ../plugins/git/git-fetch-dialog.c:40
@@ -4839,6 +4946,11 @@ msgstr "<<b>Позначка:</b> %s"
 msgid "<b>Remote:</b> %s"
 msgstr "<b>Віддалений:</b> %s"
 
+#: ../plugins/git/git-log-dialog.c:849 ../plugins/git/plugin.c:674
+#: ../plugins/git/plugin.c:867
+msgid "Branch"
+msgstr "Гілка"
+
 #: ../plugins/git/git-merge-dialog.c:36
 msgid "Git: Merge complete."
 msgstr "Git: об'єднання завершено."
@@ -4847,7 +4959,13 @@ msgstr "Git: об'єднання завершено."
 msgid "Git: Pull complete."
 msgstr "Git: завантаження завершено."
 
-#: ../plugins/git/git-pull-dialog.c:87
+#. The "input widget" is the widget that should receive focus if the
+#. * user does not properly enter anything
+#: ../plugins/git/git-pull-dialog.c:124
+msgid "Please select a remote to pull from."
+msgstr "Введіть віддалений вузол з якого оновлювати код."
+
+#: ../plugins/git/git-pull-dialog.c:142
 msgid "Please enter the URL of the repository to pull from."
 msgstr "Введіть URL репозиторію для завантаження."
 
@@ -4855,11 +4973,17 @@ msgstr "Введіть URL репозиторію для завантаженн�
 msgid "Git: Push complete."
 msgstr "Git: відвантаження завершено."
 
-#: ../plugins/git/git-push-dialog.c:131
+#. The "input widget" is the widget that should receive focus if the
+#. * user does not properly enter anything
+#: ../plugins/git/git-push-dialog.c:141
+msgid "Please select a remote to push to."
+msgstr "Введіть віддалений вузол до якого заштовхувати зміни."
+
+#: ../plugins/git/git-push-dialog.c:159
 msgid "Please enter the URL of the repository to push to."
 msgstr "Введіть URL репозиторію для відвантаження."
 
-#: ../plugins/git/git-push-dialog.c:161
+#: ../plugins/git/git-push-dialog.c:193
 msgid "Git: Pushing..."
 msgstr "Git: відвантаження..."
 
@@ -4875,18 +4999,47 @@ msgstr "Git: файл видалений."
 msgid "Git: Resolve complete."
 msgstr "Git: розв'язання конфліктів завершено."
 
+#: ../plugins/git/git-stash-widget.c:219
+msgid "Git: Stash dropped."
+msgstr "Git: схованку відкинуто."
+
+#: ../plugins/git/git-stash-widget.c:275
+msgid "Git: All stashes cleared."
+msgstr "Git: усі схованки очищено."
+
 #: ../plugins/git/git-switch-dialog.c:36
 msgid "Git: Branch checkout complete."
 msgstr "Git: завантаження гілки завершено."
 
-#: ../plugins/git/git-ui-utils.c:94 ../plugins/git/git-ui-utils.c:99
+#: ../plugins/git/git-ui-utils.c:89 ../plugins/git/git-ui-utils.c:94
 #: ../plugins/git/git.plugin.in.h:1
 msgid "Git"
 msgstr "Git"
 
-#: ../plugins/git/git-ui-utils.c:501
+#: ../plugins/git/git-ui-utils.c:158
+msgid "There are no branches available."
+msgstr "Немає доступних гілок."
+
+#: ../plugins/git/git-ui-utils.c:194
+msgid "Please select a stash"
+msgstr "Виберіть схованку."
+
+#: ../plugins/git/git-ui-utils.c:604
+msgid "Git: Changes stored in a stash."
+msgstr "Git: зміни збережено у схованці."
+
+#: ../plugins/git/git-ui-utils.c:620
+msgid "Git: Stashed changes applied."
+msgstr "Git: зміни у схованці застосовано."
+
+#: ../plugins/git/git-ui-utils.c:744
 msgid "Git: Diff complete."
 msgstr "Git: пошук відмінностей завершено."
+
+#: ../plugins/git/git-ui-utils.c:760
+#, c-format
+msgid "Column %i"
+msgstr "Стовпчик %i"
 
 #: ../plugins/git/git-unstage-dialog.c:36
 msgid "Git: Files unstaged."
@@ -4894,262 +5047,268 @@ msgstr "Git: файли прибрані."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:62 ../plugins/git/plugin.c:502
+#: ../plugins/git/plugin.c:68 ../plugins/git/plugin.c:575
 msgid "_Git"
 msgstr "_Git"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:70 ../plugins/subversion/plugin.c:76
+#: ../plugins/git/plugin.c:79
+msgid "_Changes"
+msgstr "З_міни"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:87 ../plugins/subversion/plugin.c:76
 msgid "_Commit..."
 msgstr "За_фіксувати..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:72
+#: ../plugins/git/plugin.c:89
 msgid "Commit changes to the local repository"
 msgstr "Опублікувати зміни у локальному репозиторії"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:78
-msgid "_Fetch"
-msgstr "_Отримати"
-
-#. Display label
-#. short-cut
-#: ../plugins/git/plugin.c:80
-msgid "Update remote branches"
-msgstr "Оновити віддалені гілки"
-
-#. Action name
-#. Stock icon, if any
-#: ../plugins/git/plugin.c:86
-msgid "_Rebase"
-msgstr "П_еренести"
-
-#. Display label
-#. short-cut
-#: ../plugins/git/plugin.c:88
-msgid "Merge your changes with an upstream remote branch"
-msgstr "Об'єднати зміни з головною віддаленою гілкою '"
-
-#. Action name
-#. Stock icon, if any
-#: ../plugins/git/plugin.c:94 ../plugins/git/plugin.c:374
-msgid "_Start..."
-msgstr "_Почати..."
-
-#. Display label
-#. short-cut
-#: ../plugins/git/plugin.c:96
-msgid "Start a rebase"
-msgstr "Запустити rebase"
-
-#. Action name
-#. Stock icon, if any
-#: ../plugins/git/plugin.c:102
-msgid "_Continue"
-msgstr "Прод_овжити"
-
-#. Display label
-#. short-cut
-#: ../plugins/git/plugin.c:104
-msgid "Continue a rebase that stopped because of conflicts"
-msgstr "Продовжити rebase, що було зупинено внаслідок конфлікту"
-
-#. Action name
-#. Stock icon, if any
-#: ../plugins/git/plugin.c:110
-msgid "_Skip"
-msgstr "_Пропустити"
-
-#. Display label
-#. short-cut
-#: ../plugins/git/plugin.c:112
-msgid "Skip the current conflicted commmit and continue"
-msgstr "Пропустити поточну конфліктну публікацю"
-
-#. Action name
-#. Stock icon, if any
-#: ../plugins/git/plugin.c:118 ../plugins/git/plugin.c:246
-msgid "_Abort"
-msgstr "Пе_рервати"
-
-#. Display label
-#. short-cut
-#: ../plugins/git/plugin.c:120
-msgid "Abort the rebase and put the repository in its original state"
-msgstr "Перевати rebase та повернути репозиторій у оригінальний стан"
-
-#. Action name
-#. Stock icon, if any
-#: ../plugins/git/plugin.c:126
-msgid "_Push..."
-msgstr "_Надіслати..."
-
-#. Display label
-#. short-cut
-#: ../plugins/git/plugin.c:128
-msgid "Push changes to a remote repository"
-msgstr "Опублікувати зміни у віддаленому репозиторії"
-
-#. Action name
-#. Stock icon, if any
-#: ../plugins/git/plugin.c:134
-msgid "_Pull..."
-msgstr "_Завантажити..."
-
-#. Display label
-#. short-cut
-#: ../plugins/git/plugin.c:136
-msgid "Update the working copy"
-msgstr "Оновити робочу копію"
-
-#. Action name
-#. Stock icon, if any
-#: ../plugins/git/plugin.c:142
+#: ../plugins/git/plugin.c:95
 msgid "_Diff uncommitted changes"
 msgstr "_Відмінності порівняно із зафіксованими змінами"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:144
+#: ../plugins/git/plugin.c:97
 msgid "Show uncommitted changes"
 msgstr "Показати неопубліковані зміни"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:150 ../plugins/git/plugin.c:310
-#: ../plugins/git/plugin.c:518 ../plugins/subversion/plugin.c:60
+#: ../plugins/git/plugin.c:103
+msgid "_Stash"
+msgstr "_Схованка"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:111
+msgid "_Stash uncommitted changes..."
+msgstr "С_ховати неопубліковані зміни"
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:113
+msgid "Save uncommitted changes and re-apply them later"
+msgstr "Зберегти неопубліковані зміни та застосувати їх пізніше"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:119
+msgid "_Apply stashed changes..."
+msgstr "_Застосувати зміни у схованці..."
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:121
+msgid "Apply stashed changes to the working tree"
+msgstr "Застосувати зміни у схованці до робочого дерева"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:127 ../plugins/git/plugin.c:583
+msgid "_View log..."
+msgstr "Переглянути _журнал..."
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:129
+msgid "View change history"
+msgstr "Показати історію змін"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:135
+msgid "_Remote repository"
+msgstr "В_идалити репозиторій"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:143
+msgid "_Push..."
+msgstr "_Надіслати..."
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:145
+msgid "Push changes to a remote repository"
+msgstr "Опублікувати зміни у віддаленому репозиторії"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:151
+msgid "_Pull..."
+msgstr "_Завантажити..."
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:153
+msgid "Update the working copy"
+msgstr "Оновити робочу копію"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:159
+msgid "_Fetch"
+msgstr "_Отримати"
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:161
+msgid "Update remote branches"
+msgstr "Оновити віддалені гілки"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:167
+msgid "_Files"
+msgstr "_Файли"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:175 ../plugins/git/plugin.c:375
+#: ../plugins/git/plugin.c:591 ../plugins/subversion/plugin.c:60
 #: ../plugins/subversion/plugin.c:175
 msgid "_Add..."
 msgstr "_Додати..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:152
+#: ../plugins/git/plugin.c:177
 msgid "Add files to the repository"
 msgstr "Додати файли до репозиторію"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:158 ../plugins/git/plugin.c:526
+#: ../plugins/git/plugin.c:183 ../plugins/git/plugin.c:599
 #: ../plugins/subversion/plugin.c:68 ../plugins/subversion/plugin.c:183
 msgid "_Remove..."
 msgstr "В_идалити..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:160
+#: ../plugins/git/plugin.c:185
 msgid "Remove files from the repository"
 msgstr "Видалити файли з репозиторію"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:166
+#: ../plugins/git/plugin.c:191
 msgid "_Ignore..."
 msgstr "_Ігнорувати..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:168
+#: ../plugins/git/plugin.c:193
 msgid "Ignore files"
 msgstr "Ігнорувати файли"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:174
+#: ../plugins/git/plugin.c:199
 msgid "_Check out files..."
 msgstr "_Отримати файли..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:176
+#: ../plugins/git/plugin.c:201
 msgid "Revert uncommitted changes to files"
 msgstr "Повернути назад неопубліковані зміни у файлах"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:182
+#: ../plugins/git/plugin.c:207
 msgid "_Unstage files..."
 msgstr "_Прибрати файли..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:184
+#: ../plugins/git/plugin.c:209
 msgid "Remove files from the commit index"
 msgstr "Видалити файли з індексу публікації"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:190
+#: ../plugins/git/plugin.c:215
 msgid "_Resolve conflicts..."
 msgstr "Розв'язати _конфлікти..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:192
+#: ../plugins/git/plugin.c:217
 msgid "Mark conflicted files as resolved"
 msgstr "Позначити конфліктні файли як розв'язані"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:198 ../plugins/patch/patch-plugin.c:117
+#: ../plugins/git/plugin.c:223 ../plugins/patch/patch-plugin.c:117
 msgid "Patches"
 msgstr "Латки"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:206
+#: ../plugins/git/plugin.c:231
 msgid "Create patch series..."
 msgstr "Створити серію латок..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:208
+#: ../plugins/git/plugin.c:233
 msgid "Generate patch files for submission upstream"
 msgstr "Створити файли латок для надсилання розробникам"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:222
+#: ../plugins/git/plugin.c:247
 msgid "_Apply..."
 msgstr "_Застосувати..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:224
+#: ../plugins/git/plugin.c:249
 msgid "Start applying a patch series"
 msgstr "Запустити накладання серії латок"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:230
+#: ../plugins/git/plugin.c:255
 msgid "_Continue with resolved conflicts"
 msgstr "_Продовжити розв'язання конфліктів"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:232
+#: ../plugins/git/plugin.c:257
 msgid "Continue applying a series after resolving conflicts"
 msgstr "Продовжити застосування серії після розв'язання конфліктів'"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:238
+#: ../plugins/git/plugin.c:263
 msgid "_Skip current patch"
 msgstr "_Пропустити поточну латку"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:240
+#: ../plugins/git/plugin.c:265
 msgid "Skip the current patch in the series and continue"
 msgstr "Пропустити поточну латку у серії та продовжити"
 
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:271 ../plugins/git/plugin.c:351
+msgid "_Abort"
+msgstr "Пе_рервати"
+
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:248
+#: ../plugins/git/plugin.c:273
 msgid ""
 "Stop applying the series and return the repository to its original state"
 msgstr ""
@@ -5157,319 +5316,382 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:254
+#: ../plugins/git/plugin.c:279
 msgid "_Branches"
 msgstr "_Гілки"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:262 ../plugins/git/plugin.c:434
+#: ../plugins/git/plugin.c:287 ../plugins/git/plugin.c:507
 msgid "_Create branch..."
 msgstr "С_творити гілку..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:264
+#: ../plugins/git/plugin.c:289
 msgid "Create a branch"
 msgstr "Створити гілку"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:270
+#: ../plugins/git/plugin.c:295
 msgid "_Delete branch..."
 msgstr "Вида_лити гілку"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:272
+#: ../plugins/git/plugin.c:297
 msgid "Delete branches"
 msgstr "Видалити гілки"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:278
+#: ../plugins/git/plugin.c:303
 msgid "_Switch to another branch..."
 msgstr "Перемикнутися _на гілку..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:280
+#: ../plugins/git/plugin.c:305
 msgid "Switch to another branch"
 msgstr "Перемикнутися на іншу гілку"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:286
+#: ../plugins/git/plugin.c:311
 msgid "_Merge..."
 msgstr "_Об'єднати..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:288
+#: ../plugins/git/plugin.c:313
 msgid "Merge changes from another branch into the current one"
 msgstr "Об'єднати зміни з іншої гілки у поточну'"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:294 ../plugins/git/plugin.c:466
+#: ../plugins/git/plugin.c:319
+msgid "_Rebase"
+msgstr "П_еренести"
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:321
+msgid "Merge your changes with an upstream remote branch"
+msgstr "Об'єднати зміни з головною віддаленою гілкою '"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:327 ../plugins/git/plugin.c:447
+msgid "_Start..."
+msgstr "_Почати..."
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:329
+msgid "Start a rebase"
+msgstr "Запустити rebase"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:335
+msgid "_Continue"
+msgstr "Прод_овжити"
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:337
+msgid "Continue a rebase that stopped because of conflicts"
+msgstr "Продовжити rebase, що було зупинено внаслідок конфлікту"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:343
+msgid "_Skip"
+msgstr "_Пропустити"
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:345
+msgid "Skip the current conflicted commit and continue"
+msgstr "Пропустити поточні конфліктуючі публікації та продовжити"
+
+#. Display label
+#. short-cut
+#: ../plugins/git/plugin.c:353
+msgid "Abort the rebase and put the repository in its original state"
+msgstr "Перервати rebase та повернути репозиторій у оригінальний стан"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:359 ../plugins/git/plugin.c:539
 msgid "_Cherry pick..."
 msgstr "_Cherry pick..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:296
+#: ../plugins/git/plugin.c:361
 msgid ""
-"Selectively merge individual changes from other branches into the currrent "
-"one"
+"Selectively merge individual changes from other branches into the current one"
 msgstr "Вибірково об'єднати окремі зміни з інших гілок у поточну "
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:302
+#: ../plugins/git/plugin.c:367
 msgid "_Remote branches"
 msgstr "_Віддалені гілки"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:312
+#: ../plugins/git/plugin.c:377
 msgid "Add a remote branch"
 msgstr "Додати віддалену гілку"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:318
+#: ../plugins/git/plugin.c:383
 msgid "_Delete..."
 msgstr "В_идалити..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:320
+#: ../plugins/git/plugin.c:385
 msgid "Delete a remote branch"
 msgstr "Видалити гілку у мережі"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:326
+#: ../plugins/git/plugin.c:391
 msgid "Tags"
 msgstr "Теги"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:334 ../plugins/git/plugin.c:442
+#: ../plugins/git/plugin.c:399 ../plugins/git/plugin.c:515
 msgid "_Create tag..."
 msgstr "Ство_рити тег..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:336
+#: ../plugins/git/plugin.c:401
 msgid "Create a tag"
 msgstr "Створити тег"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:342
+#: ../plugins/git/plugin.c:407
 msgid "_Delete tag..."
 msgstr "В_идалити тег..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:344
+#: ../plugins/git/plugin.c:409
 msgid "Delete tags"
 msgstr "Видалити тег"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:350 ../plugins/git/plugin.c:450
+#: ../plugins/git/plugin.c:415
+msgid "_Reset/Revert"
+msgstr "_Скинути/вернути"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:423 ../plugins/git/plugin.c:523
 msgid "_Reset tree..."
 msgstr "Скин_ути дерево..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:352
+#: ../plugins/git/plugin.c:425
 msgid "Reset repository head to any past state"
 msgstr "Повернути репозиторій до будь-якого попереднього стану"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:358 ../plugins/git/plugin.c:458
+#: ../plugins/git/plugin.c:431 ../plugins/git/plugin.c:531
 msgid "_Revert commit..."
 msgstr "_Скасувати фіксацію..."
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:360
+#: ../plugins/git/plugin.c:433
 msgid "Revert a commit"
 msgstr "Скасувати публікацію"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:366
+#: ../plugins/git/plugin.c:439
 msgid "Bisect"
 msgstr "Бісекція"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:376
+#: ../plugins/git/plugin.c:449
 msgid "Start a bisect operation"
 msgstr "Запустити операцію бісекції"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:384
+#: ../plugins/git/plugin.c:457
 msgid "Stop the bisect and bring the tree back to normal"
 msgstr "Зупинити бісекцію та привести дерево назад до нормального стану"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:390
+#: ../plugins/git/plugin.c:463
 msgid "_Good"
 msgstr "«_Добра»"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:392
+#: ../plugins/git/plugin.c:465
 msgid "Mark the current head revision as good"
-msgstr "Позначити потчний корінь правка як добрий"
+msgstr "Позначити поточний корінь правка як добрий"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:398
+#: ../plugins/git/plugin.c:471
 msgid "_Bad"
 msgstr "«_Погана»"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:400
+#: ../plugins/git/plugin.c:473
 msgid "Mark the current head revision as bad"
 msgstr "Позначити потону верхівку правки як поганий"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:406 ../plugins/git/plugin.c:510
-msgid "_View log..."
-msgstr "Переглянути _журнал..."
+#: ../plugins/git/plugin.c:479
+msgid "_Initialize repository"
+msgstr "_Ініціалізувати репозиторій"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:408
-msgid "View change history"
-msgstr "Показати історію змін"
+#: ../plugins/git/plugin.c:481
+msgid "Create a new git repository or reinitialize an existing one"
+msgstr "Створити новий репозиторій git або переініціалізувати існуючий"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:418
+#: ../plugins/git/plugin.c:491
 msgid "_Show commit diff"
 msgstr "Показати відмінності публик_ації"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:420
+#: ../plugins/git/plugin.c:493
 msgid "Show changes introduced by this commit"
 msgstr "Показати зміни, внесені цією публікацією"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:426
+#: ../plugins/git/plugin.c:499
 msgid "_View selected revision"
 msgstr "Переглянути _обрану правку"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:428
+#: ../plugins/git/plugin.c:501
 msgid "View a copy of this file at this revision"
 msgstr "Переглянути копію цього файлу у цій правці"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:436
+#: ../plugins/git/plugin.c:509
 msgid "Create a branch with the selected revision as its head"
 msgstr "Створити гілку з обраної правки"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:444
+#: ../plugins/git/plugin.c:517
 msgid "Create a tag at this revision"
 msgstr "Створити позначку для цієї правки"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:452
+#: ../plugins/git/plugin.c:525
 msgid "Reset repository head to this revision"
 msgstr "Скинути корінь репозиторію до цієї правки"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:460
+#: ../plugins/git/plugin.c:533
 msgid "Revert this commit"
 msgstr "Повернути цю публікацію"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:468
+#: ../plugins/git/plugin.c:541
 msgid "Merge this commit into the current branch"
 msgstr "Об'єднати цю публікацію з поточною гілкою'"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:474
+#: ../plugins/git/plugin.c:547
 msgid "_Bisect"
 msgstr "_Бісекція"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:482
+#: ../plugins/git/plugin.c:555
 msgid "_Set good revision"
 msgstr "Встановити «_добру» правку"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:484
+#: ../plugins/git/plugin.c:557
 msgid "Mark this revision as good"
 msgstr "Позначити цю правку як добру"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:490
+#: ../plugins/git/plugin.c:563
 msgid "_Set bad revision"
 msgstr "Встановити «_погану» правку"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:492
+#: ../plugins/git/plugin.c:565
 msgid "Mark this revision as bad"
 msgstr "Позначити цю правку як погану"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:512
+#: ../plugins/git/plugin.c:585
 msgid "View changes to this file or folder"
 msgstr "Переглянути зміни у цьому файлі чи теці"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:520
+#: ../plugins/git/plugin.c:593
 msgid "Add this file or folder to the repository"
 msgstr "Копіювати файли/каталоги у репозиторій"
 
 #. Display label
 #. short-cut
-#: ../plugins/git/plugin.c:528
+#: ../plugins/git/plugin.c:601
 msgid "Remove this file or folder from the repository"
 msgstr "Видалити цей файл чи теку з репозиторію"
 
-#: ../plugins/git/plugin.c:688
+#: ../plugins/git/plugin.c:766
+msgid "Top level git menu item"
+msgstr "Верхній рівень меню git"
+
+#: ../plugins/git/plugin.c:774
 msgid "Git operations"
 msgstr "Операції Git"
 
-#: ../plugins/git/plugin.c:693
+#: ../plugins/git/plugin.c:779
 msgid "Git log operations"
 msgstr "Операції журналу Git"
 
-#: ../plugins/git/plugin.c:698
+#: ../plugins/git/plugin.c:784
 msgid "Git FM operations"
 msgstr "Операції з файлами Git"
 
-#: ../plugins/git/plugin.c:713
+#: ../plugins/git/plugin.c:799
 msgid "Git Log"
 msgstr "Журнал Git"
 
@@ -5485,50 +5707,44 @@ msgstr "<b>Керування зв'язками</b>"
 msgid "<b>New association</b>"
 msgstr "<b>Новий зв'язок</b>"
 
-#: ../plugins/glade/anjuta-glade.glade.h:4
+#. Link a file with a widget
+#: ../plugins/glade/anjuta-glade.glade.h:5
 msgid "Associate"
 msgstr "Зв'язати"
 
-#: ../plugins/glade/anjuta-glade.glade.h:5
+#: ../plugins/glade/anjuta-glade.glade.h:6
 msgid "Automatically add resources"
 msgstr "Автоматично додавати ресурси"
 
-#: ../plugins/glade/anjuta-glade.glade.h:6 ../plugins/glade/plugin.c:755
+#: ../plugins/glade/anjuta-glade.glade.h:7 ../plugins/glade/plugin.c:763
+#: ../plugins/glade/plugin.c:3094
 msgid "Designer"
 msgstr "Дизайнер"
 
-#: ../plugins/glade/anjuta-glade.glade.h:7
+#: ../plugins/glade/anjuta-glade.glade.h:8 ../plugins/glade/plugin.c:3096
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:3
 msgid "Editor"
 msgstr "Редактор"
 
-#: ../plugins/glade/anjuta-glade.glade.h:8
+#: ../plugins/glade/anjuta-glade.glade.h:9
 msgid "Insert handler on edit"
 msgstr "Вставляти обробник при редагуванні"
 
-#: ../plugins/glade/anjuta-glade.glade.h:9
+#: ../plugins/glade/anjuta-glade.glade.h:10
 msgid "Position type"
 msgstr "Тип позиції"
 
-#: ../plugins/glade/anjuta-glade.glade.h:10
+#: ../plugins/glade/anjuta-glade.glade.h:11
 msgid "Separated designer layout"
 msgstr "Редагувати інтерфейс у окремому вікні"
 
-#: ../plugins/glade/anjuta-glade.glade.h:11
+#: ../plugins/glade/anjuta-glade.glade.h:12
 msgid "Special regexp"
 msgstr "Спеціальний шаблон"
 
-#: ../plugins/glade/anjuta-glade.glade.h:12
+#: ../plugins/glade/anjuta-glade.glade.h:13
 msgid "Widget name"
 msgstr "Назва віджета"
-
-#: ../plugins/glade/anjuta-glade.glade.h:13
-msgid "on_widget_signal"
-msgstr "on_widget_signal"
-
-#: ../plugins/glade/anjuta-glade.glade.h:14
-msgid "widget_signal_cb"
-msgstr "widget_signal_cb"
 
 #: ../plugins/glade/designer-associations-item.c:243
 #, c-format
@@ -5560,204 +5776,230 @@ msgstr "Неправильне значення властивості %s"
 msgid "Association item filename has no path"
 msgstr "Зв'язана назва файлу не містить шляху"
 
-#: ../plugins/glade/plugin.c:847
+#: ../plugins/glade/plugin.c:855
 #, c-format
 msgid "No associations initialized, nothing to save"
 msgstr "Зв'язки не створено, немає даних для збереження"
 
-#: ../plugins/glade/plugin.c:854
+#: ../plugins/glade/plugin.c:862
 #, c-format
 msgid "Couldn't save associations because project root isn't set"
 msgstr "Не вдається зберегти зв'язки, оскільки не встановлено корінь проекту"
 
-#: ../plugins/glade/plugin.c:876
+#: ../plugins/glade/plugin.c:884
 #, c-format
 msgid "Failed to save associations"
 msgstr "Не вдається зберегти зв'язки"
 
-#: ../plugins/glade/plugin.c:1360
+#. iptCurrent:
+#: ../plugins/glade/plugin.c:1196
+msgid "Current"
+msgstr "Поточний"
+
+#. iptBeforeEnd:
+#: ../plugins/glade/plugin.c:1197
+msgid "Before end"
+msgstr "Наприкінці"
+
+#. iptAfterBegin:
+#: ../plugins/glade/plugin.c:1198
+msgid "After begin"
+msgstr "Перед початком"
+
+#. ipEOF:
+#: ../plugins/glade/plugin.c:1199
+msgid "End of file"
+msgstr "У кінці файлу"
+
+#: ../plugins/glade/plugin.c:1368
 #, c-format
 msgid "Couldn't introspect the signal"
 msgstr "Не вдається автоматично отримати інформацію про сигнал"
 
-#: ../plugins/glade/plugin.c:1382
+#: ../plugins/glade/plugin.c:1390
 #, c-format
 msgid "Python language isn't supported yet"
 msgstr "Мова Python ще не підтримується"
 
-#: ../plugins/glade/plugin.c:1395
+#: ../plugins/glade/plugin.c:1403
 #, c-format
 msgid "Vala language isn't supported yet"
 msgstr "Мова Vala ще не підтримується"
 
-#: ../plugins/glade/plugin.c:1954
+#: ../plugins/glade/plugin.c:1962
 #, c-format
 msgid "There is no associated editor for the designer"
 msgstr "Немає редактора тексту, пов'язаного з цим редактором інтерфейсу"
 
-#: ../plugins/glade/plugin.c:1972
+#: ../plugins/glade/plugin.c:1980
 #, c-format
 msgid "Unknown language of the editor \"%s\""
 msgstr "Невідома мова для редактора «%s»"
 
-#: ../plugins/glade/plugin.c:2039 ../plugins/glade/plugin.c:2116
-#: ../plugins/glade/plugin.c:2241
+#: ../plugins/glade/plugin.c:2047 ../plugins/glade/plugin.c:2124
+#: ../plugins/glade/plugin.c:2249
 #, c-format
 msgid "Error while adding a new handler stub: %s"
 msgstr "Помилка при читанні шаблону обробника: %s"
 
-#: ../plugins/glade/plugin.c:2046 ../plugins/glade/plugin.c:2130
+#: ../plugins/glade/plugin.c:2054 ../plugins/glade/plugin.c:2138
 msgid "Couldn't find a signal information"
 msgstr "Не вдається знайти інформацію про сигнал"
 
-#: ../plugins/glade/plugin.c:2073
+#: ../plugins/glade/plugin.c:2081
 msgid "Error while adding a new handler stub: No current editor"
 msgstr "Помилка при додаванні обробника: Не знайдено редактор тексту"
 
-#: ../plugins/glade/plugin.c:2244
+#: ../plugins/glade/plugin.c:2254
 #, c-format
 msgid ""
-"To avoid this messages turn off \"Insert handler on edit\" flag in "
-"Preferences->Glade GUI Designer"
+"To avoid this message turn off \"%s\" flag in Preferences->Glade GUI Designer"
 msgstr ""
-"Щоб вимкнути це повідомлення, вимніть ознаку «Вставляти обробник при "
-"редагуванні» у меню Параметри підменю Glade"
+"Щоб уникнути цього повідомлення вимніть ознаку « %s» у меню Параметри підменю Дизайнер Glade"
 
-#: ../plugins/glade/plugin.c:2380
+#: ../plugins/glade/plugin.c:2324
+msgid "Couldn't find an associated document"
+msgstr "Не вдається знайти порв'язаний документ"
+
+#: ../plugins/glade/plugin.c:2390
 msgid "Those documents are already associated"
 msgstr "Ці документи вже зв'язані"
 
-#: ../plugins/glade/plugin.c:2418
+#: ../plugins/glade/plugin.c:2428
 #, c-format
 msgid "Unable to read file: %s."
 msgstr "Неможливо прочитати файл: %s."
 
-#: ../plugins/glade/plugin.c:3676
+#: ../plugins/glade/plugin.c:3095
+msgid "Top level widget"
+msgstr "Віджет верхнього рівня"
+
+#: ../plugins/glade/plugin.c:3686
 msgid "Couldn't find a default signal name"
 msgstr "Не вдається знайти типову назву сигналу"
 
-#: ../plugins/glade/plugin.c:3886
+#: ../plugins/glade/plugin.c:3896
 #, c-format
 msgid "Project %s has no deprecated widgets or version mismatches."
 msgstr "Проект %s не містить застарілих віджетів та невідповідність версій."
 
-#: ../plugins/glade/plugin.c:3903
+#: ../plugins/glade/plugin.c:3913
 msgid "There is no Glade project"
 msgstr "Проект Glade відсутній"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/glade/plugin.c:3989
+#: ../plugins/glade/plugin.c:3999
 msgid "_Glade"
 msgstr "Інтер_фейс"
 
-#: ../plugins/glade/plugin.c:3997 ../plugins/glade/plugin.c:3999
+#: ../plugins/glade/plugin.c:4007 ../plugins/glade/plugin.c:4009
 msgid "Switch between designer/code"
 msgstr "Перемикнути редактор інтерфейсу/коду"
 
-#: ../plugins/glade/plugin.c:4005 ../plugins/glade/plugin.c:4007
+#: ../plugins/glade/plugin.c:4015 ../plugins/glade/plugin.c:4017
 msgid "Insert handler stub"
 msgstr "Вставляти заглушку обробника"
 
-#: ../plugins/glade/plugin.c:4013 ../plugins/glade/plugin.c:4015
+#: ../plugins/glade/plugin.c:4023 ../plugins/glade/plugin.c:4025
 msgid "Insert handler stub, autoposition"
 msgstr "Вставляти заглушку обробника, автоматично розміщуючи її у коді"
 
-#: ../plugins/glade/plugin.c:4021
+#: ../plugins/glade/plugin.c:4031
 msgid "Associate last designer and last editor"
 msgstr "Зв'язати останні редактор інтерфейсу та редактор тексту"
 
-#: ../plugins/glade/plugin.c:4023
+#: ../plugins/glade/plugin.c:4033
 msgid "Associate last designer and editor"
 msgstr "Зв'язати останній редактор інтерфейсу та тексту"
 
-#: ../plugins/glade/plugin.c:4029 ../plugins/glade/plugin.c:4031
+#: ../plugins/glade/plugin.c:4039 ../plugins/glade/plugin.c:4041
 msgid "Associations dialog..."
 msgstr "Редактор зв'язків..."
 
-#: ../plugins/glade/plugin.c:4037
+#: ../plugins/glade/plugin.c:4047
 msgid "Versioning..."
 msgstr "Версії..."
 
-#: ../plugins/glade/plugin.c:4039
+#: ../plugins/glade/plugin.c:4049
 msgid "Switch between library versions and check deprecations"
 msgstr "Перемикнутися між версіями бібліотек та перевірити залежності"
 
-#: ../plugins/glade/plugin.c:4045 ../plugins/glade/plugin.c:4047
+#: ../plugins/glade/plugin.c:4055 ../plugins/glade/plugin.c:4057
 msgid "Set as default resource target"
 msgstr "Встановити як типову ціль"
 
-#: ../plugins/glade/plugin.c:4055
+#: ../plugins/glade/plugin.c:4065
 msgid "Current default target"
 msgstr "Типова поточна ціль"
 
-#: ../plugins/glade/plugin.c:4063
+#: ../plugins/glade/plugin.c:4073
 msgid "Close the current file"
 msgstr "Закрити поточний файл"
 
-#: ../plugins/glade/plugin.c:4071
+#: ../plugins/glade/plugin.c:4081
 msgid "Save the current file"
 msgstr "Зберегти поточний файл"
 
-#: ../plugins/glade/plugin.c:4087
+#: ../plugins/glade/plugin.c:4097
 msgid "Redo the last action"
 msgstr "Вернути останню дію"
 
-#: ../plugins/glade/plugin.c:4095
+#: ../plugins/glade/plugin.c:4105
 msgid "Cut the selection"
 msgstr "Вирізати виділене"
 
-#: ../plugins/glade/plugin.c:4103
+#: ../plugins/glade/plugin.c:4113
 msgid "Copy the selection"
 msgstr "Копіювати виділене"
 
-#: ../plugins/glade/plugin.c:4111
+#: ../plugins/glade/plugin.c:4121
 msgid "Paste the clipboard"
 msgstr "Вставити виділене"
 
-#: ../plugins/glade/plugin.c:4119
+#: ../plugins/glade/plugin.c:4129
 msgid "Delete the selection"
 msgstr "Видалити виділене"
 
-#: ../plugins/glade/plugin.c:4297
+#: ../plugins/glade/plugin.c:4307
 msgid "Glade designer operations"
 msgstr "Операції дизайнера Glade"
 
-#: ../plugins/glade/plugin.c:4397
+#: ../plugins/glade/plugin.c:4407
 msgid "Go back in undo history"
 msgstr "Перейти назад у історії редагування"
 
-#: ../plugins/glade/plugin.c:4399
+#: ../plugins/glade/plugin.c:4409
 msgid "Go forward in undo history"
 msgstr "Перейти вперед у історії редагування"
 
-#: ../plugins/glade/plugin.c:4421
+#: ../plugins/glade/plugin.c:4431
 msgid "Glade Clipboard"
 msgstr "Буфер обміну Glade"
 
-#: ../plugins/glade/plugin.c:4426
+#: ../plugins/glade/plugin.c:4436
 msgid "Widgets"
 msgstr "Віджети"
 
-#: ../plugins/glade/plugin.c:4431
+#: ../plugins/glade/plugin.c:4441
 msgid "Palette"
 msgstr "Палітра"
 
-#: ../plugins/glade/plugin.c:4685
+#: ../plugins/glade/plugin.c:4695
 #, c-format
 msgid "Not local file: %s"
 msgstr "Не локальний файл: %s"
 
-#: ../plugins/glade/plugin.c:4706
+#: ../plugins/glade/plugin.c:4716
 #, c-format
 msgid "Could not open %s"
 msgstr "Не вдається відкрити: %s"
 
-#: ../plugins/glade/plugin.c:4757
+#: ../plugins/glade/plugin.c:4767
 msgid "Could not create a new glade project."
 msgstr "Не вдається створити новий проект glade."
 
-#: ../plugins/glade/plugin.c:5027 ../plugins/glade/plugin.c:5052
+#: ../plugins/glade/plugin.c:5029 ../plugins/glade/plugin.c:5054
 msgid "Glade GUI Designer"
 msgstr "Редактор інтерфейсу Glade"
 
@@ -6546,7 +6788,7 @@ msgid "<b>Project name</b>"
 msgstr "<b>Назва проекту</b>"
 
 #: ../plugins/project-import/project-import.ui.h:3
-#: ../plugins/project-wizard/templates/translatable-strings.h:33
+#: ../plugins/project-wizard/templates/translatable-strings.h:34
 #: ../plugins/subversion/anjuta-subversion.ui.h:9
 msgid "Destination:"
 msgstr "Опис:"
@@ -7207,86 +7449,90 @@ msgid "Configure external packages:"
 msgstr "Налаштувати зовнішні пакети:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:30
-msgid "Create a template glade interface file"
-msgstr "Створити шаблон Glade-файлу інтерфейсу"
+msgid "Create Gtk Builder interface file"
+msgstr "Створити файл інтерфейсу Gtk Builder"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:31
-msgid "Create glade interface file"
-msgstr "Створити відповідний файл Glade"
+msgid "Create a template Gtk Builder interface file"
+msgstr "Створити шаблон файлу інтерфейсу Gtk Builder"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:34
+#: ../plugins/project-wizard/templates/translatable-strings.h:32
+msgid "Create a template gtk builder interface file"
+msgstr "Створити шаблон файлу інтерфейсу Gtk Builder"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:35
 msgid "Display description of the applet"
 msgstr "Показати опис аплету"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:35
+#: ../plugins/project-wizard/templates/translatable-strings.h:36
 msgid "Display description of the plugin"
 msgstr "Показати опис доповнення"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:36
+#: ../plugins/project-wizard/templates/translatable-strings.h:37
 msgid "Display title of the applet"
 msgstr "Показати назву аплету"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:37
+#: ../plugins/project-wizard/templates/translatable-strings.h:38
 msgid "Display title of the plugin"
 msgstr "Показує заголовок доповнення"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:38
+#: ../plugins/project-wizard/templates/translatable-strings.h:39
 msgid "Django Project"
 msgstr "Проект Django"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:39
+#: ../plugins/project-wizard/templates/translatable-strings.h:40
 msgid "Django Project information"
 msgstr "Інформація про проект Django"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:40
+#: ../plugins/project-wizard/templates/translatable-strings.h:41
 msgid "Email address:"
 msgstr "Адреса ел. пошти:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:41
+#: ../plugins/project-wizard/templates/translatable-strings.h:42
 msgid "GCJ needs to know which class contains the main() function"
 msgstr "GCJ потрібно вказати, який клас містить функцію main()."
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:42
+#: ../plugins/project-wizard/templates/translatable-strings.h:43
 msgid "GNOME Applet"
 msgstr "Аплет GNOME"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:43
+#: ../plugins/project-wizard/templates/translatable-strings.h:44
 msgid "GTK+"
 msgstr "GTK+"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:44
+#: ../plugins/project-wizard/templates/translatable-strings.h:45
 msgid "GTKmm"
 msgstr "GTKmm"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:45
+#: ../plugins/project-wizard/templates/translatable-strings.h:46
 msgid "General Project Information"
 msgstr "Інформація про проект"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:47
+#: ../plugins/project-wizard/templates/translatable-strings.h:48
 msgid "Generic"
 msgstr "Звичайний"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:48
+#: ../plugins/project-wizard/templates/translatable-strings.h:49
 msgid "Generic (Minimal)"
 msgstr "Звичайний (мінімальний)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:49
+#: ../plugins/project-wizard/templates/translatable-strings.h:50
 msgid "Generic C++"
 msgstr "Звичайний C++"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:50
+#: ../plugins/project-wizard/templates/translatable-strings.h:51
 msgid "Generic gcj compiled java"
 msgstr "Проект Java, що використовує gcj"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:51
+#: ../plugins/project-wizard/templates/translatable-strings.h:52
 msgid "Generic java (automake)"
 msgstr "Звичайний java (automake)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:52
+#: ../plugins/project-wizard/templates/translatable-strings.h:53
 msgid "Generic python (automake)"
 msgstr "Звичайний python (automake)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:53
+#: ../plugins/project-wizard/templates/translatable-strings.h:54
 msgid ""
 "Give a package name that your project require. You may also mention what is "
 "the required version of the package. For example, 'libgnomeui-2.0' or "
@@ -7295,215 +7541,215 @@ msgstr ""
 "Напишіть назву пакету, що потрібен для проекту. Ви можете також вказати "
 "версію. Наприклад: 'libgnomeui-2.0' або 'libgnomeui-2.0 >= 2.2.0'"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:54
+#: ../plugins/project-wizard/templates/translatable-strings.h:55
 msgid "Icon File:"
 msgstr "Файл значка:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:55
+#: ../plugins/project-wizard/templates/translatable-strings.h:56
 msgid "Icon file for the plugin"
 msgstr "Файл значка для доповнення"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:56
+#: ../plugins/project-wizard/templates/translatable-strings.h:57
 msgid "Implement plugin interfaces"
 msgstr "Реалізація інтерфейсів доповнення"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:57
+#: ../plugins/project-wizard/templates/translatable-strings.h:58
 msgid "Interface implemented by the plugin"
 msgstr "Інтерфейс, що реалізується модулем"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:58
+#: ../plugins/project-wizard/templates/translatable-strings.h:59
 msgid "Interface:"
 msgstr "Інтерфейс:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:60
+#: ../plugins/project-wizard/templates/translatable-strings.h:61
 msgid "License"
 msgstr "Ліцензія:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:61
+#: ../plugins/project-wizard/templates/translatable-strings.h:62
 msgid "Main Class:"
 msgstr "Головний клас:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:62
+#: ../plugins/project-wizard/templates/translatable-strings.h:63
 msgid "Main class"
 msgstr "Головний клас"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:63
+#: ../plugins/project-wizard/templates/translatable-strings.h:64
 msgid "Makefile project"
 msgstr "Проект з Makefile"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:64
+#: ../plugins/project-wizard/templates/translatable-strings.h:65
 msgid "Makefile-based project"
 msgstr "Проект, що збирається за допомогою Makefile"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:65
+#: ../plugins/project-wizard/templates/translatable-strings.h:66
 msgid "Mininum SDL version required"
 msgstr "Мінімальна потрібна версія SDL"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:66
+#: ../plugins/project-wizard/templates/translatable-strings.h:67
 msgid "Name of the value to watch"
 msgstr "Назва значення для спостереження"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:67
+#: ../plugins/project-wizard/templates/translatable-strings.h:68
 msgid "No license"
 msgstr "Ліцензія відсутня"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:68
+#: ../plugins/project-wizard/templates/translatable-strings.h:69
 msgid "Options for project build system"
 msgstr "Параметри системи збирання"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:69
+#: ../plugins/project-wizard/templates/translatable-strings.h:70
 msgid "Plugin Class Name:"
 msgstr "Назва класу доповнення:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:70
+#: ../plugins/project-wizard/templates/translatable-strings.h:71
 msgid "Plugin Dependencies:"
 msgstr "Залежності:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:71
+#: ../plugins/project-wizard/templates/translatable-strings.h:72
 msgid "Plugin Description:"
 msgstr "Опис доповнення:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:72
+#: ../plugins/project-wizard/templates/translatable-strings.h:73
 msgid "Plugin Title:"
 msgstr "Назва:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:73
+#: ../plugins/project-wizard/templates/translatable-strings.h:74
 msgid "Plugin class name"
 msgstr "Назва класу доповнення"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:74
+#: ../plugins/project-wizard/templates/translatable-strings.h:75
 msgid "Plugin has menus or/and toolbars"
 msgstr "Модуль використовує меню/панель інструментів"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:75
+#: ../plugins/project-wizard/templates/translatable-strings.h:76
 msgid "Plugin interfaces to implement"
 msgstr "Інтерфейси доповнення для реалізації"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:76
+#: ../plugins/project-wizard/templates/translatable-strings.h:77
 msgid "Project Name:"
 msgstr "Назва проекту:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:77
+#: ../plugins/project-wizard/templates/translatable-strings.h:78
 msgid "Project directory, output file etc."
 msgstr "Каталог проекту, файл виводу та т.і.."
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:78
+#: ../plugins/project-wizard/templates/translatable-strings.h:79
 msgid "Project directory:"
 msgstr "Кореневий каталог проекту:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:79
+#: ../plugins/project-wizard/templates/translatable-strings.h:80
 msgid ""
 "Project name must not contain spaces, because it will be the name of the "
 "project build target (executable, library etc.)"
 msgstr "Назва проекту не має містити пробіли"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:80
+#: ../plugins/project-wizard/templates/translatable-strings.h:81
 msgid "Project name:"
 msgstr "Назва проекту:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:81
+#: ../plugins/project-wizard/templates/translatable-strings.h:82
 msgid "Project options"
 msgstr "Властивості проекту"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:82
+#: ../plugins/project-wizard/templates/translatable-strings.h:83
 msgid "Python webproject using Django Web Framework"
 msgstr "Веб-проект python, що використовує веб-фреймворк Django"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:83
+#: ../plugins/project-wizard/templates/translatable-strings.h:84
 msgid "Require Package:"
 msgstr "Потрібний пакет:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:84
+#: ../plugins/project-wizard/templates/translatable-strings.h:85
 msgid "Require SDL version:"
 msgstr "Потрібна версія SDL:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:85
+#: ../plugins/project-wizard/templates/translatable-strings.h:86
 msgid "Require SDL_gfx library"
 msgstr "Потрібна бібліотека SDL_gfx"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:86
+#: ../plugins/project-wizard/templates/translatable-strings.h:87
 msgid "Require SDL_gfx:"
 msgstr "Потрібна SDL_gfx:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:87
+#: ../plugins/project-wizard/templates/translatable-strings.h:88
 msgid "Require SDL_image library"
 msgstr "Потрібна бібліотека SDL_image"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:88
+#: ../plugins/project-wizard/templates/translatable-strings.h:89
 msgid "Require SDL_image:"
 msgstr "Потрібна SDL_image:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:89
+#: ../plugins/project-wizard/templates/translatable-strings.h:90
 msgid "Require SDL_mixer library"
 msgstr "Потрібна бібліотека SDL_mixer"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:90
+#: ../plugins/project-wizard/templates/translatable-strings.h:91
 msgid "Require SDL_mixer:"
 msgstr "Потрібна SDL_mixer:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:91
+#: ../plugins/project-wizard/templates/translatable-strings.h:92
 msgid "Require SDL_net library"
 msgstr "Потрібна бібліотека SDL_net"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:92
+#: ../plugins/project-wizard/templates/translatable-strings.h:93
 msgid "Require SDL_net:"
 msgstr "Потрібна SDL_net:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:93
+#: ../plugins/project-wizard/templates/translatable-strings.h:94
 msgid "Require SDL_ttf library"
 msgstr "Потрібна бібліотека SDL_ttf "
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:94
+#: ../plugins/project-wizard/templates/translatable-strings.h:95
 msgid "Require SDL_ttf:"
 msgstr "Потрібна SDL_ttf:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:95
+#: ../plugins/project-wizard/templates/translatable-strings.h:96
 msgid "SDL"
 msgstr "SDL"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:96
+#: ../plugins/project-wizard/templates/translatable-strings.h:97
 msgid "Select code license"
 msgstr "Виберіть ліцензію, з якою будуть поширюватися первинні тексти"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:97
+#: ../plugins/project-wizard/templates/translatable-strings.h:98
 msgid "Shell values to watch"
 msgstr "Значення оболонки для спостереження"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:98
+#: ../plugins/project-wizard/templates/translatable-strings.h:99
 msgid "Use pkg-config to add library support from other packages"
 msgstr "Використовувати pkg-config для використання зовнішніх бібліотек"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:99
+#: ../plugins/project-wizard/templates/translatable-strings.h:100
 msgid "Value Name:"
 msgstr "Назва значення:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:100
+#: ../plugins/project-wizard/templates/translatable-strings.h:101
 msgid "Values to watch"
 msgstr "Значення для спостереження"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:102
+#: ../plugins/project-wizard/templates/translatable-strings.h:103
 msgid "Whether the plugin has menus or toolbars"
 msgstr "Чи буде модуль містити меню або панелі"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:103
+#: ../plugins/project-wizard/templates/translatable-strings.h:104
 msgid "Wx Widgets"
 msgstr "Wx Widgets"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:104
+#: ../plugins/project-wizard/templates/translatable-strings.h:105
 msgid "Xlib"
 msgstr "Xlib"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:105
+#: ../plugins/project-wizard/templates/translatable-strings.h:106
 msgid "Xlib dock"
 msgstr "Док Xlib"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:106
+#: ../plugins/project-wizard/templates/translatable-strings.h:107
 msgid "gtk-doc is used to compile API documentations for GObject based classes"
 msgstr ""
 "gtk-doc використовується для компіляції документації з API для класів, "
 "основаних на GObject"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:107
+#: ../plugins/project-wizard/templates/translatable-strings.h:108
 msgid "project name"
 msgstr "Назва проекту"
 
@@ -7546,10 +7792,10 @@ msgstr "Каталог програми «%s» не є локальним"
 msgid "Load Target to run"
 msgstr "Завантажити ціль для запуску"
 
-#: ../plugins/run-program/parameters.c:749
-#: ../plugins/search/search_preferences.c:534
-msgid "Name"
-msgstr "Назва"
+#: ../plugins/run-program/parameters.c:616
+#, c-format
+msgid "Missing file %s"
+msgstr "Не знайдено файл %s"
 
 #: ../plugins/run-program/plugin.c:191
 msgid ""
@@ -7858,27 +8104,27 @@ msgstr "Замінити"
 msgid "Search complete"
 msgstr "Пошук завершений"
 
-#: ../plugins/search/search-replace.c:1037
-#: ../plugins/search/search-replace.c:1724
+#: ../plugins/search/search-replace.c:1044
+#: ../plugins/search/search-replace.c:1731
 msgid "Replace All"
 msgstr "Замінити всі"
 
-#: ../plugins/search/search-replace.c:1076
+#: ../plugins/search/search-replace.c:1083
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
 msgstr ""
 "Не знайдено відповідності для «%s». Продовжити пошук з початку документу?"
 
-#: ../plugins/search/search-replace.c:1096
+#: ../plugins/search/search-replace.c:1103
 #, c-format
 msgid "The match \"%s\" was not found."
 msgstr "Не знайдено відповідності «%s»."
 
-#: ../plugins/search/search-replace.c:1111
+#: ../plugins/search/search-replace.c:1118
 msgid "The maximum number of results has been reached."
 msgstr "Досягнуто максимальну кількість результатів пошуку"
 
-#: ../plugins/search/search-replace.c:1124
+#: ../plugins/search/search-replace.c:1131
 #, c-format
 msgid "%d match has been replaced."
 msgid_plural "%d matches have been replaced."
@@ -7886,7 +8132,7 @@ msgstr[0] "Замінено %d збіг"
 msgstr[1] "Замінено %d збіги"
 msgstr[2] "Замінено %d збігів"
 
-#: ../plugins/search/search-replace.c:1291
+#: ../plugins/search/search-replace.c:1298
 msgid "Unable to build user interface for Search And Replace"
 msgstr "Не вдається побудувати інтерфейс користувача для \"Пошуку та заміни\""
 
@@ -8571,55 +8817,56 @@ msgstr "_Оголошення мітки"
 msgid "Goto symbol declaration"
 msgstr "Перейти до оголошенння символу"
 
-#: ../plugins/symbol-db/plugin.c:321
+#. Translators: Go to the line where the tag is implemented
+#: ../plugins/symbol-db/plugin.c:322
 msgid "Tag _Implementation"
 msgstr "Реалізація _мітки"
 
-#: ../plugins/symbol-db/plugin.c:323
+#: ../plugins/symbol-db/plugin.c:324
 msgid "Goto symbol definition"
 msgstr "Перейти до визначення символу"
 
-#: ../plugins/symbol-db/plugin.c:330
+#: ../plugins/symbol-db/plugin.c:331
 msgid "_Find Symbol..."
 msgstr "Знайти _символ..."
 
-#: ../plugins/symbol-db/plugin.c:331
+#: ../plugins/symbol-db/plugin.c:332
 msgid "Find Symbol"
 msgstr "Знайти символ"
 
-#: ../plugins/symbol-db/plugin.c:1111
+#: ../plugins/symbol-db/plugin.c:1170
 #, c-format
 msgid "%s: Generating inheritances..."
 msgstr "%s: створення спадкування..."
 
-#: ../plugins/symbol-db/plugin.c:1116
+#: ../plugins/symbol-db/plugin.c:1175
 #, c-format
 msgid "%s: %d files scanned out of %d"
 msgstr "%s: проскановано %d файлів з %d"
 
-#: ../plugins/symbol-db/plugin.c:1147
+#: ../plugins/symbol-db/plugin.c:1206
 #, c-format
 msgid "Generating inheritances..."
 msgstr "Створення спадкування..."
 
-#: ../plugins/symbol-db/plugin.c:1149
+#: ../plugins/symbol-db/plugin.c:1208
 #, c-format
 msgid "%d files scanned out of %d"
 msgstr "Проскановано %d файлів з %d"
 
-#: ../plugins/symbol-db/plugin.c:1909
+#: ../plugins/symbol-db/plugin.c:1968
 msgid "Populating symbols' db..."
 msgstr "Заповнення бази даних символів..."
 
-#: ../plugins/symbol-db/plugin.c:2266 ../plugins/symbol-db/plugin.c:2394
+#: ../plugins/symbol-db/plugin.c:2352 ../plugins/symbol-db/plugin.c:2480
 msgid "Symbols"
 msgstr "Символи"
 
-#: ../plugins/symbol-db/plugin.c:2403
+#: ../plugins/symbol-db/plugin.c:2489
 msgid "SymbolDb popup actions"
 msgstr "Контекстні дії бази даних символів"
 
-#: ../plugins/symbol-db/plugin.c:2411
+#: ../plugins/symbol-db/plugin.c:2497
 msgid "SymbolDb menu actions"
 msgstr "Дії меню бази даних символів"
 
@@ -8641,8 +8888,8 @@ msgstr "Теги API"
 msgid "Resuming glb scan."
 msgstr "Продовження сканування glb."
 
-#: ../plugins/symbol-db/symbol-db-view-locals.c:294
-#: ../plugins/symbol-db/symbol-db-view.c:1426
+#: ../plugins/symbol-db/symbol-db-view-locals.c:326
+#: ../plugins/symbol-db/symbol-db-view.c:1413
 msgid "Symbol"
 msgstr "Символьну інформацію прочитано"
 
@@ -8667,14 +8914,10 @@ msgid "Checking if package is parseable..."
 msgstr "Перевірка можливості розбору пакету..."
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:6
-msgid "Ctags executable:"
-msgstr "Виконуваний файл ctags:"
-
-#: ../plugins/symbol-db/anjuta-symbol-db.ui.h:7
 msgid "Parallel scan of project and global symbols"
 msgstr "Паралельне сканування проекту та глобальних символів"
 
-#: ../plugins/symbol-db/anjuta-symbol-db.ui.h:8
+#: ../plugins/symbol-db/anjuta-symbol-db.ui.h:7
 msgid ""
 "This option enables the default packages required by your opened project, e."
 "g. glib and gtk+ if you create a Gtk+ project (may require more cpu work)"
@@ -8683,13 +8926,13 @@ msgstr ""
 "проекту, тобто glib та gtk+ Якщо ви створюєте проект Gtk+ (може вимагати "
 "більше ресурсів cpu)"
 
-#: ../plugins/symbol-db/anjuta-symbol-db.ui.h:9
+#: ../plugins/symbol-db/anjuta-symbol-db.ui.h:8
 msgid ""
 "This option means that the global system packages will be scanned "
 "contemporary with the project's ones"
 msgstr "Цей параметр означає, що пакети будуть скановані одночасно з проектом"
 
-#: ../plugins/symbol-db/anjuta-symbol-db.ui.h:10
+#: ../plugins/symbol-db/anjuta-symbol-db.ui.h:9
 msgid ""
 "Update automatically the file's symbols without saving. The update occurs "
 "after 10 seconds of no keypress by user."
@@ -8709,12 +8952,12 @@ msgstr "Використовувати профіль терміналу GNOME:"
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "Використовувати поточний профіль терміналу GNOME"
 
-#: ../plugins/terminal/terminal.c:701
+#: ../plugins/terminal/terminal.c:739
 msgid "terminal operations"
 msgstr "Команди терміналу"
 
-#: ../plugins/terminal/terminal.c:719 ../plugins/terminal/terminal.c:886
-#: ../plugins/terminal/terminal.c:939
+#: ../plugins/terminal/terminal.c:757 ../plugins/terminal/terminal.c:926
+#: ../plugins/terminal/terminal.c:979
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
 msgid "Terminal"
 msgstr "Термінал"
@@ -8980,8 +9223,8 @@ msgid "Currently edited file directory"
 msgstr "Поточне ім'я теки, яке редагується"
 
 #: ../plugins/tools/variable.c:103
-msgid "Currently selection in editor"
-msgstr "Виділена область у редакторі"
+msgid "Currently selected text in editor"
+msgstr "Поточний виділений текст у редакторі"
 
 #: ../plugins/tools/variable.c:104
 msgid "Current word in editor"
@@ -9060,7 +9303,7 @@ msgstr "Рядок"
 msgid "Copyright (c) Naba Kumar"
 msgstr "Copyright (С) Naba Kumar"
 
-#: ../src/anjuta.c:428
+#: ../src/anjuta.c:424
 msgid "Loaded Session..."
 msgstr "Сеанс завантажено..."
 
@@ -9247,7 +9490,7 @@ msgstr ""
 msgid "- Integrated Development Environment"
 msgstr "- Інтегроване середовище розробки"
 
-#: ../src/main.c:216
+#: ../src/main.c:232
 msgid "Anjuta"
 msgstr "Anjuta"
 
@@ -9329,6 +9572,10 @@ msgstr "Лише текст"
 msgid "Toolbar button labels:"
 msgstr "Підписи кнопок панелі:"
 
+#: ../plugins/debug-manager/anjuta-debug-manager.schemas.in.h:1
+msgid "Do not display warning if not using a Debug configuration"
+msgstr "Не показувати попередження, якщо не використовується конфігурація Debug"
+
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:1
 msgid "Add '(' after function call autocompletion"
 msgstr "Додавати '(' після автодоповнення викликів функції"
@@ -9358,85 +9605,77 @@ msgid "Calltips"
 msgstr "Підказки викликів"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:8
-msgid "Enable adaptive indentation"
-msgstr "Увімкнути адаптивне вирівнювання"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:9
 msgid "Enable code completion"
 msgstr "Увімкнути доповнення коду"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:10
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:9
 msgid "Enable smart brace completion"
 msgstr "Увімкнути інтелектуальне доповнення дужок"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:11
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:10
 msgid "Enable smart indentation"
 msgstr "Увімкнути «розумні» відступи"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:12
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:11
 msgid "Indent:"
 msgstr "Відступи"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:13
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:12
 msgid "Indentation parameters"
 msgstr "Параметри відступів"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:13
 msgid "Line up parentheses"
 msgstr "Вирівнювання круглих дужок"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
 msgid "Parenthese indentation"
 msgstr "Відступи круглих дужок"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
-msgid "Pressing tab indents"
-msgstr "Натискання «Tab» вставляє відступ"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:17
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
 msgid "Show calltips"
 msgstr "Показувати підказку по функціям"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:18
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
 msgid "Smart Indentation"
 msgstr "«Розумні» відступи"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:19
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:17
 msgid "Statement indentation size in spaces:"
 msgstr "Розмір відступу у пробілах:"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1916
+#: ../plugins/language-support-cpp-java/plugin.c:1921
 msgid "_AutoComplete"
 msgstr "Ав_тодоповнення"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1917
+#: ../plugins/language-support-cpp-java/plugin.c:1922
 msgid "AutoComplete the current word"
 msgstr "Автодоповнення поточного слова"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1923
+#: ../plugins/language-support-cpp-java/plugin.c:1928
 msgid "Auto Indent"
 msgstr "Відступи"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1924
+#: ../plugins/language-support-cpp-java/plugin.c:1929
 msgid "Auto indent current line or selection based on indentation settings"
 msgstr ""
 "Автоматично вирівнювати поточний рядок або виділення на основі параметрів "
 "вирівнювання"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1929
+#: ../plugins/language-support-cpp-java/plugin.c:1934
 msgid "Swap .h/.c"
 msgstr "Поміняти .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1930
+#: ../plugins/language-support-cpp-java/plugin.c:1935
 msgid "Swap c header and source files"
 msgstr "Перемикання між файлами заголовків та первинних текстів"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1973
+#: ../plugins/language-support-cpp-java/plugin.c:1978
 msgid "C++/Java Assistance"
 msgstr "Підтримка C++/Java"
 
-#: ../plugins/language-support-cpp-java/plugin.c:2066
-#: ../plugins/language-support-cpp-java/plugin.c:2075
+#: ../plugins/language-support-cpp-java/plugin.c:2071
+#: ../plugins/language-support-cpp-java/plugin.c:2080
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -9598,10 +9837,6 @@ msgstr "Модуль генератора класів"
 msgid "C++/GObject Class"
 msgstr "Клас C++/GObject"
 
-#: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:3
-msgid "Class Generator"
-msgstr "Генератор класів"
-
 #: ../plugins/project-manager/anjuta-project-manager.plugin.in.h:1
 msgid "Project Manager"
 msgstr "Менеджер проекту"
@@ -9611,8 +9846,8 @@ msgid "Project Manager Plugin for Anjuta."
 msgstr "Модуль менеджера проекту для Anjuta"
 
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:2
-msgid "Symbol Database Plugin for Anjuta (unstable)."
-msgstr "Модуль символьної баз даних для Anjuta (нестабільний)."
+msgid "Symbol Database Plugin for Anjuta."
+msgstr "Модуль символьної баз даних для Anjuta."
 
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Manages messages from external apps"
@@ -9661,3 +9896,36 @@ msgstr "Модуль Autotools"
 #: ../plugins/gbf-am/gbf-am.plugin.in.h:2
 msgid "Autotools backend for project manager"
 msgstr "Модуль Autotools для менеджера проектів"
+
+#~ msgid "*"
+#~ msgstr "*"
+
+#~ msgid "Command Line Parameters"
+#~ msgstr "Параметри командного рядка"
+
+#~ msgid "Enter a Hexa adress or select one in the data"
+#~ msgstr "Введіть шістнадцяткову адресу або виберіть її у даних"
+
+#~ msgid "Execute Program"
+#~ msgstr "Виконати програму"
+
+#~ msgid "Run in Terminal"
+#~ msgstr "Запустити в терміналі"
+
+#~ msgid "_Pass:"
+#~ msgstr "_Прохід:"
+
+#~ msgid "on_widget_signal"
+#~ msgstr "on_widget_signal"
+
+#~ msgid "widget_signal_cb"
+#~ msgstr "widget_signal_cb"
+
+#~ msgid "Ctags executable:"
+#~ msgstr "Виконуваний файл ctags:"
+
+#~ msgid "Enable adaptive indentation"
+#~ msgstr "Увімкнути адаптивне вирівнювання"
+
+#~ msgid "Pressing tab indents"
+#~ msgstr "Натискання «Tab» вставляє відступ"

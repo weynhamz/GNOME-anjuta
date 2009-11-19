@@ -380,13 +380,13 @@ on_search_activated (GtkWidget* widget, SearchBox* search_box)
 			{
 				found = TRUE;
 				anjuta_status_push (private->status, 
-									_("Search for \"%s\" reached end and was continued on top."), search_text);
+									_("Search for \"%s\" reached the end and was continued at the top."), search_text);
 			}
 			else if (ianjuta_editor_selection_has_selection (selection, NULL))
 			{
 				anjuta_status_pop (private->status);
 				anjuta_status_push (private->status, 
-									_("Search for \"%s\" reached end and was continued on top but no new match was found."), search_text);
+									_("Search for \"%s\" reached the end and was continued at the top but no new match was found."), search_text);
 			}				
 		}
 	}

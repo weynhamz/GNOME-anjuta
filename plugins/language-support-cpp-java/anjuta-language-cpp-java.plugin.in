@@ -2,7 +2,7 @@
 Location=anjuta-language-cpp-java:CppJavaPlugin
 Icon=anjuta-language-cpp-java-plugin.png
 _Name=C++ and Java support Plugin
-_Description=C++ and Java support plugin for code completion, auto indentation etc.
+_Description=C++ and Java support plugin for code completion, auto-indentation, etc.
 Interfaces=IAnjutaLanguageSupport
 UserActivatable=no
 

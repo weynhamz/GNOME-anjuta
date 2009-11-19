@@ -623,7 +623,7 @@ gboolean gtodo_client_check_file(GTodoClient *cl, GError **error)
 		cl->gtodo_doc = xmlParseMemory(read_buf, size);
 		if(cl->gtodo_doc == NULL)
 		{
-			g_set_error(&tmp_error,LIBGTODO_ERROR,LIBGTODO_ERROR_XML,_("Failed to parse xml structure"));
+			g_set_error(&tmp_error,LIBGTODO_ERROR,LIBGTODO_ERROR_XML,_("Failed to parse XML structure"));
 			g_propagate_error(error, tmp_error);
 			DEBUG_PRINT("%s", "failed to read the file");
 			g_free (read_buf);
@@ -634,7 +634,7 @@ gboolean gtodo_client_check_file(GTodoClient *cl, GError **error)
 		cl->root = xmlDocGetRootElement(cl->gtodo_doc);
 		if(cl->root == NULL)
 		{
-			g_set_error(&tmp_error,LIBGTODO_ERROR,LIBGTODO_ERROR_XML,_("Failed to parse xml structure"));
+			g_set_error(&tmp_error,LIBGTODO_ERROR,LIBGTODO_ERROR_XML,_("Failed to parse XML structure"));
 			g_propagate_error(error, tmp_error);
 			DEBUG_PRINT("%s", "failed to get root node.");
 			g_free (read_buf);

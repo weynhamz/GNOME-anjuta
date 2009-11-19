@@ -46,10 +46,12 @@
 #define NEW_FILE_DIALOG "dialog.new.file"
 #define NEW_FILE_ENTRY "new.file.entry"
 #define NEW_FILE_TYPE "new.file.type"
+#define NEW_FILE_TYPE_STORE "new.file.type.store"
 #define NEW_FILE_TEMPLATE "new.file.template"
 #define NEW_FILE_HEADER "new.file.header"
 #define NEW_FILE_LICENSE "new.file.license"
 #define NEW_FILE_MENU_LICENSE "new.file.menu.license"
+#define NEW_FILE_MENU_LICENSE_STORE "new.file.menu.license.store"
 #define NEW_FILE_ADD_TO_PROJECT "add_to_project"
 #define NEW_FILE_ADD_TO_REPOSITORY "add_to_repository"
 
@@ -169,7 +171,8 @@ display_new_file(AnjutaFileWizardPlugin *plugin,
 static gboolean
 create_new_file_dialog(IAnjutaDocumentManager *docman)
 {
-	GtkWidget *optionmenu;
+	GtkComboBox *optionmenu;
+	GtkListStore *store;
 	gint i;
 
 	nfg = g_new0(NewFileGUI, 1);
@@ -186,19 +189,27 @@ create_new_file_dialog(IAnjutaDocumentManager *docman)
 	nfg->add_to_repository = GTK_WIDGET (gtk_builder_get_object (nfg->bxml, NEW_FILE_ADD_TO_REPOSITORY));
 	nfg->showing = FALSE;
 	
-	optionmenu = GTK_WIDGET (gtk_builder_get_object (nfg->bxml, NEW_FILE_TYPE));
+	store = GTK_LIST_STORE (gtk_builder_get_object (nfg->bxml, NEW_FILE_TYPE_STORE));
 	for (i=0; i < (sizeof(new_file_type) / sizeof(NewfileType)); i++)
 	{
-		gtk_combo_box_append_text (GTK_COMBO_BOX (optionmenu), new_file_type[i].name);
+		GtkTreeIter iter;
+		
+		gtk_list_store_append (store, &iter);
+		gtk_list_store_set (store, &iter, 0, new_file_type[i].name, -1);
 	}
-	gtk_combo_box_set_active (GTK_COMBO_BOX (optionmenu), 0);
+	optionmenu = GTK_COMBO_BOX (gtk_builder_get_object (nfg->bxml, NEW_FILE_TYPE));
+	gtk_combo_box_set_active (optionmenu, 0);
 
-	optionmenu = GTK_WIDGET (gtk_builder_get_object (nfg->bxml, NEW_FILE_MENU_LICENSE));
+	store = GTK_LIST_STORE (gtk_builder_get_object (nfg->bxml, NEW_FILE_MENU_LICENSE_STORE));
 	for (i=0; i < (sizeof(new_license_type) / sizeof(NewlicenseType)); i++)
 	{
-		gtk_combo_box_append_text (GTK_COMBO_BOX (optionmenu), new_license_type[i].name);
+		GtkTreeIter iter;
+		
+		gtk_list_store_append (store, &iter);
+		gtk_list_store_set (store, &iter, 0, new_license_type[i].name, -1);
 	}
-	gtk_combo_box_set_active (GTK_COMBO_BOX (optionmenu), 0);
+	optionmenu = GTK_COMBO_BOX (gtk_builder_get_object (nfg->bxml, NEW_FILE_MENU_LICENSE));
+	gtk_combo_box_set_active (optionmenu, 0);
 	
 	g_object_set_data (G_OBJECT (nfg->dialog), "IAnjutaDocumentManager", docman);
 	gtk_builder_connect_signals (nfg->bxml, NULL);

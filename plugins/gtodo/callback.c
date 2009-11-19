@@ -14,10 +14,10 @@ void remove_todo_item(GtkWidget *fake, gboolean internall){
 	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(mw.treeview));	
 	if(!gtk_tree_selection_get_selected(selection, &model, &iter))
 	{
-		if(!internall)message_box( _("You need to select a todo item before you can remove it"),"",GTK_MESSAGE_INFO);
+		if(!internall)message_box( _("You need to select a to-do item before you can remove it"),"",GTK_MESSAGE_INFO);
 		return; 
 	}
-	if(!internall) if(!message_box( _("Are you sure you want to remove the selected todo item?"), _("Remove"), GTK_MESSAGE_WARNING))
+	if(!internall) if(!message_box( _("Are you sure you want to remove the selected to-do item?"), _("Remove"), GTK_MESSAGE_WARNING))
 	{
 		return;
 	}
@@ -95,8 +95,8 @@ void purge_category(void)
 	gchar *category;
 	gchar *tm;
 
-	if(gtk_combo_box_get_active(GTK_COMBO_BOX(mw.option))== 0)tm = g_strdup_printf(_("Are you sure you want to remove all the completed todo items?"));
-	else tm = g_strdup_printf(_("Are you sure you want to remove all the completed todo items in the category \"%s\"?"), mw.mitems[gtk_combo_box_get_active(GTK_COMBO_BOX(mw.option))-2]->date);
+	if(gtk_combo_box_get_active(GTK_COMBO_BOX(mw.option))== 0)tm = g_strdup_printf(_("Are you sure you want to remove all the completed to-do items?"));
+	else tm = g_strdup_printf(_("Are you sure you want to remove all the completed to-do items in the category \"%s\"?"), mw.mitems[gtk_combo_box_get_active(GTK_COMBO_BOX(mw.option))-2]->date);
 
 	if(!message_box( tm, _("Remove"), GTK_MESSAGE_WARNING))
 	{

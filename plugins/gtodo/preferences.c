@@ -18,7 +18,7 @@ void gui_preferences(void)
 	GtkWidget *notebook;
 	
 	notebook = preferences_widget ();
-	dialog = gtk_dialog_new_with_buttons(_("Todo List Preferences"), GTK_WINDOW(mw.window), 
+	dialog = gtk_dialog_new_with_buttons(_("To-do List Preferences"), GTK_WINDOW(mw.window), 
 			GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
 			GTK_STOCK_CLOSE, 
 			GTK_RESPONSE_CANCEL,
@@ -165,10 +165,10 @@ GtkWidget *preferences_widget()
 	/************ Second Tab *****************/
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_set_border_width(GTK_CONTAINER(vbox2), 12);
-	gtk_notebook_append_page(GTK_NOTEBOOK(notebook), vbox2, gtk_label_new(_("Misc")));
+	gtk_notebook_append_page(GTK_NOTEBOOK(notebook), vbox2, gtk_label_new(_("Miscellaneous")));
 
 	vbox = gtk_vbox_new(FALSE, 6);
-	cb_auto_purge = gtk_check_button_new_with_label(_("Auto purge completed items"));
+	cb_auto_purge = gtk_check_button_new_with_label(_("Auto-purge completed items"));
 	gtk_box_pack_start(GTK_BOX(vbox),cb_auto_purge, FALSE, TRUE, 0); 	
 
 
@@ -192,9 +192,9 @@ GtkWidget *preferences_widget()
 	preferences_cb_auto_purge(cb_auto_purge, hbox);
 	/** add the page **/
 	gtk_container_set_border_width(GTK_CONTAINER(vbox), 12);
-	frame = gtk_frame_new(_("Auto Purge"));
+	frame = gtk_frame_new(_("Auto-Purge"));
 	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_NONE);	
-	tmp = g_strdup_printf("<b>%s</b>", _("Auto Purge"));
+	tmp = g_strdup_printf("<b>%s</b>", _("Auto-Purge"));
 	gtk_label_set_markup(GTK_LABEL(gtk_frame_get_label_widget(GTK_FRAME(frame))), tmp);
 	g_free(tmp);
 	gtk_container_set_border_width(GTK_CONTAINER(frame), 0);
@@ -215,8 +215,8 @@ GtkWidget *preferences_widget()
 	gtk_container_add(GTK_CONTAINER(frame), vbox);
 
 	gtk_box_pack_start(GTK_BOX(vbox2), frame, FALSE, FALSE, 0);
-	tmp = g_strdup_printf(ngettext("Allow todo items to notifiy me when they are due in %i minute",
-                                 "Allow todo items to notifiy me when they are due in %i minutes",
+	tmp = g_strdup_printf(ngettext("Allow to-do items to notify me when they are due in %i minute",
+                                 "Allow to-do items to notify me when they are due in %i minutes",
                                  gconf_client_get_int(client, "/apps/gtodo/prefs/notify_in_minutes",NULL)),
                                  gconf_client_get_int(client, "/apps/gtodo/prefs/notify_in_minutes",NULL));
 	cb = gtk_check_button_new_with_label(tmp);

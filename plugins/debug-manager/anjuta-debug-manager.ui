@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <interface>
-  <requires lib="gtk+" version="2.14"/>
+  <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy project-wide -->
   <object class="GtkDialog" id="attach_process_dialog">
     <property name="title" translatable="yes">Attach to process</property>
@@ -485,6 +485,8 @@
               <object class="GtkEntry" id="add_watch_name_entry">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="has_focus">True</property>
+                <property name="activates_default">True</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -534,7 +536,6 @@
                 <property name="label">gtk-add</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="has_focus">True</property>
                 <property name="can_default">True</property>
                 <property name="has_default">True</property>
                 <property name="receives_default">False</property>
@@ -1702,8 +1703,10 @@
             <child type="label">
               <object class="GtkLabel" id="label12350">
                 <property name="visible">True</property>
-                <property name="label" translatable="yes">&lt;b&gt;Debugger:&lt;/b&gt;</property>
-                <property name="use_markup">True</property>
+                <property name="label" translatable="yes">Debugger:</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
               </object>
             </child>
           </object>
@@ -2201,7 +2204,7 @@
     </action-widgets>
   </object>
   <object class="GtkWindow" id="debug_manager_preferences">
-    <property name="title" translatable="yes">window1</property>
+    <property name="title">window1</property>
     <child>
       <object class="GtkVBox" id="preferences_container">
         <property name="visible">True</property>
@@ -2349,8 +2352,10 @@
                 <property name="visible">True</property>
                 <property name="xalign">0</property>
                 <property name="yalign">0</property>
-                <property name="label" translatable="yes">&lt;b&gt;Remote debugging&lt;/b&gt;</property>
-                <property name="use_markup">True</property>
+                <property name="label" translatable="yes">Remote debugging</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
               </object>
             </child>
           </object>
@@ -2404,9 +2409,9 @@
                   <object class="GtkLabel" id="label5">
                     <property name="visible">True</property>
                     <property name="ypad">3</property>
-                    <property name="label" translatable="yes">&lt;span weight="bold" size="larger"&gt;Are you sure you want to debug a program not using the Debug configuration ?&lt;/span&gt;
+                    <property name="label" translatable="yes">&lt;span weight="bold" size="larger"&gt;Are you sure you want to debug a program not using the Debug configuration?&lt;/span&gt;
 
-When optimizations are enabled, the debugger cannot always identify the source code corresponding to the instructions, some commands can perform in a strange way, especially steps.</property>
+When optimizations are enabled, the debugger cannot always identify the source code corresponding to the instructions, so some commands can perform in a strange way, especially steps.</property>
                     <property name="use_markup">True</property>
                     <property name="wrap">True</property>
                     <property name="selectable">True</property>
@@ -2443,7 +2448,7 @@ When optimizations are enabled, the debugger cannot always identify the source c
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="button4">
-                <property name="label" translatable="yes">gtk-cancel</property>
+                <property name="label">gtk-cancel</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -2457,7 +2462,7 @@ When optimizations are enabled, the debugger cannot always identify the source c
             </child>
             <child>
               <object class="GtkButton" id="button8">
-                <property name="label" translatable="yes">gtk-execute</property>
+                <property name="label">gtk-execute</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="has_focus">True</property>

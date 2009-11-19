@@ -788,7 +788,7 @@ sub get_return_type_val
 
 sub get_arg_assert
 {
-	my ($rettype, $type_arg, $force) = @_;
+	my ($rettype, $type_arg, $force, $allow_null) = @_;
 	my ($type, $arg);
 	if ($type_arg =~ s/([\w_][\w\d_]*)+$//)
 	{
@@ -835,6 +835,10 @@ sub get_arg_assert
 			get_canonical_names($type, \$prefix, \$macro_prefix,
 								\$macro_suffix, \$macro_name);
 			$ainfo = $macro_prefix."_IS_".$macro_suffix."(__arg__)";
+			if ($allow_null)
+			{
+				$ainfo="(__arg__ == NULL) ||".$ainfo
+			}
 		}
 		else
 		{
@@ -844,7 +848,7 @@ sub get_arg_assert
 	}
 	if ($rettype eq "void")
 	{
-		$ainfo =~ s/__arg__/$arg/;
+		$ainfo =~ s/__arg__/$arg/g;
 		my $ret = "g_return_if_fail ($ainfo);";
 		return $ret;
 	}
@@ -853,7 +857,7 @@ sub get_arg_assert
 		my $fail_ret = get_return_type_val ($rettype);
 		if (defined($fail_ret))
 		{
-			$ainfo =~ s/__arg__/$arg/;
+			$ainfo =~ s/__arg__/$arg/g;
 			my $ret = "g_return_val_if_fail ($ainfo, $fail_ret);";
 			return $ret;
 		}
@@ -1286,7 +1290,7 @@ ${prefix}_error_quark (void)
 		my $params = "";
 		next if ($func =~ /^\:\:/);
 
-		my $asserts = "\t".get_arg_assert($rettype, "$class *obj", 1)."\n";
+		my $asserts = "\t".get_arg_assert($rettype, "$class *obj", 1, 0)."\n";
 		## self assert;
 		$args = convert_args($args);
 		if ($args ne '')
@@ -1295,7 +1299,7 @@ ${prefix}_error_quark (void)
 			my @margs = split(",", $args);
 			foreach my $one_arg (@margs)
 			{
-				my $assert_stmt = get_arg_assert($rettype, $one_arg, 0);
+				my $assert_stmt = get_arg_assert($rettype, $one_arg, 0, 1);
 				if (defined($assert_stmt) && $assert_stmt ne "")
 				{
 					$asserts .= "\t$assert_stmt\n";

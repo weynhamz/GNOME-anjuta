@@ -60,7 +60,7 @@ subversion_show_diff (const gchar *path, gboolean recursive,
 	pulse_timer_id = status_bar_progress_pulse (plugin,
 												_("Subversion: " 
 												  "Retrieving "
-												  "diff..."));
+												  "diff…"));
 	
 	g_signal_connect (G_OBJECT (diff_command), "command-finished",
 					  G_CALLBACK (stop_status_bar_progress_pulse),

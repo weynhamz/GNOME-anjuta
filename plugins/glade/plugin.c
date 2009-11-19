@@ -44,6 +44,14 @@
 #define GLADE_PLUGIN_GLADE_UI_FILE PACKAGE_DATA_DIR"/glade/anjuta-glade.glade"
 #define ICON_FILE "anjuta-glade-plugin-48.png"
 
+#define PREFERENCES_PAGE_NAME "preferences_page"
+#define HANDLER_TEMPLATE_BUTTON0_NAME "handler_template_button0"
+#define HANDLER_TEMPLATE_BUTTON1_NAME "handler_template_button1"
+#define INSERT_HANDLER_ON_EDIT_NAME "insert_handler_on_edit"
+#define AUTO_ADD_RESOURCE_NAME "auto_add_resource"
+#define DEFAULT_RESOURCE_ENTRY_NAME "default_resource_entry"
+#define SEPARATED_DESIGNER_LAYOUT_NAME "separated_designer_layout"
+
 static gpointer parent_class;
 
 /* This is variable required from libdevhelp */
@@ -844,7 +852,7 @@ glade_plugin_do_save_associations (GladePlugin *plugin, GError **error)
 	{
 		g_set_error (error, PLUGIN_GLADE_ERROR,
 		             PLUGIN_GLADE_ERROR_GENERIC,
-		             _("No associations initialized, nothing to save"));
+		             _("No associations initialized: nothing to save"));
 		return FALSE;
 	}
 	if (!plugin->priv->project_root)
@@ -1185,10 +1193,10 @@ enum
 };
 
 const gchar *ipt_names [count_ipt + 1] = {
-	/* iptCurrent: */       "Current",
-	/* iptBeforeEnd: */     "Before end",
-	/* iptAfterBegin: */    "After begin",
-	/* ipEOF: */            "End of file",
+	/* iptCurrent: */       N_("Current"),
+	/* iptBeforeEnd: */     N_("Before end"),
+	/* iptAfterBegin: */    N_("After begin"),
+	/* ipEOF: */            N_("End of file"),
 	NULL
 };
 
@@ -1413,10 +1421,10 @@ const LanguageSyntax _default_syntax_Python = {
 
 typedef enum
 {
-	LANGUAGE_NONE,
-	LANGUAGE_C,
-	LANGUAGE_PYTHON,
-	LANGUAGE_VALA
+	ANJUTA_LANGUAGE_NONE,
+	ANJUTA_LANGUAGE_C,
+	ANJUTA_LANGUAGE_PYTHON,
+	ANJUTA_LANGUAGE_VALA
 } LanguageId;
 
 LanguageSyntax const *default_syntax_C = &_default_syntax_C;
@@ -1903,14 +1911,14 @@ glade_plugin_fetch_last_signal (GladePlugin *plugin)
 static LanguageId
 language_name_to_id (const gchar *lang_name)
 {
-	LanguageId lang_id = LANGUAGE_NONE;
+	LanguageId lang_id = ANJUTA_LANGUAGE_NONE;
 
 	if (g_str_equal (lang_name, "C") || g_str_equal (lang_name, "C++"))
-		lang_id = LANGUAGE_C;
+		lang_id = ANJUTA_LANGUAGE_C;
 	else if (g_str_equal (lang_name, "Python"))
-		lang_id = LANGUAGE_PYTHON;
+		lang_id = ANJUTA_LANGUAGE_PYTHON;
 	else if (g_str_equal (lang_name, "Vala"))
-		lang_id = LANGUAGE_VALA;
+		lang_id = ANJUTA_LANGUAGE_VALA;
 
 	return lang_id;
 }
@@ -1963,23 +1971,23 @@ insert_handler_stub_auto (IAnjutaDocument *doc, GladePlugin *plugin,
 	lang_id = language_name_to_id (lang_name);
 	switch (lang_id)
 	{
-	case LANGUAGE_NONE:
+	case ANJUTA_LANGUAGE_NONE:
 		{
 			gchar *uri = get_uri_from_ianjuta_file (IANJUTA_FILE (editor));
 			g_set_error (error,
 			             PLUGIN_GLADE_ERROR,
 			             PLUGIN_GLADE_ERROR_GENERIC,
-			             _("Unknown language of the editor \"%s\""), uri);
+			             _("Unknown editor language \"%s\""), uri);
 			g_free (uri);
 			return;
 		}
-	case LANGUAGE_C:
+	case ANJUTA_LANGUAGE_C:
 		syntax = default_syntax_C;
 		break;
-	case LANGUAGE_PYTHON:
+	case ANJUTA_LANGUAGE_PYTHON:
 		syntax = default_syntax_Python;
 		break;
-	case LANGUAGE_VALA:
+	case ANJUTA_LANGUAGE_VALA:
 		syntax = default_syntax_Vala;
 		break;
 	}
@@ -1993,10 +2001,10 @@ insert_handler_stub_auto (IAnjutaDocument *doc, GladePlugin *plugin,
 
 	switch (lang_id)
 	{
-	case LANGUAGE_NONE:
+	case ANJUTA_LANGUAGE_NONE:
 		g_assert_not_reached();
 		return;
-	case LANGUAGE_C:
+	case ANJUTA_LANGUAGE_C:
 		do_insert_handler_stub_C (docman, editor, position, position_type,
 		                          plugin->priv->last_object_type,
 		                          plugin->priv->last_object_name,
@@ -2004,7 +2012,7 @@ insert_handler_stub_auto (IAnjutaDocument *doc, GladePlugin *plugin,
 		                          plugin->priv->last_handler_name,
 		                          raise_editor, error);
 		break;
-	case LANGUAGE_PYTHON:
+	case ANJUTA_LANGUAGE_PYTHON:
 		do_insert_handler_stub_Python (docman, editor, position, position_type,
 		                               plugin->priv->last_object_type,
 		                               plugin->priv->last_object_name,
@@ -2012,7 +2020,7 @@ insert_handler_stub_auto (IAnjutaDocument *doc, GladePlugin *plugin,
 		                               plugin->priv->last_handler_name,
 		                               raise_editor, error);
 		break;
-	case LANGUAGE_VALA:
+	case ANJUTA_LANGUAGE_VALA:
 		do_insert_handler_stub_Vala (docman, editor, position, position_type,
 		                             plugin->priv->last_object_type,
 		                             plugin->priv->last_object_name,
@@ -2043,7 +2051,7 @@ on_insert_handler_stub_auto (GtkAction* action, GladePlugin* plugin)
 	}
 	else
 		anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
-		                            _("Couldn't find a signal information"));
+		                            _("Couldn't find signal information"));
 }
 
 static void
@@ -2083,8 +2091,8 @@ insert_handler_stub_manual (GladePlugin* plugin, gboolean raise_editor)
 
 	switch (language_name_to_id (lang_name))
 	{
-	case LANGUAGE_NONE:
-	case LANGUAGE_C:
+	case ANJUTA_LANGUAGE_NONE:
+	case ANJUTA_LANGUAGE_C:
 		do_insert_handler_stub_C (docman, editor, position, iptCurrent,
 		                          plugin->priv->last_object_type,
 		                          plugin->priv->last_object_name,
@@ -2092,7 +2100,7 @@ insert_handler_stub_manual (GladePlugin* plugin, gboolean raise_editor)
 		                          plugin->priv->last_handler_name,
 		                          TRUE, &error);
 		break;
-	case LANGUAGE_PYTHON:
+	case ANJUTA_LANGUAGE_PYTHON:
 		do_insert_handler_stub_Python (docman, editor, position, iptCurrent,
 		                               plugin->priv->last_object_type,
 		                               plugin->priv->last_object_name,
@@ -2100,7 +2108,7 @@ insert_handler_stub_manual (GladePlugin* plugin, gboolean raise_editor)
 		                               plugin->priv->last_handler_name,
 		                               TRUE, &error);
 		break;
-	case LANGUAGE_VALA:
+	case ANJUTA_LANGUAGE_VALA:
 		do_insert_handler_stub_Vala (docman, editor, position, iptCurrent,
 		                             plugin->priv->last_object_type,
 		                             plugin->priv->last_object_name,
@@ -2127,7 +2135,7 @@ on_insert_handler_stub_manual (GtkAction* action, GladePlugin* plugin)
 		insert_handler_stub_manual (plugin, TRUE);
 	else
 		anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
-		                            _("Couldn't find a signal information"));
+		                            _("Couldn't find signal information"));
 }
 
 /* return true only if symbol definitely exists */
@@ -2240,8 +2248,10 @@ on_handler_editing_done (GladeSignalEditor *self, gchar *signal_name,
 				gchar *error_message =
 					g_strdup_printf(_("Error while adding a new handler stub: %s"),
 					                error->message);
+				GtkButton *button = GTK_BUTTON(gtk_builder_get_object (plugin->priv->xml,
+						       	INSERT_HANDLER_ON_EDIT_NAME));
 				gchar *hint_message =
-					g_strdup_printf(_("To avoid this messages turn off \"Insert handler on edit\" flag in Preferences->Glade GUI Designer"));
+					g_strdup_printf(_("To avoid this message turn off \"%s\" flag in Preferences->Glade GUI Designer"), gtk_button_get_label (button));
 
 				anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
 										   "%s. %s", error_message, hint_message);
@@ -2311,7 +2321,7 @@ switch_designer_and_editor (GladePlugin* plugin)
 	if (!assoc_file)
 	{
 		anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
-		                           "Couldn't find an associated document");
+		                           _("Couldn't find an associated document"));
 		return;
 	}
 
@@ -2386,7 +2396,7 @@ associate_designer_and_editor (DesignerAssociations *associations,
 	item = designer_associations_item_from_data (editor,
 	                                             NULL, designer,
 	                                             NULL, project_root);
-	designer_associations_item_set_option (item, "position_type", ipt_names[3]);
+	designer_associations_item_set_option (item, "position_type", _(ipt_names[3]));
 	designer_associations_add_item (associations, item);
 }
 
@@ -2659,7 +2669,7 @@ fill_position_type_combobox_model (GtkListStore *model)
 		gtk_list_store_append (model, &iter);
 		gtk_list_store_set (model, &iter,
 		                    0, i,
-		                    1, ipt_names[i],
+		                    1, _(ipt_names[i]),
 		                    -1);
 	}
 }
@@ -2784,7 +2794,7 @@ associations_dialog_commit_all_fields (GladePlugin *plugin)
 		combobox = GTK_COMBO_BOX (plugin->priv->dialog_data->options_entries[DO_POSITION_TYPE]);
 		i = gtk_combo_box_get_active (combobox);
 		if (i >= 0 && i < count_ipt)
-			designer_associations_item_set_option (item, "position_type", ipt_names[i]);
+			designer_associations_item_set_option (item, "position_type", _(ipt_names[i]));
 		else
 			g_warning ("Invalid item index of position type");
 	}
@@ -3081,10 +3091,10 @@ show_associations_dialog (GladePlugin* plugin)
 		                            G_TYPE_STRING);
 		gtk_tree_view_set_model (treeview, GTK_TREE_MODEL (model));
 
-		associations_dialog_insert_text_column (treeview, "designer", DESIGNER_COLUMN, 200);
-		associations_dialog_insert_text_column (treeview, "toplevel widget", WIDGET_COLUMN, 150);
-		associations_dialog_insert_text_column (treeview, "editor", EDITOR_COLUMN, 200);
-		associations_dialog_insert_text_column (treeview, "options", OPTIONS_COLUMN, 200);
+		associations_dialog_insert_text_column (treeview, _("Designer"), DESIGNER_COLUMN, 200);
+		associations_dialog_insert_text_column (treeview, _("Top level widget"), WIDGET_COLUMN, 150);
+		associations_dialog_insert_text_column (treeview, _("Editor"), EDITOR_COLUMN, 200);
+		associations_dialog_insert_text_column (treeview, _("Options"), OPTIONS_COLUMN, 200);
 
 		g_object_set_data (G_OBJECT (dialog), ASSOCIATIONS_TREEVIEW_NAME, treeview);
 		gtk_tree_selection_set_mode (gtk_tree_view_get_selection (treeview),
@@ -4026,15 +4036,15 @@ static GtkActionEntry actions_glade[] =
 	{
 		"ActionGladeAssociationsDialog",
 		NULL,
-		N_("Associations dialog..."),
+		N_("Associations dialog…"),
 		NULL,
-		N_("Associations dialog..."),
+		N_("Associations dialog…"),
 		G_CALLBACK (on_show_associations_dialog)
 	},
 	{
 		"ActionVersionDialog",
 		GTK_STOCK_PROPERTIES,
-		N_("Versioning..."),
+		N_("Versioning…"),
 		NULL,
 		N_("Switch between library versions and check deprecations"),
 		G_CALLBACK (on_glade_show_version_dialog)
@@ -4279,7 +4289,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	GtkCellRenderer *renderer;
 	GtkAction *action;
 
-	DEBUG_PRINT ("%s", "GladePlugin: Activating Glade plugin...");
+	DEBUG_PRINT ("%s", "GladePlugin: Activating Glade plugin…");
 
 	glade_plugin = ANJUTA_PLUGIN_GLADE (plugin);
 
@@ -4516,7 +4526,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 		return TRUE;
 	priv->deactivating = TRUE;
 
-	DEBUG_PRINT ("%s", "GladePlugin: Dectivating Glade plugin...");
+	DEBUG_PRINT ("%s", "GladePlugin: Dectivating Glade plugin…");
 
 	anjuta_plugin_remove_watch (plugin, priv->editor_watch_id, FALSE);
 	anjuta_plugin_remove_watch (plugin, priv->pm_current_uri_watch_id, FALSE);
@@ -4768,14 +4778,6 @@ iwizard_iface_init(IAnjutaWizardIface *iface)
 {
 	iface->activate = iwizard_activate;
 }
-
-#define PREFERENCES_PAGE_NAME "preferences_page"
-#define HANDLER_TEMPLATE_BUTTON0_NAME "handler_template_button0"
-#define HANDLER_TEMPLATE_BUTTON1_NAME "handler_template_button1"
-#define INSERT_HANDLER_ON_EDIT_NAME "insert_handler_on_edit"
-#define AUTO_ADD_RESOURCE_NAME "auto_add_resource"
-#define DEFAULT_RESOURCE_ENTRY_NAME "default_resource_entry"
-#define SEPARATED_DESIGNER_LAYOUT_NAME "separated_designer_layout"
 
 gboolean
 on_preferences_default_resource_entry_focus_out (GtkWidget *widget,

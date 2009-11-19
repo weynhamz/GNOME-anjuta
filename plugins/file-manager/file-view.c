@@ -587,8 +587,8 @@ file_view_class_init (AnjutaFileViewClass *klass)
 	g_object_class_install_property (object_class,
 									 PROP_BASE_URI,
 									 g_param_spec_string ("base_uri",
-														  _("Base uri"),
-														  _("Uri of the top-most path displayed"),
+														  _("Base URI"),
+														  _("URI of the top-most path displayed"),
 														  NULL,
 														  G_PARAM_READABLE |
 														  G_PARAM_WRITABLE |

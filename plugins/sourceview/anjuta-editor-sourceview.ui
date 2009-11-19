@@ -596,7 +596,7 @@
                 </child>
                 <child>
                   <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:print.linenumbers">
-                    <property name="label" translatable="yes">Print Linenumbers</property>
+                    <property name="label" translatable="yes">Print line numbers</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>

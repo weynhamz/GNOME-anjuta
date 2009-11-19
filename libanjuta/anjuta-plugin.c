@@ -310,7 +310,6 @@ static void
 anjuta_plugin_class_init (AnjutaPluginClass *class) 
 {
 	GObjectClass *object_class = (GObjectClass*) class;
-	GObjectClass *parent_class = g_type_class_peek_parent (class);
     
 	object_class->dispose = anjuta_plugin_dispose;
 	object_class->finalize = anjuta_plugin_finalize;

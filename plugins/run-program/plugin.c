@@ -250,9 +250,9 @@ static GtkActionEntry actions_run[] = {
 	{
 		"ActionProgramParameters",
 		NULL,
-		N_("Program Parameters..."),
+		N_("Program Parameters…"),
 		NULL,
-		N_("Set current program, arguments and so on"),
+		N_("Set current program, arguments, etc."),
 		G_CALLBACK (on_program_parameters_activate)
 	},
 };
@@ -266,7 +266,7 @@ run_plugin_activate (AnjutaPlugin *plugin)
 	RunProgramPlugin *self = ANJUTA_PLUGIN_RUN_PROGRAM (plugin);
 	AnjutaUI *ui;
 	
-	DEBUG_PRINT ("%s", "Run Program Plugin: Activating plugin...");
+	DEBUG_PRINT ("%s", "Run Program Plugin: Activating plugin…");
 
 	/* Connect to session signal */
 	g_signal_connect (plugin->shell, "save-session",
@@ -294,7 +294,7 @@ run_plugin_deactivate (AnjutaPlugin *plugin)
 	RunProgramPlugin *self = ANJUTA_PLUGIN_RUN_PROGRAM (plugin);
 	AnjutaUI *ui;
 
-	DEBUG_PRINT ("%s", "Run Program Plugin: Deactivating plugin...");
+	DEBUG_PRINT ("%s", "Run Program Plugin: Deactivating plugin…");
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	anjuta_ui_remove_action_group (ui, self->action_group);

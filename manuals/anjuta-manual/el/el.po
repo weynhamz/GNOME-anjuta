@@ -661,7 +661,7 @@ msgid ""
 msgstr ""
 "Ένας εναλλακτικός τρόπος για την εισαγωγή μακροεντολών είναι να επιλέξετε "
 "<menuchoice><guisubmenu>Επεξεργασία</guisubmenu><guisubmenu>Μακροεντολές</"
-"guisubmenu><guimenuitem>Εισαγωγή Μακροεντολής...<menuchoice><guisubmenu>, "
+"guisubmenu><guimenuitem>Εισαγωγή Μακροεντολής...</guimenuitem></menuchoice>, "
 "και μετά να πατήσετε την επιθυμητή συντόμευση. <placeholder-1/>"
 
 #: C/anjuta-manual.xml:91(title)
@@ -4220,7 +4220,7 @@ msgstr ""
 "Μπορείτε να αλλάζετε τη συνθήκη και τον αριθμό περασμάτων επιλέγοντας το "
 "σημείο διακοπής από τη λίστα σημείων διακοπής, κάνοντας δεξί κλικ και "
 "επιλέγοντας <menuchoice><guimenuitem>Επεξεργασία σημείου διακοπής</"
-"guimenuitem> από το σχετικό μενού."
+"guimenuitem></menuchoice> από το σχετικό μενού."
 
 #: C/anjuta-manual.xml:506(para)
 msgid ""
@@ -4390,7 +4390,7 @@ msgid ""
 msgstr ""
 "Επιλέξτε το στοιχείο μενού <menuchoice><guisubmenu>Προβολή</"
 "guisubmenu><guimenuitem>Παρακολούθηση</guimenuitem></menuchoice> για να "
-"εμφανίσετε το <interface></interface>παράθυρο παρακολούθησης<menuchoice>."
+"εμφανίσετε το <interface>παράθυρο παρακολούθησης</interface>."
 
 #: C/anjuta-manual.xml:606(title)
 msgid "Adding an expression to watch"
@@ -4637,8 +4637,8 @@ msgid ""
 msgstr ""
 "Το <interface>παράθυρο νημάτων</interface> προβάλλει όλα τα νήματα που "
 "χρησιμοποιεί το πρόγραμμα και δείχνει ποιο είναι το τρέχον νήμα. Επιλέξτε "
-"<interface></interface>Προβολή<menuchoice><guisubmenu>Νήμα</"
-"guisubmenu><guimenuitem> από τη γραμμή μενού, για να ανοίξετε αυτό το "
+"<menuchoice><guisubmenu>Προβολή</guisubmenu><guimenuitem>Νήμα</"
+"guimenuitem></menuchoice> από το μενού, για να ανοίξετε αυτό το "
 "παράθυρο."
 
 #: C/anjuta-manual.xml:750(para)

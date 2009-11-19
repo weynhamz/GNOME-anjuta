@@ -72,6 +72,10 @@ on_merge_dialog_response (GtkDialog *dialog, gint response_id,
 		                                                     "merge_log_view"));
 		branch_combo_model = GTK_TREE_MODEL (gtk_builder_get_object (data->bxml,
 		                                                             "branch_combo_model"));
+		
+		if (!git_check_branches (GTK_COMBO_BOX (merge_branch_combo)))
+			return;
+		
 		log = NULL;
 		
 		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (use_custom_log_check)))
@@ -124,9 +128,10 @@ on_merge_dialog_response (GtkDialog *dialog, gint response_id,
 }
 
 static void
-on_use_custom_log_check_toggled (GtkToggleButton *toggle_button, GtkWidget *merge_log_view)
+on_use_custom_log_check_toggled (GtkToggleButton *toggle_button, 
+                                 GtkWidget *merge_log_vbox)
 {
-	gtk_widget_set_sensitive (merge_log_view,
+	gtk_widget_set_sensitive (merge_log_vbox,
 							  gtk_toggle_button_get_active (toggle_button));
 }
 
@@ -134,12 +139,15 @@ static void
 merge_dialog (Git *plugin)
 {
 	GtkBuilder *bxml;
-	gchar *objects[] = {"merge_dialog", "branch_combo_model", NULL};
+	gchar *objects[] = {"merge_dialog", "branch_combo_model", "log_view_buffer", 
+						NULL};
 	GError *error;
 	GtkWidget *dialog;
 	GtkWidget *merge_branch_combo;
 	GtkWidget *use_custom_log_check;
-	GtkWidget *merge_log_view;
+	GtkWidget *merge_log_vbox;
+	GtkWidget *merge_log_column_label;
+	GtkTextBuffer *log_view_buffer;
 	GtkListStore *branch_combo_model;
 	GitUIData *data;
 	GitBranchListCommand *list_command;
@@ -158,7 +166,12 @@ merge_dialog (Git *plugin)
 	                                                         "merge_branch_combo"));
 	use_custom_log_check = GTK_WIDGET (gtk_builder_get_object (bxml, 
 															   "use_custom_log_check"));
-	merge_log_view = GTK_WIDGET (gtk_builder_get_object (bxml, "merge_log_view"));
+	merge_log_vbox = GTK_WIDGET (gtk_builder_get_object (bxml, 
+	                                                     "merge_log_vbox"));
+	merge_log_column_label = GTK_WIDGET (gtk_builder_get_object (bxml,
+	                                                             "merge_log_column_label"));
+	log_view_buffer = GTK_TEXT_BUFFER (gtk_builder_get_object (bxml,
+	                                                           "log_view_buffer"));
 	branch_combo_model = GTK_LIST_STORE (gtk_builder_get_object (bxml, "branch_combo_model"));
 	
 	data = git_ui_data_new (plugin, bxml);
@@ -182,7 +195,11 @@ merge_dialog (Git *plugin)
 	
 	g_signal_connect (G_OBJECT (use_custom_log_check), "toggled",
 					  G_CALLBACK (on_use_custom_log_check_toggled),
-					  merge_log_view);
+					  merge_log_vbox);
+
+	g_signal_connect (G_OBJECT (log_view_buffer), "mark-set",
+	                  G_CALLBACK (git_set_log_view_column_label),
+	                  merge_log_column_label);
 	
 	gtk_widget_show_all (dialog);
 }

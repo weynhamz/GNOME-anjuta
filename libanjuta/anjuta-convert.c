@@ -165,7 +165,7 @@ anjuta_convert_to_utf8 (const gchar          *content,
 		{
 			g_set_error (error, ANJUTA_CONVERT_ERROR, 
 				     ANJUTA_CONVERT_ERROR_AUTO_DETECTION_FAILED,
-			 	     _("anjuta was not able to automatically determine "
+			 	     _("Anjuta was not able to automatically determine "
 				     "the encoding of the file you want to open."));
 			return NULL;
 		}
@@ -204,7 +204,7 @@ anjuta_convert_to_utf8 (const gchar          *content,
 		{
 			g_set_error (error, ANJUTA_CONVERT_ERROR,
 				     ANJUTA_CONVERT_ERROR_AUTO_DETECTION_FAILED,
-			 	     _("anjuta was not able to automatically determine "
+			 	     _("Anjuta was not able to automatically determine "
 				     "the encoding of the file you want to open."));
 		}
 

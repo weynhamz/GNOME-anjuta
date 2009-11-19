@@ -51,24 +51,26 @@ libfile_manager_la_SOURCES = \
 	file-model.c \
 	file-model.h
 
+libfile_manager_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
+
 # Plugin dependencies
 libfile_manager_la_LIBADD = \
 	$(LIBANJUTA_LIBS) \
 	$(GDL_LIBS) \
 	$(GIO_LIBS)
 
-file-view-marshal.h: file-view-marshal.list
-	@GLIB_GENMARSHAL@ \
-	        --prefix=file_view_cclosure_marshal $< --header > xgen-gmc \
-	&& cp xgen-gmc $(@F) \
-	&& rm -f xgen-gmc
+file-view-marshal.h: $(srcdir)/file-view-marshal.list
+	if $(GLIB_GENMARSHAL) --prefix=file_view_cclosure_marshal \
+	   --header $(srcdir)/file-view-marshal.list >.genmarshal-$@; \
+	then mv -f .genmarshal-$@ $@; \
+	else rm -f .genmarshal-$@; fi
 
-file-view-marshal.c: file-view-marshal.list
-	echo "#include \"file-view-marshal.h\"" > xgen-gmc \
-	&& @GLIB_GENMARSHAL@ \
-	        --prefix=file_view_cclosure_marshal $< --body >> xgen-gmc \
-	&& cp xgen-gmc $(@F) \
-	&& rm -f xgen-gmc	
+file-view-marshal.c: $(srcdir)/file-view-marshal.list
+	if { echo '#include "file-view-marshal.h"' && $(GLIB_GENMARSHAL) \
+	     --prefix=file_view_cclosure_marshal --body $(srcdir)/file-view-marshal.list; \
+	   } >.genmarshal-$@; \
+	then mv -f .genmarshal-$@ $@; \
+	else rm -f .genmarshal-$@; fi
 
 prefs_ui_files = file-manager.ui
 include $(top_srcdir)/scripts/build-schemas.mk

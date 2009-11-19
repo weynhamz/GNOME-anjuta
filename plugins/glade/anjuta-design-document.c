@@ -376,7 +376,7 @@ static void ifile_savable_save (IAnjutaFileSavable* file, GError **e)
 		else
 		{
 			anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN(priv->glade_plugin)->shell),
-										_("Invalid glade file name"));
+										_("Invalid Glade file name"));
 			g_signal_emit_by_name(G_OBJECT(self), "saved", NULL);
 		}
 		return;
@@ -403,7 +403,7 @@ static void ifile_savable_save_as(IAnjutaFileSavable* ifile, GFile* file, GError
 	else
 	{
 		anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN(priv->glade_plugin)->shell),
-									_("Invalid glade file name"));
+									_("Invalid Glade file name"));
 	}
 	return;
 }

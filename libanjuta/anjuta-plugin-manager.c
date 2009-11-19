@@ -730,7 +730,7 @@ plugin_set_update (AnjutaPluginManager *plugin_manager,
 				if (!anjuta_plugin_deactivate (ANJUTA_PLUGIN (anjuta_plugin)))
 				{
 					anjuta_util_dialog_info (GTK_WINDOW (priv->shell),
-								 _("Plugin '%s' do not want to be deactivated"),
+								 _("Plugin '%s' does not want to be deactivated"),
 								 anjuta_plugin_handle_get_name (plugin));
 				}
 			}
@@ -1369,7 +1369,7 @@ get_plugin_factory (AnjutaPluginManager *plugin_manager,
 	/* No plugin implementing this interface found */
 	g_set_error (error, ANJUTA_PLUGIN_MANAGER_ERROR,
 					 ANJUTA_PLUGIN_MANAGER_MISSING_FACTORY,
-					 _("No plugin able to load other plugins in %s"), language);
+					 _("No plugin is able to load other plugins in %s"), language);
 	
 	return NULL;
 }
@@ -2308,7 +2308,7 @@ anjuta_plugin_manager_class_init (AnjutaPluginManagerClass *klass)
 	                                 PROP_SHELL,
 	                                 g_param_spec_object ("shell",
 														  _("Anjuta Shell"),
-														  _("Anjuta shell for which the plugins are"),
+														  _("Anjuta shell for which the plugins are made"),
 														  G_TYPE_OBJECT,
 														  G_PARAM_READABLE |
 														  G_PARAM_WRITABLE |

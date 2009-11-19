@@ -123,7 +123,7 @@ on_subversion_commit_response(GtkDialog* dialog, gint response,
 														_("Subversion: " 
 														  "Committing changes "
 														  "to the "
-														  "repository..."));
+														  "repository…"));
 			
 			g_signal_connect (G_OBJECT (commit_command), "command-finished",
 							  G_CALLBACK (stop_status_bar_progress_pulse),

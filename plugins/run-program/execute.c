@@ -237,18 +237,18 @@ execute_with_terminal (RunProgramPlugin *plugin,
 {
 	IAnjutaTerminal *term;
 	GPid pid = -1;
-	gchar* launcher_path = g_find_program_in_path("anjuta_launcher");
+	gchar* launcher_path = g_find_program_in_path("anjuta-launcher");
 	gchar *new_cmd;
 	RunProgramChild *child;
 	
 	if (launcher_path != NULL)
 	{
-		new_cmd = g_strconcat ("anjuta_launcher ", cmd, NULL);
+		new_cmd = g_strconcat ("anjuta-launcher ", cmd, NULL);
 		g_free (launcher_path);
 	}
 	else
 	{
-		DEBUG_PRINT("%s", "Missing anjuta_launcher");
+		DEBUG_PRINT("%s", "Missing anjuta-launcher");
 		new_cmd = g_strdup (cmd);
 	}
 

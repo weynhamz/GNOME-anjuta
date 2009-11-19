@@ -51,7 +51,7 @@ git_fetch (Git *plugin)
 	GitProgressData *data;
 	GitFetchCommand *fetch_command;
 	
-	data = git_progress_data_new (plugin, _("Git: Fetching..."));
+	data = git_progress_data_new (plugin, _("Git: Fetching…"));
 	fetch_command = git_fetch_command_new (plugin->project_root_directory);
 	
 	g_signal_connect (G_OBJECT (fetch_command), "data-arrived",

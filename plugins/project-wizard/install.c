@@ -500,7 +500,7 @@ npw_install_install_file (NPWInstall* this)
 			{
 				if (mkdir (buffer, 0755) == -1)
 				{
-					msg = g_strdup_printf (_("Creating %s ... Fail to create directory"), destination);
+					msg = g_strdup_printf (_("Creating %s … Failed to create directory"), destination);
 					ok = FALSE;
 					break;
 				}
@@ -516,12 +516,12 @@ npw_install_install_file (NPWInstall* this)
 			npw_autogen_set_input_file (this->gen, source, NULL, NULL);
 			npw_autogen_set_output_file (this->gen, destination);
 			ok = npw_autogen_execute (this->gen, on_install_end_install_file, this, NULL);
-			msg = g_strdup_printf (_("Creating %s (using AutoGen)... %s"), destination, ok ? "Ok" : "Fail to Execute");
+			msg = g_strdup_printf (_("Creating %s (using AutoGen)… %s"), destination, ok ? "Ok" : "Fail to Execute");
 		}
 		else
 		{
 			ok = npw_copy_file (destination, source);
-			msg = g_strdup_printf (_("Creating %s ... %s"), destination, ok ? "Ok" : "Fail to copy file");
+			msg = g_strdup_printf (_("Creating %s … %s"), destination, ok ? "Ok" : "Fail to copy file");
 		}
 	}
 

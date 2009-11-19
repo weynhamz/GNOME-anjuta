@@ -73,7 +73,7 @@ static void on_save_message(GtkAction* menuitem, MessageViewPlugin *plugin)
 }
 
 static GtkActionEntry actions_goto[] = {
-  { "ActionMenuGoto", NULL, N_("_Goto"), NULL, NULL, NULL},
+  { "ActionMenuGoto", NULL, N_("_Go to"), NULL, NULL, NULL},
   { "ActionMessageCopy", GTK_STOCK_COPY,
     N_("_Copy Message"), NULL,
 	N_("Copy message"),

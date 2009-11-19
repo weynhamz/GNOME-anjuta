@@ -67,13 +67,13 @@ static const GOptionEntry anjuta_options[] = {
 	{
 		"no-splash", 's', 0, G_OPTION_ARG_NONE,
 		&no_splash,
-		N_("Do not show the splashscreen"),
+		N_("Do not show the splash screen"),
 		NULL
 	},
 	{
 		"no-client", 'c', 0, G_OPTION_ARG_NONE,
 		&no_client,
-		N_("Start a new instance and do not open the file in a existing"),
+		N_("Start a new instance and do not open the file in an existing instance"),
 		NULL
 	},
 	{
@@ -91,7 +91,7 @@ static const GOptionEntry anjuta_options[] = {
 	{
 		"proper-shutdown", 'p', 0, G_OPTION_ARG_NONE,
 		&proper_shutdown,
-		N_("Shutdown anjuta properly releasing all resources (for debugging)"),
+		N_("Shut down Anjuta properly, releasing all resources (for debugging)"),
 		NULL
 	},
 	{
@@ -125,10 +125,10 @@ message_received_cb (UniqueApp         *unique,
 			gchar** uris = unique_message_data_get_uris(message);
 			gchar** uri;
 			for (uri = uris; *uri != NULL; uri++)
-			{	
+			{
 				IAnjutaFileLoader* loader =
 					anjuta_shell_get_interface(ANJUTA_SHELL(app), IAnjutaFileLoader, NULL);
-				GFile* gfile = g_file_new_for_commandline_arg(*uri);
+				GFile* gfile = g_file_new_for_uri(*uri);
 				ianjuta_file_loader_load(loader, gfile, FALSE, NULL);
 				g_object_unref (gfile);
 			}
@@ -182,7 +182,23 @@ main (int argc, char *argv[])
 	
 	/* Init debug helpers */
 	anjuta_debug_init ();
-	
+
+	/* Convert all file names to URI */
+	/* So an already existing instance of Anjuta having another current
+	 * directory can still open the files */
+	if (anjuta_filenames)
+	{
+		gchar** filename;
+		for (filename = anjuta_filenames; *filename != NULL; filename++)
+		{
+			GFile* file = g_file_new_for_commandline_arg(*filename);
+
+			g_free (*filename);
+			*filename = g_file_get_uri (file);
+			g_object_unref (file);
+		}
+	}
+
 	unique = unique_app_new ("org.gnome.anjuta", NULL);
 	
 	if (unique_app_is_running(unique))

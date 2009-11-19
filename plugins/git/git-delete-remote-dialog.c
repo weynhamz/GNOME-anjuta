@@ -41,6 +41,9 @@ on_delete_remote_dialog_response (GtkDialog *dialog, gint response_id,
 		branch_combo_model = GTK_TREE_MODEL (gtk_builder_get_object (data->bxml,
 		                                                             "branch_combo_model"));
 
+		if (!git_check_branches (GTK_COMBO_BOX (delete_remote_branch_combo)))
+			return;
+
 		gtk_combo_box_get_active_iter (GTK_COMBO_BOX (delete_remote_branch_combo), 
 									   &iter);
 		gtk_tree_model_get (branch_combo_model, &iter, 0, &branch, -1);
@@ -89,29 +92,6 @@ on_remote_list_command_data_arrived (AnjutaCommand *command,
 }
 
 static void
-on_remote_list_command_finished (AnjutaCommand *command, guint return_code,
-								 GtkBuilder *bxml)
-{
-	GtkWidget *delete_remote_ok_button;
-	GtkWidget *delete_remote_combo;
-	GtkTreeModel *branch_combo_model;
-	GtkTreeIter iter;
-	
-	delete_remote_ok_button = GTK_WIDGET (gtk_builder_get_object (bxml, 
-																  "delete_remote_ok_button"));
-	delete_remote_combo = GTK_WIDGET (gtk_builder_get_object (bxml,
-															  "delete_remote_combo"));
-	branch_combo_model = GTK_TREE_MODEL (gtk_builder_get_object (bxml,
-	                                                             "branch_combo_model"));
-	
-	if (gtk_tree_model_get_iter_first (branch_combo_model, &iter))
-	{
-		gtk_widget_set_sensitive (delete_remote_ok_button, TRUE);
-		gtk_combo_box_set_active (GTK_COMBO_BOX (delete_remote_combo), 0);
-	}
-}
-
-static void
 delete_remote_dialog (Git *plugin)
 {
 	GtkBuilder *bxml;
@@ -148,7 +128,7 @@ delete_remote_dialog (Git *plugin)
 					  branch_combo_model);
 	
 	g_signal_connect (G_OBJECT (list_command), "command-finished", 
-					  G_CALLBACK (on_remote_list_command_finished), 
+					  G_CALLBACK (on_git_command_finished), 
 					  bxml);
 	
 	anjuta_command_start (ANJUTA_COMMAND (list_command));

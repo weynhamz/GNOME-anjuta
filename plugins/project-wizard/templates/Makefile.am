@@ -1,7 +1,7 @@
 
-SUBDIRS = minimal terminal cpp gtk anjuta-plugin anjuta-plugin-vala \
+SUBDIRS = minimal terminal cpp gtk anjuta-plugin \
 	gtkmm wxwin xlib xlib-dock gcj java gnome-applet\
-	python mkfile sdl licenses m4
+	python mkfile sdl library licenses m4
 
 wizard_filesdir = $(anjuta_data_dir)/project
 wizard_files_DATA = \
@@ -15,7 +15,6 @@ wizard_files_DATA = \
 	gtk.wiz \
 	gtk-logo.png \
 	anjuta-plugin.wiz \
-	anjuta-plugin-vala.wiz \
 	anjuta-plugin-logo.png \
 	gnome-logo.png \
 	gtkmm.wiz \
@@ -35,7 +34,8 @@ wizard_files_DATA = \
 	mkfile-logo.png \
 	sdl.wiz \
 	appwiz_sdl.png \
-	gnome-applet.wiz
+	gnome-applet.wiz \
+	library.wiz
 
 
 BUILT_SOURCES = translatable-strings.h extract-translatable-strings.pl

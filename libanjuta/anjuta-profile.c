@@ -278,7 +278,7 @@ anjuta_profile_class_init (AnjutaProfileClass *klass)
 	                                 PROP_SYNC_FILE,
 	                                 g_param_spec_object ("sync-file",
 											  _("Synchronization file"),
-											  _("File to sync the profile xml"),
+											  _("File to syncronize the profile XML"),
 											  G_TYPE_FILE,
 											  G_PARAM_READABLE |
 											  G_PARAM_WRITABLE |
@@ -670,7 +670,7 @@ anjuta_profile_read_plugins_from_xml (AnjutaProfile *profile,
 		g_set_error (error, ANJUTA_PROFILE_ERROR,
 					 ANJUTA_PROFILE_ERROR_URI_READ_FAILED,
 					 _("Failed to read '%s': XML parse error. "
-					   "Invalid or corrupted anjuta plugins profile."),
+					   "Invalid or corrupted Anjuta plugins profile."),
 			 		uri);
 		g_free (uri);
 		

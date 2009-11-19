@@ -478,7 +478,7 @@ starter_instance_init (Starter* wcm)
 	g_signal_connect (wcm->priv->anjuta_manual, "clicked",
 					  G_CALLBACK (anjuta_manual_clicked_cb), NULL);
 
-	wcm->priv->gnome_library = anjuta_starter_button_new (_("Gnome Online API Documentation"));
+	wcm->priv->gnome_library = anjuta_starter_button_new (_("GNOME Online API Documentation"));
 	gtk_widget_show (wcm->priv->gnome_library);
 	gtk_box_pack_start (GTK_BOX (vbox), wcm->priv->gnome_library, TRUE, TRUE, 0);
 	g_signal_connect (wcm->priv->gnome_library, "clicked",

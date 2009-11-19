@@ -931,7 +931,7 @@ debugger_start (Debugger *debugger, const GList *search_dirs,
 			/* TODO		anjuta_update_app_status (TRUE, _("Debugger")); */
 			debugger->priv->output_callback (IANJUTA_DEBUGGER_OUTPUT,
 										 _("Getting ready to start debugging "
-										   "session...\n"),
+										   "session…\n"),
 										 debugger->priv->output_user_data);
 		
 			if (prog)
@@ -1325,7 +1325,7 @@ debugger_parse_stopped (Debugger *debugger)
 			debugger->priv->current_cmd.parser (debugger, val,
 												debugger->priv->cli_lines, FALSE);
 			debugger->priv->command_output_sent = TRUE;
-			DEBUG_PRINT ("%s", "In function: Sending output...");
+			DEBUG_PRINT ("%s", "In function: Sending output…");
 		}
 		
 		if (val)
@@ -1575,7 +1575,7 @@ debugger_stdo_flush (Debugger *debugger)
 				debugger->priv->current_cmd.parser (debugger, val,
 										  debugger->priv->cli_lines, FALSE);
 				debugger->priv->command_output_sent = TRUE;
-				DEBUG_PRINT ("%s", "In function: Sending output...");
+				DEBUG_PRINT ("%s", "In function: Sending output…");
 			}
 			else /* if (val) */
 			{
@@ -1967,7 +1967,7 @@ debugger_attach_process_real (Debugger *debugger, pid_t pid)
 
 	if (debugger->priv->output_callback)
 	{	
-		buff = g_strdup_printf (_("Attaching to process: %d...\n"), pid);
+		buff = g_strdup_printf (_("Attaching to process: %d…\n"), pid);
 		debugger->priv->output_callback (IANJUTA_DEBUGGER_OUTPUT,
 							   buff, debugger->priv->output_user_data);
 		g_free (buff);
@@ -2095,7 +2095,7 @@ debugger_detach_process (Debugger *debugger)
 
 	if (debugger->priv->output_callback)
 	{	
-		buff = g_strdup_printf (_("Detaching the process...\n"));
+		buff = g_strdup_printf (_("Detaching the process…\n"));
 		debugger->priv->output_callback (IANJUTA_DEBUGGER_OUTPUT,
 							   buff, debugger->priv->output_user_data);
 		g_free (buff);

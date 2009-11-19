@@ -567,6 +567,7 @@ build_regex_load ()
 		
 		patterns_list = g_list_prepend (patterns_list, pattern);
 	}
+	fclose (fp);
 	patterns_list = g_list_reverse (patterns_list);
 }
 
@@ -1496,7 +1497,7 @@ build_save_distclean_and_execute_command (BasicAutotoolsPlugin* bplugin, BuildPr
 		BuildProgram *new_prog;
 		
 		// Need to run make clean before
-		if (!anjuta_util_dialog_boolean_question (GTK_WINDOW (ANJUTA_PLUGIN (bplugin)->shell), _("Using this new configuration, need to to remove the default one. Do you want to do it ?"), NULL))
+		if (!anjuta_util_dialog_boolean_question (GTK_WINDOW (ANJUTA_PLUGIN (bplugin)->shell), _("Before using this new configuration, the default one needs to be removed. Do you want to do that ?"), NULL))
 		{
 			GError *err;
 			
@@ -1744,6 +1745,8 @@ build_compile_file (BasicAutotoolsPlugin *plugin, const gchar *filename)
 		g_hash_table_insert (target_ext, ".cxx", ".o");
 		g_hash_table_insert (target_ext, ".c++", ".o");
 		g_hash_table_insert (target_ext, ".cc", ".o");
+		g_hash_table_insert (target_ext, ".y", ".o");
+		g_hash_table_insert (target_ext, ".l", ".o");
 		g_hash_table_insert (target_ext, ".in", "");
 		g_hash_table_insert (target_ext, ".in.in", ".in");
 		g_hash_table_insert (target_ext, ".la", ".la");
@@ -1797,7 +1800,7 @@ build_compile_file (BasicAutotoolsPlugin *plugin, const gchar *filename)
 		*/
 		GtkWindow *window;
 		window = GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell);
-		anjuta_util_dialog_error (window, _("Can not compile \"%s\": No compile rule defined for this file type."), filename);
+		anjuta_util_dialog_error (window, _("Cannot compile \"%s\": No compile rule defined for this file type."), filename);
 	}
 	
 	return context;
@@ -1923,7 +1926,7 @@ build_configure_after_autogen (GObject *sender,
 			
 			return;
 		}
-		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell), _("Can not configure project: Missing configure script in %s."), plugin->project_root_dir);
+		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell), _("Cannot configure project: Missing configure script in %s."), plugin->project_root_dir);
 	}
 
 	if (pack)
@@ -2088,18 +2091,24 @@ static const gchar*
 build_get_uri_configuration (BasicAutotoolsPlugin *plugin, const gchar *uri)
 {
 	BuildConfiguration *cfg;
-	
+	BuildConfiguration *uri_cfg;
+	gsize uri_len = 0;
+
+	/* Check all configurations as other configuration directories are
+	 * normally child of default configuration directory */	
 	for (cfg = build_configuration_list_get_first (plugin->configurations); cfg != NULL; cfg = build_configuration_next (cfg))
 	{
 		const gchar *root = build_configuration_list_get_build_uri  (plugin->configurations, cfg);
+		gsize len = strlen (root);
 
-		if (strncmp (uri, root, strlen (root)) == 0)
+		if ((len > uri_len) && (strncmp (uri, root, len) == 0))
 		{
-			return build_configuration_get_name (cfg);
+			uri_cfg = cfg;
+			uri_len = len;
 		}
 	}
 
-	return NULL;
+	return uri_len == 0 ? NULL : build_configuration_get_name (uri_cfg);
 }
 
 
@@ -2411,7 +2420,7 @@ static GtkActionEntry build_actions[] =
 	},
 	{
 		"ActionBuildConfigure", NULL,
-		N_("C_onfigure Project..."), NULL,
+		N_("C_onfigure Project…"), NULL,
 		N_("Configure project"),
 		G_CALLBACK (on_configure_project)
 	},

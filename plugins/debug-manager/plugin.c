@@ -426,7 +426,7 @@ dma_plugin_program_running (DebugManagerPlugin *this)
 	gtk_action_group_set_sensitive (this->running_group, TRUE);
 	
 	status = anjuta_shell_get_status(ANJUTA_PLUGIN (this)->shell, NULL);
-	anjuta_status_set_default (status, _("Debugger"), _("Running..."));
+	anjuta_status_set_default (status, _("Debugger"), _("Running…"));
 
 	set_program_counter(this, NULL, 0, 0);
 }
@@ -850,7 +850,7 @@ static GtkActionEntry actions_start[] =
 	{
 		"ActionDebuggerAttachProcess",
 		"debugger-attach",
-		N_("_Debug Process..."),
+		N_("_Debug Process…"),
 		NULL,
 		N_("Start debugger and attach to a running program"),
 		G_CALLBACK (on_attach_to_project_action_activate)
@@ -858,7 +858,7 @@ static GtkActionEntry actions_start[] =
 	{
 		"ActionDebuggerDebugRemote",
 		"debugger-remote-target",
-		N_("Debug _Remote Target..."),
+		N_("Debug _Remote Target…"),
 		NULL,
 		N_("Connect to a remote debugging target"),
 		G_CALLBACK (on_start_remote_debug_action_activate),
@@ -874,7 +874,7 @@ static GtkActionEntry actions_start[] =
 	{
 		"ActionDebuggerAddSource",
 		NULL,
-		N_("Add source paths..."), 
+		N_("Add source paths…"), 
 		NULL,
 		N_("Add additional source paths"),
 		G_CALLBACK (on_add_source_activate)
@@ -886,7 +886,7 @@ static GtkActionEntry actions_loaded[] =
 	{
 		"ActionGdbCommand",                              /* Action name */
 		NULL,                                            /* Stock icon, if any */
-		N_("Debugger Command..."),                       /* Display label */
+		N_("Debugger Command…"),                       /* Display label */
 		NULL,                                            /* short-cut */
 		N_("Custom debugger command"),                   /* Tooltip */ 
 		G_CALLBACK (on_debugger_custom_command_activate) /* action callback */
@@ -936,7 +936,7 @@ static GtkActionEntry actions_loaded[] =
 		NULL,
 		N_("Shared Libraries"),
 		NULL,
-		N_("Show shared libraries mappings"),
+		N_("Show shared library mappings"),
 		G_CALLBACK (on_debugger_sharedlibs_activate)
 	},
 	{
@@ -980,7 +980,7 @@ static GtkActionEntry actions_stopped[] =
 		"debugger-step-out",
 		N_("Step _Out"),                    
 		"<shift>F5",                              
-		N_("Single step out of the function"), 
+		N_("Single step out of function"), 
 		G_CALLBACK (on_step_out_action_activate) 
 	},
 	{
@@ -994,7 +994,7 @@ static GtkActionEntry actions_stopped[] =
 	{
 		"ActionGdbCommand",
 		NULL,
-		N_("Debugger Command..."),
+		N_("Debugger Command…"),
 		NULL,
 		N_("Custom debugger command"),
 		G_CALLBACK (on_debugger_custom_command_activate)
@@ -1036,7 +1036,7 @@ static GtkActionEntry actions_stopped[] =
 		NULL,
 		N_("Shared Libraries"),
 		NULL,
-		N_("Show shared libraries mappings"),
+		N_("Show shared library mappings"),
 		G_CALLBACK (on_debugger_sharedlibs_activate)
 	},
 	{
@@ -1071,7 +1071,7 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 	static gboolean initialized = FALSE;
 	AnjutaUI *ui;
 	
-	DEBUG_PRINT ("%s", "DebugManagerPlugin: Activating Debug Manager plugin...");
+	DEBUG_PRINT ("%s", "DebugManagerPlugin: Activating Debug Manager plugin…");
 	this = ANJUTA_PLUGIN_DEBUG_MANAGER (plugin);
 	
     if (!initialized)
@@ -1175,7 +1175,7 @@ dma_plugin_deactivate (AnjutaPlugin* plugin)
 	DebugManagerPlugin *this;
 	AnjutaUI *ui;
 
-	DEBUG_PRINT ("%s", "DebugManagerPlugin: Deactivating Debug Manager plugin...");
+	DEBUG_PRINT ("%s", "DebugManagerPlugin: Deactivating Debug Manager plugin…");
 
 	this = ANJUTA_PLUGIN_DEBUG_MANAGER (plugin);
 
