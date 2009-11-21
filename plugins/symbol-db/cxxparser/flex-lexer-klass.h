@@ -90,6 +90,7 @@
 #define CODELITE_FLEX_LEXER_H
 #include <string>
 #include <iostream>
+#include <stdio.h>
 
 //extern "C++" {
 

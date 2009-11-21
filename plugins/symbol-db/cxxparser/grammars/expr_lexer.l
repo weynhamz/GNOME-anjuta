@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <vector>
+#include <stdio.h>
 
 extern std::string cl_expr_lval;
 extern std::string cl_var_lval;
