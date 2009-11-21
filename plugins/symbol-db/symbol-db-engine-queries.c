@@ -2831,7 +2831,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 	GValue *ret_value;
 	gboolean ret_bool;
 	GPtrArray *filter_kinds_array;
-	
+	GError* error = NULL;
 
 	g_return_val_if_fail (dbe != NULL, NULL);
 	g_return_val_if_fail (pattern != NULL, NULL);
@@ -3155,7 +3155,13 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 	/* execute the query with parametes just set */
 	data = gda_connection_statement_execute_select (priv->db_connection, 
 												  (GdaStatement*)dyn_node->stmt, 
-												  (GdaSet*)dyn_node->plist, NULL);
+												  (GdaSet*)dyn_node->plist, &error);
+
+	if (error)
+	{
+		DEBUG_PRINT ("Error while executing statement %s", error->message);
+		g_error_free(error);
+	}
 
 	/* free the filter kinds, if it's not null */
 	if (filter_kinds_array)

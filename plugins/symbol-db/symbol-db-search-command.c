@@ -124,7 +124,7 @@ do_search_prj_glb (SymbolDBSearchCommand *sdbsc)
 					priv->session_packages,
 					priv->results_limit,
 					priv->results_offset,
-					priv->info_fields);	
+					priv->info_fields);
 	
 	return iterator;
 }
@@ -142,6 +142,8 @@ sdb_search_command_run (AnjutaCommand *command)
 
 	priv = sdbsc->priv;
 
+	DEBUG_PRINT ("Searching async");
+	
 	switch (priv->cmd_search_type)
 	{
 		case CMD_SEARCH_FILE:
@@ -156,14 +158,22 @@ sdb_search_command_run (AnjutaCommand *command)
 
 	if (priv->iterator_result == NULL)
 	{
+		DEBUG_PRINT("Async search returned no results");
 		/* 1 is for error occurred */
 		return 1;
 	}
 
+	DEBUG_PRINT ("Notify!");
 	anjuta_command_notify_data_arrived (command);
 	
 	/* 0 should be for no error */
 	return 0;
+}
+
+static void
+sdb_search_command_cancel(AnjutaCommand* command)
+{
+	/* FIXME: Cancel the query if possible */
 }
 
 static void
@@ -174,6 +184,7 @@ sdb_search_command_class_init (SymbolDBSearchCommandClass *klass)
 	
 	object_class->finalize = sdb_search_command_finalize;
 	command_class->run = sdb_search_command_run;
+	command_class->cancel = sdb_search_command_cancel;
 }
 
 /**

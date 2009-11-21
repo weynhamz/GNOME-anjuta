@@ -20,6 +20,7 @@
 #include "sourceview-provider.h"
 #include "sourceview-cell.h"
 #include "sourceview-private.h"
+#include <libanjuta/anjuta-debug.h>
 
 
 static void
@@ -31,10 +32,12 @@ G_DEFINE_TYPE_WITH_CODE (SourceviewProvider,
 			 G_IMPLEMENT_INTERFACE (GTK_TYPE_SOURCE_COMPLETION_PROVIDER,
 			                        sourceview_provider_iface_init))
 
-static void on_context_cancelled (GtkSourceCompletionContext* context,
-                                  SourceviewProvider* prov)
+static void
+on_context_cancelled (GtkSourceCompletionContext* context, SourceviewProvider* provider)
 {
-	ianjuta_provider_cancelled(prov->iprov, NULL);
+	g_signal_handlers_disconnect_by_func (context, on_context_cancelled, provider);
+	provider->cancelled = TRUE;
+	provider->context = NULL;
 }
 
 static void
@@ -46,16 +49,18 @@ sourceview_provider_populate (GtkSourceCompletionProvider* provider, GtkSourceCo
 	gtk_source_completion_context_get_iter(context, &iter);
 	cell = sourceview_cell_new (&iter, GTK_TEXT_VIEW(prov->sv->priv->view));
 	prov->context = context;
+	prov->cancelled = FALSE;
 	g_signal_connect (context, "cancelled", G_CALLBACK(on_context_cancelled), prov);
+	g_message ("populating provider");
 	ianjuta_provider_populate(prov->iprov, IANJUTA_ITERABLE(cell), NULL);
-	prov->context = NULL;
 	g_object_unref (cell);
 }
 
 static const gchar*
 sourceview_provider_get_name (GtkSourceCompletionProvider* provider)
 {
-	return "Internal Sourceview editor provider";
+	SourceviewProvider* prov = SOURCEVIEW_PROVIDER(provider);
+	return ianjuta_provider_get_name (prov->iprov, NULL);
 }
 
 
@@ -68,27 +73,30 @@ sourceview_provider_get_start_iter (GtkSourceCompletionProvider* provider,
 	IAnjutaIterable* iiter = ianjuta_provider_get_start_iter (prov->iprov, NULL);
 	if (iiter)
 	{
+		DEBUG_PRINT ("Setting start iter");
 		SourceviewCell* cell = SOURCEVIEW_CELL(iiter);
-		GtkTextIter* source_iter = sourceview_cell_get_iter(cell);
-		*iter = *source_iter;
+		GtkTextIter source_iter;
+		sourceview_cell_get_iter(cell, &source_iter);
+		*iter = source_iter;
 		return TRUE;
 	}
 	else
 		return FALSE;
 }
 
-static void
+static gboolean
 sourceview_provider_activate_proposal (GtkSourceCompletionProvider* provider,
                                        GtkSourceCompletionProposal* proposal,
                                        GtkTextIter* iter)
 {
 	SourceviewProvider* prov = SOURCEVIEW_PROVIDER (provider);
 	SourceviewCell* cell = sourceview_cell_new (iter, GTK_TEXT_VIEW(prov->sv->priv->view));
-	gpointer data = g_object_get_data (proposal, "__data");
+	gpointer data = g_object_get_data (G_OBJECT(proposal), "__data");
 
-	ianjuta_provider_activate(prov->iprov, IANJUTA_ITERABLE(cell), data);
+	ianjuta_provider_activate(prov->iprov, IANJUTA_ITERABLE(cell), data, NULL);
 	
 	g_object_unref (cell);
+	return TRUE;
 }
 
 static void

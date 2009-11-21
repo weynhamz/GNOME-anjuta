@@ -2034,7 +2034,7 @@ interface IAnjutaEditor
       * proposals async as long as the last call sets finished to TRUE.
       *
       */
-      void proposals(IAnjutaProvider* provider, GList* proposals. gboolean finished);
+      void proposals(IAnjutaProvider* provider, GList* proposals, gboolean finished);
 	}
 	
 	/**
@@ -2500,14 +2500,14 @@ interface IAnjutaProvider
 	*/
   void activate(IAnjutaIterable* iter, gpointer data);
 
- /**
-	* ianjuta_provider_cancelled
-	* @obj: Self
-	* @err: Error propagation and reporting.
-	* 
- 	* Called when the current completion was cancelled
-	*/
-  void cancelled();
+	/**
+	 * ianjuta_provider_get_name
+	 * @obj: Self
+	 *
+	 * Return a (translatable) name for the provider
+	 */
+	const gchar* get_name();
+ 
 
 }
 

@@ -48,6 +48,7 @@ struct _SourceviewProvider
 	Sourceview* sv;
 	IAnjutaProvider* iprov;
 	GtkSourceCompletionContext* context;
+	gboolean cancelled;
 };
 
 GType sourceview_provider_get_type (void) G_GNUC_CONST;
