@@ -57,13 +57,20 @@ sdb_search_command_init (SymbolDBSearchCommand *object)
 
 	object->priv->gfile = NULL;
 	object->priv->session_packages = NULL;
+	object->priv->pattern = NULL;
 }
 
 static void
 sdb_search_command_finalize (GObject *object)
 {
 	SymbolDBSearchCommand *sdbsc;	
+	SymbolDBSearchCommandPriv *priv;
 	sdbsc = SYMBOL_DB_SEARCH_COMMAND (object);
+
+	priv = sdbsc->priv;
+	
+	g_free (priv->pattern);	
+	priv->pattern = NULL;
 	
 	g_free (sdbsc->priv);
 	
@@ -108,7 +115,6 @@ do_search_prj_glb (SymbolDBSearchCommand *sdbsc)
 	SymbolDBSearchCommandPriv *priv;	
 
 	priv = sdbsc->priv;
-
 	iterator = 		
 		symbol_db_engine_find_symbol_by_name_pattern_filtered (priv->dbe,
 					priv->pattern,
@@ -192,7 +198,7 @@ symbol_db_search_command_new (SymbolDBEngine *dbe, CmdSearchType cmd_search_type
 	priv->match_types = match_types;
 	priv->include_types = include_types;
 	priv->info_fields = info_fields;
-	priv->pattern = pattern;
+	priv->pattern = g_strdup (pattern);
 	priv->filescope_search = filescope_search;
 	priv->results_limit = results_limit;
 	priv->results_offset = results_offset;	
