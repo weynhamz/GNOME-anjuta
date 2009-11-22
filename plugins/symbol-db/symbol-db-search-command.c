@@ -142,7 +142,7 @@ sdb_search_command_run (AnjutaCommand *command)
 
 	priv = sdbsc->priv;
 
-	DEBUG_PRINT ("Searching async");
+	DEBUG_PRINT ("Searching async with type %d", priv->cmd_search_type);
 	
 	switch (priv->cmd_search_type)
 	{
