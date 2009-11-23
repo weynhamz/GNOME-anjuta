@@ -452,7 +452,7 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist)
 											 pattern, IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC, -1, -1,
 											 NULL,
 											 notify, (IAnjutaSymbolManagerSearchCallback) on_query_data, assist,
-											 NULL);
+		                                            NULL);
 	}
 	g_free (pattern);
 	assist->priv->search_cache = g_strdup (assist->priv->pre_word);
@@ -511,10 +511,18 @@ cpp_java_assist_create_calltips (IAnjutaIterable* iter)
 				const gchar* rettype = ianjuta_symbol_get_returntype (symbol, NULL);
 				gchar* print_args;
 				gchar* separator;
-				gchar* white_name = g_strnfill (strlen(name) + 1, ' ');
+				gchar* white_name;
+				gint white_count = 0;
+
+				if (!rettype)
+					rettype = "";
+				else
+					white_count += strlen(rettype) + 1;
 				
+				white_count += strlen(name) + 1;
+				
+				white_name = g_strnfill (white_count, ' ');
 				separator = g_strjoin (NULL, ", \n", white_name, NULL);
-				//DEBUG_PRINT ("Separator: \n%s", separator);
 				
 				gchar** argv;
 				if (!args)
@@ -522,9 +530,6 @@ cpp_java_assist_create_calltips (IAnjutaIterable* iter)
 				
 				argv = g_strsplit (args, ",", -1);
 				print_args = g_strjoinv (separator, argv);
-
-				if (!rettype)
-					rettype = "";
 				
 				gchar* tip = g_strdup_printf ("%s %s %s", rettype, name, print_args);
 				
