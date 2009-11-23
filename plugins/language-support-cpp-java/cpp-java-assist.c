@@ -886,6 +886,10 @@ on_assist_chosen (IAnjutaEditorAssist* iassist, gint selection,
 	gboolean add_brace_after_func = FALSE;
 	
 	//DEBUG_PRINT ("assist-chosen: %d", selection);
+
+	g_return_if_fail (assist != NULL);
+	g_return_if_fail (assist->priv != NULL);
+	g_return_if_fail (assist->priv->completion_cache != NULL);
 	
 	if (assist->priv->completion_cache->cache)
 		tag = g_list_nth_data (assist->priv->completion_cache->cache,
