@@ -158,7 +158,8 @@ create_completion (CppJavaAssist* assist, IAnjutaIterable* iter,
 			tag->name = g_strdup (name);
 			tag->type = ianjuta_symbol_get_sym_type (IANJUTA_SYMBOL (iter),
 													 NULL);
-			tag->is_func = (tag->type == IANJUTA_SYMBOL_TYPE_FUNCTION ||
+			tag->is_func = (tag->type == IANJUTA_SYMBOL_TYPE_PROTOTYPE ||
+			                tag->type == IANJUTA_SYMBOL_TYPE_FUNCTION ||
 							tag->type == IANJUTA_SYMBOL_TYPE_METHOD ||
 							tag->type == IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG);
 			if (!g_list_find_custom (suggestions, tag, completion_compare))
