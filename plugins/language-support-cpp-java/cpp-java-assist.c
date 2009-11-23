@@ -331,7 +331,7 @@ cpp_java_assist_update_autocomplete (CppJavaAssist *assist)
 
 	gboolean queries_active = (assist->priv->async_file || assist->priv->async_project || assist->priv->async_system);
 
-	DEBUG_PRINT ("Queries active: %d", queries_active);
+	// DEBUG_PRINT ("Queries active: %d", queries_active);
 	
 	if (assist->priv->completion_cache == NULL || !assist->priv->pre_word)
 	{
@@ -430,24 +430,28 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist)
 		}
 	}
 	{
+		/* This will avoid duplicates of FUNCTION and PROTOTYPE */
+		IAnjutaSymbolType types = IANJUTA_SYMBOL_TYPE_MAX & ~IANJUTA_SYMBOL_TYPE_FUNCTION;
 		AnjutaAsyncNotify* notify = anjuta_async_notify_new();
 		g_signal_connect (notify, "finished", G_CALLBACK(project_finished), assist);
 		assist->priv->async_project = TRUE;
 		ianjuta_symbol_manager_search_project_async (assist->priv->isymbol_manager,
-											 IANJUTA_SYMBOL_TYPE_UNDEF,
+											 types,
 											 TRUE,
 											 IANJUTA_SYMBOL_FIELD_SIMPLE|IANJUTA_SYMBOL_FIELD_TYPE,
 											 pattern, IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC, -1, -1, 
 											 NULL,
 											 notify, (IAnjutaSymbolManagerSearchCallback) on_query_data, assist,
 											 NULL);
+		
 	}
 	{
+		IAnjutaSymbolType types = IANJUTA_SYMBOL_TYPE_MAX & ~IANJUTA_SYMBOL_TYPE_FUNCTION;
 		AnjutaAsyncNotify* notify = anjuta_async_notify_new();
 		g_signal_connect (notify, "finished", G_CALLBACK(system_finished), assist);
 		assist->priv->async_system = TRUE;
 		ianjuta_symbol_manager_search_system_async (assist->priv->isymbol_manager,
-											 IANJUTA_SYMBOL_TYPE_UNDEF,
+											 types,
 											 TRUE,
 											 IANJUTA_SYMBOL_FIELD_SIMPLE|IANJUTA_SYMBOL_FIELD_TYPE,
 											 pattern, IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC, -1, -1,

@@ -51,7 +51,6 @@ sourceview_provider_populate (GtkSourceCompletionProvider* provider, GtkSourceCo
 	prov->context = context;
 	prov->cancelled = FALSE;
 	g_signal_connect (context, "cancelled", G_CALLBACK(on_context_cancelled), prov);
-	g_message ("populating provider");
 	ianjuta_provider_populate(prov->iprov, IANJUTA_ITERABLE(cell), NULL);
 	g_object_unref (cell);
 }
