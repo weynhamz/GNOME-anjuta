@@ -3,5 +3,9 @@
 	<popup name="PopupTerminal">
 		<menuitem name="Copy" action="ActionCopyFromTerminal" />
 		<menuitem name="Paste" action="ActionPasteInTerminal" />
+		<separator />
+		<menuitem name="Ctrl-C" action="ActionCommandToTerminal-CTRLC"/>
+		<menuitem name="Ctrl-X" action="ActionCommandToTerminal-CTRLX"/>
+		<menuitem name="Ctrl-Z" action="ActionCommandToTerminal-CTRLZ"/>
 	</popup>
 </ui>
