@@ -31,6 +31,7 @@
 #include <gtk/gtk.h>
 #include <libanjuta/anjuta-status.h>
 #include <libanjuta/anjuta-utils.h>
+#include <libanjuta/anjuta-debug.h>
 #include <libanjuta/resources.h>
 #include <libanjuta/e-splash.h>
 
@@ -293,6 +294,9 @@ anjuta_status_busy_push (AnjutaStatus *status)
 		return;
 	
 	status->priv->busy_count++;
+
+	DEBUG_PRINT ("Busy status: %d", status->priv->busy_count);
+	
 	if (status->priv->busy_count > 1)
 		return;
 	cursor = gdk_cursor_new (GDK_WATCH);
@@ -320,11 +324,13 @@ anjuta_status_busy_pop (AnjutaStatus *status)
 		return;
 
 	status->priv->busy_count--;
+	DEBUG_PRINT ("Busy status: %d", status->priv->busy_count);
+
 	if (status->priv->busy_count > 0)
 		return;
 	
 	status->priv->busy_count = 0;
-	gtk_widget_get_window (top);
+	window = gtk_widget_get_window (top);
 	if (window)
 		gdk_window_set_cursor (window, NULL);
 	if (status->priv->widgets)
@@ -471,6 +477,7 @@ anjuta_status_progress_add_ticks (AnjutaStatus *status, gint ticks)
 			gtk_widget_queue_draw (GTK_WIDGET (status->priv->status_bar));
 			gtk_widget_queue_draw (GTK_WIDGET (status->priv->progress_bar));
 			progressbar_window = gtk_widget_get_window (GTK_WIDGET(status->priv->progress_bar));
+			statusbar_window = gtk_widget_get_window (GTK_WIDGET(status->priv->status_bar));
 			if (progressbar_window != NULL)
 				gdk_window_process_updates (progressbar_window, TRUE);
 			if (statusbar_window != NULL)

@@ -214,33 +214,33 @@ anjuta_view_drag_data_received (GtkWidget        *widget,
                                 guint             info,
                                 guint             timestamp)
 {
-  GSList* files;
-  AnjutaView* view = ANJUTA_VIEW (widget);
-  /* If this is an URL emit DROP_URIS, otherwise chain up the signal */
-  if (info == TARGET_URI_LIST)
-  {
-	files = anjuta_utils_drop_get_files (selection_data);
-
-	if (files != NULL)
+	GSList* files;
+	AnjutaView* view = ANJUTA_VIEW (widget);
+	/* If this is an URL emit DROP_URIS, otherwise chain up the signal */
+	if (info == TARGET_URI_LIST)
 	{
-	  IAnjutaFileLoader* loader = anjuta_shell_get_interface (view->priv->sv->priv->plugin->shell, 
-	                                                          IAnjutaFileLoader, NULL);
-	  GSList* node;
-	  for (node = files; node != NULL; node = g_slist_next(node))
-	  {
-		GFile* file = node->data;
-		ianjuta_file_loader_load (loader, file, FALSE, NULL);
-		g_object_unref (file);
-	  }
-	  g_slist_free (files);
-	  gtk_drag_finish (context, TRUE, FALSE, timestamp);
+		files = anjuta_utils_drop_get_files (selection_data);
+
+		if (files != NULL)
+		{
+			IAnjutaFileLoader* loader = anjuta_shell_get_interface (view->priv->sv->priv->plugin->shell, 
+			                                                        IAnjutaFileLoader, NULL);
+			GSList* node;
+			for (node = files; node != NULL; node = g_slist_next(node))
+			{
+				GFile* file = node->data;
+				ianjuta_file_loader_load (loader, file, FALSE, NULL);
+				g_object_unref (file);
+			}
+			g_slist_free (files);
+			gtk_drag_finish (context, TRUE, FALSE, timestamp);
+		}
+		gtk_drag_finish (context, FALSE, FALSE, timestamp);
 	}
-	gtk_drag_finish (context, FALSE, FALSE, timestamp);
-  }
-  else
-  {
-	GTK_WIDGET_CLASS (anjuta_view_parent_class)->drag_data_received (widget, context, x, y, selection_data, info, timestamp);
-  }
+	else
+	{
+		GTK_WIDGET_CLASS (anjuta_view_parent_class)->drag_data_received (widget, context, x, y, selection_data, info, timestamp);
+	}
 }
 
 static void
@@ -531,7 +531,7 @@ anjuta_view_copy_clipboard (AnjutaView *view)
 void
 anjuta_view_paste_clipboard (AnjutaView *view)
 {
-  	GtkTextBuffer *buffer;
+  GtkTextBuffer *buffer;
 	GtkClipboard *clipboard;
 
 	g_return_if_fail (ANJUTA_IS_VIEW (view));
