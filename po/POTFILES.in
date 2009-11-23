@@ -233,6 +233,7 @@ plugins/debug-manager/watch.c
 plugins/debug-manager/anjuta-debug-manager.schemas.in
 [type: gettext/glade]plugins/language-support-cpp-java/anjuta-language-cpp-java.ui
 plugins/language-support-cpp-java/plugin.c
+plugins/language-support-cpp-java/cpp-java-assist.c
 plugins/sourceview/plugin.c
 [type: gettext/ini]plugins/gdb/anjuta-gdb.plugin.in
 [type: gettext/ini]plugins/git/git.plugin.in

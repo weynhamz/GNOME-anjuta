@@ -45,6 +45,8 @@ struct _SymbolDBSearchCommandPriv {
 	 * freed 
 	 */
 	SymbolDBEngineIterator *iterator_result;
+
+	gboolean cancelled;
 };
 
 
@@ -58,6 +60,7 @@ sdb_search_command_init (SymbolDBSearchCommand *object)
 	object->priv->gfile = NULL;
 	object->priv->session_packages = NULL;
 	object->priv->pattern = NULL;
+	object->priv->cancelled = FALSE;
 }
 
 static void
@@ -85,6 +88,9 @@ do_search_file (SymbolDBSearchCommand *sdbsc)
 	gchar *abs_file_path;	
 
 	priv = sdbsc->priv;
+
+	if (priv->cancelled)
+		return NULL;
 	
 	abs_file_path = g_file_get_path (priv->gfile);
 
@@ -173,7 +179,7 @@ sdb_search_command_run (AnjutaCommand *command)
 static void
 sdb_search_command_cancel(AnjutaCommand* command)
 {
-	/* FIXME: Cancel the query if possible */
+	command->priv->cancelled = TRUE;
 }
 
 static void
