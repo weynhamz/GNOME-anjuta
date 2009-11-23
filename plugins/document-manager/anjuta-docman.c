@@ -22,7 +22,6 @@
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-debug.h>
-#include <libanjuta/anjuta-message-area.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-markable.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>

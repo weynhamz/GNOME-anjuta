@@ -26,7 +26,6 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-encodings.h>
-#include <libanjuta/anjuta-message-area.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
@@ -113,6 +112,27 @@ static const gchar* marker_types [] =
 #define IMPORTANT_INDIC "important_indic"
 #define WARNING_INDIC "warning_indic"
 #define CRITICAL_INDIC "critical_indic"
+
+GtkWidget *
+anjuta_message_area_new (const gchar    *text,
+                         GtkMessageType  type)
+{
+	GtkInfoBar *message_area;
+	GtkWidget *content_area;
+	GtkWidget *message_label = gtk_label_new ("");
+	
+	message_area = GTK_INFO_BAR (gtk_info_bar_new ());
+	gtk_info_bar_set_message_type (message_area, type);
+	content_area = gtk_info_bar_get_content_area (GTK_INFO_BAR (message_area));
+	gtk_widget_show (message_label);
+	gtk_container_add (GTK_CONTAINER (content_area), message_label);
+
+	gchar *markup = g_strdup_printf ("<b>%s</b>", text);
+	gtk_label_set_markup (GTK_LABEL (message_label), markup);
+	g_free (markup);
+
+	return GTK_WIDGET (message_area);
+}
 
 /* Create pixmaps for the markers */
 static void sourceview_create_markers(Sourceview* sv)
@@ -351,11 +371,11 @@ on_file_changed (SourceviewIO* sio, Sourceview* sv)
 	
   	doc = IANJUTA_DOCUMENT (sv);
 
-	message_area = anjuta_message_area_new (buff, GTK_STOCK_DIALOG_WARNING);
-	anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
+	message_area = anjuta_message_area_new (buff, GTK_MESSAGE_WARNING);
+	gtk_info_bar_add_button (GTK_INFO_BAR (message_area),
 									GTK_STOCK_REFRESH,
 									GTK_RESPONSE_YES);
-	anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
+	gtk_info_bar_add_button (GTK_INFO_BAR (message_area),
 								    GTK_STOCK_CANCEL,
 									GTK_RESPONSE_NO);
 	g_free (buff);
@@ -388,11 +408,11 @@ on_file_deleted (SourceviewIO* sio, Sourceview* sv)
 	
   	doc = IANJUTA_DOCUMENT (sv);
 
-	message_area = anjuta_message_area_new (buff, GTK_STOCK_DIALOG_WARNING);
-	anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
+	message_area = anjuta_message_area_new (buff, GTK_MESSAGE_WARNING);
+	gtk_info_bar_add_button (GTK_INFO_BAR (message_area),
 									GTK_STOCK_DELETE,
 									GTK_RESPONSE_YES);
-	anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
+	gtk_info_bar_add_button (GTK_INFO_BAR (message_area),
 								    GTK_STOCK_CANCEL,
 									GTK_RESPONSE_NO);
 	g_free (buff);
@@ -423,8 +443,8 @@ on_open_failed (SourceviewIO* io, GError* err, Sourceview* sv)
 	
 	if (g_list_find (documents, sv))
 	{
-		message_area = anjuta_message_area_new (message, GTK_STOCK_DIALOG_ERROR);
-		anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
+		message_area = anjuta_message_area_new (message, GTK_MESSAGE_WARNING);
+		gtk_info_bar_add_button (GTK_INFO_BAR (message_area),
 										GTK_STOCK_OK,
 										GTK_RESPONSE_OK);
 		g_signal_connect (message_area, "response", G_CALLBACK(gtk_widget_destroy), NULL);
@@ -476,11 +496,11 @@ on_open_finish(SourceviewIO* io, Sourceview* sv)
 		GtkWidget* message_area;
 		g_free (filename);
 		
-		message_area = anjuta_message_area_new (buff, GTK_STOCK_DIALOG_WARNING);
-		anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
+		message_area = anjuta_message_area_new (buff, GTK_MESSAGE_WARNING);
+		gtk_info_bar_add_button (GTK_INFO_BAR (message_area),
 										GTK_STOCK_YES,
 										GTK_RESPONSE_YES);
-		anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
+		gtk_info_bar_add_button (GTK_INFO_BAR (message_area),
 										GTK_STOCK_NO,
 										GTK_RESPONSE_NO);
 		g_free (buff);
@@ -536,8 +556,8 @@ static void on_save_failed (SourceviewIO* sio, GError* err, Sourceview* sv)
 	
 	if (g_list_find (documents, sv))
 	{
-		message_area = anjuta_message_area_new (message, GTK_STOCK_DIALOG_ERROR);
-		anjuta_message_area_add_button (ANJUTA_MESSAGE_AREA (message_area),
+		message_area = anjuta_message_area_new (message, GTK_MESSAGE_ERROR);
+		gtk_info_bar_add_button (GTK_INFO_BAR (message_area),
 										GTK_STOCK_OK,
 										GTK_RESPONSE_OK);
 		g_signal_connect (message_area, "response", G_CALLBACK(gtk_widget_destroy), NULL);
