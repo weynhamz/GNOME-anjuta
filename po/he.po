@@ -5,8 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&component=core application\n"
-"POT-Creation-Date: 2009-09-22 19:29+0000\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=anjuta&component=core application\n"
+"POT-Creation-Date: 2009-11-23 22:20+0000\n"
 "PO-Revision-Date: 2009-10-12 03:27+0200\n"
 "Last-Translator: Mark Krapivner <mark125@gmail.com>\n"
 "Language-Team: he\n"
@@ -24,8 +25,7 @@ msgstr "‏Anjuta - סביבת פיתוח משולבת"
 msgid "Develop software in an integrated development environment"
 msgstr "פיתוח תוכנה בסביבת פיתוח משולבת"
 
-#: ../anjuta.desktop.in.in.h:3
-#: ../src/about.c:204
+#: ../anjuta.desktop.in.in.h:3 ../src/about.c:204
 msgid "Integrated Development Environment"
 msgstr "סביבת פיתוח משולבת"
 
@@ -59,35 +59,30 @@ msgstr ""
 msgid "plugin %s fails to register type %s"
 msgstr "התוסף %s נכשל בניסיון לאגור את הסוג %s"
 
-#: ../libanjuta/anjuta-convert.c:74
-#: ../libanjuta/anjuta-convert.c:111
+#: ../libanjuta/anjuta-convert.c:74 ../libanjuta/anjuta-convert.c:111
 #, c-format
 msgid "The file you are trying to open contains an invalid byte sequence."
 msgstr ""
 
-#: ../libanjuta/anjuta-convert.c:168
-#: ../libanjuta/anjuta-convert.c:207
+#: ../libanjuta/anjuta-convert.c:168 ../libanjuta/anjuta-convert.c:207
 #, c-format
-msgid "Anjuta was not able to automatically determine the encoding of the file you want to open."
+msgid ""
+"Anjuta was not able to automatically determine the encoding of the file you "
+"want to open."
 msgstr ""
 
-#: ../libanjuta/anjuta-encodings.c:137
-#: ../libanjuta/anjuta-encodings.c:182
-#: ../libanjuta/anjuta-encodings.c:184
-#: ../libanjuta/anjuta-encodings.c:186
+#: ../libanjuta/anjuta-encodings.c:137 ../libanjuta/anjuta-encodings.c:182
+#: ../libanjuta/anjuta-encodings.c:184 ../libanjuta/anjuta-encodings.c:186
 #: ../libanjuta/anjuta-encodings.c:188
 msgid "Unicode"
 msgstr "יוניקוד"
 
-#: ../libanjuta/anjuta-encodings.c:151
-#: ../libanjuta/anjuta-encodings.c:177
-#: ../libanjuta/anjuta-encodings.c:223
-#: ../libanjuta/anjuta-encodings.c:266
+#: ../libanjuta/anjuta-encodings.c:151 ../libanjuta/anjuta-encodings.c:177
+#: ../libanjuta/anjuta-encodings.c:223 ../libanjuta/anjuta-encodings.c:266
 msgid "Western"
 msgstr "מערבי"
 
-#: ../libanjuta/anjuta-encodings.c:153
-#: ../libanjuta/anjuta-encodings.c:225
+#: ../libanjuta/anjuta-encodings.c:153 ../libanjuta/anjuta-encodings.c:225
 #: ../libanjuta/anjuta-encodings.c:262
 msgid "Central European"
 msgstr "מרכז אירופאי"
@@ -96,29 +91,23 @@ msgstr "מרכז אירופאי"
 msgid "South European"
 msgstr "דרום אירופאי"
 
-#: ../libanjuta/anjuta-encodings.c:157
-#: ../libanjuta/anjuta-encodings.c:173
+#: ../libanjuta/anjuta-encodings.c:157 ../libanjuta/anjuta-encodings.c:173
 #: ../libanjuta/anjuta-encodings.c:276
 msgid "Baltic"
 msgstr "בלטית"
 
-#: ../libanjuta/anjuta-encodings.c:159
-#: ../libanjuta/anjuta-encodings.c:227
-#: ../libanjuta/anjuta-encodings.c:240
-#: ../libanjuta/anjuta-encodings.c:244
-#: ../libanjuta/anjuta-encodings.c:246
-#: ../libanjuta/anjuta-encodings.c:264
+#: ../libanjuta/anjuta-encodings.c:159 ../libanjuta/anjuta-encodings.c:227
+#: ../libanjuta/anjuta-encodings.c:240 ../libanjuta/anjuta-encodings.c:244
+#: ../libanjuta/anjuta-encodings.c:246 ../libanjuta/anjuta-encodings.c:264
 msgid "Cyrillic"
 msgstr "קירילית"
 
-#: ../libanjuta/anjuta-encodings.c:161
-#: ../libanjuta/anjuta-encodings.c:233
+#: ../libanjuta/anjuta-encodings.c:161 ../libanjuta/anjuta-encodings.c:233
 #: ../libanjuta/anjuta-encodings.c:274
 msgid "Arabic"
 msgstr "ערבית"
 
-#: ../libanjuta/anjuta-encodings.c:163
-#: ../libanjuta/anjuta-encodings.c:268
+#: ../libanjuta/anjuta-encodings.c:163 ../libanjuta/anjuta-encodings.c:268
 msgid "Greek"
 msgstr "יוונית"
 
@@ -126,14 +115,12 @@ msgstr "יוונית"
 msgid "Hebrew Visual"
 msgstr "עברית ויזואלית"
 
-#: ../libanjuta/anjuta-encodings.c:167
-#: ../libanjuta/anjuta-encodings.c:231
+#: ../libanjuta/anjuta-encodings.c:167 ../libanjuta/anjuta-encodings.c:231
 #: ../libanjuta/anjuta-encodings.c:272
 msgid "Hebrew"
 msgstr "עברית"
 
-#: ../libanjuta/anjuta-encodings.c:169
-#: ../libanjuta/anjuta-encodings.c:229
+#: ../libanjuta/anjuta-encodings.c:169 ../libanjuta/anjuta-encodings.c:229
 #: ../libanjuta/anjuta-encodings.c:270
 msgid "Turkish"
 msgstr "טורקית"
@@ -154,8 +141,7 @@ msgstr "רומנית"
 msgid "Armenian"
 msgstr "ארמנית"
 
-#: ../libanjuta/anjuta-encodings.c:193
-#: ../libanjuta/anjuta-encodings.c:195
+#: ../libanjuta/anjuta-encodings.c:193 ../libanjuta/anjuta-encodings.c:195
 #: ../libanjuta/anjuta-encodings.c:209
 msgid "Chinese Traditional"
 msgstr "סינית מסורתית"
@@ -164,25 +150,19 @@ msgstr "סינית מסורתית"
 msgid "Cyrillic/Russian"
 msgstr "קירילית/רוסית"
 
-#: ../libanjuta/anjuta-encodings.c:200
-#: ../libanjuta/anjuta-encodings.c:202
-#: ../libanjuta/anjuta-encodings.c:204
-#: ../libanjuta/anjuta-encodings.c:236
+#: ../libanjuta/anjuta-encodings.c:200 ../libanjuta/anjuta-encodings.c:202
+#: ../libanjuta/anjuta-encodings.c:204 ../libanjuta/anjuta-encodings.c:236
 #: ../libanjuta/anjuta-encodings.c:251
 msgid "Japanese"
 msgstr "יפנית"
 
-#: ../libanjuta/anjuta-encodings.c:207
-#: ../libanjuta/anjuta-encodings.c:238
-#: ../libanjuta/anjuta-encodings.c:242
-#: ../libanjuta/anjuta-encodings.c:257
+#: ../libanjuta/anjuta-encodings.c:207 ../libanjuta/anjuta-encodings.c:238
+#: ../libanjuta/anjuta-encodings.c:242 ../libanjuta/anjuta-encodings.c:257
 msgid "Korean"
 msgstr "קוראנית"
 
-#: ../libanjuta/anjuta-encodings.c:212
-#: ../libanjuta/anjuta-encodings.c:214
-#: ../libanjuta/anjuta-encodings.c:216
-#: ../libanjuta/anjuta-encodings.c:220
+#: ../libanjuta/anjuta-encodings.c:212 ../libanjuta/anjuta-encodings.c:214
+#: ../libanjuta/anjuta-encodings.c:216 ../libanjuta/anjuta-encodings.c:220
 msgid "Chinese Simplified"
 msgstr "סינית מפושטת"
 
@@ -194,8 +174,7 @@ msgstr "גאורגיאנית"
 msgid "Cyrillic/Ukrainian"
 msgstr "קירילית/אוקראינית"
 
-#: ../libanjuta/anjuta-encodings.c:253
-#: ../libanjuta/anjuta-encodings.c:259
+#: ../libanjuta/anjuta-encodings.c:253 ../libanjuta/anjuta-encodings.c:259
 #: ../libanjuta/anjuta-encodings.c:278
 msgid "Vietnamese"
 msgstr "ויאטנמית"
@@ -204,20 +183,17 @@ msgstr "ויאטנמית"
 msgid "Thai"
 msgstr "תאילנדית"
 
-#: ../libanjuta/anjuta-encodings.c:441
-#: ../plugins/gbf-am/gbf-am-project.c:3204
+#: ../libanjuta/anjuta-encodings.c:441 ../plugins/gbf-am/gbf-am-project.c:3204
 #: ../plugins/gbf-am/gbf-am-properties.c:129
-#: ../plugins/gbf-am/gbf-am-properties.c:173
+#: ../plugins/gbf-am/gbf-am-properties.c:176
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3092
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:104
-#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:148
+#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:151
 msgid "Unknown"
 msgstr "לא ידוע"
 
-#: ../libanjuta/anjuta-launcher.c:1154
-#: ../libanjuta/resources.c:267
-#: ../libanjuta/resources.c:276
-#: ../plugins/gdb/utilities.c:282
+#: ../libanjuta/anjuta-launcher.c:1154 ../libanjuta/resources.c:267
+#: ../libanjuta/resources.c:276 ../plugins/gdb/utilities.c:282
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "Cannot execute command: \"%s\""
@@ -226,12 +202,11 @@ msgstr "Cannot execute command: \"%s\""
 msgid "execvp failed"
 msgstr "execvp failed"
 
-#: ../libanjuta/anjuta-plugin.c:327
-#: ../libanjuta/anjuta-plugin-manager.c:2310
+#: ../libanjuta/anjuta-plugin.c:326 ../libanjuta/anjuta-plugin-manager.c:2312
 msgid "Anjuta Shell"
 msgstr "מעטפת Anjuta"
 
-#: ../libanjuta/anjuta-plugin.c:328
+#: ../libanjuta/anjuta-plugin.c:327
 msgid "Anjuta shell that will contain the plugin"
 msgstr ""
 
@@ -244,7 +219,8 @@ msgstr ""
 #, c-format
 msgid ""
 "Could not load %s\n"
-"This usually means that your installation is corrupted. The error message leading to this was:\n"
+"This usually means that your installation is corrupted. The error message "
+"leading to this was:\n"
 "%s"
 msgstr ""
 
@@ -254,12 +230,11 @@ msgid "Load"
 msgstr "טען"
 
 #: ../libanjuta/anjuta-plugin-manager.c:923
-#: ../libanjuta/anjuta-plugin-manager.c:1941
+#: ../libanjuta/anjuta-plugin-manager.c:1943
 msgid "Available Plugins"
 msgstr "תוספים זמינים"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1036
-#: ../src/anjuta-app.c:736
+#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:736
 msgid "Preferred plugins"
 msgstr "תוספים מועדפים"
 
@@ -268,7 +243,10 @@ msgid "Only show user activatable plugins"
 msgstr "הצג תוספים שהמשתמש יכול להפעיל בלבד"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1197
-msgid "These are the plugins selected by you when Anjuta prompted to choose one of many suitable plugins. Removing the preferred plugin will let Anjuta prompt you again to choose different plugin."
+msgid ""
+"These are the plugins selected by you when Anjuta prompted to choose one of "
+"many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
+"you again to choose different plugin."
 msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:1223
@@ -276,15 +254,14 @@ msgid "Forget selected plugin"
 msgstr "שכח את התוסף שנבחר"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1357
-#: ../libanjuta/anjuta-plugin-manager.c:1508
-#: ../libanjuta/anjuta-profile.c:507
-#: ../plugins/debug-manager/queue.c:556
+#: ../libanjuta/anjuta-plugin-manager.c:1508 ../libanjuta/anjuta-profile.c:507
+#: ../plugins/debug-manager/queue.c:537
 msgid "Select a plugin"
 msgstr "בחר תוסף"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1358
 #: ../libanjuta/anjuta-plugin-manager.c:1509
-#: ../plugins/debug-manager/queue.c:557
+#: ../plugins/debug-manager/queue.c:538
 msgid "Please select a plugin to activate"
 msgstr "נא לבחור תוסף להפעלה"
 
@@ -293,49 +270,49 @@ msgstr "נא לבחור תוסף להפעלה"
 msgid "No plugin is able to load other plugins in %s"
 msgstr ""
 
-#: ../libanjuta/anjuta-plugin-manager.c:1960
+#: ../libanjuta/anjuta-plugin-manager.c:1962
 msgid "Remember this selection"
 msgstr "זכור את בחירה זאת"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2291
+#: ../libanjuta/anjuta-plugin-manager.c:2293
 msgid "Profiles"
 msgstr "פרופילים"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2292
+#: ../libanjuta/anjuta-plugin-manager.c:2294
 msgid "Current stack of profiles"
 msgstr ""
 
-#: ../libanjuta/anjuta-plugin-manager.c:2297
+#: ../libanjuta/anjuta-plugin-manager.c:2299
 msgid "Available plugins"
 msgstr "תוספים זמינים"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2298
+#: ../libanjuta/anjuta-plugin-manager.c:2300
 msgid "Currently available plugins found in plugin paths"
 msgstr "התוספים הזמינים שנמצאו בנתיבי התוספים"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2304
+#: ../libanjuta/anjuta-plugin-manager.c:2306
 msgid "Activated plugins"
 msgstr "תוספים מופעלים"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2305
+#: ../libanjuta/anjuta-plugin-manager.c:2307
 msgid "Currently activated plugins"
 msgstr "תוספים פעילים"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2311
+#: ../libanjuta/anjuta-plugin-manager.c:2313
 msgid "Anjuta shell for which the plugins are made"
 msgstr ""
 
-#: ../libanjuta/anjuta-plugin-manager.c:2319
+#: ../libanjuta/anjuta-plugin-manager.c:2321
 msgid "Anjuta Status"
 msgstr "מצב Anjuta"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2320
+#: ../libanjuta/anjuta-plugin-manager.c:2322
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "שימוש במצב Anjuta בטעינה והסרה של תוספים"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
-#: ../libanjuta/anjuta-plugin-manager.c:2480
+#: ../libanjuta/anjuta-plugin-manager.c:2482
 msgid "Loaded:"
 msgstr "נטען:"
 
@@ -379,7 +356,9 @@ msgstr "נא לבחור תוסף מהרשימה"
 #: ../libanjuta/anjuta-profile.c:672
 #, fuzzy, c-format
 #| msgid "Failed to read '%s': XML parse error"
-msgid "Failed to read '%s': XML parse error. Invalid or corrupted Anjuta plugins profile."
+msgid ""
+"Failed to read '%s': XML parse error. Invalid or corrupted Anjuta plugins "
+"profile."
 msgstr "נכשל בקריאת '%s': שגיאת פענוח XML"
 
 #. <Pluginname>: Install it from <some location on the web>
@@ -403,22 +382,19 @@ msgstr "לאפס את ההעדפות לערכי ברירת המחדל?"
 
 #. Action name
 #. Stock icon, if any
-#: ../libanjuta/anjuta-preferences.c:1538
-#: ../plugins/git/plugin.c:455
+#: ../libanjuta/anjuta-preferences.c:1538 ../plugins/git/plugin.c:455
 msgid "_Reset"
 msgstr "_אפס"
 
 #: ../libanjuta/anjuta-preferences-dialog.c:95
-#: ../plugins/gtodo/interface.c:229
-#: ../plugins/gtodo/mcategory.c:36
+#: ../plugins/gtodo/interface.c:229 ../plugins/gtodo/mcategory.c:36
 msgid "Category"
 msgstr "קטגוריה"
 
 #. FIXME: Make the general page first
 #: ../libanjuta/anjuta-preferences-dialog.c:138
 #: ../libanjuta/anjuta-preferences-dialog.c:141
-#: ../plugins/gbf-am/gbf-am-dialogs.ui.h:3
-#: ../src/anjuta-app.c:723
+#: ../plugins/gbf-am/gbf-am-dialogs.ui.h:3 ../src/anjuta-app.c:723
 #: ../src/preferences.ui.h:11
 msgid "General"
 msgstr "כללי"
@@ -427,33 +403,37 @@ msgstr "כללי"
 msgid "Anjuta Preferences"
 msgstr "העדפות Anjuta"
 
-#: ../libanjuta/anjuta-save-prompt.c:158
+#: ../libanjuta/anjuta-save-prompt.c:157
 msgid "Select the items to save:"
 msgstr "בחר את הפריטים לשמירה:"
 
-#: ../libanjuta/anjuta-save-prompt.c:183
+#: ../libanjuta/anjuta-save-prompt.c:182
 msgid "If you do not save, all your changes will be lost."
 msgstr "אם לא תשמור, כל השינויים יאבדו."
 
-#: ../libanjuta/anjuta-save-prompt.c:190
+#: ../libanjuta/anjuta-save-prompt.c:189
 #: ../plugins/document-manager/plugin.c:596
 msgid "Save"
 msgstr "שמור"
 
-#: ../libanjuta/anjuta-save-prompt.c:197
+#: ../libanjuta/anjuta-save-prompt.c:196
 msgid "Item"
 msgstr "פריט"
 
-#: ../libanjuta/anjuta-save-prompt.c:203
+#: ../libanjuta/anjuta-save-prompt.c:202
 msgid "_Discard changes"
 msgstr "ה_תעלם משינויים"
 
 #: ../libanjuta/anjuta-save-prompt.c:297
 #, c-format
-msgid "<b>There is %d item with unsaved changes. Save changes before closing?</b>"
-msgid_plural "<b>There are %d items with unsaved changes. Save changes before closing?</b>"
-msgstr[0] "‏<b>קיים פריט עם שינויים לא שמורים. לשמור את השינויים לפני הסגירה?</b>"
-msgstr[1] "‏<b>קיימים %d פריטים עם שינויים לא שמורים. לשמור את השינויים לפני הסגירה?</b>"
+msgid ""
+"<b>There is %d item with unsaved changes. Save changes before closing?</b>"
+msgid_plural ""
+"<b>There are %d items with unsaved changes. Save changes before closing?</b>"
+msgstr[0] ""
+"‏<b>קיים פריט עם שינויים לא שמורים. לשמור את השינויים לפני הסגירה?</b>"
+msgstr[1] ""
+"‏<b>קיימים %d פריטים עם שינויים לא שמורים. לשמור את השינויים לפני הסגירה?</b>"
 
 #: ../libanjuta/anjuta-save-prompt.c:304
 msgid "There is an item with unsaved changes. Save changes before closing?"
@@ -477,11 +457,11 @@ msgid "Shortcut"
 msgstr "קיצור"
 
 #. Avoid space in translated string
-#: ../libanjuta/anjuta-utils.c:355
+#: ../libanjuta/anjuta-utils.c:356
 msgid "System:"
 msgstr "מערכת:"
 
-#: ../libanjuta/anjuta-utils.c:493
+#: ../libanjuta/anjuta-utils.c:494
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -491,27 +471,29 @@ msgstr ""
 "נא להתקין אותו."
 
 #. Try xterm
-#: ../libanjuta/anjuta-utils.c:986
+#: ../libanjuta/anjuta-utils.c:987
 msgid "Cannot find a terminal; using xterm, even if it may not work"
 msgstr ""
 
-#: ../libanjuta/anjuta-utils.c:1022
-#: ../libanjuta/anjuta-utils.c:1026
-#: ../libanjuta/anjuta-utils.c:1054
-#: ../libanjuta/anjuta-utils.c:1058
+#: ../libanjuta/anjuta-utils.c:1023 ../libanjuta/anjuta-utils.c:1027
+#: ../libanjuta/anjuta-utils.c:1055 ../libanjuta/anjuta-utils.c:1059
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "Cannot execute command: %s (using shell %s)\n"
 
-#: ../libanjuta/anjuta-utils.c:1690
+#: ../libanjuta/anjuta-utils.c:1691
 #, fuzzy
 #| msgid ""
 #| "Unable to display help. Please make sure Anjuta documentation package is "
 #| "install. It can be downloaded from http://anjuta.org"
-msgid "Unable to display help. Please make sure the Anjuta documentation package is installed. It can be downloaded from http://anjuta.org."
-msgstr "לא ניתן להציג את העזרה. נא לוודא שחבילת התיעוד של Anjuta מותקנת. ניתן להוריד אותה מ-http://anjuta.org"
+msgid ""
+"Unable to display help. Please make sure the Anjuta documentation package is "
+"installed. It can be downloaded from http://anjuta.org."
+msgstr ""
+"לא ניתן להציג את העזרה. נא לוודא שחבילת התיעוד של Anjuta מותקנת. ניתן להוריד "
+"אותה מ-http://anjuta.org"
 
-#: ../libanjuta/anjuta-utils.c:2129
+#: ../libanjuta/anjuta-utils.c:2130
 #, fuzzy, c-format
 #| msgid "Unable to build user interface for New File"
 msgid "Unable to load user interface file: %s"
@@ -569,8 +551,7 @@ msgstr "‏ללא גירסה"
 msgid "Ignored"
 msgstr "ה_תעלם..."
 
-#: ../libanjuta/cell-renderer-captioned-image.c:218
-#: ../src/preferences.ui.h:18
+#: ../libanjuta/cell-renderer-captioned-image.c:218 ../src/preferences.ui.h:18
 msgid "Text"
 msgstr "טקסט"
 
@@ -586,15 +567,13 @@ msgstr "אובייקט Pixbuf"
 msgid "The pixbuf to render."
 msgstr ""
 
-#: ../libanjuta/resources.c:63
-#: ../plugins/glade/plugin.c:3041
+#: ../libanjuta/resources.c:63 ../plugins/glade/plugin.c:3041
 #: ../plugins/glade/plugin.c:3076
 #, c-format
 msgid "Widget not found: %s"
 msgstr ""
 
-#: ../libanjuta/resources.c:79
-#: ../libanjuta/resources.c:101
+#: ../libanjuta/resources.c:79 ../libanjuta/resources.c:101
 #, c-format
 msgid "Could not find application pixmap file: %s"
 msgstr "לא ניתן למצוא את קובץ ה־pixmap של היישום: %s"
@@ -647,7 +626,6 @@ msgid "Install as root:"
 msgstr "התקן כמנהל מערכת:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:11
-#| msgid "<b>Regenerate project</b>"
 msgid "Regenerate project"
 msgstr "יצר פרויקט מחדש"
 
@@ -678,25 +656,24 @@ msgstr "בחר ספריית בנייה"
 msgid "Translate messages"
 msgstr "תרגם הודעות"
 
-#: ../plugins/build-basic-autotools/configuration-list.c:62
+#: ../plugins/build-basic-autotools/configuration-list.c:68
 #: ../plugins/class-gen/window.c:525
 #: ../plugins/search/search_preferences.c:523
-#: ../plugins/terminal/anjuta-terminal-plugin.ui.h:1
-#: ../src/preferences.ui.h:2
+#: ../plugins/terminal/anjuta-terminal-plugin.ui.h:1 ../src/preferences.ui.h:2
 msgid "Default"
 msgstr "ברירת מחדל"
 
-#: ../plugins/build-basic-autotools/configuration-list.c:63
+#: ../plugins/build-basic-autotools/configuration-list.c:69
 #: ../plugins/gdb/utilities.c:297
 msgid "Debug"
 msgstr "ניפוי"
 
-#: ../plugins/build-basic-autotools/configuration-list.c:64
+#: ../plugins/build-basic-autotools/configuration-list.c:70
 #, fuzzy
 msgid "Profiling"
 msgstr "פרופילים"
 
-#: ../plugins/build-basic-autotools/configuration-list.c:65
+#: ../plugins/build-basic-autotools/configuration-list.c:71
 msgid "Optimized"
 msgstr "הוטב"
 
@@ -768,272 +745,274 @@ msgstr ""
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/plugin.c:827
+#: ../plugins/build-basic-autotools/plugin.c:828
 #, c-format
 msgid "Entering: %s"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/plugin.c:863
+#: ../plugins/build-basic-autotools/plugin.c:864
 #, c-format
 msgid "Leaving: %s"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/plugin.c:896
+#: ../plugins/build-basic-autotools/plugin.c:897
 #: ../plugins/tools/execute.c:330
 msgid "warning:"
 msgstr "warning:"
 
-#: ../plugins/build-basic-autotools/plugin.c:902
+#: ../plugins/build-basic-autotools/plugin.c:903
 #: ../plugins/tools/execute.c:335
 msgid "error:"
 msgstr "שגיאה:"
 
-#: ../plugins/build-basic-autotools/plugin.c:1019
+#: ../plugins/build-basic-autotools/plugin.c:1020
 #, c-format
 msgid "Command exited with status %d"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/plugin.c:1029
-#: ../plugins/build-basic-autotools/plugin.c:1505
+#: ../plugins/build-basic-autotools/plugin.c:1030
+#: ../plugins/build-basic-autotools/plugin.c:1506
 #, c-format
 msgid "Command canceled by user"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/plugin.c:1034
+#: ../plugins/build-basic-autotools/plugin.c:1035
 #, c-format
 msgid "Command aborted by user"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/plugin.c:1039
+#: ../plugins/build-basic-autotools/plugin.c:1040
 #, c-format
 msgid "Command terminated with signal %d"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/plugin.c:1047
+#: ../plugins/build-basic-autotools/plugin.c:1048
 msgid "Command terminated for an unknown reason"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/plugin.c:1065
+#: ../plugins/build-basic-autotools/plugin.c:1066
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/plugin.c:1072
-#| msgid "File saved successfully"
+#: ../plugins/build-basic-autotools/plugin.c:1073
 msgid "Completed unsuccessfully\n"
 msgstr "Completed unsuccessfully\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:1080
+#: ../plugins/build-basic-autotools/plugin.c:1081
 #: ../plugins/tools/execute.c:516
 msgid "Completed successfully\n"
 msgstr "הסתיים בהצלחה\n"
 
 #. Translators: the first number is the number of the build attemp,
 #. the string is the directory where the build takes place
-#: ../plugins/build-basic-autotools/plugin.c:1168
+#: ../plugins/build-basic-autotools/plugin.c:1169
 #, c-format
 msgid "Build %d: %s"
 msgstr ""
 
 #. Need to run make clean before
-#: ../plugins/build-basic-autotools/plugin.c:1499
-msgid "Before using this new configuration, the default one needs to be removed. Do you want to do that ?"
+#: ../plugins/build-basic-autotools/plugin.c:1500
+msgid ""
+"Before using this new configuration, the default one needs to be removed. Do "
+"you want to do that ?"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/plugin.c:1802
+#: ../plugins/build-basic-autotools/plugin.c:1803
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 
-#: ../plugins/build-basic-autotools/plugin.c:1928
+#: ../plugins/build-basic-autotools/plugin.c:1929
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
 msgstr ""
 
-#: ../plugins/build-basic-autotools/plugin.c:2394
-#: ../plugins/build-basic-autotools/plugin.c:2468
-#: ../plugins/build-basic-autotools/plugin.c:2478
-#: ../plugins/build-basic-autotools/plugin.c:2496
-#: ../plugins/build-basic-autotools/plugin.c:2506
-#: ../plugins/build-basic-autotools/plugin.c:2563
+#: ../plugins/build-basic-autotools/plugin.c:2401
+#: ../plugins/build-basic-autotools/plugin.c:2475
+#: ../plugins/build-basic-autotools/plugin.c:2485
+#: ../plugins/build-basic-autotools/plugin.c:2503
+#: ../plugins/build-basic-autotools/plugin.c:2513
+#: ../plugins/build-basic-autotools/plugin.c:2570
 #, c-format
 msgid "_Build"
 msgstr "_בנה"
 
-#: ../plugins/build-basic-autotools/plugin.c:2398
+#: ../plugins/build-basic-autotools/plugin.c:2405
 msgid "_Build Project"
 msgstr "_בנה פרויקט"
 
-#: ../plugins/build-basic-autotools/plugin.c:2399
+#: ../plugins/build-basic-autotools/plugin.c:2406
 msgid "Build whole project"
 msgstr "בנה את כל הפרויקט"
 
-#: ../plugins/build-basic-autotools/plugin.c:2404
+#: ../plugins/build-basic-autotools/plugin.c:2411
 msgid "_Install Project"
 msgstr "_התקן פרויקט"
 
-#: ../plugins/build-basic-autotools/plugin.c:2405
+#: ../plugins/build-basic-autotools/plugin.c:2412
 msgid "Install whole project"
 msgstr "התקן את כל הפרויקט"
 
-#: ../plugins/build-basic-autotools/plugin.c:2410
+#: ../plugins/build-basic-autotools/plugin.c:2417
 msgid "_Clean Project"
 msgstr "_נקה פרויקט"
 
-#: ../plugins/build-basic-autotools/plugin.c:2411
+#: ../plugins/build-basic-autotools/plugin.c:2418
 msgid "Clean whole project"
 msgstr "נקה את כל הפרויקט"
 
-#: ../plugins/build-basic-autotools/plugin.c:2416
+#: ../plugins/build-basic-autotools/plugin.c:2423
 #, fuzzy
 #| msgid "Configure Project"
 msgid "C_onfigure Project…"
 msgstr "הגדר פרוייקט"
 
-#: ../plugins/build-basic-autotools/plugin.c:2417
+#: ../plugins/build-basic-autotools/plugin.c:2424
 msgid "Configure project"
 msgstr "הגדר פרויקט"
 
-#: ../plugins/build-basic-autotools/plugin.c:2422
+#: ../plugins/build-basic-autotools/plugin.c:2429
 msgid "Build _Tarball"
 msgstr "בנה _ארכיון"
 
-#: ../plugins/build-basic-autotools/plugin.c:2423
+#: ../plugins/build-basic-autotools/plugin.c:2430
 msgid "Build project tarball distribution"
 msgstr "בנה ארכיון הפצת פרויקט"
 
-#: ../plugins/build-basic-autotools/plugin.c:2428
+#: ../plugins/build-basic-autotools/plugin.c:2435
 msgid "_Build Module"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/plugin.c:2429
+#: ../plugins/build-basic-autotools/plugin.c:2436
 msgid "Build module associated with current file"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/plugin.c:2434
+#: ../plugins/build-basic-autotools/plugin.c:2441
 msgid "_Install Module"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/plugin.c:2435
+#: ../plugins/build-basic-autotools/plugin.c:2442
 msgid "Install module associated with current file"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/plugin.c:2440
+#: ../plugins/build-basic-autotools/plugin.c:2447
 msgid "_Clean Module"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/plugin.c:2441
+#: ../plugins/build-basic-autotools/plugin.c:2448
 msgid "Clean module associated with current file"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/plugin.c:2446
+#: ../plugins/build-basic-autotools/plugin.c:2453
 msgid "Co_mpile File"
 msgstr "ה_דר קובץ"
 
-#: ../plugins/build-basic-autotools/plugin.c:2447
+#: ../plugins/build-basic-autotools/plugin.c:2454
 msgid "Compile current editor file"
 msgstr "הדר את הקובץ הנוכחי בעורך"
 
-#: ../plugins/build-basic-autotools/plugin.c:2452
+#: ../plugins/build-basic-autotools/plugin.c:2459
 msgid "Select Configuration"
 msgstr "בחר הגדרות"
 
-#: ../plugins/build-basic-autotools/plugin.c:2453
+#: ../plugins/build-basic-autotools/plugin.c:2460
 msgid "Select current configuration"
 msgstr "בחר את ההגדרות הנוכחיות"
 
-#: ../plugins/build-basic-autotools/plugin.c:2458
+#: ../plugins/build-basic-autotools/plugin.c:2465
 msgid "Remove Configuration"
 msgstr "הסר הגדרות"
 
-#: ../plugins/build-basic-autotools/plugin.c:2459
-msgid "Clean project (distclean) and remove configuration directory if possible"
+#: ../plugins/build-basic-autotools/plugin.c:2466
+msgid ""
+"Clean project (distclean) and remove configuration directory if possible"
 msgstr ""
-
-#: ../plugins/build-basic-autotools/plugin.c:2472
-#: ../plugins/build-basic-autotools/plugin.c:2500
-msgid "_Compile"
-msgstr "_הדר"
-
-#: ../plugins/build-basic-autotools/plugin.c:2473
-#: ../plugins/build-basic-autotools/plugin.c:2501
-msgid "Compile file"
-msgstr "הדר קובץ"
 
 #: ../plugins/build-basic-autotools/plugin.c:2479
 #: ../plugins/build-basic-autotools/plugin.c:2507
+msgid "_Compile"
+msgstr "_הדר"
+
+#: ../plugins/build-basic-autotools/plugin.c:2480
+#: ../plugins/build-basic-autotools/plugin.c:2508
+msgid "Compile file"
+msgstr "הדר קובץ"
+
+#: ../plugins/build-basic-autotools/plugin.c:2486
+#: ../plugins/build-basic-autotools/plugin.c:2514
 msgid "Build module"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/plugin.c:2484
-#: ../plugins/build-basic-autotools/plugin.c:2512
-#: ../plugins/build-basic-autotools/plugin.c:2570
+#: ../plugins/build-basic-autotools/plugin.c:2491
+#: ../plugins/build-basic-autotools/plugin.c:2519
+#: ../plugins/build-basic-autotools/plugin.c:2577
 #, c-format
 msgid "_Install"
 msgstr "_התקן"
 
-#: ../plugins/build-basic-autotools/plugin.c:2485
-#: ../plugins/build-basic-autotools/plugin.c:2513
+#: ../plugins/build-basic-autotools/plugin.c:2492
+#: ../plugins/build-basic-autotools/plugin.c:2520
 msgid "Install module"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/plugin.c:2490
-#: ../plugins/build-basic-autotools/plugin.c:2518
-#: ../plugins/build-basic-autotools/plugin.c:2577
+#: ../plugins/build-basic-autotools/plugin.c:2497
+#: ../plugins/build-basic-autotools/plugin.c:2525
+#: ../plugins/build-basic-autotools/plugin.c:2584
 #, c-format
 msgid "_Clean"
 msgstr "_נקה"
 
-#: ../plugins/build-basic-autotools/plugin.c:2491
-#: ../plugins/build-basic-autotools/plugin.c:2519
+#: ../plugins/build-basic-autotools/plugin.c:2498
+#: ../plugins/build-basic-autotools/plugin.c:2526
 msgid "Clean module"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/plugin.c:2524
+#: ../plugins/build-basic-autotools/plugin.c:2531
 msgid "_Cancel command"
 msgstr "_בטל פקודה"
 
-#: ../plugins/build-basic-autotools/plugin.c:2525
+#: ../plugins/build-basic-autotools/plugin.c:2532
 msgid "Cancel build command"
 msgstr "בטל פקודת בנייה"
 
-#: ../plugins/build-basic-autotools/plugin.c:2563
+#: ../plugins/build-basic-autotools/plugin.c:2570
 #, c-format
 msgid "_Build (%s)"
 msgstr "_בנה (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2570
+#: ../plugins/build-basic-autotools/plugin.c:2577
 #, c-format
 msgid "_Install (%s)"
 msgstr "_התקן (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2577
+#: ../plugins/build-basic-autotools/plugin.c:2584
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_נקה (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2585
+#: ../plugins/build-basic-autotools/plugin.c:2592
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "ה_דר (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2585
+#: ../plugins/build-basic-autotools/plugin.c:2592
 #, c-format
 msgid "Co_mpile"
 msgstr "ה_דר"
 
-#: ../plugins/build-basic-autotools/plugin.c:3121
+#: ../plugins/build-basic-autotools/plugin.c:3128
 msgid "Build commands"
 msgstr "פקודות בנייה"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:3130
+#: ../plugins/build-basic-autotools/plugin.c:3137
 msgid "Build popup commands"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/plugin.c:3512
-#: ../plugins/build-basic-autotools/plugin.c:3520
+#: ../plugins/build-basic-autotools/plugin.c:3519
+#: ../plugins/build-basic-autotools/plugin.c:3527
 msgid "Build Autotools"
 msgstr ""
 
@@ -1201,8 +1180,7 @@ msgstr ""
 msgid "Autogen template used for the implementation file"
 msgstr ""
 
-#: ../plugins/class-gen/generator.c:310
-#: ../plugins/class-gen/generator.c:318
+#: ../plugins/class-gen/generator.c:310 ../plugins/class-gen/generator.c:318
 msgid "File to which the processed template will be written"
 msgstr ""
 
@@ -1211,13 +1189,13 @@ msgstr ""
 msgid "Failed to write autogen definition file"
 msgstr ""
 
-#: ../plugins/class-gen/plugin.c:98
-#: ../plugins/project-wizard/druid.c:1040
-msgid "Could not find autogen version 5; please install the autogen package. You can get it from http://autogen.sourceforge.net."
+#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1043
+msgid ""
+"Could not find autogen version 5; please install the autogen package. You "
+"can get it from http://autogen.sourceforge.net."
 msgstr ""
 
-#: ../plugins/class-gen/plugin.c:253
-#: ../plugins/class-gen/plugin.c:412
+#: ../plugins/class-gen/plugin.c:253 ../plugins/class-gen/plugin.c:412
 #, c-format
 msgid "Failed to execute autogen: %s"
 msgstr "נכשל בהרצת autogen: ‏%s"
@@ -1226,8 +1204,7 @@ msgstr "נכשל בהרצת autogen: ‏%s"
 msgid "Guess from type"
 msgstr ""
 
-#: ../plugins/class-gen/window.c:499
-#: ../plugins/class-gen/window.c:510
+#: ../plugins/class-gen/window.c:499 ../plugins/class-gen/window.c:510
 #: ../plugins/search/anjuta-search.ui.h:29
 #, fuzzy
 #| msgid "Stopped"
@@ -1240,25 +1217,21 @@ msgstr "נעצר"
 msgid "Implementation"
 msgstr "פעולה לדוגמא"
 
-#: ../plugins/class-gen/window.c:501
-#: ../plugins/class-gen/window.c:511
+#: ../plugins/class-gen/window.c:501 ../plugins/class-gen/window.c:511
 #: ../plugins/class-gen/window.c:533
 #: ../plugins/debug-manager/breakpoints.c:1907
 #: ../plugins/debug-manager/debug_tree.c:126
 msgid "Type"
 msgstr "סוג"
 
-#: ../plugins/class-gen/window.c:502
-#: ../plugins/class-gen/window.c:512
-#: ../plugins/class-gen/window.c:520
-#: ../plugins/class-gen/window.c:534
-#: ../plugins/run-program/parameters.c:749
+#: ../plugins/class-gen/window.c:502 ../plugins/class-gen/window.c:512
+#: ../plugins/class-gen/window.c:520 ../plugins/class-gen/window.c:534
+#: ../plugins/run-program/parameters.c:752
 #: ../plugins/search/search_preferences.c:534
 msgid "Name"
 msgstr "שם"
 
-#: ../plugins/class-gen/window.c:503
-#: ../plugins/class-gen/window.c:513
+#: ../plugins/class-gen/window.c:503 ../plugins/class-gen/window.c:513
 #: ../plugins/class-gen/window.c:535
 #: ../plugins/debug-manager/stack_trace.c:679
 msgid "Arguments"
@@ -1285,9 +1258,7 @@ msgid "ParamSpec"
 msgstr ""
 
 #. Somehow redundant with marshaller, but required for default handler
-#: ../plugins/class-gen/window.c:526
-#: ../plugins/class-gen/window.c:536
-#, fuzzy
+#: ../plugins/class-gen/window.c:526 ../plugins/class-gen/window.c:536
 #| msgid "Files"
 msgid "Flags"
 msgstr ""
@@ -1304,7 +1275,9 @@ msgstr "תיאור XML של מנשק המשתמש"
 msgid ""
 "<b>Please note: </b>\n"
 "\n"
-"Pressing OK will delete the file from disk and from CVS. Of course, the file won't be removed from CVS before you use CVS Commit. <b>You have been warned!</b>"
+"Pressing OK will delete the file from disk and from CVS. Of course, the file "
+"won't be removed from CVS before you use CVS Commit. <b>You have been warned!"
+"</b>"
 msgstr ""
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:4
@@ -1432,8 +1405,7 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "התעלם מקבצי cvsrc. (מומלץ)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
-#: ../plugins/git/anjuta-git.ui.h:57
-#: ../plugins/symbol-db/plugin.c:2333
+#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2333
 #: ../plugins/symbol-db/plugin.c:2397
 msgid "Local"
 msgstr "מקומי"
@@ -1455,10 +1427,9 @@ msgstr "שם מודול:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:36
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:11
-#: ../plugins/git/anjuta-git.ui.h:65
-#: ../plugins/glade/plugin.c:3097
+#: ../plugins/git/anjuta-git.ui.h:65 ../plugins/glade/plugin.c:3097
 #: ../plugins/search/anjuta-search.ui.h:25
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:10
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:11
 #: ../plugins/subversion/anjuta-subversion.ui.h:23
 msgid "Options"
 msgstr "אפשרויות"
@@ -1585,7 +1556,7 @@ msgid "CVSROOT"
 msgstr "CVSROOT"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:438
-#: ../plugins/gbf-am/gbf-am-properties.c:1234
+#: ../plugins/gbf-am/gbf-am-properties.c:1237
 msgid "Module"
 msgstr "מודול"
 
@@ -1621,16 +1592,14 @@ msgid "CVS command is running — please wait until it finishes!"
 msgstr "פקודת CVS בהרצה - נא להמתין לסיומה!"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:229
-#: ../plugins/cvs-plugin/cvs-execute.c:233
-#: ../plugins/cvs-plugin/plugin.c:467
+#: ../plugins/cvs-plugin/cvs-execute.c:233 ../plugins/cvs-plugin/plugin.c:467
 #: ../plugins/cvs-plugin/plugin.c:474
 msgid "CVS"
 msgstr "CVS"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:44
-#: ../plugins/cvs-plugin/plugin.c:119
+#: ../plugins/cvs-plugin/plugin.c:44 ../plugins/cvs-plugin/plugin.c:119
 msgid "_CVS"
 msgstr "_CVS"
 
@@ -1660,30 +1629,26 @@ msgstr "הסר קובץ/ספרייה מעץ CVS"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:68
-#: ../plugins/cvs-plugin/plugin.c:127
+#: ../plugins/cvs-plugin/plugin.c:68 ../plugins/cvs-plugin/plugin.c:127
 msgid "_Commit"
 msgstr ""
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:70
-#: ../plugins/cvs-plugin/plugin.c:129
+#: ../plugins/cvs-plugin/plugin.c:70 ../plugins/cvs-plugin/plugin.c:129
 msgid "Commit your changes to the CVS tree"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:76
-#: ../plugins/cvs-plugin/plugin.c:135
+#: ../plugins/cvs-plugin/plugin.c:76 ../plugins/cvs-plugin/plugin.c:135
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:54
 msgid "_Update"
 msgstr "_עדכן"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:78
-#: ../plugins/cvs-plugin/plugin.c:137
+#: ../plugins/cvs-plugin/plugin.c:78 ../plugins/cvs-plugin/plugin.c:137
 #, fuzzy
 #| msgid "Sync your local copy with the CVS tree"
 msgid "Syncronize your local copy with the CVS tree"
@@ -1691,43 +1656,37 @@ msgstr "סנכרן את העותק המקומי עם עץ ה-CVS"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:84
-#: ../plugins/cvs-plugin/plugin.c:143
+#: ../plugins/cvs-plugin/plugin.c:84 ../plugins/cvs-plugin/plugin.c:143
 msgid "_Diff"
 msgstr ""
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:86
-#: ../plugins/cvs-plugin/plugin.c:145
+#: ../plugins/cvs-plugin/plugin.c:86 ../plugins/cvs-plugin/plugin.c:145
 msgid "Show differences between your local copy and the tree"
 msgstr "הצג הבדלים בין העותק המקומי לעותק בעץ"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:92
-#: ../plugins/cvs-plugin/plugin.c:151
+#: ../plugins/cvs-plugin/plugin.c:92 ../plugins/cvs-plugin/plugin.c:151
 msgid "_Show Status"
 msgstr "הצג _מצב"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:94
-#: ../plugins/cvs-plugin/plugin.c:153
+#: ../plugins/cvs-plugin/plugin.c:94 ../plugins/cvs-plugin/plugin.c:153
 msgid "Show the status of a file/directory"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:100
-#: ../plugins/cvs-plugin/plugin.c:159
+#: ../plugins/cvs-plugin/plugin.c:100 ../plugins/cvs-plugin/plugin.c:159
 msgid "_Show Log"
 msgstr "הצג _יומן"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:102
-#: ../plugins/cvs-plugin/plugin.c:161
+#: ../plugins/cvs-plugin/plugin.c:102 ../plugins/cvs-plugin/plugin.c:161
 msgid "Show the log of a file/directory"
 msgstr "הצג את היומן של קובץ/ספרייה"
 
@@ -1753,9 +1712,12 @@ msgstr ""
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:1
 msgid ""
-"<span weight=\"bold\" size=\"larger\">Are you sure you want to debug a program not using the Debug configuration?</span>\n"
+"<span weight=\"bold\" size=\"larger\">Are you sure you want to debug a "
+"program not using the Debug configuration?</span>\n"
 "\n"
-"When optimizations are enabled, the debugger cannot always identify the source code corresponding to the instructions, so some commands can perform in a strange way, especially steps."
+"When optimizations are enabled, the debugger cannot always identify the "
+"source code corresponding to the instructions, so some commands can perform "
+"in a strange way, especially steps."
 msgstr ""
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:4
@@ -1772,12 +1734,12 @@ msgstr "צרף לתהליך"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:7
 msgid "Breakpoint properties"
-msgstr "מאפייני נקודת עצירה"
+msgstr "מאפייני מפסק"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:8
 #: ../plugins/debug-manager/breakpoints.c:1980
 msgid "Breakpoints"
-msgstr "נקודות עצירה"
+msgstr "מפסקים"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:9
 msgid "CPU Registers"
@@ -1800,10 +1762,9 @@ msgid "Debugger command:"
 msgstr "פקודת מנפה:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:14
-#, fuzzy
 #| msgid "Debugger"
 msgid "Debugger:"
-msgstr "מנפה"
+msgstr "מנפה:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:15
 #: ../plugins/project-wizard/templates/translatable-strings.h:33
@@ -1819,10 +1780,9 @@ msgid "Display process _tree"
 msgstr "הצג _עץ תהליכים"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:18
-#, fuzzy
 #| msgid "_Do not show again"
 msgid "Do not show again"
-msgstr "_אל תציג זאת שוב"
+msgstr "אל תציג זאת שוב"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:19
 msgid "Enable _all"
@@ -1877,10 +1837,9 @@ msgid "Program Interrupt"
 msgstr ""
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:31
-#, fuzzy
 #| msgid "<b>Remote debugging</b>"
 msgid "Remote debugging"
-msgstr "<b>ניפוי מרוחק</b>"
+msgstr "ניפוי מרוחק"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:32
 msgid "SIGINT"
@@ -1975,13 +1934,13 @@ msgstr "_ערך:"
 
 #: ../plugins/debug-manager/breakpoints.c:1673
 msgid "Are you sure you want to delete all the breakpoints?"
-msgstr "למחוק את כל נקודות העצירה?"
+msgstr "למחוק את כל המפסקים?"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/breakpoints.c:1770
 msgid "_Breakpoints"
-msgstr "_נקודות עצירה"
+msgstr "_מפסקים"
 
 #. Action name
 #. Stock icon, if any
@@ -1998,54 +1957,53 @@ msgstr ""
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/breakpoints.c:1786
-#, fuzzy
 #| msgid "Add Breakpoint..."
 msgid "Add Breakpoint…"
-msgstr "הוסף נקודת עצירה..."
+msgstr "הוסף מפסק..."
 
 #. Display label
 #. short-cut
 #: ../plugins/debug-manager/breakpoints.c:1788
 msgid "Add a breakpoint"
-msgstr "הוסף נקודת עצירה"
+msgstr "הוסף מפסק"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/breakpoints.c:1794
 msgid "Remove Breakpoint"
-msgstr "הסר נקודת עצירה"
+msgstr "הסר מפסק"
 
 #. Display label
 #. short-cut
 #: ../plugins/debug-manager/breakpoints.c:1796
 msgid "Remove a breakpoint"
-msgstr "הסר נקודת עצירה"
+msgstr "הסר מפסק"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/breakpoints.c:1802
 msgid "Edit Breakpoint"
-msgstr "ערוך נקודת עצירה"
+msgstr "ערוך מפסק"
 
 #. Display label
 #. short-cut
 #: ../plugins/debug-manager/breakpoints.c:1804
 msgid "Edit breakpoint properties"
-msgstr "ערוך מאפייני נקודת עצירה"
+msgstr "ערוך מאפייני מפסק"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/breakpoints.c:1810
 #: ../plugins/debug-manager/breakpoints.c:1881
 msgid "Enable Breakpoint"
-msgstr "אפשר נקודת עצירה"
+msgstr "אפשר מפסק"
 
 #. Display label
 #. short-cut
 #: ../plugins/debug-manager/breakpoints.c:1812
 #: ../plugins/debug-manager/breakpoints.c:1882
 msgid "Enable a breakpoint"
-msgstr "אפשר נקודת עצירה"
+msgstr "אפשר מפסק"
 
 #. Action name
 #. Stock icon, if any
@@ -2063,29 +2021,29 @@ msgstr ""
 #. Stock icon, if any
 #: ../plugins/debug-manager/breakpoints.c:1826
 msgid "R_emove All Breakpoints"
-msgstr "ה_סר את כל נקודות העצירה"
+msgstr "ה_סר את כל המפסקים"
 
 #. Display label
 #. short-cut
 #: ../plugins/debug-manager/breakpoints.c:1828
 msgid "Remove all breakpoints"
-msgstr "הסר את כל נקודות העצירה"
+msgstr "הסר את כל המפסקים"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/breakpoints.c:1837
 msgid "Jump to Breakpoint"
-msgstr "קפוץ לנקודת עצירה"
+msgstr "קפוץ למפסק"
 
 #. Display label
 #. short-cut
 #: ../plugins/debug-manager/breakpoints.c:1839
 msgid "Jump to breakpoint location"
-msgstr "קפוץ למיקום נקודת עצירה"
+msgstr "קפוץ למיקום מפסק"
 
 #: ../plugins/debug-manager/breakpoints.c:1876
 msgid "Disable Breakpoint"
-msgstr "כבה נקודת עצירה"
+msgstr "כבה מפסק"
 
 #: ../plugins/debug-manager/breakpoints.c:1877
 msgid "Disable a breakpoint"
@@ -2117,27 +2075,25 @@ msgstr "מצב"
 #: ../plugins/debug-manager/breakpoints.c:1957
 #: ../plugins/debug-manager/breakpoints.c:1963
 msgid "Breakpoint operations"
-msgstr "פעולות נקודות עצירה"
+msgstr "פעולות מפסק"
 
 #. create goto menu_item.
-#: ../plugins/debug-manager/data_view.c:390
-#: ../plugins/debug-manager/sparse_view.c:498
+#: ../plugins/debug-manager/data_view.c:398
+#: ../plugins/debug-manager/sparse_view.c:503
 #, fuzzy
 #| msgid "_Goto address"
 msgid "_Go to address"
 msgstr "_לך לכתובת"
 
 #: ../plugins/debug-manager/debug_tree.c:126
-#: ../plugins/gbf-am/gbf-am-properties.c:971
-#: ../plugins/tools/editor.c:468
+#: ../plugins/gbf-am/gbf-am-properties.c:974 ../plugins/tools/editor.c:468
 msgid "Variable"
 msgstr "משתנה"
 
 #: ../plugins/debug-manager/debug_tree.c:126
 #: ../plugins/debug-manager/registers.c:469
-#: ../plugins/gbf-am/gbf-am-properties.c:981
-#: ../plugins/run-program/parameters.c:758
-#: ../plugins/tools/editor.c:474
+#: ../plugins/gbf-am/gbf-am-properties.c:984
+#: ../plugins/run-program/parameters.c:761 ../plugins/tools/editor.c:474
 msgid "Value"
 msgstr "ערך"
 
@@ -2145,8 +2101,7 @@ msgstr "ערך"
 msgid "Disassembly"
 msgstr ""
 
-#: ../plugins/debug-manager/info.c:52
-#: ../plugins/debug-manager/info.c:101
+#: ../plugins/debug-manager/info.c:52 ../plugins/debug-manager/info.c:101
 #: ../plugins/project-wizard/druid.c:135
 msgid "Information"
 msgstr "מידע"
@@ -2164,12 +2119,9 @@ msgstr "מקומיים"
 msgid "Debugger Log"
 msgstr "יומן מנפה"
 
-#: ../plugins/debug-manager/plugin.c:389
-#: ../plugins/debug-manager/plugin.c:409
-#: ../plugins/debug-manager/plugin.c:429
-#: ../plugins/debug-manager/plugin.c:451
-#: ../plugins/debug-manager/plugin.c:485
-#: ../plugins/debug-manager/plugin.c:520
+#: ../plugins/debug-manager/plugin.c:389 ../plugins/debug-manager/plugin.c:409
+#: ../plugins/debug-manager/plugin.c:429 ../plugins/debug-manager/plugin.c:451
+#: ../plugins/debug-manager/plugin.c:485 ../plugins/debug-manager/plugin.c:520
 #: ../plugins/debug-manager/anjuta-debug-manager.plugin.in.h:2
 msgid "Debugger"
 msgstr "מנפה"
@@ -2183,7 +2135,6 @@ msgid "Loaded"
 msgstr "נטען"
 
 #: ../plugins/debug-manager/plugin.c:429
-#, fuzzy
 #| msgid "Running..."
 msgid "Running…"
 msgstr "רץ..."
@@ -2225,7 +2176,6 @@ msgid "Start debugger and load the program"
 msgstr "התחל את המנפה וטען את התוכנית"
 
 #: ../plugins/debug-manager/plugin.c:853
-#, fuzzy
 #| msgid "_Debug Process..."
 msgid "_Debug Process…"
 msgstr "נפה _תהליך..."
@@ -2235,7 +2185,6 @@ msgid "Start debugger and attach to a running program"
 msgstr ""
 
 #: ../plugins/debug-manager/plugin.c:861
-#, fuzzy
 #| msgid "Debug _Remote Target..."
 msgid "Debug _Remote Target…"
 msgstr "נפה _מטרה מרוחקת..."
@@ -2265,17 +2214,14 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:889
-#: ../plugins/debug-manager/plugin.c:997
-#, fuzzy
+#: ../plugins/debug-manager/plugin.c:889 ../plugins/debug-manager/plugin.c:997
 #| msgid "Debugger command"
 msgid "Debugger Command…"
-msgstr "פקודת מנפה"
+msgstr "פקודת מנפה..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:891
-#: ../plugins/debug-manager/plugin.c:999
+#: ../plugins/debug-manager/plugin.c:891 ../plugins/debug-manager/plugin.c:999
 msgid "Custom debugger command"
 msgstr "פקודת מנפה מותאמת אישית"
 
@@ -2412,7 +2358,7 @@ msgstr "השהה את הרצת התוכנית"
 msgid "Debugger operations"
 msgstr "פעולות מנפה"
 
-#: ../plugins/debug-manager/queue.c:543
+#: ../plugins/debug-manager/queue.c:524
 #, c-format
 msgid "Unable to find a debugger plugin supporting a target with %s MIME type"
 msgstr ""
@@ -2434,13 +2380,11 @@ msgstr "עדכן"
 msgid "Shared Object"
 msgstr "אובייקט משותף"
 
-#: ../plugins/debug-manager/sharedlib.c:173
-#: ../plugins/git/anjuta-git.ui.h:49
+#: ../plugins/debug-manager/sharedlib.c:173 ../plugins/git/anjuta-git.ui.h:49
 msgid "From"
 msgstr "מאת"
 
-#: ../plugins/debug-manager/sharedlib.c:180
-#: ../plugins/git/anjuta-git.ui.h:114
+#: ../plugins/debug-manager/sharedlib.c:180 ../plugins/git/anjuta-git.ui.h:114
 msgid "To"
 msgstr "אל"
 
@@ -2448,8 +2392,7 @@ msgstr "אל"
 msgid "Symbols read"
 msgstr ""
 
-#: ../plugins/debug-manager/sharedlib.c:338
-#| msgid "Shared libraries"
+#: ../plugins/debug-manager/sharedlib.c:341
 msgid "Shared library operations"
 msgstr "פעולות ספריות משותפות"
 
@@ -2483,26 +2426,26 @@ msgstr "שלך לתהליך"
 msgid "Kernel signals"
 msgstr ""
 
-#: ../plugins/debug-manager/signals.c:474
-#: ../plugins/debug-manager/signals.c:480
+#: ../plugins/debug-manager/signals.c:477
+#: ../plugins/debug-manager/signals.c:483
 #, fuzzy
 #| msgid "terminal operations"
 msgid "Signal operations"
 msgstr "פעולות מסוף"
 
-#: ../plugins/debug-manager/sparse_view.c:1202
+#: ../plugins/debug-manager/sparse_view.c:1212
 msgid "Show Line Numbers"
 msgstr "הצג מספרי שורות"
 
-#: ../plugins/debug-manager/sparse_view.c:1203
+#: ../plugins/debug-manager/sparse_view.c:1213
 msgid "Whether to display line numbers"
 msgstr "האם להציג מספרי שורות"
 
-#: ../plugins/debug-manager/sparse_view.c:1210
+#: ../plugins/debug-manager/sparse_view.c:1220
 msgid "Show Line Markers"
 msgstr "הצג סימני שורה"
 
-#: ../plugins/debug-manager/sparse_view.c:1211
+#: ../plugins/debug-manager/sparse_view.c:1221
 msgid "Whether to display line marker pixbufs"
 msgstr ""
 
@@ -2528,8 +2471,7 @@ msgstr "מסגרת"
 
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:631
-#: ../plugins/debug-manager/threads.c:451
-#: ../plugins/tools/tool.c:100
+#: ../plugins/debug-manager/threads.c:451 ../plugins/tools/tool.c:100
 #: ../src/anjuta-app.c:485
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
@@ -2587,7 +2529,6 @@ msgstr "לא ניתן לפתוח את %s. המנפה לא יכול להתחיל.
 
 #: ../plugins/debug-manager/start.c:975
 #, c-format
-#| msgid "Unable to open %s. Debugger cannot start."
 msgid "Unable to detect MIME type of %s. Debugger cannot start."
 msgstr "לא ניתן לזהות את סוג ה־MIME של %s. לא ניתן להפעיל את המנפה."
 
@@ -2595,8 +2536,7 @@ msgstr "לא ניתן לזהות את סוג ה־MIME של %s. לא ניתן ל�
 msgid "Path"
 msgstr "נתיב"
 
-#: ../plugins/debug-manager/start.c:1385
-#: ../plugins/gdb/debugger.c:1699
+#: ../plugins/debug-manager/start.c:1385 ../plugins/gdb/debugger.c:1699
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -2612,7 +2552,7 @@ msgstr "קבע את התהליכון הנוכחי"
 
 #: ../plugins/debug-manager/threads.c:436
 msgid "ID"
-msgstr ""
+msgstr "מזהה"
 
 #: ../plugins/debug-manager/threads.c:506
 msgid "Thread"
@@ -2664,8 +2604,7 @@ msgstr "הסר הכל"
 msgid "Automatic update"
 msgstr "עדכון אוטומטי"
 
-#: ../plugins/debug-manager/watch.c:457
-#: ../plugins/debug-manager/watch.c:463
+#: ../plugins/debug-manager/watch.c:457 ../plugins/debug-manager/watch.c:463
 msgid "Watch operations"
 msgstr ""
 
@@ -2677,10 +2616,8 @@ msgstr ""
 msgid "Search Help:"
 msgstr "חפש עזרה:"
 
-#: ../plugins/devhelp/plugin.c:222
-#: ../plugins/document-manager/plugin.c:236
-#: ../plugins/message-view/plugin.c:76
-#: ../plugins/symbol-db/plugin.c:309
+#: ../plugins/devhelp/plugin.c:222 ../plugins/document-manager/plugin.c:236
+#: ../plugins/message-view/plugin.c:76 ../plugins/symbol-db/plugin.c:309
 #, fuzzy
 #| msgid "_Goto"
 msgid "_Go to"
@@ -2718,25 +2655,21 @@ msgstr "פעולות עזרה"
 msgid "Contents"
 msgstr "תכנים"
 
-#: ../plugins/devhelp/plugin.c:369
-#: ../plugins/search/search-replace.c:1041
+#: ../plugins/devhelp/plugin.c:369 ../plugins/search/search-replace.c:1041
 #: ../plugins/search/search-replace.c:1717
 #: ../plugins/search/search-replace.c:1724
 #: ../plugins/search/search-replace.c:1736
-#: ../plugins/search/search-replace.c:2065
-#: ../plugins/symbol-db/plugin.c:2335
+#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2335
 #: ../plugins/symbol-db/plugin.c:2447
 msgid "Search"
 msgstr "חיפוש"
 
-#: ../plugins/devhelp/plugin.c:375
-#: ../plugins/devhelp/plugin.c:495
+#: ../plugins/devhelp/plugin.c:375 ../plugins/devhelp/plugin.c:495
 #: ../src/anjuta-app.c:502
 msgid "Help"
 msgstr "עזרה"
 
-#: ../plugins/devhelp/plugin.c:405
-#: ../plugins/devhelp/plugin.c:500
+#: ../plugins/devhelp/plugin.c:405 ../plugins/devhelp/plugin.c:500
 msgid "Help display"
 msgstr "תצוגת עזרה"
 
@@ -2756,16 +2689,14 @@ msgid "_Reload"
 msgstr "_טען מחדש"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:311
-#, fuzzy
 #| msgid "_Add Bookmark"
 msgid "Add bookmark"
-msgstr "_הוסף סימנייה"
+msgstr "הוסף סימנייה"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:317
-#, fuzzy
 #| msgid "Clear bookmarks"
 msgid "Remove bookmark"
-msgstr "נקה סימניות"
+msgstr "הסר סימניה"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:331
 #: ../plugins/document-manager/anjuta-bookmarks.c:393
@@ -2774,62 +2705,56 @@ msgid "Bookmarks"
 msgstr "סימניות"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:339
-#, fuzzy
 #| msgid "_Rename"
 msgid "Rename"
-msgstr "ה_חלף שם"
+msgstr "החלף שם"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:340
-#: ../plugins/gtodo/callback.c:20
-#: ../plugins/gtodo/callback.c:101
+#: ../plugins/gtodo/callback.c:20 ../plugins/gtodo/callback.c:101
 msgid "Remove"
 msgstr "הסר"
 
-#: ../plugins/document-manager/anjuta-docman.c:400
+#: ../plugins/document-manager/anjuta-docman.c:399
 msgid "Close file"
 msgstr "סגור קובץ"
 
-#: ../plugins/document-manager/anjuta-docman.c:448
+#: ../plugins/document-manager/anjuta-docman.c:447
 msgid "Path:"
 msgstr "נתיב:"
 
-#: ../plugins/document-manager/anjuta-docman.c:565
-#: ../plugins/file-loader/plugin.c:591
-#: ../plugins/file-loader/plugin.c:894
-#: ../plugins/file-loader/plugin.c:904
-#: ../plugins/file-loader/plugin.c:917
+#: ../plugins/document-manager/anjuta-docman.c:564
+#: ../plugins/file-loader/plugin.c:591 ../plugins/file-loader/plugin.c:894
+#: ../plugins/file-loader/plugin.c:904 ../plugins/file-loader/plugin.c:917
 msgid "Open file"
 msgstr "פתח קובץ"
 
-#: ../plugins/document-manager/anjuta-docman.c:584
+#: ../plugins/document-manager/anjuta-docman.c:583
 #: ../plugins/message-view/message-view.c:94
 msgid "Save file as"
 msgstr "שמור קובץ בשם"
 
-#: ../plugins/document-manager/anjuta-docman.c:665
+#: ../plugins/document-manager/anjuta-docman.c:664
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
 "Do you want to replace it with the one you are saving?"
 msgstr ""
 
-#: ../plugins/document-manager/anjuta-docman.c:674
+#: ../plugins/document-manager/anjuta-docman.c:673
 msgid "_Replace"
 msgstr "_החלף"
 
-#: ../plugins/document-manager/anjuta-docman.c:1392
+#: ../plugins/document-manager/anjuta-docman.c:1390
 msgid "[read-only]"
 msgstr "[קריאה בלבד]"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:1
-#, fuzzy
 #| msgid "<b>Autosave</b>"
 msgid "Autosave"
-msgstr "<b>שמירה אוטומטית</b>"
+msgstr "שמירה אוטומטית"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:2
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:1
-#| msgid "Zoom"
 msgid "Bottom"
 msgstr "למטה"
 
@@ -2838,10 +2763,9 @@ msgid "Do not show tabs"
 msgstr "אל תציג לשוניות"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:4
-#, fuzzy
 #| msgid "<b>Editor tabs</b>"
 msgid "Editor tabs"
-msgstr "<b>לשוניות עורך</b>"
+msgstr "לשוניות עורך"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:5
 msgid "Enable files autosave"
@@ -2858,7 +2782,6 @@ msgstr "מיקום:"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:8
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:13
-#| msgid "High"
 msgid "Right"
 msgstr "ימין"
 
@@ -2898,7 +2821,6 @@ msgid "Save current file"
 msgstr "שמור את הקובץ הנוכחי"
 
 #: ../plugins/document-manager/plugin.c:149
-#, fuzzy
 #| msgid "Save _As..."
 msgid "Save _As…"
 msgstr "שמור _בשם..."
@@ -2944,10 +2866,9 @@ msgid "Recent _Files"
 msgstr "קבצים _אחרונים"
 
 #: ../plugins/document-manager/plugin.c:168
-#, fuzzy
 #| msgid "Print"
 msgid "_Print…"
-msgstr "הדפס"
+msgstr "ה_דפס..."
 
 #: ../plugins/document-manager/plugin.c:169
 msgid "Print the current file"
@@ -2958,7 +2879,6 @@ msgid "_Print Preview"
 msgstr "_תצוגה מקדימה של הדפסה"
 
 #: ../plugins/document-manager/plugin.c:177
-#, fuzzy
 #| msgid "Preview the current file in print-format"
 msgid "Preview the current file in print format"
 msgstr "תצוגה מקדימה של הקובץ הנוכחי בתצורת הדפסה"
@@ -3074,7 +2994,6 @@ msgstr ""
 
 #. menu title
 #: ../plugins/document-manager/plugin.c:237
-#, fuzzy
 #| msgid "_Line Number..."
 msgid "_Line Number…"
 msgstr "_מספר שורה..."
@@ -3112,7 +3031,6 @@ msgid "Previous _History"
 msgstr "ההיסטוריה ה_קודמת"
 
 #: ../plugins/document-manager/plugin.c:250
-#, fuzzy
 #| msgid "Goto previous history"
 msgid "Go to previous history"
 msgstr "חזור להיסטוריה הקודמת"
@@ -3122,13 +3040,11 @@ msgid "Next Histor_y"
 msgstr "ההיסטוריה ה_באה"
 
 #: ../plugins/document-manager/plugin.c:253
-#, fuzzy
 #| msgid "Goto next history"
 msgid "Go to next history"
 msgstr "עבור להיסטוריה הבאה"
 
-#: ../plugins/document-manager/plugin.c:258
-#: ../plugins/search/plugin.c:67
+#: ../plugins/document-manager/plugin.c:258 ../plugins/search/plugin.c:67
 msgid "_Search"
 msgstr "_חפש"
 
@@ -3148,8 +3064,7 @@ msgstr ""
 msgid "Repeat quick search"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:268
-#: ../plugins/gtodo/interface.c:168
+#: ../plugins/document-manager/plugin.c:268 ../plugins/gtodo/interface.c:168
 #: ../src/anjuta-actions.h:30
 #: ../plugins/language-support-cpp-java/plugin.c:1915
 msgid "_Edit"
@@ -3180,8 +3095,7 @@ msgstr "הסר את התצוגה הנוכחית של המסמך"
 msgid "U_ndo"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:283
-#: ../plugins/glade/plugin.c:4089
+#: ../plugins/document-manager/plugin.c:283 ../plugins/glade/plugin.c:4089
 msgid "Undo the last action"
 msgstr ""
 
@@ -3203,8 +3117,7 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/document-manager/plugin.c:291
-#: ../plugins/terminal/terminal.c:592
+#: ../plugins/document-manager/plugin.c:291 ../plugins/terminal/terminal.c:609
 msgid "_Copy"
 msgstr "הע_תק"
 
@@ -3212,8 +3125,7 @@ msgstr "הע_תק"
 msgid "Copy the selected text to the clipboard"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:294
-#: ../plugins/terminal/terminal.c:600
+#: ../plugins/document-manager/plugin.c:294 ../plugins/terminal/terminal.c:617
 msgid "_Paste"
 msgstr "ה_דבק"
 
@@ -3431,9 +3343,9 @@ msgid "Simple searching"
 msgstr "חיפוש פשוט"
 
 #: ../plugins/document-manager/plugin.c:410
-#: ../plugins/document-manager/plugin.c:1713
-#: ../plugins/document-manager/plugin.c:2130
-#: ../plugins/document-manager/plugin.c:2140
+#: ../plugins/document-manager/plugin.c:1712
+#: ../plugins/document-manager/plugin.c:2129
+#: ../plugins/document-manager/plugin.c:2139
 msgid "Documents"
 msgstr "מסמכים"
 
@@ -3446,10 +3358,9 @@ msgid "Reload"
 msgstr "טען מחדש"
 
 #: ../plugins/document-manager/plugin.c:606
-#, fuzzy
 #| msgid "_Goto"
 msgid "Go to"
-msgstr "_לך אל"
+msgstr "לך אל"
 
 #: ../plugins/document-manager/plugin.c:909
 msgid "OVR"
@@ -3478,12 +3389,12 @@ msgid "Automatic"
 msgstr "אוטומטי"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1537
+#: ../plugins/document-manager/plugin.c:1536
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "שמירה אוטומטית נכשלה עבור %s"
 
-#: ../plugins/document-manager/plugin.c:1551
+#: ../plugins/document-manager/plugin.c:1550
 msgid "Autosave completed"
 msgstr "שמירה אוטומטית הסתיימה"
 
@@ -3494,7 +3405,9 @@ msgstr ""
 
 #: ../plugins/document-manager/search-box.c:389
 #, c-format
-msgid "Search for \"%s\" reached the end and was continued at the top but no new match was found."
+msgid ""
+"Search for \"%s\" reached the end and was continued at the top but no new "
+"match was found."
 msgstr ""
 
 #: ../plugins/document-manager/search-box.c:446
@@ -3572,7 +3485,8 @@ msgstr "לא ניתן לפתוח את %s: ‏%s"
 msgid ""
 "<b>Cannot open \"%s\"</b>.\n"
 "\n"
-"There is no plugin, default action, or application configured to handle this file type.\n"
+"There is no plugin, default action, or application configured to handle this "
+"file type.\n"
 "\n"
 "MIME type: %s\n"
 "\n"
@@ -3589,8 +3503,7 @@ msgstr "פתח בעזרת:"
 msgid "Document Manager"
 msgstr "מנהל המסמכים"
 
-#: ../plugins/file-loader/plugin.c:497
-#: ../plugins/patch/patch-plugin.c:122
+#: ../plugins/file-loader/plugin.c:497 ../plugins/patch/patch-plugin.c:122
 #: ../plugins/run-program/parameters.c:308
 msgid "All files"
 msgstr "כל הקבצים"
@@ -3628,13 +3541,11 @@ msgid "Python source files"
 msgstr "קבצי מקור של Python"
 
 #: ../plugins/file-loader/plugin.c:555
-#, fuzzy
 #| msgid "Hyper text markup files"
 msgid "Hypertext markup files"
 msgstr "קבצי HTML"
 
 #: ../plugins/file-loader/plugin.c:564
-#, fuzzy
 #| msgid "Shell scripts files"
 msgid "Shell script files"
 msgstr "קבצי תסריט מעטפת"
@@ -3665,75 +3576,67 @@ msgid "New empty file"
 msgstr "קובץ ריק חדש"
 
 #: ../plugins/file-loader/plugin.c:892
-#, fuzzy
 #| msgid "_Open"
 msgid "_Open…"
-msgstr "_פתח"
+msgstr "_פתח..."
 
-#: ../plugins/file-loader/plugin.c:903
-#: ../plugins/file-loader/plugin.c:916
+#: ../plugins/file-loader/plugin.c:903 ../plugins/file-loader/plugin.c:916
 msgid "_Open"
 msgstr "_פתח"
 
-#: ../plugins/file-loader/plugin.c:910
-#: ../plugins/file-loader/plugin.c:923
+#: ../plugins/file-loader/plugin.c:910 ../plugins/file-loader/plugin.c:923
 msgid "Open _With"
 msgstr "פתח _בעזרת"
 
-#: ../plugins/file-loader/plugin.c:911
-#: ../plugins/file-loader/plugin.c:924
+#: ../plugins/file-loader/plugin.c:911 ../plugins/file-loader/plugin.c:924
 msgid "Open with"
 msgstr "פתח בעזרת"
 
-#: ../plugins/file-loader/plugin.c:1245
-#: ../plugins/file-loader/plugin.c:1251
+#: ../plugins/file-loader/plugin.c:1243 ../plugins/file-loader/plugin.c:1249
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:1
 msgid "File Loader"
 msgstr ""
 
-#: ../plugins/file-loader/plugin.c:1255
+#: ../plugins/file-loader/plugin.c:1253
 msgid "New"
 msgstr "חדש"
 
-#: ../plugins/file-loader/plugin.c:1256
+#: ../plugins/file-loader/plugin.c:1254
 msgid "New file, project and project components."
 msgstr "קובץ, פרויקט ורכיבי פרויקט חדשים."
 
-#: ../plugins/file-loader/plugin.c:1263
-#: ../plugins/file-loader/plugin.c:1303
+#: ../plugins/file-loader/plugin.c:1261 ../plugins/file-loader/plugin.c:1301
 msgid "Open"
 msgstr "פתח"
 
-#: ../plugins/file-loader/plugin.c:1267
+#: ../plugins/file-loader/plugin.c:1265
 msgid "Open _Recent"
 msgstr ""
 
-#: ../plugins/file-loader/plugin.c:1268
-#: ../plugins/file-loader/plugin.c:1305
+#: ../plugins/file-loader/plugin.c:1266 ../plugins/file-loader/plugin.c:1303
 msgid "Open recent file"
 msgstr ""
 
-#: ../plugins/file-loader/plugin.c:1274
+#: ../plugins/file-loader/plugin.c:1272
 msgid "Open recent files"
 msgstr ""
 
-#: ../plugins/file-loader/plugin.c:1304
+#: ../plugins/file-loader/plugin.c:1302
 msgid "Open a file"
 msgstr "פתח קובץ"
 
-#: ../plugins/file-loader/plugin.c:1420
-#: ../plugins/file-loader/plugin.c:1422
+#: ../plugins/file-loader/plugin.c:1416 ../plugins/file-loader/plugin.c:1418
 #, c-format
 msgid "File not found"
 msgstr "הקובץ לא נימצא"
 
 #. %s is name of file that will be opened
-#: ../plugins/file-loader/plugin.c:1441
+#: ../plugins/file-loader/plugin.c:1437
 #, c-format
 msgid "Please select a plugin to open <b>%s</b>."
 msgstr "נא לבחור תוסף לפתיחת <b>%s</b>."
 
-#: ../plugins/file-loader/plugin.c:1445
+#: ../plugins/file-loader/plugin.c:1441
 msgid "Open With"
 msgstr "פתח_בעזרת"
 
@@ -3760,14 +3663,12 @@ msgid "Do not show unversioned files"
 msgstr "אל תציג קבצים נסתרים"
 
 #: ../plugins/file-manager/file-manager.ui.h:6
-#, fuzzy
 #| msgid "File"
 msgid "Filter"
-msgstr "קובץ"
+msgstr "מסנן"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2334
-#: ../plugins/symbol-db/plugin.c:2423
+#: ../plugins/symbol-db/plugin.c:2334 ../plugins/symbol-db/plugin.c:2423
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:6
 #, fuzzy
 #| msgid "<b>Global</b>"
@@ -3778,7 +3679,7 @@ msgstr "<b>גלובלי</b>"
 msgid "Root directory if no project is open:"
 msgstr ""
 
-#: ../plugins/file-manager/file-model.c:119
+#: ../plugins/file-manager/file-model.c:120
 msgid "Loading..."
 msgstr "טוען..."
 
@@ -3787,7 +3688,6 @@ msgid "Filename"
 msgstr "שם קובץ"
 
 #: ../plugins/file-manager/file-view.c:590
-#, fuzzy
 #| msgid "Base uri"
 msgid "Base URI"
 msgstr "כתובת בסיס"
@@ -3804,16 +3704,15 @@ msgstr "ה_חלף שם"
 msgid "Rename file or directory"
 msgstr "החלף שם קובץ/תיקייה"
 
-#: ../plugins/file-manager/plugin.c:294
+#: ../plugins/file-manager/plugin.c:298
 msgid "File manager popup actions"
 msgstr "File manager popup actions"
 
-#: ../plugins/file-manager/plugin.c:327
+#: ../plugins/file-manager/plugin.c:331
 msgid "Files"
 msgstr "קבצים"
 
-#: ../plugins/file-manager/plugin.c:456
-#: ../plugins/file-manager/plugin.c:465
+#: ../plugins/file-manager/plugin.c:460 ../plugins/file-manager/plugin.c:469
 #: ../plugins/file-manager/file-manager.plugin.in.h:1
 msgid "File Manager"
 msgstr "מנהל הקבצים"
@@ -3841,26 +3740,24 @@ msgid ""
 msgstr ""
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:7
-#, fuzzy
 #| msgid "<b>File Information</b>"
 msgid "File Information"
-msgstr "<b>מידע על הקובץ</b>"
+msgstr "מידע על הקובץ"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:9
-#: ../plugins/git/anjuta-git.ui.h:64
-#: ../plugins/macro/anjuta-macro.ui.h:6
+#: ../plugins/git/anjuta-git.ui.h:64 ../plugins/macro/anjuta-macro.ui.h:6
 #: ../plugins/tools/anjuta-tools.ui.h:6
 msgid "Name:"
 msgstr "שם:"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:10
-#: ../plugins/starter/starter.c:404
+#: ../plugins/starter/starter.c:409
 msgid "New File"
 msgstr "קובץ חדש"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:12
-#: ../plugins/gbf-am/gbf-am-properties.c:1524
-#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:350
+#: ../plugins/gbf-am/gbf-am-properties.c:1527
+#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:353
 msgid "Type:"
 msgstr "סוג:"
 
@@ -3912,8 +3809,7 @@ msgstr "רישון ציבורי BSD"
 msgid "Unable to build user interface for New File"
 msgstr "לא ניתן לבנות מנשק משתמש עבור הקובץ החדש"
 
-#: ../plugins/gbf-am/gbf-am-config.c:98
-#: ../plugins/gbf-am/gbf-am-config.c:132
+#: ../plugins/gbf-am/gbf-am-config.c:98 ../plugins/gbf-am/gbf-am-config.c:132
 msgid "Invalid GbfAmConfigValue type"
 msgstr ""
 
@@ -3930,10 +3826,9 @@ msgid "Packages"
 msgstr "חבילות"
 
 #: ../plugins/gbf-am/gbf-am-dialogs.ui.h:5
-#, fuzzy
 #| msgid "<b>Select Package to add:</b>"
 msgid "Select Package to add:"
-msgstr "<b>בחר חבילה להוספה:</b>"
+msgstr "בחר חבילה להוספה:"
 
 #: ../plugins/gbf-am/gbf-am-dialogs.ui.h:6
 msgid "Select package"
@@ -4002,7 +3897,6 @@ msgstr ""
 
 #: ../plugins/gbf-am/gbf-am-project.c:2594
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2552
-#| msgid "Close project"
 msgid "Malformed project"
 msgstr "פרויקט שניזוק"
 
@@ -4059,7 +3953,6 @@ msgstr ""
 
 #: ../plugins/gbf-am/gbf-am-project.c:3089
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2984
-#| msgid "Skipping %s: file already exists"
 msgid "Target already exists"
 msgstr "המטרה כבר קיימת"
 
@@ -4077,7 +3970,6 @@ msgstr "לא ניתן להסיר את המטרה"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3184
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3078
-#| msgid "Shared Libraries"
 msgid "Static Library"
 msgstr "ספריה סטטית"
 
@@ -4132,7 +4024,8 @@ msgid "Source doesn't exist"
 msgstr "הערך לא קיים"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3363
-msgid "Source file name can only contain alphanumeric, '_', '-' or '.' characters"
+msgid ""
+"Source file name can only contain alphanumeric, '_', '-' or '.' characters"
 msgstr ""
 
 #: ../plugins/gbf-am/gbf-am-project.c:3440
@@ -4161,173 +4054,173 @@ msgstr "לא ניתן להסיר את המקור"
 msgid "Project directory"
 msgstr "ספריית הפרויקט"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:341
-#: ../plugins/gbf-am/gbf-am-properties.c:393
+#: ../plugins/gbf-am/gbf-am-properties.c:344
+#: ../plugins/gbf-am/gbf-am-properties.c:396
 msgid "Enter new module"
 msgstr ""
 
-#: ../plugins/gbf-am/gbf-am-properties.c:434
-#: ../plugins/gbf-am/gbf-am-properties.c:930
+#: ../plugins/gbf-am/gbf-am-properties.c:437
+#: ../plugins/gbf-am/gbf-am-properties.c:933
 msgid "Module/Packages"
 msgstr ""
 
-#: ../plugins/gbf-am/gbf-am-properties.c:441
-#: ../plugins/gbf-am/gbf-am-properties.c:939
+#: ../plugins/gbf-am/gbf-am-properties.c:444
+#: ../plugins/gbf-am/gbf-am-properties.c:942
 msgid "Version"
 msgstr "גירסה"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:527
+#: ../plugins/gbf-am/gbf-am-properties.c:530
 #, fuzzy, c-format
 #| msgid "Are you sure you want to delete all the breakpoints?"
-msgid "Are you sure you want to remove module \"%s\" and all its associated packages?"
+msgid ""
+"Are you sure you want to remove module \"%s\" and all its associated "
+"packages?"
 msgstr "למחוק את כל נקודות העצירה?"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:529
+#: ../plugins/gbf-am/gbf-am-properties.c:532
 #, fuzzy, c-format
 #| msgid "Are you sure you want to delete all the breakpoints?"
 msgid "Are you sure you want to remove package \"%s\"?"
 msgstr "למחוק את כל נקודות העצירה?"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:587
-#: ../plugins/gbf-am/gbf-am-properties.c:669
+#: ../plugins/gbf-am/gbf-am-properties.c:590
+#: ../plugins/gbf-am/gbf-am-properties.c:672
 msgid "Enter new variable"
 msgstr "הכנס משתנה חדש"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:700
+#: ../plugins/gbf-am/gbf-am-properties.c:703
 #, fuzzy, c-format
 #| msgid "Are you sure you want to delete all the breakpoints?"
 msgid "Are you sure you want to remove variable \"%s\"?"
 msgstr "למחוק את כל נקודות העצירה?"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:854
-#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:177
+#: ../plugins/gbf-am/gbf-am-properties.c:857
+#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:180
 msgid "Project:"
 msgstr "פרויקט:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:857
+#: ../plugins/gbf-am/gbf-am-properties.c:860
 msgid "Package name:"
 msgstr "שם חבילה:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:860
+#: ../plugins/gbf-am/gbf-am-properties.c:863
 #: ../plugins/project-wizard/templates/translatable-strings.h:102
 msgid "Version:"
 msgstr "גירסה:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:863
+#: ../plugins/gbf-am/gbf-am-properties.c:866
 msgid "URI:"
 msgstr ""
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1229
+#: ../plugins/gbf-am/gbf-am-properties.c:1232
 #, fuzzy
 #| msgid "User"
 msgid "Use"
 msgstr "משתמש"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1321
-#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:244
+#: ../plugins/gbf-am/gbf-am-properties.c:1324
+#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:247
 msgid "Group name:"
 msgstr "שם קבוצה:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1324
+#: ../plugins/gbf-am/gbf-am-properties.c:1327
 msgid "Advanced"
 msgstr "מתקדם"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1329
-#: ../plugins/gbf-am/gbf-am-properties.c:1419
+#: ../plugins/gbf-am/gbf-am-properties.c:1332
+#: ../plugins/gbf-am/gbf-am-properties.c:1422
 msgid "C compiler flags:"
 msgstr "דגלי מהדר C:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1331
+#: ../plugins/gbf-am/gbf-am-properties.c:1334
 msgid "C preprocessor flags:"
 msgstr "דגלי קדם מהדר C:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1333
+#: ../plugins/gbf-am/gbf-am-properties.c:1336
 msgid "C++ compiler flags:"
 msgstr "דגלי מהדר ++C:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1335
+#: ../plugins/gbf-am/gbf-am-properties.c:1338
 msgid "gcj compiler flags (ahead-of-time):"
 msgstr ""
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1337
+#: ../plugins/gbf-am/gbf-am-properties.c:1340
 msgid "Java compiler flags (just-in-time):"
 msgstr ""
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1339
-#: ../plugins/gbf-am/gbf-am-properties.c:1427
+#: ../plugins/gbf-am/gbf-am-properties.c:1342
+#: ../plugins/gbf-am/gbf-am-properties.c:1430
 msgid "Fortran compiler flags:"
 msgstr "דגלי מהדר Fortran:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1342
+#: ../plugins/gbf-am/gbf-am-properties.c:1345
 msgid "Includes (deprecated):"
 msgstr ""
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1353
-#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:258
+#: ../plugins/gbf-am/gbf-am-properties.c:1356
+#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:261
 #, fuzzy
 #| msgid "Ignore Directories:"
 msgid "Install directories:"
 msgstr "התעלם מספריות:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1421
+#: ../plugins/gbf-am/gbf-am-properties.c:1424
 msgid "C preprocessor flags"
 msgstr "דגלי קדם מהדר C"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1423
+#: ../plugins/gbf-am/gbf-am-properties.c:1426
 msgid "C++ compiler flags"
 msgstr "דגלי מהדר ++C"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1425
+#: ../plugins/gbf-am/gbf-am-properties.c:1428
 msgid "gcj compiler flags (ahead-of-time)"
 msgstr ""
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1431
-#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:410
+#: ../plugins/gbf-am/gbf-am-properties.c:1434
+#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:413
 msgid "Linker flags:"
 msgstr ""
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1437
-#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:416
+#: ../plugins/gbf-am/gbf-am-properties.c:1440
+#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:419
 msgid "Libraries:"
 msgstr "ספריות:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1443
-#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:422
+#: ../plugins/gbf-am/gbf-am-properties.c:1446
+#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:425
 msgid "Dependencies:"
 msgstr "תלויות:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1446
-#, fuzzy
+#: ../plugins/gbf-am/gbf-am-properties.c:1449
 #| msgid "_Advanced tutorial"
 msgid "Advanced options"
-msgstr "מדריך _מתקדם"
+msgstr "אפשרויות מתקדמות"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1521
-#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:347
+#: ../plugins/gbf-am/gbf-am-properties.c:1524
+#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:350
 msgid "Target name:"
 msgstr "שם מטרה:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1530
-#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:356
+#: ../plugins/gbf-am/gbf-am-properties.c:1533
+#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:359
 msgid "Group:"
 msgstr "קבוצה:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1548
-#: ../plugins/gbf-am/gbf-am-properties.c:1564
-#: ../plugins/gbf-am/gbf-am-properties.c:1571
-#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:374
-#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:391
-#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:398
+#: ../plugins/gbf-am/gbf-am-properties.c:1551
+#: ../plugins/gbf-am/gbf-am-properties.c:1567
+#: ../plugins/gbf-am/gbf-am-properties.c:1574
+#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:377
+#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:394
+#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:401
 #, fuzzy
 #| msgid "_Install Project"
 msgid "Install directory:"
 msgstr "_התקן פרוייקט"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1583
-#, fuzzy
+#: ../plugins/gbf-am/gbf-am-properties.c:1586
 #| msgid "Advanced"
 msgid "Advanced…"
-msgstr "מתקדם"
+msgstr "מתקדם,,,"
 
 #: ../plugins/gbf-mkfile/gbf-mkfile-config.c:102
 #: ../plugins/gbf-mkfile/gbf-mkfile-config.c:136
@@ -4366,7 +4259,7 @@ msgstr ""
 msgid "Source couldn't be added"
 msgstr "לא ניתן להוסיף את המקור"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:247
+#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:250
 msgid "Includes:"
 msgstr ""
 
@@ -4393,10 +4286,9 @@ msgid ""
 msgstr ""
 
 #: ../plugins/gdb/debugger.c:933
-#, fuzzy
 #| msgid "Getting ready to start debugging session...\n"
 msgid "Getting ready to start debugging session…\n"
-msgstr "Getting ready to start debugging session...\n"
+msgstr "Getting ready to start debugging session…\n"
 
 #: ../plugins/gdb/debugger.c:939
 msgid "Loading Executable: "
@@ -4514,7 +4406,8 @@ msgstr ""
 
 #: ../plugins/gdb/plugin.c:112
 #, c-format
-msgid "Failed to create FIFO file named %s. The program will run without a terminal."
+msgid ""
+"Failed to create FIFO file named %s. The program will run without a terminal."
 msgstr ""
 
 #: ../plugins/gdb/plugin.c:198
@@ -4554,8 +4447,7 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/anjuta-git.ui.h:10
-#: ../plugins/git/plugin.c:239
+#: ../plugins/git/anjuta-git.ui.h:10 ../plugins/git/plugin.c:239
 #, fuzzy
 #| msgid "All files"
 msgid "Apply mailbox files"
@@ -4586,7 +4478,7 @@ msgstr "<b>אפשרויות בנייה:</b>"
 #, fuzzy
 #| msgid "<b>Branch name:</b>"
 msgid "Branch name:"
-msgstr "<b>שם ענף:</b>"
+msgstr "שם ענף:"
 
 #: ../plugins/git/anjuta-git.ui.h:17
 #, fuzzy
@@ -4594,33 +4486,29 @@ msgid "Branch to switch to:"
 msgstr "<b>תוכנית לבדיקה:</b>"
 
 #: ../plugins/git/anjuta-git.ui.h:18
-#, fuzzy
 #| msgid "<b>Branch:</b>"
 msgid "Branch:"
-msgstr "<b>ענף:</b>"
+msgstr "ענף:"
 
 #: ../plugins/git/anjuta-git.ui.h:19
-#, fuzzy
 #| msgid "Patches"
 msgid "Branches"
-msgstr "טלאים"
+msgstr "ענפים"
 
 #: ../plugins/git/anjuta-git.ui.h:20
 msgid "Branches must be fully merged"
 msgstr ""
 
 #: ../plugins/git/anjuta-git.ui.h:21
-#, fuzzy
 #| msgid "<b>Branch to delete:</b>"
 msgid "Branches to delete:"
-msgstr "<b>ענף למחיקה:</b>"
+msgstr "ענפים למחיקה:"
 
 #: ../plugins/git/anjuta-git.ui.h:23
 #: ../plugins/subversion/anjuta-subversion.ui.h:4
-#, fuzzy
 #| msgid "<b>Changes:</b>"
 msgid "Changes:"
-msgstr "<b>שינויים:</b>"
+msgstr "שינויים:"
 
 #: ../plugins/git/anjuta-git.ui.h:24
 #, fuzzy
@@ -4681,8 +4569,7 @@ msgstr "צור"
 msgid "Create patch series"
 msgstr "צור רשימת משימות"
 
-#: ../plugins/git/anjuta-git.ui.h:37
-#: ../plugins/git/git-log-dialog.c:189
+#: ../plugins/git/anjuta-git.ui.h:37 ../plugins/git/git-log-dialog.c:189
 #: ../plugins/subversion/subversion-log-dialog.c:141
 msgid "Date"
 msgstr "תאריך"
@@ -4717,20 +4604,18 @@ msgid "Drop the selected stash"
 msgstr "זכור את בחירה זאת"
 
 #: ../plugins/git/anjuta-git.ui.h:44
-#, fuzzy
 #| msgid "Author Email:"
 msgid "E-mail:"
-msgstr "דוא\"ל יוצר:"
+msgstr "דוא\"ל:"
 
 #: ../plugins/git/anjuta-git.ui.h:45
 msgid "Fetch remote branches after creation"
 msgstr ""
 
 #: ../plugins/git/anjuta-git.ui.h:46
-#, fuzzy
 #| msgid "Files"
 msgid "Filters"
-msgstr "קבצים"
+msgstr "מסננים"
 
 #: ../plugins/git/anjuta-git.ui.h:47
 msgid "Folder to create patches in:"
@@ -4776,7 +4661,6 @@ msgstr "התעלם מקבצים:"
 
 #: ../plugins/git/anjuta-git.ui.h:58
 #: ../plugins/subversion/anjuta-subversion.ui.h:21
-#, fuzzy
 #| msgid "Log message:"
 msgid "Log Message:"
 msgstr "הודעת יומן:"
@@ -4924,22 +4808,19 @@ msgid "Select Mailbox File"
 msgstr "בחר את תיקיית Scratchbox"
 
 #: ../plugins/git/anjuta-git.ui.h:93
-#, fuzzy
 #| msgid "Select A Folder"
 msgid "Select a Folder"
 msgstr "בחר תיקייה"
 
 #: ../plugins/git/anjuta-git.ui.h:94
-#, fuzzy
 #| msgid "<b>Select file to add:</b>"
 msgid "Select file to add:"
-msgstr "<b>בחר קבצים להוספה:</b>"
+msgstr "בחר קובץ להוספה:"
 
 #: ../plugins/git/anjuta-git.ui.h:95
-#, fuzzy
 #| msgid "<b>Select file to remove:</b>"
 msgid "Select file to remove:"
-msgstr "<b>בחר קבצים להסרה:</b>"
+msgstr "בחר קובץ להסרה:"
 
 #: ../plugins/git/anjuta-git.ui.h:96
 #: ../plugins/subversion/anjuta-subversion.ui.h:44
@@ -4966,8 +4847,7 @@ msgstr ""
 msgid "Squash"
 msgstr ""
 
-#: ../plugins/git/anjuta-git.ui.h:102
-#: ../plugins/git/plugin.c:811
+#: ../plugins/git/anjuta-git.ui.h:102 ../plugins/git/plugin.c:811
 #, fuzzy
 #| msgid "State"
 msgid "Stash"
@@ -5011,8 +4891,7 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/anjuta-git.ui.h:111
-#: ../plugins/git/plugin.c:391
+#: ../plugins/git/anjuta-git.ui.h:111 ../plugins/git/plugin.c:391
 #, fuzzy
 #| msgid "Tasks"
 msgid "Tags"
@@ -5078,8 +4957,7 @@ msgstr ""
 msgid "Git: File staged for add."
 msgstr ""
 
-#: ../plugins/git/git-add-dialog.c:62
-#: ../plugins/git/git-remove-dialog.c:63
+#: ../plugins/git/git-add-dialog.c:62 ../plugins/git/git-remove-dialog.c:63
 msgid "Please select a file."
 msgstr "נא לבחור קובץ."
 
@@ -5099,7 +4977,6 @@ msgstr "נא להכניס כתובת."
 
 #: ../plugins/git/git-add-remote-dialog.c:111
 #: ../plugins/git/git-fetch-dialog.c:54
-#| msgid "Git: Fetching..."
 msgid "Git: Fetching…"
 msgstr "‏Git: דוחף..."
 
@@ -5113,8 +4990,7 @@ msgstr "נא לבחור קובץ."
 #: ../plugins/git/git-cherry-pick-dialog.c:52
 #: ../plugins/git/git-create-branch-dialog.c:99
 #: ../plugins/git/git-create-tag-dialog.c:102
-#: ../plugins/git/git-reset-dialog.c:57
-#: ../plugins/git/git-revert-dialog.c:46
+#: ../plugins/git/git-reset-dialog.c:57 ../plugins/git/git-revert-dialog.c:46
 #: ../plugins/subversion/subversion-copy-dialog.c:207
 #: ../plugins/subversion/subversion-switch-dialog.c:122
 msgid "Please enter a revision."
@@ -5162,12 +5038,10 @@ msgid "Please enter a tag name."
 msgstr "נא להכניס שם קובץ!"
 
 #: ../plugins/git/git-delete-branch-dialog.c:37
-#| msgid "Git: Deleted branch \"%s\"."
 msgid "Git: Deleted selected branches."
 msgstr "‏Git: הענף שנבחרו נמחקו."
 
 #: ../plugins/git/git-delete-branch-dialog.c:106
-#| msgid "Please select a file."
 msgid "Please select branches to delete"
 msgstr "נא לבחור ענפים למחיקה"
 
@@ -5210,7 +5084,6 @@ msgid "Please enter a path."
 msgstr "נא להכניס נתיב."
 
 #: ../plugins/git/git-log-dialog.c:399
-#, fuzzy
 #| msgid "Select file"
 msgid "Select a file"
 msgstr "בחר קובץ"
@@ -5230,13 +5103,11 @@ msgstr "<b>שינויים:</b>"
 msgid "<b>Remote:</b> %s"
 msgstr "<b>מרוחק:</b> %s"
 
-#: ../plugins/git/git-log-dialog.c:849
-#: ../plugins/git/plugin.c:674
+#: ../plugins/git/git-log-dialog.c:849 ../plugins/git/plugin.c:674
 #: ../plugins/git/plugin.c:867
-#, fuzzy
 #| msgid "Create Branch"
 msgid "Branch"
-msgstr "צור ענף"
+msgstr "ענף"
 
 #: ../plugins/git/git-merge-dialog.c:36
 #, fuzzy
@@ -5307,8 +5178,7 @@ msgstr ""
 msgid "Git: Branch checkout complete."
 msgstr ""
 
-#: ../plugins/git/git-ui-utils.c:89
-#: ../plugins/git/git-ui-utils.c:94
+#: ../plugins/git/git-ui-utils.c:89 ../plugins/git/git-ui-utils.c:94
 #: ../plugins/git/git.plugin.in.h:1
 msgid "Git"
 msgstr "Git"
@@ -5346,23 +5216,20 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:68
-#: ../plugins/git/plugin.c:575
+#: ../plugins/git/plugin.c:68 ../plugins/git/plugin.c:575
 msgid "_Git"
 msgstr "_Git"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:79
-#, fuzzy
 #| msgid "<b>Changes:</b>"
 msgid "_Changes"
-msgstr "<b>שינויים:</b>"
+msgstr "_שינויים"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:87
-#: ../plugins/subversion/plugin.c:76
+#: ../plugins/git/plugin.c:87 ../plugins/subversion/plugin.c:76
 msgid "_Commit…"
 msgstr ""
 
@@ -5421,28 +5288,24 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:127
-#: ../plugins/git/plugin.c:583
-#, fuzzy
+#: ../plugins/git/plugin.c:127 ../plugins/git/plugin.c:583
 #| msgid "View log"
 msgid "_View log…"
-msgstr "הצג יומן"
+msgstr "ה_צג יומן..."
 
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:129
-#, fuzzy
 #| msgid "View file history"
 msgid "View change history"
-msgstr "הצג את הסטורית הקובץ"
+msgstr "הצג את הסטורית השינויים"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:135
-#, fuzzy
 #| msgid "Remove Breakpoint"
 msgid "_Remote repository"
-msgstr "הסר נקודת עצירה"
+msgstr "מאגר _מרוחק"
 
 #. Action name
 #. Stock icon, if any
@@ -5488,22 +5351,18 @@ msgstr "ענפים _מרוחקים"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:167
-#, fuzzy
 #| msgid "Files"
 msgid "_Files"
-msgstr "קבצים"
+msgstr "ק_בצים"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:175
-#: ../plugins/git/plugin.c:375
-#: ../plugins/git/plugin.c:591
-#: ../plugins/subversion/plugin.c:60
+#: ../plugins/git/plugin.c:175 ../plugins/git/plugin.c:375
+#: ../plugins/git/plugin.c:591 ../plugins/subversion/plugin.c:60
 #: ../plugins/subversion/plugin.c:175
-#, fuzzy
 #| msgid "_Add"
 msgid "_Add…"
-msgstr "_הוסף"
+msgstr "_הוסף..."
 
 #. Display label
 #. short-cut
@@ -5515,14 +5374,11 @@ msgstr "הוסף למאגר"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:183
-#: ../plugins/git/plugin.c:599
-#: ../plugins/subversion/plugin.c:68
-#: ../plugins/subversion/plugin.c:183
-#, fuzzy
+#: ../plugins/git/plugin.c:183 ../plugins/git/plugin.c:599
+#: ../plugins/subversion/plugin.c:68 ../plugins/subversion/plugin.c:183
 #| msgid "_Remove"
 msgid "_Remove…"
-msgstr "ה_סר"
+msgstr "ה_סר..."
 
 #. Display label
 #. short-cut
@@ -5535,7 +5391,6 @@ msgstr "העתק קבצים/תיקיות במאגר"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:191
-#, fuzzy
 #| msgid "_Ignore..."
 msgid "_Ignore…"
 msgstr "ה_תעלם..."
@@ -5543,9 +5398,8 @@ msgstr "ה_תעלם..."
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:193
-#, fuzzy
 msgid "Ignore files"
-msgstr "התעלם מקבצים:"
+msgstr "התעלם מקבצים"
 
 #. Action name
 #. Stock icon, if any
@@ -5588,8 +5442,7 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:223
-#: ../plugins/patch/patch-plugin.c:117
+#: ../plugins/git/plugin.c:223 ../plugins/patch/patch-plugin.c:117
 msgid "Patches"
 msgstr "טלאים"
 
@@ -5647,30 +5500,27 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:271
-#: ../plugins/git/plugin.c:351
+#: ../plugins/git/plugin.c:271 ../plugins/git/plugin.c:351
 msgid "_Abort"
 msgstr "_ביטול"
 
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:273
-msgid "Stop applying the series and return the repository to its original state"
+msgid ""
+"Stop applying the series and return the repository to its original state"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:279
-#, fuzzy
 #| msgid "_Remote branches"
 msgid "_Branches"
-msgstr "ענפים _מרוחקים"
+msgstr "ענ_פים"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:287
-#: ../plugins/git/plugin.c:507
-#, fuzzy
+#: ../plugins/git/plugin.c:287 ../plugins/git/plugin.c:507
 #| msgid "_Create branch..."
 msgid "_Create branch…"
 msgstr "_צור ענף..."
@@ -5678,7 +5528,6 @@ msgstr "_צור ענף..."
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:289
-#, fuzzy
 #| msgid "Create Branch"
 msgid "Create a branch"
 msgstr "צור ענף"
@@ -5686,7 +5535,6 @@ msgstr "צור ענף"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:295
-#, fuzzy
 #| msgid "_Delete branch..."
 msgid "_Delete branch…"
 msgstr "_מחק ענף..."
@@ -5694,10 +5542,9 @@ msgstr "_מחק ענף..."
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:297
-#, fuzzy
 #| msgid "Delete Branch"
 msgid "Delete branches"
-msgstr "מחק ענף"
+msgstr "מחק ענפים"
 
 #. Action name
 #. Stock icon, if any
@@ -5744,9 +5591,7 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:327
-#: ../plugins/git/plugin.c:447
-#, fuzzy
+#: ../plugins/git/plugin.c:327 ../plugins/git/plugin.c:447
 #| msgid "_Start..."
 msgid "_Start…"
 msgstr "ה_תחל..."
@@ -5793,15 +5638,15 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:359
-#: ../plugins/git/plugin.c:539
+#: ../plugins/git/plugin.c:359 ../plugins/git/plugin.c:539
 msgid "_Cherry pick…"
 msgstr ""
 
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:361
-msgid "Selectively merge individual changes from other branches into the current one"
+msgid ""
+"Selectively merge individual changes from other branches into the current one"
 msgstr ""
 
 #. Action name
@@ -5821,23 +5666,20 @@ msgstr "הוסף ענף מרוחק"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:383
-#, fuzzy
 #| msgid "Delete"
 msgid "_Delete…"
-msgstr "מחק"
+msgstr "מחק_..."
 
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:385
-#, fuzzy
 #| msgid "Delete Remote Branch"
 msgid "Delete a remote branch"
 msgstr "מחק ענף מרוחק"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:399
-#: ../plugins/git/plugin.c:515
+#: ../plugins/git/plugin.c:399 ../plugins/git/plugin.c:515
 #, fuzzy
 msgid "_Create tag…"
 msgstr "צור"
@@ -5875,8 +5717,7 @@ msgstr "_אפס"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:423
-#: ../plugins/git/plugin.c:523
+#: ../plugins/git/plugin.c:423 ../plugins/git/plugin.c:523
 #, fuzzy
 msgid "_Reset tree…"
 msgstr "_שחזר..."
@@ -5889,8 +5730,7 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/git/plugin.c:431
-#: ../plugins/git/plugin.c:531
+#: ../plugins/git/plugin.c:431 ../plugins/git/plugin.c:531
 #, fuzzy
 msgid "_Revert commit…"
 msgstr "_שחזר..."
@@ -6120,16 +5960,14 @@ msgstr ""
 msgid "Automatically add resources"
 msgstr ""
 
-#: ../plugins/glade/anjuta-glade.glade.h:7
-#: ../plugins/glade/plugin.c:763
+#: ../plugins/glade/anjuta-glade.glade.h:7 ../plugins/glade/plugin.c:763
 #: ../plugins/glade/plugin.c:3094
 #, fuzzy
 #| msgid "Debugger"
 msgid "Designer"
 msgstr "מנפה"
 
-#: ../plugins/glade/anjuta-glade.glade.h:8
-#: ../plugins/glade/plugin.c:3096
+#: ../plugins/glade/anjuta-glade.glade.h:8 ../plugins/glade/plugin.c:3096
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:3
 msgid "Editor"
 msgstr "עורך"
@@ -6208,10 +6046,9 @@ msgstr "נכשל בהפעלת תוסף: %s"
 
 #. iptCurrent:
 #: ../plugins/glade/plugin.c:1196
-#, fuzzy
 #| msgid "Current buffer"
 msgid "Current"
-msgstr "חוצץ נוכיע"
+msgstr "נוכחי"
 
 #. iptBeforeEnd:
 #: ../plugins/glade/plugin.c:1197
@@ -6256,16 +6093,14 @@ msgstr ""
 msgid "Unknown editor language \"%s\""
 msgstr "שגיאה לא ידועה במודול %s"
 
-#: ../plugins/glade/plugin.c:2047
-#: ../plugins/glade/plugin.c:2124
+#: ../plugins/glade/plugin.c:2047 ../plugins/glade/plugin.c:2124
 #: ../plugins/glade/plugin.c:2249
 #, fuzzy, c-format
 #| msgid "Error while reading from file"
 msgid "Error while adding a new handler stub: %s"
 msgstr "שגיאה בקריאה מהקובץ"
 
-#: ../plugins/glade/plugin.c:2054
-#: ../plugins/glade/plugin.c:2138
+#: ../plugins/glade/plugin.c:2054 ../plugins/glade/plugin.c:2138
 #, fuzzy
 #| msgid ""
 #| "Confirm the following information:\n"
@@ -6281,7 +6116,8 @@ msgstr ""
 
 #: ../plugins/glade/plugin.c:2254
 #, c-format
-msgid "To avoid this message turn off \"%s\" flag in Preferences->Glade GUI Designer"
+msgid ""
+"To avoid this message turn off \"%s\" flag in Preferences->Glade GUI Designer"
 msgstr ""
 
 #: ../plugins/glade/plugin.c:2324
@@ -6330,18 +6166,15 @@ msgstr "כל הפרוייקט"
 msgid "_Glade"
 msgstr "קובץ Glade"
 
-#: ../plugins/glade/plugin.c:4007
-#: ../plugins/glade/plugin.c:4009
+#: ../plugins/glade/plugin.c:4007 ../plugins/glade/plugin.c:4009
 msgid "Switch between designer/code"
 msgstr ""
 
-#: ../plugins/glade/plugin.c:4015
-#: ../plugins/glade/plugin.c:4017
+#: ../plugins/glade/plugin.c:4015 ../plugins/glade/plugin.c:4017
 msgid "Insert handler stub"
 msgstr ""
 
-#: ../plugins/glade/plugin.c:4023
-#: ../plugins/glade/plugin.c:4025
+#: ../plugins/glade/plugin.c:4023 ../plugins/glade/plugin.c:4025
 msgid "Insert handler stub, autoposition"
 msgstr ""
 
@@ -6353,8 +6186,7 @@ msgstr ""
 msgid "Associate last designer and editor"
 msgstr ""
 
-#: ../plugins/glade/plugin.c:4039
-#: ../plugins/glade/plugin.c:4041
+#: ../plugins/glade/plugin.c:4039 ../plugins/glade/plugin.c:4041
 msgid "Associations dialog…"
 msgstr ""
 
@@ -6368,8 +6200,7 @@ msgstr "מדפיס..."
 msgid "Switch between library versions and check deprecations"
 msgstr ""
 
-#: ../plugins/glade/plugin.c:4055
-#: ../plugins/glade/plugin.c:4057
+#: ../plugins/glade/plugin.c:4055 ../plugins/glade/plugin.c:4057
 msgid "Set as default resource target"
 msgstr ""
 
@@ -6380,13 +6211,11 @@ msgid "Current default target"
 msgstr "בחירה נוכחית"
 
 #: ../plugins/glade/plugin.c:4073
-#, fuzzy
 #| msgid "Close current file"
 msgid "Close the current file"
 msgstr "סגור את הקובץ הנוכחי"
 
 #: ../plugins/glade/plugin.c:4081
-#, fuzzy
 #| msgid "Save current file"
 msgid "Save the current file"
 msgstr "שמור את הקובץ הנוכחי"
@@ -6460,8 +6289,7 @@ msgstr "לא ניתן לפתוח את %s"
 msgid "Could not create a new glade project."
 msgstr "לא ניתן ליצור פרויקט glade חדש."
 
-#: ../plugins/glade/plugin.c:5029
-#: ../plugins/glade/plugin.c:5054
+#: ../plugins/glade/plugin.c:5029 ../plugins/glade/plugin.c:5054
 #, fuzzy
 #| msgid "Glade interface designer"
 msgid "Glade GUI Designer"
@@ -6492,27 +6320,22 @@ msgstr "הוסף פריט"
 msgid "Edit Item"
 msgstr "ערוך פריט"
 
-#: ../plugins/gtodo/add_edit_item.c:152
-#: ../plugins/gtodo/add_edit_item.c:153
+#: ../plugins/gtodo/add_edit_item.c:152 ../plugins/gtodo/add_edit_item.c:153
 #: ../plugins/gtodo/list_tooltip.c:42
 msgid "Summary:"
 msgstr "סיכום:"
 
 #. option menu label
-#: ../plugins/gtodo/add_edit_item.c:172
-#: ../plugins/macro/anjuta-macro.ui.h:1
+#: ../plugins/gtodo/add_edit_item.c:172 ../plugins/macro/anjuta-macro.ui.h:1
 msgid "Category:"
 msgstr "קטגוריות:"
 
-#: ../plugins/gtodo/add_edit_item.c:193
-#: ../plugins/gtodo/add_edit_item.c:472
-#: ../plugins/gtodo/mcategory.c:20
-#: ../plugins/gtodo/todo_db.c:76
+#: ../plugins/gtodo/add_edit_item.c:193 ../plugins/gtodo/add_edit_item.c:472
+#: ../plugins/gtodo/mcategory.c:20 ../plugins/gtodo/todo_db.c:76
 msgid "Edit Categories"
 msgstr "ערוך קטגוריות"
 
-#: ../plugins/gtodo/add_edit_item.c:205
-#: ../plugins/gtodo/list_tooltip.c:48
+#: ../plugins/gtodo/add_edit_item.c:205 ../plugins/gtodo/list_tooltip.c:48
 #: ../plugins/gtodo/list_tooltip.c:54
 msgid "Due date:"
 msgstr "תאריך יעד:"
@@ -6522,15 +6345,12 @@ msgid "Notify when due"
 msgstr ""
 
 #. label
-#: ../plugins/gtodo/add_edit_item.c:237
-#: ../plugins/gtodo/list_tooltip.c:64
-#: ../plugins/gtodo/list_tooltip.c:71
-#: ../plugins/gtodo/list_tooltip.c:77
+#: ../plugins/gtodo/add_edit_item.c:237 ../plugins/gtodo/list_tooltip.c:64
+#: ../plugins/gtodo/list_tooltip.c:71 ../plugins/gtodo/list_tooltip.c:77
 msgid "Priority:"
 msgstr "עדיפות:"
 
-#: ../plugins/gtodo/add_edit_item.c:258
-#: ../plugins/gtodo/add_edit_item.c:259
+#: ../plugins/gtodo/add_edit_item.c:258 ../plugins/gtodo/add_edit_item.c:259
 #: ../plugins/gtodo/list_tooltip.c:81
 msgid "Comment:"
 msgstr "הערה:"
@@ -6539,22 +6359,18 @@ msgstr "הערה:"
 msgid "Completed"
 msgstr "הסתיים"
 
-#: ../plugins/gtodo/add_edit_item.c:289
-#: ../plugins/gtodo/add_edit_item.c:335
+#: ../plugins/gtodo/add_edit_item.c:289 ../plugins/gtodo/add_edit_item.c:335
 #: ../plugins/gtodo/add_edit_item.c:448
 msgid "started:"
 msgstr ""
 
-#: ../plugins/gtodo/add_edit_item.c:289
-#: ../plugins/gtodo/add_edit_item.c:296
-#: ../plugins/gtodo/add_edit_item.c:332
-#: ../plugins/gtodo/add_edit_item.c:333
+#: ../plugins/gtodo/add_edit_item.c:289 ../plugins/gtodo/add_edit_item.c:296
+#: ../plugins/gtodo/add_edit_item.c:332 ../plugins/gtodo/add_edit_item.c:333
 #, c-format
 msgid "N/A"
 msgstr ""
 
-#: ../plugins/gtodo/add_edit_item.c:296
-#: ../plugins/gtodo/add_edit_item.c:339
+#: ../plugins/gtodo/add_edit_item.c:296 ../plugins/gtodo/add_edit_item.c:339
 #: ../plugins/gtodo/add_edit_item.c:448
 msgid "stopped:"
 msgstr "נעצר:"
@@ -6578,7 +6394,9 @@ msgstr "למחוק את כל נקודות העצירה?"
 #: ../plugins/gtodo/callback.c:99
 #, fuzzy, c-format
 #| msgid "Are you sure you want to delete all the breakpoints?"
-msgid "Are you sure you want to remove all the completed to-do items in the category \"%s\"?"
+msgid ""
+"Are you sure you want to remove all the completed to-do items in the "
+"category \"%s\"?"
 msgstr "למחוק את כל נקודות העצירה?"
 
 #: ../plugins/gtodo/export.c:47
@@ -6618,8 +6436,7 @@ msgstr ""
 msgid "Custom (CSS) style sheet"
 msgstr ""
 
-#: ../plugins/gtodo/interface.c:34
-#: ../src/anjuta-actions.h:38
+#: ../plugins/gtodo/interface.c:34 ../src/anjuta-actions.h:38
 msgid "_View"
 msgstr "_תצוגה"
 
@@ -6655,8 +6472,7 @@ msgstr "אין הרשאות לקריאת הקובץ"
 msgid "Failed to read file"
 msgstr "נכשל ביצירת/פתיחת הקובץ."
 
-#: ../plugins/gtodo/libgtodo.c:626
-#: ../plugins/gtodo/libgtodo.c:637
+#: ../plugins/gtodo/libgtodo.c:626 ../plugins/gtodo/libgtodo.c:637
 #, fuzzy, c-format
 #| msgid "Failed to parse xml structure"
 msgid "Failed to parse XML structure"
@@ -6690,18 +6506,15 @@ msgid "No filename supplied."
 msgstr "לא סופק שם קובץ."
 
 #. create a priority string
-#: ../plugins/gtodo/list_tooltip.c:65
-#: ../plugins/gtodo/todo_db.c:130
+#: ../plugins/gtodo/list_tooltip.c:65 ../plugins/gtodo/todo_db.c:130
 msgid "Low"
 msgstr "נמוכה"
 
-#: ../plugins/gtodo/list_tooltip.c:71
-#: ../plugins/gtodo/todo_db.c:131
+#: ../plugins/gtodo/list_tooltip.c:71 ../plugins/gtodo/todo_db.c:131
 msgid "Medium"
 msgstr "בינונית"
 
-#: ../plugins/gtodo/list_tooltip.c:77
-#: ../plugins/gtodo/todo_db.c:132
+#: ../plugins/gtodo/list_tooltip.c:77 ../plugins/gtodo/todo_db.c:132
 msgid "High"
 msgstr "גבוהה"
 
@@ -6719,19 +6532,19 @@ msgstr "מחק"
 msgid "<New category (%d)>"
 msgstr "<קטגוריה חדשה (%d)>"
 
-#: ../plugins/gtodo/notification.c:67
+#: ../plugins/gtodo/notification.c:68
 #, c-format
 msgid "The following item is due in %i minute:"
 msgid_plural "The following item is due in %i minutes:"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../plugins/gtodo/notification.c:76
+#: ../plugins/gtodo/notification.c:77
 msgid "The following item is due:"
 msgstr ""
 
 #. gtk_container_set_border_width(GTK_CONTAINER(hbox), 9);
-#: ../plugins/gtodo/notification.c:116
+#: ../plugins/gtodo/notification.c:118
 msgid "_Do not show again"
 msgstr "_אל תציג זאת שוב"
 
@@ -6766,13 +6579,11 @@ msgid "Hide items without an end date"
 msgstr ""
 
 #: ../plugins/gtodo/plugin.c:122
-#, fuzzy
 #| msgid "Tasks manager"
 msgid "Task manager"
 msgstr "מנהל המשימות"
 
 #: ../plugins/gtodo/plugin.c:128
-#, fuzzy
 #| msgid "Tasks manager view"
 msgid "Task manager view"
 msgstr "תצוגת מנהל המשימות"
@@ -6781,8 +6592,7 @@ msgstr "תצוגת מנהל המשימות"
 msgid "Tasks"
 msgstr "משימות"
 
-#: ../plugins/gtodo/plugin.c:342
-#: ../plugins/gtodo/plugin.c:351
+#: ../plugins/gtodo/plugin.c:342 ../plugins/gtodo/plugin.c:351
 #, fuzzy
 #| msgid "Project Manager"
 msgid "To-do Manager"
@@ -6814,15 +6624,13 @@ msgstr "הצג עמודת עדיפות"
 msgid "Tooltips in list"
 msgstr ""
 
-#: ../plugins/gtodo/preferences.c:117
-#: ../plugins/gtodo/preferences.c:119
+#: ../plugins/gtodo/preferences.c:117 ../plugins/gtodo/preferences.c:119
 msgid "Show in main window"
 msgstr "הצג בחלון הראשי"
 
-#: ../plugins/gtodo/preferences.c:130
-#: ../plugins/gtodo/preferences.c:132
+#: ../plugins/gtodo/preferences.c:130 ../plugins/gtodo/preferences.c:132
 msgid "Highlight"
-msgstr ""
+msgstr "הדגש"
 
 #. tb for highlighting due today
 #: ../plugins/gtodo/preferences.c:142
@@ -6862,15 +6670,13 @@ msgstr ""
 msgid "days."
 msgstr "ימים."
 
-#: ../plugins/gtodo/preferences.c:195
-#: ../plugins/gtodo/preferences.c:197
+#: ../plugins/gtodo/preferences.c:195 ../plugins/gtodo/preferences.c:197
 #, fuzzy
 #| msgid "Author"
 msgid "Auto-Purge"
 msgstr "יוצר"
 
-#: ../plugins/gtodo/preferences.c:209
-#: ../plugins/gtodo/preferences.c:211
+#: ../plugins/gtodo/preferences.c:209 ../plugins/gtodo/preferences.c:211
 msgid "Notification"
 msgstr "התרעה"
 
@@ -6898,20 +6704,18 @@ msgid "Edit&#x2026;"
 msgstr ""
 
 #: ../plugins/macro/anjuta-macro.ui.h:3
-#, fuzzy
 #| msgid "<b>Macro details:</b>"
 msgid "Macro details:"
-msgstr "<b>פרטי מקרו::</b>"
+msgstr "פרטי מקרו:"
 
 #: ../plugins/macro/anjuta-macro.ui.h:4
 msgid "Macro text:"
 msgstr ""
 
 #: ../plugins/macro/anjuta-macro.ui.h:5
-#, fuzzy
 #| msgid "Macros"
 msgid "Macros:"
-msgstr "מקרואים"
+msgstr "מקרואים:"
 
 #: ../plugins/macro/anjuta-macro.ui.h:7
 msgid "Shortcut:"
@@ -6941,15 +6745,15 @@ msgid ""
 "Shortcut:\t %c\n"
 msgstr ""
 
-#: ../plugins/macro/macro-dialog.c:276
+#: ../plugins/macro/macro-dialog.c:277
 msgid "Insert"
 msgstr "הכנס"
 
-#: ../plugins/macro/macro-dialog.c:279
+#: ../plugins/macro/macro-dialog.c:280
 msgid "Insert macro"
 msgstr "הכנס מקרו"
 
-#: ../plugins/macro/macro-edit.c:211
+#: ../plugins/macro/macro-edit.c:207
 msgid "Add/Edit macro"
 msgstr "הוסף/ערוך מקרו"
 
@@ -6968,7 +6772,6 @@ msgid "Macros"
 msgstr "מקרואים"
 
 #: ../plugins/macro/plugin.c:42
-#, fuzzy
 #| msgid "_Insert Macro..."
 msgid "_Insert Macro…"
 msgstr "ה_כנס מקרו..."
@@ -6978,7 +6781,6 @@ msgid "Insert a macro using a shortcut"
 msgstr ""
 
 #: ../plugins/macro/plugin.c:49
-#, fuzzy
 #| msgid "_Add Macro..."
 msgid "_Add Macro…"
 msgstr "_הוסף מקרו..."
@@ -6988,10 +6790,9 @@ msgid "Add a macro"
 msgstr "הוסף מקרו"
 
 #: ../plugins/macro/plugin.c:56
-#, fuzzy
 #| msgid "Macros"
 msgid "Macros…"
-msgstr "מקרואים"
+msgstr "מקרואים..."
 
 #: ../plugins/macro/plugin.c:58
 msgid "Add/Edit/Remove macros"
@@ -7021,16 +6822,14 @@ msgid "Indicators"
 msgstr "עורך"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:8
-#, fuzzy
 #| msgid "<b>Message colors</b>"
 msgid "Message colors"
-msgstr "<b>צבעי הודעה</b>"
+msgstr "צבעי הודעה"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:9
-#, fuzzy
 #| msgid "<b>Messages options</b>"
 msgid "Messages options"
-msgstr "<b>אפשרויות הודעות</b>"
+msgstr "אפשרויות הודעות"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:10
 msgid "Normal message indicator style:"
@@ -7088,48 +6887,46 @@ msgstr "אזהרות:"
 msgid "Close all message tabs"
 msgstr "סגור את כל הלשוניות הודעה"
 
-#: ../plugins/message-view/message-view.c:490
+#: ../plugins/message-view/message-view.c:491
 msgid "No Messages"
 msgstr "אין הודעות"
 
-#: ../plugins/message-view/message-view.c:499
+#: ../plugins/message-view/message-view.c:500
 #, fuzzy
 msgid "No Infos"
 msgstr "_מידע"
 
-#: ../plugins/message-view/message-view.c:511
+#: ../plugins/message-view/message-view.c:512
 msgid "No Warnings"
 msgstr "אין אזהרות"
 
-#: ../plugins/message-view/message-view.c:524
+#: ../plugins/message-view/message-view.c:525
 msgid "No Errors"
 msgstr "אין שגיאות"
 
-#: ../plugins/message-view/message-view.c:569
+#: ../plugins/message-view/message-view.c:570
 msgid "Icon"
 msgstr "איקון"
 
-#: ../plugins/message-view/message-view.c:583
-#: ../plugins/message-view/plugin.c:324
-#: ../plugins/message-view/plugin.c:333
-#: ../plugins/message-view/plugin.c:453
-#: ../plugins/message-view/plugin.c:465
+#: ../plugins/message-view/message-view.c:584
+#: ../plugins/message-view/plugin.c:324 ../plugins/message-view/plugin.c:333
+#: ../plugins/message-view/plugin.c:453 ../plugins/message-view/plugin.c:465
 msgid "Messages"
 msgstr "הודעות"
 
-#: ../plugins/message-view/message-view.c:942
+#: ../plugins/message-view/message-view.c:943
 #, c-format
 msgid "Error writing %s"
 msgstr "שגיאה בכתיבת %s"
 
-#: ../plugins/message-view/message-view.c:1099
+#: ../plugins/message-view/message-view.c:1100
 #, c-format
 msgid "%d Message"
 msgid_plural "%d Messages"
 msgstr[0] "הודעה אחת"
 msgstr[1] "%d הודעות"
 
-#: ../plugins/message-view/message-view.c:1105
+#: ../plugins/message-view/message-view.c:1106
 #, fuzzy, c-format
 msgid "%d Info"
 msgid_plural "%d Infos"
@@ -7137,14 +6934,14 @@ msgstr[0] "_מידע"
 msgstr[1] "_מידע"
 
 # c-format
-#: ../plugins/message-view/message-view.c:1110
+#: ../plugins/message-view/message-view.c:1111
 #, c-format
 msgid "%d Warning"
 msgid_plural "%d Warnings"
 msgstr[0] "אזהרה אחת"
 msgstr[1] "%d אזהרות"
 
-#: ../plugins/message-view/message-view.c:1115
+#: ../plugins/message-view/message-view.c:1116
 #, c-format
 msgid "%d Error"
 msgid_plural "%d Errors"
@@ -7195,8 +6992,7 @@ msgstr "קובץ/ספרייה להטלות"
 msgid "Patch file"
 msgstr "קובץ טלאי"
 
-#: ../plugins/patch/patch-plugin.c:166
-#: ../plugins/patch/patch-plugin.ui.h:3
+#: ../plugins/patch/patch-plugin.c:166 ../plugins/patch/patch-plugin.ui.h:3
 msgid "Patch"
 msgstr "טלאי"
 
@@ -7258,8 +7054,7 @@ msgstr "רמת טלאי:"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/patch/plugin.c:53
-#: ../plugins/tools/plugin.c:130
+#: ../plugins/patch/plugin.c:53 ../plugins/tools/plugin.c:130
 msgid "_Tools"
 msgstr "_כלים"
 
@@ -7276,7 +7071,9 @@ msgid "Patch files/directories"
 msgstr ""
 
 #: ../plugins/project-import/plugin.c:66
-msgid "Generation of project file failed. Cannot find an appropriate project template to use. Please make sure your version of Anjuta is up-to-date."
+msgid ""
+"Generation of project file failed. Cannot find an appropriate project "
+"template to use. Please make sure your version of Anjuta is up-to-date."
 msgstr ""
 
 #: ../plugins/project-import/plugin.c:86
@@ -7286,18 +7083,23 @@ msgstr "קובץ בשם \"%s\" כבר קיים. ברצונך להחליפו?"
 
 #: ../plugins/project-import/plugin.c:134
 #, c-format
-msgid "A file named \"%s\" cannot be written: %s. Check if you have write access to the project directory."
+msgid ""
+"A file named \"%s\" cannot be written: %s. Check if you have write access to "
+"the project directory."
 msgstr ""
 
 #: ../plugins/project-import/plugin.c:204
 #, c-format
-msgid "Could not find a valid project backend for the given directory (%s). Please select a different directory, or try upgrading to a newer version of Anjuta."
+msgid ""
+"Could not find a valid project backend for the given directory (%s). Please "
+"select a different directory, or try upgrading to a newer version of Anjuta."
 msgstr ""
 
 #: ../plugins/project-import/plugin.c:274
 #: ../plugins/project-import/plugin.c:330
 #, c-format
-msgid "Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
+msgid ""
+"Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
 msgstr ""
 
 #: ../plugins/project-import/project-import.ui.h:1
@@ -7317,24 +7119,20 @@ msgid "Import from version control system"
 msgstr ""
 
 #: ../plugins/project-import/project-import.ui.h:4
-#| msgid "Project options"
 msgid "Import options"
 msgstr "אפשרויות יבוא"
 
 #: ../plugins/project-import/project-import.ui.h:5
-#, fuzzy
 #| msgid "_Location:"
 msgid "Location:"
-msgstr "_מיקום:"
+msgstr "מיקום:"
 
 #: ../plugins/project-import/project-import.ui.h:6
-#, fuzzy
 #| msgid "Project name:"
 msgid "Project name"
 msgstr "שם פרוייקט:"
 
 #: ../plugins/project-import/project-import-dialog.c:292
-#, fuzzy
 #| msgid "Import Project"
 msgid "Import project"
 msgstr "יבא פרוייקט"
@@ -7419,7 +7217,6 @@ msgstr "לא נטען פרויקט"
 
 #: ../plugins/project-manager/gbf-project-util.c:236
 #: ../plugins/project-manager/gbf-project-util.c:244
-#, fuzzy
 #| msgid "Can not add group"
 msgid "Cannot add group"
 msgstr "לא ניתן להוסיף קבוצה"
@@ -7430,7 +7227,6 @@ msgstr ""
 
 #: ../plugins/project-manager/gbf-project-util.c:417
 #: ../plugins/project-manager/gbf-project-util.c:426
-#, fuzzy
 #| msgid "Can not add target"
 msgid "Cannot add target"
 msgstr "לא ניתן להוסיף מטרה"
@@ -7440,7 +7236,6 @@ msgid "No group selected"
 msgstr "לא נבחרה קבוצה"
 
 #: ../plugins/project-manager/gbf-project-util.c:532
-#, fuzzy
 #| msgid "Select sources..."
 msgid "Select sources…"
 msgstr "בחר מקורות..."
@@ -7587,10 +7382,9 @@ msgid "Refresh project manager tree"
 msgstr "רענן את עץ מנהל הקבצים"
 
 #: ../plugins/project-manager/plugin.c:836
-#, fuzzy
 #| msgid "Add _Group"
 msgid "Add _Group…"
-msgstr "הוסף _קבוצה"
+msgstr "הוסף _קבוצה..."
 
 #: ../plugins/project-manager/plugin.c:836
 #: ../plugins/project-manager/plugin.c:870
@@ -7598,10 +7392,9 @@ msgid "Add a group to project"
 msgstr "הוסף קבוצה לפרויקט"
 
 #: ../plugins/project-manager/plugin.c:841
-#, fuzzy
 #| msgid "Add _Target"
 msgid "Add _Target…"
-msgstr "הוסף _מטרה"
+msgstr "הוסף _מטרה..."
 
 #: ../plugins/project-manager/plugin.c:841
 #: ../plugins/project-manager/plugin.c:875
@@ -7609,10 +7402,9 @@ msgid "Add a target to project"
 msgstr "הוסף מטרה לפרויקט"
 
 #: ../plugins/project-manager/plugin.c:846
-#, fuzzy
 #| msgid "Add _Source File"
 msgid "Add _Source File…"
-msgstr "הוסף קובץ _מקור"
+msgstr "הוסף קובץ _מקור..."
 
 #: ../plugins/project-manager/plugin.c:846
 #: ../plugins/project-manager/plugin.c:865
@@ -7633,10 +7425,9 @@ msgid "Properties of group/target/source"
 msgstr "מאפייני קבוצה/מטרה/מקור"
 
 #: ../plugins/project-manager/plugin.c:865
-#, fuzzy
 #| msgid "Add to Project"
 msgid "_Add to Project"
-msgstr "הוסף לפרוייקט"
+msgstr "הוסף ל_פרוייקט"
 
 #: ../plugins/project-manager/plugin.c:870
 msgid "Add _Group"
@@ -7671,7 +7462,9 @@ msgstr "_נקה פרוייקט"
 
 #: ../plugins/project-manager/plugin.c:1280
 #, c-format
-msgid "Failed to parse project (the project is opened, but there will be no project view) %s: %s\n"
+msgid ""
+"Failed to parse project (the project is opened, but there will be no project "
+"view) %s: %s\n"
 msgstr ""
 
 #: ../plugins/project-manager/plugin.c:1472
@@ -7688,7 +7481,6 @@ msgid "Project manager popup actions"
 msgstr "Project manager popup actions"
 
 #: ../plugins/project-manager/plugin.c:2641
-#, fuzzy
 #| msgid "Initializing Project..."
 msgid "Initializing Project…"
 msgstr "מאתחל פרוייקט..."
@@ -7700,18 +7492,16 @@ msgid "Project Loaded"
 msgstr "שם פרוייקט:"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.ui.h:1
-#, fuzzy
 #| msgid "<b>Details</b>"
 msgid "Details"
-msgstr "<b>פרטים</b>"
+msgstr "פרטים"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.ui.h:2
 #: ../plugins/project-wizard/druid.c:147
 msgid "Error"
 msgstr "שגיאה"
 
-#: ../plugins/project-wizard/druid.c:139
-#: ../plugins/project-wizard/druid.c:143
+#: ../plugins/project-wizard/druid.c:139 ../plugins/project-wizard/druid.c:143
 msgid "Warning"
 msgstr "אזהרה"
 
@@ -7738,12 +7528,12 @@ msgstr ""
 msgid "Project Type: %s\n"
 msgstr "סוג פרויקט: %s‏\n"
 
-#: ../plugins/project-wizard/druid.c:374
+#: ../plugins/project-wizard/druid.c:377
 #, c-format
 msgid "Unable to find any project template in %s"
 msgstr ""
 
-#: ../plugins/project-wizard/druid.c:575
+#: ../plugins/project-wizard/druid.c:578
 #, fuzzy, c-format
 #| msgid "Field \"%s\" is mandatory. Please enter it."
 msgid ""
@@ -7751,61 +7541,76 @@ msgid ""
 "Field \"%s\" is mandatory. Please enter it."
 msgstr "השדה \"%s\" הוא שדה חובה. נא למלא אותו."
 
-#: ../plugins/project-wizard/druid.c:590
+#: ../plugins/project-wizard/druid.c:593
 #, c-format
-msgid "Field \"%s\" must start with a letter, a digit or an underscore and contain only letters, digits, underscore, minus and dot. Please fix it."
+msgid ""
+"Field \"%s\" must start with a letter, a digit or an underscore and contain "
+"only letters, digits, underscore, minus and dot. Please fix it."
 msgstr ""
 
-#: ../plugins/project-wizard/druid.c:595
+#: ../plugins/project-wizard/druid.c:598
 #, c-format
 msgid "Unknown error."
 msgstr "שגיאה לא ידועה"
 
-#: ../plugins/project-wizard/druid.c:622
+#: ../plugins/project-wizard/druid.c:625
 #, c-format
-msgid "Directory \"%s\" is not empty. Project creation could fail if some files cannot be written. Do you want to continue?"
-msgstr "הספרייה \"‎%s‏\" ‏אינה ריקה. יצירת הפרויקט עלולה להיכשל אם לא ניתן יהיה לכתוב לחלק מהקבצים. להמשיך?"
+msgid ""
+"Directory \"%s\" is not empty. Project creation could fail if some files "
+"cannot be written. Do you want to continue?"
+msgstr ""
+"הספרייה \"‎%s‏\" ‏אינה ריקה. יצירת הפרויקט עלולה להיכשל אם לא ניתן יהיה לכתוב "
+"לחלק מהקבצים. להמשיך?"
 
-#: ../plugins/project-wizard/druid.c:624
+#: ../plugins/project-wizard/druid.c:627
 #, c-format
 msgid "File \"%s\" already exists. Do you want to overwrite it?"
 msgstr "הקובץ \"%s\" כבר קיים. האם ברצונך להחליפו?"
 
-#: ../plugins/project-wizard/druid.c:655
+#: ../plugins/project-wizard/druid.c:658
 msgid "Invalid entry"
 msgstr ""
 
-#: ../plugins/project-wizard/druid.c:666
+#: ../plugins/project-wizard/druid.c:669
 msgid "Dubious entry"
 msgstr ""
 
-#: ../plugins/project-wizard/druid.c:776
+#: ../plugins/project-wizard/druid.c:779
 #, fuzzy, c-format
 msgid ""
 "\n"
 "Missing programs: %s."
 msgstr "חסר: %s"
 
-#: ../plugins/project-wizard/druid.c:787
+#: ../plugins/project-wizard/druid.c:790
 #, fuzzy, c-format
 msgid ""
 "\n"
 "Missing packages: %s."
 msgstr "סורק חבילה: %s"
 
-#: ../plugins/project-wizard/druid.c:795
-msgid "Some important programs or development packages required to build this project are missing. Please make sure they are installed properly before generating the project.\n"
+#: ../plugins/project-wizard/druid.c:798
+msgid ""
+"Some important programs or development packages required to build this "
+"project are missing. Please make sure they are installed properly before "
+"generating the project.\n"
 msgstr ""
 
-#: ../plugins/project-wizard/druid.c:801
-msgid "The missing programs are usually part of some distrubution packages and can be searched for in your Application Manager. Similarly, the development packages are contained in special packages that your distribution provides to allow development of projects based on them. They usually end with a \"-dev\" or \"-devel\" suffix in package names and can be found by searching in your Application Manager."
+#: ../plugins/project-wizard/druid.c:804
+msgid ""
+"The missing programs are usually part of some distrubution packages and can "
+"be searched for in your Application Manager. Similarly, the development "
+"packages are contained in special packages that your distribution provides "
+"to allow development of projects based on them. They usually end with a \"-"
+"dev\" or \"-devel\" suffix in package names and can be found by searching in "
+"your Application Manager."
 msgstr ""
 
-#: ../plugins/project-wizard/druid.c:809
+#: ../plugins/project-wizard/druid.c:812
 msgid "Missing components"
 msgstr "חסרים רכיבים"
 
-#: ../plugins/project-wizard/druid.c:941
+#: ../plugins/project-wizard/druid.c:944
 #, fuzzy, c-format
 #| msgid "Unable to build project assistant user interface."
 msgid "Unable to build project assistant user interface reading %s."
@@ -7866,21 +7671,17 @@ msgstr "בחר ספרייה"
 msgid "Select file"
 msgstr "בחר קובץ"
 
-#: ../plugins/project-wizard/property.c:359
-#: ../plugins/tools/editor.c:522
-#, fuzzy
+#: ../plugins/project-wizard/property.c:359 ../plugins/tools/editor.c:522
 #| msgid "Select package"
 msgid "Select an Image File"
-msgstr "בחר חבילה"
+msgstr "בחר קובץ תמונה"
 
 #: ../plugins/project-wizard/property.c:384
-#: ../plugins/project-wizard/property.c:474
-#: ../plugins/tools/editor.c:556
+#: ../plugins/project-wizard/property.c:474 ../plugins/tools/editor.c:556
 #: ../plugins/tools/editor.c:703
-#, fuzzy
 #| msgid "Choose directory"
 msgid "Choose Icon"
-msgstr "בחר ספרייה"
+msgstr "בחר איקון"
 
 #: ../plugins/project-wizard/property.c:444
 msgid "Choose directory"
@@ -7925,7 +7726,8 @@ msgid "A generic minimal and flat project"
 msgstr "פרוייקט Xlib כללי"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:9
-msgid "A generic natively compiled Java project using the GNU Java Compiler (gcj)"
+msgid ""
+"A generic natively compiled Java project using the GNU Java Compiler (gcj)"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:10
@@ -7971,7 +7773,9 @@ msgid "Adds support for building shared libraries in your project"
 msgstr "הוסף לפרויקט תמיכה בבניית ספריות משותפות"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:20
-msgid "Adds support for internationalization so that your project can have translations in different languages"
+msgid ""
+"Adds support for internationalization so that your project can have "
+"translations in different languages"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:21
@@ -7995,7 +7799,9 @@ msgid "Berkeley Software Distribution License (BSD)"
 msgstr "רישיון הפצת תוכנה של Berkeley‏ (BSD)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:27
-msgid "Comma-separated, other plugins that this plugin depends on. It could be either primary interface name or plugin location (library:class)"
+msgid ""
+"Comma-separated, other plugins that this plugin depends on. It could be "
+"either primary interface name or plugin location (library:class)"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:28
@@ -8096,7 +7902,10 @@ msgid "Generic Python (automake)"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:54
-msgid "Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 >= 2.2.0'"
+msgid ""
+"Give a package name that your project require. You may also mention what is "
+"the required version of the package. For example, 'libgnomeui-2.0' or "
+"'libgnomeui-2.0 >= 2.2.0'"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:55
@@ -8200,7 +8009,9 @@ msgid "Project directory:"
 msgstr "ספריית פרויקט:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:80
-msgid "Project name must not contain spaces, because it will be the name of the project build target (executable, library, etc.)"
+msgid ""
+"Project name must not contain spaces, because it will be the name of the "
+"project build target (executable, library, etc.)"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:81
@@ -8292,10 +8103,9 @@ msgid "Whether the plugin has menus or toolbars"
 msgstr "האם יש לתוסף תפריטים או סרגלים"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:104
-#, fuzzy
 #| msgid "Vietnamese"
 msgid "wxWidgets"
-msgstr "ויאטנמית"
+msgstr "wxWidgets"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:105
 msgid "Xlib"
@@ -8348,7 +8158,7 @@ msgstr "ספריית התוכנית '%s' אינה מקומית"
 msgid "Load Target to run"
 msgstr ""
 
-#: ../plugins/run-program/parameters.c:616
+#: ../plugins/run-program/parameters.c:617
 #, c-format
 msgid "Missing file %s"
 msgstr "הקובץ %s חסר"
@@ -8398,10 +8208,9 @@ msgid "Run operations"
 msgstr "פעולות הרצה"
 
 #: ../plugins/search/anjuta-search.ui.h:1
-#, fuzzy
 #| msgid "Action"
 msgid "Actions"
-msgstr "פעולה"
+msgstr "פעולות"
 
 #: ../plugins/search/anjuta-search.ui.h:2
 #: ../plugins/search/search-replace.c:92
@@ -8543,17 +8352,15 @@ msgstr "מטרת חיפוש"
 
 #. User can select variables that contain lists of files, so this is a combined noun
 #: ../plugins/search/anjuta-search.ui.h:40
-#, fuzzy
 #| msgid "<b>Search variable</b>"
 msgid "Search variable"
-msgstr "<b>משתני חיפוש</b>"
+msgstr "משתני חיפוש"
 
 #: ../plugins/search/anjuta-search.ui.h:41
 msgid "Setting"
 msgstr "הגדרות"
 
 #: ../plugins/search/plugin.c:68
-#, fuzzy
 #| msgid "_Find..."
 msgid "_Find…"
 msgstr "_חפש..."
@@ -8566,8 +8373,7 @@ msgstr ""
 msgid "Find _Next"
 msgstr "חפש את ה_בא"
 
-#: ../plugins/search/plugin.c:72
-#: ../plugins/search/plugin.c:76
+#: ../plugins/search/plugin.c:72 ../plugins/search/plugin.c:76
 msgid "Repeat the last Find command"
 msgstr ""
 
@@ -8576,22 +8382,20 @@ msgid "Find _Previous"
 msgstr "חפש את ה_קודם"
 
 #: ../plugins/search/plugin.c:78
-#, fuzzy
 #| msgid "Find and R_eplace..."
 msgid "Find and R_eplace…"
 msgstr "חפש וה_חלף..."
 
 #: ../plugins/search/plugin.c:80
-msgid "Search for and replace a string or regular expression with another string"
+msgid ""
+"Search for and replace a string or regular expression with another string"
 msgstr ""
 
-#: ../plugins/search/plugin.c:82
-#: ../plugins/search/plugin.c:83
+#: ../plugins/search/plugin.c:82 ../plugins/search/plugin.c:83
 msgid "Search and Replace"
 msgstr "חפש והחלף"
 
 #: ../plugins/search/plugin.c:85
-#, fuzzy
 #| msgid "Fin_d in Files..."
 msgid "Fin_d in Files…"
 msgstr "חפש ב_קבצים..."
@@ -8601,7 +8405,6 @@ msgid "Search for a string in multiple files or directories"
 msgstr ""
 
 #: ../plugins/search/plugin.c:102
-#| msgid "Searching"
 msgid "Searching…"
 msgstr "מחפש..."
 
@@ -8707,7 +8510,7 @@ msgstr[1] ""
 msgid "Unable to build user interface for Search and Replace"
 msgstr "לא ניתן לבנות מנשק משתמש עבור הקובץ החדש"
 
-#: ../plugins/sourceview/sourceview.c:364
+#: ../plugins/sourceview/sourceview.c:366
 #, fuzzy, c-format
 #| msgid "A file named \"%s\" already exists. Do you want to replace it?"
 msgid ""
@@ -8715,7 +8518,7 @@ msgid ""
 "Do you want to reload it?"
 msgstr "קובץ בשם \"%s\" כבר קיים. ברצונך להחליפו?"
 
-#: ../plugins/sourceview/sourceview.c:401
+#: ../plugins/sourceview/sourceview.c:403
 #, fuzzy, c-format
 #| msgid "A file named \"%s\" already exists. Do you want to replace it?"
 msgid ""
@@ -8724,28 +8527,28 @@ msgid ""
 msgstr "קובץ בשם \"%s\" כבר קיים. ברצונך להחליפו?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:438
+#: ../plugins/sourceview/sourceview.c:440
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "לא ניתן לפתוח את %s: ‏%s"
 
-#: ../plugins/sourceview/sourceview.c:492
+#: ../plugins/sourceview/sourceview.c:494
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr ""
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:551
+#: ../plugins/sourceview/sourceview.c:553
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "לא ניתן לשמור את הקובץ %s:‏ %s"
 
-#: ../plugins/sourceview/sourceview-io.c:274
+#: ../plugins/sourceview/sourceview-io.c:273
 #, c-format
 msgid "Could not save file because filename not yet specified"
 msgstr ""
 
-#: ../plugins/sourceview/sourceview-io.c:504
+#: ../plugins/sourceview/sourceview-io.c:503
 #, c-format
 msgid "New file %d"
 msgstr "קובץ חדש %d"
@@ -8755,136 +8558,137 @@ msgid "Preparing pages for printing"
 msgstr "מכין דפים להדפסה"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:1
-#, fuzzy
 #| msgid "<b>Color scheme:</b>"
 msgid "Color scheme:"
-msgstr "<b>סכימת צבעים:</b>"
+msgstr "סכימת צבעים:"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:2
 msgid "Create backup files"
 msgstr "צור קבצי גיבוי"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:4
+#, fuzzy
+#| msgid "Enable code completion"
+msgid "Enable autocompletion"
+msgstr "אפשר השלמת קוד"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:5
 msgid "Font"
 msgstr "גופן"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:5
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:6
 msgid "Font:"
 msgstr "גופן:"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:6
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:7
 msgid "Highlight current line"
 msgstr "הדגש את השורה הנוכחית"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:7
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:8
 msgid "Highlight matching brackets"
 msgstr "הדגש סוגריים מתאימים"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:8
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:9
 msgid "Highlight syntax"
 msgstr "הדגש תחביר"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:9
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:10
 #, fuzzy
 #| msgid "<b>Indentation and auto-format options</b>"
 msgid "Indentation and auto-format options"
 msgstr "<b>אפשרויות הזחה ותצורות אוטומטיות</b>"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:11
-#, fuzzy
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:12
 #| msgid "Print Linenumbers"
 msgid "Print line numbers"
 msgstr "הדפס מספרי שורות"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:12
-#, fuzzy
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:13
 #| msgid "<b>Print options</b>"
 msgid "Print options"
-msgstr "<b>אפשרויות הדפסה</b>"
+msgstr "אפשרויות הדפסה"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:13
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:14
 msgid "Print page footer"
 msgstr ""
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:14
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:15
 msgid "Print page header"
 msgstr ""
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:15
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:16
 msgid "Printing"
 msgstr "מדפיס"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:16
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:17
 msgid "Right margin position in characters"
 msgstr ""
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:17
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:18
 msgid "Show line numbers"
 msgstr "הצג מספרי שורות"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:18
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:19
 msgid "Show marks"
 msgstr ""
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:19
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:20
 msgid "Show right margin"
 msgstr "הצג שול ימני"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:20
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:21
 msgid "Tab size in spaces:"
 msgstr "רוחב טאב ברווחים:"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:21
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:22
 msgid "Use tabs for indentation"
 msgstr "השתמש בלשוניות להזחה"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:22
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:23
 msgid "Use theme font"
 msgstr "השתמש בגופן המערכת"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:23
-#: ../src/anjuta-app.c:493
-#: ../src/anjuta-app.c:498
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:24
+#: ../src/anjuta-app.c:493 ../src/anjuta-app.c:498
 msgid "View"
 msgstr "תצוגה"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:24
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:25
 msgid "Wrap long lines to fit on paper"
 msgstr ""
 
-#: ../plugins/starter/plugin.c:50
-#: ../plugins/starter/starter.c:344
+#: ../plugins/starter/plugin.c:50 ../plugins/starter/starter.c:349
 #: ../plugins/starter/anjuta-starter.plugin.in.h:1
 #, fuzzy
 #| msgid "Started"
 msgid "Starter"
 msgstr "התחיל"
 
-#: ../plugins/starter/starter.c:385
+#: ../plugins/starter/starter.c:390
 #, fuzzy
 #| msgid "_Clean Project"
 msgid "Create File/Project"
 msgstr "_נקה פרוייקט"
 
-#: ../plugins/starter/starter.c:419
+#: ../plugins/starter/starter.c:424
 msgid "Recent Projects"
 msgstr "פרויקטים אחרונים"
 
-#: ../plugins/starter/starter.c:450
+#: ../plugins/starter/starter.c:455
 #, fuzzy
 #| msgid "Lines"
 msgid "Links"
 msgstr "שורות"
 
-#: ../plugins/starter/starter.c:469
+#: ../plugins/starter/starter.c:474
 msgid "Anjuta Home Page"
 msgstr "אתר הבית של Anjuta"
 
-#: ../plugins/starter/starter.c:475
+#: ../plugins/starter/starter.c:480
 msgid "Anjuta Manual"
 msgstr "מדריך Anjuta"
 
-#: ../plugins/starter/starter.c:481
+#: ../plugins/starter/starter.c:486
 #, fuzzy
 #| msgid "Documents"
 msgid "GNOME Online API Documentation"
@@ -8932,10 +8736,9 @@ msgid "File/URL to Remove:"
 msgstr "<b>קובץ/כתובת להסרה:</b>"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:18
-#, fuzzy
 #| msgid "<b>First Path:</b>"
 msgid "First Path:"
-msgstr "<b>נתיב ראשון:</b>"
+msgstr "נתיב ראשון:"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:20
 msgid "Ignore ancestry"
@@ -8996,10 +8799,9 @@ msgid "Save open files before diffing"
 msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:40
-#, fuzzy
 #| msgid "<b>Second Path:</b>"
 msgid "Second Path:"
-msgstr "<b>נתיב שני:</b>"
+msgstr "נתיב שני:"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:41
 #, fuzzy
@@ -9023,10 +8825,9 @@ msgid "Start Revision:"
 msgstr "גירסה:"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:48
-#, fuzzy
 #| msgid "Subversion operations"
 msgid "Subversion Options"
-msgstr "פעולות Subversion"
+msgstr "אפשרויות Subversion"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:49
 msgid "Subversion Preferences"
@@ -9082,22 +8883,19 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:52
-#: ../plugins/subversion/plugin.c:151
+#: ../plugins/subversion/plugin.c:52 ../plugins/subversion/plugin.c:151
 msgid "_Subversion"
 msgstr "_Subversion"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:62
-#: ../plugins/subversion/plugin.c:177
+#: ../plugins/subversion/plugin.c:62 ../plugins/subversion/plugin.c:177
 msgid "Add a new file/directory to the Subversion tree"
 msgstr "הוסף קובץ/ספרייה חדשים לעץ ה־Subversion"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:70
-#: ../plugins/subversion/plugin.c:185
+#: ../plugins/subversion/plugin.c:70 ../plugins/subversion/plugin.c:185
 msgid "Remove a file/directory from Subversion tree"
 msgstr "הסר קובץ/ספרייה מעץ Subversion"
 
@@ -9109,8 +8907,7 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:84
-#: ../plugins/subversion/plugin.c:167
+#: ../plugins/subversion/plugin.c:84 ../plugins/subversion/plugin.c:167
 #, fuzzy
 #| msgid "_Revert..."
 msgid "_Revert…"
@@ -9118,8 +8915,7 @@ msgstr "_שחזר..."
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:86
-#: ../plugins/subversion/plugin.c:169
+#: ../plugins/subversion/plugin.c:86 ../plugins/subversion/plugin.c:169
 msgid "Revert changes to your working copy."
 msgstr ""
 
@@ -9137,17 +8933,14 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:100
-#: ../plugins/subversion/plugin.c:159
-#, fuzzy
+#: ../plugins/subversion/plugin.c:100 ../plugins/subversion/plugin.c:159
 #| msgid "_Update"
 msgid "_Update…"
-msgstr "_עדכן"
+msgstr "_עדכן..."
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:102
-#: ../plugins/subversion/plugin.c:161
+#: ../plugins/subversion/plugin.c:102 ../plugins/subversion/plugin.c:161
 #, fuzzy
 #| msgid "Sync your local copy with the Subversion tree"
 msgid "Syncronize your local copy with the Subversion tree"
@@ -9156,15 +8949,13 @@ msgstr "סנכרן את העותק המקומי עם עץ ה-Subversion"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:108
-#, fuzzy
 #| msgid "Copy Files/Folders..."
 msgid "Copy Files/Folders…"
 msgstr "העתק קבצים/תיקיות..."
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:110
-#: ../plugins/subversion/plugin.c:201
+#: ../plugins/subversion/plugin.c:110 ../plugins/subversion/plugin.c:201
 msgid "Copy files/folders in the repository"
 msgstr "העתק קבצים/תיקיות במאגר"
 
@@ -9198,17 +8989,14 @@ msgstr "מזג שינויים אל עותק העבודה"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:132
-#: ../plugins/subversion/plugin.c:191
-#, fuzzy
+#: ../plugins/subversion/plugin.c:132 ../plugins/subversion/plugin.c:191
 #| msgid "View Log"
 msgid "_View Log…"
-msgstr "הצג יומן"
+msgstr "הצג _יומן..."
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:134
-#: ../plugins/subversion/plugin.c:193
+#: ../plugins/subversion/plugin.c:134 ../plugins/subversion/plugin.c:193
 msgid "View file history"
 msgstr "הצג את הסטורית הקובץ"
 
@@ -9220,18 +9008,16 @@ msgstr ""
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:142
-#: ../plugins/subversion/plugin.c:209
+#: ../plugins/subversion/plugin.c:142 ../plugins/subversion/plugin.c:209
 msgid "Diff local tree with repository"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:199
-#, fuzzy
 #| msgid "_Copy"
 msgid "Copy…"
-msgstr "הע_תק"
+msgstr "העתק..."
 
 #. Action name
 #. Stock icon, if any
@@ -9512,8 +9298,7 @@ msgstr ""
 msgid "Populating symbol database…"
 msgstr ""
 
-#: ../plugins/symbol-db/plugin.c:2352
-#: ../plugins/symbol-db/plugin.c:2480
+#: ../plugins/symbol-db/plugin.c:2352 ../plugins/symbol-db/plugin.c:2480
 msgid "Symbols"
 msgstr "סמלים"
 
@@ -9553,10 +9338,9 @@ msgid "Symbol"
 msgstr "סמל"
 
 #: ../plugins/symbol-db/symbol-db-view.c:799
-#, fuzzy
 #| msgid "Loading"
 msgid "Loading…"
-msgstr "טוען"
+msgstr "טוען..."
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:1
 msgid "Automatically scan project's packages"
@@ -9567,7 +9351,9 @@ msgid "Automatically update symbols without saving file"
 msgstr ""
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:3
-msgid "Automatically update the file's symbols without saving. The update occurs after 10 seconds without keypresses by the user."
+msgid ""
+"Automatically update the file's symbols without saving. The update occurs "
+"after 10 seconds without keypresses by the user."
 msgstr ""
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:4
@@ -9584,21 +9370,23 @@ msgid "Parallel scan of project and global symbols"
 msgstr ""
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:8
-msgid "This option enables the default packages required by your opened project, e.g. Glib and GTK+ if you create a GTK+ project (may require more CPU work)"
+msgid ""
+"This option enables the default packages required by your opened project, e."
+"g. Glib and GTK+ if you create a GTK+ project (may require more CPU work)"
 msgstr ""
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:9
-msgid "This option means that the global system packages will be scanned simultaneously with the project's ones"
+msgid ""
+"This option means that the global system packages will be scanned "
+"simultaneously with the project's ones"
 msgstr ""
 
 #: ../plugins/terminal/anjuta-terminal-plugin.ui.h:2
-#, fuzzy
 #| msgid "terminal operations"
 msgid "Terminal options"
-msgstr "פעולות מסוף"
+msgstr "אפשרויות מסוף"
 
 #: ../plugins/terminal/anjuta-terminal-plugin.ui.h:3
-#, fuzzy
 #| msgid "Use GNOME terminal profile:"
 msgid "Use GNOME Terminal profile:"
 msgstr "השתמש בפרופיל המסוף של GNOME:"
@@ -9607,13 +9395,24 @@ msgstr "השתמש בפרופיל המסוף של GNOME:"
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "השתמש בפרופיל המסוף של GNOME שנימצא בשימוש"
 
-#: ../plugins/terminal/terminal.c:739
+#: ../plugins/terminal/terminal.c:626
+msgid "Ctrl-C"
+msgstr ""
+
+#: ../plugins/terminal/terminal.c:634
+msgid "Ctrl-X"
+msgstr ""
+
+#: ../plugins/terminal/terminal.c:642
+msgid "Ctrl-Z"
+msgstr ""
+
+#: ../plugins/terminal/terminal.c:781
 msgid "terminal operations"
 msgstr "פעולות מסוף"
 
-#: ../plugins/terminal/terminal.c:757
-#: ../plugins/terminal/terminal.c:926
-#: ../plugins/terminal/terminal.c:979
+#: ../plugins/terminal/terminal.c:799 ../plugins/terminal/terminal.c:968
+#: ../plugins/terminal/terminal.c:1021
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
 msgid "Terminal"
 msgstr "מסוף"
@@ -9661,10 +9460,8 @@ msgstr ""
 msgid "Tool Editor"
 msgstr ""
 
-#: ../plugins/tools/anjuta-tools.ui.h:18
-#: ../plugins/tools/plugin.c:256
-#: ../plugins/tools/plugin.c:263
-#: ../plugins/tools/anjuta-tools.plugin.in.h:1
+#: ../plugins/tools/anjuta-tools.ui.h:18 ../plugins/tools/plugin.c:256
+#: ../plugins/tools/plugin.c:263 ../plugins/tools/anjuta-tools.plugin.in.h:1
 msgid "Tools"
 msgstr "כלים"
 
@@ -9677,10 +9474,9 @@ msgid "Working directory:"
 msgstr ""
 
 #: ../plugins/tools/anjuta-tools.ui.h:21
-#, fuzzy
 #| msgid "Variable"
 msgid "_Variable…"
-msgstr "משתנה"
+msgstr "מש_תנה..."
 
 #: ../plugins/tools/dialog.c:177
 #, c-format
@@ -9720,7 +9516,9 @@ msgid "A tool with the same name already exists!"
 msgstr ""
 
 #: ../plugins/tools/editor.c:824
-msgid "The shortcut is already used by another component in Anjuta. Do you want to keep it anyway?"
+msgid ""
+"The shortcut is already used by another component in Anjuta. Do you want to "
+"keep it anyway?"
 msgstr ""
 
 #: ../plugins/tools/editor.c:908
@@ -9728,7 +9526,6 @@ msgid "Unable to edit script"
 msgstr ""
 
 #: ../plugins/tools/editor.c:1044
-#, fuzzy
 #| msgid "New accelerator..."
 msgid "New accelerator…"
 msgstr "מאיץ חדש..."
@@ -10144,16 +9941,14 @@ msgid "WIDTHxHEIGHT+XOFF+YOFF"
 msgstr "WIDTHxHEIGHT+XOFF+YOFF"
 
 #: ../src/main.c:70
-#, fuzzy
 #| msgid "Do not show the splashscreen"
 msgid "Do not show the splash screen"
-msgstr "Do not show the splashscreen"
+msgstr "Do not show the splash screen"
 
 #: ../src/main.c:76
-#, fuzzy
 #| msgid "Start a new instance and do not open the file in a existing"
 msgid "Start a new instance and do not open the file in an existing instance"
-msgstr "Start a new instance and do not open the file in a existing"
+msgstr "Start a new instance and do not open the file in an existing instance"
 
 #: ../src/main.c:82
 msgid "Do not open last session on startup"
@@ -10164,10 +9959,9 @@ msgid "Do not open last project and files on startup"
 msgstr "Do not open last project and files on startup"
 
 #: ../src/main.c:94
-#, fuzzy
 #| msgid "Shutdown anjuta properly releasing all resources (for debugging)"
 msgid "Shut down Anjuta properly, releasing all resources (for debugging)"
-msgstr "Shutdown anjuta properly releasing all resources (for debugging)"
+msgstr "Shut down Anjuta properly, releasing all resources (for debugging)"
 
 #: ../src/main.c:156
 msgid "- Integrated Development Environment"
@@ -10178,7 +9972,6 @@ msgid "Anjuta"
 msgstr "Anjuta"
 
 #: ../src/preferences.ui.h:1
-#| msgid "<b>Appearance</b>"
 msgid "Appearance"
 msgstr "מראה"
 
@@ -10212,22 +10005,19 @@ msgid "GNOME toolbar setting"
 msgstr ""
 
 #: ../src/preferences.ui.h:12
-#, fuzzy
 #| msgid "Icon"
 msgid "Icons"
-msgstr "איקון"
+msgstr "איקונים"
 
 #: ../src/preferences.ui.h:13
-#, fuzzy
 #| msgid "Icon File:"
 msgid "Icons only"
-msgstr "קובץ איקון:"
+msgstr "איקונים בלבד"
 
 #: ../src/preferences.ui.h:14
-#, fuzzy
 #| msgid "<b>Project Defaults</b>"
 msgid "Project Defaults"
-msgstr "<b>ברירות המחדל של הפרוייקט</b>"
+msgstr "ברירות המחדל של הפרוייקט"
 
 #: ../src/preferences.ui.h:15
 msgid "Select project directory"
@@ -10247,21 +10037,20 @@ msgstr "משימות"
 
 #: ../src/preferences.ui.h:19
 msgid "Text + Icons"
-msgstr ""
+msgstr "טקסט + איקונים"
 
 #: ../src/preferences.ui.h:20
 msgid "Text below icons"
-msgstr ""
+msgstr "טקסט מתחת לאיקונים"
 
 #: ../src/preferences.ui.h:21
 msgid "Text beside icons"
-msgstr ""
+msgstr "טקסט לצד איקונים"
 
 #: ../src/preferences.ui.h:22
-#, fuzzy
 #| msgid "Text"
 msgid "Text only"
-msgstr "טקסט"
+msgstr "טקסט בלבד"
 
 #. translators: translate the same as in gnome-control-center
 #: ../src/preferences.ui.h:24
@@ -10281,12 +10070,10 @@ msgid "Add a space after function call autocompletion"
 msgstr ""
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:3
-#| msgid "Autocomplete"
 msgid "Auto-complete"
 msgstr "השלמה אוטומטית"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:4
-#| msgid "<b>Autocompletion (C/C++/Java only)</b>"
 msgid "Autocompletion (C/C++/Java only)"
 msgstr "השלמה אוטומטית (C/C++/Java בלבד)"
 
@@ -10333,7 +10120,6 @@ msgid "Line up parentheses"
 msgstr ""
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
-#| msgid "Basic Indentation"
 msgid "Parenthesis indentation"
 msgstr "הזחה בסוגריים"
 
@@ -10390,8 +10176,11 @@ msgstr ""
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
-#: ../plugins/sourceview/plugin.c:232
-#: ../plugins/sourceview/plugin.c:273
+#: ../plugins/language-support-cpp-java/cpp-java-assist.c:808
+msgid "C/C++"
+msgstr ""
+
+#: ../plugins/sourceview/plugin.c:232 ../plugins/sourceview/plugin.c:273
 msgid "GtkSourceView Editor"
 msgstr ""
 
@@ -10530,8 +10319,6 @@ msgid "C++ and Java support Plugin"
 msgstr "תוסף לתמיכה ב־++C ו־Java"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in.h:2
-#| msgid ""
-#| "C++ and Java support plugin for code completion, auto indentation etc."
 msgid "C++ and Java support plugin for code completion, auto-indentation, etc."
 msgstr "תוסף לתמיכה בהשלמת קוד, הזחה אוטומטית ועוד עבור ++C ו־Java."
 
@@ -10622,16 +10409,22 @@ msgstr ""
 
 #~ msgid "<b>Build</b>"
 #~ msgstr "<b>בנייה</b>"
+
 #~ msgid "<b>Configuration:</b>"
 #~ msgstr "<b>הגדרות:</b>"
+
 #~ msgid "<b>Install</b>"
 #~ msgstr "<b>התקנה</b>"
+
 #~ msgid "Program '%s' does not exists"
 #~ msgstr "התוכנית '%s' אינה קיימת"
+
 #~ msgid "C_onfigure Project..."
 #~ msgstr "ה_גדר פרוייקט..."
+
 #~ msgid "Inheritance Graph"
 #~ msgstr "גרף ירושה"
+
 #~ msgid ""
 #~ "General Public License (GPL)\n"
 #~ "Lesser General Public License (LGPL)\n"
@@ -10640,24 +10433,34 @@ msgstr ""
 #~ "רישיון ציבורי כללי (GPL)\n"
 #~ "רישון ציבורי כללי מופחת (LGPL)\n"
 #~ "ללא רישיון"
+
 #~ msgid "<b>CVS Options</b>"
 #~ msgstr "<b>אפשרויות CVS</b>"
+
 #~ msgid "<b>Options:</b>"
 #~ msgstr "<b>אפשרויות::</b>"
+
 #~ msgid "<b>Options</b>"
 #~ msgstr "<b>אפשרויות</b>"
+
 #~ msgid "<b>Repository: </b>"
 #~ msgstr "<b>מאגר: </b>"
+
 #~ msgid "Directory"
 #~ msgstr "ספרייה"
+
 #~ msgid "<b>Debugger:</b>"
 #~ msgstr "<b>מנפה:</b>"
+
 #~ msgid "Debugger Command..."
 #~ msgstr "פקודת מנפה..."
+
 #~ msgid "Pid"
 #~ msgstr "Pid"
+
 #~ msgid "Id"
 #~ msgstr "מזהה"
+
 #~ msgid ""
 #~ "Top\n"
 #~ "Bottom\n"
@@ -10668,111 +10471,160 @@ msgstr ""
 #~ "למטה\n"
 #~ "שמאל\n"
 #~ "ימין"
+
 #~ msgid "_Print..."
 #~ msgstr "ה_דפס..."
+
 #~ msgid "recent menu label|_%d. %s"
 #~ msgstr "_%d. %s"
+
 #~ msgid "recent menu label|%d. %s"
 #~ msgstr "%d. %s"
+
 #~ msgid "_Open..."
 #~ msgstr "_פתח..."
+
 #~ msgid "<b>Filter</b>"
 #~ msgstr "<b>מסנן</b>"
+
 #~ msgid "Url:"
 #~ msgstr "כתובת:"
 
 #~| msgid "_Add..."
 #~ msgid "Advanced..."
 #~ msgstr "מתקדם..."
+
 #~ msgid "Source coudn't be removed"
 #~ msgstr "לא ניתן להסיר את המקור"
+
 #~ msgid "*"
 #~ msgstr "*"
+
 #~ msgid "Execute Program"
 #~ msgstr "הרץ תוכנית"
+
 #~ msgid "<b>Filters</b>"
 #~ msgstr "<b>מסננים</b>"
+
 #~ msgid "<b>Log Message:</b>"
 #~ msgstr "<b>הודעות יומן:</b>"
+
 #~ msgid "<b>Log message:</b>"
 #~ msgstr "<b>הודעות יומן:</b>"
+
 #~ msgid "<b>Mode:</b>"
 #~ msgstr "<b>מקרואים:</b>"
+
 #~ msgid "<b>Select file to add:</b>"
 #~ msgstr "<b>בחר קבצים להוספה:</b>"
+
 #, fuzzy
 #~ msgid "<b>Tag name:</b>"
 #~ msgstr "<b>שינויים:</b>"
+
 #~ msgid "<b>URL:</b>"
 #~ msgstr "<b>כתובת:</b>"
 
 #, fuzzy
 #~ msgid "Create patch series..."
 #~ msgstr "צור רשימת משימות"
+
 #~ msgid "_View log..."
 #~ msgstr "הצג יו_מן..."
+
 #~ msgid "_Add..."
 #~ msgstr "_הוסף..."
+
 #~ msgid "_Remove..."
 #~ msgstr "_הסר..."
+
 #~ msgid "_Ignore..."
 #~ msgstr "ה_תעלם..."
+
 #~ msgid "_Merge..."
 #~ msgstr "מ_זג..."
+
 #~ msgid "_Delete..."
 #~ msgstr "_מחק..."
+
 #~ msgid "n/a"
 #~ msgstr "לא זמין"
+
 #~ msgid "Misc"
 #~ msgstr "כללי"
+
 #~ msgid "<b>Macros:</b>"
 #~ msgstr "<b>מקרואים:</b>"
+
 #~ msgid "Edit..."
 #~ msgstr "ערוך..."
+
 #~ msgid "Macros..."
 #~ msgstr "מקרואים..."
+
 #~ msgid "No message details"
 #~ msgstr "אין פרטי הודעה"
+
 #~ msgid "Function Name"
 #~ msgstr "שם הפונקציה"
+
 #~ msgid "Self"
 #~ msgstr "עצני"
+
 #~ msgid "Cumulative Seconds"
 #~ msgstr "שניות מצטברות"
+
 #~ msgid "Self Seconds"
 #~ msgstr "שניות עצמיות"
+
 #~ msgid "Select Target..."
 #~ msgstr "בחר מטרה..."
+
 #~ msgid "Refresh"
 #~ msgstr "רענן"
+
 #~ msgid "Flat Profile"
 #~ msgstr "פרופיל שטוח"
+
 #~ msgid "Call Graph"
 #~ msgstr "גרף קריאות"
+
 #~ msgid "Function Call Tree"
 #~ msgstr "עץ קריאות של הפונקציה"
+
 #~ msgid "Function Call Chart"
 #~ msgstr "טבלת קריאות של הפונקציה"
+
 #~ msgid "<b>Functions</b>"
 #~ msgstr "<b>פונקציה</b>"
+
 #~ msgid "<b>Symbols</b>"
 #~ msgstr "<b>סמלים</b>"
+
 #~ msgid "Do not show static functions"
 #~ msgstr "אל תציג פונקציות דטטיות"
+
 #~ msgid "Do not show these symbols:"
 #~ msgstr "אל תציג את סמלים אלה:"
+
 #~ msgid "Options..."
 #~ msgstr "אפשרויות..."
+
 #~ msgid "Select Other Target..."
 #~ msgstr "בחר מטרה אחרת..."
+
 #~ msgid "Show all symbols"
 #~ msgstr "הצג את כל הסמלים"
+
 #~ msgid "Show only these symbols:"
 #~ msgstr "הצג את סמלים אלה בלבד:"
+
 #~ msgid "Show uncalled functions"
 #~ msgstr "הצג פונקציות שלא נקראו"
+
 #~ msgid "Please, fix the configuration"
 #~ msgstr "נא לתקן את ההגדרות"
+
 #~ msgid ""
 #~ "Project name: %s\n"
 #~ "Project type: %s\n"
@@ -10781,115 +10633,168 @@ msgstr ""
 #~ "שם פרוייקט: %s\n"
 #~ "סוג פרוייקט: %s\n"
 #~ "נתיב פרוייקט: %s\n"
+
 #~ msgid "<b>Enter the project name:</b>"
 #~ msgstr "<b>הכנס את שם הפרוייקט:</b>"
+
 #~ msgid "<b>Enter the base path of your project:</b>"
 #~ msgstr "<b>הכנס את נתיב הבסיס של הפרוייקט שלך:</b>"
 
 #~| msgid "Could not open file"
 #~ msgid "Couldn't load glade file"
 #~ msgstr "לא ניתן לטעון קובץ glade"
+
 #~ msgid "Add _Group..."
 #~ msgstr "הוסף _קבוצה..."
+
 #~ msgid "Add _Target..."
 #~ msgstr "הוסף _מטרה..."
+
 #~ msgid "Add _Source File..."
 #~ msgstr "הוסף קובץ _מקור..."
+
 #~ msgid "_Add To Project"
 #~ msgstr "הו_סף לפרוייקט"
+
 #~ msgid "Icon choice"
 #~ msgstr "בחירת איקון"
+
 #~ msgid "A generic GNOME project"
 #~ msgstr "פרוייקט GNOME כללי"
+
 #~ msgid "GNOME"
 #~ msgstr "GNOME"
+
 #~ msgid "Use libglade for the UI"
 #~ msgstr "השתמש ב-libglade עבור מנשק המשתמש"
+
 #~ msgid "Run In Terminal"
 #~ msgstr "הרץ במסוף"
+
 #, fuzzy
 #~ msgid "Program Parameters..."
 #~ msgstr "Program terminated\n"
+
 #~ msgid "_Sample action"
 #~ msgstr "_פעולה לדוגמא"
+
 #~ msgid "Sample file operations"
 #~ msgstr "Sample file operations"
+
 #~ msgid "<b>Autocompletion</b>"
 #~ msgstr "<b>השלמה אוטומטית</b>"
+
 #~ msgid "<b>Basic Indentation</b>"
 #~ msgstr "<b>עימוד בסיסי</b>"
+
 #~ msgid "<b>Code folding</b>"
 #~ msgstr "<b>קיפול קוד</b>"
+
 #~ msgid "<b>Highlight style</b>"
 #~ msgstr "<b>סיגנון הדגשה</b>"
+
 #~ msgid "<b>Misc options</b>"
 #~ msgstr "<b>אפשריות כלליות</b>"
+
 #~ msgid "<b>Other colors</b>"
 #~ msgstr "<b>צבעים אחרים</b>"
+
 #~ msgid "Add line number every:"
 #~ msgstr "הוסף מספר שורה כל:"
+
 #~ msgid "Attributes:"
 #~ msgstr "תכונות:"
+
 #~ msgid "Background color:"
 #~ msgstr "צבע רקע:"
+
 #~ msgid "Bold"
 #~ msgstr "מודגש"
+
 #~ msgid "Caret (cursor) color:"
 #~ msgstr "צבע סמן"
+
 #~ msgid "Colors & Fonts"
 #~ msgstr "צבעים וגופנים"
+
 #~ msgid "Colour"
 #~ msgstr "צבע"
+
 #~ msgid "Compact folding"
 #~ msgstr "קיפול קומפטי"
+
 #~ msgid "Disable syntax highlighting"
 #~ msgstr "כבה הדגשת תחביר"
+
 #~ msgid "Enable automatic indentation"
 #~ msgstr "אפשר הזחה אוטומטית"
+
 #~ msgid "Enable braces check"
 #~ msgstr "אפשר בדיקת סוגריים"
+
 #~ msgid "Enable code folding"
 #~ msgstr "אפשר קיפול קוד"
+
 #~ msgid "Enable comments folding"
 #~ msgstr "אפשר קיפול הערות"
+
 #~ msgid "Enable python comments folding"
 #~ msgstr "אפשר קיפול הערות python"
+
 #~ msgid "Fold style:"
 #~ msgstr "סגנון קיפול:"
+
 #~ msgid "Fonts and colors for editor"
 #~ msgstr "גופנים וצבעים לעורך"
+
 #~ msgid "Foreground color:"
 #~ msgstr "צבע קדמה:"
+
 #~ msgid "Italic"
 #~ msgstr "נטוי"
+
 #~ msgid "Monochrome"
 #~ msgstr "מונוכרום"
+
 #~ msgid "Selection background:"
 #~ msgstr "רקע בחירה:"
+
 #~ msgid "Selection foreground:"
 #~ msgstr "קדמת בחירה:"
+
 #~ msgid "Strip trailling spaces on file save"
 #~ msgstr "הפשט רווחים סופיים בשמירת קובץ"
+
 #~ msgid "Use default"
 #~ msgstr "השתמש בברירת המחדל"
+
 #~ msgid "View EOL chars"
 #~ msgstr "הצג שגיאות EOL"
+
 #~ msgid "File: %s"
 #~ msgstr "קובץ: %s"
+
 #~ msgid "No file to print!"
 #~ msgstr "אין קובץ להדפסה"
+
 #~ msgid "Scintilla Editor"
 #~ msgstr "עורך הטקסט Scintilla"
+
 #~ msgid "Could not get file info"
 #~ msgstr "לא ניתן לקבל מידע עבור הקובץ"
+
 #~ msgid "This file is too big. Unable to allocate memory."
 #~ msgstr "קובץ זה גדול מדיי. לא ניתן להקצות זיכרון."
+
 #~ msgid "Could not open file"
 #~ msgstr "לא ניתן לפתוח קובץ"
+
 #~ msgid "Error while reading from file"
 #~ msgstr "שגיאה בקריאה מהקובץ"
+
 #~ msgid "Loading file..."
 #~ msgstr "טוען קובץ..."
+
 #~ msgid ""
 #~ "Could not load file: %s\n"
 #~ "\n"
@@ -10898,62 +10803,86 @@ msgstr ""
 #~ "לא ניתן לטעון את הקובץ: %s\n"
 #~ "\n"
 #~ "פרטים: %s"
+
 #~ msgid "File loaded successfully"
 #~ msgstr "הקובץ נטען בהצלחה"
+
 #~ msgid "Saving file..."
 #~ msgstr "שומר קובץ..."
+
 #~ msgid "File saved successfully"
 #~ msgstr "הקובץ נשמר בהצלחה"
+
 #~ msgid "<b>Scratchbox Options</b>\n"
 #~ msgstr "<b>אפשרויות Scratchbox</b>\n"
+
 #~ msgid "Scratchbox directory:"
 #~ msgstr "ספריית Scratchbox:"
 
 #~| msgid "Scratchbox directory:"
 #~ msgid "Scratchbox target:"
 #~ msgstr "ספריית Scratchbox:"
+
 #~| msgid "Scratchbox directory:"
 #~ msgid "Scratchbox version:"
 #~ msgstr "ספריית Scratchbox:"
+
 #~ msgid "Scratchbox"
 #~ msgstr "Scratchbox"
+
 #~ msgid "<b>Actions</b>"
 #~ msgstr "<b>פעולות</b>"
+
 #~ msgid "Searching..."
 #~ msgstr "מחפש..."
+
 #~ msgid "<b>Font:</b>"
 #~ msgstr "<b>גופן::</b>"
+
 #~ msgid "<b>View</b>"
 #~ msgstr "<b>תצוגה</b>"
+
 #~ msgid "<b>Subversion Options</b>"
 #~ msgstr "<b>אפשרויות Subversion</b>"
+
 #~ msgid "_Update..."
 #~ msgstr "_עדכן..."
+
 #~ msgid "Merge..."
 #~ msgstr "מזג..."
+
 #~ msgid "_View Log..."
 #~ msgstr "הצג יו_מן..."
+
 #~ msgid "Copy..."
 #~ msgstr "העתק..."
+
 #, fuzzy
 #~ msgid "Ctags executable:"
 #~ msgstr "Loading Executable: "
+
 #~ msgid "<b>Terminal options</b>"
 #~ msgstr "<b>אפשרויות מסוף</b>"
+
 #~ msgid ""
 #~ "Default\n"
 #~ "\n"
 #~ msgstr ""
 #~ "ברירת מחדל\n"
 #~ "\n"
+
 #~ msgid "<b>Tools</b>"
 #~ msgstr "<b>כלים</b>"
+
 #~ msgid "_Variable..."
 #~ msgstr "_משתנה..."
+
 #~ msgid "<b>Program to test:</b>"
 #~ msgstr "<b>תוכנית לבדיקה:</b>"
+
 #~ msgid "<b>Valgrind</b>"
 #~ msgstr "<b>Valgrind</b>"
+
 #~ msgid ""
 #~ "Memcheck\n"
 #~ "Addrcheck\n"
@@ -10962,56 +10891,82 @@ msgstr ""
 #~ "Memcheck\n"
 #~ "Addrcheck\n"
 #~ "Helgrind"
+
 #~ msgid "Select Tool:"
 #~ msgstr "בחר כלי:"
+
 #~ msgid "Select Valgrind Target"
 #~ msgstr "בחר מטרת Valgrind"
+
 #~ msgid "Select debugging target"
 #~ msgstr "בחר מטרת ניפוי"
+
 #~ msgid "Valgrind"
 #~ msgstr "Valgrind"
+
 #~ msgid "_Valgrind"
 #~ msgstr "_Valgrind"
+
 #~ msgid "_Load Log"
 #~ msgstr "_טען יומן"
+
 #~ msgid "S_ave Log"
 #~ msgstr "_שמור יומן"
+
 #~ msgid "Edit Rules"
 #~ msgstr "ערוך חוקים"
+
 #~ msgid "Use Valgrind debug tool"
 #~ msgstr "השתמש בכלי הניפוי Valgrind"
+
 #~ msgid "<b>Valgrind general preferences</b>"
 #~ msgstr "‏<b>העדפות כלליות של Valgrind</b>"
+
 #~ msgid "Preview"
 #~ msgstr "תצוגה מקדימה"
+
 #~ msgid "Error contains"
 #~ msgstr "השגיאה מכילה"
+
 #~ msgid "Function contains"
 #~ msgstr "הפונקציה מכילה"
+
 #~ msgid "Object contains"
 #~ msgstr "האובייקט מכיל"
+
 #~ msgid "Source filename contains"
 #~ msgstr "שם קובץ המקור מכיל"
+
 #~ msgid "Cu_t"
 #~ msgstr "_גזור"
+
 #~ msgid "Show"
 #~ msgstr "הצג"
+
 #~ msgid "Helgrind"
 #~ msgstr "‏Helgrind"
+
 #~ msgid "Memcheck"
 #~ msgstr "‏Memcheck"
+
 #~ msgid "Memory leaks"
 #~ msgstr "דליפות זכרון"
+
 #~ msgid "Leak check:"
 #~ msgstr "בדיקת דליפה:"
+
 #~ msgid "Grow"
 #~ msgstr "הגדל"
+
 #~ msgid "Shrink"
 #~ msgstr "כווץ"
+
 #~ msgid "Rule name:"
 #~ msgstr "שם חוק:"
+
 #~ msgid "System call:"
 #~ msgstr "קריאת מערכת:"
+
 #~ msgid ""
 #~ "Default\n"
 #~ "Text below icons\n"
@@ -11024,8 +10979,10 @@ msgstr ""
 #~ "טקסט לצד איקונים\n"
 #~ "איקונים בלבד\n"
 #~ "טקסט בלבד"
+
 #~ msgid "Select projects directory"
 #~ msgstr "בחר ספריית פרוייקט"
+
 #~ msgid ""
 #~ "Text\n"
 #~ "Icons\n"
@@ -11038,119 +10995,174 @@ msgstr ""
 #~ "טקסט + סמלים\n"
 #~ "העדפות סרגל הכלים של GNOME\n"
 #~ "לשוניות"
+
 #~ msgid "<b>Smart Indentation</b>"
 #~ msgstr "<b>הזחה חכמה</b>"
+
 #~ msgid "Class Inheritance"
 #~ msgstr "ירושת מחלקה"
 
 #~| msgid "An alternate editor based on GtkSourceview"
 #~ msgid "An alternate editor based on Scintilla"
 #~ msgstr "עורך אלטרנטיבי מבוסס על GtkSourceview"
+
 #~ msgid "Profile"
 #~ msgstr "פרופיל"
+
 #~ msgid "Powerful debugging tool."
 #~ msgstr "כלי ניפוי חזק."
+
 #~ msgid "Valgrind Plugin"
 #~ msgstr "תוסף Valgrind"
+
 #~ msgid "Loaded: "
 #~ msgstr "נטען: "
+
 #~ msgid "gtk-apply"
 #~ msgstr "gtk-apply"
+
 #~ msgid "gtk-cancel"
 #~ msgstr "gtk-cancel"
+
 #~ msgid "gtk-connect"
 #~ msgstr "gtk-connect"
+
 #~ msgid " Stop: "
 #~ msgstr " עצור: "
+
 #~ msgid " Print: "
 #~ msgstr " הדפס: "
+
 #~ msgid "_First Bookmark"
 #~ msgstr "סימנייה _ראשונה"
+
 #~ msgid "Jump to the first bookmark in the file"
 #~ msgstr "קפוץ לסימנייה הראשונה בקובץ"
+
 #~ msgid "_Last Bookmark"
 #~ msgstr "הסימנייה ה_אחרונה"
+
 #~ msgid "Jump to the last bookmark in the file"
 #~ msgstr "קפוץ לסימנייה האחרונה בקובץ"
+
 #~ msgid "Case sensitive"
 #~ msgstr "תלוי רשיות"
+
 #~ msgid "Print Preview"
 #~ msgstr "תצוגה מקדימה לפני הדפסה"
+
 #~ msgid "Show Notification Tray Icon"
 #~ msgstr "הצג איקון מגש התרעות"
+
 #~ msgid "/_New"
 #~ msgstr "/_חדש"
+
 #~ msgid "/_Hide"
 #~ msgstr "/_הסתר"
+
 #~ msgid "/_Show"
 #~ msgstr "/ה_צג"
+
 #~ msgid "/_Quit"
 #~ msgstr "/_יציאה"
+
 #~ msgid "The file you selected is a link and can't be added to the project"
 #~ msgstr "הקובץ שנבחר הוא קישור ואינו ניתן להוספה לפרוייקט"
+
 #~ msgid "Loaded Project... Initializing"
 #~ msgstr "פרוייקט נטען... מאתחל"
+
 #~ msgid "Loaded Project..."
 #~ msgstr "פרוייקט נטען..."
+
 #~ msgid "<b>Project description:</b>"
 #~ msgstr "<b>תיאור פרוייקט:</b>"
+
 #~ msgid "<b>Select the type of application to be developed</b>"
 #~ msgstr "<b>בחר את סוג היישום לפיתוח</b>"
+
 #~ msgid "Application Assistant"
 #~ msgstr "אשף היישומים"
+
 #~ msgid "Basic Information"
 #~ msgstr "מידע בסיסי"
+
 #~ msgid "Enter the basic Project information"
 #~ msgstr "הכנס מידע בסיסי אודות הפרוייקט"
+
 #~ msgid "Project Type"
 #~ msgstr "סוג פרוייקט"
+
 #~ msgid "label"
 #~ msgstr "תווית"
+
 #~ msgid "Case insensitive"
 #~ msgstr "אינו תלוי רשיות"
+
 #~ msgid "Ne_xt Occurrence"
 #~ msgstr "המופע ה_בא"
+
 #~ msgid "Find the next occurrence of current word"
 #~ msgstr "חפש את המופע הבא של המילה הנוכחית"
+
 #~ msgid "Pre_vious Occurrence"
 #~ msgstr "המופע ה_קודם"
+
 #~ msgid "Find the previous occurrence of current word"
 #~ msgstr "חפש את המופע הקודם של המילה הנוכחית"
+
 #~ msgid "Directories to scan"
 #~ msgstr "ספריות לסריקה"
+
 #~ msgid "Scanning package: %s"
 #~ msgstr "סורק חבילה: %s"
+
 #~ msgid "No file details"
 #~ msgstr "אין פרטי קובץ"
+
 #~ msgid "Add Directory"
 #~ msgstr "הוסף ספרייה"
+
 #, fuzzy
 #~ msgid "Load API tags from project configuration"
 #~ msgstr "נא לתקן את ההגדרות"
+
 #~ msgid "Scintilla based component for editing files"
 #~ msgstr "רכיב עריכת קבצים מבוסס Scintilla"
+
 #~ msgid "Symbol Browser Plugin for Anjuta."
 #~ msgstr "תוסף דפדפן סמלים ל-Anjuta"
+
 #~ msgid "Failed to read '%s': %s"
 #~ msgstr "נכשל בקריאת '%s': %s"
+
 #~ msgid "No read permission for: %s"
 #~ msgstr "אין הרשאות קריאה עבור: %s"
+
 #~ msgid "Unable to complete file copy"
 #~ msgstr "לא ניתן לסיים את העתקת הקובץ"
+
 #~ msgid "Stop at beginning"
 #~ msgstr "עצור בהתחלה"
+
 #~ msgid "Books"
 #~ msgstr "ספרים"
+
 #~ msgid "Failed to write data to file."
 #~ msgstr "נכשל בכתיבת נתונים לקובץ."
+
 #~ msgid "Application Assistent"
 #~ msgstr "אשף היישומים"
+
 #~ msgid "gtk-clear"
 #~ msgstr "gtk-clear"
+
 #~ msgid "gtk-ok"
 #~ msgstr "gtk-ok"
+
 #~ msgid "Close"
 #~ msgstr "סגור"
+
 #~ msgid "No properties available for this group"
 #~ msgstr "אין מאפיינים זמינים לקבוצה זאת"
 
@@ -11161,44 +11173,63 @@ msgstr ""
 #, fuzzy
 #~ msgid "Autogenerate"
 #~ msgstr "הזחה אוטומטית"
+
 #~ msgid "Could not set file permissions %s: %s."
 #~ msgstr "לא ניתן לקבוע את הרשאות הקובץ %s: %s."
+
 #~ msgid "Unsaved Document %d"
 #~ msgstr "מסמך שלא נשמר %d"
+
 #~ msgid "Saving..."
 #~ msgstr "שומר..."
+
 #~ msgid "Enable VFS file monitoring"
 #~ msgstr "אפשר ניטור קבצים VFS"
+
 #~ msgid "button"
 #~ msgstr "כפתור"
+
 #~ msgid "gtk-add"
 #~ msgstr "gtk-add"
+
 #~ msgid "gtk-remove"
 #~ msgstr "gtk-remove"
+
 #~ msgid "gtk-go-down"
 #~ msgstr "gtk-go-down"
+
 #~ msgid "gtk-preferences"
 #~ msgstr "gtk-preferences"
+
 #~ msgid "Supported Encodings"
 #~ msgstr "קידודים נתמכים"
+
 #~ msgid "Run Target..."
 #~ msgstr "הרץ מטרה..."
+
 #~ msgid "<b>Encoding to use when saving files</b>"
 #~ msgstr "<b>קידוד לשימוש בשמירת קבצים</b>"
+
 #~ msgid "<b>Supported Encodings</b>"
 #~ msgstr "<b>קידודים ניתמכים</b>"
+
 #~ msgid "Always save in UTF-8 encoding (faster)"
 #~ msgstr "שמור תמיד בקידוד UTF-8 (מהיר יותר)"
+
 #~ msgid "Encodings"
 #~ msgstr "קידודים"
+
 #~ msgid "Try to save in current locale's encoding"
 #~ msgstr "נסה לשמור בקידוד שבשימוש המערכת"
+
 #~ msgid "Try to save in original encoding"
 #~ msgstr "נסה לשמור בקידוד המקורי"
+
 #~ msgid "Background:"
 #~ msgstr "רקע:"
+
 #~ msgid "Text:"
 #~ msgstr "טקסט:"
+
 #~ msgid "Menu Items:"
 #~ msgstr "פריטי תפריט:"
-
