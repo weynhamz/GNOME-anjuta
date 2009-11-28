@@ -172,8 +172,6 @@ create_completion (CppJavaAssist* assist, IAnjutaIterable* iter,
 	}
 	while (ianjuta_iterable_next (iter, NULL));
 	
-	
-	
 	suggestions = g_list_sort (suggestions, completion_compare);
 	g_completion_add_items (completion, suggestions);
 	return completion;

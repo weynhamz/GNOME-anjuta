@@ -113,7 +113,7 @@ static const gchar* marker_types [] =
 #define WARNING_INDIC "warning_indic"
 #define CRITICAL_INDIC "critical_indic"
 
-GtkWidget *
+static GtkWidget *
 anjuta_message_area_new (const gchar    *text,
                          GtkMessageType  type)
 {

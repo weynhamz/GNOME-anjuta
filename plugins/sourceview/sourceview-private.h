@@ -19,7 +19,6 @@
 
 #include "anjuta-view.h"
 
-#include "assist-window.h"
 #include "assist-tip.h"
 #include "sourceview-cell.h"
 #include "sourceview-io.h"
