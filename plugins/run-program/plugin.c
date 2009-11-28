@@ -194,6 +194,8 @@ on_run_program_activate (GtkAction* action, RunProgramPlugin* plugin)
 		{
 			run_plugin_kill_program (plugin, FALSE);
 		}
+		else
+			return;
 	}
 	if (plugin->recent_target == NULL)
 	{
