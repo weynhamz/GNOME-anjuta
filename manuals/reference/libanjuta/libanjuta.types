@@ -32,7 +32,6 @@ anjuta_profile_manager_get_type
 g_error_get_type
 anjuta_vcs_status_tree_view_get_type
 anjuta_async_command_get_type
-anjuta_message_area_get_type
 anjuta_sync_command_get_type
 ianjuta_editor_attribute_get_type
 ianjuta_editor_error_get_type
