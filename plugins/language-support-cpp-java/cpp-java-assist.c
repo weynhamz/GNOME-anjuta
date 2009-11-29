@@ -64,6 +64,7 @@ struct _CppJavaAssistPriv {
 	AnjutaPreferences *preferences;
 	IAnjutaSymbolManager* isymbol_manager;
 	IAnjutaEditorAssist* iassist;
+	IAnjutaEditorTip* itip;
 	
 	/* Last used cache */
 	gchar *search_cache;
@@ -490,7 +491,7 @@ cpp_java_assist_get_calltip_context (CppJavaAssist *assist,
 								(IANJUTA_EDITOR_CELL (iter), 0, NULL)));
 
 	context = cpp_java_assist_get_scope_context
-		(IANJUTA_EDITOR (assist->priv->iassist), "(", iter);
+		(IANJUTA_EDITOR (assist->priv->itip), "(", iter);
 
 	/* Point iter to the first character of the scope to align calltip correctly */
 	ianjuta_iterable_next (iter, NULL);
@@ -565,9 +566,9 @@ cpp_java_assist_show_calltip (CppJavaAssist *assist, gchar *call_context,
 												 MAX_COMPLETIONS);
 
 	/* Search file */
-	if (IANJUTA_IS_FILE (assist->priv->iassist))
+	if (IANJUTA_IS_FILE (assist->priv->itip))
 	{
-		GFile *file = ianjuta_file_get_file (IANJUTA_FILE (assist->priv->iassist), NULL);
+		GFile *file = ianjuta_file_get_file (IANJUTA_FILE (assist->priv->itip), NULL);
 
 		if (file != NULL)
 		{
@@ -622,7 +623,7 @@ cpp_java_assist_show_calltip (CppJavaAssist *assist, gchar *call_context,
 	
 	if (tips)
 	{	
-		ianjuta_editor_tip_show (IANJUTA_EDITOR_TIP(assist->priv->iassist), tips,
+		ianjuta_editor_tip_show (IANJUTA_EDITOR_TIP(assist->priv->itip), tips,
 										 position_iter, 0,
 										 NULL);
 		g_list_foreach (tips, (GFunc) g_free, NULL);
@@ -642,7 +643,7 @@ cpp_java_assist_calltip (CppJavaAssist *assist,
 	if (!calltips)
 		return; /* Nothing to do */
 	
-	editor = IANJUTA_EDITOR (assist->priv->iassist);
+	editor = IANJUTA_EDITOR (assist->priv->itip);
 	
 	iter = ianjuta_editor_get_position (editor, NULL);
 	ianjuta_iterable_previous (iter, NULL);
@@ -673,7 +674,7 @@ cpp_java_assist_calltip (CppJavaAssist *assist,
 		}
 		else
 		{
-			ianjuta_editor_tip_cancel (IANJUTA_EDITOR_TIP(assist->priv->iassist), NULL);
+			ianjuta_editor_tip_cancel (IANJUTA_EDITOR_TIP(assist->priv->itip), NULL);
 			g_free (assist->priv->calltip_context);
 			assist->priv->calltip_context = NULL;
 		}
@@ -807,16 +808,31 @@ cpp_java_assist_get_name (IAnjutaProvider* provider, GError** e)
 }
 
 static void
-cpp_java_assist_install (CppJavaAssist *assist, IAnjutaEditorAssist *iassist)
+cpp_java_assist_install (CppJavaAssist *assist, IAnjutaEditor *ieditor)
 {
 	g_return_if_fail (assist->priv->iassist == NULL);
+
+	if (IANJUTA_IS_EDITOR_ASSIST (ieditor))
+	{
+		assist->priv->iassist = IANJUTA_EDITOR_ASSIST (ieditor);
+		ianjuta_editor_assist_add (IANJUTA_EDITOR_ASSIST (ieditor), IANJUTA_PROVIDER(assist), NULL);
+	}
+	else
+	{
+		assist->priv->iassist = NULL;
+	}
+
+	if (IANJUTA_IS_EDITOR_TIP (ieditor))
+	{
+		assist->priv->itip = IANJUTA_EDITOR_TIP (ieditor);
 	
-	assist->priv->iassist = iassist;
-	
-	g_signal_connect (iassist, "char-added",
-					  G_CALLBACK (on_editor_char_added), assist);
-	
-	ianjuta_editor_assist_add (iassist, IANJUTA_PROVIDER(assist), NULL);
+		g_signal_connect (IANJUTA_EDITOR_TIP (ieditor), "char-added",
+						  G_CALLBACK (on_editor_char_added), assist);
+	}
+	else
+	{
+		assist->priv->itip = NULL;
+	}
 }
 
 static void
@@ -861,14 +877,21 @@ cpp_java_assist_class_init (CppJavaAssistClass *klass)
 }
 
 CppJavaAssist *
-cpp_java_assist_new (IAnjutaEditorAssist *iassist,
+cpp_java_assist_new (IAnjutaEditor *ieditor,
 					 IAnjutaSymbolManager *isymbol_manager,
 					 AnjutaPreferences *prefs)
 {
-	CppJavaAssist *assist = g_object_new (TYPE_CPP_JAVA_ASSIST, NULL);
+	CppJavaAssist *assist;
+	
+	if (!IANJUTA_IS_EDITOR_ASSIST (ieditor) && !IANJUTA_IS_EDITOR_TIP (ieditor))
+	{
+		/* No assistance is available with the current editor */
+		return NULL;
+	}
+	assist = g_object_new (TYPE_CPP_JAVA_ASSIST, NULL);
 	assist->priv->isymbol_manager = isymbol_manager;
 	assist->priv->preferences = prefs;
-	cpp_java_assist_install (assist, iassist);
+	cpp_java_assist_install (assist, ieditor);
 	return assist;
 }
 

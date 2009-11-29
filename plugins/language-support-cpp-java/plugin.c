@@ -1623,32 +1623,30 @@ install_support (CppJavaPlugin *lang_plugin)
 	
 	initialize_indentation_params (lang_plugin);
 	
-	if (IANJUTA_IS_EDITOR_ASSIST (lang_plugin->current_editor) &&
-		!g_str_equal (lang_plugin->current_language, "Vala"))
+	if (!g_str_equal (lang_plugin->current_language, "Vala"))
 	{
-		AnjutaPlugin *plugin;
-		AnjutaUI *ui;
-		GtkAction *action;
-		IAnjutaEditorAssist* iassist;
-		
-		plugin = ANJUTA_PLUGIN (lang_plugin);
-		ui = anjuta_shell_get_ui (plugin->shell, NULL);
-		iassist = IANJUTA_EDITOR_ASSIST (lang_plugin->current_editor);
-		
+		CppJavaAssist *assist;
+
 		g_assert (lang_plugin->assist == NULL);
+
+		assist = cpp_java_assist_new (IANJUTA_EDITOR (lang_plugin->current_editor),
+					anjuta_shell_get_interface (ANJUTA_PLUGIN (lang_plugin)->shell,
+												IAnjutaSymbolManager,
+												NULL),
+					lang_plugin->prefs);
+		/* assist is NULL, if the editor does not provide any assistance */
+		if (assist != NULL)
+		{
+			GtkAction *action;
+			
+			lang_plugin->assist = assist;
 		
-		lang_plugin->assist =
-			cpp_java_assist_new (iassist,
-				anjuta_shell_get_interface (plugin->shell,
-											IAnjutaSymbolManager,
-											NULL),
-								 lang_plugin->prefs);
-		
-		/* Enable autocompletion action */
-		action = gtk_action_group_get_action (lang_plugin->action_group, 
-									   "ActionEditAutocomplete");
-		g_object_set (G_OBJECT (action), "visible", TRUE,
-					  "sensitive", TRUE, NULL);
+			/* Enable autocompletion action */
+			action = gtk_action_group_get_action (lang_plugin->action_group, 
+										   "ActionEditAutocomplete");
+			g_object_set (G_OBJECT (action), "visible", TRUE,
+						  "sensitive", TRUE, NULL);
+		}
 	}	
 		
 	lang_plugin->support_installed = TRUE;

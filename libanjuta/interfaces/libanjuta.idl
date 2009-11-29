@@ -1923,12 +1923,12 @@ interface IAnjutaEditor
 	}
 	
 	/**
-	 * SECTION:ianjuta-editor-assist
-	 * @title: IAnjutaEditorAssist
-	 * @short_description: Editor assistance framework
+	 * SECTION:ianjuta-editor-tip
+	 * @title: IAnjutaEditorTip
+	 * @short_description: Editor call tips assistance framework
 	 * @see_also: 
 	 * @stability: Unstable
-	 * @include: libanjuta/interfaces/ianjuta-editor-assist.h
+	 * @include: libanjuta/interfaces/ianjuta-editor-tip.h
 	 * 
 	 */
 	interface IAnjutaEditorTip
