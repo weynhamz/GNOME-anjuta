@@ -2018,7 +2018,9 @@ interface IAnjutaEditor
       * @provider: a IAnjutaProvider
       * @err: Error handling
       *
-      * Force invokation of a provider at the current cursor position
+      * Force invokation of a provider at the current cursor position.
+      * That means that ianjuta_provider_populate() will be called on the
+      * provider.
       */
       void invoke(IAnjutaProvider* provider);
       
