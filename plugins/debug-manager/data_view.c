@@ -24,10 +24,6 @@
 
 #include "anjuta-marshal.h"
 
-#if !GTK_CHECK_VERSION (2,16,0)
-#include "sexy-icon-entry.h"
-#endif
-
 #include <glib/gi18n.h>
 
 #include <gdk/gdkkeysyms.h>
@@ -273,18 +269,10 @@ dma_data_view_goto_activate (GtkWidget   *menu_item,
 		gtk_container_set_border_width (GTK_CONTAINER (vbox), 3);
 
 		/* add entry */
-#if GTK_CHECK_VERSION(2,16,0)
 		view->goto_entry = gtk_entry_new ();
 		gtk_entry_set_icon_from_stock (GTK_ENTRY (view->goto_entry),
 									   GTK_ENTRY_ICON_PRIMARY,
 									   GTK_STOCK_JUMP_TO);
-#else
-		view->goto_entry = sexy_icon_entry_new ();
-		icon = gtk_image_new_from_stock (GTK_STOCK_JUMP_TO, GTK_ICON_SIZE_MENU);
-		sexy_icon_entry_set_icon (SEXY_ICON_ENTRY(view->goto_entry),
-    	                          SEXY_ICON_ENTRY_PRIMARY,
-                                  GTK_IMAGE (icon));
-#endif
 		gtk_widget_show (view->goto_entry);
 		gtk_container_add (GTK_CONTAINER (vbox),
 						   view->goto_entry);

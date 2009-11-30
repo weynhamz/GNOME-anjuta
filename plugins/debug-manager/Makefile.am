@@ -92,8 +92,6 @@ libanjuta_debug_manager_la_SOURCES = \
 	data_buffer.h \
 	disassemble.c \
 	disassemble.h \
-	sexy-icon-entry.h \
-	sexy-icon-entry.c \
 	sparse_buffer.c \
 	sparse_buffer.h \
 	sparse_view.c \
