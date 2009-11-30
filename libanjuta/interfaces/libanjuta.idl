@@ -1985,11 +1985,11 @@ interface IAnjutaEditor
      struct Proposal
      {
         gchar* label;
-        gchar* markup;
-        gchar* info;
-        gchar* text;
-        GdkPixbuf* icon;
-        gpointer data;
+        gchar* markup; /* optional */
+        gchar* info; /* optional */
+        gchar* text; /* optional */
+        GdkPixbuf* icon; /* optional */
+        gpointer data; /* Data connected with the proposal (owned by the provider */
      }
      
      /*
@@ -2033,7 +2033,9 @@ interface IAnjutaEditor
       * @err: Error handling
       *
       * Add the list of proposals for the current population. You can add
-      * proposals async as long as the last call sets finished to TRUE.
+      * proposals async as long as the last call sets finished to TRUE. That
+      * is usually called by the IAnjutaProvider after it was triggered by
+      * ianjuta_provider_populate()
       *
       */
       void proposals(IAnjutaProvider* provider, GList* proposals, gboolean finished);
@@ -2476,7 +2478,11 @@ interface IAnjutaProvider
 	* @iter: the text iter where the provider should be populated
 	* @err: Error propagation and reporting.
 	* 
- 	* Show completion for the context at position @iter
+ 	* Show completion for the context at position @iter. The provider should
+ 	* call ianjuta_editor_assist_proposals here to add proposals to the list.
+ 	*
+ 	* Note that this is called after every character typed and the list of proposals
+ 	* has to be completely renewed.
 	*/
   void populate(IAnjutaIterable* iter);
   
