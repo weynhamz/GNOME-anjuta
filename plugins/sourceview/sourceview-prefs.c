@@ -36,7 +36,7 @@
 #define HIGHLIGHT_BRACKETS         "sourceview.brackets.highlight"
 #define TAB_SIZE                   "tabsize"
 #define INDENT_SIZE                "indent.size"
-#define AUTOCOMPLETION             "sourceview.autocompletion"
+#define AUTOCOMPLETION             "sourceview.autocomplete"
 
 #define VIEW_LINENUMBERS           "margin.linenumber.visible"
 #define VIEW_MARKS                 "margin.marker.visible"
@@ -186,6 +186,7 @@ on_notify_autocompletion (AnjutaPreferences* prefs,
   
   if (autocomplete)
   {
+    DEBUG_PRINT ("Register word completion provider");
     GtkSourceCompletionWords *prov_words;
     prov_words = gtk_source_completion_words_new (NULL, NULL);
 
@@ -203,6 +204,9 @@ on_notify_autocompletion (AnjutaPreferences* prefs,
     {
       if (GTK_IS_SOURCE_COMPLETION_WORDS(node->data))
       {
+        DEBUG_PRINT ("Unregister word completion provider");
+        gtk_source_completion_words_unregister (GTK_SOURCE_COMPLETION_WORDS(node->data),
+                                                gtk_text_view_get_buffer (GTK_TEXT_VIEW (sv->priv->view)));
         gtk_source_completion_remove_provider(completion, GTK_SOURCE_COMPLETION_PROVIDER(node->data), NULL);
         break;
       }

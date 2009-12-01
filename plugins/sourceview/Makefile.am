@@ -26,7 +26,8 @@ AM_CPPFLAGS = \
 	$(DEPRECATED_FLAGS) \
 	$(GIO_CFLAGS) \
 	$(PLUGIN_SOURCEVIEW_CFLAGS) \
-	$(LIBANJUTA_CFLAGS)
+	$(LIBANJUTA_CFLAGS) \
+	-DG_LOG_DOMAIN=\"sourceview\"
 
 # Where to install the plugin
 plugindir = $(anjuta_plugin_dir)
