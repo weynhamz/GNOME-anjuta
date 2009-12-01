@@ -10,11 +10,7 @@ cpp_java_ui_DATA = anjuta-language-support-cpp-java.xml
 # Plugin Icon file
 cpp_java_pixmapsdir = $(anjuta_image_dir)
 cpp_java_pixmaps_DATA = \
-	anjuta-language-cpp-java-plugin.png \
-	anjuta-complete-16.png \
-	anjuta-complete-24.png \
-	anjuta-complete-auto-16.png \
-	anjuta-complete-auto-24.png \
+ 	anjuta-language-cpp-java-plugin.png \
 	anjuta-indent-auto-16.png \
 	anjuta-indent-auto-24.png
 

@@ -42,12 +42,9 @@
 
 /* Pixmaps */
 #define ANJUTA_PIXMAP_SWAP                "anjuta-swap"
-#define ANJUTA_PIXMAP_COMPLETE			  "anjuta-complete"
-#define ANJUTA_PIXMAP_AUTOCOMPLETE        "anjuta-complete-auto"
 #define ANJUTA_PIXMAP_AUTOINDENT          "anjuta-indent-auto"
 #define ANJUTA_STOCK_SWAP                 "anjuta-swap"
 #define ANJUTA_STOCK_COMPLETE         	  "anjuta-complete"
-#define ANJUTA_STOCK_AUTOCOMPLETE         "anjuta-autocomplete"
 #define ANJUTA_STOCK_AUTOINDENT           "anjuta-indent"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-language-support-cpp-java.xml"
@@ -1634,19 +1631,6 @@ install_support (CppJavaPlugin *lang_plugin)
 												IAnjutaSymbolManager,
 												NULL),
 					lang_plugin->prefs);
-		/* assist is NULL, if the editor does not provide any assistance */
-		if (assist != NULL)
-		{
-			GtkAction *action;
-			
-			lang_plugin->assist = assist;
-		
-			/* Enable autocompletion action */
-			action = gtk_action_group_get_action (lang_plugin->action_group, 
-										   "ActionEditAutocomplete");
-			g_object_set (G_OBJECT (action), "visible", TRUE,
-						  "sensitive", TRUE, NULL);
-		}
 	}	
 		
 	lang_plugin->support_installed = TRUE;
@@ -1677,20 +1661,7 @@ uninstall_support (CppJavaPlugin *lang_plugin)
 	
 	if (lang_plugin->assist)
 	{
-		AnjutaPlugin *plugin;
-		AnjutaUI *ui;
-		GtkAction *action;
-		
 		g_object_unref (lang_plugin->assist);
-		lang_plugin->assist = NULL;
-		
-		/* Disable autocompletion action */
-		plugin = ANJUTA_PLUGIN (lang_plugin);
-		ui = anjuta_shell_get_ui (plugin->shell, NULL);
-		action = gtk_action_group_get_action (lang_plugin->action_group,
-									   "ActionEditAutocomplete");
-		g_object_set (G_OBJECT (action), "visible", FALSE,
-					  "sensitive", FALSE, NULL);
 	}
 	
 	lang_plugin->support_installed = FALSE;
@@ -1899,26 +1870,11 @@ on_auto_indent (GtkAction *action, gpointer data)
 	ianjuta_document_end_undo_action (IANJUTA_DOCUMENT(editor), NULL);
 }
 
-static void
-on_auto_complete (GtkAction *action, gpointer data)
-{
-	CppJavaPlugin *lang_plugin;
-	lang_plugin = ANJUTA_PLUGIN_CPP_JAVA (data);
-	/* FIXME */
-}
-
 static GtkActionEntry actions[] = {
 	{
 		"ActionMenuEdit",
 		NULL, N_("_Edit"),
 		NULL, NULL, NULL
-	},
-	{
-		"ActionEditAutocomplete",
-		ANJUTA_STOCK_AUTOCOMPLETE,
-		N_("_Auto-Complete"), "<control>Return",
-		N_("Auto-complete the current word"),
-		G_CALLBACK (on_auto_complete)
 	},
 	{
 		"ActionEditAutoindent",
@@ -1947,8 +1903,6 @@ register_stock_icons (AnjutaPlugin *plugin)
 	/* Register stock icons */
 	BEGIN_REGISTER_ICON (plugin);
 	REGISTER_ICON_FULL (ANJUTA_PIXMAP_SWAP, ANJUTA_STOCK_SWAP);
-	REGISTER_ICON_FULL (ANJUTA_PIXMAP_COMPLETE, ANJUTA_STOCK_COMPLETE);	
-	REGISTER_ICON_FULL (ANJUTA_PIXMAP_AUTOCOMPLETE, ANJUTA_STOCK_AUTOCOMPLETE);
 	REGISTER_ICON_FULL (ANJUTA_PIXMAP_AUTOINDENT, ANJUTA_STOCK_AUTOINDENT);
 	END_REGISTER_ICON;
 }

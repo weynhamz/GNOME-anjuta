@@ -35,6 +35,7 @@
 #include <libanjuta/interfaces/ianjuta-editor-zoom.h>
 #include <libanjuta/interfaces/ianjuta-editor-goto.h>
 #include <libanjuta/interfaces/ianjuta-editor-language.h>
+#include <libanjuta/interfaces/ianjuta-editor-assist.h>
 
 #include <sys/wait.h>
 #include <sys/stat.h>
@@ -955,4 +956,18 @@ on_bookmarks_clear_activate (GtkAction *action, gpointer user_data)
 	DocmanPlugin *plugin;
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	anjuta_bookmarks_clear (ANJUTA_BOOKMARKS(plugin->bookmarks));
+}
+
+void
+on_autocomplete_activate (GtkAction *action, gpointer user_data)
+{
+	IAnjutaDocument *doc;
+	DocmanPlugin *plugin;
+	doc = get_current_document (user_data);
+	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
+	if (doc && IANJUTA_IS_EDITOR_ASSIST(doc))
+	{
+		IAnjutaEditorAssist* assist = IANJUTA_EDITOR_ASSIST (doc);
+		ianjuta_editor_assist_invoke (assist, NULL, NULL);
+	}   
 }

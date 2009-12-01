@@ -38,7 +38,11 @@ document_manager_pixmaps_DATA = \
         anjuta-go-history-next-16.png \
         anjuta-go-history-next-24.png \
         anjuta-go-history-prev-16.png \
-        anjuta-go-history-prev-24.png
+        anjuta-go-history-prev-24.png \
+      	anjuta-complete-16.png \
+	      anjuta-complete-24.png \
+	      anjuta-complete-auto-16.png \
+	      anjuta-complete-auto-24.png
 
 EXTRA_DIST = $(document_manager_pixmaps_DATA)
 

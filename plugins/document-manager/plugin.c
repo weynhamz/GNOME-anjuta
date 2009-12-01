@@ -37,6 +37,7 @@
 #include <libanjuta/interfaces/ianjuta-editor-zoom.h>
 #include <libanjuta/interfaces/ianjuta-editor-goto.h>
 #include <libanjuta/interfaces/ianjuta-editor-search.h>
+#include <libanjuta/interfaces/ianjuta-editor-assist.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-editor-language.h>
 #include <libanjuta/interfaces/ianjuta-language-support.h>
@@ -75,6 +76,7 @@
 #define ANJUTA_PIXMAP_HISTORY_NEXT				  "anjuta-go-history-next"
 #define ANJUTA_PIXMAP_HISTORY_PREV				  "anjuta-go-history-prev"
 
+#define ANJUTA_PIXMAP_AUTOCOMPLETE        "anjuta-complete-auto"
 
 /* Stock icons */
 #define ANJUTA_STOCK_FOLD_TOGGLE              "anjuta-fold-toggle"
@@ -96,6 +98,7 @@
 #define ANJUTA_STOCK_HISTORY_PREV			  "anjuta-history-prev"
 #define ANJUTA_STOCK_MATCH_NEXT				  "anjuta-match-next"
 #define ANJUTA_STOCK_MATCH_PREV				  "anjuta-match-prev"
+#define ANJUTA_STOCK_AUTOCOMPLETE             "anjuta-autocomplete"
 
 
 static gpointer parent_class;
@@ -303,6 +306,10 @@ static GtkActionEntry actions_edit[] = {
 	, N_("_Clear"), NULL,
 	N_("Delete the selected text from the editor"),
     G_CALLBACK (on_editor_command_clear_activate)},
+	{ "ActionEditAutocomplete", ANJUTA_STOCK_AUTOCOMPLETE,
+	 N_("_Auto-Complete"), "<control>Return",
+	 N_("Auto-complete the current word"), G_CALLBACK (on_autocomplete_activate)
+	}
 };
 
 static GtkToggleActionEntry actions_view[] = {
@@ -832,6 +839,15 @@ update_document_ui_interface_items (AnjutaPlugin *plugin, IAnjutaDocument *doc)
 								   "ActionEditGotoLine");	
 	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
 
+	/* IAnjutaEditorAssist */
+	flag = IANJUTA_IS_EDITOR_ASSIST (doc);
+
+	/* Enable autocompletion action */
+	action = anjuta_ui_get_action (ui, 
+	                               "ActionGroupEditorEdit",
+	                               "ActionEditAutocomplete");
+	g_object_set (G_OBJECT (action), "visible", flag,
+	              "sensitive", flag, NULL);
 }
 
 static void
@@ -881,6 +897,7 @@ register_stock_icons (AnjutaPlugin *plugin)
 	REGISTER_ICON_FULL (ANJUTA_PIXMAP_GOTO_LINE, ANJUTA_STOCK_GOTO_LINE);
 	REGISTER_ICON_FULL (ANJUTA_PIXMAP_HISTORY_NEXT, ANJUTA_STOCK_HISTORY_NEXT);
 	REGISTER_ICON_FULL (ANJUTA_PIXMAP_HISTORY_PREV, ANJUTA_STOCK_HISTORY_PREV);
+	REGISTER_ICON_FULL (ANJUTA_PIXMAP_AUTOCOMPLETE, ANJUTA_STOCK_AUTOCOMPLETE);
 	END_REGISTER_ICON;
 }
 
