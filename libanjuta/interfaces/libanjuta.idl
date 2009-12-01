@@ -1985,11 +1985,11 @@ interface IAnjutaEditor
      struct Proposal
      {
         gchar* label;
-        gchar* markup; /* optional */
-        gchar* info; /* optional */
-        gchar* text; /* optional */
-        GdkPixbuf* icon; /* optional */
-        gpointer data; /* Data connected with the proposal (owned by the provider */
+        gchar* markup;
+        gchar* info;
+        gchar* text;
+        GdkPixbuf* icon;
+        gpointer data;
      }
      
      /*
@@ -2015,7 +2015,7 @@ interface IAnjutaEditor
      /*
       * ianjuta_editor_assist_invoke
       * @obj: self
-      * @provider: a IAnjutaProvider
+      * @provider: a IAnjutaProvider (can be NULL to use all providers)
       * @err: Error handling
       *
       * Force invokation of a provider at the current cursor position.
