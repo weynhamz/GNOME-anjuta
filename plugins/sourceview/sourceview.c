@@ -2100,26 +2100,35 @@ iassist_invoke(IAnjutaEditorAssist* iassist,
 	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
 	GtkSourceCompletion* completion = gtk_source_view_get_completion(GTK_SOURCE_VIEW(sv->priv->view));
 	GList* node;
+	SourceviewProvider* prov = NULL;
+	GList* providers = NULL;
+	GtkTextIter iter;
+	GtkSourceCompletionContext* context;
+	
 	for (node = gtk_source_completion_get_providers(completion); node != NULL; node = g_list_next(node))
 	{
-		SourceviewProvider* prov;
-		if (!SOURCEVIEW_IS_PROVIDER (node->data))
+		if (provider == NULL)
+		{
+			providers = g_list_append (providers, node->data);
 			continue;
+		}
+		if (!SOURCEVIEW_IS_PROVIDER (node->data))
+			break;
 		prov = SOURCEVIEW_PROVIDER(node->data);
 		if (prov->iprov == provider)
 		{
-			GList* list = g_list_append(NULL, prov);
-			GtkTextIter iter;
-			GtkSourceCompletionContext* context;
-			gtk_text_buffer_get_iter_at_mark (GTK_TEXT_BUFFER (sv->priv->document),
-			                                  &iter,
-			                                  gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(sv->priv->document)));
-			context = 
-				gtk_source_completion_create_context(completion, &iter);
-			gtk_source_completion_show(completion, list, context);
-			g_list_free(list);
+			providers = g_list_append (providers, prov);
 		}
+		
 	}
+	gtk_text_buffer_get_iter_at_mark (GTK_TEXT_BUFFER (sv->priv->document),
+	                                  &iter,
+	                                  gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(sv->priv->document)));
+	context = 
+		gtk_source_completion_create_context(completion, &iter);
+
+	gtk_source_completion_show(completion, providers, context);
+	g_list_free(providers);
 }
 
 static void
