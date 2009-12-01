@@ -42,7 +42,7 @@
 #include "anjuta-actions.h"
 #include "about.h"
 
-#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta.ui"
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta.xml"
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/preferences.ui"
 #define ICON_FILE "anjuta-preferences-general-48.png"
 

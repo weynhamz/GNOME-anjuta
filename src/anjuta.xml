@@ -24,6 +24,7 @@
 			<menuitem name="ResetLayout" action="ActionViewResetLayout"/>
 			<separator name="separate1"/>
 			<menuitem name="Toolbar" action="ActionViewToolbar"/>
+			<separator name="separate2"/>
 		</menu>
 		<placeholder name="PlaceholderGotoMenus"/>
 		<placeholder name="PlaceHolderProjectMenus"/>

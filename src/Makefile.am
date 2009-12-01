@@ -4,7 +4,7 @@ anjuta_gladedir = $(anjuta_glade_dir)
 anjuta_glade_DATA = preferences.ui
 
 anjuta_uidir = $(anjuta_ui_dir)
-anjuta_ui_DATA = anjuta.ui
+anjuta_ui_DATA = anjuta.xml
 
 anjuta_layoutdir = $(anjuta_data_dir)
 anjuta_layout_DATA = layout.xml
