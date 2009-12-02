@@ -1631,6 +1631,7 @@ install_support (CppJavaPlugin *lang_plugin)
 												IAnjutaSymbolManager,
 												NULL),
 					lang_plugin->prefs);
+		lang_plugin->assist = assist;
 	}	
 		
 	lang_plugin->support_installed = TRUE;
@@ -1660,8 +1661,9 @@ uninstall_support (CppJavaPlugin *lang_plugin)
 	}
 	
 	if (lang_plugin->assist)
-	{
+	{	
 		g_object_unref (lang_plugin->assist);
+		lang_plugin->assist = NULL;
 	}
 	
 	lang_plugin->support_installed = FALSE;

@@ -839,6 +839,8 @@ static void
 cpp_java_assist_uninstall (CppJavaAssist *assist)
 {
 	g_return_if_fail (assist->priv->iassist != NULL);
+
+	DEBUG_PRINT ("uninstall called");
 	
 	g_signal_handlers_disconnect_by_func (assist->priv->iassist, G_CALLBACK (on_editor_char_added), assist);
 
