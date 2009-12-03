@@ -1,1 +1,1 @@
-../symbol-db/anjuta-tags/parser/js-node.h
+../symbol-db/anjuta-tags/js_parser/js-node.h

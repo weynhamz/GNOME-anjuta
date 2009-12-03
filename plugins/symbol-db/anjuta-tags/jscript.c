@@ -25,10 +25,10 @@
 #include "routines.h"
 #include "vstring.h"
 #include <assert.h>
-#include "parser/jstypes.h"
+#include "js_parser/jstypes.h"
 #include <glib.h>
-#include "parser/jsparse.h"
-#include "parser/js-context.h"
+#include "js_parser/jsparse.h"
+#include "js_parser/js-context.h"
 
 #include <string.h>
 

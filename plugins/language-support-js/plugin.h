@@ -31,12 +31,13 @@ struct _JSLang{
 	AnjutaPlugin parent;
 	gint editor_watch_id;
 	GObject *current_editor;
-	gchar *current;
-	GList *complition_cache;
-	gint uiid;
+//	gchar *current;
+	gpointer last;
+//	GList *complition_cache;
+//	gint uiid;
 	AnjutaPreferences *prefs;
 	DatabaseSymbol* symbol;
-	GtkActionGroup *action_group;
+//	GtkActionGroup *action_group;
 };
 
 struct _JSLangClass{

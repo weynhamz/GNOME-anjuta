@@ -21,11 +21,8 @@
 #define _UTIL_H_
 
 #include <glib.h>
-
+#include <libanjuta/anjuta-debug.h>
 #include "ijs-symbol.h"
-
-#undef DEBUG_PRINT
-#define DEBUG_PRINT g_warning
 
 enum BaseType
 {

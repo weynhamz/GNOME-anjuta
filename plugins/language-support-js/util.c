@@ -116,7 +116,6 @@ highlight_lines (GList *lines)
 
 	if (!anjuta_preferences_get_bool (plugin->prefs, HIGHLIGHT_MISSEDSEMICOLON))
 	{
-		DEBUG_PRINT ("JSLang: Highlight missed semicolon off");
 		return;
 	}
 

@@ -24,6 +24,7 @@
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-editor-assist.h>
+#include <libanjuta/interfaces/ianjuta-editor-tip.h>
 #include <libanjuta/interfaces/ianjuta-language.h>
 #include <libanjuta/interfaces/ianjuta-preferences.h>
 #include <ctype.h>
@@ -49,9 +50,6 @@
 static gpointer parent_class;
 
 static void
-on_code_complete (GtkAction * action, JSLang *plugin);
-
-static void
 on_value_added_current_editor (AnjutaPlugin *plugin, const gchar *name,
 							   const GValue *value, gpointer data);
 static void
@@ -64,12 +62,6 @@ on_jsdirs_rm_button_clicked (GtkButton *button, gpointer user_data);
 G_MODULE_EXPORT void
 on_jsdirs_add_button_clicked (GtkButton *button, gpointer user_data);
 
-
-static GtkActionEntry actions[] = {
-  { "CodeComplete", GTK_STOCK_DIALOG_INFO, N_("_Code Complete..."), "<control>space",
-	NULL, G_CALLBACK (on_code_complete)},
-};
-
 static gboolean
 js_support_plugin_activate (AnjutaPlugin *plugin)
 {
@@ -78,11 +70,10 @@ js_support_plugin_activate (AnjutaPlugin *plugin)
 	DEBUG_PRINT ("%s", "JSLang: Activating JSLang plugin ...");
 	js_support_plugin = (JSLang*) plugin;
 	js_support_plugin->editor_watch_id =
-		anjuta_plugin_add_watch (plugin,
-								 IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
-								 on_value_added_current_editor,
-								 on_value_removed_current_editor,
-								 plugin);
+		anjuta_plugin_add_watch (plugin, IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
+					 on_value_added_current_editor,
+					 on_value_removed_current_editor,
+					 plugin);
 
 	return TRUE;
 }
@@ -94,9 +85,7 @@ js_support_plugin_deactivate (AnjutaPlugin *plugin)
 
 	DEBUG_PRINT ("%s", "JSLang: Dectivating JSLang plugin ...");
 	js_support_plugin = (JSLang*) plugin;
-	anjuta_plugin_remove_watch (plugin,
-								js_support_plugin->editor_watch_id,
-								TRUE);
+	anjuta_plugin_remove_watch (plugin, js_support_plugin->editor_watch_id, TRUE);
 	return TRUE;
 }
 
@@ -107,8 +96,6 @@ js_support_plugin_finalize (GObject *obj)
 
 	g_object_unref (self->symbol);
 	self->symbol = NULL;
-	g_list_free (self->complition_cache);
-	self->complition_cache = NULL;
 
 	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
@@ -122,8 +109,6 @@ js_support_plugin_dispose (GObject *obj)
 
 	g_object_unref (self->symbol);
 	self->symbol = NULL;
-	g_list_free (self->complition_cache);
-	self->complition_cache = NULL;
 
 	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
@@ -132,11 +117,9 @@ static void
 js_support_plugin_instance_init (GObject *obj)
 {
 	JSLang *plugin = (JSLang*)obj;
-	plugin->complition_cache = NULL;
-	plugin->current = NULL;
+	plugin->last = NULL;
 	plugin->prefs = NULL;
 	plugin->symbol = NULL;
-	plugin->action_group = NULL;
 }
 
 static void
@@ -153,178 +136,8 @@ js_support_plugin_class_init (GObjectClass *klass)
 }
 
 static void
-on_editor_char_inserted (IAnjutaEditor *editor,
-						 IAnjutaIterable *insert_pos,
-						 gchar ch,
-						 JSLang *plugin)
-{
-	DEBUG_PRINT ("JSLang: Insert char %c \"%s\"", ch, plugin->current);
-	if (ianjuta_editor_assist_tip_shown (IANJUTA_EDITOR_ASSIST (editor), NULL))
-	{
-		plugin->current = NULL;
-		plugin->complition_cache = NULL;
-	}
-	if (ch == ')')
-		ianjuta_editor_assist_cancel_tips (IANJUTA_EDITOR_ASSIST (editor), NULL);
-
-	if (!isalnum(ch) && ch != '.')
-	{
-		plugin->current = NULL;
-		plugin->complition_cache = NULL;
-		return;
-	}
-	gchar *str = code_completion_get_str (editor, TRUE);
-	if (!str)
-		return;
-	if (plugin->current)
-	{
-		if (strncmp (plugin->current, str, strlen (plugin->current)) != 0)
-		{
-			plugin->current = NULL;
-			plugin->complition_cache = NULL;
-			DEBUG_PRINT ("JSLang: Incorrect string");
-			return;
-		}
-		GList *tmp;
-		IAnjutaIterable *position = ianjuta_editor_get_position (IANJUTA_EDITOR (editor), NULL);
-		plugin->current = g_strdup_printf ("%s%c", plugin->current, ch);
-		DEBUG_PRINT ("JSLang: Continue completion for %s ", plugin->current);
-		tmp = filter_list (plugin->complition_cache, plugin->current);
-		if (tmp)
-			ianjuta_editor_assist_suggest (IANJUTA_EDITOR_ASSIST (editor),
-											   tmp,
-											   position,
-											   /*alignment*/1 - strlen (plugin->current),
-											   NULL);
-		else
-			ianjuta_editor_assist_hide_suggestions (IANJUTA_EDITOR_ASSIST (editor), NULL);
-		return;
-	}
-	if (!plugin->prefs)
-		plugin->prefs = anjuta_shell_get_preferences (ANJUTA_PLUGIN (plugin)->shell, NULL);
-	if (!anjuta_preferences_get_bool (plugin->prefs, AUTO_CODECOMPLETE))
-	{
-		DEBUG_PRINT ("JSLang: Auto code complete off");
-		return;
-	}
-	gint depth;
-	IAnjutaIterable *position = ianjuta_editor_get_position (IANJUTA_EDITOR (editor), NULL);
-	GList *suggestions = NULL;
-	gchar *file = file_completion (editor, &depth);
-	DEBUG_PRINT ("JSLang: Auto complete for %s (TMFILE=%s)", str, file);
-	if (ch == '.')
-	{
-		suggestions = code_completion_get_list (plugin, file, str, depth);
-		plugin->complition_cache = suggestions;
-		ianjuta_editor_assist_suggest (IANJUTA_EDITOR_ASSIST (editor),
-										   suggestions,
-										   position,
-										   /*alignment*/1,
-										   NULL);
-		plugin->current = g_strdup ("");
-		DEBUG_PRINT ("JSLang: Auto complete for '%s'", plugin->current);
-	} else
-	{
-		suggestions = code_completion_get_list (plugin, file, NULL, depth);
-		if (suggestions)
-		{
-			plugin->complition_cache = suggestions;
-			suggestions = filter_list (suggestions, str);
-			ianjuta_editor_assist_suggest (IANJUTA_EDITOR_ASSIST (editor),
-										   suggestions,
-										   position,
-										   /*alignment*/1,
-										   NULL);
-			plugin->current = g_strdup (str);
-		}
-	}
-}
-
-static void
-on_assist_chosen (IAnjutaEditorAssist* iassist, gint selection,
-					JSLang *plugin)
-{
-	DEBUG_PRINT ("%s %d", "JSLang: assist_chosen", selection);
-	IAnjutaIterable *position = ianjuta_editor_get_position (IANJUTA_EDITOR (iassist), NULL);
-	GList *tmp = g_list_nth (filter_list (plugin->complition_cache, plugin->current), selection);
-	if (tmp)
-	{
-		gchar *str = tmp->data;
-
-		g_assert (strlen (str) >= strlen (plugin->current));
-
-		if (strlen (str) > strlen (plugin->current))
-		{
-			ianjuta_editor_insert (IANJUTA_EDITOR (iassist), position, str + strlen (plugin->current), -1, NULL);
-			
-			gchar *sym = code_completion_get_str (IANJUTA_EDITOR (iassist), FALSE);
-			g_assert (sym != NULL);
-
-			if (sym && code_completion_is_symbol_func (plugin, sym))
-			{
-				position = ianjuta_editor_get_position (IANJUTA_EDITOR (iassist), NULL);
-
-				if (anjuta_preferences_get_bool (plugin->prefs, ADD_BRACE_AFTER_FUNCCALL))
-				{
-					ianjuta_editor_insert (IANJUTA_EDITOR (iassist), position, " (", -1, NULL);
-				}
-				if (anjuta_preferences_get_bool (plugin->prefs, SHOW_CALLTIPS))
-				{
-
-					GList *t = NULL;
-					gchar *args = code_completion_get_func_tooltip (plugin, sym);
-					t = g_list_append (t, args);
-					if (args)
-					{
-						ianjuta_editor_assist_show_tips (iassist, t,  position,  1, NULL);
-						g_free (args);
-					}
-				}
-			}
-			g_free (sym);
-		}
-	}
-	ianjuta_editor_assist_hide_suggestions (iassist, NULL);
-	plugin->current = NULL;
-	plugin->complition_cache = NULL;
-}
-
-static void
-on_editor_backspace (IAnjutaEditor* editor, JSLang *plugin)
-{
-	DEBUG_PRINT ("%s (%s)", "JSLang: editor backspace ", plugin->current);
-
-	ianjuta_editor_assist_cancel_tips (IANJUTA_EDITOR_ASSIST (editor), NULL);
-
-	if (!plugin->current)
-		return;
-	int size = strlen (plugin->current);
-	if (size == 0)
-	{
-		ianjuta_editor_assist_hide_suggestions (IANJUTA_EDITOR_ASSIST (editor), NULL);
-		plugin->current = NULL;
-	}
-	else
-	{
-		IAnjutaIterable *position = ianjuta_editor_get_position (IANJUTA_EDITOR (editor), NULL);
-		GList *tmp;
-		plugin->current[size - 1] = '\0';
-		tmp = filter_list (plugin->complition_cache, plugin->current);
-		if (tmp)
-			ianjuta_editor_assist_suggest (IANJUTA_EDITOR_ASSIST (editor),
-											   tmp,
-											   position,
-											   /*alignment*/1 - strlen (plugin->current),
-											   NULL);
-		else
-			ianjuta_editor_assist_hide_suggestions (IANJUTA_EDITOR_ASSIST (editor), NULL);
-	}
-}
-
-static void
 install_support (JSLang *plugin)
 {
-	AnjutaUI *ui;
 	const gchar *lang;
 	IAnjutaLanguage* lang_manager;
 
@@ -340,46 +153,18 @@ install_support (JSLang *plugin)
 													   IANJUTA_EDITOR_LANGUAGE (plugin->current_editor), NULL);
 	if (!lang || !g_str_equal (lang, "JavaScript"))
 		return;
+
 	DEBUG_PRINT ("%s", "JSLang: Install support");
 
-	g_signal_connect (plugin->current_editor,
-					  "char-added",
-					  G_CALLBACK (on_editor_char_inserted),
-					  plugin);
-	g_signal_connect (plugin->current_editor, "assist-chosen",
-					  G_CALLBACK(on_assist_chosen), plugin);
-	g_signal_connect (plugin->current_editor, "backspace",
-					  G_CALLBACK (on_editor_backspace), plugin);
-	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
-	plugin->action_group = anjuta_ui_add_action_group_entries (ui, "ActionGroupCodeComplete",
-					_("Code Complete"),
-					actions,
-					G_N_ELEMENTS (actions),
-					GETTEXT_PACKAGE, TRUE, plugin);
-	plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
+	ianjuta_editor_assist_add (IANJUTA_EDITOR_ASSIST(plugin->current_editor), IANJUTA_PROVIDER(plugin), NULL);
 }
 
 static void
 uninstall_support (JSLang *plugin)
 {
-	AnjutaUI *ui;
 	DEBUG_PRINT ("%s", "JSLang: Uninstall support");
-	if (IANJUTA_IS_EDITOR(plugin->current_editor))
-	{
-		g_signal_handlers_disconnect_by_func (plugin->current_editor,
-									G_CALLBACK (on_editor_char_inserted),
-									plugin);
-		g_signal_handlers_disconnect_by_func (plugin->current_editor,
-									G_CALLBACK (on_assist_chosen),
-									plugin);
-		g_signal_handlers_disconnect_by_func (plugin->current_editor,
-									G_CALLBACK (on_editor_backspace),
-									plugin);
-	}
-	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
-	if (plugin->action_group)
-		anjuta_ui_remove_action_group (ui, plugin->action_group);
-	anjuta_ui_unmerge (ui, plugin->uiid);
+
+	ianjuta_editor_assist_remove (IANJUTA_EDITOR_ASSIST(plugin->current_editor), IANJUTA_PROVIDER(plugin), NULL);
 }
 
 static void
@@ -399,11 +184,7 @@ on_value_added_current_editor (AnjutaPlugin *plugin, const gchar *name,
 		js_support_plugin->current_editor = NULL;
 		return;
 	}
-	if (IANJUTA_IS_EDITOR(js_support_plugin->current_editor))
-		install_support (js_support_plugin);
-/*	g_signal_connect (lang_plugin->current_editor, "language-changed",
-					  G_CALLBACK (on_editor_language_changed),
-					  plugin);*/
+	install_support (js_support_plugin);
 }
 
 static void
@@ -415,60 +196,9 @@ on_value_removed_current_editor (AnjutaPlugin *plugin, const gchar *name,
 	DEBUG_PRINT ("%s", "JSLang: Remove editor");
 
 	js_support_plugin = (JSLang*) plugin;
-/*	if (js_support_plugin->current_editor)
-		g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
-										  G_CALLBACK (on_editor_language_changed),
-										  plugin);*/
 	if (IANJUTA_IS_EDITOR(js_support_plugin->current_editor))
 		uninstall_support (js_support_plugin);
 	js_support_plugin->current_editor = NULL;
-}
-
-static void
-on_code_complete (GtkAction * action, JSLang *plugin)
-{
-	DEBUG_PRINT ("JSLang: Short cut");
-	if (ianjuta_editor_assist_tip_shown (IANJUTA_EDITOR_ASSIST (plugin->current_editor), NULL))
-	{
-		plugin->current = NULL;
-		plugin->complition_cache = NULL;
-	}
-	if (plugin->current || !plugin->current_editor)
-		return;
-	gint depth;
-	IAnjutaIterable *position = ianjuta_editor_get_position (IANJUTA_EDITOR (plugin->current_editor), NULL);
-	GList *suggestions = NULL;
-	gchar *str = code_completion_get_str (IANJUTA_EDITOR (plugin->current_editor), FALSE);
-	if (!str)
-		return;
-	gchar *file = file_completion (IANJUTA_EDITOR (plugin->current_editor), &depth);
-	gint i;
-	DEBUG_PRINT ("JSLang: Auto complete for %s (TMFILE=%s)", str, file);
-	for (i = strlen (str) - 1; i; i--)
-	{
-		if (str[i] == '.')
-			break;
-	}
-	if (i > 0)
-	{
-		suggestions = code_completion_get_list (plugin, file, g_strndup (str, i), depth);
-	}
-	else
-		suggestions = code_completion_get_list (plugin, file, NULL, depth);
-	if (suggestions)
-	{
-		plugin->complition_cache = suggestions;
-		if (i > 0)
-			plugin->current = g_strdup (str + i + 1);
-		else
-			plugin->current = g_strdup (str);
-		suggestions = filter_list (suggestions, plugin->current);
-		ianjuta_editor_assist_suggest (IANJUTA_EDITOR_ASSIST (plugin->current_editor),
-									   suggestions,
-									   position,
-									   /*alignment*/1,
-									   NULL);
-	}
 }
 
 static void
@@ -617,9 +347,150 @@ ipreferences_iface_init (IAnjutaPreferencesIface* iface)
 	iface->unmerge = ipreferences_unmerge;
 }
 
+static void
+iprovider_activate (IAnjutaProvider *obj, IAnjutaIterable* iter,  gpointer data, GError **err)
+{
+	DEBUG_PRINT("activate");
+
+	JSLang *plugin = (JSLang*)obj;
+	gchar *str = (gchar*)data;
+
+	g_assert (plugin->current_editor);
+	g_assert (str);
+
+	gint a = ianjuta_iterable_diff (plugin->last, iter, NULL);
+
+	ianjuta_editor_insert (IANJUTA_EDITOR (plugin->current_editor), iter, str + a, -1, NULL);
+			
+	gchar *sym = code_completion_get_str (IANJUTA_EDITOR (plugin->current_editor), FALSE);
+	g_assert (sym != NULL);
+
+	if (sym && code_completion_is_symbol_func (plugin, sym))
+	{
+		IAnjutaIterable *position = ianjuta_editor_get_position (IANJUTA_EDITOR (plugin->current_editor), NULL);
+
+		if (anjuta_preferences_get_bool (plugin->prefs, ADD_BRACE_AFTER_FUNCCALL))
+		{
+			ianjuta_editor_insert (IANJUTA_EDITOR (plugin->current_editor), position, " (", -1, NULL);
+		}
+		if (anjuta_preferences_get_bool (plugin->prefs, SHOW_CALLTIPS))
+		{
+/*			GList *t = NULL;
+			gchar *args = code_completion_get_func_tooltip (plugin, sym);
+			t = g_list_append (t, args);
+			if (args)
+			{
+				ianjuta_editor_tip_show (IANJUTA_EDITOR_TIP(plugin->current_editor), t,
+							 position, 1, NULL);
+
+				g_free (args);
+			}*/
+		}
+	}
+	g_free (sym);
+}
+
+static const gchar* 
+iprovider_get_name (IAnjutaProvider *obj, GError **err)
+{
+	return _("JS");
+}
+
+static IAnjutaIterable* 
+iprovider_get_start_iter (IAnjutaProvider *obj, GError **err)
+{
+	JSLang *plugin = (JSLang*)obj;
+
+	return plugin->last;
+}
+
+static void 
+iprovider_populate (IAnjutaProvider *obj, IAnjutaIterable* iter, GError **err)
+{
+	static GList *trash = NULL;
+	JSLang *plugin = (JSLang*)obj;
+
+	if (plugin->last) {
+		g_object_unref (plugin->last);
+	}
+
+        plugin->last = ianjuta_iterable_clone(iter, NULL);
+
+	if (!plugin->current_editor)
+		return;
+	gint depth;
+	GList *suggestions = NULL;
+	gchar *str = code_completion_get_str (IANJUTA_EDITOR (plugin->current_editor), FALSE);
+
+	if (trash)
+	{
+		g_list_foreach (trash, (GFunc)g_free, NULL);
+		g_list_free (trash);
+		trash = NULL;
+	}
+
+	if (!str)
+		return;
+	gchar *file = file_completion (IANJUTA_EDITOR (plugin->current_editor), &depth);
+	gint i;
+	DEBUG_PRINT ("JSLang: Auto complete for %s (TMFILE=%s)", str, file);
+	for (i = strlen (str) - 1; i; i--)
+	{
+		if (str[i] == '.')
+			break;
+	}
+	if (i > 0)
+	{
+		suggestions = code_completion_get_list (plugin, file, g_strndup (str, i), depth);
+	}
+	else
+		suggestions = code_completion_get_list (plugin, file, NULL, depth);
+	if (suggestions)
+	{
+		GList *nsuggest = NULL;
+                gint k;
+		if (i > 0)
+		{
+			suggestions = filter_list (suggestions, str + i + 1);
+			k = strlen (str + i + 1);
+		} else
+		{
+			suggestions = filter_list (suggestions, str);
+			k = strlen (str);
+		}
+		GList *i;
+		for (; k > 0; k--)
+			ianjuta_iterable_previous (plugin->last, NULL);
+
+		for (i = suggestions; i; i = g_list_next(i)) {
+			IAnjutaEditorAssistProposal* proposal = g_new0(IAnjutaEditorAssistProposal, 1);
+
+			if (!i->data)
+				continue;
+	
+			proposal->label = i->data;
+			proposal->data = i->data;
+			nsuggest = g_list_prepend (nsuggest, proposal);
+		}
+		ianjuta_editor_assist_proposals ( IANJUTA_EDITOR_ASSIST (plugin->current_editor), obj,  nsuggest,  TRUE, NULL);
+		g_list_free (nsuggest);
+                trash = suggestions;
+	}
+	ianjuta_editor_assist_proposals ( IANJUTA_EDITOR_ASSIST (plugin->current_editor), obj,  NULL,  TRUE, NULL);
+}
+
+static void
+iprovider_iface_init (IAnjutaProviderIface* iface)
+{
+	iface->activate	= iprovider_activate;
+	iface->get_name	= iprovider_get_name;
+	iface->get_start_iter = iprovider_get_start_iter;
+	iface->populate= iprovider_populate;
+}
 
 ANJUTA_PLUGIN_BEGIN (JSLang, js_support_plugin);
 ANJUTA_PLUGIN_ADD_INTERFACE(ipreferences, IANJUTA_TYPE_PREFERENCES);
+ANJUTA_PLUGIN_ADD_INTERFACE(iprovider, IANJUTA_TYPE_PROVIDER);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (JSLang, js_support_plugin);

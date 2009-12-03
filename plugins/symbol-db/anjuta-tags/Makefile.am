@@ -14,18 +14,18 @@ AM_CFLAGS =\
 
 bin_PROGRAMS = anjuta-tags
 
-YACCFLAGS = -d -o ./parser/y.tab.c
-YACCFILE = ./parser/Grammar.y
+YACCFLAGS = -d -o ./js_parser/y.tab.c
+YACCFILE = ./js_parser/Grammar.y
 PARSER = bison
 
-parser/y.tab.c : ${YACCFILE}
+js_parser/y.tab.c : ${YACCFILE}
 	${PARSER} ${YACCFLAGS} ${YACCFILE}
 
 LEXER = flex
-LEXFILE = ./parser/lex.l
-LEXCCFLAGS = -Cr -o parser/lex.yy.c --yylineno --bison-bridge
+LEXFILE = ./js_parser/lex.l
+LEXCCFLAGS = -Cr -o js_parser/lex.yy.c --yylineno --bison-bridge
 
-parser/lex.yy.c : ${LEXFILE}
+js_parser/lex.yy.c : ${LEXFILE}
 	${LEXER} ${LEXCCFLAGS} ${LEXFILE}
 
 anjuta_tags_SOURCES = \
@@ -108,11 +108,11 @@ anjuta_tags_SOURCES = \
 	vstring.c        \
 	vstring.h        \
 	yacc.c	\
-parser/y.tab.c	\
-parser/lex.yy.c   \
-parser/jsparse.c   \
-parser/js-context.c   \
-parser/js-node.c
+js_parser/y.tab.c	\
+js_parser/lex.yy.c   \
+js_parser/jsparse.c   \
+js_parser/js-context.c   \
+js_parser/js-node.c
 
 
 anjuta_tags_LDFLAGS = \

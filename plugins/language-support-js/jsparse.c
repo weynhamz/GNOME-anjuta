@@ -1,1 +1,1 @@
-../symbol-db/anjuta-tags/parser/jsparse.c
+../symbol-db/anjuta-tags/js_parser/jsparse.c
