@@ -5853,4 +5853,14 @@ typedef gint Id;
 	  */
 	  
 	  const gchar* get_name_from_editor (IAnjutaEditorLanguage* editor);
+	  
+	  /*
+	   * ianjuta_language_get_languages:
+	   * @obj: Self
+	   * @err: Error propagation
+	   *
+	   * Returns: a list of ids of the available languages. Use GPOINTER_TO_INT()
+	   * to receive them. The list but not the values should be free'd with g_list_free()
+	   */
+	   GList* get_languages ();
 }
