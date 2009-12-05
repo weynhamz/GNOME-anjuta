@@ -324,6 +324,12 @@ cpp_java_assist_destroy_completion_cache (CppJavaAssist *assist)
 	}
 }
 
+static void free_proposal (IAnjutaEditorAssistProposal* proposal)
+{
+	g_free (proposal->label);
+	g_free(proposal);
+}
+
 static void
 cpp_java_assist_update_autocomplete (CppJavaAssist *assist)
 {
@@ -373,7 +379,7 @@ cpp_java_assist_update_autocomplete (CppJavaAssist *assist)
 		suggestions = g_list_reverse (suggestions);
 		ianjuta_editor_assist_proposals (assist->priv->iassist, IANJUTA_PROVIDER(assist),
 		                                 suggestions, !queries_active, NULL);
-		g_list_foreach (suggestions, (GFunc) g_free, NULL);
+		g_list_foreach (suggestions, (GFunc) free_proposal, NULL);
 		g_list_free (suggestions);
 	}
 	else
