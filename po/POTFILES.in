@@ -58,7 +58,6 @@ plugins/debug-manager/memory.c
 plugins/debug-manager/plugin.c
 plugins/debug-manager/queue.c
 plugins/debug-manager/registers.c
-plugins/debug-manager/sexy-icon-entry.c
 plugins/debug-manager/sharedlib.c
 plugins/debug-manager/signals.c
 plugins/debug-manager/sparse_buffer.c
