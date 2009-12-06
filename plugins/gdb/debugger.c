@@ -45,6 +45,7 @@
 #include <libanjuta/interfaces/ianjuta-debugger-memory.h>
 #include <libanjuta/interfaces/ianjuta-debugger-instruction.h>
 #include <libanjuta/interfaces/ianjuta-debugger-variable.h>
+#include <libanjuta/interfaces/ianjuta-environment.h>
 
 #include "debugger.h"
 #include "utilities.h"
@@ -124,6 +125,9 @@ struct _DebuggerPriv
 
 	IAnjutaMessageView *log;
 	gboolean gdb_log;
+
+	/* Environment */
+	IAnjutaEnvironment *environment;
 };
 
 static gpointer parent_class;
@@ -290,6 +294,8 @@ debugger_initialize (Debugger *debugger)
 	
 	anjuta_log = g_getenv (ANJUTA_LOG_ENV);
 	debugger->priv->gdb_log = anjuta_log && (atoi(anjuta_log) > DEBUGGER_LOG_LEVEL);
+
+	debugger->priv->environment = NULL;
 }
 
 static void
@@ -314,6 +320,12 @@ void
 debugger_free (Debugger *debugger)
 {
 	g_return_if_fail (IS_DEBUGGER (debugger));
+
+	if (debugger->priv->environment)
+	{
+		g_object_unref (debugger->priv->environment);
+		debugger->priv->environment = NULL;
+	}
 
 	g_object_unref (debugger);
 }
@@ -783,12 +795,15 @@ debugger_start (Debugger *debugger, const GList *search_dirs,
 				const gchar *prog, gboolean is_libtool_prog)
 {
 	gchar *command_str, *dir, *tmp, *text, *msg;
-	gchar *exec_dir;
 	gboolean ret;
 	const GList *node;
+	AnjutaPluginManager *plugin_manager;
 	AnjutaLauncher *launcher;
 	GList *dir_list = NULL;
 	gchar *term = NULL;
+	gchar **argv = NULL;
+	gchar **envp = NULL;
+	gchar *work_dir = NULL;
 	
 	DEBUG_PRINT ("In function: debugger_start(%s) libtool %d", prog == NULL ? "(null)" : prog, is_libtool_prog);
 
@@ -811,22 +826,11 @@ debugger_start (Debugger *debugger, const GList *search_dirs,
 	g_free (tmp);
 
 	/* Prepare source search directories */
-	exec_dir = NULL;
+	work_dir = NULL;
 	if (prog)
-		exec_dir = g_path_get_dirname (prog);
-	
-	if (exec_dir)
-	{
-		gchar *quoted_exec_dir = gdb_quote (exec_dir);
-		dir = g_strconcat (" -directory=\"", quoted_exec_dir, "\"", NULL);
-		g_free (quoted_exec_dir);
-		dir_list = g_list_prepend (dir_list, exec_dir);
-	}
-	else
-	{
-		dir = g_strdup (" ");
-	}
-	
+		work_dir = g_path_get_dirname (prog);
+
+	dir = g_strdup (" ");
 	node = search_dirs;
 	while (node)
 	{
@@ -869,8 +873,6 @@ debugger_start (Debugger *debugger, const GList *search_dirs,
 	if (prog && strlen(prog) > 0)
 	{
 		gchar *quoted_prog = gdb_quote (prog);
-		if (exec_dir)
-			chdir (exec_dir);
 		if (is_libtool_prog == FALSE)
 		{
 			command_str = g_strdup_printf (GDB_PATH " -f -n -i=mi2 %s %s "
@@ -902,6 +904,9 @@ debugger_start (Debugger *debugger, const GList *search_dirs,
 										   dir, term == NULL ? "" : term, PACKAGE_DATA_DIR);
 		}
 	}
+	g_shell_parse_argv (command_str, NULL, &argv, NULL);
+	g_free (command_str);
+
 	g_free (dir);
 	g_free (term);
 	debugger->priv->starting = TRUE;
@@ -909,13 +914,39 @@ debugger_start (Debugger *debugger, const GList *search_dirs,
 	debugger->priv->loading = prog != NULL ? TRUE : FALSE;
 	debugger->priv->debugger_is_busy = 1;
 
+	/* Get environment */
+	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN (debugger->priv->instance)->shell, NULL);
+	if (debugger->priv->environment != NULL)
+	{
+		g_object_unref (debugger->priv->environment);
+	}
+	if (anjuta_plugin_manager_is_active_plugin (plugin_manager, "IAnjutaEnvironment"))
+	{
+		IAnjutaEnvironment *env = IANJUTA_ENVIRONMENT (anjuta_shell_get_object (ANJUTA_PLUGIN (debugger->priv->instance)->shell,
+					"IAnjutaEnvironment", NULL));
+		
+		g_object_ref (env);
+		debugger->priv->environment = env;
+		ianjuta_environment_override (debugger->priv->environment, &work_dir, &argv, &envp, NULL);
+	}
+	else
+	{
+		debugger->priv->environment = NULL;
+	}
+	
 	/* Prepare for launch. */
 	launcher = debugger->priv->launcher;
 	anjuta_launcher_set_terminate_on_exit (launcher, TRUE);
 	g_signal_connect (G_OBJECT (launcher), "child-exited",
 					  G_CALLBACK (on_gdb_terminated), debugger);
-	ret = anjuta_launcher_execute (launcher, command_str,
-								   on_gdb_output_arrived, debugger);
+	ret = anjuta_launcher_execute_v (launcher,
+		    						work_dir,
+		    						argv,
+		    						envp,
+		    						on_gdb_output_arrived, debugger);
+	g_strfreev (argv);
+	g_strfreev (envp);
+	g_free (work_dir);
 
 	if (ret)
 	{
@@ -966,7 +997,6 @@ debugger_start (Debugger *debugger, const GList *search_dirs,
 										 debugger->priv->output_user_data);
 		}
 	}
-	g_free (command_str);
 
 	return TRUE;
 }
