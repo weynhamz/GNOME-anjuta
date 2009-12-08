@@ -819,6 +819,7 @@ plugins/project-wizard/templates/library/src/Makefile
 plugins/project-wizard/templates/library/po/Makefile
 plugins/project-wizard/templates/m4/Makefile
 plugins/language-support-cpp-java/Makefile
+plugins/language-support-cpp-java/cxxparser/Makefile
 plugins/run-program/Makefile
 plugins/starter/Makefile
 anjuta.desktop.in

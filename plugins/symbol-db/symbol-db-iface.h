@@ -95,6 +95,24 @@ isymbol_manager_get_parent_scope (IAnjutaSymbolManager *sm,
 								  IAnjutaSymbolField info_fields,
 								  GError **err);
 
+IAnjutaIterable* 
+isymbol_manager_search_symbol_in_scope (IAnjutaSymbolManager *sm,
+                                        const gchar *pattern, 
+                                        IAnjutaSymbol *container_symbol, 
+                                        IAnjutaSymbolType match_types, 
+                                        gboolean include_types, 
+                                        gint results_limit, 
+                                        gint results_offset, 
+                                        IAnjutaSymbolField info_fields,
+                                        GError **err);
+
+IAnjutaIterable*
+isymbol_manager_get_scope_chain (IAnjutaSymbolManager *sm,                                 
+                                 const gchar* filename, 
+                                 gulong line,
+                                 IAnjutaSymbolField info_fields,
+                                 GError **err);
+
 IAnjutaIterable*
 isymbol_manager_get_scope (IAnjutaSymbolManager *sm,
 						   const gchar* filename,  
