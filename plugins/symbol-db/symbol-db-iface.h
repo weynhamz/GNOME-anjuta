@@ -81,7 +81,7 @@ isymbol_manager_get_symbol_by_id (IAnjutaSymbolManager *sm,
 								  gint symbol_id, 
 								  IAnjutaSymbolField info_fields,
 								  GError **err);
-
+ 
 IAnjutaIterable*
 isymbol_manager_get_symbol_more_info (IAnjutaSymbolManager *sm,
 								  const IAnjutaSymbol *symbol, 
@@ -98,7 +98,7 @@ isymbol_manager_get_parent_scope (IAnjutaSymbolManager *sm,
 IAnjutaIterable* 
 isymbol_manager_search_symbol_in_scope (IAnjutaSymbolManager *sm,
                                         const gchar *pattern, 
-                                        IAnjutaSymbol *container_symbol, 
+                                        const IAnjutaSymbol *container_symbol, 
                                         IAnjutaSymbolType match_types, 
                                         gboolean include_types, 
                                         gint results_limit, 

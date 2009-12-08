@@ -198,11 +198,11 @@ isymbol_manager_get_scope_chain (IAnjutaSymbolManager *sm,
 
 	return IANJUTA_ITERABLE (iterator);
 }
-
+ 
 IAnjutaIterable* 
 isymbol_manager_search_symbol_in_scope (IAnjutaSymbolManager *sm,
                                         const gchar *pattern, 
-                                        IAnjutaSymbol *container_symbol, 
+                                        const IAnjutaSymbol *container_symbol, 
                                         IAnjutaSymbolType match_types, 
                                         gboolean include_types, 
                                         gint results_limit, 
@@ -539,7 +539,6 @@ isymbol_manager_search_file (IAnjutaSymbolManager *sm, IAnjutaSymbolType match_t
 	return IANJUTA_ITERABLE (iterator);
 }
 
-
 guint
 isymbol_manager_search_file_async (IAnjutaSymbolManager *sm, IAnjutaSymbolType match_types, 
 				gboolean include_types,  IAnjutaSymbolField info_fields, const gchar *pattern,     			
@@ -626,6 +625,7 @@ isymbol_manager_iface_init (IAnjutaSymbolManagerIface *iface)
 	iface->get_scope_chain = isymbol_manager_get_scope_chain;
 	iface->get_symbol_more_info = isymbol_manager_get_symbol_more_info;
 	iface->get_symbol_by_id = isymbol_manager_get_symbol_by_id;
+	iface->search_symbol_in_scope = isymbol_manager_search_symbol_in_scope;
 	iface->search_system = isymbol_manager_search_system;
 	iface->search_system_async = isymbol_manager_search_system_async;
 	iface->search_project = isymbol_manager_search_project;

@@ -26,9 +26,8 @@ extern "C" {
 
 #include <libanjuta/interfaces/ianjuta-symbol-manager.h>		
 
-// FIXME: actually a dbe instance is passed. Change here when integrating with Anjuta.
 void engine_parser_init (IAnjutaSymbolManager * manager);
-	
+	 
 void engine_parser_test_print_tokens (const char *str);
 
 void engine_parser_parse_expression (const char*str);	

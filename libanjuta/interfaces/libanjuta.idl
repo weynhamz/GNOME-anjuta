@@ -5584,7 +5584,7 @@ interface IAnjutaSymbolManager
 	/**
 	 * FIXME COMMENTS.
 	 */	
-	IAnjutaIterable* search_symbol_in_scope (const gchar *pattern, IAnjutaSymbol *container_symbol, IAnjutaSymbolType match_types, gboolean include_types, gint results_limit, gint results_offset, IAnjutaSymbolField info_fields);
+	IAnjutaIterable* search_symbol_in_scope (const gchar *pattern, const IAnjutaSymbol *container_symbol, IAnjutaSymbolType match_types, gboolean include_types, gint results_limit, gint results_offset, IAnjutaSymbolField info_fields);
 	
 	
 	/**
