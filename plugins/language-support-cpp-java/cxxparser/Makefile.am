@@ -10,7 +10,8 @@ AM_CPPFLAGS = \
 	$(LIBANJUTA_CFLAGS) \
   	-lc \
 	-DDEBUG \
-	-DCURR_DIR=\"`pwd`\"
+	-DCURR_DIR=\"`pwd`\" \
+	-fPIC
 
 AM_CFLAGS =\
 	 -Wall\

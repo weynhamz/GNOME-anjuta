@@ -415,7 +415,7 @@ EngineParser::switchTypedefToStruct (IAnjutaIterable * test,
 	IAnjutaIterable *new_struct;
 
 	cout << "Switching typedef to struct " << endl;
-	ianjuta_symbol_manager_get_parent_scope (_dbe, node, NULL, sym_info, NULL);
+	new_struct = ianjuta_symbol_manager_get_parent_scope (_dbe, node, NULL, sym_info, NULL);
 	                                         
 	if (new_struct != NULL)
 	{
