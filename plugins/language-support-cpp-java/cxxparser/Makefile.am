@@ -16,9 +16,9 @@ AM_CFLAGS =\
 	 -Wall\
 	 -g
 
-lib_LTLIBRARIES = libcxxparser.la
+noinst_LIBRARIES = libcxxparser.a
 
-libcxxparser_la_SOURCES = \
+libcxxparser_a_SOURCES = \
         expression-lexer.cpp \
         expression-parser.cpp \
         expression-result.cpp \
@@ -44,5 +44,5 @@ libcxxparser_la_SOURCES = \
         scope-parser.h \
         variable-parser.h 
  
-libcxxparser_la_LIBADD =   $(LIBANJUTA_LIBS) 
+libcxxparser_a_LIBADD = $(LIBANJUTA_LIBS) 
 

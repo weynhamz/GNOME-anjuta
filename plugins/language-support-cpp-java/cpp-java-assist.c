@@ -23,6 +23,8 @@
  * 	Boston, MA  02110-1301, USA.
  */
 
+#include "cxxparser/engine-parser.h"
+
 #include <ctype.h>
 #include <string.h>
 #include <libanjuta/anjuta-debug.h>
@@ -894,6 +896,10 @@ cpp_java_assist_new (IAnjutaEditor *ieditor,
 	assist->priv->isymbol_manager = isymbol_manager;
 	assist->priv->preferences = prefs;
 	cpp_java_assist_install (assist, ieditor);
+
+	/* FIXME ? */
+	engine_parser_init (isymbol_manager);	
+	
 	return assist;
 }
 
