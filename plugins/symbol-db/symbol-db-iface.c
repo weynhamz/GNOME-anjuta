@@ -322,8 +322,8 @@ isymbol_manager_search_system (IAnjutaSymbolManager *sm, IAnjutaSymbolType match
 	/* take the global's engine */
 	dbe = SYMBOL_DB_ENGINE (sdb_plugin->sdbe_globals);
 
-	iterator = do_search_prj_glb (dbe, match_types, info_fields, 
-	                      include_types, pattern, filescope_search,
+	iterator = do_search_prj_glb (dbe, match_types, include_types, 
+	                      info_fields, pattern, filescope_search,
 						  results_limit, results_offset,
 	           			  sdb_plugin->session_packages);
 
@@ -455,8 +455,8 @@ isymbol_manager_search_project (IAnjutaSymbolManager *sm, IAnjutaSymbolType matc
 	/* take the project's engine */
 	dbe = SYMBOL_DB_ENGINE (sdb_plugin->sdbe_project);
 
-	iterator = do_search_prj_glb (dbe, match_types, info_fields, 
-	                      include_types, pattern, filescope_search,
+	iterator = do_search_prj_glb (dbe, match_types, include_types, 
+	                      info_fields, pattern, filescope_search,
 						  results_limit, results_offset,
 	           			  NULL);
 
