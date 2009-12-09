@@ -57,7 +57,7 @@ libanjuta_language_cpp_java_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 # Plugin dependencies
 libanjuta_language_cpp_java_la_LIBADD = \
 	$(LIBANJUTA_LIBS) \
-	cxxparser/libcxxparser.a
+	cxxparser/libcxxparser.la
 	
 prefs_ui_files = anjuta-language-cpp-java.ui
 include $(top_srcdir)/scripts/build-schemas.mk

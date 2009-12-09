@@ -13,13 +13,9 @@ AM_CPPFLAGS = \
 	-DCURR_DIR=\"`pwd`\" \
 	-fPIC
 
-AM_CFLAGS =\
-	 -Wall\
-	 -g
+noinst_LTLIBRARIES = libcxxparser.la
 
-noinst_LIBRARIES = libcxxparser.a
-
-libcxxparser_a_SOURCES = \
+libcxxparser_la_SOURCES = \
         expression-lexer.cpp \
         expression-parser.cpp \
         expression-result.cpp \
