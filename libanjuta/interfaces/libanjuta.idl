@@ -5577,13 +5577,45 @@ interface IAnjutaSymbolManager
 	IAnjutaIterable* get_parent_scope (const IAnjutaSymbol *symbol, const gchar *filename, IAnjutaSymbolField info_fields);
 
 	/**
-	 * FIXME COMMENTS.
-	 */
+	* ianjuta_symbol_manager_get_scope_chain:
+	* @obj: Self
+	* @filename: Full path filename where to search for the parent scope symbol.
+	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
+	* @err: Error propagation and reporting.
+	*
+ 	* Walk the path up to the root scope given a full_local_file_path and a line number.
+ 	* The returned iterator will be populated with IAnjutaSymbol(s)
+ 	* so that it could be easily browsed by a client app. 	
+ 	* e.g.
+ 	* namespace FooBase {
+ 	* class FooKlass {
+ 	*	
+ 	* }
+ 	*
+ 	* void FooKlass::foo_func () {			<-------------- this is the scoped symbol
+	*              
+ 	* }
+ 	*
+	* Returns: NULL on error or if scope isn't found. The returned iterator'll contain 
+    * symbols in this order: foo_func, FooKlass, FooBase.
+	*/
 	IAnjutaIterable* get_scope_chain (const gchar* filename, gulong line, IAnjutaSymbolField info_fields);
 
 	/**
-	 * FIXME COMMENTS.
-	 */	
+	* ianjuta_symbol_manager_search_symbol_in_scope:
+	* @obj: Self
+	* @pattern Pattern you want to search for. If NULL it will use '%' and LIKE for query.
+ 	* @container_symbol_id The container symbol id where you want to search in.
+ 	* @match_types Can be set to IANJUTA_SYMBOL_TYPE_UNDEF. In that case these filters will not be taken into consideration. 
+ 	* @include_kinds Should the filter_kinds (if not null) be applied as inluded or excluded?
+ 	* @results_limit Limit results to an upper bound. -1 If you don't want to use this par.
+ 	* @results_offset Skip results_offset results. -1 If you don't want to use this par.
+ 	* @info_fields Infos about symbols you want to know. 
+	*
+ 	* Usually, for instance in a completion engine we have to search for symbols
+ 	* that are part of a container symbol, even for their existence.
+ 	* This function would be useful and fast in those cases.	 
+	*/
 	IAnjutaIterable* search_symbol_in_scope (const gchar *pattern, const IAnjutaSymbol *container_symbol, IAnjutaSymbolType match_types, gboolean include_types, gint results_limit, gint results_offset, IAnjutaSymbolField info_fields);
 	
 	
