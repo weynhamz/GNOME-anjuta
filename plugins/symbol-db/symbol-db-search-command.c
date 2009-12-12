@@ -98,16 +98,21 @@ do_search_file (SymbolDBSearchCommand *sdbsc)
 	{		
 		return NULL;
 	}
+
+	iterator = NULL;
+	if (symbol_db_engine_is_connected (priv->dbe)) 
+	{
 	
-	iterator = 
-		symbol_db_engine_find_symbol_by_name_pattern_on_file (priv->dbe,
-				    priv->pattern,
-					abs_file_path,
-					priv->match_types,
-					priv->include_types,
-					priv->results_limit,
-					priv->results_offset,
-					priv->info_fields);
+		iterator = 
+			symbol_db_engine_find_symbol_by_name_pattern_on_file (priv->dbe,
+					    priv->pattern,
+						abs_file_path,
+						priv->match_types,
+						priv->include_types,
+						priv->results_limit,
+						priv->results_offset,
+						priv->info_fields);
+	}
 	
 	g_free (abs_file_path);	
 
@@ -121,16 +126,21 @@ do_search_prj_glb (SymbolDBSearchCommand *sdbsc)
 	SymbolDBSearchCommandPriv *priv;	
 
 	priv = sdbsc->priv;
-	iterator = 		
-		symbol_db_engine_find_symbol_by_name_pattern_filtered (priv->dbe,
-					priv->pattern,
-					priv->match_types,
-					priv->include_types,
-					priv->filescope_search,
-					priv->session_packages,
-					priv->results_limit,
-					priv->results_offset,
-					priv->info_fields);
+
+	iterator = NULL;
+	if (symbol_db_engine_is_connected (priv->dbe)) 
+	{
+		iterator = 		
+			symbol_db_engine_find_symbol_by_name_pattern_filtered (priv->dbe,
+						priv->pattern,
+						priv->match_types,
+						priv->include_types,
+						priv->filescope_search,
+						priv->session_packages,
+						priv->results_limit,
+						priv->results_offset,
+						priv->info_fields);
+	}
 	
 	return iterator;
 }
