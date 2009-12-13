@@ -28,6 +28,7 @@
 #include <string>
 #include <vector>
 #include <libanjuta/interfaces/ianjuta-symbol-manager.h>
+#include <libanjuta/anjuta-debug.h>
 
 using namespace std;
 
@@ -47,7 +48,7 @@ EngineParser::EngineParser ()
 {	
 	_main_tokenizer = new CppTokenizer ();	
 	_extra_tokenizer = new CppTokenizer ();	
-	_dbe = NULL;
+	_sym_man = NULL;
 }
 
 EngineParser::~EngineParser ()
@@ -106,68 +107,22 @@ EngineParser::nextMainToken (string &out_token, string &out_delimiter)
 	return false;
 }
 
-/* FIXME: to be removed. This is unused debug code */
-void 
-EngineParser::DEBUG_printTokens (const string& text)
-{
-	_main_tokenizer->setText (text.c_str ());
-
-	string op;
-	string token;
-	int i = 0;
-	while (nextMainToken(token, op)) 
-	{
-		printf ("tok %d %s [op %s]\n", i, token.c_str (), op.c_str ());
-		//ExpressionResult result = parse_expression(token);
-		//result.Print ();
-		i++;
-		token.clear ();
-	}
-	printf ("tok final %s\n", token.c_str ());	
-}
-
 ExpressionResult 
 EngineParser::parseExpression(const string &in)
 {
 	return parse_expression (in.c_str ());	
 }
 
-/* FIXME: to be removed. This is unused debug code */
-void
-EngineParser::testParseExpression (const string &str)
-{
-	_main_tokenizer->setText(str.c_str ());
-
-	string word;
-	string op;
-	ExpressionResult result;
-	
-	while (nextMainToken (word, op)) {
-
-		cout << "--------\ngot word " << word << " op " << op << endl; 
-		// fill up ExpressionResult
-		result = parseExpression (word);
-
-		result.print ();
-
-		word.clear ();
-	}
-	
-//	ExpressionResult res = parseExpression (str);
-
-//	res.Print ();	
-}
-
 void 
 EngineParser::setSymbolManager (IAnjutaSymbolManager *manager)
 {
-	_dbe = manager;
+	_sym_man = manager;
 }
 
 IAnjutaSymbolManager * 
 EngineParser::getSymbolManager ()
 {
-	return _dbe;
+	return _sym_man;
 }
 
 void 
@@ -191,14 +146,14 @@ EngineParser::trim (string& str, string trimChars /* = "{};\r\n\t\v " */)
 }
 
 /**
- * Return NULL on global 
+ * @return NULL on global 
  */
 IAnjutaIterable *
 EngineParser::getCurrentScopeChainByFileLine (const char* full_file_path, 
     										  unsigned long linenum)
 {	
 	IAnjutaIterable *iter = 		
-		ianjuta_symbol_manager_get_scope_chain (_dbe, full_file_path, linenum, 
+		ianjuta_symbol_manager_get_scope_chain (_sym_man, full_file_path, linenum, 
 		                                        IANJUTA_SYMBOL_FIELD_SIMPLE, NULL);
 
 	cout << "checking for completion scope..";
@@ -263,9 +218,7 @@ EngineParser::getTypeNameAndScopeByToken (ExpressionResult &result,
 	{
 		cout << "*** Found 'this'" << endl;
 		
-		/*
-		 * special handle for 'this' keyword
-		 */
+		/* special handle for 'this' keyword */
 		out_type_scope = result.m_scope.empty() ? "" : result.m_scope.c_str();
 
 		if (out_type_scope.empty ()) 
@@ -291,8 +244,7 @@ EngineParser::getTypeNameAndScopeByToken (ExpressionResult &result,
 			cout << "Can not use '->' operator on a non pointer object" << endl;
 			return false;
 		}
-// FIXME
-//		out_type_name = scope_name;
+		
 		return true;
 	}
 	else 
@@ -301,11 +253,6 @@ EngineParser::getTypeNameAndScopeByToken (ExpressionResult &result,
 		 * Found an identifier (can be a local variable, a global one etc)
 		 */			
 		cout << "*** Found an identifier or local variable..." << endl;
-
-
-		/* this can be NULL if the scope is global */
-//		SymbolDBEngineIterator *scope_chain_iter = 
-//			getCurrentScopeChainByFileLine (full_file_path.c_str(), linenum);
 
 		/* optimize scope'll clear the scopes leaving the local variables */
 		string optimized_scope = optimizeScope(above_text);
@@ -336,8 +283,47 @@ EngineParser::getTypeNameAndScopeByToken (ExpressionResult &result,
 			}
 		}
 
-		// FIXME: test also with function definition in case the variable is defined there....
-		
+		IAnjutaIterable* curr_scope_iter = 
+			ianjuta_symbol_manager_get_scope (_sym_man, full_file_path.c_str (), linenum, 
+			                                  IANJUTA_SYMBOL_FIELD_SIMPLE, NULL);
+
+		if (curr_scope_iter != NULL)
+		{
+			IAnjutaSymbol *node = IANJUTA_SYMBOL (curr_scope_iter);
+
+			/* try to get the signature from the symbol and test if the 
+			 * variable searched is found there.
+			 */
+			const gchar * signature = ianjuta_symbol_get_args (node, NULL);
+			if (signature == NULL)
+			{
+				g_object_unref (curr_scope_iter);
+				return false;
+			}
+			
+			cout << "DEBUG: signature is " <<  signature << endl;
+
+			get_variables(signature, li, ignoreTokens, false);
+			
+			for (VariableList::reverse_iterator iter = li.rbegin(); iter != li.rend(); iter++) 
+			{
+				Variable var = (*iter);
+				var.print ();
+			
+				if (token == var.m_name) 
+				{
+					cout << "found the variable type to parse from SIGNATURE... it's \"" << 
+						var.m_type << "\" with typescope \"" << var.m_typeScope << "\"" << endl;
+					out_type_name = var.m_type;
+					out_type_scope = var.m_typeScope;
+
+					g_object_unref (curr_scope_iter);
+					return true;
+				}
+			}			
+
+			g_object_unref (curr_scope_iter);
+		}
 		
 		/* if we reach this point it's likely that we missed the right var type */
 		cout << "## Wrong detection of the variable type" << endl;
@@ -354,7 +340,7 @@ EngineParser::getCurrentSearchableScope (string &type_name, string &type_scope)
 {
 	// FIXME: case of more results now it's hardcoded to 1
 	IAnjutaIterable *curr_searchable_scope =
-		ianjuta_symbol_manager_search_project (_dbe, 
+		ianjuta_symbol_manager_search_project (_sym_man, 
 					IANJUTA_SYMBOL_TYPE_SCOPE_CONTAINER,
 		            TRUE,
 		            (IAnjutaSymbolField)(IANJUTA_SYMBOL_FIELD_SIMPLE | IANJUTA_SYMBOL_FIELD_KIND),
@@ -416,7 +402,7 @@ EngineParser::switchTypedefToStruct (IAnjutaIterable * test,
 	IAnjutaIterable *new_struct;
 
 	cout << "Switching typedef to struct " << endl;
-	new_struct = ianjuta_symbol_manager_get_parent_scope (_dbe, node, NULL, sym_info, NULL);
+	new_struct = ianjuta_symbol_manager_get_parent_scope (_sym_man, node, NULL, sym_info, NULL);
 	                                         
 	if (new_struct != NULL)
 	{
@@ -444,7 +430,7 @@ EngineParser::switchMemberToContainer (IAnjutaIterable * test)
 	cout << "Switching container with type_name " << sym_type_name << endl;
 
 	/* hopefully we'll find a new container for the type_name of test param */
-	new_container = ianjuta_symbol_manager_search_project (_dbe, 
+	new_container = ianjuta_symbol_manager_search_project (_sym_man, 
 					IANJUTA_SYMBOL_TYPE_SCOPE_CONTAINER,
 		            TRUE,
 		            (IAnjutaSymbolField)(IANJUTA_SYMBOL_FIELD_SIMPLE | IANJUTA_SYMBOL_FIELD_KIND |
@@ -564,7 +550,7 @@ EngineParser::processExpression(const string& stmt,
 
 		node = IANJUTA_SYMBOL (curr_searchable_scope);
 		
-		iter = ianjuta_symbol_manager_search_symbol_in_scope (_dbe,
+		iter = ianjuta_symbol_manager_search_symbol_in_scope (_sym_man,
 		                result.m_name.c_str (),
 		                node,
 		                IANJUTA_SYMBOL_TYPE_UNDEF,
@@ -753,46 +739,9 @@ engine_parser_init (IAnjutaSymbolManager * manager)
 {
 	EngineParser::getInstance ()->setSymbolManager (manager);
 }
-//*/
-
-
-void 
-engine_parser_test_get_variables ()
-{
-	VariableList li;
-	std::map<std::string, std::string> ignoreTokens;
-	get_variables("char c, d, *e;", li, ignoreTokens, false);
-
-	/* here the trick is to start from the end of the found variables
-	 * up to the begin. This because the local variable declaration should be found
-	 * just above to the statement line 
-	 */
-	cout << "variables found are..." << endl;
-	for (VariableList::reverse_iterator iter = li.rbegin(); iter != li.rend(); iter++) {
-		Variable var = (*iter);
-		var.print ();
-				
-		cout << "wh0a! we found the variable type to parse... it's \"" << 
-			var.m_type << "\" and type scope \"" << var.m_typeScope << "\"" <<
-			endl;
-
-	}
-}
-
-void
-engine_parser_test_print_tokens (const char *str)
-{
-	EngineParser::getInstance ()->DEBUG_printTokens (str);
-}
-
-void 
-engine_parser_parse_expression (const gchar*str)
-{
-	EngineParser::getInstance ()->testParseExpression (str);
-}
 
 IAnjutaIterable *
-engine_parser_process_expression (const gchar *stmt, const gchar * above_text, 
+engine_parser_process_expression (const gchar *stmt, const gchar * above_text,
     const gchar * full_file_path, gulong linenum)
 {
 	IAnjutaIterable *iter = 

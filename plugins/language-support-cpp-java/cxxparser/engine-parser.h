@@ -27,13 +27,7 @@ extern "C" {
 #include <libanjuta/interfaces/ianjuta-symbol-manager.h>		
 
 void engine_parser_init (IAnjutaSymbolManager * manager);
-	 
-void engine_parser_test_print_tokens (const char *str);
 
-void engine_parser_parse_expression (const char*str);	
-
-void engine_parser_test_get_variables ();
-	
 /**
  * The function parse the C++ statement, try to get the type of objects to be
  * completed and returns an iterator with those symbols.
@@ -42,16 +36,12 @@ void engine_parser_test_get_variables ();
  * @param full_file_path The full path to the file. This is for engine scanning purposes.
  * @param linenum The line number where the statement is.
  *	 
- * @return SymbolDBEngineIterator * with the actual completions symbols.
+ * @return IAnjutaIterable * with the actual completions symbols.
  */
 IAnjutaIterable *
-engine_parser_process_expression (const char *stmt, const char * above_text,
-    const char * full_file_path, unsigned long linenum);	
+engine_parser_process_expression (const gchar *stmt, const gchar * above_text,
+    const gchar * full_file_path, gulong linenum);	
 
-/*
-void engine_parser_get_local_variables (const char *buf);
-*/
-	
 #ifdef __cplusplus
 }	// extern "C" 
 #endif

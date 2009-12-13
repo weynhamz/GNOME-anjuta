@@ -42,8 +42,6 @@ public:
 
 	static EngineParser* getInstance ();
 
-	void DEBUG_printTokens (const string& text);
-
 	/* setter for the IAnjutaSymbolManager. */
 	void setSymbolManager (IAnjutaSymbolManager *manager);
 
@@ -61,24 +59,20 @@ public:
 	    							const string& full_file_path, 
     								unsigned long linenum,
 	    							const string& above_text,
-    								string &out_type_name, 		// out
-	    							string &out_type_scope);	// out
+    								string &out_type_name, 		/* out */
+	    							string &out_type_scope);	/* out */
 
 	IAnjutaIterable * switchTypedefToStruct (IAnjutaIterable * test, 
 		IAnjutaSymbolField sym_info = 
 			(IAnjutaSymbolField)(IANJUTA_SYMBOL_FIELD_SIMPLE | IANJUTA_SYMBOL_FIELD_KIND));
 
 	IAnjutaIterable * switchMemberToContainer (IAnjutaIterable * test);
-	// FIXME comments.
+	
+	/* FIXME comments. */
 	IAnjutaIterable * processExpression (const string& stmt, 
     				  							const string& above_text,
     				  							const string& full_file_path, 
     				  							unsigned long linenum);
-
-	void testParseExpression (const string &in);
-
-	/*string GetScopeName(const string &in, std::vector<string> *additionlNS);*/
-
 	
 protected:
 
@@ -129,7 +123,7 @@ private:
 
 	CppTokenizer *_main_tokenizer;
 	CppTokenizer *_extra_tokenizer;
-	IAnjutaSymbolManager *_dbe;
+	IAnjutaSymbolManager *_sym_man;
 };
 
 

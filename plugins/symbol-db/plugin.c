@@ -1252,7 +1252,6 @@ clear_project_progress_bar (SymbolDBEngine *dbe, gpointer data)
 	/* ok, enable local symbols view */
 	if (!IANJUTA_IS_EDITOR (sdb_plugin->current_editor))
 	{
-		DEBUG_PRINT ("!IANJUTA_IS_EDITOR (sdb_plugin->current_editor))");
 		return;
 	}
 	

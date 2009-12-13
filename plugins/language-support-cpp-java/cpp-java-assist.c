@@ -736,7 +736,7 @@ cpp_java_parse_expression (CppJavaAssist* assist, IAnjutaIterable* iter)
 		len = strlen (curr_stmt);
 	}
 
-	if (curr_stmt[len] == '.' ||
+	if (curr_stmt != NULL && (len > 1 && curr_stmt[len-1] == '.') ||
 	    (len > 2 && curr_stmt[len-1] == '>' && curr_stmt[len-2] == '-'))
 	{
 		gint lineno;
@@ -777,7 +777,7 @@ cpp_java_assist_populate (IAnjutaProvider* self, IAnjutaIterable* iter, GError**
 	
 	if (autocomplete)
 	{
-		/* Check for member compltion */
+		/* Check for member completion */
 		IAnjutaIterable* res = 
 			cpp_java_parse_expression (assist, iter);
 		/* we should have a res with just one item */
