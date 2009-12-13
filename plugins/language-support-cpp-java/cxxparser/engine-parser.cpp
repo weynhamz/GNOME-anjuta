@@ -31,7 +31,7 @@
 
 using namespace std;
 
-// Singleton pattern.
+/* Singleton pattern. */
 EngineParser* 
 EngineParser::getInstance ()
 {
@@ -106,10 +106,10 @@ EngineParser::nextMainToken (string &out_token, string &out_delimiter)
 	return false;
 }
 
+/* FIXME: to be removed. This is unused debug code */
 void 
 EngineParser::DEBUG_printTokens (const string& text)
 {
-	// FIXME
 	_main_tokenizer->setText (text.c_str ());
 
 	string op;
@@ -124,10 +124,6 @@ EngineParser::DEBUG_printTokens (const string& text)
 		token.clear ();
 	}
 	printf ("tok final %s\n", token.c_str ());	
-
-
-	// try to do a symbol search
-
 }
 
 ExpressionResult 
@@ -136,6 +132,7 @@ EngineParser::parseExpression(const string &in)
 	return parse_expression (in.c_str ());	
 }
 
+/* FIXME: to be removed. This is unused debug code */
 void
 EngineParser::testParseExpression (const string &str)
 {
@@ -323,7 +320,8 @@ EngineParser::getTypeNameAndScopeByToken (ExpressionResult &result,
 		 * just above to the statement line 
 		 */
 		cout << "variables found are..." << endl;
-		for (VariableList::reverse_iterator iter = li.rbegin(); iter != li.rend(); iter++) {
+		for (VariableList::reverse_iterator iter = li.rbegin(); iter != li.rend(); iter++) 
+		{
 			Variable var = (*iter);
 			var.print ();
 			
@@ -338,6 +336,9 @@ EngineParser::getTypeNameAndScopeByToken (ExpressionResult &result,
 			}
 		}
 
+		// FIXME: test also with function definition in case the variable is defined there....
+		
+		
 		/* if we reach this point it's likely that we missed the right var type */
 		cout << "## Wrong detection of the variable type" << endl;
 	}

@@ -24,9 +24,12 @@
 #include <vector>
 
 
+#ifdef __cplusplus
 extern "C" {
 #include <libanjuta/interfaces/ianjuta-symbol-manager.h>
 }
+#endif
+
 #include "expression-result.h"
 #include "cpp-flex-tokenizer.h"
 

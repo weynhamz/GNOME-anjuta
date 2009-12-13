@@ -5,13 +5,8 @@
 AM_CPPFLAGS = \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	-DPACKAGE_SRC_DIR=\""$(srcdir)"\" \
-	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
-	$(LIBANJUTA_CFLAGS) \
-  	-lc \
-	-DDEBUG \
-	-DCURR_DIR=\"`pwd`\" \
-	-fPIC
+	$(LIBANJUTA_CFLAGS) 
 
 noinst_LTLIBRARIES = libcxxparser.la
 
@@ -41,5 +36,6 @@ libcxxparser_la_SOURCES = \
         scope-parser.h \
         variable-parser.h 
  
-libcxxparser_la_LIBADD = $(LIBANJUTA_LIBS) 
+libcxxparser_la_LIBADD = $(LIBANJUTA_LIBS) \
+	$(GTHREAD_LIBS)
 libcxxparser_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)

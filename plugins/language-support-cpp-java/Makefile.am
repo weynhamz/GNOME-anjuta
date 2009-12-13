@@ -35,6 +35,7 @@ AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	$(LIBANJUTA_CFLAGS) \
+	$(EXTRA_CFLAGS) \
 	-DG_LOG_DOMAIN=\"language-support-cpp-java\"
 
 # Where to install the plugin
@@ -50,14 +51,15 @@ libanjuta_language_cpp_java_la_SOURCES = \
 	cpp-java-assist.h \
 	cpp-java-assist.c \
 	cpp-java-utils.c \
-	cpp-java-utils.h
+	cpp-java-utils.h 
 
 libanjuta_language_cpp_java_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 # Plugin dependencies
 libanjuta_language_cpp_java_la_LIBADD = \
 	$(LIBANJUTA_LIBS) \
-	cxxparser/libcxxparser.la
+	cxxparser/libcxxparser.la \
+	-lstdc++
 	
 prefs_ui_files = anjuta-language-cpp-java.ui
 include $(top_srcdir)/scripts/build-schemas.mk
