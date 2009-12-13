@@ -41,5 +41,5 @@ libcxxparser_la_SOURCES = \
         scope-parser.h \
         variable-parser.h 
  
-libcxxparser_a_LIBADD = $(LIBANJUTA_LIBS) 
-
+libcxxparser_la_LIBADD = $(LIBANJUTA_LIBS) 
+libcxxparser_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)

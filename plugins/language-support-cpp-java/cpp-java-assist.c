@@ -159,6 +159,7 @@ create_completion (CppJavaAssist* assist, IAnjutaIterable* iter,
 		{
 			CppJavaAssistTag *tag = g_new0 (CppJavaAssistTag, 1);
 			tag->name = g_strdup (name);
+			DEBUG_PRINT ("Created tag: %s", tag->name);
 			tag->type = ianjuta_symbol_get_sym_type (IANJUTA_SYMBOL (iter),
 													 NULL);
 			tag->is_func = (tag->type == IANJUTA_SYMBOL_TYPE_PROTOTYPE ||
@@ -346,15 +347,23 @@ cpp_java_assist_update_autocomplete (CppJavaAssist *assist)
 		                                 NULL, !queries_active, NULL);
 		return;
 	}
-	
-	g_completion_complete (assist->priv->completion_cache, assist->priv->pre_word, NULL);
 
+	if (strlen(assist->priv->pre_word))
+	{
+	    g_completion_complete (assist->priv->completion_cache, assist->priv->pre_word, NULL);
+
+		completion_list = assist->priv->completion_cache->cache;
+	}
+	else
+	{
+		completion_list = assist->priv->completion_cache->items;
+	}
+		
 	max_completions =
 		anjuta_preferences_get_int_with_default (assist->priv->preferences,
 												 PREF_AUTOCOMPLETE_CHOICES,
 												 MAX_COMPLETIONS);
-	completion_list = assist->priv->completion_cache->cache;
-		
+
 	length = g_list_length (completion_list);
 
 	DEBUG_PRINT ("Populating %d proposals", length);
@@ -702,6 +711,60 @@ on_editor_char_added (IAnjutaEditor *editor, IAnjutaIterable *insert_pos,
 	cpp_java_assist_calltip(assist, enable_calltips, (ch == '\b'));
 }
 
+static IAnjutaIterable*
+cpp_java_parse_expression (CppJavaAssist* assist, IAnjutaIterable* iter)
+{
+	IAnjutaEditor* editor = editor = IANJUTA_EDITOR (assist->priv->iassist);
+	IAnjutaIterable* res = NULL;
+	IAnjutaIterable* start;
+	gint len = 0;
+	
+	gint curr_line = ianjuta_editor_get_line_from_position (editor, iter, NULL);
+	IAnjutaIterable *start_line_iter = 
+		ianjuta_editor_get_line_begin_position (editor, curr_line, NULL);
+
+
+	/* FIXME, this is just an hack */
+	gchar *curr_stmt = ianjuta_editor_get_text (editor, 
+	                                            start_line_iter,
+	                                            iter,
+	                                            NULL);
+
+	if (curr_stmt != NULL) 
+	{
+		DEBUG_PRINT ("current statement is %s", curr_stmt);
+		len = strlen (curr_stmt);
+	}
+
+	if (curr_stmt[len] == '.' ||
+	    (len > 2 && curr_stmt[len-1] == '>' && curr_stmt[len-2] == '-'))
+	{
+		gint lineno;
+		gchar *filename = NULL;
+		gchar *above_text;
+
+		if (IANJUTA_IS_FILE (assist->priv->iassist))
+		{
+			GFile *file = ianjuta_file_get_file (IANJUTA_FILE (assist->priv->iassist), NULL);
+			if (file != NULL)
+			{
+				filename = g_file_get_path (file);
+			}
+		}
+		start = ianjuta_editor_get_start_position (editor, NULL);
+		above_text = ianjuta_editor_get_text (editor, start, iter, NULL);
+		
+		lineno = ianjuta_editor_get_lineno (editor, NULL);
+
+		res = engine_parser_process_expression (curr_stmt,
+		                                        above_text,
+		                                        filename,
+		                                        lineno);
+	}
+	g_free(curr_stmt);
+	return res;
+}
+
 static void
 cpp_java_assist_populate (IAnjutaProvider* self, IAnjutaIterable* iter, GError** e)
 {
@@ -714,18 +777,67 @@ cpp_java_assist_populate (IAnjutaProvider* self, IAnjutaIterable* iter, GError**
 	
 	if (autocomplete)
 	{
+		/* Check for member compltion */
+		IAnjutaIterable* res = 
+			cpp_java_parse_expression (assist, iter);
+		/* we should have a res with just one item */
+		if (res != NULL) 
+		{
+			do
+			{
+				IAnjutaSymbol* symbol = IANJUTA_SYMBOL(res);
+				const gchar* name = ianjuta_symbol_get_name(symbol, NULL);
+				if (name != NULL)
+				{
+					DEBUG_PRINT ("PARENT Completion Symbol: %s", name);
+
+					/* we have just printer the parent's name */
+					/* let's get it's members and print them */
+					IAnjutaIterable *children = 
+						ianjuta_symbol_manager_get_members (assist->priv->isymbol_manager,
+						                                    symbol,
+						                                    IANJUTA_SYMBOL_FIELD_SIMPLE,
+						                                    NULL);
+					if (children != NULL) {
+						cpp_java_assist_destroy_completion_cache (assist);
+						assist->priv->completion_cache = create_completion (assist,
+						                                                    children,
+						                                                    NULL);
+						g_free(assist->priv->pre_word);
+						assist->priv->pre_word = g_strdup("");
+						if (assist->priv->start_iter)
+							g_object_unref (assist->priv->start_iter);
+
+						assist->priv->start_iter = ianjuta_iterable_clone(iter, NULL);
+						cpp_java_assist_update_autocomplete(assist);
+					}
+				}
+				else
+					break;
+			}
+			while (ianjuta_iterable_next (res, NULL));
+			g_object_unref (res);
+			return;
+		}
+		
+		/* Normal autocompletion */
 		ianjuta_iterable_previous (iter, NULL);
-		g_free (assist->priv->pre_word);
+		g_free (assist->priv->pre_word);		
+		
 		/* Moved iter to begin of word */
 		assist->priv->pre_word = cpp_java_assist_get_pre_word (editor, iter);
 		DEBUG_PRINT ("Pre word: %s", assist->priv->pre_word);
 		
 		if (assist->priv->pre_word && strlen (assist->priv->pre_word) > 3)
 		{
+			
+			
 			if (assist->priv->start_iter)
 				g_object_unref (assist->priv->start_iter);
+			
 			assist->priv->start_iter = ianjuta_iterable_clone(iter, NULL);
 			ianjuta_iterable_next (IANJUTA_ITERABLE (assist->priv->start_iter), NULL);
+			
 			if (!assist->priv->search_cache ||
 			    !g_str_has_prefix (assist->priv->pre_word, assist->priv->search_cache))
 			{
@@ -903,7 +1015,6 @@ cpp_java_assist_new (IAnjutaEditor *ieditor,
 	assist->priv->preferences = prefs;
 	cpp_java_assist_install (assist, ieditor);
 
-	/* FIXME ? */
 	engine_parser_init (isymbol_manager);	
 	
 	return assist;
