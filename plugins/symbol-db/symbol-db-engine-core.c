@@ -2784,6 +2784,7 @@ sdb_engine_set_defaults_db_parameters (SymbolDBEngine * dbe)
 	sdb_engine_execute_unknown_sql (dbe, "PRAGMA temp_store = MEMORY");	
 	sdb_engine_execute_unknown_sql (dbe, "PRAGMA journal_mode = OFF");
 	sdb_engine_execute_unknown_sql (dbe, "PRAGMA read_uncommitted = 1");
+	sdb_engine_execute_unknown_sql (dbe, "PRAGMA foreign_keys = OFF");
 	symbol_db_engine_set_db_case_sensitive (dbe, TRUE);
 }
 
