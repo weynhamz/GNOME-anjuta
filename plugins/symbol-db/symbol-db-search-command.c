@@ -22,8 +22,7 @@
 #include <libanjuta/anjuta-debug.h>
 
 struct _SymbolDBSearchCommandPriv {
-	/* may be set or not. Initial value (at init time) is NULL 
-	 * it shouldn't be freed. */
+	/* may be set or not. Initial value (at init time) is NULL */
 	GFile *gfile;	
 
 	/* may be set or not. Initial value (at init time) is NULL 
@@ -72,6 +71,9 @@ sdb_search_command_finalize (GObject *object)
 
 	priv = sdbsc->priv;
 	
+	if (priv->gfile) g_object_unref (priv->gfile);
+	priv->gfile = NULL;
+
 	g_free (priv->pattern);	
 	priv->pattern = NULL;
 	
@@ -244,8 +246,9 @@ symbol_db_search_command_set_file (SymbolDBSearchCommand* sdbsc, const GFile *gf
 	g_return_if_fail (gfile != NULL);
 	
 	priv = sdbsc->priv;
-	
-	priv->gfile = (GFile*)gfile;
+
+	if (priv->gfile) g_object_unref (priv->gfile);	
+	priv->gfile = g_object_ref (G_OBJECT(gfile));
 }	
 
 void
