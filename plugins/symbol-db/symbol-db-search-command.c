@@ -25,8 +25,7 @@ struct _SymbolDBSearchCommandPriv {
 	/* may be set or not. Initial value (at init time) is NULL */
 	GFile *gfile;	
 
-	/* may be set or not. Initial value (at init time) is NULL 
-	 * it shouldn't be freed. */
+	/* may be set or not. Initial value (at init time) is NULL */
 	GList *session_packages;
 
 	SymbolDBEngine *dbe;
@@ -44,8 +43,6 @@ struct _SymbolDBSearchCommandPriv {
 	 * freed 
 	 */
 	SymbolDBEngineIterator *iterator_result;
-
-	gboolean cancelled;
 };
 
 
@@ -58,8 +55,7 @@ sdb_search_command_init (SymbolDBSearchCommand *object)
 
 	object->priv->gfile = NULL;
 	object->priv->session_packages = NULL;
-	object->priv->pattern = NULL;
-	object->priv->cancelled = FALSE;
+	object->priv->pattern = NULL;	
 }
 
 static void
@@ -71,11 +67,21 @@ sdb_search_command_finalize (GObject *object)
 
 	priv = sdbsc->priv;
 	
-	if (priv->gfile) g_object_unref (priv->gfile);
+	if (priv->gfile) 
+		g_object_unref (priv->gfile);
 	priv->gfile = NULL;
 
 	g_free (priv->pattern);	
 	priv->pattern = NULL;
+
+	/* we can safely destroy the packages' list */
+	if (priv->session_packages)
+	{
+		g_list_foreach (priv->session_packages, (GFunc)g_free, NULL);
+		g_list_free (priv->session_packages);		
+	}
+	priv->session_packages = NULL;
+	
 	
 	g_free (sdbsc->priv);
 	
@@ -91,9 +97,6 @@ do_search_file (SymbolDBSearchCommand *sdbsc)
 
 	priv = sdbsc->priv;
 
-	if (priv->cancelled)
-		return NULL;
-	
 	abs_file_path = g_file_get_path (priv->gfile);
 
 	if (abs_file_path == NULL)
@@ -260,8 +263,22 @@ symbol_db_search_command_set_session_packages (SymbolDBSearchCommand* sdbsc,
 	g_return_if_fail (sdbsc != NULL);
 	
 	priv = sdbsc->priv;
+
+	/* if there's an old glist then clear it before setting the new one. */
+	if (priv->session_packages)
+	{
+		g_list_foreach (priv->session_packages, (GFunc)g_free, NULL);
+		g_list_free (priv->session_packages);		
+		priv->session_packages = NULL;
+	}	
 	
-	priv->session_packages = (GList*)session_packages;
+	/* copy the list passed as parameter */
+	GList *node;
+	for (node = (GList*)session_packages; node; node = node->next)
+	{
+		priv->session_packages = g_list_prepend (priv->session_packages, 
+		                                         g_strdup (node->data));
+	}
 }	
 
 SymbolDBEngineIterator *

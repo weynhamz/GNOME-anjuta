@@ -5461,6 +5461,7 @@ interface IAnjutaSymbolManager
 	*          or something like 'foo_fun%' (LIKE match, matching all the symbol prefixed with 
 	*          'foo_fun'). NULL _is not_ accepted
 	* @file GFile of the file, belonging to the project, which you want to scan symbols for.
+	*       Note that if the file doesn't belong to the project, it won't be scanned correctly.
 	* @results_limit: Limit results to an upper bound. -1 If you don't want to use this par.
 	* @results_offset: Skip results_offset results. -1 If you don't want to use this par.	 
 	* @err: Error propagation and reporting.	 

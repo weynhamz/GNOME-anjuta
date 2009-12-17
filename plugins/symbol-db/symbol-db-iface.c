@@ -288,7 +288,7 @@ do_search_prj_glb (SymbolDBEngine *dbe, IAnjutaSymbolType match_types,
            gboolean include_types, IAnjutaSymbolField info_fields,
            const gchar *pattern, IAnjutaSymbolManagerSearchFileScope filescope_search,
     	   gint results_limit, gint results_offset, 
-           GList *session_packages)
+           const GList *session_packages)
 {
 	SymbolDBEngineIterator *iterator;
 	
