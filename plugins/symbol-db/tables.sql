@@ -1,5 +1,6 @@
 
--- FOREIGN keys are not supported. http://www.sqlite.org/omitted.html
+-- FIXME: FOREIGN keys are now supported. schema should enforces them.
+-- Right now the support here is disabled.
 
 CREATE TABLE workspace (workspace_id integer PRIMARY KEY AUTOINCREMENT,
                         workspace_name varchar (50) not null unique,
@@ -151,3 +152,4 @@ PRAGMA temp_store = MEMORY;
 PRAGMA case_sensitive_like = 1;
 PRAGMA journal_mode = OFF;
 PRAGMA read_uncommitted = 1;
+PRAGMA foreign_keys = OFF;

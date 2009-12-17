@@ -102,4 +102,5 @@ void on_bookmark_next_activate (GtkAction *action, gpointer user_data);
 void on_bookmark_prev_activate (GtkAction *action, gpointer user_data);
 void on_bookmarks_clear_activate (GtkAction *action, gpointer user_data);
 
+void on_autocomplete_activate (GtkAction *action, gpointer user_data);
 #endif

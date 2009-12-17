@@ -35,7 +35,6 @@ libanjuta_la_SOURCES= \
 	anjuta-status.c \
 	anjuta-encodings.c \
 	anjuta-convert.c \
-	anjuta-message-area.c \
 	anjuta-preferences-dialog.c \
 	anjuta-preferences.c \
 	anjuta-plugin.c \
@@ -75,7 +74,6 @@ libanjuta_la_SOURCES= \
 	anjuta-sync-command.h \
 	anjuta-async-notify.h \
 	anjuta-async-notify.c \
-	anjuta-message-area.h \
 	anjuta-debug.c \
 	anjuta-debug.h \
 	gbf-project.c \
@@ -114,7 +112,6 @@ libanjuta_include = \
 	anjuta-status.h \
 	anjuta-encodings.h \
 	anjuta-convert.h \
-	anjuta-message-area.h \
 	anjuta-plugin.h \
 	anjuta-plugin-description.h \
 	anjuta-plugin-manager.h \

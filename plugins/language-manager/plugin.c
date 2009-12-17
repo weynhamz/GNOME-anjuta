@@ -317,6 +317,13 @@ ilanguage_get_name_from_editor (IAnjutaLanguage* ilang, IAnjutaEditorLanguage* e
 							   ilanguage_get_from_editor (ilang, editor, e), e);
 }
 
+static GList*
+ilanguage_get_languages (IAnjutaLanguage* ilang, GError** e)
+{
+	LanguageManager* lang = LANGUAGE_MANAGER(ilang);
+	return g_hash_table_get_keys (lang->languages);
+}
+
 static void
 ilanguage_iface_init (IAnjutaLanguageIface* iface)
 {
@@ -326,6 +333,7 @@ ilanguage_iface_init (IAnjutaLanguageIface* iface)
 	iface->get_strings = ilanguage_get_strings;
 	iface->get_from_editor = ilanguage_get_from_editor;
 	iface->get_name_from_editor = ilanguage_get_name_from_editor;
+	iface->get_languages = ilanguage_get_languages;
 };	
 
 ANJUTA_PLUGIN_BEGIN (LanguageManager, language_manager);

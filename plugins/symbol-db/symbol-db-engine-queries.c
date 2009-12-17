@@ -2808,7 +2808,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 									SymType filter_kinds,
 									gboolean include_kinds,
 									SymSearchFileScope filescope_search,
-									GList *session_projects,
+									const GList *session_projects,
 									gint results_limit, 
 									gint results_offset,
 									SymExtraInfo sym_info)
@@ -2831,11 +2831,22 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 	GValue *ret_value;
 	gboolean ret_bool;
 	GPtrArray *filter_kinds_array;
+	GError* error = NULL;
+	GList *session_prjs;
 	
-
 	g_return_val_if_fail (dbe != NULL, NULL);
 	g_return_val_if_fail (pattern != NULL, NULL);
 	priv = dbe->priv;
+
+	/* create a backup internal copy of the struct.
+	 * There shouldn't be a big performance loss 
+	 */
+	session_prjs = NULL;
+	GList *node;
+	for (node = (GList*)session_projects; node; node = node->next)
+	{
+		session_prjs = g_list_prepend (session_prjs, g_strdup (node->data));
+	}
 
 	SDB_LOCK(priv);
 	
@@ -2898,9 +2909,9 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 		offset_free = TRUE;
 	}
 
-	if (session_projects != NULL)
+	if (session_prjs != NULL)
 	{
-		gint list_length = g_list_length (session_projects);
+		gint list_length = g_list_length (session_prjs);
 		if (list_length < 255 && list_length > 0) 
 		{		
 			/* shift the bits. We want to put the result on the third byte */
@@ -2910,7 +2921,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 		else 
 		{
 			g_warning ("symbol_db_engine_find_symbol_by_name_pattern_filtered (): "
-				"session_projects has 0 length.");						   
+				"session_prjs has 0 length.");						   
 		}
 	}
 	
@@ -2936,7 +2947,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 			
 			/* build session projects filter string */
 			filter_projects = g_string_new ("");
-			if (session_projects != NULL)
+			if (session_prjs != NULL)
 			{
 				filter_projects = g_string_append (filter_projects,
 				"AND symbol.file_defined_id IN "
@@ -2944,7 +2955,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 					"project.project_id WHERE project.project_name IN ( "
 					"## /* name:'prj_filter0' type:gchararray */");
 				
-				for (i = 1; i < g_list_length (session_projects); i++)
+				for (i = 1; i < g_list_length (session_prjs); i++)
 				{				
 					g_string_append_printf (filter_projects, 
 						",## /* name:'prj_filter%d' type:gchararray */", i);
@@ -3034,7 +3045,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 			
 			/* build session projects filter string */
 			filter_projects = g_string_new ("");
-			if (session_projects != NULL)
+			if (session_prjs != NULL)
 			{
 				filter_projects = g_string_append (filter_projects,
 				"AND symbol.file_defined_id IN "
@@ -3042,7 +3053,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 					"project.project_id WHERE project.project_name IN ( "
 					"## /* name:'prj_filter0' type:gchararray */");
 				
-				for (i = 1; i < g_list_length (session_projects); i++)
+				for (i = 1; i < g_list_length (session_prjs); i++)
 				{				
 					g_string_append_printf (filter_projects, 
 						",## /* name:'prj_filter%d' type:gchararray */", i);
@@ -3082,6 +3093,12 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 	if (dyn_node == NULL)
 	{
 		SDB_UNLOCK(priv);
+		if (session_prjs)
+		{
+			g_list_foreach (session_prjs, (GFunc)g_free, NULL);
+			g_list_free (session_prjs);
+		}
+		
 		return NULL;
 	}
 	
@@ -3090,6 +3107,12 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 		if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "limit")) == NULL)
 		{
 			SDB_UNLOCK(priv);
+			if (session_prjs)
+			{
+				g_list_foreach (session_prjs, (GFunc)g_free, NULL);
+				g_list_free (session_prjs);
+			}
+			
 			return NULL;
 		}
 
@@ -3101,6 +3124,12 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 		if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "offset")) == NULL)
 		{
 			SDB_UNLOCK(priv);			
+			if (session_prjs)
+			{
+				g_list_foreach (session_prjs, (GFunc)g_free, NULL);
+				g_list_free (session_prjs);
+			}
+			
 			return NULL;
 		}
 
@@ -3124,11 +3153,11 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 	}
 
 	/* fill parameters for filter projects (packages) */
-	if (session_projects != NULL)
+	if (session_prjs != NULL)
 	{
 		gint i = 0;
 		GList *item;
-		item = session_projects;
+		item = session_prjs;
 		while (item != NULL)
 		{
 			gchar *curr_str = g_strdup_printf ("prj_filter%d", i);
@@ -3144,6 +3173,12 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 	if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "pattern")) == NULL)
 	{
 		SDB_UNLOCK(priv);
+		if (session_prjs)
+		{
+			g_list_foreach (session_prjs, (GFunc)g_free, NULL);
+			g_list_free (session_prjs);
+		}
+		
 		return NULL;
 	}
 
@@ -3155,7 +3190,13 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 	/* execute the query with parametes just set */
 	data = gda_connection_statement_execute_select (priv->db_connection, 
 												  (GdaStatement*)dyn_node->stmt, 
-												  (GdaSet*)dyn_node->plist, NULL);
+												  (GdaSet*)dyn_node->plist, &error);
+
+	if (error)
+	{
+		DEBUG_PRINT ("Error while executing statement %s", error->message);
+		g_error_free(error);
+	}
 
 	/* free the filter kinds, if it's not null */
 	if (filter_kinds_array)
@@ -3169,11 +3210,23 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 	{
 		if (data != NULL)
 			g_object_unref (data);
+
+		if (session_prjs)
+		{
+			g_list_foreach (session_prjs, (GFunc)g_free, NULL);
+			g_list_free (session_prjs);
+		}
 		
 		SDB_UNLOCK(priv);
 		return NULL;
 	}
 
+	if (session_prjs)
+	{
+		g_list_foreach (session_prjs, (GFunc)g_free, NULL);
+		g_list_free (session_prjs);
+	}
+	
 	SDB_UNLOCK(priv);
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data, 
 												priv->sym_type_conversion_hash,

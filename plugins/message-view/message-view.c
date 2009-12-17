@@ -308,7 +308,7 @@ on_message_event (GObject* object, GdkEvent* event, gpointer data)
 									   message);
 				return TRUE;
 			}
-		}	
+		}
 		return FALSE;
 	}
 	else if (event->type == GDK_BUTTON_PRESS)
@@ -335,14 +335,15 @@ on_filter_buttons_toggled (GtkToggleButton *toggle, gpointer user_data)
 static void 
 on_adjustment_changed (GtkAdjustment* adj, gpointer data)
 {
-	gtk_adjustment_set_value (adj, adj->upper - adj->page_size);
+	gtk_adjustment_set_value (adj,
+				  gtk_adjustment_get_upper (adj) - gtk_adjustment_get_page_size (adj));
 }
 
 static void
 on_adjustment_value_changed (GtkAdjustment* adj, gpointer data)
 {
 	MessageView *self = MESSAGE_VIEW (data);
-	if (adj->value > (adj->upper - adj->page_size) - 0.1)
+	if (gtk_adjustment_get_value (adj) > (gtk_adjustment_get_upper (adj) - gtk_adjustment_get_page_size (adj)) - 0.1)
 	{
 		if (!self->privat->adj_chgd_hdlr)
 		{

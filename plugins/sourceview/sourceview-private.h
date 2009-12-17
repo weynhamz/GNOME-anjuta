@@ -19,7 +19,6 @@
 
 #include "anjuta-view.h"
 
-#include "assist-window.h"
 #include "assist-tip.h"
 #include "sourceview-cell.h"
 #include "sourceview-io.h"
@@ -68,7 +67,6 @@ struct SourceviewPrivate {
 	GSList* idle_sources;
 	
 	/* Assist */
-	AssistWindow* assist_win;
 	AssistTip* assist_tip;
 	
 	/* Hover */

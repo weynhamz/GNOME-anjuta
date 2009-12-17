@@ -214,7 +214,7 @@ anjuta_preferences_dialog_init (AnjutaPreferencesDialog *dlg)
 	g_signal_connect (selection, "changed", 
 			  G_CALLBACK (selection_changed_cb), dlg);
 
-	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dlg)->vbox), hbox,
+	gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dlg))), hbox,
 			    TRUE, TRUE, 0);
 	
 	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_CLOSE, -7);

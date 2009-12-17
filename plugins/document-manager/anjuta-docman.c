@@ -22,7 +22,6 @@
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-debug.h>
-#include <libanjuta/anjuta-message-area.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-markable.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
@@ -601,7 +600,7 @@ anjuta_docman_open_file (AnjutaDocman *docman)
 		docman->priv->fileselection =
 			create_file_open_dialog_gui(GTK_WINDOW (parent), docman);
 	}
-	if (GTK_WIDGET_VISIBLE (docman->priv->fileselection))
+	if (gtk_widget_get_visible (docman->priv->fileselection))
 		gtk_window_present (GTK_WINDOW (docman->priv->fileselection));
 	else
 		gtk_widget_show (docman->priv->fileselection);
@@ -938,13 +937,12 @@ on_document_destroy (IAnjutaDocument *doc, AnjutaDocman *docman)
 	
 	if (!docman->priv->shutingdown)
 	{
-		if (GTK_NOTEBOOK (docman)->children == NULL)
+		if ((page_num = gtk_notebook_get_current_page (GTK_NOTEBOOK (docman))) == -1)
 			anjuta_docman_set_current_document (docman, NULL);
 		else
 		{
 			AnjutaDocmanPage *next_page;
 			/* set a replacement active document */
-			page_num = gtk_notebook_get_current_page (GTK_NOTEBOOK (docman));
 			next_page = anjuta_docman_get_nth_page (docman, page_num);
 			anjuta_docman_set_current_document (docman, next_page->doc);
 		}
@@ -1052,7 +1050,7 @@ anjuta_docman_get_current_focus_widget (AnjutaDocman *docman)
 {
 	GtkWidget *widget;
 	widget = gtk_widget_get_toplevel (GTK_WIDGET (docman));
-	if (GTK_WIDGET_TOPLEVEL (widget) &&
+	if (gtk_widget_is_toplevel (widget) &&
 		gtk_window_has_toplevel_focus (GTK_WINDOW (widget)))
 	{
 		return gtk_window_get_focus (GTK_WINDOW (widget));

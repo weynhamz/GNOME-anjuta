@@ -246,12 +246,17 @@ static gboolean
 on_expose_event_cb (GtkWidget *widget, GdkEventExpose *event,
 					Starter *wcm)
 {
+	GtkAllocation allocation;
+	GdkWindow *window;
 	cairo_t *cr;
 	cairo_pattern_t *pattern;
+
+	window = gtk_widget_get_window (widget);
 	
-	cr = gdk_cairo_create (widget->window);
-	
-	pattern = cairo_pattern_create_linear (0, 0, 0, widget->allocation.height);
+	cr = gdk_cairo_create (window);
+
+	gtk_widget_get_allocation (widget, &allocation);
+	pattern = cairo_pattern_create_linear (0, 0, 0, allocation.height);
 	
 	if (gdk_screen_get_rgba_colormap (gtk_widget_get_screen (widget)) &&
 	    gtk_widget_is_composited (widget))
@@ -276,7 +281,7 @@ on_expose_event_cb (GtkWidget *widget, GdkEventExpose *event,
 	
 	cairo_destroy (cr);
 
-	cr = gdk_cairo_create (widget->window);
+	cr = gdk_cairo_create (window);
 	
 	gdk_cairo_set_source_pixbuf (cr, wcm->priv->logo, 20, 20);
 	

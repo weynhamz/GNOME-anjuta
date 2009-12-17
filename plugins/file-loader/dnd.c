@@ -59,8 +59,8 @@ dnd_drag_drop (GtkWidget      *widget,
 
   if (target != GDK_NONE)
   {
-	gtk_drag_get_data (widget, context, target, timestamp);
-	result = TRUE;
+		gtk_drag_get_data (widget, context, target, timestamp);
+		result = TRUE;
   }
   
   return result;
@@ -75,25 +75,25 @@ drag_data_received_cb (GtkWidget *widget, GdkDragContext *context,
                        gint x, gint y, GtkSelectionData *data,
                        guint info, guint time, gpointer user_data)
 {
-  GSList* files;
-  /* If this is an URL emit DROP_URIS, otherwise chain up the signal */
-  if (info == TARGET_URI_LIST)
-  {
-	files = anjuta_utils_drop_get_files (data);
-
-	if (files != NULL)
+	GSList* files;
+	/* If this is an URL emit DROP_URIS, otherwise chain up the signal */
+	if (info == TARGET_URI_LIST)
 	{
-	  GSList* node;
-	  for (node = files; node != NULL; node = g_slist_next(node))
-	  {
-		GFile* file = node->data;
-		dnd_data_dropped (file, user_data);
-		g_object_unref (file);
-	  }
-	  g_slist_free (files);
-	  gtk_drag_finish (context, TRUE, FALSE, time);
-	}
-	gtk_drag_finish (context, FALSE, FALSE, time);
+		files = anjuta_utils_drop_get_files (data);
+
+		if (files != NULL)
+		{
+			GSList* node;
+			for (node = files; node != NULL; node = g_slist_next(node))
+			{
+				GFile* file = node->data;
+				dnd_data_dropped (file, user_data);
+				g_object_unref (file);
+			}
+			g_slist_free (files);
+			gtk_drag_finish (context, TRUE, FALSE, time);
+		}
+		gtk_drag_finish (context, FALSE, FALSE, time);
   }
 }
 

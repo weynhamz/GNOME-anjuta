@@ -388,7 +388,7 @@ on_message_view_destroy (MessageView *view, AnjutaMsgman *msgman)
 	// gtk_notebook_remove_page (GTK_NOTEBOOK (msgman), page_num);
 	
 	/* This is called to set the next active document */
-	if (GTK_NOTEBOOK (msgman)->children == NULL)
+	if (gtk_notebook_get_n_pages (GTK_NOTEBOOK (msgman)) == 0)
 		anjuta_msgman_set_current_view (msgman, NULL);
 
 	g_signal_handlers_unblock_by_func (GTK_OBJECT (msgman),

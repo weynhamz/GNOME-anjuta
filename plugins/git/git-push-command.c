@@ -30,6 +30,7 @@ struct _GitPushCommandPriv
 	GList *refs;
 	gboolean push_all;
 	gboolean push_tags;
+	gboolean force;
 };
 
 G_DEFINE_TYPE (GitPushCommand, git_push_command, GIT_TYPE_COMMAND);
@@ -68,6 +69,9 @@ git_push_command_run (AnjutaCommand *command)
 	
 	if (self->priv->push_tags)
 		git_command_add_arg (GIT_COMMAND (command), "--tags");
+
+	if (self->priv->force)
+		git_command_add_arg (GIT_COMMAND (command), "--force");
 	
 	git_command_add_arg (GIT_COMMAND (command), self->priv->url);
 
@@ -95,7 +99,8 @@ git_push_command_new (const gchar *working_directory,
 					  const gchar *url,
 					  GList *refs,
 					  gboolean push_all, 
-                      gboolean push_tags)
+                      gboolean push_tags,
+                      gboolean force)
 {
 	GitPushCommand *self;
 	
@@ -108,6 +113,7 @@ git_push_command_new (const gchar *working_directory,
 	self->priv->refs = git_command_copy_string_list (refs);
 	self->priv->push_all = push_all;
 	self->priv->push_tags = push_tags;
+	self->priv->force = force;
 	
 	return self;
 }

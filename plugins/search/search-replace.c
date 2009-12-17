@@ -1321,7 +1321,7 @@ create_dialog(void)
 		if (GE_COMBO_ENTRY == w->type)
 		{
 			/* Get child of GtkComboBoxEntry */
-			w->widget = GTK_BIN(w->widget)->child;
+			w->widget = gtk_bin_get_child (GTK_BIN (w->widget));
 		}
 		g_object_ref(w->widget);
 		if (GE_COMBO == w->type && NULL != w->extra)
@@ -1333,7 +1333,7 @@ create_dialog(void)
 	widget = sr_get_gladewidget(SEARCH_STRING_COMBO)->widget;
 	g_signal_connect (widget, "changed", G_CALLBACK (on_search_expression_changed), NULL);
 	/* Entry in the GtkComboBoxEntry */
-	widget = GTK_BIN (widget)->child;
+	widget = gtk_bin_get_child (GTK_BIN (widget));
 	gtk_entry_set_activates_default (GTK_ENTRY(widget), TRUE);
 	g_signal_connect (widget, "changed", G_CALLBACK (on_search_expression_entry_changed), NULL);
 	widget = sr_get_gladewidget(SEARCH_STRING)->widget;
@@ -1929,7 +1929,7 @@ on_search_expression_activate (GtkEditable *edit, gpointer user_data)
 	search_replace_populate();
 	
 	search_and_replace();
-	combo = GTK_WIDGET(edit)->parent;
+	combo = gtk_widget_get_parent (GTK_WIDGET(edit));
 	reset_flags_and_search_button();
 }
 
@@ -2085,8 +2085,8 @@ anjuta_search_replace_activate (gboolean replace, gboolean project)
 	/* Set default button */
 	if (search_button)
 	{
-		GTK_WIDGET_SET_FLAGS (search_button, GTK_CAN_DEFAULT);
-		gtk_widget_grab_default(search_button);
+		gtk_widget_set_can_default (search_button, TRUE);
+		gtk_widget_grab_default (search_button);
 	}
 	show_dialog();
 }

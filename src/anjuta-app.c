@@ -42,7 +42,7 @@
 #include "anjuta-actions.h"
 #include "about.h"
 
-#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta.ui"
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta.xml"
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/preferences.ui"
 #define ICON_FILE "anjuta-preferences-general-48.png"
 
@@ -252,7 +252,7 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 		return;
 	
 	/* Save geometry */
-	state = gdk_window_get_state (GTK_WIDGET (app)->window);
+	state = gdk_window_get_state (gtk_widget_get_window (GTK_WIDGET (app)));
 	if (state & GDK_WINDOW_STATE_MAXIMIZED) {
 		anjuta_session_set_int (session, "Anjuta", "Maximized", 1);
 	}
@@ -603,7 +603,7 @@ anjuta_app_get_geometry (AnjutaApp *app)
 	
 	geometry = NULL;
 	width = height = posx = posy = 0;
-	if (GTK_WIDGET(app)->window)
+	if (gtk_widget_get_window (GTK_WIDGET (app)))
 	{
 		gtk_window_get_size (GTK_WINDOW (app), &width, &height);
 		gtk_window_get_position (GTK_WINDOW(app), &posx, &posy);

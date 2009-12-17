@@ -37,6 +37,7 @@
 #include <libanjuta/interfaces/ianjuta-editor-zoom.h>
 #include <libanjuta/interfaces/ianjuta-editor-goto.h>
 #include <libanjuta/interfaces/ianjuta-editor-search.h>
+#include <libanjuta/interfaces/ianjuta-editor-assist.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-editor-language.h>
 #include <libanjuta/interfaces/ianjuta-language-support.h>
@@ -75,6 +76,7 @@
 #define ANJUTA_PIXMAP_HISTORY_NEXT				  "anjuta-go-history-next"
 #define ANJUTA_PIXMAP_HISTORY_PREV				  "anjuta-go-history-prev"
 
+#define ANJUTA_PIXMAP_AUTOCOMPLETE        "anjuta-complete-auto"
 
 /* Stock icons */
 #define ANJUTA_STOCK_FOLD_TOGGLE              "anjuta-fold-toggle"
@@ -96,6 +98,7 @@
 #define ANJUTA_STOCK_HISTORY_PREV			  "anjuta-history-prev"
 #define ANJUTA_STOCK_MATCH_NEXT				  "anjuta-match-next"
 #define ANJUTA_STOCK_MATCH_PREV				  "anjuta-match-prev"
+#define ANJUTA_STOCK_AUTOCOMPLETE             "anjuta-autocomplete"
 
 
 static gpointer parent_class;
@@ -303,6 +306,10 @@ static GtkActionEntry actions_edit[] = {
 	, N_("_Clear"), NULL,
 	N_("Delete the selected text from the editor"),
     G_CALLBACK (on_editor_command_clear_activate)},
+	{ "ActionEditAutocomplete", ANJUTA_STOCK_AUTOCOMPLETE,
+	 N_("_Auto-Complete"), "<control>Return",
+	 N_("Auto-complete the current word"), G_CALLBACK (on_autocomplete_activate)
+	}
 };
 
 static GtkToggleActionEntry actions_view[] = {
@@ -676,14 +683,17 @@ update_document_ui_save_items (AnjutaPlugin *plugin, IAnjutaDocument *doc)
 	GtkAction *action;
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	
-	action = anjuta_ui_get_action (ui, "ActionGroupEditorFile",
-								   "ActionFileSave");
-	g_object_set (G_OBJECT (action), "sensitive",
-				  ianjuta_file_savable_is_dirty(IANJUTA_FILE_SAVABLE(doc), NULL),
-				  NULL);
-}
 
+	if (anjuta_docman_get_current_document (ANJUTA_DOCMAN(ANJUTA_PLUGIN_DOCMAN(plugin)->docman)) ==
+		doc)
+	{
+		action = anjuta_ui_get_action (ui, "ActionGroupEditorFile",
+		                               "ActionFileSave");
+		g_object_set (G_OBJECT (action), "sensitive",
+		              ianjuta_file_savable_is_dirty(IANJUTA_FILE_SAVABLE(doc), NULL),
+		              NULL);
+	}
+}
 static void
 update_document_ui_interface_items (AnjutaPlugin *plugin, IAnjutaDocument *doc)
 {
@@ -832,6 +842,15 @@ update_document_ui_interface_items (AnjutaPlugin *plugin, IAnjutaDocument *doc)
 								   "ActionEditGotoLine");	
 	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
 
+	/* IAnjutaEditorAssist */
+	flag = IANJUTA_IS_EDITOR_ASSIST (doc);
+
+	/* Enable autocompletion action */
+	action = anjuta_ui_get_action (ui, 
+	                               "ActionGroupEditorEdit",
+	                               "ActionEditAutocomplete");
+	g_object_set (G_OBJECT (action), "visible", flag,
+	              "sensitive", flag, NULL);
 }
 
 static void
@@ -881,6 +900,7 @@ register_stock_icons (AnjutaPlugin *plugin)
 	REGISTER_ICON_FULL (ANJUTA_PIXMAP_GOTO_LINE, ANJUTA_STOCK_GOTO_LINE);
 	REGISTER_ICON_FULL (ANJUTA_PIXMAP_HISTORY_NEXT, ANJUTA_STOCK_HISTORY_NEXT);
 	REGISTER_ICON_FULL (ANJUTA_PIXMAP_HISTORY_PREV, ANJUTA_STOCK_HISTORY_PREV);
+	REGISTER_ICON_FULL (ANJUTA_PIXMAP_AUTOCOMPLETE, ANJUTA_STOCK_AUTOCOMPLETE);
 	END_REGISTER_ICON;
 }
 
@@ -1262,7 +1282,7 @@ on_window_key_press_event (AnjutaShell *shell,
 		gint pages_nb;
 		gint cur_page;
 
-		if (!notebook->children)
+		if ((cur_page = gtk_notebook_get_current_page (notebook)) == -1);
 			return FALSE;
 
 		if (!plugin->g_tabbing)
@@ -1270,8 +1290,7 @@ on_window_key_press_event (AnjutaShell *shell,
 			plugin->g_tabbing = TRUE;
 		}
 
-		pages_nb = g_list_length (notebook->children);
-		cur_page = gtk_notebook_get_current_page (notebook);
+		pages_nb = gtk_notebook_get_n_pages (notebook);
 
 		if (global_keymap[i].id == ID_NEXTBUFFER)
 			cur_page = (cur_page < pages_nb - 1) ? cur_page + 1 : 0;
@@ -1289,7 +1308,7 @@ on_window_key_press_event (AnjutaShell *shell,
 			GtkNotebook *notebook = GTK_NOTEBOOK (plugin->docman);
 			gint page_req = global_keymap[i].id - ID_FIRSTBUFFER;
 
-			if (!notebook->children)
+			if (gtk_notebook_get_n_pages (notebook) == 0);
 				return FALSE;
 			gtk_notebook_set_current_page(notebook, page_req);
 		}

@@ -200,13 +200,17 @@ goto_file_tag (SymbolDBPlugin *sdb_plugin, const gchar *word,
 		{
 			engine = sdb_plugin->sdbe_globals;
 		}		
-						
-		iterator = symbol_db_engine_find_symbol_by_name_pattern (engine, 
-															 word,
-															 TRUE,
-															 SYMINFO_SIMPLE |
-															 SYMINFO_KIND |
-															 SYMINFO_FILE_PATH);
+
+		iterator = NULL;
+		if (symbol_db_engine_is_connected (engine)) 
+		{		
+			iterator = symbol_db_engine_find_symbol_by_name_pattern (engine, 
+																 word,
+																 TRUE,
+																 SYMINFO_SIMPLE |
+																 SYMINFO_KIND |
+																 SYMINFO_FILE_PATH);
+		}
 	
 		if (iterator != NULL && symbol_db_engine_iterator_get_n_items (iterator) > 0)
 		{
@@ -615,8 +619,13 @@ on_editor_saved (IAnjutaEditor *editor, GFile* file,
 		old_uri = NULL;
 
 	/* files_array will be freed once updating has taken place */
-	proc_id = symbol_db_engine_update_files_symbols (sdb_plugin->sdbe_project, 
-						sdb_plugin->project_root_dir, files_array, TRUE);
+	proc_id = 0;
+	if (symbol_db_engine_is_connected (sdb_plugin->sdbe_project))
+	{
+		proc_id = symbol_db_engine_update_files_symbols (sdb_plugin->sdbe_project, 
+							sdb_plugin->project_root_dir, files_array, TRUE);
+	}
+	
 	if (proc_id > 0)
 	{		
 		/* add a task so that scan_end_manager can manage this */
@@ -1243,7 +1252,6 @@ clear_project_progress_bar (SymbolDBEngine *dbe, gpointer data)
 	/* ok, enable local symbols view */
 	if (!IANJUTA_IS_EDITOR (sdb_plugin->current_editor))
 	{
-		DEBUG_PRINT ("!IANJUTA_IS_EDITOR (sdb_plugin->current_editor))");
 		return;
 	}
 	

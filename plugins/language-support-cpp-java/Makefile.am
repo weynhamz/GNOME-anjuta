@@ -1,3 +1,4 @@
+SUBDIRS = cxxparser
 
 # Plugin glade file
 cpp_java_gladedir = $(anjuta_glade_dir)
@@ -10,11 +11,7 @@ cpp_java_ui_DATA = anjuta-language-support-cpp-java.xml
 # Plugin Icon file
 cpp_java_pixmapsdir = $(anjuta_image_dir)
 cpp_java_pixmaps_DATA = \
-	anjuta-language-cpp-java-plugin.png \
-	anjuta-complete-16.png \
-	anjuta-complete-24.png \
-	anjuta-complete-auto-16.png \
-	anjuta-complete-auto-24.png \
+ 	anjuta-language-cpp-java-plugin.png \
 	anjuta-indent-auto-16.png \
 	anjuta-indent-auto-24.png
 
@@ -38,6 +35,7 @@ AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	$(LIBANJUTA_CFLAGS) \
+	$(EXTRA_CFLAGS) \
 	-DG_LOG_DOMAIN=\"language-support-cpp-java\"
 
 # Where to install the plugin
@@ -53,13 +51,15 @@ libanjuta_language_cpp_java_la_SOURCES = \
 	cpp-java-assist.h \
 	cpp-java-assist.c \
 	cpp-java-utils.c \
-	cpp-java-utils.h
+	cpp-java-utils.h 
 
 libanjuta_language_cpp_java_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 # Plugin dependencies
 libanjuta_language_cpp_java_la_LIBADD = \
-	$(LIBANJUTA_LIBS)
+	$(LIBANJUTA_LIBS) \
+	cxxparser/libcxxparser.la \
+	-lstdc++
 	
 prefs_ui_files = anjuta-language-cpp-java.ui
 include $(top_srcdir)/scripts/build-schemas.mk

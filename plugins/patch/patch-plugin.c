@@ -47,7 +47,7 @@ static gint patch_level = 0;
 static void
 patch_level_changed (GtkAdjustment *adj)
 {
-	patch_level = (gint) adj->value;
+	patch_level = (gint) gtk_adjustment_get_value (adj);
 }
 
 static gchar* get_project_uri(PatchPlugin *plugin)

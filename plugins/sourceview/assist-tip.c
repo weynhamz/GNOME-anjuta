@@ -42,15 +42,17 @@ assist_tip_init (AssistTip *object)
 {
 	GtkWidget* alignment = gtk_alignment_new (0.5, 0.5, 1.0, 1.0);
 	GtkWidget* window = GTK_WIDGET(object);
+	GtkStyle* style;
 	
 	gtk_widget_set_name (GTK_WIDGET(object), "gtk-tooltip");
 	gtk_widget_set_app_paintable (GTK_WIDGET(object), TRUE);
-	
+
+	style = gtk_widget_get_style (window);
 	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment),
-							   window->style->ythickness,
-							   window->style->ythickness,
-							   window->style->xthickness,
-							   window->style->xthickness);
+				   style->ythickness,
+				   style->ythickness,
+				   style->xthickness,
+				   style->xthickness);
 	object->label = gtk_label_new ("");
 	gtk_widget_show (object->label);
 	
