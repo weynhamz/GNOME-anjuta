@@ -1,5 +1,0 @@
-These grammars have been used to generate the parsers/lexers using yacc/flex.
-I put them here but they won't be used in generation of the parsers at compile time.
-
-Grammars took from CodeLite CxxParser
-
