@@ -81,7 +81,8 @@ static const gchar* NPWPropertyTypeString[] = {
 };
 
 static const gchar* NPWPropertyRestrictionString[] = {
-	"filename"
+	"filename",
+	"directory"
 };
 
 /* Item object
@@ -236,6 +237,28 @@ npw_property_is_valid_restriction (const NPWProperty* prop)
 				return FALSE;
 		}
 		break;
+	case NPW_DIRECTORY_RESTRICTION:
+		value = npw_property_get_value (prop);
+
+		/* First character should be letters, digit or '_' or
+		 * directory separator */
+		if (value == NULL) return TRUE;
+		if (!isalnum (*value) && (*value != '_') && (*value != G_DIR_SEPARATOR))
+			return FALSE;
+
+		/* Following characters should be letters, digit or '_'
+		 * directory separator or '-' or '.' */
+		for (value++; *value != '\0'; value++)
+		{
+			if (!isalnum (*value)
+			    && (*value != '_')
+			    && (*value != G_DIR_SEPARATOR)
+			    && (*value != '-')
+			    && (*value != '.'))
+				return FALSE;
+		}
+		break;
+
 	default:
 		break;
 	}

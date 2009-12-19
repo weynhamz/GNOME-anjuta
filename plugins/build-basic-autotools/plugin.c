@@ -290,6 +290,23 @@ escape_label (const gchar *str)
 	return g_string_free (ret, FALSE);
 }
 
+static gchar*
+shell_quotef (const gchar *format,...)
+{
+	va_list args;
+	gchar *str;
+	gchar *quoted_str;
+
+	va_start (args, format);
+	str = g_strdup_vprintf (format, args);
+	va_end (args);
+
+	quoted_str = g_shell_quote (str);
+	g_free (str);
+
+	return quoted_str;
+}
+
 /* Indicator locations reported by the build */
 
 static BuildIndicatorLocation*
@@ -1334,7 +1351,7 @@ build_execute_command_in_context (BuildContext* context, GError **err)
 		ianjuta_message_view_buffer_append (context->message_view, command, NULL);
 		ianjuta_message_view_buffer_append (context->message_view, "\n", NULL);
 		g_free (command);
-	
+
 		anjuta_launcher_execute_v (context->launcher,
 		    context->program->work_dir,
 		    context->program->argv,
@@ -1854,14 +1871,18 @@ build_configure_dir (BasicAutotoolsPlugin *plugin, const gchar *dirname, const g
 	BuildContext *context;
 	BuildProgram *prog;
 	BuildConfigureAndBuild *pack = g_new0 (BuildConfigureAndBuild, 1);
+	gchar *quote;
 
+	quote = shell_quotef ("%s%s%s",
+		       	plugin->project_root_dir,
+		       	G_DIR_SEPARATOR_S,
+			CHOOSE_COMMAND (plugin, CONFIGURE));
 	
 	prog = build_program_new_with_command (dirname,
-										   "%s%s%s %s",
-										   plugin->project_root_dir,
-										   G_DIR_SEPARATOR_S,
-										   CHOOSE_COMMAND (plugin, CONFIGURE),
+										   "%s %s",
+										   quote,
 										   args);
+	g_free (quote);
 	pack->args = NULL;
 	pack->func = func;
 	pack->name = g_strdup (name);
@@ -1906,13 +1927,18 @@ build_configure_after_autogen (GObject *sender,
 			{
 				/* configure has not be run, run it */
 				BuildProgram *prog;
+				gchar *quote;
+
+				quote = shell_quotef ("%s%s%s",
+					     	plugin->project_root_dir,
+					       	G_DIR_SEPARATOR_S,
+					       	CHOOSE_COMMAND (plugin, CONFIGURE));
 
 				prog = build_program_new_with_command (context->program->work_dir,
-													   "%s%s%s %s",
-													   plugin->project_root_dir,
-													   G_DIR_SEPARATOR_S,
-													   CHOOSE_COMMAND (plugin, CONFIGURE),
+													   "%s %s",
+													   quote,
 													   pack != NULL ? pack->args : NULL);
+				g_free (quote);
 				build_program_set_callback (prog, build_project_configured, pack);
 		
 				build_set_command_in_context (context, prog);
@@ -1947,12 +1973,17 @@ build_generate_dir (BasicAutotoolsPlugin *plugin, const gchar *dirname, const gc
 	
 	if (directory_has_file (plugin->project_root_dir, "autogen.sh"))
 	{
+		gchar *quote;
+
+		quote = shell_quotef ("%s%s%s",
+				plugin->project_root_dir,
+			       	G_DIR_SEPARATOR_S,
+			       	CHOOSE_COMMAND (plugin, GENERATE));
 		prog = build_program_new_with_command (dirname,
-											   "%s%s%s %s",
-											   plugin->project_root_dir,
-											   G_DIR_SEPARATOR_S,
-											   CHOOSE_COMMAND (plugin, GENERATE),
+											   "%s %s",
+											   quote,
 											   args);
+		g_free (quote);
 	}
 	else
 	{
@@ -2614,16 +2645,16 @@ update_project_ui (BasicAutotoolsPlugin *bb_plugin)
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (bb_plugin)->shell, NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
 								   "ActionBuildBuildProject");
-	g_object_set (G_OBJECT (action), "sensitive", has_makefile, NULL);
+	g_object_set (G_OBJECT (action), "sensitive", has_project, NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
 								   "ActionBuildInstallProject");
-	g_object_set (G_OBJECT (action), "sensitive", has_makefile, NULL);
+	g_object_set (G_OBJECT (action), "sensitive", has_project, NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
 								   "ActionBuildCleanProject");
-	g_object_set (G_OBJECT (action), "sensitive", has_makefile, NULL);
+	g_object_set (G_OBJECT (action), "sensitive", has_project, NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
 								   "ActionBuildDistribution");
-	g_object_set (G_OBJECT (action), "sensitive", has_makefile, NULL);
+	g_object_set (G_OBJECT (action), "sensitive", has_project, NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
 								   "ActionBuildConfigure");
 	g_object_set (G_OBJECT (action), "sensitive", has_project, NULL);
