@@ -19,49 +19,44 @@
  
 %{
 
-#include <stdlib.h>
-#include <string.h>
 #include "mk-scanner.h"
 #include "mk-parser.h"
+#include "mk-rule.h"
 
 #include "libanjuta/anjuta-debug.h"
+#include "libanjuta/anjuta-token-stream.h"
 
+#include <stdlib.h>
+#include <string.h>
 
-/* Eliminate warning */
-#define YY_NO_UNPUT 1 
+#define YY_INPUT(buffer, result, max_size) result = anjuta_token_stream_read (yyextra->stream, buffer, max_size)
 
-#define YY_INPUT(buf,result,the_max_size) \
-    result = 0;
-
-#define YY_USER_ACTION mkp_update_location(yylloc, yytext, yyleng);
-    
 #define YY_EXTRA_TYPE  MkpScanner*
 
 //#define YY_USER_INIT {yy_flex_debug = 1;}
- 
-static AnjutaToken* mkp_scanner_append_token (MkpScanner *scanner, gint token);
-static gint mkp_scanner_last_token (MkpScanner *scanner);
-static gint mkp_scanner_last_flags (MkpScanner *scanner);
-static void mkp_scanner_update_line_width (MkpScanner *scanner, YYLTYPE *loc);
-static void mkp_update_location (YYLTYPE *loc, const gchar *text, gint length);
-static int mkp_parse (yyscan_t scanner);
 
-void mkp_project_update_variable (MkpProject *project, AnjutaToken *variable);
-void mkp_project_add_rule (MkpProject *project, AnjutaToken *rule);
+static gint mkp_scanner_parse_end (MkpScanner *scanner);
 
-
-#define RETURN(tok) *yylval = mkp_scanner_append_token (yyextra, tok); \
+#define RETURN(tok) *yylval = anjuta_token_stream_tokenize (yyextra->stream, tok, yyleng); \
                     return tok
+
+struct _MkpScanner
+{
+    yyscan_t scanner;
+
+    AnjutaTokenStream *stream;
+
+    MkpProject *project;
+};
 
 %}
 
-%option reentrant stack noyywrap yylineno
+%option reentrant noyywrap yylineno
+
+/* Remove some warnings */
+%option nounput noinput
 
 %option prefix="mkp_mk_yy"
-
-/* Necessary because autotools wrapper always looks for a file named "lex.yy.c",
- * not "lex.mkp_yy.c" 
-%option outfile="lex.yy.c"*/
 
 %option bison-bridge bison-locations
 
@@ -146,42 +141,48 @@ NAME          [^ \t\n\r:#=$"'`&@\\]*
 
 .                           { RETURN (CHARACTER); }
 
+<<EOF>>                     { if (mkp_scanner_parse_end (yyextra) == YY_NULL) return YY_NULL; }
+
+
 %%
-     
-struct _MkpScanner
-{
-    const gchar *pos;
-    yyscan_t scanner;
-    YY_BUFFER_STATE	 buffer;
-
-    AnjutaTokenFile *file;
-    gchar *filename;
-
-    MkpProject *project;
-
-	guint line_width;
-};
 
 /* Private functions
  *---------------------------------------------------------------------------*/
 
-static AnjutaToken*
-mkp_scanner_append_token (MkpScanner *scanner, gint token)
+static gint
+mkp_scanner_parse_end (MkpScanner *scanner)
 {
-    AnjutaToken *frag;
-            
-    frag = anjuta_token_new_fragment (token, scanner->pos, yyget_leng (scanner->scanner));
-	anjuta_token_file_append (scanner->file, frag);
-    scanner->pos += yyget_leng (scanner->scanner);
-	//anjuta_token_old_dump (frag);
-    
-    return frag;
+    yypop_buffer_state(scanner->scanner);
+    scanner->stream = anjuta_token_stream_pop (scanner->stream);
+
+    if (scanner->stream == NULL)
+    {
+        yyterminate();
+    }
+    else
+    {
+        return 1;
+    }
 }
 
-static void
-mkp_scanner_update_line_width (MkpScanner *scanner, YYLTYPE *loc)
+/* Parser functions
+ *---------------------------------------------------------------------------*/
+
+void
+mkp_yyerror (YYLTYPE *loc, MkpScanner *scanner, char const *s)
 {
-	anjuta_token_file_update_line_width (scanner->file, loc->last_column);
+    AnjutaTokenFileLocation location;
+
+    //g_message ("error at %d  error at * %d string \"%s\"", anjuta_token_get_type((AnjutaToken *)loc), anjuta_token_get_type(*loc), anjuta_token_get_string ((AnjutaToken *loc));
+    if (mkp_project_get_token_location (scanner->project, &location, *loc))
+    {
+        g_message ("%s:%d.%d %s\n", location.filename, location.line, location.column, s);
+        g_free (location.filename);
+    }
+    else
+    {
+        g_message ("%s \n", s);
+    }
 }
 
 void
@@ -196,70 +197,73 @@ mkp_scanner_add_rule (MkpScanner *scanner, AnjutaToken *rule)
     mkp_project_add_rule (scanner->project, rule);
 }
 
-static void
-mkp_update_location (YYLTYPE *loc, const gchar *text, gint length)
+void
+mkp_scanner_parse_variable (MkpScanner *scanner, AnjutaToken *variable)
 {
-	const gchar *ptr;
-	const gchar *end = text + length;
+    AnjutaToken *group;
+    AnjutaToken *content;
 
-    loc->first_line = loc->last_line;
-    loc->first_column = loc->last_column + 1;
+    anjuta_token_set_type (variable, ANJUTA_TOKEN_VARIABLE);
+    content = anjuta_token_new_static (ANJUTA_TOKEN_CONTENT, NULL);
+    anjuta_token_stream_append_token (scanner->stream, content);
 
-	for (ptr = text; ptr != end; ptr++)
-	{
-		if (*ptr == '\n')
-		{
-			loc->last_column = 0;
-			loc->last_line++;
-			length -= (ptr + 1 - text);
-		}
-	}
+    group = mkp_project_get_variable_token (scanner->project, variable);
+    fprintf(stdout, "get variable %s is %p\n", anjuta_token_evaluate (variable), group);
+    if (group != NULL)
+    {
+        //AnjutaToken *token;
 
-	loc->last_column += length;
+        //anjuta_token_dump (group);
+        //token = anjuta_token_group_into_token (group);
+        //anjuta_token_set_type (token, ANJUTA_TOKEN_CONTENT);
+        //anjuta_token_dump (token);
+        fprintf (stdout,"variable %s\n", anjuta_token_get_string (variable));
+        anjuta_token_dump (group);
+        mkp_scanner_parse_token (scanner, group, NULL);
+        //anjuta_token_free (token);
+    }
 }
 
 /* Public functions
  *---------------------------------------------------------------------------*/
 
-int
-mkp_yylex (YYSTYPE * yylval_param,YYLTYPE * yylloc_param ,MkpScanner *scanner)
+AnjutaToken *
+mkp_scanner_parse_token (MkpScanner *scanner, AnjutaToken *token, GError **error)
 {
-    return mkp_mk_yylex (yylval_param, yylloc_param, scanner->scanner);
+    AnjutaToken *first;
+    AnjutaTokenStream *stream;
+
+    stream = anjuta_token_stream_push (scanner->stream, token);
+    first = anjuta_token_stream_get_root (stream);
+
+    if (scanner->stream != NULL)
+    {
+        /* Parse an included file or a expanded variable */
+
+        scanner->stream = stream;
+        yypush_buffer_state(yy_create_buffer(NULL, YY_BUF_SIZE, scanner->scanner), scanner->scanner);
+    }
+    else
+    {
+        mkp_yypstate *ps;
+        gint status;
+
+        scanner->stream = stream;
+        ps = mkp_yypstate_new ();
+        do
+        {
+	        YYSTYPE yylval_param;
+    	    YYLTYPE yylloc_param;
+            gint yychar = mkp_mk_yylex (&yylval_param, &yylloc_param, scanner->scanner);
+        
+            yylloc_param = yylval_param;
+            status = mkp_yypush_parse (ps, yychar, &yylval_param, &yylloc_param, scanner);
+        } while (status == YYPUSH_MORE);
+        mkp_yypstate_delete (ps);
+    }
+
+    return first;
 }
-
-
-gboolean
-mkp_scanner_parse (MkpScanner *scanner, AnjutaTokenFile *file, GError **error)
-{
-    if (scanner->buffer != NULL) yy_delete_buffer (scanner->buffer, scanner->scanner);
-
-	scanner->file = file;
-	if (scanner->file== NULL) return FALSE;
-
-    scanner->pos = anjuta_token_file_get_content (scanner->file, error);
-	if (scanner->pos == NULL) return FALSE;
-
-    scanner->buffer = yy_scan_string (scanner->pos, scanner->scanner);
-	
-	return mkp_yyparse (scanner) == 0;
-}
-
-guint
-mkp_scanner_get_line_width (MkpScanner *scanner)
-{
-	return scanner->line_width;
-}
-
-const gchar*
-mkp_scanner_get_filename (MkpScanner *scanner)
-{
-	g_free (scanner->filename);
-    scanner->filename = NULL;
-    if (scanner->file) scanner->filename = g_file_get_path (anjuta_token_file_get_file (scanner->file));
-	
-	return scanner->filename;
-}
-
 
 /* Constructor & Destructor
  *---------------------------------------------------------------------------*/
@@ -284,11 +288,7 @@ mkp_scanner_free (MkpScanner *scanner)
 {
 	g_return_if_fail (scanner != NULL);
 
-    if (scanner->buffer != NULL) yy_delete_buffer (scanner->buffer, scanner->scanner);
     yylex_destroy(scanner->scanner);
-
-	g_free (scanner->filename);
-	scanner->filename = NULL;
 
 	g_free (scanner);
 }

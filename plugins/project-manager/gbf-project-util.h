@@ -52,7 +52,13 @@ GList* gbf_project_util_add_source_multi (GbfProjectModel   *model,
 				        AnjutaProjectGroup  *default_group,
 				        GList               *uris_to_add);
 				    
-				    
+
+GList * gbf_project_util_all_child (AnjutaProjectNode *parent,
+                                        AnjutaProjectNodeType type);
+
+GList * gbf_project_util_node_all (AnjutaProjectNode *parent,
+                                        AnjutaProjectNodeType type);
+
 				    
 G_END_DECLS
 

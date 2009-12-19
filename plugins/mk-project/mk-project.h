@@ -27,11 +27,11 @@
 #include <libanjuta/anjuta-project.h>
 #include <libanjuta/anjuta-token.h>
 #include <libanjuta/anjuta-token-file.h>
-#include <libanjuta/anjuta-token-style.h>
+#include <libanjuta/anjuta-token-list.h>
 
 G_BEGIN_DECLS
 
-#define YYSTYPE AnjutaToken*
+//#define YYSTYPE AnjutaToken*
 
 #define MKP_TYPE_PROJECT		(mkp_project_get_type ())
 #define MKP_PROJECT(obj)		(G_TYPE_CHECK_INSTANCE_CAST ((obj), MKP_TYPE_PROJECT, MkpProject))
@@ -78,6 +78,10 @@ void mkp_project_unload (MkpProject *project);
 MkpGroup *mkp_project_get_root (MkpProject *project);
 MkpVariable *mkp_project_get_variable (MkpProject *project, const gchar *name);
 GList *mkp_project_list_variable (MkpProject *project);
+AnjutaToken* mkp_project_get_variable_token (MkpProject *project, AnjutaToken *variable);
+
+void mkp_project_update_variable (MkpProject *project, AnjutaToken *variable);
+void mkp_project_add_rule (MkpProject *project, AnjutaToken *rule);
 
 MkpGroup *mkp_project_get_group (MkpProject *project, const gchar *id);
 MkpTarget *mkp_project_get_target (MkpProject *project, const gchar *id);
@@ -88,6 +92,7 @@ gboolean mkp_project_save (MkpProject *project, GError **error);
 
 gchar * mkp_project_get_uri (MkpProject *project);
 GFile* mkp_project_get_file (MkpProject *project);
+gboolean mkp_project_get_token_location (MkpProject *project, AnjutaTokenFileLocation *location, AnjutaToken *token);
 
 MkpGroup* mkp_project_add_group (MkpProject  *project, MkpGroup *parent,	const gchar *name, GError **error);
 void mkp_project_remove_group (MkpProject  *project, MkpGroup *group, GError **error);
@@ -111,8 +116,9 @@ gchar *mkp_target_get_id (MkpTarget *target);
 gchar *mkp_source_get_id (MkpSource *source);
 GFile *mkp_source_get_file (MkpSource *source);
 
-gchar *mkp_variable_evaluate (MkpVariable *variable, AnjutaProjectNode *context);
+gchar *mkp_variable_evaluate (MkpVariable *variable, MkpProject *project);
 const gchar* mkp_variable_get_name (MkpVariable *variable);
+
 
 G_END_DECLS
 

@@ -33,15 +33,11 @@ struct _AnjutaTokenFile
 {
 	GObject parent;
 	
-	GFile* file;
-	
-	gsize length;
-	gchar *content;
-	
-	AnjutaToken *first;
-	AnjutaToken *last;
+	GFile* file;				/* Corresponding GFile */
 
-	guint line_width;
+	AnjutaToken *content;		/* Current file content */
+
+	AnjutaToken *save;			/* List of memory block used */
 };
 
 struct _AnjutaTokenFileClass
@@ -54,118 +50,100 @@ static GObjectClass *parent_class = NULL;
 /* Helpers functions
  *---------------------------------------------------------------------------*/
 
-/* Create a directories, including parents if necessary. This function
- * exists in GLIB 2.18, but we need only 2.16 currently.
- * */
+/* Private functions
+ *---------------------------------------------------------------------------*/
 
-static gboolean
-make_directory_with_parents (GFile *file,
-							   GCancellable *cancellable,
-							   GError **error)
+static AnjutaToken*
+anjuta_token_file_find_position (AnjutaTokenFile *file, AnjutaToken *token)
 {
-	GError *path_error = NULL;
-	GList *children = NULL;
+	AnjutaToken *start;
+	const gchar *pos;
+	const gchar *ptr;
+	const gchar *end;
+	
+	if (token == NULL) return NULL;
 
-	for (;;)
+	if (anjuta_token_get_length (token) == 0)
 	{
-		if (g_file_make_directory (file, cancellable, &path_error))
+		AnjutaToken *last = anjuta_token_last (token);
+
+		for (; (token != NULL) && (token != last); token = anjuta_token_next (token))
 		{
-			/* Making child directory succeed */
-			if (children == NULL)
-			{
-				/* All directories have been created */
-				return TRUE;
-			}
-			else
-			{
-				/* Get next child directory */
-				g_object_unref (file);
-				file = (GFile *)children->data;
-				children = g_list_delete_link (children, children);
-			}
+			if (anjuta_token_get_length (token) != 0) break;
 		}
-		else if (g_error_matches (path_error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND))
-		{
-			g_clear_error (&path_error);
-			children = g_list_prepend (children, file);
-			file = g_file_get_parent (file);
-		}
-		else
-		{
-			g_object_unref (file);
-			g_list_foreach (children, (GFunc)g_object_unref, NULL);
-			g_list_free (children);
-			g_propagate_error (error, path_error);
+
+		if (anjuta_token_get_length (token) == 0) return NULL;
+	}
+
+	pos = anjuta_token_get_string (token);
+	for (start = file->content; start != NULL; start = anjuta_token_next (start))
+	{
+		guint len = anjuta_token_get_length (start);
 			
-			return FALSE;
+		if (len)
+		{
+			ptr = anjuta_token_get_string (start);
+			end = ptr + len;
+
+			if ((pos >= ptr) && (pos < end)) break;
 		}
-	}				
+	}
+	if ((start != NULL) && (ptr != pos))
+	{
+		start = anjuta_token_split (start, pos - ptr);
+		start = anjuta_token_next (start);
+	}
+
+	return start;
 }
 
 /* Public functions
  *---------------------------------------------------------------------------*/
 
-const gchar *
-anjuta_token_file_get_content (AnjutaTokenFile *file, GError **error)
+AnjutaToken*
+anjuta_token_file_load (AnjutaTokenFile *file, GError **error)
 {
-	if (file->content == NULL)
-	{
-		gchar *content;
-		gsize length;
+	gchar *content;
+	gsize length;
+
+	anjuta_token_file_unload (file);
 	
-		if (g_file_load_contents (file->file, NULL, &content, &length, NULL, error))
-		{
-			file->content = content;
-			file->length = length;
-		}
+	file->save = anjuta_token_new_static (ANJUTA_TOKEN_FILE,  NULL);
+	file->content = anjuta_token_new_static (ANJUTA_TOKEN_FILE,  NULL);
+	
+	if (g_file_load_contents (file->file, NULL, &content, &length, NULL, error))
+	{
+		AnjutaToken *token;
+			
+		token =	anjuta_token_new_with_string (ANJUTA_TOKEN_FILE, content, length);
+		anjuta_token_prepend_child (file->save, token);
+		
+		token =	anjuta_token_new_static (ANJUTA_TOKEN_FILE, content);
+		anjuta_token_prepend_child (file->content, token);
 	}
 	
 	return file->content;
 }
 
-gsize
-anjuta_token_file_get_length (AnjutaTokenFile *file, GError **error)
+gboolean
+anjuta_token_file_unload (AnjutaTokenFile *file)
 {
-	anjuta_token_file_get_content (file, error);
-
-	return file->length;
-}
-
-typedef struct _AnjutaTokenFileSaveData AnjutaTokenFileSaveData;
-
-struct _AnjutaTokenFileSaveData
-{
-	GError **error;
-	GFileOutputStream *stream;
-	gboolean fail;
-};
-
-static gboolean
-save_node (AnjutaToken *token, AnjutaTokenFileSaveData *data)
-{
-	if (!(anjuta_token_get_flags (token) & ANJUTA_TOKEN_REMOVED))
-	{
-		if (!(anjuta_token_get_flags (token) & ANJUTA_TOKEN_REMOVED) && (anjuta_token_get_length (token)))
-		{
-			if (g_output_stream_write (G_OUTPUT_STREAM (data->stream), anjuta_token_get_string (token), anjuta_token_get_length (token) * sizeof (char), NULL, data->error) < 0)
-			{
-				data->fail = TRUE;
-
-				return TRUE;
-			}
-		}
-	}
+	if (file->content != NULL) anjuta_token_free (file->content);
+	file->content = NULL;
 	
-	return FALSE;
+	if (file->save != NULL) anjuta_token_free (file->save);
+	file->save = NULL;
+
+	return TRUE;
 }
 
 gboolean
 anjuta_token_file_save (AnjutaTokenFile *file, GError **error)
 {
 	GFileOutputStream *stream;
-	gboolean ok;
+	gboolean ok = TRUE;
 	GError *err = NULL;
-	AnjutaTokenFileSaveData data;
+	AnjutaToken *token;
 	
 	stream = g_file_replace (file->file, NULL, FALSE, G_FILE_CREATE_NONE, NULL, &err);
 	if (stream == NULL)
@@ -175,7 +153,7 @@ anjuta_token_file_save (AnjutaTokenFile *file, GError **error)
 			/* Perhaps parent directory is missing, try to create it */
 			GFile *parent = g_file_get_parent (file->file);
 			
-			if (make_directory_with_parents (parent, NULL, NULL))
+			if (g_file_make_directory_with_parents (parent, NULL, NULL))
 			{
 				g_object_unref (parent);
 				g_clear_error (&err);
@@ -197,14 +175,22 @@ anjuta_token_file_save (AnjutaTokenFile *file, GError **error)
 		}
 	}
 
-	data.error = error;
-	data.stream = stream;
-	data.fail = FALSE;
-	g_node_traverse ((GNode *)file->first, G_PRE_ORDER, G_TRAVERSE_ALL, -1, (GNodeTraverseFunc)save_node, &data);
-	ok = g_output_stream_close (G_OUTPUT_STREAM (stream), NULL, NULL);
+	for (token = file->content; token != NULL; token = anjuta_token_next (token))
+	{
+		if (!(anjuta_token_get_flags (token) & ANJUTA_TOKEN_REMOVED) && (anjuta_token_get_length (token)))
+		{
+			if (g_output_stream_write (G_OUTPUT_STREAM (stream), anjuta_token_get_string (token), anjuta_token_get_length (token) * sizeof (char), NULL, error) < 0)
+			{
+				ok = FALSE;
+				break;
+			}
+		}
+	}
+		
+	ok = ok && g_output_stream_close (G_OUTPUT_STREAM (stream), NULL, NULL);
 	g_object_unref (stream);
 	
-	return !data.fail;
+	return ok;
 }
 
 void
@@ -214,44 +200,192 @@ anjuta_token_file_move (AnjutaTokenFile *file, GFile *new_file)
 	file->file = new_file != NULL ? g_object_ref (new_file) : NULL;
 }
 
-void
-anjuta_token_file_append (AnjutaTokenFile *file, AnjutaToken *token)
+/**
+ * anjuta_token_file_update:
+ * @file: a #AnjutaTokenFile derived class object.
+ * @token: Token to update.
+ * 
+ * Update the file with all changed token starting from @token. The function can
+ * return an error if the token is not in the file.
+ * 
+ * Return value: TRUE is the update is done without error.
+ */
+gboolean
+anjuta_token_file_update (AnjutaTokenFile *file, AnjutaToken *token)
 {
-	if (file->last == NULL)
+	AnjutaToken *prev;
+	AnjutaToken *next;
+	AnjutaToken *last;
+	guint added;
+
+	/* Find all token needing an update */
+	
+	/* Find following tokens */
+	for (last = token; last != NULL; last = anjuta_token_next (last))
 	{
-		file->first = token;
+		/* Get all tokens in group */
+		last = anjuta_token_last (last);
+
+		gint flags = anjuta_token_get_flags (last);
+		if (!(flags & (ANJUTA_TOKEN_ADDED | ANJUTA_TOKEN_REMOVED))) break;
 	}
-	else if (file->last == file->first)
+
+	/* Find first modified token */
+	for (;;)
 	{
-		g_node_insert_after ((GNode *)file->first, NULL, (GNode *)token);
-	}
-	else
-	{
-		while (((GNode *)file->last)->parent != (GNode *)file->first)
+		gint flags = anjuta_token_get_flags (token);
+		if (flags & (ANJUTA_TOKEN_ADDED | ANJUTA_TOKEN_REMOVED)) break;
+		if (token == last)
 		{
-			file->last = (AnjutaToken *)((GNode *)file->last)->parent;
+			/* No changed */
+			return TRUE;
 		}
-		g_node_insert_after ((GNode *)file->first, (GNode *)file->last, (GNode *)token);
+		token = anjuta_token_next (token);
 	}
-	file->last = token;
+	
+	/* Find previous token */
+	for (prev = token; prev != NULL; prev = anjuta_token_previous (prev))
+	{
+		gint flags = anjuta_token_get_flags (prev);
+		if ((anjuta_token_get_length (prev) != 0) && !(flags & (ANJUTA_TOKEN_ADDED | ANJUTA_TOKEN_REMOVED))) break;
+		token = prev;    
+	}
+	
+	/* Delete removed token and compute length of added token */
+	added = 0;
+	for (next = token; (next != NULL) && (next != last);)
+	{
+		gint flags = anjuta_token_get_flags (next);
+		
+		if ((flags & ANJUTA_TOKEN_REMOVED) && (anjuta_token_get_length (next) > 0))
+		{
+			AnjutaToken *pos = anjuta_token_file_find_position (file, next);
+			guint len = anjuta_token_get_length (next);
+
+			if (pos != NULL)
+			{
+				while (len != 0)
+				{
+					guint flen = anjuta_token_get_length (pos);
+					if (len < flen)
+					{
+						pos = anjuta_token_split (pos, len);
+						flen = len;
+					}
+					pos = anjuta_token_free (pos);
+					len -= flen;
+				}
+				next = anjuta_token_free (next);
+				continue;
+			}
+		}
+		else if (flags & ANJUTA_TOKEN_ADDED)
+		{
+			added += anjuta_token_get_length (next);
+		}
+		next = anjuta_token_next (next);
+	}
+
+	/* Add new token */
+	if (added != 0)
+	{
+		gchar *value;
+		AnjutaToken *add;
+		AnjutaToken *start = NULL;
+		
+		value = g_new (gchar, added);
+		anjuta_token_prepend_child (file->save, anjuta_token_new_with_string (ANJUTA_TOKEN_NAME, value, added));
+		
+		/* Find token position */
+		if (prev != NULL)
+		{
+			start = anjuta_token_file_find_position (file, prev);
+			if (start != NULL) start = anjuta_token_split (start, anjuta_token_get_length (prev));
+		}
+
+		/* Insert token */
+		add = anjuta_token_new_fragment (ANJUTA_TOKEN_NAME, value, added);
+		if (start == NULL)
+		{
+			anjuta_token_prepend_child (file->content, add);
+		}
+		else
+		{
+			anjuta_token_insert_after (start, add);
+		}
+
+		for (next = token; (next != NULL) && (next != last); next = anjuta_token_next (next))
+		{
+			gint flags = anjuta_token_get_flags (next);
+
+
+			if (flags & ANJUTA_TOKEN_ADDED)
+			{
+				guint len = anjuta_token_get_length (next);
+
+				if (len > 0)
+				{
+					memcpy(value, anjuta_token_get_string (next), len);
+					anjuta_token_set_string (next, value, len);
+					value += len;
+				}
+			}
+		}
+	}
+
+	fprintf (stdout, "Dump config list from file:\n");
+	anjuta_token_dump (file->content);
+
+	
+	return TRUE;
 }
 
-void
-anjuta_token_file_update_line_width (AnjutaTokenFile *file, guint width)
+gboolean
+anjuta_token_file_get_token_location (AnjutaTokenFile *file, AnjutaTokenFileLocation *location, AnjutaToken *token)
 {
-	if (width > file->line_width) file->line_width = width;
-}
+	AnjutaTokenFileLocation loc = {NULL, 1, 1};
+	AnjutaToken *pos;
+	const gchar *target = anjuta_token_get_string (token);
+	
+	for (pos = file->content; pos != NULL; pos = anjuta_token_next (pos))
+	{
+		if (!(anjuta_token_get_flags (pos) & ANJUTA_TOKEN_REMOVED) && (anjuta_token_get_length (pos)))
+		{
+			const gchar *ptr;
+			const gchar *end;
 
-AnjutaToken*
-anjuta_token_file_first (AnjutaTokenFile *file)
-{
-	return file->first;
-}
+			ptr = anjuta_token_get_string (pos);
+			end = ptr + anjuta_token_get_length (pos);
+			
+			for (; ptr != end; ptr++)
+			{
+				if (*ptr == '\n')
+				{
+					/* New line */
+					loc.line++;
+					loc.column = 1;
+				}
+				else
+				{
+					loc.column++;
+				}
+					
+				if (ptr == target)
+				{
+					if (location != NULL)
+					{
+						location->filename = file->file == NULL ? NULL : g_file_get_parse_name (file->file);
+						location->line = loc.line;
+						location->column = loc.column;
+					}
 
-AnjutaToken*
-anjuta_token_file_last (AnjutaTokenFile *file)
-{
-	return file->last;
+					return TRUE;
+				}
+			}
+		}
+	}
+
+	return FALSE;
 }
 
 GFile*
@@ -260,10 +394,15 @@ anjuta_token_file_get_file (AnjutaTokenFile *file)
 	return file->file;
 }
 
-guint
-anjuta_token_file_get_line_width (AnjutaTokenFile *file)
+AnjutaToken*
+anjuta_token_file_get_content (AnjutaTokenFile *file)
 {
-	return file->line_width;
+	if (file->content == NULL)
+	{
+		anjuta_token_file_load (file, NULL);
+	}
+	
+	return file->content;
 }
 
 /* GObject functions
@@ -279,10 +418,7 @@ anjuta_token_file_dispose (GObject *object)
 {
 	AnjutaTokenFile *file = ANJUTA_TOKEN_FILE (object);
 
-	anjuta_token_free (file->first);
-
-	if (file->content) g_free (file->content);
-	file->content = NULL;
+	anjuta_token_file_unload (file);
 	
 	if (file->file) g_object_unref (file->file);
 	file->file = NULL;
@@ -297,6 +433,8 @@ static void
 anjuta_token_file_instance_init (AnjutaTokenFile *file)
 {
 	file->file = NULL;
+	file->content = NULL;
+	file->save = NULL;
 }
 
 /* class_init intialize the class itself not the instance */
@@ -351,12 +489,7 @@ anjuta_token_file_new (GFile *gfile)
 {
 	AnjutaTokenFile *file = g_object_new (ANJUTA_TOKEN_FILE_TYPE, NULL);
 
-	if (gfile)
-	{
-		file->file =  g_object_ref (gfile);
-		file->first = anjuta_token_new_static (ANJUTA_TOKEN_FILE, NULL);
-		file->last = file->first;
-	}
+	if (gfile) file->file =  g_object_ref (gfile);
 	
 	return file;
 };

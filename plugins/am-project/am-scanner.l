@@ -19,42 +19,48 @@
  
 %{
 
-#include <stdlib.h>
-#include <string.h>
 #include "am-scanner.h"
 #include "am-parser.h"
 
 #include "libanjuta/anjuta-debug.h"
+#include "libanjuta/anjuta-token-stream.h"
+
+#include <stdlib.h>
+#include <string.h>
 
 
-/* Eliminate warning */
-#define YY_NO_UNPUT 1 
+#define YY_INPUT(buffer, result, max_size) result = anjuta_token_stream_read (yyextra->stream, buffer, max_size)
 
-#define YY_INPUT(buf,result,the_max_size) \
-    result = 0;
-
-#define YY_USER_ACTION amp_update_location(yylloc, yytext, yyleng);
-    
 #define YY_EXTRA_TYPE  AmpAmScanner*
 
+#define YY_DECL static int am_yylex (YYSTYPE * yylval_param,YYLTYPE * yylloc_param ,yyscan_t yyscanner)
+
 //#define YY_USER_INIT {yy_flex_debug = 1;}
- 
-static AnjutaToken* amp_am_scanner_append_token (AmpAmScanner *scanner, gint token);
-static gint amp_am_scanner_last_token (AmpAmScanner *scanner);
-static gint amp_am_scanner_last_flags (AmpAmScanner *scanner);
-static void amp_am_scanner_update_line_width (AmpAmScanner *scanner, YYLTYPE *loc);
-static void amp_update_location (YYLTYPE *loc, const gchar *text, gint length);
-static int amp_am_parse (yyscan_t scanner);
+
+static int amp_am_scanner_parse_end (AmpAmScanner *scanner);
+
+#define RETURN(tok) *yylval = anjuta_token_stream_tokenize (yyextra->stream, tok, yyleng); \
+                    return tok
+
+struct _AmpAmScanner
+{
+    yyscan_t scanner;
+
+	AnjutaTokenStream *stream;
+
+    AmpProject *project;
+    AmpGroup *group;
+	GHashTable *orphan_sources;
+};
 
 %}
 
-%option reentrant stack noyywrap yylineno
+%option reentrant noyywrap yylineno
+
+/* Remove some warnings */
+%option nounput noinput noyy_pop_state noyy_top_state
 
 %option prefix="amp_am_yy"
-
-/* Necessary because autotools wrapper always looks for a file named "lex.yy.c",
- * not "lex.amp_am_yy.c" 
-%option outfile="lex.yy.c"*/
 
 %option bison-bridge bison-locations
 
@@ -68,293 +74,212 @@ NAME          [^ \t\n\r:#=$"'`&@\\]*
 
 %%
 
-<INITIAL>\n {
-	yylval->token = amp_am_scanner_append_token  (yyextra, ANJUTA_TOKEN_EOL);
-	return EOL;
-}
+<INITIAL>\n 						{ RETURN (EOL); }
 
-<INITIAL>([ ]|\\\n)([ \t]|\\\n)* {
-	yylval->token = amp_am_scanner_append_token  (yyextra, ANJUTA_TOKEN_SPACE);
-	return SPACE;
-}
+<INITIAL>([ ]|\\\n)([ \t]|\\\n)* 	{ RETURN (SPACE); }
 
-<INITIAL>([ \t])*#.*\n {
-    yylval->token = amp_am_scanner_append_token  (yyextra, ANJUTA_TOKEN_COMMENT);   
-    return EOL;
-}
+<INITIAL>([ \t])*#.*\n 				{ RETURN (EOL); }
 
-<INITIAL>\t {
-    yylval->token = amp_am_scanner_append_token  (yyextra, ANJUTA_TOKEN_SPACE);   
-    return TAB;
-}
+<INITIAL>\t 						{ RETURN (TAB); }
 
-<INITIAL>@{NAME}@ {
-	yylval->token = amp_am_scanner_append_token (yyextra, ANJUTA_TOKEN_MACRO);
-	return MACRO;
-}
+<INITIAL>@{NAME}@ 					{ RETURN (MACRO); }
 
-<INITIAL>\$\([^ \t\n\r:#=$)]+\) {
-    yylval->token = amp_am_scanner_append_token  (yyextra, ANJUTA_TOKEN_VARIABLE);   
-	amp_am_scanner_update_line_width (yyextra, yylloc);
-    return VARIABLE;
-}
+<INITIAL>\$\([^ \t\n\r:#=$)]+\) 	{ RETURN (VARIABLE); }
 
-<INITIAL>\$\{[^ \t\n\r:#=$}]+\} {
-    yylval->token = amp_am_scanner_append_token  (yyextra, ANJUTA_TOKEN_VARIABLE);   
-	amp_am_scanner_update_line_width (yyextra, yylloc);
-    return VARIABLE;
-}
+<INITIAL>\$\{[^ \t\n\r:#=$}]+\} 	{ RETURN (VARIABLE); }
 
-<INITIAL>\$[^ \t\n\r\(\{] {
-    yylval->token = amp_am_scanner_append_token  (yyextra, ANJUTA_TOKEN_VARIABLE);   
-	amp_am_scanner_update_line_width (yyextra, yylloc);
-    return VARIABLE;
-}
+<INITIAL>\$[^ \t\n\r\(\{] 			{ RETURN (VARIABLE); }
 
-<INITIAL>: {
-    yylval->token = amp_am_scanner_append_token  (yyextra, ':');   
-    return COLON;
-}
+<INITIAL>: 							{ RETURN (COLON); }
 
-<INITIAL>:: {
-    yylval->token = amp_am_scanner_append_token  (yyextra, ANJUTA_TOKEN_OPERATOR);   
-    return DOUBLE_COLON;
-}
+<INITIAL>:: 						{ RETURN (DOUBLE_COLON); }
 
-<INITIAL>; {
-    yylval->token = amp_am_scanner_append_token  (yyextra, ANJUTA_TOKEN_OPERATOR);   
-    return SEMI_COLON;
-}
+<INITIAL>; 							{ RETURN (SEMI_COLON); }
 
-<INITIAL>\| {
-    yylval->token = amp_am_scanner_append_token  (yyextra, ANJUTA_TOKEN_OPERATOR);   
-    return ORDER;
-}
+<INITIAL>\| 						{ RETURN (ORDER); }
 
-<INITIAL>\= {
-    yylval->token = amp_am_scanner_append_token  (yyextra, ANJUTA_TOKEN_OPERATOR);   
-    return EQUAL;
-}
+<INITIAL>\= 						{ RETURN (EQUAL); }
 
-<INITIAL>:= {
-    yylval->token = amp_am_scanner_append_token  (yyextra, ANJUTA_TOKEN_OPERATOR);   
-    return IMMEDIATE_EQUAL;
-}
+<INITIAL>:= 						{ RETURN (IMMEDIATE_EQUAL); }
 
-<INITIAL>\?= {
-    yylval->token = amp_am_scanner_append_token  (yyextra, ANJUTA_TOKEN_OPERATOR);   
-    return CONDITIONAL_EQUAL;
-}
+<INITIAL>\?= 						{ RETURN (CONDITIONAL_EQUAL); }
 
-<INITIAL>\+= {
-    yylval->token = amp_am_scanner_append_token  (yyextra, ANJUTA_TOKEN_OPERATOR);   
-    return APPEND;
-}
+<INITIAL>\+= 						{ RETURN (APPEND); }
 
-<INITIAL>\\[ ] {
-    yylval->token = amp_am_scanner_append_token  (yyextra, ANJUTA_TOKEN_OPERATOR);   
-    return CHARACTER;
-}
+<INITIAL>\\[ ] 						{ RETURN (CHARACTER); }
 
-<INITIAL>\\: {
-    yylval->token = amp_am_scanner_append_token  (yyextra, ANJUTA_TOKEN_OPERATOR);   
-    return CHARACTER;
-}
+<INITIAL>\\: 						{ RETURN (CHARACTER); }
 
-<INITIAL>\\= {
-    yylval->token = amp_am_scanner_append_token  (yyextra, ANJUTA_TOKEN_OPERATOR);   
-    return CHARACTER;
-}
+<INITIAL>\\= 						{ RETURN (CHARACTER); }
 
-<INITIAL>\\# {
-    yylval->token = amp_am_scanner_append_token  (yyextra, ANJUTA_TOKEN_OPERATOR);   
-    return CHARACTER;
-}
+<INITIAL>\\# 						{ RETURN (CHARACTER); }
 
-<INITIAL>SUBDIRS {
-    yylval->token = amp_am_scanner_append_token  (yyextra, AM_TOKEN_SUBDIRS);   
-    return AM_VARIABLE;
-}
+<INITIAL>SUBDIRS 					{ RETURN (SUBDIRS); }
 
-<INITIAL>DIST_SUBDIRS {
-    yylval->token = amp_am_scanner_append_token  (yyextra, AM_TOKEN_DIST_SUBDIRS);   
-    return AM_VARIABLE;
-}
+<INITIAL>DIST_SUBDIRS 				{ RETURN (DIST_SUBDIRS); }
 
-<INITIAL>{NAME}_DATA {
-    yylval->token = amp_am_scanner_append_token  (yyextra, AM_TOKEN__DATA);   
-    return AM_VARIABLE;
-}
+<INITIAL>{NAME}_DATA 				{ RETURN (_DATA); }
 
-<INITIAL>{NAME}_HEADERS {
-    yylval->token = amp_am_scanner_append_token  (yyextra, AM_TOKEN__HEADERS);   
-    return AM_VARIABLE;
-}
+<INITIAL>{NAME}_HEADERS 			{ RETURN (_HEADERS); }
 
-<INITIAL>{NAME}_LIBRARIES {
-    yylval->token = amp_am_scanner_append_token  (yyextra, AM_TOKEN__LIBRARIES);   
-    return AM_VARIABLE;
-}
+<INITIAL>{NAME}_LIBRARIES 			{ RETURN (_LIBRARIES); }
 
-<INITIAL>{NAME}_LISP {
-    yylval->token = amp_am_scanner_append_token  (yyextra, AM_TOKEN__LISP);   
-    return AM_VARIABLE;
-}
+<INITIAL>{NAME}_LISP 				{ RETURN (_LISP); }
 
-<INITIAL>{NAME}_LTLIBRARIES {
-    yylval->token = amp_am_scanner_append_token  (yyextra, AM_TOKEN__LTLIBRARIES);   
-    return AM_VARIABLE;
-}
+<INITIAL>{NAME}_LTLIBRARIES 		{ RETURN (_LTLIBRARIES); }
 
-<INITIAL>{NAME}_MANS {
-    yylval->token = amp_am_scanner_append_token  (yyextra, AM_TOKEN__MANS);   
-    return AM_VARIABLE;
-}
+<INITIAL>{NAME}_MANS 				{ RETURN (_MANS); }
 
-<INITIAL>{NAME}_PROGRAMS {
-    yylval->token = amp_am_scanner_append_token  (yyextra, AM_TOKEN__PROGRAMS);   
-    return AM_VARIABLE;
-}
+<INITIAL>{NAME}_PROGRAMS 			{ RETURN (_PROGRAMS); }
 
-<INITIAL>{NAME}_PYTHON {
-    yylval->token = amp_am_scanner_append_token  (yyextra, AM_TOKEN__PYTHON);   
-    return AM_VARIABLE;
-}
+<INITIAL>{NAME}_PYTHON 				{ RETURN (_PYTHON); }
 
-<INITIAL>{NAME}_JAVA {
-    yylval->token = amp_am_scanner_append_token  (yyextra, AM_TOKEN__JAVA);   
-    return AM_VARIABLE;
-}
+<INITIAL>{NAME}_JAVA 				{ RETURN (_JAVA); }
 
-<INITIAL>{NAME}_SCRIPTS {
-    yylval->token = amp_am_scanner_append_token  (yyextra, AM_TOKEN__SCRIPTS);   
-    return AM_VARIABLE;
-}
+<INITIAL>{NAME}_SCRIPTS 			{ RETURN (_SCRIPTS); }
 
-<INITIAL>{NAME}_SOURCES {
-    yylval->token = amp_am_scanner_append_token  (yyextra, AM_TOKEN__SOURCES);   
-    return AM_VARIABLE;
-}
+<INITIAL>{NAME}_SOURCES 			{ RETURN (_SOURCES); }
 
-<INITIAL>{NAME}_TEXINFOS {
-    yylval->token = amp_am_scanner_append_token  (yyextra, AM_TOKEN__TEXINFOS);   
-    return AM_VARIABLE;
-}
+<INITIAL>{NAME}_TEXINFOS 			{ RETURN (_TEXINFOS); }
 
-<INITIAL>{NAME} {
-    yylval->token = amp_am_scanner_append_token  (yyextra, ANJUTA_TOKEN_NAME);   
-	amp_am_scanner_update_line_width (yyextra, yylloc);
-    return NAME;
-}
+<INITIAL>{NAME} 					{ RETURN (NAME); }
 
-<INITIAL>. {
-    yylval->token = amp_am_scanner_append_token  (yyextra, *yytext);   
-    return CHARACTER;
-}
+<INITIAL>. 							{ RETURN (CHARACTER); }
 
 %%
-     
-struct _AmpAmScanner
+
+typedef struct _AmpAmBuffer AmpAmBuffer;
+       
+struct _AmpAmBuffer
 {
-    const gchar *pos;
-    yyscan_t scanner;
-    YY_BUFFER_STATE	 buffer;
+    AnjutaToken *token;
 
-    AnjutaTokenFile *file;
-    gchar *filename;
+    /* Beginning of current token */
+    AnjutaToken *start;
+    gsize begin;
 
-	guint line_width;
+    AnjutaToken *end;   /* Last token */
+
+    /* Next data read buffer */
+    AnjutaToken *next;
+    gsize pos;
+
+    /* Place to put new token */
+    AnjutaToken *first;
+    AnjutaToken *last;
+
+    AmpAmBuffer *parent;    
 };
-
+     
 /* Private functions
  *---------------------------------------------------------------------------*/
 
-static AnjutaToken*
-amp_am_scanner_append_token (AmpAmScanner *scanner, gint token)
+static gint
+amp_am_scanner_parse_end (AmpAmScanner *scanner)
 {
-    AnjutaToken *frag;
-            
-    frag = anjuta_token_new_fragment (token, scanner->pos, yyget_leng (scanner->scanner));
-	anjuta_token_file_append (scanner->file, frag);
-    scanner->pos += yyget_leng (scanner->scanner);
-	//anjuta_token_old_dump (frag);
-    
-    return frag;
+    yypop_buffer_state(scanner->scanner);
+    scanner->stream = anjuta_token_stream_pop (scanner->stream);
+
+    if (scanner->stream == NULL)
+    {
+        yyterminate();
+    }
+    else
+    {
+        return 1;
+    }
 }
 
-static void
-amp_am_scanner_update_line_width (AmpAmScanner *scanner, YYLTYPE *loc)
+/* Parser functions
+ *---------------------------------------------------------------------------*/
+
+void
+amp_am_yyerror (YYLTYPE *loc, AmpAmScanner *scanner, char const *s)
 {
-	anjuta_token_file_update_line_width (scanner->file, loc->last_column);
+    AnjutaTokenFileLocation location;
+
+    if (amp_project_get_token_location (scanner->project, &location, *loc))
+    {
+        g_message ("%s:%d.%d %s\n", location.filename, location.line, location.column, s);
+        g_free (location.filename);
+    }
+    else
+    {
+        g_message ("%s \n", s);
+    }
 }
 
-static void
-amp_update_location (YYLTYPE *loc, const gchar *text, gint length)
+void
+amp_am_scanner_set_am_variable (AmpAmScanner *scanner, AnjutaTokenType variable, AnjutaToken *name, AnjutaToken *list)
 {
-	const gchar *ptr;
-	const gchar *end = text + length;
-
-    loc->first_line = loc->last_line;
-    loc->first_column = loc->last_column + 1;
-
-	for (ptr = text; ptr != end; ptr++)
-	{
-		if (*ptr == '\n')
-		{
-			loc->last_column = 0;
-			loc->last_line++;
-			length -= (ptr + 1 - text);
-		}
-	}
-
-	loc->last_column += length;
+    amp_project_set_am_variable (scanner->project, scanner->group, variable, name, list, scanner->orphan_sources);
 }
 
 /* Public functions
  *---------------------------------------------------------------------------*/
 
-gboolean
-amp_am_scanner_parse (AmpAmScanner *scanner, AnjutaTokenFile *file, GError **error)
+AnjutaToken *
+amp_am_scanner_parse_token (AmpAmScanner *scanner, AnjutaToken *token, GError **error)
 {
-    if (scanner->buffer != NULL) yy_delete_buffer (scanner->buffer, scanner->scanner);
+    AnjutaToken *first;
+    AnjutaTokenStream *stream;
 
-	scanner->file = file;
-	if (scanner->file== NULL) return FALSE;
+    stream = anjuta_token_stream_push (scanner->stream, token);
+    first = anjuta_token_stream_get_root (stream);
 
-    scanner->pos = anjuta_token_file_get_content (scanner->file, error);
-	if (scanner->pos == NULL) return FALSE;
+    if (scanner->stream != NULL)
+    {
+        /* Parse an included file or a expanded variable */
 
-    scanner->buffer = yy_scan_string (scanner->pos, scanner->scanner);
-	
-	return amp_am_yyparse (scanner->scanner) == 0;
+        scanner->stream = stream;
+        yypush_buffer_state(yy_create_buffer(NULL, YY_BUF_SIZE, scanner->scanner), scanner->scanner);
+    }
+    else
+    {
+        amp_am_yypstate *ps;
+        gint status;
+
+        scanner->stream = stream;
+        ps = amp_am_yypstate_new ();
+        do
+        {
+            YYSTYPE yylval_param;
+            YYLTYPE yylloc_param;
+            gint yychar = am_yylex (&yylval_param, &yylloc_param, scanner->scanner);
+
+			yylloc_param = yylval_param;
+            status = amp_am_yypush_parse (ps, yychar, &yylval_param, &yylloc_param, scanner);
+ 
+        } while (status == YYPUSH_MORE);
+        amp_am_yypstate_delete (ps);
+
+    }
+
+    return first;
 }
-
-guint
-amp_am_scanner_get_line_width (AmpAmScanner *scanner)
-{
-	return scanner->line_width;
-}
-
-const gchar*
-amp_am_scanner_get_filename (AmpAmScanner *scanner)
-{
-	g_free (scanner->filename);
-    scanner->filename = NULL;
-    if (scanner->file) scanner->filename = g_file_get_path (anjuta_token_file_get_file (scanner->file));
-	
-	return scanner->filename;
-}
-
 
 /* Constructor & Destructor
  *---------------------------------------------------------------------------*/
 
+static void
+free_source_list (GList *source_list)
+{
+	g_list_foreach (source_list, (GFunc)amp_source_free, NULL);
+	g_list_free (source_list);
+}
+
 AmpAmScanner *
-amp_am_scanner_new (void)
+amp_am_scanner_new (AmpProject *project, AmpGroup *group)
 {
 	AmpAmScanner *scanner;
 
 	scanner = g_new0 (AmpAmScanner, 1);
+
+    scanner->project = project;
+    scanner->group = group;
+
+	/* Create hash table for sources list */
+	scanner->orphan_sources = g_hash_table_new_full (g_str_hash, g_str_equal, (GDestroyNotify)g_free, (GDestroyNotify)free_source_list);
 
     yylex_init(&scanner->scanner);
     yyset_extra (scanner, scanner->scanner);
@@ -367,11 +292,10 @@ amp_am_scanner_free (AmpAmScanner *scanner)
 {
 	g_return_if_fail (scanner != NULL);
 
-    if (scanner->buffer != NULL) yy_delete_buffer (scanner->buffer, scanner->scanner);
     yylex_destroy(scanner->scanner);
 
-	g_free (scanner->filename);
-	scanner->filename = NULL;
+	/* Free unused sources files */
+	g_hash_table_destroy (scanner->orphan_sources);
 
 	g_free (scanner);
 }

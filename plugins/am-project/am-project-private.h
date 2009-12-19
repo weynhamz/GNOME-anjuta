@@ -26,8 +26,19 @@
 
 G_BEGIN_DECLS
 
+struct _AmpPackage {
+    gchar *name;
+    gchar *version;
+};
+
+struct _AmpModule {
+    GList *packages;
+    AnjutaToken *module;
+};
+
 struct _AmpProperty {
 	AnjutaToken *ac_init;				/* AC_INIT macro */
+	AnjutaToken *args;
 	gchar *name;
 	gchar *version;
 	gchar *bug_report;
@@ -44,7 +55,8 @@ struct _AmpProject {
 
 	/* project data */
 	AnjutaTokenFile		*configure_file;		/* configure.in file */
-
+	AnjutaToken			*configure_token;
+	
 	AmpProperty			*property;
 	
 	AmpGroup              *root_node;         	/* tree containing project data;
@@ -63,7 +75,8 @@ struct _AmpProject {
 	GHashTable         *monitors;
 
 	/* Keep list style */
-	AnjutaTokenStyle *space_list;
+	AnjutaTokenStyle *ac_space_list;
+	AnjutaTokenStyle *am_space_list;
 	AnjutaTokenStyle *arg_list;
 };
 

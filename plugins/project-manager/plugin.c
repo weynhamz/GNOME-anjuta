@@ -1928,7 +1928,7 @@ iproject_manager_get_elements (IAnjutaProjectManager *project_manager,
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
 	g_return_val_if_fail (IANJUTA_IS_PROJECT (plugin->project), NULL);
 
-	return anjuta_project_node_all (ianjuta_project_get_root (plugin->project, NULL), element_type); 
+	return gbf_project_util_node_all (ianjuta_project_get_root (plugin->project, NULL), element_type); 
 }
 
 static AnjutaProjectTargetClass
@@ -1977,7 +1977,7 @@ iproject_manager_get_targets (IAnjutaProjectManager *project_manager,
 	g_return_val_if_fail (IANJUTA_IS_PROJECT (plugin->project), NULL);
 
 	/* Get all targets */
-	targets = anjuta_project_node_all (ianjuta_project_get_root (plugin->project, NULL), ANJUTA_PROJECT_TARGET);
+	targets = gbf_project_util_node_all (ianjuta_project_get_root (plugin->project, NULL), ANJUTA_PROJECT_TARGET);
 
 	/* Remove all targets not in specified class */
 	for (node = g_list_first (targets); node != NULL;)

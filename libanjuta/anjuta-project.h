@@ -83,7 +83,7 @@ typedef GNode AnjutaProjectGroup;
 typedef GNode AnjutaProjectTarget;
 typedef GNode AnjutaProjectSource;
 
-typedef GNodeTraverseFunc AnjutaProjectNodeFunc;
+typedef void (*AnjutaProjectNodeFunc) (AnjutaProjectNode *node, gpointer data);
 
 AnjutaProjectNode *anjuta_project_node_parent (AnjutaProjectNode *node);
 AnjutaProjectNode *anjuta_project_node_first_child (AnjutaProjectNode *node);
@@ -91,9 +91,14 @@ AnjutaProjectNode *anjuta_project_node_last_child (AnjutaProjectNode *node);
 AnjutaProjectNode *anjuta_project_node_next_sibling (AnjutaProjectNode *node);
 AnjutaProjectNode *anjuta_project_node_prev_sibling (AnjutaProjectNode *node);
 AnjutaProjectNode *anjuta_project_node_nth_child (AnjutaProjectNode *node, guint n);
-GList *anjuta_project_node_all_child (AnjutaProjectNode *node, AnjutaProjectNodeType type);
-GList *anjuta_project_node_all (AnjutaProjectNode *node, AnjutaProjectNodeType type);
+
+AnjutaProjectNode *anjuta_project_node_append (AnjutaProjectNode *parent, AnjutaProjectNode *node);
+AnjutaProjectNode *anjuta_project_node_prepend (AnjutaProjectNode *parent, AnjutaProjectNode *node);
+AnjutaProjectNode *anjuta_project_node_insert_before (AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNode *node);
+AnjutaProjectNode *anjuta_project_node_insert_after (AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNode *node);
+
 void anjuta_project_node_all_foreach (AnjutaProjectNode *node, AnjutaProjectNodeFunc func, gpointer data);
+void anjuta_project_node_children_foreach (AnjutaProjectNode *node, AnjutaProjectNodeFunc func, gpointer data);
 
 AnjutaProjectNodeType anjuta_project_node_get_type (const AnjutaProjectNode *node);
 

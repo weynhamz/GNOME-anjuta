@@ -40,6 +40,8 @@ libam_project_la_SOURCES = \
 	ac-scanner.h \
 	ac-writer.h \
 	ac-writer.c \
+	am-writer.h \
+	am-writer.c \
 	am-project-private.h \
 	am-dialogs.h \
 	am-dialogs.c

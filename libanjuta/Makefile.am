@@ -82,12 +82,14 @@ libanjuta_la_SOURCES= \
 	anjuta-command-queue.h \
 	anjuta-token.c \
 	anjuta-token.h \
-	anjuta-token-style.c \
-	anjuta-token-style.h \
-	anjuta-token-file.c \
+	anjuta-token-list.h \
+	anjuta-token-list.c \
 	anjuta-token-file.h \
+	anjuta-token-file.c \
+	anjuta-project.c \
 	anjuta-project.h \
-	anjuta-project.c
+	anjuta-token-stream.c \
+	anjuta-token-stream.h
 
 if HAVE_PLUGIN_GLADE
 

@@ -1,5 +1,5 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4; coding: utf-8 -*- */
-/* mk-rule.h
+/* am-writer.h
  *
  * Copyright (C) 2009  Sébastien Granjoux
  *
@@ -19,22 +19,21 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef _MK_RULE_H_
-#define _MK_RULE_H_
+#ifndef _AM_WRITER_H_
+#define _AM_WRITER_H_
 
-#include <glib-object.h>
+#include "am-project.h"
 
-#include "mk-project.h"
-
+#include <glib.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
-void mkp_project_init_rules (MkpProject *project);
-void mkp_project_free_rules (MkpProject *project);
-void mkp_project_enumerate_targets (MkpProject *project, MkpGroup *parent);
-void mkp_project_add_rule (MkpProject *project, AnjutaToken *group);
-
+AnjutaToken *amp_project_write_config_list (AmpProject *project);
+AnjutaToken *amp_project_write_config_file (AmpProject *project, AnjutaToken *list, gboolean after, AnjutaToken *sibling, const gchar *filename);
+AnjutaToken *amp_project_write_target (AnjutaToken *makefile, gint type, const gchar *name, gboolean after, AnjutaToken* sibling);
+AnjutaToken *amp_project_write_source_list (AnjutaToken *makefile, const gchar *name, gboolean after, AnjutaToken* sibling);
 
 G_END_DECLS
 
-#endif /* _MK_RULE_H_ */
+#endif /* _AM_WRITER_H_ */

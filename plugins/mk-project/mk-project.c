@@ -25,6 +25,7 @@
 #endif
 
 #include "mk-project.h"
+#include "mk-rule.h"
 
 #include "mk-project-private.h"
 
@@ -522,7 +523,7 @@ monitors_setup (MkpProject *project)
  */
 
 static void
-mkp_dump_node (GNode *g_node)
+mkp_dump_node (AnjutaProjectNode *g_node)
 {
 	gchar *name = NULL;
 	
@@ -546,8 +547,8 @@ mkp_dump_node (GNode *g_node)
 	g_free (name);
 }
 
-static gboolean 
-foreach_node_destroy (GNode    *g_node,
+static void 
+foreach_node_destroy (AnjutaProjectNode    *g_node,
 		      gpointer  data)
 {
 	switch (MKP_NODE_DATA (g_node)->type) {
@@ -566,21 +567,17 @@ foreach_node_destroy (GNode    *g_node,
 			g_assert_not_reached ();
 			break;
 	}
-	
-
-	return FALSE;
 }
 
 static void
-project_node_destroy (MkpProject *project, GNode *g_node)
+project_node_destroy (MkpProject *project, AnjutaProjectNode *g_node)
 {
 	g_return_if_fail (project != NULL);
 	g_return_if_fail (MKP_IS_PROJECT (project));
 	
 	if (g_node) {
 		/* free each node's data first */
-		g_node_traverse (g_node,
-				 G_POST_ORDER, G_TRAVERSE_ALL, -1,
+		anjuta_project_node_all_foreach (g_node,
 				 foreach_node_destroy, project);
 
 		/* now destroy the tree itself */
@@ -589,77 +586,18 @@ project_node_destroy (MkpProject *project, GNode *g_node)
 }
 
 static void
-find_target (GNode *node, gpointer data)
+find_target (AnjutaProjectTarget *node, gpointer data)
 {
 	if (MKP_NODE_DATA (node)->type == ANJUTA_PROJECT_TARGET)
 	{
 		if (strcmp (MKP_TARGET_DATA (node)->base.name, *(gchar **)data) == 0)
 		{
 			/* Find target, return node value in pointer */
-			*(GNode **)data = node;
+			*(AnjutaProjectTarget **)data = node;
 
 			return;
 		}
 	}
-}
-
-static AnjutaToken*
-project_load_rule (MkpProject *project, AnjutaToken *rule, GNode *parent)
-{
-	AnjutaToken *arg;
-	AnjutaToken *prerequisite;
-
-	/* Search for prerequisite */
-	prerequisite = NULL;
-	for (arg = anjuta_token_list_first (rule); arg != NULL; arg = anjuta_token_list_next (arg))
-	{
-		if (anjuta_token_get_type (arg) == MK_TOKEN_PREREQUISITE)
-		{
-			prerequisite = anjuta_token_list_next (arg);
-		}
-	}
-	
-	for (arg = anjuta_token_list_first (rule); arg != NULL; arg = anjuta_token_list_next (arg))
-	{
-		gchar *value;
-		gpointer find;
-		MkpTarget *target;
-
-		value = anjuta_token_evaluate (arg);
-
-		/* Check if target already exists */
-		find = value;
-		g_node_children_foreach (parent, G_TRAVERSE_ALL, find_target, &find);
-		if ((gchar *)find != value)
-		{
-			/* Find target */
-			target = (MkpTarget *)find;
-		}
-		else
-		{
-			/* Create target */
-			target = mkp_target_new (value, (AnjutaProjectTargetType)&MkpTargetTypes[0]);
-			mkp_target_add_token (target, arg);
-			g_node_append (parent, target);
-		}
-
-		g_free (value);
-
-		/* Add prerequisite */
-		for (arg = prerequisite; arg != NULL; arg = anjuta_token_list_next (arg))
-		{
-			MkpSource *source;
-			GFile *src_file;
-
-			value = anjuta_token_evaluate (arg);
-			src_file = g_file_get_child (project->root_file, value);
-			source = mkp_source_new (src_file);
-			g_object_unref (src_file);
-			g_node_append (target, source);
-		}
-	}
-
-	return NULL;
 }
 
 static void
@@ -676,10 +614,9 @@ static MkpGroup*
 project_load_makefile (MkpProject *project, GFile *file, MkpGroup *parent, GError **error)
 {
 	MkpScanner *scanner;
-	AnjutaToken *rule_tok;
 	AnjutaToken *arg;
 	AnjutaTokenFile *tfile;
-	gboolean found;
+	AnjutaToken *parse;
 	gboolean ok;
 	GError *err = NULL;
 
@@ -688,8 +625,10 @@ project_load_makefile (MkpProject *project, GFile *file, MkpGroup *parent, GErro
 	tfile = mkp_group_set_makefile (parent, file);
 	g_hash_table_insert (project->files, g_object_ref (file), g_object_ref (tfile));
 //	g_object_add_toggle_ref (G_OBJECT (project->make_file), remove_make_file, project);
+	arg = anjuta_token_file_load (tfile, NULL);
 	scanner = mkp_scanner_new (project);
-	ok = mkp_scanner_parse (scanner, tfile, &err);
+	parse = mkp_scanner_parse_token (scanner, arg, &err);
+	ok = parse != NULL;
 	mkp_scanner_free (scanner);
 	if (!ok)
 	{
@@ -703,14 +642,6 @@ project_load_makefile (MkpProject *project, GFile *file, MkpGroup *parent, GErro
 
 	/* Load target */
 	mkp_project_enumerate_targets (project, parent);
-	
-	/*rule_tok = anjuta_token_new_static (MK_TOKEN_RULE, NULL);
-	
-	arg = anjuta_token_file_first (tfile);
-	for (found = anjuta_token_match (rule_tok, ANJUTA_SEARCH_INTO, arg, &arg); found; found = anjuta_token_match (rule_tok, ANJUTA_SEARCH_INTO, anjuta_token_next_sibling (arg), &arg))
-	{
-		project_load_rule (project, arg, parent);
-	}*/
 
 	return parent;
 }
@@ -786,7 +717,7 @@ mkp_project_get_source (MkpProject *project, const gchar *id)
 gchar *
 mkp_project_get_node_id (MkpProject *project, const gchar *path)
 {
-	GNode *node = NULL;
+	AnjutaProjectNode *node = NULL;
 
 	if (path != NULL)
 	{
@@ -807,7 +738,7 @@ mkp_project_get_node_id (MkpProject *project, const gchar *path)
 			}
 			else
 			{
-				node = g_node_nth_child (node, child);
+				node = anjuta_project_node_nth_child (node, child);
 			}
 			if (node == NULL)
 			{
@@ -862,6 +793,25 @@ mkp_project_get_target_types (MkpProject *project, GError **error)
 	types = g_list_reverse (types);
 
 	return types;
+}
+
+gboolean
+mkp_project_get_token_location (MkpProject *project, AnjutaTokenFileLocation *location, AnjutaToken *token)
+{
+	GHashTableIter iter;
+	gpointer key;
+	gpointer value;
+
+	g_hash_table_iter_init (&iter, project->files);
+	while (g_hash_table_iter_next (&iter, &key, &value))
+	{
+		if (anjuta_token_file_get_token_location ((AnjutaTokenFile *)value, location, token))
+		{
+			return TRUE;
+		}
+	}
+
+	return FALSE;
 }
 
 /* Group access functions
@@ -931,7 +881,7 @@ mkp_variable_get_name (MkpVariable *variable)
 }
 
 gchar *
-mkp_variable_evaluate (MkpVariable *variable, AnjutaProjectNode *context)
+mkp_variable_evaluate (MkpVariable *variable, MkpProject *project)
 {
 	return anjuta_token_evaluate (variable->value);
 }
@@ -962,81 +912,82 @@ mkp_variable_free (MkpVariable *variable)
 /* Public functions
  *---------------------------------------------------------------------------*/
 
-static void
-mkp_project_token_evaluate_token (MkpProject *project, AnjutaToken *token, GString *value)
+void
+mkp_project_update_variable (MkpProject *project, AnjutaToken *variable)
 {
-	if ((token != NULL) && (anjuta_token_get_length (token) != 0))
-	{
-		gint type = anjuta_token_get_type (token);
-		guint length;
-		const gchar *string;
-		gchar *name;
-		MkpVariable *var;
-		
-		switch (type)
-		{
-		case ANJUTA_TOKEN_COMMENT:
-		case ANJUTA_TOKEN_OPEN_QUOTE:
-		case ANJUTA_TOKEN_CLOSE_QUOTE:
-		case ANJUTA_TOKEN_ESCAPE:
-			break;
-		case MK_TOKEN_VARIABLE:
-			length = anjuta_token_get_length (token);
-			string = anjuta_token_get_string (token);
-			if (string[1] == '(')
-			{
-				name = g_strndup (string + 2, length - 3);
-			}
-			else
-			{
-				name = g_strndup (string + 1, 1);
-			}
-			var = g_hash_table_lookup (project->variables, name);
-			g_free (name);
-			if (var != NULL)
-			{
-				name = mkp_variable_evaluate (var, NULL);
-				g_string_append (value, name);
-				g_free (name);
-			}
-			break;	
-		default:
-			g_string_append_len (value, anjuta_token_get_string (token), anjuta_token_get_length (token));
-		}
-	}
-}	
+	AnjutaToken *arg;
+	char *name = NULL;
+	MakeTokenType assign = 0;	
+	AnjutaToken *value = NULL;
 
-static  void
-mkp_project_token_evaluate_child (MkpProject *project, AnjutaToken *token, GString *value)
-{
-	AnjutaToken *child;
+	fprintf(stdout, "update variable");
+	anjuta_token_dump (variable);
 	
-	mkp_project_token_evaluate_token (project, token, value);
+	arg = anjuta_token_first_item (variable);
+	name = g_strstrip (anjuta_token_evaluate (arg));
+	arg = anjuta_token_next_item (arg);
+	
+	g_message ("new variable %s", name);
+	switch (anjuta_token_get_type (arg))
+	{
+	case MK_TOKEN_EQUAL:
+	case MK_TOKEN_IMMEDIATE_EQUAL:
+	case MK_TOKEN_CONDITIONAL_EQUAL:
+	case MK_TOKEN_APPEND:
+		assign = anjuta_token_get_type (arg);
+		break;
+	default:
+		break;
+	}
+	
+	value = anjuta_token_next_item (arg);
 
-	child = anjuta_token_next_child (token);
-	if (child) mkp_project_token_evaluate_child (project, child, value);
+	if (assign != 0)
+	{
+		MkpVariable *var;
 
-	child = anjuta_token_next_sibling (token);
-	if (child) mkp_project_token_evaluate_child (project, child, value);
+		g_message ("assign %d name %s value %s\n", assign, name, anjuta_token_evaluate (value));
+		var = (MkpVariable *)g_hash_table_lookup (project->variables, name);
+		if (var != NULL)
+		{
+			var->assign = assign;
+			var->value = value;
+		}
+		else
+		{
+			var = mkp_variable_new (name, assign, value);
+			g_hash_table_insert (project->variables, var->name, var);
+		}
+
+	}
+
+	g_message ("update variable %s", name);
+	
+	if (name) g_free (name);
 }
 
-gchar *mkp_project_token_evaluate (MkpProject *project, AnjutaToken *token)
+AnjutaToken*
+mkp_project_get_variable_token (MkpProject *project, AnjutaToken *variable)
 {
-	GString *value = g_string_new (NULL);
-	gchar *str;
-
-	if (token != NULL)
-	{
-		AnjutaToken *child;
+	guint length;
+	const gchar *string;
+	gchar *name;
+	MkpVariable *var;
 		
-		mkp_project_token_evaluate_token (project, token, value);
-
-		child = anjuta_token_next_child (token);
-		if (child != NULL) mkp_project_token_evaluate_child (project, child, value);
+	length = anjuta_token_get_length (variable);
+	string = anjuta_token_get_string (variable);
+	if (string[1] == '(')
+	{
+		name = g_strndup (string + 2, length - 3);
 	}
+	else
+	{
+		name = g_strndup (string + 1, 1);
+	}
+	var = g_hash_table_lookup (project->variables, name);
+	g_free (name);
 
-	str = g_string_free (value, FALSE);
-	return *str == '\0' ? NULL : str; 	
+	return var != NULL ? var->value : NULL;
 }
 
 gboolean
@@ -1057,14 +1008,14 @@ mkp_project_reload (MkpProject *project, GError **error)
 	/* shortcut hash tables */
 	project->groups = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 	project->files = g_hash_table_new_full (g_file_hash, (GEqualFunc)g_file_equal, g_object_unref, g_object_unref);
-	project->variables = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, mkp_variable_free);
+	project->variables = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, (GDestroyNotify)mkp_variable_free);
 
 	/* Initialize rules data */
 	mkp_project_init_rules (project);
 	
 	/* Initialize list styles */
-	project->space_list = anjuta_token_style_new (NULL, " ", "\\n", NULL, 0);
-	project->arg_list = anjuta_token_style_new (NULL, ", ", ",\\n ", ")", 0);
+	project->space_list = anjuta_token_style_new (NULL, " ", "\n", NULL, 0);
+	project->arg_list = anjuta_token_style_new (NULL, ", ", ",\n ", ")", 0);
 
 	/* Find make file */
 	for (makefile = valid_makefiles; *makefile != NULL; makefile++)
@@ -1178,72 +1129,6 @@ mkp_project_probe (GFile *directory,
 
 	return probe ? IANJUTA_PROJECT_PROBE_MAKE_FILES : 0;
 }
-
-void
-mkp_project_update_variable (MkpProject *project, AnjutaToken *variable)
-{
-	AnjutaToken *arg;
-	char *name = NULL;
-	MakeTokenType assign = 0;	
-	AnjutaToken *value = NULL;
-
-	for (arg = anjuta_token_next_child (variable); arg != NULL; arg = anjuta_token_next_sibling (arg))
-	{
-		if (anjuta_token_get_type (arg) == ANJUTA_TOKEN_NAME)
-		{
-			name = g_strstrip (anjuta_token_evaluate (arg));
-			break;
-		}
-	}
-	for (; arg != NULL; arg = anjuta_token_next_sibling (arg))
-	{
-		switch (anjuta_token_get_type (arg))
-		{
-		case MK_TOKEN_EQUAL:
-		case MK_TOKEN_IMMEDIATE_EQUAL:
-		case MK_TOKEN_CONDITIONAL_EQUAL:
-		case MK_TOKEN_APPEND:
-			assign = anjuta_token_get_type (arg);
-			break;
-		default:
-			continue;
-		}
-		break;
-	}
-	for (; arg != NULL; arg = anjuta_token_next_sibling (arg))
-	{
-		if (anjuta_token_get_type (arg) == ANJUTA_TOKEN_VALUE)
-		{
-			value = arg;
-			break;
-		}
-	}
-
-	if (assign != 0)
-	{
-		MkpVariable *var;
-
-		var = (MkpVariable *)g_hash_table_lookup (project->variables, name);
-		if (var != NULL)
-		{
-			var->assign = assign;
-			var->value = value;
-		}
-		else
-		{
-			var = mkp_variable_new (name, assign, value);
-			g_hash_table_insert (project->variables, var->name, var);
-		}
-
-	}
-
-	g_message ("update variable %s", name);
-	
-	if (name) g_free (name);
-}
-
-/* Public functions
- *---------------------------------------------------------------------------*/
 
 gboolean
 mkp_project_save (MkpProject *project, GError **error)
@@ -1413,7 +1298,7 @@ iproject_iface_init(IAnjutaProjectIface* iface)
 	iface->remove_node = iproject_remove_node;
 }
 
-/* GbfProject implementation
+/* GObject implementation
  *---------------------------------------------------------------------------*/
 
 static void
@@ -1457,4 +1342,3 @@ mkp_project_class_init (MkpProjectClass *klass)
 ANJUTA_TYPE_BEGIN(MkpProject, mkp_project, G_TYPE_OBJECT);
 ANJUTA_TYPE_ADD_INTERFACE(iproject, IANJUTA_TYPE_PROJECT);
 ANJUTA_TYPE_END;
-//GBF_BACKEND_BOILERPLATE (MkpProject, mkp_project);

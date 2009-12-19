@@ -37,23 +37,29 @@ G_BEGIN_DECLS
 typedef struct _AnjutaTokenFile AnjutaTokenFile;
 typedef struct _AnjutaTokenFileClass AnjutaTokenFileClass;
 
+typedef struct
+{
+	gchar *filename;
+	guint line;
+	guint column;
+} AnjutaTokenFileLocation;
+
 GType anjuta_token_file_get_type (void);
 
 AnjutaTokenFile *anjuta_token_file_new (GFile *file);
 void anjuta_token_file_free (AnjutaTokenFile *file);
 
-const gchar* anjuta_token_file_get_content (AnjutaTokenFile *file, GError **error);
-gsize anjuta_token_file_get_length (AnjutaTokenFile *file, GError **error);
-void anjuta_token_file_move (AnjutaTokenFile *file, GFile *new_file);
+AnjutaToken* anjuta_token_file_load (AnjutaTokenFile *file, GError **error);
+gboolean anjuta_token_file_unload (AnjutaTokenFile *file);
 gboolean anjuta_token_file_save (AnjutaTokenFile *file, GError **error);
+void anjuta_token_file_move (AnjutaTokenFile *file, GFile *new_file);
 
-void anjuta_token_file_append (AnjutaTokenFile *file, AnjutaToken *token);
-void anjuta_token_file_update_line_width (AnjutaTokenFile *file, guint width);
+gboolean anjuta_token_file_update (AnjutaTokenFile *file, AnjutaToken *token);
 
-AnjutaToken* anjuta_token_file_first (AnjutaTokenFile *file);
-AnjutaToken* anjuta_token_file_last (AnjutaTokenFile *file);
+gboolean anjuta_token_file_get_token_location (AnjutaTokenFile *file, AnjutaTokenFileLocation *location, AnjutaToken *token);
 GFile *anjuta_token_file_get_file (AnjutaTokenFile *file);
-guint anjuta_token_file_get_line_width (AnjutaTokenFile *file);
+AnjutaToken *anjuta_token_file_get_content (AnjutaTokenFile *file);
+
 
 G_END_DECLS
 

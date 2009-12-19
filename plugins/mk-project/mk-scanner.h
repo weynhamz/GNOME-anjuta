@@ -20,32 +20,34 @@
 #ifndef _MK_SCANNER_H_
 #define _MK_SCANNER_H_
 
+#include "mk-project.h"
+
 #include "libanjuta/anjuta-token.h"
 #include "libanjuta/anjuta-token-file.h"
-#include "libanjuta/anjuta-token-style.h"
+#include "libanjuta/anjuta-token-list.h"
 
 #include <glib.h>
 #include <gio/gio.h>
 
 G_BEGIN_DECLS
 
+/* Token location is found directly from token value. We don't maintain a 
+ * independent position. */
+#define YYLTYPE AnjutaToken*
 #define YYSTYPE AnjutaToken*
-
-#ifndef _MK_PROJECT_H_
-typedef struct _MkpProject        MkpProject;
-#endif
 
 typedef struct _MkpScanner MkpScanner;
 
 MkpScanner *mkp_scanner_new (MkpProject *project);
 void mkp_scanner_free (MkpScanner *scanner);
 
-gboolean mkp_scanner_parse (MkpScanner *scanner, AnjutaTokenFile *file, GError **error);
+AnjutaToken *mkp_scanner_parse_token (MkpScanner *scanner, AnjutaToken *token, GError **error);
 
 void mkp_scanner_update_variable (MkpScanner *scanner, AnjutaToken *variable);
+void mkp_scanner_parse_variable (MkpScanner *scanner, AnjutaToken *variable);
 void mkp_scanner_add_rule (MkpScanner *scanner, AnjutaToken *rule);
 
-const gchar* mkp_scanner_get_filename (MkpScanner *scanner);
+void mkp_yyerror (YYLTYPE *loc, MkpScanner *scanner, char const *s);
 
 typedef enum
 {
@@ -58,6 +60,8 @@ typedef enum
 	MK_TOKEN_PREREQUISITE,
 	MK_TOKEN_ORDER_PREREQUISITE,
 	MK_TOKEN_ORDER,
+	MK_TOKEN_COMMAND,
+	MK_TOKEN_COMMANDS,
 	MK_TOKEN_COLON,
 	MK_TOKEN_DOUBLE_COLON,
 	MK_TOKEN_VARIABLE,

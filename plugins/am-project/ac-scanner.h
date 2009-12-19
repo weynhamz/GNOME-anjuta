@@ -20,27 +20,31 @@
 #ifndef _AC_SCANNER_H_
 #define _AC_SCANNER_H_
 
-#include "libanjuta/anjuta-token.h"
-#include "libanjuta/anjuta-token-file.h"
-
+#include "am-project.h"
 
 #include <glib.h>
 #include <gio/gio.h>
 
 G_BEGIN_DECLS
 
+/* Token location is found directly from token value. We don't maintain a 
+ * independent position. */
+#define YYLTYPE AnjutaToken*
 #define YYSTYPE AnjutaToken*
 
 typedef struct _AmpAcScanner AmpAcScanner;
 
-AmpAcScanner *amp_ac_scanner_new (void);
+AmpAcScanner *amp_ac_scanner_new (AmpProject *project);
 void amp_ac_scanner_free (AmpAcScanner *scanner);
 
 gboolean amp_ac_scanner_parse (AmpAcScanner *scanner, AnjutaTokenFile *file, GError **error);
-gboolean amp_ac_scanner_parse_token (AmpAcScanner *scanner, AnjutaToken *token, gint start, GError **error);
+AnjutaToken* amp_ac_scanner_parse_token (AmpAcScanner *scanner, AnjutaToken *token, gint start, GError **error);
 
+void amp_ac_scanner_load_module (AmpAcScanner *scanner, AnjutaToken *module);
+void amp_ac_scanner_load_config (AmpAcScanner *scanner, AnjutaToken *list);
+void amp_ac_scanner_load_properties (AmpAcScanner *scanner, AnjutaToken *macro, AnjutaToken *args);
 
-const gchar* amp_ac_scanner_get_filename (AmpAcScanner *scanner);
+void amp_ac_yyerror (YYLTYPE *loc, AmpAcScanner *scanner, char const *s);
 
 enum 
 {
@@ -51,7 +55,8 @@ enum
 	AC_TOKEN_AC_OUTPUT,
 	AC_TOKEN_SPACE_LIST,
 	AC_TOKEN_OPEN_STRING,
-	AC_TOKEN_CLOSE_STRING
+	AC_TOKEN_CLOSE_STRING,
+	AC_TOKEN_AC_PREREQ,
 };
 
 enum

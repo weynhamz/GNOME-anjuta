@@ -486,7 +486,7 @@ update_target (GbfProjectModel *model, AnjutaProjectTarget *target, GtkTreeIter 
 		return;
 	
 	/* update target data here */
-	sources = anjuta_project_node_all_child (target, ANJUTA_PROJECT_SOURCE);
+	sources = gbf_project_util_all_child (target, ANJUTA_PROJECT_SOURCE);
 	
 	/* walk the tree target */
 	if (gtk_tree_model_iter_children (tree_model, &child, iter)) {
@@ -572,8 +572,8 @@ update_group (GbfProjectModel *model, AnjutaProjectGroup *group, GtkTreeIter *it
 	tree_model = GTK_TREE_MODEL (model);
 	
 	/* update group data. nothing to do here */
-	groups = anjuta_project_node_all_child (group, ANJUTA_PROJECT_GROUP);
-	targets = anjuta_project_node_all_child (group, ANJUTA_PROJECT_TARGET);
+	groups = gbf_project_util_all_child (group, ANJUTA_PROJECT_GROUP);
+	targets = gbf_project_util_all_child (group, ANJUTA_PROJECT_TARGET);
 
 	/* walk the tree group */
 	/* group can be NULL, but we iterate anyway to remove any
