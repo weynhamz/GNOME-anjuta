@@ -22,12 +22,10 @@
 #include <libanjuta/anjuta-debug.h>
 
 struct _SymbolDBSearchCommandPriv {
-	/* may be set or not. Initial value (at init time) is NULL 
-	 * it shouldn't be freed. */
+	/* may be set or not. Initial value (at init time) is NULL */
 	GFile *gfile;	
 
-	/* may be set or not. Initial value (at init time) is NULL 
-	 * it shouldn't be freed. */
+	/* may be set or not. Initial value (at init time) is NULL */
 	GList *session_packages;
 
 	SymbolDBEngine *dbe;
@@ -35,7 +33,7 @@ struct _SymbolDBSearchCommandPriv {
 	IAnjutaSymbolType match_types;
 	gboolean include_types;
 	IAnjutaSymbolField info_fields;
-	const gchar *pattern;
+	gchar *pattern;
 	IAnjutaSymbolManagerSearchFileScope filescope_search;
 	gint results_limit;
 	gint results_offset;
@@ -57,13 +55,33 @@ sdb_search_command_init (SymbolDBSearchCommand *object)
 
 	object->priv->gfile = NULL;
 	object->priv->session_packages = NULL;
+	object->priv->pattern = NULL;	
 }
 
 static void
 sdb_search_command_finalize (GObject *object)
 {
 	SymbolDBSearchCommand *sdbsc;	
+	SymbolDBSearchCommandPriv *priv;
 	sdbsc = SYMBOL_DB_SEARCH_COMMAND (object);
+
+	priv = sdbsc->priv;
+	
+	if (priv->gfile) 
+		g_object_unref (priv->gfile);
+	priv->gfile = NULL;
+
+	g_free (priv->pattern);	
+	priv->pattern = NULL;
+
+	/* we can safely destroy the packages' list */
+	if (priv->session_packages)
+	{
+		g_list_foreach (priv->session_packages, (GFunc)g_free, NULL);
+		g_list_free (priv->session_packages);		
+	}
+	priv->session_packages = NULL;
+	
 	
 	g_free (sdbsc->priv);
 	
@@ -78,23 +96,28 @@ do_search_file (SymbolDBSearchCommand *sdbsc)
 	gchar *abs_file_path;	
 
 	priv = sdbsc->priv;
-	
+
 	abs_file_path = g_file_get_path (priv->gfile);
 
 	if (abs_file_path == NULL)
 	{		
 		return NULL;
 	}
+
+	iterator = NULL;
+	if (symbol_db_engine_is_connected (priv->dbe)) 
+	{
 	
-	iterator = 
-		symbol_db_engine_find_symbol_by_name_pattern_on_file (priv->dbe,
-				    priv->pattern,
-					abs_file_path,
-					priv->match_types,
-					priv->include_types,
-					priv->results_limit,
-					priv->results_offset,
-					priv->info_fields);
+		iterator = 
+			symbol_db_engine_find_symbol_by_name_pattern_on_file (priv->dbe,
+					    priv->pattern,
+						abs_file_path,
+						priv->match_types,
+						priv->include_types,
+						priv->results_limit,
+						priv->results_offset,
+						priv->info_fields);
+	}
 	
 	g_free (abs_file_path);	
 
@@ -109,16 +132,20 @@ do_search_prj_glb (SymbolDBSearchCommand *sdbsc)
 
 	priv = sdbsc->priv;
 
-	iterator = 		
-		symbol_db_engine_find_symbol_by_name_pattern_filtered (priv->dbe,
-					priv->pattern,
-					priv->match_types,
-					priv->include_types,
-					priv->filescope_search,
-					priv->session_packages,
-					priv->results_limit,
-					priv->results_offset,
-					priv->info_fields);	
+	iterator = NULL;
+	if (symbol_db_engine_is_connected (priv->dbe)) 
+	{
+		iterator = 		
+			symbol_db_engine_find_symbol_by_name_pattern_filtered (priv->dbe,
+						priv->pattern,
+						priv->match_types,
+						priv->include_types,
+						priv->filescope_search,
+						priv->session_packages,
+						priv->results_limit,
+						priv->results_offset,
+						priv->info_fields);
+	}
 	
 	return iterator;
 }
@@ -136,6 +163,8 @@ sdb_search_command_run (AnjutaCommand *command)
 
 	priv = sdbsc->priv;
 
+	DEBUG_PRINT ("Searching async with type %d", priv->cmd_search_type);
+	
 	switch (priv->cmd_search_type)
 	{
 		case CMD_SEARCH_FILE:
@@ -150,14 +179,22 @@ sdb_search_command_run (AnjutaCommand *command)
 
 	if (priv->iterator_result == NULL)
 	{
+		DEBUG_PRINT("Async search returned no results");
 		/* 1 is for error occurred */
 		return 1;
 	}
 
+	DEBUG_PRINT ("Notify!");
 	anjuta_command_notify_data_arrived (command);
 	
 	/* 0 should be for no error */
 	return 0;
+}
+
+static void
+sdb_search_command_cancel(AnjutaCommand* command)
+{
+
 }
 
 static void
@@ -168,6 +205,7 @@ sdb_search_command_class_init (SymbolDBSearchCommandClass *klass)
 	
 	object_class->finalize = sdb_search_command_finalize;
 	command_class->run = sdb_search_command_run;
+	command_class->cancel = sdb_search_command_cancel;
 }
 
 /**
@@ -192,7 +230,7 @@ symbol_db_search_command_new (SymbolDBEngine *dbe, CmdSearchType cmd_search_type
 	priv->match_types = match_types;
 	priv->include_types = include_types;
 	priv->info_fields = info_fields;
-	priv->pattern = pattern;
+	priv->pattern = g_strdup (pattern);
 	priv->filescope_search = filescope_search;
 	priv->results_limit = results_limit;
 	priv->results_offset = results_offset;	
@@ -211,8 +249,9 @@ symbol_db_search_command_set_file (SymbolDBSearchCommand* sdbsc, const GFile *gf
 	g_return_if_fail (gfile != NULL);
 	
 	priv = sdbsc->priv;
-	
-	priv->gfile = (GFile*)gfile;
+
+	if (priv->gfile) g_object_unref (priv->gfile);	
+	priv->gfile = g_object_ref (G_OBJECT(gfile));
 }	
 
 void
@@ -224,8 +263,22 @@ symbol_db_search_command_set_session_packages (SymbolDBSearchCommand* sdbsc,
 	g_return_if_fail (sdbsc != NULL);
 	
 	priv = sdbsc->priv;
+
+	/* if there's an old glist then clear it before setting the new one. */
+	if (priv->session_packages)
+	{
+		g_list_foreach (priv->session_packages, (GFunc)g_free, NULL);
+		g_list_free (priv->session_packages);		
+		priv->session_packages = NULL;
+	}	
 	
-	priv->session_packages = (GList*)session_packages;
+	/* copy the list passed as parameter */
+	GList *node;
+	for (node = (GList*)session_packages; node; node = node->next)
+	{
+		priv->session_packages = g_list_prepend (priv->session_packages, 
+		                                         g_strdup (node->data));
+	}
 }	
 
 SymbolDBEngineIterator *

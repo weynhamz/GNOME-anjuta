@@ -1,3 +1,17 @@
+Anjuta 2.29.2 "Prager Herbst" (14 November 2009) -- Johannes Schmid
+
+Features:
+- New codename ;)
+- For upcoming features, see the new-project-manager and the cxxparser branches
+
+Bugs fixed:
+String review (thanks to Phillip Withnall)
+symbol-db: fix #597113
+search-plugin: unmerge ui and remove action group when the plugin is deactivated
+git: remove action groups when the plugin is deactivated
+file-manager: fix bug where we accessed the FileView even though it was freed
+debug-manager:bgo #596009 -  Easier adding of watches
+
 Anjuta 2.28.0 (28 September 2009) -- Johannes Schmid
 
 Bugs fixed:

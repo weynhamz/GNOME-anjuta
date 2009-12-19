@@ -53,6 +53,7 @@ typedef enum {
 typedef enum {
 	NPW_NO_RESTRICTION = 0,
 	NPW_FILENAME_RESTRICTION,
+	NPW_DIRECTORY_RESTRICTION,
 	NPW_LAST_RESTRICTION
 } NPWPropertyRestriction;
 

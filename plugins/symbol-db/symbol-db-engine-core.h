@@ -92,7 +92,7 @@ symbol_db_engine_set_ctags_path (SymbolDBEngine *dbe,
 								  const gchar * ctags_path);
 
 /**
- * Open or create a new database at given directory. 
+ * Open, create or upgrade a database at given directory. 
  * Be sure to give a base_db_path with the ending '/' for directory.
  * @param base_db_path directory where .anjuta_sym_db.db will be stored. It can be
  *        different from project_directory
@@ -104,7 +104,11 @@ symbol_db_engine_set_ctags_path (SymbolDBEngine *dbe,
  *        src/file.c. In this way you can move around the project dir without dealing
  *        with relative paths.
  */
-gboolean 
+#define DB_OPEN_STATUS_FATAL		-1
+#define DB_OPEN_STATUS_NORMAL		0
+#define DB_OPEN_STATUS_CREATE		1
+#define DB_OPEN_STATUS_UPGRADE		2
+gint
 symbol_db_engine_open_db (SymbolDBEngine *dbe, const gchar* base_db_path,
 						  const gchar * prj_directory);
 

@@ -35,7 +35,6 @@ typedef struct _AnjutaAsyncNotifyClass AnjutaAsyncNotifyClass;
 typedef struct _AnjutaAsyncNotify AnjutaAsyncNotify;
 typedef struct _AnjutaAsyncNotifyPriv AnjutaAsyncNotifyPriv;
 
-
 struct _AnjutaAsyncNotifyClass
 {
 	GObjectClass parent_class;

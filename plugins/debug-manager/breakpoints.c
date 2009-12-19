@@ -1512,7 +1512,7 @@ breakpoints_dbase_edit_breakpoint (BreakpointsDBase *bd, BreakpointItem *bi)
 		location = g_strdup_printf ("*%lx", bi->bp.address);
 	}
 
-	if (GTK_WIDGET_VISIBLE(location_entry))
+	if (gtk_widget_get_visible (location_entry))
 	{
 		gtk_entry_set_text (GTK_ENTRY (location_entry), location == NULL ? "" : location);
 	}
@@ -1539,7 +1539,7 @@ breakpoints_dbase_edit_breakpoint (BreakpointsDBase *bd, BreakpointItem *bi)
 		while (isspace(*condition)) condition++;
 		if (*condition == '\0') condition = NULL;
 
-		if (GTK_WIDGET_VISIBLE(location_entry))
+		if (gtk_widget_get_visible (location_entry))
 		{
 			new_location = gtk_entry_get_text (GTK_ENTRY (location_entry));
 			while (isspace(*new_location)) new_location++;

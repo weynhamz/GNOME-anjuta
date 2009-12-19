@@ -75,7 +75,7 @@ on_shortcuts_activate (GtkAction *action, AnjutaTestShell *shell)
 	win = gtk_dialog_new_with_buttons (_("Anjuta Plugins"), GTK_WINDOW (shell),
 									   GTK_DIALOG_DESTROY_WITH_PARENT,
 									   GTK_STOCK_CLOSE, GTK_STOCK_CANCEL, NULL);
-	gtk_box_pack_start (GTK_BOX (GTK_DIALOG(win)->vbox), accel_editor, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG(win))), accel_editor, TRUE, TRUE, 0);
 	gtk_window_set_default_size (GTK_WINDOW (win), 500, 400);
 	gtk_dialog_run (GTK_DIALOG (win));
 	gtk_widget_destroy (win);

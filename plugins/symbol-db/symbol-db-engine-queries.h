@@ -70,7 +70,7 @@ symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe,
  *        SYMSEARCH_FILESCOPE_IGNORE to be ignored (e.g. Will search both private and public scopes). 
  *        You cannot use bitwise OR in this parameter.
  * @param session_projects Should the search, a global search, be filtered by some packages (projects)?
- *        If yes then provide a GList, if no then pass NULL.	 
+ *        If yes then provide a GList, if no then pass NULL.
  * @param results_limit Limit results to an upper bound. -1 If you don't want to use this par.
  * @param results_offset Skip results_offset results. -1 If you don't want to use this par.
  * @param sym_info Infos about symbols you want to know.
@@ -81,7 +81,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 									SymType filter_kinds,
 									gboolean include_kinds,
 									SymSearchFileScope filescope_search,
-									GList *session_projects,													   
+									const GList *session_projects,													   
 									gint results_limit, 
 									gint results_offset,
 									SymExtraInfo sym_info);
@@ -127,6 +127,13 @@ symbol_db_engine_find_symbol_in_scope (SymbolDBEngine *dbe,
 									gint results_limit,
 									gint results_offset,    
     								SymExtraInfo sym_info);
+
+/**
+ * TODO: Implement a function that, given a container_symbol_id, is able to determine
+ * if a query_symbol_id is under the scope of container_symbol_id, in a multi level fashion.
+ * Infact it wouldn't be performant to use symbol_db_engine_find_symbol_in_scope ()
+ * and recursively search for every sub-scope looking for the query_symbol_id.
+ */
 
 /**
  * Return an iterator to the data retrieved from database. 

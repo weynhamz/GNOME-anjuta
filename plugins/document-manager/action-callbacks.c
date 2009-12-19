@@ -35,6 +35,7 @@
 #include <libanjuta/interfaces/ianjuta-editor-zoom.h>
 #include <libanjuta/interfaces/ianjuta-editor-goto.h>
 #include <libanjuta/interfaces/ianjuta-editor-language.h>
+#include <libanjuta/interfaces/ianjuta-editor-assist.h>
 
 #include <sys/wait.h>
 #include <sys/stat.h>
@@ -81,7 +82,7 @@ get_current_popup_active (gpointer user_data)
 	if (widget)
 	{
 		widget = gtk_widget_get_toplevel (widget);
-		if (GTK_WIDGET_TOPLEVEL (widget))
+		if (gtk_widget_is_toplevel (widget))
 			return gtk_window_has_toplevel_focus (GTK_WINDOW (widget));
 	}
 	return FALSE;
@@ -844,7 +845,7 @@ on_repeat_quicksearch (GtkAction *action, gpointer user_data)
 	if (!gtk_widget_get_parent (search_box))
 		gtk_box_pack_end (GTK_BOX (plugin->vbox), search_box, FALSE, FALSE, 0);
 
-	if (!GTK_WIDGET_VISIBLE (search_box))
+	if (!gtk_widget_get_visible (search_box))
 		gtk_widget_show (search_box);
 	on_search_activated (NULL, SEARCH_BOX (search_box));
 }
@@ -955,4 +956,18 @@ on_bookmarks_clear_activate (GtkAction *action, gpointer user_data)
 	DocmanPlugin *plugin;
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	anjuta_bookmarks_clear (ANJUTA_BOOKMARKS(plugin->bookmarks));
+}
+
+void
+on_autocomplete_activate (GtkAction *action, gpointer user_data)
+{
+	IAnjutaDocument *doc;
+	DocmanPlugin *plugin;
+	doc = get_current_document (user_data);
+	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
+	if (doc && IANJUTA_IS_EDITOR_ASSIST(doc))
+	{
+		IAnjutaEditorAssist* assist = IANJUTA_EDITOR_ASSIST (doc);
+		ianjuta_editor_assist_invoke (assist, NULL, NULL);
+	}   
 }

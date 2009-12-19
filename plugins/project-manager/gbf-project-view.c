@@ -260,9 +260,9 @@ expose_event (GtkWidget *widget, GdkEventExpose *ev)
 		if (root) {
 			gtk_tree_view_get_background_area (
 				tree_view, root, gtk_tree_view_get_column (tree_view, 0), &rect);
-			gtk_paint_hline (widget->style,
+			gtk_paint_hline (gtk_widget_get_style (widget),
 					 ev->window,
-					 GTK_WIDGET_STATE (widget),
+					 gtk_widget_get_state (widget),
 					 &ev->area,
 					 widget,
 					 "",

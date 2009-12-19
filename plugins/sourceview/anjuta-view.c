@@ -214,33 +214,33 @@ anjuta_view_drag_data_received (GtkWidget        *widget,
                                 guint             info,
                                 guint             timestamp)
 {
-  GSList* files;
-  AnjutaView* view = ANJUTA_VIEW (widget);
-  /* If this is an URL emit DROP_URIS, otherwise chain up the signal */
-  if (info == TARGET_URI_LIST)
-  {
-	files = anjuta_utils_drop_get_files (selection_data);
-
-	if (files != NULL)
+	GSList* files;
+	AnjutaView* view = ANJUTA_VIEW (widget);
+	/* If this is an URL emit DROP_URIS, otherwise chain up the signal */
+	if (info == TARGET_URI_LIST)
 	{
-	  IAnjutaFileLoader* loader = anjuta_shell_get_interface (view->priv->sv->priv->plugin->shell, 
-	                                                          IAnjutaFileLoader, NULL);
-	  GSList* node;
-	  for (node = files; node != NULL; node = g_slist_next(node))
-	  {
-		GFile* file = node->data;
-		ianjuta_file_loader_load (loader, file, FALSE, NULL);
-		g_object_unref (file);
-	  }
-	  g_slist_free (files);
-	  gtk_drag_finish (context, TRUE, FALSE, timestamp);
+		files = anjuta_utils_drop_get_files (selection_data);
+
+		if (files != NULL)
+		{
+			IAnjutaFileLoader* loader = anjuta_shell_get_interface (view->priv->sv->priv->plugin->shell, 
+			                                                        IAnjutaFileLoader, NULL);
+			GSList* node;
+			for (node = files; node != NULL; node = g_slist_next(node))
+			{
+				GFile* file = node->data;
+				ianjuta_file_loader_load (loader, file, FALSE, NULL);
+				g_object_unref (file);
+			}
+			g_slist_free (files);
+			gtk_drag_finish (context, TRUE, FALSE, timestamp);
+		}
+		gtk_drag_finish (context, FALSE, FALSE, timestamp);
 	}
-	gtk_drag_finish (context, FALSE, FALSE, timestamp);
-  }
-  else
-  {
-	GTK_WIDGET_CLASS (anjuta_view_parent_class)->drag_data_received (widget, context, x, y, selection_data, info, timestamp);
-  }
+	else
+	{
+		GTK_WIDGET_CLASS (anjuta_view_parent_class)->drag_data_received (widget, context, x, y, selection_data, info, timestamp);
+	}
 }
 
 static void
@@ -285,7 +285,7 @@ move_cursor (GtkTextView       *text_view,
 	     const GtkTextIter *new_location,
 	     gboolean           extend_selection)
 {
-	GtkTextBuffer *buffer = text_view->buffer;
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer (text_view);
 
 	if (extend_selection)
 		gtk_text_buffer_move_mark_by_name (buffer,
@@ -308,7 +308,7 @@ anjuta_view_move_cursor (GtkTextView    *text_view,
 			gint            count,
 			gboolean        extend_selection)
 {
-	GtkTextBuffer *buffer = text_view->buffer;
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer (text_view);
 	GtkTextMark *mark;
 	GtkTextIter cur, iter;
 
@@ -439,11 +439,7 @@ static gint
 anjuta_view_focus_out (GtkWidget *widget, GdkEventFocus *event)
 {
 	AnjutaView *view = ANJUTA_VIEW (widget);
-	AssistWindow* assist_win = view->priv->sv->priv->assist_win;
 	AssistTip* assist_tip = view->priv->sv->priv->assist_tip;
-	
-	if (assist_win)
-		gtk_widget_destroy(GTK_WIDGET(assist_win));
 	
 	if (assist_tip)
 		gtk_widget_destroy(GTK_WIDGET(assist_tip));
@@ -535,7 +531,7 @@ anjuta_view_copy_clipboard (AnjutaView *view)
 void
 anjuta_view_paste_clipboard (AnjutaView *view)
 {
-  	GtkTextBuffer *buffer;
+  GtkTextBuffer *buffer;
 	GtkClipboard *clipboard;
 
 	g_return_if_fail (ANJUTA_IS_VIEW (view));
@@ -675,20 +671,10 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 {
 	GtkTextBuffer *buffer;
 	AnjutaView* view = ANJUTA_VIEW(widget);
-	AssistWindow* assist_win;
 	AssistTip* assist_tip;
 	
 	buffer  = gtk_text_view_get_buffer (GTK_TEXT_VIEW (view));
 	
-	assist_win = view->priv->sv->priv->assist_win;
-	if (assist_win)
-	{
-		if (assist_window_filter_keypress(assist_win, event->keyval))
-		{
-			DEBUG_PRINT("key filtered: %d", event->keyval);
-			return TRUE;
-		}
-	}
 	assist_tip = view->priv->sv->priv->assist_tip;
 	if (assist_tip)
 	{
@@ -713,11 +699,6 @@ anjuta_view_button_press_event	(GtkWidget *widget, GdkEventButton *event)
 	
   /* If we have a calltip shown - hide it */
   AssistTip* assist_tip = view->priv->sv->priv->assist_tip;
-  AssistWindow* assist_win = view->priv->sv->priv->assist_win;
-  if (assist_win)
-  {
-    gtk_widget_destroy (GTK_WIDGET (assist_win));
-  }
 	if (assist_tip)
 	{
     gtk_widget_destroy (GTK_WIDGET (assist_tip));

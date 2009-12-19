@@ -85,9 +85,7 @@ on_add_ok_clicked (MacroEdit * edit)
 
 	macro_db_add (edit->macro_db,
 		      gtk_entry_get_text (GTK_ENTRY (edit->name_entry)),
-		      gtk_entry_get_text (GTK_ENTRY
-					  (GTK_BIN (edit->category_entry)->
-					   child)),
+		      gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (edit->category_entry)))),
 		      gtk_entry_get_text (GTK_ENTRY (edit->shortcut_entry)),
 		      text);
 	gtk_widget_destroy (GTK_WIDGET (edit));
@@ -118,11 +116,8 @@ on_edit_ok_clicked (MacroEdit * edit)
 
 	macro_db_change (edit->macro_db, &iter,
 			 gtk_entry_get_text (GTK_ENTRY (edit->name_entry)),
-			 gtk_entry_get_text (GTK_ENTRY
-					     (GTK_BIN (edit->category_entry)->
-					      child)),
-			 gtk_entry_get_text (GTK_ENTRY
-					     (edit->shortcut_entry)), text);
+			 gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (edit->category_entry)))),
+			 gtk_entry_get_text (GTK_ENTRY (edit->shortcut_entry)), text);
 	gtk_widget_destroy (GTK_WIDGET (edit));
 }
 
@@ -203,7 +198,8 @@ macro_edit_init (MacroEdit * edit)
 	}
 
 	table = GTK_WIDGET (gtk_builder_get_object (edit->bxml, "macro_edit_table"));
-	gtk_container_add (GTK_CONTAINER (GTK_DIALOG (edit)->vbox), table);
+	gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG (edit))),
+			   table);
 	gtk_dialog_add_buttons (GTK_DIALOG (edit), GTK_STOCK_OK, OK,
 				GTK_STOCK_CANCEL, CANCEL, NULL);
 	g_signal_connect (G_OBJECT (edit), "response",
@@ -291,9 +287,8 @@ macro_edit_fill (MacroEdit * edit, GtkTreeSelection * select)
 				g_strdup_printf ("%c", shortcut);
 			gtk_entry_set_text (GTK_ENTRY (edit->name_entry),
 					    name);
-			gtk_entry_set_text (GTK_ENTRY
-					    (GTK_BIN (edit->category_entry)->
-					     child), category);
+			gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (edit->category_entry))),
+					    category);
 			gtk_entry_set_text (GTK_ENTRY (edit->shortcut_entry),
 					    shortcut_string);
 			g_free (shortcut_string);

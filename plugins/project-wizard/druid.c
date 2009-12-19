@@ -593,6 +593,11 @@ cb_save_valid_property (NPWProperty* property, gpointer user_data)
 									_("Field \"%s\" must start with a letter, a digit or an underscore and contain only letters, digits, underscore, minus and dot. Please fix it."),
 									_(npw_property_get_label (property)));
 			break;
+		case NPW_DIRECTORY_RESTRICTION:
+			g_string_append_printf (data->error,
+									_("Field \"%s\" must start with a letter, a digit, an underscore or a directory separator and contain only letters, digits, underscore, directory separator, minus and dot. Please fix it."),
+									_(npw_property_get_label (property)));
+			break;
 		default:
 			g_string_append_printf (data->error,
 									_("Unknown error."));

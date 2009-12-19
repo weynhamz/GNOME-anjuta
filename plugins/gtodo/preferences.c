@@ -23,7 +23,7 @@ void gui_preferences(void)
 			GTK_STOCK_CLOSE, 
 			GTK_RESPONSE_CANCEL,
 			NULL);
-	gtk_container_add(GTK_CONTAINER(GTK_DIALOG(dialog)->vbox), notebook);
+	gtk_container_add(GTK_CONTAINER(gtk_dialog_get_content_area(GTK_DIALOG(dialog))), notebook);
 	gtk_dialog_set_has_separator(GTK_DIALOG(dialog), FALSE);
 
 	gtk_widget_show_all(dialog);

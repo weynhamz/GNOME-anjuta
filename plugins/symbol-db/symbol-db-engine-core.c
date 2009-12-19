@@ -1,8 +1,11 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * anjuta
- * Copyright (C) Massimo Cora' 2007-2008 <maxcvs@email.it>
+ * Copyright (C) Massimo Cora' 2007-2009 <maxcvs@email.it>
  * 
+ * Some code from IComplete of Martin Stubenschrott <stubenschrott@gmx.net>
+ * has been used here.
+ *
  * anjuta is free software.
  * 
  * You may redistribute it and/or modify it under the terms of the
@@ -23,8 +26,7 @@
  */
 
 /*
-
-interesting queries:
+Interesting queries:
 
 ------------------------
 * get all namespaces.
@@ -50,7 +52,6 @@ select * from symbol where scope_id = (select scope_definition_id from symbol jo
 	sym_type on symbol.type_id = sym_type.type_id where symbol.name = 
 	"First" and sym_type.type_type = "namespace");
 
-
 ------------------------
 * get a symbol by its name and type. In this case we want to search for the
   class Fourth_2_class
@@ -68,8 +69,8 @@ sqlite> select * from symbol join sym_kind on symbol.kind_id = sym_kind.sym_kind
 183|13|Fourth_2_class|52|0||140|137|175|8|-1|-1|0|8|class|137|Fourth|172|172|namespace|Fourth
 
 * OR * 
-		
-= get the *derived symbol*
+------------------------		
+* get the *derived symbol*
 select * from symbol 
 	join sym_kind on symbol.kind_id = sym_kind.sym_kind_id 
 	where symbol.name = "Fourth_2_class" 
@@ -79,7 +80,8 @@ select * from symbol
 									where sym_type.type = 'namespace' 
 										and sym_type.type_name = 'Fourth');
 
-query that get the symbol's parent classes
+------------------------
+* query that get the symbol's parent classes
 
 select symbol_id_base, symbol.name from heritage 
 	join symbol on heritage.symbol_id_base = symbol.symbol_id 
@@ -96,7 +98,6 @@ select symbol_id_base, symbol.name from heritage
 					)
 		);
 
-
 182|Fourth_1_class
 
 */
@@ -109,6 +110,7 @@ select symbol_id_base, symbol.name from heritage
 #include <signal.h>
 #include <fcntl.h>           /* For O_* constants */
 #include <string.h>
+#include <regex.h>
 
 #include <gio/gio.h>
 #include <libanjuta/interfaces/ianjuta-symbol.h>
@@ -716,12 +718,6 @@ sdb_engine_disconnect_from_db (SymbolDBEngine * dbe)
 	if (priv->sql_parser != NULL)
 		g_object_unref (priv->sql_parser);
 	priv->sql_parser = NULL;
-	
-	g_free (priv->db_directory);
-	priv->db_directory = NULL;
-	
-	g_free (priv->project_directory);
-	priv->project_directory = NULL;
 	
 	return TRUE;
 }
@@ -2782,6 +2778,7 @@ sdb_engine_set_defaults_db_parameters (SymbolDBEngine * dbe)
 	sdb_engine_execute_unknown_sql (dbe, "PRAGMA temp_store = MEMORY");	
 	sdb_engine_execute_unknown_sql (dbe, "PRAGMA journal_mode = OFF");
 	sdb_engine_execute_unknown_sql (dbe, "PRAGMA read_uncommitted = 1");
+	sdb_engine_execute_unknown_sql (dbe, "PRAGMA foreign_keys = OFF");
 	symbol_db_engine_set_db_case_sensitive (dbe, TRUE);
 }
 
@@ -2974,6 +2971,12 @@ symbol_db_engine_close_db (SymbolDBEngine *dbe)
 	g_thread_pool_free (priv->thread_pool, TRUE, TRUE);
 	priv->thread_pool = NULL;
 	ret = sdb_engine_disconnect_from_db (dbe);
+
+	g_free (priv->db_directory);
+	priv->db_directory = NULL;
+	
+	g_free (priv->project_directory);
+	priv->project_directory = NULL;	
 	
 	priv->thread_pool = g_thread_pool_new (sdb_engine_ctags_output_thread,
 										   dbe, THREADS_MAX_CONCURRENT,
@@ -3010,8 +3013,10 @@ sdb_engine_get_db_version (SymbolDBEngine *dbe)
 	return version_id;
 }
 
-static void
-sdb_engine_check_db_version_and_upgrade (SymbolDBEngine *dbe)
+static gboolean
+sdb_engine_check_db_version_and_upgrade (SymbolDBEngine *dbe, 
+                                         const gchar* db_file,
+                                         const gchar* cnc_string)
 {
 	SymbolDBEnginePriv *priv;
 	gint version;
@@ -3024,45 +3029,51 @@ sdb_engine_check_db_version_and_upgrade (SymbolDBEngine *dbe)
 	{
 		/* some error occurred */
 		g_warning ("No version of db detected. This can produce many errors.");
-		return;
+		return FALSE;
 	}
 	
 	/* FIXME: in the future versions, if the changes grow up, add a better 
 	 * automatic upgrading system 
 	 */
-	if (version < 228)
+	if (version < 230)
 	{
-		gchar *contents;
-		gchar *query;
-		gsize sizez;
-
-		DEBUG_PRINT	 ("Upgrading from version %d to 228", version);
+		DEBUG_PRINT	 ("Upgrading from version %d to 230", version);
 		
-		/* read the contents of the file */
-		if (g_file_get_contents (TABLES_SQL_1_TO_228, &contents, &sizez, NULL) == FALSE)
-		{
-			g_warning ("Something went wrong while trying to read %s",
-					TABLES_SQL_1_TO_228);
-			return;
+		/* we need a full recreation of db. Because of the sym_kind table
+		 * which changed its data but not its fields, we must recreate the
+		 * whole database.
+		 */
+
+		/* 1. disconnect from current db */
+		sdb_engine_disconnect_from_db (dbe);
+
+		/* 2. remove current db file */
+		GFile *gfile = g_file_new_for_path (db_file);
+		if (gfile != NULL) {
+			g_file_delete (gfile, NULL, NULL);
+			g_object_unref (gfile);
 		}
+		else 
+		{
+			g_warning ("Could not get the gfile");
+		}		
 
-		sdb_engine_execute_non_select_sql (dbe, contents);	
-		g_free (contents);		
-		
-		query = "UPDATE version SET sdb_version = "SYMBOL_DB_VERSION;
-		sdb_engine_execute_non_select_sql (dbe, query);
+		/* 3. reconnect */
+		sdb_engine_connect_to_db (dbe, cnc_string);
 
-		// go on with the update of all the symbols in project
-		symbol_db_engine_update_project_symbols (dbe, priv->project_directory, 
-		    TRUE);
-	}	
+		/* 4. create fresh new tables, indexes, triggers etc.  */			
+		sdb_engine_create_db_tables (dbe, TABLES_SQL);
+		return TRUE;
+	}
 	else
 	{
 		DEBUG_PRINT ("No need to upgrade.");
 	}
+
+	return FALSE;
 }
 
-gboolean
+gint
 symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
 						  const gchar * prj_directory)
 {
@@ -3070,6 +3081,7 @@ symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
 	gboolean needs_tables_creation = FALSE;
 	gchar *cnc_string;
 	gboolean connect_res;
+	gboolean ret_status = DB_OPEN_STATUS_NORMAL;
 
 	DEBUG_PRINT ("Opening project %s with base dir %s", 
 				 prj_directory, base_db_path);
@@ -3081,15 +3093,13 @@ symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
 
 	/* check whether the db filename already exists. If it's not the case
 	 * create the tables for the database. */
-	gchar *tmp_file = g_strdup_printf ("%s/%s.db", base_db_path,
+	gchar *db_file = g_strdup_printf ("%s/%s.db", base_db_path,
 									   priv->anjuta_db_file);
 
-	if (g_file_test (tmp_file, G_FILE_TEST_EXISTS) == FALSE)
+	if (g_file_test (db_file, G_FILE_TEST_EXISTS) == FALSE)
 	{
 		needs_tables_creation = TRUE;
 	}
-	g_free (tmp_file);
-
 
 	priv->db_directory = g_strdup (base_db_path);
 	
@@ -3102,28 +3112,41 @@ symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
 	DEBUG_PRINT ("Connecting to "
 				 "database with %s...", cnc_string);
 	connect_res = sdb_engine_connect_to_db (dbe, cnc_string);
-	g_free (cnc_string);
+	
 
 	if (connect_res == FALSE)
-		return FALSE;
+	{
+		g_free (db_file);
+		g_free (cnc_string);
+
+		ret_status = DB_OPEN_STATUS_FATAL;
+		return ret_status;
+	}
 	
 	if (needs_tables_creation == TRUE)
 	{
-		DEBUG_PRINT ("Creating tables: it needs tables...");
+		DEBUG_PRINT ("Creating tables...");
 		sdb_engine_create_db_tables (dbe, TABLES_SQL);
+		ret_status = DB_OPEN_STATUS_CREATE;
 	}
 	else 
 	{
 		/* check the version of the db. If it's old we should upgrade it */
-		sdb_engine_check_db_version_and_upgrade (dbe);
+		if (sdb_engine_check_db_version_and_upgrade (dbe, db_file, cnc_string) == TRUE)
+		{
+			ret_status = DB_OPEN_STATUS_UPGRADE;
+		}		
 	}
-
+	
 	sdb_engine_set_defaults_db_parameters (dbe);
 
 	/* normalize some tables */
 	sdb_engine_normalize_sym_type (dbe);
-		
-	return TRUE;
+
+	g_free (cnc_string);
+	g_free (db_file);
+	
+	return ret_status;
 }
 
 gchar *
@@ -3729,6 +3752,100 @@ symbol_db_engine_add_new_files_full (SymbolDBEngine * dbe,
 	return ret_id;
 }
 
+
+/**
+ * We'll use the GNU regular expressions instead of the glib's GRegex ones because
+ * the latters are a wrapper of pcre (www.pcre.org) that don't implement the 
+ * \< (begin of word)) and \> (end of word) boundaries.
+ * Since the regex used here is something complex to reproduce on GRegex 
+ * I don't see any reason to reinvent the (already) working wheel.
+ * I didn't find a valuable replacement for \< and \> neither on 
+ * http://www.regular-expressions.info/wordboundaries.html nor elsewhere.
+ * But if some regex geek thinks I'm wrong I'll be glad to see his solution.
+ *
+ * @return NULL on error.
+ */
+#define RX_STRING      "\\\".*\\\""
+#define RX_BRACKETEXPR "\\{.*\\}"
+#define RX_IDENT       "[a-zA-Z_][a-zA-Z0-9_]*"
+#define RX_WS          "[ \t\n]*"
+#define RX_PTR         "[\\*&]?\\*?"
+#define RX_INITIALIZER "=(" RX_WS RX_IDENT RX_WS ")|=(" RX_WS RX_STRING RX_WS \
+						")|=(" RX_WS RX_BRACKETEXPR RX_WS ")" RX_WS
+#define RX_ARRAY 	   RX_WS "\\[" RX_WS "[0-9]*" RX_WS "\\]" RX_WS
+
+static gchar* 
+sdb_engine_extract_type_qualifier (const gchar *string, const gchar *expr)
+{
+	/* check with a regular expression for the type */
+	regex_t re;
+	regmatch_t pm[8]; // 7 sub expression -> 8 matches
+	memset (&pm, -1, sizeof(pm));
+	/*
+	 * this regexp catches things like:
+	 * a) std::vector<char*> exp1[124] [12], *exp2, expr;
+	 * b) QClass* expr1, expr2, expr;
+	 * c) int a,b; char r[12] = "test, argument", q[2] = { 't', 'e' }, expr;
+	 *
+	 * it CAN be fooled, if you really want it, but it should
+	 * work for 99% of all situations.
+	 *
+	 * QString
+	 * 		var;
+	 * in 2 lines does not work, because //-comments would often bring wrong results
+	 */
+
+	gchar *res = NULL;
+	static char pattern[512] =
+		"(" RX_IDENT "\\>)" 	/* the 'std' in example a) */
+		"(::" RX_IDENT ")*"	/* ::vector */
+		"(" RX_WS "<[^>;]*>)?"	/* <char *> */
+		/* other variables for the same ident (string i,j,k;) */
+		"(" RX_WS RX_PTR RX_WS RX_IDENT RX_WS "(" RX_ARRAY ")*" "(" RX_INITIALIZER ")?," RX_WS ")*" 
+		"[ \t\\*&]*";		/* check again for pointer/reference type */
+
+	/* must add a 'termination' symbol to the regexp, otherwise
+	 * 'exp' would match 'expr' 
+	 */
+	gchar regexp[512];
+	g_snprintf (regexp, sizeof (regexp), "%s\\<%s\\>", pattern, expr);
+
+	/* compile regular expression */
+	int error = regcomp (&re, regexp, REG_EXTENDED) ;
+	if (error)
+		return NULL;
+
+	/* this call to regexec finds the first match on the line */
+	error = regexec (&re, string, 8, &pm[0], 0) ;
+
+	/* while matches found */
+	while (error == 0) 
+	{   
+		/* subString found between pm.rm_so and pm.rm_eo */
+		/* only include the ::vector part in the indentifier, if the second 
+		 * subpattern matches at all 
+		 */
+		int len = (pm[2].rm_so != -1 ? pm[2].rm_eo : pm[1].rm_eo) - pm[1].rm_so;
+		if (res)
+			free (res);
+		res = (gchar*) g_malloc0 (len + 1);
+		if (!res)
+		{
+			regfree (&re);
+			return NULL;
+		}
+		strncpy (res, string + pm[1].rm_so, len); 
+		res[len] = '\0';
+
+		/* This call to regexec finds the next match */
+		error = regexec (&re, string + pm[0].rm_eo, 8, &pm[0], 0) ;
+		break;
+	}
+	regfree(&re);
+
+	return res;
+}
+
 /* ### Thread note: this function inherits the mutex lock ### */
 static GNUC_INLINE gint
 sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, const tagEntry * tag_entry)
@@ -3750,12 +3867,31 @@ sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 	SymbolDBEnginePriv *priv;
 	GValue *ret_value;
 	gboolean ret_bool;
+	gchar *type_regex = NULL;
 	
 	priv = dbe->priv;
 
 	/* we assume that tag_entry is != NULL */
 	type = tag_entry->kind;
-	type_name = tag_entry->name;
+	
+	if (g_strcmp0 (type, "member") == 0 || 
+	    g_strcmp0 (type, "variable") == 0 || 
+	    g_strcmp0 (type, "field") == 0)
+	{
+		type_regex = sdb_engine_extract_type_qualifier (tag_entry->address.pattern, 
+		                                                tag_entry->name);
+		/*DEBUG_PRINT ("type_regex for %s [kind %s] is %s", tag_entry->name, 
+		             tag_entry->kind, type_regex);*/
+		type_name = type_regex;
+
+		/* if the extractor failed we should fallback to the default one */
+		if (type_name == NULL)
+			type_name = tag_entry->name;
+	}
+	else 
+	{
+		type_name = tag_entry->name;
+	}
 	
 	/* it does not exist. Create a new tuple. */
 	if ((stmt = sdb_engine_get_statement_by_query_id (dbe, PREP_QUERY_SYM_TYPE_NEW))
@@ -3806,7 +3942,8 @@ sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 		{
 			table_id = -1;
 		}
-		
+
+		g_free (type_regex);
 		return table_id;
 	}	
 	else 
@@ -3817,6 +3954,7 @@ sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 	
 	if (last_inserted)
 		g_object_unref (last_inserted);	
+	g_free (type_regex);
 	return table_id;
 }
 

@@ -43,7 +43,7 @@ on_exit1_activate (GtkAction * action, AnjutaApp *app)
 {
 	GdkEvent *event = gdk_event_new (GDK_DELETE);
 
-	event->any.window = g_object_ref (GTK_WIDGET(app)->window);
+	event->any.window = g_object_ref (gtk_widget_get_window (GTK_WIDGET(app)));
 	event->any.send_event = TRUE;
   
 	gtk_main_do_event (event);

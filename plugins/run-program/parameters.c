@@ -237,7 +237,7 @@ save_dialog_data (RunDialog* dlg)
 	RunProgramPlugin *plugin = dlg->plugin;
 
 	/* Save arguments */
-	arg = gtk_entry_get_text (GTK_ENTRY (GTK_BIN (dlg->args)->child));
+	arg = gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (dlg->args))));
 	if (arg != NULL)
 	{
 		find = g_list_find_custom(plugin->recent_args, arg, (GCompareFunc)strcmp);
@@ -250,7 +250,7 @@ save_dialog_data (RunDialog* dlg)
 	}	
 
 	/* Save target */
-	filename = gtk_entry_get_text (GTK_ENTRY (GTK_BIN (dlg->target)->child));
+	filename = gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (dlg->target))));
 	if ((filename != NULL) && (*filename != '\0'))
 	{
 		GFile *file;
@@ -313,7 +313,7 @@ on_select_target (RunDialog* dlg)
 	{
 		gchar* filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (sel_dlg));
 
-		gtk_entry_set_text (GTK_ENTRY (GTK_BIN (dlg->target)->child), filename);
+		gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (dlg->target))), filename);
 		g_free (filename);
 	}		
 	gtk_widget_destroy (GTK_WIDGET (sel_dlg));
@@ -598,6 +598,7 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 {
 	GtkBuilder *bxml;
 	GtkWindow *parent;
+	GtkWidget *child;
 	GtkCellRenderer *renderer;	
 	GtkTreeModel* model;
 	GtkTreeViewColumn *column;
@@ -650,7 +651,7 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 	g_list_foreach (plugin->recent_args, on_add_string_in_model, model);
 	if (plugin->recent_args != NULL)
 	{
-		gtk_entry_set_text (GTK_ENTRY (GTK_BIN (dlg->args)->child), (const char *)plugin->recent_args->data);
+		gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (dlg->args))), (const char *)plugin->recent_args->data);
 	}
 	g_object_unref (model);
 
@@ -704,13 +705,15 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 		 * new project created by the wizard without any change */
 		if (plugin->recent_dirs == NULL) gtk_file_chooser_set_uri (dlg->dirs, project_root_uri);
 	}
+
+	child = gtk_bin_get_child (GTK_BIN (dlg->target));
 	
 	if (plugin->recent_target != NULL)
 	{
 		gchar *local;
 		
 		local = anjuta_util_get_local_path_from_uri ((const char *)plugin->recent_target->data);
-		gtk_entry_set_text (GTK_ENTRY (GTK_BIN (dlg->target)->child), local);
+		gtk_entry_set_text (GTK_ENTRY (child), local);
 		g_free (local);
 	}
 	else
@@ -726,7 +729,7 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 			gtk_tree_model_get (model, &iter,
 								0, &default_target,
 								-1);
-			gtk_entry_set_text (GTK_ENTRY (GTK_BIN (dlg->target)->child), default_target);
+			gtk_entry_set_text (GTK_ENTRY (child), default_target);
 			g_free (default_target);
 		}
 	}
@@ -777,7 +780,7 @@ run_parameters_dialog_or_try_execute (RunProgramPlugin *plugin, gboolean try_run
 	gint response;
 	
 	run_dialog_init (&dlg, plugin);
-	const char *target = gtk_entry_get_text (GTK_ENTRY (GTK_BIN (dlg.target)->child));
+	const char *target = gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (dlg.target))));
 	if (try_run && target && *target)
 	{
 		save_dialog_data (&dlg);

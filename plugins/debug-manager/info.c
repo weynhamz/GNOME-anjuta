@@ -62,8 +62,8 @@ create_dialog_with_textview (GtkWindow *parent, gint width, gint height)
 					 G_CALLBACK (gtk_widget_destroy), NULL);
 
 	scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
-	gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox),
-					   scrolledwindow);
+	gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG (dialog))),
+			   scrolledwindow);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow),
 					GTK_POLICY_AUTOMATIC,
 					GTK_POLICY_AUTOMATIC);
@@ -111,8 +111,8 @@ create_dialog_with_treeview (GtkWindow *parent, gint width, gint height)
 					 G_CALLBACK (gtk_widget_destroy), NULL);
 
 	scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
-	gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox),
-					   scrolledwindow);
+	gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG (dialog))),
+			   scrolledwindow);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow),
 					GTK_POLICY_AUTOMATIC,
 					GTK_POLICY_AUTOMATIC);

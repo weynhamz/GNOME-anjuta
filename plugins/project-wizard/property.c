@@ -81,7 +81,8 @@ static const gchar* NPWPropertyTypeString[] = {
 };
 
 static const gchar* NPWPropertyRestrictionString[] = {
-	"filename"
+	"filename",
+	"directory"
 };
 
 /* Item object
@@ -236,6 +237,28 @@ npw_property_is_valid_restriction (const NPWProperty* prop)
 				return FALSE;
 		}
 		break;
+	case NPW_DIRECTORY_RESTRICTION:
+		value = npw_property_get_value (prop);
+
+		/* First character should be letters, digit or '_' or
+		 * directory separator */
+		if (value == NULL) return TRUE;
+		if (!isalnum (*value) && (*value != '_') && (*value != G_DIR_SEPARATOR))
+			return FALSE;
+
+		/* Following characters should be letters, digit or '_'
+		 * directory separator or '-' or '.' */
+		for (value++; *value != '\0'; value++)
+		{
+			if (!isalnum (*value)
+			    && (*value != '_')
+			    && (*value != G_DIR_SEPARATOR)
+			    && (*value != '-')
+			    && (*value != '.'))
+				return FALSE;
+		}
+		break;
+
 	default:
 		break;
 	}
@@ -479,6 +502,7 @@ npw_property_create_widget (NPWProperty* prop)
 		break;
 	case NPW_LIST_PROPERTY:
 	{
+		GtkWidget *child;
 		GSList* node;
 		gboolean get_value = FALSE;
 
@@ -492,11 +516,12 @@ npw_property_create_widget (NPWProperty* prop)
 				get_value = TRUE;
 			}
 		}
+		child = gtk_bin_get_child (GTK_BIN (entry));
 		if (!(prop->options & NPW_EDITABLE_OPTION))
 		{
-			gtk_editable_set_editable (GTK_EDITABLE (GTK_BIN (entry)->child), FALSE);
+			gtk_editable_set_editable (child, FALSE);
 		}
-		if (value) gtk_entry_set_text (GTK_ENTRY (GTK_BIN (entry)->child), value);
+		if (value) gtk_entry_set_text (child, value);
 		break;
 	}
 	default:
@@ -600,7 +625,7 @@ npw_property_set_value_from_widget (NPWProperty* prop, NPWValueTag tag)
 	{
 		GSList* node;
 
-		value = gtk_entry_get_text (GTK_ENTRY (GTK_BIN (prop->widget)->child));
+		value = gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (prop->widget))));
 		for (node = prop->items; node != NULL; node = node->next)
 		{
 			if (strcmp (value, _(((NPWItem *)node->data)->label)) == 0)

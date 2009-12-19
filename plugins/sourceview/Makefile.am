@@ -26,7 +26,8 @@ AM_CPPFLAGS = \
 	$(DEPRECATED_FLAGS) \
 	$(GIO_CFLAGS) \
 	$(PLUGIN_SOURCEVIEW_CFLAGS) \
-	$(LIBANJUTA_CFLAGS)
+	$(LIBANJUTA_CFLAGS) \
+	-DG_LOG_DOMAIN=\"sourceview\"
 
 # Where to install the plugin
 plugindir = $(anjuta_plugin_dir)
@@ -53,8 +54,6 @@ libanjuta_sourceview_la_SOURCES = \
 	plugin.h \
 	sourceview.c \
 	sourceview.h \
-	assist-window.h \
-	assist-window.c \
 	anjuta-view.h \
 	anjuta-view.c \
 	sourceview-prefs.h \
@@ -67,7 +66,9 @@ libanjuta_sourceview_la_SOURCES = \
 	assist-tip.h \
 	assist-tip.c \
 	sourceview-io.h \
-	sourceview-io.c
+	sourceview-io.c \
+	sourceview-provider.h \
+	sourceview-provider.c
 
 libanjuta_sourceview_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 

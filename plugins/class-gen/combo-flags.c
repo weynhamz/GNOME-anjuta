@@ -370,32 +370,36 @@ cg_combo_flags_get_position (CgComboFlags *combo,
                              gint *height)
 {
 	CgComboFlagsPrivate *priv;
-	GdkScreen *screen;
-	gint monitor_num;
-	GdkRectangle monitor;
+	GtkAllocation allocation;
 	GtkRequisition popup_req;
+	GdkWindow *window;
+	GdkScreen *screen;
+	GdkRectangle monitor;
+	gint monitor_num;
   
 	priv = CG_COMBO_FLAGS_PRIVATE (combo);
 	
 	g_assert (priv->window != NULL);
 
-	gdk_window_get_origin (GTK_WIDGET (combo)->window, x, y);
+	window = gtk_widget_get_window (GTK_WIDGET (combo));
+	gdk_window_get_origin (window, x, y);
 
-	if (GTK_WIDGET_NO_WINDOW (GTK_WIDGET (combo)))
+	gtk_widget_get_allocation (GTK_WIDGET (combo), &allocation);
+
+	if (!gtk_widget_get_has_window (GTK_WIDGET (combo)))
 	{
-		*x += GTK_WIDGET (combo)->allocation.x;
-		*y += GTK_WIDGET (combo)->allocation.y;
+		*x += allocation.x;
+		*y += allocation.y;
 	}
 
 	gtk_widget_size_request (priv->window, &popup_req);
 
-	*width = GTK_WIDGET (combo)->allocation.width;
+	*width = allocation.width;
 	if (popup_req.width > *width) *width = popup_req.width;
 	*height = popup_req.height;
 
 	screen = gtk_widget_get_screen (GTK_WIDGET(combo));
-	monitor_num =
-		gdk_screen_get_monitor_at_window (screen, GTK_WIDGET (combo)->window);
+	monitor_num = gdk_screen_get_monitor_at_window (screen, window);
 
 	gdk_screen_get_monitor_geometry (screen, monitor_num, &monitor);
 
@@ -408,26 +412,26 @@ cg_combo_flags_get_position (CgComboFlags *combo,
 		*x = monitor.x + monitor.width - *width;
 	}
   
-	if (*y + GTK_WIDGET (combo)->allocation.height + *height <=
+	if (*y + allocation.height + *height <=
 	    monitor.y + monitor.height)
 	{
-		*y += GTK_WIDGET (combo)->allocation.height;
+		*y += allocation.height;
 	}
 	else if (*y - *height >= monitor.y)
 	{
 		*y -= *height;
 	}
 	else if (monitor.y + monitor.height -
-	         (*y + GTK_WIDGET (combo)->allocation.height) > *y - monitor.y)
+	         (*y + allocation.height) > *y - monitor.y)
 	{
-		*y += GTK_WIDGET (combo)->allocation.height;
+		*y += allocation.height;
 		*height = monitor.y + monitor.height - *y;
 	}
-	else 
-    {
+	else
+	{
 		*height = *y - monitor.y;
 		*y = monitor.y;
-    }
+	}
 }
 
 static gboolean
@@ -712,6 +716,7 @@ cg_combo_flags_popup_idle (gpointer data)
 	GtkTreeSelection* selection;
 	GtkWidget *toplevel;
 	GtkWidget *scrolled;
+	GdkWindow *window;
 	gint height, width, x, y;
 
 	combo = CG_COMBO_FLAGS (data);
@@ -787,17 +792,19 @@ cg_combo_flags_popup_idle (gpointer data)
 	gtk_widget_show (priv->window);
 
 	gtk_widget_grab_focus (priv->window);
-	if (!GTK_WIDGET_HAS_FOCUS (priv->treeview))
+	if (!gtk_widget_has_focus (priv->treeview))
 		gtk_widget_grab_focus (priv->treeview);
 
-	gdk_pointer_grab (priv->window->window, TRUE,
+	window = gtk_widget_get_window (priv->window);
+
+	gdk_pointer_grab (window, TRUE,
 	                  GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK |
 	                  GDK_POINTER_MOTION_MASK, 
 	                  NULL, NULL, GDK_CURRENT_TIME);
 
 	gtk_grab_add (priv->window);
 
-	gdk_keyboard_grab (priv->window->window, TRUE, GDK_CURRENT_TIME);
+	gdk_keyboard_grab (window, TRUE, GDK_CURRENT_TIME);
 	return FALSE;
 }
 

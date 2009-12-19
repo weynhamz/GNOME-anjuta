@@ -450,8 +450,8 @@ project_manager_show_properties_dialog (ProjectManagerPlugin *plugin,
 							  G_CALLBACK (on_properties_dialog_response),
 							  plugin);
 			
-			gtk_container_add (GTK_CONTAINER (GTK_DIALOG(win)->vbox),
-							   properties);
+			gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG(win))),
+					   properties);
 			gtk_window_set_default_size (GTK_WINDOW (win), 450, -1);
 			gtk_widget_show (win);
 		}

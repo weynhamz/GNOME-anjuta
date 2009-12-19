@@ -127,8 +127,8 @@ create_columns (LogData *data)
 	GtkCellRenderer *renderer;
 	
 	log_changes_view = GTK_WIDGET (gtk_builder_get_object (data->bxml, "log_changes_view"));
-	font_size = PANGO_PIXELS (pango_font_description_get_size (GTK_WIDGET (log_changes_view)->style->font_desc));
-	
+	font_size = PANGO_PIXELS (pango_font_description_get_size (gtk_widget_get_style (GTK_WIDGET (log_changes_view))->font_desc));
+
 	/* Ref info */
 	column = gtk_tree_view_column_new ();
 	gtk_tree_view_append_column (GTK_TREE_VIEW (log_changes_view), column);

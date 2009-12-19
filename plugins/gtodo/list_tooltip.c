@@ -103,18 +103,21 @@ static
 void mw_paint_tip(GtkWidget *widget, GdkEventExpose *event)
 {
 	GtkStyle *style;
+	GdkWindow *window;
 	char *tooltiptext = get_tooltip_text();
+
 	if(tooltiptext == NULL) tooltiptext = g_strdup("oeps");
 	pango_layout_set_markup(layout, tooltiptext, strlen(tooltiptext));
 	pango_layout_set_wrap(layout, PANGO_WRAP_WORD);
 	pango_layout_set_width(layout, 300000);
-	style = tipwindow->style;
+	style = gtk_widget_get_style (tipwindow);
+	window = gtk_widget_get_window (tipwindow);
 
-	gtk_paint_flat_box (style, tipwindow->window, GTK_STATE_NORMAL, GTK_SHADOW_OUT,
+	gtk_paint_flat_box (style, window, GTK_STATE_NORMAL, GTK_SHADOW_OUT,
 			NULL, tipwindow, "tooltip", 0, 0, -1, -1);
 
 
-	gtk_paint_layout (style, tipwindow->window, GTK_STATE_NORMAL, TRUE,
+	gtk_paint_layout (style, window, GTK_STATE_NORMAL, TRUE,
 			NULL, tipwindow, "tooltip", 4, 4, layout);
 	/*
 	   g_object_unref(layout);
@@ -125,13 +128,14 @@ void mw_paint_tip(GtkWidget *widget, GdkEventExpose *event)
 
 gboolean mw_tooltip_timeout(GtkWidget *tv)
 {
+	GtkAllocation allocation;
 	int scr_w,scr_h, w, h, x, y;
 	char *tooltiptext = NULL;
 
 	tooltiptext = get_tooltip_text();
 
 	tipwindow = gtk_window_new(GTK_WINDOW_POPUP);
-	tipwindow->parent = tv;
+	gtk_widget_set_parent(tipwindow, tv);
 	gtk_widget_set_app_paintable(tipwindow, TRUE);
 	gtk_window_set_resizable(GTK_WINDOW(tipwindow), FALSE);
 	gtk_widget_set_name(tipwindow, "gtk-tooltips");
@@ -150,8 +154,11 @@ gboolean mw_tooltip_timeout(GtkWidget *tv)
 	h = PANGO_PIXELS(h) + 8;
 
 	gdk_window_get_pointer(NULL, &x, &y, NULL);
-	if (GTK_WIDGET_NO_WINDOW(mw.vbox))
-		y += mw.vbox->allocation.y;
+	if (!gtk_widget_get_has_window (mw.vbox))
+	{
+		gtk_widget_get_allocation (mw.vbox, &allocation);
+		y += allocation.y;
+	}
 
 	x -= ((w >> 1) + 4);
 

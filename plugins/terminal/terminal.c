@@ -585,6 +585,23 @@ on_terminal_paste_cb (GtkAction * action, TerminalPlugin *term_plugin)
 	vte_terminal_paste_clipboard(term);
 }
 
+static void
+on_terminal_command_cb (GtkAction * action, TerminalPlugin *term_plugin)
+{
+	VteTerminal *term;
+	gchar c;
+	
+	if (term_plugin->child_pid)
+		term = VTE_TERMINAL (term_plugin->term);
+	else
+		term = VTE_TERMINAL (term_plugin->shell);
+	
+	/* this only works for control + letter */
+	c = gtk_action_get_name (action) [strlen (gtk_action_get_name (action)) - 1] - 64;
+	
+	vte_terminal_feed_child (term, &c, 1);
+}
+
 static GtkActionEntry actions_terminal[] = {
 	{
 		"ActionCopyFromTerminal", 	              /* Action name */
@@ -601,7 +618,32 @@ static GtkActionEntry actions_terminal[] = {
 		NULL,
 		NULL,
 		G_CALLBACK (on_terminal_paste_cb)
-	}
+	},
+	/* Add other control + letter commands here ending in -CTRL and then letter e.g. -CTRLT */
+	{
+		"ActionCommandToTerminal-CTRLC",
+		NULL,
+		N_("Ctrl-C"),
+		NULL,
+		NULL,
+		G_CALLBACK (on_terminal_command_cb)
+	},
+	{
+		"ActionCommandToTerminal-CTRLX",
+		NULL,
+		N_("Ctrl-X"),
+		NULL,
+		NULL,
+		G_CALLBACK (on_terminal_command_cb)
+	},
+	{
+		"ActionCommandToTerminal-CTRLZ",
+		NULL,
+		N_("Ctrl-Z"),
+		NULL,
+		NULL,
+		G_CALLBACK (on_terminal_command_cb)
+	},
 };
 
 static void
@@ -661,8 +703,8 @@ create_box (GtkWidget *term)
 	GtkWidget *sb, *hbox;
 	
 	sb = gtk_vscrollbar_new (GTK_ADJUSTMENT (VTE_TERMINAL (term)->adjustment));
-	GTK_WIDGET_UNSET_FLAGS (sb, GTK_CAN_FOCUS);
-	
+	gtk_widget_set_can_focus (sb, FALSE);
+
 	hbox = gtk_hbox_new (FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (hbox), term, TRUE, TRUE, 0);
 	gtk_box_pack_start (GTK_BOX (hbox), sb, FALSE, TRUE, 0);

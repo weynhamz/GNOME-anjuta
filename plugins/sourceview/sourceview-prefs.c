@@ -16,7 +16,9 @@
 
 #include "sourceview-prefs.h"
 #include "sourceview-private.h"
+#include "sourceview-provider.h"
 #include <gtksourceview/gtksourceview.h>
+#include <gtksourceview/completion-providers/words/gtksourcecompletionwords.h>
 
 #include <libanjuta/anjuta-debug.h>
 
@@ -34,6 +36,7 @@
 #define HIGHLIGHT_BRACKETS         "sourceview.brackets.highlight"
 #define TAB_SIZE                   "tabsize"
 #define INDENT_SIZE                "indent.size"
+#define AUTOCOMPLETION             "sourceview.autocomplete"
 
 #define VIEW_LINENUMBERS           "margin.linenumber.visible"
 #define VIEW_MARKS                 "margin.marker.visible"
@@ -169,6 +172,46 @@ on_notify_braces_check (AnjutaPreferences* prefs,
 
 	gtk_source_buffer_set_highlight_matching_brackets(GTK_SOURCE_BUFFER(sv->priv->document), 
 	                                                  braces_check);
+}
+
+static void
+on_notify_autocompletion (AnjutaPreferences* prefs,
+                         const gchar* key,
+                         gboolean autocomplete,
+                         gpointer user_data)
+{
+	Sourceview *sv;
+	sv = ANJUTA_SOURCEVIEW(user_data);
+  GtkSourceCompletion* completion = gtk_source_view_get_completion(GTK_SOURCE_VIEW(sv->priv->view));
+  
+  if (autocomplete)
+  {
+    DEBUG_PRINT ("Register word completion provider");
+    GtkSourceCompletionWords *prov_words;
+    prov_words = gtk_source_completion_words_new (NULL, NULL);
+
+    gtk_source_completion_words_register (prov_words,
+                                          gtk_text_view_get_buffer (GTK_TEXT_VIEW (sv->priv->view)));
+
+    gtk_source_completion_add_provider (completion, 
+                                        GTK_SOURCE_COMPLETION_PROVIDER (prov_words), 
+                                        NULL);
+  }
+  else
+  {
+    GList* node;
+    for (node = gtk_source_completion_get_providers(completion); node != NULL; node = g_list_next (node))
+    {
+      if (GTK_IS_SOURCE_COMPLETION_WORDS(node->data))
+      {
+        DEBUG_PRINT ("Unregister word completion provider");
+        gtk_source_completion_words_unregister (GTK_SOURCE_COMPLETION_WORDS(node->data),
+                                                gtk_text_view_get_buffer (GTK_TEXT_VIEW (sv->priv->view)));
+        gtk_source_completion_remove_provider(completion, GTK_SOURCE_COMPLETION_PROVIDER(node->data), NULL);
+        break;
+      }
+    }
+  }
 }
 
 static void
@@ -349,14 +392,17 @@ sourceview_prefs_init(Sourceview* sv)
 																	 flags);
 	
 	init_fonts(sv);
-	
+
+	on_notify_autocompletion(sv->priv->prefs, AUTOCOMPLETION, get_key_bool(sv, AUTOCOMPLETION, TRUE), sv);
+  
 	/* Register gconf notifications */
 	REGISTER_NOTIFY (TAB_SIZE, on_notify_tab_size, int);
 	REGISTER_NOTIFY (USE_TABS, on_notify_use_tab_for_indentation, bool);
 	REGISTER_NOTIFY (HIGHLIGHT_SYNTAX, on_notify_disable_hilite, bool);
 	REGISTER_NOTIFY (HIGHLIGHT_CURRENT_LINE, on_notify_highlight_current_line, bool);
 	REGISTER_NOTIFY (HIGHLIGHT_BRACKETS, on_notify_braces_check, bool);
-	REGISTER_NOTIFY (VIEW_MARKS, on_notify_view_marks, bool);
+	REGISTER_NOTIFY (AUTOCOMPLETION, on_notify_autocompletion, bool);
+  REGISTER_NOTIFY (VIEW_MARKS, on_notify_view_marks, bool);
 	REGISTER_NOTIFY (VIEW_LINENUMBERS, on_notify_view_linenums, bool);
 	REGISTER_NOTIFY (VIEW_WHITE_SPACES, on_notify_view_spaces, bool);		
 	REGISTER_NOTIFY (VIEW_EOL, on_notify_view_eol, bool);		  

@@ -419,7 +419,7 @@ signals_show (Signals * sg)
 	{
 		if (sg->is_showing)
 		{
-			gdk_window_raise (sg->widgets.window->window);
+			gdk_window_raise (gtk_widget_get_window (sg->widgets.window));
 		}
 		else
 		{
@@ -440,14 +440,17 @@ signals_show (Signals * sg)
 void
 signals_hide (Signals * sg)
 {
+	GdkWindow *window;
+
 	if (sg)
 	{
 		if (sg->is_showing == FALSE)
 			return;
-		gdk_window_get_root_origin (sg->widgets.window->window, &sg->win_pos_x,
-									&sg->win_pos_y);
-		gdk_drawable_get_size (sg->widgets.window->window, &sg->win_width,
-							 &sg->win_height);
+		window = gtk_widget_get_window (sg->widgets.window);
+		gdk_window_get_root_origin (window, &sg->win_pos_x,
+					    &sg->win_pos_y);
+		gdk_drawable_get_size (window, &sg->win_width,
+				       &sg->win_height);
 		gtk_widget_hide (sg->widgets.window);
 		sg->is_showing = FALSE;
 	}

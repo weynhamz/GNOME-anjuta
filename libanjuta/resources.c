@@ -51,7 +51,7 @@ anjuta_res_lookup_widget (GtkWidget * widget, const gchar * widget_name)
 				gtk_menu_get_attach_widget (GTK_MENU
 							    (widget));
 		else
-			parent = widget->parent;
+			parent = gtk_widget_get_parent (widget);
 		if (parent == NULL)
 			break;
 		widget = parent;

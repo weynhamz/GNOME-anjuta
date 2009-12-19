@@ -145,14 +145,13 @@ anjuta_save_prompt_init(AnjutaSavePrompt *obj)
 	
 	obj->priv = g_new0(AnjutaSavePromptPrivate, 1);
 
-	gtk_label_set_text_with_mnemonic (GTK_LABEL (GTK_MESSAGE_DIALOG (obj)->label),
-									  "Uninitialized");
+	gtk_message_dialog_set_markup (GTK_MESSAGE_DIALOG (obj), "Uninitialized");
 	gtk_window_set_resizable (GTK_WINDOW (obj), TRUE);
 	gtk_window_set_default_size (GTK_WINDOW (obj), 400, 300);
 	
 	vbox = gtk_vbox_new (FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (obj)->vbox),
-						vbox, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (obj))),
+			    vbox, TRUE, TRUE, 0);
 	gtk_widget_show (vbox);
 	
 	label = gtk_label_new (_("Select the items to save:"));
@@ -266,6 +265,7 @@ anjuta_save_prompt_add_item (AnjutaSavePrompt *save_prompt,
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 	gchar *label;
+	const gchar *markup;
 	gint items_count;
 	
 	g_return_if_fail (ANJUTA_IS_SAVE_PROMPT (save_prompt));
@@ -303,8 +303,8 @@ anjuta_save_prompt_add_item (AnjutaSavePrompt *save_prompt,
 		label = g_strdup_printf("<b>%s</b>", 
 			_("There is an item with unsaved changes. Save changes before closing?"));
 	}
-	
-	gtk_label_set_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (save_prompt)->label),
-						  label);
-	g_free (label);  
+
+	markup = label;
+	gtk_message_dialog_set_markup (GTK_MESSAGE_DIALOG (save_prompt), markup);
+	g_free (label);
 }

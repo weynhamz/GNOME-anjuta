@@ -4,7 +4,7 @@ AC_PREREQ(2.59)
 
 m4_define(anjuta_major_version,  2)
 m4_define(anjuta_minor_version, 29)
-m4_define(anjuta_micro_version,  0)
+m4_define(anjuta_micro_version,  2)
 m4_define(anjuta_nano_version, 0)
 m4_define(anjuta_version, anjuta_major_version.anjuta_minor_version.anjuta_micro_version.anjuta_nano_version)
 
@@ -25,7 +25,7 @@ AC_SUBST(ANJUTA_VERSION)
 
 GLIB_REQUIRED=2.18.0
 GDK_PIXBUF_REQUIRED=2.0.0
-GTK_REQUIRED=2.14.0
+GTK_REQUIRED=2.17.10
 ORBIT_REQUIRED=2.6.0
 GCONF_REQUIRED=2.12.0
 VTE_REQUIRED=0.9.0
@@ -80,6 +80,7 @@ if [["$YACC" != "bison"]]; then
 	AC_MSG_ERROR(bison is required)
 fi
 AC_LANG_C
+AC_PROG_CXX
 AM_PROG_CC_C_O
 
 GNOME_COMPILE_WARNINGS(maximum)
@@ -93,7 +94,7 @@ AC_SUBST(AM_CFLAGS)
 
 ANJUTA_LDFLAGS="-no-undefined"
 ANJUTA_PLUGIN_LDFLAGS="-module -avoid-version -no-undefined"
-AC_SUBST(ANJUTA_LDFLAG)
+AC_SUBST(ANJUTA_LDFLAGS)
 AC_SUBST(ANJUTA_PLUGIN_LDFLAGS)
 
 dnl Disable deprecated APIs
@@ -800,6 +801,7 @@ plugins/project-wizard/templates/m4/Makefile
 plugins/am-project/Makefile
 plugins/mk-project/Makefile
 plugins/language-support-cpp-java/Makefile
+plugins/language-support-cpp-java/cxxparser/Makefile
 plugins/run-program/Makefile
 plugins/starter/Makefile
 anjuta.desktop.in

@@ -200,13 +200,17 @@ goto_file_tag (SymbolDBPlugin *sdb_plugin, const gchar *word,
 		{
 			engine = sdb_plugin->sdbe_globals;
 		}		
-						
-		iterator = symbol_db_engine_find_symbol_by_name_pattern (engine, 
-															 word,
-															 TRUE,
-															 SYMINFO_SIMPLE |
-															 SYMINFO_KIND |
-															 SYMINFO_FILE_PATH);
+
+		iterator = NULL;
+		if (symbol_db_engine_is_connected (engine)) 
+		{		
+			iterator = symbol_db_engine_find_symbol_by_name_pattern (engine, 
+																 word,
+																 TRUE,
+																 SYMINFO_SIMPLE |
+																 SYMINFO_KIND |
+																 SYMINFO_FILE_PATH);
+		}
 	
 		if (iterator != NULL && symbol_db_engine_iterator_get_n_items (iterator) > 0)
 		{
@@ -615,8 +619,13 @@ on_editor_saved (IAnjutaEditor *editor, GFile* file,
 		old_uri = NULL;
 
 	/* files_array will be freed once updating has taken place */
-	proc_id = symbol_db_engine_update_files_symbols (sdb_plugin->sdbe_project, 
-						sdb_plugin->project_root_dir, files_array, TRUE);
+	proc_id = 0;
+	if (symbol_db_engine_is_connected (sdb_plugin->sdbe_project))
+	{
+		proc_id = symbol_db_engine_update_files_symbols (sdb_plugin->sdbe_project, 
+							sdb_plugin->project_root_dir, files_array, TRUE);
+	}
+	
 	if (proc_id > 0)
 	{		
 		/* add a task so that scan_end_manager can manage this */
@@ -1243,7 +1252,6 @@ clear_project_progress_bar (SymbolDBEngine *dbe, gpointer data)
 	/* ok, enable local symbols view */
 	if (!IANJUTA_IS_EDITOR (sdb_plugin->current_editor))
 	{
-		DEBUG_PRINT ("!IANJUTA_IS_EDITOR (sdb_plugin->current_editor))");
 		return;
 	}
 	
@@ -1830,9 +1838,12 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 		gchar *anjuta_cache_path;
 		/* open the connection to global db */
 		anjuta_cache_path = anjuta_util_get_user_cache_file_path (".", NULL);
-		symbol_db_engine_open_db (sdb_plugin->sdbe_globals, 
+		if (symbol_db_engine_open_db (sdb_plugin->sdbe_globals, 
 							  anjuta_cache_path, 
-							  PROJECT_GLOBALS);
+							  PROJECT_GLOBALS) == DB_OPEN_STATUS_FATAL)
+		{
+			g_error ("Opening global project under %s", anjuta_cache_path);
+		}
 		g_free (anjuta_cache_path);
 	
 		/* unref and recreate the sdbs object */
@@ -1886,27 +1897,32 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 		lang_hash = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, 
 										  sources_array_free);
 
-		/* is it a fresh-new project? is it an imported project with 
-		 * no 'new' symbol-db database but the 'old' one symbol-browser? 
-		 */
-		if (symbol_db_engine_db_exists (sdb_plugin->sdbe_project, 
-										root_dir) == FALSE)
-		{
-			DEBUG_PRINT ("Project %s does not exist", root_dir);
-			needs_sources_scan = TRUE;
-			project_exist = FALSE;
-		}
-		else 
-		{
-			project_exist = TRUE;
-		}
-
 		/* we'll use the same values for db_directory and project_directory */
 		DEBUG_PRINT ("Opening db %s and project_dir %s", root_dir, root_dir);
-		if (symbol_db_engine_open_db (sdb_plugin->sdbe_project, root_dir, 
-										  root_dir) == FALSE)
+		gint open_status = symbol_db_engine_open_db (sdb_plugin->sdbe_project, root_dir, 
+										  root_dir);
+
+		/* is it a fresh-new project? is it an imported project with 
+		 * no 'new' symbol-db database but the 'old' one symbol-browser? 
+		 */		
+		switch (open_status)
 		{
-			g_error ("*** Error in opening db ***");
+			case DB_OPEN_STATUS_FATAL:
+				g_error ("*** Error in opening db ***");
+				return;
+				
+			case DB_OPEN_STATUS_NORMAL:
+				project_exist = TRUE;
+				break;
+
+			case DB_OPEN_STATUS_CREATE:
+			case DB_OPEN_STATUS_UPGRADE:
+				needs_sources_scan = TRUE;
+				project_exist = FALSE;
+				break;
+				
+			default:
+				break;
 		}
 			
 		/* if project did not exist add a new project */
@@ -2267,9 +2283,13 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	
 	/* open it */
 	anjuta_cache_path = anjuta_util_get_user_cache_file_path (".", NULL);
-	symbol_db_engine_open_db (sdb_plugin->sdbe_globals, 
+	if (symbol_db_engine_open_db (sdb_plugin->sdbe_globals, 
 							  anjuta_cache_path, 
-							  PROJECT_GLOBALS);
+							  PROJECT_GLOBALS) == DB_OPEN_STATUS_FATAL)
+	{
+		g_error ("Opening global project under %s", anjuta_cache_path);
+	}
+	
 	g_free (anjuta_cache_path);
 	
 	/* create the object that'll manage the globals population */

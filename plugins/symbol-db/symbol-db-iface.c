@@ -180,6 +180,58 @@ isymbol_manager_get_parent_scope (IAnjutaSymbolManager *sm,
 }
 
 IAnjutaIterable*
+isymbol_manager_get_scope_chain (IAnjutaSymbolManager *sm,                                 
+                                 const gchar* filename, 
+                                 gulong line,
+                                 IAnjutaSymbolField info_fields,
+                                 GError **err)
+{
+	SymbolDBPlugin *sdb_plugin;
+	SymbolDBEngine *dbe;
+	SymbolDBEngineIterator *iterator;
+
+	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (sm);
+	dbe = SYMBOL_DB_ENGINE (sdb_plugin->sdbe_project);
+
+	iterator = symbol_db_engine_get_scope_chain_by_file_line (dbe, filename, 
+	                                                          line, info_fields);
+
+	return IANJUTA_ITERABLE (iterator);
+}
+ 
+IAnjutaIterable* 
+isymbol_manager_search_symbol_in_scope (IAnjutaSymbolManager *sm,
+                                        const gchar *pattern, 
+                                        const IAnjutaSymbol *container_symbol, 
+                                        IAnjutaSymbolType match_types, 
+                                        gboolean include_types, 
+                                        gint results_limit, 
+                                        gint results_offset, 
+                                        IAnjutaSymbolField info_fields,
+                                        GError **err)
+{
+	SymbolDBPlugin *sdb_plugin;
+	SymbolDBEngine *dbe;
+	SymbolDBEngineIterator *iterator;
+	SymbolDBEngineIteratorNode *node;
+	gint container_sym_id;
+
+	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (sm);
+	dbe = SYMBOL_DB_ENGINE (sdb_plugin->sdbe_project);
+	node = SYMBOL_DB_ENGINE_ITERATOR_NODE (container_symbol);
+
+	container_sym_id = symbol_db_engine_iterator_node_get_symbol_id (node);
+	
+	iterator = 	symbol_db_engine_find_symbol_in_scope (dbe, pattern, container_sym_id ,
+		                                                  match_types, include_types,
+		                                                  results_limit,
+		                                                  results_offset,
+		                                                  info_fields);		                                                  
+
+	return IANJUTA_ITERABLE (iterator);
+}
+
+IAnjutaIterable*
 isymbol_manager_get_symbol_more_info (IAnjutaSymbolManager *sm,
 								  const IAnjutaSymbol *symbol, 
 								  IAnjutaSymbolField info_fields,
@@ -236,7 +288,7 @@ do_search_prj_glb (SymbolDBEngine *dbe, IAnjutaSymbolType match_types,
            gboolean include_types, IAnjutaSymbolField info_fields,
            const gchar *pattern, IAnjutaSymbolManagerSearchFileScope filescope_search,
     	   gint results_limit, gint results_offset, 
-           GList *session_packages)
+           const GList *session_packages)
 {
 	SymbolDBEngineIterator *iterator;
 	
@@ -270,8 +322,8 @@ isymbol_manager_search_system (IAnjutaSymbolManager *sm, IAnjutaSymbolType match
 	/* take the global's engine */
 	dbe = SYMBOL_DB_ENGINE (sdb_plugin->sdbe_globals);
 
-	iterator = do_search_prj_glb (dbe, match_types, info_fields, 
-	                      include_types, pattern, filescope_search,
+	iterator = do_search_prj_glb (dbe, match_types, include_types, 
+	                      info_fields, pattern, filescope_search,
 						  results_limit, results_offset,
 	           			  sdb_plugin->session_packages);
 
@@ -403,8 +455,8 @@ isymbol_manager_search_project (IAnjutaSymbolManager *sm, IAnjutaSymbolType matc
 	/* take the project's engine */
 	dbe = SYMBOL_DB_ENGINE (sdb_plugin->sdbe_project);
 
-	iterator = do_search_prj_glb (dbe, match_types, info_fields, 
-	                      include_types, pattern, filescope_search,
+	iterator = do_search_prj_glb (dbe, match_types, include_types, 
+	                      info_fields, pattern, filescope_search,
 						  results_limit, results_offset,
 	           			  NULL);
 
@@ -486,7 +538,6 @@ isymbol_manager_search_file (IAnjutaSymbolManager *sm, IAnjutaSymbolType match_t
 	
 	return IANJUTA_ITERABLE (iterator);
 }
-
 
 guint
 isymbol_manager_search_file_async (IAnjutaSymbolManager *sm, IAnjutaSymbolType match_types, 
@@ -571,8 +622,10 @@ isymbol_manager_iface_init (IAnjutaSymbolManagerIface *iface)
 	iface->get_class_parents = isymbol_manager_get_class_parents;
 	iface->get_scope = isymbol_manager_get_scope;
 	iface->get_parent_scope = isymbol_manager_get_parent_scope;
+	iface->get_scope_chain = isymbol_manager_get_scope_chain;
 	iface->get_symbol_more_info = isymbol_manager_get_symbol_more_info;
 	iface->get_symbol_by_id = isymbol_manager_get_symbol_by_id;
+	iface->search_symbol_in_scope = isymbol_manager_search_symbol_in_scope;
 	iface->search_system = isymbol_manager_search_system;
 	iface->search_system_async = isymbol_manager_search_system_async;
 	iface->search_project = isymbol_manager_search_project;

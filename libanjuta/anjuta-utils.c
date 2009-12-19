@@ -175,6 +175,7 @@ anjuta_util_button_new_with_stock_image (const gchar* text,
 										 const gchar* stock_id)
 {
 	GtkWidget *button;
+	GtkWidget *child;
 	GtkStockItem item;
 	GtkWidget *label;
 	GtkWidget *image;
@@ -183,9 +184,9 @@ anjuta_util_button_new_with_stock_image (const gchar* text,
 
 	button = gtk_button_new ();
 
- 	if (GTK_BIN (button)->child)
-    		gtk_container_remove (GTK_CONTAINER (button),
-				      GTK_BIN (button)->child);
+	child = gtk_bin_get_child (GTK_BIN (button));
+	if (child)
+		gtk_container_remove (GTK_CONTAINER (button), child);
 
   	if (gtk_stock_lookup (stock_id, &item))
     	{
@@ -232,7 +233,7 @@ anjuta_util_dialog_add_button (GtkDialog *dialog, const gchar* text,
 	button = anjuta_util_button_new_with_stock_image (text, stock_id);
 	g_return_val_if_fail (button != NULL, NULL);
 
-	GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
+	gtk_widget_set_can_default (button, TRUE);
 
 	gtk_widget_show (button);
 
@@ -435,7 +436,7 @@ anjuta_util_dialog_input (GtkWindow *parent, const gchar *prompt,
 										  GTK_STOCK_OK, GTK_RESPONSE_OK,
 										  NULL);
 	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
-	dialog_vbox = GTK_DIALOG (dialog)->vbox;
+	dialog_vbox = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
 	gtk_window_set_default_size (GTK_WINDOW (dialog), 400, -1);
 	gtk_widget_show (dialog_vbox);
 	

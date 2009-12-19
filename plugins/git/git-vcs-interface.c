@@ -84,7 +84,7 @@ git_ivcs_checkout (IAnjutaVcs *obj,
 	path = g_file_get_path (parent);
 	dir_name = g_file_get_basename (dest);
 	
-	clone_command = git_clone_command_new (repository_location, path, dir_name);
+	clone_command = git_clone_command_new (path, repository_location, dir_name);
 	plugin = ANJUTA_PLUGIN_GIT (obj);
 
 	g_object_unref (parent);

@@ -4991,6 +4991,7 @@
                     <child>
                       <object class="GtkVBox" id="vbox29">
                         <property name="visible">True</property>
+                        <property name="orientation">vertical</property>
                         <child>
                           <object class="GtkCheckButton" id="push_all_check">
                             <property name="label" translatable="yes">Push all branches and tags</property>
@@ -5002,6 +5003,18 @@
                           </object>
                           <packing>
                             <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkCheckButton" id="push_force_check">
+                            <property name="label" translatable="yes">Force</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">False</property>
+                            <property name="draw_indicator">True</property>
+                          </object>
+                          <packing>
+                            <property name="position">1</property>
                           </packing>
                         </child>
                       </object>
