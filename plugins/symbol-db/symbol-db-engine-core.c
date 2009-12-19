@@ -719,12 +719,6 @@ sdb_engine_disconnect_from_db (SymbolDBEngine * dbe)
 		g_object_unref (priv->sql_parser);
 	priv->sql_parser = NULL;
 	
-	g_free (priv->db_directory);
-	priv->db_directory = NULL;
-	
-	g_free (priv->project_directory);
-	priv->project_directory = NULL;
-	
 	return TRUE;
 }
 
@@ -2977,6 +2971,12 @@ symbol_db_engine_close_db (SymbolDBEngine *dbe)
 	g_thread_pool_free (priv->thread_pool, TRUE, TRUE);
 	priv->thread_pool = NULL;
 	ret = sdb_engine_disconnect_from_db (dbe);
+
+	g_free (priv->db_directory);
+	priv->db_directory = NULL;
+	
+	g_free (priv->project_directory);
+	priv->project_directory = NULL;	
 	
 	priv->thread_pool = g_thread_pool_new (sdb_engine_ctags_output_thread,
 										   dbe, THREADS_MAX_CONCURRENT,
@@ -3013,8 +3013,10 @@ sdb_engine_get_db_version (SymbolDBEngine *dbe)
 	return version_id;
 }
 
-static void
-sdb_engine_check_db_version_and_upgrade (SymbolDBEngine *dbe)
+static gboolean
+sdb_engine_check_db_version_and_upgrade (SymbolDBEngine *dbe, 
+                                         const gchar* db_file,
+                                         const gchar* cnc_string)
 {
 	SymbolDBEnginePriv *priv;
 	gint version;
@@ -3027,45 +3029,51 @@ sdb_engine_check_db_version_and_upgrade (SymbolDBEngine *dbe)
 	{
 		/* some error occurred */
 		g_warning ("No version of db detected. This can produce many errors.");
-		return;
+		return FALSE;
 	}
 	
 	/* FIXME: in the future versions, if the changes grow up, add a better 
 	 * automatic upgrading system 
 	 */
-	if (version < 228)
+	if (version < 230)
 	{
-		gchar *contents;
-		gchar *query;
-		gsize sizez;
-
-		DEBUG_PRINT	 ("Upgrading from version %d to 228", version);
+		DEBUG_PRINT	 ("Upgrading from version %d to 230", version);
 		
-		/* read the contents of the file */
-		if (g_file_get_contents (TABLES_SQL_1_TO_228, &contents, &sizez, NULL) == FALSE)
-		{
-			g_warning ("Something went wrong while trying to read %s",
-					TABLES_SQL_1_TO_228);
-			return;
+		/* we need a full recreation of db. Because of the sym_kind table
+		 * which changed its data but not its fields, we must recreate the
+		 * whole database.
+		 */
+
+		/* 1. disconnect from current db */
+		sdb_engine_disconnect_from_db (dbe);
+
+		/* 2. remove current db file */
+		GFile *gfile = g_file_new_for_path (db_file);
+		if (gfile != NULL) {
+			g_file_delete (gfile, NULL, NULL);
+			g_object_unref (gfile);
 		}
+		else 
+		{
+			g_warning ("Could not get the gfile");
+		}		
 
-		sdb_engine_execute_non_select_sql (dbe, contents);	
-		g_free (contents);		
-		
-		query = "UPDATE version SET sdb_version = "SYMBOL_DB_VERSION;
-		sdb_engine_execute_non_select_sql (dbe, query);
+		/* 3. reconnect */
+		sdb_engine_connect_to_db (dbe, cnc_string);
 
-		// go on with the update of all the symbols in project
-		symbol_db_engine_update_project_symbols (dbe, priv->project_directory, 
-		    TRUE);
-	}	
+		/* 4. create fresh new tables, indexes, triggers etc.  */			
+		sdb_engine_create_db_tables (dbe, TABLES_SQL);
+		return TRUE;
+	}
 	else
 	{
 		DEBUG_PRINT ("No need to upgrade.");
 	}
+
+	return FALSE;
 }
 
-gboolean
+gint
 symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
 						  const gchar * prj_directory)
 {
@@ -3073,6 +3081,7 @@ symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
 	gboolean needs_tables_creation = FALSE;
 	gchar *cnc_string;
 	gboolean connect_res;
+	gboolean ret_status = DB_OPEN_STATUS_NORMAL;
 
 	DEBUG_PRINT ("Opening project %s with base dir %s", 
 				 prj_directory, base_db_path);
@@ -3084,15 +3093,13 @@ symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
 
 	/* check whether the db filename already exists. If it's not the case
 	 * create the tables for the database. */
-	gchar *tmp_file = g_strdup_printf ("%s/%s.db", base_db_path,
+	gchar *db_file = g_strdup_printf ("%s/%s.db", base_db_path,
 									   priv->anjuta_db_file);
 
-	if (g_file_test (tmp_file, G_FILE_TEST_EXISTS) == FALSE)
+	if (g_file_test (db_file, G_FILE_TEST_EXISTS) == FALSE)
 	{
 		needs_tables_creation = TRUE;
 	}
-	g_free (tmp_file);
-
 
 	priv->db_directory = g_strdup (base_db_path);
 	
@@ -3105,28 +3112,41 @@ symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
 	DEBUG_PRINT ("Connecting to "
 				 "database with %s...", cnc_string);
 	connect_res = sdb_engine_connect_to_db (dbe, cnc_string);
-	g_free (cnc_string);
+	
 
 	if (connect_res == FALSE)
-		return FALSE;
+	{
+		g_free (db_file);
+		g_free (cnc_string);
+
+		ret_status = DB_OPEN_STATUS_FATAL;
+		return ret_status;
+	}
 	
 	if (needs_tables_creation == TRUE)
 	{
-		DEBUG_PRINT ("Creating tables: it needs tables...");
+		DEBUG_PRINT ("Creating tables...");
 		sdb_engine_create_db_tables (dbe, TABLES_SQL);
+		ret_status = DB_OPEN_STATUS_CREATE;
 	}
 	else 
 	{
 		/* check the version of the db. If it's old we should upgrade it */
-		sdb_engine_check_db_version_and_upgrade (dbe);
+		if (sdb_engine_check_db_version_and_upgrade (dbe, db_file, cnc_string) == TRUE)
+		{
+			ret_status = DB_OPEN_STATUS_UPGRADE;
+		}		
 	}
-
+	
 	sdb_engine_set_defaults_db_parameters (dbe);
 
 	/* normalize some tables */
 	sdb_engine_normalize_sym_type (dbe);
-		
-	return TRUE;
+
+	g_free (cnc_string);
+	g_free (db_file);
+	
+	return ret_status;
 }
 
 gchar *
