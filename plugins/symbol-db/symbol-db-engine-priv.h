@@ -47,7 +47,7 @@
 
 #define CTAGS_MARKER	"#_#\n"
 
-#define SHARED_MEMORY_PREFIX		"/dev/shm"
+#define SHARED_MEMORY_PREFIX			SYMBOL_DB_SHM
 
 #define THREADS_MAX_CONCURRENT			2
 #define TRIGGER_SIGNALS_DELAY			100

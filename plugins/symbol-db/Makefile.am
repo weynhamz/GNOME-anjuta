@@ -1,4 +1,4 @@
-SUBDIRS = images benchmark anjuta-tags test-queries
+SUBDIRS = . anjuta-tags images benchmark test-queries
 
 symbol_db_datadir = $(anjuta_data_dir)
 symbol_db_data_DATA = tables.sql
@@ -37,6 +37,7 @@ AM_CPPFLAGS = \
 	$(GDL_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
 	$(PLUGIN_SYMBOL_DB_CFLAGS) \
+	-DSYMBOL_DB_SHM=\"$(SYMBOL_DB_SHM)\" \
 	-DPACKAGE_BIN_DIR=\"$(bindir)\" \
 	-DG_LOG_DOMAIN=\"libanjuta-symbol-db\"
 

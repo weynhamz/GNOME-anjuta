@@ -699,6 +699,27 @@ AC_SUBST(SVN_INCLUDE)
 AC_SUBST(SVN_LIB)
 AC_SUBST(SVN_CFLAGS)
 
+dnl ------------------------------------------
+dnl Symbol-db shared memory checks
+dnl ------------------------------------------
+
+SYMBOL_DB_SHM="/dev/shm"
+user_specified_shm=0
+AC_MSG_CHECKING(for symbol-db shared memory)
+AC_ARG_WITH(symbol-db-shm,
+		AC_HELP_STRING([--with-symbol-db-shm=DIR],[Where shared memory is placed ]),
+		[
+				user_specified_shm=1
+				SYMBOL_DB_SHM="$withval"
+		])
+if test "$user_specified_shm" = 1; then
+	AC_MSG_RESULT(yes)
+else
+	AC_MSG_RESULT(no)
+fi
+
+AC_SUBST(SYMBOL_DB_SHM)
+
 dnl --------- help outputs -----------
 dnl manuals/C/Makefile
 dnl manuals/C/anjuta-tutorial/Makefile
