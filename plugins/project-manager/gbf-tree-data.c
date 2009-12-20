@@ -98,7 +98,7 @@ gbf_tree_data_new_source (IAnjutaProject *project, AnjutaProjectSource *source)
 	GbfTreeData *node = g_new0 (GbfTreeData, 1);
 	GFileInfo *ginfo;
 	
-	node->type = GBF_TREE_NODE_TARGET_SOURCE;
+	node->type = GBF_TREE_NODE_SOURCE;
 	node->id = source;
 	
 	node->uri = g_file_get_uri (anjuta_project_source_get_file (source));

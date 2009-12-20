@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
     plugin.c
-    Copyright (C) 2008 Sébastien Granjoux
+    Copyright (C) 2009 Sébastien Granjoux
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -24,10 +24,10 @@
 #include <libanjuta/interfaces/ianjuta-project-backend.h>
 
 #include "plugin.h"
-#include "mk-project.h"
+#include "dir-project.h"
 
 
-#define ICON_FILE "mk-project-plugin-48.png"
+#define ICON_FILE "dir-project-plugin-48.png"
 
 /* AnjutaPlugin functions
  *---------------------------------------------------------------------------*/
@@ -35,7 +35,7 @@
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
-	DEBUG_PRINT ("MkpPlugin: Activating Anjuta make backend Plugin ...");
+	DEBUG_PRINT ("DirProjectPlugin: Activating Anjuta directory backend Plugin ...");
 	
 	return TRUE;
 }
@@ -43,7 +43,7 @@ activate_plugin (AnjutaPlugin *plugin)
 static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
-	DEBUG_PRINT ("MkpPlugin: Deacctivating Anjuta make backend Plugin ...");
+	DEBUG_PRINT ("DirProjectPlugin: Deacctivating Anjuta directory backend Plugin ...");
 	return TRUE;
 }
 
@@ -55,8 +55,8 @@ static IAnjutaProject*
 iproject_backend_new_project (IAnjutaProjectBackend* backend, GError** err)
 {
 	IAnjutaProject *project;
-	DEBUG_PRINT("create new mkp project");	
-	project = (IAnjutaProject *)(g_object_new (MKP_TYPE_PROJECT, NULL));	
+	DEBUG_PRINT("create new directory project");	
+	project = (IAnjutaProject *)(g_object_new (DIR_TYPE_PROJECT, NULL));
 		
 	return project;
 }
@@ -64,9 +64,9 @@ iproject_backend_new_project (IAnjutaProjectBackend* backend, GError** err)
 static gint
 iproject_backend_probe (IAnjutaProjectBackend* backend, GFile *directory, GError** err)
 {
-	DEBUG_PRINT("probe mkp project");
+	DEBUG_PRINT("probe directory project");
 	
-	return mkp_project_probe (directory, err);
+	return dir_project_probe (directory, err);
 }
 
 static void
@@ -83,7 +83,7 @@ iproject_backend_iface_init(IAnjutaProjectBackendIface *iface)
 static gpointer parent_class;
 
 static void
-mkp_plugin_instance_init (GObject *obj)
+dir_project_plugin_instance_init (GObject *obj)
 {
 }
 
@@ -104,7 +104,7 @@ finalize (GObject *obj)
 }
 
 static void
-mkp_plugin_class_init (GObjectClass *klass)
+dir_project_plugin_class_init (GObjectClass *klass) 
 {
 	AnjutaPluginClass *plugin_class = ANJUTA_PLUGIN_CLASS (klass);
 
@@ -119,8 +119,8 @@ mkp_plugin_class_init (GObjectClass *klass)
 /* AnjutaPlugin declaration
  *---------------------------------------------------------------------------*/
 
-ANJUTA_PLUGIN_BEGIN (MkpPlugin, mkp_plugin);
+ANJUTA_PLUGIN_BEGIN (DirProjectPlugin, dir_project_plugin);
 ANJUTA_PLUGIN_ADD_INTERFACE (iproject_backend, IANJUTA_TYPE_PROJECT_BACKEND);
 ANJUTA_PLUGIN_END;
 
-ANJUTA_SIMPLE_PLUGIN (MkpPlugin, mkp_plugin);
+ANJUTA_SIMPLE_PLUGIN (DirProjectPlugin, dir_project_plugin);

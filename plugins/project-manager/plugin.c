@@ -666,7 +666,7 @@ confirm_removal (ProjectManagerPlugin *plugin, GbfTreeData *data)
 			question = _("Are you sure you want to remove the following target from the project?\n\n");
 			mesg = _("Target: %s");
 			break;
-		case GBF_TREE_NODE_TARGET_SOURCE:
+		case GBF_TREE_NODE_SOURCE:
 			question = _("Are you sure you want to remove the following source file from the project?\n\n");
 			mesg = _("Source: %s\n\nThe source file will not be deleted from the file system.");
 			break;
@@ -688,7 +688,7 @@ on_popup_remove (GtkAction *action, ProjectManagerPlugin *plugin)
 	GbfTreeData *data;
 	
 	data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
-										   GBF_TREE_NODE_TARGET_SOURCE);
+										   GBF_TREE_NODE_SOURCE);
 	if (data == NULL)
 	{
 		data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
@@ -958,8 +958,8 @@ on_treeview_selection_changed (GtkTreeSelection *sel,
 	if (plugin->project)
 		caps = ianjuta_project_get_capabilities (plugin->project, NULL);
 	data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
-										   GBF_TREE_NODE_TARGET_SOURCE);
-	if (data && data->type == GBF_TREE_NODE_TARGET_SOURCE)
+										   GBF_TREE_NODE_SOURCE);
+	if (data && data->type == GBF_TREE_NODE_SOURCE)
 	{
 		if (caps & IANJUTA_PROJECT_CAN_ADD_SOURCE)
 		{
@@ -2062,8 +2062,8 @@ iproject_manager_get_selected (IAnjutaProjectManager *project_manager,
 	g_return_val_if_fail (IANJUTA_IS_PROJECT (plugin->project), NULL);
 	
 	data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
-										   GBF_TREE_NODE_TARGET_SOURCE);
-	if (data && data->type == GBF_TREE_NODE_TARGET_SOURCE)
+										   GBF_TREE_NODE_SOURCE);
+	if (data && data->type == GBF_TREE_NODE_SOURCE)
 	{
 		uri = g_strdup (data->uri);
 		gbf_tree_data_free (data);
@@ -2119,8 +2119,8 @@ iproject_manager_get_selected_id (IAnjutaProjectManager *project_manager,
 		element_type == ANJUTA_PROJECT_SOURCE)
 	{
 		data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
-		                                       GBF_TREE_NODE_TARGET_SOURCE);
-		if (data && data->type == GBF_TREE_NODE_TARGET_SOURCE)
+		                                       GBF_TREE_NODE_SOURCE);
+		if (data && data->type == GBF_TREE_NODE_SOURCE)
 			node = data->id;
 
 		if (data)

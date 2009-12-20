@@ -31,6 +31,7 @@ SUBDIRS = . \
 	run-program \
 	starter \
 	am-project \
-	mk-project
+	mk-project \
+	dir-project
 
 -include $(top_srcdir)/git.mk

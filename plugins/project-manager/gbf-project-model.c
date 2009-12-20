@@ -328,7 +328,8 @@ add_source (GbfProjectModel    	      *model,
 {
 	GtkTreeIter iter;
 	GbfTreeData *data;
-	
+
+	g_message ("add source");
 	if ((!source) || (anjuta_project_node_get_type (source) != ANJUTA_PROJECT_SOURCE))
 		return;
 	
@@ -555,6 +556,10 @@ add_target_group (GbfProjectModel 	*model,
 	/* ... and targets */
 	for (node = anjuta_project_node_first_child (group); node; node = anjuta_project_node_next_sibling (node))
 		add_target (model, node, &iter);
+	
+	/* ... and sources */
+	for (node = anjuta_project_node_first_child (group); node; node = anjuta_project_node_next_sibling (node))
+		add_source (model, node, &iter);
 }
 
 static void
@@ -565,6 +570,7 @@ update_group (GbfProjectModel *model, AnjutaProjectGroup *group, GtkTreeIter *it
 	GList *node;
 	GList *groups;
 	GList *targets;
+	GList *sources;
 
 	if ((!group) || (anjuta_project_node_get_type (group) != ANJUTA_PROJECT_GROUP))
 		return;
@@ -574,6 +580,8 @@ update_group (GbfProjectModel *model, AnjutaProjectGroup *group, GtkTreeIter *it
 	/* update group data. nothing to do here */
 	groups = gbf_project_util_all_child (group, ANJUTA_PROJECT_GROUP);
 	targets = gbf_project_util_all_child (group, ANJUTA_PROJECT_TARGET);
+	sources = gbf_project_util_all_child (group, ANJUTA_PROJECT_SOURCE);
+	g_message ("update group %p", sources);
 
 	/* walk the tree group */
 	/* group can be NULL, but we iterate anyway to remove any
@@ -626,8 +634,14 @@ update_group (GbfProjectModel *model, AnjutaProjectGroup *group, GtkTreeIter *it
 					}
 					gtk_tree_path_free (shortcut);
 				}
+			} else if (data->type == GBF_TREE_NODE_SOURCE) {
+				if ((data->id) && (node = g_list_find (sources, data->id))) {
+					sources = g_list_delete_link (sources, node);
+				} else {
+					remove_child = TRUE;
+				}
 			}
-			
+		
 			gbf_tree_data_free (data);
 			if (remove_child)
 				valid = gtk_tree_store_remove (GTK_TREE_STORE (model), &child);
@@ -637,12 +651,16 @@ update_group (GbfProjectModel *model, AnjutaProjectGroup *group, GtkTreeIter *it
 	}
 
 	if (group) {
-		/* add the remaining targets and groups */
+		/* add the remaining sources, targets and groups */
 		for (node = groups; node; node = node->next)
 			add_target_group (model, node->data, iter);
 		
 		for (node = targets; node; node = node->next)
 			add_target (model, node->data, iter);
+
+		g_message ("add sources %p", sources);
+		for (node = sources; node; node = g_list_next (node))
+			add_source (model, node->data, iter);
 	}
 }
 

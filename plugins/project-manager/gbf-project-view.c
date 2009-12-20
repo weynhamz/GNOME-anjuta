@@ -174,7 +174,7 @@ set_pixbuf (GtkTreeViewColumn *tree_column,
 	g_return_if_fail (data != NULL);
 	
 	switch (data->type) {
-		case GBF_TREE_NODE_TARGET_SOURCE:
+		case GBF_TREE_NODE_SOURCE:
 		{
 			pixbuf = get_icon (data->uri);
 			break;

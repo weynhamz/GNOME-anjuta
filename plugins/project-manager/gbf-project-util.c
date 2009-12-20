@@ -824,7 +824,27 @@ gbf_project_util_node_all (AnjutaProjectNode *parent, AnjutaProjectNodeType type
     {
         if (anjuta_project_node_get_type (node) == type)
         {
-            list = g_list_prepend (list, node);
+            gchar *uri = NULL;
+            
+	    switch (anjuta_project_node_get_type (node))
+            {
+            case ANJUTA_PROJECT_GROUP:
+                uri = g_file_get_uri (anjuta_project_group_get_directory (node));
+                break;
+            case ANJUTA_PROJECT_TARGET:
+                uri = anjuta_project_target_get_name (node);
+                break;
+            case ANJUTA_PROJECT_SOURCE:
+                uri = g_file_get_uri (anjuta_project_source_get_file (node));
+                break;
+            default:
+		break;
+            }
+
+            if (uri != NULL)
+            {
+                list = g_list_prepend (list, uri);
+            }
         }
         if (anjuta_project_node_get_type (node) == ANJUTA_PROJECT_GROUP)
         {
