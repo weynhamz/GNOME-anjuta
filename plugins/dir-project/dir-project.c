@@ -42,6 +42,8 @@
 #include <gio/gio.h>
 #include <glib.h>
 
+#define SOURCES_FILE	PACKAGE_DATA_DIR"/sources.list"
+
 struct _DirProject {
 	GObject         parent;
 
@@ -54,6 +56,9 @@ struct _DirProject {
 	
 	/* project files monitors */
 	GHashTable      *monitors;
+
+	/* List of source files pattern */
+	GList	*sources;
 };
 
 /* convenient shortcut macro the get the AnjutaProjectNode from a GNode */
@@ -81,6 +86,38 @@ struct _DirSourceData {
 	AnjutaProjectSourceData base;
 };
 
+/* A file or directory name part of a path */
+typedef struct _DirMatchString DirMatchString;
+
+struct _DirMatchString
+{
+	gchar *string;
+	gchar *reverse;
+	guint length;
+	GFile *file;
+	gboolean parent;
+};
+
+
+/* A pattern used to match a part of a path */
+typedef struct _DirPattern DirPattern;
+
+struct _DirPattern
+{
+	GList *names;
+	gboolean match;
+	gboolean local;
+	gboolean directory;
+};
+
+/* A list of pattern found in one file */
+typedef struct _DirPatternList DirPatternList;
+
+struct _DirPatternList
+{
+	GList *pattern;
+	GFile *directory;
+};
 
 /* ----- Standard GObject types and variables ----- */
 
@@ -326,11 +363,286 @@ project_node_destroy (DirProject *project, AnjutaProjectNode *g_node)
 	
 	if (g_node) {
 		/* free each node's data first */
-		g_message ("destroy for each node %p project %p", g_node, project);
 		anjuta_project_node_all_foreach (g_node,
 				 foreach_node_destroy, project);
-		g_message ("destroy node %p", g_node);
 	}
+}
+
+/* File name objects
+ *---------------------------------------------------------------------------*/
+
+static DirMatchString*
+dir_match_string_new (gchar *string)
+{
+	DirMatchString *str = NULL;
+
+	str = g_slice_new0(DirMatchString);
+	str->length = strlen (string);
+	str->string = string;
+	str->reverse = g_strreverse(g_strdup (string));
+
+	return str;
+}
+
+static void
+dir_match_string_free (DirMatchString *str)
+{
+	g_free (str->string);
+	g_free (str->reverse);
+	if (str->file) g_object_unref (str->file);
+    g_slice_free (DirMatchString, str);
+}
+
+/* Cut a filename is part representing one directory or file name. By example
+ * /home/user/project/foo will be generate a list containing:
+ * foo, project, user, home */
+static GList*
+dir_cut_filename (GFile *file)
+{
+	GList *name_list = NULL;
+
+	g_object_ref (file);
+	do
+	{
+		DirMatchString *str;
+		gchar *name = g_file_get_basename (file);
+
+		if (strcmp(name, G_DIR_SEPARATOR_S) == 0)
+		{
+			g_free (name);
+			g_object_unref (file);
+			break;
+		}
+		
+		str = dir_match_string_new (name);
+		str->file = file;
+
+		name_list = g_list_prepend (name_list, str);
+
+		file = g_file_get_parent (file);
+	}
+	while (file != NULL);
+	
+	name_list = g_list_reverse (name_list);
+	
+	return name_list;
+}
+
+static void
+dir_filename_free (GList *name)
+{
+	g_list_foreach (name, (GFunc)dir_match_string_free, NULL);
+	g_list_free (name);
+}
+
+/* Pattern objects
+ *---------------------------------------------------------------------------*/
+
+/* Create a new pattern matching a directory of a file name in a path */
+ 
+static DirPattern*
+dir_pattern_new (const gchar *pattern, gboolean reverse)
+{
+    DirPattern *pat = NULL;
+	GString *str = g_string_new (NULL);
+	const char *ptr = pattern;
+
+	pat = g_slice_new0(DirPattern);
+	/* Check if it is a reverse pattern */
+	if (*ptr == '!')
+	{
+		pat->match = reverse ? TRUE : FALSE;
+		ptr++;
+	}
+	else
+	{
+		pat->match = reverse ? FALSE : TRUE;
+	}
+	/* Check if the pattern is local */
+	if (*ptr == '/')
+	{
+		pat->local = TRUE;
+		ptr++;
+	}
+	else
+	{
+		pat->local = FALSE;
+	}
+	pat->names = NULL;
+
+	while (*ptr != '\0')
+	{
+		const gchar *next = strchr (ptr, '/');
+
+		if (next == NULL)
+		{
+			pat->names = g_list_prepend (pat->names, g_pattern_spec_new (ptr));
+			break;
+		}
+		else
+		{
+			if (next != ptr)
+			{
+				g_string_overwrite_len (str, 0, ptr, next - ptr);
+				pat->names = g_list_prepend (pat->names, g_pattern_spec_new (str->str));
+			}
+			ptr = next + 1;
+		}
+	}
+	g_string_free (str, TRUE);
+
+	/* Check if the pattern has to match a directory */
+	pat->directory = (ptr != pattern) && (*(ptr-1) == '/');
+
+	return pat;
+}
+
+static void
+dir_pattern_free (DirPattern *pat)
+{
+	g_list_foreach (pat->names, (GFunc)g_pattern_spec_free, NULL);
+	g_list_free (pat->names);
+	
+    g_slice_free (DirPattern, pat);
+}
+
+/* Read a file containing pattern, the syntax is similar to .gitignore file.
+ * 
+ * It is not a regular expression, only * and ? are used as joker.
+ * If the name end with / it will match only a directory.
+ * If the name starts with / it must be relative to the project directory, so
+ * by example /.git/ will match only a directory named .git in the project
+ * directory, while CVS/ will match a directory named CVS anywhere in the
+ * project.
+ * If the name starts with ! the meaning is reversed. In a file containing
+ * matching file, if a pattern starting ! matches, it means that the file has
+ * to be removed from the matching list.
+ * All pattern are read in order, so it is possible to match a group of files
+ * and add pattern afterward to remove some of these files.
+ * A name starting with # is a comment.
+ * All spaces at the beginning of a name are ignored.
+ */
+static GList*
+dir_push_pattern_list (GList *stack, GFile *dir, GFile *file, gboolean ignore, GError **error)
+{
+	char *content;
+	char *ptr;
+	DirPatternList *list = NULL;
+	
+
+	if (!g_file_load_contents (file, NULL, &content, NULL, NULL, error))
+	{
+		return stack;
+	}
+
+	list = g_slice_new0(DirPatternList);
+	list->pattern = NULL;
+	list->directory = dir;
+
+	for (ptr = content; *ptr != '\0';)
+	{
+		gchar *next;
+		
+		next = strchr (ptr, '\n');
+		if (next != NULL) *next = '\0';
+
+		/* Discard space at the beginning */
+		while (isspace (*ptr)) ptr++;
+
+		if ((*ptr != '#') && (ptr != next))
+		{
+			/* Create pattern */
+			DirPattern *pat = NULL;
+
+			if (next != NULL) *next = '\0';
+			pat = dir_pattern_new (ptr, ignore);
+			list->pattern = g_list_prepend (list->pattern, pat);
+		}
+
+		if (next == NULL) break;
+		ptr = next + 1;
+	}
+	g_free (content);
+
+	list->pattern = g_list_reverse (list->pattern);
+	
+	return g_list_prepend (stack, list);
+}
+
+static GList *
+dir_pop_pattern_list (GList *stack)
+{
+	DirPatternList *top = (DirPatternList *)stack->data;
+
+	stack = g_list_remove_link (stack, stack);
+
+	g_list_foreach (top->pattern, (GFunc)dir_pattern_free, NULL);
+	g_list_free (top->pattern);
+	g_object_unref (top->directory);
+    g_slice_free (DirPatternList, top);
+
+	return stack;
+}
+
+static gboolean
+dir_pattern_stack_is_match (GList *stack, GFile *file)
+{
+	gboolean match;
+	GList *list;
+	GList *name_list;
+	gboolean directory;
+
+	/* Create name list from file */
+	name_list = dir_cut_filename (file);
+	
+	directory = g_file_query_file_type (file, G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, NULL) == G_FILE_TYPE_DIRECTORY;
+	/* Include directories by default */
+	match = directory;
+
+	/* Check all valid patterns */
+	for (list = g_list_last (stack); list != NULL; list = g_list_previous (list))
+	{
+		DirPatternList *pat_list = (DirPatternList *)list->data;
+		GList *node;
+
+		/* Mark parent level */
+		for (node = g_list_first (name_list); node != NULL; node = g_list_next (node))
+		{
+			DirMatchString *str = (DirMatchString *)node->data;
+
+			str->parent = g_file_equal (pat_list->directory, str->file);
+		}
+
+		for (node = g_list_first (pat_list->pattern); node != NULL; node = g_list_next (node))
+		{
+			DirPattern *pat = (DirPattern *)node->data;
+			GList *pat_part;
+			GList *name_part;
+			gboolean match_part;
+
+			if (pat->directory && !directory)
+				continue;
+
+			name_part = g_list_first (name_list);
+			for (pat_part = g_list_first (pat->names); pat_part != NULL; pat_part = g_list_next (pat_part))
+			{
+				DirMatchString *part = (DirMatchString *)name_part->data;
+				match_part = g_pattern_match ((GPatternSpec *)pat_part->data, part->length, part->string, part->reverse);
+
+				if (!match_part) break;
+				name_part = g_list_next (name_part);
+			}
+
+			/* Local match are relative to parent directory only */
+			if (match_part && pat->local && (!((DirMatchString *)name_part->data)->parent)) match_part = FALSE;
+
+			if (match_part)	match = pat->match;
+		}
+	}
+
+	dir_filename_free (name_list);
+
+	return match;
 }
 
 static gboolean
@@ -359,8 +671,12 @@ dir_project_list_directory (DirProject *project, DirGroup* parent, GError **erro
 			file = g_file_get_child (DIR_GROUP_DATA (parent)->base.directory, name);
 			g_object_unref (info);
 
+			/* Check if file is a source */
+			if (!dir_pattern_stack_is_match (project->sources, file)) continue;
+			
 			if (g_file_query_file_type (file, G_FILE_QUERY_INFO_NONE, NULL) == G_FILE_TYPE_DIRECTORY)
 			{
+				/* Create a group for directory */
 				DirGroup *group;
 				
 				group = dir_group_new (file);
@@ -371,6 +687,7 @@ dir_project_list_directory (DirProject *project, DirGroup* parent, GError **erro
 			}
 			else
 			{
+				/* Create a source for files */
 				DirSource *source;
 
 				source = dir_source_new (file);
@@ -391,6 +708,7 @@ gboolean
 dir_project_reload (DirProject *project, GError **error) 
 {
 	GFile *root_file;
+	GFile *source_file;
 	DirGroup *group;
 	gboolean ok = TRUE;
 
@@ -399,7 +717,6 @@ dir_project_reload (DirProject *project, GError **error)
 	dir_project_unload (project);
 	project->root_file = root_file;
 	DEBUG_PRINT ("reload project %p root file %p", project, project->root_file);
-	g_message ("reload project %p", project);
 
 	/* shortcut hash tables */
 	project->groups = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
@@ -415,9 +732,13 @@ dir_project_reload (DirProject *project, GError **error)
 
 	group = dir_group_new (root_file);
 	g_hash_table_insert (project->groups, g_file_get_uri (root_file), group);
-	g_message ("project create root node %p", project->root_node);
 	project->root_node = group;
 
+	/* Load source pattern */
+	source_file = g_file_new_for_path (SOURCES_FILE);
+	project->sources = dir_push_pattern_list (NULL, g_object_ref (root_file), source_file, FALSE, NULL);
+	g_object_unref (source_file);
+	
 	dir_project_list_directory (project, group, NULL);
 	
 	monitors_setup (project);
@@ -457,6 +778,12 @@ dir_project_unload (DirProject *project)
 	/* shortcut hash tables */
 	if (project->groups) g_hash_table_destroy (project->groups);
 	project->groups = NULL;
+
+	/* sources patterns */
+	while (project->sources)
+	{
+		project->sources = dir_pop_pattern_list (project->sources);
+	}
 }
 
 gint
@@ -639,6 +966,8 @@ dir_project_instance_init (DirProject *project)
 
 	project->monitors = NULL;
 	project->groups = NULL;
+
+	project->sources = NULL;
 }
 
 static void

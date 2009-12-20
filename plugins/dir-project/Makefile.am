@@ -6,6 +6,10 @@ plugin_ui_DATA =
 plugin_gladedir = $(anjuta_glade_dir)
 plugin_glade_DATA =
 
+# Plugin data file
+plugin_datadir = $(anjuta_data_dir)
+plugin_data_DATA = sources.list
+
 # Plugin icon file
 plugin_pixmapsdir = $(anjuta_image_dir)
 plugin_pixmaps_DATA = dir-project-plugin-48.png
@@ -45,7 +49,8 @@ EXTRA_DIST = \
 	$(plugin_DATA) \
 	$(plugin_ui_DATA) \
 	$(plugin_pixmaps_DATA) \
-	$(plugin_glade_DATA)
+	$(plugin_glade_DATA) \
+	$(plugin_data_DATA)
 
 DISTCLEANFILES = \
 	$(plugin_DATA)

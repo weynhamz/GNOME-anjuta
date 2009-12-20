@@ -329,7 +329,6 @@ add_source (GbfProjectModel    	      *model,
 	GtkTreeIter iter;
 	GbfTreeData *data;
 
-	g_message ("add source");
 	if ((!source) || (anjuta_project_node_get_type (source) != ANJUTA_PROJECT_SOURCE))
 		return;
 	
@@ -581,7 +580,6 @@ update_group (GbfProjectModel *model, AnjutaProjectGroup *group, GtkTreeIter *it
 	groups = gbf_project_util_all_child (group, ANJUTA_PROJECT_GROUP);
 	targets = gbf_project_util_all_child (group, ANJUTA_PROJECT_TARGET);
 	sources = gbf_project_util_all_child (group, ANJUTA_PROJECT_SOURCE);
-	g_message ("update group %p", sources);
 
 	/* walk the tree group */
 	/* group can be NULL, but we iterate anyway to remove any
@@ -658,7 +656,6 @@ update_group (GbfProjectModel *model, AnjutaProjectGroup *group, GtkTreeIter *it
 		for (node = targets; node; node = node->next)
 			add_target (model, node->data, iter);
 
-		g_message ("add sources %p", sources);
 		for (node = sources; node; node = g_list_next (node))
 			add_source (model, node->data, iter);
 	}
