@@ -348,7 +348,7 @@ cpp_java_assist_update_autocomplete (CppJavaAssist *assist)
 		return;
 	}
 
-	if (strlen(assist->priv->pre_word))
+	if (assist->priv->pre_word && strlen(assist->priv->pre_word))
 	{
 	    g_completion_complete (assist->priv->completion_cache, assist->priv->pre_word, NULL);
 
@@ -711,37 +711,91 @@ on_editor_char_added (IAnjutaEditor *editor, IAnjutaIterable *insert_pos,
 	cpp_java_assist_calltip(assist, enable_calltips, (ch == '\b'));
 }
 
+static gboolean
+is_word_or_operator(gchar c)
+{
+	if (is_word_character (c) || c == '.' || c == '-' || c == '>')
+		return TRUE;
+	return FALSE;
+}
+
+
 static IAnjutaIterable*
-cpp_java_parse_expression (CppJavaAssist* assist, IAnjutaIterable* iter)
+cpp_java_parse_expression (CppJavaAssist* assist, IAnjutaIterable* iter, IAnjutaIterable** start_iter)
 {
 	IAnjutaEditor* editor = editor = IANJUTA_EDITOR (assist->priv->iassist);
 	IAnjutaIterable* res = NULL;
-	IAnjutaIterable* start;
-	gint len = 0;
+	IAnjutaIterable* cur_pos = ianjuta_iterable_clone (iter, NULL);
+	gboolean op_start = FALSE;
+	gboolean ref_start = FALSE;
+	gchar* stmt = NULL;
 	
-	gint curr_line = ianjuta_editor_get_line_from_position (editor, iter, NULL);
-	IAnjutaIterable *start_line_iter = 
-		ianjuta_editor_get_line_begin_position (editor, curr_line, NULL);
-
-
-	/* FIXME, this is just an hack */
-	gchar *curr_stmt = ianjuta_editor_get_text (editor, 
-	                                            start_line_iter,
-	                                            iter,
-	                                            NULL);
-
-	if (curr_stmt != NULL) 
+	/* Search for a operator in the current line */
+	do 
 	{
-		DEBUG_PRINT ("current statement is %s", curr_stmt);
-		len = strlen (curr_stmt);
-	}
+		gchar ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL(cur_pos), 0, NULL);
 
-	if (curr_stmt != NULL && (len > 1 && curr_stmt[len-1] == '.') ||
-	    (len > 2 && curr_stmt[len-1] == '>' && curr_stmt[len-2] == '-'))
+		DEBUG_PRINT ("ch == '%c'", ch);
+		
+		if (!is_word_or_operator (ch))
+			break;
+
+		if (ch == '.' || (op_start && ch == '-') || (ref_start && ch == ':'))
+		{
+			/* Found an operator, get the statement and the pre_word */
+			IAnjutaIterable* pre_word_start = ianjuta_iterable_clone (cur_pos, NULL);
+			IAnjutaIterable* pre_word_end = ianjuta_iterable_clone (iter, NULL);
+			IAnjutaIterable* stmt_end = ianjuta_iterable_clone (pre_word_start, NULL);
+
+			/* Move one character forward so we have the start of the pre_word and
+			 * not the last operator */
+			ianjuta_iterable_next (pre_word_start, NULL);
+			/* If this is a two character operator, skip the second character */
+			if (op_start)
+			{
+				ianjuta_iterable_next (pre_word_start, NULL);
+			}
+			/* Move the end character to be behind the current typed character */
+			ianjuta_iterable_next (pre_word_end, NULL);
+			
+			assist->priv->pre_word = ianjuta_editor_get_text (editor,
+			                                                  pre_word_start, pre_word_end, NULL);
+
+			/* Try to get the name of the variable
+			 * FIXME: What about get_widget()-> for example */
+			while (ianjuta_iterable_previous (cur_pos, NULL))
+			{
+				gchar word_ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL(cur_pos), 0, NULL);
+				if (!is_word_character (word_ch))
+					break;
+			}
+			ianjuta_iterable_next (cur_pos, NULL);
+			stmt = ianjuta_editor_get_text (editor,
+			                                cur_pos, stmt_end, NULL);
+			*start_iter = pre_word_start;
+			g_object_unref (stmt_end);
+			break;
+		}
+		else if (ch == '>')
+			op_start = TRUE;
+		else if (ch == ':')
+			ref_start = TRUE;
+		else
+		{
+			op_start = FALSE;
+			ref_start = FALSE;
+		}
+	}
+	while (ianjuta_iterable_previous (cur_pos, NULL));
+
+	if (stmt)
 	{
 		gint lineno;
 		gchar *filename = NULL;
 		gchar *above_text;
+		IAnjutaIterable* start;
+
+		DEBUG_PRINT ("Pre word: %s Statement: %s", assist->priv->pre_word, stmt);
 
 		if (IANJUTA_IS_FILE (assist->priv->iassist))
 		{
@@ -750,18 +804,28 @@ cpp_java_parse_expression (CppJavaAssist* assist, IAnjutaIterable* iter)
 			{
 				filename = g_file_get_path (file);
 			}
+			g_object_unref (file);
 		}
 		start = ianjuta_editor_get_start_position (editor, NULL);
 		above_text = ianjuta_editor_get_text (editor, start, iter, NULL);
+		g_object_unref (start);
 		
 		lineno = ianjuta_editor_get_lineno (editor, NULL);
-
-		res = engine_parser_process_expression (curr_stmt,
-		                                        above_text,
-		                                        filename,
-		                                        lineno);
+		if (!ref_start)
+		{
+			res = engine_parser_process_expression (stmt,
+			                                        above_text,
+			                                        filename,
+			                                        lineno);
+		}
+		else
+		{
+			/* TODO: Add search for things like Gtk:: */
+		}
+		g_free (filename);
+		g_free (stmt);
 	}
-	g_free(curr_stmt);
+	g_object_unref (cur_pos);
 	return res;
 }
 
@@ -774,12 +838,28 @@ cpp_java_assist_populate (IAnjutaProvider* self, IAnjutaIterable* iter, GError**
 	                                                                  PREF_AUTOCOMPLETE_ENABLE,
 	                                                                  TRUE);	
 	editor = IANJUTA_EDITOR (assist->priv->iassist);
+
+	g_free (assist->priv->pre_word);
+	assist->priv->pre_word = NULL;
+
+	ianjuta_iterable_previous (iter, NULL);
 	
 	if (autocomplete)
 	{
 		/* Check for member completion */
+		IAnjutaIterable* start_iter = NULL;
 		IAnjutaIterable* res = 
-			cpp_java_parse_expression (assist, iter);
+			cpp_java_parse_expression (assist, iter, &start_iter);
+		if (start_iter && assist->priv->pre_word && assist->priv->search_cache && res != NULL &&
+		    g_str_has_prefix (assist->priv->pre_word, assist->priv->search_cache))
+		{
+			if (assist->priv->start_iter)
+				g_object_unref (assist->priv->start_iter);
+			assist->priv->start_iter = start_iter;
+			cpp_java_assist_update_autocomplete (assist);
+			g_object_unref (res);
+			return;
+		}
 		/* we should have a res with just one item */
 		if (res != NULL) 
 		{
@@ -791,7 +871,7 @@ cpp_java_assist_populate (IAnjutaProvider* self, IAnjutaIterable* iter, GError**
 				{
 					DEBUG_PRINT ("PARENT Completion Symbol: %s", name);
 
-					/* we have just printer the parent's name */
+					/* we have just printed the parent's name */
 					/* let's get it's members and print them */
 					IAnjutaIterable *children = 
 						ianjuta_symbol_manager_get_members (assist->priv->isymbol_manager,
@@ -803,12 +883,9 @@ cpp_java_assist_populate (IAnjutaProvider* self, IAnjutaIterable* iter, GError**
 						assist->priv->completion_cache = create_completion (assist,
 						                                                    children,
 						                                                    NULL);
-						g_free(assist->priv->pre_word);
-						assist->priv->pre_word = g_strdup("");
 						if (assist->priv->start_iter)
 							g_object_unref (assist->priv->start_iter);
-
-						assist->priv->start_iter = ianjuta_iterable_clone(iter, NULL);
+						assist->priv->start_iter = start_iter;
 						cpp_java_assist_update_autocomplete(assist);
 					}
 				}
@@ -821,28 +898,20 @@ cpp_java_assist_populate (IAnjutaProvider* self, IAnjutaIterable* iter, GError**
 		}
 		
 		/* Normal autocompletion */
-		ianjuta_iterable_previous (iter, NULL);
-		g_free (assist->priv->pre_word);		
-		
-		/* Moved iter to begin of word */
+		/* Moved iter to begin of word */		
 		assist->priv->pre_word = cpp_java_assist_get_pre_word (editor, iter);
 		DEBUG_PRINT ("Pre word: %s", assist->priv->pre_word);
 		
 		if (assist->priv->pre_word && strlen (assist->priv->pre_word) > 3)
-		{
-			
-			
-			if (assist->priv->start_iter)
-				g_object_unref (assist->priv->start_iter);
-			
-			assist->priv->start_iter = ianjuta_iterable_clone(iter, NULL);
-			ianjuta_iterable_next (IANJUTA_ITERABLE (assist->priv->start_iter), NULL);
-			
+		{	
 			if (!assist->priv->search_cache ||
 			    !g_str_has_prefix (assist->priv->pre_word, assist->priv->search_cache))
 			{
+				if (assist->priv->start_iter)
+					g_object_unref (assist->priv->start_iter);
+				assist->priv->start_iter = ianjuta_iterable_clone(iter, NULL);
+				ianjuta_iterable_next (IANJUTA_ITERABLE (assist->priv->start_iter), NULL);
 				cpp_java_assist_create_word_completion_cache(assist);
-				DEBUG_PRINT ("start iter: %d", ianjuta_iterable_get_position (assist->priv->start_iter, NULL));
 				return;
 			}
 			else
