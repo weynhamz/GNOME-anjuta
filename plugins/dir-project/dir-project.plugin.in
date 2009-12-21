@@ -1,6 +1,6 @@
 [Anjuta Plugin]
 _Name=Directory backend
-_Description=Directory backend for project manager
+_Description=Directory project backend, read only source files, use it when other backend fails
 Location=dir-project:DirProjectPlugin
 Icon=dir-project-plugin-48.png
 Interfaces=IAnjutaProjectBackend

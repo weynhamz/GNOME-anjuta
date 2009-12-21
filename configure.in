@@ -797,6 +797,7 @@ plugins/project-wizard/templates/gnome-applet/po/Makefile
 plugins/project-wizard/templates/library/Makefile
 plugins/project-wizard/templates/library/src/Makefile
 plugins/project-wizard/templates/library/po/Makefile
+plugins/project-wizard/templates/directory/Makefile
 plugins/project-wizard/templates/m4/Makefile
 plugins/am-project/Makefile
 plugins/mk-project/Makefile

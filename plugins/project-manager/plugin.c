@@ -1173,9 +1173,9 @@ project_manager_load_gbf (ProjectManagerPlugin *pm_plugin)
 	gchar *basename;
 	const gchar *root_uri;
 	GError *error = NULL;
-	GList *descs = NULL;
 	GList *desc;
 	IAnjutaProjectBackend *backend;
+	gint found = 0;
 	
 	root_uri = pm_plugin->project_root_uri;
 	
@@ -1189,32 +1189,47 @@ project_manager_load_gbf (ProjectManagerPlugin *pm_plugin)
 	
 	DEBUG_PRINT ("loading gbf backend…\n");
 	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN(pm_plugin)->shell, NULL);
-	descs = anjuta_plugin_manager_query (plugin_manager,
-										 "Anjuta Plugin",
-										 "Interfaces",
-										 "IAnjutaProjectBackend",
-										 NULL);
-	backend = NULL;
-	for (desc = g_list_first (descs); desc != NULL; desc = g_list_next (desc)) {
-		AnjutaPluginDescription *backend_desc;
-		gchar *location = NULL;
-		IAnjutaProjectBackend *plugin;
-				
-		backend_desc = (AnjutaPluginDescription *)desc->data;
-		anjuta_plugin_description_get_string (backend_desc, "Anjuta Plugin", "Location", &location);
-		plugin = (IAnjutaProjectBackend *)anjuta_plugin_manager_get_plugin_by_id (plugin_manager, location);
-		g_message ("search plugin %s", location);
-		g_free (location);
 
-		if (ianjuta_project_backend_probe (plugin, dirfile, NULL))
-		{
-			/* Backend found */;
-			backend = plugin;
-			g_message ("Find backend");
-			break;
+	if (!anjuta_plugin_manager_is_active_plugin (plugin_manager, "IAnjutaProjectBackend"))
+	{
+		GList *descs = NULL;
+		
+		descs = anjuta_plugin_manager_query (plugin_manager,
+											 "Anjuta Plugin",
+											 "Interfaces",
+											 "IAnjutaProjectBackend",
+											 NULL);
+		backend = NULL;
+		for (desc = g_list_first (descs); desc != NULL; desc = g_list_next (desc)) {
+			AnjutaPluginDescription *backend_desc;
+			gchar *location = NULL;
+			IAnjutaProjectBackend *plugin;
+			gint backend_val;
+				
+			backend_desc = (AnjutaPluginDescription *)desc->data;
+			anjuta_plugin_description_get_string (backend_desc, "Anjuta Plugin", "Location", &location);
+			plugin = (IAnjutaProjectBackend *)anjuta_plugin_manager_get_plugin_by_id (plugin_manager, location);
+			g_message ("search plugin %s", location);
+			g_free (location);
+
+			backend_val = ianjuta_project_backend_probe (plugin, dirfile, NULL);
+			if (backend_val > found)
+			{
+				/* Backend found */;
+				backend = plugin;
+				found = backend_val;
+			}
 		}
+		g_list_free (descs);
 	}
-	g_list_free (descs);
+	else
+	{
+		/* A backend is already loaded, use it */
+		backend = IANJUTA_PROJECT_BACKEND (anjuta_shell_get_object (ANJUTA_PLUGIN (pm_plugin)->shell,
+                                        "IAnjutaProjectBackend", NULL));
+
+        g_object_ref (backend);
+	}
 	
 	if (!backend)
 	{

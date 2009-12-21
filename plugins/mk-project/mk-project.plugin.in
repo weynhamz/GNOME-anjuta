@@ -1,6 +1,6 @@
 [Anjuta Plugin]
 _Name=Makefile backend
-_Description=Makefile backend for project manager
+_Description=Makefile project backend, allowing only to read the project
 Location=mk-project:MkpPlugin
 Icon=mk-project-plugin-48.png
 Interfaces=IAnjutaProjectBackend
