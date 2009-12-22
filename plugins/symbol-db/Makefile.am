@@ -1,4 +1,4 @@
-SUBDIRS = . anjuta-tags images benchmark test-queries
+SUBDIRS = . anjuta-tags images benchmark
 
 symbol_db_datadir = $(anjuta_data_dir)
 symbol_db_data_DATA = tables.sql

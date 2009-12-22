@@ -108,12 +108,17 @@ anjuta_tags_SOURCES = \
 	vstring.c        \
 	vstring.h        \
 	yacc.c	\
-js_parser/y.tab.c	\
-js_parser/lex.yy.c   \
-js_parser/jsparse.c   \
-js_parser/js-context.c   \
-js_parser/js-node.c
-
+	js_parser/y.tab.c	\
+	js_parser/y.tab.h	\
+	js_parser/lex.yy.c   \
+	js_parser/lex.yy.h	\
+	js_parser/jsparse.c   \
+	js_parser/jsparse.h	\
+	js_parser/js-context.c   \
+	js_parser/js-context.h	\
+	js_parser/js-node.c	\
+	js_parser/js-node.h	\
+	js_parser/jstypes.h
 
 anjuta_tags_LDFLAGS = \
 		$(GLIB_LDFLAGS) \
@@ -123,3 +128,4 @@ anjuta_tags_LDADD = \
 		$(GLIB_LIBS) \
 		$(LIBXML_LIBS)
 
+EXTRA_DIST = ${YACCFILE} ${LEXFILE}

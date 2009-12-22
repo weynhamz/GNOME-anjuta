@@ -50,7 +50,7 @@ plugin_LTLIBRARIES = libjs_support_plugin.la
 
 # Plugin sources
 libjs_support_plugin_la_SOURCES = plugin.c plugin.h code-completion.c code-completion.h util.c util.h \
-y.tab.c y.tab.h lex.yy.c lex.yy.h js-node.c js-node.h js-context.c js-context.h jsparse.c jsparse.h ijs-symbol.h ijs-symbol.c gir-symbol.c gir-symbol.h gi-symbol.c gi-symbol.h simple-symbol.c simple-symbol.h local-symbol.c local-symbol.h  node-symbol.c node-symbol.h import-symbol.c import-symbol.h dir-symbol.c dir-symbol.h std-symbol.c std-symbol.h database-symbol.c database-symbol.h db-anjuta-symbol.c db-anjuta-symbol.h
+y.tab.c y.tab.h lex.yy.c lex.yy.h js-node.c js-node.h js-context.c js-context.h jsparse.c jsparse.h ijs-symbol.h ijs-symbol.c gir-symbol.c gir-symbol.h gi-symbol.c gi-symbol.h simple-symbol.c simple-symbol.h local-symbol.c local-symbol.h  node-symbol.c node-symbol.h import-symbol.c import-symbol.h dir-symbol.c dir-symbol.h std-symbol.c std-symbol.h database-symbol.c database-symbol.h db-anjuta-symbol.c db-anjuta-symbol.h jstypes.h
 
 # Plugin dependencies
 libjs_support_plugin_la_LIBADD = \
