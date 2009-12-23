@@ -5,6 +5,7 @@
 #include "parse.h"
 #include "read.h"
 #include "routines.h"
+#include "string.h"
 #include "vstring.h"
 #include <glib.h>
 #include <assert.h>
