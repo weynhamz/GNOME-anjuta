@@ -14,11 +14,11 @@
 #include <libxml/tree.h>
 
 static kindOption Kinds [] = {
-	{ TRUE,  'f', "function",	  "functions"		   },
-	{ TRUE,  'c', "class",		  "classes"			   },
-	{ TRUE,  'm', "method",		  "methods"			   },
-	{ TRUE,  'p', "property",	  "properties"		   },
-	{ TRUE,  'v', "variable",	  "global variables"   }
+	{ TRUE,  'f', "function",	  "functions"},
+	{ TRUE,  'c', "class",		  "classes"},
+	{ TRUE,  'm', "method",		  "methods"},
+	{ TRUE,  'p', "property",	  "properties"},
+	{ TRUE,  'v', "variable",	  "global variables"}
 };
 
 static void
@@ -51,7 +51,7 @@ parse_function (xmlNode *node, const gchar *parent)
 
 	name = (gchar*)xmlGetProp (node, (xmlChar*)"name");
 	if (!name)
-		return NULL;
+		return;
 
 	tag = (tagEntryInfo*)malloc (sizeof (tagEntryInfo));
 	initTagEntry (tag, name);
@@ -104,7 +104,7 @@ parse_function (xmlNode *node, const gchar *parent)
 	makeTagEntry (tag);
 }
 
-static void makeTags (const xmlNode *node, const gchar *parent);
+static void makeTags (xmlNode *node, const gchar *parent);
 
 static void
 parse_class (xmlNode *node)
@@ -116,11 +116,11 @@ parse_class (xmlNode *node)
 
 	name = (gchar*)xmlGetProp (node, (const xmlChar*)"name");
 	if (!name)
-		return NULL;
+		return;
 
 	tagEntryInfo *tag = (tagEntryInfo*)malloc (sizeof (tagEntryInfo));
 	initTagEntry (tag, name);
-	tag->isFileScope	= 1;
+	tag->isFileScope = 1;
 	tag->kindName = "class";
 	tag->kind = 'c';
 	get_file_pos (node->line, &tag->filePosition, File.fp);
@@ -134,10 +134,8 @@ parse_class (xmlNode *node)
 }
 
 static void
-makeTags (const xmlNode *node, const gchar *parent)
+makeTags (xmlNode *node, const gchar *parent)
 {
-	xmlNode *i;
-	
 	g_assert (node != NULL);
 	g_assert (node->name != NULL);
 
@@ -186,15 +184,13 @@ makeTags (const xmlNode *node, const gchar *parent)
 		makeTagEntry (tag);
 		return;
 	}
-	puts ((const gchar*)node->name);
+//	puts ((const gchar*)node->name);
 //	g_assert_not_reached ();
 }
 
-static boolean
-findTags (const unsigned int passCount)
+static void
+findTags (void)
 {
-	assert (passCount == 1);
-
 	xmlNode *i;
 	xmlDocPtr doc = xmlParseFile(getInputFileName());
 	xmlNode *root;
@@ -215,8 +211,6 @@ findTags (const unsigned int passCount)
 			makeTags (j, NULL);
 		}
 	}
-
-	return 1;
 }
 
 extern parserDefinition*
@@ -226,9 +220,9 @@ GirParser (void)
 	parserDefinition *const def = parserNew ("GObject-Introspection");
 	def->extensions = extensions;
 
-	def->kinds		= Kinds;
-	def->kindCount	= KIND_COUNT (Kinds);
-	def->parser		= findTags;
+	def->kinds = Kinds;
+	def->kindCount = KIND_COUNT (Kinds);
+	def->parser = findTags;
 	def->initialize = initialize;
 
 	return def;

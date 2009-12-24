@@ -103,7 +103,8 @@ js_context_get_last_assignment (JSContext *my_cx, const gchar *name)
 			continue;
 		if (g_strcmp0 (t->name, name) != 0)
 			continue;
-		g_object_ref (t->node);
+		if (t->node)
+			g_object_ref (t->node);
 		return t->node;
 	}
 	for (i = g_list_last (my_cx->childs); i; i = g_list_previous (i))
@@ -442,6 +443,8 @@ interpretator (JSNode *node, JSContext *my_cx, GList **calls)
 					case TOK_ASSIGN:
 					///NOT COMPLETE
 						{
+							if (!node->pn_u.binary.left)
+								break;
 							const gchar *name = js_node_get_name (node->pn_u.binary.left);
 							Var *t = (Var *)g_new (Var, 1);
 							t->name = g_strdup (name);

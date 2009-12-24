@@ -114,6 +114,8 @@ js_node_get_name (JSNode *node)
 			return node->pn_u.name.name;
 			break;
 		case TOK_DOT:
+			if (!node->pn_u.name.expr || !node->pn_u.name.name)
+				return NULL;
 			return g_strdup_printf ("%s.%s", js_node_get_name (node->pn_u.name.expr), js_node_get_name (node->pn_u.name.name));
 			break;
 		default:

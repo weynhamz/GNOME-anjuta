@@ -128,7 +128,7 @@ get_member_list (JSContext *my_cx)
 						symbols = g_list_append (symbols, g_strdup (name));
 						
 						initTagEntry (tag, name);
-						tag->isFileScope	= 1;
+						tag->isFileScope = 1;
 						tag->kindName = "member";
 						tag->kind = 'm';
 						get_file_pos (pos->begin, &tag->filePosition, File.fp);
@@ -175,26 +175,18 @@ get_member_list (JSContext *my_cx)
 
 }
 
-typedef enum {
-	JSTAG_FUNCTION,
-	JSTAG_CLASS,
-	JSTAG_METHOD,
-	JSTAG_PROPERTY,
-	JSTAG_VARIABLE,
-	JSTAG_COUNT
-} jsKind;
-
 static kindOption JsKinds [] = {
-	{ TRUE,  'f', "function",	  "functions"		   },
-	{ TRUE,  'c', "class",		  "classes"			   },
-	{ TRUE,  'm', "method",		  "methods"			   },
-	{ TRUE,  'p', "property",	  "properties"		   },
-	{ TRUE,  'v', "variable",	  "global variables"   }
+	{ TRUE,  'f', "function",	  "functions"},
+	{ TRUE,  'c', "class",		  "classes"},
+	{ TRUE,  'm', "method",		  "methods"},
+	{ TRUE,  'p', "property",	  "properties"},
+	{ TRUE,  'v', "variable",	  "global variables"}
 };
 
 static void
 initialize (const langType language)
 {
+g_log_set_always_fatal(G_LOG_LEVEL_CRITICAL);
 	g_type_init ();
 }
 
@@ -299,10 +291,9 @@ findGlobal (JSContext *my_cx)
 	}
 }
 
-static boolean
-findJsTags (const unsigned int passCount)
+static void
+findJsTags (void)
 {
-	assert (passCount == 1);
 	g_assert (symbols == NULL);
 	g_assert (tags == NULL);
 
@@ -326,8 +317,6 @@ findJsTags (const unsigned int passCount)
 
 	g_list_free (tags);
 	tags = NULL;
-
-	return 1;
 }
 
 extern parserDefinition*
@@ -337,9 +326,9 @@ JavaScriptParser (void)
 	parserDefinition *const def = parserNew ("JavaScript");
 	def->extensions = extensions;
 
-	def->kinds		= JsKinds;
-	def->kindCount	= KIND_COUNT (JsKinds);
-	def->parser		= findJsTags;
+	def->kinds = JsKinds;
+	def->kindCount = KIND_COUNT (JsKinds);
+	def->parser = findJsTags;
 	def->initialize = initialize;
 
 	return def;
