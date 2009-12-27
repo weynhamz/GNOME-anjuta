@@ -45,9 +45,8 @@ struct _JSDbgClass
 };
 
 static gpointer parent_class;
-#undef DEBUG_PRINT
-#define DEBUG_PRINT g_warning
-#define DEBUGGER_PORT 1235
+
+#define DEBUGGER_PORT 2234
 
 static gboolean
 js_debugger_activate (AnjutaPlugin *plugin)
@@ -135,9 +134,13 @@ idebugger_load (IAnjutaDebugger *plugin, const gchar *file, const gchar* mime_ty
 	JSDbg *self = ANJUTA_PLUGIN_JSDBG (plugin);
 	if (self->debugger != NULL)
 		g_object_unref (self->debugger);
-	self->debugger = debugger_js_new (DEBUGGER_PORT, file, plugin);
-	g_signal_connect (self->debugger, "DebuggerError", G_CALLBACK (on_error), self);
-	return TRUE;
+	if ( (self->debugger = debugger_js_new (DEBUGGER_PORT, file, plugin)) )
+	{
+		g_signal_connect (self->debugger, "DebuggerError", G_CALLBACK (on_error), self);
+		return TRUE;
+	}
+	on_error (NULL, _("Error: cant bind port"), self);
+	return FALSE;
 }
 
 static gboolean
@@ -193,7 +196,23 @@ idebugger_connect (IAnjutaDebugger *plugin, const gchar *server, const gchar *ar
 {
 	DEBUG_PRINT ("%s", "connect: Not Implemented");
 	JSDbg *self = ANJUTA_PLUGIN_JSDBG (plugin);
-	debugger_js_start_remote (self->debugger);
+	gint port = DEBUGGER_PORT;
+
+	if (server)
+	{
+		gint len = strlen (server), k;
+
+		for (k = len - 1; k >= 0; k--)
+		{
+			if (server[k] > '9' || server[k] < '0')
+				break;
+			port = port * 10 + server[k] - '0';
+		}
+		k++;
+		if (k != len - 1)
+			sscanf (server + k, "%d", &port);
+	}
+	debugger_js_start_remote (self->debugger, port);
 	return TRUE;
 }
 
@@ -276,7 +295,9 @@ idebugger_interrupt (IAnjutaDebugger *plugin, GError **err)
 {
 	DEBUG_PRINT ("%s", "interrupt: Not Implemented");
 
-	return FALSE;
+	JSDbg *self = ANJUTA_PLUGIN_JSDBG (plugin);
+	debugger_js_stop (self->debugger);
+	return TRUE;
 }
 
 static gboolean

@@ -25,6 +25,10 @@
 #include <unistd.h>
 #include <string.h>
 
+#include <glib.h>
+#include <errno.h>
+#include <glib/gi18n.h>
+
 #include "debugger-server.h"
 
 typedef struct _DebuggerServerPrivate DebuggerServerPrivate;
@@ -35,6 +39,7 @@ struct _DebuggerServerPrivate
 	int server_socket;
 	int socket;
 	gboolean work;
+	guint id;
 };
 
 #define DEBUGGER_SERVER_PRIVATE(o)  (G_TYPE_INSTANCE_GET_PRIVATE ((o), DEBUGGER_TYPE_SERVER, DebuggerServerPrivate))
@@ -45,6 +50,9 @@ enum
 	ERROR_SIGNAL,
 	LAST_SIGNAL
 };
+
+#define CANT_SEND _("App exited unexpectedly.")
+#define CANT_RECV _("App exited unexpectedly.")
 
 
 static guint server_signals[LAST_SIGNAL] = { 0 };
@@ -57,6 +65,7 @@ debugger_server_init (DebuggerServer *object)
 	DebuggerServerPrivate *priv = DEBUGGER_SERVER_PRIVATE (object);
 	priv->in = NULL;
 	priv->out = NULL;
+	priv->id = 0;
 	priv->server_socket = 0;
 	priv->socket = 0;
 	priv->work = TRUE;
@@ -68,6 +77,12 @@ debugger_server_finalize (GObject *object)
 	DebuggerServerPrivate *priv = DEBUGGER_SERVER_PRIVATE (object);
 
 	g_assert (priv);
+	if (priv->socket)
+	{
+		close (priv->socket);
+	}
+	if (priv->id)
+		g_source_remove (priv->id);
 
 	g_list_foreach (priv->in, (GFunc)g_free, NULL);
 	g_list_free (priv->in);
@@ -107,7 +122,7 @@ debugger_server_class_init (DebuggerServerClass *klass)
 		              NULL, NULL,
 		              g_cclosure_marshal_VOID__VOID,
 		              G_TYPE_NONE, 0);
-	server_signals[DATA_ARRIVED] =
+	server_signals[ERROR_SIGNAL] =
 		g_signal_new ("error",
 		              G_OBJECT_CLASS_TYPE (klass),
 		              G_SIGNAL_RUN_FIRST,
@@ -141,7 +156,8 @@ SourceFunc (gpointer d)
 			{
 				if ((priv->socket = accept(priv->server_socket, cp, &sz)) == -1)
 				{
-					g_signal_emit_by_name (object, "error", "Can not accept.", G_TYPE_NONE);
+					g_signal_emit (object, server_signals[ERROR_SIGNAL], 0, "Can not accept.");
+					return FALSE;
 				}
 				close (priv->server_socket);
 			}
@@ -152,7 +168,8 @@ SourceFunc (gpointer d)
 		int len;
 		if (ioctl (priv->socket, FIONREAD, &len) == -1)
 		{
-			g_signal_emit_by_name (object, "error", "Error in ioctl call.", G_TYPE_NONE);
+			g_signal_emit (object, server_signals[ERROR_SIGNAL], 0, "Error in ioctl call.");
+			return FALSE;
 		}
 		if (len > 4)
 		{
@@ -160,51 +177,58 @@ SourceFunc (gpointer d)
 			gchar *buf;
 			if (recv (priv->socket, &len, 4, 0) == -1)
 			{
-				g_signal_emit_by_name (object, "error", "Can not recv.", G_TYPE_NONE);
+				g_signal_emit (object, server_signals[ERROR_SIGNAL], 0, CANT_RECV);
+				return FALSE;
 			}
 			if (len <= 0)
 			{
-				g_signal_emit_by_name (object, "error", "Incorrect data recived.", G_TYPE_NONE);
+				g_signal_emit (object, server_signals[ERROR_SIGNAL], 0, "Incorrect data recived.");
+				return FALSE;
 			}
 			buf = g_new (char, len + 1);
 			do
 			{
 				if (ioctl (priv->socket, FIONREAD, &in) == -1)
 				{
-					g_signal_emit_by_name (object, "error", "Error in ioctl call.", G_TYPE_NONE);
+					g_signal_emit (object, server_signals[ERROR_SIGNAL], 0, "Error in ioctl call.");
+					return FALSE;
 				}
 				if (in < len)
 					usleep (20);
 			} while (in < len);
 			if (recv (priv->socket, buf, len, 0) == -1)
 			{
-				g_signal_emit_by_name (object, "error", "Can not recv.", G_TYPE_NONE);
+				g_signal_emit (object, server_signals[ERROR_SIGNAL], 0, CANT_RECV);
+				return FALSE;
 			}
 			buf [len] = '\0';
 
 			priv->in = g_list_append (priv->in, buf);
-			g_signal_emit_by_name (object, "data-arrived", G_TYPE_NONE);
+			g_signal_emit (object, server_signals[DATA_ARRIVED], 0);
 		}
 		while (priv->out != NULL)
 		{
 			size = strlen ((gchar*)priv->out->data) + 1;
 			if (send(priv->socket, &size, 4, 0) == -1)
 			{
-				g_signal_emit_by_name (object, "error", "Can not send.", G_TYPE_NONE);
+				g_signal_emit (object, server_signals[ERROR_SIGNAL], 0, CANT_SEND);
+				return FALSE;
 			}
 			if (send(priv->socket, priv->out->data, size, 0) == -1)
 			{
-				g_signal_emit_by_name (object, "error", "Can not send.", G_TYPE_NONE);
+				g_signal_emit (object, server_signals[ERROR_SIGNAL], 0, CANT_SEND);
+				return FALSE;
 			}
 			g_free (priv->out->data);
 			priv->out = g_list_delete_link (priv->out, priv->out);
 		}
-g_signal_emit_by_name (object, "data-arrived", G_TYPE_NONE);//TODO:FIX
+g_signal_emit (object, server_signals[DATA_ARRIVED], 0);//TODO:FIX
 	}
 
 	if (!priv->work)
 	{
 		close (priv->socket);
+		priv->socket = 0;
 	}
 	return priv->work;
 }
@@ -227,12 +251,15 @@ debugger_server_new (gint port)
 	serverAddr.sin_addr.s_addr= htonl (INADDR_ANY);
 	serverAddr.sin_port = htons (port);
 	setsockopt (priv->server_socket, IPPROTO_TCP, TCP_NODELAY, (char *) &flag, sizeof(int));
-
 	if (bind (priv->server_socket, ((struct sockaddr*)&serverAddr), sizeof (serverAddr)) == -1)
+	{
+		g_warning("%s\n", strerror(errno));
+		g_object_unref (object);
 		return NULL;
+	}
 	listen (priv->server_socket , 5);
 
-	g_timeout_add (2, (GSourceFunc)SourceFunc, object);
+	priv->id = g_timeout_add (2, (GSourceFunc)SourceFunc, object);
 
 	return object;
 }
@@ -249,7 +276,8 @@ void
 debugger_server_stop (DebuggerServer *object)
 {
 	DebuggerServerPrivate *priv = DEBUGGER_SERVER_PRIVATE (object);
-	priv->work = FALSE;
+	if (priv)
+		priv->work = FALSE;
 }
 
 gchar*

@@ -40,7 +40,7 @@
 #define ICON_FILE "anjuta-language-cpp-java-plugin.png"
 #define UI_FILE ANJUTA_UI_DIR"/anjuta-language-javascript.xml"
 
-#define AUTO_CODECOMPLETE "javascript.auto"
+#define MIN_CODECOMPLETE "javascript.min"
 #define ADD_BRACE_AFTER_FUNCCALL "javascript.add_brace_after_func"
 #define SHOW_CALLTIPS "javascript.show_calltips"
 
@@ -75,6 +75,7 @@ js_support_plugin_activate (AnjutaPlugin *plugin)
 					 on_value_removed_current_editor,
 					 plugin);
 
+	js_support_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	return TRUE;
 }
 
@@ -431,6 +432,15 @@ iprovider_populate (IAnjutaProvider *obj, IAnjutaIterable* iter, GError **err)
 
 	if (!str)
 		return;
+
+	g_assert (plugin->prefs);
+
+	if (strlen (str) < anjuta_preferences_get_int (plugin->prefs, MIN_CODECOMPLETE))
+	{
+		ianjuta_editor_assist_proposals ( IANJUTA_EDITOR_ASSIST (plugin->current_editor), obj,  NULL,  TRUE, NULL);
+		return;
+	}
+
 	gchar *file = file_completion (IANJUTA_EDITOR (plugin->current_editor), &depth);
 	gint i;
 	DEBUG_PRINT ("JSLang: Auto complete for %s (TMFILE=%s)", str, file);
@@ -475,6 +485,7 @@ iprovider_populate (IAnjutaProvider *obj, IAnjutaIterable* iter, GError **err)
 		ianjuta_editor_assist_proposals ( IANJUTA_EDITOR_ASSIST (plugin->current_editor), obj,  nsuggest,  TRUE, NULL);
 		g_list_free (nsuggest);
                 trash = suggestions;
+		return;
 	}
 	ianjuta_editor_assist_proposals ( IANJUTA_EDITOR_ASSIST (plugin->current_editor), obj,  NULL,  TRUE, NULL);
 }

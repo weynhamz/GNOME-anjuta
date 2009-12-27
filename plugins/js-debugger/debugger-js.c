@@ -41,6 +41,7 @@ struct _DebuggerJsPrivate
 	pid_t pid;
 	DebuggerServer *server;
 	GList *task_queue;
+	gint port;
 };
 
 #define DEBUGGER_JS_PRIVATE(o)  (G_TYPE_INSTANCE_GET_PRIVATE ((o), DEBUGGER_TYPE_JS, DebuggerJsPrivate))
@@ -97,6 +98,7 @@ debugger_js_init (DebuggerJs *object)
 	priv->breakpoint = NULL;
 	priv->BID = 1234;
 	priv->pid = 0;
+	priv->port = 0;
 	priv->task_queue = NULL;
 
 	priv->terminal = NULL;
@@ -468,7 +470,7 @@ on_error (DebuggerServer *server, const gchar * error, gpointer user_data)
 	priv->started = TRUE;
 	priv->busy = FALSE;
 
-	g_signal_emit_by_name (object, "DebuggerError", error, G_TYPE_NONE);
+	g_signal_emit (object, js_signals[DEBUGGER_ERROR], 0, error);
 }
 
 DebuggerJs*
@@ -482,14 +484,18 @@ debugger_js_new (int port, const gchar* filename, IAnjutaDebugger *data)
 
 	priv->data = data;
 	priv->terminal = anjuta_shell_get_interface (ANJUTA_PLUGIN (data)->shell, IAnjutaTerminal, NULL);
-	if (priv->terminal)
+	if (!priv->terminal)
 	{
 		g_warning ("Terminal plugin does not installed.");
 	}
 	priv->server = debugger_server_new (port);
+	priv->port = port;
 
 	if (priv->server == NULL)
-		g_error ("Can not create server."); //TODO:FIX THIS
+	{
+		g_object_unref (object);
+		return NULL;
+	}
 	g_signal_connect (priv->server, "data-arrived", G_CALLBACK (on_data_arrived), object);
 	g_signal_connect (priv->server, "error", G_CALLBACK (on_error), object);
 
@@ -529,9 +535,19 @@ debugger_js_set_work_dir (DebuggerJs *object, const gchar* work_dir)
 }
 
 void
-debugger_js_start_remote (DebuggerJs *object)
+debugger_js_start_remote (DebuggerJs *object, gint port)
 {
 	DebuggerJsPrivate *priv = DEBUGGER_JS_PRIVATE(object);
+
+	g_assert (DEBUGGER_IS_SERVER (priv->server));
+	g_object_unref (priv->server);
+	priv->server = debugger_server_new (port);
+	if (!priv->server) {
+		on_error (NULL, _("Error: cant bind port"), object);
+		return;
+	}
+	g_signal_connect (priv->server, "data-arrived", G_CALLBACK (on_data_arrived), object);
+	g_signal_connect (priv->server, "error", G_CALLBACK (on_error), object);
 
 	g_signal_emit_by_name (priv->data, "program-running");
 	priv->started = TRUE;
@@ -558,7 +574,11 @@ debugger_js_start (DebuggerJs *object, const gchar *arguments)
 {
 	DebuggerJsPrivate *priv = DEBUGGER_JS_PRIVATE(object);
 
-	gchar *str = g_strconcat (priv->filename, " --debug 127.0.0.1 ", arguments, NULL);
+	g_assert (priv->port);
+
+	gchar *port = g_strdup_printf ("--js-port %d", priv->port);
+	gchar *str = g_strconcat (priv->filename, " --debug 127.0.0.1 ", port, arguments, NULL);
+	g_free(port);
 
 	g_assert (priv->terminal != NULL);
 
@@ -617,7 +637,8 @@ debugger_js_stop (DebuggerJs *object)
 
 	debugger_server_stop (priv->server);
 	priv->exited = TRUE;
-	kill (priv->pid, SIGKILL);
+	if (priv->pid)
+		kill (priv->pid, SIGKILL);
 	g_signal_emit_by_name (priv->data, "debugger-ready", IANJUTA_DEBUGGER_STOPPED);
 }
 

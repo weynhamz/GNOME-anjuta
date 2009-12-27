@@ -56,7 +56,8 @@ js_context_finalize (GObject *object)
 	JSContext *self = JS_CONTEXT (object);
 	JSContextPrivate *priv = JS_CONTEXT_GET_PRIVATE (self);
 
-	g_object_unref (priv->node);
+	if (priv->node)
+		g_object_unref (priv->node);
 
 	g_list_foreach (self->local_var, (GFunc)g_free, NULL);
 	g_list_free (self->local_var);

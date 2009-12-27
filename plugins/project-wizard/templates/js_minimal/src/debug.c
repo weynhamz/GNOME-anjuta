@@ -327,9 +327,13 @@ variable_get_desc(JSContext * cx, JSObject * obj)
 {
 	gchar *ret = g_strdup("");
 	JSPropertyDescArray pda;
-	JS_GetPropertyDescArray(cx, obj, &pda);
 	uint32 i;
 	gboolean first = TRUE;
+
+	if (!obj)
+		return ret;
+
+	JS_GetPropertyDescArray(cx, obj, &pda);
 
 	for (i = 0; i < pda.length; i++) {
 		JSString *str;
@@ -420,9 +424,11 @@ command_get()
 		if (command_has) {
 			ret = command;
 			command_has--;
-		} else
+			g_mutex_unlock(command_mutex);
+		} else {
+			g_mutex_unlock(command_mutex);
 			usleep(2);
-		g_mutex_unlock(command_mutex);
+		}
 	}
 	return ret;
 }
@@ -433,7 +439,7 @@ NewScriptHook(JSContext * cx, const char *filename, uintN lineno,
 {
 	uintN i;
 	uintN col;
-	if (strstr(filename, ".js") == NULL || strlen(filename) > 10 || !script)
+	if (strstr(filename, ".js") == NULL || strncmp(filename, "/usr/", 5) == 0 || !script)
 		return;
 	DEBUG_PRINT("New Script : %s\n", filename);
 	col = JS_PCToLineNumber(cx, script, script->code + script->length - 1);

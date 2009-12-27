@@ -51,7 +51,7 @@ GType debugger_js_get_type (void) G_GNUC_CONST;
 DebuggerJs* debugger_js_new (int port, const gchar* filename, IAnjutaDebugger *data);
 IAnjutaDebuggerState debugger_js_get_state (DebuggerJs *object);
 void debugger_js_set_work_dir (DebuggerJs *object, const gchar* work_dir);
-void debugger_js_start_remote (DebuggerJs *object);
+void debugger_js_start_remote (DebuggerJs *object, gint port);
 void debugger_js_start (DebuggerJs *object, const gchar *arguments);
 void debugger_js_continue (DebuggerJs *object);
 void debugger_js_stepin (DebuggerJs *object);

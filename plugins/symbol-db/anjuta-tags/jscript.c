@@ -186,7 +186,6 @@ static kindOption JsKinds [] = {
 static void
 initialize (const langType language)
 {
-g_log_set_always_fatal(G_LOG_LEVEL_CRITICAL);
 	g_type_init ();
 }
 

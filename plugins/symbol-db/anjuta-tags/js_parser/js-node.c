@@ -176,8 +176,7 @@ js_node_new_from_file (const gchar *name)
 	JSNodePrivate *priv;
 
 	line_missed_semicolon = NULL;
-	global = g_object_new (JS_TYPE_NODE, NULL);
-	priv = JS_NODE_GET_PRIVATE (global);
+	global = NULL;
 	yyset_lineno (1);
 	YY_BUFFER_STATE b = yy_create_buffer (f, 10000);
 	yy_switch_to_buffer (b);
@@ -187,6 +186,9 @@ js_node_new_from_file (const gchar *name)
 	fclose (f);
 
 	yy_delete_buffer (b);
+	if (!global)
+		return g_object_new (JS_TYPE_NODE, NULL);
+	priv = JS_NODE_GET_PRIVATE (global);
 
 	priv->missed = line_missed_semicolon;
 	return global;
