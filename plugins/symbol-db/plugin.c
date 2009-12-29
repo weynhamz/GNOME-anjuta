@@ -702,8 +702,8 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	{
 		sdb_plugin->buffer_update_semaphore = TRUE;
 	}
-	else
-	{
+	else if (symbol_db_engine_file_exists (sdb_plugin->sdbe_project, local_path) == TRUE)
+	{		
 		symbol_db_view_locals_update_list (
 					SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals),
 					 sdb_plugin->sdbe_project, local_path, FALSE);
@@ -2376,15 +2376,15 @@ symbol_db_activate (AnjutaPlugin *plugin)
 
 	gtk_widget_show_all (sdb_plugin->dbv_hbox);
 	
-	sdb_plugin->progress_bar_project = gtk_progress_bar_new();
+	sdb_plugin->progress_bar_project = gtk_progress_bar_new();	
 	gtk_progress_bar_set_ellipsize (GTK_PROGRESS_BAR(sdb_plugin->progress_bar_project),
-									PANGO_ELLIPSIZE_MIDDLE);
+									PANGO_ELLIPSIZE_MIDDLE);	
 	g_object_ref (sdb_plugin->progress_bar_project);
 	
 	sdb_plugin->progress_bar_system = gtk_progress_bar_new();
 	gtk_progress_bar_set_ellipsize (GTK_PROGRESS_BAR(sdb_plugin->progress_bar_system),
 									PANGO_ELLIPSIZE_MIDDLE);
-	g_object_ref (sdb_plugin->progress_bar_system);
+	g_object_ref (sdb_plugin->progress_bar_system);	
 	
 	gtk_box_pack_start (GTK_BOX (sdb_plugin->dbv_main), sdb_plugin->dbv_notebook,
 						TRUE, TRUE, 0);
@@ -2393,7 +2393,6 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	gtk_box_pack_start (GTK_BOX (sdb_plugin->dbv_main), sdb_plugin->progress_bar_system,
 						FALSE, FALSE, 0);	
 	gtk_widget_show_all (sdb_plugin->dbv_main);
-	
 
 	/* Local symbols */
 	sdb_plugin->scrolled_locals = gtk_scrolled_window_new (NULL, NULL);
@@ -2476,7 +2475,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 							  sdb_plugin->dbv_view_search_tab_label);
 
 	gtk_widget_show_all (sdb_plugin->dbv_notebook);
-	
+
 	/* setting focus to the tree_view*/
 	gtk_notebook_set_current_page (GTK_NOTEBOOK (sdb_plugin->dbv_notebook), 0);
 
@@ -2524,7 +2523,11 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	
 	g_signal_connect (plugin->shell, "save-session", 
 					  G_CALLBACK (on_session_save), plugin);
-		
+
+	/* be sure to hide the progress bars in case no project has been opened. */
+	gtk_widget_hide (sdb_plugin->progress_bar_project);
+	gtk_widget_hide (sdb_plugin->progress_bar_system);	
+	
 	return TRUE;
 }
 
