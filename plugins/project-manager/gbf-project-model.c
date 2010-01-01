@@ -599,6 +599,7 @@ update_group (GbfProjectModel *model, AnjutaProjectGroup *group, GtkTreeIter *it
 {
 	GtkTreeModel *tree_model;
 	GtkTreeIter child;
+	GtkTreePath *shortcut;
 	GList *node;
 	GList *groups;
 	GList *targets;
@@ -627,7 +628,9 @@ update_group (GbfProjectModel *model, AnjutaProjectGroup *group, GtkTreeIter *it
 			/* find the iterating id in the group's children */
 			data = gbf_project_model_get_node (model, &child);
 
-			if (anjuta_project_node_get_type (data) == ANJUTA_PROJECT_GROUP) {
+			switch (anjuta_project_node_get_type (data))
+			{
+			case ANJUTA_PROJECT_GROUP:
 				/* update recursively */
 				update_group (model, data, &child);
 				if (group && (node = g_list_find (groups, data))) {
@@ -635,10 +638,8 @@ update_group (GbfProjectModel *model, AnjutaProjectGroup *group, GtkTreeIter *it
 				} else {
 					remove_child = TRUE;
 				}
-				
-			} else if (anjuta_project_node_get_type (data) == ANJUTA_PROJECT_TARGET) {
-				GtkTreePath *shortcut;
-
+				break;
+			case ANJUTA_PROJECT_TARGET:
 				if (group && (node = g_list_find (targets, data))) {
 					targets = g_list_delete_link (targets, node);
 					/* update recursively */
@@ -663,12 +664,19 @@ update_group (GbfProjectModel *model, AnjutaProjectGroup *group, GtkTreeIter *it
 					}
 					gtk_tree_path_free (shortcut);
 				}
-			} else if (anjuta_project_node_get_type (data)  == ANJUTA_PROJECT_SOURCE) {
+				break;
+			case ANJUTA_PROJECT_SOURCE:
 				if ((data) && (node = g_list_find (sources, data))) {
 					sources = g_list_delete_link (sources, node);
 				} else {
 					remove_child = TRUE;
 				}
+				break;
+			case ANJUTA_PROJECT_UNKNOWN:
+				remove_child = TRUE;
+				break;
+			default:
+				g_return_if_reached ();
 			}
 		
 			if (remove_child)

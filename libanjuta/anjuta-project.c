@@ -153,7 +153,7 @@ anjuta_project_node_prepend (AnjutaProjectNode *parent, AnjutaProjectNode *node)
 AnjutaProjectNodeType
 anjuta_project_node_get_type (const AnjutaProjectNode *node)
 {
-	return NODE_DATA (node)->type;
+	return node == NULL ? ANJUTA_PROJECT_UNKNOWN : NODE_DATA (node)->type;
 }
 
 gchar *
