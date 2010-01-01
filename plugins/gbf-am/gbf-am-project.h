@@ -26,12 +26,14 @@
 
 #include <glib-object.h>
 #include <libanjuta/gbf-project.h>
+#include <libanjuta/interfaces/ianjuta-project.h>
+#include <libanjuta/anjuta-project.h>
 #include <libanjuta/anjuta-plugin.h>
 #include "gbf-am-config.h"
 
 G_BEGIN_DECLS
 
-#define GBF_TYPE_AM_PROJECT		(gbf_am_project_get_type (NULL))
+#define GBF_TYPE_AM_PROJECT		(gbf_am_project_get_type ())
 #define GBF_AM_PROJECT(obj)		(G_TYPE_CHECK_INSTANCE_CAST ((obj), GBF_TYPE_AM_PROJECT, GbfAmProject))
 #define GBF_AM_PROJECT_CLASS(klass)	(G_TYPE_CHECK_CLASS_CAST ((klass), GBF_TYPE_AM_PROJECT, GbfAmProjectClass))
 #define GBF_IS_AM_PROJECT(obj)		(G_TYPE_CHECK_INSTANCE_TYPE ((obj), GBF_TYPE_AM_PROJECT))
@@ -49,6 +51,11 @@ typedef enum {
 } GbfAmNodeType;
 	
 struct _GbfAmNode {
+	union {
+		AnjutaProjectGroupData group;
+		AnjutaProjectTargetData target;
+		AnjutaProjectSourceData source;
+	};
 	GbfAmNodeType       type;
 	gchar              *id;        /* unique id among nodes of the same type */
 	gchar              *name;      /* user visible string */
@@ -106,8 +113,10 @@ struct _GbfAmProjectClass {
 /* convenient shortcut macro the get the GbfAmNode from a GNode */
 #define GBF_AM_NODE(g_node)  ((g_node) != NULL ? (GbfAmNode *)((g_node)->data) : NULL)
 
-GType         gbf_am_project_get_type (GTypeModule *plugin);
-GbfProject   *gbf_am_project_new      (void);
+GType         gbf_am_project_get_type (void);
+IAnjutaProject   *gbf_am_project_new      (void);
+
+gint          gbf_am_project_probe (GFile *file, GError **err);
 
 /* FIXME: The config infrastructure should probably be made part of GbfProject
  * so that other backend implementations could use them directly and we don't

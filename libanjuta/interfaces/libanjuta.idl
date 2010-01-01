@@ -3033,6 +3033,199 @@ interface IAnjutaTerminal
 }
 
 /**
+ * SECTION:ianjuta-project
+ * @title: IAnjutaProject
+ * @short_description: Interface implemented by project backend
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-project-backend.h
+ * 
+ * This is the new interface that is replacing Gnome Build.
+ */
+interface IAnjutaProject
+{
+	#include <libanjuta/anjuta-project.h>
+	#include <gtk/gtk.h>
+
+	/* Types */
+	enum Error
+	{
+		ERROR_SUCCESS = 0,
+		ERROR_DOESNT_EXIST,
+		ERROR_ALREADY_EXISTS,
+		ERROR_VALIDATION_FAILED,
+		ERROR_PROJECT_MALFORMED,
+		ERROR_GENERAL_FAILURE
+	}
+
+	enum Probe
+		PROBE_FILES = 10,
+		PROBE_MAKE_FILES = 100,
+		PROBE_PROJECT_FILES = 200
+	}
+
+	enum Capabilities
+	{
+		CAN_ADD_NONE	= 0,
+		CAN_ADD_GROUP	= 1 << 0,
+		CAN_ADD_TARGET	= 1 << 1,
+		CAN_ADD_SOURCE	= 1 << 2,
+		HAS_PACKAGES	= 1 << 3
+	}
+	
+	/* Signals */
+	
+	/**
+	* IAnjutaProject::project_updated:
+	* @obj: Self
+	* 
+	* This signal is emitted when the project is changed.
+	*/
+	void ::project_updated ();
+
+	/**
+	 * ianjuta_project_load:
+	 * @obj: Self
+	 * @file: Project directory
+	 * @err: Error propagation and reporting
+	 *
+	 * Load a project
+	 *
+	 * Return value: TRUE is loaded without errors
+	 */
+	gboolean load (GFile *file);
+
+	/**
+	 * ianjuta_project_refresh:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Reload the current project
+	 *
+	 * Return value: TRUE is loaded without errors
+	 */
+	gboolean refresh ();
+
+	/**
+	* ianjuta_project_get_capabilities:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	*
+	* Returns the capabilites of project whether it can add group, target
+	* sources etc.
+	*
+	* Returns: Supported capabilites.
+	*/
+	guint get_capabilities ();
+
+	/*
+	 * ianjuta_project_get_target_types
+	 * @obj: Self
+	 * @err: Error propagation and reporting.
+	 *
+	 * Returns: the list of supported target types
+	 */
+	List<AnjutaProjectTargetType> get_target_types();
+	
+	/**
+	* ianjuta_project_configure:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	*
+	* Return a widget that can be use to set any options needed by the project
+	*
+	* Returns: A GtkWidget
+	*/
+	GtkWidget* configure ();
+	
+	/**
+	* ianjuta_project_get_root:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	*
+	* Get the root node of the project (always a group)
+	*
+	* Returns: The new group or NULL on error.
+	*/
+	AnjutaProjectGroup* get_root ();
+
+	/*
+	 * ianjuta_project_get_packages
+	 * @obj: Self
+	 * @err: Error propagation and reporting.
+	 *
+	 * Returns: the list of pkg-config packages that the current project
+	 * requires in it's configure.ac. Can be NULL if there is no project
+	 * opened currently or no package is required.
+	 */
+	List<gchar*> get_packages();
+	
+	/**
+	* ianjuta_project_add_group:
+	* @obj: Self
+	* @parent: parent group
+	* @name: new group name
+	* @err: Error propagation and reporting.
+	*
+	* Create a new group, parent can be NULL.
+	*
+	* Returns: The new group or NULL on error.
+	*/
+	AnjutaProjectGroup* add_group (AnjutaProjectGroup *parent, const gchar *name);
+
+	/**
+	* ianjuta_project_add_target:
+	* @obj: Self
+	* @parent: parent group
+	* @name: new target name
+	* @type: new target type
+	* @err: Error propagation and reporting.
+	*
+	* Create a new target, parent cannot be NULL
+	*
+	* Returns: The new target or NULL on error.
+	*/
+	AnjutaProjectTarget* add_target (AnjutaProjectGroup *parent, const gchar *name, AnjutaProjectTargetType type);
+
+	/**
+	* ianjuta_project_add_source:
+	* @obj: Self
+	* @parent: parent target
+	* @file: source file
+	* @err: Error propagation and reporting.
+	*
+	* Create a new source, parent cannot be NULL
+	*
+	* Returns: The new source or NULL on error.
+	*/
+	AnjutaProjectSource* add_source (AnjutaProjectTarget *parent, GFile *file);
+
+	/**
+	* ianjuta_project_remove_node:
+	* @obj: Self
+	* @node: node to configure
+	* @err: Error propagation and reporting.
+	*
+	* Remove a node (a group, a target or a source) from the project.
+	*
+	* Returns: TRUE if the node has been removed
+	*/
+	gboolean remove_node (AnjutaProjectNode *node);
+
+	/**
+	* ianjuta_project_configure_node:
+	* @obj: Self
+	* @node: node to configure
+	* @err: Error propagation and reporting.
+	*
+	* Return a widget that can be use to set any options needed by this node
+	*
+	* Returns: A GtkWidget
+	*/
+	GtkWidget* configure_node (AnjutaProjectNode *node);
+}
+
+/**
  * SECTION:ianjuta-project-backend
  * @title: IAnjutaProjectBackend
  * @short_description: Interface for creating new project
@@ -3043,7 +3236,7 @@ interface IAnjutaTerminal
  */
 interface IAnjutaProjectBackend
 {
-	#include <libanjuta/gbf-project.h>
+	#include "ianjuta-project.h"
 	
 	/**
 	 * ianjuta_project_backend_new_project:
@@ -3054,7 +3247,22 @@ interface IAnjutaProjectBackend
 	 *
 	 * Return value: An object derived from GbfProject
 	 */
-	GbfProject* new_project ();
+	IAnjutaProject* new_project ();
+
+	
+	/**
+	 * ianjuta_project_backend_probe:
+	 * @obj: Self
+	 * @file: Project directory
+	 * @err: Error propagation and reporting
+	 *
+	 * Check if the directory contains a project supported by this
+	 * backend
+	 *
+	 * Return value: 0 if the project is invalid and > 0 if the
+	 * project is valid. 
+	 */
+	gint probe (GFile *directory);
 }
 
 /**
@@ -3068,6 +3276,10 @@ interface IAnjutaProjectBackend
  */
 interface IAnjutaProjectManager
 {
+
+	#include <libanjuta/anjuta-project.h>
+	#include <libanjuta/interfaces/ianjuta-project.h>
+	
 	/**
 	* IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI
 	*
@@ -3082,30 +3294,6 @@ interface IAnjutaProjectManager
 	*/
 	#define CURRENT_URI		"project_manager_current_uri"
 
-	enum ElementType
-	{
-		UNKNOWN,
-		SOURCE,
-		TARGET,
-		GROUP
-	}
-	
-	enum TargetType
-	{
-		TARGET_UNKNOWN,
-		TARGET_SHAREDLIB,
-		TARGET_STATICLIB,
-		TARGET_EXECUTABLE
-	}
-	
-	enum Capabilities
-	{
-		CAN_ADD_NONE     = 0,
-		CAN_ADD_GROUP    = 1 << 0,
-		CAN_ADD_TARGET   = 1 << 1,
-		CAN_ADD_SOURCE   = 1 << 2
-	}
-	
 	// Signals
 	
 	/**
@@ -3150,7 +3338,7 @@ interface IAnjutaProjectManager
 	*
 	* Returns: fixme
 	*/
-	ElementType get_element_type (const gchar *element_uri);
+	AnjutaProjectNodeType get_element_type (const gchar *element_uri);
 	
 	/**
 	* ianjuta_project_manager_get_elements:
@@ -3162,7 +3350,7 @@ interface IAnjutaProjectManager
 	* 
 	* Returns: fixme
 	*/
-	List<const gchar*> get_elements (ElementType element_type);
+	List<const gchar*> get_elements (AnjutaProjectNodeType element_type);
 	
 	/**
 	* ianjuta_project_manager_get_target_type:
@@ -3174,7 +3362,7 @@ interface IAnjutaProjectManager
 	* 
 	* Returns: fixme
 	*/
-	TargetType get_target_type (const gchar *target_uri);
+	AnjutaProjectTargetClass get_target_type (const gchar *target_uri);
 	
 	/**
 	* ianjuta_project_manager_get_targets:
@@ -3186,7 +3374,7 @@ interface IAnjutaProjectManager
 	* 
 	* Returns: fixme
 	*/
-	List<const gchar*> get_targets (TargetType target_type);
+	List<const gchar*> get_targets (AnjutaProjectTargetClass target_type);
 	
 	/**
 	* ianjuta_project_manager_get_parent:
@@ -3229,7 +3417,7 @@ interface IAnjutaProjectManager
 	* 
 	* fixme
 	*/
-	gchar* get_selected_id (ElementType element_type);
+	gchar* get_selected_id (AnjutaProjectNodeType element_type);
 	
 	/**
 	* ianjuta_project_manager_get_capabilities:
@@ -3241,7 +3429,7 @@ interface IAnjutaProjectManager
 	*
 	* Returns: Supported capabilites.
 	*/
-	Capabilities get_capabilities ();
+	guint get_capabilities ();
 
 	/**
 	* ianjuta_project_manager_add_source:
@@ -3268,7 +3456,7 @@ interface IAnjutaProjectManager
 	*
 	* Returns: element ID. Must be freed when no longer required.
 	*/
-	gchar* add_source_quiet (const gchar *source_uri_to_add, const gchar *target_id);
+	gchar* add_source_quiet (const gchar *source_uri_to_add, const gchar *target_uri);
 	
 	/**
 	* ianjuta_project_manager_add_sources:

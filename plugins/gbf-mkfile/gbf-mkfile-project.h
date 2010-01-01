@@ -31,6 +31,7 @@
 
 #include <glib-object.h>
 #include <libanjuta/gbf-project.h>
+#include <libanjuta/anjuta-project.h>
 #include "gbf-mkfile-config.h"
 
 G_BEGIN_DECLS
@@ -112,6 +113,8 @@ struct _GbfMkfileProjectClass {
 
 GType         gbf_mkfile_project_get_type (GTypeModule *module);
 GbfProject   *gbf_mkfile_project_new      (void);
+
+gint          gbf_mkfile_project_probe (GFile *file, GError **err);
 
 /* FIXME: The config infrastructure should probably be made part of GbfProject
  * so that other backend implementations could use them directly and we don't

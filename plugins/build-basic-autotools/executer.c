@@ -64,8 +64,8 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 		g_return_val_if_fail (pm != NULL, FALSE);
 		exec_targets =
 		ianjuta_project_manager_get_targets (pm, 
-							 IANJUTA_PROJECT_MANAGER_TARGET_EXECUTABLE,
-											 NULL);
+							ANJUTA_TARGET_EXECUTABLE,
+                            NULL);
 		if (!exec_targets)
 		{
 			anjuta_util_dialog_error(GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),

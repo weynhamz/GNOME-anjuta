@@ -1422,7 +1422,7 @@ do_import_project_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);	
 
 	prj_elements_list = ianjuta_project_manager_get_elements (pm,
-					   IANJUTA_PROJECT_MANAGER_SOURCE,
+					   ANJUTA_PROJECT_SOURCE,
 					   NULL);
 	
 	if (prj_elements_list == NULL)
@@ -1588,7 +1588,7 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 									 IAnjutaProjectManager, NULL);	
 
 	prj_elements_list = ianjuta_project_manager_get_elements (pm,
-		   IANJUTA_PROJECT_MANAGER_SOURCE,
+		   ANJUTA_PROJECT_SOURCE,
 		   NULL);
 	
 	/* fill an hash table with all the items of the list just taken. 

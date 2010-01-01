@@ -51,20 +51,27 @@ deactivate_plugin (AnjutaPlugin *plugin)
 /* IAnjutaProjectBackend implementation
  *---------------------------------------------------------------------------*/
 
-static GbfProject*
+static IAnjutaProject*
 iproject_backend_new_project (IAnjutaProjectBackend* backend, GError** err)
 {
-	GbfProject *project;
-	
+	IAnjutaProject *project;
+
 	project = gbf_am_project_new ();
 		
 	return project;
+}
+
+static gint
+iproject_backend_probe (IAnjutaProjectBackend* backend, GFile *directory, GError** err)
+{
+	return gbf_am_project_probe (directory, err);
 }
 
 static void
 iproject_backend_iface_init(IAnjutaProjectBackendIface *iface)
 {
 	iface->new_project = iproject_backend_new_project;
+	iface->probe = iproject_backend_probe;
 }
 
 /* GObject functions
@@ -114,9 +121,4 @@ ANJUTA_PLUGIN_BEGIN (GbfAmPlugin, gbf_am_plugin);
 ANJUTA_PLUGIN_ADD_INTERFACE (iproject_backend, IANJUTA_TYPE_PROJECT_BACKEND);
 ANJUTA_PLUGIN_END;
 
-G_MODULE_EXPORT void
-anjuta_glue_register_components (GTypeModule *module)
-{
-	gbf_am_plugin_get_type (module);
-	gbf_am_project_get_type (module);
-}                     
+ANJUTA_SIMPLE_PLUGIN (GbfAmPlugin, gbf_am_plugin);

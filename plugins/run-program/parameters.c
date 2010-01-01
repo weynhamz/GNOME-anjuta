@@ -678,7 +678,7 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 		if (pm != NULL)
 		{
 			exec_targets = ianjuta_project_manager_get_targets (pm,
-							 IANJUTA_PROJECT_MANAGER_TARGET_EXECUTABLE,
+							 ANJUTA_TARGET_EXECUTABLE,
 							 NULL);
 		}
 		if (exec_targets != NULL)

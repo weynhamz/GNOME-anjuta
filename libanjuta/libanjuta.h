@@ -50,5 +50,6 @@
 #include <libanjuta/anjuta-async-notify.h>
 #include <libanjuta/anjuta-sync-command.h>
 #include <libanjuta/gbf-project.h>
+#include <libanjuta/anjuta-project.h>
 
 #endif

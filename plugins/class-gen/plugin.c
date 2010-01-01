@@ -447,8 +447,8 @@ iwizard_activate (IAnjutaWizard *wiz, G_GNUC_UNUSED GError **err)
 	AnjutaClassGenPlugin *cg_plugin;
 	gchar *user_name;
 	gchar *user_email;
-	IAnjutaProjectManagerCapabilities caps =
-		IANJUTA_PROJECT_MANAGER_CAN_ADD_NONE;
+	IAnjutaProjectCapabilities caps =
+		IANJUTA_PROJECT_CAN_ADD_NONE;
 	
 	cg_plugin = ANJUTA_PLUGIN_CLASS_GEN (wiz);
 
@@ -481,7 +481,7 @@ iwizard_activate (IAnjutaWizard *wiz, G_GNUC_UNUSED GError **err)
 			caps = ianjuta_project_manager_get_capabilities (manager, NULL);
 	}
 
-	if((caps & IANJUTA_PROJECT_MANAGER_CAN_ADD_SOURCE) == FALSE)
+	if((caps & IANJUTA_PROJECT_CAN_ADD_SOURCE) == FALSE)
 	{
 		cg_window_set_add_to_project (cg_plugin->window, FALSE);
 		cg_window_enable_add_to_project (cg_plugin->window, FALSE);

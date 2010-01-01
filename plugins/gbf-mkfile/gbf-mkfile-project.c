@@ -41,6 +41,7 @@
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 #include <libanjuta/gbf-project.h>
+#include <libanjuta/interfaces/ianjuta-project.h>
 #include <libanjuta/anjuta-utils.h>
 #include "gbf-mkfile-project.h"
 #include "gbf-mkfile-config.h"
@@ -3518,6 +3519,27 @@ GbfProject *
 gbf_mkfile_project_new (void)
 {
 	return GBF_PROJECT (g_object_new (GBF_TYPE_MKFILE_PROJECT, NULL));
+}
+
+gint
+gbf_mkfile_project_probe (GFile *file, GError **err)
+{
+	gchar *root_path;
+	gboolean retval = FALSE;
+	
+	/* use _for_commandline_arg to resolve eventually relative path against
+	 * current directory
+	 */
+	root_path = g_file_get_path (file);
+	if ((root_path) != NULL && g_file_test (root_path, G_FILE_TEST_IS_DIR)) {
+		retval = ((file_exists (root_path, "Makefile") ||
+				   file_exists (root_path, "makefile")) &&
+				   !(file_exists (root_path, "Makefile.am") || 
+					 file_exists (root_path, "Makefile.in")));
+	}
+	g_free (root_path);
+
+        return retval ? IANJUTA_PROJECT_PROBE_PROJECT_FILES : 0;
 }
 
 GBF_BACKEND_BOILERPLATE (GbfMkfileProject, gbf_mkfile_project);

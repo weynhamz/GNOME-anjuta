@@ -62,10 +62,18 @@ iproject_backend_new_project (IAnjutaProjectBackend* backend, GError** err)
 	return project;
 }
 
+static gint
+iproject_backend_probe (IAnjutaProjectBackend* backend, GFile *directory, GError** err)
+{
+	g_message ("mkfile probe");
+	return gbf_mkfile_project_probe (directory, err);
+}
+
 static void
 iproject_backend_iface_init(IAnjutaProjectBackendIface *iface)
 {
 	iface->new_project = iproject_backend_new_project;
+	iface->probe = iproject_backend_probe;
 }
 
 /* GObject functions
@@ -115,9 +123,4 @@ ANJUTA_PLUGIN_BEGIN (GbfMkfilePlugin, gbf_mkfile_plugin);
 ANJUTA_PLUGIN_ADD_INTERFACE (iproject_backend, IANJUTA_TYPE_PROJECT_BACKEND);
 ANJUTA_PLUGIN_END;
 
-G_MODULE_EXPORT void
-anjuta_glue_register_components (GTypeModule *module)
-{
-	gbf_mkfile_plugin_get_type (module);
-        gbf_mkfile_project_get_type (module);
-}                     
+ANJUTA_SIMPLE_PLUGIN (GbfMkfilePlugin, gbf_mkfile_plugin);

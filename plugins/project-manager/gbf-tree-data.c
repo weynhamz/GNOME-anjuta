@@ -53,60 +53,70 @@ gbf_tree_data_new_string (const gchar *string)
 }
 
 GbfTreeData *
-gbf_tree_data_new_group (GbfProject *project, const GbfProjectGroup *group)
+gbf_tree_data_new_group (IAnjutaProject *project, AnjutaProjectGroup *group)
 {
 	GbfTreeData *node = g_new0 (GbfTreeData, 1);
-	
+	GFileInfo *ginfo;
+
 	node->type = GBF_TREE_NODE_GROUP;
-	node->name = g_strdup (group->name);
-	node->id = g_strdup (group->id);
+	node->id = group;
+	node->uri = g_file_get_uri (anjuta_project_group_get_directory (group));
+	
+	
+	ginfo = g_file_query_info (anjuta_project_group_get_directory (group),
+	    G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
+	    G_FILE_QUERY_INFO_NONE,
+	    NULL, NULL);
+	if (ginfo)
+	{
+		node->name = g_strdup (g_file_info_get_display_name (ginfo));
+	        g_object_unref(ginfo);
+	}
+	else
+	{
+		node->name = g_strdup ("?");
+	}
 
 	return node;
 }
 
 GbfTreeData *
-gbf_tree_data_new_target (GbfProject *project, const GbfProjectTarget *target)
+gbf_tree_data_new_target (IAnjutaProject *project, AnjutaProjectTarget *target)
 {
 	GbfTreeData *node = g_new0 (GbfTreeData, 1);
 	
 	node->type = GBF_TREE_NODE_TARGET;
-	node->name = g_strdup (target->name);
-	node->id = g_strdup (target->id);
-	node->mime_type = g_strdup (gbf_project_mimetype_for_type (project, target->type));
+	node->id = target;
+	
+	node->name = g_strdup (anjuta_project_target_get_name (target));
+	node->mime_type = g_strdup (anjuta_project_target_type_mime (anjuta_project_target_get_type (target)));
 	
 	return node;
 }
 
 GbfTreeData *
-gbf_tree_data_new_source (GbfProject *project, const GbfProjectTargetSource *source)
+gbf_tree_data_new_source (IAnjutaProject *project, AnjutaProjectSource *source)
 {
 	GbfTreeData *node = g_new0 (GbfTreeData, 1);
-	GFile *file;
-	GFileInfo *file_info;
+	GFileInfo *ginfo;
 	
-	node->type = GBF_TREE_NODE_TARGET_SOURCE;
-	node->id = g_strdup (source->id);
-	node->uri = g_strdup (source->source_uri);
-	node->name = NULL;
+	node->type = GBF_TREE_NODE_SOURCE;
+	node->id = source;
 	
-	file = g_file_new_for_uri (source->source_uri);
-	node->name = g_file_get_basename (file);
-	if (g_file_query_exists (file, NULL))
-	{
-		file_info = g_file_query_info (file, 
-			G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
-			G_FILE_QUERY_INFO_NONE,
-			NULL, NULL);
-		if (file_info)
-		{
-			node->name = g_strdup (g_file_info_get_display_name (file_info));
-		}
-	}
-	g_object_unref (file);
+	node->uri = g_file_get_uri (anjuta_project_source_get_file (source));
 
-	if (node->name == NULL)
+	ginfo = g_file_query_info (anjuta_project_source_get_file (source),
+	    G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
+	    G_FILE_QUERY_INFO_NONE,
+	    NULL, NULL);
+	if (ginfo)
 	{
-		node->name = g_file_get_basename (file);
+		node->name = g_strdup (g_file_info_get_display_name (ginfo));
+	        g_object_unref(ginfo);
+	}
+	else
+	{
+		node->name = g_file_get_basename (anjuta_project_source_get_file (source));
 	}
 
 	return node;
@@ -120,7 +130,7 @@ gbf_tree_data_copy (GbfTreeData *src)
 	node = g_new (GbfTreeData, 1);
 	node->type = src->type;
 	node->name = g_strdup (src->name);
-	node->id = g_strdup (src->id);
+	node->id = src->id;
 	node->uri = g_strdup (src->uri);
 	node->is_shortcut = src->is_shortcut;
 	node->mime_type = g_strdup (src->mime_type);
@@ -133,7 +143,6 @@ gbf_tree_data_free (GbfTreeData *node)
 {
 	if (node) {
 		g_free (node->name);
-		g_free (node->id);
 		g_free (node->uri);
 		g_free (node->mime_type);
 		g_free (node);

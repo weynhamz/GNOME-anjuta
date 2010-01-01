@@ -79,7 +79,10 @@ libanjuta_la_SOURCES= \
 	gbf-project.c \
 	gbf-project.h \
 	anjuta-command-queue.c \
-	anjuta-command-queue.h
+	anjuta-command-queue.h \
+	anjuta-project.c \
+	anjuta-project.h
+
 
 if HAVE_PLUGIN_GLADE
 

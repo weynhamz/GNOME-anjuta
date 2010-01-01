@@ -91,13 +91,13 @@ row_activated (GtkTreeView       *tree_view,
 	if (data->type == GBF_TREE_NODE_TARGET) {
 		g_signal_emit (G_OBJECT (tree_view),
 			       signals [TARGET_SELECTED], 0,
-			       data->id);
+			       data->name);
 	}
 	
 	if (data->type == GBF_TREE_NODE_GROUP) {
 		g_signal_emit (G_OBJECT (tree_view),
 			       signals [GROUP_SELECTED], 0,
-			       data->id);
+			       data->uri);
 	}
 	
 	gbf_tree_data_free (data);
@@ -174,7 +174,7 @@ set_pixbuf (GtkTreeViewColumn *tree_column,
 	g_return_if_fail (data != NULL);
 	
 	switch (data->type) {
-		case GBF_TREE_NODE_TARGET_SOURCE:
+		case GBF_TREE_NODE_SOURCE:
 		{
 			pixbuf = get_icon (data->uri);
 			break;
@@ -309,8 +309,8 @@ gbf_project_view_class_init (GbfProjectViewClass *klass)
 			      G_STRUCT_OFFSET (GbfProjectViewClass,
 					       target_selected),
 			      NULL, NULL,
-			      g_cclosure_marshal_VOID__STRING,
-			      G_TYPE_NONE, 1, G_TYPE_STRING);
+			      g_cclosure_marshal_VOID__POINTER,
+			      G_TYPE_NONE, 1, G_TYPE_POINTER);
 	signals [GROUP_SELECTED] = 
 		g_signal_new ("group_selected",
 			      GBF_TYPE_PROJECT_VIEW,
@@ -318,8 +318,8 @@ gbf_project_view_class_init (GbfProjectViewClass *klass)
 			      G_STRUCT_OFFSET (GbfProjectViewClass,
 					       group_selected),
 			      NULL, NULL,
-			      g_cclosure_marshal_VOID__STRING,
-			      G_TYPE_NONE, 1, G_TYPE_STRING);
+			      g_cclosure_marshal_VOID__POINTER,
+			      G_TYPE_NONE, 1, G_TYPE_POINTER);
 }
 
 static void 
@@ -367,37 +367,39 @@ gbf_project_view_new (void)
 	return GTK_WIDGET (g_object_new (GBF_TYPE_PROJECT_VIEW, NULL));
 }
 
-GbfTreeData *
-gbf_project_view_find_selected (GbfProjectView *view, GbfTreeNodeType type)
+AnjutaProjectNode *
+gbf_project_view_find_selected (GbfProjectView *view, AnjutaProjectNodeType type)
 {
-	GbfTreeData *data = NULL;
 	GtkTreeSelection *selection;
 	GtkTreeModel *model;
-	GtkTreeIter iter, iter2;
+	GtkTreeIter iter;
+	AnjutaProjectNode *node = NULL;
 
 	g_return_val_if_fail (view != NULL, NULL);
 	g_return_val_if_fail (GBF_IS_PROJECT_VIEW (view), NULL);
 	
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
 	if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
-		gtk_tree_model_get (model, &iter,
-				    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
-				    -1);
-		/* walk up the hierarchy searching for a node of the given type */
-		while (NULL != data && data->type != type) {
-			gbf_tree_data_free (data);
-			data = NULL;
-
-			if (!gtk_tree_model_iter_parent (model, &iter2, &iter))
-				break;
+		if (GBF_IS_PROJECT_MODEL (model))
+		{
+			node = gbf_project_model_get_node (GBF_PROJECT_MODEL (model), &iter);
+		}
+		else if (GTK_IS_TREE_MODEL_FILTER (model))
+		{
+			GtkTreeIter child_iter;
 			
-			gtk_tree_model_get (model, &iter2,
-					    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
-					    -1);
-			iter = iter2;
+			gtk_tree_model_filter_convert_iter_to_child_iter (GTK_TREE_MODEL_FILTER (model), &child_iter, &iter);
+			model = gtk_tree_model_filter_get_model (GTK_TREE_MODEL_FILTER (model));
+			node = gbf_project_model_get_node (GBF_PROJECT_MODEL (model), &child_iter);
+		}
+
+		/* walk up the hierarchy searching for a node of the given type */
+		while ((node != NULL) && (anjuta_project_node_get_type (node) != type))
+		{
+			node = anjuta_project_node_parent (node);
 		}
 	}
 
-	return data;
+	return node;
 }
 

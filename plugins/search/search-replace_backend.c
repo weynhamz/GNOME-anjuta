@@ -300,7 +300,7 @@ get_project_file_list(void)
 											IAnjutaProjectManager , NULL);
 		
 		list = ianjuta_project_manager_get_elements (prjman,
-													 IANJUTA_PROJECT_MANAGER_SOURCE,
+													 ANJUTA_PROJECT_SOURCE,
 													 NULL);
 		if (list)
 		{
