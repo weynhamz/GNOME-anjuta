@@ -31,7 +31,8 @@ void engine_parser_init (IAnjutaSymbolManager * manager);
 /**
  * The function parse the C++ statement, try to get the type of objects to be
  * completed and returns an iterator with those symbols.
- * @param stmt A statement like "((FooKlass*) B)."
+ * @param stmt A statement like "((FooKlass*) B).", "foo_klass1->get_foo_klass2 ()->",
+ * "foo_klass1->member2->", etc.
  * @above_text Text of the buffer/file before the statement up to the first byte.
  * @param full_file_path The full path to the file. This is for engine scanning purposes.
  * @param linenum The line number where the statement is.

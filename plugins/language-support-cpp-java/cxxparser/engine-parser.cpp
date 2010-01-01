@@ -24,6 +24,7 @@
 #include "expression-parser.h"
 #include "scope-parser.h"
 #include "variable-parser.h"
+#include "function-parser.h"
 
 #include <string>
 #include <vector>
@@ -256,7 +257,7 @@ EngineParser::getTypeNameAndScopeByToken (ExpressionResult &result,
 
 		/* optimize scope'll clear the scopes leaving the local variables */
 		string optimized_scope = optimizeScope(above_text);
-		cout << "here it is the optimized buffer scope " << optimized_scope << endl;
+/*		cout << "here it is the optimized buffer scope " << optimized_scope << endl;*/
 
 		VariableList li;
 		std::map<std::string, std::string> ignoreTokens;
@@ -473,11 +474,10 @@ EngineParser::processExpression(const string& stmt,
 	string type_name;
 	string type_scope;
 
-	/* first token */
 	cout << "setting text " << stmt.c_str () << " to the tokenizer " << endl;
 	_main_tokenizer->setText (stmt.c_str ());
 
-	/* get the fist one */
+	/* get the first token */
 	nextMainToken (current_token, op);		
 
 	cout << "--------" << endl << "First main token \"" << current_token << "\" with op \"" << op 
@@ -534,7 +534,7 @@ EngineParser::processExpression(const string& stmt,
 	 	 */
 		result = parseExpression (current_token);
 		
-		if (process_res == false)
+		if (process_res == false || curr_searchable_scope == NULL)
 		{
 			cout << "Well, you haven't much luck on the NEXT token, the NEXT token failed and then "  <<
 				"I cannot continue. " << endl;
@@ -575,13 +575,12 @@ EngineParser::processExpression(const string& stmt,
 		}
 		else 
 		{
-			const gchar *sym_kind;
+			gchar *sym_kind;
 			cout << "Good element " << result.m_name << endl;			
 			
 
 			node = IANJUTA_SYMBOL (iter);
-
-			sym_kind = ianjuta_symbol_get_extra_info_string (node, 
+			sym_kind = (gchar*)ianjuta_symbol_get_extra_info_string (node, 
 		    										IANJUTA_SYMBOL_FIELD_KIND, NULL);
 			
 			cout << ".. it has sym_kind \"" << sym_kind << "\"" << endl;
@@ -592,9 +591,10 @@ EngineParser::processExpression(const string& stmt,
 	    		g_strcmp0 (sym_kind, "field") == 0)
 			{
 				iter = switchMemberToContainer (iter);
+				node = IANJUTA_SYMBOL (iter);
+				sym_kind = (gchar*)ianjuta_symbol_get_extra_info_string (node, 
+		    										IANJUTA_SYMBOL_FIELD_KIND, NULL);				
 			}
-
-			node = IANJUTA_SYMBOL (iter);
 			
 			/* check for any typedef */
 			if (g_strcmp0 (ianjuta_symbol_get_extra_info_string (node, 
@@ -602,7 +602,47 @@ EngineParser::processExpression(const string& stmt,
 	    											"typedef") == 0)
 			{			
 				iter = switchTypedefToStruct (iter);
+				node = IANJUTA_SYMBOL (iter);
+				sym_kind = (gchar*)ianjuta_symbol_get_extra_info_string (node, 
+		    										IANJUTA_SYMBOL_FIELD_KIND, NULL);				
 			}
+			
+			/* is it a function or a method? */
+			if (g_strcmp0 (sym_kind, "function") == 0 ||
+			    g_strcmp0 (sym_kind, "method") == 0 ||
+			    g_strcmp0 (sym_kind, "prototype") == 0)
+			{
+
+				string func_ret_type_name = 
+					ianjuta_symbol_get_returntype (node, NULL);
+
+				string func_signature = 
+					ianjuta_symbol_get_args (node, NULL);
+				
+				func_ret_type_name += " " + result.m_name + func_signature + "{}";
+
+				FunctionList li;
+				std::map<std::string, std::string> ignoreTokens;
+				get_functions (func_ret_type_name, li, ignoreTokens);
+
+				cout << "functions found are..." << endl;
+				for (FunctionList::reverse_iterator func_iter = li.rbegin(); 
+				     func_iter != li.rend(); 
+				     func_iter++) 
+				{
+					Function var = (*func_iter);
+					var.print ();			
+				}
+				
+			
+				g_object_unref (iter);
+
+				cout << "going to look for the following function ret type " << 
+					func_ret_type_name << endl;
+
+				iter = getCurrentSearchableScope (li.front().m_returnValue.m_type,
+				                                  type_scope);
+			}			               
 			
 			/* remove the 'old' curr_searchable_scope and replace with 
 			 * this new one

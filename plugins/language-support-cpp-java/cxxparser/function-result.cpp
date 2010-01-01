@@ -2,7 +2,7 @@
 /*
  * anjuta
  * Copyright (C) Eran Ifrah (Main file for CodeLite www.codelite.org/ )
- * Copyright (C) Massimo Cora' 2009 <maxcvs@email.it> (Customizations for Anjuta)
+ * Copyright (C) Massimo Cora' 2009-2010 <maxcvs@email.it> (Customizations for Anjuta)
  * 
  * anjuta is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -20,16 +20,16 @@
 
 #include "function-result.h"
 
-clFunction::clFunction()
+Function::Function()
 {
 	reset();
 }
 
-clFunction::~clFunction()
+Function::~Function()
 {
 }
 
-void clFunction::reset()
+void Function::reset()
 {
 	m_name = "";
 	m_scope = "";
@@ -43,7 +43,7 @@ void clFunction::reset()
 	m_isConst = false;
 }
 
-void clFunction::print()
+void Function::print()
 {
 	fprintf(	
 				stdout, "{m_name=%s, m_isConst=%s, m_lineno=%d, m_scope=%s, m_signature=%s, m_isVirtual=%s, m_isPureVirtual=%s, m_retrunValusConst=%s\nm_returnValue=", 
