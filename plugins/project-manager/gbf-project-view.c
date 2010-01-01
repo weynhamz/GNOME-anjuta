@@ -99,8 +99,6 @@ row_activated (GtkTreeView       *tree_view,
 			       signals [GROUP_SELECTED], 0,
 			       data->uri);
 	}
-	
-	gbf_tree_data_free (data);
 }
 
 static void
@@ -165,7 +163,6 @@ set_pixbuf (GtkTreeViewColumn *tree_column,
 	    GtkTreeIter       *iter,
 	    gpointer           user_data)
 {
-	//GbfProjectView *view = GBF_PROJECT_VIEW (user_data);
 	GbfTreeData *data = NULL;
 	GdkPixbuf *pixbuf = NULL;
 	
@@ -202,8 +199,6 @@ set_pixbuf (GtkTreeViewColumn *tree_column,
 	g_object_set (GTK_CELL_RENDERER (cell), "pixbuf", pixbuf, NULL);
 	if (pixbuf)
 		g_object_unref (pixbuf);
-
-	gbf_tree_data_free (data);
 }
 
 static void
@@ -215,10 +210,9 @@ set_text (GtkTreeViewColumn *tree_column,
 {
 	GbfTreeData *data;
   
-	gtk_tree_model_get (model, iter, 0, &data, -1);
+	gtk_tree_model_get (model, iter, GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
 	g_object_set (GTK_CELL_RENDERER (cell), "text", 
 		      data->name, NULL);
-	gbf_tree_data_free (data);
 }
 
 static gboolean
@@ -229,10 +223,9 @@ search_equal_func (GtkTreeModel *model, gint column,
 	GbfTreeData *data;
 	gboolean ret = TRUE;
 		     
-	gtk_tree_model_get (model, iter, 0, &data, -1);
+	gtk_tree_model_get (model, iter, GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
 	if (strncmp (data->name, key, strlen (key)) == 0)
 	    ret = FALSE;
-	gbf_tree_data_free (data);
 	return ret;
 }
 

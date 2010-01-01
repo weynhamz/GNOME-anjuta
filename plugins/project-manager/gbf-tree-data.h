@@ -30,8 +30,6 @@
 
 G_BEGIN_DECLS
 
-#define GBF_TYPE_TREE_DATA			(gbf_tree_data_get_type ())
-
 typedef struct _GbfTreeData GbfTreeData;
 
 typedef enum {
@@ -51,7 +49,6 @@ struct _GbfTreeData
 	gchar           	*mime_type;
 };
 
-GType          gbf_tree_data_get_type            (void);
 GbfTreeData   *gbf_tree_data_new_string          (const gchar            *string);
 GbfTreeData   *gbf_tree_data_new_group           (IAnjutaProject         *project,
 						  AnjutaProjectGroup     *group);

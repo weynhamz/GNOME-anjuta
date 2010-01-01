@@ -28,18 +28,6 @@
 #include <gio/gio.h>
 #include "gbf-tree-data.h"
 
-GType
-gbf_tree_data_get_type (void)
-{
-    static GType our_type = 0;
-  
-    if (our_type == 0)
-        our_type = g_boxed_type_register_static ("GbfProjectTreeNodeData",
-                                                 (GBoxedCopyFunc) gbf_tree_data_copy,
-                                                 (GBoxedFreeFunc) gbf_tree_data_free);
-
-    return our_type;
-}
 
 GbfTreeData *
 gbf_tree_data_new_string (const gchar *string)

@@ -70,7 +70,6 @@ groups_filter_fn (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
     gtk_tree_model_get (model, iter,
                         GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
     retval = (data && data->type == GBF_TREE_NODE_GROUP);
-    gbf_tree_data_free (data);
     
     return retval;
 }
@@ -446,7 +445,6 @@ targets_filter_fn (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
     retval = (data && !data->is_shortcut &&
               (data->type == GBF_TREE_NODE_GROUP ||
                data->type == GBF_TREE_NODE_TARGET));
-    gbf_tree_data_free (data);
     
     return retval;
 }
