@@ -3825,8 +3825,6 @@ iproject_add_group (IAnjutaProject *obj, AnjutaProjectGroup *parent,  const gcha
 	gchar *id;
 	AnjutaProjectNode *g_node = NULL;
 	
-	g_message ("iproject_add_group");
-
 	id = gbf_project_add_group (GBF_PROJECT (obj), GBF_AM_NODE (parent)->id, name, err);
 
 	if (id != NULL)
@@ -3845,8 +3843,6 @@ iproject_add_target (IAnjutaProject *obj, AnjutaProjectGroup *parent,  const gch
 	AnjutaProjectNode *g_node = NULL;
 	GbfAmTargetInformation *target;
 	
-	g_message ("iproject_add_target");
-
 	for (target = GbfAmTargetTypes; target->base.name != NULL; target++) if ((char *)type == (char *)target) break;
 	id = gbf_project_add_target (GBF_PROJECT (obj), GBF_AM_NODE (parent)->id, name, target->detail, err);
 
@@ -3866,8 +3862,6 @@ iproject_add_source (IAnjutaProject *obj, AnjutaProjectTarget *parent,  GFile *f
 	gchar *uri;
 	AnjutaProjectNode *g_node = NULL;
 	
-	g_message ("iproject_add_source");
-
 	uri = g_file_get_uri (file);
 	id = gbf_project_add_source (GBF_PROJECT (obj), GBF_AM_NODE (parent)->id, uri, err);
 	g_free (uri);
@@ -3884,8 +3878,6 @@ iproject_add_source (IAnjutaProject *obj, AnjutaProjectTarget *parent,  GFile *f
 static GtkWidget* 
 iproject_configure (IAnjutaProject *obj, GError **error)
 {
-	g_message ("iproject_configure");
-	
         return gbf_project_configure (GBF_PROJECT (obj), error);
 }
 
@@ -3904,8 +3896,6 @@ iproject_get_packages (IAnjutaProject *obj, GError **err)
 	GList *packages;
 	GList* node;
 	GHashTable *all = g_hash_table_new (g_str_hash, g_str_equal);
-	
-	g_message ("iproject_get_packages");
 	
 	modules = gbf_project_get_config_modules (GBF_PROJECT (obj), NULL);
 	for (node = modules; node != NULL; node = g_list_next (node))
@@ -3932,7 +3922,6 @@ iproject_get_root (IAnjutaProject *obj, GError **err)
 {
 	AnjutaProjectGroup *root;
 	
-	g_message ("iproject_get_root");
 	root = (AnjutaProjectGroup *)((GbfAmProject *)obj)->root_node;
 		
 	return root;
@@ -3943,8 +3932,6 @@ iproject_get_target_types (IAnjutaProject *obj, GError **err)
 {
 	GbfAmTargetInformation *targets = &GbfAmTargetTypes[1];	 /* Skip unknown target */
         GList *types = NULL;
-
-	g_message ("iproject_get_target_types"); 
 
         while (targets->base.name != NULL)
         {
@@ -3963,8 +3950,6 @@ iproject_load (IAnjutaProject *obj, GFile *file, GError **error)
 	gboolean ok;
 	gchar *uri;
 	
-	g_message ("iproject_load");
-
 	uri = g_file_get_uri (file);
 	gbf_project_load (GBF_PROJECT (obj), uri, &err);
 	g_free (uri);
@@ -3980,8 +3965,6 @@ iproject_refresh (IAnjutaProject *obj, GError **error)
 	GError *err = NULL;
 	gboolean ok;
 	
-	g_message ("iproject_refresh");
-
 	gbf_project_refresh (GBF_PROJECT (obj), &err);
 	ok = err == NULL;
 	if (err != NULL) g_propagate_error (error, err);
@@ -3995,8 +3978,6 @@ iproject_remove_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err
 	GError *err = NULL;
 	gboolean ok;
 	
-	g_message ("iproject_remove_node");
-
 	switch (ANJUTA_PROJECT_NODE_DATA (node)->type)
 	{
 		case ANJUTA_PROJECT_GROUP:
@@ -4024,8 +4005,6 @@ iproject_configure_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **
 	GError *err = NULL;
 	GtkWidget *wid = NULL;
 	
-	g_message ("iproject_configure_node");
-
 	switch (ANJUTA_PROJECT_NODE_DATA (node)->type)
 	{
 		case ANJUTA_PROJECT_GROUP:
