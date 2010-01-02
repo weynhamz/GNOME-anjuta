@@ -96,7 +96,7 @@ setup_groups_treeview (GbfProjectModel    *model,
     if (select_group && gbf_project_model_find_id (model, &iter,
                                                    GBF_TREE_NODE_GROUP, select_group)) {
         GtkTreeIter iter_filter;
-        
+
         gtk_tree_model_filter_convert_child_iter_to_iter (
             GTK_TREE_MODEL_FILTER (filter), &iter_filter, &iter);
         path = gtk_tree_model_get_path (filter, &iter_filter);
@@ -790,7 +790,7 @@ gbf_project_util_all_child (AnjutaProjectNode *parent, AnjutaProjectNodeType typ
  
     for (node = anjuta_project_node_first_child (parent); node != NULL; node = anjuta_project_node_next_sibling (node))
     {
-        if (anjuta_project_node_get_type (node) == type)
+        if ((type == ANJUTA_PROJECT_UNKNOWN) || (anjuta_project_node_get_type (node) == type))
         {
             list = g_list_prepend (list, node);
         }

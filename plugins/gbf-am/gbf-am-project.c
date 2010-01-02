@@ -3941,7 +3941,7 @@ iproject_get_root (IAnjutaProject *obj, GError **err)
 static GList* 
 iproject_get_target_types (IAnjutaProject *obj, GError **err)
 {
-	GbfAmTargetInformation *targets = GbfAmTargetTypes;
+	GbfAmTargetInformation *targets = &GbfAmTargetTypes[1];	 /* Skip unknown target */
         GList *types = NULL;
 
 	g_message ("iproject_get_target_types"); 

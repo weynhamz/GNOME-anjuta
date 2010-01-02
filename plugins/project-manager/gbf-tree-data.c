@@ -72,9 +72,13 @@ GbfTreeData *
 gbf_tree_data_new_target (IAnjutaProject *project, AnjutaProjectTarget *target)
 {
 	GbfTreeData *node = g_new0 (GbfTreeData, 1);
+	AnjutaProjectGroup *group;
 	
 	node->type = GBF_TREE_NODE_TARGET;
 	node->id = target;
+
+	group = (AnjutaProjectGroup *)anjuta_project_node_parent (target);
+	node->uri = g_file_get_uri (anjuta_project_group_get_directory (group));	
 	
 	node->name = g_strdup (anjuta_project_target_get_name (target));
 	node->mime_type = g_strdup (anjuta_project_target_type_mime (anjuta_project_target_get_type (target)));

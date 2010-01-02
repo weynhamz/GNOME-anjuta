@@ -609,7 +609,7 @@ on_popup_add_target (GtkAction *action, ProjectManagerPlugin *plugin)
 	update_operation_begin (plugin);
 	selected_group = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
 					 					   			 ANJUTA_PROJECT_GROUP);
-	
+
 	new_target = gbf_project_util_new_target (plugin->model,
 											 get_plugin_parent_window (plugin),
 											 selected_group, NULL);
