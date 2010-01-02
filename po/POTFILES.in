@@ -90,6 +90,7 @@ plugins/gbf-am/gbf-am-properties.c
 plugins/gbf-mkfile/gbf-mkfile-config.c
 plugins/gbf-mkfile/gbf-mkfile-project.c
 plugins/gbf-mkfile/gbf-mkfile-properties.c
+plugins/dir-project/dir-project.c
 plugins/gdb/debugger.c
 plugins/gdb/plugin.c
 plugins/gdb/utilities.c

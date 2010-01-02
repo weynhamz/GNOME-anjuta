@@ -1,0 +1,11 @@
+[Anjuta Plugin]
+_Name=Directory backend
+_Description=Directory project backend, get only source files, use it when other backend fails
+Location=dir-project:DirProjectPlugin
+Icon=dir-project-plugin-48.png
+Interfaces=IAnjutaProjectBackend
+Dependencies=anjuta-project-manager:ProjectManagerPlugin
+UserActivatable=no
+
+[Project]
+Supported-Project-Types=directory

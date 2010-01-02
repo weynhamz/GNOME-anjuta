@@ -1,11 +1,18 @@
 <?xml version="1.0"?>
 <anjuta>
-    <plugin name="GBF Project Manager"
+	<plugin name="GBF Project Manager"
             url="http://anjuta.org/plugins/"
             mandatory="yes">
 		<require group="Anjuta Plugin"
                  attribute="Interfaces"
                  value="IAnjutaProjectManager"/>
+	</plugin>
+	<plugin name="AutoTools Project Backend"
+            url="http://anjuta.org/plugins/"
+            mandatory="yes">
+		<require group="Anjuta Plugin"
+                 attribute="Interfaces"
+                 value="IAnjutaProjectBackend"/>
 		<require group="Project"
                  attribute="Supported-Project-Types"
                  value="automake"/>

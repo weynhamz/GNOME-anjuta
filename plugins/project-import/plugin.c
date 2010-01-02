@@ -27,7 +27,6 @@
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 #include <libanjuta/interfaces/ianjuta-project-backend.h>
 #include <libanjuta/interfaces/ianjuta-vcs.h>
-#include <libanjuta/gbf-project.h>
 #include <libanjuta/anjuta-async-notify.h>
 
 #include "plugin.h"
@@ -37,6 +36,7 @@
 
 #define AM_PROJECT_FILE PACKAGE_DATA_DIR"/project/terminal/project.anjuta"
 #define MKFILE_PROJECT_FILE PACKAGE_DATA_DIR"/project/mkfile/project.anjuta"
+#define DIRECTORY_PROJECT_FILE PACKAGE_DATA_DIR"/project/directory/project.anjuta"
 
 static gpointer parent_class;
 
@@ -54,6 +54,8 @@ project_import_generate_file (AnjutaProjectImportPlugin* import_plugin, ProjectI
 		source_file = g_file_new_for_path (AM_PROJECT_FILE);
 	else if (!strcmp (import_plugin->backend_id, "make"))
 		source_file = g_file_new_for_path (MKFILE_PROJECT_FILE);
+	else if (!strcmp (import_plugin->backend_id, "directory"))
+		source_file = g_file_new_for_path (DIRECTORY_PROJECT_FILE);
 	else
 	{
 		/* We shouldn't get here, unless someone has upgraded their GBF */
@@ -153,47 +155,61 @@ project_import_import_project (AnjutaProjectImportPlugin *import_plugin, Project
 	GList *desc;
 	AnjutaPluginDescription *backend;
 	gchar *name, *project_file_name;
-	
+
+	/* Search for all valid project backend */
 	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN(import_plugin)->shell, NULL);
 	descs = anjuta_plugin_manager_query (plugin_manager,
 										 "Anjuta Plugin",
 										 "Interfaces",
 										 "IAnjutaProjectBackend",
 										 NULL);	
-	for (desc = g_list_first (descs); desc != NULL; desc = g_list_next (desc)) {
+	for (desc = g_list_first (descs); desc != NULL;) {
 		IAnjutaProjectBackend *plugin;
 		gchar *location = NULL;
-		GbfProject* proj;	
+		GList *next;
 		
 		backend = (AnjutaPluginDescription *)desc->data;
 		anjuta_plugin_description_get_string (backend, "Anjuta Plugin", "Location", &location);
 		plugin = (IAnjutaProjectBackend *)anjuta_plugin_manager_get_plugin_by_id (plugin_manager, location);
 		g_free (location);
 
-		/* Probe the backend to find out if the project directory is OK */
-		/* If probe() returns TRUE then we have a valid backend */
+		next = g_list_next (desc);
 		
-		proj= ianjuta_project_backend_new_project (plugin, NULL);
-		if (proj)
+		/* Probe the project directory to find if the backend can handle it */
+		if (ianjuta_project_backend_probe (plugin, source_dir, NULL) <= 0)
 		{
-			gchar *path;
-
-			path = g_file_get_path (source_dir);
-			if (gbf_project_probe (proj, path, NULL))
-			{
-				/* This is a valid backend for this root directory */
-				/* FIXME: Possibility of more than one valid backend? */
-				break;
-			}
-			g_object_unref (proj);
-			g_free (path);
+			/* Remove invalid backend */
+			descs = g_list_delete_link (descs, desc);
 		}
-		plugin = NULL;
+
+		desc = next;
+	}
+
+	if (descs == NULL)
+	{
 		backend = NULL;
 	}
+	else if (g_list_next (descs) == NULL)
+	{
+		backend =  (AnjutaPluginDescription *)descs->data;
+	}
+	else
+	{
+		/* Several backend are possible, ask the user to select one */
+		gchar *path = project_import_dialog_get_name (import_dialog);
+		gchar* message = g_strdup_printf (_("Please select a project backend to open %s."), path);
+		
+		g_free (path);
+		
+        backend = anjuta_plugin_manager_select (plugin_manager,
+		    _("Open With"),
+		    message,
+		    descs);
+		g_free (message);
+	}
 	g_list_free (descs);
-	
-	if (!backend)
+
+	if (backend == NULL)
 	{
 		gchar *path = project_import_dialog_get_name (import_dialog);
 

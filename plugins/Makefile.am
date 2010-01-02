@@ -31,6 +31,7 @@ SUBDIRS = . \
 	run-program \
 	gbf-am \
 	gbf-mkfile \
+	dir-project \
 	starter \
 	js-debugger \
 	language-support-js
