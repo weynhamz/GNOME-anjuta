@@ -809,18 +809,16 @@ gbf_project_util_node_all (AnjutaProjectNode *parent, AnjutaProjectNodeType type
  
     for (node = anjuta_project_node_first_child (parent); node != NULL; node = anjuta_project_node_next_sibling (node))
     {
+        GList *child_list;
+        
         if (anjuta_project_node_get_type (node) == type)
         {
             list = g_list_prepend (list, node);
         }
-        if (anjuta_project_node_get_type (node) == ANJUTA_PROJECT_GROUP)
-        {
-            GList *child_list;
  
-            child_list = gbf_project_util_node_all (node, type);
-            child_list = g_list_reverse (child_list);
-            list = g_list_concat (child_list, list);
-        }
+        child_list = gbf_project_util_node_all (node, type);
+        child_list = g_list_reverse (child_list);
+        list = g_list_concat (child_list, list);
     }
  
     list = g_list_reverse (list);
