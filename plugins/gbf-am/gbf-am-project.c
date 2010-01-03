@@ -186,65 +186,66 @@ static GbfProject *parent_class;
 typedef struct {
 	AnjutaProjectTargetInformation base;
 	const gchar *detail;
+	gboolean implemented;
 } GbfAmTargetInformation;
 
 static GbfAmTargetInformation GbfAmTargetTypes[] = {
 	{{N_("Unknown"), ANJUTA_TARGET_UNKNOWN,
-	"text/plain"}, NULL},
+	"text/plain"}, NULL, FALSE},
 
 	{{N_("Program"), ANJUTA_TARGET_EXECUTABLE,
-	"application/x-executable"}, "program"},
+	"application/x-executable"}, "program", TRUE},
 
 	{{N_("Static Library"), ANJUTA_TARGET_STATICLIB,
-	"application/x-archive"}, "static_lib"},
+	"application/x-archive"}, "static_lib", TRUE},
 	
 	{{N_("Shared Library"), ANJUTA_TARGET_SHAREDLIB,
-	"application/x-sharedlib"}, "shared_lib"},
+	"application/x-sharedlib"}, "shared_lib", TRUE},
 
 	{{N_("Man Documentation"), ANJUTA_TARGET_MAN,
-	"text/x-troff-man"}, "man"},
+	"text/x-troff-man"}, "man", FALSE},
 
 	{{N_("Miscellaneous Data"), ANJUTA_TARGET_DATA,
-	"application/octet-stream"}, "data"},
+	"application/octet-stream"}, "data", TRUE},
 
 	{{N_("Script"), ANJUTA_TARGET_EXECUTABLE,
-	"text/x-shellscript"}, "script"},
+	"text/x-shellscript"}, "script", FALSE},
 
 	{{N_("Info Documentation"), ANJUTA_TARGET_INFO,
-	"application/x-tex-info"}, "info"},
+	"application/x-tex-info"}, "info", FALSE},
 
 	{{N_("Lisp Module"), ANJUTA_TARGET_LISP,
-	"text/plain"}, "lisp"},
+	"text/plain"}, "lisp", FALSE},
 	
 	{{N_("Header Files"), ANJUTA_TARGET_HEADER,
-	"text/x-chdr"}, "headers"},
+	"text/x-chdr"}, "headers", TRUE},
 
 	{{N_("Java Module"), ANJUTA_TARGET_JAVA,
-	"application/x-java"}, "java"},
+	"application/x-java"}, "java", TRUE},
 
 	{{N_("Python Module"), ANJUTA_TARGET_PYTHON,
-	"application/x-python"}, "python"},
+	"application/x-python"}, "python", TRUE},
 
 	{{N_("Generic rule"), ANJUTA_TARGET_GENERIC,
-	"text/plain"}, "generic_rule"},
+	"text/plain"}, "generic_rule", FALSE},
 	
 	{{N_("Extra target"), ANJUTA_TARGET_EXTRA,
-	"text/plain"}, "extra"},
+	"text/plain"}, "extra", FALSE},
 
 	{{N_("Configure file"), ANJUTA_TARGET_CONFIGURE,
-	"text/plain"}, "configure_generated_file"},
+	"text/plain"}, "configure_generated_file", FALSE},
 	
 	{{N_("Interface file"), ANJUTA_TARGET_IDL,
-	"text/plain"}, "orbit_idl"},
+	"text/plain"}, "orbit_idl", FALSE},
 	
 	{{N_("GLib mkenums"), ANJUTA_TARGET_MKENUMS,
-	"text/plain"}, "glib_mkenums"},
+	"text/plain"}, "glib_mkenums", FALSE},
 	
 	{{N_("GLib genmarshal"), ANJUTA_TARGET_GENMARSHAL,
-	"text/plain"}, "glib_genmarshal"},
+	"text/plain"}, "glib_genmarshal", FALSE},
 	
 	{{N_("Intl rule"), ANJUTA_TARGET_INTLTOOL,
-	"text/plain"}, "intltool_rule"},
+	"text/plain"}, "intltool_rule", FALSE},
 	
 	{{NULL, ANJUTA_TARGET_UNKNOWN,
 	NULL}}
@@ -3930,12 +3931,16 @@ iproject_get_root (IAnjutaProject *obj, GError **err)
 static GList* 
 iproject_get_target_types (IAnjutaProject *obj, GError **err)
 {
-	GbfAmTargetInformation *targets = &GbfAmTargetTypes[1];	 /* Skip unknown target */
+	GbfAmTargetInformation *targets = GbfAmTargetTypes;
         GList *types = NULL;
 
         while (targets->base.name != NULL)
         {
-                types = g_list_prepend (types, targets);
+		/* Skip unimplemented target types */
+		if (targets->implemented)
+		{
+                	types = g_list_prepend (types, targets);
+		}
                 targets++;
         }
         types = g_list_reverse (types);
