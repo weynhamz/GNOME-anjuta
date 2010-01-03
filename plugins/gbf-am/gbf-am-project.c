@@ -2281,6 +2281,7 @@ project_update (GbfAmProject *project,
 	/* dump the document to memory */
 	xmlSubstituteEntitiesDefault (TRUE);
 	xmlDocDumpMemory (doc, &xml_doc, &xml_size);
+	GBF_DEBUG (g_print("Input XML to the script:\n%s", xml_doc));
 
 	/* execute the script */
 	data = spawn_script (argv, SCRIPT_TIMEOUT,
@@ -3502,6 +3503,7 @@ impl_add_source (GbfProject  *_project,
 	gboolean abort_action = FALSE;
 	gchar *full_uri = NULL;
 	gchar *group_uri;
+	gchar *new_relative_uri; 
 	GSList *change_set = NULL;
 	GbfAmChange *change;
 	gchar *retval;
@@ -3547,6 +3549,9 @@ impl_add_source (GbfProject  *_project,
 				   project->project_root_uri);
 	
 	full_uri = uri_normalize (uri, group_uri);
+
+	/* the uri of the copied file, relative to project path */
+	new_relative_uri = g_strconcat (group_uri, G_DIR_SEPARATOR_S, filename, NULL);	
 	
 	/* Check that the source uri is inside the project root */
 	if (!uri_is_parent (project->project_root_uri, full_uri)) {
@@ -3612,19 +3617,21 @@ impl_add_source (GbfProject  *_project,
 
 	/* have there been any errors? */
 	if (abort_action) {
+		g_free (new_relative_uri);
 		g_free (full_uri);
 		return NULL;
 	}
 	
 	/* Create the update xml */
 	doc = xml_new_change_doc (project);
-
-	if (!xml_write_add_source (project, doc, g_node, full_uri)) {
+	
+	if (!xml_write_add_source (project, doc, g_node, new_relative_uri)) {
 		error_set (error, GBF_PROJECT_ERROR_GENERAL_FAILURE,
 			   _("General failure in adding source file"));
 		abort_action = TRUE;
 	}
 
+	g_free (new_relative_uri);
 	g_free (full_uri);
 	if (abort_action) {
 		xmlFreeDoc (doc);
