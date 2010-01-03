@@ -266,3 +266,9 @@ plugins/sourceview/plugin.c
 [type: gettext/ini]plugins/language-manager/language-manager.plugin.in
 [type: gettext/ini]plugins/gbf-mkfile/gbf-mkfile.plugin.in
 [type: gettext/ini]plugins/gbf-am/gbf-am.plugin.in
+plugins/js-debugger/plugin.c
+[type: gettext/ini]plugins/js-debugger/js_debugger.plugin.in
+plugins/language-support-js/plugin.c
+[type: gettext/ini]plugins/language-support-js/js_support_plugin.plugin.in
+[type: gettext/glade]plugins/language-support-js/anjuta-language-javascript.ui
+plugins/symbol-db/anjuta-tags/js_parser/Grammar.y
