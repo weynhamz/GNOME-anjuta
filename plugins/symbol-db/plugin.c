@@ -1250,8 +1250,8 @@ clear_project_progress_bar (SymbolDBEngine *dbe, gpointer data)
 						 sdb_plugin->sdbe_project);
 	
 	/* ok, enable local symbols view */
-	if (sdb_plugin->current_editor != NULL  &&
-	    IANJUTA_IS_EDITOR (sdb_plugin->current_editor) == FALSE)
+	if (sdb_plugin->current_editor == NULL  ||
+	    IANJUTA_IS_FILE (sdb_plugin->current_editor) == FALSE)
 	{
 		return;
 	}
@@ -1582,7 +1582,7 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 	GHashTable *prj_elements_hash;
 	GPtrArray *to_add_files = NULL;
 	gint i;
-	gint real_added ;
+	gint real_added = 0;
 	
 	pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (sdb_plugin)->shell,
 									 IAnjutaProjectManager, NULL);	
