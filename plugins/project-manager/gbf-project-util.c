@@ -77,7 +77,7 @@ groups_filter_fn (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
 static void 
 setup_groups_treeview (GbfProjectModel    *model,
                        GtkWidget          *view,
-                       AnjutaProjectGroup *select_group)
+                       GbfTreeData        *select_group)
 {
     GtkTreeModel *filter;
     GtkTreePath *path;
@@ -93,8 +93,7 @@ setup_groups_treeview (GbfProjectModel    *model,
     g_object_unref (filter);
     
     /* select default group */
-    if (select_group && gbf_project_model_find_id (model, &iter,
-                                                   GBF_TREE_NODE_GROUP, select_group)) {
+    if (select_group && gbf_project_model_find_id (model, &iter, select_group)) {
         GtkTreeIter iter_filter;
 
         gtk_tree_model_filter_convert_child_iter_to_iter (
@@ -165,7 +164,7 @@ entry_changed_cb (GtkEditable *editable, gpointer user_data)
 AnjutaProjectGroup*
 gbf_project_util_new_group (GbfProjectModel    *model,
                             GtkWindow          *parent,
-                            AnjutaProjectGroup *default_group,
+                            GbfTreeData        *default_group,
                             const gchar        *default_group_name_to_add)
 {
     GtkBuilder *gui;
@@ -305,7 +304,7 @@ build_types_store (IAnjutaProject *project)
 AnjutaProjectTarget* 
 gbf_project_util_new_target (GbfProjectModel *model,
                              GtkWindow       *parent,
-                             AnjutaProjectGroup *default_group,
+                             GbfTreeData     *default_group,
                              const gchar     *default_target_name_to_add)
 {
     GtkBuilder *gui;
@@ -452,8 +451,7 @@ targets_filter_fn (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
 static void 
 setup_targets_treeview (GbfProjectModel     *model,
                         GtkWidget           *view,
-                        AnjutaProjectTarget *select_target,
-                        AnjutaProjectGroup  *select_group)
+                        GbfTreeData         *select_target)
 {
     GtkTreeModel *filter;
     GtkTreeIter iter, iter_filter;
@@ -470,17 +468,10 @@ setup_targets_treeview (GbfProjectModel     *model,
 
     /* select default target */
     if (select_target) {
-        if (gbf_project_model_find_id (model, &iter,
-                                       GBF_TREE_NODE_TARGET, select_target)) {
+        if (gbf_project_model_find_id (model, &iter, select_target))
+        {
             gtk_tree_model_filter_convert_child_iter_to_iter (
                 GTK_TREE_MODEL_FILTER (filter), &iter_filter, &iter);
-            path = gtk_tree_model_get_path (filter, &iter_filter);
-        }
-    } else if (select_group) {
-        if (gbf_project_model_find_id (model, &iter,
-                                       GBF_TREE_NODE_GROUP, select_group)) {
-            gtk_tree_model_filter_convert_child_iter_to_iter (
-                  GTK_TREE_MODEL_FILTER (filter), &iter_filter, &iter);
             path = gtk_tree_model_get_path (filter, &iter_filter);
         }
     }
@@ -582,8 +573,7 @@ on_row_changed(GtkTreeModel* model, GtkTreePath* path, GtkTreeIter* iter, gpoint
 AnjutaProjectSource*
 gbf_project_util_add_source (GbfProjectModel     *model,
                              GtkWindow           *parent,
-                             AnjutaProjectTarget *default_target,
-                             AnjutaProjectGroup  *default_group,
+                             GbfTreeData         *default_target,
                              const gchar         *default_uri)
 {
         GList* new_sources;
@@ -596,8 +586,7 @@ gbf_project_util_add_source (GbfProjectModel     *model,
         }
 	new_sources = 
 		gbf_project_util_add_source_multi (model, parent,
-                                                   default_target,
-                                                   default_group, uris);
+                                                   default_target, uris);
 	g_free (uri);
         g_list_free (uris);
 	
@@ -614,8 +603,7 @@ gbf_project_util_add_source (GbfProjectModel     *model,
 GList* 
 gbf_project_util_add_source_multi (GbfProjectModel     *model,
 				   GtkWindow           *parent,
-                                   AnjutaProjectTarget *default_target,
-                                   AnjutaProjectGroup  *default_group,
+                                   GbfTreeData         *default_target,
 				   GList               *uris_to_add)
 {
     GtkBuilder *gui;
@@ -692,8 +680,7 @@ gbf_project_util_add_source_multi (GbfProjectModel     *model,
     g_object_set_data_full (G_OBJECT (browse_button), "root",
                             project_root, g_free);
     
-    setup_targets_treeview (model, targets_view, default_target,
-			    default_group);
+    setup_targets_treeview (model, targets_view, default_target);
     gtk_widget_show (targets_view);
     
     if (parent) {

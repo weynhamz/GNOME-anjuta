@@ -63,6 +63,8 @@ GtkWidget                  *gbf_project_view_new              (void);
 
 AnjutaProjectNode          *gbf_project_view_find_selected    (GbfProjectView *view,
 							       AnjutaProjectNodeType type);
+GbfTreeData                *gbf_project_view_get_selected      (GbfProjectView *view);
+
 
 G_END_DECLS
 

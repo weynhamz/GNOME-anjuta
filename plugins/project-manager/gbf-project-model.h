@@ -63,8 +63,10 @@ IAnjutaProject  *gbf_project_model_get_project       (GbfProjectModel   *model);
 GtkTreePath     *gbf_project_model_get_project_root  (GbfProjectModel   *model);
 gboolean         gbf_project_model_find_id           (GbfProjectModel   *model,
                                                       GtkTreeIter       *iter,
-                                                      GbfTreeNodeType    type,
-                                                      AnjutaProjectNode *id);
+                                                      GbfTreeData       *data);
+GbfTreeData     *gbf_project_model_find_uri          (GbfProjectModel   *model,
+                                                      const gchar       *uri,
+                                                      GbfTreeNodeType   type);
 AnjutaProjectNode *gbf_project_model_get_node        (GbfProjectModel *model,
                                                       GtkTreeIter     *iter);
 
