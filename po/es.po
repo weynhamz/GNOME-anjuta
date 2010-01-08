@@ -6,14 +6,14 @@
 # Javier Conde Rueda <f3285740@est.fib.upc.es>, 2003.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.es>, 2003, 2005.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2005, 2006.
-# Jorge González <jorgegonz@svn.gnome.org>, 2007, 200, 200, 2010.
+# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008, 2009, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2010-01-03 17:26+0000\n"
-"PO-Revision-Date: 2010-01-06 15:20+0100\n"
+"POT-Creation-Date: 2010-01-07 19:47+0000\n"
+"PO-Revision-Date: 2010-01-08 20:59+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -3844,7 +3844,6 @@ msgid "Info Documentation"
 msgstr "Documentación"
 
 #: ../plugins/gbf-am/gbf-am-project.c:217
-#| msgid "Module"
 msgid "Lisp Module"
 msgstr "Módulo Lisp"
 
@@ -3864,22 +3863,18 @@ msgid "Python Module"
 msgstr "Módulo Python"
 
 #: ../plugins/gbf-am/gbf-am-project.c:229
-#| msgid "Generic"
 msgid "Generic rule"
 msgstr "Regla genérica"
 
 #: ../plugins/gbf-am/gbf-am-project.c:232
-#| msgid "Cannot add target"
 msgid "Extra target"
 msgstr "Objetivo adicional"
 
 #: ../plugins/gbf-am/gbf-am-project.c:235
-#| msgid "Configure Project"
 msgid "Configure file"
 msgstr "Archivo de configuración"
 
 #: ../plugins/gbf-am/gbf-am-project.c:238
-#| msgid "Interface"
 msgid "Interface file"
 msgstr "Archivo de interfaz"
 
@@ -3892,7 +3887,6 @@ msgid "GLib genmarshal"
 msgstr "genmarshal de GLib"
 
 #: ../plugins/gbf-am/gbf-am-project.c:247
-#| msgid "Install module"
 msgid "Intl rule"
 msgstr "Regla intl"
 
@@ -6849,7 +6843,6 @@ msgstr ""
 
 #: ../plugins/project-import/plugin.c:200
 #, c-format
-#| msgid "Please select a plugin to open <b>%s</b>."
 msgid "Please select a project backend to open %s."
 msgstr "Seleccione un «backend» de proyecto para abrir %s."
 
@@ -10074,66 +10067,67 @@ msgstr "Backend de autotools"
 msgid "Autotools backend for project manager"
 msgstr "Backend de autotools para el gestor de proyectos"
 
-#: ../plugins/js-debugger/plugin.c:123
+#: ../plugins/js-debugger/plugin.c:122
 #, c-format
-#| msgid "Errors:"
 msgid "Error: %s"
 msgstr "Error: %s"
 
+#: ../plugins/js-debugger/plugin.c:142
+#| msgid "Error contains"
+msgid "Error: cant bind port"
+msgstr "Error: no se puede vincular el puerto"
+
 #: ../plugins/js-debugger/js_debugger.plugin.in.h:1
-#| msgid "Anjuta Plugin"
 msgid "Anjuta JS Debugger Plugin"
 msgstr "Complemento de depuración de JS de Anjuta"
 
-#: ../plugins/language-support-js/plugin.c:331
-#: ../plugins/language-support-js/plugin.c:340
-#| msgid "Script"
+#: ../plugins/language-support-js/plugin.c:332
+#: ../plugins/language-support-js/plugin.c:341
 msgid "JavaScript"
 msgstr "JavaScript"
 
-#: ../plugins/language-support-js/plugin.c:396
+#: ../plugins/language-support-js/plugin.c:397
 msgid "JS"
 msgstr "JS"
 
 #: ../plugins/language-support-js/js_support_plugin.plugin.in.h:1
-#| msgid "C++ and Java support Plugin"
 msgid "JS Support Plugin"
 msgstr "Complemento de soporte para JS"
 
 #: ../plugins/language-support-js/js_support_plugin.plugin.in.h:2
-#| msgid "C++ and Java support Plugin"
 msgid "JavaScript Support Plugin"
 msgstr "Complemento de soporte para JavaScript"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:1
-#| msgid "<b>Filters</b>"
 msgid "<b>JS Find dirs</b>"
 msgstr "<b>Directorios de búsqueda de JS</b>"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:2
-#| msgid "Add a space after function call autocompletion"
 msgid "Add brace after function call autocompletion"
 msgstr "Añadir una llave después de la llamada de autocompletado de la función"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:3
-#| msgid "Autosave completed"
-msgid "Auto code complete"
-msgstr "Autocompletado de código"
+#| msgid "Gir repository's directory:"
+msgid "Gir repository's directory:   "
+msgstr "Directorio gir del repositorio:   "
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:4
-#| msgid "Project root directory:"
-msgid "Gir repository's directory:"
-msgstr "Directorio gir del repositorio:"
+#| msgid "Gjs repository's directory:"
+msgid "Gjs repository's directory:   "
+msgstr "Directorio gjs del repositorio:   "
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:5
-#| msgid "Project root directory:"
-msgid "Gjs repository's directory:"
-msgstr "Directorio gjs del repositorio:"
-
-#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
-#| msgid "Highlight message locations in editor"
 msgid "Highlight missed semicolon"
 msgstr "Resaltar punto y coma perdido"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
+#| msgid "Enable code completion"
+msgid "Min character for completion "
+msgstr "Caracteres mínimos para autocompletado "
+
+#~| msgid "Autosave completed"
+#~ msgid "Auto code complete"
+#~ msgstr "Autocompletado de código"
 
 #~ msgid "Up to date"
 #~ msgstr "Actualizado"
@@ -11160,9 +11154,6 @@ msgstr "Resaltar punto y coma perdido"
 
 #~ msgid "Cachegrind"
 #~ msgstr "Cachegrind"
-
-#~ msgid "Error contains"
-#~ msgstr "El error contiene"
 
 #~ msgid "Function contains"
 #~ msgstr "La función contiene"
