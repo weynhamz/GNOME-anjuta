@@ -279,43 +279,41 @@ gbf_project_model_instance_init (GbfProjectModel *model)
 /* Model data functions ------------ */
 
 static gboolean
-gbf_project_model_remove_node (GtkTreeModel *model,
-    GtkTreePath *path,
-    GtkTreeIter *iter,
-    gpointer user_data)
-{
-	GbfTreeData *data;
-	
-	gtk_tree_model_get (model, iter,
-			    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
-			    -1);
-	if (data != NULL) gbf_tree_data_free (data);
-	
-	return FALSE;
-}
-
-static gboolean
 gbf_project_model_remove (GbfProjectModel *model, GtkTreeIter *iter)
 {
+	GtkTreeIter child;
 	GbfTreeData *data;
-	
-	gtk_tree_model_get (GTK_TREE_MODEL (model), iter,
-			    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
-			    -1);
-	if (data != NULL) gbf_tree_data_free (data);
+	gboolean valid;
 
 	/* Free all children */
-	my_gtk_tree_model_foreach_child (GTK_TREE_MODEL (model), iter, gbf_project_model_remove_node, NULL);
+	valid = gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &child, iter);
+	while (valid)
+	{
+		valid = gbf_project_model_remove (model, &child);
+	}
+	
+	gtk_tree_model_get (model, iter,
+		    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
+		    -1);
+	valid = gtk_tree_store_remove (GTK_TREE_STORE (model), iter);
+	if (data != NULL) gbf_tree_data_free (data);
 
-	return gtk_tree_store_remove (GTK_TREE_STORE (model), iter);
+	return valid;
 }
 
 
 static void
 gbf_project_model_clear (GbfProjectModel *model)
 {
-	gtk_tree_model_foreach (GTK_TREE_MODEL (model), gbf_project_model_remove_node, NULL);
-	gtk_tree_store_clear (GTK_TREE_STORE (model));
+	GtkTreeIter child;
+	GbfTreeData *data;
+	gboolean valid;
+
+	valid = gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &child, NULL);
+	while (valid)
+	{
+		valid = gbf_project_model_remove (model, &child);
+	}
 }
 
 static gint 
@@ -999,24 +997,7 @@ row_draggable (GtkTreeDragSource *drag_source, GtkTreePath *path)
 static gboolean 
 drag_data_delete (GtkTreeDragSource *drag_source, GtkTreePath *path)
 {
-	GtkTreeIter iter;
-	gboolean retval = FALSE;
-	
-	/*if (gtk_tree_model_get_iter (GTK_TREE_MODEL (drag_source),
-				     &iter, path)) {
-		GbfTreeData *data;
-
-		gtk_tree_model_get (GTK_TREE_MODEL (drag_source), &iter,
-				    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
-				    -1);
-
-		if (data->is_shortcut) {
-			gtk_tree_store_remove (GTK_TREE_STORE (drag_source), &iter);			
-			retval = TRUE;
-		}
-	}*/
-	
-	return retval;
+	return FALSE;
 }
 
 static gboolean

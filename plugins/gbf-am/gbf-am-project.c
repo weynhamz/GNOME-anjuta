@@ -4119,6 +4119,7 @@ gbf_am_project_instance_init (GbfAmProject *project)
 {
 	/* initialize data & monitors */
 	project->project_root_uri = NULL;
+	project->root_node = NULL;
 	project_data_init (project);
 
 	/* setup queue */
