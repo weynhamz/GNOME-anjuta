@@ -702,7 +702,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	{
 		sdb_plugin->buffer_update_semaphore = TRUE;
 	}
-	else if (symbol_db_engine_file_exists (sdb_plugin->sdbe_project, local_path) == TRUE)
+	else 
 	{		
 		symbol_db_view_locals_update_list (
 					SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals),

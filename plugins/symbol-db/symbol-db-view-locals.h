@@ -88,7 +88,7 @@ void
 symbol_db_view_locals_clear_cache (SymbolDBViewLocals *dbvl);
 
 /**
- * Display no items in local-tree
+ * Display no items in local-tree when scan end is received
  **/
 void
 symbol_db_view_locals_display_nothing (SymbolDBViewLocals *dbvl, 
