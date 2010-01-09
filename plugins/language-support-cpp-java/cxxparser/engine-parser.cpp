@@ -210,7 +210,7 @@ EngineParser::getTypeNameAndScopeByToken (ExpressionResult &result,
 			cout << "Can not use '->' operator on a non pointer object" << endl;
 			return false;
 		}
-		
+
 		out_type_scope = result.m_scope.empty() ? "" : result.m_scope.c_str();
 		out_type_name = result.m_name.c_str();
 		return true;
@@ -220,14 +220,6 @@ EngineParser::getTypeNameAndScopeByToken (ExpressionResult &result,
 		cout << "*** Found 'this'" << endl;
 		
 		/* special handle for 'this' keyword */
-		out_type_scope = result.m_scope.empty() ? "" : result.m_scope.c_str();
-
-		if (out_type_scope.empty ()) 
-		{
-			cout << "'this' can not be used in the global scope" << endl;
-			return false;
-		}
-		
 		if (op == "::") 
 		{
 			cout << "'this' can not be used with operator ::" << endl;
@@ -245,6 +237,46 @@ EngineParser::getTypeNameAndScopeByToken (ExpressionResult &result,
 			cout << "Can not use '->' operator on a non pointer object" << endl;
 			return false;
 		}
+
+		/* reaching this point we are quite sure that the easiest tests about "this"
+		 * calling are passed. Go on finding for the first symbol of type class that
+		 * is reachable through the scopes chain.
+		 */	
+		
+		IAnjutaIterable* scope_chain_iter = 
+			ianjuta_symbol_manager_get_scope_chain (_sym_man, full_file_path.c_str (), linenum, 
+			                                  IAnjutaSymbolField(IANJUTA_SYMBOL_FIELD_SIMPLE |
+			                                  IANJUTA_SYMBOL_FIELD_KIND |
+			                                  IANJUTA_SYMBOL_FIELD_TYPE), NULL);
+
+		/* will we find a good class scope? */
+		out_type_scope = result.m_scope.empty() ? "" : result.m_scope.c_str();
+		out_type_name = ""; 
+
+		/* FIXME: this method doesn't take into consideration 
+		 * classes with same name on multiple namespaces 
+		 */
+		if (scope_chain_iter != NULL)
+		{
+			do 
+			{
+				IAnjutaSymbol *node = IANJUTA_SYMBOL (scope_chain_iter);
+				cout << "sym_name = " << ianjuta_symbol_get_name (node, NULL) << endl;
+				if (ianjuta_symbol_get_sym_type (node, NULL) == IANJUTA_SYMBOL_TYPE_CLASS)
+				{
+					out_type_name = ianjuta_symbol_get_name (node, NULL);
+					break;
+				}				
+			} while (ianjuta_iterable_next (scope_chain_iter, NULL) == TRUE);
+
+			g_object_unref (scope_chain_iter);
+		}		
+		
+		if (out_type_name.empty ()) 
+		{
+			cout << "'this' has not a type name" << endl;
+			return false;
+		}
 		
 		return true;
 	}
@@ -257,7 +289,6 @@ EngineParser::getTypeNameAndScopeByToken (ExpressionResult &result,
 
 		/* optimize scope'll clear the scopes leaving the local variables */
 		string optimized_scope = optimizeScope(above_text);
-/*		cout << "here it is the optimized buffer scope " << optimized_scope << endl;*/
 
 		VariableList li;
 		std::map<std::string, std::string> ignoreTokens;
@@ -490,6 +521,8 @@ EngineParser::processExpression(const string& stmt,
 
 	/* fine. Get the type name and type scope given the above result for the first 
 	 * and most important token.
+	 * The type_scope is for instance 'std' in this statement:
+	 * (std::foo_util)klass->
 	 */	
 	bool process_res = getTypeNameAndScopeByToken (result, 
     									  current_token,
@@ -501,12 +534,12 @@ EngineParser::processExpression(const string& stmt,
     									  type_scope);
 	if (process_res == false)
 	{
-		cout << "Well, you haven't much luck, the first token failed and then "  <<
+		cout << "Initial statement processing failed. "  <<
 			"I cannot continue. " << endl;
 		return NULL;
 	}
 	
-	cout << "Going to search for curr_searchable_scope with type_name \"" << type_name << "\"" << 
+	cout << "Searching for curr_searchable_scope with type_name \"" << type_name << "\"" << 
 		" and type_scope \"" << type_scope << "\"" << endl;
 
 	/* at this time we're enough ready to issue a first query to our db. 
