@@ -211,7 +211,8 @@ symbol_db_engine_get_parent_scope_id_by_symbol_id (SymbolDBEngine *dbe,
  * It includes the calls to symbol_db_engine_get_parent_scope_id_by_symbol_id () and
  * symbol_db_engine_get_symbol_info_by_id (). It's a sort of facade.
  * @param scoped_symbol_id Symbol you want to know the parent of.
- * @param db_file db-relative filename path. eg. /src/foo.c Can be NULL.
+ * @param db_file db-relative filename path. eg. /src/foo.c. Can be NULL for a
+ * wider search (i.e. not just limited to that file).
  * @return NULL on error or if nothing is found as parent.
  */
 SymbolDBEngineIterator *
@@ -237,6 +238,8 @@ symbol_db_engine_get_parent_scope_by_symbol_id (SymbolDBEngine *dbe,
  * 
  * the returned iterator'll contain symbols in this order: foo_func, FooKlass, FooBase.
  *
+ * @param db_file db-relative filename path. eg. /src/foo.c. Can be NULL for a
+ * wider search (i.e. not just limited to that file).
  * @return NULL on error or if scope isn't found.
  */
 SymbolDBEngineIterator *
