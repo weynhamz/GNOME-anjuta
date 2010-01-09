@@ -5204,7 +5204,7 @@ interface IAnjutaSymbol
 		TYPE_MACRO_WITH_ARG = 262144,  
 		TYPE_FILE = 524288,            
 		TYPE_OTHER = 1048576,          
-		TYPE_SCOPE_CONTAINER = IANJUTA_SYMBOL_TYPE_CLASS | IANJUTA_SYMBOL_TYPE_ENUM | IANJUTA_SYMBOL_TYPE_ENUMERATOR | IANJUTA_SYMBOL_TYPE_INTERFACE | IANJUTA_SYMBOL_TYPE_NAMESPACE | IANJUTA_SYMBOL_TYPE_PACKAGE | IANJUTA_SYMBOL_TYPE_STRUCT | IANJUTA_SYMBOL_TYPE_TYPEDEF | IANJUTA_SYMBOL_TYPE_UNION,		
+		TYPE_SCOPE_CONTAINER = IANJUTA_SYMBOL_TYPE_CLASS | IANJUTA_SYMBOL_TYPE_ENUM | IANJUTA_SYMBOL_TYPE_ENUMERATOR | IANJUTA_SYMBOL_TYPE_INTERFACE | IANJUTA_SYMBOL_TYPE_NAMESPACE | IANJUTA_SYMBOL_TYPE_PACKAGE | IANJUTA_SYMBOL_TYPE_STRUCT | IANJUTA_SYMBOL_TYPE_TYPEDEF | IANJUTA_SYMBOL_TYPE_UNION,
 		TYPE_MAX = 2097151             
 	}
 
@@ -5752,7 +5752,8 @@ interface IAnjutaSymbolManager
 	* ianjuta_symbol_manager_get_parent_scope: 
 	* @obj: Self
 	* @symbol: Symbol which you want to know the parent scope of.
-	* @filename: Can be NULL. Full path filename where to search for the parent scope symbol.
+	* @filename: Can be NULL for a wider search (i.e. not just limited to that file). 
+    *            Full path filename where to search for the parent scope symbol.
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
 	* @err: Error propagation and reporting.
 	*
@@ -5768,7 +5769,9 @@ interface IAnjutaSymbolManager
 	/**
 	* ianjuta_symbol_manager_get_scope_chain:
 	* @obj: Self
-	* @filename: Full path filename where to search for the parent scope symbol.
+	* @filename: Full path filename where to search for the parent scope symbol.  
+	*            Can be NULL for a wider search (i.e. not just limited to that file).
+	* @line: Line of the file where the symbol is.
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
 	* @err: Error propagation and reporting.
 	*
