@@ -313,6 +313,8 @@ cg_plugin_generator_created_cb (CgGenerator *generator,
 	{
 		GFile* header = g_file_new_for_path (header_file);
 		GFile* source = g_file_new_for_path (source_file);
+		IAnjutaProjectManager *manager;
+
 		ianjuta_file_loader_load (loader, header, FALSE, NULL);
 		ianjuta_file_loader_load (loader, source, FALSE, NULL);
 
@@ -320,7 +322,19 @@ cg_plugin_generator_created_cb (CgGenerator *generator,
 		{
 			cg_plugin_add_to_repository (plugin, header, source);
 		}
-		
+	
+		manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell, IAnjutaProjectManager, NULL);
+		if (manager)
+		{
+			gchar *huri = g_file_get_uri (header);
+			gchar *suri = g_file_get_uri (source);
+
+			g_signal_emit_by_name (G_OBJECT (manager), "element_added", huri);
+			g_signal_emit_by_name (G_OBJECT (manager), "element_added", suri);
+			g_free (huri);
+			g_free (suri);
+		}
+
 		g_object_unref (header);
 		g_object_unref (source);
 	}

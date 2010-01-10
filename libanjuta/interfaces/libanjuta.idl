@@ -3302,7 +3302,10 @@ interface IAnjutaProjectManager
 	* @element_uri: fixme
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Emitted when a new element is added to the project. It can be
+	* a source, a target or a group. The URI does not always correspond
+	* to an existing file. This signal can be emitted several time for
+	* the same element.
 	*/
 	void ::element_added (const gchar *element_uri);
 	
@@ -3461,14 +3464,22 @@ interface IAnjutaProjectManager
 	/**
 	* ianjuta_project_manager_add_sources:
 	* @obj: Self
-	* @source_uris_to_add: fixme
+	* @source_uris_to_add: sources URI to add
 	* @default_location_uri: fixme
 	* @err: Error propagation and reporting.
 	*
-	* Prompt the user to add a file to the project. If the user selects
-	* multiple files only the first uri is returned.
+	* Prompt the user to add a file to the project. Depending on the 
+	* project backend, it can be possible that the source files must
+	* be located in a particular directory. You can pass to this
+	* function relative URI and it will return absolute URI valid
+	* for the target selected by the user.
 	*
-	* Returns: element URIs. Must be freed when no longer required.
+	* You can add non existing file. In this case the element_added
+	* signal will be emitted with a non existing file. So it is
+	* up to the caller to reemit this signal later when the file
+	* is created.
+	*
+	* Returns: absolute element URIs. Must be freed when no longer required.
 	*/
 	List<const gchar*> add_sources (List<const gchar*> source_uris_to_add, const gchar *default_location_uri);
 	
