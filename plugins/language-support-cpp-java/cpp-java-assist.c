@@ -341,7 +341,7 @@ cpp_java_assist_update_autocomplete (CppJavaAssist *assist)
 
 	// DEBUG_PRINT ("Queries active: %d", queries_active);
 	
-	if (assist->priv->completion_cache == NULL || !assist->priv->pre_word)
+	if (assist->priv->completion_cache == NULL)
 	{
 		ianjuta_editor_assist_proposals (assist->priv->iassist, IANJUTA_PROVIDER(assist),
 		                                 NULL, !queries_active, NULL);
