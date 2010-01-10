@@ -711,14 +711,6 @@ on_editor_char_added (IAnjutaEditor *editor, IAnjutaIterable *insert_pos,
 	cpp_java_assist_calltip(assist, enable_calltips, (ch == '\b'));
 }
 
-static gboolean
-is_word_or_operator(gchar c)
-{
-	if (is_word_character (c) || c == '.' || c == '-' || c == '>')
-		return TRUE;
-	return FALSE;
-}
-
 /* FIXME: find a better tester */
 static gboolean
 is_expression_separator (gchar c)
@@ -854,6 +846,14 @@ cpp_java_parse_expression (CppJavaAssist* assist, IAnjutaIterable* iter, IAnjuta
 	return res;
 }
 
+static gboolean
+cpp_java_assist_valid_iter (CppJavaAssist* assist, IAnjutaIterable* iter)
+{
+	IAnjutaEditorCell* cell = IANJUTA_EDITOR_CELL (iter);
+	IAnjutaEditorAttribute attribute = ianjuta_editor_cell_get_attribute (cell, NULL);
+	return (attribute != IANJUTA_EDITOR_STRING && attribute != IANJUTA_EDITOR_COMMENT);
+}
+
 static void
 cpp_java_assist_populate (IAnjutaProvider* self, IAnjutaIterable* iter, GError** e)
 {
@@ -868,8 +868,8 @@ cpp_java_assist_populate (IAnjutaProvider* self, IAnjutaIterable* iter, GError**
 	assist->priv->pre_word = NULL;
 
 	ianjuta_iterable_previous (iter, NULL);
-	
-	if (autocomplete)
+
+	if (autocomplete && cpp_java_assist_valid_iter (assist, iter))
 	{
 		/* Check for member completion */
 		IAnjutaIterable* start_iter = NULL;
