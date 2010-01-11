@@ -827,18 +827,15 @@ cpp_java_parse_expression (CppJavaAssist* assist, IAnjutaIterable* iter, IAnjuta
 		g_object_unref (start);
 		
 		lineno = ianjuta_editor_get_lineno (editor, NULL);
-		if (!ref_start)
-		{
-			DEBUG_PRINT ("calling engine_parser_process_expression stmt: %s ", stmt);
-			res = engine_parser_process_expression (stmt,
-			                                        above_text,
-			                                        filename,
-			                                        lineno);
-		}
-		else
-		{
-			/* TODO: Add search for things like Gtk:: */
-		}
+
+		/* the parser works even for the "Gtk::" like expressions, so it shouldn't be 
+		 * created a specific case to handle this.
+		 */
+		DEBUG_PRINT ("calling engine_parser_process_expression stmt: %s ", stmt);
+		res = engine_parser_process_expression (stmt,
+		                                        above_text,
+		                                        filename,
+		                                        lineno);
 		g_free (filename);
 		g_free (stmt);
 	}

@@ -280,6 +280,12 @@ EngineParser::getTypeNameAndScopeByToken (ExpressionResult &result,
 		
 		return true;
 	}
+	else if (op == "::")
+	{
+		out_type_name = token;
+		out_type_scope = result.m_scope.empty() ? "" : result.m_scope.c_str();
+		return true;
+	}
 	else 
 	{
 		/*
