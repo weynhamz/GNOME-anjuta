@@ -140,6 +140,7 @@ libanjuta_include = \
 	anjuta-sync-command.h \
 	anjuta-version.h \
 	gbf-project.h \
+	anjuta-project.h \
 	anjuta-command-queue.h
 
 libanjutainclude_HEADERS = \
