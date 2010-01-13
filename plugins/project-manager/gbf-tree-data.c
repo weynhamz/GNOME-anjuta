@@ -111,6 +111,22 @@ gbf_tree_data_get_uri (GbfTreeData *data)
 	return NULL;
 }
 
+gchar *
+gbf_tree_data_get_path (GbfTreeData *data)
+{
+	gchar *path;
+	gchar *guri;
+	gchar *suri;
+	
+	guri = data->group != NULL ? g_file_get_uri (data->group) : NULL;
+	suri = data->source != NULL ? g_file_get_uri (data->source) : NULL;
+	path = g_strconcat (guri, " ", data->target, " ", suri, NULL);
+	g_free (suri);
+	g_free (guri);
+
+	return path;
+}
+
 gboolean
 gbf_tree_data_equal (GbfTreeData *data_a, GbfTreeData *data_b)
 {
@@ -177,6 +193,89 @@ gbf_tree_data_equal (GbfTreeData *data_a, GbfTreeData *data_b)
 	}
 
 	return equal;
+}
+
+GbfTreeData *
+gbf_tree_data_new_for_path (const gchar *path)
+{
+	GbfTreeData *data = g_slice_new0 (GbfTreeData);
+	gchar **uris;
+
+	uris = g_strsplit (path, " ", 3);
+
+	if (uris != NULL)
+	{
+		if ((uris[0] != NULL) && (*uris[0] != '\0'))
+		{
+			data->group = g_file_new_for_uri (uris[0]);
+
+			if ((uris[1] != NULL) && (*uris[1] != '\0'))
+			{
+				data->target = g_strdup (uris[1]);
+
+				if ((uris[2] != NULL) && (*uris[2] != '\0'))
+				{
+					data->source = g_file_new_for_uri (uris[2]);
+				}
+			}
+		}
+	}
+	
+	if (data->source != NULL)
+	{
+		GFileInfo *ginfo;
+
+		data->type = GBF_TREE_NODE_SOURCE;
+		
+		ginfo = g_file_query_info (data->source,
+		    G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
+	    	G_FILE_QUERY_INFO_NONE,
+	    	NULL, NULL);
+		if (ginfo)
+		{
+			data->name = g_strdup (g_file_info_get_display_name (ginfo));
+	       	g_object_unref(ginfo);
+		}
+		else
+		{
+			data->name = g_file_get_basename (data->source);
+		}
+	}
+	else if (data->target != NULL)
+	{
+		data->type = GBF_TREE_NODE_TARGET;
+		
+		data->name = g_strdup (data->target);
+	}
+	else if (data->group != NULL)
+	{
+		GFileInfo *ginfo;
+
+		data->type = GBF_TREE_NODE_GROUP;
+		
+		ginfo = g_file_query_info (data->group,
+		    G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
+	    	G_FILE_QUERY_INFO_NONE,
+	    	NULL, NULL);
+		if (ginfo)
+		{
+			data->name = g_strdup (g_file_info_get_display_name (ginfo));
+	       	g_object_unref(ginfo);
+		}
+		else
+		{
+			data->name = g_file_get_basename (data->group);
+		}
+	}
+	else
+	{
+		data->type = GBF_TREE_NODE_STRING;
+		data->name = g_strdup ("?");
+	}
+
+	g_strfreev (uris);
+
+	return data;
 }
 
 GbfTreeData *

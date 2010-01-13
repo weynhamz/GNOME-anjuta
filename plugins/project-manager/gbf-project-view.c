@@ -436,3 +436,134 @@ gbf_project_view_get_selected (GbfProjectView *view, GtkTreeIter* selected)
 
 	return data;
 }
+
+/* Shorcuts functions
+ *---------------------------------------------------------------------------*/
+
+GList *
+gbf_project_view_get_shortcut_list (GbfProjectView *view)
+{
+	GList *list = NULL;
+	GtkTreeModel* model;
+	gboolean valid;
+	GtkTreeIter iter;
+
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (view));
+	
+	for (valid = gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &iter, NULL);
+		valid == TRUE;
+		valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &iter))
+	{
+		GbfTreeData *data;
+		gtk_tree_model_get (GTK_TREE_MODEL (model), &iter, 
+		    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
+		    -1);
+
+		if ((data->type == GBF_TREE_NODE_SHORTCUT) && (data->shortcut != NULL))
+		{
+			gchar *uri;
+			GtkTreePath *path;
+			gboolean expand;
+
+			uri = gbf_tree_data_get_path (data);
+			path = gtk_tree_model_get_path (GTK_TREE_MODEL (model), &iter);
+			expand = gtk_tree_view_row_expanded (GTK_TREE_VIEW (view), path);
+			gtk_tree_path_free (path);
+
+			if (uri != NULL)
+			{
+				list = g_list_prepend (list, g_strconcat (expand ? "E " : "C ", uri, NULL));
+			}
+		}
+	}
+	list = g_list_reverse (list);
+	
+	return list;
+}
+
+void
+gbf_project_view_set_shortcut_list (GbfProjectView *view, GList *shortcuts)
+{
+	GtkTreeModel* model;
+
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (view));
+
+	if (shortcuts != NULL)
+	{
+		gboolean valid;
+		GtkTreeIter iter;
+		
+		/* Remove all current shortcuts */
+		for (valid = gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &iter, NULL);
+			valid == TRUE;)
+		{
+			GbfTreeData *data;
+			
+			gtk_tree_model_get (GTK_TREE_MODEL (model), &iter, 
+			    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
+		    	-1);
+
+			if (data->type == GBF_TREE_NODE_SHORTCUT)
+			{
+				valid = gbf_project_model_remove (GBF_PROJECT_MODEL (model), &iter);
+			}
+			else
+			{
+				/* No more shortcut, add saved one */
+				break;
+			}
+		}
+
+		if (valid)
+		{
+			GList *node;
+			
+			for (node = g_list_first (shortcuts); node != NULL; node = g_list_next (node))
+			{
+				GbfTreeData *data;
+				GtkTreeIter shortcut;
+				gboolean expand = FALSE;
+				const gchar *path = (const gchar *)node->data;
+
+				if (strncmp (path, "E ", 2) == 0)
+				{
+					expand = TRUE;
+					path += 2;
+				}
+				else if (strncmp (path, "C ", 2) == 0)
+				{
+					expand = FALSE;
+					path += 2;
+				}
+				data = gbf_tree_data_new_for_path (path);
+		
+				if (gbf_project_model_find_tree_data  (GBF_PROJECT_MODEL (model), &shortcut, data))
+				{
+					GbfTreeData *data;
+			
+					gtk_tree_model_get (GTK_TREE_MODEL (model), &shortcut, 
+			    			GBF_PROJECT_MODEL_COLUMN_DATA, &data,
+		    				-1);
+
+					gbf_project_model_add_shortcut (GBF_PROJECT_MODEL (model),
+					    	&shortcut,
+					    	&iter,
+					    	data);
+
+					if (expand)
+					{
+						GtkTreePath *path;
+
+						path = gtk_tree_model_get_path (GTK_TREE_MODEL (model), &shortcut);
+						gtk_tree_view_expand_row (GTK_TREE_VIEW (view), path, FALSE);
+						gtk_tree_path_free (path);
+					}
+				}
+				
+				gbf_tree_data_free (data);
+			}
+		}
+	}
+	
+	return;
+}

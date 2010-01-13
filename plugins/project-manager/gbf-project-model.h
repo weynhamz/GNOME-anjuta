@@ -61,10 +61,17 @@ void             gbf_project_model_set_project       (GbfProjectModel   *model,
 IAnjutaProject  *gbf_project_model_get_project       (GbfProjectModel   *model);
 
 GtkTreePath     *gbf_project_model_get_project_root  (GbfProjectModel   *model);
+gboolean         gbf_project_model_remove            (GbfProjectModel *model,
+                                                      GtkTreeIter *iter);
 gboolean         gbf_project_model_find_tree_data    (GbfProjectModel   *model,
                                                       GtkTreeIter       *iter,
                                                       GbfTreeData       *data);
 AnjutaProjectNode *gbf_project_model_get_node        (GbfProjectModel *model,
                                                       GtkTreeIter     *iter);
+
+void             gbf_project_model_add_shortcut      (GbfProjectModel *model,
+                                                      GtkTreeIter     *iter,
+                                                      GtkTreeIter     *before, 
+                                                      GbfTreeData     *target);
 
 #endif

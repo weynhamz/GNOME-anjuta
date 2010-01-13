@@ -177,6 +177,32 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 		g_list_free (list);
 	}
 
+	/* Save shortcuts */
+	list = gbf_project_view_get_shortcut_list (GBF_PROJECT_VIEW (plugin->view));
+	if (list != NULL)
+	{
+    	anjuta_session_set_string_list (session, "Project Manager", "Shortcut", list);
+		g_list_foreach (list, (GFunc)g_free, NULL);
+		g_list_free (list);
+	}
+
+}
+
+static void
+on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, AnjutaSession *session, ProjectManagerPlugin *plugin)
+{
+	GList *list;
+
+	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
+		return;
+
+	list = anjuta_session_get_string_list (session, "Project Manager", "Shortcut");
+	if (list != NULL)
+	{
+		gbf_project_view_set_shortcut_list (GBF_PROJECT_VIEW (plugin->view), list);
+		g_list_foreach (list, (GFunc)g_free, NULL);
+		g_list_free (list);
+	}
 }
 
 static void
@@ -1557,6 +1583,8 @@ project_manager_plugin_activate_plugin (AnjutaPlugin *plugin)
 	/* Connect to save session */
 	g_signal_connect (G_OBJECT (plugin->shell), "save_session",
 					  G_CALLBACK (on_session_save), plugin);
+	g_signal_connect (G_OBJECT (plugin->shell), "load_session",
+					  G_CALLBACK (on_session_load), plugin);
 	g_signal_connect (G_OBJECT (plugin->shell), "exiting",
 					  G_CALLBACK (on_shell_exiting), plugin);
 	profile_manager = anjuta_shell_get_profile_manager (plugin->shell, NULL);
@@ -1591,6 +1619,9 @@ project_manager_plugin_deactivate_plugin (AnjutaPlugin *plugin)
 	/* Disconnect signals */
 	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
 										  G_CALLBACK (on_session_save),
+										  plugin);
+	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
+										  G_CALLBACK (on_session_load),
 										  plugin);
 	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
 										  G_CALLBACK (on_shell_exiting),

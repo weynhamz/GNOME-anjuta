@@ -278,7 +278,7 @@ gbf_project_model_instance_init (GbfProjectModel *model)
 
 /* Model data functions ------------ */
 
-static gboolean
+gboolean
 gbf_project_model_remove (GbfProjectModel *model, GtkTreeIter *iter)
 {
 	GtkTreeIter child;
@@ -400,6 +400,7 @@ add_source (GbfProjectModel    	      *model,
 
 static void 
 add_target_shortcut (GbfProjectModel *model,
+                     GtkTreeIter     *shortcut,
 		     GbfTreeData     *target,
 		     GtkTreePath     *before_path)
 {
@@ -445,6 +446,8 @@ add_target_shortcut (GbfProjectModel *model,
 		add_source (model, node, &iter);
 
 	gtk_tree_path_free (root_path);
+
+	if (shortcut) *shortcut = iter;
 }
 
 static void 
@@ -532,7 +535,7 @@ add_target (GbfProjectModel 		*model,
 		case ANJUTA_TARGET_EXECUTABLE:
 		case ANJUTA_TARGET_PYTHON:
 		case ANJUTA_TARGET_JAVA:
-			add_target_shortcut (model, data, NULL);
+			add_target_shortcut (model, NULL, data, NULL);
 			break;
 		default:
 			break;
@@ -965,6 +968,19 @@ gbf_project_model_get_node (GbfProjectModel *model,
 	return gbf_tree_data_get_node (data, model->priv->proj);
 }
 
+void
+gbf_project_model_add_shortcut (GbfProjectModel *model,
+                                GtkTreeIter     *iter,
+                                GtkTreeIter     *before, 
+                                GbfTreeData     *target)
+{
+	GtkTreePath *path;
+
+	path = gtk_tree_model_get_path (GTK_TREE_MODEL (model), before);
+	add_target_shortcut (model, iter, target, path);
+	gtk_tree_path_free (path);
+}
+
 /* DND stuff ------------- */
 
 static gboolean
@@ -1033,7 +1049,7 @@ drag_data_received (GtkTreeDragDest  *drag_dest,
 				else
 				{
 					add_target_shortcut (GBF_PROJECT_MODEL (drag_dest),
-						     	data, dest);
+						     	NULL, data, dest);
 				}
 				retval = TRUE;
 			}

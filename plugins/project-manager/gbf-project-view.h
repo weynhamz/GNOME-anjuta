@@ -66,6 +66,10 @@ AnjutaProjectNode          *gbf_project_view_find_selected     (GbfProjectView *
 GbfTreeData                *gbf_project_view_get_selected      (GbfProjectView *view,
                                                                 GtkTreeIter    *selected);
 
+GList                      *gbf_project_view_get_shortcut_list (GbfProjectView *view);
+void                        gbf_project_view_set_shortcut_list (GbfProjectView *view,
+                                                                 GList          *shortcuts);
+
 G_END_DECLS
 
 #endif /* _GBF_PROJECT_VIEW_H_ */
