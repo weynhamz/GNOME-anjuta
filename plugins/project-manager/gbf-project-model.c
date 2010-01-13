@@ -292,7 +292,7 @@ gbf_project_model_remove (GbfProjectModel *model, GtkTreeIter *iter)
 		valid = gbf_project_model_remove (model, &child);
 	}
 	
-	gtk_tree_model_get (model, iter,
+	gtk_tree_model_get (GTK_TREE_MODEL (model), iter,
 		    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
 		    -1);
 	valid = gtk_tree_store_remove (GTK_TREE_STORE (model), iter);
@@ -306,7 +306,6 @@ static void
 gbf_project_model_clear (GbfProjectModel *model)
 {
 	GtkTreeIter child;
-	GbfTreeData *data;
 	gboolean valid;
 
 	valid = gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &child, NULL);
@@ -712,9 +711,9 @@ unload_project (GbfProjectModel *model)
 }
 
 static gboolean 
-recursive_find_id (GtkTreeModel   	*model,
-		   GtkTreeIter     	*iter,
-		   GbfTreeData  	*data)
+recursive_find_tree_data (GtkTreeModel  *model,
+		          GtkTreeIter   *iter,
+		          GbfTreeData  	*data)
 {
 	GtkTreeIter tmp;
 	gboolean retval = FALSE;
@@ -727,13 +726,14 @@ recursive_find_id (GtkTreeModel   	*model,
 		
 		gtk_tree_model_get (model, &tmp,
 				    GBF_PROJECT_MODEL_COLUMN_DATA, &tmp_data, -1);
-		if (tmp_data == data) {
+		if (gbf_tree_data_equal (tmp_data, data))
+		{
 			*iter = tmp;
 			retval = TRUE;
 		}
 		
 		if (gtk_tree_model_iter_children (model, &child, &tmp)) {
-			if (recursive_find_id (model, &child, data)) {
+			if (recursive_find_tree_data (model, &child, data)) {
 				*iter = child;
 				retval = TRUE;
 			}
@@ -745,9 +745,9 @@ recursive_find_id (GtkTreeModel   	*model,
 }
 
 gboolean 
-gbf_project_model_find_id (GbfProjectModel 	*model,
-			   GtkTreeIter     	*iter,
-			   GbfTreeData  	*data)
+gbf_project_model_find_tree_data (GbfProjectModel 	*model,
+			          GtkTreeIter     	*iter,
+			          GbfTreeData  		*data)
 {
 	GtkTreePath *root;
 	GtkTreeIter tmp_iter;
@@ -758,7 +758,7 @@ gbf_project_model_find_id (GbfProjectModel 	*model,
 		return FALSE;
 
 	if (gtk_tree_model_get_iter (GTK_TREE_MODEL (model), &tmp_iter, root)) {
-		if (recursive_find_id (GTK_TREE_MODEL (model), &tmp_iter, data)) {
+		if (recursive_find_tree_data (GTK_TREE_MODEL (model), &tmp_iter, data)) {
 			retval = TRUE;
 			*iter = tmp_iter;
 		}
@@ -871,7 +871,7 @@ recursive_find_source (GtkTreeModel   	*model,
 	return NULL;
 }
 
-GbfTreeData*
+static GbfTreeData*
 gbf_project_model_find_uri (GbfProjectModel     *model,
     			    const gchar         *uri,
     			    GbfTreeNodeType     type)

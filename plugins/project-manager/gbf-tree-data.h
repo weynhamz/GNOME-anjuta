@@ -32,6 +32,7 @@ G_BEGIN_DECLS
 typedef struct _GbfTreeData GbfTreeData;
 
 typedef enum {
+	GBF_TREE_NODE_UNKNOWN,
 	GBF_TREE_NODE_STRING,
 	GBF_TREE_NODE_GROUP,
 	GBF_TREE_NODE_TARGET,
@@ -51,17 +52,22 @@ struct _GbfTreeData
 	GtkWidget		*properties_dialog;
 };
 
-AnjutaProjectNode *gbf_tree_data_get_node	 (GbfTreeData		 *data,
-                                              IAnjutaProject     *project);
+AnjutaProjectNode *gbf_tree_data_get_node	    (GbfTreeData		 *data,
+                                                 IAnjutaProject     *project);
 
-gchar	      *gbf_tree_data_get_uri		 (GbfTreeData            *data);
+gchar	      *gbf_tree_data_get_uri		    (GbfTreeData          *data);
 
-GbfTreeData   *gbf_tree_data_new_string      (const gchar          *string);
-GbfTreeData   *gbf_tree_data_new_shortcut    (GbfTreeData		   *src);
-GbfTreeData   *gbf_tree_data_new_group       (AnjutaProjectGroup   *group);
-GbfTreeData   *gbf_tree_data_new_target      (AnjutaProjectTarget  *target);
-GbfTreeData   *gbf_tree_data_new_source      (AnjutaProjectSource  *source);
-void           gbf_tree_data_free            (GbfTreeData          *data);
+gboolean       gbf_tree_data_equal              (GbfTreeData          *data_a,
+                                                 GbfTreeData          *data_b);
+
+GbfTreeData   *gbf_tree_data_new_for_uri        (const gchar          *uri,
+                                                 GbfTreeNodeType      type);
+GbfTreeData   *gbf_tree_data_new_string         (const gchar          *string);
+GbfTreeData   *gbf_tree_data_new_shortcut       (GbfTreeData		  *src);
+GbfTreeData   *gbf_tree_data_new_group          (AnjutaProjectGroup   *group);
+GbfTreeData   *gbf_tree_data_new_target         (AnjutaProjectTarget  *target);
+GbfTreeData   *gbf_tree_data_new_source         (AnjutaProjectSource  *source);
+void           gbf_tree_data_free               (GbfTreeData          *data);
 
 
 G_END_DECLS

@@ -26,6 +26,8 @@
 #include <gio/gio.h>
 #include "gbf-tree-data.h"
 
+#include <string.h>
+
 /**
  * The GbfTreeData object store all data needed by each element of the project
  * tree view. It has the same role than AnjutaProjectNode in the project
@@ -109,6 +111,129 @@ gbf_tree_data_get_uri (GbfTreeData *data)
 	return NULL;
 }
 
+gboolean
+gbf_tree_data_equal (GbfTreeData *data_a, GbfTreeData *data_b)
+{
+	gboolean equal;
+
+	equal = data_a == data_b;
+	if ((data_a != NULL) && (data_b != NULL))
+	{
+		equal = data_a->type == data_b->type;
+		if (equal)
+		{
+			if ((data_a->group != NULL) && (data_b->group != NULL))
+			{
+				equal = g_file_equal (data_a->group, data_b->group);
+			}
+
+			if (equal)
+			{
+				if ((data_a->target != NULL) && (data_b->target != NULL))
+				{
+					equal = strcmp (data_a->target, data_b->target) == 0;
+				}
+
+				if (equal)
+				{
+					if ((data_a->source != NULL) && (data_b->source != NULL))
+					{
+						equal = g_file_equal (data_a->source, data_b->source);
+					}
+				}
+			}
+		}
+		else
+		{
+			if (data_b->type == GBF_TREE_NODE_UNKNOWN)
+			{
+				GbfTreeNodeType type = data_a->type;
+
+				data_a->type = data_b->type;
+				data_b->type = type;
+			}
+
+			equal = data_a->type == GBF_TREE_NODE_UNKNOWN;
+			if (equal)
+			{
+				if (data_b->source != NULL) 
+				{
+					equal = g_file_equal (data_a->group, data_b->source);
+				}
+				else if (data_b->target != NULL)
+				{
+					gchar *name;
+
+					name = g_file_get_basename (data_a->group);
+					equal = strcmp (name, data_b->target) == 0;
+					g_free (name);
+				}
+				else if (data_b->group != NULL)
+				{
+					equal = g_file_equal (data_a->group, data_b->group);
+				}
+			}
+		}
+	}
+
+	return equal;
+}
+
+GbfTreeData *
+gbf_tree_data_new_for_uri (const gchar *uri, GbfTreeNodeType type)
+{
+	GbfTreeData *data = g_slice_new0 (GbfTreeData);
+	GFileInfo *ginfo;
+	GFile *file;
+
+	data->type = type;
+
+	file = g_file_new_for_uri (uri);
+	
+	switch (type)
+	{
+	case GBF_TREE_NODE_UNKNOWN:
+	case GBF_TREE_NODE_SHORTCUT:
+	case GBF_TREE_NODE_GROUP:
+		data->group = file;
+		break;
+	case GBF_TREE_NODE_TARGET:
+		data->group = g_file_get_parent (file);
+		data->target = g_file_get_basename (file);
+		g_object_unref (file);
+		file = NULL;
+		data->name = g_strdup (data->target);
+		break;
+	case GBF_TREE_NODE_SOURCE:
+		data->source = file;
+		break;
+	case GBF_TREE_NODE_STRING:
+		data->name = g_file_get_parse_name (file);
+		g_object_unref (file);
+		file = NULL;
+		break;
+	}
+
+	if (file != NULL)
+	{
+		ginfo = g_file_query_info (file,
+		    G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
+    		G_FILE_QUERY_INFO_NONE,
+    		NULL, NULL);
+		if (ginfo)
+		{
+			data->name = g_strdup (g_file_info_get_display_name (ginfo));
+       		g_object_unref(ginfo);
+		}
+		else
+		{
+			data->name = g_file_get_basename (data->group);
+		}
+	}
+
+	return data;
+}
+	
 GbfTreeData *
 gbf_tree_data_new_string (const gchar *string)
 {

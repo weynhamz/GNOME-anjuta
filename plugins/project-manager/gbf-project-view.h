@@ -58,13 +58,13 @@ struct _GbfProjectViewClass {
 				   AnjutaProjectGroup  *group);
 };
 
-GType                       gbf_project_view_get_type         (void);
-GtkWidget                  *gbf_project_view_new              (void);
+GType                       gbf_project_view_get_type          (void);
+GtkWidget                  *gbf_project_view_new               (void);
 
-AnjutaProjectNode          *gbf_project_view_find_selected    (GbfProjectView *view,
-							       AnjutaProjectNodeType type);
-GbfTreeData                *gbf_project_view_get_selected      (GbfProjectView *view);
-
+AnjutaProjectNode          *gbf_project_view_find_selected     (GbfProjectView *view,
+							        AnjutaProjectNodeType type);
+GbfTreeData                *gbf_project_view_get_selected      (GbfProjectView *view,
+                                                                GtkTreeIter    *selected);
 
 G_END_DECLS
 

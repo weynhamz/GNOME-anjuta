@@ -32,22 +32,22 @@ G_BEGIN_DECLS
 
 AnjutaProjectGroup* gbf_project_util_new_group  (GbfProjectModel   *model,
 				                GtkWindow          *parent,
-				                GbfTreeData        *default_group,
+				                GtkTreeIter        *default_group,
 				                const gchar        *default_group_name_to_add);
 
 AnjutaProjectTarget* gbf_project_util_new_target (GbfProjectModel  *model,
 				                GtkWindow          *parent,
-				                GbfTreeData        *default_group,
+				                GtkTreeIter        *default_group,
 				                const gchar        *default_target_name_to_add);
 
 AnjutaProjectSource* gbf_project_util_add_source (GbfProjectModel   *model,
 				                GtkWindow           *parent,
-				                GbfTreeData         *default_target,
+				                GtkTreeIter         *default_target,
 				                const gchar         *default_uri_to_add);
 
 GList* gbf_project_util_add_source_multi (GbfProjectModel   *model,
 				        GtkWindow           *parent,
-        		                GbfTreeData         *default_target,
+        		                GtkTreeIter         *default_target,
 				        GList               *uris_to_add);
 				    
 GList * gbf_project_util_all_child (AnjutaProjectNode *parent,

@@ -406,7 +406,7 @@ gbf_project_view_find_selected (GbfProjectView *view, AnjutaProjectNodeType type
 }
 
 GbfTreeData *
-gbf_project_view_get_selected (GbfProjectView *view)
+gbf_project_view_get_selected (GbfProjectView *view, GtkTreeIter* selected)
 {
 	GtkTreeSelection *selection;
 	GtkTreeModel *model;
@@ -424,8 +424,9 @@ gbf_project_view_get_selected (GbfProjectView *view)
 			GtkTreeIter child_iter;
 			
 			gtk_tree_model_filter_convert_iter_to_child_iter (GTK_TREE_MODEL_FILTER (model), &child_iter, &iter);
-			iter = child_iter;			
+			iter = child_iter;
 		}
+		if (selected) *selected = iter;
 		
 	
 		gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
@@ -435,4 +436,3 @@ gbf_project_view_get_selected (GbfProjectView *view)
 
 	return data;
 }
-
