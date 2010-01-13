@@ -9,13 +9,13 @@
     </columns>
     <data>
       <row>
-        <col id="0" translatable="yes">public</col>
+        <col id="0" translatable="no">public</col>
       </row>
       <row>
-        <col id="0" translatable="yes">protected</col>
+        <col id="0" translatable="no">protected</col>
       </row>
       <row>
-        <col id="0" translatable="yes">private</col>
+        <col id="0" translatable="no">private</col>
       </row>
     </data>
   </object>
