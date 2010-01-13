@@ -1,3 +1,22 @@
+Anjuta 2.95.5 "Birthday present" (12 Januar 2009) -- Johannes Schmid
+
+Features:
+- Completion for ., ->, and :: in C/C++
+
+Bugs fixed:
+symbol-db: re-fixed bgo#605952 with patch from Sébastien Granjoux.
+language-support-cpp-java: #566982 -  don't autocomplete inside string or comment
+sourceview: Implement ianjuta_editor_cell_get_attribute() properly (#586457)
+bgo #605763 -  No file found while adding a simple c++ class
+bgo #605730 -  completion "." "->" are not shown
+bgo #606069 -  Anjuta won't attach to process to debug it
+symbol-db: bgo#605952 -  Some small fixes for symbol-db
+bgo #559876 -  I can't add python file source code to Project > Add source code
+bgo #565191 -  'add project target' is mostly broken
+bgo#566209 -  "generate inhertances..." progress bar doesn't disappear
+symbol-db: fixed bgo#605343 - fix build warnings
+symbol-db: fixed bgo#605306 -  Add missing include to fix build
+
 Anjuta 2.29.4 "Snow makes happy aka Last X-Mas" (21. December 2009) -- Johannes Schmid
 
 Features:
