@@ -1041,28 +1041,58 @@ finally:
 }
 
 static gboolean
-on_treeview_event  (GtkWidget *widget,
-					 GdkEvent  *event,
-					 ProjectManagerPlugin *plugin)
+on_treeview_popup_menu  (GtkWidget *widget,
+					 	ProjectManagerPlugin *plugin)
 {
 	AnjutaUI *ui;
+	GtkWidget *popup;
 	
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
-	if (event->type == GDK_BUTTON_PRESS) {
-		GdkEventButton *e = (GdkEventButton *) event;
-		if (e->button == 3) {
-			GtkWidget *popup;
-			popup = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui),
-											   "/PopupProjectManager");
-			g_return_val_if_fail (GTK_IS_WIDGET (popup), FALSE);
-			gtk_menu_popup (GTK_MENU (popup),
+	popup = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui), "/PopupProjectManager");
+	g_return_val_if_fail (GTK_IS_WIDGET (popup), FALSE);
+	
+	gtk_menu_popup (GTK_MENU (popup),
+					NULL, NULL, NULL, NULL,
+					0,
+					gtk_get_current_event_time());
+	
+	return TRUE;
+}
+
+static gboolean
+on_treeview_button_press_event (GtkWidget             *widget,
+				 GdkEventButton        *event,
+				 ProjectManagerPlugin *plugin)
+{
+	static gboolean in_press = FALSE;
+	gboolean handled;
+	AnjutaUI *ui;
+	GtkWidget *popup;
+
+	if (in_press)
+		return FALSE;
+
+	if (event->button != 3)
+		return FALSE;
+
+	/* Re-emit the event to select the item at mouse position */
+	in_press = TRUE;
+	handled = gtk_widget_event (plugin->view, (GdkEvent *) event);
+	in_press = FALSE;
+
+ 	if (!handled)
+    	return FALSE;
+
+	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
+	popup = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui), "/PopupProjectManager");
+	g_return_val_if_fail (GTK_IS_WIDGET (popup), FALSE);
+	
+	gtk_menu_popup (GTK_MENU (popup),
 					NULL, NULL, NULL, NULL,
 					((GdkEventButton *) event)->button,
 					((GdkEventButton *) event)->time);
-			return TRUE;
-		}
-	}
-	return FALSE;
+
+	return TRUE;
 }
 
 /* 
@@ -1515,8 +1545,10 @@ project_manager_plugin_activate_plugin (AnjutaPlugin *plugin)
 					  G_CALLBACK (on_group_activated), plugin);
 	g_signal_connect (selection, "changed",
 					  G_CALLBACK (on_treeview_selection_changed), plugin);
-	g_signal_connect (view, "event",
-					  G_CALLBACK (on_treeview_event), plugin);
+	g_signal_connect (view, "button-press-event",
+		    		  G_CALLBACK (on_treeview_button_press_event), plugin);
+	g_signal_connect (view, "popup-menu",
+		    		  G_CALLBACK (on_treeview_popup_menu), plugin);
 	
 	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
