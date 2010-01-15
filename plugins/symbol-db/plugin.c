@@ -370,6 +370,7 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 	GPtrArray *text_buffers;
 	GPtrArray *buffer_sizes;
 	gint i;
+	gint proc_id ;
 	
 	g_return_val_if_fail (user_data != NULL, FALSE);
 	
@@ -437,12 +438,16 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 	buffer_sizes = g_ptr_array_new ();
 	g_ptr_array_add (buffer_sizes, GINT_TO_POINTER (buffer_size));
 
-	
-	gint proc_id = symbol_db_engine_update_buffer_symbols (sdb_plugin->sdbe_project,
+
+	proc_id = 0;
+	if (symbol_db_engine_is_connected (sdb_plugin->sdbe_project))
+	{		
+		proc_id = symbol_db_engine_update_buffer_symbols (sdb_plugin->sdbe_project,
 											sdb_plugin->project_opened,
 											real_files_list,
 											text_buffers,
 											buffer_sizes);
+	}
 	
 	if (proc_id > 0)
 	{		
