@@ -63,8 +63,9 @@ GtkWidget                  *gbf_project_view_new               (void);
 
 AnjutaProjectNode          *gbf_project_view_find_selected     (GbfProjectView *view,
 							        AnjutaProjectNodeType type);
-GbfTreeData                *gbf_project_view_get_selected      (GbfProjectView *view,
+GbfTreeData                *gbf_project_view_get_first_selected(GbfProjectView *view,
                                                                 GtkTreeIter    *selected);
+GList                      *gbf_project_view_get_all_selected  (GbfProjectView *view);
 
 GList                      *gbf_project_view_get_shortcut_list (GbfProjectView *view);
 void                        gbf_project_view_set_shortcut_list (GbfProjectView *view,

@@ -466,11 +466,21 @@ move_target_shortcut (GbfProjectModel *model,
 		return;
 
 	root_path = gtk_tree_row_reference_get_path (model->priv->root_row);
+	
 	/* check before_path */
 	if (!before_path ||
-	    gtk_tree_path_get_depth (before_path) > 1 ||
-	    gtk_tree_path_compare (before_path, root_path) > 0) {
+	    gtk_tree_path_get_depth (before_path) > 1)
+	{
+		/* Missing destination path, use root path */
 		before_path = root_path;
+	}
+	else if (gtk_tree_path_compare (before_path, root_path) > 0)
+	{
+		/* Destination path outside shortcut are, remove shortcut */
+		gbf_project_model_remove (model, iter);
+		gtk_tree_path_free (root_path);
+		
+		return;
 	}
 		
 	/* get the tree iter for the row before which to insert the shortcut */
@@ -752,21 +762,15 @@ gbf_project_model_find_tree_data (GbfProjectModel 	*model,
 			          GtkTreeIter     	*iter,
 			          GbfTreeData  		*data)
 {
-	GtkTreePath *root;
 	GtkTreeIter tmp_iter;
 	gboolean retval = FALSE;
 	
-	root = gbf_project_model_get_project_root (model);
-	if (!root)
-		return FALSE;
-
-	if (gtk_tree_model_get_iter (GTK_TREE_MODEL (model), &tmp_iter, root)) {
+	if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (model), &tmp_iter)) {
 		if (recursive_find_tree_data (GTK_TREE_MODEL (model), &tmp_iter, data)) {
 			retval = TRUE;
 			*iter = tmp_iter;
 		}
 	}
-	gtk_tree_path_free (root);
 	
 	return retval;
 }
@@ -1067,10 +1071,11 @@ row_drop_possible (GtkTreeDragDest  *drag_dest,
 		   GtkTreePath      *dest_path,
 		   GtkSelectionData *selection_data)
 {
-	GtkTreePath *root_path;
+	GtkTreeModel *src_model;
+	GtkTreePath *src_path;
 	GbfProjectModel *model;
+	GtkTreeIter iter;
 	gboolean retval = FALSE;
-	GtkTreeModel *src_model = NULL;
   
 	g_return_val_if_fail (GBF_IS_PROJECT_MODEL (drag_dest), FALSE);
 
@@ -1078,19 +1083,40 @@ row_drop_possible (GtkTreeDragDest  *drag_dest,
 
 	if (!gtk_tree_get_row_drag_data (selection_data,
 					 &src_model,
-					 NULL))
+					 &src_path))
 		return FALSE;
-    
-	/* can only drag to ourselves and only new toplevel nodes will
-	 * be created */
-	if (src_model == GTK_TREE_MODEL (drag_dest) &&
-	    gtk_tree_path_get_depth (dest_path) == 1) {
-		root_path = gtk_tree_row_reference_get_path (model->priv->root_row);
-		if (gtk_tree_path_compare (dest_path, root_path) <= 0) {
-			retval = TRUE;
+	
+		
+	if (gtk_tree_model_get_iter (src_model, &iter, src_path))
+	{
+		GbfTreeData *data = NULL;
+		
+		gtk_tree_model_get (src_model, &iter,
+		    GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
+
+		if (data != NULL)
+		{
+			/* can only drag to ourselves and only new toplevel nodes will
+			 * be created */
+			if (src_model == GTK_TREE_MODEL (drag_dest) &&
+	    			gtk_tree_path_get_depth (dest_path) == 1)
+			{
+				if (data->type == GBF_TREE_NODE_SHORTCUT)
+				{
+					retval = TRUE;
+				}
+				else
+				{
+					GtkTreePath *root_path;
+					
+					root_path = gtk_tree_row_reference_get_path (model->priv->root_row);
+					retval = gtk_tree_path_compare (dest_path, root_path) <= 0;
+					gtk_tree_path_free (root_path);
+				}
+			}
 		}
-		gtk_tree_path_free (root_path);
 	}
+	gtk_tree_path_free (src_path);
 
 	return retval;
 }

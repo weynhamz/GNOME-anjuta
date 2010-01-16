@@ -133,7 +133,7 @@ gbf_tree_data_equal (GbfTreeData *data_a, GbfTreeData *data_b)
 	gboolean equal;
 
 	equal = data_a == data_b;
-	if ((data_a != NULL) && (data_b != NULL))
+	if (!equal && (data_a != NULL) && (data_b != NULL))
 	{
 		equal = data_a->type == data_b->type;
 		if (equal)

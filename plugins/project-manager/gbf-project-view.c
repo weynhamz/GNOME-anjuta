@@ -372,69 +372,104 @@ gbf_project_view_new (void)
 AnjutaProjectNode *
 gbf_project_view_find_selected (GbfProjectView *view, AnjutaProjectNodeType type)
 {
-	GtkTreeSelection *selection;
-	GtkTreeModel *model;
 	GtkTreeIter iter;
 	AnjutaProjectNode *node = NULL;
 
 	g_return_val_if_fail (view != NULL, NULL);
 	g_return_val_if_fail (GBF_IS_PROJECT_VIEW (view), NULL);
-	
-	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
-	if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
-		if (GBF_IS_PROJECT_MODEL (model))
-		{
-			node = gbf_project_model_get_node (GBF_PROJECT_MODEL (model), &iter);
-		}
-		else if (GTK_IS_TREE_MODEL_FILTER (model))
-		{
-			GtkTreeIter child_iter;
-			
-			gtk_tree_model_filter_convert_iter_to_child_iter (GTK_TREE_MODEL_FILTER (model), &child_iter, &iter);
-			model = gtk_tree_model_filter_get_model (GTK_TREE_MODEL_FILTER (model));
-			node = gbf_project_model_get_node (GBF_PROJECT_MODEL (model), &child_iter);
-		}
 
+	if (gbf_project_view_get_first_selected (view, &iter) != NULL)
+	{
+		GtkTreeModel *model;
+		
+		model = gtk_tree_view_get_model (GTK_TREE_VIEW (view));
+		if (GTK_IS_TREE_MODEL_FILTER (model))
+		{
+			GtkTreeIter filter_iter = iter;
+			gtk_tree_model_filter_convert_iter_to_child_iter (GTK_TREE_MODEL_FILTER (model), &iter, &filter_iter);
+			model = gtk_tree_model_filter_get_model (GTK_TREE_MODEL_FILTER (model));
+		}			
+		node = gbf_project_model_get_node (GBF_PROJECT_MODEL (model), &iter);
+		
 		/* walk up the hierarchy searching for a node of the given type */
 		while ((node != NULL) && (anjuta_project_node_get_type (node) != type))
 		{
 			node = anjuta_project_node_parent (node);
 		}
 	}
-
+	
 	return node;
 }
 
 GbfTreeData *
-gbf_project_view_get_selected (GbfProjectView *view, GtkTreeIter* selected)
+gbf_project_view_get_first_selected (GbfProjectView *view, GtkTreeIter* selected)
 {
 	GtkTreeSelection *selection;
+	GbfTreeData *data = NULL;
 	GtkTreeModel *model;
-	GtkTreeIter iter;
-	GbfTreeData *data;
+	GList *list;
 
 	g_return_val_if_fail (view != NULL, FALSE);
 	g_return_val_if_fail (GBF_IS_PROJECT_VIEW (view), FALSE);
 	
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
-	if (gtk_tree_selection_get_selected (selection, &model, &iter))
+	list = gtk_tree_selection_get_selected_rows(selection, &model);
+	if (list != NULL)
 	{
-		if (GTK_IS_TREE_MODEL_FILTER (model))
-		{
-			GtkTreeIter child_iter;
-			
-			gtk_tree_model_filter_convert_iter_to_child_iter (GTK_TREE_MODEL_FILTER (model), &child_iter, &iter);
-			iter = child_iter;
-		}
-		if (selected) *selected = iter;
+		GtkTreeIter iter;
 		
-	
-		gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
-			    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
-			    -1);
+		if (gtk_tree_model_get_iter (model, &iter, list->data))
+		{
+			if (selected) *selected = iter;
+
+			gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
+				    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
+			    	-1);
+		}
+		g_list_foreach (list, (GFunc)gtk_tree_path_free, NULL);
+		g_list_free (list);
 	}
 
 	return data;
+}
+
+static void
+on_each_selected_node (GtkTreeModel *model,
+			GtkTreePath *path,
+                        GtkTreeIter *iter,
+                        gpointer user_data)
+{
+	GList **selected = (GList **)user_data;
+	GbfTreeData *data;
+
+	/*if (GTK_IS_TREE_MODEL_FILTER (model))
+	{
+		GtkTreeIter child_iter;
+			
+		gtk_tree_model_filter_convert_iter_to_child_iter (GTK_TREE_MODEL_FILTER (model), &child_iter, iter);
+		*iter = child_iter;
+	}*/
+	
+	gtk_tree_model_get (GTK_TREE_MODEL (model), iter,
+		    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
+		    -1);
+
+	*selected = g_list_prepend (*selected, data);
+}
+
+GList *
+gbf_project_view_get_all_selected (GbfProjectView *view)
+{
+	GtkTreeSelection *selection;
+	GList *selected = NULL;
+
+	g_return_val_if_fail (view != NULL, FALSE);
+	g_return_val_if_fail (GBF_IS_PROJECT_VIEW (view), FALSE);
+	
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
+	gtk_tree_selection_selected_foreach (selection, on_each_selected_node, &selected);
+
+	return g_list_reverse (selected);
 }
 
 /* Shorcuts functions

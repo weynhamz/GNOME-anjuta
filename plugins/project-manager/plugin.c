@@ -595,12 +595,21 @@ on_add_source (GtkAction *action, ProjectManagerPlugin *plugin)
 static void
 on_popup_properties (GtkAction *action, ProjectManagerPlugin *plugin)
 {
-	GbfTreeData *data;
+	GList *selected;
+	
+	selected = gbf_project_view_get_all_selected (GBF_PROJECT_VIEW (plugin->view));
 
-	data = gbf_project_view_get_selected (GBF_PROJECT_VIEW (plugin->view), NULL);
-	if (data)
+	if (selected != NULL)
 	{
-		project_manager_show_node_properties_dialog (plugin, data);
+		GList *item;
+		
+		for (item = g_list_first (selected); item != NULL; item = g_list_next (item))
+		{
+			GbfTreeData *data = (GbfTreeData *)(item->data);
+
+			project_manager_show_node_properties_dialog (plugin, data);
+		}
+		g_list_free (selected);
 	}
 }
 
@@ -611,7 +620,7 @@ on_popup_add_group (GtkAction *action, ProjectManagerPlugin *plugin)
 	AnjutaProjectGroup *new_group;
 	
 	update_operation_begin (plugin);
-	gbf_project_view_get_selected (GBF_PROJECT_VIEW (plugin->view), &selected_group);
+	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_group);
 	
 	new_group = gbf_project_util_new_group (plugin->model,
 										   get_plugin_parent_window (plugin),
@@ -626,7 +635,7 @@ on_popup_add_target (GtkAction *action, ProjectManagerPlugin *plugin)
 	AnjutaProjectTarget *new_target;
 
 	update_operation_begin (plugin);
-	gbf_project_view_get_selected (GBF_PROJECT_VIEW (plugin->view), &selected_group);
+	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_group);
 
 	new_target = gbf_project_util_new_target (plugin->model,
 											 get_plugin_parent_window (plugin),
@@ -642,7 +651,7 @@ on_popup_add_source (GtkAction *action, ProjectManagerPlugin *plugin)
 	AnjutaProjectSource *new_source;
 	
 	update_operation_begin (plugin);
-	gbf_project_view_get_selected (GBF_PROJECT_VIEW (plugin->view), &selected_target);
+	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_target);
 
 	new_source = gbf_project_util_add_source (plugin->model,
 											 get_plugin_parent_window (plugin),
@@ -652,78 +661,149 @@ on_popup_add_source (GtkAction *action, ProjectManagerPlugin *plugin)
 }
 
 static gboolean
-confirm_removal (ProjectManagerPlugin *plugin, AnjutaProjectNode *node)
+confirm_removal (ProjectManagerPlugin *plugin, GList *selected)
 {
 	gboolean answer;
-	gchar *mesg;
-	gchar* question;
-	gchar* full_mesg;
-	gchar* name;
+	GString* mesg;
+	GList *item;
+	GbfTreeNodeType type;
+	gboolean group = FALSE;
+	gboolean source = FALSE;
 
+	g_return_val_if_fail (selected != NULL, FALSE);
 
-	name = anjuta_project_node_get_name (node);
-	switch (anjuta_project_node_get_type (node))
+	type = ((GbfTreeData *)selected->data)->type;
+	for (item = g_list_first (selected); item != NULL; item = g_list_next (item))
 	{
-		case ANJUTA_PROJECT_GROUP:
-			question = _("Are you sure you want to remove the following group from the project?\n\n");
-			mesg = _("Group: %s\n\nThe group will not be deleted from the file system.");
-			break;
-		case ANJUTA_PROJECT_TARGET:
-			question = _("Are you sure you want to remove the following target from the project?\n\n");
-			mesg = _("Target: %s");
-			break;
-		case ANJUTA_PROJECT_SOURCE:
-			question = _("Are you sure you want to remove the following source file from the project?\n\n");
-			mesg = _("Source: %s\n\nThe source file will not be deleted from the file system.");
-			break;
-		default:
-			g_warning ("Unknown node");
-			return FALSE;
+		GbfTreeData *data = (GbfTreeData *)item->data;
+
+		if (data->type == GBF_TREE_NODE_GROUP) group = TRUE;
+		if (data->type == GBF_TREE_NODE_SOURCE) source = TRUE;
+		if (type != data->type) type = GBF_TREE_NODE_UNKNOWN;
 	}
-	full_mesg = g_strconcat (question, mesg, NULL);
+
+	switch (type)
+	{
+	case GBF_TREE_NODE_GROUP:
+		mesg = g_string_new (_("Are you sure you want to remove the following group from the project?\n\n"));
+		break;
+	case GBF_TREE_NODE_TARGET:
+		mesg = g_string_new (_("Are you sure you want to remove the following target from the project?\n\n"));
+		break;
+	case GBF_TREE_NODE_SOURCE:
+		mesg = g_string_new (_("Are you sure you want to remove the following source file from the project?\n\n"));
+		break;
+	case GBF_TREE_NODE_UNKNOWN:
+		mesg = g_string_new (_("Are you sure you want to remove the following elements from the project?\n\n"));
+		break;
+	case GBF_TREE_NODE_SHORTCUT:
+		/* Remove shortcut without confirmation */
+		return TRUE;
+	default:
+		g_warn_if_reached ();
+		return FALSE;
+	}
+
+	for (item = g_list_first (selected); item != NULL; item = g_list_next (item))
+	{
+		GbfTreeData *data = (GbfTreeData *)item->data;
+
+		switch (data->type)
+		{
+		case GBF_TREE_NODE_GROUP:
+			g_string_append_printf (mesg, _("Group: %s\n"), data->name);
+			break;
+		case GBF_TREE_NODE_TARGET:
+			g_string_append_printf (mesg, _("Target: %s\n"), data->name);
+			break;
+		case GBF_TREE_NODE_SOURCE:
+			g_string_append_printf (mesg, _("Source: %s\n"), data->name);
+			break;
+		case GBF_TREE_NODE_SHORTCUT:
+			g_string_append_printf (mesg, _("Shortcut: %s\n"), data->name);
+			return TRUE;
+		default:
+			g_warn_if_reached ();
+			return FALSE;
+		}
+	}
+
+	if (group || source)
+	{
+		g_string_append (mesg, _("\n"));
+		if (group)
+			g_string_append (mesg, _("The group will not be deleted from the file system."));
+		if (source)
+			g_string_append (mesg, _("The source file will not be deleted from the file system."));
+	}			    
+	
 	answer =
 		anjuta_util_dialog_boolean_question (get_plugin_parent_window (plugin),
-											 full_mesg, name);
-	g_free (name);
-	g_free (full_mesg);
+											 mesg->str, _("Confirm remove"));
+	g_string_free (mesg, TRUE);
+	
 	return answer;
 }
 
 static void
 on_popup_remove (GtkAction *action, ProjectManagerPlugin *plugin)
 {
-	AnjutaProjectNode *node;
+	GList *selected;
 	
-	node = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
-										   ANJUTA_PROJECT_SOURCE);
-	if (node == NULL)
+	selected = gbf_project_view_get_all_selected (GBF_PROJECT_VIEW (plugin->view));
+
+	if (selected != NULL)
 	{
-		node = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
-											   ANJUTA_PROJECT_TARGET);
-	}
-	if (node == NULL)
-	{
-		node = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
-											   ANJUTA_PROJECT_GROUP);
-	}
-	if (node)
-	{
-		if (confirm_removal (plugin, node))
+		if (confirm_removal (plugin, selected))
 		{
 			GError *err = NULL;
-			update_operation_begin (plugin);
-			ianjuta_project_remove_node (plugin->project, node, &err);
-			update_operation_end (plugin, TRUE);
-			if (err)
+			GList *item;
+			gboolean update = FALSE;
+
+			for (item = g_list_first (selected); item != NULL; item = g_list_next (item))
 			{
-				gchar *name = anjuta_project_node_get_name (node);
-				anjuta_util_dialog_error (get_plugin_parent_window (plugin),
+				GbfTreeData *data = (GbfTreeData *)(item->data);
+				AnjutaProjectNode *node;
+				GtkTreeIter iter;
+
+				switch (data->type)
+				{
+				case GBF_TREE_NODE_GROUP:
+				case GBF_TREE_NODE_TARGET:
+				case GBF_TREE_NODE_SOURCE:
+					node = gbf_tree_data_get_node(data, plugin->project);
+					if (node != NULL)
+					{
+						if (!update) update_operation_begin (plugin);
+						ianjuta_project_remove_node (plugin->project, node, &err);
+						if (err)
+						{
+							gchar *name;
+							
+							update_operation_end (plugin, TRUE);
+							update = FALSE;
+							name = anjuta_project_node_get_name (node);
+							anjuta_util_dialog_error (get_plugin_parent_window (plugin),
 										  _("Failed to remove '%s':\n%s"),
 										  name, err->message);
-				g_free (name);
-				g_error_free (err);
+							g_free (name);
+							g_error_free (err);
+						}
+					}
+					break;
+				case GBF_TREE_NODE_SHORTCUT:
+					if (gbf_project_model_find_tree_data (plugin->model, &iter, data))
+					{
+						gbf_project_model_remove (plugin->model, &iter);
+					}
+					break;
+				default:
+					break;
+				}
 			}
+			if (update) update_operation_end (plugin, TRUE);
 		}
+		g_list_free (selected);
 	}
 }
 
@@ -1064,35 +1144,40 @@ on_treeview_button_press_event (GtkWidget             *widget,
 				 GdkEventButton        *event,
 				 ProjectManagerPlugin *plugin)
 {
-	static gboolean in_press = FALSE;
-	gboolean handled;
-	AnjutaUI *ui;
-	GtkWidget *popup;
+	if (event->button == 3)
+	{
+		GtkTreePath *path;
+		GtkTreeSelection *selection;
+		AnjutaUI *ui;
+		GtkWidget *popup;
 
-	if (in_press)
-		return FALSE;
+        if (!gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(widget),
+                        event->x,event->y, &path, NULL, NULL, NULL))
+			return FALSE;
 
-	if (event->button != 3)
-		return FALSE;
+		selection = gtk_tree_view_get_selection(GTK_TREE_VIEW (widget));
+        if (!gtk_tree_selection_path_is_selected(selection, path))
+        {
+            gtk_tree_selection_unselect_all(selection);
+            gtk_tree_selection_select_path(selection, path);
+            gtk_tree_view_set_cursor(GTK_TREE_VIEW(widget),
+                                path, NULL, FALSE);
+        }
+        gtk_tree_path_free (path);
 
-	/* Re-emit the event to select the item at mouse position */
-	in_press = TRUE;
-	handled = gtk_widget_event (plugin->view, (GdkEvent *) event);
-	in_press = FALSE;
-
- 	if (!handled)
-    	return FALSE;
-
-	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
-	popup = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui), "/PopupProjectManager");
-	g_return_val_if_fail (GTK_IS_WIDGET (popup), FALSE);
+		ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
+		popup = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui), "/PopupProjectManager");
+		g_return_val_if_fail (GTK_IS_WIDGET (popup), FALSE);
 	
-	gtk_menu_popup (GTK_MENU (popup),
-					NULL, NULL, NULL, NULL,
-					((GdkEventButton *) event)->button,
-					((GdkEventButton *) event)->time);
-
-	return TRUE;
+		gtk_menu_popup (GTK_MENU (popup),
+						NULL, NULL, NULL, NULL,
+						((GdkEventButton *) event)->button,
+						((GdkEventButton *) event)->time);
+		
+        return TRUE;
+    }
+	
+	return FALSE;
 }
 
 /* 
@@ -1537,6 +1622,7 @@ project_manager_plugin_activate_plugin (AnjutaPlugin *plugin)
 							 GTK_TREE_MODEL (model));
 	
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
+	gtk_tree_selection_set_mode (selection, GTK_SELECTION_MULTIPLE);
 	g_signal_connect (view, "uri-activated",
 					  G_CALLBACK (on_uri_activated), plugin);
 	g_signal_connect (view, "target-selected",

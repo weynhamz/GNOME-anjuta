@@ -467,9 +467,11 @@ setup_targets_treeview (GbfProjectModel     *model,
 
     /* select default target */
     if (select_target) {
-        gtk_tree_model_filter_convert_child_iter_to_iter (
-                GTK_TREE_MODEL_FILTER (filter), &iter_filter, select_target);
-        path = gtk_tree_model_get_path (filter, &iter_filter);
+        if (gtk_tree_model_filter_convert_child_iter_to_iter (
+                GTK_TREE_MODEL_FILTER (filter), &iter_filter, select_target))
+        {
+            path = gtk_tree_model_get_path (filter, &iter_filter);
+        }
     }
     if (path)
     {
