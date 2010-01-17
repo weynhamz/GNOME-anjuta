@@ -262,14 +262,34 @@ file_view_do_popup_menu (GtkWidget* widget, GdkEventButton* event)
 static gboolean
 file_view_button_press_event (GtkWidget *widget, GdkEventButton *event)
 {
-  /* Ignore double-clicks and triple-clicks */
-  if (event->button == 3 && event->type == GDK_BUTTON_PRESS)
+	/* Ignore double-clicks and triple-clicks */
+	if (event->button == 3 && event->type == GDK_BUTTON_PRESS)
     {
-      file_view_do_popup_menu (widget, event);
-      return TRUE;
+		GtkTreePath *path;
+
+		/* Select file under cursor if not selected */
+        if (gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(widget),
+                        event->x,event->y, &path, NULL, NULL, NULL))
+		{
+			GtkTreeSelection *selection;
+
+			selection = gtk_tree_view_get_selection(GTK_TREE_VIEW (widget));
+	        if (!gtk_tree_selection_path_is_selected(selection, path))
+    	    {
+        	    gtk_tree_selection_unselect_all(selection);
+	            gtk_tree_selection_select_path(selection, path);
+    	        gtk_tree_view_set_cursor(GTK_TREE_VIEW(widget),
+        	                        path, NULL, FALSE);
+        	}
+        	gtk_tree_path_free (path);
+			
+			file_view_do_popup_menu (widget, event);
+		
+      		return TRUE;
+		}
     }
 
- return 	
+	return 	
 		GTK_WIDGET_CLASS (file_view_parent_class)->button_press_event (widget,
 																	   event);
 }
