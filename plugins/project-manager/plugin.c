@@ -730,7 +730,7 @@ confirm_removal (ProjectManagerPlugin *plugin, GList *selected)
 
 	if (group || source)
 	{
-		g_string_append (mesg, _("\n"));
+		g_string_append (mesg, "\n");
 		if (group)
 			g_string_append (mesg, _("The group will not be deleted from the file system."));
 		if (source)
