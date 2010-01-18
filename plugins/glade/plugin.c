@@ -1897,7 +1897,7 @@ glade_plugin_fetch_last_signal (GladePlugin *plugin)
 
 			plugin->priv->last_object_name = g_strdup (gwidget->name);
 			plugin->priv->last_signal_name = signal_name;
-			plugin->priv->last_object_type = GTK_OBJECT_TYPE (gwidget->object);
+			plugin->priv->last_object_type = G_OBJECT_TYPE (gwidget->object);
 			plugin->priv->last_handler_name = signal_handler;
 			plugin->priv->last_toplevel_name = g_strdup (find_root_gwidget (gwidget)->name);
 
@@ -2230,7 +2230,7 @@ on_handler_editing_done (GladeSignalEditor *self, gchar *signal_name,
 
 		plugin->priv->last_object_name = g_strdup (gwidget->name);
 		plugin->priv->last_signal_name = g_strdup (signal_name);
-		plugin->priv->last_object_type = GTK_OBJECT_TYPE (gwidget->object);
+		plugin->priv->last_object_type = G_OBJECT_TYPE (gwidget->object);
 		plugin->priv->last_handler_name = g_strdup (new_handler);
 		plugin->priv->last_toplevel_name = g_strdup (find_root_gwidget (gwidget)->name);
 
