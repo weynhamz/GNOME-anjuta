@@ -105,7 +105,7 @@ struct _GladePluginPriv
 
 	gboolean insert_handler_on_edit;
 	gint default_handler_template;
-	gchar *default_resource_target;
+	GFile *default_resource_target;
 	gboolean auto_add_resource;
 
 	GFile *last_editor;
@@ -308,18 +308,16 @@ value_added_pm_current_uri (AnjutaPlugin *plugin, const char *name,
 {
 	AnjutaUI *ui;
 	GtkAction *action;
-	gchar *selected_id;
+	GFile *selected;
 	IAnjutaProjectManager *projman =
 		anjuta_shell_get_interface (ANJUTA_PLUGIN(plugin)->shell,
 		                            IAnjutaProjectManager, NULL);
 
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupGlade", "ActionSetDefaultTarget");
-	selected_id = ianjuta_project_manager_get_selected_id (projman,
-	                                                       ANJUTA_PROJECT_TARGET,
-	                                                       NULL);
-	gtk_action_set_sensitive (action, selected_id != NULL);
-	g_free (selected_id);
+	selected = ianjuta_project_manager_get_selected (projman, NULL);
+	gtk_action_set_sensitive (action, selected != NULL);
+	g_object_unref (selected);
 }
 
 static void
@@ -831,15 +829,17 @@ glade_plugin_save_preferences (GladePlugin *plugin, xmlDocPtr xml_doc, xmlNodePt
 	            BAD_CAST (value));
 	g_free (value);
 
+	value = g_file_get_uri (plugin->priv->default_resource_target);
 	xmlSetProp (child_node, BAD_CAST (GLADE_DEFAULT_RESOURCE_TARGET),
-	            BAD_CAST (plugin->priv->default_resource_target));
+	            BAD_CAST (value));
+	g_free (value);
 }
 
 static void
 on_associations_changed (DesignerAssociations *self, DesignerAssociationsItem *item,
                          DesignerAssociationsAction action, GladePlugin *plugin);
 static void
-on_default_resource_target_changed (const gchar *selected, GladePlugin *plugin);
+on_default_resource_target_changed (GFile *selected, GladePlugin *plugin);
 
 static gboolean
 glade_plugin_do_save_associations (GladePlugin *plugin, GError **error)
@@ -978,9 +978,8 @@ glade_plugin_load_preferences (GladePlugin *plugin, xmlDocPtr xml_doc, xmlNodePt
 		xmlFree (value);
 	}
 
-	plugin->priv->default_resource_target =
-		claim_xml_string (xmlGetProp (child_node,
-		                              BAD_CAST (GLADE_DEFAULT_RESOURCE_TARGET)));
+	value = (gchar *)xmlGetProp (child_node, BAD_CAST (GLADE_DEFAULT_RESOURCE_TARGET));
+	plugin->priv->default_resource_target = g_file_new_for_uri (value);
 
 	update_actions (plugin);
 	update_prefs_page (plugin);
@@ -1144,8 +1143,8 @@ on_glade_resource_added (GladeProject *project, const gchar *resource,
 	DEBUG_PRINT ("Adding resource \"%s\" to the target \"%s\"",
 	              resource_uri, plugin->priv->default_resource_target);
 	str = ianjuta_project_manager_add_source_quiet (projman,
-	                                                plugin->priv->default_resource_target,
 	                                                resource_uri,
+	                                                plugin->priv->default_resource_target,
 	                                                &error);
 	if (error)
 	{
@@ -3854,28 +3853,27 @@ glade_plugin_add_project (GladePlugin *glade_plugin, GladeProject *project,
 }
 
 static void
-set_default_resource_target (const gchar *value, GladePlugin* plugin)
+set_default_resource_target (GFile *value, GladePlugin* plugin)
 {
-	g_free (plugin->priv->default_resource_target);
-	if (!value || strlen (value) == 0)
+	g_object_unref (plugin->priv->default_resource_target);
+	if (value == NULL)
 		plugin->priv->default_resource_target = NULL;
 	else
-		plugin->priv->default_resource_target = g_strdup (value);
+		plugin->priv->default_resource_target = g_object_ref (value);
 	on_default_resource_target_changed (value, plugin);
 }
 
 static void
 on_set_default_resource_target (GtkAction* action, GladePlugin* plugin)
 {
-	gchar *selected;
+	GFile *selected;
 	IAnjutaProjectManager *projman =
 		anjuta_shell_get_interface (ANJUTA_PLUGIN(plugin)->shell,
 		                            IAnjutaProjectManager, NULL);
 
-	selected = ianjuta_project_manager_get_selected_id (projman, ANJUTA_PROJECT_TARGET, NULL);
-	DEBUG_PRINT ("Selected element is %s", selected);
+	selected = ianjuta_project_manager_get_selected (projman, NULL);
 	set_default_resource_target (selected, plugin);
-	g_free (selected);
+	g_object_unref (selected);
 }
 
 #if 0
@@ -4609,7 +4607,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 		g_object_unref (priv->last_editor);
 		priv->last_editor = NULL;
 	}
-	g_free (priv->default_resource_target);
+	g_object_unref (priv->default_resource_target);
 	priv->default_resource_target = NULL;
 
 	if (priv->xml)
@@ -4985,10 +4983,13 @@ on_preferences_default_resource_entry_focus_out (GtkWidget *entry,
                                                  GladePlugin *plugin)
 {
 	const gchar *value;
+	GFile *file;
 
 	g_return_val_if_fail (plugin->priv->prefs, FALSE);
 	value = gtk_entry_get_text (GTK_ENTRY(entry));
-	set_default_resource_target (value, plugin);
+	file = g_file_new_for_commandline_arg (value);
+	set_default_resource_target (file, plugin);
+	g_object_unref (file);
 
 	return FALSE;
 }
@@ -4997,24 +4998,30 @@ void
 on_preferences_default_resource_entry_activate (GtkEntry *entry, GladePlugin *plugin)
 {
 	const gchar *value;
+	GFile *file;
 
 	g_return_if_fail (plugin->priv->prefs);
 
 	value = gtk_entry_get_text (entry);
-	set_default_resource_target (value, plugin);
+	file = g_file_new_for_commandline_arg (value);
+	set_default_resource_target (file, plugin);
+	g_object_unref (file);
 }
 
 static void
-on_default_resource_target_changed (const gchar *value, GladePlugin *plugin)
+on_default_resource_target_changed (GFile *file, GladePlugin *plugin)
 {
 	GtkEntry *entry;
+	gchar *value;
 
 	if (!plugin->priv->prefs)
 		return;
 
 	entry = GTK_ENTRY(gtk_builder_get_object (plugin->priv->xml,
 	                                          DEFAULT_RESOURCE_ENTRY_NAME));
-	gtk_entry_set_text (entry, value ? value : "");
+	value = g_file_get_path (file);
+	gtk_entry_set_text (entry, value != NULL ? value : "");
+	g_free (value);
 }
 
 static void

@@ -336,9 +336,8 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (nfg->add_to_project)))
 	{
 		IAnjutaProjectManager *pm;
-		GFile* file;
 		GList *names = NULL;
-		GList *uri_list;
+		GList *file_list;
 		
 		pm = anjuta_shell_get_interface (ANJUTA_PLUGIN(docman)->shell, 
 										 IAnjutaProjectManager, NULL);
@@ -346,24 +345,20 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 
 		if (teh) names = g_list_prepend (names, header_name);
 		names = g_list_prepend (names, (gpointer) name);
-		uri_list = ianjuta_project_manager_add_sources (pm, names, NULL, NULL);
+		file_list = ianjuta_project_manager_add_sources (pm, names, NULL, NULL);
 		g_list_free (names);
 		
-		if (uri_list)
+		if (file_list)
 		{
 			GList* node;
 
 			/* Save main file */
-			file = g_file_new_for_uri ((const gchar *)uri_list->data);
-			ianjuta_file_savable_save_as (IANJUTA_FILE_SAVABLE (te), file, NULL);		
-			g_object_unref (file);
+			ianjuta_file_savable_save_as (IANJUTA_FILE_SAVABLE (te), (GFile *)file_list->data, NULL);		
 			
-			if (uri_list->next)
+			if (file_list->next)
 			{
 				/* Save header file */
-				file = g_file_new_for_uri ((const gchar *)uri_list->next->data);
-				ianjuta_file_savable_save_as (IANJUTA_FILE_SAVABLE (teh), file, NULL);		
-				g_object_unref (file);
+				ianjuta_file_savable_save_as (IANJUTA_FILE_SAVABLE (teh), (GFile *)file_list->data, NULL);		
 			}		
 
 
@@ -374,25 +369,19 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 										 IAnjutaVcs, NULL);
 				if (ivcs)
 				{					
-					GList* files = NULL;
 					AnjutaAsyncNotify* notify = anjuta_async_notify_new();
-					for (node = uri_list; node != NULL; node = g_list_next (node))
-					{
-						files = g_list_append (files, g_file_new_for_uri (node->data));
-					}
-					ianjuta_vcs_add (ivcs, files, notify, NULL);
-					g_list_foreach (files, (GFunc) g_object_unref, NULL);
+					ianjuta_vcs_add (ivcs, file_list, notify, NULL);
 				}
 			}
 
 			/* Re emit element_added for symbol-db */
-			for (node = uri_list; node != NULL; node = g_list_next (node))
+			for (node = file_list; node != NULL; node = g_list_next (node))
 			{
 				g_signal_emit_by_name (G_OBJECT (pm), "element_added", node->data);
 			}
 
-			g_list_foreach (uri_list, (GFunc)g_free, NULL);
-			g_list_free (uri_list);
+			g_list_foreach (file_list, (GFunc)g_object_unref, NULL);
+			g_list_free (file_list);
 		}
 		else
 		{

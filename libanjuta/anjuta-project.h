@@ -117,6 +117,7 @@ void anjuta_project_node_children_foreach (AnjutaProjectNode *node, AnjutaProjec
 AnjutaProjectNodeType anjuta_project_node_get_type (const AnjutaProjectNode *node);
 gchar *anjuta_project_node_get_name (const AnjutaProjectNode *node);
 gchar *anjuta_project_node_get_uri (AnjutaProjectNode *node);
+GFile *anjuta_project_node_get_file (AnjutaProjectNode *node);
 
 AnjutaProjectGroup *anjuta_project_group_get_node_from_file (const AnjutaProjectGroup *root, GFile *directory);
 AnjutaProjectTarget *anjuta_project_target_get_node_from_name (const AnjutaProjectGroup *parent, const gchar *name);

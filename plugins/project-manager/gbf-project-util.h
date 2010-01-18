@@ -56,7 +56,7 @@ GList * gbf_project_util_all_child (AnjutaProjectNode *parent,
 GList * gbf_project_util_node_all (AnjutaProjectNode *parent,
                                         AnjutaProjectNodeType type);
 
-GList * gbf_project_util_replace_by_uri (GList* list);
+GList * gbf_project_util_replace_by_file (GList* list);
 				    
 G_END_DECLS
 

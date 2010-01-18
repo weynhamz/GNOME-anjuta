@@ -812,7 +812,7 @@ gbf_project_util_node_all (AnjutaProjectNode *parent, AnjutaProjectNodeType type
 }
 
 GList *
-gbf_project_util_replace_by_uri (GList* list)
+gbf_project_util_replace_by_file (GList* list)
 {
         GList* link;
     
@@ -820,7 +820,7 @@ gbf_project_util_replace_by_uri (GList* list)
 	{
                 AnjutaProjectNode *node = (AnjutaProjectNode *)link->data;
 
-                link->data = anjuta_project_node_get_uri (node);
+                link->data = anjuta_project_node_get_file (node);
 	}
 
         return list;

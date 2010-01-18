@@ -111,6 +111,29 @@ gbf_tree_data_get_uri (GbfTreeData *data)
 	return NULL;
 }
 
+GFile *
+gbf_tree_data_get_file (GbfTreeData *data)
+{
+	if (data->source != NULL)
+	{
+		return g_object_ref (g_file_get_uri (data->source));
+	}
+	else if (data->target != NULL)
+	{
+		GFile *target;
+
+		target = g_file_get_child (data->group, data->target);
+		
+		return target;
+	}
+	else if (data->group != NULL)
+	{
+		return g_object_ref (g_file_get_uri (data->group));
+	}
+
+	return NULL;
+}
+
 gchar *
 gbf_tree_data_get_path (GbfTreeData *data)
 {
@@ -279,36 +302,31 @@ gbf_tree_data_new_for_path (const gchar *path)
 }
 
 GbfTreeData *
-gbf_tree_data_new_for_uri (const gchar *uri, GbfTreeNodeType type)
+gbf_tree_data_new_for_file (GFile *file, GbfTreeNodeType type)
 {
 	GbfTreeData *data = g_slice_new0 (GbfTreeData);
 	GFileInfo *ginfo;
-	GFile *file;
 
 	data->type = type;
 
-	file = g_file_new_for_uri (uri);
-	
 	switch (type)
 	{
 	case GBF_TREE_NODE_UNKNOWN:
 	case GBF_TREE_NODE_SHORTCUT:
 	case GBF_TREE_NODE_GROUP:
-		data->group = file;
+		data->group = g_object_ref (file);
 		break;
 	case GBF_TREE_NODE_TARGET:
 		data->group = g_file_get_parent (file);
 		data->target = g_file_get_basename (file);
-		g_object_unref (file);
 		file = NULL;
 		data->name = g_strdup (data->target);
 		break;
 	case GBF_TREE_NODE_SOURCE:
-		data->source = file;
+		data->source = g_object_ref (file);
 		break;
 	case GBF_TREE_NODE_STRING:
 		data->name = g_file_get_parse_name (file);
-		g_object_unref (file);
 		file = NULL;
 		break;
 	}

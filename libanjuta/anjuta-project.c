@@ -201,6 +201,32 @@ anjuta_project_node_get_uri (AnjutaProjectNode *node)
 	return uri;
 }
 
+GFile*
+anjuta_project_node_get_file (AnjutaProjectNode *node)
+{
+	AnjutaProjectGroup *parent;
+	GFile *file;
+	
+	switch (NODE_DATA (node)->type)
+	{
+	case ANJUTA_PROJECT_GROUP:
+		file = g_object_ref (GROUP_DATA (node)->directory);
+		break;
+	case ANJUTA_PROJECT_TARGET:
+		parent = anjuta_project_node_parent (node);
+		file = g_file_get_child (anjuta_project_group_get_directory (parent), anjuta_project_target_get_name (node));
+		break;
+	case ANJUTA_PROJECT_SOURCE:
+		file = g_object_ref (SOURCE_DATA (node)->file);
+		break;
+	default:
+		file = NULL;
+		break;
+	}
+
+	return file;
+}
+
 /* Group access functions
  *---------------------------------------------------------------------------*/
 

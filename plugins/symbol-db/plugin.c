@@ -1061,10 +1061,9 @@ do_add_new_files (SymbolDBPlugin *sdb_plugin, const GPtrArray *sources_array,
 }
 
 static void
-on_project_element_added (IAnjutaProjectManager *pm, const gchar *uri,
+on_project_element_added (IAnjutaProjectManager *pm, GFile *gfile,
 						  SymbolDBPlugin *sdb_plugin)
 {
-	GFile *gfile = NULL;		
 	gchar *filename;
 	gint real_added;
 	GPtrArray *files_array;			
@@ -1072,7 +1071,6 @@ on_project_element_added (IAnjutaProjectManager *pm, const gchar *uri,
 	g_return_if_fail (sdb_plugin->project_root_uri != NULL);
 	g_return_if_fail (sdb_plugin->project_root_dir != NULL);
 
-	gfile = g_file_new_for_uri (uri);	
 	filename = g_file_get_path (gfile);
 
 	files_array = g_ptr_array_new ();
@@ -1092,22 +1090,17 @@ on_project_element_added (IAnjutaProjectManager *pm, const gchar *uri,
 	
 	g_ptr_array_foreach (files_array, (GFunc)g_free, NULL);
 	g_ptr_array_free (files_array, TRUE);
-	
-	if (gfile)
-		g_object_unref (gfile);	
 }
 
 static void
-on_project_element_removed (IAnjutaProjectManager *pm, const gchar *uri,
+on_project_element_removed (IAnjutaProjectManager *pm, GFile *gfile,
 							SymbolDBPlugin *sdb_plugin)
 {
 	gchar *filename;
-	GFile *gfile;
 	
 	if (!sdb_plugin->project_root_uri)
 		return;
 	
-	gfile = g_file_new_for_uri (uri);
 	filename = g_file_get_path (gfile);
 
 	if (filename)
@@ -1118,8 +1111,6 @@ on_project_element_removed (IAnjutaProjectManager *pm, const gchar *uri,
 		
 		g_free (filename);
 	}
-	
-	g_object_unref (gfile);
 }
 
 static void
@@ -1454,10 +1445,7 @@ do_import_project_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 		gchar *local_filename;
 		GFile *gfile = NULL;
 		
-		if ((gfile = g_file_new_for_uri (g_list_nth_data (prj_elements_list, i))) == NULL)
-		{
-			continue;
-		}		
+		gfile = g_list_nth_data (prj_elements_list, i);
 
 		if ((local_filename = g_file_get_path (gfile)) == NULL)
 		{
@@ -1606,12 +1594,8 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 	{	
 		GFile *gfile;
 		gchar *filename;
-		const gchar *uri = (const gchar*)g_list_nth_data (prj_elements_list, i);
 
-		if ((gfile = g_file_new_for_uri (uri)) == NULL) 
-		{			
-			continue;
-		}		
+		gfile = (GFile *)g_list_nth_data (prj_elements_list, i);
 		
 		if ((filename = g_file_get_path (gfile)) == NULL || 
 			g_strcmp0 (filename, "") == 0)
@@ -1623,7 +1607,7 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 		}
 		
 		/* test its existence */
-		if (g_file_test (filename, G_FILE_TEST_EXISTS) == FALSE) 
+		if (g_file_query_exists (gfile, NULL) == FALSE) 
 		{
 			/* FIXME here */
 			/*DEBUG_PRINT ("hey, filename %s (uri %s) does NOT exist", filename, uri);*/
