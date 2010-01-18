@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2010-01-08 21:31+0000\n"
-"PO-Revision-Date: 2010-01-09 08:39+0100\n"
+"POT-Creation-Date: 2010-01-17 17:02+0000\n"
+"PO-Revision-Date: 2010-01-18 19:11+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1161,18 +1161,6 @@ msgstr "Archivo de código fuente:"
 msgid "Source/Header Headings:"
 msgstr "Titulares de Fuente/Cabecera:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:30
-msgid "private"
-msgstr "privativa"
-
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:31
-msgid "protected"
-msgstr "protegida"
-
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:32
-msgid "public"
-msgstr "pública"
-
 #: ../plugins/class-gen/generator.c:132
 #, c-format
 msgid "Header or source file has not been created"
@@ -1203,7 +1191,7 @@ msgstr ""
 "No se pudo encontrar autogen versión 5, instale el paquete autogen. Puede "
 "obtenerlo en http://autogen.sourceforge.net."
 
-#: ../plugins/class-gen/plugin.c:253 ../plugins/class-gen/plugin.c:412
+#: ../plugins/class-gen/plugin.c:253 ../plugins/class-gen/plugin.c:426
 #, c-format
 msgid "Failed to execute autogen: %s"
 msgstr "Fallo al ejecutar autogen: %s"
@@ -1403,8 +1391,8 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "Ignorar el archivo .cvsrc (recomendado)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
-#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2354
-#: ../plugins/symbol-db/plugin.c:2417
+#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2359
+#: ../plugins/symbol-db/plugin.c:2422
 msgid "Local"
 msgstr "Local"
 
@@ -2506,7 +2494,7 @@ msgstr ""
 msgid "Path"
 msgstr "Ruta"
 
-#: ../plugins/debug-manager/start.c:1386 ../plugins/gdb/debugger.c:1729
+#: ../plugins/debug-manager/start.c:1386 ../plugins/gdb/debugger.c:1738
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -2627,8 +2615,8 @@ msgstr "Contenido"
 #: ../plugins/search/search-replace.c:1717
 #: ../plugins/search/search-replace.c:1724
 #: ../plugins/search/search-replace.c:1736
-#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2356
-#: ../plugins/symbol-db/plugin.c:2467
+#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2361
+#: ../plugins/symbol-db/plugin.c:2472
 msgid "Search"
 msgstr "Buscar"
 
@@ -3640,7 +3628,7 @@ msgid "Filter"
 msgstr "Filtro"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2355 ../plugins/symbol-db/plugin.c:2443
+#: ../plugins/symbol-db/plugin.c:2360 ../plugins/symbol-db/plugin.c:2448
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:6
 msgid "Global"
 msgstr "Global"
@@ -3653,15 +3641,15 @@ msgstr "Directorio raíz si no hay ningún proyecto abierto:"
 msgid "Loading..."
 msgstr "Cargando…"
 
-#: ../plugins/file-manager/file-view.c:510
+#: ../plugins/file-manager/file-view.c:530
 msgid "Filename"
 msgstr "Nombre de archivo"
 
-#: ../plugins/file-manager/file-view.c:590
+#: ../plugins/file-manager/file-view.c:610
 msgid "Base URI"
 msgstr "URI base"
 
-#: ../plugins/file-manager/file-view.c:591
+#: ../plugins/file-manager/file-view.c:611
 msgid "URI of the top-most path displayed"
 msgstr "URI de la ruta superior mostrada"
 
@@ -4260,18 +4248,18 @@ msgid "Includes:"
 msgstr "Inclusiones:"
 
 #. The %s argument is a program name, anjuta by example
-#: ../plugins/gdb/debugger.c:703
+#: ../plugins/gdb/debugger.c:712
 #, c-format
 msgid "Loading Executable: %s\n"
 msgstr "Cargando ejecutable: %s\n"
 
 #. The %s argument is a file name
-#: ../plugins/gdb/debugger.c:734
+#: ../plugins/gdb/debugger.c:743
 #, c-format
 msgid "Loading Core: %s\n"
 msgstr "Cargando core: %s\n"
 
-#: ../plugins/gdb/debugger.c:819
+#: ../plugins/gdb/debugger.c:828
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -4282,59 +4270,59 @@ msgstr ""
 "No es posible inicializar el depurador.\n"
 "Asegúrese de que Anjuta está instalado correctamente."
 
-#: ../plugins/gdb/debugger.c:964
+#: ../plugins/gdb/debugger.c:973
 msgid "Getting ready to start debugging session…\n"
 msgstr "Preparándose para iniciar la sesión de depuración…\n"
 
-#: ../plugins/gdb/debugger.c:970
+#: ../plugins/gdb/debugger.c:979
 msgid "Loading Executable: "
 msgstr "Cargando ejecutable: "
 
-#: ../plugins/gdb/debugger.c:979
+#: ../plugins/gdb/debugger.c:988
 msgid "No executable specified.\n"
 msgstr "No hay ningún ejecutable especificado.\n"
 
-#: ../plugins/gdb/debugger.c:982
+#: ../plugins/gdb/debugger.c:991
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr ""
 "Abre un ejecutable o se acopla a un proceso para iniciar la depuración.\n"
 
-#: ../plugins/gdb/debugger.c:991
+#: ../plugins/gdb/debugger.c:1000
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "Hubo un error al lanzar el depurador.\n"
 
-#: ../plugins/gdb/debugger.c:995
+#: ../plugins/gdb/debugger.c:1004
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "Asegúrese de que «gdb» está instalado en el sistema.\n"
 
-#: ../plugins/gdb/debugger.c:1285
+#: ../plugins/gdb/debugger.c:1294
 msgid "Program exited normally\n"
 msgstr "El programa salió normalmente\n"
 
-#: ../plugins/gdb/debugger.c:1296
+#: ../plugins/gdb/debugger.c:1305
 #, c-format
 msgid "Program exited with error code %s\n"
 msgstr "El programa salió con el código de error %s\n"
 
 #. The program has reached one breakpoint and will stop
-#: ../plugins/gdb/debugger.c:1311
+#: ../plugins/gdb/debugger.c:1320
 #, c-format
 msgid "Breakpoint number %s hit\n"
 msgstr "Se llegó al punto de parada %s\n"
 
-#: ../plugins/gdb/debugger.c:1320
+#: ../plugins/gdb/debugger.c:1329
 msgid "Function finished\n"
 msgstr "Función terminada\n"
 
-#: ../plugins/gdb/debugger.c:1326
+#: ../plugins/gdb/debugger.c:1335
 msgid "Stepping finished\n"
 msgstr "Paso terminado\n"
 
-#: ../plugins/gdb/debugger.c:1332
+#: ../plugins/gdb/debugger.c:1341
 msgid "Location reached\n"
 msgstr "Ubicación alcanzada\n"
 
-#: ../plugins/gdb/debugger.c:1726
+#: ../plugins/gdb/debugger.c:1735
 msgid ""
 "The program is attached.\n"
 "Do you still want to stop the debugger?"
@@ -4344,7 +4332,7 @@ msgstr ""
 
 #. The %s argument is an error message returned by gdb.
 #. * It is something like, "No such file or directory"
-#: ../plugins/gdb/debugger.c:1887
+#: ../plugins/gdb/debugger.c:1896
 #, c-format
 msgid ""
 "Unable to connect to remote target, %s\n"
@@ -4353,20 +4341,20 @@ msgstr ""
 "No se pudo conectar con el objetivo remoto, %s.\n"
 "¿Quiere intentarlo de nuevo?"
 
-#: ../plugins/gdb/debugger.c:1905
+#: ../plugins/gdb/debugger.c:1914
 msgid "Debugger connected\n"
 msgstr "Depurador conectado\n"
 
-#: ../plugins/gdb/debugger.c:1979
+#: ../plugins/gdb/debugger.c:1988
 msgid "Program attached\n"
 msgstr "Programa acoplado\n"
 
-#: ../plugins/gdb/debugger.c:2000
+#: ../plugins/gdb/debugger.c:2009
 #, c-format
 msgid "Attaching to process: %d…\n"
 msgstr "Acoplándose al proceso: %d…\n"
 
-#: ../plugins/gdb/debugger.c:2026
+#: ../plugins/gdb/debugger.c:2035
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -4374,33 +4362,33 @@ msgstr ""
 "Ya se está ejecutando un proceso.\n"
 "¿Quiere terminarlo y acoplarse al proceso nuevo?"
 
-#: ../plugins/gdb/debugger.c:2043
+#: ../plugins/gdb/debugger.c:2052
 msgid "Anjuta is unable to attach to itself."
 msgstr "Anjuta no puede acoplarse a sí mismo."
 
-#: ../plugins/gdb/debugger.c:2093
+#: ../plugins/gdb/debugger.c:2102
 msgid "Program terminated\n"
 msgstr "Programa terminado\n"
 
-#: ../plugins/gdb/debugger.c:2108
+#: ../plugins/gdb/debugger.c:2117
 msgid "Program detached\n"
 msgstr "Programa desacoplado\n"
 
-#: ../plugins/gdb/debugger.c:2128
+#: ../plugins/gdb/debugger.c:2137
 #, c-format
 msgid "Detaching the process…\n"
 msgstr "Desacoplando el proceso…\n"
 
-#: ../plugins/gdb/debugger.c:2149
+#: ../plugins/gdb/debugger.c:2158
 msgid "Interrupting the process\n"
 msgstr "Interrumpiendo el proceso\n"
 
-#: ../plugins/gdb/debugger.c:3940
+#: ../plugins/gdb/debugger.c:3949
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "Enviar la señal %s al proceso: %d"
 
-#: ../plugins/gdb/debugger.c:3966
+#: ../plugins/gdb/debugger.c:3975
 msgid "Error whilst signaling the process."
 msgstr "Error al mandar señales al proceso."
 
@@ -6947,9 +6935,9 @@ msgid "_Select file to add…"
 msgstr "_Seleccionar archivo para añadir…"
 
 #: ../plugins/project-manager/gbf-project-model.c:250
-#: ../plugins/project-manager/plugin.c:1276
-#: ../plugins/project-manager/plugin.c:1359
-#: ../plugins/project-manager/plugin.c:1532
+#: ../plugins/project-manager/plugin.c:1420
+#: ../plugins/project-manager/plugin.c:1503
+#: ../plugins/project-manager/plugin.c:1679
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 msgid "Project"
 msgstr "Proyecto"
@@ -6958,73 +6946,72 @@ msgstr "Proyecto"
 msgid "GbfProject Object"
 msgstr "Objeto GbfProjec"
 
-#: ../plugins/project-manager/gbf-project-model.c:684
+#: ../plugins/project-manager/gbf-project-model.c:696
 msgid "No project loaded"
 msgstr "No se ha cargado ningún proyecto"
 
-#: ../plugins/project-manager/gbf-project-util.c:230
-#: ../plugins/project-manager/gbf-project-util.c:237
+#: ../plugins/project-manager/gbf-project-util.c:229
+#: ../plugins/project-manager/gbf-project-util.c:236
 msgid "Cannot add group"
 msgstr "No se puede añadir el grupo"
 
-#: ../plugins/project-manager/gbf-project-util.c:238
+#: ../plugins/project-manager/gbf-project-util.c:237
 msgid "No parent group selected"
 msgstr "No ha seleccionado el grupo padre"
 
-#: ../plugins/project-manager/gbf-project-util.c:408
-#: ../plugins/project-manager/gbf-project-util.c:415
+#: ../plugins/project-manager/gbf-project-util.c:407
+#: ../plugins/project-manager/gbf-project-util.c:414
 msgid "Cannot add target"
 msgstr "No se puede añadir el objetivo"
 
-#: ../plugins/project-manager/gbf-project-util.c:416
+#: ../plugins/project-manager/gbf-project-util.c:415
 msgid "No group selected"
 msgstr "No se ha seleccionado ningún grupo"
 
-#: ../plugins/project-manager/gbf-project-util.c:512
+#: ../plugins/project-manager/gbf-project-util.c:510
 msgid "Select sources…"
 msgstr "Seleccionar fuentes…"
 
-#: ../plugins/project-manager/gbf-project-util.c:746
-#: ../plugins/project-manager/gbf-project-util.c:753
+#: ../plugins/project-manager/gbf-project-util.c:744
+#: ../plugins/project-manager/gbf-project-util.c:751
 msgid "Cannot add source files"
 msgstr "No se pueden añadir los archivos de código"
 
-#: ../plugins/project-manager/gbf-project-util.c:754
+#: ../plugins/project-manager/gbf-project-util.c:752
 msgid "No target has been selected"
 msgstr "No se ha seleccionado ningún objetivo"
 
-#: ../plugins/project-manager/plugin.c:410
+#: ../plugins/project-manager/plugin.c:437
 msgid "Group properties"
 msgstr "Propiedades del grupo"
 
-#: ../plugins/project-manager/plugin.c:419
-#| msgid "No properties available for this target"
+#: ../plugins/project-manager/plugin.c:446
 msgid "No properties available for this group"
 msgstr "No existen propiedades disponibles para este grupo"
 
-#: ../plugins/project-manager/plugin.c:424
+#: ../plugins/project-manager/plugin.c:451
 msgid "Target properties"
 msgstr "Propiedades del objetivo"
 
-#: ../plugins/project-manager/plugin.c:433
+#: ../plugins/project-manager/plugin.c:460
 msgid "No properties available for this target"
 msgstr "Sin propiedades disponibles para este destino"
 
-#: ../plugins/project-manager/plugin.c:465
-#: ../plugins/project-manager/plugin.c:793
+#: ../plugins/project-manager/plugin.c:492
+#: ../plugins/project-manager/plugin.c:900
 msgid "Project properties"
 msgstr "Propiedades del proyecto"
 
-#: ../plugins/project-manager/plugin.c:484
+#: ../plugins/project-manager/plugin.c:511
 msgid "Refreshing symbol tree…"
 msgstr "Actualizando el árbol de símbolos…"
 
-#: ../plugins/project-manager/plugin.c:491
+#: ../plugins/project-manager/plugin.c:518
 #, c-format
 msgid "Failed to refresh project: %s"
 msgstr "Falló al refrescar el proyecto: %s"
 
-#: ../plugins/project-manager/plugin.c:641
+#: ../plugins/project-manager/plugin.c:688
 msgid ""
 "Are you sure you want to remove the following group from the project?\n"
 "\n"
@@ -7032,18 +7019,7 @@ msgstr ""
 "¿Seguro que quiere quitar el siguiente grupo del proyecto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:642
-#, c-format
-msgid ""
-"Group: %s\n"
-"\n"
-"The group will not be deleted from the file system."
-msgstr ""
-"Grupo: %s\n"
-"\n"
-"El grupo no se borrará del sistema de archivos."
-
-#: ../plugins/project-manager/plugin.c:645
+#: ../plugins/project-manager/plugin.c:691
 msgid ""
 "Are you sure you want to remove the following target from the project?\n"
 "\n"
@@ -7051,12 +7027,7 @@ msgstr ""
 "¿Seguro que quiere quitar el siguiente archivo objetivo del proyecto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:646
-#, c-format
-msgid "Target: %s"
-msgstr "Objetivo: %s"
-
-#: ../plugins/project-manager/plugin.c:649
+#: ../plugins/project-manager/plugin.c:694
 msgid ""
 "Are you sure you want to remove the following source file from the project?\n"
 "\n"
@@ -7064,18 +7035,63 @@ msgstr ""
 "¿Seguro que quiere quitar el siguiente archivo fuente del proyecto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:650
-#, c-format
+#: ../plugins/project-manager/plugin.c:697
+#| msgid ""
+#| "Are you sure you want to remove the following target from the project?\n"
+#| "\n"
 msgid ""
-"Source: %s\n"
+"Are you sure you want to remove the following elements from the project?\n"
 "\n"
-"The source file will not be deleted from the file system."
 msgstr ""
-"Fuente: %s\n"
+"¿Seguro que quiere quitar los siguientes elementos del proyecto?\n"
 "\n"
-"El archivo fuente no se borrará del sistema."
 
-#: ../plugins/project-manager/plugin.c:694
+#: ../plugins/project-manager/plugin.c:714
+#, c-format
+#| msgid "Group:"
+msgid "Group: %s\n"
+msgstr "Grupo: %s\n"
+
+#: ../plugins/project-manager/plugin.c:717
+#, c-format
+#| msgid "Target: %s"
+msgid "Target: %s\n"
+msgstr "Objetivo: %s\n"
+
+#: ../plugins/project-manager/plugin.c:720
+#, c-format
+#| msgid "Source:"
+msgid "Source: %s\n"
+msgstr "Origen: %s\n"
+
+#: ../plugins/project-manager/plugin.c:723
+#, c-format
+#| msgid "Shortcut:"
+msgid "Shortcut: %s\n"
+msgstr "Tecla rápida: %s\n"
+
+#: ../plugins/project-manager/plugin.c:735
+#| msgid ""
+#| "Group: %s\n"
+#| "\n"
+#| "The group will not be deleted from the file system."
+msgid "The group will not be deleted from the file system."
+msgstr "El grupo no se borrará del sistema de archivos."
+
+#: ../plugins/project-manager/plugin.c:737
+#| msgid ""
+#| "Source: %s\n"
+#| "\n"
+#| "The source file will not be deleted from the file system."
+msgid "The source file will not be deleted from the file system."
+msgstr "El archivo fuente no se borrará del sistema de archivos."
+
+#: ../plugins/project-manager/plugin.c:742
+#| msgid "Configure Project"
+msgid "Confirm remove"
+msgstr "Confirmar la eliminación"
+
+#: ../plugins/project-manager/plugin.c:787
 #, c-format
 msgid ""
 "Failed to remove '%s':\n"
@@ -7084,102 +7100,102 @@ msgstr ""
 "Falló al eliminar «%s»:\n"
 "%s"
 
-#: ../plugins/project-manager/plugin.c:751
+#: ../plugins/project-manager/plugin.c:858
 #, c-format
 msgid "Failed to retrieve URI info of %s: %s"
 msgstr "Falló al obtener el URI info de %s: %s"
 
-#: ../plugins/project-manager/plugin.c:789
+#: ../plugins/project-manager/plugin.c:896
 msgid "_Project"
 msgstr "_Proyecto"
 
-#: ../plugins/project-manager/plugin.c:793
-#: ../plugins/project-manager/plugin.c:827
+#: ../plugins/project-manager/plugin.c:900
+#: ../plugins/project-manager/plugin.c:934
 msgid "_Properties"
 msgstr "_Propiedades"
 
-#: ../plugins/project-manager/plugin.c:798
+#: ../plugins/project-manager/plugin.c:905
 msgid "_Refresh"
 msgstr "_Refrescar"
 
-#: ../plugins/project-manager/plugin.c:798
+#: ../plugins/project-manager/plugin.c:905
 msgid "Refresh project manager tree"
 msgstr "Refrescar el árbol del adm. de proyectos"
 
-#: ../plugins/project-manager/plugin.c:803
+#: ../plugins/project-manager/plugin.c:910
 msgid "Add _Group…"
 msgstr "Añadir _grupo…"
 
-#: ../plugins/project-manager/plugin.c:803
-#: ../plugins/project-manager/plugin.c:837
+#: ../plugins/project-manager/plugin.c:910
+#: ../plugins/project-manager/plugin.c:944
 msgid "Add a group to project"
 msgstr "Añade un grupo a un proyecto"
 
-#: ../plugins/project-manager/plugin.c:808
+#: ../plugins/project-manager/plugin.c:915
 msgid "Add _Target…"
 msgstr "Añadir _objetivo…"
 
-#: ../plugins/project-manager/plugin.c:808
-#: ../plugins/project-manager/plugin.c:842
+#: ../plugins/project-manager/plugin.c:915
+#: ../plugins/project-manager/plugin.c:949
 msgid "Add a target to project"
 msgstr "Añadir un objetivo al proyecto"
 
-#: ../plugins/project-manager/plugin.c:813
+#: ../plugins/project-manager/plugin.c:920
 msgid "Add _Source File…"
 msgstr "Añadir archivo _fuente…"
 
-#: ../plugins/project-manager/plugin.c:813
-#: ../plugins/project-manager/plugin.c:832
-#: ../plugins/project-manager/plugin.c:847
+#: ../plugins/project-manager/plugin.c:920
+#: ../plugins/project-manager/plugin.c:939
+#: ../plugins/project-manager/plugin.c:954
 msgid "Add a source file to project"
 msgstr "Añade un archivo fuente al proyecto"
 
-#: ../plugins/project-manager/plugin.c:818
+#: ../plugins/project-manager/plugin.c:925
 msgid "Close Pro_ject"
 msgstr "Cerrar pro_yecto"
 
-#: ../plugins/project-manager/plugin.c:818
+#: ../plugins/project-manager/plugin.c:925
 msgid "Close project"
 msgstr "Cerrar proyecto"
 
-#: ../plugins/project-manager/plugin.c:827
+#: ../plugins/project-manager/plugin.c:934
 msgid "Properties of group/target/source"
 msgstr "Propiedades del grupo/objetivo/fuente"
 
-#: ../plugins/project-manager/plugin.c:832
+#: ../plugins/project-manager/plugin.c:939
 msgid "_Add to Project"
 msgstr "_Añadir al proyecto"
 
-#: ../plugins/project-manager/plugin.c:837
+#: ../plugins/project-manager/plugin.c:944
 msgid "Add _Group"
 msgstr "Añadir _grupo"
 
-#: ../plugins/project-manager/plugin.c:842
+#: ../plugins/project-manager/plugin.c:949
 msgid "Add _Target"
 msgstr "Añadir _objetivo"
 
-#: ../plugins/project-manager/plugin.c:847
+#: ../plugins/project-manager/plugin.c:954
 msgid "Add _Source File"
 msgstr "Añadir archivo _fuente"
 
-#: ../plugins/project-manager/plugin.c:852
+#: ../plugins/project-manager/plugin.c:959
 msgid "Re_move"
 msgstr "Qui_tar"
 
-#: ../plugins/project-manager/plugin.c:852
+#: ../plugins/project-manager/plugin.c:959
 msgid "Remove from project"
 msgstr "Quita del proyecto"
 
-#: ../plugins/project-manager/plugin.c:1233
+#: ../plugins/project-manager/plugin.c:1377
 #, c-format
 msgid "Loading project: %s"
 msgstr "Cargando proyecto: %s"
 
-#: ../plugins/project-manager/plugin.c:1241
+#: ../plugins/project-manager/plugin.c:1385
 msgid "Created project view…"
 msgstr "Vista de proyecto creada…"
 
-#: ../plugins/project-manager/plugin.c:1254
+#: ../plugins/project-manager/plugin.c:1398
 #, c-format
 msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
@@ -7188,24 +7204,24 @@ msgstr ""
 "Falló al analalizar el proyecto (el proyecto está abierto pero no habrá "
 "ninguna vista de proyecto) %s: %s\n"
 
-#: ../plugins/project-manager/plugin.c:1447
+#: ../plugins/project-manager/plugin.c:1591
 #, c-format
 msgid "Error closing project: %s"
 msgstr "Error al cerrar el proyecto: %s"
 
-#: ../plugins/project-manager/plugin.c:1511
+#: ../plugins/project-manager/plugin.c:1658
 msgid "Project manager actions"
 msgstr "Acciones del administrador de proyectos"
 
-#: ../plugins/project-manager/plugin.c:1519
+#: ../plugins/project-manager/plugin.c:1666
 msgid "Project manager popup actions"
 msgstr "Acciones emergentes el administrador de proyectos"
 
-#: ../plugins/project-manager/plugin.c:2460
+#: ../plugins/project-manager/plugin.c:2632
 msgid "Initializing Project…"
 msgstr "Inicializando el proyecto…"
 
-#: ../plugins/project-manager/plugin.c:2463
+#: ../plugins/project-manager/plugin.c:2635
 msgid "Project Loaded"
 msgstr "Proyecto cargado"
 
@@ -8979,39 +8995,39 @@ msgstr "_Buscar símbolo…"
 msgid "Find Symbol"
 msgstr "Buscar símbolo"
 
-#: ../plugins/symbol-db/plugin.c:1179
+#: ../plugins/symbol-db/plugin.c:1184
 #, c-format
 msgid "%s: Generating inheritances…"
 msgstr "%s: Generando herencias…"
 
-#: ../plugins/symbol-db/plugin.c:1184
+#: ../plugins/symbol-db/plugin.c:1189
 #, c-format
 msgid "%s: %d files scanned out of %d"
 msgstr "%s: %d archivos analizados de %d"
 
-#: ../plugins/symbol-db/plugin.c:1215
+#: ../plugins/symbol-db/plugin.c:1220
 #, c-format
 msgid "Generating inheritances…"
 msgstr "Generando herencias…"
 
-#: ../plugins/symbol-db/plugin.c:1217
+#: ../plugins/symbol-db/plugin.c:1222
 #, c-format
 msgid "%d files scanned out of %d"
 msgstr "%d archivos analizados de %d"
 
-#: ../plugins/symbol-db/plugin.c:1985
+#: ../plugins/symbol-db/plugin.c:1990
 msgid "Populating symbol database…"
 msgstr "Llenando la BB. DD. de símbolos…"
 
-#: ../plugins/symbol-db/plugin.c:2373 ../plugins/symbol-db/plugin.c:2500
+#: ../plugins/symbol-db/plugin.c:2378 ../plugins/symbol-db/plugin.c:2505
 msgid "Symbols"
 msgstr "Símbolos"
 
-#: ../plugins/symbol-db/plugin.c:2509
+#: ../plugins/symbol-db/plugin.c:2514
 msgid "SymbolDb popup actions"
 msgstr "Acciones emergentes de la BB DD de símbolos"
 
-#: ../plugins/symbol-db/plugin.c:2517
+#: ../plugins/symbol-db/plugin.c:2522
 msgid "SymbolDb menu actions"
 msgstr "Acciones del menú de la BB DD de símbolos"
 
@@ -9848,7 +9864,7 @@ msgstr "Asistencia para C++/Java"
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
-#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1024
+#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1021
 msgid "C/C++"
 msgstr "C/C++"
 
@@ -10078,6 +10094,7 @@ msgid "Error: %s"
 msgstr "Error: %s"
 
 #: ../plugins/js-debugger/plugin.c:142
+#: ../plugins/js-debugger/debugger-js.c:546
 msgid "Error: cant bind port"
 msgstr "Error: no se puede vincular el puerto"
 
@@ -10125,6 +10142,15 @@ msgstr "Resaltar punto y coma perdido"
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
 msgid "Min character for completion "
 msgstr "Caracteres mínimos para autocompletado "
+
+#~ msgid "private"
+#~ msgstr "privativa"
+
+#~ msgid "protected"
+#~ msgstr "protegida"
+
+#~ msgid "public"
+#~ msgstr "pública"
 
 #~| msgid "Autosave completed"
 #~ msgid "Auto code complete"
