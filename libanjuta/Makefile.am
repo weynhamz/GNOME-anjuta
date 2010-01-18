@@ -150,13 +150,13 @@ libanjutainclude_HEADERS = \
 BUILT_SOURCES=anjuta-marshal.c anjuta-marshal.h  anjuta-enum-types.h anjuta-enum-types.c
 
 anjuta-marshal.h: anjuta-marshal.list
-	@GLIB_GENMARSHAL@ \
+	$(AM_V_GEN)@GLIB_GENMARSHAL@ \
 	        --prefix=anjuta_cclosure_marshal $(srcdir)/anjuta-marshal.list --header > xgen-gmc \
 	&& cp xgen-gmc $(@F) \
 	&& rm -f xgen-gmc
 
 anjuta-marshal.c: anjuta-marshal.h anjuta-marshal.list
-	echo "#include \"anjuta-marshal.h\"" > xgenc-gmc \
+	$(AM_V_GEN)echo "#include \"anjuta-marshal.h\"" > xgenc-gmc \
 	&& @GLIB_GENMARSHAL@ \
 	        --prefix=anjuta_cclosure_marshal $(srcdir)/anjuta-marshal.list --body >> xgenc-gmc \
 	&& cp xgenc-gmc $(@F) \
@@ -165,7 +165,7 @@ anjuta-marshal.c: anjuta-marshal.h anjuta-marshal.list
 anjuta-enum-types.h: stamp-anjuta-enum-types.h $(libanjuta_include)
 	@true
 stamp-anjuta-enum-types.h: Makefile $(libanjuta_include) anjuta-enum-types.c
-	( cd $(srcdir) && $(GLIB_MKENUMS) \
+	$(AM_V_GEN)( cd $(srcdir) && $(GLIB_MKENUMS) \
 			--fhead "#ifndef __ANJUTA_ENUM_TYPES_H__\n#define __ANJUTA_ENUM_TYPES_H__\n\n#include <libanjuta/libanjuta.h>\n\nG_BEGIN_DECLS\n" \
 			--fprod "/* enumerations from \"@filename@\" */\n" \
 			--vhead "GType @enum_name@_get_type (void) G_GNUC_CONST;\n#define ANJUTA_TYPE_@ENUMSHORT@ (@enum_name@_get_type())\n" \
@@ -176,7 +176,7 @@ stamp-anjuta-enum-types.h: Makefile $(libanjuta_include) anjuta-enum-types.c
 	&& echo timestamp > $(@F)
 
 anjuta-enum-types.c: Makefile
-	( cd $(srcdir) && $(GLIB_MKENUMS) \
+	$(AM_V_GEN)( cd $(srcdir) && $(GLIB_MKENUMS) \
 			--fhead "#include \"anjuta-enum-types.h\"\n" \
 			--fprod "\n/* enumerations from \"@filename@\" */" \
 			--ftail "\n#define __ANJUTA_ENUM_TYPES_C__\n" \
