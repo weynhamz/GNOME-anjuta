@@ -2540,7 +2540,15 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
 
 	DEBUG_PRINT ("%s", "SymbolDBPlugin: Dectivating SymbolDBPlugin plugin …");
-	
+
+	/* Unmerge UI */
+	gtk_ui_manager_remove_ui (GTK_UI_MANAGER (sdb_plugin->ui),
+	    						sdb_plugin->merge_id);
+	gtk_ui_manager_remove_action_group (GTK_UI_MANAGER (sdb_plugin->ui),
+	    							sdb_plugin->popup_action_group);
+	gtk_ui_manager_remove_action_group (GTK_UI_MANAGER (sdb_plugin->ui),
+	    							sdb_plugin->menu_action_group);
+		
 	/* disconnect some signals */
 	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->dbv_view_tree_locals),
 									  on_local_treeview_row_activated,
