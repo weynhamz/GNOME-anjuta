@@ -3,6 +3,7 @@ dnl Process this file with autoconf to produce a configure script.
 dnl Created by Anjuta application wizard.
 
 AC_INIT([+NameHLower+], [+Version+])
+m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
 
 SDL_REQUIRED=[+SDL_Version+]
 
