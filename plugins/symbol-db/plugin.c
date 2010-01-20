@@ -1545,6 +1545,7 @@ static void
 do_check_languages_count (SymbolDBPlugin *sdb_plugin)
 {
 	gint count;
+	gint page;
 	
 	count = symbol_db_engine_get_languages_count (sdb_plugin->sdbe_project);
 	
@@ -1554,13 +1555,22 @@ do_check_languages_count (SymbolDBPlugin *sdb_plugin)
 		if (symbol_db_engine_is_language_used (sdb_plugin->sdbe_project, 
 											   "C") == TRUE)
 		{
-			/* hide the global tab */
-			gtk_widget_hide (sdb_plugin->scrolled_global);
+			/* disable the global tab */
+			gtk_widget_set_sensitive (sdb_plugin->global_button, FALSE);
+
+			/* switch to the local tab if we are looking at the global tab */
+			page = gtk_notebook_get_current_page (GTK_NOTEBOOK (sdb_plugin->dbv_notebook)); 
+
+			if (page == 1)
+			{
+				gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (sdb_plugin->local_button),
+				                              TRUE);
+			}
 		}
 	}
 	else 
 	{
-		gtk_widget_show (sdb_plugin->scrolled_global);
+		gtk_widget_set_sensitive (sdb_plugin->global_button, TRUE);
 	}
 }
 
@@ -2164,38 +2174,6 @@ on_notebook_button_toggled (GtkToggleButton *button,
 	gtk_notebook_set_current_page (GTK_NOTEBOOK(sdb_plugin->dbv_notebook), page);
 }
 
-static void
-on_notebook_switch_page (GtkNotebook* notebook,
-                         GtkNotebookPage* page,
-                         guint page_num,
-                         SymbolDBPlugin *sdb_plugin)
-{
-	g_signal_handlers_block_by_func (sdb_plugin->local_button,
-	                                on_notebook_button_toggled,
-	                                sdb_plugin);
-	g_signal_handlers_block_by_func (sdb_plugin->global_button,
-	                                on_notebook_button_toggled,
-	                                sdb_plugin);
-	g_signal_handlers_block_by_func (sdb_plugin->search_button,
-	                                on_notebook_button_toggled,
-	                                sdb_plugin);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(sdb_plugin->local_button),
-	                              page_num == 0);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(sdb_plugin->global_button),
-	                              page_num == 1);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(sdb_plugin->search_button),
-	                              page_num == 2);
-	g_signal_handlers_unblock_by_func (sdb_plugin->local_button,
-	                                on_notebook_button_toggled,
-	                                sdb_plugin);
-	g_signal_handlers_unblock_by_func (sdb_plugin->global_button,
-	                                on_notebook_button_toggled,
-	                                sdb_plugin);
-	g_signal_handlers_unblock_by_func (sdb_plugin->search_button,
-	                                on_notebook_button_toggled,
-	                                sdb_plugin);
-}
-
 static gboolean
 symbol_db_activate (AnjutaPlugin *plugin)
 {
@@ -2340,9 +2318,20 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	gtk_notebook_set_show_tabs (GTK_NOTEBOOK (sdb_plugin->dbv_notebook), FALSE);
 	sdb_plugin->dbv_hbox = gtk_hbox_new (FALSE, 1);
 
-	sdb_plugin->local_button = gtk_toggle_button_new_with_label (_("Local"));
-	sdb_plugin->global_button = gtk_toggle_button_new_with_label (_("Global"));
-	sdb_plugin->search_button = gtk_toggle_button_new_with_label (_("Search"));
+	sdb_plugin->local_button = gtk_radio_button_new_with_label_from_widget (NULL, 
+	                                                                        _("Local"));
+	sdb_plugin->global_button = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (sdb_plugin->local_button),
+	                                                                         _("Global"));
+	sdb_plugin->search_button = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (sdb_plugin->global_button),
+	                                                                         _("Search"));
+
+	/* Make the radio buttons look and act like toggle buttons */
+	gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (sdb_plugin->local_button), 
+	                            FALSE);
+	gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (sdb_plugin->global_button),
+	                            FALSE);
+	gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (sdb_plugin->search_button),
+	                            FALSE);
 
 	g_object_set_data (G_OBJECT(sdb_plugin->local_button), "__page", GINT_TO_POINTER(0));
 	g_object_set_data (G_OBJECT(sdb_plugin->global_button), "__page", GINT_TO_POINTER(1));
@@ -2353,10 +2342,6 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	g_signal_connect (sdb_plugin->global_button, "toggled", G_CALLBACK(on_notebook_button_toggled),
 	                  sdb_plugin);
 	g_signal_connect (sdb_plugin->search_button, "toggled", G_CALLBACK(on_notebook_button_toggled),
-	                  sdb_plugin);
-	g_signal_connect (sdb_plugin->dbv_notebook,
-	                  "switch-page",
-	                  G_CALLBACK(on_notebook_switch_page),
 	                  sdb_plugin);
 
 	label = gtk_label_new (_("Symbols"));
