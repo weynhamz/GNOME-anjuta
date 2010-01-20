@@ -259,9 +259,9 @@ deactivate_plugin (AnjutaPlugin *plugin)
 										  G_CALLBACK (on_session_load),
 										  plugin);
 #endif
-	/* Widget is destroyed as soon as it is removed */
+	/* Widget is removed as soon as it is destroyed */
 	if (mplugin->widget_shown)
-		anjuta_shell_remove_widget (plugin->shell, mplugin->msgman, NULL);
+		gtk_widget_destroy (mplugin->msgman);
 	anjuta_ui_unmerge (ui, mplugin->uiid);
 	anjuta_ui_remove_action_group (ui, mplugin->action_group);
 	
