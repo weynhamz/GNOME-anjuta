@@ -2335,7 +2335,7 @@ on_sourceview_hover_over (GtkWidget *widget, gint x, gint y,
 	GtkTextView *text_view = GTK_TEXT_VIEW (widget);
 	gint bx, by;
 		
-	gtk_text_view_window_to_buffer_coords (text_view, GTK_TEXT_WINDOW_TEXT,
+	gtk_text_view_window_to_buffer_coords (text_view, GTK_TEXT_WINDOW_WIDGET,
 											   x, y, &bx, &by);
 	gtk_text_view_get_iter_at_location (text_view, &iter, bx, by);
 	
