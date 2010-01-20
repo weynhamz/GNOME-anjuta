@@ -2,7 +2,7 @@
 Location=js_debugger:JSDbg
 Icon=js_debugger.png
 _Name=Anjuta JS Debugger Plugin
-_Description=Anjuta JS Debugger Plugin
+_Description=Javascript Debugger Plugin
 UserActivatable=yes
 Interfaces=IAnjutaDebugger, IAnjutaDebuggerInstruction, IAnjutaDebuggerBreakpoint, IAnjutaDebuggerVariable
 
