@@ -1182,7 +1182,7 @@ dma_plugin_deactivate (AnjutaPlugin* plugin)
 	/* Stop debugger */
 	dma_plugin_debugger_stopped (this, 0);
 
-	g_signal_handlers_disconnect_matched (plugin->shell, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, plugin);	
+	g_signal_handlers_disconnect_by_func (plugin->shell, G_CALLBACK (on_session_save), plugin);
 	g_signal_handlers_disconnect_matched (plugin, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, plugin);	
 
 	anjuta_plugin_remove_watch (plugin, this->project_watch_id, FALSE);
