@@ -40,6 +40,7 @@
 #include <sys/types.h>
 #include <sys/fcntl.h>
 #include <sys/termios.h>
+#include <sys/wait.h>
 #include <dirent.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -48,9 +49,11 @@
 #include <pwd.h>
 #endif
 
+#include <dbus/dbus-glib.h>
 #include <glib/gi18n.h>
 #include <glib.h>
 #include <glib/gstdio.h>
+#include <gtk/gtk.h>
 
 #include <gconf/gconf-client.h>
 
@@ -478,6 +481,74 @@ anjuta_util_dialog_input (GtkWindow *parent, const gchar *prompt,
 	}
 	gtk_widget_destroy (dialog);	
 	return (res == GTK_RESPONSE_OK);
+}
+
+gboolean
+anjuta_util_install_files (const gchar * const names)
+{
+	DBusGConnection * connection;
+	DBusGProxy * proxy;
+	GError * error = NULL;
+	gboolean ret;
+	guint32 xid = 0;
+	gchar ** pkgv;
+
+	if (!names)
+		return FALSE;
+
+	connection = dbus_g_bus_get (DBUS_BUS_SESSION, NULL);
+	if (!connection)
+		return FALSE;
+
+	proxy = dbus_g_proxy_new_for_name (connection,
+									   "org.freedesktop.PackageKit",
+									   "/org/freedesktop/PackageKit",
+									   "org.freedesktop.PackageKit.Modify");
+	if (!proxy)
+		return FALSE;
+
+	pkgv = g_strsplit (names, ", ", 0);
+	ret = dbus_g_proxy_call_with_timeout (proxy, "InstallProvideFiles",
+										  100, &error,
+										  G_TYPE_UINT, xid,
+										  G_TYPE_STRV, pkgv,
+										  G_TYPE_STRING, "",
+										  G_TYPE_INVALID, G_TYPE_INVALID);
+	if (!ret)
+	{
+		g_warning ("failed: %s", error->message);
+		g_error_free (error);
+	}
+
+	g_strfreev (pkgv);
+	return TRUE;
+}
+
+gboolean
+anjuta_util_package_is_installed (const gchar * package, gboolean show)
+{
+	gboolean installed = FALSE;
+	int status;
+	int exit_status;
+	pid_t pid;
+
+	if ((pid = fork()) == 0)
+		execlp ("pkg-config", "pkg-config", "--exists", package, NULL);
+
+	waitpid (pid, &status, 0);
+	exit_status = WEXITSTATUS (status);
+	installed = (exit_status == 0) ? TRUE : FALSE;
+	if (installed)
+		return TRUE;
+
+	if (show)
+	{
+		anjuta_util_dialog_error (NULL,
+								  _("The \"%s\" package is not installed.\n"
+									"Please install it."), package);
+	}
+
+	return FALSE;
 }
 
 gboolean

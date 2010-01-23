@@ -6,6 +6,7 @@ AM_CPPFLAGS = \
 	-I . \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
+	$(DBUS_GLIB_CFLAGS) \
 	$(GTK_CFLAGS) \
 	$(GCONF_CFLAGS) \
 	$(GLADE_DEPRECATED_CFLAGS) \
@@ -21,6 +22,7 @@ lib_LTLIBRARIES = libanjuta.la
 libanjuta_la_LDFLAGS = $(ANJUTA_LDFLAGS) 
 libanjuta_la_LIBADD = \
 	interfaces/libanjuta-interfaces.la \
+	$(DBUS_GLIB_LIBS) \
 	$(GTK_LIBS) \
 	$(GCONF_LIBS) \
 	$(GLADE_DEPRECATED_LIBS) \
