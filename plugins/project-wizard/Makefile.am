@@ -31,6 +31,8 @@ AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	$(LIBANJUTA_CFLAGS) \
+	-DANJUTA_BINDIR=\"$(bindir)\" \
+	-DANJUTA_LIBDIR=\"$(libdir)\" \
 	-DG_LOG_DOMAIN=\"libanjuta-project-wizard\"
 
 libanjuta_project_wizard_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)

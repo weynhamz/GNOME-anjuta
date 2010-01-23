@@ -761,15 +761,55 @@ on_druid_parse_page (const gchar* output, gpointer data)
 	npw_page_parser_parse (parser, output, strlen (output), NULL);
 }
 
+static void
+strip_package_version_info (gpointer data, gpointer user_data)
+{
+	gchar * const pkg = (gchar *) data;
+
+	if (!data)
+		return;
+	g_strdelimit (pkg, " ", '\0');
+}
+
 static gboolean
 check_and_warn_missing (NPWDruid *druid)
 {
 	GList *missing_programs, *missing_packages;
+	GList *missing_files = NULL;
 	GString *missing_message = NULL;
-	
+	gboolean installed = TRUE;
+
 	missing_programs = npw_header_check_required_programs (druid->header);
 	missing_packages = npw_header_check_required_packages (druid->header);
-	
+
+	anjuta_util_glist_strings_prefix (missing_programs, ANJUTA_BINDIR "/");
+
+	g_list_foreach (missing_packages, (GFunc *) strip_package_version_info,
+					NULL);
+	anjuta_util_glist_strings_prefix (missing_packages,
+									  ANJUTA_LIBDIR "/pkgconfig/");
+	anjuta_util_glist_strings_sufix (missing_packages, ".pc");
+
+	missing_files = g_list_concat (missing_programs, missing_packages);
+
+	if (missing_files)
+	{
+		gchar * missing_names = NULL;
+
+		missing_names = anjuta_util_glist_strings_join (missing_files, ", ");
+		installed = anjuta_util_install_files (missing_names);
+
+		if (missing_names)
+			g_free (missing_names);
+		anjuta_util_glist_strings_free (missing_files);
+	}
+
+	if (installed == TRUE)
+		return TRUE;
+
+	missing_programs = npw_header_check_required_programs (druid->header);
+	missing_packages = npw_header_check_required_packages (druid->header);
+
 	if (missing_programs || missing_packages)
 	{
 		missing_message = g_string_new (NULL);
@@ -783,7 +823,7 @@ check_and_warn_missing (NPWDruid *druid)
 		g_string_append_printf (missing_message,
 								_("\nMissing programs: %s."), missing_progs);
 		g_free (missing_progs);
-		g_list_free (missing_programs);
+		anjuta_util_glist_strings_free (missing_programs);
 	}
 	
 	if (missing_packages)
@@ -794,7 +834,7 @@ check_and_warn_missing (NPWDruid *druid)
 		g_string_append_printf (missing_message,
 								_("\nMissing packages: %s."), missing_pkgs);
 		g_free (missing_pkgs);
-		g_list_free (missing_packages);
+		anjuta_util_glist_strings_free (missing_packages);
 	}
 	
 	if (missing_message)
