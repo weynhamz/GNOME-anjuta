@@ -1449,13 +1449,10 @@ do_import_project_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 
 		if ((local_filename = g_file_get_path (gfile)) == NULL)
 		{
-			if (gfile)
-				g_object_unref (gfile);
 			continue;
 		}			
 
 		g_ptr_array_add (sources_array, local_filename);
-		g_object_unref (gfile);
 	}
 
 	/* connect to receive signals on single file scan complete. We'll
@@ -1479,7 +1476,7 @@ do_import_project_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 	g_ptr_array_free (sources_array, TRUE);
 
 	/* and the list of project files */
-	g_list_foreach (prj_elements_list, (GFunc) g_free, NULL);
+	g_list_foreach (prj_elements_list, (GFunc) g_object_unref, NULL);
 	g_list_free (prj_elements_list);
 }
 
