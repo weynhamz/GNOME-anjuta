@@ -32,11 +32,12 @@
 #include <glib-object.h>
 #include <libanjuta/gbf-project.h>
 #include <libanjuta/anjuta-project.h>
+#include <libanjuta/interfaces/ianjuta-project.h>
 #include "gbf-mkfile-config.h"
 
 G_BEGIN_DECLS
 
-#define GBF_TYPE_MKFILE_PROJECT		(gbf_mkfile_project_get_type (NULL))
+#define GBF_TYPE_MKFILE_PROJECT		(gbf_mkfile_project_get_type ())
 #define GBF_MKFILE_PROJECT(obj)		(G_TYPE_CHECK_INSTANCE_CAST ((obj), GBF_TYPE_MKFILE_PROJECT, GbfMkfileProject))
 #define GBF_MKFILE_PROJECT_CLASS(klass)	(G_TYPE_CHECK_CLASS_CAST ((klass), GBF_TYPE_MKFILE_PROJECT, GbfMkfileProjectClass))
 #define GBF_IS_MKFILE_PROJECT(obj)		(G_TYPE_CHECK_INSTANCE_TYPE ((obj), GBF_TYPE_MKFILE_PROJECT))
@@ -54,6 +55,11 @@ typedef enum {
 } GbfMkfileNodeType;
 	
 struct _GbfMkfileNode {
+	union {
+		AnjutaProjectGroupData group;
+		AnjutaProjectTargetData target;
+		AnjutaProjectSourceData source;
+	};
 	GbfMkfileNodeType       type;
 	gchar                  *id;        /* unique id among nodes of the same type */
 	gchar                  *name;      /* user visible string */
@@ -111,8 +117,8 @@ struct _GbfMkfileProjectClass {
 /* convenient shortcut macro the get the GbfMkfileNode from a GNode */
 #define GBF_MKFILE_NODE(g_node)  ((g_node) != NULL ? (GbfMkfileNode *)((g_node)->data) : NULL)
 
-GType         gbf_mkfile_project_get_type (GTypeModule *module);
-GbfProject   *gbf_mkfile_project_new      (void);
+GType         gbf_mkfile_project_get_type (void);
+IAnjutaProject   *gbf_mkfile_project_new      (void);
 
 gint          gbf_mkfile_project_probe (GFile *file, GError **err);
 

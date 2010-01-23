@@ -41,7 +41,6 @@
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 #include <libanjuta/gbf-project.h>
-#include <libanjuta/interfaces/ianjuta-project.h>
 #include <libanjuta/anjuta-utils.h>
 #include "gbf-mkfile-project.h"
 #include "gbf-mkfile-config.h"
@@ -134,7 +133,6 @@ struct _GbfMkfileProjectParseData {
 	GHashTable         *nodes;
 };
 
-
 /* ----- Script spawning data types and constants ----- */
 
 #define GBF_MKFILE_PARSE       SCRIPTS_DIR "/gbf-mkfile-parse"
@@ -179,6 +177,78 @@ enum {
 };
 
 static GbfProject *parent_class;
+
+/* Target types
+ *---------------------------------------------------------------------------*/
+
+typedef struct {
+	AnjutaProjectTargetInformation base;
+	const gchar *detail;
+	gboolean implemented;
+} GbfMkfileTargetInformation;
+
+static GbfMkfileTargetInformation GbfMkfileTargetTypes[] = {
+	{{N_("Unknown"), ANJUTA_TARGET_UNKNOWN,
+	"text/plain"}, NULL, FALSE},
+
+	{{N_("Program"), ANJUTA_TARGET_EXECUTABLE,
+	"application/x-executable"}, "program", TRUE},
+
+	{{N_("Static Library"), ANJUTA_TARGET_STATICLIB,
+	"application/x-archive"}, "static_lib", TRUE},
+	
+	{{N_("Shared Library"), ANJUTA_TARGET_SHAREDLIB,
+	"application/x-sharedlib"}, "shared_lib", TRUE},
+
+	{{N_("Man Documentation"), ANJUTA_TARGET_MAN,
+	"text/x-troff-man"}, "man", FALSE},
+
+	{{N_("Miscellaneous Data"), ANJUTA_TARGET_DATA,
+	"application/octet-stream"}, "data", TRUE},
+
+	{{N_("Script"), ANJUTA_TARGET_EXECUTABLE,
+	"text/x-shellscript"}, "script", FALSE},
+
+	{{N_("Info Documentation"), ANJUTA_TARGET_INFO,
+	"application/x-tex-info"}, "info", FALSE},
+
+	{{N_("Lisp Module"), ANJUTA_TARGET_LISP,
+	"text/plain"}, "lisp", FALSE},
+	
+	{{N_("Header Files"), ANJUTA_TARGET_HEADER,
+	"text/x-chdr"}, "headers", FALSE},
+
+	{{N_("Java Module"), ANJUTA_TARGET_JAVA,
+	"application/x-java"}, "java", FALSE},
+
+	{{N_("Python Module"), ANJUTA_TARGET_PYTHON,
+	"application/x-python"}, "python", FALSE},
+
+	{{N_("Generic rule"), ANJUTA_TARGET_GENERIC,
+	"text/plain"}, "generic_rule", FALSE},
+	
+	{{N_("Extra target"), ANJUTA_TARGET_EXTRA,
+	"text/plain"}, "extra", FALSE},
+
+	{{N_("Configure file"), ANJUTA_TARGET_CONFIGURE,
+	"text/plain"}, "configure_generated_file", FALSE},
+	
+	{{N_("Interface file"), ANJUTA_TARGET_IDL,
+	"text/plain"}, "orbit_idl", FALSE},
+	
+	{{N_("GLib mkenums"), ANJUTA_TARGET_MKENUMS,
+	"text/plain"}, "glib_mkenums", FALSE},
+	
+	{{N_("GLib genmarshal"), ANJUTA_TARGET_GENMARSHAL,
+	"text/plain"}, "glib_genmarshal", FALSE},
+	
+	{{N_("Intl rule"), ANJUTA_TARGET_INTLTOOL,
+	"text/plain"}, "intltool_rule", FALSE},
+	
+	{{NULL, ANJUTA_TARGET_UNKNOWN,
+	NULL}}
+};
+static GHashTable *GbfMkfileTargetMapping = NULL;
 
 
 /* ----------------------------------------------------------------------
@@ -257,6 +327,7 @@ static gboolean        project_update               (GbfMkfileProject      *proj
 						     GError           **err);
 
 static void            gbf_mkfile_node_free             (GbfMkfileNode         *node);
+static void            gbf_mkfile_node_update           (AnjutaProjectNode *node);
 static GNode          *project_node_new             (GbfMkfileNodeType      type);
 static void            project_node_destroy         (GbfMkfileProject      *project,
 						     GNode             *g_node);
@@ -659,7 +730,7 @@ xml_write_set_config (GbfMkfileProject       *project,
 	
 	user_data.doc = doc;
 	user_data.curr_xml_node = config;
-	user_data.old_config = GBF_MKFILE_NODE (g_node)->config;
+	user_data.old_config = g_node? GBF_MKFILE_NODE (g_node)->config : project->project_config;
 	
 	gbf_mkfile_config_mapping_foreach (new_config,
 				       xml_write_set_param_config_cb,
@@ -1091,6 +1162,7 @@ sax_start_element (void *ctxt, const xmlChar *name, const xmlChar **attrs)
 		node->name = g_strdup ((gchar*)group_name);
 		node->uri = g_strdup ((gchar*)group_source);
 		node->config = gbf_mkfile_config_mapping_new ();
+		gbf_mkfile_node_update (g_node);
 		
 		/* set working node */
 		data->depth++;
@@ -1172,6 +1244,7 @@ sax_start_element (void *ctxt, const xmlChar *name, const xmlChar **attrs)
 		node->name = g_strdup ((gchar*)target_name);
 		node->detail = g_strdup ((gchar*)target_type);
 		node->config = gbf_mkfile_config_mapping_new ();
+		gbf_mkfile_node_update (g_node);
 
 		/* set working node */
 		data->current_node = g_node;
@@ -1195,8 +1268,17 @@ sax_start_element (void *ctxt, const xmlChar *name, const xmlChar **attrs)
 			attrs = ++val;
 		}
 		PARSER_ASSERT (uri != NULL);
-		
-		source_uri = uri_normalize ((gchar *)uri, project->project_root_uri);
+
+		if (g_path_is_absolute (uri))
+		{
+			GFile *file = g_file_new_for_path (uri);
+			source_uri = g_file_get_uri (file);
+			g_object_unref (file);
+		}
+		else
+		{
+			source_uri = g_build_filename (project->project_root_uri, uri, NULL);
+		}
 		source_id = g_strdup_printf ("%s:%s",
 					     GBF_MKFILE_NODE (data->current_node)->id,
 					     source_uri);
@@ -1231,6 +1313,7 @@ sax_start_element (void *ctxt, const xmlChar *name, const xmlChar **attrs)
 			g_free (node->uri);
 		}
 		node->uri = source_uri;
+		gbf_mkfile_node_update (g_node);
 			
 		/* set working node */
 		data->current_node = g_node;
@@ -1296,6 +1379,7 @@ sax_start_element (void *ctxt, const xmlChar *name, const xmlChar **attrs)
 		}
 		node->uri = source_uri;
 		node->detail = g_strdup ((gchar*)target_dep);
+		gbf_mkfile_node_update (g_node);
 
 		/* set working node */
 		data->current_node = g_node;
@@ -2193,9 +2277,70 @@ project_update (GbfMkfileProject *project,
  */
 
 static void
+gbf_mkfile_node_update (AnjutaProjectNode *g_node)
+{
+	if (g_node) {
+		GbfMkfileNode *node = (GbfMkfileNode *)g_node->data;
+
+		switch (node->group.node.type)
+		{
+			case ANJUTA_PROJECT_GROUP:
+				if (node->group.directory) g_object_unref (node->group.directory);
+				node->group.directory = NULL;
+				if (node->uri)
+				{
+					GFile *file = g_file_new_for_path (node->uri);
+					GFile *dir = g_file_get_parent (file);
+					node->group.directory = g_file_resolve_relative_path (dir, node->name);
+					g_object_unref (dir);
+					g_object_unref (file);
+				}
+				break;
+			case ANJUTA_PROJECT_TARGET:
+				if (node->target.name) g_free (node->target.name);
+				node->target.name = NULL;
+				if (node->name) node->target.name = g_strdup (node->name);
+				if (node->detail)
+				{
+					node->target.type = g_hash_table_lookup (GbfMkfileTargetMapping, node->detail);
+					if (node->target.type == NULL) node->target.type = &(GbfMkfileTargetTypes[0].base);
+				}
+				else
+				{
+					node->target.type = &(GbfMkfileTargetTypes[0].base);
+				}
+				break;
+			case ANJUTA_PROJECT_SOURCE:
+				if (node->source.file) g_object_unref (node->source.file);
+				node->source.file = NULL;
+				if (node->uri) node->source.file = g_file_new_for_uri (node->uri);
+				break;
+			default:
+				g_assert_not_reached ();
+				break;
+		}
+	}
+}
+
+static void
 gbf_mkfile_node_free (GbfMkfileNode *node)
 {
 	if (node) {
+		switch (node->group.node.type)
+		{
+			case ANJUTA_PROJECT_GROUP:
+				if (node->group.directory) g_object_unref (node->group.directory);
+				break;
+			case ANJUTA_PROJECT_TARGET:
+				if (node->target.name) g_free (node->target.name);
+				break;
+			case ANJUTA_PROJECT_SOURCE:
+				if (node->source.file) g_object_unref (node->source.file);
+				break;
+			default:
+				g_assert_not_reached ();
+				break;
+		}
 		g_free (node->id);
 		g_free (node->name);
 		g_free (node->detail);
@@ -2213,7 +2358,24 @@ project_node_new (GbfMkfileNodeType type)
 
 	node = g_new0 (GbfMkfileNode, 1);
 	node->type = type;
-
+	switch (type) {
+		case GBF_MKFILE_NODE_GROUP:
+			node->group.node.type = ANJUTA_PROJECT_GROUP;
+			node->group.directory = NULL;
+			break;
+		case GBF_MKFILE_NODE_TARGET:
+			node->target.node.type = ANJUTA_PROJECT_TARGET;
+			node->target.name = NULL;
+			node->target.type = NULL;
+			break;
+		case GBF_MKFILE_NODE_SOURCE:
+			node->source.node.type = ANJUTA_PROJECT_SOURCE;
+			node->source.file = NULL;
+			break;
+		default:
+			g_assert_not_reached ();
+			break;
+	};
 	return g_node_new (node);
 }
 
@@ -2282,6 +2444,10 @@ project_data_destroy (GbfMkfileProject *project)
 	project->groups = NULL;
 	project->targets = NULL;
 	project->sources = NULL;
+
+	/* Target mapping */
+	if (GbfMkfileTargetMapping) g_hash_table_destroy (GbfMkfileTargetMapping);
+	GbfMkfileTargetMapping = NULL;
 }
 
 static void
@@ -2289,6 +2455,7 @@ project_data_init (GbfMkfileProject *project)
 {
 	g_return_if_fail (project != NULL);
 	g_return_if_fail (GBF_IS_MKFILE_PROJECT (project));
+	GbfMkfileTargetInformation *target;
 	
 	/* free data if necessary */
 	project_data_destroy (project);
@@ -2305,6 +2472,13 @@ project_data_init (GbfMkfileProject *project)
 	project->groups = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 	project->targets = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 	project->sources = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+
+	/* Target mapping */
+	GbfMkfileTargetMapping = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, NULL); 
+	for (target = GbfMkfileTargetTypes; target->base.name != NULL; target++)
+	{
+		if (target->detail != NULL) g_hash_table_insert (GbfMkfileTargetMapping, (gpointer)target->detail, target);
+	}
 }
 
 GbfMkfileConfigMapping *
@@ -2512,7 +2686,7 @@ impl_load (GbfProject  *_project,
 	
 	file = g_file_new_for_commandline_arg (uri);
 	/* check that the uri is in the filesystem */
-	project->project_root_uri = g_file_get_uri (file);
+	project->project_root_uri = uri_normalize (uri, NULL);
 	if (project->project_root_uri == NULL) {
 		error_set (error, GBF_PROJECT_ERROR_DOESNT_EXIST,
 			   _("Invalid or remote path (only local paths supported)"));
@@ -3393,6 +3567,212 @@ impl_get_config_packages  (GbfProject *project,
 	return NULL;
 }
 
+/* Implement IAnjutaProject
+ *---------------------------------------------------------------------------*/
+
+static AnjutaProjectGroup* 
+iproject_add_group (IAnjutaProject *obj, AnjutaProjectGroup *parent,  const gchar *name, GError **err)
+{
+	gchar *id;
+	AnjutaProjectNode *g_node = NULL;
+	
+	id = gbf_project_add_group (GBF_PROJECT (obj), GBF_MKFILE_NODE (parent)->id, name, err);
+
+	if (id != NULL)
+	{
+		g_node = (AnjutaProjectNode *)g_hash_table_lookup (GBF_MKFILE_PROJECT (obj)->groups, id);
+		g_free (id);
+	}
+	
+	return (AnjutaProjectGroup *)g_node;
+}
+
+static AnjutaProjectTarget* 
+iproject_add_target (IAnjutaProject *obj, AnjutaProjectGroup *parent,  const gchar *name,  AnjutaProjectTargetType type, GError **err)
+{
+	gchar *id;
+	AnjutaProjectNode *g_node = NULL;
+	GbfMkfileTargetInformation *target;
+	
+	for (target = GbfMkfileTargetTypes; target->base.name != NULL; target++) if ((char *)type == (char *)target) break;
+	id = gbf_project_add_target (GBF_PROJECT (obj), GBF_MKFILE_NODE (parent)->id, name, target->detail, err);
+
+	if (id != NULL)
+	{
+		g_node = (AnjutaProjectNode *)g_hash_table_lookup (GBF_MKFILE_PROJECT (obj)->targets, id);
+		g_free (id);
+	}
+
+	return (AnjutaProjectTarget *)g_node;
+}
+
+static AnjutaProjectSource* 
+iproject_add_source (IAnjutaProject *obj, AnjutaProjectTarget *parent,  GFile *file, GError **err)
+{
+	gchar *id;
+	gchar *uri;
+	AnjutaProjectNode *g_node = NULL;
+	
+	uri = g_file_get_uri (file);
+	id = gbf_project_add_source (GBF_PROJECT (obj), GBF_MKFILE_NODE (parent)->id, uri, err);
+	g_free (uri);
+
+	if (id != NULL)
+	{
+		g_node = (AnjutaProjectNode *)g_hash_table_lookup (GBF_MKFILE_PROJECT (obj)->sources, id);
+		g_free (id);
+	}
+
+	return (AnjutaProjectSource *)g_node;
+}
+
+static GtkWidget* 
+iproject_configure (IAnjutaProject *obj, GError **error)
+{
+        return gbf_project_configure (GBF_PROJECT (obj), error);
+}
+
+static guint 
+iproject_get_capabilities (IAnjutaProject *obj, GError **err)
+{
+	return IANJUTA_PROJECT_CAN_ADD_NONE;
+}
+
+static GList* 
+iproject_get_packages (IAnjutaProject *obj, GError **err)
+{
+	return NULL;
+}
+
+static AnjutaProjectGroup* 
+iproject_get_root (IAnjutaProject *obj, GError **err)
+{
+	AnjutaProjectGroup *root;
+	
+	root = (AnjutaProjectGroup *)((GbfMkfileProject *)obj)->root_node;
+		
+	return root;
+}
+
+static GList* 
+iproject_get_target_types (IAnjutaProject *obj, GError **err)
+{
+	GbfMkfileTargetInformation *targets = GbfMkfileTargetTypes;
+        GList *types = NULL;
+
+        while (targets->base.name != NULL)
+        {
+		/* Skip unimplemented target types */
+		if (targets->implemented)
+		{
+                	types = g_list_prepend (types, targets);
+		}
+                targets++;
+        }
+        types = g_list_reverse (types);
+
+        return types;
+}
+
+static gboolean
+iproject_load (IAnjutaProject *obj, GFile *file, GError **error)
+{
+	GError *err = NULL;
+	gboolean ok;
+	gchar *uri;
+	
+	uri = g_file_get_uri (file);
+	gbf_project_load (GBF_PROJECT (obj), uri, &err);
+	g_free (uri);
+	ok = err == NULL;
+	if (err != NULL) g_propagate_error (error, err);
+
+	return ok;
+}
+
+static gboolean
+iproject_refresh (IAnjutaProject *obj, GError **error)
+{
+	GError *err = NULL;
+	gboolean ok;
+	
+	gbf_project_refresh (GBF_PROJECT (obj), &err);
+	ok = err == NULL;
+	if (err != NULL) g_propagate_error (error, err);
+
+	return ok;
+}
+
+static gboolean
+iproject_remove_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **error)
+{
+	GError *err = NULL;
+	gboolean ok;
+	
+	switch (ANJUTA_PROJECT_NODE_DATA (node)->type)
+	{
+		case ANJUTA_PROJECT_GROUP:
+			gbf_project_remove_group (GBF_PROJECT (obj), GBF_MKFILE_NODE (node)->id, &err);
+			break;
+		case ANJUTA_PROJECT_TARGET:
+			gbf_project_remove_target (GBF_PROJECT (obj), GBF_MKFILE_NODE (node)->id, &err);
+			break;
+		case ANJUTA_PROJECT_SOURCE:
+			gbf_project_remove_source (GBF_PROJECT (obj), GBF_MKFILE_NODE (node)->id, &err);
+			break;
+		default:
+			g_assert_not_reached ();
+			break;
+	}
+	ok = err == NULL;
+	if (err != NULL) g_propagate_error (error, err);
+
+	return ok;
+}
+
+static GtkWidget*
+iproject_configure_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **error)
+{
+	GError *err = NULL;
+	GtkWidget *wid = NULL;
+	
+	switch (ANJUTA_PROJECT_NODE_DATA (node)->type)
+	{
+		case ANJUTA_PROJECT_GROUP:
+			wid = gbf_mkfile_properties_get_group_widget (GBF_MKFILE_PROJECT (obj), GBF_MKFILE_NODE (node)->id, &err);
+			break;
+		case ANJUTA_PROJECT_TARGET:
+			wid = gbf_mkfile_properties_get_target_widget (GBF_MKFILE_PROJECT (obj), GBF_MKFILE_NODE (node)->id, &err);
+			break;
+		case ANJUTA_PROJECT_SOURCE:
+			break;
+		default:
+			g_assert_not_reached ();
+			break;
+	}
+	
+	if (err != NULL) g_propagate_error (error, err);
+
+	return wid;
+}
+
+static void
+iproject_iface_init(IAnjutaProjectIface* iface)
+{
+	iface->add_group = iproject_add_group;
+	iface->add_source = iproject_add_source;
+	iface->add_target = iproject_add_target;
+	iface->configure = iproject_configure;
+	iface->configure_node = iproject_configure_node;
+	iface->get_capabilities = iproject_get_capabilities;
+	iface->get_packages = iproject_get_packages;
+	iface->get_root = iproject_get_root;
+	iface->get_target_types = iproject_get_target_types;
+	iface->load = iproject_load;
+	iface->refresh = iproject_refresh;
+	iface->remove_node = iproject_remove_node;
+}
+
 static void
 gbf_mkfile_project_class_init (GbfMkfileProjectClass *klass)
 {
@@ -3458,6 +3838,7 @@ gbf_mkfile_project_instance_init (GbfMkfileProject *project)
 {
 	/* initialize data & monitors */
 	project->project_root_uri = NULL;
+	project->root_node = NULL;
 	project_data_init (project);
 
 	/* setup queue */
@@ -3515,10 +3896,10 @@ gbf_mkfile_project_get_property (GObject    *object,
 	}
 }
 
-GbfProject *
+IAnjutaProject *
 gbf_mkfile_project_new (void)
 {
-	return GBF_PROJECT (g_object_new (GBF_TYPE_MKFILE_PROJECT, NULL));
+	return IANJUTA_PROJECT (g_object_new (GBF_TYPE_MKFILE_PROJECT, NULL));
 }
 
 gint
@@ -3542,4 +3923,6 @@ gbf_mkfile_project_probe (GFile *file, GError **err)
         return retval ? IANJUTA_PROJECT_PROBE_PROJECT_FILES : 0;
 }
 
-GBF_BACKEND_BOILERPLATE (GbfMkfileProject, gbf_mkfile_project);
+ANJUTA_TYPE_BEGIN(GbfMkfileProject, gbf_mkfile_project, GBF_TYPE_PROJECT);
+ANJUTA_TYPE_ADD_INTERFACE(iproject, IANJUTA_TYPE_PROJECT);
+ANJUTA_TYPE_END;

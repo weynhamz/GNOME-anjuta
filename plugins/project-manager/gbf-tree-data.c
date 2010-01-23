@@ -398,7 +398,7 @@ gbf_tree_data_new_group (AnjutaProjectGroup *group)
 	}
 	else
 	{
-		data->name = g_strdup ("?");
+		data->name = g_file_get_basename (anjuta_project_group_get_directory (group));
 	}
 
 	data->group = g_object_ref (anjuta_project_group_get_directory (group));

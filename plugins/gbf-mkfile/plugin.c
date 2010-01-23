@@ -52,10 +52,10 @@ deactivate_plugin (AnjutaPlugin *plugin)
 /* IAnjutaProjectBackend implementation
  *---------------------------------------------------------------------------*/
 
-static GbfProject*
+static IAnjutaProject*
 iproject_backend_new_project (IAnjutaProjectBackend* backend, GError** err)
 {
-	GbfProject *project;
+	IAnjutaProject *project;
 	
 	project = gbf_mkfile_project_new ();
 		
@@ -65,7 +65,6 @@ iproject_backend_new_project (IAnjutaProjectBackend* backend, GError** err)
 static gint
 iproject_backend_probe (IAnjutaProjectBackend* backend, GFile *directory, GError** err)
 {
-	g_message ("mkfile probe");
 	return gbf_mkfile_project_probe (directory, err);
 }
 
