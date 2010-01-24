@@ -496,7 +496,7 @@ anjuta_util_install_files (const gchar * const names)
 	if (!names)
 		return FALSE;
 
-	connection = dbus_g_bus_get (DBUS_BUS_SYSTEM, NULL);
+	connection = dbus_g_bus_get (DBUS_BUS_SESSION, NULL);
 	if (!connection)
 		return FALSE;
 
