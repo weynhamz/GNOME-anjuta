@@ -483,13 +483,46 @@ anjuta_util_dialog_input (GtkWindow *parent, const gchar *prompt,
 	return (res == GTK_RESPONSE_OK);
 }
 
+static void
+on_install_files_done (DBusGProxy *proxy, DBusGProxyCall *call_id,
+					   gpointer user_data)
+{
+	GError *error = NULL;
+	dbus_g_proxy_end_call (proxy, call_id, &error, G_TYPE_INVALID);
+	if (error)
+	{
+		/*
+		  Only dbus error is handled. Rest of the errors are from packagekit
+		  which have already been notified to user by packagekit.
+		*/
+		if (error->domain == DBUS_GERROR)
+		{
+			const gchar *error_message = NULL;
+
+			/* Service error which implies packagekit is missing */
+			if (error->code == DBUS_GERROR_SERVICE_UNKNOWN)
+			{
+				error_message = _("You do not seem to have PackageKit installed. PackageKit is required for installing missing packages. Please install \"packagekit-gnome\" package from your distribution, or install the missing packages manually.");
+			}
+			/* General dbus error implies failure to call dbus method */
+			else if (error->code != DBUS_GERROR_REMOTE_EXCEPTION)
+			{
+				error_message = error->message;
+			}
+			if (error_message)
+				anjuta_util_dialog_error (NULL,
+										  _("Installation failed: %s"),
+										  error_message);
+		}
+		g_error_free (error);
+	}
+}
+
 gboolean
 anjuta_util_install_files (const gchar * const names)
 {
 	DBusGConnection * connection;
 	DBusGProxy * proxy;
-	GError * error = NULL;
-	gboolean ret;
 	guint32 xid = 0;
 	gchar ** pkgv;
 
@@ -508,18 +541,12 @@ anjuta_util_install_files (const gchar * const names)
 		return FALSE;
 
 	pkgv = g_strsplit (names, ", ", 0);
-	ret = dbus_g_proxy_call_with_timeout (proxy, "InstallProvideFiles",
-										  100, &error,
-										  G_TYPE_UINT, xid,
-										  G_TYPE_STRV, pkgv,
-										  G_TYPE_STRING, "",
-										  G_TYPE_INVALID, G_TYPE_INVALID);
-	if (!ret)
-	{
-		g_warning ("failed: %s", error->message);
-		g_error_free (error);
-	}
-
+	dbus_g_proxy_begin_call (proxy, "InstallProvideFiles",
+							 on_install_files_done, NULL, NULL,
+							 G_TYPE_UINT, xid,
+							 G_TYPE_STRV, pkgv,
+							 G_TYPE_STRING, "",
+							 G_TYPE_INVALID, G_TYPE_INVALID);
 	g_strfreev (pkgv);
 	return TRUE;
 }
