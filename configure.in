@@ -78,12 +78,15 @@ AM_PROG_CC_C_O
 
 GNOME_COMPILE_WARNINGS(maximum)
 AM_CFLAGS="$AM_CFLAGS $WARN_CFLAGS"
+AM_CXXFLAGS="$AM_CXXFLAGS $WARN_CXXFLAGS"
 
 dnl Enable debugging mode
 AC_ARG_ENABLE(debug,
   AC_HELP_STRING([--enable-debug],[Enable debug messages]),
-  AM_CFLAGS="$AM_CFLAGS -DDEBUG")
+  AM_CFLAGS="$AM_CFLAGS -DDEBUG"
+  AM_CXXFLAGS="$AM_CXXFLAGS -DDEBUG")
 AC_SUBST(AM_CFLAGS)
+AC_SUBST(AM_CXXFLAGS)
 
 ANJUTA_LDFLAGS="-no-undefined"
 ANJUTA_PLUGIN_LDFLAGS="-module -avoid-version -no-undefined"
@@ -905,4 +908,4 @@ else
 fi
 echo "-------------------------------------------------------------------"
 echo "AM_CFLAGS = $AM_CFLAGS"
-
+echo "AM_CXXFLAGS = $AM_CXXFLAGS"

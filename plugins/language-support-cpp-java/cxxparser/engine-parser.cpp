@@ -18,6 +18,11 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <libanjuta/anjuta-debug.h>
+#include <string>
+#include <vector>
+#include <libanjuta/interfaces/ianjuta-symbol-manager.h>
+
 #include "engine-parser-priv.h"
 #include "engine-parser.h"
 #include "flex-lexer-klass-tab.h"
@@ -26,10 +31,7 @@
 #include "variable-parser.h"
 #include "function-parser.h"
 
-#include <string>
-#include <vector>
-#include <libanjuta/interfaces/ianjuta-symbol-manager.h>
-#include <libanjuta/anjuta-debug.h>
+
 
 using namespace std;
 
@@ -157,11 +159,11 @@ EngineParser::getCurrentScopeChainByFileLine (const char* full_file_path,
 		ianjuta_symbol_manager_get_scope_chain (_sym_man, full_file_path, linenum, 
 		                                        IANJUTA_SYMBOL_FIELD_SIMPLE, NULL);
 
-	cout << "checking for completion scope..";
+	DEBUG_PRINT ("Checking for completion scope..");
 	/* it's a global one if it's NULL or if it has just only one element */
 	if (iter == NULL || ianjuta_iterable_get_length (iter, NULL) <= 1)
 	{
-		cout << "...we've a global completion scope" << endl;
+		DEBUG_PRINT ("...we've a global completion scope");
 		if (iter != NULL)
 		{
 			g_object_unref (iter);
@@ -170,13 +172,12 @@ EngineParser::getCurrentScopeChainByFileLine (const char* full_file_path,
 		iter = NULL;
 	}
 	else 
-	{
-		// DEBUG PRINT
+	{		
 		do 
 		{
 			IAnjutaSymbol *node = IANJUTA_SYMBOL (iter);
-			cout << "DEBUG: got completion scope name: " << 
-				ianjuta_symbol_get_name (node, NULL) << endl;					
+			DEBUG_PRINT ("Got completion scope name: %s", 
+				ianjuta_symbol_get_name (node, NULL));
 		} while (ianjuta_iterable_next (iter, NULL) == TRUE);
 	}
 	
@@ -195,19 +196,19 @@ EngineParser::getTypeNameAndScopeByToken (ExpressionResult &result,
 {
 	if (result.m_isaType) 
 	{
-		cout << "*** Found a cast expression" << endl;
+		DEBUG_PRINT ("*** Found a cast expression");
 		/*
 		 * Handle type (usually when casting is found)
 		 */
 		if (result.m_isPtr && op == ".") 
 		{
-			cout << "Did you mean to use '->' instead of '.' ?" << endl;
+			DEBUG_PRINT ("Did you mean to use '->' instead of '.' ?");
 			return false;
 		}
 		
 		if (!result.m_isPtr && op == "->") 
 		{
-			cout << "Can not use '->' operator on a non pointer object" << endl;
+			DEBUG_PRINT ("Can not use '->' operator on a non pointer object");
 			return false;
 		}
 
@@ -217,24 +218,24 @@ EngineParser::getTypeNameAndScopeByToken (ExpressionResult &result,
 	} 
 	else if (result.m_isThis) 
 	{
-		cout << "*** Found 'this'" << endl;
+		DEBUG_PRINT ("*** Found 'this'");
 		
 		/* special handle for 'this' keyword */
 		if (op == "::") 
 		{
-			cout << "'this' can not be used with operator ::" << endl;
+			DEBUG_PRINT ("'this' can not be used with operator ::");
 			return false;
 		}
 
 		if (result.m_isPtr && op == ".") 
 		{
-			cout << "Did you mean to use '->' instead of '.' ?" << endl;
+			DEBUG_PRINT ("Did you mean to use '->' instead of '.' ?");
 			return false;
 		}
 			
 		if (!result.m_isPtr && op == "->") 
 		{
-			cout << "Can not use '->' operator on a non pointer object" << endl;
+			DEBUG_PRINT ("Can not use '->' operator on a non pointer object");
 			return false;
 		}
 
@@ -261,7 +262,7 @@ EngineParser::getTypeNameAndScopeByToken (ExpressionResult &result,
 			do 
 			{
 				IAnjutaSymbol *node = IANJUTA_SYMBOL (scope_chain_iter);
-				cout << "sym_name = " << ianjuta_symbol_get_name (node, NULL) << endl;
+				DEBUG_PRINT ("sym_name = %s", ianjuta_symbol_get_name (node, NULL));
 				if (ianjuta_symbol_get_sym_type (node, NULL) == IANJUTA_SYMBOL_TYPE_CLASS)
 				{
 					out_type_name = ianjuta_symbol_get_name (node, NULL);
@@ -274,7 +275,7 @@ EngineParser::getTypeNameAndScopeByToken (ExpressionResult &result,
 		
 		if (out_type_name.empty ()) 
 		{
-			cout << "'this' has not a type name" << endl;
+			DEBUG_PRINT ("'this' has not a type name");
 			return false;
 		}
 		
@@ -291,7 +292,7 @@ EngineParser::getTypeNameAndScopeByToken (ExpressionResult &result,
 		/*
 		 * Found an identifier (can be a local variable, a global one etc)
 		 */			
-		cout << "*** Found an identifier or local variable..." << endl;
+		DEBUG_PRINT ("*** Found an identifier or local variable...");
 
 		/* optimize scope'll clear the scopes leaving the local variables */
 		string optimized_scope = optimizeScope(above_text);
@@ -304,16 +305,14 @@ EngineParser::getTypeNameAndScopeByToken (ExpressionResult &result,
 		 * up to the begin. This because the local variable declaration should be found
 		 * just above to the statement line 
 		 */
-		cout << "variables found are..." << endl;
 		for (VariableList::reverse_iterator iter = li.rbegin(); iter != li.rend(); iter++) 
 		{
 			Variable var = (*iter);
-			var.print ();
-			
+		
 			if (token == var.m_name) 
 			{
-				cout << "wh0a! we found the variable type to parse... it's \"" << 
-					var.m_type << "\" with typescope \"" << var.m_typeScope << "\"" << endl;
+				DEBUG_PRINT ("We found the variable type to parse... it's \"%s"
+					"\" with typescope \"%s\"", var.m_type.c_str(), var.m_typeScope.c_str());
 				out_type_name = var.m_type;
 				out_type_scope = var.m_typeScope;
 
@@ -339,19 +338,18 @@ EngineParser::getTypeNameAndScopeByToken (ExpressionResult &result,
 				return false;
 			}
 			
-			cout << "DEBUG: signature is " <<  signature << endl;
+			DEBUG_PRINT ("Signature is %s", signature);
 
 			get_variables(signature, li, ignoreTokens, false);
 			
 			for (VariableList::reverse_iterator iter = li.rbegin(); iter != li.rend(); iter++) 
 			{
 				Variable var = (*iter);
-				var.print ();
 			
 				if (token == var.m_name) 
 				{
-					cout << "found the variable type to parse from SIGNATURE... it's \"" << 
-						var.m_type << "\" with typescope \"" << var.m_typeScope << "\"" << endl;
+				DEBUG_PRINT ("We found the variable type to parse from signature... it's \"%s"
+					"\" with typescope \"%s\"", var.m_type.c_str (), var.m_typeScope.c_str ());
 					out_type_name = var.m_type;
 					out_type_scope = var.m_typeScope;
 
@@ -364,7 +362,7 @@ EngineParser::getTypeNameAndScopeByToken (ExpressionResult &result,
 		}
 		
 		/* if we reach this point it's likely that we missed the right var type */
-		cout << "## Wrong detection of the variable type" << endl;
+		DEBUG_PRINT ("## Wrong detection of the variable type");
 	}
 	return false;
 }
@@ -397,29 +395,27 @@ EngineParser::getCurrentSearchableScope (string &type_name, string &type_scope)
 		const gchar *skind = ianjuta_symbol_get_extra_info_string (node,
 		    					IANJUTA_SYMBOL_FIELD_KIND, NULL);
 		
-		cout << "Current Searchable Scope name \"" <<
-    		ianjuta_symbol_get_name (node, NULL) <<
-			"\" kind \"" << skind << "\" and id "<< ianjuta_symbol_get_id (node, NULL) << 
-			endl;
+		DEBUG_PRINT ("Current Searchable Scope name \"%s\" kind \"%s\" and id %d",
+		             ianjuta_symbol_get_name (node, NULL), skind,
+		             ianjuta_symbol_get_id (node, NULL));
 
 		/* is it a typedef? In that case find the parent struct */
 		if (g_strcmp0 (ianjuta_symbol_get_extra_info_string (node,
 		    IANJUTA_SYMBOL_FIELD_KIND, NULL), "typedef") == 0)
 		{
-			cout << "it's a typedef... trying to find the associated struct...!" << endl;
+			DEBUG_PRINT ("It's a TYPEDEF... trying to find the associated struct...!");
 
 			curr_searchable_scope = switchTypedefToStruct (IANJUTA_ITERABLE (node));
 			
 			node = IANJUTA_SYMBOL (curr_searchable_scope);
-			cout << "(NEW) Current Searchable Scope " <<
-				ianjuta_symbol_get_name (node, NULL)  << 					
-				" and id "<< ianjuta_symbol_get_id (node, NULL)  << 
-				endl;					
+			DEBUG_PRINT ("(NEW) Current Searchable Scope %s and id %d",
+						ianjuta_symbol_get_name (node, NULL), 
+						ianjuta_symbol_get_id (node, NULL));
 		}
 	}
 	else
 	{
-		cout << "Current Searchable Scope NULL" << endl;
+		DEBUG_PRINT ("Current Searchable Scope NULL");
 	}
 
 	return curr_searchable_scope;
@@ -439,7 +435,7 @@ EngineParser::switchTypedefToStruct (IAnjutaIterable * test,
 	IAnjutaSymbol *node = IANJUTA_SYMBOL (test);	
 	IAnjutaIterable *new_struct;
 
-	cout << "Switching typedef to struct " << endl;
+	DEBUG_PRINT ("Switching TYPEDEF ==> to STRUCT");
 	new_struct = ianjuta_symbol_manager_get_parent_scope (_sym_man, node, NULL, sym_info, NULL);
 	                                         
 	if (new_struct != NULL)
@@ -451,7 +447,7 @@ EngineParser::switchTypedefToStruct (IAnjutaIterable * test,
 	}
 	else 
 	{
-		cout << "Couldn't find a parent for typedef. We'll return the same object" << endl;
+		DEBUG_PRINT ("Couldn't find a parent for typedef. We'll return the same object");
 	}	
 
 	return test;
@@ -465,7 +461,7 @@ EngineParser::switchMemberToContainer (IAnjutaIterable * test)
 	const gchar* sym_type_name = ianjuta_symbol_get_extra_info_string (node, 
 	                                   IANJUTA_SYMBOL_FIELD_TYPE_NAME, NULL);
 
-	cout << "Switching container with type_name " << sym_type_name << endl;
+	DEBUG_PRINT ("Switching container with type_name %s", sym_type_name);
 
 	/* hopefully we'll find a new container for the type_name of test param */
 	new_container = ianjuta_symbol_manager_search_project (_sym_man, 
@@ -485,12 +481,13 @@ EngineParser::switchMemberToContainer (IAnjutaIterable * test)
 
 		test = new_container;
 
-		cout << ".. found new container with n items " << 
-			ianjuta_iterable_get_length (test, NULL) << endl;
+		DEBUG_PRINT (".. found new container with n items %d", 
+		             ianjuta_iterable_get_length (test, NULL));
 	}
 	else 
 	{
-		cout << "Couldn't find a container to substitute sym_type_name " << sym_type_name << endl;
+		DEBUG_PRINT ("Couldn't find a container to substitute sym_type_name %s",
+		             sym_type_name);
 	}	
 
 	return test;
@@ -511,14 +508,13 @@ EngineParser::processExpression(const string& stmt,
 	string type_name;
 	string type_scope;
 
-	cout << "setting text " << stmt.c_str () << " to the tokenizer " << endl;
+	DEBUG_PRINT ("Setting text %s to the tokenizer", stmt.c_str ());
 	_main_tokenizer->setText (stmt.c_str ());
 
 	/* get the first token */
 	nextMainToken (current_token, op);		
 
-	cout << "--------" << endl << "First main token \"" << current_token << "\" with op \"" << op 
-		 << "\"" << endl; 
+	DEBUG_PRINT ("First main token \"%s\" with op \"%s\"", current_token.c_str (), op.c_str ());
 
 	/* parse the current sub-expression of a statement and fill up 
 	 * ExpressionResult object
@@ -540,13 +536,13 @@ EngineParser::processExpression(const string& stmt,
     									  type_scope);
 	if (process_res == false)
 	{
-		cout << "Initial statement processing failed. "  <<
-			"I cannot continue. " << endl;
+		DEBUG_PRINT ("Initial statement processing failed. "
+			"I cannot continue. ");
 		return NULL;
 	}
 	
-	cout << "Searching for curr_searchable_scope with type_name \"" << type_name << "\"" << 
-		" and type_scope \"" << type_scope << "\"" << endl;
+	DEBUG_PRINT ("Searching for curr_searchable_scope with type_name \"%s\""
+				" and type_scope \"%s\"", type_name.c_str (), type_scope.c_str ());
 
 	/* at this time we're enough ready to issue a first query to our db. 
 	 * We absolutely need to find the searchable object scope of the first result 
@@ -557,16 +553,14 @@ EngineParser::processExpression(const string& stmt,
 
 	if (curr_searchable_scope == NULL)
 	{
-		cout << "curr_searchable_scope failed to process, check the problem please" 
-			<< endl;
+		DEBUG_PRINT ("curr_searchable_scope failed to process, check the problem please");
 		return NULL;
 	}	
 	
 	/* fine. Have we more tokens left? */
 	while (nextMainToken (current_token, op) == 1) 
 	{
-		cout << "--------\nNext main token \"" << current_token << "\" with op \"" << op 
-			 << "\"" << endl;
+		DEBUG_PRINT("Next main token \"%s\" with op \"%s\"",current_token.c_str (), op.c_str ());
 
 		/* parse the current sub-expression of a statement and fill up 
 	 	 * ExpressionResult object
@@ -575,8 +569,8 @@ EngineParser::processExpression(const string& stmt,
 		
 		if (process_res == false || curr_searchable_scope == NULL)
 		{
-			cout << "Well, you haven't much luck on the NEXT token, the NEXT token failed and then "  <<
-				"I cannot continue. " << endl;
+			DEBUG_PRINT ("No luck with the NEXT token, the NEXT token failed and then "
+				"I cannot continue. ");
 
 			if (curr_searchable_scope != NULL)
 				g_object_unref (curr_searchable_scope );
@@ -604,8 +598,9 @@ EngineParser::processExpression(const string& stmt,
 			
 		if (iter == NULL)
 		{
-			cout << "Warning, the result.m_name " << result.m_name << 
-				" does not belong to scope (id " << ianjuta_symbol_get_id (node, NULL) << ")" << endl;
+			DEBUG_PRINT ("Warning, the result.m_name %s "
+				"does not belong to scope (id %d)", result.m_name.c_str (), 
+			             ianjuta_symbol_get_id (node, NULL));
 			
 			if (curr_searchable_scope != NULL)
 				g_object_unref (curr_searchable_scope );
@@ -615,14 +610,13 @@ EngineParser::processExpression(const string& stmt,
 		else 
 		{
 			gchar *sym_kind;
-			cout << "Good element " << result.m_name << endl;			
+			DEBUG_PRINT ("Good element %s", result.m_name.c_str ());
 			
-
 			node = IANJUTA_SYMBOL (iter);
 			sym_kind = (gchar*)ianjuta_symbol_get_extra_info_string (node, 
 		    										IANJUTA_SYMBOL_FIELD_KIND, NULL);
 			
-			cout << ".. it has sym_kind \"" << sym_kind << "\"" << endl;
+			DEBUG_PRINT (".. it has sym_kind \"%s\"", sym_kind);
 
 			/* the same check as in the engine-core on sdb_engine_add_new_sym_type () */
 			if (g_strcmp0 (sym_kind, "member") == 0 || 
@@ -664,7 +658,8 @@ EngineParser::processExpression(const string& stmt,
 				std::map<std::string, std::string> ignoreTokens;
 				get_functions (func_ret_type_name, li, ignoreTokens);
 
-				cout << "functions found are..." << endl;
+				DEBUG_PRINT ("Functions found are...");
+/*				
 				for (FunctionList::reverse_iterator func_iter = li.rbegin(); 
 				     func_iter != li.rend(); 
 				     func_iter++) 
@@ -672,12 +667,12 @@ EngineParser::processExpression(const string& stmt,
 					Function var = (*func_iter);
 					var.print ();			
 				}
-				
+*/
 			
 				g_object_unref (iter);
 
-				cout << "going to look for the following function ret type " << 
-					func_ret_type_name << endl;
+				DEBUG_PRINT ("Going to look for the following function ret type %s",
+							func_ret_type_name.c_str ());
 
 				iter = getCurrentSearchableScope (li.front().m_returnValue.m_type,
 				                                  type_scope);
@@ -692,7 +687,7 @@ EngineParser::processExpression(const string& stmt,
 		}
 	}
 
-	cout << "END of expression processing. Returning curr_searchable_scope" << endl;
+	cout << "END of expression processing. Returning curr_searchable_scope";
 	return curr_searchable_scope;
 }
 
