@@ -441,7 +441,8 @@ on_file_model_changed (GFileMonitor* monitor,
 			g_object_unref (model_file);
 		}
 	}
-	if (event_type == G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED ||
+	if (event_type == G_FILE_MONITOR_EVENT_CHANGED ||
+	    event_type == G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED ||
 		event_type == G_FILE_MONITOR_EVENT_DELETED)
 	{
 		if (!found)
@@ -450,6 +451,7 @@ on_file_model_changed (GFileMonitor* monitor,
 	
 	switch (event_type)
 	{
+		case G_FILE_MONITOR_EVENT_CHANGED:
 		case G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED:
 		case G_FILE_MONITOR_EVENT_CREATED:
 		{
