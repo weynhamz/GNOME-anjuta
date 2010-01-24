@@ -505,7 +505,8 @@ on_install_files_done (DBusGProxy *proxy, DBusGProxyCall *call_id,
 				error_message = _("You do not seem to have PackageKit installed. PackageKit is required for installing missing packages. Please install \"packagekit-gnome\" package from your distribution, or install the missing packages manually.");
 			}
 			/* General dbus error implies failure to call dbus method */
-			else if (error->code != DBUS_GERROR_REMOTE_EXCEPTION)
+			else if (error->code != DBUS_GERROR_REMOTE_EXCEPTION &&
+					 error->code != DBUS_GERROR_NO_REPLY)
 			{
 				error_message = error->message;
 			}
