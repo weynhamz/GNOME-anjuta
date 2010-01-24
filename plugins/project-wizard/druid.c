@@ -66,6 +66,7 @@
 #define PROJECT_LIST "project_list"
 #define PROJECT_BOOK "project_book"
 #define PROPERTY_TABLE "property_table"
+#define ERROR_VBOX "error_vbox"
 #define ERROR_ICON "error_icon"
 #define ERROR_MESSAGE "error_message"
 #define ERROR_DETAIL "error_detail"
@@ -83,6 +84,8 @@ struct _NPWDruid
 	GtkWindow* window;
 	
 	GtkNotebook* project_book;
+	GtkVBox *error_vbox;
+	GtkWidget *error_extra_widget;
 	GtkImage *error_icon;
 	GtkLabel *error_message;
 	GtkWidget *error_detail;
@@ -115,7 +118,7 @@ enum {
 
 /* Fill dialog page */
 static void
-npw_druid_fill_error_page (NPWDruid* druid, GtkMessageType type, const gchar *detail, const gchar *mesg,...)
+npw_druid_fill_error_page (NPWDruid* druid, GtkWidget *extra_widget, GtkMessageType type, const gchar *detail, const gchar *mesg,...)
 {
 	GtkAssistant *assistant;
 	GtkWidget *page;
@@ -185,6 +188,19 @@ npw_druid_fill_error_page (NPWDruid* druid, GtkMessageType type, const gchar *de
 		gtk_widget_show (druid->error_detail);
 		label = GTK_LABEL (gtk_bin_get_child (GTK_BIN (druid->error_detail)));
 		gtk_label_set_text (label, detail);
+	}
+
+	if (druid->error_extra_widget)
+		gtk_widget_destroy (druid->error_extra_widget);
+	druid->error_extra_widget = NULL;
+
+	/* Set extra widget */
+	if (extra_widget)
+	{
+		gtk_box_pack_start (GTK_BOX (druid->error_vbox), extra_widget,
+							FALSE, FALSE, 10);
+		gtk_widget_show (extra_widget);
+		druid->error_extra_widget = extra_widget;
 	}
 }
 
@@ -656,7 +672,7 @@ npw_druid_save_valid_values (NPWDruid* druid)
 	
 	if (data.error->len)
 	{
-		npw_druid_fill_error_page (druid,
+		npw_druid_fill_error_page (druid, NULL,
 								   GTK_MESSAGE_ERROR,
 								   NULL,
 									"<b>%s</b>\n\n%s",
@@ -667,7 +683,7 @@ npw_druid_save_valid_values (NPWDruid* druid)
 	}
 	else if (data.warning->len)
 	{
-		npw_druid_fill_error_page (druid,
+		npw_druid_fill_error_page (druid, NULL,
 								   GTK_MESSAGE_WARNING,
 								   NULL,
 									"<b>%s</b>\n\n%s",
@@ -771,23 +787,30 @@ strip_package_version_info (gpointer data, gpointer user_data)
 	g_strdelimit (pkg, " ", '\0');
 }
 
-static gboolean
-check_and_warn_missing (NPWDruid *druid)
+static void
+on_install_button_clicked (GtkWidget *button, NPWDruid *druid)
 {
 	GList *missing_programs, *missing_packages;
 	GList *missing_files = NULL;
-	GString *missing_message = NULL;
-	gboolean installed = TRUE;
 
 	missing_programs = npw_header_check_required_programs (druid->header);
 	missing_packages = npw_header_check_required_packages (druid->header);
 
-	anjuta_util_glist_strings_prefix (missing_programs, ANJUTA_BINDIR "/");
+	/*
+	 * FIXME: packagekit only allows search by absolute path, so we must
+	 * come up one. Unfortunately, hardcoding "/usr" prefix seems to be
+	 * the only sane way since most distros install there. Using anjuta
+	 * build prefix isn't any better since anjuta can be installed any
+	 * where irrespective of distro standandard prefix. If there is a
+	 * dynamic way to know it, we should try that (perhaps by doing
+	 * `which <some ubiquitous program>`).
+	 */
+	anjuta_util_glist_strings_prefix (missing_programs, "/usr/bin/");
 
 	g_list_foreach (missing_packages, (GFunc *) strip_package_version_info,
 					NULL);
 	anjuta_util_glist_strings_prefix (missing_packages,
-									  ANJUTA_LIBDIR "/pkgconfig/");
+									  "/usr/lib/pkgconfig/");
 	anjuta_util_glist_strings_sufix (missing_packages, ".pc");
 
 	missing_files = g_list_concat (missing_programs, missing_packages);
@@ -797,15 +820,19 @@ check_and_warn_missing (NPWDruid *druid)
 		gchar * missing_names = NULL;
 
 		missing_names = anjuta_util_glist_strings_join (missing_files, ", ");
-		installed = anjuta_util_install_files (missing_names);
+		anjuta_util_install_files (missing_names);
 
 		if (missing_names)
 			g_free (missing_names);
 		anjuta_util_glist_strings_free (missing_files);
 	}
+}
 
-	if (installed == TRUE)
-		return TRUE;
+static gboolean
+check_and_warn_missing (NPWDruid *druid)
+{
+	GList *missing_programs, *missing_packages;
+	GString *missing_message = NULL;
 
 	missing_programs = npw_header_check_required_programs (druid->header);
 	missing_packages = npw_header_check_required_packages (druid->header);
@@ -839,12 +866,23 @@ check_and_warn_missing (NPWDruid *druid)
 	
 	if (missing_message)
 	{
+		GtkWidget *hbox, *install_button;
 		g_string_prepend (missing_message, _(
 		 "Some important programs or development packages required to build "
 		 "this project are missing. Please make sure they are "
 		 "installed properly before generating the project.\n"));
 
-		npw_druid_fill_error_page (druid,
+		hbox = gtk_hbox_new (FALSE, 0);
+		gtk_widget_show (hbox);
+
+		install_button =
+			gtk_button_new_with_label (_("Install missing packages"));
+		gtk_box_pack_end (GTK_BOX (hbox), install_button, FALSE, FALSE, 10);
+		g_signal_connect (install_button, "clicked",
+						  G_CALLBACK (on_install_button_clicked), druid);
+		gtk_widget_show (install_button);
+
+		npw_druid_fill_error_page (druid, hbox,
 								   GTK_MESSAGE_WARNING,
 								  _("The missing programs are usually part of some distrubution "
 									"packages and can be searched for in your Application Manager. "
@@ -992,6 +1030,7 @@ npw_druid_create_assistant (NPWDruid* druid)
 	assistant = GTK_ASSISTANT (gtk_builder_get_object (builder, NEW_PROJECT_DIALOG));
 	druid->window = GTK_WINDOW (assistant);
 	druid->project_book = GTK_NOTEBOOK (gtk_builder_get_object (builder, PROJECT_BOOK));
+	druid->error_vbox = GTK_VBOX (gtk_builder_get_object (builder, ERROR_VBOX));
 	druid->error_icon = GTK_IMAGE (gtk_builder_get_object (builder, ERROR_ICON));
 	druid->error_message = GTK_LABEL (gtk_builder_get_object (builder, ERROR_MESSAGE));
 	druid->error_detail = GTK_WIDGET (gtk_builder_get_object (builder, ERROR_DETAIL));
@@ -1097,7 +1136,8 @@ npw_druid_new (NPWPlugin* plugin)
 	druid->values = npw_value_heap_new ();
 	druid->gen = npw_autogen_new ();
 	druid->plugin = plugin;
-	
+	druid->error_extra_widget = NULL;
+
 	if (npw_druid_create_assistant (druid) == NULL)
 	{
 		npw_druid_free (druid);
