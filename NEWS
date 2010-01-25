@@ -1,4 +1,20 @@
-Anjuta 2.95.5 "Birthday present" (12 Januar 2009) -- Johannes Schmid
+Anjuta 2.95.6 "Naba is back" (25 January 2009) -- Johannes Schmid
+
+Features:
+- Packagekit integration (Naba Kumar)
+- Project manager supports a simple "Directory" project now which allows
+to handle project that either don't use automake or where the automake parser
+can detect the files correctly. (Sébastien Granjoux)
+
+Bugs fixed:
+bgo#541687 - selecting properties of executable with mouse
+class-gen: bgo#606801 -  Bad translation error + GTKmm Project error
+bgo#572754 - Replace deprecated GTK_OBJECT_TYPE with G_OBJECT_TYPE
+bgo#601750 -  Tooltip evaluation doesn't respects mouse position
+bgo#605060 -  Single-step highlighting works only for the first-opened project
+bgo#607415 -  Anjuta creates lots of random directories
+
+Anjuta 2.95.5 "Birthday present" (12 January 2009) -- Johannes Schmid
 
 Features:
 - Completion for ., ->, and :: in C/C++
