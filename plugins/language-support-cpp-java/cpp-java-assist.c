@@ -751,7 +751,7 @@ is_expression_separator (gchar c, gboolean skip_braces, IAnjutaIterable* iter)
 static IAnjutaIterable*
 cpp_java_parse_expression (CppJavaAssist* assist, IAnjutaIterable* iter, IAnjutaIterable** start_iter)
 {
-	IAnjutaEditor* editor = editor = IANJUTA_EDITOR (assist->priv->iassist);
+	IAnjutaEditor* editor = IANJUTA_EDITOR (assist->priv->iassist);
 	IAnjutaIterable* res = NULL;
 	IAnjutaIterable* cur_pos = ianjuta_iterable_clone (iter, NULL);
 	gboolean op_start = FALSE;
