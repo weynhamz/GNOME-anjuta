@@ -1,3 +1,44 @@
+Anjuta 2.95.5 "Birthday present" (12 Januar 2009) -- Johannes Schmid
+
+Features:
+- Completion for ., ->, and :: in C/C++
+
+Bugs fixed:
+symbol-db: re-fixed bgo#605952 with patch from Sébastien Granjoux.
+language-support-cpp-java: #566982 -  don't autocomplete inside string or comment
+sourceview: Implement ianjuta_editor_cell_get_attribute() properly (#586457)
+bgo #605763 -  No file found while adding a simple c++ class
+bgo #605730 -  completion "." "->" are not shown
+bgo #606069 -  Anjuta won't attach to process to debug it
+symbol-db: bgo#605952 -  Some small fixes for symbol-db
+bgo #559876 -  I can't add python file source code to Project > Add source code
+bgo #565191 -  'add project target' is mostly broken
+bgo#566209 -  "generate inhertances..." progress bar doesn't disappear
+symbol-db: fixed bgo#605343 - fix build warnings
+symbol-db: fixed bgo#605306 -  Add missing include to fix build
+
+Anjuta 2.29.4 "Snow makes happy aka Last X-Mas" (21. December 2009) -- Johannes Schmid
+
+Features:
+- Javascript support (Deniz Ermilov)
+- Support for parsing expressions allowing member completion (Massimo' Cora)
+- Improved autocopletion support using GtkSourceCompletion support in
+GtkSourceview master (Johannes Schmid)
+
+Bugs fixed:
+bgo#597318 - Anjuta terminal crashes X
+bgo#597815 - Crash due to malformed UI definition file
+bgo#599532 - plugin.c: missing call to fclose
+bgo#600924 - misc. build fixes for 2.28
+bgo#601567 - Import from git fails
+bgo#585529 - Replace AnjutaMessageArea with GtkInfoBar
+bgo#559925 - Send special keys to the terminal
+bgo#602784 - Remove unneeded libsexy code
+bgo#604581 - Crash Scintilla when writing a comment
+bgo#599323 - symbol-db plugin can't create the symbol database
+bgo#604954 - Configure project fail if project path contains space
+bgo#604621 - specify /dev/shm at config time.
+
 Anjuta 2.29.2 "Prager Herbst" (14 November 2009) -- Johannes Schmid
 
 Features:

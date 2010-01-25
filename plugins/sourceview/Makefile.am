@@ -38,10 +38,10 @@ BUILT_SOURCES = 			\
 	anjuta-marshal.h              
 
 anjuta-marshal.h: anjuta-marshal.list
-	glib-genmarshal $< --header --prefix=anjuta_marshal > $@
+	$(AM_V_GEN)glib-genmarshal $< --header --prefix=anjuta_marshal > $@
 
 anjuta-marshal.c: anjuta-marshal.list
-	echo "#include \"anjuta-marshal.h\"" > $@ && \
+	$(AM_V_GEN)echo "#include \"anjuta-marshal.h\"" > $@ && \
 	glib-genmarshal $< --body --prefix=anjuta_marshal >> $@
 
 # The plugin

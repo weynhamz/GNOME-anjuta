@@ -171,7 +171,6 @@ project_import_import_project (AnjutaProjectImportPlugin *import_plugin, Project
 		backend = (AnjutaPluginDescription *)desc->data;
 		anjuta_plugin_description_get_string (backend, "Anjuta Plugin", "Location", &location);
 		plugin = (IAnjutaProjectBackend *)anjuta_plugin_manager_get_plugin_by_id (plugin_manager, location);
-		g_message ("project probe location =%s=", location);
 		g_free (location);
 
 		next = g_list_next (desc);
@@ -227,7 +226,7 @@ project_import_import_project (AnjutaProjectImportPlugin *import_plugin, Project
 
 		return FALSE;
 	}
-	
+
 	if (!anjuta_plugin_description_get_string (backend, "Project", "Supported-Project-Types", &import_plugin->backend_id))
 	{
 		import_plugin->backend_id = g_strdup ("unknown");

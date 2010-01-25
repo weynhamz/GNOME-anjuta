@@ -688,15 +688,17 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 			for (node = exec_targets; node; node = g_list_next (node))
 			{
 				GList *target;
+				gchar *uri = g_file_get_uri ((GFile *)node->data);
 				for (target = plugin->recent_target; target; target = g_list_next (target))
 				{
-					if (strcmp ((const gchar *)target->data, node->data) == 0) break;
+					if (strcmp ((const gchar *)target->data, uri) == 0) break;
 				}
 				if (target == NULL)
 				{
-					on_add_uri_in_model (node->data, model);
+					on_add_uri_in_model (uri, model);
 				}
-				g_free (node->data);
+				g_free (uri);
+				g_object_unref (node->data);
 			}
 			g_list_free (exec_targets);
 		}

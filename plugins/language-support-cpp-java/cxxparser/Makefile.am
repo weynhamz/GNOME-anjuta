@@ -34,7 +34,8 @@ libcxxparser_la_SOURCES = \
         engine-parser-priv.h \
         engine-parser.h \
         scope-parser.h \
-        variable-parser.h 
+        variable-parser.h \
+        function-parser.h
  
 libcxxparser_la_LIBADD = $(LIBANJUTA_LIBS) \
 	$(GTHREAD_LIBS)

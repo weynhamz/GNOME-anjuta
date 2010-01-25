@@ -1,0 +1,10 @@
+[Anjuta Plugin]
+Location=js_debugger:JSDbg
+Icon=js_debugger.png
+_Name=Anjuta JS Debugger Plugin
+_Description=Javascript Debugger Plugin
+UserActivatable=yes
+Interfaces=IAnjutaDebugger, IAnjutaDebuggerInstruction, IAnjutaDebuggerBreakpoint, IAnjutaDebuggerVariable
+
+[File Loader]
+SupportedMimeTypes=application/x-executable,application/octet-stream,application/x-core,application/x-shellscript

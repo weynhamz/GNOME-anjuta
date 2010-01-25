@@ -1,5 +1,5 @@
 /*
-*   $Id: python.c 720 2009-07-07 03:55:23Z dhiebert $
+*   $Id: python.c 738 2009-08-26 13:18:03Z elias $
 *
 *   Copyright (c) 2000-2003, Darren Hiebert
 *
@@ -240,7 +240,7 @@ static const char *skipEverything (const char *cp)
 {
 	for (; *cp; cp++)
 	{
-		if (*cp == '"' || *cp == '\'')
+		if (*cp == '"' || *cp == '\'' || *cp == '#')
 		{
 			cp = skipString(cp);
 			if (!*cp) break;

@@ -23,3 +23,5 @@ plugins/symbol-db/symbol-db.glade
 src/anjuta_cbs.c
 src/utilities.c
 src/shell.c
+plugins/symbol-db/anjuta-tags/js_parser/y.tab.c
+plugins/language-support-js/y.tab.c

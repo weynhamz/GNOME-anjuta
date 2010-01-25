@@ -52,5 +52,6 @@ struct _ATPToolDialog* atp_plugin_get_tool_dialog (const ATPPlugin *this);
 struct _ATPVariable* atp_plugin_get_variable (const ATPPlugin *this);
 struct _ATPContextList* atp_plugin_get_context_list (const ATPPlugin *this);
 GtkWindow* atp_plugin_get_app_window (const ATPPlugin *this);
+GtkActionGroup* atp_plugin_get_action_group (const ATPPlugin *this);
 
 #endif

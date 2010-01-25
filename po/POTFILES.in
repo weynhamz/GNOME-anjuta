@@ -90,6 +90,7 @@ plugins/gbf-am/gbf-am-properties.c
 plugins/gbf-mkfile/gbf-mkfile-config.c
 plugins/gbf-mkfile/gbf-mkfile-project.c
 plugins/gbf-mkfile/gbf-mkfile-properties.c
+plugins/dir-project/dir-project.c
 plugins/gdb/debugger.c
 plugins/gdb/plugin.c
 plugins/gdb/utilities.c
@@ -265,3 +266,10 @@ plugins/sourceview/plugin.c
 [type: gettext/ini]plugins/language-manager/language-manager.plugin.in
 [type: gettext/ini]plugins/gbf-mkfile/gbf-mkfile.plugin.in
 [type: gettext/ini]plugins/gbf-am/gbf-am.plugin.in
+plugins/js-debugger/plugin.c
+plugins/js-debugger/debugger-js.c
+[type: gettext/ini]plugins/js-debugger/js_debugger.plugin.in
+plugins/language-support-js/plugin.c
+[type: gettext/ini]plugins/language-support-js/js_support_plugin.plugin.in
+[type: gettext/glade]plugins/language-support-js/anjuta-language-javascript.ui
+plugins/symbol-db/anjuta-tags/js_parser/Grammar.y

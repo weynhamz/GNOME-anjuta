@@ -258,7 +258,8 @@ static gchar*
 atp_variable_get_project_manager_variable (const ATPVariable *this, guint id)
 {
 	IAnjutaProjectManager *prjman;
-	gchar* val;
+	gchar* val = NULL;
+	GFile *file;
 	GError* err = NULL;
 
 	prjman = anjuta_shell_get_interface (this->shell, IAnjutaProjectManager, NULL);
@@ -268,7 +269,12 @@ atp_variable_get_project_manager_variable (const ATPVariable *this, guint id)
 	switch (id)
 	{
 	case ATP_PROJECT_MANAGER_CURRENT_URI:
-		val = ianjuta_project_manager_get_selected (prjman, &err);
+		file = ianjuta_project_manager_get_selected (prjman, &err);
+		if (file != NULL)
+		{
+			val = g_file_get_uri (file);
+			g_object_unref (file);
+		}
 		break;
 	default:
 		g_return_val_if_reached (NULL);

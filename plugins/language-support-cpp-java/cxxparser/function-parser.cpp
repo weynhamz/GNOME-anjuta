@@ -74,7 +74,7 @@ int cl_func_parse();
 void cl_func_error(char *string);
 
 static FunctionList *g_funcs = NULL;
-static clFunction curr_func;
+static Function curr_func;
 
 /*---------------------------------------------*/
 /* externs defined in the lexer*/

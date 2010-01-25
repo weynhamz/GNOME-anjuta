@@ -155,25 +155,12 @@ npw_header_check_required_programs (NPWHeader* self)
 	{
 		if (!anjuta_util_prog_is_installed (node->data, FALSE))
 		{
-			failed_programs = g_list_prepend (failed_programs, node->data);
+			const gchar *const prog = (const gchar *) node->data;
+			failed_programs = g_list_prepend (failed_programs,
+											  g_strdup (prog));
 		}
 	}
 	return failed_programs;
-}
-
-static gboolean
-package_is_installed (const gchar *package)
-{
-	int status;
-	int exit_status;
-	pid_t pid;
-	if ((pid = fork()) == 0)
-	{
-		execlp ("pkg-config", "pkg-config", "--exists", package, NULL);
-	}
-	waitpid (pid, &status, 0);
-	exit_status = WEXITSTATUS (status);
-	return (exit_status == 0);
 }
 
 GList*
@@ -183,9 +170,11 @@ npw_header_check_required_packages (NPWHeader* self)
 	GList *failed_packages = NULL;
 	for (node = self->required_packages; node; node = g_list_next (node))
 	{
-		if (!package_is_installed (node->data))
+		if (!anjuta_util_package_is_installed (node->data, FALSE))
 		{
-			failed_packages = g_list_prepend (failed_packages, node->data);
+			const gchar *const pkg = (const gchar *) node->data;
+			failed_packages = g_list_prepend (failed_packages,
+											  g_strdup (pkg));
 		}
 	}
 	return failed_packages;

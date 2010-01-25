@@ -2154,8 +2154,7 @@ symbol_db_engine_get_scope_chain_by_file_line (SymbolDBEngine *dbe,
     								SymExtraInfo sym_info)
 {
 	SymbolDBEngineIterator *iter, *res_iter;	
-	SymbolDBEngineIteratorNode *node;
-	gchar *db_file;
+	SymbolDBEngineIteratorNode *node;	
 	gint symbol_id;
 	
 	g_return_val_if_fail (dbe != NULL, NULL);
@@ -2172,11 +2171,12 @@ symbol_db_engine_get_scope_chain_by_file_line (SymbolDBEngine *dbe,
 
 	node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iter);
 	symbol_id = symbol_db_engine_iterator_node_get_symbol_id (node);
-	db_file = symbol_db_util_get_file_db_path (dbe, full_local_file_path);
+
+	/* note the NULL: we don't want to limit the search to that db file.
+	 * It must be project-wide or some scopes may be left out.
+	 */
+	res_iter = symbol_db_engine_get_scope_chain (dbe, symbol_id, NULL, sym_info);	   
 	
-	res_iter = symbol_db_engine_get_scope_chain (dbe, symbol_id, db_file, sym_info);
-	    
-	g_free (db_file);
 	return res_iter;
 }
 
@@ -2751,7 +2751,7 @@ symbol_db_engine_find_symbol_in_scope (SymbolDBEngine *dbe,
 	MP_SET_HOLDER_BATCH_INT(priv, param, container_symbol_id, ret_bool, ret_value);
 	
 	
-	DEBUG_PRINT ("query: %s", dyn_node->query_str);
+	/* DEBUG_PRINT ("query: %s", dyn_node->query_str); */
 
 	/* execute the query with parametes just set */
 	data = gda_connection_statement_execute_select (priv->db_connection, 

@@ -720,12 +720,12 @@ atp_user_tool_deactivate (ATPUserTool* this, AnjutaUI *ui)
 	if (this->merge_id != 0)	
 	{
 		gtk_ui_manager_remove_ui (GTK_UI_MANAGER (ui), this->merge_id);
-		gtk_ui_manager_remove_action_group (GTK_UI_MANAGER (ui), this->action_group);
+		gtk_action_group_remove_action (this->action_group, this->action);
 	}
 }
 
 gboolean
-atp_user_tool_activate (ATPUserTool *this, GtkAccelGroup *group, AnjutaUI *ui)
+atp_user_tool_activate (ATPUserTool *this, GtkActionGroup *action_group, AnjutaUI *ui)
 {
 	gchar *menuitem_path;	
 
@@ -734,7 +734,7 @@ atp_user_tool_activate (ATPUserTool *this, GtkAccelGroup *group, AnjutaUI *ui)
 
 	/* Create new menu item */
 	this->action = gtk_action_new (this->name, this->name, this->name, NULL);
-	this->action_group = gtk_action_group_new ("ActionGroupTools");
+	this->action_group = action_group;
 
 	if (this->accel_key != 0)
 	{
@@ -747,8 +747,6 @@ atp_user_tool_activate (ATPUserTool *this, GtkAccelGroup *group, AnjutaUI *ui)
 	{
 		gtk_action_group_add_action (this->action_group, this->action);
 	}
-
-	gtk_ui_manager_insert_action_group (GTK_UI_MANAGER (ui), this->action_group, 0);
 
 	this->merge_id = gtk_ui_manager_new_merge_id (GTK_UI_MANAGER (ui));
 	gtk_ui_manager_add_ui (GTK_UI_MANAGER (ui), 
@@ -924,13 +922,10 @@ gboolean
 atp_tool_list_activate (ATPToolList *this)
 {
 	ATPUserTool *next;
-	GtkAccelGroup* group;
-
-	group = anjuta_ui_get_accel_group (this->ui);
 
 	for (next = atp_tool_list_first (this); next != NULL; next = atp_user_tool_next (next))
 	{
-		atp_user_tool_activate (next, group, this->ui);
+		atp_user_tool_activate (next, atp_plugin_get_action_group (this->plugin), this->ui);
 	}
 
 	return TRUE;

@@ -3299,132 +3299,124 @@ interface IAnjutaProjectManager
 	/**
 	* IAnjutaProjectManager::element_added:
 	* @obj: Self
-	* @element_uri: fixme
+	* @element: A #GFile corrresponding to added element
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Emitted when a new element is added to the project. It can be
+	* a source, a target or a group. It does not always correspond
+	* to an existing file. This signal can be emitted several time for
+	* the same element.
 	*/
-	void ::element_added (const gchar *element_uri);
+	void ::element_added (GFile *element);
 	
 	/** 
 	* IAnjutaProjectManager::element_removed:
 	* @obj: Self
-	* @element_uri: fixme
+	* @element: A #GFile corresponding to removed element
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Emitted when an element is removed from a project. It can be
+	* a source, a target or a group.
 	*/
-	void ::element_removed (const gchar *element_uri);
+	void ::element_removed (GFile *element);
 	
 	/**
 	* IAnjutaProjectManager::element_selected:
 	* @obj: Self
-	* @element_uri: fixme
+	* @element_uri: A #GFile corresponding to selected element
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Emitted when an element is selected in the project view. It
+	* can be a source, a target or a group.
 	*/
-	void ::element_selected (const gchar *element_uri);
+	void ::element_selected (GFile *element);
 	
 	// Methods
 	
 	/**
-	* ianjuta_project_manager_get_element_type:
-	* @obj: Self
-	* @element_uri: fixme
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*
-	* Returns: fixme
-	*/
-	AnjutaProjectNodeType get_element_type (const gchar *element_uri);
-	
-	/**
 	* ianjuta_project_manager_get_elements:
 	* @obj: Self
-	* @element_type: fixme
+	* @element_type: Select one element type: source, group or target
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Get a list of all elements of this type in the project.
 	* 
-	* Returns: fixme
+	* Returns: Get list of #GFile corresponding to all valid elements or %NULL if
+	* there are no elements of this type. Free the returned list with
+	* g_list_free() and the files with g_object_unref().
 	*/
-	List<const gchar*> get_elements (AnjutaProjectNodeType element_type);
+	List<GFile *> get_elements (AnjutaProjectNodeType element_type);
 	
 	/**
 	* ianjuta_project_manager_get_target_type:
 	* @obj: Self
-	* @target_uri: fixme
+	* @target: A #GFile corresponding to a target
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Get the type of the corresponding target: program, library...
 	* 
-	* Returns: fixme
+	* Returns: Return the type of the target.
 	*/
-	AnjutaProjectTargetClass get_target_type (const gchar *target_uri);
+	AnjutaProjectTargetClass get_target_type (GFile *target);
 	
 	/**
 	* ianjuta_project_manager_get_targets:
 	* @obj: Self
-	* @target_type: fixme
+	* @target_type: type of the target
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Get a list of targets in the project with the corresponding type.
 	* 
-	* Returns: fixme
+	* Returns: A list of #GFile corresponding to each target of the requested
+	* type or %NULL if none exists. Free the returned list with g_list_free()
+	* and the files with g_object_unref().
 	*/
-	List<const gchar*> get_targets (AnjutaProjectTargetClass target_type);
+	List<GFile *> get_targets (AnjutaProjectTargetClass target_type);
 	
 	/**
 	* ianjuta_project_manager_get_parent:
 	* @obj: Self
-	* @element_uri: fixme
+	* @element: A #GFile corresponding to one child.
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Gets the parent of the corresponding child.
 	*
-	* Returns: fixme
+	* Returns: The parent of the child, or %NULL if the element is the root.
 	*/
-	gchar* get_parent (const gchar *element_uri);
+	GFile* get_parent (GFile *element);
 	
 	/**
 	* ianjuta_project_manager_get_children:
 	* @obj: Self
-	* @element_uri: fixme
+	* @element: A #GFile corresponding to a parent.
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Gets the list of all children of the corresponding parent.
 	*
-	* Returns: fixme
+	* Returns: The list of #GFile corresponding to each child of the element or
+	* %NULL if the element has no child. Free the returned list with g_list_free()
+	* and the files with g_object_unref().
 	*/
-	List<const gchar*> get_children (const gchar *element_uri);
+	List<GFile*> get_children (GFile *element);
 	
 	/**
 	* ianjuta_project_manager_get_selected:
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Gets the currently selected element in the project manager view.
+	*
+	* Returns: A #GFile corresponding to the selected element in the project
+	* view. You own the returned file; use g_object_unref() to release it.
 	*/
-	gchar* get_selected ();
-	
-	/**
-	* ianjuta_project_manager_get_selected:
-	* @obj: Self
-	* @element_type: fixme
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*/
-	gchar* get_selected_id (AnjutaProjectNodeType element_type);
+	GFile* get_selected ();
 	
 	/**
 	* ianjuta_project_manager_get_capabilities:
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	*
-	* Returns the capabilites of project whether it can add group, target
+	* Gets the capabilites of project whether it can add group, target
 	* sources etc.
 	*
 	* Returns: Supported capabilites.
@@ -3433,77 +3425,107 @@ interface IAnjutaProjectManager
 
 	/**
 	* ianjuta_project_manager_add_source:
-	* @obj: Self
-	* @source_uri_to_add: Target name or uri
-	* @default_location_uri: Default source location or NULL if don't care
+	* @obj: Self.
+	* @name: Source name or URI.
+	* @default_target: A #GFile corresponding to the default target or group or
+	*					%NULL if you don't care.
 	* @err: Error propagation and reporting.
 	*
-	* Prompt the user to add a file to the project. If the user selects
-	* multiple files only the first uri is returned.
+	* Prompts the user to add a file to the project. If the user selects
+	* multiple files only the first source file is returned.
 	*
-	* Returns: element URIs. Must be freed when no longer required.
+	* You can add non existing file. In this case the element_added
+	* signal will be emitted with a non existing file. So it is
+	* up to the caller to reemit this signal later when the file
+	* is created.
+	*
+	* Returns: A #GFile corresponding to the new source file in the project
+	* view. You own the returned file; use g_object_unref() to release it.
 	*/
-	gchar* add_source (const gchar *source_uri_to_add, const gchar *default_location_uri);
+	GFile* add_source (const gchar *name, GFile *default_target);
 
 	/**
 	* ianjuta_project_manager_add_source_quiet:
-	* @obj: Self
-	* @source_uri_to_add: fixme
-	* @target_id: fixme
+	* @obj: Self.
+	* @name: Source name or URI.
+	* @target: A #GFile corresponding to the parent target or group.
 	* @err: Error propagation and reporting.
 	*
-	* Add a file to the project without prompting the user.
+	* Adds a file to the project without prompting the user.
 	*
-	* Returns: element ID. Must be freed when no longer required.
+	* You can add non existing file. In this case the element_added
+	* signal will be emitted with a non existing file. So it is
+	* up to the caller to reemit this signal later when the file
+	* is created.
+	*
+	* Returns: A #GFile corresponding to the new source file in the project
+	* view. You own the returned file; use g_object_unref() to release it.
 	*/
-	gchar* add_source_quiet (const gchar *source_uri_to_add, const gchar *target_uri);
+	GFile* add_source_quiet (const gchar *name, GFile *target);
 	
 	/**
 	* ianjuta_project_manager_add_sources:
-	* @obj: Self
-	* @source_uris_to_add: fixme
-	* @default_location_uri: fixme
+	* @obj: Self.
+	* @names: Sources name or URI to add.
+	* @default_target: A #GFile corresponding to the default target or group or
+	*					%NULL if don't care.
 	* @err: Error propagation and reporting.
 	*
-	* Prompt the user to add a file to the project. If the user selects
-	* multiple files only the first uri is returned.
+	* Prompts the user to add several files to the project. Depending on the 
+	* project backend, it can be possible that the source files must
+	* be located in a particular directory.
 	*
-	* Returns: element URIs. Must be freed when no longer required.
+	* You can add non existing file. In this case the element_added
+	* signal will be emitted with a non existing file. So it is
+	* up to the caller to reemit this signal later when the file
+	* is created.
+	*
+	* Returns: A list of #GFile corresponding to all new source files added
+	* in the project. You own the list with the the returned files; use
+	* g_list_free() and g_object_unref() on each file to release them.
 	*/
-	List<const gchar*> add_sources (List<const gchar*> source_uris_to_add, const gchar *default_location_uri);
+	List<GFile*> add_sources (List<const gchar*> names, GFile *default_target);
 	
 	/**
 	* ianjuta_project_manager_add_target:
 	* @obj: Self
-	* @target_name_to_add: fixme
-	* @default_location_uri: fixme
+	* @name: Target name or URI.
+	* @default_group: A #GFile corresponding to the default parent group or
+	*					%NULL if don't care.
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Prompts the user to add a new target to the project. The user can select
+	* a parent group different from the one set as default.
 	* 
-	* Returns:
+	* Returns: A #GFile corresponding to the new target added in the project.
+	* You own the returned file; use g_object_unref() to release it.
 	*/
-	gchar* add_target (const gchar *target_name_to_add, const gchar *default_location_uri);
+	GFile* add_target (const gchar *name, GFile *default_group);
 	
 	/**
 	* ianjuta_project_manager_add_group:
-	* @obj: Self
-	* @group_name_to_add: fixme
-	* @default_location_uri: fixme
+	* @obj: Self.
+	* @name: Group name or URI.
+	* @default_group: A #GFile corresponding to the default parent group or
+	*					%NULL if don't care.
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Prompts the user to add a new group to the project. The user can select
+	* a parent group different from the one set as default.
 	* 
-	* Returns: fixme
+	* Returns: A #GFile corresponding to the new group added in the project.
+	* You own the returned file; use g_object_unref() to release it.
 	*/
-	gchar* add_group (const gchar *group_name_to_add, const gchar *default_location_uri);
+	GFile* add_group (const gchar *name, GFile *default_group);
 	
 	/**
 	* ianjuta_project_manager_is_open:
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Gets whether a project is currently opened.
+	*
+	* Returns: %TRUE if a project is opened.
 	*/ 
 	gboolean is_open ();
 	
@@ -5204,7 +5226,7 @@ interface IAnjutaSymbol
 		TYPE_MACRO_WITH_ARG = 262144,  
 		TYPE_FILE = 524288,            
 		TYPE_OTHER = 1048576,          
-		TYPE_SCOPE_CONTAINER = IANJUTA_SYMBOL_TYPE_CLASS | IANJUTA_SYMBOL_TYPE_ENUM | IANJUTA_SYMBOL_TYPE_ENUMERATOR | IANJUTA_SYMBOL_TYPE_INTERFACE | IANJUTA_SYMBOL_TYPE_NAMESPACE | IANJUTA_SYMBOL_TYPE_PACKAGE | IANJUTA_SYMBOL_TYPE_STRUCT | IANJUTA_SYMBOL_TYPE_TYPEDEF | IANJUTA_SYMBOL_TYPE_UNION,		
+		TYPE_SCOPE_CONTAINER = IANJUTA_SYMBOL_TYPE_CLASS | IANJUTA_SYMBOL_TYPE_ENUM | IANJUTA_SYMBOL_TYPE_ENUMERATOR | IANJUTA_SYMBOL_TYPE_INTERFACE | IANJUTA_SYMBOL_TYPE_NAMESPACE | IANJUTA_SYMBOL_TYPE_PACKAGE | IANJUTA_SYMBOL_TYPE_STRUCT | IANJUTA_SYMBOL_TYPE_TYPEDEF | IANJUTA_SYMBOL_TYPE_UNION,
 		TYPE_MAX = 2097151             
 	}
 
@@ -5752,7 +5774,8 @@ interface IAnjutaSymbolManager
 	* ianjuta_symbol_manager_get_parent_scope: 
 	* @obj: Self
 	* @symbol: Symbol which you want to know the parent scope of.
-	* @filename: Can be NULL. Full path filename where to search for the parent scope symbol.
+	* @filename: Can be NULL for a wider search (i.e. not just limited to that file). 
+    *            Full path filename where to search for the parent scope symbol.
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
 	* @err: Error propagation and reporting.
 	*
@@ -5768,7 +5791,9 @@ interface IAnjutaSymbolManager
 	/**
 	* ianjuta_symbol_manager_get_scope_chain:
 	* @obj: Self
-	* @filename: Full path filename where to search for the parent scope symbol.
+	* @filename: Full path filename where to search for the parent scope symbol.  
+	*            Can be NULL for a wider search (i.e. not just limited to that file).
+	* @line: Line of the file where the symbol is.
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
 	* @err: Error propagation and reporting.
 	*

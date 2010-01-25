@@ -24,6 +24,7 @@
 #include "expression-parser.h"
 #include "scope-parser.h"
 #include "variable-parser.h"
+#include "function-parser.h"
 
 #include <string>
 #include <vector>
@@ -209,7 +210,7 @@ EngineParser::getTypeNameAndScopeByToken (ExpressionResult &result,
 			cout << "Can not use '->' operator on a non pointer object" << endl;
 			return false;
 		}
-		
+
 		out_type_scope = result.m_scope.empty() ? "" : result.m_scope.c_str();
 		out_type_name = result.m_name.c_str();
 		return true;
@@ -219,14 +220,6 @@ EngineParser::getTypeNameAndScopeByToken (ExpressionResult &result,
 		cout << "*** Found 'this'" << endl;
 		
 		/* special handle for 'this' keyword */
-		out_type_scope = result.m_scope.empty() ? "" : result.m_scope.c_str();
-
-		if (out_type_scope.empty ()) 
-		{
-			cout << "'this' can not be used in the global scope" << endl;
-			return false;
-		}
-		
 		if (op == "::") 
 		{
 			cout << "'this' can not be used with operator ::" << endl;
@@ -244,7 +237,53 @@ EngineParser::getTypeNameAndScopeByToken (ExpressionResult &result,
 			cout << "Can not use '->' operator on a non pointer object" << endl;
 			return false;
 		}
+
+		/* reaching this point we are quite sure that the easiest tests about "this"
+		 * calling are passed. Go on finding for the first symbol of type class that
+		 * is reachable through the scopes chain.
+		 */	
 		
+		IAnjutaIterable* scope_chain_iter = 
+			ianjuta_symbol_manager_get_scope_chain (_sym_man, full_file_path.c_str (), linenum, 
+			                                  IAnjutaSymbolField(IANJUTA_SYMBOL_FIELD_SIMPLE |
+			                                  IANJUTA_SYMBOL_FIELD_KIND |
+			                                  IANJUTA_SYMBOL_FIELD_TYPE), NULL);
+
+		/* will we find a good class scope? */
+		out_type_scope = result.m_scope.empty() ? "" : result.m_scope.c_str();
+		out_type_name = ""; 
+
+		/* FIXME: this method doesn't take into consideration 
+		 * classes with same name on multiple namespaces 
+		 */
+		if (scope_chain_iter != NULL)
+		{
+			do 
+			{
+				IAnjutaSymbol *node = IANJUTA_SYMBOL (scope_chain_iter);
+				cout << "sym_name = " << ianjuta_symbol_get_name (node, NULL) << endl;
+				if (ianjuta_symbol_get_sym_type (node, NULL) == IANJUTA_SYMBOL_TYPE_CLASS)
+				{
+					out_type_name = ianjuta_symbol_get_name (node, NULL);
+					break;
+				}				
+			} while (ianjuta_iterable_next (scope_chain_iter, NULL) == TRUE);
+
+			g_object_unref (scope_chain_iter);
+		}		
+		
+		if (out_type_name.empty ()) 
+		{
+			cout << "'this' has not a type name" << endl;
+			return false;
+		}
+		
+		return true;
+	}
+	else if (op == "::")
+	{
+		out_type_name = token;
+		out_type_scope = result.m_scope.empty() ? "" : result.m_scope.c_str();
 		return true;
 	}
 	else 
@@ -256,7 +295,6 @@ EngineParser::getTypeNameAndScopeByToken (ExpressionResult &result,
 
 		/* optimize scope'll clear the scopes leaving the local variables */
 		string optimized_scope = optimizeScope(above_text);
-		cout << "here it is the optimized buffer scope " << optimized_scope << endl;
 
 		VariableList li;
 		std::map<std::string, std::string> ignoreTokens;
@@ -473,11 +511,10 @@ EngineParser::processExpression(const string& stmt,
 	string type_name;
 	string type_scope;
 
-	/* first token */
 	cout << "setting text " << stmt.c_str () << " to the tokenizer " << endl;
 	_main_tokenizer->setText (stmt.c_str ());
 
-	/* get the fist one */
+	/* get the first token */
 	nextMainToken (current_token, op);		
 
 	cout << "--------" << endl << "First main token \"" << current_token << "\" with op \"" << op 
@@ -490,6 +527,8 @@ EngineParser::processExpression(const string& stmt,
 
 	/* fine. Get the type name and type scope given the above result for the first 
 	 * and most important token.
+	 * The type_scope is for instance 'std' in this statement:
+	 * (std::foo_util)klass->
 	 */	
 	bool process_res = getTypeNameAndScopeByToken (result, 
     									  current_token,
@@ -501,12 +540,12 @@ EngineParser::processExpression(const string& stmt,
     									  type_scope);
 	if (process_res == false)
 	{
-		cout << "Well, you haven't much luck, the first token failed and then "  <<
+		cout << "Initial statement processing failed. "  <<
 			"I cannot continue. " << endl;
 		return NULL;
 	}
 	
-	cout << "Going to search for curr_searchable_scope with type_name \"" << type_name << "\"" << 
+	cout << "Searching for curr_searchable_scope with type_name \"" << type_name << "\"" << 
 		" and type_scope \"" << type_scope << "\"" << endl;
 
 	/* at this time we're enough ready to issue a first query to our db. 
@@ -534,7 +573,7 @@ EngineParser::processExpression(const string& stmt,
 	 	 */
 		result = parseExpression (current_token);
 		
-		if (process_res == false)
+		if (process_res == false || curr_searchable_scope == NULL)
 		{
 			cout << "Well, you haven't much luck on the NEXT token, the NEXT token failed and then "  <<
 				"I cannot continue. " << endl;
@@ -575,13 +614,12 @@ EngineParser::processExpression(const string& stmt,
 		}
 		else 
 		{
-			const gchar *sym_kind;
+			gchar *sym_kind;
 			cout << "Good element " << result.m_name << endl;			
 			
 
 			node = IANJUTA_SYMBOL (iter);
-
-			sym_kind = ianjuta_symbol_get_extra_info_string (node, 
+			sym_kind = (gchar*)ianjuta_symbol_get_extra_info_string (node, 
 		    										IANJUTA_SYMBOL_FIELD_KIND, NULL);
 			
 			cout << ".. it has sym_kind \"" << sym_kind << "\"" << endl;
@@ -592,9 +630,10 @@ EngineParser::processExpression(const string& stmt,
 	    		g_strcmp0 (sym_kind, "field") == 0)
 			{
 				iter = switchMemberToContainer (iter);
+				node = IANJUTA_SYMBOL (iter);
+				sym_kind = (gchar*)ianjuta_symbol_get_extra_info_string (node, 
+		    										IANJUTA_SYMBOL_FIELD_KIND, NULL);				
 			}
-
-			node = IANJUTA_SYMBOL (iter);
 			
 			/* check for any typedef */
 			if (g_strcmp0 (ianjuta_symbol_get_extra_info_string (node, 
@@ -602,7 +641,47 @@ EngineParser::processExpression(const string& stmt,
 	    											"typedef") == 0)
 			{			
 				iter = switchTypedefToStruct (iter);
+				node = IANJUTA_SYMBOL (iter);
+				sym_kind = (gchar*)ianjuta_symbol_get_extra_info_string (node, 
+		    										IANJUTA_SYMBOL_FIELD_KIND, NULL);				
 			}
+			
+			/* is it a function or a method? */
+			if (g_strcmp0 (sym_kind, "function") == 0 ||
+			    g_strcmp0 (sym_kind, "method") == 0 ||
+			    g_strcmp0 (sym_kind, "prototype") == 0)
+			{
+
+				string func_ret_type_name = 
+					ianjuta_symbol_get_returntype (node, NULL);
+
+				string func_signature = 
+					ianjuta_symbol_get_args (node, NULL);
+				
+				func_ret_type_name += " " + result.m_name + func_signature + "{}";
+
+				FunctionList li;
+				std::map<std::string, std::string> ignoreTokens;
+				get_functions (func_ret_type_name, li, ignoreTokens);
+
+				cout << "functions found are..." << endl;
+				for (FunctionList::reverse_iterator func_iter = li.rbegin(); 
+				     func_iter != li.rend(); 
+				     func_iter++) 
+				{
+					Function var = (*func_iter);
+					var.print ();			
+				}
+				
+			
+				g_object_unref (iter);
+
+				cout << "going to look for the following function ret type " << 
+					func_ret_type_name << endl;
+
+				iter = getCurrentSearchableScope (li.front().m_returnValue.m_type,
+				                                  type_scope);
+			}			               
 			
 			/* remove the 'old' curr_searchable_scope and replace with 
 			 * this new one

@@ -4,11 +4,12 @@ AC_PREREQ(2.59)
 
 m4_define(anjuta_major_version,  2)
 m4_define(anjuta_minor_version, 29)
-m4_define(anjuta_micro_version,  2)
+m4_define(anjuta_micro_version,  5)
 m4_define(anjuta_nano_version, 0)
 m4_define(anjuta_version, anjuta_major_version.anjuta_minor_version.anjuta_micro_version.anjuta_nano_version)
 
 AC_INIT(anjuta, anjuta_version, http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta)
+m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
 AC_CONFIG_SRCDIR(src/main.c)
 
 AC_DEFINE(ANJUTA_MAJOR_VERSION, anjuta_major_version, [Anjuta major version])
@@ -39,7 +40,7 @@ SVN_MAJOR=1
 SVN_MINOR=5
 SVN_PATCH=0
 SUBVERSION_REQUIRED=$SVN_MAJOR.$SVN_MINOR.$SVN_PATCH
-GTKSOURCEVIEW_REQUIRED=2.8.0
+GTKSOURCEVIEW_REQUIRED=2.9.3
 LIBWNCK_REQUIRED=2.12
 GDA_REQUIRED=4.0.0
 UNIQUE_REQUIRED=1.0.0
@@ -127,6 +128,14 @@ AC_PATH_PROG(GCONFTOOL, gconftool-2)
 AM_GCONF_SOURCE_2
 
 dnl ***************************************************************************
+dnl Set gjsdir && girdir
+dnl ***************************************************************************
+girdir=`pkg-config --variable=girdir gobject-introspection-1.0`
+gjsdir=`pkg-config --variable=jsdir gjs-1.0`
+AC_SUBST(girdir)
+AC_SUBST(gjsdir)
+
+dnl ***************************************************************************
 dnl Check for pkgconfig
 dnl ***************************************************************************
 AC_PATH_PROG(PKGCONFIG_CONFIG, pkg-config,no)
@@ -138,6 +147,8 @@ dnl pkg checks are split into separate packages instead of single package
 dnl because different plugins have different requirements.
 
 PKG_CHECK_MODULES(GLIB, glib-2.0 >= $GLIB_REQUIRED gobject-2.0 >= $GLIB_REQUIRED gmodule-2.0 >= $GLIB_REQUIRED gthread-2.0 >= $GLIB_REQUIRED gio-2.0 >= $GLIB_REQUIRED unique-1.0 >= $UNIQUE_REQUIRED)
+
+PKG_CHECK_MODULES([DBUS_GLIB], [dbus-glib-1])
 
 PKG_CHECK_MODULES(GTK, gtk+-2.0 >= $GTK_REQUIRED)
 
@@ -686,6 +697,27 @@ AC_SUBST(SVN_INCLUDE)
 AC_SUBST(SVN_LIB)
 AC_SUBST(SVN_CFLAGS)
 
+dnl ------------------------------------------
+dnl Symbol-db shared memory checks
+dnl ------------------------------------------
+
+SYMBOL_DB_SHM="/dev/shm"
+user_specified_shm=0
+AC_MSG_CHECKING(for symbol-db shared memory)
+AC_ARG_WITH(symbol-db-shm,
+		AC_HELP_STRING([--with-symbol-db-shm=DIR],[Where shared memory is placed ]),
+		[
+				user_specified_shm=1
+				SYMBOL_DB_SHM="$withval"
+		])
+if test "$user_specified_shm" = 1; then
+	AC_MSG_RESULT(yes)
+else
+	AC_MSG_RESULT(no)
+fi
+
+AC_SUBST(SYMBOL_DB_SHM)
+
 dnl --------- help outputs -----------
 dnl manuals/C/Makefile
 dnl manuals/C/anjuta-tutorial/Makefile
@@ -729,6 +761,7 @@ plugins/debug-manager/Makefile
 plugins/debug-manager/images/Makefile
 plugins/devhelp/Makefile
 plugins/glade/Makefile
+plugins/js-debugger/Makefile
 plugins/file-manager/Makefile
 plugins/file-loader/Makefile
 plugins/file-wizard/Makefile
@@ -739,10 +772,9 @@ plugins/symbol-db/benchmark/Makefile
 plugins/symbol-db/images/Makefile
 plugins/symbol-db/Makefile
 plugins/symbol-db/anjuta-tags/Makefile
-plugins/symbol-db/test-queries/Makefile
-plugins/cvs-plugin/Makefile
 plugins/project-wizard/Makefile
 plugins/macro/Makefile
+plugins/cvs-plugin/Makefile
 plugins/subversion/Makefile
 plugins/git/Makefile
 plugins/sourceview/Makefile
@@ -755,6 +787,8 @@ plugins/project-wizard/templates/mkfile/Makefile
 plugins/project-wizard/templates/mkfile/src/Makefile
 plugins/project-wizard/templates/mkfile/po/Makefile
 plugins/project-wizard/templates/minimal/Makefile
+plugins/project-wizard/templates/js_minimal/Makefile
+plugins/project-wizard/templates/js_minimal/src/Makefile
 plugins/project-wizard/templates/terminal/Makefile
 plugins/project-wizard/templates/terminal/src/Makefile
 plugins/project-wizard/templates/terminal/po/Makefile
@@ -806,6 +840,7 @@ plugins/language-support-cpp-java/Makefile
 plugins/language-support-cpp-java/cxxparser/Makefile
 plugins/run-program/Makefile
 plugins/starter/Makefile
+plugins/language-support-js/Makefile
 anjuta.desktop.in
 manuals/Makefile
 manuals/reference/Makefile

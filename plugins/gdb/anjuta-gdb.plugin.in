@@ -1,6 +1,6 @@
 [Anjuta Plugin]
 _Name=Gdb
-_Description=Gdb plugin.
+_Description=GNU Debugger Plugin
 Location=anjuta-gdb:GdbPlugin
 Icon=anjuta-gdb.plugin.png
 UserActivatable=no

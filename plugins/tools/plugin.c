@@ -285,6 +285,12 @@ atp_plugin_get_app_window (const ATPPlugin *this)
 	return GTK_WINDOW (ANJUTA_PLUGIN (this)->shell);
 }
 
+GtkActionGroup*
+atp_plugin_get_action_group (const ATPPlugin *this)
+{
+	return this->action_group;
+}
+
 ATPToolList*
 atp_plugin_get_tool_list (const ATPPlugin* this)
 {

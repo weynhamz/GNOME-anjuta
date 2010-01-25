@@ -40,6 +40,7 @@
 #include <sys/types.h>
 #include <sys/fcntl.h>
 #include <sys/termios.h>
+#include <sys/wait.h>
 #include <dirent.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -48,9 +49,11 @@
 #include <pwd.h>
 #endif
 
+#include <dbus/dbus-glib.h>
 #include <glib/gi18n.h>
 #include <glib.h>
 #include <glib/gstdio.h>
+#include <gtk/gtk.h>
 
 #include <gconf/gconf-client.h>
 
@@ -478,6 +481,101 @@ anjuta_util_dialog_input (GtkWindow *parent, const gchar *prompt,
 	}
 	gtk_widget_destroy (dialog);	
 	return (res == GTK_RESPONSE_OK);
+}
+
+static void
+on_install_files_done (DBusGProxy *proxy, DBusGProxyCall *call_id,
+					   gpointer user_data)
+{
+	GError *error = NULL;
+	dbus_g_proxy_end_call (proxy, call_id, &error, G_TYPE_INVALID);
+	if (error)
+	{
+		/*
+		  Only dbus error is handled. Rest of the errors are from packagekit
+		  which have already been notified to user by packagekit.
+		*/
+		if (error->domain == DBUS_GERROR)
+		{
+			const gchar *error_message = NULL;
+
+			/* Service error which implies packagekit is missing */
+			if (error->code == DBUS_GERROR_SERVICE_UNKNOWN)
+			{
+				error_message = _("You do not seem to have PackageKit installed. PackageKit is required for installing missing packages. Please install \"packagekit-gnome\" package from your distribution, or install the missing packages manually.");
+			}
+			/* General dbus error implies failure to call dbus method */
+			else if (error->code != DBUS_GERROR_REMOTE_EXCEPTION)
+			{
+				error_message = error->message;
+			}
+			if (error_message)
+				anjuta_util_dialog_error (NULL,
+										  _("Installation failed: %s"),
+										  error_message);
+		}
+		g_error_free (error);
+	}
+}
+
+gboolean
+anjuta_util_install_files (const gchar * const names)
+{
+	DBusGConnection * connection;
+	DBusGProxy * proxy;
+	guint32 xid = 0;
+	gchar ** pkgv;
+
+	if (!names)
+		return FALSE;
+
+	connection = dbus_g_bus_get (DBUS_BUS_SESSION, NULL);
+	if (!connection)
+		return FALSE;
+
+	proxy = dbus_g_proxy_new_for_name (connection,
+									   "org.freedesktop.PackageKit",
+									   "/org/freedesktop/PackageKit",
+									   "org.freedesktop.PackageKit.Modify");
+	if (!proxy)
+		return FALSE;
+
+	pkgv = g_strsplit (names, ", ", 0);
+	dbus_g_proxy_begin_call (proxy, "InstallProvideFiles",
+							 on_install_files_done, NULL, NULL,
+							 G_TYPE_UINT, xid,
+							 G_TYPE_STRV, pkgv,
+							 G_TYPE_STRING, "",
+							 G_TYPE_INVALID, G_TYPE_INVALID);
+	g_strfreev (pkgv);
+	return TRUE;
+}
+
+gboolean
+anjuta_util_package_is_installed (const gchar * package, gboolean show)
+{
+	gboolean installed = FALSE;
+	int status;
+	int exit_status;
+	pid_t pid;
+
+	if ((pid = fork()) == 0)
+		execlp ("pkg-config", "pkg-config", "--exists", package, NULL);
+
+	waitpid (pid, &status, 0);
+	exit_status = WEXITSTATUS (status);
+	installed = (exit_status == 0) ? TRUE : FALSE;
+	if (installed)
+		return TRUE;
+
+	if (show)
+	{
+		anjuta_util_dialog_error (NULL,
+								  _("The \"%s\" package is not installed.\n"
+									"Please install it."), package);
+	}
+
+	return FALSE;
 }
 
 gboolean

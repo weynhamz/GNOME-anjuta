@@ -440,6 +440,9 @@ debugger_log_output (Debugger *debugger, const gchar *line)
 	}
 }
 
+/* Emit ready signal (= command completed) for debuger manager and change the
+ * debugger state. 
+ */
 static void
 debugger_emit_ready (Debugger *debugger)
 {
@@ -461,7 +464,14 @@ debugger_emit_ready (Debugger *debugger)
 			debugger->priv->exiting = FALSE;
 			debugger->priv->stopping = FALSE;
 			debugger->priv->solib_event = FALSE;
-			g_signal_emit_by_name (debugger->priv->instance, "debugger-ready", IANJUTA_DEBUGGER_STARTED);
+			if (debugger->priv->prog_is_attached)
+			{
+				g_signal_emit_by_name (debugger->priv->instance, "debugger-ready", IANJUTA_DEBUGGER_PROGRAM_STOPPED);
+			}
+			else
+			{
+				g_signal_emit_by_name (debugger->priv->instance, "debugger-ready", IANJUTA_DEBUGGER_STARTED);
+			}
 		}
 		else if (debugger->priv->exiting)
 		{
@@ -668,7 +678,6 @@ debugger_queue_execute_command (Debugger *debugger)
 	DEBUG_PRINT ("%s", "In function: debugger_queue_execute_command()");
 
 	if (!debugger->priv->debugger_is_busy &&
-		!debugger->priv->starting &&
 		g_list_length (debugger->priv->cmd_queqe) >= 1)
 	{
 		debugger_clear_buffers (debugger);

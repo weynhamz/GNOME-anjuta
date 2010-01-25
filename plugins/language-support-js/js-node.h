@@ -1,0 +1,1 @@
+../symbol-db/anjuta-tags/js_parser/js-node.h

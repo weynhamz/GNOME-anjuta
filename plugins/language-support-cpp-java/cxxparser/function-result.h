@@ -26,7 +26,7 @@
 #include "variable-result.h"
 #include <stdio.h>
 
-class clFunction
+class Function
 {
 public:
 	std::string     m_name;
@@ -40,8 +40,8 @@ public:
 	bool            m_isConst;
 
 public:
-	clFunction();
-	virtual ~clFunction();
+	Function();
+	virtual ~Function();
 
 	//clear the class content
 	void reset();
@@ -50,5 +50,5 @@ public:
 	void print();
 };
 
-typedef std::list<clFunction> FunctionList;
+typedef std::list<Function> FunctionList;
 #endif // _FUNCTION_H_

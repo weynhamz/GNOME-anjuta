@@ -1592,7 +1592,7 @@ install_support (CppJavaPlugin *lang_plugin)
 		ianjuta_language_get_name_from_editor (lang_manager, 
 											   IANJUTA_EDITOR_LANGUAGE (lang_plugin->current_editor), NULL);
 	
-	DEBUG_PRINT("Language support intalled for: %s",
+	DEBUG_PRINT("Language support installed for: %s",
 				lang_plugin->current_language);
 	
 	if (lang_plugin->current_language &&

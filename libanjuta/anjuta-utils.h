@@ -53,6 +53,8 @@ gboolean anjuta_util_dialog_boolean_question (GtkWindow *parent,
 gboolean anjuta_util_dialog_input (GtkWindow *parent, const gchar *label,
 								   const gchar *default_value, gchar **value);
 
+gboolean anjuta_util_install_files (const gchar * const names);
+gboolean anjuta_util_package_is_installed (const gchar * lib, gboolean show);
 gboolean anjuta_util_prog_is_installed (const gchar * prog, gboolean show);
 
 gchar* anjuta_util_get_a_tmp_file (void);

@@ -60,13 +60,13 @@ libfile_manager_la_LIBADD = \
 	$(GIO_LIBS)
 
 file-view-marshal.h: $(srcdir)/file-view-marshal.list
-	if $(GLIB_GENMARSHAL) --prefix=file_view_cclosure_marshal \
+	$(AM_V_GEN)if $(GLIB_GENMARSHAL) --prefix=file_view_cclosure_marshal \
 	   --header $(srcdir)/file-view-marshal.list >.genmarshal-$@; \
 	then mv -f .genmarshal-$@ $@; \
 	else rm -f .genmarshal-$@; fi
 
 file-view-marshal.c: $(srcdir)/file-view-marshal.list
-	if { echo '#include "file-view-marshal.h"' && $(GLIB_GENMARSHAL) \
+	$(AM_V_GEN)if { echo '#include "file-view-marshal.h"' && $(GLIB_GENMARSHAL) \
 	     --prefix=file_view_cclosure_marshal --body $(srcdir)/file-view-marshal.list; \
 	   } >.genmarshal-$@; \
 	then mv -f .genmarshal-$@ $@; \

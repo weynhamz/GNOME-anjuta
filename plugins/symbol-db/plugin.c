@@ -370,6 +370,7 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 	GPtrArray *text_buffers;
 	GPtrArray *buffer_sizes;
 	gint i;
+	gint proc_id ;
 	
 	g_return_val_if_fail (user_data != NULL, FALSE);
 	
@@ -437,12 +438,16 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 	buffer_sizes = g_ptr_array_new ();
 	g_ptr_array_add (buffer_sizes, GINT_TO_POINTER (buffer_size));
 
-	
-	gint proc_id = symbol_db_engine_update_buffer_symbols (sdb_plugin->sdbe_project,
+
+	proc_id = 0;
+	if (symbol_db_engine_is_connected (sdb_plugin->sdbe_project))
+	{		
+		proc_id = symbol_db_engine_update_buffer_symbols (sdb_plugin->sdbe_project,
 											sdb_plugin->project_opened,
 											real_files_list,
 											text_buffers,
 											buffer_sizes);
+	}
 	
 	if (proc_id > 0)
 	{		
@@ -702,8 +707,8 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	{
 		sdb_plugin->buffer_update_semaphore = TRUE;
 	}
-	else
-	{
+	else 
+	{		
 		symbol_db_view_locals_update_list (
 					SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals),
 					 sdb_plugin->sdbe_project, local_path, FALSE);
@@ -1056,10 +1061,9 @@ do_add_new_files (SymbolDBPlugin *sdb_plugin, const GPtrArray *sources_array,
 }
 
 static void
-on_project_element_added (IAnjutaProjectManager *pm, const gchar *uri,
+on_project_element_added (IAnjutaProjectManager *pm, GFile *gfile,
 						  SymbolDBPlugin *sdb_plugin)
 {
-	GFile *gfile = NULL;		
 	gchar *filename;
 	gint real_added;
 	GPtrArray *files_array;			
@@ -1067,7 +1071,6 @@ on_project_element_added (IAnjutaProjectManager *pm, const gchar *uri,
 	g_return_if_fail (sdb_plugin->project_root_uri != NULL);
 	g_return_if_fail (sdb_plugin->project_root_dir != NULL);
 
-	gfile = g_file_new_for_uri (uri);	
 	filename = g_file_get_path (gfile);
 
 	files_array = g_ptr_array_new ();
@@ -1087,22 +1090,17 @@ on_project_element_added (IAnjutaProjectManager *pm, const gchar *uri,
 	
 	g_ptr_array_foreach (files_array, (GFunc)g_free, NULL);
 	g_ptr_array_free (files_array, TRUE);
-	
-	if (gfile)
-		g_object_unref (gfile);	
 }
 
 static void
-on_project_element_removed (IAnjutaProjectManager *pm, const gchar *uri,
+on_project_element_removed (IAnjutaProjectManager *pm, GFile *gfile,
 							SymbolDBPlugin *sdb_plugin)
 {
 	gchar *filename;
-	GFile *gfile;
 	
 	if (!sdb_plugin->project_root_uri)
 		return;
 	
-	gfile = g_file_new_for_uri (uri);
 	filename = g_file_get_path (gfile);
 
 	if (filename)
@@ -1113,8 +1111,6 @@ on_project_element_removed (IAnjutaProjectManager *pm, const gchar *uri,
 		
 		g_free (filename);
 	}
-	
-	g_object_unref (gfile);
 }
 
 static void
@@ -1250,7 +1246,8 @@ clear_project_progress_bar (SymbolDBEngine *dbe, gpointer data)
 						 sdb_plugin->sdbe_project);
 	
 	/* ok, enable local symbols view */
-	if (!IANJUTA_IS_EDITOR (sdb_plugin->current_editor))
+	if (sdb_plugin->current_editor == NULL  ||
+	    IANJUTA_IS_FILE (sdb_plugin->current_editor) == FALSE)
 	{
 		return;
 	}
@@ -1448,20 +1445,14 @@ do_import_project_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 		gchar *local_filename;
 		GFile *gfile = NULL;
 		
-		if ((gfile = g_file_new_for_uri (g_list_nth_data (prj_elements_list, i))) == NULL)
-		{
-			continue;
-		}		
+		gfile = g_list_nth_data (prj_elements_list, i);
 
 		if ((local_filename = g_file_get_path (gfile)) == NULL)
 		{
-			if (gfile)
-				g_object_unref (gfile);
 			continue;
 		}			
 
 		g_ptr_array_add (sources_array, local_filename);
-		g_object_unref (gfile);
 	}
 
 	/* connect to receive signals on single file scan complete. We'll
@@ -1485,7 +1476,7 @@ do_import_project_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 	g_ptr_array_free (sources_array, TRUE);
 
 	/* and the list of project files */
-	g_list_foreach (prj_elements_list, (GFunc) g_free, NULL);
+	g_list_foreach (prj_elements_list, (GFunc) g_object_unref, NULL);
 	g_list_free (prj_elements_list);
 }
 
@@ -1551,6 +1542,7 @@ static void
 do_check_languages_count (SymbolDBPlugin *sdb_plugin)
 {
 	gint count;
+	gint page;
 	
 	count = symbol_db_engine_get_languages_count (sdb_plugin->sdbe_project);
 	
@@ -1560,13 +1552,22 @@ do_check_languages_count (SymbolDBPlugin *sdb_plugin)
 		if (symbol_db_engine_is_language_used (sdb_plugin->sdbe_project, 
 											   "C") == TRUE)
 		{
-			/* hide the global tab */
-			gtk_widget_hide (sdb_plugin->scrolled_global);
+			/* disable the global tab */
+			gtk_widget_set_sensitive (sdb_plugin->global_button, FALSE);
+
+			/* switch to the local tab if we are looking at the global tab */
+			page = gtk_notebook_get_current_page (GTK_NOTEBOOK (sdb_plugin->dbv_notebook)); 
+
+			if (page == 1)
+			{
+				gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (sdb_plugin->local_button),
+				                              TRUE);
+			}
 		}
 	}
 	else 
 	{
-		gtk_widget_show (sdb_plugin->scrolled_global);
+		gtk_widget_set_sensitive (sdb_plugin->global_button, TRUE);
 	}
 }
 
@@ -1581,7 +1582,7 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 	GHashTable *prj_elements_hash;
 	GPtrArray *to_add_files = NULL;
 	gint i;
-	gint real_added ;
+	gint real_added = 0;
 	
 	pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (sdb_plugin)->shell,
 									 IAnjutaProjectManager, NULL);	
@@ -1600,12 +1601,8 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 	{	
 		GFile *gfile;
 		gchar *filename;
-		const gchar *uri = (const gchar*)g_list_nth_data (prj_elements_list, i);
 
-		if ((gfile = g_file_new_for_uri (uri)) == NULL) 
-		{			
-			continue;
-		}		
+		gfile = (GFile *)g_list_nth_data (prj_elements_list, i);
 		
 		if ((filename = g_file_get_path (gfile)) == NULL || 
 			g_strcmp0 (filename, "") == 0)
@@ -1617,7 +1614,7 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 		}
 		
 		/* test its existence */
-		if (g_file_test (filename, G_FILE_TEST_EXISTS) == FALSE) 
+		if (g_file_query_exists (gfile, NULL) == FALSE) 
 		{
 			/* FIXME here */
 			/*DEBUG_PRINT ("hey, filename %s (uri %s) does NOT exist", filename, uri);*/
@@ -2174,38 +2171,6 @@ on_notebook_button_toggled (GtkToggleButton *button,
 	gtk_notebook_set_current_page (GTK_NOTEBOOK(sdb_plugin->dbv_notebook), page);
 }
 
-static void
-on_notebook_switch_page (GtkNotebook* notebook,
-                         GtkNotebookPage* page,
-                         guint page_num,
-                         SymbolDBPlugin *sdb_plugin)
-{
-	g_signal_handlers_block_by_func (sdb_plugin->local_button,
-	                                on_notebook_button_toggled,
-	                                sdb_plugin);
-	g_signal_handlers_block_by_func (sdb_plugin->global_button,
-	                                on_notebook_button_toggled,
-	                                sdb_plugin);
-	g_signal_handlers_block_by_func (sdb_plugin->search_button,
-	                                on_notebook_button_toggled,
-	                                sdb_plugin);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(sdb_plugin->local_button),
-	                              page_num == 0);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(sdb_plugin->global_button),
-	                              page_num == 1);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(sdb_plugin->search_button),
-	                              page_num == 2);
-	g_signal_handlers_unblock_by_func (sdb_plugin->local_button,
-	                                on_notebook_button_toggled,
-	                                sdb_plugin);
-	g_signal_handlers_unblock_by_func (sdb_plugin->global_button,
-	                                on_notebook_button_toggled,
-	                                sdb_plugin);
-	g_signal_handlers_unblock_by_func (sdb_plugin->search_button,
-	                                on_notebook_button_toggled,
-	                                sdb_plugin);
-}
-
 static gboolean
 symbol_db_activate (AnjutaPlugin *plugin)
 {
@@ -2350,9 +2315,20 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	gtk_notebook_set_show_tabs (GTK_NOTEBOOK (sdb_plugin->dbv_notebook), FALSE);
 	sdb_plugin->dbv_hbox = gtk_hbox_new (FALSE, 1);
 
-	sdb_plugin->local_button = gtk_toggle_button_new_with_label (_("Local"));
-	sdb_plugin->global_button = gtk_toggle_button_new_with_label (_("Global"));
-	sdb_plugin->search_button = gtk_toggle_button_new_with_label (_("Search"));
+	sdb_plugin->local_button = gtk_radio_button_new_with_label_from_widget (NULL, 
+	                                                                        _("Local"));
+	sdb_plugin->global_button = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (sdb_plugin->local_button),
+	                                                                         _("Global"));
+	sdb_plugin->search_button = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (sdb_plugin->global_button),
+	                                                                         _("Search"));
+
+	/* Make the radio buttons look and act like toggle buttons */
+	gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (sdb_plugin->local_button), 
+	                            FALSE);
+	gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (sdb_plugin->global_button),
+	                            FALSE);
+	gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (sdb_plugin->search_button),
+	                            FALSE);
 
 	g_object_set_data (G_OBJECT(sdb_plugin->local_button), "__page", GINT_TO_POINTER(0));
 	g_object_set_data (G_OBJECT(sdb_plugin->global_button), "__page", GINT_TO_POINTER(1));
@@ -2363,10 +2339,6 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	g_signal_connect (sdb_plugin->global_button, "toggled", G_CALLBACK(on_notebook_button_toggled),
 	                  sdb_plugin);
 	g_signal_connect (sdb_plugin->search_button, "toggled", G_CALLBACK(on_notebook_button_toggled),
-	                  sdb_plugin);
-	g_signal_connect (sdb_plugin->dbv_notebook,
-	                  "switch-page",
-	                  G_CALLBACK(on_notebook_switch_page),
 	                  sdb_plugin);
 
 	label = gtk_label_new (_("Symbols"));
@@ -2387,15 +2359,15 @@ symbol_db_activate (AnjutaPlugin *plugin)
 
 	gtk_widget_show_all (sdb_plugin->dbv_hbox);
 	
-	sdb_plugin->progress_bar_project = gtk_progress_bar_new();
+	sdb_plugin->progress_bar_project = gtk_progress_bar_new();	
 	gtk_progress_bar_set_ellipsize (GTK_PROGRESS_BAR(sdb_plugin->progress_bar_project),
-									PANGO_ELLIPSIZE_MIDDLE);
+									PANGO_ELLIPSIZE_MIDDLE);	
 	g_object_ref (sdb_plugin->progress_bar_project);
 	
 	sdb_plugin->progress_bar_system = gtk_progress_bar_new();
 	gtk_progress_bar_set_ellipsize (GTK_PROGRESS_BAR(sdb_plugin->progress_bar_system),
 									PANGO_ELLIPSIZE_MIDDLE);
-	g_object_ref (sdb_plugin->progress_bar_system);
+	g_object_ref (sdb_plugin->progress_bar_system);	
 	
 	gtk_box_pack_start (GTK_BOX (sdb_plugin->dbv_main), sdb_plugin->dbv_notebook,
 						TRUE, TRUE, 0);
@@ -2404,7 +2376,6 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	gtk_box_pack_start (GTK_BOX (sdb_plugin->dbv_main), sdb_plugin->progress_bar_system,
 						FALSE, FALSE, 0);	
 	gtk_widget_show_all (sdb_plugin->dbv_main);
-	
 
 	/* Local symbols */
 	sdb_plugin->scrolled_locals = gtk_scrolled_window_new (NULL, NULL);
@@ -2487,7 +2458,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 							  sdb_plugin->dbv_view_search_tab_label);
 
 	gtk_widget_show_all (sdb_plugin->dbv_notebook);
-	
+
 	/* setting focus to the tree_view*/
 	gtk_notebook_set_current_page (GTK_NOTEBOOK (sdb_plugin->dbv_notebook), 0);
 
@@ -2535,7 +2506,11 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	
 	g_signal_connect (plugin->shell, "save-session", 
 					  G_CALLBACK (on_session_save), plugin);
-		
+
+	/* be sure to hide the progress bars in case no project has been opened. */
+	gtk_widget_hide (sdb_plugin->progress_bar_project);
+	gtk_widget_hide (sdb_plugin->progress_bar_system);	
+	
 	return TRUE;
 }
 
@@ -2547,7 +2522,15 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
 
 	DEBUG_PRINT ("%s", "SymbolDBPlugin: Dectivating SymbolDBPlugin plugin …");
-	
+
+	/* Unmerge UI */
+	gtk_ui_manager_remove_ui (GTK_UI_MANAGER (sdb_plugin->ui),
+	    						sdb_plugin->merge_id);
+	gtk_ui_manager_remove_action_group (GTK_UI_MANAGER (sdb_plugin->ui),
+	    							sdb_plugin->popup_action_group);
+	gtk_ui_manager_remove_action_group (GTK_UI_MANAGER (sdb_plugin->ui),
+	    							sdb_plugin->menu_action_group);
+		
 	/* disconnect some signals */
 	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->dbv_view_tree_locals),
 									  on_local_treeview_row_activated,

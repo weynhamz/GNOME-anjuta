@@ -5,7 +5,7 @@ prefs_ui_schemas = $(prefs_ui_files:.ui=.schemas)
 prefs_ui_schemas_DATA = $(prefs_ui_schemas)
 
 %.schemas: %.ui
-	$(top_srcdir)/scripts/builder2schema.pl $< > $@
+	$(AM_V_GEN)$(top_srcdir)/scripts/builder2schema.pl $< > $@
 
 if GCONF_SCHEMAS_INSTALL
 install-data-local: $(prefs_ui_schemas)

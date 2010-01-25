@@ -21,6 +21,8 @@
 
 #include "anjuta-debug.h"
 
+#include <string.h>
+
 /**
  * SECTION:anjuta-project
  * @title: Anjuta project
@@ -151,7 +153,78 @@ anjuta_project_node_prepend (AnjutaProjectNode *parent, AnjutaProjectNode *node)
 AnjutaProjectNodeType
 anjuta_project_node_get_type (const AnjutaProjectNode *node)
 {
-	return NODE_DATA (node)->type;
+	return node == NULL ? ANJUTA_PROJECT_UNKNOWN : NODE_DATA (node)->type;
+}
+
+gchar *
+anjuta_project_node_get_name (const AnjutaProjectNode *node)
+{
+	switch (NODE_DATA (node)->type)
+	{
+	case ANJUTA_PROJECT_GROUP:
+		return g_file_get_basename (GROUP_DATA (node)->directory);
+	case ANJUTA_PROJECT_TARGET:
+		return g_strdup (TARGET_DATA (node)->name);
+	case ANJUTA_PROJECT_SOURCE:
+		return g_file_get_basename (SOURCE_DATA (node)->file);
+	default:
+		return NULL;
+	}
+}
+
+gchar*
+anjuta_project_node_get_uri (AnjutaProjectNode *node)
+{
+	AnjutaProjectGroup *parent;
+	GFile *file;
+	gchar *uri;
+	
+	switch (NODE_DATA (node)->type)
+	{
+	case ANJUTA_PROJECT_GROUP:
+		uri = g_file_get_uri (GROUP_DATA (node)->directory);
+		break;
+	case ANJUTA_PROJECT_TARGET:
+		parent = anjuta_project_node_parent (node);
+		file = g_file_get_child (anjuta_project_group_get_directory (parent), anjuta_project_target_get_name (node));
+		uri = g_file_get_uri (file);
+		g_object_unref (file);
+		break;
+	case ANJUTA_PROJECT_SOURCE:
+		uri = g_file_get_uri (SOURCE_DATA (node)->file);
+		break;
+	default:
+		uri = NULL;
+		break;
+	}
+
+	return uri;
+}
+
+GFile*
+anjuta_project_node_get_file (AnjutaProjectNode *node)
+{
+	AnjutaProjectGroup *parent;
+	GFile *file;
+	
+	switch (NODE_DATA (node)->type)
+	{
+	case ANJUTA_PROJECT_GROUP:
+		file = g_object_ref (GROUP_DATA (node)->directory);
+		break;
+	case ANJUTA_PROJECT_TARGET:
+		parent = anjuta_project_node_parent (node);
+		file = g_file_get_child (anjuta_project_group_get_directory (parent), anjuta_project_target_get_name (node));
+		break;
+	case ANJUTA_PROJECT_SOURCE:
+		file = g_object_ref (SOURCE_DATA (node)->file);
+		break;
+	default:
+		file = NULL;
+		break;
+	}
+
+	return file;
 }
 
 /* Group access functions
@@ -161,6 +234,114 @@ GFile*
 anjuta_project_group_get_directory (const AnjutaProjectGroup *group)
 {
 	return GROUP_DATA (group)->directory;
+}
+
+static gboolean
+anjuta_project_group_compare (GNode *node, gpointer data)
+{
+	GFile *file = *(GFile **)data;
+
+	if ((NODE_DATA(node)->type == ANJUTA_PROJECT_GROUP) && g_file_equal (GROUP_DATA(node)->directory, file))
+	{
+		*(AnjutaProjectNode **)data = node;
+
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+
+AnjutaProjectGroup *
+anjuta_project_group_get_node_from_file (const AnjutaProjectGroup *root, GFile *directory)
+{
+	GFile *data;
+	
+	data = directory;
+	g_node_traverse	(root, G_PRE_ORDER, G_TRAVERSE_ALL, -1, anjuta_project_group_compare, &data);
+
+	return (data == directory) ? NULL : (AnjutaProjectNode *)data;
+}
+
+AnjutaProjectGroup *
+anjuta_project_group_get_node_from_uri (const AnjutaProjectNode *root, const gchar *uri)
+{
+	GFile *file = g_file_new_for_uri (uri);
+	AnjutaProjectGroup *node;
+
+	node = anjuta_project_group_get_node_from_file (root, file);
+	g_object_unref (file);
+
+	return node;
+}
+
+static gboolean
+anjuta_project_target_compare (GNode *node, gpointer data)
+{
+	const gchar *name = *(gchar **)data;
+
+	if ((NODE_DATA(node)->type == ANJUTA_PROJECT_TARGET) && (strcmp (TARGET_DATA(node)->name, name) == 0))
+	{
+		*(AnjutaProjectNode **)data = node;
+
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+
+AnjutaProjectTarget *
+anjuta_project_target_get_node_from_name (const AnjutaProjectGroup *parent, const gchar *name)
+{
+	const gchar *data;
+	
+	data = name;
+	g_node_traverse	(parent, G_PRE_ORDER, G_TRAVERSE_ALL, 2, anjuta_project_target_compare, &data);
+
+	return (data == name) ? NULL : (AnjutaProjectTarget *)data;
+}
+
+static gboolean
+anjuta_project_source_compare (GNode *node, gpointer data)
+{
+	GFile *file = *(GFile **)data;
+
+	if ((NODE_DATA(node)->type == ANJUTA_PROJECT_SOURCE) && g_file_equal (SOURCE_DATA(node)->file, file))
+	{
+		*(AnjutaProjectNode **)data = node;
+
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+
+AnjutaProjectSource *
+anjuta_project_source_get_node_from_file (const AnjutaProjectNode *parent, GFile *file)
+{
+	GFile *data;
+	
+	data = file;
+	g_node_traverse	(parent, G_PRE_ORDER, G_TRAVERSE_ALL, 2, anjuta_project_source_compare, &data);
+
+	return (data == file) ? NULL : (AnjutaProjectNode *)data;
+}
+
+AnjutaProjectSource *
+anjuta_project_source_get_node_from_uri (const AnjutaProjectNode *parent, const gchar *uri)
+{
+	GFile *file = g_file_new_for_uri (uri);
+	AnjutaProjectSource *node;
+
+	node = anjuta_project_source_get_node_from_file (parent, file);
+	g_object_unref (file);
+
+	return node;
 }
 
 /* Target access functions

@@ -32,6 +32,7 @@
 
 #include <gtk/gtk.h>
 #include <string.h>
+#include <gtksourceview/gtksourcebuffer.h>
 
 static void sourceview_cell_class_init(SourceviewCellClass *klass);
 static void sourceview_cell_instance_init(SourceviewCell *sp);
@@ -138,6 +139,17 @@ static IAnjutaEditorAttribute
 icell_get_attribute (IAnjutaEditorCell* icell, GError **e)
 {
 	IAnjutaEditorAttribute attrib = IANJUTA_EDITOR_TEXT;
+	SourceviewCell* cell = SOURCEVIEW_CELL(icell);
+	GtkTextIter iter;
+	gtk_text_buffer_get_iter_at_mark (cell->priv->buffer, &iter, cell->priv->mark);
+
+	if (gtk_source_buffer_iter_has_context_class (GTK_SOURCE_BUFFER(cell->priv->buffer), &iter, "string"))
+		attrib = IANJUTA_EDITOR_STRING;
+	else if (gtk_source_buffer_iter_has_context_class (GTK_SOURCE_BUFFER(cell->priv->buffer), &iter, "comment"))
+		attrib = IANJUTA_EDITOR_COMMENT;
+	else if (gtk_source_buffer_iter_has_context_class (GTK_SOURCE_BUFFER(cell->priv->buffer), &iter, "keyword"))
+		attrib = IANJUTA_EDITOR_KEYWORD;
+	
 	return attrib;
 }
 

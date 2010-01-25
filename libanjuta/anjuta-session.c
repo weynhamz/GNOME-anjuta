@@ -165,6 +165,7 @@ void
 anjuta_session_clear (AnjutaSession *session)
 {
 	gchar *cmd;
+	gchar *quoted;
 	gint ret;
 	
 	g_return_if_fail (ANJUTA_IS_SESSION (session));
@@ -173,14 +174,16 @@ anjuta_session_clear (AnjutaSession *session)
 	session->priv->key_file = g_key_file_new ();
 	
 	anjuta_session_sync (session);
-	
-	cmd = g_strconcat ("mkdir -p ", session->priv->dir_path, NULL);
+
+	quoted = g_shell_quote (session->priv->dir_path);	
+	cmd = g_strconcat ("rm -fr ", quoted, NULL);
 	ret = system (cmd);
 	g_free (cmd);
-	
-	cmd = g_strconcat ("rm -fr ", session->priv->dir_path, "/*", NULL);
+
+	cmd = g_strconcat ("mkdir -p ", quoted, NULL);
 	ret = system (cmd);
 	g_free (cmd);
+	g_free (quoted);
 }
 
 /**

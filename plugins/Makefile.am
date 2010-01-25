@@ -32,6 +32,8 @@ SUBDIRS = . \
 	starter \
 	am-project \
 	mk-project \
-	dir-project
+	dir-project \
+	js-debugger \
+	language-support-js
 
 -include $(top_srcdir)/git.mk

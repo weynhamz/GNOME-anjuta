@@ -223,18 +223,20 @@ get_source_directories (AnjutaPlugin *plugin)
 	node = slibs_dirs;
 	while (node)
 	{
-		gchar *dir_uri;
-		dir_uri = g_path_get_dirname (node->data);
-		search_dirs = g_list_prepend (search_dirs, dir_uri);
+		gchar *path;
+		GFile *parent = g_file_get_parent (node->data);
+		path = g_file_get_uri (parent);
+		g_object_unref (parent);
+		search_dirs = g_list_prepend (search_dirs, path);
 		node = g_list_next (node);
 	}
 	
 	node = libs_dirs;
 	while (node)
 	{
-		gchar *dir_uri;
-		dir_uri = g_path_get_dirname (node->data);
-		search_dirs = g_list_prepend (search_dirs, dir_uri);
+		gchar *path;
+		path = g_file_get_path (node->data);
+		search_dirs = g_list_prepend (search_dirs, path);
 		node = g_list_next (node);
 	}
 	

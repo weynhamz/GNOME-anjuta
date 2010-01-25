@@ -178,7 +178,7 @@ cg_plugin_add_to_project (AnjutaClassGenPlugin *plugin,
 	IAnjutaProjectManager *manager;
 	GList *filenames;
 	GList *added_files;
-	GList *node;
+	GFile *file;
 	gboolean result;
 
 	manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
@@ -187,35 +187,24 @@ cg_plugin_add_to_project (AnjutaClassGenPlugin *plugin,
 	if (manager == NULL) 
 		return FALSE;
 
-	filenames = NULL;
-	filenames = g_list_append (filenames, g_path_get_basename (header_file));
+	filenames = g_list_append (NULL, g_path_get_basename (header_file));
 	filenames = g_list_append (filenames, g_path_get_basename (source_file));
+	file = g_file_new_for_path (plugin->top_dir);
 	added_files = ianjuta_project_manager_add_sources (manager, filenames,
-	                                                   plugin->top_dir, NULL);
-	if (g_list_length (added_files) != 2)
-	{
-		for (node = added_files; node != NULL; node = g_list_next (node))
-			g_free (node->data);
-
-		result = FALSE;
-	}
-	else
-	{
-		GFile *file;
-
-		file = g_file_new_for_uri ((gchar *)added_files->data);
-		*new_header_file = g_file_get_path(file);
-		g_object_unref (file);
-		file = g_file_new_for_uri ((gchar *)g_list_next (added_files)->data);
-		*new_source_file = g_file_get_path(file);
-		g_object_unref (file);
-		
-		result = TRUE;
-	}
-
-	g_list_foreach (added_files, (GFunc)g_free, NULL);
-	g_list_free (added_files);
+	                                                   file, NULL);
+	g_object_unref (file);
+	g_list_foreach (filenames, (GFunc)g_free, NULL);
 	g_list_free (filenames);
+
+	result = g_list_length (added_files) == 2;
+	if (result)
+	{
+		*new_header_file = g_file_get_path((GFile *)added_files->data);
+		*new_source_file = g_file_get_path((GFile *)g_list_next (added_files)->data);
+	}
+
+	g_list_foreach (added_files, (GFunc)g_object_unref, NULL);
+	g_list_free (added_files);
 
 	return result;
 }
@@ -313,6 +302,8 @@ cg_plugin_generator_created_cb (CgGenerator *generator,
 	{
 		GFile* header = g_file_new_for_path (header_file);
 		GFile* source = g_file_new_for_path (source_file);
+		IAnjutaProjectManager *manager;
+
 		ianjuta_file_loader_load (loader, header, FALSE, NULL);
 		ianjuta_file_loader_load (loader, source, FALSE, NULL);
 
@@ -320,7 +311,14 @@ cg_plugin_generator_created_cb (CgGenerator *generator,
 		{
 			cg_plugin_add_to_repository (plugin, header, source);
 		}
-		
+	
+		manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell, IAnjutaProjectManager, NULL);
+		if (manager)
+		{
+			g_signal_emit_by_name (G_OBJECT (manager), "element_added", header);
+			g_signal_emit_by_name (G_OBJECT (manager), "element_added", source);
+		}
+
 		g_object_unref (header);
 		g_object_unref (source);
 	}

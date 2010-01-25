@@ -304,14 +304,15 @@ get_project_file_list(void)
 													 NULL);
 		if (list)
 		{
-			const gchar *uri;
+			gchar *uri;
 			GList *node;
 			node = list;
 	
 			while (node)
 			{
-				uri = (const gchar *)node->data;
-				files = g_list_prepend (files, g_strdup (uri));
+				uri = g_file_get_uri ((GFile *)node->data);
+				files = g_list_prepend (files, uri);
+				g_object_unref ((GFile *)node->data);
 				node = g_list_next (node);
 			}
 			files = g_list_reverse (files);

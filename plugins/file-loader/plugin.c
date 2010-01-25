@@ -213,7 +213,7 @@ on_value_added_current_doc (AnjutaPlugin *plugin, const gchar *name,
 	g_free (fplugin->dm_current_uri);
 
 	if (IANJUTA_IS_FILE (doc) &&
-	    (file = ianjuta_file_get_file(IANJUTA_FILE (doc), NULL)))
+	    ((file = ianjuta_file_get_file(IANJUTA_FILE (doc), NULL)) != NULL))
 	{
 		GFile* parent = g_file_get_parent (file);
 		fplugin->dm_current_uri = g_file_get_uri (parent);

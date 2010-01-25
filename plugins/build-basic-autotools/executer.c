@@ -112,12 +112,13 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 		while (node)
 		{
 			gchar *local_path;
+            gchar *uri;
 			const gchar *rel_path;
-		
-			local_path = anjuta_util_get_local_path_from_uri ((gchar *)node->data);
+
+			local_path = g_file_get_path ((GFile *)node->data);
 			if (local_path == NULL)
 			{
-				g_free (node->data);
+				g_object_unref (node->data);
 				node = g_list_next (node);
 				continue;
 			}
@@ -126,11 +127,12 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 				(gchar*)local_path +
 				 strlen (plugin->project_root_dir) + 1;
 			
+            uri = g_file_get_uri ((GFile *)node->data);
 			gtk_list_store_append (store, &iter);
 			gtk_list_store_set (store, &iter, 0, rel_path, 1,
-								node->data, -1);
+								uri, -1);
       
-      if (plugin->last_exec_uri && g_str_equal (plugin->last_exec_uri, node->data))
+      if (plugin->last_exec_uri && g_str_equal (plugin->last_exec_uri, uri))
       { 
 				GtkTreePath* path = gtk_tree_model_get_path (GTK_TREE_MODEL (store), &iter);
         gtk_tree_selection_select_iter (selection, &iter);
@@ -141,9 +143,10 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
         g_free (plugin->last_exec_uri);
         plugin->last_exec_uri = NULL;
       }
-      
+
+            g_free (uri);
 			g_free (local_path);
-			g_free (node->data);
+			g_object_unref (node->data);
 			node = g_list_next (node);
 		}
 		g_list_free (exec_targets);

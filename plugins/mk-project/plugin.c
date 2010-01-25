@@ -64,8 +64,6 @@ iproject_backend_new_project (IAnjutaProjectBackend* backend, GError** err)
 static gint
 iproject_backend_probe (IAnjutaProjectBackend* backend, GFile *directory, GError** err)
 {
-	DEBUG_PRINT("probe mkp project");
-	
 	return mkp_project_probe (directory, err);
 }
 

@@ -1455,7 +1455,7 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 		symbol_db_util_get_file_db_path (dbe, filepath);
 	if (priv->current_db_file == NULL) 
 	{
-		DEBUG_PRINT ("Warning: priv->current_db_file is NULL");
+		/* the file simply isn't in the db. Don't display nothing. */
 		return;
 	}
 	priv->current_local_file_path = g_strdup (filepath);

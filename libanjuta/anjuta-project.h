@@ -45,7 +45,19 @@ typedef enum
 	ANJUTA_TARGET_STATICLIB,
 	ANJUTA_TARGET_EXECUTABLE,
 	ANJUTA_TARGET_PYTHON,
-	ANJUTA_TARGET_JAVA
+	ANJUTA_TARGET_JAVA,
+	ANJUTA_TARGET_LISP,
+	ANJUTA_TARGET_HEADER,
+	ANJUTA_TARGET_MAN,
+	ANJUTA_TARGET_INFO,
+	ANJUTA_TARGET_GENERIC,
+	ANJUTA_TARGET_DATA,
+	ANJUTA_TARGET_EXTRA,
+	ANJUTA_TARGET_INTLTOOL,
+	ANJUTA_TARGET_CONFIGURE,
+	ANJUTA_TARGET_IDL,
+	ANJUTA_TARGET_MKENUMS,
+	ANJUTA_TARGET_GENMARSHAL
 } AnjutaProjectTargetClass;
 
 typedef struct 
@@ -83,6 +95,8 @@ typedef GNode AnjutaProjectGroup;
 typedef GNode AnjutaProjectTarget;
 typedef GNode AnjutaProjectSource;
 
+#define ANJUTA_PROJECT_NODE_DATA(node)  ((node) != NULL ? (AnjutaProjectNodeData *)((node)->data) : NULL)
+
 typedef void (*AnjutaProjectNodeFunc) (AnjutaProjectNode *node, gpointer data);
 
 AnjutaProjectNode *anjuta_project_node_parent (AnjutaProjectNode *node);
@@ -101,6 +115,15 @@ void anjuta_project_node_all_foreach (AnjutaProjectNode *node, AnjutaProjectNode
 void anjuta_project_node_children_foreach (AnjutaProjectNode *node, AnjutaProjectNodeFunc func, gpointer data);
 
 AnjutaProjectNodeType anjuta_project_node_get_type (const AnjutaProjectNode *node);
+gchar *anjuta_project_node_get_name (const AnjutaProjectNode *node);
+gchar *anjuta_project_node_get_uri (AnjutaProjectNode *node);
+GFile *anjuta_project_node_get_file (AnjutaProjectNode *node);
+
+AnjutaProjectGroup *anjuta_project_group_get_node_from_file (const AnjutaProjectGroup *root, GFile *directory);
+AnjutaProjectTarget *anjuta_project_target_get_node_from_name (const AnjutaProjectGroup *parent, const gchar *name);
+AnjutaProjectSource *anjuta_project_source_get_node_from_file (const AnjutaProjectNode *parent, GFile *file);
+AnjutaProjectGroup *anjuta_project_group_get_node_from_uri (const AnjutaProjectGroup *root, const gchar *uri);
+AnjutaProjectSource *anjuta_project_source_get_node_from_uri (const AnjutaProjectNode *parent, const gchar *uri);
 
 GFile *anjuta_project_group_get_directory (const AnjutaProjectGroup *group);
 

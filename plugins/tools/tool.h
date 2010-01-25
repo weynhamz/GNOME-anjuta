@@ -116,7 +116,7 @@ void atp_user_tool_free(ATPUserTool *tool);
 ATPUserTool *atp_user_tool_append_new (ATPUserTool* this, const gchar *name, ATPToolStore storage);
 ATPUserTool *atp_user_tool_clone_new (ATPUserTool* this, ATPToolStore storage);
 
-gboolean atp_user_tool_activate (ATPUserTool* this, GtkAccelGroup* group, AnjutaUI *ui);
+gboolean atp_user_tool_activate (ATPUserTool* this, GtkActionGroup *action_group, AnjutaUI *ui);
 void atp_user_tool_deactivate (ATPUserTool* this, AnjutaUI *ui);
 
 gboolean atp_user_tool_move_after (ATPUserTool* this, ATPUserTool* position);

@@ -18,11 +18,11 @@ edit = sed \
              -e 's|@ANJUTA_DATA_DIR[@]|$(anjuta_data_dir)|g'
      
 tools-2.xml: Makefile
-	rm -f $@ $@.tmp
-	$(edit) '$(srcdir)/$@.in' >$@.tmp
-	chmod +x $@.tmp
-	chmod a-w $@.tmp
-	mv $@.tmp $@
+	$(AM_V_at)rm -f $@ $@.tmp
+	$(AM_V_at)$(edit) '$(srcdir)/$@.in' >$@.tmp
+	$(AM_V_at)chmod +x $@.tmp
+	$(AM_V_at)chmod a-w $@.tmp
+	$(AM_V_GEN)mv $@.tmp $@
      
 tools-2.xml: tools-2.xml.in
 
