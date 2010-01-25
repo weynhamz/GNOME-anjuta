@@ -59,6 +59,7 @@ typedef struct
 {
 	gchar *name;
 	gboolean is_func;
+	GdkPixbuf* icon;
 	IAnjutaSymbolType type;
 } CppJavaAssistTag;
 
@@ -107,6 +108,8 @@ static void
 cpp_java_assist_tag_destroy (CppJavaAssistTag *tag)
 {
 	g_free (tag->name);
+	if (tag->icon)
+		gdk_pixbuf_unref (tag->icon);
 	g_free (tag);
 }
 
@@ -162,6 +165,8 @@ create_completion (CppJavaAssist* assist, IAnjutaIterable* iter,
 			DEBUG_PRINT ("Created tag: %s", tag->name);
 			tag->type = ianjuta_symbol_get_sym_type (IANJUTA_SYMBOL (iter),
 													 NULL);
+			tag->icon = gdk_pixbuf_copy (ianjuta_symbol_get_icon (IANJUTA_SYMBOL(iter),
+			                                                      NULL));
 			tag->is_func = (tag->type == IANJUTA_SYMBOL_TYPE_PROTOTYPE ||
 			                tag->type == IANJUTA_SYMBOL_TYPE_FUNCTION ||
 							tag->type == IANJUTA_SYMBOL_TYPE_METHOD ||
@@ -368,7 +373,7 @@ cpp_java_assist_update_autocomplete (CppJavaAssist *assist)
 
 	DEBUG_PRINT ("Populating %d proposals", length);
 	
-	if (1) //length <= max_completions)
+	if (length <= max_completions)
 	{
 		GList *node, *suggestions = NULL;
 			
@@ -383,6 +388,7 @@ cpp_java_assist_update_autocomplete (CppJavaAssist *assist)
 				proposal->label = g_strdup(tag->name);
 				
 			proposal->data = tag;
+			proposal->icon = tag->icon;
 			suggestions = g_list_prepend (suggestions, proposal);
 		}
 		suggestions = g_list_reverse (suggestions);
