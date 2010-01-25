@@ -161,12 +161,13 @@ create_completion (CppJavaAssist* assist, IAnjutaIterable* iter,
 		if (name != NULL)
 		{
 			CppJavaAssistTag *tag = g_new0 (CppJavaAssistTag, 1);
+			const GdkPixbuf* sym_icon;
 			tag->name = g_strdup (name);
 			DEBUG_PRINT ("Created tag: %s", tag->name);
 			tag->type = ianjuta_symbol_get_sym_type (IANJUTA_SYMBOL (iter),
 													 NULL);
-			tag->icon = gdk_pixbuf_copy (ianjuta_symbol_get_icon (IANJUTA_SYMBOL(iter),
-			                                                      NULL));
+			sym_icon = ianjuta_symbol_get_icon (IANJUTA_SYMBOL(iter), NULL);
+			tag->icon = sym_icon ? gdk_pixbuf_copy (sym_icon) : NULL;
 			tag->is_func = (tag->type == IANJUTA_SYMBOL_TYPE_PROTOTYPE ||
 			                tag->type == IANJUTA_SYMBOL_TYPE_FUNCTION ||
 							tag->type == IANJUTA_SYMBOL_TYPE_METHOD ||
