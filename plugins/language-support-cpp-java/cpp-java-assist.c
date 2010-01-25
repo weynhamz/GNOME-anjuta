@@ -718,15 +718,32 @@ on_editor_char_added (IAnjutaEditor *editor, IAnjutaIterable *insert_pos,
 	cpp_java_assist_calltip(assist, enable_calltips, (ch == '\b'));
 }
 
-/* FIXME: find a better tester */
+#define BRACE_LIMIT 100
+
 static gboolean
-is_expression_separator (gchar c)
+is_expression_separator (gchar c, gboolean skip_braces, IAnjutaIterable* iter)
 {
-	if (c == ';' || c == '\n' || c == '\r' || c == '\t' || /*c == '(' || c == ')' || */
-	    c == '{' || c == '}' || c == '=' || c == '<' /*|| c == '>'*/ || c == '\v' || c == '!')
+	IAnjutaEditorAttribute attrib = ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL(iter),
+	                                                                   NULL);
+	if (attrib == IANJUTA_EDITOR_STRING ||
+	    attrib == IANJUTA_EDITOR_COMMENT)
 	{
+		return FALSE;
+	}
+	
+	if (c == ')' && skip_braces)
+	{
+		cpp_java_util_jump_to_matching_brace (iter, c, BRACE_LIMIT);
 		return TRUE;
 	}
+	else if (c == ')' && !skip_braces)
+		return FALSE;
+	
+	if (c == ';' || c == '\n' || c == '\r' || c == '\t' ||
+	    c == '{' || c == '}' || c == '=' || c == '<' || c == '\v' || c == '!')
+	{
+		return TRUE;
+	}	
 
 	return FALSE;
 }
@@ -748,7 +765,7 @@ cpp_java_parse_expression (CppJavaAssist* assist, IAnjutaIterable* iter, IAnjuta
 
 		DEBUG_PRINT ("ch == '%c'", ch);
 		
-		if (is_expression_separator(ch)) {
+		if (is_expression_separator(ch, FALSE, iter)) {
 			DEBUG_PRINT ("found char '%c' which is an expression_separator", ch);
 			break;
 		}
@@ -783,13 +800,12 @@ cpp_java_parse_expression (CppJavaAssist* assist, IAnjutaIterable* iter, IAnjuta
 			assist->priv->pre_word = ianjuta_editor_get_text (editor,
 			                                                  pre_word_start, pre_word_end, NULL);
 
-			/* Try to get the name of the variable
-			 * FIXME: What about get_widget()-> for example */
+			/* Try to get the name of the variable */
 			while (ianjuta_iterable_previous (cur_pos, NULL))
 			{
 				gchar word_ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL(cur_pos), 0, NULL);
 				
-				if (is_expression_separator(word_ch)) 
+				if (is_expression_separator(word_ch, FALSE, cur_pos)) 
 					break;				
 			}
 			ianjuta_iterable_next (cur_pos, NULL);
