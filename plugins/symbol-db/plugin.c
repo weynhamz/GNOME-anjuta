@@ -2312,6 +2312,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	/* Create widgets */
 	sdb_plugin->dbv_main = gtk_vbox_new(FALSE, 5);
 	sdb_plugin->dbv_notebook = gtk_notebook_new();
+	gtk_notebook_set_show_border (GTK_NOTEBOOK (sdb_plugin->dbv_notebook), FALSE);
 	gtk_notebook_set_show_tabs (GTK_NOTEBOOK (sdb_plugin->dbv_notebook), FALSE);
 	sdb_plugin->dbv_hbox = gtk_hbox_new (FALSE, 1);
 
@@ -2342,6 +2343,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	                  sdb_plugin);
 
 	label = gtk_label_new (_("Symbols"));
+	gtk_misc_set_alignment (GTK_MISC (label), 0.0f, 0.5f);
 	gtk_label_set_ellipsize (GTK_LABEL (label),
 	                         PANGO_ELLIPSIZE_END);
 	gtk_box_pack_start (GTK_BOX(sdb_plugin->dbv_hbox), 
