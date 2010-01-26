@@ -608,6 +608,7 @@ static void
 amp_group_add_token (AmpGroup *node, AnjutaToken *token, AmpGroupTokenCategory category)
 {
     AmpGroupData *group;
+
 	
 	g_return_if_fail ((node != NULL) && (node->data != NULL)); 
 
@@ -1276,6 +1277,89 @@ project_load_sources (AmpProject *project, AnjutaToken *name, AnjutaToken *list,
 	return NULL;
 }
 
+static AnjutaToken*
+project_load_data (AmpProject *project, AnjutaToken *name, AnjutaToken *list, AnjutaProjectGroup *parent, GHashTable *orphan_sources)
+{
+	AnjutaProjectTargetType type = NULL;
+	gchar *install;
+	AnjutaProjectTarget *target;
+	gchar *target_id;
+	gpointer find;
+	gint flags;
+	AmpTargetInformation *targets = AmpTargetTypes; 
+	AnjutaToken *arg;
+
+	type = (AnjutaProjectTargetType)targets;
+	while (targets->base.name != NULL)
+	{
+		if (anjuta_token_get_type (name) == targets->token)
+		{
+			type = (AnjutaProjectTargetType)targets;
+			break;
+		}
+		targets++;
+	}
+
+	target_id = anjuta_token_evaluate (name);
+	split_automake_variable (target_id, &flags, &install, NULL);
+	/*if (target_id)
+	{
+		gchar *end = strrchr (target_id, '_');
+		if (end)
+		{
+			*end = '\0';
+		}
+	}*/
+	
+	amp_group_add_token (parent, name, AM_GROUP_TARGET);
+
+	/* Check if target already exists */
+	find = target_id;
+	anjuta_project_node_children_foreach (parent, find_target, &find);
+	if ((gchar *)find == target_id)
+	{
+		/* Create target */
+		target = amp_target_new (target_id, type, install, flags);
+		amp_target_add_token (target, arg);
+		anjuta_project_node_append (parent, target);
+		DEBUG_PRINT ("create target %p name %s", target, target_id);
+	}
+	else
+	{
+		target = (AnjutaProjectTarget *)find;
+	}
+	g_free (target_id);
+
+	if (target)
+	{
+		GFile *parent_file = g_object_ref (AMP_GROUP_DATA (parent)->base.directory);
+		
+		for (arg = anjuta_token_first_word (list); arg != NULL; arg = anjuta_token_next_word (arg))
+		{
+			gchar *value;
+			AmpSource *source;
+			GFile *src_file;
+		
+			value = anjuta_token_evaluate (arg);
+
+			/* Create source */
+			src_file = g_file_get_child (parent_file, value);
+			source = amp_source_new (src_file);
+			g_object_unref (src_file);
+			AMP_SOURCE_DATA(source)->token = arg;
+
+			/* Add as target child */
+			DEBUG_PRINT ("add target child %p", target);
+			anjuta_project_node_append (target, source);
+
+			g_free (value);
+		}
+		g_object_unref (parent_file);
+	}
+
+	return NULL;
+}
+
 static AmpGroup* project_load_makefile (AmpProject *project, GFile *file, AmpGroup *parent, gboolean dist_only);
 
 static void
@@ -1338,7 +1422,6 @@ project_load_makefile (AmpProject *project, GFile *file, AnjutaProjectGroup *par
 	AmpAmScanner *scanner;
 	AmpGroup *group;
 	//AnjutaToken *significant_tok;
-	AnjutaToken *arg;
 	AnjutaTokenFile *tfile;
 	GFile *makefile = NULL;
 
@@ -1411,6 +1494,8 @@ amp_project_set_am_variable (AmpProject* project, AmpGroup* group, AnjutaTokenTy
 		project_load_subdirs (project, list, group, TRUE);
 		break;
 	case AM_TOKEN__DATA:
+		project_load_data (project, name, list, group, orphan_sources);
+		break;
 	case AM_TOKEN__HEADERS:
 	case AM_TOKEN__LIBRARIES:
 	case AM_TOKEN__LISP:
@@ -2312,7 +2397,6 @@ amp_project_move (AmpProject *project, const gchar *path)
 	gchar *relative;
 	GHashTableIter iter;
 	gpointer key;
-	gpointer value;
 	AnjutaTokenFile *tfile;
 	AmpConfigFile *cfg;
 	GHashTable* old_hash;
