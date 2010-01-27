@@ -2728,6 +2728,22 @@ iproject_remove_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err
 	return TRUE;
 }
 
+static GtkWidget*
+iproject_configure_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
+{
+	switch (AMP_NODE_DATA (node)->type)
+	{
+		case ANJUTA_PROJECT_GROUP:
+			return amp_configure_group_dialog (AMP_PROJECT (obj), AMP_GROUP (node), err);
+		case ANJUTA_PROJECT_TARGET:
+			return amp_configure_target_dialog (AMP_PROJECT (obj), AMP_TARGET (node), err);
+		case ANJUTA_PROJECT_SOURCE:
+			return amp_configure_source_dialog (AMP_PROJECT (obj), AMP_SOURCE (node), err);
+		default:
+			return NULL;
+	}
+}
+
 static void
 iproject_iface_init(IAnjutaProjectIface* iface)
 {
@@ -2742,6 +2758,7 @@ iproject_iface_init(IAnjutaProjectIface* iface)
 	iface->load = iproject_load;
 	iface->refresh = iproject_refresh;
 	iface->remove_node = iproject_remove_node;
+	iface->configure_node = iproject_configure_node;
 }
 
 /* Group access functions

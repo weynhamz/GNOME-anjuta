@@ -143,13 +143,69 @@ amp_configure_project_dialog (AmpProject *project, GError **error)
 GtkWidget *
 amp_configure_group_dialog (AmpProject *project, AmpGroup *group, GError **error)
 {
-	return NULL;
+	GtkBuilder *bxml = gtk_builder_new ();
+	GtkWidget *properties;
+	GtkWidget *main_table;
+	GtkWidget *extra_table;
+	AmpConfigureProjectDialog *dlg;
+	gchar *name;
+
+	bxml = anjuta_util_builder_new (GLADE_FILE, NULL);
+	if (!bxml) return NULL;
+
+	dlg = g_new0 (AmpConfigureProjectDialog, 1);
+	anjuta_util_builder_get_objects (bxml,
+	                                "properties", &properties,
+	    							"main_table", &main_table,
+	    							"extra_table", &extra_table,
+	                                NULL);
+	dlg->top_level = properties;
+	g_object_ref (properties);
+	g_signal_connect (properties, "destroy", G_CALLBACK (on_project_widget_destroy), dlg);
+
+	name = g_file_get_parse_name (amp_group_get_directory (group));
+	add_label (_("Name:"), name, main_table, 0);
+	g_free (name);
+	
+	gtk_widget_show_all (properties);
+	g_object_unref (bxml);
+	
+	return properties;
 }
 
 GtkWidget *
 amp_configure_target_dialog (AmpProject *project, AmpTarget *target, GError **error)
 {
-	return NULL;
+	GtkBuilder *bxml = gtk_builder_new ();
+	GtkWidget *properties;
+	GtkWidget *main_table;
+	GtkWidget *extra_table;
+	AmpConfigureProjectDialog *dlg;
+	AnjutaProjectTargetType type;
+	const gchar *name;
+
+	bxml = anjuta_util_builder_new (GLADE_FILE, NULL);
+	if (!bxml) return NULL;
+
+	dlg = g_new0 (AmpConfigureProjectDialog, 1);
+	anjuta_util_builder_get_objects (bxml,
+	                                "properties", &properties,
+	    							"main_table", &main_table,
+	    							"extra_table", &extra_table,
+	                                NULL);
+	dlg->top_level = properties;
+	g_object_ref (properties);
+	g_signal_connect (properties, "destroy", G_CALLBACK (on_project_widget_destroy), dlg);
+
+	name = amp_target_get_name (target);
+	add_label (_("Name:"), name, main_table, 0);
+	type = anjuta_project_target_get_type (target);
+	add_label (_("Type:"), anjuta_project_target_type_name (type), main_table, 1);
+	
+	gtk_widget_show_all (properties);
+	g_object_unref (bxml);
+	
+	return properties;
 }
 
 GtkWidget *
