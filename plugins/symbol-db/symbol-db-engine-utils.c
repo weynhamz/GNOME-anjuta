@@ -250,8 +250,8 @@ symbol_db_util_get_pixbuf  (const gchar *node_type, const gchar *node_access)
 		sdb_util_load_symbol_pixbufs ();
 	}
 	
-	/*DEBUG_PRINT ("symbol_db_view_get_pixbuf: node_type %s node_access %s",
-				 node_type, node_access);*/
+	DEBUG_PRINT ("symbol_db_view_get_pixbuf: node_type %s node_access %s",
+				 node_type, node_access);
 	
 	g_return_val_if_fail (node_type != NULL, NULL);
 

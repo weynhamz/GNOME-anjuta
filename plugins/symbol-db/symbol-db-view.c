@@ -1447,6 +1447,13 @@ sdb_view_finalize (GObject *object)
 }
 
 static void
+sdb_view_dispose (GObject *object)
+{
+	/*DEBUG_PRINT ("sdb_view_dispose ");*/
+	G_OBJECT_CLASS (parent_class)->dispose (object);	
+}
+
+static void
 sdb_view_class_init (SymbolDBViewClass *klass)
 {
 	SymbolDBViewClass *sdbc;
@@ -1455,6 +1462,7 @@ sdb_view_class_init (SymbolDBViewClass *klass)
 
 	sdbc = SYMBOL_DB_VIEW_CLASS (klass);
 	object_class->finalize = sdb_view_finalize;
+	object_class->dispose = sdb_view_dispose;
 }
 
 GType

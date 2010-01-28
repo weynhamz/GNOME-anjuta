@@ -2615,8 +2615,11 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	}
 
 	/* destroy objects */
-	if (sdb_plugin->sdbe_project)
+	if (sdb_plugin->sdbe_project) 
+	{
+		DEBUG_PRINT ("Destroying project engine object. ");
 		g_object_unref (sdb_plugin->sdbe_project);
+	}
 	sdb_plugin->sdbe_project = NULL;
 
 	/* this must be done *before* destroying sdbe_globals */
@@ -2625,7 +2628,8 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	
 	g_free (sdb_plugin->current_scanned_package);
 	sdb_plugin->current_scanned_package = NULL;
-	
+
+	DEBUG_PRINT ("Destroying global engine object. ");
 	g_object_unref (sdb_plugin->sdbe_globals);
 	sdb_plugin->sdbe_globals = NULL;
 	
@@ -2672,8 +2676,6 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	anjuta_ui_unmerge (sdb_plugin->ui, sdb_plugin->merge_id);	
 	
 	/* Remove widgets: Widgets will be destroyed when dbv_main is removed */
-	g_object_unref (sdb_plugin->progress_bar_project);
-	g_object_unref (sdb_plugin->progress_bar_system);
 	anjuta_shell_remove_widget (plugin->shell, sdb_plugin->dbv_main, NULL);
 
 	sdb_plugin->root_watch_id = 0;
@@ -2696,7 +2698,7 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 static void
 symbol_db_finalize (GObject *obj)
 {
-	DEBUG_PRINT ("%s", "Symbol-DB finalize");
+	DEBUG_PRINT ("Symbol-DB finalize");
 	/* Finalization codes here */
 	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
@@ -2704,6 +2706,7 @@ symbol_db_finalize (GObject *obj)
 static void
 symbol_db_dispose (GObject *obj)
 {
+	DEBUG_PRINT ("Symbol-DB dispose");
 	/* Disposition codes */
 	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }

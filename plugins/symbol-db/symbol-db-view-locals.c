@@ -353,13 +353,20 @@ sdb_view_locals_finalize (GObject *object)
 	locals = SYMBOL_DB_VIEW_LOCALS (object);
 	priv = locals->priv;
 
-	/*DEBUG_PRINT ("%s", "finalizing symbol_db_view_locals ()");*/
+	DEBUG_PRINT ("%s", "finalizing symbol_db_view_locals ()");
 
 	symbol_db_view_locals_clear_cache (locals);
 	g_hash_table_destroy (priv->files_view_status);
 	g_free (priv);
 	
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (parent_class)->finalize (object);	
+}
+
+static void
+sdb_view_locals_dispose (GObject *object)
+{
+	/*DEBUG_PRINT ("sdb_view_locals_dispose ");*/
+	G_OBJECT_CLASS (parent_class)->dispose (object);
 }
 
 static void
@@ -369,6 +376,7 @@ sdb_view_locals_class_init (SymbolDBViewLocalsClass *klass)
 	parent_class = g_type_class_peek_parent (klass);
 
 	object_class->finalize = sdb_view_locals_finalize;
+	object_class->dispose = sdb_view_locals_dispose;
 }
 
 GType
