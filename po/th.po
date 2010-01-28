@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2010-01-17 17:02+0000\n"
-"PO-Revision-Date: 2010-01-20 17:48+0700\n"
+"POT-Creation-Date: 2010-01-27 11:01+0000\n"
+"PO-Revision-Date: 2010-01-28 15:40+0700\n"
 "Last-Translator: อาคม โชติพันธวานนท์ <knight2000@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -188,7 +188,8 @@ msgstr "ไทย"
 #: ../plugins/gbf-am/gbf-am-project.c:3372
 #: ../plugins/gbf-am/gbf-am-properties.c:129
 #: ../plugins/gbf-am/gbf-am-properties.c:176
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3093
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:191
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3267
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:104
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:151
 #: ../plugins/dir-project/dir-project.c:837
@@ -465,11 +466,34 @@ msgid "Shortcut"
 msgstr "ปุ่มลัด"
 
 #. Avoid space in translated string
-#: ../libanjuta/anjuta-utils.c:356
+#: ../libanjuta/anjuta-utils.c:359
 msgid "System:"
 msgstr "ระบบ:"
 
-#: ../libanjuta/anjuta-utils.c:494
+#: ../libanjuta/anjuta-utils.c:505
+msgid ""
+"You do not seem to have PackageKit installed. PackageKit is required for "
+"installing missing packages. Please install \"packagekit-gnome\" package "
+"from your distribution, or install the missing packages manually."
+msgstr ""
+"ดูเหมือนว่าคุณยังไม่ได้ติดตั้ง PackageKit ซึ่งจำเป็นสำหรับการติดตั้งแพกเกจที่ขาดไป "
+"กรุณาติดตั้งแพกเกจ \"packagekit-gnome \" จากชุดแจกจ่ายของคุณ หรือติดตั้งแพกเกจที่ขาดเอง"
+
+#: ../libanjuta/anjuta-utils.c:515
+#, c-format
+msgid "Installation failed: %s"
+msgstr "การติดตั้งล้มเหลว: %s"
+
+#: ../libanjuta/anjuta-utils.c:575
+#, c-format
+msgid ""
+"The \"%s\" package is not installed.\n"
+"Please install it."
+msgstr ""
+"แพกเกจ \"%s\" ยังไม่ได้ติดตั้ง\n"
+"กรุณาติดตั้งด้วย"
+
+#: ../libanjuta/anjuta-utils.c:593
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -479,17 +503,17 @@ msgstr ""
 "กรุณาติดตั้ง"
 
 #. Try xterm
-#: ../libanjuta/anjuta-utils.c:987
+#: ../libanjuta/anjuta-utils.c:1086
 msgid "Cannot find a terminal; using xterm, even if it may not work"
 msgstr "หาเทอร์มินัลไม่พบ จะใช้ xterm แม้ว่ามันอาจจะทำงานไม่สมบูรณ์"
 
-#: ../libanjuta/anjuta-utils.c:1023 ../libanjuta/anjuta-utils.c:1027
-#: ../libanjuta/anjuta-utils.c:1055 ../libanjuta/anjuta-utils.c:1059
+#: ../libanjuta/anjuta-utils.c:1122 ../libanjuta/anjuta-utils.c:1126
+#: ../libanjuta/anjuta-utils.c:1154 ../libanjuta/anjuta-utils.c:1158
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "ไม่สามารถเรียกคำสั่ง: %s (โดยใช้เชลล์ %s)\n"
 
-#: ../libanjuta/anjuta-utils.c:1691
+#: ../libanjuta/anjuta-utils.c:1790
 msgid ""
 "Unable to display help. Please make sure the Anjuta documentation package is "
 "installed. It can be downloaded from http://anjuta.org."
@@ -499,53 +523,53 @@ msgstr ""
 
 # msgid "Unable to build user interface for New File"
 # c-format
-#: ../libanjuta/anjuta-utils.c:2130
+#: ../libanjuta/anjuta-utils.c:2229
 #, c-format
 msgid "Unable to load user interface file: %s"
 msgstr "ไม่สามารถโหลดแฟ้มส่วนติดต่อผู้ใช้: %s"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:92
-#: ../plugins/file-manager/file-view.c:65
+#: ../plugins/file-manager/file-view.c:75
 msgid "Modified"
 msgstr "มีการเปลี่ยนแปลง"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:95
-#: ../plugins/file-manager/file-view.c:69
+#: ../plugins/file-manager/file-view.c:79
 msgid "Added"
 msgstr "เพิ่ม"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:98
-#: ../plugins/file-manager/file-view.c:67
+#: ../plugins/file-manager/file-view.c:77
 msgid "Deleted"
 msgstr "ลบ"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:101
-#: ../plugins/file-manager/file-view.c:71
+#: ../plugins/file-manager/file-view.c:81
 msgid "Conflicted"
 msgstr "ขัดแย้ง"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:105
-#: ../plugins/file-manager/file-view.c:73
+#: ../plugins/file-manager/file-view.c:83
 msgid "Up-to-date"
 msgstr "เป็นข้อมูลล่าสุด"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:109
-#: ../plugins/file-manager/file-view.c:75
+#: ../plugins/file-manager/file-view.c:85
 msgid "Locked"
 msgstr "ล็อค"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:112
-#: ../plugins/file-manager/file-view.c:77
+#: ../plugins/file-manager/file-view.c:87
 msgid "Missing"
 msgstr "สูญหาย"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:115
-#: ../plugins/file-manager/file-view.c:79
+#: ../plugins/file-manager/file-view.c:89
 msgid "Unversioned"
 msgstr "ไม่มีการติดตามรุ่น"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:119
-#: ../plugins/file-manager/file-view.c:81
+#: ../plugins/file-manager/file-view.c:91
 msgid "Ignored"
 msgstr "ละเลย"
 
@@ -565,8 +589,8 @@ msgstr "อ็อบเจกต์ Pixbuf"
 msgid "The pixbuf to render."
 msgstr "pixbuf ที่จะวาด"
 
-#: ../libanjuta/resources.c:63 ../plugins/glade/plugin.c:3042
-#: ../plugins/glade/plugin.c:3077
+#: ../libanjuta/resources.c:63 ../plugins/glade/plugin.c:3041
+#: ../plugins/glade/plugin.c:3076
 #, c-format
 msgid "Widget not found: %s"
 msgstr "ไม่พบวิดเจ็ต: %s"
@@ -670,41 +694,42 @@ msgstr "ปรับประสิทธิภาพ"
 msgid "No executables in this project!"
 msgstr "ไม่มีแฟ้มโปรแกรมในโครงการนี้!"
 
-#: ../plugins/build-basic-autotools/executer.c:154
+#: ../plugins/build-basic-autotools/executer.c:157
 #: ../plugins/gbf-am/gbf-am-project.c:196
 #: ../plugins/gbf-am/gbf-am-project.c:3362
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3087
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:194
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3261
 msgid "Program"
 msgstr "โปรแกรม"
 
-#: ../plugins/build-basic-autotools/executer.c:255
+#: ../plugins/build-basic-autotools/executer.c:258
 msgid "No file or project currently opened."
 msgstr "ไม่มีแฟ้มหรือโครงการเปิดอยู่"
 
 #. Only local program are supported
-#: ../plugins/build-basic-autotools/executer.c:295
+#: ../plugins/build-basic-autotools/executer.c:298
 #: ../plugins/run-program/execute.c:70
 #, c-format
 msgid "Program '%s' is not a local file"
 msgstr "โปรแกรม '%s' ไม่ใช่แฟ้มในเครื่อง"
 
-#: ../plugins/build-basic-autotools/executer.c:310
+#: ../plugins/build-basic-autotools/executer.c:313
 #: ../plugins/run-program/execute.c:76
 #, c-format
 msgid "Program '%s' does not exist"
 msgstr "โปรแกรม '%s' ไม่มีอยู่"
 
-#: ../plugins/build-basic-autotools/executer.c:318
+#: ../plugins/build-basic-autotools/executer.c:321
 #: ../plugins/run-program/execute.c:80
 #, c-format
 msgid "Program '%s' does not have execution permission"
 msgstr "โปรแกรม '%s' ไม่ได้กำหนดสิทธิ์ไว้ให้เรียกทำงานได้"
 
-#: ../plugins/build-basic-autotools/executer.c:350
+#: ../plugins/build-basic-autotools/executer.c:353
 msgid "No executable for this file."
 msgstr "ไม่มีแฟ้มโปรแกรมสำหรับแฟ้มนี้"
 
-#: ../plugins/build-basic-autotools/executer.c:356
+#: ../plugins/build-basic-autotools/executer.c:359
 #, c-format
 msgid "Executable '%s' is not up-to-date."
 msgstr "แฟ้มโปรแกรม '%s' ยังไม่ปรับตามข้อมูลล่าสุด"
@@ -1115,7 +1140,7 @@ msgid "No License"
 msgstr "ไม่มีสัญญาอนุญาต"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:26
-#: ../plugins/glade/plugin.c:4447
+#: ../plugins/glade/plugin.c:4445
 msgid "Properties"
 msgstr "คุณสมบัติ"
 
@@ -1153,7 +1178,7 @@ msgstr "แฟ้มที่จะเขียนเป็นผลลัพธ
 msgid "Failed to write autogen definition file"
 msgstr "เขียนแฟ้มข้อกำหนดของ autogen ไม่สำเร็จ"
 
-#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1048
+#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1127
 msgid ""
 "Could not find autogen version 5; please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net."
@@ -1161,7 +1186,7 @@ msgstr ""
 "หา autogen รุ่น 5 ไม่พบ กรุณาติดตั้งแพกเกจ autogen ซึ่งสามารถดาวน์โหลดได้ที่ http://"
 "autogen.sourceforge.net"
 
-#: ../plugins/class-gen/plugin.c:253 ../plugins/class-gen/plugin.c:426
+#: ../plugins/class-gen/plugin.c:242 ../plugins/class-gen/plugin.c:410
 #, c-format
 msgid "Failed to execute autogen: %s"
 msgstr "เรียก autogen ไม่สำเร็จ: %s"
@@ -1188,7 +1213,7 @@ msgstr "ชนิด"
 
 #: ../plugins/class-gen/window.c:502 ../plugins/class-gen/window.c:512
 #: ../plugins/class-gen/window.c:520 ../plugins/class-gen/window.c:534
-#: ../plugins/run-program/parameters.c:752
+#: ../plugins/run-program/parameters.c:754
 #: ../plugins/search/search_preferences.c:534
 msgid "Name"
 msgstr "ชื่อ"
@@ -1360,8 +1385,8 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "ไม่สนใจแฟ้ม .cvsrc (แนะนำ)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
-#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2359
-#: ../plugins/symbol-db/plugin.c:2422
+#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2320
+#: ../plugins/symbol-db/plugin.c:2390
 msgid "Local"
 msgstr "เฉพาะที่"
 
@@ -1380,7 +1405,7 @@ msgstr "ชื่อมอดูล:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:36
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:11
-#: ../plugins/git/anjuta-git.ui.h:65 ../plugins/glade/plugin.c:3098
+#: ../plugins/git/anjuta-git.ui.h:65 ../plugins/glade/plugin.c:3097
 #: ../plugins/search/anjuta-search.ui.h:25
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:11
 #: ../plugins/subversion/anjuta-subversion.ui.h:23
@@ -2023,7 +2048,7 @@ msgstr "ตัวแปร"
 #: ../plugins/debug-manager/debug_tree.c:126
 #: ../plugins/debug-manager/registers.c:469
 #: ../plugins/gbf-am/gbf-am-properties.c:984
-#: ../plugins/run-program/parameters.c:761 ../plugins/tools/editor.c:474
+#: ../plugins/run-program/parameters.c:763 ../plugins/tools/editor.c:474
 msgid "Value"
 msgstr "ค่า"
 
@@ -2032,7 +2057,7 @@ msgid "Disassembly"
 msgstr "ถอดแยกภาษาแอสเซมบลี"
 
 #: ../plugins/debug-manager/info.c:52 ../plugins/debug-manager/info.c:101
-#: ../plugins/project-wizard/druid.c:135
+#: ../plugins/project-wizard/druid.c:138
 msgid "Information"
 msgstr "ข้อมูล"
 
@@ -2398,7 +2423,7 @@ msgstr "แฟ้ม"
 
 #: ../plugins/debug-manager/stack_trace.c:642
 #: ../plugins/debug-manager/threads.c:460
-#: ../plugins/document-manager/plugin.c:941
+#: ../plugins/document-manager/plugin.c:943
 msgid "Line"
 msgstr "บรรทัด"
 
@@ -2431,31 +2456,31 @@ msgstr "เวลา"
 msgid "Command"
 msgstr "คำสั่ง"
 
-#: ../plugins/debug-manager/start.c:628
+#: ../plugins/debug-manager/start.c:630
 #, c-format
 msgid "Unable to execute: %s."
 msgstr "ไม่สามารถเรียกทำงาน: %s"
 
-#: ../plugins/debug-manager/start.c:642
+#: ../plugins/debug-manager/start.c:644
 #, c-format
 msgid "Unable to open the file: %s\n"
 msgstr "ไม่สามารถเปิดแฟ้ม: %s\n"
 
-#: ../plugins/debug-manager/start.c:966
+#: ../plugins/debug-manager/start.c:968
 #, c-format
 msgid "Unable to open %s. Debugger cannot start."
 msgstr "ไม่สามารถเปิด %s ไม่สามารถเริ่มโปรแกรมดีบั๊กได้"
 
-#: ../plugins/debug-manager/start.c:976
+#: ../plugins/debug-manager/start.c:978
 #, c-format
 msgid "Unable to detect MIME type of %s. Debugger cannot start."
 msgstr "ไม่สามารถตรวจหาชนิด MIME ของ %s ได้ ไม่สามารถเริ่มโปรแกรมดีบั๊ก"
 
-#: ../plugins/debug-manager/start.c:1337
+#: ../plugins/debug-manager/start.c:1339
 msgid "Path"
 msgstr "พาธ"
 
-#: ../plugins/debug-manager/start.c:1386 ../plugins/gdb/debugger.c:1738
+#: ../plugins/debug-manager/start.c:1388 ../plugins/gdb/debugger.c:1738
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -2576,8 +2601,8 @@ msgstr "เนื้อหา"
 #: ../plugins/search/search-replace.c:1717
 #: ../plugins/search/search-replace.c:1724
 #: ../plugins/search/search-replace.c:1736
-#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2361
-#: ../plugins/symbol-db/plugin.c:2472
+#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2324
+#: ../plugins/symbol-db/plugin.c:2440
 msgid "Search"
 msgstr "ค้นหา"
 
@@ -3003,7 +3028,7 @@ msgstr "ลบมุมมองปัจจุบันของเอกสา
 msgid "U_ndo"
 msgstr "เรี_ยกคืน"
 
-#: ../plugins/document-manager/plugin.c:286 ../plugins/glade/plugin.c:4090
+#: ../plugins/document-manager/plugin.c:286 ../plugins/glade/plugin.c:4088
 msgid "Undo the last action"
 msgstr "เรียกคืนปฏิบัติการล่าสุด"
 
@@ -3259,9 +3284,9 @@ msgid "Simple searching"
 msgstr "การค้นหาแบบง่าย"
 
 #: ../plugins/document-manager/plugin.c:417
-#: ../plugins/document-manager/plugin.c:1732
-#: ../plugins/document-manager/plugin.c:2149
-#: ../plugins/document-manager/plugin.c:2159
+#: ../plugins/document-manager/plugin.c:1734
+#: ../plugins/document-manager/plugin.c:2151
+#: ../plugins/document-manager/plugin.c:2161
 msgid "Documents"
 msgstr "เอกสาร"
 
@@ -3277,39 +3302,39 @@ msgstr "เรียกใหม่"
 msgid "Go to"
 msgstr "ไปยัง"
 
-#: ../plugins/document-manager/plugin.c:929
+#: ../plugins/document-manager/plugin.c:928
 msgid "OVR"
 msgstr "ทับ"
 
-#: ../plugins/document-manager/plugin.c:933
+#: ../plugins/document-manager/plugin.c:932
 msgid "INS"
 msgstr "แทรก"
 
-#: ../plugins/document-manager/plugin.c:937
-#: ../plugins/document-manager/plugin.c:939
+#: ../plugins/document-manager/plugin.c:938
+#: ../plugins/document-manager/plugin.c:941
 msgid "Zoom"
 msgstr "แสดงย่อ-ขยาย"
 
-#: ../plugins/document-manager/plugin.c:942
+#: ../plugins/document-manager/plugin.c:944
 msgid "Col"
 msgstr "คอลัมน์"
 
-#: ../plugins/document-manager/plugin.c:943
+#: ../plugins/document-manager/plugin.c:945
 msgid "Mode"
 msgstr "โหมด"
 
 #. Automatic highlight menu
-#: ../plugins/document-manager/plugin.c:1023
+#: ../plugins/document-manager/plugin.c:1025
 msgid "Automatic"
 msgstr "อัตโนมัติ"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1556
+#: ../plugins/document-manager/plugin.c:1558
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "บันทึก %s โดยอัตโนมัติไม่สำเร็จ"
 
-#: ../plugins/document-manager/plugin.c:1570
+#: ../plugins/document-manager/plugin.c:1572
 msgid "Autosave completed"
 msgstr "บันทึกอัตโนมัติเรียบร้อย"
 
@@ -3585,7 +3610,7 @@ msgid "Filter"
 msgstr "ตัวกรอง"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2360 ../plugins/symbol-db/plugin.c:2448
+#: ../plugins/symbol-db/plugin.c:2322 ../plugins/symbol-db/plugin.c:2416
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:6
 msgid "Global"
 msgstr "ส่วนกลาง"
@@ -3598,15 +3623,15 @@ msgstr "ไดเรกทอรีรากถ้าไม่มีโครง
 msgid "Loading..."
 msgstr "กำลังโหลด..."
 
-#: ../plugins/file-manager/file-view.c:530
+#: ../plugins/file-manager/file-view.c:567
 msgid "Filename"
 msgstr "ชื่อแฟ้ม"
 
-#: ../plugins/file-manager/file-view.c:610
+#: ../plugins/file-manager/file-view.c:654
 msgid "Base URI"
 msgstr "URI ตั้งต้น"
 
-#: ../plugins/file-manager/file-view.c:611
+#: ../plugins/file-manager/file-view.c:655
 msgid "URI of the top-most path displayed"
 msgstr "URI ของพาธระดับบนสุดที่แสดง"
 
@@ -3754,84 +3779,101 @@ msgstr "ตัวแปร"
 
 #: ../plugins/gbf-am/gbf-am-project.c:199
 #: ../plugins/gbf-am/gbf-am-project.c:3352
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3079
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:197
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3253
 msgid "Static Library"
 msgstr "ไลบรารีสแตติก"
 
 #: ../plugins/gbf-am/gbf-am-project.c:202
 #: ../plugins/gbf-am/gbf-am-project.c:3354
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3081
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:200
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3255
 msgid "Shared Library"
 msgstr "ไลบรารีใช้ร่วม"
 
 #: ../plugins/gbf-am/gbf-am-project.c:205
 #: ../plugins/gbf-am/gbf-am-project.c:3358
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3083
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:203
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3257
 msgid "Man Documentation"
 msgstr "เอกสารแบบ Man"
 
 #: ../plugins/gbf-am/gbf-am-project.c:208
 #: ../plugins/gbf-am/gbf-am-project.c:3360
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3085
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:206
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3259
 msgid "Miscellaneous Data"
 msgstr "ข้อมูลเบ็ดเตล็ด"
 
 #: ../plugins/gbf-am/gbf-am-project.c:211
 #: ../plugins/gbf-am/gbf-am-project.c:3364
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3089
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:209
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3263
 msgid "Script"
 msgstr "สคริปต์"
 
 #: ../plugins/gbf-am/gbf-am-project.c:214
 #: ../plugins/gbf-am/gbf-am-project.c:3366
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3091
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:212
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3265
 msgid "Info Documentation"
 msgstr "เอกสารแบบ Info"
 
 #: ../plugins/gbf-am/gbf-am-project.c:217
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:215
 msgid "Lisp Module"
 msgstr "มอดูล Lisp"
 
 #: ../plugins/gbf-am/gbf-am-project.c:220
 #: ../plugins/gbf-am/gbf-am-project.c:3356
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:218
 msgid "Header Files"
 msgstr "แฟ้มส่วนหัว"
 
 #: ../plugins/gbf-am/gbf-am-project.c:223
 #: ../plugins/gbf-am/gbf-am-project.c:3368
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:221
 msgid "Java Module"
 msgstr "มอดูลจาวา"
 
 #: ../plugins/gbf-am/gbf-am-project.c:226
 #: ../plugins/gbf-am/gbf-am-project.c:3370
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:224
 msgid "Python Module"
 msgstr "มอดูลไพธอน"
 
 #: ../plugins/gbf-am/gbf-am-project.c:229
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:227
 msgid "Generic rule"
 msgstr "กฎทั่วไป"
 
 #: ../plugins/gbf-am/gbf-am-project.c:232
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:230
 msgid "Extra target"
 msgstr "เป้าหมายเพิ่มเติม"
 
 #: ../plugins/gbf-am/gbf-am-project.c:235
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:233
 msgid "Configure file"
 msgstr "แฟ้มสคริปต์ตั้งค่า"
 
 #: ../plugins/gbf-am/gbf-am-project.c:238
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:236
 msgid "Interface file"
 msgstr "แฟ้มส่วนติตต่อผู้ใช้"
 
 #: ../plugins/gbf-am/gbf-am-project.c:241
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:239
 msgid "GLib mkenums"
 msgstr "mkenums ของ GLib"
 
 #: ../plugins/gbf-am/gbf-am-project.c:244
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:242
 msgid "GLib genmarshal"
 msgstr "genmarshal ของ GLib"
 
 #: ../plugins/gbf-am/gbf-am-project.c:247
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:245
 msgid "Intl rule"
 msgstr "กฎ Intl"
 
@@ -3840,11 +3882,11 @@ msgstr "กฎ Intl"
 #: ../plugins/gbf-am/gbf-am-project.c:2846
 #: ../plugins/gbf-am/gbf-am-project.c:3055
 #: ../plugins/gbf-am/gbf-am-project.c:3205
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2332
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2410
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2638
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2824
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2972
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2506
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2584
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2812
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2998
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3146
 msgid "Group doesn't exist"
 msgstr "ไม่มีกลุ่มนี้"
 
@@ -3853,11 +3895,11 @@ msgstr "ไม่มีกลุ่มนี้"
 #: ../plugins/gbf-am/gbf-am-project.c:3098
 #: ../plugins/gbf-am/gbf-am-project.c:3320
 #: ../plugins/gbf-am/gbf-am-project.c:3541
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2352
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2455
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2867
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3047
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3233
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2526
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2629
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3041
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3221
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3407
 msgid "Target doesn't exist"
 msgstr "ไม่มีเป้าหมายนี้"
 
@@ -3870,25 +3912,25 @@ msgstr "ไม่มีเป้าหมายนี้"
 #: ../plugins/gbf-am/gbf-am-project.c:3341
 #: ../plugins/gbf-am/gbf-am-project.c:3649
 #: ../plugins/gbf-am/gbf-am-project.c:3710
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2386
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2430
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2473
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2785
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2845
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3008
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3068
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3300
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3361
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2560
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2604
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2647
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2959
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3019
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3182
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3242
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3474
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3535
 msgid "Unable to update project"
 msgstr "ไม่สามารถปรับข้อมูลโครงการ"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2743
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2518
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2692
 msgid "Invalid or remote path (only local paths supported)"
 msgstr "พาธไม่ถูกต้องหรือเป็นพาธในเครือข่าย (รองรับพาธในเครื่องเท่านั้น)"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2751
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2539
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2713
 #: ../plugins/dir-project/dir-project.c:728
 #: ../plugins/dir-project/dir-project.c:800
 #, c-format
@@ -3896,7 +3938,7 @@ msgid "Project doesn't exist or invalid path"
 msgstr "โครงการไม่มีอยู่หรือพาธไม่ถูกต้อง"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2762
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2553
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2727
 msgid "Malformed project"
 msgstr "โครงการผิดรูปแบบ"
 
@@ -3909,19 +3951,19 @@ msgid "Group name can only contain alphanumeric, '_', '-' or '.' characters"
 msgstr "ชื่อกลุ่มสามารถใช้ตัวอักษร, ตัวเลข, '_', '-' หรือ '.' ได้เท่านั้น"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2982
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2751
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2925
 msgid "Parent group doesn't exist"
 msgstr "กลุ่มแม่ไม่มีอยู่"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2993
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2762
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2936
 msgid "Group already exists"
 msgstr "กลุ่มมีอยู่ก่อนแล้ว"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3003
 #: ../plugins/gbf-am/gbf-am-project.c:3030
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2772
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2799
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2946
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2973
 msgid "Group couldn't be created"
 msgstr "ไม่สามารถสร้างกลุ่มได้"
 
@@ -3946,7 +3988,7 @@ msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr "เป้าหมายที่เป็นไลบรารีสแตติกจะต้องมีชื่อในรูป 'libxxx.a'"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3257
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2985
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3159
 msgid "Target already exists"
 msgstr "เป้าหมายมีอยู่ก่อนแล้ว"
 
@@ -3964,8 +4006,8 @@ msgstr "ไม่สามารถลบเป้าหมายได้"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3428
 #: ../plugins/gbf-am/gbf-am-project.c:3687
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3143
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3338
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3317
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3512
 msgid "Source doesn't exist"
 msgstr "ซอร์สไม่มีอยู่"
 
@@ -3987,14 +4029,14 @@ msgid "Newly added source file could not be identified"
 msgstr "แฟ้มซอร์สที่เพิ่มใหม่ไม่สามารถระบุชื่อได้"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3695
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3346
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3520
 msgid "Source couldn't be removed"
 msgstr "ไม่สามารถลบซอร์สได้"
 
 #: ../plugins/gbf-am/gbf-am-project.c:4111
 #: ../plugins/gbf-am/gbf-am-project.c:4112
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3450
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3451
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3830
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3831
 msgid "Project directory"
 msgstr "ไดเรกทอรีโครงการ"
 
@@ -4160,33 +4202,33 @@ msgstr "ระดับสูง…"
 msgid "Invalid GbfMkfileConfigValue type"
 msgstr "ชนิดของ GbfMkfileConfigValue ไม่ถูกต้อง"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2525
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2699
 msgid "Project doesn't exist"
 msgstr "โครงการไม่มีอยู่"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2832
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3006
 msgid "Group coudn't be removed"
 msgstr "ไม่สามารถลบกลุ่มได้"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2995
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3022
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3169
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3196
 msgid "Target couldn't be created"
 msgstr "ไม่สามารถสร้างเป้าหมายได้"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3055
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3229
 msgid "Target coudn't be removed"
 msgstr "ไม่สามารถลบเป้าหมายได้"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3253
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3427
 msgid "Source file must be inside the project directory"
 msgstr "แฟ้มซอร์สต้องอยู่ภายในไดเรกทอรีโครงการ"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3265
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3439
 msgid "Source is already in target"
 msgstr "ซอร์สมีอยู่แล้วในเป้าหมาย"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3282
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3314
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3456
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3488
 msgid "Source couldn't be added"
 msgstr "ไม่สามารถเพิ่มซอร์สได้"
 
@@ -5719,12 +5761,12 @@ msgstr "เชื่อมโยง"
 msgid "Automatically add resources"
 msgstr "เพิ่มทรัพยากรโดยอัตโนมัติ"
 
-#: ../plugins/glade/anjuta-glade.glade.h:7 ../plugins/glade/plugin.c:764
-#: ../plugins/glade/plugin.c:3095
+#: ../plugins/glade/anjuta-glade.glade.h:7 ../plugins/glade/plugin.c:762
+#: ../plugins/glade/plugin.c:3094
 msgid "Designer"
 msgstr "เครื่องมือออกแบบ"
 
-#: ../plugins/glade/anjuta-glade.glade.h:8 ../plugins/glade/plugin.c:3097
+#: ../plugins/glade/anjuta-glade.glade.h:8 ../plugins/glade/plugin.c:3096
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:3
 msgid "Editor"
 msgstr "เครื่องมือแก้ไข"
@@ -5795,213 +5837,213 @@ msgid "Failed to save associations"
 msgstr "บันทึกการเชื่อมโยงไม่สำเร็จ"
 
 #. iptCurrent:
-#: ../plugins/glade/plugin.c:1197
+#: ../plugins/glade/plugin.c:1196
 msgid "Current"
 msgstr "ปัจจุบัน"
 
 #. iptBeforeEnd:
-#: ../plugins/glade/plugin.c:1198
+#: ../plugins/glade/plugin.c:1197
 msgid "Before end"
 msgstr "ก่อนท้ายสุด"
 
 #. iptAfterBegin:
-#: ../plugins/glade/plugin.c:1199
+#: ../plugins/glade/plugin.c:1198
 msgid "After begin"
 msgstr "หลังจุดเริ่มต้น"
 
 #. ipEOF:
-#: ../plugins/glade/plugin.c:1200
+#: ../plugins/glade/plugin.c:1199
 msgid "End of file"
 msgstr "ท้ายแฟ้ม"
 
-#: ../plugins/glade/plugin.c:1369
+#: ../plugins/glade/plugin.c:1368
 #, c-format
 msgid "Couldn't introspect the signal"
 msgstr "ไม่สามารถเฝ้าสังเกตสัญญาณได้"
 
-#: ../plugins/glade/plugin.c:1391
+#: ../plugins/glade/plugin.c:1390
 #, c-format
 msgid "Python language isn't supported yet"
 msgstr "ยังไม่รองรับภาษาไพธอน"
 
-#: ../plugins/glade/plugin.c:1404
+#: ../plugins/glade/plugin.c:1403
 #, c-format
 msgid "Vala language isn't supported yet"
 msgstr "ยังไม่รองรับภาษา Vala"
 
-#: ../plugins/glade/plugin.c:1963
+#: ../plugins/glade/plugin.c:1962
 #, c-format
 msgid "There is no associated editor for the designer"
 msgstr "ไม่มีเครื่องมือแก้ไขที่เชื่อมโยงกับเครื่องมือออกแบบนี้"
 
-#: ../plugins/glade/plugin.c:1981
+#: ../plugins/glade/plugin.c:1980
 #, c-format
 msgid "Unknown editor language \"%s\""
 msgstr "ไม่ทราบภาษาของเครื่องมือแก้ไข \"%s\""
 
-#: ../plugins/glade/plugin.c:2048 ../plugins/glade/plugin.c:2125
-#: ../plugins/glade/plugin.c:2250
+#: ../plugins/glade/plugin.c:2047 ../plugins/glade/plugin.c:2124
+#: ../plugins/glade/plugin.c:2249
 #, c-format
 msgid "Error while adding a new handler stub: %s"
 msgstr "เกิดข้อผิดพลาดขณะเพิ่มเค้าโครง handler ใหม่: %s"
 
-#: ../plugins/glade/plugin.c:2055 ../plugins/glade/plugin.c:2139
+#: ../plugins/glade/plugin.c:2054 ../plugins/glade/plugin.c:2138
 msgid "Couldn't find signal information"
 msgstr "หาข้อมูลของสัญญาณไม่พบ"
 
-#: ../plugins/glade/plugin.c:2082
+#: ../plugins/glade/plugin.c:2081
 msgid "Error while adding a new handler stub: No current editor"
 msgstr "เกิดข้อผิดพลาดขณะเพิ่มเค้าโครง handler ใหม่: ไม่มีเครื่องมือแก้ไขปัจจุบัน"
 
-#: ../plugins/glade/plugin.c:2255
+#: ../plugins/glade/plugin.c:2254
 #, c-format
 msgid ""
 "To avoid this message turn off \"%s\" flag in Preferences->Glade GUI Designer"
 msgstr "การหลีกเลี่ยงข้อความนี้ ทำได้โดยปิด \"%s\" ใน ปรับแต่ง->เครื่องมือออกแบบ GUI Glade"
 
-#: ../plugins/glade/plugin.c:2325
+#: ../plugins/glade/plugin.c:2324
 msgid "Couldn't find an associated document"
 msgstr "หาเอกสารที่เชื่อมโยงไม่พบ"
 
-#: ../plugins/glade/plugin.c:2391
+#: ../plugins/glade/plugin.c:2390
 msgid "Those documents are already associated"
 msgstr "เอกสารเหล่านั้นได้เชื่อมโยงกันแล้ว"
 
-#: ../plugins/glade/plugin.c:2429
+#: ../plugins/glade/plugin.c:2428
 #, c-format
 msgid "Unable to read file: %s."
 msgstr "ไม่สามารถอ่านแฟ้ม: %s"
 
-#: ../plugins/glade/plugin.c:3096
+#: ../plugins/glade/plugin.c:3095
 msgid "Top level widget"
 msgstr "วิดเจ็ตระดับบนสุด"
 
-#: ../plugins/glade/plugin.c:3687
+#: ../plugins/glade/plugin.c:3686
 msgid "Couldn't find a default signal name"
 msgstr "หาชื่อสัญญาณปริยายไม่พบ"
 
-#: ../plugins/glade/plugin.c:3897
+#: ../plugins/glade/plugin.c:3895
 #, c-format
 msgid "Project %s has no deprecated widgets or version mismatches."
 msgstr "โครงการ %s ไม่มีวิดเจ็ตที่ไม่แนะนำให้ใช้ และไม่มีปัญหารุ่นไม่ตรงกัน"
 
-#: ../plugins/glade/plugin.c:3914
+#: ../plugins/glade/plugin.c:3912
 msgid "There is no Glade project"
 msgstr "ไม่มีโครงการ Glade"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/glade/plugin.c:4000
+#: ../plugins/glade/plugin.c:3998
 msgid "_Glade"
 msgstr "_Glade"
 
-#: ../plugins/glade/plugin.c:4008 ../plugins/glade/plugin.c:4010
+#: ../plugins/glade/plugin.c:4006 ../plugins/glade/plugin.c:4008
 msgid "Switch between designer/code"
 msgstr "สลับระหว่างเครื่องมือออกแบบ/โค้ด"
 
-#: ../plugins/glade/plugin.c:4016 ../plugins/glade/plugin.c:4018
+#: ../plugins/glade/plugin.c:4014 ../plugins/glade/plugin.c:4016
 msgid "Insert handler stub"
 msgstr "แทรกเค้าโครง handler"
 
-#: ../plugins/glade/plugin.c:4024 ../plugins/glade/plugin.c:4026
+#: ../plugins/glade/plugin.c:4022 ../plugins/glade/plugin.c:4024
 msgid "Insert handler stub, autoposition"
 msgstr "แทรกเค้าโครง handler, จัดตำแหน่งอัตโนมัติ"
 
-#: ../plugins/glade/plugin.c:4032
+#: ../plugins/glade/plugin.c:4030
 msgid "Associate last designer and last editor"
 msgstr "เชื่อมโยงแฟ้มล่าสุดในเครื่องมือออกและเครื่องมือแก้ไขเข้าด้วยกัน"
 
-#: ../plugins/glade/plugin.c:4034
+#: ../plugins/glade/plugin.c:4032
 msgid "Associate last designer and editor"
 msgstr "เชื่อมโยงแฟ้มล่าสุดในเครื่องมือออกและเครื่องมือแก้ไขเข้าด้วยกัน"
 
-#: ../plugins/glade/plugin.c:4040 ../plugins/glade/plugin.c:4042
+#: ../plugins/glade/plugin.c:4038 ../plugins/glade/plugin.c:4040
 msgid "Associations dialog…"
 msgstr "กล่องโต้ตอบการเชื่อมโยง…"
 
-#: ../plugins/glade/plugin.c:4048
+#: ../plugins/glade/plugin.c:4046
 msgid "Versioning…"
 msgstr "การจัดการรุ่น…"
 
-#: ../plugins/glade/plugin.c:4050
+#: ../plugins/glade/plugin.c:4048
 msgid "Switch between library versions and check deprecations"
 msgstr "สลับระหว่างรุ่นต่างๆ ของไลบรารี และตรวจสอบการใช้ฟังก์ชันที่ไม่แนะนำให้ใช้"
 
-#: ../plugins/glade/plugin.c:4056 ../plugins/glade/plugin.c:4058
+#: ../plugins/glade/plugin.c:4054 ../plugins/glade/plugin.c:4056
 msgid "Set as default resource target"
 msgstr "กำหนดเป็นเป้าหมายทรัพยากรปริยาย"
 
-#: ../plugins/glade/plugin.c:4066
+#: ../plugins/glade/plugin.c:4064
 msgid "Current default target"
 msgstr "เป้าหมายปริยายปัจจุบัน"
 
-#: ../plugins/glade/plugin.c:4074
+#: ../plugins/glade/plugin.c:4072
 msgid "Close the current file"
 msgstr "ปิดแฟ้มปัจจุบัน"
 
-#: ../plugins/glade/plugin.c:4082
+#: ../plugins/glade/plugin.c:4080
 msgid "Save the current file"
 msgstr "บันทึกแฟ้มปัจจุบัน"
 
-#: ../plugins/glade/plugin.c:4098
+#: ../plugins/glade/plugin.c:4096
 msgid "Redo the last action"
 msgstr "ทำซ้ำปฏิบัติการล่าสุด"
 
-#: ../plugins/glade/plugin.c:4106
+#: ../plugins/glade/plugin.c:4104
 msgid "Cut the selection"
 msgstr "ตัดสิ่งที่เลือก"
 
-#: ../plugins/glade/plugin.c:4114
+#: ../plugins/glade/plugin.c:4112
 msgid "Copy the selection"
 msgstr "คัดลอกสิ่งที่เลือก"
 
-#: ../plugins/glade/plugin.c:4122
+#: ../plugins/glade/plugin.c:4120
 msgid "Paste the clipboard"
 msgstr "แปะเนื้อหาจากคลิปบอร์ด"
 
-#: ../plugins/glade/plugin.c:4130
+#: ../plugins/glade/plugin.c:4128
 msgid "Delete the selection"
 msgstr "ลบสิ่งที่เลือก"
 
-#: ../plugins/glade/plugin.c:4308
+#: ../plugins/glade/plugin.c:4306
 msgid "Glade designer operations"
 msgstr "การกระทำเกี่ยวกับเครื่องมือออกแบบ Glade"
 
-#: ../plugins/glade/plugin.c:4408
+#: ../plugins/glade/plugin.c:4406
 msgid "Go back in undo history"
 msgstr "ย้อนกลับในประวัติการเรียกคืน"
 
-#: ../plugins/glade/plugin.c:4410
+#: ../plugins/glade/plugin.c:4408
 msgid "Go forward in undo history"
 msgstr "ไปข้างหน้าในประวัติการเรียกคืน"
 
-#: ../plugins/glade/plugin.c:4432
+#: ../plugins/glade/plugin.c:4430
 msgid "Glade Clipboard"
 msgstr "คลิปบอร์ด Glade"
 
-#: ../plugins/glade/plugin.c:4437
+#: ../plugins/glade/plugin.c:4435
 msgid "Widgets"
 msgstr "วิดเจ็ต"
 
-#: ../plugins/glade/plugin.c:4442
+#: ../plugins/glade/plugin.c:4440
 msgid "Palette"
 msgstr "กล่องเครื่องมือ"
 
-#: ../plugins/glade/plugin.c:4696
+#: ../plugins/glade/plugin.c:4694
 #, c-format
 msgid "Not local file: %s"
 msgstr "ไม่ใช่แฟ้มในเครื่อง: %s"
 
-#: ../plugins/glade/plugin.c:4717
+#: ../plugins/glade/plugin.c:4715
 #, c-format
 msgid "Could not open %s"
 msgstr "เปิด %s ไม่ได้"
 
-#: ../plugins/glade/plugin.c:4768
+#: ../plugins/glade/plugin.c:4766
 msgid "Could not create a new glade project."
 msgstr "สร้างโครงการ glade โครงการใหม่ไม่ได้"
 
-#: ../plugins/glade/plugin.c:5030 ../plugins/glade/plugin.c:5055
+#: ../plugins/glade/plugin.c:5037 ../plugins/glade/plugin.c:5062
 msgid "Glade GUI Designer"
 msgstr "เครื่องมือออกแบบ GUI Glade"
 
@@ -6856,9 +6898,9 @@ msgid "_Select file to add…"
 msgstr "เ_ลือกแฟ้มที่จะเพิ่ม…"
 
 #: ../plugins/project-manager/gbf-project-model.c:250
-#: ../plugins/project-manager/plugin.c:1420
-#: ../plugins/project-manager/plugin.c:1503
-#: ../plugins/project-manager/plugin.c:1679
+#: ../plugins/project-manager/plugin.c:1430
+#: ../plugins/project-manager/plugin.c:1513
+#: ../plugins/project-manager/plugin.c:1689
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 msgid "Project"
 msgstr "โครงการ"
@@ -6919,7 +6961,7 @@ msgid "No properties available for this target"
 msgstr "ไม่มีข้อมูลคุณสมบัติสำหรับเป้าหมายนี้"
 
 #: ../plugins/project-manager/plugin.c:492
-#: ../plugins/project-manager/plugin.c:900
+#: ../plugins/project-manager/plugin.c:907
 msgid "Project properties"
 msgstr "คุณสมบัติโครงการ"
 
@@ -6932,7 +6974,7 @@ msgstr "เรียกข้อมูลของ tree สัญลักษณ
 msgid "Failed to refresh project: %s"
 msgstr "ปรับข้อมูลโครงการไม่สำเร็จ: %s"
 
-#: ../plugins/project-manager/plugin.c:688
+#: ../plugins/project-manager/plugin.c:696
 msgid ""
 "Are you sure you want to remove the following group from the project?\n"
 "\n"
@@ -6940,7 +6982,7 @@ msgstr ""
 "ยืนยันว่าต้องการลบกลุ่มต่อไปนี้ออกจากโครงการหรือไม่?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:691
+#: ../plugins/project-manager/plugin.c:699
 msgid ""
 "Are you sure you want to remove the following target from the project?\n"
 "\n"
@@ -6948,7 +6990,7 @@ msgstr ""
 "ยืนยันว่าต้องการลบเป้าหมายต่อไปนี้ออกจากโครงการหรือไม่?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:694
+#: ../plugins/project-manager/plugin.c:702
 msgid ""
 "Are you sure you want to remove the following source file from the project?\n"
 "\n"
@@ -6956,7 +6998,7 @@ msgstr ""
 "ยืนยันว่าต้องการลบแฟ้มซอร์สต่อไปนี้ออกจากโครงการหรือไม่?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:697
+#: ../plugins/project-manager/plugin.c:705
 msgid ""
 "Are you sure you want to remove the following elements from the project?\n"
 "\n"
@@ -6964,39 +7006,39 @@ msgstr ""
 "ยืนยันว่าต้องการลบองค์ประกอบต่อไปนี้ออกจากโครงการหรือไม่?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:714
+#: ../plugins/project-manager/plugin.c:722
 #, c-format
 msgid "Group: %s\n"
 msgstr "กลุ่ม: %s\n"
 
-#: ../plugins/project-manager/plugin.c:717
+#: ../plugins/project-manager/plugin.c:725
 #, c-format
 msgid "Target: %s\n"
 msgstr "เป้าหมาย: %s\n"
 
-#: ../plugins/project-manager/plugin.c:720
+#: ../plugins/project-manager/plugin.c:728
 #, c-format
 msgid "Source: %s\n"
 msgstr "ซอร์ส: %s\n"
 
-#: ../plugins/project-manager/plugin.c:723
+#: ../plugins/project-manager/plugin.c:731
 #, c-format
 msgid "Shortcut: %s\n"
 msgstr "จุดลัด: %s\n"
 
-#: ../plugins/project-manager/plugin.c:735
+#: ../plugins/project-manager/plugin.c:743
 msgid "The group will not be deleted from the file system."
 msgstr "กลุ่มนี้จะไม่ถูกลบออกจากระบบแฟ้ม"
 
-#: ../plugins/project-manager/plugin.c:737
+#: ../plugins/project-manager/plugin.c:745
 msgid "The source file will not be deleted from the file system."
 msgstr "แฟ้มซอร์สจะไม่ถูกลบออกจากระบบแฟ้ม"
 
-#: ../plugins/project-manager/plugin.c:742
+#: ../plugins/project-manager/plugin.c:750
 msgid "Confirm remove"
 msgstr "ยืนยันการลบ"
 
-#: ../plugins/project-manager/plugin.c:787
+#: ../plugins/project-manager/plugin.c:795
 #, c-format
 msgid ""
 "Failed to remove '%s':\n"
@@ -7005,126 +7047,126 @@ msgstr ""
 "ไม่สามารถลบ '%s':\n"
 "%s"
 
-#: ../plugins/project-manager/plugin.c:858
+#: ../plugins/project-manager/plugin.c:865
 #, c-format
 msgid "Failed to retrieve URI info of %s: %s"
 msgstr "ไม่สามารถดึงข้อมูล URI ของ %s: %s"
 
-#: ../plugins/project-manager/plugin.c:896
+#: ../plugins/project-manager/plugin.c:903
 msgid "_Project"
 msgstr "โ_ครงการ"
 
-#: ../plugins/project-manager/plugin.c:900
-#: ../plugins/project-manager/plugin.c:934
+#: ../plugins/project-manager/plugin.c:907
+#: ../plugins/project-manager/plugin.c:941
 msgid "_Properties"
 msgstr "คุณ_สมบัติ"
 
-#: ../plugins/project-manager/plugin.c:905
+#: ../plugins/project-manager/plugin.c:912
 msgid "_Refresh"
 msgstr "ปรับแ_สดง"
 
-#: ../plugins/project-manager/plugin.c:905
+#: ../plugins/project-manager/plugin.c:912
 msgid "Refresh project manager tree"
 msgstr "เรียกข้อมูลใหม่ของแผนภาพต้นไม้ของเครื่องมือจัดการโครงการ"
 
-#: ../plugins/project-manager/plugin.c:910
+#: ../plugins/project-manager/plugin.c:917
 msgid "Add _Group…"
 msgstr "เพิ่ม_กลุ่ม…"
 
-#: ../plugins/project-manager/plugin.c:910
-#: ../plugins/project-manager/plugin.c:944
+#: ../plugins/project-manager/plugin.c:917
+#: ../plugins/project-manager/plugin.c:951
 msgid "Add a group to project"
 msgstr "เพิ่มกลุ่มเข้าในโครงการ"
 
-#: ../plugins/project-manager/plugin.c:915
+#: ../plugins/project-manager/plugin.c:922
 msgid "Add _Target…"
 msgstr "เพิ่มเ_ป้าหมาย…"
 
-#: ../plugins/project-manager/plugin.c:915
-#: ../plugins/project-manager/plugin.c:949
+#: ../plugins/project-manager/plugin.c:922
+#: ../plugins/project-manager/plugin.c:956
 msgid "Add a target to project"
 msgstr "เพิ่มเป้าหมายเข้าในโครงการ"
 
-#: ../plugins/project-manager/plugin.c:920
+#: ../plugins/project-manager/plugin.c:927
 msgid "Add _Source File…"
 msgstr "เพิ่มแฟ้มซอร์_ส…"
 
-#: ../plugins/project-manager/plugin.c:920
-#: ../plugins/project-manager/plugin.c:939
-#: ../plugins/project-manager/plugin.c:954
+#: ../plugins/project-manager/plugin.c:927
+#: ../plugins/project-manager/plugin.c:946
+#: ../plugins/project-manager/plugin.c:961
 msgid "Add a source file to project"
 msgstr "เพิ่มแฟ้มซอร์สเข้าในโครงการ"
 
-#: ../plugins/project-manager/plugin.c:925
+#: ../plugins/project-manager/plugin.c:932
 msgid "Close Pro_ject"
 msgstr "ปิดโ_ครงการ"
 
-#: ../plugins/project-manager/plugin.c:925
+#: ../plugins/project-manager/plugin.c:932
 msgid "Close project"
 msgstr "ปิดโครงการ"
 
-#: ../plugins/project-manager/plugin.c:934
+#: ../plugins/project-manager/plugin.c:941
 msgid "Properties of group/target/source"
 msgstr "คุณสมบัติของกลุ่ม/เป้าหมาย/ซอร์ส"
 
-#: ../plugins/project-manager/plugin.c:939
+#: ../plugins/project-manager/plugin.c:946
 msgid "_Add to Project"
 msgstr "เ_พิ่มเข้าในโครงการ"
 
-#: ../plugins/project-manager/plugin.c:944
+#: ../plugins/project-manager/plugin.c:951
 msgid "Add _Group"
 msgstr "เพิ่ม_กลุ่ม"
 
-#: ../plugins/project-manager/plugin.c:949
+#: ../plugins/project-manager/plugin.c:956
 msgid "Add _Target"
 msgstr "เพิ่มเ_ป้าหมาย"
 
-#: ../plugins/project-manager/plugin.c:954
+#: ../plugins/project-manager/plugin.c:961
 msgid "Add _Source File"
 msgstr "เพิ่มแฟ้มซอร์_ส"
 
-#: ../plugins/project-manager/plugin.c:959
+#: ../plugins/project-manager/plugin.c:966
 msgid "Re_move"
 msgstr "เ_อาออก"
 
-#: ../plugins/project-manager/plugin.c:959
+#: ../plugins/project-manager/plugin.c:966
 msgid "Remove from project"
 msgstr "ลบออกจากโครงการ"
 
-#: ../plugins/project-manager/plugin.c:1377
+#: ../plugins/project-manager/plugin.c:1387
 #, c-format
 msgid "Loading project: %s"
 msgstr "กำลังโหลดโครงการ: %s"
 
-#: ../plugins/project-manager/plugin.c:1385
+#: ../plugins/project-manager/plugin.c:1395
 msgid "Created project view…"
 msgstr "สร้างมุมมองของโครงการแล้ว…"
 
-#: ../plugins/project-manager/plugin.c:1398
+#: ../plugins/project-manager/plugin.c:1408
 #, c-format
 msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
 "view) %s: %s\n"
 msgstr "แจงโครงการไม่สำเร็จ (โครงการถูกเปิดอยู่ แต่จะไม่แสดงโครงการ) %s: %s\n"
 
-#: ../plugins/project-manager/plugin.c:1591
+#: ../plugins/project-manager/plugin.c:1601
 #, c-format
 msgid "Error closing project: %s"
 msgstr "เกิดข้อผิดพลาดขณะปิดโครงการ: %s"
 
-#: ../plugins/project-manager/plugin.c:1658
+#: ../plugins/project-manager/plugin.c:1668
 msgid "Project manager actions"
 msgstr "การกระทำของเครื่องมือจัดการโครงการ"
 
-#: ../plugins/project-manager/plugin.c:1666
+#: ../plugins/project-manager/plugin.c:1676
 msgid "Project manager popup actions"
 msgstr "การกระทำในเมนูผุดขึ้นของเครื่องมือจัดการโครงการ"
 
-#: ../plugins/project-manager/plugin.c:2632
+#: ../plugins/project-manager/plugin.c:2572
 msgid "Initializing Project…"
 msgstr "กำลังตั้งค่าเริ่มต้นโครงการ…"
 
-#: ../plugins/project-manager/plugin.c:2635
+#: ../plugins/project-manager/plugin.c:2575
 msgid "Project Loaded"
 msgstr "โหลดโครงการแล้ว"
 
@@ -7133,19 +7175,19 @@ msgid "Details"
 msgstr "รายละเอียด"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.ui.h:2
-#: ../plugins/project-wizard/druid.c:147
+#: ../plugins/project-wizard/druid.c:150
 msgid "Error"
 msgstr "ข้อผิดพลาด"
 
-#: ../plugins/project-wizard/druid.c:139 ../plugins/project-wizard/druid.c:143
+#: ../plugins/project-wizard/druid.c:142 ../plugins/project-wizard/druid.c:146
 msgid "Warning"
 msgstr "คำเตือน"
 
-#: ../plugins/project-wizard/druid.c:150
+#: ../plugins/project-wizard/druid.c:153
 msgid "Message"
 msgstr "ข้อความ"
 
-#: ../plugins/project-wizard/druid.c:216
+#: ../plugins/project-wizard/druid.c:232
 msgid ""
 "<b>Confirm the following information:</b>\n"
 "\n"
@@ -7155,17 +7197,17 @@ msgstr ""
 
 #. The project type is translated too, it is something like
 #. * generic, GNOME applet, Makefile project...
-#: ../plugins/project-wizard/druid.c:220
+#: ../plugins/project-wizard/druid.c:236
 #, c-format
 msgid "Project Type: %s\n"
 msgstr "ชนิดโครงการ: %s\n"
 
-#: ../plugins/project-wizard/druid.c:377
+#: ../plugins/project-wizard/druid.c:393
 #, c-format
 msgid "Unable to find any project template in %s"
 msgstr "ไม่พบแม่แบบโครงการใดใน %s"
 
-#: ../plugins/project-wizard/druid.c:578
+#: ../plugins/project-wizard/druid.c:594
 #, c-format
 msgid ""
 "\n"
@@ -7174,7 +7216,7 @@ msgstr ""
 "\n"
 "ข้อมูล \"%s\" เป็นข้อมูลจำเป็น กรุณากรอกข้อมูลด้วย"
 
-#: ../plugins/project-wizard/druid.c:593
+#: ../plugins/project-wizard/druid.c:609
 #, c-format
 msgid ""
 "Field \"%s\" must start with a letter, a digit or an underscore and contain "
@@ -7183,7 +7225,7 @@ msgstr ""
 "เขตข้อมูล \"%s\" ต้องขึ้นต้นด้วยตัวอักษร ตัวเลข หรือขีดล่าง และใช้ตัวอักษร ตัวเลข ขีดล่าง "
 "เครื่องหมายลบ และจุดได้เท่านั้น กรุณาแก้ไข"
 
-#: ../plugins/project-wizard/druid.c:598
+#: ../plugins/project-wizard/druid.c:614
 #, c-format
 msgid ""
 "Field \"%s\" must start with a letter, a digit, an underscore or a directory "
@@ -7193,12 +7235,12 @@ msgstr ""
 "เขตข้อมูล \"%s\" ต้องขึ้นต้นด้วยตัวอักษร ตัวเลข ขีดล่าง หรือเครื่องหมายคั่นไดเรกทอรี "
 "และใช้ตัวอักษร ตัวเลข ขีดล่าง เครื่องหมายคั่นไดเรกทอรี เครื่องหมายลบ และจุดได้เท่านั้น กรุณาแก้ไข"
 
-#: ../plugins/project-wizard/druid.c:603
+#: ../plugins/project-wizard/druid.c:619
 #, c-format
 msgid "Unknown error."
 msgstr "ข้อผิดพลาดไม่ทราบสาเหตุ"
 
-#: ../plugins/project-wizard/druid.c:630
+#: ../plugins/project-wizard/druid.c:646
 #, c-format
 msgid ""
 "Directory \"%s\" is not empty. Project creation could fail if some files "
@@ -7207,20 +7249,20 @@ msgstr ""
 "ไดเรกทอรี \"%s\" ไม่ว่าง การสร้างโครงการอาจไม่สำเร็จถ้าเขียนบางแฟ้มไม่ได้ "
 "คุณต้องการทำต่อไปหรือไม่?"
 
-#: ../plugins/project-wizard/druid.c:632
+#: ../plugins/project-wizard/druid.c:648
 #, c-format
 msgid "File \"%s\" already exists. Do you want to overwrite it?"
 msgstr "แฟ้ม \"%s\" มีอยู่แล้ว ต้องการเขียนทับหรือไม่?"
 
-#: ../plugins/project-wizard/druid.c:663
+#: ../plugins/project-wizard/druid.c:679
 msgid "Invalid entry"
 msgstr "การกรอกข้อมูลไม่ถูกต้อง"
 
-#: ../plugins/project-wizard/druid.c:674
+#: ../plugins/project-wizard/druid.c:690
 msgid "Dubious entry"
 msgstr "การกรอกข้อมูลน่าสงสัย"
 
-#: ../plugins/project-wizard/druid.c:784
+#: ../plugins/project-wizard/druid.c:851
 #, c-format
 msgid ""
 "\n"
@@ -7229,7 +7271,7 @@ msgstr ""
 "\n"
 "ขาดโปรแกรม: %s"
 
-#: ../plugins/project-wizard/druid.c:795
+#: ../plugins/project-wizard/druid.c:862
 #, c-format
 msgid ""
 "\n"
@@ -7238,7 +7280,7 @@ msgstr ""
 "\n"
 "ขาดแพกเกจ: %s"
 
-#: ../plugins/project-wizard/druid.c:803
+#: ../plugins/project-wizard/druid.c:871
 msgid ""
 "Some important programs or development packages required to build this "
 "project are missing. Please make sure they are installed properly before "
@@ -7247,7 +7289,11 @@ msgstr ""
 "โปรแกรมหรือแพกเกจสำหรับการพัฒนาบางอย่างที่ต้องใช้ในการประกอบสร้างโครงการนี้ขาดหายไป "
 "กรุณาแน่ใจว่าได้ติดตั้งสิ่งดังกล่าวแล้วอย่างถูกต้อง ก่อนที่จะสร้างโครงการ\n"
 
-#: ../plugins/project-wizard/druid.c:809
+#: ../plugins/project-wizard/druid.c:879
+msgid "Install missing packages"
+msgstr "ติดตั้งแพกเกจที่ขาด"
+
+#: ../plugins/project-wizard/druid.c:887
 msgid ""
 "The missing programs are usually part of some distrubution packages and can "
 "be searched for in your Application Manager. Similarly, the development "
@@ -7261,11 +7307,11 @@ msgstr ""
 "เพื่อการพัฒนาโครงการที่ใช้แพกเกจเหล่านั้น แพกเกจดังกล่าวมักมีชื่อลงท้ายด้วย \"-dev\" หรือ \"-"
 "devel\" และสามารถค้นหาได้ในเครื่องมือจัดการโปรแกรมของคุณ"
 
-#: ../plugins/project-wizard/druid.c:817
+#: ../plugins/project-wizard/druid.c:895
 msgid "Missing components"
 msgstr "ขาดองค์ประกอบ"
 
-#: ../plugins/project-wizard/druid.c:949
+#: ../plugins/project-wizard/druid.c:1027
 #, c-format
 msgid "Unable to build project assistant user interface reading %s."
 msgstr "ไม่สามารถสร้างส่วนติดต่อผู้ใช้ของเครื่องมือช่วยสร้างโครงการ ขณะอ่าน %s"
@@ -8873,39 +8919,39 @@ msgstr "_หาสัญลักษณ์…"
 msgid "Find Symbol"
 msgstr "หาสัญลักษณ์"
 
-#: ../plugins/symbol-db/plugin.c:1184
+#: ../plugins/symbol-db/plugin.c:1175
 #, c-format
 msgid "%s: Generating inheritances…"
 msgstr "%s: กำลังสร้างโครงสร้างการสืบทอดคุณสมบัติ…"
 
-#: ../plugins/symbol-db/plugin.c:1189
+#: ../plugins/symbol-db/plugin.c:1180
 #, c-format
 msgid "%s: %d files scanned out of %d"
 msgstr "%s: สแกนแล้ว %d จาก %d แฟ้ม"
 
-#: ../plugins/symbol-db/plugin.c:1220
+#: ../plugins/symbol-db/plugin.c:1211
 #, c-format
 msgid "Generating inheritances…"
 msgstr "กำลังสร้างโครงสร้างการสืบทอดคุณสมบัติ…"
 
-#: ../plugins/symbol-db/plugin.c:1222
+#: ../plugins/symbol-db/plugin.c:1213
 #, c-format
 msgid "%d files scanned out of %d"
 msgstr "สแกนแล้ว %d จาก %d แฟ้ม"
 
-#: ../plugins/symbol-db/plugin.c:1990
+#: ../plugins/symbol-db/plugin.c:1981
 msgid "Populating symbol database…"
 msgstr "กำลังเติมข้อมูลฐานข้อมูลสัญลักษณ์…"
 
-#: ../plugins/symbol-db/plugin.c:2378 ../plugins/symbol-db/plugin.c:2505
+#: ../plugins/symbol-db/plugin.c:2345 ../plugins/symbol-db/plugin.c:2473
 msgid "Symbols"
 msgstr "สัญลักษณ์"
 
-#: ../plugins/symbol-db/plugin.c:2514
+#: ../plugins/symbol-db/plugin.c:2482
 msgid "SymbolDb popup actions"
 msgstr "การกระทำในเมนูผุดขึ้นของฐานข้อมูลสัญลักษณ์"
 
-#: ../plugins/symbol-db/plugin.c:2522
+#: ../plugins/symbol-db/plugin.c:2490
 msgid "SymbolDb menu actions"
 msgstr "การกระทำในเมนูของฐานข้อมูลสัญลักษณ์"
 
@@ -9282,7 +9328,7 @@ msgstr "บรรทัดปัจจุบันในเครื่องม
 msgid "Ask the user to get additional parameters"
 msgstr "ถามผู้ใช้เพื่อรับพารามิเตอร์เพิ่มเติม"
 
-#: ../plugins/tools/variable.c:493
+#: ../plugins/tools/variable.c:499
 msgid "Command line parameters"
 msgstr "พารามิเตอร์บรรทัดคำสั่ง"
 
@@ -9710,7 +9756,7 @@ msgstr "เครื่องมือช่วย C++/Java"
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
-#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1021
+#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1044
 msgid "C/C++"
 msgstr "C/C++"
 
@@ -9719,12 +9765,12 @@ msgid "GtkSourceView Editor"
 msgstr "เครื่องมือแก้ไข GtkSourceView"
 
 #: ../plugins/gdb/anjuta-gdb.plugin.in.h:1
-msgid "Gdb"
-msgstr "Gdb"
+msgid "GNU Debugger Plugin"
+msgstr "ปลั๊กอินโปรแกรมดีบั๊กของ GNU"
 
 #: ../plugins/gdb/anjuta-gdb.plugin.in.h:2
-msgid "Gdb plugin."
-msgstr "ปลั๊กอิน Gdb"
+msgid "Gdb"
+msgstr "Gdb"
 
 #: ../plugins/git/git.plugin.in.h:2
 msgid "Git version control"
@@ -9944,6 +9990,10 @@ msgstr "ข้อผิดพลาด: ไม่สามารถ bind พอ�
 msgid "Anjuta JS Debugger Plugin"
 msgstr "ปลั๊กอินดีบั๊ก JS ของแอนจูตา"
 
+#: ../plugins/js-debugger/js_debugger.plugin.in.h:2
+msgid "Javascript Debugger Plugin"
+msgstr "ปลั๊กอินดีบั๊กจาวาสคริปต์"
+
 #: ../plugins/language-support-js/plugin.c:332
 #: ../plugins/language-support-js/plugin.c:341
 msgid "JavaScript"
@@ -9984,6 +10034,9 @@ msgstr "เน้นอัฒภาค (semicolon) ที่หายไป"
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
 msgid "Min character for completion "
 msgstr "จำนวนอักขระต่ำสุดที่จะเริ่มเติมเต็มโค้ด"
+
+#~ msgid "Gdb plugin."
+#~ msgstr "ปลั๊กอิน Gdb"
 
 #~ msgid "private"
 #~ msgstr "private"
