@@ -1,3 +1,12 @@
+Anjuta 2.28.2 (31 January 2010) -- Johannes Schmid
+
+Bugs fixed:
+bgo#600924 -  misc. build fixes for 2.28
+bgo#601567 -  Import from git fails
+bgo#566209 -  "generate inhertances..." progress bar doesn't disappear
+bgo#606801 -  Bad translation error + GTKmm Project error
+bgo#606801 -  Bad translation error + GTKmm Project error
+
 Anjuta 2.28.1 (19 October 2009) -- Johannes Schmid
 
 Bugs fixed:
