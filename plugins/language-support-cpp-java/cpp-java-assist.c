@@ -109,7 +109,7 @@ cpp_java_assist_tag_destroy (CppJavaAssistTag *tag)
 {
 	g_free (tag->name);
 	if (tag->icon)
-		gdk_pixbuf_unref (tag->icon);
+		g_object_unref (tag->icon);
 	g_free (tag);
 }
 

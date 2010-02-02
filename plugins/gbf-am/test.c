@@ -111,7 +111,7 @@ main (int argc, char *argv[])
 	dir = argv [1];
 	
 	g_print ("+ Creating new gbf-am project\n");
-	project = gbf_am_project_new ();
+	project = GBF_PROJECT (gbf_am_project_new ());
 	if (!project) {
 		g_print ("! Project creation failed\n");
 		return 0;

@@ -1269,9 +1269,9 @@ sax_start_element (void *ctxt, const xmlChar *name, const xmlChar **attrs)
 		}
 		PARSER_ASSERT (uri != NULL);
 
-		if (g_path_is_absolute (uri))
+		if (g_path_is_absolute ((const gchar *)uri))
 		{
-			GFile *file = g_file_new_for_path (uri);
+			GFile *file = g_file_new_for_path ((const gchar *)uri);
 			source_uri = g_file_get_uri (file);
 			g_object_unref (file);
 		}

@@ -807,7 +807,7 @@ on_install_button_clicked (GtkWidget *button, NPWDruid *druid)
 	 */
 	anjuta_util_glist_strings_prefix (missing_programs, "/usr/bin/");
 
-	g_list_foreach (missing_packages, (GFunc *) strip_package_version_info,
+	g_list_foreach (missing_packages, (GFunc) strip_package_version_info,
 					NULL);
 	anjuta_util_glist_strings_prefix (missing_packages,
 									  "/usr/lib/pkgconfig/");

@@ -1105,7 +1105,7 @@ time_popup_changed (EggDateTime *edt, Timelist *timelist)
 
 	normalize_time (edt);
 
-	if (gtk_widget_get_visible (timelist))
+	if (gtk_widget_get_visible (GTK_WIDGET (timelist)))
 		update_time_label (edt);
 
 	g_signal_emit (G_OBJECT (edt), egg_datetime_signals[SIGNAL_TIME_CHANGED], 0);

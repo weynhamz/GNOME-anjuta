@@ -1112,7 +1112,7 @@ gboolean gtodo_client_save_todo_item(GTodoClient *cl, GTodoItem *item)
 			}
 			/* last edited (to the start date attribute) */
 			{
-				temp1 = g_strdup_printf("%u", time(NULL));
+				temp1 = g_strdup_printf("%li", time(NULL));
 				xmlSetProp(newa, (xmlChar *)"last_edited", (xmlChar *)temp1);
 				g_free(temp1);
 			}
