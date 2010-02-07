@@ -1,6 +1,6 @@
 [Anjuta Plugin]
 _Name=Autotools backend
-_Description=Autotools backend for project manager
+_Description=New Autotools backend for project manager
 Location=am-project:AmpPlugin
 Icon=gbf-am-plugin-48.png
 Interfaces=IAnjutaProjectBackend

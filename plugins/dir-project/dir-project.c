@@ -834,7 +834,7 @@ dir_project_add_source (DirProject  *project,
 static GList *
 dir_project_get_target_types (DirProject *project, GError **error)
 {
-	static AnjutaProjectTargetInformation unknown_type = {N_("Unknown"), ANJUTA_TARGET_UNKNOWN,"text/plain"};
+	static AnjutaProjectTargetInfo unknown_type = {N_("Unknown"), ANJUTA_TARGET_UNKNOWN,"text/plain"};
 
 	return g_list_prepend (NULL, &unknown_type);
 }

@@ -133,7 +133,7 @@ struct _AmpConfigFile {
 typedef struct _AmpTargetInformation AmpTargetInformation;
 
 struct _AmpTargetInformation {
-	AnjutaProjectTargetInformation base;
+	AnjutaProjectTargetInfo base;
 	AnjutaTokenType token;
 	const gchar *prefix;
 	const gchar *install;
@@ -221,6 +221,11 @@ static AmpTargetInformation AmpTargetTypes[] = {
 	NULL,
 	NULL}
 };
+
+/* Properties
+ *---------------------------------------------------------------------------*/
+
+
 
 
 /* ----- Standard GObject types and variables ----- */
@@ -468,7 +473,6 @@ amp_config_file_new (const gchar *pathname, GFile *project_root, AnjutaToken *to
 
 	config = g_slice_new0(AmpConfigFile);
 	config->file = g_file_resolve_relative_path (project_root, pathname);
-	g_message ("new config file =%s= token %p group %p", pathname, token, anjuta_token_list (token));
 	config->token = token;
 
 	return config;
@@ -559,46 +563,6 @@ amp_project_free_module_hash (AmpProject *project)
 		g_hash_table_destroy (project->modules);
 		project->modules = NULL;
 	}
-}
-
-/* Property objects
- *---------------------------------------------------------------------------*/
-
-static AmpProperty*
-amp_property_new (AnjutaToken *macro, AnjutaToken *list)
-{
-	AmpProperty *prop;
-	AnjutaToken *arg;
-	
-	prop = g_slice_new0(AmpProperty); 
-	prop->ac_init = macro;
-	prop->args = list;
-
-	if (list != NULL)
-	{
-		arg = anjuta_token_nth_word (list, 0);
-		prop->name = anjuta_token_evaluate (arg);
-		arg = anjuta_token_nth_word (list, 1);
-		prop->version = anjuta_token_evaluate (arg);
-		arg = anjuta_token_nth_word (list, 2);
-		prop->bug_report = anjuta_token_evaluate (arg);
-		arg = anjuta_token_nth_word (list, 3);
-		prop->tarname = anjuta_token_evaluate (arg);
-		arg = anjuta_token_nth_word (list, 4);
-		prop->url = anjuta_token_evaluate (arg);
-	}
-	
-	return prop;
-}
-
-static void
-amp_property_free (AmpProperty *prop)
-{
-	g_free (prop->name);
-	g_free (prop->version);
-	g_free (prop->bug_report);
-	g_free (prop->tarname);
-    g_slice_free (AmpProperty, prop);
 }
 
 /* Group objects
@@ -792,6 +756,79 @@ amp_source_free (AmpSource *node)
 	g_node_destroy (node);
 }
 
+/* Properties objects
+ *---------------------------------------------------------------------------*/
+
+static AmpProjectPropertyInfo *
+amp_project_property_new (AnjutaToken *ac_init)
+{
+	AmpProjectPropertyInfo *prop;
+
+	prop = g_slice_new0(AmpProjectPropertyInfo);
+	prop->ac_init = ac_init;
+
+	return prop;
+}
+
+static void
+amp_project_property_free (AmpProjectPropertyInfo *prop)
+{
+	if (prop->base.override != NULL)
+	{
+		if ((prop->base.value != NULL) && (prop->base.value != ((AmpProjectPropertyInfo *)(prop->base.override->data))->base.value))
+		{
+			g_free (prop->base.value);
+		}
+		g_slice_free (AmpProjectPropertyInfo, prop);
+	}
+}
+
+static AmpGroupPropertyInfo *
+amp_group_property_new (void)
+{
+	AmpGroupPropertyInfo *prop;
+
+	prop = g_slice_new0(AmpGroupPropertyInfo);
+
+	return prop;
+}
+
+static void
+amp_group_property_free (AmpGroupPropertyInfo *prop)
+{
+	if (prop->base.override != NULL)
+	{
+		if ((prop->base.value != NULL) && (prop->base.value != ((AmpGroupPropertyInfo *)(prop->base.override->data))->base.value))
+		{
+			g_free (prop->base.value);
+		}
+		g_slice_free (AmpGroupPropertyInfo, prop);
+	}
+}
+
+static AmpTargetPropertyInfo *
+amp_target_property_new (void)
+{
+	AmpTargetPropertyInfo *prop;
+
+	prop = g_slice_new0(AmpTargetPropertyInfo);
+
+	return prop;
+}
+
+static void
+amp_target_property_free (AmpTargetPropertyInfo *prop)
+{
+	if (prop->base.override != NULL)
+	{
+		if ((prop->base.value != NULL) && (prop->base.value != ((AmpTargetPropertyInfo *)(prop->base.override->data))->base.value))
+		{
+			g_free (prop->base.value);
+		}
+		g_slice_free (AmpTargetPropertyInfo, prop);
+	}
+}
+
 /*
  * File monitoring support --------------------------------
  * FIXME: review these
@@ -963,11 +1000,35 @@ project_node_destroy (AmpProject *project, AnjutaProjectNode *g_node)
 }
 
 void
-amp_project_load_properties (AmpProject *project, AnjutaToken *macro, AnjutaToken *list)
+amp_project_load_properties (AmpProject *project, AnjutaToken *macro, AnjutaToken *args)
 {
+	AnjutaProjectPropertyItem *list;
+	
 	fprintf (stdout, "property list:\n");
-	anjuta_token_dump (list);
-	project->property = amp_property_new (macro, list);
+	anjuta_token_dump (args);
+
+	for (list = anjuta_project_property_first (project->properties); list != NULL; list = anjuta_project_property_next (list))
+	{
+		AmpProjectPropertyInfo *info = anjuta_project_property_get_info (list);
+
+		if (info->position >= 0)
+		{
+			AmpProjectPropertyInfo *prop;
+			AnjutaToken *arg;
+
+			prop = anjuta_project_property_lookup (project->properties, list);
+			if (prop == NULL)
+			{
+				prop = amp_project_property_new (macro);
+				
+				project->properties = anjuta_project_property_insert (project->properties, list, prop);
+			}
+	
+			arg = anjuta_token_nth_word (args, info->position);
+			if ((prop->base.value != NULL) && (prop->base.value != info->base.value)) g_free (prop->base.value);
+			prop->base.value = anjuta_token_evaluate (arg);
+		}
+	}
 }
 
 void
@@ -1637,8 +1698,8 @@ amp_project_unload (AmpProject *project)
 	if (project->root_file) g_object_unref (project->root_file);
 	project->root_file = NULL;
 
-	if (project->property) amp_property_free (project->property);
-	project->property = NULL;
+	g_list_foreach (project->properties, (GFunc)amp_project_property_free, NULL);
+	project->properties = amp_get_project_property_list ();
 	
 	/* shortcut hash tables */
 	if (project->groups) g_hash_table_destroy (project->groups);
@@ -2574,7 +2635,14 @@ amp_project_get_file (AmpProject *project)
 
 	return project->root_file;
 }
-	
+
+AnjutaProjectPropertyList *
+amp_project_get_property_list (AmpProject *project)
+{
+	return project->properties;
+}
+
+#if 0
 gchar *
 amp_project_get_property (AmpProject *project, AmpPropertyType type)
 {
@@ -2634,6 +2702,7 @@ amp_project_set_property (AmpProject *project, AmpPropertyType type, const gchar
 	
 	return amp_project_update_property (project, type);
 }
+#endif
 
 /* Implement IAnjutaProject
  *---------------------------------------------------------------------------*/
@@ -2842,7 +2911,7 @@ amp_project_instance_init (AmpProject *project)
 	project->configure_file = NULL;
 	project->configure_token = NULL;
 	project->root_node = NULL;
-	project->property = NULL;
+	project->properties = amp_get_project_property_list ();
 
 	project->am_space_list = NULL;
 	project->ac_space_list = NULL;

@@ -58,22 +58,21 @@ on_project_widget_destroy (GtkWidget *wid, AmpConfigureProjectDialog *dlg)
 }
 
 static void
-add_entry (AmpProject *project, const gchar *id, const gchar *display_name, AmpPropertyType type, GtkWidget *table, gint position)
+add_entry (AmpProject *project, AnjutaProjectNode *node, AnjutaProjectPropertyInfo *info, GtkWidget *table, gint position)
 {
 	GtkWidget *label;
 	GtkWidget *entry;
-	gchar *value;
+	const gchar *value;
 
-	label = gtk_label_new (display_name);
+	label = gtk_label_new (_(info->name));
 	gtk_misc_set_alignment (GTK_MISC (label), 0, -1);
 	gtk_widget_show (label);
 	gtk_table_attach (GTK_TABLE (table), label, 0, 1, position, position+1,
 			  GTK_FILL, GTK_FILL, 5, 3);
 	
 	entry = gtk_entry_new ();
-	value = amp_project_get_property (project, type);
+	value = info->value;
 	gtk_entry_set_text (GTK_ENTRY (entry), value);
-	g_free (value);
 	gtk_misc_set_alignment (GTK_MISC (entry), 0, -1);
 	gtk_widget_show (entry);
 	gtk_table_attach (GTK_TABLE (table), entry, 1, 2, position, position+1,
@@ -108,7 +107,10 @@ amp_configure_project_dialog (AmpProject *project, GError **error)
 	GtkWidget *top_level;
 	AmpConfigureProjectDialog *dlg;
 	GtkWidget *table;
+	gint pos;
 	gchar *name;
+	AnjutaProjectPropertyItem *prop;
+	AnjutaProjectPropertyList *list;
 
 	bxml = anjuta_util_builder_new (GLADE_FILE, NULL);
 	if (!bxml) return NULL;
@@ -126,17 +128,26 @@ amp_configure_project_dialog (AmpProject *project, GError **error)
 	add_label (_("Path:"), name, table, 0);
 	g_free (name);
 
-	add_entry (project, NULL, _("Name:"), AMP_PROPERTY_NAME, table, 1);
+	pos = 1;
+	list = amp_project_get_property_list (project);
+	for (prop = anjuta_project_property_first (list); prop != NULL; prop = anjuta_project_property_next (prop))
+	{
+		AnjutaProjectPropertyInfo *info;
+
+		info = anjuta_project_property_lookup (list, prop);
+		if (info == NULL) info = anjuta_project_property_get_info (prop);
+		add_entry (project, NULL, info, table, pos++);
+	}
+	
+	/*add_entry (project, NULL, _("Name:"), AMP_PROPERTY_NAME, table, 1);
 	add_entry (project, NULL, _("Version:"), AMP_PROPERTY_VERSION, table, 2);
 	add_entry (project, NULL, _("Bug report URL:"), AMP_PROPERTY_BUG_REPORT, table, 3);
 	add_entry (project, NULL, _("Package name:"), AMP_PROPERTY_TARNAME, table, 4);
-	add_entry (project, NULL, _("URL:"), AMP_PROPERTY_URL, table, 5);
+	add_entry (project, NULL, _("URL:"), AMP_PROPERTY_URL, table, 5);*/
 	
 	gtk_widget_show_all (top_level);
 	g_object_unref (bxml);
 
-	g_message ("get config dialog %p", top_level);
-	
 	return top_level;
 }
 
@@ -146,9 +157,13 @@ amp_configure_group_dialog (AmpProject *project, AmpGroup *group, GError **error
 	GtkBuilder *bxml = gtk_builder_new ();
 	GtkWidget *properties;
 	GtkWidget *main_table;
+	gint main_pos;
 	GtkWidget *extra_table;
+	gint extra_pos;
 	AmpConfigureProjectDialog *dlg;
 	gchar *name;
+	AnjutaProjectPropertyList *list;
+	AnjutaProjectPropertyItem *prop;
 
 	bxml = anjuta_util_builder_new (GLADE_FILE, NULL);
 	if (!bxml) return NULL;
@@ -166,6 +181,25 @@ amp_configure_group_dialog (AmpProject *project, AmpGroup *group, GError **error
 	name = g_file_get_parse_name (amp_group_get_directory (group));
 	add_label (_("Name:"), name, main_table, 0);
 	g_free (name);
+
+	main_pos = 1;
+	extra_pos = 0;
+	list = amp_project_get_property_list (project);
+	for (prop = anjuta_project_property_first (list); prop != NULL; prop = anjuta_project_property_next (prop))
+	{
+		AnjutaProjectPropertyInfo *info;
+
+		info = anjuta_project_property_lookup (list, prop);
+		if (info != NULL)
+		{
+			add_entry (project, (AnjutaProjectNode *)group, info, extra_table, extra_pos++);
+		}
+		else
+		{
+			info = anjuta_project_property_get_info (prop);
+			add_entry (project, (AnjutaProjectNode *)group, info, main_table, main_pos++);
+		}
+	}
 	
 	gtk_widget_show_all (properties);
 	g_object_unref (bxml);
@@ -179,10 +213,14 @@ amp_configure_target_dialog (AmpProject *project, AmpTarget *target, GError **er
 	GtkBuilder *bxml = gtk_builder_new ();
 	GtkWidget *properties;
 	GtkWidget *main_table;
+	gint main_pos;
 	GtkWidget *extra_table;
+	gint extra_pos;
 	AmpConfigureProjectDialog *dlg;
 	AnjutaProjectTargetType type;
 	const gchar *name;
+	AnjutaProjectPropertyList *list;
+	AnjutaProjectPropertyItem *prop;
 
 	bxml = anjuta_util_builder_new (GLADE_FILE, NULL);
 	if (!bxml) return NULL;
@@ -201,6 +239,25 @@ amp_configure_target_dialog (AmpProject *project, AmpTarget *target, GError **er
 	add_label (_("Name:"), name, main_table, 0);
 	type = anjuta_project_target_get_type (target);
 	add_label (_("Type:"), anjuta_project_target_type_name (type), main_table, 1);
+
+	main_pos = 2;
+	extra_pos = 0;
+	list = amp_project_get_property_list (project);
+	for (prop = anjuta_project_property_first (list); prop != NULL; prop = anjuta_project_property_next (prop))
+	{
+		AnjutaProjectPropertyInfo *info;
+
+		info = anjuta_project_property_lookup (list, prop);
+		if (info != NULL)
+		{
+			add_entry (project, (AnjutaProjectNode *)target, info, extra_table, extra_pos++);
+		}
+		else
+		{
+			info = anjuta_project_property_get_info (prop);
+			add_entry (project, (AnjutaProjectNode *)target, info, main_table, main_pos++);
+		}
+	}
 	
 	gtk_widget_show_all (properties);
 	g_object_unref (bxml);

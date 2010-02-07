@@ -118,7 +118,7 @@ struct _MkpSourceData {
 typedef struct _MkpTargetInformation MkpTargetInformation;
 
 struct _MkpTargetInformation {
-	AnjutaProjectTargetInformation base;
+	AnjutaProjectTargetInfo base;
 	AnjutaTokenType token;
 	const gchar *prefix;
 	const gchar *install;

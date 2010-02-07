@@ -120,6 +120,7 @@ skip_comment (AnjutaToken *token)
 /* Public functions
  *---------------------------------------------------------------------------*/
 
+#if 0
 gboolean
 amp_project_update_property (AmpProject *project, AmpPropertyType type)
 {
@@ -199,4 +200,4 @@ amp_project_update_property (AmpProject *project, AmpPropertyType type)
 	
 	return TRUE;
 }
-
+#endif
