@@ -127,6 +127,7 @@ AnjutaProjectPropertyInfo *anjuta_project_property_get_info (AnjutaProjectProper
 AnjutaProjectPropertyInfo *anjuta_project_property_lookup (AnjutaProjectPropertyList *list, AnjutaProjectPropertyItem *prop);
 AnjutaProjectPropertyList *anjuta_project_property_insert (AnjutaProjectPropertyList *list, AnjutaProjectPropertyItem *prop, AnjutaProjectPropertyInfo *info);
 AnjutaProjectPropertyList *anjuta_project_property_remove (AnjutaProjectPropertyList *list, AnjutaProjectPropertyItem *prop);
+void anjuta_project_property_foreach (AnjutaProjectPropertyList *list, GFunc func, gpointer user_data);
 
 
 AnjutaProjectNode *anjuta_project_node_parent (AnjutaProjectNode *node);

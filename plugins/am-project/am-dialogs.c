@@ -184,7 +184,7 @@ amp_configure_group_dialog (AmpProject *project, AmpGroup *group, GError **error
 
 	main_pos = 1;
 	extra_pos = 0;
-	list = amp_project_get_property_list (project);
+	list = anjuta_project_node_get_property_list ((AnjutaProjectNode *)group);
 	for (prop = anjuta_project_property_first (list); prop != NULL; prop = anjuta_project_property_next (prop))
 	{
 		AnjutaProjectPropertyInfo *info;
@@ -192,12 +192,12 @@ amp_configure_group_dialog (AmpProject *project, AmpGroup *group, GError **error
 		info = anjuta_project_property_lookup (list, prop);
 		if (info != NULL)
 		{
-			add_entry (project, (AnjutaProjectNode *)group, info, extra_table, extra_pos++);
+			add_entry (project, (AnjutaProjectNode *)group, info, main_table, main_pos++);
 		}
 		else
 		{
 			info = anjuta_project_property_get_info (prop);
-			add_entry (project, (AnjutaProjectNode *)group, info, main_table, main_pos++);
+			add_entry (project, (AnjutaProjectNode *)group, info, extra_table, extra_pos++);
 		}
 	}
 	
@@ -242,7 +242,7 @@ amp_configure_target_dialog (AmpProject *project, AmpTarget *target, GError **er
 
 	main_pos = 2;
 	extra_pos = 0;
-	list = amp_project_get_property_list (project);
+	list = anjuta_project_node_get_property_list ((AnjutaProjectNode *)target);
 	for (prop = anjuta_project_property_first (list); prop != NULL; prop = anjuta_project_property_next (prop))
 	{
 		AnjutaProjectPropertyInfo *info;
@@ -250,12 +250,12 @@ amp_configure_target_dialog (AmpProject *project, AmpTarget *target, GError **er
 		info = anjuta_project_property_lookup (list, prop);
 		if (info != NULL)
 		{
-			add_entry (project, (AnjutaProjectNode *)target, info, extra_table, extra_pos++);
+			add_entry (project, (AnjutaProjectNode *)target, info, main_table, main_pos++);
 		}
 		else
 		{
 			info = anjuta_project_property_get_info (prop);
-			add_entry (project, (AnjutaProjectNode *)target, info, main_table, main_pos++);
+			add_entry (project, (AnjutaProjectNode *)target, info, extra_table, extra_pos++);
 		}
 	}
 	

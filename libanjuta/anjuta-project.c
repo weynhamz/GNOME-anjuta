@@ -151,6 +151,13 @@ anjuta_project_property_remove (AnjutaProjectPropertyList *list, AnjutaProjectPr
 	return list;
 }
 
+void
+anjuta_project_property_foreach (AnjutaProjectPropertyList *list, GFunc func, gpointer user_data)
+{
+	g_list_foreach (list, func, user_data);
+}
+
+
 /* Node access functions
  *---------------------------------------------------------------------------*/
 

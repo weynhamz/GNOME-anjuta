@@ -49,22 +49,39 @@ static GList* AmpProjectPropertyList = NULL;
 
 
 static AmpGroupPropertyInfo AmpGroupProperties[] = {
-	{{N_("Name:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 0},
-	{{N_("Version:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 1},
-	{{N_("Bug report URL:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 2},
-	{{N_("Package name:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 3},
-	{{N_("URL:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("Linker flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("C preprocessor flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("C compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("C++ compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("Java Compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("Fortan compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("Objective C compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("Lex/Flex flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("Yacc/Bison flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("Ratfor compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
 	{{NULL, ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 0}};
 
 static GList* AmpGroupPropertyList = NULL;
 
 
 static AmpTargetPropertyInfo AmpTargetProperties[] = {
-	{{N_("Name:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 0},
-	{{N_("Version:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 1},
-	{{N_("Bug report URL:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 2},
-	{{N_("Package name:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 3},
-	{{N_("URL:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("Installation directory:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("Include in distribution:"), ANJUTA_PROJECT_PROPERTY_BOOLEAN, NULL, NULL}, NULL, 2},
+	{{N_("Linker flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("C preprocessor flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("C compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("C++ compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("Java Compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("Fortan compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("Objective C compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("Lex/Flex flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("Yacc/Bison flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("Ratfor compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("Additional dependencies:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("Build for check only:"), ANJUTA_PROJECT_PROPERTY_BOOLEAN, NULL, NULL}, NULL, 3},
+	{{N_("Do not use prefix:"), ANJUTA_PROJECT_PROPERTY_BOOLEAN, NULL, NULL}, NULL, 1},
+	{{N_("Keep target path:"), ANJUTA_PROJECT_PROPERTY_BOOLEAN, NULL, NULL}, NULL, 0},
+	{{N_("Manual section:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
 	{{NULL, ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 0}};
 
 static GList* AmpTargetPropertyList = NULL;

@@ -565,6 +565,79 @@ amp_project_free_module_hash (AmpProject *project)
 	}
 }
 
+/* Properties objects
+ *---------------------------------------------------------------------------*/
+
+static AmpProjectPropertyInfo *
+amp_project_property_new (AnjutaToken *ac_init)
+{
+	AmpProjectPropertyInfo *prop;
+
+	prop = g_slice_new0(AmpProjectPropertyInfo);
+	prop->ac_init = ac_init;
+
+	return prop;
+}
+
+static void
+amp_project_property_free (AmpProjectPropertyInfo *prop)
+{
+	if (prop->base.override != NULL)
+	{
+		if ((prop->base.value != NULL) && (prop->base.value != ((AmpProjectPropertyInfo *)(prop->base.override->data))->base.value))
+		{
+			g_free (prop->base.value);
+		}
+		g_slice_free (AmpProjectPropertyInfo, prop);
+	}
+}
+
+static AmpGroupPropertyInfo *
+amp_group_property_new (void)
+{
+	AmpGroupPropertyInfo *prop;
+
+	prop = g_slice_new0(AmpGroupPropertyInfo);
+
+	return prop;
+}
+
+static void
+amp_group_property_free (AmpGroupPropertyInfo *prop)
+{
+	if (prop->base.override != NULL)
+	{
+		if ((prop->base.value != NULL) && (prop->base.value != ((AmpGroupPropertyInfo *)(prop->base.override->data))->base.value))
+		{
+			g_free (prop->base.value);
+		}
+		g_slice_free (AmpGroupPropertyInfo, prop);
+	}
+}
+
+static AmpTargetPropertyInfo *
+amp_target_property_new (void)
+{
+	AmpTargetPropertyInfo *prop;
+
+	prop = g_slice_new0(AmpTargetPropertyInfo);
+
+	return prop;
+}
+
+static void
+amp_target_property_free (AmpTargetPropertyInfo *prop)
+{
+	if (prop->base.override != NULL)
+	{
+		if ((prop->base.value != NULL) && (prop->base.value != ((AmpTargetPropertyInfo *)(prop->base.override->data))->base.value))
+		{
+			g_free (prop->base.value);
+		}
+		g_slice_free (AmpTargetPropertyInfo, prop);
+	}
+}
+
 /* Group objects
  *---------------------------------------------------------------------------*/
 
@@ -653,6 +726,7 @@ amp_group_new (GFile *file, gboolean dist_only)
 	
 	group = g_slice_new0(AmpGroupData); 
 	group->base.node.type = ANJUTA_PROJECT_GROUP;
+	group->base.node.properties = amp_get_group_property_list();
 	group->base.directory = g_object_ref (file);
 	group->dist_only = dist_only;
 
@@ -666,6 +740,7 @@ amp_group_free (AmpGroup *node)
 	gint i;
 	
 	if (group->base.directory) g_object_unref (group->base.directory);
+	anjuta_project_property_foreach (group->base.node.properties, (GFunc)amp_project_property_free, NULL);
 	if (group->tfile) anjuta_token_file_free (group->tfile);
 	if (group->makefile) g_object_unref (group->makefile);
 	for (i = 0; i < AM_GROUP_TOKEN_LAST; i++)
@@ -673,6 +748,7 @@ amp_group_free (AmpGroup *node)
 		if (group->tokens[i] != NULL) g_list_free (group->tokens[i]);
 	}
     g_slice_free (AmpGroupData, group);
+	
 
 	g_node_destroy (node);
 }
@@ -710,6 +786,7 @@ amp_target_new (const gchar *name, AnjutaProjectTargetType type, const gchar *in
 
 	target = g_slice_new0(AmpTargetData); 
 	target->base.node.type = ANJUTA_PROJECT_TARGET;
+	target->base.node.properties = amp_get_target_property_list();
 	target->base.name = g_strdup (name);
 	target->base.type = type;
 	target->install = g_strdup (install);
@@ -724,6 +801,7 @@ amp_target_free (AmpTarget *node)
     AmpTargetData *target = AMP_TARGET_DATA (node);
 	
     g_free (target->base.name);
+	anjuta_project_property_foreach (target->base.node.properties, (GFunc)amp_project_property_free, NULL);
     g_free (target->install);
     g_slice_free (AmpTargetData, target);
 
@@ -740,6 +818,7 @@ amp_source_new (GFile *file)
 
 	source = g_slice_new0(AmpSourceData); 
 	source->base.node.type = ANJUTA_PROJECT_SOURCE;
+	source->base.node.properties = amp_get_source_property_list();
 	source->base.file = g_object_ref (file);
 
     return g_node_new (source);
@@ -751,82 +830,10 @@ amp_source_free (AmpSource *node)
     AmpSourceData *source = AMP_SOURCE_DATA (node);
 	
     g_object_unref (source->base.file);
+	anjuta_project_property_foreach (source->base.node.properties, (GFunc)amp_project_property_free, NULL);
     g_slice_free (AmpSourceData, source);
 
 	g_node_destroy (node);
-}
-
-/* Properties objects
- *---------------------------------------------------------------------------*/
-
-static AmpProjectPropertyInfo *
-amp_project_property_new (AnjutaToken *ac_init)
-{
-	AmpProjectPropertyInfo *prop;
-
-	prop = g_slice_new0(AmpProjectPropertyInfo);
-	prop->ac_init = ac_init;
-
-	return prop;
-}
-
-static void
-amp_project_property_free (AmpProjectPropertyInfo *prop)
-{
-	if (prop->base.override != NULL)
-	{
-		if ((prop->base.value != NULL) && (prop->base.value != ((AmpProjectPropertyInfo *)(prop->base.override->data))->base.value))
-		{
-			g_free (prop->base.value);
-		}
-		g_slice_free (AmpProjectPropertyInfo, prop);
-	}
-}
-
-static AmpGroupPropertyInfo *
-amp_group_property_new (void)
-{
-	AmpGroupPropertyInfo *prop;
-
-	prop = g_slice_new0(AmpGroupPropertyInfo);
-
-	return prop;
-}
-
-static void
-amp_group_property_free (AmpGroupPropertyInfo *prop)
-{
-	if (prop->base.override != NULL)
-	{
-		if ((prop->base.value != NULL) && (prop->base.value != ((AmpGroupPropertyInfo *)(prop->base.override->data))->base.value))
-		{
-			g_free (prop->base.value);
-		}
-		g_slice_free (AmpGroupPropertyInfo, prop);
-	}
-}
-
-static AmpTargetPropertyInfo *
-amp_target_property_new (void)
-{
-	AmpTargetPropertyInfo *prop;
-
-	prop = g_slice_new0(AmpTargetPropertyInfo);
-
-	return prop;
-}
-
-static void
-amp_target_property_free (AmpTargetPropertyInfo *prop)
-{
-	if (prop->base.override != NULL)
-	{
-		if ((prop->base.value != NULL) && (prop->base.value != ((AmpTargetPropertyInfo *)(prop->base.override->data))->base.value))
-		{
-			g_free (prop->base.value);
-		}
-		g_slice_free (AmpTargetPropertyInfo, prop);
-	}
 }
 
 /*
@@ -1698,7 +1705,7 @@ amp_project_unload (AmpProject *project)
 	if (project->root_file) g_object_unref (project->root_file);
 	project->root_file = NULL;
 
-	g_list_foreach (project->properties, (GFunc)amp_project_property_free, NULL);
+	anjuta_project_property_foreach (project->properties, (GFunc)amp_project_property_free, NULL);
 	project->properties = amp_get_project_property_list ();
 	
 	/* shortcut hash tables */
