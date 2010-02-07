@@ -1,4 +1,16 @@
-Anjuta 2.95.6 "Naba is back" (25 January 2009) -- Johannes Schmid
+Anjuta 2.29.90 "Jag älkar svesk..." (7. Februar 2009) -- Johannes Schmid
+
+Features:
+- None (we are in feature freeze) except new language for Codename ;)
+
+Bugs fixed:
+bgo #608701 -  Compiler warnings
+bgo #608396 -  crash while refreshing a buffer with some breakpoints
++ Several fixed in symbol-db and language-support-cpp-java
+
+This is the first beta release in the 2.30 cycle so please give it some testing!
+
+Anjuta 2.29.6 "Naba is back" (25 January 2009) -- Johannes Schmid
 
 Features:
 - Packagekit integration (Naba Kumar)
@@ -14,7 +26,7 @@ bgo#601750 -  Tooltip evaluation doesn't respects mouse position
 bgo#605060 -  Single-step highlighting works only for the first-opened project
 bgo#607415 -  Anjuta creates lots of random directories
 
-Anjuta 2.95.5 "Birthday present" (12 January 2009) -- Johannes Schmid
+Anjuta 2.29.5 "Birthday present" (12 January 2009) -- Johannes Schmid
 
 Features:
 - Completion for ., ->, and :: in C/C++
