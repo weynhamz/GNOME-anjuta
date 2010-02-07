@@ -445,7 +445,10 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist)
 			ianjuta_symbol_manager_search_file_async (assist->priv->isymbol_manager,
 																				 IANJUTA_SYMBOL_TYPE_UNDEF,
 																				 TRUE,
-																				 IANJUTA_SYMBOL_FIELD_SIMPLE|IANJUTA_SYMBOL_FIELD_TYPE,
+																				 IANJUTA_SYMBOL_FIELD_SIMPLE|
+			                                          							 IANJUTA_SYMBOL_FIELD_TYPE|
+			                                          							 IANJUTA_SYMBOL_FIELD_ACCESS|
+			                                          							 IANJUTA_SYMBOL_FIELD_KIND,
 																				 pattern, file, -1, -1, NULL,
 																				 notify, (IAnjutaSymbolManagerSearchCallback) on_query_data, assist,
 																				 NULL);
@@ -461,7 +464,10 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist)
 		ianjuta_symbol_manager_search_project_async (assist->priv->isymbol_manager,
 											 types,
 											 TRUE,
-											 IANJUTA_SYMBOL_FIELD_SIMPLE|IANJUTA_SYMBOL_FIELD_TYPE,
+											 IANJUTA_SYMBOL_FIELD_SIMPLE|
+			                                 IANJUTA_SYMBOL_FIELD_TYPE|
+			                                 IANJUTA_SYMBOL_FIELD_ACCESS|
+			                                 IANJUTA_SYMBOL_FIELD_KIND,
 											 pattern, IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC, -1, -1, 
 											 NULL,
 											 notify, (IAnjutaSymbolManagerSearchCallback) on_query_data, assist,
@@ -476,7 +482,10 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist)
 		ianjuta_symbol_manager_search_system_async (assist->priv->isymbol_manager,
 											 types,
 											 TRUE,
-											 IANJUTA_SYMBOL_FIELD_SIMPLE|IANJUTA_SYMBOL_FIELD_TYPE,
+											 IANJUTA_SYMBOL_FIELD_SIMPLE|
+			                                 IANJUTA_SYMBOL_FIELD_TYPE|
+			                                 IANJUTA_SYMBOL_FIELD_ACCESS|
+			                                 IANJUTA_SYMBOL_FIELD_KIND,
 											 pattern, IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC, -1, -1,
 											 NULL,
 											 notify, (IAnjutaSymbolManagerSearchCallback) on_query_data, assist,
@@ -601,7 +610,11 @@ cpp_java_assist_show_calltip (CppJavaAssist *assist, gchar *call_context,
 																			 IANJUTA_SYMBOL_TYPE_FUNCTION|
 																			 IANJUTA_SYMBOL_TYPE_METHOD|
 																			 IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG,
-																			 TRUE, IANJUTA_SYMBOL_FIELD_SIMPLE,
+																			 TRUE, 
+																			 IANJUTA_SYMBOL_FIELD_SIMPLE|
+			                                          						 IANJUTA_SYMBOL_FIELD_TYPE|
+			                                          						 IANJUTA_SYMBOL_FIELD_ACCESS|
+			                                          						 IANJUTA_SYMBOL_FIELD_KIND,
 																			 call_context, file, max_completions, -1, NULL);
 												 
 			if (iter_file) 
@@ -620,7 +633,11 @@ cpp_java_assist_show_calltip (CppJavaAssist *assist, gchar *call_context,
 									   IANJUTA_SYMBOL_TYPE_FUNCTION|
 									   IANJUTA_SYMBOL_TYPE_METHOD|
 									   IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG,
-									   TRUE, IANJUTA_SYMBOL_FIELD_SIMPLE,
+									   TRUE, 
+									   IANJUTA_SYMBOL_FIELD_SIMPLE|
+			                           IANJUTA_SYMBOL_FIELD_TYPE|
+			                           IANJUTA_SYMBOL_FIELD_ACCESS|
+			                           IANJUTA_SYMBOL_FIELD_KIND,
 									   call_context, IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC,
 									   max_completions, -1, NULL);
 	if (iter_project)
@@ -636,7 +653,11 @@ cpp_java_assist_show_calltip (CppJavaAssist *assist, gchar *call_context,
 									   IANJUTA_SYMBOL_TYPE_FUNCTION|
 									   IANJUTA_SYMBOL_TYPE_METHOD|
 									   IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG,
-									   TRUE, IANJUTA_SYMBOL_FIELD_SIMPLE,
+									   TRUE, 
+									   IANJUTA_SYMBOL_FIELD_SIMPLE|
+			                           IANJUTA_SYMBOL_FIELD_TYPE|
+			                           IANJUTA_SYMBOL_FIELD_ACCESS|
+			                           IANJUTA_SYMBOL_FIELD_KIND,		    
 									   call_context, IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC,
 									   max_completions, -1, NULL);
 	if (iter_global)
@@ -921,7 +942,10 @@ cpp_java_assist_populate (IAnjutaProvider* self, IAnjutaIterable* iter, GError**
 					IAnjutaIterable *children = 
 						ianjuta_symbol_manager_get_members (assist->priv->isymbol_manager,
 						                                    symbol,
-						                                    IANJUTA_SYMBOL_FIELD_SIMPLE,
+						                                    IANJUTA_SYMBOL_FIELD_SIMPLE |
+						                                    IANJUTA_SYMBOL_FIELD_KIND |
+						                                    IANJUTA_SYMBOL_FIELD_ACCESS |
+						                                    IANJUTA_SYMBOL_FIELD_TYPE,
 						                                    NULL);
 					if (children != NULL) {
 						cpp_java_assist_destroy_completion_cache (assist);

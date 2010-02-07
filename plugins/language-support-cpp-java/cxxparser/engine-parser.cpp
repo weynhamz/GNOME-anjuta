@@ -687,7 +687,7 @@ EngineParser::processExpression(const string& stmt,
 		}
 	}
 
-	cout << "END of expression processing. Returning curr_searchable_scope";
+	DEBUG_PRINT ("END of expression processing. Returning curr_searchable_scope");
 	return curr_searchable_scope;
 }
 
