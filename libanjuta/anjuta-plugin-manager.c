@@ -997,7 +997,7 @@ populate_plugin_model (AnjutaPluginManager *plugin_manager,
 				{
 					GdkPixbuf *icon;
 					icon = gdk_pixbuf_new_from_file_at_size (anjuta_plugin_handle_get_icon_path (plugin),
-															 48, 48, NULL);
+															 32, 32, NULL);
 					if (icon) {
 						gtk_list_store_set (store, &iter,
 											COL_ICON, icon, -1);
@@ -1071,7 +1071,7 @@ foreach_remembered_plugin (gpointer key, gpointer value, gpointer user_data)
 		{
 			GdkPixbuf *icon;
 			icon = gdk_pixbuf_new_from_file_at_size (anjuta_plugin_handle_get_icon_path (plugin),
-													 48, 48, NULL);
+													 32, 32, NULL);
 			if (icon) {
 				gtk_list_store_set (store, &iter,
 									COL_REM_ICON, icon, -1);
