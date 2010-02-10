@@ -44,6 +44,7 @@ GTKSOURCEVIEW_REQUIRED=2.9.3
 LIBWNCK_REQUIRED=2.12
 GDA_REQUIRED=4.0.0
 UNIQUE_REQUIRED=1.0.0
+VALA_REQUIRED=0.7.8
 
 AC_SUBST(GLIB_REQUIRED)
 AC_SUBST(GDK_PIXBUF_REQUIRED)
@@ -269,6 +270,16 @@ else
 fi
 
 AM_CONDITIONAL(HAVE_PLUGIN_SOURCEVIEW, [test x$sourceview = xyes])
+
+dnl Check for vala
+dnl -------------------------------------------------------------
+
+PKG_CHECK_MODULES(VALA,
+	[vala-1.0 >= $VALA_REQUIRED],
+	[enable_vala="yes"],
+	[enable_vala="no"])
+
+AM_CONDITIONAL(ENABLE_VALA, [test x$enable_vala = xyes])
 
 PKG_CHECK_MODULES(PLUGIN_SYMBOL_DB,
 		[libgda-4.0 >= $GDA_REQUIRED])
