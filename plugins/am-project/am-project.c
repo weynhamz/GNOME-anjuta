@@ -50,7 +50,7 @@
 #include "am-dialogs.h"
 #include "am-writer.h"
 //#include "am-config.h"
-//#include "am-properties.h"
+#include "am-properties.h"
 
 
 #define UNIMPLEMENTED  G_STMT_START { g_warning (G_STRLOC": unimplemented"); } G_STMT_END
@@ -346,7 +346,7 @@ file_type (GFile *file, const gchar *filename)
  *---------------------------------------------------------------------------*/
 
 /* Remove invalid character according to automake rules */
-gchar*
+static gchar*
 canonicalize_automake_variable (gchar *name)
 {
 	gchar *canon_name = g_strdup (name);
@@ -363,7 +363,7 @@ canonicalize_automake_variable (gchar *name)
 	return canon_name;
 }
 
-gboolean
+static gboolean
 split_automake_variable (gchar *name, gint *flags, gchar **module, gchar **primary)
 {
 	GRegex *regex;
@@ -445,7 +445,7 @@ split_automake_variable (gchar *name, gint *flags, gchar **module, gchar **prima
 	return TRUE;
 }
 
-gchar*
+static gchar*
 ac_init_default_tarname (const gchar *name)
 {
 	gchar *tarname;
@@ -491,7 +491,7 @@ amp_config_file_free (AmpConfigFile *config)
 /* Package objects
  *---------------------------------------------------------------------------*/
 
-void
+static void
 amp_package_set_version (AmpPackage *package, const gchar *compare, const gchar *version)
 {
 	g_return_if_fail (package != NULL);
@@ -568,73 +568,27 @@ amp_project_free_module_hash (AmpProject *project)
 /* Properties objects
  *---------------------------------------------------------------------------*/
 
-static AmpProjectPropertyInfo *
-amp_project_property_new (AnjutaToken *ac_init)
+static AmpPropertyInfo *
+amp_property_new (AnjutaToken *ac_init)
 {
-	AmpProjectPropertyInfo *prop;
+	AmpPropertyInfo *prop;
 
-	prop = g_slice_new0(AmpProjectPropertyInfo);
+	prop = g_slice_new0(AmpPropertyInfo);
 	prop->ac_init = ac_init;
 
 	return prop;
 }
 
 static void
-amp_project_property_free (AmpProjectPropertyInfo *prop)
+amp_property_free (AmpPropertyInfo *prop)
 {
 	if (prop->base.override != NULL)
 	{
-		if ((prop->base.value != NULL) && (prop->base.value != ((AmpProjectPropertyInfo *)(prop->base.override->data))->base.value))
+		if ((prop->base.value != NULL) && (prop->base.value != ((AmpPropertyInfo *)(prop->base.override->data))->base.value))
 		{
 			g_free (prop->base.value);
 		}
-		g_slice_free (AmpProjectPropertyInfo, prop);
-	}
-}
-
-static AmpGroupPropertyInfo *
-amp_group_property_new (void)
-{
-	AmpGroupPropertyInfo *prop;
-
-	prop = g_slice_new0(AmpGroupPropertyInfo);
-
-	return prop;
-}
-
-static void
-amp_group_property_free (AmpGroupPropertyInfo *prop)
-{
-	if (prop->base.override != NULL)
-	{
-		if ((prop->base.value != NULL) && (prop->base.value != ((AmpGroupPropertyInfo *)(prop->base.override->data))->base.value))
-		{
-			g_free (prop->base.value);
-		}
-		g_slice_free (AmpGroupPropertyInfo, prop);
-	}
-}
-
-static AmpTargetPropertyInfo *
-amp_target_property_new (void)
-{
-	AmpTargetPropertyInfo *prop;
-
-	prop = g_slice_new0(AmpTargetPropertyInfo);
-
-	return prop;
-}
-
-static void
-amp_target_property_free (AmpTargetPropertyInfo *prop)
-{
-	if (prop->base.override != NULL)
-	{
-		if ((prop->base.value != NULL) && (prop->base.value != ((AmpTargetPropertyInfo *)(prop->base.override->data))->base.value))
-		{
-			g_free (prop->base.value);
-		}
-		g_slice_free (AmpTargetPropertyInfo, prop);
+		g_slice_free (AmpPropertyInfo, prop);
 	}
 }
 
@@ -740,7 +694,7 @@ amp_group_free (AmpGroup *node)
 	gint i;
 	
 	if (group->base.directory) g_object_unref (group->base.directory);
-	anjuta_project_property_foreach (group->base.node.properties, (GFunc)amp_project_property_free, NULL);
+	anjuta_project_property_foreach (group->base.node.properties, (GFunc)amp_property_free, NULL);
 	if (group->tfile) anjuta_token_file_free (group->tfile);
 	if (group->makefile) g_object_unref (group->makefile);
 	for (i = 0; i < AM_GROUP_TOKEN_LAST; i++)
@@ -786,7 +740,7 @@ amp_target_new (const gchar *name, AnjutaProjectTargetType type, const gchar *in
 
 	target = g_slice_new0(AmpTargetData); 
 	target->base.node.type = ANJUTA_PROJECT_TARGET;
-	target->base.node.properties = amp_get_target_property_list();
+	target->base.node.properties = amp_get_target_property_list(type);
 	target->base.name = g_strdup (name);
 	target->base.type = type;
 	target->install = g_strdup (install);
@@ -801,7 +755,7 @@ amp_target_free (AmpTarget *node)
     AmpTargetData *target = AMP_TARGET_DATA (node);
 	
     g_free (target->base.name);
-	anjuta_project_property_foreach (target->base.node.properties, (GFunc)amp_project_property_free, NULL);
+	anjuta_project_property_foreach (target->base.node.properties, (GFunc)amp_property_free, NULL);
     g_free (target->install);
     g_slice_free (AmpTargetData, target);
 
@@ -830,7 +784,7 @@ amp_source_free (AmpSource *node)
     AmpSourceData *source = AMP_SOURCE_DATA (node);
 	
     g_object_unref (source->base.file);
-	anjuta_project_property_foreach (source->base.node.properties, (GFunc)amp_project_property_free, NULL);
+	anjuta_project_property_foreach (source->base.node.properties, (GFunc)amp_property_free, NULL);
     g_slice_free (AmpSourceData, source);
 
 	g_node_destroy (node);
@@ -1016,24 +970,24 @@ amp_project_load_properties (AmpProject *project, AnjutaToken *macro, AnjutaToke
 
 	for (list = anjuta_project_property_first (project->properties); list != NULL; list = anjuta_project_property_next (list))
 	{
-		AmpProjectPropertyInfo *info = anjuta_project_property_get_info (list);
+		AmpPropertyInfo *info = (AmpPropertyInfo *)anjuta_project_property_get_info (list);
 
 		if (info->position >= 0)
 		{
-			AmpProjectPropertyInfo *prop;
+			AnjutaProjectPropertyInfo *prop;
 			AnjutaToken *arg;
 
 			prop = anjuta_project_property_lookup (project->properties, list);
 			if (prop == NULL)
 			{
-				prop = amp_project_property_new (macro);
+				prop = (AnjutaProjectPropertyInfo *)amp_property_new (macro);
 				
 				project->properties = anjuta_project_property_insert (project->properties, list, prop);
 			}
 	
 			arg = anjuta_token_nth_word (args, info->position);
-			if ((prop->base.value != NULL) && (prop->base.value != info->base.value)) g_free (prop->base.value);
-			prop->base.value = anjuta_token_evaluate (arg);
+			if ((prop->value != NULL) && (prop->value != info->base.value)) g_free (prop->value);
+			prop->value = anjuta_token_evaluate (arg);
 		}
 	}
 }
@@ -1485,11 +1439,8 @@ remove_config_file (gpointer data, GObject *object, gboolean is_last_ref)
 static AmpGroup*
 project_load_makefile (AmpProject *project, GFile *file, AnjutaProjectGroup *parent, gboolean dist_only)
 {
-	//GHashTable *orphan_sources = NULL;
 	const gchar **filename;
-	AmpAmScanner *scanner;
 	AmpGroup *group;
-	//AnjutaToken *significant_tok;
 	AnjutaTokenFile *tfile;
 	GFile *makefile = NULL;
 
@@ -1504,7 +1455,7 @@ project_load_makefile (AmpProject *project, GFile *file, AnjutaProjectGroup *par
 	{
 		anjuta_project_node_append (parent, group);
 	}
-		
+	
 	/* Find makefile name
 	 * It has to be in the config_files list with .am extension */
 	for (filename = valid_am_makefiles; *filename != NULL; filename++)
@@ -1705,7 +1656,7 @@ amp_project_unload (AmpProject *project)
 	if (project->root_file) g_object_unref (project->root_file);
 	project->root_file = NULL;
 
-	anjuta_project_property_foreach (project->properties, (GFunc)amp_project_property_free, NULL);
+	anjuta_project_property_foreach (project->properties, (GFunc)amp_property_free, NULL);
 	project->properties = amp_get_project_property_list ();
 	
 	/* shortcut hash tables */

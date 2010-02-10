@@ -37,7 +37,7 @@
 /* Constants
   *---------------------------------------------------------------------------*/
 
-static AmpProjectPropertyInfo AmpProjectProperties[] = {
+static AmpPropertyInfo AmpProjectProperties[] = {
 	{{N_("Name:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 0},
 	{{N_("Version:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 1},
 	{{N_("Bug report URL:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 2},
@@ -48,7 +48,7 @@ static AmpProjectPropertyInfo AmpProjectProperties[] = {
 static GList* AmpProjectPropertyList = NULL;
 
 
-static AmpGroupPropertyInfo AmpGroupProperties[] = {
+static AmpPropertyInfo AmpGroupProperties[] = {
 	{{N_("Linker flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
 	{{N_("C preprocessor flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
 	{{N_("C compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
@@ -64,9 +64,9 @@ static AmpGroupPropertyInfo AmpGroupProperties[] = {
 static GList* AmpGroupPropertyList = NULL;
 
 
-static AmpTargetPropertyInfo AmpTargetProperties[] = {
+static AmpPropertyInfo AmpTargetProperties[] = {
+	{{N_("Do not install:"), ANJUTA_PROJECT_PROPERTY_BOOLEAN, NULL, NULL}, NULL, 3},
 	{{N_("Installation directory:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
-	{{N_("Include in distribution:"), ANJUTA_PROJECT_PROPERTY_BOOLEAN, NULL, NULL}, NULL, 2},
 	{{N_("Linker flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
 	{{N_("C preprocessor flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
 	{{N_("C compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
@@ -78,13 +78,33 @@ static AmpTargetPropertyInfo AmpTargetProperties[] = {
 	{{N_("Yacc/Bison flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
 	{{N_("Ratfor compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
 	{{N_("Additional dependencies:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("Include in distribution:"), ANJUTA_PROJECT_PROPERTY_BOOLEAN, NULL, NULL}, NULL, 2},
 	{{N_("Build for check only:"), ANJUTA_PROJECT_PROPERTY_BOOLEAN, NULL, NULL}, NULL, 3},
 	{{N_("Do not use prefix:"), ANJUTA_PROJECT_PROPERTY_BOOLEAN, NULL, NULL}, NULL, 1},
+	{{N_("Keep target path:"), ANJUTA_PROJECT_PROPERTY_BOOLEAN, NULL, NULL}, NULL, 0},
+	{{NULL, ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 0}};
+
+static GList* AmpTargetPropertyList = NULL;
+
+static AmpPropertyInfo AmpManTargetProperties[] = {
+	{{N_("Installation directory:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("Linker flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("C preprocessor flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("C compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("C++ compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("Java Compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("Fortan compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("Objective C compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("Lex/Flex flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("Yacc/Bison flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("Ratfor compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("Additional dependencies:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
+	{{N_("Include in distribution:"), ANJUTA_PROJECT_PROPERTY_BOOLEAN, NULL, NULL}, NULL, 2},
 	{{N_("Keep target path:"), ANJUTA_PROJECT_PROPERTY_BOOLEAN, NULL, NULL}, NULL, 0},
 	{{N_("Manual section:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 4},
 	{{NULL, ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, NULL, 0}};
 
-static GList* AmpTargetPropertyList = NULL;
+static GList* AmpManTargetPropertyList = NULL;
 
 /* Helper functions
  *---------------------------------------------------------------------------*/
@@ -92,58 +112,48 @@ static GList* AmpTargetPropertyList = NULL;
 /* Private functions
  *---------------------------------------------------------------------------*/
 
+static GList *
+amp_create_property_list (GList **list, AmpPropertyInfo *info)
+{
+	if (*list == NULL)
+	{
+		AmpPropertyInfo *prop;
+
+		for (prop = info; prop->base.name != NULL; prop++)
+		{
+			*list = g_list_prepend (*list, prop);
+		}
+		*list = g_list_reverse (*list);
+	}
+
+	return *list;
+}
+
 /* Public functions
  *---------------------------------------------------------------------------*/
 
 GList*
 amp_get_project_property_list (void)
 {
-	if (AmpProjectPropertyList == NULL)
-	{
-		AmpProjectPropertyInfo *prop;
-
-		for (prop = AmpProjectProperties; prop->base.name != NULL; prop++)
-		{
-			AmpProjectPropertyList = g_list_prepend (AmpProjectPropertyList, prop);
-		}
-		AmpProjectPropertyList = g_list_reverse (AmpProjectPropertyList);
-	}
-
-	return AmpProjectPropertyList;
+	return amp_create_property_list (&AmpProjectPropertyList, AmpProjectProperties);
 }
 
 GList*
 amp_get_group_property_list (void)
 {
-	if (AmpGroupPropertyList == NULL)
-	{
-		AmpGroupPropertyInfo *prop;
-
-		for (prop = AmpGroupProperties; prop->base.name != NULL; prop++)
-		{
-			AmpGroupPropertyList = g_list_prepend (AmpGroupPropertyList, prop);
-		}
-		AmpGroupPropertyList = g_list_reverse (AmpGroupPropertyList);
-	}
-
-	return AmpGroupPropertyList;
+	return amp_create_property_list (&AmpGroupPropertyList, AmpGroupProperties);
 }
 
 GList*
-amp_get_target_property_list (void)
+amp_get_target_property_list (AnjutaProjectTargetType type)
 {
-	if (AmpTargetPropertyList == NULL)
+	switch (type->base)
 	{
-		AmpTargetPropertyInfo *prop;
-
-		for (prop = AmpTargetProperties; prop->base.name != NULL; prop++)
-		{
-			AmpTargetPropertyList = g_list_prepend (AmpTargetPropertyList, prop);
-		}
-		AmpTargetPropertyList = g_list_reverse (AmpTargetPropertyList);
+	case ANJUTA_TARGET_MAN:
+		return amp_create_property_list (&AmpManTargetPropertyList, AmpManTargetProperties);
+	default:
+		return amp_create_property_list (&AmpTargetPropertyList, AmpTargetProperties);
 	}
-
-	return AmpTargetPropertyList;
 }
 
 GList*

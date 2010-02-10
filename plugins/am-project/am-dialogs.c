@@ -61,18 +61,27 @@ static void
 add_entry (AmpProject *project, AnjutaProjectNode *node, AnjutaProjectPropertyInfo *info, GtkWidget *table, gint position)
 {
 	GtkWidget *label;
-	GtkWidget *entry;
-	const gchar *value;
+	GtkWidget *entry = NULL;
 
 	label = gtk_label_new (_(info->name));
 	gtk_misc_set_alignment (GTK_MISC (label), 0, -1);
 	gtk_widget_show (label);
 	gtk_table_attach (GTK_TABLE (table), label, 0, 1, position, position+1,
 			  GTK_FILL, GTK_FILL, 5, 3);
-	
-	entry = gtk_entry_new ();
-	value = info->value;
-	gtk_entry_set_text (GTK_ENTRY (entry), value);
+
+	switch (info->type)
+	{
+	case ANJUTA_PROJECT_PROPERTY_STRING:
+		entry = gtk_entry_new ();
+		gtk_entry_set_text (GTK_ENTRY (entry), info->value);
+		break;
+	case ANJUTA_PROJECT_PROPERTY_BOOLEAN:
+		entry = gtk_check_button_new ();
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (entry), (info->value != NULL) && (*info->value == '1'));
+		break;
+	default:
+		return;
+	}		
 	gtk_misc_set_alignment (GTK_MISC (entry), 0, -1);
 	gtk_widget_show (entry);
 	gtk_table_attach (GTK_TABLE (table), entry, 1, 2, position, position+1,

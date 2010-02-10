@@ -48,31 +48,13 @@ struct _AmpProperty {
 };
 #endif
 
-struct _AmpProjectPropertyInfo {
+struct _AmpPropertyInfo {
 	AnjutaProjectPropertyInfo base;
 	AnjutaToken *ac_init;
 	gint position;
 };
 
-typedef struct _AmpProjectPropertyInfo   AmpProjectPropertyInfo;
-
-struct _AmpGroupPropertyInfo {
-	AnjutaProjectPropertyInfo base;
-	AnjutaToken *ac_init;
-	gint position;
-};
-
-typedef struct _AmpGroupPropertyInfo   AmpGroupPropertyInfo;
-
-struct _AmpTargetPropertyInfo {
-	AnjutaProjectPropertyInfo base;
-	AnjutaToken *ac_init;
-	gint position;
-};
-
-typedef struct _AmpTargetPropertyInfo   AmpTargetPropertyInfo;
-
-
+typedef struct _AmpPropertyInfo   AmpPropertyInfo;
 
 struct _AmpProject {
 	GObject         parent;
