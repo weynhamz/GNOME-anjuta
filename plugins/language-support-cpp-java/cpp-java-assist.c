@@ -162,8 +162,7 @@ create_completion (CppJavaAssist* assist, IAnjutaIterable* iter,
 		{
 			CppJavaAssistTag *tag = g_new0 (CppJavaAssistTag, 1);
 			const GdkPixbuf* sym_icon;
-			tag->name = g_strdup (name);
-			DEBUG_PRINT ("Created tag: %s", tag->name);
+			tag->name = g_strdup (name);			
 			tag->type = ianjuta_symbol_get_sym_type (IANJUTA_SYMBOL (iter),
 													 NULL);
 			sym_icon = ianjuta_symbol_get_icon (IANJUTA_SYMBOL(iter), NULL);
@@ -492,6 +491,7 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist)
 		                                            NULL);
 	}
 	g_free (pattern);
+	g_free (assist->priv->search_cache);
 	assist->priv->search_cache = g_strdup (assist->priv->pre_word);
 	DEBUG_PRINT ("Started async search for: %s", assist->priv->pre_word);
 }
@@ -783,8 +783,6 @@ cpp_java_parse_expression (CppJavaAssist* assist, IAnjutaIterable* iter, IAnjuta
 	do 
 	{
 		gchar ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL(cur_pos), 0, NULL);
-
-		DEBUG_PRINT ("ch == '%c'", ch);
 		
 		if (is_expression_separator(ch, FALSE, iter)) {
 			DEBUG_PRINT ("found char '%c' which is an expression_separator", ch);
@@ -979,6 +977,7 @@ cpp_java_assist_populate (IAnjutaProvider* self, IAnjutaIterable* iter, GError**
 				if (assist->priv->start_iter)
 					g_object_unref (assist->priv->start_iter);
 				assist->priv->start_iter = ianjuta_iterable_clone(iter, NULL);
+				DEBUG_PRINT ("Setting start iter!");
 				ianjuta_iterable_next (IANJUTA_ITERABLE (assist->priv->start_iter), NULL);
 				cpp_java_assist_create_word_completion_cache(assist);
 				return;
@@ -1053,6 +1052,10 @@ cpp_java_assist_activate (IAnjutaProvider* self, IAnjutaIterable* iter, gpointer
 		cpp_java_assist_calltip (assist, TRUE, FALSE);
 	
 	g_string_free (assistance, TRUE);
+	g_free(assist->priv->pre_word);
+	assist->priv->pre_word = NULL;
+	g_free(assist->priv->search_cache);
+	assist->priv->search_cache = NULL;
 }
 
 static IAnjutaIterable*

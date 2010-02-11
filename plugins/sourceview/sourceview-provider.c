@@ -72,7 +72,6 @@ sourceview_provider_get_start_iter (GtkSourceCompletionProvider* provider,
 	IAnjutaIterable* iiter = ianjuta_provider_get_start_iter (prov->iprov, NULL);
 	if (iiter)
 	{
-		DEBUG_PRINT ("Setting start iter");
 		SourceviewCell* cell = SOURCEVIEW_CELL(iiter);
 		GtkTextIter source_iter;
 		sourceview_cell_get_iter(cell, &source_iter);
