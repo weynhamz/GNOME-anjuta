@@ -346,14 +346,14 @@ anjuta_project_node_get_property_list (AnjutaProjectNode *node)
 		list = g_list_prepend (list, item->data);
 	}
 
-	new_item = g_list_first (list);
 	for (item = g_list_first (NODE_DATA (node)->properties); item != NULL; item = g_list_next (item))
 	{
 		AnjutaProjectPropertyInfo *info = (AnjutaProjectPropertyInfo *)item->data;
 
 		if (info->override == NULL) break;
 
-		while (new_item->data != NULL)
+		new_item = g_list_first (list);
+		while ((new_item != NULL) && (new_item->data != NULL))
 		{
 			if (new_item->data == info->override)
 			{

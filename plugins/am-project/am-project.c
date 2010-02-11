@@ -565,33 +565,6 @@ amp_project_free_module_hash (AmpProject *project)
 	}
 }
 
-/* Properties objects
- *---------------------------------------------------------------------------*/
-
-static AmpPropertyInfo *
-amp_property_new (AnjutaToken *ac_init)
-{
-	AmpPropertyInfo *prop;
-
-	prop = g_slice_new0(AmpPropertyInfo);
-	prop->ac_init = ac_init;
-
-	return prop;
-}
-
-static void
-amp_property_free (AmpPropertyInfo *prop)
-{
-	if (prop->base.override != NULL)
-	{
-		if ((prop->base.value != NULL) && (prop->base.value != ((AmpPropertyInfo *)(prop->base.override->data))->base.value))
-		{
-			g_free (prop->base.value);
-		}
-		g_slice_free (AmpPropertyInfo, prop);
-	}
-}
-
 /* Group objects
  *---------------------------------------------------------------------------*/
 
@@ -1211,6 +1184,27 @@ project_load_target (AmpProject *project, AnjutaToken *name, AnjutaToken *list, 
 			g_list_free (sources);
 		}
 
+		/* Set target properties */
+		if (flags & AM_TARGET_NOBASE) 
+			amp_node_property_set (target, AM_TOKEN__PROGRAMS, 0, "1", arg);
+		if (flags & AM_TARGET_NOTRANS) 
+			amp_node_property_set (target, AM_TOKEN__PROGRAMS, 1, "1", arg);
+		if (flags & AM_TARGET_DIST) 
+			amp_node_property_set (target, AM_TOKEN__PROGRAMS, 2, "1", arg);
+		if (flags & AM_TARGET_NODIST) 
+			amp_node_property_set (target, AM_TOKEN__PROGRAMS, 2, "0", arg);
+		if (flags & AM_TARGET_NOINST) 
+			amp_node_property_set (target, AM_TOKEN__PROGRAMS, 3, "1", arg);
+		if (flags & AM_TARGET_CHECK) 
+			amp_node_property_set (target, AM_TOKEN__PROGRAMS, 4, "1", arg);
+		if (flags & AM_TARGET_MAN)
+		{
+			gchar section[] = "0";
+
+			section[0] += (flags >> 7) & 0x1F;
+			amp_node_property_set (target, AM_TOKEN__PROGRAMS, 4, section, arg);
+		}
+		
 		g_free (canon_id);
 		g_free (value);
 	}

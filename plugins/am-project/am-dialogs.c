@@ -193,7 +193,7 @@ amp_configure_group_dialog (AmpProject *project, AmpGroup *group, GError **error
 
 	main_pos = 1;
 	extra_pos = 0;
-	list = anjuta_project_node_get_property_list ((AnjutaProjectNode *)group);
+	list = ANJUTA_PROJECT_NODE_DATA ((AnjutaProjectNode *)group)->properties;
 	for (prop = anjuta_project_property_first (list); prop != NULL; prop = anjuta_project_property_next (prop))
 	{
 		AnjutaProjectPropertyInfo *info;
@@ -251,7 +251,7 @@ amp_configure_target_dialog (AmpProject *project, AmpTarget *target, GError **er
 
 	main_pos = 2;
 	extra_pos = 0;
-	list = anjuta_project_node_get_property_list ((AnjutaProjectNode *)target);
+	list = ANJUTA_PROJECT_NODE_DATA ((AnjutaProjectNode *)target)->properties;
 	for (prop = anjuta_project_property_first (list); prop != NULL; prop = anjuta_project_property_next (prop))
 	{
 		AnjutaProjectPropertyInfo *info;

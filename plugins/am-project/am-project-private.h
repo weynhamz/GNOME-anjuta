@@ -50,8 +50,9 @@ struct _AmpProperty {
 
 struct _AmpPropertyInfo {
 	AnjutaProjectPropertyInfo base;
-	AnjutaToken *ac_init;
+	gint token_type;
 	gint position;
+	AnjutaToken *token;
 };
 
 typedef struct _AmpPropertyInfo   AmpPropertyInfo;
