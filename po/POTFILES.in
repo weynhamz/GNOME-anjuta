@@ -164,7 +164,6 @@ plugins/project-wizard/druid.c
 plugins/project-wizard/install.c
 plugins/project-wizard/plugin.c
 plugins/project-wizard/property.c
-plugins/project-wizard/templates/translatable-strings.h
 [type: gettext/glade]plugins/run-program/anjuta-run-program.ui
 plugins/run-program/execute.c
 plugins/run-program/parameters.c
