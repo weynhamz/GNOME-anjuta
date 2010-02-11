@@ -279,6 +279,11 @@ PKG_CHECK_MODULES(VALA,
 	[enable_vala="yes"],
 	[enable_vala="no"])
 
+if test x$enable_vala = xyes; then
+	AC_PATH_PROG(VALAC, valac, valac)
+	AC_SUBST(VALAC)
+fi
+
 AM_CONDITIONAL(ENABLE_VALA, [test x$enable_vala = xyes])
 
 PKG_CHECK_MODULES(PLUGIN_SYMBOL_DB,
@@ -916,6 +921,11 @@ if [ test x$sourceview = xyes ]; then
         echo "Building GtkSourceView based editor: ...................YES"
 else
         echo "Building GtkSourceView based editor: ...................NO"
+fi
+if [ test x$enable_vala = xyes ]; then
+        echo "Building Vala ctags parser (requires vala):.............YES"
+else
+        echo "Building Vala ctags parser (requires vala):.............NO"
 fi
 echo "-------------------------------------------------------------------"
 echo "AM_CFLAGS = $AM_CFLAGS"
