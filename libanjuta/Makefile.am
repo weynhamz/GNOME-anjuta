@@ -83,7 +83,9 @@ libanjuta_la_SOURCES= \
 	anjuta-command-queue.c \
 	anjuta-command-queue.h \
 	anjuta-project.c \
-	anjuta-project.h
+	anjuta-project.h \
+	anjuta-drop-entry.h \
+	anjuta-drop-entry.c
 
 
 if HAVE_PLUGIN_GLADE
