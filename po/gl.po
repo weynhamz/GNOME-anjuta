@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-master-po-gl-1952\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-11 15:30+0100\n"
-"PO-Revision-Date: 2010-02-05 13:04+0100\n"
+"POT-Creation-Date: 2010-02-12 10:20+0100\n"
+"PO-Revision-Date: 2010-02-11 17:59+0100\n"
 "Last-Translator: Fran Diéguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Gallician <proxecto@trasno.net>\n"
 "MIME-Version: 1.0\n"
@@ -380,8 +380,8 @@ msgid ""
 "Failed to read '%s': XML parse error. Invalid or corrupted Anjuta plugins "
 "profile."
 msgstr ""
-"Ocorreu un fallo ao ler '%s': erro de análise de XML. O perfil de plugins do "
-"Anjuta non é válido ou está danado."
+"Produciuse un fallo ao ler '%s': erro de análise de XML. O perfil de plugins "
+"do Anjuta non é válido ou está danado."
 
 #. <Pluginname>: Install it from <some location on the web>
 #: ../libanjuta/anjuta-profile.c:699
@@ -395,7 +395,7 @@ msgid ""
 "Failed to read '%s': Following mandatory plugins are missing:\n"
 "%s"
 msgstr ""
-"Fallou ao ler '%s': faltan os seguintes plugins obrigatorios:\n"
+"Produciuse un fallo ao ler '%s': faltan os seguintes plugins obrigatorios:\n"
 "%s"
 
 #: ../libanjuta/anjuta-preferences.c:1534
@@ -497,19 +497,22 @@ msgid ""
 "installing missing packages. Please install \"packagekit-gnome\" package "
 "from your distribution, or install the missing packages manually."
 msgstr ""
+"Semella que non ten instalado o paquete PackageKit. PackageKit requírese "
+"para instalar os paquetes que faltan. Instale o paquete \"packagekit-gnome\" "
+"para a súa instalación, ou instale os paquetes que faltan de forma manual."
 
 #: ../libanjuta/anjuta-utils.c:515
 #, c-format
 msgid "Installation failed: %s"
-msgstr ""
+msgstr "Produciuse un fallo na instalación: %s"
 
 #: ../libanjuta/anjuta-utils.c:575
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The \"%s\" package is not installed.\n"
 "Please install it."
 msgstr ""
-"A utilidade \"%s\" non está instalada.\n"
+"O paquete \"%s\" non está instalado.\n"
 "Instálea."
 
 #: ../libanjuta/anjuta-utils.c:593
@@ -1198,7 +1201,7 @@ msgstr "Ficheiro no que se escribirá o modelo que se procese"
 #: ../plugins/class-gen/generator.c:402
 #, c-format
 msgid "Failed to write autogen definition file"
-msgstr "Fallou ao escribir o ficheiro de definición AutoGen"
+msgstr "Produciuse un fallo ao escribir o ficheiro de definición AutoGen"
 
 #: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1127
 msgid ""
@@ -1211,7 +1214,7 @@ msgstr ""
 #: ../plugins/class-gen/plugin.c:242 ../plugins/class-gen/plugin.c:410
 #, c-format
 msgid "Failed to execute autogen: %s"
-msgstr "Fallou ao executar o AutoGen: %s"
+msgstr "Produciuse un fallo ao executar o AutoGen: %s"
 
 #: ../plugins/class-gen/window.c:94
 msgid "Guess from type"
@@ -3363,7 +3366,7 @@ msgstr "Automático"
 #: ../plugins/document-manager/plugin.c:1558
 #, c-format
 msgid "Autosave failed for %s"
-msgstr "Fallo ao gardar automaticamente %s"
+msgstr "Produciuse un fallo ao gardar automaticamente %s"
 
 #: ../plugins/document-manager/plugin.c:1572
 msgid "Autosave completed"
@@ -3545,7 +3548,7 @@ msgstr "Ficheiros differenciais"
 #: ../plugins/file-loader/plugin.c:823
 #, c-format
 msgid "Failed to activate plugin: %s"
-msgstr "Fallou ao activar o plugin: %s"
+msgstr "Produciuse un fallo ao activar o plugin: %s"
 
 #: ../plugins/file-loader/plugin.c:884
 msgid "_New"
@@ -3855,9 +3858,8 @@ msgstr "Documentación Info"
 
 #: ../plugins/gbf-am/gbf-am-project.c:217
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:215
-#, fuzzy
 msgid "Lisp Module"
-msgstr "Módulo"
+msgstr "Módulo de Lisp"
 
 #: ../plugins/gbf-am/gbf-am-project.c:220
 #: ../plugins/gbf-am/gbf-am-project.c:3356
@@ -3879,43 +3881,38 @@ msgstr "Módulo Python"
 
 #: ../plugins/gbf-am/gbf-am-project.c:229
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:227
-#, fuzzy
 msgid "Generic rule"
-msgstr "Xenérico"
+msgstr "Regra xenérica"
 
 #: ../plugins/gbf-am/gbf-am-project.c:232
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:230
-#, fuzzy
 msgid "Extra target"
-msgstr "Non é posíbel engadir o destino"
+msgstr "Obxectivo adicional"
 
 #: ../plugins/gbf-am/gbf-am-project.c:235
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:233
-#, fuzzy
 msgid "Configure file"
-msgstr "Configurar o proxecto"
+msgstr "Ficheiro configure"
 
 #: ../plugins/gbf-am/gbf-am-project.c:238
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:236
-#, fuzzy
 msgid "Interface file"
-msgstr "Interface"
+msgstr "Ficheiro de interface"
 
 #: ../plugins/gbf-am/gbf-am-project.c:241
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:239
 msgid "GLib mkenums"
-msgstr ""
+msgstr "mkenums de Glib"
 
 #: ../plugins/gbf-am/gbf-am-project.c:244
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:242
 msgid "GLib genmarshal"
-msgstr ""
+msgstr "genmarshal de Glib"
 
 #: ../plugins/gbf-am/gbf-am-project.c:247
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:245
-#, fuzzy
 msgid "Intl rule"
-msgstr "Instalar o módulo"
+msgstr "Grega de Intl"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2559
 #: ../plugins/gbf-am/gbf-am-project.c:2637
@@ -4037,7 +4034,7 @@ msgstr "O destino xa existe"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3267
 msgid "General failure in target creation"
-msgstr "Houbo un fallo xeral ao crear o destino"
+msgstr "Produciuse un fallo xeral ao crear o destino"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3295
 msgid "Newly created target could not be identified"
@@ -4324,7 +4321,7 @@ msgstr ""
 
 #: ../plugins/gdb/debugger.c:1000
 msgid "There was an error whilst launching the debugger.\n"
-msgstr "Houbo un erro ao iniciar o depurador.\n"
+msgstr "Produciuse un erro ao iniciar o depurador.\n"
 
 #: ../plugins/gdb/debugger.c:1004
 msgid "Make sure 'gdb' is installed on the system.\n"
@@ -4425,14 +4422,14 @@ msgstr "Mandando o sinal %s ao proceso: %d"
 
 #: ../plugins/gdb/debugger.c:3975
 msgid "Error whilst signaling the process."
-msgstr "Houbo un erro ao sinalizar o proceso."
+msgstr "Produciuse un erro ao sinalizar o proceso."
 
 #: ../plugins/gdb/plugin.c:112
 #, c-format
 msgid ""
 "Failed to create FIFO file named %s. The program will run without a terminal."
 msgstr ""
-"Produciuse un fallou ao crear un ficheiro fifo chamado %s. O programa "
+"Produciuse un fallo ao crear un ficheiro fifo chamado %s. O programa "
 "executarase sen ningún terminal."
 
 #: ../plugins/gdb/plugin.c:198
@@ -5883,7 +5880,7 @@ msgstr ""
 #: ../plugins/glade/plugin.c:885
 #, c-format
 msgid "Failed to save associations"
-msgstr "Fallou ao gardar as asociacións"
+msgstr "Produciuse un fallo ao gardar as asociacións"
 
 #. iptCurrent:
 #: ../plugins/glade/plugin.c:1184
@@ -5942,7 +5939,9 @@ msgstr "Non foi posíbel encontrar unha información de sinal"
 
 #: ../plugins/glade/plugin.c:2069
 msgid "Error while adding a new handler stub: No current editor"
-msgstr "Erro ao engadir un manipulador stub novo: Non hai un editor actual"
+msgstr ""
+"Produciuse un erro ao engadir un manipulador stub novo: Non hai un editor "
+"actual"
 
 #: ../plugins/glade/plugin.c:2242
 #, c-format
@@ -6266,12 +6265,12 @@ msgstr "Non ten permiso para ler o ficheiro."
 #: ../plugins/gtodo/libgtodo.c:618
 #, c-format
 msgid "Failed to read file"
-msgstr "Fallou ao ler o ficheiro"
+msgstr "Produciuse un fallo ao ler o ficheiro"
 
 #: ../plugins/gtodo/libgtodo.c:626 ../plugins/gtodo/libgtodo.c:637
 #, c-format
 msgid "Failed to parse XML structure"
-msgstr "Fallou ao analizar a estrutura XML"
+msgstr "Produciuse un fallo ao analizar a estrutura XML"
 
 #: ../plugins/gtodo/libgtodo.c:646
 #, c-format
@@ -6692,7 +6691,7 @@ msgstr "Mensaxes"
 #: ../plugins/message-view/message-view.c:943
 #, c-format
 msgid "Error writing %s"
-msgstr "Erro ao escribir %s"
+msgstr "Produciuse un erro ao escribir %s"
 
 #: ../plugins/message-view/message-view.c:1100
 #, c-format
@@ -6862,9 +6861,9 @@ msgstr ""
 "acceso de escritura no cartafol do proxecto."
 
 #: ../plugins/project-import/plugin.c:200
-#, fuzzy, c-format
+#, c-format
 msgid "Please select a project backend to open %s."
-msgstr "Seleccione un plugin para abrir <b>%s</b>."
+msgstr "Seleccione un backend do proxecto para abrir <b>%s</b>."
 
 #: ../plugins/project-import/plugin.c:220
 #, c-format
@@ -7018,9 +7017,8 @@ msgid "Group properties"
 msgstr "Propiedades do grupo"
 
 #: ../plugins/project-manager/plugin.c:446
-#, fuzzy
 msgid "No properties available for this group"
-msgstr "Non hai propiedades dispoñíbeis para este destino"
+msgstr "Non hai propiedades dispoñíbeis para este grupo"
 
 #: ../plugins/project-manager/plugin.c:451
 msgid "Target properties"
@@ -7042,7 +7040,7 @@ msgstr "Actualizando a árbore de símbolos..."
 #: ../plugins/project-manager/plugin.c:518
 #, c-format
 msgid "Failed to refresh project: %s"
-msgstr "Fallou ao actualizar o proxecto: %s"
+msgstr "Produciuse un fallo ao actualizar o proxecto: %s"
 
 #: ../plugins/project-manager/plugin.c:696
 msgid ""
@@ -7069,54 +7067,44 @@ msgstr ""
 "\n"
 
 #: ../plugins/project-manager/plugin.c:705
-#, fuzzy
 msgid ""
 "Are you sure you want to remove the following elements from the project?\n"
 "\n"
 msgstr ""
-"Está seguro de que quere eliminar o seguinte destino do proxecto?\n"
+"Está seguro de que quere eliminar os seguintes elementos do proxecto?\n"
 "\n"
 
 #: ../plugins/project-manager/plugin.c:722
-#, fuzzy, c-format
+#, c-format
 msgid "Group: %s\n"
-msgstr "Grupo:"
+msgstr "Grupo: %s\n"
 
 #: ../plugins/project-manager/plugin.c:725
-#, fuzzy, c-format
+#, c-format
 msgid "Target: %s\n"
-msgstr "Destino: %s"
+msgstr "Destino: %s\n"
 
 #: ../plugins/project-manager/plugin.c:728
-#, fuzzy, c-format
+#, c-format
 msgid "Source: %s\n"
-msgstr "Orixe:"
+msgstr "Orixe: %s\n"
 
 #: ../plugins/project-manager/plugin.c:731
-#, fuzzy, c-format
+#, c-format
 msgid "Shortcut: %s\n"
-msgstr "Atallo:"
+msgstr "Atallo: %s\n"
 
 #: ../plugins/project-manager/plugin.c:743
-#, fuzzy
 msgid "The group will not be deleted from the file system."
-msgstr ""
-"Grupo: %s\n"
-"\n"
-"O grupo non se eliminará do sistema de ficheiros."
+msgstr "O grupo non se eliminará do sistema de ficheiros."
 
 #: ../plugins/project-manager/plugin.c:745
-#, fuzzy
 msgid "The source file will not be deleted from the file system."
-msgstr ""
-"Fonte: %s\n"
-"\n"
-"O ficheiro fonte non se eliminará do sistema de ficheiros."
+msgstr "O ficheiro fonte non se eliminará do sistema de ficheiros."
 
 #: ../plugins/project-manager/plugin.c:750
-#, fuzzy
 msgid "Confirm remove"
-msgstr "Configurar o proxecto"
+msgstr "Confirmar a eliminación"
 
 #: ../plugins/project-manager/plugin.c:795
 #, c-format
@@ -7124,13 +7112,13 @@ msgid ""
 "Failed to remove '%s':\n"
 "%s"
 msgstr ""
-"Fallou ao eliminar '%s':\n"
+"Produciuse un fallo ao eliminar '%s':\n"
 "%s"
 
 #: ../plugins/project-manager/plugin.c:865
 #, c-format
 msgid "Failed to retrieve URI info of %s: %s"
-msgstr "Fallou ao recuperar a información de URI de %s: %s"
+msgstr "Produciuse un fallo ao recuperar a información de URI de %s: %s"
 
 #: ../plugins/project-manager/plugin.c:903
 msgid "_Project"
@@ -7228,13 +7216,13 @@ msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
 "view) %s: %s\n"
 msgstr ""
-"Fallou ao analizar o proxecto (o ficheiro está aberto, mais non haberá "
-"ningunha visualización de proxecto) %s: %s\n"
+"Produciuse un fallo ao analizar o proxecto (o ficheiro está aberto, mais non "
+"haberá ningunha visualización de proxecto) %s: %s\n"
 
 #: ../plugins/project-manager/plugin.c:1601
 #, c-format
 msgid "Error closing project: %s"
-msgstr "Houbo un erro ao pechar o proxecto: %s"
+msgstr "Produciuse un erro ao pechar o proxecto: %s"
 
 #: ../plugins/project-manager/plugin.c:1668
 msgid "Project manager actions"
@@ -7375,11 +7363,8 @@ msgstr ""
 "antes de xerar o proxecto.\n"
 
 #: ../plugins/project-wizard/druid.c:879
-#, fuzzy
 msgid "Install missing packages"
-msgstr ""
-"\n"
-"Faltan os paquetes: %s."
+msgstr "Instalar os paquetes que faltan"
 
 # erro no msgid: distrubution
 #: ../plugins/project-wizard/druid.c:887
@@ -7918,7 +7903,8 @@ msgid "Create backup files"
 msgstr "Crear ficheiros de copia de seguranza"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:4
-msgid "Enable autocompletion"
+#, fuzzy
+msgid "Enable autocompletion for document words"
 msgstr "Activar o completado de código"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:5
@@ -8879,7 +8865,7 @@ msgstr "Elemento inesperado \"%s\""
 
 #: ../plugins/tools/fileop.c:537
 msgid "Error when loading external tools"
-msgstr "Houbo un erro ao cargar as ferramentas externas"
+msgstr "Produciuse un erro ao cargar as ferramentas externas"
 
 #: ../plugins/tools/fileop.c:703
 #, c-format
@@ -9425,7 +9411,7 @@ msgstr "Asistencia C++/Java"
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
-#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1068
+#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1071
 msgid "C/C++"
 msgstr "C/C++"
 
@@ -9434,9 +9420,8 @@ msgid "GtkSourceView Editor"
 msgstr "Editor GtkSourceView"
 
 #: ../plugins/gdb/anjuta-gdb.plugin.in.h:1
-#, fuzzy
 msgid "GNU Debugger Plugin"
-msgstr "Plugin do xestor de depuración."
+msgstr "Engadido do depurador de GNU"
 
 #: ../plugins/gdb/anjuta-gdb.plugin.in.h:2
 msgid "Gdb"
@@ -9649,73 +9634,63 @@ msgid "Autotools backend for project manager"
 msgstr "Un motor de infraestrutura do Autotools para o xestor de proxectos"
 
 #: ../plugins/js-debugger/plugin.c:122
-#, fuzzy, c-format
+#, c-format
 msgid "Error: %s"
-msgstr "Erros:"
+msgstr "Erro: %s"
 
 #: ../plugins/js-debugger/plugin.c:142
 #: ../plugins/js-debugger/debugger-js.c:546
 msgid "Error: cant bind port"
-msgstr ""
+msgstr "Erro: non foi posíbel ligar o porto"
 
 #: ../plugins/js-debugger/js_debugger.plugin.in.h:1
-#, fuzzy
 msgid "Anjuta JS Debugger Plugin"
-msgstr "Plugin do Anjuta"
+msgstr "Engadido do depurador de JS de Anjuta"
 
 #: ../plugins/js-debugger/js_debugger.plugin.in.h:2
-#, fuzzy
 msgid "Javascript Debugger Plugin"
-msgstr "Iniciar o depurador"
+msgstr "Engadido do depurador Javascript"
 
 #: ../plugins/language-support-js/plugin.c:332
 #: ../plugins/language-support-js/plugin.c:341
-#, fuzzy
 msgid "JavaScript"
-msgstr "Script"
+msgstr "JavaScript"
 
 #: ../plugins/language-support-js/plugin.c:397
 msgid "JS"
-msgstr ""
+msgstr "JS"
 
 #: ../plugins/language-support-js/js_support_plugin.plugin.in.h:1
-#, fuzzy
 msgid "JS Support Plugin"
-msgstr "Plugin de C++ e de compatibilidade de Java"
+msgstr "Engadido de compatibilidade de JS"
 
 #: ../plugins/language-support-js/js_support_plugin.plugin.in.h:2
-#, fuzzy
 msgid "JavaScript Support Plugin"
-msgstr "Plugin de C++ e de compatibilidade de Java"
+msgstr "Engadido de compatibilidade de JavaScript"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:1
 msgid "<b>JS Find dirs</b>"
-msgstr ""
+msgstr "<b>Cartafoles de búsqueda de JS</b>"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:2
-#, fuzzy
 msgid "Add brace after function call autocompletion"
-msgstr "Engadir un espazo despois da chamada á función de autocompletado"
+msgstr "Engadir corchete despois do autocompletado da chamada a función"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:3
-#, fuzzy
 msgid "Gir repository's directory:   "
-msgstr "Cartafol raíz do proxecto:"
+msgstr "Cartafol do repositorio Gir:   "
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:4
-#, fuzzy
 msgid "Gjs repository's directory:   "
-msgstr "Cartafol raíz do proxecto:"
+msgstr "Cartafol do repositorio Gjs:   "
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:5
-#, fuzzy
 msgid "Highlight missed semicolon"
-msgstr "Realzar as localizacións das mensaxes no editor"
+msgstr "Realzar os puntos e comas que faltan"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
-#, fuzzy
 msgid "Min character for completion "
-msgstr "Activar o completado de código"
+msgstr "Mínimo de caracteres para o completado"
 
 #~ msgid "private"
 #~ msgstr "privado"
