@@ -62,9 +62,21 @@ typedef enum {
 	AMP_PROPERTY_URL
 } AmpPropertyType;
 
+typedef struct _AmpPropertyInfo   AmpPropertyInfo;
+
+typedef struct _AmpTargetPropertyBuffer AmpTargetPropertyBuffer;
 
 GType         amp_project_get_type (void);
 AmpProject   *amp_project_new      (void);
+
+
+AmpTargetPropertyBuffer* amp_target_property_buffer_new (void);
+void amp_target_property_buffer_free (AmpTargetPropertyBuffer *buffer);
+
+void amp_target_property_buffer_add_source (AmpTargetPropertyBuffer *buffer, AmpSource *source);
+void amp_target_property_buffer_add_property (AmpTargetPropertyBuffer *buffer, AnjutaProjectPropertyInfo *prop);
+GList *amp_target_property_buffer_steal_sources (AmpTargetPropertyBuffer *buffer);
+GList *amp_target_property_buffer_steal_properties (AmpTargetPropertyBuffer *buffer);
 
 gint amp_project_probe (GFile *directory, GError     **error);
 gboolean amp_project_load (AmpProject *project, GFile *directory, GError **error);

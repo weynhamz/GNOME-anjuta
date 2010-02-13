@@ -28,10 +28,11 @@
 
 G_BEGIN_DECLS
 
-AnjutaProjectPropertyInfo *amp_property_new (AnjutaToken *token);
+AnjutaProjectPropertyInfo *amp_property_new (AnjutaTokenType type, gint position, const gchar *value, AnjutaToken *token);
 void amp_property_free (AnjutaProjectPropertyInfo *prop);
 
 gboolean amp_node_property_set (AnjutaProjectNode *target, gint token_type, gint position, const gchar *value, AnjutaToken *token);
+gboolean amp_node_property_add (AnjutaProjectNode *node, AmpPropertyInfo *info);
 
 GList* amp_get_project_property_list (void);
 GList* amp_get_group_property_list (void);

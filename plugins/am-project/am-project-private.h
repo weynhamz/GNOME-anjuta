@@ -55,8 +55,6 @@ struct _AmpPropertyInfo {
 	AnjutaToken *token;
 };
 
-typedef struct _AmpPropertyInfo   AmpPropertyInfo;
-
 struct _AmpProject {
 	GObject         parent;
 

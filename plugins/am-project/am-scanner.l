@@ -50,7 +50,7 @@ struct _AmpAmScanner
 
     AmpProject *project;
     AmpGroup *group;
-	GHashTable *orphan_sources;
+	GHashTable *orphan_properties;
 };
 
 %}
@@ -142,6 +142,46 @@ NAME          [^ \t\n\r:#=$"'`&@\\]*
 
 <INITIAL>{NAME}_TEXINFOS 			{ RETURN (_TEXINFOS); }
 
+<INITIAL>{NAME}dir					{ RETURN (_DIR); }
+
+<INITIAL>AM_LDFLAGS					{ RETURN (_LDFLAGS);}
+
+<INITIAL>AM_CPPFLAGS				{ RETURN (_CPPFLAGS);}
+
+<INITIAL>AM_CFLAGS					{ RETURN (_CFLAGS);}
+
+<INITIAL>AM_CXXFLAGS				{ RETURN (_CXXFLAGS);}
+
+<INITIAL>AM_JAVACFLAGS				{ RETURN (_JAVACFLAGS);}
+
+<INITIAL>AM_FCFLAGS					{ RETURN (_FCFLAGS);}
+
+<INITIAL>AM_OBJCFLAGS				{ RETURN (_OBJCFLAGS);}
+
+<INITIAL>AM_LFLAGS					{ RETURN (_LFLAGS);}
+
+<INITIAL>AM_YFLAGS					{ RETURN (_YFLAGS);}
+
+<INITIAL>{NAME}_LDFLAGS				{ RETURN (TARGET_LDFLAGS);}
+
+<INITIAL>{NAME}_CPPFLAGS			{ RETURN (TARGET_CPPFLAGS);}
+
+<INITIAL>{NAME}_CFLAGS				{ RETURN (TARGET_CFLAGS);}
+
+<INITIAL>{NAME}_CXXFLAGS			{ RETURN (TARGET_CXXFLAGS);}
+
+<INITIAL>{NAME}_JAVACFLAGS			{ RETURN (TARGET_JAVACFLAGS);}
+
+<INITIAL>{NAME}_FCFLAGS				{ RETURN (TARGET_FCFLAGS);}
+
+<INITIAL>{NAME}_OBJCFLAGS			{ RETURN (TARGET_OBJCFLAGS);}
+
+<INITIAL>{NAME}_LFLAGS				{ RETURN (TARGET_LFLAGS);}
+
+<INITIAL>{NAME}_YFLAGS				{ RETURN (TARGET_YFLAGS);}
+
+<INITIAL>{NAME}_DEPENDENCIES		{ RETURN (TARGET_DEPENDENCIES);}
+
 <INITIAL>{NAME} 					{ RETURN (NAME); }
 
 <INITIAL>. 							{ RETURN (CHARACTER); }
@@ -212,7 +252,7 @@ amp_am_yyerror (YYLTYPE *loc, AmpAmScanner *scanner, char const *s)
 void
 amp_am_scanner_set_am_variable (AmpAmScanner *scanner, AnjutaTokenType variable, AnjutaToken *name, AnjutaToken *list)
 {
-    amp_project_set_am_variable (scanner->project, scanner->group, variable, name, list, scanner->orphan_sources);
+    amp_project_set_am_variable (scanner->project, scanner->group, variable, name, list, scanner->orphan_properties);
 }
 
 /* Public functions
@@ -279,7 +319,7 @@ amp_am_scanner_new (AmpProject *project, AmpGroup *group)
     scanner->group = group;
 
 	/* Create hash table for sources list */
-	scanner->orphan_sources = g_hash_table_new_full (g_str_hash, g_str_equal, (GDestroyNotify)g_free, (GDestroyNotify)free_source_list);
+	scanner->orphan_properties = g_hash_table_new_full (g_str_hash, g_str_equal, (GDestroyNotify)g_free, (GDestroyNotify)amp_target_property_buffer_free);
 
     yylex_init(&scanner->scanner);
     yyset_extra (scanner, scanner->scanner);
@@ -295,7 +335,7 @@ amp_am_scanner_free (AmpAmScanner *scanner)
     yylex_destroy(scanner->scanner);
 
 	/* Free unused sources files */
-	g_hash_table_destroy (scanner->orphan_sources);
+	g_hash_table_destroy (scanner->orphan_properties);
 
 	g_free (scanner);
 }

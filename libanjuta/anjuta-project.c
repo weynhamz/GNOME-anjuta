@@ -144,6 +144,7 @@ anjuta_project_property_remove (AnjutaProjectPropertyList *list, AnjutaProjectPr
 		else if ((info == prop->data) || (info->override == prop))
 		{
 			list = g_list_delete_link (list, link);
+			if (list == NULL) list = info->override;
 			break;
 		}
 	}

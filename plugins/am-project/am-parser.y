@@ -62,6 +62,27 @@
 %token  _SCRIPTS
 %token  _SOURCES
 %token  _TEXINFOS
+%token  _DIR
+%token  _LDFLAGS
+%token  _CPPFLAGS
+%token  _CFLAGS
+%token  _CXXFLAGS
+%token  _JAVACFLAGS
+%token  _FCFLAGS
+%token  _OBJCFLAGS
+%token  _LFLAGS
+%token  _YFLAGS
+%token  TARGET_LDFLAGS
+%token  TARGET_CPPFLAGS
+%token  TARGET_CFLAGS
+%token  TARGET_CXXFLAGS
+%token  TARGET_JAVACFLAGS
+%token  TARGET_FCFLAGS
+%token  TARGET_OBJCFLAGS
+%token  TARGET_LFLAGS
+%token  TARGET_YFLAGS
+%token  TARGET_DEPENDENCIES
+
 
 %defines
 
@@ -86,20 +107,41 @@ amp_am_automake_variable (AnjutaToken *token)
 {
     switch (anjuta_token_get_type (token))
     {
-    case SUBDIRS: return AM_TOKEN_SUBDIRS;
-    case DIST_SUBDIRS: return AM_TOKEN_DIST_SUBDIRS;
-    case _DATA: return AM_TOKEN__DATA;
-    case _HEADERS: return AM_TOKEN__HEADERS;
-    case _LIBRARIES: return AM_TOKEN__LIBRARIES;
-    case _LISP: return AM_TOKEN__LISP;
-    case _LTLIBRARIES: return AM_TOKEN__LTLIBRARIES;
-    case _MANS: return AM_TOKEN__MANS;
-    case _PROGRAMS: return AM_TOKEN__PROGRAMS;
-    case _PYTHON: return AM_TOKEN__PYTHON;
-    case _JAVA: return AM_TOKEN__JAVA;
-    case _SCRIPTS: return AM_TOKEN__SCRIPTS;
-    case _SOURCES: return AM_TOKEN__SOURCES;
-    case _TEXINFOS: return AM_TOKEN__TEXINFOS;
+    case SUBDIRS:               return AM_TOKEN_SUBDIRS;
+    case DIST_SUBDIRS:          return AM_TOKEN_DIST_SUBDIRS;
+    case _DATA:                 return AM_TOKEN__DATA;
+    case _HEADERS:              return AM_TOKEN__HEADERS;
+    case _LIBRARIES:            return AM_TOKEN__LIBRARIES;
+    case _LISP:                 return AM_TOKEN__LISP;
+    case _LTLIBRARIES:          return AM_TOKEN__LTLIBRARIES;
+    case _MANS:                 return AM_TOKEN__MANS;
+    case _PROGRAMS:             return AM_TOKEN__PROGRAMS;
+    case _PYTHON:               return AM_TOKEN__PYTHON;
+    case _JAVA:                 return AM_TOKEN__JAVA;
+    case _SCRIPTS:              return AM_TOKEN__SCRIPTS;
+    case _SOURCES:              return AM_TOKEN__SOURCES;
+    case _TEXINFOS:             return AM_TOKEN__TEXINFOS;
+    case _DIR:                  return AM_TOKEN_DIR;
+    case _LDFLAGS:              return AM_TOKEN__LDFLAGS;
+    case _CPPFLAGS:             return AM_TOKEN__CPPFLAGS;
+    case _CFLAGS:               return AM_TOKEN__CFLAGS;
+    case _CXXFLAGS:             return AM_TOKEN__CXXFLAGS;
+    case _JAVACFLAGS:           return AM_TOKEN__JAVACFLAGS;
+    case _FCFLAGS:              return AM_TOKEN__FCFLAGS;
+    case _OBJCFLAGS:            return AM_TOKEN__OBJCFLAGS;
+    case _LFLAGS:               return AM_TOKEN__LFLAGS;
+    case _YFLAGS:               return AM_TOKEN__YFLAGS;
+    case TARGET_LDFLAGS:        return AM_TOKEN_TARGET_LDFLAGS;
+    case TARGET_CPPFLAGS:       return AM_TOKEN_TARGET_CPPFLAGS;
+    case TARGET_CFLAGS:         return AM_TOKEN_TARGET_CFLAGS;
+    case TARGET_CXXFLAGS:       return AM_TOKEN_TARGET_CXXFLAGS;
+    case TARGET_JAVACFLAGS:     return AM_TOKEN_TARGET_JAVACFLAGS;
+    case TARGET_FCFLAGS:        return AM_TOKEN_TARGET_FCFLAGS;
+    case TARGET_OBJCFLAGS:      return AM_TOKEN_TARGET_OBJCFLAGS;
+    case TARGET_LFLAGS:         return AM_TOKEN_TARGET_LFLAGS;
+    case TARGET_YFLAGS:         return AM_TOKEN_TARGET_YFLAGS;
+    case TARGET_DEPENDENCIES:   return AM_TOKEN_TARGET_DEPENDENCIES;
+
     default: return ANJUTA_TOKEN_NAME;
     }
 }
@@ -258,6 +300,26 @@ automake_token:
     | _SCRIPTS
     | _SOURCES
     | _TEXINFOS
+    |  _DIR
+    |  _LDFLAGS
+    |  _CPPFLAGS
+    |  _CFLAGS
+    |  _CXXFLAGS
+    |  _JAVACFLAGS
+    |  _FCFLAGS
+    |  _OBJCFLAGS
+    |  _LFLAGS
+    |  _YFLAGS
+    |  TARGET_LDFLAGS
+    |  TARGET_CPPFLAGS
+    |  TARGET_CFLAGS
+    |  TARGET_CXXFLAGS
+    |  TARGET_JAVACFLAGS
+    |  TARGET_FCFLAGS
+    |  TARGET_OBJCFLAGS
+    |  TARGET_LFLAGS
+    |  TARGET_YFLAGS
+    |  TARGET_DEPENDENCIES
     ;
     
 		

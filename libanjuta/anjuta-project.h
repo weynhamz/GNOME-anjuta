@@ -72,7 +72,8 @@ typedef AnjutaProjectTargetInfo* AnjutaProjectTargetType;
 typedef enum
 {
 	ANJUTA_PROJECT_PROPERTY_STRING = 1,
-	ANJUTA_PROJECT_PROPERTY_BOOLEAN
+	ANJUTA_PROJECT_PROPERTY_BOOLEAN,
+	ANJUTA_PROJECT_PROPERTY_MAP
 } AnjutaProjectPropertyType;
 
 typedef struct
