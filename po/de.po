@@ -24,21 +24,20 @@
 # Jens Seidel <jseidel@cvs.gnome.org>, 2005.
 # Andre Klapper <ak-47@gmx.net>, 2007.
 # Philipp Kerling <k.philipp@gmail.com>, 2008.
-# Christian Kirbach <Christian.Kirbach@googlemail.com>, 2008, 2009, 2010.
 # Mario Blättermann <mariobl@gnome.org>, 2010.
-#
+# Christian Kirbach <Christian.Kirbach@googlemail.com>, 2008, 2009, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 2.1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-03 21:19+0100\n"
-"PO-Revision-Date: 2010-02-03 16:17+0100\n"
-"Last-Translator: Mario Blättermann <mariobl@gnome.org>\n"
-"Language-Team: German <gnome-de@gnome.org>\n"
+"POT-Creation-Date: 2010-02-13 19:54+0100\n"
+"PO-Revision-Date: 2010-02-13 19:55+0100\n"
+"Last-Translator: Christian Kirbach <Christian.Kirbach@googlemail.com>\n"
+"Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Poedit-Language: German\n"
 "X-Poedit-Country: GERMANY\n"
 
@@ -1158,7 +1157,6 @@ msgstr "Allgemeine Klasseneigenschaften"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:18
 #: ../plugins/file-wizard/file.c:103
-#: ../plugins/project-wizard/templates/translatable-strings.h:49
 msgid "General Public License (GPL)"
 msgstr "General Public License (GPL)"
 
@@ -1176,7 +1174,6 @@ msgstr "Deklaration und Implementation »inline«"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:22
 #: ../plugins/file-wizard/file.c:104
-#: ../plugins/project-wizard/templates/translatable-strings.h:63
 msgid "Lesser General Public License (LGPL)"
 msgstr "Lesser General Public License (LGPL)"
 
@@ -1786,7 +1783,6 @@ msgid "Debugger:"
 msgstr "Programm zur Fehlerdiagnose:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:15
-#: ../plugins/project-wizard/templates/translatable-strings.h:35
 msgid "Description:"
 msgstr "Beschreibung:"
 
@@ -4177,7 +4173,6 @@ msgid "Package name:"
 msgstr "Paketname:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:863
-#: ../plugins/project-wizard/templates/translatable-strings.h:110
 msgid "Version:"
 msgstr "Version:"
 
@@ -4531,7 +4526,6 @@ msgid "Author/Grep"
 msgstr "Autor (regulärer Ausdruck)"
 
 #: ../plugins/git/anjuta-git.ui.h:14
-#: ../plugins/project-wizard/templates/translatable-strings.h:25
 msgid "Author:"
 msgstr "Autor:"
 
@@ -4728,7 +4722,7 @@ msgstr "Letzte Einspielung"
 
 #: ../plugins/git/anjuta-git.ui.h:68
 msgid "Pull"
-msgstr "Holen"
+msgstr "Ziehen"
 
 #: ../plugins/git/anjuta-git.ui.h:69
 msgid "Push"
@@ -4768,7 +4762,7 @@ msgstr "Herkunft des Bestandes"
 
 #: ../plugins/git/anjuta-git.ui.h:78
 msgid "Repository to pull from:"
-msgstr "Softwarebestand zum Abgleichen:"
+msgstr "Softwarebestand zum Ziehen:"
 
 #: ../plugins/git/anjuta-git.ui.h:79
 msgid "Repository to push to:"
@@ -5112,12 +5106,13 @@ msgstr "Git: Ziehen abgeschlossen."
 #. * user does not properly enter anything
 #: ../plugins/git/git-pull-dialog.c:124
 msgid "Please select a remote to pull from."
-msgstr "Bitte wählen Sie den Bestand aus, der geholt werden soll."
+msgstr "Bitte wählen Sie den Bestand, aus dem gezogen werden soll."
 
 #: ../plugins/git/git-pull-dialog.c:142
 msgid "Please enter the URL of the repository to pull from."
 msgstr ""
-"Bitte geben Sie die Adresse des Softwarebestandes ein, aus dem geholt wird."
+"Bitte geben Sie die Adresse des Softwarebestandes ein, aus dem gezogen "
+"werden soll."
 
 #: ../plugins/git/git-push-dialog.c:36
 msgid "Git: Push complete."
@@ -5297,7 +5292,7 @@ msgstr "Änderungen in den Softwarebestand einbringen"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:151
 msgid "_Pull…"
-msgstr "_Holen …"
+msgstr "_Ziehen …"
 
 #. Display label
 #. short-cut
@@ -6949,7 +6944,6 @@ msgstr ""
 "lautet: »%s«"
 
 #: ../plugins/project-import/project-import.ui.h:1
-#: ../plugins/project-wizard/templates/translatable-strings.h:36
 #: ../plugins/subversion/anjuta-subversion.ui.h:9
 msgid "Destination:"
 msgstr "Ziel:"
@@ -7534,474 +7528,6 @@ msgstr "Wählen Sie einen Ordner"
 msgid "Choose file"
 msgstr "Wählen Sie eine Datei"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:1
-msgid "A GNOME applet project"
-msgstr "Ein GNOME-Applet-Projekt"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:2
-msgid "A generic C++ project"
-msgstr "Ein generisches C++ Projekt"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:3
-msgid "A generic GTK+ project"
-msgstr "Ein generisches GTK+ Projekt"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:4
-msgid "A generic GTKmm (C++) project"
-msgstr "Ein generisches GTKmm (C+)-Projekt"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:5
-msgid "A generic Xlib dock applet"
-msgstr "Ein generisches Xlib-dock Applet"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:6
-msgid "A generic Xlib project"
-msgstr "Ein generisches Xlib-Projekt"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:7
-msgid "A generic Java project using automake project management"
-msgstr "Ein generisches Java-Projekt mit automake-Projektmanagement"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:8
-msgid "A generic minimal and flat project"
-msgstr "Ein generisches und minimal einfaches Projekt"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:9
-msgid ""
-"A generic natively compiled Java project using the GNU Java Compiler (gcj)"
-msgstr ""
-"Ein generisches und nativ durch den GNU Java Compiler (gcj) übersetztes Java-"
-"Projekt"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:10
-msgid "A generic project"
-msgstr "Ein generisches Projekt"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:11
-msgid "A generic Python project using automake project management"
-msgstr "Ein generisches Python-Projekt mit automake-Projektmanagement"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:12
-msgid "A generic wxWidgets project"
-msgstr "Ein generisches wxWidgets-Projekt"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:13
-msgid "A sample SDL project"
-msgstr "Ein beispielhaftes SDL-Projekt"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:14
-msgid "A shared or a static library project"
-msgstr "Ein Projekt für eine gemeinsam verwendete oder statische Bibliothek"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:15
-msgid "Add C++ support:"
-msgstr "Unterstützung für C++ hinzufügen"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:16
-msgid "Add gtk-doc system:"
-msgstr "»gtk-doc«-System hinzufügen"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:17
-msgid "Add internationalization:"
-msgstr "Internationalisierung hinzufügen"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:18
-msgid "Add shared library support:"
-msgstr "Unterstützung für gemeinsam verwendete Bibliotheken hinzufügen:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:19
-msgid "Adds C++ support to the project so that C++ source files can be built"
-msgstr ""
-"Fügt Unterstützung für C++ zum Projekt hinzu, so dass C++-Quellen erstellt "
-"werden können"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:20
-msgid "Adds support for building shared libraries in your project"
-msgstr ""
-"Fügt Unterstützung für das Erstellen von gemeinsamen Bibliotheken zum "
-"Projekt hinzu"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:21
-msgid ""
-"Adds support for internationalization so that your project can have "
-"translations in different languages"
-msgstr ""
-"Fügt Unterstützung für Internationalisierung zum Projekt hinzu, so dass es "
-"in verschiedene Sprachen übersetzt werden kann"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:22
-msgid "Anjuta Plugin"
-msgstr "Anjuta-Komponente"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:23
-msgid "Anjuta plugin project that uses libanjuta framework"
-msgstr "Anjuta-Komponentenprojekt, das das Framework »libanjuta« nutzt"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:24
-msgid "Applet Title:"
-msgstr "Titel des Applets:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:26
-msgid "Basic information"
-msgstr "Grundlegende Informationen"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:27
-msgid "Berkeley Software Distribution License (BSD)"
-msgstr "Berkeley Software Distribution Lizenz (BSD)"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:28
-msgid "Build library as"
-msgstr "Bibliothek erstellen als"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:29
-msgid ""
-"Comma-separated, other plugins that this plugin depends on. It could be "
-"either primary interface name or plugin location (library:class)"
-msgstr ""
-"Durch Komma getrennte Liste von anderen Komponenten, von welchen diese "
-"Komponente abhängt. Entweder der Name der Schnittstelle oder der Ort der "
-"Komponente (Bibliothek:Klasse)"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:30
-msgid "Configure external packages"
-msgstr "Externe Pakete konfigurieren"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:31
-msgid "Configure external packages:"
-msgstr "Externe Pakete konfigurieren:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:32
-msgid "Create GtkBuilder interface file"
-msgstr "Gtk-Builder-Oberflächendatei erstellen"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:33
-#: ../plugins/project-wizard/templates/translatable-strings.h:34
-msgid "Create a template GtkBuilder interface file"
-msgstr "Eine Vorlage für eine Gtk-Builder-Oberflächendatei erstellen"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:37
-msgid "Display description of the applet"
-msgstr "Beschreibung des Applets anzeigen"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:38
-msgid "Display description of the plugin"
-msgstr "Beschreibung der Komponente anzeigen"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:39
-msgid "Display title of the applet"
-msgstr "Titel des Applets anzeigen"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:40
-msgid "Display title of the plugin"
-msgstr "Titel der Komponente anzeigen"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:41
-msgid "Django Project"
-msgstr "Django-Projekt"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:42
-msgid "Django Project information"
-msgstr "Django-Projektinformationen"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:43
-msgid "Email address:"
-msgstr "E-Mail-Adresse:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:44
-msgid "GCJ needs to know which class contains the main() function"
-msgstr "GCJ muss wissen, welche Klasse die main()-Funktion enthält"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:45
-msgid "GNOME Applet"
-msgstr "GNOME-Applet"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:46
-msgid "GTK+"
-msgstr "GTK+"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:47
-msgid "GTKmm"
-msgstr "GTKmm"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:48
-msgid "General Project Information"
-msgstr "Allgemeine Informationen zum Projekt"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:50
-msgid "Generic"
-msgstr "Allgemein"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:51
-msgid "Generic (Minimal)"
-msgstr "Allgemein (minimal)"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:52
-msgid "Generic C++"
-msgstr "Generisches C++"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:53
-msgid "Generic JavaScript"
-msgstr "Allgemeines JavaScript"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:54
-msgid "Generic gcj compiled Java"
-msgstr "Generisches mit gcj übersetztes Java"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:55
-msgid "Generic Java (automake)"
-msgstr "Generisches Java (automake)"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:56
-msgid "Generic Python (automake)"
-msgstr "Generisches Python (automake)"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:57
-msgid ""
-"Give a package name that your project require. You may also mention what is "
-"the required version of the package. For example, 'libgnomeui-2.0' or "
-"'libgnomeui-2.0 >= 2.2.0'"
-msgstr ""
-"Name eines Paketes angeben, das vom Projekt benötigt wird. Die benötigte "
-"Version kann zusätzlich angegeben werden. Zum Beispiel »libgnomeui-2.0« oder "
-"»libgnomeui-2.0 >= 2.2.0«"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:58
-msgid "Icon File:"
-msgstr "Symboldatei:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:59
-msgid "Icon file for the plugin"
-msgstr "Symbol für die Komponente"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:60
-msgid "Implement plugin interfaces"
-msgstr "Komponenten-Schnittstellen implementieren"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:61
-msgid "Interface implemented by the plugin"
-msgstr "Schnittstellen, die von dieser Komponente implementiert werden"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:62
-msgid "Interface:"
-msgstr "Schnittstelle:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:64
-msgid "Library"
-msgstr "Bibliothek"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:65
-msgid "License"
-msgstr "Lizenz"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:66
-msgid "Main Class:"
-msgstr "Haupt-Klasse:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:67
-msgid "Main class"
-msgstr "Haupt-Klasse"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:68
-msgid "Makefile project"
-msgstr "Makefile-Projekt"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:69
-msgid "Makefile-based project"
-msgstr "Makefile-basiertes Projekt"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:70
-msgid "Mininum SDL version required"
-msgstr "Minimal benötigte SDL-Version"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:71
-msgid "Name of the value to watch"
-msgstr "Name des Wertes, der beobachtet werden soll"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:72
-msgid "No license"
-msgstr "Keine Lizenz"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:73
-msgid "Only Shared"
-msgstr "Nur gemeinsam verwendet"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:74
-msgid "Only Static"
-msgstr "Nur statisch"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:75
-msgid "Options for project build system"
-msgstr "Optionen für das Projekt-Erstellungssystem"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:76
-msgid "Plugin Class Name:"
-msgstr "Komponenten-Klassenname:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:77
-msgid "Plugin Dependencies:"
-msgstr "Komponenten-Abhängigkeiten"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:78
-msgid "Plugin Description:"
-msgstr "Komponenten-Beschreibung:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:79
-msgid "Plugin Title:"
-msgstr "Komponenten-Titel:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:80
-msgid "Plugin class name"
-msgstr "Komponenten-Klassenname"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:81
-msgid "Plugin has menus and/or toolbars"
-msgstr "Komponente besitzt Menüs und/oder Werkzeugleisten"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:82
-msgid "Plugin interfaces to implement"
-msgstr "Zu implementierende Komponenten-Schnittstellen"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:83
-msgid "Project Name:"
-msgstr "Projektname:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:84
-msgid "Project directory, output file, etc."
-msgstr "Projektordner, Ausgabedateien, etc."
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:85
-msgid "Project directory:"
-msgstr "Projektordner:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:86
-msgid ""
-"Project name must not contain spaces, because it will be the name of the "
-"project build target (executable, library, etc.)"
-msgstr ""
-"Der Projektname darf keine Leerzeichen enthalten, weil er als Name für das "
-"Projekt-Ziel (ausführbare Datei, Bibliothek, etc.) verwendet wird"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:87
-msgid "Project name:"
-msgstr "Projektname:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:88
-msgid "Project options"
-msgstr "Projektoptionen"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:89
-msgid "Python web project using Django Web Framework"
-msgstr "Python-Webprojekt mit dem Django Web-Framework"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:90
-msgid "Require Package:"
-msgstr "Benötigt Paket:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:91
-msgid "Require SDL version:"
-msgstr "Benötigte SDL-Version:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:92
-msgid "Require SDL_gfx library"
-msgstr "Benötigt »SDL_gfx«-Bibliothek"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:93
-msgid "Require SDL_gfx:"
-msgstr "Benötigt »SDL_gfx«:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:94
-msgid "Require SDL_image library"
-msgstr "Benötigt »SDL_image«-Bibliothek"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:95
-msgid "Require SDL_image:"
-msgstr "Benötigt »SDL_image«:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:96
-msgid "Require SDL_mixer library"
-msgstr "Benötigt »SDL_mixer«-Bibliothek"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:97
-msgid "Require SDL_mixer:"
-msgstr "Benötigt »SDL_mixer«:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:98
-msgid "Require SDL_net library"
-msgstr "Benötigt »SDL_net«-Bibliothek"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:99
-msgid "Require SDL_net:"
-msgstr "Benötigt »SDL_net«"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:100
-msgid "Require SDL_ttf library"
-msgstr "Benötigt »SDL_ttf«-Bibliothek"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:101
-msgid "Require SDL_ttf:"
-msgstr "Benötigt »SDL_ttf«:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:102
-msgid "SDL"
-msgstr "SDL"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:103
-msgid "Select code license"
-msgstr "Code-Lizenz auswählen"
-
-# ??
-#: ../plugins/project-wizard/templates/translatable-strings.h:104
-msgid "Select library type to build"
-msgstr "Wählen Sie den zu erstellenden Typ der Bibliothek aus"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:105
-msgid "Shared and Static library"
-msgstr "Gemeinsam verwendete und statische Bibliothek"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:106
-msgid "Shell values to watch"
-msgstr "Zu überwachende Werte der Shell"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:107
-msgid "Use pkg-config to add library support from other packages"
-msgstr ""
-"»pkg-config« für die Unterstützung von Bibliotheken aus anderen Paketen "
-"verwenden"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:108
-msgid "Value Name:"
-msgstr "Wertbezeichnung:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:109
-msgid "Values to watch"
-msgstr "Zu überwachende Werte"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:111
-msgid "Whether the plugin has menus or toolbars"
-msgstr "Legt fest, ob die Komponente Menüs or Werkzeugleisten besitzt"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:112
-msgid "wxWidgets"
-msgstr "wxWidgets"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:113
-msgid "Xlib"
-msgstr "Xlib"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:114
-msgid "Xlib dock"
-msgstr "Xlib-Dock"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:115
-msgid "gtk-doc is used to compile API documentation for GObject-based classes"
-msgstr ""
-"gtk-doc wird zum Übersetzen von API-Dokumentationen für GObject-basierte "
-"Klassen verwendet"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:116
-msgid "project name"
-msgstr "Projektname"
-
 #: ../plugins/run-program/anjuta-run-program.ui.h:2
 msgid "Choose a working directory"
 msgstr "Legen Sie einen Arbeitsordner fest"
@@ -8443,8 +7969,8 @@ msgid "Create backup files"
 msgstr "Sicherungsdateien erstellen"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:4
-msgid "Enable autocompletion"
-msgstr "Automatische Vervollständigung einschalten"
+msgid "Enable autocompletion for document words"
+msgstr "Automatische Vervollständigung für Dokumentwörter einschalten"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:5
 msgid "Font"
@@ -9950,7 +9476,7 @@ msgstr "C++/Java-Bearbeitungshilfen"
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
-#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1044
+#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1071
 msgid "C/C++"
 msgstr "C/C++"
 
@@ -10232,6 +9758,366 @@ msgstr "Vergessenes Semikolon hervorheben"
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
 msgid "Min character for completion "
 msgstr "Min. Zeichen für Vervollständigung"
+
+#~ msgid "A GNOME applet project"
+#~ msgstr "Ein GNOME-Applet-Projekt"
+
+#~ msgid "A generic C++ project"
+#~ msgstr "Ein generisches C++ Projekt"
+
+#~ msgid "A generic GTK+ project"
+#~ msgstr "Ein generisches GTK+ Projekt"
+
+#~ msgid "A generic GTKmm (C++) project"
+#~ msgstr "Ein generisches GTKmm (C+)-Projekt"
+
+#~ msgid "A generic Xlib dock applet"
+#~ msgstr "Ein generisches Xlib-dock Applet"
+
+#~ msgid "A generic Xlib project"
+#~ msgstr "Ein generisches Xlib-Projekt"
+
+#~ msgid "A generic Java project using automake project management"
+#~ msgstr "Ein generisches Java-Projekt mit automake-Projektmanagement"
+
+#~ msgid "A generic minimal and flat project"
+#~ msgstr "Ein generisches und minimal einfaches Projekt"
+
+#~ msgid ""
+#~ "A generic natively compiled Java project using the GNU Java Compiler (gcj)"
+#~ msgstr ""
+#~ "Ein generisches und nativ durch den GNU Java Compiler (gcj) übersetztes "
+#~ "Java-Projekt"
+
+#~ msgid "A generic project"
+#~ msgstr "Ein generisches Projekt"
+
+#~ msgid "A generic Python project using automake project management"
+#~ msgstr "Ein generisches Python-Projekt mit automake-Projektmanagement"
+
+#~ msgid "A generic wxWidgets project"
+#~ msgstr "Ein generisches wxWidgets-Projekt"
+
+#~ msgid "A sample SDL project"
+#~ msgstr "Ein beispielhaftes SDL-Projekt"
+
+#~ msgid "A shared or a static library project"
+#~ msgstr "Ein Projekt für eine gemeinsam verwendete oder statische Bibliothek"
+
+#~ msgid "Add C++ support:"
+#~ msgstr "Unterstützung für C++ hinzufügen"
+
+#~ msgid "Add gtk-doc system:"
+#~ msgstr "»gtk-doc«-System hinzufügen"
+
+#~ msgid "Add internationalization:"
+#~ msgstr "Internationalisierung hinzufügen"
+
+#~ msgid "Add shared library support:"
+#~ msgstr "Unterstützung für gemeinsam verwendete Bibliotheken hinzufügen:"
+
+#~ msgid ""
+#~ "Adds C++ support to the project so that C++ source files can be built"
+#~ msgstr ""
+#~ "Fügt Unterstützung für C++ zum Projekt hinzu, so dass C++-Quellen "
+#~ "erstellt werden können"
+
+#~ msgid "Adds support for building shared libraries in your project"
+#~ msgstr ""
+#~ "Fügt Unterstützung für das Erstellen von gemeinsamen Bibliotheken zum "
+#~ "Projekt hinzu"
+
+#~ msgid ""
+#~ "Adds support for internationalization so that your project can have "
+#~ "translations in different languages"
+#~ msgstr ""
+#~ "Fügt Unterstützung für Internationalisierung zum Projekt hinzu, so dass "
+#~ "es in verschiedene Sprachen übersetzt werden kann"
+
+#~ msgid "Anjuta Plugin"
+#~ msgstr "Anjuta-Komponente"
+
+#~ msgid "Anjuta plugin project that uses libanjuta framework"
+#~ msgstr "Anjuta-Komponentenprojekt, das das Framework »libanjuta« nutzt"
+
+#~ msgid "Applet Title:"
+#~ msgstr "Titel des Applets:"
+
+#~ msgid "Basic information"
+#~ msgstr "Grundlegende Informationen"
+
+#~ msgid "Berkeley Software Distribution License (BSD)"
+#~ msgstr "Berkeley Software Distribution Lizenz (BSD)"
+
+#~ msgid "Build library as"
+#~ msgstr "Bibliothek erstellen als"
+
+#~ msgid ""
+#~ "Comma-separated, other plugins that this plugin depends on. It could be "
+#~ "either primary interface name or plugin location (library:class)"
+#~ msgstr ""
+#~ "Durch Komma getrennte Liste von anderen Komponenten, von welchen diese "
+#~ "Komponente abhängt. Entweder der Name der Schnittstelle oder der Ort der "
+#~ "Komponente (Bibliothek:Klasse)"
+
+#~ msgid "Configure external packages"
+#~ msgstr "Externe Pakete konfigurieren"
+
+#~ msgid "Configure external packages:"
+#~ msgstr "Externe Pakete konfigurieren:"
+
+#~ msgid "Create GtkBuilder interface file"
+#~ msgstr "Gtk-Builder-Oberflächendatei erstellen"
+
+#~ msgid "Create a template GtkBuilder interface file"
+#~ msgstr "Eine Vorlage für eine Gtk-Builder-Oberflächendatei erstellen"
+
+#~ msgid "Display description of the applet"
+#~ msgstr "Beschreibung des Applets anzeigen"
+
+#~ msgid "Display description of the plugin"
+#~ msgstr "Beschreibung der Komponente anzeigen"
+
+#~ msgid "Display title of the applet"
+#~ msgstr "Titel des Applets anzeigen"
+
+#~ msgid "Display title of the plugin"
+#~ msgstr "Titel der Komponente anzeigen"
+
+#~ msgid "Django Project"
+#~ msgstr "Django-Projekt"
+
+#~ msgid "Django Project information"
+#~ msgstr "Django-Projektinformationen"
+
+#~ msgid "Email address:"
+#~ msgstr "E-Mail-Adresse:"
+
+#~ msgid "GCJ needs to know which class contains the main() function"
+#~ msgstr "GCJ muss wissen, welche Klasse die main()-Funktion enthält"
+
+#~ msgid "GNOME Applet"
+#~ msgstr "GNOME-Applet"
+
+#~ msgid "GTK+"
+#~ msgstr "GTK+"
+
+#~ msgid "GTKmm"
+#~ msgstr "GTKmm"
+
+#~ msgid "General Project Information"
+#~ msgstr "Allgemeine Informationen zum Projekt"
+
+#~ msgid "Generic"
+#~ msgstr "Allgemein"
+
+#~ msgid "Generic (Minimal)"
+#~ msgstr "Allgemein (minimal)"
+
+#~ msgid "Generic C++"
+#~ msgstr "Generisches C++"
+
+#~ msgid "Generic JavaScript"
+#~ msgstr "Allgemeines JavaScript"
+
+#~ msgid "Generic gcj compiled Java"
+#~ msgstr "Generisches mit gcj übersetztes Java"
+
+#~ msgid "Generic Java (automake)"
+#~ msgstr "Generisches Java (automake)"
+
+#~ msgid "Generic Python (automake)"
+#~ msgstr "Generisches Python (automake)"
+
+#~ msgid ""
+#~ "Give a package name that your project require. You may also mention what "
+#~ "is the required version of the package. For example, 'libgnomeui-2.0' or "
+#~ "'libgnomeui-2.0 >= 2.2.0'"
+#~ msgstr ""
+#~ "Name eines Paketes angeben, das vom Projekt benötigt wird. Die benötigte "
+#~ "Version kann zusätzlich angegeben werden. Zum Beispiel »libgnomeui-2.0« "
+#~ "oder »libgnomeui-2.0 >= 2.2.0«"
+
+#~ msgid "Icon File:"
+#~ msgstr "Symboldatei:"
+
+#~ msgid "Icon file for the plugin"
+#~ msgstr "Symbol für die Komponente"
+
+#~ msgid "Implement plugin interfaces"
+#~ msgstr "Komponenten-Schnittstellen implementieren"
+
+#~ msgid "Interface implemented by the plugin"
+#~ msgstr "Schnittstellen, die von dieser Komponente implementiert werden"
+
+#~ msgid "Interface:"
+#~ msgstr "Schnittstelle:"
+
+#~ msgid "Library"
+#~ msgstr "Bibliothek"
+
+#~ msgid "License"
+#~ msgstr "Lizenz"
+
+#~ msgid "Main Class:"
+#~ msgstr "Haupt-Klasse:"
+
+#~ msgid "Main class"
+#~ msgstr "Haupt-Klasse"
+
+#~ msgid "Makefile project"
+#~ msgstr "Makefile-Projekt"
+
+#~ msgid "Makefile-based project"
+#~ msgstr "Makefile-basiertes Projekt"
+
+#~ msgid "Mininum SDL version required"
+#~ msgstr "Minimal benötigte SDL-Version"
+
+#~ msgid "Name of the value to watch"
+#~ msgstr "Name des Wertes, der beobachtet werden soll"
+
+#~ msgid "No license"
+#~ msgstr "Keine Lizenz"
+
+#~ msgid "Only Shared"
+#~ msgstr "Nur gemeinsam verwendet"
+
+#~ msgid "Only Static"
+#~ msgstr "Nur statisch"
+
+#~ msgid "Options for project build system"
+#~ msgstr "Optionen für das Projekt-Erstellungssystem"
+
+#~ msgid "Plugin Class Name:"
+#~ msgstr "Komponenten-Klassenname:"
+
+#~ msgid "Plugin Dependencies:"
+#~ msgstr "Komponenten-Abhängigkeiten"
+
+#~ msgid "Plugin Description:"
+#~ msgstr "Komponenten-Beschreibung:"
+
+#~ msgid "Plugin Title:"
+#~ msgstr "Komponenten-Titel:"
+
+#~ msgid "Plugin class name"
+#~ msgstr "Komponenten-Klassenname"
+
+#~ msgid "Plugin has menus and/or toolbars"
+#~ msgstr "Komponente besitzt Menüs und/oder Werkzeugleisten"
+
+#~ msgid "Plugin interfaces to implement"
+#~ msgstr "Zu implementierende Komponenten-Schnittstellen"
+
+#~ msgid "Project Name:"
+#~ msgstr "Projektname:"
+
+#~ msgid "Project directory, output file, etc."
+#~ msgstr "Projektordner, Ausgabedateien, etc."
+
+#~ msgid "Project directory:"
+#~ msgstr "Projektordner:"
+
+#~ msgid ""
+#~ "Project name must not contain spaces, because it will be the name of the "
+#~ "project build target (executable, library, etc.)"
+#~ msgstr ""
+#~ "Der Projektname darf keine Leerzeichen enthalten, weil er als Name für "
+#~ "das Projekt-Ziel (ausführbare Datei, Bibliothek, etc.) verwendet wird"
+
+#~ msgid "Project name:"
+#~ msgstr "Projektname:"
+
+#~ msgid "Project options"
+#~ msgstr "Projektoptionen"
+
+#~ msgid "Python web project using Django Web Framework"
+#~ msgstr "Python-Webprojekt mit dem Django Web-Framework"
+
+#~ msgid "Require Package:"
+#~ msgstr "Benötigt Paket:"
+
+#~ msgid "Require SDL version:"
+#~ msgstr "Benötigte SDL-Version:"
+
+#~ msgid "Require SDL_gfx library"
+#~ msgstr "Benötigt »SDL_gfx«-Bibliothek"
+
+#~ msgid "Require SDL_gfx:"
+#~ msgstr "Benötigt »SDL_gfx«:"
+
+#~ msgid "Require SDL_image library"
+#~ msgstr "Benötigt »SDL_image«-Bibliothek"
+
+#~ msgid "Require SDL_image:"
+#~ msgstr "Benötigt »SDL_image«:"
+
+#~ msgid "Require SDL_mixer library"
+#~ msgstr "Benötigt »SDL_mixer«-Bibliothek"
+
+#~ msgid "Require SDL_mixer:"
+#~ msgstr "Benötigt »SDL_mixer«:"
+
+#~ msgid "Require SDL_net library"
+#~ msgstr "Benötigt »SDL_net«-Bibliothek"
+
+#~ msgid "Require SDL_net:"
+#~ msgstr "Benötigt »SDL_net«"
+
+#~ msgid "Require SDL_ttf library"
+#~ msgstr "Benötigt »SDL_ttf«-Bibliothek"
+
+#~ msgid "Require SDL_ttf:"
+#~ msgstr "Benötigt »SDL_ttf«:"
+
+#~ msgid "SDL"
+#~ msgstr "SDL"
+
+#~ msgid "Select code license"
+#~ msgstr "Code-Lizenz auswählen"
+
+# ??
+#~ msgid "Select library type to build"
+#~ msgstr "Wählen Sie den zu erstellenden Typ der Bibliothek aus"
+
+#~ msgid "Shared and Static library"
+#~ msgstr "Gemeinsam verwendete und statische Bibliothek"
+
+#~ msgid "Shell values to watch"
+#~ msgstr "Zu überwachende Werte der Shell"
+
+#~ msgid "Use pkg-config to add library support from other packages"
+#~ msgstr ""
+#~ "»pkg-config« für die Unterstützung von Bibliotheken aus anderen Paketen "
+#~ "verwenden"
+
+#~ msgid "Value Name:"
+#~ msgstr "Wertbezeichnung:"
+
+#~ msgid "Values to watch"
+#~ msgstr "Zu überwachende Werte"
+
+#~ msgid "Whether the plugin has menus or toolbars"
+#~ msgstr "Legt fest, ob die Komponente Menüs or Werkzeugleisten besitzt"
+
+#~ msgid "wxWidgets"
+#~ msgstr "wxWidgets"
+
+#~ msgid "Xlib"
+#~ msgstr "Xlib"
+
+#~ msgid "Xlib dock"
+#~ msgstr "Xlib-Dock"
+
+#~ msgid ""
+#~ "gtk-doc is used to compile API documentation for GObject-based classes"
+#~ msgstr ""
+#~ "gtk-doc wird zum Übersetzen von API-Dokumentationen für GObject-basierte "
+#~ "Klassen verwendet"
+
+#~ msgid "project name"
+#~ msgstr "Projektname"
 
 #~ msgid "private"
 #~ msgstr "privat"
