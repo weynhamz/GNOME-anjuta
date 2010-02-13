@@ -1175,7 +1175,7 @@ find_canonical_target (AnjutaProjectTarget *node, gpointer data)
 }
 
 static AnjutaToken*
-project_load_target (AmpProject *project, AnjutaToken *name, AnjutaToken *list, AnjutaProjectGroup *parent, GHashTable *orphan_properties)
+project_load_target (AmpProject *project, AnjutaToken *name, AnjutaTokenType token_type, AnjutaToken *list, AnjutaProjectGroup *parent, GHashTable *orphan_properties)
 {
 	AnjutaToken *arg;
 	AnjutaProjectTargetType type = NULL;
@@ -1187,7 +1187,7 @@ project_load_target (AmpProject *project, AnjutaToken *name, AnjutaToken *list, 
 	type = (AnjutaProjectTargetType)targets;
 	while (targets->base.name != NULL)
 	{
-		if (anjuta_token_get_type (name) == targets->token)
+		if (token_type == targets->token)
 		{
 			type = (AnjutaProjectTargetType)targets;
 			break;
@@ -1197,7 +1197,6 @@ project_load_target (AmpProject *project, AnjutaToken *name, AnjutaToken *list, 
 
 	value = anjuta_token_evaluate (name);
 	split_automake_variable (value, &flags, &install, NULL);
-	g_free (value);
 
 	amp_group_add_token (parent, name, AM_GROUP_TARGET);
 	
@@ -1283,6 +1282,7 @@ project_load_target (AmpProject *project, AnjutaToken *name, AnjutaToken *list, 
 		g_free (canon_id);
 		g_free (value);
 	}
+	g_free (value);
 
 	return NULL;
 }
@@ -1691,7 +1691,7 @@ amp_project_set_am_variable (AmpProject* project, AmpGroup* group, AnjutaTokenTy
 	case AM_TOKEN__JAVA:
 	case AM_TOKEN__SCRIPTS:
 	case AM_TOKEN__TEXINFOS:
-		project_load_target (project, name, list, group, orphan_properties);
+		project_load_target (project, name, variable, list, group, orphan_properties);
 		break;
 	case AM_TOKEN__SOURCES:
 		project_load_sources (project, name, list, group, orphan_properties);
