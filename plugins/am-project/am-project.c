@@ -1014,7 +1014,7 @@ amp_project_load_properties (AmpProject *project, AnjutaToken *macro, AnjutaToke
 			prop = anjuta_project_property_lookup (project->properties, list);
 			if (prop == NULL)
 			{
-				prop = (AnjutaProjectPropertyInfo *)amp_property_new (info->token_type, info->position, NULL, macro);
+				prop = (AnjutaProjectPropertyInfo *)amp_property_new (NULL, info->token_type, info->position, NULL, macro);
 				
 				project->properties = anjuta_project_property_insert (project->properties, list, prop);
 			}
@@ -1501,7 +1501,7 @@ project_load_target_properties (AmpProject *project, AnjutaToken *name, AnjutaTo
 
 		/* Create property */
 		value = anjuta_token_evaluate (list);
-		prop = amp_property_new (type, 0, value, list);
+		prop = amp_property_new (NULL, type, 0, value, list);
 
 		if (parent == NULL)
 		{
@@ -1532,18 +1532,23 @@ project_load_target_properties (AmpProject *project, AnjutaToken *name, AnjutaTo
 }
 
 static AnjutaToken*
-project_load_group_properties (AmpProject *project, AnjutaTokenType type, AnjutaToken *list, AnjutaProjectGroup *parent)
+project_load_group_properties (AmpProject *project, AnjutaToken *token, AnjutaTokenType type, AnjutaToken *list, AnjutaProjectGroup *parent)
 {
 	AmpGroupData *group = AMP_GROUP_DATA (parent);
 	gchar *value;
+	gchar *name;
 	AnjutaProjectPropertyInfo *prop;
 		
 	/* Create property */
+	name = anjuta_token_evaluate (token);
 	value = anjuta_token_evaluate (list);
-	prop = amp_property_new (type, 0, value, list);
+
+	g_message ("group_name %s", name);
+	prop = amp_property_new (name, type, 0, value, list);
 
 	amp_node_property_add (parent, prop);
 	g_free (value);
+	g_free (name);
 
 	return NULL;
 }
@@ -1706,7 +1711,7 @@ amp_project_set_am_variable (AmpProject* project, AmpGroup* group, AnjutaTokenTy
 	case AM_TOKEN__OBJCFLAGS:
 	case AM_TOKEN__LFLAGS:
 	case AM_TOKEN__YFLAGS:
-		project_load_group_properties (project, variable, list, group);
+		project_load_group_properties (project, name, variable, list, group);
 		break;
 	case AM_TOKEN_TARGET_LDFLAGS:
 	case AM_TOKEN_TARGET_CPPFLAGS:

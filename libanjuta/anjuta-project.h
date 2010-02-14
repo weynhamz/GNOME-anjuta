@@ -73,7 +73,7 @@ typedef enum
 {
 	ANJUTA_PROJECT_PROPERTY_STRING = 1,
 	ANJUTA_PROJECT_PROPERTY_BOOLEAN,
-	ANJUTA_PROJECT_PROPERTY_MAP
+	ANJUTA_PROJECT_PROPERTY_LIST
 } AnjutaProjectPropertyType;
 
 typedef struct
@@ -124,6 +124,8 @@ typedef void (*AnjutaProjectNodeFunc) (AnjutaProjectNode *node, gpointer data);
 
 AnjutaProjectPropertyItem *anjuta_project_property_first (AnjutaProjectPropertyList *list);
 AnjutaProjectPropertyItem *anjuta_project_property_next (AnjutaProjectPropertyItem *list);
+AnjutaProjectPropertyItem *anjuta_project_property_override (AnjutaProjectPropertyList *list, AnjutaProjectPropertyItem *prop);
+AnjutaProjectPropertyItem *anjuta_project_property_next_item (AnjutaProjectPropertyItem *item);
 AnjutaProjectPropertyInfo *anjuta_project_property_get_info (AnjutaProjectPropertyItem *list);
 AnjutaProjectPropertyInfo *anjuta_project_property_lookup (AnjutaProjectPropertyList *list, AnjutaProjectPropertyItem *prop);
 AnjutaProjectPropertyList *anjuta_project_property_insert (AnjutaProjectPropertyList *list, AnjutaProjectPropertyItem *prop, AnjutaProjectPropertyInfo *info);

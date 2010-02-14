@@ -61,7 +61,7 @@ static AmpPropertyInfo AmpGroupProperties[] = {
 	{{N_("Objective C compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, AM_TOKEN__OBJCFLAGS, 0, NULL},
 	{{N_("Lex/Flex flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, AM_TOKEN__LFLAGS, 0, NULL},
 	{{N_("Yacc/Bison flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL},AM_TOKEN__YFLAGS, 0, NULL},
-	{{N_("Install directories:"), ANJUTA_PROJECT_PROPERTY_MAP, NULL, NULL}, AM_TOKEN_DIR, 0, NULL},
+	{{N_("Install directories:"), ANJUTA_PROJECT_PROPERTY_LIST, NULL, NULL}, AM_TOKEN_DIR, 0, NULL},
 	{{NULL, ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, 0, 0, NULL}};
 
 static GList* AmpGroupPropertyList = NULL;
@@ -127,11 +127,12 @@ amp_create_property_list (GList **list, AmpPropertyInfo *info)
  *---------------------------------------------------------------------------*/
 
 AnjutaProjectPropertyInfo *
-amp_property_new (AnjutaTokenType type, gint position, const gchar *value, AnjutaToken *token)
+amp_property_new (const gchar *name, AnjutaTokenType type, gint position, const gchar *value, AnjutaToken *token)
 {
 	AmpPropertyInfo *prop;
 
 	prop = g_slice_new0(AmpPropertyInfo);
+	if (name != NULL) prop->base.name = g_strdup (name);
 	prop->base.value = g_strdup (value);
 	prop->token = token;
 	prop->token_type = type;
@@ -145,6 +146,10 @@ amp_property_free (AnjutaProjectPropertyInfo *prop)
 {
 	if (prop->override != NULL)
 	{
+		if ((prop->name != NULL) && (prop->name != ((AmpPropertyInfo *)(prop->override->data))->base.name))
+		{
+			g_free (prop->name);
+		}
 		if ((prop->value != NULL) && (prop->value != ((AmpPropertyInfo *)(prop->override->data))->base.value))
 		{
 			g_free (prop->value);
@@ -174,7 +179,7 @@ amp_node_property_set (AnjutaProjectNode *node, gint token_type, gint position, 
 			prop = anjuta_project_property_lookup (*properties, list);
 			if (prop == NULL)
 			{
-				prop = (AnjutaProjectPropertyInfo *)amp_property_new (token_type, position, NULL, token);
+				prop = (AnjutaProjectPropertyInfo *)amp_property_new (NULL, token_type, position, NULL, token);
 				
 				*properties = anjuta_project_property_insert (*properties, list, prop);
 			}
@@ -195,21 +200,23 @@ amp_node_property_add (AnjutaProjectNode *node, AmpPropertyInfo *prop)
 	AnjutaProjectPropertyItem *list;
 	gboolean set = FALSE;
 
-	g_message ("properties %p", *properties);
 	for (list = anjuta_project_property_first (*properties); list != NULL; list = anjuta_project_property_next (list))
 	{
 		AmpPropertyInfo *info = (AmpPropertyInfo *)anjuta_project_property_get_info (list);
 
 		if ((info->token_type == prop->token_type) && (info->position == prop->position))
 		{
-			AnjutaProjectPropertyInfo *old_prop;
-
-			old_prop = anjuta_project_property_lookup (*properties, list);
-			if (old_prop != NULL)
+			if (info->base.type != ANJUTA_PROJECT_PROPERTY_LIST)
 			{
-				*properties = anjuta_project_property_remove (*properties, list);
-				g_message ("remove properties %p", *properties);
-				amp_property_free (old_prop);
+				/* Replace property */
+				AnjutaProjectPropertyInfo *old_prop;
+
+				old_prop = anjuta_project_property_lookup (*properties, list);
+				if (old_prop != NULL)
+				{
+					*properties = anjuta_project_property_remove (*properties, list);
+					amp_property_free (old_prop);
+				}
 			}
 			*properties = anjuta_project_property_insert (*properties, list, (AnjutaProjectPropertyInfo *)prop);
 			set = TRUE;

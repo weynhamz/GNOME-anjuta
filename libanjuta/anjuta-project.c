@@ -109,12 +109,62 @@ anjuta_project_property_lookup (AnjutaProjectPropertyList *list, AnjutaProjectPr
 	return info;
 }
 
+AnjutaProjectPropertyItem *
+anjuta_project_property_override (AnjutaProjectPropertyList *list, AnjutaProjectPropertyItem *prop)
+{
+	AnjutaProjectPropertyItem *item;
+	
+	for (item = list; item != NULL; item = g_list_next (item))
+	{
+		AnjutaProjectPropertyInfo *info;
+	
+		info = (AnjutaProjectPropertyInfo *)list->data;
+		
+		if (info->override == NULL)
+		{
+			item = NULL;
+			break;
+		}
+		else if (info->override == prop)
+		{
+			break;
+		}
+	}
+
+	return item;
+}
+
+AnjutaProjectPropertyItem *
+anjuta_project_property_next_item (AnjutaProjectPropertyItem *item)
+{
+	AnjutaProjectPropertyItem *prop = ((AnjutaProjectPropertyInfo *)item->data)->override;
+
+	for (item = g_list_next (item); item != NULL; item = g_list_next (item))
+	{
+		AnjutaProjectPropertyInfo *info;
+	
+		info = (AnjutaProjectPropertyInfo *)item->data;
+		
+		if (info->override == NULL)
+		{
+			item = NULL;
+			break;
+		}
+		else if (info->override == prop)
+		{
+			break;
+		}
+	}
+
+	return item;
+}
+
 AnjutaProjectPropertyList *
 anjuta_project_property_insert (AnjutaProjectPropertyList *list, AnjutaProjectPropertyItem *prop, AnjutaProjectPropertyInfo *info)
 {
 	GList *next;
 	
-	info->name = ((AnjutaProjectPropertyInfo *)prop->data)->name;
+	if (info->name == NULL) info->name = ((AnjutaProjectPropertyInfo *)prop->data)->name;
 	info->type = ((AnjutaProjectPropertyInfo *)prop->data)->type;
 	info->override = prop;
 
