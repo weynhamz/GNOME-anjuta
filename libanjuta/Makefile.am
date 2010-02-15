@@ -145,7 +145,8 @@ libanjuta_include = \
 	anjuta-version.h \
 	gbf-project.h \
 	anjuta-project.h \
-	anjuta-command-queue.h
+	anjuta-command-queue.h \
+	anjuta-drop-entry.h
 
 libanjutainclude_HEADERS = \
 	$(libanjuta_include) \
