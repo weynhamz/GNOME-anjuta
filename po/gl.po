@@ -3,26 +3,25 @@
 #
 # Ignacio Casal Quinteiro <nacho.resa@gmail.com>, 2005, 2006.
 # Ignacio Casal Quinteiro <icq@svn.gnome.org>, 2007, 2008.
-# Fran Diéguez <frandieguez@ubuntu.com>, 2009, 2010.
 # Mancomún - Centro de Referencia e Servizos de Software Libre <g11n@mancomun.org>, 2009.
 # Antón Méixome <meixome@mancomun.org>, 2009.
 # Leandro Regueiro <leandro.regueiro@gmail.com>, 2009, 2010.
 #
 # Proxecto Trasno - Adaptación do software libre á lingua galega:  Se desexas
 # colaborar connosco, podes atopar máis información en <http://trasno.net>
-# Fran Diéguez <frandieguez@ubuntu.com>, 2010.
+# Fran Diéguez <frandieguez@ubuntu.com>, 2009, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-master-po-gl-1952\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-12 10:20+0100\n"
-"PO-Revision-Date: 2010-02-11 17:59+0100\n"
+"POT-Creation-Date: 2010-02-15 13:04+0100\n"
+"PO-Revision-Date: 2010-02-13 19:25+0100\n"
 "Last-Translator: Fran Diéguez <frandieguez@ubuntu.com>\n"
-"Language-Team: Gallician <proxecto@trasno.net>\n"
+"Language-Team: Galician <proxecto@trasno.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
@@ -50,7 +49,7 @@ msgstr ""
 #: ../libanjuta/anjuta-c-module.c:219
 #, c-format
 msgid "Unknown error in module %s"
-msgstr "Houbo un erro descoñecido no módulo %s"
+msgstr "Produciuse un erro descoñecido no módulo %s"
 
 #: ../libanjuta/anjuta-c-plugin-factory.c:108
 #, c-format
@@ -330,7 +329,7 @@ msgstr "Estado do Anjuta"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2322
 msgid "Anjuta status to use in loading and unloading of plugins"
-msgstr "O estado do Anjuta que se vai usar ao cargar e descargar plugins"
+msgstr "O estado do Anjuta que se vai usar ao cargar e descargar engadidos"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
@@ -340,11 +339,11 @@ msgstr "Cargada:"
 
 #: ../libanjuta/anjuta-profile.c:254
 msgid "Plugin Manager"
-msgstr "Xestor de plugins"
+msgstr "Xestor de engadidos"
 
 #: ../libanjuta/anjuta-profile.c:255
 msgid "The plugin manager to use for resolving plugins"
-msgstr "O xestor de plugins que se vai usar para resolver os plugins"
+msgstr "O xestor de engadidos que se vai usar para resolver os engadidos"
 
 #: ../libanjuta/anjuta-profile.c:263
 msgid "Profile Name"
@@ -352,15 +351,15 @@ msgstr "Nome do perfil"
 
 #: ../libanjuta/anjuta-profile.c:264
 msgid "Name of the plugin profile"
-msgstr "Nome do perfil do plugin"
+msgstr "Nome do perfil do engadido"
 
 #: ../libanjuta/anjuta-profile.c:272
 msgid "Profile Plugins"
-msgstr "Plugins do perfil"
+msgstr "Engadidos do perfil"
 
 #: ../libanjuta/anjuta-profile.c:273
 msgid "List of plugins for this profile"
-msgstr "Lista de plugins para este perfil"
+msgstr "Lista de engadidos para este perfil"
 
 #: ../libanjuta/anjuta-profile.c:280
 msgid "Synchronization file"
@@ -372,7 +371,7 @@ msgstr "O ficheiro para sincronizar o perfil XML"
 
 #: ../libanjuta/anjuta-profile.c:508
 msgid "Please select a plugin from the list"
-msgstr "Seleccione un plugin da lista"
+msgstr "Seleccione un engadido da lista"
 
 #: ../libanjuta/anjuta-profile.c:672
 #, c-format
@@ -380,8 +379,8 @@ msgid ""
 "Failed to read '%s': XML parse error. Invalid or corrupted Anjuta plugins "
 "profile."
 msgstr ""
-"Produciuse un fallo ao ler '%s': erro de análise de XML. O perfil de plugins "
-"do Anjuta non é válido ou está danado."
+"Produciuse un fallo ao ler '%s': erro de análise de XML. O perfil de "
+"engadidos do Anjuta non é válido ou está danado."
 
 #. <Pluginname>: Install it from <some location on the web>
 #: ../libanjuta/anjuta-profile.c:699
@@ -395,7 +394,8 @@ msgid ""
 "Failed to read '%s': Following mandatory plugins are missing:\n"
 "%s"
 msgstr ""
-"Produciuse un fallo ao ler '%s': faltan os seguintes plugins obrigatorios:\n"
+"Produciuse un fallo ao ler '%s': faltan os seguintes engadidos "
+"obrigatorios:\n"
 "%s"
 
 #: ../libanjuta/anjuta-preferences.c:1534
@@ -527,7 +527,7 @@ msgstr ""
 #. Try xterm
 #: ../libanjuta/anjuta-utils.c:1086
 msgid "Cannot find a terminal; using xterm, even if it may not work"
-msgstr "Non se pode encontrar un terminal, usar xterm, mesmo se non funciona"
+msgstr "Non é posíbel encontrar un terminal, usar xterm, mesmo se non funciona"
 
 #: ../libanjuta/anjuta-utils.c:1122 ../libanjuta/anjuta-utils.c:1126
 #: ../libanjuta/anjuta-utils.c:1154 ../libanjuta/anjuta-utils.c:1158
@@ -2336,7 +2336,7 @@ msgstr "Operacións do depurador"
 #, c-format
 msgid "Unable to find a debugger plugin supporting a target with %s MIME type"
 msgstr ""
-"Non é posíbel encontrar un plugin do depurador que permita un destino co "
+"Non é posíbel encontrar un engadido do depurador que permita un destino co "
 "tipo MIME %s"
 
 #: ../plugins/debug-manager/registers.c:462
@@ -3471,12 +3471,12 @@ msgid ""
 msgstr ""
 "<b>Non é posíbel abrir \"%s\"</b>.\n"
 "\n"
-"Non hai ningún plugin, acción predefinida ou aplicativo configurado para "
+"Non hai ningún engadido, acción predefinida ou aplicativo configurado para "
 "manexar este tipo de ficheiro.\n"
 "\n"
 "Tipo MIME: %s\n"
 "\n"
-"Pode escoller abrir o ficheiro cos seguintes plugins ou aplicativos."
+"Pode escoller abrir o ficheiro cos seguintes engadidos ou aplicativos."
 
 #: ../plugins/file-loader/plugin.c:280
 msgid "Open with:"
@@ -3548,7 +3548,7 @@ msgstr "Ficheiros differenciais"
 #: ../plugins/file-loader/plugin.c:823
 #, c-format
 msgid "Failed to activate plugin: %s"
-msgstr "Produciuse un fallo ao activar o plugin: %s"
+msgstr "Produciuse un fallo ao activar o engadido: %s"
 
 #: ../plugins/file-loader/plugin.c:884
 msgid "_New"
@@ -3616,7 +3616,7 @@ msgstr "Non se encontrou o ficheiro"
 #: ../plugins/file-loader/plugin.c:1437
 #, c-format
 msgid "Please select a plugin to open <b>%s</b>."
-msgstr "Seleccione un plugin para abrir <b>%s</b>."
+msgstr "Seleccione un engadido para abrir <b>%s</b>."
 
 #: ../plugins/file-loader/plugin.c:1441 ../plugins/project-import/plugin.c:205
 msgid "Open With"
@@ -5925,7 +5925,7 @@ msgstr "Non hai un editor asociado para o deseñador"
 #: ../plugins/glade/plugin.c:1968
 #, c-format
 msgid "Unknown editor language \"%s\""
-msgstr "Houbo un erro descoñecido no módulo %s"
+msgstr "Produciuse un erro descoñecido no módulo %s"
 
 #: ../plugins/glade/plugin.c:2035 ../plugins/glade/plugin.c:2112
 #: ../plugins/glade/plugin.c:2237
@@ -6881,8 +6881,8 @@ msgstr ""
 msgid ""
 "Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
 msgstr ""
-"Non se puido extraer o URI fornecido \"%s\", e devolveu o seguinte erro: \"%s"
-"\""
+"Non foi posíbel extraer o URI fornecido \"%s\", e devolveu o seguinte erro: "
+"\"%s\""
 
 #: ../plugins/project-import/project-import.ui.h:1
 #: ../plugins/subversion/anjuta-subversion.ui.h:9
@@ -7903,9 +7903,8 @@ msgid "Create backup files"
 msgstr "Crear ficheiros de copia de seguranza"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:4
-#, fuzzy
 msgid "Enable autocompletion for document words"
-msgstr "Activar o completado de código"
+msgstr "Activar o autocompletado para as palabras do documento"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:5
 msgid "Font"
@@ -8015,7 +8014,7 @@ msgstr "Manual do Anjuta"
 
 #: ../plugins/starter/starter.c:486
 msgid "GNOME Online API Documentation"
-msgstr "Documentación en liña da API do Gnome"
+msgstr "Documentación en liña da API do GNOME"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:1
 msgid "Add file/directory"
@@ -8886,65 +8885,66 @@ msgstr "Camiño raíz do proxecto"
 
 #: ../plugins/tools/variable.c:86
 msgid "Selected URI in the file manager plugin"
-msgstr "URI seleccionado no plugin do xestor de ficheiros"
+msgstr "URI seleccionado no engadido do xestor de ficheiros"
 
 #: ../plugins/tools/variable.c:87
 msgid "Selected directory in the file manager plugin"
-msgstr "Seleccionar cartafol no plugin do xestor de ficheiros"
+msgstr "Seleccionar cartafol no engadido do xestor de ficheiros"
 
 #: ../plugins/tools/variable.c:88
 msgid "Selected full file name in the file manager plugin"
-msgstr "Seleccionar o nome completo no plugin do xestor de ficheiros"
+msgstr "Seleccionar o nome completo no engadido do xestor de ficheiros"
 
 #: ../plugins/tools/variable.c:89
 msgid "Selected full file name without extension in the file manager plugin"
 msgstr ""
-"Seleccionar o nome completo do ficheiro sen extensión no plugin do xestor de "
-"ficheiros"
+"Seleccionar o nome completo do ficheiro sen extensión no engadido do xestor "
+"de ficheiros"
 
 #: ../plugins/tools/variable.c:90
 msgid "Selected file name in the file manager plugin"
-msgstr "Seleccionar o nome do ficheiro no plugin do xestor de ficheiros"
+msgstr "Seleccionar o nome do ficheiro no engadido do xestor de ficheiros"
 
 #: ../plugins/tools/variable.c:91
 msgid "Selected file name without extension in the file manager plugin"
 msgstr ""
-"Seleccionar o nome completo sen extensión no plugin do xestor de proxecto"
+"Seleccionar o nome completo sen extensión no engadido do xestor de proxecto"
 
 #: ../plugins/tools/variable.c:92
 msgid "Selected file's extension in the file manager plugin"
-msgstr "A extensión de ficheiros seleccionados no plugin do xestor de proxecto"
+msgstr ""
+"A extensión de ficheiros seleccionados no engadido do xestor de proxecto"
 
 #: ../plugins/tools/variable.c:93
 msgid "Selected URI in the project manager plugin"
-msgstr "URI seleccionado no plugin do xestor de proxecto"
+msgstr "URI seleccionado no engadido do xestor de proxecto"
 
 #: ../plugins/tools/variable.c:94
 msgid "Selected directory in the project manager plugin"
-msgstr "Cartafol seleccionado no plugin do xestor de proxecto"
+msgstr "Cartafol seleccionado no engadido do xestor de proxecto"
 
 #: ../plugins/tools/variable.c:95
 msgid "Selected full file name in the project manager plugin"
 msgstr ""
-"O nome completo do ficheiro seleccionado no plugin do xestor de proxecto"
+"O nome completo do ficheiro seleccionado no engadido do xestor de proxecto"
 
 #: ../plugins/tools/variable.c:96
 msgid "Selected full file name without extension in the project manager plugin"
 msgstr ""
-"O nome completo do ficheiro sen extensión no plugin do xestor de proxecto"
+"O nome completo do ficheiro sen extensión no engadido do xestor de proxecto"
 
 #: ../plugins/tools/variable.c:97
 msgid "Selected file name in the project manager plugin"
-msgstr "Ficheiro seleccionado no plugin do xestor de proxectos"
+msgstr "Ficheiro seleccionado no engadido do xestor de proxectos"
 
 #: ../plugins/tools/variable.c:98
 msgid "Selected file name without extension in the project manager plugin"
 msgstr ""
-"Nome de ficheiro seleccionado sen extensión no plugin do xestor de proxecto"
+"Nome de ficheiro seleccionado sen extensión no engadido do xestor de proxecto"
 
 #: ../plugins/tools/variable.c:99
 msgid "Selected file extension in the project manager plugin"
-msgstr "Extensión do ficheiro seleccionado no plugin do xestor de proxecto"
+msgstr "Extensión do ficheiro seleccionado no engadido do xestor de proxecto"
 
 #: ../plugins/tools/variable.c:100
 msgid "Currently edited file name"
@@ -9171,7 +9171,7 @@ msgstr "Sobre os pl_ugins externos"
 
 #: ../src/anjuta-actions.h:96
 msgid "About third-party Anjuta plugins"
-msgstr "Sobre os plugins de terceiros para o Anjuta"
+msgstr "Sobre os engadidos de terceiros para o Anjuta"
 
 #: ../src/anjuta-app.c:489
 msgid "Edit"
@@ -9179,7 +9179,7 @@ msgstr "Editar"
 
 #: ../src/anjuta-app.c:734
 msgid "Installed plugins"
-msgstr "Plugins instalados"
+msgstr "Engadidos instalados"
 
 #: ../src/anjuta-app.c:738
 msgid "Shortcuts"
@@ -9262,7 +9262,7 @@ msgstr "Estilo do selector de ancorábel:"
 
 #: ../src/preferences.ui.h:10
 msgid "GNOME toolbar setting"
-msgstr "Opción da barra de tarefas de Gnome"
+msgstr "Opción da barra de tarefas de GNOME"
 
 #: ../src/preferences.ui.h:12
 msgid "Icons"
@@ -9437,7 +9437,7 @@ msgstr "Axuda da API"
 
 #: ../plugins/devhelp/anjuta-devhelp.plugin.in.h:2
 msgid "Devhelp Plugin for Anjuta."
-msgstr "Plugin do Devhelp para o Anjuta."
+msgstr "Engadido do Devhelp para o Anjuta."
 
 #: ../plugins/document-manager/anjuta-document-manager.plugin.in.h:2
 msgid "Provides document management capabilities."
@@ -9445,7 +9445,7 @@ msgstr "Proporciona capacidades para o xestor de documentos."
 
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:1
 msgid "Anjuta File Assistant Plugin"
-msgstr "Plugin do asistente de ficheiros do Anjuta"
+msgstr "Engadido do asistente de ficheiros do Anjuta"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:3
 msgid "File Assistant"
@@ -9457,7 +9457,7 @@ msgstr "Xestor de ficheiros para proxectos e ficheiros individuais"
 
 #: ../plugins/subversion/anjuta-subversion.plugin.in.h:1
 msgid "A Subversion client plugin based on libsvn"
-msgstr "Un plugin de cliente do Subversion basado en libsvn"
+msgstr "Un engadido de cliente do Subversion basado en libsvn"
 
 #: ../plugins/glade/anjuta-glade.plugin.in.h:1
 msgid "Glade File"
@@ -9465,7 +9465,7 @@ msgstr "Ficheiro Glade"
 
 #: ../plugins/glade/anjuta-glade.plugin.in.h:2
 msgid "Glade Plugin for Anjuta."
-msgstr "Plugin do Glade para o Anjuta."
+msgstr "Engadido do Glade para o Anjuta."
 
 #: ../plugins/glade/anjuta-glade.plugin.in.h:3
 msgid "Glade interface designer"
@@ -9477,7 +9477,7 @@ msgstr "Xestor de tarefas"
 
 #: ../plugins/gtodo/anjuta-gtodo.plugin.in.h:2
 msgid "Todo Plugin for Anjuta."
-msgstr "Plugin de pendentes para o Anjuta."
+msgstr "Engadido de pendentes para o Anjuta."
 
 #: ../plugins/macro/anjuta-macro.plugin.in.h:1
 msgid "Insert predefined macros into Editor"
@@ -9485,11 +9485,11 @@ msgstr "Inserir os macros predefinidos no editor"
 
 #: ../plugins/macro/anjuta-macro.plugin.in.h:2
 msgid "Macro Plugin"
-msgstr "Plugin de macro"
+msgstr "Engadido de macro"
 
 #: ../plugins/patch/anjuta-patch.plugin.in.h:1
 msgid "Patch Plugin"
-msgstr "Plugin de parche"
+msgstr "Engadido de parche"
 
 #: ../plugins/patch/anjuta-patch.plugin.in.h:2
 msgid "Patches files and directories."
@@ -9505,19 +9505,19 @@ msgstr "Construír co Automake"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in.h:2
 msgid "Basic autotools build plugin."
-msgstr "Plugin básico para construír co Autotools."
+msgstr "Engadido básico para construír co Autotools."
 
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:2
 msgid "Terminal Plugin for Anjuta."
-msgstr "Plugin de terminal para o Anjuta."
+msgstr "Engadido de terminal para o Anjuta."
 
 #: ../plugins/cvs-plugin/anjuta-cvs.plugin.in.h:1
 msgid "A version control system plugin"
-msgstr "Plugin de sistema de control de versións"
+msgstr "Engadido de sistema de control de versións"
 
 #: ../plugins/cvs-plugin/anjuta-cvs.plugin.in.h:2
 msgid "CVS Plugin"
-msgstr "Plugin CVS"
+msgstr "Engadido CVS"
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:1
 msgid "Import an existing autotools project to Anjuta"
@@ -9545,12 +9545,12 @@ msgstr "Páxina de benvida coas accións máis habituais."
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in.h:1
 msgid "C++ and Java support Plugin"
-msgstr "Plugin de C++ e de compatibilidade de Java"
+msgstr "Engadido de C++ e de compatibilidade de Java"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in.h:2
 msgid "C++ and Java support plugin for code completion, auto-indentation, etc."
 msgstr ""
-"Plugin de C++ e de compatibilidade de Java para completar códigos, sangrar "
+"Engadido de C++ e de compatibilidade de Java para completar códigos, sangrar "
 "automaticamente etc."
 
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:2
@@ -9567,7 +9567,7 @@ msgstr "Buscando"
 
 #: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:1
 msgid "Anjuta Class Generator Plugin"
-msgstr "Plugin do xerador de clase do Anjuta"
+msgstr "Engadido do xerador de clase do Anjuta"
 
 #: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:2
 msgid "C++/GObject Class"
@@ -9579,11 +9579,11 @@ msgstr "Xestor de proxectos"
 
 #: ../plugins/project-manager/anjuta-project-manager.plugin.in.h:2
 msgid "Project Manager Plugin for Anjuta."
-msgstr "Plugin do xestor de proxectos para o Anjuta."
+msgstr "Engadido do xestor de proxectos para o Anjuta."
 
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:2
 msgid "Symbol Database Plugin for Anjuta."
-msgstr "Plugin de base de datos de símbolos para o Anjuta."
+msgstr "Engadido de base de datos de símbolos para o Anjuta."
 
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Manages messages from external apps"
@@ -9599,7 +9599,7 @@ msgstr "Cargador de ficheiros para cargar distintos ficheiros"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.plugin.in.h:1
 msgid "Debug Manager plugin."
-msgstr "Plugin do xestor de depuración."
+msgstr "Engadido do xestor de depuración."
 
 #: ../plugins/run-program/anjuta-run-program.plugin.in.h:1
 msgid "Allow to execute program without debugger."
@@ -9615,7 +9615,7 @@ msgstr "Xestor de linguaxes"
 
 #: ../plugins/language-manager/language-manager.plugin.in.h:2
 msgid "Plugin to keep track of multiple programming languages"
-msgstr "Un plugin para o seguimento de múltiples linguaxes de programación"
+msgstr "Un engadido para o seguimento de múltiples linguaxes de programación"
 
 #: ../plugins/gbf-mkfile/gbf-mkfile.plugin.in.h:1
 msgid "Makefile backend"
