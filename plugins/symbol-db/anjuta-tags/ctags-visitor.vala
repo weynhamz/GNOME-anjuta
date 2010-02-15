@@ -21,7 +21,7 @@
 
 using Vala;
 
-public class CTagsEntry {
+public struct CTagsEntry {
 	public int line_number;
 	public string name;
 	public string kind_name;
@@ -29,6 +29,7 @@ public class CTagsEntry {
 	public string access;
 	public string implementation;
 	public string inheritance;
+	public string scope[2];
 	public string signature;
 	public string typeref;
 }
@@ -44,7 +45,7 @@ public delegate void CTagsEntryMaker (CTagsEntry entry);
 public class CTagsVisitor : CodeVisitor {
 	Parser vala_parser;
 	Genie.Parser genie_parser;
-	GLib.List<CTagsEntry> taglist;
+	GLib.List<CTagsEntry?> taglist;
 	public CTagsVisitor () {
 		vala_parser = new Parser();
 		genie_parser = new Genie.Parser();
@@ -130,6 +131,20 @@ public class CTagsVisitor : CodeVisitor {
 		ret.append (")");
 		return ret.str;
 	}
+	static void scope (Symbol s, string[] scope) {
+		var par = s.parent_symbol;
+		if (par != null && par.name != null) {
+			if (par is Class)
+				scope[0] = "class";
+			else if (par is Struct)
+				scope[0] = "struct";
+			else if (par is Interface)
+				scope[0] = "interface";
+			else
+				return;
+			scope[1] = par.name;
+		}
+	}
 	/*static void print_tag(CTagsEntry en) {
 		stdout.printf("%s: %s at %d\n", en.name, en.kind_name, en.line_number);
 	}*/
@@ -139,7 +154,7 @@ public class CTagsVisitor : CodeVisitor {
 	}
 
 	public override void visit_class (Class cl) {
-		var entry = new CTagsEntry();
+		var entry = CTagsEntry();
 
 		entry.line_number = cl.source_reference.first_line;
 		entry.name = cl.name;
@@ -148,25 +163,27 @@ public class CTagsVisitor : CodeVisitor {
 		entry.access = get_access (cl);
 		entry.implementation = implementation(cl);
 		entry.inheritance = to_string(cl.get_base_types(), ",");
+		scope (cl, entry.scope);
 
 		taglist.append(entry);
 //		print_tag(entry);
 		cl.accept_children(this);
 	}
 	public override void visit_struct (Struct st) {
-		var entry = new CTagsEntry();
+		var entry = CTagsEntry();
 		entry.line_number = st.source_reference.first_line;
 		entry.name = st.name;
 		entry.kind_name = "struct";
 		entry.kind = 's';
 		entry.access = get_access (st);
+		scope (st, entry.scope);
 
 		taglist.append(entry);
 //		print_tag(entry);
 		st.accept_children(this);
 	}
 	public override void visit_interface (Interface iface) {
-		var entry = new CTagsEntry();
+		var entry = CTagsEntry();
 
 		entry.line_number = iface.source_reference.first_line;
 		entry.name = iface.name;
@@ -174,6 +191,7 @@ public class CTagsVisitor : CodeVisitor {
 		entry.kind = 'i';
 		entry.access = get_access (iface);
 		entry.inheritance = to_string(iface.get_prerequisites());
+		scope (iface, entry.scope);
 
 		taglist.append(entry);
 //		print_tag(entry);
@@ -181,26 +199,28 @@ public class CTagsVisitor : CodeVisitor {
 	}
 
 	public override void visit_enum (Vala.Enum en) {
-		var entry = new CTagsEntry();
+		var entry = CTagsEntry();
 
 		entry.line_number = en.source_reference.first_line;
 		entry.name = en.name;
 		entry.kind_name = "enum";
 		entry.kind = 'e';
 		entry.access = get_access (en);
+		scope (en, entry.scope);
 
 		taglist.append(entry);
 //		print_tag(entry);
 		en.accept_children(this);
 	}
 	public override void visit_error_domain (ErrorDomain edomain) {
-		var entry = new CTagsEntry();
+		var entry = CTagsEntry();
 
 		entry.line_number = edomain.source_reference.first_line;
 		entry.name = edomain.name;
 		entry.kind_name = "errordomain";
 		entry.kind = 'E';
 		entry.access = get_access (edomain);
+		scope (edomain, entry.scope);
 
 		taglist.append(entry);
 //		print_tag(entry);
@@ -208,38 +228,41 @@ public class CTagsVisitor : CodeVisitor {
 	}
 
 	public override void visit_enum_value (Vala.EnumValue ev) {
-		var entry = new CTagsEntry();
+		var entry = CTagsEntry();
 
 		entry.line_number = ev.source_reference.first_line;
 		entry.name = ev.name;
 		entry.kind_name = "enumvalue";
 		entry.kind = 'v';
 		entry.access = get_access (ev);
+		scope (ev, entry.scope);
 
 		taglist.append(entry);
 //		print_tag(entry);
 	}
 	public override void visit_error_code (ErrorCode ecode) {
-		var entry = new CTagsEntry();
+		var entry = CTagsEntry();
 
 		//entry.line_number = ecode.source_reference.first_line;
 		entry.name = ecode.name;
 		entry.kind_name = "errorcode";
 		entry.kind = 'r';
 		entry.access = get_access (ecode);
+		scope (ecode, entry.scope);
 
 		taglist.append(entry);
 //		print_tag(entry);
 	}
 
 	public override void visit_delegate (Delegate d) {
-		var entry = new CTagsEntry();
+		var entry = CTagsEntry();
 
 		entry.line_number = d.source_reference.first_line;
 		entry.name = d.name;
 		entry.kind_name = "delegate";
 		entry.kind = 'd';
 		entry.access = get_access (d);
+		scope (d, entry.scope);
 		entry.typeref = d.return_type.to_qualified_string();
 		entry.signature = signature(d.get_parameters());
 
@@ -247,7 +270,7 @@ public class CTagsVisitor : CodeVisitor {
 //		print_tag(entry);
 	}
 	public override void visit_signal (Vala.Signal sig) {
-		var entry = new CTagsEntry();
+		var entry = CTagsEntry();
 
 		entry.line_number = sig.source_reference.first_line;
 		entry.name = sig.name;
@@ -255,6 +278,7 @@ public class CTagsVisitor : CodeVisitor {
 		entry.kind = 'S';
 		entry.access = get_access (sig);
 		entry.implementation = implementation(sig);
+		scope (sig, entry.scope);
 		entry.typeref = sig.return_type.to_qualified_string();
 		entry.signature = signature(sig.get_parameters());
 
@@ -262,33 +286,35 @@ public class CTagsVisitor : CodeVisitor {
 //		print_tag(entry);
 	}
 	public override void visit_field (Field f) {
-		var entry = new CTagsEntry();
+		var entry = CTagsEntry();
 
 		entry.line_number = f.source_reference.first_line;
 		entry.name = f.name;
 		entry.kind_name = "field";
 		entry.kind = 'f';
 		entry.access = get_access (f);
+		scope (f, entry.scope);
 		entry.typeref = f.field_type.to_qualified_string();
 
 		taglist.append(entry);
 //		print_tag(entry);
 	}
 	public override void visit_constant (Constant c) {
-		var entry = new CTagsEntry();
+		var entry = CTagsEntry();
 
 		entry.line_number = c.source_reference.first_line;
 		entry.name = c.name;
 		entry.kind_name = "field";
 		entry.kind = 'f';
 		entry.access = get_access (c);
+		scope (c, entry.scope);
 		entry.typeref = c.type_reference.to_qualified_string();
   
 		taglist.append(entry);
 //		print_tag(entry);
 	}
 	public override void visit_property (Property prop) {
-		var entry = new CTagsEntry();
+		var entry = CTagsEntry();
 
 		entry.line_number = prop.source_reference.first_line;
 		entry.name = prop.name;
@@ -296,6 +322,7 @@ public class CTagsVisitor : CodeVisitor {
 		entry.kind = 'p';
 		entry.access = get_access (prop);
 		entry.implementation = implementation(prop);
+		scope (prop, entry.scope);
 		entry.typeref = prop.property_type.to_qualified_string();
 
 		taglist.append(entry);
@@ -303,7 +330,7 @@ public class CTagsVisitor : CodeVisitor {
 	}
 
 	public override void visit_method (Method m) {
-		var entry = new CTagsEntry();
+		var entry = CTagsEntry();
 
 		entry.line_number = m.source_reference.first_line;
 		entry.name = m.name;
@@ -311,6 +338,7 @@ public class CTagsVisitor : CodeVisitor {
 		entry.kind = 'm';
 		entry.access = get_access (m);
 		entry.implementation = implementation(m);
+		scope (m, entry.scope);
 		entry.typeref = m.return_type.to_qualified_string();
 		entry.signature = signature(m.get_parameters());
 
@@ -319,7 +347,7 @@ public class CTagsVisitor : CodeVisitor {
 	}
 
 	public override void visit_local_variable (LocalVariable local) {
-		var entry = new CTagsEntry();
+		var entry = CTagsEntry();
 
 		entry.line_number = local.source_reference.first_line;
 		entry.name = local.name;
@@ -332,7 +360,7 @@ public class CTagsVisitor : CodeVisitor {
 	}
 
 	public void parse_vala (string filename, CTagsEntryMaker maker ) {
-		taglist = new GLib.List<CTagsEntry>();
+		taglist = new GLib.List<CTagsEntry?>();
 		/* We create a context for every source file so that Parser.parse(context)
 		 * don't parse a file multiple times causing errors. Parser.parse_file(source_file)
 		 * assumes that Parser.context is the same as source_file.context anyway */
@@ -351,7 +379,7 @@ public class CTagsVisitor : CodeVisitor {
 		CodeContext.pop();
 	}
 	public void parse_genie (string filename, CTagsEntryMaker maker ) {
-		taglist = new GLib.List<CTagsEntry>();
+		taglist = new GLib.List<CTagsEntry?>();
 		var context = new CodeContext();
 		context.report = new DummyReport();
 		var source_file = new SourceFile(context, filename);
