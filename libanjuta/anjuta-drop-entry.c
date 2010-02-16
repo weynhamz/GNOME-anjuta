@@ -29,6 +29,8 @@ static void
 anjuta_drop_entry_init (AnjutaDropEntry *self)
 {
 	self->priv = g_new0 (AnjutaDropEntryPriv, 1);
+
+	gtk_widget_set_size_request (GTK_WIDGET (self), -1, 40);
 }
 
 static void
