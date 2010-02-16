@@ -30,6 +30,7 @@
 
 #include "ac-scanner.h"
 #include "am-scanner.h"
+#include "ac-writer.h"
 
 #include <glib/gi18n.h>
 
@@ -228,6 +229,32 @@ amp_node_property_add (AnjutaProjectNode *node, AmpPropertyInfo *prop)
 	
 	return set;
 }
+
+gboolean
+amp_project_property_set (AmpProject *project, AnjutaProjectPropertyItem *prop, const gchar* value)
+{
+	AnjutaProjectPropertyList **properties = &(project->properties);
+	AnjutaProjectPropertyItem *item;
+	AmpPropertyInfo *info;
+		
+	item = anjuta_project_property_override (*properties, prop);
+	if (item != NULL)
+	{
+		info = (AmpPropertyInfo *)anjuta_project_property_get_info (item);
+		if ((info->base.value != NULL) && (info->base.value != ((AnjutaProjectPropertyInfo *)(info->base.override->data))->value)) g_free (info->base.value);
+		info->base.value = g_strdup (value);
+	}
+	else
+	{
+		info = (AmpPropertyInfo *)anjuta_project_property_get_info (prop);
+		info = (AmpPropertyInfo *)amp_property_new (NULL, info->token_type, info->position, value, NULL);
+		*properties = anjuta_project_property_insert (*properties, prop, (AnjutaProjectPropertyInfo *)info);
+	}
+	
+	return amp_project_update_property (project, info);
+}
+
+
 
 /* Get property list
  *---------------------------------------------------------------------------*/

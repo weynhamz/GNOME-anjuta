@@ -68,6 +68,8 @@ struct _AmpProject {
 	
 	//AmpProperty			*property;
 	GList				*properties;
+	AnjutaToken			*ac_init;
+	AnjutaToken			*args;
 	
 	AmpGroup              *root_node;         	/* tree containing project data;
 								 * each GNode's data is a

@@ -118,7 +118,7 @@ anjuta_project_property_override (AnjutaProjectPropertyList *list, AnjutaProject
 	{
 		AnjutaProjectPropertyInfo *info;
 	
-		info = (AnjutaProjectPropertyInfo *)list->data;
+		info = (AnjutaProjectPropertyInfo *)item->data;
 		
 		if (info->override == NULL)
 		{

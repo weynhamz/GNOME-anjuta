@@ -29,7 +29,7 @@
 
 G_BEGIN_DECLS
 
-gboolean amp_project_update_property (AmpProject *project, AmpPropertyType type); 
+gboolean amp_project_update_property (AmpProject *project, AmpPropertyInfo *info); 
 
 G_END_DECLS
 

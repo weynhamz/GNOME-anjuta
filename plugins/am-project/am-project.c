@@ -1002,6 +1002,9 @@ amp_project_load_properties (AmpProject *project, AnjutaToken *macro, AnjutaToke
 	fprintf (stdout, "property list:\n");
 	anjuta_token_dump (args);
 
+	project->ac_init = macro;
+	project->args = args;
+	
 	for (list = anjuta_project_property_first (project->properties); list != NULL; list = anjuta_project_property_next (list))
 	{
 		AmpPropertyInfo *info = (AmpPropertyInfo *)anjuta_project_property_get_info (list);
@@ -3065,6 +3068,8 @@ amp_project_instance_init (AmpProject *project)
 	project->configure_token = NULL;
 	project->root_node = NULL;
 	project->properties = amp_get_project_property_list ();
+	project->ac_init = NULL;
+	project->args = NULL;
 
 	project->am_space_list = NULL;
 	project->ac_space_list = NULL;
