@@ -202,33 +202,21 @@ on_query_data (gint search_id, IAnjutaIterable* iter, CppJavaAssist* assist)
 }
 
 static void
-unref_if_queries_finished (CppJavaAssist* assist)
-{
-	if (!(assist->priv->async_file || assist->priv->async_project || assist->priv->async_system))
-	{
-		g_object_unref (assist);
-	}
-}
-
-static void
 system_finished (AnjutaAsyncNotify* notify, CppJavaAssist* assist)
 {
 	assist->priv->async_system = FALSE;
-	unref_if_queries_finished (assist);
 }
 
 static void
 file_finished (AnjutaAsyncNotify* notify, CppJavaAssist* assist)
 {
 	assist->priv->async_file = FALSE;
-	unref_if_queries_finished (assist);
 }
 
 static void
 project_finished (AnjutaAsyncNotify* notify, CppJavaAssist* assist)
 {
 	assist->priv->async_project = FALSE;
-	unref_if_queries_finished (assist);
 }
 
 #define SCOPE_BRACE_JUMP_LIMIT 50
@@ -520,8 +508,6 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist)
 	g_free (assist->priv->search_cache);
 	assist->priv->search_cache = g_strdup (assist->priv->pre_word);
 
-	/* Take a reference on CppJavaAssist until queries finish */
-	g_object_ref (assist);
 	DEBUG_PRINT ("Started async search for: %s", assist->priv->pre_word);
 }
 
