@@ -37,6 +37,7 @@ struct _SymbolDBSearchCommandPriv {
 	IAnjutaSymbolManagerSearchFileScope filescope_search;
 	gint results_limit;
 	gint results_offset;
+	gboolean is_cancelled;
 	
 
 	/* store the pointer to an iterator. The object does not have to be
@@ -55,7 +56,8 @@ sdb_search_command_init (SymbolDBSearchCommand *object)
 
 	object->priv->gfile = NULL;
 	object->priv->session_packages = NULL;
-	object->priv->pattern = NULL;	
+	object->priv->pattern = NULL;
+	object->priv->is_cancelled = FALSE;
 }
 
 static void
@@ -81,7 +83,8 @@ sdb_search_command_finalize (GObject *object)
 		g_list_free (priv->session_packages);		
 	}
 	priv->session_packages = NULL;
-	
+
+	priv->is_cancelled = FALSE;
 	
 	g_free (sdbsc->priv);
 	
@@ -184,9 +187,23 @@ sdb_search_command_run (AnjutaCommand *command)
 		return 1;
 	}
 
-	DEBUG_PRINT ("Notify!");
-	anjuta_command_notify_data_arrived (command);
-	
+	if (priv->is_cancelled == FALSE)
+	{
+		DEBUG_PRINT ("Notify!");
+		/* let the notifier calling the callback */
+		anjuta_command_notify_data_arrived (command);
+	}
+	else {
+		/* we received a cancel event. */
+		DEBUG_PRINT ("Do *NOT* notify the callback. Search was cancelled.");
+
+		if (priv->iterator_result != NULL)
+		{
+			g_object_unref (priv->iterator_result);
+			priv->iterator_result = NULL;
+		}
+	}
+		
 	/* 0 should be for no error */
 	return 0;
 }
@@ -194,7 +211,16 @@ sdb_search_command_run (AnjutaCommand *command)
 static void
 sdb_search_command_cancel(AnjutaCommand* command)
 {
+	SymbolDBSearchCommand *sdbsc;
+	SymbolDBSearchCommandPriv *priv;
 
+	sdbsc = SYMBOL_DB_SEARCH_COMMAND (command);
+
+	priv = sdbsc->priv;
+
+	DEBUG_PRINT ("Search command cancelled");
+	/* set the cancelled status tu TRUE */
+	priv->is_cancelled = TRUE;
 }
 
 static void
