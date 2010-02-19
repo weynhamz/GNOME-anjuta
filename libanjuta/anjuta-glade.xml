@@ -25,9 +25,13 @@
 				</property>
 			</properties>
 		</glade-widget-class>
+
+		<glade-widget-class name="AnjutaDropEntry" title="Drop Entry"
+		 generic-name="dropentry" />
 	</glade-widget-classes>
 
 	<glade-widget-group name="Anjuta" title="Anjuta">
 		<glade-widget-class-ref name="AnjutaVcsStatusTreeView" />
+		<glade-widget-class-ref name="AnjutaDropEntry" />
 	</glade-widget-group>
 </glade-catalog>
