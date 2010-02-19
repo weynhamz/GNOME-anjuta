@@ -82,6 +82,10 @@ struct _CppJavaAssistPriv {
 	gboolean async_file : 1;
 	gboolean async_system : 1;
 	gboolean async_project : 1;
+
+	GCancellable* cancel_system;
+	GCancellable* cancel_file;
+	GCancellable* cancel_project;	
 };
 
 static gchar*
@@ -430,16 +434,25 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist)
 	cpp_java_assist_destroy_completion_cache (assist);
 	if (assist->priv->async_file)
 	{
+		g_cancellable_cancel (assist->priv->cancel_file);
 		assist->priv->async_file = FALSE;
 	}
+	g_cancellable_reset (assist->priv->cancel_file);
+	
 	if (assist->priv->async_system)
 	{
+		g_cancellable_cancel (assist->priv->cancel_system);
 		assist->priv->async_system = FALSE;
 	}
+	g_cancellable_reset (assist->priv->cancel_system);
+	
 	if (assist->priv->async_project)
 	{
+		g_cancellable_cancel (assist->priv->cancel_project);
 		assist->priv->async_project = FALSE;
 	}
+	g_cancellable_reset (assist->priv->cancel_project);
+	
 	if (!assist->priv->pre_word || strlen(assist->priv->pre_word) < 3)
 		return;
 
@@ -460,7 +473,8 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist)
 			                                          							 IANJUTA_SYMBOL_FIELD_TYPE|
 			                                          							 IANJUTA_SYMBOL_FIELD_ACCESS|
 			                                          							 IANJUTA_SYMBOL_FIELD_KIND,
-																				 pattern, file, -1, -1, NULL,
+																				 pattern, file, -1, -1, 
+			    																 assist->priv->cancel_file,
 																				 notify, (IAnjutaSymbolManagerSearchCallback) on_query_data, assist,
 																				 NULL);
 			g_object_unref (file);
@@ -480,7 +494,7 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist)
 			                                 IANJUTA_SYMBOL_FIELD_ACCESS|
 			                                 IANJUTA_SYMBOL_FIELD_KIND,
 											 pattern, IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC, -1, -1, 
-											 NULL,
+											 assist->priv->cancel_project,
 											 notify, (IAnjutaSymbolManagerSearchCallback) on_query_data, assist,
 											 NULL);
 		
@@ -498,14 +512,15 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist)
 			                                 IANJUTA_SYMBOL_FIELD_ACCESS|
 			                                 IANJUTA_SYMBOL_FIELD_KIND,
 											 pattern, IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC, -1, -1,
-											 NULL,
+											 assist->priv->cancel_system,
 											 notify, (IAnjutaSymbolManagerSearchCallback) on_query_data, assist,
 		                                            NULL);
 	}
 	g_free (pattern);
 	g_free (assist->priv->search_cache);
 	assist->priv->search_cache = g_strdup (assist->priv->pre_word);
-	// Take a reference on CppJavaAssist until queries finish
+
+	/* Take a reference on CppJavaAssist until queries finish */
 	g_object_ref (assist);
 	DEBUG_PRINT ("Started async search for: %s", assist->priv->pre_word);
 }
@@ -1131,6 +1146,10 @@ static void
 cpp_java_assist_init (CppJavaAssist *assist)
 {
 	assist->priv = g_new0 (CppJavaAssistPriv, 1);
+	
+	assist->priv->cancel_file = g_cancellable_new();
+	assist->priv->cancel_project = g_cancellable_new();
+	assist->priv->cancel_system = g_cancellable_new();	
 }
 
 static void
@@ -1143,6 +1162,9 @@ cpp_java_assist_finalize (GObject *object)
 	{
 		g_free (assist->priv->calltip_context);
 		assist->priv->calltip_context = NULL;
+		g_object_unref (assist->priv->cancel_file);
+		g_object_unref (assist->priv->cancel_project);
+		g_object_unref (assist->priv->cancel_system);		
 	}
 	g_free (assist->priv);
 	G_OBJECT_CLASS (cpp_java_assist_parent_class)->finalize (object);
