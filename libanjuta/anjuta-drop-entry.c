@@ -19,6 +19,26 @@
 
 #include "anjuta-drop-entry.h"
 
+/* DnD targets */
+enum
+{
+	DND_TYPE_STRING
+};
+
+static GtkTargetEntry dnd_target_entries[] = 
+{
+	{
+		"STRING",
+		0,
+		DND_TYPE_STRING
+	},
+	{
+		"text/plain",
+		0,
+		DND_TYPE_STRING
+	}
+};
+
 struct _AnjutaDropEntryPriv
 {
 };
@@ -31,6 +51,10 @@ anjuta_drop_entry_init (AnjutaDropEntry *self)
 	self->priv = g_new0 (AnjutaDropEntryPriv, 1);
 
 	gtk_widget_set_size_request (GTK_WIDGET (self), -1, 40);
+	gtk_drag_dest_set (GTK_WIDGET (self), 
+	                   GTK_DEST_DEFAULT_MOTION | GTK_DEST_DEFAULT_HIGHLIGHT, 
+	                   dnd_target_entries,
+	                   G_N_ELEMENTS (dnd_target_entries), GDK_ACTION_COPY);
 }
 
 static void
@@ -46,18 +70,58 @@ anjuta_drop_entry_finalize (GObject *object)
 }
 
 static void
+anjuta_drop_entry_drag_data_received (GtkWidget *widget, 
+                                      GdkDragContext *context, gint x, gint y,
+                                      GtkSelectionData *data, guint target_type,
+                                      guint time)
+{
+	gboolean success;
+	gboolean delete;
+
+	success = FALSE;
+	delete = FALSE;
+
+	if ((data != NULL) && (data->length >= 0))
+	{
+		delete = (context->action == GDK_ACTION_MOVE);
+
+		if (target_type == DND_TYPE_STRING)
+		{
+			gtk_entry_set_text (GTK_ENTRY (widget), (const gchar *) data->data);
+			success = TRUE;
+		}
+	}
+
+	gtk_drag_finish (context, success, delete, time);
+}
+
+static gboolean
+anjuta_drop_entry_drag_drop (GtkWidget *widget, GdkDragContext *context, 
+                             gint x, gint y, guint time)
+{
+	GdkAtom target_type;
+
+	target_type = gtk_drag_dest_find_target (widget, context, NULL);
+
+	if (target_type != GDK_NONE)
+		gtk_drag_get_data (widget, context, target_type, time);
+	else
+		gtk_drag_finish (context, FALSE, FALSE, time);
+
+	return TRUE;
+}
+
+static void
 anjuta_drop_entry_class_init (AnjutaDropEntryClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
-
-/* May need this later */
-#if 0
-	GtkEntryClass* parent_class = GTK_ENTRY_CLASS (klass);
-#endif
+	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
 	object_class->finalize = anjuta_drop_entry_finalize;
+	widget_class->drag_data_received = anjuta_drop_entry_drag_data_received;
+	widget_class->drag_drop = anjuta_drop_entry_drag_drop;
+	
 }
-
 
 GtkWidget *
 anjuta_drop_entry_new (void)
