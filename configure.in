@@ -134,8 +134,8 @@ AC_SUBST(gjsdir)
 dnl ***************************************************************************
 dnl Check for pkgconfig
 dnl ***************************************************************************
-AC_PATH_PROG(PKGCONFIG_CONFIG, pkg-config,no)
-if test x$PKGCONFIG_CONFIG = xno; then
+AC_PATH_PROG(PKG_CONFIG, pkg-config,no)
+if test x$PKG_CONFIG = xno; then
   AC_MSG_ERROR(Please install the pkg-config package from http://www.freedesktop.org/software/pkgconfig/)
 fi
 
