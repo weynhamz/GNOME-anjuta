@@ -82,6 +82,9 @@ symbol_db_search_command_set_session_packages (SymbolDBSearchCommand* sdbsc,
 SymbolDBEngineIterator *
 symbol_db_search_command_get_iterator_result (SymbolDBSearchCommand* sdbsc);
 
+/** Returns whether the command has been canceled */
+gboolean
+symbol_db_search_command_get_cancelled (SymbolDBSearchCommand *sdbsc);
 
 G_END_DECLS
 

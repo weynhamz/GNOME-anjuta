@@ -355,6 +355,15 @@ on_sdb_search_command_data_arrived (AnjutaCommand *command,
 	callback (cmd_id, IANJUTA_ITERABLE (iterator), callback_user_data);
 }
 
+static void
+on_sdb_search_command_finished (SymbolDBSearchCommand *search_command,
+    							guint return_code,
+								AnjutaAsyncNotify *notify)
+{
+	if (!symbol_db_search_command_get_cancelled (search_command))
+		anjuta_async_notify_notify_finished (notify);
+}
+
 static gint
 do_search_prj_glb_async (SymbolDBSearchCommand *search_command, guint cmd_id, 
                          GCancellable* cancel, AnjutaAsyncNotify *notify, 
@@ -392,9 +401,9 @@ do_search_prj_glb_async (SymbolDBSearchCommand *search_command, guint cmd_id,
 	
 	if (notify)
 	{
-		g_signal_connect_swapped (G_OBJECT (search_command), "command-finished",
-								  G_CALLBACK (anjuta_async_notify_notify_finished),
-								  notify);
+		g_signal_connect (G_OBJECT (search_command), "command-finished",
+						  G_CALLBACK (on_sdb_search_command_finished),
+						  notify);
 	}
 	
 	anjuta_command_start (ANJUTA_COMMAND (search_command));	
@@ -604,9 +613,9 @@ isymbol_manager_search_file_async (IAnjutaSymbolManager *sm, IAnjutaSymbolType m
 	
 	if (notify)
 	{
-		g_signal_connect_swapped (G_OBJECT (search_command), "command-finished",
-								  G_CALLBACK (anjuta_async_notify_notify_finished),
-								  notify);
+		g_signal_connect (G_OBJECT (search_command), "command-finished",
+						  G_CALLBACK (on_sdb_search_command_finished),
+						  notify);
 	}
 	
 	anjuta_command_start (ANJUTA_COMMAND (search_command));	

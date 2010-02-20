@@ -317,3 +317,10 @@ symbol_db_search_command_get_iterator_result (SymbolDBSearchCommand* sdbsc)
 
 	return priv->iterator_result;
 }
+
+gboolean
+symbol_db_search_command_get_cancelled (SymbolDBSearchCommand *sdbsc)
+{
+	return sdbsc->priv->is_cancelled;
+}
+
