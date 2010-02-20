@@ -79,9 +79,9 @@ struct _CppJavaAssistPriv {
 	gboolean editor_only;
 	IAnjutaIterable* start_iter;
 	
-	gboolean async_file : 1;
-	gboolean async_system : 1;
-	gboolean async_project : 1;
+	gboolean async_file;
+	gboolean async_system;
+	gboolean async_project;
 
 	GCancellable* cancel_system;
 	GCancellable* cancel_file;

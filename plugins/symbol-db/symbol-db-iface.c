@@ -346,6 +346,15 @@ on_sdb_search_command_data_arrived (AnjutaCommand *command,
 	guint cmd_id;
 	
 	sdbsc = SYMBOL_DB_SEARCH_COMMAND (command);
+
+	/* If the command is canceled, don't bother with the callback.
+	 * Blocking the data-arrived signal in SymbolDBSearchCommand doesn't
+	 * seem to be enough because this signal can get emitted in idle
+	 * loop before cancel happened.
+	 */
+	if (symbol_db_search_command_get_cancelled (sdbsc))
+	  return;
+
 	iterator = symbol_db_search_command_get_iterator_result (sdbsc);
 		
 	/* get the previously saved cmd_id and callback data */
@@ -362,6 +371,23 @@ on_sdb_search_command_finished (SymbolDBSearchCommand *search_command,
 {
 	if (!symbol_db_search_command_get_cancelled (search_command))
 		anjuta_async_notify_notify_finished (notify);
+}
+
+static void
+on_sdb_search_command_cancelled (GCancellable *cancellable,
+								 AnjutaCommand *command)
+{
+	g_message ("Cancelling symbol search command wit %p", command);
+	anjuta_command_cancel (command);
+
+	/* Since cancellable is external object, we need to clean our part
+	 * to not possibily get spurious callbacks when the cancellable is
+	 * reused in different context
+	 */
+	g_signal_handlers_disconnect_by_func (cancellable,
+										  on_sdb_search_command_cancelled,
+										  command);
+	g_object_unref (cancellable);
 }
 
 static gint
@@ -394,9 +420,10 @@ do_search_prj_glb_async (SymbolDBSearchCommand *search_command, guint cmd_id,
 	
 	if (cancel)
 	{
-		g_signal_connect_swapped (G_OBJECT (cancel), "cancelled",
-								  G_CALLBACK (anjuta_command_cancel),
-								  search_command);
+		g_object_ref (cancel);
+		g_signal_connect (G_OBJECT (cancel), "cancelled",
+		    			  G_CALLBACK (on_sdb_search_command_cancelled),
+						  search_command);
 	}
 	
 	if (notify)
@@ -606,9 +633,10 @@ isymbol_manager_search_file_async (IAnjutaSymbolManager *sm, IAnjutaSymbolType m
 	
 	if (cancel)
 	{
-		g_signal_connect_swapped (G_OBJECT (cancel), "cancelled",
-								  G_CALLBACK (anjuta_command_cancel),
-								  search_command);
+	  g_object_ref (cancel);
+		g_signal_connect (G_OBJECT (cancel), "cancelled",
+				  G_CALLBACK (on_sdb_search_command_cancelled),
+				  search_command);
 	}
 	
 	if (notify)
