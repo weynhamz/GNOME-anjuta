@@ -632,10 +632,10 @@ isymbol_manager_search_file_async (IAnjutaSymbolManager *sm, IAnjutaSymbolType m
 	
 	if (cancel)
 	{
-	  g_object_ref (cancel);
+		g_object_ref (cancel);
 		g_signal_connect (G_OBJECT (cancel), "cancelled",
-				  G_CALLBACK (on_sdb_search_command_cancelled),
-				  search_command);
+						  G_CALLBACK (on_sdb_search_command_cancelled),
+						  search_command);
 	}
 	
 	if (notify)
