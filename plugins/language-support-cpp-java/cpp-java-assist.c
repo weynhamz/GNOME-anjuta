@@ -311,6 +311,27 @@ cpp_java_assist_get_pre_word (IAnjutaEditor* editor, IAnjutaIterable *iter)
 static void
 cpp_java_assist_destroy_completion_cache (CppJavaAssist *assist)
 {
+	if (assist->priv->async_file)
+	{
+		g_cancellable_cancel (assist->priv->cancel_file);
+		assist->priv->async_file = FALSE;
+	}
+	g_cancellable_reset (assist->priv->cancel_file);
+	
+	if (assist->priv->async_system)
+	{
+		g_cancellable_cancel (assist->priv->cancel_system);
+		assist->priv->async_system = FALSE;
+	}
+	g_cancellable_reset (assist->priv->cancel_system);
+	
+	if (assist->priv->async_project)
+	{
+		g_cancellable_cancel (assist->priv->cancel_project);
+		assist->priv->async_project = FALSE;
+	}
+	g_cancellable_reset (assist->priv->cancel_project);
+	
 	if (assist->priv->search_cache)
 	{
 		g_free (assist->priv->search_cache);
@@ -420,27 +441,6 @@ cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist)
 												 MAX_COMPLETIONS);
 	
 	cpp_java_assist_destroy_completion_cache (assist);
-	if (assist->priv->async_file)
-	{
-		g_cancellable_cancel (assist->priv->cancel_file);
-		assist->priv->async_file = FALSE;
-	}
-	g_cancellable_reset (assist->priv->cancel_file);
-	
-	if (assist->priv->async_system)
-	{
-		g_cancellable_cancel (assist->priv->cancel_system);
-		assist->priv->async_system = FALSE;
-	}
-	g_cancellable_reset (assist->priv->cancel_system);
-	
-	if (assist->priv->async_project)
-	{
-		g_cancellable_cancel (assist->priv->cancel_project);
-		assist->priv->async_project = FALSE;
-	}
-	g_cancellable_reset (assist->priv->cancel_project);
-	
 	if (!assist->priv->pre_word || strlen(assist->priv->pre_word) < 3)
 		return;
 
