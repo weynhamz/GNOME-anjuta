@@ -377,7 +377,6 @@ static void
 on_sdb_search_command_cancelled (GCancellable *cancellable,
 								 AnjutaCommand *command)
 {
-	g_message ("Cancelling symbol search command wit %p", command);
 	anjuta_command_cancel (command);
 
 	/* Since cancellable is external object, we need to clean our part
