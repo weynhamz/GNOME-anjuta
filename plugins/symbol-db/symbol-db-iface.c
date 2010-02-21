@@ -366,16 +366,6 @@ on_sdb_search_command_data_arrived (AnjutaCommand *command,
 }
 
 static void
-on_sdb_search_command_finished (SymbolDBSearchCommand *search_command,
-								guint return_code,
-								AnjutaAsyncNotify *notify)
-{
-	if (!symbol_db_search_command_get_cancelled (search_command) && notify)
-		anjuta_async_notify_notify_finished (notify);
-	g_object_unref (search_command); /* Fully done */
-}
-
-static void
 on_sdb_search_command_cancelled (GCancellable *cancellable,
 								 AnjutaCommand *command)
 {
@@ -388,7 +378,30 @@ on_sdb_search_command_cancelled (GCancellable *cancellable,
 	g_signal_handlers_disconnect_by_func (cancellable,
 										  on_sdb_search_command_cancelled,
 										  command);
+	g_object_set_data (G_OBJECT (command), "cancellable", NULL);
 	g_object_unref (cancellable);
+}
+
+static void
+on_sdb_search_command_finished (SymbolDBSearchCommand *search_command,
+								guint return_code,
+								AnjutaAsyncNotify *notify)
+{
+	GCancellable *cancel;
+
+	DEBUG_PRINT ("sdb search finished %p", search_command);
+
+	if (!symbol_db_search_command_get_cancelled (search_command) && notify)
+		anjuta_async_notify_notify_finished (notify);
+
+	cancel = g_object_get_data (G_OBJECT (search_command), "cancellable");
+	if (cancel)
+	{
+		g_signal_handlers_disconnect_by_func (cancel, on_sdb_search_command_cancelled, search_command);
+		g_object_unref (cancel);
+		g_object_set_data (G_OBJECT (search_command), "cancellable", NULL);
+	}
+	g_object_unref (search_command); /* Fully done */
 }
 
 static gint
@@ -424,6 +437,7 @@ do_search_prj_glb_async (SymbolDBSearchCommand *search_command, guint cmd_id,
 		g_signal_connect (G_OBJECT (cancel), "cancelled",
 		    			  G_CALLBACK (on_sdb_search_command_cancelled),
 						  search_command);
+		g_object_set_data (G_OBJECT (search_command), "cancellable", cancel);
 	}
 	
 	anjuta_command_start (ANJUTA_COMMAND (search_command));	
@@ -629,6 +643,7 @@ isymbol_manager_search_file_async (IAnjutaSymbolManager *sm, IAnjutaSymbolType m
 		g_signal_connect (G_OBJECT (cancel), "cancelled",
 						  G_CALLBACK (on_sdb_search_command_cancelled),
 						  search_command);
+		g_object_set_data (G_OBJECT (search_command), "cancellable", cancel);
 	}
 	
 	anjuta_command_start (ANJUTA_COMMAND (search_command));	
