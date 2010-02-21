@@ -39,7 +39,6 @@
                   <object class="GtkTable" id="table15">
                     <property name="visible">True</property>
                     <property name="border_width">10</property>
-                    <property name="n_rows">1</property>
                     <property name="column_spacing">5</property>
                     <property name="row_spacing">5</property>
                     <child>
@@ -184,7 +183,7 @@
                             <property name="column_spacing">5</property>
                             <property name="row_spacing">5</property>
                             <child>
-                              <object class="GtkRadioButton" id="preferences_toggle:bool:0:0:language.cpp.indent.paranthese.lineup">
+                              <object class="GtkRadioButton" id="preferences_toggle:bool:1:0:language.cpp.indent.paranthese.lineup">
                                 <property name="label" translatable="yes">Line up parentheses</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
