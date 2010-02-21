@@ -1,3 +1,4 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * anjuta
  * Copyright (C) Massimo Cora' 2007-2009 <maxcvs@email.it>
@@ -366,11 +367,12 @@ on_sdb_search_command_data_arrived (AnjutaCommand *command,
 
 static void
 on_sdb_search_command_finished (SymbolDBSearchCommand *search_command,
-    							guint return_code,
+								guint return_code,
 								AnjutaAsyncNotify *notify)
 {
-	if (!symbol_db_search_command_get_cancelled (search_command))
+	if (!symbol_db_search_command_get_cancelled (search_command) && notify)
 		anjuta_async_notify_notify_finished (notify);
+	g_object_unref (search_command); /* Fully done */
 }
 
 static void
@@ -414,22 +416,14 @@ do_search_prj_glb_async (SymbolDBSearchCommand *search_command, guint cmd_id,
 					  callback);
 	
 	g_signal_connect (G_OBJECT (search_command), "command-finished",
-					  G_CALLBACK (g_object_unref),
-					  NULL);
-	
+					  G_CALLBACK (on_sdb_search_command_finished),
+					  notify);
 	if (cancel)
 	{
 		g_object_ref (cancel);
 		g_signal_connect (G_OBJECT (cancel), "cancelled",
 		    			  G_CALLBACK (on_sdb_search_command_cancelled),
 						  search_command);
-	}
-	
-	if (notify)
-	{
-		g_signal_connect (G_OBJECT (search_command), "command-finished",
-						  G_CALLBACK (on_sdb_search_command_finished),
-						  notify);
 	}
 	
 	anjuta_command_start (ANJUTA_COMMAND (search_command));	
@@ -627,22 +621,14 @@ isymbol_manager_search_file_async (IAnjutaSymbolManager *sm, IAnjutaSymbolType m
 					  callback);
 	
 	g_signal_connect (G_OBJECT (search_command), "command-finished",
-					  G_CALLBACK (g_object_unref),
-					  NULL);
-	
+					  G_CALLBACK (on_sdb_search_command_finished),
+					  notify);
 	if (cancel)
 	{
 		g_object_ref (cancel);
 		g_signal_connect (G_OBJECT (cancel), "cancelled",
 						  G_CALLBACK (on_sdb_search_command_cancelled),
 						  search_command);
-	}
-	
-	if (notify)
-	{
-		g_signal_connect (G_OBJECT (search_command), "command-finished",
-						  G_CALLBACK (on_sdb_search_command_finished),
-						  notify);
 	}
 	
 	anjuta_command_start (ANJUTA_COMMAND (search_command));	
