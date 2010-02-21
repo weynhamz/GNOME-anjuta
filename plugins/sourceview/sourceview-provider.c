@@ -55,11 +55,11 @@ sourceview_provider_populate (GtkSourceCompletionProvider* provider, GtkSourceCo
 	g_object_unref (cell);
 }
 
-static const gchar*
+static gchar*
 sourceview_provider_get_name (GtkSourceCompletionProvider* provider)
 {
 	SourceviewProvider* prov = SOURCEVIEW_PROVIDER(provider);
-	return ianjuta_provider_get_name (prov->iprov, NULL);
+	return g_strdup (ianjuta_provider_get_name (prov->iprov, NULL));
 }
 
 
