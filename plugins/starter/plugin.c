@@ -22,6 +22,7 @@
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-encodings.h>
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
 
 #include "plugin.h"
 #include "starter.h"
@@ -29,28 +30,64 @@
 
 static gpointer parent_class;
 
+/* Remove the starter plugin once a document was opened */
+static void
+on_value_added_current_editor (AnjutaPlugin *plugin, const gchar *name,
+							   const GValue *value, gpointer data)
+{
+	GObject* doc = g_value_get_object (value);
+	AnjutaShell* shell = ANJUTA_PLUGIN(plugin)->shell;
+	StarterPlugin* splugin = ANJUTA_PLUGIN_STARTER (plugin);
+	
+	if (doc)
+	{
+		if (splugin->starter)
+		{
+			DEBUG_PRINT ("Hiding starter");
+			anjuta_shell_remove_widget (shell, splugin->starter, NULL);
+		}
+		splugin->starter = NULL;
+	}
+}
+
+static void
+on_value_removed_current_editor (AnjutaPlugin *plugin, const gchar *name,
+								 gpointer data)
+{
+	AnjutaShell* shell = ANJUTA_PLUGIN(plugin)->shell;
+	StarterPlugin* splugin = ANJUTA_PLUGIN_STARTER (plugin);
+	IAnjutaDocumentManager* docman = anjuta_shell_get_interface (shell,
+	                                                             IAnjutaDocumentManager,
+	                                                             NULL);
+	
+	if (!ianjuta_document_manager_get_doc_widgets (docman,
+	                                               NULL))
+	{
+		DEBUG_PRINT ("Showing starter");
+		splugin->starter = GTK_WIDGET (starter_new (shell));
+		anjuta_shell_add_widget (shell, splugin->starter,
+		                         "AnjutaStarter",
+		                         _("Starter"),
+		                         GTK_STOCK_ABOUT,
+		                         ANJUTA_SHELL_PLACEMENT_CENTER,
+		                         NULL);
+		anjuta_shell_present_widget (shell, splugin->starter, NULL);
+	}
+}
+
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
-	GtkWidget *starter;
+	StarterPlugin* splugin = ANJUTA_PLUGIN_STARTER (plugin);
 
 	DEBUG_PRINT ("StarterPlugin: Activating document manager plugin...");
-
-	AnjutaShell* shell = ANJUTA_PLUGIN(plugin)->shell;
-
-	/*
-	 * Adding starter
-	 */
-	starter = GTK_WIDGET (starter_new (shell));
-	gtk_widget_show (starter);
-	ANJUTA_PLUGIN_STARTER (plugin)->starter = starter;
 	
-	anjuta_shell_add_widget (shell, starter,
-	                         "AnjutaStarter",
-	                         _("Starter"),
-	                         GTK_STOCK_ABOUT,
-	                         ANJUTA_SHELL_PLACEMENT_CENTER,
-	                         NULL);
+	splugin->editor_watch_id = 
+		anjuta_plugin_add_watch (plugin,
+								  IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
+								 on_value_added_current_editor,
+								 on_value_removed_current_editor,
+								 NULL);
 	return TRUE;
 }
 
@@ -59,7 +96,8 @@ deactivate_plugin (AnjutaPlugin *plugin)
 {
 	
 	DEBUG_PRINT ("StarterPlugin: Deactivating starter plugin...");
-	anjuta_shell_remove_widget (plugin->shell, ANJUTA_PLUGIN_STARTER (plugin)->starter, NULL);
+	if (ANJUTA_PLUGIN_STARTER (plugin)->starter)
+		anjuta_shell_remove_widget (plugin->shell, ANJUTA_PLUGIN_STARTER (plugin)->starter, NULL);
 	return TRUE;
 }
 

@@ -17,6 +17,7 @@ typedef struct _StarterPluginClass StarterPluginClass;
 struct _StarterPlugin{
 	AnjutaPlugin parent;
 	GtkWidget *starter;
+	gint editor_watch_id;
 };
 
 struct _StarterPluginClass{
