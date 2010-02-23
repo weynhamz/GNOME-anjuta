@@ -1,3 +1,19 @@
+Anjuta 2.29.91 "Vala la Révolution" (22 February 2009) -- Johannes Schmid
+
+Features:
+- Support for Vala symbols in the symbol-db
+
+Bugs fixed:
+language-support-cpp-java: bgo#609227 -  autocompletion problem (and some memory leaks)
+bgo #550715 - Smaller icons in plugin list.
+language-support-cpp-java: reapplied previous commit. bgo#610397 bgo#610404
+symbol-db: bgo#610404 added cancel logic to search command.
+starter: bgo#582726 -  Loading file from command-line/nautilus puts starter page in front of file
+project-import: bgo#582717 -  'Create Folder' button not applicable in 'New From Existing Sources' file
+    chooser dialog
+
+Also special thanks to all translaters!
+
 Anjuta 2.29.90 "Jag älkar svesk..." (7. Februar 2009) -- Johannes Schmid
 
 Features:
