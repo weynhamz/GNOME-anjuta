@@ -184,7 +184,6 @@ create_completion (CppJavaAssist* assist, IAnjutaIterable* iter,
 			break;
 	}
 	while (ianjuta_iterable_next (iter, NULL));
-	
 	suggestions = g_list_sort (suggestions, completion_compare);
 	g_completion_add_items (completion, suggestions);
 	return completion;
@@ -397,6 +396,17 @@ cpp_java_assist_update_autocomplete (CppJavaAssist *assist)
 	length = g_list_length (completion_list);
 
 	DEBUG_PRINT ("Populating %d proposals", length);
+
+	/* Hide autocompletion if we only have one item */
+	if (length == 1)
+	{
+		CppJavaAssistTag* tag = completion_list->data;
+		if (g_str_equal (tag->name, assist->priv->pre_word))
+		{
+			ianjuta_editor_assist_proposals (assist->priv->iassist, IANJUTA_PROVIDER(assist),
+		                                 NULL, !queries_active, NULL);
+		}
+	}
 	
 	if (length <= max_completions)
 	{
