@@ -74,13 +74,13 @@ am-scanner.h: am-parser.c
 
 # Test program
 
-#noinst_PROGRAMS = test
+noinst_PROGRAMS = projectparser
 
-test_SOURCES = \
-	test.c
+projectparser_SOURCES = \
+	projectparser.c
 
-test_LDADD = \
-	mk-project.la \
+projectparser_LDADD = \
+	libam-project.la \
 	$(LIBANJUTA_LIBS)
 
 

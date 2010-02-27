@@ -1,0 +1,36 @@
+AT_SETUP([Add group])
+AS_MKDIR_P([empty])
+AT_DATA([empty/configure.ac],
+[[AC_CONFIG_FILES(Makefile)
+]])
+AT_DATA([empty/Makefile.am],
+[[
+]])
+AT_DATA([expect],
+[[    GROUP (0): empty1
+        GROUP (0:0): group1
+]])
+AT_PARSER_CHECK([load empty \
+		 move empty1 \
+		 add group 0 group1 \
+		 list \
+		 save])
+AT_CHECK([diff output expect])
+AT_PARSER_CHECK([load empty1 \
+		 list])
+AT_CHECK([diff output expect])
+AT_DATA([expect],
+[[    GROUP (0): empty2
+        GROUP (0:0): group1
+	GROUP (0:1): group2
+]])
+AT_PARSER_CHECK([load empty1 \
+		 move empty2 \
+		 add group 0 group2 after 0:0\
+		 list \
+		 save])
+AT_CHECK([diff -b output expect])
+AT_PARSER_CHECK([load empty2 \
+		 list])
+AT_CHECK([diff -b output expect])
+AT_CLEANUP

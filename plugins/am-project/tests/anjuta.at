@@ -1,0 +1,5 @@
+AT_SETUP([Load anjuta project])
+AT_PARSER_CHECK([load $at_top_srcdir \
+		 list])
+AT_CHECK([diff output $at_srcdir/anjuta.lst])
+AT_CLEANUP

@@ -730,6 +730,11 @@ dnl manuals/ja/Makefile
 dnl manuals/ja/anjuta-faqs/Makefile
 dnl manuals/ja/anjuta-manual/Makefile
 
+dnl Test using autotest
+dnl -----------------------------
+AC_CONFIG_TESTDIR(plugins/am-project/tests)
+AM_MISSING_PROG([AUTOM4TE], [autom4te])
+
 AC_OUTPUT([
 Makefile
 po/Makefile.in
@@ -834,6 +839,8 @@ plugins/project-wizard/templates/library/po/Makefile
 plugins/project-wizard/templates/directory/Makefile
 plugins/project-wizard/templates/m4/Makefile
 plugins/am-project/Makefile
+plugins/am-project/tests/atlocal
+plugins/am-project/tests/Makefile
 plugins/mk-project/Makefile
 plugins/dir-project/Makefile
 plugins/language-support-cpp-java/Makefile

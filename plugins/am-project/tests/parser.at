@@ -1,0 +1,18 @@
+AT_SETUP([Check configure parser])
+AS_MKDIR_P([parser])
+AT_DATA([parser/configure.ac],
+[[AC_CONFIG_FILES(
+Makefile)
+
+AC_OUTPUT
+]])
+AT_DATA([parser/Makefile.am],
+[[
+]])
+AT_DATA([expect],
+[[    GROUP (0): parser
+]])
+AT_PARSER_CHECK([load parser \
+		 list])
+AT_CHECK([diff output expect])
+AT_CLEANUP
