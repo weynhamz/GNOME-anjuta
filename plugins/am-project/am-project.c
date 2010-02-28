@@ -692,7 +692,7 @@ amp_group_set_makefile (AmpGroup *node, GFile *makefile, AmpProject* project)
 		token = anjuta_token_file_load (group->tfile, NULL);
 			
 		scanner = amp_am_scanner_new (project, node);
-		group->make_token = amp_am_scanner_parse_token (scanner, token, NULL);
+		group->make_token = amp_am_scanner_parse_token (scanner, token, makefile, NULL);
 		amp_am_scanner_free (scanner);
 	}
 	else

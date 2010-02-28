@@ -1676,9 +1676,6 @@
                 SOURCE (0:6:4:7): src/action-callbacks.h
                 SOURCE (0:6:4:8): src/action-callbacks.c
                 SOURCE (0:6:4:9): src/main.c
-            TARGET (0:6:5): anjuta-shell
-                SOURCE (0:6:5:0): src/shell.c
-                SOURCE (0:6:5:1): src/shell.h
         GROUP (0:7): manuals
             GROUP (0:7:0): reference
                 GROUP (0:7:0:0): libanjuta

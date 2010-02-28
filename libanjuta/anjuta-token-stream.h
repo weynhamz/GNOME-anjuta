@@ -28,10 +28,11 @@ G_BEGIN_DECLS
 
 typedef struct _AnjutaTokenStream AnjutaTokenStream;
 
-AnjutaTokenStream *anjuta_token_stream_push (AnjutaTokenStream *stream, AnjutaToken *token);
+AnjutaTokenStream *anjuta_token_stream_push (AnjutaTokenStream *stream, AnjutaToken *token, GFile *filename);
 AnjutaTokenStream *anjuta_token_stream_pop (AnjutaTokenStream *stream);
 
 AnjutaToken* anjuta_token_stream_get_root (AnjutaTokenStream *stream);
+GFile* anjuta_token_stream_get_current_directory (AnjutaTokenStream *stream);
 
 AnjutaToken* anjuta_token_stream_tokenize (AnjutaTokenStream *stream, gint type, gsize length);
 gint anjuta_token_stream_read (AnjutaTokenStream *stream, gchar *buffer, gsize max_size);

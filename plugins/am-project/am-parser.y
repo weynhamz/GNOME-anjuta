@@ -48,6 +48,8 @@
 %token	NAME
 %token	AM_VARIABLE
 
+%token	INCLUDE
+
 %token  SUBDIRS
 %token  DIST_SUBDIRS
 %token  _DATA
@@ -160,6 +162,7 @@ statement:
 	/* empty */
 	| line
 	| am_variable
+	| include
 	;
 
 line:
@@ -178,7 +181,12 @@ am_variable:
         anjuta_token_merge ($$, $1);
     }
 	;
-				
+
+include:
+	include_token space value {
+		amp_am_scanner_include (scanner, $3);
+	}
+
 space_list_value: optional_space  equal_token   value_list  {
 		$$ = anjuta_token_new_static (ANJUTA_TOKEN_LIST, NULL);
 		if ($1 != NULL) anjuta_token_set_type ($1, ANJUTA_TOKEN_START);
@@ -321,6 +329,8 @@ automake_token:
     |  TARGET_YFLAGS
     |  TARGET_DEPENDENCIES
     ;
-    
-		
+
+include_token:
+	INCLUDE
+	;
 %%

@@ -1,0 +1,22 @@
+AT_SETUP([Include in GNUMakefile.am])
+AS_MKDIR_P([include])
+AT_DATA([include/configure.ac],
+[[AC_CONFIG_FILES(GNUmakefile)
+]])
+AT_DATA([include/GNUmakefile.am],
+[[
+include module/target.am
+]])
+AS_MKDIR_P([include/module])
+AT_DATA([include/module/target.am],
+[[
+bin_PROGRAMS = target1
+]])
+AT_DATA([expect],
+[[    GROUP (0): include
+        TARGET (0:0): target1
+]])
+AT_PARSER_CHECK([load include \
+		 list])
+AT_CHECK([diff -b output expect])
+AT_CLEANUP

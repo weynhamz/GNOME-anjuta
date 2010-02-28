@@ -114,6 +114,8 @@ NAME          [^ \t\n\r:#=$"'`&@\\]*
 
 <INITIAL>\\# 						{ RETURN (CHARACTER); }
 
+<INITIAL>include					{ RETURN (INCLUDE); }
+
 <INITIAL>SUBDIRS 					{ RETURN (SUBDIRS); }
 
 <INITIAL>DIST_SUBDIRS 				{ RETURN (DIST_SUBDIRS); }
@@ -188,29 +190,6 @@ NAME          [^ \t\n\r:#=$"'`&@\\]*
 
 %%
 
-typedef struct _AmpAmBuffer AmpAmBuffer;
-       
-struct _AmpAmBuffer
-{
-    AnjutaToken *token;
-
-    /* Beginning of current token */
-    AnjutaToken *start;
-    gsize begin;
-
-    AnjutaToken *end;   /* Last token */
-
-    /* Next data read buffer */
-    AnjutaToken *next;
-    gsize pos;
-
-    /* Place to put new token */
-    AnjutaToken *first;
-    AnjutaToken *last;
-
-    AmpAmBuffer *parent;    
-};
-     
 /* Private functions
  *---------------------------------------------------------------------------*/
 
@@ -254,17 +233,36 @@ amp_am_scanner_set_am_variable (AmpAmScanner *scanner, AnjutaTokenType variable,
 {
     amp_project_set_am_variable (scanner->project, scanner->group, variable, name, list, scanner->orphan_properties);
 }
+void
+amp_am_scanner_include (AmpAmScanner *scanner, AnjutaToken *name)
+{
+	GFile *file;
+	AnjutaTokenFile *include;
+	AnjutaToken *token;
+	gchar *filename;
+
+	filename = anjuta_token_evaluate (name);
+	g_message ("read include =%s=", filename);
+	file = g_file_resolve_relative_path (anjuta_token_stream_get_current_directory (scanner->stream), filename);
+	g_free (filename);
+	include = anjuta_token_file_new (file);
+	token = anjuta_token_file_load (include, NULL);
+	g_message ("read file =%s= arg %p", g_file_get_path (file), token);
+	amp_am_scanner_parse_token (scanner, token, file, NULL);
+	g_object_unref (file);
+}
+
 
 /* Public functions
  *---------------------------------------------------------------------------*/
 
 AnjutaToken *
-amp_am_scanner_parse_token (AmpAmScanner *scanner, AnjutaToken *token, GError **error)
+amp_am_scanner_parse_token (AmpAmScanner *scanner, AnjutaToken *token, GFile *filename, GError **error)
 {
     AnjutaToken *first;
     AnjutaTokenStream *stream;
 
-    stream = anjuta_token_stream_push (scanner->stream, token);
+    stream = anjuta_token_stream_push (scanner->stream, token, filename);
     first = anjuta_token_stream_get_root (stream);
 
     if (scanner->stream != NULL)

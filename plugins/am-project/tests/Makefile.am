@@ -21,7 +21,8 @@ TESTSUITE_AT = \
 	$(srcdir)/target.at \
 	$(srcdir)/source.at \
 	$(srcdir)/parser.at \
-	$(srcdir)/acinit.at
+	$(srcdir)/acinit.at \
+	$(srcdir)/include.at
 
 TESTSUITE = $(srcdir)/testsuite
 

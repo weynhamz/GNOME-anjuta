@@ -60,22 +60,25 @@
 struct _AnjutaTokenStream
 {
 	/* Input stream */
-    AnjutaToken *first;
-    AnjutaToken *last;
+	AnjutaToken *first;
+	AnjutaToken *last;
 
-    /* Read position in input stream */
-    AnjutaToken *next;
-    gsize pos;
+	/* Read position in input stream */
+	AnjutaToken *next;
+	gsize pos;
 
-    /* Write position in input stream */
-    AnjutaToken *start;
-    gsize begin;
-	
-    /* Output stream */
-    AnjutaToken *root;
-	
+	/* Write position in input stream */
+	AnjutaToken *start;
+	gsize begin;
+
+	/* Output stream */
+	AnjutaToken *root;
+
 	/* Parent stream */
-    AnjutaTokenStream *parent;    
+	AnjutaTokenStream *parent;
+
+	/* Current directory */
+	GFile *current_directory;
 };
 
 /* Helpers functions
@@ -258,6 +261,22 @@ anjuta_token_stream_get_root (AnjutaTokenStream *stream)
 	return stream->root;
 }
 
+/**
+ * anjuta_token_stream_get_current_directory:
+ * @stream: a #AnjutaTokenStream object.
+ *
+ * Return the current directory.
+ *
+ * Return value: The current directory.
+ */
+GFile*
+anjuta_token_stream_get_current_directory (AnjutaTokenStream *stream)
+{
+	g_return_val_if_fail (stream != NULL, NULL);
+	
+	return stream->current_directory;
+}
+
 
 
 /* Constructor & Destructor
@@ -275,23 +294,31 @@ anjuta_token_stream_get_root (AnjutaTokenStream *stream)
  * Return value: The newly created stream.
  */
 AnjutaTokenStream *
-anjuta_token_stream_push (AnjutaTokenStream *parent, AnjutaToken *token)
+anjuta_token_stream_push (AnjutaTokenStream *parent, AnjutaToken *token, GFile *filename)
 {
 	AnjutaTokenStream *child;
 
-    child = g_new (AnjutaTokenStream, 1);
-    child->first = token;
-    child->pos = 0;
-    child->begin = 0;
-    child->parent = parent;
+	child = g_new (AnjutaTokenStream, 1);
+	child->first = token;
+	child->pos = 0;
+	child->begin = 0;
+	child->parent = parent;
 
-    child->next = anjuta_token_next (token);
-    child->start = child->next;
-    child->last = anjuta_token_last (token);
-    if (child->last == token) child->last = NULL;
+	child->next = anjuta_token_next (token);
+	child->start = child->next;
+	child->last = anjuta_token_last (token);
+	if (child->last == token) child->last = NULL;
 
 	child->root = anjuta_token_new_static (ANJUTA_TOKEN_FILE, NULL);
-	
+	if (filename == NULL)
+	{
+		child->current_directory = parent == NULL ? NULL : g_object_ref (parent->current_directory);
+	}
+	else
+	{
+		child->current_directory = g_file_get_parent (filename);
+	}
+
 	return child;
 }
 
@@ -309,9 +336,10 @@ anjuta_token_stream_pop (AnjutaTokenStream *stream)
 	AnjutaTokenStream *parent;
 
 	g_return_val_if_fail (stream != NULL, NULL);
-	
+
+	if (stream->current_directory) g_object_unref (stream->current_directory);
 	parent = stream->parent;
-    g_free (stream);
+	g_free (stream);
 
 	return parent;
 }

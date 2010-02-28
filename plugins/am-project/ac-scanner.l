@@ -219,7 +219,7 @@ amp_ac_scanner_parse_token (AmpAcScanner *scanner, AnjutaToken *token, gint star
     AnjutaToken *first;
     AnjutaTokenStream *stream;
 
-    stream = anjuta_token_stream_push (scanner->stream, token);
+    stream = anjuta_token_stream_push (scanner->stream, token, NULL);
     first = anjuta_token_stream_get_root (stream);
 
     if (scanner->stream != NULL)
@@ -233,7 +233,7 @@ amp_ac_scanner_parse_token (AmpAcScanner *scanner, AnjutaToken *token, gint star
     {
         amp_ac_yypstate *ps;
         gint status;
-	    YYSTYPE yylval_param;
+        YYSTYPE yylval_param;
         YYLTYPE yylloc_param;
 
         scanner->stream = stream;
@@ -262,7 +262,7 @@ amp_ac_scanner_parse_token (AmpAcScanner *scanner, AnjutaToken *token, gint star
         amp_ac_yypstate_delete (ps);
     }
 
-	return first;
+    return first;
 }
 
 /* Constructor & Destructor
