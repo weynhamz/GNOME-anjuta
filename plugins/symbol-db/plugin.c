@@ -2145,7 +2145,16 @@ on_scan_end_manager (SymbolDBEngine *dbe, gint process_id,
 				 "is_adding_element %d", sdb_plugin->is_offline_scanning,
 				 sdb_plugin->is_project_importing, sdb_plugin->is_project_updating,
 				 sdb_plugin->is_adding_element);
-				 
+
+	/* is the project still opened? */
+	if (sdb_plugin->project_opened == NULL)
+	{
+		/* just return, the project may have been closed while we were waiting for the
+		 * scanning to finish
+		 */
+		return;
+	}
+		
 	/**
  	 * perform some checks on some booleans. If they're all successfully passed
  	 * then activate the display of local view
