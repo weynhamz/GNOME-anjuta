@@ -785,7 +785,7 @@ is_expression_separator (gchar c, gboolean skip_braces, IAnjutaIterable* iter)
 	else if (c == ')' && !skip_braces)
 		return FALSE;
 	
-	if (c == ';' || c == '\n' || c == '\r' || c == '\t' ||
+	if (c == ',' || c == ';' || c == '\n' || c == '\r' || c == '\t' || c == '(' ||
 	    c == '{' || c == '}' || c == '=' || c == '<' || c == '\v' || c == '!')
 	{
 		return TRUE;
