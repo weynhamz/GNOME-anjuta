@@ -886,8 +886,13 @@ cpp_java_parse_expression (CppJavaAssist* assist, IAnjutaIterable* iter, IAnjuta
 			if (file != NULL)
 			{
 				filename = g_file_get_path (file);
+				g_object_unref (file);
 			}
-			g_object_unref (file);
+			else
+			{
+				g_free (stmt);
+				return NULL;
+			}
 		}
 		start = ianjuta_editor_get_start_position (editor, NULL);
 		above_text = ianjuta_editor_get_text (editor, start, iter, NULL);
