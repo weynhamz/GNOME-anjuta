@@ -88,6 +88,7 @@ activate_plugin (AnjutaPlugin *plugin)
 								 on_value_added_current_editor,
 								 on_value_removed_current_editor,
 								 NULL);
+	on_value_removed_current_editor (plugin, NULL, splugin);
 	return TRUE;
 }
 
