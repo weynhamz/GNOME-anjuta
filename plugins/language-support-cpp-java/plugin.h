@@ -57,6 +57,9 @@ struct _CppJavaPlugin {
 	
 	/* Assist */
 	CppJavaAssist *assist;
+
+	/* Preferences */
+	GtkBuilder* bxml;
 };
 
 struct _CppJavaPluginClass {

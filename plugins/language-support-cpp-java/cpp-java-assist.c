@@ -40,7 +40,6 @@
 #include "cpp-java-utils.h"
 
 #define PREF_AUTOCOMPLETE_ENABLE "language.cpp.code.completion.enable"
-#define PREF_AUTOCOMPLETE_CHOICES "language.cpp.code.completion.choices"
 #define PREF_AUTOCOMPLETE_SPACE_AFTER_FUNC "language.cpp.code.completion.space.after.func"
 #define PREF_AUTOCOMPLETE_BRACE_AFTER_FUNC "language.cpp.code.completion.brace.after.func"
 #define PREF_CALLTIP_ENABLE "language.cpp.code.calltip.enable"
@@ -363,12 +362,11 @@ static void free_proposal (IAnjutaEditorAssistProposal* proposal)
 static void
 cpp_java_assist_update_autocomplete (CppJavaAssist *assist)
 {
-	gint max_completions, length;
+	gint length;
 	GList *completion_list;
+	GList *node, *suggestions = NULL;
 
 	gboolean queries_active = (assist->priv->async_file || assist->priv->async_project || assist->priv->async_system);
-
-	// DEBUG_PRINT ("Queries active: %d", queries_active);
 	
 	if (assist->priv->completion_cache == NULL)
 	{
@@ -387,11 +385,6 @@ cpp_java_assist_update_autocomplete (CppJavaAssist *assist)
 	{
 		completion_list = assist->priv->completion_cache->items;
 	}
-		
-	max_completions =
-		anjuta_preferences_get_int_with_default (assist->priv->preferences,
-												 PREF_AUTOCOMPLETE_CHOICES,
-												 MAX_COMPLETIONS);
 
 	length = g_list_length (completion_list);
 
@@ -406,50 +399,31 @@ cpp_java_assist_update_autocomplete (CppJavaAssist *assist)
 			ianjuta_editor_assist_proposals (assist->priv->iassist, IANJUTA_PROVIDER(assist),
 		                                 NULL, !queries_active, NULL);
 		}
-	}
-	
-	if (length <= max_completions)
+	}	
+	for (node = completion_list; node != NULL; node = g_list_next (node))
 	{
-		GList *node, *suggestions = NULL;
-			
-		for (node = completion_list; node != NULL; node = g_list_next (node))
-		{
-			CppJavaAssistTag *tag = node->data;
-			IAnjutaEditorAssistProposal* proposal = g_new0(IAnjutaEditorAssistProposal, 1);
-				
-			if (tag->is_func)
-				proposal->label = g_strdup_printf ("%s()", tag->name);
-			else
-				proposal->label = g_strdup(tag->name);
-				
-			proposal->data = tag;
-			proposal->icon = tag->icon;
-			suggestions = g_list_prepend (suggestions, proposal);
-		}
-		suggestions = g_list_reverse (suggestions);
-		ianjuta_editor_assist_proposals (assist->priv->iassist, IANJUTA_PROVIDER(assist),
-		                                 suggestions, !queries_active, NULL);
-		g_list_foreach (suggestions, (GFunc) free_proposal, NULL);
-		g_list_free (suggestions);
+		CppJavaAssistTag *tag = node->data;
+		IAnjutaEditorAssistProposal* proposal = g_new0(IAnjutaEditorAssistProposal, 1);
+
+		if (tag->is_func)
+			proposal->label = g_strdup_printf ("%s()", tag->name);
+		else
+			proposal->label = g_strdup(tag->name);
+
+		proposal->data = tag;
+		proposal->icon = tag->icon;
+		suggestions = g_list_prepend (suggestions, proposal);
 	}
-	else
-	{
-		ianjuta_editor_assist_proposals (assist->priv->iassist, IANJUTA_PROVIDER(assist),
-		                                 NULL, !queries_active, NULL);
-		return;
-	}
+	suggestions = g_list_reverse (suggestions);
+	ianjuta_editor_assist_proposals (assist->priv->iassist, IANJUTA_PROVIDER(assist),
+	                                 suggestions, !queries_active, NULL);
+	g_list_foreach (suggestions, (GFunc) free_proposal, NULL);
+	g_list_free (suggestions);
 }
 
 static void
 cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist)
-{
-	gint max_completions;
-
-	max_completions =
-		anjuta_preferences_get_int_with_default (assist->priv->preferences,
-												 PREF_AUTOCOMPLETE_CHOICES,
-												 MAX_COMPLETIONS);
-	
+{	
 	cpp_java_assist_destroy_completion_cache (assist);
 	if (!assist->priv->pre_word || strlen(assist->priv->pre_word) < 3)
 		return;
@@ -616,12 +590,6 @@ cpp_java_assist_show_calltip (CppJavaAssist *assist, gchar *call_context,
 							  IAnjutaIterable *position_iter)
 {	
 	GList *tips = NULL;
-	gint max_completions;
-	
-	max_completions =
-		anjuta_preferences_get_int_with_default (assist->priv->preferences,
-												 PREF_AUTOCOMPLETE_CHOICES,
-												 MAX_COMPLETIONS);
 
 	/* Search file */
 	if (IANJUTA_IS_FILE (assist->priv->itip))
@@ -630,17 +598,18 @@ cpp_java_assist_show_calltip (CppJavaAssist *assist, gchar *call_context,
 
 		if (file != NULL)
 		{
-			IAnjutaIterable* iter_file = ianjuta_symbol_manager_search_file (assist->priv->isymbol_manager,
-																			 IANJUTA_SYMBOL_TYPE_PROTOTYPE|
-																			 IANJUTA_SYMBOL_TYPE_FUNCTION|
-																			 IANJUTA_SYMBOL_TYPE_METHOD|
-																			 IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG,
-																			 TRUE, 
-																			 IANJUTA_SYMBOL_FIELD_SIMPLE|
-			                                          						 IANJUTA_SYMBOL_FIELD_TYPE|
-			                                          						 IANJUTA_SYMBOL_FIELD_ACCESS|
-			                                          						 IANJUTA_SYMBOL_FIELD_KIND,
-																			 call_context, file, max_completions, -1, NULL);
+			IAnjutaIterable* iter_file = 
+				ianjuta_symbol_manager_search_file (assist->priv->isymbol_manager,
+				                                    IANJUTA_SYMBOL_TYPE_PROTOTYPE|
+				                                    IANJUTA_SYMBOL_TYPE_FUNCTION|
+				                                    IANJUTA_SYMBOL_TYPE_METHOD|
+				                                    IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG,
+				                                    TRUE, 
+				                                    IANJUTA_SYMBOL_FIELD_SIMPLE|
+				                                    IANJUTA_SYMBOL_FIELD_TYPE|
+				                                    IANJUTA_SYMBOL_FIELD_ACCESS|
+				                                    IANJUTA_SYMBOL_FIELD_KIND,
+				                                    call_context, file, -1, -1, NULL);
 												 
 			if (iter_file) 
 			{
@@ -664,7 +633,7 @@ cpp_java_assist_show_calltip (CppJavaAssist *assist, gchar *call_context,
 			                           IANJUTA_SYMBOL_FIELD_ACCESS|
 			                           IANJUTA_SYMBOL_FIELD_KIND,
 									   call_context, IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC,
-									   max_completions, -1, NULL);
+									   -1, -1, NULL);
 	if (iter_project)
 	{
 		tips = g_list_concat (tips, cpp_java_assist_create_calltips (iter_project));
@@ -684,7 +653,7 @@ cpp_java_assist_show_calltip (CppJavaAssist *assist, gchar *call_context,
 			                           IANJUTA_SYMBOL_FIELD_ACCESS|
 			                           IANJUTA_SYMBOL_FIELD_KIND,		    
 									   call_context, IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC,
-									   max_completions, -1, NULL);
+									   -1, -1, NULL);
 	if (iter_global)
 	{
 		tips = g_list_concat (tips, cpp_java_assist_create_calltips (iter_global));
