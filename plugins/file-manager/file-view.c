@@ -299,6 +299,9 @@ file_view_do_popup_menu (GtkWidget* widget, GdkEventButton* event)
 static gboolean
 file_view_button_press_event (GtkWidget *widget, GdkEventButton *event)
 {
+	gint retval = 
+		GTK_WIDGET_CLASS (file_view_parent_class)->button_press_event (widget,
+																	   event);
 	/* Ignore double-clicks and triple-clicks */
 	if (event->button == 3 && event->type == GDK_BUTTON_PRESS)
     {
@@ -326,9 +329,8 @@ file_view_button_press_event (GtkWidget *widget, GdkEventButton *event)
 		}
     }
 
-	return 	
-		GTK_WIDGET_CLASS (file_view_parent_class)->button_press_event (widget,
-																	   event);
+	return 	retval;
+		
 }
 
 static gboolean
