@@ -26,15 +26,6 @@
 # Philipp Kerling <k.philipp@gmail.com>, 2008.
 # Mario Blättermann <mariobl@gnome.org>, 2010.
 # Christian Kirbach <Christian.Kirbach@googlemail.com>, 2008, 2009, 2010.
-<<<<<<< HEAD
-msgid ""
-msgstr ""
-"Project-Id-Version: anjuta 2.1.2\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-13 19:54+0100\n"
-"PO-Revision-Date: 2010-02-13 19:55+0100\n"
-"Last-Translator: Christian Kirbach <Christian.Kirbach@googlemail.com>\n"
-=======
 #
 msgid ""
 msgstr ""
@@ -44,7 +35,6 @@ msgstr ""
 "POT-Creation-Date: 2010-03-03 20:33+0000\n"
 "PO-Revision-Date: 2010-03-03 21:51+0100\n"
 "Last-Translator: Mario Blättermann <mariobl@gnome.org>\n"
->>>>>>> Updated German translation
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
