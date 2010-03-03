@@ -401,7 +401,7 @@ cpp_java_assist_update_autocomplete (CppJavaAssist *assist)
 	if (length == 1)
 	{
 		CppJavaAssistTag* tag = completion_list->data;
-		if (g_str_equal (tag->name, assist->priv->pre_word))
+		if (tag->name && assist->priv->pre_word && g_str_equal (tag->name, assist->priv->pre_word))
 		{
 			ianjuta_editor_assist_proposals (assist->priv->iassist, IANJUTA_PROVIDER(assist),
 		                                 NULL, !queries_active, NULL);
