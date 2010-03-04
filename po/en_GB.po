@@ -4,21 +4,19 @@
 # Christian Neumair <chris@gnome-de.org> 2002, 2003.
 # Gareth Owen <gowen72@yahoo.com>, David Lodge <dave@cirt.net>, 2004.
 # Bruce Cowan <bcowan@fastmail.co.uk>, 2009, 2010.
-# Philip Withnall <philip@tecnocode.co.uk>, 2009.
+# Philip Withnall <philip@tecnocode.co.uk>, 2009, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
-"Report-Msgid-Bugs-To: "
-"http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&component=core "
-"application\n"
-"POT-Creation-Date: 2010-02-11 22:29+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-03-04 23:50+0000\n"
 "PO-Revision-Date: 2010-02-24 14:47+0100\n"
-"Last-Translator: Bruce Cowan <bcowan@fastmail.co.uk>\n"
+"Last-Translator: Philip Withnall <philip@tecnocode.co.uk>\n"
 "Language-Team: British English <en@li.org>\n"
-"Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: en_GB\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Virtaal 0.5.2\n"
 
@@ -248,7 +246,7 @@ msgstr "Load"
 msgid "Available Plugins"
 msgstr "Available Plugins"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:736
+#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:773
 msgid "Preferred plugins"
 msgstr "Preferred plugins"
 
@@ -415,7 +413,7 @@ msgstr "Category"
 #. FIXME: Make the general page first
 #: ../libanjuta/anjuta-preferences-dialog.c:138
 #: ../libanjuta/anjuta-preferences-dialog.c:141
-#: ../plugins/gbf-am/gbf-am-dialogs.ui.h:3 ../src/anjuta-app.c:723
+#: ../plugins/gbf-am/gbf-am-dialogs.ui.h:3 ../src/anjuta-app.c:760
 #: ../src/preferences.ui.h:11
 msgid "General"
 msgstr "General"
@@ -485,24 +483,20 @@ msgstr "System:"
 #: ../libanjuta/anjuta-utils.c:505
 msgid ""
 "You do not seem to have PackageKit installed. PackageKit is required for "
-"installing missing packages. Please install \"packagekit-gnome\" package from "
-"your distribution, or install the missing packages manually."
+"installing missing packages. Please install \"packagekit-gnome\" package "
+"from your distribution, or install the missing packages manually."
 msgstr ""
 "You do not seem to have PackageKit installed. PackageKit is required for "
-"installing missing packages. Please install \"packagekit-gnome\" package from "
-"your distribution, or install the missing packages manually."
+"installing missing packages. Please install \"packagekit-gnome\" package "
+"from your distribution, or install the missing packages manually."
 
 #: ../libanjuta/anjuta-utils.c:515
 #, c-format
-#| msgid "Translation file"
 msgid "Installation failed: %s"
 msgstr "Installation failed: %s"
 
 #: ../libanjuta/anjuta-utils.c:575
 #, c-format
-#| msgid ""
-#| "The \"%s\" utility is not installed.\n"
-#| "Please install it."
 msgid ""
 "The \"%s\" package is not installed.\n"
 "Please install it."
@@ -1047,7 +1041,7 @@ msgstr "Build popup commands"
 msgid "Build Autotools"
 msgstr "Build Autotools"
 
-#: ../plugins/build-basic-autotools/program.c:323
+#: ../plugins/build-basic-autotools/program.c:326
 msgid "Command aborted"
 msgstr "Command aborted"
 
@@ -1122,6 +1116,7 @@ msgstr "General Class Properties"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:18
 #: ../plugins/file-wizard/file.c:103
+#: ../plugins/project-wizard/templates/translatable-strings.h:48
 msgid "General Public License (GPL)"
 msgstr "General Public Licence (GPL)"
 
@@ -1139,6 +1134,7 @@ msgstr "Inline the declaration and implementation"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:22
 #: ../plugins/file-wizard/file.c:104
+#: ../plugins/project-wizard/templates/translatable-strings.h:62
 msgid "Lesser General Public License (LGPL)"
 msgstr "Lesser General Public Licence (LGPL)"
 
@@ -1402,8 +1398,8 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "Ignore .cvsrc file (recommended)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
-#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2320
-#: ../plugins/symbol-db/plugin.c:2390
+#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2329
+#: ../plugins/symbol-db/plugin.c:2399
 msgid "Local"
 msgstr "Local"
 
@@ -1686,15 +1682,15 @@ msgstr "CVS popup operations"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:1
 msgid ""
-"<span weight=\"bold\" size=\"larger\">Are you sure you want to debug a program "
-"not using the Debug configuration?</span>\n"
+"<span weight=\"bold\" size=\"larger\">Are you sure you want to debug a "
+"program not using the Debug configuration?</span>\n"
 "\n"
 "When optimizations are enabled, the debugger cannot always identify the "
 "source code corresponding to the instructions, so some commands can perform "
 "in a strange way, especially steps."
 msgstr ""
-"<span weight=\"bold\" size=\"larger\">Are you sure you want to debug a program "
-"not using the Debug configuration?</span>\n"
+"<span weight=\"bold\" size=\"larger\">Are you sure you want to debug a "
+"program not using the Debug configuration?</span>\n"
 "\n"
 "When optimisations are enabled, the debugger cannot always identify the "
 "source code corresponding to the instructions, so some commands can perform "
@@ -1746,6 +1742,7 @@ msgid "Debugger:"
 msgstr "Debugger:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:15
+#: ../plugins/project-wizard/templates/translatable-strings.h:34
 msgid "Description:"
 msgstr "Description:"
 
@@ -2619,8 +2616,8 @@ msgstr "Contents"
 #: ../plugins/search/search-replace.c:1717
 #: ../plugins/search/search-replace.c:1724
 #: ../plugins/search/search-replace.c:1736
-#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2324
-#: ../plugins/symbol-db/plugin.c:2440
+#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2333
+#: ../plugins/symbol-db/plugin.c:2449
 msgid "Search"
 msgstr "Search"
 
@@ -2888,7 +2885,8 @@ msgstr "Convert EOL to Majority EOL"
 
 #: ../plugins/document-manager/plugin.c:202
 msgid "Convert End Of Line characters to the most common EOL found in the file"
-msgstr "Convert End Of Line characters to the most common EOL found in the file"
+msgstr ""
+"Convert End Of Line characters to the most common EOL found in the file"
 
 #: ../plugins/document-manager/plugin.c:207
 msgid "_Select"
@@ -3631,7 +3629,7 @@ msgid "Filter"
 msgstr "Filter"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2322 ../plugins/symbol-db/plugin.c:2416
+#: ../plugins/symbol-db/plugin.c:2331 ../plugins/symbol-db/plugin.c:2425
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:6
 msgid "Global"
 msgstr "Global"
@@ -3644,15 +3642,15 @@ msgstr "Root directory if no project is open:"
 msgid "Loading..."
 msgstr "Loading…"
 
-#: ../plugins/file-manager/file-view.c:567
+#: ../plugins/file-manager/file-view.c:569
 msgid "Filename"
 msgstr "Filename"
 
-#: ../plugins/file-manager/file-view.c:654
+#: ../plugins/file-manager/file-view.c:656
 msgid "Base URI"
 msgstr "Base URI"
 
-#: ../plugins/file-manager/file-view.c:655
+#: ../plugins/file-manager/file-view.c:657
 msgid "URI of the top-most path displayed"
 msgstr "URI of the top-most path displayed"
 
@@ -3842,7 +3840,6 @@ msgstr "Info Documentation"
 
 #: ../plugins/gbf-am/gbf-am-project.c:217
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:215
-#| msgid "Module"
 msgid "Lisp Module"
 msgstr "Lisp Module"
 
@@ -3866,7 +3863,6 @@ msgstr "Python Module"
 
 #: ../plugins/gbf-am/gbf-am-project.c:229
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:227
-#| msgid "Generic"
 msgid "Generic rule"
 msgstr "Generic rule"
 
@@ -3877,13 +3873,11 @@ msgstr "Extra target"
 
 #: ../plugins/gbf-am/gbf-am-project.c:235
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:233
-#| msgid "Configure"
 msgid "Configure file"
 msgstr "Configure file"
 
 #: ../plugins/gbf-am/gbf-am-project.c:238
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:236
-#| msgid "Interface"
 msgid "Interface file"
 msgstr "Interface file"
 
@@ -3899,7 +3893,6 @@ msgstr "GLib genmarshal"
 
 #: ../plugins/gbf-am/gbf-am-project.c:247
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:245
-#| msgid "Install module"
 msgid "Intl rule"
 msgstr "Intl rule"
 
@@ -4116,6 +4109,7 @@ msgid "Package name:"
 msgstr "Package name:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:863
+#: ../plugins/project-wizard/templates/translatable-strings.h:109
 msgid "Version:"
 msgstr "Version:"
 
@@ -4411,11 +4405,9 @@ msgstr "Error whilst signalling the process."
 #: ../plugins/gdb/plugin.c:112
 #, c-format
 msgid ""
-"Failed to create FIFO file named %s. The program will run without a "
-"terminal."
+"Failed to create FIFO file named %s. The program will run without a terminal."
 msgstr ""
-"Failed to create FIFO file named %s. The program will run without a "
-"terminal."
+"Failed to create FIFO file named %s. The program will run without a terminal."
 
 #: ../plugins/gdb/plugin.c:198
 msgid "Cannot start terminal for debugging."
@@ -4467,6 +4459,7 @@ msgid "Author/Grep"
 msgstr "Author/Grep"
 
 #: ../plugins/git/anjuta-git.ui.h:14
+#: ../plugins/project-wizard/templates/translatable-strings.h:25
 msgid "Author:"
 msgstr "Author:"
 
@@ -6835,7 +6828,6 @@ msgstr ""
 
 #: ../plugins/project-import/plugin.c:200
 #, c-format
-#| msgid "Please select a plugin to open <b>%s</b>."
 msgid "Please select a project backend to open %s."
 msgstr "Please select a project backend to open %s."
 
@@ -6851,10 +6843,13 @@ msgstr ""
 #: ../plugins/project-import/plugin.c:290
 #: ../plugins/project-import/plugin.c:346
 #, c-format
-msgid "Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
-msgstr "Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
+msgid ""
+"Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
+msgstr ""
+"Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
 
 #: ../plugins/project-import/project-import.ui.h:1
+#: ../plugins/project-wizard/templates/translatable-strings.h:35
 #: ../plugins/subversion/anjuta-subversion.ui.h:9
 msgid "Destination:"
 msgstr "Destination:"
@@ -7046,25 +7041,21 @@ msgstr ""
 
 #: ../plugins/project-manager/plugin.c:722
 #, c-format
-#| msgid "Group:"
 msgid "Group: %s\n"
 msgstr "Group: %s\n"
 
 #: ../plugins/project-manager/plugin.c:725
 #, c-format
-#| msgid "Target: %s"
 msgid "Target: %s\n"
 msgstr "Target: %s\n"
 
 #: ../plugins/project-manager/plugin.c:728
 #, c-format
-#| msgid "Source:"
 msgid "Source: %s\n"
 msgstr "Source: %s\n"
 
 #: ../plugins/project-manager/plugin.c:731
 #, c-format
-#| msgid "Shortcut:"
 msgid "Shortcut: %s\n"
 msgstr "Shortcut: %s\n"
 
@@ -7077,7 +7068,6 @@ msgid "The source file will not be deleted from the file system."
 msgstr "The source file will not be deleted from the file system."
 
 #: ../plugins/project-manager/plugin.c:750
-#| msgid "Configure Project"
 msgid "Confirm remove"
 msgstr "Confirm remove"
 
@@ -7337,9 +7327,6 @@ msgstr ""
 "generating the project.\n"
 
 #: ../plugins/project-wizard/druid.c:879
-#| msgid ""
-#| "\n"
-#| "Missing packages: %s."
 msgid "Install missing packages"
 msgstr "Install missing packages"
 
@@ -7348,15 +7335,15 @@ msgid ""
 "The missing programs are usually part of some distrubution packages and can "
 "be searched for in your Application Manager. Similarly, the development "
 "packages are contained in special packages that your distribution provides "
-"to allow development of projects based on them. They usually end with a "
-"\"-dev\" or \"-devel\" suffix in package names and can be found by searching in "
+"to allow development of projects based on them. They usually end with a \"-"
+"dev\" or \"-devel\" suffix in package names and can be found by searching in "
 "your Application Manager."
 msgstr ""
 "The missing programs are usually part of some distribution packages and can "
 "be searched for in your Application Manager. Similarly, the development "
 "packages are contained in special packages that your distribution provides "
-"to allow development of projects based on them. They usually end with a "
-"\"-dev\" or \"-devel\" suffix in package names and can be found by searching in "
+"to allow development of projects based on them. They usually end with a \"-"
+"dev\" or \"-devel\" suffix in package names and can be found by searching in "
 "your Application Manager."
 
 #: ../plugins/project-wizard/druid.c:895
@@ -7437,6 +7424,462 @@ msgstr "Choose directory"
 #: ../plugins/project-wizard/property.c:471
 msgid "Choose file"
 msgstr "Choose file"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:1
+msgid "A GNOME applet project"
+msgstr "A GNOME applet project"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:2
+msgid "A generic C++ project"
+msgstr "A generic C++ project"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:3
+msgid "A generic GTK+ project"
+msgstr "A generic GTK+ project"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:4
+msgid "A generic GTKmm (C++) project"
+msgstr "A generic GTKmm (C++) project"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:5
+msgid "A generic Xlib dock applet"
+msgstr "A generic Xlib dock applet"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:6
+msgid "A generic Xlib project"
+msgstr "A generic Xlib project"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:7
+msgid "A generic java project using automake project management"
+msgstr "A generic Java project using automake project management"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:8
+msgid "A generic minimal and flat project"
+msgstr "A generic minimal and flat project"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:9
+msgid ""
+"A generic natively compiled java project using the GNU Java Compiler (gcj)"
+msgstr ""
+"A generic natively compiled Java project using the GNU Java Compiler (gcj)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:10
+msgid "A generic project"
+msgstr "A generic project"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:11
+msgid "A generic python project using automake project management"
+msgstr "A generic Python project using automake project management"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:12
+msgid "A generic wx Widgets project"
+msgstr "A generic wxWidgets project"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:13
+msgid "A sample SDL project"
+msgstr "A sample SDL project"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:14
+msgid "A shared or a static library project"
+msgstr "A shared or static library project"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:15
+msgid "Add C++ support:"
+msgstr "Add C++ support:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:16
+msgid "Add gtk-doc system:"
+msgstr "Add gtk-doc system:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:17
+msgid "Add internationalization:"
+msgstr "Add internationalisation:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:18
+msgid "Add shared library support:"
+msgstr "Add shared library support:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:19
+msgid "Adds C++ support to the project so that C++ source files can be built"
+msgstr "Adds C++ support to the project so that C++ source files can be built"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:20
+msgid "Adds support for building shared libraries in your project"
+msgstr "Adds support for building shared libraries in your project"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:21
+msgid ""
+"Adds support for internationalization so that your project can have "
+"translations in different languages"
+msgstr ""
+"Adds support for internationalisation so that your project can have "
+"translations in different languages"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:22
+msgid "Anjuta Plugin"
+msgstr "Anjuta Plugin"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:23
+msgid "Anjuta plugin project that uses libanjuta framework"
+msgstr "Anjuta plugin project that uses libanjuta framework"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:24
+msgid "Applet Title:"
+msgstr "Applet Title:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:26
+msgid "Basic information"
+msgstr "Basic information"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:27
+msgid "Berkeley Software Distribution License (BSD)"
+msgstr "Berkeley Software Distribution Licence (BSD)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:28
+msgid "Build library as"
+msgstr "Build library as"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:29
+msgid ""
+"Comma separated, other plugins that this plugin depends on. It could be "
+"either primary interface name or plugin location (library:class)"
+msgstr ""
+"Comma-separated, other plugins that this plugin depends on. It could be "
+"either primary interface name or plugin location (library:class)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:30
+msgid "Configure external packages"
+msgstr "Configure external packages"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:31
+msgid "Configure external packages:"
+msgstr "Configure external packages:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:32
+msgid "Create Gtk Builder interface file"
+msgstr "Create GtkBuilder interface file"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:33
+msgid "Create a template Gtk Builder interface file"
+msgstr "Create a template GtkBuilder interface file"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:36
+msgid "Display description of the applet"
+msgstr "Display description of the applet"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:37
+msgid "Display description of the plugin"
+msgstr "Display description of the plugin"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:38
+msgid "Display title of the applet"
+msgstr "Display title of the applet"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:39
+msgid "Display title of the plugin"
+msgstr "Display title of the plugin"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:40
+msgid "Django Project"
+msgstr "Django Project"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:41
+msgid "Django Project information"
+msgstr "Django Project information"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:42
+msgid "Email address:"
+msgstr "E-mail address:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:43
+msgid "GCJ needs to know which class contains the main() function"
+msgstr "GCJ needs to know which class contains the main() function"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:44
+msgid "GNOME Applet"
+msgstr "GNOME Applet"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:45
+msgid "GTK+"
+msgstr "GTK+"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:46
+msgid "GTKmm"
+msgstr "GTKmm"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:47
+msgid "General Project Information"
+msgstr "General Project Information"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:49
+msgid "Generic"
+msgstr "Generic"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:50
+msgid "Generic (Minimal)"
+msgstr "Generic (Minimal)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:51
+msgid "Generic C++"
+msgstr "Generic C++"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:52
+msgid "Generic JavaScript"
+msgstr "Generic JavaScript"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:53
+msgid "Generic gcj compiled java"
+msgstr "Generic gcj compiled Java"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:54
+msgid "Generic java (automake)"
+msgstr "Generic Java (automake)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:55
+msgid "Generic python (automake)"
+msgstr "Generic Python (automake)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:56
+msgid ""
+"Give a package name that your project require. You may also mention what is "
+"the required version of the package. For example, 'libgnomeui-2.0' or "
+"'libgnomeui-2.0 >= 2.2.0'"
+msgstr ""
+"Give a package name that your project require. You may also mention what is "
+"the required version of the package. For example, 'libgnomeui-2.0' or "
+"'libgnomeui-2.0 >= 2.2.0'"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:57
+msgid "Icon File:"
+msgstr "Icon File:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:58
+msgid "Icon file for the plugin"
+msgstr "Icon file for the plugin"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:59
+msgid "Implement plugin interfaces"
+msgstr "Implement plugin interfaces"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:60
+msgid "Interface implemented by the plugin"
+msgstr "Interface implemented by the plugin"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:61
+msgid "Interface:"
+msgstr "Interface:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:63
+msgid "Library"
+msgstr "Library"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:64
+msgid "License"
+msgstr "Licence"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:65
+msgid "Main Class:"
+msgstr "Main Class:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:66
+msgid "Main class"
+msgstr "Main class"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:67
+msgid "Makefile project"
+msgstr "Makefile project"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:68
+msgid "Makefile-based project"
+msgstr "Makefile-based project"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:69
+msgid "Mininum SDL version required"
+msgstr "Mininum SDL version required"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:70
+msgid "Name of the value to watch"
+msgstr "Name of the value to watch"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:71
+msgid "No license"
+msgstr "No licence"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:72
+msgid "Only Shared"
+msgstr "Only Shared"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:73
+msgid "Only Static"
+msgstr "Only Static"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:74
+msgid "Options for project build system"
+msgstr "Options for project build system"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:75
+msgid "Plugin Class Name:"
+msgstr "Plugin Class Name:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:76
+msgid "Plugin Dependencies:"
+msgstr "Plugin Dependencies:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:77
+msgid "Plugin Description:"
+msgstr "Plugin Description:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:78
+msgid "Plugin Title:"
+msgstr "Plugin Title:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:79
+msgid "Plugin class name"
+msgstr "Plugin class name"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:80
+msgid "Plugin has menus or/and toolbars"
+msgstr "Plugin has menus and/or toolbars"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:81
+msgid "Plugin interfaces to implement"
+msgstr "Plugin interfaces to implement"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:82
+msgid "Project Name:"
+msgstr "Project Name:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:83
+msgid "Project directory, output file etc."
+msgstr "Project directory, output file, etc."
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:84
+msgid "Project directory:"
+msgstr "Project directory:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:85
+msgid ""
+"Project name must not contain spaces, because it will be the name of the "
+"project build target (executable, library etc.)"
+msgstr ""
+"Project name must not contain spaces, because it will be the name of the "
+"project build target (executable, library, etc.)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:86
+msgid "Project name:"
+msgstr "Project name:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:87
+msgid "Project options"
+msgstr "Project options"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:88
+msgid "Python webproject using Django Web Framework"
+msgstr "Python web project using Django Web Framework"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:89
+msgid "Require Package:"
+msgstr "Require Package:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:90
+msgid "Require SDL version:"
+msgstr "Require SDL version:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:91
+msgid "Require SDL_gfx library"
+msgstr "Require SDL_gfx library"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:92
+msgid "Require SDL_gfx:"
+msgstr "Require SDL_gfx:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:93
+msgid "Require SDL_image library"
+msgstr "Require SDL_image library"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:94
+msgid "Require SDL_image:"
+msgstr "Require SDL_image:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:95
+msgid "Require SDL_mixer library"
+msgstr "Require SDL_mixer library"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:96
+msgid "Require SDL_mixer:"
+msgstr "Require SDL_mixer:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:97
+msgid "Require SDL_net library"
+msgstr "Require SDL_net library"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:98
+msgid "Require SDL_net:"
+msgstr "Require SDL_net:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:99
+msgid "Require SDL_ttf library"
+msgstr "Require SDL_ttf library"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:100
+msgid "Require SDL_ttf:"
+msgstr "Require SDL_ttf:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:101
+msgid "SDL"
+msgstr "SDL"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:102
+msgid "Select code license"
+msgstr "Select code licence"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:103
+msgid "Select library type to build"
+msgstr "Select library type to build"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:104
+msgid "Shared and Static library"
+msgstr "Shared and Static library"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:105
+msgid "Shell values to watch"
+msgstr "Shell values to watch"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:106
+msgid "Use pkg-config to add library support from other packages"
+msgstr "Use pkg-config to add library support from other packages"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:107
+msgid "Value Name:"
+msgstr "Value Name:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:108
+msgid "Values to watch"
+msgstr "Values to watch"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:110
+msgid "Whether the plugin has menus or toolbars"
+msgstr "Whether the plugin has menus or toolbars"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:111
+msgid "Wx Widgets"
+msgstr "wxWidgets"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:112
+msgid "Xlib"
+msgstr "Xlib"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:113
+msgid "Xlib dock"
+msgstr "Xlib dock"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:114
+msgid "gtk-doc is used to compile API documentations for GObject based classes"
+msgstr "gtk-doc is used to compile API documentation for GObject-based classes"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:115
+msgid "project name"
+msgstr "project name"
 
 #: ../plugins/run-program/anjuta-run-program.ui.h:2
 msgid "Choose a working directory"
@@ -7956,7 +8399,7 @@ msgstr "View"
 msgid "Wrap long lines to fit on paper"
 msgstr "Wrap long lines to fit on paper"
 
-#: ../plugins/starter/plugin.c:50 ../plugins/starter/starter.c:349
+#: ../plugins/starter/plugin.c:70 ../plugins/starter/starter.c:349
 #: ../plugins/starter/anjuta-starter.plugin.in.h:1
 msgid "Starter"
 msgstr "Starter"
@@ -8544,15 +8987,15 @@ msgstr "%d files scanned out of %d"
 msgid "Populating symbol database…"
 msgstr "Populating symbol database…"
 
-#: ../plugins/symbol-db/plugin.c:2345 ../plugins/symbol-db/plugin.c:2473
+#: ../plugins/symbol-db/plugin.c:2354 ../plugins/symbol-db/plugin.c:2482
 msgid "Symbols"
 msgstr "Symbols"
 
-#: ../plugins/symbol-db/plugin.c:2482
+#: ../plugins/symbol-db/plugin.c:2491
 msgid "SymbolDb popup actions"
 msgstr "SymbolDb popup actions"
 
-#: ../plugins/symbol-db/plugin.c:2490
+#: ../plugins/symbol-db/plugin.c:2499
 msgid "SymbolDb menu actions"
 msgstr "SymbolDb menu actions"
 
@@ -8613,11 +9056,11 @@ msgstr "Parallel scan of project and global symbols"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:8
 msgid ""
-"This option enables the default packages required by your opened project, "
-"e.g. Glib and GTK+ if you create a GTK+ project (may require more CPU work)"
+"This option enables the default packages required by your opened project, e."
+"g. Glib and GTK+ if you create a GTK+ project (may require more CPU work)"
 msgstr ""
-"This option enables the default packages required by your opened project, "
-"e.g. Glib and GTK+ if you create a GTK+ project (may require more CPU work)"
+"This option enables the default packages required by your opened project, e."
+"g. Glib and GTK+ if you create a GTK+ project (may require more CPU work)"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:9
 msgid ""
@@ -9135,15 +9578,15 @@ msgstr "About third-party Anjuta plugins"
 msgid "Edit"
 msgstr "Edit"
 
-#: ../src/anjuta-app.c:734
+#: ../src/anjuta-app.c:771
 msgid "Installed plugins"
 msgstr "Installed plugins"
 
-#: ../src/anjuta-app.c:738
+#: ../src/anjuta-app.c:775
 msgid "Shortcuts"
 msgstr "Shortcuts"
 
-#: ../src/anjuta-app.c:810
+#: ../src/anjuta-app.c:847
 #, c-format
 msgid "Value doesn't exist"
 msgstr "Value doesn't exist"
@@ -9285,55 +9728,51 @@ msgid "Autocompletion (C/C++/Java only)"
 msgstr "Autocompletion (C/C++/Java only)"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:5
-msgid "Autocompletion pop up choices"
-msgstr "Autocompletion pop up choices"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:6
 msgid "Brace indentation size in spaces:"
 msgstr "Brace indentation size in spaces:"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:7
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:6
 msgid "Calltips"
 msgstr "Calltips"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:8
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:7
 msgid "Enable code completion"
 msgstr "Enable code completion"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:9
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:8
 msgid "Enable smart brace completion"
 msgstr "Enable smart brace completion"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:10
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:9
 msgid "Enable smart indentation"
 msgstr "Enable smart indentation"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:11
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:10
 msgid "Indent:"
 msgstr "Indent:"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:12
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:11
 msgid "Indentation parameters"
 msgstr "Indentation parameters"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:13
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:12
 msgid "Line up parentheses"
 msgstr "Line up parentheses"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:13
 msgid "Parenthesis indentation"
 msgstr "Parenthesis indentation"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:7
 msgid "Show calltips"
 msgstr "Show calltips"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
 msgid "Smart Indentation"
 msgstr "Smart Indentation"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:17
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
 msgid "Statement indentation size in spaces:"
 msgstr "Statement indentation size in spaces:"
 
@@ -9357,12 +9796,12 @@ msgstr "Swap C header and source files"
 msgid "C++/Java Assistance"
 msgstr "C++/Java Assistance"
 
-#: ../plugins/language-support-cpp-java/plugin.c:2025
-#: ../plugins/language-support-cpp-java/plugin.c:2034
+#: ../plugins/language-support-cpp-java/plugin.c:2044
+#: ../plugins/language-support-cpp-java/plugin.c:2057
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
-#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1071
+#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1070
 msgid "C/C++"
 msgstr "C/C++"
 
@@ -9371,7 +9810,6 @@ msgid "GtkSourceView Editor"
 msgstr "GtkSourceView Editor"
 
 #: ../plugins/gdb/anjuta-gdb.plugin.in.h:1
-#| msgid "Debug Manager plugin."
 msgid "GNU Debugger Plugin"
 msgstr "GNU Debugger Plugin"
 
@@ -9501,7 +9939,8 @@ msgstr "C++ and Java support Plugin"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in.h:2
 msgid "C++ and Java support plugin for code completion, auto-indentation, etc."
-msgstr "C++ and Java support plugin for code completion, auto-indentation, etc."
+msgstr ""
+"C++ and Java support plugin for code completion, auto-indentation, etc."
 
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:2
 msgid "Project Assistant"
@@ -9585,29 +10024,24 @@ msgstr "Autotools backend for project manager"
 
 #: ../plugins/js-debugger/plugin.c:122
 #, c-format
-#| msgid "Errors:"
 msgid "Error: %s"
 msgstr "Error: %s"
 
 #: ../plugins/js-debugger/plugin.c:142
 #: ../plugins/js-debugger/debugger-js.c:546
-#| msgid "Error contains"
 msgid "Error: cant bind port"
 msgstr "Error: cant bind port"
 
 #: ../plugins/js-debugger/js_debugger.plugin.in.h:1
-#| msgid "Anjuta Plugin"
 msgid "Anjuta JS Debugger Plugin"
 msgstr "Anjuta JS Debugger Plugin"
 
 #: ../plugins/js-debugger/js_debugger.plugin.in.h:2
-#| msgid "Start Debugger"
 msgid "Javascript Debugger Plugin"
 msgstr "Javascript Debugger Plugin"
 
 #: ../plugins/language-support-js/plugin.c:332
 #: ../plugins/language-support-js/plugin.c:341
-#| msgid "Script"
 msgid "JavaScript"
 msgstr "JavaScript"
 
@@ -9616,44 +10050,39 @@ msgid "JS"
 msgstr "JS"
 
 #: ../plugins/language-support-js/js_support_plugin.plugin.in.h:1
-#| msgid "C++ and Java support Plugin"
 msgid "JS Support Plugin"
 msgstr "JS Support Plugin"
 
 #: ../plugins/language-support-js/js_support_plugin.plugin.in.h:2
-#| msgid "C++ and Java support Plugin"
 msgid "JavaScript Support Plugin"
 msgstr "JavaScript Support Plugin"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:1
-#| msgid "<b>Filters</b>"
 msgid "<b>JS Find dirs</b>"
 msgstr "<b>JS Find dirs</b>"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:2
-#| msgid "Add a space after function call autocompletion"
 msgid "Add brace after function call autocompletion"
 msgstr "Add brace after function call autocompletion"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:3
-#| msgid "Project root directory:"
 msgid "Gir repository's directory:   "
 msgstr "Gir repository's directory:   "
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:4
-#| msgid "Project root directory:"
 msgid "Gjs repository's directory:   "
 msgstr "Gjs repository's directory:   "
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:5
-#| msgid "Highlight message locations in editor"
 msgid "Highlight missed semicolon"
 msgstr "Highlight missed semicolon"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
-#| msgid "Enable code completion"
 msgid "Min character for completion "
 msgstr "Min character for completion "
+
+#~ msgid "Autocompletion pop up choices"
+#~ msgstr "Autocompletion pop up choices"
 
 #~ msgid "private"
 #~ msgstr "private"
@@ -9664,338 +10093,9 @@ msgstr "Min character for completion "
 #~ msgid "public"
 #~ msgstr "public"
 
-#~ msgid "A GNOME applet project"
-#~ msgstr "A GNOME applet project"
-
-#~ msgid "A generic C++ project"
-#~ msgstr "A generic C++ project"
-
-#~ msgid "A generic GTK+ project"
-#~ msgstr "A generic GTK+ project"
-
-#~ msgid "A generic GTKmm (C++) project"
-#~ msgstr "A generic GTKmm (C++) project"
-
-#~ msgid "A generic Xlib dock applet"
-#~ msgstr "A generic Xlib dock applet"
-
-#~ msgid "A generic Xlib project"
-#~ msgstr "A generic Xlib project"
-
-#~ msgid "A generic Java project using automake project management"
-#~ msgstr "A generic Java project using automake project management"
-
-#~ msgid "A generic minimal and flat project"
-#~ msgstr "A generic minimal and flat project"
-
-#~ msgid ""
-#~ "A generic natively compiled Java project using the GNU Java Compiler (gcj)"
-#~ msgstr ""
-#~ "A generic natively compiled Java project using the GNU Java Compiler (gcj)"
-
-#~ msgid "A generic project"
-#~ msgstr "A generic project"
-
-#~ msgid "A generic Python project using automake project management"
-#~ msgstr "A generic Python project using automake project management"
-
-#~ msgid "A generic wxWidgets project"
-#~ msgstr "A generic wxWidgets project"
-
-#~ msgid "A sample SDL project"
-#~ msgstr "A sample SDL project"
-
-#~ msgid "Add C++ support:"
-#~ msgstr "Add C++ support:"
-
-#~ msgid "Add gtk-doc system:"
-#~ msgstr "Add gtk-doc system:"
-
-#~ msgid "Add internationalization:"
-#~ msgstr "Add internationalisation:"
-
-#~ msgid "Add shared library support:"
-#~ msgstr "Add shared library support:"
-
-#~ msgid ""
-#~ "Adds C++ support to the project so that C++ source files can be built"
-#~ msgstr ""
-#~ "Adds C++ support to the project so that C++ source files can be built"
-
-#~ msgid "Adds support for building shared libraries in your project"
-#~ msgstr "Adds support for building shared libraries in your project"
-
-#~ msgid ""
-#~ "Adds support for internationalization so that your project can have "
-#~ "translations in different languages"
-#~ msgstr ""
-#~ "Adds support for internationalisation so that your project can have "
-#~ "translations in different languages"
-
-#~ msgid "Anjuta plugin project that uses libanjuta framework"
-#~ msgstr "Anjuta plugin project that uses libanjuta framework"
-
-#~ msgid "Applet Title:"
-#~ msgstr "Applet Title:"
-
-#~ msgid "Basic information"
-#~ msgstr "Basic information"
-
-#~ msgid "Berkeley Software Distribution License (BSD)"
-#~ msgstr "Berkeley Software Distribution Licence (BSD)"
-
-#, fuzzy
-#~ msgid ""
-#~ "Comma-separated, other plugins that this plugin depends on. It could be "
-#~ "either primary interface name or plugin location (library:class)"
-#~ msgstr ""
-#~ "Comma-separated, other plugins that this plugin depends on. It could be "
-#~ "either primary interface name or plugin location (library:class)"
-
-#~ msgid "Configure external packages"
-#~ msgstr "Configure external packages"
-
-#~ msgid "Configure external packages:"
-#~ msgstr "Configure external packages:"
-
-#, fuzzy
-#~ msgid "Create GtkBuilder interface file"
-#~ msgstr "Create GtkBuilder interface file"
-
-#, fuzzy
-#~ msgid "Create a template GtkBuilder interface file"
-#~ msgstr "Create a template GtkBuilder interface file"
-
-#~ msgid "Display description of the applet"
-#~ msgstr "Display description of the applet"
-
-#~ msgid "Display description of the plugin"
-#~ msgstr "Display description of the plugin"
-
-#~ msgid "Display title of the applet"
-#~ msgstr "Display title of the applet"
-
-#~ msgid "Display title of the plugin"
-#~ msgstr "Display title of the plugin"
-
-#~ msgid "Django Project"
-#~ msgstr "Django Project"
-
-#~ msgid "Django Project information"
-#~ msgstr "Django Project information"
-
-#~ msgid "Email address:"
-#~ msgstr "E-mail address:"
-
-#~ msgid "GCJ needs to know which class contains the main() function"
-#~ msgstr "GCJ needs to know which class contains the main() function"
-
-#~ msgid "GNOME Applet"
-#~ msgstr "GNOME Applet"
-
-#~ msgid "GTK+"
-#~ msgstr "GTK+"
-
-#~ msgid "GTKmm"
-#~ msgstr "GTKmm"
-
-#~ msgid "General Project Information"
-#~ msgstr "General Project Information"
-
-#~ msgid "Generic (Minimal)"
-#~ msgstr "Generic (Minimal)"
-
-#~ msgid "Generic C++"
-#~ msgstr "Generic C++"
-
-#, fuzzy
-#~ msgid "Generic gcj compiled Java"
-#~ msgstr "Generic gcj compiled Java"
-
-#, fuzzy
-#~ msgid "Generic Java (automake)"
-#~ msgstr "Generic Java (automake)"
-
-#, fuzzy
-#~ msgid "Generic Python (automake)"
-#~ msgstr "Generic Python (automake)"
-
-#~ msgid ""
-#~ "Give a package name that your project require. You may also mention what "
-#~ "is the required version of the package. For example, 'libgnomeui-2.0' or "
-#~ "'libgnomeui-2.0 >= 2.2.0'"
-#~ msgstr ""
-#~ "Give a package name that your project require. You may also mention what "
-#~ "is the required version of the package. For example, 'libgnomeui-2.0' or "
-#~ "'libgnomeui-2.0 >= 2.2.0'"
-
-#~ msgid "Icon File:"
-#~ msgstr "Icon File:"
-
-#~ msgid "Icon file for the plugin"
-#~ msgstr "Icon file for the plugin"
-
-#~ msgid "Implement plugin interfaces"
-#~ msgstr "Implement plugin interfaces"
-
-#~ msgid "Interface implemented by the plugin"
-#~ msgstr "Interface implemented by the plugin"
-
-#~ msgid "Interface:"
-#~ msgstr "Interface:"
-
-#~ msgid "License"
-#~ msgstr "Licence"
-
-#~ msgid "Main Class:"
-#~ msgstr "Main Class:"
-
-#~ msgid "Main class"
-#~ msgstr "Main class"
-
-#~ msgid "Makefile project"
-#~ msgstr "Makefile project"
-
-#~ msgid "Makefile-based project"
-#~ msgstr "Makefile-based project"
-
-#~ msgid "Mininum SDL version required"
-#~ msgstr "Mininum SDL version required"
-
-#~ msgid "Name of the value to watch"
-#~ msgstr "Name of the value to watch"
-
-#~ msgid "No license"
-#~ msgstr "No licence"
-
-#~ msgid "Options for project build system"
-#~ msgstr "Options for project build system"
-
-#~ msgid "Plugin Class Name:"
-#~ msgstr "Plugin Class Name:"
-
-#~ msgid "Plugin Dependencies:"
-#~ msgstr "Plugin Dependencies:"
-
-#~ msgid "Plugin Description:"
-#~ msgstr "Plugin Description:"
-
-#~ msgid "Plugin Title:"
-#~ msgstr "Plugin Title:"
-
-#~ msgid "Plugin class name"
-#~ msgstr "Plugin class name"
-
-#, fuzzy
-#~ msgid "Plugin has menus and/or toolbars"
-#~ msgstr "Plugin has menus and/or toolbars"
-
-#~ msgid "Plugin interfaces to implement"
-#~ msgstr "Plugin interfaces to implement"
-
-#~ msgid "Project Name:"
-#~ msgstr "Project Name:"
-
-#, fuzzy
-#~ msgid "Project directory, output file, etc."
-#~ msgstr "Project directory, output file, etc."
-
-#~ msgid "Project directory:"
-#~ msgstr "Project directory:"
-
-#, fuzzy
-#~ msgid ""
-#~ "Project name must not contain spaces, because it will be the name of the "
-#~ "project build target (executable, library, etc.)"
-#~ msgstr ""
-#~ "Project name must not contain spaces, because it will be the name of the "
-#~ "project build target (executable, library, etc.)"
-
-#~ msgid "Project name:"
-#~ msgstr "Project name:"
-
-#~ msgid "Project options"
-#~ msgstr "Project options"
-
-#, fuzzy
-#~ msgid "Python web project using Django Web Framework"
-#~ msgstr "Python web project using Django Web Framework"
-
-#~ msgid "Require Package:"
-#~ msgstr "Require Package:"
-
-#~ msgid "Require SDL version:"
-#~ msgstr "Require SDL version:"
-
-#~ msgid "Require SDL_gfx library"
-#~ msgstr "Require SDL_gfx library"
-
-#~ msgid "Require SDL_gfx:"
-#~ msgstr "Require SDL_gfx:"
-
-#~ msgid "Require SDL_image library"
-#~ msgstr "Require SDL_image library"
-
-#~ msgid "Require SDL_image:"
-#~ msgstr "Require SDL_image:"
-
-#~ msgid "Require SDL_mixer library"
-#~ msgstr "Require SDL_mixer library"
-
-#~ msgid "Require SDL_mixer:"
-#~ msgstr "Require SDL_mixer:"
-
-#~ msgid "Require SDL_net library"
-#~ msgstr "Require SDL_net library"
-
-#~ msgid "Require SDL_net:"
-#~ msgstr "Require SDL_net:"
-
-#~ msgid "Require SDL_ttf library"
-#~ msgstr "Require SDL_ttf library"
-
-#~ msgid "Require SDL_ttf:"
-#~ msgstr "Require SDL_ttf:"
-
-#~ msgid "SDL"
-#~ msgstr "SDL"
-
-#~ msgid "Select code license"
-#~ msgstr "Select code licence"
-
-#~ msgid "Shell values to watch"
-#~ msgstr "Shell values to watch"
-
-#~ msgid "Use pkg-config to add library support from other packages"
-#~ msgstr "Use pkg-config to add library support from other packages"
-
-#~ msgid "Value Name:"
-#~ msgstr "Value Name:"
-
-#~ msgid "Values to watch"
-#~ msgstr "Values to watch"
-
-#~ msgid "Whether the plugin has menus or toolbars"
-#~ msgstr "Whether the plugin has menus or toolbars"
-
 #, fuzzy
 #~ msgid "wxWidgets"
 #~ msgstr "Widgets"
-
-#~ msgid "Xlib"
-#~ msgstr "Xlib"
-
-#~ msgid "Xlib dock"
-#~ msgstr "Xlib dock"
-
-#, fuzzy
-#~ msgid ""
-#~ "gtk-doc is used to compile API documentation for GObject-based classes"
-#~ msgstr ""
-#~ "gtk-doc is used to compile API documentation for GObject-based classes"
-
-#~ msgid "project name"
-#~ msgstr "project name"
 
 #~ msgid "Gdb plugin."
 #~ msgstr "Gdb plugin."
@@ -10155,9 +10255,6 @@ msgstr "Min character for completion "
 
 #~ msgid "Create a template gtk builder interface file"
 #~ msgstr "Create a template GtkBuilder interface file"
-
-#~ msgid "Wx Widgets"
-#~ msgstr "wxWidgets"
 
 #~ msgid "Run In Terminal"
 #~ msgstr "Run in Terminal"
@@ -10667,9 +10764,6 @@ msgstr "Min character for completion "
 
 #~ msgid "Pressing tab inserts indentation"
 #~ msgstr "Pressing tab inserts indentation"
-
-#~ msgid "Select highlight style to edit:"
-#~ msgstr "Select highlight style to edit:"
 
 #~ msgid "Selection background:"
 #~ msgstr "Selection background:"
@@ -12578,9 +12672,6 @@ msgstr "Min character for completion "
 
 #~ msgid "Completed... successful"
 #~ msgstr "Completed... successful"
-
-#~ msgid "Anjuta Plugins"
-#~ msgstr "Anjuta Plugins"
 
 #~ msgid "User name"
 #~ msgstr "User name"
