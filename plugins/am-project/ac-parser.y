@@ -246,19 +246,19 @@ arg_list_body:
     arg {
         $$ = anjuta_token_new_static (ANJUTA_TOKEN_LIST, NULL);
         anjuta_token_merge ($$, $1);
-        fprintf(stdout, "arg_list_body arg\n");
-        anjuta_token_dump ($1);
+        //fprintf(stdout, "arg_list_body arg\n");
+        //anjuta_token_dump ($1);
     }
     | arg_list_body  separator  arg {
-        fprintf(stdout, "arg_list_body body\n");
-        anjuta_token_dump ($1);
-        fprintf(stdout, "arg_list_body separator\n");
-        anjuta_token_dump ($2);
-        fprintf(stdout, "arg_list_body arg\n");
-        anjuta_token_dump ($3);
+        //fprintf(stdout, "arg_list_body body\n");
+        //anjuta_token_dump ($1);
+        //fprintf(stdout, "arg_list_body separator\n");
+        //anjuta_token_dump ($2);
+        //fprintf(stdout, "arg_list_body arg\n");
+        //anjuta_token_dump ($3);
         anjuta_token_merge ($1, $3);
-        fprintf(stdout, "arg_list_body merge\n");
-        anjuta_token_dump ($1);
+        //fprintf(stdout, "arg_list_body merge\n");
+        //anjuta_token_dump ($1);
     }
     ;
 
@@ -374,13 +374,13 @@ arg:
         $$ = anjuta_token_new_static (ANJUTA_TOKEN_ITEM, NULL);
     }
     | arg_part arg_body {
-        fprintf(stdout, "arg part\n");
-        anjuta_token_dump ($1);
-        fprintf(stdout, "arg body\n");
-        anjuta_token_dump ($2);
+        //fprintf(stdout, "arg part\n");
+        //anjuta_token_dump ($1);
+        //fprintf(stdout, "arg body\n");
+        //anjuta_token_dump ($2);
         anjuta_token_merge_children ($1, $2);
-        fprintf(stdout, "arg merge\n");
-        anjuta_token_dump ($1);
+        //fprintf(stdout, "arg merge\n");
+        //anjuta_token_dump ($1);
     }        
     ;
 
@@ -428,16 +428,16 @@ separator:
     }
     | COMMA spaces {
         $$ = anjuta_token_new_static (ANJUTA_TOKEN_NEXT, NULL);
-        fprintf(stdout, "separator spaces\n");
-        anjuta_token_dump ($2);
-        fprintf(stdout, "separator comma\n");
-        anjuta_token_dump ($1);
-        fprintf(stdout, "separator next\n");
-        anjuta_token_dump ($$);
+        //fprintf(stdout, "separator spaces\n");
+        //anjuta_token_dump ($2);
+        //fprintf(stdout, "separator comma\n");
+        //anjuta_token_dump ($1);
+        //fprintf(stdout, "separator next\n");
+        //anjuta_token_dump ($$);
         anjuta_token_merge ($$, $1);
         anjuta_token_merge_children ($$, $2);
-        fprintf(stdout, "separator merge\n");
-        anjuta_token_dump ($$);
+        //fprintf(stdout, "separator merge\n");
+        //anjuta_token_dump ($$);
     }
     ;
 

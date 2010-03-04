@@ -999,8 +999,8 @@ amp_project_load_properties (AmpProject *project, AnjutaToken *macro, AnjutaToke
 {
 	AnjutaProjectPropertyItem *list;
 	
-	fprintf (stdout, "property list:\n");
-	anjuta_token_dump (args);
+	//fprintf (stdout, "property list:\n");
+	//anjuta_token_dump (args);
 
 	project->ac_init = macro;
 	project->args = args;
@@ -1045,8 +1045,8 @@ amp_project_load_module (AmpProject *project, AnjutaToken *module)
 		gchar *compare;
 
 
-		fprintf(stdout, "Load module\n");
-		anjuta_token_dump (module);
+		//fprintf(stdout, "Load module\n");
+		//anjuta_token_dump (module);
 		
 		/* Module name */
 		arg = anjuta_token_first_item (module);
@@ -1546,7 +1546,7 @@ project_load_group_properties (AmpProject *project, AnjutaToken *token, AnjutaTo
 	name = anjuta_token_evaluate (token);
 	value = anjuta_token_evaluate (list);
 
-	g_message ("group_name %s", name);
+	//g_message ("group_name %s", name);
 	prop = amp_property_new (name, type, 0, value, list);
 
 	amp_node_property_add (parent, prop);
@@ -1651,7 +1651,7 @@ project_load_makefile (AmpProject *project, GFile *file, AnjutaProjectGroup *par
 			g_object_unref (final_file);
 			if (config != NULL)
 			{
-				g_message ("add group =%s= token %p group %p", *filename, config->token, anjuta_token_list (config->token));
+				//g_message ("add group =%s= token %p group %p", *filename, config->token, anjuta_token_list (config->token));
 				amp_group_add_token (group, config->token, AM_GROUP_TOKEN_CONFIGURE);
 				break;
 			}
@@ -1786,15 +1786,15 @@ amp_project_reload (AmpProject *project, GError **error)
 	g_hash_table_insert (project->files, configure_file, project->configure_file);
 	g_object_add_toggle_ref (G_OBJECT (project->configure_file), remove_config_file, project);
 	arg = anjuta_token_file_load (project->configure_file, NULL);
-	fprintf (stdout, "AC file before parsing\n");
-	anjuta_token_dump (arg);
-	fprintf (stdout, "\n");
+	//fprintf (stdout, "AC file before parsing\n");
+	//anjuta_token_dump (arg);
+	//fprintf (stdout, "\n");
 	scanner = amp_ac_scanner_new (project);
 	project->configure_token = amp_ac_scanner_parse_token (scanner, arg, 0, &err);
-	fprintf (stdout, "AC file after parsing\n");
-	anjuta_token_check (arg);
-	anjuta_token_dump (project->configure_token);
-	fprintf (stdout, "\n");
+	//fprintf (stdout, "AC file after parsing\n");
+	//anjuta_token_check (arg);
+	//anjuta_token_dump (project->configure_token);
+	//fprintf (stdout, "\n");
 	amp_ac_scanner_free (scanner);
 	if (project->configure_token == NULL)
 	{

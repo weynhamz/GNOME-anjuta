@@ -242,12 +242,12 @@ amp_am_scanner_include (AmpAmScanner *scanner, AnjutaToken *name)
 	gchar *filename;
 
 	filename = anjuta_token_evaluate (name);
-	g_message ("read include =%s=", filename);
+	//g_message ("read include =%s=", filename);
 	file = g_file_resolve_relative_path (anjuta_token_stream_get_current_directory (scanner->stream), filename);
 	g_free (filename);
 	include = anjuta_token_file_new (file);
 	token = anjuta_token_file_load (include, NULL);
-	g_message ("read file =%s= arg %p", g_file_get_path (file), token);
+	//g_message ("read file =%s= arg %p", g_file_get_path (file), token);
 	amp_am_scanner_parse_token (scanner, token, file, NULL);
 	g_object_unref (file);
 }
