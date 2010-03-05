@@ -36,6 +36,7 @@
                 <child>
                   <object class="GtkVBox" id="vbox1111">
                     <property name="visible">True</property>
+                    <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkTable" id="table15">
                         <property name="visible">True</property>
@@ -171,6 +172,7 @@
                           <object class="GtkVBox" id="vbox1120">
                             <property name="visible">True</property>
                             <property name="border_width">5</property>
+                            <property name="orientation">vertical</property>
                             <property name="spacing">5</property>
                             <child>
                               <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:sourceview.syntax.highlight">
@@ -218,7 +220,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:sourceview.autocomplete">
+                              <object class="GtkCheckButton" id="preferences_toggle:bool:0:0:sourceview.autocomplete">
                                 <property name="label" translatable="yes">Enable autocompletion for document words</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
@@ -263,6 +265,7 @@
                 <child>
                   <object class="GtkVBox" id="vbox32">
                     <property name="visible">True</property>
+                    <property name="orientation">vertical</property>
                     <property name="spacing">5</property>
                     <child>
                       <object class="GtkFrame" id="frame2">
@@ -274,6 +277,7 @@
                           <object class="GtkVBox" id="vbox2">
                             <property name="visible">True</property>
                             <property name="border_width">5</property>
+                            <property name="orientation">vertical</property>
                             <property name="spacing">5</property>
                             <child>
                               <object class="GtkCheckButton" id="preferences_toggle:bool:0:0:sourceview.currentline.highlight">
@@ -511,6 +515,7 @@
                       <object class="GtkVBox" id="vbox1">
                         <property name="visible">True</property>
                         <property name="border_width">5</property>
+                        <property name="orientation">vertical</property>
                         <child>
                           <object class="GtkComboBox" id="combo_styles">
                             <property name="visible">True</property>
