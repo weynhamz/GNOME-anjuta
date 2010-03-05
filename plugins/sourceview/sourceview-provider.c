@@ -115,8 +115,7 @@ sourceview_provider_init (SourceviewProvider *object)
 static void
 sourceview_provider_dispose (GObject* obj)
 {
-	SourceviewProvider* prov = SOURCEVIEW_PROVIDER(obj);
-	g_object_unref (prov->iprov);
+
 }
 
 static void
@@ -134,7 +133,6 @@ GtkSourceCompletionProvider* sourceview_provider_new (Sourceview* sv,
 	SourceviewProvider* prov = SOURCEVIEW_PROVIDER(obj);
 	prov->sv = sv;
 	prov->iprov = iprov;
-	g_object_ref (prov->iprov);
 	return GTK_SOURCE_COMPLETION_PROVIDER(obj);
 }
 
