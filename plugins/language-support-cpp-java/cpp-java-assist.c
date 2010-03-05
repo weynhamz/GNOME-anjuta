@@ -786,11 +786,58 @@ cpp_java_assist_populate (IAnjutaProvider* self, IAnjutaIterable* cursor, GError
  * @iter: cursor position when proposal was activated
  * @data: Data assigned to the completion object
  * @e: Error population
+ *
+ * Called from the provider when the user activated a proposal
  */
 static void
 cpp_java_assist_activate (IAnjutaProvider* self, IAnjutaIterable* iter, gpointer data, GError** e)
 {
+	CppJavaAssist* assist = CPP_JAVA_ASSIST(self);
+	ProposalData *prop_data = data;
+	GString *assistance;
+	IAnjutaEditor *te;
+	gboolean add_space_after_func = FALSE;
+	gboolean add_brace_after_func = FALSE;
+				
+	g_return_if_fail (prop_data != NULL);
+	
+	assistance = g_string_new (prop_data->name);
+	
+	if (prop_data->is_func)
+	{
+		add_space_after_func =
+			anjuta_preferences_get_bool_with_default (assist->priv->preferences,
+													 PREF_AUTOCOMPLETE_SPACE_AFTER_FUNC,
+													 TRUE);
+		add_brace_after_func =
+			anjuta_preferences_get_bool_with_default (assist->priv->preferences,
+													 PREF_AUTOCOMPLETE_BRACE_AFTER_FUNC,
+													 TRUE);
+		if (add_space_after_func)
+			g_string_append (assistance, " ");
+		
+		if (add_brace_after_func)
+			g_string_append (assistance, "(");
+	}
+	
+	te = IANJUTA_EDITOR (assist->priv->iassist);
+		
+	ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (te), NULL);
+	
+	ianjuta_editor_selection_set (IANJUTA_EDITOR_SELECTION (te),
+	                              assist->priv->start_iter, iter, FALSE, NULL);
+	ianjuta_editor_selection_replace (IANJUTA_EDITOR_SELECTION (te),
+	                                  assistance->str, -1, NULL);
 
+	ianjuta_document_end_undo_action (IANJUTA_DOCUMENT (te), NULL);
+
+#if 0
+	/* Show calltip if we completed function */
+	if (add_brace_after_func)
+		cpp_java_assist_calltip (assist, TRUE, FALSE);
+#endif
+	
+	g_string_free (assistance, TRUE);
 }
 
 /**
