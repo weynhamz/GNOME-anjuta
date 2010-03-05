@@ -908,9 +908,6 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 {
 	SymbolDBPlugin *sdb_plugin;
 
-	if (!IANJUTA_IS_EDITOR (data))
-		return;
-	
 	sdb_plugin = (SymbolDBPlugin *) plugin;
 	
 	DEBUG_PRINT ("%s", "value_removed_current_editor ()");
