@@ -97,6 +97,13 @@ sourceview_provider_activate_proposal (GtkSourceCompletionProvider* provider,
 	return TRUE;
 }
 
+static gint
+sourceview_provider_get_priority (GtkSourceCompletionProvider* provider)
+{
+	/* Always the highest priority */
+	return G_MAXINT32;
+}
+
 static void
 sourceview_provider_iface_init (GtkSourceCompletionProviderIface* provider)
 {
@@ -104,6 +111,7 @@ sourceview_provider_iface_init (GtkSourceCompletionProviderIface* provider)
 	provider->populate = sourceview_provider_populate;
 	provider->get_start_iter = sourceview_provider_get_start_iter;
 	provider->activate_proposal = sourceview_provider_activate_proposal;
+	provider->get_priority = sourceview_provider_get_priority;
 }
 
 static void
