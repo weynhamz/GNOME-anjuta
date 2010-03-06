@@ -912,7 +912,8 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 	
 	DEBUG_PRINT ("%s", "value_removed_current_editor ()");
 	/* let's remove the timeout for symbols refresh */
-	g_source_remove (sdb_plugin->buf_update_timeout_id);
+	if (sdb_plugin->buf_update_timeout_id)
+		g_source_remove (sdb_plugin->buf_update_timeout_id);
 	sdb_plugin->buf_update_timeout_id = 0;
 	sdb_plugin->need_symbols_update = FALSE;
 	
