@@ -278,10 +278,8 @@ static void
 cpp_java_assist_update_pre_word (CppJavaAssist* assist, const gchar* pre_word)
 {
 	g_free (assist->priv->pre_word);
-	if (pre_word)
-	{
-		assist->priv->pre_word = g_strdup (pre_word);
-	}
+	if (pre_word == NULL) pre_word = "";
+	assist->priv->pre_word = g_strdup (pre_word);
 }
 
 /**
