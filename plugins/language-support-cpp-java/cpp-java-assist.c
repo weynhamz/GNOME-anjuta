@@ -972,7 +972,7 @@ cpp_java_assist_get_scope_context (IAnjutaEditor* editor,
 								   const gchar *scope_operator,
 								   IAnjutaIterable *iter)
 {
-	IAnjutaIterable* end;
+	IAnjutaIterable* end;	
 	gchar ch, *scope_chars = NULL;
 	gboolean out_of_range = FALSE;
 	gboolean scope_chars_found = FALSE;
