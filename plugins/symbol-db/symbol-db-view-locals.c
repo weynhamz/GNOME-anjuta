@@ -699,9 +699,8 @@ add_new_waiting_for (SymbolDBViewLocals *dbvl, gint parent_symbol_id,
 	{
 		/* no lists already set. Create one. */
 		GSList *slist;					
-		slist = g_slist_alloc ();			
 				
-		slist = g_slist_prepend (slist, wfs);
+		slist = g_slist_prepend ((GSList *)NULL, wfs);
 					
 		/*DEBUG_PRINT ("add_new_waiting_for (): NEW adding to "
 					 "waiting_for [%d]", parent_symbol_id);*/
@@ -1131,7 +1130,7 @@ on_symbol_removed (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 	g_return_if_fail (dbvl != NULL);
 	priv = dbvl->priv;
 
-	if (priv->display_nothing)
+	if (priv->display_nothing || (priv->nodes_displayed == NULL))
 	{
 		return;
 	}
@@ -1163,7 +1162,7 @@ on_symbol_scope_updated (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 	g_return_if_fail (dbvl != NULL);
 	priv = dbvl->priv;
 
-	if (priv->display_nothing)
+	if (priv->display_nothing || (priv->nodes_displayed == NULL))
 	{
 		return;
 	}

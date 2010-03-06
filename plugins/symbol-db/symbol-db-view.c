@@ -375,9 +375,8 @@ add_new_waiting_for (SymbolDBView *dbv, gint parent_symbol_id,
 	{
 		/* no lists already set. Create one. */
 		GSList *slist;					
-		slist = g_slist_alloc ();			
 				
-		slist = g_slist_prepend (slist, wfs);
+		slist = g_slist_prepend ((GSList *)NULL, wfs);
 
 		/* add it to the binary tree. */
 		g_tree_insert (priv->waiting_for, GINT_TO_POINTER (parent_symbol_id), 
