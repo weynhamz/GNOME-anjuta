@@ -43,7 +43,6 @@
 #define PREF_AUTOCOMPLETE_SPACE_AFTER_FUNC "language.cpp.code.completion.space.after.func"
 #define PREF_AUTOCOMPLETE_BRACE_AFTER_FUNC "language.cpp.code.completion.brace.after.func"
 #define PREF_CALLTIP_ENABLE "language.cpp.code.calltip.enable"
-#define MAX_COMPLETIONS 10
 #define BRACE_SEARCH_LIMIT 500
 
 static void cpp_java_assist_iface_init(IAnjutaProviderIface* iface);
@@ -69,7 +68,22 @@ struct _CppJavaAssistPriv {
 	IAnjutaEditorTip* itip;
 
 	GCompletion *completion_cache;
-	
+
+	/* Calltips */
+	gboolean calltip_active;
+	gchar* calltip_context;
+	GList* tips;
+	IAnjutaIterable* calltip_iter;
+
+	gboolean async_calltip_file;
+	gboolean async_calltip_system;
+	gboolean async_calltip_project;
+
+	GCancellable* cancel_calltip_system;
+	GCancellable* cancel_calltip_file;
+	GCancellable* cancel_calltip_project;
+
+	/* Autocompletion */
 	gboolean member_completion;
 	gboolean autocompletion;
 	IAnjutaIterable* start_iter;
@@ -266,7 +280,6 @@ cpp_java_assist_update_pre_word (CppJavaAssist* assist, const gchar* pre_word)
 	g_free (assist->priv->pre_word);
 	if (pre_word)
 	{
-		DEBUG_PRINT ("Setting pre_word to %s", pre_word);
 		assist->priv->pre_word = g_strdup (pre_word);
 	}
 }
@@ -405,8 +418,6 @@ cpp_java_assist_parse_expression (CppJavaAssist* assist, IAnjutaIterable* iter, 
 		gchar *above_text;
 		IAnjutaIterable* start;
 
-		DEBUG_PRINT ("Pre word: %s Statement: %s", assist->priv->pre_word, stmt);
-
 		if (IANJUTA_IS_FILE (assist->priv->iassist))
 		{
 			GFile *file = ianjuta_file_get_file (IANJUTA_FILE (assist->priv->iassist), NULL);
@@ -430,7 +441,6 @@ cpp_java_assist_parse_expression (CppJavaAssist* assist, IAnjutaIterable* iter, 
 		/* the parser works even for the "Gtk::" like expressions, so it shouldn't be 
 		 * created a specific case to handle this.
 		 */
-		DEBUG_PRINT ("calling engine_parser_process_expression stmt: %s ", stmt);
 		res = engine_parser_process_expression (stmt,
 		                                        above_text,
 		                                        filename,
@@ -465,15 +475,15 @@ cpp_java_assist_create_completion_cache (CppJavaAssist* assist)
 static void
 cpp_java_assist_clear_completion_cache (CppJavaAssist* assist)
 {
+	g_cancellable_cancel (assist->priv->cancel_file);
+	g_cancellable_cancel (assist->priv->cancel_project);	
+	g_cancellable_cancel (assist->priv->cancel_system);
 	if (assist->priv->completion_cache)
 	{	
 		g_list_foreach (assist->priv->completion_cache->items, (GFunc) cpp_java_assist_proposal_free, NULL);
 		g_completion_free (assist->priv->completion_cache);
 	}
 	assist->priv->completion_cache = NULL;
-	g_cancellable_cancel (assist->priv->cancel_file);
-	g_cancellable_cancel (assist->priv->cancel_project);	
-	g_cancellable_cancel (assist->priv->cancel_system);
 }
 
 /**
@@ -492,8 +502,18 @@ cpp_java_assist_populate_real (CppJavaAssist* assist, gboolean finished)
 	GList* proposals = g_completion_complete (assist->priv->completion_cache,
 	                                          assist->priv->pre_word,
 	                                          &prefix);
-	DEBUG_PRINT ("%d proposals match, prefix: %s", g_list_length (proposals), prefix);
-	g_free (prefix);
+	if (g_list_length (proposals) == 1)
+	{
+		IAnjutaEditorAssistProposal* proposal = proposals->data;
+		ProposalData* data = proposal->data;
+		if (g_str_equal (assist->priv->pre_word, data->name))
+		{
+			ianjuta_editor_assist_proposals (assist->priv->iassist,
+			                                 IANJUTA_PROVIDER(assist),
+			                                 NULL, finished, NULL);
+			return;
+		}
+	}
 
 	ianjuta_editor_assist_proposals (assist->priv->iassist,
 	                                 IANJUTA_PROVIDER(assist),
@@ -562,7 +582,6 @@ static void
 on_symbol_search_complete (gint search_id, IAnjutaIterable* symbols, CppJavaAssist* assist)
 {
 	GList* proposals = cpp_java_assist_create_completion_from_symbols (symbols);
-	DEBUG_PRINT ("Found %d symbols, adding!", g_list_length (proposals));
 	g_completion_add_items (assist->priv->completion_cache, proposals);
 	gboolean running = assist->priv->async_system || assist->priv->async_file ||
 		assist->priv->async_project;
@@ -709,6 +728,449 @@ cpp_java_assist_create_autocompletion_cache (CppJavaAssist* assist, IAnjutaItera
 	}
 }
 
+
+/**
+ * cpp_java_assist_create_calltips:
+ * @iter: List of symbols
+ * @merge: list of calltips to merge or NULL
+ *
+ * Create a list of Calltips (string) from a list of symbols
+ *
+ * A newly allocated GList* with newly allocated strings
+ */
+static GList*
+cpp_java_assist_create_calltips (IAnjutaIterable* iter, GList* merge)
+{
+	GList* tips = merge;
+	if (iter)
+	{
+		do
+		{
+			IAnjutaSymbol* symbol = IANJUTA_SYMBOL(iter);
+			const gchar* name = ianjuta_symbol_get_name(symbol, NULL);
+			if (name != NULL)
+			{
+				const gchar* args = ianjuta_symbol_get_args(symbol, NULL);
+				const gchar* rettype = ianjuta_symbol_get_returntype (symbol, NULL);
+				gchar* print_args;
+				gchar* separator;
+				gchar* white_name;
+				gint white_count = 0;
+
+				if (!rettype)
+					rettype = "";
+				else
+					white_count += strlen(rettype) + 1;
+				
+				white_count += strlen(name) + 1;
+				
+				white_name = g_strnfill (white_count, ' ');
+				separator = g_strjoin (NULL, ", \n", white_name, NULL);
+				
+				gchar** argv;
+				if (!args)
+					args = "()";
+				
+				argv = g_strsplit (args, ",", -1);
+				print_args = g_strjoinv (separator, argv);
+				
+				gchar* tip = g_strdup_printf ("%s %s %s", rettype, name, print_args);
+				
+				if (!g_list_find_custom (tips, tip, (GCompareFunc) strcmp))
+					tips = g_list_append (tips, tip);
+				
+				g_strfreev (argv);
+				g_free (print_args);
+				g_free (separator);
+				g_free (white_name);
+			}
+			else
+				break;
+		}
+		while (ianjuta_iterable_next (iter, NULL));
+	}
+	return tips;
+}
+
+/**
+ * on_calltip_search_complete:
+ * @search_id: id of this search
+ * @symbols: the returned symbols
+ * @assist: self
+ *
+ * Called by the async search method when it found calltips
+ */
+static void
+on_calltip_search_complete (gint search_id, IAnjutaIterable* symbols, CppJavaAssist* assist)
+{
+	assist->priv->tips = cpp_java_assist_create_calltips (symbols, assist->priv->tips);
+	gboolean running = !(assist->priv->async_calltip_system || assist->priv->async_calltip_file ||
+		assist->priv->async_calltip_project);
+
+	DEBUG_PRINT ("Calltip search finished with %d items", g_list_length (assist->priv->tips));
+	
+	if (!running && assist->priv->tips)
+	{
+		ianjuta_editor_tip_show (IANJUTA_EDITOR_TIP(assist->priv->itip), assist->priv->tips,
+		                         assist->priv->calltip_iter, 0,
+		                         NULL);
+	}
+	g_object_unref (symbols);
+}
+
+/**
+ * notify_system_calltips_finished:
+ * @notify: the notifycation object
+ * @assist: self
+ *
+ * Called when the system search was finished
+ */
+static void
+notify_system_calltips_finished (AnjutaAsyncNotify* notify, CppJavaAssist* assist)
+{
+	assist->priv->async_calltip_system = FALSE;
+}
+
+/**
+ * notify_file_calltips_finished:
+ * @notify: the notifycation object
+ * @assist: self
+ *
+ * Called when the file search was finished
+ */
+static void
+notify_file_calltips_finished (AnjutaAsyncNotify* notify, CppJavaAssist* assist)
+{
+	assist->priv->async_calltip_file = FALSE;
+}
+
+/**
+ * notify_project_calltips_finished:
+ * @notify: the notifycation object
+ * @assist: self
+ *
+ * Called when the file search was finished
+ */
+static void
+notify_project_calltips_finished (AnjutaAsyncNotify* notify, CppJavaAssist* assist)
+{
+	assist->priv->async_calltip_project = FALSE;
+}
+
+/**
+ * cpp_java_assist_query_calltip:
+ * @assist: self
+ * @call_context: name of method/function
+ *
+ * Starts an async query for the calltip
+ */
+static void
+cpp_java_assist_query_calltip (CppJavaAssist *assist, const gchar *call_context)
+{	
+	IAnjutaSymbolType types = 
+		IANJUTA_SYMBOL_TYPE_PROTOTYPE |
+		IANJUTA_SYMBOL_TYPE_FUNCTION |
+		IANJUTA_SYMBOL_TYPE_METHOD |
+		IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG;
+	IAnjutaSymbolField fields = 
+		IANJUTA_SYMBOL_FIELD_SIMPLE |
+		IANJUTA_SYMBOL_FIELD_TYPE |
+		IANJUTA_SYMBOL_FIELD_ACCESS |
+		IANJUTA_SYMBOL_FIELD_KIND;
+	AnjutaAsyncNotify* notify;
+	/* Search file */
+	if (IANJUTA_IS_FILE (assist->priv->itip))
+	{
+		GFile *file = ianjuta_file_get_file (IANJUTA_FILE (assist->priv->itip), NULL);
+
+
+		if (file != NULL)
+		{
+			notify = anjuta_async_notify_new();
+			g_signal_connect (notify, "finished", G_CALLBACK(notify_file_calltips_finished), assist);
+			assist->priv->async_calltip_file = TRUE;
+			g_cancellable_reset (assist->priv->cancel_calltip_file);
+			ianjuta_symbol_manager_search_file_async (assist->priv->isymbol_manager,
+			                                          types,
+			                                          TRUE, 
+			                                          fields,
+			                                          call_context, file, -1, -1,
+			                                          assist->priv->cancel_calltip_file,
+			                                          notify,
+			                                          (IAnjutaSymbolManagerSearchCallback) on_calltip_search_complete,
+			                                          assist,
+			                                          NULL);			
+			g_object_unref (file);
+		}
+	}
+
+	types &= ~IANJUTA_SYMBOL_TYPE_FUNCTION;
+	/* Search Project */
+	notify = anjuta_async_notify_new();
+	g_signal_connect (notify, "finished", G_CALLBACK(notify_project_calltips_finished), assist);
+	assist->priv->async_calltip_project = TRUE;
+	g_cancellable_reset (assist->priv->cancel_calltip_file);
+	ianjuta_symbol_manager_search_project_async (assist->priv->isymbol_manager,
+	                                             types,
+	                                             TRUE, 
+	                                             fields,
+	                                             call_context, 
+	                                             IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC, -1, -1,
+	                                             assist->priv->cancel_calltip_project,
+	                                             notify,
+	                                             (IAnjutaSymbolManagerSearchCallback) on_calltip_search_complete,
+	                                             assist,
+	                                             NULL);
+	
+	/* Search system */
+	notify = anjuta_async_notify_new();
+	g_signal_connect (notify, "finished", G_CALLBACK(notify_system_calltips_finished), assist);
+	assist->priv->async_calltip_system = TRUE;
+	g_cancellable_reset (assist->priv->cancel_calltip_file);
+	ianjuta_symbol_manager_search_system_async (assist->priv->isymbol_manager,
+	                                            types,
+	                                            TRUE, 
+	                                            fields,
+	                                            call_context, 
+	                                            IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC, -1, -1,
+	                                            assist->priv->cancel_calltip_system,
+	                                            notify,
+	                                            (IAnjutaSymbolManagerSearchCallback) on_calltip_search_complete,
+	                                            assist,
+	                                            NULL);
+}
+
+/**
+ * cpp_java_assist_is_scope_context_character:
+ * @ch: character to check
+ *
+ * Returns: if the current character seperates a scope
+ */
+static gboolean
+cpp_java_assist_is_scope_context_character (gchar ch)
+{
+	if (g_ascii_isspace (ch))
+		return FALSE;
+	if (g_ascii_isalnum (ch))
+		return TRUE;
+	if (ch == '_' || ch == '.' || ch == ':' || ch == '>' || ch == '-')
+		return TRUE;
+	
+	return FALSE;
+}
+
+#define SCOPE_BRACE_JUMP_LIMIT 50
+
+/**
+ * cpp_java_assist_get_scope_context
+ * @editor: current editor
+ * @scope_operator: The scope operator to check for
+ * @iter: Current cursor position
+ *
+ * Find the scope context for calltips
+ */
+static gchar*
+cpp_java_assist_get_scope_context (IAnjutaEditor* editor,
+								   const gchar *scope_operator,
+								   IAnjutaIterable *iter)
+{
+	IAnjutaIterable* end;
+	gchar ch, *scope_chars = NULL;
+	gboolean out_of_range = FALSE;
+	gboolean scope_chars_found = FALSE;
+	
+	end = ianjuta_iterable_clone (iter, NULL);
+	ianjuta_iterable_next (end, NULL);
+	
+	ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);
+	
+	while (ch)
+	{
+		if (cpp_java_assist_is_scope_context_character (ch))
+		{
+			scope_chars_found = TRUE;
+		}
+		else if (ch == ')')
+		{
+			if (!cpp_java_util_jump_to_matching_brace (iter, ch, SCOPE_BRACE_JUMP_LIMIT))
+			{
+				out_of_range = TRUE;
+				break;
+			}
+		}
+		else
+			break;
+		if (!ianjuta_iterable_previous (iter, NULL))
+		{
+			out_of_range = TRUE;
+			break;
+		}		
+		ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);
+	}
+	if (scope_chars_found)
+	{
+		IAnjutaIterable* begin;
+		begin = ianjuta_iterable_clone (iter, NULL);
+		if (!out_of_range)
+			ianjuta_iterable_next (begin, NULL);
+		scope_chars = ianjuta_editor_get_text (editor, begin, end, NULL);
+		g_object_unref (begin);
+	}
+	g_object_unref (end);
+	return scope_chars;
+}
+
+/**
+ * cpp_java_assist_create_calltip_context:
+ * @assist: self
+ * @iter: current cursor position
+ *
+ * Searches for a calltip context
+ *
+ * Returns: name of the method to show a calltip for or NULL
+ */
+static gchar*
+cpp_java_assist_get_calltip_context (CppJavaAssist *assist,
+                                     IAnjutaIterable *iter)
+{
+	gchar ch;
+	gchar *context = NULL;	
+	
+	ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);
+	if (ch == ')')
+	{
+		if (!cpp_java_util_jump_to_matching_brace (iter, ')', -1))
+			return NULL;
+		if (!ianjuta_iterable_previous (iter, NULL))
+			return NULL;
+	}
+	if (ch != '(')
+	{
+		if (!cpp_java_util_jump_to_matching_brace (iter, ')',
+												   BRACE_SEARCH_LIMIT))
+			return NULL;
+	}
+	
+	/* Skip white spaces */
+	while (ianjuta_iterable_previous (iter, NULL)
+		&& g_ascii_isspace (ianjuta_editor_cell_get_char
+								(IANJUTA_EDITOR_CELL (iter), 0, NULL)));
+
+	context = cpp_java_assist_get_scope_context
+		(IANJUTA_EDITOR (assist->priv->itip), "(", iter);
+
+	/* Point iter to the first character of the scope to align calltip correctly */
+	ianjuta_iterable_next (iter, NULL);
+	
+	return context;
+}
+
+/**
+ * cpp_java_assist_create_calltip_context:
+ * @assist: self
+ * @call_context: The context (method/function name)
+ * @position: iter where to show calltips
+ *
+ * Create the calltip context
+ */
+static void
+cpp_java_assist_create_calltip_context (CppJavaAssist* assist,
+                                        const gchar* call_context,
+                                        IAnjutaIterable* position)
+{
+	assist->priv->calltip_context = g_strdup (call_context);
+	assist->priv->calltip_iter = position;
+}
+
+/**
+ * cpp_java_assist_clear_calltip_context:
+ * @assist: self
+ *
+ * Clears the calltip context and brings it back into a save state
+ */
+static void
+cpp_java_assist_clear_calltip_context (CppJavaAssist* assist)
+{
+	g_cancellable_cancel (assist->priv->cancel_calltip_file);
+	g_cancellable_cancel (assist->priv->cancel_calltip_project);
+	g_cancellable_cancel (assist->priv->cancel_calltip_system);
+	
+	g_free (assist->priv->calltip_context);
+	assist->priv->calltip_context = NULL;
+	
+	g_list_foreach (assist->priv->tips, (GFunc) g_free, NULL);
+	g_list_free (assist->priv->tips);
+	assist->priv->tips = NULL;
+
+	if (assist->priv->calltip_iter)
+		g_object_unref (assist->priv->calltip_iter);
+	assist->priv->calltip_iter = NULL;
+}
+
+/**
+ * cpp_java_assist_calltip:
+ * @assist: self
+ * 
+ * Creates a calltip if there is something to show a tip for
+ * Calltips are queried async
+ *
+ * Returns: TRUE if a calltips was queried, FALSE otherwise
+ */
+
+static gboolean
+cpp_java_assist_calltip (CppJavaAssist *assist)
+{
+	IAnjutaEditor *editor;
+	IAnjutaIterable *iter;
+	
+	editor = IANJUTA_EDITOR (assist->priv->itip);
+	
+	iter = ianjuta_editor_get_position (editor, NULL);
+	ianjuta_iterable_previous (iter, NULL);
+	gchar *call_context =
+		cpp_java_assist_get_calltip_context (assist, iter);
+	if (call_context)
+	{
+		DEBUG_PRINT ("Searching calltip for: %s", call_context);
+		if (assist->priv->calltip_context &&
+		    g_str_equal (call_context, assist->priv->calltip_context))
+		{
+			/* Continue tip */
+			if (assist->priv->tips)
+			{
+				if (!ianjuta_editor_tip_visible (IANJUTA_EDITOR_TIP (editor), NULL))
+				{
+					ianjuta_editor_tip_show (IANJUTA_EDITOR_TIP (editor),
+					                         assist->priv->tips,
+					                         assist->priv->calltip_iter, 0, NULL);
+				}
+			}
+			g_free (call_context);
+			return TRUE;
+		}
+		else /* New tip */
+		{
+			if (ianjuta_editor_tip_visible (IANJUTA_EDITOR_TIP (editor), NULL))
+				ianjuta_editor_tip_cancel (IANJUTA_EDITOR_TIP (editor), NULL);
+			
+			cpp_java_assist_clear_calltip_context (assist);
+			cpp_java_assist_create_calltip_context (assist, call_context, iter);
+			cpp_java_assist_query_calltip (assist, call_context);
+			g_free (call_context);
+			return TRUE;
+		}
+	}
+	else
+	{
+		if (ianjuta_editor_tip_visible (IANJUTA_EDITOR_TIP (editor), NULL))
+			ianjuta_editor_tip_cancel (IANJUTA_EDITOR_TIP (editor), NULL);
+		cpp_java_assist_clear_calltip_context (assist);
+	}
+
+	g_object_unref (iter);
+	return FALSE;
+}
+
 /**
  * cpp_java_assist_populate:
  * @self: IAnjutaProvider object
@@ -731,6 +1193,16 @@ cpp_java_assist_populate (IAnjutaProvider* self, IAnjutaIterable* cursor, GError
 		                                 NULL, TRUE, NULL);
 		return;
 	}
+
+	/* Check for calltip */
+	if (assist->priv->itip && 
+	    anjuta_preferences_get_bool_with_default (assist->priv->preferences,
+	                                              PREF_CALLTIP_ENABLE,
+	                                              TRUE))
+	{	
+		assist->priv->calltip_active = cpp_java_assist_calltip (assist);
+			
+	}
 	
 	/* Check if completion was in progress */
 	if (assist->priv->member_completion || assist->priv->autocompletion)
@@ -738,7 +1210,6 @@ cpp_java_assist_populate (IAnjutaProvider* self, IAnjutaIterable* cursor, GError
 		IAnjutaIterable* start_iter = NULL;
 		g_assert (assist->priv->completion_cache != NULL);
 		gchar* pre_word = cpp_java_assist_get_pre_word (IANJUTA_EDITOR (assist->priv->iassist), cursor, &start_iter);
-		DEBUG_PRINT ("Completion is in progress");
 		if (pre_word && g_str_has_prefix (pre_word, assist->priv->pre_word))
 		{
 			/* Great, we just continue the current completion */
@@ -760,13 +1231,11 @@ cpp_java_assist_populate (IAnjutaProvider* self, IAnjutaIterable* cursor, GError
 	if (cpp_java_assist_create_member_completion_cache (assist, cursor))
 	{
 		assist->priv->member_completion = TRUE;
-		DEBUG_PRINT ("Creating member completion");
 		return;
 	}
 	else if (cpp_java_assist_create_autocompletion_cache (assist, cursor))
 	{
 		assist->priv->autocompletion = TRUE;
-		DEBUG_PRINT ("Creating autocompletion");
 		return;
 	}		
 	/* Nothing to propose */
@@ -824,19 +1293,30 @@ cpp_java_assist_activate (IAnjutaProvider* self, IAnjutaIterable* iter, gpointer
 		
 	ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (te), NULL);
 	
-	ianjuta_editor_selection_set (IANJUTA_EDITOR_SELECTION (te),
-	                              assist->priv->start_iter, iter, FALSE, NULL);
-	ianjuta_editor_selection_replace (IANJUTA_EDITOR_SELECTION (te),
-	                                  assistance->str, -1, NULL);
-
+	if (ianjuta_iterable_compare(iter, assist->priv->start_iter, NULL) != 0)
+	{
+		ianjuta_editor_selection_set (IANJUTA_EDITOR_SELECTION (te),
+									  assist->priv->start_iter, iter, FALSE, NULL);
+		ianjuta_editor_selection_replace (IANJUTA_EDITOR_SELECTION (te),
+										  assistance->str, -1, NULL);
+	}
+	else
+	{
+		ianjuta_editor_insert (te, iter, assistance->str, -1, NULL);
+	}
 	ianjuta_document_end_undo_action (IANJUTA_DOCUMENT (te), NULL);
 
-#if 0
 	/* Show calltip if we completed function */
 	if (add_brace_after_func)
-		cpp_java_assist_calltip (assist, TRUE, FALSE);
-#endif
-	
+	{
+		/* Check for calltip */
+		if (assist->priv->itip && 
+		    anjuta_preferences_get_bool_with_default (assist->priv->preferences,
+		                                              PREF_CALLTIP_ENABLE,
+		                                              TRUE))	
+			assist->priv->calltip_active = cpp_java_assist_calltip (assist);
+
+	}	
 	g_string_free (assistance, TRUE);
 }
 
@@ -851,7 +1331,6 @@ static IAnjutaIterable*
 cpp_java_assist_get_start_iter (IAnjutaProvider* provider, GError** e)
 {
 	CppJavaAssist* assist = CPP_JAVA_ASSIST (provider);
-	DEBUG_PRINT ("Start iter: %d", ianjuta_iterable_get_position(assist->priv->start_iter, NULL));
 	return assist->priv->start_iter;
 }
 
@@ -890,16 +1369,12 @@ cpp_java_assist_install (CppJavaAssist *assist, IAnjutaEditor *ieditor)
 		assist->priv->iassist = NULL;
 	}
 
-#if 0
 	if (IANJUTA_IS_EDITOR_TIP (ieditor))
 	{
 		assist->priv->itip = IANJUTA_EDITOR_TIP (ieditor);
 	
-		g_signal_connect (IANJUTA_EDITOR_TIP (ieditor), "char-added",
-						  G_CALLBACK (on_editor_char_added), assist);
 	}
 	else
-#endif
 	{
 		assist->priv->itip = NULL;
 	}
@@ -916,14 +1391,7 @@ cpp_java_assist_uninstall (CppJavaAssist *assist)
 {
 	g_return_if_fail (assist->priv->iassist != NULL);
 
-	DEBUG_PRINT ("uninstall called");
-
-#if 0
-	g_signal_handlers_disconnect_by_func (assist->priv->iassist, G_CALLBACK (on_editor_char_added), assist);
-#endif
-
 	ianjuta_editor_assist_remove (assist->priv->iassist, IANJUTA_PROVIDER(assist), NULL);
-
 	assist->priv->iassist = NULL;
 }
 
@@ -931,9 +1399,12 @@ static void
 cpp_java_assist_init (CppJavaAssist *assist)
 {
 	assist->priv = g_new0 (CppJavaAssistPriv, 1);
+	assist->priv->cancel_calltip_file = g_cancellable_new();
+	assist->priv->cancel_calltip_project = g_cancellable_new();
+	assist->priv->cancel_calltip_system = g_cancellable_new();
 	assist->priv->cancel_file = g_cancellable_new();
 	assist->priv->cancel_project = g_cancellable_new();
-	assist->priv->cancel_system = g_cancellable_new();	
+	assist->priv->cancel_system = g_cancellable_new();
 }
 
 static void
@@ -949,6 +1420,9 @@ cpp_java_assist_finalize (GObject *object)
 		assist->priv->calltip_context = NULL;
 	}
 #endif
+	g_object_unref (assist->priv->cancel_calltip_file);
+	g_object_unref (assist->priv->cancel_calltip_project);
+	g_object_unref (assist->priv->cancel_calltip_system);
 	g_object_unref (assist->priv->cancel_file);
 	g_object_unref (assist->priv->cancel_project);
 	g_object_unref (assist->priv->cancel_system);		
