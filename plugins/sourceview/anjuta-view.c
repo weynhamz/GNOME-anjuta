@@ -683,17 +683,21 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
       case GDK_Down:
       case GDK_Page_Up:
       case GDK_Page_Down:
-		if (assist_tip)
-		{
-	        gtk_widget_destroy (GTK_WIDGET(assist_tip));
-	        break;
-		}
-	  break;
-	  case GDK_F7:
-	  	/* F7 is used to toggle cursor visibility but we rather like to
-	  	 * use it as shortcut for building (#611204)
-	  	 */
-	  	return FALSE;
+				if (assist_tip)
+				{
+					gtk_widget_destroy (GTK_WIDGET(assist_tip));
+					break;
+				}
+				break;
+			case GDK_F7:
+				/* F7 is used to toggle cursor visibility but we rather like to
+				 * use it as shortcut for building (#611204)
+				 */
+				return FALSE;
+			case GDK_Return:
+				/* Ctrl-Return is used for autocompletion */
+				if (event->state == GDK_CONTROL_MASK)
+					return FALSE;
 	}
 	return (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
 }
