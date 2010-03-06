@@ -1148,7 +1148,7 @@ on_system_scan_package_end (SymbolDBEngine *dbe, const gchar *package,
 	
 	DEBUG_PRINT ("******************** END () [%s]", package);
 	
-	/* hide the progress bar */
+	/* hide the progress bar */	
 	gtk_widget_hide (sdb_plugin->progress_bar_system);
 	
 	sdb_plugin->files_count_system_done = 0;
@@ -1188,7 +1188,7 @@ on_system_single_file_scan_end (SymbolDBEngine *dbe, gpointer data)
 	gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (sdb_plugin->progress_bar_system),
 								   fraction);
 	gtk_progress_bar_set_text (GTK_PROGRESS_BAR (sdb_plugin->progress_bar_system), message);
-	gtk_widget_show (sdb_plugin->progress_bar_system);
+
 	g_free (message);	
 }
 
