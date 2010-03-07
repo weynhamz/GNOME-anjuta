@@ -94,7 +94,7 @@ add_entry (AmpProject *project, AnjutaProjectNode *node, AnjutaProjectPropertyIt
 	{
 	case ANJUTA_PROJECT_PROPERTY_STRING:
 		entry = gtk_entry_new ();
-		gtk_entry_set_text (GTK_ENTRY (entry), info->value);
+		gtk_entry_set_text (GTK_ENTRY (entry), info->value != NULL ? info->value : "");
 		break;
 	case ANJUTA_PROJECT_PROPERTY_BOOLEAN:
 		entry = gtk_check_button_new ();
@@ -147,7 +147,6 @@ add_entry (AmpProject *project, AnjutaProjectNode *node, AnjutaProjectPropertyIt
 	default:
 		return;
 	}		
-	gtk_misc_set_alignment (GTK_MISC (entry), 0, -1);
 	gtk_widget_show (entry);
 	gtk_table_attach (GTK_TABLE (table), entry, 1, 2, *position, *position+1,
 			  GTK_FILL | GTK_EXPAND, GTK_FILL, 5, 3);
