@@ -69,7 +69,8 @@ sourceview_cell_finalize(GObject *object)
 {
 	SourceviewCell *cobj;
 	cobj = SOURCEVIEW_CELL(object);
-	
+
+	gtk_text_buffer_delete_mark (cobj->priv->buffer, cobj->priv->mark);
 	g_slice_free(SourceviewCellPrivate, cobj->priv);
 	G_OBJECT_CLASS(sourceview_cell_parent_class)->finalize(object);
 }
