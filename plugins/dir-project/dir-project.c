@@ -131,28 +131,6 @@ static GObject *parent_class;
 /* Helper functions
  *---------------------------------------------------------------------------*/
 
-static void
-error_set (GError **error, gint code, const gchar *message)
-{
-        if (error != NULL) {
-                if (*error != NULL) {
-                        gchar *tmp;
-
-                        /* error already created, just change the code
-                         * and prepend the string */
-                        (*error)->code = code;
-                        tmp = (*error)->message;
-                        (*error)->message = g_strconcat (message, "\n\n", tmp, NULL);
-                        g_free (tmp);
-
-                } else {
-                        *error = g_error_new_literal (IANJUTA_PROJECT_ERROR,
-                                                      code,
-                                                      message);
-                }
-        }
-}
-
 /*
  * File monitoring support --------------------------------
  * FIXME: review these
@@ -283,19 +261,6 @@ dir_group_free (DirGroup *node)
 
 /* Target objects
  *---------------------------------------------------------------------------*/
-
-static DirTarget*
-dir_target_new (const gchar *name, AnjutaProjectTargetType type)
-{
-    DirTargetData *target = NULL;
-
-	target = g_slice_new0(DirTargetData); 
-	target->base.node.type = ANJUTA_PROJECT_TARGET;
-	target->base.name = g_strdup (name);
-	target->base.type = type;
-
-    return g_node_new (target);
-}
 
 static void
 dir_target_free (DirTarget *node)

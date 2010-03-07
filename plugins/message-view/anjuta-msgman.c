@@ -143,6 +143,7 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 	
 	page->label = gtk_label_new (name);
 	gtk_misc_set_alignment (GTK_MISC(page->label), 0.0, 0.5);
+	gtk_label_set_ellipsize (GTK_LABEL(page->label), PANGO_ELLIPSIZE_END);
 	box = gtk_hbox_new (FALSE, 0);
 	gtk_box_set_spacing (GTK_BOX (box), 5);
 	if (pixmap  && strlen(pixmap))
@@ -186,7 +187,7 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 	gtk_container_add (GTK_CONTAINER (page->button), box);
 
 	page->box = gtk_hbox_new (FALSE, 0);
-	gtk_box_pack_start (GTK_BOX(page->box), page->button, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX(page->box), page->button, TRUE, TRUE, 0);
 	gtk_box_pack_start (GTK_BOX(page->box), page->close_button, FALSE, FALSE, 0);
 
 	page->frame = gtk_frame_new (NULL);
@@ -418,7 +419,7 @@ anjuta_msgman_append_view (AnjutaMsgman * msgman, GtkWidget *mv,
 
 	page_num = gtk_notebook_append_page (GTK_NOTEBOOK (msgman), mv, NULL);
 
-	gtk_box_pack_start (GTK_BOX(msgman->priv->hbox), page->frame, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX(msgman->priv->hbox), page->frame, TRUE, TRUE, 0);
 	
 	g_signal_connect (G_OBJECT (mv), "destroy",
 					  G_CALLBACK (on_message_view_destroy), msgman);

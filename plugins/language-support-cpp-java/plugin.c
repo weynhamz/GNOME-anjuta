@@ -1,4 +1,4 @@
-/* -*- Mode:bosys C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
     plugin.c
     Copyright (C) 2000 Naba Kumar
@@ -2008,30 +2008,54 @@ cpp_java_plugin_class_init (GObjectClass *klass)
 	klass->dispose = cpp_java_plugin_dispose;
 }
 
+#define PREF_WIDGET_SPACE "preferences_toggle:bool:1:1:language.cpp.code.completion.space.after.func"
+#define PREF_WIDGET_BRACE "preferences_toggle:bool:1:1:language.cpp.code.completion.brace.after.func"
+#define PREF_WIDGET_AUTO "preferences_toggle:bool:1:1:language.cpp.code.completion.enable"
+
+static void
+on_autocompletion_toggled (GtkToggleButton* button,
+                           GtkBuilder* bxml)
+{
+	GtkWidget* widget;
+	gboolean sensitive = gtk_toggle_button_get_active (button);
+
+	widget = GTK_WIDGET (gtk_builder_get_object (bxml, PREF_WIDGET_SPACE));
+	gtk_widget_set_sensitive (widget, sensitive);
+	widget = GTK_WIDGET (gtk_builder_get_object (bxml, PREF_WIDGET_BRACE));
+	gtk_widget_set_sensitive (widget, sensitive);
+}
+
 static void
 ipreferences_merge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
 					GError** e)
 {
 	GError* error = NULL;
-	GtkBuilder* bxml = gtk_builder_new ();
+	CppJavaPlugin* plugin = ANJUTA_PLUGIN_CPP_JAVA (ipref);
+	plugin->bxml = gtk_builder_new ();
+	GtkWidget* toggle;
 		
 	/* Add preferences */
-	if (!gtk_builder_add_from_file (bxml, PREFS_BUILDER, &error))
+	if (!gtk_builder_add_from_file (plugin->bxml, PREFS_BUILDER, &error))
 	{
 		g_warning ("Couldn't load builder file: %s", error->message);
 		g_error_free (error);
 	}
 	anjuta_preferences_add_from_builder (prefs,
-								 bxml, "preferences", _("C/C++/Java/Vala"),
+								 plugin->bxml, "preferences", _("C/C++/Java/Vala"),
 								 ICON_FILE);
-	g_object_unref (bxml);
+	toggle = GTK_WIDGET (gtk_builder_get_object (plugin->bxml, PREF_WIDGET_AUTO));
+	g_signal_connect (toggle, "toggled", G_CALLBACK (on_autocompletion_toggled),
+	                  plugin->bxml);
+	on_autocompletion_toggled (GTK_TOGGLE_BUTTON (toggle), plugin->bxml);
 }
 
 static void
 ipreferences_unmerge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
 					  GError** e)
 {
+	CppJavaPlugin* plugin = ANJUTA_PLUGIN_CPP_JAVA (ipref);
 	anjuta_preferences_remove_page(prefs, _("C/C++/Java/Vala"));
+	g_object_unref (plugin->bxml);
 }
 
 static void

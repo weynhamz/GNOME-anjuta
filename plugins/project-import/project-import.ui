@@ -76,6 +76,7 @@
                                   <object class="GtkFileChooserButton" id="source_dir_button">
                                     <property name="visible">True</property>
                                     <property name="action">select-folder</property>
+                                    <property name="create_folders">False</property>
                                   </object>
                                 </child>
                               </object>

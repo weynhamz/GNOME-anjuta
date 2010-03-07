@@ -550,7 +550,7 @@ sdb_view_search_dispose (GObject * obj)
 	SymbolDBViewSearch *search = SYMBOL_DB_VIEW_SEARCH (obj);
 	SymbolDBViewSearchPriv *priv = search->priv;
 	
-	DEBUG_PRINT("%s", "Destroying symbolsearch");
+	/*DEBUG_PRINT("sdb_view_search_dispose ");*/
 
 	if (priv->entry)
 		g_signal_handlers_disconnect_by_func (G_OBJECT(priv->entry),
@@ -591,7 +591,7 @@ sdb_view_search_dispose (GObject * obj)
 	if (priv->hitlist)
 		priv->hitlist = NULL;
 	
-	G_OBJECT_CLASS (parent_class)->dispose (obj);	
+	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
 

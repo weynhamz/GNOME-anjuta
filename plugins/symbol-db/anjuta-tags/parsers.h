@@ -15,6 +15,7 @@
 #define _PARSERS_H
 
 /* Add the name of any new parser definition function here */
+#ifndef ENABLE_VALA
 #define PARSER_LIST \
 	AntParser, \
 	AsmParser, \
@@ -58,6 +59,53 @@
 	VhdlParser, \
 	VimParser, \
 	YaccParser
+#else
+#define PARSER_LIST \
+	AntParser, \
+	AsmParser, \
+	AspParser, \
+	AwkParser, \
+	BasicParser, \
+	BetaParser, \
+	CParser, \
+	CppParser, \
+	CsharpParser, \
+	CobolParser, \
+	DosBatchParser, \
+	EiffelParser, \
+	ErlangParser, \
+	FlexParser, \
+	FortranParser, \
+	GenieParser, \
+	GirParser,  \
+	HtmlParser, \
+	JavaParser, \
+	JavaScriptParser, \
+	LispParser, \
+	LuaParser, \
+	MakefileParser, \
+	MatLabParser, \
+	OcamlParser, \
+	PascalParser, \
+	PerlParser, \
+	PhpParser, \
+	PythonParser, \
+	RexxParser, \
+	RubyParser, \
+	SchemeParser, \
+	ShParser, \
+	SlangParser, \
+	SmlParser, \
+	SqlParser, \
+	TclParser, \
+	TexParser, \
+	ValaParse, \
+	VeraParser, \
+	VerilogParser, \
+	VhdlParser, \
+	VimParser, \
+	YaccParser
+#endif
 
 #endif  /* _PARSERS_H */
 

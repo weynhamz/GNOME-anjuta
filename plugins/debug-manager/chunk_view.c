@@ -78,7 +78,7 @@ dma_chunk_view_move_cursor (GtkTextView *text_view,
 	GtkTextBuffer *buffer;
 	GtkTextIter cur;
 	gint line;
-	gdouble value, step_increment;
+	gdouble value = 0, step_increment;
 	
 	switch (step)
 	{

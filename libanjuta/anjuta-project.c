@@ -468,7 +468,7 @@ anjuta_project_group_get_node_from_file (const AnjutaProjectGroup *root, GFile *
 	GFile *data;
 	
 	data = directory;
-	g_node_traverse	(root, G_PRE_ORDER, G_TRAVERSE_ALL, -1, anjuta_project_group_compare, &data);
+	g_node_traverse	((GNode *)root, G_PRE_ORDER, G_TRAVERSE_ALL, -1, anjuta_project_group_compare, &data);
 
 	return (data == directory) ? NULL : (AnjutaProjectNode *)data;
 }
@@ -508,7 +508,7 @@ anjuta_project_target_get_node_from_name (const AnjutaProjectGroup *parent, cons
 	const gchar *data;
 	
 	data = name;
-	g_node_traverse	(parent, G_PRE_ORDER, G_TRAVERSE_ALL, 2, anjuta_project_target_compare, &data);
+	g_node_traverse	((GNode *)parent, G_PRE_ORDER, G_TRAVERSE_ALL, 2, anjuta_project_target_compare, &data);
 
 	return (data == name) ? NULL : (AnjutaProjectTarget *)data;
 }
@@ -536,7 +536,7 @@ anjuta_project_source_get_node_from_file (const AnjutaProjectNode *parent, GFile
 	GFile *data;
 	
 	data = file;
-	g_node_traverse	(parent, G_PRE_ORDER, G_TRAVERSE_ALL, 2, anjuta_project_source_compare, &data);
+	g_node_traverse	((GNode *)parent, G_PRE_ORDER, G_TRAVERSE_ALL, 2, anjuta_project_source_compare, &data);
 
 	return (data == file) ? NULL : (AnjutaProjectNode *)data;
 }

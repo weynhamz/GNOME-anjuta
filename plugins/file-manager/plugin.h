@@ -34,6 +34,8 @@
 typedef struct _AnjutaFileManager AnjutaFileManager;
 typedef struct _AnjutaFileManagerClass AnjutaFileManagerClass;
 
+extern GType file_manager_get_type (GTypeModule *module);
+
 struct _AnjutaFileManager {
 	AnjutaPlugin parent;
 	AnjutaFileView* fv;

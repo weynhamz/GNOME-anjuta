@@ -353,13 +353,20 @@ sdb_view_locals_finalize (GObject *object)
 	locals = SYMBOL_DB_VIEW_LOCALS (object);
 	priv = locals->priv;
 
-	/*DEBUG_PRINT ("%s", "finalizing symbol_db_view_locals ()");*/
+	DEBUG_PRINT ("%s", "finalizing symbol_db_view_locals ()");
 
 	symbol_db_view_locals_clear_cache (locals);
 	g_hash_table_destroy (priv->files_view_status);
 	g_free (priv);
 	
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (parent_class)->finalize (object);	
+}
+
+static void
+sdb_view_locals_dispose (GObject *object)
+{
+	/*DEBUG_PRINT ("sdb_view_locals_dispose ");*/
+	G_OBJECT_CLASS (parent_class)->dispose (object);
 }
 
 static void
@@ -369,6 +376,7 @@ sdb_view_locals_class_init (SymbolDBViewLocalsClass *klass)
 	parent_class = g_type_class_peek_parent (klass);
 
 	object_class->finalize = sdb_view_locals_finalize;
+	object_class->dispose = sdb_view_locals_dispose;
 }
 
 GType
@@ -691,9 +699,8 @@ add_new_waiting_for (SymbolDBViewLocals *dbvl, gint parent_symbol_id,
 	{
 		/* no lists already set. Create one. */
 		GSList *slist;					
-		slist = g_slist_alloc ();			
 				
-		slist = g_slist_prepend (slist, wfs);
+		slist = g_slist_prepend ((GSList *)NULL, wfs);
 					
 		/*DEBUG_PRINT ("add_new_waiting_for (): NEW adding to "
 					 "waiting_for [%d]", parent_symbol_id);*/
@@ -1123,7 +1130,7 @@ on_symbol_removed (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 	g_return_if_fail (dbvl != NULL);
 	priv = dbvl->priv;
 
-	if (priv->display_nothing)
+	if (priv->display_nothing || (priv->nodes_displayed == NULL))
 	{
 		return;
 	}
@@ -1155,7 +1162,7 @@ on_symbol_scope_updated (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 	g_return_if_fail (dbvl != NULL);
 	priv = dbvl->priv;
 
-	if (priv->display_nothing)
+	if (priv->display_nothing || (priv->nodes_displayed == NULL))
 	{
 		return;
 	}

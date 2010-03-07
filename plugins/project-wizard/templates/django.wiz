@@ -3,7 +3,7 @@
 	<_description>Python webproject using Django Web Framework</_description>
 	<icon>django-logo.png</icon>
 	<category>Python</category>
-	<required-program>django-admin.py</required-program>
+	<required-program>django-admin</required-program>
 </project-wizard>
 
 <page name="basic" _label="Django Project information" _description="General Project Information">

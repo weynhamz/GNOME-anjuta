@@ -240,6 +240,7 @@ iiter_set_position (IAnjutaIterable* iiter, gint position, GError** e)
 	SourceviewCell* cell = SOURCEVIEW_CELL(iiter);
 	GtkTextIter iter;
 	gtk_text_buffer_get_iter_at_mark (cell->priv->buffer, &iter, cell->priv->mark);
+	gtk_text_iter_set_offset(&iter, position);
 	gtk_text_buffer_move_mark (cell->priv->buffer, cell->priv->mark, &iter);
 	return TRUE;
 }

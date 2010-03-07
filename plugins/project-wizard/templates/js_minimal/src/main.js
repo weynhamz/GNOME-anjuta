@@ -1,5 +1,6 @@
-const GLib = imports.gi.DBus;
+const GLib = imports.gi.GLib;
 
 function start() {
-	log("Hello World!");
+        print("Hello World!");
 }
+

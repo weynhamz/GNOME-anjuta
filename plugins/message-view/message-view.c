@@ -894,7 +894,7 @@ static gboolean message_view_save_as(MessageView* view, gchar* uri)
 
 	ok = TRUE;
 	gtk_tree_model_get_iter_first (model, &iter);
-	while (gtk_tree_model_iter_next (model, &iter))
+	do
 	{
 		Message *message;
 
@@ -903,24 +903,24 @@ static gboolean message_view_save_as(MessageView* view, gchar* uri)
 		{
 			if (message->details && (strlen (message->details) > 0))
 			{
-				if (!g_output_stream_write (os, message->details, strlen (message->details), NULL, NULL))
+				if (g_output_stream_write (os, message->details, strlen (message->details), NULL, NULL) < 0)
 				{
 					ok = FALSE;
 				}
 			}
 			else
 			{
-				if (!g_output_stream_write (os, message->summary, strlen (message->summary), NULL, NULL))
+				if (g_output_stream_write (os, message->summary, strlen (message->summary), NULL, NULL) < 0)
 				{
 					ok = FALSE;
 				}
 			}
-			if (!g_output_stream_write (os, "\n", 1, NULL, NULL))
+			if (g_output_stream_write (os, "\n", 1, NULL, NULL) < 0)
 			{
 				ok = FALSE;
 			}
 		}
-	}
+	} while (gtk_tree_model_iter_next (model, &iter));
 	g_output_stream_close (os, NULL, NULL);
 	g_object_unref (os);
 	g_object_unref (file);

@@ -358,10 +358,17 @@ breakpoints_dbase_set_in_editor (BreakpointsDBase *bd, BreakpointItem *bi)
 	if (bi->handle != -1)
 	{
 		line = ianjuta_markable_location_from_handle (ed, bi->handle, NULL);
-
-		/* Remove old mark */
-		ianjuta_markable_unmark (ed, line, BREAKPOINT_ENABLED, NULL);
-		ianjuta_markable_unmark (ed, line, BREAKPOINT_DISABLED,NULL);
+		if (line != 0)
+		{
+			/* Remove old mark */
+			ianjuta_markable_unmark (ed, line, BREAKPOINT_ENABLED, NULL);
+			ianjuta_markable_unmark (ed, line, BREAKPOINT_DISABLED,NULL);
+		}
+		else
+		{
+			/* Mark is already removed, perhaps the file has been reloaded */
+			line = bi->bp.line;
+		}
 	}
 	else
 	{

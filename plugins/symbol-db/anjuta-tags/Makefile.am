@@ -10,6 +10,7 @@ AM_CPPFLAGS = \
 AM_CFLAGS =\
 	 -Wall \
 	 $(GLIB_CFLAGS) \
+	 $(VALA_CFLAGS) \
 	 $(LIBXML_CFLAGS)
 
 bin_PROGRAMS = anjuta-tags
@@ -27,6 +28,9 @@ LEXCCFLAGS = -Cr -o js_parser/lex.yy.c --yylineno --bison-bridge
 
 js_parser/lex.yy.c : ${LEXFILE}
 	${LEXER} ${LEXCCFLAGS} ${LEXFILE}
+
+ctags-visitor.c: ctags-visitor.vala
+	$(VALAC) -g -h ctags-vala.h -C --pkg vala-1.0 $^
 
 anjuta_tags_SOURCES = \
 	main.c        \
@@ -126,6 +130,14 @@ anjuta_tags_LDFLAGS = \
 
 anjuta_tags_LDADD = \
 		$(GLIB_LIBS) \
+		$(VALA_LIBS) \
 		$(LIBXML_LIBS)
 
-EXTRA_DIST = ${YACCFILE} ${LEXFILE}
+EXTRA_DIST = ${YACCFILE} ${LEXFILE} ctags-visitor.vala ctags-visitor.c ctags-vala.h
+
+if ENABLE_VALA
+anjuta_tags_SOURCES += vala.c ctags-visitor.c
+AM_CPPFLAGS += -DENABLE_VALA
+BUILT_SOURCES = ctags-visitor.c
+endif
+

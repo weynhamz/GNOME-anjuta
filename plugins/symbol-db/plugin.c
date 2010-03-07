@@ -908,14 +908,12 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 {
 	SymbolDBPlugin *sdb_plugin;
 
-	if (!IANJUTA_IS_EDITOR (data))
-		return;
-	
 	sdb_plugin = (SymbolDBPlugin *) plugin;
 	
 	DEBUG_PRINT ("%s", "value_removed_current_editor ()");
 	/* let's remove the timeout for symbols refresh */
-	g_source_remove (sdb_plugin->buf_update_timeout_id);
+	if (sdb_plugin->buf_update_timeout_id)
+		g_source_remove (sdb_plugin->buf_update_timeout_id);
 	sdb_plugin->buf_update_timeout_id = 0;
 	sdb_plugin->need_symbols_update = FALSE;
 	
@@ -1151,7 +1149,7 @@ on_system_scan_package_end (SymbolDBEngine *dbe, const gchar *package,
 	
 	DEBUG_PRINT ("******************** END () [%s]", package);
 	
-	/* hide the progress bar */
+	/* hide the progress bar */	
 	gtk_widget_hide (sdb_plugin->progress_bar_system);
 	
 	sdb_plugin->files_count_system_done = 0;
@@ -1191,7 +1189,7 @@ on_system_single_file_scan_end (SymbolDBEngine *dbe, gpointer data)
 	gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (sdb_plugin->progress_bar_system),
 								   fraction);
 	gtk_progress_bar_set_text (GTK_PROGRESS_BAR (sdb_plugin->progress_bar_system), message);
-	gtk_widget_show (sdb_plugin->progress_bar_system);
+
 	g_free (message);	
 }
 
@@ -2145,7 +2143,16 @@ on_scan_end_manager (SymbolDBEngine *dbe, gint process_id,
 				 "is_adding_element %d", sdb_plugin->is_offline_scanning,
 				 sdb_plugin->is_project_importing, sdb_plugin->is_project_updating,
 				 sdb_plugin->is_adding_element);
-				 
+
+	/* is the project still opened? */
+	if (sdb_plugin->project_opened == NULL)
+	{
+		/* just return, the project may have been closed while we were waiting for the
+		 * scanning to finish
+		 */
+		return;
+	}
+		
 	/**
  	 * perform some checks on some booleans. If they're all successfully passed
  	 * then activate the display of local view
@@ -2312,6 +2319,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	/* Create widgets */
 	sdb_plugin->dbv_main = gtk_vbox_new(FALSE, 5);
 	sdb_plugin->dbv_notebook = gtk_notebook_new();
+	gtk_notebook_set_show_border (GTK_NOTEBOOK (sdb_plugin->dbv_notebook), FALSE);
 	gtk_notebook_set_show_tabs (GTK_NOTEBOOK (sdb_plugin->dbv_notebook), FALSE);
 	sdb_plugin->dbv_hbox = gtk_hbox_new (FALSE, 1);
 
@@ -2342,6 +2350,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	                  sdb_plugin);
 
 	label = gtk_label_new (_("Symbols"));
+	gtk_misc_set_alignment (GTK_MISC (label), 0.0f, 0.5f);
 	gtk_label_set_ellipsize (GTK_LABEL (label),
 	                         PANGO_ELLIPSIZE_END);
 	gtk_box_pack_start (GTK_BOX(sdb_plugin->dbv_hbox), 
@@ -2613,8 +2622,11 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	}
 
 	/* destroy objects */
-	if (sdb_plugin->sdbe_project)
+	if (sdb_plugin->sdbe_project) 
+	{
+		DEBUG_PRINT ("Destroying project engine object. ");
 		g_object_unref (sdb_plugin->sdbe_project);
+	}
 	sdb_plugin->sdbe_project = NULL;
 
 	/* this must be done *before* destroying sdbe_globals */
@@ -2623,7 +2635,8 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	
 	g_free (sdb_plugin->current_scanned_package);
 	sdb_plugin->current_scanned_package = NULL;
-	
+
+	DEBUG_PRINT ("Destroying global engine object. ");
 	g_object_unref (sdb_plugin->sdbe_globals);
 	sdb_plugin->sdbe_globals = NULL;
 	
@@ -2670,8 +2683,6 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	anjuta_ui_unmerge (sdb_plugin->ui, sdb_plugin->merge_id);	
 	
 	/* Remove widgets: Widgets will be destroyed when dbv_main is removed */
-	g_object_unref (sdb_plugin->progress_bar_project);
-	g_object_unref (sdb_plugin->progress_bar_system);
 	anjuta_shell_remove_widget (plugin->shell, sdb_plugin->dbv_main, NULL);
 
 	sdb_plugin->root_watch_id = 0;
@@ -2694,7 +2705,7 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 static void
 symbol_db_finalize (GObject *obj)
 {
-	DEBUG_PRINT ("%s", "Symbol-DB finalize");
+	DEBUG_PRINT ("Symbol-DB finalize");
 	/* Finalization codes here */
 	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
@@ -2702,6 +2713,7 @@ symbol_db_finalize (GObject *obj)
 static void
 symbol_db_dispose (GObject *obj)
 {
+	DEBUG_PRINT ("Symbol-DB dispose");
 	/* Disposition codes */
 	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }

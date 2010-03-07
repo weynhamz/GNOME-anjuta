@@ -920,7 +920,6 @@ update_status (DocmanPlugin *plugin, IAnjutaEditor *te)
 		if (status == NULL)
 			return;
 		
-		zoom = anjuta_preferences_get_int (plugin->prefs, TEXT_ZOOM_FACTOR);
 		line = ianjuta_editor_get_lineno (te, NULL);
 		col = ianjuta_editor_get_column (te, NULL);
 			
@@ -934,7 +933,10 @@ update_status (DocmanPlugin *plugin, IAnjutaEditor *te)
 		}
 		
 		if (IANJUTA_IS_EDITOR_ZOOM(te))
+		{
+			zoom = anjuta_preferences_get_int (plugin->prefs, TEXT_ZOOM_FACTOR);
 			anjuta_status_set_default (status, _("Zoom"), "%d", zoom);
+		}
 		else
 			anjuta_status_set_default (status, _("Zoom"), NULL);
 		

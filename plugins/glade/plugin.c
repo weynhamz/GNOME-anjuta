@@ -927,18 +927,6 @@ update_actions (GladePlugin *plugin)
 static void
 update_prefs_page (GladePlugin *plugin);
 
-static gchar *
-claim_xml_string (xmlChar *str)
-{
-	gchar *new_str = NULL;
-
-
-	if (xmlStrcmp (str, BAD_CAST ("")) != 0)
-		new_str = g_strdup ((gchar *) str);
-	xmlFree (str);
-	return new_str;
-}
-
 static void
 glade_plugin_load_preferences (GladePlugin *plugin, xmlDocPtr xml_doc, xmlNodePtr node)
 {

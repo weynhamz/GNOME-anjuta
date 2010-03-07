@@ -65,7 +65,7 @@ on_shortcut_pressed (GtkWidget * window, GdkEventKey * event,
 	/* Plase note that this implementation is deprecated but
 	 * I could not figure out how to do this with GtkIMContext as 
 	 * proposed by the gtk docs */
-#warning FIXME: Deprecated
+/* FIXME: Deprecated */
 	if (event->length)
 		key = event->string[0];
 	else

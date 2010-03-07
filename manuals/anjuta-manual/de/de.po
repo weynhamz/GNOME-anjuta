@@ -1,11 +1,11 @@
 # German translatio of the Anjuta manual.
-# Mario Blättermann <mariobl@gnome.org>, 2009.
+# Mario Blättermann <mariobl@gnome.org>, 2009, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"POT-Creation-Date: 2009-03-21 11:54+0000\n"
-"PO-Revision-Date: 2009-03-21 19:14+0000\n"
+"Project-Id-Version: anjuta\n"
+"POT-Creation-Date: 2009-12-14 15:38+0000\n"
+"PO-Revision-Date: 2010-02-08 19:42+0100\n"
 "Last-Translator: Mario Blättermann <mariobl@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -95,6 +95,12 @@ msgid ""
 "GNOME Documentation Project, the names have been printed in caps or initial "
 "caps."
 msgstr ""
+"Bei vielen der von Firmen zur Unterscheidung ihrer Produkte und "
+"Dienstleistungen verwendeten Namen handelt es sich um Marken. An den Stellen, "
+"an denen derartige Namen in einer GNOME-Dokumentation vorkommen und wenn die "
+"Mitglieder des GNOME-Dokumentationsprojekts über diese Marken informiert "
+"wurden, sind die Namen in Großbuchstaben oder mit großen Anfangsbuchstaben "
+"geschrieben."
 
 #: C/anjuta-manual.xml:81(revnumber)
 msgid "Anjuta Manual 2.1.0"
@@ -144,6 +150,8 @@ msgid ""
 "The following screenshot illustrates some of the things you will find in "
 "Anjuta."
 msgstr ""
+"Im folgenden Bildschirmfoto sehen Sie einige Dinge, die Ihnen in Anjuta "
+"begegnen werden."
 
 #: C/anjuta-manual.xml:31(title) C/anjuta-manual.xml:33(screeninfo)
 msgid "Anjuta in action"
@@ -354,6 +362,12 @@ msgid ""
 "any unsaved documents. <application>Anjuta</application> will display a "
 "warning if you try to exit with unsaved documents still open."
 msgstr ""
+"Alle Einstellungen, einschließlich Fenstergrößen und -positionen, werden beim "
+"Beenden von <application>Anjuta</application> gespeichert. Eine "
+"Sitzungsverwaltung befindet sich noch in der Entwicklung, so dass Sie "
+"<application>Anjuta</application> nicht mit ungespeicherten Dokumenten "
+"beenden sollten. <application>Anjuta</application> wird Sie warnen, wenn Sie "
+"beenden wollen, während noch ungespeicherte Dokumente geöffnet sind."
 
 #: C/anjuta-manual.xml:2(title)
 msgid "File Operations"
@@ -361,7 +375,7 @@ msgstr "Dateioperationen"
 
 #: C/anjuta-manual.xml:6(title)
 msgid "Creating a new file and inserting text"
-msgstr ""
+msgstr "Anlegen einer neuen Datei und Einfügen von Text"
 
 #: C/anjuta-manual.xml:8(title)
 msgid "Creating a New File"
@@ -386,16 +400,16 @@ msgid ""
 "You should save new documents as soon as possible to avoid any data loss in "
 "case of a crash."
 msgstr ""
+"Sie sollten neue Dokumente so bald wie möglich speichern, um Datenverluste in "
+"Folge von Abstürzen zu vermeiden."
 
 #: C/anjuta-manual.xml:27(title)
-#, fuzzy
 msgid "File Wizard"
-msgstr "Migrationswizard"
+msgstr ""
 
 #: C/anjuta-manual.xml:38(title)
-#, fuzzy
 msgid "New File Wizard"
-msgstr "Neuer Dateiname"
+msgstr ""
 
 #: C/anjuta-manual.xml:40(screeninfo) C/anjuta-manual.xml:153(screeninfo)
 msgid "The Open File dialog"
@@ -433,9 +447,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:59(para)
-#, fuzzy
 msgid "The Macro plugin must be activated."
-msgstr "Makronamen müssen Bezeichner sein"
+msgstr "Das Makro-Plugin muss aktiviert sein."
 
 #: C/anjuta-manual.xml:64(title)
 msgid "Inserting"
@@ -498,14 +511,12 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:108(title)
-#, fuzzy
 msgid "Add/Edit Macro"
-msgstr "Makroaufrufsschritt"
+msgstr ""
 
 #: C/anjuta-manual.xml:110(screeninfo)
-#, fuzzy
 msgid "Add Edit dialog"
-msgstr "Die Ergebnisliste."
+msgstr ""
 
 #: C/anjuta-manual.xml:104(para)
 msgid ""
@@ -524,14 +535,12 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:126(title)
-#, fuzzy
 msgid "Keyword Macro"
-msgstr "Befehlsmakro"
+msgstr ""
 
 #: C/anjuta-manual.xml:128(screeninfo)
-#, fuzzy
 msgid "The Keyword macro"
-msgstr "Befehlsmakro"
+msgstr ""
 
 #: C/anjuta-manual.xml:122(para)
 msgid ""
@@ -541,14 +550,12 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:139(title)
-#, fuzzy
 msgid "Opening and Saving Files"
-msgstr "Projekt-Daten speichern"
+msgstr "Öffnen und Speichern von Dateien"
 
 #: C/anjuta-manual.xml:151(title)
-#, fuzzy
 msgid "Open File dialog"
-msgstr "Datei-Öffnen-_Dialog"
+msgstr "Dialog zum Öffnen von Dateien"
 
 #: C/anjuta-manual.xml:143(para)
 msgid ""
@@ -566,9 +573,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:166(title)
-#, fuzzy
 msgid "Open Multiple File dialog"
-msgstr "Dateiwähler-Dialog anzeigen"
+msgstr "Dialog zum Öffnen mehrerer Dateien"
 
 #: C/anjuta-manual.xml:168(screeninfo)
 msgid "The Open File dialog in multiple-select mode"
@@ -586,9 +592,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:194(screeninfo)
-#, fuzzy
 msgid "The Save As File"
-msgstr "Datei speichern unter"
+msgstr ""
 
 #: C/anjuta-manual.xml:184(para)
 msgid ""
@@ -603,9 +608,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:199(title)
-#, fuzzy
 msgid "File autosave"
-msgstr "Fehler beim Speichern der Autosave-Datei."
+msgstr ""
 
 #: C/anjuta-manual.xml:200(para)
 msgid ""
@@ -627,9 +631,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:219(title)
-#, fuzzy
 msgid "File save as overwrite"
-msgstr "Als QBE-Datei speichern"
+msgstr ""
 
 #: C/anjuta-manual.xml:220(para)
 msgid ""
@@ -661,16 +664,18 @@ msgid ""
 "edit and work with source files. The following sections describe how to use "
 "some of the interesting features available."
 msgstr ""
+"<application>Anjuta</application> vefügt über eine Reihe von "
+"Funktionsmerkmalen, die Ihnen beim Bearbeiten von Quelldateien helfen. Die "
+"folgenden abschnitte beschreiben, wie einige der interessanten "
+"Funktionsmerkmale verwendet werden."
 
 #: C/anjuta-manual.xml:256(title) C/anjuta-manual.xml:265(title)
-#, fuzzy
 msgid "Editor Margins"
-msgstr "Papierränder"
+msgstr ""
 
 #: C/anjuta-manual.xml:267(screeninfo) C/anjuta-manual.xml:315(screeninfo)
-#, fuzzy
 msgid "The Tags toolbar"
-msgstr "Werkzeugleiste anzeigen"
+msgstr ""
 
 #: C/anjuta-manual.xml:257(para)
 msgid ""
@@ -723,9 +728,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:302(title)
-#, fuzzy
 msgid "Invisible margin marker"
-msgstr "Objekte in _Markierungen umwandeln"
+msgstr ""
 
 #: C/anjuta-manual.xml:313(title)
 msgid "Editor markers when the marker margin is invisible"
@@ -745,9 +749,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:323(title)
-#, fuzzy
 msgid "Editor Guides"
-msgstr "Hilfslinie hinzufügen"
+msgstr ""
 
 #: C/anjuta-manual.xml:324(para)
 msgid ""
@@ -763,14 +766,12 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:333(title) C/anjuta-manual.xml:335(screeninfo)
-#, fuzzy
 msgid "Editor with guides"
-msgstr "_Gitter mit Führungslinien"
+msgstr ""
 
 #: C/anjuta-manual.xml:341(title)
-#, fuzzy
 msgid "Syntax highlighting"
-msgstr "<b>Syntaxhervorhebung</b>"
+msgstr "Syntaxhervorhebung"
 
 #: C/anjuta-manual.xml:342(para)
 msgid ""
@@ -795,9 +796,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:365(title)
-#, fuzzy
 msgid "Code folding"
-msgstr "Code-Überlauf"
+msgstr "Einfalten des Codes"
 
 #: C/anjuta-manual.xml:366(para)
 msgid ""
@@ -823,9 +823,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:387(title)
-#, fuzzy
 msgid "Auto-formatting source code"
-msgstr "Emacs-Lisp-Quelltext"
+msgstr "Automatische Formatierung von Quelltext"
 
 #: C/anjuta-manual.xml:388(para)
 msgid ""
@@ -839,9 +838,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:401(title)
-#, fuzzy
 msgid "The Symbol Browser"
-msgstr "Hilfe-Browser"
+msgstr ""
 
 #: C/anjuta-manual.xml:402(para)
 msgid ""
@@ -852,9 +850,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:415(title) C/anjuta-manual.xml:417(screeninfo)
-#, fuzzy
 msgid "Symbol browser"
-msgstr "Hilfe-Browser"
+msgstr ""
 
 #: C/anjuta-manual.xml:407(para)
 msgid ""
@@ -867,9 +864,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:423(title)
-#, fuzzy
 msgid "Tag synchronization"
-msgstr "Synchronisationspartner"
+msgstr ""
 
 #: C/anjuta-manual.xml:424(para)
 msgid ""
@@ -925,9 +921,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:465(title)
-#, fuzzy
 msgid "Search Text dialog"
-msgstr "Den Dialogtext festlegen"
+msgstr ""
 
 #: C/anjuta-manual.xml:470(para)
 msgid "To stop a long search, press the <guibutton>Stop</guibutton> button."
@@ -948,18 +943,16 @@ msgid "You can define the maximum number of actions to be performed."
 msgstr "Sie können die maximale Anzahl der auszuführenden Aktionen festlegen."
 
 #: C/anjuta-manual.xml:484(title)
-#, fuzzy
 msgid "Search Target dialog"
-msgstr "Suchdialog öffnen"
+msgstr ""
 
 #: C/anjuta-manual.xml:489(para)
 msgid "You can select which text will be searched."
-msgstr ""
+msgstr "Sie können wählen, nach welchem Text gesucht werden soll."
 
 #: C/anjuta-manual.xml:493(title)
-#, fuzzy
 msgid "Search Target In choice"
-msgstr "Nach Dateien in Archiven suchen"
+msgstr ""
 
 #: C/anjuta-manual.xml:499(title)
 msgid "Searching in Files"
@@ -987,14 +980,12 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:515(title)
-#, fuzzy
 msgid "Search File Pattern"
-msgstr "Aufruf: %s [OPTION]... DATEI MUSTER...\n"
+msgstr ""
 
 #: C/anjuta-manual.xml:525(title)
-#, fuzzy
 msgid "Specifying a Search Action"
-msgstr "/me <Aktion> ............... Eine Aktion senden"
+msgstr ""
 
 #: C/anjuta-manual.xml:526(para)
 msgid "You can select which action will be performed when a search succeeds."
@@ -1030,13 +1021,12 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:563(title)
-#, fuzzy
 msgid "Search Setting"
-msgstr "Suchordner wird eingerichtet: %s"
+msgstr ""
 
 #: C/anjuta-manual.xml:564(para)
 msgid "You may also save search options."
-msgstr ""
+msgstr "Sie können Suchoptionen auch speichern."
 
 #: C/anjuta-manual.xml:567(para)
 msgid ""
@@ -1045,18 +1035,16 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:572(title)
-#, fuzzy
 msgid "Search Setting dialog"
-msgstr "Suchdialog öffnen"
+msgstr ""
 
 #: C/anjuta-manual.xml:583(title)
 msgid "Printing a file"
 msgstr "Drucken einer Datei"
 
 #: C/anjuta-manual.xml:592(title)
-#, fuzzy
 msgid "Print preview of a C file"
-msgstr "Dateivorschau einschalten"
+msgstr "Druckvorschau für eine C-Datei"
 
 #: C/anjuta-manual.xml:594(screeninfo)
 msgid "Print preview"
@@ -1074,14 +1062,12 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:601(title)
-#, fuzzy
 msgid "Print Preferences"
-msgstr "Spiel-Einstellungen"
+msgstr "Druckeinstellungen"
 
 #: C/anjuta-manual.xml:603(screeninfo)
-#, fuzzy
 msgid "Print preferences"
-msgstr "Spiel-Einstellungen"
+msgstr "Druckeinstellungen"
 
 #: C/anjuta-manual.xml:608(para)
 msgid ""
@@ -1223,9 +1209,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:113(title)
-#, fuzzy
 msgid "Loading and Saving Projects"
-msgstr "Speichern und Fortsetzen von Spielen"
+msgstr "Laden und Speichern von Projekten"
 
 #: C/anjuta-manual.xml:115(title)
 msgid "Loading Projects"
@@ -1238,6 +1223,10 @@ msgid ""
 "file (<filename>*.anjuta</filename>) in the dialog and click <guibutton>OK</"
 "guibutton>."
 msgstr ""
+"Um ein Projekt zu öffnen, wählen Sie <menuchoice><guisubmenu>Datei</"
+"guisubmenu><guimenuitem>Öffnen …</guimenuitem></menuchoice>. Wählen Sie die "
+"Projektdatei (<filename>*.anjuta</filename>) im Dialog aus und klicken Sie "
+"auf <guibutton>OK</guibutton>."
 
 #: C/anjuta-manual.xml:123(para)
 msgid ""
@@ -1274,6 +1263,8 @@ msgid ""
 "The project is automatically saved when you close because all changes are "
 "made directly in the project structure."
 msgstr ""
+"Das Projekt wird beim Schließen automatisch gespeichert, weil alle Änderungen "
+"direkt in der Projektstruktur vorgenommen werden."
 
 #: C/anjuta-manual.xml:152(title)
 msgid "Project structure"
@@ -1368,14 +1359,12 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:244(title)
-#, fuzzy
 msgid "Groups and targets"
-msgstr "Benutzer und Gruppen"
+msgstr "Gruppen und Ziele"
 
 #: C/anjuta-manual.xml:247(title)
-#, fuzzy
 msgid "Adding Groups"
-msgstr "Reitergruppen"
+msgstr "Hinzufügen von Gruppen"
 
 #: C/anjuta-manual.xml:252(para)
 msgid ""
@@ -1411,9 +1400,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:279(title)
-#, fuzzy
 msgid "Removing Groups"
-msgstr "Reitergruppen"
+msgstr "Entfernen von Gruppen"
 
 #: C/anjuta-manual.xml:284(para)
 msgid ""
@@ -1425,9 +1413,8 @@ msgid "Select <guimenuitem>Remove</guimenuitem> from the context menu."
 msgstr ""
 
 #: C/anjuta-manual.xml:280(para)
-#, fuzzy
 msgid "To remove a group: <placeholder-1/>"
-msgstr "%s: Kann Shadow-Gruppe %s nicht entfernen\n"
+msgstr "So entfernen Sie eine Gruppe: <placeholder-1/>"
 
 #: C/anjuta-manual.xml:292(para)
 msgid ""
@@ -1437,9 +1424,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:300(title)
-#, fuzzy
 msgid "Adding Targets"
-msgstr "Spezielle Ziele"
+msgstr "Hinzufügen von Zielen"
 
 #: C/anjuta-manual.xml:305(para)
 msgid ""
@@ -1452,18 +1438,16 @@ msgid "Select the group under which to add the target."
 msgstr ""
 
 #: C/anjuta-manual.xml:313(para)
-#, fuzzy
 msgid "Select the target type."
-msgstr "Datei_typ: %s"
+msgstr "Wählen Sie den Zieltyp."
 
 #: C/anjuta-manual.xml:316(para)
 msgid "Enter a name for the new target and click <guibutton>Add</guibutton>."
 msgstr ""
 
 #: C/anjuta-manual.xml:301(para)
-#, fuzzy
 msgid "To add a new target: <placeholder-1/>"
-msgstr "Klicken Sie hier, um ein neues Schema hinzuzufügen."
+msgstr "So fügen Sie ein neues Ziel hinzu: <placeholder-1/>"
 
 #: C/anjuta-manual.xml:320(para)
 msgid ""
@@ -1570,9 +1554,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:418(title)
-#, fuzzy
 msgid "Removing Targets"
-msgstr "Spezielle Ziele"
+msgstr "Entfernen von  Zielen"
 
 #: C/anjuta-manual.xml:423(para)
 msgid ""
@@ -1580,9 +1563,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:419(para)
-#, fuzzy
 msgid "To remove a target: <placeholder-1/>"
-msgstr "Gibt an, ob ein Ziel zur Verfügung gestellt wird"
+msgstr "So entfernen Sie ein Ziel: <placeholder-1/>"
 
 #: C/anjuta-manual.xml:431(para)
 msgid ""
@@ -1648,6 +1630,8 @@ msgid ""
 "A confirmation dialog will appear, and the file will be removed from the "
 "project."
 msgstr ""
+"Ein Bestätigungsdialog wird geöffnet, und die Datei wird aus dem Projekt "
+"entfernt."
 
 #: C/anjuta-manual.xml:483(title)
 msgid "The file is not deleted!"
@@ -1693,6 +1677,9 @@ msgid ""
 "installed under various subdirectories under this prefix. By default it is /"
 "usr/local."
 msgstr ""
+"<emphasis>$(prefix)</emphasis>: Das Installationspräfix. Das Projekt wird in "
+"verschiedenen Unterordnern unter diesem Präfix installiert. Vorgabe ist /usr/"
+"local."
 
 #: C/anjuta-manual.xml:524(para)
 msgid ""
@@ -1700,6 +1687,9 @@ msgid ""
 "binaries. All your executable and script targets will be installed in this "
 "directory. By default, it is $(prefix)/bin."
 msgstr ""
+"<emphasis>$(bindir)</emphasis>: Der Installationsordner für ausführbare "
+"Dateien. Alle Ihre ausführbaren Dateien und Skripte werden in diesen Ordner "
+"installiert. Vorgabe ist $(prefix)/bin."
 
 #: C/anjuta-manual.xml:531(para)
 msgid ""
@@ -1707,6 +1697,10 @@ msgid ""
 "your library targets (both shared and static) will be installed in this "
 "directory or a subdirectory below it. By default, it is $(prefix)/lib."
 msgstr ""
+"<emphasis>$(libdir)</emphasis>: Der Installationsordner für Bibliotheken. "
+"Alle Ihre Bibliotheken (sowohl gemeinsame als auch statische) werden in "
+"diesen Ordner oder in einen Unterordner davon installiert. Vorgabe ist "
+"$(prefix)/lib."
 
 #: C/anjuta-manual.xml:539(para)
 msgid ""
@@ -1723,6 +1717,9 @@ msgid ""
 "the <ulink url=\"info:automake\">automake info documentation</ulink>. "
 "<placeholder-1/>"
 msgstr ""
+"Einige der am häufigsten vorkommenden Variablen werden hier aufgelistet. Eine "
+"vollständige Liste finden Sie in der <ulink url=\"info:automake\">Infoseite "
+"zu automake</ulink>. <placeholder-1/>"
 
 #: C/anjuta-manual.xml:553(title)
 msgid "Project properties"
@@ -1756,9 +1753,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:588(title) C/anjuta-manual.xml:590(screeninfo)
-#, fuzzy
 msgid "Project properties dialog"
-msgstr "Der Eigenschaften-Dialog konnte nicht angezeigt werden"
+msgstr "Eigenschaften-Dialog für Projekte"
 
 #: C/anjuta-manual.xml:580(para)
 msgid ""
@@ -1830,14 +1826,12 @@ msgid "To add a package dependency: <placeholder-1/>"
 msgstr ""
 
 #: C/anjuta-manual.xml:651(title)
-#, fuzzy
 msgid "Group properties"
 msgstr "Gruppeneigenschaften"
 
 #: C/anjuta-manual.xml:658(title) C/anjuta-manual.xml:660(screeninfo)
-#, fuzzy
 msgid "Group properties dialog"
-msgstr "Eigenschaften einer Tabellenspaltengruppe"
+msgstr "Eigenschaften-Dialog für Gruppen"
 
 #: C/anjuta-manual.xml:652(para)
 msgid ""
@@ -1886,9 +1880,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:710(title)
-#, fuzzy
 msgid "Target properties"
-msgstr "Hintergrundeigenschaften"
+msgstr "Ziel-Eigenschaften"
 
 #: C/anjuta-manual.xml:711(para)
 msgid ""
@@ -1898,9 +1891,8 @@ msgstr ""
 
 #: C/anjuta-manual.xml:721(title) C/anjuta-manual.xml:723(screeninfo)
 #: C/anjuta-manual.xml:743(title) C/anjuta-manual.xml:745(screeninfo)
-#, fuzzy
 msgid "Target properties dialog"
-msgstr "Der Eigenschaften-Dialog konnte nicht angezeigt werden"
+msgstr "Eigenschaften-Dialog für Ziele"
 
 #: C/anjuta-manual.xml:715(para)
 msgid ""
@@ -1920,9 +1912,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:735(title)
-#, fuzzy
 msgid "Advanced target options"
-msgstr "Syntax: %s [Optionen] [Target] ...\n"
+msgstr ""
 
 #: C/anjuta-manual.xml:736(para)
 msgid ""
@@ -1971,19 +1962,16 @@ msgid "An autotools project is built in three steps:"
 msgstr ""
 
 #: C/anjuta-manual.xml:15(para)
-#, fuzzy
 msgid "Generate"
-msgstr "_Generiere"
+msgstr ""
 
 #: C/anjuta-manual.xml:16(para)
-#, fuzzy
 msgid "Configure"
-msgstr "Einrichten"
+msgstr ""
 
 #: C/anjuta-manual.xml:17(para)
-#, fuzzy
 msgid "Build"
-msgstr "Alles kompilieren"
+msgstr ""
 
 #: C/anjuta-manual.xml:20(para)
 msgid ""
@@ -2046,14 +2034,12 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:75(title)
-#, fuzzy
 msgid "Generate and Configure"
-msgstr "Farbe und Deckkraft _festlegen …"
+msgstr ""
 
 #: C/anjuta-manual.xml:77(title)
-#, fuzzy
 msgid "Configure a project"
-msgstr "Audio-Projekt"
+msgstr ""
 
 #: C/anjuta-manual.xml:78(para)
 msgid ""
@@ -2090,9 +2076,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:109(para)
-#, fuzzy
 msgid "The configuration name"
-msgstr "Plugin-Name"
+msgstr ""
 
 #: C/anjuta-manual.xml:110(para)
 msgid ""
@@ -2102,9 +2087,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:116(para)
-#, fuzzy
 msgid "The build directory"
-msgstr "Or_dner durchsuchen"
+msgstr ""
 
 #: C/anjuta-manual.xml:117(para)
 msgid ""
@@ -2124,9 +2108,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:130(para)
-#, fuzzy
 msgid "Configure options"
-msgstr "Einstellungen bearbeiten"
+msgstr ""
 
 #: C/anjuta-manual.xml:131(para)
 msgid ""
@@ -2146,9 +2129,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:140(title)
-#, fuzzy
 msgid "Select a configuration"
-msgstr "Einstellungen neu laden"
+msgstr ""
 
 #: C/anjuta-manual.xml:141(para)
 msgid ""
@@ -2158,9 +2140,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:148(title)
-#, fuzzy
 msgid "Clean a configuration"
-msgstr "Einstellungen neu laden"
+msgstr ""
 
 #: C/anjuta-manual.xml:149(para)
 msgid ""
@@ -2201,9 +2182,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:185(title)
-#, fuzzy
 msgid "Building an executable"
-msgstr "Kodierer"
+msgstr "Erstellen eines ausführbaren Programms"
 
 #: C/anjuta-manual.xml:186(para)
 msgid ""
@@ -2291,9 +2271,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:252(title)
-#, fuzzy
 msgid "Cleaning"
-msgstr "Reinige die Köpfe...\n"
+msgstr ""
 
 #: C/anjuta-manual.xml:253(para)
 msgid ""
@@ -2317,9 +2296,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:3(title)
-#, fuzzy
 msgid "Debugging"
-msgstr "  -d 1-5          Debug-Level\n"
+msgstr "Debuggen (Fehlerdiagnose)"
 
 #: C/anjuta-manual.xml:5(emphasis)
 msgid "To debug is human. To fix it is divine..."
@@ -2358,19 +2336,16 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:35(title)
-#, fuzzy
 msgid "Start and stop"
-msgstr "Wiedergabe starten und stoppen"
+msgstr ""
 
 #: C/anjuta-manual.xml:40(emphasis) C/anjuta-manual.xml:56(title)
-#, fuzzy
 msgid "Running an executable"
-msgstr "Kodierer"
+msgstr ""
 
 #: C/anjuta-manual.xml:41(emphasis)
-#, fuzzy
 msgid "Attaching to a process"
-msgstr "Kindprozess »%s« konnte nicht ausgeführt werden (%s)"
+msgstr ""
 
 #: C/anjuta-manual.xml:44(para)
 msgid ""
@@ -2424,9 +2399,8 @@ msgid "The command-line parameters"
 msgstr "Die Befehlszeilenparameter"
 
 #: C/anjuta-manual.xml:85(para)
-#, fuzzy
 msgid "The working directory"
-msgstr "Ungültiges Arbeitsverzeichnis: %s"
+msgstr "Der Arbeitsordner"
 
 #: C/anjuta-manual.xml:86(para)
 msgid "Environment variables"
@@ -2437,6 +2411,8 @@ msgid ""
 "Environment variables displayed in light gray are the current environment "
 "variables. You can add, modify or remove environment variables here."
 msgstr ""
+"Aktuelle Umgebungsvariablen werden hier in Hellgrau dargestellt. Sie können "
+"hier Umgebungsvariablen hinzufügen, ändern oder löschen."
 
 #: C/anjuta-manual.xml:91(para)
 msgid ""
@@ -2459,9 +2435,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:102(title)
-#, fuzzy
 msgid "Attaching to a Process"
-msgstr "Kindprozess »%s« konnte nicht ausgeführt werden (%s)"
+msgstr ""
 
 #: C/anjuta-manual.xml:103(para)
 msgid ""
@@ -2472,9 +2447,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:110(title) C/anjuta-manual.xml:112(screeninfo)
-#, fuzzy
 msgid "Attach to Process dialog"
-msgstr "Parasit an Bild zuweisen"
+msgstr ""
 
 #: C/anjuta-manual.xml:116(para)
 msgid ""
@@ -2489,9 +2463,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:129(title)
-#, fuzzy
 msgid "Stopping the Debugger"
-msgstr "XSLT-Debugger"
+msgstr ""
 
 #: C/anjuta-manual.xml:130(para)
 msgid ""
@@ -2504,9 +2477,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:140(title)
-#, fuzzy
 msgid "Adding source directories"
-msgstr "Sprachspezifikationsverzeichnisse"
+msgstr "Hinzufügen von Quellordnern"
 
 #: C/anjuta-manual.xml:141(para)
 msgid ""
@@ -2549,9 +2521,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:177(title)
-#, fuzzy
 msgid "Single stepping (step in)"
-msgstr "Sulogin(8) im Einzelplatznutzer Ebene"
+msgstr ""
 
 #: C/anjuta-manual.xml:178(para)
 msgid ""
@@ -2578,9 +2549,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:198(title)
-#, fuzzy
 msgid "Single stepping (step over)"
-msgstr "  -s              Einzelschrittmodus (bestätige jede Anfrage)"
+msgstr ""
 
 #: C/anjuta-manual.xml:199(para)
 msgid ""
@@ -2612,9 +2582,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:225(title)
-#, fuzzy
 msgid "Single stepping (step out)"
-msgstr "Auszoomen (1 Stufe)"
+msgstr ""
 
 #: C/anjuta-manual.xml:226(para)
 msgid ""
@@ -2634,9 +2603,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:242(title)
-#, fuzzy
 msgid "Run/Continue"
-msgstr "Prozess _fortsetzen"
+msgstr "Ausführen/Fortsetzen"
 
 #: C/anjuta-manual.xml:243(para)
 msgid ""
@@ -2653,9 +2621,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:256(title)
-#, fuzzy
 msgid "Run To"
-msgstr "während des Versuchs, »%s« auszuführen"
+msgstr ""
 
 #: C/anjuta-manual.xml:257(para)
 msgid ""
@@ -2673,9 +2640,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:271(title)
-#, fuzzy
 msgid "Stop Program"
-msgstr "Das Programm beenden"
+msgstr ""
 
 #: C/anjuta-manual.xml:272(para)
 msgid ""
@@ -2703,9 +2669,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:298(title)
-#, fuzzy
 msgid "Listing Breakpoints"
-msgstr "Vorformatierter Quelltext"
+msgstr ""
 
 #: C/anjuta-manual.xml:299(para)
 msgid ""
@@ -2715,12 +2680,10 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:306(title) C/anjuta-manual.xml:308(screeninfo)
-#, fuzzy
 msgid "Breakpoint view"
-msgstr "Protokoll a_nsehen"
+msgstr "Protokoll a_nsehe"
 
 #: C/anjuta-manual.xml:317(term) C/anjuta-manual.xml:413(term)
-#, fuzzy
 msgid "Location"
 msgstr "Ort"
 
@@ -2732,7 +2695,6 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:327(term)
-#, fuzzy
 msgid "Address"
 msgstr "Adresse"
 
@@ -2743,7 +2705,6 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:336(term)
-#, fuzzy
 msgid "Type"
 msgstr "Typ"
 
@@ -2754,7 +2715,6 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:345(term) C/anjuta-manual.xml:440(term)
-#, fuzzy
 msgid "Condition"
 msgstr "Bedingung"
 
@@ -2764,9 +2724,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:353(term)
-#, fuzzy
 msgid "Pass count"
-msgstr "Anzahl der Platten"
+msgstr ""
 
 #: C/anjuta-manual.xml:355(para)
 msgid ""
@@ -2782,7 +2741,6 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:367(term)
-#, fuzzy
 msgid "State"
 msgstr "Status"
 
@@ -2829,9 +2787,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:400(title) C/anjuta-manual.xml:402(screeninfo)
-#, fuzzy
 msgid "Breakpoint add dialog"
-msgstr "Die Ergebnisliste."
+msgstr ""
 
 #: C/anjuta-manual.xml:415(para)
 msgid ""
@@ -2840,19 +2797,16 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:421(para)
-#, fuzzy
 msgid "File_name:Line_number"
-msgstr "Doppelter Zonenname »%s« (Datei »%s«, Zeile %d)"
+msgstr "Dateiname:Zeilennummer"
 
 #: C/anjuta-manual.xml:422(para)
-#, fuzzy
 msgid "Function_name"
 msgstr "Funktionsname"
 
 #: C/anjuta-manual.xml:423(para)
-#, fuzzy
 msgid "File:Function_name"
-msgstr "Name der Themadatei"
+msgstr "Datei:Funktionsname"
 
 #: C/anjuta-manual.xml:426(para)
 msgid ""
@@ -2892,9 +2846,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:462(term)
-#, fuzzy
 msgid "Pass Count"
-msgstr "Anzahl der Platten"
+msgstr ""
 
 #: C/anjuta-manual.xml:464(para)
 msgid ""
@@ -2938,9 +2891,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:500(title)
-#, fuzzy
 msgid "Editing Breakpoints"
-msgstr "Profil »%s« bearbeiten"
+msgstr ""
 
 #: C/anjuta-manual.xml:501(para)
 msgid ""
@@ -2956,9 +2908,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:513(title)
-#, fuzzy
 msgid "Deleting Breakpoints"
-msgstr "*** Datei »%s« wird gelöscht"
+msgstr ""
 
 #: C/anjuta-manual.xml:514(para)
 msgid ""
@@ -3011,9 +2962,8 @@ msgid "Expressions"
 msgstr "Ausdrücke"
 
 #: C/anjuta-manual.xml:557(title)
-#, fuzzy
 msgid "Listing local variables"
-msgstr "versuchen Sie, die Anzahl der lokalen Variablen zu verringern"
+msgstr "Auflisten lokaler Variablen"
 
 #: C/anjuta-manual.xml:558(para)
 msgid ""
@@ -3024,9 +2974,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:572(title) C/anjuta-manual.xml:574(screeninfo)
-#, fuzzy
 msgid "Local variables"
-msgstr "Klassenvariablen"
+msgstr "Lokale Variablen"
 
 #: C/anjuta-manual.xml:564(para)
 msgid ""
@@ -3054,9 +3003,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:594(title)
-#, fuzzy
 msgid "Listing watched expressions"
-msgstr "mehrere Vorgabeausdrücke"
+msgstr ""
 
 #: C/anjuta-manual.xml:595(para)
 msgid ""
@@ -3073,9 +3021,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:606(title)
-#, fuzzy
 msgid "Adding an expression to watch"
-msgstr "Ausdruck der untersucht werden soll"
+msgstr ""
 
 #: C/anjuta-manual.xml:607(para)
 msgid ""
@@ -3106,9 +3053,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:634(title)
-#, fuzzy
 msgid "Removing a watched expression"
-msgstr "leerer XPath-Ausdruck"
+msgstr ""
 
 #: C/anjuta-manual.xml:635(para)
 msgid ""
@@ -3124,9 +3070,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:647(title)
-#, fuzzy
 msgid "Evaluating expressions"
-msgstr "Ausdrücke suchen"
+msgstr ""
 
 #: C/anjuta-manual.xml:648(para)
 msgid ""
@@ -3172,14 +3117,12 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:686(title)
-#, fuzzy
 msgid "Stack Trace"
-msgstr "Trace-Trap"
+msgstr ""
 
 #: C/anjuta-manual.xml:689(title)
-#, fuzzy
 msgid "Stack Window"
-msgstr "Das Hauptfenster"
+msgstr ""
 
 #: C/anjuta-manual.xml:690(para)
 msgid ""
@@ -3199,9 +3142,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:705(title) C/anjuta-manual.xml:707(screeninfo)
-#, fuzzy
 msgid "Stack trace window"
-msgstr "Brasero-Hauptfenster"
+msgstr ""
 
 #: C/anjuta-manual.xml:712(para)
 msgid ""
@@ -3214,9 +3156,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:722(title)
-#, fuzzy
 msgid "Setting the current frame"
-msgstr "Fehler beim Setzen der Bildrate."
+msgstr ""
 
 #: C/anjuta-manual.xml:723(para)
 msgid ""
@@ -3236,14 +3177,12 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:741(title)
-#, fuzzy
 msgid "Thread"
-msgstr "Faden"
+msgstr ""
 
 #: C/anjuta-manual.xml:744(title)
-#, fuzzy
 msgid "Thread Window"
-msgstr "Das Hauptfenster"
+msgstr ""
 
 #: C/anjuta-manual.xml:745(para)
 msgid ""
@@ -3262,9 +3201,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:759(title)
-#, fuzzy
 msgid "Setting the current thread"
-msgstr "Setze die derzeitige Mount-Anzahl auf %d\n"
+msgstr ""
 
 #: C/anjuta-manual.xml:760(para)
 msgid ""
@@ -3287,9 +3225,8 @@ msgid "CPU"
 msgstr "CPU"
 
 #: C/anjuta-manual.xml:780(title)
-#, fuzzy
 msgid "Register window"
-msgstr "Das Hauptfenster"
+msgstr ""
 
 #: C/anjuta-manual.xml:781(para)
 msgid ""
@@ -3308,9 +3245,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:796(title)
-#, fuzzy
 msgid "Memory window"
-msgstr "Das Hauptfenster"
+msgstr ""
 
 #: C/anjuta-manual.xml:797(para)
 msgid ""
@@ -3338,9 +3274,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:816(title)
-#, fuzzy
 msgid "Disassembly window"
-msgstr "Das Hauptfenster"
+msgstr ""
 
 #: C/anjuta-manual.xml:817(para)
 msgid ""
@@ -3367,7 +3302,6 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:840(title)
-#, fuzzy
 msgid "Others"
 msgstr "Sonstige"
 
@@ -3378,9 +3312,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:848(title)
-#, fuzzy
 msgid "Dynamically loaded Libraries"
-msgstr "Shared Libraries verwenden"
+msgstr "Dynamisch geladene Bibliotheken"
 
 #: C/anjuta-manual.xml:849(para)
 msgid ""
@@ -3393,14 +3326,12 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:859(title) C/anjuta-manual.xml:861(screeninfo)
-#, fuzzy
 msgid "Shared Libraries window"
-msgstr "Shared Libraries verwenden"
+msgstr ""
 
 #: C/anjuta-manual.xml:869(title)
-#, fuzzy
 msgid "Kernel Signals"
-msgstr "Kernel Interna"
+msgstr "Kernelsignale"
 
 #: C/anjuta-manual.xml:870(para)
 msgid ""
@@ -3413,9 +3344,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:879(title) C/anjuta-manual.xml:881(screeninfo)
-#, fuzzy
 msgid "Kernel Signals window"
-msgstr "Brasero-Hauptfenster"
+msgstr "Kernelsignale-Fenster"
 
 #: C/anjuta-manual.xml:886(para)
 msgid ""
@@ -3448,9 +3378,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:918(title)
-#, fuzzy
 msgid "Information about used files"
-msgstr "Anzahl der zuletzt verwendeten Dateien"
+msgstr "Informationen über benutzte Dateien"
 
 #: C/anjuta-manual.xml:919(para)
 msgid ""
@@ -3461,9 +3390,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:928(title)
-#, fuzzy
 msgid "Information about debugged program"
-msgstr "Copyright-Informationen zum Programm"
+msgstr ""
 
 #: C/anjuta-manual.xml:929(para)
 msgid ""
@@ -3474,9 +3402,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:938(title)
-#, fuzzy
 msgid "Information about kernel structure"
-msgstr "Informationen über Ekiga ansehen"
+msgstr "Informationen über die Kernelstruktur"
 
 #: C/anjuta-manual.xml:939(para)
 msgid ""
@@ -3488,9 +3415,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:948(title)
-#, fuzzy
 msgid "Information about global variables"
-msgstr "Informationen über Ekiga ansehen"
+msgstr "Informationen über globale Variablen"
 
 #: C/anjuta-manual.xml:949(para)
 msgid ""
@@ -3501,9 +3427,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:958(title)
-#, fuzzy
 msgid "Information about the current frame"
-msgstr "Informationen zur momentan geöffneten Datei anzeigen"
+msgstr ""
 
 #: C/anjuta-manual.xml:959(para)
 msgid ""
@@ -3514,9 +3439,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:968(title)
-#, fuzzy
 msgid "Information about the current function arguments"
-msgstr "Informationen zur momentan geöffneten Datei anzeigen"
+msgstr "Informationen über die aktuellen Funktionsargumente"
 
 #: C/anjuta-manual.xml:969(para)
 msgid ""
@@ -3527,9 +3451,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:978(title)
-#, fuzzy
 msgid "User command"
-msgstr "Befehlszeile"
+msgstr "Benutzerbefehl"
 
 #: C/anjuta-manual.xml:979(para)
 msgid ""
@@ -3549,14 +3472,12 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:2(title)
-#, fuzzy
 msgid "Glade Interface Designer"
-msgstr "Glade 3 Oberflächenentwicklung"
+msgstr "Glade Oberflächenentwicklung"
 
 #: C/anjuta-manual.xml:5(title)
-#, fuzzy
 msgid "Quick start"
-msgstr "Schnellstart von GGZ-Spielen"
+msgstr "Schnellstart"
 
 #: C/anjuta-manual.xml:10(para)
 msgid "You should have a project containing Glade file opened;"
@@ -3606,7 +3527,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:52(title)
 msgid "Glade general usage questions"
-msgstr ""
+msgstr "Allgemeine Fragen zur Benutzung von Glade"
 
 #: C/anjuta-manual.xml:53(para)
 msgid ""
@@ -3620,9 +3541,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:66(title)
-#, fuzzy
 msgid "Editor and designer association"
-msgstr "Bildbetrachter"
+msgstr ""
 
 #: C/anjuta-manual.xml:67(para)
 msgid ""
@@ -3638,14 +3558,12 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:83(title)
-#, fuzzy
 msgid "Associations dialog"
-msgstr "_Dialog anzeigen"
+msgstr ""
 
 #: C/anjuta-manual.xml:94(guilabel)
-#, fuzzy
 msgid "Spec regexp"
-msgstr "RegExp-Variablen"
+msgstr ""
 
 #: C/anjuta-manual.xml:95(para)
 msgid ""
@@ -3654,7 +3572,6 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:101(guilabel)
-#, fuzzy
 msgid "Widget name"
 msgstr "Widget-Name"
 
@@ -3663,9 +3580,8 @@ msgid "The name of the toplevel widget this assoctiation belongs to."
 msgstr ""
 
 #: C/anjuta-manual.xml:107(guilabel)
-#, fuzzy
 msgid "Position type"
-msgstr "Abbildtyp:"
+msgstr ""
 
 #: C/anjuta-manual.xml:108(para)
 msgid ""
@@ -3689,9 +3605,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:122(title)
-#, fuzzy
 msgid "Default signal"
-msgstr "Gefahrensignal"
+msgstr "Vorgegebenes Signal"
 
 #: C/anjuta-manual.xml:123(para)
 msgid ""
@@ -3704,9 +3619,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:134(title)
-#, fuzzy
 msgid "Inserting a stub"
-msgstr "Einfügen einer Pause"
+msgstr ""
 
 #: C/anjuta-manual.xml:135(para)
 msgid ""
@@ -3738,14 +3652,12 @@ msgid "There are several ways to create a stub: <placeholder-1/>"
 msgstr ""
 
 #: C/anjuta-manual.xml:163(title) C/anjuta-manual.xml:3(title)
-#, fuzzy
 msgid "Preferences"
 msgstr "Einstellungen"
 
 #: C/anjuta-manual.xml:166(guilabel)
-#, fuzzy
 msgid "Insert handler on edit"
-msgstr "Automatisch nach Einlegen Rippen"
+msgstr ""
 
 #: C/anjuta-manual.xml:167(para)
 msgid ""
@@ -3755,9 +3667,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:174(guilabel)
-#, fuzzy
 msgid "Separated designer layout"
-msgstr "Datei-Layout wird erzeugt"
+msgstr ""
 
 #: C/anjuta-manual.xml:175(para)
 msgid ""
@@ -3766,9 +3677,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:181(guilabel)
-#, fuzzy
 msgid "Automatically add resources"
-msgstr "Keine Stream-Ressourcen mehr verfügbar"
+msgstr "Automatisch Ressourcen hinzufügen"
 
 #: C/anjuta-manual.xml:182(para)
 msgid ""
@@ -3778,9 +3688,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:190(guilabel)
-#, fuzzy
 msgid "Handler template"
-msgstr "(Unbenannte Vorlage)"
+msgstr "Vorlage für Handler"
 
 #: C/anjuta-manual.xml:191(para)
 msgid ""
@@ -3796,7 +3705,6 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:9(title)
-#, fuzzy
 msgid "General"
 msgstr "Allgemein"
 
@@ -3816,7 +3724,6 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:24(title)
-#, fuzzy
 msgid "File Manager"
 msgstr "Dateimanager"
 
@@ -3835,9 +3742,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:3(title)
-#, fuzzy
 msgid "User-defined Tools"
-msgstr "Nutzersignal 1"
+msgstr "Benutzerdefinierte Werkzeuge"
 
 #: C/anjuta-manual.xml:7(para)
 msgid ""
@@ -3863,9 +3769,8 @@ msgid "The tools plugin has to be enabled to use this feature!"
 msgstr ""
 
 #: C/anjuta-manual.xml:31(title)
-#, fuzzy
 msgid "Tools Examples"
-msgstr "Entwickler-Beispiele"
+msgstr "Werkzeug-Beispiele"
 
 #: C/anjuta-manual.xml:32(para)
 msgid ""
@@ -3874,9 +3779,8 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-manual.xml:38(title) C/anjuta-manual.xml:40(screeninfo)
-#, fuzzy
 msgid "The tool editor"
-msgstr "Cover-Editor"
+msgstr ""
 
 #: C/anjuta-manual.xml:2(title)
 msgid "Authors"
@@ -3915,7 +3819,6 @@ msgid "License"
 msgstr "Lizenz"
 
 #: C/anjuta-manual.xml:3(para)
-#, fuzzy
 msgid ""
 "This program is free software; you can redistribute it and/or modify it under "
 "the terms of the <ulink type=\"ghelp\" url=\"gnome-help:gpl\">GNU General "
@@ -3930,21 +3833,18 @@ msgstr ""
 "Ihrer Wahl) jeder neueren Version."
 
 #: C/anjuta-manual.xml:10(para)
-#, fuzzy
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS "
 "FOR A PARTICULAR PURPOSE. See the <citetitle>GNU General Public License</"
 "citetitle> for more details."
 msgstr ""
-"Dieses Programm wird in der Hoffnung verbreitet, dass es nützlich ist, aber "
-"OHNE JEGLICHE GARANTIE; auch ohne eine GEBRAUCHSTAUGLICHKEITSGARANTIE oder "
-"eine Garantie über die TAUGLICHKEIT FÜR EINEN BESTIMMTEN ZWECK. Lesen Sie die "
-"<citetitle><ulink type=\"help\" url=\"gnome-help:gpl\">GNU General Public "
-"License</ulink></citetitle> für genauere Hinweise."
+"Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, dass es Ihnen "
+"von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, sogar ohne die implizite "
+"Garantie der MARKTREIFE oder der VERWENDBARKEIT FÜR EINEN BESTIMMTEN ZWECK. "
+"Details finden Sie in der <citetitle>GNU General Public License</citetitle>."
 
 #: C/anjuta-manual.xml:16(para)
-#, fuzzy
 msgid ""
 "A copy of the <citetitle>GNU General Public License</citetitle> is included "
 "as an appendix to the <citetitle>GNOME Users Guide</citetitle>. You may also "
@@ -3966,7 +3866,7 @@ msgstr ""
 "state><postcode>02111-1301</postcode><country>USA</country></address> "
 "schreiben."
 
-#. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2.
+#. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
 #: C/anjuta-manual.xml:0(None)
 msgid "translator-credits"
-msgstr "Mario Blättermann <mariobl@gnome.org>, 2009"
+msgstr "Mario Blättermann <mariobl@gnome.org>, 2009, 2010"

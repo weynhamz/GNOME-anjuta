@@ -49,6 +49,16 @@ struct _AnjutaFileViewPrivate
 	GtkTreeRowReference* current_selection;
 };
 
+GtkTargetEntry uri_targets[] =
+{
+	{
+		"text/uri-list",
+		0, /* no flags */
+		0
+	}
+};
+	
+
 #define ANJUTA_FILE_VIEW_GET_PRIVATE(o) \
 	(G_TYPE_INSTANCE_GET_PRIVATE((o), ANJUTA_TYPE_FILE_VIEW, AnjutaFileViewPrivate))
 
@@ -127,11 +137,38 @@ file_view_get_selected (AnjutaFileView* view)
 	GtkTreeIter selected;
 	if (gtk_tree_selection_get_selected (selection, NULL, &selected))
 	{
-		GFile* file = file_model_get_file (priv->model, &selected);
+		GFile* file;
+		GtkTreeIter real_iter;
+		GtkTreeModel* sort_model = gtk_tree_view_get_model (GTK_TREE_VIEW(view));
+
+		gtk_tree_model_sort_convert_iter_to_child_iter(GTK_TREE_MODEL_SORT(sort_model),
+		                                               &real_iter, &selected);
+
+		file = file_model_get_file (priv->model, &real_iter);
 		return file;
 	}
 	else
 		return NULL;
+}
+
+static void
+file_view_drag_data_get (GtkWidget* widget,
+                         GdkDragContext *drag_context,
+                         GtkSelectionData *data,
+                         guint info,
+                         guint time)
+{
+	AnjutaFileView* view = ANJUTA_FILE_VIEW(widget);
+	GFile* selected = file_view_get_selected (view);
+
+	if (selected)
+	{
+		gchar* uris[2];
+		uris[0] = g_file_get_uri (selected);
+		uris[1] = NULL;
+		gtk_selection_data_set_uris (data, uris);
+		g_free(uris[0]);
+	}
 }
 
 static void
@@ -262,6 +299,9 @@ file_view_do_popup_menu (GtkWidget* widget, GdkEventButton* event)
 static gboolean
 file_view_button_press_event (GtkWidget *widget, GdkEventButton *event)
 {
+	gint retval = 
+		GTK_WIDGET_CLASS (file_view_parent_class)->button_press_event (widget,
+																	   event);
 	/* Ignore double-clicks and triple-clicks */
 	if (event->button == 3 && event->type == GDK_BUTTON_PRESS)
     {
@@ -289,9 +329,8 @@ file_view_button_press_event (GtkWidget *widget, GdkEventButton *event)
 		}
     }
 
-	return 	
-		GTK_WIDGET_CLASS (file_view_parent_class)->button_press_event (widget,
-																	   event);
+	return 	retval;
+		
 }
 
 static gboolean
@@ -546,6 +585,13 @@ file_view_init (AnjutaFileView *object)
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (object), FALSE);
 	
 	g_object_set (object, "has-tooltip", TRUE, NULL);
+
+	/* DND */
+	gtk_tree_view_enable_model_drag_source (GTK_TREE_VIEW(object),
+	                                        GDK_BUTTON1_MASK,
+	                                        uri_targets,
+	                                        1,
+	                                        GDK_ACTION_MOVE);                                    
 }
 
 static void
@@ -655,7 +701,10 @@ file_view_class_init (AnjutaFileViewClass *klass)
 	widget_class->button_press_event = file_view_button_press_event;
 	
 	/* Tooltips */
-	widget_class->query_tooltip = file_view_query_tooltip;	
+	widget_class->query_tooltip = file_view_query_tooltip;
+
+	/* Dnd */
+	widget_class->drag_data_get = file_view_drag_data_get;
 }
 
 GtkWidget*

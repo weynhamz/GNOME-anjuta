@@ -382,7 +382,7 @@ iprovider_activate (IAnjutaProvider *obj, IAnjutaIterable* iter,  gpointer data,
 			if (args)
 			{
 				ianjuta_editor_tip_show (IANJUTA_EDITOR_TIP(plugin->current_editor), t,
-							 position, 1, NULL);
+							 position, NULL);
 
 				g_free (args);
 			}*/

@@ -2494,7 +2494,9 @@ sdb_engine_finalize (GObject * object)
 	if (priv->timeout_trigger_handler > 0)
 		g_source_remove (priv->timeout_trigger_handler);
 
-	sdb_engine_disconnect_from_db (dbe);	
+	if (symbol_db_engine_is_connected (dbe) == TRUE)
+		sdb_engine_disconnect_from_db (dbe);	
+	
 	sdb_engine_free_cached_queries (dbe);
 	sdb_engine_free_cached_dynamic_queries (dbe);
 	

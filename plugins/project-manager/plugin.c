@@ -238,7 +238,7 @@ find_missing_files (GList *pre, GList *post)
 	GList *ret = NULL;
 	GList *node;
 	
-	hash = g_hash_table_new (g_file_hash, g_file_equal);
+	hash = g_hash_table_new (g_file_hash, (GEqualFunc) g_file_equal);
 	node = pre;
 	while (node)
 	{
@@ -1825,28 +1825,6 @@ project_manager_plugin_class_init (GObjectClass *klass)
 
 /* IAnjutaProjectManager implementation */
 
-static GFileType
-get_uri_vfs_type (const gchar *uri)
-{
-	GFileType retval = G_FILE_TYPE_UNKNOWN;
-	GFile *file;
-	GFileInfo *file_info;
-
-	file = g_file_new_for_uri (uri);
-	file_info = g_file_query_info (file,
-		G_FILE_ATTRIBUTE_STANDARD_TYPE,
-		G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
-		NULL, NULL);
-	if (file_info)
-	{
-		retval = g_file_info_get_file_type (file_info);
-		g_object_unref (file_info);
-	}
-
-	g_object_unref (file);
-	return retval;
-}
-
 static gboolean
 file_is_inside_project (ProjectManagerPlugin *plugin, GFile *file)
 {
@@ -1935,85 +1913,6 @@ get_element_file_from_node (ProjectManagerPlugin *plugin, AnjutaProjectNode *nod
 	}
 	
 	return file;
-}
-
-static const gchar *
-get_element_relative_path (ProjectManagerPlugin *plugin, const gchar *uri, const gchar *root)
-{
-	const gchar *project_root = NULL;
-	
-	anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell,
-					  root, G_TYPE_STRING,
-					  &project_root, NULL);
-	if (project_root == NULL)
-	{
-		/* Perhaps missing build URI, use project URI instead */
-		anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell,
-					  IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
-					  G_TYPE_STRING,
-					  &project_root,
-					  NULL);
-	}
-	if (project_root)
-	{
-		if (uri[0] != '/')
-		{
-			return uri + strlen (project_root);
-		}
-		else
-		{
-			const gchar *project_root_path = strchr (project_root, ':');
-			if (project_root_path)
-				project_root_path += 3;
-			else
-				project_root_path = project_root;
-			return uri + strlen (project_root_path);
-		}
-	}
-	return NULL;
-}
-
-static AnjutaProjectNode*
-get_node_from_file (AnjutaProjectNode *parent, GFile *file)
-{
-	AnjutaProjectNode *node;
-	GFile *target_file = NULL;
-
-	for (node = anjuta_project_node_first_child (parent); node != NULL; node = anjuta_project_node_next_sibling (node))
-	{
-		switch (anjuta_project_node_get_type (node))
-		{
-		case ANJUTA_PROJECT_GROUP:
-			if (g_file_equal (anjuta_project_group_get_directory (node), file))
-			{
-				return node;
-			}
-			else
-			{
-				return get_node_from_file (node, file);
-			}
-			break;
-		case ANJUTA_PROJECT_TARGET:
-			target_file = g_file_get_child (anjuta_project_group_get_directory (parent), anjuta_project_target_get_name (node));
-			if (g_file_equal (target_file, file))
-			{
-				g_object_unref (target_file);
-				return node;
-			}
-			g_object_unref (target_file);
-			break;
-		case ANJUTA_PROJECT_SOURCE:
-			if (g_file_equal (anjuta_project_source_get_file (node), file))
-			{
-				return node;
-			}
-			break;
-		default:
-			break;
-		}
-	}
-				
-	return NULL;		
 }
 
 static AnjutaProjectNode*

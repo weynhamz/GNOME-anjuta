@@ -55,11 +55,11 @@ sourceview_provider_populate (GtkSourceCompletionProvider* provider, GtkSourceCo
 	g_object_unref (cell);
 }
 
-static const gchar*
+static gchar*
 sourceview_provider_get_name (GtkSourceCompletionProvider* provider)
 {
 	SourceviewProvider* prov = SOURCEVIEW_PROVIDER(provider);
-	return ianjuta_provider_get_name (prov->iprov, NULL);
+	return g_strdup (ianjuta_provider_get_name (prov->iprov, NULL));
 }
 
 
@@ -72,7 +72,6 @@ sourceview_provider_get_start_iter (GtkSourceCompletionProvider* provider,
 	IAnjutaIterable* iiter = ianjuta_provider_get_start_iter (prov->iprov, NULL);
 	if (iiter)
 	{
-		DEBUG_PRINT ("Setting start iter");
 		SourceviewCell* cell = SOURCEVIEW_CELL(iiter);
 		GtkTextIter source_iter;
 		sourceview_cell_get_iter(cell, &source_iter);
@@ -98,6 +97,13 @@ sourceview_provider_activate_proposal (GtkSourceCompletionProvider* provider,
 	return TRUE;
 }
 
+static gint
+sourceview_provider_get_priority (GtkSourceCompletionProvider* provider)
+{
+	/* Always the highest priority */
+	return G_MAXINT32;
+}
+
 static void
 sourceview_provider_iface_init (GtkSourceCompletionProviderIface* provider)
 {
@@ -105,6 +111,7 @@ sourceview_provider_iface_init (GtkSourceCompletionProviderIface* provider)
 	provider->populate = sourceview_provider_populate;
 	provider->get_start_iter = sourceview_provider_get_start_iter;
 	provider->activate_proposal = sourceview_provider_activate_proposal;
+	provider->get_priority = sourceview_provider_get_priority;
 }
 
 static void

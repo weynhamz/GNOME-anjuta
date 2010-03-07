@@ -6,7 +6,9 @@ AM_CPPFLAGS = \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	-DPACKAGE_SRC_DIR=\""$(srcdir)"\" \
 	$(DEPRECATED_FLAGS) \
-	$(LIBANJUTA_CFLAGS) 
+	$(LIBANJUTA_CFLAGS) \
+	$(EXTRA_CFLAGS) \
+	-DG_LOG_DOMAIN=\"cxxparser\"
 
 noinst_LTLIBRARIES = libcxxparser.la
 

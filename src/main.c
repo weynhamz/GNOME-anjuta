@@ -55,6 +55,18 @@ static gboolean proper_shutdown = 0;
 static gchar *anjuta_geometry = NULL;
 static gchar **anjuta_filenames = NULL;
 
+static gboolean
+show_version_cb (const char *option_name,
+				const char *value,
+				gpointer data,
+				GError **error)
+{
+	g_print ("%s\n", PACKAGE_STRING);
+	exit (0);
+
+	return TRUE;
+}
+
 static const GOptionEntry anjuta_options[] = {
 	{
 		"geometry", 'g', 0, G_OPTION_ARG_STRING,
@@ -92,6 +104,12 @@ static const GOptionEntry anjuta_options[] = {
 		"proper-shutdown", 'p', 0, G_OPTION_ARG_NONE,
 		&proper_shutdown,
 		N_("Shut down Anjuta properly, releasing all resources (for debugging)"),
+		NULL
+	},
+	{
+		"version", 'v', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK,
+		&show_version_cb,
+		("Display program version"),
 		NULL
 	},
 	{
@@ -176,7 +194,7 @@ main (int argc, char *argv[])
 	/* Initialize gnome program */
 	if (!g_option_context_parse (context, &argc, &argv, &error))
 	{
-		DEBUG_PRINT ("Option parsing failed: %s", error->message);
+		g_debug ("Option parsing failed: %s", error->message);
 		exit(1);
 	}
 	
@@ -223,7 +241,7 @@ main (int argc, char *argv[])
 			if (response == UNIQUE_RESPONSE_OK)
 				return 0;
 			else
-				DEBUG_PRINT("Faild to contact first instance, starting up normally");
+				DEBUG_PRINT("Failed to contact first instance, starting up normally");
 		}
 	}
 	

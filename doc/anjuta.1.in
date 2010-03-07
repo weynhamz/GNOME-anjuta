@@ -9,17 +9,40 @@ anjuta [\fIoption\fP] [\fIfiles ... \fP]
 .LP 
 Anjuta is a GNOME IDE and can be used to create either GNOME/GTK+ applications with glade or glade\-gnome, or can be used for creating generic applications. It is primarily designed for use with C/C++ and features an easy to use debugger and compilation environment.
 .SH "OPTIONS"
-.LP 
-\fB\-\-help, \-?\fR
-Output help information and exit.
 .TP 
-\fB\-\-version\fR
+\fB\-h, \-\-help\fR
+Output help Anjuta command\-line options and exit.
+.TP 
+\fB\-\-help\-gtk\fR
+Output GTK+ command\-line options and exit.
+.TP 
+\fB\-\-help\-all\fR
+Output all command\-line options and exit.
+.TP 
+\fB\-v, \-\-version\fR
 Output version information and exit.
 .TP
-\fB\-\-no\-splash\fR
+\fB\-s, \-\-no\-splash\fR
 Do not show the splashscreen at startup.
+.TP
+\fB\-c, \-\-no\-client\fR
+Start a new instance and do not open the file in an existing instance.
+.TP
+\fB\-n, \-\-no\-session\fR
+Do not open last session on startup.
+.TP
+\fB\-f, \-\-no\-files\fR
+Do not open last project and files on startup.
+.TP
+\fB\-p, \-\-proper\-shutdown\fR
+Shut down Anjuta properly, releasing all resources (for
+debugging).
+.TP
+\fB\-g, \-\-geometry string\fR
+Specify the size and location of the main window, using the standard
+X window geometry syntax: WIDTHxHEIGHT+XOFF+YOFF.
 .TP 
-Anjuta supports all the generic GNOME and GTK options, a full list is available on the Anjuta help screen.
+Anjuta supports all the generic GTK options, a full list is available on the Anjuta help screen using \-\-help-gtk.
 .SH "AUTHORS"
 .LP 
 This man page was originally written by Rob Bradford <robster@debian.org>, extended by Jens Georg <mail@jensgeorg.de>. Anjuta was developed by Kh. Naba Kumar Singh <kh_naba@users.sourceforge.net>

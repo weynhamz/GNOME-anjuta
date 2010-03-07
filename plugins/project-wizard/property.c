@@ -519,9 +519,9 @@ npw_property_create_widget (NPWProperty* prop)
 		child = gtk_bin_get_child (GTK_BIN (entry));
 		if (!(prop->options & NPW_EDITABLE_OPTION))
 		{
-			gtk_editable_set_editable (child, FALSE);
+			gtk_editable_set_editable (GTK_EDITABLE (child), FALSE);
 		}
-		if (value) gtk_entry_set_text (child, value);
+		if (value) gtk_entry_set_text (GTK_ENTRY (child), value);
 		break;
 	}
 	default:
