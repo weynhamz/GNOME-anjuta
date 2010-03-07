@@ -2007,7 +2007,7 @@ ilanguage_iface_init (IAnjutaEditorLanguageIface *iface)
 
 static void 
 itips_show (IAnjutaEditorTip *iassist, GList* tips, IAnjutaIterable* ipos,
-            gint char_alignment, GError **err)
+            GError **err)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
 	SourceviewCell* cell = SOURCEVIEW_CELL (ipos);

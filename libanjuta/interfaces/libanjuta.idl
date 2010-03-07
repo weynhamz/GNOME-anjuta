@@ -1937,18 +1937,18 @@ interface IAnjutaEditor
 		 * ianjuta_editor_tip_show:
 		 * @obj: Self
 		 * @tips: list of alternative tips.
-		 * @char_alignment: Character alignment.
+		 * @position: Tip position.
 		 * @err: Error propagation and reporting
 		 *
 		 * Show tips showing more information on current context. No user feedback
-		 * is required when tips are shown. @char_alignment indicates
+		 * is required when tips are shown. @position indicates
 		 * the position before which is the known context and after which are
 		 * the suggestions. Usually the editor would use this to
 		 * align the choices displayed such that the carat is just at this
 		 * position when the choices are displayed.
 		 *
 		 */
-		void show (List<const gchar*> tips, IAnjutaIterable *position, gint char_alignment);
+		void show (List<const gchar*> tips, IAnjutaIterable *position);
 		
 		/**
 		 * ianjuta_editor_tip_cancel

@@ -810,7 +810,7 @@ on_calltip_search_complete (gint search_id, IAnjutaIterable* symbols, CppJavaAss
 	if (!running && assist->priv->tips)
 	{
 		ianjuta_editor_tip_show (IANJUTA_EDITOR_TIP(assist->priv->itip), assist->priv->tips,
-		                         assist->priv->calltip_iter, 0,
+		                         assist->priv->calltip_iter,
 		                         NULL);
 	}
 	g_object_unref (symbols);
@@ -1140,7 +1140,7 @@ cpp_java_assist_calltip (CppJavaAssist *assist)
 				{
 					ianjuta_editor_tip_show (IANJUTA_EDITOR_TIP (editor),
 					                         assist->priv->tips,
-					                         assist->priv->calltip_iter, 0, NULL);
+					                         assist->priv->calltip_iter, NULL);
 				}
 			}
 			g_free (call_context);
