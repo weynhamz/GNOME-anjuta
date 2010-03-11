@@ -126,6 +126,8 @@ sdb_engine_walk_down_scope_path (SymbolDBEngine *dbe, const GPtrArray* scope_pat
 		data = gda_connection_statement_execute_select (priv->db_connection, 
 														  (GdaStatement*)stmt, 
 														  (GdaSet*)plist, NULL);
+
+		MP_RESET_PLIST(plist);
 	
 		if (!GDA_IS_DATA_MODEL (data) ||
 			gda_data_model_get_n_rows (GDA_DATA_MODEL (data)) <= 0)
@@ -371,6 +373,8 @@ symbol_db_engine_get_class_parents_by_symbol_id (SymbolDBEngine *dbe,
 	data = gda_connection_statement_execute_select (priv->db_connection, 
 												  (GdaStatement*)dyn_node->stmt, 
 												  (GdaSet*)dyn_node->plist, NULL);
+
+	MP_RESET_PLIST(dyn_node->plist);
 		
 	if (!GDA_IS_DATA_MODEL (data) ||
 		gda_data_model_get_n_rows (data) <= 0)
@@ -516,7 +520,9 @@ symbol_db_engine_get_class_parents (SymbolDBEngine *dbe, const gchar *klass_name
 	data = gda_connection_statement_execute_select (priv->db_connection, 
 												  (GdaStatement*)dyn_node->stmt, 
 												  (GdaSet*)dyn_node->plist, NULL);
-		
+
+	MP_RESET_PLIST(dyn_node->plist);
+	
 	if (!GDA_IS_DATA_MODEL (data) ||
 		gda_data_model_get_n_rows (GDA_DATA_MODEL (data)) <= 0)
 	{
@@ -791,6 +797,7 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 	data = gda_connection_statement_execute_select (priv->db_connection, 
 												  (GdaStatement*)dyn_node->stmt, 
 												  (GdaSet*)dyn_node->plist, NULL);
+	MP_RESET_PLIST(dyn_node->plist);
 
 	/* free the filter kinds, if it's not null */
 	if (filter_kinds_array)
@@ -1044,6 +1051,7 @@ symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe,
 	data = gda_connection_statement_execute_select (priv->db_connection, 
 												  (GdaStatement*)dyn_node->stmt, 
 												  (GdaSet*)dyn_node->plist, NULL);
+	MP_RESET_PLIST(dyn_node->plist);
 
 	/* free the filter kinds, if it's not null */
 	if (filter_kinds_array)
@@ -1215,6 +1223,7 @@ select b.* from symbol a, symbol b where a.symbol_id = 348 and
 	data = gda_connection_statement_execute_select (priv->db_connection, 
 												  (GdaStatement*)dyn_node->stmt, 
 												  (GdaSet*)dyn_node->plist, NULL);
+	MP_RESET_PLIST(dyn_node->plist);
 	
 	/*gda_data_model_dump (data, stdout);*/
 	if (!GDA_IS_DATA_MODEL (data) ||
@@ -1332,6 +1341,7 @@ es. scope_path = First, namespace, Second, namespace, NULL,
 	data = gda_connection_statement_execute_select (priv->db_connection, 
 												  (GdaStatement*)dyn_node->stmt, 
 												  (GdaSet*)dyn_node->plist, NULL);
+	MP_RESET_PLIST(dyn_node->plist);
 	
 	if (!GDA_IS_DATA_MODEL (data) ||
 		gda_data_model_get_n_rows (data) <= 0)
@@ -1444,6 +1454,7 @@ symbol_db_engine_get_current_scope (SymbolDBEngine *dbe, const gchar* full_local
 	data = gda_connection_statement_execute_select (priv->db_connection, 
 												  (GdaStatement*)dyn_node->stmt, 
 												  (GdaSet*)dyn_node->plist, NULL);
+	MP_RESET_PLIST(dyn_node->plist);
 	
 	if (!GDA_IS_DATA_MODEL (data) ||
 		gda_data_model_get_n_rows (data) <= 0)
@@ -1557,6 +1568,7 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 	data = gda_connection_statement_execute_select (priv->db_connection, 
 												  (GdaStatement*)dyn_node->stmt, 
 												  (GdaSet*)dyn_node->plist, NULL);
+	MP_RESET_PLIST(dyn_node->plist);
 	
 	if (!GDA_IS_DATA_MODEL (data) ||
 		gda_data_model_get_n_rows (data) <= 0)
@@ -1670,6 +1682,7 @@ symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe,
 	data = gda_connection_statement_execute_select (priv->db_connection, 
 												  (GdaStatement*)dyn_node->stmt, 
 												  (GdaSet*)dyn_node->plist, NULL);
+	MP_RESET_PLIST(dyn_node->plist);
 	
 	if (!GDA_IS_DATA_MODEL (data) ||
 		gda_data_model_get_n_rows (data) <= 0)
@@ -1770,6 +1783,7 @@ select * from symbol where scope_definition_id = (
 	data = gda_connection_statement_execute_select (priv->db_connection, 
 													  (GdaStatement*)stmt, 
 													  (GdaSet*)plist, NULL);
+	MP_RESET_PLIST(plist);
 		
 	if (!GDA_IS_DATA_MODEL (data) ||
 		(num_rows = gda_data_model_get_n_rows (GDA_DATA_MODEL (data))) <= 0)
@@ -1883,6 +1897,7 @@ select * from symbol where scope_definition_id = (
 		detailed_data = gda_connection_statement_execute_select (priv->db_connection, 
 													  (GdaStatement*)stmt2, 
 													  (GdaSet*)plist, NULL);
+		MP_RESET_PLIST(plist);
 				
 		if (!GDA_IS_DATA_MODEL (detailed_data) ||
 			(num_rows = gda_data_model_get_n_rows (GDA_DATA_MODEL (detailed_data))) <= 0)
@@ -2029,6 +2044,7 @@ sdb_engine_get_symbol_info_by_id_1 (SymbolDBEngine *dbe,
 	data = gda_connection_statement_execute_select (priv->db_connection, 
 												  (GdaStatement*)dyn_node->stmt, 
 												  (GdaSet*)dyn_node->plist, NULL);
+	MP_RESET_PLIST(dyn_node->plist);
 	
 	if (!GDA_IS_DATA_MODEL (data) ||
 		gda_data_model_get_n_rows (data) <= 0)
@@ -2457,6 +2473,7 @@ symbol_db_engine_find_symbol_by_name_pattern_on_file (SymbolDBEngine *dbe,
 	data = gda_connection_statement_execute_select (priv->db_connection, 
 												  (GdaStatement*)dyn_node->stmt, 
 												  (GdaSet*)dyn_node->plist, NULL);
+	MP_RESET_PLIST(dyn_node->plist);
 
 	/* free the filter kinds, if it's not null */
 	if (filter_kinds_array)
@@ -2757,6 +2774,7 @@ symbol_db_engine_find_symbol_in_scope (SymbolDBEngine *dbe,
 	data = gda_connection_statement_execute_select (priv->db_connection, 
 												  (GdaStatement*)dyn_node->stmt, 
 												  (GdaSet*)dyn_node->plist, NULL);
+	MP_RESET_PLIST(dyn_node->plist);
 
 	/* free the filter kinds, if it's not null */
 	if (filter_kinds_array)
@@ -3191,6 +3209,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 	data = gda_connection_statement_execute_select (priv->db_connection, 
 												  (GdaStatement*)dyn_node->stmt, 
 												  (GdaSet*)dyn_node->plist, &error);
+	MP_RESET_PLIST(dyn_node->plist);
 
 	if (error)
 	{
@@ -3335,6 +3354,7 @@ symbol_db_engine_get_files_for_project (SymbolDBEngine *dbe,
 	data = gda_connection_statement_execute_select (priv->db_connection, 
 												  (GdaStatement*)dyn_node->stmt, 
 												  (GdaSet*)dyn_node->plist, NULL);
+	MP_RESET_PLIST(dyn_node->plist);
 		
 /*	DEBUG_PRINT ("symbol_db_engine_get_files_for_project (): query_str is %s",
 				 dyn_node->query_str);
