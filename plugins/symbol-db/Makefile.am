@@ -48,27 +48,45 @@ plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-symbol-db.la
 
 # Plugin sources
-libanjuta_symbol_db_la_SOURCES = plugin.c plugin.h \
-	readtags.c readtags.h \
+libanjuta_symbol_db_la_SOURCES = \
+	plugin.c \
+	plugin.h \
+	readtags.c \
+	readtags.h \
 	symbol-db-engine-iterator.c \
 	symbol-db-engine-iterator.h \
+	symbol-db-model.c \
+	symbol-db-model.h \
 	symbol-db-view.h \
 	symbol-db-view.c \
 	symbol-db-view-locals.c \
 	symbol-db-view-locals.h \
 	symbol-db-view-search.h \
 	symbol-db-view-search.c \
-  symbol-db-engine-iterator-node.h \
+	symbol-db-engine-iterator-node.h \
 	symbol-db-engine-iterator-node.c \
 	symbol-db-system.h \
-	symbol-db-system.c  symbol-db-prefs.h \
-	symbol-db-prefs.c  symbol-db-engine-queries.c \
-	symbol-db-engine-queries.h  symbol-db-engine-utils.c \
-	symbol-db-engine-utils.h  symbol-db-engine-priv.h \
-	symbol-db-engine-core.c  symbol-db-engine-core.h \
-	symbol-db-engine.h  symbol-db-iface.c \
-	symbol-db-iface.h  symbol-db-search-command.h \
+	symbol-db-system.c \
+	symbol-db-prefs.h \
+	symbol-db-prefs.c \
+	symbol-db-engine-queries.c \
+	symbol-db-engine-queries.h \
+	symbol-db-engine-utils.c \
+	symbol-db-engine-utils.h \
+	symbol-db-engine-priv.h \
+	symbol-db-engine-core.c \
+	symbol-db-engine-core.h \
+	symbol-db-engine.h \
+	symbol-db-iface.c \
+	symbol-db-iface.h \
+	symbol-db-search-command.h \
 	symbol-db-search-command.c \
+	symbol-db-model.c \
+	symbol-db-model.h \
+	symbol-db-model-global.c \
+	symbol-db-model-global.h \
+	symbol-db-views.c \
+	symbol-db-views.h \
 	libgda-extra/gda-data-model-concat.c \
 	libgda-extra/gda-data-model-concat.h
 
@@ -90,8 +108,5 @@ EXTRA_DIST = \
 	$(symbol_db_pixmaps_DATA) \
 	$(symbol_db_data_DATA) \
 	$(symbol_db_ui_DATA)
-
-
-
 
 -include $(top_srcdir)/git.mk
