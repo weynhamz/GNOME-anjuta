@@ -624,7 +624,7 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 	if (filter_kinds_array == NULL || filter_kinds_array->len > 255 || filter_kinds_array->len <= 0) 
 	{
 		if ((dyn_node = sdb_engine_get_dyn_query_node_by_id (dbe, 
-					DYN_PREP_QUERY_GET_CLASS_PARENTS, sym_info, 
+					DYN_PREP_QUERY_GET_GLOBAL_MEMBERS_FILTERED, sym_info,
 					other_parameters)) == NULL)
 		{
 			/* info_data contains the stuff after SELECT and befor FROM */
@@ -675,7 +675,7 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 		other_parameters |= filter_kinds_array->len;
 		
 		if ((dyn_node = sdb_engine_get_dyn_query_node_by_id (dbe, 
-				DYN_PREP_QUERY_GET_CLASS_PARENTS, sym_info, 
+				DYN_PREP_QUERY_GET_GLOBAL_MEMBERS_FILTERED, sym_info,
 				other_parameters)) == NULL)
 		{		
 			gint i;
