@@ -56,46 +56,63 @@
 #define MEMORY_POOL_INT_SIZE			200
 
 #define DUMMY_VOID_STRING				""
+#define MP_VOID_STRING					"-"
 
 #define USE_ASYNC_QUEUE
 #undef USE_ASYNC_QUEUE
 
+#define MP_RESET_OBJ_STR(gvalue) \
+		g_value_set_static_string (gvalue, DUMMY_VOID_STRING);
+
+/* given a GdaSet plist this macro resets all the GValues associated within its
+ * GdaHolders.
+ */
+#define MP_RESET_PLIST(plist) { \
+		if (plist != NULL) \
+		{ \
+			GSList* holders; \
+			for (holders = plist->holders; holders; holders = holders->next) { \
+				GValue *gvalue = (GValue*)gda_holder_get_value (holders->data); \
+				if (G_VALUE_HOLDS_STRING(gvalue)) \
+					MP_RESET_OBJ_STR(gvalue); \
+			} \
+		} \
+}
 
 #ifdef USE_ASYNC_QUEUE
 #define MP_LEND_OBJ_STR(sdb_priv, OUT_gvalue) \
-		OUT_gvalue = (GValue*)g_async_queue_pop(sdb_priv->mem_pool_string); 
-/*		DEBUG_PRINT ("lend str %p, qlength %d [-]", OUT_gvalue, g_async_queue_length (sdb_priv->mem_pool_string));*/
+		OUT_gvalue = (GValue*)g_async_queue_pop(sdb_priv->mem_pool_string); \
+		MP_RESET_OBJ_STR(OUT_gvalue);
 
 #define MP_RETURN_OBJ_STR(sdb_priv, gvalue) \
-	g_value_set_static_string (gvalue, DUMMY_VOID_STRING); \
-	g_async_queue_push(sdb_priv->mem_pool_string, gvalue); 
-/*	DEBUG_PRINT ("return str %p, qlength %d [+]", gvalue, g_async_queue_length (sdb_priv->mem_pool_string));*/
+		g_value_set_static_string (gvalue, MP_VOID_STRING); \
+		g_async_queue_push(sdb_priv->mem_pool_string, gvalue); 
 
 #define MP_LEND_OBJ_INT(sdb_priv, OUT_gvalue) \
 		OUT_gvalue = (GValue*)g_async_queue_pop(sdb_priv->mem_pool_int); 
-/*		DEBUG_PRINT ("lend int, qlength %d [-]", g_async_queue_length (sdb_priv->mem_pool_int));*/
 
 #define MP_RETURN_OBJ_INT(sdb_priv, gvalue) \
-	g_async_queue_push(sdb_priv->mem_pool_int, gvalue); 
-/*	DEBUG_PRINT ("return int, qlength %d [+]", g_async_queue_length (sdb_priv->mem_pool_int));*/
+		g_async_queue_push(sdb_priv->mem_pool_int, gvalue); 
+
 #else
 #define MP_LEND_OBJ_STR(sdb_priv, OUT_gvalue) \
-		OUT_gvalue = (GValue*)g_queue_pop_head(sdb_priv->mem_pool_string); 
-		/*DEBUG_PRINT ("lend str %p, qlength %d [-]", OUT_gvalue, g_queue_get_length (sdb_priv->mem_pool_string));*/
+		OUT_gvalue = (GValue*)g_queue_pop_head(sdb_priv->mem_pool_string); \
+		MP_RESET_OBJ_STR(OUT_gvalue);
 
 #define MP_RETURN_OBJ_STR(sdb_priv, gvalue) \
-	g_value_set_static_string (gvalue, DUMMY_VOID_STRING); \
-	g_queue_push_head(sdb_priv->mem_pool_string, gvalue); 
-	/*DEBUG_PRINT ("return str %p, qlength %d [+]", gvalue, g_queue_get_length (sdb_priv->mem_pool_string));*/
-	
+		g_value_set_static_string (gvalue, MP_VOID_STRING); \
+		g_queue_push_head(sdb_priv->mem_pool_string, gvalue); 
 
 #define MP_LEND_OBJ_INT(sdb_priv, OUT_gvalue) \
 		OUT_gvalue = (GValue*)g_queue_pop_head(sdb_priv->mem_pool_int); 
 
 #define MP_RETURN_OBJ_INT(sdb_priv, gvalue) \
-	g_queue_push_head(sdb_priv->mem_pool_int, gvalue);
+		g_queue_push_head(sdb_priv->mem_pool_int, gvalue);
 #endif
 
+/* ret_value, even if not used outside, permits variable reusing without 
+ * forcing the compiler to redeclare it everytime
+ */
 #define MP_SET_HOLDER_BATCH_STR(priv, param, string_, ret_bool, ret_value) { \
 	GValue *value_str; \
 	MP_LEND_OBJ_STR(priv, value_str); \

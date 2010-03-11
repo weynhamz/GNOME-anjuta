@@ -783,6 +783,9 @@ sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, static_query_type 
 	{
 		if (data_model != NULL)
 			g_object_unref (data_model);
+
+		if (G_VALUE_HOLDS_STRING (param_value) == TRUE)
+			MP_RESET_OBJ_STR(param_value);
 		return -1;
 	}
 
@@ -791,6 +794,11 @@ sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, static_query_type 
 
 	table_id = g_value_get_int (num);
 	g_object_unref (data_model);
+
+	/* set the value to a dummy string because we won't use the real value anymore */
+	if (G_VALUE_HOLDS_STRING (param_value) == TRUE)
+		MP_RESET_OBJ_STR(param_value);	
+	
 	return table_id;
 }
 
@@ -827,6 +835,10 @@ sdb_engine_get_tuple_id_by_unique_name2 (SymbolDBEngine * dbe,
 	if ((stmt = sdb_engine_get_statement_by_query_id (dbe, qtype)) == NULL)
 	{
 		g_warning ("Query is null");
+		if (G_VALUE_HOLDS_STRING (value1) == TRUE)
+			MP_RESET_OBJ_STR(value1);
+		if (G_VALUE_HOLDS_STRING (value2) == TRUE)
+			MP_RESET_OBJ_STR(value2);
 		return -1;
 	}
 
@@ -838,6 +850,10 @@ sdb_engine_get_tuple_id_by_unique_name2 (SymbolDBEngine * dbe,
 		g_warning ("sdb_engine_get_tuple_id_by_unique_name2: "
 				   "param is NULL from pquery! [par1: %s] [par2: %s]\n",
 				   param_key1, param_key2);
+		if (G_VALUE_HOLDS_STRING (value1) == TRUE)
+			MP_RESET_OBJ_STR(value1);
+		if (G_VALUE_HOLDS_STRING (value2) == TRUE)
+			MP_RESET_OBJ_STR(value2);
 		return -1;
 	}
 	
@@ -861,6 +877,11 @@ sdb_engine_get_tuple_id_by_unique_name2 (SymbolDBEngine * dbe,
 		g_warning ("sdb_engine_get_tuple_id_by_unique_name2: "
 				   "param is NULL from pquery! [par1: %s] [par2: %s]\n",
 				   param_key1, param_key2);
+		
+		if (G_VALUE_HOLDS_STRING (value1) == TRUE)
+			MP_RESET_OBJ_STR(value1);
+		if (G_VALUE_HOLDS_STRING (value2) == TRUE)
+			MP_RESET_OBJ_STR(value2);
 		return -1;
 	}
 	
@@ -887,6 +908,11 @@ sdb_engine_get_tuple_id_by_unique_name2 (SymbolDBEngine * dbe,
 	{
 		if (data_model != NULL)
 			g_object_unref (data_model);
+		
+		if (G_VALUE_HOLDS_STRING (value1) == TRUE)
+			MP_RESET_OBJ_STR(value1);
+		if (G_VALUE_HOLDS_STRING (value2) == TRUE)
+			MP_RESET_OBJ_STR(value2);
 		return -1;
 	}
 
@@ -895,6 +921,11 @@ sdb_engine_get_tuple_id_by_unique_name2 (SymbolDBEngine * dbe,
 
 	table_id = g_value_get_int (num);
 	g_object_unref (data_model);
+
+	if (G_VALUE_HOLDS_STRING (value1) == TRUE)
+		MP_RESET_OBJ_STR(value1);
+	if (G_VALUE_HOLDS_STRING (value2) == TRUE)
+		MP_RESET_OBJ_STR(value2);
 	
 	return table_id;
 }
@@ -926,6 +957,14 @@ sdb_engine_get_tuple_id_by_unique_name3 (SymbolDBEngine * dbe,
 	if ((stmt = sdb_engine_get_statement_by_query_id (dbe, qtype)) == NULL)
 	{
 		g_warning ("Query is null");
+		
+		if (G_VALUE_HOLDS_STRING (value1) == TRUE)
+			MP_RESET_OBJ_STR(value1);
+		if (G_VALUE_HOLDS_STRING (value2) == TRUE)
+			MP_RESET_OBJ_STR(value2);
+		if (G_VALUE_HOLDS_STRING (value3) == TRUE)
+			MP_RESET_OBJ_STR(value3);
+
 		return -1;
 	}
 
@@ -935,6 +974,13 @@ sdb_engine_get_tuple_id_by_unique_name3 (SymbolDBEngine * dbe,
 	{
 		g_warning ("sdb_engine_get_tuple_id_by_unique_name: param is NULL "
 				   "from pquery!\n");
+		if (G_VALUE_HOLDS_STRING (value1) == TRUE)
+			MP_RESET_OBJ_STR(value1);
+		if (G_VALUE_HOLDS_STRING (value2) == TRUE)
+			MP_RESET_OBJ_STR(value2);
+		if (G_VALUE_HOLDS_STRING (value3) == TRUE)
+			MP_RESET_OBJ_STR(value3);
+
 		return -1;
 	}
 	
@@ -958,6 +1004,13 @@ sdb_engine_get_tuple_id_by_unique_name3 (SymbolDBEngine * dbe,
 		g_warning ("sdb_engine_get_tuple_id_by_unique_name2: "
 				   "param is NULL from pquery! [par1: %s] [par2: %s]\n",
 				   param_key1, param_key2);
+		if (G_VALUE_HOLDS_STRING (value1) == TRUE)
+			MP_RESET_OBJ_STR(value1);
+		if (G_VALUE_HOLDS_STRING (value2) == TRUE)
+			MP_RESET_OBJ_STR(value2);
+		if (G_VALUE_HOLDS_STRING (value3) == TRUE)
+			MP_RESET_OBJ_STR(value3);
+
 		return -1;
 	}
 	
@@ -1008,6 +1061,14 @@ sdb_engine_get_tuple_id_by_unique_name3 (SymbolDBEngine * dbe,
 	{
 		if (data_model != NULL)
 			g_object_unref (data_model);
+		
+		if (G_VALUE_HOLDS_STRING (value1) == TRUE)
+			MP_RESET_OBJ_STR(value1);
+		if (G_VALUE_HOLDS_STRING (value2) == TRUE)
+			MP_RESET_OBJ_STR(value2);
+		if (G_VALUE_HOLDS_STRING (value3) == TRUE)
+			MP_RESET_OBJ_STR(value3);
+
 		return -1;
 	}
 
@@ -1016,6 +1077,14 @@ sdb_engine_get_tuple_id_by_unique_name3 (SymbolDBEngine * dbe,
 
 	table_id = g_value_get_int (num);
 	g_object_unref (data_model);
+
+	if (G_VALUE_HOLDS_STRING (value1) == TRUE)
+		MP_RESET_OBJ_STR(value1);
+	if (G_VALUE_HOLDS_STRING (value2) == TRUE)
+		MP_RESET_OBJ_STR(value2);
+	if (G_VALUE_HOLDS_STRING (value3) == TRUE)
+		MP_RESET_OBJ_STR(value3);
+
 	return table_id;
 }
 
@@ -1048,6 +1117,15 @@ sdb_engine_get_tuple_id_by_unique_name4 (SymbolDBEngine * dbe,
 	if ((stmt = sdb_engine_get_statement_by_query_id (dbe, qtype)) == NULL)
 	{
 		g_warning ("Query is null");
+		if (G_VALUE_HOLDS_STRING (value1) == TRUE)
+			MP_RESET_OBJ_STR(value1);
+		if (G_VALUE_HOLDS_STRING (value2) == TRUE)
+			MP_RESET_OBJ_STR(value2);
+		if (G_VALUE_HOLDS_STRING (value3) == TRUE)
+			MP_RESET_OBJ_STR(value3);
+		if (G_VALUE_HOLDS_STRING (value4) == TRUE)
+			MP_RESET_OBJ_STR(value4);
+
 		return -1;
 	}
 
@@ -1057,6 +1135,15 @@ sdb_engine_get_tuple_id_by_unique_name4 (SymbolDBEngine * dbe,
 	{
 		g_warning ("sdb_engine_get_tuple_id_by_unique_name: param is NULL "
 				   "from pquery!\n");
+		if (G_VALUE_HOLDS_STRING (value1) == TRUE)
+			MP_RESET_OBJ_STR(value1);
+		if (G_VALUE_HOLDS_STRING (value2) == TRUE)
+			MP_RESET_OBJ_STR(value2);
+		if (G_VALUE_HOLDS_STRING (value3) == TRUE)
+			MP_RESET_OBJ_STR(value3);
+		if (G_VALUE_HOLDS_STRING (value4) == TRUE)
+			MP_RESET_OBJ_STR(value4);
+
 		return -1;
 	}
 	
@@ -1078,6 +1165,15 @@ sdb_engine_get_tuple_id_by_unique_name4 (SymbolDBEngine * dbe,
 	{
 		g_warning ("sdb_engine_get_tuple_id_by_unique_name2: "
 				   "param is NULL from pquery!");
+		if (G_VALUE_HOLDS_STRING (value1) == TRUE)
+			MP_RESET_OBJ_STR(value1);
+		if (G_VALUE_HOLDS_STRING (value2) == TRUE)
+			MP_RESET_OBJ_STR(value2);
+		if (G_VALUE_HOLDS_STRING (value3) == TRUE)
+			MP_RESET_OBJ_STR(value3);
+		if (G_VALUE_HOLDS_STRING (value4) == TRUE)
+			MP_RESET_OBJ_STR(value4);
+		
 		return -1;
 	}
 	
@@ -1099,6 +1195,15 @@ sdb_engine_get_tuple_id_by_unique_name4 (SymbolDBEngine * dbe,
 	{
 		g_warning ("sdb_engine_get_tuple_id_by_unique_name2: "
 				   "param is NULL from pquery!");
+		if (G_VALUE_HOLDS_STRING (value1) == TRUE)
+			MP_RESET_OBJ_STR(value1);
+		if (G_VALUE_HOLDS_STRING (value2) == TRUE)
+			MP_RESET_OBJ_STR(value2);
+		if (G_VALUE_HOLDS_STRING (value3) == TRUE)
+			MP_RESET_OBJ_STR(value3);
+		if (G_VALUE_HOLDS_STRING (value4) == TRUE)
+			MP_RESET_OBJ_STR(value4);
+
 		return -1;
 	}
 	
@@ -1120,6 +1225,15 @@ sdb_engine_get_tuple_id_by_unique_name4 (SymbolDBEngine * dbe,
 	{
 		g_warning ("sdb_engine_get_tuple_id_by_unique_name2: "
 				   "param is NULL from pquery!");
+		if (G_VALUE_HOLDS_STRING (value1) == TRUE)
+			MP_RESET_OBJ_STR(value1);
+		if (G_VALUE_HOLDS_STRING (value2) == TRUE)
+			MP_RESET_OBJ_STR(value2);
+		if (G_VALUE_HOLDS_STRING (value3) == TRUE)
+			MP_RESET_OBJ_STR(value3);
+		if (G_VALUE_HOLDS_STRING (value4) == TRUE)
+			MP_RESET_OBJ_STR(value4);
+
 		return -1;
 	}
 
@@ -1146,6 +1260,16 @@ sdb_engine_get_tuple_id_by_unique_name4 (SymbolDBEngine * dbe,
 	{
 		if (data_model != NULL)
 			g_object_unref (data_model);
+		
+		if (G_VALUE_HOLDS_STRING (value1) == TRUE)
+			MP_RESET_OBJ_STR(value1);
+		if (G_VALUE_HOLDS_STRING (value2) == TRUE)
+			MP_RESET_OBJ_STR(value2);
+		if (G_VALUE_HOLDS_STRING (value3) == TRUE)
+			MP_RESET_OBJ_STR(value3);
+		if (G_VALUE_HOLDS_STRING (value4) == TRUE)
+			MP_RESET_OBJ_STR(value4);
+		
 		return -1;
 	}
 
@@ -1154,6 +1278,16 @@ sdb_engine_get_tuple_id_by_unique_name4 (SymbolDBEngine * dbe,
 
 	table_id = g_value_get_int (num);
 	g_object_unref (data_model);
+	
+	if (G_VALUE_HOLDS_STRING (value1) == TRUE)
+		MP_RESET_OBJ_STR(value1);
+	if (G_VALUE_HOLDS_STRING (value2) == TRUE)
+		MP_RESET_OBJ_STR(value2);
+	if (G_VALUE_HOLDS_STRING (value3) == TRUE)
+		MP_RESET_OBJ_STR(value3);
+	if (G_VALUE_HOLDS_STRING (value4) == TRUE)
+		MP_RESET_OBJ_STR(value4);
+
 	return table_id;
 }
 
@@ -2426,6 +2560,7 @@ sdb_engine_init (SymbolDBEngine * object)
 	for (i = 0; i < MEMORY_POOL_STRING_SIZE; i++) 
 	{
 		GValue *value = gda_value_new (G_TYPE_STRING);
+		g_value_set_static_string (value, MP_VOID_STRING);
 #ifdef USE_ASYNC_QUEUE	
 		g_async_queue_push (sdbe->priv->mem_pool_string, value);
 #else
@@ -2954,7 +3089,7 @@ symbol_db_engine_file_exists (SymbolDBEngine * dbe, const gchar * abs_file_path)
 		SDB_UNLOCK(priv);
 		return FALSE;	
 	}
-	
+
 	g_free (relative);
 	SDB_UNLOCK(priv);
 	return TRUE;	
@@ -3210,10 +3345,12 @@ CREATE TABLE workspace (workspace_id integer PRIMARY KEY AUTOINCREMENT,
 														  (GdaStatement*)stmt, 
 														  (GdaSet*)plist, NULL, NULL) == -1)
 	{		
+		MP_RESET_PLIST(plist);
 		SDB_UNLOCK(priv);
 		return FALSE;
 	}
 
+	MP_RESET_PLIST(plist);
 	SDB_UNLOCK(priv);
 	return TRUE;
 }
@@ -3359,10 +3496,12 @@ CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
 														  (GdaStatement*)stmt, 
 														  (GdaSet*)plist, NULL, NULL) == -1)
 	{		
+		MP_RESET_PLIST(plist);
 		SDB_UNLOCK(priv);
 		return FALSE;
 	}
 
+	MP_RESET_PLIST(plist);
 	SDB_UNLOCK(priv);
 	return TRUE;
 }
@@ -3431,7 +3570,9 @@ CREATE TABLE language (language_id integer PRIMARY KEY AUTOINCREMENT,
 		}		
 		
 		if (last_inserted)
-			g_object_unref (last_inserted);			
+			g_object_unref (last_inserted);
+
+		MP_RESET_PLIST(plist);
 	}
 
 	return table_id;
@@ -3487,7 +3628,7 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 								  "prjname",
 								  value)) < 0)
 	{
-		g_warning ("no project with that name exists");
+		g_warning ("no project with that name (%s) exists", project_name);
 		SDB_UNLOCK(priv);
 		return FALSE;
 	}
@@ -3573,12 +3714,16 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 														 (GdaSet*)plist, NULL,
 														 NULL) == -1)
 		{		
+			MP_RESET_PLIST(plist);
+			
 			g_free (relative_path);
 			SDB_UNLOCK(priv);
 			return FALSE;
 		}	
-	}
 
+		MP_RESET_PLIST(plist);
+	}
+	
 	g_free (relative_path);
 	
 	SDB_UNLOCK(priv);
@@ -3930,7 +4075,7 @@ sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 													 NULL) == -1)
 	{
 		GValue *value1, *value2;
-
+		
 		MP_LEND_OBJ_STR (priv, value1);
 		g_value_set_static_string (value1, type);
 
@@ -3945,6 +4090,7 @@ sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 			table_id = -1;
 		}
 
+		MP_RESET_PLIST(plist);
 		g_free (type_regex);
 		return table_id;
 	}	
@@ -3956,6 +4102,8 @@ sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 	
 	if (last_inserted)
 		g_object_unref (last_inserted);	
+
+	MP_RESET_PLIST(plist);
 	g_free (type_regex);
 	return table_id;
 }
@@ -4039,7 +4187,9 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 			sdb_engine_insert_cache (priv->kind_cache, kind_name, table_id);
 		}
 		if (last_inserted)
-			g_object_unref (last_inserted);			
+			g_object_unref (last_inserted);		
+
+		MP_RESET_PLIST(plist);
 	}
 
 	return table_id;
@@ -4128,6 +4278,8 @@ sdb_engine_add_new_sym_access (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 		
 		if (last_inserted)
 			g_object_unref (last_inserted);			
+
+		MP_RESET_PLIST(plist);
 	}	
 
 
@@ -4215,7 +4367,9 @@ sdb_engine_add_new_sym_implementation (SymbolDBEngine * dbe,
 									 table_id);	
 		}
 		if (last_inserted)
-			g_object_unref (last_inserted);			
+			g_object_unref (last_inserted);	
+
+		MP_RESET_PLIST(plist);
 	}
 	
 	return table_id;
@@ -4280,6 +4434,8 @@ sdb_engine_add_new_heritage (SymbolDBEngine * dbe, gint base_symbol_id,
 	{		
 		g_warning ("Error adding heritage");
 	}	
+
+	MP_RESET_PLIST(plist);
 }
 
 /* ### Thread note: this function inherits the mutex lock ### */
@@ -4381,6 +4537,8 @@ sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, const tagEntry * tag_
 
 	if (last_inserted)
 		g_object_unref (last_inserted);	
+
+	MP_RESET_PLIST(plist);
 	
 	return table_id;
 }
@@ -4582,6 +4740,8 @@ sdb_engine_add_new_tmp_heritage_scope (SymbolDBEngine * dbe,
 
 	if (last_inserted)
 		g_object_unref (last_inserted);	
+
+	MP_RESET_PLIST(plist);
 	
 	return table_id;
 }
@@ -4715,6 +4875,8 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 													 (GdaSet*)plist, NULL,
 													 NULL);
 
+	MP_RESET_PLIST(plist);
+	
 	return symbol_referer_id;
 }
 
@@ -5411,6 +5573,8 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 													 (GdaSet*)plist, &last_inserted,
 													 NULL);
 
+	MP_RESET_PLIST(plist);
+	
 	if (sym_was_updated == FALSE)
 	{
 		if (nrows > 0)
@@ -5588,6 +5752,8 @@ sdb_engine_update_file (SymbolDBEngine * dbe, const gchar * file_on_db)
 	gda_connection_statement_execute_non_select (priv->db_connection, (GdaStatement*)stmt1, 
 														 (GdaSet*)plist1, NULL, NULL);	
 
+	MP_RESET_PLIST(plist1);
+	
 	/* emits removed symbols signals */
 	sdb_engine_detects_removed_ids (dbe);
 
@@ -5612,6 +5778,7 @@ sdb_engine_update_file (SymbolDBEngine * dbe, const gchar * file_on_db)
 	gda_connection_statement_execute_non_select (priv->db_connection, (GdaStatement*)stmt2, 
 														 (GdaSet*)plist2, NULL, NULL);	
 
+	MP_RESET_PLIST(plist2);
 
 	/* last but not least, update the file analyse_time */
 	if ((stmt3 = sdb_engine_get_statement_by_query_id (dbe,
@@ -5637,6 +5804,9 @@ sdb_engine_update_file (SymbolDBEngine * dbe, const gchar * file_on_db)
 
 	gda_connection_statement_execute_non_select (priv->db_connection, (GdaStatement*)stmt3, 
 														 (GdaSet*)plist3, NULL, NULL);	
+
+	MP_RESET_PLIST(plist3);
+	
 	SDB_UNLOCK(priv);
 	return TRUE;
 }
@@ -5729,6 +5899,8 @@ on_scan_update_files_symbols_end (SymbolDBEngine * dbe,
 		gda_connection_statement_execute_non_select (priv->db_connection, 
 													 (GdaStatement*)stmt, 
 													 (GdaSet*)plist, NULL, NULL);
+
+		MP_RESET_PLIST(plist);
 		SDB_UNLOCK(priv);
 	}	
 	
@@ -5879,6 +6051,7 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe,
 	    										GDA_STATEMENT_MODEL_RANDOM_ACCESS,
 	    										gtype_array,
 	    										NULL);
+	MP_RESET_PLIST(plist);
 
 	if (!GDA_IS_DATA_MODEL (data_model) ||
 		(num_rows = gda_data_model_get_n_rows (GDA_DATA_MODEL (data_model))) <= 0)
@@ -6073,6 +6246,7 @@ symbol_db_engine_remove_file (SymbolDBEngine * dbe, const gchar * project,
 	gda_connection_statement_execute_non_select (priv->db_connection, (GdaStatement*)stmt, 
 														 (GdaSet*)plist, NULL, NULL);	
 	
+	MP_RESET_PLIST(plist);
 	
 	/* emits removed symbols signals */
 	sdb_engine_detects_removed_ids (dbe);
