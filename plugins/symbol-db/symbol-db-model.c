@@ -36,15 +36,21 @@ struct _SymbolDBModelPage
 {
 	gint ref_count;
 	gint begin_offset, end_offset;
+	SymbolDBModelPage *prev;
 	SymbolDBModelPage *next;
 };
 
 typedef struct _SymbolDBModelNode SymbolDBModelNode;
 struct _SymbolDBModelNode {
-	guint ref_count;
-	
+
+	/* Column values of the node. This is an array of GValues of length
+	 * n_column. and holds the values in order of columns given at
+	 * object initialized.
+	 */
 	GValue *values;
-	SymbolDBModelPage *page_refs;
+
+	/* List of currently active (loaded) pages */
+	SymbolDBModelPage *pages;
 	
 	/* Data structure */
 	gint level;
@@ -59,7 +65,23 @@ typedef struct {
 	GType *column_types; /* Type of each column in the model */
 	gint *query_columns; /* Corresponding GdaDataModel column */
 	gint node_id_column;
+
+	/* Nodes currently references by others and already processed.
+	 * These are the nodes tracked and displayed by the view.
+	 */
 	GHashTable *refed_nodes;
+
+	/* Nodes referenced by others and queued for processing */
+	GQueue *refed_nodes_queue;
+
+	/* Internal temporary references. Some views could try to access
+	 * some nodes without holding reference to it first. A temporary
+	 * reference is created for it and potentially either eventually
+	 * refed by the view or released at some later time from my_ref
+	 * during a garbage collection rounds.
+	 */
+	GHashTable *my_refed_nodes;
+	
 	SymbolDBModelNode *root;
 } SymbolDBModelPriv;
 
@@ -96,7 +118,153 @@ G_DEFINE_TYPE_WITH_CODE (SymbolDBModel, symbol_db_model, G_TYPE_OBJECT,
                                                 symbol_db_model_tree_model_init))
 /* Node */
 
-#define symbol_db_model_node_get_child(node, offset) ((node)->children[(offset)])
+static void
+symbol_db_model_node_free (SymbolDBModelNode *node)
+{
+}
+
+static inline SymbolDBModelNode*
+symbol_db_model_node_get_child (SymbolDBModelNode *node, gint child_offset)
+{
+	return node->children[child_offset];
+}
+
+static void
+symbol_db_model_node_set_child (SymbolDBModelNode *node, gint child_offset,
+                                SymbolDBModelNode *val)
+{
+	node->children[child_offset] = val;
+}
+
+static void
+symbol_db_model_node_remove_page (SymbolDBModelNode *node,
+                                  SymbolDBModelPage *page)
+{
+	if (page->prev)
+		page->prev->next = page->next;
+	else
+		node->pages = page->next;
+		
+	if (page->next)
+		page->next->prev = page->prev;
+}
+
+static void
+symbol_db_model_node_insert_page (SymbolDBModelNode *node,
+                                  SymbolDBModelPage *page,
+                                  SymbolDBModelPage *after)
+{
+	
+	/* Insert the new page after "after" page */
+	if (after)
+	{
+		page->next = after->next;
+		after->next = page;
+	}
+	else /* Insert at head */
+	{
+		page->next = node->pages;
+		node->pages = page;
+	}
+}
+
+static SymbolDBModelPage*
+symbol_db_model_node_find_child_page (SymbolDBModelNode *node,
+                                      gint child_offset,
+                                      SymbolDBModelPage **prev_page)
+{
+	SymbolDBModelPage *page;
+	
+	page = node->pages;
+	
+	*prev_page = NULL;
+	
+	/* Find the page which holds result for given child_offset */
+	while (page)
+	{
+		if (child_offset >= page->begin_offset &&
+		    child_offset < page->end_offset)
+		{
+			/* child_offset has associated page */
+			return page;
+		}
+		if (child_offset < page->begin_offset)
+		{
+			/* Insert point is here */
+			break;
+		}
+		*prev_page = page;
+		page = page->next;
+	}
+	return NULL;
+}
+
+static void
+symbol_db_model_node_page_ref (SymbolDBModelPage *page)
+{
+	page->ref_count++;
+}
+
+static void
+symbol_db_model_node_page_unref (SymbolDBModelNode *node,
+                                 SymbolDBModelPage *page)
+{
+	g_return_if_fail (page != NULL);
+	g_return_if_fail (page->ref_count > 0);
+	
+	page->ref_count--;
+	if (page->ref_count <= 0)
+	{
+		gint i;
+		for (i = page->begin_offset; i < page->end_offset; i++)
+		{
+			symbol_db_model_node_free (symbol_db_model_node_get_child (node, i));
+			symbol_db_model_node_set_child (node, i, NULL);
+		}
+		symbol_db_model_node_remove_page (node, page);
+		g_free (page);
+	}
+}
+
+static void
+symbol_db_model_node_ref (SymbolDBModelNode *node)
+{
+	SymbolDBModelNode *parent;
+	SymbolDBModelPage *page, *prev_page;
+	
+	g_return_if_fail (node != NULL);
+	
+	/* Ref the page containing this node */
+	parent = node->parent;
+	page = symbol_db_model_node_find_child_page (parent, node->offset,
+	                                             &prev_page);
+
+	g_return_if_fail (page != NULL);
+	symbol_db_model_node_page_ref (page);
+
+	if (parent)
+		symbol_db_model_node_ref (parent);
+}
+
+static void
+symbol_db_model_node_unref (SymbolDBModelNode *node)
+{
+	SymbolDBModelNode *parent;
+	SymbolDBModelPage *page, *prev_page;
+	
+	g_return_if_fail (node != NULL);
+	
+	/* Ref the page containing this node */
+	parent = node->parent;
+	page = symbol_db_model_node_find_child_page (parent, node->offset,
+	                                             &prev_page);
+
+	g_return_if_fail (page != NULL);
+	symbol_db_model_node_page_unref (parent, page);
+
+	if (parent)
+		symbol_db_model_node_unref (parent);
+}
 
 static SymbolDBModelNode *
 symbol_db_model_node_new (SymbolDBModel *model, SymbolDBModelNode *parent,
@@ -145,37 +313,17 @@ symbol_db_model_iter_is_valid (GtkTreeModel *model, GtkTreeIter *iter)
 
 static SymbolDBModelPage*
 symbol_db_model_page_fault (SymbolDBModel *model,
-                                  SymbolDBModelNode *parent_node,
-                                  gint child_offset)
+                            SymbolDBModelNode *parent_node,
+                            gint child_offset)
 {
 	SymbolDBModelPage *page, *prev_page;
 	gint i;
 	GdaDataModelIter *data_iter;
 	GdaDataModel *data_model = NULL;
 
-	page = parent_node->page_refs;
-	
-	prev_page = NULL;
-	
-	/* Find the page which holds result for given child_offset */
-	while (page)
-	{
-		if (child_offset >= page->begin_offset &&
-		    child_offset < page->end_offset)
-		{
-			/* child_offset has associated page */
-			return page;
-		}
-		if (child_offset < page->begin_offset)
-		{
-			/* Insert point is here */
-			break;
-		}
-		prev_page = page;
-		page = page->next;
-	}
-
 	/* Insert after prev_page */
+	symbol_db_model_node_find_child_page (parent_node, child_offset,
+	                                      &prev_page);
 
 	/* New page to cover current child_offset */
 	page = g_new0 (SymbolDBModelPage, 1);
@@ -184,17 +332,7 @@ symbol_db_model_page_fault (SymbolDBModel *model,
 	page->begin_offset = child_offset - SYMBOL_DB_MODEL_PAGE_SIZE;
 	page->end_offset = child_offset + SYMBOL_DB_MODEL_PAGE_SIZE;
 
-	/* Insert the new page after prev_page */
-	if (prev_page)
-	{
-		page->next = prev_page->next;
-		prev_page->next = page;
-	}
-	else /* Insert at head */
-	{
-		page->next = parent_node->page_refs;
-		parent_node->page_refs = page;
-	}
+	symbol_db_model_node_insert_page (parent_node, page, prev_page);
 	
 	/* Adjust boundries not to overlap with preceeding or following page */
 	if (prev_page && prev_page->end_offset > page->begin_offset)
@@ -228,7 +366,7 @@ symbol_db_model_page_fault (SymbolDBModel *model,
 				symbol_db_model_node_new (model, parent_node, i,
 				                          data_model, data_iter);
 			g_assert (symbol_db_model_node_get_child (parent_node, i) == NULL);
-			symbol_db_model_node_get_child (parent_node, i) = node;
+			symbol_db_model_node_set_child (parent_node, i, node);
 			if (!gda_data_model_iter_move_next (data_iter))
 			{
 				if (i < (page->end_offset - 1))

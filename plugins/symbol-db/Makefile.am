@@ -55,8 +55,6 @@ libanjuta_symbol_db_la_SOURCES = \
 	readtags.h \
 	symbol-db-engine-iterator.c \
 	symbol-db-engine-iterator.h \
-	symbol-db-model.c \
-	symbol-db-model.h \
 	symbol-db-view.h \
 	symbol-db-view.c \
 	symbol-db-view-locals.c \
