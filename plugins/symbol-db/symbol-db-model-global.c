@@ -116,6 +116,8 @@ symbol_db_model_global_get_children (SymbolDBModel *model, gint tree_level,
 					                                             offset,
 					                                             SYMINFO_SIMPLE |
 					                                             SYMINFO_ACCESS |
+			                                                     SYMINFO_TYPE |
+			                                                     SYMINFO_FILE_PATH |
 					                                             SYMINFO_KIND);
 			g_message ("Retrieving data: %d to %d", offset, offset + limit);
 			break;
@@ -125,7 +127,11 @@ symbol_db_model_global_get_children (SymbolDBModel *model, gint tree_level,
 			                                                        symbol_id,
 			                                                        -1,
 			                                                        -1,
-			                                                        SYMINFO_SIMPLE);
+			                                                        SYMINFO_SIMPLE |
+			                                                        SYMINFO_ACCESS |
+			                                                        SYMINFO_TYPE |
+			                                                        SYMINFO_FILE_PATH |
+			                                                        SYMINFO_KIND);
 			break;
 		default:
 			return NULL;
@@ -161,6 +167,35 @@ symbol_db_model_global_finalize (GObject *object)
 	if (priv->dbe)
 		g_object_unref (priv->dbe);
 	G_OBJECT_CLASS (symbol_db_model_global_parent_class)->finalize (object);
+}
+
+static gboolean
+symbol_db_model_global_get_query_value (SymbolDBModel *model,
+                                        GdaDataModel *data_model,
+                                        GdaDataModelIter *iter,
+                                        gint column,
+                                        GValue *value)
+{
+	const GdkPixbuf *pixbuf;
+	const gchar *type, *access;
+	const GValue *ret_value;
+
+	switch (column)
+	{
+	case SYMBOL_DB_MODEL_GLOBAL_COL_PIXBUF:
+		ret_value = gda_data_model_iter_get_value_for_field (iter, "type_type");
+		type = g_value_get_string (ret_value);
+		ret_value = gda_data_model_iter_get_value_for_field (iter, "access_name");
+		access = g_value_get_string (ret_value);
+
+		pixbuf = symbol_db_util_get_pixbuf (type, access);
+		g_value_set_object (value, G_OBJECT (pixbuf));
+		return TRUE;
+		break;
+	default:
+		return SYMBOL_DB_MODEL_CLASS (symbol_db_model_global_parent_class)->
+				get_query_value (model, data_model, iter, column, value);
+	}
 }
 
 static void
@@ -218,6 +253,7 @@ symbol_db_model_global_class_init (SymbolDBModelGlobalClass *klass)
 	object_class->set_property = symbol_db_model_global_set_property;
 	object_class->get_property = symbol_db_model_global_get_property;
 
+	parent_class->get_query_value = symbol_db_model_global_get_query_value;
 	parent_class->get_n_children = symbol_db_model_global_get_n_children;
 	parent_class->get_children =  symbol_db_model_global_get_children;
 	
