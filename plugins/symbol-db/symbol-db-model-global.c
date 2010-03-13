@@ -41,7 +41,8 @@ enum
 	PROP_SYMBOL_DB_ENGINE
 };
 
-G_DEFINE_TYPE (SymbolDBModelGlobal, symbol_db_model_global, SYMBOL_DB_TYPE_MODEL);
+G_DEFINE_TYPE (SymbolDBModelGlobal, symbol_db_model_global,
+               SYMBOL_DB_TYPE_MODEL);
 
 static gint
 symbol_db_model_global_get_n_children (SymbolDBModel *model, gint tree_level,
@@ -134,10 +135,12 @@ symbol_db_model_global_get_query_value (SymbolDBModel *model,
 	switch (column)
 	{
 	case SYMBOL_DB_MODEL_GLOBAL_COL_PIXBUF:
-		ret_value = gda_data_model_iter_get_value_for_field (iter, "type_type");
+		ret_value = gda_data_model_iter_get_value_for_field (iter,
+		                                                     "type_type");
 		if (ret_value && G_VALUE_HOLDS_STRING (ret_value))
 				type = g_value_get_string (ret_value);
-		ret_value = gda_data_model_iter_get_value_for_field (iter, "access_name");
+		ret_value = gda_data_model_iter_get_value_for_field (iter,
+		                                                     "access_name");
 		if (ret_value && G_VALUE_HOLDS_STRING (ret_value))
 				access = g_value_get_string (ret_value);
 
@@ -237,15 +240,15 @@ symbol_db_model_global_class_init (SymbolDBModelGlobalClass *klass)
 	parent_class->get_n_children = symbol_db_model_global_get_n_children;
 	parent_class->get_children =  symbol_db_model_global_get_children;
 	
-	g_object_class_install_property (object_class,
-	                                 PROP_SYMBOL_DB_ENGINE,
-	                                 g_param_spec_object ("symbol-db-engine",
-	                                                      "Symbol DB Engine",
-	                                                      "Symbol DB Engine instance used to make queries",
-	                                                      SYMBOL_TYPE_DB_ENGINE,
-	                                                      G_PARAM_READABLE |
-	                                                      G_PARAM_WRITABLE |
-	                                                      G_PARAM_CONSTRUCT_ONLY));
+	g_object_class_install_property
+		(object_class, PROP_SYMBOL_DB_ENGINE,
+		 g_param_spec_object ("symbol-db-engine",
+		                      "Symbol DB Engine",
+		                      "Symbol DB Engine instance used to make queries",
+		                      SYMBOL_TYPE_DB_ENGINE,
+		                      G_PARAM_READABLE |
+		                      G_PARAM_WRITABLE |
+		                      G_PARAM_CONSTRUCT_ONLY));
 }
 
 GtkTreeModel*
