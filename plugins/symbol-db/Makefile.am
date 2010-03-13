@@ -96,6 +96,21 @@ libanjuta_symbol_db_la_LIBADD = \
 	$(LIBANJUTA_LIBS) \
 	$(PLUGIN_SYMBOL_DB_LIBS)
 
+BUILT_SOURCES=symbol-db-marshal.c symbol-db-marshal.h
+
+symbol-db-marshal.h: symbol-db-marshal.list
+	$(AM_V_GEN)@GLIB_GENMARSHAL@ \
+	        --prefix=symbol_db_cclosure_marshal $(srcdir)/symbol-db-marshal.list --header > xgen-gmc \
+	&& cp xgen-gmc $(@F) \
+	&& rm -f xgen-gmc
+
+symbol-db-marshal.c: symbol-db-marshal.h symbol-db-marshal.list
+	$(AM_V_GEN)echo "#include \"symbol-db-marshal.h\"" > xgenc-gmc \
+	&& @GLIB_GENMARSHAL@ \
+	        --prefix=symbol_db_cclosure_marshal $(srcdir)/symbol-db-marshal.list --body >> xgenc-gmc \
+	&& cp xgenc-gmc $(@F) \
+	&& rm -f xgenc-gmc
+
 prefs_ui_files = anjuta-symbol-db.ui
 include $(top_srcdir)/scripts/build-schemas.mk
 

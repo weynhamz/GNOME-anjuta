@@ -19,7 +19,7 @@
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <libgda/libgda.h>
-#include <libanjuta/anjuta-marshal.h>
+#include "symbol-db-marshal.h"
 #include "symbol-db-model.h"
 
 #define SYMBOL_DB_MODEL_STAMP 5364558
@@ -978,7 +978,7 @@ symbol_db_model_class_init (SymbolDBModelClass *klass)
 		              G_TYPE_FROM_CLASS (klass),
 		              G_SIGNAL_RUN_LAST,
 		              0, NULL, NULL,
-					  anjuta_cclosure_marshal_BOOLEAN__INT_POINTER,
+					  symbol_db_cclosure_marshal_BOOLEAN__INT_POINTER,
 		              G_TYPE_BOOLEAN,
 		              2,
 		              G_TYPE_INT,
@@ -988,7 +988,7 @@ symbol_db_model_class_init (SymbolDBModelClass *klass)
 		              G_TYPE_FROM_CLASS (klass),
 		              G_SIGNAL_RUN_LAST,
 		              0, NULL, NULL,
-					  anjuta_cclosure_marshal_INT__INT_POINTER,
+					  symbol_db_cclosure_marshal_INT__INT_POINTER,
 		              G_TYPE_INT,
 		              2,
 		              G_TYPE_INT,
@@ -998,7 +998,7 @@ symbol_db_model_class_init (SymbolDBModelClass *klass)
 		              G_TYPE_FROM_CLASS (klass),
 		              G_SIGNAL_RUN_LAST,
 		              0, NULL, NULL,
-					  anjuta_cclosure_marshal_OBJECT__INT_POINTER_INT_INT,
+					  symbol_db_cclosure_marshal_OBJECT__INT_POINTER_INT_INT,
 		              GDA_TYPE_DATA_MODEL,
 		              4,
 		              G_TYPE_INT,
