@@ -435,7 +435,7 @@ EngineParser::switchTypedefToStruct (IAnjutaIterable * test,
 	IAnjutaSymbol *node = IANJUTA_SYMBOL (test);	
 	IAnjutaIterable *new_struct;
 
-	DEBUG_PRINT ("Switching TYPEDEF ==> to STRUCT");
+	DEBUG_PRINT ("Switching TYPEDEF (%d) ==> to STRUCT", ianjuta_symbol_get_id (node, NULL));
 	new_struct = ianjuta_symbol_manager_get_parent_scope (_sym_man, node, NULL, sym_info, NULL);
 	                                         
 	if (new_struct != NULL)
