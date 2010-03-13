@@ -645,7 +645,7 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 			    "sym_kind.kind_name AS kind_name %s FROM symbol "
 					"JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id %s "
 					"WHERE symbol.scope_id <= 0 AND symbol.is_file_scope = 0 "
-							"%s %s %s", info_data->str, join_data->str,
+							"%s order by name %s %s", info_data->str, join_data->str,
 						 	group_by_option, limit, offset);
 			
 			dyn_node = sdb_engine_insert_dyn_query_node_by_id (dbe, 
@@ -718,7 +718,7 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 					"sym_kind.kind_name AS kind_name %s FROM symbol "
 					"%s JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id "
 					"WHERE symbol.scope_id <= 0 AND symbol.is_file_scope = 0 "
-					"%s %s %s %s", info_data->str, join_data->str, 
+					"%s %s order by name %s %s", info_data->str, join_data->str, 
 							 filter_str->str, group_by_option, limit, offset);
 		
 			dyn_node = sdb_engine_insert_dyn_query_node_by_id (dbe, 
