@@ -142,33 +142,6 @@ symbol_db_model_global_get_children (SymbolDBModel *model, gint tree_level,
 	return data_model;
 }
 
-static void
-symbol_db_model_global_init (SymbolDBModelGlobal *object)
-{
-	SymbolDBModelGlobalPriv *priv;
-	GType types[] = {G_TYPE_INT, GDK_TYPE_PIXBUF, G_TYPE_STRING};
-	gint data_cols[] = {DATA_COL_SYMBOL_ID, -1, DATA_COL_SYMBOL_NAME};
-	
-	g_return_if_fail (SYMBOL_DB_IS_MODEL_GLOBAL (object));
-	priv = GET_PRIV (object);
-	
-	priv->dbe = NULL;
-	symbol_db_model_set_columns (SYMBOL_DB_MODEL (object), 3, types, data_cols);
-}
-
-static void
-symbol_db_model_global_finalize (GObject *object)
-{
-	SymbolDBModelGlobalPriv *priv;
-
-	g_return_if_fail (SYMBOL_DB_IS_MODEL_GLOBAL (object));
-	priv = GET_PRIV (object);
-	
-	if (priv->dbe)
-		g_object_unref (priv->dbe);
-	G_OBJECT_CLASS (symbol_db_model_global_parent_class)->finalize (object);
-}
-
 static gboolean
 symbol_db_model_global_get_query_value (SymbolDBModel *model,
                                         GdaDataModel *data_model,
@@ -177,16 +150,19 @@ symbol_db_model_global_get_query_value (SymbolDBModel *model,
                                         GValue *value)
 {
 	const GdkPixbuf *pixbuf;
-	const gchar *type, *access;
 	const GValue *ret_value;
+	const gchar *type = NULL;
+	const gchar *access = NULL;
 
 	switch (column)
 	{
 	case SYMBOL_DB_MODEL_GLOBAL_COL_PIXBUF:
 		ret_value = gda_data_model_iter_get_value_for_field (iter, "type_type");
-		type = g_value_get_string (ret_value);
+		if (ret_value && G_VALUE_HOLDS_STRING (ret_value))
+				type = g_value_get_string (ret_value);
 		ret_value = gda_data_model_iter_get_value_for_field (iter, "access_name");
-		access = g_value_get_string (ret_value);
+		if (ret_value && G_VALUE_HOLDS_STRING (ret_value))
+				access = g_value_get_string (ret_value);
 
 		pixbuf = symbol_db_util_get_pixbuf (type, access);
 		g_value_set_object (value, G_OBJECT (pixbuf));
@@ -239,6 +215,33 @@ symbol_db_model_global_get_property (GObject *object, guint prop_id,
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 		break;
 	}
+}
+
+static void
+symbol_db_model_global_finalize (GObject *object)
+{
+	SymbolDBModelGlobalPriv *priv;
+
+	g_return_if_fail (SYMBOL_DB_IS_MODEL_GLOBAL (object));
+	priv = GET_PRIV (object);
+	
+	if (priv->dbe)
+		g_object_unref (priv->dbe);
+	G_OBJECT_CLASS (symbol_db_model_global_parent_class)->finalize (object);
+}
+
+static void
+symbol_db_model_global_init (SymbolDBModelGlobal *object)
+{
+	SymbolDBModelGlobalPriv *priv;
+	GType types[] = {G_TYPE_INT, GDK_TYPE_PIXBUF, G_TYPE_STRING};
+	gint data_cols[] = {DATA_COL_SYMBOL_ID, -1, DATA_COL_SYMBOL_NAME};
+	
+	g_return_if_fail (SYMBOL_DB_IS_MODEL_GLOBAL (object));
+	priv = GET_PRIV (object);
+	
+	priv->dbe = NULL;
+	symbol_db_model_set_columns (SYMBOL_DB_MODEL (object), 3, types, data_cols);
 }
 
 static void
