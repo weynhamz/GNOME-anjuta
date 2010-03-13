@@ -65,5 +65,6 @@ symbol_db_view_global_new (SymbolDBEngine *dbe)
 	                                GTK_POLICY_AUTOMATIC);
 	gtk_widget_show (dbv);
 	gtk_container_add (GTK_CONTAINER (sw), dbv);
+	gtk_widget_show (sw);
 	return sw;
 }

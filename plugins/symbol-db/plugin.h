@@ -98,7 +98,8 @@ struct _SymbolDBPlugin {
 	GtkWidget *dbv_main;					/* symbol main window [gtk_box] */
 	GtkWidget *dbv_notebook;          		/* main notebook */
 	GtkWidget *dbv_hbox;					/* hbox for notebook buttons */
-	GtkWidget *scrolled_global; 			/* symbol view scrolledwindow for global
+	/*
+	 GtkWidget *scrolled_global; */			/* symbol view scrolledwindow for global
 										   	symbols */
 
 	GtkWidget *local_button;
@@ -110,7 +111,7 @@ struct _SymbolDBPlugin {
 	GtkWidget *progress_bar_project;		/* symbol db progress bar - project */
 	GtkWidget *progress_bar_system;			/* symbol db progress bar - system (globals) */
 	
-	GtkWidget *dbv_view_tree;        		/* symbol_db_view globals */
+	GtkWidget *dbv_view_tree1;        		/* symbol_db_view globals */
 	GtkWidget *dbv_view_tab_label;
 	
 	GtkWidget *dbv_view_tree_locals;		/* local symbols */
