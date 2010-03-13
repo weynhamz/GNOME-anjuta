@@ -41,7 +41,7 @@ enum
 	PROP_SYMBOL_DB_ENGINE
 };
 
-G_DEFINE_TYPE (SymbolDBModelGlobal, symbol_db_model_global, G_TYPE_OBJECT);
+G_DEFINE_TYPE (SymbolDBModelGlobal, symbol_db_model_global, SYMBOL_DB_TYPE_MODEL);
 
 static gint
 symbol_db_model_global_get_n_children (SymbolDBModel *model, gint tree_level,
@@ -59,20 +59,16 @@ symbol_db_model_global_get_n_children (SymbolDBModel *model, gint tree_level,
 	{
 		case 0:
 			iter = symbol_db_engine_get_global_members_filtered (priv->dbe, 
-					                                             SYMTYPE_CLASS|
+			                                                     SYMTYPE_CLASS|
 			                                                     SYMTYPE_ENUM|
 			                                                     SYMTYPE_STRUCT|
 			                                                     SYMTYPE_TYPEDEF|
-			                                                     SYMTYPE_FUNCTION|
-			                                                     SYMTYPE_ENUMERATOR|
-			                                                     SYMTYPE_MACRO|
-			                                                     SYMTYPE_MACRO_WITH_ARG|
 			                                                     SYMTYPE_UNION,
-					                                             TRUE, 
-					                                             TRUE, 
-					                                             -1,
-					                                             -1,
-					                                             SYMINFO_SIMPLE);
+			                                                     TRUE, 
+			                                                     TRUE, 
+			                                                     -1,
+			                                                     -1,
+			                                                     SYMINFO_SIMPLE);
 			break;
 		case 1:
 			symbol_id = g_value_get_int (&column_values[DATA_COL_SYMBOL_ID]);
@@ -113,10 +109,6 @@ symbol_db_model_global_get_children (SymbolDBModel *model, gint tree_level,
 			                                                     SYMTYPE_ENUM |
 			                                                     SYMTYPE_STRUCT |
 			                                                     SYMTYPE_TYPEDEF |
-			                                                     SYMTYPE_FUNCTION |
-			                                                     SYMTYPE_ENUMERATOR |
-			                                                     SYMTYPE_MACRO |
-			                                                     SYMTYPE_MACRO_WITH_ARG |
 			                                                     SYMTYPE_UNION,
 					                                             TRUE, 
 					                                             TRUE, 
@@ -244,5 +236,5 @@ GtkTreeModel*
 symbol_db_model_global_new (SymbolDBEngine* dbe)
 {
 	return GTK_TREE_MODEL (g_object_new (SYMBOL_DB_TYPE_MODEL_GLOBAL,
-	                                     "symbol-db-engine", dbe));
+	                                     "symbol-db-engine", dbe, NULL));
 }
