@@ -58,25 +58,15 @@ symbol_db_model_global_get_n_children (SymbolDBModel *model, gint tree_level,
 	switch (tree_level)
 	{
 		case 0:
-			iter = symbol_db_engine_get_global_members_filtered (priv->dbe, 
-			                                                     SYMTYPE_CLASS|
-			                                                     SYMTYPE_ENUM|
-			                                                     SYMTYPE_STRUCT|
-			                                                     SYMTYPE_TYPEDEF|
-			                                                     SYMTYPE_UNION,
-			                                                     TRUE, 
-			                                                     TRUE, 
-			                                                     -1,
-			                                                     -1,
-			                                                     SYMINFO_SIMPLE);
+			iter = symbol_db_engine_get_global_members_filtered
+				(priv->dbe, SYMTYPE_CLASS | SYMTYPE_ENUM | SYMTYPE_STRUCT|
+				 SYMTYPE_TYPEDEF | SYMTYPE_UNION, TRUE, TRUE, -1, -1,
+				 SYMINFO_SIMPLE);
 			break;
 		case 1:
 			symbol_id = g_value_get_int (&column_values[DATA_COL_SYMBOL_ID]);
-			iter = symbol_db_engine_get_scope_members_by_symbol_id (priv->dbe,
-			                                                        symbol_id,
-			                                                        -1,
-			                                                        -1,
-			                                                        SYMINFO_SIMPLE);
+			iter = symbol_db_engine_get_scope_members_by_symbol_id
+				(priv->dbe, symbol_id, -1, -1, SYMINFO_SIMPLE);
 			break;
 		default:
 			return 0; /* FIXME */
@@ -101,37 +91,24 @@ symbol_db_model_global_get_children (SymbolDBModel *model, gint tree_level,
 	g_return_val_if_fail (SYMBOL_DB_IS_MODEL_GLOBAL (model), 0);
 	priv = GET_PRIV (model);
 	
+	g_message ("Retrieving level %d data: %d to %d", tree_level,
+	           offset, offset + limit);
+
 	switch (tree_level)
 	{
 		case 0:
-			iter = symbol_db_engine_get_global_members_filtered (priv->dbe,
-					                                             SYMTYPE_CLASS |
-			                                                     SYMTYPE_ENUM |
-			                                                     SYMTYPE_STRUCT |
-			                                                     SYMTYPE_TYPEDEF |
-			                                                     SYMTYPE_UNION,
-					                                             TRUE, 
-					                                             TRUE, 
-					                                             limit,
-					                                             offset,
-					                                             SYMINFO_SIMPLE |
-					                                             SYMINFO_ACCESS |
-			                                                     SYMINFO_TYPE |
-			                                                     SYMINFO_FILE_PATH |
-					                                             SYMINFO_KIND);
-			g_message ("Retrieving data: %d to %d", offset, offset + limit);
+			iter = symbol_db_engine_get_global_members_filtered
+				(priv->dbe, SYMTYPE_CLASS | SYMTYPE_ENUM | SYMTYPE_STRUCT |
+				 SYMTYPE_TYPEDEF | SYMTYPE_UNION, TRUE, TRUE, limit, offset,
+				 SYMINFO_SIMPLE | SYMINFO_ACCESS | SYMINFO_TYPE |
+				 SYMINFO_FILE_PATH | SYMINFO_KIND);
 			break;
 		case 1:
 			symbol_id = g_value_get_int (&column_values[DATA_COL_SYMBOL_ID]);
-			iter = symbol_db_engine_get_scope_members_by_symbol_id (priv->dbe,
-			                                                        symbol_id,
-			                                                        -1,
-			                                                        -1,
-			                                                        SYMINFO_SIMPLE |
-			                                                        SYMINFO_ACCESS |
-			                                                        SYMINFO_TYPE |
-			                                                        SYMINFO_FILE_PATH |
-			                                                        SYMINFO_KIND);
+			iter = symbol_db_engine_get_scope_members_by_symbol_id
+				(priv->dbe, symbol_id, offset, limit, SYMINFO_SIMPLE |
+				 SYMINFO_ACCESS | SYMINFO_TYPE | SYMINFO_FILE_PATH |
+				 SYMINFO_KIND);
 			break;
 		default:
 			return NULL;
