@@ -50,9 +50,9 @@ struct _MkpProjectClass {
 	GObjectClass parent_class;
 };
 
-typedef AnjutaProjectGroup MkpGroup;
-typedef AnjutaProjectTarget MkpTarget;
-typedef AnjutaProjectSource MkpSource;
+typedef AnjutaProjectNode MkpGroup;
+typedef AnjutaProjectNode MkpTarget;
+typedef AnjutaProjectNode MkpSource;
 typedef struct _MkpProperty MkpProperty;
 typedef struct _MkpVariable MkpVariable;
 typedef struct _MkpRule MkpRule;

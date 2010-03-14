@@ -72,7 +72,7 @@ mkp_rule_free (MkpRule *rule)
  * return target, else free target and return a newly allocated source name */
 
 gchar *
-mkp_project_find_source (MkpProject *project, gchar *target, AnjutaProjectGroup *parent, guint backtrack)
+mkp_project_find_source (MkpProject *project, gchar *target, AnjutaProjectNode *parent, guint backtrack)
 {
 	GFile *child;
 	gboolean exist;
@@ -264,7 +264,7 @@ mkp_project_add_rule (MkpProject *project, AnjutaToken *group)
  *---------------------------------------------------------------------------*/
 
 void
-mkp_project_enumerate_targets (MkpProject *project, AnjutaProjectGroup *parent)
+mkp_project_enumerate_targets (MkpProject *project, AnjutaProjectNode *parent)
 {
 	GHashTableIter iter;
 	gpointer key;

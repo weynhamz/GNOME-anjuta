@@ -94,8 +94,12 @@ typedef struct
 {
 	AnjutaProjectNodeType type;
 	AnjutaProjectPropertyList *properties;
+	GFile *file;
+	gchar *name;
+	AnjutaProjectTargetType target_type;
 } AnjutaProjectNodeData;
 
+#if 0
 typedef struct {
 	AnjutaProjectNodeData node;
 	GFile *directory;
@@ -111,12 +115,14 @@ typedef struct {
 	AnjutaProjectNodeData node;
 	GFile *file;
 } AnjutaProjectSourceData;
+#endif
 
 typedef GNode AnjutaProjectNode;
+#if 0
 typedef GNode AnjutaProjectGroup;
 typedef GNode AnjutaProjectTarget;
 typedef GNode AnjutaProjectSource;
-
+#endif
 
 #define ANJUTA_PROJECT_NODE_DATA(node)  ((node) != NULL ? (AnjutaProjectNodeData *)((node)->data) : NULL)
 
@@ -156,18 +162,18 @@ GFile *anjuta_project_node_get_file (AnjutaProjectNode *node);
 AnjutaProjectPropertyList *anjuta_project_node_get_property_list (AnjutaProjectNode *node);
 const gchar *anjuta_project_node_get_property_value (AnjutaProjectNode *node, AnjutaProjectProperty prop);
 
-AnjutaProjectGroup *anjuta_project_group_get_node_from_file (const AnjutaProjectGroup *root, GFile *directory);
-AnjutaProjectTarget *anjuta_project_target_get_node_from_name (const AnjutaProjectGroup *parent, const gchar *name);
-AnjutaProjectSource *anjuta_project_source_get_node_from_file (const AnjutaProjectNode *parent, GFile *file);
-AnjutaProjectGroup *anjuta_project_group_get_node_from_uri (const AnjutaProjectGroup *root, const gchar *uri);
-AnjutaProjectSource *anjuta_project_source_get_node_from_uri (const AnjutaProjectNode *parent, const gchar *uri);
+AnjutaProjectNode *anjuta_project_group_get_node_from_file (const AnjutaProjectNode *root, GFile *directory);
+AnjutaProjectNode *anjuta_project_target_get_node_from_name (const AnjutaProjectNode *parent, const gchar *name);
+AnjutaProjectNode *anjuta_project_source_get_node_from_file (const AnjutaProjectNode *parent, GFile *file);
+AnjutaProjectNode *anjuta_project_group_get_node_from_uri (const AnjutaProjectNode *root, const gchar *uri);
+AnjutaProjectNode *anjuta_project_source_get_node_from_uri (const AnjutaProjectNode *parent, const gchar *uri);
 
-GFile *anjuta_project_group_get_directory (const AnjutaProjectGroup *group);
+GFile *anjuta_project_group_get_directory (const AnjutaProjectNode *group);
 
-const gchar *anjuta_project_target_get_name (const AnjutaProjectTarget *target);
-AnjutaProjectTargetType anjuta_project_target_get_type (const AnjutaProjectTarget *target);
+const gchar *anjuta_project_target_get_name (const AnjutaProjectNode *target);
+AnjutaProjectTargetType anjuta_project_target_get_type (const AnjutaProjectNode *target);
 
-GFile *anjuta_project_source_get_file (const AnjutaProjectSource *source);
+GFile *anjuta_project_source_get_file (const AnjutaProjectNode *source);
 
 const gchar *anjuta_project_target_type_name (const AnjutaProjectTargetType type);
 const gchar *anjuta_project_target_type_mime (const AnjutaProjectTargetType type);

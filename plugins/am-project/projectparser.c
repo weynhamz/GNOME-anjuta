@@ -65,9 +65,9 @@ void print (const gchar *message, ...)
 	fputc('\n', output_stream);
 }
 
-void list_target (IAnjutaProject *project, AnjutaProjectTarget *target, gint indent, const gchar *path)
+void list_target (IAnjutaProject *project, AnjutaProjectNode *target, gint indent, const gchar *path)
 {
-	AnjutaProjectSource *source;
+	AnjutaProjectNode *source;
 	guint count = 0;
 	GFile *root;
 
@@ -91,10 +91,10 @@ void list_target (IAnjutaProject *project, AnjutaProjectTarget *target, gint ind
 	}
 }
 
-void list_group (IAnjutaProject *project, AnjutaProjectGroup *group, gint indent, const gchar *path)
+void list_group (IAnjutaProject *project, AnjutaProjectNode *group, gint indent, const gchar *path)
 {
 	AnjutaProjectNode *node;
-	AnjutaProjectGroup *parent;
+	AnjutaProjectNode *parent;
 	guint count;
 	gchar *rel_path;
 	
@@ -242,9 +242,9 @@ get_node (IAnjutaProject *project, const char *path)
 }
 
 static GFile *
-get_file (AnjutaProjectTarget *target, const char *id)
+get_file (AnjutaProjectNode *target, const char *id)
 {
-	AnjutaProjectGroup *group = (AnjutaProjectGroup *)anjuta_project_node_parent (target);
+	AnjutaProjectNode *group = (AnjutaProjectNode *)anjuta_project_node_parent (target);
 	
 	return g_file_resolve_relative_path (anjuta_project_group_get_directory (group), id);
 }

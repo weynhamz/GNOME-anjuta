@@ -49,9 +49,9 @@ struct _AmpProjectClass {
 	GObjectClass parent_class;
 };
 
-typedef AnjutaProjectGroup AmpGroup;
-typedef AnjutaProjectTarget AmpTarget;
-typedef AnjutaProjectSource AmpSource;
+typedef AnjutaProjectNode AmpGroup;
+typedef AnjutaProjectNode AmpTarget;
+typedef AnjutaProjectNode AmpSource;
 typedef struct _AmpProperty AmpProperty;
 
 typedef enum {

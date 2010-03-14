@@ -50,9 +50,6 @@
 
 /* convenient shortcut macro the get the AnjutaProjectNode from a GNode */
 #define NODE_DATA(node)  ((node) != NULL ? (AnjutaProjectNodeData *)((node)->data) : NULL)
-#define GROUP_DATA(node)  ((node) != NULL ? (AnjutaProjectGroupData *)((node)->data) : NULL)
-#define TARGET_DATA(node)  ((node) != NULL ? (AnjutaProjectTargetData *)((node)->data) : NULL)
-#define SOURCE_DATA(node)  ((node) != NULL ? (AnjutaProjectSourceData *)((node)->data) : NULL)
 
 
 /* Properties functions
@@ -316,11 +313,11 @@ anjuta_project_node_get_name (const AnjutaProjectNode *node)
 	switch (NODE_DATA (node)->type)
 	{
 	case ANJUTA_PROJECT_GROUP:
-		return g_file_get_basename (GROUP_DATA (node)->directory);
+		return g_file_get_basename (NODE_DATA (node)->file);
 	case ANJUTA_PROJECT_TARGET:
-		return g_strdup (TARGET_DATA (node)->name);
+		return g_strdup (NODE_DATA (node)->name);
 	case ANJUTA_PROJECT_SOURCE:
-		return g_file_get_basename (SOURCE_DATA (node)->file);
+		return g_file_get_basename (NODE_DATA (node)->file);
 	default:
 		return NULL;
 	}
@@ -329,14 +326,14 @@ anjuta_project_node_get_name (const AnjutaProjectNode *node)
 gchar*
 anjuta_project_node_get_uri (AnjutaProjectNode *node)
 {
-	AnjutaProjectGroup *parent;
+	AnjutaProjectNode *parent;
 	GFile *file;
 	gchar *uri;
 	
 	switch (NODE_DATA (node)->type)
 	{
 	case ANJUTA_PROJECT_GROUP:
-		uri = g_file_get_uri (GROUP_DATA (node)->directory);
+		uri = g_file_get_uri (NODE_DATA (node)->file);
 		break;
 	case ANJUTA_PROJECT_TARGET:
 		parent = anjuta_project_node_parent (node);
@@ -345,7 +342,7 @@ anjuta_project_node_get_uri (AnjutaProjectNode *node)
 		g_object_unref (file);
 		break;
 	case ANJUTA_PROJECT_SOURCE:
-		uri = g_file_get_uri (SOURCE_DATA (node)->file);
+		uri = g_file_get_uri (NODE_DATA (node)->file);
 		break;
 	default:
 		uri = NULL;
@@ -358,20 +355,20 @@ anjuta_project_node_get_uri (AnjutaProjectNode *node)
 GFile*
 anjuta_project_node_get_file (AnjutaProjectNode *node)
 {
-	AnjutaProjectGroup *parent;
+	AnjutaProjectNode *parent;
 	GFile *file;
 	
 	switch (NODE_DATA (node)->type)
 	{
 	case ANJUTA_PROJECT_GROUP:
-		file = g_object_ref (GROUP_DATA (node)->directory);
+		file = g_object_ref (NODE_DATA (node)->file);
 		break;
 	case ANJUTA_PROJECT_TARGET:
 		parent = anjuta_project_node_parent (node);
 		file = g_file_get_child (anjuta_project_group_get_directory (parent), anjuta_project_target_get_name (node));
 		break;
 	case ANJUTA_PROJECT_SOURCE:
-		file = g_object_ref (SOURCE_DATA (node)->file);
+		file = g_object_ref (NODE_DATA (node)->file);
 		break;
 	default:
 		file = NULL;
@@ -440,9 +437,9 @@ anjuta_project_node_get_property_value (AnjutaProjectNode *node, AnjutaProjectPr
  *---------------------------------------------------------------------------*/
 
 GFile*
-anjuta_project_group_get_directory (const AnjutaProjectGroup *group)
+anjuta_project_group_get_directory (const AnjutaProjectNode *group)
 {
-	return GROUP_DATA (group)->directory;
+	return NODE_DATA (group)->file;
 }
 
 static gboolean
@@ -450,7 +447,7 @@ anjuta_project_group_compare (GNode *node, gpointer data)
 {
 	GFile *file = *(GFile **)data;
 
-	if ((NODE_DATA(node)->type == ANJUTA_PROJECT_GROUP) && g_file_equal (GROUP_DATA(node)->directory, file))
+	if ((NODE_DATA(node)->type == ANJUTA_PROJECT_GROUP) && g_file_equal (NODE_DATA(node)->file, file))
 	{
 		*(AnjutaProjectNode **)data = node;
 
@@ -462,8 +459,8 @@ anjuta_project_group_compare (GNode *node, gpointer data)
 	}
 }
 
-AnjutaProjectGroup *
-anjuta_project_group_get_node_from_file (const AnjutaProjectGroup *root, GFile *directory)
+AnjutaProjectNode *
+anjuta_project_group_get_node_from_file (const AnjutaProjectNode *root, GFile *directory)
 {
 	GFile *data;
 	
@@ -473,11 +470,11 @@ anjuta_project_group_get_node_from_file (const AnjutaProjectGroup *root, GFile *
 	return (data == directory) ? NULL : (AnjutaProjectNode *)data;
 }
 
-AnjutaProjectGroup *
+AnjutaProjectNode *
 anjuta_project_group_get_node_from_uri (const AnjutaProjectNode *root, const gchar *uri)
 {
 	GFile *file = g_file_new_for_uri (uri);
-	AnjutaProjectGroup *node;
+	AnjutaProjectNode *node;
 
 	node = anjuta_project_group_get_node_from_file (root, file);
 	g_object_unref (file);
@@ -490,7 +487,7 @@ anjuta_project_target_compare (GNode *node, gpointer data)
 {
 	const gchar *name = *(gchar **)data;
 
-	if ((NODE_DATA(node)->type == ANJUTA_PROJECT_TARGET) && (strcmp (TARGET_DATA(node)->name, name) == 0))
+	if ((NODE_DATA(node)->type == ANJUTA_PROJECT_TARGET) && (strcmp (NODE_DATA(node)->name, name) == 0))
 	{
 		*(AnjutaProjectNode **)data = node;
 
@@ -502,15 +499,15 @@ anjuta_project_target_compare (GNode *node, gpointer data)
 	}
 }
 
-AnjutaProjectTarget *
-anjuta_project_target_get_node_from_name (const AnjutaProjectGroup *parent, const gchar *name)
+AnjutaProjectNode *
+anjuta_project_target_get_node_from_name (const AnjutaProjectNode *parent, const gchar *name)
 {
 	const gchar *data;
 	
 	data = name;
 	g_node_traverse	((GNode *)parent, G_PRE_ORDER, G_TRAVERSE_ALL, 2, anjuta_project_target_compare, &data);
 
-	return (data == name) ? NULL : (AnjutaProjectTarget *)data;
+	return (data == name) ? NULL : (AnjutaProjectNode *)data;
 }
 
 static gboolean
@@ -518,7 +515,7 @@ anjuta_project_source_compare (GNode *node, gpointer data)
 {
 	GFile *file = *(GFile **)data;
 
-	if ((NODE_DATA(node)->type == ANJUTA_PROJECT_SOURCE) && g_file_equal (SOURCE_DATA(node)->file, file))
+	if ((NODE_DATA(node)->type == ANJUTA_PROJECT_SOURCE) && g_file_equal (NODE_DATA(node)->file, file))
 	{
 		*(AnjutaProjectNode **)data = node;
 
@@ -530,7 +527,7 @@ anjuta_project_source_compare (GNode *node, gpointer data)
 	}
 }
 
-AnjutaProjectSource *
+AnjutaProjectNode *
 anjuta_project_source_get_node_from_file (const AnjutaProjectNode *parent, GFile *file)
 {
 	GFile *data;
@@ -541,11 +538,11 @@ anjuta_project_source_get_node_from_file (const AnjutaProjectNode *parent, GFile
 	return (data == file) ? NULL : (AnjutaProjectNode *)data;
 }
 
-AnjutaProjectSource *
+AnjutaProjectNode *
 anjuta_project_source_get_node_from_uri (const AnjutaProjectNode *parent, const gchar *uri)
 {
 	GFile *file = g_file_new_for_uri (uri);
-	AnjutaProjectSource *node;
+	AnjutaProjectNode *node;
 
 	node = anjuta_project_source_get_node_from_file (parent, file);
 	g_object_unref (file);
@@ -557,24 +554,24 @@ anjuta_project_source_get_node_from_uri (const AnjutaProjectNode *parent, const 
  *---------------------------------------------------------------------------*/
 
 const gchar *
-anjuta_project_target_get_name (const AnjutaProjectTarget *target)
+anjuta_project_target_get_name (const AnjutaProjectNode *target)
 {
-	return TARGET_DATA (target)->name;
+	return NODE_DATA (target)->name;
 }
 
 AnjutaProjectTargetType
-anjuta_project_target_get_type (const AnjutaProjectTarget *target)
+anjuta_project_target_get_type (const AnjutaProjectNode *target)
 {
-	return TARGET_DATA (target)->type;
+	return NODE_DATA (target)->target_type;
 }
 
 /* Source access functions
  *---------------------------------------------------------------------------*/
 
 GFile*
-anjuta_project_source_get_file (const AnjutaProjectSource *source)
+anjuta_project_source_get_file (const AnjutaProjectNode *source)
 {
-	return SOURCE_DATA (source)->file;
+	return NODE_DATA (source)->file;
 }
 
 /* Target type functions

@@ -3147,7 +3147,7 @@ interface IAnjutaProject
 	*
 	* Returns: The new group or NULL on error.
 	*/
-	AnjutaProjectGroup* get_root ();
+	AnjutaProjectNode* get_root ();
 
 	/*
 	 * ianjuta_project_get_packages
@@ -3171,7 +3171,7 @@ interface IAnjutaProject
 	*
 	* Returns: The new group or NULL on error.
 	*/
-	AnjutaProjectGroup* add_group (AnjutaProjectGroup *parent, const gchar *name);
+	AnjutaProjectNode* add_group (AnjutaProjectNode *parent, const gchar *name);
 
 	/**
 	* ianjuta_project_add_target:
@@ -3185,7 +3185,7 @@ interface IAnjutaProject
 	*
 	* Returns: The new target or NULL on error.
 	*/
-	AnjutaProjectTarget* add_target (AnjutaProjectGroup *parent, const gchar *name, AnjutaProjectTargetType type);
+	AnjutaProjectNode* add_target (AnjutaProjectNode *parent, const gchar *name, AnjutaProjectTargetType type);
 
 	/**
 	* ianjuta_project_add_source:
@@ -3198,7 +3198,7 @@ interface IAnjutaProject
 	*
 	* Returns: The new source or NULL on error.
 	*/
-	AnjutaProjectSource* add_source (AnjutaProjectTarget *parent, GFile *file);
+	AnjutaProjectNode* add_source (AnjutaProjectNode *parent, GFile *file);
 
 	/**
 	* ianjuta_project_remove_node:
