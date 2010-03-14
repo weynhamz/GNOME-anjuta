@@ -2124,7 +2124,7 @@ static const gchar*
 build_get_uri_configuration (BasicAutotoolsPlugin *plugin, const gchar *uri)
 {
 	BuildConfiguration *cfg;
-	BuildConfiguration *uri_cfg;
+	BuildConfiguration *uri_cfg = NULL;
 	gsize uri_len = 0;
 
 	/* Check all configurations as other configuration directories are
