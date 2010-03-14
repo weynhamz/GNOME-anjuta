@@ -1054,7 +1054,7 @@ on_treeview_selection_changed (GtkTreeSelection *sel,
 		caps = ianjuta_project_get_capabilities (plugin->project, NULL);
 	node = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
 										   ANJUTA_PROJECT_SOURCE);
-	if (node && anjuta_project_node_get_type (node) == ANJUTA_PROJECT_SOURCE)
+	if (node && anjuta_project_node_type (node) == ANJUTA_PROJECT_SOURCE)
 	{
 		if (caps & IANJUTA_PROJECT_CAN_ADD_SOURCE)
 		{
@@ -1070,7 +1070,7 @@ on_treeview_selection_changed (GtkTreeSelection *sel,
 	
 	node = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
 										   ANJUTA_PROJECT_TARGET);
-	if (node && anjuta_project_node_get_type (node) == ANJUTA_PROJECT_TARGET)
+	if (node && anjuta_project_node_type (node) == ANJUTA_PROJECT_TARGET)
 	{
 		if (caps & IANJUTA_PROJECT_CAN_ADD_SOURCE)
 		{
@@ -1086,7 +1086,7 @@ on_treeview_selection_changed (GtkTreeSelection *sel,
 	
 	node = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
 										   ANJUTA_PROJECT_GROUP);
-	if (node && anjuta_project_node_get_type (node) == ANJUTA_PROJECT_GROUP)
+	if (node && anjuta_project_node_type (node) == ANJUTA_PROJECT_GROUP)
 	{
 		if (caps & IANJUTA_PROJECT_CAN_ADD_GROUP)
 		{
@@ -1875,7 +1875,7 @@ get_element_file_from_node (ProjectManagerPlugin *plugin, AnjutaProjectNode *nod
 					  NULL);
 	}
 
-	switch (anjuta_project_node_get_type (node))
+	switch (anjuta_project_node_type (node))
 	{
 		case ANJUTA_PROJECT_GROUP:
 			file = g_object_ref (anjuta_project_group_get_directory (node));
@@ -1964,7 +1964,7 @@ get_element_type (ProjectManagerPlugin *plugin, GFile *element)
 	
 	node = get_project_node_from_file (plugin, element, ANJUTA_PROJECT_UNKNOWN);
 
-	return node == NULL ? ANJUTA_PROJECT_UNKNOWN : anjuta_project_node_get_type (node);
+	return node == NULL ? ANJUTA_PROJECT_UNKNOWN : anjuta_project_node_type (node);
 }
 
 static GList*
@@ -2004,7 +2004,7 @@ iproject_manager_get_target_type (IAnjutaProjectManager *project_manager,
 
 	if (target != NULL)
 	{
-		AnjutaProjectTargetType type = anjuta_project_target_get_type (target);
+		AnjutaProjectTargetType type = anjuta_project_target_type (target);
 
 		return anjuta_project_target_type_class (type);
 	}
@@ -2035,7 +2035,7 @@ iproject_manager_get_targets (IAnjutaProjectManager *project_manager,
 	{
 		AnjutaProjectTargetType type;
 
-		type = anjuta_project_target_get_type (node->data);
+		type = anjuta_project_target_type (node->data);
 		if (anjuta_project_target_type_class (type) != target_type)
 		{
 			GList *next = g_list_next (node);
@@ -2106,21 +2106,21 @@ iproject_manager_get_selected (IAnjutaProjectManager *project_manager,
 	
 	node = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
 										   ANJUTA_PROJECT_SOURCE);
-	if (node && anjuta_project_node_get_type (node) == ANJUTA_PROJECT_SOURCE)
+	if (node && anjuta_project_node_type (node) == ANJUTA_PROJECT_SOURCE)
 	{
 		return g_object_ref (anjuta_project_source_get_file (node));
 	}
 
 	node = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
 										   ANJUTA_PROJECT_TARGET);
-	if (node && anjuta_project_node_get_type (node) == ANJUTA_PROJECT_TARGET)
+	if (node && anjuta_project_node_type (node) == ANJUTA_PROJECT_TARGET)
 	{
 		return get_element_file_from_node (plugin, node, IANJUTA_BUILDER_ROOT_URI);
 	}
 
 	node = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
 										   ANJUTA_PROJECT_GROUP);
-	if (node && anjuta_project_node_get_type (node) == GBF_TREE_NODE_GROUP)
+	if (node && anjuta_project_node_type (node) == GBF_TREE_NODE_GROUP)
 	{
 		return g_object_ref (anjuta_project_group_get_directory (node));
 	}

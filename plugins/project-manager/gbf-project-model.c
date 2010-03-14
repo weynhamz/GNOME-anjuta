@@ -369,7 +369,7 @@ add_source (GbfProjectModel    	      *model,
 	GtkTreeIter iter;
 	GbfTreeData *data;
 
-	if ((!source) || (anjuta_project_node_get_type (source) != ANJUTA_PROJECT_SOURCE))
+	if ((!source) || (anjuta_project_node_type (source) != ANJUTA_PROJECT_SOURCE))
 		return;
 	
 	data = gbf_tree_data_new_source (source);
@@ -499,7 +499,7 @@ add_target (GbfProjectModel 		*model,
 	GtkTreeIter iter;	
 	GbfTreeData *data;
 	
-	if ((!target) || (anjuta_project_node_get_type (target) != ANJUTA_PROJECT_TARGET))
+	if ((!target) || (anjuta_project_node_type (target) != ANJUTA_PROJECT_TARGET))
 		return;
 	
 	data = gbf_tree_data_new_target (target);
@@ -519,7 +519,7 @@ add_target (GbfProjectModel 		*model,
 	 * set of public functions to add/remove shortcuts to save
 	 * this information in the project metadata (when that's
 	 * implemented) */
-	switch (anjuta_project_target_type_class (anjuta_project_target_get_type (target)))
+	switch (anjuta_project_target_type_class (anjuta_project_target_type (target)))
 	{
 		case ANJUTA_TARGET_SHAREDLIB:
 		case ANJUTA_TARGET_STATICLIB:
@@ -542,7 +542,7 @@ add_target_group (GbfProjectModel 	*model,
 	AnjutaProjectNode *node;
 	GbfTreeData *data;
 
-	if ((!group) || (anjuta_project_node_get_type (group) != ANJUTA_PROJECT_GROUP))
+	if ((!group) || (anjuta_project_node_type (group) != ANJUTA_PROJECT_GROUP))
 		return;
 	
 	data = gbf_tree_data_new_group (group);
@@ -629,7 +629,7 @@ update_tree (GbfProjectModel *model, AnjutaProjectNode *parent, GtkTreeIter *ite
 	/* add the remaining sources, targets and groups */
 	for (node = nodes; node; node = node->next)
 	{
-		switch (anjuta_project_node_get_type (node->data))
+		switch (anjuta_project_node_type (node->data))
 		{
 		case ANJUTA_PROJECT_GROUP:
 			add_target_group (model, node->data, iter);
