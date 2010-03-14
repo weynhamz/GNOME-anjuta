@@ -21,10 +21,11 @@
 #define _SYMBOL_DB_VIEWS_H_
 
 #include "symbol-db-engine.h"
+#include "plugin.h"
 
 G_BEGIN_DECLS
 
-GtkWidget* symbol_db_view_global_new (SymbolDBEngine *dbe);
+GtkWidget* symbol_db_view_global_new (SymbolDBEngine *dbe, SymbolDBPlugin *plugin);
 
 G_END_DECLS
 

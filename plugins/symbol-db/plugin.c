@@ -2016,7 +2016,8 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 
 	if (sdb_plugin->dbv_view_tree1)
 		gtk_widget_destroy (sdb_plugin->dbv_view_tree1);
-	sdb_plugin->dbv_view_tree1 = symbol_db_view_global_new (sdb_plugin->sdbe_project);
+	sdb_plugin->dbv_view_tree1 = symbol_db_view_global_new (sdb_plugin->sdbe_project,
+	                                                        sdb_plugin);
 	gtk_notebook_prepend_page (GTK_NOTEBOOK (sdb_plugin->dbv_notebook),
 	                           sdb_plugin->dbv_view_tree1, 
 	                           gtk_label_new ("New symbols"));
@@ -2452,7 +2453,8 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	sdb_plugin->dbv_view_tab_label = gtk_label_new (_("Global" ));
 
 	/* FIXME: */
-	sdb_plugin->dbv_view_tree1 = symbol_db_view_global_new (sdb_plugin->sdbe_project);
+	sdb_plugin->dbv_view_tree1 = symbol_db_view_global_new (sdb_plugin->sdbe_project,
+	                                                        sdb_plugin);
 	g_object_add_weak_pointer (G_OBJECT (sdb_plugin->dbv_view_tree1),
 							   (gpointer)&sdb_plugin->dbv_view_tree1);
 	

@@ -32,6 +32,15 @@ struct _SymbolDBModelGlobalPriv
 enum {
 	DATA_COL_SYMBOL_ID,
 	DATA_COL_SYMBOL_NAME,
+	DATA_COL_SYMBOL_FILE_LINE,
+	DATA_COL_SYMBOL_FILE_SCOPE,
+	DATA_COL_SYMBOL_ARGS,
+	DATA_COL_SYMBOL_RETURNTYPE,
+	DATA_COL_SYMBOL_KIND_NAME,
+	DATA_COL_SYMBOL_FILE_PATH,
+	DATA_COL_SYMBOL_ACCESS,
+	DATA_COL_SYMBOL_TYPE,
+	DATA_COL_SYMBOL_TYPE_NAME,
 	DATA_N_COLS
 };
 
@@ -102,14 +111,13 @@ symbol_db_model_global_get_children (SymbolDBModel *model, gint tree_level,
 				(priv->dbe, SYMTYPE_CLASS | SYMTYPE_ENUM | SYMTYPE_STRUCT |
 				 SYMTYPE_TYPEDEF | SYMTYPE_UNION, TRUE, TRUE, limit, offset,
 				 SYMINFO_SIMPLE | SYMINFO_ACCESS | SYMINFO_TYPE |
-				 SYMINFO_FILE_PATH | SYMINFO_KIND);
+				 SYMINFO_FILE_PATH);
 			break;
 		case 1:
 			symbol_id = g_value_get_int (&column_values[DATA_COL_SYMBOL_ID]);
 			iter = symbol_db_engine_get_scope_members_by_symbol_id
 				(priv->dbe, symbol_id, limit, offset, SYMINFO_SIMPLE |
-				 SYMINFO_ACCESS | SYMINFO_TYPE | SYMINFO_FILE_PATH |
-				 SYMINFO_KIND);
+				 SYMINFO_ACCESS | SYMINFO_TYPE | SYMINFO_FILE_PATH);
 			break;
 		default:
 			return NULL;
@@ -155,6 +163,17 @@ symbol_db_model_global_get_query_value (SymbolDBModel *model,
 }
 
 static void
+on_symbol_db_global_dbe_unref (SymbolDBModelGlobal *model)
+{
+	SymbolDBModelGlobalPriv *priv;
+
+	g_return_if_fail (SYMBOL_DB_IS_MODEL_GLOBAL (model));
+	priv = GET_PRIV (model);
+	priv->dbe = NULL;
+	/* FIXME: Reset model */
+}
+
+static void
 symbol_db_model_global_set_property (GObject *object, guint prop_id,
                                      const GValue *value, GParamSpec *pspec)
 {
@@ -167,8 +186,13 @@ symbol_db_model_global_set_property (GObject *object, guint prop_id,
 	{
 	case PROP_SYMBOL_DB_ENGINE:
 		if (priv->dbe)
-			g_object_unref (priv->dbe);
+			g_object_weak_unref (G_OBJECT (priv->dbe),
+			                    (GWeakNotify)on_symbol_db_global_dbe_unref,
+			                     object);
 		priv->dbe = g_value_dup_object (value);
+		g_object_weak_ref (G_OBJECT (priv->dbe),
+			                    (GWeakNotify)on_symbol_db_global_dbe_unref,
+			                     object);
 		/* TODO: Reset model */
 		break;
 	default:
@@ -206,7 +230,9 @@ symbol_db_model_global_finalize (GObject *object)
 	priv = GET_PRIV (object);
 	
 	if (priv->dbe)
-		g_object_unref (priv->dbe);
+		g_object_weak_unref (G_OBJECT (priv->dbe),
+		                     (GWeakNotify)on_symbol_db_global_dbe_unref,
+		                     object);
 	G_OBJECT_CLASS (symbol_db_model_global_parent_class)->finalize (object);
 }
 
@@ -214,14 +240,32 @@ static void
 symbol_db_model_global_init (SymbolDBModelGlobal *object)
 {
 	SymbolDBModelGlobalPriv *priv;
-	GType types[] = {G_TYPE_INT, GDK_TYPE_PIXBUF, G_TYPE_STRING};
-	gint data_cols[] = {DATA_COL_SYMBOL_ID, -1, DATA_COL_SYMBOL_NAME};
+	
+	GType types[] = {
+		G_TYPE_INT,
+		GDK_TYPE_PIXBUF,
+		G_TYPE_STRING,
+		G_TYPE_STRING,
+		G_TYPE_INT,
+	};
+
+	gint data_cols[] = {
+		DATA_COL_SYMBOL_ID,
+		-1,
+		DATA_COL_SYMBOL_NAME,
+		DATA_COL_SYMBOL_FILE_PATH,
+		DATA_COL_SYMBOL_FILE_LINE,
+	};
 	
 	g_return_if_fail (SYMBOL_DB_IS_MODEL_GLOBAL (object));
 	priv = GET_PRIV (object);
 	
 	priv->dbe = NULL;
-	symbol_db_model_set_columns (SYMBOL_DB_MODEL (object), 3, types, data_cols);
+
+	g_assert ((sizeof (types) / sizeof (GType)) == (sizeof (data_cols) / sizeof (gint)));
+	symbol_db_model_set_columns (SYMBOL_DB_MODEL (object),
+	                             (sizeof (types) / sizeof (GType)),
+	                             types, data_cols);
 }
 
 static void
