@@ -107,7 +107,7 @@ symbol_db_model_global_get_children (SymbolDBModel *model, gint tree_level,
 		case 1:
 			symbol_id = g_value_get_int (&column_values[DATA_COL_SYMBOL_ID]);
 			iter = symbol_db_engine_get_scope_members_by_symbol_id
-				(priv->dbe, symbol_id, offset, limit, SYMINFO_SIMPLE |
+				(priv->dbe, symbol_id, limit, offset, SYMINFO_SIMPLE |
 				 SYMINFO_ACCESS | SYMINFO_TYPE | SYMINFO_FILE_PATH |
 				 SYMINFO_KIND);
 			break;

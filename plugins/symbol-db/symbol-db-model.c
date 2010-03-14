@@ -30,11 +30,11 @@
 /* Constants */
 
 #define SYMBOL_DB_MODEL_PAGE_SIZE 100
+#define SYMBOL_DB_MODEL_ENSURE_CHILDREN_BATCH_SIZE 10
 
 typedef struct _SymbolDBModelPage SymbolDBModelPage;
 struct _SymbolDBModelPage
 {
-	gint ref_count;
 	gint begin_offset, end_offset;
 	SymbolDBModelPage *prev;
 	SymbolDBModelPage *next;
@@ -49,14 +49,18 @@ struct _SymbolDBModelNode {
 	 */
 	GValue *values;
 
-	/* List of currently active (loaded) pages */
+	/* List of currently active (cached) pages */
 	SymbolDBModelPage *pages;
 	
 	/* Data structure */
 	gint level;
 	SymbolDBModelNode *parent;
 	gint offset;
+
+	/* Children states */
+	gboolean children_ensured;
 	guint n_children;
+	gint children_ref_count;
 	SymbolDBModelNode **children;
 };
 
@@ -66,21 +70,9 @@ typedef struct {
 	gint *query_columns; /* Corresponding GdaDataModel column */
 	gint node_id_column;
 
-	/* Nodes currently references by others and already processed.
-	 * These are the nodes tracked and displayed by the view.
-	 */
-	GHashTable *refed_nodes;
-
-	/* Nodes referenced by others and queued for processing */
-	GQueue *refed_nodes_queue;
-
-	/* Internal temporary references. Some views could try to access
-	 * some nodes without holding reference to it first. A temporary
-	 * reference is created for it and potentially either eventually
-	 * refed by the view or released at some later time from my_ref
-	 * during a garbage collection rounds.
-	 */
-	GHashTable *my_refed_nodes;
+	/* Idle child-ensure queue */
+	GQueue *ensure_children_queue;
+	guint ensure_children_idle_id;
 	
 	SymbolDBModelNode *root;
 } SymbolDBModelPriv;
@@ -95,6 +87,8 @@ enum {
 static guint symbol_db_model_signals[LAST_SIGNAL] = { 0 };
 
 /* Declarations */
+
+static void symbol_db_model_node_free (SymbolDBModelNode *node);
 
 static void symbol_db_model_tree_model_init (GtkTreeModelIface *iface);
 
@@ -118,20 +112,16 @@ static GdaDataModel* symbol_db_model_get_children (SymbolDBModel *model,
                                                    GValue column_values[],
                                                    gint offset, gint limit);
 
-static void symbol_db_model_ensure_node_children (SymbolDBModel *model,
-                                                  SymbolDBModelNode *parent);
+static void symbol_db_model_node_ensure_children (SymbolDBModel *model,
+                                                  SymbolDBModelNode *parent,
+                                                  gboolean queue_it,
+                                                  gboolean emit_has_child);
 
 /* Class definition */
 G_DEFINE_TYPE_WITH_CODE (SymbolDBModel, symbol_db_model, G_TYPE_OBJECT,
                          G_IMPLEMENT_INTERFACE (GTK_TYPE_TREE_MODEL,
                                                 symbol_db_model_tree_model_init))
 /* Node */
-
-static void
-symbol_db_model_node_free (SymbolDBModelNode *node)
-{
-	/* FIXME: */
-}
 
 static inline SymbolDBModelNode*
 symbol_db_model_node_get_child (SymbolDBModelNode *node, gint child_offset)
@@ -144,6 +134,58 @@ symbol_db_model_node_set_child (SymbolDBModelNode *node, gint child_offset,
                                 SymbolDBModelNode *val)
 {
 	node->children[child_offset] = val;
+}
+
+static gboolean
+symbol_db_model_node_cleanse (SymbolDBModelNode *node)
+{
+	SymbolDBModelPage *page, *next;
+	gint i;
+	
+	g_return_val_if_fail (node != NULL, FALSE);
+
+	/* Can not cleanse a node if there are refed children */
+	g_return_val_if_fail (node->children_ref_count == 0, FALSE);
+
+	/* There should be no children with any ref. Children with ref count 0
+	 * are floating children and can be destroyed.
+	 */
+	for (i = 0; i < node->n_children; i++)
+	{
+		SymbolDBModelNode *child = symbol_db_model_node_get_child (node, i);
+		if (child)
+		{
+			/* Assert on nodes with ref count > 0 */
+			g_warn_if_fail (child->children_ref_count == 0);
+			symbol_db_model_node_free (child);
+			symbol_db_model_node_set_child (node, i, NULL);
+		}
+	}
+
+	/* Reset cached pages */
+	page = node->pages;
+	while (page)
+	{
+		next = page->next;
+		g_free (page);
+		page = next;
+	}
+	node->pages = NULL;
+
+	g_free (node->children);
+	node->children = NULL;
+
+	return TRUE;
+}
+
+static void
+symbol_db_model_node_free (SymbolDBModelNode *node)
+{
+	if (!symbol_db_model_node_cleanse (node))
+	    return;
+	
+	g_free (node->values);
+	g_free (node);
 }
 
 static void
@@ -210,74 +252,33 @@ symbol_db_model_node_find_child_page (SymbolDBModelNode *node,
 }
 
 static void
-symbol_db_model_node_page_ref (SymbolDBModelPage *page)
+symbol_db_model_node_ref_child (SymbolDBModelNode *node)
 {
-	page->ref_count++;
+	g_return_if_fail (node != NULL);
+	node->children_ref_count++;
 }
 
 static void
-symbol_db_model_node_page_unref (SymbolDBModelNode *node,
-                                 SymbolDBModelPage *page)
+symbol_db_model_node_unref_child (SymbolDBModelNode *node, gint child_offset)
 {
-	g_return_if_fail (page != NULL);
-	g_return_if_fail (page->ref_count > 0);
+	SymbolDBModelNode *parent_node;
+	gint node_offset;
+	g_return_if_fail (node != NULL);
+	g_return_if_fail (node->children_ref_count > 0);
 	
-	page->ref_count--;
-	if (page->ref_count <= 0)
+	node->children_ref_count--;
+	parent_node = node->parent;
+	node_offset = node->offset;
+	
+	/* If ref count reaches 0, cleanse this node */
+	if (node->children_ref_count <= 0)
 	{
-		gint i;
-		for (i = page->begin_offset; i < page->end_offset; i++)
-		{
-			symbol_db_model_node_free (symbol_db_model_node_get_child (node, i));
-			symbol_db_model_node_set_child (node, i, NULL);
-		}
-		symbol_db_model_node_remove_page (node, page);
-		g_free (page);
+		symbol_db_model_node_cleanse (node);
 	}
-}
 
-static void
-symbol_db_model_node_ref (SymbolDBModelNode *node)
-{
-	SymbolDBModelNode *parent;
-	SymbolDBModelPage *page, *prev_page;
-	
-	g_return_if_fail (node != NULL);
-	
-	/* Ref the page containing this node */
-	parent = node->parent;
-
-	if (!parent) /* Root not can not be reffed. It always exists */
-		return;
-	
-	page = symbol_db_model_node_find_child_page (parent, node->offset,
-	                                             &prev_page);
-
-	g_return_if_fail (page != NULL);
-	symbol_db_model_node_page_ref (page);
-
-	if (parent)
-		symbol_db_model_node_ref (parent);
-}
-
-static void
-symbol_db_model_node_unref (SymbolDBModelNode *node)
-{
-	SymbolDBModelNode *parent;
-	SymbolDBModelPage *page, *prev_page;
-	
-	g_return_if_fail (node != NULL);
-	
-	/* Ref the page containing this node */
-	parent = node->parent;
-	page = symbol_db_model_node_find_child_page (parent, node->offset,
-	                                             &prev_page);
-
-	g_return_if_fail (page != NULL);
-	symbol_db_model_node_page_unref (parent, page);
-
-	if (parent)
-		symbol_db_model_node_unref (parent);
+	/* Reduce the associate ref count on parent also */
+	if (parent_node)
+		symbol_db_model_node_unref_child (parent_node, node_offset);
 }
 
 static SymbolDBModelNode *
@@ -436,6 +437,9 @@ symbol_db_model_get_iter (GtkTreeModel *tree_model,
 	g_return_val_if_fail (SYMBOL_DB_IS_MODEL(tree_model), FALSE);
 	g_return_val_if_fail (iter != NULL, FALSE);
 	g_return_val_if_fail (path != NULL, FALSE);
+
+	gchar *path_str = gtk_tree_path_to_string (path);
+	g_free (path_str);
 	
 	depth = gtk_tree_path_get_depth (path);
 	g_return_val_if_fail (depth > 0, FALSE);
@@ -443,24 +447,18 @@ symbol_db_model_get_iter (GtkTreeModel *tree_model,
 	priv = GET_PRIV (tree_model);
 	indx = gtk_tree_path_get_indices (path);
 
-	/* Ensure root expansion */
-	if (priv->root->n_children == 0) 
-		symbol_db_model_ensure_node_children (SYMBOL_DB_MODEL (tree_model),
-		                                      priv->root);
-	if (priv->root->n_children == 0) 
-		return FALSE;
-
 	parent_node = NULL;
 	node = priv->root;
 	for (i = 0; i < depth; i++)
 	{
 		parent_node = node;
+		if (!node->children_ensured)
+			symbol_db_model_node_ensure_children (SYMBOL_DB_MODEL (tree_model),
+				                                  node, FALSE, FALSE);
 		if (node->children == NULL || node->n_children <= 0)
 		{
-			/* No child available */
-			
-			/* FIXME: Do something more graceful like actually
-			 * expanding the node and proceeding further.
+			/* FIXME:  No child available. View thinks there is child.
+			 * It's an inconsistent state. Do something fancy to fix it.
 			 */
 			break;
 		}
@@ -501,11 +499,12 @@ symbol_db_model_get_path (GtkTreeModel *tree_model,
 	path = gtk_tree_path_new ();
 
 	node = (SymbolDBModelNode*)iter->user_data;
-	offset = GPOINTER_TO_INT (iter->user_data);
+	offset = GPOINTER_TO_INT (iter->user_data2);
 	do {
 		gtk_tree_path_prepend_index (path, offset);
 		node = node->parent;
-		offset = node->offset;
+		if (node)
+			offset = node->offset;
 	} while (node);
 	return path;
 }
@@ -536,6 +535,15 @@ symbol_db_model_get_value (GtkTreeModel *tree_model,
 	node = symbol_db_model_node_get_child (parent_node, offset);
 	g_value_init (value, priv->column_types[column]);
 	g_return_if_fail (node != NULL);
+
+	/* View accessed the node, so update any pending has-child status */
+	if (!node->children_ensured)
+		symbol_db_model_node_ensure_children (SYMBOL_DB_MODEL (tree_model),
+		                                      node, TRUE, TRUE);
+
+	/* FIXME: We should also refresh children status even if children was
+	 * ensured already.
+	 */
 	g_value_copy (&(node->values[column]), value);
 }
 
@@ -619,20 +627,12 @@ symbol_db_model_iter_has_child (GtkTreeModel *tree_model,
 	
 	parent_node = (SymbolDBModelNode*) iter->user_data;
 	offset = GPOINTER_TO_INT (iter->user_data2);
-	
-	node = symbol_db_model_node_get_child (parent_node, offset);
-	if (node == NULL)
-	{
-		symbol_db_model_page_fault (SYMBOL_DB_MODEL (tree_model),
-		                            parent_node, offset);
-		node = symbol_db_model_node_get_child (parent_node, offset);
-		if (node == NULL)
-			return FALSE;
-	}
 
-	if (node->n_children <= 0)
-		symbol_db_model_ensure_node_children (SYMBOL_DB_MODEL (tree_model),
-		                                      node);
+	node = symbol_db_model_node_get_child (parent_node, offset);
+
+	/* If node is not loaded, has-child is defered. See get_value() */
+	if (node == NULL)
+		return FALSE;
 	return (node->n_children > 0);
 }
 
@@ -710,60 +710,29 @@ symbol_db_model_iter_parent (GtkTreeModel *tree_model,
 static void
 symbol_db_model_iter_ref (GtkTreeModel *tree_model, GtkTreeIter  *iter)
 {
-	SymbolDBModelPriv *priv;
-	SymbolDBModelNode *node, *parent_node;
+	SymbolDBModelNode *parent_node;
 	gint child_offset;
 	
 	g_return_if_fail (symbol_db_model_iter_is_valid (tree_model, iter));
 
-	priv = GET_PRIV(tree_model);
 	parent_node = (SymbolDBModelNode*) iter->user_data;
 	child_offset = GPOINTER_TO_INT (iter->user_data2);
 
-	g_message ("Referencing node %p->%d", parent_node, child_offset);
-	
-	node = symbol_db_model_node_get_child (parent_node, child_offset);
-
-	if (!node)
-	{
-		/* Page fault */
-		g_warning ("Page fault occured without getting values first.");
-		symbol_db_model_page_fault (SYMBOL_DB_MODEL (tree_model),
-		                            parent_node, child_offset);
-	}
-	node = symbol_db_model_node_get_child (parent_node, child_offset);
-	g_return_if_fail (node != NULL);
-
-	/* If the node was already referenced internally, just pass it. */
-	if (g_hash_table_lookup (priv->my_refed_nodes, node))
-		g_hash_table_remove (priv->my_refed_nodes, node);
-	else /* Otherwise make fresh reference */
-		symbol_db_model_node_ref (node);
-
-	/* Keep record of currently referenced nodes */
-	if (g_hash_table_lookup (priv->refed_nodes, node))
-		g_hash_table_insert (priv->refed_nodes, node, node);
+	symbol_db_model_node_ref_child (parent_node);
 }
 
 static void
 symbol_db_model_iter_unref (GtkTreeModel *tree_model, GtkTreeIter  *iter)
 {
-	SymbolDBModelPriv *priv;
-	SymbolDBModelNode *node, *parent_node;
+	SymbolDBModelNode *parent_node;
 	gint child_offset;
 	
 	g_return_if_fail (symbol_db_model_iter_is_valid (tree_model, iter));
 
-	priv = GET_PRIV(tree_model);
 	parent_node = (SymbolDBModelNode*) iter->user_data;
 	child_offset = GPOINTER_TO_INT (iter->user_data2);
 
-	g_message ("Unreferencing node %p->%d", parent_node, child_offset);
-	
-	node = symbol_db_model_node_get_child (parent_node, child_offset);
-	g_return_if_fail (node != NULL);
-
-	/* Check if the node is found anywhere as referenced */
+	symbol_db_model_node_unref_child (parent_node, child_offset);
 }
 
 static void
@@ -787,13 +756,56 @@ symbol_db_model_tree_model_init (GtkTreeModelIface *iface)
 
 /* SymbolDBModel implementation */
 
-static void
-symbol_db_model_ensure_node_children (SymbolDBModel *model,
-                                      SymbolDBModelNode *potential_parent)
+static gboolean
+on_symbol_db_ensure_children_idle (SymbolDBModel *model)
 {
+	gint count;
+	SymbolDBModelNode *node;
+	SymbolDBModelPriv *priv;
+	
+	priv = GET_PRIV (model);
+
+	for (count = 0; count < SYMBOL_DB_MODEL_ENSURE_CHILDREN_BATCH_SIZE; count++)
+	{
+		node = g_queue_pop_head (priv->ensure_children_queue);
+		symbol_db_model_node_ensure_children (model, node, FALSE, TRUE);
+		if (g_queue_get_length (priv->ensure_children_queue) <= 0)
+		{
+			priv->ensure_children_idle_id = 0;
+			return FALSE;
+		}
+	}
+	return TRUE;
+}
+
+static void
+symbol_db_model_node_ensure_children (SymbolDBModel *model,
+                                      SymbolDBModelNode *potential_parent,
+                                      gboolean queue_it,
+                                      gboolean emit_has_child)
+{
+	SymbolDBModelPriv *priv;
+	gint old_n_children;
+	
 	/* FIXME: Should we free (properly) existing children instead? */
 	g_return_if_fail (potential_parent->children == NULL);
-	g_return_if_fail (potential_parent->n_children == 0);
+	g_return_if_fail (potential_parent->children_ensured == FALSE);
+
+	priv = GET_PRIV (model);
+	if (queue_it)
+	{
+		if (!g_queue_find (priv->ensure_children_queue, potential_parent))
+		{
+			g_queue_push_tail (priv->ensure_children_queue, potential_parent);
+			if (!priv->ensure_children_idle_id)
+				priv->ensure_children_idle_id =
+					g_idle_add ((GSourceFunc)on_symbol_db_ensure_children_idle,
+					            model);
+		}
+		return;
+	}
+	
+	old_n_children = potential_parent->n_children;
 
 	potential_parent->n_children = 
 		symbol_db_model_get_n_children (model, potential_parent->level,
@@ -801,6 +813,23 @@ symbol_db_model_ensure_node_children (SymbolDBModel *model,
 
 	potential_parent->children = g_new0 (SymbolDBModelNode*,
 	                                     potential_parent->n_children);
+
+	potential_parent->children_ensured = TRUE;
+	if (emit_has_child && potential_parent->n_children > 0)
+	{
+		GtkTreePath *path;
+		GtkTreeIter iter = {0};
+
+		iter.stamp = SYMBOL_DB_MODEL_STAMP;
+		iter.user_data = potential_parent->parent;
+		iter.user_data2 = GINT_TO_POINTER (potential_parent->offset);
+		
+		path = symbol_db_model_get_path (GTK_TREE_MODEL (model), &iter);
+		gtk_tree_model_row_has_child_toggled (GTK_TREE_MODEL (model),
+		                                      path, &iter);
+		gtk_tree_path_free (path);
+	}
+	/* g_warn_if_fail (potential_parent->n_children == old_n_children); */
 }
 
 static gboolean
@@ -904,9 +933,8 @@ symbol_db_model_get_children (SymbolDBModel *model, gint tree_level,
                               GValue column_values[], gint offset,
                               gint limit)
 {
-	return SYMBOL_DB_MODEL_GET_CLASS(model)->get_children (model, tree_level,
-	                                                       column_values,
-	                                                       offset, limit);
+	return SYMBOL_DB_MODEL_GET_CLASS(model)->
+		get_children (model, tree_level, column_values, offset, limit);
 }
 
 /* Object implementation */
@@ -914,7 +942,14 @@ symbol_db_model_get_children (SymbolDBModel *model, gint tree_level,
 static void
 symbol_db_model_finalize (GObject *object)
 {
+	SymbolDBModelPriv *priv;
 	/* FIXME */
+
+	priv = GET_PRIV (object);
+	if (priv->ensure_children_idle_id)
+		g_source_remove (priv->ensure_children_idle_id);
+	g_queue_free (priv->ensure_children_queue);
+	
 	G_OBJECT_CLASS (symbol_db_model_parent_class)->finalize (object);
 }
 
@@ -952,8 +987,7 @@ symbol_db_model_init (SymbolDBModel *object)
 	priv->n_columns = 0;
 	priv->column_types = NULL;
 	priv->query_columns = NULL;
-	priv->refed_nodes = g_hash_table_new (g_direct_hash, g_direct_equal);
-	priv->my_refed_nodes = g_hash_table_new (g_direct_hash, g_direct_equal);
+	priv->ensure_children_queue = g_queue_new ();
 }
 
 static void
@@ -1066,4 +1100,3 @@ symbol_db_model_newv (gint n_columns, GType *types, gint *query_columns)
 	                             types, query_columns);
 	return model;
 }
-
