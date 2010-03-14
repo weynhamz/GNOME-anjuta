@@ -804,41 +804,6 @@ goto_local_tree_iter (SymbolDBPlugin *sdb_plugin, GtkTreeIter *iter)
 	}
 }
 
-/* FIXME: */
-#if 0
-static void
-goto_global_tree_iter (SymbolDBPlugin *sdb_plugin, GtkTreeIter *iter)
-{
-	gint line;
-	gchar *file;
-
-	if (symbol_db_view_get_file_and_line (
-			SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree), sdb_plugin->sdbe_project,
-							iter, &line, &file) == FALSE)
-	{
-		DEBUG_PRINT ("goto_global_tree_iter (): error while trying to get file/line. "
-					 "Maybe you clicked on Global/Var etc. node.");
-		return;
-	};
-	*/
-	if (line > 0 && sdb_plugin->current_editor)
-	{
-		goto_file_line (ANJUTA_PLUGIN (sdb_plugin), file, line);
-		if (IANJUTA_IS_MARKABLE (sdb_plugin->current_editor))
-		{
-			ianjuta_markable_delete_all_markers (IANJUTA_MARKABLE (sdb_plugin->current_editor),
-												 IANJUTA_MARKABLE_LINEMARKER,
-												 NULL);
-
-			ianjuta_markable_mark (IANJUTA_MARKABLE (sdb_plugin->current_editor),
-								   line, IANJUTA_MARKABLE_LINEMARKER, NULL);
-		}
-	}
-	
-	g_free (file);
-}
-#endif
-
 /**
  * will manage the click of mouse and other events on search->hitlist treeview
  */
@@ -868,48 +833,6 @@ on_local_treeview_row_activated (GtkTreeView *view, GtkTreePath *arg1,
 	}
 	goto_local_tree_iter (sdb_plugin, &iter);
 }
-
-/* FIXME: */
-#if 0
-static void
-on_global_treeview_row_activated (GtkTreeView *view, GtkTreePath *arg1,
-								 GtkTreeViewColumn *arg2,
-								 SymbolDBPlugin *sdb_plugin)
-{
-	GtkTreeModel *model;
-	GtkTreeSelection *selection;
-	GtkTreeIter iter;
-		
-	selection = gtk_tree_view_get_selection (view);
-	if (!gtk_tree_selection_get_selected (selection, &model, &iter)) 
-	{
-		return;
-	}
-	
-	goto_global_tree_iter (sdb_plugin, &iter);
-}
-
-static void
-on_global_treeview_row_expanded (GtkTreeView *tree_view,
-									GtkTreeIter *iter,
-                                    GtkTreePath *path,
-                                    SymbolDBPlugin *user_data)
-{
-	symbol_db_view_row_expanded (SYMBOL_DB_VIEW (user_data->dbv_view_tree),
-								user_data->sdbe_project, iter);
-}
-
-static void
-on_global_treeview_row_collapsed (GtkTreeView *tree_view,
-									GtkTreeIter *iter,
-                                    GtkTreePath *path,
-                                    SymbolDBPlugin *user_data)
-{		
-	symbol_db_view_row_collapsed (SYMBOL_DB_VIEW (user_data->dbv_view_tree),
-								user_data->sdbe_project, iter);
-	
-}
-#endif
 
 static void
 value_removed_current_editor (AnjutaPlugin *plugin,
@@ -1248,13 +1171,6 @@ clear_project_progress_bar (SymbolDBEngine *dbe, gpointer data)
 	/* hide the progress bar */
 	gtk_widget_hide (sdb_plugin->progress_bar_project);	
 
-	/* FIXME: */
-#if 0
-	/* re-active global symbols */
-	symbol_db_view_open (SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree), 
-						 sdb_plugin->sdbe_project);
-#endif
-	
 	/* ok, enable local symbols view */
 	if (sdb_plugin->current_editor == NULL  ||
 	    IANJUTA_IS_FILE (sdb_plugin->current_editor) == FALSE)
@@ -1992,12 +1908,6 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 		id = g_idle_add ((GSourceFunc) gtk_progress_bar_pulse, 
 						 sdb_plugin->progress_bar_project);
 		gtk_widget_show (sdb_plugin->progress_bar_project);
-/* FIXME: */
-#if 0
-		/* open symbol view, the global symbols gtktree */
-		symbol_db_view_open (SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree),
-							 sdb_plugin->sdbe_project);
-#endif
 		g_source_remove (id);
 		gtk_widget_hide (sdb_plugin->progress_bar_project);
 
@@ -2052,10 +1962,6 @@ on_project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	if (sdb_plugin->dbv_view_tree1)
 		gtk_widget_destroy (sdb_plugin->dbv_view_tree1);
 	sdb_plugin->dbv_view_tree1 = NULL;
-	/* FIXME: */
-	/*
-	symbol_db_view_clear_cache (SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree));
-	*/
 	
 	/* don't forget to close the project */
 	symbol_db_engine_close_db (sdb_plugin->sdbe_project);
@@ -2441,15 +2347,6 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	
 	
 	/* Global symbols */
-	/*
-	sdb_plugin->scrolled_global = gtk_scrolled_window_new (NULL, NULL);
-	gtk_scrolled_window_set_shadow_type (
-					GTK_SCROLLED_WINDOW (sdb_plugin->scrolled_global),
-					GTK_SHADOW_IN);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sdb_plugin->scrolled_global),
-									GTK_POLICY_AUTOMATIC,
-									GTK_POLICY_AUTOMATIC);
-	*/
 	sdb_plugin->dbv_view_tab_label = gtk_label_new (_("Global" ));
 
 	/* FIXME: */
@@ -2457,25 +2354,6 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	                                                        sdb_plugin);
 	g_object_add_weak_pointer (G_OBJECT (sdb_plugin->dbv_view_tree1),
 							   (gpointer)&sdb_plugin->dbv_view_tree1);
-	
-	/* activate signals receiving by default */
-	/* FIXME: */
-	/*
-	symbol_db_view_recv_signals_from_engine (
-					SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree), 
-											 sdb_plugin->sdbe_project, TRUE);
-
-	g_signal_connect (G_OBJECT (sdb_plugin->dbv_view_tree), "row-activated",
-					  G_CALLBACK (on_global_treeview_row_activated), plugin);
-
-	g_signal_connect (G_OBJECT (sdb_plugin->dbv_view_tree), "row-expanded",
-					  G_CALLBACK (on_global_treeview_row_expanded), plugin);
-
-	g_signal_connect (G_OBJECT (sdb_plugin->dbv_view_tree), "row-collapsed",
-					  G_CALLBACK (on_global_treeview_row_collapsed), plugin);	
-	gtk_container_add (GTK_CONTAINER(sdb_plugin->scrolled_global), 
-					   sdb_plugin->dbv_view_tree);
-	*/
 	
 	/* Search symbols */
 	sdb_plugin->dbv_view_tree_search =
@@ -2593,19 +2471,7 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
 										  on_session_save,
 										  plugin);
-/*
-	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->dbv_view_tree),
-										  on_global_treeview_row_activated,
-										  plugin);
-	
-	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->dbv_view_tree),
-										  on_global_treeview_row_expanded,
-										  plugin);
 
-	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->dbv_view_tree),
-										  on_global_treeview_row_collapsed,
-										  plugin);
-*/
 	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->dbv_view_tree_locals),
 										  on_local_treeview_row_activated,
 										  plugin);
