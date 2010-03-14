@@ -126,13 +126,22 @@ G_DEFINE_TYPE_WITH_CODE (SymbolDBModel, symbol_db_model, G_TYPE_OBJECT,
 static inline SymbolDBModelNode*
 symbol_db_model_node_get_child (SymbolDBModelNode *node, gint child_offset)
 {
-	return node->children[child_offset];
+	g_return_val_if_fail (node != NULL, NULL);
+	g_return_val_if_fail (child_offset >= 0 && child_offset < node->n_children, NULL);
+	if(node->children)
+		return node->children[child_offset];
+	return NULL;
 }
 
 static void
 symbol_db_model_node_set_child (SymbolDBModelNode *node, gint child_offset,
                                 SymbolDBModelNode *val)
 {
+	g_return_if_fail (node != NULL);
+	g_return_if_fail (node->children_ensured == TRUE);
+	g_return_if_fail (child_offset >= 0 && child_offset < node->n_children);
+	g_return_if_fail (node->children != NULL);
+	
 	node->children[child_offset] = val;
 }
 
@@ -147,21 +156,24 @@ symbol_db_model_node_cleanse (SymbolDBModelNode *node)
 	/* Can not cleanse a node if there are refed children */
 	g_return_val_if_fail (node->children_ref_count == 0, FALSE);
 
-	/* There should be no children with any ref. Children with ref count 0
-	 * are floating children and can be destroyed.
-	 */
-	for (i = 0; i < node->n_children; i++)
-	{
-		SymbolDBModelNode *child = symbol_db_model_node_get_child (node, i);
-		if (child)
+	if (node->children_ensured)
+	{	
+		/* There should be no children with any ref. Children with ref count 0
+		 * are floating children and can be destroyed.
+		 */
+		for (i = 0; i < node->n_children; i++)
 		{
-			/* Assert on nodes with ref count > 0 */
-			g_warn_if_fail (child->children_ref_count == 0);
-			symbol_db_model_node_free (child);
-			symbol_db_model_node_set_child (node, i, NULL);
+			SymbolDBModelNode *child = symbol_db_model_node_get_child (node, i);
+			if (child)
+			{
+				/* Assert on nodes with ref count > 0 */
+				g_warn_if_fail (child->children_ref_count == 0);
+				symbol_db_model_node_free (child);
+				symbol_db_model_node_set_child (node, i, NULL);
+			}
 		}
 	}
-
+	
 	/* Reset cached pages */
 	page = node->pages;
 	while (page)
