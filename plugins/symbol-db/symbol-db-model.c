@@ -171,7 +171,7 @@ symbol_db_model_node_cleanse (SymbolDBModelNode *node)
 		page = next;
 	}
 	node->pages = NULL;
-
+	node->children_ensured = FALSE;
 	g_free (node->children);
 	node->children = NULL;
 
@@ -603,6 +603,9 @@ symbol_db_model_iter_children (GtkTreeModel *tree_model,
 		node = symbol_db_model_node_get_child (parent_node, offset);
 		g_return_val_if_fail (node != NULL, FALSE);
 	}
+	if (!node->children_ensured)
+		symbol_db_model_node_ensure_children (SYMBOL_DB_MODEL (tree_model),
+		                                      node, FALSE, FALSE);
 	g_return_val_if_fail (node->children != NULL, FALSE);
 	g_return_val_if_fail (node->n_children > 0, FALSE);
 	
