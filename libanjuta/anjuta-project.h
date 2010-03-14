@@ -114,7 +114,7 @@ AnjutaProjectNode *anjuta_project_node_insert_after (AnjutaProjectNode *parent, 
 void anjuta_project_node_all_foreach (AnjutaProjectNode *node, AnjutaProjectNodeFunc func, gpointer data);
 void anjuta_project_node_children_foreach (AnjutaProjectNode *node, AnjutaProjectNodeFunc func, gpointer data);
 
-AnjutaProjectNodeType anjuta_project_node_get_type (const AnjutaProjectNode *node);
+AnjutaProjectNodeType anjuta_project_node_type (const AnjutaProjectNode *node);
 gchar *anjuta_project_node_get_name (const AnjutaProjectNode *node);
 gchar *anjuta_project_node_get_uri (AnjutaProjectNode *node);
 GFile *anjuta_project_node_get_file (AnjutaProjectNode *node);
@@ -128,7 +128,7 @@ AnjutaProjectSource *anjuta_project_source_get_node_from_uri (const AnjutaProjec
 GFile *anjuta_project_group_get_directory (const AnjutaProjectGroup *group);
 
 const gchar *anjuta_project_target_get_name (const AnjutaProjectTarget *target);
-AnjutaProjectTargetType anjuta_project_target_get_type (const AnjutaProjectTarget *target);
+AnjutaProjectTargetType anjuta_project_target_type (const AnjutaProjectTarget *target);
 
 GFile *anjuta_project_source_get_file (const AnjutaProjectSource *source);
 

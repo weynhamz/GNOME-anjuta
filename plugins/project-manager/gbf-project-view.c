@@ -392,7 +392,7 @@ gbf_project_view_find_selected (GbfProjectView *view, AnjutaProjectNodeType type
 		node = gbf_project_model_get_node (GBF_PROJECT_MODEL (model), &iter);
 		
 		/* walk up the hierarchy searching for a node of the given type */
-		while ((node != NULL) && (anjuta_project_node_get_type (node) != type))
+		while ((node != NULL) && (anjuta_project_node_type (node) != type))
 		{
 			node = anjuta_project_node_parent (node);
 		}

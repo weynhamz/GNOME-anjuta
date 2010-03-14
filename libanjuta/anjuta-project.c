@@ -151,7 +151,7 @@ anjuta_project_node_prepend (AnjutaProjectNode *parent, AnjutaProjectNode *node)
 
 
 AnjutaProjectNodeType
-anjuta_project_node_get_type (const AnjutaProjectNode *node)
+anjuta_project_node_type (const AnjutaProjectNode *node)
 {
 	return node == NULL ? ANJUTA_PROJECT_UNKNOWN : NODE_DATA (node)->type;
 }
@@ -354,7 +354,7 @@ anjuta_project_target_get_name (const AnjutaProjectTarget *target)
 }
 
 AnjutaProjectTargetType
-anjuta_project_target_get_type (const AnjutaProjectTarget *target)
+anjuta_project_target_type (const AnjutaProjectTarget *target)
 {
 	return TARGET_DATA (target)->type;
 }

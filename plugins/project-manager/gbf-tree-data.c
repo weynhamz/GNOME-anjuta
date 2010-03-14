@@ -448,7 +448,7 @@ gbf_tree_data_new_source (AnjutaProjectSource *source)
 	}
 
 	parent = anjuta_project_node_parent (source);
-	if (anjuta_project_node_get_type (parent) == ANJUTA_PROJECT_GROUP)
+	if (anjuta_project_node_type (parent) == ANJUTA_PROJECT_GROUP)
 	{
 		data->group = g_object_ref (anjuta_project_group_get_directory (parent));
 	}
