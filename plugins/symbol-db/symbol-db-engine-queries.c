@@ -966,7 +966,7 @@ symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe,
 			"%s JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id "
 			"WHERE a.symbol_id = ## /* name:'scopeparentsymid' type:gint */ "
 			"AND symbol.scope_id = a.scope_definition_id "
-			"AND symbol.scope_id > 0 %s %s %s", info_data->str, join_data->str,
+			"AND symbol.scope_id > 0 %s order by name %s %s", info_data->str, join_data->str,
 									 filter_str->str, limit, offset);		
 									 
 		dyn_node = sdb_engine_insert_dyn_query_node_by_id (dbe, 
@@ -1152,7 +1152,7 @@ select b.* from symbol a, symbol b where a.symbol_id = 348 and
 			"%s FROM symbol a, symbol symbol "
 			"%s WHERE a.symbol_id = ## /* name:'scopeparentsymid' type:gint */ "
 			"AND symbol.scope_id = a.scope_definition_id "
-			"AND symbol.scope_id > 0 %s %s", info_data->str, join_data->str,
+			"AND symbol.scope_id > 0 order by name %s %s", info_data->str, join_data->str,
 								 limit, offset);	
 		
 		dyn_node = sdb_engine_insert_dyn_query_node_by_id (dbe, 
