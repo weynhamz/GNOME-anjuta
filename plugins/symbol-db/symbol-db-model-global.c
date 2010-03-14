@@ -36,9 +36,9 @@ enum {
 	DATA_COL_SYMBOL_FILE_SCOPE,
 	DATA_COL_SYMBOL_ARGS,
 	DATA_COL_SYMBOL_RETURNTYPE,
-	DATA_COL_SYMBOL_KIND_NAME,
 	DATA_COL_SYMBOL_FILE_PATH,
 	DATA_COL_SYMBOL_ACCESS,
+	DATA_COL_SYMBOL_KIND_NAME,
 	DATA_COL_SYMBOL_TYPE,
 	DATA_COL_SYMBOL_TYPE_NAME,
 	DATA_N_COLS
@@ -111,13 +111,14 @@ symbol_db_model_global_get_children (SymbolDBModel *model, gint tree_level,
 				(priv->dbe, SYMTYPE_CLASS | SYMTYPE_ENUM | SYMTYPE_STRUCT |
 				 SYMTYPE_TYPEDEF | SYMTYPE_UNION, TRUE, TRUE, limit, offset,
 				 SYMINFO_SIMPLE | SYMINFO_ACCESS | SYMINFO_TYPE |
-				 SYMINFO_FILE_PATH);
+				 SYMINFO_KIND | SYMINFO_FILE_PATH);
 			break;
 		case 1:
 			symbol_id = g_value_get_int (&column_values[DATA_COL_SYMBOL_ID]);
 			iter = symbol_db_engine_get_scope_members_by_symbol_id
 				(priv->dbe, symbol_id, limit, offset, SYMINFO_SIMPLE |
-				 SYMINFO_ACCESS | SYMINFO_TYPE | SYMINFO_FILE_PATH);
+				 SYMINFO_KIND | SYMINFO_ACCESS | SYMINFO_TYPE |
+				 SYMINFO_FILE_PATH);
 			break;
 		default:
 			return NULL;

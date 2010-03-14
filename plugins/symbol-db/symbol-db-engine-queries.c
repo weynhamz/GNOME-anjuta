@@ -245,13 +245,6 @@ sdb_engine_prepare_symbol_info_sql (SymbolDBEngine *dbe, GString *info_data,
 				"symbol.access_kind_id = sym_access.access_kind_id ");
 	}
 	
-	if (sym_info & SYMINFO_KIND)
-	{
-		info_data = g_string_append (info_data, ",sym_kind.kind_name AS kind_name");
-		join_data = g_string_append (join_data, "LEFT JOIN sym_kind ON "
-				"symbol.kind_id = sym_kind.sym_kind_id ");
-	}
-	
 	if (sym_info & SYMINFO_TYPE || sym_info & SYMINFO_TYPE_NAME)
 	{
 		info_data = g_string_append (info_data, ",sym_type.type_type AS type_type, "
@@ -260,6 +253,13 @@ sdb_engine_prepare_symbol_info_sql (SymbolDBEngine *dbe, GString *info_data,
 				"symbol.type_id = sym_type.type_id ");
 	}
 
+	if (sym_info & SYMINFO_KIND)
+	{
+		info_data = g_string_append (info_data, ",sym_kind.kind_name AS kind_name");
+		join_data = g_string_append (join_data, "LEFT JOIN sym_kind ON "
+				"symbol.kind_id = sym_kind.sym_kind_id ");
+	}
+	
 	if (sym_info & SYMINFO_PROJECT_NAME ||
 		sym_info & SYMINFO_FILE_IGNORE  ||
 		sym_info & SYMINFO_FILE_INCLUDE)
@@ -641,8 +641,8 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 			query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, "
 				"symbol.name AS name, symbol.file_position AS file_position, "
 				"symbol.is_file_scope AS is_file_scope, "
-				"symbol.signature AS signature, symbol.returntype AS returntype, "
-			    "sym_kind.kind_name AS kind_name %s FROM symbol "
+				"symbol.signature AS signature, symbol.returntype AS returntype"
+			    " %s, sym_kind.kind_name AS kind_name FROM symbol "
 					"JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id %s "
 					"WHERE symbol.scope_id <= 0 AND symbol.is_file_scope = 0 "
 							"%s order by name %s %s", info_data->str, join_data->str,
@@ -714,8 +714,8 @@ symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe,
 			query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, "
 				"symbol.name AS name, symbol.file_position AS file_position, "
 				"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature, "
-			    	"symbol.returntype AS returntype, "
-					"sym_kind.kind_name AS kind_name %s FROM symbol "
+			    	"symbol.returntype AS returntype "
+			        "%s, sym_kind.kind_name AS kind_name FROM symbol "
 					"%s JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id "
 					"WHERE symbol.scope_id <= 0 AND symbol.is_file_scope = 0 "
 					"%s %s order by name %s %s", info_data->str, join_data->str, 
