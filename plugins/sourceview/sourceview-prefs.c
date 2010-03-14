@@ -46,6 +46,8 @@
 #define VIEW_LINE_WRAP             "view.line.wrap"
 #define RIGHTMARGIN_POSITION       "sourceview.rightmargin.position"
 
+#define COLOR_ERROR								 "messages.color.error"
+#define COLOR_WARNING							 "messages.color.warning"
 
 
 #define FONT_THEME "sourceview.font.use_theme"
@@ -312,6 +314,25 @@ on_notify_font_theme (AnjutaPreferences* prefs,
 	}
 }
 
+/* Preferences notifications */
+static void
+on_notify_indic_colors (AnjutaPreferences* prefs,
+                        const gchar *key,
+                        const gchar *color,
+                        gpointer user_data)
+{
+	char* error_color =
+		anjuta_preferences_get (anjuta_preferences_default(),
+		                        "messages.color.error");
+	char* warning_color =
+		anjuta_preferences_get (anjuta_preferences_default(),
+		                        "messages.color.warning");
+	Sourceview* sv = ANJUTA_SOURCEVIEW (user_data);
+
+	g_object_set (sv->priv->warning_indic, "foreground", warning_color, NULL);
+	g_object_set (sv->priv->critical_indic, "foreground", error_color, NULL);	
+}
+
 static void
 init_fonts(Sourceview* sv)
 {
@@ -410,7 +431,9 @@ sourceview_prefs_init(Sourceview* sv)
 	REGISTER_NOTIFY (VIEW_RIGHTMARGIN, on_notify_view_right_margin, bool);
 	REGISTER_NOTIFY (RIGHTMARGIN_POSITION, on_notify_right_margin_position, int);
 	REGISTER_NOTIFY (FONT_THEME, on_notify_font_theme, bool);
-	REGISTER_NOTIFY (FONT, on_notify_font, string);	
+	REGISTER_NOTIFY (FONT, on_notify_font, string);
+	REGISTER_NOTIFY (COLOR_ERROR, on_notify_indic_colors, string);
+	REGISTER_NOTIFY (COLOR_WARNING, on_notify_indic_colors, string);
 }
 
 void sourceview_prefs_destroy(Sourceview* sv)
