@@ -255,7 +255,12 @@ static void
 symbol_db_model_node_ref_child (SymbolDBModelNode *node)
 {
 	g_return_if_fail (node != NULL);
+
 	node->children_ref_count++;
+	
+	/* Increate associated ref count on parent also */
+	if (node->parent)
+		symbol_db_model_node_ref_child (node->parent);
 }
 
 static void
@@ -276,7 +281,7 @@ symbol_db_model_node_unref_child (SymbolDBModelNode *node, gint child_offset)
 		symbol_db_model_node_cleanse (node);
 	}
 
-	/* Reduce the associate ref count on parent also */
+	/* Reduce the associated ref count on parent also */
 	if (parent_node)
 		symbol_db_model_node_unref_child (parent_node, node_offset);
 }
