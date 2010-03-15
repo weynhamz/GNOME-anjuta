@@ -2016,6 +2016,10 @@ build_configure_dialog (BasicAutotoolsPlugin *plugin, BuildFunc func, const gcha
 	run_autogen = !directory_has_file (plugin->project_root_dir, "configure");
 	
 	anjuta_shell_get_value (ANJUTA_PLUGIN (plugin)->shell, IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI, &value, NULL);
+
+	/* In case, a project is not loaded */
+	if (!G_VALUE_HOLDS_STRING (&value)) return;
+
 	project_root = g_value_get_string (&value);
 	parent = GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell);
 
@@ -2088,7 +2092,7 @@ build_configure_and_build (BasicAutotoolsPlugin *plugin, BuildFunc func, const g
 	has_makefile = directory_has_makefile (build_dir);
 	g_free (build_dir);
 
-	if (!has_makefile)
+	if (!has_makefile && (plugin->project_root_dir != NULL))
 	{
 		/* Run configure first */
 		build_configure_dialog (plugin, func, name);
