@@ -1479,6 +1479,7 @@ symbol_db_engine_get_current_scope (SymbolDBEngine *dbe, const gchar* full_local
 SymbolDBEngineIterator *
 symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe, 
 								   const gchar *file_path, 
+                                   gint results_limit, gint results_offset,
 								   SymExtraInfo sym_info)
 {
 	SymbolDBEnginePriv *priv;
@@ -1490,6 +1491,10 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 	const DynChildQueryNode *dyn_node;
 	GValue *ret_value;
 	gboolean ret_bool;
+	gchar *limit = "";
+	gboolean limit_free = FALSE;
+	gchar *offset = "";
+	gboolean offset_free = FALSE;
 	
 	g_return_val_if_fail (dbe != NULL, NULL);
 	g_return_val_if_fail (file_path != NULL, NULL);
@@ -1503,7 +1508,18 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 	 */
 	sym_info = sym_info & ~SYMINFO_FILE_PATH;
 	
-
+	if (results_limit > 0)
+	{
+		limit_free = TRUE;
+		limit = g_strdup_printf ("LIMIT ## /* name:'limit' type:gint */");
+	}
+	
+	if (results_offset > 0)
+	{
+		offset = g_strdup_printf ("OFFSET ## /* name:'offset' type:gint */");
+		offset_free = TRUE;
+	}
+	
 	if ((dyn_node = sdb_engine_get_dyn_query_node_by_id (dbe, 
 		DYN_PREP_QUERY_GET_FILE_SYMBOLS, sym_info, 0)) == NULL)
 	{
@@ -1527,8 +1543,8 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 		    "symbol.returntype AS returntype "
 			"%s FROM symbol "
 				"JOIN file ON symbol.file_defined_id = file.file_id "
-			"%s WHERE file.file_path = ## /* name:'filepath' type:gchararray */", 
-						info_data->str, join_data->str);
+			"%s WHERE file.file_path = ## /* name:'filepath' type:gchararray */ %s %s", 
+						info_data->str, join_data->str, limit, offset);
 	
 		dyn_node = sdb_engine_insert_dyn_query_node_by_id (dbe, 
 						DYN_PREP_QUERY_GET_FILE_SYMBOLS,
@@ -1540,6 +1556,12 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 		g_string_free (join_data, TRUE);
 	}
 
+	if (limit_free)
+		g_free (limit);
+	
+	if (offset_free)
+		g_free (offset);
+	
 	if (dyn_node == NULL) 
 	{		
 		SDB_UNLOCK(priv);

@@ -1562,6 +1562,7 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 		gtk_tree_store_clear (store);
 
 		iterator = symbol_db_engine_get_file_symbols (dbe, filepath, 
+		                                              -1, -1,
 													  	SYMINFO_SIMPLE |
 												  		SYMINFO_ACCESS |
 														SYMINFO_KIND);		
