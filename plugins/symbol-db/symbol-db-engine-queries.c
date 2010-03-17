@@ -1520,6 +1520,13 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 		offset_free = TRUE;
 	}
 	
+	gchar *relative_path = symbol_db_util_get_file_db_path (dbe, file_path);
+	if (relative_path == NULL)
+	{
+		SDB_UNLOCK(priv);
+		return NULL;
+	}
+
 	if ((dyn_node = sdb_engine_get_dyn_query_node_by_id (dbe, 
 		DYN_PREP_QUERY_GET_FILE_SYMBOLS, sym_info, 0)) == NULL)
 	{
@@ -1540,17 +1547,16 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 		query_str = g_strdup_printf ("SELECT symbol.symbol_id AS symbol_id, "
 			"symbol.name AS name, symbol.file_position AS file_position, "
 			"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature, "
-		    "symbol.returntype AS returntype "
+		    "symbol.returntype AS returntype, '%s' AS db_file_path "
 			"%s FROM symbol "
 				"JOIN file ON symbol.file_defined_id = file.file_id "
 			"%s WHERE file.file_path = ## /* name:'filepath' type:gchararray */ %s %s", 
-						info_data->str, join_data->str, limit, offset);
+						relative_path, info_data->str, join_data->str, limit, offset);
 	
 		dyn_node = sdb_engine_insert_dyn_query_node_by_id (dbe, 
 						DYN_PREP_QUERY_GET_FILE_SYMBOLS,
 						sym_info, 0,
 						query_str);
-		
 		g_free (query_str);
 		g_string_free (info_data, TRUE);
 		g_string_free (join_data, TRUE);
@@ -1572,13 +1578,6 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 				 dyn_node->query_str, file_path);*/
 	
 	if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "filepath")) == NULL)
-	{
-		SDB_UNLOCK(priv);
-		return NULL;
-	}
-		
-	gchar *relative_path = symbol_db_util_get_file_db_path (dbe, file_path);
-	if (relative_path == NULL)
 	{
 		SDB_UNLOCK(priv);
 		return NULL;
