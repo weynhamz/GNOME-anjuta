@@ -1585,6 +1585,28 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 	}
 	
 	MP_SET_HOLDER_BATCH_STR(priv, param, relative_path, ret_bool, ret_value);		
+
+	if (results_limit > 0)
+	{
+		if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "limit")) == NULL)
+		{
+			SDB_UNLOCK(priv);
+			return NULL;
+		}
+
+		MP_SET_HOLDER_BATCH_INT(priv, param, results_limit, ret_bool, ret_value);
+	}
+
+	if (results_offset > 0)
+	{
+		if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "offset")) == NULL)
+		{
+			SDB_UNLOCK(priv);
+			return NULL;
+		}
+
+		MP_SET_HOLDER_BATCH_INT(priv, param, results_offset, ret_bool, ret_value);
+	}
 	
 	/* execute the query with parametes just set */
 	data = gda_connection_statement_execute_select (priv->db_connection, 
