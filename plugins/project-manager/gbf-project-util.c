@@ -160,7 +160,7 @@ entry_changed_cb (GtkEditable *editable, gpointer user_data)
     g_free (text);
 }
 
-AnjutaProjectGroup*
+AnjutaProjectNode*
 gbf_project_util_new_group (GbfProjectModel    *model,
                             GtkWindow          *parent,
                             GtkTreeIter        *default_group,
@@ -172,7 +172,7 @@ gbf_project_util_new_group (GbfProjectModel    *model,
     gint response;
     IAnjutaProject *project;
     gboolean finished = FALSE;
-    AnjutaProjectGroup *new_group = NULL;
+    AnjutaProjectNode *new_group = NULL;
 
     g_return_val_if_fail (model != NULL, NULL);
     
@@ -300,7 +300,7 @@ build_types_store (IAnjutaProject *project)
     return store;
 }
 
-AnjutaProjectTarget* 
+AnjutaProjectNode* 
 gbf_project_util_new_target (GbfProjectModel *model,
                              GtkWindow       *parent,
                              GtkTreeIter     *default_group,
@@ -314,7 +314,7 @@ gbf_project_util_new_target (GbfProjectModel *model,
     gint response;
     IAnjutaProject *project;
     gboolean finished = FALSE;
-    AnjutaProjectTarget *new_target = NULL;
+    AnjutaProjectNode *new_target = NULL;
     
     g_return_val_if_fail (model != NULL, NULL);
     
@@ -568,7 +568,7 @@ on_row_changed(GtkTreeModel* model, GtkTreePath* path, GtkTreeIter* iter, gpoint
 		gtk_widget_set_sensitive(button, FALSE);
 }
 
-AnjutaProjectSource*
+AnjutaProjectNode*
 gbf_project_util_add_source (GbfProjectModel     *model,
                              GtkWindow           *parent,
                              GtkTreeIter         *default_target,
@@ -590,7 +590,7 @@ gbf_project_util_add_source (GbfProjectModel     *model,
 	
 	if (new_sources && g_list_length (new_sources))
 	{
-		AnjutaProjectSource *new_source = new_sources->data;
+		AnjutaProjectNode *new_source = new_sources->data;
 		g_list_free (new_sources);
 		return new_source;
 	}
@@ -711,7 +711,7 @@ gbf_project_util_add_source_multi (GbfProjectModel     *model,
 		    do
 		    {
 			GError *err = NULL;
-			AnjutaProjectSource* new_source;
+			AnjutaProjectNode* new_source;
 			gchar* uri;
                         GFile* source_file;
 

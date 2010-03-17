@@ -49,7 +49,7 @@ struct _DirProject {
 
 	GFile			*root_file;
 
-	AnjutaProjectGroup        *root_node;
+	AnjutaProjectNode        *root_node;
 	
 	/* shortcut hash tables, mapping id -> GNode from the tree above */
 	GHashTable		*groups;
@@ -71,19 +71,19 @@ struct _DirProject {
 typedef struct _DirGroupData DirGroupData;
 
 struct _DirGroupData {
-	AnjutaProjectGroupData base;
+	AnjutaProjectNodeData base;
 };
 
 typedef struct _DirTargetData DirTargetData;
 
 struct _DirTargetData {
-	AnjutaProjectTargetData base;
+	AnjutaProjectNodeData base;
 };
 
 typedef struct _DirSourceData DirSourceData;
 
 struct _DirSourceData {
-	AnjutaProjectSourceData base;
+	AnjutaProjectNodeData base;
 };
 
 /* A file or directory name part of a path */
@@ -214,7 +214,7 @@ group_hash_foreach_monitor (gpointer key,
 	DirGroup *group_node = value;
 	DirProject *project = user_data;
 
-	monitor_add (project, DIR_GROUP_DATA(group_node)->base.directory);
+	monitor_add (project, DIR_GROUP_DATA(group_node)->base.file);
 }
 
 static void
@@ -242,8 +242,8 @@ dir_group_new (GFile *file)
 	g_return_val_if_fail (file != NULL, NULL);
 	
 	group = g_slice_new0(DirGroupData); 
-	group->base.node.type = ANJUTA_PROJECT_GROUP;
-	group->base.directory = g_object_ref (file);
+	group->base.type = ANJUTA_PROJECT_GROUP;
+	group->base.file = g_object_ref (file);
 
     return g_node_new (group);
 }
@@ -253,7 +253,7 @@ dir_group_free (DirGroup *node)
 {
     DirGroupData *group = (DirGroupData *)node->data;
 	
-	if (group->base.directory) g_object_unref (group->base.directory);
+	if (group->base.file) g_object_unref (group->base.file);
     g_slice_free (DirGroupData, group);
 
 	g_node_destroy (node);
@@ -282,7 +282,7 @@ dir_source_new (GFile *file)
     DirSourceData *source = NULL;
 
 	source = g_slice_new0(DirSourceData); 
-	source->base.node.type = ANJUTA_PROJECT_SOURCE;
+	source->base.type = ANJUTA_PROJECT_SOURCE;
 	source->base.file = g_object_ref (file);
 
     return g_node_new (source);
@@ -616,7 +616,7 @@ dir_project_list_directory (DirProject *project, DirGroup* parent, GError **erro
 	gboolean ok;
 	GFileEnumerator *enumerator;
 
-	enumerator = g_file_enumerate_children (DIR_GROUP_DATA (parent)->base.directory,
+	enumerator = g_file_enumerate_children (DIR_GROUP_DATA (parent)->base.file,
 	    G_FILE_ATTRIBUTE_STANDARD_NAME,
 	    G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
 	    NULL,
@@ -633,7 +633,7 @@ dir_project_list_directory (DirProject *project, DirGroup* parent, GError **erro
 			GFile *file;
 
 			name = g_file_info_get_name (info);
-			file = g_file_get_child (DIR_GROUP_DATA (parent)->base.directory, name);
+			file = g_file_get_child (DIR_GROUP_DATA (parent)->base.file, name);
 			g_object_unref (info);
 
 			/* Check if file is a source */
@@ -824,20 +824,20 @@ dir_project_new (void)
 /* Implement IAnjutaProject
  *---------------------------------------------------------------------------*/
 
-static AnjutaProjectGroup* 
-iproject_add_group (IAnjutaProject *obj, AnjutaProjectGroup *parent,  const gchar *name, GError **err)
+static AnjutaProjectNode* 
+iproject_add_group (IAnjutaProject *obj, AnjutaProjectNode *parent,  const gchar *name, GError **err)
 {
 	return dir_project_add_group (DIR_PROJECT (obj), parent, name, err);
 }
 
-static AnjutaProjectSource* 
-iproject_add_source (IAnjutaProject *obj, AnjutaProjectGroup *parent,  GFile *file, GError **err)
+static AnjutaProjectNode* 
+iproject_add_source (IAnjutaProject *obj, AnjutaProjectNode *parent,  GFile *file, GError **err)
 {
 	return dir_project_add_source (DIR_PROJECT (obj), parent, file, err);
 }
 
-static AnjutaProjectTarget* 
-iproject_add_target (IAnjutaProject *obj, AnjutaProjectGroup *parent,  const gchar *name,  AnjutaProjectTargetType type, GError **err)
+static AnjutaProjectNode* 
+iproject_add_target (IAnjutaProject *obj, AnjutaProjectNode *parent,  const gchar *name,  AnjutaProjectTargetType type, GError **err)
 {
 	return dir_project_add_target (DIR_PROJECT (obj), parent, name, type, err);
 }
@@ -860,7 +860,7 @@ iproject_get_packages (IAnjutaProject *obj, GError **err)
 	return NULL;
 }
 
-static AnjutaProjectGroup* 
+static AnjutaProjectNode* 
 iproject_get_root (IAnjutaProject *obj, GError **err)
 {
 	return dir_project_get_root (DIR_PROJECT (obj));

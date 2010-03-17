@@ -625,7 +625,7 @@ static void
 on_popup_add_group (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 	GtkTreeIter selected_group;
-	AnjutaProjectGroup *new_group;
+	AnjutaProjectNode *new_group;
 	
 	update_operation_begin (plugin);
 	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_group);
@@ -640,7 +640,7 @@ static void
 on_popup_add_target (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 	GtkTreeIter selected_group;
-	AnjutaProjectTarget *new_target;
+	AnjutaProjectNode *new_target;
 
 	update_operation_begin (plugin);
 	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_group);
@@ -656,7 +656,7 @@ static void
 on_popup_add_source (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 	GtkTreeIter selected_target;
-	AnjutaProjectSource *new_source;
+	AnjutaProjectNode *new_source;
 	
 	update_operation_begin (plugin);
 	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_target);
@@ -1988,7 +1988,7 @@ iproject_manager_get_target_type (IAnjutaProjectManager *project_manager,
 								   GError **err)
 {
 	ProjectManagerPlugin *plugin;
-	AnjutaProjectTarget *target;
+	AnjutaProjectNode *target;
 	
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager),
 						  ANJUTA_TARGET_UNKNOWN);
@@ -2150,7 +2150,7 @@ iproject_manager_add_source (IAnjutaProjectManager *project_manager,
 	ProjectManagerPlugin *plugin;
 	GtkTreeIter target_iter;
 	GtkTreeIter *iter = NULL;
-	AnjutaProjectSource *source_id;
+	AnjutaProjectNode *source_id;
 	GFile* source;
 	
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), FALSE);
@@ -2181,9 +2181,9 @@ iproject_manager_add_source_quiet (IAnjutaProjectManager *project_manager,
 								   GError **err)
 {
 	ProjectManagerPlugin *plugin;
-	AnjutaProjectSource *source_id;
+	AnjutaProjectNode *source_id;
 	GFile *source_file;
-	AnjutaProjectTarget *target = NULL;
+	AnjutaProjectNode *target = NULL;
 	
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), FALSE);
 	
@@ -2254,7 +2254,7 @@ iproject_manager_add_target (IAnjutaProjectManager *project_manager,
 	GtkTreeIter group_iter;
 	GtkTreeIter *iter = NULL;
 	GFile *target = NULL;
-	AnjutaProjectTarget *target_id;
+	AnjutaProjectNode *target_id;
 	
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), FALSE);
 	
@@ -2288,7 +2288,7 @@ iproject_manager_add_group (IAnjutaProjectManager *project_manager,
 	GtkTreeIter group_iter;
 	GtkTreeIter *iter = NULL;
 	GFile *group = NULL;
-	AnjutaProjectGroup *group_id;
+	AnjutaProjectNode *group_id;
 	
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), FALSE);
 	

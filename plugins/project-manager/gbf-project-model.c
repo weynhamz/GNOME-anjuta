@@ -351,10 +351,7 @@ default_sort_func (GtkTreeModel *model,
 	} else {
 		/* assume a->b and check for the opposite cases */
 		retval = -1;
-		if (data_a->type == GBF_TREE_NODE_TARGET &&
-		    data_b->type == GBF_TREE_NODE_GROUP) {
-			retval = 1;
-		}
+		retval = data_a->type < data_b->type ? -1 : 1;
 	}
 	
 	return retval;
@@ -363,7 +360,7 @@ default_sort_func (GtkTreeModel *model,
 
 static void 
 add_source (GbfProjectModel    	      *model,
-	    AnjutaProjectSource *source,
+	    AnjutaProjectNode *source,
 	    GtkTreeIter               *parent)
 {
 	GtkTreeIter iter;
@@ -491,8 +488,51 @@ move_target_shortcut (GbfProjectModel *model,
 }
 
 static void 
+add_package (GbfProjectModel    	      *model,
+	    AnjutaProjectNode *package,
+	    GtkTreeIter               *parent)
+{
+	GtkTreeIter iter;
+	GbfTreeData *data;
+
+	if ((!package) || (anjuta_project_node_get_type (package) != ANJUTA_PROJECT_PACKAGE))
+		return;
+	
+	data = gbf_tree_data_new_package (package);
+	gtk_tree_store_append (GTK_TREE_STORE (model), &iter, parent);
+	gtk_tree_store_set (GTK_TREE_STORE (model), &iter, 
+			    GBF_PROJECT_MODEL_COLUMN_DATA, data,
+			    -1);
+}
+
+static void 
+add_module (GbfProjectModel 		*model,
+	    AnjutaProjectNode   *module,
+	    GtkTreeIter     	        *parent)
+{
+	AnjutaProjectNode *l;
+	GtkTreeIter iter;	
+	GbfTreeData *data;
+	
+	if ((!module) || (anjuta_project_node_get_type (module) != ANJUTA_PROJECT_MODULE))
+		return;
+	
+	data = gbf_tree_data_new_package (module);
+	gtk_tree_store_append (GTK_TREE_STORE (model), &iter, parent);
+	gtk_tree_store_set (GTK_TREE_STORE (model), &iter, 
+			    GBF_PROJECT_MODEL_COLUMN_DATA, data,
+			    -1);
+	
+	/* add package */
+	for (l = anjuta_project_node_first_child (module); l; l = anjuta_project_node_next_sibling (l))
+	{
+		add_package (model, l, &iter);
+	}
+}
+
+static void 
 add_target (GbfProjectModel 		*model,
-	    AnjutaProjectTarget   *target,
+	    AnjutaProjectNode   *target,
 	    GtkTreeIter     	        *parent)
 {
 	AnjutaProjectNode *l;
@@ -535,7 +575,7 @@ add_target (GbfProjectModel 		*model,
 
 static void 
 add_target_group (GbfProjectModel 	*model,
-		  AnjutaProjectGroup	*group,
+		  AnjutaProjectNode	*group,
 		  GtkTreeIter     	*parent)
 {
 	GtkTreeIter iter;
@@ -564,6 +604,10 @@ add_target_group (GbfProjectModel 	*model,
 	/* add groups ... */
 	for (node = anjuta_project_node_first_child (group); node; node = anjuta_project_node_next_sibling (node))
 		add_target_group (model, node, &iter);
+	
+	/* ... and module */
+	for (node = anjuta_project_node_first_child (group); node; node = anjuta_project_node_next_sibling (node))
+		add_module (model, node, &iter);
 	
 	/* ... and targets */
 	for (node = anjuta_project_node_first_child (group); node; node = anjuta_project_node_next_sibling (node))
@@ -639,6 +683,12 @@ update_tree (GbfProjectModel *model, AnjutaProjectNode *parent, GtkTreeIter *ite
 			break;
 		case ANJUTA_PROJECT_SOURCE:
 			add_source (model, node->data, iter);
+			break;
+		case ANJUTA_PROJECT_MODULE:
+			add_module (model, node->data, iter);
+			break;
+		case ANJUTA_PROJECT_PACKAGE:
+			add_package (model, node->data, iter);
 			break;
 		default:
 			break;

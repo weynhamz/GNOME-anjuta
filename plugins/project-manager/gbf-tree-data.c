@@ -59,9 +59,9 @@ gbf_tree_data_get_node (GbfTreeData *data, IAnjutaProject *project)
 	
 	if (data != NULL)
 	{
-		AnjutaProjectGroup *root = NULL;
-		AnjutaProjectGroup *group = NULL;
-		AnjutaProjectTarget *target = NULL;
+		AnjutaProjectNode *root = NULL;
+		AnjutaProjectNode *group = NULL;
+		AnjutaProjectNode *target = NULL;
 
 		root = ianjuta_project_get_root (project, NULL);
 		if ((root != NULL) && (data->group != NULL))
@@ -329,6 +329,10 @@ gbf_tree_data_new_for_file (GFile *file, GbfTreeNodeType type)
 		data->name = g_file_get_parse_name (file);
 		file = NULL;
 		break;
+	case GBF_TREE_NODE_MODULE:
+	case GBF_TREE_NODE_PACKAGE:
+		g_slice_free (GbfTreeData, data);
+		return NULL;
 	}
 
 	if (file != NULL)
@@ -380,7 +384,7 @@ gbf_tree_data_new_shortcut (GbfTreeData *src)
 }
 
 GbfTreeData *
-gbf_tree_data_new_group (AnjutaProjectGroup *group)
+gbf_tree_data_new_group (AnjutaProjectNode *group)
 {
 	GbfTreeData *data = g_slice_new0 (GbfTreeData);
 	GFileInfo *ginfo;
@@ -407,15 +411,15 @@ gbf_tree_data_new_group (AnjutaProjectGroup *group)
 }
 
 GbfTreeData *
-gbf_tree_data_new_target (AnjutaProjectTarget *target)
+gbf_tree_data_new_target (AnjutaProjectNode *target)
 {
 	GbfTreeData *data = g_slice_new0 (GbfTreeData);
-	AnjutaProjectGroup *group;
+	AnjutaProjectNode *group;
 	
 	data->type = GBF_TREE_NODE_TARGET;
 	data->name = g_strdup (anjuta_project_target_get_name (target));
 
-	group = (AnjutaProjectGroup *)anjuta_project_node_parent (target);
+	group = anjuta_project_node_parent (target);
 	data->group = g_object_ref (anjuta_project_group_get_directory (group));	
 	data->target = g_strdup (anjuta_project_target_get_name (target));
 	
@@ -423,7 +427,7 @@ gbf_tree_data_new_target (AnjutaProjectTarget *target)
 }
 
 GbfTreeData *
-gbf_tree_data_new_source (AnjutaProjectSource *source)
+gbf_tree_data_new_source (AnjutaProjectNode *source)
 {
 	GbfTreeData *data = g_slice_new0 (GbfTreeData);
 	GFileInfo *ginfo;
@@ -454,15 +458,38 @@ gbf_tree_data_new_source (AnjutaProjectSource *source)
 	}
 	else
 	{
-		AnjutaProjectGroup *group;
+		AnjutaProjectNode *group;
 		
-		group = (AnjutaProjectGroup *)anjuta_project_node_parent (parent);
+		group = anjuta_project_node_parent (parent);
 		data->group = g_object_ref (anjuta_project_group_get_directory (group));
 		data->target = g_strdup (anjuta_project_target_get_name (parent));
 	}
 
 	return data;
 }
+
+GbfTreeData *
+gbf_tree_data_new_module (AnjutaProjectNode *module)
+{
+	GbfTreeData *data = g_slice_new0 (GbfTreeData);
+	
+	data->type = GBF_TREE_NODE_MODULE;
+	data->name = g_strdup (anjuta_project_node_get_name (module));
+
+	return data;
+}
+
+GbfTreeData *
+gbf_tree_data_new_package (AnjutaProjectNode *package)
+{
+	GbfTreeData *data = g_slice_new0 (GbfTreeData);
+	
+	data->type = GBF_TREE_NODE_PACKAGE;
+	data->name = g_strdup (anjuta_project_node_get_name (package));
+
+	return data;
+}
+
 
 void
 gbf_tree_data_free (GbfTreeData *data)

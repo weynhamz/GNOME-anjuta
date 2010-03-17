@@ -53,9 +53,9 @@ struct _GbfProjectViewClass {
 				   const char     *uri);
 
 	void (* target_selected)  (GbfProjectView      *project_view,
-				   AnjutaProjectTarget *target);
+				   AnjutaProjectNode   *target);
 	void (* group_selected)  (GbfProjectView       *project_view,
-				   AnjutaProjectGroup  *group);
+				   AnjutaProjectNode   *group);
 };
 
 GType                       gbf_project_view_get_type          (void);

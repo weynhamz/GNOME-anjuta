@@ -36,6 +36,8 @@ typedef enum {
 	GBF_TREE_NODE_STRING,
 	GBF_TREE_NODE_GROUP,
 	GBF_TREE_NODE_TARGET,
+	GBF_TREE_NODE_MODULE,
+	GBF_TREE_NODE_PACKAGE,
 	GBF_TREE_NODE_SOURCE,
 	GBF_TREE_NODE_SHORTCUT
 } GbfTreeNodeType;
@@ -68,9 +70,11 @@ GbfTreeData   *gbf_tree_data_new_for_file       (GFile                *file,
                                                  GbfTreeNodeType      type);
 GbfTreeData   *gbf_tree_data_new_string         (const gchar          *string);
 GbfTreeData   *gbf_tree_data_new_shortcut       (GbfTreeData		  *src);
-GbfTreeData   *gbf_tree_data_new_group          (AnjutaProjectGroup   *group);
-GbfTreeData   *gbf_tree_data_new_target         (AnjutaProjectTarget  *target);
-GbfTreeData   *gbf_tree_data_new_source         (AnjutaProjectSource  *source);
+GbfTreeData   *gbf_tree_data_new_group          (AnjutaProjectNode   *group);
+GbfTreeData   *gbf_tree_data_new_target         (AnjutaProjectNode  *target);
+GbfTreeData   *gbf_tree_data_new_source         (AnjutaProjectNode  *source);
+GbfTreeData   *gbf_tree_data_new_module         (AnjutaProjectNode  *module);
+GbfTreeData   *gbf_tree_data_new_package        (AnjutaProjectNode  *package);
 void           gbf_tree_data_free               (GbfTreeData          *data);
 
 

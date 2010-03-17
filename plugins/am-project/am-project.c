@@ -67,14 +67,16 @@ static const gchar *valid_am_makefiles[] = {"GNUmakefile.am", "makefile.am", "Ma
 #define AMP_GROUP_DATA(node)  ((node) != NULL ? (AmpGroupData *)((node)->data) : NULL)
 #define AMP_TARGET_DATA(node)  ((node) != NULL ? (AmpTargetData *)((node)->data) : NULL)
 #define AMP_SOURCE_DATA(node)  ((node) != NULL ? (AmpSourceData *)((node)->data) : NULL)
+#define AMP_PACKAGE_DATA(node)  ((node) != NULL ? (AmpPackageData *)((node)->data) : NULL)
+#define AMP_MODULE_DATA(node)  ((node) != NULL ? (AmpModuleData *)((node)->data) : NULL)
 
 #define STR_REPLACE(target, source) \
 	{ g_free (target); target = source == NULL ? NULL : g_strdup (source);}
 
 
-typedef struct _AmpPackage AmpPackage;
+/*typedef struct _AmpPackage AmpPackage;
 
-typedef struct _AmpModule AmpModule;
+typedef struct _AmpModule AmpModule;*/
 	
 typedef enum {
 	AM_GROUP_TOKEN_CONFIGURE,
@@ -121,6 +123,20 @@ typedef struct _AmpSourceData AmpSourceData;
 struct _AmpSourceData {
 	AnjutaProjectNodeData base;
 	AnjutaToken* token;
+};
+
+typedef struct _AmpModuleData AmpModuleData;
+
+struct _AmpModuleData {
+	AnjutaProjectNodeData base;
+	AnjutaToken *module;
+};
+
+typedef struct _AmpPackageData AmpPackageData;
+
+struct _AmpPackageData {
+	AnjutaProjectNodeData base;
+	gchar *version;
 };
 
 typedef struct _AmpConfigFile AmpConfigFile;
@@ -553,8 +569,10 @@ amp_config_file_free (AmpConfigFile *config)
  *---------------------------------------------------------------------------*/
 
 static void
-amp_package_set_version (AmpPackage *package, const gchar *compare, const gchar *version)
+amp_package_set_version (AmpPackage *node, const gchar *compare, const gchar *version)
 {
+	AmpPackageData *package= AMP_PACKAGE_DATA (node);
+	
 	g_return_if_fail (package != NULL);
 	g_return_if_fail ((version == NULL) || (compare != NULL));
 
@@ -565,25 +583,29 @@ amp_package_set_version (AmpPackage *package, const gchar *compare, const gchar 
 static AmpPackage*
 amp_package_new (const gchar *name)
 {
-	AmpPackage *package;
+    AmpPackageData *package = NULL;
 
 	g_return_val_if_fail (name != NULL, NULL);
 	
-	package = g_slice_new0(AmpPackage); 
-	package->name = g_strdup (name);
+	package = g_slice_new0(AmpPackageData); 
+	package->base.type = ANJUTA_PROJECT_PACKAGE;
+	package->base.properties = amp_get_package_property_list();
+	package->base.name = g_strdup (name);
 
-	return package;
+	return g_node_new (package);
 }
 
 static void
-amp_package_free (AmpPackage *package)
+amp_package_free (AmpPackage *node)
 {
-	if (package)
-	{
-		g_free (package->name);
-		g_free (package->version);
-		g_slice_free (AmpPackage, package);
-	}
+	AmpPackageData *package = AMP_PACKAGE_DATA (node);
+	
+	if (package->base.file) g_object_unref (package->base.file);
+	g_free (package->base.name);
+	anjuta_project_property_foreach (package->base.properties, (GFunc)amp_property_free, NULL);
+    g_slice_free (AmpPackageData, package);
+
+	g_node_destroy (node);
 }
 
 /* Module objects
@@ -592,28 +614,34 @@ amp_package_free (AmpPackage *package)
 static AmpModule*
 amp_module_new (AnjutaToken *token)
 {
-	AmpModule *module;
+	AmpModuleData *module;
 	
-	module = g_slice_new0(AmpModule); 
+	module = g_slice_new0(AmpModuleData); 
+	module->base.type = ANJUTA_PROJECT_MODULE;
+	module->base.properties = amp_get_module_property_list();
+	module->base.name = anjuta_token_evaluate (token);
 	module->module = token;
 
-	return module;
+	return g_node_new (module);
 }
 
 static void
-amp_module_free (AmpModule *module)
+amp_module_free (AmpModule *node)
 {
-	if (module)
-	{
-		g_list_foreach (module->packages, (GFunc)amp_package_free, NULL);
-		g_slice_free (AmpModule, module);
-	}
+	AmpModuleData *module = AMP_MODULE_DATA (node);
+	
+	if (module->base.file) g_object_unref (module->base.file);
+	g_free (module->base.name);
+
+	g_slice_free (AmpModuleData, module);
+
+	g_node_destroy (node);
 }
 
 static void
 amp_project_new_module_hash (AmpProject *project)
 {
-	project->modules = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, (GDestroyNotify)amp_module_free);
+	project->modules = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 }
 
 static void
@@ -972,6 +1000,12 @@ foreach_node_destroy (AnjutaProjectNode    *g_node,
 			//g_hash_table_remove (project->sources, AMP_NODE (g_node)->id);
 			amp_source_free (g_node);
 			break;
+		case ANJUTA_PROJECT_MODULE:
+			amp_module_free (g_node);
+			break;
+		case ANJUTA_PROJECT_PACKAGE:
+			amp_package_free (g_node);
+			break;
 		default:
 			g_assert_not_reached ();
 			break;
@@ -1030,30 +1064,27 @@ amp_project_load_properties (AmpProject *project, AnjutaToken *macro, AnjutaToke
 }
 
 void
-amp_project_load_module (AmpProject *project, AnjutaToken *module)
+amp_project_load_module (AmpProject *project, AnjutaToken *module_token)
 {
 	AmpAcScanner *scanner = NULL;
 
-	if (module != NULL)
+	if (module_token != NULL)
 	{
 		AnjutaToken *arg;
 		AnjutaToken *list;
 		AnjutaToken *item;
 		gchar *value;
-		AmpModule *mod;
-		AmpPackage *pack;
+		AmpModule *module;
+		AmpPackage *package;
 		gchar *compare;
 
 
-		//fprintf(stdout, "Load module\n");
-		//anjuta_token_dump (module);
-		
 		/* Module name */
-		arg = anjuta_token_first_item (module);
+		arg = anjuta_token_first_item (module_token);
 		value = anjuta_token_evaluate (arg);
-		mod = amp_module_new (arg);
-		mod->packages = NULL;
-		g_hash_table_insert (project->modules, value, mod);
+		module = amp_module_new (arg);
+		anjuta_project_node_append (project->root_node, module);
+		if (value != NULL) g_hash_table_insert (project->modules, value, module);
 
 		/* Package list */
 		arg = anjuta_token_next_word (arg);
@@ -1064,7 +1095,7 @@ amp_project_load_module (AmpProject *project, AnjutaToken *module)
 		anjuta_token_prepend_items (arg, list);
 		amp_ac_scanner_free (scanner);
 		
-		pack = NULL;
+		package = NULL;
 		compare = NULL;
 		for (item = anjuta_token_first_word (arg); item != NULL; item = anjuta_token_next_word (item))
 		{
@@ -1075,34 +1106,27 @@ amp_project_load_module (AmpProject *project, AnjutaToken *module)
 				g_free (value);
 				continue;
 			}
-			if (strcmp (value, "$VTE_NEW_REQUIRED") == 0)
-			{
-				int i = 0;
-				i++;
-				i++;
-			}
 			
-			if ((pack != NULL) && (compare != NULL))
+			if ((package != NULL) && (compare != NULL))
 			{
-				amp_package_set_version (pack, compare, value);
+				amp_package_set_version (package, compare, value);
 				g_free (value);
 				g_free (compare);
-				pack = NULL;
+				package = NULL;
 				compare = NULL;
 			}
-			else if ((pack != NULL) && (anjuta_token_get_type (item) == ANJUTA_TOKEN_OPERATOR))
+			else if ((package != NULL) && (anjuta_token_get_type (item) == ANJUTA_TOKEN_OPERATOR))
 			{
 				compare = value;
 			}
 			else
 			{
-				pack = amp_package_new (value);
-				mod->packages = g_list_prepend (mod->packages, pack);
+				package = amp_package_new (value);
+				anjuta_project_node_append (module, package);
 				g_free (value);
 				compare = NULL;
 			}
 		}
-		mod->packages = g_list_reverse (mod->packages);
 	}
 }
 
@@ -1546,7 +1570,6 @@ project_load_group_properties (AmpProject *project, AnjutaToken *token, AnjutaTo
 	name = anjuta_token_evaluate (token);
 	value = anjuta_token_evaluate (list);
 
-	//g_message ("group_name %s", name);
 	prop = amp_property_new (name, type, 0, value, list);
 
 	amp_node_property_add (parent, prop);
@@ -1619,15 +1642,15 @@ project_load_makefile (AmpProject *project, GFile *file, AnjutaProjectNode *pare
 	GFile *makefile = NULL;
 
 	/* Create group */
-	group = amp_group_new (file, dist_only);
-	g_hash_table_insert (project->groups, g_file_get_uri (file), group);
-	if (parent == NULL)
+	if (parent != NULL)
 	{
-		project->root_node = group;
+		group = amp_group_new (file, dist_only);
+		g_hash_table_insert (project->groups, g_file_get_uri (file), group);
+		anjuta_project_node_append (parent, group);
 	}
 	else
 	{
-		anjuta_project_node_append (parent, group);
+		group = project->root_node;
 	}
 	
 	/* Find makefile name
@@ -1780,6 +1803,10 @@ amp_project_reload (AmpProject *project, GError **error)
 
 		return FALSE;
 	}
+	
+	/* Create root node */
+	project->root_node = amp_group_new (project->root_file, FALSE);
+	g_hash_table_insert (project->groups, g_file_get_uri (project->root_file), project->root_node);
 	
 	/* Parse configure */	
 	project->configure_file = anjuta_token_file_new (configure_file);
@@ -2499,33 +2526,53 @@ amp_project_remove_source (AmpProject  *project,
 GList *
 amp_project_get_config_modules   (AmpProject *project, GError **error)
 {
-	return project->modules == NULL ? NULL : g_hash_table_get_keys (project->modules);
+	AmpModule *module;
+	GList *modules = NULL;
+
+	g_return_val_if_fail (project != NULL, NULL);
+	g_return_val_if_fail (module != NULL, NULL);
+	
+	for (module = anjuta_project_node_first_child (project->root_node); module != NULL; module = anjuta_project_node_next_sibling (module))
+	{
+		if (anjuta_project_node_get_type(module) == ANJUTA_PROJECT_MODULE)
+		{
+				modules = g_list_prepend (modules, anjuta_project_node_get_name (module));
+		}
+	}
+	modules = g_list_reverse (modules);
+
+	return modules;
 }
 
 GList *
 amp_project_get_config_packages  (AmpProject *project,
-			   const gchar* module,
+			   const gchar* module_name,
 			   GError **error)
 {
-	AmpModule *mod;
+	AmpModule *module;
 	GList *packages = NULL;
 
 	g_return_val_if_fail (project != NULL, NULL);
 	g_return_val_if_fail (module != NULL, NULL);
-
-	mod = g_hash_table_lookup (project->modules, module);
-
-	if (mod != NULL)
+	
+	for (module = anjuta_project_node_first_child (project->root_node); module != NULL; module = anjuta_project_node_next_sibling (module))
 	{
-		GList *node;
+		gchar *name = anjuta_project_node_get_name (module);
 
-		for (node = mod->packages; node != NULL; node = g_list_next (node))
+		if ((anjuta_project_node_get_type(module) == ANJUTA_PROJECT_MODULE) && (strcmp (name, module_name) == 0))
 		{
-			packages = g_list_prepend (packages, ((AmpPackage *)node->data)->name);
-		}
+			AmpPackage *package;
 
-		packages = g_list_reverse (packages);
+			for (package = anjuta_project_node_first_child (module); package != NULL; package = anjuta_project_node_next_sibling (package))
+			{
+				if (anjuta_project_node_get_type (package) == ANJUTA_PROJECT_PACKAGE)
+				{
+					packages = g_list_prepend (packages, anjuta_project_node_get_name (package));
+				}
+			}
+		}
 	}
+	packages = g_list_reverse (packages);
 
 	return packages;
 }

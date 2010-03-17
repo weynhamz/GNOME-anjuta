@@ -314,10 +314,12 @@ anjuta_project_node_get_name (const AnjutaProjectNode *node)
 	{
 	case ANJUTA_PROJECT_GROUP:
 		return g_file_get_basename (NODE_DATA (node)->file);
-	case ANJUTA_PROJECT_TARGET:
-		return g_strdup (NODE_DATA (node)->name);
 	case ANJUTA_PROJECT_SOURCE:
 		return g_file_get_basename (NODE_DATA (node)->file);
+	case ANJUTA_PROJECT_TARGET:
+	case ANJUTA_PROJECT_MODULE:
+	case ANJUTA_PROJECT_PACKAGE:
+		return g_strdup (NODE_DATA (node)->name);
 	default:
 		return NULL;
 	}
@@ -360,14 +362,14 @@ anjuta_project_node_get_file (AnjutaProjectNode *node)
 	
 	switch (NODE_DATA (node)->type)
 	{
-	case ANJUTA_PROJECT_GROUP:
-		file = g_object_ref (NODE_DATA (node)->file);
-		break;
 	case ANJUTA_PROJECT_TARGET:
 		parent = anjuta_project_node_parent (node);
 		file = g_file_get_child (anjuta_project_group_get_directory (parent), anjuta_project_target_get_name (node));
 		break;
+	case ANJUTA_PROJECT_GROUP:
 	case ANJUTA_PROJECT_SOURCE:
+	case ANJUTA_PROJECT_MODULE:
+	case ANJUTA_PROJECT_PACKAGE:
 		file = g_object_ref (NODE_DATA (node)->file);
 		break;
 	default:

@@ -39,6 +39,8 @@ GList* amp_get_project_property_list (void);
 GList* amp_get_group_property_list (void);
 GList* amp_get_target_property_list (AnjutaProjectTargetType type);
 GList* amp_get_source_property_list (void);
+GList* amp_get_module_property_list (void);
+GList* amp_get_package_property_list (void);
 
 G_END_DECLS
 

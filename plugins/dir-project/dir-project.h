@@ -46,9 +46,9 @@ struct _DirProjectClass {
 	GObjectClass parent_class;
 };
 
-typedef AnjutaProjectGroup DirGroup;
-typedef AnjutaProjectTarget DirTarget;
-typedef AnjutaProjectSource DirSource;
+typedef AnjutaProjectNode DirGroup;
+typedef AnjutaProjectNode DirTarget;
+typedef AnjutaProjectNode DirSource;
 
 
 GType         dir_project_get_type (void);

@@ -52,6 +52,8 @@ struct _AmpProjectClass {
 typedef AnjutaProjectNode AmpGroup;
 typedef AnjutaProjectNode AmpTarget;
 typedef AnjutaProjectNode AmpSource;
+typedef AnjutaProjectNode AmpModule;
+typedef AnjutaProjectNode AmpPackage;
 typedef struct _AmpProperty AmpProperty;
 
 typedef enum {
@@ -111,7 +113,6 @@ void amp_project_remove_target (AmpProject  *project, AmpTarget *target, GError 
 AmpSource* amp_project_add_source (AmpProject  *project, AmpTarget *parent, GFile *file, GError **error);
 AmpSource* amp_project_add_sibling_source (AmpProject  *project, AmpTarget *parent, GFile *file, gboolean after, AmpSource *sibling, GError **error);
 void amp_project_remove_source (AmpProject  *project, AmpSource *source, GError **error);
-
 
 GList *amp_project_get_config_modules (AmpProject *project, GError **error);
 GList *amp_project_get_config_packages  (AmpProject *project, const gchar* module, GError **error);

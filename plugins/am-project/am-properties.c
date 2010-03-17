@@ -288,3 +288,15 @@ amp_get_source_property_list (void)
 {
 	return NULL;
 }
+
+GList*
+amp_get_module_property_list (void)
+{
+	return NULL;
+}
+
+GList*
+amp_get_package_property_list (void)
+{
+	return NULL;
+}
