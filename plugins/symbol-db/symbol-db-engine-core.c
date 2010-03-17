@@ -155,6 +155,8 @@ typedef void (SymbolDBEngineCallback) (SymbolDBEngine * dbe,
  */
 enum
 {
+	DB_CONNECTED,
+	DB_DISCONNECTED,
 	SINGLE_FILE_SCAN_END,
 	SCAN_END,
 	SYMBOL_INSERTED,
@@ -2733,6 +2735,22 @@ sdb_engine_class_init (SymbolDBEngineClass * klass)
 
 	object_class->finalize = sdb_engine_finalize;
 
+	signals[DB_CONNECTED]
+		= g_signal_new ("db-connected",
+						G_OBJECT_CLASS_TYPE (object_class),
+						G_SIGNAL_RUN_FIRST,
+						G_STRUCT_OFFSET (SymbolDBEngineClass, db_connected),
+						NULL, NULL,
+						g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+	
+	signals[DB_DISCONNECTED]
+		= g_signal_new ("db-disconnected",
+						G_OBJECT_CLASS_TYPE (object_class),
+						G_SIGNAL_RUN_FIRST,
+						G_STRUCT_OFFSET (SymbolDBEngineClass, db_disconnected),
+						NULL, NULL,
+						g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+	
 	signals[SINGLE_FILE_SCAN_END]
 		= g_signal_new ("single-file-scan-end",
 						G_OBJECT_CLASS_TYPE (object_class),
@@ -2975,6 +2993,7 @@ sdb_engine_connect_to_db (SymbolDBEngine * dbe, const gchar *cnc_string)
 	}
 	
 	DEBUG_PRINT ("Connected to database %s", cnc_string);
+	g_signal_emit_by_name (dbe, "db-connected", NULL);
 	return TRUE;
 }
 
@@ -3118,7 +3137,7 @@ symbol_db_engine_close_db (SymbolDBEngine *dbe)
 	priv->thread_pool = g_thread_pool_new (sdb_engine_ctags_output_thread,
 										   dbe, THREADS_MAX_CONCURRENT,
 										   FALSE, NULL);
-	
+	g_signal_emit_by_name (dbe, "db-disconnected", NULL);
 	return ret;
 }
 
