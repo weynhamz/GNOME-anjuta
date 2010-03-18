@@ -505,7 +505,6 @@ symbol_db_model_get_iter (GtkTreeModel *tree_model,
 	}
 	if (i != depth)
 	{
-		/* g_warning ("Invalid path to iter conversion; no child found"); */
 		return FALSE;
 	}
 	iter->stamp = SYMBOL_DB_MODEL_STAMP;
