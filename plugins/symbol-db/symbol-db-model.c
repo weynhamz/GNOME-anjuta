@@ -142,8 +142,13 @@ symbol_db_model_node_set_child (SymbolDBModelNode *node, gint child_offset,
 	g_return_if_fail (node != NULL);
 	g_return_if_fail (node->children_ensured == TRUE);
 	g_return_if_fail (child_offset >= 0 && child_offset < node->n_children);
-	g_return_if_fail (node->children != NULL);
-	
+
+	/* If children nodes array hasn't been allocated, now is the time */
+	if (!node->children)
+	{
+		node->children = g_new0 (SymbolDBModelNode*,
+			                                 node->n_children);
+	}
 	node->children[child_offset] = val;
 }
 
@@ -348,7 +353,6 @@ symbol_db_model_iter_is_valid (GtkTreeModel *model, GtkTreeIter *iter)
 	offset = GPOINTER_TO_INT (iter->user_data2);
 	
 	g_return_val_if_fail (parent_node != NULL, FALSE);
-	g_return_val_if_fail (parent_node->children != NULL, FALSE);
 	g_return_val_if_fail (offset >= 0 && offset < parent_node->n_children,
 	                      FALSE);
 	return TRUE;
@@ -485,7 +489,7 @@ symbol_db_model_get_iter (GtkTreeModel *tree_model,
 		if (!node->children_ensured)
 			symbol_db_model_ensure_node_children (SYMBOL_DB_MODEL (tree_model),
 				                                  node, FALSE);
-		if (node->children == NULL || node->n_children <= 0)
+		if (node->n_children <= 0)
 		{
 			/* FIXME:  No child available. View thinks there is child.
 			 * It's an inconsistent state. Do something fancy to fix it.
@@ -637,7 +641,6 @@ symbol_db_model_iter_children (GtkTreeModel *tree_model,
 	if (!node->children_ensured)
 		symbol_db_model_ensure_node_children (SYMBOL_DB_MODEL (tree_model),
 		                                      node, FALSE);
-	g_return_val_if_fail (node->children != NULL, FALSE);
 	g_return_val_if_fail (node->n_children > 0, FALSE);
 	
 	iter->user_data = node;
@@ -796,7 +799,6 @@ symbol_db_model_ensure_node_children (SymbolDBModel *model,
                                       gboolean emit_has_child)
 {
 	SymbolDBModelPriv *priv;
-	gint old_n_children;
 	
 	g_return_if_fail (node->n_children == 0);
 	g_return_if_fail (node->children == NULL);
@@ -804,23 +806,16 @@ symbol_db_model_ensure_node_children (SymbolDBModel *model,
 
 	priv = GET_PRIV (model);
 	
-	old_n_children = node->n_children;
-
 	/* Initialize children array and count */
 	node->n_children = 
 		symbol_db_model_get_n_children (model, node->level,
 		                                node->values);
 
-	node->children = g_new0 (SymbolDBModelNode*,
-	                                     node->n_children);
-
 	node->children_ensured = TRUE;
 
 	/* g_message ("Ensuring node %p, emit = %d", node, emit_has_child); */
 	
-	if (emit_has_child &&
-	    ((old_n_children == 0 && node->n_children > 0) ||
-	     (old_n_children > 0 && node->n_children == 0)))
+	if (emit_has_child && node->n_children > 0)
 	{
 		GtkTreePath *path;
 		GtkTreeIter iter = {0};
