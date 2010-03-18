@@ -59,7 +59,6 @@ struct _SymbolDBModelNode {
 
 	/* Children states */
 	gint children_ref_count;
-	GHashTable *refed_rows;
 	gboolean children_ensured;
 	guint n_children;
 	SymbolDBModelNode **children;
@@ -209,7 +208,6 @@ symbol_db_model_node_free (SymbolDBModelNode *node, gboolean force)
 	    return;
 	
 	g_free (node->values);
-	g_hash_table_destroy (node->refed_rows);
 	g_free (node);
 }
 
@@ -285,15 +283,6 @@ symbol_db_model_node_ref_child (SymbolDBModelNode *node)
 
 	if (node->parent)
 	{
-		/* If the node started having ref count greater than 1, then there
-		 * are refed children, which means node is expanded. Tell parent.
-		 */
-		if (node->children_ref_count >= 1)
-		{
-			g_hash_table_insert (node->parent->refed_rows,
-				                 GINT_TO_POINTER (node->offset),
-				                 GINT_TO_POINTER (node->offset));
-		}
 		/* Increate associated ref count on parents and hold refs to their rows */
 		symbol_db_model_node_ref_child (node->parent);
 	}
@@ -315,14 +304,6 @@ symbol_db_model_node_unref_child (SymbolDBModelNode *node, gint child_offset)
 
 	if (node->parent)
 	{
-		/* If the node has only one ref count, then it has no child
-		 * referenced and therefore not expanded
-		 */
-		if (node->children_ref_count <= 1)
-		{
-			g_hash_table_remove (node->parent->refed_rows,
-				                 GINT_TO_POINTER (node->offset));
-		}
 		/* Reduce ref count on parent as well */
 		symbol_db_model_node_unref_child (node->parent, node->offset);
 	}
@@ -347,7 +328,6 @@ symbol_db_model_node_new (SymbolDBModel *model, SymbolDBModelNode *parent,
 	}
 	node->offset = child_offset;
 	node->parent = parent;
-	node->refed_rows = g_hash_table_new (g_direct_hash, g_direct_equal);
 	node->level = parent->level + 1;
 	return node;
 }
@@ -904,32 +884,13 @@ symbol_db_model_update_node_children (SymbolDBModel *model,
                                       gboolean emit_has_child)
 {
 	SymbolDBModelPriv *priv;
-	gint old_n_children, i;
-	GList *expanded_row;
-	GList *expanded_rows = NULL;
-	
+
 	g_return_if_fail (node->children_ensured == TRUE);
 
 	priv = GET_PRIV (model);
 	
-	/* g_message ("Update node %p, emit = %d", node, emit_has_child); */
-
-	/* Save the old children status */
-	old_n_children = node->n_children;
-	for (i = 0; i < node->n_children; i++)
-	{
-		SymbolDBModelNode *node =
-			symbol_db_model_node_get_child (node, i);
-		if (node && node->n_children > 0)
-			expanded_rows = g_list_prepend (expanded_rows,
-			                                 GINT_TO_POINTER (i));
-	}
-	symbol_db_model_node_cleanse (node, TRUE);
-	symbol_db_model_ensure_node_children (model, node,
-	                                      emit_has_child);
-	
-	/* Check if nodes were removed, emit signals for them */
-	if (old_n_children > node->n_children)
+	/* Delete all nodes */
+	if (node->n_children > 0)
 	{
 		GtkTreePath *path;
 		GtkTreeIter iter = {0};
@@ -938,18 +899,22 @@ symbol_db_model_update_node_children (SymbolDBModel *model,
 		/* Set the iter to last valid child */
 		iter.stamp = SYMBOL_DB_MODEL_STAMP;
 		iter.user_data = node;
-		iter.user_data2 = GINT_TO_POINTER (node->n_children - 1);
+		iter.user_data2 = GINT_TO_POINTER (0);
 
 		/* Get path to it */
 		path = symbol_db_model_get_path (GTK_TREE_MODEL (model), &iter);
-		gtk_tree_path_next (path);
-		for (i = node->n_children; i < old_n_children; i++)
+		for (i = 0; i < node->n_children; i++)
 			gtk_tree_model_row_deleted (GTK_TREE_MODEL (model), path);
 		gtk_tree_path_free (path);
 	}
+
+	symbol_db_model_node_cleanse (node, TRUE);
+	symbol_db_model_ensure_node_children (model, node,
+	                                      emit_has_child);
 	
-	/* Check if nodes were added, emit signals for them */
-	if (old_n_children < node->n_children)
+	
+	/* Add all new nodes */
+	if (node->n_children > 0)
 	{
 		GtkTreePath *path;
 		GtkTreeIter iter = {0};
@@ -957,12 +922,11 @@ symbol_db_model_update_node_children (SymbolDBModel *model,
 		
 		iter.stamp = SYMBOL_DB_MODEL_STAMP;
 		iter.user_data = node;
-		iter.user_data2 = old_n_children > 0?
-			GINT_TO_POINTER (old_n_children) : GINT_TO_POINTER (0);
+		iter.user_data2 = 0;
 		path = symbol_db_model_get_path (GTK_TREE_MODEL (model), &iter);
 		if (path == NULL)
 			path = gtk_tree_path_new_first ();
-		for (i = old_n_children; i < node->n_children; i++)
+		for (i = 0; i < node->n_children; i++)
 		{
 			iter.user_data2 = GINT_TO_POINTER (i);
 			gtk_tree_model_row_inserted (GTK_TREE_MODEL (model), path, &iter);
@@ -970,46 +934,6 @@ symbol_db_model_update_node_children (SymbolDBModel *model,
 		}
 		gtk_tree_path_free (path);
 	}
-	
-	/* Emit update signals for rest of the nodes */
-	if (MIN(old_n_children, node->n_children) > 0)
-	{
-		GtkTreePath *path;
-		GtkTreeIter iter = {0};
-		gint i;
-
-		iter.stamp = SYMBOL_DB_MODEL_STAMP;
-		iter.user_data = node;
-		path = gtk_tree_path_new_first ();
-		for (i = 0; i < MIN(old_n_children, node->n_children); i++)
-		{
-			iter.user_data2 = GINT_TO_POINTER (i);
-			gtk_tree_model_row_changed (GTK_TREE_MODEL (model), path, &iter);
-			gtk_tree_path_next (path);
-		}
-		gtk_tree_path_free (path);
-	}
-
-	/* Notify children status change for expanded nodes */
-	for (expanded_row = expanded_rows; expanded_row;
-	     expanded_row = expanded_row->next)
-	{
-		/* Only emit of valid rows, the rest are dead anyways */
-		if (GPOINTER_TO_INT (expanded_row->data) < node->n_children)
-		{
-			GtkTreePath *path;
-			GtkTreeIter iter = {0};
-
-			iter.stamp = SYMBOL_DB_MODEL_STAMP;
-			iter.user_data = node;
-			iter.user_data2 = expanded_row->data;
-			path = symbol_db_model_get_path (GTK_TREE_MODEL (model), &iter);
-			gtk_tree_model_row_has_child_toggled (GTK_TREE_MODEL (model),
-				                                  path, &iter);
-			gtk_tree_path_free (path);
-		}
-	}
-	g_list_free (expanded_rows);
 }
 
 static gboolean
