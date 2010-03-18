@@ -25,7 +25,13 @@
 
 G_BEGIN_DECLS
 
-GtkWidget* symbol_db_view_global_new (SymbolDBEngine *dbe, SymbolDBPlugin *plugin);
+typedef enum {
+	SYMBOL_DB_VIEW_PROJECT,
+	SYMBOL_DB_VIEW_FILE
+} SymbolViewType;
+
+GtkWidget* symbol_db_view_new (SymbolViewType view_type,
+                               SymbolDBEngine *dbe, SymbolDBPlugin *plugin);
 
 G_END_DECLS
 

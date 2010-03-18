@@ -19,15 +19,16 @@
 #include <gtk/gtktreeview.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-markable.h>
-#include "symbol-db-model-global.h"
+#include "symbol-db-model-project.h"
+#include "symbol-db-model-file.h"
 #include "symbol-db-engine.h"
 #include "symbol-db-views.h"
 #include "plugin.h"
 
 static void
-on_global_treeview_row_activated (GtkTreeView *view, GtkTreePath *arg1,
-								 GtkTreeViewColumn *arg2,
-								 SymbolDBPlugin *plugin)
+on_treeview_row_activated (GtkTreeView *view, GtkTreePath *arg1,
+                           GtkTreeViewColumn *arg2,
+                           SymbolDBPlugin *plugin)
 {
 	GtkTreeModel *model;
 	GtkTreeSelection *selection;
@@ -43,8 +44,8 @@ on_global_treeview_row_activated (GtkTreeView *view, GtkTreePath *arg1,
 	    return;
 
 	gtk_tree_model_get (model, &iter,
-	                    SYMBOL_DB_MODEL_GLOBAL_COL_FILE, &filename,
-	                    SYMBOL_DB_MODEL_GLOBAL_COL_LINE, &line,
+	                    SYMBOL_DB_MODEL_PROJECT_COL_FILE, &filename,
+	                    SYMBOL_DB_MODEL_PROJECT_COL_LINE, &line,
 	                    -1);
 	g_return_if_fail (filename != NULL);
 
@@ -71,7 +72,8 @@ on_global_treeview_row_activated (GtkTreeView *view, GtkTreePath *arg1,
 }
 
 GtkWidget*
-symbol_db_view_global_new (SymbolDBEngine *dbe, SymbolDBPlugin *plugin)
+symbol_db_view_new (SymbolViewType view_type,
+                    SymbolDBEngine *dbe, SymbolDBPlugin *plugin)
 {
 	GtkWidget *sw;
 	GtkTreeModel *model;
@@ -79,13 +81,20 @@ symbol_db_view_global_new (SymbolDBEngine *dbe, SymbolDBPlugin *plugin)
 	GtkTreeViewColumn *column;
 	GtkCellRenderer *renderer;
 
-	model = symbol_db_model_global_new (dbe);
+	switch (view_type)
+	{
+		case SYMBOL_DB_VIEW_FILE:
+			model = symbol_db_model_file_new (dbe);
+			break;
+		default:
+			model = symbol_db_model_project_new (dbe);
+	}
 	
 	dbv = gtk_tree_view_new_with_model (model);
 	g_object_unref (model);
 
 	g_signal_connect (G_OBJECT (dbv), "row-activated",
-					  G_CALLBACK (on_global_treeview_row_activated), plugin);
+					  G_CALLBACK (on_treeview_row_activated), plugin);
 
 
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (dbv), FALSE);
@@ -103,12 +112,12 @@ symbol_db_view_global_new (SymbolDBEngine *dbe, SymbolDBPlugin *plugin)
 	renderer = gtk_cell_renderer_pixbuf_new ();
 	gtk_tree_view_column_pack_start (column, renderer, FALSE);
 	gtk_tree_view_column_add_attribute (column, renderer, "pixbuf",
-	                                    SYMBOL_DB_MODEL_GLOBAL_COL_PIXBUF);
+	                                    SYMBOL_DB_MODEL_PROJECT_COL_PIXBUF);
 
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (column, renderer, "text",
-	                                    SYMBOL_DB_MODEL_GLOBAL_COL_LABEL);
+	                                    SYMBOL_DB_MODEL_PROJECT_COL_LABEL);
 
 	gtk_tree_view_append_column (GTK_TREE_VIEW (dbv), column);
 	gtk_tree_view_set_expander_column (GTK_TREE_VIEW (dbv), column);
