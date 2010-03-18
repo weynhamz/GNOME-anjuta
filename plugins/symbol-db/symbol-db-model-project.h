@@ -1,6 +1,6 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
- * symbol-db-model-global.h
+ * symbol-db-model-project.h
  * Copyright (C) Naba Kumar 2010 <naba@gnome.org>
  * 
  * anjuta is free software: you can redistribute it and/or modify it
@@ -17,46 +17,46 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _SYMBOL_DB_MODEL_GLOBAL_H_
-#define _SYMBOL_DB_MODEL_GLOBAL_H_
+#ifndef _SYMBOL_DB_MODEL_PROJECT_H_
+#define _SYMBOL_DB_MODEL_PROJECT_H_
 
 #include <glib-object.h>
 #include "symbol-db-model.h"
 
 G_BEGIN_DECLS
 
-#define SYMBOL_DB_TYPE_MODEL_GLOBAL             (symbol_db_model_global_get_type ())
-#define SYMBOL_DB_MODEL_GLOBAL(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), SYMBOL_DB_TYPE_MODEL_GLOBAL, SymbolDBModelGlobal))
-#define SYMBOL_DB_MODEL_GLOBAL_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ((klass), SYMBOL_DB_TYPE_MODEL_GLOBAL, SymbolDBModelGlobalClass))
-#define SYMBOL_DB_IS_MODEL_GLOBAL(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SYMBOL_DB_TYPE_MODEL_GLOBAL))
-#define SYMBOL_DB_IS_MODEL_GLOBAL_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass), SYMBOL_DB_TYPE_MODEL_GLOBAL))
-#define SYMBOL_DB_MODEL_GLOBAL_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), SYMBOL_DB_TYPE_MODEL_GLOBAL, SymbolDBModelGlobalClass))
+#define SYMBOL_DB_TYPE_MODEL_PROJECT             (symbol_db_model_project_get_type ())
+#define SYMBOL_DB_MODEL_PROJECT(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), SYMBOL_DB_TYPE_MODEL_PROJECT, SymbolDBModelProject))
+#define SYMBOL_DB_MODEL_PROJECT_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ((klass), SYMBOL_DB_TYPE_MODEL_PROJECT, SymbolDBModelProjectClass))
+#define SYMBOL_DB_IS_MODEL_PROJECT(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SYMBOL_DB_TYPE_MODEL_PROJECT))
+#define SYMBOL_DB_IS_MODEL_PROJECT_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass), SYMBOL_DB_TYPE_MODEL_PROJECT))
+#define SYMBOL_DB_MODEL_PROJECT_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), SYMBOL_DB_TYPE_MODEL_PROJECT, SymbolDBModelProjectClass))
 
-typedef struct _SymbolDBModelGlobalClass SymbolDBModelGlobalClass;
-typedef struct _SymbolDBModelGlobal SymbolDBModelGlobal;
+typedef struct _SymbolDBModelProjectClass SymbolDBModelProjectClass;
+typedef struct _SymbolDBModelProject SymbolDBModelProject;
 
 enum {
-	SYMBOL_DB_MODEL_GLOBAL_COL_SYMBOL_ID,
-	SYMBOL_DB_MODEL_GLOBAL_COL_PIXBUF,
-	SYMBOL_DB_MODEL_GLOBAL_COL_LABEL,
-	SYMBOL_DB_MODEL_GLOBAL_COL_FILE,
-	SYMBOL_DB_MODEL_GLOBAL_COL_LINE,
-	SYMBOL_DB_MODEL_GLOBAL_COL_N_COLS
+	SYMBOL_DB_MODEL_PROJECT_COL_SYMBOL_ID,
+	SYMBOL_DB_MODEL_PROJECT_COL_PIXBUF,
+	SYMBOL_DB_MODEL_PROJECT_COL_LABEL,
+	SYMBOL_DB_MODEL_PROJECT_COL_FILE,
+	SYMBOL_DB_MODEL_PROJECT_COL_LINE,
+	SYMBOL_DB_MODEL_PROJECT_COL_N_COLS
 };
 
-struct _SymbolDBModelGlobalClass
+struct _SymbolDBModelProjectClass
 {
 	SymbolDBModelClass parent_class;
 };
 
-struct _SymbolDBModelGlobal
+struct _SymbolDBModelProject
 {
 	SymbolDBModel parent_instance;
 };
 
-GType symbol_db_model_global_get_type (void) G_GNUC_CONST;
-GtkTreeModel* symbol_db_model_global_new (SymbolDBEngine* dbe);
+GType symbol_db_model_project_get_type (void) G_GNUC_CONST;
+GtkTreeModel* symbol_db_model_project_new (SymbolDBEngine* dbe);
 
 G_END_DECLS
 
-#endif /* _SYMBOL_DB_MODEL_GLOBAL_H_ */
+#endif /* _SYMBOL_DB_MODEL_PROJECT_H_ */
