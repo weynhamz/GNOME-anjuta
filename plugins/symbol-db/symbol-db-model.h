@@ -84,6 +84,8 @@ GtkTreeModel* symbol_db_model_newv (gint n_columns, GType *types,
 void symbol_db_model_set_columns (SymbolDBModel *model, gint n_columns,
                                   GType *types, gint *data_cols);
 
+void symbol_db_model_update (SymbolDBModel *model);
+
 G_END_DECLS
 
 #endif /* _SYMBOL_DB_MODEL_H_ */

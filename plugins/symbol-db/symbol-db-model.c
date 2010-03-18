@@ -58,9 +58,10 @@ struct _SymbolDBModelNode {
 	gint offset;
 
 	/* Children states */
+	gint children_ref_count;
+	GHashTable *refed_rows;
 	gboolean children_ensured;
 	guint n_children;
-	gint children_ref_count;
 	SymbolDBModelNode **children;
 };
 
@@ -68,8 +69,7 @@ typedef struct {
 	gint n_columns;      /* Number of columns in the model */
 	GType *column_types; /* Type of each column in the model */
 	gint *query_columns; /* Corresponding GdaDataModel column */
-	gint node_id_column;
-
+	
 	/* Idle child-ensure queue */
 	GQueue *ensure_children_queue;
 	guint ensure_children_idle_id;
@@ -88,13 +88,14 @@ static guint symbol_db_model_signals[LAST_SIGNAL] = { 0 };
 
 /* Declarations */
 
-static void symbol_db_model_node_free (SymbolDBModelNode *node);
+static void symbol_db_model_node_free (SymbolDBModelNode *node, gboolean force);
 
 static void symbol_db_model_tree_model_init (GtkTreeModelIface *iface);
 
 static gboolean symbol_db_model_get_query_value_at (SymbolDBModel *model,
                                                     GdaDataModel *data_model,
                                                     gint position, gint column,
+
                                                     GValue *value);
 
 static gboolean symbol_db_model_get_query_value (SymbolDBModel *model,
@@ -112,9 +113,11 @@ static GdaDataModel* symbol_db_model_get_children (SymbolDBModel *model,
                                                    GValue column_values[],
                                                    gint offset, gint limit);
 
-static void symbol_db_model_node_ensure_children (SymbolDBModel *model,
+static void symbol_db_model_queue_ensure_node_children (SymbolDBModel *model,
+                                                        SymbolDBModelNode *parent);
+
+static void symbol_db_model_ensure_node_children (SymbolDBModel *model,
                                                   SymbolDBModelNode *parent,
-                                                  gboolean queue_it,
                                                   gboolean emit_has_child);
 
 /* Class definition */
@@ -146,7 +149,7 @@ symbol_db_model_node_set_child (SymbolDBModelNode *node, gint child_offset,
 }
 
 static gboolean
-symbol_db_model_node_cleanse (SymbolDBModelNode *node)
+symbol_db_model_node_cleanse (SymbolDBModelNode *node, gboolean force)
 {
 	SymbolDBModelPage *page, *next;
 	gint i;
@@ -154,10 +157,13 @@ symbol_db_model_node_cleanse (SymbolDBModelNode *node)
 	g_return_val_if_fail (node != NULL, FALSE);
 
 	/* Can not cleanse a node if there are refed children */
-	g_return_val_if_fail (node->children_ref_count == 0, FALSE);
-
-	if (node->children_ensured)
-	{	
+	if (!force)
+	{
+		g_return_val_if_fail (node->children_ref_count == 0, FALSE);
+	}
+	
+	if (node->children)
+	{
 		/* There should be no children with any ref. Children with ref count 0
 		 * are floating children and can be destroyed.
 		 */
@@ -166,9 +172,12 @@ symbol_db_model_node_cleanse (SymbolDBModelNode *node)
 			SymbolDBModelNode *child = symbol_db_model_node_get_child (node, i);
 			if (child)
 			{
-				/* Assert on nodes with ref count > 0 */
-				g_warn_if_fail (child->children_ref_count == 0);
-				symbol_db_model_node_free (child);
+				if (!force)
+				{
+					/* Assert on nodes with ref count > 0 */
+					g_warn_if_fail (child->children_ref_count == 0);
+				}
+				symbol_db_model_node_free (child, force);
 				symbol_db_model_node_set_child (node, i, NULL);
 			}
 		}
@@ -184,6 +193,9 @@ symbol_db_model_node_cleanse (SymbolDBModelNode *node)
 	}
 	node->pages = NULL;
 	node->children_ensured = FALSE;
+	node->n_children = 0;
+
+	/* Destroy arrays */
 	g_free (node->children);
 	node->children = NULL;
 
@@ -191,12 +203,13 @@ symbol_db_model_node_cleanse (SymbolDBModelNode *node)
 }
 
 static void
-symbol_db_model_node_free (SymbolDBModelNode *node)
+symbol_db_model_node_free (SymbolDBModelNode *node, gboolean force)
 {
-	if (!symbol_db_model_node_cleanse (node))
+	if (!symbol_db_model_node_cleanse (node, force))
 	    return;
 	
 	g_free (node->values);
+	g_hash_table_destroy (node->refed_rows);
 	g_free (node);
 }
 
@@ -269,33 +282,50 @@ symbol_db_model_node_ref_child (SymbolDBModelNode *node)
 	g_return_if_fail (node != NULL);
 
 	node->children_ref_count++;
-	
-	/* Increate associated ref count on parent also */
+
 	if (node->parent)
+	{
+		/* If the node started having ref count greater than 1, then there
+		 * are refed children, which means node is expanded. Tell parent.
+		 */
+		if (node->children_ref_count >= 1)
+		{
+			g_hash_table_insert (node->parent->refed_rows,
+				                 GINT_TO_POINTER (node->offset),
+				                 GINT_TO_POINTER (node->offset));
+		}
+		/* Increate associated ref count on parents and hold refs to their rows */
 		symbol_db_model_node_ref_child (node->parent);
+	}
 }
 
 static void
 symbol_db_model_node_unref_child (SymbolDBModelNode *node, gint child_offset)
 {
-	SymbolDBModelNode *parent_node;
-	gint node_offset;
 	g_return_if_fail (node != NULL);
 	g_return_if_fail (node->children_ref_count > 0);
 	
 	node->children_ref_count--;
-	parent_node = node->parent;
-	node_offset = node->offset;
-	
+
 	/* If ref count reaches 0, cleanse this node */
 	if (node->children_ref_count <= 0)
 	{
-		symbol_db_model_node_cleanse (node);
+		symbol_db_model_node_cleanse (node, FALSE);
 	}
 
-	/* Reduce the associated ref count on parent also */
-	if (parent_node)
-		symbol_db_model_node_unref_child (parent_node, node_offset);
+	if (node->parent)
+	{
+		/* If the node has only one ref count, then it has no child
+		 * referenced and therefore not expanded
+		 */
+		if (node->children_ref_count <= 1)
+		{
+			g_hash_table_remove (node->parent->refed_rows,
+				                 GINT_TO_POINTER (node->offset));
+		}
+		/* Reduce ref count on parent as well */
+		symbol_db_model_node_unref_child (node->parent, node->offset);
+	}
 }
 
 static SymbolDBModelNode *
@@ -317,6 +347,7 @@ symbol_db_model_node_new (SymbolDBModel *model, SymbolDBModelNode *parent,
 	}
 	node->offset = child_offset;
 	node->parent = parent;
+	node->refed_rows = g_hash_table_new (g_direct_hash, g_direct_equal);
 	node->level = parent->level + 1;
 	return node;
 }
@@ -348,15 +379,17 @@ symbol_db_model_page_fault (SymbolDBModel *model,
                             SymbolDBModelNode *parent_node,
                             gint child_offset)
 {
-	SymbolDBModelPage *page, *prev_page;
+	SymbolDBModelPage *page, *prev_page, *page_found;
 	gint i;
 	GdaDataModelIter *data_iter;
 	GdaDataModel *data_model = NULL;
 
 	/* Insert after prev_page */
-	symbol_db_model_node_find_child_page (parent_node, child_offset,
-	                                      &prev_page);
-
+	page_found = symbol_db_model_node_find_child_page (parent_node,
+	                                                   child_offset,
+	                                                   &prev_page);
+	g_return_val_if_fail (page_found == NULL, page_found);
+	
 	/* New page to cover current child_offset */
 	page = g_new0 (SymbolDBModelPage, 1);
 
@@ -421,7 +454,7 @@ symbol_db_model_page_fault (SymbolDBModel *model,
 static GtkTreeModelFlags
 symbol_db_model_get_flags (GtkTreeModel *tree_model)
 {
-	return GTK_TREE_MODEL_ITERS_PERSIST;
+	return 0;
 }
 
 static GType
@@ -470,8 +503,8 @@ symbol_db_model_get_iter (GtkTreeModel *tree_model,
 	{
 		parent_node = node;
 		if (!node->children_ensured)
-			symbol_db_model_node_ensure_children (SYMBOL_DB_MODEL (tree_model),
-				                                  node, FALSE, FALSE);
+			symbol_db_model_ensure_node_children (SYMBOL_DB_MODEL (tree_model),
+				                                  node, FALSE);
 		if (node->children == NULL || node->n_children <= 0)
 		{
 			/* FIXME:  No child available. View thinks there is child.
@@ -488,7 +521,7 @@ symbol_db_model_get_iter (GtkTreeModel *tree_model,
 	}
 	if (i != depth)
 	{
-		g_warning ("Invalid path to iter conversion; no child found");
+		/* g_warning ("Invalid path to iter conversion; no child found"); */
 		return FALSE;
 	}
 	iter->stamp = SYMBOL_DB_MODEL_STAMP;
@@ -546,6 +579,7 @@ symbol_db_model_get_value (GtkTreeModel *tree_model,
 	parent_node = (SymbolDBModelNode*) iter->user_data;
 	offset = GPOINTER_TO_INT (iter->user_data2);
 
+	/* g_message ("Get value for %p->%d", parent_node, offset); */
 	if (symbol_db_model_node_get_child (parent_node, offset) == NULL)
 		page = symbol_db_model_page_fault (SYMBOL_DB_MODEL (tree_model),
 		                                   parent_node, offset);
@@ -555,8 +589,8 @@ symbol_db_model_get_value (GtkTreeModel *tree_model,
 
 	/* View accessed the node, so update any pending has-child status */
 	if (!node->children_ensured)
-		symbol_db_model_node_ensure_children (SYMBOL_DB_MODEL (tree_model),
-		                                      node, TRUE, TRUE);
+		symbol_db_model_queue_ensure_node_children (SYMBOL_DB_MODEL (tree_model),
+		                                            node);
 
 	/* FIXME: We should also refresh children status even if children was
 	 * ensured already.
@@ -621,8 +655,8 @@ symbol_db_model_iter_children (GtkTreeModel *tree_model,
 		g_return_val_if_fail (node != NULL, FALSE);
 	}
 	if (!node->children_ensured)
-		symbol_db_model_node_ensure_children (SYMBOL_DB_MODEL (tree_model),
-		                                      node, FALSE, FALSE);
+		symbol_db_model_ensure_node_children (SYMBOL_DB_MODEL (tree_model),
+		                                      node, FALSE);
 	g_return_val_if_fail (node->children != NULL, FALSE);
 	g_return_val_if_fail (node->n_children > 0, FALSE);
 	
@@ -776,8 +810,54 @@ symbol_db_model_tree_model_init (GtkTreeModelIface *iface)
 
 /* SymbolDBModel implementation */
 
+static void
+symbol_db_model_ensure_node_children (SymbolDBModel *model,
+                                      SymbolDBModelNode *node,
+                                      gboolean emit_has_child)
+{
+	SymbolDBModelPriv *priv;
+	gint old_n_children;
+	
+	g_return_if_fail (node->n_children == 0);
+	g_return_if_fail (node->children == NULL);
+	g_return_if_fail (node->children_ensured == FALSE);
+
+	priv = GET_PRIV (model);
+	
+	old_n_children = node->n_children;
+
+	/* Initialize children array and count */
+	node->n_children = 
+		symbol_db_model_get_n_children (model, node->level,
+		                                node->values);
+
+	node->children = g_new0 (SymbolDBModelNode*,
+	                                     node->n_children);
+
+	node->children_ensured = TRUE;
+
+	/* g_message ("Ensuring node %p, emit = %d", node, emit_has_child); */
+	
+	if (emit_has_child &&
+	    ((old_n_children == 0 && node->n_children > 0) ||
+	     (old_n_children > 0 && node->n_children == 0)))
+	{
+		GtkTreePath *path;
+		GtkTreeIter iter = {0};
+
+		iter.stamp = SYMBOL_DB_MODEL_STAMP;
+		iter.user_data = node->parent;
+		iter.user_data2 = GINT_TO_POINTER (node->offset);
+		
+		path = symbol_db_model_get_path (GTK_TREE_MODEL (model), &iter);
+		gtk_tree_model_row_has_child_toggled (GTK_TREE_MODEL (model),
+		                                      path, &iter);
+		gtk_tree_path_free (path);
+	}
+}
+
 static gboolean
-on_symbol_db_ensure_children_idle (SymbolDBModel *model)
+on_symbol_db_ensure_node_children_idle (SymbolDBModel *model)
 {
 	gint count;
 	SymbolDBModelNode *node;
@@ -788,7 +868,7 @@ on_symbol_db_ensure_children_idle (SymbolDBModel *model)
 	for (count = 0; count < SYMBOL_DB_MODEL_ENSURE_CHILDREN_BATCH_SIZE; count++)
 	{
 		node = g_queue_pop_head (priv->ensure_children_queue);
-		symbol_db_model_node_ensure_children (model, node, FALSE, TRUE);
+		symbol_db_model_ensure_node_children (model, node, TRUE);
 		if (g_queue_get_length (priv->ensure_children_queue) <= 0)
 		{
 			priv->ensure_children_idle_id = 0;
@@ -799,57 +879,137 @@ on_symbol_db_ensure_children_idle (SymbolDBModel *model)
 }
 
 static void
-symbol_db_model_node_ensure_children (SymbolDBModel *model,
-                                      SymbolDBModelNode *potential_parent,
-                                      gboolean queue_it,
+symbol_db_model_queue_ensure_node_children (SymbolDBModel *model,
+                                            SymbolDBModelNode *node)
+{
+	SymbolDBModelPriv *priv;
+	
+	g_return_if_fail (node->children == NULL);
+	g_return_if_fail (node->children_ensured == FALSE);
+
+	priv = GET_PRIV (model);
+	if (!g_queue_find (priv->ensure_children_queue, node))
+	{
+		g_queue_push_tail (priv->ensure_children_queue, node);
+		if (!priv->ensure_children_idle_id)
+			priv->ensure_children_idle_id =
+				g_idle_add ((GSourceFunc)on_symbol_db_ensure_node_children_idle,
+				            model);
+	}
+}
+
+static void
+symbol_db_model_update_node_children (SymbolDBModel *model,
+                                      SymbolDBModelNode *node,
                                       gboolean emit_has_child)
 {
 	SymbolDBModelPriv *priv;
-	gint old_n_children;
+	gint old_n_children, i;
+	GList *expanded_row;
+	GList *expanded_rows = NULL;
 	
-	/* FIXME: Should we free (properly) existing children instead? */
-	g_return_if_fail (potential_parent->children == NULL);
-	g_return_if_fail (potential_parent->children_ensured == FALSE);
+	g_return_if_fail (node->children_ensured == TRUE);
 
 	priv = GET_PRIV (model);
-	if (queue_it)
-	{
-		if (!g_queue_find (priv->ensure_children_queue, potential_parent))
-		{
-			g_queue_push_tail (priv->ensure_children_queue, potential_parent);
-			if (!priv->ensure_children_idle_id)
-				priv->ensure_children_idle_id =
-					g_idle_add ((GSourceFunc)on_symbol_db_ensure_children_idle,
-					            model);
-		}
-		return;
-	}
 	
-	old_n_children = potential_parent->n_children;
+	/* g_message ("Update node %p, emit = %d", node, emit_has_child); */
 
-	potential_parent->n_children = 
-		symbol_db_model_get_n_children (model, potential_parent->level,
-		                                potential_parent->values);
-
-	potential_parent->children = g_new0 (SymbolDBModelNode*,
-	                                     potential_parent->n_children);
-
-	potential_parent->children_ensured = TRUE;
-	if (emit_has_child && potential_parent->n_children > 0)
+	/* Save the old children status */
+	old_n_children = node->n_children;
+	for (i = 0; i < node->n_children; i++)
+	{
+		SymbolDBModelNode *node =
+			symbol_db_model_node_get_child (node, i);
+		if (node && node->n_children > 0)
+			expanded_rows = g_list_prepend (expanded_rows,
+			                                 GINT_TO_POINTER (i));
+	}
+	symbol_db_model_node_cleanse (node, TRUE);
+	symbol_db_model_ensure_node_children (model, node,
+	                                      emit_has_child);
+	
+	/* Check if nodes were removed, emit signals for them */
+	if (old_n_children > node->n_children)
 	{
 		GtkTreePath *path;
 		GtkTreeIter iter = {0};
+		gint i;
 
+		/* Set the iter to last valid child */
 		iter.stamp = SYMBOL_DB_MODEL_STAMP;
-		iter.user_data = potential_parent->parent;
-		iter.user_data2 = GINT_TO_POINTER (potential_parent->offset);
-		
+		iter.user_data = node;
+		iter.user_data2 = GINT_TO_POINTER (node->n_children - 1);
+
+		/* Get path to it */
 		path = symbol_db_model_get_path (GTK_TREE_MODEL (model), &iter);
-		gtk_tree_model_row_has_child_toggled (GTK_TREE_MODEL (model),
-		                                      path, &iter);
+		gtk_tree_path_next (path);
+		for (i = node->n_children; i < old_n_children; i++)
+			gtk_tree_model_row_deleted (GTK_TREE_MODEL (model), path);
 		gtk_tree_path_free (path);
 	}
-	/* g_warn_if_fail (potential_parent->n_children == old_n_children); */
+	
+	/* Check if nodes were added, emit signals for them */
+	if (old_n_children < node->n_children)
+	{
+		GtkTreePath *path;
+		GtkTreeIter iter = {0};
+		gint i;
+		
+		iter.stamp = SYMBOL_DB_MODEL_STAMP;
+		iter.user_data = node;
+		iter.user_data2 = old_n_children > 0?
+			GINT_TO_POINTER (old_n_children) : GINT_TO_POINTER (0);
+		path = symbol_db_model_get_path (GTK_TREE_MODEL (model), &iter);
+		if (path == NULL)
+			path = gtk_tree_path_new_first ();
+		for (i = old_n_children; i < node->n_children; i++)
+		{
+			iter.user_data2 = GINT_TO_POINTER (i);
+			gtk_tree_model_row_inserted (GTK_TREE_MODEL (model), path, &iter);
+			gtk_tree_path_next (path);
+		}
+		gtk_tree_path_free (path);
+	}
+	
+	/* Emit update signals for rest of the nodes */
+	if (MIN(old_n_children, node->n_children) > 0)
+	{
+		GtkTreePath *path;
+		GtkTreeIter iter = {0};
+		gint i;
+
+		iter.stamp = SYMBOL_DB_MODEL_STAMP;
+		iter.user_data = node;
+		path = gtk_tree_path_new_first ();
+		for (i = 0; i < MIN(old_n_children, node->n_children); i++)
+		{
+			iter.user_data2 = GINT_TO_POINTER (i);
+			gtk_tree_model_row_changed (GTK_TREE_MODEL (model), path, &iter);
+			gtk_tree_path_next (path);
+		}
+		gtk_tree_path_free (path);
+	}
+
+	/* Notify children status change for expanded nodes */
+	for (expanded_row = expanded_rows; expanded_row;
+	     expanded_row = expanded_row->next)
+	{
+		/* Only emit of valid rows, the rest are dead anyways */
+		if (GPOINTER_TO_INT (expanded_row->data) < node->n_children)
+		{
+			GtkTreePath *path;
+			GtkTreeIter iter = {0};
+
+			iter.stamp = SYMBOL_DB_MODEL_STAMP;
+			iter.user_data = node;
+			iter.user_data2 = expanded_row->data;
+			path = symbol_db_model_get_path (GTK_TREE_MODEL (model), &iter);
+			gtk_tree_model_row_has_child_toggled (GTK_TREE_MODEL (model),
+				                                  path, &iter);
+			gtk_tree_path_free (path);
+		}
+	}
+	g_list_free (expanded_rows);
 }
 
 static gboolean
@@ -1068,6 +1228,8 @@ symbol_db_model_set_columns (SymbolDBModel *model, gint n_columns,
 	SymbolDBModelPriv *priv;
 
 	g_return_if_fail (n_columns > 0);
+	g_return_if_fail (SYMBOL_DB_IS_MODEL (model));
+
 	priv = GET_PRIV (model);
 	
 	g_return_if_fail (priv->n_columns <= 0);
@@ -1119,4 +1281,18 @@ symbol_db_model_newv (gint n_columns, GType *types, gint *query_columns)
 	symbol_db_model_set_columns (SYMBOL_DB_MODEL (model), n_columns,
 	                             types, query_columns);
 	return model;
+}
+
+void
+symbol_db_model_update (SymbolDBModel *model)
+{
+	SymbolDBModelPriv *priv;
+
+	g_return_if_fail (SYMBOL_DB_IS_MODEL (model));
+
+	/* g_message ("Symbol DB Model reset called"); */
+	priv = GET_PRIV (model);
+
+	if (priv->root->children_ensured)
+		symbol_db_model_update_node_children (model, priv->root, FALSE);
 }
