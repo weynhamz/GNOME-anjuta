@@ -109,9 +109,6 @@ symbol_db_model_project_get_children (SymbolDBModel *model, gint tree_level,
 	if (!priv->dbe || !symbol_db_engine_is_connected (priv->dbe))
 		return NULL;
 	
-	g_message ("Retrieving level %d data: %d to %d", tree_level,
-	           offset, offset + limit);
-
 	switch (tree_level)
 	{
 		case 0:
@@ -131,10 +128,14 @@ symbol_db_model_project_get_children (SymbolDBModel *model, gint tree_level,
 		default:
 			return NULL;
 	}
-	data_model = (GdaDataModel*)symbol_db_engine_iterator_get_datamodel (iter);
-	g_object_ref (data_model);
-	g_object_unref (iter);
-	return data_model;
+	if (iter)
+	{
+		data_model = (GdaDataModel*)symbol_db_engine_iterator_get_datamodel (iter);
+		g_object_ref (data_model);
+		g_object_unref (iter);
+		return data_model;
+	}
+	return FALSE;
 }
 
 static gboolean
@@ -179,7 +180,7 @@ on_symbol_db_project_dbe_unref (SymbolDBModelProject *model)
 	g_return_if_fail (SYMBOL_DB_IS_MODEL_PROJECT (model));
 	priv = GET_PRIV (model);
 	priv->dbe = NULL;
-	/* FIXME: Reset model */
+	symbol_db_model_update (SYMBOL_DB_MODEL (model));
 }
 
 static void
@@ -195,14 +196,28 @@ symbol_db_model_project_set_property (GObject *object, guint prop_id,
 	{
 	case PROP_SYMBOL_DB_ENGINE:
 		if (priv->dbe)
+		{
 			g_object_weak_unref (G_OBJECT (priv->dbe),
 			                    (GWeakNotify)on_symbol_db_project_dbe_unref,
 			                     object);
+			g_signal_handlers_disconnect_by_func (priv->dbe,
+				              G_CALLBACK (symbol_db_model_update),
+				              object);
+			g_signal_handlers_disconnect_by_func (priv->dbe,
+				              G_CALLBACK (symbol_db_model_update),
+				              object);
+		}
 		priv->dbe = g_value_dup_object (value);
 		g_object_weak_ref (G_OBJECT (priv->dbe),
 			                    (GWeakNotify)on_symbol_db_project_dbe_unref,
 			                     object);
-		/* TODO: Reset model */
+		g_signal_connect_swapped (priv->dbe, "db-connected",
+		                          G_CALLBACK (symbol_db_model_update),
+		                          object);
+		g_signal_connect_swapped (priv->dbe, "db-disconnected",
+		                          G_CALLBACK (symbol_db_model_update),
+		                          object);
+		symbol_db_model_update (SYMBOL_DB_MODEL (object));
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -239,9 +254,17 @@ symbol_db_model_project_finalize (GObject *object)
 	priv = GET_PRIV (object);
 	
 	if (priv->dbe)
+	{
 		g_object_weak_unref (G_OBJECT (priv->dbe),
 		                     (GWeakNotify)on_symbol_db_project_dbe_unref,
 		                     object);
+		g_signal_handlers_disconnect_by_func (priv->dbe,
+		                  G_CALLBACK (symbol_db_model_update),
+		                  object);
+		g_signal_handlers_disconnect_by_func (priv->dbe,
+		                  G_CALLBACK (symbol_db_model_update),
+		                  object);
+	}
 	G_OBJECT_CLASS (symbol_db_model_project_parent_class)->finalize (object);
 }
 
