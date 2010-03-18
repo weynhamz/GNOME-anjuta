@@ -288,7 +288,7 @@ symbol_db_model_node_ref_child (SymbolDBModelNode *node)
 
 	if (node->parent)
 	{
-		/* Increate associated ref count on parents and hold refs to their rows */
+		/* Increate associated ref count on parent */
 		symbol_db_model_node_ref_child (node->parent);
 	}
 }
@@ -394,7 +394,7 @@ symbol_db_model_page_fault (SymbolDBModel *model,
 	if (page->begin_offset < 0)
 		page->begin_offset = 0;
 	
-	/* Loada page from database */
+	/* Load a page from database */
 	data_model = symbol_db_model_get_children (model, parent_node->level,
 	                                           parent_node->values,
 	                                           page->begin_offset,
@@ -890,22 +890,22 @@ symbol_db_model_update_node_children (SymbolDBModel *model,
 		GtkTreeIter iter = {0};
 		gint i;
 
-		/* Set the iter to last valid child */
+		/* Set the iter to first child */
 		iter.stamp = SYMBOL_DB_MODEL_STAMP;
 		iter.user_data = node;
 		iter.user_data2 = GINT_TO_POINTER (0);
 
 		/* Get path to it */
 		path = symbol_db_model_get_path (GTK_TREE_MODEL (model), &iter);
+
+		/* Delete all children */
 		for (i = 0; i < node->n_children; i++)
 			gtk_tree_model_row_deleted (GTK_TREE_MODEL (model), path);
 		gtk_tree_path_free (path);
 	}
 
 	symbol_db_model_node_cleanse (node, TRUE);
-	symbol_db_model_ensure_node_children (model, node,
-	                                      emit_has_child);
-	
+	symbol_db_model_ensure_node_children (model, node, emit_has_child);
 	
 	/* Add all new nodes */
 	if (node->n_children > 0)
