@@ -74,7 +74,7 @@ symbol_db_model_project_get_n_children (SymbolDBModel *model, gint tree_level,
 		case 0:
 			iter = symbol_db_engine_get_global_members_filtered
 				(priv->dbe, SYMTYPE_CLASS | SYMTYPE_ENUM | SYMTYPE_STRUCT|
-				 SYMTYPE_TYPEDEF | SYMTYPE_UNION, TRUE, TRUE, -1, -1,
+				 SYMTYPE_UNION, TRUE, TRUE, -1, -1,
 				 SYMINFO_SIMPLE);
 			break;
 		case 1:
@@ -114,7 +114,7 @@ symbol_db_model_project_get_children (SymbolDBModel *model, gint tree_level,
 		case 0:
 			iter = symbol_db_engine_get_global_members_filtered
 				(priv->dbe, SYMTYPE_CLASS | SYMTYPE_ENUM | SYMTYPE_STRUCT |
-				 SYMTYPE_TYPEDEF | SYMTYPE_UNION, TRUE, TRUE, limit, offset,
+				 SYMTYPE_UNION, TRUE, TRUE, limit, offset,
 				 SYMINFO_SIMPLE | SYMINFO_ACCESS | SYMINFO_TYPE |
 				 SYMINFO_KIND | SYMINFO_FILE_PATH);
 			break;
@@ -203,9 +203,6 @@ symbol_db_model_project_set_property (GObject *object, guint prop_id,
 			g_signal_handlers_disconnect_by_func (priv->dbe,
 				              G_CALLBACK (symbol_db_model_update),
 				              object);
-			g_signal_handlers_disconnect_by_func (priv->dbe,
-				              G_CALLBACK (symbol_db_model_update),
-				              object);
 		}
 		priv->dbe = g_value_dup_object (value);
 		g_object_weak_ref (G_OBJECT (priv->dbe),
@@ -217,6 +214,9 @@ symbol_db_model_project_set_property (GObject *object, guint prop_id,
 		g_signal_connect_swapped (priv->dbe, "db-disconnected",
 		                          G_CALLBACK (symbol_db_model_update),
 		                          object);
+		g_signal_connect_swapped (priv->dbe, "scan-end",
+		                          G_CALLBACK (symbol_db_model_update), object);
+		
 		symbol_db_model_update (SYMBOL_DB_MODEL (object));
 		break;
 	default:
@@ -258,9 +258,6 @@ symbol_db_model_project_finalize (GObject *object)
 		g_object_weak_unref (G_OBJECT (priv->dbe),
 		                     (GWeakNotify)on_symbol_db_project_dbe_unref,
 		                     object);
-		g_signal_handlers_disconnect_by_func (priv->dbe,
-		                  G_CALLBACK (symbol_db_model_update),
-		                  object);
 		g_signal_handlers_disconnect_by_func (priv->dbe,
 		                  G_CALLBACK (symbol_db_model_update),
 		                  object);
