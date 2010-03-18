@@ -1476,6 +1476,9 @@ symbol_db_engine_get_current_scope (SymbolDBEngine *dbe, const gchar* full_local
 												priv->project_directory);	
 }
 
+#define DYN_GET_FILE_SYMBOLS_EXTRA_PAR_LIMIT		1
+#define DYN_GET_FILE_SYMBOLS_EXTRA_PAR_OFFSET		2
+
 SymbolDBEngineIterator *
 symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe, 
 								   const gchar *file_path, 
@@ -1495,6 +1498,7 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 	gboolean limit_free = FALSE;
 	gchar *offset = "";
 	gboolean offset_free = FALSE;
+	gsize other_parameters;
 	
 	g_return_val_if_fail (dbe != NULL, NULL);
 	g_return_val_if_fail (file_path != NULL, NULL);
@@ -1508,16 +1512,20 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 	 */
 	sym_info = sym_info & ~SYMINFO_FILE_PATH;
 	
+	other_parameters = 0;
+
 	if (results_limit > 0)
 	{
-		limit_free = TRUE;
 		limit = g_strdup_printf ("LIMIT ## /* name:'limit' type:gint */");
+		limit_free = TRUE;
+		other_parameters |= DYN_GET_FILE_SYMBOLS_EXTRA_PAR_LIMIT;
 	}
 	
 	if (results_offset > 0)
 	{
 		offset = g_strdup_printf ("OFFSET ## /* name:'offset' type:gint */");
 		offset_free = TRUE;
+		other_parameters |= DYN_GET_FILE_SYMBOLS_EXTRA_PAR_OFFSET;
 	}
 	
 	gchar *relative_path = symbol_db_util_get_file_db_path (dbe, file_path);
@@ -1528,7 +1536,7 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 	}
 
 	if ((dyn_node = sdb_engine_get_dyn_query_node_by_id (dbe, 
-		DYN_PREP_QUERY_GET_FILE_SYMBOLS, sym_info, 0)) == NULL)
+		DYN_PREP_QUERY_GET_FILE_SYMBOLS, sym_info, other_parameters)) == NULL)
 	{
 		/* info_data contains the stuff after SELECT and befor FROM */
 		info_data = g_string_new ("");
@@ -1555,7 +1563,7 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 	
 		dyn_node = sdb_engine_insert_dyn_query_node_by_id (dbe, 
 						DYN_PREP_QUERY_GET_FILE_SYMBOLS,
-						sym_info, 0,
+						sym_info, other_parameters,
 						query_str);
 		g_free (query_str);
 		g_string_free (info_data, TRUE);
