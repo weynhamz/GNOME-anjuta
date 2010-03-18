@@ -64,7 +64,11 @@ symbol_db_model_global_get_n_children (SymbolDBModel *model, gint tree_level,
 	
 	g_return_val_if_fail (SYMBOL_DB_IS_MODEL_GLOBAL (model), 0);
 	priv = GET_PRIV (model);
-	
+
+	/* If engine is not connected, there is nothing we can show */
+	if (!priv->dbe || !symbol_db_engine_is_connected (priv->dbe))
+		return NULL;
+		
 	switch (tree_level)
 	{
 		case 0:
@@ -100,6 +104,10 @@ symbol_db_model_global_get_children (SymbolDBModel *model, gint tree_level,
 
 	g_return_val_if_fail (SYMBOL_DB_IS_MODEL_GLOBAL (model), 0);
 	priv = GET_PRIV (model);
+	
+	/* If engine is not connected, there is nothing we can show */
+	if (!priv->dbe || !symbol_db_engine_is_connected (priv->dbe))
+		return NULL;
 	
 	g_message ("Retrieving level %d data: %d to %d", tree_level,
 	           offset, offset + limit);
