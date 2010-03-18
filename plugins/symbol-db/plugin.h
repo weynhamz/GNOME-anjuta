@@ -106,7 +106,7 @@ struct _SymbolDBPlugin {
 	GtkWidget *global_button;
 	GtkWidget *search_button;
 	
-	GtkWidget *scrolled_locals;
+	/* GtkWidget *scrolled_locals; */
 	GtkWidget *scrolled_search;
 	GtkWidget *progress_bar_project;		/* symbol db progress bar - project */
 	GtkWidget *progress_bar_system;			/* symbol db progress bar - system (globals) */
@@ -114,7 +114,7 @@ struct _SymbolDBPlugin {
 	GtkWidget *dbv_view_tree1;        		/* symbol_db_view globals */
 	GtkWidget *dbv_view_tab_label;
 	
-	GtkWidget *dbv_view_tree_locals;		/* local symbols */
+	GtkWidget *dbv_view_tree_locals1;		/* local symbols */
 	GtkWidget *dbv_view_locals_tab_label;
 	
 	GtkWidget *dbv_view_tree_search;		/* search symbols */

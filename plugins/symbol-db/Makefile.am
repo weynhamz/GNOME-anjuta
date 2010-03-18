@@ -55,10 +55,6 @@ libanjuta_symbol_db_la_SOURCES = \
 	readtags.h \
 	symbol-db-engine-iterator.c \
 	symbol-db-engine-iterator.h \
-	symbol-db-view.h \
-	symbol-db-view.c \
-	symbol-db-view-locals.c \
-	symbol-db-view-locals.h \
 	symbol-db-view-search.h \
 	symbol-db-view-search.c \
 	symbol-db-engine-iterator-node.h \
@@ -81,8 +77,10 @@ libanjuta_symbol_db_la_SOURCES = \
 	symbol-db-search-command.c \
 	symbol-db-model.c \
 	symbol-db-model.h \
-	symbol-db-model-global.c \
-	symbol-db-model-global.h \
+	symbol-db-model-project.c \
+	symbol-db-model-project.h \
+	symbol-db-model-file.c \
+	symbol-db-model-file.h \
 	symbol-db-views.c \
 	symbol-db-views.h \
 	libgda-extra/gda-data-model-concat.c \
