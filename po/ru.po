@@ -1,27 +1,30 @@
+# translation of anjuta.master.ru.po to Russian
 # Russian translation for anjuta
-# Copyright (C) 2001-2008 Free Software Foundation, Inc.
+# Copyright (C) 2001-2008, 2010 Free Software Foundation, Inc.
+#
 #
 # Valek Filippov <frob@df.ru>, 2001.
 # Denis Dementiev <denm@asplinux.ru>, 2001.
 # Dmitriy Tantsur <lord.divius@gmail.com>, 2007.
 # Sergey Al. Safonov <spoof@spoofa.info>, 2008.
 # Lebedev Roman <roman@lebedev.com>, 2008.
-#
 # Alexander Saprykin <xelfium@gmail.com>, 2009, 2010.
+# Yuri Kozlov <yuray@komyakino.ru>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta trunk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-03 22:53+0200\n"
-"PO-Revision-Date: 2010-03-03 23:42+0300\n"
-"Last-Translator: Yuri Myasoedov <omerta13@yandex.ru>\n"
-"Language-Team: Russian <gnome-cyr@gnome.org>\n"
+"POT-Creation-Date: 2010-03-19 17:51+0200\n"
+"PO-Revision-Date: 2010-03-17 19:15+0300\n"
+"Last-Translator: Yuri Kozlov <yuray@komyakino.ru>\n"
+"Language-Team: Russian <debian-l10n-russian@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Russian\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
@@ -755,11 +758,11 @@ msgstr "Исполняемый файл '%s' требует обновления
 #. * 2 similar strings are used in order to parse the output of 2 different
 #. * version of make if necessary. If you update one string, move the first
 #. * string into the second slot and then replace the first string only.
-#: ../plugins/build-basic-autotools/plugin.c:167
+#: ../plugins/build-basic-autotools/plugin.c:168
 msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+`(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+вход в\\s+каталог\\s+`(.+)'"
 
-#: ../plugins/build-basic-autotools/plugin.c:168
+#: ../plugins/build-basic-autotools/plugin.c:169
 msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+'(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+вход в\\s+каталог\\s+'(.+)'"
 
@@ -768,82 +771,82 @@ msgstr "make(\\[\\d+\\])?:\\s+вход в\\s+каталог\\s+'(.+)'"
 #. * 2 similar strings are used in order to parse the output of 2 different
 #. * version of make if necessary. If you update one string, move the first
 #. * string into the second slot and then replace the first string only.
-#: ../plugins/build-basic-autotools/plugin.c:176
+#: ../plugins/build-basic-autotools/plugin.c:177
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+`(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+выход из\\s+каталога\\s+`(.+)'"
 
-#: ../plugins/build-basic-autotools/plugin.c:177
+#: ../plugins/build-basic-autotools/plugin.c:178
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+выход из\\s+каталога\\s+'(.+)'"
 
-#: ../plugins/build-basic-autotools/plugin.c:845
+#: ../plugins/build-basic-autotools/plugin.c:846
 #, c-format
 msgid "Entering: %s"
 msgstr "Вход: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:881
+#: ../plugins/build-basic-autotools/plugin.c:882
 #, c-format
 msgid "Leaving: %s"
 msgstr "Выход: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:914
+#: ../plugins/build-basic-autotools/plugin.c:915
 #: ../plugins/tools/execute.c:330
 msgid "warning:"
 msgstr "предупреждение:"
 
-#: ../plugins/build-basic-autotools/plugin.c:920
+#: ../plugins/build-basic-autotools/plugin.c:921
 #: ../plugins/tools/execute.c:335
 msgid "error:"
 msgstr "ошибка: "
 
-#: ../plugins/build-basic-autotools/plugin.c:1037
+#: ../plugins/build-basic-autotools/plugin.c:1038
 #, c-format
 msgid "Command exited with status %d"
-msgstr "Команда завершиласть с результатом %d"
+msgstr "Команда завершилась с результатом %d"
 
-#: ../plugins/build-basic-autotools/plugin.c:1047
-#: ../plugins/build-basic-autotools/plugin.c:1523
+#: ../plugins/build-basic-autotools/plugin.c:1048
+#: ../plugins/build-basic-autotools/plugin.c:1524
 #, c-format
 msgid "Command canceled by user"
 msgstr "Команда отменена пользователем"
 
-#: ../plugins/build-basic-autotools/plugin.c:1052
+#: ../plugins/build-basic-autotools/plugin.c:1053
 #, c-format
 msgid "Command aborted by user"
 msgstr "Команда прервана пользователем"
 
-#: ../plugins/build-basic-autotools/plugin.c:1057
+#: ../plugins/build-basic-autotools/plugin.c:1058
 #, c-format
 msgid "Command terminated with signal %d"
 msgstr "Выполнение программы прекращено с сигналом %d"
 
-#: ../plugins/build-basic-autotools/plugin.c:1065
+#: ../plugins/build-basic-autotools/plugin.c:1066
 msgid "Command terminated for an unknown reason"
 msgstr "Выполнение команды прекращено по неизвестной причине"
 
-#: ../plugins/build-basic-autotools/plugin.c:1083
+#: ../plugins/build-basic-autotools/plugin.c:1084
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "Всего заняло времени: %lu секунд\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:1090
+#: ../plugins/build-basic-autotools/plugin.c:1091
 msgid "Completed unsuccessfully\n"
 msgstr "Завершено с ошибкой\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:1098
+#: ../plugins/build-basic-autotools/plugin.c:1099
 #: ../plugins/tools/execute.c:516
 msgid "Completed successfully\n"
 msgstr "Завершено успешно\n"
 
 #. Translators: the first number is the number of the build attemp,
 #. the string is the directory where the build takes place
-#: ../plugins/build-basic-autotools/plugin.c:1186
+#: ../plugins/build-basic-autotools/plugin.c:1187
 #, c-format
 msgid "Build %d: %s"
 msgstr "Сборка %d: %s"
 
 #. Need to run make clean before
-#: ../plugins/build-basic-autotools/plugin.c:1517
+#: ../plugins/build-basic-autotools/plugin.c:1518
 msgid ""
 "Before using this new configuration, the default one needs to be removed. Do "
 "you want to do that ?"
@@ -851,204 +854,204 @@ msgstr ""
 "Перед использованием новой конфигурации конфигурация по умолчанию должна "
 "быть удалена. Хотите удалить её?"
 
-#: ../plugins/build-basic-autotools/plugin.c:1820
+#: ../plugins/build-basic-autotools/plugin.c:1822
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 "Не удалось скомпилировать «%s»: нет правил сборки для файлов данного типа."
 
-#: ../plugins/build-basic-autotools/plugin.c:1955
+#: ../plugins/build-basic-autotools/plugin.c:1957
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
 msgstr ""
 "Не удалось сконфигурировать проект: в %s отсутствует конфигурационный "
 "сценарий."
 
-#: ../plugins/build-basic-autotools/plugin.c:2432
-#: ../plugins/build-basic-autotools/plugin.c:2506
-#: ../plugins/build-basic-autotools/plugin.c:2516
-#: ../plugins/build-basic-autotools/plugin.c:2534
-#: ../plugins/build-basic-autotools/plugin.c:2544
-#: ../plugins/build-basic-autotools/plugin.c:2601
+#: ../plugins/build-basic-autotools/plugin.c:2438
+#: ../plugins/build-basic-autotools/plugin.c:2512
+#: ../plugins/build-basic-autotools/plugin.c:2522
+#: ../plugins/build-basic-autotools/plugin.c:2540
+#: ../plugins/build-basic-autotools/plugin.c:2550
+#: ../plugins/build-basic-autotools/plugin.c:2607
 #, c-format
 msgid "_Build"
 msgstr "С_борка"
 
-#: ../plugins/build-basic-autotools/plugin.c:2436
+#: ../plugins/build-basic-autotools/plugin.c:2442
 msgid "_Build Project"
 msgstr "С_обрать проект"
 
-#: ../plugins/build-basic-autotools/plugin.c:2437
+#: ../plugins/build-basic-autotools/plugin.c:2443
 msgid "Build whole project"
 msgstr "Собрать весь проект"
 
-#: ../plugins/build-basic-autotools/plugin.c:2442
+#: ../plugins/build-basic-autotools/plugin.c:2448
 msgid "_Install Project"
 msgstr "Ус_тановить проект"
 
-#: ../plugins/build-basic-autotools/plugin.c:2443
+#: ../plugins/build-basic-autotools/plugin.c:2449
 msgid "Install whole project"
 msgstr "Установить весь проект"
 
-#: ../plugins/build-basic-autotools/plugin.c:2448
+#: ../plugins/build-basic-autotools/plugin.c:2454
 msgid "_Clean Project"
 msgstr "О_чистить проект"
 
-#: ../plugins/build-basic-autotools/plugin.c:2449
+#: ../plugins/build-basic-autotools/plugin.c:2455
 msgid "Clean whole project"
 msgstr "Очистить весь проект"
 
-#: ../plugins/build-basic-autotools/plugin.c:2454
+#: ../plugins/build-basic-autotools/plugin.c:2460
 msgid "C_onfigure Project…"
 msgstr "Н_астроить проект..."
 
-#: ../plugins/build-basic-autotools/plugin.c:2455
+#: ../plugins/build-basic-autotools/plugin.c:2461
 msgid "Configure project"
 msgstr "Настроить проект"
 
-#: ../plugins/build-basic-autotools/plugin.c:2460
+#: ../plugins/build-basic-autotools/plugin.c:2466
 msgid "Build _Tarball"
 msgstr "Собрать _архив с проектом"
 
-#: ../plugins/build-basic-autotools/plugin.c:2461
+#: ../plugins/build-basic-autotools/plugin.c:2467
 msgid "Build project tarball distribution"
 msgstr "Собрать tar-архив проекта для распространения"
 
-#: ../plugins/build-basic-autotools/plugin.c:2466
+#: ../plugins/build-basic-autotools/plugin.c:2472
 msgid "_Build Module"
 msgstr "С_обрать модуль"
 
-#: ../plugins/build-basic-autotools/plugin.c:2467
+#: ../plugins/build-basic-autotools/plugin.c:2473
 msgid "Build module associated with current file"
 msgstr "Собрать модуль, ассоциированный с текущим файлом"
 
-#: ../plugins/build-basic-autotools/plugin.c:2472
+#: ../plugins/build-basic-autotools/plugin.c:2478
 msgid "_Install Module"
 msgstr "Установить м_одуль"
 
-#: ../plugins/build-basic-autotools/plugin.c:2473
+#: ../plugins/build-basic-autotools/plugin.c:2479
 msgid "Install module associated with current file"
 msgstr "Установить модуль, ассоциированный с текущим файлом"
 
-#: ../plugins/build-basic-autotools/plugin.c:2478
+#: ../plugins/build-basic-autotools/plugin.c:2484
 msgid "_Clean Module"
 msgstr "Очистить _модуль"
 
-#: ../plugins/build-basic-autotools/plugin.c:2479
+#: ../plugins/build-basic-autotools/plugin.c:2485
 msgid "Clean module associated with current file"
 msgstr "Очистить модуль, ассоциированный с текущим файлом"
 
-#: ../plugins/build-basic-autotools/plugin.c:2484
+#: ../plugins/build-basic-autotools/plugin.c:2490
 msgid "Co_mpile File"
 msgstr "_Компилировать файл"
 
-#: ../plugins/build-basic-autotools/plugin.c:2485
+#: ../plugins/build-basic-autotools/plugin.c:2491
 msgid "Compile current editor file"
 msgstr "Скомпилировать текущий редактируемый файл"
 
-#: ../plugins/build-basic-autotools/plugin.c:2490
+#: ../plugins/build-basic-autotools/plugin.c:2496
 msgid "Select Configuration"
 msgstr "Выбрать конфигурацию"
 
-#: ../plugins/build-basic-autotools/plugin.c:2491
+#: ../plugins/build-basic-autotools/plugin.c:2497
 msgid "Select current configuration"
 msgstr "Выбор текущей конфигурации"
 
-#: ../plugins/build-basic-autotools/plugin.c:2496
+#: ../plugins/build-basic-autotools/plugin.c:2502
 msgid "Remove Configuration"
 msgstr "Удалить конфигурацию"
 
-#: ../plugins/build-basic-autotools/plugin.c:2497
+#: ../plugins/build-basic-autotools/plugin.c:2503
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr ""
 "Очистить проект (distclean) и удалить конфигурационный каталог, если это "
 "возможно"
 
-#: ../plugins/build-basic-autotools/plugin.c:2510
-#: ../plugins/build-basic-autotools/plugin.c:2538
+#: ../plugins/build-basic-autotools/plugin.c:2516
+#: ../plugins/build-basic-autotools/plugin.c:2544
 msgid "_Compile"
 msgstr "С_компилировать"
 
-#: ../plugins/build-basic-autotools/plugin.c:2511
-#: ../plugins/build-basic-autotools/plugin.c:2539
+#: ../plugins/build-basic-autotools/plugin.c:2517
+#: ../plugins/build-basic-autotools/plugin.c:2545
 msgid "Compile file"
 msgstr "Скомпилировать файл"
 
-#: ../plugins/build-basic-autotools/plugin.c:2517
-#: ../plugins/build-basic-autotools/plugin.c:2545
+#: ../plugins/build-basic-autotools/plugin.c:2523
+#: ../plugins/build-basic-autotools/plugin.c:2551
 msgid "Build module"
 msgstr "Собрать модуль"
 
-#: ../plugins/build-basic-autotools/plugin.c:2522
-#: ../plugins/build-basic-autotools/plugin.c:2550
-#: ../plugins/build-basic-autotools/plugin.c:2608
+#: ../plugins/build-basic-autotools/plugin.c:2528
+#: ../plugins/build-basic-autotools/plugin.c:2556
+#: ../plugins/build-basic-autotools/plugin.c:2614
 #, c-format
 msgid "_Install"
 msgstr "_Установить"
 
-#: ../plugins/build-basic-autotools/plugin.c:2523
-#: ../plugins/build-basic-autotools/plugin.c:2551
+#: ../plugins/build-basic-autotools/plugin.c:2529
+#: ../plugins/build-basic-autotools/plugin.c:2557
 msgid "Install module"
 msgstr "Установить модуль"
 
-#: ../plugins/build-basic-autotools/plugin.c:2528
-#: ../plugins/build-basic-autotools/plugin.c:2556
-#: ../plugins/build-basic-autotools/plugin.c:2615
+#: ../plugins/build-basic-autotools/plugin.c:2534
+#: ../plugins/build-basic-autotools/plugin.c:2562
+#: ../plugins/build-basic-autotools/plugin.c:2621
 #, c-format
 msgid "_Clean"
 msgstr "_Очистить"
 
-#: ../plugins/build-basic-autotools/plugin.c:2529
-#: ../plugins/build-basic-autotools/plugin.c:2557
+#: ../plugins/build-basic-autotools/plugin.c:2535
+#: ../plugins/build-basic-autotools/plugin.c:2563
 msgid "Clean module"
 msgstr "Очистить модуль"
 
-#: ../plugins/build-basic-autotools/plugin.c:2562
+#: ../plugins/build-basic-autotools/plugin.c:2568
 msgid "_Cancel command"
 msgstr "_Остановить выполнение команды"
 
-#: ../plugins/build-basic-autotools/plugin.c:2563
+#: ../plugins/build-basic-autotools/plugin.c:2569
 msgid "Cancel build command"
 msgstr "Остановить команду сборки"
 
-#: ../plugins/build-basic-autotools/plugin.c:2601
+#: ../plugins/build-basic-autotools/plugin.c:2607
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Собрать (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2608
+#: ../plugins/build-basic-autotools/plugin.c:2614
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Установить (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2615
+#: ../plugins/build-basic-autotools/plugin.c:2621
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Очистить (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2623
+#: ../plugins/build-basic-autotools/plugin.c:2629
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "_Компилировать (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2623
+#: ../plugins/build-basic-autotools/plugin.c:2629
 #, c-format
 msgid "Co_mpile"
 msgstr "_Компилировать"
 
-#: ../plugins/build-basic-autotools/plugin.c:3159
+#: ../plugins/build-basic-autotools/plugin.c:3165
 msgid "Build commands"
 msgstr "Команды для сборки"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:3168
+#: ../plugins/build-basic-autotools/plugin.c:3174
 msgid "Build popup commands"
 msgstr "Всплывающие команды для сборки"
 
-#: ../plugins/build-basic-autotools/plugin.c:3550
-#: ../plugins/build-basic-autotools/plugin.c:3558
+#: ../plugins/build-basic-autotools/plugin.c:3556
+#: ../plugins/build-basic-autotools/plugin.c:3564
 msgid "Build Autotools"
 msgstr "Сборка с Autotools"
 
@@ -1409,8 +1412,8 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "Игнорировать файл .cvsrc (рекомендуется)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
-#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2329
-#: ../plugins/symbol-db/plugin.c:2399
+#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2327
+#: ../plugins/symbol-db/plugin.c:2397
 msgid "Local"
 msgstr "Локальные"
 
@@ -2628,8 +2631,8 @@ msgstr "Содержание"
 #: ../plugins/search/search-replace.c:1717
 #: ../plugins/search/search-replace.c:1724
 #: ../plugins/search/search-replace.c:1736
-#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2333
-#: ../plugins/symbol-db/plugin.c:2449
+#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2331
+#: ../plugins/symbol-db/plugin.c:2447
 msgid "Search"
 msgstr "Поиск"
 
@@ -3032,7 +3035,7 @@ msgstr "Повторить быстрый поиск"
 
 #: ../plugins/document-manager/plugin.c:271 ../plugins/gtodo/interface.c:168
 #: ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:1878
+#: ../plugins/language-support-cpp-java/plugin.c:1882
 msgid "_Edit"
 msgstr "_Правка"
 
@@ -3416,6 +3419,7 @@ msgid "This function is not implemented for widgets of class '%s'"
 msgstr "Эта функция ещё не реализована для виджетов класса «%s»"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:937
+#: ../plugins/starter/starter.c:111
 #, c-format
 msgid "Open '%s'"
 msgstr "Открыть '%s'"
@@ -3646,7 +3650,7 @@ msgid "Filter"
 msgstr "Фильтр"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2331 ../plugins/symbol-db/plugin.c:2425
+#: ../plugins/symbol-db/plugin.c:2329 ../plugins/symbol-db/plugin.c:2423
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:6
 msgid "Global"
 msgstr "Глобальные"
@@ -3659,15 +3663,15 @@ msgstr "Корневой каталог, если нет открытых про
 msgid "Loading..."
 msgstr "Загрузка..."
 
-#: ../plugins/file-manager/file-view.c:567
+#: ../plugins/file-manager/file-view.c:569
 msgid "Filename"
 msgstr "Имя файла"
 
-#: ../plugins/file-manager/file-view.c:654
+#: ../plugins/file-manager/file-view.c:656
 msgid "Base URI"
 msgstr "Базовый URI"
 
-#: ../plugins/file-manager/file-view.c:655
+#: ../plugins/file-manager/file-view.c:657
 msgid "URI of the top-most path displayed"
 msgstr "URI начального элемента"
 
@@ -3727,7 +3731,7 @@ msgid "Name:"
 msgstr "Имя:"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:10
-#: ../plugins/starter/starter.c:409
+#: ../plugins/starter/starter.c:422
 msgid "New File"
 msgstr "Создать файл"
 
@@ -5993,7 +5997,7 @@ msgstr "Вставлять заготовку обработчика"
 
 #: ../plugins/glade/plugin.c:4010 ../plugins/glade/plugin.c:4012
 msgid "Insert handler stub, autoposition"
-msgstr "Вставлять загтовку обработчика, автоматически размещая её в коде"
+msgstr "Вставлять заготовку обработчика, автоматически размещая её в коде"
 
 #: ../plugins/glade/plugin.c:4018
 msgid "Associate last designer and last editor"
@@ -6591,7 +6595,7 @@ msgstr "Ошибки:"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:6
 msgid "Indicators"
-msgstr "Инидикаторы"
+msgstr "Индикаторы"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:8
 msgid "Message colors"
@@ -6639,7 +6643,7 @@ msgstr "Подчёркнутый волнистой линией"
 #. text style in editor, TT is for typewriter text
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:24
 msgid "Underline-TT"
-msgstr "Подчёркнутый моноширный"
+msgstr "Подчёркнутый моноширинный"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:25
 msgid "Warning message indicator style:"
@@ -6730,7 +6734,7 @@ msgstr "_Следующее сообщение"
 
 #: ../plugins/message-view/plugin.c:83
 msgid "Next message"
-msgstr "Следующее сообшение"
+msgstr "Следующее сообщение"
 
 #: ../plugins/message-view/plugin.c:86
 msgid "_Previous Message"
@@ -7319,7 +7323,7 @@ msgstr "Файл «%s» уже существует. Хотите перепис
 
 #: ../plugins/project-wizard/druid.c:679
 msgid "Invalid entry"
-msgstr "Некорреткный элемент"
+msgstr "Некорректный элемент"
 
 #: ../plugins/project-wizard/druid.c:690
 msgid "Dubious entry"
@@ -8287,7 +8291,7 @@ msgstr[2] "Заменено %d совпадений."
 msgid "Unable to build user interface for Search and Replace"
 msgstr "Не удалось построить интерфейс пользователя для «Поиска и замены»"
 
-#: ../plugins/sourceview/sourceview.c:366
+#: ../plugins/sourceview/sourceview.c:374
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
@@ -8296,7 +8300,7 @@ msgstr ""
 "Файл «%s» на диске новее, чем в текущем буфере.\n"
 "Хотите перезагрузить его?"
 
-#: ../plugins/sourceview/sourceview.c:403
+#: ../plugins/sourceview/sourceview.c:411
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -8306,18 +8310,18 @@ msgstr ""
 "Закрыть его?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:440
+#: ../plugins/sourceview/sourceview.c:448
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "Не удалось открыть %s: %s"
 
-#: ../plugins/sourceview/sourceview.c:494
+#: ../plugins/sourceview/sourceview.c:502
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr "Файл «%s» только для чтения! Всё равно править?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:553
+#: ../plugins/sourceview/sourceview.c:561
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "Не удалось сохранить %s: %s"
@@ -8429,32 +8433,32 @@ msgstr "Вид"
 msgid "Wrap long lines to fit on paper"
 msgstr "Переносить длинные строки по размеру страницы"
 
-#: ../plugins/starter/plugin.c:70 ../plugins/starter/starter.c:349
+#: ../plugins/starter/plugin.c:70 ../plugins/starter/starter.c:362
 #: ../plugins/starter/anjuta-starter.plugin.in.h:1
 msgid "Starter"
 msgstr "Начало"
 
-#: ../plugins/starter/starter.c:390
+#: ../plugins/starter/starter.c:403
 msgid "Create File/Project"
 msgstr "Создать файл или проект"
 
-#: ../plugins/starter/starter.c:424
+#: ../plugins/starter/starter.c:437
 msgid "Recent Projects"
 msgstr "Недавние проекты"
 
-#: ../plugins/starter/starter.c:455
+#: ../plugins/starter/starter.c:468
 msgid "Links"
 msgstr "Ссылки"
 
-#: ../plugins/starter/starter.c:474
+#: ../plugins/starter/starter.c:487
 msgid "Anjuta Home Page"
 msgstr "Домашняя страница Anjuta"
 
-#: ../plugins/starter/starter.c:480
+#: ../plugins/starter/starter.c:493
 msgid "Anjuta Manual"
 msgstr "Руководство пользователя Anjuta"
 
-#: ../plugins/starter/starter.c:486
+#: ../plugins/starter/starter.c:499
 msgid "GNOME Online API Documentation"
 msgstr "Документация по API Gnome в Интернете"
 
@@ -8993,39 +8997,39 @@ msgstr "Найти _символ..."
 msgid "Find Symbol"
 msgstr "Найти символ"
 
-#: ../plugins/symbol-db/plugin.c:1175
+#: ../plugins/symbol-db/plugin.c:1173
 #, c-format
 msgid "%s: Generating inheritances…"
 msgstr "%s: генерируются наследования..."
 
-#: ../plugins/symbol-db/plugin.c:1180
+#: ../plugins/symbol-db/plugin.c:1178
 #, c-format
 msgid "%s: %d files scanned out of %d"
 msgstr "%s: обработано файлов: %d из %d"
 
-#: ../plugins/symbol-db/plugin.c:1211
+#: ../plugins/symbol-db/plugin.c:1209
 #, c-format
 msgid "Generating inheritances…"
 msgstr "Генерирование наследований..."
 
-#: ../plugins/symbol-db/plugin.c:1213
+#: ../plugins/symbol-db/plugin.c:1211
 #, c-format
 msgid "%d files scanned out of %d"
 msgstr "обработано файлов: %d из %d"
 
-#: ../plugins/symbol-db/plugin.c:1981
+#: ../plugins/symbol-db/plugin.c:1979
 msgid "Populating symbol database…"
-msgstr "Наполнение базы симольных данных..."
+msgstr "Наполнение базы символьных данных..."
 
-#: ../plugins/symbol-db/plugin.c:2354 ../plugins/symbol-db/plugin.c:2482
+#: ../plugins/symbol-db/plugin.c:2352 ../plugins/symbol-db/plugin.c:2480
 msgid "Symbols"
 msgstr "Символы"
 
-#: ../plugins/symbol-db/plugin.c:2491
+#: ../plugins/symbol-db/plugin.c:2489
 msgid "SymbolDb popup actions"
 msgstr "Всплывающие действия базы символьных данных"
 
-#: ../plugins/symbol-db/plugin.c:2499
+#: ../plugins/symbol-db/plugin.c:2497
 msgid "SymbolDb menu actions"
 msgstr "Действия меню базы символьных данных"
 
@@ -9048,11 +9052,11 @@ msgid "Resuming glb scan."
 msgstr "Продолжается сканирование glb."
 
 #: ../plugins/symbol-db/symbol-db-view-locals.c:326
-#: ../plugins/symbol-db/symbol-db-view.c:1413
+#: ../plugins/symbol-db/symbol-db-view.c:1412
 msgid "Symbol"
 msgstr "Символ"
 
-#: ../plugins/symbol-db/symbol-db-view.c:799
+#: ../plugins/symbol-db/symbol-db-view.c:798
 msgid "Loading…"
 msgstr "Загрузка..."
 
@@ -9210,7 +9214,7 @@ msgstr "спросить во время выполнения"
 
 #: ../plugins/tools/editor.c:321
 msgid "undefined"
-msgstr "неопределено"
+msgstr "не определено"
 
 #: ../plugins/tools/editor.c:471
 msgid "Meaning"
@@ -9623,42 +9627,42 @@ msgstr "Комбинации клавиш"
 msgid "Value doesn't exist"
 msgstr "Значение не существует"
 
-#: ../src/main.c:62
+#: ../src/main.c:74
 msgid "Specify the size and location of the main window"
 msgstr "Укажите размер и положение главного окна"
 
 #. This is the format you can specify the size andposition
 #. * of the window on command line
-#: ../src/main.c:65
+#: ../src/main.c:77
 msgid "WIDTHxHEIGHT+XOFF+YOFF"
 msgstr "WIDTHxHEIGHT+XOFF+YOFF"
 
-#: ../src/main.c:70
+#: ../src/main.c:82
 msgid "Do not show the splash screen"
 msgstr "Не показывать заставку при запуске"
 
-#: ../src/main.c:76
+#: ../src/main.c:88
 msgid "Start a new instance and do not open the file in an existing instance"
 msgstr "Запустить новый экземпляр и не открывать файл в существующем"
 
-#: ../src/main.c:82
+#: ../src/main.c:94
 msgid "Do not open last session on startup"
 msgstr "Не открывать последний сеанс при запуске"
 
-#: ../src/main.c:88
+#: ../src/main.c:100
 msgid "Do not open last project and files on startup"
 msgstr "Не открывать последние проект и файлы при запуске"
 
-#: ../src/main.c:94
+#: ../src/main.c:106
 msgid "Shut down Anjuta properly, releasing all resources (for debugging)"
 msgstr ""
 "Завершать работу Anjuta, последовательно освобождая все ресурсы (для отладки)"
 
-#: ../src/main.c:156
+#: ../src/main.c:174
 msgid "- Integrated Development Environment"
 msgstr "- Интегрированная среда разработки"
 
-#: ../src/main.c:232
+#: ../src/main.c:250
 msgid "Anjuta"
 msgstr "Интегрированная среда разработки Anjuta"
 
@@ -9762,86 +9766,82 @@ msgid "Autocompletion (C/C++/Java only)"
 msgstr "Автодополнение (только для C/C++/Java)"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:5
-msgid "Autocompletion pop up choices"
-msgstr "Вариантов в окне автодополнения"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:6
 msgid "Brace indentation size in spaces:"
 msgstr "Отступ скобки в пробелах:"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:7
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:6
 msgid "Calltips"
 msgstr "Вызовы"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:8
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:7
 msgid "Enable code completion"
 msgstr "Включить завершение кода"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:9
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:8
 msgid "Enable smart brace completion"
 msgstr "Включить интеллектуальное дополнение скобок"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:10
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:9
 msgid "Enable smart indentation"
 msgstr "Включить «умные» отступы"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:11
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:10
 msgid "Indent:"
 msgstr "Отступ:"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:12
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:11
 msgid "Indentation parameters"
 msgstr "Параметры отступов"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:13
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:12
 msgid "Line up parentheses"
 msgstr "Выстраивать скобки"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:13
 msgid "Parenthesis indentation"
 msgstr "Отступы скобок"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:7
 msgid "Show calltips"
 msgstr "Показывать подсказку по функциям"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
 msgid "Smart Indentation"
 msgstr "«Умные» отступы"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:17
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
 msgid "Statement indentation size in spaces:"
 msgstr "Размер отступа в пробелах:"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1884
+#: ../plugins/language-support-cpp-java/plugin.c:1888
 msgid "Auto-Indent"
 msgstr "Автоматические отступы"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1885
+#: ../plugins/language-support-cpp-java/plugin.c:1889
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr ""
 "Автоматически выравнивать текущую строку или выделение на основе параметров "
 "выравнивания"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1890
+#: ../plugins/language-support-cpp-java/plugin.c:1894
 msgid "Swap .h/.c"
 msgstr "Переключить .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1891
+#: ../plugins/language-support-cpp-java/plugin.c:1895
 msgid "Swap C header and source files"
 msgstr "Переключение между файлами заголовков и исходных текстов"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1932
+#: ../plugins/language-support-cpp-java/plugin.c:1936
 msgid "C++/Java Assistance"
 msgstr "Поддержка C++/Java"
 
-#: ../plugins/language-support-cpp-java/plugin.c:2025
-#: ../plugins/language-support-cpp-java/plugin.c:2034
+#: ../plugins/language-support-cpp-java/plugin.c:2048
+#: ../plugins/language-support-cpp-java/plugin.c:2061
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
-#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1101
+#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1368
 msgid "C/C++"
 msgstr "C/C++"
 
@@ -10121,1158 +10121,3 @@ msgstr "Подсвечивать пропущенную точку с запят
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
 msgid "Min character for completion "
 msgstr "Минимальное число символов для дополнения"
-
-#~ msgid "PyGTK (automake)"
-#~ msgstr "PyGTK (automake)"
-
-#~| msgid "Project name"
-#~ msgid "PyGTK project using automake"
-#~ msgstr "Проект PyGTK, использующий automake"
-
-#~ msgid "private"
-#~ msgstr "закрытый"
-
-#~ msgid "protected"
-#~ msgstr "защищённый"
-
-#~ msgid "public"
-#~ msgstr "открытый"
-
-#, fuzzy
-#~ msgid "wxWidgets"
-#~ msgstr "Виджеты"
-
-#~ msgid "Gdb plugin."
-#~ msgstr "Модуль Gdb."
-
-#~ msgid "Up to date"
-#~ msgstr "Не требует обновления"
-
-#~ msgid "<b>Build</b>"
-#~ msgstr "<b>Сборка</b>"
-
-#~ msgid "<b>Configuration:</b>"
-#~ msgstr "<b>Конфигурация:</b>"
-
-#~ msgid "<b>Install</b>"
-#~ msgstr "<b>Установка</b>"
-
-#~ msgid "Program '%s' does not exists"
-#~ msgstr "Программа «%s» не существует"
-
-#~ msgid "C_onfigure Project..."
-#~ msgstr "_Настроить проект..."
-
-#~ msgid "<b>CVS Options</b>"
-#~ msgstr "<b>Параметры CVS</b>"
-
-#~ msgid "<b>Options:</b>"
-#~ msgstr "<b>Параметры:</b>"
-
-#~ msgid "<b>Options</b>"
-#~ msgstr "<b>Параметры</b>"
-
-#~ msgid "<b>Repository: </b>"
-#~ msgstr "<b>Репозиторий: </b>"
-
-#~ msgid "<b>Debugger:</b>"
-#~ msgstr "<b>Отладчик:</b>"
-
-#~ msgid "Debugger Command..."
-#~ msgstr "Команда отладки..."
-
-#~ msgid "Pid"
-#~ msgstr "Pid"
-
-#~ msgid "Id"
-#~ msgstr "Идентификационный номер"
-
-#~ msgid "Ins_pect/Evaluate..."
-#~ msgstr "Посмотреть или _вычислить..."
-
-#~ msgid "Add Watch..."
-#~ msgstr "Добавить в окно наблюдения..."
-
-#~ msgid "_Print..."
-#~ msgstr "Пе_чать..."
-
-#~ msgid "recent menu label|_%d. %s"
-#~ msgstr "_%d. %s"
-
-#~ msgid "recent menu label|%d. %s"
-#~ msgstr "%d. %s"
-
-#~ msgid "_Open..."
-#~ msgstr "_Открыть..."
-
-#~ msgid "Url:"
-#~ msgstr "URL:"
-
-#~ msgid "Advanced..."
-#~ msgstr "Дополнительно..."
-
-#~ msgid "Source coudn't be removed"
-#~ msgstr "Файл исходного кода не может быть удалён"
-
-#~ msgid "<b>Tags</b>"
-#~ msgstr "<b>Метки</b>"
-
-#~ msgid "Add signed off by line"
-#~ msgstr "Добавить подпись"
-
-#~ msgid "_Commit..."
-#~ msgstr "_Фиксировать..."
-
-#~ msgid "_View log..."
-#~ msgstr "_Просмотреть журнал..."
-
-#~ msgid "_Push..."
-#~ msgstr "_Внести..."
-
-#~ msgid "_Pull..."
-#~ msgstr "_Извлечь..."
-
-#~ msgid "_Add..."
-#~ msgstr "_Добавить..."
-
-#~ msgid "_Remove..."
-#~ msgstr "_Удалить"
-
-#~ msgid "_Ignore..."
-#~ msgstr "_Игнорировать..."
-
-#~ msgid "Create patch series..."
-#~ msgstr "Создать серию заплаток..."
-
-#~ msgid "_Switch to another branch..."
-#~ msgstr "_Переключиться на ветвь..."
-
-#~ msgid "_Merge..."
-#~ msgstr "О_бъединить..."
-
-#~ msgid "_Delete..."
-#~ msgstr "_Удалить..."
-
-#~ msgid "_Delete tag..."
-#~ msgstr "_Удалить метку..."
-
-#~ msgid "Unknown language of the editor \"%s\""
-#~ msgstr "Неизвестный язык для редактора «%s»"
-
-#~ msgid "n/a"
-#~ msgstr "н/д"
-
-#~ msgid "Misc"
-#~ msgstr "Прочее"
-
-#~ msgid "<b>Macros:</b>"
-#~ msgstr "<b>Макросы:</b>"
-
-#~ msgid "Edit..."
-#~ msgstr "Изменить..."
-
-#~ msgid "Macros..."
-#~ msgstr "Макросы..."
-
-#~ msgid "_Patch..."
-#~ msgstr "_Заплатка..."
-
-#~ msgid "<b>Project name</b>"
-#~ msgstr "<b>Название проекта</b>"
-
-#~ msgid "_Select file to add..."
-#~ msgstr "_Выбрать файл для добавления..."
-
-#~ msgid "Add _Group..."
-#~ msgstr "Добавить _группу..."
-
-#~ msgid "Add _Target..."
-#~ msgstr "Добавить _цель..."
-
-#~ msgid "Add _Source File..."
-#~ msgstr "Добавить _файл исходных текстов..."
-
-#~ msgid "_Add To Project"
-#~ msgstr "_Добавить к проекту"
-
-#~ msgid "Select project type"
-#~ msgstr "Выберите тип проекта"
-
-#~ msgid "Create a template gtk builder interface file"
-#~ msgstr "Создать шаблон файла построителя gtk-интерфейсов"
-
-#~ msgid "Run In Terminal"
-#~ msgstr "Запускать в терминале"
-
-#~ msgid "Program Parameters..."
-#~ msgstr "Параметры программы..."
-
-#~ msgid "<b>Actions</b>"
-#~ msgstr "<b>Действия</b>"
-
-#~ msgid "<b>Parameters</b>"
-#~ msgstr "<b>Параметры</b>"
-
-#~ msgid "<b>Scope</b>"
-#~ msgstr "<b>Видимость</b>"
-
-#~ msgid "Searching..."
-#~ msgstr "Поиск..."
-
-#~ msgid "_Update..."
-#~ msgstr "_Обновить..."
-
-#~ msgid "Merge..."
-#~ msgstr "Объединить..."
-
-#~ msgid "_View Log..."
-#~ msgstr "_Просмотреть журнал..."
-
-#~ msgid "_Diff..."
-#~ msgstr "Р_азличия..."
-
-#~ msgid "Copy..."
-#~ msgstr "Копировать..."
-
-#~ msgid "Diff..."
-#~ msgstr "Различия..."
-
-#~ msgid "_Find Symbol..."
-#~ msgstr "Н_айти символ..."
-
-#~ msgid "<b>Global</b>"
-#~ msgstr "<b>Общие</b>"
-
-#~ msgid "<b>Terminal options</b>"
-#~ msgstr "<b>Параметры терминала</b>"
-
-#~ msgid "<b>Tools</b>"
-#~ msgstr "<b>Инструменты</b>"
-
-#~ msgid "_Variable..."
-#~ msgstr "_Переменные..."
-
-#~ msgid "GtkSourceview editor"
-#~ msgstr "Редактор GtkSourceview"
-
-#~ msgid "Fixed data-view"
-#~ msgstr "Фиксированное представление данных"
-
-#~ msgid "Inheritance Graph"
-#~ msgstr "Граф наследования"
-
-#~ msgid ""
-#~ "General Public License (GPL)\n"
-#~ "Lesser General Public License (LGPL)\n"
-#~ "No License"
-#~ msgstr ""
-#~ "Универсальная общественная лицензия (GPL)\n"
-#~ "Ограниченная универсальная общественная лицензия (LGPL)\n"
-#~ "Лицензия отсутствует"
-
-#~ msgid "Directory"
-#~ msgstr "Каталог"
-
-#~ msgid ""
-#~ "Top\n"
-#~ "Bottom\n"
-#~ "Left\n"
-#~ "Right"
-#~ msgstr ""
-#~ "Сверху\n"
-#~ "Снизу\n"
-#~ "Слева\n"
-#~ "Справа"
-
-#~ msgid "<b>Filter</b>"
-#~ msgstr "<b>Фильтр</b>"
-
-#~ msgid "*"
-#~ msgstr "*"
-
-#~ msgid "Command Line Parameters"
-#~ msgstr "Параметры командной строки"
-
-#~ msgid "Enter a Hexa adress or select one in the data"
-#~ msgstr "Введите шестнадцатеричный адрес или выберите его в данных"
-
-#~ msgid "Execute Program"
-#~ msgstr "Выполнить программу"
-
-#~ msgid "_Pass:"
-#~ msgstr "_Проход:"
-
-#~ msgid "<b>Log Message:</b>"
-#~ msgstr "<b>Сообщение для журнала:</b>"
-
-#~ msgid "<b>Log message:</b>"
-#~ msgstr "<b>Сообщение для журнала:</b>"
-
-#~ msgid "<b>Mode:</b>"
-#~ msgstr "<b>Режим:</b>"
-
-#~ msgid "<b>Revision:</b>"
-#~ msgstr "<b>Правка:</b>"
-
-#~ msgid "<b>Select file to add:</b>"
-#~ msgstr "<b>Выберите файлы для добавления:</b>"
-
-#~ msgid "<b>Tag name:</b>"
-#~ msgstr "<b>Метка:</b>"
-
-#~ msgid "<b>URL:</b>"
-#~ msgstr "<b>URL:</b>"
-
-#~ msgid "on_widget_signal"
-#~ msgstr "on_widget_signal"
-
-#~ msgid "widget_signal_cb"
-#~ msgstr "widget_signal_cb"
-
-#~ msgid ""
-#~ "Underline-Plain\n"
-#~ "Underline-Squiggle\n"
-#~ "Underline-TT\n"
-#~ "Diagonal\n"
-#~ "Strike-Out"
-#~ msgstr ""
-#~ "Подчёркнуть\n"
-#~ "Подчёркнуть волной\n"
-#~ "Подчёркнуть прерывистой \n"
-#~ "По диагонали\n"
-#~ "Перечеркнуть"
-
-#~ msgid "Function Name"
-#~ msgstr "Имя функции"
-
-#~ msgid "Self"
-#~ msgstr "Собственное"
-
-#~ msgid "Children"
-#~ msgstr "Потомки"
-
-#~ msgid "% Time"
-#~ msgstr "% Время"
-
-#~ msgid "Cumulative Seconds"
-#~ msgstr "Общее время"
-
-#~ msgid "Self Seconds"
-#~ msgstr "Собственное время"
-
-#~ msgid "Self ms/call"
-#~ msgstr "Собственное мс/вызов"
-
-#~ msgid "Total ms/call"
-#~ msgstr "Общее мс/вызов"
-
-#~ msgid ""
-#~ "Could not get profiling data.\n"
-#~ "\n"
-#~ "Please check the path to this target's profiling data file."
-#~ msgstr ""
-#~ "Не удалось получить профилировочную информацию.\n"
-#~ "\n"
-#~ "Проверьте путь к файлу с профилировочной информацией этой цели."
-
-#~ msgid ""
-#~ "This target does not have any profiling data.\n"
-#~ "\n"
-#~ "Please ensure that the target is complied with profiling support and that "
-#~ "it is run at least once."
-#~ msgstr ""
-#~ "Эта цель не содержит профилировочной информации.\n"
-#~ "\n"
-#~ "Убедитесь, что цель скомпилирована с поддержкой профилирования и запущена "
-#~ "по крайней мере один раз"
-
-#~ msgid "Profiler"
-#~ msgstr "Профилировщик"
-
-#~ msgid "Select Target..."
-#~ msgstr "Выбрать цель..."
-
-#~ msgid "Refresh"
-#~ msgstr "_Обновить"
-
-#~ msgid "Application Performance Profiler"
-#~ msgstr "Профилировщик производительности приложения"
-
-#~ msgid "Flat Profile"
-#~ msgstr "Простой профиль"
-
-#~ msgid "Call Graph"
-#~ msgstr "Граф вызовов"
-
-#~ msgid "Function Call Tree"
-#~ msgstr "Дерево вызова функций"
-
-#~ msgid "Function Call Chart"
-#~ msgstr "Диаграмма вызовов функции"
-
-#~ msgid "<b>Called By</b>"
-#~ msgstr "<b>Вызывано из</b>"
-
-#~ msgid "<b>Called</b>"
-#~ msgstr "<b>Вызвано</b>"
-
-#~ msgid "<b>Functions</b>"
-#~ msgstr "<b>Функции</b>"
-
-#~ msgid "<b>Profiling Data</b>"
-#~ msgstr "<b>Информация о профилировании</b>"
-
-#~ msgid "<b>Select Target to Profile</b>"
-#~ msgstr "<b>Выберите цель для профилирования</b>"
-
-#~ msgid "<b>Symbols</b>"
-#~ msgstr "<b>Символы</b>"
-
-#~ msgid "<b>Time Propagation</b>"
-#~ msgstr "<b>Разделение времени</b>"
-
-#~ msgid "Automatically refresh profile data display"
-#~ msgstr "Автоматически обновлять отображение данных о профилировании"
-
-#~ msgid "Do not propagate time for these symbols:"
-#~ msgstr "Не разделять время на эти символы:"
-
-#~ msgid "Do not show static functions"
-#~ msgstr "Не показывать статические функции"
-
-#~ msgid "Do not show these symbols:"
-#~ msgstr "Не показывать следующие символы:"
-
-#~ msgid ""
-#~ "Enter one symbol specification per line.\n"
-#~ "\n"
-#~ "For information on symbol specifications, see section \n"
-#~ "4.5 of the gprof info page."
-#~ msgstr ""
-#~ "Задайте один символ на строчку.\n"
-#~ "\n"
-#~ "Для получения информации о формате символов, прочитайте\n"
-#~ "раздел 4.5 страницы информации info по приложению gprof."
-
-#~ msgid "Options..."
-#~ msgstr "Параметры..."
-
-#~ msgid "Profiling Options"
-#~ msgstr "Параметры профилирования"
-
-#~ msgid "Propagate time for all symbols"
-#~ msgstr "Разделять время на все символы"
-
-#~ msgid "Propagate time for only these symbols:"
-#~ msgstr "Разделять время только на эти символы:"
-
-#~ msgid "Select Other Target..."
-#~ msgstr "Выбрать другие цели..."
-
-#~ msgid "Select Profiling Target"
-#~ msgstr "Выбрать цель для профилирования"
-
-#~ msgid "Show all symbols"
-#~ msgstr "Показывать все символы"
-
-#~ msgid "Show functions that could have been called but never were"
-#~ msgstr "Показывать функции, которые могли быть вызваны, но не вызывались"
-
-#~ msgid "Show only these symbols:"
-#~ msgstr "Показывать только эти символы:"
-
-#~ msgid "Show uncalled functions"
-#~ msgstr "Показывать не вызванные функции"
-
-#~ msgid "Use this profiling data file:"
-#~ msgstr "Использовать этот файл с информацией о профилировании:"
-
-#~ msgid "Please, fix the configuration"
-#~ msgstr "Исправьте конфигурацию"
-
-#~ msgid ""
-#~ "Project name: %s\n"
-#~ "Project type: %s\n"
-#~ "Project path: %s\n"
-#~ msgstr ""
-#~ "Имя проекта: %s\n"
-#~ "Тип проекта: %s\n"
-#~ "Путь к проекту: %s\n"
-
-#~ msgid "This assistant will import an existing project into Anjuta."
-#~ msgstr "Этот мастер импортирует существующий проект в Anjuta"
-
-#~ msgid "<b>Enter the project name:</b>"
-#~ msgstr "<b>Введите название проекта:</b>"
-
-#~ msgid "<b>Enter the base path of your project:</b>"
-#~ msgstr "<b>Выберите корневой каталог вашего проекта:</b>"
-
-#~ msgid "Couldn't load glade file"
-#~ msgstr "Не удалось загрузить файл glade"
-
-#~ msgid "Icon choice"
-#~ msgstr "Выбрать значок"
-
-#~ msgid "_Sample action"
-#~ msgstr "_Образец действия"
-
-#~ msgid "Sample file operations"
-#~ msgstr "Образец операций с файлами"
-
-#~ msgid "SamplePlugin"
-#~ msgstr "Образец дополнения"
-
-#~ msgid "<b>Autocompletion</b>"
-#~ msgstr "<b>Автодополнение</b>"
-
-#~ msgid "<b>Basic Indentation</b>"
-#~ msgstr "<b>Основные отступы</b>"
-
-#~ msgid "<b>Code folding</b>"
-#~ msgstr "<b>Свёртывание кода</b>"
-
-#~ msgid "<b>Highlight style</b>"
-#~ msgstr "<b>Режим подсветки</b>"
-
-#~ msgid "<b>Misc options</b>"
-#~ msgstr "<b>Доп. параметры</b>"
-
-#~ msgid "<b>Other colors</b>"
-#~ msgstr "<b>Другие цвета</b>"
-
-#~ msgid "Add line number every:"
-#~ msgstr "Вставлять номер строки через каждые:"
-
-#~ msgid "Add page header"
-#~ msgstr "Добавить верхний колонтитул"
-
-#~ msgid "Attributes:"
-#~ msgstr "Атрибуты:"
-
-#~ msgid "Autocomplete XML/HTML closing tags"
-#~ msgstr "Автозавершение XML/HTML тэгов"
-
-#~ msgid "Background color:"
-#~ msgstr "Цвет фона:"
-
-#~ msgid "Basic Indentation"
-#~ msgstr "Базовые отступы"
-
-#~ msgid "Bold"
-#~ msgstr "Полужирный"
-
-#~ msgid "Calltip background:"
-#~ msgstr "Цвет подсказки вызова:"
-
-#~ msgid "Caret (cursor) color:"
-#~ msgstr "Цвет курсора:"
-
-#~ msgid "Caret blink period in ms"
-#~ msgstr "Период мигания каретки в миллисекундах"
-
-#~ msgid "Choose autocomplete for single match"
-#~ msgstr "Выберите автодополнение для одного совпадения"
-
-#~ msgid "Collapse all code folds on file open"
-#~ msgstr "Сворачивать код при открытии файла"
-
-#~ msgid "Colors & Fonts"
-#~ msgstr "Цвета и шрифты"
-
-#~ msgid "Colour"
-#~ msgstr "Цвет"
-
-#~ msgid "Compact folding"
-#~ msgstr "Компактное свёртывание"
-
-#~ msgid "Disable syntax highlighting"
-#~ msgstr "Отключить подсвечивание синтаксиса"
-
-#~ msgid "Draw line below folded lines"
-#~ msgstr "Рисовать линию под свёрнутыми линиями"
-
-#~ msgid "Edge column"
-#~ msgstr "Крайний столбец"
-
-#~ msgid "Editor caret (cursor) width in pixels"
-#~ msgstr "Ширина каретки (курсора) редактора в пикселях"
-
-#~ msgid "Enable HTML tags folding"
-#~ msgstr "Включить свёртывание тэгов HTML"
-
-#~ msgid "Enable automatic indentation"
-#~ msgstr "Включить автоматический отступ"
-
-#~ msgid "Enable braces check"
-#~ msgstr "Включить проверку скобок"
-
-#~ msgid "Enable code folding"
-#~ msgstr "Включить свертывания кода"
-
-#~ msgid "Enable comments folding"
-#~ msgstr "Включить свертывание комментариев"
-
-#~ msgid "Enable line wrap"
-#~ msgstr "Включить перенос строк"
-
-#~ msgid "Enable python comments folding"
-#~ msgstr "Включить свёртывание комментарием python"
-
-#~ msgid "Enable python quoted strings folding"
-#~ msgstr "Включить свёртывание строк Python"
-
-#~ msgid "Filter extraneous characters in DOS mode"
-#~ msgstr "Фильтровать посторонние символы в режиме DOS"
-
-#~ msgid "Fold style:"
-#~ msgstr "Стиль свертывания"
-
-#~ msgid "Fonts and colors for editor"
-#~ msgstr "Шрифты и цвета редактора"
-
-#~ msgid "Foreground color:"
-#~ msgstr "Цвет текста:"
-
-#~ msgid "Indent closing braces"
-#~ msgstr "Отступы для закрывающих скобок"
-
-#~ msgid "Indent opening braces"
-#~ msgstr "Отступы для открывающих скобок"
-
-#~ msgid "Indentation size in spaces:"
-#~ msgstr "Размер отступа в пробелах:"
-
-#~ msgid "Italic"
-#~ msgstr "Наклонный"
-
-#~ msgid "Line numbers margin width in pixels"
-#~ msgstr "Ширина отступа в точках растра для номеров строк"
-
-#~ msgid "Maintain past Indentation"
-#~ msgstr "Использовать предыдущие отступы"
-
-#~ msgid "Margin Fold visible"
-#~ msgstr "Показать границу переноса"
-
-#~ msgid "Margin Linenum visible"
-#~ msgstr "Показать границу номеров строк"
-
-#~ msgid "Margin Marker visible"
-#~ msgstr "Показать границу отметок"
-
-#~ msgid "Monochrome"
-#~ msgstr "Монохромный"
-
-#~ msgid ""
-#~ "Plus/Minus\n"
-#~ "Arrows\n"
-#~ "Circular\n"
-#~ "Squares"
-#~ msgstr ""
-#~ "Плюс/Минус\n"
-#~ "Стрелки\n"
-#~ "Кружки\n"
-#~ "Квадраты"
-
-#~ msgid "Pressing backspace un-indents"
-#~ msgstr "Нажатие \"Backspace\" убирает отступ"
-
-#~ msgid "Pressing tab inserts indentation"
-#~ msgstr "Нажатие \"Tab\" вставляет отступ"
-
-#~ msgid "Selection background:"
-#~ msgstr "Цвет фона для выделения:"
-
-#~ msgid "Selection foreground:"
-#~ msgstr "Цвет текста для выделения:"
-
-#~ msgid "Strip trailling spaces on file save"
-#~ msgstr "Отсекать конечные пробелы при сохранении файла"
-
-#~ msgid "Use default"
-#~ msgstr "Использовать по умолчанию"
-
-#~ msgid "View EOL chars"
-#~ msgstr "Показывать символы EOL"
-
-#~ msgid "View Indentation Guides"
-#~ msgstr "Показывать уровни отступов"
-
-#~ msgid "View Line Wrap"
-#~ msgstr "Показывать перенос линий"
-
-#~ msgid "View Whitespaces"
-#~ msgstr "Показывать символы пробела и табуляции"
-
-#~ msgid "View indentation whitespaces"
-#~ msgstr "Показывать символы выравнивания"
-
-#~ msgid "Wrap bookmarks search around"
-#~ msgstr "Начинать поиск закладок сначала"
-
-#~ msgid "File: %s"
-#~ msgstr "Файл: %s"
-
-#~ msgid "Unable to get text buffer for printing"
-#~ msgstr "Не удалось получить текстовый буфер для печати"
-
-#~ msgid "No file to print!"
-#~ msgstr "Нет файла для печати!"
-
-#~ msgid "Scintilla Editor"
-#~ msgstr "Редактор Scintilla"
-
-#~ msgid ""
-#~ "The file '%s' has been changed.\n"
-#~ "Do you want to reload it ?"
-#~ msgstr ""
-#~ "Файл «%s» был изменён.\n"
-#~ "Хотите перезагрузить его?"
-
-#~ msgid ""
-#~ "The file '%s' has been changed.\n"
-#~ "Do you want to loose your changes and reload it ?"
-#~ msgstr ""
-#~ "Файл «%s» был изменён.\n"
-#~ "Хотите перезагрузить его, потеряв все изменения?"
-
-#~ msgid ""
-#~ "The file '%s' has been deleted.\n"
-#~ "Do you confirm and close it ?"
-#~ msgstr ""
-#~ "Файл «%s» удалён.\n"
-#~ "Всё равно закрыть файл?"
-
-#~ msgid ""
-#~ "The file '%s' has been deleted.\n"
-#~ "Do you want to loose your changes and close it ?"
-#~ msgstr ""
-#~ "Файл «%s» был удалён.\n"
-#~ "Хотите закрыть его, потеряв все изменения?"
-
-#~ msgid "Could not get file info"
-#~ msgstr "Не удалось получить информацию о файле"
-
-#~ msgid "This file is too big. Unable to allocate memory."
-#~ msgstr "Файл слишком велик. Не удалось выделить память."
-
-#~ msgid "Could not open file"
-#~ msgstr "Не удалось открыть файл"
-
-#~ msgid "Error while reading from file"
-#~ msgstr "Ошибка чтения из файла"
-
-#~ msgid ""
-#~ "The file does not look like a text file or the file encoding is not "
-#~ "supported. Please check if the encoding of file is in the supported "
-#~ "encodings list. If not, add it from the preferences."
-#~ msgstr ""
-#~ "Файл не является текстовым, или его кодировка не поддерживается."
-#~ "Проверьте, содержится ли кодировка файла в списке поддерживаемых."
-
-#~ msgid "Loading file..."
-#~ msgstr "Загрузка файла..."
-
-#~ msgid ""
-#~ "Could not load file: %s\n"
-#~ "\n"
-#~ "Details: %s"
-#~ msgstr ""
-#~ "Не удалось загрузить файл: %s\n"
-#~ "\n"
-#~ "Подробности: %s"
-
-#~ msgid "File loaded successfully"
-#~ msgstr "Файл успешно загружен"
-
-#~ msgid "Saving file..."
-#~ msgstr "Сохранение файла..."
-
-#~ msgid "Could not save intermediate file %s: %s"
-#~ msgstr "Не удалось сохранить временный файл %s: %s"
-
-#~ msgid "File saved successfully"
-#~ msgstr "Файл успешно сохранен"
-
-#~ msgid ""
-#~ "Cannot load Global defaults and configuration files:\n"
-#~ "%s.\n"
-#~ "This may result in improper behaviour or instabilities.\n"
-#~ "Anjuta will fall back to built in (limited) settings"
-#~ msgstr ""
-#~ "Не удалось загрузить глобальные настройки\n"
-#~ "%s.\n"
-#~ "Это может привести к некорректному отображению или нестабильности.\n"
-#~ "Будут загружены встроенные (ограниченные) настройки"
-
-#~ msgid "<b>Scratchbox Options</b>\n"
-#~ msgstr "<b>Параметры Scratchbox</b>\n"
-
-#~ msgid "Scratchbox directory:"
-#~ msgstr "Каталог scratchbox:"
-
-#~ msgid "Scratchbox target:"
-#~ msgstr "Цель Scratchbox:"
-
-#~ msgid "Scratchbox version:"
-#~ msgstr "Версия Scratchbox:"
-
-#~ msgid "Scratchbox"
-#~ msgstr "Scratchbox"
-
-#~ msgid "<b>Font:</b>"
-#~ msgstr "<b>Шрифт:</b>"
-
-#~ msgid "<b>View</b>"
-#~ msgstr "<b>Вид</b>"
-
-#~ msgid "<b>End Revision:</b>"
-#~ msgstr "<b>Конечная правка:</b>"
-
-#~ msgid "<b>Subversion Options</b>"
-#~ msgstr "<b>Параметры Subversion</b>"
-
-#~ msgid "Ctags executable:"
-#~ msgstr "Исполняемый файл ctags:"
-
-#~ msgid ""
-#~ "Default\n"
-#~ "\n"
-#~ msgstr ""
-#~ "По умолчанию\n"
-#~ "\n"
-
-#~ msgid "Unable to build user interface for tool variable"
-#~ msgstr ""
-#~ "Не удалось создать интерфейс пользователя для переменной инструмента"
-
-#~ msgid "Unable to build user interface for tool editor"
-#~ msgstr ""
-#~ "Не удалось построить интерфейс пользователя для редактора инструментов"
-
-#~ msgid "<b>Program to test:</b>"
-#~ msgstr "<b>Программа для тестирования:</b>"
-
-#~ msgid "<b>Valgrind</b>"
-#~ msgstr "<b>Valgrind</b>"
-
-#~ msgid ""
-#~ "Memcheck\n"
-#~ "Addrcheck\n"
-#~ "Helgrind"
-#~ msgstr ""
-#~ "Memcheck\n"
-#~ "Addrcheck\n"
-#~ "Helgrind"
-
-#~ msgid "Select Tool:"
-#~ msgstr "Выбрать инструмент:"
-
-#~ msgid "Select Valgrind Target"
-#~ msgstr "Выбрать цель для Valgrind"
-
-#~ msgid "Select debugging target"
-#~ msgstr "Выбрать цель для отладки"
-
-#~ msgid "Valgrind"
-#~ msgstr "Valgrind"
-
-#~ msgid ""
-#~ "No executable target selected for debugging with Valgrind. Please select "
-#~ "one."
-#~ msgstr ""
-#~ "Не выбрана исполняемая цель для отладки с помощью Valgrind. Выберите её."
-
-#~ msgid ""
-#~ "There aren't any available executable targets for this project.\n"
-#~ "Please create one first."
-#~ msgstr ""
-#~ "В этом проекте нет исполняемых целей.\n"
-#~ "Необходимо создать хотя бы одну."
-
-#~ msgid "Choose file where to save Valgrind log"
-#~ msgstr "Выберите файл для сохранения журнала Valgrind"
-
-#~ msgid "Open Valgrind log file"
-#~ msgstr "Открыть файл журнала Valgrind"
-
-#~ msgid "_Valgrind"
-#~ msgstr "_Valgrind"
-
-#~ msgid "_Select Tool and Run..."
-#~ msgstr "_Выбрать инструмент и запустить..."
-
-#~ msgid "_Kill Execution"
-#~ msgstr "_Остановить выполнение"
-
-#~ msgid "_Load Log"
-#~ msgstr "_Загрузить журнал"
-
-#~ msgid "S_ave Log"
-#~ msgstr "С_охранить журнал"
-
-#~ msgid "Edit Rules"
-#~ msgstr "Редактировать правила"
-
-#~ msgid "Use Valgrind debug tool"
-#~ msgstr "Использовать инструмент отладки Valgrind"
-
-#~ msgid "<b>Valgrind general preferences</b>"
-#~ msgstr "<b>Общие настройки Valgrind</b>"
-
-#~ msgid "Valgrind binary file path:"
-#~ msgstr "Путь к двоичному файлу Valgrind"
-
-#~ msgid "Choose Valgrind Binary File Path..."
-#~ msgstr "Выберите путь к двоичному файлу Valgrind"
-
-#~ msgid "Preview"
-#~ msgstr "Предварительный просмотр"
-
-#~ msgid "lines above and below the target line."
-#~ msgstr "строк выше и ниже целевой строки"
-
-#~ msgid "Failed to create pipe to '%s': %s"
-#~ msgstr "Не удалось создать канал для «%s»: %s"
-
-#~ msgid "Failed to create child process '%s': %s"
-#~ msgstr "Сбой при создании дочернего процесса «%s»: %s"
-
-#~ msgid ""
-#~ "Reached the end of the input file or error in parsing valgrind output."
-#~ msgstr ""
-#~ "Достигнут конец входного файла или произошла ошибка в процессе разбора "
-#~ "данных, выведенных valgrind."
-
-#~ msgid "Process exited."
-#~ msgstr "Процесс завершен."
-
-#~ msgid "Could not get the right valgrind-binary gconf key:"
-#~ msgstr ""
-#~ "Не удалось получить корректный ключ gconf для двоичного файла valgrind."
-
-#~ msgid ""
-#~ "Valgrind binary [%s] does not exist. Please check the preferences or "
-#~ "install Valgrind package."
-#~ msgstr ""
-#~ "Двоичного файла Valgrind [%s] не существует. Проверьте  настройки или "
-#~ "установите пакет Valgrind."
-
-#~ msgid "Could not get the right pipe for the process."
-#~ msgstr "Не удалось получить правильный канал для процесса."
-
-#~ msgid ""
-#~ "Invalid syntax in settings '%s'.\n"
-#~ "Please enter a value of the form \"<integer>,<integer>,<integer>\"."
-#~ msgstr ""
-#~ "Некорреткный формат настройки «%s».\n"
-#~ "Введите значения вида <целое>,<целое>,<целое>."
-
-#~ msgid "Override default settings"
-#~ msgstr "Не использовать параметры, заданные по умолчанию"
-
-#~ msgid "Enter <size>,<assoc>,<line_size>:"
-#~ msgstr "Введите <размер>,<связь>,<размер строки>:"
-
-#~ msgid "Cachegrind"
-#~ msgstr "Cachegrind"
-
-#~ msgid "Function contains"
-#~ msgstr "Функции, содержащие"
-
-#~ msgid "Object contains"
-#~ msgstr "Объекты, содержащие"
-
-#~ msgid "Source filename contains"
-#~ msgstr "Файлы исходных текстов, содержащие:"
-
-#~ msgid "Invalid regular expression: '%s': %s"
-#~ msgstr "Неверное регулярное выражение: «%s»: %s"
-
-#~ msgid "Valgrind Suppression Rules"
-#~ msgstr "Правила подавления Valgrind"
-
-#~ msgid "Valgrind Suppression"
-#~ msgstr "Подавление Valgrind"
-
-#~ msgid "Cu_t"
-#~ msgstr "_Вырезать"
-
-#~ msgid "Suppress"
-#~ msgstr "Подавление"
-
-#~ msgid "Edit in Custom Editor"
-#~ msgstr "Редактировать в другом редакторе"
-
-#~ msgid "Demangle C++ symbol names"
-#~ msgstr "Декодировать имена символов C++"
-
-#~ msgid "Show"
-#~ msgstr "Показать"
-
-#~ msgid "callers in stack trace"
-#~ msgstr "вызывающие функции в журнале вызовов"
-
-#~ msgid "Stop showing errors if there are too many"
-#~ msgstr "Не показывать ошибки, если их слишком много"
-
-#~ msgid "Round malloc sizes to next word"
-#~ msgstr "Округлять размеры выделяемой памяти до полного слова"
-
-#~ msgid "Trace any child processes forked off by the program being debugged"
-#~ msgstr ""
-#~ "Отслеживать дочерние программы, порождённые программой, отлаживаемой в "
-#~ "данный момент"
-
-#~ msgid "Track open file descriptors"
-#~ msgstr "Отслеживать дескрипторы открытых файлов"
-
-#~ msgid "Add time stamps to log messages"
-#~ msgstr "Добавлять время к сообщениям журнала"
-
-#~ msgid "Call __libc_freeres() at exit before checking for memory leaks"
-#~ msgstr "Вызвать __libc_freeres() при выходе до проверки утечек памяти"
-
-#~ msgid "Suppressions File:"
-#~ msgstr "Файл подавления:"
-
-#~ msgid "Choose Valgrind Suppressions File..."
-#~ msgstr "Выберите файл с правилами подавления для Valging"
-
-#~ msgid "Helgrind"
-#~ msgstr "Helgrind"
-
-#~ msgid "Assume thread stacks are used privately"
-#~ msgstr "Предполагать, что стек потока используется только им"
-
-#~ msgid "Show location of last word access on error:"
-#~ msgstr "Показать расположение последнего слова при возникновании ошибки:"
-
-#~ msgid "Memcheck"
-#~ msgstr "Memcheck"
-
-#~ msgid "Memory leaks"
-#~ msgstr "Утечки памяти"
-
-#~ msgid "Leak check:"
-#~ msgstr "Проверка утечек:"
-
-#~ msgid "Show reachable blocks in leak check"
-#~ msgstr "Показывать доступные блоки при проверке утечек"
-
-#~ msgid "Leak resolution:"
-#~ msgstr "Разрешение утечек:"
-
-#~ msgid "Keep up to"
-#~ msgstr "Хранить до"
-
-#~ msgid "bytes in the queue after being free()'d"
-#~ msgstr "байтов в очереди после освобождения памяти"
-
-#~ msgid "Work around bugs generated by gcc 2.96"
-#~ msgstr "Обходить ошибки, созданные gcc 2.96"
-
-#~ msgid "Grow"
-#~ msgstr "Растянуть"
-
-#~ msgid "Shrink"
-#~ msgstr "Сжать"
-
-#~ msgid "Rule name:"
-#~ msgstr "Название правила:"
-
-#~ msgid "Suppress messages of type:"
-#~ msgstr "Подавлять сообщения типа:"
-
-#~ msgid "Suppress when using:"
-#~ msgstr "Подавлять, когда используется:"
-
-#~ msgid "System call:"
-#~ msgstr "Системный вызов:"
-
-#~ msgid "Call chain:"
-#~ msgstr "Последовательность вызова:"
-
-#~ msgid "Error saving to suppression file '%s': %s"
-#~ msgstr "Ошибка записи в файл подавления «%s»: %s"
-
-#~ msgid "You have forgotten to name your suppression rule."
-#~ msgstr "Вы забыли имя файла правила подавления"
-
-#~ msgid "Cannot save suppression rules: %s"
-#~ msgstr "Не удалось сохранить правила подавления: %s"
-
-#~ msgid "You have not set a suppressions file in your settings."
-#~ msgstr "В параметрах не задан файл для сохранения правил подавления"
-
-#~ msgid "<b>Session</b>"
-#~ msgstr "<b>Сеанс</b>"
-
-#~ msgid ""
-#~ "Default\n"
-#~ "Text below icons\n"
-#~ "Text beside icons\n"
-#~ "Icons only\n"
-#~ "Text only"
-#~ msgstr ""
-#~ "По умолчанию\n"
-#~ "Текст под значками\n"
-#~ "Текст рядом со значками\n"
-#~ "Только значки\n"
-#~ "Только текст"
-
-#~ msgid ""
-#~ "Text\n"
-#~ "Icons\n"
-#~ "Text + Icons\n"
-#~ "Gnome toolbar setting\n"
-#~ "Tabs"
-#~ msgstr ""
-#~ "Текст\n"
-#~ "Значки\n"
-#~ "Текст со значками\n"
-#~ "Установки панели Gnome\n"
-#~ "Вкладки"
-
-#~ msgid "<b>Calltips</b>"
-#~ msgstr "<b>Подсказки вызовов</b>"
-
-#~ msgid "<b>Smart Indentation</b>"
-#~ msgstr "<b>\"Умные\" отступы</b>"
-
-#~ msgid "Enable adaptive indentation"
-#~ msgstr "Включить адаптивное выравнивание"
-
-#~ msgid "Pressing tab indents"
-#~ msgstr "Нажатие «Tab» вставляет отступ"
-
-#~ msgid "A graph painter for the inheritance of the classes."
-#~ msgstr "Отображает графически наследование классов"
-
-#~ msgid "Class Inheritance"
-#~ msgstr "Граф наследования"
-
-#~ msgid "Sample Plugin"
-#~ msgstr "Образец дополнения"
-
-#~ msgid "Sample Plugin for Anjuta."
-#~ msgstr "Образец дополнения для Anjuta"
-
-#~ msgid "An alternate editor based on Scintilla"
-#~ msgstr "Альтернативный редактор, основанный на Scintilla"
-
-#~ msgid "Change build commands to use scratchbox 1 or 2"
-#~ msgstr "Использовать команды для сборки  scratchbox 1 или 2"
-
-#~ msgid "Application performance profiler"
-#~ msgstr "Профилировщик производительности приложения"
-
-#~ msgid "Profile"
-#~ msgstr "Профилировать"
-
-#~ msgid "Powerful debugging tool."
-#~ msgstr "Мощное средство отладки"
-
-#~ msgid "Valgrind Plugin"
-#~ msgstr "Модуль Valgrind"
