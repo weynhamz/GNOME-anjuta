@@ -203,6 +203,12 @@ symbol_db_model_project_set_property (GObject *object, guint prop_id,
 			g_signal_handlers_disconnect_by_func (priv->dbe,
 				              G_CALLBACK (symbol_db_model_update),
 				              object);
+			g_signal_handlers_disconnect_by_func (priv->dbe,
+				              G_CALLBACK (symbol_db_model_freeze),
+				              object);
+			g_signal_handlers_disconnect_by_func (priv->dbe,
+				              G_CALLBACK (symbol_db_model_thaw),
+				              object);
 		}
 		priv->dbe = g_value_dup_object (value);
 		g_object_weak_ref (G_OBJECT (priv->dbe),
@@ -214,8 +220,10 @@ symbol_db_model_project_set_property (GObject *object, guint prop_id,
 		g_signal_connect_swapped (priv->dbe, "db-disconnected",
 		                          G_CALLBACK (symbol_db_model_update),
 		                          object);
+		g_signal_connect_swapped (priv->dbe, "scan-begin",
+		                          G_CALLBACK (symbol_db_model_freeze), object);
 		g_signal_connect_swapped (priv->dbe, "scan-end",
-		                          G_CALLBACK (symbol_db_model_update), object);
+		                          G_CALLBACK (symbol_db_model_thaw), object);
 		
 		symbol_db_model_update (SYMBOL_DB_MODEL (object));
 		break;
@@ -260,6 +268,12 @@ symbol_db_model_project_finalize (GObject *object)
 		                     object);
 		g_signal_handlers_disconnect_by_func (priv->dbe,
 		                  G_CALLBACK (symbol_db_model_update),
+		                  object);
+		g_signal_handlers_disconnect_by_func (priv->dbe,
+		                  G_CALLBACK (symbol_db_model_freeze),
+		                  object);
+		g_signal_handlers_disconnect_by_func (priv->dbe,
+		                  G_CALLBACK (symbol_db_model_thaw),
 		                  object);
 	}
 	G_OBJECT_CLASS (symbol_db_model_project_parent_class)->finalize (object);

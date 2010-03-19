@@ -29,7 +29,7 @@
 
 /* Constants */
 
-#define SYMBOL_DB_MODEL_PAGE_SIZE 100
+#define SYMBOL_DB_MODEL_PAGE_SIZE 50
 #define SYMBOL_DB_MODEL_ENSURE_CHILDREN_BATCH_SIZE 10
 
 typedef struct _SymbolDBModelPage SymbolDBModelPage;
@@ -65,6 +65,12 @@ struct _SymbolDBModelNode {
 };
 
 typedef struct {
+	/* Keeps track of model freeze count. When the model is frozen, it
+	 * avoid retreiving data from backend. It does not freeze the frontend
+	 * view at all and instead use empty data for the duration of freeze.
+	 */
+	gint freeze_count;
+	
 	gint n_columns;      /* Number of columns in the model */
 	GType *column_types; /* Type of each column in the model */
 	gint *query_columns; /* Corresponding GdaDataModel column */
@@ -363,6 +369,7 @@ symbol_db_model_page_fault (SymbolDBModel *model,
                             SymbolDBModelNode *parent_node,
                             gint child_offset)
 {
+	SymbolDBModelPriv *priv;
 	SymbolDBModelPage *page, *prev_page, *page_found;
 	gint i;
 	GdaDataModelIter *data_iter;
@@ -372,7 +379,13 @@ symbol_db_model_page_fault (SymbolDBModel *model,
 	page_found = symbol_db_model_node_find_child_page (parent_node,
 	                                                   child_offset,
 	                                                   &prev_page);
+
 	g_return_val_if_fail (page_found == NULL, page_found);
+
+	/* If model is frozen, can't fetch data from backend */
+	priv = GET_PRIV (model);
+	if (priv->freeze_count > 0)
+		return NULL;
 	
 	/* New page to cover current child_offset */
 	page = g_new0 (SymbolDBModelPage, 1);
@@ -568,6 +581,11 @@ symbol_db_model_get_value (GtkTreeModel *tree_model,
 		                                   parent_node, offset);
 	node = symbol_db_model_node_get_child (parent_node, offset);
 	g_value_init (value, priv->column_types[column]);
+
+	/* If model is frozen, we don't expect the page fault to work */
+	if (priv->freeze_count > 0 && node == NULL)
+		return;
+	
 	g_return_if_fail (node != NULL);
 
 	/* View accessed the node, so update any pending has-child status */
@@ -804,6 +822,10 @@ symbol_db_model_ensure_node_children (SymbolDBModel *model,
 	g_return_if_fail (node->children_ensured == FALSE);
 
 	priv = GET_PRIV (model);
+
+	/* Can not ensure if model is frozen */
+	if (priv->freeze_count > 0)
+		return;
 	
 	/* Initialize children array and count */
 	node->n_children = 
@@ -878,8 +900,6 @@ symbol_db_model_update_node_children (SymbolDBModel *model,
                                       gboolean emit_has_child)
 {
 	SymbolDBModelPriv *priv;
-
-	g_return_if_fail (node->children_ensured == TRUE);
 
 	priv = GET_PRIV (model);
 	
@@ -1082,6 +1102,7 @@ symbol_db_model_init (SymbolDBModel *object)
 {
 	SymbolDBModelPriv *priv = GET_PRIV (object);
 	priv->root = g_new0 (SymbolDBModelNode, 1);
+	priv->freeze_count = 0;
 	priv->n_columns = 0;
 	priv->column_types = NULL;
 	priv->query_columns = NULL;
@@ -1208,9 +1229,39 @@ symbol_db_model_update (SymbolDBModel *model)
 
 	g_return_if_fail (SYMBOL_DB_IS_MODEL (model));
 
-	/* g_message ("Symbol DB Model reset called"); */
+	g_message ("Symbol DB Model update called");
 	priv = GET_PRIV (model);
 
-	if (priv->root->children_ensured)
-		symbol_db_model_update_node_children (model, priv->root, FALSE);
+	symbol_db_model_update_node_children (model, priv->root, FALSE);
+}
+
+void
+symbol_db_model_freeze (SymbolDBModel *model)
+{
+	SymbolDBModelPriv *priv;
+
+	g_return_if_fail (SYMBOL_DB_IS_MODEL (model));
+	
+	priv = GET_PRIV (model);
+	priv->freeze_count++;
+	g_message ("Symbol DB Model %p freeze called: count = %d", model,
+	           priv->freeze_count);
+}
+
+void
+symbol_db_model_thaw (SymbolDBModel *model)
+{
+	SymbolDBModelPriv *priv;
+
+	g_return_if_fail (SYMBOL_DB_IS_MODEL (model));
+
+	priv = GET_PRIV (model);
+
+	if (priv->freeze_count > 0)
+		priv->freeze_count--;
+	
+	g_message ("Symbol DB Model %p thaw called: count = %d",
+	           model, priv->freeze_count);
+	if (priv->freeze_count <= 0)
+		symbol_db_model_update (model);
 }

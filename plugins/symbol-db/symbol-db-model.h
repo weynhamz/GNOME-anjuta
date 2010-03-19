@@ -85,6 +85,8 @@ void symbol_db_model_set_columns (SymbolDBModel *model, gint n_columns,
                                   GType *types, gint *data_cols);
 
 void symbol_db_model_update (SymbolDBModel *model);
+void symbol_db_model_freeze (SymbolDBModel *model);
+void symbol_db_model_thaw (SymbolDBModel *model);
 
 G_END_DECLS
 
