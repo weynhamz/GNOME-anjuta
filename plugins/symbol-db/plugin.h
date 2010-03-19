@@ -111,12 +111,7 @@ struct _SymbolDBPlugin {
 	GtkWidget *progress_bar_project;		/* symbol db progress bar - project */
 	GtkWidget *progress_bar_system;			/* symbol db progress bar - system (globals) */
 	
-	GtkWidget *dbv_view_tree1;        		/* symbol_db_view globals */
-	GtkWidget *dbv_view_tab_label;
-	
-	GtkWidget *dbv_view_tree_locals1;		/* local symbols */
-	GtkTreeModel *file_model;
-	GtkWidget *dbv_view_locals_tab_label;
+	GtkTreeModel *file_model;               /* File symbols model */
 	
 	GtkWidget *dbv_view_tree_search;		/* search symbols */
 	GtkWidget *dbv_view_search_tab_label;	
