@@ -507,7 +507,7 @@ symbol_db_model_get_iter (GtkTreeModel *tree_model,
 			/* No child available. View thinks there is child.
 			 * It's an inconsistent state. Do something fancy to fix it.
 			 */
-			symbol_db_model_update (model); /* Untested path */
+			symbol_db_model_update (tree_model); /* Untested path */
 			break;
 		}
 		if (indx[i] >= node->n_children)
