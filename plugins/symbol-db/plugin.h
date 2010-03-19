@@ -115,6 +115,7 @@ struct _SymbolDBPlugin {
 	GtkWidget *dbv_view_tab_label;
 	
 	GtkWidget *dbv_view_tree_locals1;		/* local symbols */
+	GtkTreeModel *file_model;
 	GtkWidget *dbv_view_locals_tab_label;
 	
 	GtkWidget *dbv_view_tree_search;		/* search symbols */
