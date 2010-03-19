@@ -504,9 +504,10 @@ symbol_db_model_get_iter (GtkTreeModel *tree_model,
 				                                  node, FALSE);
 		if (node->n_children <= 0)
 		{
-			/* FIXME:  No child available. View thinks there is child.
+			/* No child available. View thinks there is child.
 			 * It's an inconsistent state. Do something fancy to fix it.
 			 */
+			symbol_db_model_update (model); /* Untested path */
 			break;
 		}
 		if (indx[i] >= node->n_children)
@@ -575,7 +576,6 @@ symbol_db_model_get_value (GtkTreeModel *tree_model,
 	parent_node = (SymbolDBModelNode*) iter->user_data;
 	offset = GPOINTER_TO_INT (iter->user_data2);
 
-	/* g_message ("Get value for %p->%d", parent_node, offset); */
 	if (symbol_db_model_node_get_child (parent_node, offset) == NULL)
 		page = symbol_db_model_page_fault (SYMBOL_DB_MODEL (tree_model),
 		                                   parent_node, offset);
@@ -593,9 +593,6 @@ symbol_db_model_get_value (GtkTreeModel *tree_model,
 		symbol_db_model_queue_ensure_node_children (SYMBOL_DB_MODEL (tree_model),
 		                                            node);
 
-	/* FIXME: We should also refresh children status even if children was
-	 * ensured already.
-	 */
 	g_value_copy (&(node->values[column]), value);
 }
 
@@ -834,8 +831,6 @@ symbol_db_model_ensure_node_children (SymbolDBModel *model,
 
 	node->children_ensured = TRUE;
 
-	/* g_message ("Ensuring node %p, emit = %d", node, emit_has_child); */
-	
 	if (emit_has_child && node->n_children > 0)
 	{
 		GtkTreePath *path;
@@ -1229,7 +1224,6 @@ symbol_db_model_update (SymbolDBModel *model)
 
 	g_return_if_fail (SYMBOL_DB_IS_MODEL (model));
 
-	g_message ("Symbol DB Model update called");
 	priv = GET_PRIV (model);
 
 	symbol_db_model_update_node_children (model, priv->root, FALSE);
@@ -1244,8 +1238,6 @@ symbol_db_model_freeze (SymbolDBModel *model)
 	
 	priv = GET_PRIV (model);
 	priv->freeze_count++;
-	g_message ("Symbol DB Model %p freeze called: count = %d", model,
-	           priv->freeze_count);
 }
 
 void
@@ -1260,8 +1252,6 @@ symbol_db_model_thaw (SymbolDBModel *model)
 	if (priv->freeze_count > 0)
 		priv->freeze_count--;
 	
-	g_message ("Symbol DB Model %p thaw called: count = %d",
-	           model, priv->freeze_count);
 	if (priv->freeze_count <= 0)
 		symbol_db_model_update (model);
 }
