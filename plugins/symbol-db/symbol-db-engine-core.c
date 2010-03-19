@@ -157,6 +157,7 @@ enum
 {
 	DB_CONNECTED,
 	DB_DISCONNECTED,
+	SCAN_BEGIN,
 	SINGLE_FILE_SCAN_END,
 	SCAN_END,
 	SYMBOL_INSERTED,
@@ -1961,6 +1962,9 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 		sdb_engine_ctags_launcher_create (dbe);
 	}
 	
+	g_signal_emit_by_name (dbe, "scan-begin",
+	                       anjuta_launcher_get_child_pid (priv->ctags_launcher));
+	
 	/* create the shared memory file */
 	if (priv->shared_mem_file == 0)
 	{
@@ -2751,6 +2755,16 @@ sdb_engine_class_init (SymbolDBEngineClass * klass)
 						NULL, NULL,
 						g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 	
+	signals[SCAN_BEGIN]
+		= g_signal_new ("scan-begin",
+						G_OBJECT_CLASS_TYPE (object_class),
+						G_SIGNAL_RUN_FIRST,
+						G_STRUCT_OFFSET (SymbolDBEngineClass, scan_begin),
+						NULL, NULL,
+						g_cclosure_marshal_VOID__INT, G_TYPE_NONE, 
+						1,
+						G_TYPE_INT);
+
 	signals[SINGLE_FILE_SCAN_END]
 		= g_signal_new ("single-file-scan-end",
 						G_OBJECT_CLASS_TYPE (object_class),

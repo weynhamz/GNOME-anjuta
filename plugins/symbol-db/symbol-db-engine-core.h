@@ -52,6 +52,7 @@ struct _SymbolDBEngineClass
 	/* signals */
 	void (* db_connected)           ();
 	void (* db_disconnected)        ();
+	void (* scan_begin)             (gint process_id);
 	void (* single_file_scan_end) 	();
 	void (* scan_end) 				(gint process_id);
 	void (* symbol_inserted) 		(gint symbol_id);
