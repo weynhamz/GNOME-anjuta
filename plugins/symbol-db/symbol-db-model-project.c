@@ -74,7 +74,7 @@ symbol_db_model_project_get_n_children (SymbolDBModel *model, gint tree_level,
 		case 0:
 			iter = symbol_db_engine_get_global_members_filtered
 				(priv->dbe, SYMTYPE_CLASS | SYMTYPE_ENUM | SYMTYPE_STRUCT|
-				 SYMTYPE_UNION, TRUE, TRUE, -1, -1,
+				 SYMTYPE_UNION, TRUE, FALSE, -1, -1,
 				 SYMINFO_SIMPLE);
 			break;
 		case 1:
@@ -114,7 +114,7 @@ symbol_db_model_project_get_children (SymbolDBModel *model, gint tree_level,
 		case 0:
 			iter = symbol_db_engine_get_global_members_filtered
 				(priv->dbe, SYMTYPE_CLASS | SYMTYPE_ENUM | SYMTYPE_STRUCT |
-				 SYMTYPE_UNION, TRUE, TRUE, limit, offset,
+				 SYMTYPE_UNION, TRUE, FALSE, limit, offset,
 				 SYMINFO_SIMPLE | SYMINFO_ACCESS | SYMINFO_TYPE |
 				 SYMINFO_KIND | SYMINFO_FILE_PATH);
 			break;
@@ -147,9 +147,12 @@ symbol_db_model_project_get_query_value (SymbolDBModel *model,
 {
 	const GdkPixbuf *pixbuf;
 	const GValue *ret_value;
+	const gchar *name = NULL;
 	const gchar *type = NULL;
 	const gchar *access = NULL;
-
+	const gchar *args = NULL;
+	GString *label;
+	
 	switch (column)
 	{
 	case SYMBOL_DB_MODEL_PROJECT_COL_PIXBUF:
@@ -166,6 +169,52 @@ symbol_db_model_project_get_query_value (SymbolDBModel *model,
 		g_value_set_object (value, G_OBJECT (pixbuf));
 		return TRUE;
 		break;
+	case SYMBOL_DB_MODEL_PROJECT_COL_LABEL:
+		label = g_string_new_len (NULL, 256);
+		ret_value = gda_data_model_iter_get_value_at (iter,
+		                                              DATA_COL_SYMBOL_NAME);
+		if (ret_value && G_VALUE_HOLDS_STRING (ret_value))
+		{
+			name = g_value_get_string (ret_value);
+			g_string_assign (label, name);
+		}
+		ret_value = gda_data_model_iter_get_value_at (iter,
+		                                              DATA_COL_SYMBOL_ARGS);
+		if (ret_value && G_VALUE_HOLDS_STRING (ret_value))
+				args = g_value_get_string (ret_value);
+		/* */
+		if (args)
+		{
+			if (strlen (args) == 2)
+				g_string_append (label, "()");
+			else if (strlen (args) > 2)
+				g_string_append (label, "(...)");
+			ret_value =
+				gda_data_model_iter_get_value_at (iter,
+				                                  DATA_COL_SYMBOL_RETURNTYPE);
+			if (ret_value && G_VALUE_HOLDS_STRING (ret_value))
+			{
+				g_string_append (label, " : ");
+				g_string_append (label, g_value_get_string (ret_value));
+			}
+		}
+		else
+		{
+			ret_value =
+				gda_data_model_iter_get_value_at (iter,
+				                                  DATA_COL_SYMBOL_TYPE_NAME);
+			if (ret_value && G_VALUE_HOLDS_STRING (ret_value) &&
+			    g_strcmp0 (g_value_get_string (ret_value), name) != 0)
+			{
+				g_string_append (label, " : ");
+				g_string_append (label, g_value_get_string (ret_value));
+			}
+		}
+		g_value_set_string (value, label->str);
+		g_string_free (label, TRUE);
+		return TRUE;
+		break;
+			
 	default:
 		return SYMBOL_DB_MODEL_CLASS (symbol_db_model_project_parent_class)->
 				get_query_value (model, data_model, iter, column, value);
@@ -290,14 +339,16 @@ symbol_db_model_project_init (SymbolDBModelProject *object)
 		G_TYPE_STRING,
 		G_TYPE_STRING,
 		G_TYPE_INT,
+		G_TYPE_STRING
 	};
 
 	gint data_cols[] = {
 		DATA_COL_SYMBOL_ID,
 		-1,
-		DATA_COL_SYMBOL_NAME,
+		-1,
 		DATA_COL_SYMBOL_FILE_PATH,
 		DATA_COL_SYMBOL_FILE_LINE,
+		DATA_COL_SYMBOL_ARGS
 	};
 	
 	g_return_if_fail (SYMBOL_DB_IS_MODEL_PROJECT (object));

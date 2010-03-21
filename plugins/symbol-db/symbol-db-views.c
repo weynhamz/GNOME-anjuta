@@ -98,7 +98,8 @@ symbol_db_view_new (SymbolViewType view_type,
 
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (dbv), FALSE);
 	gtk_tree_view_set_fixed_height_mode (GTK_TREE_VIEW (dbv), TRUE);
-	
+	gtk_tree_view_set_tooltip_column (GTK_TREE_VIEW (dbv),
+	                                  SYMBOL_DB_MODEL_PROJECT_COL_ARGS);
 	/* Columns */
 	/* Note: Fixed sized columns are mandatory for high performance */
 	column = gtk_tree_view_column_new ();
