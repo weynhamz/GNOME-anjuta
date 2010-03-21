@@ -150,6 +150,12 @@ gbf_tree_data_get_path (GbfTreeData *data)
 	return path;
 }
 
+const gchar *
+gbf_tree_data_get_name (GbfTreeData *data)
+{
+	return data->name;
+}
+
 gboolean
 gbf_tree_data_equal (GbfTreeData *data_a, GbfTreeData *data_b)
 {

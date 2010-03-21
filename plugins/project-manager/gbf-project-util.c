@@ -34,6 +34,7 @@
 #include "gbf-project-view.h"
 #include "gbf-project-model.h"
 #include "gbf-project-util.h"
+#include "pkg-config.h"
 
 #define ICON_SIZE 16
 
@@ -485,6 +486,62 @@ setup_targets_treeview (GbfProjectModel     *model,
     }
 }
 
+static gboolean
+modules_filter_fn (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
+{
+    GbfTreeData *data = NULL;
+    gboolean retval = FALSE;
+    GtkTreeIter root;
+
+    gtk_tree_model_get (model, iter,
+                        GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
+    retval = (data && !data->is_shortcut &&
+              (!gtk_tree_model_iter_parent (model, &root, iter) ||
+               data->type == GBF_TREE_NODE_MODULE ||
+               data->type == GBF_TREE_NODE_PACKAGE));
+    
+    return retval;
+}
+
+static void 
+setup_modules_treeview (GbfProjectModel     *model,
+                        GtkWidget           *view,
+                        GtkTreeIter         *select_module)
+{
+    GtkTreeModel *filter;
+    GtkTreeIter iter_filter;
+    GtkTreePath *path = NULL;
+    
+    g_return_if_fail (model != NULL);
+    g_return_if_fail (view != NULL && GBF_IS_PROJECT_VIEW (view));
+
+    filter = gtk_tree_model_filter_new (GTK_TREE_MODEL (model), NULL);
+    gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (filter),
+                                            modules_filter_fn, NULL, NULL);
+    gtk_tree_view_set_model (GTK_TREE_VIEW (view), GTK_TREE_MODEL (filter));
+    g_object_unref (filter);
+
+    /* select default module */
+    if (select_module) {
+        if (gtk_tree_model_filter_convert_child_iter_to_iter (
+                GTK_TREE_MODEL_FILTER (filter), &iter_filter, select_module))
+        {
+            path = gtk_tree_model_get_path (filter, &iter_filter);
+        }
+    }
+    if (path)
+    {
+        gtk_tree_view_expand_to_path (GTK_TREE_VIEW (view), path);
+        gtk_tree_view_set_cursor (GTK_TREE_VIEW (view), path, NULL, FALSE);
+        gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW (view), path, NULL,
+                                      TRUE, 0.5, 0.0);
+    } else {
+        path = gtk_tree_path_new_first ();
+        gtk_tree_view_expand_to_path (GTK_TREE_VIEW (view), path);
+    }
+    gtk_tree_path_free (path);
+}
+
 static void
 browse_button_clicked_cb (GtkWidget *widget, gpointer user_data)
 {
@@ -633,7 +690,7 @@ gbf_project_util_add_source_multi (GbfProjectModel     *model,
     source_file_tree = GTK_WIDGET (gtk_builder_get_object (gui, "source_file_tree"));
     browse_button = GTK_WIDGET (gtk_builder_get_object (gui, "browse_button"));
     ok_button = GTK_WIDGET (gtk_builder_get_object (gui, "ok_source_button"));
-    
+
     /* Prepare file tree */
     list = gtk_list_store_new (N_COLUMNS, G_TYPE_STRING, G_TYPE_STRING);
     gtk_tree_view_set_model (GTK_TREE_VIEW (source_file_tree),
@@ -824,4 +881,430 @@ gbf_project_util_replace_by_file (GList* list)
 	}
 
         return list;
+}
+
+static void
+new_package_button_clicked_cb (GtkWidget *widget, gpointer user_data)
+{
+}
+
+static void
+on_cursor_changed(GtkTreeView* view, gpointer data)
+{
+    GtkWidget* button = GTK_WIDGET(data);
+    GtkTreeSelection *selection = gtk_tree_view_get_selection(view);
+
+    if (gtk_tree_selection_count_selected_rows (selection) > 0)
+        gtk_widget_set_sensitive(button, TRUE);
+    else
+        gtk_widget_set_sensitive(button, FALSE);
+}
+
+GList*
+gbf_project_util_add_module (GbfProjectModel   *model,
+                             GtkWindow          *parent,
+                             GtkTreeIter        *default_target,
+                             const gchar        *default_module)
+{
+    GtkBuilder *gui;
+    GtkWidget *dialog;
+    GtkWidget *ok_button, *new_button;
+    GtkWidget *targets_view;
+    GtkWidget *modules_view;
+    gint response;
+    IAnjutaProject *project;
+    gboolean finished = FALSE;
+    GList* new_modules = NULL;
+    GtkTreeSelection *module_selection;
+    
+    g_return_val_if_fail (model != NULL, NULL);
+    
+    project = gbf_project_model_get_project (model);
+    if (!project)
+        return NULL;
+
+    gui = load_interface ("add_module_dialog");
+    g_return_val_if_fail (gui != NULL, NULL);
+    
+    /* get all needed widgets */
+    dialog = GTK_WIDGET (gtk_builder_get_object (gui, "add_module_dialog"));
+    targets_view = GTK_WIDGET (gtk_builder_get_object (gui, "module_targets_view"));
+    modules_view = GTK_WIDGET (gtk_builder_get_object (gui, "modules_view"));
+    new_button = GTK_WIDGET (gtk_builder_get_object (gui, "new_package_button"));
+    ok_button = GTK_WIDGET (gtk_builder_get_object (gui, "ok_module_button"));
+
+
+    g_signal_connect (new_button, "clicked",
+                      G_CALLBACK (new_package_button_clicked_cb),modules_view);
+    
+    setup_targets_treeview (model, targets_view, default_target);
+    gtk_widget_show (targets_view);
+    setup_modules_treeview (model, modules_view, NULL);
+    gtk_widget_show (modules_view);
+    module_selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (modules_view));
+    gtk_tree_selection_set_mode (module_selection, GTK_SELECTION_MULTIPLE);
+
+    if (gbf_project_view_find_selected (GBF_PROJECT_VIEW (modules_view), ANJUTA_PROJECT_MODULE))
+    {
+        gtk_widget_set_sensitive (ok_button, TRUE);
+    }
+    else
+    {
+        gtk_widget_set_sensitive (ok_button, FALSE);
+    }
+    g_signal_connect (G_OBJECT(modules_view), "cursor-changed",
+        G_CALLBACK(on_cursor_changed), ok_button);
+
+    
+    if (parent) {
+        gtk_window_set_transient_for (GTK_WINDOW (dialog), parent);
+    }
+
+    if (default_module)
+        gtk_widget_grab_focus (modules_view);
+    else
+        gtk_widget_grab_focus (targets_view);
+    
+    /* execute dialog */
+    while (!finished) {
+        response = gtk_dialog_run (GTK_DIALOG (dialog));
+
+        switch (response) {
+            case GTK_RESPONSE_OK: 
+            {
+                AnjutaProjectNode *target;
+            
+                target = gbf_project_view_find_selected (GBF_PROJECT_VIEW (targets_view),
+                                                         ANJUTA_PROJECT_TARGET);
+                if (target) {
+                    GString *err_mesg = g_string_new (NULL);
+                    GList *list;
+                    GList *node;
+                    
+                    list = gbf_project_view_get_all_selected (GBF_PROJECT_VIEW (modules_view));
+                    for (node = g_list_first (list); node != NULL; node = g_list_next (node))
+                    {
+                        GError *err = NULL;
+                        AnjutaProjectNode* selected_module = (AnjutaProjectNode *)node->data;
+                        AnjutaProjectNode* new_module;
+                        gchar* uri = NULL;
+                        GFile* module_file;
+
+                        /*module_file = gbf_tree_data_get_file (selected_module);
+                        new_module = ianjuta_project_add_module (project,
+                                                            target,
+                                                            module_file,
+                                                            &err);
+                        g_object_unref (module_file);*/
+                        new_module = NULL;
+                        if (err) {
+                            gchar *str = g_strdup_printf ("%s: %s\n",
+                                                            uri,
+                                                            err->message);
+                            g_string_append (err_mesg, str);
+                            g_error_free (err);
+                            g_free (str);
+                        }
+                        else
+                            new_modules = g_list_append (new_modules,
+                                                        new_module);
+
+                        g_free (uri);
+                    }
+                    g_list_free (list);
+                    
+                    if (err_mesg->str && strlen (err_mesg->str) > 0) {
+                        error_dialog (parent, _("Cannot add modules"),
+                                        "%s", err_mesg->str);
+                    } else {
+                        finished = TRUE;
+                    }
+                    g_string_free (err_mesg, TRUE);
+                } else {
+                    error_dialog (parent, _("Cannot add modules"),
+                            "%s", _("No target has been selected"));
+                }
+                
+                break;
+            }
+            default:
+                finished = TRUE;
+                break;
+        }
+    }
+    
+    /* destroy stuff */
+    gtk_widget_destroy (dialog);
+    g_object_unref (gui);
+    
+    return new_modules;
+}
+
+static void on_changed_disconnect (GtkEditable* entry, gpointer data);
+
+static void
+on_cursor_changed_set_entry(GtkTreeView* view, gpointer data)
+{
+    GtkWidget* entry = GTK_WIDGET(data);
+    GtkTreeSelection *selection = gtk_tree_view_get_selection(view);
+
+    if (gtk_tree_selection_count_selected_rows (selection) == 1)
+    {
+        GtkTreeModel *model;
+        GList *list;
+        GtkTreeIter iter;
+
+        list = gtk_tree_selection_get_selected_rows (selection, &model);
+        if (gtk_tree_model_get_iter (model, &iter, (GtkTreePath *)(list->data)))
+        {
+            gchar *name;
+            gchar *ptr;
+            
+            gtk_tree_model_get (model, &iter, COL_PKG_PACKAGE, &name, -1);
+
+            /* Remove numeric suffix */
+            ptr = name + strlen(name) - 1;
+            while (g_ascii_isdigit (*ptr))
+            {
+                while (g_ascii_isdigit (*ptr)) ptr--;
+                if ((*ptr != '_') && (*ptr != '-') && (*ptr != '.')) break;
+                *ptr = '\0';
+                ptr--;
+            }
+
+            /* Convert to upper case and remove invalid characters */
+            for (ptr = name; *ptr != '\0'; ptr++)
+            {
+                if (g_ascii_isalnum (*ptr))
+                {
+                    *ptr = g_ascii_toupper (*ptr);
+                }
+                else
+                {
+                    *ptr = '_';
+                }
+            }
+
+            g_signal_handlers_block_by_func (G_OBJECT (entry), on_changed_disconnect, view);
+            gtk_entry_set_text (GTK_ENTRY (entry), name);
+            g_signal_handlers_unblock_by_func (G_OBJECT (entry), on_changed_disconnect, view);
+            g_free (name);
+        }
+        
+        g_list_foreach (list, (GFunc)gtk_tree_path_free, NULL);
+        g_list_free (list);
+    }
+}
+
+static void
+on_changed_disconnect (GtkEditable* entry, gpointer data)
+{
+    g_signal_handlers_block_by_func (G_OBJECT (data), on_cursor_changed_set_entry, entry);
+}
+
+AnjutaProjectNode* 
+gbf_project_util_add_package (GbfProjectModel   *model,
+                              GtkWindow        *parent,
+                              GtkTreeIter      *default_module,
+                              GList            *packages_to_add)
+{
+    GtkBuilder *gui;
+    GtkWidget *dialog;
+    GtkWidget *ok_button;
+    GtkWidget *module_entry;
+    GtkWidget *packages_view;
+    GtkCellRenderer* renderer;
+    GtkListStore *store;
+    GList *modules;
+    GList *node;
+    GtkTreeViewColumn *col;
+    gint response;
+    IAnjutaProject *project;
+    gboolean finished = FALSE;
+    AnjutaProjectNode* module = NULL;
+    GtkTreeSelection *package_selection;
+    GtkTreeIter root;
+    gboolean valid;
+    gint default_pos = -1;
+    
+    g_return_val_if_fail (model != NULL, NULL);
+    
+    project = gbf_project_model_get_project (model);
+    if (!project)
+        return NULL;
+
+    gui = load_interface ("add_package_dialog");
+    g_return_val_if_fail (gui != NULL, NULL);
+    
+    /* get all needed widgets */
+    dialog = GTK_WIDGET (gtk_builder_get_object (gui, "add_package_dialog"));
+    module_entry = GTK_WIDGET (gtk_builder_get_object (gui, "module_entry"));
+    packages_view = GTK_WIDGET (gtk_builder_get_object (gui, "packages_view"));
+    ok_button = GTK_WIDGET (gtk_builder_get_object (gui, "ok_package_button"));
+
+    /* Fill combo box with modules */
+    store = gtk_list_store_new(1, G_TYPE_STRING);
+    gtk_combo_box_entry_set_text_column (GTK_COMBO_BOX_ENTRY (module_entry), 0);
+
+    for (valid = gtk_tree_model_get_iter_first (GTK_TREE_MODEL (model), &root); valid != FALSE; valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &root))
+    {
+        GbfTreeData *data;
+        
+        gtk_tree_model_get (GTK_TREE_MODEL (model), &root, GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
+        if (data && (data->type == GBF_TREE_NODE_GROUP)) break;
+    }
+    
+    if (valid)
+    {
+        GtkTreeIter iter;
+        gint pos = 0;
+        GbfTreeData *data;
+        GtkTreePath *default_path = gtk_tree_model_get_path(GTK_TREE_MODEL (model), default_module);
+
+        gtk_tree_model_get (GTK_TREE_MODEL (model), &root, GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
+        
+        for (valid = gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &iter, &root); valid != FALSE; valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &iter))
+        {
+            GbfTreeData *data;
+            
+            gtk_tree_model_get (GTK_TREE_MODEL (model), &iter, GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
+
+            g_message ("module %p name %s type %d module %d", data, data != NULL ? data->name : "(null)", data != NULL ? data->type : -1, GBF_TREE_NODE_MODULE);
+            if (data && (data->type == GBF_TREE_NODE_MODULE))
+            {
+                GtkTreeIter list_iter;
+                GtkTreePath *path = gtk_tree_model_get_path(GTK_TREE_MODEL (model), &iter);
+
+                g_message ("append name %s", data->name);
+                gtk_list_store_append (store, &list_iter);
+                gtk_list_store_set (store, &list_iter, 0, data->name, -1);
+                if (gtk_tree_path_compare (path, default_path) == 0)
+                {
+                    default_pos = pos;
+                }
+                gtk_tree_path_free (path);
+                pos++;
+            }
+        }
+        gtk_tree_path_free (default_path);
+    }
+    gtk_combo_box_set_model (GTK_COMBO_BOX(module_entry), GTK_TREE_MODEL(store));
+    gtk_combo_box_entry_set_text_column (GTK_COMBO_BOX_ENTRY (module_entry), 0);
+//    g_object_unref (store);
+    if (default_pos >= 0)
+    {
+        gtk_combo_box_set_active (GTK_COMBO_BOX (module_entry), default_pos);
+    }
+    else
+    {
+        /* Create automatically a module name from the package name when missing */
+        GtkWidget *entry = gtk_bin_get_child (GTK_BIN (module_entry));
+        
+        g_signal_connect (G_OBJECT(packages_view), "cursor-changed",
+            G_CALLBACK(on_cursor_changed_set_entry), entry);
+        g_signal_connect (G_OBJECT(entry), "changed",
+            G_CALLBACK(on_changed_disconnect), packages_view);
+    }
+    
+    /* Fill package list */
+    renderer = gtk_cell_renderer_text_new ();
+    col = gtk_tree_view_column_new_with_attributes (_("Package"),
+                                                    renderer,
+                                                    "text", COL_PKG_PACKAGE,
+                                                    NULL);
+    gtk_tree_view_column_set_sort_column_id (col, COL_PKG_PACKAGE);
+    gtk_tree_view_append_column (GTK_TREE_VIEW (packages_view), col);
+    renderer = gtk_cell_renderer_text_new ();
+    col = gtk_tree_view_column_new_with_attributes (_("Description"),
+                                                    renderer,
+                                                    "text",
+                                                    COL_PKG_DESCRIPTION,
+                                                    NULL);
+    gtk_tree_view_append_column (GTK_TREE_VIEW (packages_view), col);
+    store = packages_get_pkgconfig_list ();
+    gtk_tree_view_set_model (GTK_TREE_VIEW (packages_view),
+                            GTK_TREE_MODEL (store));
+
+    on_cursor_changed (GTK_TREE_VIEW (packages_view), ok_button);
+    g_signal_connect (G_OBJECT(packages_view), "cursor-changed",
+        G_CALLBACK(on_cursor_changed), ok_button);
+
+    if (parent) {
+        gtk_window_set_transient_for (GTK_WINDOW (dialog), parent);
+    }
+    
+    /* execute dialog */
+    while (!finished) {
+        response = gtk_dialog_run (GTK_DIALOG (dialog));
+
+        switch (response) {
+            case GTK_RESPONSE_OK: 
+            {
+                AnjutaProjectNode *target;
+
+#if 0
+                target = gbf_project_view_find_selected (GBF_PROJECT_VIEW (targets_view),
+                                                         ANJUTA_PROJECT_TARGET);
+                if (target) {
+                    GString *err_mesg = g_string_new (NULL);
+                    GList *list;
+                    GList *node;
+                    
+                    list = gbf_project_view_get_all_selected (GBF_PROJECT_VIEW (modules_view));
+                    for (node = g_list_first (list); node != NULL; node = g_list_next (node))
+                    {
+                        GError *err = NULL;
+                        AnjutaProjectNode* selected_module = (AnjutaProjectNode *)node->data;
+                        AnjutaProjectNode* new_module;
+                        gchar* uri = NULL;
+                        GFile* module_file;
+
+                        /*module_file = gbf_tree_data_get_file (selected_module);
+                        new_module = ianjuta_project_add_module (project,
+                                                            target,
+                                                            module_file,
+                                                            &err);
+                        g_object_unref (module_file);*/
+                        new_module = NULL;
+                        if (err) {
+                            gchar *str = g_strdup_printf ("%s: %s\n",
+                                                            uri,
+                                                            err->message);
+                            g_string_append (err_mesg, str);
+                            g_error_free (err);
+                            g_free (str);
+                        }
+                        else
+                            new_modules = g_list_append (new_modules,
+                                                        new_module);
+
+                        g_free (uri);
+                    }
+                    g_list_free (list);
+                    
+                    if (err_mesg->str && strlen (err_mesg->str) > 0) {
+                        error_dialog (parent, _("Cannot add packages"),
+                                        "%s", err_mesg->str);
+                    } else {
+                        finished = TRUE;
+                    }
+                    g_string_free (err_mesg, TRUE);
+                } else {
+                    error_dialog (parent, _("Cannot add packages"),
+                            "%s", _("No target has been selected"));
+                }
+#endif
+                break;
+            }
+            default:
+                finished = TRUE;
+                break;
+        }
+    }
+    
+    /* destroy stuff */
+    gtk_widget_destroy (dialog);
+    g_object_unref (gui);
+    
+    return module;
 }

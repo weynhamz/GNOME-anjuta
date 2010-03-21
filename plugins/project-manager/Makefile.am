@@ -45,7 +45,9 @@ libanjuta_project_manager_la_SOURCES = \
 	gbf-project-view.h	\
 	gbf-project-view.c	\
 	gbf-project-util.h	\
-	gbf-project-util.c
+	gbf-project-util.c	\
+	pkg-config.c		\
+	pkg-config.h
 
 libanjuta_project_manager_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 

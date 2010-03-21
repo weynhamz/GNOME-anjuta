@@ -517,7 +517,7 @@ add_module (GbfProjectModel 		*model,
 	if ((!module) || (anjuta_project_node_get_type (module) != ANJUTA_PROJECT_MODULE))
 		return;
 	
-	data = gbf_tree_data_new_package (module);
+	data = gbf_tree_data_new_module (module);
 	gtk_tree_store_append (GTK_TREE_STORE (model), &iter, parent);
 	gtk_tree_store_set (GTK_TREE_STORE (model), &iter, 
 			    GBF_PROJECT_MODEL_COLUMN_DATA, data,

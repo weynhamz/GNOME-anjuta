@@ -201,6 +201,24 @@ set_pixbuf (GtkTreeViewColumn *tree_column,
 							   NULL);
 			break;
 		}
+		case GBF_TREE_NODE_MODULE: 
+		{
+			pixbuf = gtk_icon_theme_load_icon (gtk_icon_theme_get_default(),
+							   GTK_STOCK_DND_MULTIPLE,
+							   ICON_SIZE,
+							   GTK_ICON_LOOKUP_GENERIC_FALLBACK,
+							   NULL);
+			break;
+		}
+		case GBF_TREE_NODE_PACKAGE: 
+		{
+			pixbuf = gtk_icon_theme_load_icon (gtk_icon_theme_get_default(),
+							   GTK_STOCK_DND,
+							   ICON_SIZE,
+							   GTK_ICON_LOOKUP_GENERIC_FALLBACK,
+							   NULL);
+			break;
+		}
 		default:
 			pixbuf = NULL;
 	}

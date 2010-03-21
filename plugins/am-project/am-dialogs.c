@@ -181,7 +181,6 @@ GtkWidget *
 amp_configure_project_dialog (AmpProject *project, GError **error)
 {
 	GtkBuilder *bxml = gtk_builder_new ();
-	GtkWidget *top_level;
 	AmpConfigureProjectDialog *dlg;
 	GtkWidget *table;
 	gint pos;
@@ -194,12 +193,11 @@ amp_configure_project_dialog (AmpProject *project, GError **error)
 
 	dlg = g_new0 (AmpConfigureProjectDialog, 1);
 	anjuta_util_builder_get_objects (bxml,
-	                                "top_level", &top_level,
 	    							"general_properties_table", &table,
 	                                NULL);
-	dlg->top_level = top_level;
-	g_object_ref (top_level);
-	g_signal_connect (top_level, "destroy", G_CALLBACK (on_project_widget_destroy), dlg);
+	dlg->top_level = table;
+	g_object_ref (table);
+	g_signal_connect (table, "destroy", G_CALLBACK (on_project_widget_destroy), dlg);
 
 	pos = 0;
 	name = g_file_get_parse_name (amp_project_get_file (project));
@@ -218,10 +216,10 @@ amp_configure_project_dialog (AmpProject *project, GError **error)
 	add_entry (project, NULL, _("Package name:"), AMP_PROPERTY_TARNAME, table, 4);
 	add_entry (project, NULL, _("URL:"), AMP_PROPERTY_URL, table, 5);*/
 	
-	gtk_widget_show_all (top_level);
+	gtk_widget_show_all (table);
 	g_object_unref (bxml);
 
-	return top_level;
+	return table;
 }
 
 GtkWidget *

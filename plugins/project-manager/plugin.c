@@ -558,6 +558,37 @@ on_add_group (GtkAction *action, ProjectManagerPlugin *plugin)
 }
 
 static void
+on_add_package (GtkAction *action, ProjectManagerPlugin *plugin)
+{
+	GtkTreeIter selected_module;
+	AnjutaProjectNode *new_module;
+	
+	update_operation_begin (plugin);
+	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_module);
+	
+	new_module = gbf_project_util_add_package (plugin->model,
+										   get_plugin_parent_window (plugin),
+										   &selected_module, NULL);
+	update_operation_end (plugin, TRUE);
+}
+
+static void
+on_add_module (GtkAction *action, ProjectManagerPlugin *plugin)
+{
+	GtkTreeIter selected_target;
+	GList *new_modules;
+	
+	update_operation_begin (plugin);
+	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_target);
+	
+	new_modules = gbf_project_util_add_module (plugin->model,
+										   get_plugin_parent_window (plugin),
+										   &selected_target, NULL);
+	g_list_free (new_modules);
+	update_operation_end (plugin, TRUE);
+}
+
+static void
 on_add_target (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 	GFile *target;
@@ -619,6 +650,37 @@ on_popup_properties (GtkAction *action, ProjectManagerPlugin *plugin)
 		}
 		g_list_free (selected);
 	}
+}
+
+static void
+on_popup_add_package (GtkAction *action, ProjectManagerPlugin *plugin)
+{
+	GtkTreeIter selected_module;
+	AnjutaProjectNode *module;
+	
+	update_operation_begin (plugin);
+	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_module);
+	
+	module = gbf_project_util_add_package (plugin->model,
+										   get_plugin_parent_window (plugin),
+										   &selected_module, NULL);
+	update_operation_end (plugin, TRUE);
+}
+
+static void
+on_popup_add_module (GtkAction *action, ProjectManagerPlugin *plugin)
+{
+	GtkTreeIter selected_target;
+	GList *new_modules;
+	
+	update_operation_begin (plugin);
+	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_target);
+	
+	new_modules = gbf_project_util_add_module (plugin->model,
+										   get_plugin_parent_window (plugin),
+										   &selected_target, NULL);
+	g_list_free (new_modules);
+	update_operation_end (plugin, TRUE);
 }
 
 static void
@@ -913,6 +975,16 @@ static GtkActionEntry pm_actions[] =
 		G_CALLBACK (on_refresh)
 	},
 	{
+		"ActionProjectAddModule", GTK_STOCK_ADD,
+		N_("Add _Module…"), NULL, N_("Add a module to a target"),
+		G_CALLBACK (on_add_module)
+	},
+	{
+		"ActionProjectAddPackage", GTK_STOCK_ADD,
+		N_("Add _Package…"), NULL, N_("Add a package to project"),
+		G_CALLBACK (on_add_package)
+	},
+	{
 		"ActionProjectAddGroup", GTK_STOCK_ADD,
 		N_("Add _Group…"), NULL, N_("Add a group to project"),
 		G_CALLBACK (on_add_group)
@@ -945,6 +1017,16 @@ static GtkActionEntry popup_actions[] =
 		"ActionPopupProjectAddToProject", GTK_STOCK_ADD,
 		N_("_Add to Project"), NULL, N_("Add a source file to project"),
 		G_CALLBACK (on_popup_add_to_project)
+	},
+	{
+		"ActionPopupProjectAddModule", GTK_STOCK_ADD,
+		N_("Add _Module"), NULL, N_("Add a module to target"),
+		G_CALLBACK (on_popup_add_module)
+	},
+	{
+		"ActionPopupProjectAddPackage", GTK_STOCK_ADD,
+		N_("Add _Package"), NULL, N_("Add a package to project"),
+		G_CALLBACK (on_popup_add_package)
 	},
 	{
 		"ActionPopupProjectAddGroup", GTK_STOCK_ADD,
