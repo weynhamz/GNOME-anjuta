@@ -38,9 +38,9 @@ enum {
 	DATA_COL_SYMBOL_RETURNTYPE,
 	DATA_COL_SYMBOL_FILE_PATH,
 	DATA_COL_SYMBOL_ACCESS,
-	DATA_COL_SYMBOL_KIND_NAME,
 	DATA_COL_SYMBOL_TYPE,
 	DATA_COL_SYMBOL_TYPE_NAME,
+	DATA_COL_SYMBOL_KIND_NAME,
 	DATA_N_COLS
 };
 
@@ -153,12 +153,12 @@ symbol_db_model_project_get_query_value (SymbolDBModel *model,
 	switch (column)
 	{
 	case SYMBOL_DB_MODEL_PROJECT_COL_PIXBUF:
-		ret_value = gda_data_model_iter_get_value_for_field (iter,
-		                                                     "type_type");
+		ret_value = gda_data_model_iter_get_value_at (iter,
+		                                              DATA_COL_SYMBOL_TYPE);
 		if (ret_value && G_VALUE_HOLDS_STRING (ret_value))
 				type = g_value_get_string (ret_value);
-		ret_value = gda_data_model_iter_get_value_for_field (iter,
-		                                                     "access_name");
+		ret_value = gda_data_model_iter_get_value_at (iter,
+		                                              DATA_COL_SYMBOL_ACCESS);
 		if (ret_value && G_VALUE_HOLDS_STRING (ret_value))
 				access = g_value_get_string (ret_value);
 

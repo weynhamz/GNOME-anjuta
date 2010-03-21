@@ -650,11 +650,16 @@ symbol_db_model_iter_children (GtkTreeModel *tree_model,
 		parent_node = (SymbolDBModelNode*) parent->user_data;
 		offset = GPOINTER_TO_INT (parent->user_data2);
 		node = symbol_db_model_node_get_child (parent_node, offset);
+		if (!node)
+		{
+			symbol_db_model_page_fault (SYMBOL_DB_MODEL (tree_model),
+			                            parent_node, offset);
+			if (node)
+				symbol_db_model_ensure_node_children (SYMBOL_DB_MODEL (tree_model),
+						                              node, FALSE);
+		}
 		g_return_val_if_fail (node != NULL, FALSE);
 	}
-	if (!node->children_ensured)
-		symbol_db_model_ensure_node_children (SYMBOL_DB_MODEL (tree_model),
-		                                      node, FALSE);
 	g_return_val_if_fail (node->n_children > 0, FALSE);
 	
 	iter->user_data = node;
