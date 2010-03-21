@@ -96,7 +96,6 @@ symbol_db_view_new (SymbolViewType view_type,
 	g_signal_connect (G_OBJECT (dbv), "row-activated",
 					  G_CALLBACK (on_treeview_row_activated), plugin);
 
-
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (dbv), FALSE);
 	gtk_tree_view_set_fixed_height_mode (GTK_TREE_VIEW (dbv), TRUE);
 	
@@ -104,12 +103,13 @@ symbol_db_view_new (SymbolViewType view_type,
 	/* Note: Fixed sized columns are mandatory for high performance */
 	column = gtk_tree_view_column_new ();
 
-	gtk_tree_view_column_set_fixed_width (column, 300);
+	gtk_tree_view_column_set_fixed_width (column, 400);
 	gtk_tree_view_column_set_title (column, _("Symbol"));
 	gtk_tree_view_column_set_sizing (column,
 	                                 GTK_TREE_VIEW_COLUMN_FIXED);
 
 	renderer = gtk_cell_renderer_pixbuf_new ();
+	gtk_cell_renderer_set_fixed_size (renderer, 16, -1);
 	gtk_tree_view_column_pack_start (column, renderer, FALSE);
 	gtk_tree_view_column_add_attribute (column, renderer, "pixbuf",
 	                                    SYMBOL_DB_MODEL_PROJECT_COL_PIXBUF);
