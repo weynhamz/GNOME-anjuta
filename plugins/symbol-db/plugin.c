@@ -40,12 +40,11 @@
 #include <libanjuta/interfaces/ianjuta-preferences.h>
 
 #include "plugin.h"
-#include "symbol-db-view.h"
-#include "symbol-db-view-locals.h"
 #include "symbol-db-view-search.h"
 #include "symbol-db-engine.h"
 #include "symbol-db-prefs.h"
 #include "symbol-db-iface.h"
+#include "symbol-db-views.h"
 
 #define ICON_FILE "anjuta-symbol-db-plugin-48.png"
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-symbol-db-plugin.xml"
@@ -338,24 +337,6 @@ static GtkActionEntry actions_search[] = {
   }
 };
 
-static void
-enable_view_signals (SymbolDBPlugin *sdb_plugin, gboolean enable, gboolean force)
-{
-	if ((sdb_plugin->is_offline_scanning == FALSE && 
-		sdb_plugin->is_project_importing == FALSE &&
-		sdb_plugin->is_project_updating == FALSE &&
-		sdb_plugin->is_adding_element == FALSE) || force == TRUE)
-	{
-		symbol_db_view_locals_recv_signals_from_engine (																
-				SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), 
-								 sdb_plugin->sdbe_project, enable);		
-			
-		symbol_db_view_recv_signals_from_engine (
-				SYMBOL_DB_VIEW(sdb_plugin->dbv_view_tree), 
-								 sdb_plugin->sdbe_project, enable);
-	}
-}
-
 static gboolean
 on_editor_buffer_symbols_update_timeout (gpointer user_data)
 {
@@ -523,10 +504,6 @@ on_editor_buffer_symbol_update_scan_end (SymbolDBEngine *dbe, gint process_id,
 			return;
 		}	
 
-		symbol_db_view_locals_update_list (
-					SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals),
-					 sdb_plugin->sdbe_project, local_path, FALSE);
-
 		/* add a default timeout to the updating of buffer symbols */	
 		tags_update = anjuta_preferences_get_bool (sdb_plugin->prefs, BUFFER_AUTOSCAN);
 		
@@ -548,7 +525,7 @@ on_editor_destroy (SymbolDBPlugin *sdb_plugin, IAnjutaEditor *editor)
 {
 	const gchar *uri;
 	DEBUG_PRINT ("%s", "on_editor_destroy ()");
-	if (!sdb_plugin->editor_connected || !sdb_plugin->dbv_view_tree)
+	if (!sdb_plugin->editor_connected)
 	{
 		DEBUG_PRINT ("%s", "on_editor_destroy (): returning….");
 		return;
@@ -556,13 +533,11 @@ on_editor_destroy (SymbolDBPlugin *sdb_plugin, IAnjutaEditor *editor)
 	
 	uri = g_hash_table_lookup (sdb_plugin->editor_connected, G_OBJECT (editor));
 	g_hash_table_remove (sdb_plugin->editor_connected, G_OBJECT (editor));
-	
-	/* was it the last file loaded? */
+
 	if (g_hash_table_size (sdb_plugin->editor_connected) <= 0)
 	{
 		DEBUG_PRINT ("%s", "displaying nothing…");
-		symbol_db_view_locals_display_nothing (
-				SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), TRUE);
+		g_object_set (sdb_plugin->file_model, "file-path", NULL, NULL);
 	}
 }
 
@@ -661,11 +636,6 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	
 	editor = g_value_get_object (value);	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
-	
-	/* we have an editor added, so let locals to display something */
-	symbol_db_view_locals_display_nothing (
-			SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), FALSE);
-	
 	if (sdb_plugin->session_loading)
 	{
 		return;
@@ -708,11 +678,9 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 		sdb_plugin->buffer_update_semaphore = TRUE;
 	}
 	else 
-	{		
-		symbol_db_view_locals_update_list (
-					SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals),
-					 sdb_plugin->sdbe_project, local_path, FALSE);
-
+	{
+		g_object_set (sdb_plugin->file_model, "file-path", local_path, NULL);
+		
 		/* add a default timeout to the updating of buffer symbols */	
 		tags_update = anjuta_preferences_get_bool (sdb_plugin->prefs, BUFFER_AUTOSCAN);
 				
@@ -774,65 +742,6 @@ on_editor_foreach_disconnect (gpointer key, gpointer value, gpointer user_data)
 						 user_data);
 }
 
-static void
-goto_local_tree_iter (SymbolDBPlugin *sdb_plugin, GtkTreeIter *iter)
-{
-	gint line;
-
-	line = symbol_db_view_locals_get_line (SYMBOL_DB_VIEW_LOCALS (
-									sdb_plugin->dbv_view_tree_locals), 
-										   sdb_plugin->sdbe_project,
-										   iter);	
-	
-	if (line > 0 && sdb_plugin->current_editor)
-	{
-		/* Goto line number */
-		ianjuta_editor_goto_line (IANJUTA_EDITOR (sdb_plugin->current_editor),
-								  line, NULL);
-		if (IANJUTA_IS_MARKABLE (sdb_plugin->current_editor))
-		{
-			ianjuta_markable_delete_all_markers (IANJUTA_MARKABLE (sdb_plugin->current_editor),
-												 IANJUTA_MARKABLE_LINEMARKER,
-												 NULL);
-
-			ianjuta_markable_mark (IANJUTA_MARKABLE (sdb_plugin->current_editor),
-								   line, IANJUTA_MARKABLE_LINEMARKER, NULL);
-		}
-	}
-}
-
-static void
-goto_global_tree_iter (SymbolDBPlugin *sdb_plugin, GtkTreeIter *iter)
-{
-	gint line;
-	gchar *file;
-
-	if (symbol_db_view_get_file_and_line (
-			SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree), sdb_plugin->sdbe_project,
-							iter, &line, &file) == FALSE)
-	{
-		DEBUG_PRINT ("goto_global_tree_iter (): error while trying to get file/line. "
-					 "Maybe you clicked on Global/Var etc. node.");
-		return;
-	};
-		
-	if (line > 0 && sdb_plugin->current_editor)
-	{
-		goto_file_line (ANJUTA_PLUGIN (sdb_plugin), file, line);
-		if (IANJUTA_IS_MARKABLE (sdb_plugin->current_editor))
-		{
-			ianjuta_markable_delete_all_markers (IANJUTA_MARKABLE (sdb_plugin->current_editor),
-												 IANJUTA_MARKABLE_LINEMARKER,
-												 NULL);
-
-			ianjuta_markable_mark (IANJUTA_MARKABLE (sdb_plugin->current_editor),
-								   line, IANJUTA_MARKABLE_LINEMARKER, NULL);
-		}
-	}
-	
-	g_free (file);
-}
-
 /**
  * will manage the click of mouse and other events on search->hitlist treeview
  */
@@ -843,63 +752,6 @@ on_treesearch_symbol_selected_event (SymbolDBViewSearch *search,
 									 SymbolDBPlugin *sdb_plugin) 
 {	
 	goto_file_line (ANJUTA_PLUGIN (sdb_plugin), file, line);
-}
-
-
-static void
-on_local_treeview_row_activated (GtkTreeView *view, GtkTreePath *arg1,
-								 GtkTreeViewColumn *arg2,
-								 SymbolDBPlugin *sdb_plugin)
-{
-	GtkTreeModel *model;
-	GtkTreeSelection *selection;
-	GtkTreeIter iter;
-	
-	selection = gtk_tree_view_get_selection (view);
-	if (!gtk_tree_selection_get_selected (selection, &model, &iter)) 
-	{
-		return;
-	}
-	goto_local_tree_iter (sdb_plugin, &iter);
-}
-
-static void
-on_global_treeview_row_activated (GtkTreeView *view, GtkTreePath *arg1,
-								 GtkTreeViewColumn *arg2,
-								 SymbolDBPlugin *sdb_plugin)
-{
-	GtkTreeModel *model;
-	GtkTreeSelection *selection;
-	GtkTreeIter iter;
-		
-	selection = gtk_tree_view_get_selection (view);
-	if (!gtk_tree_selection_get_selected (selection, &model, &iter)) 
-	{
-		return;
-	}
-	
-	goto_global_tree_iter (sdb_plugin, &iter);
-}
-
-static void
-on_global_treeview_row_expanded (GtkTreeView *tree_view,
-									GtkTreeIter *iter,
-                                    GtkTreePath *path,
-                                    SymbolDBPlugin *user_data)
-{
-	symbol_db_view_row_expanded (SYMBOL_DB_VIEW (user_data->dbv_view_tree),
-								user_data->sdbe_project, iter);
-}
-
-static void
-on_global_treeview_row_collapsed (GtkTreeView *tree_view,
-									GtkTreeIter *iter,
-                                    GtkTreePath *path,
-                                    SymbolDBPlugin *user_data)
-{		
-	symbol_db_view_row_collapsed (SYMBOL_DB_VIEW (user_data->dbv_view_tree),
-								user_data->sdbe_project, iter);
-	
 }
 
 static void
@@ -1075,15 +927,12 @@ on_project_element_added (IAnjutaProjectManager *pm, GFile *gfile,
 	g_ptr_array_add (files_array, filename);
 
 	sdb_plugin->is_adding_element = TRUE;	
-	enable_view_signals (sdb_plugin, FALSE, TRUE);
-
+	
 	/* use a custom function to add the files to db */
 	real_added = do_add_new_files (sdb_plugin, files_array, TASK_ELEMENT_ADDED);
 	if (real_added <= 0) 
 	{
 		sdb_plugin->is_adding_element = FALSE;
-		
-		enable_view_signals (sdb_plugin, TRUE, FALSE);
 	}
 	
 	g_ptr_array_foreach (files_array, (GFunc)g_free, NULL);
@@ -1229,8 +1078,6 @@ static void
 clear_project_progress_bar (SymbolDBEngine *dbe, gpointer data)
 {
 	SymbolDBPlugin *sdb_plugin;
-	GFile* file;
-	gchar *local_path;
 	
 	g_return_if_fail (data != NULL);	
 	
@@ -1238,31 +1085,6 @@ clear_project_progress_bar (SymbolDBEngine *dbe, gpointer data)
 	
 	/* hide the progress bar */
 	gtk_widget_hide (sdb_plugin->progress_bar_project);	
-	
-	/* re-active global symbols */
-	symbol_db_view_open (SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree), 
-						 sdb_plugin->sdbe_project);
-	
-	/* ok, enable local symbols view */
-	if (sdb_plugin->current_editor == NULL  ||
-	    IANJUTA_IS_FILE (sdb_plugin->current_editor) == FALSE)
-	{
-		return;
-	}
-	
-	if ((file = ianjuta_file_get_file (IANJUTA_FILE (sdb_plugin->current_editor), 
-								  NULL)) == NULL)
-	{
-		DEBUG_PRINT ("file is NULL");
-		return;
-	}
-
-	local_path = g_file_get_path (file);	
-	symbol_db_view_locals_update_list (
-				SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals),
-				 sdb_plugin->sdbe_project, local_path, FALSE);	
-	
-	g_free (local_path);
 }
 
 static void
@@ -1377,12 +1199,6 @@ do_import_project_sources_after_abort (AnjutaPlugin *plugin,
 
 	sdb_plugin->is_project_importing = TRUE;
 	
-	/* 
-	 * if we're importing first shut off the signal receiving.
-	 * We'll re-enable that on scan-end 
-	 */
-	enable_view_signals (sdb_plugin, FALSE, TRUE);
-	
 	/* connect to receive signals on single file scan complete. We'll
 	 * update a status bar notifying the user about the status
 	 */
@@ -1394,8 +1210,6 @@ do_import_project_sources_after_abort (AnjutaPlugin *plugin,
 	if (real_added <= 0)
 	{
 		sdb_plugin->is_project_importing = FALSE;
-		
-		enable_view_signals (sdb_plugin, TRUE, FALSE);
 	}
 	else 
 	{
@@ -1429,8 +1243,6 @@ do_import_project_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 	 * We'll re-enable that on scan-end 
 	 */
 	sdb_plugin->is_project_importing = TRUE;
-	enable_view_signals (sdb_plugin, FALSE, TRUE);
-	
 	DEBUG_PRINT ("Retrieving %d gbf sources of the project…",
 					 g_list_length (prj_elements_list));
 
@@ -1463,8 +1275,6 @@ do_import_project_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 	if (real_added <= 0)
 	{		
 		sdb_plugin->is_project_importing = FALSE;		
-		
-		enable_view_signals (sdb_plugin, TRUE, FALSE);
 	}
 	sdb_plugin->files_count_project += real_added;
 
@@ -1688,8 +1498,6 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 	{
 		/* block the signals spreading from engine to local-view tab */
 		sdb_plugin->is_offline_scanning = TRUE;
-		enable_view_signals (sdb_plugin, FALSE, TRUE);
-		
 		real_added = do_add_new_files (sdb_plugin, to_add_files, 
 										   TASK_OFFLINE_CHANGES);
 		
@@ -1699,8 +1507,6 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 		if (real_added <= 0)
 		{
 			sdb_plugin->is_offline_scanning = FALSE;
-			
-			enable_view_signals (sdb_plugin, TRUE, FALSE);			
 		}
 		else {
 			/* connect to receive signals on single file scan complete. We'll
@@ -1980,10 +1786,6 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 		id = g_idle_add ((GSourceFunc) gtk_progress_bar_pulse, 
 						 sdb_plugin->progress_bar_project);
 		gtk_widget_show (sdb_plugin->progress_bar_project);
-		
-		/* open symbol view, the global symbols gtktree */
-		symbol_db_view_open (SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree),
-							 sdb_plugin->sdbe_project);
 		g_source_remove (id);
 		gtk_widget_hide (sdb_plugin->progress_bar_project);
 
@@ -2021,13 +1823,6 @@ on_project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 										  on_project_element_removed,
 										  sdb_plugin);
 
-	/* clear locals symbols and the associated cache*/
-	symbol_db_view_locals_clear_cache (SYMBOL_DB_VIEW_LOCALS (
-											sdb_plugin->dbv_view_tree_locals));
-	
-	/* clear global symbols */
-	symbol_db_view_clear_cache (SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree));
-	
 	/* don't forget to close the project */
 	symbol_db_engine_close_db (sdb_plugin->sdbe_project);
 	
@@ -2157,8 +1952,6 @@ on_scan_end_manager (SymbolDBEngine *dbe, gint process_id,
  	 * perform some checks on some booleans. If they're all successfully passed
  	 * then activate the display of local view
  	 */
-	enable_view_signals (sdb_plugin, TRUE, FALSE);
-
 	if (sdb_plugin->is_offline_scanning == FALSE &&
 		 sdb_plugin->is_project_importing == FALSE &&
 		 sdb_plugin->is_project_updating == FALSE &&
@@ -2184,7 +1977,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	SymbolDBPlugin *sdb_plugin;
 	gchar *anjuta_cache_path;
 	gchar *ctags_path;
-	GtkWidget *label;
+	GtkWidget *view, *label;
 	
 	DEBUG_PRINT ("SymbolDBPlugin: Activating SymbolDBPlugin plugin …");
 	
@@ -2342,11 +2135,14 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	g_object_set_data (G_OBJECT(sdb_plugin->global_button), "__page", GINT_TO_POINTER(1));
 	g_object_set_data (G_OBJECT(sdb_plugin->search_button), "__page", GINT_TO_POINTER(2));
 
-	g_signal_connect (sdb_plugin->local_button, "toggled", G_CALLBACK(on_notebook_button_toggled),
+	g_signal_connect (sdb_plugin->local_button, "toggled",
+	                  G_CALLBACK(on_notebook_button_toggled),
 	                  sdb_plugin);
-	g_signal_connect (sdb_plugin->global_button, "toggled", G_CALLBACK(on_notebook_button_toggled),
+	g_signal_connect (sdb_plugin->global_button, "toggled",
+	                  G_CALLBACK(on_notebook_button_toggled),
 	                  sdb_plugin);
-	g_signal_connect (sdb_plugin->search_button, "toggled", G_CALLBACK(on_notebook_button_toggled),
+	g_signal_connect (sdb_plugin->search_button, "toggled",
+	                  G_CALLBACK(on_notebook_button_toggled),
 	                  sdb_plugin);
 
 	label = gtk_label_new (_("Symbols"));
@@ -2387,59 +2183,22 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	gtk_widget_show_all (sdb_plugin->dbv_main);
 
 	/* Local symbols */
-	sdb_plugin->scrolled_locals = gtk_scrolled_window_new (NULL, NULL);
-	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (sdb_plugin->scrolled_locals),
-										 GTK_SHADOW_IN);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sdb_plugin->scrolled_locals),
-									GTK_POLICY_AUTOMATIC,
-									GTK_POLICY_AUTOMATIC);
+	view = symbol_db_view_new (SYMBOL_DB_VIEW_FILE, sdb_plugin->sdbe_project,
+	                           sdb_plugin);
+	gtk_notebook_append_page (GTK_NOTEBOOK (sdb_plugin->dbv_notebook),
+							  view, gtk_label_new (_("Local")));
+	sdb_plugin->file_model =
+		gtk_tree_view_get_model (GTK_TREE_VIEW (gtk_bin_get_child (GTK_BIN(view))));
 	
-	sdb_plugin->dbv_view_locals_tab_label = gtk_label_new (_("Local" ));
-	sdb_plugin->dbv_view_tree_locals = symbol_db_view_locals_new ();
-	
-	/* activate signals receiving by default */
-	symbol_db_view_locals_recv_signals_from_engine (
-					SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), 
-											 sdb_plugin->sdbe_project, TRUE);										 
-
-	g_object_add_weak_pointer (G_OBJECT (sdb_plugin->dbv_view_tree_locals),
-							   (gpointer)&sdb_plugin->dbv_view_tree_locals);
-	g_signal_connect (G_OBJECT (sdb_plugin->dbv_view_tree_locals), "row-activated",
-					  G_CALLBACK (on_local_treeview_row_activated), plugin);
-
-	gtk_container_add (GTK_CONTAINER(sdb_plugin->scrolled_locals), 
-					   sdb_plugin->dbv_view_tree_locals);
-	
+	g_object_add_weak_pointer (G_OBJECT (sdb_plugin->file_model),
+							   (gpointer)&sdb_plugin->file_model);
 	
 	/* Global symbols */
-	sdb_plugin->scrolled_global = gtk_scrolled_window_new (NULL, NULL);
-	gtk_scrolled_window_set_shadow_type (
-					GTK_SCROLLED_WINDOW (sdb_plugin->scrolled_global),
-					GTK_SHADOW_IN);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sdb_plugin->scrolled_global),
-									GTK_POLICY_AUTOMATIC,
-									GTK_POLICY_AUTOMATIC);
-	
-	sdb_plugin->dbv_view_tab_label = gtk_label_new (_("Global" ));
-	sdb_plugin->dbv_view_tree = symbol_db_view_new ();
-	g_object_add_weak_pointer (G_OBJECT (sdb_plugin->dbv_view_tree),
-							   (gpointer)&sdb_plugin->dbv_view_tree);
-	/* activate signals receiving by default */
-	symbol_db_view_recv_signals_from_engine (
-					SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree), 
-											 sdb_plugin->sdbe_project, TRUE);										 
-
-	g_signal_connect (G_OBJECT (sdb_plugin->dbv_view_tree), "row-activated",
-					  G_CALLBACK (on_global_treeview_row_activated), plugin);
-
-	g_signal_connect (G_OBJECT (sdb_plugin->dbv_view_tree), "row-expanded",
-					  G_CALLBACK (on_global_treeview_row_expanded), plugin);
-
-	g_signal_connect (G_OBJECT (sdb_plugin->dbv_view_tree), "row-collapsed",
-					  G_CALLBACK (on_global_treeview_row_collapsed), plugin);	
-	
-	gtk_container_add (GTK_CONTAINER(sdb_plugin->scrolled_global), 
-					   sdb_plugin->dbv_view_tree);
+	view = symbol_db_view_new (SYMBOL_DB_VIEW_PROJECT,
+	                           sdb_plugin->sdbe_project,
+	                           sdb_plugin);
+	gtk_notebook_append_page (GTK_NOTEBOOK (sdb_plugin->dbv_notebook),
+							  view, gtk_label_new (_("Global" )));
 	
 	/* Search symbols */
 	sdb_plugin->dbv_view_tree_search =
@@ -2453,15 +2212,8 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	g_object_add_weak_pointer (G_OBJECT (sdb_plugin->dbv_view_tree_search),
 							   (gpointer)&sdb_plugin->dbv_view_tree_search);
 
+	
 	/* add the scrolled windows to the notebook */
-	gtk_notebook_append_page (GTK_NOTEBOOK (sdb_plugin->dbv_notebook),
-							  sdb_plugin->scrolled_locals, 
-							  sdb_plugin->dbv_view_locals_tab_label);
-	
-	gtk_notebook_append_page (GTK_NOTEBOOK (sdb_plugin->dbv_notebook),
-							  sdb_plugin->scrolled_global, 
-							  sdb_plugin->dbv_view_tab_label);
-	
 	gtk_notebook_append_page (GTK_NOTEBOOK (sdb_plugin->dbv_notebook),
 							  sdb_plugin->dbv_view_tree_search, 
 							  sdb_plugin->dbv_view_search_tab_label);
@@ -2541,10 +2293,6 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	    							sdb_plugin->menu_action_group);
 		
 	/* disconnect some signals */
-	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->dbv_view_tree_locals),
-									  on_local_treeview_row_activated,
-									  plugin);
-
 	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->dbv_view_tree_search),
 									  on_treesearch_symbol_selected_event,
 									  plugin);
@@ -2555,22 +2303,6 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 
 	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
 										  on_session_save,
-										  plugin);
-
-	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->dbv_view_tree),
-										  on_global_treeview_row_activated,
-										  plugin);
-	
-	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->dbv_view_tree),
-										  on_global_treeview_row_expanded,
-										  plugin);
-
-	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->dbv_view_tree),
-										  on_global_treeview_row_collapsed,
-										  plugin);
-
-	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->dbv_view_tree_locals),
-										  on_local_treeview_row_activated,
 										  plugin);
 
 	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->sdbs),
@@ -2689,12 +2421,6 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	sdb_plugin->editor_watch_id = 0;
 	sdb_plugin->merge_id = 0;
 	sdb_plugin->dbv_notebook = NULL;
-	sdb_plugin->scrolled_global = NULL;
-	sdb_plugin->scrolled_locals = NULL;
-	sdb_plugin->dbv_view_tree = NULL;
-	sdb_plugin->dbv_view_tab_label = NULL;
-	sdb_plugin->dbv_view_tree_locals = NULL;
-	sdb_plugin->dbv_view_locals_tab_label = NULL;
 	sdb_plugin->dbv_view_tree_search = NULL;
 	sdb_plugin->dbv_view_search_tab_label = NULL;
 	sdb_plugin->progress_bar_project = NULL;
