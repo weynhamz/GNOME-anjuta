@@ -507,7 +507,7 @@ symbol_db_model_get_iter (GtkTreeModel *tree_model,
 			/* No child available. View thinks there is child.
 			 * It's an inconsistent state. Do something fancy to fix it.
 			 */
-			symbol_db_model_update (tree_model); /* Untested path */
+			symbol_db_model_update (SYMBOL_DB_MODEL (tree_model)); /* Untested path */
 			break;
 		}
 		if (indx[i] >= node->n_children)
@@ -592,7 +592,6 @@ symbol_db_model_get_value (GtkTreeModel *tree_model,
 	if (!node->children_ensured)
 		symbol_db_model_queue_ensure_node_children (SYMBOL_DB_MODEL (tree_model),
 		                                            node);
-
 	g_value_copy (&(node->values[column]), value);
 }
 
@@ -964,11 +963,11 @@ symbol_db_model_get_query_value_real (SymbolDBModel *model,
 		return FALSE;
 
 	ret = gda_data_model_iter_get_value_at (iter, query_column);
-	if (!ret)
+	if (!ret || !G_IS_VALUE (ret))
 		return FALSE;
 
 	g_value_copy (ret, value);
-	return FALSE;
+	return TRUE;
 }
 
 static gboolean
@@ -998,11 +997,11 @@ symbol_db_model_get_query_value_at_real (SymbolDBModel *model,
 
 	ret = gda_data_model_get_value_at (data_model, query_column, position,
 	                                   NULL);
-	if (!ret)
+	if (!ret || !G_IS_VALUE (ret))
 		return FALSE;
 
 	g_value_copy (ret, value);
-	return FALSE;
+	return TRUE;
 }
 
 static gboolean

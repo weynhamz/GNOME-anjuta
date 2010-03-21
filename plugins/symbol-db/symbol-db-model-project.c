@@ -194,8 +194,12 @@ symbol_db_model_project_get_query_value (SymbolDBModel *model,
 				                                  DATA_COL_SYMBOL_RETURNTYPE);
 			if (ret_value && G_VALUE_HOLDS_STRING (ret_value))
 			{
-				g_string_append (label, " : ");
-				g_string_append (label, g_value_get_string (ret_value));
+				gchar *escaped =
+					g_markup_escape_text (g_value_get_string (ret_value), -1);
+				g_string_append (label, "<span style=\"italic\"> : ");
+				g_string_append (label, escaped);
+				g_string_append (label, "</span>");
+				g_free (escaped);
 			}
 		}
 		else
@@ -206,15 +210,31 @@ symbol_db_model_project_get_query_value (SymbolDBModel *model,
 			if (ret_value && G_VALUE_HOLDS_STRING (ret_value) &&
 			    g_strcmp0 (g_value_get_string (ret_value), name) != 0)
 			{
-				g_string_append (label, " : ");
-				g_string_append (label, g_value_get_string (ret_value));
+				gchar *escaped =
+					g_markup_escape_text (g_value_get_string (ret_value), -1);
+				g_string_append (label, "<span style=\"italic\"> : ");
+				g_string_append (label, escaped);
+				g_string_append (label, "</span>");
+				g_free (escaped);
 			}
 		}
 		g_value_set_string (value, label->str);
 		g_string_free (label, TRUE);
 		return TRUE;
 		break;
-			
+	case SYMBOL_DB_MODEL_PROJECT_COL_ARGS:
+		ret_value = gda_data_model_iter_get_value_at (iter,
+		                                              DATA_COL_SYMBOL_ARGS);
+		if (ret_value && G_VALUE_HOLDS_STRING (ret_value)
+		    && strlen (g_value_get_string (ret_value)) > 2)	
+		{
+			gchar *escaped =
+				g_markup_escape_text (g_value_get_string (ret_value), -1);
+			g_value_set_string (value, escaped);
+			g_free (escaped);
+		}
+		return TRUE;
+		break;
 	default:
 		return SYMBOL_DB_MODEL_CLASS (symbol_db_model_project_parent_class)->
 				get_query_value (model, data_model, iter, column, value);

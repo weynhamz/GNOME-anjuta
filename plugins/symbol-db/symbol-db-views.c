@@ -117,7 +117,7 @@ symbol_db_view_new (SymbolViewType view_type,
 
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
-	gtk_tree_view_column_add_attribute (column, renderer, "text",
+	gtk_tree_view_column_add_attribute (column, renderer, "markup",
 	                                    SYMBOL_DB_MODEL_PROJECT_COL_LABEL);
 
 	gtk_tree_view_append_column (GTK_TREE_VIEW (dbv), column);
