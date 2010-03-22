@@ -653,13 +653,17 @@ symbol_db_model_iter_children (GtkTreeModel *tree_model,
 		{
 			symbol_db_model_page_fault (SYMBOL_DB_MODEL (tree_model),
 			                            parent_node, offset);
+			node = symbol_db_model_node_get_child (parent_node, offset);
 			if (node)
 				symbol_db_model_ensure_node_children (SYMBOL_DB_MODEL (tree_model),
 						                              node, FALSE);
 		}
 		g_return_val_if_fail (node != NULL, FALSE);
 	}
-	g_return_val_if_fail (node->n_children > 0, FALSE);
+
+	/* View trying to access children of childless node seems typical */
+	if (node->n_children <= 0)
+		return FALSE;
 	
 	iter->user_data = node;
 	iter->user_data2 = GINT_TO_POINTER (0);
