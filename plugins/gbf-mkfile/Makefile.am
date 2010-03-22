@@ -25,6 +25,7 @@ AM_CPPFLAGS = 					\
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	$(GIO_CFLAGS) \
+	$(LIBXML_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
 	-DSCRIPTS_DIR=\"$(scriptsdir)\"
 

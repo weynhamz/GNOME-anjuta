@@ -37,6 +37,7 @@ AM_CPPFLAGS = \
 	-DANJUTA_IMAGE_DIR=\"$(anjuta_image_dir)\" \
 	-DANJUTA_GLADE_DIR=\"$(anjuta_glade_dir)\" \
 	-DANJUTA_UI_DIR=\"$(anjuta_ui_dir)\" \
+	$(LIBXML_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
 	-DPACKAGE_SRC_DIR=\"$(srcdir)\" \
 	-DGIR_PATH=\"$(girdir)\" \
