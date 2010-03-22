@@ -95,9 +95,6 @@ symbol_db_model_file_get_children (SymbolDBModel *model, gint tree_level,
 	if (!dbe || !symbol_db_engine_is_connected (dbe))
 		return NULL;
 	
-	g_message ("Retrieving level %d data: %d to %d", tree_level,
-	           offset, offset + limit);
-
 	switch (tree_level)
 	{
 	case 0:
