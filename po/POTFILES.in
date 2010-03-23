@@ -198,8 +198,6 @@ plugins/subversion/svn-command.c
 plugins/symbol-db/plugin.c
 plugins/symbol-db/symbol-db-prefs.c
 plugins/symbol-db/symbol-db-system.c
-plugins/symbol-db/symbol-db-view-locals.c
-plugins/symbol-db/symbol-db-view.c
 [type: gettext/glade]plugins/symbol-db/anjuta-symbol-db.ui
 [type: gettext/glade]plugins/terminal/anjuta-terminal-plugin.ui
 plugins/terminal/terminal.c
