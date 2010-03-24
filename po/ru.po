@@ -1,4 +1,4 @@
-# translation of anjuta.master.ru.po to Russian
+# translation of anjuta.gnome-2-30.ru.po to Russian
 # Russian translation for anjuta
 # Copyright (C) 2001-2008, 2010 Free Software Foundation, Inc.
 #
@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta trunk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-19 17:51+0200\n"
-"PO-Revision-Date: 2010-03-17 19:15+0300\n"
+"POT-Creation-Date: 2010-03-24 23:03+0200\n"
+"PO-Revision-Date: 2010-03-23 19:00+0300\n"
 "Last-Translator: Yuri Kozlov <yuray@komyakino.ru>\n"
 "Language-Team: Russian <debian-l10n-russian@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -6480,8 +6480,8 @@ msgid "No Date"
 msgstr "Без даты"
 
 #: ../plugins/macro/anjuta-macro.ui.h:2
-msgid "Edit&#x2026;"
-msgstr "Редактировать&#x2026;"
+msgid "Edit…"
+msgstr "Правка..."
 
 #: ../plugins/macro/anjuta-macro.ui.h:3
 msgid "Macro details:"
