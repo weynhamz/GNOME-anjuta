@@ -43,6 +43,8 @@ struct _SymbolDBModelPage
 typedef struct _SymbolDBModelNode SymbolDBModelNode;
 struct _SymbolDBModelNode {
 
+	gint n_columns;
+	
 	/* Column values of the node. This is an array of GValues of length
 	 * n_column. and holds the values in order of columns given at
 	 * object initialized.
@@ -150,10 +152,7 @@ symbol_db_model_node_set_child (SymbolDBModelNode *node, gint child_offset,
 
 	/* If children nodes array hasn't been allocated, now is the time */
 	if (!node->children)
-	{
-		node->children = g_new0 (SymbolDBModelNode*,
-			                                 node->n_children);
-	}
+		node->children = g_new0 (SymbolDBModelNode*, node->n_children);
 	node->children[child_offset] = val;
 }
 
@@ -197,7 +196,7 @@ symbol_db_model_node_cleanse (SymbolDBModelNode *node, gboolean force)
 	while (page)
 	{
 		next = page->next;
-		g_free (page);
+		g_slice_free (SymbolDBModelPage, page);
 		page = next;
 	}
 	node->pages = NULL;
@@ -217,8 +216,8 @@ symbol_db_model_node_free (SymbolDBModelNode *node, gboolean force)
 	if (!symbol_db_model_node_cleanse (node, force))
 	    return;
 	
-	g_free (node->values);
-	g_free (node);
+	g_slice_free1 (sizeof(GValue) * node->n_columns, node->values);
+	g_slice_free (SymbolDBModelNode, node);
 }
 
 static void
@@ -326,8 +325,9 @@ symbol_db_model_node_new (SymbolDBModel *model, SymbolDBModelNode *parent,
 {
 	gint i;
 	SymbolDBModelPriv *priv = GET_PRIV (model);
-	SymbolDBModelNode* node = g_new0 (SymbolDBModelNode, 1);
-	node->values = g_new0 (GValue, priv->n_columns);
+	SymbolDBModelNode* node = g_slice_new0 (SymbolDBModelNode);
+	node->n_columns = priv->n_columns;
+	node->values = g_slice_alloc0 (sizeof (GValue) * priv->n_columns);
 	for (i = 0; i < priv->n_columns; i++)
 	{
 		g_value_init (&(node->values[i]), priv->column_types[i]);
@@ -387,7 +387,7 @@ symbol_db_model_page_fault (SymbolDBModel *model,
 		return NULL;
 	
 	/* New page to cover current child_offset */
-	page = g_new0 (SymbolDBModelPage, 1);
+	page = g_slice_new0 (SymbolDBModelPage);
 
 	/* Define page range */
 	page->begin_offset = child_offset - SYMBOL_DB_MODEL_PAGE_SIZE;
@@ -1069,6 +1069,11 @@ symbol_db_model_finalize (GObject *object)
 	if (priv->ensure_children_idle_id)
 		g_source_remove (priv->ensure_children_idle_id);
 	g_queue_free (priv->ensure_children_queue);
+
+	g_free (priv->column_types);
+	g_free (priv->query_columns);
+	symbol_db_model_node_cleanse (priv->root, TRUE);
+	g_slice_free (SymbolDBModelNode, priv->root);
 	
 	G_OBJECT_CLASS (symbol_db_model_parent_class)->finalize (object);
 }
@@ -1103,7 +1108,7 @@ static void
 symbol_db_model_init (SymbolDBModel *object)
 {
 	SymbolDBModelPriv *priv = GET_PRIV (object);
-	priv->root = g_new0 (SymbolDBModelNode, 1);
+	priv->root = g_slice_new0 (SymbolDBModelNode);
 	priv->freeze_count = 0;
 	priv->n_columns = 0;
 	priv->column_types = NULL;
