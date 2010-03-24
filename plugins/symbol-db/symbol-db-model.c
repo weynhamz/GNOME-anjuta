@@ -132,6 +132,18 @@ G_DEFINE_TYPE_WITH_CODE (SymbolDBModel, symbol_db_model, G_TYPE_OBJECT,
                                                 symbol_db_model_tree_model_init))
 /* Node */
 
+/**
+ * symbol_db_model_node_get_child:
+ * @node: The node whose child has to be fetched.
+ * @child_offset: Offset of the child of this node.
+ *
+ * Fetches the content of the @child_offset child of the @node. The return
+ * value can be NULL if the child hasn't been yet cached from backend. Only
+ * when the child node is in cache does this function return a child. If you
+ * you want to fetch the child from backend, call symbol_db_model_page_fault().
+ * 
+ * Returns: The child node, or NULL if the child hasn't yet been cached.
+ */
 static GNUC_INLINE SymbolDBModelNode*
 symbol_db_model_node_get_child (SymbolDBModelNode *node, gint child_offset)
 {
@@ -142,6 +154,14 @@ symbol_db_model_node_get_child (SymbolDBModelNode *node, gint child_offset)
 	return NULL;
 }
 
+/**
+ * symbol_db_model_node_set_child:
+ * @node: The node whose child has to be set.
+ * @child_offset: Offset of the child to set.
+ * @val: Child node to set.
+ * 
+ * Sets the child of @node at @child_offset to @val.
+ */
 static void
 symbol_db_model_node_set_child (SymbolDBModelNode *node, gint child_offset,
                                 SymbolDBModelNode *val)
@@ -153,9 +173,23 @@ symbol_db_model_node_set_child (SymbolDBModelNode *node, gint child_offset,
 	/* If children nodes array hasn't been allocated, now is the time */
 	if (!node->children)
 		node->children = g_new0 (SymbolDBModelNode*, node->n_children);
+	g_warn_if_fail (node->children[child_offset] == NULL);
 	node->children[child_offset] = val;
 }
 
+/**
+ * symbol_db_model_node_cleanse:
+ * @node: The node to cleanse
+ * @force: If forcefuly cleansed disregarding references to children
+ * 
+ * It destroys all children of the node and resets the node to not
+ * children-ensured state. Any cache for children nodes is also destroyed.
+ * The node will be in children unensured state, which means the status
+ * of it's children would be unknown. Cleansing only happens if there are
+ * no referenced children nodes, unless it is forced with @force = TRUE.
+ * 
+ * Returns: TRUE if successfully cleansed, otherwise FALSE.
+ */
 static gboolean
 symbol_db_model_node_cleanse (SymbolDBModelNode *node, gboolean force)
 {
@@ -210,6 +244,15 @@ symbol_db_model_node_cleanse (SymbolDBModelNode *node, gboolean force)
 	return TRUE;
 }
 
+/**
+ * symbol_db_model_node_free:
+ * @node: The node to free.
+ * @force: Force the free despite any referenced children
+ *
+ * Frees the node if there is no referenced children, unless @force is TRUE
+ * in which case it is freed anyways. All children recursively are also
+ * destroyed.
+ */
 static void
 symbol_db_model_node_free (SymbolDBModelNode *node, gboolean force)
 {
@@ -220,6 +263,14 @@ symbol_db_model_node_free (SymbolDBModelNode *node, gboolean force)
 	g_slice_free (SymbolDBModelNode, node);
 }
 
+/**
+ * symbol_db_model_node_remove_page:
+ * @node: The node with the page
+ * @page: The page to remove
+ *
+ * Removes the cache @page from the @node. The associated nodes are all
+ * destroyed and set to NULL. They could be re-fetched later if needed.
+ */
 static void
 symbol_db_model_node_remove_page (SymbolDBModelNode *node,
                                   SymbolDBModelPage *page)
@@ -231,8 +282,20 @@ symbol_db_model_node_remove_page (SymbolDBModelNode *node,
 		
 	if (page->next)
 		page->next->prev = page->prev;
+
+	/* FIXME: Destroy the page */
 }
 
+/**
+ * symbol_db_model_node_insert_page:
+ * @node: The node for which the page is inserted
+ * @page: The page being inserted
+ * @after: The page after which @page is inserted
+ * 
+ * Inserts the @page after @after page. The page should have been already
+ * fetched and their nodes (children of @node) should have been already 
+ * created.
+ */
 static void
 symbol_db_model_node_insert_page (SymbolDBModelNode *node,
                                   SymbolDBModelPage *page,
@@ -252,6 +315,19 @@ symbol_db_model_node_insert_page (SymbolDBModelNode *node,
 	}
 }
 
+/**
+ * symbold_db_model_node_find_child_page:
+ * @node: The node
+ * @child_offset: Offset of the child node.
+ * @prev_page: A pointer to page to return previous cache page found
+ *
+ * Find the cache page associated with child node of @node at @child_offset.
+ * If the page is found, it returns the page, otherwise NULL is returned. Also,
+ * if the page is found, prev_page pointer is set to the previous page to
+ * the one found (NULL if it's the first page in the list).
+ *
+ * Returns: The page associated with the child node, or NULL if not found.
+ */
 static SymbolDBModelPage*
 symbol_db_model_node_find_child_page (SymbolDBModelNode *node,
                                       gint child_offset,
@@ -283,6 +359,17 @@ symbol_db_model_node_find_child_page (SymbolDBModelNode *node,
 	return NULL;
 }
 
+/**
+ * symbol_db_model_node_ref_child:
+ * @node: The node whose child is being referenced.
+ * 
+ * References a child of @node and references all its parents recursively.
+ * A referenced node essentially means someone is holding a reference to it
+ * outside the model and we are supposed track its position. Currently, we
+ * don't track reference of nodes themselves but instead maitain their ref
+ * counts in parent @node. Ref counting is currently unused, so there is no
+ * practical thing happening using it at the moment.
+ */
 static void
 symbol_db_model_node_ref_child (SymbolDBModelNode *node)
 {
@@ -297,6 +384,15 @@ symbol_db_model_node_ref_child (SymbolDBModelNode *node)
 	}
 }
 
+/**
+ * symbol_db_model_node_unref_child:
+ * @node: The node whose child is being unrefed
+ * @child_offset: Offset of the child being unrefed
+ * 
+ * Unrefs the child at @child_offset in @node. Also, unrefs its parents
+ * recursively. currently ref/unref is not used, see
+ * symbol_db_model_node_ref_child() for more details.
+ */
 static void
 symbol_db_model_node_unref_child (SymbolDBModelNode *node, gint child_offset)
 {
@@ -318,6 +414,19 @@ symbol_db_model_node_unref_child (SymbolDBModelNode *node, gint child_offset)
 	}
 }
 
+/**
+ * symbol_db_model_node_new:
+ * @model: The model for which the node is being created
+ * @parent: The parent node
+ * @child_offset: Offset of this node as child of @parent
+ * @data_model: The data model from which content of the node is fetched
+ * @data_iter: Iter for @data_model where the content of this node is found
+ *
+ * This creates a new node for @model as a child of @parent at @child_offset
+ * and initilizes the columns content from @data_model at @data_iter.
+ * 
+ * Returns: The newly created node.
+ */
 static SymbolDBModelNode *
 symbol_db_model_node_new (SymbolDBModel *model, SymbolDBModelNode *parent,
                           gint child_offset, GdaDataModel *data_model,
@@ -344,6 +453,15 @@ symbol_db_model_node_new (SymbolDBModel *model, SymbolDBModelNode *parent,
 
 /* SymbolDBModel implementation */
 
+/**
+ * symbol_db_model_iter_is_valid:
+ * @model: The tree model
+ * @iter: An iter for the model
+ *
+ * Checks if the iterator is valid for the model.
+ *
+ * Returns: TRUE if valid, FALSE if not
+ */
 static gboolean
 symbol_db_model_iter_is_valid (GtkTreeModel *model, GtkTreeIter *iter)
 {
@@ -363,6 +481,19 @@ symbol_db_model_iter_is_valid (GtkTreeModel *model, GtkTreeIter *iter)
 	return TRUE;
 }
 
+/**
+ * symbol_db_model_page_fault:
+ * @parent_node: The node which needs children data fetched
+ * @child_offset: Offset of the child where page fault occured
+ *
+ * Page fault should happen on a child which is not yet available in cache
+ * and needs to be fetched from backend database. Fetch happens in a page
+ * size of SYMBOL_DB_MODEL_PAGE_SIZE chunks before and after the requested
+ * child node. Also, the page will adjust the boundry to any preceeding or
+ * or following pages so that they don't overlap.
+ *
+ * Returns: The newly fetched page
+ */
 static SymbolDBModelPage*
 symbol_db_model_page_fault (SymbolDBModel *model,
                             SymbolDBModelNode *parent_node,
@@ -814,6 +945,16 @@ symbol_db_model_tree_model_init (GtkTreeModelIface *iface)
 
 /* SymbolDBModel implementation */
 
+/**
+ * symbol_db_model_ensure_node_children:
+ * @model: The tree model
+ * @node: The node for which the children are being ensured
+ * @emit_has_child: Should it emit children status change signal to model
+ * 
+ * When a node is initially created, there is no status of its children. This
+ * function determines the number of children of the node and initializes
+ * children array. They children node themselves are not initialized yet.
+ */
 static void
 symbol_db_model_ensure_node_children (SymbolDBModel *model,
                                       SymbolDBModelNode *node,
@@ -854,6 +995,15 @@ symbol_db_model_ensure_node_children (SymbolDBModel *model,
 	}
 }
 
+/**
+ * on_symbol_db_ensure_node_children_idle:
+ * @model: The model
+ * 
+ * Idle callback to children of some nodes from pre-existing queue.
+ *
+ * Returns: TRUE if there are more to process in queue, otherwise FALSE and
+ * terminates idle loop when the nodes queue is empty.
+ */
 static gboolean
 on_symbol_db_ensure_node_children_idle (SymbolDBModel *model)
 {
@@ -876,6 +1026,13 @@ on_symbol_db_ensure_node_children_idle (SymbolDBModel *model)
 	return TRUE;
 }
 
+/**
+ * symbol_db_model_queue_ensure_node_children:
+ * @model: The tree model
+ * @node: The node in @model to ensure children
+ * 
+ * Queues the node to run ensure children in an idel loop
+ */
 static void
 symbol_db_model_queue_ensure_node_children (SymbolDBModel *model,
                                             SymbolDBModelNode *node)
@@ -896,6 +1053,16 @@ symbol_db_model_queue_ensure_node_children (SymbolDBModel *model,
 	}
 }
 
+/**
+ * symbol_db_model_update_node_children:
+ * @model: The model being updated
+ * @node: The node being updated
+ * @emit_has_child: Whether to emit has-child-changed signal
+ * 
+ * Updates the children of @node. All existing children are destroyed and
+ * new ones fetched. Update signals are also emited for the views to know
+ * about updates.
+ */
 static void
 symbol_db_model_update_node_children (SymbolDBModel *model,
                                       SymbolDBModelNode *node,
@@ -952,6 +1119,21 @@ symbol_db_model_update_node_children (SymbolDBModel *model,
 	}
 }
 
+/**
+ * symbol_db_model_get_query_value_real:
+ * @model: The model
+ * @data_model: The backend data model
+ * @iter: The tree model iterator
+ * @column: The model column
+ * @value: Pointer to retun value
+ *
+ * Retrieves model data at row @iter and column @column from backend data
+ * model @data_model. This function retrieves the column data from its map
+ * given at model initialization. It can be overriden in derived classes to
+ * retrive custom column values (based on given data model at the given iter).
+ *
+ * Returns: TRUE if @value set successfully, else FALSE.
+ */
 static gboolean
 symbol_db_model_get_query_value_real (SymbolDBModel *model,
                                       GdaDataModel *data_model,
@@ -984,6 +1166,20 @@ symbol_db_model_get_query_value (SymbolDBModel *model,
 	                                                         value);
 }
 
+/**
+ * symbol_db_model_get_query_value_at_real:
+ * @model: The model
+ * @data_model: The backend data model where value is derived.
+ * @position: Position of the row.
+ * @column: The column being retrieved.
+ * @value: Return value
+ *
+ * Same as symbol_db_model_get_query_value_real() except it uses integer index
+ * for row positioning instead of an iter. It will be used when some backend
+ * data model does not support iter.
+ *
+ * Returns: TRUE if @value set successfully, else FALSE.
+ */
 static gboolean
 symbol_db_model_get_query_value_at_real (SymbolDBModel *model,
                                          GdaDataModel *data_model,
