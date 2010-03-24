@@ -50,7 +50,7 @@ GList* gbf_project_util_add_module             (GbfProjectModel   *model,
 				                GtkTreeIter        *default_target,
 				                const gchar        *default_module_name_to_add);
 
-AnjutaProjectNode* gbf_project_util_add_package(GbfProjectModel   *model,
+GList* gbf_project_util_add_package            (GbfProjectModel   *model,
 				                GtkWindow          *parent,
 				                GtkTreeIter        *default_module,
 				                GList              *packages_to_add);

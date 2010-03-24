@@ -884,11 +884,6 @@ gbf_project_util_replace_by_file (GList* list)
 }
 
 static void
-new_package_button_clicked_cb (GtkWidget *widget, gpointer user_data)
-{
-}
-
-static void
 on_cursor_changed(GtkTreeView* view, gpointer data)
 {
     GtkWidget* button = GTK_WIDGET(data);
@@ -933,10 +928,6 @@ gbf_project_util_add_module (GbfProjectModel   *model,
     new_button = GTK_WIDGET (gtk_builder_get_object (gui, "new_package_button"));
     ok_button = GTK_WIDGET (gtk_builder_get_object (gui, "ok_module_button"));
 
-
-    g_signal_connect (new_button, "clicked",
-                      G_CALLBACK (new_package_button_clicked_cb),modules_view);
-    
     setup_targets_treeview (model, targets_view, default_target);
     gtk_widget_show (targets_view);
     setup_modules_treeview (model, modules_view, NULL);
@@ -969,7 +960,14 @@ gbf_project_util_add_module (GbfProjectModel   *model,
     while (!finished) {
         response = gtk_dialog_run (GTK_DIALOG (dialog));
 
+        g_message ("response %d", response);
         switch (response) {
+            case 1:
+            {
+                gbf_project_util_add_package (model, parent, NULL, NULL);
+
+                break;
+            }
             case GTK_RESPONSE_OK: 
             {
                 AnjutaProjectNode *target;
@@ -1102,7 +1100,7 @@ on_changed_disconnect (GtkEditable* entry, gpointer data)
     g_signal_handlers_block_by_func (G_OBJECT (data), on_cursor_changed_set_entry, entry);
 }
 
-AnjutaProjectNode* 
+GList* 
 gbf_project_util_add_package (GbfProjectModel   *model,
                               GtkWindow        *parent,
                               GtkTreeIter      *default_module,
@@ -1115,13 +1113,11 @@ gbf_project_util_add_package (GbfProjectModel   *model,
     GtkWidget *packages_view;
     GtkCellRenderer* renderer;
     GtkListStore *store;
-    GList *modules;
-    GList *node;
+    GList *packages = NULL;
     GtkTreeViewColumn *col;
     gint response;
     IAnjutaProject *project;
     gboolean finished = FALSE;
-    AnjutaProjectNode* module = NULL;
     GtkTreeSelection *package_selection;
     GtkTreeIter root;
     gboolean valid;
@@ -1159,7 +1155,7 @@ gbf_project_util_add_package (GbfProjectModel   *model,
         GtkTreeIter iter;
         gint pos = 0;
         GbfTreeData *data;
-        GtkTreePath *default_path = gtk_tree_model_get_path(GTK_TREE_MODEL (model), default_module);
+        GtkTreePath *default_path = default_module != NULL ? gtk_tree_model_get_path(GTK_TREE_MODEL (model), default_module) : NULL;
 
         gtk_tree_model_get (GTK_TREE_MODEL (model), &root, GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
         
@@ -1169,16 +1165,14 @@ gbf_project_util_add_package (GbfProjectModel   *model,
             
             gtk_tree_model_get (GTK_TREE_MODEL (model), &iter, GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
 
-            g_message ("module %p name %s type %d module %d", data, data != NULL ? data->name : "(null)", data != NULL ? data->type : -1, GBF_TREE_NODE_MODULE);
             if (data && (data->type == GBF_TREE_NODE_MODULE))
             {
                 GtkTreeIter list_iter;
                 GtkTreePath *path = gtk_tree_model_get_path(GTK_TREE_MODEL (model), &iter);
 
-                g_message ("append name %s", data->name);
                 gtk_list_store_append (store, &list_iter);
                 gtk_list_store_set (store, &list_iter, 0, data->name, -1);
-                if (gtk_tree_path_compare (path, default_path) == 0)
+                if ((default_path != NULL) && (gtk_tree_path_compare (path, default_path) == 0))
                 {
                     default_pos = pos;
                 }
@@ -1186,11 +1180,11 @@ gbf_project_util_add_package (GbfProjectModel   *model,
                 pos++;
             }
         }
-        gtk_tree_path_free (default_path);
+        if (default_path != NULL) gtk_tree_path_free (default_path);
     }
     gtk_combo_box_set_model (GTK_COMBO_BOX(module_entry), GTK_TREE_MODEL(store));
     gtk_combo_box_entry_set_text_column (GTK_COMBO_BOX_ENTRY (module_entry), 0);
-//    g_object_unref (store);
+    g_object_unref (store);
     if (default_pos >= 0)
     {
         gtk_combo_box_set_active (GTK_COMBO_BOX (module_entry), default_pos);
@@ -1228,6 +1222,8 @@ gbf_project_util_add_package (GbfProjectModel   *model,
     on_cursor_changed (GTK_TREE_VIEW (packages_view), ok_button);
     g_signal_connect (G_OBJECT(packages_view), "cursor-changed",
         G_CALLBACK(on_cursor_changed), ok_button);
+    package_selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (packages_view));
+    gtk_tree_selection_set_mode (package_selection, GTK_SELECTION_MULTIPLE);
 
     if (parent) {
         gtk_window_set_transient_for (GTK_WINDOW (dialog), parent);
@@ -1240,60 +1236,69 @@ gbf_project_util_add_package (GbfProjectModel   *model,
         switch (response) {
             case GTK_RESPONSE_OK: 
             {
-                AnjutaProjectNode *target;
+                gchar *module;
 
-#if 0
-                target = gbf_project_view_find_selected (GBF_PROJECT_VIEW (targets_view),
-                                                         ANJUTA_PROJECT_TARGET);
-                if (target) {
+                module = gtk_combo_box_get_active_text (GTK_COMBO_BOX (module_entry));
+                if (module)
+                {
                     GString *err_mesg = g_string_new (NULL);
                     GList *list;
                     GList *node;
+                    GtkTreeModel *model;
+                    GtkTreeIter iter;
                     
-                    list = gbf_project_view_get_all_selected (GBF_PROJECT_VIEW (modules_view));
-                    for (node = g_list_first (list); node != NULL; node = g_list_next (node))
+                    list = gtk_tree_selection_get_selected_rows (package_selection, &model);
+                    for (node = list; node != NULL; node = g_list_next (node))
                     {
-                        GError *err = NULL;
-                        AnjutaProjectNode* selected_module = (AnjutaProjectNode *)node->data;
-                        AnjutaProjectNode* new_module;
-                        gchar* uri = NULL;
-                        GFile* module_file;
+                        if (gtk_tree_model_get_iter (model, &iter, (GtkTreePath *)(node->data)))
+                        {
+                            gchar *name;
+                            AnjutaProjectNode* new_package;
+                            GError *err = NULL;
+                            
+                            gtk_tree_model_get (model, &iter, COL_PKG_PACKAGE, &name, -1);
 
-                        /*module_file = gbf_tree_data_get_file (selected_module);
-                        new_module = ianjuta_project_add_module (project,
-                                                            target,
-                                                            module_file,
-                                                            &err);
-                        g_object_unref (module_file);*/
-                        new_module = NULL;
-                        if (err) {
-                            gchar *str = g_strdup_printf ("%s: %s\n",
-                                                            uri,
-                                                            err->message);
-                            g_string_append (err_mesg, str);
-                            g_error_free (err);
-                            g_free (str);
+                            /*new_package = ianjuta_project_add_package (project,
+                                                            module,
+                                                            name,
+                                                            &err);*/
+                            new_package = NULL;
+                            if (err)
+                            {
+                                gchar *str = g_strdup_printf ("%s: %s\n",
+                                                                name,
+                                                                err->message);
+                                g_string_append (err_mesg, str);
+                                g_error_free (err);
+                                g_free (str);
+                            }
+                            else
+                            {
+                                packages = g_list_append (packages,
+                                                                new_package);
+                            }
+                            g_free (name);
                         }
-                        else
-                            new_modules = g_list_append (new_modules,
-                                                        new_module);
-
-                        g_free (uri);
                     }
+                    g_list_foreach (list, (GFunc)gtk_tree_path_free, NULL);
                     g_list_free (list);
                     
-                    if (err_mesg->str && strlen (err_mesg->str) > 0) {
+                    if (err_mesg->str && strlen (err_mesg->str) > 0)
+                    {
                         error_dialog (parent, _("Cannot add packages"),
                                         "%s", err_mesg->str);
-                    } else {
+                    }
+                    else
+                    {
                         finished = TRUE;
                     }
                     g_string_free (err_mesg, TRUE);
-                } else {
-                    error_dialog (parent, _("Cannot add packages"),
-                            "%s", _("No target has been selected"));
                 }
-#endif
+                else
+                {
+                    error_dialog (parent, _("Cannot add packages"),
+                            "%s", _("No module has been selected"));
+                }
                 break;
             }
             default:
@@ -1306,5 +1311,5 @@ gbf_project_util_add_package (GbfProjectModel   *model,
     gtk_widget_destroy (dialog);
     g_object_unref (gui);
     
-    return module;
+    return packages;
 }
