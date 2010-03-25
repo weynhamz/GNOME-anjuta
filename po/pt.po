@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.30\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-21 23:43+0000\n"
-"PO-Revision-Date: 2010-03-21 23:30+0000\n"
+"POT-Creation-Date: 2010-03-25 00:56+0000\n"
+"PO-Revision-Date: 2010-03-25 00:58+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -6479,8 +6479,8 @@ msgid "No Date"
 msgstr "Nenhuma Data"
 
 #: ../plugins/macro/anjuta-macro.ui.h:2
-msgid "Edit&#x2026;"
-msgstr "Edit&#x2026;"
+msgid "Edit…"
+msgstr "Editar…"
 
 #: ../plugins/macro/anjuta-macro.ui.h:3
 msgid "Macro details:"
@@ -10145,6 +10145,9 @@ msgstr "Realçar ponto-e-vírgula em falta"
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
 msgid "Min character for completion "
 msgstr "Número mínimo de caracteres para activar o completar de código"
+
+#~ msgid "Edit&#x2026;"
+#~ msgstr "Edit&#x2026;"
 
 #~ msgid "Up to date"
 #~ msgstr "Actualizado"
