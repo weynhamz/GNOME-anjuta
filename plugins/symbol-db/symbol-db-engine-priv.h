@@ -31,12 +31,6 @@
 #include <libgda/libgda.h>
 #include <sql-parser/gda-sql-parser.h>
 
-#ifdef __GNUC__
-#define GNUC_INLINE inline
-#else
-#define GNUC_INLINE 
-#endif
-
 /* file should be specified without the ".db" extension. */
 #define ANJUTA_DB_FILE	".anjuta_sym_db"
 

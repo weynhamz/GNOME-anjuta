@@ -100,7 +100,6 @@ static void symbol_db_model_tree_model_init (GtkTreeModelIface *iface);
 static gboolean symbol_db_model_get_query_value_at (SymbolDBModel *model,
                                                     GdaDataModel *data_model,
                                                     gint position, gint column,
-
                                                     GValue *value);
 
 static gboolean symbol_db_model_get_query_value (SymbolDBModel *model,
@@ -131,7 +130,7 @@ G_DEFINE_TYPE_WITH_CODE (SymbolDBModel, symbol_db_model, G_TYPE_OBJECT,
                                                 symbol_db_model_tree_model_init))
 /* Node */
 
-static inline SymbolDBModelNode*
+static GNUC_INLINE SymbolDBModelNode*
 symbol_db_model_node_get_child (SymbolDBModelNode *node, gint child_offset)
 {
 	g_return_val_if_fail (node != NULL, NULL);
