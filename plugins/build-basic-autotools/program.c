@@ -300,7 +300,10 @@ build_program_new_with_command (const gchar *directory, const gchar *command,...
 	if (prog == NULL) return NULL;
 
 	build_program_set_working_directory (prog, directory);
-	
+
+	/* Avoid terminal control sequence */
+	build_program_add_env (prog, "TERM", "dumb");
+
 	va_start (args, command);
 	full_command = g_strdup_vprintf (command, args);
 	va_end (args);

@@ -1486,11 +1486,11 @@ anjuta_preferences_register_all_properties_from_builder_xml (AnjutaPreferences *
 		GtkWidget *widget, *p;
 		gboolean cont_flag = FALSE;
 
-		if (!GTK_IS_WIDGET (node->data))
+		if (!GTK_IS_WIDGET (node->data) || !GTK_IS_BUILDABLE (node->data))
 			continue;
 		
 		widget = node->data;
-		name = gtk_widget_get_name (widget);
+		name = gtk_buildable_get_name (GTK_BUILDABLE (widget));
 
 		if (!g_str_has_prefix (name, PREFERENCE_PROPERTY_PREFIX))
 			continue;

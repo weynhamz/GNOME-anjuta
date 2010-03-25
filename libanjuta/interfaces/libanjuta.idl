@@ -1937,18 +1937,18 @@ interface IAnjutaEditor
 		 * ianjuta_editor_tip_show:
 		 * @obj: Self
 		 * @tips: list of alternative tips.
-		 * @char_alignment: Character alignment.
+		 * @position: Tip position.
 		 * @err: Error propagation and reporting
 		 *
 		 * Show tips showing more information on current context. No user feedback
-		 * is required when tips are shown. @char_alignment indicates
+		 * is required when tips are shown. @position indicates
 		 * the position before which is the known context and after which are
 		 * the suggestions. Usually the editor would use this to
 		 * align the choices displayed such that the carat is just at this
 		 * position when the choices are displayed.
 		 *
 		 */
-		void show (List<const gchar*> tips, IAnjutaIterable *position, gint char_alignment);
+		void show (List<const gchar*> tips, IAnjutaIterable *position);
 		
 		/**
 		 * ianjuta_editor_tip_cancel
@@ -6023,7 +6023,7 @@ interface IAnjutaPluginFactory
 /**
  * SECTION:ianjuta-language
  * @title: IAnjutaLanguage
- * @short_description: Interface to manager multiple programming languages
+ * @short_description: Interface to manage multiple programming languages
  * @see_also: 
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-language.h
@@ -6035,7 +6035,7 @@ interface IAnjutaLanguage
   #include <libanjuta/interfaces/ianjuta-editor-language.h>
 typedef gint Id;
 
-	/*
+	/**
 	 * ianjuta_language_from_mime_type:
 	 * @obj: Self
 	 * @mime_type: A mime type to get the language for
@@ -6044,7 +6044,7 @@ typedef gint Id;
 	 */
 	 Id get_from_mime_type (const gchar* mime_type);
 	 
-	/*
+	/**
 	 * ianjuta_language_from_string:
 	 * @obj: Self
 	 * @string: A string representation of the language. Note that multiple
@@ -6054,7 +6054,7 @@ typedef gint Id;
 	 */
 	 Id get_from_string (const gchar* string);
 	 
- 	/*
+ 	/**
 	 * ianjuta_language_get_name:
 	 * @obj: Self
 	 * @id: A valid language id
@@ -6065,7 +6065,17 @@ typedef gint Id;
 	 */
 	 const gchar* get_name(Id id);
 
-	/*
+	/**
+	 * ianjuta_language_get_make_target:
+	 * @obj: Self
+	 * @id: A valid language id
+	 *
+	 * Returns: The suffix for the file thats needs to be passed to
+	 * make to compile the file, e.g. ".o" for C
+	 */
+	 const gchar* get_make_target (Id id);
+
+	/**
 	 * ianjuta_language_get_strings
 	 * @obj: Self
 	 * @id: A valid language id
@@ -6074,7 +6084,7 @@ typedef gint Id;
 	 */
 	 List<const gchar*> get_strings(Id id);
 	 
-	 /*
+	 /**
 	  * ianjuta_language_get_from_editor:
 	  * @obj: Self
 	  * @editor: An object implementing IAnjutaEditorLanguage
@@ -6087,7 +6097,7 @@ typedef gint Id;
 	  
 	  IAnjutaLanguageId get_from_editor (IAnjutaEditorLanguage* editor);
 	  
-	  	 /*
+	 /**
 	  * ianjuta_language_get_name_from_editor:
 	  * @obj: Self
 	  * @editor: An object implementing IAnjutaEditorLanguage
@@ -6100,7 +6110,7 @@ typedef gint Id;
 	  
 	  const gchar* get_name_from_editor (IAnjutaEditorLanguage* editor);
 	  
-	  /*
+	  /**
 	   * ianjuta_language_get_languages:
 	   * @obj: Self
 	   * @err: Error propagation

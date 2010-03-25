@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
 "POT-Creation-Date: 2010-01-27 11:01+0000\n"
-"PO-Revision-Date: 2010-01-28 15:40+0700\n"
+"PO-Revision-Date: 2010-02-03 03:15+0700\n"
 "Last-Translator: อาคม โชติพันธวานนท์ <knight2000@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -5951,7 +5951,7 @@ msgstr "แทรกเค้าโครง handler, จัดตำแหน�
 
 #: ../plugins/glade/plugin.c:4030
 msgid "Associate last designer and last editor"
-msgstr "เชื่อมโยงแฟ้มล่าสุดในเครื่องมือออกและเครื่องมือแก้ไขเข้าด้วยกัน"
+msgstr "เชื่อมโยงแฟ้มล่าสุดในเครื่องมือออกแบบและเครื่องมือแก้ไขเข้าด้วยกัน"
 
 #: ../plugins/glade/plugin.c:4032
 msgid "Associate last designer and editor"

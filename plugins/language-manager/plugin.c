@@ -41,6 +41,7 @@ struct _Language
 {
 	IAnjutaLanguageId id;
 	gchar* name;
+	gchar* make_target;
 	GList* strings;
 	GList* mime_types;
 };
@@ -96,6 +97,7 @@ load_languages (LanguageManager* language_manager)
 		id = (gchar*) xmlGetProp (cur_node, (const xmlChar*) "id");
 		lang->id = atoi(id);
 		lang->name = (gchar*) xmlGetProp(cur_node, (const xmlChar*) "name");
+		lang->make_target = (gchar*) xmlGetProp (cur_node, (const xmlChar*) "make-target");
 		mime_types = (gchar*) xmlGetProp (cur_node, (const xmlChar*) "mime-types");
 		strings = (gchar*) xmlGetProp (cur_node, (const xmlChar*) "strings");
 		if (lang->id != 0 && lang->name && mime_types && strings)
@@ -298,6 +300,19 @@ ilanguage_get_strings (IAnjutaLanguage* ilang, IAnjutaLanguageId id, GError** e)
 		return NULL;	
 }
 
+static const char*
+ilanguage_get_make_target (IAnjutaLanguage* ilang, IAnjutaLanguageId id, GError** e)
+{
+	LanguageManager* lang = LANGUAGE_MANAGER(ilang);
+	Language* language = g_hash_table_lookup (lang->languages,
+											   GINT_TO_POINTER(id));
+	if (language)
+		return language->make_target;
+	else
+		return NULL;
+
+}
+
 static IAnjutaLanguageId
 ilanguage_get_from_editor (IAnjutaLanguage* ilang, IAnjutaEditorLanguage* editor, GError** e)
 {	
@@ -331,6 +346,7 @@ ilanguage_iface_init (IAnjutaLanguageIface* iface)
 	iface->get_from_string = ilanguage_get_from_string;
 	iface->get_name = ilanguage_get_name;
 	iface->get_strings = ilanguage_get_strings;
+	iface->get_make_target = ilanguage_get_make_target;
 	iface->get_from_editor = ilanguage_get_from_editor;
 	iface->get_name_from_editor = ilanguage_get_name_from_editor;
 	iface->get_languages = ilanguage_get_languages;

@@ -24,7 +24,8 @@ language_manager_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 # Include paths
 AM_CPPFLAGS = \
-	$(LIBANJUTA_CFLAGS) 
+	$(LIBXML_CFLAGS) \
+	$(LIBANJUTA_CFLAGS)
 
 # Where to install the plugin
 plugindir = $(anjuta_plugin_dir)

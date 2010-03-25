@@ -16,7 +16,7 @@ AC_HEADER_STDC
 
 PKG_CHECK_EXISTS([mozilla-js], [JS_PACKAGE=mozilla-js],
                  [PKG_CHECK_EXISTS([xulrunner-js], [JS_PACKAGE=xulrunner-js], [JS_PACKAGE=firefox-js])])
-PKG_CHECK_MODULES(GJS,gtk+-2.0 gjs-gi-1.0 $JS_PACKAGE)
+PKG_CHECK_MODULES(GJS,gtk+-2.0 gjs-gi-1.0 >= 0.6 $JS_PACKAGE)
 
 ## some flavors of Firefox .pc only set sdkdir, not libdir
 FIREFOX_JS_SDKDIR=`$PKG_CONFIG --variable=sdkdir $JS_PACKAGE`

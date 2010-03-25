@@ -427,7 +427,7 @@ on_file_model_changed (GFileMonitor* monitor,
 
 	if (gtk_tree_model_iter_children (GTK_TREE_MODEL(model), &file_iter, &iter))
 	{
-		while (gtk_tree_model_iter_next (GTK_TREE_MODEL(model), &file_iter))
+		do
 		{
 			GFile* model_file;
 			gtk_tree_model_get (GTK_TREE_MODEL(model), &file_iter,
@@ -440,6 +440,7 @@ on_file_model_changed (GFileMonitor* monitor,
 			}
 			g_object_unref (model_file);
 		}
+		while (gtk_tree_model_iter_next (GTK_TREE_MODEL(model), &file_iter));
 	}
 	if (event_type == G_FILE_MONITOR_EVENT_CHANGED ||
 	    event_type == G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED ||

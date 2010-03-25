@@ -21,6 +21,7 @@ macro_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 AM_CPPFLAGS= \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
+	$(LIBXML_CFLAGS) \
 	$(LIBANJUTA_CFLAGS)
 
 plugindir = $(anjuta_plugin_dir)

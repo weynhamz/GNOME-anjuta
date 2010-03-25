@@ -171,8 +171,8 @@ symbol_db_engine_get_current_scope (SymbolDBEngine *dbe,
  */
 SymbolDBEngineIterator *
 symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe, 
-								   const gchar *file_path, 
-								   SymExtraInfo sym_info);
+								   const gchar *file_path, gint limit,
+                                   gint offset, SymExtraInfo sym_info);
 
 /**
  * Use this function to get global symbols only. I.e. private or file-only scoped symbols

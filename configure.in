@@ -4,7 +4,7 @@ AC_PREREQ(2.59)
 
 m4_define(anjuta_major_version,  2)
 m4_define(anjuta_minor_version, 29)
-m4_define(anjuta_micro_version,  6)
+m4_define(anjuta_micro_version,  92)
 m4_define(anjuta_nano_version, 0)
 m4_define(anjuta_version, anjuta_major_version.anjuta_minor_version.anjuta_micro_version.anjuta_nano_version)
 
@@ -40,10 +40,11 @@ SVN_MAJOR=1
 SVN_MINOR=5
 SVN_PATCH=0
 SUBVERSION_REQUIRED=$SVN_MAJOR.$SVN_MINOR.$SVN_PATCH
-GTKSOURCEVIEW_REQUIRED=2.9.3
+GTKSOURCEVIEW_REQUIRED=2.9.7
 LIBWNCK_REQUIRED=2.12
 GDA_REQUIRED=4.0.0
 UNIQUE_REQUIRED=1.0.0
+VALA_REQUIRED=0.7.8
 
 AC_SUBST(GLIB_REQUIRED)
 AC_SUBST(GDK_PIXBUF_REQUIRED)
@@ -133,8 +134,8 @@ AC_SUBST(gjsdir)
 dnl ***************************************************************************
 dnl Check for pkgconfig
 dnl ***************************************************************************
-AC_PATH_PROG(PKGCONFIG_CONFIG, pkg-config,no)
-if test x$PKGCONFIG_CONFIG = xno; then
+AC_PATH_PROG(PKG_CONFIG, pkg-config,no)
+if test x$PKG_CONFIG = xno; then
   AC_MSG_ERROR(Please install the pkg-config package from http://www.freedesktop.org/software/pkgconfig/)
 fi
 
@@ -269,6 +270,21 @@ else
 fi
 
 AM_CONDITIONAL(HAVE_PLUGIN_SOURCEVIEW, [test x$sourceview = xyes])
+
+dnl Check for vala
+dnl -------------------------------------------------------------
+
+PKG_CHECK_MODULES(VALA,
+	[vala-1.0 >= $VALA_REQUIRED],
+	[enable_vala="yes"],
+	[enable_vala="no"])
+
+if test x$enable_vala = xyes; then
+	AC_PATH_PROG(VALAC, valac, valac)
+	AC_SUBST(VALAC)
+fi
+
+AM_CONDITIONAL(ENABLE_VALA, [test x$enable_vala = xyes])
 
 PKG_CHECK_MODULES(PLUGIN_SYMBOL_DB,
 		[libgda-4.0 >= $GDA_REQUIRED])
@@ -905,6 +921,11 @@ if [ test x$sourceview = xyes ]; then
         echo "Building GtkSourceView based editor: ...................YES"
 else
         echo "Building GtkSourceView based editor: ...................NO"
+fi
+if [ test x$enable_vala = xyes ]; then
+        echo "Building Vala ctags parser (requires vala):.............YES"
+else
+        echo "Building Vala ctags parser (requires vala):.............NO"
 fi
 echo "-------------------------------------------------------------------"
 echo "AM_CFLAGS = $AM_CFLAGS"

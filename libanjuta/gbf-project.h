@@ -45,8 +45,6 @@ typedef struct _GbfProjectClass		GbfProjectClass;
 typedef struct _GbfProjectGroup		GbfProjectGroup;
 typedef struct _GbfProjectTarget	GbfProjectTarget;
 typedef struct _GbfProjectTargetSource	GbfProjectTargetSource;
-typedef enum   _GbfProjectError		GbfProjectError;
-typedef enum   _GbfProjectCapabilities GbfProjectCapabilities;
 
 struct _GbfProjectGroup {
 	gchar   *id;
@@ -76,22 +74,22 @@ struct _GbfProjectTargetSource {
 };
 
 /* FIXME: extend this list */
-enum _GbfProjectError {
+typedef enum {
 	GBF_PROJECT_ERROR_SUCCESS = 0,
 	GBF_PROJECT_ERROR_DOESNT_EXIST,
 	GBF_PROJECT_ERROR_ALREADY_EXISTS,
 	GBF_PROJECT_ERROR_VALIDATION_FAILED,
 	GBF_PROJECT_ERROR_PROJECT_MALFORMED,
 	GBF_PROJECT_ERROR_GENERAL_FAILURE,
-};
+} GbfProjectError;
 
-enum _GbfProjectCapabilities {
+typedef enum {
 	GBF_PROJECT_CAN_ADD_NONE              = 0,
 	GBF_PROJECT_CAN_ADD_GROUP             = 1 << 0,
 	GBF_PROJECT_CAN_ADD_TARGET            = 1 << 1,
 	GBF_PROJECT_CAN_ADD_SOURCE            = 1 << 2,
 	GBF_PROJECT_CAN_PACKAGES							= 1 << 3
-};
+} GbfProjectCapabilities;
 
 struct _GbfProject {
 	GObject parent;

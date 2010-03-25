@@ -38,6 +38,7 @@
 #include <libanjuta/interfaces/ianjuta-environment.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
+#include <libanjuta/interfaces/ianjuta-language.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-indicable.h>
 #include <libanjuta/interfaces/ianjuta-preferences.h>
@@ -1740,8 +1741,6 @@ build_tarball (BasicAutotoolsPlugin *plugin)
 	return context;
 }
 
-
-
 static BuildContext*
 build_compile_file (BasicAutotoolsPlugin *plugin, const gchar *filename)
 {
@@ -1750,27 +1749,7 @@ build_compile_file (BasicAutotoolsPlugin *plugin, const gchar *filename)
 	gchar *src_dir;
 	gchar *target;
 	gchar *ext_ptr;
-	gboolean ret;
-	
-	/* FIXME: This should be configuration somewhere, eg. preferences */
-	static GHashTable *target_ext = NULL;
-	if (!target_ext)
-	{
-		target_ext = g_hash_table_new (g_str_hash, g_str_equal);
-		g_hash_table_insert (target_ext, ".c", ".o");
-		g_hash_table_insert (target_ext, ".cpp", ".o");
-		g_hash_table_insert (target_ext, ".cxx", ".o");
-		g_hash_table_insert (target_ext, ".c++", ".o");
-		g_hash_table_insert (target_ext, ".cc", ".o");
-		g_hash_table_insert (target_ext, ".y", ".o");
-		g_hash_table_insert (target_ext, ".l", ".o");
-		g_hash_table_insert (target_ext, ".in", "");
-		g_hash_table_insert (target_ext, ".in.in", ".in");
-		g_hash_table_insert (target_ext, ".la", ".la");
-		g_hash_table_insert (target_ext, ".a", ".a");
-		g_hash_table_insert (target_ext, ".so", ".so");
-		g_hash_table_insert (target_ext, ".java", ".class");
-	}
+	gboolean ret;	
 	
 	g_return_val_if_fail (filename != NULL, FALSE);
 	ret = FALSE;
@@ -1782,26 +1761,49 @@ build_compile_file (BasicAutotoolsPlugin *plugin, const gchar *filename)
 	ext_ptr = strrchr (target, '.');
 	if (ext_ptr)
 	{
-		const gchar *new_ext;
-		new_ext = g_hash_table_lookup (target_ext, ext_ptr);
-		if (new_ext)
+		GFile* file = g_file_new_for_path (filename);
+		GFileInfo* file_info = g_file_query_info (file,
+		                                          G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+		                                          G_FILE_QUERY_INFO_NONE,
+		                                          NULL,
+		                                          NULL);
+		if (file_info)
 		{
-			BuildProgram *prog;
-			
-			*ext_ptr = '\0';
-			prog = build_program_new_with_command (build_dir, "%s %s%s",
-											   CHOOSE_COMMAND (plugin, COMPILE),
-											   target, new_ext);
-			context = build_save_and_execute_command (plugin, prog, TRUE, NULL);
-			ret = TRUE;
+			const gchar *new_ext;
+			IAnjutaLanguage* langman =
+				anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+				                            IAnjutaLanguage,
+				                            NULL);
+			gint id = ianjuta_language_get_from_mime_type (langman,
+			                                               g_file_info_get_content_type (file_info),
+			                                               NULL);
+			DEBUG_PRINT ("Found mime-type: %s", g_file_info_get_content_type (file_info));
+			if (id > 0)
+			{
+				new_ext = ianjuta_language_get_make_target (langman, id, NULL);
+				if (new_ext)
+				{
+					BuildProgram *prog;
+
+					DEBUG_PRINT ("New extension: %s", new_ext);
+
+					*ext_ptr = '\0';
+					prog = build_program_new_with_command (build_dir, "%s %s%s",
+					                                       CHOOSE_COMMAND (plugin, COMPILE),
+					                                       target, new_ext);
+					context = build_save_and_execute_command (plugin, prog, TRUE, NULL);
+					ret = TRUE;
+				}
+			}
 		}
-	} else {
+	}
+	else {
 		/* If file has no extension, take it as target itself */
 		BuildProgram *prog;
-		
+
 		prog = build_program_new_with_command (build_dir, "%s %s",
-										   CHOOSE_COMMAND(plugin, COMPILE),
-							   			   target);
+		                                       CHOOSE_COMMAND(plugin, COMPILE),
+		                                       target);
 		context = build_save_and_execute_command (plugin, prog, TRUE, NULL);
 		ret = TRUE;
 	}
@@ -2014,6 +2016,10 @@ build_configure_dialog (BasicAutotoolsPlugin *plugin, BuildFunc func, const gcha
 	run_autogen = !directory_has_file (plugin->project_root_dir, "configure");
 	
 	anjuta_shell_get_value (ANJUTA_PLUGIN (plugin)->shell, IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI, &value, NULL);
+
+	/* In case, a project is not loaded */
+	if (!G_VALUE_HOLDS_STRING (&value)) return;
+
 	project_root = g_value_get_string (&value);
 	parent = GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell);
 
@@ -2086,7 +2092,7 @@ build_configure_and_build (BasicAutotoolsPlugin *plugin, BuildFunc func, const g
 	has_makefile = directory_has_makefile (build_dir);
 	g_free (build_dir);
 
-	if (!has_makefile)
+	if (!has_makefile && (plugin->project_root_dir != NULL))
 	{
 		/* Run configure first */
 		build_configure_dialog (plugin, func, name);
@@ -2122,7 +2128,7 @@ static const gchar*
 build_get_uri_configuration (BasicAutotoolsPlugin *plugin, const gchar *uri)
 {
 	BuildConfiguration *cfg;
-	BuildConfiguration *uri_cfg;
+	BuildConfiguration *uri_cfg = NULL;
 	gsize uri_len = 0;
 
 	/* Check all configurations as other configuration directories are

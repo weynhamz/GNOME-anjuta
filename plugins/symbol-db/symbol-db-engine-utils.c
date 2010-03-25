@@ -247,27 +247,29 @@ symbol_db_util_get_pixbuf  (const gchar *node_type, const gchar *node_access)
 	GdkPixbuf *pix;
 	if (!pixbufs_hash)
 	{
+		/* lazy loading */
 		sdb_util_load_symbol_pixbufs ();
 	}
 	
-	DEBUG_PRINT ("symbol_db_view_get_pixbuf: node_type %s node_access %s",
-				 node_type, node_access);
+	/*DEBUG_PRINT ("symbol_db_view_get_pixbuf: node_type %s node_access %s",
+				 node_type, node_access);*/
 	
-	g_return_val_if_fail (node_type != NULL, NULL);
-
 	/* is there a better/quicker method to retrieve pixbufs? */
-	if (node_access != NULL)
+	if (node_type != NULL && node_access != NULL)
 	{
 		search_node = g_strdup_printf ("%s%s", node_access, node_type);
 	}
-	else 
+	else if (node_type != NULL)
 	{ 
 		/* we will not free search_node gchar, so casting here is ok. */
 		search_node = (gchar*)node_type;
 	}
+	else {
+		search_node = "othersvars";
+	}
 	pix = GDK_PIXBUF (g_hash_table_lookup (pixbufs_hash, search_node));
 	
-	if (node_access)
+	if (node_type != NULL && node_access != NULL)
 	{
 		g_free (search_node);
 	}

@@ -93,6 +93,7 @@ build_recent_projects (GtkWidget *box, Starter *wcm)
 		{
 			GtkWidget *button;
 			GFile *file;
+			gchar *uri;
 
 			button = anjuta_starter_button_new (gtk_recent_info_get_display_name (list->data));
 			gtk_widget_show (button);
@@ -101,6 +102,18 @@ build_recent_projects (GtkWidget *box, Starter *wcm)
 			file = g_file_new_for_uri (gtk_recent_info_get_uri (list->data));
 			g_object_set_data_full (G_OBJECT (button), "file", file,
 									(GDestroyNotify)destroy_notify);
+
+			uri = gtk_recent_info_get_uri_display (list->data);
+			if (uri)
+			{
+				gchar *tip;
+
+				tip = g_strdup_printf (_("Open '%s'"), uri);
+				gtk_widget_set_tooltip_text (button, tip);
+
+				g_free (tip);
+				g_free (uri);
+			}
 
 			g_signal_connect (button, "clicked",
 							  G_CALLBACK (recent_project_clicked_cb),

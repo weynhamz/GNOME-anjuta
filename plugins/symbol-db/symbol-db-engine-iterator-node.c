@@ -28,7 +28,6 @@
 
 #include "symbol-db-engine-iterator-node.h"
 #include "symbol-db-engine.h"
-#include "symbol-db-view.h"
 
 enum {	
 	FIELD_ID_POS = 0,

@@ -569,6 +569,40 @@ anjuta_app_instance_init (AnjutaApp *app)
 	app->save_count = 0;
 }
 
+/*
+ * GtkWindow catches keybindings for the menu items _before_ passing them to
+ * the focused widget. This is unfortunate and means that pressing ctrl+V
+ * in an entry on a panel ends up pasting text in the TextView.
+ * Here we override GtkWindow's handler to do the same things that it
+ * does, but in the opposite order and then we chain up to the grand
+ * parent handler, skipping gtk_window_key_press_event.
+ */
+static gboolean
+anjuta_app_key_press_event (GtkWidget   *widget,
+                            GdkEventKey *event)
+{
+	static gpointer grand_parent_class = NULL;
+	GtkWindow *window = GTK_WINDOW (widget);
+	gboolean handled = FALSE;
+
+	if (grand_parent_class == NULL)
+		grand_parent_class = g_type_class_peek_parent (parent_class);
+
+	/* handle focus widget key events */
+	if (!handled)
+		handled = gtk_window_propagate_key_event (window, event);
+
+	/* handle mnemonics and accelerators */
+	if (!handled)
+		handled = gtk_window_activate_key (window, event);
+
+	/* Chain up, invokes binding set */
+	if (!handled)
+		handled = GTK_WIDGET_CLASS (grand_parent_class)->key_press_event (widget, event);
+
+	return handled;
+}
+
 static void
 anjuta_app_class_init (AnjutaAppClass *class)
 {
@@ -578,8 +612,11 @@ anjuta_app_class_init (AnjutaAppClass *class)
 	parent_class = g_type_class_peek_parent (class);
 	object_class = (GObjectClass*) class;
 	widget_class = (GtkWidgetClass*) class;
+	
 	object_class->finalize = anjuta_app_finalize;
 	object_class->dispose = anjuta_app_dispose;
+
+	widget_class->key_press_event = anjuta_app_key_press_event;
 }
 
 GtkWidget *
