@@ -97,7 +97,7 @@ on_merge_dialog_response (GtkDialog *dialog, gint response_id,
 					return;
 			}
 			
-			g_free (log);
+			
 		}
 
 		gtk_combo_box_get_active_iter (GTK_COMBO_BOX (merge_branch_combo), &iter);
@@ -109,6 +109,7 @@ on_merge_dialog_response (GtkDialog *dialog, gint response_id,
 											   gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (squash_check)));
 		
 		g_free (branch);
+		g_free (log);
 		
 		git_create_message_view (data->plugin);
 		
