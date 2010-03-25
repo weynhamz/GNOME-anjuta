@@ -286,9 +286,45 @@ on_notebook_page_close_button_leave (GtkButton* button,
 static gboolean
 on_notebook_tab_btnpress (GtkWidget *wid, GdkEventButton *event, AnjutaDocman* docman)
 {
+	AnjutaDocmanPage *page;
+	AnjutaDocmanPage *curr_page = NULL;
+	
 	if (event->type == GDK_BUTTON_PRESS && event->button != 3)	/* right-click is for menu */
 		docman->priv->tab_pressed = TRUE;
 
+	/* close on middle click */
+	if (event->button == 2)
+	{
+		/* the close function works only on the current document */
+		GList* node;
+		for (node = docman->priv->pages; node != NULL; node = g_list_next (node))
+		{
+			page = (AnjutaDocmanPage *) node->data;
+			if (page->box == wid)
+			{
+				/* we've found the page that user wants to close. Save the current
+				 * page for a later setup
+				 */
+				curr_page = anjuta_docman_get_current_page (docman);
+				anjuta_docman_set_current_document (docman, page->doc);
+				break;
+			}
+		}
+		if (node == NULL)
+			return FALSE;		
+
+		if (page != NULL) 
+		{
+			on_close_file_activate (NULL, docman->priv->plugin);
+
+			if (curr_page != NULL)
+			{
+				/* set the old current page */
+				anjuta_docman_set_current_document (docman, curr_page->doc);
+			}
+		}
+	}
+	
 	return FALSE;
 }
 
