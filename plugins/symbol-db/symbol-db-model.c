@@ -173,7 +173,10 @@ symbol_db_model_node_set_child (SymbolDBModelNode *node, gint child_offset,
 	/* If children nodes array hasn't been allocated, now is the time */
 	if (!node->children)
 		node->children = g_new0 (SymbolDBModelNode*, node->n_children);
-	g_warn_if_fail (node->children[child_offset] == NULL);
+	if (val)
+	{
+		g_warn_if_fail (node->children[child_offset] == NULL);
+	}
 	node->children[child_offset] = val;
 }
 
