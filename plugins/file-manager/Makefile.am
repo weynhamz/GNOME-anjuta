@@ -11,6 +11,7 @@ file_manager_pixmapsdir = $(anjuta_image_dir)
 file_manager_pixmaps_DATA = \
 	anjuta-file-manager-plugin.svg \
 	anjuta-file-manager-plugin-48.png \
+	anjuta-file-manager-plugin-16.png \
 	vcs-added.png \
 	vcs-conflict.png \
 	vcs-deleted.png \
