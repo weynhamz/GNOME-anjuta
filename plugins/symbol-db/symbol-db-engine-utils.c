@@ -211,29 +211,31 @@ sdb_util_load_symbol_pixbufs ()
 	CREATE_SYM_ICON ("privateclass",      "element-class-16.png");
 	CREATE_SYM_ICON ("privateenum",   	  "element-enumeration-16.png");
 	CREATE_SYM_ICON ("privatefield",   	  "element-event-16.png");
-	CREATE_SYM_ICON ("privatefunction",   "element-method-16.png");
-	CREATE_SYM_ICON ("privateinterface",  "element-interface-16.png");	
-	CREATE_SYM_ICON ("privatemember",     "element-property-16.png");	
-	CREATE_SYM_ICON ("privatemethod",     "element-method-16.png");
-	CREATE_SYM_ICON ("privateproperty",   "element-property-16.png");
+	CREATE_SYM_ICON ("privatefunction",   "element-method-private-16.png");
+	CREATE_SYM_ICON ("privateinterface",  "element-interface-private-16.png");	
+	CREATE_SYM_ICON ("privatemember",     "element-property-private-16.png");	
+	CREATE_SYM_ICON ("privatemethod",     "element-method-private-16.png");
+	CREATE_SYM_ICON ("privateproperty",   "element-property-private-16.png");
 	CREATE_SYM_ICON ("privatestruct",     "element-structure-16.png");
-	CREATE_SYM_ICON ("privateprototype",  "element-interface-16.png");
+	CREATE_SYM_ICON ("privateprototype",  "element-interface-private-16.png");
 
 	CREATE_SYM_ICON ("protectedclass",    "element-class-16.png");	
 	CREATE_SYM_ICON ("protectedenum",     "element-enumeration-16.png");
 	CREATE_SYM_ICON ("protectedfield",    "element-event-16.png");	
-	CREATE_SYM_ICON ("protectedmember",   "element-property-16.png");
-	CREATE_SYM_ICON ("protectedmethod",   "element-method-16.png");
-	CREATE_SYM_ICON ("protectedproperty", "element-property-16.png");
-	CREATE_SYM_ICON ("protectedprototype","element-interface-16.png");
+	CREATE_SYM_ICON ("protectedfunction", "element-method-protected-16.png");
+	CREATE_SYM_ICON ("protectedmember",   "element-property-protected-16.png");
+	CREATE_SYM_ICON ("protectedmethod",   "element-method-protected-16.png");
+	CREATE_SYM_ICON ("protectedproperty", "element-property-protected-16.png");
+	CREATE_SYM_ICON ("protectedprototype","element-interface-protected-16.png");
 	
 	CREATE_SYM_ICON ("publicclass",    	  "element-class-16.png");	
 	CREATE_SYM_ICON ("publicenum",    	  "element-enumeration-16.png");	
-	CREATE_SYM_ICON ("publicfunction",    "element-method-16.png");
-	CREATE_SYM_ICON ("publicmember",      "element-method-16.png");
-	CREATE_SYM_ICON ("publicproperty",    "element-property-16.png");
+	CREATE_SYM_ICON ("publicfunction",    "element-method-public-16.png");
+	CREATE_SYM_ICON ("publicmember",      "element-property-public-16.png");
+	CREATE_SYM_ICON ("publicmethod",      "element-method-public-16.png");
+	CREATE_SYM_ICON ("publicproperty",    "element-property-public-16.png");
 	CREATE_SYM_ICON ("publicstruct",      "element-structure-16.png");
-	CREATE_SYM_ICON ("publicprototype",   "element-interface-16.png");
+	CREATE_SYM_ICON ("publicprototype",   "element-interface-public-16.png");
 	
 	/* special icon */
 	CREATE_SYM_ICON ("othersvars",   "element-event-16.png");
