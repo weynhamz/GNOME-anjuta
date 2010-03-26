@@ -1215,6 +1215,16 @@ symbol_db_model_get_query_value_at (SymbolDBModel *model,
 	                                                             value);
 }
 
+/**
+ * symbol_db_model_get_n_children_real:
+ * @model: The model
+ * @tree_level: The tree level where the node is.
+ * @column_values: The node column values.
+ *
+ * Gets the number of children of the node with given column values.
+ *
+ * Returns: Number of children
+ */
 static gint
 symbol_db_model_get_n_children_real (SymbolDBModel *model, gint tree_level,
                                      GValue column_values[])
@@ -1233,6 +1243,20 @@ symbol_db_model_get_n_children (SymbolDBModel *model, gint tree_level,
 	                                                         column_values);
 }
 
+/**
+ * symbol_db_model_get_children_real:
+ * @model: The model
+ * @tree_level: The tree level where the node is.
+ * @column_values: The node column values.
+ * @offset: Offset of the start row
+ * @limit: Number of rows to fetch
+ *
+ * Fetches the children data from backend database. The results are returned
+ * as GdaDataModel. The children to fetch starts form @offset and retrieves
+ * @limit amount.
+ *
+ * Returns: Data model holding the rows data, or NULL if there is no data.
+ */
 static GdaDataModel*
 symbol_db_model_get_children_real (SymbolDBModel *model, gint tree_level,
                                    GValue column_values[], gint offset,
