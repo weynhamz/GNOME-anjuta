@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-27 19:55+0200\n"
+"POT-Creation-Date: 2010-03-27 20:03+0200\n"
 "PO-Revision-Date: 2010-03-27 18:29+0200\n"
 "Last-Translator: Bakaoukas Nikolaos <nikolaosx1@gmail.com>\n"
 "Language-Team: Greek <team@gnome.gr>\n"
@@ -7809,7 +7809,6 @@ msgid "A generic Xlib project"
 msgstr "Έργο Xlib γενικής μορφής"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:7
-#, fuzzy
 msgid "A generic java project using automake project management"
 msgstr "Έργο Java γενικής μορφής με χρήση automake για τη διαχείριση του έργου"
 
