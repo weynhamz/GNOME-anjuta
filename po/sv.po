@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-14 09:07+0100\n"
-"PO-Revision-Date: 2010-03-14 09:38+0100\n"
+"POT-Creation-Date: 2010-03-27 10:58+0100\n"
+"PO-Revision-Date: 2010-03-27 10:58+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -856,188 +856,188 @@ msgstr "Kan inte kompilera \"%s\": Ingen kompileringsregel har definierats för 
 msgid "Cannot configure project: Missing configure script in %s."
 msgstr "Kan inte konfigurera projektet: Saknar configure-skript i %s."
 
-#: ../plugins/build-basic-autotools/plugin.c:2434
-#: ../plugins/build-basic-autotools/plugin.c:2508
-#: ../plugins/build-basic-autotools/plugin.c:2518
-#: ../plugins/build-basic-autotools/plugin.c:2536
-#: ../plugins/build-basic-autotools/plugin.c:2546
-#: ../plugins/build-basic-autotools/plugin.c:2603
+#: ../plugins/build-basic-autotools/plugin.c:2438
+#: ../plugins/build-basic-autotools/plugin.c:2512
+#: ../plugins/build-basic-autotools/plugin.c:2522
+#: ../plugins/build-basic-autotools/plugin.c:2540
+#: ../plugins/build-basic-autotools/plugin.c:2550
+#: ../plugins/build-basic-autotools/plugin.c:2607
 #, c-format
 msgid "_Build"
 msgstr "_Bygg"
 
-#: ../plugins/build-basic-autotools/plugin.c:2438
+#: ../plugins/build-basic-autotools/plugin.c:2442
 msgid "_Build Project"
 msgstr "Bygg _projekt"
 
-#: ../plugins/build-basic-autotools/plugin.c:2439
+#: ../plugins/build-basic-autotools/plugin.c:2443
 msgid "Build whole project"
 msgstr "Bygg hela projektet"
 
-#: ../plugins/build-basic-autotools/plugin.c:2444
+#: ../plugins/build-basic-autotools/plugin.c:2448
 msgid "_Install Project"
 msgstr "Insta_llera projekt"
 
-#: ../plugins/build-basic-autotools/plugin.c:2445
+#: ../plugins/build-basic-autotools/plugin.c:2449
 msgid "Install whole project"
 msgstr "Installera hela projektet"
 
-#: ../plugins/build-basic-autotools/plugin.c:2450
+#: ../plugins/build-basic-autotools/plugin.c:2454
 msgid "_Clean Project"
 msgstr "_Töm projektet"
 
-#: ../plugins/build-basic-autotools/plugin.c:2451
+#: ../plugins/build-basic-autotools/plugin.c:2455
 msgid "Clean whole project"
 msgstr "Töm hela projektet"
 
-#: ../plugins/build-basic-autotools/plugin.c:2456
+#: ../plugins/build-basic-autotools/plugin.c:2460
 msgid "C_onfigure Project…"
 msgstr "K_onfigurera projekt..."
 
-#: ../plugins/build-basic-autotools/plugin.c:2457
+#: ../plugins/build-basic-autotools/plugin.c:2461
 msgid "Configure project"
 msgstr "Konfigurera projekt"
 
-#: ../plugins/build-basic-autotools/plugin.c:2462
+#: ../plugins/build-basic-autotools/plugin.c:2466
 msgid "Build _Tarball"
 msgstr "Bygg _tar-arkiv"
 
-#: ../plugins/build-basic-autotools/plugin.c:2463
+#: ../plugins/build-basic-autotools/plugin.c:2467
 msgid "Build project tarball distribution"
 msgstr "Bygg tar-arkivsdistribution av projektet"
 
-#: ../plugins/build-basic-autotools/plugin.c:2468
+#: ../plugins/build-basic-autotools/plugin.c:2472
 msgid "_Build Module"
 msgstr "_Bygg modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2469
+#: ../plugins/build-basic-autotools/plugin.c:2473
 msgid "Build module associated with current file"
 msgstr "Bygg modul associerad med aktuell fil"
 
-#: ../plugins/build-basic-autotools/plugin.c:2474
+#: ../plugins/build-basic-autotools/plugin.c:2478
 msgid "_Install Module"
 msgstr "_Installera modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2475
+#: ../plugins/build-basic-autotools/plugin.c:2479
 msgid "Install module associated with current file"
 msgstr "Installera modul associerad med aktuell fil"
 
-#: ../plugins/build-basic-autotools/plugin.c:2480
+#: ../plugins/build-basic-autotools/plugin.c:2484
 msgid "_Clean Module"
 msgstr "_Töm modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2481
+#: ../plugins/build-basic-autotools/plugin.c:2485
 msgid "Clean module associated with current file"
 msgstr "Töm modulen associerad med aktuell fil"
 
-#: ../plugins/build-basic-autotools/plugin.c:2486
+#: ../plugins/build-basic-autotools/plugin.c:2490
 msgid "Co_mpile File"
 msgstr "Ko_mpilera fil"
 
-#: ../plugins/build-basic-autotools/plugin.c:2487
+#: ../plugins/build-basic-autotools/plugin.c:2491
 msgid "Compile current editor file"
 msgstr "Kompilera aktuell redigerarfil"
 
-#: ../plugins/build-basic-autotools/plugin.c:2492
+#: ../plugins/build-basic-autotools/plugin.c:2496
 msgid "Select Configuration"
 msgstr "Välj konfiguration"
 
-#: ../plugins/build-basic-autotools/plugin.c:2493
+#: ../plugins/build-basic-autotools/plugin.c:2497
 msgid "Select current configuration"
 msgstr "Välj aktuell konfiguration"
 
-#: ../plugins/build-basic-autotools/plugin.c:2498
+#: ../plugins/build-basic-autotools/plugin.c:2502
 msgid "Remove Configuration"
 msgstr "Ta bort konfiguration"
 
-#: ../plugins/build-basic-autotools/plugin.c:2499
+#: ../plugins/build-basic-autotools/plugin.c:2503
 msgid "Clean project (distclean) and remove configuration directory if possible"
 msgstr "Töm projektet (distclean) och ta bort konfigurationskatalog om möjligt"
 
-#: ../plugins/build-basic-autotools/plugin.c:2512
-#: ../plugins/build-basic-autotools/plugin.c:2540
+#: ../plugins/build-basic-autotools/plugin.c:2516
+#: ../plugins/build-basic-autotools/plugin.c:2544
 msgid "_Compile"
 msgstr "_Kompilera"
 
-#: ../plugins/build-basic-autotools/plugin.c:2513
-#: ../plugins/build-basic-autotools/plugin.c:2541
+#: ../plugins/build-basic-autotools/plugin.c:2517
+#: ../plugins/build-basic-autotools/plugin.c:2545
 msgid "Compile file"
 msgstr "Kompilera fil"
 
-#: ../plugins/build-basic-autotools/plugin.c:2519
-#: ../plugins/build-basic-autotools/plugin.c:2547
+#: ../plugins/build-basic-autotools/plugin.c:2523
+#: ../plugins/build-basic-autotools/plugin.c:2551
 msgid "Build module"
 msgstr "Bygg modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2524
-#: ../plugins/build-basic-autotools/plugin.c:2552
-#: ../plugins/build-basic-autotools/plugin.c:2610
+#: ../plugins/build-basic-autotools/plugin.c:2528
+#: ../plugins/build-basic-autotools/plugin.c:2556
+#: ../plugins/build-basic-autotools/plugin.c:2614
 #, c-format
 msgid "_Install"
 msgstr "_Installera"
 
-#: ../plugins/build-basic-autotools/plugin.c:2525
-#: ../plugins/build-basic-autotools/plugin.c:2553
+#: ../plugins/build-basic-autotools/plugin.c:2529
+#: ../plugins/build-basic-autotools/plugin.c:2557
 msgid "Install module"
 msgstr "Installera modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2530
-#: ../plugins/build-basic-autotools/plugin.c:2558
-#: ../plugins/build-basic-autotools/plugin.c:2617
+#: ../plugins/build-basic-autotools/plugin.c:2534
+#: ../plugins/build-basic-autotools/plugin.c:2562
+#: ../plugins/build-basic-autotools/plugin.c:2621
 #, c-format
 msgid "_Clean"
 msgstr "Tö_m"
 
-#: ../plugins/build-basic-autotools/plugin.c:2531
-#: ../plugins/build-basic-autotools/plugin.c:2559
+#: ../plugins/build-basic-autotools/plugin.c:2535
+#: ../plugins/build-basic-autotools/plugin.c:2563
 msgid "Clean module"
 msgstr "Töm modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2564
+#: ../plugins/build-basic-autotools/plugin.c:2568
 msgid "_Cancel command"
 msgstr "_Avbryt kommando"
 
-#: ../plugins/build-basic-autotools/plugin.c:2565
+#: ../plugins/build-basic-autotools/plugin.c:2569
 msgid "Cancel build command"
 msgstr "Avbryt byggkommando"
 
-#: ../plugins/build-basic-autotools/plugin.c:2603
+#: ../plugins/build-basic-autotools/plugin.c:2607
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Bygg (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2610
+#: ../plugins/build-basic-autotools/plugin.c:2614
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Installera (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2617
+#: ../plugins/build-basic-autotools/plugin.c:2621
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Töm (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2625
+#: ../plugins/build-basic-autotools/plugin.c:2629
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Ko_mpilera (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2625
+#: ../plugins/build-basic-autotools/plugin.c:2629
 #, c-format
 msgid "Co_mpile"
 msgstr "Ko_mpilera"
 
-#: ../plugins/build-basic-autotools/plugin.c:3161
+#: ../plugins/build-basic-autotools/plugin.c:3165
 msgid "Build commands"
 msgstr "Byggkommandon"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:3170
+#: ../plugins/build-basic-autotools/plugin.c:3174
 msgid "Build popup commands"
 msgstr "Bygg popup-kommandon"
 
-#: ../plugins/build-basic-autotools/plugin.c:3552
-#: ../plugins/build-basic-autotools/plugin.c:3560
+#: ../plugins/build-basic-autotools/plugin.c:3556
+#: ../plugins/build-basic-autotools/plugin.c:3564
 msgid "Build Autotools"
 msgstr "Bygg Autotools"
 
@@ -3047,7 +3047,7 @@ msgstr "Upprepa snabbsökning"
 #: ../plugins/document-manager/plugin.c:271
 #: ../plugins/gtodo/interface.c:168
 #: ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:1878
+#: ../plugins/language-support-cpp-java/plugin.c:1882
 msgid "_Edit"
 msgstr "_Redigera"
 
@@ -3431,6 +3431,7 @@ msgid "This function is not implemented for widgets of class '%s'"
 msgstr "Denna funktion är inte implementerad för widgetar av klassen \"%s\""
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:937
+#: ../plugins/starter/starter.c:111
 #, c-format
 msgid "Open '%s'"
 msgstr "Öppna \"%s\""
@@ -3752,7 +3753,7 @@ msgid "Name:"
 msgstr "Namn:"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:10
-#: ../plugins/starter/starter.c:409
+#: ../plugins/starter/starter.c:422
 msgid "New File"
 msgstr "Ny fil"
 
@@ -6537,8 +6538,8 @@ msgid "No Date"
 msgstr "Inget datum"
 
 #: ../plugins/macro/anjuta-macro.ui.h:2
-msgid "Edit&#x2026;"
-msgstr "Redigera&#x2026;"
+msgid "Edit…"
+msgstr "Redigera..."
 
 #: ../plugins/macro/anjuta-macro.ui.h:3
 msgid "Macro details:"
@@ -8286,7 +8287,7 @@ msgstr[1] "%d träffar har ersatts."
 msgid "Unable to build user interface for Search and Replace"
 msgstr "Kan inte bygga användargränssnitt för Sök och ersätt"
 
-#: ../plugins/sourceview/sourceview.c:366
+#: ../plugins/sourceview/sourceview.c:374
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
@@ -8295,7 +8296,7 @@ msgstr ""
 "Filen \"%s\" på disk är nyare än den som finns i den aktuella\n"
 "bufferten. Vill du läsa om den?"
 
-#: ../plugins/sourceview/sourceview.c:403
+#: ../plugins/sourceview/sourceview.c:411
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -8305,18 +8306,18 @@ msgstr ""
 "Vill du stänga den?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:440
+#: ../plugins/sourceview/sourceview.c:448
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "Kunde inte öppna %s: %s"
 
-#: ../plugins/sourceview/sourceview.c:494
+#: ../plugins/sourceview/sourceview.c:502
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr "Filen \"%s\" är skrivskyddad! Redigera ändå?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:553
+#: ../plugins/sourceview/sourceview.c:561
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "Kunde inte spara %s: %s"
@@ -8430,32 +8431,32 @@ msgid "Wrap long lines to fit on paper"
 msgstr "Radbryt långa rader för att passa pappret"
 
 #: ../plugins/starter/plugin.c:70
-#: ../plugins/starter/starter.c:349
+#: ../plugins/starter/starter.c:362
 #: ../plugins/starter/anjuta-starter.plugin.in.h:1
 msgid "Starter"
 msgstr "Startare"
 
-#: ../plugins/starter/starter.c:390
+#: ../plugins/starter/starter.c:403
 msgid "Create File/Project"
 msgstr "Skapa fil/projekt"
 
-#: ../plugins/starter/starter.c:424
+#: ../plugins/starter/starter.c:437
 msgid "Recent Projects"
 msgstr "Senaste projekt"
 
-#: ../plugins/starter/starter.c:455
+#: ../plugins/starter/starter.c:468
 msgid "Links"
 msgstr "Länkar"
 
-#: ../plugins/starter/starter.c:474
+#: ../plugins/starter/starter.c:487
 msgid "Anjuta Home Page"
 msgstr "Hemsida för Anjuta"
 
-#: ../plugins/starter/starter.c:480
+#: ../plugins/starter/starter.c:493
 msgid "Anjuta Manual"
 msgstr "Användarhandbok för Anjuta"
 
-#: ../plugins/starter/starter.c:486
+#: ../plugins/starter/starter.c:499
 msgid "GNOME Online API Documentation"
 msgstr "GNOME Online API-dokumentation"
 
@@ -9807,32 +9808,32 @@ msgstr "Smart indentering"
 msgid "Statement indentation size in spaces:"
 msgstr "Indenteringsstorlek för uttryck i blanksteg:"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1884
+#: ../plugins/language-support-cpp-java/plugin.c:1888
 msgid "Auto-Indent"
 msgstr "Automatisk indentering"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1885
+#: ../plugins/language-support-cpp-java/plugin.c:1889
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr "Indentera automatiskt aktuell rad eller markering baserat på indenteringsinställningar"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1890
+#: ../plugins/language-support-cpp-java/plugin.c:1894
 msgid "Swap .h/.c"
 msgstr "Växla .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1891
+#: ../plugins/language-support-cpp-java/plugin.c:1895
 msgid "Swap C header and source files"
 msgstr "Växla mellan C-header och källkodsfiler"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1932
+#: ../plugins/language-support-cpp-java/plugin.c:1936
 msgid "C++/Java Assistance"
 msgstr "C++/Java-assistans"
 
-#: ../plugins/language-support-cpp-java/plugin.c:2044
-#: ../plugins/language-support-cpp-java/plugin.c:2057
+#: ../plugins/language-support-cpp-java/plugin.c:2048
+#: ../plugins/language-support-cpp-java/plugin.c:2061
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
-#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1345
+#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1368
 msgid "C/C++"
 msgstr "C/C++"
 
@@ -10112,6 +10113,8 @@ msgstr "Färgmarkera saknat semikolon"
 msgid "Min character for completion "
 msgstr "Minsta tecken för komplettering"
 
+#~ msgid "Edit&#x2026;"
+#~ msgstr "Redigera&#x2026;"
 #~ msgid "private"
 #~ msgstr "privat"
 #~ msgid "protected"
