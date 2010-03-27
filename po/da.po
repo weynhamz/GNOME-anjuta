@@ -1,5 +1,5 @@
 # Danish translation of Anjuta.
-# Copyright (C) 2001-2009 Free Software Foundation, Inc.
+# Copyright (C) 2001-2010 Free Software Foundation, Inc.
 # Gitte Wange <gitte@babytux.dk>, 2001-2002.
 # Christian Rose <menthos@menthos.com>, 2001.
 # Göran Weinholt <weinholt@linux.nu>, 2001.
@@ -31,8 +31,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-14 17:17+0100\n"
-"PO-Revision-Date: 2010-02-13 16:25+0100\n"
+"POT-Creation-Date: 2010-03-28 00:17+0100\n"
+"PO-Revision-Date: 2010-03-27 23:17+0100\n"
 "Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
 "Language-Team: <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
@@ -266,7 +266,7 @@ msgstr "Indlæs"
 msgid "Available Plugins"
 msgstr "Tilgængelige udvidelsesmoduler"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:736
+#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:773
 msgid "Preferred plugins"
 msgstr "Foretrukne udvidelsesmoduler"
 
@@ -433,7 +433,7 @@ msgstr "Kategori"
 #. FIXME: Make the general page first
 #: ../libanjuta/anjuta-preferences-dialog.c:138
 #: ../libanjuta/anjuta-preferences-dialog.c:141
-#: ../plugins/gbf-am/gbf-am-dialogs.ui.h:3 ../src/anjuta-app.c:723
+#: ../plugins/gbf-am/gbf-am-dialogs.ui.h:3 ../src/anjuta-app.c:760
 #: ../src/preferences.ui.h:11
 msgid "General"
 msgstr "Generelt"
@@ -509,20 +509,23 @@ msgid ""
 "installing missing packages. Please install \"packagekit-gnome\" package "
 "from your distribution, or install the missing packages manually."
 msgstr ""
+"Du synes ikke at have PackageKit installeret. PackageKit kræves til at "
+"installere manglende pakker. Installér venligst pakken \"packagekit-gnome\" "
+"fra din distribution, eller installér de manglende pakker manuelt."
 
 #: ../libanjuta/anjuta-utils.c:515
-#, fuzzy, c-format
+#, c-format
 msgid "Installation failed: %s"
-msgstr "Oversættelses fil"
+msgstr "Installationen mislykkedes: %s"
 
 #: ../libanjuta/anjuta-utils.c:575
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The \"%s\" package is not installed.\n"
 "Please install it."
 msgstr ""
-"Værktøjet \"%s\" er ikke installeret.\n"
-"Installér det venligst."
+"Pakken \"%s\" er ikke installeret.\n"
+"Installér den venligst."
 
 #: ../libanjuta/anjuta-utils.c:593
 #, c-format
@@ -773,11 +776,11 @@ msgstr "Den eksekverbare fil \"%s\" er ikke opdateret."
 #. * 2 similar strings are used in order to parse the output of 2 different
 #. * version of make if necessary. If you update one string, move the first
 #. * string into the second slot and then replace the first string only.
-#: ../plugins/build-basic-autotools/plugin.c:167
+#: ../plugins/build-basic-autotools/plugin.c:168
 msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+`(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+Går\\s+til\\s+katalog\\s+'(.+)'"
 
-#: ../plugins/build-basic-autotools/plugin.c:168
+#: ../plugins/build-basic-autotools/plugin.c:169
 msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+'(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+Går\\s+til\\s+katalog\\s+'(.+)'"
 
@@ -786,82 +789,82 @@ msgstr "make(\\[\\d+\\])?:\\s+Går\\s+til\\s+katalog\\s+'(.+)'"
 #. * 2 similar strings are used in order to parse the output of 2 different
 #. * version of make if necessary. If you update one string, move the first
 #. * string into the second slot and then replace the first string only.
-#: ../plugins/build-basic-autotools/plugin.c:176
+#: ../plugins/build-basic-autotools/plugin.c:177
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+`(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+Forlader\\s+katalog\\s+'(.+)'"
 
-#: ../plugins/build-basic-autotools/plugin.c:177
+#: ../plugins/build-basic-autotools/plugin.c:178
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+Forlader\\s+katalog\\s+'(.+)'"
 
-#: ../plugins/build-basic-autotools/plugin.c:845
+#: ../plugins/build-basic-autotools/plugin.c:846
 #, c-format
 msgid "Entering: %s"
 msgstr "Tilgår: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:881
+#: ../plugins/build-basic-autotools/plugin.c:882
 #, c-format
 msgid "Leaving: %s"
 msgstr "Forlader: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:914
+#: ../plugins/build-basic-autotools/plugin.c:915
 #: ../plugins/tools/execute.c:330
 msgid "warning:"
 msgstr "advarsel:"
 
-#: ../plugins/build-basic-autotools/plugin.c:920
+#: ../plugins/build-basic-autotools/plugin.c:921
 #: ../plugins/tools/execute.c:335
 msgid "error:"
 msgstr "fejl:"
 
-#: ../plugins/build-basic-autotools/plugin.c:1037
+#: ../plugins/build-basic-autotools/plugin.c:1038
 #, c-format
 msgid "Command exited with status %d"
 msgstr "Kommandoen afsluttede med statuskode %d"
 
-#: ../plugins/build-basic-autotools/plugin.c:1047
-#: ../plugins/build-basic-autotools/plugin.c:1523
+#: ../plugins/build-basic-autotools/plugin.c:1048
+#: ../plugins/build-basic-autotools/plugin.c:1524
 #, c-format
 msgid "Command canceled by user"
 msgstr "Kommando annulleret af bruger"
 
-#: ../plugins/build-basic-autotools/plugin.c:1052
+#: ../plugins/build-basic-autotools/plugin.c:1053
 #, c-format
 msgid "Command aborted by user"
 msgstr "Kommando afbrudt af bruger"
 
-#: ../plugins/build-basic-autotools/plugin.c:1057
+#: ../plugins/build-basic-autotools/plugin.c:1058
 #, c-format
 msgid "Command terminated with signal %d"
 msgstr "Kommando afsluttet med signal %d"
 
-#: ../plugins/build-basic-autotools/plugin.c:1065
+#: ../plugins/build-basic-autotools/plugin.c:1066
 msgid "Command terminated for an unknown reason"
 msgstr "Kommando afsluttet af ukendt årsag"
 
-#: ../plugins/build-basic-autotools/plugin.c:1083
+#: ../plugins/build-basic-autotools/plugin.c:1084
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "Total tid: %lu sekunder\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:1090
+#: ../plugins/build-basic-autotools/plugin.c:1091
 msgid "Completed unsuccessfully\n"
 msgstr "Afsluttede med fejl\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:1098
+#: ../plugins/build-basic-autotools/plugin.c:1099
 #: ../plugins/tools/execute.c:516
 msgid "Completed successfully\n"
 msgstr "Afsluttede vellykket\n"
 
 #. Translators: the first number is the number of the build attemp,
 #. the string is the directory where the build takes place
-#: ../plugins/build-basic-autotools/plugin.c:1186
+#: ../plugins/build-basic-autotools/plugin.c:1187
 #, c-format
 msgid "Build %d: %s"
 msgstr "Bygning %d: %s"
 
 #. Need to run make clean before
-#: ../plugins/build-basic-autotools/plugin.c:1517
+#: ../plugins/build-basic-autotools/plugin.c:1518
 msgid ""
 "Before using this new configuration, the default one needs to be removed. Do "
 "you want to do that ?"
@@ -869,206 +872,206 @@ msgstr ""
 "Før du bruger denne nye konfiguration, skal standardkonfigurationen fjernes. "
 "Vil du gøre dette?"
 
-#: ../plugins/build-basic-autotools/plugin.c:1820
+#: ../plugins/build-basic-autotools/plugin.c:1822
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 "Kan ikke kompilere \"%s\": Ingen kompileringsregel er defineret for denne "
 "filtype."
 
-#: ../plugins/build-basic-autotools/plugin.c:1955
+#: ../plugins/build-basic-autotools/plugin.c:1957
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
 msgstr "Kan ikke konfigurere projektet: Mangler konfigurationsscript i %s."
 
-#: ../plugins/build-basic-autotools/plugin.c:2432
-#: ../plugins/build-basic-autotools/plugin.c:2506
-#: ../plugins/build-basic-autotools/plugin.c:2516
-#: ../plugins/build-basic-autotools/plugin.c:2534
-#: ../plugins/build-basic-autotools/plugin.c:2544
-#: ../plugins/build-basic-autotools/plugin.c:2601
+#: ../plugins/build-basic-autotools/plugin.c:2438
+#: ../plugins/build-basic-autotools/plugin.c:2512
+#: ../plugins/build-basic-autotools/plugin.c:2522
+#: ../plugins/build-basic-autotools/plugin.c:2540
+#: ../plugins/build-basic-autotools/plugin.c:2550
+#: ../plugins/build-basic-autotools/plugin.c:2607
 #, c-format
 msgid "_Build"
 msgstr "_Byg"
 
-#: ../plugins/build-basic-autotools/plugin.c:2436
+#: ../plugins/build-basic-autotools/plugin.c:2442
 msgid "_Build Project"
 msgstr "_Byg projekt"
 
-#: ../plugins/build-basic-autotools/plugin.c:2437
+#: ../plugins/build-basic-autotools/plugin.c:2443
 msgid "Build whole project"
 msgstr "Byg hele projektet"
 
-#: ../plugins/build-basic-autotools/plugin.c:2442
+#: ../plugins/build-basic-autotools/plugin.c:2448
 msgid "_Install Project"
 msgstr "_Installér projekt"
 
-#: ../plugins/build-basic-autotools/plugin.c:2443
+#: ../plugins/build-basic-autotools/plugin.c:2449
 msgid "Install whole project"
 msgstr "Installér hele projektet"
 
-#: ../plugins/build-basic-autotools/plugin.c:2448
+#: ../plugins/build-basic-autotools/plugin.c:2454
 msgid "_Clean Project"
 msgstr "_Rens projekt"
 
-#: ../plugins/build-basic-autotools/plugin.c:2449
+#: ../plugins/build-basic-autotools/plugin.c:2455
 msgid "Clean whole project"
 msgstr "Rens hele projektet"
 
-#: ../plugins/build-basic-autotools/plugin.c:2454
+#: ../plugins/build-basic-autotools/plugin.c:2460
 msgid "C_onfigure Project…"
 msgstr "K_onfigurér projekt…"
 
-#: ../plugins/build-basic-autotools/plugin.c:2455
+#: ../plugins/build-basic-autotools/plugin.c:2461
 msgid "Configure project"
 msgstr "Konfigurér projekt"
 
-#: ../plugins/build-basic-autotools/plugin.c:2460
+#: ../plugins/build-basic-autotools/plugin.c:2466
 msgid "Build _Tarball"
 msgstr "Byg _tarball"
 
-#: ../plugins/build-basic-autotools/plugin.c:2461
+#: ../plugins/build-basic-autotools/plugin.c:2467
 msgid "Build project tarball distribution"
 msgstr "Byg tarball-distribution til projektet"
 
-#: ../plugins/build-basic-autotools/plugin.c:2466
+#: ../plugins/build-basic-autotools/plugin.c:2472
 msgid "_Build Module"
 msgstr "_Byg modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2467
+#: ../plugins/build-basic-autotools/plugin.c:2473
 msgid "Build module associated with current file"
 msgstr "Byg modulet tilknyttet den aktuelle fil"
 
-#: ../plugins/build-basic-autotools/plugin.c:2472
+#: ../plugins/build-basic-autotools/plugin.c:2478
 msgid "_Install Module"
 msgstr "_Installér modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2473
+#: ../plugins/build-basic-autotools/plugin.c:2479
 msgid "Install module associated with current file"
 msgstr "Installér modulet tilknyttet den aktuelle fil"
 
-#: ../plugins/build-basic-autotools/plugin.c:2478
+#: ../plugins/build-basic-autotools/plugin.c:2484
 msgid "_Clean Module"
 msgstr "_Rens modulet"
 
-#: ../plugins/build-basic-autotools/plugin.c:2479
+#: ../plugins/build-basic-autotools/plugin.c:2485
 msgid "Clean module associated with current file"
 msgstr "Rens modulet tilknyttet den aktuelle fil"
 
-#: ../plugins/build-basic-autotools/plugin.c:2484
+#: ../plugins/build-basic-autotools/plugin.c:2490
 msgid "Co_mpile File"
 msgstr "Ko_mpilér fil"
 
 # ???
-#: ../plugins/build-basic-autotools/plugin.c:2485
+#: ../plugins/build-basic-autotools/plugin.c:2491
 msgid "Compile current editor file"
 msgstr "Kompilér nuværende redigeringsfil"
 
-#: ../plugins/build-basic-autotools/plugin.c:2490
+#: ../plugins/build-basic-autotools/plugin.c:2496
 msgid "Select Configuration"
 msgstr "Vælg konfiguration"
 
-#: ../plugins/build-basic-autotools/plugin.c:2491
+#: ../plugins/build-basic-autotools/plugin.c:2497
 msgid "Select current configuration"
 msgstr "Vælg aktuel konfiguration"
 
-#: ../plugins/build-basic-autotools/plugin.c:2496
+#: ../plugins/build-basic-autotools/plugin.c:2502
 msgid "Remove Configuration"
 msgstr "Fjern konfiguration"
 
-#: ../plugins/build-basic-autotools/plugin.c:2497
+#: ../plugins/build-basic-autotools/plugin.c:2503
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr "Rens projektet (distclean) og fjern konfigurationsmappen hvis muligt"
 
-#: ../plugins/build-basic-autotools/plugin.c:2510
-#: ../plugins/build-basic-autotools/plugin.c:2538
+#: ../plugins/build-basic-autotools/plugin.c:2516
+#: ../plugins/build-basic-autotools/plugin.c:2544
 msgid "_Compile"
 msgstr "_Kompilér"
 
-#: ../plugins/build-basic-autotools/plugin.c:2511
-#: ../plugins/build-basic-autotools/plugin.c:2539
+#: ../plugins/build-basic-autotools/plugin.c:2517
+#: ../plugins/build-basic-autotools/plugin.c:2545
 msgid "Compile file"
 msgstr "Kompilér fil"
 
-#: ../plugins/build-basic-autotools/plugin.c:2517
-#: ../plugins/build-basic-autotools/plugin.c:2545
+#: ../plugins/build-basic-autotools/plugin.c:2523
+#: ../plugins/build-basic-autotools/plugin.c:2551
 msgid "Build module"
 msgstr "Byg modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2522
-#: ../plugins/build-basic-autotools/plugin.c:2550
-#: ../plugins/build-basic-autotools/plugin.c:2608
+#: ../plugins/build-basic-autotools/plugin.c:2528
+#: ../plugins/build-basic-autotools/plugin.c:2556
+#: ../plugins/build-basic-autotools/plugin.c:2614
 #, c-format
 msgid "_Install"
 msgstr "_Installér"
 
-#: ../plugins/build-basic-autotools/plugin.c:2523
-#: ../plugins/build-basic-autotools/plugin.c:2551
+#: ../plugins/build-basic-autotools/plugin.c:2529
+#: ../plugins/build-basic-autotools/plugin.c:2557
 msgid "Install module"
 msgstr "Installér modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2528
-#: ../plugins/build-basic-autotools/plugin.c:2556
-#: ../plugins/build-basic-autotools/plugin.c:2615
+#: ../plugins/build-basic-autotools/plugin.c:2534
+#: ../plugins/build-basic-autotools/plugin.c:2562
+#: ../plugins/build-basic-autotools/plugin.c:2621
 #, c-format
 msgid "_Clean"
 msgstr "_Rens"
 
-#: ../plugins/build-basic-autotools/plugin.c:2529
-#: ../plugins/build-basic-autotools/plugin.c:2557
+#: ../plugins/build-basic-autotools/plugin.c:2535
+#: ../plugins/build-basic-autotools/plugin.c:2563
 msgid "Clean module"
 msgstr "Rens modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2562
+#: ../plugins/build-basic-autotools/plugin.c:2568
 msgid "_Cancel command"
 msgstr "_Annullér kommando"
 
-#: ../plugins/build-basic-autotools/plugin.c:2563
+#: ../plugins/build-basic-autotools/plugin.c:2569
 msgid "Cancel build command"
 msgstr "Annullér byggekommando"
 
-#: ../plugins/build-basic-autotools/plugin.c:2601
+#: ../plugins/build-basic-autotools/plugin.c:2607
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Byg (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2608
+#: ../plugins/build-basic-autotools/plugin.c:2614
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Installér (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2615
+#: ../plugins/build-basic-autotools/plugin.c:2621
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Rens (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2623
+#: ../plugins/build-basic-autotools/plugin.c:2629
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Ko_mpilér (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2623
+#: ../plugins/build-basic-autotools/plugin.c:2629
 #, c-format
 msgid "Co_mpile"
 msgstr "Ko_mpilér"
 
-#: ../plugins/build-basic-autotools/plugin.c:3159
+#: ../plugins/build-basic-autotools/plugin.c:3165
 msgid "Build commands"
 msgstr "Byg kommandoer"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:3168
+#: ../plugins/build-basic-autotools/plugin.c:3174
 msgid "Build popup commands"
 msgstr "Byg pop op-kommandoer"
 
-#: ../plugins/build-basic-autotools/plugin.c:3550
-#: ../plugins/build-basic-autotools/plugin.c:3558
+#: ../plugins/build-basic-autotools/plugin.c:3556
+#: ../plugins/build-basic-autotools/plugin.c:3564
 msgid "Build Autotools"
 msgstr "Byg Autotools"
 
-#: ../plugins/build-basic-autotools/program.c:323
+#: ../plugins/build-basic-autotools/program.c:326
 msgid "Command aborted"
 msgstr "Kommando afbrudt"
 
@@ -1144,6 +1147,7 @@ msgstr "Generelle klasseegenskaber"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:18
 #: ../plugins/file-wizard/file.c:103
+#: ../plugins/project-wizard/templates/translatable-strings.h:48
 msgid "General Public License (GPL)"
 msgstr "General Public License (GPL)"
 
@@ -1161,6 +1165,7 @@ msgstr "Indlejr (inline) erklæringen og implementationen"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:22
 #: ../plugins/file-wizard/file.c:104
+#: ../plugins/project-wizard/templates/translatable-strings.h:62
 msgid "Lesser General Public License (LGPL)"
 msgstr "Lesser General Public License (LGPL)"
 
@@ -1425,8 +1430,8 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "Ignorér .cvsrc-fil (anbefalet)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
-#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2320
-#: ../plugins/symbol-db/plugin.c:2390
+#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2120
+#: ../plugins/symbol-db/plugin.c:2189
 msgid "Local"
 msgstr "Lokal"
 
@@ -1770,6 +1775,7 @@ msgid "Debugger:"
 msgstr "Fejlsøger:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:15
+#: ../plugins/project-wizard/templates/translatable-strings.h:34
 msgid "Description:"
 msgstr "Beskrivelse:"
 
@@ -2610,7 +2616,7 @@ msgid "Search Help:"
 msgstr "Søg i hjælp:"
 
 #: ../plugins/devhelp/plugin.c:222 ../plugins/document-manager/plugin.c:239
-#: ../plugins/message-view/plugin.c:76 ../plugins/symbol-db/plugin.c:313
+#: ../plugins/message-view/plugin.c:76 ../plugins/symbol-db/plugin.c:312
 msgid "_Go to"
 msgstr "_Gå til"
 
@@ -2650,8 +2656,8 @@ msgstr "Indhold"
 #: ../plugins/search/search-replace.c:1717
 #: ../plugins/search/search-replace.c:1724
 #: ../plugins/search/search-replace.c:1736
-#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2324
-#: ../plugins/symbol-db/plugin.c:2440
+#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2124
+#: ../plugins/symbol-db/plugin.c:2206
 msgid "Search"
 msgstr "Søg"
 
@@ -2704,26 +2710,26 @@ msgstr "Omdøb"
 msgid "Remove"
 msgstr "Fjern"
 
-#: ../plugins/document-manager/anjuta-docman.c:399
+#: ../plugins/document-manager/anjuta-docman.c:435
 msgid "Close file"
 msgstr "Luk fil"
 
-#: ../plugins/document-manager/anjuta-docman.c:447
+#: ../plugins/document-manager/anjuta-docman.c:483
 msgid "Path:"
 msgstr "Sti:"
 
-#: ../plugins/document-manager/anjuta-docman.c:564
+#: ../plugins/document-manager/anjuta-docman.c:600
 #: ../plugins/file-loader/plugin.c:591 ../plugins/file-loader/plugin.c:894
 #: ../plugins/file-loader/plugin.c:904 ../plugins/file-loader/plugin.c:917
 msgid "Open file"
 msgstr "Åben fil"
 
-#: ../plugins/document-manager/anjuta-docman.c:583
+#: ../plugins/document-manager/anjuta-docman.c:619
 #: ../plugins/message-view/message-view.c:94
 msgid "Save file as"
 msgstr "Gem fil som"
 
-#: ../plugins/document-manager/anjuta-docman.c:664
+#: ../plugins/document-manager/anjuta-docman.c:700
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -2732,11 +2738,11 @@ msgstr ""
 "Filen \"%s\" findes allerede.\n"
 "Vil du overskrive den med filen, du er ved at gemme?"
 
-#: ../plugins/document-manager/anjuta-docman.c:673
+#: ../plugins/document-manager/anjuta-docman.c:709
 msgid "_Replace"
 msgstr "_Erstat"
 
-#: ../plugins/document-manager/anjuta-docman.c:1390
+#: ../plugins/document-manager/anjuta-docman.c:1426
 msgid "[read-only]"
 msgstr "[skrivebeskyttet]"
 
@@ -3050,7 +3056,7 @@ msgstr "Gentag hurtigsøgning"
 
 #: ../plugins/document-manager/plugin.c:271 ../plugins/gtodo/interface.c:168
 #: ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:1878
+#: ../plugins/language-support-cpp-java/plugin.c:1882
 msgid "_Edit"
 msgstr "_Redigér"
 
@@ -3436,6 +3442,7 @@ msgid "This function is not implemented for widgets of class '%s'"
 msgstr "Denne funktion er ikke implementeret for kontroller af klassen \"%s\""
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:937
+#: ../plugins/starter/starter.c:111
 #, c-format
 msgid "Open '%s'"
 msgstr "Åbn \"%s\""
@@ -3666,7 +3673,7 @@ msgid "Filter"
 msgstr "Filter"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2322 ../plugins/symbol-db/plugin.c:2416
+#: ../plugins/symbol-db/plugin.c:2122 ../plugins/symbol-db/plugin.c:2201
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:6
 msgid "Global"
 msgstr "Global"
@@ -3679,15 +3686,15 @@ msgstr "Rodmappe hvis intet projekt er åbent:"
 msgid "Loading..."
 msgstr "Indlæser..."
 
-#: ../plugins/file-manager/file-view.c:567
+#: ../plugins/file-manager/file-view.c:569
 msgid "Filename"
 msgstr "Filnavn"
 
-#: ../plugins/file-manager/file-view.c:654
+#: ../plugins/file-manager/file-view.c:656
 msgid "Base URI"
 msgstr "Basis-URI"
 
-#: ../plugins/file-manager/file-view.c:655
+#: ../plugins/file-manager/file-view.c:657
 msgid "URI of the top-most path displayed"
 msgstr "URI for den øverste viste sti"
 
@@ -3747,7 +3754,7 @@ msgid "Name:"
 msgstr "Navn:"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:10
-#: ../plugins/starter/starter.c:409
+#: ../plugins/starter/starter.c:422
 msgid "New File"
 msgstr "Ny fil"
 
@@ -4152,6 +4159,7 @@ msgid "Package name:"
 msgstr "Pakkenavn:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:863
+#: ../plugins/project-wizard/templates/translatable-strings.h:109
 msgid "Version:"
 msgstr "Version:"
 
@@ -4505,6 +4513,7 @@ msgid "Author/Grep"
 msgstr "Forfatter/Grep"
 
 #: ../plugins/git/anjuta-git.ui.h:14
+#: ../plugins/project-wizard/templates/translatable-strings.h:25
 msgid "Author:"
 msgstr "Forfatter:"
 
@@ -6506,8 +6515,8 @@ msgid "No Date"
 msgstr "Ingen dato"
 
 #: ../plugins/macro/anjuta-macro.ui.h:2
-msgid "Edit&#x2026;"
-msgstr "Redigér&#x2026;"
+msgid "Edit…"
+msgstr "Redigér…"
 
 #: ../plugins/macro/anjuta-macro.ui.h:3
 msgid "Macro details:"
@@ -6907,6 +6916,7 @@ msgstr ""
 "Kunne ikke hente fra den givne URI \"%s\". Den returnerede fejl var: \"%s\""
 
 #: ../plugins/project-import/project-import.ui.h:1
+#: ../plugins/project-wizard/templates/translatable-strings.h:35
 #: ../plugins/subversion/anjuta-subversion.ui.h:9
 msgid "Destination:"
 msgstr "Destination:"
@@ -7386,11 +7396,8 @@ msgstr ""
 "du genererer dette projekt.\n"
 
 #: ../plugins/project-wizard/druid.c:879
-#, fuzzy
 msgid "Install missing packages"
-msgstr ""
-"\n"
-"Manglende pakker: %s."
+msgstr "Installér manglende pakker"
 
 #: ../plugins/project-wizard/druid.c:887
 msgid ""
@@ -7487,6 +7494,467 @@ msgstr "Vælg mappe"
 #: ../plugins/project-wizard/property.c:471
 msgid "Choose file"
 msgstr "Vælg fil"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:1
+msgid "A GNOME applet project"
+msgstr "Et panelprogramprojekt til GNOME"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:2
+msgid "A generic C++ project"
+msgstr "Et generisk C++-projekt"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:3
+msgid "A generic GTK+ project"
+msgstr "Et generisk GTK+-projekt"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:4
+msgid "A generic GTKmm (C++) project"
+msgstr "Et generisk GTKmm-projekt (C++)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:5
+msgid "A generic Xlib dock applet"
+msgstr "Et generisk Xlib-dokpanelprogram"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:6
+msgid "A generic Xlib project"
+msgstr "Et generisk Xlib-projekt"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:7
+msgid "A generic java project using automake project management"
+msgstr "Et generisk Javaprojekt, der bruger automake-projekthåndtering"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:8
+msgid "A generic minimal and flat project"
+msgstr "Et generisk minimalt og fladt projekt"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:9
+msgid ""
+"A generic natively compiled java project using the GNU Java Compiler (gcj)"
+msgstr "Et generisk kompileret Javaprojekt, der bruger GNUs Javakompiler (gcj)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:10
+msgid "A generic project"
+msgstr "Et generisk projekt"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:11
+msgid "A generic python project using automake project management"
+msgstr "Et generisk Pythonprojekt, der bruger automake-projekthåndtering"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:12
+msgid "A generic wx Widgets project"
+msgstr "Et generisk wx Widgets-projekt"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:13
+msgid "A sample SDL project"
+msgstr "Eksempel på SDL-projekt"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:14
+msgid "A shared or a static library project"
+msgstr "Et delt eller statisk biblioteksprojekt"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:15
+msgid "Add C++ support:"
+msgstr "Tilføj C++-understøttelse:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:16
+msgid "Add gtk-doc system:"
+msgstr "Tilføj gtk-doc-system:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:17
+msgid "Add internationalization:"
+msgstr "Tilføj internationalisering:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:18
+msgid "Add shared library support:"
+msgstr "Tilføj understøttelse for delte biblioteker:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:19
+msgid "Adds C++ support to the project so that C++ source files can be built"
+msgstr ""
+"Tilføjer C++-understøttelse til projektet således at C++-kildefiler kan "
+"bygges"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:20
+msgid "Adds support for building shared libraries in your project"
+msgstr "Tilføjer understøttelse for bygning af delte biblioteker i dit projekt"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:21
+msgid ""
+"Adds support for internationalization so that your project can have "
+"translations in different languages"
+msgstr ""
+"Tilføjer understøttelse af internationalisering så dit projekt kan have "
+"oversættelser på forskellige sprog"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:22
+msgid "Anjuta Plugin"
+msgstr "Anjuta-modul"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:23
+msgid "Anjuta plugin project that uses libanjuta framework"
+msgstr "Anjuta-modulprojekt som bruger libanjuta"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:24
+msgid "Applet Title:"
+msgstr "Titel af panelprogram:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:26
+msgid "Basic information"
+msgstr "Basal information"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:27
+msgid "Berkeley Software Distribution License (BSD)"
+msgstr "Berkeley Software Distribution License (BSD)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:28
+msgid "Build library as"
+msgstr "Byg bibliotek som"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:29
+msgid ""
+"Comma separated, other plugins that this plugin depends on. It could be "
+"either primary interface name or plugin location (library:class)"
+msgstr ""
+"Kommasepareret liste af andre udvidelsesmoduler, dette modul afhænger af. "
+"Listen kan indeholde enten det primære grænsefladenavn eller "
+"modulplaceringen (bibliotek:klasse)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:30
+msgid "Configure external packages"
+msgstr "Konfigurér eksterne pakker"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:31
+msgid "Configure external packages:"
+msgstr "Konfigurér eksterne pakker:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:32
+msgid "Create Gtk Builder interface file"
+msgstr "Opret Gtk Builder-grænsefladefil"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:33
+msgid "Create a template Gtk Builder interface file"
+msgstr "Opret en skabelon for Gtk Builder-grænsefladefiler"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:36
+msgid "Display description of the applet"
+msgstr "Vis beskrivelse af panelprogrammet"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:37
+msgid "Display description of the plugin"
+msgstr "Vis beskrivelse af modulet"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:38
+msgid "Display title of the applet"
+msgstr "Vis titel af panelprogrammet"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:39
+msgid "Display title of the plugin"
+msgstr "Vis titel for modulet"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:40
+msgid "Django Project"
+msgstr "Django-projekt"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:41
+msgid "Django Project information"
+msgstr "Django-projektinformation"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:42
+msgid "Email address:"
+msgstr "E-post-adresse:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:43
+msgid "GCJ needs to know which class contains the main() function"
+msgstr "GCJ skal vide hvilken klasse, der indeholder main()-funktionen"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:44
+msgid "GNOME Applet"
+msgstr "GNOME-panelprogram"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:45
+msgid "GTK+"
+msgstr "GTK+"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:46
+msgid "GTKmm"
+msgstr "GTKmm"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:47
+msgid "General Project Information"
+msgstr "Generel projektinformation"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:49
+msgid "Generic"
+msgstr "Generisk"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:50
+msgid "Generic (Minimal)"
+msgstr "Generisk (Minimal)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:51
+msgid "Generic C++"
+msgstr "Generisk C++"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:52
+msgid "Generic JavaScript"
+msgstr "Generisk JavaScript"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:53
+msgid "Generic gcj compiled java"
+msgstr "Generisk gcj-kompileret Java"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:54
+msgid "Generic java (automake)"
+msgstr "Generisk Java (automake)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:55
+msgid "Generic python (automake)"
+msgstr "Generisk Python (automake)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:56
+msgid ""
+"Give a package name that your project require. You may also mention what is "
+"the required version of the package. For example, 'libgnomeui-2.0' or "
+"'libgnomeui-2.0 >= 2.2.0'"
+msgstr ""
+"Angiv pakkenavn påkrævet af dit projekt. Du kan også nævne den påkrævede "
+"version af pakken. For eksempel \"libgnomeui-2.0\" eller \"libgnomeui-2.0 >= "
+"2.2.0\""
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:57
+msgid "Icon File:"
+msgstr "Ikonfil:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:58
+msgid "Icon file for the plugin"
+msgstr "Ikonfil for modulet"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:59
+msgid "Implement plugin interfaces"
+msgstr "Implementér modulgrænseflader"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:60
+msgid "Interface implemented by the plugin"
+msgstr "Grænseflade implementeret af modulet"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:61
+msgid "Interface:"
+msgstr "Grænseflade:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:63
+msgid "Library"
+msgstr "Bibliotek"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:64
+msgid "License"
+msgstr "Licens"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:65
+msgid "Main Class:"
+msgstr "Main-klasse:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:66
+msgid "Main class"
+msgstr "Main-klasse"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:67
+msgid "Makefile project"
+msgstr "Makefil-projekt"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:68
+msgid "Makefile-based project"
+msgstr "Makefilsbaseret projekt"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:69
+msgid "Mininum SDL version required"
+msgstr "Mindste påkrævede version af SDL"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:70
+msgid "Name of the value to watch"
+msgstr "Navn på værdi der overvåges"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:71
+msgid "No license"
+msgstr "Ingen licens"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:72
+msgid "Only Shared"
+msgstr "Kun delt"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:73
+msgid "Only Static"
+msgstr "Kun statisk"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:74
+msgid "Options for project build system"
+msgstr "Indstillinger for projekt-byggesystemet"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:75
+msgid "Plugin Class Name:"
+msgstr "Modulklassenavn:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:76
+msgid "Plugin Dependencies:"
+msgstr "Modulafhængigheder:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:77
+msgid "Plugin Description:"
+msgstr "Modulbeskrivelse:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:78
+msgid "Plugin Title:"
+msgstr "Modultitel:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:79
+msgid "Plugin class name"
+msgstr "Modulklassenavn"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:80
+msgid "Plugin has menus or/and toolbars"
+msgstr "Modulet har menuer og/eller værktøjslinjer"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:81
+msgid "Plugin interfaces to implement"
+msgstr "Modulgrænseflader at implementere"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:82
+msgid "Project Name:"
+msgstr "Projektnavn:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:83
+msgid "Project directory, output file etc."
+msgstr "Projektmappe, uddatafil osv."
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:84
+msgid "Project directory:"
+msgstr "Projektmappe:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:85
+msgid ""
+"Project name must not contain spaces, because it will be the name of the "
+"project build target (executable, library etc.)"
+msgstr ""
+"Projektnavnet må ikke indeholde mellemrum, da det vil være navnet på "
+"projektets bygningsmål (eksekverbar fil, bibliotek osv.)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:86
+msgid "Project name:"
+msgstr "Projektnavn:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:87
+msgid "Project options"
+msgstr "Projektindstillinger"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:88
+msgid "Python webproject using Django Web Framework"
+msgstr "Python-webprojekt, der bruger Django"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:89
+msgid "Require Package:"
+msgstr "Forudsæt pakke:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:90
+msgid "Require SDL version:"
+msgstr "Forudsæt SDL-version:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:91
+msgid "Require SDL_gfx library"
+msgstr "Forudsæt SDL_gfx-bibliotek"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:92
+msgid "Require SDL_gfx:"
+msgstr "Forudsæt SDL_gfx:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:93
+msgid "Require SDL_image library"
+msgstr "Forudsæt SDL_image-bibliotek"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:94
+msgid "Require SDL_image:"
+msgstr "Forudsæt SDL_image:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:95
+msgid "Require SDL_mixer library"
+msgstr "Forudsæt SDL_mixer-bibliotek"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:96
+msgid "Require SDL_mixer:"
+msgstr "Forudsæt SDL_mixer:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:97
+msgid "Require SDL_net library"
+msgstr "Forudsæt SDL_net-bibliotek"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:98
+msgid "Require SDL_net:"
+msgstr "Forudsæt SDL_net:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:99
+msgid "Require SDL_ttf library"
+msgstr "Forudsæt SDL_ttf-bibliotek"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:100
+msgid "Require SDL_ttf:"
+msgstr "Forudsæt SDL_tff:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:101
+msgid "SDL"
+msgstr "SDL"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:102
+msgid "Select code license"
+msgstr "Vælg kodelicens"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:103
+msgid "Select library type to build"
+msgstr "Vælg typen af bibliotek, der skal bygges"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:104
+msgid "Shared and Static library"
+msgstr "Delt og statisk bibliotek"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:105
+msgid "Shell values to watch"
+msgstr "Skalværdier at overvåge"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:106
+msgid "Use pkg-config to add library support from other packages"
+msgstr ""
+"Brug pkg-config til at tilføje biblioteksunderstøttelse fra andre pakker"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:107
+msgid "Value Name:"
+msgstr "Værdinavn:"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:108
+msgid "Values to watch"
+msgstr "Værdier at overvåge"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:110
+msgid "Whether the plugin has menus or toolbars"
+msgstr "Om modulet har menuer eller værktøjsbjælker"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:111
+msgid "Wx Widgets"
+msgstr "Wx Widgets"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:112
+msgid "Xlib"
+msgstr "Xlib"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:113
+msgid "Xlib dock"
+msgstr "Xlib-dok"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:114
+msgid "gtk-doc is used to compile API documentations for GObject based classes"
+msgstr ""
+"gtk-doc bruges til at kompilere API-dokumentation for klasser baseret på "
+"GObject"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:115
+msgid "project name"
+msgstr "projektnavn"
 
 #: ../plugins/run-program/anjuta-run-program.ui.h:2
 msgid "Choose a working directory"
@@ -7864,7 +8332,7 @@ msgstr[1] "%d resultater er blevet erstattet."
 msgid "Unable to build user interface for Search and Replace"
 msgstr "Kan ikke bygge brugergrænsefladen for søg og erstat"
 
-#: ../plugins/sourceview/sourceview.c:366
+#: ../plugins/sourceview/sourceview.c:374
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
@@ -7873,7 +8341,7 @@ msgstr ""
 "Filen \"%s\" på disken er nyere end den aktuelle buffer.\n"
 "Vil du genindlæse den?"
 
-#: ../plugins/sourceview/sourceview.c:403
+#: ../plugins/sourceview/sourceview.c:411
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -7883,18 +8351,18 @@ msgstr ""
 "Vil du lukke den?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:440
+#: ../plugins/sourceview/sourceview.c:448
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "Kunne ikke åbne %s: %s"
 
-#: ../plugins/sourceview/sourceview.c:494
+#: ../plugins/sourceview/sourceview.c:502
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr "Filen \"%s\" er skrivebeskyttet! Redigér alligevel?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:553
+#: ../plugins/sourceview/sourceview.c:561
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "Kunne ikke gemme %s: %s"
@@ -7922,9 +8390,8 @@ msgid "Create backup files"
 msgstr "Opret backup-filer"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:4
-#, fuzzy
 msgid "Enable autocompletion for document words"
-msgstr "Aktivér autofuldførelse"
+msgstr "Aktivér autofuldførelse af dokumentord"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:5
 msgid "Font"
@@ -8007,32 +8474,32 @@ msgstr "Visning"
 msgid "Wrap long lines to fit on paper"
 msgstr "Ombryd lange linjer så de passer på papiret"
 
-#: ../plugins/starter/plugin.c:50 ../plugins/starter/starter.c:349
+#: ../plugins/starter/plugin.c:70 ../plugins/starter/starter.c:362
 #: ../plugins/starter/anjuta-starter.plugin.in.h:1
 msgid "Starter"
 msgstr "Begynder"
 
-#: ../plugins/starter/starter.c:390
+#: ../plugins/starter/starter.c:403
 msgid "Create File/Project"
 msgstr "Opret fil/projekt"
 
-#: ../plugins/starter/starter.c:424
+#: ../plugins/starter/starter.c:437
 msgid "Recent Projects"
 msgstr "Seneste projekter"
 
-#: ../plugins/starter/starter.c:455
+#: ../plugins/starter/starter.c:468
 msgid "Links"
 msgstr "Henvisninger"
 
-#: ../plugins/starter/starter.c:474
+#: ../plugins/starter/starter.c:487
 msgid "Anjuta Home Page"
 msgstr "Hjemmeside for Anjuta"
 
-#: ../plugins/starter/starter.c:480
+#: ../plugins/starter/starter.c:493
 msgid "Anjuta Manual"
 msgstr "Manual til Anjuta"
 
-#: ../plugins/starter/starter.c:486
+#: ../plugins/starter/starter.c:499
 msgid "GNOME Online API Documentation"
 msgstr "GNOMEs online API-dokumentation"
 
@@ -8548,65 +9015,65 @@ msgstr "Mangler: %s"
 msgid "Obstructed: %s"
 msgstr "Forhindret: %s"
 
-#: ../plugins/symbol-db/plugin.c:317
+#: ../plugins/symbol-db/plugin.c:316
 msgid "Tag De_claration"
 msgstr "Mærke_erklæring"
 
-#: ../plugins/symbol-db/plugin.c:319
+#: ../plugins/symbol-db/plugin.c:318
 msgid "Go to symbol declaration"
 msgstr "Gå til symbolerklæring"
 
 # Eller mærk implementation?
 #. Translators: Go to the line where the tag is implemented
-#: ../plugins/symbol-db/plugin.c:326
+#: ../plugins/symbol-db/plugin.c:325
 msgid "Tag _Implementation"
 msgstr "Mærke_implementation"
 
-#: ../plugins/symbol-db/plugin.c:328
+#: ../plugins/symbol-db/plugin.c:327
 msgid "Go to symbol definition"
 msgstr "Gå til symboldefinition"
 
-#: ../plugins/symbol-db/plugin.c:335
+#: ../plugins/symbol-db/plugin.c:334
 msgid "_Find Symbol…"
 msgstr "_Find symbol…"
 
-#: ../plugins/symbol-db/plugin.c:336
+#: ../plugins/symbol-db/plugin.c:335
 msgid "Find Symbol"
 msgstr "Find symbol"
 
-#: ../plugins/symbol-db/plugin.c:1175
+#: ../plugins/symbol-db/plugin.c:1022
 #, c-format
 msgid "%s: Generating inheritances…"
 msgstr "%s: Genererer nedarvningsstruktur…"
 
-#: ../plugins/symbol-db/plugin.c:1180
+#: ../plugins/symbol-db/plugin.c:1027
 #, c-format
 msgid "%s: %d files scanned out of %d"
 msgstr "%s: %d af %d filer scannet"
 
-#: ../plugins/symbol-db/plugin.c:1211
+#: ../plugins/symbol-db/plugin.c:1058
 #, c-format
 msgid "Generating inheritances…"
 msgstr "Genererer nedarvningsstruktur…"
 
-#: ../plugins/symbol-db/plugin.c:1213
+#: ../plugins/symbol-db/plugin.c:1060
 #, c-format
 msgid "%d files scanned out of %d"
 msgstr "%d af %d filer scannet"
 
-#: ../plugins/symbol-db/plugin.c:1981
+#: ../plugins/symbol-db/plugin.c:1785
 msgid "Populating symbol database…"
 msgstr "Opbygger symboldatabase…"
 
-#: ../plugins/symbol-db/plugin.c:2345 ../plugins/symbol-db/plugin.c:2473
+#: ../plugins/symbol-db/plugin.c:2148 ../plugins/symbol-db/plugin.c:2232
 msgid "Symbols"
 msgstr "Symboler"
 
-#: ../plugins/symbol-db/plugin.c:2482
+#: ../plugins/symbol-db/plugin.c:2241
 msgid "SymbolDb popup actions"
 msgstr "Pop op-handlinger for symboldatabase"
 
-#: ../plugins/symbol-db/plugin.c:2490
+#: ../plugins/symbol-db/plugin.c:2249
 msgid "SymbolDb menu actions"
 msgstr "Menuhandlinger for symboldatabase"
 
@@ -8627,15 +9094,6 @@ msgstr "API-mærker"
 #: ../plugins/symbol-db/symbol-db-system.c:807
 msgid "Resuming glb scan."
 msgstr "Fortsætter glb-scanning."
-
-#: ../plugins/symbol-db/symbol-db-view-locals.c:326
-#: ../plugins/symbol-db/symbol-db-view.c:1413
-msgid "Symbol"
-msgstr "Symbol"
-
-#: ../plugins/symbol-db/symbol-db-view.c:799
-msgid "Loading…"
-msgstr "Henter…"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:1
 msgid "Automatically scan project's packages"
@@ -9189,55 +9647,55 @@ msgstr "Om tredjepartsmoduler til Anjuta"
 msgid "Edit"
 msgstr "Redigér"
 
-#: ../src/anjuta-app.c:734
+#: ../src/anjuta-app.c:771
 msgid "Installed plugins"
 msgstr "Installerede moduler"
 
-#: ../src/anjuta-app.c:738
+#: ../src/anjuta-app.c:775
 msgid "Shortcuts"
 msgstr "Genveje"
 
-#: ../src/anjuta-app.c:810
+#: ../src/anjuta-app.c:847
 #, c-format
 msgid "Value doesn't exist"
 msgstr "Værdien findes ikke"
 
-#: ../src/main.c:62
+#: ../src/main.c:74
 msgid "Specify the size and location of the main window"
 msgstr "Angiv størrelsen og placeringen af hovedvinduet"
 
 #. This is the format you can specify the size andposition
 #. * of the window on command line
-#: ../src/main.c:65
+#: ../src/main.c:77
 msgid "WIDTHxHEIGHT+XOFF+YOFF"
 msgstr "BREDDExHØJDE+XSTART+YSTART"
 
-#: ../src/main.c:70
+#: ../src/main.c:82
 msgid "Do not show the splash screen"
 msgstr "Vis ikke startbilledet"
 
-#: ../src/main.c:76
+#: ../src/main.c:88
 msgid "Start a new instance and do not open the file in an existing instance"
 msgstr "Start en ny instans og åbn ikke filen i en allerede kørende instans"
 
-#: ../src/main.c:82
+#: ../src/main.c:94
 msgid "Do not open last session on startup"
 msgstr "Åbn ikke sidste session ved opstart"
 
-#: ../src/main.c:88
+#: ../src/main.c:100
 msgid "Do not open last project and files on startup"
 msgstr "Åbn ikke sidste projekt og filer ved opstart"
 
-#: ../src/main.c:94
+#: ../src/main.c:106
 msgid "Shut down Anjuta properly, releasing all resources (for debugging)"
 msgstr ""
 "Luk Anjuta korrekt under frigivelse af alle ressourcer (til fejlsøgning)"
 
-#: ../src/main.c:156
+#: ../src/main.c:174
 msgid "- Integrated Development Environment"
 msgstr "- Integreret udviklingsmiljø"
 
-#: ../src/main.c:232
+#: ../src/main.c:250
 msgid "Anjuta"
 msgstr "Anjuta"
 
@@ -9340,87 +9798,83 @@ msgid "Autocompletion (C/C++/Java only)"
 msgstr "Autofuldførelse (kun C/C++/Java)"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:5
-msgid "Autocompletion pop up choices"
-msgstr "Pop op-valg for autofuldførelse"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:6
 msgid "Brace indentation size in spaces:"
 msgstr "Indrykningsstørrelse for klammer i mellemrum:"
 
 # Det er vist noget IDE-halløj, måske noget med at anføre datatyperne af argumenterne til et funktionskald dynamisk
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:7
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:6
 msgid "Calltips"
 msgstr "Kaldetip"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:8
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:7
 msgid "Enable code completion"
 msgstr "Aktivér kodefuldførelse"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:9
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:8
 msgid "Enable smart brace completion"
 msgstr "Aktivér intelligent tuborg-parentesfuldførelse"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:10
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:9
 msgid "Enable smart indentation"
 msgstr "Aktivér smart indrykning"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:11
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:10
 msgid "Indent:"
 msgstr "Indryk:"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:12
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:11
 msgid "Indentation parameters"
 msgstr "Indrykningsparametre"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:13
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:12
 msgid "Line up parentheses"
 msgstr "Arrangér parenteser"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:13
 msgid "Parenthesis indentation"
 msgstr "Parentesindrykning"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:7
 msgid "Show calltips"
 msgstr "Vis funktionskalds-tips"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
 msgid "Smart Indentation"
 msgstr "Smart indrykning"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:17
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
 msgid "Statement indentation size in spaces:"
 msgstr "Størrelse af erklæringsindrykning i mellemrum:"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1884
+#: ../plugins/language-support-cpp-java/plugin.c:1888
 msgid "Auto-Indent"
 msgstr "Autoindryk"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1885
+#: ../plugins/language-support-cpp-java/plugin.c:1889
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr ""
 "Autoindryk den aktuelle linje eller markering baseret på "
 "indrykningsindstillingerne"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1890
+#: ../plugins/language-support-cpp-java/plugin.c:1894
 msgid "Swap .h/.c"
 msgstr "Byt .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1891
+#: ../plugins/language-support-cpp-java/plugin.c:1895
 msgid "Swap C header and source files"
 msgstr "Udskift C-header og -kildefiler"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1932
+#: ../plugins/language-support-cpp-java/plugin.c:1936
 msgid "C++/Java Assistance"
 msgstr "C++/Java-hjælp"
 
-#: ../plugins/language-support-cpp-java/plugin.c:2025
-#: ../plugins/language-support-cpp-java/plugin.c:2034
+#: ../plugins/language-support-cpp-java/plugin.c:2048
+#: ../plugins/language-support-cpp-java/plugin.c:2061
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
-#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1071
+#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1368
 msgid "C/C++"
 msgstr "C/C++"
 
@@ -9703,389 +10157,21 @@ msgstr "Fremhæv manglende semikolon"
 msgid "Min character for completion "
 msgstr "Mindste antal tegn for fuldførelse"
 
-#~ msgid "A GNOME applet project"
-#~ msgstr "Et panelprogramprojekt til GNOME"
+#~ msgid "Symbol"
+#~ msgstr "Symbol"
 
-#~ msgid "A generic C++ project"
-#~ msgstr "Et generisk C++-projekt"
+#~ msgid "Loading…"
+#~ msgstr "Henter…"
 
-#~ msgid "A generic GTK+ project"
-#~ msgstr "Et generisk GTK+-projekt"
+#~ msgid "Edit&#x2026;"
+#~ msgstr "Redigér&#x2026;"
 
-#~ msgid "A generic GTKmm (C++) project"
-#~ msgstr "Et generisk GTKmm-projekt (C++)"
-
-#~ msgid "A generic Xlib dock applet"
-#~ msgstr "Et generisk Xlib-dokpanelprogram"
-
-#~ msgid "A generic Xlib project"
-#~ msgstr "Et generisk Xlib-projekt"
-
-#~| msgid "A generic java project using automake project management"
-#~ msgid "A generic Java project using automake project management"
-#~ msgstr "Et generisk Javaprojekt, der bruger automake-projekthåndtering"
-
-#~ msgid "A generic minimal and flat project"
-#~ msgstr "Et generisk minimalt og fladt projekt"
-
-#~| msgid ""
-#~| "A generic natively compiled java project using the GNU Java Compiler "
-#~| "(gcj)"
-#~ msgid ""
-#~ "A generic natively compiled Java project using the GNU Java Compiler (gcj)"
-#~ msgstr ""
-#~ "Et generisk kompileret Javaprojekt, der bruger GNUs Javakompiler (gcj)"
-
-#~ msgid "A generic project"
-#~ msgstr "Et generisk projekt"
-
-#~| msgid "A generic python project using automake project management"
-#~ msgid "A generic Python project using automake project management"
-#~ msgstr "Et generisk Pythonprojekt, der bruger automake-projekthåndtering"
-
-#~| msgid "A generic wx Widgets project"
-#~ msgid "A generic wxWidgets project"
-#~ msgstr "Et generisk wxWidgets-projekt"
-
-#~ msgid "A sample SDL project"
-#~ msgstr "Eksempel på SDL-projekt"
-
-#~| msgid "Add shared library support:"
-#~ msgid "A shared or a static library project"
-#~ msgstr "Et delt eller statisk biblioteksprojekt"
-
-#~ msgid "Add C++ support:"
-#~ msgstr "Tilføj C++-understøttelse:"
-
-#~ msgid "Add gtk-doc system:"
-#~ msgstr "Tilføj gtk-doc-system:"
-
-#~ msgid "Add internationalization:"
-#~ msgstr "Tilføj internationalisering:"
-
-#~ msgid "Add shared library support:"
-#~ msgstr "Tilføj understøttelse for delte biblioteker:"
-
-#~ msgid ""
-#~ "Adds C++ support to the project so that C++ source files can be built"
-#~ msgstr ""
-#~ "Tilføjer C++-understøttelse til projektet således at C++-kildefiler kan "
-#~ "bygges"
-
-#~ msgid "Adds support for building shared libraries in your project"
-#~ msgstr ""
-#~ "Tilføjer understøttelse for bygning af delte biblioteker i dit projekt"
-
-#~ msgid ""
-#~ "Adds support for internationalization so that your project can have "
-#~ "translations in different languages"
-#~ msgstr ""
-#~ "Tilføjer understøttelse af internationalisering så dit projekt kan have "
-#~ "oversættelser på forskellige sprog"
-
-#~ msgid "Anjuta Plugin"
-#~ msgstr "Anjuta-modul"
-
-#~ msgid "Anjuta plugin project that uses libanjuta framework"
-#~ msgstr "Anjuta-modulprojekt som bruger libanjuta"
-
-#~ msgid "Applet Title:"
-#~ msgstr "Titel af panelprogram:"
-
-#~ msgid "Basic information"
-#~ msgstr "Basal information"
-
-#~ msgid "Berkeley Software Distribution License (BSD)"
-#~ msgstr "Berkeley Software Distribution License (BSD)"
-
-#~| msgid "Build Directory:"
-#~ msgid "Build library as"
-#~ msgstr "Byg bibliotek som"
-
-#~| msgid ""
-#~| "Comma separated, other plugins that this plugin depends on. It could be "
-#~| "either primary interface name or plugin location (library:class)"
-#~ msgid ""
-#~ "Comma-separated, other plugins that this plugin depends on. It could be "
-#~ "either primary interface name or plugin location (library:class)"
-#~ msgstr ""
-#~ "Kommasepareret liste af andre udvidelsesmoduler, dette modul afhænger af. "
-#~ "Listen kan indeholde enten det primære grænsefladenavn eller "
-#~ "modulplaceringen (bibliotek:klasse)"
-
-#~ msgid "Configure external packages"
-#~ msgstr "Konfigurér eksterne pakker"
-
-#~ msgid "Configure external packages:"
-#~ msgstr "Konfigurér eksterne pakker:"
-
-#~| msgid "Create Gtk Builder interface file"
-#~ msgid "Create GtkBuilder interface file"
-#~ msgstr "Opret GtkBuilder-grænsefladefil"
-
-#~| msgid "Create a template Gtk Builder interface file"
-#~ msgid "Create a template GtkBuilder interface file"
-#~ msgstr "Opret en skabelon for GtkBuilder-grænsefladefiler"
-
-#~ msgid "Display description of the applet"
-#~ msgstr "Vis beskrivelse af panelprogrammet"
-
-#~ msgid "Display description of the plugin"
-#~ msgstr "Vis beskrivelse af modulet"
-
-#~ msgid "Display title of the applet"
-#~ msgstr "Vis titel af panelprogrammet"
-
-#~ msgid "Display title of the plugin"
-#~ msgstr "Vis titel for modulet"
-
-#~ msgid "Django Project"
-#~ msgstr "Django-projekt"
-
-#~ msgid "Django Project information"
-#~ msgstr "Django-projektinformation"
-
-#~ msgid "Email address:"
-#~ msgstr "E-post-adresse:"
-
-#~ msgid "GCJ needs to know which class contains the main() function"
-#~ msgstr "GCJ skal vide hvilken klasse, der indeholder main()-funktionen"
-
-#~ msgid "GNOME Applet"
-#~ msgstr "GNOME-panelprogram"
-
-#~ msgid "GTK+"
-#~ msgstr "GTK+"
-
-#~ msgid "GTKmm"
-#~ msgstr "GTKmm"
-
-#~ msgid "General Project Information"
-#~ msgstr "Generel projektinformation"
-
-#~ msgid "Generic"
-#~ msgstr "Generisk"
-
-#~ msgid "Generic (Minimal)"
-#~ msgstr "Generisk (Minimal)"
-
-#~ msgid "Generic C++"
-#~ msgstr "Generisk C++"
-
-#~ msgid "Generic JavaScript"
-#~ msgstr "Generisk JavaScript"
-
-#~| msgid "Generic gcj compiled java"
-#~ msgid "Generic gcj compiled Java"
-#~ msgstr "Generisk gcj-kompileret java"
-
-#~| msgid "Generic java (automake)"
-#~ msgid "Generic Java (automake)"
-#~ msgstr "Generisk Java (automake)"
-
-#~| msgid "Generic python (automake)"
-#~ msgid "Generic Python (automake)"
-#~ msgstr "Generisk Python (automake)"
-
-#~ msgid ""
-#~ "Give a package name that your project require. You may also mention what "
-#~ "is the required version of the package. For example, 'libgnomeui-2.0' or "
-#~ "'libgnomeui-2.0 >= 2.2.0'"
-#~ msgstr ""
-#~ "Angiv pakkenavn påkrævet af dit projekt. Du kan også nævne den påkrævede "
-#~ "version af pakken. For eksempel \"libgnomeui-2.0\" eller \"libgnomeui-2.0 "
-#~ ">= 2.2.0\""
-
-#~ msgid "Icon File:"
-#~ msgstr "Ikonfil:"
-
-#~ msgid "Icon file for the plugin"
-#~ msgstr "Ikonfil for modulet"
-
-#~ msgid "Implement plugin interfaces"
-#~ msgstr "Implementér modulgrænseflader"
-
-#~ msgid "Interface implemented by the plugin"
-#~ msgstr "Grænseflade implementeret af modulet"
-
-#~ msgid "Interface:"
-#~ msgstr "Grænseflade:"
-
-#~| msgid "Libraries:"
-#~ msgid "Library"
-#~ msgstr "Bibliotek"
-
-#~ msgid "License"
-#~ msgstr "Licens"
-
-#~ msgid "Main Class:"
-#~ msgstr "Main-klasse:"
-
-#~ msgid "Main class"
-#~ msgstr "Main-klasse"
-
-#~ msgid "Makefile project"
-#~ msgstr "Makefil-projekt"
-
-#~ msgid "Makefile-based project"
-#~ msgstr "Makefilsbaseret projekt"
-
-#~ msgid "Mininum SDL version required"
-#~ msgstr "Mindste påkrævede version af SDL"
-
-#~ msgid "Name of the value to watch"
-#~ msgstr "Navn på værdi der overvåges"
-
-#~ msgid "No license"
-#~ msgstr "Ingen licens"
-
-#~ msgid "Only Shared"
-#~ msgstr "Kun delt"
-
-#~ msgid "Only Static"
-#~ msgstr "Kun statisk"
-
-#~ msgid "Options for project build system"
-#~ msgstr "Indstillinger for projekt-byggesystemet"
-
-#~ msgid "Plugin Class Name:"
-#~ msgstr "Modulklassenavn:"
-
-#~ msgid "Plugin Dependencies:"
-#~ msgstr "Modulafhængigheder:"
-
-#~ msgid "Plugin Description:"
-#~ msgstr "Modulbeskrivelse:"
-
-#~ msgid "Plugin Title:"
-#~ msgstr "Modultitel:"
-
-#~ msgid "Plugin class name"
-#~ msgstr "Modulklassenavn"
-
-#~| msgid "Plugin has menus or/and toolbars"
-#~ msgid "Plugin has menus and/or toolbars"
-#~ msgstr "Modulet har menuer og/eller værktøjslinjer"
-
-#~ msgid "Plugin interfaces to implement"
-#~ msgstr "Modulgrænseflader at implementere"
-
-#~ msgid "Project Name:"
-#~ msgstr "Projektnavn:"
-
-#~| msgid "Project directory, output file etc."
-#~ msgid "Project directory, output file, etc."
-#~ msgstr "Projektmappe, uddatafil osv."
-
-#~ msgid "Project directory:"
-#~ msgstr "Projektmappe:"
-
-#~| msgid ""
-#~| "Project name must not contain spaces, because it will be the name of the "
-#~| "project build target (executable, library etc.)"
-#~ msgid ""
-#~ "Project name must not contain spaces, because it will be the name of the "
-#~ "project build target (executable, library, etc.)"
-#~ msgstr ""
-#~ "Projektnavnet må ikke indeholde mellemrum, da det vil være navnet på "
-#~ "projektets bygningsmål (eksekverbar, bibliotek osv.)"
-
-#~ msgid "Project name:"
-#~ msgstr "Projektnavn:"
-
-#~ msgid "Project options"
-#~ msgstr "Projektindstillinger"
-
-#~| msgid "Python webproject using Django Web Framework"
-#~ msgid "Python web project using Django Web Framework"
-#~ msgstr "Python-webprojekt, der bruger Django"
-
-#~ msgid "Require Package:"
-#~ msgstr "Forudsæt pakke:"
-
-#~ msgid "Require SDL version:"
-#~ msgstr "Forudsæt SDL-version:"
-
-#~ msgid "Require SDL_gfx library"
-#~ msgstr "Forudsæt SDL_gfx-bibliotek"
-
-#~ msgid "Require SDL_gfx:"
-#~ msgstr "Forudsæt SDL_gfx:"
-
-#~ msgid "Require SDL_image library"
-#~ msgstr "Forudsæt SDL_image-bibliotek"
-
-#~ msgid "Require SDL_image:"
-#~ msgstr "Forudsæt SDL_image:"
-
-#~ msgid "Require SDL_mixer library"
-#~ msgstr "Forudsæt SDL_mixer-bibliotek"
-
-#~ msgid "Require SDL_mixer:"
-#~ msgstr "Forudsæt SDL_mixer:"
-
-#~ msgid "Require SDL_net library"
-#~ msgstr "Forudsæt SDL_net-bibliotek"
-
-#~ msgid "Require SDL_net:"
-#~ msgstr "Forudsæt SDL_net:"
-
-#~ msgid "Require SDL_ttf library"
-#~ msgstr "Forudsæt SDL_ttf-bibliotek"
-
-#~ msgid "Require SDL_ttf:"
-#~ msgstr "Forudsæt SDL_tff:"
-
-#~ msgid "SDL"
-#~ msgstr "SDL"
-
-#~ msgid "Select code license"
-#~ msgstr "Vælg kodelicens"
-
-#~| msgid "Select highlight style to edit:"
-#~ msgid "Select library type to build"
-#~ msgstr "Vælg typen af bibliotek, der skal bygges"
-
-#~| msgid "Static Library"
-#~ msgid "Shared and Static library"
-#~ msgstr "Delt og statisk bibliotek"
-
-#~ msgid "Shell values to watch"
-#~ msgstr "Skalværdier at overvåge"
-
-#~ msgid "Use pkg-config to add library support from other packages"
-#~ msgstr ""
-#~ "Brug pkg-config til at tilføje biblioteksunderstøttelse fra andre pakker"
-
-#~ msgid "Value Name:"
-#~ msgstr "Værdinavn:"
-
-#~ msgid "Values to watch"
-#~ msgstr "Værdier at overvåge"
-
-#~ msgid "Whether the plugin has menus or toolbars"
-#~ msgstr "Om modulet har menuer eller værktøjsbjælker"
+#~ msgid "Autocompletion pop up choices"
+#~ msgstr "Pop op-valg for autofuldførelse"
 
 #~| msgid "Widgets"
 #~ msgid "wxWidgets"
 #~ msgstr "wxWidgets"
-
-#~ msgid "Xlib"
-#~ msgstr "Xlib"
-
-#~ msgid "Xlib dock"
-#~ msgstr "Xlib-dok"
-
-#~| msgid ""
-#~| "gtk-doc is used to compile API documentations for GObject based classes"
-#~ msgid ""
-#~ "gtk-doc is used to compile API documentation for GObject-based classes"
-#~ msgstr ""
-#~ "gtk-doc bruges til at kompilere API-dokumentation for klasser baseret på "
-#~ "GObject"
-
-#~ msgid "project name"
-#~ msgstr "projektnavn"
 
 #~ msgid "Up to date"
 #~ msgstr "Opdateret"
@@ -10247,9 +10333,6 @@ msgstr "Mindste antal tegn for fuldførelse"
 
 #~ msgid "Create a template gtk builder interface file"
 #~ msgstr "Opret en skabelon for gtk builder-grænsefladefiler"
-
-#~ msgid "Wx Widgets"
-#~ msgstr "Wx Widgets"
 
 #~ msgid "Run In Terminal"
 #~ msgstr "Kør i terminal"
