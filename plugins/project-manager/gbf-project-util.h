@@ -26,37 +26,37 @@
 #include <glib.h>
 #include <gtk/gtk.h>
 #include <libanjuta/anjuta-project.h>
-#include "gbf-project-model.h"
+#include "project.h"
 
 G_BEGIN_DECLS
 
-AnjutaProjectNode* gbf_project_util_new_group  (GbfProjectModel   *model,
+AnjutaProjectNode* gbf_project_util_new_group  (ProjectManagerProject *project,
 				                GtkWindow          *parent,
 				                GtkTreeIter        *default_group,
 				                const gchar        *default_group_name_to_add);
 
-AnjutaProjectNode* gbf_project_util_new_target (GbfProjectModel  *model,
+AnjutaProjectNode* gbf_project_util_new_target (ProjectManagerProject *project,
 				                GtkWindow          *parent,
 				                GtkTreeIter        *default_group,
 				                const gchar        *default_target_name_to_add);
 
-AnjutaProjectNode* gbf_project_util_add_source (GbfProjectModel   *model,
+AnjutaProjectNode* gbf_project_util_add_source (ProjectManagerProject *project,
 				                GtkWindow           *parent,
 				                GtkTreeIter         *default_target,
 				                const gchar         *default_uri_to_add);
 
-GList* gbf_project_util_add_module             (GbfProjectModel   *model,
+GList* gbf_project_util_add_module             (ProjectManagerProject *project,
 				                GtkWindow          *parent,
 				                GtkTreeIter        *default_target,
 				                const gchar        *default_module_name_to_add);
 
-GList* gbf_project_util_add_package            (GbfProjectModel   *model,
+GList* gbf_project_util_add_package            (ProjectManagerProject *project,
 				                GtkWindow          *parent,
 				                GtkTreeIter        *default_module,
 				                GList              *packages_to_add);
 
 
-GList* gbf_project_util_add_source_multi (GbfProjectModel   *model,
+GList* gbf_project_util_add_source_multi (ProjectManagerProject *project,
 				        GtkWindow           *parent,
         		                GtkTreeIter         *default_target,
 				        GList               *uris_to_add);

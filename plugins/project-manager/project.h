@@ -28,9 +28,12 @@
 #include <libanjuta/anjuta-project.h>
 #include <libanjuta/interfaces/ianjuta-project.h>
 
+#include "gbf-project-model.h"
+#include "gbf-tree-data.h"
+
 G_BEGIN_DECLS
 
-typedef struct _ProjectManagerProject ProjectManagerProject;
+//typedef struct _ProjectManagerProject ProjectManagerProject;
 
 ProjectManagerProject* pm_project_new (AnjutaPlugin *plugin);
 void pm_project_free (ProjectManagerProject* project);
@@ -38,19 +41,26 @@ void pm_project_free (ProjectManagerProject* project);
 gboolean pm_project_load (ProjectManagerProject *project, GFile *file, GError **error);
 gboolean pm_project_unload (ProjectManagerProject *project, GError **error);
 gboolean pm_project_refresh (ProjectManagerProject *project, GError **error);
+
 GtkWidget *pm_project_configure (ProjectManagerProject *project, AnjutaProjectNode *node);
-gboolean pm_project_remove (ProjectManagerProject *project, AnjutaProjectNode *node, GError **error);
 IAnjutaProjectCapabilities pm_project_get_capabilities (ProjectManagerProject *project);
 GList *pm_project_get_target_types (ProjectManagerProject *project);
+
 GList *pm_project_get_packages (ProjectManagerProject *project);
+
 AnjutaProjectNode *pm_project_add_group (ProjectManagerProject *project, AnjutaProjectNode *group, const gchar *name, GError **error);
 AnjutaProjectNode *pm_project_add_target (ProjectManagerProject *project, AnjutaProjectNode *group, const gchar *name, AnjutaProjectTargetType type, GError **error);
 AnjutaProjectNode *pm_project_add_source (ProjectManagerProject *project, AnjutaProjectNode *target, GFile *file, GError **error);
 AnjutaProjectNode *pm_project_get_root (ProjectManagerProject *project);
+gboolean pm_project_remove (ProjectManagerProject *project, AnjutaProjectNode *node, GError **error);
+gboolean pm_project_remove_data (ProjectManagerProject *project, GbfTreeData *data, GError **error);
 
 gboolean pm_project_is_open (ProjectManagerProject *project);
 
 IAnjutaProject *pm_project_get_project (ProjectManagerProject *project);
+GbfProjectModel *pm_project_get_model (ProjectManagerProject *project);
+
+AnjutaProjectNode *pm_project_get_node (ProjectManagerProject *project, GbfTreeData *data);
 
 G_END_DECLS
 

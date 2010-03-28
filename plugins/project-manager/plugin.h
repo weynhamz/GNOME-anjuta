@@ -47,7 +47,6 @@ struct _ProjectManagerPlugin{
 	AnjutaUI *ui;
 	AnjutaPreferences *prefs;
 	GtkWidget *view;
-	GbfProjectModel *model;
 	GtkWidget *scrolledwindow;
 	
 	GtkActionGroup *pm_action_group;

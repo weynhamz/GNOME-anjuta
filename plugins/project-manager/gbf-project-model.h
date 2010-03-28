@@ -26,7 +26,6 @@
 #include <glib-object.h>
 #include <gtk/gtk.h>
 #include <libanjuta/anjuta-project.h>
-#include "project.h"
 #include "gbf-tree-data.h"
 
 #define GBF_TYPE_PROJECT_MODEL            (gbf_project_model_get_type ())
@@ -53,8 +52,10 @@ struct _GbfProjectModelClass {
 	GtkTreeStoreClass parent_class;
 };
 
+typedef struct _ProjectManagerProject ProjectManagerProject;
+
 GType            gbf_project_model_get_type          (void); 
-GbfProjectModel *gbf_project_model_new               (IAnjutaProject    *project);
+GbfProjectModel *gbf_project_model_new               (ProjectManagerProject *project);
 
 void             gbf_project_model_set_project       (GbfProjectModel   *model,
                                                       ProjectManagerProject    *project);

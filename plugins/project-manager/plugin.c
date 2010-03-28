@@ -435,7 +435,7 @@ project_manager_show_node_properties_dialog (ProjectManagerPlugin *plugin,
 		{
 		case GBF_TREE_NODE_GROUP:
 			title = _("Group properties");
-			node = gbf_tree_data_get_node (data, plugin->project);
+			node = pm_project_get_node (plugin->project, data);
 			if (node != NULL)
 			{
 				properties = pm_project_configure (plugin->project, node);
@@ -449,7 +449,7 @@ project_manager_show_node_properties_dialog (ProjectManagerPlugin *plugin,
 			break;
 		case GBF_TREE_NODE_TARGET:
 			title = _("Target properties");
-			node = gbf_tree_data_get_node (data, plugin->project);
+			node = pm_project_get_node (plugin->project, data);
 			if (node != NULL)
 			{
 				properties = pm_project_configure (plugin->project, node);
@@ -566,7 +566,7 @@ on_add_package (GtkAction *action, ProjectManagerPlugin *plugin)
 	update_operation_begin (plugin);
 	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_module);
 	
-	new_module = gbf_project_util_add_package (plugin->model,
+	new_module = gbf_project_util_add_package (plugin->project,
 										   get_plugin_parent_window (plugin),
 										   &selected_module, NULL);
 	update_operation_end (plugin, TRUE);
@@ -581,7 +581,7 @@ on_add_module (GtkAction *action, ProjectManagerPlugin *plugin)
 	update_operation_begin (plugin);
 	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_target);
 	
-	new_modules = gbf_project_util_add_module (plugin->model,
+	new_modules = gbf_project_util_add_module (plugin->project,
 										   get_plugin_parent_window (plugin),
 										   &selected_target, NULL);
 	g_list_free (new_modules);
@@ -656,12 +656,12 @@ static void
 on_popup_add_package (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 	GtkTreeIter selected_module;
-	AnjutaProjectNode *module;
+	GList *packages;
 	
 	update_operation_begin (plugin);
 	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_module);
 	
-	module = gbf_project_util_add_package (plugin->model,
+	packages = gbf_project_util_add_package (plugin->project,
 										   get_plugin_parent_window (plugin),
 										   &selected_module, NULL);
 	update_operation_end (plugin, TRUE);
@@ -676,7 +676,7 @@ on_popup_add_module (GtkAction *action, ProjectManagerPlugin *plugin)
 	update_operation_begin (plugin);
 	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_target);
 	
-	new_modules = gbf_project_util_add_module (plugin->model,
+	new_modules = gbf_project_util_add_module (plugin->project,
 										   get_plugin_parent_window (plugin),
 										   &selected_target, NULL);
 	g_list_free (new_modules);
@@ -692,7 +692,7 @@ on_popup_add_group (GtkAction *action, ProjectManagerPlugin *plugin)
 	update_operation_begin (plugin);
 	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_group);
 	
-	new_group = gbf_project_util_new_group (plugin->model,
+	new_group = gbf_project_util_new_group (plugin->project,
 										   get_plugin_parent_window (plugin),
 										   &selected_group, NULL);
 	update_operation_end (plugin, TRUE);
@@ -707,7 +707,7 @@ on_popup_add_target (GtkAction *action, ProjectManagerPlugin *plugin)
 	update_operation_begin (plugin);
 	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_group);
 
-	new_target = gbf_project_util_new_target (plugin->model,
+	new_target = gbf_project_util_new_target (plugin->project,
 											 get_plugin_parent_window (plugin),
 											 &selected_group, NULL);
 	
@@ -723,7 +723,7 @@ on_popup_add_source (GtkAction *action, ProjectManagerPlugin *plugin)
 	update_operation_begin (plugin);
 	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_target);
 
-	new_source = gbf_project_util_add_source (plugin->model,
+	new_source = gbf_project_util_add_source (plugin->project,
 											 get_plugin_parent_window (plugin),
 											 &selected_target, NULL);
 
@@ -834,14 +834,13 @@ on_popup_remove (GtkAction *action, ProjectManagerPlugin *plugin)
 			{
 				GbfTreeData *data = (GbfTreeData *)(item->data);
 				AnjutaProjectNode *node;
-				GtkTreeIter iter;
 
 				switch (data->type)
 				{
 				case GBF_TREE_NODE_GROUP:
 				case GBF_TREE_NODE_TARGET:
 				case GBF_TREE_NODE_SOURCE:
-					node = gbf_tree_data_get_node(data, plugin->project);
+					node = pm_project_get_node(plugin->project, data);
 					if (node != NULL)
 					{
 						if (!update) update_operation_begin (plugin);
@@ -862,10 +861,7 @@ on_popup_remove (GtkAction *action, ProjectManagerPlugin *plugin)
 					}
 					break;
 				case GBF_TREE_NODE_SHORTCUT:
-					if (gbf_project_model_find_tree_data (plugin->model, &iter, data))
-					{
-						gbf_project_model_remove (plugin->model, &iter);
-					}
+					pm_project_remove_data (plugin->project, data, NULL);
 					break;
 				default:
 					break;
@@ -1418,8 +1414,6 @@ project_manager_load_gbf (ProjectManagerPlugin *pm_plugin)
 	}
 	else
 	{
-		g_object_set (G_OBJECT (pm_plugin->model), "project",
-				  pm_plugin->project, NULL);
 		anjuta_status_progress_tick (status, NULL, _("Created project view…"));
 		update_ui (pm_plugin);
 		anjuta_shell_present_widget (ANJUTA_PLUGIN (pm_plugin)->shell,
@@ -1505,7 +1499,6 @@ project_manager_unload_gbf (ProjectManagerPlugin *pm_plugin)
 		pm_plugin->properties_dialog = NULL;
 		
 		/* Release project */
-		g_object_set (G_OBJECT (pm_plugin->model), "project", NULL, NULL);
 		pm_project_unload (pm_plugin->project, NULL);
 		update_ui (pm_plugin);
 		status = anjuta_shell_get_status (ANJUTA_PLUGIN (pm_plugin)->shell,
@@ -1609,7 +1602,6 @@ project_manager_plugin_activate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaProfileManager *profile_manager;
 	GtkWidget *view, *scrolled_window;
-	GbfProjectModel *model;
 	static gboolean initialized = FALSE;
 	GtkTreeSelection *selection;
 	/* GladeXML *gxml; */
@@ -1628,11 +1620,10 @@ project_manager_plugin_activate_plugin (AnjutaPlugin *plugin)
 	pm_plugin->project = pm_project_new (plugin);
 	
 	/* create model & view and bind them */
-	model = gbf_project_model_new (NULL);
 	view = gbf_project_view_new ();
 	
 	gtk_tree_view_set_model (GTK_TREE_VIEW (view),
-							 GTK_TREE_MODEL (model));
+							 GTK_TREE_MODEL (pm_project_get_model (pm_plugin->project)));
 	
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
 	gtk_tree_selection_set_mode (selection, GTK_SELECTION_MULTIPLE);
@@ -1661,7 +1652,6 @@ project_manager_plugin_activate_plugin (AnjutaPlugin *plugin)
 	
 	pm_plugin->scrolledwindow = scrolled_window;
 	pm_plugin->view = view;
-	pm_plugin->model = model;
 	pm_plugin->properties_dialog = NULL;
 	
 	/* Action groups */
@@ -1767,8 +1757,6 @@ project_manager_plugin_deactivate_plugin (AnjutaPlugin *plugin)
 	anjuta_plugin_remove_watch (plugin, pm_plugin->fm_watch_id, TRUE);
 	anjuta_plugin_remove_watch (plugin, pm_plugin->editor_watch_id, TRUE);
 	
-	g_object_unref (G_OBJECT (pm_plugin->model));
-	
 	/* Widget is removed from the shell when destroyed */
 	gtk_widget_destroy (pm_plugin->scrolledwindow);
 	
@@ -1804,7 +1792,6 @@ project_manager_plugin_instance_init (GObject *obj)
 	plugin->scrolledwindow = NULL;
 	plugin->project = NULL;
 	plugin->view = NULL;
-	plugin->model = NULL;
 	plugin->pre_update_sources = NULL;
 	plugin->pre_update_targets = NULL;
 	plugin->pre_update_groups = NULL;
@@ -1944,7 +1931,7 @@ get_project_node_from_file (ProjectManagerPlugin *plugin, GFile *file, AnjutaPro
 		break;
 	}
 
-	node = gbf_tree_data_get_node (data, plugin->project);
+	node = pm_project_get_node (plugin->project, data);
 	gbf_tree_data_free (data);
 
 	return node;
@@ -1957,7 +1944,7 @@ get_tree_iter_from_file (ProjectManagerPlugin *plugin, GtkTreeIter* iter, GFile 
 	gboolean found;
 
 	data = gbf_tree_data_new_for_file (file, type);
-	found = gbf_project_model_find_tree_data (plugin->model, iter, data);
+	found = gbf_project_model_find_tree_data (pm_project_get_model (plugin->project), iter, data);
 	gbf_tree_data_free (data);
 
 	return found ? iter : NULL;
@@ -2160,7 +2147,7 @@ iproject_manager_add_source (IAnjutaProjectManager *project_manager,
 	{
 		iter = get_tree_iter_from_file (plugin, &target_iter, default_target_file, GBF_TREE_NODE_TARGET);
 	}
-	source_id = gbf_project_util_add_source (plugin->model,
+	source_id = gbf_project_util_add_source (plugin->project,
 										     get_plugin_parent_window (plugin),
 											 iter,
 											 source_uri_to_add);
@@ -2221,7 +2208,7 @@ iproject_manager_add_source_multi (IAnjutaProjectManager *project_manager,
 		iter = get_tree_iter_from_file (plugin, &target_iter, default_target_file, GBF_TREE_NODE_TARGET);
 	}
 
-	source_ids = gbf_project_util_add_source_multi (plugin->model,
+	source_ids = gbf_project_util_add_source_multi (plugin->project,
 										 get_plugin_parent_window (plugin),
 										 iter,
 										 source_add_uris);
@@ -2261,7 +2248,7 @@ iproject_manager_add_target (IAnjutaProjectManager *project_manager,
 	}
 	
 	update_operation_begin (plugin);
-	target_id = gbf_project_util_new_target (plugin->model,
+	target_id = gbf_project_util_new_target (plugin->project,
 											 get_plugin_parent_window (plugin),
 											 iter,
 											 target_name_to_add);
@@ -2293,7 +2280,7 @@ iproject_manager_add_group (IAnjutaProjectManager *project_manager,
 	}
 	
 	update_operation_begin (plugin);
-	group_id = gbf_project_util_new_group (plugin->model,
+	group_id = gbf_project_util_new_group (plugin->project,
 										   get_plugin_parent_window (plugin),
 										   iter,
 										   group_name_to_add);

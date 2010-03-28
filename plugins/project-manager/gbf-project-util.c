@@ -76,16 +76,18 @@ groups_filter_fn (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
 }
 
 static void 
-setup_groups_treeview (GbfProjectModel    *model,
+setup_groups_treeview (ProjectManagerProject *project,
                        GtkWidget          *view,
                        GtkTreeIter        *select_group)
 {
     GtkTreeModel *filter;
     GtkTreePath *path;
-    
-    g_return_if_fail (model != NULL);
+    GbfProjectModel *model;
+
+    g_return_if_fail (project != NULL);
     g_return_if_fail (view != NULL && GBF_IS_PROJECT_VIEW (view));
 
+    model = pm_project_get_model (project);
     filter = gtk_tree_model_filter_new (GTK_TREE_MODEL (model), NULL);
     gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (filter),
                                             groups_filter_fn, NULL, NULL);
@@ -162,7 +164,7 @@ entry_changed_cb (GtkEditable *editable, gpointer user_data)
 }
 
 AnjutaProjectNode*
-gbf_project_util_new_group (GbfProjectModel    *model,
+gbf_project_util_new_group (ProjectManagerProject *project,
                             GtkWindow          *parent,
                             GtkTreeIter        *default_group,
                             const gchar        *default_group_name_to_add)
@@ -171,16 +173,11 @@ gbf_project_util_new_group (GbfProjectModel    *model,
     GtkWidget *dialog, *group_name_entry, *ok_button;
     GtkWidget *groups_view;
     gint response;
-    ProjectManagerProject *project;
     gboolean finished = FALSE;
     AnjutaProjectNode *new_group = NULL;
 
-    g_return_val_if_fail (model != NULL, NULL);
+    g_return_val_if_fail (project != NULL, NULL);
     
-    project = gbf_project_model_get_project (model);
-    if (!project)
-        return NULL;
-
     gui = load_interface ("new_group_dialog");
     g_return_val_if_fail (gui != NULL, NULL);
     
@@ -201,7 +198,7 @@ gbf_project_util_new_group (GbfProjectModel    *model,
     else
         gtk_widget_set_sensitive (ok_button, FALSE);
     
-    setup_groups_treeview (model, groups_view, default_group);
+    setup_groups_treeview (project, groups_view, default_group);
     gtk_widget_show (groups_view);
     
     if (parent) {
@@ -302,7 +299,7 @@ build_types_store (ProjectManagerProject *project)
 }
 
 AnjutaProjectNode* 
-gbf_project_util_new_target (GbfProjectModel *model,
+gbf_project_util_new_target (ProjectManagerProject *project,
                              GtkWindow       *parent,
                              GtkTreeIter     *default_group,
                              const gchar     *default_target_name_to_add)
@@ -313,16 +310,11 @@ gbf_project_util_new_target (GbfProjectModel *model,
     GtkListStore *types_store;
     GtkCellRenderer *renderer;
     gint response;
-    ProjectManagerProject *project;
     gboolean finished = FALSE;
     AnjutaProjectNode *new_target = NULL;
     
-    g_return_val_if_fail (model != NULL, NULL);
+    g_return_val_if_fail (project != NULL, NULL);
     
-    project = gbf_project_model_get_project (model);
-    if (!project)
-        return NULL;
-
     gui = load_interface ("new_target_dialog");
     g_return_val_if_fail (gui != NULL, NULL);
     
@@ -344,7 +336,7 @@ gbf_project_util_new_target (GbfProjectModel *model,
     else
         gtk_widget_set_sensitive (ok_button, FALSE);
     
-    setup_groups_treeview (model, groups_view, default_group);
+    setup_groups_treeview (project, groups_view, default_group);
     gtk_widget_show (groups_view);
 
     /* setup target types combo box */
@@ -449,17 +441,19 @@ targets_filter_fn (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
 }
 
 static void 
-setup_targets_treeview (GbfProjectModel     *model,
+setup_targets_treeview (ProjectManagerProject *project,
                         GtkWidget           *view,
                         GtkTreeIter         *select_target)
 {
     GtkTreeModel *filter;
     GtkTreeIter iter_filter;
     GtkTreePath *path = NULL;
+    GbfProjectModel *model;
     
-    g_return_if_fail (model != NULL);
+    g_return_if_fail (project != NULL);
     g_return_if_fail (view != NULL && GBF_IS_PROJECT_VIEW (view));
 
+    model = pm_project_get_model (project);
     filter = gtk_tree_model_filter_new (GTK_TREE_MODEL (model), NULL);
     gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (filter),
                                             targets_filter_fn, NULL, NULL);
@@ -504,17 +498,19 @@ modules_filter_fn (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
 }
 
 static void 
-setup_modules_treeview (GbfProjectModel     *model,
+setup_modules_treeview (ProjectManagerProject *project,
                         GtkWidget           *view,
                         GtkTreeIter         *select_module)
 {
     GtkTreeModel *filter;
     GtkTreeIter iter_filter;
     GtkTreePath *path = NULL;
+    GbfProjectModel *model;
     
     g_return_if_fail (model != NULL);
     g_return_if_fail (view != NULL && GBF_IS_PROJECT_VIEW (view));
 
+    model = pm_project_get_model (project);
     filter = gtk_tree_model_filter_new (GTK_TREE_MODEL (model), NULL);
     gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (filter),
                                             modules_filter_fn, NULL, NULL);
@@ -626,7 +622,7 @@ on_row_changed(GtkTreeModel* model, GtkTreePath* path, GtkTreeIter* iter, gpoint
 }
 
 AnjutaProjectNode*
-gbf_project_util_add_source (GbfProjectModel     *model,
+gbf_project_util_add_source (ProjectManagerProject *project,
                              GtkWindow           *parent,
                              GtkTreeIter         *default_target,
                              const gchar         *default_uri)
@@ -640,7 +636,7 @@ gbf_project_util_add_source (GbfProjectModel     *model,
             uris = g_list_append (NULL, uri);
         }
 	new_sources = 
-		gbf_project_util_add_source_multi (model, parent,
+		gbf_project_util_add_source_multi (project, parent,
                                                    default_target, uris);
 	g_free (uri);
         g_list_free (uris);
@@ -656,7 +652,7 @@ gbf_project_util_add_source (GbfProjectModel     *model,
 }
 
 GList* 
-gbf_project_util_add_source_multi (GbfProjectModel     *model,
+gbf_project_util_add_source_multi (ProjectManagerProject *project,
 				   GtkWindow           *parent,
                                    GtkTreeIter         *default_target,
 				   GList               *uris_to_add)
@@ -666,7 +662,6 @@ gbf_project_util_add_source_multi (GbfProjectModel     *model,
     GtkWidget *ok_button, *browse_button;
     GtkWidget *targets_view;
     gint response;
-    ProjectManagerProject *project;
     gboolean finished = FALSE;
     gchar *project_root;
     GtkListStore* list;
@@ -675,12 +670,8 @@ gbf_project_util_add_source_multi (GbfProjectModel     *model,
     GList* new_sources = NULL;
     GList* uri_node;
     
-    g_return_val_if_fail (model != NULL, NULL);
+    g_return_val_if_fail (project != NULL, NULL);
     
-    project = gbf_project_model_get_project (model);
-    if (!project)
-        return NULL;
-
     gui = load_interface ("add_source_dialog");
     g_return_val_if_fail (gui != NULL, NULL);
     
@@ -735,7 +726,7 @@ gbf_project_util_add_source_multi (GbfProjectModel     *model,
     g_object_set_data_full (G_OBJECT (browse_button), "root",
                             project_root, g_free);
     
-    setup_targets_treeview (model, targets_view, default_target);
+    setup_targets_treeview (project, targets_view, default_target);
     gtk_widget_show (targets_view);
     
     if (parent) {
@@ -896,7 +887,7 @@ on_cursor_changed(GtkTreeView* view, gpointer data)
 }
 
 GList*
-gbf_project_util_add_module (GbfProjectModel   *model,
+gbf_project_util_add_module (ProjectManagerProject *project,
                              GtkWindow          *parent,
                              GtkTreeIter        *default_target,
                              const gchar        *default_module)
@@ -907,17 +898,12 @@ gbf_project_util_add_module (GbfProjectModel   *model,
     GtkWidget *targets_view;
     GtkWidget *modules_view;
     gint response;
-    ProjectManagerProject *project;
     gboolean finished = FALSE;
     GList* new_modules = NULL;
     GtkTreeSelection *module_selection;
     
-    g_return_val_if_fail (model != NULL, NULL);
+    g_return_val_if_fail (project != NULL, NULL);
     
-    project = gbf_project_model_get_project (model);
-    if (!project)
-        return NULL;
-
     gui = load_interface ("add_module_dialog");
     g_return_val_if_fail (gui != NULL, NULL);
     
@@ -928,9 +914,9 @@ gbf_project_util_add_module (GbfProjectModel   *model,
     new_button = GTK_WIDGET (gtk_builder_get_object (gui, "new_package_button"));
     ok_button = GTK_WIDGET (gtk_builder_get_object (gui, "ok_module_button"));
 
-    setup_targets_treeview (model, targets_view, default_target);
+    setup_targets_treeview (project, targets_view, default_target);
     gtk_widget_show (targets_view);
-    setup_modules_treeview (model, modules_view, NULL);
+    setup_modules_treeview (project, modules_view, NULL);
     gtk_widget_show (modules_view);
     module_selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (modules_view));
     gtk_tree_selection_set_mode (module_selection, GTK_SELECTION_MULTIPLE);
@@ -964,7 +950,7 @@ gbf_project_util_add_module (GbfProjectModel   *model,
         switch (response) {
             case 1:
             {
-                gbf_project_util_add_package (model, parent, NULL, NULL);
+                gbf_project_util_add_package (project, parent, NULL, NULL);
 
                 break;
             }
@@ -1101,7 +1087,7 @@ on_changed_disconnect (GtkEditable* entry, gpointer data)
 }
 
 GList* 
-gbf_project_util_add_package (GbfProjectModel   *model,
+gbf_project_util_add_package (ProjectManagerProject *project,
                               GtkWindow        *parent,
                               GtkTreeIter      *default_module,
                               GList            *packages_to_add)
@@ -1116,19 +1102,15 @@ gbf_project_util_add_package (GbfProjectModel   *model,
     GList *packages = NULL;
     GtkTreeViewColumn *col;
     gint response;
-    ProjectManagerProject *project;
     gboolean finished = FALSE;
     GtkTreeSelection *package_selection;
     GtkTreeIter root;
     gboolean valid;
     gint default_pos = -1;
+    GbfProjectModel *model;
     
-    g_return_val_if_fail (model != NULL, NULL);
+    g_return_val_if_fail (project != NULL, NULL);
     
-    project = gbf_project_model_get_project (model);
-    if (!project)
-        return NULL;
-
     gui = load_interface ("add_package_dialog");
     g_return_val_if_fail (gui != NULL, NULL);
     
@@ -1142,6 +1124,7 @@ gbf_project_util_add_package (GbfProjectModel   *model,
     store = gtk_list_store_new(1, G_TYPE_STRING);
     gtk_combo_box_entry_set_text_column (GTK_COMBO_BOX_ENTRY (module_entry), 0);
 
+    model = pm_project_get_model(project);
     for (valid = gtk_tree_model_get_iter_first (GTK_TREE_MODEL (model), &root); valid != FALSE; valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &root))
     {
         GbfTreeData *data;

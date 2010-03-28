@@ -52,39 +52,6 @@
  * the tree view.
  */ 
 
-AnjutaProjectNode *
-gbf_tree_data_get_node (GbfTreeData *data, ProjectManagerProject *project)
-{
-	AnjutaProjectNode *node = NULL;
-	
-	if (data != NULL)
-	{
-		AnjutaProjectNode *root = NULL;
-		AnjutaProjectNode *group = NULL;
-		AnjutaProjectNode *target = NULL;
-
-		root = pm_project_get_root (project);
-		if ((root != NULL) && (data->group != NULL))
-		{
-			group = anjuta_project_group_get_node_from_file (root, data->group);
-			node = group;
-		}
-
-		if ((group != NULL) && (data->target != NULL))
-		{
-			target = anjuta_project_target_get_node_from_name (group, data->target);
-			node = target;
-		}
-
-		if (((group != NULL) || (target != NULL)) && (data->source != NULL))
-		{
-			node = anjuta_project_source_get_node_from_file (target != NULL ? target : group, data->source);
-		}
-	}
-
-	return node;
-}
-
 gchar *
 gbf_tree_data_get_uri (GbfTreeData *data)
 {

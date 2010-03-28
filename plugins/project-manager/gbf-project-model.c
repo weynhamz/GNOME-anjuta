@@ -421,7 +421,7 @@ add_target_shortcut (GbfProjectModel *model,
 			    -1);
 	
 	/* add sources */
-	parent = gbf_tree_data_get_node (target, model->priv->proj);
+	parent = pm_project_get_node (model->priv->proj, target);
 	for (node = anjuta_project_node_first_child (parent); node; node = anjuta_project_node_next_sibling (node))
 		add_source (model, node, &iter);
 
@@ -479,7 +479,7 @@ move_target_shortcut (GbfProjectModel *model,
 				    -1);
 
 		/* add sources */
-		parent = gbf_tree_data_get_node (shortcut->shortcut, model->priv->proj);
+		parent = pm_project_get_node (model->priv->proj, shortcut->shortcut);
 		for (node = anjuta_project_node_first_child (parent); node; node = anjuta_project_node_next_sibling (node))
 			add_source (model, node, iter);
 	}
@@ -808,7 +808,7 @@ gbf_project_model_find_tree_data (GbfProjectModel 	*model,
 }
 
 GbfProjectModel *
-gbf_project_model_new (IAnjutaProject *project)
+gbf_project_model_new (ProjectManagerProject *project)
 {
 	return GBF_PROJECT_MODEL (g_object_new (GBF_TYPE_PROJECT_MODEL,
 						"project", project,
@@ -859,7 +859,7 @@ gbf_project_model_get_node (GbfProjectModel *model,
 			    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
 			    -1);
 
-	return gbf_tree_data_get_node (data, model->priv->proj);
+	return pm_project_get_node (model->priv->proj, data);
 }
 
 void

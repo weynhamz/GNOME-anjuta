@@ -35,38 +35,8 @@
 struct _ProjectManagerProject{
 	AnjutaPlugin *plugin;
 	
-	AnjutaUI *ui;
-	AnjutaPreferences *prefs;
 	IAnjutaProject *project;
-	GtkWidget *view;
 	GbfProjectModel *model;
-	GtkWidget *scrolledwindow;
-	
-	GtkActionGroup *pm_action_group;
-	GtkActionGroup *popup_action_group;
-	gint merge_id;
-	
-	gint fm_watch_id;
-	gint editor_watch_id;
-	
-	gchar *fm_current_uri;
-	gchar *current_editor_uri;
-	gchar *project_root_uri;
-	gchar *project_uri;
-	
-	/* Update state recording */
-	GList *pre_update_sources;
-	GList *pre_update_targets;
-	GList *pre_update_groups;
-	
-	/* Session flag */
-	gboolean session_by_me;
-
-	/* Idle callback id */
-	guint close_project_idle;
-	
-	/* project properties dialog */
-	GtkWidget *properties_dialog;
 };
 
 /* Public functions
@@ -161,6 +131,10 @@ pm_project_load (ProjectManagerProject *project, GFile *file, GError **error)
 		g_object_unref (project->project);
 		project->project = NULL;
 	}
+	else
+	{
+		g_object_set (G_OBJECT (project->model), "project", project, NULL);
+	}
 
 	return ok;
 }
@@ -168,6 +142,7 @@ pm_project_load (ProjectManagerProject *project, GFile *file, GError **error)
 gboolean 
 pm_project_unload (ProjectManagerProject *project, GError **error)
 {
+	g_object_set (G_OBJECT (project->model), "project", NULL, NULL);
 	g_object_unref (project->project);
 	project->project = NULL;
 
@@ -197,14 +172,6 @@ pm_project_configure (ProjectManagerProject *project, AnjutaProjectNode *node)
 	}
 
 	return properties;
-}
-
-gboolean
-pm_project_remove (ProjectManagerProject *project, AnjutaProjectNode *node, GError **error)
-{
-	ianjuta_project_remove_node (project->project, node, error);
-
-	return TRUE;
 }
 
 IAnjutaProjectCapabilities
@@ -271,6 +238,32 @@ pm_project_add_source (ProjectManagerProject *project, AnjutaProjectNode *target
 }
 
 gboolean
+pm_project_remove (ProjectManagerProject *project, AnjutaProjectNode *node, GError **error)
+{
+	ianjuta_project_remove_node (project->project, node, error);
+
+	return TRUE;
+}
+
+gboolean
+pm_project_remove_data (ProjectManagerProject *project, GbfTreeData *data, GError **error)
+{
+	GtkTreeIter iter;
+	
+	if (gbf_project_model_find_tree_data (project->model, &iter, data))
+	{
+		gbf_project_model_remove (project->model, &iter);
+
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+
+
+gboolean
 pm_project_is_open (ProjectManagerProject *project)
 {
 	return project->project != NULL;
@@ -281,6 +274,46 @@ pm_project_get_project (ProjectManagerProject *project)
 {
 	return project->project;
 }
+
+GbfProjectModel *
+pm_project_get_model (ProjectManagerProject *project)
+{
+	return project->model;
+}
+
+AnjutaProjectNode *
+pm_project_get_node (ProjectManagerProject *project, GbfTreeData *data)
+{
+	AnjutaProjectNode *node = NULL;
+	
+	if (data != NULL)
+	{
+		AnjutaProjectNode *root = NULL;
+		AnjutaProjectNode *group = NULL;
+		AnjutaProjectNode *target = NULL;
+
+		root = pm_project_get_root (project);
+		if ((root != NULL) && (data->group != NULL))
+		{
+			group = anjuta_project_group_get_node_from_file (root, data->group);
+			node = group;
+		}
+
+		if ((group != NULL) && (data->target != NULL))
+		{
+			target = anjuta_project_target_get_node_from_name (group, data->target);
+			node = target;
+		}
+
+		if (((group != NULL) || (target != NULL)) && (data->source != NULL))
+		{
+			node = anjuta_project_source_get_node_from_file (target != NULL ? target : group, data->source);
+		}
+	}
+
+	return node;
+}
+
 
 /* Constructor & Destructor
  *---------------------------------------------------------------------------*/
@@ -293,6 +326,7 @@ pm_project_new (AnjutaPlugin *plugin)
 	project = g_new0 (ProjectManagerProject, 1);
 	project->plugin = plugin;
 	project->project = NULL;
+	project->model = gbf_project_model_new (NULL);
 
 	return project;
 }
@@ -300,4 +334,6 @@ pm_project_new (AnjutaPlugin *plugin)
 void
 pm_project_free (ProjectManagerProject* project)
 {
+	g_object_unref (G_OBJECT (project->model));
+	g_free (project);
 }

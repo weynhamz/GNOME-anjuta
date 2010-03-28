@@ -24,7 +24,6 @@
 
 #include <glib-object.h>
 #include <gtk/gtk.h>
-#include "project.h"
 #include <libanjuta/anjuta-project.h>
 
 G_BEGIN_DECLS
@@ -53,9 +52,6 @@ struct _GbfTreeData
 	GbfTreeData		*shortcut;
 	GtkWidget		*properties_dialog;
 };
-
-AnjutaProjectNode *gbf_tree_data_get_node	    (GbfTreeData		   *data,
-                                                 ProjectManagerProject *project);
 
 gchar	      *gbf_tree_data_get_uri		    (GbfTreeData           *data);
 GFile	      *gbf_tree_data_get_file		    (GbfTreeData           *data);
