@@ -55,6 +55,7 @@ struct _AnjutaCommandClass
 	gchar * (*get_error_message) (AnjutaCommand *self);
 	
 	/* Signals */
+	void (*command_started) (AnjutaCommand *command);
 	void (*progress) (AnjutaCommand *command, gfloat progress);
 
 };

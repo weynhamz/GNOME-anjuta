@@ -60,6 +60,7 @@ struct _AnjutaCommandPriv
 enum
 {
 	DATA_ARRIVED,
+	COMMAND_STARTED,
 	COMMAND_FINISHED,
 	PROGRESS,
 
@@ -91,6 +92,11 @@ anjuta_command_finalize (GObject *object)
 }
 
 static void
+anjuta_command_started (AnjutaCommand *command)
+{
+}
+
+static void
 anjuta_command_class_init (AnjutaCommandClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
@@ -105,6 +111,7 @@ anjuta_command_class_init (AnjutaCommandClass *klass)
 	klass->notify_progress = NULL;
 	klass->set_error_message = anjuta_command_set_error_message;
 	klass->get_error_message = anjuta_command_get_error_message;
+	klass->command_started = anjuta_command_started;
 	klass->progress = NULL;
 
 	/**
@@ -123,6 +130,23 @@ anjuta_command_class_init (AnjutaCommandClass *klass)
 		              g_cclosure_marshal_VOID__VOID,
 		              G_TYPE_NONE, 
 					  0);
+
+	/**
+	 * AnjuaCommand::command-started:
+	 * @command: Command
+	 *
+	 * Indicates that a command has begun executing. This signal is intended to 
+	 * be used for commands that start themselves automatically.
+	 */
+	anjuta_command_signals[COMMAND_STARTED] =
+		g_signal_new ("command-started",
+		              G_OBJECT_CLASS_TYPE (klass),
+		              G_SIGNAL_RUN_FIRST,
+		              G_STRUCT_OFFSET (AnjutaCommandClass, command_started),
+		              NULL, NULL,
+		              g_cclosure_marshal_VOID__VOID,
+		              G_TYPE_NONE, 
+		              0);
 
 	/**
 	 * AnjutaCommand::command-finished:
@@ -175,6 +199,8 @@ anjuta_command_class_init (AnjutaCommandClass *klass)
 void
 anjuta_command_start (AnjutaCommand *self)
 {
+	g_signal_emit_by_name (self, "command-started");
+
 	ANJUTA_COMMAND_GET_CLASS (self)->start (self);
 }
 
