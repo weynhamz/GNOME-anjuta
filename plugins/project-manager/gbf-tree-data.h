@@ -24,7 +24,7 @@
 
 #include <glib-object.h>
 #include <gtk/gtk.h>
-#include <libanjuta/interfaces/ianjuta-project.h>
+#include "project.h"
 #include <libanjuta/anjuta-project.h>
 
 G_BEGIN_DECLS
@@ -54,29 +54,29 @@ struct _GbfTreeData
 	GtkWidget		*properties_dialog;
 };
 
-AnjutaProjectNode *gbf_tree_data_get_node	    (GbfTreeData		 *data,
-                                                 IAnjutaProject     *project);
+AnjutaProjectNode *gbf_tree_data_get_node	    (GbfTreeData		   *data,
+                                                 ProjectManagerProject *project);
 
-gchar	      *gbf_tree_data_get_uri		    (GbfTreeData          *data);
-GFile	      *gbf_tree_data_get_file		    (GbfTreeData          *data);
-const gchar   *gdb_tree_data_get_name		    (GbfTreeData          *data);
+gchar	      *gbf_tree_data_get_uri		    (GbfTreeData           *data);
+GFile	      *gbf_tree_data_get_file		    (GbfTreeData           *data);
+const gchar   *gdb_tree_data_get_name		    (GbfTreeData           *data);
 
-gchar		  *gbf_tree_data_get_path		    (GbfTreeData          *data);
+gchar		  *gbf_tree_data_get_path		    (GbfTreeData           *data);
 
-gboolean       gbf_tree_data_equal              (GbfTreeData          *data_a,
-                                                 GbfTreeData          *data_b);
+gboolean       gbf_tree_data_equal              (GbfTreeData           *data_a,
+                                                 GbfTreeData           *data_b);
 
-GbfTreeData   *gbf_tree_data_new_for_path       (const gchar          *data);
-GbfTreeData   *gbf_tree_data_new_for_file       (GFile                *file,
-                                                 GbfTreeNodeType      type);
-GbfTreeData   *gbf_tree_data_new_string         (const gchar          *string);
-GbfTreeData   *gbf_tree_data_new_shortcut       (GbfTreeData		  *src);
-GbfTreeData   *gbf_tree_data_new_group          (AnjutaProjectNode   *group);
-GbfTreeData   *gbf_tree_data_new_target         (AnjutaProjectNode  *target);
-GbfTreeData   *gbf_tree_data_new_source         (AnjutaProjectNode  *source);
-GbfTreeData   *gbf_tree_data_new_module         (AnjutaProjectNode  *module);
-GbfTreeData   *gbf_tree_data_new_package        (AnjutaProjectNode  *package);
-void           gbf_tree_data_free               (GbfTreeData          *data);
+GbfTreeData   *gbf_tree_data_new_for_path       (const gchar           *data);
+GbfTreeData   *gbf_tree_data_new_for_file       (GFile                 *file,
+                                                 GbfTreeNodeType       type);
+GbfTreeData   *gbf_tree_data_new_string         (const gchar           *string);
+GbfTreeData   *gbf_tree_data_new_shortcut       (GbfTreeData		   *src);
+GbfTreeData   *gbf_tree_data_new_group          (AnjutaProjectNode     *group);
+GbfTreeData   *gbf_tree_data_new_target         (AnjutaProjectNode     *target);
+GbfTreeData   *gbf_tree_data_new_source         (AnjutaProjectNode     *source);
+GbfTreeData   *gbf_tree_data_new_module         (AnjutaProjectNode     *module);
+GbfTreeData   *gbf_tree_data_new_package        (AnjutaProjectNode     *package);
+void           gbf_tree_data_free               (GbfTreeData           *data);
 
 
 G_END_DECLS

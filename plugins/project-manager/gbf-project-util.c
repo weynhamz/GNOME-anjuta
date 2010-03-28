@@ -171,7 +171,7 @@ gbf_project_util_new_group (GbfProjectModel    *model,
     GtkWidget *dialog, *group_name_entry, *ok_button;
     GtkWidget *groups_view;
     gint response;
-    IAnjutaProject *project;
+    ProjectManagerProject *project;
     gboolean finished = FALSE;
     AnjutaProjectNode *new_group = NULL;
 
@@ -225,7 +225,7 @@ gbf_project_util_new_group (GbfProjectModel    *model,
                 group = gbf_project_view_find_selected (GBF_PROJECT_VIEW (groups_view),
                                                        ANJUTA_PROJECT_GROUP);
                 if (group) {
-                    new_group = ianjuta_project_add_group (project, group, name, &err);
+                    new_group = pm_project_add_group (project, group, name, &err);
                     if (err) {
                         error_dialog (parent, _("Cannot add group"), "%s",
                                       err->message);
@@ -261,14 +261,14 @@ enum {
 
 /* create a tree model with the target types */
 static GtkListStore *
-build_types_store (IAnjutaProject *project)
+build_types_store (ProjectManagerProject *project)
 {
     GtkListStore *store;
     GtkTreeIter iter;
     GList *types;
     GList *node;
 
-    types = ianjuta_project_get_target_types (project, NULL);
+    types = pm_project_get_target_types (project);
     store = gtk_list_store_new (TARGET_TYPE_N_COLUMNS,
                                 G_TYPE_POINTER,
                                 G_TYPE_STRING,
@@ -313,7 +313,7 @@ gbf_project_util_new_target (GbfProjectModel *model,
     GtkListStore *types_store;
     GtkCellRenderer *renderer;
     gint response;
-    IAnjutaProject *project;
+    ProjectManagerProject *project;
     gboolean finished = FALSE;
     AnjutaProjectNode *new_target = NULL;
     
@@ -403,7 +403,7 @@ gbf_project_util_new_target (GbfProjectModel *model,
                 }
                 
                 if (group && type) {
-                    new_target = ianjuta_project_add_target (project, group, name, type, &err);
+                    new_target = pm_project_add_target (project, group, name, type, &err);
                     if (err) {
                         error_dialog (parent, _("Cannot add target"), "%s",
                                       err->message);
@@ -666,7 +666,7 @@ gbf_project_util_add_source_multi (GbfProjectModel     *model,
     GtkWidget *ok_button, *browse_button;
     GtkWidget *targets_view;
     gint response;
-    IAnjutaProject *project;
+    ProjectManagerProject *project;
     gboolean finished = FALSE;
     gchar *project_root;
     GtkListStore* list;
@@ -776,7 +776,7 @@ gbf_project_util_add_source_multi (GbfProjectModel     *model,
 					    COLUMN_URI, &uri, -1);
 
                         source_file = g_file_new_for_uri (uri);
-			new_source = ianjuta_project_add_source (project,
+			new_source = pm_project_add_source (project,
 							     target,
 							     source_file,
 							     &err);
@@ -907,7 +907,7 @@ gbf_project_util_add_module (GbfProjectModel   *model,
     GtkWidget *targets_view;
     GtkWidget *modules_view;
     gint response;
-    IAnjutaProject *project;
+    ProjectManagerProject *project;
     gboolean finished = FALSE;
     GList* new_modules = NULL;
     GtkTreeSelection *module_selection;
@@ -1116,7 +1116,7 @@ gbf_project_util_add_package (GbfProjectModel   *model,
     GList *packages = NULL;
     GtkTreeViewColumn *col;
     gint response;
-    IAnjutaProject *project;
+    ProjectManagerProject *project;
     gboolean finished = FALSE;
     GtkTreeSelection *package_selection;
     GtkTreeIter root;

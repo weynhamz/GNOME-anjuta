@@ -53,7 +53,7 @@
  */ 
 
 AnjutaProjectNode *
-gbf_tree_data_get_node (GbfTreeData *data, IAnjutaProject *project)
+gbf_tree_data_get_node (GbfTreeData *data, ProjectManagerProject *project)
 {
 	AnjutaProjectNode *node = NULL;
 	
@@ -63,7 +63,7 @@ gbf_tree_data_get_node (GbfTreeData *data, IAnjutaProject *project)
 		AnjutaProjectNode *group = NULL;
 		AnjutaProjectNode *target = NULL;
 
-		root = ianjuta_project_get_root (project, NULL);
+		root = pm_project_get_root (project);
 		if ((root != NULL) && (data->group != NULL))
 		{
 			group = anjuta_project_group_get_node_from_file (root, data->group);

@@ -25,8 +25,8 @@
 
 #include <glib-object.h>
 #include <gtk/gtk.h>
-#include <libanjuta/interfaces/ianjuta-project.h>
 #include <libanjuta/anjuta-project.h>
+#include "project.h"
 #include "gbf-tree-data.h"
 
 #define GBF_TYPE_PROJECT_MODEL            (gbf_project_model_get_type ())
@@ -57,8 +57,8 @@ GType            gbf_project_model_get_type          (void);
 GbfProjectModel *gbf_project_model_new               (IAnjutaProject    *project);
 
 void             gbf_project_model_set_project       (GbfProjectModel   *model,
-                                                      IAnjutaProject    *project);
-IAnjutaProject  *gbf_project_model_get_project       (GbfProjectModel   *model);
+                                                      ProjectManagerProject    *project);
+ProjectManagerProject *gbf_project_model_get_project       (GbfProjectModel   *model);
 
 GtkTreePath     *gbf_project_model_get_project_root  (GbfProjectModel   *model);
 gboolean         gbf_project_model_remove            (GbfProjectModel *model,

@@ -26,6 +26,7 @@
 #include <libanjuta/interfaces/ianjuta-project.h>
 #include "gbf-project-model.h"
 #include "gbf-project-view.h"
+#include "project.h"
 
 extern GType project_manager_plugin_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_PROJECT_MANAGER         (project_manager_plugin_get_type (NULL))
@@ -40,10 +41,11 @@ typedef struct _ProjectManagerPluginClass ProjectManagerPluginClass;
 
 struct _ProjectManagerPlugin{
 	AnjutaPlugin parent;
+
+	ProjectManagerProject *project;
 	
 	AnjutaUI *ui;
 	AnjutaPreferences *prefs;
-	IAnjutaProject *project;
 	GtkWidget *view;
 	GbfProjectModel *model;
 	GtkWidget *scrolledwindow;

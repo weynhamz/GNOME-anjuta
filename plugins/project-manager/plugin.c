@@ -438,7 +438,7 @@ project_manager_show_node_properties_dialog (ProjectManagerPlugin *plugin,
 			node = gbf_tree_data_get_node (data, plugin->project);
 			if (node != NULL)
 			{
-				properties = ianjuta_project_configure_node (plugin->project, node, NULL);
+				properties = pm_project_configure (plugin->project, node);
 
 				if (properties == NULL)
 				{
@@ -452,7 +452,7 @@ project_manager_show_node_properties_dialog (ProjectManagerPlugin *plugin,
 			node = gbf_tree_data_get_node (data, plugin->project);
 			if (node != NULL)
 			{
-				properties = ianjuta_project_configure_node (plugin->project, node, NULL);
+				properties = pm_project_configure (plugin->project, node);
 
 				if (properties == NULL)
 				{
@@ -490,7 +490,7 @@ project_manager_show_project_properties_dialog (ProjectManagerPlugin *plugin)
 		project_manager_create_properties_dialog(plugin,
 		    &plugin->properties_dialog,
 		    _("Project properties"),
-		    ianjuta_project_configure (plugin->project, NULL));
+			pm_project_configure (plugin->project, NULL));
 	}
 }
 
@@ -511,7 +511,7 @@ on_refresh_idle (gpointer user_data)
 	anjuta_status_push (status, _("Refreshing symbol tree…"));
 	anjuta_status_busy_push (status);
 	
-	ianjuta_project_refresh (IANJUTA_PROJECT (plugin->project), &err);
+	pm_project_refresh (plugin->project, &err);
 	if (err)
 	{
 		anjuta_util_dialog_error (get_plugin_parent_window (plugin),
@@ -845,7 +845,7 @@ on_popup_remove (GtkAction *action, ProjectManagerPlugin *plugin)
 					if (node != NULL)
 					{
 						if (!update) update_operation_begin (plugin);
-						ianjuta_project_remove_node (plugin->project, node, &err);
+						pm_project_remove (plugin->project, node, &err);
 						if (err)
 						{
 							gchar *name;
@@ -1056,10 +1056,9 @@ update_ui (ProjectManagerPlugin *plugin)
 	AnjutaUI *ui;
 	gint j;
 	GtkAction *action;
-	IAnjutaProjectCapabilities caps = IANJUTA_PROJECT_CAN_ADD_NONE;
+	IAnjutaProjectCapabilities caps;
 	
-	if (plugin->project)
-		caps = ianjuta_project_get_capabilities (plugin->project, NULL);
+	caps = pm_project_get_capabilities (plugin->project);
 	
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
 	for (j = 0; j < G_N_ELEMENTS (pm_actions); j++)
@@ -1071,7 +1070,7 @@ update_ui (ProjectManagerPlugin *plugin)
 		{
 			/* 'close' menuitem is never disabled */
 			g_object_set (G_OBJECT (action), "sensitive",
-						  (plugin->project != NULL), NULL);
+						  pm_project_is_open (plugin->project), NULL);
 		}
 	}
 	
@@ -1079,19 +1078,19 @@ update_ui (ProjectManagerPlugin *plugin)
 	action = anjuta_ui_get_action (ui, "ActionGroupProjectManager",
 								   "ActionProjectAddGroup");
 	g_object_set (G_OBJECT (action), "sensitive",
-				  ((plugin->project != NULL) &&
+				  (pm_project_is_open (plugin->project) &&
 				   (caps & IANJUTA_PROJECT_CAN_ADD_GROUP)), NULL);
 	
 	action = anjuta_ui_get_action (ui, "ActionGroupProjectManager",
 								   "ActionProjectAddTarget");
 	g_object_set (G_OBJECT (action), "sensitive",
-				  ((plugin->project != NULL) &&
+				  (pm_project_is_open (plugin->project) &&
 				   (caps & IANJUTA_PROJECT_CAN_ADD_TARGET)), NULL);
 
 	action = anjuta_ui_get_action (ui, "ActionGroupProjectManager",
 								   "ActionProjectAddSource");
 	g_object_set (G_OBJECT (action), "sensitive",
-				  ((plugin->project != NULL) &&
+				  (pm_project_is_open (plugin->project) &&
 				   (caps & IANJUTA_PROJECT_CAN_ADD_SOURCE)), NULL);
 
 	/* Popup menus */
@@ -1102,7 +1101,7 @@ update_ui (ProjectManagerPlugin *plugin)
 		if (popup_actions[j].callback)
 		{
 			g_object_set (G_OBJECT (action), "sensitive",
-						  (plugin->project != NULL), NULL);
+						  pm_project_is_open (plugin->project), NULL);
 		}
 	}
 }
@@ -1115,7 +1114,7 @@ on_treeview_selection_changed (GtkTreeSelection *sel,
 	GtkAction *action;
 	AnjutaProjectNode *node;
 	GFile *selected_file;
-	IAnjutaProjectCapabilities caps = IANJUTA_PROJECT_CAN_ADD_NONE;
+	IAnjutaProjectCapabilities caps;
 	
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
 	/* Popup menu */
@@ -1132,8 +1131,7 @@ on_treeview_selection_changed (GtkTreeSelection *sel,
 								   "ActionPopupProjectRemove");
 	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
 	
-	if (plugin->project)
-		caps = ianjuta_project_get_capabilities (plugin->project, NULL);
+	caps = pm_project_get_capabilities (plugin->project);
 	node = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
 										   ANJUTA_PROJECT_SOURCE);
 	if (node && anjuta_project_node_get_type (node) == ANJUTA_PROJECT_SOURCE)
@@ -1379,16 +1377,12 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 static void
 project_manager_load_gbf (ProjectManagerPlugin *pm_plugin)
 {
-	AnjutaPluginManager *plugin_manager;
 	AnjutaStatus *status;
 	gchar *dirname;
 	GFile *dirfile;
 	gchar *basename;
 	const gchar *root_uri;
 	GError *error = NULL;
-	GList *desc;
-	IAnjutaProjectBackend *backend;
-	gint found = 0;
 	
 	root_uri = pm_plugin->project_root_uri;
 	
@@ -1396,86 +1390,17 @@ project_manager_load_gbf (ProjectManagerPlugin *pm_plugin)
 	dirfile = g_file_new_for_uri (root_uri);
 	
 	g_return_if_fail (dirname != NULL);
-	
-	if (pm_plugin->project != NULL)
-			g_object_unref (pm_plugin->project);
-	
-	DEBUG_PRINT ("loading gbf backend…\n");
-	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN(pm_plugin)->shell, NULL);
 
-	if (!anjuta_plugin_manager_is_active_plugin (plugin_manager, "IAnjutaProjectBackend"))
-	{
-		GList *descs = NULL;
-		
-		descs = anjuta_plugin_manager_query (plugin_manager,
-											 "Anjuta Plugin",
-											 "Interfaces",
-											 "IAnjutaProjectBackend",
-											 NULL);
-		backend = NULL;
-		for (desc = g_list_first (descs); desc != NULL; desc = g_list_next (desc)) {
-			AnjutaPluginDescription *backend_desc;
-			gchar *location = NULL;
-			IAnjutaProjectBackend *plugin;
-			gint backend_val;
-				
-			backend_desc = (AnjutaPluginDescription *)desc->data;
-			anjuta_plugin_description_get_string (backend_desc, "Anjuta Plugin", "Location", &location);
-			plugin = (IAnjutaProjectBackend *)anjuta_plugin_manager_get_plugin_by_id (plugin_manager, location);
-			g_free (location);
-
-			backend_val = ianjuta_project_backend_probe (plugin, dirfile, NULL);
-			if (backend_val > found)
-			{
-				/* Backend found */;
-				backend = plugin;
-				found = backend_val;
-			}
-		}
-		g_list_free (descs);
-	}
-	else
-	{
-		/* A backend is already loaded, use it */
-		backend = IANJUTA_PROJECT_BACKEND (anjuta_shell_get_object (ANJUTA_PLUGIN (pm_plugin)->shell,
-                                        "IAnjutaProjectBackend", NULL));
-
-        g_object_ref (backend);
-	}
-	
-	if (!backend)
-	{
-		/* FIXME: Set err */
-		g_warning ("no backend available for this project\n");
-		g_free (dirname);
-		g_object_unref (dirfile);
-		return;
-	}
-	
-	DEBUG_PRINT ("%s", "Creating new gbf project\n");
-	pm_plugin->project = ianjuta_project_backend_new_project (backend, NULL);
-	if (!pm_plugin->project)
-	{
-		/* FIXME: Set err */
-		g_warning ("project creation failed\n");
-		g_free (dirname);
-		g_object_unref (dirfile);
-		return;
-	}
-	
 	status = anjuta_shell_get_status (ANJUTA_PLUGIN (pm_plugin)->shell, NULL);
 	anjuta_status_progress_add_ticks (status, 1);
 	basename = g_path_get_basename (dirname);
 	anjuta_status_push (status, _("Loading project: %s"), basename);
 	anjuta_status_busy_push (status);
-	
+
 	DEBUG_PRINT ("loading project %s\n\n", dirname);
-	/* FIXME: use the error parameter to determine if the project
-	 * was loaded successfully */
-	ianjuta_project_load (pm_plugin->project, dirfile, &error);
-	
-	anjuta_status_progress_tick (status, NULL, _("Created project view…"));
-	
+	pm_project_load (pm_plugin->project, dirfile, &error);
+	g_message ("try loading %s %p", dirname, error);
+
 	if (error)
 	{
 		GtkWidget *toplevel;
@@ -1490,26 +1415,20 @@ project_manager_load_gbf (ProjectManagerPlugin *pm_plugin)
 		anjuta_util_dialog_error (win, _("Failed to parse project (the project is opened, but there will be no project view) %s: %s\n"
 										 ""),
 								  dirname, error->message);
-		/* g_propagate_error (err, error); */
-		g_object_unref (pm_plugin->project);
-		pm_plugin->project = NULL;
-		g_free (basename);
-		g_free (dirname);
-		g_object_unref (dirfile);
-		/* gtk_widget_destroy (progress_win); */
-		anjuta_status_pop (status);
-		anjuta_status_busy_pop (status);
-		return;
 	}
-	g_object_set (G_OBJECT (pm_plugin->model), "project",
+	else
+	{
+		g_object_set (G_OBJECT (pm_plugin->model), "project",
 				  pm_plugin->project, NULL);
+		anjuta_status_progress_tick (status, NULL, _("Created project view…"));
+		update_ui (pm_plugin);
+		anjuta_shell_present_widget (ANJUTA_PLUGIN (pm_plugin)->shell,
+									pm_plugin->scrolledwindow,
+									NULL);
 	
-	update_ui (pm_plugin);
-	anjuta_shell_present_widget (ANJUTA_PLUGIN (pm_plugin)->shell,
-								 pm_plugin->scrolledwindow,
-								 NULL);
+		anjuta_status_set_default (status, _("Project"), basename);
+	}
 	
-	anjuta_status_set_default (status, _("Project"), basename);
 	anjuta_status_pop (status);
 	anjuta_status_busy_pop (status);
 	g_free (basename);
@@ -1522,7 +1441,7 @@ project_manager_unload_gbf (ProjectManagerPlugin *pm_plugin)
 {
 	AnjutaStatus *status;
 	
-	if (pm_plugin->project)
+	if (pm_project_is_open (pm_plugin->project))
 	{
 		IAnjutaDocumentManager *docman;
 		
@@ -1586,9 +1505,8 @@ project_manager_unload_gbf (ProjectManagerPlugin *pm_plugin)
 		pm_plugin->properties_dialog = NULL;
 		
 		/* Release project */
-		g_object_unref (pm_plugin->project);
-		pm_plugin->project = NULL;
 		g_object_set (G_OBJECT (pm_plugin->model), "project", NULL, NULL);
+		pm_project_unload (pm_plugin->project, NULL);
 		update_ui (pm_plugin);
 		status = anjuta_shell_get_status (ANJUTA_PLUGIN (pm_plugin)->shell,
 										  NULL);
@@ -1706,6 +1624,9 @@ project_manager_plugin_activate_plugin (AnjutaPlugin *plugin)
 	pm_plugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	pm_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 
+	/* Create project */
+	pm_plugin->project = pm_project_new (plugin);
+	
 	/* create model & view and bind them */
 	model = gbf_project_model_new (NULL);
 	view = gbf_project_view_new ();
@@ -1855,6 +1776,9 @@ project_manager_plugin_deactivate_plugin (AnjutaPlugin *plugin)
 	anjuta_ui_remove_action_group (pm_plugin->ui, pm_plugin->pm_action_group);
 	anjuta_ui_remove_action_group (pm_plugin->ui,
 								   pm_plugin->popup_action_group);
+
+	/* Destroy project */
+	pm_project_free (pm_plugin->project);
 	
 	return TRUE;
 }
@@ -1978,7 +1902,7 @@ get_element_file_from_node (ProjectManagerPlugin *plugin, AnjutaProjectNode *nod
 	{
 		gchar *rel_path;
 
-		rel_path = g_file_get_relative_path (anjuta_project_group_get_directory (ianjuta_project_get_root (plugin->project, NULL)), file);
+		rel_path = g_file_get_relative_path (anjuta_project_group_get_directory (pm_project_get_root (plugin->project)), file);
 
 		if (rel_path)
 		{
@@ -2059,9 +1983,8 @@ iproject_manager_get_elements (IAnjutaProjectManager *project_manager,
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), NULL);
 	
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
-	g_return_val_if_fail (IANJUTA_IS_PROJECT (plugin->project), NULL);
 
-	return gbf_project_util_replace_by_file (gbf_project_util_node_all (ianjuta_project_get_root (plugin->project, NULL), element_type)); 
+	return gbf_project_util_replace_by_file (gbf_project_util_node_all (pm_project_get_root (plugin->project), element_type)); 
 }
 
 static AnjutaProjectTargetClass
@@ -2076,8 +1999,6 @@ iproject_manager_get_target_type (IAnjutaProjectManager *project_manager,
 						  ANJUTA_TARGET_UNKNOWN);
 	
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
-	g_return_val_if_fail (IANJUTA_IS_PROJECT (plugin->project),
-						  ANJUTA_TARGET_UNKNOWN);
 	
 	g_return_val_if_fail (file_is_inside_project (plugin, target_file),
 						  ANJUTA_TARGET_UNKNOWN);
@@ -2107,10 +2028,9 @@ iproject_manager_get_targets (IAnjutaProjectManager *project_manager,
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), NULL);
 	
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
-	g_return_val_if_fail (IANJUTA_IS_PROJECT (plugin->project), NULL);
 
 	/* Get all targets */
-	targets = gbf_project_util_node_all (ianjuta_project_get_root (plugin->project, NULL), ANJUTA_PROJECT_TARGET);
+	targets = gbf_project_util_node_all (pm_project_get_root (plugin->project), ANJUTA_PROJECT_TARGET);
 
 	/* Remove all targets not in specified class */
 	for (node = g_list_first (targets); node != NULL;)
@@ -2150,7 +2070,6 @@ iproject_manager_get_parent (IAnjutaProjectManager *project_manager,
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), NULL);
 	
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
-	g_return_val_if_fail (IANJUTA_IS_PROJECT (plugin->project), NULL);
 	
 	type = get_element_type (plugin, element);
 	/* FIXME: */
@@ -2167,7 +2086,6 @@ iproject_manager_get_children (IAnjutaProjectManager *project_manager,
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), NULL);
 	
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
-	g_return_val_if_fail (IANJUTA_IS_PROJECT (plugin->project), NULL);
 	/* FIXME: */
 	return NULL;
 }
@@ -2182,9 +2100,7 @@ iproject_manager_get_selected (IAnjutaProjectManager *project_manager,
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), NULL);
 	
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
-	if (plugin->project == NULL) return NULL;
-	
-	g_return_val_if_fail (IANJUTA_IS_PROJECT (plugin->project), NULL);
+	if (!pm_project_is_open (plugin->project)) return NULL;
 	
 	node = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
 										   ANJUTA_PROJECT_SOURCE);
@@ -2220,7 +2136,7 @@ iproject_manager_get_capabilities (IAnjutaProjectManager *project_manager,
 						  IANJUTA_PROJECT_CAN_ADD_NONE);
 	
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
-	return ianjuta_project_get_capabilities (plugin->project, NULL);
+	return pm_project_get_capabilities (plugin->project);
 }
 
 static GFile*
@@ -2238,7 +2154,6 @@ iproject_manager_add_source (IAnjutaProjectManager *project_manager,
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), FALSE);
 	
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
-	g_return_val_if_fail (IANJUTA_IS_PROJECT (plugin->project), FALSE);
 
 	update_operation_begin (plugin);
 	if (default_target_file != NULL)
@@ -2270,12 +2185,11 @@ iproject_manager_add_source_quiet (IAnjutaProjectManager *project_manager,
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), FALSE);
 	
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
-	g_return_val_if_fail (IANJUTA_IS_PROJECT (plugin->project), FALSE);
 
 	target = get_project_node_from_file (plugin, location_file, ANJUTA_PROJECT_TARGET);
 	source_file = g_file_new_for_uri (source_uri_to_add);
 	update_operation_begin (plugin);
-	source_id = ianjuta_project_add_source (plugin->project,
+	source_id = pm_project_add_source (plugin->project,
 	    								target,
 	    								source_file,
 										err);
@@ -2300,7 +2214,6 @@ iproject_manager_add_source_multi (IAnjutaProjectManager *project_manager,
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), FALSE);
 	
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
-	g_return_val_if_fail (IANJUTA_IS_PROJECT (plugin->project), FALSE);
 
 	update_operation_begin (plugin);
 	if (default_target_file != NULL)
@@ -2341,8 +2254,6 @@ iproject_manager_add_target (IAnjutaProjectManager *project_manager,
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), FALSE);
 	
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
-	
-	g_return_val_if_fail (IANJUTA_IS_PROJECT (plugin->project), FALSE);
 
 	if (default_group_file != NULL)
 	{
@@ -2375,7 +2286,6 @@ iproject_manager_add_group (IAnjutaProjectManager *project_manager,
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), FALSE);
 	
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
-	g_return_val_if_fail (IANJUTA_IS_PROJECT (plugin->project), FALSE);
 
 	if (default_group_file != NULL)
 	{
@@ -2400,7 +2310,7 @@ iproject_manager_is_open (IAnjutaProjectManager *project_manager, GError **err)
 
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
 
-	return IANJUTA_IS_PROJECT (plugin->project);
+	return pm_project_is_open (plugin->project);
 }
 
 static GList*
@@ -2409,11 +2319,8 @@ iproject_manager_get_packages (IAnjutaProjectManager *project_manager, GError **
 	ProjectManagerPlugin *plugin;
 
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
-	
-	/* Check if a current project is opened */
-	if (plugin->project == NULL) return NULL;
 
-	return ianjuta_project_get_packages (plugin->project, NULL);
+	return pm_project_get_packages (plugin->project);
 }
 
 static void
