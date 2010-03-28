@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-20 22:11-0300\n"
-"PO-Revision-Date: 2010-03-20 22:11-0300\n"
-"Last-Translator: Rodrigo Flores <rlmflores@gnome.org>\n"
+"POT-Creation-Date: 2010-03-27 21:55-0300\n"
+"PO-Revision-Date: 2010-03-27 14:49-0300\n"
+"Last-Translator: Antonio Fernandes C. Neto <fernandes@pelivre.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1415,8 +1415,8 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "Ignorar o arquivo .cvsrc (recomendado)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
-#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2327
-#: ../plugins/symbol-db/plugin.c:2397
+#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2120
+#: ../plugins/symbol-db/plugin.c:2189
 msgid "Local"
 msgstr "Local"
 
@@ -2597,7 +2597,7 @@ msgid "Search Help:"
 msgstr "Pesquisar ajuda:"
 
 #: ../plugins/devhelp/plugin.c:222 ../plugins/document-manager/plugin.c:239
-#: ../plugins/message-view/plugin.c:76 ../plugins/symbol-db/plugin.c:313
+#: ../plugins/message-view/plugin.c:76 ../plugins/symbol-db/plugin.c:312
 msgid "_Go to"
 msgstr "I_r para"
 
@@ -2637,8 +2637,8 @@ msgstr "Conteúdo"
 #: ../plugins/search/search-replace.c:1717
 #: ../plugins/search/search-replace.c:1724
 #: ../plugins/search/search-replace.c:1736
-#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2331
-#: ../plugins/symbol-db/plugin.c:2447
+#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2124
+#: ../plugins/symbol-db/plugin.c:2206
 msgid "Search"
 msgstr "Pesquisar"
 
@@ -2691,26 +2691,26 @@ msgstr "Renomear"
 msgid "Remove"
 msgstr "Remover"
 
-#: ../plugins/document-manager/anjuta-docman.c:399
+#: ../plugins/document-manager/anjuta-docman.c:435
 msgid "Close file"
 msgstr "Fechar arquivo"
 
-#: ../plugins/document-manager/anjuta-docman.c:447
+#: ../plugins/document-manager/anjuta-docman.c:483
 msgid "Path:"
 msgstr "Caminho:"
 
-#: ../plugins/document-manager/anjuta-docman.c:564
+#: ../plugins/document-manager/anjuta-docman.c:600
 #: ../plugins/file-loader/plugin.c:591 ../plugins/file-loader/plugin.c:894
 #: ../plugins/file-loader/plugin.c:904 ../plugins/file-loader/plugin.c:917
 msgid "Open file"
 msgstr "Abre um arquivo"
 
-#: ../plugins/document-manager/anjuta-docman.c:583
+#: ../plugins/document-manager/anjuta-docman.c:619
 #: ../plugins/message-view/message-view.c:94
 msgid "Save file as"
 msgstr "Salvar arquivo como"
 
-#: ../plugins/document-manager/anjuta-docman.c:664
+#: ../plugins/document-manager/anjuta-docman.c:700
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -2719,11 +2719,11 @@ msgstr ""
 "O arquivo \"%s\" já existe.\n"
 "Deseja sobrescrevê-lo?"
 
-#: ../plugins/document-manager/anjuta-docman.c:673
+#: ../plugins/document-manager/anjuta-docman.c:709
 msgid "_Replace"
 msgstr "_Substituir"
 
-#: ../plugins/document-manager/anjuta-docman.c:1390
+#: ../plugins/document-manager/anjuta-docman.c:1426
 msgid "[read-only]"
 msgstr "[somente-leitura]"
 
@@ -3655,7 +3655,7 @@ msgid "Filter"
 msgstr "Filtro"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2329 ../plugins/symbol-db/plugin.c:2423
+#: ../plugins/symbol-db/plugin.c:2122 ../plugins/symbol-db/plugin.c:2201
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:6
 msgid "Global"
 msgstr "Global"
@@ -6494,8 +6494,8 @@ msgid "No Date"
 msgstr "Sem data"
 
 #: ../plugins/macro/anjuta-macro.ui.h:2
-msgid "Edit&#x2026;"
-msgstr "Edit&#x2026;"
+msgid "Edit…"
+msgstr "Editar..."
 
 #: ../plugins/macro/anjuta-macro.ui.h:3
 msgid "Macro details:"
@@ -9000,64 +9000,64 @@ msgstr "Faltando: %s"
 msgid "Obstructed: %s"
 msgstr "Obstruído: %s"
 
-#: ../plugins/symbol-db/plugin.c:317
+#: ../plugins/symbol-db/plugin.c:316
 msgid "Tag De_claration"
 msgstr "Marcação de de_claração"
 
-#: ../plugins/symbol-db/plugin.c:319
+#: ../plugins/symbol-db/plugin.c:318
 msgid "Go to symbol declaration"
 msgstr "Ir para declaração de símbolo"
 
 #. Translators: Go to the line where the tag is implemented
-#: ../plugins/symbol-db/plugin.c:326
+#: ../plugins/symbol-db/plugin.c:325
 msgid "Tag _Implementation"
 msgstr "Marcação de _implementação"
 
-#: ../plugins/symbol-db/plugin.c:328
+#: ../plugins/symbol-db/plugin.c:327
 msgid "Go to symbol definition"
 msgstr "Ir para definição de símbolo"
 
-#: ../plugins/symbol-db/plugin.c:335
+#: ../plugins/symbol-db/plugin.c:334
 msgid "_Find Symbol…"
 msgstr "Localizar símbolo"
 
-#: ../plugins/symbol-db/plugin.c:336
+#: ../plugins/symbol-db/plugin.c:335
 msgid "Find Symbol"
 msgstr "Localizar símbolo"
 
-#: ../plugins/symbol-db/plugin.c:1173
+#: ../plugins/symbol-db/plugin.c:1022
 #, c-format
 msgid "%s: Generating inheritances…"
 msgstr "%s: Gerando heranças..."
 
-#: ../plugins/symbol-db/plugin.c:1178
+#: ../plugins/symbol-db/plugin.c:1027
 #, c-format
 msgid "%s: %d files scanned out of %d"
 msgstr "%s: %d arquivos varridos de %d"
 
-#: ../plugins/symbol-db/plugin.c:1209
+#: ../plugins/symbol-db/plugin.c:1058
 #, c-format
 msgid "Generating inheritances…"
 msgstr "Gerando heranças..."
 
-#: ../plugins/symbol-db/plugin.c:1211
+#: ../plugins/symbol-db/plugin.c:1060
 #, c-format
 msgid "%d files scanned out of %d"
 msgstr "%d arquivos varridos de %d"
 
-#: ../plugins/symbol-db/plugin.c:1979
+#: ../plugins/symbol-db/plugin.c:1785
 msgid "Populating symbol database…"
 msgstr "Populando banco de dados de símbolos..."
 
-#: ../plugins/symbol-db/plugin.c:2352 ../plugins/symbol-db/plugin.c:2480
+#: ../plugins/symbol-db/plugin.c:2148 ../plugins/symbol-db/plugin.c:2232
 msgid "Symbols"
 msgstr "Símbolos"
 
-#: ../plugins/symbol-db/plugin.c:2489
+#: ../plugins/symbol-db/plugin.c:2241
 msgid "SymbolDb popup actions"
 msgstr "Ações do menu de contexto do SymbolDb"
 
-#: ../plugins/symbol-db/plugin.c:2497
+#: ../plugins/symbol-db/plugin.c:2249
 msgid "SymbolDb menu actions"
 msgstr "Ações de menu do SymbolDb"
 
@@ -9078,15 +9078,6 @@ msgstr "Tags API"
 #: ../plugins/symbol-db/symbol-db-system.c:807
 msgid "Resuming glb scan."
 msgstr "Continuando o glb scan."
-
-#: ../plugins/symbol-db/symbol-db-view-locals.c:326
-#: ../plugins/symbol-db/symbol-db-view.c:1412
-msgid "Symbol"
-msgstr "Símbolo"
-
-#: ../plugins/symbol-db/symbol-db-view.c:798
-msgid "Loading…"
-msgstr "Carregando..."
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:1
 msgid "Automatically scan project's packages"
@@ -10159,6 +10150,15 @@ msgstr "Destaca os ponto-e-vírgulas faltantes"
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
 msgid "Min character for completion "
 msgstr "Número mínimo de caracteres para completar "
+
+#~ msgid "Symbol"
+#~ msgstr "Símbolo"
+
+#~ msgid "Loading…"
+#~ msgstr "Carregando..."
+
+#~ msgid "Edit&#x2026;"
+#~ msgstr "Edit&#x2026;"
 
 #~ msgid "wxWidgets"
 #~ msgstr "wxWidgets (componentes)"
