@@ -1,16 +1,18 @@
 # Anjuta italian translation.
 # Traduzione italiana di Anjuta
 # Copyright (C) 2001-2010 Free Software Foundation, Inc.
+# This package is distributed under the same license of the anjuta package.
 # Michele Campeotto <micampe@f2s.com>, 2001.
 # Andrea Zagli <azagli@libero.it>, 2007, 2008, 2009, 2010.
+# Milo Casagrande <milo@ubuntu.com>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: Anjuta 2.30.0\n"
+"Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2010-03-15 20:45+0000\n"
-"PO-Revision-Date: 2010-03-15 17:22+0100\n"
-"Last-Translator: Andrea Zagli <azagli@libero.it>\n"
+"POT-Creation-Date: 2010-03-22 22:11+0000\n"
+"PO-Revision-Date: 2010-03-28 18:45+0200\n"
+"Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -6482,9 +6484,11 @@ msgstr "Crea un elenco compiti"
 msgid "No Date"
 msgstr "Nessuna data"
 
+# GNOME-2-30
 #: ../plugins/macro/anjuta-macro.ui.h:2
-msgid "Edit&#x2026;"
-msgstr "Modifica&#x2026;"
+#| msgid "Edit"
+msgid "Edit…"
+msgstr "Modifica..."
 
 #: ../plugins/macro/anjuta-macro.ui.h:3
 msgid "Macro details:"
@@ -7516,11 +7520,11 @@ msgstr "Un progetto wxWidgets generico"
 msgid "A sample SDL project"
 msgstr "Un progetto SDL di esempio"
 
+# GNOME-2-30
 #: ../plugins/project-wizard/templates/translatable-strings.h:14
-#, fuzzy
 #| msgid "Add shared library support:"
 msgid "A shared or a static library project"
-msgstr "Aggiungi il supporto alle librerie condivise:"
+msgstr "Un progetto di libreria statica o dinamica"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:15
 msgid "Add C++ support:"
@@ -7557,11 +7561,11 @@ msgstr ""
 "Aggiunge il supporto per l'internazionalizzazione così che il proprio "
 "progetto possa essere tradotto in altre lingue"
 
+# GNOME-2-30
 #: ../plugins/project-wizard/templates/translatable-strings.h:22
-#, fuzzy
 #| msgid "Anjuta JS Debugger Plugin"
 msgid "Anjuta Plugin"
-msgstr "Plugin debug JS di Anjuta"
+msgstr "Plugin di Anjuta"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:23
 msgid "Anjuta plugin project that uses libanjuta framework"
@@ -7571,19 +7575,20 @@ msgstr "Progetto plugin di Anjuta che utilizza il framework libanjuta"
 msgid "Applet Title:"
 msgstr "Titolo applet:"
 
+# GNOME-2-30
 #: ../plugins/project-wizard/templates/translatable-strings.h:26
 msgid "Basic information"
-msgstr "Informazioni base"
+msgstr "Informazioni di base"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:27
 msgid "Berkeley Software Distribution License (BSD)"
 msgstr "Licenza Berkeley Software Distribution (BSD)"
 
+# GNOME-2-30
 #: ../plugins/project-wizard/templates/translatable-strings.h:28
-#, fuzzy
 #| msgid "Build Directory:"
 msgid "Build library as"
-msgstr "Directory di generazione:"
+msgstr "Generare la libreria come"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:29
 msgid ""
@@ -7658,11 +7663,11 @@ msgstr "GTKmm"
 msgid "General Project Information"
 msgstr "Informazioni generali sul progetto"
 
+# GNOME-2-30
 #: ../plugins/project-wizard/templates/translatable-strings.h:49
-#, fuzzy
 #| msgid "Generic C++"
 msgid "Generic"
-msgstr "C++ generico"
+msgstr "Generico"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:50
 msgid "Generic (Minimal)"
@@ -7672,11 +7677,11 @@ msgstr "Generico (minimale)"
 msgid "Generic C++"
 msgstr "C++ generico"
 
+# GNOME-2-30
 #: ../plugins/project-wizard/templates/translatable-strings.h:52
-#, fuzzy
 #| msgid "JavaScript"
 msgid "Generic JavaScript"
-msgstr "JavaScript"
+msgstr "JavaScript generico"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:53
 msgid "Generic gcj compiled java"
@@ -7720,11 +7725,11 @@ msgstr "Interfaccia implementata dal plugin"
 msgid "Interface:"
 msgstr "Interfaccia:"
 
+# GNOME-2-30
 #: ../plugins/project-wizard/templates/translatable-strings.h:63
-#, fuzzy
 #| msgid "Libraries:"
 msgid "Library"
-msgstr "Librerie:"
+msgstr "Libreria"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:64
 msgid "License"
@@ -7758,13 +7763,15 @@ msgstr "Nome del valore da osservare"
 msgid "No license"
 msgstr "Nessuna licenza"
 
+# GNOME-2-30
 #: ../plugins/project-wizard/templates/translatable-strings.h:72
 msgid "Only Shared"
-msgstr ""
+msgstr "Solo condivisa"
 
+# GNOME-2-30
 #: ../plugins/project-wizard/templates/translatable-strings.h:73
 msgid "Only Static"
-msgstr ""
+msgstr "Solo statica"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:74
 msgid "Options for project build system"
@@ -7818,11 +7825,11 @@ msgstr ""
 "Il nome del progetto non deve contenere spazi, perché sarà il nome "
 "dell'obiettivo della generazione del progetto (eseguibile, libreria, ecc.)"
 
+# GNOME-2-30
 #: ../plugins/project-wizard/templates/translatable-strings.h:86
-#, fuzzy
 #| msgid "Project name"
 msgid "Project name:"
-msgstr "Nome del progetto"
+msgstr "Nome del progetto:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:87
 msgid "Project options"
@@ -7888,15 +7895,16 @@ msgstr "SDL"
 msgid "Select code license"
 msgstr "Seleziona la licenza del codice"
 
+# GNOME-2-30
 #: ../plugins/project-wizard/templates/translatable-strings.h:103
 msgid "Select library type to build"
-msgstr ""
+msgstr "Selezionare il tipo di libreria da generare"
 
+# GNOME-2-30
 #: ../plugins/project-wizard/templates/translatable-strings.h:104
-#, fuzzy
 #| msgid "Static Library"
 msgid "Shared and Static library"
-msgstr "Libreria statica"
+msgstr "Libraria statica e dinamica"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:105
 msgid "Shell values to watch"
@@ -10164,228 +10172,3 @@ msgstr "Evidenziare punti e virgola mancanti"
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
 msgid "Min character for completion "
 msgstr "Caratteri minimi per completamento "
-
-#~ msgid "Autocompletion pop up choices"
-#~ msgstr "Scelte completamento automatico a comparsa"
-
-#~ msgid "Up to date"
-#~ msgstr "Aggiornato"
-
-#~ msgid "<b>Build</b>"
-#~ msgstr "<b>Generazione</b>"
-
-#~ msgid "<b>Configuration:</b>"
-#~ msgstr "<b>Configurazione:</b>"
-
-#~ msgid "<b>Install</b>"
-#~ msgstr "<b>Installa</b>"
-
-#~ msgid "Program '%s' does not exists"
-#~ msgstr "Il programma «%s» non esiste"
-
-#~ msgid "C_onfigure Project..."
-#~ msgstr "C_onfigura progetto..."
-
-#~ msgid "private"
-#~ msgstr "privato"
-
-#~ msgid "protected"
-#~ msgstr "protetto"
-
-#~ msgid "public"
-#~ msgstr "pubblico"
-
-#~ msgid "<b>CVS Options</b>"
-#~ msgstr "<b>Opzioni CVS</b>"
-
-#~ msgid "<b>Options:</b>"
-#~ msgstr "<b>Opzioni:</b>"
-
-#~ msgid "<b>Options</b>"
-#~ msgstr "<b>Opzioni</b>"
-
-#~ msgid "<b>Repository: </b>"
-#~ msgstr "<b>Repository: </b>"
-
-#~ msgid "<b>Debugger:</b>"
-#~ msgstr "<b>Debug:</b>"
-
-#~ msgid "Debugger Command..."
-#~ msgstr "Comando debug..."
-
-#~ msgid "Pid"
-#~ msgstr "Pid"
-
-#~ msgid "Id"
-#~ msgstr "Id"
-
-#~ msgid "Ins_pect/Evaluate..."
-#~ msgstr "Is_peziona/Valuta..."
-
-#~ msgid "Add Watch..."
-#~ msgstr "Aggiungi osservazione..."
-
-#~ msgid "_Print..."
-#~ msgstr "Stam_pa..."
-
-#~ msgid "recent menu label|_%d. %s"
-#~ msgstr "_%d. %s"
-
-#~ msgid "recent menu label|%d. %s"
-#~ msgstr "%d. %s"
-
-#~ msgid "_Open..."
-#~ msgstr "_Apri..."
-
-#~ msgid "Url:"
-#~ msgstr "Url:"
-
-#~ msgid "Advanced..."
-#~ msgstr "Avanzate..."
-
-#~ msgid "Source coudn't be removed"
-#~ msgstr "Il sorgente non può essere rimosso"
-
-#~ msgid "<b>Tags</b>"
-#~ msgstr "<b>Etichette</b>"
-
-#~ msgid "Add signed off by line"
-#~ msgstr "Aggiungi riga «firmato da»"
-
-#~ msgid "_Commit..."
-#~ msgstr "_Commit..."
-
-#~ msgid "_View log..."
-#~ msgstr "_Visualizza registro..."
-
-#~ msgid "_Push..."
-#~ msgstr "_Invia..."
-
-#~ msgid "_Pull..."
-#~ msgstr "_Preleva..."
-
-#~ msgid "_Add..."
-#~ msgstr "_Aggiungi..."
-
-#~ msgid "_Remove..."
-#~ msgstr "_Rimuovi..."
-
-#~ msgid "_Ignore..."
-#~ msgstr "_Ignora..."
-
-#~ msgid "Create patch series..."
-#~ msgstr "Crea serie di patch..."
-
-#~ msgid "_Switch to another branch..."
-#~ msgstr "Pa_ssa a un altro ramo..."
-
-#~ msgid "_Merge..."
-#~ msgstr "_Unisci..."
-
-#~ msgid "_Delete..."
-#~ msgstr "Eli_mina..."
-
-#~ msgid "_Delete tag..."
-#~ msgstr "Eli_mina etichetta..."
-
-#~ msgid "Unknown language of the editor \"%s\""
-#~ msgstr "Linguaggio sconosciuto dell'editor «%s»"
-
-#~ msgid "n/a"
-#~ msgstr "n/d"
-
-#~ msgid "Misc"
-#~ msgstr "Altro"
-
-#~ msgid "<b>Macros:</b>"
-#~ msgstr "<b>Macro:</b>"
-
-#~ msgid "Edit..."
-#~ msgstr "Modifica..."
-
-#~ msgid "Macros..."
-#~ msgstr "Macro..."
-
-#~ msgid "_Patch..."
-#~ msgstr "_Patch..."
-
-#~ msgid "<b>Project name</b>"
-#~ msgstr "<b>Nome del progetto</b>"
-
-#~ msgid "_Select file to add..."
-#~ msgstr "_Seleziona il file da aggiungere..."
-
-#~ msgid "Add _Group..."
-#~ msgstr "Aggiungi _gruppo"
-
-#~ msgid "Add _Target..."
-#~ msgstr "Aggiungi obie_ttivo"
-
-#~ msgid "Add _Source File..."
-#~ msgstr "Aggiungi file _sorgente..."
-
-#~ msgid "_Add To Project"
-#~ msgstr "_Aggiungi al progetto"
-
-#~ msgid "Select project type"
-#~ msgstr "Seleziona il tipo di progetto"
-
-#~ msgid "Create a template gtk builder interface file"
-#~ msgstr "Crea un modello di file interfaccia gtk builder"
-
-#~ msgid "Run In Terminal"
-#~ msgstr "Esegui nel terminale"
-
-#~ msgid "Program Parameters..."
-#~ msgstr "Parametri programma..."
-
-#~ msgid "<b>Actions</b>"
-#~ msgstr "<b>Azioni</b>"
-
-#~ msgid "<b>Parameters</b>"
-#~ msgstr "<b>Parametri</b>"
-
-#~ msgid "<b>Scope</b>"
-#~ msgstr "<b>Scopo</b>"
-
-#~ msgid "Searching..."
-#~ msgstr "Ricerca..."
-
-#~ msgid "_Update..."
-#~ msgstr "_Aggiorna..."
-
-#~ msgid "Merge..."
-#~ msgstr "Unione..."
-
-#~ msgid "_View Log..."
-#~ msgstr "_Visualizza registro..."
-
-#~ msgid "_Diff..."
-#~ msgstr "_Diff..."
-
-#~ msgid "Copy..."
-#~ msgstr "Copia..."
-
-#~ msgid "Diff..."
-#~ msgstr "Diff..."
-
-#~ msgid "_Find Symbol..."
-#~ msgstr "_Trova simbolo..."
-
-#~ msgid "<b>Global</b>"
-#~ msgstr "<b>Globali</b>"
-
-#~ msgid "<b>Terminal options</b>"
-#~ msgstr "<b>Opzioni terminale</b>"
-
-#~ msgid "<b>Tools</b>"
-#~ msgstr "<b>Strumenti</b>"
-
-#~ msgid "_Variable..."
-#~ msgstr "_Variabile..."
-
-#~ msgid "Gdb plugin."
-#~ msgstr "Plugin Gdb."
-
-#~ msgid "GtkSourceview editor"
-#~ msgstr "Editor GtkSourceView"
