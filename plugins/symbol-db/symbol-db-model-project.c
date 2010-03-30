@@ -50,11 +50,11 @@ enum
 	PROP_SYMBOL_DB_ENGINE
 };
 
-G_DEFINE_TYPE (SymbolDBModelProject, symbol_db_model_project,
+G_DEFINE_TYPE (SymbolDBModelProject, sdb_model_project,
                SYMBOL_DB_TYPE_MODEL);
 
 static gint
-symbol_db_model_project_get_n_children (SymbolDBModel *model, gint tree_level,
+sdb_model_project_get_n_children (SymbolDBModel *model, gint tree_level,
                                        GValue column_values[])
 {
 	SymbolDBModelProjectPriv *priv;
@@ -93,7 +93,7 @@ symbol_db_model_project_get_n_children (SymbolDBModel *model, gint tree_level,
 }
 
 static GdaDataModel*
-symbol_db_model_project_get_children (SymbolDBModel *model, gint tree_level,
+sdb_model_project_get_children (SymbolDBModel *model, gint tree_level,
                                      GValue column_values[], gint offset,
                                      gint limit)
 {
@@ -139,7 +139,7 @@ symbol_db_model_project_get_children (SymbolDBModel *model, gint tree_level,
 }
 
 static gboolean
-symbol_db_model_project_get_query_value (SymbolDBModel *model,
+sdb_model_project_get_query_value (SymbolDBModel *model,
                                         GdaDataModel *data_model,
                                         GdaDataModelIter *iter,
                                         gint column,
@@ -236,13 +236,13 @@ symbol_db_model_project_get_query_value (SymbolDBModel *model,
 		return TRUE;
 		break;
 	default:
-		return SYMBOL_DB_MODEL_CLASS (symbol_db_model_project_parent_class)->
+		return SYMBOL_DB_MODEL_CLASS (sdb_model_project_parent_class)->
 				get_query_value (model, data_model, iter, column, value);
 	}
 }
 
 static void
-on_symbol_db_project_dbe_unref (SymbolDBModelProject *model)
+on_sdb_project_dbe_unref (SymbolDBModelProject *model)
 {
 	SymbolDBModelProjectPriv *priv;
 
@@ -253,7 +253,7 @@ on_symbol_db_project_dbe_unref (SymbolDBModelProject *model)
 }
 
 static void
-symbol_db_model_project_set_property (GObject *object, guint prop_id,
+sdb_model_project_set_property (GObject *object, guint prop_id,
                                      const GValue *value, GParamSpec *pspec)
 {
 	SymbolDBModelProjectPriv *priv;
@@ -267,7 +267,7 @@ symbol_db_model_project_set_property (GObject *object, guint prop_id,
 		if (priv->dbe)
 		{
 			g_object_weak_unref (G_OBJECT (priv->dbe),
-			                    (GWeakNotify)on_symbol_db_project_dbe_unref,
+			                    (GWeakNotify)on_sdb_project_dbe_unref,
 			                     object);
 			g_signal_handlers_disconnect_by_func (priv->dbe,
 				              G_CALLBACK (symbol_db_model_update),
@@ -281,7 +281,7 @@ symbol_db_model_project_set_property (GObject *object, guint prop_id,
 		}
 		priv->dbe = g_value_dup_object (value);
 		g_object_weak_ref (G_OBJECT (priv->dbe),
-			                    (GWeakNotify)on_symbol_db_project_dbe_unref,
+			                    (GWeakNotify)on_sdb_project_dbe_unref,
 			                     object);
 		g_signal_connect_swapped (priv->dbe, "db-connected",
 		                          G_CALLBACK (symbol_db_model_update),
@@ -303,7 +303,7 @@ symbol_db_model_project_set_property (GObject *object, guint prop_id,
 }
 
 static void
-symbol_db_model_project_get_property (GObject *object, guint prop_id,
+sdb_model_project_get_property (GObject *object, guint prop_id,
                                      GValue *value, GParamSpec *pspec)
 {
 	SymbolDBModelProjectPriv *priv;
@@ -323,7 +323,7 @@ symbol_db_model_project_get_property (GObject *object, guint prop_id,
 }
 
 static void
-symbol_db_model_project_finalize (GObject *object)
+sdb_model_project_finalize (GObject *object)
 {
 	SymbolDBModelProjectPriv *priv;
 
@@ -333,7 +333,7 @@ symbol_db_model_project_finalize (GObject *object)
 	if (priv->dbe)
 	{
 		g_object_weak_unref (G_OBJECT (priv->dbe),
-		                     (GWeakNotify)on_symbol_db_project_dbe_unref,
+		                     (GWeakNotify)on_sdb_project_dbe_unref,
 		                     object);
 		g_signal_handlers_disconnect_by_func (priv->dbe,
 		                  G_CALLBACK (symbol_db_model_update),
@@ -345,11 +345,11 @@ symbol_db_model_project_finalize (GObject *object)
 		                  G_CALLBACK (symbol_db_model_thaw),
 		                  object);
 	}
-	G_OBJECT_CLASS (symbol_db_model_project_parent_class)->finalize (object);
+	G_OBJECT_CLASS (sdb_model_project_parent_class)->finalize (object);
 }
 
 static void
-symbol_db_model_project_init (SymbolDBModelProject *object)
+sdb_model_project_init (SymbolDBModelProject *object)
 {
 	SymbolDBModelProjectPriv *priv;
 	
@@ -383,20 +383,20 @@ symbol_db_model_project_init (SymbolDBModelProject *object)
 }
 
 static void
-symbol_db_model_project_class_init (SymbolDBModelProjectClass *klass)
+sdb_model_project_class_init (SymbolDBModelProjectClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
 	SymbolDBModelClass* parent_class = SYMBOL_DB_MODEL_CLASS (klass);
 
 	g_type_class_add_private (klass, sizeof (SymbolDBModelProjectPriv));
 
-	object_class->finalize = symbol_db_model_project_finalize;
-	object_class->set_property = symbol_db_model_project_set_property;
-	object_class->get_property = symbol_db_model_project_get_property;
+	object_class->finalize = sdb_model_project_finalize;
+	object_class->set_property = sdb_model_project_set_property;
+	object_class->get_property = sdb_model_project_get_property;
 
-	parent_class->get_query_value = symbol_db_model_project_get_query_value;
-	parent_class->get_n_children = symbol_db_model_project_get_n_children;
-	parent_class->get_children =  symbol_db_model_project_get_children;
+	parent_class->get_query_value = sdb_model_project_get_query_value;
+	parent_class->get_n_children = sdb_model_project_get_n_children;
+	parent_class->get_children =  sdb_model_project_get_children;
 	
 	g_object_class_install_property
 		(object_class, PROP_SYMBOL_DB_ENGINE,

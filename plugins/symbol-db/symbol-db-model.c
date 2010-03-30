@@ -95,57 +95,57 @@ static guint symbol_db_model_signals[LAST_SIGNAL] = { 0 };
 
 /* Declarations */
 
-static void symbol_db_model_node_free (SymbolDBModelNode *node, gboolean force);
+static void sdb_model_node_free (SymbolDBModelNode *node, gboolean force);
 
-static void symbol_db_model_tree_model_init (GtkTreeModelIface *iface);
+static void sdb_model_tree_model_init (GtkTreeModelIface *iface);
 
-static gboolean symbol_db_model_get_query_value_at (SymbolDBModel *model,
-                                                    GdaDataModel *data_model,
-                                                    gint position, gint column,
-                                                    GValue *value);
+static gboolean sdb_model_get_query_value_at (SymbolDBModel *model,
+                                              GdaDataModel *data_model,
+                                              gint position, gint column,
+                                              GValue *value);
 
-static gboolean symbol_db_model_get_query_value (SymbolDBModel *model,
-                                                 GdaDataModel *data_model,
-                                                 GdaDataModelIter *iter,
-                                                 gint column,
-                                                 GValue *value);
+static gboolean sdb_model_get_query_value (SymbolDBModel *model,
+                                           GdaDataModel *data_model,
+                                           GdaDataModelIter *iter,
+                                           gint column,
+                                           GValue *value);
 
-static gint symbol_db_model_get_n_children (SymbolDBModel *model,
-                                            gint tree_level,
-                                            GValue column_values[]);
+static gint sdb_model_get_n_children (SymbolDBModel *model,
+                                      gint tree_level,
+                                      GValue column_values[]);
 
-static GdaDataModel* symbol_db_model_get_children (SymbolDBModel *model,
-                                                   gint tree_level,
-                                                   GValue column_values[],
-                                                   gint offset, gint limit);
+static GdaDataModel* sdb_model_get_children (SymbolDBModel *model,
+                                             gint tree_level,
+                                             GValue column_values[],
+                                             gint offset, gint limit);
 
-static void symbol_db_model_queue_ensure_node_children (SymbolDBModel *model,
-                                                        SymbolDBModelNode *parent);
+static void sdb_model_queue_ensure_node_children (SymbolDBModel *model,
+                                                  SymbolDBModelNode *parent);
 
-static void symbol_db_model_ensure_node_children (SymbolDBModel *model,
-                                                  SymbolDBModelNode *parent,
-                                                  gboolean emit_has_child);
+static void sdb_model_ensure_node_children (SymbolDBModel *model,
+                                            SymbolDBModelNode *parent,
+                                            gboolean emit_has_child);
 
 /* Class definition */
-G_DEFINE_TYPE_WITH_CODE (SymbolDBModel, symbol_db_model, G_TYPE_OBJECT,
+G_DEFINE_TYPE_WITH_CODE (SymbolDBModel, sdb_model, G_TYPE_OBJECT,
                          G_IMPLEMENT_INTERFACE (GTK_TYPE_TREE_MODEL,
-                                                symbol_db_model_tree_model_init))
+                                                sdb_model_tree_model_init))
 /* Node */
 
 /**
- * symbol_db_model_node_get_child:
+ * sdb_model_node_get_child:
  * @node: The node whose child has to be fetched.
  * @child_offset: Offset of the child of this node.
  *
  * Fetches the content of the @child_offset child of the @node. The return
  * value can be NULL if the child hasn't been yet cached from backend. Only
  * when the child node is in cache does this function return a child. If you
- * you want to fetch the child from backend, call symbol_db_model_page_fault().
+ * you want to fetch the child from backend, call sdb_model_page_fault().
  * 
  * Returns: The child node, or NULL if the child hasn't yet been cached.
  */
 static GNUC_INLINE SymbolDBModelNode*
-symbol_db_model_node_get_child (SymbolDBModelNode *node, gint child_offset)
+sdb_model_node_get_child (SymbolDBModelNode *node, gint child_offset)
 {
 	g_return_val_if_fail (node != NULL, NULL);
 	g_return_val_if_fail (child_offset >= 0 && child_offset < node->n_children, NULL);
@@ -155,7 +155,7 @@ symbol_db_model_node_get_child (SymbolDBModelNode *node, gint child_offset)
 }
 
 /**
- * symbol_db_model_node_set_child:
+ * sdb_model_node_set_child:
  * @node: The node whose child has to be set.
  * @child_offset: Offset of the child to set.
  * @val: Child node to set.
@@ -163,8 +163,8 @@ symbol_db_model_node_get_child (SymbolDBModelNode *node, gint child_offset)
  * Sets the child of @node at @child_offset to @val.
  */
 static void
-symbol_db_model_node_set_child (SymbolDBModelNode *node, gint child_offset,
-                                SymbolDBModelNode *val)
+sdb_model_node_set_child (SymbolDBModelNode *node, gint child_offset,
+                          SymbolDBModelNode *val)
 {
 	g_return_if_fail (node != NULL);
 	g_return_if_fail (node->children_ensured == TRUE);
@@ -181,7 +181,7 @@ symbol_db_model_node_set_child (SymbolDBModelNode *node, gint child_offset,
 }
 
 /**
- * symbol_db_model_node_cleanse:
+ * sdb_model_node_cleanse:
  * @node: The node to cleanse
  * @force: If forcefuly cleansed disregarding references to children
  * 
@@ -194,7 +194,7 @@ symbol_db_model_node_set_child (SymbolDBModelNode *node, gint child_offset,
  * Returns: TRUE if successfully cleansed, otherwise FALSE.
  */
 static gboolean
-symbol_db_model_node_cleanse (SymbolDBModelNode *node, gboolean force)
+sdb_model_node_cleanse (SymbolDBModelNode *node, gboolean force)
 {
 	SymbolDBModelPage *page, *next;
 	gint i;
@@ -214,7 +214,7 @@ symbol_db_model_node_cleanse (SymbolDBModelNode *node, gboolean force)
 		 */
 		for (i = 0; i < node->n_children; i++)
 		{
-			SymbolDBModelNode *child = symbol_db_model_node_get_child (node, i);
+			SymbolDBModelNode *child = sdb_model_node_get_child (node, i);
 			if (child)
 			{
 				if (!force)
@@ -222,8 +222,8 @@ symbol_db_model_node_cleanse (SymbolDBModelNode *node, gboolean force)
 					/* Assert on nodes with ref count > 0 */
 					g_warn_if_fail (child->children_ref_count == 0);
 				}
-				symbol_db_model_node_free (child, force);
-				symbol_db_model_node_set_child (node, i, NULL);
+				sdb_model_node_free (child, force);
+				sdb_model_node_set_child (node, i, NULL);
 			}
 		}
 	}
@@ -248,7 +248,7 @@ symbol_db_model_node_cleanse (SymbolDBModelNode *node, gboolean force)
 }
 
 /**
- * symbol_db_model_node_free:
+ * sdb_model_node_free:
  * @node: The node to free.
  * @force: Force the free despite any referenced children
  *
@@ -257,9 +257,9 @@ symbol_db_model_node_cleanse (SymbolDBModelNode *node, gboolean force)
  * destroyed.
  */
 static void
-symbol_db_model_node_free (SymbolDBModelNode *node, gboolean force)
+sdb_model_node_free (SymbolDBModelNode *node, gboolean force)
 {
-	if (!symbol_db_model_node_cleanse (node, force))
+	if (!sdb_model_node_cleanse (node, force))
 	    return;
 	
 	g_slice_free1 (sizeof(GValue) * node->n_columns, node->values);
@@ -267,7 +267,7 @@ symbol_db_model_node_free (SymbolDBModelNode *node, gboolean force)
 }
 
 /**
- * symbol_db_model_node_remove_page:
+ * sdb_model_node_remove_page:
  * @node: The node with the page
  * @page: The page to remove
  *
@@ -275,8 +275,8 @@ symbol_db_model_node_free (SymbolDBModelNode *node, gboolean force)
  * destroyed and set to NULL. They could be re-fetched later if needed.
  */
 static void
-symbol_db_model_node_remove_page (SymbolDBModelNode *node,
-                                  SymbolDBModelPage *page)
+sdb_model_node_remove_page (SymbolDBModelNode *node,
+                            SymbolDBModelPage *page)
 {
 	if (page->prev)
 		page->prev->next = page->next;
@@ -290,7 +290,7 @@ symbol_db_model_node_remove_page (SymbolDBModelNode *node,
 }
 
 /**
- * symbol_db_model_node_insert_page:
+ * sdb_model_node_insert_page:
  * @node: The node for which the page is inserted
  * @page: The page being inserted
  * @after: The page after which @page is inserted
@@ -300,9 +300,9 @@ symbol_db_model_node_remove_page (SymbolDBModelNode *node,
  * created.
  */
 static void
-symbol_db_model_node_insert_page (SymbolDBModelNode *node,
-                                  SymbolDBModelPage *page,
-                                  SymbolDBModelPage *after)
+sdb_model_node_insert_page (SymbolDBModelNode *node,
+                            SymbolDBModelPage *page,
+                            SymbolDBModelPage *after)
 {
 	
 	/* Insert the new page after "after" page */
@@ -332,9 +332,9 @@ symbol_db_model_node_insert_page (SymbolDBModelNode *node,
  * Returns: The page associated with the child node, or NULL if not found.
  */
 static SymbolDBModelPage*
-symbol_db_model_node_find_child_page (SymbolDBModelNode *node,
-                                      gint child_offset,
-                                      SymbolDBModelPage **prev_page)
+sdb_model_node_find_child_page (SymbolDBModelNode *node,
+                                gint child_offset,
+                                SymbolDBModelPage **prev_page)
 {
 	SymbolDBModelPage *page;
 	
@@ -363,7 +363,7 @@ symbol_db_model_node_find_child_page (SymbolDBModelNode *node,
 }
 
 /**
- * symbol_db_model_node_ref_child:
+ * sdb_model_node_ref_child:
  * @node: The node whose child is being referenced.
  * 
  * References a child of @node and references all its parents recursively.
@@ -374,7 +374,7 @@ symbol_db_model_node_find_child_page (SymbolDBModelNode *node,
  * practical thing happening using it at the moment.
  */
 static void
-symbol_db_model_node_ref_child (SymbolDBModelNode *node)
+sdb_model_node_ref_child (SymbolDBModelNode *node)
 {
 	g_return_if_fail (node != NULL);
 
@@ -383,21 +383,21 @@ symbol_db_model_node_ref_child (SymbolDBModelNode *node)
 	if (node->parent)
 	{
 		/* Increate associated ref count on parent */
-		symbol_db_model_node_ref_child (node->parent);
+		sdb_model_node_ref_child (node->parent);
 	}
 }
 
 /**
- * symbol_db_model_node_unref_child:
+ * sdb_model_node_unref_child:
  * @node: The node whose child is being unrefed
  * @child_offset: Offset of the child being unrefed
  * 
  * Unrefs the child at @child_offset in @node. Also, unrefs its parents
  * recursively. currently ref/unref is not used, see
- * symbol_db_model_node_ref_child() for more details.
+ * sdb_model_node_ref_child() for more details.
  */
 static void
-symbol_db_model_node_unref_child (SymbolDBModelNode *node, gint child_offset)
+sdb_model_node_unref_child (SymbolDBModelNode *node, gint child_offset)
 {
 	g_return_if_fail (node != NULL);
 	g_return_if_fail (node->children_ref_count > 0);
@@ -407,18 +407,18 @@ symbol_db_model_node_unref_child (SymbolDBModelNode *node, gint child_offset)
 	/* If ref count reaches 0, cleanse this node */
 	if (node->children_ref_count <= 0)
 	{
-		symbol_db_model_node_cleanse (node, FALSE);
+		sdb_model_node_cleanse (node, FALSE);
 	}
 
 	if (node->parent)
 	{
 		/* Reduce ref count on parent as well */
-		symbol_db_model_node_unref_child (node->parent, node->offset);
+		sdb_model_node_unref_child (node->parent, node->offset);
 	}
 }
 
 /**
- * symbol_db_model_node_new:
+ * sdb_model_node_new:
  * @model: The model for which the node is being created
  * @parent: The parent node
  * @child_offset: Offset of this node as child of @parent
@@ -431,9 +431,9 @@ symbol_db_model_node_unref_child (SymbolDBModelNode *node, gint child_offset)
  * Returns: The newly created node.
  */
 static SymbolDBModelNode *
-symbol_db_model_node_new (SymbolDBModel *model, SymbolDBModelNode *parent,
-                          gint child_offset, GdaDataModel *data_model,
-                          GdaDataModelIter *data_iter)
+sdb_model_node_new (SymbolDBModel *model, SymbolDBModelNode *parent,
+                    gint child_offset, GdaDataModel *data_model,
+                    GdaDataModelIter *data_iter)
 {
 	gint i;
 	SymbolDBModelPriv *priv = GET_PRIV (model);
@@ -443,7 +443,7 @@ symbol_db_model_node_new (SymbolDBModel *model, SymbolDBModelNode *parent,
 	for (i = 0; i < priv->n_columns; i++)
 	{
 		g_value_init (&(node->values[i]), priv->column_types[i]);
-		symbol_db_model_get_query_value (model,
+		sdb_model_get_query_value (model,
 		                                 data_model,
 		                                 data_iter,
 		                                 i, &(node->values[i]));
@@ -457,7 +457,7 @@ symbol_db_model_node_new (SymbolDBModel *model, SymbolDBModelNode *parent,
 /* SymbolDBModel implementation */
 
 /**
- * symbol_db_model_iter_is_valid:
+ * sdb_model_iter_is_valid:
  * @model: The tree model
  * @iter: An iter for the model
  *
@@ -466,7 +466,7 @@ symbol_db_model_node_new (SymbolDBModel *model, SymbolDBModelNode *parent,
  * Returns: TRUE if valid, FALSE if not
  */
 static gboolean
-symbol_db_model_iter_is_valid (GtkTreeModel *model, GtkTreeIter *iter)
+sdb_model_iter_is_valid (GtkTreeModel *model, GtkTreeIter *iter)
 {
 	SymbolDBModelNode *parent_node;
 	gint offset;
@@ -485,7 +485,7 @@ symbol_db_model_iter_is_valid (GtkTreeModel *model, GtkTreeIter *iter)
 }
 
 /**
- * symbol_db_model_page_fault:
+ * sdb_model_page_fault:
  * @parent_node: The node which needs children data fetched
  * @child_offset: Offset of the child where page fault occured
  *
@@ -498,9 +498,9 @@ symbol_db_model_iter_is_valid (GtkTreeModel *model, GtkTreeIter *iter)
  * Returns: The newly fetched page
  */
 static SymbolDBModelPage*
-symbol_db_model_page_fault (SymbolDBModel *model,
-                            SymbolDBModelNode *parent_node,
-                            gint child_offset)
+sdb_model_page_fault (SymbolDBModel *model,
+                      SymbolDBModelNode *parent_node,
+                      gint child_offset)
 {
 	SymbolDBModelPriv *priv;
 	SymbolDBModelPage *page, *prev_page, *page_found;
@@ -509,9 +509,9 @@ symbol_db_model_page_fault (SymbolDBModel *model,
 	GdaDataModel *data_model = NULL;
 
 	/* Insert after prev_page */
-	page_found = symbol_db_model_node_find_child_page (parent_node,
-	                                                   child_offset,
-	                                                   &prev_page);
+	page_found = sdb_model_node_find_child_page (parent_node,
+	                                             child_offset,
+	                                             &prev_page);
 
 	g_return_val_if_fail (page_found == NULL, page_found);
 
@@ -527,7 +527,7 @@ symbol_db_model_page_fault (SymbolDBModel *model,
 	page->begin_offset = child_offset - SYMBOL_DB_MODEL_PAGE_SIZE;
 	page->end_offset = child_offset + SYMBOL_DB_MODEL_PAGE_SIZE;
 
-	symbol_db_model_node_insert_page (parent_node, page, prev_page);
+	sdb_model_node_insert_page (parent_node, page, prev_page);
 	
 	/* Adjust boundries not to overlap with preceeding or following page */
 	if (prev_page && prev_page->end_offset > page->begin_offset)
@@ -541,11 +541,10 @@ symbol_db_model_page_fault (SymbolDBModel *model,
 		page->begin_offset = 0;
 	
 	/* Load a page from database */
-	data_model = symbol_db_model_get_children (model, parent_node->level,
-	                                           parent_node->values,
-	                                           page->begin_offset,
-	                                           page->end_offset
-	                                       			- page->begin_offset);
+	data_model = sdb_model_get_children (model, parent_node->level,
+	                                     parent_node->values,
+	                                     page->begin_offset,
+	                                     page->end_offset - page->begin_offset);
 
 	/* Fill up the page */
 	data_iter = gda_data_model_create_iter (data_model);
@@ -559,10 +558,10 @@ symbol_db_model_page_fault (SymbolDBModel *model,
 				break;
 			}
 			SymbolDBModelNode *node =
-				symbol_db_model_node_new (model, parent_node, i,
-				                          data_model, data_iter);
-			g_assert (symbol_db_model_node_get_child (parent_node, i) == NULL);
-			symbol_db_model_node_set_child (parent_node, i, node);
+				sdb_model_node_new (model, parent_node, i,
+				                    data_model, data_iter);
+			g_assert (sdb_model_node_get_child (parent_node, i) == NULL);
+			sdb_model_node_set_child (parent_node, i, node);
 			if (!gda_data_model_iter_move_next (data_iter))
 			{
 				if (i < (page->end_offset - 1))
@@ -582,14 +581,14 @@ symbol_db_model_page_fault (SymbolDBModel *model,
 /* GtkTreeModel implementation */
 
 static GtkTreeModelFlags
-symbol_db_model_get_flags (GtkTreeModel *tree_model)
+sdb_model_get_flags (GtkTreeModel *tree_model)
 {
 	return 0;
 }
 
 static GType
-symbol_db_model_get_column_type (GtkTreeModel *tree_model,
-                                 gint index)
+sdb_model_get_column_type (GtkTreeModel *tree_model,
+                           gint index)
 {
 	SymbolDBModelPriv *priv = GET_PRIV (tree_model);
 	g_return_val_if_fail (index < priv->n_columns, G_TYPE_INVALID);
@@ -597,7 +596,7 @@ symbol_db_model_get_column_type (GtkTreeModel *tree_model,
 }
 
 static gint
-symbol_db_model_get_n_columns (GtkTreeModel *tree_model)
+sdb_model_get_n_columns (GtkTreeModel *tree_model)
 {
 	SymbolDBModelPriv *priv;
 	priv = GET_PRIV (tree_model);
@@ -605,9 +604,9 @@ symbol_db_model_get_n_columns (GtkTreeModel *tree_model)
 }
 
 static gboolean
-symbol_db_model_get_iter (GtkTreeModel *tree_model,
-                          GtkTreeIter *iter,
-                          GtkTreePath *path)
+sdb_model_get_iter (GtkTreeModel *tree_model,
+					GtkTreeIter *iter,
+                    GtkTreePath *path)
 {
 	gint i;
 	SymbolDBModelNode *node, *parent_node;
@@ -633,8 +632,8 @@ symbol_db_model_get_iter (GtkTreeModel *tree_model,
 	{
 		parent_node = node;
 		if (!node->children_ensured)
-			symbol_db_model_ensure_node_children (SYMBOL_DB_MODEL (tree_model),
-				                                  node, FALSE);
+			sdb_model_ensure_node_children (SYMBOL_DB_MODEL (tree_model),
+				                            node, FALSE);
 		if (node->n_children <= 0)
 		{
 			/* No child available. View thinks there is child.
@@ -648,7 +647,7 @@ symbol_db_model_get_iter (GtkTreeModel *tree_model,
 			g_warning ("Invalid path to iter conversion; no children list found at depth %d", i);
 			break;
 		}
-		node = symbol_db_model_node_get_child (node, indx[i]);
+		node = sdb_model_node_get_child (node, indx[i]);
 	}
 	if (i != depth)
 	{
@@ -658,13 +657,13 @@ symbol_db_model_get_iter (GtkTreeModel *tree_model,
 	iter->user_data = parent_node;
 	iter->user_data2 = GINT_TO_POINTER (indx[i-1]);
 
-	g_assert (symbol_db_model_iter_is_valid (tree_model, iter));
+	g_assert (sdb_model_iter_is_valid (tree_model, iter));
 
 	return TRUE;
 }
 
 static GtkTreePath*
-symbol_db_model_get_path (GtkTreeModel *tree_model,
+sdb_model_get_path (GtkTreeModel *tree_model,
                           GtkTreeIter *iter)
 {
 	SymbolDBModelNode *node;
@@ -672,7 +671,7 @@ symbol_db_model_get_path (GtkTreeModel *tree_model,
 	SymbolDBModelPriv *priv;
 	gint offset;
 	
-	g_return_val_if_fail (symbol_db_model_iter_is_valid (tree_model, iter),
+	g_return_val_if_fail (sdb_model_iter_is_valid (tree_model, iter),
 	                      NULL);
 
 	priv = GET_PRIV (tree_model);
@@ -690,16 +689,16 @@ symbol_db_model_get_path (GtkTreeModel *tree_model,
 }
 
 static void
-symbol_db_model_get_value (GtkTreeModel *tree_model,
-                           GtkTreeIter *iter, gint column,
-                           GValue *value)
+sdb_model_get_value (GtkTreeModel *tree_model,
+                     GtkTreeIter *iter, gint column,
+                     GValue *value)
 {
 	SymbolDBModelPriv *priv;
 	SymbolDBModelNode *parent_node, *node;
 	SymbolDBModelPage *page;
 	gint offset;
 	
-	g_return_if_fail (symbol_db_model_iter_is_valid (tree_model, iter));
+	g_return_if_fail (sdb_model_iter_is_valid (tree_model, iter));
 
 	priv = GET_PRIV (tree_model);
 	
@@ -709,10 +708,10 @@ symbol_db_model_get_value (GtkTreeModel *tree_model,
 	parent_node = (SymbolDBModelNode*) iter->user_data;
 	offset = GPOINTER_TO_INT (iter->user_data2);
 
-	if (symbol_db_model_node_get_child (parent_node, offset) == NULL)
-		page = symbol_db_model_page_fault (SYMBOL_DB_MODEL (tree_model),
-		                                   parent_node, offset);
-	node = symbol_db_model_node_get_child (parent_node, offset);
+	if (sdb_model_node_get_child (parent_node, offset) == NULL)
+		page = sdb_model_page_fault (SYMBOL_DB_MODEL (tree_model),
+		                             parent_node, offset);
+	node = sdb_model_node_get_child (parent_node, offset);
 	g_value_init (value, priv->column_types[column]);
 
 	/* If model is frozen, we don't expect the page fault to work */
@@ -723,14 +722,14 @@ symbol_db_model_get_value (GtkTreeModel *tree_model,
 
 	/* View accessed the node, so update any pending has-child status */
 	if (!node->children_ensured)
-		symbol_db_model_queue_ensure_node_children (SYMBOL_DB_MODEL (tree_model),
-		                                            node);
+		sdb_model_queue_ensure_node_children (SYMBOL_DB_MODEL (tree_model),
+		                                      node);
 	g_value_copy (&(node->values[column]), value);
 }
 
 static gboolean
-symbol_db_model_iter_next (GtkTreeModel *tree_model,
-                           GtkTreeIter *iter)
+sdb_model_iter_next (GtkTreeModel *tree_model,
+                     GtkTreeIter *iter)
 {
 	SymbolDBModelNode *node;
 	gint offset;
@@ -748,13 +747,13 @@ symbol_db_model_iter_next (GtkTreeModel *tree_model,
 		return FALSE;
 	iter->user_data2 = GINT_TO_POINTER (offset);
 
-	g_assert (symbol_db_model_iter_is_valid (tree_model, iter));
+	g_assert (sdb_model_iter_is_valid (tree_model, iter));
 
 	return TRUE;
 }
 
 static gboolean
-symbol_db_model_iter_children (GtkTreeModel *tree_model,
+sdb_model_iter_children (GtkTreeModel *tree_model,
                                GtkTreeIter *iter,
                                GtkTreeIter *parent)
 {
@@ -763,8 +762,7 @@ symbol_db_model_iter_children (GtkTreeModel *tree_model,
 
 	if (parent)
 	{
-		g_return_val_if_fail (symbol_db_model_iter_is_valid (tree_model,
-		                                                     parent),
+		g_return_val_if_fail (sdb_model_iter_is_valid (tree_model, parent),
 		                      FALSE);
 	}
 	
@@ -781,15 +779,15 @@ symbol_db_model_iter_children (GtkTreeModel *tree_model,
 		gint offset;
 		parent_node = (SymbolDBModelNode*) parent->user_data;
 		offset = GPOINTER_TO_INT (parent->user_data2);
-		node = symbol_db_model_node_get_child (parent_node, offset);
+		node = sdb_model_node_get_child (parent_node, offset);
 		if (!node)
 		{
-			symbol_db_model_page_fault (SYMBOL_DB_MODEL (tree_model),
-			                            parent_node, offset);
-			node = symbol_db_model_node_get_child (parent_node, offset);
+			sdb_model_page_fault (SYMBOL_DB_MODEL (tree_model),
+			                      parent_node, offset);
+			node = sdb_model_node_get_child (parent_node, offset);
 			if (node)
-				symbol_db_model_ensure_node_children (SYMBOL_DB_MODEL (tree_model),
-						                              node, FALSE);
+				sdb_model_ensure_node_children (SYMBOL_DB_MODEL (tree_model),
+						                        node, FALSE);
 		}
 		g_return_val_if_fail (node != NULL, FALSE);
 	}
@@ -802,25 +800,25 @@ symbol_db_model_iter_children (GtkTreeModel *tree_model,
 	iter->user_data2 = GINT_TO_POINTER (0);
 	iter->stamp = SYMBOL_DB_MODEL_STAMP;
 
-	g_assert (symbol_db_model_iter_is_valid (tree_model, iter));
+	g_assert (sdb_model_iter_is_valid (tree_model, iter));
 
 	return TRUE;
 }
 
 static gboolean
-symbol_db_model_iter_has_child (GtkTreeModel *tree_model,
+sdb_model_iter_has_child (GtkTreeModel *tree_model,
                                 GtkTreeIter *iter)
 {
 	gint offset;
 	SymbolDBModelNode *node, *parent_node;
 
-	g_return_val_if_fail (symbol_db_model_iter_is_valid (tree_model, iter),
+	g_return_val_if_fail (sdb_model_iter_is_valid (tree_model, iter),
 	                      FALSE);
 	
 	parent_node = (SymbolDBModelNode*) iter->user_data;
 	offset = GPOINTER_TO_INT (iter->user_data2);
 
-	node = symbol_db_model_node_get_child (parent_node, offset);
+	node = sdb_model_node_get_child (parent_node, offset);
 
 	/* If node is not loaded, has-child is defered. See get_value() */
 	if (node == NULL)
@@ -829,29 +827,29 @@ symbol_db_model_iter_has_child (GtkTreeModel *tree_model,
 }
 
 static gint
-symbol_db_model_iter_n_children (GtkTreeModel *tree_model,
-                                 GtkTreeIter *iter)
+sdb_model_iter_n_children (GtkTreeModel *tree_model,
+                           GtkTreeIter *iter)
 {
 	gint offset;
 	SymbolDBModelNode *node, *parent_node;
 	
-	g_return_val_if_fail (symbol_db_model_iter_is_valid (tree_model, iter),
+	g_return_val_if_fail (sdb_model_iter_is_valid (tree_model, iter),
 	                      FALSE);
 	
 	parent_node = (SymbolDBModelNode*) iter->user_data;
 	offset = GPOINTER_TO_INT (iter->user_data2);
 	
-	node = symbol_db_model_node_get_child (parent_node, offset);
+	node = sdb_model_node_get_child (parent_node, offset);
 	if (node == NULL)
 		return 0;
 	return node->n_children;
 }
 
 static gboolean
-symbol_db_model_iter_nth_child (GtkTreeModel *tree_model,
-                                GtkTreeIter *iter,
-                                GtkTreeIter *parent,
-                                gint n)
+sdb_model_iter_nth_child (GtkTreeModel *tree_model,
+                          GtkTreeIter *iter,
+                          GtkTreeIter *parent,
+                          gint n)
 {
 	SymbolDBModelNode *node;
 	SymbolDBModelPriv *priv;
@@ -860,7 +858,7 @@ symbol_db_model_iter_nth_child (GtkTreeModel *tree_model,
 	g_return_val_if_fail (iter != NULL, FALSE);
 	g_return_val_if_fail (n >= 0, FALSE);
 
-	if (!symbol_db_model_iter_children (tree_model, iter, parent))
+	if (!sdb_model_iter_children (tree_model, iter, parent))
 		return FALSE;
 	
 	priv = GET_PRIV (tree_model);
@@ -870,19 +868,19 @@ symbol_db_model_iter_nth_child (GtkTreeModel *tree_model,
 	
 	iter->user_data2 = GINT_TO_POINTER (n);
 
-	g_assert (symbol_db_model_iter_is_valid (tree_model, iter));
+	g_assert (sdb_model_iter_is_valid (tree_model, iter));
 
 	return TRUE;
 }
 
 static gboolean
-symbol_db_model_iter_parent (GtkTreeModel *tree_model,
-                             GtkTreeIter *iter,
-                             GtkTreeIter *child)
+sdb_model_iter_parent (GtkTreeModel *tree_model,
+                       GtkTreeIter *iter,
+                       GtkTreeIter *child)
 {
 	SymbolDBModelNode *parent_node;
 	
-	g_return_val_if_fail (symbol_db_model_iter_is_valid (tree_model, child),
+	g_return_val_if_fail (sdb_model_iter_is_valid (tree_model, child),
 	                      FALSE);
 	
 	g_return_val_if_fail (iter != NULL, FALSE);
@@ -894,62 +892,62 @@ symbol_db_model_iter_parent (GtkTreeModel *tree_model,
 	iter->user_data2 = GINT_TO_POINTER (parent_node->offset);
 	iter->stamp = SYMBOL_DB_MODEL_STAMP;
 
-	g_assert (symbol_db_model_iter_is_valid (tree_model, iter));
+	g_assert (sdb_model_iter_is_valid (tree_model, iter));
 
 	return TRUE;
 }
 
 static void
-symbol_db_model_iter_ref (GtkTreeModel *tree_model, GtkTreeIter  *iter)
+sdb_model_iter_ref (GtkTreeModel *tree_model, GtkTreeIter  *iter)
 {
 	SymbolDBModelNode *parent_node;
 	gint child_offset;
 	
-	g_return_if_fail (symbol_db_model_iter_is_valid (tree_model, iter));
+	g_return_if_fail (sdb_model_iter_is_valid (tree_model, iter));
 
 	parent_node = (SymbolDBModelNode*) iter->user_data;
 	child_offset = GPOINTER_TO_INT (iter->user_data2);
 
-	symbol_db_model_node_ref_child (parent_node);
+	sdb_model_node_ref_child (parent_node);
 }
 
 static void
-symbol_db_model_iter_unref (GtkTreeModel *tree_model, GtkTreeIter  *iter)
+sdb_model_iter_unref (GtkTreeModel *tree_model, GtkTreeIter  *iter)
 {
 	SymbolDBModelNode *parent_node;
 	gint child_offset;
 	
-	g_return_if_fail (symbol_db_model_iter_is_valid (tree_model, iter));
+	g_return_if_fail (sdb_model_iter_is_valid (tree_model, iter));
 
 	parent_node = (SymbolDBModelNode*) iter->user_data;
 	child_offset = GPOINTER_TO_INT (iter->user_data2);
 
-	symbol_db_model_node_unref_child (parent_node, child_offset);
+	sdb_model_node_unref_child (parent_node, child_offset);
 }
 
 static void
-symbol_db_model_tree_model_init (GtkTreeModelIface *iface)
+sdb_model_tree_model_init (GtkTreeModelIface *iface)
 {
-	iface->get_flags = symbol_db_model_get_flags;
-	iface->get_n_columns = symbol_db_model_get_n_columns;
-	iface->get_column_type = symbol_db_model_get_column_type;
-	iface->get_iter = symbol_db_model_get_iter;
-	iface->get_path = symbol_db_model_get_path;
-	iface->get_value = symbol_db_model_get_value;
-	iface->iter_next = symbol_db_model_iter_next;
-	iface->iter_children = symbol_db_model_iter_children;
-	iface->iter_has_child = symbol_db_model_iter_has_child;
-	iface->iter_n_children = symbol_db_model_iter_n_children;
-	iface->iter_nth_child = symbol_db_model_iter_nth_child;
-	iface->iter_parent = symbol_db_model_iter_parent;
-	iface->ref_node = symbol_db_model_iter_ref;
-	iface->unref_node = symbol_db_model_iter_unref;
+	iface->get_flags = sdb_model_get_flags;
+	iface->get_n_columns = sdb_model_get_n_columns;
+	iface->get_column_type = sdb_model_get_column_type;
+	iface->get_iter = sdb_model_get_iter;
+	iface->get_path = sdb_model_get_path;
+	iface->get_value = sdb_model_get_value;
+	iface->iter_next = sdb_model_iter_next;
+	iface->iter_children = sdb_model_iter_children;
+	iface->iter_has_child = sdb_model_iter_has_child;
+	iface->iter_n_children = sdb_model_iter_n_children;
+	iface->iter_nth_child = sdb_model_iter_nth_child;
+	iface->iter_parent = sdb_model_iter_parent;
+	iface->ref_node = sdb_model_iter_ref;
+	iface->unref_node = sdb_model_iter_unref;
 }
 
 /* SymbolDBModel implementation */
 
 /**
- * symbol_db_model_ensure_node_children:
+ * sdb_model_ensure_node_children:
  * @model: The tree model
  * @node: The node for which the children are being ensured
  * @emit_has_child: Should it emit children status change signal to model
@@ -959,9 +957,9 @@ symbol_db_model_tree_model_init (GtkTreeModelIface *iface)
  * children array. They children node themselves are not initialized yet.
  */
 static void
-symbol_db_model_ensure_node_children (SymbolDBModel *model,
-                                      SymbolDBModelNode *node,
-                                      gboolean emit_has_child)
+sdb_model_ensure_node_children (SymbolDBModel *model,
+                                SymbolDBModelNode *node,
+                                gboolean emit_has_child)
 {
 	SymbolDBModelPriv *priv;
 	
@@ -977,8 +975,8 @@ symbol_db_model_ensure_node_children (SymbolDBModel *model,
 	
 	/* Initialize children array and count */
 	node->n_children = 
-		symbol_db_model_get_n_children (model, node->level,
-		                                node->values);
+		sdb_model_get_n_children (model, node->level,
+		                          node->values);
 
 	node->children_ensured = TRUE;
 
@@ -991,7 +989,7 @@ symbol_db_model_ensure_node_children (SymbolDBModel *model,
 		iter.user_data = node->parent;
 		iter.user_data2 = GINT_TO_POINTER (node->offset);
 		
-		path = symbol_db_model_get_path (GTK_TREE_MODEL (model), &iter);
+		path = sdb_model_get_path (GTK_TREE_MODEL (model), &iter);
 		gtk_tree_model_row_has_child_toggled (GTK_TREE_MODEL (model),
 		                                      path, &iter);
 		gtk_tree_path_free (path);
@@ -999,7 +997,7 @@ symbol_db_model_ensure_node_children (SymbolDBModel *model,
 }
 
 /**
- * on_symbol_db_ensure_node_children_idle:
+ * on_sdb_ensure_node_children_idle:
  * @model: The model
  * 
  * Idle callback to children of some nodes from pre-existing queue.
@@ -1008,7 +1006,7 @@ symbol_db_model_ensure_node_children (SymbolDBModel *model,
  * terminates idle loop when the nodes queue is empty.
  */
 static gboolean
-on_symbol_db_ensure_node_children_idle (SymbolDBModel *model)
+on_sdb_ensure_node_children_idle (SymbolDBModel *model)
 {
 	gint count;
 	SymbolDBModelNode *node;
@@ -1019,7 +1017,7 @@ on_symbol_db_ensure_node_children_idle (SymbolDBModel *model)
 	for (count = 0; count < SYMBOL_DB_MODEL_ENSURE_CHILDREN_BATCH_SIZE; count++)
 	{
 		node = g_queue_pop_head (priv->ensure_children_queue);
-		symbol_db_model_ensure_node_children (model, node, TRUE);
+		sdb_model_ensure_node_children (model, node, TRUE);
 		if (g_queue_get_length (priv->ensure_children_queue) <= 0)
 		{
 			priv->ensure_children_idle_id = 0;
@@ -1030,15 +1028,15 @@ on_symbol_db_ensure_node_children_idle (SymbolDBModel *model)
 }
 
 /**
- * symbol_db_model_queue_ensure_node_children:
+ * sdb_model_queue_ensure_node_children:
  * @model: The tree model
  * @node: The node in @model to ensure children
  * 
  * Queues the node to run ensure children in an idel loop
  */
 static void
-symbol_db_model_queue_ensure_node_children (SymbolDBModel *model,
-                                            SymbolDBModelNode *node)
+sdb_model_queue_ensure_node_children (SymbolDBModel *model,
+                                      SymbolDBModelNode *node)
 {
 	SymbolDBModelPriv *priv;
 	
@@ -1051,13 +1049,13 @@ symbol_db_model_queue_ensure_node_children (SymbolDBModel *model,
 		g_queue_push_tail (priv->ensure_children_queue, node);
 		if (!priv->ensure_children_idle_id)
 			priv->ensure_children_idle_id =
-				g_idle_add ((GSourceFunc)on_symbol_db_ensure_node_children_idle,
+				g_idle_add ((GSourceFunc)on_sdb_ensure_node_children_idle,
 				            model);
 	}
 }
 
 /**
- * symbol_db_model_update_node_children:
+ * sdb_model_update_node_children:
  * @model: The model being updated
  * @node: The node being updated
  * @emit_has_child: Whether to emit has-child-changed signal
@@ -1067,9 +1065,9 @@ symbol_db_model_queue_ensure_node_children (SymbolDBModel *model,
  * about updates.
  */
 static void
-symbol_db_model_update_node_children (SymbolDBModel *model,
-                                      SymbolDBModelNode *node,
-                                      gboolean emit_has_child)
+sdb_model_update_node_children (SymbolDBModel *model,
+                                SymbolDBModelNode *node,
+                                gboolean emit_has_child)
 {
 	SymbolDBModelPriv *priv;
 
@@ -1088,7 +1086,7 @@ symbol_db_model_update_node_children (SymbolDBModel *model,
 		iter.user_data2 = GINT_TO_POINTER (0);
 
 		/* Get path to it */
-		path = symbol_db_model_get_path (GTK_TREE_MODEL (model), &iter);
+		path = sdb_model_get_path (GTK_TREE_MODEL (model), &iter);
 
 		/* Delete all children */
 		for (i = 0; i < node->n_children; i++)
@@ -1096,8 +1094,8 @@ symbol_db_model_update_node_children (SymbolDBModel *model,
 		gtk_tree_path_free (path);
 	}
 
-	symbol_db_model_node_cleanse (node, TRUE);
-	symbol_db_model_ensure_node_children (model, node, emit_has_child);
+	sdb_model_node_cleanse (node, TRUE);
+	sdb_model_ensure_node_children (model, node, emit_has_child);
 	
 	/* Add all new nodes */
 	if (node->n_children > 0)
@@ -1109,7 +1107,7 @@ symbol_db_model_update_node_children (SymbolDBModel *model,
 		iter.stamp = SYMBOL_DB_MODEL_STAMP;
 		iter.user_data = node;
 		iter.user_data2 = 0;
-		path = symbol_db_model_get_path (GTK_TREE_MODEL (model), &iter);
+		path = sdb_model_get_path (GTK_TREE_MODEL (model), &iter);
 		if (path == NULL)
 			path = gtk_tree_path_new_first ();
 		for (i = 0; i < node->n_children; i++)
@@ -1123,7 +1121,7 @@ symbol_db_model_update_node_children (SymbolDBModel *model,
 }
 
 /**
- * symbol_db_model_get_query_value_real:
+ * sdb_model_get_query_value_real:
  * @model: The model
  * @data_model: The backend data model
  * @iter: The tree model iterator
@@ -1138,10 +1136,10 @@ symbol_db_model_update_node_children (SymbolDBModel *model,
  * Returns: TRUE if @value set successfully, else FALSE.
  */
 static gboolean
-symbol_db_model_get_query_value_real (SymbolDBModel *model,
-                                      GdaDataModel *data_model,
-                                      GdaDataModelIter *iter, gint column,
-                                      GValue *value)
+sdb_model_get_query_value_real (SymbolDBModel *model,
+                                GdaDataModel *data_model,
+                                GdaDataModelIter *iter, gint column,
+                                GValue *value)
 {
 	const GValue *ret;
 	SymbolDBModelPriv *priv = GET_PRIV (model);
@@ -1159,10 +1157,10 @@ symbol_db_model_get_query_value_real (SymbolDBModel *model,
 }
 
 static gboolean
-symbol_db_model_get_query_value (SymbolDBModel *model,
-                                 GdaDataModel *data_model,
-                                 GdaDataModelIter *iter, gint column,
-                                 GValue *value)
+sdb_model_get_query_value (SymbolDBModel *model,
+                           GdaDataModel *data_model,
+                           GdaDataModelIter *iter, gint column,
+                           GValue *value)
 {
 	return SYMBOL_DB_MODEL_GET_CLASS(model)->get_query_value(model, data_model,
 	                                                         iter, column,
@@ -1170,21 +1168,21 @@ symbol_db_model_get_query_value (SymbolDBModel *model,
 }
 
 /**
- * symbol_db_model_get_query_value_at_real:
+ * sdb_model_get_query_value_at_real:
  * @model: The model
  * @data_model: The backend data model where value is derived.
  * @position: Position of the row.
  * @column: The column being retrieved.
  * @value: Return value
  *
- * Same as symbol_db_model_get_query_value_real() except it uses integer index
+ * Same as sdb_model_get_query_value_real() except it uses integer index
  * for row positioning instead of an iter. It will be used when some backend
  * data model does not support iter.
  *
  * Returns: TRUE if @value set successfully, else FALSE.
  */
 static gboolean
-symbol_db_model_get_query_value_at_real (SymbolDBModel *model,
+sdb_model_get_query_value_at_real (SymbolDBModel *model,
                                          GdaDataModel *data_model,
                                          gint position, gint column,
                                          GValue *value)
@@ -1207,9 +1205,9 @@ symbol_db_model_get_query_value_at_real (SymbolDBModel *model,
 }
 
 static gboolean
-symbol_db_model_get_query_value_at (SymbolDBModel *model,
-                                    GdaDataModel *data_model,
-                                    gint position, gint column, GValue *value)
+sdb_model_get_query_value_at (SymbolDBModel *model,
+                              GdaDataModel *data_model,
+                              gint position, gint column, GValue *value)
 {
 	return SYMBOL_DB_MODEL_GET_CLASS(model)->get_query_value_at (model,
 	                                                             data_model,
@@ -1219,7 +1217,7 @@ symbol_db_model_get_query_value_at (SymbolDBModel *model,
 }
 
 /**
- * symbol_db_model_get_n_children_real:
+ * sdb_model_get_n_children_real:
  * @model: The model
  * @tree_level: The tree level where the node is.
  * @column_values: The node column values.
@@ -1229,8 +1227,8 @@ symbol_db_model_get_query_value_at (SymbolDBModel *model,
  * Returns: Number of children
  */
 static gint
-symbol_db_model_get_n_children_real (SymbolDBModel *model, gint tree_level,
-                                     GValue column_values[])
+sdb_model_get_n_children_real (SymbolDBModel *model, gint tree_level,
+                               GValue column_values[])
 {
 	gint n_children;
 	g_signal_emit_by_name (model, "get-n-children", tree_level, column_values,
@@ -1239,15 +1237,15 @@ symbol_db_model_get_n_children_real (SymbolDBModel *model, gint tree_level,
 }
 
 static gint
-symbol_db_model_get_n_children (SymbolDBModel *model, gint tree_level,
-                                GValue column_values[])
+sdb_model_get_n_children (SymbolDBModel *model, gint tree_level,
+                          GValue column_values[])
 {
 	return SYMBOL_DB_MODEL_GET_CLASS(model)->get_n_children (model, tree_level,
 	                                                         column_values);
 }
 
 /**
- * symbol_db_model_get_children_real:
+ * sdb_model_get_children_real:
  * @model: The model
  * @tree_level: The tree level where the node is.
  * @column_values: The node column values.
@@ -1261,9 +1259,9 @@ symbol_db_model_get_n_children (SymbolDBModel *model, gint tree_level,
  * Returns: Data model holding the rows data, or NULL if there is no data.
  */
 static GdaDataModel*
-symbol_db_model_get_children_real (SymbolDBModel *model, gint tree_level,
-                                   GValue column_values[], gint offset,
-                                   gint limit)
+sdb_model_get_children_real (SymbolDBModel *model, gint tree_level,
+                             GValue column_values[], gint offset,
+                             gint limit)
 {
 	GdaDataModel *data_model;
 	g_signal_emit_by_name (model, "get-children", tree_level,
@@ -1272,9 +1270,9 @@ symbol_db_model_get_children_real (SymbolDBModel *model, gint tree_level,
 }
 
 static GdaDataModel*
-symbol_db_model_get_children (SymbolDBModel *model, gint tree_level,
-                              GValue column_values[], gint offset,
-                              gint limit)
+sdb_model_get_children (SymbolDBModel *model, gint tree_level,
+                        GValue column_values[], gint offset,
+                        gint limit)
 {
 	return SYMBOL_DB_MODEL_GET_CLASS(model)->
 		get_children (model, tree_level, column_values, offset, limit);
@@ -1283,7 +1281,7 @@ symbol_db_model_get_children (SymbolDBModel *model, gint tree_level,
 /* Object implementation */
 
 static void
-symbol_db_model_finalize (GObject *object)
+sdb_model_finalize (GObject *object)
 {
 	SymbolDBModelPriv *priv;
 	/* FIXME */
@@ -1295,15 +1293,15 @@ symbol_db_model_finalize (GObject *object)
 
 	g_free (priv->column_types);
 	g_free (priv->query_columns);
-	symbol_db_model_node_cleanse (priv->root, TRUE);
+	sdb_model_node_cleanse (priv->root, TRUE);
 	g_slice_free (SymbolDBModelNode, priv->root);
 	
-	G_OBJECT_CLASS (symbol_db_model_parent_class)->finalize (object);
+	G_OBJECT_CLASS (sdb_model_parent_class)->finalize (object);
 }
 
 static void
-symbol_db_model_set_property (GObject *object, guint prop_id,
-                              const GValue *value, GParamSpec *pspec)
+sdb_model_set_property (GObject *object, guint prop_id,
+                        const GValue *value, GParamSpec *pspec)
 {
 	g_return_if_fail (SYMBOL_DB_IS_MODEL (object));
 	/* SymbolDBModel* model = SYMBOL_DB_MODEL(object);
@@ -1315,8 +1313,8 @@ symbol_db_model_set_property (GObject *object, guint prop_id,
 }
 
 static void
-symbol_db_model_get_property (GObject *object, guint prop_id, GValue *value,
-                              GParamSpec *pspec)
+sdb_model_get_property (GObject *object, guint prop_id, GValue *value,
+                        GParamSpec *pspec)
 {
 	g_return_if_fail (SYMBOL_DB_IS_MODEL (object));
 	/* SymbolDBModel* model = SYMBOL_DB_MODEL(object);
@@ -1328,7 +1326,7 @@ symbol_db_model_get_property (GObject *object, guint prop_id, GValue *value,
 }
 
 static void
-symbol_db_model_init (SymbolDBModel *object)
+sdb_model_init (SymbolDBModel *object)
 {
 	SymbolDBModelPriv *priv = GET_PRIV (object);
 	priv->root = g_slice_new0 (SymbolDBModelNode);
@@ -1340,18 +1338,18 @@ symbol_db_model_init (SymbolDBModel *object)
 }
 
 static void
-symbol_db_model_class_init (SymbolDBModelClass *klass)
+sdb_model_class_init (SymbolDBModelClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
 
-	klass->get_query_value = symbol_db_model_get_query_value_real;
-	klass->get_query_value_at = symbol_db_model_get_query_value_at_real;
-	klass->get_n_children = symbol_db_model_get_n_children_real;
-	klass->get_children = symbol_db_model_get_children_real;
+	klass->get_query_value = sdb_model_get_query_value_real;
+	klass->get_query_value_at = sdb_model_get_query_value_at_real;
+	klass->get_n_children = sdb_model_get_n_children_real;
+	klass->get_children = sdb_model_get_children_real;
 	
-	object_class->finalize = symbol_db_model_finalize;
-	object_class->set_property = symbol_db_model_set_property;
-	object_class->get_property = symbol_db_model_get_property;
+	object_class->finalize = sdb_model_finalize;
+	object_class->set_property = sdb_model_set_property;
+	object_class->get_property = sdb_model_get_property;
 	
 	g_type_class_add_private (object_class, sizeof(SymbolDBModelPriv));
 
@@ -1461,7 +1459,7 @@ symbol_db_model_update (SymbolDBModel *model)
 
 	priv = GET_PRIV (model);
 
-	symbol_db_model_update_node_children (model, priv->root, FALSE);
+	sdb_model_update_node_children (model, priv->root, FALSE);
 }
 
 void

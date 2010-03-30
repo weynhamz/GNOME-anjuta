@@ -25,7 +25,7 @@
 
 G_BEGIN_DECLS
 
-#define SYMBOL_DB_TYPE_MODEL_PROJECT             (symbol_db_model_project_get_type ())
+#define SYMBOL_DB_TYPE_MODEL_PROJECT             (sdb_model_project_get_type ())
 #define SYMBOL_DB_MODEL_PROJECT(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), SYMBOL_DB_TYPE_MODEL_PROJECT, SymbolDBModelProject))
 #define SYMBOL_DB_MODEL_PROJECT_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ((klass), SYMBOL_DB_TYPE_MODEL_PROJECT, SymbolDBModelProjectClass))
 #define SYMBOL_DB_IS_MODEL_PROJECT(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SYMBOL_DB_TYPE_MODEL_PROJECT))
@@ -55,7 +55,7 @@ struct _SymbolDBModelProject
 	SymbolDBModel parent_instance;
 };
 
-GType symbol_db_model_project_get_type (void) G_GNUC_CONST;
+GType sdb_model_project_get_type (void) G_GNUC_CONST;
 GtkTreeModel* symbol_db_model_project_new (SymbolDBEngine* dbe);
 
 G_END_DECLS

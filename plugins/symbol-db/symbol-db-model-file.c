@@ -26,6 +26,8 @@ struct _SymbolDBModelFilePriv
 	gchar *file_path;
 };
 
+
+
 #define GET_PRIV(o)  (G_TYPE_INSTANCE_GET_PRIVATE ((o), \
 						SYMBOL_DB_TYPE_MODEL_FILE, \
 						SymbolDBModelFilePriv))
@@ -35,12 +37,12 @@ enum
 	PROP_SYMBOL_DB_FILE_PATH
 };
 
-G_DEFINE_TYPE (SymbolDBModelFile, symbol_db_model_file,
+G_DEFINE_TYPE (SymbolDBModelFile, sdb_model_file,
                SYMBOL_DB_TYPE_MODEL_PROJECT);
 
 static gint
-symbol_db_model_file_get_n_children (SymbolDBModel *model, gint tree_level,
-                                       GValue column_values[])
+sdb_model_file_get_n_children (SymbolDBModel *model, gint tree_level,
+                               GValue column_values[])
 {
 	gint n_children;
 	SymbolDBEngine *dbe;
@@ -72,15 +74,15 @@ symbol_db_model_file_get_n_children (SymbolDBModel *model, gint tree_level,
 		}
 		return 0;
 	default:
-		return SYMBOL_DB_MODEL_CLASS (symbol_db_model_file_parent_class)->
+		return SYMBOL_DB_MODEL_CLASS (sdb_model_file_parent_class)->
 				get_n_children (model, tree_level, column_values);
 	}
 }
 
 static GdaDataModel*
-symbol_db_model_file_get_children (SymbolDBModel *model, gint tree_level,
-                                     GValue column_values[], gint offset,
-                                     gint limit)
+sdb_model_file_get_children (SymbolDBModel *model, gint tree_level,
+                             GValue column_values[], gint offset,
+                             gint limit)
 {
 	SymbolDBEngine *dbe;
 	SymbolDBModelFilePriv *priv;
@@ -116,14 +118,14 @@ symbol_db_model_file_get_children (SymbolDBModel *model, gint tree_level,
 		}
 		return NULL;
 	default:
-		return SYMBOL_DB_MODEL_CLASS (symbol_db_model_file_parent_class)->
+		return SYMBOL_DB_MODEL_CLASS (sdb_model_file_parent_class)->
 				get_children (model, tree_level, column_values, offset, limit);
 	}
 }
 
 static void
-symbol_db_model_file_set_property (GObject *object, guint prop_id,
-                                     const GValue *value, GParamSpec *pspec)
+sdb_model_file_set_property (GObject *object, guint prop_id,
+                             const GValue *value, GParamSpec *pspec)
 {
 	gchar *old_file_path;
 	SymbolDBModelFilePriv *priv;
@@ -147,8 +149,8 @@ symbol_db_model_file_set_property (GObject *object, guint prop_id,
 }
 
 static void
-symbol_db_model_file_get_property (GObject *object, guint prop_id,
-                                     GValue *value, GParamSpec *pspec)
+sdb_model_file_get_property (GObject *object, guint prop_id,
+                             GValue *value, GParamSpec *pspec)
 {
 	SymbolDBModelFilePriv *priv;
 
@@ -167,18 +169,18 @@ symbol_db_model_file_get_property (GObject *object, guint prop_id,
 }
 
 static void
-symbol_db_model_file_finalize (GObject *object)
+sdb_model_file_finalize (GObject *object)
 {
 	SymbolDBModelFilePriv *priv;
 
 	g_return_if_fail (SYMBOL_DB_IS_MODEL_FILE (object));
 	priv = GET_PRIV (object);
 	g_free (priv->file_path);
-	G_OBJECT_CLASS (symbol_db_model_file_parent_class)->finalize (object);
+	G_OBJECT_CLASS (sdb_model_file_parent_class)->finalize (object);
 }
 
 static void
-symbol_db_model_file_init (SymbolDBModelFile *object)
+sdb_model_file_init (SymbolDBModelFile *object)
 {
 	SymbolDBModelFilePriv *priv;
 
@@ -188,19 +190,19 @@ symbol_db_model_file_init (SymbolDBModelFile *object)
 }
 
 static void
-symbol_db_model_file_class_init (SymbolDBModelFileClass *klass)
+sdb_model_file_class_init (SymbolDBModelFileClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
 	SymbolDBModelClass* model_class = SYMBOL_DB_MODEL_CLASS (klass);
 
 	g_type_class_add_private (klass, sizeof (SymbolDBModelFilePriv));
 
-	object_class->finalize = symbol_db_model_file_finalize;
-	object_class->set_property = symbol_db_model_file_set_property;
-	object_class->get_property = symbol_db_model_file_get_property;
+	object_class->finalize = sdb_model_file_finalize;
+	object_class->set_property = sdb_model_file_set_property;
+	object_class->get_property = sdb_model_file_get_property;
 
-	model_class->get_n_children = symbol_db_model_file_get_n_children;
-	model_class->get_children =  symbol_db_model_file_get_children;
+	model_class->get_n_children = sdb_model_file_get_n_children;
+	model_class->get_children =  sdb_model_file_get_children;
 	
 	g_object_class_install_property
 		(object_class, PROP_SYMBOL_DB_FILE_PATH,
