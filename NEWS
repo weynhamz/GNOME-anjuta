@@ -1,3 +1,16 @@
+Anjuta 2.30.0 "Ostern in Berlin" (29 March 2009) -- Johannes Schmid
+
+Bugs fixed:
+git: Free the log message for merges at the right time
+Makefile.am missing libxml flags in some plugins (bgo#613559)
+macro: #613118 - Please fix escaping of UTF-chars in ui file
+project-wizard: JS template support and require GJS 0.6
+build: bgo#612959 - Anjuta crashes when clicked 'Compile'
+language-support-cpp-java: Avoid duplication of local symbols in project search
+language-support-cpp-java: Fixed some undo problems with indentation
+sourceview: bgo#567029 - underline warnings/errors using user-selected message colors
+starter: Add tooltip for recent projects.
+
 Anjuta 2.29.92 "Give me Shortcuts" (8 March 2009) -- Johannes Schmid
 
 Changes:
