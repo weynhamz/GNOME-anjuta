@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-03-23 22:42+0100\n"
-"PO-Revision-Date: 2010-03-23 22:42+0100\n"
+"PO-Revision-Date: 2010-04-01 21:20+0200\n"
 "Last-Translator: Joan Duran <jodufi@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -451,7 +451,7 @@ msgstr[0] ""
 "<b>Hi ha %d element amb canvis sense desar. Voleu desar els canvis abans de "
 "tancar?</b>"
 msgstr[1] ""
-"<b>Hi han %d elements amb canvis sense desar. Voleu desar els canvis abans "
+"<b>Hi ha %d elements amb canvis sense desar. Voleu desar els canvis abans "
 "de tancar?</b>"
 
 #: ../libanjuta/anjuta-save-prompt.c:304
@@ -2113,7 +2113,7 @@ msgstr "Carregat"
 
 #: ../plugins/debug-manager/plugin.c:429
 msgid "Running…"
-msgstr "S'esta executant…"
+msgstr "S'està executant…"
 
 #: ../plugins/debug-manager/plugin.c:451
 msgid "Stopped"
@@ -3772,7 +3772,7 @@ msgstr "Fitxer de codi Python"
 
 #: ../plugins/file-wizard/file.c:91
 msgid "Shell Script File"
-msgstr "Fitxer d'script per al intèrpret d'ordres"
+msgstr "Fitxer d'script per a l'intèrpret d'ordres"
 
 #: ../plugins/file-wizard/file.c:92
 msgid "Other"
@@ -8836,7 +8836,7 @@ msgstr "[Cap/còpia de treball]"
 #: ../plugins/subversion/subversion-log-dialog.c:426
 #: ../plugins/subversion/subversion-log-dialog.c:493
 msgid "Subversion: Retrieving diff…"
-msgstr "Subversion: s'està obtenint les diferències…"
+msgstr "Subversion: s'estan obtenint les diferències…"
 
 #: ../plugins/subversion/subversion-log-dialog.c:119
 msgid "Diff"
@@ -9689,11 +9689,11 @@ msgstr ""
 
 #: ../src/main.c:94
 msgid "Do not open last session on startup"
-msgstr "No s'obrirà l'última sessió al iniciar"
+msgstr "No s'obrirà l'última sessió en iniciar"
 
 #: ../src/main.c:100
 msgid "Do not open last project and files on startup"
-msgstr "No s'obrirà l'últim projecte i fitxers al iniciar"
+msgstr "No s'obrirà l'últim projecte i fitxers en iniciar"
 
 #: ../src/main.c:106
 msgid "Shut down Anjuta properly, releasing all resources (for debugging)"
