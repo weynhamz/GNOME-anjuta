@@ -7,9 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-23 22:36+0100\n"
-"PO-Revision-Date: 2010-03-23 22:37+0100\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=anjuta&component=core application\n"
+"POT-Creation-Date: 2010-04-01 19:21+0000\n"
+"PO-Revision-Date: 2010-04-01 21:35+0200\n"
 "Last-Translator: Joan Duran <jodufi@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -451,8 +452,8 @@ msgstr[0] ""
 "<b>Hi ha %d element amb canvis sense desar. Voleu desar els canvis abans de "
 "tancar?</b>"
 msgstr[1] ""
-"<b>Hi han %d elements amb canvis sense desar. Voleu desar els canvis abans "
-"de tancar?</b>"
+"<b>Hi ha %d elements amb canvis sense desar. Voleu desar els canvis abans de "
+"tancar?</b>"
 
 #: ../libanjuta/anjuta-save-prompt.c:304
 msgid "There is an item with unsaved changes. Save changes before closing?"
@@ -1405,8 +1406,8 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "Ignora el fitxer .cvsrc (recomanat)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
-#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2120
-#: ../plugins/symbol-db/plugin.c:2189
+#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2327
+#: ../plugins/symbol-db/plugin.c:2397
 msgid "Local"
 msgstr "Local"
 
@@ -2113,7 +2114,7 @@ msgstr "Carregat"
 
 #: ../plugins/debug-manager/plugin.c:429
 msgid "Running…"
-msgstr "S'esta executant…"
+msgstr "S'està executant…"
 
 #: ../plugins/debug-manager/plugin.c:451
 msgid "Stopped"
@@ -2589,7 +2590,7 @@ msgid "Search Help:"
 msgstr "Cerca ajuda:"
 
 #: ../plugins/devhelp/plugin.c:222 ../plugins/document-manager/plugin.c:239
-#: ../plugins/message-view/plugin.c:76 ../plugins/symbol-db/plugin.c:312
+#: ../plugins/message-view/plugin.c:76 ../plugins/symbol-db/plugin.c:313
 msgid "_Go to"
 msgstr "_Vés a"
 
@@ -2629,8 +2630,8 @@ msgstr "Contingut"
 #: ../plugins/search/search-replace.c:1717
 #: ../plugins/search/search-replace.c:1724
 #: ../plugins/search/search-replace.c:1736
-#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2124
-#: ../plugins/symbol-db/plugin.c:2206
+#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2331
+#: ../plugins/symbol-db/plugin.c:2447
 msgid "Search"
 msgstr "Cerca"
 
@@ -3645,7 +3646,7 @@ msgid "Filter"
 msgstr "Filtre"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2122 ../plugins/symbol-db/plugin.c:2201
+#: ../plugins/symbol-db/plugin.c:2329 ../plugins/symbol-db/plugin.c:2423
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:6
 msgid "Global"
 msgstr "Global"
@@ -3772,7 +3773,7 @@ msgstr "Fitxer de codi Python"
 
 #: ../plugins/file-wizard/file.c:91
 msgid "Shell Script File"
-msgstr "Fitxer d'script per al intèrpret d'ordres"
+msgstr "Fitxer d'script per a l'intèrpret d'ordres"
 
 #: ../plugins/file-wizard/file.c:92
 msgid "Other"
@@ -8836,7 +8837,7 @@ msgstr "[Cap/còpia de treball]"
 #: ../plugins/subversion/subversion-log-dialog.c:426
 #: ../plugins/subversion/subversion-log-dialog.c:493
 msgid "Subversion: Retrieving diff…"
-msgstr "Subversion: s'està obtenint les diferències…"
+msgstr "Subversion: s'estan obtenint les diferències…"
 
 #: ../plugins/subversion/subversion-log-dialog.c:119
 msgid "Diff"
@@ -9002,64 +9003,64 @@ msgstr "Falta: %s"
 msgid "Obstructed: %s"
 msgstr "Obstruït: %s"
 
-#: ../plugins/symbol-db/plugin.c:316
+#: ../plugins/symbol-db/plugin.c:317
 msgid "Tag De_claration"
 msgstr "De_claració d'etiqueta"
 
-#: ../plugins/symbol-db/plugin.c:318
+#: ../plugins/symbol-db/plugin.c:319
 msgid "Go to symbol declaration"
 msgstr "Vés a la declaració del símbol"
 
 #. Translators: Go to the line where the tag is implemented
-#: ../plugins/symbol-db/plugin.c:325
+#: ../plugins/symbol-db/plugin.c:326
 msgid "Tag _Implementation"
 msgstr "_Implementació d'etiqueta"
 
-#: ../plugins/symbol-db/plugin.c:327
+#: ../plugins/symbol-db/plugin.c:328
 msgid "Go to symbol definition"
 msgstr "Vés a la definició del símbol"
 
-#: ../plugins/symbol-db/plugin.c:334
+#: ../plugins/symbol-db/plugin.c:335
 msgid "_Find Symbol…"
 msgstr "_Cerca un símbol…"
 
-#: ../plugins/symbol-db/plugin.c:335
+#: ../plugins/symbol-db/plugin.c:336
 msgid "Find Symbol"
 msgstr "Cerca un símbol"
 
-#: ../plugins/symbol-db/plugin.c:1022
+#: ../plugins/symbol-db/plugin.c:1173
 #, c-format
 msgid "%s: Generating inheritances…"
 msgstr "%s: S'estan generant les herències…"
 
-#: ../plugins/symbol-db/plugin.c:1027
+#: ../plugins/symbol-db/plugin.c:1178
 #, c-format
 msgid "%s: %d files scanned out of %d"
 msgstr "%s: %d fitxers analitzats de %d"
 
-#: ../plugins/symbol-db/plugin.c:1058
+#: ../plugins/symbol-db/plugin.c:1209
 #, c-format
 msgid "Generating inheritances…"
 msgstr "S'estan generant les herències…"
 
-#: ../plugins/symbol-db/plugin.c:1060
+#: ../plugins/symbol-db/plugin.c:1211
 #, c-format
 msgid "%d files scanned out of %d"
 msgstr "%d fitxers analitzats de %d"
 
-#: ../plugins/symbol-db/plugin.c:1785
+#: ../plugins/symbol-db/plugin.c:1979
 msgid "Populating symbol database…"
 msgstr "S'està creant la base de dades de símbols…"
 
-#: ../plugins/symbol-db/plugin.c:2148 ../plugins/symbol-db/plugin.c:2232
+#: ../plugins/symbol-db/plugin.c:2352 ../plugins/symbol-db/plugin.c:2480
 msgid "Symbols"
 msgstr "Símbols"
 
-#: ../plugins/symbol-db/plugin.c:2241
+#: ../plugins/symbol-db/plugin.c:2489
 msgid "SymbolDb popup actions"
 msgstr "Accions emergents de la base de dades de símbols"
 
-#: ../plugins/symbol-db/plugin.c:2249
+#: ../plugins/symbol-db/plugin.c:2497
 msgid "SymbolDb menu actions"
 msgstr "Accions del menú de la base de dades de símbols"
 
@@ -9080,6 +9081,15 @@ msgstr "Etiquetes de l'API"
 #: ../plugins/symbol-db/symbol-db-system.c:807
 msgid "Resuming glb scan."
 msgstr "S'està reprenent l'escaneig glb."
+
+#: ../plugins/symbol-db/symbol-db-view-locals.c:326
+#: ../plugins/symbol-db/symbol-db-view.c:1412
+msgid "Symbol"
+msgstr "Símbol"
+
+#: ../plugins/symbol-db/symbol-db-view.c:798
+msgid "Loading…"
+msgstr "S'està carregant…"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:1
 msgid "Automatically scan project's packages"
@@ -9680,11 +9690,11 @@ msgstr ""
 
 #: ../src/main.c:94
 msgid "Do not open last session on startup"
-msgstr "No s'obrirà l'última sessió al iniciar"
+msgstr "No s'obrirà l'última sessió en iniciar"
 
 #: ../src/main.c:100
 msgid "Do not open last project and files on startup"
-msgstr "No s'obrirà l'últim projecte i fitxers al iniciar"
+msgstr "No s'obrirà l'últim projecte i fitxers en iniciar"
 
 #: ../src/main.c:106
 msgid "Shut down Anjuta properly, releasing all resources (for debugging)"
@@ -10161,12 +10171,6 @@ msgstr "Caràcters mínims per la compleció "
 # És un error de la cadena original
 #~ msgid "Edit&#x2026;"
 #~ msgstr "Edita…"
-
-#~ msgid "Symbol"
-#~ msgstr "Símbol"
-
-#~ msgid "Loading…"
-#~ msgstr "S'està carregant…"
 
 #~ msgid "Autocompletion pop up choices"
 #~ msgstr "Diàleg emergent amb alternatives per la compleció automàtica"
