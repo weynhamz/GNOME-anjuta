@@ -57,7 +57,9 @@ struct _AnjutaCommandClass
 	void (*stop_automatic_monitor) (AnjutaCommand *self);
 	
 	/* Signals */
+	void (*data_arrived) (AnjutaCommand *command);
 	void (*command_started) (AnjutaCommand *command);
+	void (*command_finished) (AnjutaCommand *command, guint return_code);
 	void (*progress) (AnjutaCommand *command, gfloat progress);
 
 };

@@ -91,11 +91,6 @@ anjuta_command_finalize (GObject *object)
 	G_OBJECT_CLASS (anjuta_command_parent_class)->finalize (object);
 }
 
-static void
-anjuta_command_started (AnjutaCommand *command)
-{
-}
-
 static gboolean
 start_automatic_monitor (AnjutaCommand *self)
 {
@@ -104,6 +99,26 @@ start_automatic_monitor (AnjutaCommand *self)
 
 static void
 stop_automatic_monitor (AnjutaCommand *self)
+{
+}
+
+static void
+data_arrived (AnjutaCommand *command)
+{
+}
+
+static void
+command_started (AnjutaCommand *command)
+{
+}
+
+static void
+command_finished (AnjutaCommand *command, guint return_code)
+{
+}
+
+static void
+progress (AnjutaCommand *command, gfloat progress)
 {
 }
 
@@ -124,8 +139,10 @@ anjuta_command_class_init (AnjutaCommandClass *klass)
 	klass->get_error_message = anjuta_command_get_error_message;
 	klass->start_automatic_monitor = start_automatic_monitor;
 	klass->stop_automatic_monitor = stop_automatic_monitor;
-	klass->command_started = anjuta_command_started;
-	klass->progress = NULL;
+	klass->data_arrived = data_arrived;
+	klass->command_started = command_started;
+	klass->command_finished = command_finished;
+	klass->progress = progress;
 
 	/**
 	 * AnjutaCommand::data-arrived:
@@ -137,8 +154,8 @@ anjuta_command_class_init (AnjutaCommandClass *klass)
 	anjuta_command_signals[DATA_ARRIVED] =
 		g_signal_new ("data-arrived",
 		              G_OBJECT_CLASS_TYPE (klass),
-		              G_SIGNAL_RUN_FIRST,
-		              0,
+		              G_SIGNAL_RUN_LAST,
+		              G_STRUCT_OFFSET (AnjutaCommandClass, data_arrived),
 		              NULL, NULL,
 		              g_cclosure_marshal_VOID__VOID,
 		              G_TYPE_NONE, 
@@ -173,7 +190,7 @@ anjuta_command_class_init (AnjutaCommandClass *klass)
 		g_signal_new ("command-finished",
 		              G_OBJECT_CLASS_TYPE (klass),
 		              G_SIGNAL_RUN_FIRST,
-		              0,
+		              G_STRUCT_OFFSET (AnjutaCommandClass, command_finished),
 		              NULL, NULL,
 		              g_cclosure_marshal_VOID__UINT ,
 		              G_TYPE_NONE, 1,
