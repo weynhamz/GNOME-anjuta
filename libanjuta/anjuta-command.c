@@ -96,6 +96,17 @@ anjuta_command_started (AnjutaCommand *command)
 {
 }
 
+static gboolean
+start_automatic_monitor (AnjutaCommand *self)
+{
+	return FALSE;
+}
+
+static void
+stop_automatic_monitor (AnjutaCommand *self)
+{
+}
+
 static void
 anjuta_command_class_init (AnjutaCommandClass *klass)
 {
@@ -111,6 +122,8 @@ anjuta_command_class_init (AnjutaCommandClass *klass)
 	klass->notify_progress = NULL;
 	klass->set_error_message = anjuta_command_set_error_message;
 	klass->get_error_message = anjuta_command_get_error_message;
+	klass->start_automatic_monitor = start_automatic_monitor;
+	klass->stop_automatic_monitor = stop_automatic_monitor;
 	klass->command_started = anjuta_command_started;
 	klass->progress = NULL;
 
@@ -289,4 +302,34 @@ gchar *
 anjuta_command_get_error_message (AnjutaCommand *self)
 {
 	return g_strdup (self->priv->error_message);
+}
+
+/**
+ * anjuta_command_start_automatic_monitor:
+ * @self: Command object.
+ *
+ * Sets up any monitoring needed for commands that should start themselves 
+ * automatically in response to some event. 
+ *
+ * Return value: %TRUE if automatic starting is supported by the command and 
+ * no errors were encountered; %FALSE if automatic starting is unsupported or on
+ * error.
+ */
+gboolean
+anjuta_command_start_automatic_monitor (AnjutaCommand *self)
+{
+	return ANJUTA_COMMAND_GET_CLASS (self)->start_automatic_monitor (self);
+}
+
+/**
+ * anjuta_command_stop_automatic_monitor:
+ * @self: Command object.
+ *
+ * Stops automatic monitoring for self executing commands. For commands that 
+ * do not support self-starting, this function does nothing.
+ */
+void
+anjuta_command_stop_automatic_monitor (AnjutaCommand *self)
+{
+	ANJUTA_COMMAND_GET_CLASS (self)->stop_automatic_monitor (self);
 }
