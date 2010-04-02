@@ -20,17 +20,11 @@
 #include "symbol-db-engine.h"
 #include "symbol-db-model-file.h"
 
-typedef struct _SymbolDBModelFilePriv SymbolDBModelFilePriv;
 struct _SymbolDBModelFilePriv
 {
 	gchar *file_path;
 };
 
-
-
-#define GET_PRIV(o)  (G_TYPE_INSTANCE_GET_PRIVATE ((o), \
-						SYMBOL_DB_TYPE_MODEL_FILE, \
-						SymbolDBModelFilePriv))
 enum
 {
 	PROP_0,
@@ -50,7 +44,7 @@ sdb_model_file_get_n_children (SymbolDBModel *model, gint tree_level,
 	SymbolDBEngineIterator *iter = NULL;
 	
 	g_return_val_if_fail (SYMBOL_DB_IS_MODEL_FILE (model), 0);
-	priv = GET_PRIV (model);
+	priv = SYMBOL_DB_MODEL_FILE (model)->priv;
 
 	g_object_get (model, "symbol-db-engine", &dbe, NULL);
 	
@@ -89,7 +83,7 @@ sdb_model_file_get_children (SymbolDBModel *model, gint tree_level,
 	SymbolDBEngineIterator *iter = NULL;
 
 	g_return_val_if_fail (SYMBOL_DB_IS_MODEL_FILE (model), 0);
-	priv = GET_PRIV (model);
+	priv = SYMBOL_DB_MODEL_FILE (model)->priv;
 
 	g_object_get (model, "symbol-db-engine", &dbe, NULL);
 	
@@ -131,7 +125,7 @@ sdb_model_file_set_property (GObject *object, guint prop_id,
 	SymbolDBModelFilePriv *priv;
 
 	g_return_if_fail (SYMBOL_DB_IS_MODEL_FILE (object));
-	priv = GET_PRIV (object);
+	priv = SYMBOL_DB_MODEL_FILE (object)->priv;
 	
 	switch (prop_id)
 	{
@@ -155,7 +149,7 @@ sdb_model_file_get_property (GObject *object, guint prop_id,
 	SymbolDBModelFilePriv *priv;
 
 	g_return_if_fail (SYMBOL_DB_IS_MODEL_FILE (object));
-	priv = GET_PRIV (object);
+	priv = SYMBOL_DB_MODEL_FILE (object)->priv;
 	
 	switch (prop_id)
 	{
@@ -174,8 +168,11 @@ sdb_model_file_finalize (GObject *object)
 	SymbolDBModelFilePriv *priv;
 
 	g_return_if_fail (SYMBOL_DB_IS_MODEL_FILE (object));
-	priv = GET_PRIV (object);
+	priv = SYMBOL_DB_MODEL_FILE (object)->priv;
 	g_free (priv->file_path);
+
+	g_free (priv);
+	
 	G_OBJECT_CLASS (sdb_model_file_parent_class)->finalize (object);
 }
 
@@ -185,7 +182,10 @@ sdb_model_file_init (SymbolDBModelFile *object)
 	SymbolDBModelFilePriv *priv;
 
 	g_return_if_fail (SYMBOL_DB_IS_MODEL_FILE (object));
-	priv = GET_PRIV (object);
+
+	priv = g_new0 (SymbolDBModelFilePriv, 1);
+	object->priv = priv;
+	
 	priv->file_path = NULL;
 }
 
@@ -194,9 +194,7 @@ sdb_model_file_class_init (SymbolDBModelFileClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
 	SymbolDBModelClass* model_class = SYMBOL_DB_MODEL_CLASS (klass);
-
-	g_type_class_add_private (klass, sizeof (SymbolDBModelFilePriv));
-
+	
 	object_class->finalize = sdb_model_file_finalize;
 	object_class->set_property = sdb_model_file_set_property;
 	object_class->get_property = sdb_model_file_get_property;

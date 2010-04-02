@@ -5353,7 +5353,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 															   type_id);
 
 	/* the container scopes can be: union, struct, typeref, class, namespace etc.
-	 * this field will be parse in the second pass.
+	 * this field will be parsed in the second pass.
 	 */
 	scope_id = 0;
 

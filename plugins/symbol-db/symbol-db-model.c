@@ -24,9 +24,6 @@
 
 #define SYMBOL_DB_MODEL_STAMP 5364558
 
-#define GET_PRIV(o) \
-	(G_TYPE_INSTANCE_GET_PRIVATE((o), SYMBOL_DB_TYPE_MODEL, SymbolDBModelPriv))
-
 /* Constants */
 
 #define SYMBOL_DB_MODEL_PAGE_SIZE 50
@@ -66,7 +63,7 @@ struct _SymbolDBModelNode {
 	SymbolDBModelNode **children;
 };
 
-typedef struct {
+ struct _SymbolDBModelPriv {
 	/* Keeps track of model freeze count. When the model is frozen, it
 	 * avoid retreiving data from backend. It does not freeze the frontend
 	 * view at all and instead use empty data for the duration of freeze.
@@ -82,7 +79,7 @@ typedef struct {
 	guint ensure_children_idle_id;
 	
 	SymbolDBModelNode *root;
-} SymbolDBModelPriv;
+};
 
 enum {
 	SIGNAL_GET_HAS_CHILD,
@@ -436,7 +433,7 @@ sdb_model_node_new (SymbolDBModel *model, SymbolDBModelNode *parent,
                     GdaDataModelIter *data_iter)
 {
 	gint i;
-	SymbolDBModelPriv *priv = GET_PRIV (model);
+	SymbolDBModelPriv *priv = model->priv;
 	SymbolDBModelNode* node = g_slice_new0 (SymbolDBModelNode);
 	node->n_columns = priv->n_columns;
 	node->values = g_slice_alloc0 (sizeof (GValue) * priv->n_columns);
@@ -516,7 +513,7 @@ sdb_model_page_fault (SymbolDBModel *model,
 	g_return_val_if_fail (page_found == NULL, page_found);
 
 	/* If model is frozen, can't fetch data from backend */
-	priv = GET_PRIV (model);
+	priv = model->priv;
 	if (priv->freeze_count > 0)
 		return NULL;
 	
@@ -590,7 +587,7 @@ static GType
 sdb_model_get_column_type (GtkTreeModel *tree_model,
                            gint index)
 {
-	SymbolDBModelPriv *priv = GET_PRIV (tree_model);
+	SymbolDBModelPriv *priv = SYMBOL_DB_MODEL (tree_model)->priv;
 	g_return_val_if_fail (index < priv->n_columns, G_TYPE_INVALID);
 	return priv->column_types [index];
 }
@@ -599,7 +596,7 @@ static gint
 sdb_model_get_n_columns (GtkTreeModel *tree_model)
 {
 	SymbolDBModelPriv *priv;
-	priv = GET_PRIV (tree_model);
+	priv = SYMBOL_DB_MODEL (tree_model)->priv;
 	return priv->n_columns;
 }
 
@@ -623,7 +620,7 @@ sdb_model_get_iter (GtkTreeModel *tree_model,
 	depth = gtk_tree_path_get_depth (path);
 	g_return_val_if_fail (depth > 0, FALSE);
 
-	priv = GET_PRIV (tree_model);
+	priv = SYMBOL_DB_MODEL (tree_model)->priv;
 	indx = gtk_tree_path_get_indices (path);
 
 	parent_node = NULL;
@@ -674,7 +671,7 @@ sdb_model_get_path (GtkTreeModel *tree_model,
 	g_return_val_if_fail (sdb_model_iter_is_valid (tree_model, iter),
 	                      NULL);
 
-	priv = GET_PRIV (tree_model);
+	priv = SYMBOL_DB_MODEL (tree_model)->priv;
 	path = gtk_tree_path_new ();
 
 	node = (SymbolDBModelNode*)iter->user_data;
@@ -700,7 +697,7 @@ sdb_model_get_value (GtkTreeModel *tree_model,
 	
 	g_return_if_fail (sdb_model_iter_is_valid (tree_model, iter));
 
-	priv = GET_PRIV (tree_model);
+	priv = SYMBOL_DB_MODEL (tree_model)->priv;
 	
 	g_return_if_fail (column >= 0);
 	g_return_if_fail (column < priv->n_columns);
@@ -754,8 +751,8 @@ sdb_model_iter_next (GtkTreeModel *tree_model,
 
 static gboolean
 sdb_model_iter_children (GtkTreeModel *tree_model,
-                               GtkTreeIter *iter,
-                               GtkTreeIter *parent)
+                         GtkTreeIter *iter,
+                         GtkTreeIter *parent)
 {
 	SymbolDBModelNode *node, *parent_node;
 	SymbolDBModelPriv *priv;
@@ -769,7 +766,7 @@ sdb_model_iter_children (GtkTreeModel *tree_model,
 	g_return_val_if_fail (SYMBOL_DB_IS_MODEL(tree_model), FALSE);
 	g_return_val_if_fail (iter != NULL, FALSE);
 
-	priv = GET_PRIV (tree_model);
+	priv = SYMBOL_DB_MODEL (tree_model)->priv;
 	if (parent == NULL)
 	{
 		node = priv->root;
@@ -861,7 +858,7 @@ sdb_model_iter_nth_child (GtkTreeModel *tree_model,
 	if (!sdb_model_iter_children (tree_model, iter, parent))
 		return FALSE;
 	
-	priv = GET_PRIV (tree_model);
+	priv = SYMBOL_DB_MODEL (tree_model)->priv;
 	node = (SymbolDBModelNode*) (iter->user_data);
 
 	g_return_val_if_fail (n < node->n_children, FALSE);
@@ -967,7 +964,7 @@ sdb_model_ensure_node_children (SymbolDBModel *model,
 	g_return_if_fail (node->children == NULL);
 	g_return_if_fail (node->children_ensured == FALSE);
 
-	priv = GET_PRIV (model);
+	priv = model->priv;
 
 	/* Can not ensure if model is frozen */
 	if (priv->freeze_count > 0)
@@ -1012,7 +1009,7 @@ on_sdb_ensure_node_children_idle (SymbolDBModel *model)
 	SymbolDBModelNode *node;
 	SymbolDBModelPriv *priv;
 	
-	priv = GET_PRIV (model);
+	priv = model->priv;
 
 	for (count = 0; count < SYMBOL_DB_MODEL_ENSURE_CHILDREN_BATCH_SIZE; count++)
 	{
@@ -1043,7 +1040,7 @@ sdb_model_queue_ensure_node_children (SymbolDBModel *model,
 	g_return_if_fail (node->children == NULL);
 	g_return_if_fail (node->children_ensured == FALSE);
 
-	priv = GET_PRIV (model);
+	priv = model->priv;
 	if (!g_queue_find (priv->ensure_children_queue, node))
 	{
 		g_queue_push_tail (priv->ensure_children_queue, node);
@@ -1071,7 +1068,7 @@ sdb_model_update_node_children (SymbolDBModel *model,
 {
 	SymbolDBModelPriv *priv;
 
-	priv = GET_PRIV (model);
+	priv = model->priv;
 	
 	/* Delete all nodes */
 	if (node->n_children > 0)
@@ -1142,7 +1139,7 @@ sdb_model_get_query_value_real (SymbolDBModel *model,
                                 GValue *value)
 {
 	const GValue *ret;
-	SymbolDBModelPriv *priv = GET_PRIV (model);
+	SymbolDBModelPriv *priv = model->priv;
 	gint query_column = priv->query_columns[column];
 
 	if (query_column < 0)
@@ -1188,7 +1185,7 @@ sdb_model_get_query_value_at_real (SymbolDBModel *model,
                                          GValue *value)
 {
 	const GValue *ret;
-	SymbolDBModelPriv *priv = GET_PRIV (model);
+	SymbolDBModelPriv *priv = model->priv;
 	gint query_column = priv->query_columns[column];
 	g_value_init (value, priv->column_types[column]);
 
@@ -1286,7 +1283,7 @@ sdb_model_finalize (GObject *object)
 	SymbolDBModelPriv *priv;
 	/* FIXME */
 
-	priv = GET_PRIV (object);
+	priv = SYMBOL_DB_MODEL (object)->priv;;
 	if (priv->ensure_children_idle_id)
 		g_source_remove (priv->ensure_children_idle_id);
 	g_queue_free (priv->ensure_children_queue);
@@ -1295,6 +1292,8 @@ sdb_model_finalize (GObject *object)
 	g_free (priv->query_columns);
 	sdb_model_node_cleanse (priv->root, TRUE);
 	g_slice_free (SymbolDBModelNode, priv->root);
+
+	g_free (priv);
 	
 	G_OBJECT_CLASS (sdb_model_parent_class)->finalize (object);
 }
@@ -1328,7 +1327,11 @@ sdb_model_get_property (GObject *object, guint prop_id, GValue *value,
 static void
 sdb_model_init (SymbolDBModel *object)
 {
-	SymbolDBModelPriv *priv = GET_PRIV (object);
+	SymbolDBModelPriv *priv;
+
+	priv = g_new0 (SymbolDBModelPriv, 1);
+	object->priv = priv;
+	
 	priv->root = g_slice_new0 (SymbolDBModelNode);
 	priv->freeze_count = 0;
 	priv->n_columns = 0;
@@ -1351,8 +1354,6 @@ sdb_model_class_init (SymbolDBModelClass *klass)
 	object_class->set_property = sdb_model_set_property;
 	object_class->get_property = sdb_model_get_property;
 	
-	g_type_class_add_private (object_class, sizeof(SymbolDBModelPriv));
-
 	/* Signals */
 	symbol_db_model_signals[SIGNAL_GET_HAS_CHILD] =
 		g_signal_new ("get-has-child",
@@ -1397,7 +1398,7 @@ symbol_db_model_set_columns (SymbolDBModel *model, gint n_columns,
 	g_return_if_fail (n_columns > 0);
 	g_return_if_fail (SYMBOL_DB_IS_MODEL (model));
 
-	priv = GET_PRIV (model);
+	priv = model->priv;
 	
 	g_return_if_fail (priv->n_columns <= 0);
 	g_return_if_fail (priv->column_types == NULL);
@@ -1421,7 +1422,7 @@ symbol_db_model_new (gint n_columns, ...)
 	g_return_val_if_fail (n_columns > 0, NULL);
 
 	model = g_object_new (SYMBOL_DB_TYPE_MODEL, NULL);
-	priv = GET_PRIV (model);
+	priv = SYMBOL_DB_MODEL (model)->priv;
 	
 	priv->n_columns = n_columns;
 	priv->column_types = g_new0(GType, n_columns);
@@ -1457,7 +1458,7 @@ symbol_db_model_update (SymbolDBModel *model)
 
 	g_return_if_fail (SYMBOL_DB_IS_MODEL (model));
 
-	priv = GET_PRIV (model);
+	priv = model->priv;
 
 	sdb_model_update_node_children (model, priv->root, FALSE);
 }
@@ -1469,7 +1470,7 @@ symbol_db_model_freeze (SymbolDBModel *model)
 
 	g_return_if_fail (SYMBOL_DB_IS_MODEL (model));
 	
-	priv = GET_PRIV (model);
+	priv = model->priv;
 	priv->freeze_count++;
 }
 
@@ -1480,7 +1481,7 @@ symbol_db_model_thaw (SymbolDBModel *model)
 
 	g_return_if_fail (SYMBOL_DB_IS_MODEL (model));
 
-	priv = GET_PRIV (model);
+	priv = model->priv;
 
 	if (priv->freeze_count > 0)
 		priv->freeze_count--;

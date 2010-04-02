@@ -34,6 +34,7 @@ G_BEGIN_DECLS
 
 typedef struct _SymbolDBModelProjectClass SymbolDBModelProjectClass;
 typedef struct _SymbolDBModelProject SymbolDBModelProject;
+typedef struct _SymbolDBModelProjectPriv SymbolDBModelProjectPriv;
 
 enum {
 	SYMBOL_DB_MODEL_PROJECT_COL_SYMBOL_ID,
@@ -53,6 +54,8 @@ struct _SymbolDBModelProjectClass
 struct _SymbolDBModelProject
 {
 	SymbolDBModel parent_instance;
+
+	SymbolDBModelProjectPriv *priv;
 };
 
 GType sdb_model_project_get_type (void) G_GNUC_CONST;

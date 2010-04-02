@@ -20,15 +20,11 @@
 #include "symbol-db-engine.h"
 #include "symbol-db-model-project.h"
 
-typedef struct _SymbolDBModelProjectPriv SymbolDBModelProjectPriv;
 struct _SymbolDBModelProjectPriv
 {
 	SymbolDBEngine* dbe;
 };
 
-#define GET_PRIV(o)  (G_TYPE_INSTANCE_GET_PRIVATE ((o), \
-						SYMBOL_DB_TYPE_MODEL_PROJECT, \
-						SymbolDBModelProjectPriv))
 enum {
 	DATA_COL_SYMBOL_ID,
 	DATA_COL_SYMBOL_NAME,
@@ -63,7 +59,7 @@ sdb_model_project_get_n_children (SymbolDBModel *model, gint tree_level,
 	gint symbol_id;
 	
 	g_return_val_if_fail (SYMBOL_DB_IS_MODEL_PROJECT (model), 0);
-	priv = GET_PRIV (model);
+	priv = SYMBOL_DB_MODEL_PROJECT (model)->priv;
 
 	/* If engine is not connected, there is nothing we can show */
 	if (!priv->dbe || !symbol_db_engine_is_connected (priv->dbe))
@@ -103,7 +99,7 @@ sdb_model_project_get_children (SymbolDBModel *model, gint tree_level,
 	gint symbol_id;
 
 	g_return_val_if_fail (SYMBOL_DB_IS_MODEL_PROJECT (model), 0);
-	priv = GET_PRIV (model);
+	priv = SYMBOL_DB_MODEL_PROJECT (model)->priv;
 	
 	/* If engine is not connected, there is nothing we can show */
 	if (!priv->dbe || !symbol_db_engine_is_connected (priv->dbe))
@@ -247,7 +243,7 @@ on_sdb_project_dbe_unref (SymbolDBModelProject *model)
 	SymbolDBModelProjectPriv *priv;
 
 	g_return_if_fail (SYMBOL_DB_IS_MODEL_PROJECT (model));
-	priv = GET_PRIV (model);
+	priv = SYMBOL_DB_MODEL_PROJECT (model)->priv;
 	priv->dbe = NULL;
 	symbol_db_model_update (SYMBOL_DB_MODEL (model));
 }
@@ -259,7 +255,7 @@ sdb_model_project_set_property (GObject *object, guint prop_id,
 	SymbolDBModelProjectPriv *priv;
 
 	g_return_if_fail (SYMBOL_DB_IS_MODEL_PROJECT (object));
-	priv = GET_PRIV (object);
+	priv = SYMBOL_DB_MODEL_PROJECT (object)->priv;
 	
 	switch (prop_id)
 	{
@@ -309,7 +305,7 @@ sdb_model_project_get_property (GObject *object, guint prop_id,
 	SymbolDBModelProjectPriv *priv;
 
 	g_return_if_fail (SYMBOL_DB_IS_MODEL_PROJECT (object));
-	priv = GET_PRIV (object);
+	priv = SYMBOL_DB_MODEL_PROJECT (object)->priv;
 	
 	switch (prop_id)
 	{
@@ -328,7 +324,7 @@ sdb_model_project_finalize (GObject *object)
 	SymbolDBModelProjectPriv *priv;
 
 	g_return_if_fail (SYMBOL_DB_IS_MODEL_PROJECT (object));
-	priv = GET_PRIV (object);
+	priv = SYMBOL_DB_MODEL_PROJECT (object)->priv;
 	
 	if (priv->dbe)
 	{
@@ -345,6 +341,9 @@ sdb_model_project_finalize (GObject *object)
 		                  G_CALLBACK (symbol_db_model_thaw),
 		                  object);
 	}
+
+	g_free (priv);
+	
 	G_OBJECT_CLASS (sdb_model_project_parent_class)->finalize (object);
 }
 
@@ -372,7 +371,9 @@ sdb_model_project_init (SymbolDBModelProject *object)
 	};
 	
 	g_return_if_fail (SYMBOL_DB_IS_MODEL_PROJECT (object));
-	priv = GET_PRIV (object);
+
+	priv = g_new0 (SymbolDBModelProjectPriv, 1);
+	object->priv = priv;
 	
 	priv->dbe = NULL;
 

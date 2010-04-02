@@ -34,6 +34,7 @@ G_BEGIN_DECLS
 
 typedef struct _SymbolDBModelFileClass SymbolDBModelFileClass;
 typedef struct _SymbolDBModelFile SymbolDBModelFile;
+typedef struct _SymbolDBModelFilePriv SymbolDBModelFilePriv;
 
 enum {
 	SYMBOL_DB_MODEL_FILE_COL_SYMBOL_ID,
@@ -51,7 +52,9 @@ struct _SymbolDBModelFileClass
 
 struct _SymbolDBModelFile
 {
-	SymbolDBModel parent_instance;
+	SymbolDBModelProject parent_instance;
+
+	SymbolDBModelFilePriv *priv;
 };
 
 GType sdb_model_file_get_type (void) G_GNUC_CONST;

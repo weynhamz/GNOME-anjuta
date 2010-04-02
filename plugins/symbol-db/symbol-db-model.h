@@ -36,6 +36,7 @@ G_BEGIN_DECLS
 
 typedef struct _SymbolDBModelClass SymbolDBModelClass;
 typedef struct _SymbolDBModel SymbolDBModel;
+typedef struct _SymbolDBModelPriv SymbolDBModelPriv;
 
 struct _SymbolDBModelClass
 {
@@ -67,6 +68,8 @@ struct _SymbolDBModelClass
 struct _SymbolDBModel
 {
 	GObject parent_instance;
+
+	SymbolDBModelPriv *priv;
 };
 
 GType sdb_model_get_type (void) G_GNUC_CONST;
