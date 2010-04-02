@@ -54,6 +54,7 @@
 
 struct _AnjutaCommandPriv
 {
+	gboolean running;
 	gchar *error_message;
 };
 
@@ -110,11 +111,13 @@ data_arrived (AnjutaCommand *command)
 static void
 command_started (AnjutaCommand *command)
 {
+	command->priv->running = TRUE;
 }
 
 static void
 command_finished (AnjutaCommand *command, guint return_code)
 {
+	command->priv->running = FALSE;
 }
 
 static void
@@ -167,6 +170,14 @@ anjuta_command_class_init (AnjutaCommandClass *klass)
 	 *
 	 * Indicates that a command has begun executing. This signal is intended to 
 	 * be used for commands that start themselves automatically.
+	 *
+	 * <note>
+	 *  <para>
+	 *	  Sublasses that override the method for this signal should chain up to
+	 *	  the parent implementation to ensure proper handling of running/not 
+	 *	  running states. 
+	 *	</para>
+	 * </note>
 	 */
 	anjuta_command_signals[COMMAND_STARTED] =
 		g_signal_new ("command-started",
@@ -184,7 +195,15 @@ anjuta_command_class_init (AnjutaCommandClass *klass)
 	 * @return_code: The return code of the finished commmand
 	 *
 	 * Indicates that the command has completed. Clients should at least handle
-	 * this signal to unref the command object. 
+	 * this signal to unref the command object.
+	 *
+	 * <note>
+	 *  <para>
+	 *	  Sublasses that override the method for this signal should chain up to
+	 *	  the parent implementation to ensure proper handling of running/not 
+	 *	  running states. 
+	 *	</para>
+	 * </note>
 	 */
 	anjuta_command_signals[COMMAND_FINISHED] =
 		g_signal_new ("command-finished",
@@ -287,6 +306,18 @@ void
 anjuta_command_notify_progress (AnjutaCommand *self, gfloat progress)
 {
 	ANJUTA_COMMAND_GET_CLASS (self)->notify_progress (self, progress);
+}
+
+/**
+ * anjuta_command_is_running:
+ * @self: Command object.
+ *
+ * Return value: %TRUE if the command is currently running; %FALSE otherwise.
+ */
+gboolean
+anjuta_command_is_running (AnjutaCommand *self)
+{
+	return self->priv->running;
 }
 
 /**
