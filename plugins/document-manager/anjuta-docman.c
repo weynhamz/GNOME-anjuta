@@ -286,11 +286,19 @@ on_notebook_page_close_button_leave (GtkButton* button,
 static gboolean
 on_notebook_tab_btnpress (GtkWidget *wid, GdkEventButton *event, AnjutaDocman* docman)
 {
+	if (event->type == GDK_BUTTON_PRESS && event->button != 3)	/* right-click is for menu */
+		docman->priv->tab_pressed = TRUE;
+	
+	return FALSE;
+}
+
+static gboolean
+on_notebook_tab_btnrelease (GtkWidget *widget, GdkEventButton *event, AnjutaDocman* docman)
+{
 	AnjutaDocmanPage *page;
 	AnjutaDocmanPage *curr_page = NULL;
 	
-	if (event->type == GDK_BUTTON_PRESS && event->button != 3)	/* right-click is for menu */
-		docman->priv->tab_pressed = TRUE;
+	docman->priv->tab_pressed = FALSE;
 
 	/* close on middle click */
 	if (event->button == 2)
@@ -300,7 +308,7 @@ on_notebook_tab_btnpress (GtkWidget *wid, GdkEventButton *event, AnjutaDocman* d
 		for (node = docman->priv->pages; node != NULL; node = g_list_next (node))
 		{
 			page = (AnjutaDocmanPage *) node->data;
-			if (page->box == wid)
+			if (page->box == widget)
 			{
 				/* we've found the page that user wants to close. Save the current
 				 * page for a later setup
@@ -321,18 +329,13 @@ on_notebook_tab_btnpress (GtkWidget *wid, GdkEventButton *event, AnjutaDocman* d
 			{
 				/* set the old current page */
 				anjuta_docman_set_current_document (docman, curr_page->doc);
-			}
+			}		
 		}
-	}
-	
-	return FALSE;
-}
 
-static gboolean
-on_notebook_tab_btnrelease (GtkWidget *widget, GdkEventButton *event, AnjutaDocman* docman)
-{
-	docman->priv->tab_pressed = FALSE;
+		return FALSE;
+	}	
 
+	/* normal button click close */
 	if (anjuta_preferences_get_bool (docman->priv->preferences, EDITOR_TABS_RECENT_FIRST))
 	{
 		GList *node;
