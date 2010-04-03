@@ -58,6 +58,12 @@ struct _AnjutaPmProject
 	
 	IAnjutaProject *project;
 	GbfProjectModel *model;
+
+	GAsyncQueue *job_queue;
+	GAsyncQueue *done_queue;
+	GThread *worker;
+	guint idle_func;
+	gboolean stopping;
 };
 
 GType anjuta_pm_project_get_type (void) G_GNUC_CONST;

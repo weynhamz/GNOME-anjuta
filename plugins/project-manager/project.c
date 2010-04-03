@@ -31,6 +31,31 @@
 #include "gbf-project-model.h"
 #include "gbf-project-view.h"
 
+/* Types
+ *---------------------------------------------------------------------------*/
+
+typedef enum
+{
+	LOAD,
+	UNLOAD,
+	EXIT
+} PmCommand;
+
+typedef struct _PmJob PmJob;
+
+typedef void (*PmJobCallback) (AnjutaPmProject *project, PmJob *job);
+
+struct _PmJob
+{
+	PmCommand command;
+	GFile *file;
+	gchar *name;
+	AnjutaProjectNode *node;
+	PmJobCallback callback;
+	GError *error;
+	AnjutaProjectNode *new_node;
+};
+
 /* Signal
  *---------------------------------------------------------------------------*/
 
@@ -42,8 +67,172 @@ enum
 
 static unsigned int signals[LAST_SIGNAL] = { 0 };
 
+/* Job functions
+ *---------------------------------------------------------------------------*/
+
+static PmJob *
+pm_job_new (PmCommand command, GFile *file, const gchar *name, AnjutaProjectNode *node, PmJobCallback callback)
+{
+	PmJob *job;
+
+	job = g_new0 (PmJob, 1);
+	job->command = command;
+	job->file = file != NULL ? g_object_ref (file) : NULL;
+	job->name = name != NULL ? g_strdup (name) : NULL;
+	job->node = node;
+	job->callback = callback;
+
+	return job;
+}
+
+static void
+pm_job_free (PmJob *job)
+{
+	if (job->file != NULL) g_object_unref (job->file);
+	if (job->name != NULL) g_free (job->name);
+	if (job->error != NULL) g_error_free (job->error);
+}
+
+static void
+pm_project_push_command (AnjutaPmProject *project, PmCommand command, GFile *file, const gchar *name, AnjutaProjectNode *node, PmJobCallback callback)
+{
+	PmJob *job;
+
+	job = pm_job_new (command, file, name, node, callback);
+
+	g_async_queue_push (project->job_queue, job);
+}
+
+/* Thread functions
+ *---------------------------------------------------------------------------*/
+
+static gpointer
+pm_project_thread_main_loop (AnjutaPmProject *project)
+{
+	PmJob *job;
+	
+	for (;;)
+	{
+		job = (PmJob *)g_async_queue_pop (project->job_queue);
+
+		switch (job->command)
+		{
+		case LOAD:
+			ianjuta_project_load (project->project, job->file, &(job->error));
+			break;
+		case EXIT:
+			do
+			{
+				pm_job_free (job);
+				job = (PmJob *)g_async_queue_try_pop (project->done_queue);
+			}
+			while (job != NULL);
+			return NULL;
+		default:
+			break;
+		}
+		g_async_queue_push (project->done_queue, job);
+	}
+}
+
+static gboolean
+pm_project_idle_func (AnjutaPmProject *project)
+{
+	PmJob *job;
+
+	for (;;)
+	{
+		job = (PmJob *)g_async_queue_try_pop (project->done_queue);
+
+		if (job == NULL) return TRUE;
+
+		if (job->callback != NULL)
+		{
+			job->callback (project, job);
+		}
+		pm_job_free (job);
+	}
+}
+
+static gboolean
+pm_project_start_thread (AnjutaPmProject *project, GError **error)
+{
+	project->done_queue = g_async_queue_new ();
+	project->job_queue = g_async_queue_new ();
+
+	project->worker = g_thread_create ((GThreadFunc) pm_project_thread_main_loop, project, TRUE, error);
+
+	if (project->worker == NULL) {
+		g_async_queue_unref (project->job_queue);
+		project->job_queue = NULL;
+		g_async_queue_unref (project->done_queue);
+		project->done_queue = NULL;
+
+		return FALSE;
+	}
+	else
+	{
+		project->idle_func = g_idle_add ((GSourceFunc) pm_project_idle_func, project);
+		project->stopping = FALSE;
+
+		return TRUE;
+	}
+}
+
+static gboolean
+pm_project_stop_thread (AnjutaPmProject *project)
+{
+	if (project->job_queue)
+	{
+		PmJob *job;
+		
+		project->stopping = TRUE;
+
+		// Remove idle function
+		g_idle_remove_by_data (project);
+		project->idle_func = 0;
+
+		// Request to terminate thread
+		job = pm_job_new (EXIT, NULL, NULL, NULL, NULL);
+		g_async_queue_push (project->job_queue, job);
+		g_thread_join (project->worker);
+		project->worker = NULL;
+
+		// Free queue
+		g_async_queue_unref (project->job_queue);
+		project->job_queue = NULL;
+		for (;;)
+		{
+			job = g_async_queue_try_pop (project->done_queue);
+			if (job == NULL) break;
+			pm_job_free (job);
+		}
+		project->done_queue = NULL;
+	}
+
+	return TRUE;
+}
+
 /* Public functions
  *---------------------------------------------------------------------------*/
+
+static void
+on_pm_project_loaded (AnjutaPmProject *project, PmJob *job)
+{
+	if (job->error != NULL)
+	{
+		g_warning ("unable to load project");
+		/* Unable to load project, destroy project object */
+		pm_project_stop_thread (project);
+		g_object_unref (project->project);
+		project->project = NULL;
+	}
+	else
+	{
+		g_object_set (G_OBJECT (project->model), "project", project, NULL);
+	}
+	g_signal_emit (G_OBJECT (project), signals[UPDATED], 0, job->error);
+}
 
 gboolean 
 anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
@@ -52,7 +241,6 @@ anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 	GList *desc;
 	IAnjutaProjectBackend *backend;
 	gint found = 0;
-	gboolean ok;
 	GError *err = NULL;
 	
 	g_return_val_if_fail (file != NULL, FALSE);
@@ -123,29 +311,22 @@ anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 		
 		return FALSE;
 	}
-	
-	ianjuta_project_load (project->project, file, &err);
-	g_message ("load project %s %p ok %d", g_file_get_path (file), project->project, ok);
-	if (err != NULL)
+
+	if (!pm_project_start_thread(project, &err))
 	{
-		g_warning ("unable to load project");
-		/* Unable to load project, destroy project object */
-		g_object_unref (project->project);
-		project->project = NULL;
+		return FALSE;
 	}
-	else
-	{
-		g_object_set (G_OBJECT (project->model), "project", project, NULL);
-	}
-	g_signal_emit (G_OBJECT (project), signals[UPDATED], 0, err);
-	g_error_free (err);
-	
+
+	pm_project_push_command (project, LOAD, file, NULL, NULL, on_pm_project_loaded);
+
 	return TRUE;
 }
 
 gboolean 
 anjuta_pm_project_unload (AnjutaPmProject *project, GError **error)
 {
+	pm_project_stop_thread (project);
+	
 	g_object_set (G_OBJECT (project->model), "project", NULL, NULL);
 	g_object_unref (project->project);
 	project->project = NULL;
@@ -328,6 +509,12 @@ anjuta_pm_project_init (AnjutaPmProject *project)
 {
 	project->model = gbf_project_model_new (NULL);
 	project->plugin = NULL;
+	
+	project->job_queue = NULL;
+	project->done_queue = NULL;
+	project->worker = NULL;
+	project->idle_func = 0;
+	project->stopping = FALSE;
 }
 
 static void
