@@ -30,33 +30,33 @@
 
 G_BEGIN_DECLS
 
-AnjutaProjectNode* gbf_project_util_new_group  (ProjectManagerProject *project,
+AnjutaProjectNode* gbf_project_util_new_group  (AnjutaPmProject *project,
 				                GtkWindow          *parent,
 				                GtkTreeIter        *default_group,
 				                const gchar        *default_group_name_to_add);
 
-AnjutaProjectNode* gbf_project_util_new_target (ProjectManagerProject *project,
+AnjutaProjectNode* gbf_project_util_new_target (AnjutaPmProject *project,
 				                GtkWindow          *parent,
 				                GtkTreeIter        *default_group,
 				                const gchar        *default_target_name_to_add);
 
-AnjutaProjectNode* gbf_project_util_add_source (ProjectManagerProject *project,
+AnjutaProjectNode* gbf_project_util_add_source (AnjutaPmProject *project,
 				                GtkWindow           *parent,
 				                GtkTreeIter         *default_target,
 				                const gchar         *default_uri_to_add);
 
-GList* gbf_project_util_add_module             (ProjectManagerProject *project,
+GList* gbf_project_util_add_module             (AnjutaPmProject *project,
 				                GtkWindow          *parent,
 				                GtkTreeIter        *default_target,
 				                const gchar        *default_module_name_to_add);
 
-GList* gbf_project_util_add_package            (ProjectManagerProject *project,
+GList* gbf_project_util_add_package            (AnjutaPmProject *project,
 				                GtkWindow          *parent,
 				                GtkTreeIter        *default_module,
 				                GList              *packages_to_add);
 
 
-GList* gbf_project_util_add_source_multi (ProjectManagerProject *project,
+GList* gbf_project_util_add_source_multi (AnjutaPmProject *project,
 				        GtkWindow           *parent,
         		                GtkTreeIter         *default_target,
 				        GList               *uris_to_add);

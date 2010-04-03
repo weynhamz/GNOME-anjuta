@@ -24,32 +24,36 @@
 #endif
 
 #include "project.h"
+#include <libanjuta/anjuta-marshal.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-error.h>
 #include <libanjuta/interfaces/ianjuta-project-backend.h>
 #include "gbf-project-model.h"
 #include "gbf-project-view.h"
 
-/* Public functions
+/* Signal
  *---------------------------------------------------------------------------*/
 
-struct _ProjectManagerProject{
-	AnjutaPlugin *plugin;
-	
-	IAnjutaProject *project;
-	GbfProjectModel *model;
+enum
+{
+	UPDATED,
+	LAST_SIGNAL
 };
+
+static unsigned int signals[LAST_SIGNAL] = { 0 };
 
 /* Public functions
  *---------------------------------------------------------------------------*/
 
 gboolean 
-pm_project_load (ProjectManagerProject *project, GFile *file, GError **error)
+anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 {
 	AnjutaPluginManager *plugin_manager;
 	GList *desc;
 	IAnjutaProjectBackend *backend;
 	gint found = 0;
 	gboolean ok;
+	GError *err = NULL;
 	
 	g_return_val_if_fail (file != NULL, FALSE);
 	
@@ -120,11 +124,9 @@ pm_project_load (ProjectManagerProject *project, GFile *file, GError **error)
 		return FALSE;
 	}
 	
-	/* FIXME: use the error parameter to determine if the project
-	 * was loaded successfully */
-	ok = ianjuta_project_load (project->project, file, error);
+	ianjuta_project_load (project->project, file, &err);
 	g_message ("load project %s %p ok %d", g_file_get_path (file), project->project, ok);
-	if (!ok)
+	if (err != NULL)
 	{
 		g_warning ("unable to load project");
 		/* Unable to load project, destroy project object */
@@ -135,12 +137,14 @@ pm_project_load (ProjectManagerProject *project, GFile *file, GError **error)
 	{
 		g_object_set (G_OBJECT (project->model), "project", project, NULL);
 	}
-
-	return ok;
+	g_signal_emit (G_OBJECT (project), signals[UPDATED], 0, err);
+	g_error_free (err);
+	
+	return TRUE;
 }
 
 gboolean 
-pm_project_unload (ProjectManagerProject *project, GError **error)
+anjuta_pm_project_unload (AnjutaPmProject *project, GError **error)
 {
 	g_object_set (G_OBJECT (project->model), "project", NULL, NULL);
 	g_object_unref (project->project);
@@ -150,7 +154,7 @@ pm_project_unload (ProjectManagerProject *project, GError **error)
 }
 
 gboolean
-pm_project_refresh (ProjectManagerProject *project, GError **error)
+anjuta_pm_project_refresh (AnjutaPmProject *project, GError **error)
 {
 	ianjuta_project_refresh (project->project, error);
 
@@ -158,7 +162,7 @@ pm_project_refresh (ProjectManagerProject *project, GError **error)
 }
 
 GtkWidget *
-pm_project_configure (ProjectManagerProject *project, AnjutaProjectNode *node)
+anjuta_pm_project_configure (AnjutaPmProject *project, AnjutaProjectNode *node)
 {
 	GtkWidget *properties;
 	
@@ -175,7 +179,7 @@ pm_project_configure (ProjectManagerProject *project, AnjutaProjectNode *node)
 }
 
 IAnjutaProjectCapabilities
-pm_project_get_capabilities (ProjectManagerProject *project)
+anjuta_pm_project_get_capabilities (AnjutaPmProject *project)
 {
 	IAnjutaProjectCapabilities caps = IANJUTA_PROJECT_CAN_ADD_NONE;
 
@@ -186,7 +190,7 @@ pm_project_get_capabilities (ProjectManagerProject *project)
 }
 
 GList *
-pm_project_get_target_types (ProjectManagerProject *project)
+anjuta_pm_project_get_target_types (AnjutaPmProject *project)
 {
 	g_return_val_if_fail (project->project != NULL, NULL);
 	
@@ -194,7 +198,7 @@ pm_project_get_target_types (ProjectManagerProject *project)
 }
 
 AnjutaProjectNode *
-pm_project_get_root (ProjectManagerProject *project)
+anjuta_pm_project_get_root (AnjutaPmProject *project)
 {
 	if (project->project == NULL) return NULL;
 
@@ -202,7 +206,7 @@ pm_project_get_root (ProjectManagerProject *project)
 }
 
 GList *
-pm_project_get_packages (ProjectManagerProject *project)
+anjuta_pm_project_get_packages (AnjutaPmProject *project)
 {
 	if (project->project == NULL) return NULL;
 
@@ -210,7 +214,7 @@ pm_project_get_packages (ProjectManagerProject *project)
 }
 
 AnjutaProjectNode *
-pm_project_add_group (ProjectManagerProject *project, AnjutaProjectNode *group, const gchar *name, GError **error)
+anjuta_pm_project_add_group (AnjutaPmProject *project, AnjutaProjectNode *group, const gchar *name, GError **error)
 {
 	g_return_val_if_fail (project->project != NULL, NULL);
 	
@@ -218,7 +222,7 @@ pm_project_add_group (ProjectManagerProject *project, AnjutaProjectNode *group, 
 }
 
 AnjutaProjectNode *
-pm_project_add_target (ProjectManagerProject *project, AnjutaProjectNode *group, const gchar *name, AnjutaProjectTargetType type, GError **error)
+anjuta_pm_project_add_target (AnjutaPmProject *project, AnjutaProjectNode *group, const gchar *name, AnjutaProjectTargetType type, GError **error)
 {
 	g_return_val_if_fail (project->project != NULL, NULL);
 	
@@ -226,7 +230,7 @@ pm_project_add_target (ProjectManagerProject *project, AnjutaProjectNode *group,
 }
 
 AnjutaProjectNode *
-pm_project_add_source (ProjectManagerProject *project, AnjutaProjectNode *target, GFile *file, GError **error)
+anjuta_pm_project_add_source (AnjutaPmProject *project, AnjutaProjectNode *target, GFile *file, GError **error)
 {
 	AnjutaProjectNode *source;
 
@@ -238,7 +242,7 @@ pm_project_add_source (ProjectManagerProject *project, AnjutaProjectNode *target
 }
 
 gboolean
-pm_project_remove (ProjectManagerProject *project, AnjutaProjectNode *node, GError **error)
+anjuta_pm_project_remove (AnjutaPmProject *project, AnjutaProjectNode *node, GError **error)
 {
 	ianjuta_project_remove_node (project->project, node, error);
 
@@ -246,7 +250,7 @@ pm_project_remove (ProjectManagerProject *project, AnjutaProjectNode *node, GErr
 }
 
 gboolean
-pm_project_remove_data (ProjectManagerProject *project, GbfTreeData *data, GError **error)
+anjuta_pm_project_remove_data (AnjutaPmProject *project, GbfTreeData *data, GError **error)
 {
 	GtkTreeIter iter;
 	
@@ -264,25 +268,25 @@ pm_project_remove_data (ProjectManagerProject *project, GbfTreeData *data, GErro
 
 
 gboolean
-pm_project_is_open (ProjectManagerProject *project)
+anjuta_pm_project_is_open (AnjutaPmProject *project)
 {
 	return project->project != NULL;
 }
 
 IAnjutaProject *
-pm_project_get_project (ProjectManagerProject *project)
+anjuta_pm_project_get_project (AnjutaPmProject *project)
 {
 	return project->project;
 }
 
 GbfProjectModel *
-pm_project_get_model (ProjectManagerProject *project)
+anjuta_pm_project_get_model (AnjutaPmProject *project)
 {
 	return project->model;
 }
 
 AnjutaProjectNode *
-pm_project_get_node (ProjectManagerProject *project, GbfTreeData *data)
+anjuta_pm_project_get_node (AnjutaPmProject *project, GbfTreeData *data)
 {
 	AnjutaProjectNode *node = NULL;
 	
@@ -292,7 +296,7 @@ pm_project_get_node (ProjectManagerProject *project, GbfTreeData *data)
 		AnjutaProjectNode *group = NULL;
 		AnjutaProjectNode *target = NULL;
 
-		root = pm_project_get_root (project);
+		root = anjuta_pm_project_get_root (project);
 		if ((root != NULL) && (data->group != NULL))
 		{
 			group = anjuta_project_group_get_node_from_file (root, data->group);
@@ -314,26 +318,63 @@ pm_project_get_node (ProjectManagerProject *project, GbfTreeData *data)
 	return node;
 }
 
+/* Implement GObject
+ *---------------------------------------------------------------------------*/
+
+G_DEFINE_TYPE (AnjutaPmProject, anjuta_pm_project, G_TYPE_OBJECT);
+
+static void
+anjuta_pm_project_init (AnjutaPmProject *project)
+{
+	project->model = gbf_project_model_new (NULL);
+	project->plugin = NULL;
+}
+
+static void
+anjuta_pm_project_finalize (GObject *object)
+{
+	AnjutaPmProject *project = ANJUTA_PM_PROJECT(object);
+	
+	g_object_unref (G_OBJECT (project->model));
+	
+	G_OBJECT_CLASS (anjuta_pm_project_parent_class)->finalize (object);
+}
+
+static void
+anjuta_pm_project_class_init (AnjutaPmProjectClass *klass)
+{
+	GObjectClass* object_class = G_OBJECT_CLASS (klass);
+	
+	object_class->finalize = anjuta_pm_project_finalize;
+
+	signals[UPDATED] = g_signal_new ("updated",
+	    G_OBJECT_CLASS_TYPE (object_class),
+	    G_SIGNAL_RUN_LAST,
+	    G_STRUCT_OFFSET (AnjutaPmProjectClass, updated),
+	    NULL, NULL,
+	    g_cclosure_marshal_VOID__BOXED,
+	    G_TYPE_NONE,
+	    1,
+	    G_TYPE_ERROR);
+	
+}
 
 /* Constructor & Destructor
  *---------------------------------------------------------------------------*/
 
-ProjectManagerProject*
-pm_project_new (AnjutaPlugin *plugin)
+AnjutaPmProject*
+anjuta_pm_project_new (AnjutaPlugin *plugin)
 {
-	ProjectManagerProject *project;
+	AnjutaPmProject *project;
 
-	project = g_new0 (ProjectManagerProject, 1);
+	project = g_object_new (ANJUTA_TYPE_PM_PROJECT, NULL);
 	project->plugin = plugin;
-	project->project = NULL;
-	project->model = gbf_project_model_new (NULL);
 
 	return project;
 }
 
 void
-pm_project_free (ProjectManagerProject* project)
+anjuta_pm_project_free (AnjutaPmProject* project)
 {
-	g_object_unref (G_OBJECT (project->model));
-	g_free (project);
+	g_object_unref (project);
 }

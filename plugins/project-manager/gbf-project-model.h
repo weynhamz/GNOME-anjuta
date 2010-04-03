@@ -52,14 +52,14 @@ struct _GbfProjectModelClass {
 	GtkTreeStoreClass parent_class;
 };
 
-typedef struct _ProjectManagerProject ProjectManagerProject;
+typedef struct _AnjutaPmProject AnjutaPmProject;
 
 GType            gbf_project_model_get_type          (void); 
-GbfProjectModel *gbf_project_model_new               (ProjectManagerProject *project);
+GbfProjectModel *gbf_project_model_new               (AnjutaPmProject *project);
 
 void             gbf_project_model_set_project       (GbfProjectModel   *model,
-                                                      ProjectManagerProject    *project);
-ProjectManagerProject *gbf_project_model_get_project       (GbfProjectModel   *model);
+                                                      AnjutaPmProject    *project);
+AnjutaPmProject *gbf_project_model_get_project       (GbfProjectModel   *model);
 
 GtkTreePath     *gbf_project_model_get_project_root  (GbfProjectModel   *model);
 gboolean         gbf_project_model_remove            (GbfProjectModel *model,

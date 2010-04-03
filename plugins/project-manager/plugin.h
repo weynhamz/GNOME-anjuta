@@ -42,7 +42,7 @@ typedef struct _ProjectManagerPluginClass ProjectManagerPluginClass;
 struct _ProjectManagerPlugin{
 	AnjutaPlugin parent;
 
-	ProjectManagerProject *project;
+	AnjutaPmProject *project;
 	
 	AnjutaUI *ui;
 	AnjutaPreferences *prefs;
@@ -74,6 +74,9 @@ struct _ProjectManagerPlugin{
 	
 	/* project properties dialog */
 	GtkWidget *properties_dialog;
+
+	/* project is loading */
+	gboolean busy;
 };
 
 struct _ProjectManagerPluginClass{

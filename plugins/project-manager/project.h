@@ -33,34 +33,61 @@
 
 G_BEGIN_DECLS
 
-//typedef struct _ProjectManagerProject ProjectManagerProject;
+#define ANJUTA_TYPE_PM_PROJECT             (anjuta_pm_project_get_type ())
+#define ANJUTA_PM_PROJECT(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), ANJUTA_TYPE_PM_PROJECT, AnjutaPmProject))
+#define ANJUTA_PM_PROJECT_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ((klass), ANJUTA_TYPE_PM_PROJECT, AnjutaPmProjectClass))
+#define ANJUTA_IS_PM_PROJECT(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), ANJUTA_TYPE_PM_PROJECT))
+#define ANJUTA_IS_PM_PROJECT_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass), ANJUTA_TYPE_PM_PROJECT))
+#define ANJUTA_PM_PROJECT_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), ANJUTA_TYPE_PM_PROJECT, AnjutaPmProjectClass))
 
-ProjectManagerProject* pm_project_new (AnjutaPlugin *plugin);
-void pm_project_free (ProjectManagerProject* project);
+typedef struct _AnjutaPmProjectClass AnjutaPmProjectClass;
+//typedef struct _AnjutaPmProject AnjutaPmProject;
 
-gboolean pm_project_load (ProjectManagerProject *project, GFile *file, GError **error);
-gboolean pm_project_unload (ProjectManagerProject *project, GError **error);
-gboolean pm_project_refresh (ProjectManagerProject *project, GError **error);
+struct _AnjutaPmProjectClass
+{
+	GObjectClass parent_class;
 
-GtkWidget *pm_project_configure (ProjectManagerProject *project, AnjutaProjectNode *node);
-IAnjutaProjectCapabilities pm_project_get_capabilities (ProjectManagerProject *project);
-GList *pm_project_get_target_types (ProjectManagerProject *project);
+	void (*updated) (GError *error);
+};
 
-GList *pm_project_get_packages (ProjectManagerProject *project);
+struct _AnjutaPmProject
+{
+	GObject parent_instance;
 
-AnjutaProjectNode *pm_project_add_group (ProjectManagerProject *project, AnjutaProjectNode *group, const gchar *name, GError **error);
-AnjutaProjectNode *pm_project_add_target (ProjectManagerProject *project, AnjutaProjectNode *group, const gchar *name, AnjutaProjectTargetType type, GError **error);
-AnjutaProjectNode *pm_project_add_source (ProjectManagerProject *project, AnjutaProjectNode *target, GFile *file, GError **error);
-AnjutaProjectNode *pm_project_get_root (ProjectManagerProject *project);
-gboolean pm_project_remove (ProjectManagerProject *project, AnjutaProjectNode *node, GError **error);
-gboolean pm_project_remove_data (ProjectManagerProject *project, GbfTreeData *data, GError **error);
+	AnjutaPlugin *plugin;
+	
+	IAnjutaProject *project;
+	GbfProjectModel *model;
+};
 
-gboolean pm_project_is_open (ProjectManagerProject *project);
+GType anjuta_pm_project_get_type (void) G_GNUC_CONST;
 
-IAnjutaProject *pm_project_get_project (ProjectManagerProject *project);
-GbfProjectModel *pm_project_get_model (ProjectManagerProject *project);
+AnjutaPmProject* anjuta_pm_project_new (AnjutaPlugin *plugin);
+void anjuta_pm_project_free (AnjutaPmProject* project);
 
-AnjutaProjectNode *pm_project_get_node (ProjectManagerProject *project, GbfTreeData *data);
+gboolean anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error);
+gboolean anjuta_pm_project_unload (AnjutaPmProject *project, GError **error);
+gboolean anjuta_pm_project_refresh (AnjutaPmProject *project, GError **error);
+
+GtkWidget *anjuta_pm_project_configure (AnjutaPmProject *project, AnjutaProjectNode *node);
+IAnjutaProjectCapabilities anjuta_pm_project_get_capabilities (AnjutaPmProject *project);
+GList *anjuta_pm_project_get_target_types (AnjutaPmProject *project);
+
+GList *anjuta_pm_project_get_packages (AnjutaPmProject *project);
+
+AnjutaProjectNode *anjuta_pm_project_add_group (AnjutaPmProject *project, AnjutaProjectNode *group, const gchar *name, GError **error);
+AnjutaProjectNode *anjuta_pm_project_add_target (AnjutaPmProject *project, AnjutaProjectNode *group, const gchar *name, AnjutaProjectTargetType type, GError **error);
+AnjutaProjectNode *anjuta_pm_project_add_source (AnjutaPmProject *project, AnjutaProjectNode *target, GFile *file, GError **error);
+AnjutaProjectNode *anjuta_pm_project_get_root (AnjutaPmProject *project);
+gboolean anjuta_pm_project_remove (AnjutaPmProject *project, AnjutaProjectNode *node, GError **error);
+gboolean anjuta_pm_project_remove_data (AnjutaPmProject *project, GbfTreeData *data, GError **error);
+
+gboolean anjuta_pm_project_is_open (AnjutaPmProject *project);
+
+IAnjutaProject *anjuta_pm_project_get_project (AnjutaPmProject *project);
+GbfProjectModel *anjuta_pm_project_get_model (AnjutaPmProject *project);
+
+AnjutaProjectNode *anjuta_pm_project_get_node (AnjutaPmProject *project, GbfTreeData *data);
 
 G_END_DECLS
 

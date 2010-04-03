@@ -38,7 +38,7 @@
 
 
 struct _GbfProjectModelPrivate {
-	ProjectManagerProject      *proj;
+	AnjutaPmProject      *proj;
 	gulong               project_updated_handler;
 	
 	GtkTreeRowReference *root_row;
@@ -60,7 +60,7 @@ static void     gbf_project_model_drag_source_init   (GtkTreeDragSourceIface *if
 static void     gbf_project_model_drag_dest_init     (GtkTreeDragDestIface   *iface);
 
 static void     load_project                         (GbfProjectModel        *model,
-						      ProjectManagerProject  *proj);
+						      AnjutaPmProject  *proj);
 static void     insert_empty_node                    (GbfProjectModel        *model);
 static void     unload_project                       (GbfProjectModel        *model);
 
@@ -421,7 +421,7 @@ add_target_shortcut (GbfProjectModel *model,
 			    -1);
 	
 	/* add sources */
-	parent = pm_project_get_node (model->priv->proj, target);
+	parent = anjuta_pm_project_get_node (model->priv->proj, target);
 	for (node = anjuta_project_node_first_child (parent); node; node = anjuta_project_node_next_sibling (node))
 		add_source (model, node, &iter);
 
@@ -479,7 +479,7 @@ move_target_shortcut (GbfProjectModel *model,
 				    -1);
 
 		/* add sources */
-		parent = pm_project_get_node (model->priv->proj, shortcut->shortcut);
+		parent = anjuta_pm_project_get_node (model->priv->proj, shortcut->shortcut);
 		for (node = anjuta_project_node_first_child (parent); node; node = anjuta_project_node_next_sibling (node))
 			add_source (model, node, iter);
 	}
@@ -705,7 +705,7 @@ project_updated_cb (IAnjutaProject *project, GbfProjectModel *model)
 }
 
 static void
-load_project (GbfProjectModel *model, ProjectManagerProject *proj)
+load_project (GbfProjectModel *model, AnjutaPmProject *proj)
 {
 	model->priv->proj = proj;
 	g_object_ref (proj);
@@ -713,10 +713,10 @@ load_project (GbfProjectModel *model, ProjectManagerProject *proj)
 	/* to get rid of the empty node */
 	gbf_project_model_clear (model);
 
-	add_target_group (model, pm_project_get_root (proj), NULL);
+	add_target_group (model, anjuta_pm_project_get_root (proj), NULL);
 
 	model->priv->project_updated_handler =
-		g_signal_connect (pm_project_get_project (model->priv->proj), "project-updated",
+		g_signal_connect (anjuta_pm_project_get_project (model->priv->proj), "project-updated",
 				  (GCallback) project_updated_cb, model);
 }
 
@@ -746,7 +746,7 @@ unload_project (GbfProjectModel *model)
 		g_list_free (model->priv->shortcuts);
 		model->priv->shortcuts = NULL;
 		
-		g_signal_handler_disconnect (pm_project_get_project (model->priv->proj),
+		g_signal_handler_disconnect (anjuta_pm_project_get_project (model->priv->proj),
 					     model->priv->project_updated_handler);
 		model->priv->project_updated_handler = 0;
 		model->priv->proj = NULL;
@@ -808,7 +808,7 @@ gbf_project_model_find_tree_data (GbfProjectModel 	*model,
 }
 
 GbfProjectModel *
-gbf_project_model_new (ProjectManagerProject *project)
+gbf_project_model_new (AnjutaPmProject *project)
 {
 	return GBF_PROJECT_MODEL (g_object_new (GBF_TYPE_PROJECT_MODEL,
 						"project", project,
@@ -816,7 +816,7 @@ gbf_project_model_new (ProjectManagerProject *project)
 }
 
 void 
-gbf_project_model_set_project (GbfProjectModel *model, ProjectManagerProject *project)
+gbf_project_model_set_project (GbfProjectModel *model, AnjutaPmProject *project)
 {
 	g_return_if_fail (model != NULL && GBF_IS_PROJECT_MODEL (model));
 	g_return_if_fail (project != NULL);
@@ -828,7 +828,7 @@ gbf_project_model_set_project (GbfProjectModel *model, ProjectManagerProject *pr
 		load_project (model, project);
 }
 
-ProjectManagerProject *
+AnjutaPmProject *
 gbf_project_model_get_project (GbfProjectModel *model)
 {
 	g_return_val_if_fail (model != NULL && GBF_IS_PROJECT_MODEL (model), NULL);
@@ -859,7 +859,7 @@ gbf_project_model_get_node (GbfProjectModel *model,
 			    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
 			    -1);
 
-	return pm_project_get_node (model->priv->proj, data);
+	return anjuta_pm_project_get_node (model->priv->proj, data);
 }
 
 void

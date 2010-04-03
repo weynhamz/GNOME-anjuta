@@ -76,7 +76,7 @@ groups_filter_fn (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
 }
 
 static void 
-setup_groups_treeview (ProjectManagerProject *project,
+setup_groups_treeview (AnjutaPmProject *project,
                        GtkWidget          *view,
                        GtkTreeIter        *select_group)
 {
@@ -87,7 +87,7 @@ setup_groups_treeview (ProjectManagerProject *project,
     g_return_if_fail (project != NULL);
     g_return_if_fail (view != NULL && GBF_IS_PROJECT_VIEW (view));
 
-    model = pm_project_get_model (project);
+    model = anjuta_pm_project_get_model (project);
     filter = gtk_tree_model_filter_new (GTK_TREE_MODEL (model), NULL);
     gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (filter),
                                             groups_filter_fn, NULL, NULL);
@@ -164,7 +164,7 @@ entry_changed_cb (GtkEditable *editable, gpointer user_data)
 }
 
 AnjutaProjectNode*
-gbf_project_util_new_group (ProjectManagerProject *project,
+gbf_project_util_new_group (AnjutaPmProject *project,
                             GtkWindow          *parent,
                             GtkTreeIter        *default_group,
                             const gchar        *default_group_name_to_add)
@@ -222,7 +222,7 @@ gbf_project_util_new_group (ProjectManagerProject *project,
                 group = gbf_project_view_find_selected (GBF_PROJECT_VIEW (groups_view),
                                                        ANJUTA_PROJECT_GROUP);
                 if (group) {
-                    new_group = pm_project_add_group (project, group, name, &err);
+                    new_group = anjuta_pm_project_add_group (project, group, name, &err);
                     if (err) {
                         error_dialog (parent, _("Cannot add group"), "%s",
                                       err->message);
@@ -258,14 +258,14 @@ enum {
 
 /* create a tree model with the target types */
 static GtkListStore *
-build_types_store (ProjectManagerProject *project)
+build_types_store (AnjutaPmProject *project)
 {
     GtkListStore *store;
     GtkTreeIter iter;
     GList *types;
     GList *node;
 
-    types = pm_project_get_target_types (project);
+    types = anjuta_pm_project_get_target_types (project);
     store = gtk_list_store_new (TARGET_TYPE_N_COLUMNS,
                                 G_TYPE_POINTER,
                                 G_TYPE_STRING,
@@ -299,7 +299,7 @@ build_types_store (ProjectManagerProject *project)
 }
 
 AnjutaProjectNode* 
-gbf_project_util_new_target (ProjectManagerProject *project,
+gbf_project_util_new_target (AnjutaPmProject *project,
                              GtkWindow       *parent,
                              GtkTreeIter     *default_group,
                              const gchar     *default_target_name_to_add)
@@ -395,7 +395,7 @@ gbf_project_util_new_target (ProjectManagerProject *project,
                 }
                 
                 if (group && type) {
-                    new_target = pm_project_add_target (project, group, name, type, &err);
+                    new_target = anjuta_pm_project_add_target (project, group, name, type, &err);
                     if (err) {
                         error_dialog (parent, _("Cannot add target"), "%s",
                                       err->message);
@@ -441,7 +441,7 @@ targets_filter_fn (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
 }
 
 static void 
-setup_targets_treeview (ProjectManagerProject *project,
+setup_targets_treeview (AnjutaPmProject *project,
                         GtkWidget           *view,
                         GtkTreeIter         *select_target)
 {
@@ -453,7 +453,7 @@ setup_targets_treeview (ProjectManagerProject *project,
     g_return_if_fail (project != NULL);
     g_return_if_fail (view != NULL && GBF_IS_PROJECT_VIEW (view));
 
-    model = pm_project_get_model (project);
+    model = anjuta_pm_project_get_model (project);
     filter = gtk_tree_model_filter_new (GTK_TREE_MODEL (model), NULL);
     gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (filter),
                                             targets_filter_fn, NULL, NULL);
@@ -498,7 +498,7 @@ modules_filter_fn (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
 }
 
 static void 
-setup_modules_treeview (ProjectManagerProject *project,
+setup_modules_treeview (AnjutaPmProject *project,
                         GtkWidget           *view,
                         GtkTreeIter         *select_module)
 {
@@ -510,7 +510,7 @@ setup_modules_treeview (ProjectManagerProject *project,
     g_return_if_fail (model != NULL);
     g_return_if_fail (view != NULL && GBF_IS_PROJECT_VIEW (view));
 
-    model = pm_project_get_model (project);
+    model = anjuta_pm_project_get_model (project);
     filter = gtk_tree_model_filter_new (GTK_TREE_MODEL (model), NULL);
     gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (filter),
                                             modules_filter_fn, NULL, NULL);
@@ -622,7 +622,7 @@ on_row_changed(GtkTreeModel* model, GtkTreePath* path, GtkTreeIter* iter, gpoint
 }
 
 AnjutaProjectNode*
-gbf_project_util_add_source (ProjectManagerProject *project,
+gbf_project_util_add_source (AnjutaPmProject *project,
                              GtkWindow           *parent,
                              GtkTreeIter         *default_target,
                              const gchar         *default_uri)
@@ -652,7 +652,7 @@ gbf_project_util_add_source (ProjectManagerProject *project,
 }
 
 GList* 
-gbf_project_util_add_source_multi (ProjectManagerProject *project,
+gbf_project_util_add_source_multi (AnjutaPmProject *project,
 				   GtkWindow           *parent,
                                    GtkTreeIter         *default_target,
 				   GList               *uris_to_add)
@@ -767,7 +767,7 @@ gbf_project_util_add_source_multi (ProjectManagerProject *project,
 					    COLUMN_URI, &uri, -1);
 
                         source_file = g_file_new_for_uri (uri);
-			new_source = pm_project_add_source (project,
+			new_source = anjuta_pm_project_add_source (project,
 							     target,
 							     source_file,
 							     &err);
@@ -887,7 +887,7 @@ on_cursor_changed(GtkTreeView* view, gpointer data)
 }
 
 GList*
-gbf_project_util_add_module (ProjectManagerProject *project,
+gbf_project_util_add_module (AnjutaPmProject *project,
                              GtkWindow          *parent,
                              GtkTreeIter        *default_target,
                              const gchar        *default_module)
@@ -1087,7 +1087,7 @@ on_changed_disconnect (GtkEditable* entry, gpointer data)
 }
 
 GList* 
-gbf_project_util_add_package (ProjectManagerProject *project,
+gbf_project_util_add_package (AnjutaPmProject *project,
                               GtkWindow        *parent,
                               GtkTreeIter      *default_module,
                               GList            *packages_to_add)
@@ -1124,7 +1124,7 @@ gbf_project_util_add_package (ProjectManagerProject *project,
     store = gtk_list_store_new(1, G_TYPE_STRING);
     gtk_combo_box_entry_set_text_column (GTK_COMBO_BOX_ENTRY (module_entry), 0);
 
-    model = pm_project_get_model(project);
+    model = anjuta_pm_project_get_model(project);
     for (valid = gtk_tree_model_get_iter_first (GTK_TREE_MODEL (model), &root); valid != FALSE; valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &root))
     {
         GbfTreeData *data;
