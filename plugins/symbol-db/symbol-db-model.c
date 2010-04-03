@@ -1460,6 +1460,12 @@ symbol_db_model_update (SymbolDBModel *model)
 
 	priv = model->priv;
 
+	/* Reset children ensure queue */
+	if (priv->ensure_children_idle_id)
+		g_source_remove (priv->ensure_children_idle_id);
+	priv->ensure_children_idle_id = 0;
+	g_queue_clear (priv->ensure_children_queue);
+	
 	sdb_model_update_node_children (model, priv->root, FALSE);
 }
 
