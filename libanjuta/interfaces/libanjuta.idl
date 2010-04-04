@@ -3084,6 +3084,84 @@ interface IAnjutaProject
 	void ::project_updated ();
 
 	/**
+	 * ianjuta_project_load_node:
+	 * @obj: Self
+	 * @node: Project node to reload
+	 * @err: Error propagation and reporting
+	 *
+	 * Reload a project node
+	 *
+	 * Return value: The newly loaded node, NULL if error
+	 */
+	AnjutaProjectNode *load_node (AnjutaProjectNode *node);
+
+	/**
+	 * ianjuta_project_save_node:
+	 * @obj: Self
+	 * @node: Project node to save
+	 * @err: Error propagation and reporting
+	 *
+	 * Save a project node
+	 *
+	 * Return value: The saved node, NULL if error
+	 */
+	AnjutaProjectNode *save_node (AnjutaProjectNode *node);
+
+	/**
+	 * ianjuta_project_new_root:
+	 * @obj: Self
+	 * @file: Project file or directory
+	 * @err: Error propagation and reporting
+	 *
+	 * Create a new node representing the project root.
+	 *
+	 * Return value: The newly created node, NULL if error
+	 */
+	AnjutaProjectNode *new_root (GFile *file);
+
+	/**
+	 * ianjuta_project_new_file:
+	 * @obj: Self
+	 * @parent: Parent node
+	 * @sibling: Sibling node or NULL
+	 * @type: Node type
+	 * @file: Node file or directory
+	 * @err: Error propagation and reporting
+	 *
+	 * Create a new node as a child of parent after sibling or as the last
+	 * child if sibling is NULL.
+	 *
+	 * Return value: The newly created node, NULL if error
+	 */
+	AnjutaProjectNode *new_file (GFile *file);
+
+	/**
+	 * ianjuta_project_new_name:
+	 * @obj: Self
+	 * @parent: Parent node
+	 * @sibling: Sibling node or NULL
+	 * @type: Node type
+	 * @name: Node name
+	 * @err: Error propagation and reporting
+	 *
+	 * Create a new node as a child of parent after sibling or as the last
+	 * child if sibling is NULL.
+	 *
+	 * Return value: The newly created node, NULL if error
+	 */
+	AnjutaProjectNode *new_name (const gchar *name);
+
+	/**
+	 * ianjuta_project_free_node:
+	 * @obj: Self
+	 * @node: Node
+	 * @err: Error propagation and reporting
+	 *
+	 * Free a node and its children.
+	 */
+	void free_node (AnjutaProjectNode *node);
+
+	/**
 	 * ianjuta_project_load:
 	 * @obj: Self
 	 * @file: Project directory

@@ -69,6 +69,7 @@ static const gchar *valid_am_makefiles[] = {"GNUmakefile.am", "makefile.am", "Ma
 #define AMP_SOURCE_DATA(node)  ((node) != NULL ? (AmpSourceData *)((node)->data) : NULL)
 #define AMP_PACKAGE_DATA(node)  ((node) != NULL ? (AmpPackageData *)((node)->data) : NULL)
 #define AMP_MODULE_DATA(node)  ((node) != NULL ? (AmpModuleData *)((node)->data) : NULL)
+#define AMP_ROOT_DATA(node)  ((node) != NULL ? (AmpRootData *)((node)->data) : NULL)
 
 #define STR_REPLACE(target, source) \
 	{ g_free (target); target = source == NULL ? NULL : g_strdup (source);}
@@ -85,6 +86,12 @@ typedef enum {
 	AM_GROUP_TARGET,
 	AM_GROUP_TOKEN_LAST
 } AmpGroupTokenCategory;
+
+typedef struct _AmpRootData AmpRootData;
+
+struct _AmpRootData {
+	AnjutaProjectNodeData base;		/* Common node data */
+};
 
 typedef struct _AmpGroupData AmpGroupData;
 
@@ -565,6 +572,37 @@ amp_config_file_free (AmpConfigFile *config)
 	}
 }
 
+/* Root node object
+ *---------------------------------------------------------------------------*/
+
+static AnjutaProjectNode*
+amp_root_new (GFile *file)
+{
+    AmpRootData *root = NULL;
+
+	g_return_val_if_fail (file != NULL, NULL);
+	
+	root = g_slice_new0(AmpRootData); 
+	root->base.type = ANJUTA_PROJECT_ROOT;
+	root->base.properties = amp_get_project_property_list();
+	root->base.file = g_file_dup (file);
+
+	return g_node_new (root);
+}
+
+static void
+amp_root_free (AnjutaProjectNode *node)
+{
+	AnjutaProjectNodeData *data = AMP_NODE_DATA (node);
+	
+	if (data->file != NULL) g_object_unref (data->file);
+	g_free (data->name);
+	anjuta_project_property_foreach (data->properties, (GFunc)amp_property_free, NULL);
+	g_slice_free (AmpRootData, (AmpRootData *)data);
+
+	g_node_destroy (node);
+}
+
 /* Package objects
  *---------------------------------------------------------------------------*/
 
@@ -871,7 +909,7 @@ monitor_cb (GFileMonitor *monitor,
 		case G_FILE_MONITOR_EVENT_CHANGED:
 		case G_FILE_MONITOR_EVENT_DELETED:
 			/* monitor will be removed here... is this safe? */
-			amp_project_reload (project, NULL);
+			//amp_project_reload (project, NULL);
 			g_signal_emit_by_name (G_OBJECT (project), "project-updated");
 			break;
 		default:
@@ -964,7 +1002,7 @@ amp_dump_node (AnjutaProjectNode *g_node)
 {
 	gchar *name = NULL;
 	
-	switch (AMP_NODE_DATA (g_node)->type) {
+	switch (AMP_NODE_DATA (g_node)->type & ANJUTA_PROJECT_TYPE_MASK) {
 		case ANJUTA_PROJECT_GROUP:
 			name = g_file_get_uri (AMP_GROUP_DATA (g_node)->base.file);
 			DEBUG_PRINT ("GROUP: %s", name);
@@ -988,7 +1026,7 @@ static void
 foreach_node_destroy (AnjutaProjectNode    *g_node,
 		      gpointer  data)
 {
-	switch (AMP_NODE_DATA (g_node)->type) {
+	switch (AMP_NODE_DATA (g_node)->type & ANJUTA_PROJECT_TYPE_MASK) {
 		case ANJUTA_PROJECT_GROUP:
 			//g_hash_table_remove (project->groups, g_file_get_uri (AMP_GROUP_NODE (g_node)->file));
 			amp_group_free (g_node);
@@ -1005,6 +1043,9 @@ foreach_node_destroy (AnjutaProjectNode    *g_node,
 			break;
 		case ANJUTA_PROJECT_PACKAGE:
 			amp_package_free (g_node);
+			break;
+		case ANJUTA_PROJECT_ROOT:
+			amp_root_free (g_node);
 			break;
 		default:
 			g_assert_not_reached ();
@@ -1026,6 +1067,40 @@ project_node_destroy (AmpProject *project, AnjutaProjectNode *g_node)
 		/* now destroy the tree itself */
 		//g_node_destroy (g_node);
 	}
+}
+
+static AnjutaProjectNode *
+project_node_new (AmpProject *project, AnjutaProjectNodeType type, GFile *file, const gchar *name)
+{
+	AnjutaProjectNode *node = NULL;
+	
+	switch (type & ANJUTA_PROJECT_TYPE_MASK) {
+		case ANJUTA_PROJECT_GROUP:
+			node = amp_group_new (file, FALSE);
+			break;
+		case ANJUTA_PROJECT_TARGET:
+			node = amp_target_new (name, 0, NULL, 0);
+			break;
+		case ANJUTA_PROJECT_SOURCE:
+			node = amp_source_new (file);
+			break;
+		case ANJUTA_PROJECT_MODULE:
+			node = amp_module_new (NULL);
+			break;
+		case ANJUTA_PROJECT_PACKAGE:
+			node = amp_package_new (name);
+			break;
+		case ANJUTA_PROJECT_ROOT:
+			node = amp_root_new (file);
+			g_message ("root node file %s file %s", g_file_get_path (anjuta_project_node_get_file (node)), g_file_get_path (file));
+			break;
+		default:
+			g_assert_not_reached ();
+			break;
+	}
+	if (node != NULL) AMP_NODE_DATA (node)->type = type;
+
+	return node;
 }
 
 void
@@ -1170,7 +1245,7 @@ amp_project_load_config (AmpProject *project, AnjutaToken *arg_list)
 static void
 find_target (AnjutaProjectNode *node, gpointer data)
 {
-	if (AMP_NODE_DATA (node)->type == ANJUTA_PROJECT_TARGET)
+	if ((AMP_NODE_DATA (node)->type  & ANJUTA_PROJECT_TYPE_MASK) == ANJUTA_PROJECT_TARGET)
 	{
 		if (strcmp (AMP_TARGET_DATA (node)->base.name, *(gchar **)data) == 0)
 		{
@@ -1185,7 +1260,7 @@ find_target (AnjutaProjectNode *node, gpointer data)
 static void
 find_canonical_target (AnjutaProjectNode *node, gpointer data)
 {
-	if (AMP_NODE_DATA (node)->type == ANJUTA_PROJECT_TARGET)
+	if ((AMP_NODE_DATA (node)->type  & ANJUTA_PROJECT_TYPE_MASK) == ANJUTA_PROJECT_TARGET)
 	{
 		gchar *canon_name = canonicalize_automake_variable (AMP_TARGET_DATA (node)->base.name);	
 		DEBUG_PRINT ("compare canon %s vs %s node %p", canon_name, *(gchar **)data, node);
@@ -1759,93 +1834,107 @@ amp_project_set_am_variable (AmpProject* project, AmpGroup* group, AnjutaTokenTy
 /* Public functions
  *---------------------------------------------------------------------------*/
 
-gboolean
-amp_project_reload (AmpProject *project, GError **error) 
+AnjutaProjectNode *
+amp_project_load_node (AmpProject *project, AnjutaProjectNode *node, GError **error) 
 {
 	AmpAcScanner *scanner;
 	AnjutaToken *arg;
+	AnjutaProjectNode *group;
 	GFile *root_file;
 	GFile *configure_file;
 	gboolean ok = TRUE;
 	GError *err = NULL;
 
-	/* Unload current project */
-	root_file = g_object_ref (project->root_file);
-	amp_project_unload (project);
-	project->root_file = root_file;
-	DEBUG_PRINT ("reload project %p root file %p", project, project->root_file);
+	switch (anjuta_project_node_get_type (node))
+	{
+	case ANJUTA_PROJECT_ROOT:
 
-	/* shortcut hash tables */
-	project->groups = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
-	project->files = g_hash_table_new_full (g_file_hash, (GEqualFunc)g_file_equal, g_object_unref, g_object_unref);
-	project->configs = g_hash_table_new_full (g_file_hash, (GEqualFunc)g_file_equal, NULL, (GDestroyNotify)amp_config_file_free);
-	amp_project_new_module_hash (project);
+		/* Unload current project */
+		amp_project_unload (project);
+		DEBUG_PRINT ("reload project %p root file %p", project, root_file);
 
-	/* Initialize list styles */
-	project->ac_space_list = anjuta_token_style_new (NULL, " ", "\n", NULL, 0);
-	project->am_space_list = anjuta_token_style_new (NULL, " ", " \\\n", NULL, 0);
-	project->arg_list = anjuta_token_style_new (NULL, ", ", ", ", ")", 0);
+		root_file = anjuta_project_node_get_file (node);
+		g_message ("reload project %s", g_file_get_path (root_file));
+		project->root_file = root_file;
+		project->root_node = node;
+
+		/* shortcut hash tables */
+		project->groups = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+		project->files = g_hash_table_new_full (g_file_hash, (GEqualFunc)g_file_equal, g_object_unref, g_object_unref);
+		project->configs = g_hash_table_new_full (g_file_hash, (GEqualFunc)g_file_equal, NULL, (GDestroyNotify)amp_config_file_free);
+		amp_project_new_module_hash (project);
+
+		/* Initialize list styles */
+		project->ac_space_list = anjuta_token_style_new (NULL, " ", "\n", NULL, 0);
+		project->am_space_list = anjuta_token_style_new (NULL, " ", " \\\n", NULL, 0);
+		project->arg_list = anjuta_token_style_new (NULL, ", ", ", ", ")", 0);
 	
-	/* Find configure file */
-	if (file_type (root_file, "configure.ac") == G_FILE_TYPE_REGULAR)
-	{
-		configure_file = g_file_get_child (root_file, "configure.ac");
-	}
-	else if (file_type (root_file, "configure.in") == G_FILE_TYPE_REGULAR)
-	{
-		configure_file = g_file_get_child (root_file, "configure.in");
-	}
-	else
-	{
-		g_set_error (error, IANJUTA_PROJECT_ERROR, 
-		             IANJUTA_PROJECT_ERROR_DOESNT_EXIST,
-			   _("Project doesn't exist or invalid path"));
+		/* Find configure file */
+		if (file_type (root_file, "configure.ac") == G_FILE_TYPE_REGULAR)
+		{
+			configure_file = g_file_get_child (root_file, "configure.ac");
+		}
+		else if (file_type (root_file, "configure.in") == G_FILE_TYPE_REGULAR)
+		{
+			configure_file = g_file_get_child (root_file, "configure.in");
+		}
+		else
+		{
+			g_set_error (error, IANJUTA_PROJECT_ERROR, 
+						IANJUTA_PROJECT_ERROR_DOESNT_EXIST,
+				_("Project doesn't exist or invalid path"));
 
-		return FALSE;
-	}
+			return NULL;
+		}
+		
 	
-	/* Create root node */
-	project->root_node = amp_group_new (project->root_file, FALSE);
-	g_hash_table_insert (project->groups, g_file_get_uri (project->root_file), project->root_node);
+		/* Create first group */
+		/*group = amp_group_new (root_file, FALSE);
+		anjuta_project_node_append (node, group);
+		g_hash_table_insert (project->groups, g_file_get_uri (root_file), group);*/
 	
-	/* Parse configure */	
-	project->configure_file = anjuta_token_file_new (configure_file);
-	g_hash_table_insert (project->files, configure_file, project->configure_file);
-	g_object_add_toggle_ref (G_OBJECT (project->configure_file), remove_config_file, project);
-	arg = anjuta_token_file_load (project->configure_file, NULL);
-	//fprintf (stdout, "AC file before parsing\n");
-	//anjuta_token_dump (arg);
-	//fprintf (stdout, "\n");
-	scanner = amp_ac_scanner_new (project);
-	project->configure_token = amp_ac_scanner_parse_token (scanner, arg, 0, &err);
-	//fprintf (stdout, "AC file after parsing\n");
-	//anjuta_token_check (arg);
-	//anjuta_token_dump (project->configure_token);
-	//fprintf (stdout, "\n");
-	amp_ac_scanner_free (scanner);
-	if (project->configure_token == NULL)
-	{
-		g_set_error (error, IANJUTA_PROJECT_ERROR, 
-		             	IANJUTA_PROJECT_ERROR_PROJECT_MALFORMED,
-		    			err == NULL ? _("Unable to parse project file") : err->message);
-		if (err != NULL) g_error_free (err);
+		/* Parse configure */
+		project->configure_file = anjuta_token_file_new (configure_file);
+		g_hash_table_insert (project->files, configure_file, project->configure_file);
+		g_object_add_toggle_ref (G_OBJECT (project->configure_file), remove_config_file, project);
+		arg = anjuta_token_file_load (project->configure_file, NULL);
+		//fprintf (stdout, "AC file before parsing\n");
+		//anjuta_token_dump (arg);
+		//fprintf (stdout, "\n");
+		scanner = amp_ac_scanner_new (project);
+		project->configure_token = amp_ac_scanner_parse_token (scanner, arg, 0, &err);
+		//fprintf (stdout, "AC file after parsing\n");
+		//anjuta_token_check (arg);
+		//anjuta_token_dump (project->configure_token);
+		//fprintf (stdout, "\n");
+		amp_ac_scanner_free (scanner);
+		if (project->configure_token == NULL)
+		{
+			g_set_error (error, IANJUTA_PROJECT_ERROR, 
+							IANJUTA_PROJECT_ERROR_PROJECT_MALFORMED,
+							err == NULL ? _("Unable to parse project file") : err->message);
+			if (err != NULL) g_error_free (err);
 
-		return FALSE;
-	}
+			return NULL;
+		}
 		     
-	monitors_setup (project);
+		monitors_setup (project);
 
-	/* Load all makefiles recursively */
-	if (project_load_makefile (project, project->root_file, NULL, FALSE) == NULL)
-	{
-		g_set_error (error, IANJUTA_PROJECT_ERROR, 
-		             IANJUTA_PROJECT_ERROR_DOESNT_EXIST,
-			   _("Project doesn't exist or invalid path"));
+		/* Load all makefiles recursively */
+		if (project_load_makefile (project, project->root_file, node, FALSE) == NULL)
+		{
+			g_set_error (error, IANJUTA_PROJECT_ERROR, 
+						IANJUTA_PROJECT_ERROR_DOESNT_EXIST,
+				_("Project doesn't exist or invalid path"));
 
-		ok = FALSE;
+			return NULL;
+		}
+		break;
+	default:
+		break;
 	}
 	
-	return ok;
+	return node;
 }
 
 gboolean
@@ -1856,11 +1945,11 @@ amp_project_load (AmpProject  *project,
 	g_return_val_if_fail (directory != NULL, FALSE);
 
 	project->root_file = g_object_ref (directory);
-	if (!amp_project_reload (project, error))
+	/*if (!amp_project_reload (project, error))
 	{
 		g_object_unref (project->root_file);
 		project->root_file = NULL;
-	}
+	}*/
 
 	return project->root_file != NULL;
 }
@@ -2058,7 +2147,7 @@ amp_project_add_sibling_group (AmpProject  *project,
 	if (sibling == NULL)
 	{
 		/* Find a sibling before */
-		for (last = anjuta_project_node_prev_sibling (child); (last != NULL) && (AMP_NODE_DATA (last)->type != ANJUTA_PROJECT_GROUP); last = anjuta_project_node_prev_sibling (last));
+		for (last = anjuta_project_node_prev_sibling (child); (last != NULL) && (anjuta_project_node_get_type (last) != ANJUTA_PROJECT_GROUP); last = anjuta_project_node_prev_sibling (last));
 		if (last != NULL)
 		{
 			sibling = last;
@@ -2067,7 +2156,7 @@ amp_project_add_sibling_group (AmpProject  *project,
 		else
 		{
 			/* Find a sibling after */
-			for (last = anjuta_project_node_next_sibling (child); (last != NULL) && (AMP_NODE_DATA (last)->type != ANJUTA_PROJECT_GROUP); last = anjuta_project_node_next_sibling (last));
+			for (last = anjuta_project_node_next_sibling (child); (last != NULL) && (anjuta_project_node_get_type (last) != ANJUTA_PROJECT_GROUP); last = anjuta_project_node_next_sibling (last));
 			if (last != NULL)
 			{
 				sibling = last;
@@ -2194,7 +2283,7 @@ amp_project_remove_group (AmpProject  *project,
 {
 	GList *token_list;
 
-	if (AMP_NODE_DATA (group)->type != ANJUTA_PROJECT_GROUP) return;
+	if (anjuta_project_node_get_type (group) != ANJUTA_PROJECT_GROUP) return;
 	
 	for (token_list = amp_group_get_token (group, AM_GROUP_TOKEN_CONFIGURE); token_list != NULL; token_list = g_list_next (token_list))
 	{
@@ -2400,7 +2489,7 @@ amp_project_remove_target (AmpProject  *project,
 {
 	GList *token_list;
 
-	if (AMP_NODE_DATA (target)->type != ANJUTA_PROJECT_TARGET) return;
+	if (anjuta_project_node_get_type (target) != ANJUTA_PROJECT_TARGET) return;
 	
 	for (token_list = amp_target_get_token (target); token_list != NULL; token_list = g_list_next (token_list))
 	{
@@ -2423,7 +2512,7 @@ amp_project_add_sibling_source (AmpProject  *project, AmpTarget *target, GFile *
 	g_return_val_if_fail (file != NULL, NULL);
 	g_return_val_if_fail (target != NULL, NULL);
 
-	if (AMP_NODE_DATA (target)->type != ANJUTA_PROJECT_TARGET) return NULL;
+	if (anjuta_project_node_get_type (target) != ANJUTA_PROJECT_TARGET) return NULL;
 	
 	group = (AmpGroup *)(target->parent);
 	relative_name = g_file_get_relative_path (AMP_GROUP_DATA (group)->base.file, file);
@@ -2516,7 +2605,7 @@ amp_project_remove_source (AmpProject  *project,
 		    GError     **error)
 {
 	amp_dump_node (source);
-	if (AMP_NODE_DATA (source)->type != ANJUTA_PROJECT_SOURCE) return;
+	if (anjuta_project_node_get_type (source) != ANJUTA_PROJECT_SOURCE) return;
 	
 	anjuta_token_remove_word (AMP_SOURCE_DATA (source)->token, NULL);
 
@@ -2631,7 +2720,7 @@ foreach_node_move (AnjutaProjectNode *g_node, gpointer data)
 	GFile *relative;
 	GFile *new_file;
 	
-	switch (AMP_NODE_DATA (g_node)->type)
+	switch (anjuta_project_node_get_type (g_node))
 	{
 	case ANJUTA_PROJECT_GROUP:
 		relative = get_relative_path (old_root_file, AMP_GROUP_DATA (g_node)->base.file);
@@ -2811,7 +2900,7 @@ amp_project_get_node_id (AmpProject *project, const gchar *path)
 		}
 	}
 
-	switch (AMP_NODE_DATA (node)->type)
+	switch (anjuta_project_node_get_type (node))
 	{
 		case ANJUTA_PROJECT_GROUP:
 			return g_file_get_uri (AMP_GROUP_DATA (node)->base.file);
@@ -2991,7 +3080,8 @@ iproject_load (IAnjutaProject *obj, GFile *file, GError **err)
 static gboolean
 iproject_refresh (IAnjutaProject *obj, GError **err)
 {
-	return amp_project_reload (AMP_PROJECT (obj), err);
+	//return amp_project_reload (AMP_PROJECT (obj), err);
+	return NULL;
 }
 
 static gboolean
@@ -3003,7 +3093,7 @@ iproject_remove_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err
 static GtkWidget*
 iproject_configure_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
 {
-	switch (AMP_NODE_DATA (node)->type)
+	switch (anjuta_project_node_get_type (node))
 	{
 		case ANJUTA_PROJECT_GROUP:
 			return amp_configure_group_dialog (AMP_PROJECT (obj), AMP_GROUP (node), err);
@@ -3014,6 +3104,42 @@ iproject_configure_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **
 		default:
 			return NULL;
 	}
+}
+
+static AnjutaProjectNode *
+iproject_load_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
+{
+	return amp_project_load_node (AMP_PROJECT (obj), node, err);
+}
+
+static AnjutaProjectNode *
+iproject_save_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
+{
+	return NULL;
+}
+
+static AnjutaProjectNode *
+iproject_new_root (IAnjutaProject *obj, GFile *file, GError **err)
+{
+	return project_node_new (AMP_PROJECT (obj), ANJUTA_PROJECT_ROOT, file, NULL);
+}
+
+static AnjutaProjectNode *
+iproject_new_file (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, GFile *file, GError **err)
+{
+	return NULL;
+}
+
+static AnjutaProjectNode *
+iproject_new_name (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, const gchar *name, GError **err)
+{
+	return NULL;
+}
+
+static void
+iproject_free_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
+{
+	return project_node_destroy (AMP_PROJECT (obj), node);
 }
 
 static void
@@ -3031,6 +3157,12 @@ iproject_iface_init(IAnjutaProjectIface* iface)
 	iface->refresh = iproject_refresh;
 	iface->remove_node = iproject_remove_node;
 	iface->configure_node = iproject_configure_node;
+	iface->load_node = iproject_load_node;
+	iface->save_node = iproject_save_node;
+	iface->new_root = iproject_new_root;
+	iface->new_file = iproject_new_file;
+	iface->new_name = iproject_new_name;
+	iface->free_node = iproject_free_node;
 }
 
 /* Group access functions

@@ -113,12 +113,25 @@ pm_project_thread_main_loop (AnjutaPmProject *project)
 	
 	for (;;)
 	{
+		AnjutaProjectNode *root;
+		AnjutaProjectNode *node;
+		
 		job = (PmJob *)g_async_queue_pop (project->job_queue);
 
 		switch (job->command)
 		{
 		case LOAD:
-			ianjuta_project_load (project->project, job->file, &(job->error));
+			root = ianjuta_project_new_root (project->project, job->file, NULL);
+			node = ianjuta_project_load_node (project->project, root, &(job->error));
+			g_message ("load get root %p node %p, error %p", root, node, job->error);
+			if (job->error == NULL)
+			{
+				job->node = node;
+			}
+			else
+			{
+				ianjuta_project_free_node (project->project, root, NULL);
+			}
 			break;
 		case EXIT:
 			do
@@ -229,6 +242,10 @@ on_pm_project_loaded (AnjutaPmProject *project, PmJob *job)
 	}
 	else
 	{
+		g_message ("project loaded project root %p node %p", anjuta_pm_project_get_root (project), job->node);
+		g_message ("root child %d", g_node_n_children (job->node));
+		g_message ("root all nodes %d", g_node_n_nodes (job->node, G_TRAVERSE_ALL));
+		project->root = job->node;
 		g_object_set (G_OBJECT (project->model), "project", project, NULL);
 	}
 	g_signal_emit (G_OBJECT (project), signals[UPDATED], 0, job->error);
@@ -381,9 +398,7 @@ anjuta_pm_project_get_target_types (AnjutaPmProject *project)
 AnjutaProjectNode *
 anjuta_pm_project_get_root (AnjutaPmProject *project)
 {
-	if (project->project == NULL) return NULL;
-
-	return ianjuta_project_get_root (project->project, NULL);
+	return project->root;
 }
 
 GList *

@@ -38,12 +38,13 @@ typedef enum {
 	GBF_TREE_NODE_MODULE,
 	GBF_TREE_NODE_PACKAGE,
 	GBF_TREE_NODE_SOURCE,
+	GBF_TREE_NODE_ROOT,
 	GBF_TREE_NODE_SHORTCUT
 } GbfTreeNodeType;
 
 struct _GbfTreeData
 {
-	GbfTreeNodeType  	type;
+	GbfTreeNodeType	type;
 	gchar           *name;
 	GFile			*group;
 	gchar			*target;

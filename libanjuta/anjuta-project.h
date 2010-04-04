@@ -31,13 +31,16 @@ G_BEGIN_DECLS
 
 typedef enum
 {
-	ANJUTA_PROJECT_UNKNOWN,
-	ANJUTA_PROJECT_GROUP,
-	ANJUTA_PROJECT_TARGET,
-	ANJUTA_PROJECT_SOURCE,
-	ANJUTA_PROJECT_MODULE,
-	ANJUTA_PROJECT_PACKAGE,
-	ANJUTA_PROJECT_VARIABLE
+	ANJUTA_PROJECT_UNKNOWN = 0,
+	ANJUTA_PROJECT_EXECUTABLE = 1 << 15,
+	ANJUTA_PROJECT_TYPE_MASK = 0xFFFF << 16,
+	ANJUTA_PROJECT_ROOT = 1 << 16,
+	ANJUTA_PROJECT_GROUP = 2 << 16,
+	ANJUTA_PROJECT_TARGET = 3 << 16,
+	ANJUTA_PROJECT_SOURCE = 4 << 16 ,
+	ANJUTA_PROJECT_MODULE = 5 << 16,
+	ANJUTA_PROJECT_PACKAGE = 6 << 16,
+	ANJUTA_PROJECT_VARIABLE = 7 << 16
 } AnjutaProjectNodeType;
 	
 typedef enum
@@ -157,6 +160,7 @@ void anjuta_project_node_all_foreach (AnjutaProjectNode *node, AnjutaProjectNode
 void anjuta_project_node_children_foreach (AnjutaProjectNode *node, AnjutaProjectNodeFunc func, gpointer data);
 
 AnjutaProjectNodeType anjuta_project_node_get_type (const AnjutaProjectNode *node);
+AnjutaProjectNodeType anjuta_project_node_get_full_type (const AnjutaProjectNode *node);
 gchar *anjuta_project_node_get_name (const AnjutaProjectNode *node);
 gchar *anjuta_project_node_get_uri (AnjutaProjectNode *node);
 GFile *anjuta_project_node_get_file (AnjutaProjectNode *node);

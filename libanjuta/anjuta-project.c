@@ -304,13 +304,19 @@ anjuta_project_node_prepend (AnjutaProjectNode *parent, AnjutaProjectNode *node)
 AnjutaProjectNodeType
 anjuta_project_node_get_type (const AnjutaProjectNode *node)
 {
+	return node == NULL ? ANJUTA_PROJECT_UNKNOWN : (NODE_DATA (node)->type & ANJUTA_PROJECT_TYPE_MASK);
+}
+
+AnjutaProjectNodeType
+anjuta_project_node_get_full_type (const AnjutaProjectNode *node)
+{
 	return node == NULL ? ANJUTA_PROJECT_UNKNOWN : NODE_DATA (node)->type;
 }
 
 gchar *
 anjuta_project_node_get_name (const AnjutaProjectNode *node)
 {
-	switch (NODE_DATA (node)->type)
+	switch (NODE_DATA (node)->type & ANJUTA_PROJECT_TYPE_MASK)
 	{
 	case ANJUTA_PROJECT_GROUP:
 		return g_file_get_basename (NODE_DATA (node)->file);
@@ -332,7 +338,7 @@ anjuta_project_node_get_uri (AnjutaProjectNode *node)
 	GFile *file;
 	gchar *uri;
 	
-	switch (NODE_DATA (node)->type)
+	switch (NODE_DATA (node)->type & ANJUTA_PROJECT_TYPE_MASK)
 	{
 	case ANJUTA_PROJECT_GROUP:
 		uri = g_file_get_uri (NODE_DATA (node)->file);
@@ -360,7 +366,7 @@ anjuta_project_node_get_file (AnjutaProjectNode *node)
 	AnjutaProjectNode *parent;
 	GFile *file;
 	
-	switch (NODE_DATA (node)->type)
+	switch (NODE_DATA (node)->type & ANJUTA_PROJECT_TYPE_MASK)
 	{
 	case ANJUTA_PROJECT_TARGET:
 		parent = anjuta_project_node_parent (node);
@@ -370,6 +376,7 @@ anjuta_project_node_get_file (AnjutaProjectNode *node)
 	case ANJUTA_PROJECT_SOURCE:
 	case ANJUTA_PROJECT_MODULE:
 	case ANJUTA_PROJECT_PACKAGE:
+	case ANJUTA_PROJECT_ROOT:
 		file = g_object_ref (NODE_DATA (node)->file);
 		break;
 	default:
@@ -449,7 +456,7 @@ anjuta_project_group_compare (GNode *node, gpointer data)
 {
 	GFile *file = *(GFile **)data;
 
-	if ((NODE_DATA(node)->type == ANJUTA_PROJECT_GROUP) && g_file_equal (NODE_DATA(node)->file, file))
+	if (((NODE_DATA (node)->type & ANJUTA_PROJECT_TYPE_MASK) == ANJUTA_PROJECT_GROUP) && g_file_equal (NODE_DATA(node)->file, file))
 	{
 		*(AnjutaProjectNode **)data = node;
 
@@ -489,7 +496,7 @@ anjuta_project_target_compare (GNode *node, gpointer data)
 {
 	const gchar *name = *(gchar **)data;
 
-	if ((NODE_DATA(node)->type == ANJUTA_PROJECT_TARGET) && (strcmp (NODE_DATA(node)->name, name) == 0))
+	if (((NODE_DATA (node)->type & ANJUTA_PROJECT_TYPE_MASK) == ANJUTA_PROJECT_TARGET) && (strcmp (NODE_DATA(node)->name, name) == 0))
 	{
 		*(AnjutaProjectNode **)data = node;
 
@@ -517,7 +524,7 @@ anjuta_project_source_compare (GNode *node, gpointer data)
 {
 	GFile *file = *(GFile **)data;
 
-	if ((NODE_DATA(node)->type == ANJUTA_PROJECT_SOURCE) && g_file_equal (NODE_DATA(node)->file, file))
+	if (((NODE_DATA (node)->type & ANJUTA_PROJECT_TYPE_MASK) == ANJUTA_PROJECT_SOURCE) && g_file_equal (NODE_DATA(node)->file, file))
 	{
 		*(AnjutaProjectNode **)data = node;
 

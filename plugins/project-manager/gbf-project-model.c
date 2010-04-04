@@ -519,6 +519,7 @@ add_module (GbfProjectModel 		*model,
 	if ((!module) || (anjuta_project_node_get_type (module) != ANJUTA_PROJECT_MODULE))
 		return;
 	
+	g_message ("new module");
 	data = gbf_tree_data_new_module (module);
 	gtk_tree_store_append (GTK_TREE_STORE (model), &iter, parent);
 	gtk_tree_store_set (GTK_TREE_STORE (model), &iter, 
@@ -607,10 +608,6 @@ add_target_group (GbfProjectModel 	*model,
 	for (node = anjuta_project_node_first_child (group); node; node = anjuta_project_node_next_sibling (node))
 		add_target_group (model, node, &iter);
 	
-	/* ... and module */
-	for (node = anjuta_project_node_first_child (group); node; node = anjuta_project_node_next_sibling (node))
-		add_module (model, node, &iter);
-	
 	/* ... and targets */
 	for (node = anjuta_project_node_first_child (group); node; node = anjuta_project_node_next_sibling (node))
 		add_target (model, node, &iter);
@@ -618,6 +615,34 @@ add_target_group (GbfProjectModel 	*model,
 	/* ... and sources */
 	for (node = anjuta_project_node_first_child (group); node; node = anjuta_project_node_next_sibling (node))
 		add_source (model, node, &iter);
+}
+
+static void
+add_root (GbfProjectModel 	*model,
+    AnjutaProjectNode	*root,
+    GtkTreeIter     	*parent)
+{
+	GtkTreeIter iter;
+	AnjutaProjectNode *node;
+	GtkTreePath *root_path;
+
+	if ((!root) || (anjuta_project_node_get_type (root) != ANJUTA_PROJECT_ROOT))
+		return;
+
+	/* create root reference */
+	/*root_path = gtk_tree_model_get_path (GTK_TREE_MODEL (model), &iter);
+	model->priv->root_row = gtk_tree_row_reference_new (GTK_TREE_MODEL (model), root_path);
+	gtk_tree_path_free (root_path);*/
+
+	g_message ("add group");
+	/* add groups ... */
+	for (node = anjuta_project_node_first_child (root); node; node = anjuta_project_node_next_sibling (node))
+		add_target_group (model, node, NULL);
+	
+	g_message ("add module");
+	/* ... and module */
+	for (node = anjuta_project_node_first_child (root); node; node = anjuta_project_node_next_sibling (node))
+		add_module (model, node, NULL);
 }
 
 static void
@@ -632,6 +657,7 @@ update_tree (GbfProjectModel *model, AnjutaProjectNode *parent, GtkTreeIter *ite
 	
 	/* Get all new nodes */
 	nodes = gbf_project_util_all_child (parent, ANJUTA_PROJECT_UNKNOWN);
+	g_message ("get all nodes %d", g_list_length (nodes));
 
 	/* walk the tree nodes */
 	if (gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &child, iter)) {
@@ -692,6 +718,9 @@ update_tree (GbfProjectModel *model, AnjutaProjectNode *parent, GtkTreeIter *ite
 		case ANJUTA_PROJECT_PACKAGE:
 			add_package (model, node->data, iter);
 			break;
+		case ANJUTA_PROJECT_ROOT:
+			add_root (model, node->data, iter);
+			break;
 		default:
 			break;
 		}
@@ -713,7 +742,8 @@ load_project (GbfProjectModel *model, AnjutaPmProject *proj)
 	/* to get rid of the empty node */
 	gbf_project_model_clear (model);
 
-	add_target_group (model, anjuta_pm_project_get_root (proj), NULL);
+	add_root (model, anjuta_pm_project_get_root (proj), NULL);
+	//add_target_group (model, anjuta_pm_project_get_root (proj), NULL);
 
 	model->priv->project_updated_handler =
 		g_signal_connect (anjuta_pm_project_get_project (model->priv->proj), "project-updated",

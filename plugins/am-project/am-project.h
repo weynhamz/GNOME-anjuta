@@ -82,7 +82,7 @@ GList *amp_target_property_buffer_steal_properties (AmpTargetPropertyBuffer *buf
 
 gint amp_project_probe (GFile *directory, GError     **error);
 gboolean amp_project_load (AmpProject *project, GFile *directory, GError **error);
-gboolean amp_project_reload (AmpProject *project, GError **error);
+AnjutaProjectNode *amp_project_load_node (AmpProject *project, AnjutaProjectNode *node, GError **error);
 void amp_project_unload (AmpProject *project);
 
 void amp_project_load_config (AmpProject *project, AnjutaToken *arg_list);

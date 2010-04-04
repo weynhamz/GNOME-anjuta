@@ -59,6 +59,9 @@ struct _AnjutaPmProject
 	IAnjutaProject *project;
 	GbfProjectModel *model;
 
+	AnjutaProjectNode *root;
+	
+	/* Thread queue */
 	GAsyncQueue *job_queue;
 	GAsyncQueue *done_queue;
 	GThread *worker;
