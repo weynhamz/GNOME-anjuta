@@ -648,7 +648,7 @@ trigger_on_symbol_inserted (SymbolDBViewLocals *dbvl, gint symbol_id)
 		/*DEBUG_PRINT ("trigger_on_symbol_inserted (): consuming slist for parent %d",
 					 symbol_id);*/
 
-		for (i=0; i < length-1; i++)
+		for (i=0; i < length; i++)
 		{
 			wfs = g_slist_nth_data (slist, 0);
 				
