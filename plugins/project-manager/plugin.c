@@ -191,18 +191,12 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 static void
 on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, AnjutaSession *session, ProjectManagerPlugin *plugin)
 {
-	GList *list;
-
 	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
 		return;
 
-	list = anjuta_session_get_string_list (session, "Project Manager", "Shortcut");
-	if (list != NULL)
-	{
-		gbf_project_view_set_shortcut_list (GBF_PROJECT_VIEW (plugin->view), list);
-		g_list_foreach (list, (GFunc)g_free, NULL);
-		g_list_free (list);
-	}
+	g_list_foreach (plugin->shortcuts, (GFunc)g_free, NULL);
+	g_list_free (plugin->shortcuts);
+	plugin->shortcuts = anjuta_session_get_string_list (session, "Project Manager", "Shortcut");
 }
 
 static void
@@ -1395,6 +1389,29 @@ on_project_updated (AnjutaPmProject *project, GError *error, ProjectManagerPlugi
 	}
 	else
 	{
+		/* Restore existing shortcut */
+		if (plugin->shortcuts != NULL)
+		{
+			GList *item;
+			
+			gbf_project_view_set_shortcut_list (GBF_PROJECT_VIEW (plugin->view), plugin->shortcuts);
+			/* Remove used shortcuts */
+			for (item = g_list_first (plugin->shortcuts); item != NULL;)
+			{
+				if (*((char *)item->data) == 'U')
+				{
+					GList *next = g_list_next (item);
+					
+					g_free (item->data);
+					plugin->shortcuts = g_list_remove_link (plugin->shortcuts, item);
+					item = next;
+				}
+				else
+				{
+					item = g_list_next (item);
+				}
+			}
+		}
 		gchar *basename = g_path_get_basename (dirname);
 		
 		anjuta_status_progress_tick (status, NULL, _("Update project view…"));
@@ -1402,7 +1419,6 @@ on_project_updated (AnjutaPmProject *project, GError *error, ProjectManagerPlugi
 		anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
 									plugin->scrolledwindow,
 									NULL);
-	
 		anjuta_status_set_default (status, _("Project"), basename);
 		g_free (basename);
 	}
@@ -1786,6 +1802,11 @@ project_manager_plugin_deactivate_plugin (AnjutaPlugin *plugin)
 	anjuta_ui_remove_action_group (pm_plugin->ui,
 								   pm_plugin->popup_action_group);
 
+	/* Remove shortcuts list */
+	g_list_foreach (pm_plugin->shortcuts, (GFunc)g_free, NULL);
+	g_list_free (pm_plugin->shortcuts);
+	pm_plugin->shortcuts = NULL;
+
 	/* Destroy project */
 	anjuta_pm_project_free (pm_plugin->project);
 	
@@ -1822,6 +1843,7 @@ project_manager_plugin_instance_init (GObject *obj)
 	plugin->current_editor_uri = NULL;
 	plugin->session_by_me = FALSE;
 	plugin->close_project_idle = -1;
+	plugin->shortcuts = NULL;
 }
 
 static void

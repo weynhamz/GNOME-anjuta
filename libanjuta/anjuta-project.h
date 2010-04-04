@@ -42,7 +42,13 @@ typedef enum
 	ANJUTA_PROJECT_PACKAGE = 6 << 16,
 	ANJUTA_PROJECT_VARIABLE = 7 << 16
 } AnjutaProjectNodeType;
-	
+
+typedef enum
+{
+	ANJUTA_PROJECT_LOADING = 1 << 0,
+	ANJUTA_PROJECT_SAVED = 1 << 1
+} AnjutaProjectNodeState;
+
 typedef enum
 {
 	ANJUTA_TARGET_UNKNOWN,

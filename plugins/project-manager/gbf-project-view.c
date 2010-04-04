@@ -576,7 +576,7 @@ gbf_project_view_set_shortcut_list (GbfProjectView *view, GList *shortcuts)
 				GbfTreeData *data;
 				GtkTreeIter shortcut;
 				gboolean expand = FALSE;
-				const gchar *path = (const gchar *)node->data;
+				gchar *path = (gchar *)node->data;
 
 				if (strncmp (path, "E ", 2) == 0)
 				{
@@ -611,6 +611,8 @@ gbf_project_view_set_shortcut_list (GbfProjectView *view, GList *shortcuts)
 						gtk_tree_view_expand_row (GTK_TREE_VIEW (view), path, FALSE);
 						gtk_tree_path_free (path);
 					}
+					/* Mark the shortcut as used */
+					*path = 'U';
 				}
 				
 				gbf_tree_data_free (data);

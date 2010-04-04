@@ -60,6 +60,9 @@ struct _ProjectManagerPlugin{
 	gchar *current_editor_uri;
 	gchar *project_root_uri;
 	gchar *project_uri;
+
+	/* Target shortcuts */
+	GList *shortcuts;
 	
 	/* Update state recording */
 	GList *pre_update_sources;
