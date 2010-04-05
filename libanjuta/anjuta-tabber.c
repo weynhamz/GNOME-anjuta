@@ -314,13 +314,10 @@ anjuta_tabber_button_press_event (GtkWidget* widget, GdkEventButton* event)
 		for (child = tabber->priv->children; child != NULL; child = g_list_next (child))
 		{
 			GtkAllocation alloc;
-			gtk_widget_get_allocation (GTK_WIDGET (child->data), &alloc);
-
-			g_message ("Event: %d %d", x, y);
-			g_message ("alloc: %d %d %d %d", alloc.x, alloc.y, alloc.width, alloc.height);			
+			gtk_widget_get_allocation (GTK_WIDGET (child->data), &alloc);	
 			
-			if (alloc.x <= event->x && (alloc.x + alloc.width) >= event->x &&
-			    alloc.y <= event->y && (alloc.y + alloc.height) >= event->y)
+			if (alloc.x <= x && (alloc.x + alloc.width) >= x &&
+			    alloc.y <= y && (alloc.y + alloc.height) >= y)
 			{
 				gint page = g_list_position (tabber->priv->children, child);
 				gtk_notebook_set_current_page (tabber->priv->notebook, page);
