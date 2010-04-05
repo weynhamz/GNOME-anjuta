@@ -102,9 +102,7 @@ struct _SymbolDBPlugin {
 	 GtkWidget *scrolled_global; */			/* symbol view scrolledwindow for global
 										   	symbols */
 
-	GtkWidget *local_button;
-	GtkWidget *global_button;
-	GtkWidget *search_button;
+	GtkWidget *tabber;
 	
 	/* GtkWidget *scrolled_locals; */
 	GtkWidget *scrolled_search;
