@@ -60,8 +60,7 @@ struct _AnjutaDevhelp{
 	GtkWidget      *go_forward;
 	GtkWidget      *online;
 
-	GtkWidget      *button_tree;
-	GtkWidget      *button_search;	
+	GtkWidget      *tabber;
 	
 	IAnjutaEditor	*editor;
 	guint editor_watch_id;
