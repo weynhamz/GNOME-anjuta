@@ -281,6 +281,7 @@ symbol_db_engine_get_scope_members_by_path (SymbolDBEngine *dbe,
 SymbolDBEngineIterator *
 symbol_db_engine_get_scope_members_by_symbol_id (SymbolDBEngine *dbe, 
 									gint scope_parent_symbol_id, 
+                                    gchar *scope_file_path,
 									gint results_limit,
 									gint results_offset,
 									SymExtraInfo sym_info);

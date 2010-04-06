@@ -42,6 +42,7 @@ sdb_model_file_get_n_children (SymbolDBModel *model, gint tree_level,
 	SymbolDBEngine *dbe;
 	SymbolDBModelFilePriv *priv;
 	SymbolDBEngineIterator *iter = NULL;
+	gint symbol_id;
 	
 	g_return_val_if_fail (SYMBOL_DB_IS_MODEL_FILE (model), 0);
 	priv = SYMBOL_DB_MODEL_FILE (model)->priv;
@@ -59,18 +60,27 @@ sdb_model_file_get_n_children (SymbolDBModel *model, gint tree_level,
 		{
 			iter = symbol_db_engine_get_file_symbols
 				(dbe, priv->file_path, -1, -1, SYMINFO_SIMPLE);
-			if (iter)
-			{
-				n_children = symbol_db_engine_iterator_get_n_items (iter);
-				g_object_unref (iter);
-				return n_children;
-			}
 		}
-		return 0;
+		break;
+	case 1:
+		if (priv->file_path)
+		{
+			symbol_id = g_value_get_int (&column_values[0]); /* fixme: */
+			iter = symbol_db_engine_get_scope_members_by_symbol_id
+				(dbe, symbol_id, priv->file_path, -1, -1, SYMINFO_SIMPLE | SYMINFO_FILE_PATH);
+		}
+		break;
 	default:
 		return SYMBOL_DB_MODEL_CLASS (sdb_model_file_parent_class)->
 				get_n_children (model, tree_level, column_values);
 	}
+	if (iter)
+	{
+		n_children = symbol_db_engine_iterator_get_n_items (iter);
+		g_object_unref (iter);
+		return n_children;
+	}
+	return 0;
 }
 
 static GdaDataModel*
@@ -81,6 +91,7 @@ sdb_model_file_get_children (SymbolDBModel *model, gint tree_level,
 	SymbolDBEngine *dbe;
 	SymbolDBModelFilePriv *priv;
 	SymbolDBEngineIterator *iter = NULL;
+	gint symbol_id;
 
 	g_return_val_if_fail (SYMBOL_DB_IS_MODEL_FILE (model), 0);
 	priv = SYMBOL_DB_MODEL_FILE (model)->priv;
@@ -100,21 +111,32 @@ sdb_model_file_get_children (SymbolDBModel *model, gint tree_level,
 				(dbe, priv->file_path, limit, offset,
 				 SYMINFO_SIMPLE | SYMINFO_ACCESS | SYMINFO_TYPE |
 				 SYMINFO_KIND | SYMINFO_FILE_PATH);
-			if (iter)
-			{
-				GdaDataModel *data_model;
-				data_model =
-					GDA_DATA_MODEL (symbol_db_engine_iterator_get_datamodel (iter));
-				g_object_ref (data_model);
-				g_object_unref (iter);
-				return data_model;
-			}
 		}
-		return NULL;
+		break;
+	case 1:
+		if (priv->file_path)
+		{
+			symbol_id = g_value_get_int (&column_values[0]); /* fixme: */
+			iter = symbol_db_engine_get_scope_members_by_symbol_id
+				(dbe, symbol_id, priv->file_path, limit, offset, SYMINFO_SIMPLE |
+				 SYMINFO_KIND | SYMINFO_ACCESS | SYMINFO_TYPE |
+				 SYMINFO_FILE_PATH);
+		}
+		break;
 	default:
 		return SYMBOL_DB_MODEL_CLASS (sdb_model_file_parent_class)->
 				get_children (model, tree_level, column_values, offset, limit);
 	}
+	if (iter)
+	{
+		GdaDataModel *data_model;
+		data_model =
+			GDA_DATA_MODEL (symbol_db_engine_iterator_get_datamodel (iter));
+		g_object_ref (data_model);
+		g_object_unref (iter);
+		return data_model;
+	}
+	return NULL;
 }
 
 static void

@@ -1078,10 +1078,12 @@ symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe,
 
 #define DYN_GET_SCOPE_MEMBERS_BY_SYMBOL_ID_EXTRA_PAR_LIMIT		1
 #define DYN_GET_SCOPE_MEMBERS_BY_SYMBOL_ID_EXTRA_PAR_OFFSET		2
+#define DYN_GET_SCOPE_MEMBERS_BY_SYMBOL_ID_EXTRA_PAR_FILE_PATH  4
 
 SymbolDBEngineIterator *
 symbol_db_engine_get_scope_members_by_symbol_id (SymbolDBEngine *dbe, 
-									gint scope_parent_symbol_id, 
+									gint scope_parent_symbol_id,
+                                    gchar *scope_file_path,
 									gint results_limit,
 									gint results_offset,
 									SymExtraInfo sym_info)
@@ -1099,11 +1101,15 @@ select b.* from symbol a, symbol b where a.symbol_id = 348 and
 	gboolean limit_free = FALSE;
 	gchar *offset = "";
 	gboolean offset_free = FALSE;
+	gchar *file_path = "";
+	gboolean file_path_free = FALSE;
+	gchar *relative_path;
 	gint other_parameters;
 	const DynChildQueryNode *dyn_node = NULL;
 	GdaHolder *param;
 	GValue *ret_value;
 	gboolean ret_bool;
+	GError *error = NULL;
 	
 	g_return_val_if_fail (dbe != NULL, NULL);
 	priv = dbe->priv;
@@ -1130,6 +1136,13 @@ select b.* from symbol a, symbol b where a.symbol_id = 348 and
 		offset = g_strdup_printf ("OFFSET ## /* name:'offset' type:gint */");
 		offset_free = TRUE;
 		other_parameters |= DYN_GET_SCOPE_MEMBERS_BY_SYMBOL_ID_EXTRA_PAR_OFFSET;
+	}
+	
+	if (scope_file_path)
+	{
+		file_path = g_strdup_printf (" AND file.file_path = ## /* name:'filepath' type:gchararray */");
+		file_path_free = TRUE;
+		other_parameters |= DYN_GET_SCOPE_MEMBERS_BY_SYMBOL_ID_EXTRA_PAR_FILE_PATH;
 	}
 	
 	if ((dyn_node = sdb_engine_get_dyn_query_node_by_id (dbe, 
@@ -1159,9 +1172,10 @@ select b.* from symbol a, symbol b where a.symbol_id = 348 and
 		    "symbol.returntype AS returntype "
 			"%s FROM symbol a, symbol symbol "
 			"%s WHERE a.symbol_id = ## /* name:'scopeparentsymid' type:gint */ "
-			"AND symbol.scope_id = a.scope_definition_id "
-			"AND symbol.scope_id > 0 order by name %s %s", info_data->str, join_data->str,
-								 limit, offset);	
+			"AND symbol.scope_id = a.scope_definition_id %s "
+			"AND symbol.scope_id > 0 order by name %s %s",
+		                             info_data->str, join_data->str,
+		                             file_path, limit, offset);	
 		
 		dyn_node = sdb_engine_insert_dyn_query_node_by_id (dbe, 
 							DYN_PREP_QUERY_GET_SCOPE_MEMBERS_BY_SYMBOL_ID,
@@ -1178,6 +1192,9 @@ select b.* from symbol a, symbol b where a.symbol_id = 348 and
 	
 	if (offset_free)
 		g_free (offset);
+
+	if (file_path_free)
+		g_free (file_path);
 
 	if (dyn_node == NULL) 
 	{		
@@ -1216,14 +1233,41 @@ select b.* from symbol a, symbol b where a.symbol_id = 348 and
 
 	MP_SET_HOLDER_BATCH_INT(priv, param, scope_parent_symbol_id, ret_bool, ret_value);	
 	
+	if (other_parameters & DYN_GET_SCOPE_MEMBERS_BY_SYMBOL_ID_EXTRA_PAR_FILE_PATH)
+	{
+		if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "filepath")) == NULL)
+		{
+			SDB_UNLOCK(priv);
+			return NULL;
+		}
+
+		relative_path = symbol_db_util_get_file_db_path (dbe, scope_file_path);
+		if (relative_path == NULL)
+		{
+			SDB_UNLOCK(priv);
+			return NULL;
+		}
+
+		MP_SET_HOLDER_BATCH_STR(priv, param, relative_path, ret_bool, ret_value);
+	}
+	
 	/*DEBUG_PRINT ("symbol_db_engine_get_scope_members_by_symbol_id (): %s", 
 				 dyn_node->query_str);*/
 	
 	/* execute the query with parametes just set */
 	data = gda_connection_statement_execute_select (priv->db_connection, 
 												  (GdaStatement*)dyn_node->stmt, 
-												  (GdaSet*)dyn_node->plist, NULL);
+												  (GdaSet*)dyn_node->plist,
+	                                                &error);
+	if (error)
+	{
+		g_warning ("SQL error: %s: %s", dyn_node->query_str, error->message);
+		g_error_free (error);
+	}
+	
 	MP_RESET_PLIST(dyn_node->plist);
+	
+	g_free (relative_path);
 	
 	/*gda_data_model_dump (data, stdout);*/
 	if (!GDA_IS_DATA_MODEL (data) ||

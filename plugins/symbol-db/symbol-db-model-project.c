@@ -76,7 +76,7 @@ sdb_model_project_get_n_children (SymbolDBModel *model, gint tree_level,
 		case 1:
 			symbol_id = g_value_get_int (&column_values[DATA_COL_SYMBOL_ID]);
 			iter = symbol_db_engine_get_scope_members_by_symbol_id
-				(priv->dbe, symbol_id, -1, -1, SYMINFO_SIMPLE);
+				(priv->dbe, symbol_id, NULL, -1, -1, SYMINFO_SIMPLE);
 			break;
 		default:
 			return 0; /* FIXME */
@@ -117,7 +117,7 @@ sdb_model_project_get_children (SymbolDBModel *model, gint tree_level,
 		case 1:
 			symbol_id = g_value_get_int (&column_values[DATA_COL_SYMBOL_ID]);
 			iter = symbol_db_engine_get_scope_members_by_symbol_id
-				(priv->dbe, symbol_id, limit, offset, SYMINFO_SIMPLE |
+				(priv->dbe, symbol_id, NULL, limit, offset, SYMINFO_SIMPLE |
 				 SYMINFO_KIND | SYMINFO_ACCESS | SYMINFO_TYPE |
 				 SYMINFO_FILE_PATH);
 			break;
