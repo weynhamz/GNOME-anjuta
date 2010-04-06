@@ -1103,7 +1103,7 @@ select b.* from symbol a, symbol b where a.symbol_id = 348 and
 	gboolean offset_free = FALSE;
 	gchar *file_path = "";
 	gboolean file_path_free = FALSE;
-	gchar *relative_path;
+	gchar *relative_path = NULL;
 	gint other_parameters;
 	const DynChildQueryNode *dyn_node = NULL;
 	GdaHolder *param;
