@@ -8,7 +8,7 @@ AM_CPPFLAGS = \
 	-DPACKAGE_DATA_DIR=\""$(datadir)"\" 
 
 AM_CFLAGS =\
-	 -Wall \
+	 $(WARN_CFLAGS) \
 	 $(GLIB_CFLAGS) \
 	 $(VALA_CFLAGS) \
 	 $(LIBXML_CFLAGS)

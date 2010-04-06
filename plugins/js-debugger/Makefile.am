@@ -19,7 +19,7 @@ js_debugger_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 # Include paths
 AM_CPPFLAGS = \
-	-Werror \
+	$(WARN_CFLAGS) \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	-DANJUTA_DATA_DIR=\"$(anjuta_data_dir)\" \
 	-DANJUTA_PLUGIN_DIR=\"$(anjuta_plugin_dir)\" \
