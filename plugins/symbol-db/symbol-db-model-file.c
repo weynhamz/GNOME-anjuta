@@ -62,7 +62,7 @@ sdb_model_file_get_n_children (SymbolDBModel *model, gint tree_level,
 				(dbe, priv->file_path, -1, -1, SYMINFO_SIMPLE);
 		}
 		break;
-	case 1:
+	default:
 		if (priv->file_path)
 		{
 			symbol_id = g_value_get_int (&column_values[0]); /* fixme: */
@@ -70,9 +70,6 @@ sdb_model_file_get_n_children (SymbolDBModel *model, gint tree_level,
 				(dbe, symbol_id, priv->file_path, -1, -1, SYMINFO_SIMPLE | SYMINFO_FILE_PATH);
 		}
 		break;
-	default:
-		return SYMBOL_DB_MODEL_CLASS (sdb_model_file_parent_class)->
-				get_n_children (model, tree_level, column_values);
 	}
 	if (iter)
 	{
@@ -113,7 +110,7 @@ sdb_model_file_get_children (SymbolDBModel *model, gint tree_level,
 				 SYMINFO_KIND | SYMINFO_FILE_PATH);
 		}
 		break;
-	case 1:
+	default:
 		if (priv->file_path)
 		{
 			symbol_id = g_value_get_int (&column_values[0]); /* fixme: */
@@ -123,9 +120,6 @@ sdb_model_file_get_children (SymbolDBModel *model, gint tree_level,
 				 SYMINFO_FILE_PATH);
 		}
 		break;
-	default:
-		return SYMBOL_DB_MODEL_CLASS (sdb_model_file_parent_class)->
-				get_children (model, tree_level, column_values, offset, limit);
 	}
 	if (iter)
 	{
