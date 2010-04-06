@@ -1603,11 +1603,11 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 			"%s FROM symbol "
 				"JOIN file ON symbol.file_defined_id = file.file_id "
 			"%s WHERE (symbol.scope_id = 0 AND file.file_path = ## /* name:'filepath' type:gchararray */) "
-		    "or symbol.symbol_id in (select scope_id from symbol join file on "
+		    "or symbol.scope_definition_id in (select scope_id from symbol join file on "
 			"symbol.file_defined_id = file.file_id where "
 			"file.file_path = ## /* name:'filepath' type:gchararray */ "
 			"group by symbol.scope_id) "
-			"ORDER BY symbol.file_position %s %s", 
+			"GROUP BY symbol.scope_definition_id ORDER BY symbol.file_position %s %s", 
 						info_data->str, join_data->str, limit, offset);
 	
 		dyn_node = sdb_engine_insert_dyn_query_node_by_id (dbe, 
