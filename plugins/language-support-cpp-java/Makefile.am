@@ -55,11 +55,13 @@ libanjuta_language_cpp_java_la_SOURCES = \
 
 libanjuta_language_cpp_java_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
+# Use C++ linking
+nodist_EXTRA_libanjuta_language_cpp_java_la_SOURCES = dummy.cxx
+
 # Plugin dependencies
 libanjuta_language_cpp_java_la_LIBADD = \
 	$(LIBANJUTA_LIBS) \
-	cxxparser/libcxxparser.la \
-	-lstdc++
+	cxxparser/libcxxparser.la
 	
 prefs_ui_files = anjuta-language-cpp-java.ui
 include $(top_srcdir)/scripts/build-schemas.mk
