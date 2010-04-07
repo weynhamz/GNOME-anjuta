@@ -8,6 +8,7 @@ AM_CPPFLAGS = \
 	-DPACKAGE_DATA_DIR=\""$(datadir)"\" 
 
 AM_CFLAGS =\
+	 -I$(top_srcdir)/plugins/symbol-db/anjuta-tags/js_parser \
 	 $(WARN_CFLAGS) \
 	 $(GLIB_CFLAGS) \
 	 $(VALA_CFLAGS) \
