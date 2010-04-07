@@ -150,13 +150,15 @@ makeTags (xmlNode *node, const gchar *parent)
 			|| strcmp ((const gchar*)node->name, "bitfield") == 0
 			|| strcmp ((const gchar*)node->name, "interface") == 0)
 	{
-		return parse_class (node);
+		parse_class (node);
+		return;
 	}
 	if (strcmp ((const gchar*)node->name, "function") == 0 || strcmp ((const gchar*)node->name, "method") == 0
 			|| strcmp ((const gchar*)node->name, "callback") == 0
 			|| strcmp ((const gchar*)node->name, "constructor") == 0)
 	{
-		return parse_function (node, parent);
+		parse_function (node, parent);
+		return;
 	}
 	if (strcmp ((const gchar*)node->name, "alias") == 0 ||
 			strcmp ((const gchar*)node->name, "constant") == 0 ||
@@ -184,8 +186,6 @@ makeTags (xmlNode *node, const gchar *parent)
 		makeTagEntry (tag);
 		return;
 	}
-//	puts ((const gchar*)node->name);
-//	g_assert_not_reached ();
 }
 
 static void
