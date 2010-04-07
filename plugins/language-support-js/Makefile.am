@@ -29,6 +29,7 @@ js_support_plugin_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 # Include paths
 AM_CPPFLAGS = \
+	-I$(top_srcdir)/plugins/symbol-db/anjuta-tags/ \
 	$(WARN_CFLAGS) \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	-DANJUTA_DATA_DIR=\"$(anjuta_data_dir)\" \
