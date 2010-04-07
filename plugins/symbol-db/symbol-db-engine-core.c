@@ -6500,3 +6500,43 @@ symbol_db_engine_set_db_case_sensitive (SymbolDBEngine *dbe, gboolean case_sensi
 	else 
 		sdb_engine_execute_unknown_sql (dbe, "PRAGMA case_sensitive_like = 0");
 }
+
+GdaStatement*
+symbol_db_engine_get_statement (SymbolDBEngine *dbe, const gchar *sql_str)
+{
+	GdaStatement* stmt;
+	GError *error = NULL;
+	
+	g_return_val_if_fail (SYMBOL_IS_DB_ENGINE (dbe), NULL);
+	stmt = gda_sql_parser_parse_string (dbe->priv->sql_parser,
+	                                    sql_str,
+	                                    NULL, &error);
+	if (error)
+	{
+		g_warning ("SQL parsing failed: %s: %s", sql_str, error->message);
+		g_error_free (error);
+	}
+	return stmt;
+}
+
+GdaDataModel*
+symbol_db_engine_execute_select (SymbolDBEngine *dbe, GdaStatement *stmt,
+                                 GdaSet *params)
+{
+	GdaDataModel *res;
+	GError *error = NULL;
+	
+	res = gda_connection_statement_execute_select (dbe->priv->db_connection, 
+												   stmt, params, &error);
+	if (error)
+	{
+		gchar *sql_str =
+			gda_statement_to_sql_extended (stmt, dbe->priv->db_connection,
+			                               params, 0, NULL, NULL);
+
+		g_warning ("SQL select exec failed: %s, %s", sql_str, error->message);
+		g_free (sql_str);
+		g_error_free (error);
+	}
+	return res;
+}
