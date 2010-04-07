@@ -20,9 +20,56 @@
 #include "symbol-db-engine.h"
 #include "symbol-db-model-project.h"
 
+#define SDB_MODEL_PROJECT_SQL " \
+	SELECT \
+		symbol.symbol_id, \
+		symbol.name, \
+		symbol.file_position, \
+		symbol.is_file_scope, \
+		symbol.scope_definition_id, \
+		symbol.signature, \
+		symbol.returntype, \
+		file.file_path, \
+		sym_access.access_name, \
+		sym_type.type_type, \
+		sym_type.type_name, \
+		sym_kind.kind_name \
+	FROM symbol \
+	LEFT JOIN file ON symbol.file_defined_id = file.file_id \
+	LEFT JOIN sym_access ON symbol.access_kind_id = sym_access.access_kind_id \
+	LEFT JOIN sym_type ON symbol.type_id = sym_type.type_id \
+	LEFT JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id \
+	WHERE \
+	( \
+		symbol.scope_id = ## /* name:'parent' type:gint */ \
+		AND sym_kind.kind_name != 'namespace' \
+	) \
+	OR \
+	( \
+		symbol.symbol_id IN \
+		( \
+			SELECT symbol_id \
+			FROM symbol \
+			LEFT JOIN file ON symbol.file_defined_id = file.file_id \
+			LEFT JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id \
+			WHERE \
+				symbol.scope_id = ## /* name:'parent' type:gint */ \
+				AND sym_kind.kind_name = 'namespace' \
+			GROUP BY symbol.scope_definition_id \
+			\
+		) \
+	) \
+	ORDER BY symbol.name \
+	LIMIT ## /* name:'limit' type:gint */ \
+	OFFSET ## /* name:'offset' type:gint */ \
+	"
+
 struct _SymbolDBModelProjectPriv
 {
 	SymbolDBEngine* dbe;
+	GdaStatement *stmt;
+	GdaSet *params;
+	GdaHolder *param_parent_id, *param_limit, *param_offset;
 };
 
 enum {
@@ -30,6 +77,7 @@ enum {
 	DATA_COL_SYMBOL_NAME,
 	DATA_COL_SYMBOL_FILE_LINE,
 	DATA_COL_SYMBOL_FILE_SCOPE,
+	DATA_COL_SYMBOL_SCOPE_DEFINITION_ID,
 	DATA_COL_SYMBOL_ARGS,
 	DATA_COL_SYMBOL_RETURNTYPE,
 	DATA_COL_SYMBOL_FILE_PATH,
@@ -49,43 +97,19 @@ enum
 G_DEFINE_TYPE (SymbolDBModelProject, sdb_model_project,
                SYMBOL_DB_TYPE_MODEL);
 
-static gint
-sdb_model_project_get_n_children (SymbolDBModel *model, gint tree_level,
-                                       GValue column_values[])
+static void
+sdb_model_project_update_sql_stmt (SymbolDBModel *model)
 {
 	SymbolDBModelProjectPriv *priv;
-	SymbolDBEngineIterator *iter;
-	gint n_children;
-	gint symbol_id;
-	
-	g_return_val_if_fail (SYMBOL_DB_IS_MODEL_PROJECT (model), 0);
-	priv = SYMBOL_DB_MODEL_PROJECT (model)->priv;
 
-	/* If engine is not connected, there is nothing we can show */
-	if (!priv->dbe || !symbol_db_engine_is_connected (priv->dbe))
-		return 0;
-		
-	switch (tree_level)
-	{
-		case 0:
-			iter = symbol_db_engine_get_global_members_filtered
-				(priv->dbe, SYMTYPE_CLASS | SYMTYPE_ENUM | SYMTYPE_STRUCT|
-				 SYMTYPE_UNION, TRUE, FALSE, -1, -1,
-				 SYMINFO_SIMPLE);
-			break;
-		case 1:
-			symbol_id = g_value_get_int (&column_values[DATA_COL_SYMBOL_ID]);
-			iter = symbol_db_engine_get_scope_members_by_symbol_id
-				(priv->dbe, symbol_id, NULL, -1, -1, SYMINFO_SIMPLE);
-			break;
-		default:
-			return 0; /* FIXME */
-	}
-	if (!iter)
-		return 0;
-	n_children = symbol_db_engine_iterator_get_n_items (iter);
-	g_object_unref (iter);
-	return n_children;
+	g_return_if_fail (SYMBOL_DB_IS_MODEL_PROJECT (model));
+	priv = SYMBOL_DB_MODEL_PROJECT (model)->priv;
+	
+	priv->stmt = symbol_db_engine_get_statement (priv->dbe, SDB_MODEL_PROJECT_SQL);
+	gda_statement_get_parameters (priv->stmt, &priv->params, NULL);
+	priv->param_parent_id = gda_set_get_holder (priv->params, "parent");
+	priv->param_limit = gda_set_get_holder (priv->params, "limit");
+	priv->param_offset = gda_set_get_holder (priv->params, "offset");
 }
 
 static GdaDataModel*
@@ -94,9 +118,8 @@ sdb_model_project_get_children (SymbolDBModel *model, gint tree_level,
                                      gint limit)
 {
 	SymbolDBModelProjectPriv *priv;
-	SymbolDBEngineIterator *iter;
-	GdaDataModel *data_model;
-	gint symbol_id;
+	gint parent_id;
+	GValue ival = {0};
 
 	g_return_val_if_fail (SYMBOL_DB_IS_MODEL_PROJECT (model), 0);
 	priv = SYMBOL_DB_MODEL_PROJECT (model)->priv;
@@ -105,33 +128,48 @@ sdb_model_project_get_children (SymbolDBModel *model, gint tree_level,
 	if (!priv->dbe || !symbol_db_engine_is_connected (priv->dbe))
 		return NULL;
 	
+	/* Determin node parent */
 	switch (tree_level)
 	{
-		case 0:
-			iter = symbol_db_engine_get_global_members_filtered
-				(priv->dbe, SYMTYPE_CLASS | SYMTYPE_ENUM | SYMTYPE_STRUCT |
-				 SYMTYPE_UNION, TRUE, FALSE, limit, offset,
-				 SYMINFO_SIMPLE | SYMINFO_ACCESS | SYMINFO_TYPE |
-				 SYMINFO_KIND | SYMINFO_FILE_PATH);
-			break;
-		case 1:
-			symbol_id = g_value_get_int (&column_values[DATA_COL_SYMBOL_ID]);
-			iter = symbol_db_engine_get_scope_members_by_symbol_id
-				(priv->dbe, symbol_id, NULL, limit, offset, SYMINFO_SIMPLE |
-				 SYMINFO_KIND | SYMINFO_ACCESS | SYMINFO_TYPE |
-				 SYMINFO_FILE_PATH);
-			break;
-		default:
-			return NULL;
-	}
-	if (iter)
+	case 0:
+		parent_id = 0;
+		break;
+	default:
+		parent_id = g_value_get_int
+				(&column_values[SYMBOL_DB_MODEL_PROJECT_COL_SCOPE_DEFINITION_ID]);
+	}	
+
+	if (!priv->stmt)
+		sdb_model_project_update_sql_stmt (model);
+	
+	/* Initialize parameters */
+	g_value_init (&ival, G_TYPE_INT);
+	g_value_set_int (&ival, parent_id);
+	gda_holder_set_value (priv->param_parent_id, &ival, NULL);
+	g_value_set_int (&ival, limit);
+	gda_holder_set_value (priv->param_limit, &ival, NULL);
+	g_value_set_int (&ival, offset);
+	gda_holder_set_value (priv->param_offset, &ival, NULL);
+
+	return symbol_db_engine_execute_select (priv->dbe, priv->stmt, priv->params);
+}
+
+static gint
+sdb_model_project_get_n_children (SymbolDBModel *model, gint tree_level,
+                                       GValue column_values[])
+{
+	gint n_children = 0;
+	GdaDataModel *data_model;
+
+	data_model = sdb_model_project_get_children (model, tree_level,
+	                                             column_values, 0,
+	                                             INT_MAX);
+	if (GDA_IS_DATA_MODEL (data_model))
 	{
-		data_model = (GdaDataModel*)symbol_db_engine_iterator_get_datamodel (iter);
-		g_object_ref (data_model);
-		g_object_unref (iter);
-		return data_model;
+		n_children = gda_data_model_get_n_rows (data_model);
+		g_object_unref (data_model);
 	}
-	return FALSE;
+	return n_children;
 }
 
 static gboolean
@@ -342,6 +380,12 @@ sdb_model_project_finalize (GObject *object)
 		                  object);
 	}
 
+	if (priv->stmt)
+	{
+		g_object_unref (priv->stmt);
+		g_object_unref (priv->params);
+	}
+	
 	g_free (priv);
 	
 	G_OBJECT_CLASS (sdb_model_project_parent_class)->finalize (object);
@@ -358,7 +402,8 @@ sdb_model_project_init (SymbolDBModelProject *object)
 		G_TYPE_STRING,
 		G_TYPE_STRING,
 		G_TYPE_INT,
-		G_TYPE_STRING
+		G_TYPE_STRING,
+		G_TYPE_INT
 	};
 
 	gint data_cols[] = {
@@ -367,7 +412,8 @@ sdb_model_project_init (SymbolDBModelProject *object)
 		-1,
 		DATA_COL_SYMBOL_FILE_PATH,
 		DATA_COL_SYMBOL_FILE_LINE,
-		DATA_COL_SYMBOL_ARGS
+		DATA_COL_SYMBOL_ARGS,
+		DATA_COL_SYMBOL_SCOPE_DEFINITION_ID
 	};
 	
 	g_return_if_fail (SYMBOL_DB_IS_MODEL_PROJECT (object));
