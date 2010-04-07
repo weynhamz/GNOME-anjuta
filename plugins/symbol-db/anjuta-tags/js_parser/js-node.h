@@ -59,6 +59,7 @@ struct _JSNode
 			JSNode *head;
 		} list;
 		struct {                        /* ternary: if, for(;;), ?: */
+			char dummy;
 		} ternary;
 		struct {                        /* two kids if binary */
 			JSNode *left;
@@ -73,6 +74,7 @@ struct _JSNode
 			char isconst;
 		} name;
 		struct {
+			char dummy;
 		} apair;
     } pn_u;
     JSNode *pn_next;
