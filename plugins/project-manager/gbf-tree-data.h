@@ -45,6 +45,7 @@ typedef enum {
 struct _GbfTreeData
 {
 	GbfTreeNodeType	type;
+	AnjutaProjectNode *node;
 	gchar           *name;
 	GFile			*group;
 	gchar			*target;
@@ -56,16 +57,17 @@ struct _GbfTreeData
 
 gchar	      *gbf_tree_data_get_uri		    (GbfTreeData           *data);
 GFile	      *gbf_tree_data_get_file		    (GbfTreeData           *data);
-const gchar   *gdb_tree_data_get_name		    (GbfTreeData           *data);
+const gchar   *gbf_tree_data_get_name		    (GbfTreeData           *data);
+AnjutaProjectNode *gbf_tree_data_get_node		(GbfTreeData           *data);
 
 gchar		  *gbf_tree_data_get_path		    (GbfTreeData           *data);
 
 gboolean       gbf_tree_data_equal              (GbfTreeData           *data_a,
                                                  GbfTreeData           *data_b);
+gboolean       gbf_tree_data_equal_file         (GbfTreeData           *data,
+                                                 AnjutaProjectNodeType type,
+                                                 GFile                 *file);
 
-GbfTreeData   *gbf_tree_data_new_for_path       (const gchar           *data);
-GbfTreeData   *gbf_tree_data_new_for_file       (GFile                 *file,
-                                                 GbfTreeNodeType       type);
 GbfTreeData   *gbf_tree_data_new_string         (const gchar           *string);
 GbfTreeData   *gbf_tree_data_new_shortcut       (GbfTreeData		   *src);
 GbfTreeData   *gbf_tree_data_new_group          (AnjutaProjectNode     *group);

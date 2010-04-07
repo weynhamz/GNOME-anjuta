@@ -1951,44 +1951,12 @@ get_element_file_from_node (ProjectManagerPlugin *plugin, AnjutaProjectNode *nod
 	return file;
 }
 
-static AnjutaProjectNode*
-get_project_node_from_file (ProjectManagerPlugin *plugin, GFile *file, AnjutaProjectNodeType type)
-{
-	GbfTreeData *data;
-	AnjutaProjectNode *node;
-
-	switch (type)
-	{
-	case ANJUTA_PROJECT_GROUP:
-		data = gbf_tree_data_new_for_file (file, GBF_TREE_NODE_GROUP);
-		break;
-	case ANJUTA_PROJECT_TARGET:
-		data = gbf_tree_data_new_for_file (file, GBF_TREE_NODE_TARGET);
-		break;
-	case ANJUTA_PROJECT_SOURCE:
-		data = gbf_tree_data_new_for_file (file, GBF_TREE_NODE_SOURCE);
-		break;
-	case ANJUTA_PROJECT_UNKNOWN:
-	default:
-		data = gbf_tree_data_new_for_file (file, GBF_TREE_NODE_UNKNOWN);
-		break;
-	}
-
-	node = anjuta_pm_project_get_node (plugin->project, data);
-	gbf_tree_data_free (data);
-
-	return node;
-}
-
 static GtkTreeIter*
 get_tree_iter_from_file (ProjectManagerPlugin *plugin, GtkTreeIter* iter, GFile *file, GbfTreeNodeType type)
 {
-	GbfTreeData *data;
 	gboolean found;
-
-	data = gbf_tree_data_new_for_file (file, type);
-	found = gbf_project_model_find_tree_data (anjuta_pm_project_get_model (plugin->project), iter, data);
-	gbf_tree_data_free (data);
+	
+	found = gbf_project_model_find_tree_file (anjuta_pm_project_get_model (plugin->project), iter, NULL, type, file);
 
 	return found ? iter : NULL;
 }
@@ -1996,9 +1964,9 @@ get_tree_iter_from_file (ProjectManagerPlugin *plugin, GtkTreeIter* iter, GFile 
 static AnjutaProjectNodeType
 get_element_type (ProjectManagerPlugin *plugin, GFile *element)
 {
-	AnjutaProjectNode *node = NULL;
+	AnjutaProjectNode *node;
 	
-	node = get_project_node_from_file (plugin, element, ANJUTA_PROJECT_UNKNOWN);
+	node = anjuta_pm_project_get_node_from_file (plugin->project, ANJUTA_PROJECT_UNKNOWN,  element);
 
 	return node == NULL ? ANJUTA_PROJECT_UNKNOWN : anjuta_project_node_get_type (node);
 }
@@ -2033,7 +2001,7 @@ iproject_manager_get_target_type (IAnjutaProjectManager *project_manager,
 	g_return_val_if_fail (file_is_inside_project (plugin, target_file),
 						  ANJUTA_TARGET_UNKNOWN);
 	
-	target = get_project_node_from_file (plugin, target_file, ANJUTA_PROJECT_TARGET);
+	target = anjuta_pm_project_get_node_from_file (plugin->project, ANJUTA_PROJECT_TARGET,  target_file);
 
 	if (target != NULL)
 	{
@@ -2216,7 +2184,7 @@ iproject_manager_add_source_quiet (IAnjutaProjectManager *project_manager,
 	
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
 
-	target = get_project_node_from_file (plugin, location_file, ANJUTA_PROJECT_TARGET);
+	target = anjuta_pm_project_get_node_from_file (plugin->project, ANJUTA_PROJECT_TARGET,  location_file);
 	source_file = g_file_new_for_uri (source_uri_to_add);
 	update_operation_begin (plugin);
 	source_id = anjuta_pm_project_add_source (plugin->project,

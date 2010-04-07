@@ -32,6 +32,7 @@ G_BEGIN_DECLS
 typedef enum
 {
 	ANJUTA_PROJECT_UNKNOWN = 0,
+	ANJUTA_PROJECT_PROXY = 1 << 14,
 	ANJUTA_PROJECT_EXECUTABLE = 1 << 15,
 	ANJUTA_PROJECT_TYPE_MASK = 0xFFFF << 16,
 	ANJUTA_PROJECT_ROOT = 1 << 16,
@@ -190,6 +191,12 @@ GFile *anjuta_project_source_get_file (const AnjutaProjectNode *source);
 const gchar *anjuta_project_target_type_name (const AnjutaProjectTargetType type);
 const gchar *anjuta_project_target_type_mime (const AnjutaProjectTargetType type);
 AnjutaProjectTargetClass anjuta_project_target_type_class (const AnjutaProjectTargetType type);
+
+AnjutaProjectNode *anjuta_project_proxy_new (AnjutaProjectNode *node);
+AnjutaProjectNode *anjuta_project_proxy_unref (AnjutaProjectNode *node);
+
+gboolean anjuta_project_node_is_proxy (AnjutaProjectNode *node);
+
 
 G_END_DECLS
 

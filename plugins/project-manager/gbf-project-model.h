@@ -67,6 +67,11 @@ gboolean         gbf_project_model_remove            (GbfProjectModel *model,
 gboolean         gbf_project_model_find_tree_data    (GbfProjectModel   *model,
                                                       GtkTreeIter       *iter,
                                                       GbfTreeData       *data);
+gboolean         gbf_project_model_find_tree_file    (GbfProjectModel   *model,
+                                                      GtkTreeIter       *iter,
+                                                      GtkTreeIter       *parent,
+                                                      AnjutaProjectNodeType type,
+                                                      GFile             *file);
 AnjutaProjectNode *gbf_project_model_get_node        (GbfProjectModel *model,
                                                       GtkTreeIter     *iter);
 

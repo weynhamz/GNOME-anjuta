@@ -31,6 +31,69 @@
 #include "gbf-project-model.h"
 #include "gbf-project-view.h"
 
+
+/*
+
+2 Threads: GUI and Work
+
+Add new source.
+
+1. Work add new node
+ + Obvious, because it has the parent node
+ - Not possible, if the GUI has to get all child of the same node
+
+2. Work add new node, GUI use tree data
+
+3. Work create new node only but doesn't add it
+
+4. GUI create a new node and call the save function later
+
+
+The GUI cannot change links, else the Work cannot follow links when getting a
+node. The Work can even need parent links.
+=> GUI cannot read links except in particular case
+
+The GUI can read and write common part
+=> We need to copy the properties anyway when changing them
+
+The GUI can only read common part
+=> 
+
+Have a proxy node for setting properties, this proxy will copy add common data
+and keep a link with the original node and reference count. The GUI can still
+read all data in the proxy without disturbing the Work which can change the
+underlines node. The proxy address is returned immediatly when the
+set_properties function is used. If another set_properties is done on the same
+node the proxy is reused, incrementing reference count.
+
+There is no need to proxy after add or remove functions, because the links are
+already copied in the module.
+ 
+After changing a property should we reload automatically ?
+
+
+Reloading a node can change its property, so we need a proxy for the load too.
+
+Proxy has to be created in GUI, because we need to update tree data.
+
+Instead of using a Proxy, we can copy all data everytime, this will allow
+automatic reload.
+ 
+
+ 
+ Work has always a full access to link
+ GUI read a special GNode tree created by thread
+
+ Work can always read common data, and can write them before sending them to GUI
+ or in when modification are requested by the GUI (the GUI get a proxy)
+ GUI can only read common data
+
+ Work has always a full access to specific data.
+ GUI has no access to specific data
+ 
+ 
+*/
+ 
 /* Types
  *---------------------------------------------------------------------------*/
 
@@ -38,6 +101,7 @@ typedef enum
 {
 	LOAD,
 	UNLOAD,
+	RELOAD,
 	EXIT
 } PmCommand;
 
@@ -339,6 +403,26 @@ anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 	return TRUE;
 }
 
+static void
+on_pm_project_reloaded (AnjutaPmProject *project, PmJob *job)
+{
+	if (job->error == NULL)
+	{
+		project->root = job->node;
+		g_object_set (G_OBJECT (project->model), "project", project, NULL);
+	}
+	g_signal_emit (G_OBJECT (project), signals[UPDATED], 0, job->error);
+}
+
+gboolean
+anjuta_pm_project_reload_node (AnjutaPmProject *project, AnjutaProjectNode *node, GError **error)
+{
+	
+	pm_project_push_command (project, RELOAD, NULL, NULL, node, on_pm_project_reloaded);
+
+	return TRUE;
+}
+
 gboolean 
 anjuta_pm_project_unload (AnjutaPmProject *project, GError **error)
 {
@@ -512,6 +596,21 @@ anjuta_pm_project_get_node (AnjutaPmProject *project, GbfTreeData *data)
 	}
 
 	return node;
+}
+
+AnjutaProjectNode *
+anjuta_pm_project_get_node_from_file (AnjutaPmProject *project, AnjutaProjectNodeType type, GFile *file)
+{
+	GtkTreeIter iter;
+	AnjutaProjectNode *node = NULL;
+	
+	if (gbf_project_model_find_tree_file (project->model, &iter, NULL, type, file))
+	{
+		
+		node = gbf_project_model_get_node (project->model, &iter);
+	}
+
+	return NULL;
 }
 
 /* Implement GObject

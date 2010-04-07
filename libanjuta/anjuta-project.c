@@ -50,7 +50,16 @@
 
 /* convenient shortcut macro the get the AnjutaProjectNode from a GNode */
 #define NODE_DATA(node)  ((node) != NULL ? (AnjutaProjectNodeData *)((node)->data) : NULL)
+#define PROXY_DATA(node)  ((node) != NULL ? (AnjutaProjectProxyData *)((node)->data) : NULL)
 
+/* Properties functions
+ *---------------------------------------------------------------------------*/
+
+typedef struct {
+	AnjutaProjectNodeData base;
+	AnjutaProjectNode *node;
+	guint reference;
+} AnjutaProjectProxyData;
 
 /* Properties functions
  *---------------------------------------------------------------------------*/
@@ -363,28 +372,21 @@ anjuta_project_node_get_uri (AnjutaProjectNode *node)
 GFile*
 anjuta_project_node_get_file (AnjutaProjectNode *node)
 {
-	AnjutaProjectNode *parent;
-	GFile *file;
-	
-	switch (NODE_DATA (node)->type & ANJUTA_PROJECT_TYPE_MASK)
+	AnjutaProjectNodeData *data = NODE_DATA (node);
+
+	if ((data->file == NULL) && (data->name != NULL))
 	{
-	case ANJUTA_PROJECT_TARGET:
+		/* Try to create a file */
+		AnjutaProjectNode *parent;
+
 		parent = anjuta_project_node_parent (node);
-		file = g_file_get_child (anjuta_project_group_get_directory (parent), anjuta_project_target_get_name (node));
-		break;
-	case ANJUTA_PROJECT_GROUP:
-	case ANJUTA_PROJECT_SOURCE:
-	case ANJUTA_PROJECT_MODULE:
-	case ANJUTA_PROJECT_PACKAGE:
-	case ANJUTA_PROJECT_ROOT:
-		file = g_object_ref (NODE_DATA (node)->file);
-		break;
-	default:
-		file = NULL;
-		break;
+		if (NODE_DATA (parent)->file != NULL)
+		{
+			data->file = g_file_get_child (NODE_DATA (parent)->file, data->name);
+		}
 	}
 
-	return file;
+	return data->file;
 }
 
 AnjutaProjectPropertyList *
@@ -602,4 +604,97 @@ AnjutaProjectTargetClass
 anjuta_project_target_type_class (const AnjutaProjectTargetType type)
 {
 	return type->base;
+}
+
+/* Proxy node functions
+ *---------------------------------------------------------------------------*/
+
+AnjutaProjectNode *
+anjuta_project_proxy_new (AnjutaProjectNode *node)
+{
+	if (NODE_DATA (node)->type & ANJUTA_PROJECT_PROXY)
+	{
+		PROXY_DATA (node)->reference++;
+	}
+	else
+	{
+		AnjutaProjectProxyData *proxy;
+		AnjutaProjectNodeData *data = NODE_DATA (node);
+
+		proxy = g_slice_new0(AnjutaProjectProxyData);
+		proxy->reference = 1;
+		proxy->node = node;
+		proxy->base.type = data->type | ANJUTA_PROJECT_PROXY;
+		if ((data->properties == NULL) || (((AnjutaProjectPropertyInfo *)data->properties->data)->override == NULL))
+		{
+			proxy->base.properties = data->properties;
+		}
+		else
+		{
+			GList *item;
+			proxy->base.properties = g_list_copy (data->properties);
+			for (item = g_list_first (proxy->base.properties); item != NULL; item = g_list_next (item))
+			{
+				AnjutaProjectPropertyInfo *info = (AnjutaProjectPropertyInfo *)item->data;
+				AnjutaProjectPropertyInfo *new_info;
+
+				new_info = g_slice_new0(AnjutaProjectPropertyInfo);
+				new_info->name = g_strdup (info->name);
+				new_info->type = info->type;
+				new_info->value = g_strdup (info->value);
+				new_info->override = info->override;
+				item->data = new_info;
+			}
+		}
+		proxy->base.file = g_object_ref (data->file);
+		proxy->base.name = g_strdup (data->name);
+		proxy->base.target_type = data->target_type;
+		node = g_node_new (proxy);
+	}
+
+	return node;
+}
+
+AnjutaProjectNode *
+anjuta_project_proxy_unref (AnjutaProjectNode *node)
+{
+	if (NODE_DATA (node)->type & ANJUTA_PROJECT_PROXY)
+	{
+		PROXY_DATA (node)->reference--;
+
+		if (PROXY_DATA (node)->reference == 0)
+		{
+			AnjutaProjectProxyData *proxy = PROXY_DATA (node);
+
+			if (proxy->base.file) g_object_unref (proxy->base.file);
+			g_free (proxy->base.name);
+			if ((proxy->base.properties != NULL) && (((AnjutaProjectPropertyInfo *)proxy->base.properties->data)->override != NULL))
+			{
+				GList *item;
+				
+				for (item = g_list_first (proxy->base.properties); item != NULL; item = g_list_next (item))
+				{
+					AnjutaProjectPropertyInfo *info = (AnjutaProjectPropertyInfo *)item->data;
+
+					g_free (info->name);
+					g_free (info->value);
+					g_slice_free (AnjutaProjectPropertyInfo, info);
+				}
+				g_list_free (proxy->base.properties);
+			}
+			g_slice_free (AnjutaProjectProxyData, proxy);
+			g_node_destroy (node);
+			node = NULL;
+		}
+	}
+
+	return node;
+}
+
+gboolean
+anjuta_project_node_is_proxy (AnjutaProjectNode *node)
+{
+	g_return_val_if_fail (node != NULL, FALSE);
+
+	return NODE_DATA (node)->type & ANJUTA_PROJECT_PROXY ? TRUE : FALSE;
 }

@@ -837,6 +837,43 @@ gbf_project_model_find_tree_data (GbfProjectModel 	*model,
 	return retval;
 }
 
+gboolean 
+gbf_project_model_find_tree_file (GbfProjectModel 	*model,
+    GtkTreeIter		*found,
+    GtkTreeIter		*parent,
+    AnjutaProjectNodeType type,
+    GFile		*file)
+{
+	GtkTreeIter iter;
+	gboolean valid;
+
+	/* Search for direct children */
+	for (valid = gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &iter, parent); valid == TRUE; valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &iter))
+	{
+		GbfTreeData *data;
+		
+		gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
+		    GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
+
+		if (gbf_tree_data_equal_file (data, type, file))
+		{
+			*found = iter;
+			break;
+		}
+	}
+
+	/* Search for children of children */
+	if (!valid)
+	{
+		for (valid = gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &iter, parent); valid == TRUE; valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &iter))
+		{
+			if (gbf_project_model_find_tree_file (model, found, &iter, type, file)) return TRUE;
+		}
+	}
+
+	return valid;
+}
+
 GbfProjectModel *
 gbf_project_model_new (AnjutaPmProject *project)
 {
@@ -889,7 +926,7 @@ gbf_project_model_get_node (GbfProjectModel *model,
 			    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
 			    -1);
 
-	return anjuta_pm_project_get_node (model->priv->proj, data);
+	return gbf_tree_data_get_node (data);
 }
 
 void

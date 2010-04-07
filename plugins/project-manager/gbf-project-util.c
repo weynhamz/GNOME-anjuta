@@ -868,7 +868,7 @@ gbf_project_util_replace_by_file (GList* list)
 	{
                 AnjutaProjectNode *node = (AnjutaProjectNode *)link->data;
 
-                link->data = anjuta_project_node_get_file (node);
+                link->data = g_object_ref (anjuta_project_node_get_file (node));
 	}
 
         return list;

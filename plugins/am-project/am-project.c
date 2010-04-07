@@ -1853,7 +1853,7 @@ amp_project_load_node (AmpProject *project, AnjutaProjectNode *node, GError **er
 		amp_project_unload (project);
 		DEBUG_PRINT ("reload project %p root file %p", project, root_file);
 
-		root_file = anjuta_project_node_get_file (node);
+		root_file = g_object_ref (anjuta_project_node_get_file (node));
 		g_message ("reload project %s", g_file_get_path (root_file));
 		project->root_file = root_file;
 		project->root_node = node;

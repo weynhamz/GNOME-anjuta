@@ -97,6 +97,7 @@ IAnjutaProject *anjuta_pm_project_get_project (AnjutaPmProject *project);
 GbfProjectModel *anjuta_pm_project_get_model (AnjutaPmProject *project);
 
 AnjutaProjectNode *anjuta_pm_project_get_node (AnjutaPmProject *project, GbfTreeData *data);
+AnjutaProjectNode *anjuta_pm_project_get_node_from_file (AnjutaPmProject *project, AnjutaProjectNodeType type, GFile *file);
 
 G_END_DECLS
 
