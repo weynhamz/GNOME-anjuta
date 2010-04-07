@@ -1543,6 +1543,7 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 	gchar *offset = "";
 	gboolean offset_free = FALSE;
 	gsize other_parameters;
+	GError *error = NULL;
 	
 	g_return_val_if_fail (dbe != NULL, NULL);
 	g_return_val_if_fail (file_path != NULL, NULL);
@@ -1555,6 +1556,7 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 	 * sym_info is already contained into the default query infos.
 	 */
 	sym_info = sym_info & ~SYMINFO_FILE_PATH;
+	sym_info = sym_info | SYMINFO_KIND; /* We need kind for a join */
 	
 	other_parameters = 0;
 
@@ -1602,8 +1604,9 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 		    "symbol.returntype AS returntype, file.file_path AS db_file_path "
 			"%s FROM symbol "
 				"JOIN file ON symbol.file_defined_id = file.file_id "
-			"%s WHERE symbol.scope_id = 0 AND (file.file_path = ## /* name:'filepath' type:gchararray */ "
-		    "or symbol.scope_definition_id in (select scope_id from symbol join file on "
+		        /* "JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id " */
+			"%s WHERE (symbol.scope_id = 0 AND file.file_path = ## /* name:'filepath' type:gchararray */) "
+		    "or (symbol.scope_id = 0 AND sym_kind.kind_name != 'namespace' AND symbol.scope_definition_id in (select scope_id from symbol join file on "
 			"symbol.file_defined_id = file.file_id where "
 			"file.file_path = ## /* name:'filepath' type:gchararray */ "
 			"group by symbol.scope_id)) "
@@ -1667,7 +1670,13 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 	/* execute the query with parametes just set */
 	data = gda_connection_statement_execute_select (priv->db_connection, 
 												  (GdaStatement*)dyn_node->stmt, 
-												  (GdaSet*)dyn_node->plist, NULL);
+												  (GdaSet*)dyn_node->plist, &error);
+	if (error)
+	{
+		g_warning ("SQL error: %s: %s", dyn_node->query_str, error->message);
+		g_error_free (error);
+	}
+	
 	MP_RESET_PLIST(dyn_node->plist);
 	
 	if (!GDA_IS_DATA_MODEL (data) ||
