@@ -271,8 +271,8 @@ sdb_model_project_get_query_value (SymbolDBModel *model,
 				g_free (escaped);
 			}
 		}
-		g_value_set_string (value, label->str);
-		g_string_free (label, TRUE);
+		g_value_take_string (value, label->str);
+		g_string_free (label, FALSE);
 		return TRUE;
 		break;
 	case SYMBOL_DB_MODEL_PROJECT_COL_ARGS:
@@ -283,8 +283,7 @@ sdb_model_project_get_query_value (SymbolDBModel *model,
 		{
 			gchar *escaped =
 				g_markup_escape_text (g_value_get_string (ret_value), -1);
-			g_value_set_string (value, escaped);
-			g_free (escaped);
+			g_value_take_string (value, escaped);
 		}
 		return TRUE;
 		break;
