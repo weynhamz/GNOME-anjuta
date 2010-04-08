@@ -58,6 +58,8 @@ struct _SymbolDBModelNode {
 
 	/* Children states */
 	gint children_ref_count;
+	gboolean has_child_ensured;
+	gboolean has_child;
 	gboolean children_ensured;
 	guint n_children;
 	SymbolDBModelNode **children;
@@ -73,10 +75,6 @@ struct _SymbolDBModelNode {
 	gint n_columns;      /* Number of columns in the model */
 	GType *column_types; /* Type of each column in the model */
 	gint *query_columns; /* Corresponding GdaDataModel column */
-	
-	/* Idle child-ensure queue */
-	GQueue *ensure_children_queue;
-	guint ensure_children_idle_id;
 	
 	SymbolDBModelNode *root;
 };
@@ -107,6 +105,9 @@ static gboolean sdb_model_get_query_value (SymbolDBModel *model,
                                            gint column,
                                            GValue *value);
 
+static gboolean sdb_model_get_has_child (SymbolDBModel *model,
+                                         SymbolDBModelNode *node);
+
 static gint sdb_model_get_n_children (SymbolDBModel *model,
                                       gint tree_level,
                                       GValue column_values[]);
@@ -116,12 +117,10 @@ static GdaDataModel* sdb_model_get_children (SymbolDBModel *model,
                                              GValue column_values[],
                                              gint offset, gint limit);
 
-static void sdb_model_queue_ensure_node_children (SymbolDBModel *model,
-                                                  SymbolDBModelNode *parent);
-
 static void sdb_model_ensure_node_children (SymbolDBModel *model,
                                             SymbolDBModelNode *parent,
-                                            gboolean emit_has_child);
+                                            gboolean emit_has_child,
+                                            gboolean fake_dummy);
 
 /* Class definition */
 G_DEFINE_TYPE_WITH_CODE (SymbolDBModel, sdb_model, G_TYPE_OBJECT,
@@ -234,6 +233,8 @@ sdb_model_node_cleanse (SymbolDBModelNode *node, gboolean force)
 		page = next;
 	}
 	node->pages = NULL;
+	node->has_child_ensured = FALSE;
+	node->has_child = FALSE;
 	node->children_ensured = FALSE;
 	node->n_children = 0;
 
@@ -630,7 +631,7 @@ sdb_model_get_iter (GtkTreeModel *tree_model,
 		parent_node = node;
 		if (!node->children_ensured)
 			sdb_model_ensure_node_children (SYMBOL_DB_MODEL (tree_model),
-				                            node, FALSE);
+				                            node, FALSE, FALSE);
 		if (node->n_children <= 0)
 		{
 			/* No child available. View thinks there is child.
@@ -718,9 +719,10 @@ sdb_model_get_value (GtkTreeModel *tree_model,
 	g_return_if_fail (node != NULL);
 
 	/* View accessed the node, so update any pending has-child status */
-	if (!node->children_ensured)
-		sdb_model_queue_ensure_node_children (SYMBOL_DB_MODEL (tree_model),
-		                                      node);
+	if (!node->has_child_ensured)
+	{
+		sdb_model_get_has_child (SYMBOL_DB_MODEL (tree_model), node);
+	}
 	g_value_copy (&(node->values[column]), value);
 }
 
@@ -784,19 +786,23 @@ sdb_model_iter_children (GtkTreeModel *tree_model,
 			node = sdb_model_node_get_child (parent_node, offset);
 			if (node)
 				sdb_model_ensure_node_children (SYMBOL_DB_MODEL (tree_model),
-						                        node, FALSE);
+						                        node, FALSE, FALSE);
 		}
 		g_return_val_if_fail (node != NULL, FALSE);
 	}
+
+	if (!node->children_ensured)
+		sdb_model_ensure_node_children (SYMBOL_DB_MODEL (tree_model),
+		                                node, FALSE, TRUE);
+
+	iter->user_data = node;
+	iter->user_data2 = GINT_TO_POINTER (0);
+	iter->stamp = SYMBOL_DB_MODEL_STAMP;
 
 	/* View trying to access children of childless node seems typical */
 	if (node->n_children <= 0)
 		return FALSE;
 	
-	iter->user_data = node;
-	iter->user_data2 = GINT_TO_POINTER (0);
-	iter->stamp = SYMBOL_DB_MODEL_STAMP;
-
 	g_assert (sdb_model_iter_is_valid (tree_model, iter));
 
 	return TRUE;
@@ -820,7 +826,7 @@ sdb_model_iter_has_child (GtkTreeModel *tree_model,
 	/* If node is not loaded, has-child is defered. See get_value() */
 	if (node == NULL)
 		return FALSE;
-	return (node->n_children > 0);
+	return sdb_model_get_has_child (SYMBOL_DB_MODEL (tree_model), node);
 }
 
 static gint
@@ -839,6 +845,9 @@ sdb_model_iter_n_children (GtkTreeModel *tree_model,
 	node = sdb_model_node_get_child (parent_node, offset);
 	if (node == NULL)
 		return 0;
+	if (!node->children_ensured)
+		sdb_model_ensure_node_children (SYMBOL_DB_MODEL (tree_model),
+		                                node, FALSE, FALSE);
 	return node->n_children;
 }
 
@@ -956,9 +965,11 @@ sdb_model_tree_model_init (GtkTreeModelIface *iface)
 static void
 sdb_model_ensure_node_children (SymbolDBModel *model,
                                 SymbolDBModelNode *node,
-                                gboolean emit_has_child)
+                                gboolean emit_has_child,
+                                gboolean fake_dummy)
 {
 	SymbolDBModelPriv *priv;
+	gboolean old_has_child;
 	
 	g_return_if_fail (node->n_children == 0);
 	g_return_if_fail (node->children == NULL);
@@ -971,17 +982,30 @@ sdb_model_ensure_node_children (SymbolDBModel *model,
 		return;
 	
 	/* Initialize children array and count */
+	old_has_child = node->has_child;
 	node->n_children = 
 		sdb_model_get_n_children (model, node->level,
 		                          node->values);
-
+	node->has_child = (node->n_children > 0);
 	node->children_ensured = TRUE;
+	node->has_child_ensured = TRUE;
 
-	if (emit_has_child && node->n_children > 0)
+	g_message ("n_children = %d", node->n_children);
+
+	if (fake_dummy && old_has_child && !node->has_child)
+	{
+		node->n_children = 1;
+		node->has_child = TRUE;
+		return;
+	}
+	
+	if ((old_has_child != node->has_child) && node->parent)
 	{
 		GtkTreePath *path;
 		GtkTreeIter iter = {0};
 
+		g_message ("Emitting has-child changed");
+		
 		iter.stamp = SYMBOL_DB_MODEL_STAMP;
 		iter.user_data = node->parent;
 		iter.user_data2 = GINT_TO_POINTER (node->offset);
@@ -990,64 +1014,6 @@ sdb_model_ensure_node_children (SymbolDBModel *model,
 		gtk_tree_model_row_has_child_toggled (GTK_TREE_MODEL (model),
 		                                      path, &iter);
 		gtk_tree_path_free (path);
-	}
-}
-
-/**
- * on_sdb_ensure_node_children_idle:
- * @model: The model
- * 
- * Idle callback to children of some nodes from pre-existing queue.
- *
- * Returns: TRUE if there are more to process in queue, otherwise FALSE and
- * terminates idle loop when the nodes queue is empty.
- */
-static gboolean
-on_sdb_ensure_node_children_idle (SymbolDBModel *model)
-{
-	gint count;
-	SymbolDBModelNode *node;
-	SymbolDBModelPriv *priv;
-	
-	priv = model->priv;
-
-	for (count = 0; count < SYMBOL_DB_MODEL_ENSURE_CHILDREN_BATCH_SIZE; count++)
-	{
-		node = g_queue_pop_head (priv->ensure_children_queue);
-		sdb_model_ensure_node_children (model, node, TRUE);
-		if (g_queue_get_length (priv->ensure_children_queue) <= 0)
-		{
-			priv->ensure_children_idle_id = 0;
-			return FALSE;
-		}
-	}
-	return TRUE;
-}
-
-/**
- * sdb_model_queue_ensure_node_children:
- * @model: The tree model
- * @node: The node in @model to ensure children
- * 
- * Queues the node to run ensure children in an idel loop
- */
-static void
-sdb_model_queue_ensure_node_children (SymbolDBModel *model,
-                                      SymbolDBModelNode *node)
-{
-	SymbolDBModelPriv *priv;
-	
-	g_return_if_fail (node->children == NULL);
-	g_return_if_fail (node->children_ensured == FALSE);
-
-	priv = model->priv;
-	if (!g_queue_find (priv->ensure_children_queue, node))
-	{
-		g_queue_push_tail (priv->ensure_children_queue, node);
-		if (!priv->ensure_children_idle_id)
-			priv->ensure_children_idle_id =
-				g_idle_add ((GSourceFunc)on_sdb_ensure_node_children_idle,
-				            model);
 	}
 }
 
@@ -1092,7 +1058,7 @@ sdb_model_update_node_children (SymbolDBModel *model,
 	}
 
 	sdb_model_node_cleanse (node, TRUE);
-	sdb_model_ensure_node_children (model, node, emit_has_child);
+	sdb_model_ensure_node_children (model, node, emit_has_child, FALSE);
 	
 	/* Add all new nodes */
 	if (node->n_children > 0)
@@ -1214,6 +1180,54 @@ sdb_model_get_query_value_at (SymbolDBModel *model,
 }
 
 /**
+ * sdb_model_get_has_child_real:
+ * @model: The model
+ * @tree_level: The tree level where the node is.
+ * @column_values: The node column values.
+ *
+ * Gets if the node has 1 or more children with given column values.
+ *
+ * Returns: TRUE if node has children, otherwise FALSE
+ */
+static gboolean
+sdb_model_get_has_child_real (SymbolDBModel *model, gint tree_level,
+                              GValue column_values[])
+{
+	gboolean has_child;
+	g_signal_emit_by_name (model, "get-has_child", tree_level, column_values,
+	                       &has_child);
+	return has_child;
+}
+
+static gboolean
+sdb_model_get_has_child (SymbolDBModel *model, SymbolDBModelNode *node)
+{
+	if (node->has_child_ensured)
+		return node->has_child;
+	
+	node->has_child_ensured = TRUE;
+	node->has_child =
+		SYMBOL_DB_MODEL_GET_CLASS(model)->get_has_child (model,
+		                                                 node->level,
+		                                                 node->values);
+	if (node->has_child)
+	{
+		GtkTreePath *path;
+		GtkTreeIter iter = {0};
+
+		iter.stamp = SYMBOL_DB_MODEL_STAMP;
+		iter.user_data = node->parent;
+		iter.user_data2 = GINT_TO_POINTER (node->offset);
+	
+		path = sdb_model_get_path (GTK_TREE_MODEL (model), &iter);
+		gtk_tree_model_row_has_child_toggled (GTK_TREE_MODEL (model),
+			                                  path, &iter);
+		gtk_tree_path_free (path);
+	}
+	return node->has_child;
+}
+
+/**
  * sdb_model_get_n_children_real:
  * @model: The model
  * @tree_level: The tree level where the node is.
@@ -1281,13 +1295,8 @@ static void
 sdb_model_finalize (GObject *object)
 {
 	SymbolDBModelPriv *priv;
-	/* FIXME */
 
 	priv = SYMBOL_DB_MODEL (object)->priv;;
-	if (priv->ensure_children_idle_id)
-		g_source_remove (priv->ensure_children_idle_id);
-	g_queue_free (priv->ensure_children_queue);
-
 	g_free (priv->column_types);
 	g_free (priv->query_columns);
 	sdb_model_node_cleanse (priv->root, TRUE);
@@ -1337,7 +1346,6 @@ sdb_model_init (SymbolDBModel *object)
 	priv->n_columns = 0;
 	priv->column_types = NULL;
 	priv->query_columns = NULL;
-	priv->ensure_children_queue = g_queue_new ();
 }
 
 static void
@@ -1347,6 +1355,7 @@ sdb_model_class_init (SymbolDBModelClass *klass)
 
 	klass->get_query_value = sdb_model_get_query_value_real;
 	klass->get_query_value_at = sdb_model_get_query_value_at_real;
+	klass->get_has_child = sdb_model_get_has_child_real;
 	klass->get_n_children = sdb_model_get_n_children_real;
 	klass->get_children = sdb_model_get_children_real;
 	
@@ -1460,12 +1469,6 @@ symbol_db_model_update (SymbolDBModel *model)
 
 	priv = model->priv;
 
-	/* Reset children ensure queue */
-	if (priv->ensure_children_idle_id)
-		g_source_remove (priv->ensure_children_idle_id);
-	priv->ensure_children_idle_id = 0;
-	g_queue_clear (priv->ensure_children_queue);
-	
 	sdb_model_update_node_children (model, priv->root, FALSE);
 }
 

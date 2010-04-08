@@ -154,6 +154,14 @@ sdb_model_project_get_children (SymbolDBModel *model, gint tree_level,
 	return symbol_db_engine_execute_select (priv->dbe, priv->stmt, priv->params);
 }
 
+static gboolean
+sdb_model_project_get_has_child (SymbolDBModel *model, gint tree_level,
+                                 GValue column_values[])
+{
+	return (g_value_get_int
+	        (&column_values[SYMBOL_DB_MODEL_PROJECT_COL_SCOPE_DEFINITION_ID]) > 0);
+}
+
 static gint
 sdb_model_project_get_n_children (SymbolDBModel *model, gint tree_level,
                                        GValue column_values[])
@@ -442,6 +450,7 @@ sdb_model_project_class_init (SymbolDBModelProjectClass *klass)
 	object_class->get_property = sdb_model_project_get_property;
 
 	parent_class->get_query_value = sdb_model_project_get_query_value;
+	parent_class->get_has_child = sdb_model_project_get_has_child;
 	parent_class->get_n_children = sdb_model_project_get_n_children;
 	parent_class->get_children =  sdb_model_project_get_children;
 	
