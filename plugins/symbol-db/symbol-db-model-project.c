@@ -25,7 +25,6 @@
 		symbol.symbol_id, \
 		symbol.name, \
 		symbol.file_position, \
-		symbol.is_file_scope, \
 		symbol.scope_definition_id, \
 		symbol.signature, \
 		symbol.returntype, \
@@ -89,7 +88,6 @@ enum {
 	DATA_COL_SYMBOL_ID,
 	DATA_COL_SYMBOL_NAME,
 	DATA_COL_SYMBOL_FILE_LINE,
-	DATA_COL_SYMBOL_FILE_SCOPE,
 	DATA_COL_SYMBOL_SCOPE_DEFINITION_ID,
 	DATA_COL_SYMBOL_ARGS,
 	DATA_COL_SYMBOL_RETURNTYPE,

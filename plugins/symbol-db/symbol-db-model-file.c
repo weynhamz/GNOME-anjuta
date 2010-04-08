@@ -25,7 +25,6 @@
 		symbol.symbol_id, \
 		symbol.name, \
 		symbol.file_position, \
-		symbol.is_file_scope, \
 		symbol.scope_definition_id, \
 		symbol.signature, \
 		symbol.returntype, \
