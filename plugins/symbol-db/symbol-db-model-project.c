@@ -33,7 +33,13 @@
 		sym_access.access_name, \
 		sym_type.type_type, \
 		sym_type.type_name, \
-		sym_kind.kind_name \
+		sym_kind.kind_name, \
+		(symbol.kind_id IN \
+		( \
+			SELECT sym_kind_id \
+			FROM sym_kind \
+			WHERE kind_name IN ('class', 'namespace', 'enum', 'struct', 'union') \
+		)) AS has_child \
 	FROM symbol \
 	LEFT JOIN file ON symbol.file_defined_id = file.file_id \
 	LEFT JOIN sym_access ON symbol.access_kind_id = sym_access.access_kind_id \
@@ -85,6 +91,7 @@ enum {
 	DATA_COL_SYMBOL_TYPE,
 	DATA_COL_SYMBOL_TYPE_NAME,
 	DATA_COL_SYMBOL_KIND_NAME,
+	DATA_COL_SYMBOL_HAS_CHILD,
 	DATA_N_COLS
 };
 
@@ -159,7 +166,7 @@ sdb_model_project_get_has_child (SymbolDBModel *model, gint tree_level,
                                  GValue column_values[])
 {
 	return (g_value_get_int
-	        (&column_values[SYMBOL_DB_MODEL_PROJECT_COL_SCOPE_DEFINITION_ID]) > 0);
+	        (&column_values[SYMBOL_DB_MODEL_PROJECT_COL_HAS_CHILD]) > 0);
 }
 
 static gint
@@ -411,6 +418,7 @@ sdb_model_project_init (SymbolDBModelProject *object)
 		G_TYPE_STRING,
 		G_TYPE_INT,
 		G_TYPE_STRING,
+		G_TYPE_INT,
 		G_TYPE_INT
 	};
 
@@ -421,7 +429,8 @@ sdb_model_project_init (SymbolDBModelProject *object)
 		DATA_COL_SYMBOL_FILE_PATH,
 		DATA_COL_SYMBOL_FILE_LINE,
 		DATA_COL_SYMBOL_ARGS,
-		DATA_COL_SYMBOL_SCOPE_DEFINITION_ID
+		DATA_COL_SYMBOL_SCOPE_DEFINITION_ID,
+		DATA_COL_SYMBOL_HAS_CHILD
 	};
 	
 	g_return_if_fail (SYMBOL_DB_IS_MODEL_PROJECT (object));

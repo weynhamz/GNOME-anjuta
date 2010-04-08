@@ -33,7 +33,13 @@
 		sym_access.access_name, \
 		sym_type.type_type, \
 		sym_type.type_name, \
-		sym_kind.kind_name \
+		sym_kind.kind_name, \
+		(symbol.kind_id IN \
+		( \
+			SELECT sym_kind_id \
+			FROM sym_kind \
+			WHERE kind_name IN ('class', 'namespace', 'enum', 'struct', 'union') \
+		)) AS has_child \
 	FROM symbol \
 	LEFT JOIN file ON symbol.file_defined_id = file.file_id \
 	LEFT JOIN sym_access ON symbol.access_kind_id = sym_access.access_kind_id \
