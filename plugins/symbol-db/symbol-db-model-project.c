@@ -33,7 +33,6 @@
 		sym_access.access_name, \
 		sym_type.type_type, \
 		sym_type.type_name, \
-		sym_kind.kind_name, \
 		(symbol.kind_id IN \
 		( \
 			SELECT sym_kind_id \
@@ -44,11 +43,15 @@
 	LEFT JOIN file ON symbol.file_defined_id = file.file_id \
 	LEFT JOIN sym_access ON symbol.access_kind_id = sym_access.access_kind_id \
 	LEFT JOIN sym_type ON symbol.type_id = sym_type.type_id \
-	LEFT JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id \
 	WHERE \
 	( \
 		symbol.scope_id = ## /* name:'parent' type:gint */ \
-		AND sym_kind.kind_name != 'namespace' \
+		AND symbol.kind_id NOT IN \
+		( \
+			SELECT sym_kind_id \
+			FROM sym_kind \
+			WHERE sym_kind.kind_name = 'namespace' \
+		) \
 	) \
 	OR \
 	( \
@@ -57,10 +60,14 @@
 			SELECT symbol_id \
 			FROM symbol \
 			LEFT JOIN file ON symbol.file_defined_id = file.file_id \
-			LEFT JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id \
 			WHERE \
 				symbol.scope_id = ## /* name:'parent' type:gint */ \
-				AND sym_kind.kind_name = 'namespace' \
+				AND symbol.kind_id IN \
+				( \
+					SELECT sym_kind_id \
+					FROM sym_kind \
+					WHERE sym_kind.kind_name = 'namespace' \
+				) \
 			GROUP BY symbol.scope_definition_id \
 			\
 		) \
@@ -90,7 +97,6 @@ enum {
 	DATA_COL_SYMBOL_ACCESS,
 	DATA_COL_SYMBOL_TYPE,
 	DATA_COL_SYMBOL_TYPE_NAME,
-	DATA_COL_SYMBOL_KIND_NAME,
 	DATA_COL_SYMBOL_HAS_CHILD,
 	DATA_N_COLS
 };
