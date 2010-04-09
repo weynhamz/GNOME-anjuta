@@ -233,8 +233,6 @@ sdb_model_node_cleanse (SymbolDBModelNode *node, gboolean force)
 		page = next;
 	}
 	node->pages = NULL;
-	node->has_child_ensured = FALSE;
-	node->has_child = FALSE;
 	node->children_ensured = FALSE;
 	node->n_children = 0;
 
