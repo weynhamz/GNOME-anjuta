@@ -350,9 +350,9 @@ devhelp_activate (AnjutaPlugin *plugin)
 	gtk_box_pack_start (GTK_BOX (devhelp->tab_hbox),
 	                    label,
 	                    FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (devhelp->tab_hbox),
+	gtk_box_pack_end (GTK_BOX (devhelp->tab_hbox),
 	                    devhelp->tabber,
-	                    TRUE, TRUE, 0);
+	                    TRUE, TRUE, 5);
 
 	label = gtk_label_new (_("Contents"));
 	gtk_label_set_ellipsize (GTK_LABEL (label),

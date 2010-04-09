@@ -2343,8 +2343,8 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	                         PANGO_ELLIPSIZE_END);
 	anjuta_tabber_add_tab (ANJUTA_TABBER (sdb_plugin->tabber),
 	                       label);
-	gtk_box_pack_start (GTK_BOX(sdb_plugin->dbv_hbox), sdb_plugin->tabber,
-	                    TRUE, TRUE, 0);
+	gtk_box_pack_end (GTK_BOX(sdb_plugin->dbv_hbox), sdb_plugin->tabber,
+	                    TRUE, TRUE, 5);
 	
 	gtk_widget_show_all (sdb_plugin->dbv_hbox);
 	
