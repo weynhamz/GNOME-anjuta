@@ -780,12 +780,13 @@ sdb_model_iter_children (GtkTreeModel *tree_model,
 			sdb_model_page_fault (SYMBOL_DB_MODEL (tree_model),
 			                      parent_node, offset);
 			node = sdb_model_node_get_child (parent_node, offset);
-			if (node)
-				sdb_model_ensure_node_children (SYMBOL_DB_MODEL (tree_model),
-						                        node, FALSE, FALSE);
 		}
 		g_return_val_if_fail (node != NULL, FALSE);
 	}
+
+	/* Apparently view can call this funtion without testing has_child first */
+	if (!sdb_model_get_has_child (SYMBOL_DB_MODEL(tree_model), node))
+		return FALSE;
 
 	if (!node->children_ensured)
 		sdb_model_ensure_node_children (SYMBOL_DB_MODEL (tree_model),
