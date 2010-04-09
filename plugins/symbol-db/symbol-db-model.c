@@ -509,7 +509,8 @@ sdb_model_page_fault (SymbolDBModel *model,
 	                                             child_offset,
 	                                             &prev_page);
 
-	g_return_val_if_fail (page_found == NULL, page_found);
+	if (page_found)
+		return page_found;
 
 	/* If model is frozen, can't fetch data from backend */
 	priv = model->priv;
@@ -710,12 +711,9 @@ sdb_model_get_value (GtkTreeModel *tree_model,
 	node = sdb_model_node_get_child (parent_node, offset);
 	g_value_init (value, priv->column_types[column]);
 
-	/* If model is frozen, we don't expect the page fault to work */
-	if (priv->freeze_count > 0 && node == NULL)
+	if (node == NULL)
 		return;
 	
-	g_return_if_fail (node != NULL);
-
 	/* View accessed the node, so update any pending has-child status */
 	if (!node->has_child_ensured)
 	{
