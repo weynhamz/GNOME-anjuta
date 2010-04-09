@@ -120,7 +120,7 @@ static GdaDataModel* sdb_model_get_children (SymbolDBModel *model,
 static void sdb_model_ensure_node_children (SymbolDBModel *model,
                                             SymbolDBModelNode *parent,
                                             gboolean emit_has_child,
-                                            gboolean fake_dummy);
+                                            gboolean fake_child);
 
 /* Class definition */
 G_DEFINE_TYPE_WITH_CODE (SymbolDBModel, sdb_model, G_TYPE_OBJECT,
@@ -679,9 +679,9 @@ sdb_model_get_path (GtkTreeModel *tree_model,
 	offset = GPOINTER_TO_INT (iter->user_data2);
 	do {
 		gtk_tree_path_prepend_index (path, offset);
-		node = node->parent;
 		if (node)
 			offset = node->offset;
+		node = node->parent;
 	} while (node);
 	return path;
 }
@@ -952,6 +952,24 @@ sdb_model_tree_model_init (GtkTreeModelIface *iface)
 
 /* SymbolDBModel implementation */
 
+static void
+sdb_model_emit_has_child (SymbolDBModel *model, SymbolDBModelNode *node)
+{
+		GtkTreePath *path;
+		GtkTreeIter iter = {0};
+
+		iter.stamp = SYMBOL_DB_MODEL_STAMP;
+		iter.user_data = node->parent;
+		iter.user_data2 = GINT_TO_POINTER (node->offset);
+		
+		path = sdb_model_get_path (GTK_TREE_MODEL (model), &iter);
+		g_message ("Emitting has-child changed: %s", gtk_tree_path_to_string (path));
+		
+		gtk_tree_model_row_has_child_toggled (GTK_TREE_MODEL (model),
+		                                      path, &iter);
+		gtk_tree_path_free (path);
+}
+
 /**
  * sdb_model_ensure_node_children:
  * @model: The tree model
@@ -966,7 +984,7 @@ static void
 sdb_model_ensure_node_children (SymbolDBModel *model,
                                 SymbolDBModelNode *node,
                                 gboolean emit_has_child,
-                                gboolean fake_dummy)
+                                gboolean fake_child)
 {
 	SymbolDBModelPriv *priv;
 	gboolean old_has_child;
@@ -990,9 +1008,7 @@ sdb_model_ensure_node_children (SymbolDBModel *model,
 	node->children_ensured = TRUE;
 	node->has_child_ensured = TRUE;
 
-	g_message ("n_children = %d", node->n_children);
-
-	if (fake_dummy && old_has_child && !node->has_child)
+	if (fake_child && old_has_child && !node->has_child)
 	{
 		node->n_children = 1;
 		node->has_child = TRUE;
@@ -1001,19 +1017,7 @@ sdb_model_ensure_node_children (SymbolDBModel *model,
 	
 	if ((old_has_child != node->has_child) && node->parent)
 	{
-		GtkTreePath *path;
-		GtkTreeIter iter = {0};
-
-		g_message ("Emitting has-child changed");
-		
-		iter.stamp = SYMBOL_DB_MODEL_STAMP;
-		iter.user_data = node->parent;
-		iter.user_data2 = GINT_TO_POINTER (node->offset);
-		
-		path = sdb_model_get_path (GTK_TREE_MODEL (model), &iter);
-		gtk_tree_model_row_has_child_toggled (GTK_TREE_MODEL (model),
-		                                      path, &iter);
-		gtk_tree_path_free (path);
+		sdb_model_emit_has_child (model, node);
 	}
 }
 
@@ -1212,17 +1216,7 @@ sdb_model_get_has_child (SymbolDBModel *model, SymbolDBModelNode *node)
 		                                                 node->values);
 	if (node->has_child)
 	{
-		GtkTreePath *path;
-		GtkTreeIter iter = {0};
-
-		iter.stamp = SYMBOL_DB_MODEL_STAMP;
-		iter.user_data = node->parent;
-		iter.user_data2 = GINT_TO_POINTER (node->offset);
-	
-		path = sdb_model_get_path (GTK_TREE_MODEL (model), &iter);
-		gtk_tree_model_row_has_child_toggled (GTK_TREE_MODEL (model),
-			                                  path, &iter);
-		gtk_tree_path_free (path);
+		sdb_model_emit_has_child (model, node);
 	}
 	return node->has_child;
 }
