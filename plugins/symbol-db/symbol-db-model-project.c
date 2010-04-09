@@ -45,11 +45,20 @@
 	WHERE \
 	( \
 		symbol.scope_id = ## /* name:'parent' type:gint */ \
-		AND symbol.kind_id NOT IN \
+		AND symbol.kind_id IN \
 		( \
 			SELECT sym_kind_id \
 			FROM sym_kind \
-			WHERE sym_kind.kind_name = 'namespace' \
+			WHERE \
+			( \
+				0 = ## /* name:'parent' type:gint */ \
+				AND sym_kind.kind_name IN ('class', 'struct', 'union', 'enum') \
+			) \
+			OR \
+			( \
+				0 != ## /* name:'parent' type:gint */ \
+				AND sym_kind.kind_name != 'namespace' \
+			) \
 		) \
 	) \
 	OR \
@@ -58,7 +67,6 @@
 		( \
 			SELECT symbol_id \
 			FROM symbol \
-			LEFT JOIN file ON symbol.file_defined_id = file.file_id \
 			WHERE \
 				symbol.scope_id = ## /* name:'parent' type:gint */ \
 				AND symbol.kind_id IN \
