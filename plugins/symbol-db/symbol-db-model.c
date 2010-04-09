@@ -961,8 +961,6 @@ sdb_model_emit_has_child (SymbolDBModel *model, SymbolDBModelNode *node)
 		iter.user_data2 = GINT_TO_POINTER (node->offset);
 		
 		path = sdb_model_get_path (GTK_TREE_MODEL (model), &iter);
-		g_message ("Emitting has-child changed: %s", gtk_tree_path_to_string (path));
-		
 		gtk_tree_model_row_has_child_toggled (GTK_TREE_MODEL (model),
 		                                      path, &iter);
 		gtk_tree_path_free (path);
