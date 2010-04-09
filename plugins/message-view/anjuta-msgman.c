@@ -240,7 +240,7 @@ anjuta_msgman_instance_init (AnjutaMsgman * msgman)
 	msgman->priv->button_group = NULL;
 
 	gtk_box_pack_end (GTK_BOX (msgman->priv->hbox), 
-	                  msgman->priv->tabber, TRUE, TRUE, TRUE);
+	                  msgman->priv->tabber, TRUE, TRUE, 5);
 	
 	g_signal_connect(GTK_OBJECT(msgman), "popup-menu", 
                        G_CALLBACK(on_msgman_popup_menu), msgman);
