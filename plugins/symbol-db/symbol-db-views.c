@@ -75,32 +75,32 @@ static void
 on_treeview_row_expanded (GtkTreeView *view, GtkTreeIter *iter,
                           GtkTreePath *path, SymbolDBPlugin *plugin)
 {
-	gint symbol_id;
+	gchar* symbol_name;
 	GtkTreeModel *model;
 	GHashTable *expanded_nodes =
 		g_object_get_data (G_OBJECT (view), "__expanded_nodes__");
 
 	model = gtk_tree_view_get_model (view);
-	gtk_tree_model_get (model, iter, SYMBOL_DB_MODEL_PROJECT_COL_SYMBOL_ID,
-	                    &symbol_id, -1);
-	g_hash_table_insert (expanded_nodes, GINT_TO_POINTER (symbol_id),
-	                     GINT_TO_POINTER (symbol_id));
+	gtk_tree_model_get (model, iter, SYMBOL_DB_MODEL_PROJECT_COL_LABEL,
+	                    &symbol_name, -1);
+	g_hash_table_insert (expanded_nodes, symbol_name, GINT_TO_POINTER (1));
 }
 
 static void
 on_treeview_row_collapsed (GtkTreeView *view, GtkTreeIter *iter,
                            GtkTreePath *path, SymbolDBPlugin *plugin)
 {
-	gint symbol_id;
+	gchar* symbol_name;
 	GtkTreeModel *model;
 	
 	GHashTable *expanded_nodes =
 		g_object_get_data (G_OBJECT (view), "__expanded_nodes__");
 
 	model = gtk_tree_view_get_model (view);
-	gtk_tree_model_get (model, iter, SYMBOL_DB_MODEL_PROJECT_COL_SYMBOL_ID,
-	                    &symbol_id, -1);
-	g_hash_table_remove (expanded_nodes, GINT_TO_POINTER (symbol_id));
+	gtk_tree_model_get (model, iter, SYMBOL_DB_MODEL_PROJECT_COL_LABEL,
+	                    &symbol_name, -1);
+	g_hash_table_remove (expanded_nodes, symbol_name);
+	g_free (symbol_name);
 }
 
 static void
@@ -109,15 +109,16 @@ on_treeview_has_child_toggled (GtkTreeModel *model,
                                GtkTreeIter  *iter,
                                GtkTreeView  *view)
 {
-	gint symbol_id;
+	gchar* symbol_name;
 	
 	GHashTable *expanded_nodes =
 		g_object_get_data (G_OBJECT (view), "__expanded_nodes__");
 	
-	gtk_tree_model_get (model, iter, SYMBOL_DB_MODEL_PROJECT_COL_SYMBOL_ID,
-	                    &symbol_id, -1);
-	if (g_hash_table_lookup (expanded_nodes, GINT_TO_POINTER (symbol_id)))
+	gtk_tree_model_get (model, iter, SYMBOL_DB_MODEL_PROJECT_COL_LABEL,
+	                    &symbol_name, -1);
+	if (g_hash_table_lookup (expanded_nodes, symbol_name))
 		gtk_tree_view_expand_row (view, path, FALSE);
+	g_free (symbol_name);
 }
 
 GtkWidget*
@@ -152,7 +153,8 @@ symbol_db_view_new (SymbolViewType view_type,
 					  G_CALLBACK (on_treeview_has_child_toggled), dbv);
 
 	g_object_set_data_full (G_OBJECT (dbv), "__expanded_nodes__",
-	                        g_hash_table_new (g_direct_hash, g_direct_equal),
+	                        g_hash_table_new_full (g_str_hash, g_str_equal,
+	                                               g_free, NULL),
 	                        (GDestroyNotify)g_hash_table_destroy);
 	
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (dbv), FALSE);
