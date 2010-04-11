@@ -48,7 +48,7 @@ anjuta_tabber_init (AnjutaTabber *object)
 	tabber->priv->children = NULL;
 	tabber->priv->active_page = 0;
 
-	GTK_WIDGET_SET_FLAGS (GTK_WIDGET(tabber), GTK_NO_WINDOW);
+	gtk_widget_set_has_window (GTK_WIDGET(tabber), FALSE);
 }
 
 static void
@@ -337,7 +337,7 @@ anjuta_tabber_realize (GtkWidget *widget)
 	GtkAllocation allocation;
 	AnjutaTabber* tabber = ANJUTA_TABBER (widget);
 	
-	GTK_WIDGET_SET_FLAGS (widget, GTK_REALIZED);
+	gtk_widget_set_realized (widget, TRUE);
 
 	widget->window = gtk_widget_get_parent_window (widget);
 	g_object_ref (widget->window);
@@ -375,7 +375,7 @@ static void
 anjuta_tabber_map (GtkWidget* widget)
 {
 	AnjutaTabber* tabber = ANJUTA_TABBER (widget);
-	GTK_WIDGET_SET_FLAGS (widget, GTK_MAPPED);
+	gtk_widget_set_mapped (widget, TRUE);
 
 	gdk_window_show_unraised (tabber->priv->event_window);
 
@@ -386,8 +386,8 @@ static void
 anjuta_tabber_unmap (GtkWidget* widget)
 {
 	AnjutaTabber* tabber = ANJUTA_TABBER (widget);
-	GTK_WIDGET_UNSET_FLAGS (widget, GTK_MAPPED);
 
+	gtk_widget_set_mapped (widget, FALSE);
 	gdk_window_hide (tabber->priv->event_window);
 
 	GTK_WIDGET_CLASS (anjuta_tabber_parent_class)->unmap (widget);
