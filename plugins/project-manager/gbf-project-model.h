@@ -80,4 +80,9 @@ void             gbf_project_model_add_shortcut      (GbfProjectModel *model,
                                                       GtkTreeIter     *before, 
                                                       GbfTreeData     *target);
 
+void            gbf_project_model_update_tree (GbfProjectModel *model,
+                                                    AnjutaProjectNode *parent,
+                                                    GtkTreeIter *iter);
+
+
 #endif

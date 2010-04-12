@@ -46,8 +46,10 @@ typedef enum
 
 typedef enum
 {
-	ANJUTA_PROJECT_LOADING = 1 << 0,
-	ANJUTA_PROJECT_SAVED = 1 << 1
+	ANJUTA_PROJECT_OK = 0,
+	ANJUTA_PROJECT_MODIFIED = 1 << 0,		/* Node has been modified */
+	ANJUTA_PROJECT_INCOMPLETE = 1 << 1,	/* Node is not fully loaded */
+	ANJUTA_PROJECT_LOADING = 1 << 2	    	/* Node is send to the worker thread */
 } AnjutaProjectNodeState;
 
 typedef enum
@@ -109,6 +111,7 @@ typedef struct
 	GFile *file;
 	gchar *name;
 	AnjutaProjectTargetType target_type;
+	AnjutaProjectNodeState state;
 } AnjutaProjectNodeData;
 
 #if 0
@@ -166,8 +169,12 @@ AnjutaProjectNode *anjuta_project_node_insert_after (AnjutaProjectNode *parent, 
 void anjuta_project_node_all_foreach (AnjutaProjectNode *node, AnjutaProjectNodeFunc func, gpointer data);
 void anjuta_project_node_children_foreach (AnjutaProjectNode *node, AnjutaProjectNodeFunc func, gpointer data);
 
+gboolean anjuta_project_node_set_state (AnjutaProjectNode *node, AnjutaProjectNodeState state);
+gboolean anjuta_project_node_clear_state (AnjutaProjectNode *node, AnjutaProjectNodeState state);
+
 AnjutaProjectNodeType anjuta_project_node_get_type (const AnjutaProjectNode *node);
 AnjutaProjectNodeType anjuta_project_node_get_full_type (const AnjutaProjectNode *node);
+AnjutaProjectNodeState anjuta_project_node_get_state (const AnjutaProjectNode *node);
 gchar *anjuta_project_node_get_name (const AnjutaProjectNode *node);
 gchar *anjuta_project_node_get_uri (AnjutaProjectNode *node);
 GFile *anjuta_project_node_get_file (AnjutaProjectNode *node);

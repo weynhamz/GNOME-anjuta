@@ -164,7 +164,15 @@ pm_project_push_command (AnjutaPmProject *project, PmCommand command, GFile *fil
 
 	job = pm_job_new (command, file, name, node, callback);
 
-	g_async_queue_push (project->job_queue, job);
+	if (project->busy == 0)
+	{
+		project->busy++;
+		g_async_queue_push (project->work_queue, job);
+	}
+	else
+	{
+		g_queue_push_tail (project->job_queue, job);
+	}
 }
 
 /* Thread functions
@@ -180,7 +188,7 @@ pm_project_thread_main_loop (AnjutaPmProject *project)
 		AnjutaProjectNode *root;
 		AnjutaProjectNode *node;
 		
-		job = (PmJob *)g_async_queue_pop (project->job_queue);
+		job = (PmJob *)g_async_queue_pop (project->work_queue);
 
 		switch (job->command)
 		{
@@ -197,6 +205,13 @@ pm_project_thread_main_loop (AnjutaPmProject *project)
 				ianjuta_project_free_node (project->project, root, NULL);
 			}
 			break;
+		case RELOAD:
+			node = ianjuta_project_load_node (project->project, job->node, &(job->error));
+			if (job->error == NULL)
+			{
+				job->node = node;
+			}
+			break;						
 		case EXIT:
 			do
 			{
@@ -228,6 +243,16 @@ pm_project_idle_func (AnjutaPmProject *project)
 			job->callback (project, job);
 		}
 		pm_job_free (job);
+		project->busy--;
+		if (project->busy == 0)
+		{
+			job = g_queue_pop_head (project->job_queue);
+			if (job != NULL)
+		    {
+				project->busy = 1;
+				g_async_queue_push (project->work_queue, job);
+			}
+		}
 	}
 }
 
@@ -235,15 +260,18 @@ static gboolean
 pm_project_start_thread (AnjutaPmProject *project, GError **error)
 {
 	project->done_queue = g_async_queue_new ();
-	project->job_queue = g_async_queue_new ();
+	project->work_queue = g_async_queue_new ();
+	project->job_queue = g_queue_new ();
 
 	project->worker = g_thread_create ((GThreadFunc) pm_project_thread_main_loop, project, TRUE, error);
 
 	if (project->worker == NULL) {
-		g_async_queue_unref (project->job_queue);
-		project->job_queue = NULL;
+		g_async_queue_unref (project->work_queue);
+		project->work_queue = NULL;
 		g_async_queue_unref (project->done_queue);
 		project->done_queue = NULL;
+		g_queue_free (project->job_queue);
+		project->job_queue = NULL;
 
 		return FALSE;
 	}
@@ -271,12 +299,15 @@ pm_project_stop_thread (AnjutaPmProject *project)
 
 		// Request to terminate thread
 		job = pm_job_new (EXIT, NULL, NULL, NULL, NULL);
-		g_async_queue_push (project->job_queue, job);
+		g_async_queue_push (project->work_queue, job);
 		g_thread_join (project->worker);
 		project->worker = NULL;
 
 		// Free queue
-		g_async_queue_unref (project->job_queue);
+		g_async_queue_unref (project->work_queue);
+		project->work_queue = NULL;
+		g_queue_foreach (project->job_queue, (GFunc)pm_job_free, NULL);
+		g_queue_free (project->job_queue);
 		project->job_queue = NULL;
 		for (;;)
 		{
@@ -292,6 +323,39 @@ pm_project_stop_thread (AnjutaPmProject *project)
 
 /* Public functions
  *---------------------------------------------------------------------------*/
+
+static void on_pm_project_load_incomplete (AnjutaProjectNode *node, AnjutaPmProject *project);
+
+static void
+on_pm_project_reloaded (AnjutaPmProject *project, PmJob *job)
+{
+	if (job->error != NULL)
+	{
+		g_warning ("unable to load node");
+	}
+	else
+	{
+		//g_object_set (G_OBJECT (project->model), "project", project, NULL);
+		// Check for incompletely loaded object and load them
+		anjuta_project_node_clear_state (job->node, ANJUTA_PROJECT_LOADING | ANJUTA_PROJECT_INCOMPLETE);
+		anjuta_project_node_all_foreach (job->node, (AnjutaProjectNodeFunc)on_pm_project_load_incomplete, project);
+		g_message ("Emit project updated on %p", project);
+		//g_signal_emit (G_OBJECT (project), signals[UPDATED], 0, job->error);
+		gbf_project_model_update_tree (project->model, NULL, NULL);
+	}
+}
+
+static void
+on_pm_project_load_incomplete (AnjutaProjectNode *node, AnjutaPmProject *project)
+{
+	gint state = anjuta_project_node_get_state (node);
+	
+	if ((state & ANJUTA_PROJECT_INCOMPLETE) && !(state & ANJUTA_PROJECT_LOADING))
+	{
+		anjuta_project_node_set_state (node, ANJUTA_PROJECT_LOADING);
+		pm_project_push_command (project, RELOAD, NULL, NULL, node, on_pm_project_reloaded);
+	}
+}
 
 static void
 on_pm_project_loaded (AnjutaPmProject *project, PmJob *job)
@@ -311,8 +375,12 @@ on_pm_project_loaded (AnjutaPmProject *project, PmJob *job)
 		g_message ("root all nodes %d", g_node_n_nodes (job->node, G_TRAVERSE_ALL));
 		project->root = job->node;
 		g_object_set (G_OBJECT (project->model), "project", project, NULL);
+		gbf_project_model_update_tree (project->model, NULL, NULL);		
 	}
 	g_signal_emit (G_OBJECT (project), signals[UPDATED], 0, job->error);
+
+	// Check for incompletely loaded object and load them
+	anjuta_project_node_all_foreach (job->node, (AnjutaProjectNodeFunc)on_pm_project_load_incomplete, project);
 }
 
 gboolean 
@@ -401,17 +469,6 @@ anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 	pm_project_push_command (project, LOAD, file, NULL, NULL, on_pm_project_loaded);
 
 	return TRUE;
-}
-
-static void
-on_pm_project_reloaded (AnjutaPmProject *project, PmJob *job)
-{
-	if (job->error == NULL)
-	{
-		project->root = job->node;
-		g_object_set (G_OBJECT (project->model), "project", project, NULL);
-	}
-	g_signal_emit (G_OBJECT (project), signals[UPDATED], 0, job->error);
 }
 
 gboolean
@@ -623,12 +680,14 @@ anjuta_pm_project_init (AnjutaPmProject *project)
 {
 	project->model = gbf_project_model_new (NULL);
 	project->plugin = NULL;
-	
+
 	project->job_queue = NULL;
+	project->work_queue = NULL;
 	project->done_queue = NULL;
 	project->worker = NULL;
 	project->idle_func = 0;
 	project->stopping = FALSE;
+	project->busy = 0;
 }
 
 static void

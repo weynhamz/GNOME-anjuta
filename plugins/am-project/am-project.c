@@ -1092,7 +1092,6 @@ project_node_new (AmpProject *project, AnjutaProjectNodeType type, GFile *file, 
 			break;
 		case ANJUTA_PROJECT_ROOT:
 			node = amp_root_new (file);
-			g_message ("root node file %s file %s", g_file_get_path (anjuta_project_node_get_file (node)), g_file_get_path (file));
 			break;
 		default:
 			g_assert_not_reached ();
@@ -1198,6 +1197,7 @@ amp_project_load_module (AmpProject *project, AnjutaToken *module_token)
 			{
 				package = amp_package_new (value);
 				anjuta_project_node_append (module, package);
+				anjuta_project_node_set_state ((AnjutaProjectNode *)package, ANJUTA_PROJECT_INCOMPLETE);
 				g_free (value);
 				compare = NULL;
 			}
@@ -1835,7 +1835,7 @@ amp_project_set_am_variable (AmpProject* project, AmpGroup* group, AnjutaTokenTy
  *---------------------------------------------------------------------------*/
 
 AnjutaProjectNode *
-amp_project_load_node (AmpProject *project, AnjutaProjectNode *node, GError **error) 
+amp_project_load_root (AmpProject *project, AnjutaProjectNode *node, GError **error) 
 {
 	AmpAcScanner *scanner;
 	AnjutaToken *arg;
@@ -1845,96 +1845,190 @@ amp_project_load_node (AmpProject *project, AnjutaProjectNode *node, GError **er
 	gboolean ok = TRUE;
 	GError *err = NULL;
 
+	/* Unload current project */
+	amp_project_unload (project);
+	DEBUG_PRINT ("reload project %p root file %p", project, root_file);
+
+	root_file = g_object_ref (anjuta_project_node_get_file (node));
+	project->root_file = root_file;
+	project->root_node = node;
+
+	/* shortcut hash tables */
+	project->groups = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+	project->files = g_hash_table_new_full (g_file_hash, (GEqualFunc)g_file_equal, g_object_unref, g_object_unref);
+	project->configs = g_hash_table_new_full (g_file_hash, (GEqualFunc)g_file_equal, NULL, (GDestroyNotify)amp_config_file_free);
+	amp_project_new_module_hash (project);
+
+	/* Initialize list styles */
+	project->ac_space_list = anjuta_token_style_new (NULL, " ", "\n", NULL, 0);
+	project->am_space_list = anjuta_token_style_new (NULL, " ", " \\\n", NULL, 0);
+	project->arg_list = anjuta_token_style_new (NULL, ", ", ", ", ")", 0);
+	
+	/* Find configure file */
+	if (file_type (root_file, "configure.ac") == G_FILE_TYPE_REGULAR)
+	{
+		configure_file = g_file_get_child (root_file, "configure.ac");
+	}
+	else if (file_type (root_file, "configure.in") == G_FILE_TYPE_REGULAR)
+	{
+		configure_file = g_file_get_child (root_file, "configure.in");
+	}
+	else
+	{
+		g_set_error (error, IANJUTA_PROJECT_ERROR, 
+					IANJUTA_PROJECT_ERROR_DOESNT_EXIST,
+			_("Project doesn't exist or invalid path"));
+
+		return NULL;
+	}
+
+	/* Parse configure */
+	project->configure_file = anjuta_token_file_new (configure_file);
+	g_hash_table_insert (project->files, configure_file, project->configure_file);
+	g_object_add_toggle_ref (G_OBJECT (project->configure_file), remove_config_file, project);
+	arg = anjuta_token_file_load (project->configure_file, NULL);
+	//fprintf (stdout, "AC file before parsing\n");
+	//anjuta_token_dump (arg);
+	//fprintf (stdout, "\n");
+	scanner = amp_ac_scanner_new (project);
+	project->configure_token = amp_ac_scanner_parse_token (scanner, arg, 0, &err);
+	//fprintf (stdout, "AC file after parsing\n");
+	//anjuta_token_check (arg);
+	//anjuta_token_dump (project->configure_token);
+	//fprintf (stdout, "\n");
+	amp_ac_scanner_free (scanner);
+	if (project->configure_token == NULL)
+	{
+		g_set_error (error, IANJUTA_PROJECT_ERROR, 
+						IANJUTA_PROJECT_ERROR_PROJECT_MALFORMED,
+						err == NULL ? _("Unable to parse project file") : err->message);
+		if (err != NULL) g_error_free (err);
+			return NULL;
+	}
+
+	monitors_setup (project);
+
+	/* Load all makefiles recursively */
+	if (project_load_makefile (project, project->root_file, node, FALSE) == NULL)
+	{
+		g_set_error (error, IANJUTA_PROJECT_ERROR, 
+					IANJUTA_PROJECT_ERROR_DOESNT_EXIST,
+			_("Project doesn't exist or invalid path"));
+
+		return NULL;
+	}
+
+	return node;
+}
+
+static void
+list_all_children (GList **children, GFile *dir)
+{
+	GFileEnumerator *list;
+					
+	list = g_file_enumerate_children (dir,
+	    G_FILE_ATTRIBUTE_STANDARD_NAME,
+	    G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+	    NULL,
+	    NULL);
+
+	if (list != NULL)
+	{
+		GFileInfo *info;
+		
+		while ((info = g_file_enumerator_next_file (list, NULL, NULL)) != NULL)
+		{
+			const gchar *name;
+			GFile *file;
+
+			name = g_file_info_get_name (info);
+			file = g_file_get_child (dir, name);
+			g_object_unref (info);
+
+			if (g_file_query_file_type (file, G_FILE_QUERY_INFO_NONE, NULL) == G_FILE_TYPE_DIRECTORY)
+			{
+				list_all_children (children, file);
+				g_object_unref (file);
+			}
+			else
+			{
+				*children = g_list_prepend (*children, file);
+			}
+		}
+		g_file_enumerator_close (list, NULL, NULL);
+		g_object_unref (list);
+	}
+}
+
+AnjutaProjectNode *
+amp_project_load_package (AmpProject *project, AnjutaProjectNode *node, GError **error)
+{
+	gchar *cmd;
+	gchar *err;
+	gchar *out;
+	gint status;
+	
+	cmd = g_strdup_printf ("pkg-config --cflags %s", anjuta_project_node_get_name (node));
+
+	if (g_spawn_command_line_sync (cmd, &out, &err, &status, error))
+	{
+		gchar **flags;
+		
+		anjuta_project_node_clear_state (node, ANJUTA_PROJECT_INCOMPLETE);
+
+		flags = g_strsplit (out, " ", -1);
+
+		if (flags != NULL)
+		{
+			gchar **flag;
+			
+			for (flag = flags; *flag != NULL; flag++)
+			{
+				if (g_regex_match_simple ("\\.*/include/\\w+", *flag, 0, 0) == TRUE)
+                {
+                    /* FIXME the +2. It's to skip the -I */
+					GFile *dir;
+					GList *children = NULL;
+					GList *file;
+					
+					dir = g_file_new_for_path (*flag + 2);
+					list_all_children (&children, dir);
+					for (file = g_list_first (children); file != NULL; file = g_list_next (file))
+					{
+						/* Create a source for files */
+						AmpSource *source;
+
+						source = amp_source_new ((GFile *)file->data);
+						anjuta_project_node_append (node, source);
+						g_object_unref ((GObject *)file->data);
+					}
+					g_list_free (children);
+					g_object_unref (dir);
+				}
+			}
+		}
+	}
+	else
+	{
+		node = NULL;
+	}
+	g_free (cmd);
+
+	return node;
+}
+
+AnjutaProjectNode *
+amp_project_load_node (AmpProject *project, AnjutaProjectNode *node, GError **error) 
+{
 	switch (anjuta_project_node_get_type (node))
 	{
 	case ANJUTA_PROJECT_ROOT:
-
-		/* Unload current project */
-		amp_project_unload (project);
-		DEBUG_PRINT ("reload project %p root file %p", project, root_file);
-
-		root_file = g_object_ref (anjuta_project_node_get_file (node));
-		g_message ("reload project %s", g_file_get_path (root_file));
-		project->root_file = root_file;
-		project->root_node = node;
-
-		/* shortcut hash tables */
-		project->groups = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
-		project->files = g_hash_table_new_full (g_file_hash, (GEqualFunc)g_file_equal, g_object_unref, g_object_unref);
-		project->configs = g_hash_table_new_full (g_file_hash, (GEqualFunc)g_file_equal, NULL, (GDestroyNotify)amp_config_file_free);
-		amp_project_new_module_hash (project);
-
-		/* Initialize list styles */
-		project->ac_space_list = anjuta_token_style_new (NULL, " ", "\n", NULL, 0);
-		project->am_space_list = anjuta_token_style_new (NULL, " ", " \\\n", NULL, 0);
-		project->arg_list = anjuta_token_style_new (NULL, ", ", ", ", ")", 0);
-	
-		/* Find configure file */
-		if (file_type (root_file, "configure.ac") == G_FILE_TYPE_REGULAR)
-		{
-			configure_file = g_file_get_child (root_file, "configure.ac");
-		}
-		else if (file_type (root_file, "configure.in") == G_FILE_TYPE_REGULAR)
-		{
-			configure_file = g_file_get_child (root_file, "configure.in");
-		}
-		else
-		{
-			g_set_error (error, IANJUTA_PROJECT_ERROR, 
-						IANJUTA_PROJECT_ERROR_DOESNT_EXIST,
-				_("Project doesn't exist or invalid path"));
-
-			return NULL;
-		}
-		
-	
-		/* Create first group */
-		/*group = amp_group_new (root_file, FALSE);
-		anjuta_project_node_append (node, group);
-		g_hash_table_insert (project->groups, g_file_get_uri (root_file), group);*/
-	
-		/* Parse configure */
-		project->configure_file = anjuta_token_file_new (configure_file);
-		g_hash_table_insert (project->files, configure_file, project->configure_file);
-		g_object_add_toggle_ref (G_OBJECT (project->configure_file), remove_config_file, project);
-		arg = anjuta_token_file_load (project->configure_file, NULL);
-		//fprintf (stdout, "AC file before parsing\n");
-		//anjuta_token_dump (arg);
-		//fprintf (stdout, "\n");
-		scanner = amp_ac_scanner_new (project);
-		project->configure_token = amp_ac_scanner_parse_token (scanner, arg, 0, &err);
-		//fprintf (stdout, "AC file after parsing\n");
-		//anjuta_token_check (arg);
-		//anjuta_token_dump (project->configure_token);
-		//fprintf (stdout, "\n");
-		amp_ac_scanner_free (scanner);
-		if (project->configure_token == NULL)
-		{
-			g_set_error (error, IANJUTA_PROJECT_ERROR, 
-							IANJUTA_PROJECT_ERROR_PROJECT_MALFORMED,
-							err == NULL ? _("Unable to parse project file") : err->message);
-			if (err != NULL) g_error_free (err);
-
-			return NULL;
-		}
-		     
-		monitors_setup (project);
-
-		/* Load all makefiles recursively */
-		if (project_load_makefile (project, project->root_file, node, FALSE) == NULL)
-		{
-			g_set_error (error, IANJUTA_PROJECT_ERROR, 
-						IANJUTA_PROJECT_ERROR_DOESNT_EXIST,
-				_("Project doesn't exist or invalid path"));
-
-			return NULL;
-		}
-		break;
+		return amp_project_load_root (project, node, error);
+	case ANJUTA_PROJECT_PACKAGE:
+		return amp_project_load_package (project, node, error);
 	default:
-		break;
+		return NULL;
 	}
-	
-	return node;
 }
 
 gboolean
@@ -2619,7 +2713,6 @@ amp_project_get_config_modules   (AmpProject *project, GError **error)
 	GList *modules = NULL;
 
 	g_return_val_if_fail (project != NULL, NULL);
-	g_return_val_if_fail (module != NULL, NULL);
 	
 	for (module = anjuta_project_node_first_child (project->root_node); module != NULL; module = anjuta_project_node_next_sibling (module))
 	{
@@ -2642,7 +2735,7 @@ amp_project_get_config_packages  (AmpProject *project,
 	GList *packages = NULL;
 
 	g_return_val_if_fail (project != NULL, NULL);
-	g_return_val_if_fail (module != NULL, NULL);
+
 	
 	for (module = anjuta_project_node_first_child (project->root_node); module != NULL; module = anjuta_project_node_next_sibling (module))
 	{

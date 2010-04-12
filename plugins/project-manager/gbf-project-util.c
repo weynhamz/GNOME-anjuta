@@ -507,7 +507,6 @@ setup_modules_treeview (AnjutaPmProject *project,
     GtkTreePath *path = NULL;
     GbfProjectModel *model;
     
-    g_return_if_fail (model != NULL);
     g_return_if_fail (view != NULL && GBF_IS_PROJECT_VIEW (view));
 
     model = anjuta_pm_project_get_model (project);

@@ -309,6 +309,27 @@ anjuta_project_node_prepend (AnjutaProjectNode *parent, AnjutaProjectNode *node)
 	return g_node_prepend (parent, node);
 }
 
+gboolean
+anjuta_project_node_set_state (AnjutaProjectNode *node, AnjutaProjectNodeState state)
+{
+	if (node == NULL) return FALSE;
+	NODE_DATA (node)->state |= state;
+	return TRUE;
+}
+
+gboolean
+anjuta_project_node_clear_state (AnjutaProjectNode *node, AnjutaProjectNodeState state)
+{
+	if (node == NULL) return FALSE;
+	NODE_DATA (node)->state &= ~state;
+	return TRUE;
+}
+
+AnjutaProjectNodeState
+anjuta_project_node_get_state (const AnjutaProjectNode *node)
+{
+	return node == NULL ? ANJUTA_PROJECT_OK : (NODE_DATA (node)->state);
+}
 
 AnjutaProjectNodeType
 anjuta_project_node_get_type (const AnjutaProjectNode *node)
