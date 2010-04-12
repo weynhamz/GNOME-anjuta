@@ -72,6 +72,7 @@ MkpProject   *mkp_project_new      (void);
 
 gint mkp_project_probe (GFile *directory, GError     **error);
 gboolean mkp_project_load (MkpProject *project, GFile *directory, GError **error);
+AnjutaProjectNode *mkp_project_load_node (MkpProject *project, AnjutaProjectNode *node, GError **error);
 gboolean mkp_project_reload (MkpProject *project, GError **error);
 void mkp_project_unload (MkpProject *project);
 

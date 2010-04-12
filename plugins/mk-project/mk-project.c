@@ -69,6 +69,12 @@ struct _MkpVariable {
 	AnjutaToken *value;
 };
 
+typedef struct _MkpRootData MkpRootData;
+
+struct _MkpRootData {
+	AnjutaProjectNodeData base;
+};
+
 typedef enum {
 	AM_GROUP_TOKEN_CONFIGURE,
 	AM_GROUP_TOKEN_SUBDIRS,
@@ -256,6 +262,36 @@ file_type (GFile *file, const gchar *filename)
 	return type;
 }
 
+/* Root objects
+ *---------------------------------------------------------------------------*/
+
+static AnjutaProjectNode*
+mkp_root_new (GFile *file)
+{
+	MkpRootData *root = NULL;
+
+	g_return_val_if_fail (file != NULL, NULL);
+	
+	root = g_slice_new0(MkpRootData); 
+	root->base.type = ANJUTA_PROJECT_ROOT;
+	root->base.properties = NULL;
+	root->base.file = g_file_dup (file);
+
+	return g_node_new (root);
+}
+
+static void
+mkp_root_free (AnjutaProjectNode *node)
+{
+	AnjutaProjectNodeData *data = MKP_NODE_DATA (node);
+	
+	if (data->file != NULL) g_object_unref (data->file);
+	g_free (data->name);
+	g_slice_free (MkpRootData, (MkpRootData *)data);
+
+	g_node_destroy (node);
+}
+
 /* Group objects
  *---------------------------------------------------------------------------*/
 
@@ -434,7 +470,7 @@ monitor_cb (GFileMonitor *monitor,
 		case G_FILE_MONITOR_EVENT_CHANGED:
 		case G_FILE_MONITOR_EVENT_DELETED:
 			/* monitor will be removed here... is this safe? */
-			mkp_project_reload (project, NULL);
+			//mkp_project_reload (project, NULL);
 			g_signal_emit_by_name (G_OBJECT (project), "project-updated");
 			break;
 		default:
@@ -553,15 +589,16 @@ foreach_node_destroy (AnjutaProjectNode    *g_node,
 {
 	switch (MKP_NODE_DATA (g_node)->type) {
 		case ANJUTA_PROJECT_GROUP:
-			//g_hash_table_remove (project->groups, g_file_get_uri (MKP_GROUP_NODE (g_node)->file));
 			mkp_group_free (g_node);
 			break;
 		case ANJUTA_PROJECT_TARGET:
 			mkp_target_free (g_node);
 			break;
 		case ANJUTA_PROJECT_SOURCE:
-			//g_hash_table_remove (project->sources, MKP_NODE (g_node)->id);
 			mkp_source_free (g_node);
+			break;
+		case ANJUTA_PROJECT_ROOT:
+			mkp_root_free (g_node);
 			break;
 		default:
 			g_assert_not_reached ();
@@ -583,6 +620,33 @@ project_node_destroy (MkpProject *project, AnjutaProjectNode *g_node)
 		/* now destroy the tree itself */
 		//g_node_destroy (g_node);
 	}
+}
+
+static AnjutaProjectNode *
+project_node_new (MkpProject *project, AnjutaProjectNodeType type, GFile *file, const gchar *name)
+{
+	AnjutaProjectNode *node = NULL;
+	
+	switch (type & ANJUTA_PROJECT_TYPE_MASK) {
+		case ANJUTA_PROJECT_GROUP:
+			node = mkp_group_new (file);
+			break;
+		case ANJUTA_PROJECT_TARGET:
+			node = mkp_target_new (name, 0);
+			break;
+		case ANJUTA_PROJECT_SOURCE:
+			node = mkp_source_new (file);
+			break;
+		case ANJUTA_PROJECT_ROOT:
+			node = mkp_root_new (file);
+			break;
+		default:
+			g_assert_not_reached ();
+			break;
+	}
+	if (node != NULL) MKP_NODE_DATA (node)->type = type;
+
+	return node;
 }
 
 static void
@@ -990,6 +1054,79 @@ mkp_project_get_variable_token (MkpProject *project, AnjutaToken *variable)
 	return var != NULL ? var->value : NULL;
 }
 
+static AnjutaProjectNode *
+mkp_project_load_root (MkpProject *project, AnjutaProjectNode *node, GError **error)
+{
+	GFile *root_file;
+	GFile *make_file;
+	const gchar **makefile;
+	MkpGroup *group;
+
+	/* Unload current project */
+	root_file = g_object_ref (anjuta_project_node_get_file (node));
+	mkp_project_unload (project);
+	project->root_file = root_file;
+	project->root_node = node;
+	DEBUG_PRINT ("reload project %p root file %p", project, project->root_file);
+
+	/* shortcut hash tables */
+	project->groups = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+	project->files = g_hash_table_new_full (g_file_hash, (GEqualFunc)g_file_equal, g_object_unref, g_object_unref);
+	project->variables = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, (GDestroyNotify)mkp_variable_free);
+
+	/* Initialize rules data */
+	mkp_project_init_rules (project);
+	
+	/* Initialize list styles */
+	project->space_list = anjuta_token_style_new (NULL, " ", "\n", NULL, 0);
+	project->arg_list = anjuta_token_style_new (NULL, ", ", ",\n ", ")", 0);
+
+	/* Find make file */
+	for (makefile = valid_makefiles; *makefile != NULL; makefile++)
+	{
+		if (file_type (root_file, *makefile) == G_FILE_TYPE_REGULAR)
+		{
+			make_file = g_file_get_child (root_file, *makefile);
+			break;
+		}
+	}
+	if (make_file == NULL)
+	{
+		g_set_error (error, IANJUTA_PROJECT_ERROR, 
+		             IANJUTA_PROJECT_ERROR_DOESNT_EXIST,
+			   _("Project doesn't exist or invalid path"));
+
+		return NULL;
+	}
+
+	/* Create group */
+	group = mkp_group_new (root_file);
+	g_hash_table_insert (project->groups, g_file_get_uri (root_file), group);
+	anjuta_project_node_append (node, group);
+
+	
+	/* Parse make file */	
+	project_load_makefile (project, make_file, group, error);
+	g_object_unref (make_file);
+
+	monitors_setup (project);
+	
+	
+	return node;
+}
+
+AnjutaProjectNode *
+dir_project_load_node (MkpProject *project, AnjutaProjectNode *node, GError **error) 
+{
+	switch (anjuta_project_node_get_type (node))
+	{
+	case ANJUTA_PROJECT_ROOT:
+		return mkp_project_load_root (project, node, error);
+	default:
+		return NULL;
+	}
+}
+ 
 gboolean
 mkp_project_reload (MkpProject *project, GError **error) 
 {
@@ -1058,11 +1195,11 @@ mkp_project_load (MkpProject  *project,
 {
 	g_return_val_if_fail (directory != NULL, FALSE);
 
-	project->root_file = g_object_ref (directory);
-	if (!mkp_project_reload (project, error))
+	project->root_node = mkp_root_new (directory);
+	if (!mkp_project_load_root (project, project->root_node, error))
 	{
-		g_object_unref (project->root_file);
-		project->root_file = NULL;
+		mkp_root_free (project->root_node);
+		project->root_node = NULL;
 	}
 
 	return project->root_file != NULL;
@@ -1273,13 +1410,49 @@ iproject_load (IAnjutaProject *obj, GFile *file, GError **err)
 static gboolean
 iproject_refresh (IAnjutaProject *obj, GError **err)
 {
-	return mkp_project_reload (MKP_PROJECT (obj), err);
+	return FALSE; //mkp_project_reload (MKP_PROJECT (obj), err);
 }
 
 static gboolean
 iproject_remove_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
 {
 	return TRUE;
+}
+
+static AnjutaProjectNode *
+iproject_load_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
+{
+	return dir_project_load_node (MKP_PROJECT (obj), node, err);
+}
+
+static AnjutaProjectNode *
+iproject_save_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
+{
+	return NULL;
+}
+
+static AnjutaProjectNode *
+iproject_new_root (IAnjutaProject *obj, GFile *file, GError **err)
+{
+	return project_node_new (MKP_PROJECT (obj), ANJUTA_PROJECT_ROOT, file, NULL);
+}
+
+static AnjutaProjectNode *
+iproject_new_file (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, GFile *file, GError **err)
+{
+	return NULL;
+}
+
+static AnjutaProjectNode *
+iproject_new_name (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, const gchar *name, GError **err)
+{
+	return NULL;
+}
+
+static void
+iproject_free_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
+{
+	return project_node_destroy (MKP_PROJECT (obj), node);
 }
 
 static void
@@ -1296,6 +1469,12 @@ iproject_iface_init(IAnjutaProjectIface* iface)
 	iface->load = iproject_load;
 	iface->refresh = iproject_refresh;
 	iface->remove_node = iproject_remove_node;
+	iface->load_node = iproject_load_node;
+	iface->save_node = iproject_save_node;
+	iface->new_root = iproject_new_root;
+	iface->new_file = iproject_new_file;
+	iface->new_name = iproject_new_name;
+	iface->free_node = iproject_free_node;
 }
 
 /* GObject implementation
