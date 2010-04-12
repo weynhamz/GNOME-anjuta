@@ -3133,7 +3133,7 @@ interface IAnjutaProject
 	 *
 	 * Return value: The newly created node, NULL if error
 	 */
-	AnjutaProjectNode *new_file (GFile *file);
+	AnjutaProjectNode *new_file (AnjutaProjectNode *node, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, GFile *file);
 
 	/**
 	 * ianjuta_project_new_name:
@@ -3149,7 +3149,7 @@ interface IAnjutaProject
 	 *
 	 * Return value: The newly created node, NULL if error
 	 */
-	AnjutaProjectNode *new_name (const gchar *name);
+	AnjutaProjectNode *new_name (AnjutaProjectNode *node, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, const gchar *name);
 
 	/**
 	 * ianjuta_project_free_node:
