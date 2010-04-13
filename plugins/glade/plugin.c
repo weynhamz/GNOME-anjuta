@@ -406,7 +406,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	GtkListStore *store;
 	GtkCellRenderer *renderer;
 	
-	DEBUG_PRINT ("%s", "GladePlugin: Activating Glade plugin...");
+	DEBUG_PRINT ("%s", "GladePlugin: Activating Glade plugin…");
 	
 	glade_plugin = ANJUTA_PLUGIN_GLADE (plugin);
 	
@@ -511,7 +511,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	
 	priv = ANJUTA_PLUGIN_GLADE (plugin)->priv;
 		
-	DEBUG_PRINT ("%s", "GladePlugin: Dectivating Glade plugin...");
+	DEBUG_PRINT ("%s", "GladePlugin: Dectivating Glade plugin…");
 	
 	/* Disconnect signals */
 	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
