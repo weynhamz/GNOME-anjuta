@@ -91,7 +91,7 @@
 			GROUP BY symbol.scope_id \
 		) \
 	) \
-	ORDER BY symbol.file_position \
+	ORDER BY symbol.name \
 	LIMIT ## /* name:'limit' type:gint */ \
 	OFFSET ## /* name:'offset' type:gint */ \
 	"
