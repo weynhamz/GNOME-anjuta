@@ -64,8 +64,8 @@ typedef struct {
 /* Properties functions
  *---------------------------------------------------------------------------*/
 
-AnjutaProjectPropertyList *
-anjuta_project_property_first (AnjutaProjectPropertyList *list)
+AnjutaProjectProperty *
+anjuta_project_property_first (AnjutaProjectProperty *list)
 {
 	if (list != NULL)
 	{
@@ -79,20 +79,20 @@ anjuta_project_property_first (AnjutaProjectPropertyList *list)
 	return list;
 }
 
-AnjutaProjectPropertyItem *
-anjuta_project_property_next (AnjutaProjectPropertyItem *list)
+AnjutaProjectProperty *
+anjuta_project_property_next (AnjutaProjectProperty *list)
 {
 	return g_list_next (list);
 }
 
 AnjutaProjectPropertyInfo *
-anjuta_project_property_get_info (AnjutaProjectPropertyItem *list)
+anjuta_project_property_get_info (AnjutaProjectProperty *list)
 {
 	return (AnjutaProjectPropertyInfo *)list->data;
 }
 
 AnjutaProjectPropertyInfo *
-anjuta_project_property_lookup (AnjutaProjectPropertyList *list, AnjutaProjectPropertyItem *prop)
+anjuta_project_property_lookup (AnjutaProjectProperty *list, AnjutaProjectProperty *prop)
 {
 	AnjutaProjectPropertyInfo *info;
 	
@@ -115,10 +115,10 @@ anjuta_project_property_lookup (AnjutaProjectPropertyList *list, AnjutaProjectPr
 	return info;
 }
 
-AnjutaProjectPropertyItem *
-anjuta_project_property_override (AnjutaProjectPropertyList *list, AnjutaProjectPropertyItem *prop)
+AnjutaProjectProperty *
+anjuta_project_property_override (AnjutaProjectProperty *list, AnjutaProjectProperty *prop)
 {
-	AnjutaProjectPropertyItem *item;
+	AnjutaProjectProperty *item;
 	
 	for (item = list; item != NULL; item = g_list_next (item))
 	{
@@ -140,10 +140,10 @@ anjuta_project_property_override (AnjutaProjectPropertyList *list, AnjutaProject
 	return item;
 }
 
-AnjutaProjectPropertyItem *
-anjuta_project_property_next_item (AnjutaProjectPropertyItem *item)
+AnjutaProjectProperty *
+anjuta_project_property_next_item (AnjutaProjectProperty *item)
 {
-	AnjutaProjectPropertyItem *prop = ((AnjutaProjectPropertyInfo *)item->data)->override;
+	AnjutaProjectProperty *prop = ((AnjutaProjectPropertyInfo *)item->data)->override;
 
 	for (item = g_list_next (item); item != NULL; item = g_list_next (item))
 	{
@@ -165,8 +165,8 @@ anjuta_project_property_next_item (AnjutaProjectPropertyItem *item)
 	return item;
 }
 
-AnjutaProjectPropertyList *
-anjuta_project_property_insert (AnjutaProjectPropertyList *list, AnjutaProjectPropertyItem *prop, AnjutaProjectPropertyInfo *info)
+AnjutaProjectProperty *
+anjuta_project_property_insert (AnjutaProjectProperty *list, AnjutaProjectProperty *prop, AnjutaProjectPropertyInfo *info)
 {
 	GList *next;
 	
@@ -184,8 +184,8 @@ anjuta_project_property_insert (AnjutaProjectPropertyList *list, AnjutaProjectPr
 	return list;
 }
 
-AnjutaProjectPropertyList *
-anjuta_project_property_remove (AnjutaProjectPropertyList *list, AnjutaProjectPropertyItem *prop)
+AnjutaProjectProperty *
+anjuta_project_property_remove (AnjutaProjectProperty *list, AnjutaProjectProperty *prop)
 {
 	AnjutaProjectPropertyInfo *info;
 	GList *link;
@@ -209,7 +209,7 @@ anjuta_project_property_remove (AnjutaProjectPropertyList *list, AnjutaProjectPr
 }
 
 void
-anjuta_project_property_foreach (AnjutaProjectPropertyList *list, GFunc func, gpointer user_data)
+anjuta_project_property_foreach (AnjutaProjectProperty *list, GFunc func, gpointer user_data)
 {
 	g_list_foreach (list, func, user_data);
 }
@@ -410,7 +410,7 @@ anjuta_project_node_get_file (AnjutaProjectNode *node)
 	return data->file;
 }
 
-AnjutaProjectPropertyList *
+AnjutaProjectProperty *
 anjuta_project_node_get_property_list (AnjutaProjectNode *node)
 {
 	GList *list = NULL;
@@ -447,7 +447,7 @@ anjuta_project_node_get_property_list (AnjutaProjectNode *node)
 	return list;
 }
 
-const gchar *
+/*const gchar *
 anjuta_project_node_get_property_value (AnjutaProjectNode *node, AnjutaProjectProperty prop)
 {
 	GList *item;
@@ -463,7 +463,7 @@ anjuta_project_node_get_property_value (AnjutaProjectNode *node, AnjutaProjectPr
 	}
 	
 	return NULL;
-}
+}*/
 
 /* Group access functions
  *---------------------------------------------------------------------------*/

@@ -64,7 +64,7 @@ on_project_widget_destroy (GtkWidget *wid, AmpConfigureProjectDialog *dlg)
 }
 
 static void
-add_entry (AmpProject *project, AnjutaProjectNode *node, AnjutaProjectPropertyItem *prop, GtkWidget *table, gint *position)
+add_entry (AmpProject *project, AnjutaProjectNode *node, AnjutaProjectProperty *prop, GtkWidget *table, gint *position)
 {
 	GtkWidget *label;
 	GtkWidget *entry = NULL;
@@ -185,8 +185,8 @@ amp_configure_project_dialog (AmpProject *project, GError **error)
 	GtkWidget *table;
 	gint pos;
 	gchar *name;
-	AnjutaProjectPropertyItem *prop;
-	AnjutaProjectPropertyList *list;
+	AnjutaProjectProperty *prop;
+	AnjutaProjectProperty *list;
 
 	bxml = anjuta_util_builder_new (GLADE_FILE, NULL);
 	if (!bxml) return NULL;
@@ -233,8 +233,8 @@ amp_configure_group_dialog (AmpProject *project, AmpGroup *group, GError **error
 	gint extra_pos;
 	AmpConfigureProjectDialog *dlg;
 	gchar *name;
-	AnjutaProjectPropertyList *list;
-	AnjutaProjectPropertyItem *prop;
+	AnjutaProjectProperty *list;
+	AnjutaProjectProperty *prop;
 
 	bxml = anjuta_util_builder_new (GLADE_FILE, NULL);
 	if (!bxml) return NULL;
@@ -258,7 +258,7 @@ amp_configure_group_dialog (AmpProject *project, AmpGroup *group, GError **error
 	list = ANJUTA_PROJECT_NODE_DATA ((AnjutaProjectNode *)group)->properties;
 	for (prop = anjuta_project_property_first (list); prop != NULL; prop = anjuta_project_property_next (prop))
 	{
-		AnjutaProjectPropertyItem *item;
+		AnjutaProjectProperty *item;
 
 		item = anjuta_project_property_override (list, prop);
 		if (item != NULL)
@@ -289,8 +289,8 @@ amp_configure_target_dialog (AmpProject *project, AmpTarget *target, GError **er
 	AmpConfigureProjectDialog *dlg;
 	AnjutaProjectTargetType type;
 	const gchar *name;
-	AnjutaProjectPropertyList *list;
-	AnjutaProjectPropertyItem *prop;
+	AnjutaProjectProperty *list;
+	AnjutaProjectProperty *prop;
 
 	bxml = anjuta_util_builder_new (GLADE_FILE, NULL);
 	if (!bxml) return NULL;
@@ -315,7 +315,7 @@ amp_configure_target_dialog (AmpProject *project, AmpTarget *target, GError **er
 	list = ANJUTA_PROJECT_NODE_DATA ((AnjutaProjectNode *)target)->properties;
 	for (prop = anjuta_project_property_first (list); prop != NULL; prop = anjuta_project_property_next (prop))
 	{
-		AnjutaProjectPropertyItem *item;
+		AnjutaProjectProperty *item;
 
 		item = anjuta_project_property_override (list, prop);
 		if (item != NULL)

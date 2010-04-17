@@ -165,8 +165,8 @@ amp_property_free (AnjutaProjectPropertyInfo *prop)
 gboolean
 amp_node_property_set (AnjutaProjectNode *node, gint token_type, gint position, const gchar *value, AnjutaToken *token)
 {
-	AnjutaProjectPropertyList **properties = &(ANJUTA_PROJECT_NODE_DATA(node)->properties);
-	AnjutaProjectPropertyItem *list;
+	AnjutaProjectProperty **properties = &(ANJUTA_PROJECT_NODE_DATA(node)->properties);
+	AnjutaProjectProperty *list;
 	gboolean set = FALSE;
 	
 	for (list = anjuta_project_property_first (*properties); list != NULL; list = anjuta_project_property_next (list))
@@ -197,8 +197,8 @@ amp_node_property_set (AnjutaProjectNode *node, gint token_type, gint position, 
 gboolean
 amp_node_property_add (AnjutaProjectNode *node, AmpPropertyInfo *prop)
 {
-	AnjutaProjectPropertyList **properties = &(ANJUTA_PROJECT_NODE_DATA(node)->properties);
-	AnjutaProjectPropertyItem *list;
+	AnjutaProjectProperty **properties = &(ANJUTA_PROJECT_NODE_DATA(node)->properties);
+	AnjutaProjectProperty *list;
 	gboolean set = FALSE;
 
 	for (list = anjuta_project_property_first (*properties); list != NULL; list = anjuta_project_property_next (list))
@@ -231,10 +231,10 @@ amp_node_property_add (AnjutaProjectNode *node, AmpPropertyInfo *prop)
 }
 
 gboolean
-amp_project_property_set (AmpProject *project, AnjutaProjectPropertyItem *prop, const gchar* value)
+amp_project_property_set (AmpProject *project, AnjutaProjectProperty *prop, const gchar* value)
 {
-	AnjutaProjectPropertyList **properties = &(project->properties);
-	AnjutaProjectPropertyItem *item;
+	AnjutaProjectProperty **properties = &(project->properties);
+	AnjutaProjectProperty *item;
 	AmpPropertyInfo *info;
 		
 	item = anjuta_project_property_override (*properties, prop);

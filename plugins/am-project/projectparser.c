@@ -141,13 +141,13 @@ list_property (IAnjutaProject *project)
 {
 	if (AMP_IS_PROJECT (project))
 	{
-		AnjutaProjectPropertyList *list;
-		AnjutaProjectPropertyItem *prop;
+		AnjutaProjectProperty *list;
+		AnjutaProjectProperty *prop;
 
 		list = amp_project_get_property_list (AMP_PROJECT (project));
 		for (prop = anjuta_project_property_first (list); prop != NULL; prop = anjuta_project_property_next (prop))
 		{
-			AnjutaProjectPropertyItem *item;
+			AnjutaProjectProperty *item;
 
 			item = anjuta_project_property_override (list, prop);
 			if (item != NULL)
@@ -330,12 +330,12 @@ get_type (IAnjutaProject *project, const char *id)
 	return type;
 }
 
-static AnjutaProjectPropertyItem *
+static AnjutaProjectProperty *
 get_project_property (AmpProject *project, const gchar *id)
 {
-	AnjutaProjectPropertyList *list;
-	AnjutaProjectPropertyItem *item;
-	AnjutaProjectPropertyItem *prop = NULL;
+	AnjutaProjectProperty *list;
+	AnjutaProjectProperty *item;
+	AnjutaProjectProperty *prop = NULL;
 	gint best = G_MAXINT;
 
 	list = amp_project_get_property_list (project);
@@ -436,7 +436,7 @@ main(int argc, char *argv[])
 				}
 			}
 
-			root = ianjuta_project_new_root (project, file, &error);
+			root = ianjuta_project_new_root_node (project, file, &error);
 			root = ianjuta_project_load_node (project, root, &error);
 			g_object_unref (file);
 		}
@@ -455,10 +455,7 @@ main(int argc, char *argv[])
 		}
 		else if (g_ascii_strcasecmp (*command, "save") == 0)
 		{
-			if (AMP_IS_PROJECT (project))
-			{
-				amp_project_save (AMP_PROJECT (project), NULL);
-			}
+			ianjuta_project_save_node (project, root, NULL);
 		}
 		else if (g_ascii_strcasecmp (*command, "remove") == 0)
 		{
@@ -541,7 +538,7 @@ main(int argc, char *argv[])
 		{
 			if (AMP_IS_PROJECT (project))
 			{
-				AnjutaProjectPropertyItem *item;
+				AnjutaProjectProperty *item;
 				AnjutaProjectPropertyInfo *info = NULL;
 
 				item = get_project_property (AMP_PROJECT (project), command[1]);

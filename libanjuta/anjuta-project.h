@@ -28,6 +28,7 @@ G_BEGIN_DECLS
 #define ANJUTA_IS_PROJECT_GROUP(obj) (((AnjutaProjectNodeData *)obj->data)->type == ANJUTA_PROJECT_GROUP)
 #define ANJUTA_IS_PROJECT_TARGET(obj) (((AnjutaProjectNodeData *)obj->data)->type == ANJUTA_PROJECT_TARGET)
 #define ANJUTA_IS_PROJECT_NODE(obj) (1)
+#define ANJUTA_IS_PROJECT_PROPERTY(obj) (1)
 
 typedef enum
 {
@@ -88,26 +89,23 @@ typedef enum
 	ANJUTA_PROJECT_PROPERTY_STRING = 1,
 	ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 	ANJUTA_PROJECT_PROPERTY_LIST
-} AnjutaProjectPropertyType;
+} AnjutaProjectValueType;
 
 typedef struct
 {
 	gchar *name;
-	AnjutaProjectPropertyType type;
+	AnjutaProjectValueType type;
 	gchar *value;
 	GList *override;
 } AnjutaProjectPropertyInfo;
 
-typedef AnjutaProjectPropertyInfo* AnjutaProjectProperty;
-
-typedef GList AnjutaProjectPropertyList;
-typedef GList AnjutaProjectPropertyItem;
+typedef GList AnjutaProjectProperty;
 
 
 typedef struct
 {
 	AnjutaProjectNodeType type;
-	AnjutaProjectPropertyList *properties;
+	AnjutaProjectProperty *properties;
 	GFile *file;
 	gchar *name;
 	AnjutaProjectTargetType target_type;
@@ -143,15 +141,15 @@ typedef GNode AnjutaProjectSource;
 
 typedef void (*AnjutaProjectNodeFunc) (AnjutaProjectNode *node, gpointer data);
 
-AnjutaProjectPropertyItem *anjuta_project_property_first (AnjutaProjectPropertyList *list);
-AnjutaProjectPropertyItem *anjuta_project_property_next (AnjutaProjectPropertyItem *list);
-AnjutaProjectPropertyItem *anjuta_project_property_override (AnjutaProjectPropertyList *list, AnjutaProjectPropertyItem *prop);
-AnjutaProjectPropertyItem *anjuta_project_property_next_item (AnjutaProjectPropertyItem *item);
-AnjutaProjectPropertyInfo *anjuta_project_property_get_info (AnjutaProjectPropertyItem *list);
-AnjutaProjectPropertyInfo *anjuta_project_property_lookup (AnjutaProjectPropertyList *list, AnjutaProjectPropertyItem *prop);
-AnjutaProjectPropertyList *anjuta_project_property_insert (AnjutaProjectPropertyList *list, AnjutaProjectPropertyItem *prop, AnjutaProjectPropertyInfo *info);
-AnjutaProjectPropertyList *anjuta_project_property_remove (AnjutaProjectPropertyList *list, AnjutaProjectPropertyItem *prop);
-void anjuta_project_property_foreach (AnjutaProjectPropertyList *list, GFunc func, gpointer user_data);
+AnjutaProjectProperty *anjuta_project_property_first (AnjutaProjectProperty *list);
+AnjutaProjectProperty *anjuta_project_property_next (AnjutaProjectProperty *list);
+AnjutaProjectProperty *anjuta_project_property_override (AnjutaProjectProperty *list, AnjutaProjectProperty *prop);
+AnjutaProjectProperty *anjuta_project_property_next_item (AnjutaProjectProperty *item);
+AnjutaProjectPropertyInfo *anjuta_project_property_get_info (AnjutaProjectProperty *list);
+AnjutaProjectPropertyInfo *anjuta_project_property_lookup (AnjutaProjectProperty *list, AnjutaProjectProperty *prop);
+AnjutaProjectProperty *anjuta_project_property_insert (AnjutaProjectProperty *list, AnjutaProjectProperty *prop, AnjutaProjectPropertyInfo *info);
+AnjutaProjectProperty *anjuta_project_property_remove (AnjutaProjectProperty *list, AnjutaProjectProperty *prop);
+void anjuta_project_property_foreach (AnjutaProjectProperty *list, GFunc func, gpointer user_data);
 
 
 AnjutaProjectNode *anjuta_project_node_parent (AnjutaProjectNode *node);
@@ -179,8 +177,8 @@ gchar *anjuta_project_node_get_name (const AnjutaProjectNode *node);
 gchar *anjuta_project_node_get_uri (AnjutaProjectNode *node);
 GFile *anjuta_project_node_get_file (AnjutaProjectNode *node);
 
-AnjutaProjectPropertyList *anjuta_project_node_get_property_list (AnjutaProjectNode *node);
-const gchar *anjuta_project_node_get_property_value (AnjutaProjectNode *node, AnjutaProjectProperty prop);
+AnjutaProjectProperty *anjuta_project_node_get_property_list (AnjutaProjectNode *node);
+//const gchar *anjuta_project_node_get_property_value (AnjutaProjectNode *node, AnjutaProjectProperty prop);
 
 AnjutaProjectNode *anjuta_project_group_get_node_from_file (const AnjutaProjectNode *root, GFile *directory);
 AnjutaProjectNode *anjuta_project_target_get_node_from_name (const AnjutaProjectNode *parent, const gchar *name);

@@ -193,7 +193,7 @@ pm_project_thread_main_loop (AnjutaPmProject *project)
 		switch (job->command)
 		{
 		case LOAD:
-			root = ianjuta_project_new_root (project->project, job->file, NULL);
+			root = ianjuta_project_new_root_node (project->project, job->file, NULL);
 			node = ianjuta_project_load_node (project->project, root, &(job->error));
 			g_message ("load get root %p node %p, error %p", root, node, job->error);
 			if (job->error == NULL)
@@ -202,7 +202,7 @@ pm_project_thread_main_loop (AnjutaPmProject *project)
 			}
 			else
 			{
-				ianjuta_project_free_node (project->project, root, NULL);
+				ianjuta_project_remove_node (project->project, root, NULL);
 			}
 			break;
 		case RELOAD:

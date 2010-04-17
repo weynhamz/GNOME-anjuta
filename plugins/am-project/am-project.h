@@ -119,7 +119,7 @@ GList *amp_project_get_config_packages  (AmpProject *project, const gchar* modul
 
 GList *amp_project_get_target_types (AmpProject *project, GError **error);
 
-AnjutaProjectPropertyList *amp_project_get_property_list (AmpProject *project);
+AnjutaProjectProperty *amp_project_get_property_list (AmpProject *project);
 //gchar* amp_project_get_property (AmpProject *project, AmpPropertyType type);
 //gboolean amp_project_set_property (AmpProject *project, AmpPropertyType type, const gchar* value);
 

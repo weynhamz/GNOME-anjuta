@@ -3055,6 +3055,7 @@ interface IAnjutaProject
 		ERROR_ALREADY_EXISTS,
 		ERROR_VALIDATION_FAILED,
 		ERROR_PROJECT_MALFORMED,
+		ERROR_NOT_SUPPORTED,
 		ERROR_GENERAL_FAILURE
 	}
 
@@ -3108,7 +3109,7 @@ interface IAnjutaProject
 	AnjutaProjectNode *save_node (AnjutaProjectNode *node);
 
 	/**
-	 * ianjuta_project_new_root:
+	 * ianjuta_project_new_root_node:
 	 * @obj: Self
 	 * @file: Project file or directory
 	 * @err: Error propagation and reporting
@@ -3117,10 +3118,10 @@ interface IAnjutaProject
 	 *
 	 * Return value: The newly created node, NULL if error
 	 */
-	AnjutaProjectNode *new_root (GFile *file);
+	AnjutaProjectNode *new_root_node (GFile *file);
 
 	/**
-	 * ianjuta_project_new_file:
+	 * ianjuta_project_add_file:
 	 * @obj: Self
 	 * @parent: Parent node
 	 * @sibling: Sibling node or NULL
@@ -3133,10 +3134,10 @@ interface IAnjutaProject
 	 *
 	 * Return value: The newly created node, NULL if error
 	 */
-	AnjutaProjectNode *new_file (AnjutaProjectNode *node, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, GFile *file);
+	AnjutaProjectNode *add_file_node (AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, GFile *file);
 
 	/**
-	 * ianjuta_project_new_name:
+	 * ianjuta_project_add_name:
 	 * @obj: Self
 	 * @parent: Parent node
 	 * @sibling: Sibling node or NULL
@@ -3149,17 +3150,80 @@ interface IAnjutaProject
 	 *
 	 * Return value: The newly created node, NULL if error
 	 */
-	AnjutaProjectNode *new_name (AnjutaProjectNode *node, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, const gchar *name);
+	AnjutaProjectNode *add_name_node (AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, const gchar *name);
 
 	/**
-	 * ianjuta_project_free_node:
+	 * ianjuta_project_remove_node:
 	 * @obj: Self
 	 * @node: Node
 	 * @err: Error propagation and reporting
 	 *
 	 * Free a node and its children.
+	 *
+	 * Return value: TRUE if the node has been successfully removed
+	 * else FALSE
 	 */
-	void free_node (AnjutaProjectNode *node);
+	gboolean remove_node (AnjutaProjectNode *node);
+
+	/**
+	 * ianjuta_project_set_boolean_property:
+	 * @obj: Self
+	 * @node: Node
+	 * @property: Property
+	 * @value: Property value
+	 * @err: Error propagation and reporting
+	 *
+	 * Set a property type of node to the corresponding value, overwrite
+	 * the existing value if it exists.
+	 *
+	 * Return value: The newly created property, NULL on error
+	 */
+	AnjutaProjectProperty *set_boolean_property (AnjutaProjectNode *node, AnjutaProjectProperty *property, gboolean value);
+
+	/**
+	 * ianjuta_project_set_string_property:
+	 * @obj: Self
+	 * @node: Parent node
+	 * @property: Property
+	 * @value: Property value
+	 * @err: Error propagation and reporting
+	 *
+	 * Set a property type of node to the corresponding value, overwrite
+	 * the existing value if it exists.
+	 *
+	 * Return value: The newly created property, NULL on error
+	 */
+	AnjutaProjectProperty *set_string_property (AnjutaProjectNode *node, AnjutaProjectProperty *property, const gchar *value);
+
+	/**
+	 * ianjuta_project_set_list_property:
+	 * @obj: Self
+	 * @node: Parent node
+	 * @type: Node type
+	 * @property: Property
+	 * @name: Property name
+	 * @value: Node name
+	 * @err: Error propagation and reporting
+	 *
+	 * Add a new value to the property type of node to the corresponding.
+	 *
+	 * Return value: The newly created property, NULL on error
+	 */
+	AnjutaProjectProperty *set_list_property (AnjutaProjectNode *node, AnjutaProjectProperty *property, const gchar *name, const gchar *value);
+
+	/**
+	 * ianjuta_project_remove_property:
+	 * @obj: Self
+	 * @node: Node
+	 * @property: Property
+	 * @err: Error propagation and reporting
+	 *
+	 * Remove a property from a node.
+	 *
+	 * Return value: TRUE if the property has been successfully removed
+	 * else FALSE
+	 */
+	gboolean remove_property (AnjutaProjectNode *node, AnjutaProjectProperty *property);
 
 	/**
 	 * ianjuta_project_load:
@@ -3277,18 +3341,6 @@ interface IAnjutaProject
 	* Returns: The new source or NULL on error.
 	*/
 	AnjutaProjectNode* add_source (AnjutaProjectNode *parent, GFile *file);
-
-	/**
-	* ianjuta_project_remove_node:
-	* @obj: Self
-	* @node: node to configure
-	* @err: Error propagation and reporting.
-	*
-	* Remove a node (a group, a target or a source) from the project.
-	*
-	* Returns: TRUE if the node has been removed
-	*/
-	gboolean remove_node (AnjutaProjectNode *node);
 
 	/**
 	* ianjuta_project_configure_node:

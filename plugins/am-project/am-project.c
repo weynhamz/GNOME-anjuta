@@ -1053,11 +1053,11 @@ foreach_node_destroy (AnjutaProjectNode    *g_node,
 	}
 }
 
-static void
+static gboolean
 project_node_destroy (AmpProject *project, AnjutaProjectNode *g_node)
 {
-	g_return_if_fail (project != NULL);
-	g_return_if_fail (AMP_IS_PROJECT (project));
+	g_return_val_if_fail (project != NULL, FALSE);
+	g_return_val_if_fail (AMP_IS_PROJECT (project), FALSE);
 	
 	if (g_node) {
 		/* free each node's data first */
@@ -1067,6 +1067,8 @@ project_node_destroy (AmpProject *project, AnjutaProjectNode *g_node)
 		/* now destroy the tree itself */
 		//g_node_destroy (g_node);
 	}
+
+	return TRUE;
 }
 
 static AnjutaProjectNode *
@@ -1105,7 +1107,7 @@ project_node_new (AmpProject *project, AnjutaProjectNodeType type, GFile *file, 
 void
 amp_project_load_properties (AmpProject *project, AnjutaToken *macro, AnjutaToken *args)
 {
-	AnjutaProjectPropertyItem *list;
+	AnjutaProjectProperty *list;
 	
 	//fprintf (stdout, "property list:\n");
 	//anjuta_token_dump (args);
@@ -3021,7 +3023,7 @@ amp_project_get_file (AmpProject *project)
 	return project->root_file;
 }
 
-AnjutaProjectPropertyList *
+AnjutaProjectProperty *
 amp_project_get_property_list (AmpProject *project)
 {
 	return project->properties;
@@ -3174,12 +3176,6 @@ static gboolean
 iproject_refresh (IAnjutaProject *obj, GError **err)
 {
 	//return amp_project_reload (AMP_PROJECT (obj), err);
-	return NULL;
-}
-
-static gboolean
-iproject_remove_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
-{
 	return TRUE;
 }
 
@@ -3206,33 +3202,72 @@ iproject_load_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
 }
 
 static AnjutaProjectNode *
-iproject_save_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
+iproject_save_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **error)
 {
-	return NULL;
+	switch (anjuta_project_node_get_type (node))
+	{
+		case ANJUTA_PROJECT_ROOT:
+			if (!amp_project_save (AMP_PROJECT (obj), error))
+			{
+				node = NULL;
+			}
+			break;
+		default:
+			node = NULL;
+			error_set (error, IANJUTA_PROJECT_ERROR_NOT_SUPPORTED,
+				   _("Only the root node can be saved in an autotools project"));
+			break;
+	}
+	
+	return node;
 }
 
 static AnjutaProjectNode *
-iproject_new_root (IAnjutaProject *obj, GFile *file, GError **err)
+iproject_new_root_node (IAnjutaProject *obj, GFile *file, GError **err)
 {
 	return project_node_new (AMP_PROJECT (obj), ANJUTA_PROJECT_ROOT, file, NULL);
 }
 
 static AnjutaProjectNode *
-iproject_new_file (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, GFile *file, GError **err)
+iproject_add_file_node (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, GFile *file, GError **err)
 {
 	return NULL;
 }
 
 static AnjutaProjectNode *
-iproject_new_name (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, const gchar *name, GError **err)
+iproject_add_name_node (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, const gchar *name, GError **err)
 {
 	return NULL;
 }
 
-static void
-iproject_free_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
+static gboolean
+iproject_remove_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
 {
 	return project_node_destroy (AMP_PROJECT (obj), node);
+}
+
+static AnjutaProjectProperty *
+iproject_set_boolean_property (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProperty *property, gboolean value, GError **err )
+{
+	return NULL;
+}
+
+static AnjutaProjectProperty *
+iproject_set_string_property (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProperty *property, const gchar *value, GError **err )
+{
+	return NULL;
+}
+
+static AnjutaProjectProperty *
+iproject_set_list_property (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProperty *property, const gchar *name, const gchar *value, GError **err )
+{
+	return NULL;
+}
+
+static gboolean
+iproject_remove_property (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProperty *property, GError **err)
+{
+	return FALSE;
 }
 
 static void
@@ -3248,14 +3283,17 @@ iproject_iface_init(IAnjutaProjectIface* iface)
 	iface->get_target_types = iproject_get_target_types;
 	iface->load = iproject_load;
 	iface->refresh = iproject_refresh;
-	iface->remove_node = iproject_remove_node;
 	iface->configure_node = iproject_configure_node;
 	iface->load_node = iproject_load_node;
 	iface->save_node = iproject_save_node;
-	iface->new_root = iproject_new_root;
-	iface->new_file = iproject_new_file;
-	iface->new_name = iproject_new_name;
-	iface->free_node = iproject_free_node;
+	iface->new_root_node = iproject_new_root_node;
+	iface->add_file_node = iproject_add_file_node;
+	iface->add_name_node = iproject_add_name_node;
+	iface->remove_node = iproject_remove_node;
+	iface->set_boolean_property = iproject_set_boolean_property;
+	iface->set_string_property = iproject_set_string_property;
+	iface->set_list_property = iproject_set_list_property;
+	iface->remove_property = iproject_remove_property;
 }
 
 /* Group access functions

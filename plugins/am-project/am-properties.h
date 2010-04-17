@@ -33,7 +33,7 @@ void amp_property_free (AnjutaProjectPropertyInfo *prop);
 
 gboolean amp_node_property_set (AnjutaProjectNode *target, gint token_type, gint position, const gchar *value, AnjutaToken *token);
 gboolean amp_node_property_add (AnjutaProjectNode *node, AmpPropertyInfo *info);
-gboolean amp_project_property_set (AmpProject *project, AnjutaProjectPropertyItem *prop, const gchar* value);
+gboolean amp_project_property_set (AmpProject *project, AnjutaProjectProperty *prop, const gchar* value);
 
 GList* amp_get_project_property_list (void);
 GList* amp_get_group_property_list (void);
