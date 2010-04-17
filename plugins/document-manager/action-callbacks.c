@@ -257,43 +257,6 @@ on_close_all_file_activate (GtkAction *action, gpointer user_data)
 	}
 }
 
-void 
-on_close_other_file_activate (GtkAction *action, gpointer user_data)
-{
-	GList *buffers;
-	AnjutaDocman *docman;
-	IAnjutaDocument *curr_doc;
-	DocmanPlugin *plugin;
-	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	
-	/* Close all 'saved' files */
-	buffers = anjuta_docman_get_all_doc_widgets (docman);
-	if (buffers)
-	{
-		GList *node;
-		node = buffers;
-
-		curr_doc = anjuta_docman_get_current_document (docman);
-		while (node)
-		{	
-			IAnjutaDocument *doc;
-			GList* next;
-			doc = IANJUTA_DOCUMENT (node->data);
-			next = g_list_next (node); /* grab it now, as we may change it. */
-			if (doc && doc != curr_doc)
-			{
-				if (!ianjuta_file_savable_is_dirty (IANJUTA_FILE_SAVABLE (doc), NULL))
-				{
-					anjuta_docman_remove_document (docman, doc);
-				}
-			}
-			node = next;
-		}
-		g_list_free (buffers);
-	}	
-}
-
 void
 on_reload_file_activate (GtkAction *action, gpointer user_data)
 {

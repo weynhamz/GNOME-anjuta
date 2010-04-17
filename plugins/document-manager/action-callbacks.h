@@ -26,7 +26,6 @@ void on_save_all_activate (GtkAction *action, gpointer user_data);
 void on_close_file_activate (GtkAction *action, gpointer user_data);
 void on_reload_file_activate (GtkAction *action, gpointer user_data);
 void on_close_all_file_activate (GtkAction *action, gpointer user_data);
-void on_close_other_file_activate (GtkAction *action, gpointer user_data);
 
 void on_print_activate (GtkAction *action, gpointer user_data);
 void on_print_preview_activate (GtkAction *action, gpointer user_data);
