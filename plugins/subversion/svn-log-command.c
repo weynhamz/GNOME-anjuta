@@ -109,6 +109,7 @@ log_callback (void *baton,
 
 	g_free (entry_author);
 	g_free (entry_date);
+	g_free (entry_message);
 	
 	anjuta_async_command_lock (ANJUTA_ASYNC_COMMAND (self));
 	g_queue_push_head (self->priv->log_entry_queue, log_entry);
