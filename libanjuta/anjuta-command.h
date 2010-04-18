@@ -51,7 +51,7 @@ struct _AnjutaCommandClass
 	void (*notify_data_arrived) (AnjutaCommand *self);
 	void (*notify_complete) (AnjutaCommand *self, guint return_code);
 	void (*notify_progress) (AnjutaCommand *self, gfloat progress);
-	void (*set_error_message) (AnjutaCommand *self, gchar *error_message);
+	void (*set_error_message) (AnjutaCommand *self, const gchar *error_message);
 	gchar * (*get_error_message) (AnjutaCommand *self);
 	gboolean (*start_automatic_monitor) (AnjutaCommand *self);
 	void (*stop_automatic_monitor) (AnjutaCommand *self);
@@ -80,7 +80,7 @@ void anjuta_command_notify_complete (AnjutaCommand *self, guint return_code);
 void anjuta_command_notify_progress (AnjutaCommand *self, gfloat progress);
 gboolean anjuta_command_is_running (AnjutaCommand *self);
 
-void anjuta_command_set_error_message (AnjutaCommand *self, gchar *error_message);
+void anjuta_command_set_error_message (AnjutaCommand *self, const gchar *error_message);
 gchar *anjuta_command_get_error_message (AnjutaCommand *self);
 
 gboolean anjuta_command_start_automatic_monitor (AnjutaCommand *self);
