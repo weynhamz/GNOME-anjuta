@@ -106,6 +106,9 @@ log_callback (void *baton,
 	
 	log_entry = svn_log_entry_new (entry_author, entry_date, revision, 
 								   entry_message);
+
+	g_free (entry_author);
+	g_free (entry_date);
 	
 	anjuta_async_command_lock (ANJUTA_ASYNC_COMMAND (self));
 	g_queue_push_head (self->priv->log_entry_queue, log_entry);
