@@ -309,6 +309,12 @@ cpp_java_assist_is_expression_separator (gchar c, gboolean skip_braces, IAnjutaI
 {
 	IAnjutaEditorAttribute attrib = ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL(iter),
 	                                                                   NULL);
+	int i;
+	const gchar separators[] = {',', ';', '\n', '\r', '\t', '(',
+	                          '{', '}', '=', '<', '\v', '!',
+	                          '&', '%', '*', '[', ']', '?', '/',
+	                          '+', 0};
+	
 	if (attrib == IANJUTA_EDITOR_STRING ||
 	    attrib == IANJUTA_EDITOR_COMMENT)
 	{
@@ -323,10 +329,10 @@ cpp_java_assist_is_expression_separator (gchar c, gboolean skip_braces, IAnjutaI
 	else if (c == ')' && !skip_braces)
 		return FALSE;
 	
-	if (c == ',' || c == ';' || c == '\n' || c == '\r' || c == '\t' || c == '(' ||
-	    c == '{' || c == '}' || c == '=' || c == '<' || c == '\v' || c == '!')
+	for (i = 0; separators[i] != 0; i++)
 	{
-		return TRUE;
+		if (separators[i] == c)
+			return TRUE;
 	}	
 
 	return FALSE;
@@ -349,7 +355,7 @@ cpp_java_assist_parse_expression (CppJavaAssist* assist, IAnjutaIterable* iter, 
 	gboolean op_start = FALSE;
 	gboolean ref_start = FALSE;
 	gchar* stmt = NULL;
-
+	
 	/* Cursor points after the current characters, move back */
 	ianjuta_iterable_previous (cur_pos, NULL);
 	
