@@ -541,6 +541,7 @@ svn_command_finalize (GObject *object)
 	self = SVN_COMMAND (object);
 	
 	svn_pool_clear (self->priv->pool);
+	svn_pool_destroy (self->priv->pool);
 	
 	current_message_line = self->priv->info_messages->head;
 	
