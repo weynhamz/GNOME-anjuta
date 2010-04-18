@@ -137,49 +137,39 @@ list_module (IAnjutaProject *project, AnjutaProjectNode *module, gint indent, co
 }
 
 static void
-list_property (IAnjutaProject *project)
+list_property (IAnjutaProject *project, AnjutaProjectNode *parent, gint indent)
 {
-	if (AMP_IS_PROJECT (project))
+	AnjutaProjectProperty *list;
+	AnjutaProjectProperty *prop;
+
+	for (prop = anjuta_project_node_first_property (parent); prop != NULL; prop = anjuta_project_property_next (prop))
 	{
-		AnjutaProjectProperty *list;
-		AnjutaProjectProperty *prop;
+		AnjutaProjectPropertyInfo *info;
+		const gchar *msg = NULL;
 
-		list = amp_project_get_property_list (AMP_PROJECT (project));
-		for (prop = anjuta_project_property_first (list); prop != NULL; prop = anjuta_project_property_next (prop))
+		info = anjuta_project_property_get_info(prop);
+		if (strcmp (info->name, "Name:") == 0)
 		{
-			AnjutaProjectProperty *item;
-
-			item = anjuta_project_property_override (list, prop);
-			if (item != NULL)
-			{
-				AnjutaProjectPropertyInfo *info;
-				const gchar *msg = NULL;
-
-				info = anjuta_project_property_get_info(item);
-				if (strcmp (info->name, "Name:") == 0)
-				{
-					msg = "%*sNAME: %s";
-				}
-				else if (strcmp (info->name, "Version:") == 0)
-				{
-					msg = "%*sVERSION: %s";
-				}
-				else if (strcmp (info->name, "Bug report URL:") == 0)
-				{
-					msg = "%*sBUG_REPORT: %s";
-				}
-				else if (strcmp (info->name, "Package name:") == 0)
-				{
-					msg = "%*sTARNAME: %s";
-				}
-				else if (strcmp (info->name, "URL:") == 0)
-				{
-					msg = "%*sURL: %s";
-				}
-
-				if (msg && (info->value != NULL)) print (msg, INDENT, "", info->value);
-			}
+			msg = "%*sNAME: %s";
 		}
+		else if (strcmp (info->name, "Version:") == 0)
+		{
+			msg = "%*sVERSION: %s";
+		}
+		else if (strcmp (info->name, "Bug report URL:") == 0)
+		{
+			msg = "%*sBUG_REPORT: %s";
+		}
+		else if (strcmp (info->name, "Package name:") == 0)
+		{
+			msg = "%*sTARNAME: %s";
+		}
+		else if (strcmp (info->name, "URL:") == 0)
+		{
+			msg = "%*sURL: %s";
+		}
+
+		if (msg && (info->value != NULL)) print (msg, (indent + 1) * INDENT, "", info->value);
 	}
 }
 
@@ -255,6 +245,7 @@ list_children (IAnjutaProject *project, AnjutaProjectNode *parent, gint indent, 
 static void
 list_root (IAnjutaProject *project, AnjutaProjectNode *root)
 {
+	list_property (project, root, 0);
 	list_children (project, root, 0, NULL);
 }
 
@@ -331,15 +322,14 @@ get_type (IAnjutaProject *project, const char *id)
 }
 
 static AnjutaProjectProperty *
-get_project_property (AmpProject *project, const gchar *id)
+get_project_property (AmpProject *project, AnjutaProjectNode *parent, const gchar *id)
 {
 	AnjutaProjectProperty *list;
 	AnjutaProjectProperty *item;
 	AnjutaProjectProperty *prop = NULL;
 	gint best = G_MAXINT;
 
-	list = amp_project_get_property_list (project);
-	for (item = anjuta_project_property_first (list); item != NULL; item = anjuta_project_property_next (item))
+	for (item = anjuta_project_node_first_valid_property (parent); item != NULL; item = anjuta_project_property_next (item))
 	{
 		AnjutaProjectPropertyInfo *info = anjuta_project_property_get_info (item);
 		const gchar *name = info->name;
@@ -442,8 +432,6 @@ main(int argc, char *argv[])
 		}
 		else if (g_ascii_strcasecmp (*command, "list") == 0)
 		{
-			list_property (project);
-			
 			list_root (project, root);
 		}
 		else if (g_ascii_strcasecmp (*command, "move") == 0)
@@ -541,8 +529,11 @@ main(int argc, char *argv[])
 				AnjutaProjectProperty *item;
 				AnjutaProjectPropertyInfo *info = NULL;
 
-				item = get_project_property (AMP_PROJECT (project), command[1]);
-				if (item != NULL) amp_project_property_set (AMP_PROJECT (project), item, command[2]);
+				item = get_project_property (project, root, command[1]);
+				if (item != NULL)
+				{
+					ianjuta_project_set_string_property (project, root, item, command[2], NULL);
+				}
 			}
 			command += 2;
 		}

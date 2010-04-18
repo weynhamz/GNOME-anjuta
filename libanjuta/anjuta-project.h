@@ -141,7 +141,6 @@ typedef GNode AnjutaProjectSource;
 
 typedef void (*AnjutaProjectNodeFunc) (AnjutaProjectNode *node, gpointer data);
 
-AnjutaProjectProperty *anjuta_project_property_first (AnjutaProjectProperty *list);
 AnjutaProjectProperty *anjuta_project_property_next (AnjutaProjectProperty *list);
 AnjutaProjectProperty *anjuta_project_property_override (AnjutaProjectProperty *list, AnjutaProjectProperty *prop);
 AnjutaProjectProperty *anjuta_project_property_next_item (AnjutaProjectProperty *item);
@@ -177,7 +176,11 @@ gchar *anjuta_project_node_get_name (const AnjutaProjectNode *node);
 gchar *anjuta_project_node_get_uri (AnjutaProjectNode *node);
 GFile *anjuta_project_node_get_file (AnjutaProjectNode *node);
 
-AnjutaProjectProperty *anjuta_project_node_get_property_list (AnjutaProjectNode *node);
+AnjutaProjectProperty *anjuta_project_node_first_property (AnjutaProjectNode *node);
+AnjutaProjectProperty *anjuta_project_node_first_valid_property (AnjutaProjectNode *node);
+AnjutaProjectProperty *anjuta_project_node_get_property (AnjutaProjectNode *node, AnjutaProjectProperty *property);
+AnjutaProjectProperty *anjuta_project_node_insert_property (AnjutaProjectNode *node, AnjutaProjectProperty *frame, AnjutaProjectProperty *property);
+AnjutaProjectProperty *anjuta_project_node_remove_property (AnjutaProjectNode *node, AnjutaProjectProperty *property);
 //const gchar *anjuta_project_node_get_property_value (AnjutaProjectNode *node, AnjutaProjectProperty prop);
 
 AnjutaProjectNode *anjuta_project_group_get_node_from_file (const AnjutaProjectNode *root, GFile *directory);

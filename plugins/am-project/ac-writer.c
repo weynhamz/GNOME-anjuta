@@ -121,12 +121,13 @@ skip_comment (AnjutaToken *token)
  *---------------------------------------------------------------------------*/
 
 gboolean
-amp_project_update_property (AmpProject *project, AmpPropertyInfo *info)
+amp_project_update_property (AmpProject *project, AnjutaProjectProperty *property)
 {
 	AnjutaToken *token;
 	AnjutaToken *arg;
 	guint pos;
 	const gchar *value;
+	AmpPropertyInfo *info = (AmpPropertyInfo *)anjuta_project_property_get_info (property);
 
 	pos = info->position;
 	value = info->base.value;

@@ -65,30 +65,15 @@ typedef struct {
  *---------------------------------------------------------------------------*/
 
 AnjutaProjectProperty *
-anjuta_project_property_first (AnjutaProjectProperty *list)
-{
-	if (list != NULL)
-	{
-		AnjutaProjectPropertyInfo *info = (AnjutaProjectPropertyInfo *)list->data;
-
-		if (info->override != NULL)
-		{
-			list = g_list_first (info->override);
-		}
-	}
-	return list;
-}
-
-AnjutaProjectProperty *
 anjuta_project_property_next (AnjutaProjectProperty *list)
 {
 	return g_list_next (list);
 }
 
 AnjutaProjectPropertyInfo *
-anjuta_project_property_get_info (AnjutaProjectProperty *list)
+anjuta_project_property_get_info (AnjutaProjectProperty *property)
 {
-	return (AnjutaProjectPropertyInfo *)list->data;
+	return (AnjutaProjectPropertyInfo *)property->data;
 }
 
 AnjutaProjectPropertyInfo *
@@ -411,41 +396,126 @@ anjuta_project_node_get_file (AnjutaProjectNode *node)
 }
 
 AnjutaProjectProperty *
-anjuta_project_node_get_property_list (AnjutaProjectNode *node)
+anjuta_project_node_first_property (AnjutaProjectNode *node)
 {
-	GList *list = NULL;
-	GList *item;
-	GList *new_item;
-	
-	for (item = g_list_last (NODE_DATA (node)->properties); item != NULL; item = g_list_previous (item))
+	GList *first;
+
+	/* Get properties list */
+	first = g_list_first (NODE_DATA (node)->properties);
+	if (first != NULL)
 	{
-		AnjutaProjectPropertyInfo *info = (AnjutaProjectPropertyInfo *)item->data;
-		
-		if (info->override != NULL) break;
+		AnjutaProjectPropertyInfo *info = (AnjutaProjectPropertyInfo *)first->data;
 
-		list = g_list_prepend (list, item->data);
-	}
-
-	for (item = g_list_first (NODE_DATA (node)->properties); item != NULL; item = g_list_next (item))
-	{
-		AnjutaProjectPropertyInfo *info = (AnjutaProjectPropertyInfo *)item->data;
-
-		if (info->override == NULL) break;
-
-		new_item = g_list_first (list);
-		while ((new_item != NULL) && (new_item->data != NULL))
+		if (info->override == NULL)
 		{
-			if (new_item->data == info->override)
-			{
-				new_item->data = info;
-				break;
-			}
-			new_item = g_list_next (new_item);
+			first = NULL;
 		}
 	}
 
-	return list;
+	return first;
 }
+
+AnjutaProjectProperty *
+anjuta_project_node_first_valid_property (AnjutaProjectNode *node)
+{
+	GList *first;
+
+	/* Get properties list */
+	first = g_list_first (NODE_DATA (node)->properties);
+	if (first != NULL)
+	{
+		AnjutaProjectPropertyInfo *info = (AnjutaProjectPropertyInfo *)first->data;
+
+		if (info->override != NULL)
+		{
+			first = g_list_first (info->override);
+		}
+	}
+
+	return first;
+}
+
+AnjutaProjectProperty *
+anjuta_project_node_get_property (AnjutaProjectNode *node, AnjutaProjectProperty *property)
+{
+	GList *item;
+
+	/* Get properties list */
+	item = g_list_first (NODE_DATA (node)->properties);
+
+	for (; item != NULL; item = g_list_next (item))
+	{
+		AnjutaProjectPropertyInfo *info = (AnjutaProjectPropertyInfo *)item->data;
+
+		if (info->override == NULL)
+		{
+			item = NULL;
+			break;
+		}
+		
+		if (info->override == property)
+		{
+			break;
+		}
+	}
+
+	return item;
+}
+
+AnjutaProjectProperty *
+anjuta_project_node_insert_property (AnjutaProjectNode *node, AnjutaProjectProperty *frame, AnjutaProjectProperty *property)
+{
+	GList **list;
+	GList *next;
+	AnjutaProjectPropertyInfo *info;
+
+	/* Fill missing information */
+	info = (AnjutaProjectPropertyInfo *)property->data;
+	if (info->name == NULL) info->name = ((AnjutaProjectPropertyInfo *)frame->data)->name;
+	info->type = ((AnjutaProjectPropertyInfo *)frame->data)->type;
+	info->override = frame;
+
+	/* Get properties list */
+	list = &(NODE_DATA (node)->properties);
+
+	next = ((AnjutaProjectPropertyInfo *)(*list)->data)->override;
+	if (next != NULL)
+	{
+		next = *list;
+	}
+	*list = g_list_concat (next, property);
+	
+	return property;
+}
+
+AnjutaProjectProperty *
+anjuta_project_node_remove_property (AnjutaProjectNode *node, AnjutaProjectProperty *prop)
+{
+	AnjutaProjectPropertyInfo *info;
+
+	info = (AnjutaProjectPropertyInfo *)prop->data;
+
+	if (info->override != NULL)
+	{
+		GList *list;
+		
+		list = NODE_DATA (node)->properties;
+
+		list = g_list_remove_link (list, prop);
+		if (list == NULL)
+		{
+			list = g_list_first (info->override);
+		}
+		NODE_DATA (node)->properties = list;
+	}
+	else
+	{
+		prop = NULL;
+	}
+	
+	return prop;
+}
+
 
 /*const gchar *
 anjuta_project_node_get_property_value (AnjutaProjectNode *node, AnjutaProjectProperty prop)

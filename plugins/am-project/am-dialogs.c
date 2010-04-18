@@ -178,7 +178,7 @@ add_label (const gchar *display_name, const gchar *value, GtkWidget *table, gint
  *---------------------------------------------------------------------------*/
 
 GtkWidget *
-amp_configure_project_dialog (AmpProject *project, GError **error)
+amp_configure_project_dialog (AmpProject *project, AnjutaProjectNode *node, GError **error)
 {
 	GtkBuilder *bxml = gtk_builder_new ();
 	AmpConfigureProjectDialog *dlg;
@@ -186,7 +186,6 @@ amp_configure_project_dialog (AmpProject *project, GError **error)
 	gint pos;
 	gchar *name;
 	AnjutaProjectProperty *prop;
-	AnjutaProjectProperty *list;
 
 	bxml = anjuta_util_builder_new (GLADE_FILE, NULL);
 	if (!bxml) return NULL;
@@ -204,8 +203,7 @@ amp_configure_project_dialog (AmpProject *project, GError **error)
 	add_label (_("Path:"), name, table, &pos);
 	g_free (name);
 
-	list = amp_project_get_property_list (project);
-	for (prop = anjuta_project_property_first (list); prop != NULL; prop = anjuta_project_property_next (prop))
+	for (prop = anjuta_project_node_first_valid_property (node); prop != NULL; prop = anjuta_project_property_next (prop))
 	{
 		add_entry (project, NULL, prop, table, &pos);
 	}
@@ -223,7 +221,7 @@ amp_configure_project_dialog (AmpProject *project, GError **error)
 }
 
 GtkWidget *
-amp_configure_group_dialog (AmpProject *project, AmpGroup *group, GError **error)
+amp_configure_group_dialog (AmpProject *project, AnjutaProjectNode *group, GError **error)
 {
 	GtkBuilder *bxml = gtk_builder_new ();
 	GtkWidget *properties;
@@ -233,7 +231,6 @@ amp_configure_group_dialog (AmpProject *project, AmpGroup *group, GError **error
 	gint extra_pos;
 	AmpConfigureProjectDialog *dlg;
 	gchar *name;
-	AnjutaProjectProperty *list;
 	AnjutaProjectProperty *prop;
 
 	bxml = anjuta_util_builder_new (GLADE_FILE, NULL);
@@ -255,19 +252,18 @@ amp_configure_group_dialog (AmpProject *project, AmpGroup *group, GError **error
 	add_label (_("Name:"), name, main_table, &main_pos);
 	g_free (name);
 
-	list = ANJUTA_PROJECT_NODE_DATA ((AnjutaProjectNode *)group)->properties;
-	for (prop = anjuta_project_property_first (list); prop != NULL; prop = anjuta_project_property_next (prop))
+	for (prop = anjuta_project_node_first_valid_property (group); prop != NULL; prop = anjuta_project_property_next (prop))
 	{
 		AnjutaProjectProperty *item;
 
-		item = anjuta_project_property_override (list, prop);
+		item = anjuta_project_node_get_property (group, prop);
 		if (item != NULL)
 		{
-			add_entry (project, (AnjutaProjectNode *)group, item, main_table, &main_pos);
+			add_entry (project, group, item, main_table, &main_pos);
 		}
 		else
 		{
-			add_entry (project, (AnjutaProjectNode *)group, prop, extra_table, &extra_pos);
+			add_entry (project, group, prop, extra_table, &extra_pos);
 		}
 	}
 	
@@ -278,7 +274,7 @@ amp_configure_group_dialog (AmpProject *project, AmpGroup *group, GError **error
 }
 
 GtkWidget *
-amp_configure_target_dialog (AmpProject *project, AmpTarget *target, GError **error)
+amp_configure_target_dialog (AmpProject *project, AnjutaProjectNode *target, GError **error)
 {
 	GtkBuilder *bxml = gtk_builder_new ();
 	GtkWidget *properties;
@@ -289,7 +285,6 @@ amp_configure_target_dialog (AmpProject *project, AmpTarget *target, GError **er
 	AmpConfigureProjectDialog *dlg;
 	AnjutaProjectTargetType type;
 	const gchar *name;
-	AnjutaProjectProperty *list;
 	AnjutaProjectProperty *prop;
 
 	bxml = anjuta_util_builder_new (GLADE_FILE, NULL);
@@ -312,19 +307,18 @@ amp_configure_target_dialog (AmpProject *project, AmpTarget *target, GError **er
 	type = anjuta_project_target_get_type (target);
 	add_label (_("Type:"), anjuta_project_target_type_name (type), main_table, &main_pos);
 
-	list = ANJUTA_PROJECT_NODE_DATA ((AnjutaProjectNode *)target)->properties;
-	for (prop = anjuta_project_property_first (list); prop != NULL; prop = anjuta_project_property_next (prop))
+	for (prop = anjuta_project_node_first_valid_property (target); prop != NULL; prop = anjuta_project_property_next (prop))
 	{
 		AnjutaProjectProperty *item;
 
-		item = anjuta_project_property_override (list, prop);
+		item = anjuta_project_node_get_property (target, prop);
 		if (item != NULL)
 		{
-			add_entry (project, (AnjutaProjectNode *)target, item, main_table, &main_pos);
+			add_entry (project, target, item, main_table, &main_pos);
 		}
 		else
 		{
-			add_entry (project, (AnjutaProjectNode *)target, prop, extra_table, &extra_pos);
+			add_entry (project, target, prop, extra_table, &extra_pos);
 		}
 	}
 	
