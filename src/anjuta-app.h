@@ -50,6 +50,7 @@ struct _AnjutaApp
 
 	GHashTable *values;
 	GHashTable *widgets;
+	gboolean maximized;
 
 	GtkAccelGroup *accel_group;
 	

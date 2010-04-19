@@ -233,6 +233,50 @@ anjuta_test_shell_get_value (AnjutaShell *shell,
 	}
 }
 
+static void
+anjuta_test_shell_iconify_dockable_widget (AnjutaShell *shell, 
+                                           GtkWidget   *widget,
+                                           GError      **error)
+{
+	/* Not implemented. */
+	return;
+}
+
+static void
+anjuta_test_shell_hide_dockable_widget    (AnjutaShell *shell, 
+                                           GtkWidget   *widget,
+                                           GError      **error)
+{
+	/* Not implemented. */
+	return;
+}
+
+static void
+anjuta_test_shell_show_dockable_widget    (AnjutaShell *shell, 
+                                           GtkWidget   *widget,
+                                           GError      **error)
+{
+	/* Not implemented. */
+	return;
+}
+
+static void
+anjuta_test_shell_maximize_widget   (AnjutaShell *shell,
+                                     const char  *widget_name,
+                                     GError      **error)
+{
+	/* Not implemented. */
+	return;
+}
+
+static void
+anjuta_test_shell_unmaximize (AnjutaShell *shell,
+                              GError      **error)
+{
+	/* Not implemented. */
+	return;
+}
+
 static void 
 anjuta_test_shell_add_widget (AnjutaShell *shell, 
 							   GtkWidget *w, 
@@ -402,6 +446,11 @@ anjuta_shell_iface_init (AnjutaShellIface *iface)
 	iface->add_widget_full = anjuta_test_shell_add_widget;
 	iface->remove_widget = anjuta_test_shell_remove_widget;
 	iface->present_widget = anjuta_test_shell_present_widget;
+	iface->iconify_dockable_widget = anjuta_test_shell_iconify_dockable_widget;
+	iface->hide_dockable_widget = anjuta_test_shell_hide_dockable_widget;
+	iface->show_dockable_widget = anjuta_test_shell_show_dockable_widget;
+	iface->maximize_widget = anjuta_test_shell_maximize_widget;
+	iface->unmaximize = anjuta_test_shell_unmaximize;
 	iface->add_value = anjuta_test_shell_add_value;
 	iface->get_value = anjuta_test_shell_get_value;
 	iface->remove_value = anjuta_test_shell_remove_value;

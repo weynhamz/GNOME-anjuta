@@ -416,6 +416,80 @@ anjuta_shell_present_widget (AnjutaShell *shell,
 }
 
 /**
+ * anjuta_shell_iconify_dockable_widget:
+ * @shell: A #AnjutaShell interface.
+ * @widget: a #GtkWidget to iconify.
+ * @error: Error propagation object.
+ *
+ * If the widget is dockable, it iconifies it.
+ */
+void anjuta_shell_iconify_dockable_widget (AnjutaShell *shell, 
+                                     GtkWidget   *widget,
+                                     GError      **error)
+{
+	ANJUTA_SHELL_GET_IFACE (shell)->iconify_dockable_widget (shell, widget, error);
+}
+
+/**
+ * anjuta_shell_hide_dockable_widget:
+ * @shell: A #AnjutaShell interface.
+ * @widget: a #GtkWidget to hide.
+ * @error: Error propagation object.
+ *
+ * If the widget is dockable, it hides it.
+ */
+void anjuta_shell_hide_dockable_widget (AnjutaShell *shell, 
+                                     GtkWidget   *widget,
+                                     GError      **error)
+{
+	ANJUTA_SHELL_GET_IFACE (shell)->hide_dockable_widget (shell, widget, error);
+}
+
+/**
+ * anjuta_shell_show_dockable_widget:
+ * @shell: A #AnjutaShell interface.
+ * @widget: a #GtkWidget to show.
+ * @error: Error propagation object.
+ *
+ * If the widget was hidden or iconified, it will make it visible.
+ */
+void anjuta_shell_show_dockable_widget (AnjutaShell *shell, 
+                                     GtkWidget   *widget,
+                                     GError      **error)
+{
+	ANJUTA_SHELL_GET_IFACE (shell)->show_dockable_widget (shell, widget, error);
+}
+
+/**
+ * anjuta_shell_maximize_widget:
+ * @shell: A #AnjutaShell interface.
+ * @widget_name: Name of the widget to be maximized.
+ * @error: Error propagation object.
+ *
+ * Maximizes a widget so it will occupy all the possible space.
+ */
+void anjuta_shell_maximize_widget   (AnjutaShell *shell,
+                                     const char  *widget_name,
+                                     GError      **error)
+{
+	ANJUTA_SHELL_GET_IFACE (shell)->maximize_widget (shell, widget_name, error);
+}
+
+/**
+ * anjuta_shell_unmaximize:
+ * @shell: A #AnjutaShell interface.
+ * @error: Error propagation object.
+ *
+ * Unmaximizes the UI which was previously maximized by 
+ * #anjuta_shell_maximize_widget 
+ */
+void anjuta_shell_unmaximize (AnjutaShell *shell,
+                              GError      **error)
+{
+	ANJUTA_SHELL_GET_IFACE (shell)->unmaximize (shell, error);
+}
+
+/**
  * anjuta_shell_add_value:
  * @shell: A #AnjutaShell interface
  * @name: Name of the value
