@@ -321,7 +321,6 @@ anjuta_tabber_button_press_event (GtkWidget* widget, GdkEventButton* event)
 			{
 				gint page = g_list_position (tabber->priv->children, child);
 				gtk_notebook_set_current_page (tabber->priv->notebook, page);
-				g_message ("Switched to page %d!", page);
 				return TRUE;
 			}
 		}

@@ -79,7 +79,7 @@ gboolean anjuta_msgman_serialize (AnjutaMsgman *msgman,
 gboolean anjuta_msgman_deserialize (AnjutaMsgman *msgman,
 									AnjutaSerializer *serializer);
 
-GtkWidget* anjuta_msgman_get_hbox (AnjutaMsgman* msgman);
+GtkWidget* anjuta_msgman_get_tabber (AnjutaMsgman* msgman);
 
 void
 on_notify_message_pref (AnjutaPreferences* prefs, const gchar* key,

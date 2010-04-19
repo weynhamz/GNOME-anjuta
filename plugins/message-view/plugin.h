@@ -36,6 +36,12 @@ struct _MessageViewPlugin {
 	GtkWidget* msgman;
 	GtkActionGroup *action_group;
 	gint uiid;
+
+	/* Toggle buttons */
+	GtkWidget* normal;
+	GtkWidget* warn;
+	GtkWidget* error;
+	GtkWidget* info;
 	
 	gboolean widget_shown;
 };
