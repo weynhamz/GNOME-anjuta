@@ -356,6 +356,22 @@ on_notebook_tab_btnrelease (GtkWidget *widget, GdkEventButton *event, AnjutaDocm
 	return FALSE;
 }
 
+static gboolean
+on_notebook_tab_double_click(GtkWidget *widget, GdkEventButton *event, 
+                             AnjutaDocman* docman)
+{
+	if (event->type == GDK_2BUTTON_PRESS || event->type == GDK_3BUTTON_PRESS)
+	{
+		if(!docman->maximized)
+			anjuta_shell_maximize_widget(docman->shell, "AnjutaDocumentManager", NULL);
+		else
+			anjuta_shell_unmaximize(docman->shell, NULL);
+		docman->maximized = docman->maximized ? FALSE:TRUE;
+	}
+
+  return FALSE;
+}
+
 static void
 on_notebook_page_reordered (GtkNotebook *notebook, GtkWidget *child,
 							guint page_num, AnjutaDocman *docman)
@@ -524,6 +540,9 @@ anjuta_docman_page_init (AnjutaDocman *docman, IAnjutaDocument *doc,
 	g_signal_connect (G_OBJECT (box), "button-release-event",
 					  G_CALLBACK (on_notebook_tab_btnrelease),
 					  docman);
+	g_signal_connect (G_OBJECT (box), "event",
+	                  G_CALLBACK (on_notebook_tab_double_click),
+	                  docman);
 
 	page->widget = GTK_WIDGET (doc);	/* this is the notebook-page child widget */
 	page->doc = doc;
@@ -907,6 +926,7 @@ anjuta_docman_new (DocmanPlugin* plugin, AnjutaPreferences *pref)
 		real_docman->priv->plugin = plugin;
 		real_docman->priv->preferences = pref;
 		real_docman->priv->documents_action_group = gtk_action_group_new ("ActionGroupDocument");
+		real_docman->maximized = FALSE;
 		ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
 		gtk_ui_manager_insert_action_group (GTK_UI_MANAGER (ui), real_docman->priv->documents_action_group, 0);
 		g_object_unref (real_docman->priv->documents_action_group);
