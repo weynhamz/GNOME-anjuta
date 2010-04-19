@@ -38,6 +38,8 @@ plugin_LTLIBRARIES = libjs_debugger.la
 # Plugin sources
 libjs_debugger_la_SOURCES = debugger-js.c debugger-js.h debugger-server.c debugger-server.h plugin.c plugin.h
 
+libjs_debugger_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
+
 # Plugin dependencies
 libjs_debugger_la_LIBADD = \
 	$(LIBANJUTA_LIBS) 

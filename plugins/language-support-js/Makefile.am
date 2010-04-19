@@ -57,6 +57,8 @@ simple-symbol.h local-symbol.c local-symbol.h  node-symbol.c node-symbol.h impor
 import-symbol.h dir-symbol.c dir-symbol.h std-symbol.c std-symbol.h database-symbol.c database-symbol.h \
 db-anjuta-symbol.c db-anjuta-symbol.h jstypes.h
 
+libjs_support_plugin_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
+
 # Plugin dependencies
 libjs_support_plugin_la_LIBADD = \
 	$(LIBANJUTA_LIBS) 
