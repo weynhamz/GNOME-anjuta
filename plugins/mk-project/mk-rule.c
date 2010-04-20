@@ -325,7 +325,7 @@ mkp_project_enumerate_targets (MkpProject *project, AnjutaProjectNode *parent)
 		if (rule->phony || rule->pattern) continue;
 		
 		/* Create target */
-		target = mkp_target_new (rule->name, NULL);
+		target = mkp_target_new (rule->name, ANJUTA_PROJECT_UNKNOWN);
 		mkp_target_add_token (target, rule->rule);
 		anjuta_project_node_append (parent, target);
 

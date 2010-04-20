@@ -121,10 +121,10 @@ struct _MkpSourceData {
 	AnjutaToken* token;
 };
 
-typedef struct _MkpTargetInformation MkpTargetInformation;
+typedef struct _MkpNodeInfo MkpNodeInfo;
 
-struct _MkpTargetInformation {
-	AnjutaProjectTargetInfo base;
+struct _MkpNodeInfo {
+	AnjutaProjectNodeInfo base;
 	AnjutaTokenType token;
 	const gchar *prefix;
 	const gchar *install;
@@ -133,14 +133,30 @@ struct _MkpTargetInformation {
 /* Target types
  *---------------------------------------------------------------------------*/
 
-static MkpTargetInformation MkpTargetTypes[] = {
-	{{N_("Unknown"), ANJUTA_TARGET_UNKNOWN,
+static MkpNodeInfo MkpNodeInformation[] = {
+	{{ANJUTA_PROJECT_GROUP,
+	N_("Group"),
+	""},
+	ANJUTA_TOKEN_NONE,
+	NULL,
+	NULL},
+
+	{{ANJUTA_PROJECT_SOURCE,
+	N_("Source"),
+	""},
+	ANJUTA_TOKEN_NONE,
+	NULL,
+	NULL},
+
+	{{ANJUTA_PROJECT_TARGET,
+	N_("Unknown"),
 	"text/plain"},
 	ANJUTA_TOKEN_NONE,
 	NULL,
 	NULL},
 
-	{{NULL, ANJUTA_TARGET_UNKNOWN,
+	{{ANJUTA_PROJECT_UNKNOWN,
+	NULL,
 	NULL},
 	ANJUTA_TOKEN_NONE,
 	NULL,
@@ -400,15 +416,13 @@ mkp_target_get_token (MkpGroup *node)
 
 
 MkpTarget*
-mkp_target_new (const gchar *name, AnjutaProjectTargetType type)
+mkp_target_new (const gchar *name, AnjutaProjectNodeType type)
 {
     MkpTargetData *target = NULL;
 
 	target = g_slice_new0(MkpTargetData);
-	target->base.type = ANJUTA_PROJECT_TARGET;
+	target->base.type = type | ANJUTA_PROJECT_TARGET;
 	target->base.name = g_strdup (name);
-	if (type == NULL) type = (AnjutaProjectTargetType)&MkpTargetTypes[0];
-	target->base.target_type = type;
 
     return g_node_new (target);
 }
@@ -844,19 +858,23 @@ mkp_project_get_file (MkpProject *project)
 }
 	
 GList *
-mkp_project_get_target_types (MkpProject *project, GError **error)
+mkp_project_get_node_info (MkpProject *project, GError **error)
 {
-	MkpTargetInformation *targets = MkpTargetTypes; 
-	GList *types = NULL;
+	static GList *info_list = NULL;
 
-	while (targets->base.name != NULL)
+	if (info_list == NULL)
 	{
-		types = g_list_prepend (types, targets);
-		targets++;
-	}
-	types = g_list_reverse (types);
+		MkpNodeInfo *node;
+		
+		for (node = MkpNodeInformation; node->base.type != 0; node++)
+		{
+			info_list = g_list_prepend (info_list, node);
+		}
 
-	return types;
+		info_list = g_list_reverse (info_list);
+	}
+	
+	return info_list;
 }
 
 gboolean
@@ -906,12 +924,6 @@ const gchar *
 mkp_target_get_name (MkpTarget *target)
 {
 	return MKP_TARGET_DATA (target)->base.name;
-}
-
-AnjutaProjectTargetType
-mkp_target_get_type (MkpTarget *target)
-{
-	return MKP_TARGET_DATA (target)->base.target_type;
 }
 
 gchar *
@@ -1366,7 +1378,7 @@ iproject_add_source (IAnjutaProject *obj, AnjutaProjectNode *parent,  GFile *fil
 }
 
 static AnjutaProjectNode* 
-iproject_add_target (IAnjutaProject *obj, AnjutaProjectNode *parent,  const gchar *name,  AnjutaProjectTargetType type, GError **err)
+iproject_add_target (IAnjutaProject *obj, AnjutaProjectNode *parent,  const gchar *name,  AnjutaProjectNodeType type, GError **err)
 {
 	return NULL;
 }
@@ -1398,7 +1410,7 @@ iproject_get_root (IAnjutaProject *obj, GError **err)
 static GList* 
 iproject_get_target_types (IAnjutaProject *obj, GError **err)
 {
-	return mkp_project_get_target_types (MKP_PROJECT (obj), err);
+	return mkp_project_get_node_info (MKP_PROJECT (obj), err);
 }
 
 static gboolean
@@ -1475,6 +1487,12 @@ iproject_remove_property (IAnjutaProject *project, AnjutaProjectNode *node, Anju
 	return FALSE;
 }
 
+static GList* 
+iproject_get_node_info (IAnjutaProject *obj, GError **err)
+{
+	return mkp_project_get_node_info (MKP_PROJECT (obj), err);
+}
+
 static void
 iproject_iface_init(IAnjutaProjectIface* iface)
 {
@@ -1498,6 +1516,7 @@ iproject_iface_init(IAnjutaProjectIface* iface)
 	iface->set_string_property = iproject_set_string_property;
 	iface->set_list_property = iproject_set_list_property;
 	iface->remove_property = iproject_remove_property;
+	iface->get_node_info = iproject_get_node_info;
 }
 
 /* GObject implementation

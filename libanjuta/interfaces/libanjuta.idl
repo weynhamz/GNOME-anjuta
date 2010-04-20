@@ -3226,6 +3226,18 @@ interface IAnjutaProject
 	gboolean remove_property (AnjutaProjectNode *node, AnjutaProjectProperty *property);
 
 	/**
+	 * ianjuta_project_get_node_info:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Return a list of possible node;
+	 *
+	 * Return value: TRUE if the property has been successfully removed
+	 * else FALSE
+	 */
+	List<AnjutaProjectNodeInformation *> get_node_info();
+
+	/**
 	 * ianjuta_project_load:
 	 * @obj: Self
 	 * @file: Project directory
@@ -3267,7 +3279,7 @@ interface IAnjutaProject
 	 *
 	 * Returns: the list of supported target types
 	 */
-	List<AnjutaProjectTargetType> get_target_types();
+	List<AnjutaProjectNodeType> get_target_types();
 	
 	/**
 	* ianjuta_project_configure:
@@ -3327,7 +3339,7 @@ interface IAnjutaProject
 	*
 	* Returns: The new target or NULL on error.
 	*/
-	AnjutaProjectNode* add_target (AnjutaProjectNode *parent, const gchar *name, AnjutaProjectTargetType type);
+	AnjutaProjectNode* add_target (AnjutaProjectNode *parent, const gchar *name, AnjutaProjectNodeType type);
 
 	/**
 	* ianjuta_project_add_source:
@@ -3487,7 +3499,7 @@ interface IAnjutaProjectManager
 	* 
 	* Returns: Return the type of the target.
 	*/
-	AnjutaProjectTargetClass get_target_type (GFile *target);
+	AnjutaProjectNodeType get_target_type (GFile *target);
 	
 	/**
 	* ianjuta_project_manager_get_targets:
@@ -3501,7 +3513,7 @@ interface IAnjutaProjectManager
 	* type or %NULL if none exists. Free the returned list with g_list_free()
 	* and the files with g_object_unref().
 	*/
-	List<GFile *> get_targets (AnjutaProjectTargetClass target_type);
+	List<GFile *> get_targets (AnjutaProjectNodeType target_type);
 	
 	/**
 	* ianjuta_project_manager_get_parent:

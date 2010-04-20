@@ -76,7 +76,7 @@ AmpTargetPropertyBuffer* amp_target_property_buffer_new (void);
 void amp_target_property_buffer_free (AmpTargetPropertyBuffer *buffer);
 
 void amp_target_property_buffer_add_source (AmpTargetPropertyBuffer *buffer, AmpSource *source);
-void amp_target_property_buffer_add_property (AmpTargetPropertyBuffer *buffer, AnjutaProjectPropertyInfo *prop);
+void amp_target_property_buffer_add_property (AmpTargetPropertyBuffer *buffer, AnjutaProjectProperty *prop);
 GList *amp_target_property_buffer_steal_sources (AmpTargetPropertyBuffer *buffer);
 GList *amp_target_property_buffer_steal_properties (AmpTargetPropertyBuffer *buffer);
 
@@ -106,13 +106,16 @@ AmpGroup* amp_project_add_group (AmpProject  *project, AmpGroup *parent, const g
 AmpGroup* amp_project_add_sibling_group (AmpProject  *project, AmpGroup *parent, const gchar *name, gboolean after, AmpGroup *sibling, GError **error);
 void amp_project_remove_group (AmpProject  *project, AmpGroup *group, GError **error);
 
-AmpTarget* amp_project_add_target (AmpProject  *project, AmpGroup *parent, const gchar *name, AnjutaProjectTargetType type, GError **error);
-AmpTarget* amp_project_add_sibling_target (AmpProject  *project, AmpGroup *parent, const gchar *name, AnjutaProjectTargetType type, gboolean after, AmpTarget *sibling, GError **error);
+AmpTarget* amp_project_add_target (AmpProject  *project, AmpGroup *parent, const gchar *name, AnjutaProjectNodeType type, GError **error);
+AmpTarget* amp_project_add_sibling_target (AmpProject  *project, AmpGroup *parent, const gchar *name, AnjutaProjectNodeType type, gboolean after, AmpTarget *sibling, GError **error);
 void amp_project_remove_target (AmpProject  *project, AmpTarget *target, GError **error);
 
 AmpSource* amp_project_add_source (AmpProject  *project, AmpTarget *parent, GFile *file, GError **error);
 AmpSource* amp_project_add_sibling_source (AmpProject  *project, AmpTarget *parent, GFile *file, gboolean after, AmpSource *sibling, GError **error);
 void amp_project_remove_source (AmpProject  *project, AmpSource *source, GError **error);
+
+AnjutaProjectNodeInfo *amp_project_get_type_info (AmpProject *project, AnjutaProjectNodeType type);
+GList *amp_project_get_node_info (AmpProject *project, GError **error);
 
 GList *amp_project_get_config_modules (AmpProject *project, GError **error);
 GList *amp_project_get_config_packages  (AmpProject *project, const gchar* module, GError **error);
@@ -138,7 +141,6 @@ GFile *amp_group_get_makefile (AmpGroup *group);
 gchar *amp_group_get_id (AmpGroup *group);
 
 const gchar *amp_target_get_name (AmpTarget *target);
-AnjutaProjectTargetType amp_target_get_type (AmpTarget *target);
 gchar *amp_target_get_id (AmpTarget *target);
 
 void amp_source_free (AmpSource *node);

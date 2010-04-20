@@ -529,11 +529,11 @@ anjuta_pm_project_get_capabilities (AnjutaPmProject *project)
 }
 
 GList *
-anjuta_pm_project_get_target_types (AnjutaPmProject *project)
+anjuta_pm_project_get_node_info (AnjutaPmProject *project)
 {
 	g_return_val_if_fail (project->project != NULL, NULL);
 	
-	return ianjuta_project_get_target_types (project->project, NULL);
+	return ianjuta_project_get_node_info (project->project, NULL);
 }
 
 AnjutaProjectNode *
@@ -559,7 +559,7 @@ anjuta_pm_project_add_group (AnjutaPmProject *project, AnjutaProjectNode *group,
 }
 
 AnjutaProjectNode *
-anjuta_pm_project_add_target (AnjutaPmProject *project, AnjutaProjectNode *group, const gchar *name, AnjutaProjectTargetType type, GError **error)
+anjuta_pm_project_add_target (AnjutaPmProject *project, AnjutaProjectNode *group, const gchar *name, AnjutaProjectNodeType type, GError **error)
 {
 	g_return_val_if_fail (project->project != NULL, NULL);
 	

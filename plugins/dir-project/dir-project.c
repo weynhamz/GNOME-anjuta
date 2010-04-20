@@ -860,7 +860,7 @@ static DirTarget*
 dir_project_add_target (DirProject  *project,
 		 DirGroup *parent,
 		 const gchar *name,
-		 AnjutaProjectTargetType type,
+		 AnjutaProjectNodeType type,
 		 GError     **error)
 {
 	return NULL;
@@ -876,11 +876,33 @@ dir_project_add_source (DirProject  *project,
 }
 
 static GList *
-dir_project_get_target_types (DirProject *project, GError **error)
+dir_project_get_node_info (DirProject *project, GError **error)
 {
-	static AnjutaProjectTargetInfo unknown_type = {N_("Unknown"), ANJUTA_TARGET_UNKNOWN,"text/plain"};
+	static AnjutaProjectNodeInfo node_info[] = {
+					{ANJUTA_PROJECT_GROUP,
+					N_("Group"),
+					""},
+					{ANJUTA_PROJECT_SOURCE,
+					N_("Source"),
+					""},
+					{ANJUTA_PROJECT_UNKNOWN,
+					NULL,
+					NULL}};
+	static GList *info_list = NULL;
 
-	return g_list_prepend (NULL, &unknown_type);
+	if (info_list == NULL)
+	{
+		AnjutaProjectNodeInfo *node;
+		
+		for (node = node_info; node->type != 0; node++)
+		{
+			info_list = g_list_prepend (info_list, node);
+		}
+
+		info_list = g_list_reverse (info_list);
+	}
+	
+	return info_list;
 }
 
 static DirGroup *
@@ -916,7 +938,7 @@ iproject_add_source (IAnjutaProject *obj, AnjutaProjectNode *parent,  GFile *fil
 }
 
 static AnjutaProjectNode* 
-iproject_add_target (IAnjutaProject *obj, AnjutaProjectNode *parent,  const gchar *name,  AnjutaProjectTargetType type, GError **err)
+iproject_add_target (IAnjutaProject *obj, AnjutaProjectNode *parent,  const gchar *name,  AnjutaProjectNodeType type, GError **err)
 {
 	return dir_project_add_target (DIR_PROJECT (obj), parent, name, type, err);
 }
@@ -948,7 +970,7 @@ iproject_get_root (IAnjutaProject *obj, GError **err)
 static GList* 
 iproject_get_target_types (IAnjutaProject *obj, GError **err)
 {
-	return dir_project_get_target_types (DIR_PROJECT (obj), err);
+	return dir_project_get_node_info (DIR_PROJECT (obj), err);
 }
 
 static gboolean
@@ -1025,6 +1047,12 @@ iproject_remove_property (IAnjutaProject *project, AnjutaProjectNode *node, Anju
 	return FALSE;
 }
 
+static GList* 
+iproject_get_node_info (IAnjutaProject *obj, GError **err)
+{
+	return dir_project_get_node_info (DIR_PROJECT (obj), err);
+}
+
 static void
 iproject_iface_init(IAnjutaProjectIface* iface)
 {
@@ -1048,6 +1076,7 @@ iproject_iface_init(IAnjutaProjectIface* iface)
 	iface->set_string_property = iproject_set_string_property;
 	iface->set_list_property = iproject_set_list_property;
 	iface->remove_property = iproject_remove_property;
+	iface->get_node_info = iproject_get_node_info;
 }
 
 /* GbfProject implementation

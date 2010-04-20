@@ -111,7 +111,6 @@ GFile *mkp_group_get_makefile (MkpGroup *group);
 gchar *mkp_group_get_id (MkpGroup *group);
 
 const gchar *mkp_target_get_name (MkpTarget *target);
-AnjutaProjectTargetType amp_target_get_type (MkpTarget *target);
 gchar *mkp_target_get_id (MkpTarget *target);
 
 gchar *mkp_source_get_id (MkpSource *source);

@@ -1985,7 +1985,7 @@ iproject_manager_get_elements (IAnjutaProjectManager *project_manager,
 	return gbf_project_util_replace_by_file (gbf_project_util_node_all (anjuta_pm_project_get_root (plugin->project), element_type)); 
 }
 
-static AnjutaProjectTargetClass
+static AnjutaProjectNodeType
 iproject_manager_get_target_type (IAnjutaProjectManager *project_manager,
 								   GFile *target_file,
 								   GError **err)
@@ -2005,9 +2005,7 @@ iproject_manager_get_target_type (IAnjutaProjectManager *project_manager,
 
 	if (target != NULL)
 	{
-		AnjutaProjectTargetType type = anjuta_project_target_get_type (target);
-
-		return anjuta_project_target_type_class (type);
+		return anjuta_project_node_get_type (target);
 	}
 	else
 	{
@@ -2017,7 +2015,7 @@ iproject_manager_get_target_type (IAnjutaProjectManager *project_manager,
 
 static GList*
 iproject_manager_get_targets (IAnjutaProjectManager *project_manager,
-							  AnjutaProjectTargetClass target_type,
+							  AnjutaProjectNodeType target_type,
 							  GError **err)
 {
 	GList *targets, *node;
@@ -2033,10 +2031,10 @@ iproject_manager_get_targets (IAnjutaProjectManager *project_manager,
 	/* Remove all targets not in specified class */
 	for (node = g_list_first (targets); node != NULL;)
 	{
-		AnjutaProjectTargetType type;
+		AnjutaProjectNodeType type;
 
-		type = anjuta_project_target_get_type (node->data);
-		if (anjuta_project_target_type_class (type) != target_type)
+		type = anjuta_project_node_get_full_type (node->data);
+		if (type != target_type)
 		{
 			GList *next = g_list_next (node);
 			targets = g_list_delete_link (targets, node);

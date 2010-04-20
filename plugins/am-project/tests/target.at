@@ -12,7 +12,7 @@ AT_DATA([expect],
 ]])
 AT_PARSER_CHECK([load empty \
 		 move empty1 \
-		 add target 0 target1 1 \
+		 add target 0 target1 3 \
 		 list \
 		 save])
 AT_CHECK([diff output expect])
@@ -26,7 +26,7 @@ AT_DATA([expect],
 ]])
 AT_PARSER_CHECK([load empty1 \
 		 move empty2 \
-		 add target 0 target2 1 after 0:0\
+		 add target 0 target2 3 after 0:0\
 		 list \
 		 save])
 AT_CHECK([diff -b output expect])

@@ -265,7 +265,7 @@ build_types_store (AnjutaPmProject *project)
     GList *types;
     GList *node;
 
-    types = anjuta_pm_project_get_target_types (project);
+    types = anjuta_pm_project_get_node_info (project);
     store = gtk_list_store_new (TARGET_TYPE_N_COLUMNS,
                                 G_TYPE_POINTER,
                                 G_TYPE_STRING,
@@ -274,23 +274,28 @@ build_types_store (AnjutaPmProject *project)
     for (node = g_list_first (types); node != NULL; node = g_list_next (node)) {
         GdkPixbuf *pixbuf;
         const gchar *name;
+        AnjutaProjectNodeType type;
 
-        name = anjuta_project_target_type_name ((AnjutaProjectTargetType)node->data);
-        pixbuf = gtk_icon_theme_load_icon (gtk_icon_theme_get_default(),
-                                           GTK_STOCK_CONVERT,
-                                           ICON_SIZE,
-                                           GTK_ICON_LOOKUP_GENERIC_FALLBACK,
-                                           NULL);
+        type = anjuta_project_node_info_type ((AnjutaProjectNodeInfo *)node->data);
+        if (type & ANJUTA_PROJECT_TARGET)
+        {
+            name = anjuta_project_node_info_name ((AnjutaProjectNodeInfo *)node->data);
+            pixbuf = gtk_icon_theme_load_icon (gtk_icon_theme_get_default(),
+                                            GTK_STOCK_CONVERT,
+                                            ICON_SIZE,
+                                            GTK_ICON_LOOKUP_GENERIC_FALLBACK,
+                                            NULL);
 
-        gtk_list_store_append (store, &iter);
-        gtk_list_store_set (store, &iter,
-                            TARGET_TYPE_TYPE, node->data,
-                            TARGET_TYPE_NAME, name,
-                            TARGET_TYPE_PIXBUF, pixbuf,
-                            -1);
+            gtk_list_store_append (store, &iter);
+            gtk_list_store_set (store, &iter,
+                                TARGET_TYPE_TYPE, type,
+                                TARGET_TYPE_NAME, name,
+                                TARGET_TYPE_PIXBUF, pixbuf,
+                                -1);
 
-        if (pixbuf)
-            g_object_unref (pixbuf);
+            if (pixbuf)
+                g_object_unref (pixbuf);
+        }
     }
 
     g_list_free (types);
@@ -380,7 +385,7 @@ gbf_project_util_new_target (AnjutaPmProject *project,
                 AnjutaProjectNode *group;
                 GtkTreeIter iter;
                 gchar *name;
-                AnjutaProjectTargetType type = NULL;
+                AnjutaProjectNodeType type;
                 
                 name = gtk_editable_get_chars (
                     GTK_EDITABLE (target_name_entry), 0, -1);

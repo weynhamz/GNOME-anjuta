@@ -33,8 +33,27 @@ G_BEGIN_DECLS
 typedef enum
 {
 	ANJUTA_PROJECT_UNKNOWN = 0,
+	ANJUTA_PROJECT_SHAREDLIB,
+	ANJUTA_PROJECT_STATICLIB,
+	ANJUTA_PROJECT_BINARY,
+	ANJUTA_PROJECT_PYTHON,
+	ANJUTA_PROJECT_JAVA,
+	ANJUTA_PROJECT_LISP,
+	ANJUTA_PROJECT_HEADER,
+	ANJUTA_PROJECT_MAN,
+	ANJUTA_PROJECT_INFO,
+	ANJUTA_PROJECT_GENERIC,
+	ANJUTA_PROJECT_DATA,
+	ANJUTA_PROJECT_EXTRA,
+	ANJUTA_PROJECT_INTLTOOL,
+	ANJUTA_PROJECT_CONFIGURE,
+	ANJUTA_PROJECT_IDL,
+	ANJUTA_PROJECT_MKENUMS,
+	ANJUTA_PROJECT_GENMARSHAL,
+	ANJUTA_PROJECT_SCRIPT,
 	ANJUTA_PROJECT_PROXY = 1 << 14,
 	ANJUTA_PROJECT_EXECUTABLE = 1 << 15,
+	ANJUTA_PROJECT_ID_MASK = 0xFFF,
 	ANJUTA_PROJECT_TYPE_MASK = 0xFFFF << 16,
 	ANJUTA_PROJECT_ROOT = 1 << 16,
 	ANJUTA_PROJECT_GROUP = 2 << 16,
@@ -77,12 +96,10 @@ typedef enum
 
 typedef struct 
 {
+	AnjutaProjectNodeType type;
 	gchar *name;
-	AnjutaProjectTargetClass base;
 	gchar *mime_type;
-} AnjutaProjectTargetInfo;
-
-typedef AnjutaProjectTargetInfo* AnjutaProjectTargetType;
+} AnjutaProjectNodeInfo;
 
 typedef enum
 {
@@ -108,7 +125,6 @@ typedef struct
 	AnjutaProjectProperty *properties;
 	GFile *file;
 	gchar *name;
-	AnjutaProjectTargetType target_type;
 	AnjutaProjectNodeState state;
 } AnjutaProjectNodeData;
 
@@ -192,13 +208,12 @@ AnjutaProjectNode *anjuta_project_source_get_node_from_uri (const AnjutaProjectN
 GFile *anjuta_project_group_get_directory (const AnjutaProjectNode *group);
 
 const gchar *anjuta_project_target_get_name (const AnjutaProjectNode *target);
-AnjutaProjectTargetType anjuta_project_target_get_type (const AnjutaProjectNode *target);
 
 GFile *anjuta_project_source_get_file (const AnjutaProjectNode *source);
 
-const gchar *anjuta_project_target_type_name (const AnjutaProjectTargetType type);
-const gchar *anjuta_project_target_type_mime (const AnjutaProjectTargetType type);
-AnjutaProjectTargetClass anjuta_project_target_type_class (const AnjutaProjectTargetType type);
+const gchar *anjuta_project_node_info_name (const AnjutaProjectNodeInfo *info);
+const gchar *anjuta_project_node_info_mime (const AnjutaProjectNodeInfo *info);
+AnjutaProjectNodeType anjuta_project_node_info_type (const AnjutaProjectNodeInfo *info);
 
 AnjutaProjectNode *anjuta_project_proxy_new (AnjutaProjectNode *node);
 AnjutaProjectNode *anjuta_project_proxy_unref (AnjutaProjectNode *node);

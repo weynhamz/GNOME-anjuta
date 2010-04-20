@@ -661,12 +661,6 @@ anjuta_project_target_get_name (const AnjutaProjectNode *target)
 	return NODE_DATA (target)->name;
 }
 
-AnjutaProjectTargetType
-anjuta_project_target_get_type (const AnjutaProjectNode *target)
-{
-	return NODE_DATA (target)->target_type;
-}
-
 /* Source access functions
  *---------------------------------------------------------------------------*/
 
@@ -676,25 +670,25 @@ anjuta_project_source_get_file (const AnjutaProjectNode *source)
 	return NODE_DATA (source)->file;
 }
 
-/* Target type functions
+/* Node information functions
  *---------------------------------------------------------------------------*/
 
 const gchar *
-anjuta_project_target_type_name (const AnjutaProjectTargetType type)
+anjuta_project_node_info_name (const AnjutaProjectNodeInfo *info)
 {
-	return type->name;
+	return info->name;
 }
 
 const gchar *   
-anjuta_project_target_type_mime (const AnjutaProjectTargetType type)
+anjuta_project_node_info_mime (const AnjutaProjectNodeInfo *info)
 {
-	return type->mime_type;
+	return info->mime_type;
 }
 
-AnjutaProjectTargetClass
-anjuta_project_target_type_class (const AnjutaProjectTargetType type)
+AnjutaProjectNodeType
+anjuta_project_node_info_type (const AnjutaProjectNodeInfo *info)
 {
-	return type->base;
+	return info->type;
 }
 
 /* Proxy node functions
@@ -739,7 +733,6 @@ anjuta_project_proxy_new (AnjutaProjectNode *node)
 		}
 		proxy->base.file = g_object_ref (data->file);
 		proxy->base.name = g_strdup (data->name);
-		proxy->base.target_type = data->target_type;
 		node = g_node_new (proxy);
 	}
 

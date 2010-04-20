@@ -82,12 +82,12 @@ gboolean anjuta_pm_project_refresh (AnjutaPmProject *project, GError **error);
 
 GtkWidget *anjuta_pm_project_configure (AnjutaPmProject *project, AnjutaProjectNode *node);
 IAnjutaProjectCapabilities anjuta_pm_project_get_capabilities (AnjutaPmProject *project);
-GList *anjuta_pm_project_get_target_types (AnjutaPmProject *project);
+GList *anjuta_pm_project_get_node_info (AnjutaPmProject *project);
 
 GList *anjuta_pm_project_get_packages (AnjutaPmProject *project);
 
 AnjutaProjectNode *anjuta_pm_project_add_group (AnjutaPmProject *project, AnjutaProjectNode *group, const gchar *name, GError **error);
-AnjutaProjectNode *anjuta_pm_project_add_target (AnjutaPmProject *project, AnjutaProjectNode *group, const gchar *name, AnjutaProjectTargetType type, GError **error);
+AnjutaProjectNode *anjuta_pm_project_add_target (AnjutaPmProject *project, AnjutaProjectNode *group, const gchar *name, AnjutaProjectNodeType type, GError **error);
 AnjutaProjectNode *anjuta_pm_project_add_source (AnjutaPmProject *project, AnjutaProjectNode *target, GFile *file, GError **error);
 AnjutaProjectNode *anjuta_pm_project_get_root (AnjutaPmProject *project);
 gboolean anjuta_pm_project_remove (AnjutaPmProject *project, AnjutaProjectNode *node, GError **error);

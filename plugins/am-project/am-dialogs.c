@@ -283,7 +283,7 @@ amp_configure_target_dialog (AmpProject *project, AnjutaProjectNode *target, GEr
 	GtkWidget *extra_table;
 	gint extra_pos;
 	AmpConfigureProjectDialog *dlg;
-	AnjutaProjectTargetType type;
+	AnjutaProjectNodeInfo* info;
 	const gchar *name;
 	AnjutaProjectProperty *prop;
 
@@ -304,8 +304,8 @@ amp_configure_target_dialog (AmpProject *project, AnjutaProjectNode *target, GEr
 	extra_pos = 0;
 	name = amp_target_get_name (target);
 	add_label (_("Name:"), name, main_table, &main_pos);
-	type = anjuta_project_target_get_type (target);
-	add_label (_("Type:"), anjuta_project_target_type_name (type), main_table, &main_pos);
+	info = amp_project_get_type_info (project, anjuta_project_node_get_type (target));;
+	add_label (_("Type:"), anjuta_project_node_info_name (info), main_table, &main_pos);
 
 	for (prop = anjuta_project_node_first_valid_property (target); prop != NULL; prop = anjuta_project_property_next (prop))
 	{

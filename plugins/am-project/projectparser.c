@@ -139,7 +139,6 @@ list_module (IAnjutaProject *project, AnjutaProjectNode *module, gint indent, co
 static void
 list_property (IAnjutaProject *project, AnjutaProjectNode *parent, gint indent)
 {
-	AnjutaProjectProperty *list;
 	AnjutaProjectProperty *prop;
 
 	for (prop = anjuta_project_node_first_property (parent); prop != NULL; prop = anjuta_project_property_next (prop))
@@ -297,24 +296,29 @@ get_file (AnjutaProjectNode *target, const char *id)
 	return g_file_resolve_relative_path (anjuta_project_group_get_directory (group), id);
 }
 
-static AnjutaProjectTargetType
-get_type (IAnjutaProject *project, const char *id)
+static AnjutaProjectNodeType
+get_target_type (IAnjutaProject *project, const char *id)
 {
-	AnjutaProjectTargetType type;
+	AnjutaProjectNodeType type;
 	GList *list;
 	GList *item;
 	guint num = atoi (id);
 	
-	list = ianjuta_project_get_target_types (project, NULL);
-	type = (AnjutaProjectTargetType)list->data;
+	list = ianjuta_project_get_node_info (project, NULL);
+	type = 0;
 	for (item = list; item != NULL; item = g_list_next (item))
 	{
-		if (num == 0)
+		AnjutaProjectNodeInfo *info = (AnjutaProjectNodeInfo *)item->data;
+
+		if ((info->type & ANJUTA_PROJECT_TYPE_MASK) == ANJUTA_PROJECT_TARGET)
 		{
-			type = (AnjutaProjectTargetType)item->data;
-			break;
+			if (num == 0)
+			{
+				type = info->type;
+				break;
+			}
+			num--;
 		}
-		num--;
 	}
 	g_list_free (list);
 
@@ -477,18 +481,18 @@ main(int argc, char *argv[])
 				if ((command[5] != NULL) && (g_ascii_strcasecmp (command[5], "before") == 0))
 				{
 					sibling = get_node (project, command[6]);
-					amp_project_add_sibling_target (project, node, command[3], get_type (project, command[4]), FALSE, sibling, NULL);
+					amp_project_add_sibling_target (project, node, command[3], get_target_type (project, command[4]), FALSE, sibling, NULL);
 					command += 2;
 				}
 				else if ((command[5] != NULL) && (g_ascii_strcasecmp (command[5], "after") == 0))
 				{
 					sibling = get_node (project, command[6]);
-					amp_project_add_sibling_target (project, node, command[3], get_type (project, command[4]), TRUE, sibling, NULL);
+					amp_project_add_sibling_target (project, node, command[3], get_target_type (project, command[4]), TRUE, sibling, NULL);
 					command += 2;
 				}
 				else
 				{
-					ianjuta_project_add_target (project, node, command[3], get_type (project, command[4]), NULL);
+					ianjuta_project_add_target (project, node, command[3], get_target_type (project, command[4]), NULL);
 				}
 				command++;
 			}
@@ -527,7 +531,6 @@ main(int argc, char *argv[])
 			if (AMP_IS_PROJECT (project))
 			{
 				AnjutaProjectProperty *item;
-				AnjutaProjectPropertyInfo *info = NULL;
 
 				item = get_project_property (project, root, command[1]);
 				if (item != NULL)

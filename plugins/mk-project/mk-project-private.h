@@ -79,7 +79,7 @@ struct _MkpRule {
 
 gchar *mkp_project_token_evaluate (MkpProject *project, AnjutaToken *token);
 
-MkpTarget* mkp_target_new (const gchar *name, AnjutaProjectTargetType type);
+MkpTarget* mkp_target_new (const gchar *name, AnjutaProjectNodeType type);
 void mkp_target_free (MkpTarget *node);
 void mkp_target_add_token (MkpGroup *node, AnjutaToken *token);
 MkpSource* mkp_source_new (GFile *file);

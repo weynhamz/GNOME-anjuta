@@ -277,11 +277,11 @@ amp_get_group_property_list (void)
 }
 
 GList*
-amp_get_target_property_list (AnjutaProjectTargetType type)
+amp_get_target_property_list (AnjutaProjectNodeType type)
 {
-	switch (type->base)
+	switch (type & ANJUTA_PROJECT_ID_MASK)
 	{
-	case ANJUTA_TARGET_MAN:
+	case ANJUTA_PROJECT_MAN:
 		return amp_create_property_list (&AmpManTargetPropertyList, AmpManTargetProperties);
 	default:
 		return amp_create_property_list (&AmpTargetPropertyList, AmpTargetProperties);
