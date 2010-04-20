@@ -248,9 +248,12 @@ anjuta_command_class_init (AnjutaCommandClass *klass)
 void
 anjuta_command_start (AnjutaCommand *self)
 {
-	g_signal_emit_by_name (self, "command-started");
+	if (!self->priv->running)
+	{
+		g_signal_emit_by_name (self, "command-started");
 
-	ANJUTA_COMMAND_GET_CLASS (self)->start (self);
+		ANJUTA_COMMAND_GET_CLASS (self)->start (self);
+	}
 }
 
 /**
