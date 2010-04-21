@@ -76,7 +76,8 @@ CREATE TABLE sym_type (type_id integer PRIMARY KEY AUTOINCREMENT,
 
 DROP TABLE IF EXISTS sym_kind;
 CREATE TABLE sym_kind (sym_kind_id integer PRIMARY KEY AUTOINCREMENT,
-                       kind_name text not null unique
+                       kind_name text not null unique,
+                       is_container integer default 0
                        );
 
 DROP TABLE IF EXISTS sym_access;

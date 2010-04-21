@@ -2262,8 +2262,8 @@ sdb_engine_init (SymbolDBEngine * object)
 	/* -- sym kind -- */
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 									PREP_QUERY_SYM_KIND_NEW,
-	 	"INSERT INTO sym_kind (kind_name) VALUES(## /* name:'kindname' "
-	 	"type:gchararray */)");
+	 	"INSERT INTO sym_kind (kind_name, is_container) VALUES(## /* name:'kindname' "
+	 	"type:gchararray */, ## /* name:'container' type:gint */)");
 
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 									PREP_QUERY_GET_SYM_KIND_BY_UNIQUE_NAME,
@@ -4184,6 +4184,9 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 		GdaSet *last_inserted;
 		GValue *ret_value;
 		gboolean ret_bool;
+		gint is_container = 0;
+		SymType sym_type;
+		GError * error = NULL;
 
 		/* not found. Go on with inserting  */
 		if ((stmt = sdb_engine_get_statement_by_query_id (dbe, PREP_QUERY_SYM_KIND_NEW))
@@ -4203,9 +4206,24 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 		}
 
 		MP_SET_HOLDER_BATCH_STR(priv, param, kind_name, ret_bool, ret_value);
-	
+
+		/* container parameter */
+		if ((param = gda_set_get_holder ((GdaSet*)plist, "container")) == NULL)
+		{
+			g_warning ("param container is NULL from pquery!");
+			return FALSE;
+		}
+
+		sym_type = GPOINTER_TO_SIZE (g_hash_table_lookup (priv->sym_type_conversion_hash, 
+		    									kind_name));
+		
+		if (sym_type & SYMTYPE_SCOPE_CONTAINER)
+			is_container = 1;
+		
+		MP_SET_HOLDER_BATCH_INT(priv, param, is_container, ret_bool, ret_value);
+		
 		/* execute the query with parametes just set */
-		if (gda_connection_statement_execute_non_select (priv->db_connection, 
+		if (gda_connection_statement_execute_non_select(priv->db_connection, 
 														 (GdaStatement*)stmt, 
 														 (GdaSet*)plist, &last_inserted,
 														 NULL) == -1)
@@ -4222,6 +4240,12 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 		if (last_inserted)
 			g_object_unref (last_inserted);		
 
+		if (error)
+		{
+			g_warning ("SQL error: %s", error->message);
+			g_error_free (error);
+		}
+		
 		MP_RESET_PLIST(plist);
 	}
 
