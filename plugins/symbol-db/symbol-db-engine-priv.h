@@ -35,7 +35,7 @@
 #define ANJUTA_DB_FILE	".anjuta_sym_db"
 
 /* if tables.sql changes or general db structure changes modify also the value here */
-#define SYMBOL_DB_VERSION	"230"
+#define SYMBOL_DB_VERSION	"300"
 
 #define TABLES_SQL			PACKAGE_DATA_DIR"/tables.sql"
 
