@@ -1,1 +1,1 @@
-../symbol-db/anjuta-tags/js_parser/js-context.c
+../symbol-db/anjuta-tags/js-parser/js-context.c
