@@ -24,8 +24,8 @@
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/anjuta-project.h>
 #include <libanjuta/interfaces/ianjuta-project.h>
-#include "gbf-project-model.h"
-#include "gbf-project-view.h"
+#include "project-model.h"
+#include "project-view.h"
 #include "project.h"
 
 extern GType project_manager_plugin_get_type (GTypeModule *module);

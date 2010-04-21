@@ -1,5 +1,5 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8 -*- */
-/* gbf-project-view.h
+/* project-view.h
  *
  * Copyright (C) 2000-2002  JP Rosevear
  * Copyright (C) 2002  Dave Camp
@@ -20,12 +20,12 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _GBF_PROJECT_TREE_H_
-#define _GBF_PROJECT_TREE_H_
+#ifndef _PROJECT_VIEW_H_
+#define _PROJECT_VIEW_H_
 
 #include <gtk/gtk.h>
 #include <libanjuta/anjuta-project.h>
-#include "gbf-tree-data.h"
+#include "tree-data.h"
 
 G_BEGIN_DECLS
 
@@ -74,4 +74,4 @@ void                        gbf_project_view_set_shortcut_list (GbfProjectView *
 
 G_END_DECLS
 
-#endif /* _GBF_PROJECT_VIEW_H_ */
+#endif /* _PROJECT_VIEW_H_ */

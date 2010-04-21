@@ -33,7 +33,7 @@
 #include <libanjuta/anjuta-status.h>
 #include <libanjuta/anjuta-project.h>
 
-#include "gbf-project-util.h"
+#include "project-util.h"
 
 #include "plugin.h"
 

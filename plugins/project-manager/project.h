@@ -28,8 +28,8 @@
 #include <libanjuta/anjuta-project.h>
 #include <libanjuta/interfaces/ianjuta-project.h>
 
-#include "gbf-project-model.h"
-#include "gbf-tree-data.h"
+#include "project-model.h"
+#include "tree-data.h"
 
 G_BEGIN_DECLS
 

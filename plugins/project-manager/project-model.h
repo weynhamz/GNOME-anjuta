@@ -20,13 +20,13 @@
  * Author: Dave Camp <dave@ximian.com> 
  */
 
-#ifndef GBF_PROJECT_MODEL_H
-#define GBF_PROJECT_MODEL_H
+#ifndef PROJECT_MODEL_H
+#define PROJECT_MODEL_H
 
 #include <glib-object.h>
 #include <gtk/gtk.h>
 #include <libanjuta/anjuta-project.h>
-#include "gbf-tree-data.h"
+#include "tree-data.h"
 
 #define GBF_TYPE_PROJECT_MODEL            (gbf_project_model_get_type ())
 #define GBF_PROJECT_MODEL(obj)	          (G_TYPE_CHECK_INSTANCE_CAST ((obj), GBF_TYPE_PROJECT_MODEL, GbfProjectModel))

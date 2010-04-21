@@ -33,8 +33,8 @@
 
 
 #include "project.h"
-#include "gbf-project-util.h"
-#include "gbf-project-model.h"
+#include "project-util.h"
+#include "project-model.h"
 
 
 struct _GbfProjectModelPrivate {

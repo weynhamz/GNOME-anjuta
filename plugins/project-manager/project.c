@@ -28,8 +28,8 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-error.h>
 #include <libanjuta/interfaces/ianjuta-project-backend.h>
-#include "gbf-project-model.h"
-#include "gbf-project-view.h"
+#include "project-model.h"
+#include "project-view.h"
 
 
 /*

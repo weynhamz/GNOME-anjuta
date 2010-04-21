@@ -1,5 +1,5 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8; coding: utf-8 -*- */
-/* gbf_project-tree.c
+/* project-tree.c
  *
  * Copyright (C) 2000  JP Rosevear
  *
@@ -32,9 +32,9 @@
 #include <gio/gio.h>
 #include <string.h>
 
-#include "gbf-tree-data.h"
-#include "gbf-project-model.h"
-#include "gbf-project-view.h"
+#include "tree-data.h"
+#include "project-model.h"
+#include "project-view.h"
 
 #define ICON_SIZE 16
 

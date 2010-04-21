@@ -30,10 +30,10 @@
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 
-#include "gbf-tree-data.h"
-#include "gbf-project-view.h"
-#include "gbf-project-model.h"
-#include "gbf-project-util.h"
+#include "tree-data.h"
+#include "project-view.h"
+#include "project-model.h"
+#include "project-util.h"
 #include "pkg-config.h"
 
 #define ICON_SIZE 16

@@ -1,5 +1,5 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
-/* gbf-tree-data.h
+/* tree-data.h
  *
  * Copyright (C) 2010  Sébastien Granjoux
  *
@@ -19,8 +19,8 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _GBF_TREE_DATA_H_
-#define _GBF_TREE_DATA_H_
+#ifndef _TREE_DATA_H_
+#define _TREE_DATA_H_
 
 #include <glib-object.h>
 #include <gtk/gtk.h>
@@ -80,4 +80,4 @@ void           gbf_tree_data_free               (GbfTreeData           *data);
 
 G_END_DECLS
 
-#endif /* _GBF_TREE_DATA_H_ */
+#endif /* _TREE_DATA_H_ */

@@ -38,14 +38,14 @@ plugin_LTLIBRARIES = libanjuta-project-manager.la
 libanjuta_project_manager_la_SOURCES = \
 	plugin.c \
 	plugin.h \
-	gbf-tree-data.h		\
-	gbf-tree-data.c		\
-	gbf-project-model.h	\
-	gbf-project-model.c	\
-	gbf-project-view.h	\
-	gbf-project-view.c	\
-	gbf-project-util.h	\
-	gbf-project-util.c	\
+	tree-data.h		\
+	tree-data.c		\
+	project-model.h		\
+	project-model.c		\
+	project-view.h		\
+	project-view.c		\
+	project-util.h		\
+	project-util.c		\
 	pkg-config.c		\
 	pkg-config.h		\
 	project.h		\

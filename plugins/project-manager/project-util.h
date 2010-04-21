@@ -20,8 +20,8 @@
  * Author: Gustavo Giráldez <gustavo.giraldez@gmx.net>
  */
 
-#ifndef __GBF_PROJECT_UTIL_H__
-#define __GBF_PROJECT_UTIL_H__
+#ifndef __PROJECT_UTIL_H__
+#define __PROJECT_UTIL_H__
 
 #include <glib.h>
 #include <gtk/gtk.h>
@@ -71,4 +71,4 @@ GList * gbf_project_util_replace_by_file (GList* list);
 				    
 G_END_DECLS
 
-#endif /* __GBF_PROJECT_UTIL_H__ */
+#endif /* __PROJECT_UTIL_H__ */

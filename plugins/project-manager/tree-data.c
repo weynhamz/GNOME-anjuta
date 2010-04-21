@@ -1,5 +1,5 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
-/* gbf-tree-data.c
+/* tree-data.c
  *
  * Copyright (C) 2010  Sébastien Granjoux
  *
@@ -24,7 +24,7 @@
 #endif
 
 #include <gio/gio.h>
-#include "gbf-tree-data.h"
+#include "tree-data.h"
 
 #include <string.h>
 
