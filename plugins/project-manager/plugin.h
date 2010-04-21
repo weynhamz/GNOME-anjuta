@@ -75,9 +75,6 @@ struct _ProjectManagerPlugin{
 	/* Idle callback id */
 	guint close_project_idle;
 	
-	/* project properties dialog */
-	GtkWidget *properties_dialog;
-
 	/* project is loading */
 	gboolean busy;
 };

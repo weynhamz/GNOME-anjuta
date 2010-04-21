@@ -366,129 +366,6 @@ update_operation_begin (ProjectManagerPlugin *plugin)
 										  NULL);
 }
 
-/* Properties dialogs functions
- *---------------------------------------------------------------------------*/
-
-static void
-on_properties_dialog_response (GtkDialog *win,
-							   gint id,
-							   GtkWidget **dialog)
-{
-	gtk_widget_destroy (*dialog);
-	*dialog = NULL;
-}
-
-static void
-project_manager_create_properties_dialog (ProjectManagerPlugin *plugin,
-    									  GtkWidget **dialog,
-    								      const gchar *title,
-    									  GtkWidget *properties)
-{
-	*dialog = gtk_dialog_new_with_buttons (title,
-							   GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
-							   GTK_DIALOG_DESTROY_WITH_PARENT,
-							   GTK_STOCK_CLOSE, GTK_RESPONSE_CANCEL, NULL);
-
-	g_signal_connect (*dialog, "response",
-					  G_CALLBACK (on_properties_dialog_response),
-					  dialog);
-
-	gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG(*dialog))),
-			   properties);
-	gtk_window_set_default_size (GTK_WINDOW (*dialog), 450, -1);
-	gtk_widget_show (*dialog);
-}
-
-/* Display properties dialog. These dialogs are not modal, so a pointer on each
- * dialog is kept with in node data to be able to destroy them if the node is
- * removed. It is useful to put the dialog at the top if the same target is
- * selected while the corresponding dialog already exist instead of creating
- * two times the same dialog.
- * The project properties dialog is display if the node iterator is NULL. */
-
-static void
-project_manager_show_node_properties_dialog (ProjectManagerPlugin *plugin,
-    									GbfTreeData *data)
-{
-	if (data == NULL) return;
-
-	if (data->is_shortcut) data = data->shortcut;
-	
-	if (data->properties_dialog != NULL)
-	{
-		/* Show already existing dialog */
-		gtk_window_present (GTK_WINDOW (data->properties_dialog));
-	}
-	else
-	{
-		GtkWidget *properties = NULL;
-		const char *title;
-		AnjutaProjectNode *node;
-
-		switch (data->type)
-		{
-		case GBF_TREE_NODE_GROUP:
-			title = _("Group properties");
-			node = anjuta_pm_project_get_node (plugin->project, data);
-			if (node != NULL)
-			{
-				properties = anjuta_pm_project_configure (plugin->project, node);
-
-				if (properties == NULL)
-				{
-					anjuta_util_dialog_info (GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
-								 _("No properties available for this group"));
-				}
-			}
-			break;
-		case GBF_TREE_NODE_TARGET:
-			title = _("Target properties");
-			node = anjuta_pm_project_get_node (plugin->project, data);
-			if (node != NULL)
-			{
-				properties = anjuta_pm_project_configure (plugin->project, node);
-
-				if (properties == NULL)
-				{
-					anjuta_util_dialog_info (GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
-							 _("No properties available for this target"));
-				}
-			}
-			break;
-		default:
-			break;
-		}
-
-		if (properties)
-		{
-			project_manager_create_properties_dialog(plugin,
-			    &data->properties_dialog,
-		    	title,
-		    	properties);
-		}
-	}
-}
-
-static void
-project_manager_show_project_properties_dialog (ProjectManagerPlugin *plugin)
-{
-	/* Project configuration dialog */
-	
-	if (plugin->properties_dialog != NULL)
-	{
-		/* Show already existing dialog */
-		gtk_window_present (GTK_WINDOW (plugin->properties_dialog));
-	}
-	else
-	{
-		project_manager_create_properties_dialog(plugin,
-		    &plugin->properties_dialog,
-		    _("Project properties"),
-			anjuta_pm_project_configure (plugin->project, NULL));
-	}
-}
-
-
 /* GUI callbacks
  *---------------------------------------------------------------------------*/
 
@@ -527,7 +404,7 @@ on_refresh (GtkAction *action, ProjectManagerPlugin *plugin)
 static void
 on_properties (GtkAction *action, ProjectManagerPlugin *plugin)
 {
-	project_manager_show_project_properties_dialog (plugin); 
+	anjuta_pm_project_show_properties_dialog (plugin->project, NULL);
 }
 
 static void
@@ -640,7 +517,7 @@ on_popup_properties (GtkAction *action, ProjectManagerPlugin *plugin)
 		{
 			GbfTreeData *data = (GbfTreeData *)(item->data);
 
-			project_manager_show_node_properties_dialog (plugin, data);
+			anjuta_pm_project_show_properties_dialog (plugin->project, data);
 		}
 		g_list_free (selected);
 	}
@@ -1530,10 +1407,6 @@ project_manager_unload_gbf (ProjectManagerPlugin *pm_plugin)
 				g_list_free (to_remove);
 		}
 		
-		/* Remove project properties dialogs */
-		if (pm_plugin->properties_dialog != NULL) gtk_widget_destroy (pm_plugin->properties_dialog);
-		pm_plugin->properties_dialog = NULL;
-		
 		/* Release project */
 		anjuta_pm_project_unload (pm_plugin->project, NULL);
 		update_ui (pm_plugin);
@@ -1689,7 +1562,6 @@ project_manager_plugin_activate_plugin (AnjutaPlugin *plugin)
 	
 	pm_plugin->scrolledwindow = scrolled_window;
 	pm_plugin->view = view;
-	pm_plugin->properties_dialog = NULL;
 	
 	/* Action groups */
 	pm_plugin->pm_action_group = 

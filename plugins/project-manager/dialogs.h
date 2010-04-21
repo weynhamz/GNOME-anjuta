@@ -27,10 +27,7 @@
 
 G_BEGIN_DECLS
 
-GtkWidget *pm_configure_project_dialog (IAnjutaProject *project, AnjutaProjectNode *node, GError **error);
-GtkWidget *pm_configure_group_dialog (IAnjutaProject *project, AnjutaProjectNode *group, GError **error);
-GtkWidget *pm_configure_target_dialog (IAnjutaProject *project, AnjutaProjectNode *target, GError **error);
-GtkWidget *pm_configure_source_dialog (IAnjutaProject *project, AnjutaProjectNode *target, GError **error);
+gboolean pm_project_create_properties_dialog (IAnjutaProject *project, GtkWidget **dialog, GtkWindow *parent, AnjutaProjectNode *node);
 
 G_END_DECLS
 

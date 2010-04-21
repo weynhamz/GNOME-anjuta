@@ -490,6 +490,10 @@ anjuta_pm_project_unload (AnjutaPmProject *project, GError **error)
 	g_object_unref (project->project);
 	project->project = NULL;
 
+	/* Remove project properties dialogs */
+	if (project->properties_dialog != NULL) gtk_widget_destroy (project->properties_dialog);
+	project->properties_dialog = NULL;
+	
 	return TRUE;
 }
 
@@ -499,40 +503,6 @@ anjuta_pm_project_refresh (AnjutaPmProject *project, GError **error)
 	ianjuta_project_refresh (project->project, error);
 
 	return TRUE;
-}
-
-GtkWidget *
-anjuta_pm_project_configure (AnjutaPmProject *project, AnjutaProjectNode *node)
-{
-	GtkWidget *properties;
-	
-	if (node == NULL)
-	{
-		properties = pm_configure_project_dialog (project->project, node, NULL);
-	}
-	else
-	{
-		switch (anjuta_project_node_get_type (node))
-		{
-		case ANJUTA_PROJECT_ROOT:
-			properties = pm_configure_project_dialog (project->project, node, NULL);
-			break;
-		case ANJUTA_PROJECT_GROUP:
-			properties = pm_configure_group_dialog (project->project, node, NULL);
-			break;
-		case ANJUTA_PROJECT_TARGET:
-			properties = pm_configure_target_dialog (project->project, node, NULL);
-			break;
-		case ANJUTA_PROJECT_SOURCE:
-			properties = pm_configure_source_dialog (project->project, node, NULL);
-			break;
-		default:
-			properties = NULL;
-			break;
-		}
-	}
-	
-	return properties;
 }
 
 IAnjutaProjectCapabilities
@@ -688,6 +658,49 @@ anjuta_pm_project_get_node_from_file (AnjutaPmProject *project, AnjutaProjectNod
 	return NULL;
 }
 
+/* Display properties dialog. These dialogs are not modal, so a pointer on each
+ * dialog is kept with in node data to be able to destroy them if the node is
+ * removed. It is useful to put the dialog at the top if the same target is
+ * selected while the corresponding dialog already exist instead of creating
+ * two times the same dialog.
+ * The project properties dialog is display if the node iterator is NULL. */
+
+gboolean
+anjuta_pm_project_show_properties_dialog (AnjutaPmProject *project, GbfTreeData *data)
+{
+	GtkWidget **dialog;
+	AnjutaProjectNode *node;
+	
+	if (data == NULL)
+	{
+		/* Show project properties dialog */
+		dialog = &project->properties_dialog;
+		node = project->root;
+	}
+	else
+	{
+		/* Show node properties dialog */
+		dialog = &data->properties_dialog;
+		node = anjuta_pm_project_get_node (project, data);
+	}
+	
+	if (*dialog != NULL)
+	{
+		/* Show already existing dialog */
+		gtk_window_present (GTK_WINDOW (*dialog));
+	}
+	else
+	{
+		pm_project_create_properties_dialog (
+			project->project,
+			dialog,
+			GTK_WINDOW (project->plugin->shell),
+			node);
+	}
+
+	return TRUE;
+}
+
 /* Implement GObject
  *---------------------------------------------------------------------------*/
 
@@ -699,6 +712,8 @@ anjuta_pm_project_init (AnjutaPmProject *project)
 	project->model = gbf_project_model_new (NULL);
 	project->plugin = NULL;
 
+	project->properties_dialog = NULL;
+	
 	project->job_queue = NULL;
 	project->work_queue = NULL;
 	project->done_queue = NULL;

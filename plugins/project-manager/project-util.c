@@ -38,7 +38,7 @@
 
 #define ICON_SIZE 16
 
-#define GLADE_FILE PACKAGE_DATA_DIR  "/glade/create_dialogs.ui"
+#define GLADE_FILE PACKAGE_DATA_DIR  "/glade/pm_dialogs.ui"
 
 enum {
     COLUMN_FILE,

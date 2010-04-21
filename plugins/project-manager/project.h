@@ -61,6 +61,9 @@ struct _AnjutaPmProject
 
 	AnjutaProjectNode *root;
 	
+	/* project properties dialog */
+	GtkWidget *properties_dialog;
+	
 	/* Thread queue */
 	GQueue *job_queue;
 	GAsyncQueue *work_queue;
@@ -80,7 +83,6 @@ gboolean anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError *
 gboolean anjuta_pm_project_unload (AnjutaPmProject *project, GError **error);
 gboolean anjuta_pm_project_refresh (AnjutaPmProject *project, GError **error);
 
-GtkWidget *anjuta_pm_project_configure (AnjutaPmProject *project, AnjutaProjectNode *node);
 IAnjutaProjectCapabilities anjuta_pm_project_get_capabilities (AnjutaPmProject *project);
 GList *anjuta_pm_project_get_node_info (AnjutaPmProject *project);
 
@@ -100,6 +102,8 @@ GbfProjectModel *anjuta_pm_project_get_model (AnjutaPmProject *project);
 
 AnjutaProjectNode *anjuta_pm_project_get_node (AnjutaPmProject *project, GbfTreeData *data);
 AnjutaProjectNode *anjuta_pm_project_get_node_from_file (AnjutaPmProject *project, AnjutaProjectNodeType type, GFile *file);
+
+gboolean anjuta_pm_project_show_properties_dialog (AnjutaPmProject *project, GbfTreeData *data);
 
 G_END_DECLS
 
