@@ -23,14 +23,14 @@
 #define _AM_DIALOGS_H_
 
 #include <gtk/gtk.h>
-#include "am-project.h"
+#include <libanjuta/interfaces/ianjuta-project.h>
 
 G_BEGIN_DECLS
 
-GtkWidget *amp_configure_project_dialog (AmpProject *project, AnjutaProjectNode *node, GError **error);
-GtkWidget *amp_configure_group_dialog (AmpProject *project, AnjutaProjectNode *group, GError **error);
-GtkWidget *amp_configure_target_dialog (AmpProject *project, AnjutaProjectNode *target, GError **error);
-GtkWidget *amp_configure_source_dialog (AmpProject *project, AnjutaProjectNode *target, GError **error);
+GtkWidget *pm_configure_project_dialog (IAnjutaProject *project, AnjutaProjectNode *node, GError **error);
+GtkWidget *pm_configure_group_dialog (IAnjutaProject *project, AnjutaProjectNode *group, GError **error);
+GtkWidget *pm_configure_target_dialog (IAnjutaProject *project, AnjutaProjectNode *target, GError **error);
+GtkWidget *pm_configure_source_dialog (IAnjutaProject *project, AnjutaProjectNode *target, GError **error);
 
 G_END_DECLS
 

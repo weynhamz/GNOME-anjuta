@@ -26,7 +26,7 @@
 
 #include <glib/gi18n.h>
 
-#include "am-dialogs.h"
+#include "dialogs.h"
 
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-utils.h>
@@ -36,12 +36,12 @@
 /* Types
   *---------------------------------------------------------------------------*/
 
-typedef struct _AmpConfigureProjectDialog
+typedef struct _ConfigureProjectDialog
 {
-	AmpProject *project;
+	IAnjutaProject *project;
 
 	GtkWidget *top_level;
-} AmpConfigureProjectDialog;
+} ConfigureProjectDialog;
 
 enum {
 	NAME_COLUMN,
@@ -56,15 +56,33 @@ enum {
 /* Private functions
  *---------------------------------------------------------------------------*/
 
+static AnjutaProjectNodeInfo *
+project_get_type_info (IAnjutaProject *project, AnjutaProjectNodeType type)
+{
+	GList *item;
+	AnjutaProjectNodeInfo *info = NULL;
+
+	g_message ("get node info list %p", ianjuta_project_get_node_info (project, NULL));
+	for (item = ianjuta_project_get_node_info (project, NULL); item != NULL; item = g_list_next (item))
+	{
+		info = (AnjutaProjectNodeInfo *)item->data;
+
+		g_message ("check node name %s type %x look for %x", info->name, info->type, type);
+		if (info->type == type) break;
+	}
+
+	return info;
+}
+
 static void
-on_project_widget_destroy (GtkWidget *wid, AmpConfigureProjectDialog *dlg)
+on_project_widget_destroy (GtkWidget *wid, ConfigureProjectDialog *dlg)
 {
 	g_object_unref (dlg->top_level);
 	g_free (dlg);
 }
 
 static void
-add_entry (AmpProject *project, AnjutaProjectNode *node, AnjutaProjectProperty *prop, GtkWidget *table, gint *position)
+add_entry (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProperty *prop, GtkWidget *table, gint *position)
 {
 	GtkWidget *label;
 	GtkWidget *entry = NULL;
@@ -178,10 +196,10 @@ add_label (const gchar *display_name, const gchar *value, GtkWidget *table, gint
  *---------------------------------------------------------------------------*/
 
 GtkWidget *
-amp_configure_project_dialog (AmpProject *project, AnjutaProjectNode *node, GError **error)
+pm_configure_project_dialog (IAnjutaProject *project, AnjutaProjectNode *node, GError **error)
 {
 	GtkBuilder *bxml = gtk_builder_new ();
-	AmpConfigureProjectDialog *dlg;
+	ConfigureProjectDialog *dlg;
 	GtkWidget *table;
 	gint pos;
 	gchar *name;
@@ -190,7 +208,7 @@ amp_configure_project_dialog (AmpProject *project, AnjutaProjectNode *node, GErr
 	bxml = anjuta_util_builder_new (GLADE_FILE, NULL);
 	if (!bxml) return NULL;
 
-	dlg = g_new0 (AmpConfigureProjectDialog, 1);
+	dlg = g_new0 (ConfigureProjectDialog, 1);
 	anjuta_util_builder_get_objects (bxml,
 	    							"general_properties_table", &table,
 	                                NULL);
@@ -199,7 +217,7 @@ amp_configure_project_dialog (AmpProject *project, AnjutaProjectNode *node, GErr
 	g_signal_connect (table, "destroy", G_CALLBACK (on_project_widget_destroy), dlg);
 
 	pos = 0;
-	name = g_file_get_parse_name (amp_project_get_file (project));
+	name = g_file_get_parse_name (anjuta_project_node_get_file (node));
 	add_label (_("Path:"), name, table, &pos);
 	g_free (name);
 
@@ -221,7 +239,7 @@ amp_configure_project_dialog (AmpProject *project, AnjutaProjectNode *node, GErr
 }
 
 GtkWidget *
-amp_configure_group_dialog (AmpProject *project, AnjutaProjectNode *group, GError **error)
+pm_configure_group_dialog (IAnjutaProject *project, AnjutaProjectNode *group, GError **error)
 {
 	GtkBuilder *bxml = gtk_builder_new ();
 	GtkWidget *properties;
@@ -229,14 +247,14 @@ amp_configure_group_dialog (AmpProject *project, AnjutaProjectNode *group, GErro
 	gint main_pos;
 	GtkWidget *extra_table;
 	gint extra_pos;
-	AmpConfigureProjectDialog *dlg;
+	ConfigureProjectDialog *dlg;
 	gchar *name;
 	AnjutaProjectProperty *prop;
 
 	bxml = anjuta_util_builder_new (GLADE_FILE, NULL);
 	if (!bxml) return NULL;
 
-	dlg = g_new0 (AmpConfigureProjectDialog, 1);
+	dlg = g_new0 (ConfigureProjectDialog, 1);
 	anjuta_util_builder_get_objects (bxml,
 	                                "properties", &properties,
 	    							"main_table", &main_table,
@@ -248,7 +266,7 @@ amp_configure_group_dialog (AmpProject *project, AnjutaProjectNode *group, GErro
 
 	main_pos = 0;
 	extra_pos = 0;
-	name = g_file_get_parse_name (amp_group_get_directory (group));
+	name = g_file_get_parse_name (anjuta_project_node_get_file (group));
 	add_label (_("Name:"), name, main_table, &main_pos);
 	g_free (name);
 
@@ -274,7 +292,7 @@ amp_configure_group_dialog (AmpProject *project, AnjutaProjectNode *group, GErro
 }
 
 GtkWidget *
-amp_configure_target_dialog (AmpProject *project, AnjutaProjectNode *target, GError **error)
+pm_configure_target_dialog (IAnjutaProject *project, AnjutaProjectNode *target, GError **error)
 {
 	GtkBuilder *bxml = gtk_builder_new ();
 	GtkWidget *properties;
@@ -282,7 +300,7 @@ amp_configure_target_dialog (AmpProject *project, AnjutaProjectNode *target, GEr
 	gint main_pos;
 	GtkWidget *extra_table;
 	gint extra_pos;
-	AmpConfigureProjectDialog *dlg;
+	ConfigureProjectDialog *dlg;
 	AnjutaProjectNodeInfo* info;
 	const gchar *name;
 	AnjutaProjectProperty *prop;
@@ -290,7 +308,7 @@ amp_configure_target_dialog (AmpProject *project, AnjutaProjectNode *target, GEr
 	bxml = anjuta_util_builder_new (GLADE_FILE, NULL);
 	if (!bxml) return NULL;
 
-	dlg = g_new0 (AmpConfigureProjectDialog, 1);
+	dlg = g_new0 (ConfigureProjectDialog, 1);
 	anjuta_util_builder_get_objects (bxml,
 	                                "properties", &properties,
 	    							"main_table", &main_table,
@@ -302,9 +320,9 @@ amp_configure_target_dialog (AmpProject *project, AnjutaProjectNode *target, GEr
 
 	main_pos = 0;
 	extra_pos = 0;
-	name = amp_target_get_name (target);
+	name = anjuta_project_node_get_name (target);
 	add_label (_("Name:"), name, main_table, &main_pos);
-	info = amp_project_get_type_info (project, anjuta_project_node_get_type (target));;
+	info = project_get_type_info (project, anjuta_project_node_get_type (target));;
 	add_label (_("Type:"), anjuta_project_node_info_name (info), main_table, &main_pos);
 
 	for (prop = anjuta_project_node_first_valid_property (target); prop != NULL; prop = anjuta_project_property_next (prop))
@@ -329,7 +347,7 @@ amp_configure_target_dialog (AmpProject *project, AnjutaProjectNode *target, GEr
 }
 
 GtkWidget *
-amp_configure_source_dialog (AmpProject *project, AmpSource *target, GError **error)
+pm_configure_source_dialog (IAnjutaProject *project, AnjutaProjectNode *source, GError **error)
 {
 	return NULL;
 }

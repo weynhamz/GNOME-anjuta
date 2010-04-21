@@ -47,7 +47,6 @@
 #include "ac-scanner.h"
 #include "ac-writer.h"
 #include "am-scanner.h"
-#include "am-dialogs.h"
 #include "am-writer.h"
 //#include "am-config.h"
 #include "am-properties.h"
@@ -3158,7 +3157,7 @@ iproject_add_target (IAnjutaProject *obj, AnjutaProjectNode *parent,  const gcha
 static GtkWidget* 
 iproject_configure (IAnjutaProject *obj, GError **err)
 {
-	return amp_configure_project_dialog (AMP_PROJECT (obj), AMP_PROJECT (obj)->root_node, err);
+	return NULL;
 }
 
 static guint 
@@ -3225,17 +3224,7 @@ iproject_refresh (IAnjutaProject *obj, GError **err)
 static GtkWidget*
 iproject_configure_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
 {
-	switch (anjuta_project_node_get_type (node))
-	{
-		case ANJUTA_PROJECT_GROUP:
-			return amp_configure_group_dialog (AMP_PROJECT (obj), AMP_GROUP (node), err);
-		case ANJUTA_PROJECT_TARGET:
-			return amp_configure_target_dialog (AMP_PROJECT (obj), AMP_TARGET (node), err);
-		case ANJUTA_PROJECT_SOURCE:
-			return amp_configure_source_dialog (AMP_PROJECT (obj), AMP_SOURCE (node), err);
-		default:
-			return NULL;
-	}
+	return NULL;
 }
 
 static AnjutaProjectNode *

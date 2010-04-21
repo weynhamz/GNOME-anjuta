@@ -30,6 +30,7 @@
 #include <libanjuta/interfaces/ianjuta-project-backend.h>
 #include "project-model.h"
 #include "project-view.h"
+#include "dialogs.h"
 
 
 /*
@@ -507,13 +508,30 @@ anjuta_pm_project_configure (AnjutaPmProject *project, AnjutaProjectNode *node)
 	
 	if (node == NULL)
 	{
-		properties = ianjuta_project_configure (project->project, NULL);
+		properties = pm_configure_project_dialog (project->project, node, NULL);
 	}
 	else
 	{
-		properties = ianjuta_project_configure_node (project->project, node, NULL);
+		switch (anjuta_project_node_get_type (node))
+		{
+		case ANJUTA_PROJECT_ROOT:
+			properties = pm_configure_project_dialog (project->project, node, NULL);
+			break;
+		case ANJUTA_PROJECT_GROUP:
+			properties = pm_configure_group_dialog (project->project, node, NULL);
+			break;
+		case ANJUTA_PROJECT_TARGET:
+			properties = pm_configure_target_dialog (project->project, node, NULL);
+			break;
+		case ANJUTA_PROJECT_SOURCE:
+			properties = pm_configure_source_dialog (project->project, node, NULL);
+			break;
+		default:
+			properties = NULL;
+			break;
+		}
 	}
-
+	
 	return properties;
 }
 

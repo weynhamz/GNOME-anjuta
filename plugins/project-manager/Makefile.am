@@ -49,7 +49,9 @@ libanjuta_project_manager_la_SOURCES = \
 	pkg-config.c		\
 	pkg-config.h		\
 	project.h		\
-	project.c
+	project.c		\
+	dialogs.c		\
+	dialogs.h
 
 libanjuta_project_manager_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
