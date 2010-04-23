@@ -267,8 +267,22 @@ static AmpNodeInfo AmpNodeInformations[] = {
 	AM_TOKEN__SCRIPTS,
 	"_SCRIPTS",
 	"bin"},
-	
-	{{ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_UNKNOWN,
+
+	{{ANJUTA_PROJECT_MODULE,
+	N_("Module"),
+	""},
+	ANJUTA_TOKEN_NONE,
+	NULL,
+	NULL},
+
+	{{ANJUTA_PROJECT_PACKAGE,
+	N_("Package"),
+	""},
+	ANJUTA_TOKEN_NONE,
+	NULL,
+	NULL},
+
+	{{ANJUTA_PROJECT_UNKNOWN,
 	NULL,
 	NULL},
 	ANJUTA_TOKEN_NONE,
@@ -612,6 +626,8 @@ amp_root_new (GFile *file)
 	root->base.type = ANJUTA_PROJECT_ROOT;
 	root->base.properties = amp_get_project_property_list();
 	root->base.file = g_file_dup (file);
+	root->base.state = ANJUTA_PROJECT_CAN_ADD_GROUP |
+						ANJUTA_PROJECT_CAN_ADD_MODULE;
 
 	return g_node_new (root);
 }
@@ -655,6 +671,7 @@ amp_package_new (const gchar *name)
 	package->base.type = ANJUTA_PROJECT_PACKAGE;
 	package->base.properties = amp_get_package_property_list();
 	package->base.name = g_strdup (name);
+	package->base.state = ANJUTA_PROJECT_CAN_REMOVE;
 
 	return g_node_new (package);
 }
@@ -684,6 +701,8 @@ amp_module_new (AnjutaToken *token)
 	module->base.type = ANJUTA_PROJECT_MODULE;
 	module->base.properties = amp_get_module_property_list();
 	module->base.name = anjuta_token_evaluate (token);
+	module->base.state = ANJUTA_PROJECT_CAN_ADD_PACKAGE |
+						ANJUTA_PROJECT_CAN_REMOVE;
 	module->module = token;
 
 	return g_node_new (module);
@@ -808,6 +827,11 @@ amp_group_new (GFile *file, gboolean dist_only)
 	group->base.type = ANJUTA_PROJECT_GROUP;
 	group->base.properties = amp_get_group_property_list();
 	group->base.file = g_object_ref (file);
+	group->base.state = ANJUTA_PROJECT_CAN_ADD_GROUP |
+						ANJUTA_PROJECT_CAN_ADD_TARGET |
+						ANJUTA_PROJECT_CAN_ADD_SOURCE |
+						ANJUTA_PROJECT_CAN_REMOVE |
+						ANJUTA_PROJECT_CAN_SAVE;
 	group->dist_only = dist_only;
 
     return g_node_new (group);
@@ -868,6 +892,9 @@ amp_target_new (const gchar *name, AnjutaProjectNodeType type, const gchar *inst
 	target->base.type = ANJUTA_PROJECT_TARGET | type;
 	target->base.properties = amp_get_target_property_list(type);
 	target->base.name = g_strdup (name);
+	target->base.state = ANJUTA_PROJECT_CAN_ADD_MODULE |
+						ANJUTA_PROJECT_CAN_ADD_SOURCE |
+						ANJUTA_PROJECT_CAN_REMOVE;
 	target->install = g_strdup (install);
 	target->flags = flags;
 
@@ -899,6 +926,7 @@ amp_source_new (GFile *file)
 	source->base.type = ANJUTA_PROJECT_SOURCE;
 	source->base.properties = amp_get_source_property_list();
 	source->base.file = g_object_ref (file);
+	source->base.state = ANJUTA_PROJECT_CAN_REMOVE;
 
     return g_node_new (source);
 }

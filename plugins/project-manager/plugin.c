@@ -43,6 +43,8 @@
 #define DEFAULT_PROFILE "file://"PACKAGE_DATA_DIR"/profiles/default.profile"
 #define PROJECT_PROFILE_NAME "project"
 
+#define INT_TO_GBOOLEAN(i) ((i) ? TRUE : FALSE)
+
 typedef struct _PmPropertiesDialogInfo PmPropertiesDialogInfo;
 
 typedef enum _PmPropertiesType
@@ -832,26 +834,6 @@ static GtkActionEntry pm_actions[] =
 		N_("_Project"), NULL, NULL, NULL
 	},
 	{
-		"ActionProjectProperties", GTK_STOCK_PROPERTIES,
-		N_("_Properties"), NULL, N_("Project properties"),
-		G_CALLBACK (on_properties)
-	},
-	{
-		"ActionProjectRefresh", GTK_STOCK_REFRESH,
-		N_("_Refresh"), NULL, N_("Refresh project manager tree"),
-		G_CALLBACK (on_refresh)
-	},
-	{
-		"ActionProjectAddModule", GTK_STOCK_ADD,
-		N_("Add _Module…"), NULL, N_("Add a module to a target"),
-		G_CALLBACK (on_add_module)
-	},
-	{
-		"ActionProjectAddPackage", GTK_STOCK_ADD,
-		N_("Add _Package…"), NULL, N_("Add a package to project"),
-		G_CALLBACK (on_add_package)
-	},
-	{
 		"ActionProjectAddGroup", GTK_STOCK_ADD,
 		N_("Add _Group…"), NULL, N_("Add a group to project"),
 		G_CALLBACK (on_add_group)
@@ -867,6 +849,26 @@ static GtkActionEntry pm_actions[] =
 		G_CALLBACK (on_add_source)
 	},
 	{
+		"ActionProjectAddModule", GTK_STOCK_ADD,
+		N_("Add _Module…"), NULL, N_("Add a module to a target"),
+		G_CALLBACK (on_add_module)
+	},
+	{
+		"ActionProjectAddPackage", GTK_STOCK_ADD,
+		N_("Add _Package…"), NULL, N_("Add a package to project"),
+		G_CALLBACK (on_add_package)
+	},
+	{
+		"ActionProjectProperties", GTK_STOCK_PROPERTIES,
+		N_("_Properties"), NULL, N_("Project properties"),
+		G_CALLBACK (on_properties)
+	},
+	{
+		"ActionProjectRefresh", GTK_STOCK_REFRESH,
+		N_("_Refresh"), NULL, N_("Refresh project manager tree"),
+		G_CALLBACK (on_refresh)
+	},
+	{
 		"ActionFileCloseProject", NULL,
 		N_("Close Pro_ject"), NULL, N_("Close project"),
 		G_CALLBACK (on_close_project)
@@ -875,26 +877,6 @@ static GtkActionEntry pm_actions[] =
 
 static GtkActionEntry popup_actions[] = 
 {
-	{
-		"ActionPopupProjectProperties", GTK_STOCK_PROPERTIES,
-		N_("_Properties"), NULL, N_("Properties of group/target/source"),
-		G_CALLBACK (on_popup_properties)
-	},
-	{
-		"ActionPopupProjectAddToProject", GTK_STOCK_ADD,
-		N_("_Add to Project"), NULL, N_("Add a source file to project"),
-		G_CALLBACK (on_popup_add_to_project)
-	},
-	{
-		"ActionPopupProjectAddModule", GTK_STOCK_ADD,
-		N_("Add _Module"), NULL, N_("Add a module to target"),
-		G_CALLBACK (on_popup_add_module)
-	},
-	{
-		"ActionPopupProjectAddPackage", GTK_STOCK_ADD,
-		N_("Add _Package"), NULL, N_("Add a package to project"),
-		G_CALLBACK (on_popup_add_package)
-	},
 	{
 		"ActionPopupProjectAddGroup", GTK_STOCK_ADD,
 		N_("Add _Group"), NULL, N_("Add a group to project"),
@@ -911,6 +893,26 @@ static GtkActionEntry popup_actions[] =
 		G_CALLBACK (on_popup_add_source)
 	},
 	{
+		"ActionPopupProjectAddModule", GTK_STOCK_ADD,
+		N_("Add _Module"), NULL, N_("Add a module to target"),
+		G_CALLBACK (on_popup_add_module)
+	},
+	{
+		"ActionPopupProjectAddPackage", GTK_STOCK_ADD,
+		N_("Add _Package"), NULL, N_("Add a package to project"),
+		G_CALLBACK (on_popup_add_package)
+	},
+	{
+		"ActionPopupProjectAddToProject", GTK_STOCK_ADD,
+		N_("_Add to Project"), NULL, N_("Add a source file to project"),
+		G_CALLBACK (on_popup_add_to_project)
+	},
+	{
+		"ActionPopupProjectProperties", GTK_STOCK_PROPERTIES,
+		N_("_Properties"), NULL, N_("Properties of group/target/source"),
+		G_CALLBACK (on_popup_properties)
+	},
+	{
 		"ActionPopupProjectRemove", GTK_STOCK_REMOVE,
 		N_("Re_move"), NULL, N_("Remove from project"),
 		G_CALLBACK (on_popup_remove)
@@ -922,54 +924,75 @@ update_ui (ProjectManagerPlugin *plugin)
 {
 	AnjutaUI *ui;
 	gint j;
-	GtkAction *action;
-	IAnjutaProjectCapabilities caps;
+	GList *item;
+	gint main_caps;
+	gint popup_caps;
 	
-	caps = anjuta_pm_project_get_capabilities (plugin->project);
+	/* Close project is always here */
+	main_caps = 0x101;
+	popup_caps = 0x000;
 	
+	/* Check for supported node */
+	if (anjuta_pm_project_is_open (plugin->project))
+	{
+		for (item = anjuta_pm_project_get_node_info (plugin->project); item != NULL; item = g_list_next (item))
+		{
+			AnjutaProjectNodeInfo *info = (AnjutaProjectNodeInfo *)item->data;
+
+			switch (info->type & ANJUTA_PROJECT_TYPE_MASK)
+			{
+			case ANJUTA_PROJECT_GROUP:
+				main_caps |= 0x2;
+				popup_caps |= 0x21;
+				break;
+			case ANJUTA_PROJECT_TARGET:
+				main_caps |= 0x4;
+				popup_caps |= 0x2;
+				break;
+			case ANJUTA_PROJECT_SOURCE:
+				main_caps |= 0x8;
+				popup_caps |= 0x24;
+				break;
+			case ANJUTA_PROJECT_MODULE:
+				main_caps |= 0x10;
+				popup_caps |= 0x8;
+				break;
+			case ANJUTA_PROJECT_PACKAGE:
+				main_caps |= 0x20;
+				popup_caps |= 0x10;
+				break;
+			default:
+				break;
+			}
+		}
+		/* Keep properties and refresh if a project is opened */
+		main_caps |= 0x0C0;
+		/* Keep properties and remove if a project is opened */
+		popup_caps |= 0x0C0;
+	}
+
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
+
+	/* Main menu */
 	for (j = 0; j < G_N_ELEMENTS (pm_actions); j++)
 	{
+		GtkAction *action;
+			
 		action = anjuta_ui_get_action (ui, "ActionGroupProjectManager",
-									   pm_actions[j].name);
-		if (pm_actions[j].callback &&
-			strcmp (pm_actions[j].name, "ActionFileCloseProject") != 0)
-		{
-			/* 'close' menuitem is never disabled */
-			g_object_set (G_OBJECT (action), "sensitive",
-						  anjuta_pm_project_is_open (plugin->project), NULL);
-		}
+										pm_actions[j].name);
+		g_object_set (G_OBJECT (action), "visible", INT_TO_GBOOLEAN (main_caps & 0x1), NULL);
+		main_caps >>= 1;
 	}
 	
-	/* Main menu */
-	action = anjuta_ui_get_action (ui, "ActionGroupProjectManager",
-								   "ActionProjectAddGroup");
-	g_object_set (G_OBJECT (action), "sensitive",
-				  (anjuta_pm_project_is_open (plugin->project) &&
-				   (caps & IANJUTA_PROJECT_CAN_ADD_GROUP)), NULL);
-	
-	action = anjuta_ui_get_action (ui, "ActionGroupProjectManager",
-								   "ActionProjectAddTarget");
-	g_object_set (G_OBJECT (action), "sensitive",
-				  (anjuta_pm_project_is_open (plugin->project) &&
-				   (caps & IANJUTA_PROJECT_CAN_ADD_TARGET)), NULL);
-
-	action = anjuta_ui_get_action (ui, "ActionGroupProjectManager",
-								   "ActionProjectAddSource");
-	g_object_set (G_OBJECT (action), "sensitive",
-				  (anjuta_pm_project_is_open (plugin->project) &&
-				   (caps & IANJUTA_PROJECT_CAN_ADD_SOURCE)), NULL);
-
-	/* Popup menus */
+	/* Popup menu */
 	for (j = 0; j < G_N_ELEMENTS (popup_actions); j++)
 	{
+		GtkAction *action;
+			
 		action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
-									   popup_actions[j].name);
-		if (popup_actions[j].callback)
-		{
-			g_object_set (G_OBJECT (action), "sensitive",
-						  anjuta_pm_project_is_open (plugin->project), NULL);
-		}
+									popup_actions[j].name);
+		g_object_set (G_OBJECT (action), "visible", INT_TO_GBOOLEAN (popup_caps & 0x1), NULL);
+		popup_caps >>= 1;
 	}
 }
 
@@ -980,82 +1003,36 @@ on_treeview_selection_changed (GtkTreeSelection *sel,
 	AnjutaUI *ui;
 	GtkAction *action;
 	AnjutaProjectNode *node;
+	gint state;
 	GFile *selected_file;
-	IAnjutaProjectCapabilities caps;
 	
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
+	node = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
+										   ANJUTA_PROJECT_UNKNOWN);
+	state = node != NULL ? anjuta_project_node_get_state (node) : 0;
+
+	g_message ("state %x", state);
 	/* Popup menu */
 	action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
 								   "ActionPopupProjectAddGroup");
-	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
+	g_object_set (G_OBJECT (action), "sensitive", INT_TO_GBOOLEAN (state & ANJUTA_PROJECT_CAN_ADD_GROUP), NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
 								   "ActionPopupProjectAddTarget");
-	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
+	g_object_set (G_OBJECT (action), "sensitive", INT_TO_GBOOLEAN (state & ANJUTA_PROJECT_CAN_ADD_TARGET), NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
 								   "ActionPopupProjectAddSource");
-	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
+	g_object_set (G_OBJECT (action), "sensitive", INT_TO_GBOOLEAN (state & ANJUTA_PROJECT_CAN_ADD_SOURCE), NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
+								   "ActionPopupProjectAddModule");
+	g_object_set (G_OBJECT (action), "sensitive", INT_TO_GBOOLEAN (state & ANJUTA_PROJECT_CAN_ADD_MODULE), NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
+								   "ActionPopupProjectAddPackage");
+	g_object_set (G_OBJECT (action), "sensitive", INT_TO_GBOOLEAN (state & ANJUTA_PROJECT_CAN_ADD_PACKAGE), NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
 								   "ActionPopupProjectRemove");
-	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
+	g_object_set (G_OBJECT (action), "sensitive", INT_TO_GBOOLEAN (state & ANJUTA_PROJECT_CAN_REMOVE), NULL);
 	
-	caps = anjuta_pm_project_get_capabilities (plugin->project);
-	node = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
-										   ANJUTA_PROJECT_SOURCE);
-	if (node && anjuta_project_node_get_type (node) == ANJUTA_PROJECT_SOURCE)
-	{
-		if (caps & IANJUTA_PROJECT_CAN_ADD_SOURCE)
-		{
-			action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
-										   "ActionPopupProjectAddSource");
-			g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
-		}
-		action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
-									   "ActionPopupProjectRemove");
-		g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
-		goto finally;
-	}
-	
-	node = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
-										   ANJUTA_PROJECT_TARGET);
-	if (node && anjuta_project_node_get_type (node) == ANJUTA_PROJECT_TARGET)
-	{
-		if (caps & IANJUTA_PROJECT_CAN_ADD_SOURCE)
-		{
-			action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
-										   "ActionPopupProjectAddSource");
-			g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
-		}
-		action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
-									   "ActionPopupProjectRemove");
-		g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
-		goto finally;
-	}
-	
-	node = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
-										   ANJUTA_PROJECT_GROUP);
-	if (node && anjuta_project_node_get_type (node) == ANJUTA_PROJECT_GROUP)
-	{
-		if (caps & IANJUTA_PROJECT_CAN_ADD_GROUP)
-		{
-			action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
-										   "ActionPopupProjectAddGroup");
-			g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
-		}
-		if (caps & IANJUTA_PROJECT_CAN_ADD_TARGET)
-		{
-			action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
-										   "ActionPopupProjectAddTarget");
-			g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
-		}
-		action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
-									   "ActionPopupProjectRemove");
-		g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
-		goto finally;
-	}
-finally:
-	selected_file =
-		ianjuta_project_manager_get_selected (IANJUTA_PROJECT_MANAGER (plugin),
-											  NULL);
+	selected_file = node != NULL ? anjuta_project_node_get_file (node) : NULL;
 	if (selected_file)
 	{
 		GValue *value;

@@ -69,7 +69,14 @@ typedef enum
 	ANJUTA_PROJECT_OK = 0,
 	ANJUTA_PROJECT_MODIFIED = 1 << 0,		/* Node has been modified */
 	ANJUTA_PROJECT_INCOMPLETE = 1 << 1,	/* Node is not fully loaded */
-	ANJUTA_PROJECT_LOADING = 1 << 2	    	/* Node is send to the worker thread */
+	ANJUTA_PROJECT_LOADING = 1 << 2,	/* Node is send to the worker thread */
+	ANJUTA_PROJECT_CAN_ADD_GROUP = 1 << 8,
+	ANJUTA_PROJECT_CAN_ADD_TARGET = 1 << 9,
+	ANJUTA_PROJECT_CAN_ADD_SOURCE = 1 << 10,
+	ANJUTA_PROJECT_CAN_ADD_MODULE = 1 << 11,
+	ANJUTA_PROJECT_CAN_ADD_PACKAGE = 1 << 12,
+	ANJUTA_PROJECT_CAN_REMOVE = 1 << 16,
+	ANJUTA_PROJECT_CAN_SAVE = 1 << 17
 } AnjutaProjectNodeState;
 
 typedef enum
