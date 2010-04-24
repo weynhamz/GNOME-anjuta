@@ -22,6 +22,8 @@
  *          Gustavo Giráldez <gustavo.giraldez@gmx.net>
  */
 
+
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -537,34 +539,36 @@ gbf_project_view_get_shortcut_list (GbfProjectView *view)
 	GtkTreeIter iter;
 
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW (view));
-	
-	for (valid = gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &iter, NULL);
-		valid == TRUE;
-		valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &iter))
+	if (model != NULL)
 	{
-		GbfTreeData *data;
-		gtk_tree_model_get (GTK_TREE_MODEL (model), &iter, 
-		    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
-		    -1);
-
-		if ((data->type == GBF_TREE_NODE_SHORTCUT) && (data->shortcut != NULL))
+		for (valid = gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &iter, NULL);
+			valid == TRUE;
+			valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &iter))
 		{
-			gchar *uri;
-			GtkTreePath *path;
-			gboolean expand;
+			GbfTreeData *data;
+			gtk_tree_model_get (GTK_TREE_MODEL (model), &iter, 
+				GBF_PROJECT_MODEL_COLUMN_DATA, &data,
+				-1);
 
-			uri = gbf_tree_data_get_path (data);
-			path = gtk_tree_model_get_path (GTK_TREE_MODEL (model), &iter);
-			expand = gtk_tree_view_row_expanded (GTK_TREE_VIEW (view), path);
-			gtk_tree_path_free (path);
-
-			if (uri != NULL)
+			if ((data->type == GBF_TREE_NODE_SHORTCUT) && (data->shortcut != NULL))
 			{
-				list = g_list_prepend (list, g_strconcat (expand ? "E " : "C ", uri, NULL));
+				gchar *uri;
+				GtkTreePath *path;
+				gboolean expand;
+
+				uri = gbf_tree_data_get_path (data);
+				path = gtk_tree_model_get_path (GTK_TREE_MODEL (model), &iter);
+				expand = gtk_tree_view_row_expanded (GTK_TREE_VIEW (view), path);
+				gtk_tree_path_free (path);
+
+				if (uri != NULL)
+				{
+					list = g_list_prepend (list, g_strconcat (expand ? "E " : "C ", uri, NULL));
+				}
 			}
 		}
+		list = g_list_reverse (list);
 	}
-	list = g_list_reverse (list);
 	
 	return list;
 }

@@ -884,11 +884,11 @@ void
 gbf_project_model_set_project (GbfProjectModel *model, AnjutaPmProject *project)
 {
 	g_return_if_fail (model != NULL && GBF_IS_PROJECT_MODEL (model));
-	g_return_if_fail (project != NULL);
 	
 	if (model->priv->proj)
 		unload_project (model);
-	
+
+	/* project can be NULL */
 	if (project)
 		load_project (model, project);
 }
