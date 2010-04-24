@@ -46,6 +46,7 @@ static void make_ctags_entry (CTagsEntry* entry) {
 	tag.extensionFields.scope[0] = entry->scope[0];
 	tag.extensionFields.scope[1] = entry->scope[1];
 	tag.extensionFields.typeRef[0] = entry->typeref;
+	tag.extensionFields.returnType = entry->returntype;
 	tag.extensionFields.signature = entry->signature;
 	makeTagEntry(&tag);
 }
