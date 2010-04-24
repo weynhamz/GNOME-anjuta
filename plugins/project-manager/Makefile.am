@@ -11,6 +11,7 @@ project_pixmapsdir = $(anjuta_image_dir)
 project_pixmaps_DATA = \
 	anjuta-project-manager-plugin.svg \
 	anjuta-project-manager-plugin-48.png \
+	anjuta-project-manager-plugin-16.png \
 	gbf-build.png \
 	gbf-install.png
 

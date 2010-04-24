@@ -12,6 +12,7 @@ gtodo_pixmapsdir = $(anjuta_image_dir)
 gtodo_pixmaps_DATA = \
 	anjuta-gtodo-plugin.svg \
 	anjuta-gtodo-plugin-48.png \
+	anjuta-gtodo-plugin-16.png \
 	gtodo-about.png \
 	gtodo-edit.png
 

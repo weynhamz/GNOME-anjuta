@@ -383,6 +383,24 @@ static void  pref_gconf_changed_hl_indays(GConfClient *client)
 	category_changed();
 }
 
+static void  pref_gconf_changed_hide_due(GConfClient *client)
+{
+	settings.hide_due = gconf_client_get_bool(client,"/apps/gtodo/prefs/hide-due",NULL);
+	category_changed();
+}
+
+static void  pref_gconf_changed_hide_done(GConfClient *client)
+{
+	settings.hide_done = gconf_client_get_bool(client,"/apps/gtodo/prefs/hide-done",NULL);
+	category_changed();
+}
+
+static void  pref_gconf_changed_hide_nodate(GConfClient *client)
+{
+	settings.hide_nodate = gconf_client_get_bool(client,"/apps/gtodo/prefs/hide-nodate",NULL);
+	category_changed();
+}
+
 void pref_gconf_set_notifications(GConfClient *client)
 {
 	gconf_client_notify_add(client, "/apps/gtodo/prefs/restore-size",
@@ -433,6 +451,19 @@ void pref_gconf_set_notifications(GConfClient *client)
 	gconf_client_notify_add(client,"/apps/gtodo/prefs/hl-indays",
 			(GConfClientNotifyFunc) pref_gconf_changed_hl_indays,
 			NULL,
+			NULL, NULL);
+	
+	gconf_client_notify_add(client,"/apps/gtodo/prefs/hide-done",
+			(GConfClientNotifyFunc) pref_gconf_changed_hide_done,
+			NULL,
 			NULL, NULL);	
 
+	gconf_client_notify_add(client,"/apps/gtodo/prefs/hide-due",
+			(GConfClientNotifyFunc) pref_gconf_changed_hide_due,
+			NULL,
+			NULL, NULL);	
+	gconf_client_notify_add(client,"/apps/gtodo/prefs/hide-nodate",
+			(GConfClientNotifyFunc) pref_gconf_changed_hide_nodate,
+			NULL,
+			NULL, NULL);
 }

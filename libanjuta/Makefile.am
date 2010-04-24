@@ -91,7 +91,9 @@ libanjuta_la_SOURCES= \
 	anjuta-token-stream.c \
 	anjuta-token-stream.h \
 	anjuta-project.c \
-	anjuta-project.h
+	anjuta-project.h \
+	anjuta-tabber.c \
+	anjuta-tabber.h
 
 if HAVE_PLUGIN_GLADE
 
@@ -151,6 +153,7 @@ libanjuta_include = \
 	gbf-project.h \
 	anjuta-project.h \
 	anjuta-command-queue.h \
+	anjuta-tabber.h \
 	anjuta-token.h
 
 libanjutainclude_HEADERS = \

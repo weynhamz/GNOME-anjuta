@@ -786,7 +786,9 @@ set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation, gi
 		IAnjutaIterable *pos = ianjuta_editor_get_line_begin_position (editor, line_num, NULL);
 		for (i = 0; i < nchars + carat_offset; i++)
 			ianjuta_iterable_next (pos, NULL);
+		ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT(editor), NULL);
 		ianjuta_editor_goto_position (editor, pos, NULL);
+		ianjuta_document_end_undo_action (IANJUTA_DOCUMENT(editor), NULL);
 		g_object_unref (pos);
 	}
 	else /* cursor_offset < 0 */
@@ -799,7 +801,9 @@ set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation, gi
 		IAnjutaIterable *pos = ianjuta_editor_get_line_begin_position (editor, line_num, NULL);
 		for (i = 0; i < nchars; i++)
 			ianjuta_iterable_next (pos, NULL);
+		ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT(editor), NULL);
 		ianjuta_editor_goto_position (editor, pos, NULL);
+		ianjuta_document_end_undo_action (IANJUTA_DOCUMENT(editor), NULL);
 		g_object_unref (pos);
 	}
 
@@ -1438,17 +1442,17 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 				/* Iterate backwards till the begining of the line and disable
 				 * indenting if any non-white space char is encountered
 				 */
-			
+
 				/* Begin by assuming it should be indented */
 				should_auto_indent = TRUE;
-			
+
 				while (ianjuta_iterable_previous (iter, NULL))
 				{
 					ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter),
-													   0, NULL);
-				
+					                                   0, NULL);
+
 					//DEBUG_PRINT ("Looking at char '%c'", ch);
-				
+
 					/* Break on begining of line (== end of previous line) */
 					if (iter_is_newline (iter, ch))
 					{

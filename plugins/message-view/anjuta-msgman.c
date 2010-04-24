@@ -19,6 +19,7 @@
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-shell.h>
+#include <libanjuta/anjuta-tabber.h>
 
 #include <libanjuta/resources.h>
 #include "anjuta-msgman.h"
@@ -31,7 +32,7 @@ struct _AnjutaMsgmanPriv
 	GtkWidget* tab_popup;
 	GList *views;
 
-	GtkWidget* hbox;
+	GtkWidget* tabber;
 	GSList* button_group;
 };
 
@@ -40,37 +41,12 @@ struct _AnjutaMsgmanPage
 	GtkWidget *widget;
 	GtkWidget *pixmap;
 	GtkWidget *label;
-	GtkWidget *button;
 	GtkWidget *box;
-	GtkWidget *frame;
 	GtkWidget *close_button;
 	GtkWidget *close_icon;
 };
 
 typedef struct _AnjutaMsgmanPage AnjutaMsgmanPage;
-
-static void
-on_page_button_toggled (GtkToggleButton* button,
-                        AnjutaMsgman* msgman)
-{
-	AnjutaMsgmanPage* page;
-	int page_num;
-	
-	page = g_object_get_data (G_OBJECT (button), "__page");
-	page_num = gtk_notebook_page_num (GTK_NOTEBOOK(msgman), page->widget);
-
-	if (page_num == gtk_notebook_get_current_page (GTK_NOTEBOOK(msgman)))
-	{
-		if (!gtk_toggle_button_get_active (button))
-		{
-			g_signal_handlers_block_by_func (button, on_page_button_toggled, msgman);
-			gtk_toggle_button_set_active (button, TRUE);
-			g_signal_handlers_unblock_by_func (button, on_page_button_toggled, msgman);
-		}
-	}
-	else
-		gtk_notebook_set_current_page (GTK_NOTEBOOK(msgman), page_num);	
-}
 
 static void
 on_msgman_close_page (GtkButton* button, 
@@ -180,22 +156,12 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 						G_CALLBACK(on_msgman_close_page),
 						msgman);
 
-	page->button = gtk_toggle_button_new ();
-	g_signal_connect (page->button, "toggled", G_CALLBACK(on_page_button_toggled),
-	                  msgman);
-	g_object_set_data (G_OBJECT(page->button), "__page", page);
-	gtk_container_add (GTK_CONTAINER (page->button), box);
 
 	page->box = gtk_hbox_new (FALSE, 0);
-	gtk_box_pack_start (GTK_BOX(page->box), page->button, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX(page->box), box, TRUE, TRUE, 0);
 	gtk_box_pack_start (GTK_BOX(page->box), page->close_button, FALSE, FALSE, 0);
-
-	page->frame = gtk_frame_new (NULL);
-	gtk_frame_set_shadow_type (GTK_FRAME(page->frame),
-	                           GTK_SHADOW_OUT);
-	gtk_container_add (GTK_CONTAINER (page->frame), page->box);
 	
-	gtk_widget_show_all (page->frame);
+	gtk_widget_show_all (page->box);
 	
 	return page;
 }
@@ -203,7 +169,6 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 static void
 anjuta_msgman_page_destroy (AnjutaMsgmanPage * page)
 {
-	gtk_widget_destroy (page->frame);
 	g_free (page);
 }
 
@@ -229,30 +194,7 @@ on_notebook_switch_page (GtkNotebook * notebook,
 			 GtkNotebookPage * npage,
 			 gint page_num, AnjutaMsgman * msgman)
 {
-	GList* node;
-	AnjutaMsgmanPage* page = anjuta_msgman_page_from_widget(msgman,
-	                                                        MESSAGE_VIEW (gtk_notebook_get_nth_page(GTK_NOTEBOOK(msgman), page_num)));
-	
-	g_return_if_fail (notebook != NULL);
-	g_return_if_fail (page != NULL);
-	g_return_if_fail (msgman != NULL);
-
-	for (node = msgman->priv->views; node != NULL; node = g_list_next (node))
-	{
-		AnjutaMsgmanPage* cur_page = node->data;
-		g_signal_handlers_block_by_func (cur_page->button, on_page_button_toggled, msgman);
-		if (cur_page != page)
-		{
-			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cur_page->button), FALSE);
-		}
-		else
-		{
-			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cur_page->button), TRUE);	
-		}
-		g_signal_handlers_unblock_by_func (cur_page->button, on_page_button_toggled, msgman);			
-	}
-
-	anjuta_msgman_set_current_view(msgman, NULL);
+	g_signal_emit_by_name(G_OBJECT(msgman), "view_changed");
 }
 
 static gpointer parent_class;
@@ -279,14 +221,15 @@ anjuta_msgman_finalize (GObject *obj)
 static void
 anjuta_msgman_instance_init (AnjutaMsgman * msgman)
 {
-	g_signal_connect (GTK_NOTEBOOK (msgman), "switch-page",
+	g_signal_connect_after (GTK_NOTEBOOK (msgman), "switch-page",
 			  G_CALLBACK (on_notebook_switch_page), msgman);
 	gtk_notebook_set_scrollable (GTK_NOTEBOOK (msgman), TRUE);
 	msgman->priv = g_new0(AnjutaMsgmanPriv, 1);
 	msgman->priv->views = NULL;
 	msgman->priv->tab_popup = create_tab_popup_menu(msgman);
-	msgman->priv->hbox = gtk_hbox_new (FALSE, 1);
+	msgman->priv->tabber = anjuta_tabber_new (GTK_NOTEBOOK (msgman));
 	msgman->priv->button_group = NULL;
+	
 	g_signal_connect(GTK_OBJECT(msgman), "popup-menu", 
                        G_CALLBACK(on_msgman_popup_menu), msgman);
     g_signal_connect(GTK_OBJECT(msgman), "button-press-event", 
@@ -376,25 +319,12 @@ on_message_view_destroy (MessageView *view, AnjutaMsgman *msgman)
 	g_signal_handlers_disconnect_by_func (G_OBJECT (view),
 					  G_CALLBACK (on_message_view_destroy), msgman);
 
-	g_signal_handlers_block_by_func (GTK_OBJECT (msgman),
-									 G_CALLBACK
-									 (on_notebook_switch_page), msgman);
-
 	page_num =
 		gtk_notebook_page_num (GTK_NOTEBOOK (msgman),
 						       GTK_WIDGET (view));
 	msgman->priv->views = g_list_remove (msgman->priv->views, page);
 	anjuta_msgman_page_destroy (page);
 
-	// gtk_notebook_remove_page (GTK_NOTEBOOK (msgman), page_num);
-	
-	/* This is called to set the next active document */
-	if (gtk_notebook_get_n_pages (GTK_NOTEBOOK (msgman)) == 0)
-		anjuta_msgman_set_current_view (msgman, NULL);
-
-	g_signal_handlers_unblock_by_func (GTK_OBJECT (msgman),
-									   G_CALLBACK
-									   (on_notebook_switch_page), msgman);
 }
 
 static void
@@ -402,7 +332,6 @@ anjuta_msgman_append_view (AnjutaMsgman * msgman, GtkWidget *mv,
 						   const gchar * name, const gchar * pixmap)
 {
 	AnjutaMsgmanPage *page;
-	int page_num;
 
 	g_return_if_fail (msgman != NULL);
 	g_return_if_fail (mv != NULL);
@@ -411,23 +340,15 @@ anjuta_msgman_append_view (AnjutaMsgman * msgman, GtkWidget *mv,
 	gtk_widget_show_all (mv);
 	page = anjuta_msgman_page_new (mv, name, pixmap, msgman);
 	
-	g_signal_handlers_block_by_func (GTK_OBJECT (msgman),
-									 G_CALLBACK
-									 (on_notebook_switch_page), msgman);
 	msgman->priv->views =
 		g_list_prepend (msgman->priv->views, (gpointer) page);
 
-	page_num = gtk_notebook_append_page (GTK_NOTEBOOK (msgman), mv, NULL);
+	gtk_notebook_append_page (GTK_NOTEBOOK (msgman), mv, NULL);
 
-	gtk_box_pack_start (GTK_BOX(msgman->priv->hbox), page->frame, TRUE, TRUE, 0);
+	anjuta_tabber_add_tab (ANJUTA_TABBER(msgman->priv->tabber), page->box);
 	
 	g_signal_connect (G_OBJECT (mv), "destroy",
 					  G_CALLBACK (on_message_view_destroy), msgman);
-	g_signal_handlers_unblock_by_func (GTK_OBJECT (msgman),
-									   G_CALLBACK
-									   (on_notebook_switch_page), msgman);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (page->button), TRUE);	
-	g_signal_emit_by_name(G_OBJECT(msgman), "view_changed");
 }
 
 MessageView *
@@ -467,9 +388,6 @@ anjuta_msgman_remove_all_views (AnjutaMsgman * msgman)
 	GList *views, *node;
 	AnjutaMsgmanPage *page;
 	
-	g_signal_handlers_block_by_func (GTK_OBJECT (msgman),
-									 G_CALLBACK
-									 (on_notebook_switch_page), msgman);
 	views = NULL;
 	node = msgman->priv->views;
 	while (node)
@@ -489,18 +407,16 @@ anjuta_msgman_remove_all_views (AnjutaMsgman * msgman)
 	g_list_free (views);
 	
 	msgman->priv->views = NULL;
-	anjuta_msgman_set_current_view (msgman, NULL);
-	g_signal_handlers_unblock_by_func (GTK_OBJECT (msgman),
-									   G_CALLBACK
-									   (on_notebook_switch_page), msgman);
 }
 
 MessageView *
 anjuta_msgman_get_current_view (AnjutaMsgman * msgman)
 {
-	gint current_page = gtk_notebook_get_current_page (GTK_NOTEBOOK(msgman));
-	return MESSAGE_VIEW (gtk_notebook_get_nth_page (GTK_NOTEBOOK(msgman),
-													current_page));
+	gint page = gtk_notebook_get_current_page (GTK_NOTEBOOK(msgman));
+	if (page != -1)
+		return MESSAGE_VIEW (gtk_notebook_get_nth_page (GTK_NOTEBOOK(msgman), page));
+	else
+		return NULL;
 }
 
 MessageView *
@@ -542,7 +458,6 @@ anjuta_msgman_set_current_view (AnjutaMsgman * msgman, MessageView * mv)
 					       GTK_WIDGET (mv));
 		gtk_notebook_set_current_page (GTK_NOTEBOOK (msgman), page_num);
 	}
-	g_signal_emit_by_name(G_OBJECT(msgman), "view_changed");
 }
 
 GList *
@@ -641,7 +556,7 @@ anjuta_msgman_deserialize (AnjutaMsgman *msgman, AnjutaSerializer *serializer)
 	return TRUE;
 }
 
-GtkWidget* anjuta_msgman_get_hbox (AnjutaMsgman* msgman)
+GtkWidget* anjuta_msgman_get_tabber (AnjutaMsgman* msgman)
 {
-	return msgman->priv->hbox;
+	return msgman->priv->tabber;
 }

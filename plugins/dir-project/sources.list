@@ -12,6 +12,8 @@
 *.rb
 *.y
 *.l
+*.vala
+*.gs
 *.in
 *.in.in
 *.am

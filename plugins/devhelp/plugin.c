@@ -25,6 +25,7 @@
 #include <config.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-tabber.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-help.h>
@@ -294,38 +295,6 @@ static void on_load_finished (GObject* view, GObject* frame, gpointer user_data)
 	anjuta_devhelp_check_history(devhelp);
 }
 
-static void
-on_notebook_button_toggled (GtkToggleButton *button,
-                            AnjutaDevhelp *devhelp)
-{
-	int page = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (button), "__page"));
-	gtk_notebook_set_current_page (GTK_NOTEBOOK(devhelp->control_notebook), page);
-}
-
-static void
-on_notebook_switch_page (GtkNotebook* notebook,
-                         GtkNotebookPage* page,
-                         guint page_num,
-                         AnjutaDevhelp *devhelp)
-{
-	g_signal_handlers_block_by_func (devhelp->button_tree,
-	                                 on_notebook_button_toggled,
-	                                 devhelp);
-	g_signal_handlers_block_by_func (devhelp->button_search,
-	                                 on_notebook_button_toggled,
-	                                 devhelp);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(devhelp->button_tree),
-	                              page_num == 0);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(devhelp->button_search),
-	                              page_num == 1);
-	g_signal_handlers_unblock_by_func (devhelp->button_tree,
-	                                   on_notebook_button_toggled,
-	                                   devhelp);
-	g_signal_handlers_unblock_by_func (devhelp->button_search,
-	                                   on_notebook_button_toggled,
-	                                   devhelp);
-}
-
 #endif
 
 static gboolean
@@ -363,35 +332,42 @@ devhelp_activate (AnjutaPlugin *plugin)
 	devhelp->uiid = anjuta_ui_merge (ui, UI_FILE);
 
 #ifndef DISABLE_EMBEDDED_DEVHELP
+	devhelp->control_notebook = gtk_notebook_new ();
+	gtk_notebook_set_show_tabs (GTK_NOTEBOOK (devhelp->control_notebook),
+	                            FALSE);
+
 	/* Tabs in grip */
-	devhelp->tab_hbox = gtk_hbox_new (FALSE, 1);
-	devhelp->button_tree = gtk_toggle_button_new_with_label (_("Contents"));
-	devhelp->button_search = gtk_toggle_button_new_with_label (_("Search"));	
+	devhelp->tab_hbox = gtk_hbox_new (FALSE, 1);	
 
 	gtk_box_pack_start (GTK_BOX (devhelp->tab_hbox),
 	                    gtk_image_new_from_stock (ANJUTA_STOCK_DEVHELP,
 	                                              GTK_ICON_SIZE_MENU),
 	                    FALSE, FALSE, 0);
 	label = gtk_label_new (_("Help"));
-	gtk_label_set_ellipsize (GTK_LABEL (label),
-	                         PANGO_ELLIPSIZE_END);
+	devhelp->tabber = anjuta_tabber_new (GTK_NOTEBOOK(devhelp->control_notebook));
+	
+	
 	gtk_box_pack_start (GTK_BOX (devhelp->tab_hbox),
 	                    label,
-	                    TRUE, TRUE, 0);
-	gtk_box_pack_start (GTK_BOX (devhelp->tab_hbox),
-	                    devhelp->button_tree,
 	                    FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (devhelp->tab_hbox),
-	                    devhelp->button_search,
-	                    FALSE, FALSE, 0);
+	gtk_box_pack_end (GTK_BOX (devhelp->tab_hbox),
+	                    devhelp->tabber,
+	                    TRUE, TRUE, 5);
+
+	label = gtk_label_new (_("Contents"));
+	gtk_label_set_ellipsize (GTK_LABEL (label),
+	                         PANGO_ELLIPSIZE_END);
+	anjuta_tabber_add_tab (ANJUTA_TABBER (devhelp->tabber),
+	                       label);
+	
+	label = gtk_label_new (_("Search"));
+	gtk_label_set_ellipsize (GTK_LABEL (label),
+	                         PANGO_ELLIPSIZE_END);
+	anjuta_tabber_add_tab (ANJUTA_TABBER (devhelp->tabber),
+	                       label);
+	
 	gtk_widget_show_all (devhelp->tab_hbox);
 
-	g_signal_connect (devhelp->button_tree, "toggled",
-	                  G_CALLBACK(on_notebook_button_toggled), devhelp);
-	g_object_set_data (G_OBJECT(devhelp->button_tree), "__page", GINT_TO_POINTER(0));	
-	g_signal_connect (devhelp->button_search, "toggled",
-	                  G_CALLBACK(on_notebook_button_toggled), devhelp);
-	g_object_set_data (G_OBJECT(devhelp->button_search), "__page", GINT_TO_POINTER(1));		
 	/*
 	 * Forward/back buttons
 	 */
@@ -419,7 +395,7 @@ devhelp_activate (AnjutaPlugin *plugin)
 	g_signal_connect (devhelp->go_forward, "clicked",
 	                  G_CALLBACK (on_go_forward_clicked), devhelp);
 
-	devhelp->online = gtk_button_new_with_label (_("Online"));
+	devhelp->online = gtk_button_new_with_label ("library.gnome.org");
 	g_signal_connect (devhelp->online, "clicked",
 	                  G_CALLBACK (on_online_clicked), devhelp);
 
@@ -442,16 +418,9 @@ devhelp_activate (AnjutaPlugin *plugin)
 									GTK_POLICY_NEVER,
 									GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (books_sw),
-									     GTK_SHADOW_IN);
+									     GTK_SHADOW_NONE);
 	gtk_container_set_border_width (GTK_CONTAINER (books_sw), 2);
 	
-	devhelp->control_notebook = gtk_notebook_new ();
-	gtk_notebook_set_show_tabs (GTK_NOTEBOOK (devhelp->control_notebook),
-	                            FALSE);
-	g_signal_connect (devhelp->control_notebook,
-	                  "switch-page",
-	                  G_CALLBACK(on_notebook_switch_page),
-	                  devhelp);
 	devhelp->book_tree = dh_book_tree_new (books);
 	
 	devhelp->search = dh_search_new (keywords);

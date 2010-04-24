@@ -2333,3 +2333,4 @@ ANJUTA_PLUGIN_ADD_INTERFACE (ifile, IANJUTA_TYPE_FILE);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (ProjectManagerPlugin, project_manager_plugin);
+

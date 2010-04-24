@@ -112,6 +112,141 @@ disconnect_proxy_cb (GtkUIManager *manager,
 	}
 }
 
+static void
+anjuta_app_iconify_dockable_widget (AnjutaShell *shell, GtkWidget *widget,
+                                    GError **error)
+{
+	AnjutaApp *app = NULL;
+	GtkWidget *dock_item = NULL;
+
+	/* Argumments assertions */
+	g_return_if_fail (ANJUTA_IS_APP (shell));
+	g_return_if_fail (GTK_IS_WIDGET (widget));
+
+	app = ANJUTA_APP (shell);
+	g_return_if_fail (app->widgets != NULL);
+	
+	dock_item = g_object_get_data (G_OBJECT (widget), "dockitem");
+	g_return_if_fail (dock_item != NULL);
+
+	/* Iconify the dockable item */
+	gdl_dock_item_iconify_item (GDL_DOCK_ITEM (dock_item));
+}
+
+static void
+anjuta_app_hide_dockable_widget (AnjutaShell *shell, GtkWidget *widget,
+                                 GError **error)
+{
+	AnjutaApp *app = NULL;
+	GtkWidget *dock_item = NULL;
+
+	/* Argumments assertions */
+	g_return_if_fail (ANJUTA_IS_APP (shell));
+	g_return_if_fail (GTK_IS_WIDGET (widget));
+
+	app = ANJUTA_APP (shell);
+	g_return_if_fail (app->widgets != NULL);
+	
+	dock_item = g_object_get_data (G_OBJECT (widget), "dockitem");
+	g_return_if_fail (dock_item != NULL);
+
+	/* Hide the dockable item */
+	gdl_dock_item_iconify_item (GDL_DOCK_ITEM (dock_item));
+}
+
+static void
+anjuta_app_show_dockable_widget (AnjutaShell *shell, GtkWidget* widget,
+                                 GError **error)
+{
+	AnjutaApp *app = NULL;
+	GtkWidget *dock_item = NULL;
+
+	/* Argumments assertions */
+	g_return_if_fail (ANJUTA_IS_APP (shell));
+	g_return_if_fail (GTK_IS_WIDGET (widget));
+
+	app = ANJUTA_APP (shell);
+	g_return_if_fail (app->widgets != NULL);
+	
+	dock_item = g_object_get_data (G_OBJECT (widget), "dockitem");
+	g_return_if_fail (dock_item != NULL);
+
+	/* Show the dockable item */	
+	gdl_dock_item_show_item(GDL_DOCK_ITEM (dock_item));
+}
+
+static void
+anjuta_app_maximize_widget (AnjutaShell *shell,
+                            const char  *widget_name,
+                            GError **error)
+{
+	AnjutaApp *app = NULL;
+	GtkWidget *dock_item = NULL;
+	gpointer  value, key;
+	GtkWidget *widget = NULL;
+	GHashTableIter iter;
+
+	/* AnjutaApp assertions */
+	g_return_if_fail (ANJUTA_IS_APP (shell));
+	app = ANJUTA_APP (shell);
+
+	/* If app->maximized is TRUE then another widget is already maximized.
+	   Restoring the UI for a new maximization. */
+	if(app->maximized)
+		gdl_dock_layout_load_layout (app->layout_manager, "back-up");
+
+	/* Back-up the layout so it can be restored */
+	gdl_dock_layout_save_layout(app->layout_manager, "back-up");
+
+	/* Mark the app as maximized (the other widgets except center are hidden) */
+	app->maximized = TRUE;
+	
+	/* Hide all DockItem's except the ones positioned in the center */
+	g_hash_table_iter_init (&iter, app->widgets);
+	while (g_hash_table_iter_next (&iter, &key, &value))
+	{
+		if (value == NULL)
+			continue;
+
+		/* If it's the widget requesting maximization then continue */
+		if(!g_strcmp0((gchar*)key, widget_name))
+			continue;
+			
+		/* Widget assertions */
+		widget = GTK_WIDGET (value);
+		if(!GTK_IS_WIDGET (widget))
+			continue;
+
+		/* DockItem assertions */
+		dock_item = g_object_get_data (G_OBJECT (widget), "dockitem");
+		if(dock_item == NULL || !GDL_IS_DOCK_ITEM (dock_item))
+			continue;
+		
+		/* Hide the item */
+		gdl_dock_item_hide_item (GDL_DOCK_ITEM (dock_item));
+	}
+}
+
+static void
+anjuta_app_unmaximize (AnjutaShell *shell,
+                       GError **error)
+{
+	AnjutaApp *app = NULL;
+
+	/* AnjutaApp assertions */
+	g_return_if_fail (ANJUTA_IS_APP (shell));
+	app = ANJUTA_APP (shell);
+
+	/* If not maximized then the operation doesn't make sence. */
+	g_return_if_fail (app->maximized);
+	
+	/* Load the backed-up layout */
+	gdl_dock_layout_load_layout (app->layout_manager, "back-up");
+	gdl_dock_layout_delete_layout (app->layout_manager, "back-up");
+	
+	/* Un-mark maximized */
+	app->maximized = FALSE;
+}
 
 static void
 on_toolbar_style_changed (AnjutaPreferences* prefs,
@@ -420,6 +555,7 @@ anjuta_app_instance_init (AnjutaApp *app)
 	
 	app->values = NULL;
 	app->widgets = NULL;
+	app->maximized = FALSE;
 	
 	/* Status bar */
 	app->status = ANJUTA_STATUS (anjuta_status_new ());
@@ -702,6 +838,11 @@ anjuta_app_layout_save (AnjutaApp *app, const gchar *filename,
 	g_return_if_fail (ANJUTA_IS_APP (app));
 	g_return_if_fail (filename != NULL);
 
+	/* If maximized, the layout should be loaded from the back-up first */
+	if(app->maximized)
+		gdl_dock_layout_load_layout (app->layout_manager, "back-up");
+
+	/* Continue with the saving */
 	gdl_dock_layout_save_layout (app->layout_manager, name);
 	if (!gdl_dock_layout_save_to_file (app->layout_manager, filename))
 		g_warning ("Saving dock layout to '%s' failed!", filename);
@@ -969,7 +1110,6 @@ anjuta_app_setup_widget (AnjutaApp* app,
 {
 	GtkCheckMenuItem* menuitem;
 
-
 	/* Add the widget to hash */
 	if (app->widgets == NULL)
 	{
@@ -1210,6 +1350,11 @@ anjuta_shell_iface_init (AnjutaShellIface *iface)
 	iface->add_widget_custom = anjuta_app_add_widget_custom;
 	iface->remove_widget = anjuta_app_remove_widget;
 	iface->present_widget = anjuta_app_present_widget;
+	iface->iconify_dockable_widget = anjuta_app_iconify_dockable_widget;
+	iface->hide_dockable_widget = anjuta_app_hide_dockable_widget;
+	iface->show_dockable_widget = anjuta_app_show_dockable_widget;
+	iface->maximize_widget = anjuta_app_maximize_widget;
+	iface->unmaximize = anjuta_app_unmaximize;
 	iface->add_value = anjuta_app_add_value;
 	iface->get_value = anjuta_app_get_value;
 	iface->remove_value = anjuta_app_remove_value;

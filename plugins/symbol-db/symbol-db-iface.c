@@ -98,6 +98,7 @@ isymbol_manager_get_members (IAnjutaSymbolManager *sm,
 	
 	iterator = symbol_db_engine_get_scope_members_by_symbol_id (dbe,
 																sym_id,
+	                                                            NULL,
 																-1, 
 																-1,
 																info_fields);

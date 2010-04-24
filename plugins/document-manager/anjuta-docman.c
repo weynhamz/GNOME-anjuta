@@ -288,15 +288,54 @@ on_notebook_tab_btnpress (GtkWidget *wid, GdkEventButton *event, AnjutaDocman* d
 {
 	if (event->type == GDK_BUTTON_PRESS && event->button != 3)	/* right-click is for menu */
 		docman->priv->tab_pressed = TRUE;
-
+	
 	return FALSE;
 }
 
 static gboolean
 on_notebook_tab_btnrelease (GtkWidget *widget, GdkEventButton *event, AnjutaDocman* docman)
 {
+	AnjutaDocmanPage *page;
+	AnjutaDocmanPage *curr_page = NULL;
+	
 	docman->priv->tab_pressed = FALSE;
 
+	/* close on middle click */
+	if (event->button == 2)
+	{
+		/* the close function works only on the current document */
+		GList* node;
+		for (node = docman->priv->pages; node != NULL; node = g_list_next (node))
+		{
+			page = (AnjutaDocmanPage *) node->data;
+			if (page->box == widget)
+			{
+				/* we've found the page that user wants to close. Save the current
+				 * page for a later setup
+				 */
+				curr_page = anjuta_docman_get_current_page (docman);
+				anjuta_docman_set_current_document (docman, page->doc);
+				break;
+			}
+		}
+		if (node == NULL)
+			return FALSE;		
+
+		if (page != NULL) 
+		{
+			on_close_file_activate (NULL, docman->priv->plugin);
+
+			if (curr_page != NULL)
+			{
+				/* set the old current page */
+				anjuta_docman_set_current_document (docman, curr_page->doc);
+			}		
+		}
+
+		return FALSE;
+	}	
+
+	/* normal button click close */
 	if (anjuta_preferences_get_bool (docman->priv->preferences, EDITOR_TABS_RECENT_FIRST))
 	{
 		GList *node;
@@ -315,6 +354,22 @@ on_notebook_tab_btnrelease (GtkWidget *widget, GdkEventButton *event, AnjutaDocm
 	}
 
 	return FALSE;
+}
+
+static gboolean
+on_notebook_tab_double_click(GtkWidget *widget, GdkEventButton *event, 
+                             AnjutaDocman* docman)
+{
+	if (event->type == GDK_2BUTTON_PRESS || event->type == GDK_3BUTTON_PRESS)
+	{
+		if(!docman->maximized)
+			anjuta_shell_maximize_widget(docman->shell, "AnjutaDocumentManager", NULL);
+		else
+			anjuta_shell_unmaximize(docman->shell, NULL);
+		docman->maximized = docman->maximized ? FALSE:TRUE;
+	}
+
+  return FALSE;
 }
 
 static void
@@ -485,6 +540,9 @@ anjuta_docman_page_init (AnjutaDocman *docman, IAnjutaDocument *doc,
 	g_signal_connect (G_OBJECT (box), "button-release-event",
 					  G_CALLBACK (on_notebook_tab_btnrelease),
 					  docman);
+	g_signal_connect (G_OBJECT (box), "event",
+	                  G_CALLBACK (on_notebook_tab_double_click),
+	                  docman);
 
 	page->widget = GTK_WIDGET (doc);	/* this is the notebook-page child widget */
 	page->doc = doc;
@@ -868,6 +926,7 @@ anjuta_docman_new (DocmanPlugin* plugin, AnjutaPreferences *pref)
 		real_docman->priv->plugin = plugin;
 		real_docman->priv->preferences = pref;
 		real_docman->priv->documents_action_group = gtk_action_group_new ("ActionGroupDocument");
+		real_docman->maximized = FALSE;
 		ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
 		gtk_ui_manager_insert_action_group (GTK_UI_MANAGER (ui), real_docman->priv->documents_action_group, 0);
 		g_object_unref (real_docman->priv->documents_action_group);

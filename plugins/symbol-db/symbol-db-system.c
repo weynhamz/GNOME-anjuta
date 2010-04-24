@@ -436,7 +436,7 @@ prepare_files_to_be_scanned (SymbolDBSystem *sdbs,
 	} while ((node = node->next) != NULL);
 }
 
-static inline void 
+static GNUC_INLINE void 
 sdb_system_do_scan_package_1 (SymbolDBSystem *sdbs,							
 							SingleScanData *ss_data)
 {
@@ -477,7 +477,7 @@ sdb_system_do_scan_next_package (SymbolDBSystem *sdbs)
 	}
 }
 
-static inline void
+static GNUC_INLINE void
 sdb_system_do_engine_scan (SymbolDBSystem *sdbs, EngineScanData *es_data)
 {
 	SymbolDBSystemPriv *priv;

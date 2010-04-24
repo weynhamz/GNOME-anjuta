@@ -186,7 +186,13 @@ static void sourceview_create_markers(Sourceview* sv)
 
 /* Create tags for highlighting */
 static void sourceview_create_highligth_indic(Sourceview* sv)
-{	
+{
+	char* error_color =
+		anjuta_preferences_get (anjuta_preferences_default(),
+		                        "messages.color.error");
+	char* warning_color =
+		anjuta_preferences_get (anjuta_preferences_default (),
+		                        "messages.color.warning");
 	sv->priv->important_indic = 
 		gtk_text_buffer_create_tag (GTK_TEXT_BUFFER(sv->priv->document),
 									IMPORTANT_INDIC,
@@ -194,14 +200,16 @@ static void sourceview_create_highligth_indic(Sourceview* sv)
 	sv->priv->warning_indic = 
 		gtk_text_buffer_create_tag (GTK_TEXT_BUFFER(sv->priv->document),
 									WARNING_INDIC,
-									"foreground", "#00FF00", 
+									"foreground", warning_color, 
 									"underline", PANGO_UNDERLINE_SINGLE,
 									NULL); 
 	sv->priv->critical_indic = 
 		gtk_text_buffer_create_tag (GTK_TEXT_BUFFER(sv->priv->document),
 									CRITICAL_INDIC,
-									"foreground", "#FF0000", "underline", 
+									"foreground", error_color, "underline", 
 									PANGO_UNDERLINE_ERROR, NULL);
+	g_free (error_color);
+	g_free (warning_color);
 }
 
 static void

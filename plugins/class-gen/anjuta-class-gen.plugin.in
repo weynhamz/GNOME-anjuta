@@ -2,7 +2,7 @@
 _Name=Class Generator
 _Description=Anjuta Class Generator Plugin
 Location=anjuta-class-gen:AnjutaClassGenPlugin
-Icon=class_logo.xpm
+Icon=anjuta-class-gen-plugin-48.png
 Interfaces=IAnjutaWizard
 UserActivatable=no
 

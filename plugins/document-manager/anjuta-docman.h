@@ -44,6 +44,7 @@ struct _AnjutaDocman {
 	GtkNotebook parent;
 	AnjutaDocmanPriv *priv;
 	AnjutaShell *shell;
+	gboolean maximized;
 };
 
 struct _AnjutaDocmanClass {

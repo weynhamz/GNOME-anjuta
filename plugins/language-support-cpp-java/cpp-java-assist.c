@@ -93,6 +93,10 @@ struct _CppJavaAssistPriv {
 	gboolean async_system;
 	gboolean async_project;
 
+	gint async_file_id;
+	gint async_system_id;	
+	gint async_project_id;	
+	
 	GCancellable* cancel_system;
 	GCancellable* cancel_file;
 	GCancellable* cancel_project;	
@@ -173,6 +177,8 @@ anjuta_proposal_completion_func (gpointer data)
 /**
  * cpp_java_assist_create_completion_from_symbols:
  * @symbols: Symbol iteration
+ * @local_only: Only include symbols with local file scope, useful for
+ *  concatination of file and project/global search to avoid duplicates
  * 
  * Create a list of IAnjutaEditorAssistProposals from a list of symbols
  *
@@ -180,12 +186,17 @@ anjuta_proposal_completion_func (gpointer data)
  * with cpp_java_assist_proposal_free()
  */
 static GList*
-cpp_java_assist_create_completion_from_symbols (IAnjutaIterable* symbols)
+cpp_java_assist_create_completion_from_symbols (IAnjutaIterable* symbols, gboolean local_only)
 {
 	GList* list = NULL;
 	do
 	{
 		IAnjutaSymbol* symbol = IANJUTA_SYMBOL (symbols);
+		if (local_only)
+		{
+			if (!ianjuta_symbol_is_local (symbol, NULL))
+				continue;
+		}
 		IAnjutaEditorAssistProposal* proposal = cpp_java_assist_proposal_new (symbol);	
 
 		list = g_list_append (list, proposal);
@@ -298,6 +309,12 @@ cpp_java_assist_is_expression_separator (gchar c, gboolean skip_braces, IAnjutaI
 {
 	IAnjutaEditorAttribute attrib = ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL(iter),
 	                                                                   NULL);
+	int i;
+	const gchar separators[] = {',', ';', '\n', '\r', '\t', '(',
+	                          '{', '}', '=', '<', '\v', '!',
+	                          '&', '%', '*', '[', ']', '?', '/',
+	                          '+', 0};
+	
 	if (attrib == IANJUTA_EDITOR_STRING ||
 	    attrib == IANJUTA_EDITOR_COMMENT)
 	{
@@ -312,10 +329,10 @@ cpp_java_assist_is_expression_separator (gchar c, gboolean skip_braces, IAnjutaI
 	else if (c == ')' && !skip_braces)
 		return FALSE;
 	
-	if (c == ',' || c == ';' || c == '\n' || c == '\r' || c == '\t' || c == '(' ||
-	    c == '{' || c == '}' || c == '=' || c == '<' || c == '\v' || c == '!')
+	for (i = 0; separators[i] != 0; i++)
 	{
-		return TRUE;
+		if (separators[i] == c)
+			return TRUE;
 	}	
 
 	return FALSE;
@@ -338,7 +355,7 @@ cpp_java_assist_parse_expression (CppJavaAssist* assist, IAnjutaIterable* iter, 
 	gboolean op_start = FALSE;
 	gboolean ref_start = FALSE;
 	gchar* stmt = NULL;
-
+	
 	/* Cursor points after the current characters, move back */
 	ianjuta_iterable_previous (cur_pos, NULL);
 	
@@ -549,7 +566,7 @@ cpp_java_assist_create_member_completion_cache (CppJavaAssist* assist, IAnjutaIt
 		if (children)
 		{
 			GList* proposals = 
-				cpp_java_assist_create_completion_from_symbols (children);
+				cpp_java_assist_create_completion_from_symbols (children, FALSE);
 			cpp_java_assist_create_completion_cache (assist);
 			g_completion_add_items (assist->priv->completion_cache, proposals);
 
@@ -579,7 +596,16 @@ cpp_java_assist_create_member_completion_cache (CppJavaAssist* assist, IAnjutaIt
 static void
 on_symbol_search_complete (gint search_id, IAnjutaIterable* symbols, CppJavaAssist* assist)
 {
-	GList* proposals = cpp_java_assist_create_completion_from_symbols (symbols);
+	GList* proposals;
+	if (search_id == assist->priv->async_file_id)
+	{
+		proposals = cpp_java_assist_create_completion_from_symbols (symbols, TRUE);
+	}
+	else
+	{
+		proposals = cpp_java_assist_create_completion_from_symbols (symbols, FALSE);
+	}
+
 	g_completion_add_items (assist->priv->completion_cache, proposals);
 	gboolean running = assist->priv->async_system || assist->priv->async_file ||
 		assist->priv->async_project;
@@ -671,16 +697,17 @@ cpp_java_assist_create_autocompletion_cache (CppJavaAssist* assist, IAnjutaItera
 				g_signal_connect (notify, "finished", G_CALLBACK(notify_file_finished), assist);
 				assist->priv->async_file = TRUE;
 				g_cancellable_reset (assist->priv->cancel_file);
-				ianjuta_symbol_manager_search_file_async (assist->priv->isymbol_manager,
-				                                          match_types,
-				                                          TRUE,
-				                                          fields,
-				                                          pattern, file, -1, -1, 
-				                                          assist->priv->cancel_file,
-				                                          notify, 
-				                                          (IAnjutaSymbolManagerSearchCallback) on_symbol_search_complete,
-				                                          assist,
-				                                          NULL);
+				assist->priv->async_file_id =
+					ianjuta_symbol_manager_search_file_async (assist->priv->isymbol_manager,
+					                                          match_types,
+					                                          TRUE,
+					                                          fields,
+					                                          pattern, file, -1, -1, 
+					                                          assist->priv->cancel_file,
+					                                          notify, 
+					                                          (IAnjutaSymbolManagerSearchCallback) on_symbol_search_complete,
+					                                          assist,
+					                                          NULL);
 				g_object_unref (file);
 			}
 		}
@@ -690,33 +717,35 @@ cpp_java_assist_create_autocompletion_cache (CppJavaAssist* assist, IAnjutaItera
 		g_signal_connect (notify, "finished", G_CALLBACK(notify_project_finished), assist);
 		assist->priv->async_project = TRUE;
 		g_cancellable_reset (assist->priv->cancel_project);
-		ianjuta_symbol_manager_search_project_async (assist->priv->isymbol_manager,
-		                                             match_types,
-		                                             TRUE,
-		                                             fields,
-		                                             pattern, 
-		                                             IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC, -1, -1, 
-		                                             assist->priv->cancel_project,
-		                                             notify, 
-		                                             (IAnjutaSymbolManagerSearchCallback) on_symbol_search_complete, 
-		                                             assist,
-		                                             NULL);
-
+		assist->priv->async_project_id =
+			ianjuta_symbol_manager_search_project_async (assist->priv->isymbol_manager,
+			                                             match_types,
+			                                             TRUE,
+			                                             fields,
+			                                             pattern, 
+			                                             IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC, -1, -1, 
+			                                             assist->priv->cancel_project,
+			                                             notify, 
+			                                             (IAnjutaSymbolManagerSearchCallback) on_symbol_search_complete, 
+			                                             assist,
+			                                             NULL);
+		
 
 		notify = anjuta_async_notify_new();
 		g_signal_connect (notify, "finished", G_CALLBACK(notify_system_finished), assist);
 		assist->priv->async_system = TRUE;
 		g_cancellable_reset (assist->priv->cancel_system);
-		ianjuta_symbol_manager_search_system_async (assist->priv->isymbol_manager,
-		                                            match_types,
-		                                            TRUE,
-		                                            fields,
-		                                            pattern, IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC, -1, -1,
-		                                            assist->priv->cancel_system,
-		                                            notify, 
-		                                            (IAnjutaSymbolManagerSearchCallback) on_symbol_search_complete, 
-		                                            assist,
-		                                            NULL);
+		assist->priv->async_system_id = 
+			ianjuta_symbol_manager_search_system_async (assist->priv->isymbol_manager,
+			                                            match_types,
+			                                            TRUE,
+			                                            fields,
+			                                            pattern, IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC, -1, -1,
+			                                            assist->priv->cancel_system,
+			                                            notify, 
+			                                            (IAnjutaSymbolManagerSearchCallback) on_symbol_search_complete, 
+			                                            assist,
+			                                            NULL);
 		g_free (pre_word);
 		g_free (pattern);
 

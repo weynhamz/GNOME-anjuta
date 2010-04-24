@@ -13,7 +13,10 @@ symbol_db_glade_DATA =  anjuta-symbol-db.ui
 
 # Plugin Icon file
 symbol_db_pixmapsdir = $(anjuta_image_dir)
-symbol_db_pixmaps_DATA = anjuta-symbol-db-plugin-48.png
+symbol_db_pixmaps_DATA = \
+	anjuta-symbol-db-plugin.svg \
+	anjuta-symbol-db-plugin-48.png \
+	anjuta-symbol-db-plugin-16.png
 
 # Plugin description file
 plugin_in_files = symbol-db.plugin.in
@@ -48,29 +51,44 @@ plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-symbol-db.la
 
 # Plugin sources
-libanjuta_symbol_db_la_SOURCES = plugin.c plugin.h \
-	readtags.c readtags.h \
+libanjuta_symbol_db_la_SOURCES = \
+	plugin.c \
+	plugin.h \
+	readtags.c \
+	readtags.h \
 	symbol-db-engine-iterator.c \
 	symbol-db-engine-iterator.h \
-	symbol-db-view.h \
-	symbol-db-view.c \
-	symbol-db-view-locals.c \
-	symbol-db-view-locals.h \
 	symbol-db-view-search.h \
 	symbol-db-view-search.c \
-  symbol-db-engine-iterator-node.h \
+	symbol-db-engine-iterator-node.h \
 	symbol-db-engine-iterator-node.c \
 	symbol-db-system.h \
-	symbol-db-system.c  symbol-db-prefs.h \
-	symbol-db-prefs.c  symbol-db-engine-queries.c \
-	symbol-db-engine-queries.h  symbol-db-engine-utils.c \
-	symbol-db-engine-utils.h  symbol-db-engine-priv.h \
-	symbol-db-engine-core.c  symbol-db-engine-core.h \
-	symbol-db-engine.h  symbol-db-iface.c \
-	symbol-db-iface.h  symbol-db-search-command.h \
+	symbol-db-system.c \
+	symbol-db-prefs.h \
+	symbol-db-prefs.c \
+	symbol-db-engine-queries.c \
+	symbol-db-engine-queries.h \
+	symbol-db-engine-utils.c \
+	symbol-db-engine-utils.h \
+	symbol-db-engine-priv.h \
+	symbol-db-engine-core.c \
+	symbol-db-engine-core.h \
+	symbol-db-engine.h \
+	symbol-db-iface.c \
+	symbol-db-iface.h \
+	symbol-db-search-command.h \
 	symbol-db-search-command.c \
+	symbol-db-model.c \
+	symbol-db-model.h \
+	symbol-db-model-project.c \
+	symbol-db-model-project.h \
+	symbol-db-model-file.c \
+	symbol-db-model-file.h \
+	symbol-db-views.c \
+	symbol-db-views.h \
 	libgda-extra/gda-data-model-concat.c \
-	libgda-extra/gda-data-model-concat.h
+	libgda-extra/gda-data-model-concat.h \
+	$(BUILT_SOURCES)
 
 libanjuta_symbol_db_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
@@ -79,6 +97,21 @@ libanjuta_symbol_db_la_LIBADD = \
 	$(GDL_LIBS) \
 	$(LIBANJUTA_LIBS) \
 	$(PLUGIN_SYMBOL_DB_LIBS)
+
+BUILT_SOURCES=symbol-db-marshal.c symbol-db-marshal.h
+
+symbol-db-marshal.h: symbol-db-marshal.list
+	$(AM_V_GEN)@GLIB_GENMARSHAL@ \
+	        --prefix=symbol_db_cclosure_marshal $(srcdir)/symbol-db-marshal.list --header > xgen-gmc \
+	&& cp xgen-gmc $(@F) \
+	&& rm -f xgen-gmc
+
+symbol-db-marshal.c: symbol-db-marshal.h symbol-db-marshal.list
+	$(AM_V_GEN)echo "#include \"symbol-db-marshal.h\"" > xgenc-gmc \
+	&& @GLIB_GENMARSHAL@ \
+	        --prefix=symbol_db_cclosure_marshal $(srcdir)/symbol-db-marshal.list --body >> xgenc-gmc \
+	&& cp xgenc-gmc $(@F) \
+	&& rm -f xgenc-gmc
 
 prefs_ui_files = anjuta-symbol-db.ui
 include $(top_srcdir)/scripts/build-schemas.mk
@@ -90,8 +123,5 @@ EXTRA_DIST = \
 	$(symbol_db_pixmaps_DATA) \
 	$(symbol_db_data_DATA) \
 	$(symbol_db_ui_DATA)
-
-
-
 
 -include $(top_srcdir)/git.mk

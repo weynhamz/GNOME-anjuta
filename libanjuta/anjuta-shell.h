@@ -105,6 +105,21 @@ struct _AnjutaShellIface {
 	void (*present_widget)    (AnjutaShell  *shell,
 							   GtkWidget    *widget,
 							   GError      **error);
+	
+	void (*iconify_dockable_widget) (AnjutaShell *shell, 
+                               GtkWidget    *widget,
+                               GError      **error);
+	void (*hide_dockable_widget) (AnjutaShell *shell, 
+                               GtkWidget    *widget,
+                               GError      **error);
+	void (*show_dockable_widget) (AnjutaShell *shell, 
+                               GtkWidget    *widget,
+                               GError      **error);
+	void (*maximize_widget)   (AnjutaShell  *shell,
+	                           const char   *widget_name,
+                               GError      **error);
+	void (*unmaximize)        (AnjutaShell  *shell,
+                               GError      **error);
 	void (*add_value)         (AnjutaShell  *shell,
 							   const char   *name,
 							   const GValue *value,
@@ -174,6 +189,20 @@ void   anjuta_shell_remove_widget   (AnjutaShell     *shell,
 void   anjuta_shell_present_widget  (AnjutaShell     *shell,
 									 GtkWidget       *widget,
 									 GError         **error);
+void anjuta_shell_iconify_dockable_widget (AnjutaShell *shell, 
+                                     GtkWidget   *widget,
+                                     GError      **error);
+void anjuta_shell_hide_dockable_widget (AnjutaShell *shell, 
+                                     GtkWidget   *widget,
+                                     GError      **error);
+void anjuta_shell_show_dockable_widget (AnjutaShell *shell, 
+                                     GtkWidget   *widget,
+                                     GError      **error);
+void anjuta_shell_maximize_widget   (AnjutaShell *shell,
+                                     const char  *widget_name,
+                                     GError      **error);
+void anjuta_shell_unmaximize        (AnjutaShell *shell,
+                                     GError      **error);
 void   anjuta_shell_add_value       (AnjutaShell     *shell,
 									 const char      *name,
 									 const GValue    *value,

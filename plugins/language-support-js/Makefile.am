@@ -29,14 +29,15 @@ js_support_plugin_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 # Include paths
 AM_CPPFLAGS = \
-	-Wall \
-	-Werror \
+	-I$(top_srcdir)/plugins/symbol-db/anjuta-tags/ \
+	$(WARN_CFLAGS) \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	-DANJUTA_DATA_DIR=\"$(anjuta_data_dir)\" \
 	-DANJUTA_PLUGIN_DIR=\"$(anjuta_plugin_dir)\" \
 	-DANJUTA_IMAGE_DIR=\"$(anjuta_image_dir)\" \
 	-DANJUTA_GLADE_DIR=\"$(anjuta_glade_dir)\" \
 	-DANJUTA_UI_DIR=\"$(anjuta_ui_dir)\" \
+	$(LIBXML_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
 	-DPACKAGE_SRC_DIR=\"$(srcdir)\" \
 	-DGIR_PATH=\"$(girdir)\" \
@@ -46,11 +47,17 @@ AM_CPPFLAGS = \
 plugindir = $(anjuta_plugin_dir)
 
 # The plugin
-plugin_LTLIBRARIES = libjs_support_plugin.la
+plugin_LTLIBRARIES = libjs-support-plugin.la
 
 # Plugin sources
 libjs_support_plugin_la_SOURCES = plugin.c plugin.h code-completion.c code-completion.h util.c util.h \
-y.tab.c y.tab.h lex.yy.c lex.yy.h js-node.c js-node.h js-context.c js-context.h jsparse.c jsparse.h ijs-symbol.h ijs-symbol.c gir-symbol.c gir-symbol.h gi-symbol.c gi-symbol.h simple-symbol.c simple-symbol.h local-symbol.c local-symbol.h  node-symbol.c node-symbol.h import-symbol.c import-symbol.h dir-symbol.c dir-symbol.h std-symbol.c std-symbol.h database-symbol.c database-symbol.h db-anjuta-symbol.c db-anjuta-symbol.h jstypes.h
+js-parser-y-tab.c js-parser-y-tab.h lex.yy.c lex.yy.h js-node.c js-node.h js-context.c js-context.h jsparse.c jsparse.h \
+ijs-symbol.h ijs-symbol.c gir-symbol.c gir-symbol.h gi-symbol.c gi-symbol.h simple-symbol.c \
+simple-symbol.h local-symbol.c local-symbol.h  node-symbol.c node-symbol.h import-symbol.c \
+import-symbol.h dir-symbol.c dir-symbol.h std-symbol.c std-symbol.h database-symbol.c database-symbol.h \
+db-anjuta-symbol.c db-anjuta-symbol.h jstypes.h
+
+libjs_support_plugin_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 # Plugin dependencies
 libjs_support_plugin_la_LIBADD = \

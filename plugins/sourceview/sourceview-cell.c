@@ -39,12 +39,39 @@ static void sourceview_cell_instance_init(SourceviewCell *sp);
 static void sourceview_cell_finalize(GObject *object);
 
 struct _SourceviewCellPrivate {
-	GtkTextMark* mark;
 	GtkTextView* view;
 	GtkTextBuffer* buffer;
+
+	gint offset;
 };
 
 static gpointer sourceview_cell_parent_class = NULL;
+
+/**
+ * sourceview_cell_update_offset:
+ * @cell: self
+ *
+ * Update the internal offset
+ */
+static void
+sourceview_cell_update_offset (SourceviewCell* cell, GtkTextIter* iter)
+{
+	cell->priv->offset = gtk_text_iter_get_offset (iter);
+}
+
+/**
+ * sourceview_cell_get_iter:
+ * @cell: self
+ * @iter: iterator to set
+ * Get the iterator for cell
+ */
+void
+sourceview_cell_get_iter (SourceviewCell* cell, GtkTextIter* iter)
+{
+	gtk_text_buffer_get_iter_at_offset (cell->priv->buffer,
+	                                    iter,
+	                                    cell->priv->offset);
+}
 
 static void
 sourceview_cell_class_init(SourceviewCellClass *klass)
@@ -59,7 +86,7 @@ sourceview_cell_class_init(SourceviewCellClass *klass)
 static void
 sourceview_cell_instance_init(SourceviewCell *obj)
 {
-	obj->priv = g_slice_new(SourceviewCellPrivate);
+	obj->priv = g_slice_new0(SourceviewCellPrivate);
 	
 	/* Initialize private members, etc. */	
 }
@@ -69,7 +96,7 @@ sourceview_cell_finalize(GObject *object)
 {
 	SourceviewCell *cobj;
 	cobj = SOURCEVIEW_CELL(object);
-	
+
 	g_slice_free(SourceviewCellPrivate, cobj->priv);
 	G_OBJECT_CLASS(sourceview_cell_parent_class)->finalize(object);
 }
@@ -80,18 +107,12 @@ sourceview_cell_new(GtkTextIter* iter, GtkTextView* view)
 	SourceviewCell *obj;
 	
 	obj = SOURCEVIEW_CELL(g_object_new(SOURCEVIEW_TYPE_CELL, NULL));
-	
+
 	obj->priv->buffer = gtk_text_view_get_buffer(view);
-	obj->priv->mark = gtk_text_buffer_create_mark (obj->priv->buffer, NULL, iter, FALSE);
 	obj->priv->view = view;
+	obj->priv->offset = gtk_text_iter_get_offset (iter);
 	
 	return obj;
-}
-
-void
-sourceview_cell_get_iter (SourceviewCell* cell, GtkTextIter* iter)
-{
-	gtk_text_buffer_get_iter_at_mark (cell->priv->buffer, iter, cell->priv->mark);
 }
 
 static gchar*
@@ -99,7 +120,7 @@ icell_get_character(IAnjutaEditorCell* icell, GError** e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(icell);
 	GtkTextIter iter;
-	gtk_text_buffer_get_iter_at_mark (cell->priv->buffer, &iter, cell->priv->mark);	
+	sourceview_cell_get_iter (cell, &iter);
 	gunichar c = gtk_text_iter_get_char (&iter);
 	gchar* outbuf = g_new0(gchar, 6);
 	g_unichar_to_utf8 (c, outbuf);
@@ -122,7 +143,7 @@ icell_get_char(IAnjutaEditorCell* icell, gint index, GError** e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(icell);
 	GtkTextIter iter;
-	gtk_text_buffer_get_iter_at_mark (cell->priv->buffer, &iter, cell->priv->mark);
+	sourceview_cell_get_iter (cell, &iter);
 	gunichar c = gtk_text_iter_get_char (&iter);
 	gchar* outbuf = g_new0(gchar, 6);
 	gint len = g_unichar_to_utf8 (c, outbuf);
@@ -139,9 +160,10 @@ static IAnjutaEditorAttribute
 icell_get_attribute (IAnjutaEditorCell* icell, GError **e)
 {
 	IAnjutaEditorAttribute attrib = IANJUTA_EDITOR_TEXT;
-	SourceviewCell* cell = SOURCEVIEW_CELL(icell);
 	GtkTextIter iter;
-	gtk_text_buffer_get_iter_at_mark (cell->priv->buffer, &iter, cell->priv->mark);
+	SourceviewCell* cell = SOURCEVIEW_CELL(icell);
+
+	sourceview_cell_get_iter (cell, &iter);
 
 	if (gtk_source_buffer_iter_has_context_class (GTK_SOURCE_BUFFER(cell->priv->buffer), &iter, "string"))
 		attrib = IANJUTA_EDITOR_STRING;
@@ -166,15 +188,8 @@ static gboolean
 iiter_first(IAnjutaIterable* iiter, GError** e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(iiter);
-	GtkTextIter iter;
-	gtk_text_buffer_get_iter_at_mark (cell->priv->buffer, &iter, cell->priv->mark);
-	gboolean retval = gtk_text_iter_is_start (&iter);
-	if (!retval)
-	{
-		gtk_text_iter_set_offset (&iter, 0);
-		gtk_text_buffer_move_mark (cell->priv->buffer, cell->priv->mark, &iter);
-	}
-	return retval;
+	cell->priv->offset = 0;
+	return TRUE;
 }
 
 static gboolean
@@ -182,10 +197,11 @@ iiter_next(IAnjutaIterable* iiter, GError** e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(iiter);
 	GtkTextIter iter;
-	gtk_text_buffer_get_iter_at_mark (cell->priv->buffer, &iter, cell->priv->mark);
-	gboolean retval = gtk_text_iter_forward_char(&iter);
-	if (retval)
-			gtk_text_buffer_move_mark (cell->priv->buffer, cell->priv->mark, &iter);
+	gboolean retval;
+	sourceview_cell_get_iter (cell, &iter);
+	retval = gtk_text_iter_forward_char (&iter);
+	sourceview_cell_update_offset (cell, &iter);
+
 	return retval;
 }
 
@@ -193,36 +209,28 @@ static gboolean
 iiter_previous(IAnjutaIterable* iiter, GError** e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(iiter);
-	GtkTextIter iter;
-	gtk_text_buffer_get_iter_at_mark (cell->priv->buffer, &iter, cell->priv->mark);
-	gboolean retval = gtk_text_iter_backward_char(&iter);
-	if (retval)
-			gtk_text_buffer_move_mark (cell->priv->buffer, cell->priv->mark, &iter);
-	return retval;
+	if (cell->priv->offset > 0)
+	{
+		cell->priv->offset--;
+		return TRUE;
+	}
+
+	return FALSE;
 }
 
 static gboolean
 iiter_last(IAnjutaIterable* iiter, GError** e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(iiter);
-	GtkTextIter iter;
-	gtk_text_buffer_get_iter_at_mark (cell->priv->buffer, &iter, cell->priv->mark);
-	gboolean retval = gtk_text_iter_is_end (&iter);
-	if (!retval)
-	{
-		gtk_text_iter_forward_to_end(&iter);
-		gtk_text_buffer_move_mark (cell->priv->buffer, cell->priv->mark, &iter);
-	}
-	return retval;
+	cell->priv->offset = -1;
+	return TRUE;
 }
 
 static void
 iiter_foreach(IAnjutaIterable* iiter, GFunc callback, gpointer data, GError** e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(iiter);
-	GtkTextIter iter;
-	gtk_text_buffer_get_iter_at_mark (cell->priv->buffer, &iter, cell->priv->mark);
-	GtkTextMark* cached = gtk_text_buffer_create_mark (cell->priv->buffer, NULL, &iter, FALSE);
+	gint old_offset = cell->priv->offset;
 	
 	iiter_first (IANJUTA_ITERABLE(cell), NULL);
 	
@@ -230,18 +238,14 @@ iiter_foreach(IAnjutaIterable* iiter, GFunc callback, gpointer data, GError** e)
 	{
 		(*callback)(cell, data);
 	}
-	gtk_text_buffer_delete_mark (cell->priv->buffer, cell->priv->mark);
-	cell->priv->mark = cached;
+	cell->priv->offset = old_offset;
 }
 
 static gboolean
 iiter_set_position (IAnjutaIterable* iiter, gint position, GError** e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(iiter);
-	GtkTextIter iter;
-	gtk_text_buffer_get_iter_at_mark (cell->priv->buffer, &iter, cell->priv->mark);
-	gtk_text_iter_set_offset(&iter, position);
-	gtk_text_buffer_move_mark (cell->priv->buffer, cell->priv->mark, &iter);
+	cell->priv->offset = position;
 	return TRUE;
 }
 
@@ -249,9 +253,7 @@ static gint
 iiter_get_position(IAnjutaIterable* iiter, GError** e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(iiter);
-	GtkTextIter iter;
-	gtk_text_buffer_get_iter_at_mark (cell->priv->buffer, &iter, cell->priv->mark);
-	return gtk_text_iter_get_offset(&iter);
+	return cell->priv->offset;
 }
 
 static gint
@@ -267,7 +269,7 @@ iiter_clone (IAnjutaIterable *iiter, GError **e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(iiter);
 	GtkTextIter iter;
-	gtk_text_buffer_get_iter_at_mark (cell->priv->buffer, &iter, cell->priv->mark);
+	sourceview_cell_get_iter (cell, &iter);
 	return IANJUTA_ITERABLE (sourceview_cell_new (&iter, cell->priv->view));
 }
 
@@ -276,9 +278,7 @@ iiter_assign (IAnjutaIterable *iiter, IAnjutaIterable *src_iter, GError **e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(iiter);
 	SourceviewCell* src_cell = SOURCEVIEW_CELL(src_iter);
-	GtkTextIter iter;
-	gtk_text_buffer_get_iter_at_mark (src_cell->priv->buffer, &iter, src_cell->priv->mark);
-	gtk_text_buffer_move_mark (cell->priv->buffer, cell->priv->mark, &iter);
+	cell->priv->offset = src_cell->priv->offset;
 }
 
 static gint
@@ -286,11 +286,13 @@ iiter_compare (IAnjutaIterable *iiter, IAnjutaIterable *iother_iter, GError **e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(iiter);
 	SourceviewCell* other_cell = SOURCEVIEW_CELL(iother_iter);
+
 	GtkTextIter iter;
 	GtkTextIter other_iter;
-	gtk_text_buffer_get_iter_at_mark (cell->priv->buffer, &iter, cell->priv->mark);
-	gtk_text_buffer_get_iter_at_mark (other_cell->priv->buffer, &other_iter, other_cell->priv->mark);
 
+	sourceview_cell_get_iter (cell, &iter);
+	sourceview_cell_get_iter (other_cell, &other_iter);
+	
 	return gtk_text_iter_compare (&iter, &other_iter);
 }
 
@@ -299,14 +301,8 @@ iiter_diff (IAnjutaIterable *iiter, IAnjutaIterable *iother_iter, GError **e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(iiter);
 	SourceviewCell* other_cell = SOURCEVIEW_CELL(iother_iter);
-
-	GtkTextIter iter;
-	GtkTextIter other_iter;
-	gtk_text_buffer_get_iter_at_mark (cell->priv->buffer, &iter, cell->priv->mark);
-	gtk_text_buffer_get_iter_at_mark (other_cell->priv->buffer, &other_iter, other_cell->priv->mark);
 	
-	return (gtk_text_iter_get_offset (&other_iter) 
-					- gtk_text_iter_get_offset (&iter));
+	return (other_cell->priv->offset - cell->priv->offset);
 }
 
 static void

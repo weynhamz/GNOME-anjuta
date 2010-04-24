@@ -13,8 +13,8 @@ plugin_in_files = anjuta-class-gen.plugin.in
 # Plugin pixmaps
 clsgen_pixmapsdir = $(anjuta_image_dir)
 clsgen_pixmaps_DATA = \
-	class_logo.xpm
-
+	anjuta-class-gen-plugin.svg \
+	anjuta-class-gen-plugin-48.png
 
 clsgen_plugindir = $(anjuta_plugin_dir)
 clsgen_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)

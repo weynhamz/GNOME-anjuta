@@ -28,7 +28,6 @@
 
 #include <jsapi.h>
 #include <jsscript.h>
-#include <jscntxt.h>
 #include <jsdbgapi.h>
 
 #include <gio/gio.h>
@@ -53,9 +52,6 @@ gint depth = 0;
 gboolean stepover = FALSE;
 gboolean stepout = FALSE;
 GList *breakpoint = NULL;
-
-/*Missed in .h but exported*/
-extern JSContext *gjs_context_get_context(GjsContext * js_context);
 
 static gchar *variable_get_desc(JSContext * cx, JSObject * obj);
 static gchar *command_get();
@@ -484,10 +480,10 @@ debug_init(int *argc, char ***argv, GjsContext * context)
 {
 	int i;
 	int flag;
-   int port = 1235;
+	int port = 1235;
 	struct in_addr sip;
 	struct sockaddr_in ssa;
-	JSContext *cx = gjs_context_get_context(context);
+	JSContext *cx = (JSContext *)gjs_context_get_native_context(context);
 	JSRuntime *rt = JS_GetRuntime(cx);
 	gchar *ip = NULL;
 	for (i = 0; i < *argc - 1; i++) {
@@ -500,7 +496,7 @@ debug_init(int *argc, char ***argv, GjsContext * context)
 		}
 	}
 
-   g_assert (port > 0);
+	g_assert (port > 0);
 
 	if (ip == NULL)
 		return;

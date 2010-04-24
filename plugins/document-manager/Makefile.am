@@ -23,6 +23,7 @@ AM_CPPFLAGS = \
 	$(DEPRECATED_FLAGS) \
 	$(GDL_CFLAGS) \
 	$(GIO_CFLAGS) \
+	$(LIBXML_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
 	-DG_LOG_DOMAIN=\"libanjuta-document-manager\"
 

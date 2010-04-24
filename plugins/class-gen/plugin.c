@@ -35,7 +35,7 @@
 
 #include "window.h"
 
-#define ICON_FILE "class_logo.xpm"
+#define ICON_FILE "anjuta-class-gen-plugin-48.png"
 
 static gpointer parent_class;
 

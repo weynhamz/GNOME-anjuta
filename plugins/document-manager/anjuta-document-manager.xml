@@ -104,6 +104,7 @@
 			<menu name="Documents" action="ActionMenuDocuments">
 				<menuitem name="SaveAll" action="ActionFileSaveAll" />
 				<menuitem name="CloseAll" action="ActionFileCloseAll" />
+				<menuitem name="CloseOther" action="ActionFileCloseOther" />
 				<separator />
 				<menu name="DocumentsBookmarks" action="ActionMenuBookmark">
 				  <menuitem name="AddBookmark" action="ActionBookmarkAdd" />
