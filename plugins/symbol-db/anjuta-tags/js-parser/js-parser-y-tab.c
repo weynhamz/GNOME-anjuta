@@ -68,7 +68,7 @@
 /* Copy the first part of user declarations.  */
 
 /* Line 189 of yacc.c  */
-#line 3 "./parser/Grammar.y"
+#line 3 "./js-parser/Grammar.y"
 
 
 /*
@@ -176,7 +176,7 @@ AUTO_SEMICOLON (int line)
 
 
 /* Line 189 of yacc.c  */
-#line 180 "./parser/js-parser-y-tab.c"
+#line 180 "./js-parser/js-parser-y-tab.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -276,7 +276,7 @@ typedef union YYSTYPE
 {
 
 /* Line 214 of yacc.c  */
-#line 109 "./parser/Grammar.y"
+#line 109 "./js-parser/Grammar.y"
 
     int intValue;
     JSNode* node;
@@ -288,7 +288,7 @@ typedef union YYSTYPE
 
 
 /* Line 214 of yacc.c  */
-#line 292 "./parser/js-parser-y-tab.c"
+#line 292 "./js-parser/js-parser-y-tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -333,7 +333,7 @@ void yypstate_delete ();
 
 
 /* Line 264 of yacc.c  */
-#line 337 "./parser/js-parser-y-tab.c"
+#line 337 "./js-parser/js-parser-y-tab.c"
 
 #ifdef short
 # undef short
@@ -2356,280 +2356,280 @@ yyreduce:
         case 2:
 
 /* Line 1455 of yacc.c  */
-#line 215 "./parser/Grammar.y"
+#line 215 "./js-parser/Grammar.y"
     { PRINT_LINE; (yyval.node) = node_new (TOK_NAME, PN_NAME); (yyval.node)->pn_u.name.name = (yyvsp[(1) - (1)].name).iname; (yyval.node)->pn_pos = (yyvsp[(1) - (1)].name).pos; (yyval.node)->pn_u.name.isconst = 0;;}
     break;
 
   case 3:
 
 /* Line 1455 of yacc.c  */
-#line 219 "./parser/Grammar.y"
+#line 219 "./js-parser/Grammar.y"
     { PRINT_LINE; (yyval.node) = NULL;;}
     break;
 
   case 4:
 
 /* Line 1455 of yacc.c  */
-#line 220 "./parser/Grammar.y"
+#line 220 "./js-parser/Grammar.y"
     { PRINT_LINE; (yyval.node) = NULL;;}
     break;
 
   case 5:
 
 /* Line 1455 of yacc.c  */
-#line 224 "./parser/Grammar.y"
+#line 224 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO; (yyval.node) = NULL;;}
     break;
 
   case 6:
 
 /* Line 1455 of yacc.c  */
-#line 225 "./parser/Grammar.y"
+#line 225 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO; (yyval.node) = NULL;;}
     break;
 
   case 7:
 
 /* Line 1455 of yacc.c  */
-#line 229 "./parser/Grammar.y"
+#line 229 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 8:
 
 /* Line 1455 of yacc.c  */
-#line 230 "./parser/Grammar.y"
+#line 230 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 9:
 
 /* Line 1455 of yacc.c  */
-#line 234 "./parser/Grammar.y"
+#line 234 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 10:
 
 /* Line 1455 of yacc.c  */
-#line 235 "./parser/Grammar.y"
+#line 235 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 11:
 
 /* Line 1455 of yacc.c  */
-#line 236 "./parser/Grammar.y"
+#line 236 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 12:
 
 /* Line 1455 of yacc.c  */
-#line 240 "./parser/Grammar.y"
+#line 240 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 13:
 
 /* Line 1455 of yacc.c  */
-#line 241 "./parser/Grammar.y"
+#line 241 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 16:
 
 /* Line 1455 of yacc.c  */
-#line 251 "./parser/Grammar.y"
+#line 251 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 17:
 
 /* Line 1455 of yacc.c  */
-#line 252 "./parser/Grammar.y"
+#line 252 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 18:
 
 /* Line 1455 of yacc.c  */
-#line 253 "./parser/Grammar.y"
+#line 253 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 19:
 
 /* Line 1455 of yacc.c  */
-#line 254 "./parser/Grammar.y"
+#line 254 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 20:
 
 /* Line 1455 of yacc.c  */
-#line 255 "./parser/Grammar.y"
+#line 255 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 21:
 
 /* Line 1455 of yacc.c  */
-#line 256 "./parser/Grammar.y"
+#line 256 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 22:
 
 /* Line 1455 of yacc.c  */
-#line 260 "./parser/Grammar.y"
+#line 260 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 23:
 
 /* Line 1455 of yacc.c  */
-#line 261 "./parser/Grammar.y"
+#line 261 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 24:
 
 /* Line 1455 of yacc.c  */
-#line 262 "./parser/Grammar.y"
+#line 262 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;/* TODO: FIX AtomEscape = IDENT*/ ;}
     break;
 
   case 25:
 
 /* Line 1455 of yacc.c  */
-#line 263 "./parser/Grammar.y"
+#line 263 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;/* TODO: FIX AtomEscape = IDENT*/ ;}
     break;
 
   case 26:
 
 /* Line 1455 of yacc.c  */
-#line 264 "./parser/Grammar.y"
+#line 264 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 27:
 
 /* Line 1455 of yacc.c  */
-#line 265 "./parser/Grammar.y"
+#line 265 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 28:
 
 /* Line 1455 of yacc.c  */
-#line 266 "./parser/Grammar.y"
+#line 266 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 29:
 
 /* Line 1455 of yacc.c  */
-#line 267 "./parser/Grammar.y"
+#line 267 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 30:
 
 /* Line 1455 of yacc.c  */
-#line 268 "./parser/Grammar.y"
+#line 268 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 31:
 
 /* Line 1455 of yacc.c  */
-#line 272 "./parser/Grammar.y"
+#line 272 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 32:
 
 /* Line 1455 of yacc.c  */
-#line 276 "./parser/Grammar.y"
+#line 276 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 33:
 
 /* Line 1455 of yacc.c  */
-#line 277 "./parser/Grammar.y"
+#line 277 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 34:
 
 /* Line 1455 of yacc.c  */
-#line 281 "./parser/Grammar.y"
+#line 281 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 35:
 
 /* Line 1455 of yacc.c  */
-#line 282 "./parser/Grammar.y"
+#line 282 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 36:
 
 /* Line 1455 of yacc.c  */
-#line 283 "./parser/Grammar.y"
+#line 283 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 37:
 
 /* Line 1455 of yacc.c  */
-#line 284 "./parser/Grammar.y"
+#line 284 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 38:
 
 /* Line 1455 of yacc.c  */
-#line 288 "./parser/Grammar.y"
+#line 288 "./js-parser/Grammar.y"
     { PRINT_LINE; (yyval.node) = node_new (TOK_PRIMARY, PN_NULLARY); (yyval.node)->pn_op = JSOP_NULL;;}
     break;
 
   case 39:
 
 /* Line 1455 of yacc.c  */
-#line 289 "./parser/Grammar.y"
+#line 289 "./js-parser/Grammar.y"
     { PRINT_LINE; (yyval.node) = node_new (TOK_PRIMARY, PN_NULLARY); (yyval.node)->pn_op = JSOP_TRUE;;}
     break;
 
   case 40:
 
 /* Line 1455 of yacc.c  */
-#line 290 "./parser/Grammar.y"
+#line 290 "./js-parser/Grammar.y"
     { PRINT_LINE; (yyval.node) = node_new (TOK_PRIMARY, PN_NULLARY); (yyval.node)->pn_op = JSOP_FALSE;;}
     break;
 
   case 41:
 
 /* Line 1455 of yacc.c  */
-#line 291 "./parser/Grammar.y"
+#line 291 "./js-parser/Grammar.y"
     { PRINT_LINE; (yyval.node) = node_new (TOK_NUMBER, PN_NULLARY);;}
     break;
 
   case 42:
 
 /* Line 1455 of yacc.c  */
-#line 292 "./parser/Grammar.y"
+#line 292 "./js-parser/Grammar.y"
     { PRINT_LINE; (yyval.node) = node_new (TOK_STRING, PN_NULLARY);;}
     break;
 
   case 43:
 
 /* Line 1455 of yacc.c  */
-#line 296 "./parser/Grammar.y"
+#line 296 "./js-parser/Grammar.y"
     { PRINT_LINE;
 							(yyval.node) = node_new (TOK_COLON, PN_BINARY);
 							(yyval.node)->pn_u.binary.left = (yyvsp[(1) - (3)].node);
@@ -2642,7 +2642,7 @@ yyreduce:
   case 44:
 
 /* Line 1455 of yacc.c  */
-#line 303 "./parser/Grammar.y"
+#line 303 "./js-parser/Grammar.y"
     { PRINT_LINE;
 							(yyval.node) = node_new (TOK_COLON, PN_BINARY);
 							(yyval.node)->pn_u.binary.left = (yyvsp[(1) - (3)].node);
@@ -2654,7 +2654,7 @@ yyreduce:
   case 45:
 
 /* Line 1455 of yacc.c  */
-#line 309 "./parser/Grammar.y"
+#line 309 "./js-parser/Grammar.y"
     { PRINT_LINE;
 							(yyval.node) = node_new (TOK_COLON, PN_BINARY);
 							(yyval.node)->pn_u.binary.left = (yyvsp[(1) - (3)].node);
@@ -2666,21 +2666,21 @@ yyreduce:
   case 46:
 
 /* Line 1455 of yacc.c  */
-#line 315 "./parser/Grammar.y"
+#line 315 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 47:
 
 /* Line 1455 of yacc.c  */
-#line 317 "./parser/Grammar.y"
+#line 317 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 48:
 
 /* Line 1455 of yacc.c  */
-#line 321 "./parser/Grammar.y"
+#line 321 "./js-parser/Grammar.y"
     { PRINT_LINE;
 							(yyval.node) = node_new (TOK_RC, PN_LIST);
 							(yyval.node)->pn_u.list.head = (yyvsp[(1) - (1)].node);
@@ -2691,7 +2691,7 @@ yyreduce:
   case 49:
 
 /* Line 1455 of yacc.c  */
-#line 326 "./parser/Grammar.y"
+#line 326 "./js-parser/Grammar.y"
     { PRINT_LINE; 
 							(yyval.node) = (yyvsp[(1) - (3)].node);
 							node_correct_position ((yyval.node), (yyvsp[(3) - (3)].node));
@@ -2708,14 +2708,14 @@ yyreduce:
   case 51:
 
 /* Line 1455 of yacc.c  */
-#line 341 "./parser/Grammar.y"
+#line 341 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 52:
 
 /* Line 1455 of yacc.c  */
-#line 342 "./parser/Grammar.y"
+#line 342 "./js-parser/Grammar.y"
     { PRINT_LINE;
 									(yyval.node) = (yyvsp[(2) - (3)].node);
 									node_correct_position_end ((yyval.node), (yyvsp[(3) - (3)].intValue));
@@ -2725,7 +2725,7 @@ yyreduce:
   case 53:
 
 /* Line 1455 of yacc.c  */
-#line 347 "./parser/Grammar.y"
+#line 347 "./js-parser/Grammar.y"
     { PRINT_LINE;
 									(yyval.node) = (yyvsp[(2) - (4)].node);
 									node_correct_position_end ((yyval.node), (yyvsp[(4) - (4)].intValue));
@@ -2735,98 +2735,98 @@ yyreduce:
   case 54:
 
 /* Line 1455 of yacc.c  */
-#line 354 "./parser/Grammar.y"
+#line 354 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = node_new (TOK_PRIMARY, PN_NULLARY); (yyval.node)->pn_op = JSOP_THIS;;}
     break;
 
   case 57:
 
 /* Line 1455 of yacc.c  */
-#line 357 "./parser/Grammar.y"
+#line 357 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = (yyvsp[(1) - (1)].node);;}
     break;
 
   case 58:
 
 /* Line 1455 of yacc.c  */
-#line 358 "./parser/Grammar.y"
+#line 358 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = (yyvsp[(2) - (3)].node);;}
     break;
 
   case 59:
 
 /* Line 1455 of yacc.c  */
-#line 362 "./parser/Grammar.y"
+#line 362 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 60:
 
 /* Line 1455 of yacc.c  */
-#line 363 "./parser/Grammar.y"
+#line 363 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 61:
 
 /* Line 1455 of yacc.c  */
-#line 364 "./parser/Grammar.y"
+#line 364 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 62:
 
 /* Line 1455 of yacc.c  */
-#line 368 "./parser/Grammar.y"
+#line 368 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 63:
 
 /* Line 1455 of yacc.c  */
-#line 370 "./parser/Grammar.y"
+#line 370 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 64:
 
 /* Line 1455 of yacc.c  */
-#line 374 "./parser/Grammar.y"
+#line 374 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 66:
 
 /* Line 1455 of yacc.c  */
-#line 379 "./parser/Grammar.y"
+#line 379 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 67:
 
 /* Line 1455 of yacc.c  */
-#line 380 "./parser/Grammar.y"
+#line 380 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 70:
 
 /* Line 1455 of yacc.c  */
-#line 386 "./parser/Grammar.y"
+#line 386 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = (yyvsp[(1) - (1)].node);;}
     break;
 
   case 71:
 
 /* Line 1455 of yacc.c  */
-#line 387 "./parser/Grammar.y"
+#line 387 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 72:
 
 /* Line 1455 of yacc.c  */
-#line 388 "./parser/Grammar.y"
+#line 388 "./js-parser/Grammar.y"
     { PRINT_LINE;
 							(yyval.node) = node_new ( TOK_DOT, PN_NAME);
 							(yyval.node)->pn_u.name.expr = (yyvsp[(1) - (3)].node);
@@ -2839,7 +2839,7 @@ yyreduce:
   case 73:
 
 /* Line 1455 of yacc.c  */
-#line 395 "./parser/Grammar.y"
+#line 395 "./js-parser/Grammar.y"
     { PRINT_LINE;
 							(yyval.node) = node_new ( TOK_NEW, PN_LIST);
 							(yyval.node)->pn_u.list.head = (yyvsp[(2) - (3)].node);
@@ -2852,14 +2852,14 @@ yyreduce:
   case 75:
 
 /* Line 1455 of yacc.c  */
-#line 406 "./parser/Grammar.y"
+#line 406 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 76:
 
 /* Line 1455 of yacc.c  */
-#line 407 "./parser/Grammar.y"
+#line 407 "./js-parser/Grammar.y"
     { PRINT_LINE;
 							(yyval.node) = node_new ( TOK_DOT, PN_NAME);
 							(yyval.node)->pn_u.name.expr = (yyvsp[(1) - (3)].node);
@@ -2872,28 +2872,28 @@ yyreduce:
   case 77:
 
 /* Line 1455 of yacc.c  */
-#line 414 "./parser/Grammar.y"
+#line 414 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 79:
 
 /* Line 1455 of yacc.c  */
-#line 419 "./parser/Grammar.y"
+#line 419 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 81:
 
 /* Line 1455 of yacc.c  */
-#line 424 "./parser/Grammar.y"
+#line 424 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 82:
 
 /* Line 1455 of yacc.c  */
-#line 428 "./parser/Grammar.y"
+#line 428 "./js-parser/Grammar.y"
     { PRINT_LINE;
 							(yyval.node) = node_new ( TOK_LP, PN_LIST);
 							(yyvsp[(1) - (2)].node)->pn_next = (yyvsp[(2) - (2)].node);
@@ -2906,7 +2906,7 @@ yyreduce:
   case 83:
 
 /* Line 1455 of yacc.c  */
-#line 435 "./parser/Grammar.y"
+#line 435 "./js-parser/Grammar.y"
     { PRINT_LINE;
 							(yyval.node) = node_new ( TOK_LP, PN_LIST);
 							(yyvsp[(1) - (2)].node)->pn_next = (yyvsp[(2) - (2)].node);
@@ -2919,14 +2919,14 @@ yyreduce:
   case 84:
 
 /* Line 1455 of yacc.c  */
-#line 442 "./parser/Grammar.y"
+#line 442 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 85:
 
 /* Line 1455 of yacc.c  */
-#line 443 "./parser/Grammar.y"
+#line 443 "./js-parser/Grammar.y"
     { PRINT_LINE;
 							(yyval.node) = node_new ( TOK_DOT, PN_NAME);
 							(yyval.node)->pn_u.name.expr = (yyvsp[(1) - (3)].node);
@@ -2939,7 +2939,7 @@ yyreduce:
   case 86:
 
 /* Line 1455 of yacc.c  */
-#line 453 "./parser/Grammar.y"
+#line 453 "./js-parser/Grammar.y"
     { PRINT_LINE;
 							(yyval.node) = node_new ( TOK_LP, PN_LIST);
 							(yyvsp[(1) - (2)].node)->pn_next = (yyvsp[(2) - (2)].node);
@@ -2952,7 +2952,7 @@ yyreduce:
   case 87:
 
 /* Line 1455 of yacc.c  */
-#line 460 "./parser/Grammar.y"
+#line 460 "./js-parser/Grammar.y"
     { PRINT_LINE;
 							(yyval.node) = node_new ( TOK_LP, PN_LIST);
 							(yyvsp[(1) - (2)].node)->pn_next = (yyvsp[(2) - (2)].node);
@@ -2965,14 +2965,14 @@ yyreduce:
   case 88:
 
 /* Line 1455 of yacc.c  */
-#line 467 "./parser/Grammar.y"
+#line 467 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 89:
 
 /* Line 1455 of yacc.c  */
-#line 468 "./parser/Grammar.y"
+#line 468 "./js-parser/Grammar.y"
     { PRINT_LINE;
 							(yyval.node) = node_new ( TOK_DOT, PN_NAME);
 							(yyval.node)->pn_u.name.expr = (yyvsp[(1) - (3)].node);
@@ -2985,28 +2985,28 @@ yyreduce:
   case 90:
 
 /* Line 1455 of yacc.c  */
-#line 478 "./parser/Grammar.y"
+#line 478 "./js-parser/Grammar.y"
     { PRINT_LINE_NOTNEED;  (yyval.node) = NULL;;}
     break;
 
   case 91:
 
 /* Line 1455 of yacc.c  */
-#line 479 "./parser/Grammar.y"
+#line 479 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = (yyvsp[(2) - (3)].node);;}
     break;
 
   case 92:
 
 /* Line 1455 of yacc.c  */
-#line 483 "./parser/Grammar.y"
+#line 483 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = (yyvsp[(1) - (1)].node);;}
     break;
 
   case 93:
 
 /* Line 1455 of yacc.c  */
-#line 484 "./parser/Grammar.y"
+#line 484 "./js-parser/Grammar.y"
     { PRINT_LINE;
 							(yyval.node) = (yyvsp[(1) - (3)].node);
 							if ((yyvsp[(1) - (3)].node)) (yyvsp[(1) - (3)].node)->pn_next = (yyvsp[(3) - (3)].node);
@@ -3018,553 +3018,553 @@ yyreduce:
   case 99:
 
 /* Line 1455 of yacc.c  */
-#line 504 "./parser/Grammar.y"
+#line 504 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = (yyvsp[(1) - (2)].node);;}
     break;
 
   case 100:
 
 /* Line 1455 of yacc.c  */
-#line 505 "./parser/Grammar.y"
+#line 505 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = (yyvsp[(1) - (2)].node);;}
     break;
 
   case 102:
 
 /* Line 1455 of yacc.c  */
-#line 510 "./parser/Grammar.y"
+#line 510 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 103:
 
 /* Line 1455 of yacc.c  */
-#line 511 "./parser/Grammar.y"
+#line 511 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 104:
 
 /* Line 1455 of yacc.c  */
-#line 515 "./parser/Grammar.y"
+#line 515 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 105:
 
 /* Line 1455 of yacc.c  */
-#line 516 "./parser/Grammar.y"
+#line 516 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 106:
 
 /* Line 1455 of yacc.c  */
-#line 517 "./parser/Grammar.y"
+#line 517 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 107:
 
 /* Line 1455 of yacc.c  */
-#line 518 "./parser/Grammar.y"
+#line 518 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 108:
 
 /* Line 1455 of yacc.c  */
-#line 519 "./parser/Grammar.y"
+#line 519 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 109:
 
 /* Line 1455 of yacc.c  */
-#line 520 "./parser/Grammar.y"
+#line 520 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 110:
 
 /* Line 1455 of yacc.c  */
-#line 521 "./parser/Grammar.y"
+#line 521 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 111:
 
 /* Line 1455 of yacc.c  */
-#line 522 "./parser/Grammar.y"
+#line 522 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 112:
 
 /* Line 1455 of yacc.c  */
-#line 523 "./parser/Grammar.y"
+#line 523 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 113:
 
 /* Line 1455 of yacc.c  */
-#line 524 "./parser/Grammar.y"
+#line 524 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 114:
 
 /* Line 1455 of yacc.c  */
-#line 525 "./parser/Grammar.y"
+#line 525 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 120:
 
 /* Line 1455 of yacc.c  */
-#line 539 "./parser/Grammar.y"
+#line 539 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = (yyvsp[(3) - (3)].node);;}
     break;
 
   case 121:
 
 /* Line 1455 of yacc.c  */
-#line 540 "./parser/Grammar.y"
+#line 540 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = (yyvsp[(3) - (3)].node);;}
     break;
 
   case 122:
 
 /* Line 1455 of yacc.c  */
-#line 541 "./parser/Grammar.y"
+#line 541 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = (yyvsp[(3) - (3)].node);;}
     break;
 
   case 124:
 
 /* Line 1455 of yacc.c  */
-#line 547 "./parser/Grammar.y"
+#line 547 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = (yyvsp[(3) - (3)].node);;}
     break;
 
   case 125:
 
 /* Line 1455 of yacc.c  */
-#line 549 "./parser/Grammar.y"
+#line 549 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = (yyvsp[(3) - (3)].node);;}
     break;
 
   case 126:
 
 /* Line 1455 of yacc.c  */
-#line 551 "./parser/Grammar.y"
+#line 551 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = (yyvsp[(3) - (3)].node);;}
     break;
 
   case 128:
 
 /* Line 1455 of yacc.c  */
-#line 556 "./parser/Grammar.y"
+#line 556 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = (yyvsp[(3) - (3)].node);;}
     break;
 
   case 129:
 
 /* Line 1455 of yacc.c  */
-#line 557 "./parser/Grammar.y"
+#line 557 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = (yyvsp[(3) - (3)].node);;}
     break;
 
   case 131:
 
 /* Line 1455 of yacc.c  */
-#line 563 "./parser/Grammar.y"
+#line 563 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = (yyvsp[(3) - (3)].node);;}
     break;
 
   case 132:
 
 /* Line 1455 of yacc.c  */
-#line 565 "./parser/Grammar.y"
+#line 565 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = (yyvsp[(3) - (3)].node);;}
     break;
 
   case 134:
 
 /* Line 1455 of yacc.c  */
-#line 570 "./parser/Grammar.y"
+#line 570 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 135:
 
 /* Line 1455 of yacc.c  */
-#line 571 "./parser/Grammar.y"
+#line 571 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 136:
 
 /* Line 1455 of yacc.c  */
-#line 572 "./parser/Grammar.y"
+#line 572 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 138:
 
 /* Line 1455 of yacc.c  */
-#line 577 "./parser/Grammar.y"
+#line 577 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 139:
 
 /* Line 1455 of yacc.c  */
-#line 578 "./parser/Grammar.y"
+#line 578 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 140:
 
 /* Line 1455 of yacc.c  */
-#line 579 "./parser/Grammar.y"
+#line 579 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 142:
 
 /* Line 1455 of yacc.c  */
-#line 584 "./parser/Grammar.y"
+#line 584 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 143:
 
 /* Line 1455 of yacc.c  */
-#line 585 "./parser/Grammar.y"
+#line 585 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 144:
 
 /* Line 1455 of yacc.c  */
-#line 586 "./parser/Grammar.y"
+#line 586 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 145:
 
 /* Line 1455 of yacc.c  */
-#line 587 "./parser/Grammar.y"
+#line 587 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 146:
 
 /* Line 1455 of yacc.c  */
-#line 588 "./parser/Grammar.y"
+#line 588 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 147:
 
 /* Line 1455 of yacc.c  */
-#line 589 "./parser/Grammar.y"
+#line 589 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 149:
 
 /* Line 1455 of yacc.c  */
-#line 594 "./parser/Grammar.y"
+#line 594 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 150:
 
 /* Line 1455 of yacc.c  */
-#line 595 "./parser/Grammar.y"
+#line 595 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 151:
 
 /* Line 1455 of yacc.c  */
-#line 596 "./parser/Grammar.y"
+#line 596 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 152:
 
 /* Line 1455 of yacc.c  */
-#line 597 "./parser/Grammar.y"
+#line 597 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 153:
 
 /* Line 1455 of yacc.c  */
-#line 599 "./parser/Grammar.y"
+#line 599 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 155:
 
 /* Line 1455 of yacc.c  */
-#line 604 "./parser/Grammar.y"
+#line 604 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 156:
 
 /* Line 1455 of yacc.c  */
-#line 605 "./parser/Grammar.y"
+#line 605 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 157:
 
 /* Line 1455 of yacc.c  */
-#line 606 "./parser/Grammar.y"
+#line 606 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 158:
 
 /* Line 1455 of yacc.c  */
-#line 607 "./parser/Grammar.y"
+#line 607 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 159:
 
 /* Line 1455 of yacc.c  */
-#line 609 "./parser/Grammar.y"
+#line 609 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 160:
 
 /* Line 1455 of yacc.c  */
-#line 611 "./parser/Grammar.y"
+#line 611 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 162:
 
 /* Line 1455 of yacc.c  */
-#line 616 "./parser/Grammar.y"
+#line 616 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 163:
 
 /* Line 1455 of yacc.c  */
-#line 617 "./parser/Grammar.y"
+#line 617 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 164:
 
 /* Line 1455 of yacc.c  */
-#line 618 "./parser/Grammar.y"
+#line 618 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 165:
 
 /* Line 1455 of yacc.c  */
-#line 619 "./parser/Grammar.y"
+#line 619 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 167:
 
 /* Line 1455 of yacc.c  */
-#line 625 "./parser/Grammar.y"
+#line 625 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 168:
 
 /* Line 1455 of yacc.c  */
-#line 627 "./parser/Grammar.y"
+#line 627 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 169:
 
 /* Line 1455 of yacc.c  */
-#line 629 "./parser/Grammar.y"
+#line 629 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 170:
 
 /* Line 1455 of yacc.c  */
-#line 631 "./parser/Grammar.y"
+#line 631 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 172:
 
 /* Line 1455 of yacc.c  */
-#line 637 "./parser/Grammar.y"
+#line 637 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 173:
 
 /* Line 1455 of yacc.c  */
-#line 638 "./parser/Grammar.y"
+#line 638 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 174:
 
 /* Line 1455 of yacc.c  */
-#line 640 "./parser/Grammar.y"
+#line 640 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 175:
 
 /* Line 1455 of yacc.c  */
-#line 642 "./parser/Grammar.y"
+#line 642 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 177:
 
 /* Line 1455 of yacc.c  */
-#line 647 "./parser/Grammar.y"
+#line 647 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 179:
 
 /* Line 1455 of yacc.c  */
-#line 653 "./parser/Grammar.y"
+#line 653 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 181:
 
 /* Line 1455 of yacc.c  */
-#line 658 "./parser/Grammar.y"
+#line 658 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 183:
 
 /* Line 1455 of yacc.c  */
-#line 663 "./parser/Grammar.y"
+#line 663 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 185:
 
 /* Line 1455 of yacc.c  */
-#line 669 "./parser/Grammar.y"
+#line 669 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 187:
 
 /* Line 1455 of yacc.c  */
-#line 675 "./parser/Grammar.y"
+#line 675 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 189:
 
 /* Line 1455 of yacc.c  */
-#line 680 "./parser/Grammar.y"
+#line 680 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 191:
 
 /* Line 1455 of yacc.c  */
-#line 686 "./parser/Grammar.y"
+#line 686 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 193:
 
 /* Line 1455 of yacc.c  */
-#line 692 "./parser/Grammar.y"
+#line 692 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 195:
 
 /* Line 1455 of yacc.c  */
-#line 697 "./parser/Grammar.y"
+#line 697 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 197:
 
 /* Line 1455 of yacc.c  */
-#line 703 "./parser/Grammar.y"
+#line 703 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 199:
 
 /* Line 1455 of yacc.c  */
-#line 709 "./parser/Grammar.y"
+#line 709 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 201:
 
 /* Line 1455 of yacc.c  */
-#line 714 "./parser/Grammar.y"
+#line 714 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 203:
 
 /* Line 1455 of yacc.c  */
-#line 720 "./parser/Grammar.y"
+#line 720 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 205:
 
 /* Line 1455 of yacc.c  */
-#line 725 "./parser/Grammar.y"
+#line 725 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 207:
 
 /* Line 1455 of yacc.c  */
-#line 731 "./parser/Grammar.y"
+#line 731 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 209:
 
 /* Line 1455 of yacc.c  */
-#line 737 "./parser/Grammar.y"
+#line 737 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 211:
 
 /* Line 1455 of yacc.c  */
-#line 743 "./parser/Grammar.y"
+#line 743 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 213:
 
 /* Line 1455 of yacc.c  */
-#line 749 "./parser/Grammar.y"
+#line 749 "./js-parser/Grammar.y"
     { PRINT_LINE;
 							(yyval.node) = node_new (TOK_ASSIGN, PN_BINARY);
 							(yyval.node)->pn_u.binary.left = (yyvsp[(1) - (3)].node);
@@ -3577,7 +3577,7 @@ yyreduce:
   case 215:
 
 /* Line 1455 of yacc.c  */
-#line 761 "./parser/Grammar.y"
+#line 761 "./js-parser/Grammar.y"
     { PRINT_LINE;
 							(yyval.node) = node_new (TOK_ASSIGN, PN_BINARY);
 							(yyval.node)->pn_u.binary.left = (yyvsp[(1) - (3)].node);
@@ -3590,7 +3590,7 @@ yyreduce:
   case 217:
 
 /* Line 1455 of yacc.c  */
-#line 773 "./parser/Grammar.y"
+#line 773 "./js-parser/Grammar.y"
     { PRINT_LINE;
 							(yyval.node) = node_new (TOK_ASSIGN, PN_BINARY);
 							(yyval.node)->pn_u.binary.left = (yyvsp[(1) - (3)].node);
@@ -3603,112 +3603,112 @@ yyreduce:
   case 218:
 
 /* Line 1455 of yacc.c  */
-#line 783 "./parser/Grammar.y"
+#line 783 "./js-parser/Grammar.y"
     { PRINT_LINE_NOTNEED;  (yyval.node) = NULL;;}
     break;
 
   case 219:
 
 /* Line 1455 of yacc.c  */
-#line 784 "./parser/Grammar.y"
+#line 784 "./js-parser/Grammar.y"
     { PRINT_LINE_NOTNEED;  (yyval.node) = NULL;;}
     break;
 
   case 220:
 
 /* Line 1455 of yacc.c  */
-#line 785 "./parser/Grammar.y"
+#line 785 "./js-parser/Grammar.y"
     { PRINT_LINE_NOTNEED;  (yyval.node) = NULL;;}
     break;
 
   case 221:
 
 /* Line 1455 of yacc.c  */
-#line 786 "./parser/Grammar.y"
+#line 786 "./js-parser/Grammar.y"
     { PRINT_LINE_NOTNEED;  (yyval.node) = NULL;;}
     break;
 
   case 222:
 
 /* Line 1455 of yacc.c  */
-#line 787 "./parser/Grammar.y"
+#line 787 "./js-parser/Grammar.y"
     { PRINT_LINE_NOTNEED;  (yyval.node) = NULL;;}
     break;
 
   case 223:
 
 /* Line 1455 of yacc.c  */
-#line 788 "./parser/Grammar.y"
+#line 788 "./js-parser/Grammar.y"
     { PRINT_LINE_NOTNEED;  (yyval.node) = NULL;;}
     break;
 
   case 224:
 
 /* Line 1455 of yacc.c  */
-#line 789 "./parser/Grammar.y"
+#line 789 "./js-parser/Grammar.y"
     { PRINT_LINE_NOTNEED;  (yyval.node) = NULL;;}
     break;
 
   case 225:
 
 /* Line 1455 of yacc.c  */
-#line 790 "./parser/Grammar.y"
+#line 790 "./js-parser/Grammar.y"
     { PRINT_LINE_NOTNEED;  (yyval.node) = NULL;;}
     break;
 
   case 226:
 
 /* Line 1455 of yacc.c  */
-#line 791 "./parser/Grammar.y"
+#line 791 "./js-parser/Grammar.y"
     { PRINT_LINE_NOTNEED;  (yyval.node) = NULL;;}
     break;
 
   case 227:
 
 /* Line 1455 of yacc.c  */
-#line 792 "./parser/Grammar.y"
+#line 792 "./js-parser/Grammar.y"
     { PRINT_LINE_NOTNEED;  (yyval.node) = NULL;;}
     break;
 
   case 228:
 
 /* Line 1455 of yacc.c  */
-#line 793 "./parser/Grammar.y"
+#line 793 "./js-parser/Grammar.y"
     { PRINT_LINE_NOTNEED;  (yyval.node) = NULL;;}
     break;
 
   case 229:
 
 /* Line 1455 of yacc.c  */
-#line 794 "./parser/Grammar.y"
+#line 794 "./js-parser/Grammar.y"
     { PRINT_LINE_NOTNEED;  (yyval.node) = NULL;;}
     break;
 
   case 231:
 
 /* Line 1455 of yacc.c  */
-#line 799 "./parser/Grammar.y"
+#line 799 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = (yyvsp[(3) - (3)].node);;}
     break;
 
   case 233:
 
 /* Line 1455 of yacc.c  */
-#line 804 "./parser/Grammar.y"
+#line 804 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = (yyvsp[(3) - (3)].node);;}
     break;
 
   case 235:
 
 /* Line 1455 of yacc.c  */
-#line 809 "./parser/Grammar.y"
+#line 809 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = (yyvsp[(3) - (3)].node);;}
     break;
 
   case 253:
 
 /* Line 1455 of yacc.c  */
-#line 833 "./parser/Grammar.y"
+#line 833 "./js-parser/Grammar.y"
     { PRINT_LINE;
 									(yyval.node) = node_new (TOK_LC, PN_LIST);
 									(yyval.node)->pn_u.list.head = NULL;
@@ -3719,7 +3719,7 @@ yyreduce:
   case 254:
 
 /* Line 1455 of yacc.c  */
-#line 838 "./parser/Grammar.y"
+#line 838 "./js-parser/Grammar.y"
     { PRINT_LINE;
 									(yyval.node) = node_new (TOK_LC, PN_LIST);
 									(yyval.node)->pn_u.list.head = (yyvsp[(2) - (3)].node);
@@ -3731,21 +3731,21 @@ yyreduce:
   case 255:
 
 /* Line 1455 of yacc.c  */
-#line 847 "./parser/Grammar.y"
+#line 847 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = (yyvsp[(2) - (3)].node);;}
     break;
 
   case 256:
 
 /* Line 1455 of yacc.c  */
-#line 848 "./parser/Grammar.y"
+#line 848 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = (yyvsp[(2) - (3)].node); AUTO_SEMICOLON (node_get_line ((yyvsp[(2) - (3)].node))); ;}
     break;
 
   case 257:
 
 /* Line 1455 of yacc.c  */
-#line 852 "./parser/Grammar.y"
+#line 852 "./js-parser/Grammar.y"
     { PRINT_LINE;
 							(yyval.node) = node_new (TOK_VAR, PN_LIST);
 							(yyval.node)->pn_u.list.head = (yyvsp[(1) - (1)].node);
@@ -3756,7 +3756,7 @@ yyreduce:
   case 258:
 
 /* Line 1455 of yacc.c  */
-#line 857 "./parser/Grammar.y"
+#line 857 "./js-parser/Grammar.y"
     { PRINT_LINE;
 							(yyval.node) = node_new (TOK_VAR, PN_LIST);
 							(yyval.node)->pn_u.list.head = (yyvsp[(1) - (2)].node);
@@ -3769,7 +3769,7 @@ yyreduce:
   case 259:
 
 /* Line 1455 of yacc.c  */
-#line 865 "./parser/Grammar.y"
+#line 865 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = (yyvsp[(1) - (3)].node);
 							if ((yyvsp[(3) - (3)].node)) {
 								g_assert ((yyvsp[(1) - (3)].node)->pn_arity == PN_LIST);
@@ -3784,7 +3784,7 @@ yyreduce:
   case 260:
 
 /* Line 1455 of yacc.c  */
-#line 875 "./parser/Grammar.y"
+#line 875 "./js-parser/Grammar.y"
     { PRINT_LINE;
 							if ((yyvsp[(3) - (4)].node)) {
 								g_assert ((yyvsp[(1) - (4)].node)->pn_arity == PN_LIST);
@@ -3801,7 +3801,7 @@ yyreduce:
   case 261:
 
 /* Line 1455 of yacc.c  */
-#line 889 "./parser/Grammar.y"
+#line 889 "./js-parser/Grammar.y"
     { PRINT_LINE;
 							(yyval.node) = node_new (TOK_VAR, PN_LIST);
 							(yyval.node)->pn_u.list.head = (yyvsp[(1) - (1)].node);
@@ -3812,7 +3812,7 @@ yyreduce:
   case 262:
 
 /* Line 1455 of yacc.c  */
-#line 894 "./parser/Grammar.y"
+#line 894 "./js-parser/Grammar.y"
     { PRINT_LINE;
 							(yyval.node) = node_new (TOK_VAR, PN_LIST);
 							(yyval.node)->pn_u.list.head = (yyvsp[(1) - (2)].node);
@@ -3825,35 +3825,35 @@ yyreduce:
   case 263:
 
 /* Line 1455 of yacc.c  */
-#line 902 "./parser/Grammar.y"
+#line 902 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 264:
 
 /* Line 1455 of yacc.c  */
-#line 904 "./parser/Grammar.y"
+#line 904 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 265:
 
 /* Line 1455 of yacc.c  */
-#line 908 "./parser/Grammar.y"
+#line 908 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = (yyvsp[(2) - (3)].node);;}
     break;
 
   case 266:
 
 /* Line 1455 of yacc.c  */
-#line 910 "./parser/Grammar.y"
+#line 910 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = (yyvsp[(2) - (3)].node); AUTO_SEMICOLON (node_get_line ((yyvsp[(2) - (3)].node)));; ;}
     break;
 
   case 267:
 
 /* Line 1455 of yacc.c  */
-#line 914 "./parser/Grammar.y"
+#line 914 "./js-parser/Grammar.y"
     { PRINT_LINE;
 							(yyval.node) = node_new (TOK_VAR, PN_LIST);
 							(yyval.node)->pn_u.list.head = (yyvsp[(1) - (1)].node);
@@ -3864,7 +3864,7 @@ yyreduce:
   case 268:
 
 /* Line 1455 of yacc.c  */
-#line 920 "./parser/Grammar.y"
+#line 920 "./js-parser/Grammar.y"
     { PRINT_LINE;
 							(yyval.node) = (yyvsp[(1) - (3)].node);
 							if ((yyvsp[(3) - (3)].node)) {
@@ -3879,14 +3879,14 @@ yyreduce:
   case 269:
 
 /* Line 1455 of yacc.c  */
-#line 932 "./parser/Grammar.y"
+#line 932 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = (yyvsp[(1) - (1)].node); (yyvsp[(1) - (1)].node)->pn_u.name.isconst = 1;;}
     break;
 
   case 270:
 
 /* Line 1455 of yacc.c  */
-#line 933 "./parser/Grammar.y"
+#line 933 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;
 							(yyval.node) = (yyvsp[(1) - (2)].node);
 							(yyval.node)->pn_u.name.expr = (yyvsp[(2) - (2)].node);
@@ -3897,196 +3897,196 @@ yyreduce:
   case 271:
 
 /* Line 1455 of yacc.c  */
-#line 941 "./parser/Grammar.y"
+#line 941 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = (yyvsp[(2) - (2)].node);;}
     break;
 
   case 272:
 
 /* Line 1455 of yacc.c  */
-#line 945 "./parser/Grammar.y"
+#line 945 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = (yyvsp[(2) - (2)].node);;}
     break;
 
   case 273:
 
 /* Line 1455 of yacc.c  */
-#line 949 "./parser/Grammar.y"
+#line 949 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = node_new (TOK_SEMI, PN_UNARY); (yyval.node)->pn_u.unary.kid = NULL;;}
     break;
 
   case 274:
 
 /* Line 1455 of yacc.c  */
-#line 953 "./parser/Grammar.y"
+#line 953 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = (yyvsp[(1) - (2)].node);;}
     break;
 
   case 275:
 
 /* Line 1455 of yacc.c  */
-#line 954 "./parser/Grammar.y"
+#line 954 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = (yyvsp[(1) - (2)].node); AUTO_SEMICOLON (node_get_line ((yyvsp[(1) - (2)].node)));; ;}
     break;
 
   case 276:
 
 /* Line 1455 of yacc.c  */
-#line 959 "./parser/Grammar.y"
+#line 959 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = (yyvsp[(5) - (5)].node);;}
     break;
 
   case 277:
 
 /* Line 1455 of yacc.c  */
-#line 961 "./parser/Grammar.y"
+#line 961 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = (yyvsp[(5) - (7)].node);;}
     break;
 
   case 278:
 
 /* Line 1455 of yacc.c  */
-#line 965 "./parser/Grammar.y"
+#line 965 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 279:
 
 /* Line 1455 of yacc.c  */
-#line 966 "./parser/Grammar.y"
+#line 966 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = NULL; AUTO_SEMICOLON (node_get_line ((yyvsp[(5) - (7)].node)));;}
     break;
 
   case 280:
 
 /* Line 1455 of yacc.c  */
-#line 967 "./parser/Grammar.y"
+#line 967 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = (yyvsp[(5) - (5)].node);;}
     break;
 
   case 281:
 
 /* Line 1455 of yacc.c  */
-#line 969 "./parser/Grammar.y"
+#line 969 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = (yyvsp[(9) - (9)].node);;}
     break;
 
   case 282:
 
 /* Line 1455 of yacc.c  */
-#line 971 "./parser/Grammar.y"
+#line 971 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 283:
 
 /* Line 1455 of yacc.c  */
-#line 973 "./parser/Grammar.y"
+#line 973 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = (yyvsp[(7) - (7)].node);;}
     break;
 
   case 284:
 
 /* Line 1455 of yacc.c  */
-#line 975 "./parser/Grammar.y"
+#line 975 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = (yyvsp[(8) - (8)].node);;}
     break;
 
   case 285:
 
 /* Line 1455 of yacc.c  */
-#line 977 "./parser/Grammar.y"
+#line 977 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = (yyvsp[(9) - (9)].node);;}
     break;
 
   case 286:
 
 /* Line 1455 of yacc.c  */
-#line 981 "./parser/Grammar.y"
+#line 981 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 288:
 
 /* Line 1455 of yacc.c  */
-#line 986 "./parser/Grammar.y"
+#line 986 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 290:
 
 /* Line 1455 of yacc.c  */
-#line 991 "./parser/Grammar.y"
+#line 991 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 291:
 
 /* Line 1455 of yacc.c  */
-#line 992 "./parser/Grammar.y"
+#line 992 "./js-parser/Grammar.y"
     { PRINT_LINE;  AUTO_SEMICOLON (0); ;}
     break;
 
   case 292:
 
 /* Line 1455 of yacc.c  */
-#line 993 "./parser/Grammar.y"
+#line 993 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 293:
 
 /* Line 1455 of yacc.c  */
-#line 994 "./parser/Grammar.y"
+#line 994 "./js-parser/Grammar.y"
     { PRINT_LINE;  AUTO_SEMICOLON (node_get_line ((yyvsp[(2) - (3)].node))); ;}
     break;
 
   case 294:
 
 /* Line 1455 of yacc.c  */
-#line 998 "./parser/Grammar.y"
+#line 998 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 295:
 
 /* Line 1455 of yacc.c  */
-#line 999 "./parser/Grammar.y"
+#line 999 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL; AUTO_SEMICOLON (0);;}
     break;
 
   case 296:
 
 /* Line 1455 of yacc.c  */
-#line 1000 "./parser/Grammar.y"
+#line 1000 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 297:
 
 /* Line 1455 of yacc.c  */
-#line 1001 "./parser/Grammar.y"
+#line 1001 "./js-parser/Grammar.y"
     { PRINT_LINE; AUTO_SEMICOLON (node_get_line ((yyvsp[(2) - (3)].node))); ;}
     break;
 
   case 298:
 
 /* Line 1455 of yacc.c  */
-#line 1005 "./parser/Grammar.y"
+#line 1005 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = node_new (TOK_RETURN, PN_UNARY); (yyval.node)->pn_u.unary.kid = NULL;;}
     break;
 
   case 299:
 
 /* Line 1455 of yacc.c  */
-#line 1006 "./parser/Grammar.y"
+#line 1006 "./js-parser/Grammar.y"
     { PRINT_LINE;  (yyval.node) = node_new (TOK_RETURN, PN_UNARY); (yyval.node)->pn_u.unary.kid = NULL; AUTO_SEMICOLON (0); ;}
     break;
 
   case 300:
 
 /* Line 1455 of yacc.c  */
-#line 1007 "./parser/Grammar.y"
+#line 1007 "./js-parser/Grammar.y"
     { PRINT_LINE;
 							(yyval.node) = node_new (TOK_RETURN, PN_UNARY);
 							(yyval.node)->pn_u.unary.kid = (yyvsp[(2) - (3)].node);
@@ -4097,7 +4097,7 @@ yyreduce:
   case 301:
 
 /* Line 1455 of yacc.c  */
-#line 1012 "./parser/Grammar.y"
+#line 1012 "./js-parser/Grammar.y"
     { PRINT_LINE;
 							(yyval.node) = node_new (TOK_RETURN, PN_UNARY);
 							(yyval.node)->pn_u.unary.kid = (yyvsp[(2) - (3)].node);
@@ -4109,140 +4109,140 @@ yyreduce:
   case 302:
 
 /* Line 1455 of yacc.c  */
-#line 1021 "./parser/Grammar.y"
+#line 1021 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 303:
 
 /* Line 1455 of yacc.c  */
-#line 1025 "./parser/Grammar.y"
+#line 1025 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 304:
 
 /* Line 1455 of yacc.c  */
-#line 1029 "./parser/Grammar.y"
+#line 1029 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 305:
 
 /* Line 1455 of yacc.c  */
-#line 1031 "./parser/Grammar.y"
+#line 1031 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 306:
 
 /* Line 1455 of yacc.c  */
-#line 1035 "./parser/Grammar.y"
+#line 1035 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 308:
 
 /* Line 1455 of yacc.c  */
-#line 1040 "./parser/Grammar.y"
+#line 1040 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 309:
 
 /* Line 1455 of yacc.c  */
-#line 1041 "./parser/Grammar.y"
+#line 1041 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 310:
 
 /* Line 1455 of yacc.c  */
-#line 1045 "./parser/Grammar.y"
+#line 1045 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 311:
 
 /* Line 1455 of yacc.c  */
-#line 1046 "./parser/Grammar.y"
+#line 1046 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 312:
 
 /* Line 1455 of yacc.c  */
-#line 1050 "./parser/Grammar.y"
+#line 1050 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 313:
 
 /* Line 1455 of yacc.c  */
-#line 1051 "./parser/Grammar.y"
+#line 1051 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 314:
 
 /* Line 1455 of yacc.c  */
-#line 1055 "./parser/Grammar.y"
+#line 1055 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 315:
 
 /* Line 1455 of yacc.c  */
-#line 1059 "./parser/Grammar.y"
+#line 1059 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 316:
 
 /* Line 1455 of yacc.c  */
-#line 1060 "./parser/Grammar.y"
+#line 1060 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 317:
 
 /* Line 1455 of yacc.c  */
-#line 1064 "./parser/Grammar.y"
+#line 1064 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 318:
 
 /* Line 1455 of yacc.c  */
-#line 1065 "./parser/Grammar.y"
+#line 1065 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 319:
 
 /* Line 1455 of yacc.c  */
-#line 1067 "./parser/Grammar.y"
+#line 1067 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 320:
 
 /* Line 1455 of yacc.c  */
-#line 1071 "./parser/Grammar.y"
+#line 1071 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 321:
 
 /* Line 1455 of yacc.c  */
-#line 1072 "./parser/Grammar.y"
+#line 1072 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 322:
 
 /* Line 1455 of yacc.c  */
-#line 1076 "./parser/Grammar.y"
+#line 1076 "./js-parser/Grammar.y"
     { PRINT_LINE;
 											(yyval.node) = node_new ( TOK_FUNCTION, PN_FUNC);
 											(yyval.node)->pn_u.func.name = (yyvsp[(2) - (7)].node);
@@ -4257,7 +4257,7 @@ yyreduce:
   case 323:
 
 /* Line 1455 of yacc.c  */
-#line 1086 "./parser/Grammar.y"
+#line 1086 "./js-parser/Grammar.y"
     { PRINT_LINE;
 											(yyval.node) = node_new ( TOK_FUNCTION, PN_FUNC);
 											(yyval.node)->pn_u.func.name = (yyvsp[(2) - (8)].node);
@@ -4273,7 +4273,7 @@ yyreduce:
   case 324:
 
 /* Line 1455 of yacc.c  */
-#line 1099 "./parser/Grammar.y"
+#line 1099 "./js-parser/Grammar.y"
     { PRINT_LINE;
 										(yyval.node) = node_new ( TOK_FUNCTION, PN_FUNC);
 										(yyval.node)->pn_u.func.name = NULL;
@@ -4287,7 +4287,7 @@ yyreduce:
   case 325:
 
 /* Line 1455 of yacc.c  */
-#line 1108 "./parser/Grammar.y"
+#line 1108 "./js-parser/Grammar.y"
     { PRINT_LINE;
 										(yyval.node) = node_new ( TOK_FUNCTION, PN_FUNC);
 										(yyval.node)->pn_u.func.name = NULL;
@@ -4302,7 +4302,7 @@ yyreduce:
   case 326:
 
 /* Line 1455 of yacc.c  */
-#line 1117 "./parser/Grammar.y"
+#line 1117 "./js-parser/Grammar.y"
     { PRINT_LINE;
 										(yyval.node) = node_new ( TOK_FUNCTION, PN_FUNC);
 										(yyval.node)->pn_u.func.name = (yyvsp[(2) - (7)].node);
@@ -4317,7 +4317,7 @@ yyreduce:
   case 327:
 
 /* Line 1455 of yacc.c  */
-#line 1127 "./parser/Grammar.y"
+#line 1127 "./js-parser/Grammar.y"
     { PRINT_LINE;
 										(yyval.node) = node_new ( TOK_FUNCTION, PN_FUNC);
 										(yyval.node)->pn_u.func.name = (yyvsp[(2) - (8)].node);
@@ -4333,7 +4333,7 @@ yyreduce:
   case 328:
 
 /* Line 1455 of yacc.c  */
-#line 1140 "./parser/Grammar.y"
+#line 1140 "./js-parser/Grammar.y"
     { PRINT_LINE;
 							(yyval.node) = node_new (TOK_LC, PN_LIST);
 							(yyval.node)->pn_u.list.head = (yyvsp[(1) - (1)].node);
@@ -4344,7 +4344,7 @@ yyreduce:
   case 329:
 
 /* Line 1455 of yacc.c  */
-#line 1145 "./parser/Grammar.y"
+#line 1145 "./js-parser/Grammar.y"
     { PRINT_LINE;
 							(yyval.node) = (yyvsp[(1) - (3)].node);
 							g_assert ((yyvsp[(1) - (3)].node)->pn_arity == PN_LIST);
@@ -4361,35 +4361,35 @@ yyreduce:
   case 330:
 
 /* Line 1455 of yacc.c  */
-#line 1159 "./parser/Grammar.y"
+#line 1159 "./js-parser/Grammar.y"
     { PRINT_LINE_TODO;  (yyval.node) = NULL;;}
     break;
 
   case 331:
 
 /* Line 1455 of yacc.c  */
-#line 1160 "./parser/Grammar.y"
+#line 1160 "./js-parser/Grammar.y"
     { PRINT_LINE; (yyval.node) = (yyvsp[(1) - (1)].node);;}
     break;
 
   case 332:
 
 /* Line 1455 of yacc.c  */
-#line 1164 "./parser/Grammar.y"
+#line 1164 "./js-parser/Grammar.y"
     { PRINT_LINE; global = NULL;;}
     break;
 
   case 333:
 
 /* Line 1455 of yacc.c  */
-#line 1165 "./parser/Grammar.y"
+#line 1165 "./js-parser/Grammar.y"
     { PRINT_LINE;  global = (yyvsp[(1) - (1)].node);;}
     break;
 
   case 334:
 
 /* Line 1455 of yacc.c  */
-#line 1169 "./parser/Grammar.y"
+#line 1169 "./js-parser/Grammar.y"
     { PRINT_LINE;
 							(yyval.node) = node_new (TOK_LC, PN_LIST);
 							(yyval.node)->pn_u.list.head = (yyvsp[(1) - (1)].node);
@@ -4400,7 +4400,7 @@ yyreduce:
   case 335:
 
 /* Line 1455 of yacc.c  */
-#line 1174 "./parser/Grammar.y"
+#line 1174 "./js-parser/Grammar.y"
     { PRINT_LINE;
 							(yyval.node) = (yyvsp[(1) - (2)].node);
 							g_assert ((yyvsp[(1) - (2)].node)->pn_arity == PN_LIST);
@@ -4417,7 +4417,7 @@ yyreduce:
 
 
 /* Line 1455 of yacc.c  */
-#line 4421 "./parser/js-parser-y-tab.c"
+#line 4421 "./js-parser/js-parser-y-tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -4632,7 +4632,7 @@ yypushreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 1187 "./parser/Grammar.y"
+#line 1187 "./js-parser/Grammar.y"
 
 #undef GLOBAL_DATA
 

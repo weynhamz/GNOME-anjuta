@@ -112,7 +112,7 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 109 "./parser/Grammar.y"
+#line 109 "./js-parser/Grammar.y"
 
     int intValue;
     JSNode* node;
@@ -124,7 +124,7 @@ typedef union YYSTYPE
 
 
 /* Line 1676 of yacc.c  */
-#line 128 "./parser/js-parser-y-tab.h"
+#line 128 "./js-parser/js-parser-y-tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
