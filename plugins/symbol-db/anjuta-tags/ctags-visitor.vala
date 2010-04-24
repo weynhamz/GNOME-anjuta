@@ -32,6 +32,7 @@ public struct CTagsEntry {
 	public string scope[2];
 	public string signature;
 	public string typeref;
+	public string returntype;
 }
 
 class DummyReport : Report {
@@ -263,7 +264,7 @@ public class CTagsVisitor : CodeVisitor {
 		entry.kind = 'd';
 		entry.access = get_access (d);
 		scope (d, entry.scope);
-		entry.typeref = d.return_type.to_qualified_string();
+		entry.returntype = d.return_type.to_qualified_string();
 		entry.signature = signature(d.get_parameters());
 
 		taglist.append(entry);
@@ -279,7 +280,7 @@ public class CTagsVisitor : CodeVisitor {
 		entry.access = get_access (sig);
 		entry.implementation = implementation(sig);
 		scope (sig, entry.scope);
-		entry.typeref = sig.return_type.to_qualified_string();
+		entry.returntype = sig.return_type.to_qualified_string();
 		entry.signature = signature(sig.get_parameters());
 
 		taglist.append(entry);
@@ -339,7 +340,7 @@ public class CTagsVisitor : CodeVisitor {
 		entry.access = get_access (m);
 		entry.implementation = implementation(m);
 		scope (m, entry.scope);
-		entry.typeref = m.return_type.to_qualified_string();
+		entry.returntype = m.return_type.to_qualified_string();
 		entry.signature = signature(m.get_parameters());
 
 		taglist.append(entry);
