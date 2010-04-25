@@ -535,9 +535,6 @@ expr_watch_new (AnjutaPlugin *plugin)
                              "AnjutaDebuggerWatch", _("Watches"),
                              "gdb-watch-icon", ANJUTA_SHELL_PLACEMENT_BOTTOM,
                               NULL);
-	anjuta_shell_hide_dockable_widget (ew->plugin->shell,
-	                                   ew->scrolledwindow,
-	                                   NULL);
 	
 	/* Connect to debugger */
 	g_signal_connect_swapped (ew->plugin, "program-started", G_CALLBACK (on_program_started), ew);

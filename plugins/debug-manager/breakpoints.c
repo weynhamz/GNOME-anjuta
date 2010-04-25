@@ -1987,10 +1987,7 @@ create_breakpoint_gui(BreakpointsDBase *bd)
 							 "AnjutaDebuggerBreakpoints", _("Breakpoints"),
 							 ANJUTA_STOCK_BREAKPOINT_ENABLED, ANJUTA_SHELL_PLACEMENT_NONE,
 							 NULL);
-	anjuta_shell_hide_dockable_widget (ANJUTA_PLUGIN(bd->plugin)->shell,
-	                                   bd->window,
-	                                   NULL);
-	
+
 	/* Add popup menu */
 	g_signal_connect (bd->treeview, "button-press-event", G_CALLBACK (on_breakpoints_button_press), bd);  
 }
