@@ -1047,7 +1047,6 @@ on_treeview_selection_changed (GtkTreeSelection *sel,
 		g_signal_emit_by_name (G_OBJECT (plugin), "element_selected",
 							   selected_file);
 		g_free (uri);
-		g_object_unref (selected_file);
 	} else {
 		anjuta_shell_remove_value (ANJUTA_PLUGIN(plugin)->shell,
 								   IANJUTA_PROJECT_MANAGER_CURRENT_URI, NULL);
