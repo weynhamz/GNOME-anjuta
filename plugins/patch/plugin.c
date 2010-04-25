@@ -88,11 +88,12 @@ patch_plugin_activate (AnjutaPlugin *plugin)
 
 
 	/* Add all our actions */
-	anjuta_ui_add_action_group_entries (ui, "ActionMenuTools",
-										_("Patch files/directories"),
-										actions_tools,
-										G_N_ELEMENTS (actions_tools),
-										GETTEXT_PACKAGE, TRUE, p_plugin);
+	p_plugin->action_group =
+		anjuta_ui_add_action_group_entries  (ui, "ActionMenuTools",
+											_("Patch files/directories"),
+											actions_tools,
+											G_N_ELEMENTS (actions_tools),
+											GETTEXT_PACKAGE, TRUE, p_plugin);
 
 	p_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	
@@ -107,7 +108,8 @@ patch_plugin_deactivate (AnjutaPlugin *plugin)
 	DEBUG_PRINT ("%s", "AnjutaPatchPlugin: Dectivating Patch plugin …");
 
 	anjuta_ui_unmerge (ui, ANJUTA_PLUGIN_PATCH (plugin)->uiid);
-
+	anjuta_ui_remove_action_group (ui, ANJUTA_PLUGIN_PATCH (plugin)->action_group);
+	
 	/* FIXME: should launcher be unreferenced? */
 	
 	return TRUE;
