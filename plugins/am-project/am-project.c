@@ -191,21 +191,21 @@ static AmpNodeInfo AmpNodeInformations[] = {
 	NULL,
 	NULL},
 
-	{{ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_SHAREDLIB,
+	{{ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_PRIMARY |  ANJUTA_PROJECT_SHAREDLIB,
 	N_("Shared Library"),
 	"application/x-sharedlib"},
 	AM_TOKEN__LTLIBRARIES,
 	"_LTLIBRARIES",
 	"lib"},
 	
-	{{ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_STATICLIB,
+	{{ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_PRIMARY |  ANJUTA_PROJECT_STATICLIB,
 	N_("Static Library"),
 	"application/x-archive"},
 	AM_TOKEN__LIBRARIES,
 	"_LIBRARIES",
 	"lib"},
 
-	{{ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_EXECUTABLE | ANJUTA_PROJECT_BINARY,
+	{{ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_PRIMARY | ANJUTA_PROJECT_EXECUTABLE | ANJUTA_PROJECT_BINARY,
 	N_("Program"),
 	"application/x-executable"},
 	AM_TOKEN__PROGRAMS,
@@ -2510,7 +2510,7 @@ amp_project_add_sibling_target (AmpProject  *project, AmpGroup *parent, const gc
 			return NULL;
 		}
 	}
-	else if ((type & ANJUTA_PROJECT_ID_MASK) == ANJUTA_TARGET_STATICLIB) {
+	else if ((type & ANJUTA_PROJECT_ID_MASK) == ANJUTA_PROJECT_STATICLIB) {
 		if (strlen (name) < 6 ||
 		    strncmp (name, "lib", strlen("lib")) != 0 ||
 		    strcmp (&name[strlen(name) - 2], ".a") != 0) {

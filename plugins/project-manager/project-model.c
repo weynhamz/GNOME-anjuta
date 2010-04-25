@@ -568,7 +568,7 @@ add_target (GbfProjectModel 		*model,
 	 * set of public functions to add/remove shortcuts to save
 	 * this information in the project metadata (when that's
 	 * implemented) */
-	if (anjuta_project_node_get_type (target) & ANJUTA_PROJECT_EXECUTABLE)
+	if (anjuta_project_node_get_full_type (target) & ANJUTA_PROJECT_PRIMARY)
 	{
 		add_target_shortcut (model, NULL, data, NULL);
 	}

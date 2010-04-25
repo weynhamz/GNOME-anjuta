@@ -1831,6 +1831,17 @@ iproject_manager_get_elements (IAnjutaProjectManager *project_manager,
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
 
 	return gbf_project_util_replace_by_file (gbf_project_util_node_all (anjuta_pm_project_get_root (plugin->project), element_type)); 
+	/*GList *list;
+	GList *item;
+	
+	g_message ("get elements root %p", anjuta_pm_project_get_root (plugin->project));
+	list = gbf_project_util_replace_by_file (gbf_project_util_node_all (anjuta_pm_project_get_root (plugin->project), element_type)); 
+	for (item = g_list_first (list); item != NULL; item = g_list_next (item))
+	{
+		g_message ("get element type %d file %s", element_type, g_file_get_path ((GFile *)item->data));
+	}
+	
+	return list;*/
 }
 
 static AnjutaProjectNodeType
@@ -1842,12 +1853,12 @@ iproject_manager_get_target_type (IAnjutaProjectManager *project_manager,
 	AnjutaProjectNode *target;
 	
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager),
-						  ANJUTA_TARGET_UNKNOWN);
+						  ANJUTA_PROJECT_UNKNOWN);
 	
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
 	
 	g_return_val_if_fail (file_is_inside_project (plugin, target_file),
-						  ANJUTA_TARGET_UNKNOWN);
+						  ANJUTA_PROJECT_UNKNOWN);
 	
 	target = anjuta_pm_project_get_node_from_file (plugin->project, ANJUTA_PROJECT_TARGET,  target_file);
 
@@ -1857,10 +1868,9 @@ iproject_manager_get_target_type (IAnjutaProjectManager *project_manager,
 	}
 	else
 	{
-		return ANJUTA_TARGET_UNKNOWN;
+		return ANJUTA_PROJECT_UNKNOWN;
 	}
 }
-
 static GList*
 iproject_manager_get_targets (IAnjutaProjectManager *project_manager,
 							  AnjutaProjectNodeType target_type,
@@ -1868,6 +1878,8 @@ iproject_manager_get_targets (IAnjutaProjectManager *project_manager,
 {
 	GList *targets, *node;
 	ProjectManagerPlugin *plugin;
+	gint type_id;
+	gint type_flag;
 	
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), NULL);
 	
@@ -1877,21 +1889,29 @@ iproject_manager_get_targets (IAnjutaProjectManager *project_manager,
 	targets = gbf_project_util_node_all (anjuta_pm_project_get_root (plugin->project), ANJUTA_PROJECT_TARGET);
 
 	/* Remove all targets not in specified class */
+	type_id = target_type & ANJUTA_PROJECT_ID_MASK;
+	type_flag = target_type & ANJUTA_PROJECT_FLAG_MASK;
+	g_message ("get targets %p", targets);
 	for (node = g_list_first (targets); node != NULL;)
 	{
 		AnjutaProjectNodeType type;
 
 		type = anjuta_project_node_get_full_type (node->data);
-		if (type != target_type)
+		if ((type_id != 0) && (type_id != (type & ANJUTA_PROJECT_ID_MASK)))
 		{
 			GList *next = g_list_next (node);
 			targets = g_list_delete_link (targets, node);
 			node = next;
+			continue;
 		}
-		else
+		if ((type_flag != 0) && ((type & type_flag) == 0))
 		{
-			node = g_list_next (node);
+			GList *next = g_list_next (node);
+			targets = g_list_delete_link (targets, node);
+			node = next;
+			continue;
 		}
+		node = g_list_next (node);
 	}
 
 	/* Replace all targets by their corresponding URI */
@@ -2165,6 +2185,16 @@ iproject_manager_get_packages (IAnjutaProjectManager *project_manager, GError **
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
 
 	return anjuta_pm_project_get_packages (plugin->project);
+	/*GList *list;
+	GList *item;
+	
+	list = anjuta_pm_project_get_packages (plugin->project);
+	for (item = g_list_first (list); item != NULL; item = g_list_next (item))
+	{
+		g_message ("get package %s", (const gchar *)item->data);
+	}
+	
+	return list;*/
 }
 
 static void
