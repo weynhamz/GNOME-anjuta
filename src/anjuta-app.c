@@ -151,7 +151,7 @@ anjuta_app_hide_dockable_widget (AnjutaShell *shell, GtkWidget *widget,
 	g_return_if_fail (dock_item != NULL);
 
 	/* Hide the dockable item */
-	gdl_dock_item_iconify_item (GDL_DOCK_ITEM (dock_item));
+	gdl_dock_item_hide_item (GDL_DOCK_ITEM (dock_item));
 }
 
 static void
