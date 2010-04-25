@@ -52,6 +52,7 @@ struct _PatchPlugin {
 
 	gboolean executing;
 	gint uiid;
+	GtkActionGroup *action_group;
 };
 
 struct _PatchPluginClass {
