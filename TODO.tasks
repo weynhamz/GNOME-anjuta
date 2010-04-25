@@ -19,17 +19,6 @@ box (instead of hardcoded names in the source).</comment>
       <comment>A generic print interface</comment>
     </item>
     <item>
-      <attribute id="1159907132" priority="1" done="0" start_date="732587" enddate="99999999" notify="0" endtime="-60" last_edited="1159907262"/>
-      <summary>Bug fixing batch #1</summary>
-      <comment>[Skill: Medium, Work: 12hrs, Bounty: $25]
-
-* Bug #346777    Cannot change the editor font
-* Bug #351214    Anjuta doesn't respect Gnome blinking cursor preference
-* Bug #357151    a + character in a directory name confuses anjuta
-* Bug #357541    can't launch Anjuta project file from Nautilus
-* Bug #357820    Goto / Previous history should return to previous cursor ...</comment>
-    </item>
-    <item>
       <attribute id="1159907660" priority="1" done="0" start_date="732587" enddate="99999999" notify="0" endtime="-60" last_edited="1159907660"/>
       <summary>Automated tests for Anjuta</summary>
       <comment>[Skill: Basic, Work: 20hrs]
@@ -64,6 +53,17 @@ This is partly done but somebody has to fix the new "indent" plugin!</comment>
       <summary>Better toolbar and plugins icons</summary>
       <comment>[Skill: medium, Work: 30h, Bounty: $100, Status: Completed, Bug: #480093]
 Create better icons for toolbars and plugin icons following the tango style guidelines to make them consistent with rest of the GNOME icons.</comment>
+    </item>
+    <item>
+      <attribute id="1159907132" priority="1" done="0" start_date="732587" enddate="99999999" notify="0" endtime="-60" last_edited="1272100803"/>
+      <summary>Bug fixing batch #1</summary>
+      <comment>[Skill: Medium, Work: 12hrs, Bounty: $25]
+
+* Bug #346777    Cannot change the editor font (fixed)
+* Bug #351214    Anjuta doesn't respect Gnome blinking cursor preference
+* Bug #357151    a + character in a directory name confuses anjuta (fixed)
+* Bug #357541    can't launch Anjuta project file from Nautilus (fixed)
+* Bug #357820    Goto / Previous history should return to previous cursor (fixed)</comment>
     </item>
   </category>
   <category title="libanjuta" place="2">
