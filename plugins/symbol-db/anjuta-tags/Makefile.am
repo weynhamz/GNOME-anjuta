@@ -123,7 +123,9 @@ anjuta_tags_SOURCES = \
 	js-parser/js-context.h	\
 	js-parser/js-node.c	\
 	js-parser/js-node.h	\
-	js-parser/jstypes.h
+	js-parser/jstypes.h     \
+	ctags-utils.c     \
+	ctags-utils.h
 
 anjuta_tags_LDFLAGS = \
 		$(GLIB_LDFLAGS) \

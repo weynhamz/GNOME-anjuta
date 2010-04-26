@@ -12,6 +12,7 @@
 #include <libxml/xmlmemory.h>
 #include <libxml/parser.h>
 #include <libxml/tree.h>
+#include "ctags-utils.h"
 
 static kindOption Kinds [] = {
 	{ TRUE,  'f', "function",	  "functions"},
@@ -24,20 +25,6 @@ static kindOption Kinds [] = {
 static void
 initialize (const langType language)
 {
-}
-
-static void
-get_file_pos (gint line, fpos_t *fpos, FILE *f)
-{
-	vString * str = vStringNew ();
-	gint i;
-	g_assert (fseek (f, 0, SEEK_SET) == 0);
-
-	for (i = 0;i < line - 1; i++)
-		if (readLine (str, f) == NULL)
-			return;
-
-	g_assert (fgetpos (f, fpos) == 0);
 }
 
 static void
