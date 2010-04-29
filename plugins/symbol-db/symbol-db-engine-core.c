@@ -1758,7 +1758,7 @@ sdb_engine_ctags_output_callback_1 (AnjutaLauncher * launcher,
 	if (priv->timeout_trigger_handler <= 0)
 	{
 		priv->timeout_trigger_handler = 
-			g_timeout_add_full (G_PRIORITY_LOW, TRIGGER_SIGNALS_DELAY, 
+			g_timeout_add_full (G_PRIORITY_DEFAULT_IDLE, TRIGGER_SIGNALS_DELAY, 
 						   sdb_engine_timeout_trigger_signals, user_data, NULL);
 		priv->trigger_closure_retries = 0;
 	}

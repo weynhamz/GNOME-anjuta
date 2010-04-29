@@ -127,6 +127,7 @@ struct _PmJob
 enum
 {
 	UPDATED,
+	LOADED,
 	LAST_SIGNAL
 };
 
@@ -333,16 +334,26 @@ on_pm_project_reloaded (AnjutaPmProject *project, PmJob *job)
 	if (job->error != NULL)
 	{
 		g_warning ("unable to load node");
+		pm_project_stop_thread (project);
+		g_object_unref (project->project);
+		project->project = NULL;
+		g_signal_emit (G_OBJECT (project), signals[LOADED], 0, job->error);
 	}
 	else
 	{
 		//g_object_set (G_OBJECT (project->model), "project", project, NULL);
 		// Check for incompletely loaded object and load them
 		anjuta_project_node_clear_state (job->node, ANJUTA_PROJECT_LOADING | ANJUTA_PROJECT_INCOMPLETE);
+		g_message ("remaining node %d", project->incomplete_node);
+		project->incomplete_node--;
 		anjuta_project_node_all_foreach (job->node, (AnjutaProjectNodeFunc)on_pm_project_load_incomplete, project);
-		g_message ("Emit project updated on %p", project);
 		//g_signal_emit (G_OBJECT (project), signals[UPDATED], 0, job->error);
 		gbf_project_model_update_tree (project->model, NULL, NULL);
+		
+		if (project->incomplete_node == 0)
+		{
+			g_signal_emit (G_OBJECT (project), signals[LOADED], 0, NULL);
+		}
 	}
 }
 
@@ -353,6 +364,7 @@ on_pm_project_load_incomplete (AnjutaProjectNode *node, AnjutaPmProject *project
 	
 	if ((state & ANJUTA_PROJECT_INCOMPLETE) && !(state & ANJUTA_PROJECT_LOADING))
 	{
+		project->incomplete_node++;
 		anjuta_project_node_set_state (node, ANJUTA_PROJECT_LOADING);
 		pm_project_push_command (project, RELOAD, NULL, NULL, node, on_pm_project_reloaded);
 	}
@@ -368,6 +380,7 @@ on_pm_project_loaded (AnjutaPmProject *project, PmJob *job)
 		pm_project_stop_thread (project);
 		g_object_unref (project->project);
 		project->project = NULL;
+		g_signal_emit (G_OBJECT (project), signals[LOADED], 0, job->error);
 	}
 	else
 	{
@@ -376,12 +389,16 @@ on_pm_project_loaded (AnjutaPmProject *project, PmJob *job)
 		g_message ("root all nodes %d", g_node_n_nodes (job->node, G_TRAVERSE_ALL));
 		project->root = job->node;
 		g_object_set (G_OBJECT (project->model), "project", project, NULL);
-		gbf_project_model_update_tree (project->model, NULL, NULL);		
+		gbf_project_model_update_tree (project->model, NULL, NULL);
+		
+		// Check for incompletely loaded object and load them
+		project->incomplete_node = 0;
+		anjuta_project_node_all_foreach (job->node, (AnjutaProjectNodeFunc)on_pm_project_load_incomplete, project);
+		if (project->incomplete_node == 0)
+		{
+			g_signal_emit (G_OBJECT (project), signals[LOADED], 0, NULL);
+		}
 	}
-	g_signal_emit (G_OBJECT (project), signals[UPDATED], 0, job->error);
-
-	// Check for incompletely loaded object and load them
-	anjuta_project_node_all_foreach (job->node, (AnjutaProjectNodeFunc)on_pm_project_load_incomplete, project);
 }
 
 gboolean 
@@ -750,6 +767,15 @@ anjuta_pm_project_class_init (AnjutaPmProjectClass *klass)
 	    1,
 	    G_TYPE_ERROR);
 	
+	signals[LOADED] = g_signal_new ("loaded",
+		G_OBJECT_CLASS_TYPE (object_class),
+		G_SIGNAL_RUN_LAST,
+		G_STRUCT_OFFSET (AnjutaPmProjectClass, loaded),
+		NULL, NULL,
+		g_cclosure_marshal_VOID__BOXED,
+		G_TYPE_NONE,
+		1,
+		G_TYPE_ERROR);
 }
 
 /* Constructor & Destructor

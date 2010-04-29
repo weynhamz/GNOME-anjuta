@@ -843,16 +843,30 @@ gbf_project_util_node_all (AnjutaProjectNode *parent, AnjutaProjectNodeType type
 {
     AnjutaProjectNode *node;
     GList *list = NULL;
- 
+    gint type_id;
+    gint type_flag;
+    gint type_type;
+
+    type_type = type & ANJUTA_PROJECT_TYPE_MASK;
+    type_flag = type & ANJUTA_PROJECT_FLAG_MASK;
+    type_id = type & ANJUTA_PROJECT_ID_MASK;
+    
     for (node = anjuta_project_node_first_child (parent); node != NULL; node = anjuta_project_node_next_sibling (node))
     {
         GList *child_list;
         
-        if (anjuta_project_node_get_type (node) == type)
+        if (anjuta_project_node_get_type (node) == type_type)
         {
-            list = g_list_prepend (list, node);
+            gint type;
+        
+            type = anjuta_project_node_get_full_type (node);
+            if (((type_id == 0) || (type_id == (type & ANJUTA_PROJECT_ID_MASK))) && 
+                ((type_flag == 0) || ((type & type_flag) != 0)))
+            {
+                list = g_list_prepend (list, node);
+            }
         }
- 
+
         child_list = gbf_project_util_node_all (node, type);
         child_list = g_list_reverse (child_list);
         list = g_list_concat (child_list, list);

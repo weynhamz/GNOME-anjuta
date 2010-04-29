@@ -1190,13 +1190,10 @@ do_import_system_sources_after_abort (SymbolDBPlugin *sdb_plugin,
 /* we assume that sources_array has already unique elements */
 /* note the *project* word in the function */
 static void
-do_import_project_sources_after_abort (AnjutaPlugin *plugin, 
+do_import_project_sources_after_abort (SymbolDBPlugin *sdb_plugin, 
 							   const GPtrArray *sources_array)
 {
-	SymbolDBPlugin *sdb_plugin;
 	gint real_added;
-	
-	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);	
 
 	sdb_plugin->is_project_importing = TRUE;
 	
@@ -1204,7 +1201,7 @@ do_import_project_sources_after_abort (AnjutaPlugin *plugin,
 	 * update a status bar notifying the user about the status
 	 */
 	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_project), "single-file-scan-end",
-		  G_CALLBACK (on_project_single_file_scan_end), plugin);
+		  G_CALLBACK (on_project_single_file_scan_end), sdb_plugin);
 
 	real_added = do_add_new_files (sdb_plugin, sources_array, 
 								   TASK_IMPORT_PROJECT_AFTER_ABORT);
@@ -1219,24 +1216,21 @@ do_import_project_sources_after_abort (AnjutaPlugin *plugin,
 }
 
 static void
-do_import_project_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm, 
+do_import_project_sources (SymbolDBPlugin *sdb_plugin, IAnjutaProjectManager *pm, 
 				   const gchar *root_dir)
 {
-	SymbolDBPlugin *sdb_plugin;
 	GList* prj_elements_list;
 	GPtrArray* sources_array;
 	gint i;
 	gint real_added;
-	
-	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);	
 
 	prj_elements_list = ianjuta_project_manager_get_elements (pm,
-					   ANJUTA_PROJECT_SOURCE,
+					   ANJUTA_PROJECT_SOURCE | ANJUTA_PROJECT_PROJECT,
 					   NULL);
 	
 	if (prj_elements_list == NULL)
 	{
-		g_critical ("No sources found within this project");
+		g_warning ("No sources found within this project");
 		return;
 	}
 	
@@ -1270,7 +1264,7 @@ do_import_project_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 	 * update a status bar notifying the user about the status
 	 */
 	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_project), "single-file-scan-end",
-		  G_CALLBACK (on_project_single_file_scan_end), plugin);
+		  G_CALLBACK (on_project_single_file_scan_end), sdb_plugin);
 	
 	real_added = do_add_new_files (sdb_plugin, sources_array, TASK_IMPORT_PROJECT);
 	if (real_added <= 0)
@@ -1399,7 +1393,7 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 									 IAnjutaProjectManager, NULL);	
 
 	prj_elements_list = ianjuta_project_manager_get_elements (pm,
-		   ANJUTA_PROJECT_SOURCE,
+		   ANJUTA_PROJECT_SOURCE | ANJUTA_PROJECT_PROJECT,
 		   NULL);
 	
 	/* fill an hash table with all the items of the list just taken. 
@@ -1522,7 +1516,7 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 		}
 	}
 	
-	g_object_unref (it);
+	if (it != NULL) g_object_unref (it);
 	g_ptr_array_free (to_add_files, TRUE);
 	g_hash_table_destroy (prj_elements_hash);
 	
@@ -1619,6 +1613,68 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 	}	
 }
 
+static void
+on_project_loaded (IAnjutaProjectManager *pm, GError *error,
+						  SymbolDBPlugin *sdb_plugin)
+{
+	gchar *filename;
+	gint real_added;
+	GPtrArray *files_array;			
+		
+	g_return_if_fail (sdb_plugin->project_root_uri != NULL);
+	g_return_if_fail (sdb_plugin->project_root_dir != NULL);
+
+	/* Malformed project abort */
+	if (error != NULL) return;
+
+	/*
+	 * we need an initial import 
+	 */
+	if (sdb_plugin->needs_sources_scan == TRUE)
+	{
+		DEBUG_PRINT ("Importing sources.");
+		do_import_project_sources (sdb_plugin, pm, sdb_plugin->project_root_dir);
+	}
+	else	
+	{
+		/*
+		 * no import needed. But we may have aborted the scan of sources in 
+		 * a previous session..
+		 */				
+		GPtrArray *sources_array = NULL;				
+		gboolean flag_offline;
+		gboolean flag_update;
+		
+		
+		sources_array = 
+			symbol_db_util_get_files_with_zero_symbols (sdb_plugin->sdbe_project);
+
+		if (sources_array != NULL && sources_array->len > 0) 
+		{				
+			do_import_project_sources_after_abort (sdb_plugin, sources_array);
+			
+			g_ptr_array_foreach (sources_array, (GFunc)g_free, NULL);
+			g_ptr_array_free (sources_array, TRUE);
+		}
+			
+		/* check for offline changes */				
+		flag_offline = do_check_offline_files_changed (sdb_plugin);
+			
+		/* update any files of the project which isn't up-to-date */
+		flag_update = do_update_project_symbols (sdb_plugin, sdb_plugin->project_root_dir);
+		
+		/* if they're both false then there won't be a place where
+		 * the do_check_languages_count () is called. Check the returns
+		 * and to it here
+		 */
+		if (flag_offline == FALSE && flag_update == FALSE)
+		{
+			/* check for the number of languages used in the opened project. */
+			//do_check_languages_count (sdb_plugin);				
+		}				
+	}
+}
+
 /* add a new project */
 static void
 on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
@@ -1693,7 +1749,6 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	
 	if (root_dir)
 	{
-		gboolean needs_sources_scan = FALSE;
 		gboolean project_exist = FALSE;
 		GHashTable* lang_hash;
 		guint id;
@@ -1708,7 +1763,8 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 
 		/* is it a fresh-new project? is it an imported project with 
 		 * no 'new' symbol-db database but the 'old' one symbol-browser? 
-		 */		
+		 */
+		sdb_plugin->needs_sources_scan = FALSE;
 		switch (open_status)
 		{
 			case DB_OPEN_STATUS_FATAL:
@@ -1721,7 +1777,7 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 
 			case DB_OPEN_STATUS_CREATE:
 			case DB_OPEN_STATUS_UPGRADE:
-				needs_sources_scan = TRUE;
+				sdb_plugin->needs_sources_scan = TRUE;
 				project_exist = FALSE;
 				break;
 				
@@ -1738,52 +1794,6 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 											  sdb_plugin->project_opened);
 		}
 
-		/*
-		 * we need an initial import 
-		 */
-		if (needs_sources_scan == TRUE)
-		{
-			DEBUG_PRINT ("Importing sources.");
-			do_import_project_sources (plugin, pm, root_dir);
-		}
-		else	
-		{
-			/*
-			 * no import needed. But we may have aborted the scan of sources in 
-			 * a previous session..
-			 */				
-			GPtrArray *sources_array = NULL;				
-			gboolean flag_offline;
-			gboolean flag_update;
-			
-			
-			sources_array = 
-				symbol_db_util_get_files_with_zero_symbols (sdb_plugin->sdbe_project);
-
-			if (sources_array != NULL && sources_array->len > 0) 
-			{				
-				do_import_project_sources_after_abort (plugin, sources_array);
-				
-				g_ptr_array_foreach (sources_array, (GFunc)g_free, NULL);
-				g_ptr_array_free (sources_array, TRUE);
-			}
-				
-			/* check for offline changes */				
-			flag_offline = do_check_offline_files_changed (sdb_plugin);
-				
-			/* update any files of the project which isn't up-to-date */
-			flag_update = do_update_project_symbols (sdb_plugin, root_dir);
-			
-			/* if they're both false then there won't be a place where
-			 * the do_check_languages_count () is called. Check the returns
-			 * and to it here
-			 */
-			if (flag_offline == FALSE && flag_update == FALSE)
-			{
-				/* check for the number of languages used in the opened project. */
-				//do_check_languages_count (sdb_plugin);				
-			}				
-		}
 		gtk_progress_bar_set_text (GTK_PROGRESS_BAR (sdb_plugin->progress_bar_project),
 								   _("Populating symbol database…"));
 		id = g_idle_add ((GSourceFunc) gtk_progress_bar_pulse, 
@@ -1804,6 +1814,8 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 					  G_CALLBACK (on_project_element_added), sdb_plugin);
 	g_signal_connect (G_OBJECT (pm), "element_removed",
 					  G_CALLBACK (on_project_element_removed), sdb_plugin);
+	g_signal_connect (G_OBJECT (pm), "project_loaded",
+					  G_CALLBACK (on_project_loaded), sdb_plugin);
 }
 
 static void

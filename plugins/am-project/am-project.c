@@ -1497,7 +1497,7 @@ project_load_sources (AmpProject *project, AnjutaToken *name, AnjutaToken *list,
 
 			/* Create source */
 			src_file = g_file_get_child (parent_file, value);
-			source = amp_source_new (src_file);
+			source = project_node_new (project, ANJUTA_PROJECT_SOURCE | ANJUTA_PROJECT_PROJECT, src_file, NULL);
 			g_object_unref (src_file);
 			AMP_SOURCE_DATA(source)->token = arg;
 
@@ -1594,7 +1594,7 @@ project_load_data (AmpProject *project, AnjutaToken *name, AnjutaToken *list, An
 
 			/* Create source */
 			src_file = g_file_get_child (parent_file, value);
-			source = amp_source_new (src_file);
+			source = project_node_new (project, ANJUTA_PROJECT_SOURCE | ANJUTA_PROJECT_PROJECT, src_file, NULL);
 			g_object_unref (src_file);
 			AMP_SOURCE_DATA(source)->token = arg;
 
@@ -2063,7 +2063,7 @@ amp_project_load_package (AmpProject *project, AnjutaProjectNode *node, GError *
 						/* Create a source for files */
 						AmpSource *source;
 
-						source = amp_source_new ((GFile *)file->data);
+						source = project_node_new (project, ANJUTA_PROJECT_SOURCE, (GFile *)file->data, NULL);
 						anjuta_project_node_append (node, source);
 						g_object_unref ((GObject *)file->data);
 					}
@@ -2738,7 +2738,8 @@ amp_project_add_sibling_source (AmpProject  *project, AmpTarget *target, GFile *
 	}
 
 	/* Add source node in project tree */
-	source = amp_source_new (file);
+	source = project_node_new (project, ANJUTA_PROJECT_SOURCE | ANJUTA_PROJECT_PROJECT, file, NULL);
+;
 	AMP_SOURCE_DATA(source)->token = token;
 	if (after)
 	{

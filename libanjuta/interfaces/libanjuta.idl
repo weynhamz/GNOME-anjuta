@@ -3421,6 +3421,7 @@ interface IAnjutaProjectManager
 
 	#include <libanjuta/anjuta-project.h>
 	#include <libanjuta/interfaces/ianjuta-project.h>
+	#include <libanjuta/anjuta-error.h>
 	
 	/**
 	* IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI
@@ -3437,7 +3438,19 @@ interface IAnjutaProjectManager
 	#define CURRENT_URI		"project_manager_current_uri"
 
 	// Signals
-	
+
+	/**
+	* IAnjutaProjectManager::project_loaded:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* Emitted when the project is fully loaded. It can takes a quite long
+	* time if the project is big. The project is loaded in several parts
+	* in a thread. All functions are available before having the project
+	* fully loaded.
+	*/
+	void ::project_loaded (GError *error);
+
 	/**
 	* IAnjutaProjectManager::element_added:
 	* @obj: Self

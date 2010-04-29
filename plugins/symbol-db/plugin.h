@@ -82,6 +82,7 @@ struct _SymbolDBPlugin {
 	gchar *project_root_uri;
 	gchar *project_root_dir;
 	gchar *project_opened;
+	gboolean needs_sources_scan;
 	
 	/* Symbol's engine connection to database. Instance for local project */
 	SymbolDBEngine *sdbe_project;

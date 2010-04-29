@@ -48,6 +48,7 @@ struct _AnjutaPmProjectClass
 	GObjectClass parent_class;
 
 	void (*updated) (GError *error);
+	void (*loaded) (GError *error);
 };
 
 struct _AnjutaPmProject
@@ -60,6 +61,8 @@ struct _AnjutaPmProject
 	GbfProjectModel *model;
 
 	AnjutaProjectNode *root;
+	
+	guint incomplete_node;
 	
 	/* project properties dialog */
 	GtkWidget *properties_dialog;

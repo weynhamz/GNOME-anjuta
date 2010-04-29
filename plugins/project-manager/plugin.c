@@ -1287,6 +1287,77 @@ on_project_updated (AnjutaPmProject *project, GError *error, ProjectManagerPlugi
 }
 
 static void
+on_project_loaded (AnjutaPmProject *project, GError *error, ProjectManagerPlugin *plugin)
+{
+	AnjutaStatus *status;
+	gchar *dirname;
+
+	dirname = anjuta_util_get_local_path_from_uri (plugin->project_root_uri);
+	status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL);
+	if (error)
+	{
+		GtkWidget *toplevel;
+		GtkWindow *win;
+		
+		toplevel = gtk_widget_get_toplevel (plugin->scrolledwindow);
+		if (toplevel && GTK_IS_WINDOW (toplevel))
+			win = GTK_WINDOW (toplevel);
+		else
+			win = GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell);
+
+		anjuta_util_dialog_error (win, _("Failed to parse project (the project is opened, but there will be no project view) %s: %s\n"
+										 ""),
+								  dirname, error->message);
+	}
+	else
+	{
+		/* Restore existing shortcut */
+		if (plugin->shortcuts != NULL)
+		{
+			GList *item;
+			
+			gbf_project_view_set_shortcut_list (GBF_PROJECT_VIEW (plugin->view), plugin->shortcuts);
+			/* Remove used shortcuts */
+			for (item = g_list_first (plugin->shortcuts); item != NULL;)
+			{
+				if (*((char *)item->data) == 'U')
+				{
+					GList *next = g_list_next (item);
+					
+					g_free (item->data);
+					plugin->shortcuts = g_list_remove_link (plugin->shortcuts, item);
+					item = next;
+				}
+				else
+				{
+					item = g_list_next (item);
+				}
+			}
+		}
+		gchar *basename = g_path_get_basename (dirname);
+		
+		anjuta_status_progress_tick (status, NULL, _("Update project view…"));
+		update_ui (plugin);
+		anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
+									plugin->scrolledwindow,
+									NULL);
+		anjuta_status_set_default (status, _("Project"), basename);
+		g_free (basename);
+	}
+	g_free (dirname);
+
+	if (plugin->busy)
+	{
+		anjuta_status_pop (status);
+		anjuta_status_busy_pop (status);
+		plugin->busy = FALSE;
+	}
+
+	/* Emit loaded signal for other plugins */
+	g_signal_emit_by_name (G_OBJECT (plugin), "project_loaded", error);
+}
+
+static void
 project_manager_load_gbf (ProjectManagerPlugin *pm_plugin)
 {
 	AnjutaStatus *status;
@@ -1504,6 +1575,7 @@ project_manager_plugin_activate_plugin (AnjutaPlugin *plugin)
 	/* Create project */
 	pm_plugin->project = anjuta_pm_project_new (plugin);
 	g_signal_connect (pm_plugin->project, "updated", G_CALLBACK (on_project_updated), plugin);
+	g_signal_connect (pm_plugin->project, "loaded", G_CALLBACK (on_project_loaded), plugin);
 	
 	/* create model & view and bind them */
 	view = gbf_project_view_new ();
@@ -1878,41 +1950,13 @@ iproject_manager_get_targets (IAnjutaProjectManager *project_manager,
 {
 	GList *targets, *node;
 	ProjectManagerPlugin *plugin;
-	gint type_id;
-	gint type_flag;
 	
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), NULL);
 	
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
 
 	/* Get all targets */
-	targets = gbf_project_util_node_all (anjuta_pm_project_get_root (plugin->project), ANJUTA_PROJECT_TARGET);
-
-	/* Remove all targets not in specified class */
-	type_id = target_type & ANJUTA_PROJECT_ID_MASK;
-	type_flag = target_type & ANJUTA_PROJECT_FLAG_MASK;
-	g_message ("get targets %p", targets);
-	for (node = g_list_first (targets); node != NULL;)
-	{
-		AnjutaProjectNodeType type;
-
-		type = anjuta_project_node_get_full_type (node->data);
-		if ((type_id != 0) && (type_id != (type & ANJUTA_PROJECT_ID_MASK)))
-		{
-			GList *next = g_list_next (node);
-			targets = g_list_delete_link (targets, node);
-			node = next;
-			continue;
-		}
-		if ((type_flag != 0) && ((type & type_flag) == 0))
-		{
-			GList *next = g_list_next (node);
-			targets = g_list_delete_link (targets, node);
-			node = next;
-			continue;
-		}
-		node = g_list_next (node);
-	}
+	targets = gbf_project_util_node_all (anjuta_pm_project_get_root (plugin->project), target_type);
 
 	/* Replace all targets by their corresponding URI */
 	for (node = g_list_first (targets); node != NULL; node = g_list_next (node))
