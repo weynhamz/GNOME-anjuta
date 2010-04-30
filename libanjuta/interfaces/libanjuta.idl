@@ -240,7 +240,8 @@ interface IAnjutaMarkable
 		BREAKPOINT_ENABLED,
 		PROGRAM_COUNTER
 	}
-  /**
+	
+	/**
 	 * IAnjutaMarkable::marker-clicked:
 	 * @obj: Self
 	 * @double_click: whether the marker was double clicked
@@ -1293,6 +1294,16 @@ interface IAnjutaEditor
 	 * number of line breaks in the added or removed text.
 	 */
 	void   ::changed (GObject *position, gboolean added, gint length, gint lines, const gchar *text);
+
+	/**
+	 * IAnjutaEditor::line-marks-gutter-clicked:
+	 * @obj: Self
+	 * @double_click: whether the line marks gutter was double clicked
+	 * @location: location of the clicked marker
+	 * 
+	 * The signal is emitted when the user clicks on a marker
+	 */
+	void   ::line_marks_gutter_clicked (gint location);
 	
 	/**
 	 * ianjuta_editor_get_tabsize:

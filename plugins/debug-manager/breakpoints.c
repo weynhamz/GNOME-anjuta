@@ -1622,11 +1622,36 @@ on_jump_to_breakpoint_activate (GtkAction * action, BreakpointsDBase *bd)
 	}
 }
 
+
+static void
+update_breakpoint(BreakpointsDBase *bd, IAnjutaEditor *te, gchar *uri, guint line_number){
+	/* Find corresponding breakpoint
+	 * Try to find right mark (it could have moved) first */
+	BreakpointItem *bi;
+	bi = breakpoints_dbase_find_breakpoint_from_mark (bd, te, line_number);
+	DEBUG_PRINT("breakpoints db %p, editor %p, uri %s, line_number %p, BreakpointItem %p", bd, te, uri, line_number, bi);
+	if (bi == NULL)
+	{
+		bi = breakpoints_dbase_find_breakpoint_from_line (bd, uri, line_number);
+	}
+
+	if (bi == NULL)
+	{
+		bi = breakpoint_item_new_from_uri (bd, uri, line_number, TRUE);
+
+		breakpoints_dbase_add_breakpoint (bd, bi);
+	}
+	else
+	{
+		breakpoints_dbase_remove_breakpoint (bd, bi);
+	}
+}
+
+/* update the breakpoint with current active line in the editor */
 static void
 on_toggle_breakpoint_activate (GtkAction * action, BreakpointsDBase *bd)
 {
 	IAnjutaEditor *te;
-	BreakpointItem *bi;
 	GFile* file;
 	gchar *uri;
 	guint line;
@@ -1641,24 +1666,29 @@ on_toggle_breakpoint_activate (GtkAction * action, BreakpointsDBase *bd)
 	uri = g_file_get_uri (file);
 	g_object_unref (file);
 	
-	/* Find corresponding breakpoint
-	 * Try to find right mark (it could have moved) first */
-	bi = breakpoints_dbase_find_breakpoint_from_mark (bd, te, line);
-	if (bi == NULL)
-	{
-		bi = breakpoints_dbase_find_breakpoint_from_line (bd, uri, line);
-	}
+	update_breakpoint(bd, te, uri, line);
 
-	if (bi == NULL)
-	{
-		bi = breakpoint_item_new_from_uri (bd, uri, line, TRUE);
-	
-		breakpoints_dbase_add_breakpoint (bd, bi);
-	}
-	else
-	{
-		breakpoints_dbase_remove_breakpoint (bd, bi);
-	}
+	g_free (uri);
+}
+
+/* update the breakpoint when the line number is known */
+static void
+on_line_marks_gutter_clicked(GtkAction * action, gint line_number, BreakpointsDBase *bd)
+{
+	IAnjutaEditor *te;
+	GFile* file;
+	gchar *uri;
+
+	/* Get current editor and line */
+	te = dma_get_current_editor (ANJUTA_PLUGIN (bd->plugin));
+	if (te == NULL) return;       /* Missing editor */
+	file = ianjuta_file_get_file (IANJUTA_FILE (te), NULL);
+	if (file == NULL) return;     /* File not saved yet, it's not possible to put a breakpoint in it */
+	uri = g_file_get_uri (file);
+	g_object_unref (file);
+
+	update_breakpoint(bd, te, uri, line_number);
+
 	g_free (uri);
 }
 
@@ -2076,3 +2106,8 @@ breakpoints_dbase_destroy (BreakpointsDBase * bd)
 	g_free (bd);
 }
 
+/* Handler for breakpoint toggle on double clicking line marks gutter */
+void breakpoint_toggle_handler(GtkAction * action, gint line_number, BreakpointsDBase *bd) {
+	/* Simply delegate to an internal API for now */
+	on_line_marks_gutter_clicked (action, line_number, bd);
+}
