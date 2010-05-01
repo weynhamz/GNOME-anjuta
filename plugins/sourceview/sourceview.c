@@ -321,9 +321,9 @@ static void on_backspace (GtkTextView* view,
 
 static void
 on_line_mark_activated(GtkTextView* view,
-								   GtkTextIter   *iter,
-								   GdkEventButton *event,
-								   Sourceview* sv)
+                       GtkTextIter   *iter,
+                       GdkEventButton *event,
+                       Sourceview* sv)
 {
 	/* proceed only if its a double click with left button*/
 	if( (event->button != 1) || (GDK_2BUTTON_PRESS != event->type) ) {
@@ -331,7 +331,7 @@ on_line_mark_activated(GtkTextView* view,
 	}
 
 	/* line number starts with 0, so add 1 */
-	gint line_number = gtk_text_iter_get_line(iter)+1;
+	gint line_number = LINE_TO_LOCATION(gtk_text_iter_get_line(iter));
 
 	if (!IANJUTA_IS_EDITOR(sv))
 	{

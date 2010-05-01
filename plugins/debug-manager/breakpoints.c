@@ -1629,7 +1629,7 @@ update_breakpoint(BreakpointsDBase *bd, IAnjutaEditor *te, gchar *uri, guint lin
 	 * Try to find right mark (it could have moved) first */
 	BreakpointItem *bi;
 	bi = breakpoints_dbase_find_breakpoint_from_mark (bd, te, line_number);
-	DEBUG_PRINT("breakpoints db %p, editor %p, uri %s, line_number %p, BreakpointItem %p", bd, te, uri, line_number, bi);
+	DEBUG_PRINT("breakpoints db %p, editor %p, uri %s, line_number %d, BreakpointItem %p", bd, te, uri, line_number, bi);
 	if (bi == NULL)
 	{
 		bi = breakpoints_dbase_find_breakpoint_from_line (bd, uri, line_number);
