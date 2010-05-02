@@ -48,7 +48,7 @@
 *   DATA DECLARATIONS
 */
 
-enum { NumTokens = 7 };
+enum { NumTokens = 15 };
 
 typedef enum eException {
 	ExceptionNone, ExceptionEOF, ExceptionFormattingError,
@@ -2141,13 +2141,17 @@ static void parseReturnType (statementInfo *const st)
 		/* get the total number of double colons */
 		int j;
 		int num_colons = 0;
-		
-		for (j = 0; j < NumTokens; j++)
+
+		/* we already are at 2nd token */
+		/* the +=2 means that colons are usually found at even places */
+		for (j = 2; j < NumTokens; j+=2)
 		{
 			tokenInfo *curr_tok;
 			curr_tok = prevToken (st, j);
 			if (curr_tok->type == TOKEN_DOUBLE_COLON)
 				num_colons++;
+			else
+				break;
 		}
 
 		/*printf ("FOUND colons %d\n", num_colons);*/
