@@ -207,6 +207,8 @@
                 SOURCE (19:4:1:59): libanjuta/anjuta-token-stream.h
                 SOURCE (19:4:1:60): libanjuta/anjuta-project.c
                 SOURCE (19:4:1:61): libanjuta/anjuta-project.h
+                SOURCE (19:4:1:62): libanjuta/anjuta-tabber.c
+                SOURCE (19:4:1:63): libanjuta/anjuta-tabber.h
             TARGET (19:4:2): libgladeanjuta.la
                 SOURCE (19:4:2:0): libanjuta/anjuta-glade-catalog.c
             TARGET (19:4:3): catalog
@@ -226,8 +228,9 @@
                 TARGET (19:5:0:2): gtodo_pixmaps
                     SOURCE (19:5:0:2:0): plugins/gtodo/anjuta-gtodo-plugin.svg
                     SOURCE (19:5:0:2:1): plugins/gtodo/anjuta-gtodo-plugin-48.png
-                    SOURCE (19:5:0:2:2): plugins/gtodo/gtodo-about.png
-                    SOURCE (19:5:0:2:3): plugins/gtodo/gtodo-edit.png
+                    SOURCE (19:5:0:2:2): plugins/gtodo/anjuta-gtodo-plugin-16.png
+                    SOURCE (19:5:0:2:3): plugins/gtodo/gtodo-about.png
+                    SOURCE (19:5:0:2:4): plugins/gtodo/gtodo-edit.png
                 TARGET (19:5:0:3): gtodo_plugin
                     SOURCE (19:5:0:3:0): plugins/gtodo/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (19:5:0:4): libanjuta-gtodo.la
@@ -389,13 +392,14 @@
                 TARGET (19:5:4:2): file_manager_pixmaps
                     SOURCE (19:5:4:2:0): plugins/file-manager/anjuta-file-manager-plugin.svg
                     SOURCE (19:5:4:2:1): plugins/file-manager/anjuta-file-manager-plugin-48.png
-                    SOURCE (19:5:4:2:2): plugins/file-manager/vcs-added.png
-                    SOURCE (19:5:4:2:3): plugins/file-manager/vcs-conflict.png
-                    SOURCE (19:5:4:2:4): plugins/file-manager/vcs-deleted.png
-                    SOURCE (19:5:4:2:5): plugins/file-manager/vcs-ignored.png
-                    SOURCE (19:5:4:2:6): plugins/file-manager/vcs-modified.png
-                    SOURCE (19:5:4:2:7): plugins/file-manager/vcs-unversioned.png
-                    SOURCE (19:5:4:2:8): plugins/file-manager/vcs-updated.png
+                    SOURCE (19:5:4:2:2): plugins/file-manager/anjuta-file-manager-plugin-16.png
+                    SOURCE (19:5:4:2:3): plugins/file-manager/vcs-added.png
+                    SOURCE (19:5:4:2:4): plugins/file-manager/vcs-conflict.png
+                    SOURCE (19:5:4:2:5): plugins/file-manager/vcs-deleted.png
+                    SOURCE (19:5:4:2:6): plugins/file-manager/vcs-ignored.png
+                    SOURCE (19:5:4:2:7): plugins/file-manager/vcs-modified.png
+                    SOURCE (19:5:4:2:8): plugins/file-manager/vcs-unversioned.png
+                    SOURCE (19:5:4:2:9): plugins/file-manager/vcs-updated.png
                 TARGET (19:5:4:3): file_manager_plugin
                     SOURCE (19:5:4:3:0): plugins/file-manager/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (19:5:4:4): libfile-manager.la
@@ -463,7 +467,8 @@
                 TARGET (19:5:8:0): wizard_glade
                     SOURCE (19:5:8:0:0): plugins/file-wizard/anjuta-file-wizard.ui
                 TARGET (19:5:8:1): wizard_pixmaps
-                    SOURCE (19:5:8:1:0): plugins/file-wizard/anjuta-file-wizard-plugin.png
+                    SOURCE (19:5:8:1:0): plugins/file-wizard/anjuta-file-wizard-plugin.svg
+                    SOURCE (19:5:8:1:1): plugins/file-wizard/anjuta-file-wizard-plugin-48.png
                 TARGET (19:5:8:2): wizard_plugin
                     SOURCE (19:5:8:2:0): plugins/file-wizard/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (19:5:8:3): libanjuta-file-wizard.la
@@ -747,29 +752,32 @@
                 TARGET (19:5:10:0): project_ui
                     SOURCE (19:5:10:0:0): plugins/project-manager/anjuta-project-manager.xml
                 TARGET (19:5:10:1): project_glade
-                    SOURCE (19:5:10:1:0): plugins/project-manager/create_dialogs.ui
+                    SOURCE (19:5:10:1:0): plugins/project-manager/pm_dialogs.ui
                 TARGET (19:5:10:2): project_pixmaps
                     SOURCE (19:5:10:2:0): plugins/project-manager/anjuta-project-manager-plugin.svg
                     SOURCE (19:5:10:2:1): plugins/project-manager/anjuta-project-manager-plugin-48.png
-                    SOURCE (19:5:10:2:2): plugins/project-manager/gbf-build.png
-                    SOURCE (19:5:10:2:3): plugins/project-manager/gbf-install.png
+                    SOURCE (19:5:10:2:2): plugins/project-manager/anjuta-project-manager-plugin-16.png
+                    SOURCE (19:5:10:2:3): plugins/project-manager/gbf-build.png
+                    SOURCE (19:5:10:2:4): plugins/project-manager/gbf-install.png
                 TARGET (19:5:10:3): project_plugin
                     SOURCE (19:5:10:3:0): plugins/project-manager/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (19:5:10:4): libanjuta-project-manager.la
                     SOURCE (19:5:10:4:0): plugins/project-manager/plugin.c
                     SOURCE (19:5:10:4:1): plugins/project-manager/plugin.h
-                    SOURCE (19:5:10:4:2): plugins/project-manager/gbf-tree-data.h
-                    SOURCE (19:5:10:4:3): plugins/project-manager/gbf-tree-data.c
-                    SOURCE (19:5:10:4:4): plugins/project-manager/gbf-project-model.h
-                    SOURCE (19:5:10:4:5): plugins/project-manager/gbf-project-model.c
-                    SOURCE (19:5:10:4:6): plugins/project-manager/gbf-project-view.h
-                    SOURCE (19:5:10:4:7): plugins/project-manager/gbf-project-view.c
-                    SOURCE (19:5:10:4:8): plugins/project-manager/gbf-project-util.h
-                    SOURCE (19:5:10:4:9): plugins/project-manager/gbf-project-util.c
+                    SOURCE (19:5:10:4:2): plugins/project-manager/tree-data.h
+                    SOURCE (19:5:10:4:3): plugins/project-manager/tree-data.c
+                    SOURCE (19:5:10:4:4): plugins/project-manager/project-model.h
+                    SOURCE (19:5:10:4:5): plugins/project-manager/project-model.c
+                    SOURCE (19:5:10:4:6): plugins/project-manager/project-view.h
+                    SOURCE (19:5:10:4:7): plugins/project-manager/project-view.c
+                    SOURCE (19:5:10:4:8): plugins/project-manager/project-util.h
+                    SOURCE (19:5:10:4:9): plugins/project-manager/project-util.c
                     SOURCE (19:5:10:4:10): plugins/project-manager/pkg-config.c
                     SOURCE (19:5:10:4:11): plugins/project-manager/pkg-config.h
                     SOURCE (19:5:10:4:12): plugins/project-manager/project.h
                     SOURCE (19:5:10:4:13): plugins/project-manager/project.c
+                    SOURCE (19:5:10:4:14): plugins/project-manager/dialogs.c
+                    SOURCE (19:5:10:4:15): plugins/project-manager/dialogs.h
             GROUP (19:5:11): cvs-plugin
                 TARGET (19:5:11:0): cvs_plugin_glade
                     SOURCE (19:5:11:0:0): plugins/cvs-plugin/anjuta-cvs-plugin.ui
@@ -825,7 +833,8 @@
                 TARGET (19:5:13:0): clsgen_glade
                     SOURCE (19:5:13:0:0): plugins/class-gen/anjuta-class-gen-plugin.ui
                 TARGET (19:5:13:2): clsgen_pixmaps
-                    SOURCE (19:5:13:2:0): plugins/class-gen/class_logo.xpm
+                    SOURCE (19:5:13:2:0): plugins/class-gen/anjuta-class-gen-plugin.svg
+                    SOURCE (19:5:13:2:1): plugins/class-gen/anjuta-class-gen-plugin-48.png
                 TARGET (19:5:13:3): clsgen_plugin
                     SOURCE (19:5:13:3:0): plugins/class-gen/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (19:5:13:4): libanjuta-class-gen.la
@@ -1235,17 +1244,17 @@
                         SOURCE (19:5:24:0:0:76): plugins/symbol-db/anjuta-tags/vstring.c
                         SOURCE (19:5:24:0:0:77): plugins/symbol-db/anjuta-tags/vstring.h
                         SOURCE (19:5:24:0:0:78): plugins/symbol-db/anjuta-tags/yacc.c
-                        SOURCE (19:5:24:0:0:79): plugins/symbol-db/anjuta-tags/js_parser/y.tab.c
-                        SOURCE (19:5:24:0:0:80): plugins/symbol-db/anjuta-tags/js_parser/y.tab.h
-                        SOURCE (19:5:24:0:0:81): plugins/symbol-db/anjuta-tags/js_parser/lex.yy.c
-                        SOURCE (19:5:24:0:0:82): plugins/symbol-db/anjuta-tags/js_parser/lex.yy.h
-                        SOURCE (19:5:24:0:0:83): plugins/symbol-db/anjuta-tags/js_parser/jsparse.c
-                        SOURCE (19:5:24:0:0:84): plugins/symbol-db/anjuta-tags/js_parser/jsparse.h
-                        SOURCE (19:5:24:0:0:85): plugins/symbol-db/anjuta-tags/js_parser/js-context.c
-                        SOURCE (19:5:24:0:0:86): plugins/symbol-db/anjuta-tags/js_parser/js-context.h
-                        SOURCE (19:5:24:0:0:87): plugins/symbol-db/anjuta-tags/js_parser/js-node.c
-                        SOURCE (19:5:24:0:0:88): plugins/symbol-db/anjuta-tags/js_parser/js-node.h
-                        SOURCE (19:5:24:0:0:89): plugins/symbol-db/anjuta-tags/js_parser/jstypes.h
+                        SOURCE (19:5:24:0:0:79): plugins/symbol-db/anjuta-tags/js-parser/js-parser-y-tab.c
+                        SOURCE (19:5:24:0:0:80): plugins/symbol-db/anjuta-tags/js-parser/js-parser-y-tab.h
+                        SOURCE (19:5:24:0:0:81): plugins/symbol-db/anjuta-tags/js-parser/lex.yy.c
+                        SOURCE (19:5:24:0:0:82): plugins/symbol-db/anjuta-tags/js-parser/lex.yy.h
+                        SOURCE (19:5:24:0:0:83): plugins/symbol-db/anjuta-tags/js-parser/jsparse.c
+                        SOURCE (19:5:24:0:0:84): plugins/symbol-db/anjuta-tags/js-parser/jsparse.h
+                        SOURCE (19:5:24:0:0:85): plugins/symbol-db/anjuta-tags/js-parser/js-context.c
+                        SOURCE (19:5:24:0:0:86): plugins/symbol-db/anjuta-tags/js-parser/js-context.h
+                        SOURCE (19:5:24:0:0:87): plugins/symbol-db/anjuta-tags/js-parser/js-node.c
+                        SOURCE (19:5:24:0:0:88): plugins/symbol-db/anjuta-tags/js-parser/js-node.h
+                        SOURCE (19:5:24:0:0:89): plugins/symbol-db/anjuta-tags/js-parser/jstypes.h
                         SOURCE (19:5:24:0:0:90): plugins/symbol-db/anjuta-tags/vala.c
                         SOURCE (19:5:24:0:0:91): plugins/symbol-db/anjuta-tags/ctags-visitor.c
                 GROUP (19:5:24:1): images
@@ -1258,11 +1267,20 @@
                         SOURCE (19:5:24:1:0:5): plugins/symbol-db/images/element-field-16.png
                         SOURCE (19:5:24:1:0:6): plugins/symbol-db/images/element-interface-16.png
                         SOURCE (19:5:24:1:0:7): plugins/symbol-db/images/element-interface-24.png
-                        SOURCE (19:5:24:1:0:8): plugins/symbol-db/images/element-method-16.png
-                        SOURCE (19:5:24:1:0:9): plugins/symbol-db/images/element-method-24.png
-                        SOURCE (19:5:24:1:0:10): plugins/symbol-db/images/element-namespace-16.png
-                        SOURCE (19:5:24:1:0:11): plugins/symbol-db/images/element-property-16.png
-                        SOURCE (19:5:24:1:0:12): plugins/symbol-db/images/element-structure-16.png
+                        SOURCE (19:5:24:1:0:8): plugins/symbol-db/images/element-interface-private-16.png
+                        SOURCE (19:5:24:1:0:9): plugins/symbol-db/images/element-interface-protected-16.png
+                        SOURCE (19:5:24:1:0:10): plugins/symbol-db/images/element-interface-public-16.png
+                        SOURCE (19:5:24:1:0:11): plugins/symbol-db/images/element-method-16.png
+                        SOURCE (19:5:24:1:0:12): plugins/symbol-db/images/element-method-private-16.png
+                        SOURCE (19:5:24:1:0:13): plugins/symbol-db/images/element-method-protected-16.png
+                        SOURCE (19:5:24:1:0:14): plugins/symbol-db/images/element-method-public-16.png
+                        SOURCE (19:5:24:1:0:15): plugins/symbol-db/images/element-method-24.png
+                        SOURCE (19:5:24:1:0:16): plugins/symbol-db/images/element-namespace-16.png
+                        SOURCE (19:5:24:1:0:17): plugins/symbol-db/images/element-property-16.png
+                        SOURCE (19:5:24:1:0:18): plugins/symbol-db/images/element-property-private-16.png
+                        SOURCE (19:5:24:1:0:19): plugins/symbol-db/images/element-property-protected-16.png
+                        SOURCE (19:5:24:1:0:20): plugins/symbol-db/images/element-property-public-16.png
+                        SOURCE (19:5:24:1:0:21): plugins/symbol-db/images/element-structure-16.png
                 GROUP (19:5:24:2): benchmark
                     TARGET (19:5:24:2:0): benchmark
                         SOURCE (19:5:24:2:0:0): plugins/symbol-db/benchmark/benchmark.c
@@ -1273,7 +1291,9 @@
                 TARGET (19:5:24:5): symbol_db_glade
                     SOURCE (19:5:24:5:0): plugins/symbol-db/anjuta-symbol-db.ui
                 TARGET (19:5:24:6): symbol_db_pixmaps
-                    SOURCE (19:5:24:6:0): plugins/symbol-db/anjuta-symbol-db-plugin-48.png
+                    SOURCE (19:5:24:6:0): plugins/symbol-db/anjuta-symbol-db-plugin.svg
+                    SOURCE (19:5:24:6:1): plugins/symbol-db/anjuta-symbol-db-plugin-48.png
+                    SOURCE (19:5:24:6:2): plugins/symbol-db/anjuta-symbol-db-plugin-16.png
                 TARGET (19:5:24:7): symbol_db_plugin
                     SOURCE (19:5:24:7:0): plugins/symbol-db/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (19:5:24:8): libanjuta-symbol-db.la
@@ -1283,32 +1303,37 @@
                     SOURCE (19:5:24:8:3): plugins/symbol-db/readtags.h
                     SOURCE (19:5:24:8:4): plugins/symbol-db/symbol-db-engine-iterator.c
                     SOURCE (19:5:24:8:5): plugins/symbol-db/symbol-db-engine-iterator.h
-                    SOURCE (19:5:24:8:6): plugins/symbol-db/symbol-db-view.h
-                    SOURCE (19:5:24:8:7): plugins/symbol-db/symbol-db-view.c
-                    SOURCE (19:5:24:8:8): plugins/symbol-db/symbol-db-view-locals.c
-                    SOURCE (19:5:24:8:9): plugins/symbol-db/symbol-db-view-locals.h
-                    SOURCE (19:5:24:8:10): plugins/symbol-db/symbol-db-view-search.h
-                    SOURCE (19:5:24:8:11): plugins/symbol-db/symbol-db-view-search.c
-                    SOURCE (19:5:24:8:12): plugins/symbol-db/symbol-db-engine-iterator-node.h
-                    SOURCE (19:5:24:8:13): plugins/symbol-db/symbol-db-engine-iterator-node.c
-                    SOURCE (19:5:24:8:14): plugins/symbol-db/symbol-db-system.h
-                    SOURCE (19:5:24:8:15): plugins/symbol-db/symbol-db-system.c
-                    SOURCE (19:5:24:8:16): plugins/symbol-db/symbol-db-prefs.h
-                    SOURCE (19:5:24:8:17): plugins/symbol-db/symbol-db-prefs.c
-                    SOURCE (19:5:24:8:18): plugins/symbol-db/symbol-db-engine-queries.c
-                    SOURCE (19:5:24:8:19): plugins/symbol-db/symbol-db-engine-queries.h
-                    SOURCE (19:5:24:8:20): plugins/symbol-db/symbol-db-engine-utils.c
-                    SOURCE (19:5:24:8:21): plugins/symbol-db/symbol-db-engine-utils.h
-                    SOURCE (19:5:24:8:22): plugins/symbol-db/symbol-db-engine-priv.h
-                    SOURCE (19:5:24:8:23): plugins/symbol-db/symbol-db-engine-core.c
-                    SOURCE (19:5:24:8:24): plugins/symbol-db/symbol-db-engine-core.h
-                    SOURCE (19:5:24:8:25): plugins/symbol-db/symbol-db-engine.h
-                    SOURCE (19:5:24:8:26): plugins/symbol-db/symbol-db-iface.c
-                    SOURCE (19:5:24:8:27): plugins/symbol-db/symbol-db-iface.h
-                    SOURCE (19:5:24:8:28): plugins/symbol-db/symbol-db-search-command.h
-                    SOURCE (19:5:24:8:29): plugins/symbol-db/symbol-db-search-command.c
-                    SOURCE (19:5:24:8:30): plugins/symbol-db/libgda-extra/gda-data-model-concat.c
-                    SOURCE (19:5:24:8:31): plugins/symbol-db/libgda-extra/gda-data-model-concat.h
+                    SOURCE (19:5:24:8:6): plugins/symbol-db/symbol-db-view-search.h
+                    SOURCE (19:5:24:8:7): plugins/symbol-db/symbol-db-view-search.c
+                    SOURCE (19:5:24:8:8): plugins/symbol-db/symbol-db-engine-iterator-node.h
+                    SOURCE (19:5:24:8:9): plugins/symbol-db/symbol-db-engine-iterator-node.c
+                    SOURCE (19:5:24:8:10): plugins/symbol-db/symbol-db-system.h
+                    SOURCE (19:5:24:8:11): plugins/symbol-db/symbol-db-system.c
+                    SOURCE (19:5:24:8:12): plugins/symbol-db/symbol-db-prefs.h
+                    SOURCE (19:5:24:8:13): plugins/symbol-db/symbol-db-prefs.c
+                    SOURCE (19:5:24:8:14): plugins/symbol-db/symbol-db-engine-queries.c
+                    SOURCE (19:5:24:8:15): plugins/symbol-db/symbol-db-engine-queries.h
+                    SOURCE (19:5:24:8:16): plugins/symbol-db/symbol-db-engine-utils.c
+                    SOURCE (19:5:24:8:17): plugins/symbol-db/symbol-db-engine-utils.h
+                    SOURCE (19:5:24:8:18): plugins/symbol-db/symbol-db-engine-priv.h
+                    SOURCE (19:5:24:8:19): plugins/symbol-db/symbol-db-engine-core.c
+                    SOURCE (19:5:24:8:20): plugins/symbol-db/symbol-db-engine-core.h
+                    SOURCE (19:5:24:8:21): plugins/symbol-db/symbol-db-engine.h
+                    SOURCE (19:5:24:8:22): plugins/symbol-db/symbol-db-iface.c
+                    SOURCE (19:5:24:8:23): plugins/symbol-db/symbol-db-iface.h
+                    SOURCE (19:5:24:8:24): plugins/symbol-db/symbol-db-search-command.h
+                    SOURCE (19:5:24:8:25): plugins/symbol-db/symbol-db-search-command.c
+                    SOURCE (19:5:24:8:26): plugins/symbol-db/symbol-db-model.c
+                    SOURCE (19:5:24:8:27): plugins/symbol-db/symbol-db-model.h
+                    SOURCE (19:5:24:8:28): plugins/symbol-db/symbol-db-model-project.c
+                    SOURCE (19:5:24:8:29): plugins/symbol-db/symbol-db-model-project.h
+                    SOURCE (19:5:24:8:30): plugins/symbol-db/symbol-db-model-file.c
+                    SOURCE (19:5:24:8:31): plugins/symbol-db/symbol-db-model-file.h
+                    SOURCE (19:5:24:8:32): plugins/symbol-db/symbol-db-views.c
+                    SOURCE (19:5:24:8:33): plugins/symbol-db/symbol-db-views.h
+                    SOURCE (19:5:24:8:34): plugins/symbol-db/libgda-extra/gda-data-model-concat.c
+                    SOURCE (19:5:24:8:35): plugins/symbol-db/libgda-extra/gda-data-model-concat.h
+                    SOURCE (19:5:24:8:36): plugins/symbol-db/$(BUILT_SOURCES)
             GROUP (19:5:25): git
                 TARGET (19:5:25:0): git_glade
                     SOURCE (19:5:25:0:0): plugins/git/anjuta-git.ui
@@ -1563,34 +1588,30 @@
                     SOURCE (19:5:28:2:2): plugins/starter/starter.h
                     SOURCE (19:5:28:2:3): plugins/starter/starter.c
             GROUP (19:5:29): am-project
-                TARGET (19:5:29:0): plugin_glade
-                    SOURCE (19:5:29:0:0): plugins/am-project/am-project.ui
-                TARGET (19:5:29:1): plugin_pixmaps
-                    SOURCE (19:5:29:1:0): plugins/am-project/am-project-plugin-48.png
-                TARGET (19:5:29:2): plugin
-                    SOURCE (19:5:29:2:0): plugins/am-project/$(plugin_in_files:.plugin.in=.plugin)
-                TARGET (19:5:29:3): libam-project.la
-                    SOURCE (19:5:29:3:0): plugins/am-project/plugin.c
-                    SOURCE (19:5:29:3:1): plugins/am-project/plugin.h
-                    SOURCE (19:5:29:3:2): plugins/am-project/am-project.c
-                    SOURCE (19:5:29:3:3): plugins/am-project/am-project.h
-                    SOURCE (19:5:29:3:4): plugins/am-project/am-scanner.l
-                    SOURCE (19:5:29:3:5): plugins/am-project/am-parser.y
-                    SOURCE (19:5:29:3:6): plugins/am-project/am-scanner.h
-                    SOURCE (19:5:29:3:7): plugins/am-project/ac-scanner.l
-                    SOURCE (19:5:29:3:8): plugins/am-project/ac-parser.y
-                    SOURCE (19:5:29:3:9): plugins/am-project/ac-scanner.h
-                    SOURCE (19:5:29:3:10): plugins/am-project/ac-writer.h
-                    SOURCE (19:5:29:3:11): plugins/am-project/ac-writer.c
-                    SOURCE (19:5:29:3:12): plugins/am-project/am-writer.h
-                    SOURCE (19:5:29:3:13): plugins/am-project/am-writer.c
-                    SOURCE (19:5:29:3:14): plugins/am-project/am-project-private.h
-                    SOURCE (19:5:29:3:15): plugins/am-project/am-dialogs.h
-                    SOURCE (19:5:29:3:16): plugins/am-project/am-dialogs.c
-                    SOURCE (19:5:29:3:17): plugins/am-project/am-properties.c
-                    SOURCE (19:5:29:3:18): plugins/am-project/am-properties.h
-                TARGET (19:5:29:4): projectparser
-                    SOURCE (19:5:29:4:0): plugins/am-project/projectparser.c
+                TARGET (19:5:29:0): plugin_pixmaps
+                    SOURCE (19:5:29:0:0): plugins/am-project/am-project-plugin-48.png
+                TARGET (19:5:29:1): plugin
+                    SOURCE (19:5:29:1:0): plugins/am-project/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (19:5:29:2): libam-project.la
+                    SOURCE (19:5:29:2:0): plugins/am-project/plugin.c
+                    SOURCE (19:5:29:2:1): plugins/am-project/plugin.h
+                    SOURCE (19:5:29:2:2): plugins/am-project/am-project.c
+                    SOURCE (19:5:29:2:3): plugins/am-project/am-project.h
+                    SOURCE (19:5:29:2:4): plugins/am-project/am-scanner.l
+                    SOURCE (19:5:29:2:5): plugins/am-project/am-parser.y
+                    SOURCE (19:5:29:2:6): plugins/am-project/am-scanner.h
+                    SOURCE (19:5:29:2:7): plugins/am-project/ac-scanner.l
+                    SOURCE (19:5:29:2:8): plugins/am-project/ac-parser.y
+                    SOURCE (19:5:29:2:9): plugins/am-project/ac-scanner.h
+                    SOURCE (19:5:29:2:10): plugins/am-project/ac-writer.h
+                    SOURCE (19:5:29:2:11): plugins/am-project/ac-writer.c
+                    SOURCE (19:5:29:2:12): plugins/am-project/am-writer.h
+                    SOURCE (19:5:29:2:13): plugins/am-project/am-writer.c
+                    SOURCE (19:5:29:2:14): plugins/am-project/am-project-private.h
+                    SOURCE (19:5:29:2:15): plugins/am-project/am-properties.c
+                    SOURCE (19:5:29:2:16): plugins/am-project/am-properties.h
+                TARGET (19:5:29:3): projectparser
+                    SOURCE (19:5:29:3:0): plugins/am-project/projectparser.c
             GROUP (19:5:30): mk-project
                 TARGET (19:5:30:0): plugin_glade
                     SOURCE (19:5:30:0:0): plugins/mk-project/mk-project.ui
@@ -1642,15 +1663,15 @@
                     SOURCE (19:5:33:2:0): plugins/language-support-js/js_support_plugin.png
                 TARGET (19:5:33:3): js_support_plugin_plugin
                     SOURCE (19:5:33:3:0): plugins/language-support-js/$(plugin_in_files:.plugin.in=.plugin)
-                TARGET (19:5:33:4): libjs_support_plugin.la
+                TARGET (19:5:33:4): libjs-support-plugin.la
                     SOURCE (19:5:33:4:0): plugins/language-support-js/plugin.c
                     SOURCE (19:5:33:4:1): plugins/language-support-js/plugin.h
                     SOURCE (19:5:33:4:2): plugins/language-support-js/code-completion.c
                     SOURCE (19:5:33:4:3): plugins/language-support-js/code-completion.h
                     SOURCE (19:5:33:4:4): plugins/language-support-js/util.c
                     SOURCE (19:5:33:4:5): plugins/language-support-js/util.h
-                    SOURCE (19:5:33:4:6): plugins/language-support-js/y.tab.c
-                    SOURCE (19:5:33:4:7): plugins/language-support-js/y.tab.h
+                    SOURCE (19:5:33:4:6): plugins/language-support-js/js-parser-y-tab.c
+                    SOURCE (19:5:33:4:7): plugins/language-support-js/js-parser-y-tab.h
                     SOURCE (19:5:33:4:8): plugins/language-support-js/lex.yy.c
                     SOURCE (19:5:33:4:9): plugins/language-support-js/lex.yy.h
                     SOURCE (19:5:33:4:10): plugins/language-support-js/js-node.c
