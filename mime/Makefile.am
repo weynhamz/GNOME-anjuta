@@ -1,16 +1,8 @@
 mimexmldir = $(datadir)/mime/packages
 mimexml_DATA = anjuta.xml
 
-mimepngicondir = $(datadir)/icons/gnome/48x48/mimetypes
-mimepngicon_DATA = gnome-mime-application-x-anjuta.png
-
-mimesvgicondir = $(datadir)/icons/gnome/scalable/mimetypes
-mimesvgicon_DATA = gnome-mime-application-x-anjuta.svg
-
 EXTRA_DIST = \
-	$(mimexml_DATA) \
-	$(mimepngicon_DATA) \
-	$(mimesvgicon_DATA)
+	$(mimexml_DATA)
 
 ## Update mime only when system wide installation takes place
 
