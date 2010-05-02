@@ -289,6 +289,18 @@ anjuta_project_node_insert_after (AnjutaProjectNode *parent, AnjutaProjectNode *
 }
 
 AnjutaProjectNode *
+anjuta_project_node_replace (AnjutaProjectNode *node, AnjutaProjectNode *replacement)
+{
+	if (node->parent != NULL)
+	{
+		g_node_insert_after (node->parent, node, replacement);
+		g_node_unlink (node);
+	}
+	
+	return replacement;
+}
+
+AnjutaProjectNode *
 anjuta_project_node_prepend (AnjutaProjectNode *parent, AnjutaProjectNode *node)
 {
 	return g_node_prepend (parent, node);
@@ -386,7 +398,7 @@ anjuta_project_node_get_file (AnjutaProjectNode *node)
 		AnjutaProjectNode *parent;
 
 		parent = anjuta_project_node_parent (node);
-		if (NODE_DATA (parent)->file != NULL)
+		if ((parent != NULL) && (NODE_DATA (parent)->file != NULL))
 		{
 			data->file = g_file_get_child (NODE_DATA (parent)->file, data->name);
 		}
@@ -706,10 +718,15 @@ anjuta_project_proxy_new (AnjutaProjectNode *node)
 		AnjutaProjectProxyData *proxy;
 		AnjutaProjectNodeData *data = NODE_DATA (node);
 
+		/* Create proxy node */
 		proxy = g_slice_new0(AnjutaProjectProxyData);
 		proxy->reference = 1;
 		proxy->node = node;
 		proxy->base.type = data->type | ANJUTA_PROJECT_PROXY;
+		proxy->base.file = g_object_ref (data->file);
+		proxy->base.name = g_strdup (data->name);
+		
+		/* Shallow copy of all properties */
 		if ((data->properties == NULL) || (((AnjutaProjectPropertyInfo *)data->properties->data)->override == NULL))
 		{
 			proxy->base.properties = data->properties;
@@ -731,9 +748,10 @@ anjuta_project_proxy_new (AnjutaProjectNode *node)
 				item->data = new_info;
 			}
 		}
-		proxy->base.file = g_object_ref (data->file);
-		proxy->base.name = g_strdup (data->name);
-		node = g_node_new (proxy);
+		
+		/* Replace node */
+		node->data = proxy;
+		node = anjuta_project_node_replace (node, g_node_new (data));
 	}
 
 	return node;

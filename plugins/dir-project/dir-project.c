@@ -49,8 +49,6 @@ struct _DirProject {
 
 	GFile			*root_file;
 
-	AnjutaProjectNode        *root_node;
-	
 	/* shortcut hash tables, mapping id -> GNode from the tree above */
 	GHashTable		*groups;
 	
@@ -62,7 +60,7 @@ struct _DirProject {
 };
 
 /* convenient shortcut macro the get the AnjutaProjectNode from a GNode */
-#define DIR_NODE_DATA(node)  ((node) != NULL ? (AnjutaProjectNodeData *)((node)->data) : NULL)
+#define NODE_DATA(node)  ((node) != NULL ? (AnjutaProjectNodeData *)((node)->data) : NULL)
 #define DIR_GROUP_DATA(node)  ((node) != NULL ? (DirGroupData *)((node)->data) : NULL)
 #define DIR_TARGET_DATA(node)  ((node) != NULL ? (DirTargetData *)((node)->data) : NULL)
 #define DIR_SOURCE_DATA(node)  ((node) != NULL ? (DirSourceData *)((node)->data) : NULL)
@@ -261,7 +259,7 @@ dir_root_new (GFile *file)
 static void
 dir_root_free (AnjutaProjectNode *node)
 {
-	AnjutaProjectNodeData *data = DIR_NODE_DATA (node);
+	AnjutaProjectNodeData *data = NODE_DATA (node);
 	
 	if (data->file != NULL) g_object_unref (data->file);
 	g_free (data->name);
@@ -283,6 +281,8 @@ dir_group_new (GFile *file)
 	group = g_slice_new0(DirGroupData); 
 	group->base.type = ANJUTA_PROJECT_GROUP;
 	group->base.file = g_object_ref (file);
+	group->base.state = ANJUTA_PROJECT_CAN_ADD_GROUP |
+						ANJUTA_PROJECT_CAN_REMOVE;
 
     return g_node_new (group);
 }
@@ -340,21 +340,25 @@ dir_source_free (DirSource *node)
 
 
 static void
-foreach_node_destroy (AnjutaProjectNode    *g_node,
+foreach_node_destroy (AnjutaProjectNode *node,
 		      gpointer  data)
 {
-	switch (DIR_NODE_DATA (g_node)->type) {
+	gint type = NODE_DATA (node)->type;
+	
+	g_message ("dir free node %p", node);
+	switch (type & ANJUTA_PROJECT_TYPE_MASK)
+	{
 		case ANJUTA_PROJECT_GROUP:
-			dir_group_free (g_node);
+			dir_group_free (node);
 			break;
 		case ANJUTA_PROJECT_TARGET:
-			dir_target_free (g_node);
+			dir_target_free (node);
 			break;
 		case ANJUTA_PROJECT_SOURCE:
-			dir_source_free (g_node);
+			dir_source_free (node);
 			break;
 		case ANJUTA_PROJECT_ROOT:
-			dir_root_free (g_node);
+			dir_root_free (node);
 			break;
 		default:
 			g_assert_not_reached ();
@@ -394,8 +398,9 @@ project_node_new (DirProject *project, AnjutaProjectNodeType type, GFile *file, 
 			g_assert_not_reached ();
 			break;
 	}
-	if (node != NULL) DIR_NODE_DATA (node)->type = type;
-
+	if (node != NULL) NODE_DATA (node)->type = type;
+	g_message ("dir new node %p type %x", node, type);
+	
 	return node;
 }
 
@@ -711,7 +716,7 @@ dir_project_list_directory (DirProject *project, DirGroup* parent, GError **erro
 				/* Create a group for directory */
 				DirGroup *group;
 				
-				group = dir_group_new (file);
+				group = project_node_new (project, ANJUTA_PROJECT_GROUP, file, NULL);
 				g_hash_table_insert (project->groups, g_file_get_uri (file), group);
 				anjuta_project_node_append (parent, group);
 				ok = dir_project_list_directory (project, group, error);
@@ -722,7 +727,7 @@ dir_project_list_directory (DirProject *project, DirGroup* parent, GError **erro
 				/* Create a source for files */
 				DirSource *source;
 
-				source = dir_source_new (file);
+				source = project_node_new (project, ANJUTA_PROJECT_SOURCE, file, NULL);
 				anjuta_project_node_append (parent, source);
 			}
 		}
@@ -743,12 +748,10 @@ dir_project_load_root (DirProject *project, AnjutaProjectNode *node, GError **er
 	GFile *source_file;
 	DirGroup *group;
 
-	/* Unload current project */
-	dir_project_unload (project);
-	DEBUG_PRINT ("reload project %p root file %p", project, root_file);
 	root_file = g_object_ref (anjuta_project_node_get_file (node));
+	DEBUG_PRINT ("reload project %p root file %p", project, root_file);
 	project->root_file = root_file;
-	project->root_node = node;
+	//project->root_node = node;
 
 	/* shortcut hash tables */
 	project->groups = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
@@ -762,7 +765,7 @@ dir_project_load_root (DirProject *project, AnjutaProjectNode *node, GError **er
 		return NULL;
 	}
 
-	group = dir_group_new (root_file);
+	group = project_node_new (project, ANJUTA_PROJECT_GROUP, root_file, NULL);
 	anjuta_project_node_append (node, group);
 	g_hash_table_insert (project->groups, g_file_get_uri (root_file), group);
 
@@ -813,8 +816,8 @@ dir_project_unload (DirProject *project)
 	monitors_remove (project);
 	
 	/* project data */
-	project_node_destroy (project, project->root_node);
-	project->root_node = NULL;
+	/*project_node_destroy (project, project->root_node);
+	project->root_node = NULL;*/
 
 	if (project->root_file) g_object_unref (project->root_file);
 	project->root_file = NULL;
@@ -908,7 +911,7 @@ dir_project_get_node_info (DirProject *project, GError **error)
 static DirGroup *
 dir_project_get_root (DirProject *project)
 {
-	return project->root_node;
+	return NULL;
 }
 
 
@@ -1010,9 +1013,31 @@ iproject_add_file_node (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaPr
 }
 
 static AnjutaProjectNode *
-iproject_add_name_node (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, const gchar *name, GError **err)
+iproject_add_name_node (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, const gchar *name, GError **error)
 {
-	return NULL;
+	AnjutaProjectNode *node = NULL;
+	GFile *file;
+	
+	/* Create a group for directory */
+	switch (type & ANJUTA_PROJECT_TYPE_MASK)
+	{
+	case ANJUTA_PROJECT_GROUP:
+		file = g_file_get_child (anjuta_project_node_get_file (parent), name);
+		if (g_file_make_directory (file, NULL, error))
+		{
+			node = project_node_new (DIR_PROJECT (obj), type, file, NULL);
+			anjuta_project_node_append (parent, node);
+		}
+		g_object_unref (file);
+		break;
+	default:
+		g_set_error (error, IANJUTA_PROJECT_ERROR, 
+					IANJUTA_PROJECT_ERROR_NOT_SUPPORTED,
+			_("Project doesn't allow to add such type of element"));
+		break;
+	}
+	
+	return node;
 }
 
 static gboolean
@@ -1100,7 +1125,7 @@ dir_project_instance_init (DirProject *project)
 	
 	/* project data */
 	project->root_file = NULL;
-	project->root_node = NULL;
+	//project->root_node = NULL;
 
 	project->monitors = NULL;
 	project->groups = NULL;

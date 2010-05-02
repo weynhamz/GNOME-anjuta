@@ -121,6 +121,17 @@ gbf_tree_data_get_node (GbfTreeData *data)
 	return data->node;
 }
 
+void
+gbf_tree_data_replace_node (GbfTreeData *data, AnjutaProjectNode *node)
+{
+	GFile *file = ((AnjutaProjectNodeData *)node->data)->file;
+	
+	/* Replace file to keep the same interface */
+	((AnjutaProjectNodeData *)node->data)->file = ((AnjutaProjectNodeData *)data->node->data)->file;
+	((AnjutaProjectNodeData *)data->node->data)->file = file;
+	data->node = node;
+}
+
 gboolean
 gbf_tree_data_equal (GbfTreeData *data_a, GbfTreeData *data_b)
 {

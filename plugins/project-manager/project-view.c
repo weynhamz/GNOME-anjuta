@@ -629,7 +629,7 @@ gbf_project_view_set_shortcut_list (GbfProjectView *view, GList *shortcuts)
 				}
 				file = g_file_new_for_path (path);
 
-				if (gbf_project_model_find_tree_file  (GBF_PROJECT_MODEL (model), &shortcut, NULL, ANJUTA_PROJECT_UNKNOWN, file))
+				if (gbf_project_model_find_file  (GBF_PROJECT_MODEL (model), &shortcut, NULL, ANJUTA_PROJECT_UNKNOWN, file))
 				{
 					GbfTreeData *data;
 

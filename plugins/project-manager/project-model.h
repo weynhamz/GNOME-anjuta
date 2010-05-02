@@ -67,11 +67,15 @@ gboolean         gbf_project_model_remove            (GbfProjectModel *model,
 gboolean         gbf_project_model_find_tree_data    (GbfProjectModel   *model,
                                                       GtkTreeIter       *iter,
                                                       GbfTreeData       *data);
-gboolean         gbf_project_model_find_tree_file    (GbfProjectModel   *model,
+gboolean         gbf_project_model_find_file         (GbfProjectModel   *model,
                                                       GtkTreeIter       *iter,
                                                       GtkTreeIter       *parent,
                                                       AnjutaProjectNodeType type,
                                                       GFile             *file);
+gboolean         gbf_project_model_find_node         (GbfProjectModel   *model,
+                                                      GtkTreeIter       *iter,
+                                                      GtkTreeIter       *parent,
+                                                      AnjutaProjectNode *node);
 AnjutaProjectNode *gbf_project_model_get_node        (GbfProjectModel *model,
                                                       GtkTreeIter     *iter);
 
@@ -82,7 +86,8 @@ void             gbf_project_model_add_shortcut      (GbfProjectModel *model,
 
 void            gbf_project_model_update_tree (GbfProjectModel *model,
                                                     AnjutaProjectNode *parent,
-                                                    GtkTreeIter *iter);
+                                                    GtkTreeIter *iter,
+                                                    GHashTable *map);
 
 
 #endif

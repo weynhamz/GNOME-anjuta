@@ -59,6 +59,8 @@ gchar	      *gbf_tree_data_get_uri		    (GbfTreeData           *data);
 GFile	      *gbf_tree_data_get_file		    (GbfTreeData           *data);
 const gchar   *gbf_tree_data_get_name		    (GbfTreeData           *data);
 AnjutaProjectNode *gbf_tree_data_get_node		(GbfTreeData           *data);
+void 			gbf_tree_data_replace_node		(GbfTreeData           *data,
+												 AnjutaProjectNode     *node);
 
 gchar		  *gbf_tree_data_get_path		    (GbfTreeData           *data);
 

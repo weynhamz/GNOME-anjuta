@@ -644,7 +644,7 @@ add_root (GbfProjectModel 	*model,
 static void
 project_updated_cb (IAnjutaProject *project, GbfProjectModel *model)
 {
-	gbf_project_model_update_tree (model, NULL, NULL);
+	gbf_project_model_update_tree (model, NULL, NULL, NULL);
 }
 
 static void
@@ -737,52 +737,67 @@ recursive_find_tree_data (GtkTreeModel  *model,
 }
 
 void
-gbf_project_model_update_tree (GbfProjectModel *model, AnjutaProjectNode *parent, GtkTreeIter *iter)
+gbf_project_model_update_tree (GbfProjectModel *model, AnjutaProjectNode *parent, GtkTreeIter *iter, GHashTable *map)
 {
 	GtkTreeIter child;
 	GList *node;
 	GList *nodes;
 
-	/* group can be NULL, but we iterate anyway to remove any
-	 * shortcuts the old group could have had */
+	/* Update parent */
+	if (iter != NULL)
+	{
+		GbfTreeData *data = NULL;
+
+		gtk_tree_model_get (GTK_TREE_MODEL (model), iter,
+				GBF_PROJECT_MODEL_COLUMN_DATA, &data,
+				-1);
+		gbf_tree_data_replace_node (data, parent);
+	}
 	
 	/* Get all new nodes */
 	nodes = gbf_project_util_all_child (parent, ANJUTA_PROJECT_UNKNOWN);
+	g_message ("gbf_project_model_update_tree %p", nodes);
 
 	/* walk the tree nodes */
-	if (gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &child, iter)) {
+	if (gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &child, iter))
+	{
 		gboolean valid = TRUE;
 		
 		while (valid) {
-			AnjutaProjectNode* data;
-			GbfTreeData *tree_data = NULL;
+			GbfTreeData *data = NULL;
+			AnjutaProjectNode* new_node = NULL;
 
-			/* Get tree data */
-			gtk_tree_model_get (GTK_TREE_MODEL (model), &child,
-			    GBF_PROJECT_MODEL_COLUMN_DATA, &tree_data,
-			    -1);
+			if (map != NULL)
+			{
+				/* Look for old node */
+				AnjutaProjectNode* old_node;
+				
+				gtk_tree_model_get (GTK_TREE_MODEL (model), &child,
+					GBF_PROJECT_MODEL_COLUMN_DATA, &data,
+					-1);
 
-			data = gbf_project_model_get_node (model, &child);
-
-			if (data != NULL)
+				old_node = gbf_tree_data_get_node (data);
+				new_node = g_hash_table_lookup (map, old_node);
+			}
+			
+			if (new_node != NULL)
 			{
 				/* Remove from the new node list */
-				node = g_list_find (nodes, data);
+				node = g_list_find (nodes, new_node);
 				if (node != NULL)
 				{
 					nodes = g_list_delete_link (nodes, node);
 				}
-
+				gbf_tree_data_replace_node (data, new_node);
+				
 				/* update recursively */
-				gbf_project_model_update_tree (model, data, &child);
+				gbf_project_model_update_tree (model, new_node, &child, map);
 				
 				valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &child);
 			}
 			else
 			{
 				/* update recursively */
-				gbf_project_model_update_tree (model, data, &child);
-				
 				valid = gbf_project_model_remove (model, &child);
 			}
 		}
@@ -791,9 +806,11 @@ gbf_project_model_update_tree (GbfProjectModel *model, AnjutaProjectNode *parent
 	/* add the remaining sources, targets and groups */
 	for (node = nodes; node; node = node->next)
 	{
+		//g_message ("Add node %p type %x", node->data, anjuta_project_node_get_type (node->data));
 		switch (anjuta_project_node_get_type (node->data))
 		{
 		case ANJUTA_PROJECT_GROUP:
+			//g_message ("Add group %p name %s", anjuta_project_node_get_name (node));
 			add_target_group (model, node->data, iter);
 			break;
 		case ANJUTA_PROJECT_TARGET:
@@ -836,7 +853,7 @@ gbf_project_model_find_tree_data (GbfProjectModel 	*model,
 }
 
 gboolean 
-gbf_project_model_find_tree_file (GbfProjectModel 	*model,
+gbf_project_model_find_file (GbfProjectModel 	*model,
     GtkTreeIter		*found,
     GtkTreeIter		*parent,
     AnjutaProjectNodeType type,
@@ -865,7 +882,43 @@ gbf_project_model_find_tree_file (GbfProjectModel 	*model,
 	{
 		for (valid = gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &iter, parent); valid == TRUE; valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &iter))
 		{
-			if (gbf_project_model_find_tree_file (model, found, &iter, type, file)) return TRUE;
+			if (gbf_project_model_find_file (model, found, &iter, type, file)) break;
+		}
+	}
+
+	return valid;
+}
+
+gboolean 
+gbf_project_model_find_node (GbfProjectModel 	*model,
+    GtkTreeIter		*found,
+    GtkTreeIter		*parent,
+    AnjutaProjectNode	*node)
+{
+	GtkTreeIter iter;
+	gboolean valid;
+
+	/* Search for direct children */
+	for (valid = gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &iter, parent); valid == TRUE; valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &iter))
+	{
+		GbfTreeData *data;
+		
+		gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
+			GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
+
+		if (node == gbf_tree_data_get_node (data))
+		{
+			*found = iter;
+			break;
+		}
+	}
+
+	/* Search for children of children */
+	if (!valid)
+	{
+		for (valid = gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &iter, parent); valid == TRUE; valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &iter))
+		{
+			if (gbf_project_model_find_node (model, found, &iter, node)) break;
 		}
 	}
 

@@ -1876,7 +1876,7 @@ get_tree_iter_from_file (ProjectManagerPlugin *plugin, GtkTreeIter* iter, GFile 
 {
 	gboolean found;
 	
-	found = gbf_project_model_find_tree_file (anjuta_pm_project_get_model (plugin->project), iter, NULL, type, file);
+	found = gbf_project_model_find_file (anjuta_pm_project_get_model (plugin->project), iter, NULL, type, file);
 
 	return found ? iter : NULL;
 }
