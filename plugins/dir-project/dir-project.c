@@ -76,6 +76,8 @@ typedef struct _DirGroupData DirGroupData;
 
 struct _DirGroupData {
 	AnjutaProjectNodeData base;
+	GFileMonitor *monitor;
+	GObject *emitter;
 };
 
 typedef struct _DirTargetData DirTargetData;
@@ -135,107 +137,25 @@ static GObject *parent_class;
 /* Helper functions
  *---------------------------------------------------------------------------*/
 
-/*
- * File monitoring support --------------------------------
- * FIXME: review these
- */
 static void
-monitor_cb (GFileMonitor *monitor,
+on_file_changed (GFileMonitor *monitor,
 			GFile *file,
 			GFile *other_file,
 			GFileMonitorEvent event_type,
 			gpointer data)
 {
-	DirProject *project = data;
+	AnjutaProjectNode *node = data;
 
-	g_return_if_fail (project != NULL && DIR_IS_PROJECT (project));
-
+	g_message ("on_file_changed %s type %d emitter %p node %p proxy %d", g_file_get_path (file), event_type, DIR_GROUP_DATA (node)->emitter, node, NODE_DATA (node)->type & ANJUTA_PROJECT_PROXY);
 	switch (event_type) {
 		case G_FILE_MONITOR_EVENT_CHANGED:
 		case G_FILE_MONITOR_EVENT_DELETED:
-			/* monitor will be removed here... is this safe? */
-			//dir_project_reload (project, NULL);
-			g_signal_emit_by_name (G_OBJECT (project), "project-updated");
+		case G_FILE_MONITOR_EVENT_CREATED:
+			g_signal_emit_by_name (DIR_GROUP_DATA (node)->emitter, "node-updated", node);
 			break;
 		default:
 			break;
 	}
-}
-
-
-static void
-monitor_add (DirProject *project, GFile *file)
-{
-	GFileMonitor *monitor = NULL;
-	
-	g_return_if_fail (project != NULL);
-	g_return_if_fail (project->monitors != NULL);
-	
-	if (file == NULL)
-		return;
-	
-	monitor = g_hash_table_lookup (project->monitors, file);
-	if (!monitor) {
-		gboolean exists;
-		
-		/* FIXME clarify if uri is uri, path or both */
-		exists = g_file_query_exists (file, NULL);
-		
-		if (exists) {
-			monitor = g_file_monitor_file (file, 
-						       G_FILE_MONITOR_NONE,
-						       NULL,
-						       NULL);
-			if (monitor != NULL)
-			{
-				g_signal_connect (G_OBJECT (monitor),
-						  "changed",
-						  G_CALLBACK (monitor_cb),
-						  project);
-				g_hash_table_insert (project->monitors,
-						     g_object_ref (file),
-						     monitor);
-			}
-		}
-	}
-}
-
-static void
-monitors_remove (DirProject *project)
-{
-	g_return_if_fail (project != NULL);
-
-	if (project->monitors)
-		g_hash_table_destroy (project->monitors);
-	project->monitors = NULL;
-}
-
-static void
-group_hash_foreach_monitor (gpointer key,
-			    gpointer value,
-			    gpointer user_data)
-{
-	DirGroup *group_node = value;
-	DirProject *project = user_data;
-
-	monitor_add (project, DIR_GROUP_DATA(group_node)->base.file);
-}
-
-static void
-monitors_setup (DirProject *project)
-{
-	g_return_if_fail (project != NULL);
-
-	monitors_remove (project);
-	
-	/* setup monitors hash */
-	project->monitors = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL,
-						   (GDestroyNotify) g_file_monitor_cancel);
-
-	monitor_add (project, project->root_file);
-	
-	if (project->groups)
-		g_hash_table_foreach (project->groups, group_hash_foreach_monitor, project);
 }
 
 /* Root objects
@@ -272,9 +192,10 @@ dir_root_free (AnjutaProjectNode *node)
  *---------------------------------------------------------------------------*/
 
 static DirGroup*
-dir_group_new (GFile *file)
+dir_group_new (GFile *file, GObject *emitter)
 {
     DirGroupData *group = NULL;
+	DirGroup *node;
 
 	g_return_val_if_fail (file != NULL, NULL);
 	
@@ -283,8 +204,24 @@ dir_group_new (GFile *file)
 	group->base.file = g_object_ref (file);
 	group->base.state = ANJUTA_PROJECT_CAN_ADD_GROUP |
 						ANJUTA_PROJECT_CAN_REMOVE;
+	
+	group->emitter = emitter;
+	
+	node = g_node_new (group);
 
-    return g_node_new (group);
+	/* Connect monitor if file exist */
+	if (g_file_query_exists (file, NULL))
+	{
+		group->monitor = g_file_monitor_directory (file, G_FILE_MONITOR_NONE, NULL, NULL);
+
+		g_signal_connect (G_OBJECT (group->monitor),
+							"changed",
+							G_CALLBACK (on_file_changed),
+							node);
+	}
+	g_message ("new group %p monitor %p", node, group->monitor);
+
+	return node;
 }
 
 static void
@@ -292,8 +229,10 @@ dir_group_free (DirGroup *node)
 {
     DirGroupData *group = (DirGroupData *)node->data;
 	
+	if (group->monitor != NULL) g_file_monitor_cancel (group->monitor);
 	if (group->base.file) g_object_unref (group->base.file);
     g_slice_free (DirGroupData, group);
+	g_message ("free group %p monitor %p", node, group->monitor);
 
 	g_node_destroy (node);
 }
@@ -380,13 +319,33 @@ project_node_destroy (DirProject *project, AnjutaProjectNode *g_node)
 }
 
 static AnjutaProjectNode *
-project_node_new (DirProject *project, AnjutaProjectNodeType type, GFile *file, const gchar *name)
+project_node_new (DirProject *project, AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile *file, const gchar *name, GError **error)
 {
 	AnjutaProjectNode *node = NULL;
 	
 	switch (type & ANJUTA_PROJECT_TYPE_MASK) {
 		case ANJUTA_PROJECT_GROUP:
-			node = dir_group_new (file);
+			if (file == NULL)
+			{
+				if (name == NULL)
+				{
+					g_set_error (error, IANJUTA_PROJECT_ERROR, 
+							IANJUTA_PROJECT_ERROR_VALIDATION_FAILED,
+							_("Missing name"));
+				}
+				else
+				{
+					GFile *group_file;
+					
+					group_file = g_file_get_child (anjuta_project_node_get_file (parent), name);
+					node = dir_group_new (group_file, G_OBJECT (project));
+					g_object_unref (group_file);
+				}
+			}
+			else
+			{
+				node = dir_group_new (file, G_OBJECT (project));
+			}
 			break;
 		case ANJUTA_PROJECT_SOURCE:
 			node = dir_source_new (file);
@@ -682,8 +641,11 @@ dir_pattern_stack_is_match (GList *stack, GFile *file)
 	return match;
 }
 
-static gboolean
-dir_project_list_directory (DirProject *project, DirGroup* parent, GError **error) 
+/* Public functions
+ *---------------------------------------------------------------------------*/
+
+static AnjutaProjectNode *
+dir_project_load_directory (DirProject *project, AnjutaProjectNode *parent, GError **error)
 {
 	gboolean ok;
 	GFileEnumerator *enumerator;
@@ -716,18 +678,18 @@ dir_project_list_directory (DirProject *project, DirGroup* parent, GError **erro
 				/* Create a group for directory */
 				DirGroup *group;
 				
-				group = project_node_new (project, ANJUTA_PROJECT_GROUP, file, NULL);
+				group = project_node_new (project, NULL, ANJUTA_PROJECT_GROUP, file, NULL, NULL);
 				g_hash_table_insert (project->groups, g_file_get_uri (file), group);
 				anjuta_project_node_append (parent, group);
-				ok = dir_project_list_directory (project, group, error);
-				if (!ok) break;
+				group = dir_project_load_directory (project, group, error);
+				if (group == NULL) break;
 			}
 			else
 			{
 				/* Create a source for files */
 				DirSource *source;
 
-				source = project_node_new (project, ANJUTA_PROJECT_SOURCE, file, NULL);
+				source = project_node_new (project, NULL, ANJUTA_PROJECT_SOURCE, file, NULL, NULL);
 				anjuta_project_node_append (parent, source);
 			}
 		}
@@ -735,12 +697,9 @@ dir_project_list_directory (DirProject *project, DirGroup* parent, GError **erro
         g_object_unref (enumerator);
 	}
 
-	return ok;
+	return parent;
 }
-
-/* Public functions
- *---------------------------------------------------------------------------*/
-
+ 
 static AnjutaProjectNode *
 dir_project_load_root (DirProject *project, AnjutaProjectNode *node, GError **error) 
 {
@@ -765,7 +724,7 @@ dir_project_load_root (DirProject *project, AnjutaProjectNode *node, GError **er
 		return NULL;
 	}
 
-	group = project_node_new (project, ANJUTA_PROJECT_GROUP, root_file, NULL);
+	group = project_node_new (project, NULL, ANJUTA_PROJECT_GROUP, root_file, NULL, NULL);
 	anjuta_project_node_append (node, group);
 	g_hash_table_insert (project->groups, g_file_get_uri (root_file), group);
 
@@ -774,9 +733,7 @@ dir_project_load_root (DirProject *project, AnjutaProjectNode *node, GError **er
 	project->sources = dir_push_pattern_list (NULL, g_object_ref (root_file), source_file, FALSE, NULL);
 	g_object_unref (source_file);
 	
-	dir_project_list_directory (project, group, NULL);
-	
-	monitors_setup (project);
+	dir_project_load_directory (project, group, NULL);
 
 	return node;
 }
@@ -788,9 +745,38 @@ dir_project_load_node (DirProject *project, AnjutaProjectNode *node, GError **er
 	{
 	case ANJUTA_PROJECT_ROOT:
 		return dir_project_load_root (project, node, error);
+	case ANJUTA_PROJECT_GROUP:
+		return dir_project_load_directory (project, node, error);
 	default:
 		return NULL;
 	}
+}
+
+static void
+foreach_node_save (AnjutaProjectNode *node,
+					gpointer  data)
+{
+	gint type = anjuta_project_node_get_full_type (node);
+	
+	if (type & ANJUTA_PROJECT_MODIFIED)
+	{
+		switch (anjuta_project_node_get_type (node))
+		{
+		case ANJUTA_PROJECT_GROUP:
+			g_file_make_directory_with_parents (anjuta_project_node_get_file (node), NULL, NULL);
+			break;
+		default:
+			break;
+		}
+	}
+}
+
+AnjutaProjectNode *
+dir_project_save_node (DirProject *project, AnjutaProjectNode *node, GError **error)
+{
+	anjuta_project_node_all_foreach (node, foreach_node_save, project);
+	
+	return node;
 }
 
 gboolean
@@ -813,8 +799,6 @@ dir_project_load (DirProject  *project,
 void
 dir_project_unload (DirProject *project)
 {
-	monitors_remove (project);
-	
 	/* project data */
 	/*project_node_destroy (project, project->root_node);
 	project->root_node = NULL;*/
@@ -997,13 +981,29 @@ iproject_load_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
 static AnjutaProjectNode *
 iproject_save_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
 {
-	return NULL;
+	return dir_project_save_node (DIR_PROJECT (obj), node, err);
 }
 
 static AnjutaProjectNode *
-iproject_new_root_node (IAnjutaProject *obj, GFile *file, GError **err)
+iproject_new_node (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile *file, const gchar *name, GError **error)
 {
-	return project_node_new (DIR_PROJECT (obj), ANJUTA_PROJECT_ROOT, file, NULL);
+	AnjutaProjectNode *node;
+	
+	node = project_node_new (DIR_PROJECT (obj), parent, type | ANJUTA_PROJECT_MODIFIED, file, name, error);
+
+	return node;
+}
+
+static void
+iproject_free_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
+{
+	project_node_destroy (DIR_PROJECT (obj), node);
+}
+
+static AnjutaProjectNode *
+iproject_new_root_node (IAnjutaProject *obj, GFile *file, GError **error)
+{
+	return project_node_new (DIR_PROJECT (obj), NULL, ANJUTA_PROJECT_ROOT, file, NULL, error);
 }
 
 static AnjutaProjectNode *
@@ -1025,7 +1025,7 @@ iproject_add_name_node (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaPr
 		file = g_file_get_child (anjuta_project_node_get_file (parent), name);
 		if (g_file_make_directory (file, NULL, error))
 		{
-			node = project_node_new (DIR_PROJECT (obj), type, file, NULL);
+			node = project_node_new (DIR_PROJECT (obj), NULL, type, file, NULL, NULL);
 			anjuta_project_node_append (parent, node);
 		}
 		g_object_unref (file);
@@ -1081,6 +1081,11 @@ iproject_get_node_info (IAnjutaProject *obj, GError **err)
 static void
 iproject_iface_init(IAnjutaProjectIface* iface)
 {
+	iface->load_node = iproject_load_node;
+	iface->save_node = iproject_save_node;
+	iface->new_node = iproject_new_node;
+	iface->free_node = iproject_free_node;
+
 	iface->add_group = iproject_add_group;
 	iface->add_source = iproject_add_source;
 	iface->add_target = iproject_add_target;
@@ -1091,8 +1096,6 @@ iproject_iface_init(IAnjutaProjectIface* iface)
 	iface->get_target_types = iproject_get_target_types;
 	iface->load = iproject_load;
 	iface->refresh = iproject_refresh;
-	iface->load_node = iproject_load_node;
-	iface->save_node = iproject_save_node;
 	iface->new_root_node = iproject_new_root_node;
 	iface->add_file_node = iproject_add_file_node;
 	iface->add_name_node = iproject_add_name_node;

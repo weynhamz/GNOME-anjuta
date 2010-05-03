@@ -58,6 +58,7 @@ gint dir_project_probe (GFile *directory, GError     **error);
 
 gboolean dir_project_load (DirProject *project, GFile *directory, GError **error);
 AnjutaProjectNode *dir_project_load_node (DirProject *project, AnjutaProjectNode *node, GError **error);
+AnjutaProjectNode *dir_project_save_node (DirProject *project, AnjutaProjectNode *node, GError **error);
 gboolean dir_project_reload (DirProject *project, GError **error);
 void dir_project_unload (DirProject *project);
 

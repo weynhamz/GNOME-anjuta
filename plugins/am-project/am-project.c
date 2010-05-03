@@ -3284,6 +3284,23 @@ iproject_save_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **error
 }
 
 static AnjutaProjectNode *
+iproject_new_node (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile *file, const gchar *name, GError **err)
+{
+	AnjutaProjectNode *node;
+	
+	node = project_node_new (AMP_PROJECT (obj), ANJUTA_PROJECT_ROOT, file, name);
+	node->parent = parent;
+	
+	return node;
+}
+
+static AnjutaProjectNode *
+iproject_free_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
+{
+	project_node_destroy (AMP_PROJECT (obj), node);
+}
+
+static AnjutaProjectNode *
 iproject_new_root_node (IAnjutaProject *obj, GFile *file, GError **err)
 {
 	return project_node_new (AMP_PROJECT (obj), ANJUTA_PROJECT_ROOT, file, NULL);
@@ -3358,6 +3375,8 @@ iproject_iface_init(IAnjutaProjectIface* iface)
 	iface->configure_node = iproject_configure_node;
 	iface->load_node = iproject_load_node;
 	iface->save_node = iproject_save_node;
+	iface->new_node = iproject_new_node;
+	iface->free_node = iproject_free_node;
 	iface->new_root_node = iproject_new_root_node;
 	iface->add_file_node = iproject_add_file_node;
 	iface->add_name_node = iproject_add_name_node;

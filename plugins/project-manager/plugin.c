@@ -1224,7 +1224,6 @@ on_project_updated (AnjutaPmProject *project, GError *error, ProjectManagerPlugi
 	gchar *dirname;
 
 	dirname = anjuta_util_get_local_path_from_uri (plugin->project_root_uri);
-	status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL);
 	if (error)
 	{
 		GtkWidget *toplevel;
@@ -1265,25 +1264,8 @@ on_project_updated (AnjutaPmProject *project, GError *error, ProjectManagerPlugi
 				}
 			}
 		}
-		gchar *basename = g_path_get_basename (dirname);
-		
-		anjuta_status_progress_tick (status, NULL, _("Update project view…"));
-		update_ui (plugin);
-		anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
-									plugin->scrolledwindow,
-									NULL);
-		anjuta_status_set_default (status, _("Project"), basename);
-		g_free (basename);
 	}
 	g_free (dirname);
-
-	if (plugin->busy)
-	{
-		anjuta_status_pop (status);
-		anjuta_status_busy_pop (status);
-		plugin->busy = FALSE;
-	}
-	
 }
 
 static void

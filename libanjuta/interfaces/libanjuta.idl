@@ -3079,10 +3079,11 @@ interface IAnjutaProject
 	/**
 	* IAnjutaProject::project_updated:
 	* @obj: Self
+	* @node: Updated node.
 	* 
 	* This signal is emitted when the project is changed.
 	*/
-	void ::project_updated ();
+	void ::node_updated (gpointer node);
 
 	/**
 	 * ianjuta_project_load_node:
@@ -3107,6 +3108,31 @@ interface IAnjutaProject
 	 * Return value: The saved node, NULL if error
 	 */
 	AnjutaProjectNode *save_node (AnjutaProjectNode *node);
+
+	/**
+	 * ianjuta_project_new_node:
+	 * @obj: Self
+	 * @parent: Parent
+	 * @type: Node type
+	 * @file: Optional file object for the node
+	 * @name: Optional name for the node
+	 * @err: Error propagation and reporting
+	 *
+	 * Create a new node
+	 *
+	 * Return value: The new node, NULL if error
+	 */
+	AnjutaProjectNode *new_node (AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile *file, const gchar *name);
+
+	/**
+	 * ianjuta_project_free_node:
+	 * @obj: Self
+	 * @node: Node
+	 * @err: Error propagation and reporting
+	 *
+	 * Free an already existing node
+	 */
+	void free_node (AnjutaProjectNode *node);
 
 	/**
 	 * ianjuta_project_new_root_node:
