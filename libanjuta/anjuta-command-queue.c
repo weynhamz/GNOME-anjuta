@@ -19,10 +19,20 @@
 
 #include "anjuta-command-queue.h"
 
+enum
+{
+	FINISHED,
+
+	LAST_SIGNAL
+};
+
+static guint anjuta_command_queue_signals[LAST_SIGNAL] = { 0 };
+
 struct _AnjutaCommandQueuePriv
 {
 	GQueue *queue;
 	gboolean busy;
+	AnjutaCommandQueueExecuteMode mode;
 };
 
 G_DEFINE_TYPE (AnjutaCommandQueue, anjuta_command_queue, G_TYPE_OBJECT);
@@ -58,11 +68,29 @@ anjuta_command_queue_finalize (GObject *object)
 }
 
 static void
+finished (AnjutaCommandQueue *queue)
+{
+
+}
+
+static void
 anjuta_command_queue_class_init (AnjutaCommandQueueClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
 
 	object_class->finalize = anjuta_command_queue_finalize;
+	klass->finished = finished;
+
+	anjuta_command_queue_signals[FINISHED] = g_signal_new ("finished",
+	                                                       G_OBJECT_CLASS_TYPE (klass),
+	                                                       G_SIGNAL_RUN_FIRST,
+	                                                       G_STRUCT_OFFSET (AnjutaCommandQueueClass, finished),
+	                                                       NULL,
+	                                                       NULL,
+	                                                       g_cclosure_marshal_VOID__VOID,
+	                                                       G_TYPE_NONE,
+	                                                       0);
+	                                                       
 }
 
 static void
@@ -84,28 +112,76 @@ on_command_finished (AnjutaCommand *command, guint return_code,
 		g_object_unref (next_command);
 	}
 	else
+	{
 		self->priv->busy = FALSE;
+
+		if (self->priv->mode == ANJUTA_COMMAND_QUEUE_EXECUTE_MANUAL)
+			g_signal_emit_by_name (self, "finished");
+	}
 }
 
 AnjutaCommandQueue *
-anjuta_command_queue_new (void)
+anjuta_command_queue_new (AnjutaCommandQueueExecuteMode mode)
 {
-	return g_object_new (ANJUTA_TYPE_COMMAND_QUEUE, NULL);
+	AnjutaCommandQueue *self;
+
+	self = g_object_new (ANJUTA_TYPE_COMMAND_QUEUE, NULL);
+
+	self->priv->mode = mode;
+
+	return self;
 }
 
 void
 anjuta_command_queue_push (AnjutaCommandQueue *self, AnjutaCommand *command)
 {
-	if (!self->priv->busy)
+	if (self->priv->mode == ANJUTA_COMMAND_QUEUE_EXECUTE_AUTOMATIC)
 	{
-		self->priv->busy = TRUE;
+		if (!self->priv->busy)
+		{
+			g_signal_connect (G_OBJECT (command), "command-finished",
+			                  G_CALLBACK (on_command_finished),
+			                  self);
 
-		g_signal_connect (G_OBJECT (command), "command-finished",
-		                  G_CALLBACK (on_command_finished),
-		                  self);
-		
-		anjuta_command_start (command);
+			if (self->priv->mode == ANJUTA_COMMAND_QUEUE_EXECUTE_AUTOMATIC)
+			{
+				self->priv->busy = TRUE;
+				anjuta_command_start (command);
+			}
+		}
+		else
+			g_queue_push_tail (self->priv->queue, g_object_ref (command));
 	}
 	else
 		g_queue_push_tail (self->priv->queue, g_object_ref (command));
+}
+
+gboolean
+anjuta_command_queue_start (AnjutaCommandQueue *self)
+{
+	gboolean ret;
+	AnjutaCommand *first_command;
+
+	ret = FALSE;
+
+	if ((self->priv->mode == ANJUTA_COMMAND_QUEUE_EXECUTE_MANUAL) &&
+	    (!self->priv->busy))
+	{
+		first_command = g_queue_pop_head (self->priv->queue);
+
+		if (first_command)
+		{
+			g_signal_connect (G_OBJECT (first_command), "command-finished",
+			                  G_CALLBACK (on_command_finished),
+			                  self);
+
+			self->priv->busy = TRUE;
+			ret = TRUE;
+
+			anjuta_command_start (first_command);
+		}
+	}
+
+	return ret;
+		
 }

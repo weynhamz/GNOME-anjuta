@@ -51,5 +51,6 @@
 #include <libanjuta/anjuta-sync-command.h>
 #include <libanjuta/gbf-project.h>
 #include <libanjuta/anjuta-project.h>
+#include <libanjuta/anjuta-command-queue.h>
 
 #endif

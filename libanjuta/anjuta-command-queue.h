@@ -39,6 +39,9 @@ typedef struct _AnjutaCommandQueuePriv AnjutaCommandQueuePriv;
 struct _AnjutaCommandQueueClass
 {
 	GObjectClass parent_class;
+
+	/* Signals */
+	void (*finished) (AnjutaCommandQueue *queue);
 };
 
 struct _AnjutaCommandQueue
@@ -48,10 +51,17 @@ struct _AnjutaCommandQueue
 	AnjutaCommandQueuePriv *priv;
 };
 
+typedef enum
+{
+	ANJUTA_COMMAND_QUEUE_EXECUTE_AUTOMATIC,
+	ANJUTA_COMMAND_QUEUE_EXECUTE_MANUAL
+} AnjutaCommandQueueExecuteMode;
+
 GType anjuta_command_queue_get_type (void) G_GNUC_CONST;
-AnjutaCommandQueue * anjuta_command_queue_new (void);
+AnjutaCommandQueue * anjuta_command_queue_new (AnjutaCommandQueueExecuteMode mode);
 void anjuta_command_queue_push (AnjutaCommandQueue *self, 
                                 AnjutaCommand *command);
+gboolean anjuta_command_queue_start (AnjutaCommandQueue *self);
 
 G_END_DECLS
 

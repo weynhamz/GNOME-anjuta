@@ -915,7 +915,7 @@ git_instance_init (GObject *obj)
 	Git *plugin = ANJUTA_PLUGIN_GIT (obj);
 	plugin->uiid = 0;
 
-	plugin->command_queue = anjuta_command_queue_new ();
+	plugin->command_queue = anjuta_command_queue_new (ANJUTA_COMMAND_QUEUE_EXECUTE_AUTOMATIC);
 }
 
 static void
