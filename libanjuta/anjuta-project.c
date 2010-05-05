@@ -794,7 +794,7 @@ anjuta_project_proxy_new (AnjutaProjectNode *node)
 		proxy->reference = 1;
 		proxy->node = node;
 		proxy->base.type = data->type | ANJUTA_PROJECT_PROXY;
-		proxy->base.file = g_object_ref (data->file);
+		proxy->base.file = data->file != NULL ? g_object_ref (data->file) : NULL;
 		proxy->base.name = g_strdup (data->name);
 		
 		/* Shallow copy of all properties */
