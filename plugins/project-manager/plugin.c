@@ -1011,7 +1011,6 @@ on_treeview_selection_changed (GtkTreeSelection *sel,
 										   ANJUTA_PROJECT_UNKNOWN);
 	state = node != NULL ? anjuta_project_node_get_state (node) : 0;
 
-	g_message ("state %x", state);
 	/* Popup menu */
 	action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
 								   "ActionPopupProjectAddGroup");
@@ -1365,7 +1364,6 @@ project_manager_load_gbf (ProjectManagerPlugin *pm_plugin)
 
 	DEBUG_PRINT ("loading project %s\n\n", dirname);
 	anjuta_pm_project_load (pm_plugin->project, dirfile, &error);
-	g_message ("try loading %s %p", dirname, error);
 
 	g_free (basename);
 	g_free (dirname);

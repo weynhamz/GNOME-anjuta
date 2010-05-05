@@ -204,7 +204,6 @@ pm_project_map_children (PmJob *job, AnjutaProjectNode *old_node, AnjutaProjectN
 	for (new_node = anjuta_project_node_first_child (new_node); new_node != NULL; new_node = anjuta_project_node_next_sibling (new_node))
 	{
 		children = g_list_prepend (children, new_node);
-		g_message ("prepend %p", new_node);
 	}
 	children = g_list_reverse (children);
 
@@ -217,7 +216,6 @@ pm_project_map_children (PmJob *job, AnjutaProjectNode *old_node, AnjutaProjectN
 		if (same != NULL)
 		{
 			g_hash_table_insert (job->map, old_node, (AnjutaProjectNode *)same->data);
-			g_message ("map %p->%p", old_node, same->data);
 			
 			pm_project_map_children ((PmJob *)job, old_node, (AnjutaProjectNode *)same->data);
 			children = g_list_delete_link (children, same);
@@ -239,13 +237,9 @@ pm_project_map_node (PmJob *job)
 		old_node = job->node;
 		new_node = job->proxy;
 		
-		if (pm_project_compare_node (old_node, new_node) == 0)
-		{
-			g_hash_table_insert (job->map, old_node, new_node);
-			g_message ("map %p->%p", old_node, new_node);
+		//g_hash_table_insert (job->map, old_node, new_node);
 			
-			pm_project_map_children (job, old_node, new_node);
-		}
+		pm_project_map_children (job, old_node, new_node);
 	}
 }
 
@@ -254,9 +248,8 @@ pm_command_load_work (AnjutaPmProject *project, PmJob *job)
 {
 	AnjutaProjectNode *node;
 	
-	g_message ("thread load node %p", job->proxy);
+
 	node = ianjuta_project_load_node (project->project, job->proxy, &(job->error));
-	g_message ("thread load node complete");
 	if (job->error == NULL)
 	{
 		pm_project_map_node (job);
@@ -279,7 +272,6 @@ static gboolean
 pm_command_exit_work (AnjutaPmProject *project, PmJob *job)
 {
 	g_return_val_if_fail (job != NULL, FALSE);
-	g_return_val_if_fail (job->node != NULL, FALSE);
 
 	/* Push job in complete queue as g_thread_exit will stop the thread
 	 * immediatly */
@@ -417,6 +409,7 @@ on_pm_project_load_incomplete (AnjutaProjectNode *node, AnjutaPmProject *project
 	{
 		project->incomplete_node++;
 		anjuta_project_node_set_state (node, ANJUTA_PROJECT_LOADING);
+		//g_message ("load incomplete %p", node);
 		pm_project_push_command (project, RELOAD, node);
 	}
 }
@@ -428,24 +421,50 @@ pm_command_load_setup (AnjutaPmProject *project, PmJob *job)
 	g_return_val_if_fail (job->node != NULL, FALSE);
 	
 	job->proxy = anjuta_project_proxy_new (job->node);
+	anjuta_project_node_replace (job->node, job->proxy);
+	anjuta_project_proxy_exchange_data (job->node, job->proxy);
 	
 	return TRUE;
+}
+
+static void
+check_queue (GQueue *queue, GHashTable *map)
+{
+	guint i;
+	
+	//g_message ("check queue size %d", g_queue_get_length (queue));
+	for (i = 0;; i++)
+	{
+		PmJob *job = (PmJob *)g_queue_peek_nth (queue, i);
+		
+		if (job == NULL) break;
+		if (job->node != NULL)
+		{
+			AnjutaProjectNode *replace;
+			
+			replace = (AnjutaProjectNode *)g_hash_table_lookup (map, job->node);
+			if (replace != NULL)
+			{
+				//g_message ("*** delete node %p used ***", job->node);
+				job->node = replace;
+			}
+		}
+	}
 }
 
 static gboolean
 pm_command_load_complete (AnjutaPmProject *project, PmJob *job)
 {
+	anjuta_project_proxy_exchange_data (job->proxy, job->node);
+	anjuta_project_node_exchange (job->proxy, job->node);
+
 	if (job->error != NULL)
 	{
 		g_warning ("unable to load node");
-		pm_project_stop_thread (project);
-		g_object_unref (project->project);
-		project->project = NULL;
-		g_signal_emit (G_OBJECT (project), signals[LOADED], 0, job->error);
+		g_signal_emit (G_OBJECT (project), signals[job->command == LOAD ? LOADED : UPDATED], 0, job->error);
 	}
 	else
 	{
-		g_message ("reloaded node");
 		if (job->command == LOAD)
 		{
 			g_object_set (G_OBJECT (project->model), "project", project, NULL);
@@ -454,9 +473,7 @@ pm_command_load_complete (AnjutaPmProject *project, PmJob *job)
 		
 		if (project->root == job->node)
 		{
-			project->root = job->proxy;
-			g_message ("reload root");
-			gbf_project_model_update_tree (project->model, job->proxy, NULL, job->map);
+			gbf_project_model_update_tree (project->model, job->node, NULL, job->map);
 		}
 		else
 		{
@@ -464,26 +481,28 @@ pm_command_load_complete (AnjutaPmProject *project, PmJob *job)
 			gboolean found;
 			
 			found = gbf_project_model_find_node (project->model, &iter, NULL, job->node);
-			g_message ("reload node %d", found);
-			gbf_project_model_update_tree (project->model, job->proxy, &iter, job->map);
+			//g_message ("reload node %p found %d", job->node, found);
+			gbf_project_model_update_tree (project->model, job->node, &iter, job->map);
 		}
 		
 		
 		// Check for incompletely loaded object and load them
-		if (anjuta_project_node_get_state (job->proxy) & ANJUTA_PROJECT_INCOMPLETE)
+		if (anjuta_project_node_get_state (job->node) & ANJUTA_PROJECT_INCOMPLETE)
 		{
 			project->incomplete_node--;
-			g_message ("remaining node %d", project->incomplete_node);
+			//g_message ("remaining node %d", project->incomplete_node);
 		}
-		anjuta_project_node_clear_state (job->proxy, ANJUTA_PROJECT_LOADING | ANJUTA_PROJECT_INCOMPLETE);
-		anjuta_project_node_all_foreach (job->proxy, (AnjutaProjectNodeFunc)on_pm_project_load_incomplete, project);
+		anjuta_project_node_clear_state (job->node, ANJUTA_PROJECT_LOADING | ANJUTA_PROJECT_INCOMPLETE);
+		anjuta_project_node_all_foreach (job->node, (AnjutaProjectNodeFunc)on_pm_project_load_incomplete, project);
 		
 		if (project->incomplete_node == 0)
 		{
 			g_signal_emit (G_OBJECT (project), signals[job->command == LOAD ? LOADED : UPDATED], 0, NULL);
 		}
+		check_queue (project->job_queue, job->map);
 	}
-	anjuta_project_node_all_foreach (job->node, (AnjutaProjectNodeFunc)pm_free_node, project->project);
+	
+	anjuta_project_node_all_foreach (job->proxy, (AnjutaProjectNodeFunc)pm_free_node, project->project);
 	
 	return TRUE;
 }
@@ -499,7 +518,7 @@ pm_command_add_setup (AnjutaPmProject *project, PmJob *job)
 	/* Add new node in project tree.
 	 * It is safe to do it here because the worker thread is waiting */
 	parent = anjuta_project_node_parent (job->node);
-	g_message ("parent %p node name %s", parent, anjuta_project_node_get_name (job->node));
+	job->node->parent = NULL;
 	anjuta_project_node_insert_before (parent, NULL, job->node);
 	
 	return TRUE;
@@ -604,7 +623,7 @@ pm_project_idle_func (AnjutaPmProject *project)
 static void
 on_node_updated (IAnjutaProject *sender, AnjutaProjectNode *node, AnjutaPmProject *project)
 {
-	g_message ("on node updated");
+	g_message ("on node updated %p", node);
 	pm_project_push_command (project, RELOAD, node);
 }
  
@@ -690,7 +709,6 @@ anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 	{
 		return FALSE;
 	}
-	g_message ("connect node-update %p", project->project);
 	g_signal_connect (G_OBJECT (project->project),
 						"node-updated",
 						G_CALLBACK (on_node_updated),
@@ -729,7 +747,7 @@ anjuta_pm_project_unload (AnjutaPmProject *project, GError **error)
 gboolean
 anjuta_pm_project_refresh (AnjutaPmProject *project, GError **error)
 {
-	g_message ("reload project");
+	//g_message ("reload project %p", project->root);
 	
 	pm_project_push_command (project, RELOAD, project->root);
 

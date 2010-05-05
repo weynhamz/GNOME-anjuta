@@ -146,15 +146,17 @@ on_file_changed (GFileMonitor *monitor,
 {
 	AnjutaProjectNode *node = data;
 
-	g_message ("on_file_changed %s type %d emitter %p node %p proxy %d", g_file_get_path (file), event_type, DIR_GROUP_DATA (node)->emitter, node, NODE_DATA (node)->type & ANJUTA_PROJECT_PROXY);
-	switch (event_type) {
-		case G_FILE_MONITOR_EVENT_CHANGED:
-		case G_FILE_MONITOR_EVENT_DELETED:
-		case G_FILE_MONITOR_EVENT_CREATED:
-			g_signal_emit_by_name (DIR_GROUP_DATA (node)->emitter, "node-updated", node);
-			break;
-		default:
-			break;
+	if (!anjuta_project_node_is_proxy (node))
+	{
+		switch (event_type) {
+			case G_FILE_MONITOR_EVENT_CHANGED:
+			case G_FILE_MONITOR_EVENT_DELETED:
+			case G_FILE_MONITOR_EVENT_CREATED:
+				g_signal_emit_by_name (DIR_GROUP_DATA (node)->emitter, "node-updated", node);
+				break;
+			default:
+				break;
+		}
 	}
 }
 
@@ -219,7 +221,6 @@ dir_group_new (GFile *file, GObject *emitter)
 							G_CALLBACK (on_file_changed),
 							node);
 	}
-	g_message ("new group %p monitor %p", node, group->monitor);
 
 	return node;
 }
@@ -232,7 +233,7 @@ dir_group_free (DirGroup *node)
 	if (group->monitor != NULL) g_file_monitor_cancel (group->monitor);
 	if (group->base.file) g_object_unref (group->base.file);
     g_slice_free (DirGroupData, group);
-	g_message ("free group %p monitor %p", node, group->monitor);
+	//g_message ("free group %p monitor %p", node, group->monitor);
 
 	g_node_destroy (node);
 }
@@ -284,7 +285,7 @@ foreach_node_destroy (AnjutaProjectNode *node,
 {
 	gint type = NODE_DATA (node)->type;
 	
-	g_message ("dir free node %p", node);
+	//g_message ("dir free node %p", node);
 	switch (type & ANJUTA_PROJECT_TYPE_MASK)
 	{
 		case ANJUTA_PROJECT_GROUP:
@@ -357,8 +358,13 @@ project_node_new (DirProject *project, AnjutaProjectNode *parent, AnjutaProjectN
 			g_assert_not_reached ();
 			break;
 	}
-	if (node != NULL) NODE_DATA (node)->type = type;
-	g_message ("dir new node %p type %x", node, type);
+	if (node != NULL)
+	{
+		NODE_DATA (node)->type = type;
+		node->parent = parent;
+	}
+	
+	//g_message ("dir new node %p type %x", node, type);
 	
 	return node;
 }

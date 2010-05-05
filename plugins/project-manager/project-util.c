@@ -964,7 +964,6 @@ gbf_project_util_add_module (AnjutaPmProject *project,
     while (!finished) {
         response = gtk_dialog_run (GTK_DIALOG (dialog));
 
-        g_message ("response %d", response);
         switch (response) {
             case 1:
             {

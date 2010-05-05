@@ -743,20 +743,8 @@ gbf_project_model_update_tree (GbfProjectModel *model, AnjutaProjectNode *parent
 	GList *node;
 	GList *nodes;
 
-	/* Update parent */
-	if (iter != NULL)
-	{
-		GbfTreeData *data = NULL;
-
-		gtk_tree_model_get (GTK_TREE_MODEL (model), iter,
-				GBF_PROJECT_MODEL_COLUMN_DATA, &data,
-				-1);
-		gbf_tree_data_replace_node (data, parent);
-	}
-	
 	/* Get all new nodes */
 	nodes = gbf_project_util_all_child (parent, ANJUTA_PROJECT_UNKNOWN);
-	g_message ("gbf_project_model_update_tree %p", nodes);
 
 	/* walk the tree nodes */
 	if (gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &child, iter))
@@ -806,11 +794,9 @@ gbf_project_model_update_tree (GbfProjectModel *model, AnjutaProjectNode *parent
 	/* add the remaining sources, targets and groups */
 	for (node = nodes; node; node = node->next)
 	{
-		//g_message ("Add node %p type %x", node->data, anjuta_project_node_get_type (node->data));
 		switch (anjuta_project_node_get_type (node->data))
 		{
 		case ANJUTA_PROJECT_GROUP:
-			//g_message ("Add group %p name %s", anjuta_project_node_get_name (node));
 			add_target_group (model, node->data, iter);
 			break;
 		case ANJUTA_PROJECT_TARGET:

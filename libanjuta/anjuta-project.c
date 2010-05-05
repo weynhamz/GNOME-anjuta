@@ -301,6 +301,77 @@ anjuta_project_node_replace (AnjutaProjectNode *node, AnjutaProjectNode *replace
 }
 
 AnjutaProjectNode *
+anjuta_project_node_exchange (AnjutaProjectNode *node, AnjutaProjectNode *replacement)
+{
+	GNode *marker = g_node_new (NULL);
+	GNode *child;
+	GNode *sibling;
+	GNode *next;
+	
+	if (node->parent != NULL)
+	{
+		g_node_insert_after (node->parent, node, marker);
+		g_node_unlink (node);
+	}
+	if (replacement->parent != NULL)
+	{
+		g_node_insert_after (replacement->parent, replacement, node);
+		g_node_unlink (replacement);
+	}
+	if (marker->parent != NULL)
+	{
+		g_node_insert_after (marker->parent, marker, replacement);
+		g_node_unlink (marker);
+	}
+	g_node_destroy (marker);
+
+	/* Move all children from node to replacement */
+	sibling = NULL;
+	for (child = g_node_first_child (node); child != NULL; child = next)
+	{
+		next = g_node_next_sibling (child);
+		g_node_unlink (child);
+		sibling = g_node_insert_after (replacement, sibling, child);
+		child = next;
+	}
+	
+	/* Move all children from replacement to node */
+	child = g_node_next_sibling (sibling);
+	sibling = NULL;
+	for (; child != NULL; child = next)
+	{
+		next = g_node_next_sibling (child);
+		g_node_unlink (child);
+		sibling = g_node_insert_after (node, sibling, child);
+		child = next;
+	}
+
+	return replacement;
+}
+
+AnjutaProjectNode *
+anjuta_project_node_grab_children (AnjutaProjectNode *parent, AnjutaProjectNode *node)
+{
+	AnjutaProjectNode *child;
+	AnjutaProjectNode *sibling;
+	
+	sibling = g_node_last_child (parent);
+	
+	for (child = g_node_first_child (node); child != NULL;)
+	{
+		AnjutaProjectNode *remove;
+
+		remove = child;
+		child = g_node_next_sibling (child);
+		g_node_unlink (remove);
+		sibling = g_node_insert_after (parent, sibling, remove);
+	}
+	
+	return parent;
+}
+
+
+AnjutaProjectNode *
 anjuta_project_node_prepend (AnjutaProjectNode *parent, AnjutaProjectNode *node)
 {
 	return g_node_prepend (parent, node);
@@ -749,9 +820,7 @@ anjuta_project_proxy_new (AnjutaProjectNode *node)
 			}
 		}
 		
-		/* Replace node */
-		node->data = proxy;
-		node = anjuta_project_node_replace (node, g_node_new (data));
+		node = g_node_new (proxy);
 	}
 
 	return node;
@@ -791,6 +860,18 @@ anjuta_project_proxy_unref (AnjutaProjectNode *node)
 	}
 
 	return node;
+}
+
+AnjutaProjectNode *
+anjuta_project_proxy_exchange_data (AnjutaProjectNode *proxy, AnjutaProjectNode *node)
+{
+	AnjutaProjectNodeData *data;
+	
+	data = proxy->data;
+	proxy->data = node->data;
+	node->data = data;
+	
+	return proxy;
 }
 
 gboolean

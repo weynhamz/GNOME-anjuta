@@ -167,6 +167,8 @@ AnjutaProjectNode *anjuta_project_node_prepend (AnjutaProjectNode *parent, Anjut
 AnjutaProjectNode *anjuta_project_node_insert_before (AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNode *node);
 AnjutaProjectNode *anjuta_project_node_insert_after (AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNode *node);
 AnjutaProjectNode *anjuta_project_node_replace (AnjutaProjectNode *node, AnjutaProjectNode *replacement);
+AnjutaProjectNode *anjuta_project_node_grab_children (AnjutaProjectNode *parent, AnjutaProjectNode *node);
+AnjutaProjectNode *anjuta_project_node_exchange (AnjutaProjectNode *node, AnjutaProjectNode *replacement);
 
 void anjuta_project_node_all_foreach (AnjutaProjectNode *node, AnjutaProjectNodeFunc func, gpointer data);
 void anjuta_project_node_children_foreach (AnjutaProjectNode *node, AnjutaProjectNodeFunc func, gpointer data);
@@ -206,6 +208,7 @@ AnjutaProjectNodeType anjuta_project_node_info_type (const AnjutaProjectNodeInfo
 
 AnjutaProjectNode *anjuta_project_proxy_new (AnjutaProjectNode *node);
 AnjutaProjectNode *anjuta_project_proxy_unref (AnjutaProjectNode *node);
+AnjutaProjectNode *anjuta_project_proxy_exchange_data (AnjutaProjectNode *proxy, AnjutaProjectNode *node);
 
 gboolean anjuta_project_node_is_proxy (AnjutaProjectNode *node);
 

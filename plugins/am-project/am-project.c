@@ -2476,7 +2476,6 @@ amp_project_add_sibling_target (AmpProject  *project, AmpGroup *parent, const gc
 	g_return_val_if_fail (name != NULL, NULL);
 	g_return_val_if_fail (parent != NULL, NULL);
 
-	g_message ("add sibling target %x", type);
 	info = (AmpNodeInfo *)amp_project_get_type_info (project, type);
 	
 	/* Validate target name */
