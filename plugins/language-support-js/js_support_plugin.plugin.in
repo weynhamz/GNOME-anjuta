@@ -1,7 +1,0 @@
-[Anjuta Plugin]
-Location=js_support_plugin:JSLang
-Icon=js_support_plugin.png
-_Name=JS Support Plugin
-_Description=JavaScript Support Plugin
-Interfaces=IAnjutaPreferences
-
