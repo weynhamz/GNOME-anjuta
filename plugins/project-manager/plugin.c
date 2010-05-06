@@ -1223,22 +1223,7 @@ on_project_updated (AnjutaPmProject *project, GError *error, ProjectManagerPlugi
 	gchar *dirname;
 
 	dirname = anjuta_util_get_local_path_from_uri (plugin->project_root_uri);
-	if (error)
-	{
-		GtkWidget *toplevel;
-		GtkWindow *win;
-		
-		toplevel = gtk_widget_get_toplevel (plugin->scrolledwindow);
-		if (toplevel && GTK_IS_WINDOW (toplevel))
-			win = GTK_WINDOW (toplevel);
-		else
-			win = GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell);
-
-		anjuta_util_dialog_error (win, _("Failed to parse project (the project is opened, but there will be no project view) %s: %s\n"
-										 ""),
-								  dirname, error->message);
-	}
-	else
+	if (!error)
 	{
 		/* Restore existing shortcut */
 		if (plugin->shortcuts != NULL)

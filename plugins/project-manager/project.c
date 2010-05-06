@@ -201,11 +201,14 @@ pm_project_map_children (PmJob *job, AnjutaProjectNode *old_node, AnjutaProjectN
 {
 	GList *children = NULL;
 
-	for (new_node = anjuta_project_node_first_child (new_node); new_node != NULL; new_node = anjuta_project_node_next_sibling (new_node))
+	if (new_node != NULL)
 	{
-		children = g_list_prepend (children, new_node);
+		for (new_node = anjuta_project_node_first_child (new_node); new_node != NULL; new_node = anjuta_project_node_next_sibling (new_node))
+		{
+			children = g_list_prepend (children, new_node);
+		}
+		children = g_list_reverse (children);
 	}
-	children = g_list_reverse (children);
 
 	for (old_node = anjuta_project_node_first_child (old_node); old_node != NULL; old_node = anjuta_project_node_next_sibling (old_node))
 	{
@@ -219,6 +222,12 @@ pm_project_map_children (PmJob *job, AnjutaProjectNode *old_node, AnjutaProjectN
 			
 			pm_project_map_children ((PmJob *)job, old_node, (AnjutaProjectNode *)same->data);
 			children = g_list_delete_link (children, same);
+		}
+		else
+		{
+			/* Mark deleted node */
+			g_hash_table_insert (job->map, old_node, NULL);
+			pm_project_map_children ((PmJob *)job, old_node, NULL);
 		}
 	}
 	
@@ -441,12 +450,27 @@ check_queue (GQueue *queue, GHashTable *map)
 		if (job->node != NULL)
 		{
 			AnjutaProjectNode *replace;
+			AnjutaProjectNode *node;
 			
-			replace = (AnjutaProjectNode *)g_hash_table_lookup (map, job->node);
-			if (replace != NULL)
+			/* Get original node if we have a proxy here */
+			node = anjuta_project_proxy_get_node (job->node);
+			
+			if (g_hash_table_lookup_extended (map, node, NULL, (gpointer *)&replace))
 			{
 				//g_message ("*** delete node %p used ***", job->node);
-				job->node = replace;
+				if (replace != NULL)
+				{
+					/* Replaced node */
+					job->node = replace;
+				}
+				else
+				{
+					/* node has been deleted */
+					g_warning ("Node %s has been delete before executing command %d", anjuta_project_node_get_name (job->node), job->command);
+					job = g_queue_pop_nth (queue, i);
+					pm_job_free (job);
+					i--;
+				}
 			}
 		}
 	}

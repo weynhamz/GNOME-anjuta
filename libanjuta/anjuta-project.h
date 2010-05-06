@@ -209,6 +209,7 @@ AnjutaProjectNodeType anjuta_project_node_info_type (const AnjutaProjectNodeInfo
 AnjutaProjectNode *anjuta_project_proxy_new (AnjutaProjectNode *node);
 AnjutaProjectNode *anjuta_project_proxy_unref (AnjutaProjectNode *node);
 AnjutaProjectNode *anjuta_project_proxy_exchange_data (AnjutaProjectNode *proxy, AnjutaProjectNode *node);
+AnjutaProjectNode *anjuta_project_proxy_get_node (AnjutaProjectNode *proxy);
 
 gboolean anjuta_project_node_is_proxy (AnjutaProjectNode *node);
 

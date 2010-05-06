@@ -780,48 +780,45 @@ anjuta_project_node_info_type (const AnjutaProjectNodeInfo *info)
 AnjutaProjectNode *
 anjuta_project_proxy_new (AnjutaProjectNode *node)
 {
-	if (NODE_DATA (node)->type & ANJUTA_PROJECT_PROXY)
+	AnjutaProjectProxyData *proxy;
+	AnjutaProjectNodeData *data;
+	
+	/* If the node is already a proxy get original node */
+	node = anjuta_project_proxy_get_node (node);
+	data = NODE_DATA (node);
+	
+	/* Create proxy node */
+	proxy = g_slice_new0(AnjutaProjectProxyData);
+	proxy->reference = 1;
+	proxy->node = node;
+	proxy->base.type = data->type | ANJUTA_PROJECT_PROXY;
+	proxy->base.file = data->file != NULL ? g_object_ref (data->file) : NULL;
+	proxy->base.name = g_strdup (data->name);
+		
+	/* Shallow copy of all properties */
+	if ((data->properties == NULL) || (((AnjutaProjectPropertyInfo *)data->properties->data)->override == NULL))
 	{
-		PROXY_DATA (node)->reference++;
+		proxy->base.properties = data->properties;
 	}
 	else
 	{
-		AnjutaProjectProxyData *proxy;
-		AnjutaProjectNodeData *data = NODE_DATA (node);
-
-		/* Create proxy node */
-		proxy = g_slice_new0(AnjutaProjectProxyData);
-		proxy->reference = 1;
-		proxy->node = node;
-		proxy->base.type = data->type | ANJUTA_PROJECT_PROXY;
-		proxy->base.file = data->file != NULL ? g_object_ref (data->file) : NULL;
-		proxy->base.name = g_strdup (data->name);
-		
-		/* Shallow copy of all properties */
-		if ((data->properties == NULL) || (((AnjutaProjectPropertyInfo *)data->properties->data)->override == NULL))
+		GList *item;
+		proxy->base.properties = g_list_copy (data->properties);
+		for (item = g_list_first (proxy->base.properties); item != NULL; item = g_list_next (item))
 		{
-			proxy->base.properties = data->properties;
-		}
-		else
-		{
-			GList *item;
-			proxy->base.properties = g_list_copy (data->properties);
-			for (item = g_list_first (proxy->base.properties); item != NULL; item = g_list_next (item))
-			{
-				AnjutaProjectPropertyInfo *info = (AnjutaProjectPropertyInfo *)item->data;
-				AnjutaProjectPropertyInfo *new_info;
+			AnjutaProjectPropertyInfo *info = (AnjutaProjectPropertyInfo *)item->data;
+			AnjutaProjectPropertyInfo *new_info;
 
-				new_info = g_slice_new0(AnjutaProjectPropertyInfo);
-				new_info->name = g_strdup (info->name);
-				new_info->type = info->type;
-				new_info->value = g_strdup (info->value);
-				new_info->override = info->override;
-				item->data = new_info;
-			}
+			new_info = g_slice_new0(AnjutaProjectPropertyInfo);
+			new_info->name = g_strdup (info->name);
+			new_info->type = info->type;
+			new_info->value = g_strdup (info->value);
+			new_info->override = info->override;
+			item->data = new_info;
 		}
-		
-		node = g_node_new (proxy);
 	}
+		
+	node = g_node_new (proxy);
 
 	return node;
 }
@@ -874,6 +871,21 @@ anjuta_project_proxy_exchange_data (AnjutaProjectNode *proxy, AnjutaProjectNode 
 	return proxy;
 }
 
+AnjutaProjectNode *
+anjuta_project_proxy_get_node (AnjutaProjectNode *node)
+{
+	g_return_val_if_fail (node != NULL, FALSE);
+
+	if (NODE_DATA (node)->type & ANJUTA_PROJECT_PROXY)
+	{
+		return (PROXY_DATA (node)->node);
+	}
+	else
+	{
+		return node;
+	}
+}
+
 gboolean
 anjuta_project_node_is_proxy (AnjutaProjectNode *node)
 {
@@ -881,3 +893,4 @@ anjuta_project_node_is_proxy (AnjutaProjectNode *node)
 
 	return NODE_DATA (node)->type & ANJUTA_PROJECT_PROXY ? TRUE : FALSE;
 }
+
