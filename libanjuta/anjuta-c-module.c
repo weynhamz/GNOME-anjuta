@@ -188,6 +188,15 @@ anjuta_c_module_init (AnjutaCModule *module)
 /* Public functions
  *---------------------------------------------------------------------------*/
 
+/**
+ * anjuta_c_module_get_last_error:
+ * @module: AnjutaCModule object
+ * @err: return location for a GError
+ *
+ * Receives the error that occured when the module was loaded
+ *
+ * Returns: TRUE if there was an Error, FALSE otherwise
+ */
 gboolean
 anjuta_c_module_get_last_error (AnjutaCModule *module, GError** err)
 {

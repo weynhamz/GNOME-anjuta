@@ -36,8 +36,8 @@ G_BEGIN_DECLS
 #define ANJUTA_TYPE_ASYNC_COMMAND             (anjuta_async_command_get_type ())
 #define ANJUTA_ASYNC_COMMAND(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), ANJUTA_TYPE_ASYNC_COMMAND, AnjutaAsyncCommand))
 #define ANJUTA_ASYNC_COMMAND_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ((klass), ANJUTA_TYPE_ASYNC_COMMAND, AnjutaAsyncCommandClass))
-#define IS_ANJUTA_ASYNC_COMMAND(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), ANJUTA_TYPE_ASYNC_COMMAND))
-#define IS_ANJUTA_ASYNC_COMMAND_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass), ANJUTA_TYPE_ASYNC_COMMAND))
+#define ANJUTA_IS_ASYNC_COMMAND(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), ANJUTA_TYPE_ASYNC_COMMAND))
+#define ANJUTA_IS_ASYNC_COMMAND_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass), ANJUTA_TYPE_ASYNC_COMMAND))
 #define ANJUTA_ASYNC_COMMAND_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), ANJUTA_TYPE_ASYNC_COMMAND, AnjutaAsyncCommandClass))
 
 typedef struct _AnjutaAsyncCommandClass AnjutaAsyncCommandClass;
@@ -59,7 +59,7 @@ struct _AnjutaAsyncCommand
 GType anjuta_async_command_get_type (void) G_GNUC_CONST;
 
 void anjuta_async_command_set_error_message (AnjutaCommand *command, 
-											 gchar *error_message);
+											 const gchar *error_message);
 gchar *anjuta_async_command_get_error_message (AnjutaCommand *command);
 
 void anjuta_async_command_lock (AnjutaAsyncCommand *self);
