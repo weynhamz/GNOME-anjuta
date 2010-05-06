@@ -32,16 +32,12 @@
 		sym_access.access_name, \
 		sym_type.type_type, \
 		sym_type.type_name, \
-		(symbol.kind_id IN \
-		( \
-			SELECT sym_kind_id \
-			FROM sym_kind \
-			WHERE kind_name IN ('class', 'namespace', 'enum', 'struct', 'union') \
-		)) AS has_child \
+		sym_kind.is_container \
 	FROM symbol \
 	LEFT JOIN file ON symbol.file_defined_id = file.file_id \
 	LEFT JOIN sym_access ON symbol.access_kind_id = sym_access.access_kind_id \
 	LEFT JOIN sym_type ON symbol.type_id = sym_type.type_id \
+	LEFT JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id \
 	WHERE \
 	( \
 		file.file_path = ## /* name:'filepath' type:gchararray */ \
