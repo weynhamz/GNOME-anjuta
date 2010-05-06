@@ -95,6 +95,7 @@
 struct _SymbolDBModelFilePriv
 {
 	gchar *file_path;
+	guint refresh_queue_id;
 	GdaStatement *stmt;
 	GdaSet *params;
 	GdaHolder *param_file_path, *param_parent_id, *param_limit, *param_offset;
@@ -198,6 +199,16 @@ sdb_model_file_get_n_children (SymbolDBModel *model, gint tree_level,
 	return n_children;
 }
 
+static gboolean
+sdb_model_file_refresh_idle (gpointer object)
+{
+	SymbolDBModelFilePriv *priv;
+	priv = SYMBOL_DB_MODEL_FILE (object)->priv;
+	symbol_db_model_update (SYMBOL_DB_MODEL (object));
+	priv->refresh_queue_id = 0;
+	return FALSE;
+}
+
 static void
 sdb_model_file_set_property (GObject *object, guint prop_id,
                              const GValue *value, GParamSpec *pspec)
@@ -214,7 +225,11 @@ sdb_model_file_set_property (GObject *object, guint prop_id,
 		old_file_path = priv->file_path;
 		priv->file_path = g_value_dup_string (value);
 		if (g_strcmp0 (old_file_path, priv->file_path) != 0)
-		    symbol_db_model_update (SYMBOL_DB_MODEL (object));
+		{
+			if (!priv->refresh_queue_id)
+				priv->refresh_queue_id =
+					g_idle_add (sdb_model_file_refresh_idle, object);
+		}
 		g_free (old_file_path);
 		break;
 	default:
@@ -256,6 +271,8 @@ sdb_model_file_finalize (GObject *object)
 		g_object_unref (priv->stmt);
 		g_object_unref (priv->params);
 	}
+	if (priv->refresh_queue_id)
+		g_source_remove (priv->refresh_queue_id);
 	g_free (priv);
 	
 	G_OBJECT_CLASS (sdb_model_file_parent_class)->finalize (object);
