@@ -270,4 +270,7 @@ plugins/js-debugger/debugger-js.c
 plugins/language-support-js/plugin.c
 [type: gettext/ini]plugins/language-support-js/js_support_plugin.plugin.in
 [type: gettext/glade]plugins/language-support-js/anjuta-language-javascript.ui
-plugins/symbol-db/anjuta-tags/js_parser/Grammar.y
+plugins/symbol-db/anjuta-tags/js-parser/Grammar.y
+plugins/language-support-js/js-parser-y-tab.c
+plugins/symbol-db/anjuta-tags/js-parser/js-parser-y-tab.c
+plugins/symbol-db/symbol-db-views.c

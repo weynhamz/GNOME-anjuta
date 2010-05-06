@@ -122,7 +122,7 @@ EXTRA_DIST = \
 	$(symbol_db_glade_DATA) \
 	$(symbol_db_pixmaps_DATA) \
 	$(symbol_db_data_DATA) \
-	$(symbol_db_ui_DATA)
+	$(symbol_db_ui_DATA) \
 	symbol-db-marshal.list
 
 -include $(top_srcdir)/git.mk
