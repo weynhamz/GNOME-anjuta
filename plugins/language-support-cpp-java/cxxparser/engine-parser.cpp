@@ -466,8 +466,7 @@ EngineParser::switchMemberToContainer (IAnjutaIterable * test)
 
 	/* hopefully we'll find a new container for the type_name of test param */
 	new_container = ianjuta_symbol_manager_search_project (_sym_man, 
-	                (IAnjutaSymbolType) (IANJUTA_SYMBOL_TYPE_SCOPE_CONTAINER |
-	                IANJUTA_SYMBOL_TYPE_TYPEDEF),
+	                IANJUTA_SYMBOL_TYPE_SCOPE_CONTAINER,
 		            TRUE,
 		            (IAnjutaSymbolField)(IANJUTA_SYMBOL_FIELD_SIMPLE | IANJUTA_SYMBOL_FIELD_KIND |
 		                                 IANJUTA_SYMBOL_FIELD_TYPE_NAME),
