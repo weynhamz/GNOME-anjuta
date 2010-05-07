@@ -305,7 +305,7 @@ AC_SUBST(LIBANJUTA_LIBS)
 dnl Setup FooCanvas Library flags
 dnl --------------------------
 LIBFOOCANVAS_CFLAGS='-I$(top_srcdir)'
-LIBFOOCANVAS_LIBS='$(top_builddir)/foocanvas/libanjuta-foocanvas.la'
+LIBFOOCANVAS_LIBS='$(top_builddir)/libfoocanvas/libanjuta-foocanvas.la'
 AC_SUBST(LIBFOOCANVAS_CFLAGS)
 AC_SUBST(LIBFOOCANVAS_LIBS)
 
@@ -1006,6 +1006,12 @@ if [ test x$enable_vala = xyes ]; then
         echo "Building Vala ctags parser (requires vala):.............YES"
 else
         echo "Building Vala ctags parser (requires vala):.............NO"
+fi
+if [ test x$libgraphviz_found = xyes ]; then
+        echo "Building class inheritance plugin: .....................YES"
+else
+        echo "Building class inheritance plugin: .....................NO"
+        echo "        Requires graphviz (>= 2.6.0); http://graphviz.org"
 fi
 echo "-------------------------------------------------------------------"
 echo "AM_CFLAGS = $AM_CFLAGS"
