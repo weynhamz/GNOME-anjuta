@@ -117,9 +117,8 @@ glade_update_ui (GladeApp *app, GladePlugin *plugin)
 	doc = ianjuta_document_manager_get_current_document(docman, NULL);
 	if (doc && ANJUTA_IS_DESIGN_DOCUMENT(doc))
 	{
-		gboolean dirty = ianjuta_file_savable_is_dirty(IANJUTA_FILE_SAVABLE(doc), NULL);
 		g_signal_emit_by_name (G_OBJECT(doc), "update_ui");
-		g_signal_emit_by_name (G_OBJECT(doc), "save_point", !dirty);
+		g_signal_emit_by_name (G_OBJECT(doc), "update-save-ui");
 	}
 	
 }
@@ -234,10 +233,7 @@ on_glade_project_changed (GtkComboBox *combo, GladePlugin *plugin)
 		design_view = g_object_get_data (G_OBJECT (project), "design_view");
 		ianjuta_document_manager_set_current_document(docman, IANJUTA_DOCUMENT(design_view), NULL);
 		
-#  if (GLADEUI_VERSION >= 330)
         glade_inspector_set_project (GLADE_INSPECTOR (plugin->priv->inspector), project);
-#  endif								   
-									   
 	}
 }
 
@@ -386,23 +382,12 @@ inspector_item_activated_cb (GladeInspector     *inspector,
 	g_list_free (item);
 }
 
-static void
-on_glade_resource_removed (GladeProject *project, GladePlugin *plugin)
-{
-}
-
-static void
-on_glade_resource_updated (GladeProject *project, GladePlugin *plugin)
-{
-}
-
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui;
 	GladePlugin *glade_plugin;
 	GladePluginPriv *priv;
-	// GtkAction *action;
 	GtkListStore *store;
 	GtkCellRenderer *renderer;
 	
@@ -447,6 +432,8 @@ activate_plugin (AnjutaPlugin *plugin)
 
 		gtk_box_pack_start (GTK_BOX (priv->view_box), GTK_WIDGET (priv->inspector),
 							TRUE, TRUE, 0);
+		gtk_box_pack_start (GTK_BOX(priv->view_box), GTK_WIDGET (glade_app_get_editor()),
+		                    TRUE, TRUE, 0);
 		
 		gtk_widget_show_all (priv->view_box);
 		gtk_notebook_set_scrollable (GTK_NOTEBOOK (glade_app_get_editor ()->notebook),
@@ -486,11 +473,6 @@ activate_plugin (AnjutaPlugin *plugin)
 							 "AnjutaGladePalette", _("Palette"),
 							 "glade-plugin-icon",
 							 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
-	anjuta_shell_add_widget (ANJUTA_PLUGIN (plugin)->shell,
-							 GTK_WIDGET (glade_app_get_editor ()),
-							 "AnjutaGladeEditor", _("Properties"),
-							 "glade-plugin-icon",
-							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL);
 	/* Connect to save session */
 	g_signal_connect (G_OBJECT (plugin->shell), "save_session",
 					  G_CALLBACK (on_session_save), plugin);
@@ -534,9 +516,6 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	/* Remove widgets */
 	anjuta_shell_remove_widget (plugin->shell,
 								GTK_WIDGET (glade_app_get_palette ()),
-								NULL);
-	anjuta_shell_remove_widget (plugin->shell,
-								GTK_WIDGET (glade_app_get_editor ()),
 								NULL);
 	anjuta_shell_remove_widget (plugin->shell,
 								GTK_WIDGET (priv->view_box),
@@ -654,15 +633,6 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **err)
 	}
 	
 	project = glade_project_load (filename);
-	if (project)
-	{
-		g_signal_connect (project, "resource-removed",
-						  G_CALLBACK (on_glade_resource_removed),
-						  ANJUTA_PLUGIN_GLADE (ifile));
-		g_signal_connect (project, "resource-updated",
-						  G_CALLBACK (on_glade_resource_updated),
-						  ANJUTA_PLUGIN_GLADE (ifile));
-	}
 	g_free (filename);
 	if (!project)
 	{
@@ -717,13 +687,6 @@ iwizard_activate (IAnjutaWizard *iwizard, GError **err)
 	priv = ANJUTA_PLUGIN_GLADE (iwizard)->priv;
 
 	project = glade_project_new ();
-	
-	g_signal_connect (project, "resource-removed",
-					  G_CALLBACK (on_glade_resource_removed),
-					  ANJUTA_PLUGIN_GLADE (iwizard));
-	g_signal_connect (project, "resource-updated",
-					  G_CALLBACK (on_glade_resource_updated),
-					  ANJUTA_PLUGIN_GLADE (iwizard));
 	if (!project)
 	{
 		anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN (iwizard)->shell),

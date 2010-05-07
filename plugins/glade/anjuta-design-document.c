@@ -221,6 +221,12 @@ ifile_savable_is_read_only (IAnjutaFileSavable* savable, GError** e)
 	return FALSE;
 }
 
+static gboolean
+ifile_savable_is_conflict (IAnjutaFileSavable* savable, GError** e)
+{
+	return FALSE;
+}
+
 static void
 ifile_savable_iface_init(IAnjutaFileSavableIface *iface)
 {
@@ -229,6 +235,7 @@ ifile_savable_iface_init(IAnjutaFileSavableIface *iface)
 	iface->set_dirty = ifile_savable_set_dirty;
 	iface->is_dirty = ifile_savable_is_dirty;
 	iface->is_read_only = ifile_savable_is_read_only;
+	iface->is_conflict = ifile_savable_is_conflict;
 }
 
 /* Return true if editor can redo */

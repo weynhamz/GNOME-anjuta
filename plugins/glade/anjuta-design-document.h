@@ -26,7 +26,7 @@
 #define _ANJUTA_DESIGN_DOCUMENT_H_
 
 #include <glib-object.h>
-#include <gladeui/glade-design-view.h>
+#include <gladeui/glade.h>
 #include "plugin.h"
 
 G_BEGIN_DECLS
