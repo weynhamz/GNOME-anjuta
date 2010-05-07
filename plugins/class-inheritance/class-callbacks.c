@@ -81,24 +81,24 @@ on_expanded_class_title_event (FooCanvasItem *item, GdkEvent *event,
 		
 	case GDK_ENTER_NOTIFY:		/* mouse entered in title's area */
 		foo_canvas_item_set (item,
-							   "fill_color_gdk",
-							   &cls_node->plugin->style[STYLE_TITLE_PRELIGHT_BG],
-							   NULL);
+		                     "fill_color_gdk",
+		                     &cls_node->plugin->style[STYLE_TITLE_PRELIGHT_BG],
+		                     NULL);
 		foo_canvas_item_set (text_item,
-							   "fill_color_gdk",
-							   &cls_node->plugin->style[STYLE_TITLE_PRELIGHT_FG],
-							   NULL);
+		                     "fill_color_gdk",
+		                     &cls_node->plugin->style[STYLE_TITLE_PRELIGHT_FG],
+		                     NULL);
 		return TRUE;
 
 	case GDK_LEAVE_NOTIFY:		/* mouse exited title's area */
 		foo_canvas_item_set (item,
-							   "fill_color_gdk",
-							   &cls_node->plugin->style[STYLE_TITLE_BG],
-							   NULL);
+		                     "fill_color_gdk",
+		                     &cls_node->plugin->style[STYLE_TITLE_BG],
+		                     NULL);
 		foo_canvas_item_set (text_item,
-							   "fill_color_gdk",
-							   &cls_node->plugin->style[STYLE_TITLE_FG],
-							   NULL);
+		                     "fill_color_gdk",
+		                     &cls_node->plugin->style[STYLE_TITLE_FG],
+		                     NULL);
 		return TRUE;
 	default:
 		break;
@@ -114,27 +114,27 @@ create_class_item_tooltip (ClsNode *cls_node, const gchar *tooltip_text)
 
 	group =
 		foo_canvas_item_new (foo_canvas_root
-			                   (FOO_CANVAS (cls_node->canvas)),
-			                   foo_canvas_group_get_type (),
-			                   NULL);
+		                     (FOO_CANVAS (cls_node->canvas)),
+		                     foo_canvas_group_get_type (),
+		                     NULL);
 	
 	text_item =
 		foo_canvas_item_new (FOO_CANVAS_GROUP (group),
-					           foo_canvas_text_get_type (),
-					           "text", tooltip_text,
-					           "justification", GTK_JUSTIFY_LEFT,
-					           "anchor", GTK_ANCHOR_CENTER,
-					           "fill_color_gdk",
-					           &cls_node->plugin->style[STYLE_ITEM_FG],
-					           NULL);
-
+		                     foo_canvas_text_get_type (),
+		                     "text", tooltip_text,
+		                     "justification", GTK_JUSTIFY_LEFT,
+		                     "anchor", GTK_ANCHOR_CENTER,
+		                     "fill_color_gdk",
+		                     &cls_node->plugin->style[STYLE_ITEM_FG],
+		                     NULL);
+	
 	g_object_get (text_item, "text_width", &text_width_value,
 	              "text_height", &text_height_value, NULL);
 
 	foo_canvas_item_set (text_item,
-	                       "x", (gdouble) 10 + text_width_value/2,
-				           "y", (gdouble) 10 + text_height_value/2,
-	                       	NULL);
+	                     "x", (gdouble) 10 + text_width_value/2,
+	                     "y", (gdouble) 10 + text_height_value/2,
+	                     NULL);
 	/* Decoration */
 	FooCanvasPoints *points = foo_canvas_points_new (8);
 	gint i = 0;
@@ -165,27 +165,27 @@ create_class_item_tooltip (ClsNode *cls_node, const gchar *tooltip_text)
 	/* background */
 	canvas_item =
 		foo_canvas_item_new (FOO_CANVAS_GROUP (group),
-			                   foo_canvas_polygon_get_type (),
-			                   "points", points,
-			                   "fill_color_gdk",
-			                   &cls_node->plugin->style[STYLE_ITEM_BG],
-			                   NULL);
+		                     foo_canvas_polygon_get_type (),
+		                     "points", points,
+		                     "fill_color_gdk",
+		                     &cls_node->plugin->style[STYLE_ITEM_BG],
+		                     NULL);
 	/* border */
 	canvas_item =
 		foo_canvas_item_new (FOO_CANVAS_GROUP (group),
-	                       foo_canvas_line_get_type (),
-	                       "points", points,
-	                       "fill_color_gdk",
-	                       &cls_node->plugin->style[STYLE_ITEM_FG],
-	                       NULL);
+		                     foo_canvas_line_get_type (),
+		                     "points", points,
+		                     "fill_color_gdk",
+		                     &cls_node->plugin->style[STYLE_ITEM_FG],
+		                     NULL);
 	/* shadow */
 	canvas_item =
 		foo_canvas_item_new (FOO_CANVAS_GROUP (group),
-	                       foo_canvas_polygon_get_type (),
-	                       "points", points,
-	                       "fill_color_gdk",
-	                       &cls_node->plugin->style[STYLE_TITLE_BG],
-	                       NULL);
+		                     foo_canvas_polygon_get_type (),
+		                     "points", points,
+		                     "fill_color_gdk",
+		                     &cls_node->plugin->style[STYLE_TITLE_BG],
+		                     NULL);
 	foo_canvas_points_unref (points);
 
 	/* Lower shadow */
@@ -265,13 +265,13 @@ on_expanded_class_item_event (FooCanvasItem *item, GdkEvent *event,
 		
 	case GDK_ENTER_NOTIFY:		/* mouse entered in item's area */
 		foo_canvas_item_set (node_item->canvas_node_item,
-							   "fill_color_gdk",
-							   &node_item->cls_node->plugin->style[STYLE_ITEM_PRELIGHT_BG],
-							   NULL);
+		                     "fill_color_gdk",
+		                     &node_item->cls_node->plugin->style[STYLE_ITEM_PRELIGHT_BG],
+		                     NULL);
 		foo_canvas_item_set (text_item,
-							   "fill_color_gdk",
-							   &node_item->cls_node->plugin->style[STYLE_ITEM_PRELIGHT_FG],
-							   NULL);
+		                     "fill_color_gdk",
+		                     &node_item->cls_node->plugin->style[STYLE_ITEM_PRELIGHT_FG],
+		                     NULL);
 		/* Show tooltip */
 		if (!node_item->tooltip)
 		{
@@ -286,13 +286,13 @@ on_expanded_class_item_event (FooCanvasItem *item, GdkEvent *event,
 
 	case GDK_LEAVE_NOTIFY:		/* mouse exited item's area */
 		foo_canvas_item_set (node_item->canvas_node_item,
-							   "fill_color_gdk",
-							   &node_item->cls_node->plugin->style[STYLE_ITEM_BG],
-							   NULL);
+		                     "fill_color_gdk",
+		                     &node_item->cls_node->plugin->style[STYLE_ITEM_BG],
+		                     NULL);
 		foo_canvas_item_set (text_item,
-							   "fill_color_gdk",
-							   &node_item->cls_node->plugin->style[STYLE_ITEM_FG],
-							   NULL);
+		                     "fill_color_gdk",
+		                     &node_item->cls_node->plugin->style[STYLE_ITEM_FG],
+		                     NULL);
 		/* Hide tooltip */
 		if (node_item->tooltip_timeout)
 			g_source_remove (node_item->tooltip_timeout);
@@ -330,24 +330,24 @@ on_expanded_class_more_event (FooCanvasItem *item, GdkEvent *event,
 		
 	case GDK_ENTER_NOTIFY:		/* mouse entered in more's area */
 		foo_canvas_item_set (item,
-							   "fill_color_gdk",
-							   &cls_node->plugin->style[STYLE_TITLE_PRELIGHT_BG],
-							   NULL);
+		                     "fill_color_gdk",
+		                     &cls_node->plugin->style[STYLE_TITLE_PRELIGHT_BG],
+		                     NULL);
 		foo_canvas_item_set (text_item,
-							   "fill_color_gdk",
-							   &cls_node->plugin->style[STYLE_TITLE_PRELIGHT_FG],
-							   NULL);
+		                     "fill_color_gdk",
+		                     &cls_node->plugin->style[STYLE_TITLE_PRELIGHT_FG],
+		                     NULL);
 		return TRUE;
 
 	case GDK_LEAVE_NOTIFY:		/* mouse exited item's area */
 		foo_canvas_item_set (item,
-							   "fill_color_gdk",
-		                       &cls_node->plugin->style[STYLE_TITLE_BG],
-							   NULL);
+		                     "fill_color_gdk",
+		                     &cls_node->plugin->style[STYLE_TITLE_BG],
+		                     NULL);
 		foo_canvas_item_set (text_item,
-							   "fill_color_gdk",
-							   &cls_node->plugin->style[STYLE_TITLE_FG],
-							   NULL);
+		                     "fill_color_gdk",
+		                     &cls_node->plugin->style[STYLE_TITLE_FG],
+		                     NULL);
 		return TRUE;
 	default:
 		break;
@@ -383,25 +383,25 @@ on_collapsed_class_event (FooCanvasItem *item, GdkEvent *event, gpointer data)
 	case GDK_ENTER_NOTIFY:		/* mouse entered in item's area */
 		/* Make the outline wide */
 		foo_canvas_item_set (item,
-							   "fill_color_gdk",
-							   &cls_node->plugin->style[STYLE_ITEM_PRELIGHT_BG],
-							   NULL);
+		                     "fill_color_gdk",
+		                     &cls_node->plugin->style[STYLE_ITEM_PRELIGHT_BG],
+		                     NULL);
 		foo_canvas_item_set (text_item,
-							   "fill_color_gdk",
-							   &cls_node->plugin->style[STYLE_ITEM_PRELIGHT_FG],
-							   NULL);
+		                     "fill_color_gdk",
+		                     &cls_node->plugin->style[STYLE_ITEM_PRELIGHT_FG],
+		                     NULL);
 		return TRUE;
 
 	case GDK_LEAVE_NOTIFY:		/* mouse exited item's area */
 		/* Make the outline thin */
 		foo_canvas_item_set (item,
-							   "fill_color_gdk",
-							   &cls_node->plugin->style[STYLE_BG],
-							   NULL);
+		                     "fill_color_gdk",
+		                     &cls_node->plugin->style[STYLE_BG],
+		                     NULL);
 		foo_canvas_item_set (text_item,
-							   "fill_color_gdk",
-							   &cls_node->plugin->style[STYLE_FG],
-							   NULL);
+		                     "fill_color_gdk",
+		                     &cls_node->plugin->style[STYLE_FG],
+		                     NULL);
 		return TRUE;
 	default:
 		break;
