@@ -4,7 +4,7 @@
 
 SUBDIRS = \
 	pixmaps scripts data \
-	doc libanjuta plugins src manuals mime launcher po
+	doc libfoocanvas libanjuta plugins src manuals mime launcher po
 
 anjutadocdir = $(docdir)
 anjutadoc_DATA = \
