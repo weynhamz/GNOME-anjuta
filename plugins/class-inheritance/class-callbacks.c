@@ -27,7 +27,7 @@
 #include "class-inherit.h"
 
 gint
-on_canvas_event (GnomeCanvasItem *item, GdkEvent *event, gpointer data) 
+on_canvas_event (FooCanvasItem *item, GdkEvent *event, gpointer data) 
 {
 	AnjutaClassInheritance *plugin;
 	plugin = ANJUTA_PLUGIN_CLASS_INHERITANCE (data);
@@ -52,8 +52,8 @@ on_canvas_event (GnomeCanvasItem *item, GdkEvent *event, gpointer data)
 }
 
 gint
-on_canvas_event_proxy (GnomeCanvasItem *item, GdkEvent *event,
-                       GnomeCanvasItem *proxy_item)
+on_canvas_event_proxy (FooCanvasItem *item, GdkEvent *event,
+                       FooCanvasItem *proxy_item)
 {
 	gint ret;
 
@@ -62,10 +62,10 @@ on_canvas_event_proxy (GnomeCanvasItem *item, GdkEvent *event,
 }
 
 gint
-on_expanded_class_title_event (GnomeCanvasItem *item, GdkEvent *event,
+on_expanded_class_title_event (FooCanvasItem *item, GdkEvent *event,
                                ClsNode *cls_node)
 {
-	GnomeCanvasItem *text_item;
+	FooCanvasItem *text_item;
 	text_item = g_object_get_data (G_OBJECT (item), "__text__");
 	switch (event->type)
 	{
@@ -80,22 +80,22 @@ on_expanded_class_title_event (GnomeCanvasItem *item, GdkEvent *event,
 		break;
 		
 	case GDK_ENTER_NOTIFY:		/* mouse entered in title's area */
-		gnome_canvas_item_set (item,
+		foo_canvas_item_set (item,
 							   "fill_color_gdk",
 							   &cls_node->plugin->style[STYLE_TITLE_PRELIGHT_BG],
 							   NULL);
-		gnome_canvas_item_set (text_item,
+		foo_canvas_item_set (text_item,
 							   "fill_color_gdk",
 							   &cls_node->plugin->style[STYLE_TITLE_PRELIGHT_FG],
 							   NULL);
 		return TRUE;
 
 	case GDK_LEAVE_NOTIFY:		/* mouse exited title's area */
-		gnome_canvas_item_set (item,
+		foo_canvas_item_set (item,
 							   "fill_color_gdk",
 							   &cls_node->plugin->style[STYLE_TITLE_BG],
 							   NULL);
-		gnome_canvas_item_set (text_item,
+		foo_canvas_item_set (text_item,
 							   "fill_color_gdk",
 							   &cls_node->plugin->style[STYLE_TITLE_FG],
 							   NULL);
@@ -106,21 +106,21 @@ on_expanded_class_title_event (GnomeCanvasItem *item, GdkEvent *event,
 	return FALSE;
 }
 
-static GnomeCanvasItem*
+static FooCanvasItem*
 create_class_item_tooltip (ClsNode *cls_node, const gchar *tooltip_text)
 {
-	GnomeCanvasItem *group, *canvas_item, *text_item;
+	FooCanvasItem *group, *canvas_item, *text_item;
 	gdouble text_width_value, text_height_value;
 
 	group =
-		gnome_canvas_item_new (gnome_canvas_root
-			                   (GNOME_CANVAS (cls_node->canvas)),
-			                   gnome_canvas_group_get_type (),
+		foo_canvas_item_new (foo_canvas_root
+			                   (FOO_CANVAS (cls_node->canvas)),
+			                   foo_canvas_group_get_type (),
 			                   NULL);
 	
 	text_item =
-		gnome_canvas_item_new (GNOME_CANVAS_GROUP (group),
-					           gnome_canvas_text_get_type (),
+		foo_canvas_item_new (FOO_CANVAS_GROUP (group),
+					           foo_canvas_text_get_type (),
 					           "text", tooltip_text,
 					           "justification", GTK_JUSTIFY_LEFT,
 					           "anchor", GTK_ANCHOR_CENTER,
@@ -131,12 +131,12 @@ create_class_item_tooltip (ClsNode *cls_node, const gchar *tooltip_text)
 	g_object_get (text_item, "text_width", &text_width_value,
 	              "text_height", &text_height_value, NULL);
 
-	gnome_canvas_item_set (text_item,
+	foo_canvas_item_set (text_item,
 	                       "x", (gdouble) 10 + text_width_value/2,
 				           "y", (gdouble) 10 + text_height_value/2,
 	                       	NULL);
 	/* Decoration */
-	GnomeCanvasPoints *points = gnome_canvas_points_new (8);
+	FooCanvasPoints *points = foo_canvas_points_new (8);
 	gint i = 0;
 	points->coords[i++] = 0;
 	points->coords[i++] = 0;
@@ -164,38 +164,38 @@ create_class_item_tooltip (ClsNode *cls_node, const gchar *tooltip_text)
 
 	/* background */
 	canvas_item =
-		gnome_canvas_item_new (GNOME_CANVAS_GROUP (group),
-			                   gnome_canvas_polygon_get_type (),
+		foo_canvas_item_new (FOO_CANVAS_GROUP (group),
+			                   foo_canvas_polygon_get_type (),
 			                   "points", points,
 			                   "fill_color_gdk",
 			                   &cls_node->plugin->style[STYLE_ITEM_BG],
 			                   NULL);
 	/* border */
 	canvas_item =
-		gnome_canvas_item_new (GNOME_CANVAS_GROUP (group),
-	                       gnome_canvas_line_get_type (),
+		foo_canvas_item_new (FOO_CANVAS_GROUP (group),
+	                       foo_canvas_line_get_type (),
 	                       "points", points,
 	                       "fill_color_gdk",
 	                       &cls_node->plugin->style[STYLE_ITEM_FG],
 	                       NULL);
 	/* shadow */
 	canvas_item =
-		gnome_canvas_item_new (GNOME_CANVAS_GROUP (group),
-	                       gnome_canvas_polygon_get_type (),
+		foo_canvas_item_new (FOO_CANVAS_GROUP (group),
+	                       foo_canvas_polygon_get_type (),
 	                       "points", points,
 	                       "fill_color_gdk",
 	                       &cls_node->plugin->style[STYLE_TITLE_BG],
 	                       NULL);
-	gnome_canvas_points_unref (points);
+	foo_canvas_points_unref (points);
 
 	/* Lower shadow */
-	gnome_canvas_item_lower (canvas_item, 10);
+	foo_canvas_item_lower (canvas_item, 10);
 
 	/* Offset shadow */
-	gnome_canvas_item_move (canvas_item, 5, 5);
+	foo_canvas_item_move (canvas_item, 5, 5);
 
 	/* Raise text */
-	gnome_canvas_item_raise (text_item, 10);
+	foo_canvas_item_raise (text_item, 10);
 	return group;
 }
 
@@ -223,20 +223,20 @@ on_canvas_item_show_tooltip_timeout (ClsNodeItem *node_item)
 		x = x + x1 + 25;
 		y = y + y2 + 10;
 
-		gnome_canvas_item_w2i (node_item->tooltip, &x, &y);
-		gnome_canvas_item_move (node_item->tooltip, x, y);
+		foo_canvas_item_w2i (node_item->tooltip, &x, &y);
+		foo_canvas_item_move (node_item->tooltip, x, y);
 		node_item->tooltip_timeout = 0;
 	}
 	return FALSE;
 }
 
 gint
-on_expanded_class_item_event (GnomeCanvasItem *item, GdkEvent *event,
+on_expanded_class_item_event (FooCanvasItem *item, GdkEvent *event,
                               gpointer data)
 {
 	AnjutaClassInheritance *plugin;
 	ClsNodeItem *node_item;
-	GnomeCanvasItem *text_item;
+	FooCanvasItem *text_item;
 	
 	text_item = g_object_get_data (G_OBJECT (item), "__text__");
 	
@@ -264,11 +264,11 @@ on_expanded_class_item_event (GnomeCanvasItem *item, GdkEvent *event,
 		break;
 		
 	case GDK_ENTER_NOTIFY:		/* mouse entered in item's area */
-		gnome_canvas_item_set (node_item->canvas_node_item,
+		foo_canvas_item_set (node_item->canvas_node_item,
 							   "fill_color_gdk",
 							   &node_item->cls_node->plugin->style[STYLE_ITEM_PRELIGHT_BG],
 							   NULL);
-		gnome_canvas_item_set (text_item,
+		foo_canvas_item_set (text_item,
 							   "fill_color_gdk",
 							   &node_item->cls_node->plugin->style[STYLE_ITEM_PRELIGHT_FG],
 							   NULL);
@@ -285,11 +285,11 @@ on_expanded_class_item_event (GnomeCanvasItem *item, GdkEvent *event,
 		return TRUE;
 
 	case GDK_LEAVE_NOTIFY:		/* mouse exited item's area */
-		gnome_canvas_item_set (node_item->canvas_node_item,
+		foo_canvas_item_set (node_item->canvas_node_item,
 							   "fill_color_gdk",
 							   &node_item->cls_node->plugin->style[STYLE_ITEM_BG],
 							   NULL);
-		gnome_canvas_item_set (text_item,
+		foo_canvas_item_set (text_item,
 							   "fill_color_gdk",
 							   &node_item->cls_node->plugin->style[STYLE_ITEM_FG],
 							   NULL);
@@ -309,10 +309,10 @@ on_expanded_class_item_event (GnomeCanvasItem *item, GdkEvent *event,
 }
 
 gint
-on_expanded_class_more_event (GnomeCanvasItem *item, GdkEvent *event,
+on_expanded_class_more_event (FooCanvasItem *item, GdkEvent *event,
                               ClsNode *cls_node)
 {
-	GnomeCanvasItem *text_item;
+	FooCanvasItem *text_item;
 	text_item = g_object_get_data (G_OBJECT (item), "__text__");
 	switch (event->type)
 	{
@@ -329,22 +329,22 @@ on_expanded_class_more_event (GnomeCanvasItem *item, GdkEvent *event,
 		break;
 		
 	case GDK_ENTER_NOTIFY:		/* mouse entered in more's area */
-		gnome_canvas_item_set (item,
+		foo_canvas_item_set (item,
 							   "fill_color_gdk",
 							   &cls_node->plugin->style[STYLE_TITLE_PRELIGHT_BG],
 							   NULL);
-		gnome_canvas_item_set (text_item,
+		foo_canvas_item_set (text_item,
 							   "fill_color_gdk",
 							   &cls_node->plugin->style[STYLE_TITLE_PRELIGHT_FG],
 							   NULL);
 		return TRUE;
 
 	case GDK_LEAVE_NOTIFY:		/* mouse exited item's area */
-		gnome_canvas_item_set (item,
+		foo_canvas_item_set (item,
 							   "fill_color_gdk",
 		                       &cls_node->plugin->style[STYLE_TITLE_BG],
 							   NULL);
-		gnome_canvas_item_set (text_item,
+		foo_canvas_item_set (text_item,
 							   "fill_color_gdk",
 							   &cls_node->plugin->style[STYLE_TITLE_FG],
 							   NULL);
@@ -357,11 +357,11 @@ on_expanded_class_more_event (GnomeCanvasItem *item, GdkEvent *event,
 }
 
 gint
-on_collapsed_class_event (GnomeCanvasItem *item, GdkEvent *event, gpointer data)
+on_collapsed_class_event (FooCanvasItem *item, GdkEvent *event, gpointer data)
 {
 	AnjutaClassInheritance *plugin;
 	ClsNode *cls_node;
-	GnomeCanvasItem *text_item;
+	FooCanvasItem *text_item;
 	text_item = g_object_get_data (G_OBJECT (item), "__text__");
 	
 	cls_node = (ClsNode*)data;
@@ -382,11 +382,11 @@ on_collapsed_class_event (GnomeCanvasItem *item, GdkEvent *event, gpointer data)
 		
 	case GDK_ENTER_NOTIFY:		/* mouse entered in item's area */
 		/* Make the outline wide */
-		gnome_canvas_item_set (item,
+		foo_canvas_item_set (item,
 							   "fill_color_gdk",
 							   &cls_node->plugin->style[STYLE_ITEM_PRELIGHT_BG],
 							   NULL);
-		gnome_canvas_item_set (text_item,
+		foo_canvas_item_set (text_item,
 							   "fill_color_gdk",
 							   &cls_node->plugin->style[STYLE_ITEM_PRELIGHT_FG],
 							   NULL);
@@ -394,11 +394,11 @@ on_collapsed_class_event (GnomeCanvasItem *item, GdkEvent *event, gpointer data)
 
 	case GDK_LEAVE_NOTIFY:		/* mouse exited item's area */
 		/* Make the outline thin */
-		gnome_canvas_item_set (item,
+		foo_canvas_item_set (item,
 							   "fill_color_gdk",
 							   &cls_node->plugin->style[STYLE_BG],
 							   NULL);
-		gnome_canvas_item_set (text_item,
+		foo_canvas_item_set (text_item,
 							   "fill_color_gdk",
 							   &cls_node->plugin->style[STYLE_FG],
 							   NULL);
