@@ -611,17 +611,30 @@ confirm_removal (ProjectManagerPlugin *plugin, GList *selected)
 	GList *item;
 	GbfTreeNodeType type;
 	gboolean group = FALSE;
+	gboolean remove_group_file = FALSE;
 	gboolean source = FALSE;
-
+	gboolean remove_source_file = FALSE;
+	
 	g_return_val_if_fail (selected != NULL, FALSE);
 
 	type = ((GbfTreeData *)selected->data)->type;
 	for (item = g_list_first (selected); item != NULL; item = g_list_next (item))
 	{
 		GbfTreeData *data = (GbfTreeData *)item->data;
+		AnjutaProjectNode *node;
 
-		if (data->type == GBF_TREE_NODE_GROUP) group = TRUE;
-		if (data->type == GBF_TREE_NODE_SOURCE) source = TRUE;
+		if (data->type == GBF_TREE_NODE_GROUP)
+		{
+			group = TRUE;
+			node = gbf_tree_data_get_node (data);
+			remove_group_file = anjuta_project_node_get_state (node) & ANJUTA_PROJECT_REMOVE_FILE;
+		}
+		if (data->type == GBF_TREE_NODE_SOURCE)
+		{
+			source = TRUE;
+			node = gbf_tree_data_get_node (data);
+			remove_source_file = anjuta_project_node_get_state (node) & ANJUTA_PROJECT_REMOVE_FILE;
+		}
 		if (type != data->type) type = GBF_TREE_NODE_UNKNOWN;
 	}
 
@@ -674,9 +687,13 @@ confirm_removal (ProjectManagerPlugin *plugin, GList *selected)
 	if (group || source)
 	{
 		g_string_append (mesg, "\n");
-		if (group)
+		if (remove_group_file)
+			g_string_append (mesg, _("The group will be deleted from the file system."));
+		else if (group)
 			g_string_append (mesg, _("The group will not be deleted from the file system."));
-		if (source)
+		if (remove_source_file)
+			g_string_append (mesg, _("The source file will be deleted from the file system."));
+		else if (source)
 			g_string_append (mesg, _("The source file will not be deleted from the file system."));
 	}			    
 	

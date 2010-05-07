@@ -73,13 +73,15 @@ typedef enum
 	ANJUTA_PROJECT_MODIFIED = 1 << 0,		/* Node has been modified */
 	ANJUTA_PROJECT_INCOMPLETE = 1 << 1,	/* Node is not fully loaded */
 	ANJUTA_PROJECT_LOADING = 1 << 2,	/* Node is send to the worker thread */
+	ANJUTA_PROJECT_REMOVED = 1 << 3,		/* Node has been removed */
 	ANJUTA_PROJECT_CAN_ADD_GROUP = 1 << 8,
 	ANJUTA_PROJECT_CAN_ADD_TARGET = 1 << 9,
 	ANJUTA_PROJECT_CAN_ADD_SOURCE = 1 << 10,
 	ANJUTA_PROJECT_CAN_ADD_MODULE = 1 << 11,
 	ANJUTA_PROJECT_CAN_ADD_PACKAGE = 1 << 12,
 	ANJUTA_PROJECT_CAN_REMOVE = 1 << 16,
-	ANJUTA_PROJECT_CAN_SAVE = 1 << 17
+	ANJUTA_PROJECT_CAN_SAVE = 1 << 17,
+	ANJUTA_PROJECT_REMOVE_FILE = 1 << 18
 } AnjutaProjectNodeState;
 
 typedef struct 
@@ -169,6 +171,7 @@ AnjutaProjectNode *anjuta_project_node_insert_after (AnjutaProjectNode *parent, 
 AnjutaProjectNode *anjuta_project_node_replace (AnjutaProjectNode *node, AnjutaProjectNode *replacement);
 AnjutaProjectNode *anjuta_project_node_grab_children (AnjutaProjectNode *parent, AnjutaProjectNode *node);
 AnjutaProjectNode *anjuta_project_node_exchange (AnjutaProjectNode *node, AnjutaProjectNode *replacement);
+AnjutaProjectNode *anjuta_project_node_remove (AnjutaProjectNode *node);
 
 void anjuta_project_node_all_foreach (AnjutaProjectNode *node, AnjutaProjectNodeFunc func, gpointer data);
 void anjuta_project_node_children_foreach (AnjutaProjectNode *node, AnjutaProjectNodeFunc func, gpointer data);

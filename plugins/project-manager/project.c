@@ -103,6 +103,7 @@ typedef enum
 	LOAD = 0,
 	RELOAD,
 	ADD,
+	REMOVE,
 	EXIT,
 	LAST_COMMAND
 } PmCommand;
@@ -268,7 +269,7 @@ pm_command_load_work (AnjutaPmProject *project, PmJob *job)
 }
 
 static gboolean
-pm_command_add_work (AnjutaPmProject *project, PmJob *job)
+pm_command_save_work (AnjutaPmProject *project, PmJob *job)
 {
 	AnjutaProjectNode *node;
 	
@@ -547,6 +548,41 @@ pm_command_add_setup (AnjutaPmProject *project, PmJob *job)
 	
 	return TRUE;
 }
+
+static gboolean
+pm_command_remove_setup (AnjutaPmProject *project, PmJob *job)
+{
+	GtkTreeIter iter;
+	
+	g_return_val_if_fail (job != NULL, FALSE);
+	g_return_val_if_fail (job->node != NULL, FALSE);
+
+	/* Remove node from project tree */
+	if (gbf_project_model_find_node (project->model, &iter, NULL, job->node))
+	{
+		gbf_project_model_remove (project->model, &iter);
+		anjuta_project_node_set_state (job->node, ANJUTA_PROJECT_REMOVED);
+		
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+
+static gboolean
+pm_command_remove_complete (AnjutaPmProject *project, PmJob *job)
+{
+	g_return_val_if_fail (job != NULL, FALSE);
+	g_return_val_if_fail (job->node != NULL, FALSE);
+
+	/* Remove node from node tree */
+	anjuta_project_node_remove (job->node);
+	anjuta_project_node_all_foreach (job->node, (AnjutaProjectNodeFunc)pm_free_node, project->project);
+	
+	return TRUE;
+}
  
 static PmCommandWork PmCommands[LAST_COMMAND] = {
 			{pm_command_load_setup,
@@ -556,8 +592,11 @@ static PmCommandWork PmCommands[LAST_COMMAND] = {
 			pm_command_load_work,
 			pm_command_load_complete},
 			{pm_command_add_setup,
-			pm_command_add_work,
+			pm_command_save_work,
 			NULL},
+			{pm_command_remove_setup,
+			pm_command_save_work,
+			pm_command_remove_complete},
 			{NULL,
 			pm_command_exit_work,
 			NULL}};
@@ -847,7 +886,7 @@ anjuta_pm_project_add_source (AnjutaPmProject *project, AnjutaProjectNode *targe
 gboolean
 anjuta_pm_project_remove (AnjutaPmProject *project, AnjutaProjectNode *node, GError **error)
 {
-	ianjuta_project_remove_node (project->project, node, error);
+	pm_project_push_command (project, REMOVE, node);
 
 	return TRUE;
 }

@@ -205,7 +205,9 @@ dir_group_new (GFile *file, GObject *emitter)
 	group->base.type = ANJUTA_PROJECT_GROUP;
 	group->base.file = g_object_ref (file);
 	group->base.state = ANJUTA_PROJECT_CAN_ADD_GROUP |
-						ANJUTA_PROJECT_CAN_REMOVE;
+						ANJUTA_PROJECT_CAN_ADD_SOURCE |
+						ANJUTA_PROJECT_CAN_REMOVE |
+						ANJUTA_PROJECT_REMOVE_FILE;
 	
 	group->emitter = emitter;
 	
@@ -238,20 +240,6 @@ dir_group_free (DirGroup *node)
 	g_node_destroy (node);
 }
 
-/* Target objects
- *---------------------------------------------------------------------------*/
-
-static void
-dir_target_free (DirTarget *node)
-{
-    DirTargetData *target = DIR_TARGET_DATA (node);
-	
-    g_free (target->base.name);
-    g_slice_free (DirTargetData, target);
-
-	g_node_destroy (node);
-}
-
 /* Source objects
  *---------------------------------------------------------------------------*/
 
@@ -263,6 +251,8 @@ dir_source_new (GFile *file)
 	source = g_slice_new0(DirSourceData); 
 	source->base.type = ANJUTA_PROJECT_SOURCE;
 	source->base.file = g_object_ref (file);
+	source->base.state = ANJUTA_PROJECT_CAN_REMOVE |
+						ANJUTA_PROJECT_REMOVE_FILE;
 
     return g_node_new (source);
 }
@@ -290,9 +280,6 @@ foreach_node_destroy (AnjutaProjectNode *node,
 	{
 		case ANJUTA_PROJECT_GROUP:
 			dir_group_free (node);
-			break;
-		case ANJUTA_PROJECT_TARGET:
-			dir_target_free (node);
 			break;
 		case ANJUTA_PROJECT_SOURCE:
 			dir_source_free (node);
@@ -762,9 +749,11 @@ static void
 foreach_node_save (AnjutaProjectNode *node,
 					gpointer  data)
 {
-	gint type = anjuta_project_node_get_full_type (node);
+	gint state = anjuta_project_node_get_state (node);
+	GError *err = NULL;
+	gboolean ret;
 	
-	if (type & ANJUTA_PROJECT_MODIFIED)
+	if (state & ANJUTA_PROJECT_MODIFIED)
 	{
 		switch (anjuta_project_node_get_type (node))
 		{
@@ -775,11 +764,28 @@ foreach_node_save (AnjutaProjectNode *node,
 			break;
 		}
 	}
+	else if (state & ANJUTA_PROJECT_REMOVED)
+	{
+		switch (anjuta_project_node_get_type (node))
+		{
+		case ANJUTA_PROJECT_GROUP:
+			ret = g_file_trash (anjuta_project_node_get_file (node), NULL, &err);
+			if (err != NULL)
+			{
+				g_warning ("trashing file failed with %s", err->message);
+				g_error_free (err);
+			}
+			break;
+		default:
+			break;
+		}
+	}
 }
 
 AnjutaProjectNode *
 dir_project_save_node (DirProject *project, AnjutaProjectNode *node, GError **error)
 {
+	/* Save children */
 	anjuta_project_node_all_foreach (node, foreach_node_save, project);
 	
 	return node;
@@ -995,8 +1001,9 @@ iproject_new_node (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaProject
 {
 	AnjutaProjectNode *node;
 	
-	node = project_node_new (DIR_PROJECT (obj), parent, type | ANJUTA_PROJECT_MODIFIED, file, name, error);
-
+	node = project_node_new (DIR_PROJECT (obj), parent, type, file, name, error);
+	anjuta_project_node_set_state (node, ANJUTA_PROJECT_MODIFIED);
+	
 	return node;
 }
 

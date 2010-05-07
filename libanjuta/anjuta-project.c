@@ -289,6 +289,17 @@ anjuta_project_node_insert_after (AnjutaProjectNode *parent, AnjutaProjectNode *
 }
 
 AnjutaProjectNode *
+anjuta_project_node_remove (AnjutaProjectNode *node)
+{
+	if (node->parent != NULL)
+	{
+		g_node_unlink (node);
+	}
+	
+	return node;
+}
+
+AnjutaProjectNode *
 anjuta_project_node_replace (AnjutaProjectNode *node, AnjutaProjectNode *replacement)
 {
 	if (node->parent != NULL)
