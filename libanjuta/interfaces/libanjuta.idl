@@ -114,7 +114,7 @@ interface IAnjutaFile
 		/**
 		 * ianjuta_file_savable_set_dirty:
 		 * @obj: Self
-		 * @dirty: 
+		 * @dirty: Whether the file was edited or not
 		 * @err: Error propagation and reporting
 		 * 
 		 * if @dirty is TRUE, sets dirty for the content. Save point will be
@@ -2332,7 +2332,7 @@ interface IAnjutaEditor
 	interface IAnjutaEditorGoto
 	{
 		/**
-		 * ianjuta_editor_goto_start_block()
+		 * ianjuta_editor_goto_start_block:
 		 * @obj: Self
 		 * @err: Error propagation and reporting
 		 *
@@ -2341,7 +2341,7 @@ interface IAnjutaEditor
 		void start_block();
 		
 		/**
-		 * ianjuta_editor_goto_end_block()
+		 * ianjuta_editor_goto_end_block:
 		 * @obj: Self
 		 * @err: Error propagation and reporting
 		 *
@@ -2350,7 +2350,7 @@ interface IAnjutaEditor
 		void end_block();
 
 		/**
-		 * ianjuta_editor_goto_matching_brace()
+		 * ianjuta_editor_goto_matching_brace:
 		 * @obj: Self
 		 * @err: Error propagation and reporting
 		 *
@@ -5187,7 +5187,6 @@ interface IAnjutaSymbol
 	
 	/** 
 	 * IAnjutaSymbolType:
-	 *
 	 * @IANJUTA_SYMBOL_TYPE_UNDEF: Unknown type. If you have to search for all the known
 	 * types use this flag because it's quicker than #IANJUTA_SYMBOL_TYPE_MAX.
 	 * @IANJUTA_SYMBOL_TYPE_CLASS: Class declaration
@@ -5242,10 +5241,7 @@ interface IAnjutaSymbol
 	}
 
 	/** 
-	 * IAnjutaSymbolField: Field masks. Used mainly to retrieve the fields of a symbol
-	 * throught the call to ianjuta_symbol_get_extra_info_string () or the various
-	 * ianjuta_symbol_manager_* () functions.
-	 *
+	 * IAnjutaSymbolField:
 	 * @IANJUTA_SYMBOL_FIELD_SIMPLE: With this field you will have name, line of declaration,
 	 *                               is_file_scope and signature of the symbol.
 	 * @IANJUTA_SYMBOL_FIELD_FILE_PATH: The path to the file. It's obtained using something like
@@ -5266,6 +5262,10 @@ interface IAnjutaSymbol
 	 * @IANJUTA_SYMBOL_FIELD_FILE_INCLUDE: field mainly ignored.
 	 * @IANJUTA_SYMBOL_FIELD_PROJECT_NAME: the project this symbol belongs to.
 	 * @IANJUTA_SYMBOL_FIELD_WORKSPACE_NAME: the workspace this symbol belongs to.
+	 *
+	 * Field masks. Used mainly to retrieve the fields of a symbol
+	 * throught the call to ianjuta_symbol_get_extra_info_string () or the various
+	 * ianjuta_symbol_manager_* () functions
 	 */
 	enum Field
 	{
@@ -5517,13 +5517,13 @@ interface IAnjutaSymbolManager
 	
 	/** 
 	 * IAnjutaSymbolManagerSearchFileScope: 
- 	 * You cannot use bitwise OR in this parameter.	 
-	 *
 	 * @IANJUTA_SYMBOL_MANAGER_SEARCH_FS_IGNORE: to be ignored (e.g. Will search both private and public scopes). 
 	 * @IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC: only global public function will be searched 
  	 * (the ones that _do not_ belong to the file scope). 
 	 * @IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PRIVATE: only private or static (for C language) will be searched 
      * (the ones that _do_ belong to the file scope). 
+     *
+     * You cannot use bitwise OR in this parameter.
 	 */	
 	enum SearchFileScope
 	{
@@ -5587,7 +5587,7 @@ interface IAnjutaSymbolManager
 	IAnjutaIterable* search_system (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *pattern, SearchFileScope filescope_search, gint results_limit, gint results_offset);
 
 	/**
-	* ianjuta_symbol_manager_search_project_async:
+	* ianjuta_symbol_manager_search_system_async:
 	* @obj: Self
 	* @match_types: If passed #IANJUTA_SYMBOL_TYPE_UNDEF the function will not perfom any filter.
 	* @include_types: Should the result contain or exclude the match_types? TRUE to include them,
@@ -5750,7 +5750,7 @@ interface IAnjutaSymbolManager
 	IAnjutaIterable* get_members (const IAnjutaSymbol *symbol, IAnjutaSymbolField info_fields);
 	
 	/**
-	* ianjuta_symbol_manager_get_parents:
+	* ianjuta_symbol_manager_get_class_parents:
 	* @obj: Self
 	* @symbol: Symbol which you want to know the parent classes of.
 	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.

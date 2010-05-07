@@ -1548,7 +1548,6 @@ anjuta_preferences_reset_defaults (AnjutaPreferences * pr)
 /**
  * anjuta_preferences_foreach:
  * @pr: A #AnjutaPreferences object.
- * @filter: Keys to filter out from the loop.
  * @callback: User callback function.
  * @data: User data passed to @callback
  *
@@ -1818,6 +1817,7 @@ anjuta_preferences_class_init (AnjutaPreferencesClass *class)
 
 /**
  * anjuta_preferences_new:
+ * @plugin_manager: #AnjutaPluginManager to be used
  * 
  * Creates a new #AnjutaPreferences object
  * 

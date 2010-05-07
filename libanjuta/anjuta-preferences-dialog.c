@@ -241,6 +241,7 @@ anjuta_preferences_dialog_new (void)
  * anjuta_preferences_dialog_add_page:
  * @dlg: A #AnjutaPreferencesDialog object.
  * @name: Name of the preferences page.
+ * @title: Title of the page
  * @icon: Icon file name.
  * @page: page widget.
  *

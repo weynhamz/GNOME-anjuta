@@ -35,6 +35,11 @@ G_BEGIN_DECLS
 #define ANJUTA_PLUGIN_MANAGER_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), ANJUTA_TYPE_PLUGIN_MANAGER, AnjutaPluginManagerClass))
 #define ANJUTA_PLUGIN_MANAGER_ERROR            (anjuta_plugin_manager_error_quark())
 
+/**
+  * AnjutaPluginManagerError:
+  * @ANJUTA_PLUGIN_MANAGER_MISSING_FACTORY: The factory for the plugin couldn't be found
+  * @ANJUTA_PLUGIN_MANAGER_ERROR_UNKNOWN: Unknown error
+  */
 typedef enum
 {
 	ANJUTA_PLUGIN_MANAGER_MISSING_FACTORY,

@@ -116,11 +116,11 @@ anjuta_async_notify_new (void)
 /**
  * anjuta_async_notify_get_error:
  *
- * Gets the error set on @self.
- *
  * @self: An #AnjutaAsyncNotify object
  * @error: Return location for the error set by the called interface to which 
  *		   this object was passed. If no error is set, @error is set to NULL.
+ *
+ * Gets the error set on @self.
  */
 void
 anjuta_async_notify_get_error (AnjutaAsyncNotify *self, GError **error)
@@ -131,12 +131,11 @@ anjuta_async_notify_get_error (AnjutaAsyncNotify *self, GError **error)
 
 /**
  * anjuta_async_notify_set_error:
- *
- * Sets the error for an interface call. This method should only be used by 
- * interface implementations themselves, not by clients. 
- *
  * @self: An #AnjutaAsyncNotify object
  * @error: Error to set
+ *
+ * Sets the error for an interface call. This method should only be used by 
+ * interface implementations themselves, not by clients.  
  */
 void
 anjuta_async_notify_set_error (AnjutaAsyncNotify *self, GError *error)
@@ -149,11 +148,10 @@ anjuta_async_notify_set_error (AnjutaAsyncNotify *self, GError *error)
 
 /**
  * anjuta_async_notify_notify_finished:
+ * @self: An #AnjutaAsyncNotify object
  *
  * Emits the finished signal. This method should only be used by 
  * interface methods themselves, not by clients. 
- *
- * @self: An #AnjutaAsyncNotify object
  */
 void
 anjuta_async_notify_notify_finished (AnjutaAsyncNotify *self)
