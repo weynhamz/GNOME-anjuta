@@ -377,7 +377,8 @@ EngineParser::getCurrentSearchableScope (string &type_name, string &type_scope)
 	// FIXME: case of more results now it's hardcoded to 1
 	IAnjutaIterable *curr_searchable_scope =
 		ianjuta_symbol_manager_search_project (_sym_man, 
-					IANJUTA_SYMBOL_TYPE_SCOPE_CONTAINER,
+		            (IAnjutaSymbolType) (IANJUTA_SYMBOL_TYPE_SCOPE_CONTAINER |
+		            IANJUTA_SYMBOL_TYPE_TYPEDEF),
 		            TRUE,
 		            (IAnjutaSymbolField)(IANJUTA_SYMBOL_FIELD_SIMPLE | IANJUTA_SYMBOL_FIELD_KIND),
 		            type_name.c_str(),
@@ -465,7 +466,8 @@ EngineParser::switchMemberToContainer (IAnjutaIterable * test)
 
 	/* hopefully we'll find a new container for the type_name of test param */
 	new_container = ianjuta_symbol_manager_search_project (_sym_man, 
-					IANJUTA_SYMBOL_TYPE_SCOPE_CONTAINER,
+	                (IAnjutaSymbolType) (IANJUTA_SYMBOL_TYPE_SCOPE_CONTAINER |
+	                IANJUTA_SYMBOL_TYPE_TYPEDEF),
 		            TRUE,
 		            (IAnjutaSymbolField)(IANJUTA_SYMBOL_FIELD_SIMPLE | IANJUTA_SYMBOL_FIELD_KIND |
 		                                 IANJUTA_SYMBOL_FIELD_TYPE_NAME),
