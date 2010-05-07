@@ -27,6 +27,7 @@ AC_SUBST(ANJUTA_VERSION)
 GLIB_REQUIRED=2.18.0
 GDK_PIXBUF_REQUIRED=2.0.0
 GTK_REQUIRED=2.17.10
+PANGO_REQUIRED=0.23
 ORBIT_REQUIRED=2.6.0
 GCONF_REQUIRED=2.12.0
 VTE_REQUIRED=0.9.0
@@ -49,6 +50,7 @@ VALA_REQUIRED=0.7.8
 AC_SUBST(GLIB_REQUIRED)
 AC_SUBST(GDK_PIXBUF_REQUIRED)
 AC_SUBST(GTK_REQUIRED)
+AC_SUBST(PANGO_REQUIRED)
 AC_SUBST(ORBIT_REQUIRED)
 AC_SUBST(VTE_REQUIRED)
 AC_SUBST(LIBXML_REQUIRED)
@@ -147,6 +149,8 @@ PKG_CHECK_MODULES(GLIB, glib-2.0 >= $GLIB_REQUIRED gobject-2.0 >= $GLIB_REQUIRED
 PKG_CHECK_MODULES([DBUS_GLIB], [dbus-glib-1])
 
 PKG_CHECK_MODULES(GTK, gtk+-2.0 >= $GTK_REQUIRED)
+
+PKG_CHECK_MODULES(PANGO, pango >= $PANGO_REQUIRED)
 
 PKG_CHECK_MODULES(GDK_PIXBUF, gdk-pixbuf-2.0 >= $GDK_PIXBUF_REQUIRED)
 
@@ -295,6 +299,21 @@ LIBANJUTA_CFLAGS='$(GLIB_CFLAGS) $(GTK_CFLAGS) $(GCONF_CFLAGS) $(GDL_CFLAGS) $(D
 LIBANJUTA_LIBS='$(top_builddir)/libanjuta/libanjuta.la'
 AC_SUBST(LIBANJUTA_CFLAGS)
 AC_SUBST(LIBANJUTA_LIBS)
+
+dnl Setup FooCanvas Library flags
+dnl --------------------------
+LIBFOOCANVAS_CFLAGS='-I$(top_srcdir)'
+LIBFOOCANVAS_LIBS='$(top_builddir)/foocanvas/libanjuta-foocanvas.la'
+AC_SUBST(LIBFOOCANVAS_CFLAGS)
+AC_SUBST(LIBFOOCANVAS_LIBS)
+
+dnl Checks for Xft/XRender for foocanvas
+dnl
+AC_CHECK_LIB(Xrender, XRenderFindFormat, 
+	[AC_SUBST(RENDER_LIBS, "-lXrender -lXext")
+	 AC_DEFINE(HAVE_RENDER, 1, [Define if libXrender is available.])],
+	[AC_SUBST(RENDER_LIBS, "")],
+	[-lXext])
 
 dnl Setup Plugin directories
 dnl ------------------------
@@ -765,6 +784,7 @@ dnl manuals/ja/anjuta-manual/Makefile
 AC_OUTPUT([
 Makefile
 po/Makefile.in
+libfoocanvas/Makefile
 libanjuta/Makefile
 libanjuta/libanjuta-1.0.pc
 libanjuta/anjuta-version.h
