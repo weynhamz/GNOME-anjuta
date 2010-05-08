@@ -153,7 +153,6 @@ cls_node_edge_free (ClsNodeEdge *cls_edge)
 {
 	/* Delete agedeges here? */
 	gtk_object_destroy (GTK_OBJECT (cls_edge->canvas_line));
-	gtk_object_destroy (GTK_OBJECT (cls_edge->canvas_arrow));
 	agdelete (cls_edge->cls_node_from->graph, cls_edge->agedge);
 	g_free (cls_edge);
 }

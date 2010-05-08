@@ -77,7 +77,6 @@ typedef struct
 typedef struct {
 	Agedge_t *agedge;
 	FooCanvasItem *canvas_line;
-	FooCanvasItem *canvas_arrow;
 	ClsNode *cls_node_from;
 	ClsNode *cls_node_to;
 } ClsNodeEdge;
