@@ -86,14 +86,14 @@ gboolean anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError *
 gboolean anjuta_pm_project_unload (AnjutaPmProject *project, GError **error);
 gboolean anjuta_pm_project_refresh (AnjutaPmProject *project, GError **error);
 
-IAnjutaProjectCapabilities anjuta_pm_project_get_capabilities (AnjutaPmProject *project);
+gint anjuta_pm_project_get_capabilities (AnjutaPmProject *project);
 GList *anjuta_pm_project_get_node_info (AnjutaPmProject *project);
 
 GList *anjuta_pm_project_get_packages (AnjutaPmProject *project);
 
-AnjutaProjectNode *anjuta_pm_project_add_group (AnjutaPmProject *project, AnjutaProjectNode *group, const gchar *name, GError **error);
-AnjutaProjectNode *anjuta_pm_project_add_target (AnjutaPmProject *project, AnjutaProjectNode *group, const gchar *name, AnjutaProjectNodeType type, GError **error);
-AnjutaProjectNode *anjuta_pm_project_add_source (AnjutaPmProject *project, AnjutaProjectNode *target, GFile *file, GError **error);
+AnjutaProjectNode *anjuta_pm_project_add_group (AnjutaPmProject *project, AnjutaProjectNode *parent, AnjutaProjectNode *sibling, const gchar *name, GError **error);
+AnjutaProjectNode *anjuta_pm_project_add_target (AnjutaPmProject *project, AnjutaProjectNode *parent, AnjutaProjectNode *sibling, const gchar *name, AnjutaProjectNodeType type, GError **error);
+AnjutaProjectNode *anjuta_pm_project_add_source (AnjutaPmProject *project, AnjutaProjectNode *parent, AnjutaProjectNode *sibling, const gchar *name, GError **error);
 AnjutaProjectNode *anjuta_pm_project_get_root (AnjutaPmProject *project);
 gboolean anjuta_pm_project_remove (AnjutaPmProject *project, AnjutaProjectNode *node, GError **error);
 gboolean anjuta_pm_project_remove_data (AnjutaPmProject *project, GbfTreeData *data, GError **error);

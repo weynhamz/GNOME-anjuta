@@ -3065,15 +3065,6 @@ interface IAnjutaProject
 		PROBE_PROJECT_FILES = 200
 	}
 
-	enum Capabilities
-	{
-		CAN_ADD_NONE	= 0,
-		CAN_ADD_GROUP	= 1 << 0,
-		CAN_ADD_TARGET	= 1 << 1,
-		CAN_ADD_SOURCE	= 1 << 2,
-		HAS_PACKAGES	= 1 << 3
-	}
-	
 	/* Signals */
 	
 	/**

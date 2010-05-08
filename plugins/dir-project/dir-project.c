@@ -336,7 +336,27 @@ project_node_new (DirProject *project, AnjutaProjectNode *parent, AnjutaProjectN
 			}
 			break;
 		case ANJUTA_PROJECT_SOURCE:
-			node = dir_source_new (file);
+			if (file == NULL)
+			{
+				if (name == NULL)
+				{
+					g_set_error (error, IANJUTA_PROJECT_ERROR, 
+							IANJUTA_PROJECT_ERROR_VALIDATION_FAILED,
+							_("Missing name"));
+				}
+				else
+				{
+					GFile *source_file;
+					
+					source_file = g_file_get_child (anjuta_project_node_get_file (parent), name);
+					node = dir_source_new (source_file);
+					g_object_unref (source_file);
+				}
+			}
+			else
+			{
+				node = dir_source_new (file);
+			}
 			break;
 		case ANJUTA_PROJECT_ROOT:
 			node = dir_root_new (file);
@@ -769,6 +789,7 @@ foreach_node_save (AnjutaProjectNode *node,
 		switch (anjuta_project_node_get_type (node))
 		{
 		case ANJUTA_PROJECT_GROUP:
+		case ANJUTA_PROJECT_SOURCE:
 			ret = g_file_trash (anjuta_project_node_get_file (node), NULL, &err);
 			if (err != NULL)
 			{
@@ -951,7 +972,7 @@ iproject_configure (IAnjutaProject *obj, GError **err)
 static guint 
 iproject_get_capabilities (IAnjutaProject *obj, GError **err)
 {
-	return IANJUTA_PROJECT_CAN_ADD_NONE;
+	return 0;
 }
 
 static GList* 

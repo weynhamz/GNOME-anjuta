@@ -536,6 +536,7 @@ static gboolean
 pm_command_add_setup (AnjutaPmProject *project, PmJob *job)
 {
 	AnjutaProjectNode *parent;
+	AnjutaProjectNode *sibling;
 	
 	g_return_val_if_fail (job != NULL, FALSE);
 	g_return_val_if_fail (job->node != NULL, FALSE);
@@ -543,8 +544,10 @@ pm_command_add_setup (AnjutaPmProject *project, PmJob *job)
 	/* Add new node in project tree.
 	 * It is safe to do it here because the worker thread is waiting */
 	parent = anjuta_project_node_parent (job->node);
+	sibling = job->node->prev;
 	job->node->parent = NULL;
-	anjuta_project_node_insert_before (parent, NULL, job->node);
+	job->node->prev = NULL;
+	anjuta_project_node_insert_before (parent, sibling, job->node);
 	
 	return TRUE;
 }
@@ -817,13 +820,41 @@ anjuta_pm_project_refresh (AnjutaPmProject *project, GError **error)
 	return TRUE;
 }
 
-IAnjutaProjectCapabilities
+gint
 anjuta_pm_project_get_capabilities (AnjutaPmProject *project)
 {
-	IAnjutaProjectCapabilities caps = IANJUTA_PROJECT_CAN_ADD_NONE;
+	gint caps = 0;
 
 	if (project->project != NULL)
-		caps = ianjuta_project_get_capabilities (project->project, NULL);
+	{
+		GList *item;
+
+		for (item = anjuta_pm_project_get_node_info (project); item != NULL; item = g_list_next (item))
+		{
+			AnjutaProjectNodeInfo *info = (AnjutaProjectNodeInfo *)item->data;
+
+			switch (info->type & ANJUTA_PROJECT_TYPE_MASK)
+			{
+			case ANJUTA_PROJECT_GROUP:
+				caps |= ANJUTA_PROJECT_CAN_ADD_GROUP;
+				break;
+			case ANJUTA_PROJECT_TARGET:
+				caps |= ANJUTA_PROJECT_CAN_ADD_TARGET;
+				break;
+			case ANJUTA_PROJECT_SOURCE:
+				caps |= ANJUTA_PROJECT_CAN_ADD_SOURCE;
+				break;
+			case ANJUTA_PROJECT_MODULE:
+				caps |= ANJUTA_PROJECT_CAN_ADD_MODULE;
+				break;
+			case ANJUTA_PROJECT_PACKAGE:
+				caps |= ANJUTA_PROJECT_CAN_ADD_PACKAGE;
+				break;
+			default:
+				break;
+			}
+		}
+	}
 
 	return caps;
 }
@@ -851,36 +882,41 @@ anjuta_pm_project_get_packages (AnjutaPmProject *project)
 }
 
 AnjutaProjectNode *
-anjuta_pm_project_add_group (AnjutaPmProject *project, AnjutaProjectNode *group, const gchar *name, GError **error)
+anjuta_pm_project_add_group (AnjutaPmProject *project, AnjutaProjectNode *parent, AnjutaProjectNode *sibling, const gchar *name, GError **error)
 {
 	AnjutaProjectNode *node;
 	
 	g_return_val_if_fail (project->project != NULL, NULL);
 	
-	node = ianjuta_project_new_node (project->project, group, ANJUTA_PROJECT_GROUP, NULL, name, error);
+	node = ianjuta_project_new_node (project->project, parent, ANJUTA_PROJECT_GROUP, NULL, name, error);
+	node->parent = parent;
+	node->prev = sibling;
 	pm_project_push_command (project, ADD, node);
 
 	return node;
 }
 
 AnjutaProjectNode *
-anjuta_pm_project_add_target (AnjutaPmProject *project, AnjutaProjectNode *group, const gchar *name, AnjutaProjectNodeType type, GError **error)
+anjuta_pm_project_add_target (AnjutaPmProject *project, AnjutaProjectNode *parent, AnjutaProjectNode *sibling, const gchar *name, AnjutaProjectNodeType type, GError **error)
 {
 	g_return_val_if_fail (project->project != NULL, NULL);
 	
-	return ianjuta_project_add_target (project->project, group, name, type, error);
+	return ianjuta_project_add_target (project->project, parent, name, type, error);
 }
 
 AnjutaProjectNode *
-anjuta_pm_project_add_source (AnjutaPmProject *project, AnjutaProjectNode *target, GFile *file, GError **error)
+anjuta_pm_project_add_source (AnjutaPmProject *project, AnjutaProjectNode *parent, AnjutaProjectNode *sibling, const gchar *name, GError **error)
 {
-	AnjutaProjectNode *source;
+	AnjutaProjectNode *node;
 
 	g_return_val_if_fail (project->project != NULL, NULL);
 	
-	source = ianjuta_project_add_source (project->project, target, file, error);
+	node = ianjuta_project_new_node (project->project, parent, ANJUTA_PROJECT_SOURCE, NULL, name, error);
+	node->parent = parent;
+	node->prev = sibling;
+	pm_project_push_command (project, ADD, node);
 
-	return source;
+	return node;
 }
 
 gboolean

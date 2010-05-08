@@ -34,6 +34,7 @@
 #include <libanjuta/anjuta-project.h>
 
 #include "project-util.h"
+#include "dialogs.h"
 
 #include "plugin.h"
 
@@ -565,7 +566,7 @@ on_popup_add_group (GtkAction *action, ProjectManagerPlugin *plugin)
 	update_operation_begin (plugin);
 	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_group);
 	
-	new_group = gbf_project_util_new_group (plugin->project,
+	new_group = anjuta_pm_project_new_group (plugin->project,
 										   get_plugin_parent_window (plugin),
 										   &selected_group, NULL);
 	update_operation_end (plugin, TRUE);
@@ -596,7 +597,7 @@ on_popup_add_source (GtkAction *action, ProjectManagerPlugin *plugin)
 	update_operation_begin (plugin);
 	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_target);
 
-	new_source = gbf_project_util_add_source (plugin->project,
+	new_source = anjuta_pm_project_new_source (plugin->project,
 											 get_plugin_parent_window (plugin),
 											 &selected_target, NULL);
 
@@ -942,6 +943,7 @@ update_ui (ProjectManagerPlugin *plugin)
 	AnjutaUI *ui;
 	gint j;
 	GList *item;
+	gint caps;
 	gint main_caps;
 	gint popup_caps;
 	
@@ -950,37 +952,33 @@ update_ui (ProjectManagerPlugin *plugin)
 	popup_caps = 0x000;
 	
 	/* Check for supported node */
-	if (anjuta_pm_project_is_open (plugin->project))
+	caps = anjuta_pm_project_get_capabilities (plugin->project);
+	if (caps != 0)
 	{
-		for (item = anjuta_pm_project_get_node_info (plugin->project); item != NULL; item = g_list_next (item))
+		if (caps & ANJUTA_PROJECT_CAN_ADD_GROUP)
 		{
-			AnjutaProjectNodeInfo *info = (AnjutaProjectNodeInfo *)item->data;
-
-			switch (info->type & ANJUTA_PROJECT_TYPE_MASK)
-			{
-			case ANJUTA_PROJECT_GROUP:
-				main_caps |= 0x2;
-				popup_caps |= 0x21;
-				break;
-			case ANJUTA_PROJECT_TARGET:
-				main_caps |= 0x4;
-				popup_caps |= 0x2;
-				break;
-			case ANJUTA_PROJECT_SOURCE:
-				main_caps |= 0x8;
-				popup_caps |= 0x24;
-				break;
-			case ANJUTA_PROJECT_MODULE:
-				main_caps |= 0x10;
-				popup_caps |= 0x8;
-				break;
-			case ANJUTA_PROJECT_PACKAGE:
-				main_caps |= 0x20;
-				popup_caps |= 0x10;
-				break;
-			default:
-				break;
-			}
+			main_caps |= 0x2;
+			popup_caps |= 0x21;
+		}
+		if (caps & ANJUTA_PROJECT_CAN_ADD_TARGET)
+		{
+			main_caps |= 0x4;
+			popup_caps |= 0x2;
+		}
+		if (caps & ANJUTA_PROJECT_CAN_ADD_SOURCE)
+		{
+			main_caps |= 0x8;
+			popup_caps |= 0x24;
+		}
+		if (caps & ANJUTA_PROJECT_CAN_ADD_MODULE)
+		{
+			main_caps |= 0x10;
+			popup_caps |= 0x8;
+		}
+		if (caps & ANJUTA_PROJECT_CAN_ADD_PACKAGE)
+		{
+			main_caps |= 0x20;
+			popup_caps |= 0x10;
 		}
 		/* Keep properties and refresh if a project is opened */
 		main_caps |= 0x0C0;
@@ -1020,13 +1018,25 @@ on_treeview_selection_changed (GtkTreeSelection *sel,
 	AnjutaUI *ui;
 	GtkAction *action;
 	AnjutaProjectNode *node;
-	gint state;
+	gint state = 0;
 	GFile *selected_file;
 	
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
 	node = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
 										   ANJUTA_PROJECT_UNKNOWN);
-	state = node != NULL ? anjuta_project_node_get_state (node) : 0;
+
+	if (node != NULL)
+	{
+		AnjutaProjectNode *parent;
+		
+		state = anjuta_project_node_get_state (node);
+		/* Allow to select a sibling instead of a parent node */
+		parent = anjuta_project_node_parent (node);
+		if (parent != NULL)
+		{
+			state |= anjuta_project_node_get_state (parent);
+		}
+	}
 
 	/* Popup menu */
 	action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
@@ -2016,14 +2026,13 @@ iproject_manager_get_selected (IAnjutaProjectManager *project_manager,
 	return NULL;
 }
 
-static IAnjutaProjectCapabilities
+static gint
 iproject_manager_get_capabilities (IAnjutaProjectManager *project_manager,
 								   GError **err)
 {
 	ProjectManagerPlugin *plugin;
 	
-	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager),
-						  IANJUTA_PROJECT_CAN_ADD_NONE);
+	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), 0);
 	
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
 	return anjuta_pm_project_get_capabilities (plugin->project);
@@ -2050,7 +2059,7 @@ iproject_manager_add_source (IAnjutaProjectManager *project_manager,
 	{
 		iter = get_tree_iter_from_file (plugin, &target_iter, default_target_file, GBF_TREE_NODE_TARGET);
 	}
-	source_id = gbf_project_util_add_source (plugin->project,
+	source_id = anjuta_pm_project_new_source (plugin->project,
 										     get_plugin_parent_window (plugin),
 											 iter,
 											 source_uri_to_add);
@@ -2081,6 +2090,7 @@ iproject_manager_add_source_quiet (IAnjutaProjectManager *project_manager,
 	update_operation_begin (plugin);
 	source_id = anjuta_pm_project_add_source (plugin->project,
 	    								target,
+										NULL,
 	    								source_file,
 										err);
 	update_operation_end (plugin, TRUE);
@@ -2111,7 +2121,7 @@ iproject_manager_add_source_multi (IAnjutaProjectManager *project_manager,
 		iter = get_tree_iter_from_file (plugin, &target_iter, default_target_file, GBF_TREE_NODE_TARGET);
 	}
 
-	source_ids = gbf_project_util_add_source_multi (plugin->project,
+	source_ids = anjuta_pm_project_new_multiple_source (plugin->project,
 										 get_plugin_parent_window (plugin),
 										 iter,
 										 source_add_uris);
@@ -2183,7 +2193,7 @@ iproject_manager_add_group (IAnjutaProjectManager *project_manager,
 	}
 	
 	update_operation_begin (plugin);
-	group_id = gbf_project_util_new_group (plugin->project,
+	group_id = anjuta_pm_project_new_group (plugin->project,
 										   get_plugin_parent_window (plugin),
 										   iter,
 										   group_name_to_add);

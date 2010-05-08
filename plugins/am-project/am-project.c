@@ -3191,9 +3191,7 @@ iproject_configure (IAnjutaProject *obj, GError **err)
 static guint 
 iproject_get_capabilities (IAnjutaProject *obj, GError **err)
 {
-	return (IANJUTA_PROJECT_CAN_ADD_GROUP |
-		IANJUTA_PROJECT_CAN_ADD_TARGET |
-		IANJUTA_PROJECT_CAN_ADD_SOURCE);
+	return 0;
 }
 
 static GList* 

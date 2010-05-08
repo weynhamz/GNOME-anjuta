@@ -24,8 +24,13 @@
 
 #include <gtk/gtk.h>
 #include <libanjuta/interfaces/ianjuta-project.h>
+#include "project.h"
 
 G_BEGIN_DECLS
+
+AnjutaProjectNode* anjuta_pm_project_new_group (AnjutaPmProject *project, GtkWindow *parent, GtkTreeIter *default_parent, const gchar *name);
+AnjutaProjectNode* anjuta_pm_project_new_source (AnjutaPmProject *project, GtkWindow *parent, GtkTreeIter *default_parent, const gchar *name);
+GList* anjuta_pm_project_new_multiple_source (AnjutaPmProject *project, GtkWindow *parent, GtkTreeIter *default_parent, GList *name);
 
 gboolean pm_project_create_properties_dialog (IAnjutaProject *project, GtkWidget **dialog, GtkWindow *parent, AnjutaProjectNode *node);
 
