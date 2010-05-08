@@ -857,6 +857,7 @@ cls_node_draw_edge (ClsNode *cls_node_to, ClsNodeEdge *cls_edge, ClsNode *cls_no
 			                     "width_units", 2.0,
 			                     "points", points,
 			                     NULL);
+		foo_canvas_item_lower_to_bottom (cls_edge->canvas_line);
 	}
 	foo_canvas_points_unref (points);
 }
