@@ -440,7 +440,7 @@ on_add_package (GtkAction *action, ProjectManagerPlugin *plugin)
 	update_operation_begin (plugin);
 	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_module);
 	
-	new_module = gbf_project_util_add_package (plugin->project,
+	new_module = anjuta_pm_project_new_package (plugin->project,
 										   get_plugin_parent_window (plugin),
 										   &selected_module, NULL);
 	update_operation_end (plugin, TRUE);
@@ -455,7 +455,7 @@ on_add_module (GtkAction *action, ProjectManagerPlugin *plugin)
 	update_operation_begin (plugin);
 	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_target);
 	
-	new_modules = gbf_project_util_add_module (plugin->project,
+	new_modules = anjuta_pm_project_new_module (plugin->project,
 										   get_plugin_parent_window (plugin),
 										   &selected_target, NULL);
 	g_list_free (new_modules);
@@ -535,7 +535,7 @@ on_popup_add_package (GtkAction *action, ProjectManagerPlugin *plugin)
 	update_operation_begin (plugin);
 	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_module);
 	
-	packages = gbf_project_util_add_package (plugin->project,
+	packages = anjuta_pm_project_new_package (plugin->project,
 										   get_plugin_parent_window (plugin),
 										   &selected_module, NULL);
 	update_operation_end (plugin, TRUE);
@@ -550,7 +550,7 @@ on_popup_add_module (GtkAction *action, ProjectManagerPlugin *plugin)
 	update_operation_begin (plugin);
 	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_target);
 	
-	new_modules = gbf_project_util_add_module (plugin->project,
+	new_modules = anjuta_pm_project_new_module (plugin->project,
 										   get_plugin_parent_window (plugin),
 										   &selected_target, NULL);
 	g_list_free (new_modules);
@@ -581,7 +581,7 @@ on_popup_add_target (GtkAction *action, ProjectManagerPlugin *plugin)
 	update_operation_begin (plugin);
 	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_group);
 
-	new_target = gbf_project_util_new_target (plugin->project,
+	new_target = anjuta_pm_project_new_target (plugin->project,
 											 get_plugin_parent_window (plugin),
 											 &selected_group, NULL);
 	
@@ -2078,7 +2078,6 @@ iproject_manager_add_source_quiet (IAnjutaProjectManager *project_manager,
 {
 	ProjectManagerPlugin *plugin;
 	AnjutaProjectNode *source_id;
-	GFile *source_file;
 	AnjutaProjectNode *target = NULL;
 	
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), FALSE);
@@ -2086,15 +2085,13 @@ iproject_manager_add_source_quiet (IAnjutaProjectManager *project_manager,
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
 
 	target = anjuta_pm_project_get_node_from_file (plugin->project, ANJUTA_PROJECT_TARGET,  location_file);
-	source_file = g_file_new_for_uri (source_uri_to_add);
 	update_operation_begin (plugin);
 	source_id = anjuta_pm_project_add_source (plugin->project,
 	    								target,
 										NULL,
-	    								source_file,
+	    								source_uri_to_add,
 										err);
 	update_operation_end (plugin, TRUE);
-	g_object_unref (source_file);
 	
 	return get_element_file_from_node (plugin, source_id, IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI);
 }
@@ -2161,7 +2158,7 @@ iproject_manager_add_target (IAnjutaProjectManager *project_manager,
 	}
 	
 	update_operation_begin (plugin);
-	target_id = gbf_project_util_new_target (plugin->project,
+	target_id = anjuta_pm_project_new_target (plugin->project,
 											 get_plugin_parent_window (plugin),
 											 iter,
 											 target_name_to_add);
