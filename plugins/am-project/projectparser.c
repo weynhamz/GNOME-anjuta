@@ -248,7 +248,7 @@ list_root (IAnjutaProject *project, AnjutaProjectNode *root)
 static AnjutaProjectNode *
 get_node (IAnjutaProject *project, AnjutaProjectNode *root, const char *path)
 {
-	AnjutaProjectNode *node = NULL;
+	AnjutaProjectNode *node = root;
 
 	if (path != NULL)
 	{
@@ -263,14 +263,7 @@ get_node (IAnjutaProject *project, AnjutaProjectNode *root, const char *path)
 				return NULL;
 			}
 
-			if (node == NULL)
-			{
-				if (child == 0) node = root;
-			}
-			else
-			{
-				node = anjuta_project_node_nth_child (node, child);
-			}
+			node = anjuta_project_node_nth_child (node, child);
 			if (node == NULL)
 			{
 				/* no node */
@@ -453,6 +446,7 @@ main(int argc, char *argv[])
 		else if (g_ascii_strcasecmp (command[0], "add") == 0)
 		{
 			node = get_node (project, root, command[2]);
+			g_message ("get parent node %p node name %s", anjuta_project_node_get_name (node));
 			if (g_ascii_strcasecmp (command[1], "group") == 0)
 			{
 				if ((command[4] != NULL) && (g_ascii_strcasecmp (command[4], "before") == 0))

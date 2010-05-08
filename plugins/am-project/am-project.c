@@ -2903,6 +2903,13 @@ foreach_node_move (AnjutaProjectNode *g_node, gpointer data)
 		g_object_unref (AMP_SOURCE_DATA (g_node)->base.file);
 		AMP_SOURCE_DATA (g_node)->base.file = new_file;
 		break;
+	case ANJUTA_PROJECT_ROOT:
+		relative = get_relative_path (old_root_file, AMP_GROUP_DATA (g_node)->base.file);
+		new_file = g_file_resolve_relative_path (project->root_file, relative);
+		g_free (relative);
+		g_object_unref (AMP_ROOT_DATA (g_node)->base.file);
+		AMP_ROOT_DATA (g_node)->base.file = new_file;
+		break;
 	default:
 		break;
 	}
