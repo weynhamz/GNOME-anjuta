@@ -254,6 +254,7 @@ foo_canvas_line_init (FooCanvasLine *line)
 	line->shape_b = 0.0;
 	line->shape_c = 0.0;
 	line->spline_steps = DEFAULT_SPLINE_STEPS;
+	line->line_smoothed = FALSE;
 }
 
 static void
@@ -661,6 +662,7 @@ foo_canvas_line_set_property (GObject              *object,
 		/* Since the line's points have changed, we need to re-generate arrowheads in
 		 * addition to recalculating the bounds.
 		 */
+		line->line_smoothed = FALSE;
 		foo_canvas_item_request_update (item);
 		break;
 
@@ -744,11 +746,15 @@ foo_canvas_line_set_property (GObject              *object,
 		break;
 
 	case PROP_SMOOTH:
-		/* FIXME */
+		line->smooth = g_value_get_boolean (value);
+		line->line_smoothed = FALSE;
+		foo_canvas_item_request_update (item);
 		break;
 
 	case PROP_SPLINE_STEPS:
-		/* FIXME */
+		line->spline_steps = g_value_get_int (value);
+		line->line_smoothed = FALSE;
+		foo_canvas_item_request_update (item);
 		break;
 
 	case PROP_ARROW_SHAPE_A:
@@ -1010,6 +1016,84 @@ item_to_canvas (FooCanvas *canvas, double *item_coords, GdkPoint *canvas_coords,
 	}
 }
 
+/**
+ * Implements a cubic B-curve. 4 consecutive points are taken at a time to
+ * build the curve segments. Any remaining points at the end that don't form
+ * a curve are just joined as line segments.
+ * 
+ * The process modifies the line points of the canvas item. So after this, the
+ * points are no longer what user originally supplied. The curve is computed
+ * once before a draw and reused, until influencial properties are modified
+ * (points, smooth, spline_steps properties of the canvas item). So, make sure
+ * when these properties are modified, line->line_smoothed is reset to FALSE
+ * so that next draw would recalculate it.
+ * 
+ * Algorithm: see http://en.wikipedia.org/wiki/Bezier_curve
+ */
+static void
+foo_canvas_line_smooth (FooCanvasLine *line)
+{
+	gint curr_point = 0;
+	gint num_points = 0;
+	gdouble *line_points;
+
+	if (line->line_smoothed)
+		return;
+	
+	if (!line->smooth || line->num_points <= 2)
+	{
+		line->line_smoothed = TRUE;
+		return;
+	}
+
+	line_points = g_new (gdouble, 2 * ((line->num_points - 1) * line->spline_steps));
+	while (curr_point < (line->num_points - 3))
+	{
+		gint step;
+		gdouble p0_x, p0_y, p1_x, p1_y, p2_x, p2_y, p3_x, p3_y;
+		p0_x = line->coords[2 * curr_point];
+		p0_y = line->coords[2 * curr_point + 1];
+		p1_x = line->coords[2 * (curr_point + 1)];
+		p1_y = line->coords[2 * (curr_point + 1) + 1];
+		p2_x = line->coords[2 * (curr_point + 2)];
+		p2_y = line->coords[2 * (curr_point + 2) + 1];
+		p3_x = line->coords[2 * (curr_point + 3)];
+		p3_y = line->coords[2 * (curr_point + 3) + 1];
+		for (step = 0; step < line->spline_steps; step++)
+		{
+			gdouble q0_x, q0_y, q1_x, q1_y, q2_x, q2_y;
+			gdouble r0_x, r0_y, r1_x, r1_y;
+			
+			q0_x = p0_x + (p1_x - p0_x) * step / line->spline_steps;
+			q0_y = p0_y + (p1_y - p0_y) * step  / line->spline_steps;
+			q1_x = p1_x + (p2_x - p1_x) * step / line->spline_steps;
+			q1_y = p1_y + (p2_y - p1_y) * step / line->spline_steps;
+			q2_x = p2_x + (p3_x - p2_x) * step / line->spline_steps;
+			q2_y = p2_y + (p3_y - p2_y) * step / line->spline_steps;
+
+			r0_x = q0_x + (q1_x - q0_x) * step / line->spline_steps;
+			r0_y = q0_y + (q1_y - q0_y) * step  / line->spline_steps;
+			r1_x = q1_x + (q2_x - q1_x) * step / line->spline_steps;
+			r1_y = q1_y + (q2_y - q1_y) * step / line->spline_steps;
+			
+			line_points[2 * num_points] = r0_x + (r1_x - r0_x) * step / line->spline_steps;
+			line_points[2 * num_points + 1] = r0_y + (r1_y - r0_y) * step / line->spline_steps;
+			num_points++;
+		}
+		curr_point += 3;
+	}
+	for (; curr_point < line->num_points; curr_point++)
+	{
+			line_points[2 * num_points] = line->coords[2 * curr_point];
+			line_points[2 * num_points + 1] = line->coords[2 * curr_point + 1];
+			num_points++;
+	}
+	line->line_smoothed = TRUE;
+	g_free (line->coords);
+	line->coords = line_points;
+	line->num_points = num_points;
+}
+
 static void
 foo_canvas_line_draw (FooCanvasItem *item, GdkDrawable *drawable,
 			GdkEventExpose *event)
@@ -1025,6 +1109,9 @@ foo_canvas_line_draw (FooCanvasItem *item, GdkDrawable *drawable,
 	if (line->num_points == 0)
 		return;
 
+	/* Smooth the line, if not yet done */
+	foo_canvas_line_smooth (FOO_CANVAS_LINE (line));
+	
 	/* Build array of canvas pixel coordinates */
 
 	if (line->num_points <= NUM_STATIC_POINTS)

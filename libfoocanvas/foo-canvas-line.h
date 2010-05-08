@@ -134,6 +134,7 @@ struct _FooCanvasLine {
 	guint first_arrow : 1;	/* Draw first arrowhead? */
 	guint last_arrow : 1;	/* Draw last arrowhead? */
 	guint smooth : 1;	/* Smooth line (with parabolic splines)? */
+	gboolean line_smoothed : 1; /* If smooth == TRUE, has the line been smoothened */
 };
 
 struct _FooCanvasLineClass {
