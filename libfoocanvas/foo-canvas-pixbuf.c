@@ -127,7 +127,7 @@ foo_canvas_pixbuf_class_init (FooCanvasPixbufClass *klass)
 	object_class = (GtkObjectClass *) klass;
 	item_class = (FooCanvasItemClass *) klass;
 
-	parent_class = gtk_type_class (foo_canvas_item_get_type ());
+	parent_class = g_type_class_peek (foo_canvas_item_get_type ());
 
 	gobject_class->set_property = foo_canvas_pixbuf_set_property;
 	gobject_class->get_property = foo_canvas_pixbuf_get_property;

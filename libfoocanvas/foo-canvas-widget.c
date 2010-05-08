@@ -427,6 +427,7 @@ foo_canvas_widget_update (FooCanvasItem *item, double i2w_dx, double i2w_dy, int
 		(* parent_class->update) (item, i2w_dx, i2w_dy, flags);
 
 	if (witem->widget) {
+		GtkRequisition req;
 		if (witem->size_pixels) {
 			witem->cwidth = (int) (witem->width + 0.5);
 			witem->cheight = (int) (witem->height + 0.5);
@@ -434,8 +435,9 @@ foo_canvas_widget_update (FooCanvasItem *item, double i2w_dx, double i2w_dy, int
 			witem->cwidth = (int) (witem->width * item->canvas->pixels_per_unit + 0.5);
 			witem->cheight = (int) (witem->height * item->canvas->pixels_per_unit + 0.5);
 		}
-
-		gtk_widget_set_usize (witem->widget, witem->cwidth, witem->cheight);
+		req.width = witem->cwidth;
+		req.height = witem->cheight;
+		gtk_widget_size_request (witem->widget, &req);
 	} else {
 		witem->cwidth = 0.0;
 		witem->cheight = 0.0;
@@ -464,7 +466,7 @@ foo_canvas_widget_map (FooCanvasItem *item)
 	FooCanvasWidget *witem = FOO_CANVAS_WIDGET (item);
 	if (parent_class->map)
 		(* parent_class->map) (item);
-	if (witem->widget && GTK_WIDGET_VISIBLE (witem->widget))
+	if (witem->widget && gtk_widget_get_visible (witem->widget))
 		gtk_widget_map (witem->widget);
 }
 
