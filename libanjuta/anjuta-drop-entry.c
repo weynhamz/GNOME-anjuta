@@ -39,17 +39,11 @@ static GtkTargetEntry dnd_target_entries[] =
 	}
 };
 
-struct _AnjutaDropEntryPriv
-{
-};
-
 G_DEFINE_TYPE (AnjutaDropEntry, anjuta_drop_entry, GTK_TYPE_ENTRY);
 
 static void
 anjuta_drop_entry_init (AnjutaDropEntry *self)
 {
-	self->priv = g_new0 (AnjutaDropEntryPriv, 1);
-
 	gtk_drag_dest_set (GTK_WIDGET (self), 
 	                   GTK_DEST_DEFAULT_MOTION | GTK_DEST_DEFAULT_HIGHLIGHT, 
 	                   dnd_target_entries,
@@ -62,8 +56,6 @@ anjuta_drop_entry_finalize (GObject *object)
 	AnjutaDropEntry *self;
 
 	self = ANJUTA_DROP_ENTRY (object);
-
-	g_free (self->priv);
 
 	G_OBJECT_CLASS (anjuta_drop_entry_parent_class)->finalize (object);
 }

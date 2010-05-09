@@ -34,7 +34,6 @@ G_BEGIN_DECLS
 
 typedef struct _AnjutaDropEntryClass AnjutaDropEntryClass;
 typedef struct _AnjutaDropEntry AnjutaDropEntry;
-typedef struct _AnjutaDropEntryPriv AnjutaDropEntryPriv;
 
 struct _AnjutaDropEntryClass
 {
@@ -44,8 +43,6 @@ struct _AnjutaDropEntryClass
 struct _AnjutaDropEntry
 {
 	GtkEntry parent_instance;
-
-	AnjutaDropEntryPriv *priv;
 };
 
 GType anjuta_drop_entry_get_type (void) G_GNUC_CONST;
