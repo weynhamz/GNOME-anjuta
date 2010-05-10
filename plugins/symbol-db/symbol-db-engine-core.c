@@ -2491,10 +2491,6 @@ sdb_engine_init (SymbolDBEngine * object)
 	 * DYNAMIC QUERY STRUCTURE INITIALIZE
 	 */
 	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
-									DYN_PREP_QUERY_GET_CLASS_PARENTS,
-									TRUE);
-	
-	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
 									DYN_PREP_QUERY_GET_CLASS_PARENTS_BY_SYMBOL_ID,
 									FALSE);
 	

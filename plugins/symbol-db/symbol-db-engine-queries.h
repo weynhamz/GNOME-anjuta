@@ -136,17 +136,6 @@ symbol_db_engine_find_symbol_in_scope (SymbolDBEngine *dbe,
  */
 
 /**
- * Return an iterator to the data retrieved from database. 
- * The iterator, if not null, will contain a list of parent classes for the 
- * given symbol name.
- */
-SymbolDBEngineIterator *
-symbol_db_engine_get_class_parents (SymbolDBEngine *dbe, 
-    								const gchar *klass_name, 
-									const GPtrArray *scope_path, 
-    								SymExtraInfo sym_info);
-
-/**
  * Use this function to get parent symbols of a given class.
  */
 SymbolDBEngineIterator *
@@ -174,49 +163,6 @@ gint
 symbol_db_engine_get_parent_scope_id_by_symbol_id (SymbolDBEngine *dbe, 
 									gint scoped_symbol_id,
 									const gchar* db_file);
-
-/** 
- * This is the same version as symbol_db_engine_get_parent_scope_id_by_symbol_id () 
- * but with an Iterator as return type. 
- * It includes the calls to symbol_db_engine_get_parent_scope_id_by_symbol_id () and
- * symbol_db_engine_get_symbol_info_by_id (). It's a sort of facade.
- * @param scoped_symbol_id Symbol you want to know the parent of.
- * @param db_file db-relative filename path. eg. /src/foo.c. Can be NULL for a
- * wider search (i.e. not just limited to that file).
- * @return NULL on error or if nothing is found as parent.
- */
-SymbolDBEngineIterator *
-symbol_db_engine_get_parent_scope_by_symbol_id (SymbolDBEngine *dbe, 
-									gint scoped_symbol_id,
-									const gchar* db_file,
-    								SymExtraInfo sym_info);
-
-/**
- * Walk the path up to the root scope given a scoped_symbol_id parameter.
- * The returned iterator will be populated with SymbolDBEngineIteratorNode(s)
- * so that it could be easily browsed by a client app.
- *
- * e.g.
- * namespace FooBase {
- * class FooKlass {
- *	
- * }
- *
- * void FooKlass::foo_func () {			<-------------- this is the scoped symbol
- *              
- * }
- * 
- * the returned iterator'll contain symbols in this order: foo_func, FooKlass, FooBase.
- *
- * @param db_file db-relative filename path. eg. /src/foo.c. Can be NULL for a
- * wider search (i.e. not just limited to that file).
- * @return NULL on error or if scope isn't found.
- */
-SymbolDBEngineIterator *
-symbol_db_engine_get_scope_chain (SymbolDBEngine *dbe,
-    								gint scoped_symbol_id,
-    								const gchar* db_file,
-    								SymExtraInfo sym_info);
 
 /**
  * Walk the path up to the root scope given a full_local_file_path and a line number.

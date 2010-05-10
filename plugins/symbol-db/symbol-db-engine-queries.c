@@ -392,153 +392,6 @@ symbol_db_engine_get_class_parents_by_symbol_id (SymbolDBEngine *dbe,
 												priv->project_directory);	
 }
 
-/** 
- * Returns an iterator to the data retrieved from database. 
- * The iterator, if not null, will contain a list of parent classes for the given 
- * symbol name.
- * scope_path can be NULL.
- */
-#define DYN_GET_CLASS_PARENTS_EXTRA_PAR_FINAL_DEF_ZERO		1
-#define DYN_GET_CLASS_PARENTS_EXTRA_PAR_FINAL_DEF_POSITIVE	2
-
-SymbolDBEngineIterator *
-symbol_db_engine_get_class_parents (SymbolDBEngine *dbe, const gchar *klass_name, 
-									 const GPtrArray *scope_path, SymExtraInfo sym_info)
-{
-	SymbolDBEnginePriv *priv;
-	gchar *query_str;
-	GdaDataModel *data;
-	GdaHolder *param;
-	GString *info_data;
-	GString *join_data;
-	gint final_definition_id;
-	const DynChildQueryNode *dyn_node;
-	GValue *ret_value;
-	gboolean ret_bool;
-	
-	g_return_val_if_fail (dbe != NULL, FALSE);
-	priv = dbe->priv;
-	
-	SDB_LOCK(priv);
-	
-	final_definition_id = -1;
-	if (scope_path != NULL)	
-		final_definition_id = sdb_engine_walk_down_scope_path (dbe, scope_path);
-
-	if ((dyn_node = sdb_engine_get_dyn_query_node_by_id (dbe, 
-					DYN_PREP_QUERY_GET_CLASS_PARENTS, sym_info, 
-					final_definition_id > 0 ? 
-					DYN_GET_CLASS_PARENTS_EXTRA_PAR_FINAL_DEF_POSITIVE :
-					DYN_GET_CLASS_PARENTS_EXTRA_PAR_FINAL_DEF_ZERO)) == NULL)
-	{
-		
-		/* info_data contains the stuff after SELECT and before FROM */
-		info_data = g_string_new ("");
-	
-		/* join_data contains the optionals joins to do to retrieve new data on other
-	 	 * tables.
-	 	 */
-		join_data = g_string_new ("");
-
-		/* fill info_data and join data with optional sql */
-		sdb_engine_prepare_symbol_info_sql (dbe, info_data, join_data, sym_info);
-	
-		if (final_definition_id > 0)
-		{		
-			query_str = g_strdup_printf("SELECT symbol.symbol_id AS symbol_id, "
-				"symbol.name AS name, symbol.file_position AS file_position, "
-				"symbol.is_file_scope AS is_file_scope, symbol.signature AS signature, "
-			    "symbol.returntype AS returntype "
-				"%s FROM heritage "
-				"JOIN symbol ON heritage.symbol_id_base = symbol.symbol_id %s "
-				"WHERE symbol_id_derived = ("
-					"SELECT symbol_id FROM symbol "
-						"JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id "
-						"WHERE symbol.name = ## /* name:'klassname' type:gchararray */ "
-							"AND sym_kind.kind_name = 'class' "
-							"AND symbol.scope_id = ## /* name:'defid' type:gint */"
-					")", info_data->str, join_data->str);
-			
-			dyn_node = sdb_engine_insert_dyn_query_node_by_id (dbe, 
-							DYN_PREP_QUERY_GET_CLASS_PARENTS,
-							sym_info, DYN_GET_CLASS_PARENTS_EXTRA_PAR_FINAL_DEF_POSITIVE,
-							query_str);
-		}
-		else 
-		{
-			query_str = g_strdup_printf("SELECT symbol.symbol_id AS symbol_id, "
-				"symbol.name AS name, symbol.file_position AS file_position, "
-				"symbol.is_file_scope AS is_file_scope, "
-				"symbol.signature AS signature, symbol.returntype AS returntype "
-			    "%s FROM heritage "
-				"JOIN symbol ON heritage.symbol_id_base = symbol.symbol_id %s "
-				"WHERE symbol_id_derived = ("
-					"SELECT symbol_id FROM symbol "
-						"JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id "
-						"WHERE symbol.name = ## /* name:'klassname' type:gchararray */ "
-							"AND sym_kind.kind_name = 'class' "
-					")", info_data->str, join_data->str);
-			
-			dyn_node = sdb_engine_insert_dyn_query_node_by_id (dbe, 
-							DYN_PREP_QUERY_GET_CLASS_PARENTS,
-							sym_info, DYN_GET_CLASS_PARENTS_EXTRA_PAR_FINAL_DEF_ZERO,
-							query_str);
-		}	
-		
-		g_free (query_str);
-		g_string_free (info_data, TRUE);
-		g_string_free (join_data, TRUE);
-	}
-
-	
-	if (dyn_node == NULL) 
-	{		
-		SDB_UNLOCK(priv);
-		return NULL;
-	}
-	
-	if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "klassname")) == NULL)
-	{
-		SDB_UNLOCK(priv);
-		return NULL;
-	}
-	
-	MP_SET_HOLDER_BATCH_STR(priv, param, klass_name, ret_bool, ret_value);	
-	
-	if (final_definition_id > 0)
-	{
-		if ((param = gda_set_get_holder ((GdaSet*)dyn_node->plist, "defid")) == NULL)
-		{
-			SDB_UNLOCK(priv);
-			return NULL;
-		}
-		
-		MP_SET_HOLDER_BATCH_INT(priv, param, final_definition_id, ret_bool, ret_value);
-	}	
-			
-	/* execute the query with parametes just set */
-	data = gda_connection_statement_execute_select (priv->db_connection, 
-												  (GdaStatement*)dyn_node->stmt, 
-												  (GdaSet*)dyn_node->plist, NULL);
-
-	MP_RESET_PLIST(dyn_node->plist);
-	
-	if (!GDA_IS_DATA_MODEL (data) ||
-		gda_data_model_get_n_rows (GDA_DATA_MODEL (data)) <= 0)
-	{
-		if (data != NULL)
-			g_object_unref (data);
-		
-		SDB_UNLOCK(priv);
-		return NULL;
-	}
-
-	SDB_UNLOCK(priv);
-	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data, 
-												priv->sym_type_conversion_hash,
-												priv->project_directory);
-}
-
 #define DYN_GET_SCOPE_MEMBERS_BY_SYMBOL_ID_EXTRA_PAR_LIMIT		1
 #define DYN_GET_SCOPE_MEMBERS_BY_SYMBOL_ID_EXTRA_PAR_OFFSET		2
 #define DYN_GET_SCOPE_MEMBERS_BY_SYMBOL_ID_EXTRA_PAR_FILE_PATH  4
@@ -1241,23 +1094,6 @@ select * from symbol where scope_definition_id = (
 	return res;
 }
 
-SymbolDBEngineIterator *
-symbol_db_engine_get_parent_scope_by_symbol_id (SymbolDBEngine *dbe, 
-									gint scoped_symbol_id,
-									const gchar* db_file,
-    								SymExtraInfo sym_info)
-{
-	/* no need to lock */
-	gint parent_sym_id = symbol_db_engine_get_parent_scope_id_by_symbol_id (dbe,
-	    								scoped_symbol_id, db_file);
-
-	if (parent_sym_id < 0)
-		return NULL;
-	
-	/* get the info now */
-	return symbol_db_engine_get_symbol_info_by_id (dbe, parent_sym_id, sym_info);
-}
-
 static GdaDataModel *
 sdb_engine_get_symbol_info_by_id_1 (SymbolDBEngine *dbe, 
 									gint sym_id, SymExtraInfo sym_info)
@@ -1354,7 +1190,7 @@ symbol_db_engine_get_symbol_info_by_id (SymbolDBEngine *dbe,
 												priv->project_directory);	
 }
 
-SymbolDBEngineIterator *
+static SymbolDBEngineIterator *
 symbol_db_engine_get_scope_chain (SymbolDBEngine *dbe,
     								gint scoped_symbol_id,
     								const gchar* db_file,
