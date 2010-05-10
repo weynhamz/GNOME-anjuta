@@ -231,17 +231,6 @@ symbol_db_engine_get_scope_chain_by_file_line (SymbolDBEngine *dbe,
     								gulong line,
     								SymExtraInfo sym_info);
 
-
-/** 
- * scope_path cannot be NULL.
- * scope_path will be something like "scope1_kind", "scope1_name", "scope2_kind", 
- * "scope2_name", NULL 
- */
-SymbolDBEngineIterator *
-symbol_db_engine_get_scope_members_by_path (SymbolDBEngine *dbe, 
-									const GPtrArray* scope_path, 
-									SymExtraInfo sym_info);
-
 /**
  * Sometimes it's useful going to query just with ids [and so integers] to have
  * a little speed improvement.
@@ -252,23 +241,6 @@ SymbolDBEngineIterator *
 symbol_db_engine_get_scope_members_by_symbol_id (SymbolDBEngine *dbe, 
 									gint scope_parent_symbol_id, 
                                     gchar *scope_file_path,
-									gint results_limit,
-									gint results_offset,
-									SymExtraInfo sym_info);
-
-/**
- * A filtered version of the symbol_db_engine_get_scope_members_by_symbol_id ().
- * You can specify which kind of symbols to retrieve, and if to include them or exclude.
- * Kinds are 'namespace', 'class' etc.
- * @param filter_kinds Can be set to SYMTYPE_UNDEF. In that case these filters will not be taken into consideration.
- * @param results_limit Limit results to an upper bound. -1 If you don't want to use this par.
- * @param results_offset Skip results_offset results. -1 If you don't want to use this par. 
- */
-SymbolDBEngineIterator *
-symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe, 
-									gint scope_parent_symbol_id, 
-									SymType filter_kinds,
-									gboolean include_kinds,														  
 									gint results_limit,
 									gint results_offset,
 									SymExtraInfo sym_info);
