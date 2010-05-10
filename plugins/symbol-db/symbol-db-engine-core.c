@@ -2499,10 +2499,6 @@ sdb_engine_init (SymbolDBEngine * object)
 									FALSE);
 	
 	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
-									DYN_PREP_QUERY_GET_GLOBAL_MEMBERS_FILTERED,
-									TRUE);
-	
-	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
 									DYN_PREP_QUERY_GET_SCOPE_MEMBERS,
 									FALSE);
 	
@@ -2510,10 +2506,6 @@ sdb_engine_init (SymbolDBEngine * object)
 									DYN_PREP_QUERY_GET_CURRENT_SCOPE,				
 									FALSE);
 	
-	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
-									DYN_PREP_QUERY_GET_FILE_SYMBOLS,
-									TRUE);
-
 	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
 								 	DYN_PREP_QUERY_GET_SYMBOL_INFO_BY_ID,
 									FALSE);
