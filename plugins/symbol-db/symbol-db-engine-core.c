@@ -4198,7 +4198,7 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 		sym_type = GPOINTER_TO_SIZE (g_hash_table_lookup (priv->sym_type_conversion_hash, 
 		    									kind_name));
 		
-		if (sym_type & SYMTYPE_SCOPE_CONTAINER)
+		if (sym_type & IANJUTA_SYMBOL_TYPE_SCOPE_CONTAINER)
 			is_container = 1;
 		
 		MP_SET_HOLDER_BATCH_INT(priv, param, is_container, ret_bool, ret_value);

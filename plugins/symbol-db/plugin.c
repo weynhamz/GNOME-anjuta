@@ -30,6 +30,7 @@
 #include <libanjuta/anjuta-tabber.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-symbol-manager.h>
+#include <libanjuta/interfaces/ianjuta-symbol.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-file-manager.h>
 #include <libanjuta/interfaces/ianjuta-file.h>

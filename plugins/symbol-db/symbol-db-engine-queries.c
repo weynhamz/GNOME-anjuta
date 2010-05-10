@@ -1360,7 +1360,7 @@ symbol_db_engine_find_symbol_by_name_pattern_on_file (SymbolDBEngine *dbe,
 	dyn_node = NULL;
 
 	/* determine the filter_kinds thing */
-	if (filter_kinds == SYMTYPE_UNDEF)
+	if (filter_kinds == IANJUTA_SYMBOL_TYPE_UNDEF)
 		filter_kinds_array = NULL;
 	else
 		filter_kinds_array = symbol_db_util_fill_type_array (filter_kinds);
@@ -1662,7 +1662,7 @@ symbol_db_engine_find_symbol_in_scope (SymbolDBEngine *dbe,
 	dyn_node = NULL;
 
 	/* determine the filter_kinds thing */
-	if (filter_kinds == SYMTYPE_UNDEF)
+	if (filter_kinds == IANJUTA_SYMBOL_TYPE_UNDEF)
 		filter_kinds_array = NULL;
 	else
 		filter_kinds_array = symbol_db_util_fill_type_array (filter_kinds);
@@ -1988,7 +1988,7 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 	dyn_node = NULL;
 
 	/* determine the filter_kinds thing */
-	if (filter_kinds == SYMTYPE_UNDEF)
+	if (filter_kinds == IANJUTA_SYMBOL_TYPE_UNDEF)
 		filter_kinds_array = NULL;
 	else
 		filter_kinds_array = symbol_db_util_fill_type_array (filter_kinds);
@@ -2007,13 +2007,13 @@ symbol_db_engine_find_symbol_by_name_pattern_filtered (SymbolDBEngine *dbe,
 		match_str = " LIKE ## /* name:'pattern' type:gchararray */";
 	}	
 	
-	if (filescope_search == SYMSEARCH_FILESCOPE_PUBLIC)
+	if (filescope_search == IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC)
 	{
 		other_parameters |= 
 			DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_GLOBAL_SEARCH_YES;
 		file_scope_str = " AND symbol.is_file_scope = 0 ";
 	}
-	else if (filescope_search == SYMSEARCH_FILESCOPE_PRIVATE)
+	else if (filescope_search == IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PRIVATE)
 	{
 		other_parameters |= 
 			DYN_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED_EXTRA_PAR_GLOBAL_SEARCH_NO;
