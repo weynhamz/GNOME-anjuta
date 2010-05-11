@@ -1,0 +1,1 @@
+../symbol-db/anjuta-tags/js-parser/js-parser-y-tab.c

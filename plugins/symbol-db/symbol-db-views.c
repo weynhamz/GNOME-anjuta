@@ -71,6 +71,56 @@ on_treeview_row_activated (GtkTreeView *view, GtkTreePath *arg1,
 	}
 }
 
+static void
+on_treeview_row_expanded (GtkTreeView *view, GtkTreeIter *iter,
+                          GtkTreePath *path, SymbolDBPlugin *plugin)
+{
+	gchar* symbol_name;
+	GtkTreeModel *model;
+	GHashTable *expanded_nodes =
+		g_object_get_data (G_OBJECT (view), "__expanded_nodes__");
+
+	model = gtk_tree_view_get_model (view);
+	gtk_tree_model_get (model, iter, SYMBOL_DB_MODEL_PROJECT_COL_LABEL,
+	                    &symbol_name, -1);
+	g_hash_table_insert (expanded_nodes, symbol_name, GINT_TO_POINTER (1));
+}
+
+static void
+on_treeview_row_collapsed (GtkTreeView *view, GtkTreeIter *iter,
+                           GtkTreePath *path, SymbolDBPlugin *plugin)
+{
+	gchar* symbol_name;
+	GtkTreeModel *model;
+	
+	GHashTable *expanded_nodes =
+		g_object_get_data (G_OBJECT (view), "__expanded_nodes__");
+
+	model = gtk_tree_view_get_model (view);
+	gtk_tree_model_get (model, iter, SYMBOL_DB_MODEL_PROJECT_COL_LABEL,
+	                    &symbol_name, -1);
+	g_hash_table_remove (expanded_nodes, symbol_name);
+	g_free (symbol_name);
+}
+
+static void
+on_treeview_has_child_toggled (GtkTreeModel *model,
+                               GtkTreePath  *path,
+                               GtkTreeIter  *iter,
+                               GtkTreeView  *view)
+{
+	gchar* symbol_name;
+	
+	GHashTable *expanded_nodes =
+		g_object_get_data (G_OBJECT (view), "__expanded_nodes__");
+	
+	gtk_tree_model_get (model, iter, SYMBOL_DB_MODEL_PROJECT_COL_LABEL,
+	                    &symbol_name, -1);
+	if (g_hash_table_lookup (expanded_nodes, symbol_name))
+		gtk_tree_view_expand_row (view, path, FALSE);
+	g_free (symbol_name);
+}
+
 GtkWidget*
 symbol_db_view_new (SymbolViewType view_type,
                     SymbolDBEngine *dbe, SymbolDBPlugin *plugin)
@@ -95,7 +145,18 @@ symbol_db_view_new (SymbolViewType view_type,
 
 	g_signal_connect (G_OBJECT (dbv), "row-activated",
 					  G_CALLBACK (on_treeview_row_activated), plugin);
+	g_signal_connect (G_OBJECT (dbv), "row-expanded",
+					  G_CALLBACK (on_treeview_row_expanded), plugin);
+	g_signal_connect (G_OBJECT (dbv), "row-collapsed",
+					  G_CALLBACK (on_treeview_row_collapsed), plugin);
+	g_signal_connect (G_OBJECT (model), "row-has-child-toggled",
+					  G_CALLBACK (on_treeview_has_child_toggled), dbv);
 
+	g_object_set_data_full (G_OBJECT (dbv), "__expanded_nodes__",
+	                        g_hash_table_new_full (g_str_hash, g_str_equal,
+	                                               g_free, NULL),
+	                        (GDestroyNotify)g_hash_table_destroy);
+	
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (dbv), FALSE);
 	gtk_tree_view_set_fixed_height_mode (GTK_TREE_VIEW (dbv), TRUE);
 	gtk_tree_view_set_tooltip_column (GTK_TREE_VIEW (dbv),

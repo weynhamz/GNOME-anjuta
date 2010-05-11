@@ -84,8 +84,10 @@ libanjuta_la_SOURCES= \
 	anjuta-command-queue.h \
 	anjuta-project.c \
 	anjuta-project.h \
+	anjuta-drop-entry.c \
 	anjuta-drop-entry.h \
-	anjuta-drop-entry.c
+	anjuta-tabber.c \
+	anjuta-tabber.h
 
 
 if HAVE_PLUGIN_GLADE
@@ -146,7 +148,8 @@ libanjuta_include = \
 	gbf-project.h \
 	anjuta-project.h \
 	anjuta-command-queue.h \
-	anjuta-drop-entry.h
+	anjuta-drop-entry.h \
+	anjuta-tabber.h
 
 libanjutainclude_HEADERS = \
 	$(libanjuta_include) \

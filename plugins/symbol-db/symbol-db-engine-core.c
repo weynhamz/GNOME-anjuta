@@ -2262,8 +2262,8 @@ sdb_engine_init (SymbolDBEngine * object)
 	/* -- sym kind -- */
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 									PREP_QUERY_SYM_KIND_NEW,
-	 	"INSERT INTO sym_kind (kind_name) VALUES(## /* name:'kindname' "
-	 	"type:gchararray */)");
+	 	"INSERT INTO sym_kind (kind_name, is_container) VALUES(## /* name:'kindname' "
+	 	"type:gchararray */, ## /* name:'container' type:gint */)");
 
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 									PREP_QUERY_GET_SYM_KIND_BY_UNIQUE_NAME,
@@ -2491,29 +2491,13 @@ sdb_engine_init (SymbolDBEngine * object)
 	 * DYNAMIC QUERY STRUCTURE INITIALIZE
 	 */
 	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
-									DYN_PREP_QUERY_GET_CLASS_PARENTS,
-									TRUE);
-	
-	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
 									DYN_PREP_QUERY_GET_CLASS_PARENTS_BY_SYMBOL_ID,
-									FALSE);
-	
-	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
-									DYN_PREP_QUERY_GET_GLOBAL_MEMBERS_FILTERED,
-									TRUE);
-	
-	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
-									DYN_PREP_QUERY_GET_SCOPE_MEMBERS,
 									FALSE);
 	
 	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
 									DYN_PREP_QUERY_GET_CURRENT_SCOPE,				
 									FALSE);
 	
-	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
-									DYN_PREP_QUERY_GET_FILE_SYMBOLS,
-									TRUE);
-
 	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
 								 	DYN_PREP_QUERY_GET_SYMBOL_INFO_BY_ID,
 									FALSE);
@@ -2538,10 +2522,6 @@ sdb_engine_init (SymbolDBEngine * object)
 								 	DYN_PREP_QUERY_GET_SCOPE_MEMBERS_BY_SYMBOL_ID,
 									TRUE);
 
-	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
-								 	DYN_PREP_QUERY_GET_SCOPE_MEMBERS_BY_SYMBOL_ID_FILTERED,
-									TRUE);
-	
 	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
 									DYN_PREP_QUERY_GET_FILES_FOR_PROJECT,
 								 	TRUE);
@@ -3203,11 +3183,12 @@ sdb_engine_check_db_version_and_upgrade (SymbolDBEngine *dbe,
 	}
 	
 	/* FIXME: in the future versions, if the changes grow up, add a better 
-	 * automatic upgrading system 
+	 * automatic upgrading system. Deleting & recreating the db is anyway
+	 * the best option to do.
 	 */
-	if (version < 230)
+	if (version < atoi (SYMBOL_DB_VERSION))
 	{
-		DEBUG_PRINT	 ("Upgrading from version %d to 230", version);
+		DEBUG_PRINT	 ("Upgrading from version %d to "SYMBOL_DB_VERSION, version);
 		
 		/* we need a full recreation of db. Because of the sym_kind table
 		 * which changed its data but not its fields, we must recreate the
@@ -4184,6 +4165,9 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 		GdaSet *last_inserted;
 		GValue *ret_value;
 		gboolean ret_bool;
+		gint is_container = 0;
+		SymType sym_type;
+		GError * error = NULL;
 
 		/* not found. Go on with inserting  */
 		if ((stmt = sdb_engine_get_statement_by_query_id (dbe, PREP_QUERY_SYM_KIND_NEW))
@@ -4203,9 +4187,24 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 		}
 
 		MP_SET_HOLDER_BATCH_STR(priv, param, kind_name, ret_bool, ret_value);
-	
+
+		/* container parameter */
+		if ((param = gda_set_get_holder ((GdaSet*)plist, "container")) == NULL)
+		{
+			g_warning ("param container is NULL from pquery!");
+			return FALSE;
+		}
+
+		sym_type = GPOINTER_TO_SIZE (g_hash_table_lookup (priv->sym_type_conversion_hash, 
+		    									kind_name));
+		
+		if (sym_type & IANJUTA_SYMBOL_TYPE_SCOPE_CONTAINER)
+			is_container = 1;
+		
+		MP_SET_HOLDER_BATCH_INT(priv, param, is_container, ret_bool, ret_value);
+		
 		/* execute the query with parametes just set */
-		if (gda_connection_statement_execute_non_select (priv->db_connection, 
+		if (gda_connection_statement_execute_non_select(priv->db_connection, 
 														 (GdaStatement*)stmt, 
 														 (GdaSet*)plist, &last_inserted,
 														 NULL) == -1)
@@ -4222,6 +4221,12 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 		if (last_inserted)
 			g_object_unref (last_inserted);		
 
+		if (error)
+		{
+			g_warning ("SQL error: %s", error->message);
+			g_error_free (error);
+		}
+		
 		MP_RESET_PLIST(plist);
 	}
 
@@ -5353,7 +5358,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 															   type_id);
 
 	/* the container scopes can be: union, struct, typeref, class, namespace etc.
-	 * this field will be parse in the second pass.
+	 * this field will be parsed in the second pass.
 	 */
 	scope_id = 0;
 
@@ -6499,4 +6504,44 @@ symbol_db_engine_set_db_case_sensitive (SymbolDBEngine *dbe, gboolean case_sensi
 		sdb_engine_execute_unknown_sql (dbe, "PRAGMA case_sensitive_like = 1");
 	else 
 		sdb_engine_execute_unknown_sql (dbe, "PRAGMA case_sensitive_like = 0");
+}
+
+GdaStatement*
+symbol_db_engine_get_statement (SymbolDBEngine *dbe, const gchar *sql_str)
+{
+	GdaStatement* stmt;
+	GError *error = NULL;
+	
+	g_return_val_if_fail (SYMBOL_IS_DB_ENGINE (dbe), NULL);
+	stmt = gda_sql_parser_parse_string (dbe->priv->sql_parser,
+	                                    sql_str,
+	                                    NULL, &error);
+	if (error)
+	{
+		g_warning ("SQL parsing failed: %s: %s", sql_str, error->message);
+		g_error_free (error);
+	}
+	return stmt;
+}
+
+GdaDataModel*
+symbol_db_engine_execute_select (SymbolDBEngine *dbe, GdaStatement *stmt,
+                                 GdaSet *params)
+{
+	GdaDataModel *res;
+	GError *error = NULL;
+	
+	res = gda_connection_statement_execute_select (dbe->priv->db_connection, 
+												   stmt, params, &error);
+	if (error)
+	{
+		gchar *sql_str =
+			gda_statement_to_sql_extended (stmt, dbe->priv->db_connection,
+			                               params, 0, NULL, NULL);
+
+		g_warning ("SQL select exec failed: %s, %s", sql_str, error->message);
+		g_free (sql_str);
+		g_error_free (error);
+	}
+	return res;
 }

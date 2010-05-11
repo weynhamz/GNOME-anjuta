@@ -1,4 +1,40 @@
-Anjuta 2.30.0 "Ostern in Berlin" (29 March 2009) -- Johannes Schmid
+Anjuta 2.31.1 "Better late than never" (6 May 2010) -- Johannes Schmid
+
+New:
+- Symbol-db tree model with direct database access
+This brings faster a faster and more up-to-date symbol tree
+
+Bugs fixed:
+anjuta-tags: bgo #616780 - Wrong return type recognition
+document-manager: fixed bgo #616739 - doesn't open .ui files, neither in xml mode
+anjuta-tags: fixed bgo #616503 - updates to the ctags vala parser.
+symbol-db, language-support-js: bgo #616435 - make distclean removes y.tab.c
+document-manager: bgo#550027  - Open a source tab in full window size
+document-manager: bgo #586689 - close all but this
+symbol-db: Bug 613962 - symbol-db views need alphabetical ordering
+symbol-db: Fixes bgo #614906 - Local view shows namespaces far too often
+symbol-db: bgo #614408 - convert GET_PRIV () to ->priv
+anjuta: Fixed bgo 500962 - Further icons
+symbol-db: Fixed bgo #611834 - Symbol icons are wrong for members
+macro: #613118 - Please fix escaping of UTF-chars in ui file
+
+Anjuta 2.30.1 "BASIC's not the answer" (26 April 2010) -- Johannes Schmid
+
+Bugs fixed:
+symbol-db: Fixed bgo #611834 - Symbol icons are wrong for members
+document-manager: bgo #600083 - close documents by middle-mouse click
+symbol-db: bgo #614936 - compile error with cfiles under js_parser
+symbol-db: bgo #614932 - void function cannot return value
+symbol-db: bgo #614933 - build fail with sun cc because zero-sized struct
+language-support-cpp-java: libstdc++ is not available on Solaris #614928
+gtodo: Deselecting "Hide completed items" does nothing (#614751)
+language-support-cpp-java: bgo#615596  - . -> completions doesn't work with prefixed &, %, etc
+libanjuta: #615718  - anjuta-command crash call on set_error_message.
+js: bgo#615341  - Use correct LDFLAGS for the JS plugins
+dir-project: bgo #616503 consider Vala files as sources
+patch: Fixed bug 616740 - duplicated shortcuts nodes
+
+Anjuta 2.30.0 "Ostern in Berlin" (29 March 2010) -- Johannes Schmid
 
 Bugs fixed:
 git: Free the log message for merges at the right time
@@ -11,7 +47,7 @@ language-support-cpp-java: Fixed some undo problems with indentation
 sourceview: bgo#567029 - underline warnings/errors using user-selected message colors
 starter: Add tooltip for recent projects.
 
-Anjuta 2.29.92 "Give me Shortcuts" (8 March 2009) -- Johannes Schmid
+Anjuta 2.29.92 "Give me Shortcuts" (8 March 2010) -- Johannes Schmid
 
 Changes:
 - Stabilisation fixes with autocompletion
@@ -29,7 +65,7 @@ fm: bgo#605050 -  Saving a file duplicates its entry in File Manager
 build-basic-autootls: Get make targets for files from language-manager plugin (bgo#611933)
 bgo #611312 -  Make manual page up-to-date
 
-Anjuta 2.29.91 "Vala la Révolution" (22 February 2009) -- Johannes Schmid
+Anjuta 2.29.91 "Vala la Révolution" (22 February 2010) -- Johannes Schmid
 
 Features:
 - Support for Vala symbols in the symbol-db
@@ -45,7 +81,7 @@ project-import: bgo#582717 -  'Create Folder' button not applicable in 'New From
 
 Also special thanks to all translaters!
 
-Anjuta 2.29.90 "Jag älkar svesk..." (7. Februar 2009) -- Johannes Schmid
+Anjuta 2.29.90 "Jag älkar svesk..." (7. Februar 2010) -- Johannes Schmid
 
 Features:
 - None (we are in feature freeze) except new language for Codename ;)
@@ -57,7 +93,7 @@ bgo #608396 -  crash while refreshing a buffer with some breakpoints
 
 This is the first beta release in the 2.30 cycle so please give it some testing!
 
-Anjuta 2.29.6 "Naba is back" (25 January 2009) -- Johannes Schmid
+Anjuta 2.29.6 "Naba is back" (25 January 2010) -- Johannes Schmid
 
 Features:
 - Packagekit integration (Naba Kumar)
@@ -73,7 +109,7 @@ bgo#601750 -  Tooltip evaluation doesn't respects mouse position
 bgo#605060 -  Single-step highlighting works only for the first-opened project
 bgo#607415 -  Anjuta creates lots of random directories
 
-Anjuta 2.29.5 "Birthday present" (12 January 2009) -- Johannes Schmid
+Anjuta 2.29.5 "Birthday present" (12 January 2010) -- Johannes Schmid
 
 Features:
 - Completion for ., ->, and :: in C/C++

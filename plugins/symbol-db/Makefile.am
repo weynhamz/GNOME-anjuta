@@ -13,7 +13,10 @@ symbol_db_glade_DATA =  anjuta-symbol-db.ui
 
 # Plugin Icon file
 symbol_db_pixmapsdir = $(anjuta_image_dir)
-symbol_db_pixmaps_DATA = anjuta-symbol-db-plugin-48.png
+symbol_db_pixmaps_DATA = \
+	anjuta-symbol-db-plugin.svg \
+	anjuta-symbol-db-plugin-48.png \
+	anjuta-symbol-db-plugin-16.png
 
 # Plugin description file
 plugin_in_files = symbol-db.plugin.in
@@ -119,6 +122,7 @@ EXTRA_DIST = \
 	$(symbol_db_glade_DATA) \
 	$(symbol_db_pixmaps_DATA) \
 	$(symbol_db_data_DATA) \
-	$(symbol_db_ui_DATA)
+	$(symbol_db_ui_DATA) \
+	symbol-db-marshal.list
 
 -include $(top_srcdir)/git.mk

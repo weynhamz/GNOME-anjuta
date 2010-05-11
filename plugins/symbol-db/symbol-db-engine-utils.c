@@ -211,29 +211,31 @@ sdb_util_load_symbol_pixbufs ()
 	CREATE_SYM_ICON ("privateclass",      "element-class-16.png");
 	CREATE_SYM_ICON ("privateenum",   	  "element-enumeration-16.png");
 	CREATE_SYM_ICON ("privatefield",   	  "element-event-16.png");
-	CREATE_SYM_ICON ("privatefunction",   "element-method-16.png");
-	CREATE_SYM_ICON ("privateinterface",  "element-interface-16.png");	
-	CREATE_SYM_ICON ("privatemember",     "element-property-16.png");	
-	CREATE_SYM_ICON ("privatemethod",     "element-method-16.png");
-	CREATE_SYM_ICON ("privateproperty",   "element-property-16.png");
+	CREATE_SYM_ICON ("privatefunction",   "element-method-private-16.png");
+	CREATE_SYM_ICON ("privateinterface",  "element-interface-private-16.png");	
+	CREATE_SYM_ICON ("privatemember",     "element-property-private-16.png");	
+	CREATE_SYM_ICON ("privatemethod",     "element-method-private-16.png");
+	CREATE_SYM_ICON ("privateproperty",   "element-property-private-16.png");
 	CREATE_SYM_ICON ("privatestruct",     "element-structure-16.png");
-	CREATE_SYM_ICON ("privateprototype",  "element-interface-16.png");
+	CREATE_SYM_ICON ("privateprototype",  "element-interface-private-16.png");
 
 	CREATE_SYM_ICON ("protectedclass",    "element-class-16.png");	
 	CREATE_SYM_ICON ("protectedenum",     "element-enumeration-16.png");
 	CREATE_SYM_ICON ("protectedfield",    "element-event-16.png");	
-	CREATE_SYM_ICON ("protectedmember",   "element-property-16.png");
-	CREATE_SYM_ICON ("protectedmethod",   "element-method-16.png");
-	CREATE_SYM_ICON ("protectedproperty", "element-property-16.png");
-	CREATE_SYM_ICON ("protectedprototype","element-interface-16.png");
+	CREATE_SYM_ICON ("protectedfunction", "element-method-protected-16.png");
+	CREATE_SYM_ICON ("protectedmember",   "element-property-protected-16.png");
+	CREATE_SYM_ICON ("protectedmethod",   "element-method-protected-16.png");
+	CREATE_SYM_ICON ("protectedproperty", "element-property-protected-16.png");
+	CREATE_SYM_ICON ("protectedprototype","element-interface-protected-16.png");
 	
 	CREATE_SYM_ICON ("publicclass",    	  "element-class-16.png");	
 	CREATE_SYM_ICON ("publicenum",    	  "element-enumeration-16.png");	
-	CREATE_SYM_ICON ("publicfunction",    "element-method-16.png");
-	CREATE_SYM_ICON ("publicmember",      "element-method-16.png");
-	CREATE_SYM_ICON ("publicproperty",    "element-property-16.png");
+	CREATE_SYM_ICON ("publicfunction",    "element-method-public-16.png");
+	CREATE_SYM_ICON ("publicmember",      "element-property-public-16.png");
+	CREATE_SYM_ICON ("publicmethod",      "element-method-public-16.png");
+	CREATE_SYM_ICON ("publicproperty",    "element-property-public-16.png");
 	CREATE_SYM_ICON ("publicstruct",      "element-structure-16.png");
-	CREATE_SYM_ICON ("publicprototype",   "element-interface-16.png");
+	CREATE_SYM_ICON ("publicprototype",   "element-interface-public-16.png");
 	
 	/* special icon */
 	CREATE_SYM_ICON ("othersvars",   "element-event-16.png");
@@ -326,112 +328,112 @@ symbol_db_util_fill_type_array (SymType match_types)
 	GPtrArray *filter_array;
 	filter_array = g_ptr_array_new ();
 
-	if (match_types & SYMTYPE_CLASS)
+	if (match_types & IANJUTA_SYMBOL_TYPE_CLASS)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("class"));
 	}
 
-	if (match_types & SYMTYPE_ENUM)
+	if (match_types & IANJUTA_SYMBOL_TYPE_ENUM)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("enum"));
 	}
 	
-	if (match_types & SYMTYPE_ENUMERATOR)
+	if (match_types & IANJUTA_SYMBOL_TYPE_ENUMERATOR)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("enumerator"));
 	}
 	
-	if (match_types & SYMTYPE_FIELD)
+	if (match_types & IANJUTA_SYMBOL_TYPE_FIELD)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("field"));
 	}
 	
-	if (match_types & SYMTYPE_FUNCTION)
+	if (match_types & IANJUTA_SYMBOL_TYPE_FUNCTION)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("function"));
 	}
 	
-	if (match_types & SYMTYPE_INTERFACE)
+	if (match_types & IANJUTA_SYMBOL_TYPE_INTERFACE)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("interface"));
 	}
 	
-	if (match_types & SYMTYPE_MEMBER)
+	if (match_types & IANJUTA_SYMBOL_TYPE_MEMBER)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("member"));
 	}
 	
-	if (match_types & SYMTYPE_METHOD)
+	if (match_types & IANJUTA_SYMBOL_TYPE_METHOD)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("method"));
 	}
 	
-	if (match_types & SYMTYPE_NAMESPACE)
+	if (match_types & IANJUTA_SYMBOL_TYPE_NAMESPACE)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("namespace"));
 	}
 	
-	if (match_types & SYMTYPE_PACKAGE)
+	if (match_types & IANJUTA_SYMBOL_TYPE_PACKAGE)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("package"));
 	}
 	
-	if (match_types & SYMTYPE_PROTOTYPE)
+	if (match_types & IANJUTA_SYMBOL_TYPE_PROTOTYPE)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("prototype"));
 	}
 	
-	if (match_types & SYMTYPE_STRUCT)
+	if (match_types & IANJUTA_SYMBOL_TYPE_STRUCT)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("struct"));
 	}
 
-	if (match_types & SYMTYPE_TYPEDEF)
+	if (match_types & IANJUTA_SYMBOL_TYPE_TYPEDEF)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("typedef"));
 	}
 	
-	if (match_types & SYMTYPE_STRUCT)
+	if (match_types & IANJUTA_SYMBOL_TYPE_STRUCT)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("struct"));
 	}
 	
-	if (match_types & SYMTYPE_UNION)
+	if (match_types & IANJUTA_SYMBOL_TYPE_UNION)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("union"));
 	}
 	
-	if (match_types & SYMTYPE_VARIABLE)
+	if (match_types & IANJUTA_SYMBOL_TYPE_VARIABLE)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("variable"));
 	}
 				
-	if (match_types & SYMTYPE_EXTERNVAR)
+	if (match_types & IANJUTA_SYMBOL_TYPE_EXTERNVAR)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("externvar"));
 	}
 	
-	if (match_types & SYMTYPE_MACRO)
+	if (match_types & IANJUTA_SYMBOL_TYPE_MACRO)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("macro"));
 	}
 	
-	if (match_types & SYMTYPE_MACRO_WITH_ARG)
+	if (match_types & IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("macro_with_arg"));
 	}
 	
-	if (match_types & SYMTYPE_FILE)
+	if (match_types & IANJUTA_SYMBOL_TYPE_FILE)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("file"));
 	}
 	
-	if (match_types & SYMTYPE_VARIABLE)
+	if (match_types & IANJUTA_SYMBOL_TYPE_VARIABLE)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("variable"));
 	}
 	
-	if (match_types & SYMTYPE_OTHER)
+	if (match_types & IANJUTA_SYMBOL_TYPE_OTHER)
 	{
 		g_ptr_array_add (filter_array, g_strdup ("other"));
 	}

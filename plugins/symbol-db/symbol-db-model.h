@@ -27,7 +27,7 @@
 
 G_BEGIN_DECLS
 
-#define SYMBOL_DB_TYPE_MODEL             (symbol_db_model_get_type ())
+#define SYMBOL_DB_TYPE_MODEL             (sdb_model_get_type ())
 #define SYMBOL_DB_MODEL(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), SYMBOL_DB_TYPE_MODEL, SymbolDBModel))
 #define SYMBOL_DB_MODEL_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ((klass), SYMBOL_DB_TYPE_MODEL, SymbolDBModelClass))
 #define SYMBOL_DB_IS_MODEL(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SYMBOL_DB_TYPE_MODEL))
@@ -36,6 +36,7 @@ G_BEGIN_DECLS
 
 typedef struct _SymbolDBModelClass SymbolDBModelClass;
 typedef struct _SymbolDBModel SymbolDBModel;
+typedef struct _SymbolDBModelPriv SymbolDBModelPriv;
 
 struct _SymbolDBModelClass
 {
@@ -67,9 +68,11 @@ struct _SymbolDBModelClass
 struct _SymbolDBModel
 {
 	GObject parent_instance;
+
+	SymbolDBModelPriv *priv;
 };
 
-GType symbol_db_model_get_type (void) G_GNUC_CONST;
+GType sdb_model_get_type (void) G_GNUC_CONST;
 
 /* Use this to create the model normally. The "..." part is alternatively GType
  * and gint for column type and corresponding GdaDataModel column.

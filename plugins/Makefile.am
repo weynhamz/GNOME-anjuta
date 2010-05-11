@@ -15,6 +15,7 @@ SUBDIRS = . \
 	cvs-plugin \
 	macro \
 	class-gen \
+	class-inheritance \
 	patch \
 	subversion \
 	project-import \

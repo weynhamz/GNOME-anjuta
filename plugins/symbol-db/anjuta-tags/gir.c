@@ -12,6 +12,7 @@
 #include <libxml/xmlmemory.h>
 #include <libxml/parser.h>
 #include <libxml/tree.h>
+#include "ctags-utils.h"
 
 static kindOption Kinds [] = {
 	{ TRUE,  'f', "function",	  "functions"},
@@ -24,20 +25,6 @@ static kindOption Kinds [] = {
 static void
 initialize (const langType language)
 {
-}
-
-static void
-get_file_pos (gint line, fpos_t *fpos, FILE *f)
-{
-	vString * str = vStringNew ();
-	gint i;
-	g_assert (fseek (f, 0, SEEK_SET) == 0);
-
-	for (i = 0;i < line - 1; i++)
-		if (readLine (str, f) == NULL)
-			return;
-
-	g_assert (fgetpos (f, fpos) == 0);
 }
 
 static void
@@ -150,13 +137,15 @@ makeTags (xmlNode *node, const gchar *parent)
 			|| strcmp ((const gchar*)node->name, "bitfield") == 0
 			|| strcmp ((const gchar*)node->name, "interface") == 0)
 	{
-		return parse_class (node);
+		parse_class (node);
+		return;
 	}
 	if (strcmp ((const gchar*)node->name, "function") == 0 || strcmp ((const gchar*)node->name, "method") == 0
 			|| strcmp ((const gchar*)node->name, "callback") == 0
 			|| strcmp ((const gchar*)node->name, "constructor") == 0)
 	{
-		return parse_function (node, parent);
+		parse_function (node, parent);
+		return;
 	}
 	if (strcmp ((const gchar*)node->name, "alias") == 0 ||
 			strcmp ((const gchar*)node->name, "constant") == 0 ||
@@ -184,8 +173,6 @@ makeTags (xmlNode *node, const gchar *parent)
 		makeTagEntry (tag);
 		return;
 	}
-//	puts ((const gchar*)node->name);
-//	g_assert_not_reached ();
 }
 
 static void

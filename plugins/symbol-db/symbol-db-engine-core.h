@@ -269,6 +269,18 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar * proj
 void
 symbol_db_engine_set_db_case_sensitive (SymbolDBEngine *dbe, gboolean case_sensitive);
 
+/**
+ * Compiles an sql statement
+ */
+GdaStatement*
+symbol_db_engine_get_statement (SymbolDBEngine *dbe, const gchar *sql_str);
+
+/**
+ * Executes a parameterized sql statement
+ */
+GdaDataModel*
+symbol_db_engine_execute_select (SymbolDBEngine *dbe, GdaStatement *stmt,
+                                 GdaSet *params);
 
 G_END_DECLS
 

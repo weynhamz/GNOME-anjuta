@@ -136,17 +136,6 @@ symbol_db_engine_find_symbol_in_scope (SymbolDBEngine *dbe,
  */
 
 /**
- * Return an iterator to the data retrieved from database. 
- * The iterator, if not null, will contain a list of parent classes for the 
- * given symbol name.
- */
-SymbolDBEngineIterator *
-symbol_db_engine_get_class_parents (SymbolDBEngine *dbe, 
-    								const gchar *klass_name, 
-									const GPtrArray *scope_path, 
-    								SymExtraInfo sym_info);
-
-/**
  * Use this function to get parent symbols of a given class.
  */
 SymbolDBEngineIterator *
@@ -165,36 +154,6 @@ symbol_db_engine_get_current_scope (SymbolDBEngine *dbe,
     								gulong line, 
 									SymExtraInfo sym_info);
 
-
-/**
- * Use this function to get symbols of a file.
- */
-SymbolDBEngineIterator *
-symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe, 
-								   const gchar *file_path, gint limit,
-                                   gint offset, SymExtraInfo sym_info);
-
-/**
- * Use this function to get global symbols only. I.e. private or file-only scoped symbols
- * will NOT be returned.
- * @param filter_kinds Can be set to SYMTYPE_UNDEF. In that case these filters will not be taken into consideration.
- * at root level [global level]. A maximum of 255 filter_kinds are admitted.
- * @param include_kinds Should we include in the result the filter_kinds or not?
- * @param group_them If TRUE then will be issued a 'group by symbol.name' option.
- * 		If FALSE you can have as result more symbols with the same name but different
- * 		symbols id. See for example more namespaces declared on different files.
- * @param results_limit Limit results to an upper bound. -1 If you don't want to use this par.
- * @param results_offset Skip results_offset results. -1 If you don't want to use this par. 
- */
-SymbolDBEngineIterator *
-symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe, 
-									SymType filter_kinds,
-									gboolean include_kinds, 
-									gboolean group_them,
-									gint results_limit, 
-									gint results_offset,
-								 	SymExtraInfo sym_info);
-
 /** 
  * No iterator for now. We need the quickest query possible.
  * @param scoped_symbol_id Symbol you want to know the parent of.
@@ -204,49 +163,6 @@ gint
 symbol_db_engine_get_parent_scope_id_by_symbol_id (SymbolDBEngine *dbe, 
 									gint scoped_symbol_id,
 									const gchar* db_file);
-
-/** 
- * This is the same version as symbol_db_engine_get_parent_scope_id_by_symbol_id () 
- * but with an Iterator as return type. 
- * It includes the calls to symbol_db_engine_get_parent_scope_id_by_symbol_id () and
- * symbol_db_engine_get_symbol_info_by_id (). It's a sort of facade.
- * @param scoped_symbol_id Symbol you want to know the parent of.
- * @param db_file db-relative filename path. eg. /src/foo.c. Can be NULL for a
- * wider search (i.e. not just limited to that file).
- * @return NULL on error or if nothing is found as parent.
- */
-SymbolDBEngineIterator *
-symbol_db_engine_get_parent_scope_by_symbol_id (SymbolDBEngine *dbe, 
-									gint scoped_symbol_id,
-									const gchar* db_file,
-    								SymExtraInfo sym_info);
-
-/**
- * Walk the path up to the root scope given a scoped_symbol_id parameter.
- * The returned iterator will be populated with SymbolDBEngineIteratorNode(s)
- * so that it could be easily browsed by a client app.
- *
- * e.g.
- * namespace FooBase {
- * class FooKlass {
- *	
- * }
- *
- * void FooKlass::foo_func () {			<-------------- this is the scoped symbol
- *              
- * }
- * 
- * the returned iterator'll contain symbols in this order: foo_func, FooKlass, FooBase.
- *
- * @param db_file db-relative filename path. eg. /src/foo.c. Can be NULL for a
- * wider search (i.e. not just limited to that file).
- * @return NULL on error or if scope isn't found.
- */
-SymbolDBEngineIterator *
-symbol_db_engine_get_scope_chain (SymbolDBEngine *dbe,
-    								gint scoped_symbol_id,
-    								const gchar* db_file,
-    								SymExtraInfo sym_info);
 
 /**
  * Walk the path up to the root scope given a full_local_file_path and a line number.
@@ -261,17 +177,6 @@ symbol_db_engine_get_scope_chain_by_file_line (SymbolDBEngine *dbe,
     								gulong line,
     								SymExtraInfo sym_info);
 
-
-/** 
- * scope_path cannot be NULL.
- * scope_path will be something like "scope1_kind", "scope1_name", "scope2_kind", 
- * "scope2_name", NULL 
- */
-SymbolDBEngineIterator *
-symbol_db_engine_get_scope_members_by_path (SymbolDBEngine *dbe, 
-									const GPtrArray* scope_path, 
-									SymExtraInfo sym_info);
-
 /**
  * Sometimes it's useful going to query just with ids [and so integers] to have
  * a little speed improvement.
@@ -281,23 +186,7 @@ symbol_db_engine_get_scope_members_by_path (SymbolDBEngine *dbe,
 SymbolDBEngineIterator *
 symbol_db_engine_get_scope_members_by_symbol_id (SymbolDBEngine *dbe, 
 									gint scope_parent_symbol_id, 
-									gint results_limit,
-									gint results_offset,
-									SymExtraInfo sym_info);
-
-/**
- * A filtered version of the symbol_db_engine_get_scope_members_by_symbol_id ().
- * You can specify which kind of symbols to retrieve, and if to include them or exclude.
- * Kinds are 'namespace', 'class' etc.
- * @param filter_kinds Can be set to SYMTYPE_UNDEF. In that case these filters will not be taken into consideration.
- * @param results_limit Limit results to an upper bound. -1 If you don't want to use this par.
- * @param results_offset Skip results_offset results. -1 If you don't want to use this par. 
- */
-SymbolDBEngineIterator *
-symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe, 
-									gint scope_parent_symbol_id, 
-									SymType filter_kinds,
-									gboolean include_kinds,														  
+                                    gchar *scope_file_path,
 									gint results_limit,
 									gint results_offset,
 									SymExtraInfo sym_info);

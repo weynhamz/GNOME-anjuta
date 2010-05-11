@@ -48,7 +48,7 @@
 *   DATA DECLARATIONS
 */
 
-enum { NumTokens = 7 };
+enum { NumTokens = 15 };
 
 typedef enum eException {
 	ExceptionNone, ExceptionEOF, ExceptionFormattingError,
@@ -2135,9 +2135,28 @@ static void parseReturnType (statementInfo *const st)
 		return;
 	
 	finding_tok = prevToken (st, 2);
-	
+		
 	if (finding_tok->type == TOKEN_DOUBLE_COLON)
-		lower_bound = 3;
+	{
+		/* get the total number of double colons */
+		int j;
+		int num_colons = 0;
+
+		/* we already are at 2nd token */
+		/* the +=2 means that colons are usually found at even places */
+		for (j = 2; j < NumTokens; j+=2)
+		{
+			tokenInfo *curr_tok;
+			curr_tok = prevToken (st, j);
+			if (curr_tok->type == TOKEN_DOUBLE_COLON)
+				num_colons++;
+			else
+				break;
+		}
+
+		/*printf ("FOUND colons %d\n", num_colons);*/
+		lower_bound = 2 * num_colons + 1;
+	}
 	else
 		lower_bound = 1;
 	
@@ -2169,7 +2188,8 @@ static void parseReturnType (statementInfo *const st)
 				break;
 
 			case TOKEN_KEYWORD:
-				vStringPut (ReturnType, ' ');				
+				vStringPut (ReturnType, ' ');
+				
 			default:
 				vStringCat (ReturnType, curr_tok->name);
 				break;				
@@ -2188,6 +2208,7 @@ static void parseReturnType (statementInfo *const st)
 	/*/
 	printf ("~~~~~ statement ---->\n");
 	ps (st);
+	printf ("NumTokens: %d\n", NumTokens);
 	printf ("FOUND ReturnType: %s\n", vStringValue (ReturnType));	
 	printf ("<~~~~~\n");
 	//*/

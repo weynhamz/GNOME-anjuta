@@ -137,7 +137,12 @@ void anjuta_ui_save_accels (const gchar *filename);
 
 void anjuta_ui_unload_accels (AnjutaUI *ui);
 
-/* Convenience macros to register stock icons */
+/**
+ * BEGIN_REGISTER_ICON:
+ * @plugin: The anjuta plugin to register the icons for
+ *
+ * Convenience macros to register stock icons 
+ */
 #define BEGIN_REGISTER_ICON(plugin) \
 { \
 	AnjutaUI *ui = anjuta_shell_get_ui ((plugin)->shell, NULL); \
@@ -145,7 +150,12 @@ void anjuta_ui_unload_accels (AnjutaUI *ui);
 	GtkIconSet *icon_set; \
 	GtkIconSource *	icon_source = gtk_icon_source_new ();
 
-/* Register icon with size 16 and size 24, icon should be the 
+/**
+ * REGISTER_ICON_FULL:
+ * @icon: name of the icon (without size and extension)
+ * @stock_id: stock-id that should be assigned to the icon
+ *
+ * Register icon with size 16 and size 24, icon should be the 
  * filename (without path) striped of the size (16,24) and the *.png
  * (e.g anjuta-icon-24.png => anjuta-icon)
  */
@@ -162,7 +172,12 @@ void anjuta_ui_unload_accels (AnjutaUI *ui);
 	gtk_icon_set_add_source (icon_set, icon_source); \
 	gtk_icon_factory_add (icon_factory, stock_id, icon_set);
 
-/* Register icon for all sizes (will be scaled) 
+/**
+ * REGISTER_ICON:
+ * @icon: name of the icon (without size and extension)
+ * @stock_id: stock-id that should be assigned to the icon
+ *
+ * Register icon for all sizes (will be scaled) 
  * icon should be the full filename without path (e.g anjuta-icon.png)
  */
 
@@ -177,6 +192,12 @@ void anjuta_ui_unload_accels (AnjutaUI *ui);
 	} \
 	}
 
+
+/** 
+ * END_REGISTER_ICON:
+ *
+ * Ends a BEGIN_REGISTER_ICON sequence
+ */
 #define END_REGISTER_ICON \
 	gtk_icon_source_free (icon_source); \
 }

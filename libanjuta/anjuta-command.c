@@ -284,7 +284,8 @@ anjuta_command_notify_data_arrived (AnjutaCommand *self)
 
 /**
  * anjuta_command_notify_complete:
- * @self: Command object.
+ * @self: Command object
+ * @return_code: The returned code that is passed to the notify callback
  * 
  * Used by base classes derived from #AnjutaCommand to emit the 
  * ::command-finished signal. This method should not be used by client code or  
@@ -299,6 +300,7 @@ anjuta_command_notify_complete (AnjutaCommand *self, guint return_code)
 /**
  * anjuta_command_notify_progress:
  * @self: Command object.
+ * @progress: The of the command that is passed to the notify callback
  * 
  * Emits the ::progress signal. Can be used by both base classes and 
  * commands as needed. 

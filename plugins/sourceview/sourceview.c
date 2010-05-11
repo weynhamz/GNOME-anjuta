@@ -319,6 +319,28 @@ static void on_backspace (GtkTextView* view,
 	g_signal_emit_by_name(G_OBJECT(sv), "update_ui");
 }
 
+static void
+on_line_mark_activated(GtkTextView* view,
+                       GtkTextIter   *iter,
+                       GdkEventButton *event,
+                       Sourceview* sv)
+{
+	/* proceed only if its a double click with left button*/
+	if( (event->button != 1) || (GDK_2BUTTON_PRESS != event->type) ) {
+		return;
+	}
+
+	/* line number starts with 0, so add 1 */
+	gint line_number = LINE_TO_LOCATION(gtk_text_iter_get_line(iter));
+
+	if (!IANJUTA_IS_EDITOR(sv))
+	{
+		return;
+	}
+	g_signal_emit_by_name(G_OBJECT(sv), "line-marks-gutter-clicked", line_number);
+}
+
+
 /* Open / Save stuff */
 
 /* Callback for dialog below */
@@ -647,6 +669,7 @@ sourceview_instance_init(Sourceview* sv)
 					  G_CALLBACK (on_sourceview_hover_over), sv);
 	g_signal_connect_after(G_OBJECT(sv->priv->view), "backspace", 
 					 G_CALLBACK(on_backspace),sv);
+
 	g_object_set (G_OBJECT (sv->priv->view), "has-tooltip", TRUE, NULL);
 	gtk_source_view_set_smart_home_end(GTK_SOURCE_VIEW(sv->priv->view), FALSE);
 	
@@ -741,6 +764,10 @@ sourceview_new(GFile* file, const gchar* filename, AnjutaPlugin* plugin)
 	DEBUG_PRINT("%s", "============ Creating new editor =============");
 	
 	g_signal_emit_by_name (G_OBJECT(sv), "update-ui");
+	g_signal_connect_after(G_OBJECT(sv->priv->view), "line-mark-activated",
+					 G_CALLBACK(on_line_mark_activated),
+					 G_OBJECT(sv)
+					 );
 	
 	return sv;
 }

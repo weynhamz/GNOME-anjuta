@@ -31,7 +31,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-28 00:18+0100\n"
+"POT-Creation-Date: 2010-03-28 00:17+0100\n"
 "PO-Revision-Date: 2010-03-27 23:17+0100\n"
 "Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
 "Language-Team: <dansk@dansk-gruppen.dk>\n"
@@ -1430,8 +1430,8 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "Ignorér .cvsrc-fil (anbefalet)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
-#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2327
-#: ../plugins/symbol-db/plugin.c:2397
+#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2120
+#: ../plugins/symbol-db/plugin.c:2189
 msgid "Local"
 msgstr "Lokal"
 
@@ -2616,7 +2616,7 @@ msgid "Search Help:"
 msgstr "Søg i hjælp:"
 
 #: ../plugins/devhelp/plugin.c:222 ../plugins/document-manager/plugin.c:239
-#: ../plugins/message-view/plugin.c:76 ../plugins/symbol-db/plugin.c:313
+#: ../plugins/message-view/plugin.c:76 ../plugins/symbol-db/plugin.c:312
 msgid "_Go to"
 msgstr "_Gå til"
 
@@ -2656,8 +2656,8 @@ msgstr "Indhold"
 #: ../plugins/search/search-replace.c:1717
 #: ../plugins/search/search-replace.c:1724
 #: ../plugins/search/search-replace.c:1736
-#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2331
-#: ../plugins/symbol-db/plugin.c:2447
+#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2124
+#: ../plugins/symbol-db/plugin.c:2206
 msgid "Search"
 msgstr "Søg"
 
@@ -2710,26 +2710,26 @@ msgstr "Omdøb"
 msgid "Remove"
 msgstr "Fjern"
 
-#: ../plugins/document-manager/anjuta-docman.c:399
+#: ../plugins/document-manager/anjuta-docman.c:435
 msgid "Close file"
 msgstr "Luk fil"
 
-#: ../plugins/document-manager/anjuta-docman.c:447
+#: ../plugins/document-manager/anjuta-docman.c:483
 msgid "Path:"
 msgstr "Sti:"
 
-#: ../plugins/document-manager/anjuta-docman.c:564
+#: ../plugins/document-manager/anjuta-docman.c:600
 #: ../plugins/file-loader/plugin.c:591 ../plugins/file-loader/plugin.c:894
 #: ../plugins/file-loader/plugin.c:904 ../plugins/file-loader/plugin.c:917
 msgid "Open file"
 msgstr "Åben fil"
 
-#: ../plugins/document-manager/anjuta-docman.c:583
+#: ../plugins/document-manager/anjuta-docman.c:619
 #: ../plugins/message-view/message-view.c:94
 msgid "Save file as"
 msgstr "Gem fil som"
 
-#: ../plugins/document-manager/anjuta-docman.c:664
+#: ../plugins/document-manager/anjuta-docman.c:700
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -2738,11 +2738,11 @@ msgstr ""
 "Filen \"%s\" findes allerede.\n"
 "Vil du overskrive den med filen, du er ved at gemme?"
 
-#: ../plugins/document-manager/anjuta-docman.c:673
+#: ../plugins/document-manager/anjuta-docman.c:709
 msgid "_Replace"
 msgstr "_Erstat"
 
-#: ../plugins/document-manager/anjuta-docman.c:1390
+#: ../plugins/document-manager/anjuta-docman.c:1426
 msgid "[read-only]"
 msgstr "[skrivebeskyttet]"
 
@@ -3673,7 +3673,7 @@ msgid "Filter"
 msgstr "Filter"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2329 ../plugins/symbol-db/plugin.c:2423
+#: ../plugins/symbol-db/plugin.c:2122 ../plugins/symbol-db/plugin.c:2201
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:6
 msgid "Global"
 msgstr "Global"
@@ -9015,65 +9015,65 @@ msgstr "Mangler: %s"
 msgid "Obstructed: %s"
 msgstr "Forhindret: %s"
 
-#: ../plugins/symbol-db/plugin.c:317
+#: ../plugins/symbol-db/plugin.c:316
 msgid "Tag De_claration"
 msgstr "Mærke_erklæring"
 
-#: ../plugins/symbol-db/plugin.c:319
+#: ../plugins/symbol-db/plugin.c:318
 msgid "Go to symbol declaration"
 msgstr "Gå til symbolerklæring"
 
 # Eller mærk implementation?
 #. Translators: Go to the line where the tag is implemented
-#: ../plugins/symbol-db/plugin.c:326
+#: ../plugins/symbol-db/plugin.c:325
 msgid "Tag _Implementation"
 msgstr "Mærke_implementation"
 
-#: ../plugins/symbol-db/plugin.c:328
+#: ../plugins/symbol-db/plugin.c:327
 msgid "Go to symbol definition"
 msgstr "Gå til symboldefinition"
 
-#: ../plugins/symbol-db/plugin.c:335
+#: ../plugins/symbol-db/plugin.c:334
 msgid "_Find Symbol…"
 msgstr "_Find symbol…"
 
-#: ../plugins/symbol-db/plugin.c:336
+#: ../plugins/symbol-db/plugin.c:335
 msgid "Find Symbol"
 msgstr "Find symbol"
 
-#: ../plugins/symbol-db/plugin.c:1173
+#: ../plugins/symbol-db/plugin.c:1022
 #, c-format
 msgid "%s: Generating inheritances…"
 msgstr "%s: Genererer nedarvningsstruktur…"
 
-#: ../plugins/symbol-db/plugin.c:1178
+#: ../plugins/symbol-db/plugin.c:1027
 #, c-format
 msgid "%s: %d files scanned out of %d"
 msgstr "%s: %d af %d filer scannet"
 
-#: ../plugins/symbol-db/plugin.c:1209
+#: ../plugins/symbol-db/plugin.c:1058
 #, c-format
 msgid "Generating inheritances…"
 msgstr "Genererer nedarvningsstruktur…"
 
-#: ../plugins/symbol-db/plugin.c:1211
+#: ../plugins/symbol-db/plugin.c:1060
 #, c-format
 msgid "%d files scanned out of %d"
 msgstr "%d af %d filer scannet"
 
-#: ../plugins/symbol-db/plugin.c:1979
+#: ../plugins/symbol-db/plugin.c:1785
 msgid "Populating symbol database…"
 msgstr "Opbygger symboldatabase…"
 
-#: ../plugins/symbol-db/plugin.c:2352 ../plugins/symbol-db/plugin.c:2480
+#: ../plugins/symbol-db/plugin.c:2148 ../plugins/symbol-db/plugin.c:2232
 msgid "Symbols"
 msgstr "Symboler"
 
-#: ../plugins/symbol-db/plugin.c:2489
+#: ../plugins/symbol-db/plugin.c:2241
 msgid "SymbolDb popup actions"
 msgstr "Pop op-handlinger for symboldatabase"
 
-#: ../plugins/symbol-db/plugin.c:2497
+#: ../plugins/symbol-db/plugin.c:2249
 msgid "SymbolDb menu actions"
 msgstr "Menuhandlinger for symboldatabase"
 
@@ -9094,15 +9094,6 @@ msgstr "API-mærker"
 #: ../plugins/symbol-db/symbol-db-system.c:807
 msgid "Resuming glb scan."
 msgstr "Fortsætter glb-scanning."
-
-#: ../plugins/symbol-db/symbol-db-view-locals.c:326
-#: ../plugins/symbol-db/symbol-db-view.c:1412
-msgid "Symbol"
-msgstr "Symbol"
-
-#: ../plugins/symbol-db/symbol-db-view.c:798
-msgid "Loading…"
-msgstr "Henter…"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:1
 msgid "Automatically scan project's packages"
@@ -10165,6 +10156,12 @@ msgstr "Fremhæv manglende semikolon"
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
 msgid "Min character for completion "
 msgstr "Mindste antal tegn for fuldførelse"
+
+#~ msgid "Symbol"
+#~ msgstr "Symbol"
+
+#~ msgid "Loading…"
+#~ msgstr "Henter…"
 
 #~ msgid "Edit&#x2026;"
 #~ msgstr "Redigér&#x2026;"

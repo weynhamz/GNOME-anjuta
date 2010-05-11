@@ -25,7 +25,7 @@
 
 G_BEGIN_DECLS
 
-#define SYMBOL_DB_TYPE_MODEL_FILE             (symbol_db_model_file_get_type ())
+#define SYMBOL_DB_TYPE_MODEL_FILE             (sdb_model_file_get_type ())
 #define SYMBOL_DB_MODEL_FILE(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), SYMBOL_DB_TYPE_MODEL_FILE, SymbolDBModelFile))
 #define SYMBOL_DB_MODEL_FILE_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ((klass), SYMBOL_DB_TYPE_MODEL_FILE, SymbolDBModelFileClass))
 #define SYMBOL_DB_IS_MODEL_FILE(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SYMBOL_DB_TYPE_MODEL_FILE))
@@ -34,6 +34,7 @@ G_BEGIN_DECLS
 
 typedef struct _SymbolDBModelFileClass SymbolDBModelFileClass;
 typedef struct _SymbolDBModelFile SymbolDBModelFile;
+typedef struct _SymbolDBModelFilePriv SymbolDBModelFilePriv;
 
 enum {
 	SYMBOL_DB_MODEL_FILE_COL_SYMBOL_ID,
@@ -51,10 +52,12 @@ struct _SymbolDBModelFileClass
 
 struct _SymbolDBModelFile
 {
-	SymbolDBModel parent_instance;
+	SymbolDBModelProject parent_instance;
+
+	SymbolDBModelFilePriv *priv;
 };
 
-GType symbol_db_model_file_get_type (void) G_GNUC_CONST;
+GType sdb_model_file_get_type (void) G_GNUC_CONST;
 GtkTreeModel* symbol_db_model_file_new (SymbolDBEngine* dbe);
 
 G_END_DECLS

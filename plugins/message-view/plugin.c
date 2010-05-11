@@ -94,6 +94,7 @@ static GtkActionEntry actions_goto[] = {
 
 static void on_view_changed(AnjutaMsgman* msgman, MessageViewPlugin* plugin)
 {
+	MessageView* view = anjuta_msgman_get_current_view (msgman);
 	AnjutaUI* ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(plugin)->shell, NULL);
 	GtkAction* action_next = anjuta_ui_get_action (ui, "ActionGroupGotoMessages",
 								   "ActionMessageNext");
@@ -108,6 +109,21 @@ static void on_view_changed(AnjutaMsgman* msgman, MessageViewPlugin* plugin)
 	g_object_set (G_OBJECT (action_next), "sensitive", sensitive, NULL);
 	g_object_set (G_OBJECT (action_prev), "sensitive", sensitive, NULL);
 	g_object_set (G_OBJECT (action_copy), "sensitive", sensitive, NULL);
+
+	/* Toggle buttons */
+	gtk_widget_set_sensitive (plugin->normal, view != NULL);	
+	gtk_widget_set_sensitive (plugin->info, view != NULL);
+	gtk_widget_set_sensitive (plugin->warn, view != NULL);
+	gtk_widget_set_sensitive (plugin->error, view != NULL);
+	if (view)
+	{
+		MessageViewFlags flags =
+			message_view_get_flags (view);
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(plugin->normal), flags & MESSAGE_VIEW_SHOW_NORMAL);
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(plugin->info), flags & MESSAGE_VIEW_SHOW_INFO);
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(plugin->warn), flags & MESSAGE_VIEW_SHOW_WARNING);
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(plugin->error), flags & MESSAGE_VIEW_SHOW_ERROR);
+	}	
 }
 
 static gpointer parent_class;
@@ -308,6 +324,120 @@ message_view_plugin_class_init (GObjectClass *klass)
 	klass->finalize = message_view_plugin_finalize;
 }
 
+static gboolean
+on_filter_button_tooltip (GtkWidget* widget, 
+                          gint        x,
+                          gint        y,
+                          gboolean    keyboard_mode,
+                          GtkTooltip *tooltip,
+                          MessageViewPlugin* plugin)
+{
+	gchar* temp = NULL;
+	MessageView* view = anjuta_msgman_get_current_view (ANJUTA_MSGMAN(plugin->msgman));
+	if (view)
+		return FALSE;
+	if (widget == plugin->normal)
+	{
+		temp = g_strdup_printf(ngettext ("%d Message", "%d Messages", 
+		                                 message_view_get_count (view,
+		                                                         MESSAGE_VIEW_SHOW_NORMAL)),
+		                       message_view_get_count (view,
+		                                               MESSAGE_VIEW_SHOW_NORMAL));
+		gtk_tooltip_set_text (tooltip, temp);
+	}
+	else if (widget == plugin->info)
+	{
+		temp = g_strdup_printf(ngettext ("%d Info", "%d Infos", 
+		                                 message_view_get_count (view,
+		                                                         MESSAGE_VIEW_SHOW_INFO)),
+		                       message_view_get_count (view,
+		                                               MESSAGE_VIEW_SHOW_INFO));
+		gtk_tooltip_set_text (tooltip, temp);
+	}
+	else if (widget == plugin->warn)
+	{
+		temp = g_strdup_printf(ngettext ("%d Warning", "%d Warnings", 
+		                                 message_view_get_count (view,
+		                                                         MESSAGE_VIEW_SHOW_WARNING)),
+		                       message_view_get_count (view,
+		                                               MESSAGE_VIEW_SHOW_WARNING));
+		gtk_tooltip_set_text (tooltip, temp);
+	}
+	else if (widget == plugin->error)
+	{
+		temp = g_strdup_printf(ngettext ("%d Error", "%d Errors", 
+		                                 message_view_get_count (view,
+		                                                         MESSAGE_VIEW_SHOW_ERROR)),
+		                       message_view_get_count (view,
+		                                               MESSAGE_VIEW_SHOW_ERROR));
+		gtk_tooltip_set_text (tooltip, temp);
+	}
+	else
+		g_assert_not_reached ();
+
+	return TRUE;
+}
+
+static void
+on_filter_buttons_toggled (GtkWidget* button, MessageViewPlugin *plugin)
+{
+	MessageViewFlags flags = 0;
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(plugin->normal)))
+		flags |= MESSAGE_VIEW_SHOW_NORMAL;
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(plugin->info)))
+		flags |= MESSAGE_VIEW_SHOW_INFO;
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(plugin->warn)))
+		flags |= MESSAGE_VIEW_SHOW_WARNING;
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(plugin->error)))
+		flags |= MESSAGE_VIEW_SHOW_ERROR;
+	message_view_set_flags (anjuta_msgman_get_current_view (ANJUTA_MSGMAN(plugin->msgman)),
+	                        flags);
+}
+
+static GtkWidget*
+create_mini_button (MessageViewPlugin* plugin, const gchar* stock_id)
+{
+	GtkWidget* button, *image;
+	gint h,w;
+	image = gtk_image_new_from_stock (stock_id, 
+	                                  GTK_ICON_SIZE_MENU);
+	gtk_icon_size_lookup (GTK_ICON_SIZE_MENU, &w, &h);
+	button = gtk_toggle_button_new ();
+	g_signal_connect (G_OBJECT (button), "toggled",
+					  G_CALLBACK (on_filter_buttons_toggled), plugin);
+	gtk_container_add (GTK_CONTAINER (button), image);
+
+	g_object_set (button, "has-tooltip", TRUE, NULL);
+	g_signal_connect (button, "query-tooltip", 
+	                  G_CALLBACK (on_filter_button_tooltip), plugin);
+	
+	return button;
+}
+
+static void
+create_toggle_buttons (MessageViewPlugin* plugin,
+                       GtkWidget* hbox)
+{
+	GtkWidget* filter_buttons_box = gtk_hbox_new (FALSE, 0);
+	
+	plugin->normal = create_mini_button (plugin, "message-manager-plugin-icon");
+	plugin->info = create_mini_button (plugin, GTK_STOCK_INFO);
+	plugin->warn = create_mini_button (plugin, GTK_STOCK_DIALOG_WARNING);
+	plugin->error = create_mini_button (plugin, GTK_STOCK_DIALOG_ERROR);
+	
+	gtk_box_pack_start (GTK_BOX (filter_buttons_box), GTK_WIDGET (plugin->normal),
+						FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (filter_buttons_box), GTK_WIDGET (plugin->info),
+						FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (filter_buttons_box), GTK_WIDGET (plugin->warn),
+						FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (filter_buttons_box), GTK_WIDGET (plugin->error),
+	                    FALSE, FALSE, 0);
+	
+	gtk_widget_show_all (filter_buttons_box);
+	gtk_box_pack_start (GTK_BOX(hbox), filter_buttons_box, FALSE, FALSE, 0);
+}
+
 /*
  * IAnjutaMessagerManager interface implementation 
  */
@@ -321,13 +451,18 @@ ianjuta_msgman_add_view (IAnjutaMessageManager *plugin,
 	GtkWidget *msgman = ANJUTA_PLUGIN_MESSAGE_VIEW (plugin)->msgman;
 	if (ANJUTA_PLUGIN_MESSAGE_VIEW (plugin)->widget_shown == FALSE)
 	{
+		GtkWidget* hbox = gtk_hbox_new (FALSE, 0);
 		GtkWidget* label = gtk_label_new (_("Messages"));
 		GtkWidget* image = gtk_image_new_from_stock ("message-manager-plugin-icon",
 		                                            GTK_ICON_SIZE_MENU);
-		GtkWidget* hbox = anjuta_msgman_get_hbox (ANJUTA_MSGMAN(msgman));
 		gtk_box_pack_start (GTK_BOX (hbox), image, FALSE, FALSE, 0);
 		gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
+		gtk_box_pack_start (GTK_BOX(hbox), anjuta_msgman_get_tabber (ANJUTA_MSGMAN(msgman)),
+		                    TRUE, TRUE, 5);
+	
 		gtk_widget_show_all (hbox);
+
+		create_toggle_buttons (ANJUTA_PLUGIN_MESSAGE_VIEW(plugin), hbox);
 		
 		anjuta_shell_add_widget_custom (shell, msgman,
 							 "AnjutaMessageView", _("Messages"),

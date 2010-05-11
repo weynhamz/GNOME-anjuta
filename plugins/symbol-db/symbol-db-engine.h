@@ -25,6 +25,13 @@
 #ifndef _SYMBOL_DB_ENGINE_H_
 #define _SYMBOL_DB_ENGINE_H_
 
+#ifdef __GNUC__
+#define GNUC_INLINE inline
+#else
+#define GNUC_INLINE 
+#endif
+
+
 /* if you need to use symbo-db-engine in your program, just include this
  * header file. It'll automatically include all the things needed
  */

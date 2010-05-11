@@ -59,6 +59,14 @@ struct _MessageViewClass
 	GtkHBoxClass parent;
 };	
 
+typedef enum
+{
+	MESSAGE_VIEW_SHOW_NORMAL = 1 << 0,
+	MESSAGE_VIEW_SHOW_INFO = 1 << 1,
+	MESSAGE_VIEW_SHOW_WARNING = 1 << 2,
+	MESSAGE_VIEW_SHOW_ERROR = 1 << 3,	
+} MessageViewFlags;
+
 /* Note: MessageView implements IAnjutaMessageView interface */
 GType message_view_get_type (void);
 GtkWidget* message_view_new (GtkWidget* popup_menu);
@@ -71,6 +79,10 @@ gboolean message_view_serialize (MessageView *view,
 								 AnjutaSerializer *serializer);
 gboolean message_view_deserialize (MessageView *view,
 								   AnjutaSerializer *serializer);
+
+MessageViewFlags message_view_get_flags (MessageView* view);
+void message_view_set_flags (MessageView* view, MessageViewFlags flags);
+gint message_view_get_count (MessageView* view, MessageViewFlags flags);
 
 G_END_DECLS
 

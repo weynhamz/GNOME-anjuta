@@ -20,116 +20,204 @@
 #include "symbol-db-engine.h"
 #include "symbol-db-model-file.h"
 
-typedef struct _SymbolDBModelFilePriv SymbolDBModelFilePriv;
+#define SDB_MODEL_FILE_SQL " \
+	SELECT \
+		symbol.symbol_id, \
+		symbol.name, \
+		symbol.file_position, \
+		symbol.scope_definition_id, \
+		symbol.signature, \
+		symbol.returntype, \
+		file.file_path, \
+		sym_access.access_name, \
+		sym_type.type_type, \
+		sym_type.type_name, \
+		sym_kind.is_container \
+	FROM symbol \
+	LEFT JOIN file ON symbol.file_defined_id = file.file_id \
+	LEFT JOIN sym_access ON symbol.access_kind_id = sym_access.access_kind_id \
+	LEFT JOIN sym_type ON symbol.type_id = sym_type.type_id \
+	LEFT JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id \
+	WHERE \
+	( \
+		file.file_path = ## /* name:'filepath' type:gchararray */ \
+		AND symbol.scope_id = ## /* name:'parent' type:gint */ \
+		AND symbol.kind_id NOT IN \
+		( \
+			SELECT sym_kind_id \
+			FROM sym_kind \
+			WHERE sym_kind.kind_name = 'namespace' \
+		) \
+	) \
+	OR \
+	( \
+		symbol.symbol_id IN \
+		( \
+			SELECT symbol_id \
+			FROM symbol \
+			LEFT JOIN file ON symbol.file_defined_id = file.file_id \
+			WHERE \
+				file.file_path = ## /* name:'filepath' type:gchararray */ \
+				AND symbol.scope_id = ## /* name:'parent' type:gint */ \
+				AND symbol.kind_id IN \
+				( \
+					SELECT sym_kind_id \
+					FROM sym_kind \
+					WHERE sym_kind.kind_name = 'namespace' \
+				) \
+			GROUP BY symbol.scope_definition_id \
+			\
+		) \
+	) \
+	OR \
+	( \
+		symbol.scope_id = ## /* name:'parent' type:gint */ \
+		AND symbol.kind_id NOT IN \
+		( \
+			SELECT sym_kind_id \
+			FROM sym_kind \
+			WHERE sym_kind.kind_name = 'namespace' \
+		) \
+		AND symbol.scope_definition_id IN \
+		( \
+			SELECT scope_id \
+			FROM symbol \
+			JOIN file ON symbol.file_defined_id = file.file_id \
+			WHERE file.file_path = ## /* name:'filepath' type:gchararray */ \
+			GROUP BY symbol.scope_id \
+		) \
+	) \
+	ORDER BY symbol.name \
+	LIMIT ## /* name:'limit' type:gint */ \
+	OFFSET ## /* name:'offset' type:gint */ \
+	"
+
 struct _SymbolDBModelFilePriv
 {
 	gchar *file_path;
+	guint refresh_queue_id;
+	GdaStatement *stmt;
+	GdaSet *params;
+	GdaHolder *param_file_path, *param_parent_id, *param_limit, *param_offset;
 };
 
-#define GET_PRIV(o)  (G_TYPE_INSTANCE_GET_PRIVATE ((o), \
-						SYMBOL_DB_TYPE_MODEL_FILE, \
-						SymbolDBModelFilePriv))
 enum
 {
 	PROP_0,
 	PROP_SYMBOL_DB_FILE_PATH
 };
 
-G_DEFINE_TYPE (SymbolDBModelFile, symbol_db_model_file,
+G_DEFINE_TYPE (SymbolDBModelFile, sdb_model_file,
                SYMBOL_DB_TYPE_MODEL_PROJECT);
 
-static gint
-symbol_db_model_file_get_n_children (SymbolDBModel *model, gint tree_level,
-                                       GValue column_values[])
+static void
+sdb_model_file_update_sql_stmt (SymbolDBModel *model)
 {
-	gint n_children;
 	SymbolDBEngine *dbe;
 	SymbolDBModelFilePriv *priv;
-	SymbolDBEngineIterator *iter = NULL;
-	
-	g_return_val_if_fail (SYMBOL_DB_IS_MODEL_FILE (model), 0);
-	priv = GET_PRIV (model);
 
+	g_return_if_fail (SYMBOL_DB_IS_MODEL_FILE (model));
+	priv = SYMBOL_DB_MODEL_FILE (model)->priv;
+	
 	g_object_get (model, "symbol-db-engine", &dbe, NULL);
-	
-	/* If engine is not connected, there is nothing we can show */
-	if (!dbe || !symbol_db_engine_is_connected (dbe))
-		return 0;
-	
-	switch (tree_level)
-	{
-	case 0:
-		if (priv->file_path)
-		{
-			iter = symbol_db_engine_get_file_symbols
-				(dbe, priv->file_path, -1, -1, SYMINFO_SIMPLE);
-			if (iter)
-			{
-				n_children = symbol_db_engine_iterator_get_n_items (iter);
-				g_object_unref (iter);
-				return n_children;
-			}
-		}
-		return 0;
-	default:
-		return SYMBOL_DB_MODEL_CLASS (symbol_db_model_file_parent_class)->
-				get_n_children (model, tree_level, column_values);
-	}
+	priv->stmt = symbol_db_engine_get_statement (dbe, SDB_MODEL_FILE_SQL);
+	gda_statement_get_parameters (priv->stmt, &priv->params, NULL);
+	priv->param_file_path = gda_set_get_holder (priv->params, "filepath");
+	priv->param_parent_id = gda_set_get_holder (priv->params, "parent");
+	priv->param_limit = gda_set_get_holder (priv->params, "limit");
+	priv->param_offset = gda_set_get_holder (priv->params, "offset");
 }
 
 static GdaDataModel*
-symbol_db_model_file_get_children (SymbolDBModel *model, gint tree_level,
-                                     GValue column_values[], gint offset,
-                                     gint limit)
+sdb_model_file_get_children (SymbolDBModel *model, gint tree_level,
+                             GValue column_values[], gint offset,
+                             gint limit)
 {
 	SymbolDBEngine *dbe;
 	SymbolDBModelFilePriv *priv;
-	SymbolDBEngineIterator *iter = NULL;
+	gint parent_id = 0;
+	gchar *relative_path = NULL;
+	GValue ival = {0};
+	GValue sval = {0};
 
 	g_return_val_if_fail (SYMBOL_DB_IS_MODEL_FILE (model), 0);
-	priv = GET_PRIV (model);
+	priv = SYMBOL_DB_MODEL_FILE (model)->priv;
 
 	g_object_get (model, "symbol-db-engine", &dbe, NULL);
 	
 	/* If engine is not connected, there is nothing we can show */
-	if (!dbe || !symbol_db_engine_is_connected (dbe))
+	if (!dbe || !symbol_db_engine_is_connected (dbe) || !priv->file_path)
 		return NULL;
-	
+
+	/* Determin node parent */
 	switch (tree_level)
 	{
 	case 0:
-		if (priv->file_path)
-		{
-			iter = symbol_db_engine_get_file_symbols
-				(dbe, priv->file_path, limit, offset,
-				 SYMINFO_SIMPLE | SYMINFO_ACCESS | SYMINFO_TYPE |
-				 SYMINFO_KIND | SYMINFO_FILE_PATH);
-			if (iter)
-			{
-				GdaDataModel *data_model;
-				data_model =
-					GDA_DATA_MODEL (symbol_db_engine_iterator_get_datamodel (iter));
-				g_object_ref (data_model);
-				g_object_unref (iter);
-				return data_model;
-			}
-		}
-		return NULL;
+		parent_id = 0;
+		break;
 	default:
-		return SYMBOL_DB_MODEL_CLASS (symbol_db_model_file_parent_class)->
-				get_children (model, tree_level, column_values, offset, limit);
+		parent_id = g_value_get_int
+				(&column_values[SYMBOL_DB_MODEL_PROJECT_COL_SCOPE_DEFINITION_ID]);
 	}
+
+	if (!priv->stmt)
+		sdb_model_file_update_sql_stmt (model);
+	
+	relative_path = symbol_db_util_get_file_db_path (dbe, priv->file_path);
+	
+	/* Initialize parameters */
+	g_value_init (&ival, G_TYPE_INT);
+	g_value_init (&sval, G_TYPE_STRING);
+	g_value_set_int (&ival, parent_id);
+	gda_holder_set_value (priv->param_parent_id, &ival, NULL);
+	g_value_set_int (&ival, limit);
+	gda_holder_set_value (priv->param_limit, &ival, NULL);
+	g_value_set_int (&ival, offset);
+	gda_holder_set_value (priv->param_offset, &ival, NULL);
+	g_value_take_string (&sval, relative_path);
+	gda_holder_set_value (priv->param_file_path, &sval, NULL);
+	g_value_reset (&sval);
+
+	return symbol_db_engine_execute_select (dbe, priv->stmt, priv->params);
+}
+
+static gint
+sdb_model_file_get_n_children (SymbolDBModel *model, gint tree_level,
+                               GValue column_values[])
+{
+	gint n_children = 0;
+	GdaDataModel *data_model;
+
+	data_model = sdb_model_file_get_children (model, tree_level,
+	                                          column_values, 0,
+	                                          INT_MAX);
+	if (GDA_IS_DATA_MODEL (data_model))
+	{
+		n_children = gda_data_model_get_n_rows (data_model);
+		g_object_unref (data_model);
+	}
+	return n_children;
+}
+
+static gboolean
+sdb_model_file_refresh_idle (gpointer object)
+{
+	SymbolDBModelFilePriv *priv;
+	priv = SYMBOL_DB_MODEL_FILE (object)->priv;
+	symbol_db_model_update (SYMBOL_DB_MODEL (object));
+	priv->refresh_queue_id = 0;
+	return FALSE;
 }
 
 static void
-symbol_db_model_file_set_property (GObject *object, guint prop_id,
-                                     const GValue *value, GParamSpec *pspec)
+sdb_model_file_set_property (GObject *object, guint prop_id,
+                             const GValue *value, GParamSpec *pspec)
 {
 	gchar *old_file_path;
 	SymbolDBModelFilePriv *priv;
 
 	g_return_if_fail (SYMBOL_DB_IS_MODEL_FILE (object));
-	priv = GET_PRIV (object);
+	priv = SYMBOL_DB_MODEL_FILE (object)->priv;
 	
 	switch (prop_id)
 	{
@@ -137,7 +225,11 @@ symbol_db_model_file_set_property (GObject *object, guint prop_id,
 		old_file_path = priv->file_path;
 		priv->file_path = g_value_dup_string (value);
 		if (g_strcmp0 (old_file_path, priv->file_path) != 0)
-		    symbol_db_model_update (SYMBOL_DB_MODEL (object));
+		{
+			if (!priv->refresh_queue_id)
+				priv->refresh_queue_id =
+					g_idle_add (sdb_model_file_refresh_idle, object);
+		}
 		g_free (old_file_path);
 		break;
 	default:
@@ -147,13 +239,13 @@ symbol_db_model_file_set_property (GObject *object, guint prop_id,
 }
 
 static void
-symbol_db_model_file_get_property (GObject *object, guint prop_id,
-                                     GValue *value, GParamSpec *pspec)
+sdb_model_file_get_property (GObject *object, guint prop_id,
+                             GValue *value, GParamSpec *pspec)
 {
 	SymbolDBModelFilePriv *priv;
 
 	g_return_if_fail (SYMBOL_DB_IS_MODEL_FILE (object));
-	priv = GET_PRIV (object);
+	priv = SYMBOL_DB_MODEL_FILE (object)->priv;
 	
 	switch (prop_id)
 	{
@@ -167,40 +259,50 @@ symbol_db_model_file_get_property (GObject *object, guint prop_id,
 }
 
 static void
-symbol_db_model_file_finalize (GObject *object)
+sdb_model_file_finalize (GObject *object)
 {
 	SymbolDBModelFilePriv *priv;
 
 	g_return_if_fail (SYMBOL_DB_IS_MODEL_FILE (object));
-	priv = GET_PRIV (object);
+	priv = SYMBOL_DB_MODEL_FILE (object)->priv;
 	g_free (priv->file_path);
-	G_OBJECT_CLASS (symbol_db_model_file_parent_class)->finalize (object);
+	if (priv->stmt)
+	{
+		g_object_unref (priv->stmt);
+		g_object_unref (priv->params);
+	}
+	if (priv->refresh_queue_id)
+		g_source_remove (priv->refresh_queue_id);
+	g_free (priv);
+	
+	G_OBJECT_CLASS (sdb_model_file_parent_class)->finalize (object);
 }
 
 static void
-symbol_db_model_file_init (SymbolDBModelFile *object)
+sdb_model_file_init (SymbolDBModelFile *object)
 {
 	SymbolDBModelFilePriv *priv;
 
 	g_return_if_fail (SYMBOL_DB_IS_MODEL_FILE (object));
-	priv = GET_PRIV (object);
+
+	priv = g_new0 (SymbolDBModelFilePriv, 1);
+	object->priv = priv;
+	
 	priv->file_path = NULL;
 }
 
 static void
-symbol_db_model_file_class_init (SymbolDBModelFileClass *klass)
+sdb_model_file_class_init (SymbolDBModelFileClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
 	SymbolDBModelClass* model_class = SYMBOL_DB_MODEL_CLASS (klass);
+	
+	object_class->finalize = sdb_model_file_finalize;
+	object_class->set_property = sdb_model_file_set_property;
+	object_class->get_property = sdb_model_file_get_property;
 
-	g_type_class_add_private (klass, sizeof (SymbolDBModelFilePriv));
-
-	object_class->finalize = symbol_db_model_file_finalize;
-	object_class->set_property = symbol_db_model_file_set_property;
-	object_class->get_property = symbol_db_model_file_get_property;
-
-	model_class->get_n_children = symbol_db_model_file_get_n_children;
-	model_class->get_children =  symbol_db_model_file_get_children;
+	model_class->get_n_children = sdb_model_file_get_n_children;
+	model_class->get_children =  sdb_model_file_get_children;
 	
 	g_object_class_install_property
 		(object_class, PROP_SYMBOL_DB_FILE_PATH,

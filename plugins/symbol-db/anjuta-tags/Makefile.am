@@ -8,25 +8,26 @@ AM_CPPFLAGS = \
 	-DPACKAGE_DATA_DIR=\""$(datadir)"\" 
 
 AM_CFLAGS =\
-	 -Wall \
+	 -I$(top_srcdir)/plugins/symbol-db/anjuta-tags/js-parser \
+	 $(WARN_CFLAGS) \
 	 $(GLIB_CFLAGS) \
 	 $(VALA_CFLAGS) \
 	 $(LIBXML_CFLAGS)
 
 bin_PROGRAMS = anjuta-tags
 
-YACCFLAGS = -d -o ./js_parser/y.tab.c
-YACCFILE = ./js_parser/Grammar.y
+YACCFLAGS = -d -o ./js-parser/js-parser-y-tab.c
+YACCFILE = ./js-parser/Grammar.y
 PARSER = bison
 
-js_parser/y.tab.c : ${YACCFILE}
+js-parser/js-parser-y-tab.c : ${YACCFILE}
 	${PARSER} ${YACCFLAGS} ${YACCFILE}
 
 LEXER = flex
-LEXFILE = ./js_parser/lex.l
-LEXCCFLAGS = -Cr -o js_parser/lex.yy.c --yylineno --bison-bridge
+LEXFILE = ./js-parser/lex.l
+LEXCCFLAGS = -Cr -o js-parser/lex.yy.c --yylineno --bison-bridge
 
-js_parser/lex.yy.c : ${LEXFILE}
+js-parser/lex.yy.c : ${LEXFILE}
 	${LEXER} ${LEXCCFLAGS} ${LEXFILE}
 
 ctags-visitor.c: ctags-visitor.vala
@@ -112,17 +113,19 @@ anjuta_tags_SOURCES = \
 	vstring.c        \
 	vstring.h        \
 	yacc.c	\
-	js_parser/y.tab.c	\
-	js_parser/y.tab.h	\
-	js_parser/lex.yy.c   \
-	js_parser/lex.yy.h	\
-	js_parser/jsparse.c   \
-	js_parser/jsparse.h	\
-	js_parser/js-context.c   \
-	js_parser/js-context.h	\
-	js_parser/js-node.c	\
-	js_parser/js-node.h	\
-	js_parser/jstypes.h
+	js-parser/js-parser-y-tab.c \
+	js-parser/js-parser-y-tab.h	\
+	js-parser/lex.yy.c   \
+	js-parser/lex.yy.h	\
+	js-parser/jsparse.c   \
+	js-parser/jsparse.h	\
+	js-parser/js-context.c   \
+	js-parser/js-context.h	\
+	js-parser/js-node.c	\
+	js-parser/js-node.h	\
+	js-parser/jstypes.h     \
+	ctags-utils.c     \
+	ctags-utils.h
 
 anjuta_tags_LDFLAGS = \
 		$(GLIB_LDFLAGS) \

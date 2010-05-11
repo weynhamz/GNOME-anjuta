@@ -30,7 +30,7 @@
 #include "plugin.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-file-wizard.ui"
-#define ICON_FILE "anjuta-file-wizard-plugin.png"
+#define ICON_FILE "anjuta-file-wizard-plugin-48.png"
 
 static gpointer parent_class;
 

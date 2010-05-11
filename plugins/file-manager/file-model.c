@@ -340,7 +340,7 @@ file_model_update_file (FileModel* model,
 		if ((icon_info = gtk_icon_theme_choose_icon (gtk_icon_theme_get_default(),
 													 (const gchar **)icon_names,
 													 ICON_SIZE,
-													 GTK_ICON_LOOKUP_GENERIC_FALLBACK)))
+													 GTK_ICON_LOOKUP_FORCE_SIZE)))
 		{
 			pixbuf = gtk_icon_info_load_icon (icon_info, NULL);
 			gtk_icon_info_free(icon_info);

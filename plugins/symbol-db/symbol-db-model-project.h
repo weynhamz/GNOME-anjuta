@@ -25,7 +25,7 @@
 
 G_BEGIN_DECLS
 
-#define SYMBOL_DB_TYPE_MODEL_PROJECT             (symbol_db_model_project_get_type ())
+#define SYMBOL_DB_TYPE_MODEL_PROJECT             (sdb_model_project_get_type ())
 #define SYMBOL_DB_MODEL_PROJECT(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), SYMBOL_DB_TYPE_MODEL_PROJECT, SymbolDBModelProject))
 #define SYMBOL_DB_MODEL_PROJECT_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ((klass), SYMBOL_DB_TYPE_MODEL_PROJECT, SymbolDBModelProjectClass))
 #define SYMBOL_DB_IS_MODEL_PROJECT(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SYMBOL_DB_TYPE_MODEL_PROJECT))
@@ -34,6 +34,7 @@ G_BEGIN_DECLS
 
 typedef struct _SymbolDBModelProjectClass SymbolDBModelProjectClass;
 typedef struct _SymbolDBModelProject SymbolDBModelProject;
+typedef struct _SymbolDBModelProjectPriv SymbolDBModelProjectPriv;
 
 enum {
 	SYMBOL_DB_MODEL_PROJECT_COL_SYMBOL_ID,
@@ -42,6 +43,8 @@ enum {
 	SYMBOL_DB_MODEL_PROJECT_COL_FILE,
 	SYMBOL_DB_MODEL_PROJECT_COL_LINE,
 	SYMBOL_DB_MODEL_PROJECT_COL_ARGS,
+	SYMBOL_DB_MODEL_PROJECT_COL_SCOPE_DEFINITION_ID,
+	SYMBOL_DB_MODEL_PROJECT_COL_HAS_CHILD,
 	SYMBOL_DB_MODEL_PROJECT_COL_N_COLS
 };
 
@@ -53,9 +56,11 @@ struct _SymbolDBModelProjectClass
 struct _SymbolDBModelProject
 {
 	SymbolDBModel parent_instance;
+
+	SymbolDBModelProjectPriv *priv;
 };
 
-GType symbol_db_model_project_get_type (void) G_GNUC_CONST;
+GType sdb_model_project_get_type (void) G_GNUC_CONST;
 GtkTreeModel* symbol_db_model_project_new (SymbolDBEngine* dbe);
 
 G_END_DECLS

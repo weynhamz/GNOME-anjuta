@@ -25,10 +25,11 @@
 #include "routines.h"
 #include "vstring.h"
 #include <assert.h>
-#include "js_parser/jstypes.h"
+#include "js-parser/jstypes.h"
 #include <glib.h>
-#include "js_parser/jsparse.h"
-#include "js_parser/js-context.h"
+#include "js-parser/jsparse.h"
+#include "js-parser/js-context.h"
+#include "ctags-utils.h"
 
 #include <string.h>
 
@@ -41,20 +42,6 @@ getTagPos (JSNode *node)
 }
 
 #define PROTOTYPE ".prototype"
-
-static void
-get_file_pos (gint line, fpos_t *fpos, FILE *f)
-{
-	vString * str = vStringNew ();
-	gint i;
-	g_assert (fseek (f, 0, SEEK_SET) == 0);
-
-	for (i = 0;i < line - 1; i++)
-		if (readLine (str, f) == NULL)
-			return;
-
-	g_assert (fgetpos (f, fpos) == 0);
-}
 
 static GList *symbols = NULL;
 static GList *tags = NULL;

@@ -3,8 +3,8 @@ dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.59)
 
 m4_define(anjuta_major_version,  2)
-m4_define(anjuta_minor_version, 30)
-m4_define(anjuta_micro_version,  0)
+m4_define(anjuta_minor_version, 31)
+m4_define(anjuta_micro_version,  1)
 m4_define(anjuta_nano_version, 0)
 m4_define(anjuta_version, anjuta_major_version.anjuta_minor_version.anjuta_micro_version.anjuta_nano_version)
 
@@ -27,6 +27,7 @@ AC_SUBST(ANJUTA_VERSION)
 GLIB_REQUIRED=2.18.0
 GDK_PIXBUF_REQUIRED=2.0.0
 GTK_REQUIRED=2.17.10
+PANGO_REQUIRED=0.23
 ORBIT_REQUIRED=2.6.0
 GCONF_REQUIRED=2.12.0
 VTE_REQUIRED=0.9.0
@@ -45,10 +46,12 @@ LIBWNCK_REQUIRED=2.12
 GDA_REQUIRED=4.0.0
 UNIQUE_REQUIRED=1.0.0
 VALA_REQUIRED=0.7.8
+LIBGRAPHVIZ_REQUIRED=1.0
 
 AC_SUBST(GLIB_REQUIRED)
 AC_SUBST(GDK_PIXBUF_REQUIRED)
 AC_SUBST(GTK_REQUIRED)
+AC_SUBST(PANGO_REQUIRED)
 AC_SUBST(ORBIT_REQUIRED)
 AC_SUBST(VTE_REQUIRED)
 AC_SUBST(LIBXML_REQUIRED)
@@ -63,6 +66,7 @@ AC_SUBST(GTKSOURCEVIEW_REQUIRED)
 AC_SUBST(LIBWNCK_REQUIRED)
 AC_SUBST(GDA_REQUIRED)
 AC_SUBST(UNIQUE_REQUIRED)
+AC_SUBST(LIBGRAPHVIZ_REQUIRED)
 
 AM_INIT_AUTOMAKE([1.9 dist-bzip2 no-dist-gzip])
 AC_CONFIG_HEADERS(config.h)
@@ -147,6 +151,8 @@ PKG_CHECK_MODULES(GLIB, glib-2.0 >= $GLIB_REQUIRED gobject-2.0 >= $GLIB_REQUIRED
 PKG_CHECK_MODULES([DBUS_GLIB], [dbus-glib-1])
 
 PKG_CHECK_MODULES(GTK, gtk+-2.0 >= $GTK_REQUIRED)
+
+PKG_CHECK_MODULES(PANGO, pango >= $PANGO_REQUIRED)
 
 PKG_CHECK_MODULES(GDK_PIXBUF, gdk-pixbuf-2.0 >= $GDK_PIXBUF_REQUIRED)
 
@@ -295,6 +301,21 @@ LIBANJUTA_CFLAGS='$(GLIB_CFLAGS) $(GTK_CFLAGS) $(GCONF_CFLAGS) $(GDL_CFLAGS) $(D
 LIBANJUTA_LIBS='$(top_builddir)/libanjuta/libanjuta.la'
 AC_SUBST(LIBANJUTA_CFLAGS)
 AC_SUBST(LIBANJUTA_LIBS)
+
+dnl Setup FooCanvas Library flags
+dnl --------------------------
+LIBFOOCANVAS_CFLAGS='-I$(top_srcdir)'
+LIBFOOCANVAS_LIBS='$(top_builddir)/libfoocanvas/libanjuta-foocanvas.la'
+AC_SUBST(LIBFOOCANVAS_CFLAGS)
+AC_SUBST(LIBFOOCANVAS_LIBS)
+
+dnl Checks for Xft/XRender for foocanvas
+dnl
+AC_CHECK_LIB(Xrender, XRenderFindFormat, 
+	[AC_SUBST(RENDER_LIBS, "-lXrender -lXext")
+	 AC_DEFINE(HAVE_RENDER, 1, [Define if libXrender is available.])],
+	[AC_SUBST(RENDER_LIBS, "")],
+	[-lXext])
 
 dnl Setup Plugin directories
 dnl ------------------------
@@ -717,11 +738,11 @@ dnl ------------------------------------------
 if test -n "$SVN_INCLUDE" ; then
 	SVN_INCLUDE="-I$SVN_INCLUDE"
 	if test x != "x$SVN_LIB" ; then
-	    SVN_LIB="-L$SVN_LIB $APR_LIBS $NEON_LIBS -lsvn_client-1 -lsvn_subr-1"
+	    SVN_LIB="-L$SVN_LIB $APR_LIBS $APR_UTILS_LIBS $NEON_LIBS -lsvn_client-1 -lsvn_subr-1"
 	else
-	    SVN_LIB="$APR_LIBS $NEON_LIBS -lsvn_client-1 -lsvn_subr-1"
+	    SVN_LIB="$APR_LIBS $APR_UTILS_LIBS $NEON_LIBS -lsvn_client-1 -lsvn_subr-1"
 	fi
-	SVN_CFLAGS="$APR_CFLAGS $NEON_CFLAGS"
+	SVN_CFLAGS="$APR_CFLAGS $APR_UTILS_CFLAGS $NEON_CFLAGS"
 fi
 
 AM_CONDITIONAL(BUILD_SVN, [test -n "$SVN_INCLUDE"])
@@ -750,6 +771,57 @@ fi
 
 AC_SUBST(SYMBOL_DB_SHM)
 
+
+dnl Check for graphviz (class inheritance and profiler plugins)
+dnl --------------------------------------------------------------------------
+dnl FIXME: For some strange reason graphviz-devel rpm install the *.pc files
+dnl in /usr/lib/graphviz/pkgconfig, instead of usual /usr/lib/pkgconfig. This
+dnl makes pkgconfig check fail if we don't add the above path in
+dnl PKG_CONFIG_PATH. We have added both /usr/lib/graphviz/pkgconfig and
+dnl /usr/local/lib/pkgconfig paths. If graphviz is installed in other prefix
+dnl (other than /usr or /usr/local or the current installation prefix),
+dnl following pkgconfig check will fail.
+dnl --------------------------------------------------------------------------
+AC_ARG_ENABLE(graphviz,
+	AC_HELP_STRING([--disable-graphviz],[Disable GraphViz support in Anjuta]), 
+	[ if test "$enableval" = "no"; then
+		user_disabled_graphviz=1
+	  fi ],
+	[ user_disabled_graphviz=0 ])
+
+AC_MSG_CHECKING(if GraphViz support is disabled)
+if test "$user_disabled_graphviz" = 1; then
+	AC_MSG_RESULT(yes)
+	libgraphviz_found="no"
+else
+	AC_MSG_RESULT(no)
+	
+	dnl Set pkgconfig path
+	ANJUTA_PKG_CONFIG_PATH_SAVE="${PKG_CONFIG_PATH}"
+	PKG_CONFIG_PATH="/usr/lib/graphviz/pkgconfig:$PKG_CONFIG_PATH"
+	PKG_CONFIG_PATH="/usr/local/lib/graphviz/pkgconfig:$PKG_CONFIG_PATH"
+	PKG_CONFIG_PATH="/usr/lib64/graphviz/pkgconfig:$PKG_CONFIG_PATH"
+	PKG_CONFIG_PATH="/usr/local/lib64/graphviz/pkgconfig:$PKG_CONFIG_PATH"
+	
+	anjuta_save_prefix="$prefix"
+	test "x$prefix" = xNONE && prefix=$ac_default_prefix
+	graphviz_pkgconfig=`eval echo ${libdir}/graphviz/pkgconfig`
+	PKG_CONFIG_PATH="$graphviz_pkgconfig:$PKG_CONFIG_PATH"
+	prefix="$anjuta_save_prefix"
+
+	export PKG_CONFIG_PATH
+	PKG_CHECK_MODULES(GRAPHVIZ,
+		[libgvc >= $LIBGRAPHVIZ_REQUIRED libgraph >= $LIBGRAPHVIZ_REQUIRED], 
+		[libgraphviz_found="yes"],
+		[libgraphviz_found="no"])
+	
+	dnl Restore pkgconfig path
+	PKG_CONFIG_PATH="${ANJUTA_PKG_CONFIG_PATH_SAVE}"
+	export PKG_CONFIG_PATH
+fi
+
+AM_CONDITIONAL(HAVE_GRAPHVIZ, [test x$libgraphviz_found = xyes])
+
 dnl --------- help outputs -----------
 dnl manuals/C/Makefile
 dnl manuals/C/anjuta-tutorial/Makefile
@@ -765,12 +837,19 @@ dnl manuals/ja/anjuta-manual/Makefile
 AC_OUTPUT([
 Makefile
 po/Makefile.in
+libfoocanvas/Makefile
 libanjuta/Makefile
 libanjuta/libanjuta-1.0.pc
 libanjuta/anjuta-version.h
 libanjuta/interfaces/Makefile
 src/Makefile
 pixmaps/Makefile
+pixmaps/16x16/Makefile
+pixmaps/22x22/Makefile
+pixmaps/24x24/Makefile
+pixmaps/32x32/Makefile
+pixmaps/48x48/Makefile
+pixmaps/scalable/Makefile
 data/Makefile
 data/welcome.txt
 doc/anjuta.1
@@ -782,6 +861,7 @@ plugins/Makefile
 plugins/gtodo/Makefile
 plugins/class-gen/Makefile
 plugins/class-gen/templates/Makefile
+plugins/class-inheritance/Makefile
 plugins/patch/Makefile
 plugins/document-manager/Makefile
 plugins/document-manager/images/Makefile
@@ -926,6 +1006,12 @@ if [ test x$enable_vala = xyes ]; then
         echo "Building Vala ctags parser (requires vala):.............YES"
 else
         echo "Building Vala ctags parser (requires vala):.............NO"
+fi
+if [ test x$libgraphviz_found = xyes ]; then
+        echo "Building class inheritance plugin: .....................YES"
+else
+        echo "Building class inheritance plugin: .....................NO"
+        echo "        Requires graphviz (>= 2.6.0); http://graphviz.org"
 fi
 echo "-------------------------------------------------------------------"
 echo "AM_CFLAGS = $AM_CFLAGS"

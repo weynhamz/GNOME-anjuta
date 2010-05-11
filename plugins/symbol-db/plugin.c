@@ -27,8 +27,10 @@
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-utils.h>
+#include <libanjuta/anjuta-tabber.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-symbol-manager.h>
+#include <libanjuta/interfaces/ianjuta-symbol.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-file-manager.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
@@ -1342,6 +1344,7 @@ do_update_project_symbols (SymbolDBPlugin *sdb_plugin, const gchar *root_dir)
 	return FALSE;
 }
 
+#if 0
 /**
  * Check the number of languages used by a project and then enable/disable the 
  * global tab in case there's only C files.
@@ -1378,6 +1381,7 @@ do_check_languages_count (SymbolDBPlugin *sdb_plugin)
 		gtk_widget_set_sensitive (sdb_plugin->global_button, TRUE);
 	}
 }
+#endif
 
 /**
  * @return TRUE is a scan process is started, FALSE elsewhere.
@@ -1778,7 +1782,7 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 			if (flag_offline == FALSE && flag_update == FALSE)
 			{
 				/* check for the number of languages used in the opened project. */
-				do_check_languages_count (sdb_plugin);				
+				//do_check_languages_count (sdb_plugin);				
 			}				
 		}
 		gtk_progress_bar_set_text (GTK_PROGRESS_BAR (sdb_plugin->progress_bar_project),
@@ -1885,7 +1889,7 @@ on_scan_end_manager (SymbolDBEngine *dbe, gint process_id,
 			gboolean parallel_scan = anjuta_preferences_get_bool (sdb_plugin->prefs, 
 														 PARALLEL_SCAN); 
 			
-			do_check_languages_count (sdb_plugin);
+			//do_check_languages_count (sdb_plugin);
 			
 			/* check the system population has a parallel fashion or not. */			 
 			if (parallel_scan == FALSE)
@@ -1901,7 +1905,7 @@ on_scan_end_manager (SymbolDBEngine *dbe, gint process_id,
 		case TASK_ELEMENT_ADDED:
 			DEBUG_PRINT ("received TASK_ELEMENT_ADDED");
 			sdb_plugin->is_adding_element = FALSE;
-			do_check_languages_count (sdb_plugin);
+			//do_check_languages_count (sdb_plugin);
 			break;
 			
 		case TASK_OFFLINE_CHANGES:		
@@ -1913,7 +1917,7 @@ on_scan_end_manager (SymbolDBEngine *dbe, gint process_id,
 										  
 			sdb_plugin->is_offline_scanning = FALSE;
 			
-			do_check_languages_count (sdb_plugin);
+			//do_check_languages_count (sdb_plugin);
 			break;
 			
 		case TASK_PROJECT_UPDATE:		
@@ -1961,14 +1965,6 @@ on_scan_end_manager (SymbolDBEngine *dbe, gint process_id,
 		sdb_plugin->files_count_project = 0;
 		clear_project_progress_bar (dbe, sdb_plugin);		
 	}	
-}
-
-static void
-on_notebook_button_toggled (GtkToggleButton *button,
-                            SymbolDBPlugin *sdb_plugin)
-{
-	int page = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (button), "__page"));
-	gtk_notebook_set_current_page (GTK_NOTEBOOK(sdb_plugin->dbv_notebook), page);
 }
 
 static gboolean
@@ -2116,52 +2112,34 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	gtk_notebook_set_show_tabs (GTK_NOTEBOOK (sdb_plugin->dbv_notebook), FALSE);
 	sdb_plugin->dbv_hbox = gtk_hbox_new (FALSE, 1);
 
-	sdb_plugin->local_button = gtk_radio_button_new_with_label_from_widget (NULL, 
-	                                                                        _("Local"));
-	sdb_plugin->global_button = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (sdb_plugin->local_button),
-	                                                                         _("Global"));
-	sdb_plugin->search_button = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (sdb_plugin->global_button),
-	                                                                         _("Search"));
-
-	/* Make the radio buttons look and act like toggle buttons */
-	gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (sdb_plugin->local_button), 
-	                            FALSE);
-	gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (sdb_plugin->global_button),
-	                            FALSE);
-	gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (sdb_plugin->search_button),
-	                            FALSE);
-
-	g_object_set_data (G_OBJECT(sdb_plugin->local_button), "__page", GINT_TO_POINTER(0));
-	g_object_set_data (G_OBJECT(sdb_plugin->global_button), "__page", GINT_TO_POINTER(1));
-	g_object_set_data (G_OBJECT(sdb_plugin->search_button), "__page", GINT_TO_POINTER(2));
-
-	g_signal_connect (sdb_plugin->local_button, "toggled",
-	                  G_CALLBACK(on_notebook_button_toggled),
-	                  sdb_plugin);
-	g_signal_connect (sdb_plugin->global_button, "toggled",
-	                  G_CALLBACK(on_notebook_button_toggled),
-	                  sdb_plugin);
-	g_signal_connect (sdb_plugin->search_button, "toggled",
-	                  G_CALLBACK(on_notebook_button_toggled),
-	                  sdb_plugin);
-
 	label = gtk_label_new (_("Symbols"));
 	gtk_misc_set_alignment (GTK_MISC (label), 0.0f, 0.5f);
-	gtk_label_set_ellipsize (GTK_LABEL (label),
-	                         PANGO_ELLIPSIZE_END);
 	gtk_box_pack_start (GTK_BOX(sdb_plugin->dbv_hbox), 
 	                    gtk_image_new_from_stock ("symbol-db-plugin-icon",
 	                                              GTK_ICON_SIZE_MENU),
 	                    FALSE, FALSE, 0);	
 	gtk_box_pack_start (GTK_BOX(sdb_plugin->dbv_hbox), label,
-	                    TRUE, TRUE, 0);	
-	gtk_box_pack_start (GTK_BOX(sdb_plugin->dbv_hbox), sdb_plugin->local_button,
-	                    FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX(sdb_plugin->dbv_hbox), sdb_plugin->global_button,
-	                    FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX(sdb_plugin->dbv_hbox), sdb_plugin->search_button,
-	                    FALSE, FALSE, 0);
+	                    FALSE, FALSE, 0);	
 
+	sdb_plugin->tabber = anjuta_tabber_new (GTK_NOTEBOOK (sdb_plugin->dbv_notebook));
+	label = gtk_label_new (_("Local"));
+	gtk_label_set_ellipsize (GTK_LABEL (label),
+	                         PANGO_ELLIPSIZE_END);
+	anjuta_tabber_add_tab (ANJUTA_TABBER (sdb_plugin->tabber),
+	                       label);
+	label = gtk_label_new (_("Global"));
+	gtk_label_set_ellipsize (GTK_LABEL (label),
+	                         PANGO_ELLIPSIZE_END);
+	anjuta_tabber_add_tab (ANJUTA_TABBER (sdb_plugin->tabber),
+	                       label);
+	label = gtk_label_new (_("Search"));
+	gtk_label_set_ellipsize (GTK_LABEL (label),
+	                         PANGO_ELLIPSIZE_END);
+	anjuta_tabber_add_tab (ANJUTA_TABBER (sdb_plugin->tabber),
+	                       label);
+	gtk_box_pack_end (GTK_BOX(sdb_plugin->dbv_hbox), sdb_plugin->tabber,
+	                    TRUE, TRUE, 5);
+	
 	gtk_widget_show_all (sdb_plugin->dbv_hbox);
 	
 	sdb_plugin->progress_bar_project = gtk_progress_bar_new();	

@@ -13,10 +13,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-master-po-gl-1952\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=anjuta&component=core application\n"
-"POT-Creation-Date: 2010-03-22 22:24+0000\n"
-"PO-Revision-Date: 2010-03-22 23:33+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-17 16:05+0200\n"
+"PO-Revision-Date: 2010-04-17 16:04+0200\n"
 "Last-Translator: Fran Diéguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Galician <gnome@g11n.net>\n"
 "MIME-Version: 1.0\n"
@@ -439,7 +438,7 @@ msgid "If you do not save, all your changes will be lost."
 msgstr "Se non os garda perderanse todos os cambios que fixo."
 
 #: ../libanjuta/anjuta-save-prompt.c:189
-#: ../plugins/document-manager/plugin.c:603
+#: ../plugins/document-manager/plugin.c:606
 msgid "Save"
 msgstr "Gardar"
 
@@ -1414,8 +1413,8 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "Ignorar o ficheiro .cvsrc (recomendado)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
-#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2327
-#: ../plugins/symbol-db/plugin.c:2397
+#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2124
+#: ../plugins/symbol-db/plugin.c:2166
 msgid "Local"
 msgstr "Local"
 
@@ -2457,7 +2456,7 @@ msgstr "Ficheiro"
 
 #: ../plugins/debug-manager/stack_trace.c:642
 #: ../plugins/debug-manager/threads.c:460
-#: ../plugins/document-manager/plugin.c:943
+#: ../plugins/document-manager/plugin.c:946
 msgid "Line"
 msgstr "Liña"
 
@@ -2591,70 +2590,66 @@ msgstr "Operacións de punto de vixilancia"
 msgid "Watches"
 msgstr "Punto de vixilancia"
 
-#: ../plugins/devhelp/plugin.c:201
+#: ../plugins/devhelp/plugin.c:202
 msgid "Search Help:"
 msgstr "Buscar na axuda:"
 
-#: ../plugins/devhelp/plugin.c:222 ../plugins/document-manager/plugin.c:239
+#: ../plugins/devhelp/plugin.c:223 ../plugins/document-manager/plugin.c:242
 #: ../plugins/message-view/plugin.c:76 ../plugins/symbol-db/plugin.c:313
 msgid "_Go to"
 msgstr "_Ir a"
 
-#: ../plugins/devhelp/plugin.c:231
+#: ../plugins/devhelp/plugin.c:232
 msgid "_API Reference"
 msgstr "Referencia da _API"
 
-#: ../plugins/devhelp/plugin.c:233
+#: ../plugins/devhelp/plugin.c:234
 msgid "Browse API Pages"
 msgstr "Navegar nas páxinas da API"
 
-#: ../plugins/devhelp/plugin.c:243
+#: ../plugins/devhelp/plugin.c:244
 msgid "_Context Help"
 msgstr "Axuda _contextual"
 
-#: ../plugins/devhelp/plugin.c:245
+#: ../plugins/devhelp/plugin.c:246
 msgid "Search help for the current word in the editor"
 msgstr "Buscar na axuda a palabra seleccionada no editor"
 
-#: ../plugins/devhelp/plugin.c:251
+#: ../plugins/devhelp/plugin.c:252
 msgid "_Search Help"
 msgstr "_Buscar na axuda"
 
-#: ../plugins/devhelp/plugin.c:253
+#: ../plugins/devhelp/plugin.c:254
 msgid "Search for a term in help"
 msgstr "Buscar un termo na axuda"
 
-#: ../plugins/devhelp/plugin.c:358
+#: ../plugins/devhelp/plugin.c:327
 msgid "Help operations"
 msgstr "Operacións da axuda"
 
-#: ../plugins/devhelp/plugin.c:368
-msgid "Contents"
-msgstr "Contidos"
-
-#: ../plugins/devhelp/plugin.c:369 ../plugins/search/search-replace.c:1041
-#: ../plugins/search/search-replace.c:1717
-#: ../plugins/search/search-replace.c:1724
-#: ../plugins/search/search-replace.c:1736
-#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2331
-#: ../plugins/symbol-db/plugin.c:2447
-msgid "Search"
-msgstr "Buscar"
-
-#: ../plugins/devhelp/plugin.c:375 ../plugins/devhelp/plugin.c:495
+#: ../plugins/devhelp/plugin.c:346 ../plugins/devhelp/plugin.c:464
 #: ../src/anjuta-app.c:502
 msgid "Help"
 msgstr "Axuda"
 
-#: ../plugins/devhelp/plugin.c:405 ../plugins/devhelp/plugin.c:500
+#: ../plugins/devhelp/plugin.c:357
+msgid "Contents"
+msgstr "Contidos"
+
+#: ../plugins/devhelp/plugin.c:363 ../plugins/search/search-replace.c:1041
+#: ../plugins/search/search-replace.c:1717
+#: ../plugins/search/search-replace.c:1724
+#: ../plugins/search/search-replace.c:1736
+#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2134
+#: ../plugins/symbol-db/plugin.c:2183
+msgid "Search"
+msgstr "Buscar"
+
+#: ../plugins/devhelp/plugin.c:381 ../plugins/devhelp/plugin.c:469
 msgid "Help display"
 msgstr "Mostrar a axuda"
 
-#: ../plugins/devhelp/plugin.c:422
-msgid "Online"
-msgstr "En liña"
-
-#: ../plugins/document-manager/action-callbacks.c:277
+#: ../plugins/document-manager/action-callbacks.c:314
 #, c-format
 msgid ""
 "Are you sure you want to reload '%s'?\n"
@@ -2663,7 +2658,7 @@ msgstr ""
 "Está seguro de que quere recargar '%s'?\n"
 "Perderanse todos os cambios que non gardou."
 
-#: ../plugins/document-manager/action-callbacks.c:286
+#: ../plugins/document-manager/action-callbacks.c:323
 msgid "_Reload"
 msgstr "_Recargar"
 
@@ -2677,7 +2672,7 @@ msgstr "Eliminar o marcador"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:331
 #: ../plugins/document-manager/anjuta-bookmarks.c:393
-#: ../plugins/document-manager/plugin.c:418
+#: ../plugins/document-manager/plugin.c:421
 msgid "Bookmarks"
 msgstr "Marcadores"
 
@@ -2690,26 +2685,26 @@ msgstr "_Renomear"
 msgid "Remove"
 msgstr "Eliminar"
 
-#: ../plugins/document-manager/anjuta-docman.c:399
+#: ../plugins/document-manager/anjuta-docman.c:438
 msgid "Close file"
 msgstr "Pechar o ficheiro"
 
-#: ../plugins/document-manager/anjuta-docman.c:447
+#: ../plugins/document-manager/anjuta-docman.c:486
 msgid "Path:"
 msgstr "Camiño:"
 
-#: ../plugins/document-manager/anjuta-docman.c:564
+#: ../plugins/document-manager/anjuta-docman.c:603
 #: ../plugins/file-loader/plugin.c:591 ../plugins/file-loader/plugin.c:894
 #: ../plugins/file-loader/plugin.c:904 ../plugins/file-loader/plugin.c:917
 msgid "Open file"
 msgstr "Abrir o ficheiro"
 
-#: ../plugins/document-manager/anjuta-docman.c:583
+#: ../plugins/document-manager/anjuta-docman.c:622
 #: ../plugins/message-view/message-view.c:94
 msgid "Save file as"
 msgstr "Gardar ficheiro como"
 
-#: ../plugins/document-manager/anjuta-docman.c:664
+#: ../plugins/document-manager/anjuta-docman.c:703
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -2718,11 +2713,11 @@ msgstr ""
 "O ficheiro '%s' xa existe.\n"
 "Quere substituír este ficheiro polo que está gardando?"
 
-#: ../plugins/document-manager/anjuta-docman.c:673
+#: ../plugins/document-manager/anjuta-docman.c:712
 msgid "_Replace"
 msgstr "Substituí_r"
 
-#: ../plugins/document-manager/anjuta-docman.c:1390
+#: ../plugins/document-manager/anjuta-docman.c:1429
 msgid "[read-only]"
 msgstr "[só de lectura]"
 
@@ -2828,129 +2823,137 @@ msgid "Close all files"
 msgstr "Pechar todos os ficheiros"
 
 #: ../plugins/document-manager/plugin.c:164
+msgid "Close Other"
+msgstr "Pechar os outros"
+
+#: ../plugins/document-manager/plugin.c:165
+msgid "Close other documents"
+msgstr "Pechar os outros documentos"
+
+#: ../plugins/document-manager/plugin.c:167
 msgid "Reload F_ile"
 msgstr "Recargar o f_icheiro"
 
-#: ../plugins/document-manager/plugin.c:165
+#: ../plugins/document-manager/plugin.c:168
 msgid "Reload current file"
 msgstr "Recargar o ficheiro actual"
 
-#: ../plugins/document-manager/plugin.c:167
+#: ../plugins/document-manager/plugin.c:170
 msgid "Recent _Files"
 msgstr "_Ficheiros recentes"
 
-#: ../plugins/document-manager/plugin.c:171
+#: ../plugins/document-manager/plugin.c:174
 msgid "_Print…"
 msgstr "Imprimir"
 
-#: ../plugins/document-manager/plugin.c:172
+#: ../plugins/document-manager/plugin.c:175
 msgid "Print the current file"
 msgstr "Imprimir o ficheiro actual"
 
-#: ../plugins/document-manager/plugin.c:179
+#: ../plugins/document-manager/plugin.c:182
 msgid "_Print Preview"
 msgstr "Previsualización de _impresión"
 
-#: ../plugins/document-manager/plugin.c:180
+#: ../plugins/document-manager/plugin.c:183
 msgid "Preview the current file in print format"
 msgstr "Previsualizar o ficheiro actual en formato de impresión"
 
-#: ../plugins/document-manager/plugin.c:185
+#: ../plugins/document-manager/plugin.c:188
 msgid "_Transform"
 msgstr "_Transformar"
 
 #. menu title
-#: ../plugins/document-manager/plugin.c:186
+#: ../plugins/document-manager/plugin.c:189
 msgid "_Make Selection Uppercase"
 msgstr "_Pór a selección en maiúsculas"
 
-#: ../plugins/document-manager/plugin.c:187
+#: ../plugins/document-manager/plugin.c:190
 msgid "Make the selected text uppercase"
 msgstr "Pór o texto seleccionado en maiúsculas"
 
-#: ../plugins/document-manager/plugin.c:189
+#: ../plugins/document-manager/plugin.c:192
 msgid "Make Selection Lowercase"
 msgstr "Pór a selección en minúsculas"
 
-#: ../plugins/document-manager/plugin.c:190
+#: ../plugins/document-manager/plugin.c:193
 msgid "Make the selected text lowercase"
 msgstr "Pór o texto seleccionado en minúsculas"
 
-#: ../plugins/document-manager/plugin.c:192
+#: ../plugins/document-manager/plugin.c:195
 msgid "Convert EOL to CRLF"
 msgstr "Converter EOL en CRLF"
 
-#: ../plugins/document-manager/plugin.c:193
+#: ../plugins/document-manager/plugin.c:196
 msgid "Convert End Of Line characters to DOS EOL (CRLF)"
 msgstr "Converter os caracteres End Of Line en DOS EOL (CRLF)"
 
-#: ../plugins/document-manager/plugin.c:195
+#: ../plugins/document-manager/plugin.c:198
 msgid "Convert EOL to LF"
 msgstr "Converter EOL en LF"
 
-#: ../plugins/document-manager/plugin.c:196
+#: ../plugins/document-manager/plugin.c:199
 msgid "Convert End Of Line characters to Unix EOL (LF)"
 msgstr "Converter os caracteres End Of Line en Unix EOL (LF)"
 
-#: ../plugins/document-manager/plugin.c:198
+#: ../plugins/document-manager/plugin.c:201
 msgid "Convert EOL to CR"
 msgstr "Converter EOL en CR"
 
-#: ../plugins/document-manager/plugin.c:199
+#: ../plugins/document-manager/plugin.c:202
 msgid "Convert End Of Line characters to Mac OS EOL (CR)"
 msgstr "Converter os caracteres End Of Line en Mac OS EOL (CR)"
 
-#: ../plugins/document-manager/plugin.c:201
+#: ../plugins/document-manager/plugin.c:204
 msgid "Convert EOL to Majority EOL"
 msgstr "Converter EOL en EOL maioritario"
 
-#: ../plugins/document-manager/plugin.c:202
+#: ../plugins/document-manager/plugin.c:205
 msgid "Convert End Of Line characters to the most common EOL found in the file"
 msgstr ""
 "Converter os caracteres End Of Line na maioría dos EOL que se encontraron no "
 "ficheiro"
 
-#: ../plugins/document-manager/plugin.c:207
+#: ../plugins/document-manager/plugin.c:210
 msgid "_Select"
 msgstr "_Seleccionar"
 
-#: ../plugins/document-manager/plugin.c:209
+#: ../plugins/document-manager/plugin.c:212
 msgid "Select _All"
 msgstr "Seleccionar _todo"
 
-#: ../plugins/document-manager/plugin.c:210
+#: ../plugins/document-manager/plugin.c:213
 msgid "Select all text in the editor"
 msgstr "Seleccionar todo o texto do editor"
 
-#: ../plugins/document-manager/plugin.c:212
+#: ../plugins/document-manager/plugin.c:215
 msgid "Select _Code Block"
 msgstr "Seleccionar bloque de _código"
 
-#: ../plugins/document-manager/plugin.c:213
+#: ../plugins/document-manager/plugin.c:216
 msgid "Select the current code block"
 msgstr "Seleccionar o bloque de código actual"
 
-#: ../plugins/document-manager/plugin.c:218
+#: ../plugins/document-manager/plugin.c:221
 msgid "Co_mment"
 msgstr "Co_mentario"
 
 #. Block comment: Uses line-comment (comment that affects only single line
 #. such as '//' or '#') and comments a block of lines.
-#: ../plugins/document-manager/plugin.c:221
+#: ../plugins/document-manager/plugin.c:224
 msgid "_Block Comment/Uncomment"
 msgstr "Comentar ou descomentar o _bloque"
 
-#: ../plugins/document-manager/plugin.c:222
+#: ../plugins/document-manager/plugin.c:225
 msgid "Block comment the selected text"
 msgstr "Comentar en bloque o texto seleccionado"
 
 #. Box comment: Uses stream-comment to comment a block of lines, usually with
 #. some decorations, to give an appearance of box.
-#: ../plugins/document-manager/plugin.c:226
+#: ../plugins/document-manager/plugin.c:229
 msgid "Bo_x Comment/Uncomment"
 msgstr "Comentar ou descomentar en cai_xa"
 
-#: ../plugins/document-manager/plugin.c:227
+#: ../plugins/document-manager/plugin.c:230
 msgid "Box comment the selected text"
 msgstr "Comentar en caixa o texto seleccionado"
 
@@ -2958,421 +2961,421 @@ msgstr "Comentar en caixa o texto seleccionado"
 #. characters -- has start and end comment code) and comments any code from
 #. arbitrary start position to arbitrary end position (can be in middle of
 #. lines).
-#: ../plugins/document-manager/plugin.c:233
+#: ../plugins/document-manager/plugin.c:236
 msgid "_Stream Comment/Uncomment"
 msgstr "Comentar ou descomentar en _fluxo"
 
-#: ../plugins/document-manager/plugin.c:234
+#: ../plugins/document-manager/plugin.c:237
 msgid "Stream comment the selected text"
 msgstr "Comentar en fluxo o texto seleccionado"
 
 #. menu title
-#: ../plugins/document-manager/plugin.c:240
+#: ../plugins/document-manager/plugin.c:243
 msgid "_Line Number…"
 msgstr "Número de _liña..."
 
-#: ../plugins/document-manager/plugin.c:241
+#: ../plugins/document-manager/plugin.c:244
 msgid "Go to a particular line in the editor"
 msgstr "Ir a un número de liña específico no editor"
 
-#: ../plugins/document-manager/plugin.c:243
+#: ../plugins/document-manager/plugin.c:246
 msgid "Matching _Brace"
 msgstr "Cha_ve correspondente"
 
-#: ../plugins/document-manager/plugin.c:244
+#: ../plugins/document-manager/plugin.c:247
 msgid "Go to the matching brace in the editor"
 msgstr "Ir á chave correspondente no editor"
 
-#: ../plugins/document-manager/plugin.c:246
+#: ../plugins/document-manager/plugin.c:249
 msgid "_Start of Block"
 msgstr "_Principio do bloque"
 
-#: ../plugins/document-manager/plugin.c:247
+#: ../plugins/document-manager/plugin.c:250
 msgid "Go to the start of the current block"
 msgstr "Ir ao principio do bloque actual"
 
-#: ../plugins/document-manager/plugin.c:249
+#: ../plugins/document-manager/plugin.c:252
 msgid "_End of Block"
 msgstr "_Final do bloque"
 
-#: ../plugins/document-manager/plugin.c:250
+#: ../plugins/document-manager/plugin.c:253
 msgid "Go to the end of the current block"
 msgstr "Ir ao final do bloque actual"
 
-#: ../plugins/document-manager/plugin.c:252
+#: ../plugins/document-manager/plugin.c:255
 msgid "Previous _History"
 msgstr "_Historial anterior"
 
-#: ../plugins/document-manager/plugin.c:253
+#: ../plugins/document-manager/plugin.c:256
 msgid "Go to previous history"
 msgstr "Ir ao historial anterior"
 
-#: ../plugins/document-manager/plugin.c:255
+#: ../plugins/document-manager/plugin.c:258
 msgid "Next Histor_y"
 msgstr "Seguinte h_istorial"
 
-#: ../plugins/document-manager/plugin.c:256
+#: ../plugins/document-manager/plugin.c:259
 msgid "Go to next history"
 msgstr "Ir ao seguinte historial"
 
-#: ../plugins/document-manager/plugin.c:261 ../plugins/search/plugin.c:67
+#: ../plugins/document-manager/plugin.c:264 ../plugins/search/plugin.c:67
 msgid "_Search"
 msgstr "_Buscar"
 
-#: ../plugins/document-manager/plugin.c:262
+#: ../plugins/document-manager/plugin.c:265
 msgid "_Quick Search"
 msgstr "Busca _rápida"
 
-#: ../plugins/document-manager/plugin.c:263
+#: ../plugins/document-manager/plugin.c:266
 msgid "Quick editor embedded search"
 msgstr "Busca rápida incorporada no editor"
 
-#: ../plugins/document-manager/plugin.c:265
+#: ../plugins/document-manager/plugin.c:268
 msgid "Quick _ReSearch"
 msgstr "Re_petir a busca rápida"
 
-#: ../plugins/document-manager/plugin.c:266
+#: ../plugins/document-manager/plugin.c:269
 msgid "Repeat quick search"
 msgstr "Repetir a busca rápida"
 
-#: ../plugins/document-manager/plugin.c:271 ../plugins/gtodo/interface.c:168
+#: ../plugins/document-manager/plugin.c:274 ../plugins/gtodo/interface.c:168
 #: ../src/anjuta-actions.h:30
 #: ../plugins/language-support-cpp-java/plugin.c:1882
 msgid "_Edit"
 msgstr "_Editar"
 
 #. menu title
-#: ../plugins/document-manager/plugin.c:272
+#: ../plugins/document-manager/plugin.c:275
 msgid "_Editor"
 msgstr "_Editor"
 
-#: ../plugins/document-manager/plugin.c:279
+#: ../plugins/document-manager/plugin.c:282
 msgid "_Add Editor View"
 msgstr "En_gadir visualización do editor"
 
-#: ../plugins/document-manager/plugin.c:280
+#: ../plugins/document-manager/plugin.c:283
 msgid "Add one more view of current document"
 msgstr "Engadir unha visualización máis do documento actual"
 
-#: ../plugins/document-manager/plugin.c:282
+#: ../plugins/document-manager/plugin.c:285
 msgid "_Remove Editor View"
 msgstr "_Eliminar a visualización do editor"
 
-#: ../plugins/document-manager/plugin.c:283
+#: ../plugins/document-manager/plugin.c:286
 msgid "Remove current view of the document"
 msgstr "Eliminar a visualización actual do documento"
 
-#: ../plugins/document-manager/plugin.c:285
+#: ../plugins/document-manager/plugin.c:288
 msgid "U_ndo"
 msgstr "_Desfacer"
 
-#: ../plugins/document-manager/plugin.c:286 ../plugins/glade/plugin.c:4076
+#: ../plugins/document-manager/plugin.c:289 ../plugins/glade/plugin.c:4076
 msgid "Undo the last action"
 msgstr "Desfacer a última acción"
 
-#: ../plugins/document-manager/plugin.c:288
+#: ../plugins/document-manager/plugin.c:291
 msgid "_Redo"
 msgstr "_Refacer"
 
-#: ../plugins/document-manager/plugin.c:289
+#: ../plugins/document-manager/plugin.c:292
 msgid "Redo the last undone action"
 msgstr "Refacer a última acción desfeita"
 
-#: ../plugins/document-manager/plugin.c:291
+#: ../plugins/document-manager/plugin.c:294
 msgid "C_ut"
 msgstr "Co_rtar"
 
-#: ../plugins/document-manager/plugin.c:292
+#: ../plugins/document-manager/plugin.c:295
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "Cortar o texto seleccionado no editor e mantelo no portapapeis"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/document-manager/plugin.c:294 ../plugins/terminal/terminal.c:609
+#: ../plugins/document-manager/plugin.c:297 ../plugins/terminal/terminal.c:609
 msgid "_Copy"
 msgstr "_Copiar"
 
-#: ../plugins/document-manager/plugin.c:295
+#: ../plugins/document-manager/plugin.c:298
 msgid "Copy the selected text to the clipboard"
 msgstr "Copiar o texto seleccionado no portapapeis"
 
-#: ../plugins/document-manager/plugin.c:297 ../plugins/terminal/terminal.c:617
+#: ../plugins/document-manager/plugin.c:300 ../plugins/terminal/terminal.c:617
 msgid "_Paste"
 msgstr "_Pegar"
 
-#: ../plugins/document-manager/plugin.c:298
+#: ../plugins/document-manager/plugin.c:301
 msgid "Paste the content of clipboard at the current position"
 msgstr "Pegar o contido do portapapeis na posición do cursor"
 
-#: ../plugins/document-manager/plugin.c:306
+#: ../plugins/document-manager/plugin.c:309
 msgid "_Clear"
 msgstr "_Limpar"
 
-#: ../plugins/document-manager/plugin.c:307
+#: ../plugins/document-manager/plugin.c:310
 msgid "Delete the selected text from the editor"
 msgstr "Quere eliminar o texto seleccionado do editor"
 
-#: ../plugins/document-manager/plugin.c:310
+#: ../plugins/document-manager/plugin.c:313
 msgid "_Auto-Complete"
 msgstr "Completar _automaticamente"
 
-#: ../plugins/document-manager/plugin.c:311
+#: ../plugins/document-manager/plugin.c:314
 msgid "Auto-complete the current word"
 msgstr "Completar automaticamente a palabra actual"
 
-#: ../plugins/document-manager/plugin.c:316
+#: ../plugins/document-manager/plugin.c:319
 msgid "_Line Number Margin"
 msgstr "Marxe do número de _liña"
 
-#: ../plugins/document-manager/plugin.c:317
+#: ../plugins/document-manager/plugin.c:320
 msgid "Show/Hide line numbers"
 msgstr "Mostrar ou ocultar os números de liña"
 
-#: ../plugins/document-manager/plugin.c:319
+#: ../plugins/document-manager/plugin.c:322
 msgid "_Marker Margin"
 msgstr "Marxe do _marcador"
 
-#: ../plugins/document-manager/plugin.c:320
+#: ../plugins/document-manager/plugin.c:323
 msgid "Show/Hide marker margin"
 msgstr "Mostrar ou ocultar a marxe do marcador"
 
-#: ../plugins/document-manager/plugin.c:322
+#: ../plugins/document-manager/plugin.c:325
 msgid "_Code Fold Margin"
 msgstr "Marxe de dobra do _código"
 
-#: ../plugins/document-manager/plugin.c:323
+#: ../plugins/document-manager/plugin.c:326
 msgid "Show/Hide code fold margin"
 msgstr "Mostrar ou ocultar a marxe de dobra do código"
 
-#: ../plugins/document-manager/plugin.c:325
+#: ../plugins/document-manager/plugin.c:328
 msgid "_Indentation Guides"
 msgstr "Guías da s_angría"
 
-#: ../plugins/document-manager/plugin.c:326
+#: ../plugins/document-manager/plugin.c:329
 msgid "Show/Hide indentation guides"
 msgstr "Mostrar ou ocultar as guías da sangría"
 
-#: ../plugins/document-manager/plugin.c:328
+#: ../plugins/document-manager/plugin.c:331
 msgid "_White Space"
 msgstr "Espazo en _branco"
 
-#: ../plugins/document-manager/plugin.c:329
+#: ../plugins/document-manager/plugin.c:332
 msgid "Show/Hide white spaces"
 msgstr "Mostrar ou ocultar os espazos en branco"
 
-#: ../plugins/document-manager/plugin.c:331
+#: ../plugins/document-manager/plugin.c:334
 msgid "_Line End Characters"
 msgstr "Caracteres de fin de _liña"
 
-#: ../plugins/document-manager/plugin.c:332
+#: ../plugins/document-manager/plugin.c:335
 msgid "Show/Hide line end characters"
 msgstr "Mostrar ou ocultar os caracteres de fin de liña"
 
-#: ../plugins/document-manager/plugin.c:334
+#: ../plugins/document-manager/plugin.c:337
 msgid "Line _Wrapping"
 msgstr "_Axuste de liñas"
 
-#: ../plugins/document-manager/plugin.c:335
+#: ../plugins/document-manager/plugin.c:338
 msgid "Enable/disable line wrapping"
 msgstr "Activar ou desactivar o axuste de liñas"
 
-#: ../plugins/document-manager/plugin.c:340
+#: ../plugins/document-manager/plugin.c:343
 msgid "Zoom In"
 msgstr "Ampliar"
 
-#: ../plugins/document-manager/plugin.c:341
+#: ../plugins/document-manager/plugin.c:344
 msgid "Zoom in: Increase font size"
 msgstr "Ampliar: aumentar o tamaño do tipo de letra"
 
-#: ../plugins/document-manager/plugin.c:343
+#: ../plugins/document-manager/plugin.c:346
 msgid "Zoom Out"
 msgstr "Reducir"
 
-#: ../plugins/document-manager/plugin.c:344
+#: ../plugins/document-manager/plugin.c:347
 msgid "Zoom out: Decrease font size"
 msgstr "Reducir: diminuír o tamaño do tipo de letra"
 
-#: ../plugins/document-manager/plugin.c:349
+#: ../plugins/document-manager/plugin.c:352
 msgid "_Highlight Mode"
 msgstr "Modo de _realce"
 
-#: ../plugins/document-manager/plugin.c:353
+#: ../plugins/document-manager/plugin.c:356
 msgid "_Close All Folds"
 msgstr "Pe_char todas as dobras"
 
-#: ../plugins/document-manager/plugin.c:354
+#: ../plugins/document-manager/plugin.c:357
 msgid "Close all code folds in the editor"
 msgstr "Pechar todas as dobras de código no editor"
 
-#: ../plugins/document-manager/plugin.c:356
+#: ../plugins/document-manager/plugin.c:359
 msgid "_Open All Folds"
 msgstr "_Abrir todas as dobras"
 
-#: ../plugins/document-manager/plugin.c:357
+#: ../plugins/document-manager/plugin.c:360
 msgid "Open all code folds in the editor"
 msgstr "Abrir todas as dobras de código no editor"
 
-#: ../plugins/document-manager/plugin.c:359
+#: ../plugins/document-manager/plugin.c:362
 msgid "_Toggle Current Fold"
 msgstr "_Alternar a dobra actual"
 
-#: ../plugins/document-manager/plugin.c:360
+#: ../plugins/document-manager/plugin.c:363
 msgid "Toggle current code fold in the editor"
 msgstr "Alternar a dobra de código actual no editor"
 
-#: ../plugins/document-manager/plugin.c:365
+#: ../plugins/document-manager/plugin.c:368
 msgid "_Documents"
 msgstr "_Documentos"
 
-#: ../plugins/document-manager/plugin.c:366
+#: ../plugins/document-manager/plugin.c:369
 msgid "Previous Document"
 msgstr "Documento anterior"
 
-#: ../plugins/document-manager/plugin.c:367
+#: ../plugins/document-manager/plugin.c:370
 msgid "Switch to previous document"
 msgstr "Cambiar ao documento anterior"
 
-#: ../plugins/document-manager/plugin.c:369
+#: ../plugins/document-manager/plugin.c:372
 msgid "Next Document"
 msgstr "Documento seguinte"
 
-#: ../plugins/document-manager/plugin.c:370
+#: ../plugins/document-manager/plugin.c:373
 msgid "Switch to next document"
 msgstr "Cambiar ao seguinte documento"
 
-#: ../plugins/document-manager/plugin.c:375
+#: ../plugins/document-manager/plugin.c:378
 msgid "Bookmar_k"
 msgstr "Ma_rcador"
 
-#: ../plugins/document-manager/plugin.c:376
+#: ../plugins/document-manager/plugin.c:379
 msgid "_Add Bookmark"
 msgstr "_Engadir marcador"
 
-#: ../plugins/document-manager/plugin.c:377
+#: ../plugins/document-manager/plugin.c:380
 msgid "Add a bookmark at the current line position"
 msgstr "Engadir un marcador na posición de liña actual"
 
-#: ../plugins/document-manager/plugin.c:379
+#: ../plugins/document-manager/plugin.c:382
 msgid "_Previous Bookmark"
 msgstr "Marcador _anterior"
 
-#: ../plugins/document-manager/plugin.c:380
+#: ../plugins/document-manager/plugin.c:383
 msgid "Jump to the previous bookmark in the file"
 msgstr "Ir ao marcador anterior do ficheiro"
 
-#: ../plugins/document-manager/plugin.c:382
+#: ../plugins/document-manager/plugin.c:385
 msgid "_Next Bookmark"
 msgstr "Se_guinte marcador"
 
-#: ../plugins/document-manager/plugin.c:383
+#: ../plugins/document-manager/plugin.c:386
 msgid "Jump to the next bookmark in the file"
 msgstr "Ir ao seguinte marcador do ficheiro"
 
-#: ../plugins/document-manager/plugin.c:385
+#: ../plugins/document-manager/plugin.c:388
 msgid "_Clear All Bookmarks"
 msgstr "_Limpar todos os marcadores"
 
-#: ../plugins/document-manager/plugin.c:386
+#: ../plugins/document-manager/plugin.c:389
 msgid "Clear bookmarks"
 msgstr "Limpar os marcadores"
 
-#: ../plugins/document-manager/plugin.c:405
+#: ../plugins/document-manager/plugin.c:408
 msgid "Editor file operations"
 msgstr "Operacións con ficheiros do editor"
 
-#: ../plugins/document-manager/plugin.c:406
+#: ../plugins/document-manager/plugin.c:409
 msgid "Editor print operations"
 msgstr "Operacións de impresión do editor"
 
-#: ../plugins/document-manager/plugin.c:407
+#: ../plugins/document-manager/plugin.c:410
 msgid "Editor text transformation"
 msgstr "Transformación de texto do editor"
 
-#: ../plugins/document-manager/plugin.c:408
+#: ../plugins/document-manager/plugin.c:411
 msgid "Editor text selection"
 msgstr "Selección de texto do editor"
 
 #. { actions_insert, G_N_ELEMENTS (actions_insert), "ActionGroupEditorInsert", N_("Editor text insertions") },
-#: ../plugins/document-manager/plugin.c:410
+#: ../plugins/document-manager/plugin.c:413
 msgid "Editor code commenting"
 msgstr "Comentarios de código do editor"
 
-#: ../plugins/document-manager/plugin.c:411
+#: ../plugins/document-manager/plugin.c:414
 msgid "Editor navigations"
 msgstr "Navegacións do editor"
 
-#: ../plugins/document-manager/plugin.c:412
+#: ../plugins/document-manager/plugin.c:415
 msgid "Editor edit operations"
 msgstr "Operacións de edición do editor"
 
-#: ../plugins/document-manager/plugin.c:413
+#: ../plugins/document-manager/plugin.c:416
 msgid "Editor zoom operations"
 msgstr "Operacións de ampliación do editor"
 
-#: ../plugins/document-manager/plugin.c:414
+#: ../plugins/document-manager/plugin.c:417
 msgid "Editor syntax highlighting styles"
 msgstr "Estilos de realce de sintaxe do editor"
 
-#: ../plugins/document-manager/plugin.c:415
+#: ../plugins/document-manager/plugin.c:418
 msgid "Editor text formating"
 msgstr "Formatado de texto do editor"
 
-#: ../plugins/document-manager/plugin.c:416
+#: ../plugins/document-manager/plugin.c:419
 msgid "Simple searching"
 msgstr "Busca sinxela"
 
-#: ../plugins/document-manager/plugin.c:417
-#: ../plugins/document-manager/plugin.c:1734
-#: ../plugins/document-manager/plugin.c:2151
-#: ../plugins/document-manager/plugin.c:2161
+#: ../plugins/document-manager/plugin.c:420
+#: ../plugins/document-manager/plugin.c:1737
+#: ../plugins/document-manager/plugin.c:2154
+#: ../plugins/document-manager/plugin.c:2164
 msgid "Documents"
 msgstr "Documentos"
 
-#: ../plugins/document-manager/plugin.c:422
+#: ../plugins/document-manager/plugin.c:425
 msgid "Editor view settings"
 msgstr "Configuración de visualización do editor"
 
-#: ../plugins/document-manager/plugin.c:607
+#: ../plugins/document-manager/plugin.c:610
 msgid "Reload"
 msgstr "Recargar"
 
-#: ../plugins/document-manager/plugin.c:613
+#: ../plugins/document-manager/plugin.c:616
 msgid "Go to"
 msgstr "Ir a"
 
-#: ../plugins/document-manager/plugin.c:928
+#: ../plugins/document-manager/plugin.c:931
 msgid "OVR"
 msgstr "SOB"
 
-#: ../plugins/document-manager/plugin.c:932
+#: ../plugins/document-manager/plugin.c:935
 msgid "INS"
 msgstr "INS"
 
-#: ../plugins/document-manager/plugin.c:938
 #: ../plugins/document-manager/plugin.c:941
+#: ../plugins/document-manager/plugin.c:944
 msgid "Zoom"
 msgstr "Ampliar"
 
-#: ../plugins/document-manager/plugin.c:944
+#: ../plugins/document-manager/plugin.c:947
 msgid "Col"
 msgstr "Col"
 
-#: ../plugins/document-manager/plugin.c:945
+#: ../plugins/document-manager/plugin.c:948
 msgid "Mode"
 msgstr "Modo"
 
 #. Automatic highlight menu
-#: ../plugins/document-manager/plugin.c:1025
+#: ../plugins/document-manager/plugin.c:1028
 msgid "Automatic"
 msgstr "Automático"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1558
+#: ../plugins/document-manager/plugin.c:1561
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "Produciuse un fallo ao gardar automaticamente %s"
 
-#: ../plugins/document-manager/plugin.c:1572
+#: ../plugins/document-manager/plugin.c:1575
 msgid "Autosave completed"
 msgstr "Terminou de gardar automaticamente"
 
@@ -3652,7 +3655,7 @@ msgid "Filter"
 msgstr "Filtro"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2329 ../plugins/symbol-db/plugin.c:2423
+#: ../plugins/symbol-db/plugin.c:2129 ../plugins/symbol-db/plugin.c:2178
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:6
 msgid "Global"
 msgstr "Global"
@@ -6665,7 +6668,7 @@ msgstr "Estilo do indicador de mensaxe de aviso:"
 msgid "Warnings:"
 msgstr "Avisos:"
 
-#: ../plugins/message-view/anjuta-msgman.c:99
+#: ../plugins/message-view/anjuta-msgman.c:76
 msgid "Close all message tabs"
 msgstr "Pechar todas os separadores de mensaxes"
 
@@ -9027,39 +9030,39 @@ msgstr "Encontrar o símbolo"
 msgid "Find Symbol"
 msgstr "Encontrar o símbolo"
 
-#: ../plugins/symbol-db/plugin.c:1173
+#: ../plugins/symbol-db/plugin.c:1023
 #, c-format
 msgid "%s: Generating inheritances…"
 msgstr "%s: Xeración de herdanzas..."
 
-#: ../plugins/symbol-db/plugin.c:1178
+#: ../plugins/symbol-db/plugin.c:1028
 #, c-format
 msgid "%s: %d files scanned out of %d"
 msgstr "%s: %d ficheiros escaneados fóra de %d"
 
-#: ../plugins/symbol-db/plugin.c:1209
+#: ../plugins/symbol-db/plugin.c:1059
 #, c-format
 msgid "Generating inheritances…"
 msgstr "Xeración de herdanzas..."
 
-#: ../plugins/symbol-db/plugin.c:1211
+#: ../plugins/symbol-db/plugin.c:1061
 #, c-format
 msgid "%d files scanned out of %d"
 msgstr "%d ficheiros escaneados fora de %d"
 
-#: ../plugins/symbol-db/plugin.c:1979
+#: ../plugins/symbol-db/plugin.c:1788
 msgid "Populating symbol database…"
 msgstr "Poboar a bd con símbolos..."
 
-#: ../plugins/symbol-db/plugin.c:2352 ../plugins/symbol-db/plugin.c:2480
+#: ../plugins/symbol-db/plugin.c:2114 ../plugins/symbol-db/plugin.c:2209
 msgid "Symbols"
 msgstr "Símbolos"
 
-#: ../plugins/symbol-db/plugin.c:2489
+#: ../plugins/symbol-db/plugin.c:2218
 msgid "SymbolDb popup actions"
 msgstr "Accións en xanelas emerxentes de SymbolDb"
 
-#: ../plugins/symbol-db/plugin.c:2497
+#: ../plugins/symbol-db/plugin.c:2226
 msgid "SymbolDb menu actions"
 msgstr "Accións do menú de SymbolDb"
 
@@ -9080,15 +9083,6 @@ msgstr "Etiquetas API"
 #: ../plugins/symbol-db/symbol-db-system.c:807
 msgid "Resuming glb scan."
 msgstr "Retomar a análise glb."
-
-#: ../plugins/symbol-db/symbol-db-view-locals.c:326
-#: ../plugins/symbol-db/symbol-db-view.c:1412
-msgid "Symbol"
-msgstr "Símbolo"
-
-#: ../plugins/symbol-db/symbol-db-view.c:798
-msgid "Loading…"
-msgstr "Cargando..."
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:1
 msgid "Automatically scan project's packages"
@@ -10162,6 +10156,15 @@ msgstr "Realzar os puntos e comas que faltan"
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
 msgid "Min character for completion "
 msgstr "Mínimo de caracteres para o completado"
+
+#~ msgid "Online"
+#~ msgstr "En liña"
+
+#~ msgid "Symbol"
+#~ msgstr "Símbolo"
+
+#~ msgid "Loading…"
+#~ msgstr "Cargando..."
 
 #~ msgid "Edit&#x2026;"
 #~ msgstr "Editar&#x2026;"

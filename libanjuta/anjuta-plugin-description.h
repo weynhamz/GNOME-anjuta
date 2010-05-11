@@ -39,6 +39,14 @@ typedef void (*AnjutaPluginDescriptionLineFunc) (AnjutaPluginDescription *df,
 												 const gchar *value,
 												 gpointer   data);
 
+/**
+ * AnjutaPluginDescriptionParseError:
+ * @ANJUTA_PLUGIN_DESCRIPTION_PARSE_ERROR_INVALID_SYNTAX: Syntax of plugin file is invalid
+ * @ANJUTA_PLUGIN_DESCRIPTION_PARSE_ERROR_INVALID_ESCAPES: Invalid escape sequence
+ * @ANJUTA_PLUGIN_DESCRIPTION_PARSE_ERROR_INVALID_CHARS: Invalid characters
+ *
+ * Possible errors when parsing a plugin file
+ */
 typedef enum
 {
   ANJUTA_PLUGIN_DESCRIPTION_PARSE_ERROR_INVALID_SYNTAX,

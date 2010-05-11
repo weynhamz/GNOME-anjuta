@@ -13,10 +13,10 @@
 # Git).  В идеалния случай би трябвало да обсъдим термините в списъка.
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta gnome-2-30\n"
+"Project-Id-Version: anjuta master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-24 17:23+0200\n"
-"PO-Revision-Date: 2010-03-24 17:23+0200\n"
+"POT-Creation-Date: 2010-03-24 17:27+0200\n"
+"PO-Revision-Date: 2010-03-24 17:27+0200\n"
 "Last-Translator: Yavor Doganov <yavor@gnu.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "MIME-Version: 1.0\n"
@@ -1437,8 +1437,8 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "Пренебрегване на файла .cvsrc (препоръчително)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
-#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2327
-#: ../plugins/symbol-db/plugin.c:2397
+#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2120
+#: ../plugins/symbol-db/plugin.c:2189
 msgid "Local"
 msgstr "Локално"
 
@@ -2634,7 +2634,7 @@ msgid "Search Help:"
 msgstr "Търсене в ръководствата:"
 
 #: ../plugins/devhelp/plugin.c:222 ../plugins/document-manager/plugin.c:239
-#: ../plugins/message-view/plugin.c:76 ../plugins/symbol-db/plugin.c:313
+#: ../plugins/message-view/plugin.c:76 ../plugins/symbol-db/plugin.c:312
 msgid "_Go to"
 msgstr "_Отиване до"
 
@@ -2675,8 +2675,8 @@ msgstr "Съдържание"
 #: ../plugins/search/search-replace.c:1717
 #: ../plugins/search/search-replace.c:1724
 #: ../plugins/search/search-replace.c:1736
-#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2331
-#: ../plugins/symbol-db/plugin.c:2447
+#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2124
+#: ../plugins/symbol-db/plugin.c:2206
 msgid "Search"
 msgstr "Търсене"
 
@@ -3697,7 +3697,7 @@ msgid "Filter"
 msgstr "Филтър"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2329 ../plugins/symbol-db/plugin.c:2423
+#: ../plugins/symbol-db/plugin.c:2122 ../plugins/symbol-db/plugin.c:2201
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:6
 msgid "Global"
 msgstr "Глобално"
@@ -9072,64 +9072,64 @@ msgstr "Липсва: %s"
 msgid "Obstructed: %s"
 msgstr "Възпрепятствано: %s"
 
-#: ../plugins/symbol-db/plugin.c:317
+#: ../plugins/symbol-db/plugin.c:316
 msgid "Tag De_claration"
 msgstr "Де_кларация на етикет"
 
-#: ../plugins/symbol-db/plugin.c:319
+#: ../plugins/symbol-db/plugin.c:318
 msgid "Go to symbol declaration"
 msgstr "Скок до декларацията на символа"
 
 #. Translators: Go to the line where the tag is implemented
-#: ../plugins/symbol-db/plugin.c:326
+#: ../plugins/symbol-db/plugin.c:325
 msgid "Tag _Implementation"
 msgstr "_Реализация на етикет"
 
-#: ../plugins/symbol-db/plugin.c:328
+#: ../plugins/symbol-db/plugin.c:327
 msgid "Go to symbol definition"
 msgstr "Скок до дефиницията на символа"
 
-#: ../plugins/symbol-db/plugin.c:335
+#: ../plugins/symbol-db/plugin.c:334
 msgid "_Find Symbol…"
 msgstr "_Търсене на символ…"
 
-#: ../plugins/symbol-db/plugin.c:336
+#: ../plugins/symbol-db/plugin.c:335
 msgid "Find Symbol"
 msgstr "Търсене на символ"
 
-#: ../plugins/symbol-db/plugin.c:1173
+#: ../plugins/symbol-db/plugin.c:1022
 #, c-format
 msgid "%s: Generating inheritances…"
 msgstr "%s: Генериране на унаследяванията…"
 
-#: ../plugins/symbol-db/plugin.c:1178
+#: ../plugins/symbol-db/plugin.c:1027
 #, c-format
 msgid "%s: %d files scanned out of %d"
 msgstr "%s: Сканирани %d файла от общо %d"
 
-#: ../plugins/symbol-db/plugin.c:1209
+#: ../plugins/symbol-db/plugin.c:1058
 #, c-format
 msgid "Generating inheritances…"
 msgstr "Генериране на унаследяванията…"
 
-#: ../plugins/symbol-db/plugin.c:1211
+#: ../plugins/symbol-db/plugin.c:1060
 #, c-format
 msgid "%d files scanned out of %d"
 msgstr "Сканирани %d файла от общо %d"
 
-#: ../plugins/symbol-db/plugin.c:1979
+#: ../plugins/symbol-db/plugin.c:1785
 msgid "Populating symbol database…"
 msgstr "Създаване на базата от данни със символи…"
 
-#: ../plugins/symbol-db/plugin.c:2352 ../plugins/symbol-db/plugin.c:2480
+#: ../plugins/symbol-db/plugin.c:2148 ../plugins/symbol-db/plugin.c:2232
 msgid "Symbols"
 msgstr "Символи"
 
-#: ../plugins/symbol-db/plugin.c:2489
+#: ../plugins/symbol-db/plugin.c:2241
 msgid "SymbolDb popup actions"
 msgstr "Операции по базата от данни със символи"
 
-#: ../plugins/symbol-db/plugin.c:2497
+#: ../plugins/symbol-db/plugin.c:2249
 msgid "SymbolDb menu actions"
 msgstr "Менюта за базата от данни със символи"
 
@@ -9150,15 +9150,6 @@ msgstr "Етикети на API"
 #: ../plugins/symbol-db/symbol-db-system.c:807
 msgid "Resuming glb scan."
 msgstr "Възобновяване на сканирането на glib."
-
-#: ../plugins/symbol-db/symbol-db-view-locals.c:326
-#: ../plugins/symbol-db/symbol-db-view.c:1412
-msgid "Symbol"
-msgstr "Символ"
-
-#: ../plugins/symbol-db/symbol-db-view.c:798
-msgid "Loading…"
-msgstr "Зареждане…"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:1
 msgid "Automatically scan project's packages"
@@ -10244,3 +10235,9 @@ msgstr "Осветяване на липсващото двоеточие"
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
 msgid "Min character for completion "
 msgstr "Знак за автоматично дописване"
+
+#~ msgid "Symbol"
+#~ msgstr "Символ"
+
+#~ msgid "Loading…"
+#~ msgstr "Зареждане…"

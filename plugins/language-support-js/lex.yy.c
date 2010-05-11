@@ -1,1 +1,1 @@
-../symbol-db/anjuta-tags/js_parser/lex.yy.c
+../symbol-db/anjuta-tags/js-parser/lex.yy.c
