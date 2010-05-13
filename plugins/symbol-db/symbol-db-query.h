@@ -21,18 +21,20 @@
 #define _SYMBOL_DB_QUERY_H_
 
 #include <glib-object.h>
+#include <libanjuta/interfaces/ianjuta-iterable.h>
 
 G_BEGIN_DECLS
 
-#define SYMBOL_TYPE_DB_QUERY             (sdb_query_get_type ())
-#define SYMBOL_DB_QUERY(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), SYMBOL_TYPE_DB_QUERY, SymbolDBQuery))
-#define SYMBOL_DB_QUERY_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ((klass), SYMBOL_TYPE_DB_QUERY, SymbolDBQueryClass))
-#define SYMBOL_IS_DB_QUERY(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SYMBOL_TYPE_DB_QUERY))
-#define SYMBOL_IS_DB_QUERY_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass), SYMBOL_TYPE_DB_QUERY))
-#define SYMBOL_DB_QUERY_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), SYMBOL_TYPE_DB_QUERY, SymbolDBQueryClass))
+#define SYMBOL_DB_TYPE_QUERY             (sdb_query_get_type ())
+#define SYMBOL_DB_QUERY(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), SYMBOL_DB_TYPE_QUERY, SymbolDBQuery))
+#define SYMBOL_DB_QUERY_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ((klass), SYMBOL_DB_TYPE_QUERY, SymbolDBQueryClass))
+#define SYMBOL_DB_IS_QUERY(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SYMBOL_DB_TYPE_QUERY))
+#define SYMBOL_DB_IS_QUERY_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass), SYMBOL_DB_TYPE_QUERY))
+#define SYMBOL_DB_QUERY_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), SYMBOL_DB_TYPE_QUERY, SymbolDBQueryClass))
 
 typedef struct _SymbolDBQueryClass SymbolDBQueryClass;
 typedef struct _SymbolDBQuery SymbolDBQuery;
+typedef struct _SymbolDBQueryPriv SymbolDBQueryPriv;
 
 struct _SymbolDBQueryClass
 {
@@ -42,6 +44,7 @@ struct _SymbolDBQueryClass
 struct _SymbolDBQuery
 {
 	GObject parent_instance;
+	SymbolDBQueryPriv *priv;
 };
 
 GType sdb_query_get_type (void) G_GNUC_CONST;

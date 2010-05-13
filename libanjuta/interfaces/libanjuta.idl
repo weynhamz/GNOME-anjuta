@@ -5404,6 +5404,28 @@ interface IAnjutaSymbol
 	const GdkPixbuf *get_icon ();	
 }
 
+interface IAnjutaSymbolQuery {
+
+	enum IAnjutaSymbolQueryKind {
+		SEARCH,
+		SEARCH_SYSTEM,
+		SEARCH_PROJECT,
+		SEARCH_FILE
+	};
+
+	/**
+    * IAnjutaSymbolQueryAsyncResult:
+    * @result: #IAnjutaIterable iterator object that contains the database query result.
+    * @user_data: User data
+    *
+    * Callback called for an async query to the database.
+	*/
+	typedef void (*AsyncResult) (IAnjutaIterable* result, gpointer user_data);
+	void set_async (gboolean asyn_mode);
+	void set_offset (gint offset);
+	void set_limit (gint limit);
+}
+
 /**
  * SECTION:ianjuta-symbol-manager
  * @title: IAnjutaSymbolManager

@@ -88,7 +88,9 @@ libanjuta_symbol_db_la_SOURCES = \
 	symbol-db-views.h \
 	libgda-extra/gda-data-model-concat.c \
 	libgda-extra/gda-data-model-concat.h \
-	$(BUILT_SOURCES)
+	$(BUILT_SOURCES) \
+	symbol-db-query.h \
+	symbol-db-query.c
 
 libanjuta_symbol_db_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
