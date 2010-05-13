@@ -4,10 +4,6 @@
 git_gladedir = $(anjuta_glade_dir)
 git_glade_DATA = anjuta-git.ui
 
-# Plugin UI file
-git_uidir = $(anjuta_ui_dir)
-git_ui_DATA =  anjuta-git.xml
-
 # Plugin Icon file
 git_pixmapsdir = $(anjuta_image_dir)
 git_pixmaps_DATA = \
@@ -50,60 +46,36 @@ libanjuta_git_la_SOURCES = \
 	git-ui-utils.h \
 	git-diff-command.c \
 	git-diff-command.h \
-	git-diff-dialog.c \
-	git-diff-dialog.h \
 	git-status.c \
 	git-status.h \
 	git-status-command.c \
 	git-status-command.h \
 	git-commit-command.h \
 	git-commit-command.c \
-	git-commit-dialog.c \
-	git-commit-dialog.h \
 	git-add-command.h \
 	git-add-command.c \
-	git-add-dialog.c \
-	git-add-dialog.h \
 	git-remove-command.c \
 	git-remove-command.h \
-	git-remove-dialog.c \
-	git-remove-dialog.h \
-	git-resolve-dialog.c \
-	git-resolve-dialog.h \
 	git-branch.h \
 	git-branch.c \
 	git-branch-list-command.h \
 	git-branch-list-command.c \
 	git-merge-command.h \
 	git-merge-command.c \
-	git-merge-dialog.h \
-	git-merge-dialog.c \
 	git-branch-checkout-command.h \
 	git-branch-checkout-command.c \
-	git-switch-dialog.c \
-	git-switch-dialog.h \
 	git-branch-create-command.h \
 	git-branch-create-command.c \
-	git-create-branch-dialog.c \
-	git-create-branch-dialog.h \
 	git-branch-delete-command.c \
 	git-branch-delete-command.h \
-	git-delete-branch-dialog.c \
-	git-delete-branch-dialog.h \
 	git-reset-files-command.c \
 	git-reset-files-command.h \
-	git-unstage-dialog.c \
-	git-unstage-dialog.h \
 	git-checkout-files-command.c \
 	git-checkout-files-command.h \
-	git-checkout-files-dialog.c \
-	git-checkout-files-dialog.h \
 	giggle-graph-renderer.c \
 	giggle-graph-renderer.h \
 	git-log-command.c \
 	git-log-command.h \
-	git-log-dialog.c \
-	git-log-dialog.h \
 	git-revision.c \
 	git-revision.h \
 	git-log-message-command.c \
@@ -116,30 +88,18 @@ libanjuta_git_la_SOURCES = \
 	git-raw-output-command.h \
 	git-diff-tree-command.c \
 	git-diff-tree-command.h \
-	git-create-tag-dialog.c \
-	git-create-tag-dialog.h \
 	git-tag-create-command.c \
 	git-tag-create-command.h \
-	git-reset-dialog.c \
-	git-reset-dialog.h \
 	git-reset-tree-command.c \
 	git-reset-tree-command.h \
 	git-revert-command.c \
 	git-revert-command.h \
-	git-revert-dialog.c \
-	git-revert-dialog.h \
 	git-fetch-command.c \
 	git-fetch-command.h \
-	git-fetch-dialog.c \
-	git-fetch-dialog.h \
 	git-rebase-continue-command.c \
 	git-rebase-continue-command.h \
-	git-rebase-dialog.c \
-	git-rebase-dialog.h \
 	git-rebase-start-command.c \
 	git-rebase-start-command.h \
-	git-bisect-dialog.c \
-	git-bisect-dialog.h \
 	git-bisect-reset-command.c \
 	git-bisect-reset-command.h \
 	git-bisect-start-command.c \
@@ -150,70 +110,44 @@ libanjuta_git_la_SOURCES = \
 	git-file-command.h \
 	git-ignore-command.c \
 	git-ignore-command.h \
-	git-ignore-dialog.c \
-	git-ignore-dialog.h \
-	git-add-remote-dialog.c \
-	git-add-remote-dialog.h \
 	git-remote-add-command.c \
 	git-remote-add-command.h \
-	git-delete-remote-dialog.c \
-	git-delete-remote-dialog.h \
 	git-remote-delete-command.c \
 	git-remote-delete-command.h \
 	git-remote-list-command.c \
 	git-remote-list-command.h \
 	git-format-patch-command.h \
 	git-format-patch-command.c \
-	git-create-patch-series-dialog.c \
-	git-create-patch-series-dialog.h \
 	git-pull-command.c \
 	git-pull-command.h \
-	git-pull-dialog.c \
-	git-pull-dialog.h \
 	git-list-tree-command.c \
 	git-list-tree-command.h \
 	git-cat-blob-command.c \
 	git-cat-blob-command.h \
-	git-cat-file-menu.c \
-	git-cat-file-menu.h \
 	git-vcs-interface.c \
 	git-vcs-interface.h \
 	git-clone-command.h \
 	git-clone-command.c \
 	git-push-command.c \
 	git-push-command.h \
-	git-push-dialog.c \
-	git-push-dialog.h \
 	git-apply-mailbox-command.c \
 	git-apply-mailbox-command.h \
 	git-apply-mailbox-continue-command.c \
 	git-apply-mailbox-continue-command.h \
-	git-apply-mailbox-dialog.c \
-	git-apply-mailbox-dialog.h \
 	git-cherry-pick-command.c \
 	git-cherry-pick-command.h \
-	git-cherry-pick-dialog.c \
-	git-cherry-pick-dialog.h \
-	git-delete-tag-dialog.c \
-	git-delete-tag-dialog.h \
 	git-tag-delete-command.c \
 	git-tag-delete-command.h \
 	git-tag-list-command.c \
 	git-tag-list-command.h \
 	git-stash-save-command.h \
 	git-stash-save-command.c \
-	git-stash-changes-dialog.c \
-	git-stash-changes-dialog.h \
-	git-stash-widget.c \
-	git-stash-widget.h \
 	git-stash.c \
 	git-stash.h \
 	git-stash-list-command.c \
 	git-stash-list-command.h \
 	git-stash-apply-command.c \
 	git-stash-apply-command.h \
-	git-apply-stash-dialog.c \
-	git-apply-stash-dialog.h \
 	git-stash-show-command.c \
 	git-stash-show-command.h \
 	git-stash-drop-command.c \
@@ -221,9 +155,7 @@ libanjuta_git_la_SOURCES = \
 	git-stash-clear-command.c \
 	git-stash-clear-command.h \
 	git-init-command.c \
-	git-init-command.h \
-	git-init-dialog.c \
-	git-init-dialog.h
+	git-init-command.h 
 
 libanjuta_git_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 

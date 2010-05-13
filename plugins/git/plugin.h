@@ -50,34 +50,15 @@ typedef struct _GitClass GitClass;
 struct _Git
 {
 	AnjutaPlugin parent;
-	gint uiid;
-
-	GtkActionGroup *git_top_actions;
-	GtkActionGroup *git_menu_actions;
-	GtkActionGroup *git_log_actions;
-	GtkActionGroup *git_fm_actions;
 	
 	gchar *project_root_directory;
 	gchar *current_editor_filename;
-	gchar *current_fm_filename;
 	IAnjutaMessageView *message_view;
 	AnjutaCommandQueue *command_queue;
 	
 	/* Watches */
 	gint project_root_watch_id;
 	gint editor_watch_id;
-	gint fm_watch_id;
-	
-	GtkWidget *log_viewer;
-	GtkWidget *log_popup_menu;
-	GtkWidget *stash_widget;
-	GtkWidget *stash_widget_grip;
-	
-	/* File monitors */
-	GFileMonitor *bisect_file_monitor;
-	GFileMonitor *log_branch_refresh_monitor;
-	GFileMonitor *log_refresh_monitor;
-	GFileMonitor *stash_refresh_monitor;
 };
 
 struct _GitClass
