@@ -1154,6 +1154,22 @@ cpp_java_assist_calltip (CppJavaAssist *assist)
 	g_object_unref (iter);
 	return FALSE;
 }
+/**
+ * cpp_java_assist_none:
+ * @self: IAnjutaProvider object
+ * @assist: CppJavaAssist object
+ *
+ * Indicate that there is nothing to autocomplete
+ */
+static void
+cpp_java_assist_none (IAnjutaProvider* self,
+                      CppJavaAssist* assist)
+{
+	ianjuta_editor_assist_proposals (assist->priv->iassist,
+	                                 self,
+	                                 NULL, TRUE, NULL);
+}
+
 
 /**
  * cpp_java_assist_populate:
@@ -1165,16 +1181,23 @@ static void
 cpp_java_assist_populate (IAnjutaProvider* self, IAnjutaIterable* cursor, GError** e)
 {
 	CppJavaAssist* assist = CPP_JAVA_ASSIST (self);
-
+	
+	/* Check if we actually want autocompletion at all */
+	if (!anjuta_preferences_get_bool_with_default (anjuta_preferences_default (),
+	                                               PREF_AUTOCOMPLETE_ENABLE,
+	                                               TRUE))
+	{
+		cpp_java_assist_none (self, assist);
+		return;
+	}
+	
 	/* Check if this is a valid text region for completion */
 	IAnjutaEditorAttribute attrib = ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL(cursor),
 	                                                                   NULL);
 	if (attrib == IANJUTA_EDITOR_STRING ||
 	    attrib == IANJUTA_EDITOR_COMMENT)
 	{
-		ianjuta_editor_assist_proposals (assist->priv->iassist,
-		                                 IANJUTA_PROVIDER(self),
-		                                 NULL, TRUE, NULL);
+		cpp_java_assist_none (self, assist);
 		return;
 	}
 
@@ -1228,9 +1251,7 @@ cpp_java_assist_populate (IAnjutaProvider* self, IAnjutaIterable* cursor, GError
 		g_object_unref (assist->priv->start_iter);
 		assist->priv->start_iter = NULL;
 	}
-	ianjuta_editor_assist_proposals (assist->priv->iassist,
-	                                 IANJUTA_PROVIDER(self),
-	                                 NULL, TRUE, NULL);
+	cpp_java_assist_none (self, assist);
 } 
 
 /**
