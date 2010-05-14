@@ -169,14 +169,10 @@ create_class_item_tooltip (ClsNode *cls_node, const gchar *tooltip_text)
 		                     "points", points,
 		                     "fill_color_gdk",
 		                     &cls_node->plugin->style[STYLE_ITEM_BG],
-		                     NULL);
-	/* border */
-	canvas_item =
-		foo_canvas_item_new (FOO_CANVAS_GROUP (group),
-		                     foo_canvas_line_get_type (),
-		                     "points", points,
-		                     "fill_color_gdk",
-		                     &cls_node->plugin->style[STYLE_ITEM_FG],
+		                     "outline_color_gdk",
+		                     &cls_node->plugin->style[STYLE_FG],
+		                     "aa", TRUE,
+		                     "width_units", 1.0,
 		                     NULL);
 	/* shadow */
 	canvas_item =

@@ -66,7 +66,8 @@ enum {
 	PROP_FILL_STIPPLE,
 	PROP_OUTLINE_STIPPLE,
 	PROP_WIDTH_PIXELS,
-	PROP_WIDTH_UNITS
+	PROP_WIDTH_UNITS,
+	PROP_AA
 };
 
 
@@ -85,8 +86,6 @@ static void foo_canvas_polygon_get_property (GObject              *object,
 static void   foo_canvas_polygon_update      (FooCanvasItem *item,
 						double i2w_dx, double i2w_dy,
 						int flags);
-static void   foo_canvas_polygon_realize     (FooCanvasItem *item);
-static void   foo_canvas_polygon_unrealize   (FooCanvasItem *item);
 static void   foo_canvas_polygon_draw        (FooCanvasItem *item, GdkDrawable *drawable,
 						GdkEventExpose *expose);
 static double foo_canvas_polygon_point       (FooCanvasItem *item, double x, double y,
@@ -181,12 +180,16 @@ foo_canvas_polygon_class_init (FooCanvasPolygonClass *klass)
                  g_param_spec_double ("width-units", NULL, NULL,
 				      0.0, G_MAXDOUBLE, 0.0,
 				      G_PARAM_READWRITE));
+        g_object_class_install_property
+                (gobject_class,
+                 PROP_AA,
+                 g_param_spec_boolean ("aa", NULL, NULL,
+				       FALSE,
+				       G_PARAM_READWRITE));
 
 	object_class->destroy = foo_canvas_polygon_destroy;
 
 	item_class->update = foo_canvas_polygon_update;
-	item_class->realize = foo_canvas_polygon_realize;
-	item_class->unrealize = foo_canvas_polygon_unrealize;
 	item_class->draw = foo_canvas_polygon_draw;
 	item_class->point = foo_canvas_polygon_point;
 	item_class->translate = foo_canvas_polygon_translate;
@@ -197,6 +200,7 @@ static void
 foo_canvas_polygon_init (FooCanvasPolygon *poly)
 {
 	poly->width = 0.0;
+	poly->aa = FALSE;
 }
 
 static void
@@ -332,57 +336,6 @@ set_points (FooCanvasPolygon *poly, FooCanvasPoints *points)
 	}
 }
 
-/* Convenience function to set a GC's foreground color to the specified pixel value */
-static void
-set_gc_foreground (GdkGC *gc, gulong pixel)
-{
-	GdkColor c;
-
-	if (!gc)
-		return;
-
-	c.pixel = pixel;
-	gdk_gc_set_foreground (gc, &c);
-}
-
-/* Sets the stipple pattern for the specified gc */
-static void
-set_stipple (GdkGC *gc, GdkBitmap **internal_stipple, GdkBitmap *stipple, int reconfigure)
-{
-	if (*internal_stipple && !reconfigure)
-		g_object_unref (*internal_stipple);
-
-	*internal_stipple = stipple;
-	if (stipple && !reconfigure)
-		g_object_ref (stipple);
-
-	if (gc) {
-		if (stipple) {
-			gdk_gc_set_stipple (gc, stipple);
-			gdk_gc_set_fill (gc, GDK_STIPPLED);
-		} else
-			gdk_gc_set_fill (gc, GDK_SOLID);
-	}
-}
-
-/* Recalculate the outline width of the polygon and set it in its GC */
-static void
-set_outline_gc_width (FooCanvasPolygon *poly)
-{
-	int width;
-
-	if (!poly->outline_gc)
-		return;
-
-	if (poly->width_pixels)
-		width = (int) poly->width;
-	else
-		width = (int) (poly->width * poly->item.canvas->pixels_per_unit + 0.5);
-
-	gdk_gc_set_line_attributes (poly->outline_gc, width,
-				    GDK_LINE_SOLID, GDK_CAP_ROUND, GDK_JOIN_ROUND);
-}
-
 static void
 foo_canvas_polygon_set_property (GObject              *object,
 				   guint                 param_id,
@@ -470,7 +423,6 @@ foo_canvas_polygon_set_property (GObject              *object,
 			poly->fill_pixel = foo_canvas_get_color_pixel (item->canvas,
 									 poly->fill_color);
 
-		set_gc_foreground (poly->fill_gc, poly->fill_pixel);
 		foo_canvas_item_request_redraw (item);		
 		break;
 
@@ -524,24 +476,28 @@ foo_canvas_polygon_set_property (GObject              *object,
 			poly->outline_pixel = foo_canvas_get_color_pixel (item->canvas,
 									    poly->outline_color);
 
-		set_gc_foreground (poly->outline_gc, poly->outline_pixel);
 		foo_canvas_item_request_redraw (item);		
 		break;
 
 	case PROP_FILL_STIPPLE:
-		set_stipple (poly->fill_gc, &poly->fill_stipple, (GdkBitmap *) g_value_get_object (value), FALSE);
+		if (poly->fill_stipple)
+			g_object_unref (poly->fill_stipple);
+		poly->fill_stipple = (GdkBitmap *) g_value_get_object (value);
+		g_object_ref (poly->fill_stipple);
 		foo_canvas_item_request_update (item);
 		break;
 
 	case PROP_OUTLINE_STIPPLE:
-		set_stipple (poly->outline_gc, &poly->outline_stipple, (GdkBitmap *) g_value_get_object (value), FALSE);
+		if (poly->outline_stipple)
+			g_object_unref (poly->outline_stipple);
+		poly->outline_stipple = (GdkBitmap *) g_value_get_object (value);
+		g_object_ref (poly->outline_stipple);
 		foo_canvas_item_request_update (item);
 		break;
 
 	case PROP_WIDTH_PIXELS:
 		poly->width = g_value_get_uint (value);
 		poly->width_pixels = TRUE;
-		set_outline_gc_width (poly);
 #ifdef OLD_XFORM
 		recalc_bounds (poly);
 #else
@@ -552,12 +508,15 @@ foo_canvas_polygon_set_property (GObject              *object,
 	case PROP_WIDTH_UNITS:
 		poly->width = fabs (g_value_get_double (value));
 		poly->width_pixels = FALSE;
-		set_outline_gc_width (poly);
 #ifdef OLD_XFORM
 		recalc_bounds (poly);
 #else
 		foo_canvas_item_request_update (item);
 #endif
+		break;
+	case PROP_AA:
+		poly->aa = g_value_get_boolean (value);
+		foo_canvas_item_request_update (item);
 		break;
 
 	default:
@@ -631,6 +590,10 @@ foo_canvas_polygon_get_property (GObject              *object,
 		g_value_set_object (value, (GObject *) poly->outline_stipple);
 		break;
 
+	case PROP_AA:
+		g_value_set_boolean (value, poly->aa);
+		break;
+
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
 		break;
@@ -650,49 +613,8 @@ foo_canvas_polygon_update (FooCanvasItem *item,
 	if (parent_class->update)
 		(* parent_class->update) (item, i2w_dx, i2w_dy, flags);
 
-	set_outline_gc_width (poly);
-	set_gc_foreground (poly->fill_gc, poly->fill_pixel);
-	set_gc_foreground (poly->outline_gc, poly->outline_pixel);
-	set_stipple (poly->fill_gc, &poly->fill_stipple, poly->fill_stipple, TRUE);
-	set_stipple (poly->outline_gc, &poly->outline_stipple, poly->outline_stipple, TRUE);
-	
 	if (get_bounds_canvas (poly, &x1, &y1, &x2, &y2, i2w_dx, i2w_dy))
 		foo_canvas_update_bbox (item, x1, y1, x2, y2);
-}
-
-static void
-foo_canvas_polygon_realize (FooCanvasItem *item)
-{
-	FooCanvasPolygon *poly;
-
-	poly = FOO_CANVAS_POLYGON (item);
-
-	if (parent_class->realize)
-		(* parent_class->realize) (item);
-
-	poly->fill_gc = gdk_gc_new (item->canvas->layout.bin_window);
-	poly->outline_gc = gdk_gc_new (item->canvas->layout.bin_window);
-/* FIXME FIXME FIXME Need to recalc pixel values, set colours, etc. */
-
-#ifdef OLD_XFORM
-	(* FOO_CANVAS_ITEM_CLASS (item->object.klass)->update) (item, NULL, NULL, 0);
-#endif
-}
-
-static void
-foo_canvas_polygon_unrealize (FooCanvasItem *item)
-{
-	FooCanvasPolygon *poly;
-
-	poly = FOO_CANVAS_POLYGON (item);
-
-	g_object_unref (poly->fill_gc);
-	poly->fill_gc = NULL;
-	g_object_unref (poly->outline_gc);
-	poly->outline_gc = NULL;
-
-	if (parent_class->unrealize)
-		(* parent_class->unrealize) (item);
 }
 
 /* Converts an array of world coordinates into an array of canvas pixel coordinates.  Takes in the
@@ -717,11 +639,14 @@ static void
 foo_canvas_polygon_draw (FooCanvasItem *item, GdkDrawable *drawable,
 			   GdkEventExpose *expose)
 {
+	cairo_t *cr;
 	FooCanvasPolygon *poly;
 	GdkPoint static_points[NUM_STATIC_POINTS];
 	GdkPoint *points;
 	double i2w_dx, i2w_dy;
-
+	double width;
+	gint i;
+	
 	poly = FOO_CANVAS_POLYGON (item);
 
 	if (poly->num_points == 0)
@@ -742,18 +667,41 @@ foo_canvas_polygon_draw (FooCanvasItem *item, GdkDrawable *drawable,
 			poly->coords, points, poly->num_points,
 			i2w_dx, i2w_dy);
 
-	if (poly->fill_set) {
-		if (poly->fill_stipple)
-			foo_canvas_set_stipple_origin (item->canvas, poly->fill_gc);
+	if (poly->width_pixels)
+		width = poly->width;
+	else
+		width = poly->width * poly->item.canvas->pixels_per_unit;
 
-		gdk_draw_polygon (drawable, poly->fill_gc, TRUE, points, poly->num_points);
+	cr = gdk_cairo_create (drawable);
+	if (!poly->aa)
+		cairo_set_antialias (cr, CAIRO_ANTIALIAS_NONE);
+	cairo_set_line_width (cr, width);
+
+	cairo_move_to (cr, points[0].x, points[0].y);
+	for(i = 1; i < poly->num_points - 1; i++)
+	{
+		cairo_line_to (cr, points[i].x, points[i].y);
+	}
+	cairo_close_path (cr);
+	
+	if (poly->fill_set) {
+		/* FIXME: Set stripple */
+		cairo_set_source_rgba (cr,
+		                       ((double) ((poly->fill_color & 0xff000000) >> 24)) / 255,
+		                       ((double) ((poly->fill_color & 0xff0000) >> 16)) / 255,
+		                       ((double) ((poly->fill_color & 0xff00) >> 8)) / 255,
+		                       ((double) ((poly->fill_color & 0xff))) / 255);
+		cairo_fill_preserve (cr);
 	}
 
 	if (poly->outline_set) {
-		if (poly->outline_stipple)
-			foo_canvas_set_stipple_origin (item->canvas, poly->outline_gc);
-
-		gdk_draw_polygon (drawable, poly->outline_gc, FALSE, points, poly->num_points);
+		/* FIXME: Set stripple */
+		cairo_set_source_rgba (cr,
+		                       ((double) ((poly->outline_color & 0xff000000) >> 24)) / 255,
+		                       ((double) ((poly->outline_color & 0xff0000) >> 16)) / 255,
+		                       ((double) ((poly->outline_color & 0xff00) >> 8)) / 255,
+		                       ((double) ((poly->outline_color & 0xff))) / 255);
+		cairo_stroke (cr);
 	}
 
 	/* Done */

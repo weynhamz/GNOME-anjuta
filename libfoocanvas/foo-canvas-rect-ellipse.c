@@ -61,7 +61,8 @@ enum {
 	PROP_FILL_STIPPLE,
 	PROP_OUTLINE_STIPPLE,
 	PROP_WIDTH_PIXELS,
-	PROP_WIDTH_UNITS
+	PROP_WIDTH_UNITS,
+	PROP_AA
 };
 
 
@@ -80,7 +81,6 @@ static void foo_canvas_re_get_property (GObject              *object,
 static void foo_canvas_re_update_shared (FooCanvasItem *item,
 					   double i2w_dx, double i2w_dy, int flags);
 static void foo_canvas_re_realize     (FooCanvasItem *item);
-static void foo_canvas_re_unrealize   (FooCanvasItem *item);
 static void foo_canvas_re_bounds      (FooCanvasItem *item, double *x1, double *y1, double *x2, double *y2);
 static void foo_canvas_re_translate   (FooCanvasItem *item, double dx, double dy);
 static void foo_canvas_rect_update      (FooCanvasItem *item, double i2w_dx, double i2w_dy, int flags);
@@ -225,11 +225,16 @@ foo_canvas_re_class_init (FooCanvasREClass *klass)
                  g_param_spec_double ("width-units", NULL, NULL,
 				      0.0, G_MAXDOUBLE, 0.0,
 				      G_PARAM_READWRITE));
+        g_object_class_install_property
+                (gobject_class,
+                 PROP_AA,
+                 g_param_spec_boolean ("aa", NULL, NULL,
+				       FALSE,
+				       G_PARAM_READWRITE));
 
 	object_class->destroy = foo_canvas_re_destroy;
 
 	item_class->realize = foo_canvas_re_realize;
-	item_class->unrealize = foo_canvas_re_unrealize;
 	item_class->translate = foo_canvas_re_translate;
 	item_class->bounds = foo_canvas_re_bounds;
 }
@@ -242,6 +247,7 @@ foo_canvas_re_init (FooCanvasRE *re)
 	re->x2 = 0.0;
 	re->y2 = 0.0;
 	re->width = 0.0;
+	re->aa = FALSE;
 }
 
 static void
@@ -268,6 +274,25 @@ foo_canvas_re_destroy (GtkObject *object)
 		(* GTK_OBJECT_CLASS (re_parent_class)->destroy) (object);
 }
 
+static double
+get_draw_width_pixels (FooCanvasRE *re)
+{
+	double width;
+	if (re->width_pixels)
+		width = re->width;
+	else
+		width = re->width * re->item.canvas->pixels_per_unit;
+	width += 2.0; /* AA puts 1 px around for fuzzing */
+	return width;
+}
+
+static double
+get_draw_width_units (FooCanvasRE *re)
+{
+	double width = get_draw_width_pixels (re);
+	return (width / re->item.canvas->pixels_per_unit);
+}
+
 static void get_bounds (FooCanvasRE *re, double *px1, double *py1, double *px2, double *py2)
 {
 	FooCanvasItem *item;
@@ -280,11 +305,7 @@ static void get_bounds (FooCanvasRE *re, double *px1, double *py1, double *px2, 
 #endif
 	item = FOO_CANVAS_ITEM (re);
 
-	if (re->width_pixels)
-		hwidth = (re->width / item->canvas->pixels_per_unit) / 2.0;
-	else
-		hwidth = re->width / 2.0;
-
+	hwidth = get_draw_width_units (re) / 2.0;
 	x1 = re->x1;
 	y1 = re->y1;
 	x2 = re->x2;
@@ -305,57 +326,6 @@ static void get_bounds (FooCanvasRE *re, double *px1, double *py1, double *px2, 
 	*py1 -= 2;
 	*px2 += 2;
 	*py2 += 2;
-}
-
-/* Convenience function to set a GC's foreground color to the specified pixel value */
-static void
-set_gc_foreground (GdkGC *gc, gulong pixel)
-{
-	GdkColor c;
-
-	if (!gc)
-		return;
-
-	c.pixel = pixel;
-	gdk_gc_set_foreground (gc, &c);
-}
-
-/* Sets the stipple pattern for the specified gc */
-static void
-set_stipple (GdkGC *gc, GdkBitmap **internal_stipple, GdkBitmap *stipple, int reconfigure)
-{
-	if (*internal_stipple && !reconfigure)
-		g_object_unref (*internal_stipple);
-
-	*internal_stipple = stipple;
-	if (stipple && !reconfigure)
-		g_object_ref (stipple);
-
-	if (gc) {
-		if (stipple) {
-			gdk_gc_set_stipple (gc, stipple);
-			gdk_gc_set_fill (gc, GDK_STIPPLED);
-		} else
-			gdk_gc_set_fill (gc, GDK_SOLID);
-	}
-}
-
-/* Recalculate the outline width of the rectangle/ellipse and set it in its GC */
-static void
-set_outline_gc_width (FooCanvasRE *re)
-{
-	int width;
-
-	if (!re->outline_gc)
-		return;
-
-	if (re->width_pixels)
-		width = (int) re->width;
-	else
-		width = (int) (re->width * re->item.canvas->pixels_per_unit + 0.5);
-
-	gdk_gc_set_line_attributes (re->outline_gc, width,
-				    GDK_LINE_SOLID, GDK_CAP_PROJECTING, GDK_JOIN_MITER);
 }
 
 static void
@@ -469,8 +439,6 @@ foo_canvas_re_set_property (GObject              *object,
 		else
 			re->fill_pixel = foo_canvas_get_color_pixel (item->canvas, re->fill_color);
 
-		set_gc_foreground (re->fill_gc, re->fill_pixel);
-
 		foo_canvas_item_request_redraw (item);		
 		break;
 
@@ -525,33 +493,37 @@ foo_canvas_re_set_property (GObject              *object,
 			re->outline_pixel = foo_canvas_get_color_pixel (item->canvas,
 									  re->outline_color);
 
-		set_gc_foreground (re->outline_gc, re->outline_pixel);
-
 		foo_canvas_item_request_redraw (item);		
 		break;
 
 	case PROP_FILL_STIPPLE:
-	        set_stipple (re->fill_gc, &re->fill_stipple, (GdkBitmap *) g_value_get_object (value), FALSE);
-
+		if (re->fill_stipple)
+			g_object_unref (re->fill_stipple);
+		re->fill_stipple = (GdkBitmap *) g_value_get_object (value);
+		g_object_ref (re->fill_stipple);
 		break;
 
 	case PROP_OUTLINE_STIPPLE:
-	        set_stipple (re->outline_gc, &re->outline_stipple, (GdkBitmap *) g_value_get_object (value), FALSE);
+		if (re->outline_stipple)
+			g_object_unref (re->outline_stipple);
+		re->outline_stipple = (GdkBitmap *) g_value_get_object (value);
+		g_object_ref (re->outline_stipple);
 		break;
 
 	case PROP_WIDTH_PIXELS:
 		re->width = g_value_get_uint (value);
 		re->width_pixels = TRUE;
-		set_outline_gc_width (re);
-
 		foo_canvas_item_request_update (item);
 		break;
 
 	case PROP_WIDTH_UNITS:
 		re->width = fabs (g_value_get_double (value));
 		re->width_pixels = FALSE;
-		set_outline_gc_width (re);
+		foo_canvas_item_request_update (item);
+		break;
 
+	case PROP_AA:
+		re->aa = g_value_get_boolean (value);
 		foo_canvas_item_request_update (item);
 		break;
 
@@ -629,20 +601,14 @@ foo_canvas_re_get_property (GObject              *object,
 		g_value_set_object (value,  (GObject *) re->outline_stipple);
 		break;
 
+	case PROP_AA:
+		g_value_set_boolean (value, re->aa);
+		break;
+
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
 		break;
 	}
-}
-
-static void
-set_colors_and_stipples (FooCanvasRE *re)
-{
-	set_gc_foreground (re->fill_gc, re->fill_pixel);
-	set_gc_foreground (re->outline_gc, re->outline_pixel);
-	set_stipple (re->fill_gc, &re->fill_stipple, re->fill_stipple, TRUE);
-	set_stipple (re->outline_gc, &re->outline_stipple, re->outline_stipple, TRUE);
-	set_outline_gc_width (re);
 }
 
 static void
@@ -657,8 +623,6 @@ foo_canvas_re_update_shared (FooCanvasItem *item, double i2w_dx, double i2w_dy, 
 
 	if (re_parent_class->update)
 		(* re_parent_class->update) (item, i2w_dx, i2w_dy, flags);
-
-	set_colors_and_stipples (re);
 
 #ifdef OLD_XFORM
 	recalc_bounds (re);
@@ -678,31 +642,12 @@ foo_canvas_re_realize (FooCanvasItem *item)
 	if (re_parent_class->realize)
 		(* re_parent_class->realize) (item);
 
-	re->fill_gc = gdk_gc_new (item->canvas->layout.bin_window);
 	re->fill_pixel = foo_canvas_get_color_pixel (item->canvas, re->fill_color);
-	re->outline_gc = gdk_gc_new (item->canvas->layout.bin_window);
 	re->outline_pixel = foo_canvas_get_color_pixel (item->canvas, re->outline_color);
-	set_colors_and_stipples (re);
 
 #ifdef OLD_XFORM
 	(* FOO_CANVAS_ITEM_CLASS (item->object.klass)->update) (item, NULL, NULL, 0);
 #endif
-}
-
-static void
-foo_canvas_re_unrealize (FooCanvasItem *item)
-{
-	FooCanvasRE *re;
-
-	re = FOO_CANVAS_RE (item);
-
-	g_object_unref (re->fill_gc);
-	re->fill_gc = NULL;
-	g_object_unref (re->outline_gc);
-	re->outline_gc = NULL;
-
-	if (re_parent_class->unrealize)
-		(* re_parent_class->unrealize) (item);
 }
 
 static void
@@ -721,7 +666,6 @@ foo_canvas_re_translate (FooCanvasItem *item, double dx, double dy)
 	re->y2 += dy;
 }
 
-
 static void
 foo_canvas_re_bounds (FooCanvasItem *item, double *x1, double *y1, double *x2, double *y2)
 {
@@ -733,10 +677,7 @@ foo_canvas_re_bounds (FooCanvasItem *item, double *x1, double *y1, double *x2, d
 #endif
 	re = FOO_CANVAS_RE (item);
 
-	if (re->width_pixels)
-		hwidth = (re->width / item->canvas->pixels_per_unit) / 2.0;
-	else
-		hwidth = re->width / 2.0;
+	hwidth = get_draw_width_units (re) / 2.0;
 
 	*x1 = re->x1 - hwidth;
 	*y1 = re->y1 - hwidth;
@@ -833,140 +774,21 @@ foo_canvas_rect_finalize (GObject *object)
 static void
 foo_canvas_rect_realize  (FooCanvasItem *item)
 {
-#ifdef HAVE_RENDER
-	FooCanvasRectPrivate *priv;
-	int event_base, error_base;
-	Display *dpy;
-
-	priv = FOO_CANVAS_RECT (item)->priv;
-
-	dpy = gdk_x11_drawable_get_xdisplay (GTK_WIDGET (item->canvas)->window);
-	priv->use_render = XRenderQueryExtension (dpy, &event_base, &error_base);
-
-	if (priv->use_render) {
-		GdkVisual *gdk_visual;
-		Visual *visual;
-
-		gdk_visual = gtk_widget_get_visual (GTK_WIDGET (item->canvas));
-		visual = gdk_x11_visual_get_xvisual (gdk_visual);
-
-		priv->format = XRenderFindVisualFormat (dpy, visual);
-	}
-#endif
-	
 	if (FOO_CANVAS_ITEM_CLASS (rect_parent_class)->realize) {
 		(* FOO_CANVAS_ITEM_CLASS (rect_parent_class)->realize) (item);
 	}
 }
 
-
-static void
-render_rect_alpha (FooCanvasRect *rect,
-		   GdkDrawable *drawable,
-		   int x, int y,
-		   int width, int height,
-		   guint32 rgba)
-{
-	GdkPixbuf *pixbuf;
-	guchar *data;
-	int rowstride, i;
-	guchar r, g, b, a;
-	FooCanvasRectPrivate *priv;
-
-	if (width <= 0 || height <= 0 ) {
-		return;
-	}
-	
-	priv = rect->priv;
-
-	r = (rgba >> 24) & 0xff;
-	g = (rgba >> 16) & 0xff;
-	b = (rgba >> 8) & 0xff;
-	a = (rgba >> 0) & 0xff;
-
-#ifdef HAVE_RENDER
-	/* Every visual is not guaranteed to have a matching
-	 * XRenderPictFormat. So make sure that format is not null before
-	 * trying to render using Xrender calls.
-	 */
-	if (priv->use_render && (priv->format != NULL)) {
-		GdkDrawable *real_drawable;
-		int x_offset, y_offset;
-
-		Display *dpy;
-		Picture  pict;
-		XRenderPictureAttributes attributes;
-		XRenderColor color;
-
-		gdk_window_get_internal_paint_info (drawable, &real_drawable,
-						    &x_offset, &y_offset);
-
-		dpy = gdk_x11_drawable_get_xdisplay (real_drawable);
-
-		pict = XRenderCreatePicture (dpy,
-					     gdk_x11_drawable_get_xid (real_drawable),
-					     priv->format,
-					     0,
-					     &attributes);
-
-
-		/* Convert to premultiplied alpha: */
-		r = r * a / 255;
-		g = g * a / 255;
-		b = b * a / 255;
-		
-		color.red = (r << 8) + r;
-		color.green = (g << 8) + g;
-		color.blue = (b << 8) + b;
-		color.alpha = (a << 8) + a;
-		
-		XRenderFillRectangle (dpy,
-				      PictOpOver,
-				      pict,
-				      &color,
-				      x - x_offset, y - y_offset,
-				      width, height);
-		
-		XRenderFreePicture (dpy, pict);
-
-		return;
-	}
-#endif
-	pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE, 8, width, height);
-	data = gdk_pixbuf_get_pixels (pixbuf);
-	rowstride = gdk_pixbuf_get_rowstride (pixbuf);
-	
-	r = (rgba >> 24) & 0xff;
-	g = (rgba >> 16) & 0xff;
-	b = (rgba >> 8) & 0xff;
-	a = (rgba >> 0) & 0xff;
-	
-	for (i = 0; i < width*4; ) {
-		data[i++] = r;
-		data[i++] = g;
-		data[i++] = b;
-		data[i++] = a;
-	}
-	
-	for (i = 1; i < height; i++) {
-		memcpy (data + i*rowstride, data, width*4);
-	}
-	
-	gdk_draw_pixbuf (drawable, NULL, pixbuf,
-			 0, 0, x, y, width, height,
-			 GDK_RGB_DITHER_NONE, 0, 0);
-	g_object_unref (pixbuf);
-}
-
-
 static void
 foo_canvas_rect_draw (FooCanvasItem *item, GdkDrawable *drawable, GdkEventExpose *expose)
 {
+	cairo_t *cr;
 	FooCanvasRE *re;
 	double x1, y1, x2, y2;
 	int cx1, cy1, cx2, cy2;
 	double i2w_dx, i2w_dy;
-
+	double width;
+	
 	re = FOO_CANVAS_RE (item);
 
 	/* Get canvas pixel coordinates */
@@ -981,63 +803,39 @@ foo_canvas_rect_draw (FooCanvasItem *item, GdkDrawable *drawable, GdkEventExpose
 
 	foo_canvas_w2c (item->canvas, x1, y1, &cx1, &cy1);
 	foo_canvas_w2c (item->canvas, x2, y2, &cx2, &cy2);
+
+	if (re->width_pixels)
+		width = re->width;
+	else
+		width = re->width * re->item.canvas->pixels_per_unit;
+
+	cr = gdk_cairo_create (drawable);
+	if (!re->aa)
+		cairo_set_antialias (cr, CAIRO_ANTIALIAS_NONE);
+	cairo_set_line_width (cr, width);
 	
 	if (re->fill_set) {
-		if ((re->fill_color & 0xff) != 255) {
-			GdkRectangle *rectangles;
-			gint i, n_rectangles;
-			GdkRectangle draw_rect;
-			GdkRectangle part;
-
-			draw_rect.x = cx1;
-			draw_rect.y = cy1;
-			draw_rect.width = cx2 - cx1 + 1;
-			draw_rect.height = cy2 - cy1 + 1;
-			
-			/* For alpha mode, only render the parts of the region
-			   that are actually exposed */
-			gdk_region_get_rectangles (expose->region,
-						   &rectangles,
-						   &n_rectangles);
-
-			for (i = 0; i < n_rectangles; i++) {
-				if (gdk_rectangle_intersect (&rectangles[i],
-							     &draw_rect,
-							     &part)) {
-					render_rect_alpha (FOO_CANVAS_RECT (item),
-							   drawable,
-							   part.x, part.y,
-							   part.width, part.height,
-							   re->fill_color);
-				}
-			}
-			
-			g_free (rectangles);
-		} else {
-			if (re->fill_stipple)
-				foo_canvas_set_stipple_origin (item->canvas, re->fill_gc);
-
-			gdk_draw_rectangle (drawable,
-					    re->fill_gc,
-					    TRUE,
-					    cx1, cy1,
-					    cx2 - cx1 + 1,
-					    cy2 - cy1 + 1);
-		}
+		/* FIXME: Use stipple */
+		cairo_set_source_rgba (cr,
+		                       ((double) ((re->fill_color & 0xff000000) >> 24)) / 255,
+		                       ((double) ((re->fill_color & 0xff0000) >> 16)) / 255,
+		                       ((double) ((re->fill_color & 0xff00) >> 8)) / 255,
+		                       ((double) ((re->fill_color & 0xff))) / 255);
+		cairo_rectangle (cr, cx1, cy1, cx2 - cx1 + 1, cy2 - cy1 + 1);
+		cairo_fill (cr);
 	}
 
 	if (re->outline_set) {
-		if (re->outline_stipple)
-			foo_canvas_set_stipple_origin (item->canvas, re->outline_gc);
-
-		gdk_draw_rectangle (drawable,
-				    re->outline_gc,
-				    FALSE,
-				    cx1,
-				    cy1,
-				    cx2 - cx1,
-				    cy2 - cy1);
+		/* FIXME: Use stipple */
+		cairo_set_source_rgba (cr,
+		                       ((double) ((re->outline_color & 0xff000000) >> 24)) / 255,
+		                       ((double) ((re->outline_color & 0xff0000) >> 16)) / 255,
+		                       ((double) ((re->outline_color & 0xff00) >> 8)) / 255,
+		                       ((double) ((re->outline_color & 0xff))) / 255);
+		cairo_rectangle (cr, cx1, cy1, cx2 - cx1, cy2 - cy1);
+		cairo_stroke (cr);
 	}
+	cairo_destroy (cr);
 }
 
 static double
@@ -1064,11 +862,7 @@ foo_canvas_rect_point (FooCanvasItem *item, double x, double y, int cx, int cy, 
 	y2 = re->y2;
 
 	if (re->outline_set) {
-		if (re->width_pixels)
-			hwidth = (re->width / item->canvas->pixels_per_unit) / 2.0;
-		else
-			hwidth = re->width / 2.0;
-
+		hwidth = get_draw_width_units (re) / 2.0;
 		x1 -= hwidth;
 		y1 -= hwidth;
 		x2 += hwidth;
@@ -1188,11 +982,8 @@ foo_canvas_rect_update (FooCanvasItem *item, double i2w_dx, double i2w_dy, gint 
 
 	if (re->outline_set) {
 		/* Outline and bounding box */
-		if (re->width_pixels)
-			width_pixels = (int) re->width;
-		else
-			width_pixels = (int) floor (re->width * re->item.canvas->pixels_per_unit + 0.5);
-
+		width_pixels = get_draw_width_pixels (re);
+		
 		width_lt = width_pixels / 2;
 		width_rb = (width_pixels + 1) / 2;
 		
@@ -1274,10 +1065,12 @@ foo_canvas_ellipse_class_init (FooCanvasEllipseClass *klass)
 static void
 foo_canvas_ellipse_draw (FooCanvasItem *item, GdkDrawable *drawable, GdkEventExpose *expose)
 {
+	cairo_t *cr;
 	FooCanvasRE *re;
 	int x1, y1, x2, y2;
 	double i2w_dx, i2w_dy;
-
+	double width;
+	
 	re = FOO_CANVAS_RE (item);
 
 	/* Get canvas pixel coordinates */
@@ -1294,36 +1087,51 @@ foo_canvas_ellipse_draw (FooCanvasItem *item, GdkDrawable *drawable, GdkEventExp
 			  re->x2 + i2w_dx,
 			  re->y2 + i2w_dy,
 			  &x2, &y2);
+	
+	if (re->width_pixels)
+		width = re->width;
+	else
+		width = re->width * re->item.canvas->pixels_per_unit;
 
+	cr = gdk_cairo_create (drawable);
+	if (!re->aa)
+		cairo_set_antialias (cr, CAIRO_ANTIALIAS_NONE);
+	cairo_set_line_width (cr, width);
+	
 	if (re->fill_set) {
-		if (re->fill_stipple)
-			foo_canvas_set_stipple_origin (item->canvas, re->fill_gc);
-
-		gdk_draw_arc (drawable,
-			      re->fill_gc,
-			      TRUE,
-			      x1,
-			      y1,
-			      x2 - x1,
-			      y2 - y1,
-			      0 * 64,
-			      360 * 64);
+		/* FIXME: set stipple as source */
+		cairo_set_source_rgba (cr,
+		                       ((double) ((re->fill_color & 0xff000000) >> 24)) / 255,
+		                       ((double) ((re->fill_color & 0xff0000) >> 16)) / 255,
+		                       ((double) ((re->fill_color & 0xff00) >> 8)) / 255,
+		                       ((double) ((re->fill_color & 0xff))) / 255);
+		cairo_save (cr);
+		cairo_translate (cr, x1 + (x2 - x1)/2, y1 + (y2 - y1)/2);
+		cairo_scale (cr, (x2 - x1)/2, (y2 - y1)/2);
+		cairo_arc (cr, 0.0, 0.0, 1.0, 0 * 64, 360 * 64);
+		cairo_restore (cr);
+		cairo_fill_preserve (cr);
 	}
 
 	if (re->outline_set) {
-		if (re->outline_stipple)
-			foo_canvas_set_stipple_origin (item->canvas, re->outline_gc);
-
-		gdk_draw_arc (drawable,
-			      re->outline_gc,
-			      FALSE,
-			      x1,
-			      y1,
-			      x2 - x1,
-			      y2 - y1,
-			      0 * 64,
-			      360 * 64);
+		/* FIXME: set stipple as source */
+		
+		cairo_set_source_rgba (cr,
+		                       ((double) ((re->outline_color & 0xff000000) >> 24)) / 255,
+		                       ((double) ((re->outline_color & 0xff0000) >> 16)) / 255,
+		                       ((double) ((re->outline_color & 0xff00) >> 8)) / 255,
+		                       ((double) ((re->outline_color & 0xff))) / 255);
+		if (!re->fill_set)
+		{
+			cairo_save (cr);
+			cairo_translate (cr, x1 + (x2 - x1)/2, y1 + (y2 - y1)/2);
+			cairo_scale (cr, (x2 - x1)/2, (y2 - y1)/2);
+			cairo_arc (cr, 0.0, 0.0, 1.0, 0 * 64, 360 * 64);
+			cairo_restore (cr);
+		}
+		cairo_stroke (cr);
 	}
+	cairo_destroy (cr);
 }
 
 static double
@@ -1343,10 +1151,7 @@ foo_canvas_ellipse_point (FooCanvasItem *item, double x, double y, int cx, int c
 	*actual_item = item;
 
 	if (re->outline_set) {
-		if (re->width_pixels)
-			width = re->width / item->canvas->pixels_per_unit;
-		else
-			width = re->width;
+		width = get_draw_width_units (re);
 	} else
 		width = 0.0;
 

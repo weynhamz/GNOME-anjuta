@@ -42,7 +42,8 @@
 #define DEFAULT_SPLINE_STEPS 12		/* this is what Tk uses */
 #define NUM_ARROW_POINTS     6		/* number of points in an arrowhead */
 #define NUM_STATIC_POINTS    256	/* number of static points to use to avoid allocating arrays */
-
+#define GDK_TO_CAIRO_LINE_CAP(cap) ((cap == GDK_CAP_NOT_LAST)? CAIRO_LINE_CAP_BUTT : cap - 1)
+#define GDK_TO_CAIRO_LINE_JOIN(join) (join)
 
 #define GROW_BOUNDS(bx1, by1, bx2, by2, x, y) {	\
 	if (x < bx1)				\
@@ -57,7 +58,6 @@
 	if (y > by2)				\
 		by2 = y;			\
 }
-
 
 enum {
 	PROP_0,
@@ -74,6 +74,7 @@ enum {
 	PROP_FIRST_ARROWHEAD,
 	PROP_LAST_ARROWHEAD,
 	PROP_SMOOTH,
+	PROP_AA,
 	PROP_SPLINE_STEPS,
 	PROP_ARROW_SHAPE_A,
 	PROP_ARROW_SHAPE_B,
@@ -209,10 +210,10 @@ foo_canvas_line_class_init (FooCanvasLineClass *klass)
 				       G_PARAM_READWRITE));
         g_object_class_install_property
                 (gobject_class,
-                 PROP_SPLINE_STEPS,
-                 g_param_spec_uint ("spline-steps", NULL, NULL,
-				    0, G_MAXUINT, DEFAULT_SPLINE_STEPS,
-				    G_PARAM_READWRITE));
+                 PROP_AA,
+                 g_param_spec_boolean ("aa", NULL, NULL,
+				       FALSE,
+				       G_PARAM_READWRITE));
         g_object_class_install_property
                 (gobject_class,
                  PROP_ARROW_SHAPE_A,
@@ -253,8 +254,8 @@ foo_canvas_line_init (FooCanvasLine *line)
 	line->shape_a = 0.0;
 	line->shape_b = 0.0;
 	line->shape_c = 0.0;
-	line->spline_steps = DEFAULT_SPLINE_STEPS;
-	line->line_smoothed = FALSE;
+	line->aa = FALSE;
+	line->smooth = FALSE;
 }
 
 static void
@@ -553,60 +554,6 @@ reconfigure_arrows (FooCanvasLine *line)
 	}
 }
 
-/* Convenience function to set the line's GC's foreground color */
-static void
-set_line_gc_foreground (FooCanvasLine *line)
-{
-	GdkColor c;
-
-	if (!line->gc)
-		return;
-
-	c.pixel = line->fill_pixel;
-	gdk_gc_set_foreground (line->gc, &c);
-}
-
-/* Recalculate the line's width and set it in its GC */
-static void
-set_line_gc_width (FooCanvasLine *line)
-{
-	int width;
-
-	if (!line->gc)
-		return;
-
-	if (line->width_pixels)
-		width = (int) line->width;
-	else
-		width = (int) (line->width * line->item.canvas->pixels_per_unit + 0.5);
-
-	gdk_gc_set_line_attributes (line->gc,
-				    width,
-				    line->line_style,
-				    (line->first_arrow || line->last_arrow) ? GDK_CAP_BUTT : line->cap,
-				    line->join);
-}
-
-/* Sets the stipple pattern for the line */
-static void
-set_stipple (FooCanvasLine *line, GdkBitmap *stipple, int reconfigure)
-{
-	if (line->stipple && !reconfigure)
-		g_object_unref (line->stipple);
-
-	line->stipple = stipple;
-	if (stipple && !reconfigure)
-		g_object_ref (stipple);
-
-	if (line->gc) {
-		if (stipple) {
-			gdk_gc_set_stipple (line->gc, stipple);
-			gdk_gc_set_fill (line->gc, GDK_STIPPLED);
-		} else
-			gdk_gc_set_fill (line->gc, GDK_SOLID);
-	}
-}
-
 static void
 foo_canvas_line_set_property (GObject              *object,
 				guint                 param_id,
@@ -662,7 +609,6 @@ foo_canvas_line_set_property (GObject              *object,
 		/* Since the line's points have changed, we need to re-generate arrowheads in
 		 * addition to recalculating the bounds.
 		 */
-		line->line_smoothed = FALSE;
 		foo_canvas_item_request_update (item);
 		break;
 
@@ -701,21 +647,20 @@ foo_canvas_line_set_property (GObject              *object,
 		break;
 
 	case PROP_FILL_STIPPLE:
-		set_stipple (line, (GdkBitmap *) g_value_get_object (value), FALSE);
+		line->stipple = (GdkBitmap *) g_value_get_object (value);
+		g_object_ref (line->stipple);
 		foo_canvas_item_request_redraw (item);		
 		break;
 
 	case PROP_WIDTH_PIXELS:
 		line->width = g_value_get_uint (value);
 		line->width_pixels = TRUE;
-		set_line_gc_width (line);
 		foo_canvas_item_request_update (item);
 		break;
 
 	case PROP_WIDTH_UNITS:
 		line->width = fabs (g_value_get_double (value));
 		line->width_pixels = FALSE;
-		set_line_gc_width (line);
 		foo_canvas_item_request_update (item);
 		break;
 
@@ -731,7 +676,6 @@ foo_canvas_line_set_property (GObject              *object,
 
 	case PROP_LINE_STYLE:
 		line->line_style = g_value_get_enum (value);
-		set_line_gc_width (line);
 		foo_canvas_item_request_update (item);
 		break;
 
@@ -747,13 +691,11 @@ foo_canvas_line_set_property (GObject              *object,
 
 	case PROP_SMOOTH:
 		line->smooth = g_value_get_boolean (value);
-		line->line_smoothed = FALSE;
 		foo_canvas_item_request_update (item);
 		break;
 
-	case PROP_SPLINE_STEPS:
-		line->spline_steps = g_value_get_int (value);
-		line->line_smoothed = FALSE;
+	case PROP_AA:
+		line->aa = g_value_get_boolean (value);
 		foo_canvas_item_request_update (item);
 		break;
 
@@ -783,8 +725,6 @@ foo_canvas_line_set_property (GObject              *object,
 		else
 			line->fill_pixel = foo_canvas_get_color_pixel (item->canvas,
 									 line->fill_rgba);
-
-		set_line_gc_foreground (line);
 
 		foo_canvas_item_request_redraw (item);		
 	}
@@ -866,7 +806,7 @@ foo_canvas_line_get_property (GObject              *object,
 		g_value_set_boxed (value, &color);
 		break;
 	}
-
+			
 	case PROP_FILL_COLOR_RGBA:
 		g_value_set_uint (value, line->fill_rgba);
 		break;
@@ -907,8 +847,8 @@ foo_canvas_line_get_property (GObject              *object,
 		g_value_set_boolean (value, line->smooth);
 		break;
 
-	case PROP_SPLINE_STEPS:
-		g_value_set_uint (value, line->spline_steps);
+	case PROP_AA:
+		g_value_set_boolean (value, line->aa);
 		break;
 
 	case PROP_ARROW_SHAPE_A:
@@ -942,10 +882,6 @@ foo_canvas_line_update (FooCanvasItem *item, double i2w_dx, double i2w_dy, int f
 
 	reconfigure_arrows (line);
 
-	set_line_gc_foreground (line);
-	set_line_gc_width (line);
-	set_stipple (line, line->stipple, TRUE);
-	
 	get_bounds_canvas (line, &x1, &y1, &x2, &y2, i2w_dx, i2w_dy);
 	foo_canvas_update_bbox (item, x1, y1, x2, y2);
 }
@@ -959,13 +895,6 @@ foo_canvas_line_realize (FooCanvasItem *item)
 
 	if (parent_class->realize)
 		(* parent_class->realize) (item);
-
-	line->gc = gdk_gc_new (item->canvas->layout.bin_window);
-/* FIXME FIXME FIXME Need to recalc pixel values, set colours, etc. */
-
-#if 0
-	(* FOO_CANVAS_ITEM_CLASS (item->object.klass)->update) (item, NULL, NULL, 0);
-#endif
 }
 
 static void
@@ -974,9 +903,6 @@ foo_canvas_line_unrealize (FooCanvasItem *item)
 	FooCanvasLine *line;
 
 	line = FOO_CANVAS_LINE (item);
-
-	g_object_unref (line->gc);
-	line->gc = NULL;
 
 	if (parent_class->unrealize)
 		(* parent_class->unrealize) (item);
@@ -1016,102 +942,24 @@ item_to_canvas (FooCanvas *canvas, double *item_coords, GdkPoint *canvas_coords,
 	}
 }
 
-/**
- * Implements a cubic B-curve. 4 consecutive points are taken at a time to
- * build the curve segments. Any remaining points at the end that don't form
- * a curve are just joined as line segments.
- * 
- * The process modifies the line points of the canvas item. So after this, the
- * points are no longer what user originally supplied. The curve is computed
- * once before a draw and reused, until influencial properties are modified
- * (points, smooth, spline_steps properties of the canvas item). So, make sure
- * when these properties are modified, line->line_smoothed is reset to FALSE
- * so that next draw would recalculate it.
- * 
- * Algorithm: see http://en.wikipedia.org/wiki/Bezier_curve
- */
-static void
-foo_canvas_line_smooth (FooCanvasLine *line)
-{
-	gint curr_point = 0;
-	gint num_points = 0;
-	gdouble *line_points;
-
-	if (line->line_smoothed)
-		return;
-	
-	if (!line->smooth || line->num_points <= 2)
-	{
-		line->line_smoothed = TRUE;
-		return;
-	}
-
-	line_points = g_new (gdouble, 2 * ((line->num_points - 1) * line->spline_steps));
-	while (curr_point < (line->num_points - 3))
-	{
-		gint step;
-		gdouble p0_x, p0_y, p1_x, p1_y, p2_x, p2_y, p3_x, p3_y;
-		p0_x = line->coords[2 * curr_point];
-		p0_y = line->coords[2 * curr_point + 1];
-		p1_x = line->coords[2 * (curr_point + 1)];
-		p1_y = line->coords[2 * (curr_point + 1) + 1];
-		p2_x = line->coords[2 * (curr_point + 2)];
-		p2_y = line->coords[2 * (curr_point + 2) + 1];
-		p3_x = line->coords[2 * (curr_point + 3)];
-		p3_y = line->coords[2 * (curr_point + 3) + 1];
-		for (step = 0; step < line->spline_steps; step++)
-		{
-			gdouble q0_x, q0_y, q1_x, q1_y, q2_x, q2_y;
-			gdouble r0_x, r0_y, r1_x, r1_y;
-			
-			q0_x = p0_x + (p1_x - p0_x) * step / line->spline_steps;
-			q0_y = p0_y + (p1_y - p0_y) * step  / line->spline_steps;
-			q1_x = p1_x + (p2_x - p1_x) * step / line->spline_steps;
-			q1_y = p1_y + (p2_y - p1_y) * step / line->spline_steps;
-			q2_x = p2_x + (p3_x - p2_x) * step / line->spline_steps;
-			q2_y = p2_y + (p3_y - p2_y) * step / line->spline_steps;
-
-			r0_x = q0_x + (q1_x - q0_x) * step / line->spline_steps;
-			r0_y = q0_y + (q1_y - q0_y) * step  / line->spline_steps;
-			r1_x = q1_x + (q2_x - q1_x) * step / line->spline_steps;
-			r1_y = q1_y + (q2_y - q1_y) * step / line->spline_steps;
-			
-			line_points[2 * num_points] = r0_x + (r1_x - r0_x) * step / line->spline_steps;
-			line_points[2 * num_points + 1] = r0_y + (r1_y - r0_y) * step / line->spline_steps;
-			num_points++;
-		}
-		curr_point += 3;
-	}
-	for (; curr_point < line->num_points; curr_point++)
-	{
-			line_points[2 * num_points] = line->coords[2 * curr_point];
-			line_points[2 * num_points + 1] = line->coords[2 * curr_point + 1];
-			num_points++;
-	}
-	line->line_smoothed = TRUE;
-	g_free (line->coords);
-	line->coords = line_points;
-	line->num_points = num_points;
-}
-
 static void
 foo_canvas_line_draw (FooCanvasItem *item, GdkDrawable *drawable,
 			GdkEventExpose *event)
 {
+	gint i;
+	cairo_t *cr;
 	FooCanvasLine *line;
 	GdkPoint static_points[NUM_STATIC_POINTS];
 	GdkPoint *points;
 	int actual_num_points_drawn;
 	double i2w_dx, i2w_dy;
+	double width;
 	
 	line = FOO_CANVAS_LINE (item);
 
 	if (line->num_points == 0)
 		return;
 
-	/* Smooth the line, if not yet done */
-	foo_canvas_line_smooth (FOO_CANVAS_LINE (line));
-	
 	/* Build array of canvas pixel coordinates */
 
 	if (line->num_points <= NUM_STATIC_POINTS)
@@ -1126,10 +974,40 @@ foo_canvas_line_draw (FooCanvasItem *item, GdkDrawable *drawable,
 	item_to_canvas (item->canvas, line->coords, points, line->num_points,
 			&actual_num_points_drawn, i2w_dx, i2w_dy);
 
-	if (line->stipple)
-		foo_canvas_set_stipple_origin (item->canvas, line->gc);
+	if (line->width_pixels)
+		width = line->width;
+	else
+		width = line->width * line->item.canvas->pixels_per_unit;
 
-	gdk_draw_lines (drawable, line->gc, points, actual_num_points_drawn);
+	cr = gdk_cairo_create (drawable);
+	cairo_set_line_width (cr, width);
+	cairo_set_line_cap (cr, GDK_TO_CAIRO_LINE_CAP (line->cap));
+	cairo_set_line_join (cr, GDK_TO_CAIRO_LINE_JOIN (line->join));
+	/* FIXME: Set line dash */
+	cairo_set_source_rgba (cr,
+	                       ((double) ((line->fill_rgba & 0xff000000) >> 24)) / 255,
+						   ((double) ((line->fill_rgba & 0xff0000) >> 16)) / 255,
+						   ((double) ((line->fill_rgba & 0xff00) >> 8)) / 255,
+						   ((double) ((line->fill_rgba & 0xff))) / 255);
+	if (!line->aa)
+		cairo_set_antialias (cr, CAIRO_ANTIALIAS_NONE);
+
+    cairo_move_to (cr, points[0].x, points[0].y);
+	i = 1;
+	if (line->smooth)
+	{
+		for (; (i+2) < actual_num_points_drawn; i += 3)
+		{
+			cairo_curve_to (cr,
+			                points[i].x, points[i].y,
+			                points[i+1].x, points[i+1].y,
+			                points[i+2].x, points[i+2].y);
+		}
+	}
+	for (; i < actual_num_points_drawn; i++)
+		cairo_line_to (cr, points[i].x, points[i].y);
+	
+	cairo_stroke (cr);
 
 	if (points != static_points)
 		g_free (points);
@@ -1141,14 +1019,23 @@ foo_canvas_line_draw (FooCanvasItem *item, GdkDrawable *drawable,
 	if (line->first_arrow) {
 		item_to_canvas (item->canvas, line->first_coords, points, NUM_ARROW_POINTS,
 				&actual_num_points_drawn, i2w_dx, i2w_dy);
-		gdk_draw_polygon (drawable, line->gc, TRUE, points, actual_num_points_drawn );
+		cairo_move_to (cr, points[0].x, points[0].y);
+		for (i = 1; i < actual_num_points_drawn - 1; i++)
+			cairo_line_to (cr, points[i].x, points[i].y);
+		cairo_close_path (cr);
+		cairo_fill (cr);
 	}
 
 	if (line->last_arrow) {
 		item_to_canvas (item->canvas, line->last_coords, points, NUM_ARROW_POINTS,
 				&actual_num_points_drawn, i2w_dx, i2w_dy);
-		gdk_draw_polygon (drawable, line->gc, TRUE, points, actual_num_points_drawn );
+		cairo_move_to (cr, points[0].x, points[0].y);
+		for (i = 1; i < actual_num_points_drawn - 1; i++)
+			cairo_line_to (cr, points[i].x, points[i].y);
+		cairo_close_path (cr);
+		cairo_fill (cr);
 	}
+	cairo_destroy (cr);
 }
 
 static double

@@ -81,9 +81,6 @@ struct _FooCanvasRE {
 	GdkBitmap *fill_stipple;	/* Stipple for fill */
 	GdkBitmap *outline_stipple;	/* Stipple for outline */
 
-	GdkGC *fill_gc;			/* GC for filling */
-	GdkGC *outline_gc;		/* GC for outline */
-
 	gulong fill_pixel;		/* Fill color */
 	gulong outline_pixel;		/* Outline color */
 
@@ -98,6 +95,7 @@ struct _FooCanvasRE {
 	unsigned int fill_set : 1;	/* Is fill color set? */
 	unsigned int outline_set : 1;	/* Is outline color set? */
 	unsigned int width_pixels : 1;	/* Is outline width specified in pixels or units? */
+	unsigned int aa: 1; /* Enable anti-alias for this item */
 };
 
 struct _FooCanvasREClass {

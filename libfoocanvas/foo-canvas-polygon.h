@@ -88,9 +88,6 @@ struct _FooCanvasPolygon {
 	GdkBitmap *fill_stipple;	/* Stipple for fill */
 	GdkBitmap *outline_stipple;	/* Stipple for outline */
 
-	GdkGC *fill_gc;			/* GC for filling */
-	GdkGC *outline_gc;		/* GC for outline */
-
 	gulong fill_pixel;		/* Color for fill */
 	gulong outline_pixel;		/* Color for outline */
 	double width;			/* Width of polygon's outline */
@@ -99,12 +96,13 @@ struct _FooCanvasPolygon {
 	guint fill_color;		/* Fill color, RGBA */
 	guint outline_color;		/* Outline color, RGBA */
 
-        guint32 fill_rgba;		/* RGBA color for filling */ /*AA*/
+	guint32 fill_rgba;		/* RGBA color for filling */ /*AA*/
 	guint32 outline_rgba;		/* RGBA color for outline */ /*AA*/
 
 	guint fill_set : 1;		/* Is fill color set? */
 	guint outline_set : 1;		/* Is outline color set? */
 	guint width_pixels : 1;		/* Is outline width specified in pixels or units? */
+	guint aa: 1; /* Enable anti-alias for this item */
 };
 
 struct _FooCanvasPolygonClass {
