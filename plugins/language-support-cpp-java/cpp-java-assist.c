@@ -1440,13 +1440,7 @@ cpp_java_assist_finalize (GObject *object)
 	CppJavaAssist *assist = CPP_JAVA_ASSIST (object);
 	cpp_java_assist_uninstall (assist);
 	cpp_java_assist_clear_completion_cache (assist);
-#if 0
-	if (assist->priv->calltip_context)
-	{
-		g_free (assist->priv->calltip_context);
-		assist->priv->calltip_context = NULL;
-	}
-#endif
+	cpp_java_assist_clear_calltip_context (assist);
 	g_object_unref (assist->priv->cancel_calltip_file);
 	g_object_unref (assist->priv->cancel_calltip_project);
 	g_object_unref (assist->priv->cancel_calltip_system);
