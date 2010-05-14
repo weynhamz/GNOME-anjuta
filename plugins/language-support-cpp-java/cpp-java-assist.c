@@ -89,13 +89,9 @@ struct _CppJavaAssistPriv {
 	IAnjutaIterable* start_iter;
 	gchar* pre_word;
 
-	gboolean async_file;
-	gboolean async_system;
-	gboolean async_project;
-
 	gint async_file_id;
-	gint async_system_id;	
-	gint async_project_id;	
+	gint async_system_id;
+	gint async_project_id;
 	
 	GCancellable* cancel_system;
 	GCancellable* cancel_file;
@@ -189,6 +185,9 @@ static GList*
 cpp_java_assist_create_completion_from_symbols (IAnjutaIterable* symbols, gboolean local_only)
 {
 	GList* list = NULL;
+
+	if (!symbols)
+		return NULL;
 	do
 	{
 		IAnjutaSymbol* symbol = IANJUTA_SYMBOL (symbols);
@@ -606,53 +605,23 @@ on_symbol_search_complete (gint search_id, IAnjutaIterable* symbols, CppJavaAssi
 		proposals = cpp_java_assist_create_completion_from_symbols (symbols, FALSE);
 	}
 
+	if (search_id == assist->priv->async_file_id)
+		assist->priv->async_file_id = 0;
+	else if (search_id == assist->priv->async_project_id)
+		assist->priv->async_project_id = 0;
+	else if (search_id == assist->priv->async_system_id)
+		assist->priv->async_system_id = 0;
+	else
+		g_assert_not_reached ();
+	
 	g_completion_add_items (assist->priv->completion_cache, proposals);
-	gboolean running = assist->priv->async_system || assist->priv->async_file ||
-		assist->priv->async_project;
+	gboolean running = assist->priv->async_system_id || assist->priv->async_file_id ||
+		assist->priv->async_project_id;
+	
 	cpp_java_assist_populate_real (assist, !running);
 	g_list_free (proposals);
 	g_object_unref (symbols);
 }
-
-/**
- * notify_system_finished:
- * @notify: the notifycation object
- * @assist: self
- *
- * Called when the system search was finished
- */
-static void
-notify_system_finished (AnjutaAsyncNotify* notify, CppJavaAssist* assist)
-{
-	assist->priv->async_system = FALSE;
-}
-
-/**
- * notify_file_finished:
- * @notify: the notifycation object
- * @assist: self
- *
- * Called when the file search was finished
- */
-static void
-notify_file_finished (AnjutaAsyncNotify* notify, CppJavaAssist* assist)
-{
-	assist->priv->async_file = FALSE;
-}
-
-/**
- * notify_project_finished:
- * @notify: the notifycation object
- * @assist: self
- *
- * Called when the file search was finished
- */
-static void
-notify_project_finished (AnjutaAsyncNotify* notify, CppJavaAssist* assist)
-{
-	assist->priv->async_project = FALSE;
-}
-
 
 /**
  * cpp_java_assist_create_autocompletion_cache:
@@ -678,7 +647,6 @@ cpp_java_assist_create_autocompletion_cache (CppJavaAssist* assist, IAnjutaItera
 	else
 	{
 		gchar *pattern = g_strconcat (pre_word, "%", NULL);
-		AnjutaAsyncNotify* notify = NULL;
 		IAnjutaSymbolType match_types = IANJUTA_SYMBOL_TYPE_MAX;
 		IAnjutaSymbolField fields = IANJUTA_SYMBOL_FIELD_SIMPLE |
 			IANJUTA_SYMBOL_FIELD_TYPE |
@@ -693,9 +661,6 @@ cpp_java_assist_create_autocompletion_cache (CppJavaAssist* assist, IAnjutaItera
 			GFile *file = ianjuta_file_get_file (IANJUTA_FILE (assist->priv->iassist), NULL);
 			if (file != NULL)
 			{
-				notify = anjuta_async_notify_new();
-				g_signal_connect (notify, "finished", G_CALLBACK(notify_file_finished), assist);
-				assist->priv->async_file = TRUE;
 				g_cancellable_reset (assist->priv->cancel_file);
 				assist->priv->async_file_id =
 					ianjuta_symbol_manager_search_file_async (assist->priv->isymbol_manager,
@@ -704,7 +669,7 @@ cpp_java_assist_create_autocompletion_cache (CppJavaAssist* assist, IAnjutaItera
 					                                          fields,
 					                                          pattern, file, -1, -1, 
 					                                          assist->priv->cancel_file,
-					                                          notify, 
+					                                          NULL, 
 					                                          (IAnjutaSymbolManagerSearchCallback) on_symbol_search_complete,
 					                                          assist,
 					                                          NULL);
@@ -713,9 +678,6 @@ cpp_java_assist_create_autocompletion_cache (CppJavaAssist* assist, IAnjutaItera
 		}
 		/* This will avoid duplicates of FUNCTION and PROTOTYPE */
 		match_types &= ~IANJUTA_SYMBOL_TYPE_FUNCTION;
-		notify = anjuta_async_notify_new();
-		g_signal_connect (notify, "finished", G_CALLBACK(notify_project_finished), assist);
-		assist->priv->async_project = TRUE;
 		g_cancellable_reset (assist->priv->cancel_project);
 		assist->priv->async_project_id =
 			ianjuta_symbol_manager_search_project_async (assist->priv->isymbol_manager,
@@ -725,15 +687,10 @@ cpp_java_assist_create_autocompletion_cache (CppJavaAssist* assist, IAnjutaItera
 			                                             pattern, 
 			                                             IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC, -1, -1, 
 			                                             assist->priv->cancel_project,
-			                                             notify, 
+			                                             NULL, 
 			                                             (IAnjutaSymbolManagerSearchCallback) on_symbol_search_complete, 
 			                                             assist,
 			                                             NULL);
-		
-
-		notify = anjuta_async_notify_new();
-		g_signal_connect (notify, "finished", G_CALLBACK(notify_system_finished), assist);
-		assist->priv->async_system = TRUE;
 		g_cancellable_reset (assist->priv->cancel_system);
 		assist->priv->async_system_id = 
 			ianjuta_symbol_manager_search_system_async (assist->priv->isymbol_manager,
@@ -742,7 +699,7 @@ cpp_java_assist_create_autocompletion_cache (CppJavaAssist* assist, IAnjutaItera
 			                                            fields,
 			                                            pattern, IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC, -1, -1,
 			                                            assist->priv->cancel_system,
-			                                            notify, 
+			                                            NULL, 
 			                                            (IAnjutaSymbolManagerSearchCallback) on_symbol_search_complete, 
 			                                            assist,
 			                                            NULL);
