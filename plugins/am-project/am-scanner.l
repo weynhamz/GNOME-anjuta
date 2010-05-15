@@ -35,7 +35,7 @@
 
 #define YY_DECL static int am_yylex (YYSTYPE * yylval_param,YYLTYPE * yylloc_param ,yyscan_t yyscanner)
 
-//#define YY_USER_INIT {yy_flex_debug = 1;}
+#define YY_USER_INIT {yy_flex_debug = 1;}
 
 static int amp_am_scanner_parse_end (AmpAmScanner *scanner);
 
@@ -76,6 +76,10 @@ NAME          [^ \t\n\r:#=$"'`&@\\]*
 
 <INITIAL>\n 						{ RETURN (EOL); }
 
+<INITIAL>([ ]|\\\n)([ \t]|\\\n)*	{ RETURN (SPACE); }
+
+<INITIAL>#							{ RETURN (HASH); }
+
 <INITIAL>([ ]|\\\n)([ \t]|\\\n)* 	{ RETURN (SPACE); }
 
 <INITIAL>([ \t])*#.*\n 				{ RETURN (EOL); }
@@ -115,6 +119,8 @@ NAME          [^ \t\n\r:#=$"'`&@\\]*
 <INITIAL>\\# 						{ RETURN (CHARACTER); }
 
 <INITIAL>include					{ RETURN (INCLUDE); }
+
+<INITIAL>\-include					{ RETURN (INCLUDE); }
 
 <INITIAL>SUBDIRS 					{ RETURN (SUBDIRS); }
 
@@ -233,6 +239,7 @@ amp_am_scanner_set_am_variable (AmpAmScanner *scanner, AnjutaTokenType variable,
 {
     amp_project_set_am_variable (scanner->project, scanner->group, variable, name, list, scanner->orphan_properties);
 }
+
 void
 amp_am_scanner_include (AmpAmScanner *scanner, AnjutaToken *name)
 {
@@ -241,8 +248,8 @@ amp_am_scanner_include (AmpAmScanner *scanner, AnjutaToken *name)
 	AnjutaToken *token;
 	gchar *filename;
 
-	filename = anjuta_token_evaluate (name);
-	//g_message ("read include =%s=", filename);
+	filename = g_strstrip (anjuta_token_evaluate (name));
+	g_message ("read include =%s=", filename);
 	file = g_file_resolve_relative_path (anjuta_token_stream_get_current_directory (scanner->stream), filename);
 	g_free (filename);
 	include = anjuta_token_file_new (file);
@@ -250,6 +257,27 @@ amp_am_scanner_include (AmpAmScanner *scanner, AnjutaToken *name)
 	//g_message ("read file =%s= arg %p", g_file_get_path (file), token);
 	amp_am_scanner_parse_token (scanner, token, file, NULL);
 	g_object_unref (file);
+}
+
+void
+amp_am_scanner_parse_variable (AmpAmScanner *scanner, AnjutaToken *variable)
+{
+	AnjutaToken *group;
+	AnjutaToken *content;
+
+	anjuta_token_set_type (variable, ANJUTA_TOKEN_VARIABLE);
+	content = anjuta_token_new_static (ANJUTA_TOKEN_CONTENT, NULL);
+	anjuta_token_stream_append_token (scanner->stream, content);
+
+	/*group = mkp_project_get_variable_token (scanner->project, variable);
+	fprintf(stdout, "get variable %s is %p\n", anjuta_token_evaluate (variable), group);
+	if (group != NULL)
+	{
+		fprintf (stdout,"variable %s\n", anjuta_token_get_string (variable));
+		//anjuta_token_dump (group);
+		amp_am_scanner_parse_token (scanner, group, NULL, NULL);
+		//anjuta_token_free (token);
+	}*/
 }
 
 
@@ -323,7 +351,7 @@ amp_am_scanner_new (AmpProject *project, AmpGroup *group)
     yyset_extra (scanner, scanner->scanner);
 
 	return scanner;
-};
+}
 
 void
 amp_am_scanner_free (AmpAmScanner *scanner)

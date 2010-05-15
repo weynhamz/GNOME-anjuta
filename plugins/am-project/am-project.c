@@ -1827,7 +1827,6 @@ project_load_makefile (AmpProject *project, GFile *file, AnjutaProjectNode *pare
 void
 amp_project_set_am_variable (AmpProject* project, AmpGroup* group, AnjutaTokenType variable, AnjutaToken *name, AnjutaToken *list, GHashTable *orphan_properties)
 {
-	
 	switch (variable)
 	{
 	case AM_TOKEN_SUBDIRS:

@@ -34,6 +34,7 @@
 %token	EOL	'\n'
 %token	SPACE
 %token	TAB '\t'
+%token	HASH '#'
 %token	MACRO
 %token	VARIABLE
 %token	COLON ':'
@@ -100,9 +101,15 @@
 
 %start file
 
+%expect 1
+
 %debug
 
+%verbose
+
 %{
+
+//amp_am_yydebug = 1;
 
 static gint
 amp_am_automake_variable (AnjutaToken *token)
@@ -154,68 +161,162 @@ amp_am_automake_variable (AnjutaToken *token)
 %%
 
 file:
-	optional_space statement
-	| file EOL optional_space statement
-	;
-        
-statement:
-	/* empty */
-	| line
-	| am_variable
-	| include
+	statement
+	| file statement
 	;
 
-line:
-	name_token
-	| line token
-	;
-		
-am_variable:
-	automake_token space_list_value {
-		$$= anjuta_token_merge_previous ($2, $1);
-		amp_am_scanner_set_am_variable (scanner, amp_am_automake_variable ($1), $1, anjuta_token_last_item ($2));
+/*statement:
+	end_of_line
+	| space  end_of_line
+	| definition  end_of_line
+	| am_variable  end_of_line
+	| rule  command_list
+	| include
+	;*/
+
+statement:
+	end_of_line
+	| space  end_of_line
+	| definition  end_of_line
+	| am_variable  end_of_line
+	| include  end_of_line
+	| line  end_of_line {
+		g_message ("line");
 	}
-	| automake_token optional_space equal_token optional_space
-    {
+	| rule  command_list {
+		g_message ("rule");
+	}
+	;
+	
+am_variable:
+	optional_space  automake_token  optional_space  equal_token  value_list {
 		$$ = anjuta_token_new_static (ANJUTA_TOKEN_LIST, NULL);
-        anjuta_token_merge ($$, $1);
-    }
+		anjuta_token_merge ($$, $2);
+		if ($3 != NULL) anjuta_token_set_type ($3, ANJUTA_TOKEN_START);
+		anjuta_token_merge ($$, $4);
+		anjuta_token_merge ($$, $5);
+		amp_am_scanner_set_am_variable (scanner, amp_am_automake_variable ($2), $2, anjuta_token_last_item ($$));
+	}
+	| optional_space automake_token optional_space equal_token
+	{
+		$$ = anjuta_token_new_static (ANJUTA_TOKEN_LIST, NULL);
+		anjuta_token_merge ($$, $2);
+	}
 	;
 
 include:
-	include_token space value {
+	optional_space  include_token  value_list {
 		amp_am_scanner_include (scanner, $3);
 	}
 
-space_list_value: optional_space  equal_token   value_list  {
-		$$ = anjuta_token_new_static (ANJUTA_TOKEN_LIST, NULL);
-		if ($1 != NULL) anjuta_token_set_type ($1, ANJUTA_TOKEN_START);
-		anjuta_token_merge ($$, $1);
-		anjuta_token_merge ($$, $2);
+definition:
+	head_list  equal_token value_list {
+		g_message ("definition %s", anjuta_token_evaluate ($1));
+	}
+	| head_list  equal_token {
+		g_message ("definition %s", anjuta_token_evaluate ($1));
+	}
+	;
+
+rule:
+	depend_list  end_of_line
+	| depend_list  SEMI_COLON  command_line  EOL
+	;
+
+depend_list:
+	head_list  rule_token  prerequisite_list
+	;
+
+command_list:
+	/* empty */
+	| command_list TAB command_line EOL
+	;
+
+line:
+	head_list
+	;
+
+/* Lists
+ *----------------------------------------------------------------------------*/
+
+end_of_line:
+	EOL {
+		$$ = NULL;
+	}
+	| comment {
+		$$ = NULL;
+	}
+	;
+
+comment:
+	HASH not_eol_list EOL
+	;
+
+not_eol_list:
+	/* empty */
+	| not_eol_list not_eol_token
+	;
+
+prerequisite_list:
+	/* empty */
+	| space
+	| optional_space  prerequisite_list_body  optional_space
+	;
+
+prerequisite_list_body:
+	prerequisite
+	| prerequisite_list_body  space  prerequisite
+	;
+
+head_list:
+	optional_space head_list_body optional_space {
+		$$ = anjuta_token_merge_previous ($2, $1);
 		anjuta_token_merge ($$, $3);
 	}
 	;
 
+head_list_body:
+	head {
+		$$ = anjuta_token_new_static (ANJUTA_TOKEN_NAME, NULL);
+	anjuta_token_merge ($$, $1);
+	}
+	| head_list_body  space  head {
+		anjuta_token_merge ($1, $2);
+	anjuta_token_merge ($1, $3);
+	}
+	;
+
 value_list:
-	optional_space strip_value_list optional_space {
+	space
+	| optional_space value_list_body optional_space {
 		if ($1 != NULL) anjuta_token_set_type ($1, ANJUTA_TOKEN_START);
 		if ($3 != NULL) anjuta_token_set_type ($3, ANJUTA_TOKEN_LAST);
 		anjuta_token_merge_previous ($2, $1);
 		anjuta_token_merge ($2, $3);
 		$$ = $2;
 	}
-		
-strip_value_list:
+
+value_list_body:
 	value {
 		$$ = anjuta_token_new_static (ANJUTA_TOKEN_LIST, NULL);
 		anjuta_token_merge ($$, $1);
 	}
-	| strip_value_list  space  value {
+	| value_list_body space  value {
 		anjuta_token_set_type ($2, ANJUTA_TOKEN_NEXT);
 		anjuta_token_merge ($1, $2);
 		anjuta_token_merge ($1, $3);
 	}
 	;
+
+	
+	
+command_line:
+	/* empty */
+	| command_line command_token
+	;
+
+/* Items
+ *----------------------------------------------------------------------------*/
 
 optional_space:
 	/* empty */ {
@@ -223,6 +324,50 @@ optional_space:
 	}
 	| space
 	;
+
+space:
+	space_token {
+		$$ = anjuta_token_new_static (ANJUTA_TOKEN_SPACE, NULL);
+		anjuta_token_merge ($$, $1);
+	}
+	| space space_token {
+		anjuta_token_merge ($1, $2);
+	}
+	;
+
+head:
+	head_token {
+		$$ = anjuta_token_new_static (ANJUTA_TOKEN_NAME, NULL);
+		anjuta_token_merge ($$, $1);
+	}
+	| head head_token {
+		anjuta_token_merge ($1, $2);
+	}
+	| head automake_token {
+		anjuta_token_merge ($1, $2);
+	}
+	| head include_token {
+		anjuta_token_merge ($1, $2);
+	}
+	| head variable_token
+	;
+
+/*value:
+	value_token {
+		$$ = anjuta_token_new_static (ANJUTA_TOKEN_ARGUMENT, NULL);
+		anjuta_token_merge ($$, $1);
+	}
+	| space_token {
+		$$ = anjuta_token_new_static (ANJUTA_TOKEN_ARGUMENT, NULL);
+		anjuta_token_merge ($$, $1);
+	}
+	| value value_token {
+		anjuta_token_merge ($1, $2);
+	}
+	| value space_token {
+		anjuta_token_merge ($1, $2);
+	}
+	;*/
 
 value:
 	value_token {
@@ -234,30 +379,54 @@ value:
 	}
 	;
 
-space:
-	space_token {
-		$$ = anjuta_token_new_static (ANJUTA_TOKEN_SPACE, NULL);
-		anjuta_token_merge ($$, $1);}
-	| space space_token	{
-		anjuta_token_merge ($1, $2);
-	}
+prerequisite:
+	name_prerequisite
 	;
 
-		
-token:
-	space_token
-	| value_token
-	;            
-	
-value_token:
-	equal_token
+name_prerequisite:
+	prerequisite_token
+	| variable_token
+	| name_prerequisite prerequisite_token
+	| name_prerequisite variable_token
+	;
+
+/* Tokens
+ *----------------------------------------------------------------------------*/
+
+not_eol_token:
+	word_token
+	| space_token
+	;
+
+prerequisite_token:
+	name_token
+	| equal_token
 	| rule_token
-	| target_token
 	;
 
-target_token:
-	head_token
+command_token:
+	name_token
+	| variable_token
 	| automake_token
+	| equal_token
+	| rule_token
+	| depend_token
+	| space_token
+	;
+
+value_token:
+	name_token
+	| variable_token
+	| equal_token
+	| rule_token
+	| depend_token
+	| include_token
+	| automake_token
+	;
+
+head_token:
+	name_token
+	| depend_token
 	;
 
 space_token:
@@ -276,59 +445,66 @@ rule_token:
 	COLON
 	| DOUBLE_COLON
 	;
-		
-head_token:
-	MACRO
-	| VARIABLE
-	| NAME
-	| CHARACTER
-	| ORDER
-	| SEMI_COLON
+
+depend_token:
+	SEMI_COLON
 	;
+
+word_token:
+	name_token
+	| equal_token
+	| rule_token
+	| depend_token
+	;
+
 
 name_token:
 	MACRO
-	| VARIABLE
 	| NAME
 	| CHARACTER
+	| ORDER
 	;
-		
+
+variable_token:
+	VARIABLE
+	;
+
 automake_token:
-    SUBDIRS
-    | DIST_SUBDIRS
-    | _DATA
-    | _HEADERS
-    | _LIBRARIES
-    | _LISP
-    | _LTLIBRARIES
-    | _MANS
-    | _PROGRAMS
-    | _PYTHON
-    | _JAVA
-    | _SCRIPTS
-    | _SOURCES
-    | _TEXINFOS
-    |  _DIR
-    |  _LDFLAGS
-    |  _CPPFLAGS
-    |  _CFLAGS
-    |  _CXXFLAGS
-    |  _JAVACFLAGS
-    |  _FCFLAGS
-    |  _OBJCFLAGS
-    |  _LFLAGS
-    |  _YFLAGS
-    |  TARGET_LDFLAGS
-    |  TARGET_CPPFLAGS
-    |  TARGET_CFLAGS
-    |  TARGET_CXXFLAGS
-    |  TARGET_JAVACFLAGS
-    |  TARGET_FCFLAGS
-    |  TARGET_OBJCFLAGS
-    |  TARGET_LFLAGS
-    |  TARGET_YFLAGS
-    |  TARGET_DEPENDENCIES
-    ;
+	SUBDIRS
+	| DIST_SUBDIRS
+	| _DATA
+	| _HEADERS
+	| _LIBRARIES
+	| _LISP
+	| _LTLIBRARIES
+	| _MANS
+	| _PROGRAMS
+	| _PYTHON
+	| _JAVA
+	| _SCRIPTS
+	| _SOURCES
+	| _TEXINFOS
+	|  _DIR
+	|  _LDFLAGS
+	|  _CPPFLAGS
+	|  _CFLAGS
+	|  _CXXFLAGS
+	|  _JAVACFLAGS
+	|  _FCFLAGS
+	|  _OBJCFLAGS
+	|  _LFLAGS
+	|  _YFLAGS
+	|  TARGET_LDFLAGS
+	|  TARGET_CPPFLAGS
+	|  TARGET_CFLAGS
+	|  TARGET_CXXFLAGS
+	|  TARGET_JAVACFLAGS
+	|  TARGET_FCFLAGS
+	|  TARGET_OBJCFLAGS
+	|  TARGET_LFLAGS
+	|  TARGET_YFLAGS
+	|  TARGET_DEPENDENCIES
+	;
 
 include_token:
 	INCLUDE

@@ -552,6 +552,8 @@
                         GROUP (19:5:9:0:5:1): po
                             TARGET (19:5:9:0:5:1:0): wizard_files
                                 SOURCE (19:5:9:0:5:1:0:0): plugins/project-wizard/templates/gtkmm/po/POTFILES.in
+                        TARGET (19:5:9:0:5:2): wizard_files
+                            SOURCE (19:5:9:0:5:2:0): plugins/project-wizard/templates/gtkmm/ 
                     GROUP (19:5:9:0:6): wxwin
                         GROUP (19:5:9:0:6:0): src
                             TARGET (19:5:9:0:6:0:0): wizard_files
@@ -722,32 +724,34 @@
                     SOURCE (19:5:9:1:0): plugins/project-wizard/anjuta-project-wizard.ui
                     SOURCE (19:5:9:1:1): plugins/project-wizard/applogo.png
                     SOURCE (19:5:9:1:2): plugins/project-wizard/appwizard.png
-                TARGET (19:5:9:2): wizard_pixmaps
-                    SOURCE (19:5:9:2:0): plugins/project-wizard/anjuta-project-wizard-plugin.svg
-                    SOURCE (19:5:9:2:1): plugins/project-wizard/anjuta-project-wizard-plugin-48.png
-                TARGET (19:5:9:3): wizard_plugin
-                    SOURCE (19:5:9:3:0): plugins/project-wizard/$(plugin_in_files:.plugin.in=.plugin)
-                TARGET (19:5:9:4): libanjuta-project-wizard.la
-                    SOURCE (19:5:9:4:0): plugins/project-wizard/plugin.c
-                    SOURCE (19:5:9:4:1): plugins/project-wizard/plugin.h
-                    SOURCE (19:5:9:4:2): plugins/project-wizard/druid.c
-                    SOURCE (19:5:9:4:3): plugins/project-wizard/druid.h
-                    SOURCE (19:5:9:4:4): plugins/project-wizard/header.c
-                    SOURCE (19:5:9:4:5): plugins/project-wizard/header.h
-                    SOURCE (19:5:9:4:6): plugins/project-wizard/property.c
-                    SOURCE (19:5:9:4:7): plugins/project-wizard/property.h
-                    SOURCE (19:5:9:4:8): plugins/project-wizard/values.c
-                    SOURCE (19:5:9:4:9): plugins/project-wizard/values.h
-                    SOURCE (19:5:9:4:10): plugins/project-wizard/file.c
-                    SOURCE (19:5:9:4:11): plugins/project-wizard/file.h
-                    SOURCE (19:5:9:4:12): plugins/project-wizard/action.c
-                    SOURCE (19:5:9:4:13): plugins/project-wizard/action.h
-                    SOURCE (19:5:9:4:14): plugins/project-wizard/parser.c
-                    SOURCE (19:5:9:4:15): plugins/project-wizard/parser.h
-                    SOURCE (19:5:9:4:16): plugins/project-wizard/install.c
-                    SOURCE (19:5:9:4:17): plugins/project-wizard/install.h
-                    SOURCE (19:5:9:4:18): plugins/project-wizard/autogen.c
-                    SOURCE (19:5:9:4:19): plugins/project-wizard/autogen.h
+                TARGET (19:5:9:2): wizard_ui
+                    SOURCE (19:5:9:2:0): plugins/project-wizard/  
+                TARGET (19:5:9:3): wizard_pixmaps
+                    SOURCE (19:5:9:3:0): plugins/project-wizard/anjuta-project-wizard-plugin.svg
+                    SOURCE (19:5:9:3:1): plugins/project-wizard/anjuta-project-wizard-plugin-48.png
+                TARGET (19:5:9:4): wizard_plugin
+                    SOURCE (19:5:9:4:0): plugins/project-wizard/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (19:5:9:5): libanjuta-project-wizard.la
+                    SOURCE (19:5:9:5:0): plugins/project-wizard/plugin.c
+                    SOURCE (19:5:9:5:1): plugins/project-wizard/plugin.h
+                    SOURCE (19:5:9:5:2): plugins/project-wizard/druid.c
+                    SOURCE (19:5:9:5:3): plugins/project-wizard/druid.h
+                    SOURCE (19:5:9:5:4): plugins/project-wizard/header.c
+                    SOURCE (19:5:9:5:5): plugins/project-wizard/header.h
+                    SOURCE (19:5:9:5:6): plugins/project-wizard/property.c
+                    SOURCE (19:5:9:5:7): plugins/project-wizard/property.h
+                    SOURCE (19:5:9:5:8): plugins/project-wizard/values.c
+                    SOURCE (19:5:9:5:9): plugins/project-wizard/values.h
+                    SOURCE (19:5:9:5:10): plugins/project-wizard/file.c
+                    SOURCE (19:5:9:5:11): plugins/project-wizard/file.h
+                    SOURCE (19:5:9:5:12): plugins/project-wizard/action.c
+                    SOURCE (19:5:9:5:13): plugins/project-wizard/action.h
+                    SOURCE (19:5:9:5:14): plugins/project-wizard/parser.c
+                    SOURCE (19:5:9:5:15): plugins/project-wizard/parser.h
+                    SOURCE (19:5:9:5:16): plugins/project-wizard/install.c
+                    SOURCE (19:5:9:5:17): plugins/project-wizard/install.h
+                    SOURCE (19:5:9:5:18): plugins/project-wizard/autogen.c
+                    SOURCE (19:5:9:5:19): plugins/project-wizard/autogen.h
             GROUP (19:5:10): project-manager
                 TARGET (19:5:10:0): project_ui
                     SOURCE (19:5:10:0:0): plugins/project-manager/anjuta-project-manager.xml
@@ -1588,60 +1592,66 @@
                     SOURCE (19:5:28:2:2): plugins/starter/starter.h
                     SOURCE (19:5:28:2:3): plugins/starter/starter.c
             GROUP (19:5:29): am-project
-                TARGET (19:5:29:0): plugin_pixmaps
-                    SOURCE (19:5:29:0:0): plugins/am-project/am-project-plugin-48.png
-                TARGET (19:5:29:1): plugin
-                    SOURCE (19:5:29:1:0): plugins/am-project/$(plugin_in_files:.plugin.in=.plugin)
-                TARGET (19:5:29:2): libam-project.la
-                    SOURCE (19:5:29:2:0): plugins/am-project/plugin.c
-                    SOURCE (19:5:29:2:1): plugins/am-project/plugin.h
-                    SOURCE (19:5:29:2:2): plugins/am-project/am-project.c
-                    SOURCE (19:5:29:2:3): plugins/am-project/am-project.h
-                    SOURCE (19:5:29:2:4): plugins/am-project/am-scanner.l
-                    SOURCE (19:5:29:2:5): plugins/am-project/am-parser.y
-                    SOURCE (19:5:29:2:6): plugins/am-project/am-scanner.h
-                    SOURCE (19:5:29:2:7): plugins/am-project/ac-scanner.l
-                    SOURCE (19:5:29:2:8): plugins/am-project/ac-parser.y
-                    SOURCE (19:5:29:2:9): plugins/am-project/ac-scanner.h
-                    SOURCE (19:5:29:2:10): plugins/am-project/ac-writer.h
-                    SOURCE (19:5:29:2:11): plugins/am-project/ac-writer.c
-                    SOURCE (19:5:29:2:12): plugins/am-project/am-writer.h
-                    SOURCE (19:5:29:2:13): plugins/am-project/am-writer.c
-                    SOURCE (19:5:29:2:14): plugins/am-project/am-project-private.h
-                    SOURCE (19:5:29:2:15): plugins/am-project/am-properties.c
-                    SOURCE (19:5:29:2:16): plugins/am-project/am-properties.h
-                TARGET (19:5:29:3): projectparser
-                    SOURCE (19:5:29:3:0): plugins/am-project/projectparser.c
+                TARGET (19:5:29:0): plugin_ui
+                    SOURCE (19:5:29:0:0): plugins/am-project/ 
+                TARGET (19:5:29:1): plugin_pixmaps
+                    SOURCE (19:5:29:1:0): plugins/am-project/am-project-plugin-48.png
+                TARGET (19:5:29:2): plugin
+                    SOURCE (19:5:29:2:0): plugins/am-project/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (19:5:29:3): libam-project.la
+                    SOURCE (19:5:29:3:0): plugins/am-project/plugin.c
+                    SOURCE (19:5:29:3:1): plugins/am-project/plugin.h
+                    SOURCE (19:5:29:3:2): plugins/am-project/am-project.c
+                    SOURCE (19:5:29:3:3): plugins/am-project/am-project.h
+                    SOURCE (19:5:29:3:4): plugins/am-project/am-scanner.l
+                    SOURCE (19:5:29:3:5): plugins/am-project/am-parser.y
+                    SOURCE (19:5:29:3:6): plugins/am-project/am-scanner.h
+                    SOURCE (19:5:29:3:7): plugins/am-project/ac-scanner.l
+                    SOURCE (19:5:29:3:8): plugins/am-project/ac-parser.y
+                    SOURCE (19:5:29:3:9): plugins/am-project/ac-scanner.h
+                    SOURCE (19:5:29:3:10): plugins/am-project/ac-writer.h
+                    SOURCE (19:5:29:3:11): plugins/am-project/ac-writer.c
+                    SOURCE (19:5:29:3:12): plugins/am-project/am-writer.h
+                    SOURCE (19:5:29:3:13): plugins/am-project/am-writer.c
+                    SOURCE (19:5:29:3:14): plugins/am-project/am-project-private.h
+                    SOURCE (19:5:29:3:15): plugins/am-project/am-properties.c
+                    SOURCE (19:5:29:3:16): plugins/am-project/am-properties.h
+                TARGET (19:5:29:4): projectparser
+                    SOURCE (19:5:29:4:0): plugins/am-project/projectparser.c
             GROUP (19:5:30): mk-project
-                TARGET (19:5:30:0): plugin_glade
-                    SOURCE (19:5:30:0:0): plugins/mk-project/mk-project.ui
-                TARGET (19:5:30:1): plugin_pixmaps
-                    SOURCE (19:5:30:1:0): plugins/mk-project/mk-project-plugin-48.png
-                TARGET (19:5:30:2): plugin
-                    SOURCE (19:5:30:2:0): plugins/mk-project/$(plugin_in_files:.plugin.in=.plugin)
-                TARGET (19:5:30:3): libmk-project.la
-                    SOURCE (19:5:30:3:0): plugins/mk-project/plugin.c
-                    SOURCE (19:5:30:3:1): plugins/mk-project/plugin.h
-                    SOURCE (19:5:30:3:2): plugins/mk-project/mk-project.c
-                    SOURCE (19:5:30:3:3): plugins/mk-project/mk-project.h
-                    SOURCE (19:5:30:3:4): plugins/mk-project/mk-scanner.l
-                    SOURCE (19:5:30:3:5): plugins/mk-project/mk-parser.y
-                    SOURCE (19:5:30:3:6): plugins/mk-project/mk-scanner.h
-                    SOURCE (19:5:30:3:7): plugins/mk-project/mk-rule.c
-                    SOURCE (19:5:30:3:8): plugins/mk-project/mk-rule.h
-                    SOURCE (19:5:30:3:9): plugins/mk-project/mk-project-private.h
+                TARGET (19:5:30:0): plugin_ui
+                    SOURCE (19:5:30:0:0): plugins/mk-project/ 
+                TARGET (19:5:30:1): plugin_glade
+                    SOURCE (19:5:30:1:0): plugins/mk-project/mk-project.ui
+                TARGET (19:5:30:2): plugin_pixmaps
+                    SOURCE (19:5:30:2:0): plugins/mk-project/mk-project-plugin-48.png
+                TARGET (19:5:30:3): plugin
+                    SOURCE (19:5:30:3:0): plugins/mk-project/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (19:5:30:4): libmk-project.la
+                    SOURCE (19:5:30:4:0): plugins/mk-project/plugin.c
+                    SOURCE (19:5:30:4:1): plugins/mk-project/plugin.h
+                    SOURCE (19:5:30:4:2): plugins/mk-project/mk-project.c
+                    SOURCE (19:5:30:4:3): plugins/mk-project/mk-project.h
+                    SOURCE (19:5:30:4:4): plugins/mk-project/mk-scanner.l
+                    SOURCE (19:5:30:4:5): plugins/mk-project/mk-parser.y
+                    SOURCE (19:5:30:4:6): plugins/mk-project/mk-scanner.h
+                    SOURCE (19:5:30:4:7): plugins/mk-project/mk-rule.c
+                    SOURCE (19:5:30:4:8): plugins/mk-project/mk-rule.h
+                    SOURCE (19:5:30:4:9): plugins/mk-project/mk-project-private.h
             GROUP (19:5:31): dir-project
-                TARGET (19:5:31:0): plugin_data
-                    SOURCE (19:5:31:0:0): plugins/dir-project/sources.list
-                TARGET (19:5:31:1): plugin_pixmaps
-                    SOURCE (19:5:31:1:0): plugins/dir-project/dir-project-plugin-48.png
-                TARGET (19:5:31:2): plugin
-                    SOURCE (19:5:31:2:0): plugins/dir-project/$(plugin_in_files:.plugin.in=.plugin)
-                TARGET (19:5:31:3): libdir-project.la
-                    SOURCE (19:5:31:3:0): plugins/dir-project/plugin.c
-                    SOURCE (19:5:31:3:1): plugins/dir-project/plugin.h
-                    SOURCE (19:5:31:3:2): plugins/dir-project/dir-project.c
-                    SOURCE (19:5:31:3:3): plugins/dir-project/dir-project.h
+                TARGET (19:5:31:0): plugin_ui
+                    SOURCE (19:5:31:0:0): plugins/dir-project/ 
+                TARGET (19:5:31:1): plugin_data
+                    SOURCE (19:5:31:1:0): plugins/dir-project/sources.list
+                TARGET (19:5:31:2): plugin_pixmaps
+                    SOURCE (19:5:31:2:0): plugins/dir-project/dir-project-plugin-48.png
+                TARGET (19:5:31:3): plugin
+                    SOURCE (19:5:31:3:0): plugins/dir-project/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (19:5:31:4): libdir-project.la
+                    SOURCE (19:5:31:4:0): plugins/dir-project/plugin.c
+                    SOURCE (19:5:31:4:1): plugins/dir-project/plugin.h
+                    SOURCE (19:5:31:4:2): plugins/dir-project/dir-project.c
+                    SOURCE (19:5:31:4:3): plugins/dir-project/dir-project.h
             GROUP (19:5:32): js-debugger
                 TARGET (19:5:32:0): js_debugger_pixmaps
                     SOURCE (19:5:32:0:0): plugins/js-debugger/js_debugger.png

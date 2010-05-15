@@ -360,7 +360,7 @@ get_project_property (AmpProject *project, AnjutaProjectNode *parent, const gcha
 int
 main(int argc, char *argv[])
 {
-	IAnjutaProject *project;
+	IAnjutaProject *project = NULL;
 	AnjutaProjectNode *node;
 	AnjutaProjectNode *sibling;
 	AnjutaProjectNode *root = NULL;
