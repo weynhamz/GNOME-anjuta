@@ -52,5 +52,8 @@
 #include <libanjuta/gbf-project.h>
 #include <libanjuta/anjuta-project.h>
 #include <libanjuta/anjuta-command-queue.h>
+#include <libanjuta/anjuta-command-bar.h>
+#include <libanjuta/anjuta-dock.h>
+#include <libanjuta/anjuta-dock-pane.h>
 
 #endif

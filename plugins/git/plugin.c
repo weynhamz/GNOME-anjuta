@@ -41,6 +41,9 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	g_object_unref (file);
 	
 	g_free (project_root_uri);
+
+	gtk_widget_set_sensitive (git_plugin->dock, TRUE);
+	gtk_widget_set_sensitive (git_plugin->command_bar, TRUE);
 }
 
 static void
@@ -55,6 +58,9 @@ on_project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	
 	g_free (git_plugin->project_root_directory);
 	git_plugin->project_root_directory = NULL;
+
+	gtk_widget_set_sensitive (git_plugin->dock, FALSE);
+	gtk_widget_set_sensitive (git_plugin->command_bar, FALSE);
 }
 
 static void
@@ -99,10 +105,51 @@ static gboolean
 git_activate_plugin (AnjutaPlugin *plugin)
 {
 	Git *git_plugin;
+	GtkWidget *command_bar_viewport;
+	GtkWidget *dock_viewport;
 	
 	DEBUG_PRINT ("%s", "Git: Activating Git plugin …");
 	
 	git_plugin = ANJUTA_PLUGIN_GIT (plugin);
+
+	/* Command bar and dock */
+	git_plugin->command_bar = anjuta_command_bar_new ();
+	git_plugin->dock = anjuta_dock_new ();
+	command_bar_viewport = gtk_viewport_new (NULL, NULL);
+	dock_viewport = gtk_viewport_new (NULL, NULL);
+	git_plugin->command_bar_window = gtk_scrolled_window_new (NULL, NULL);
+	git_plugin->dock_window = gtk_scrolled_window_new (NULL, NULL);
+
+	gtk_container_add (GTK_CONTAINER (command_bar_viewport), 
+	                   git_plugin->command_bar);
+	gtk_container_add (GTK_CONTAINER (dock_viewport), git_plugin->dock);
+	gtk_container_add (GTK_CONTAINER (git_plugin->command_bar_window), 
+	                   command_bar_viewport);
+	gtk_container_add (GTK_CONTAINER (git_plugin->dock_window), dock_viewport);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (git_plugin->command_bar_window), 
+	                                GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (git_plugin->dock_window),
+	                                GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (git_plugin->command_bar_window),
+	                                     GTK_SHADOW_NONE);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (git_plugin->dock_window),
+	                                     GTK_SHADOW_NONE);
+	gtk_viewport_set_shadow_type (GTK_VIEWPORT (command_bar_viewport), 
+	                              GTK_SHADOW_NONE);
+	gtk_viewport_set_shadow_type (GTK_VIEWPORT (dock_viewport), 
+	                              GTK_SHADOW_NONE);
+	
+
+	anjuta_dock_set_command_bar (ANJUTA_DOCK (git_plugin->dock), 
+	                             ANJUTA_COMMAND_BAR (git_plugin->command_bar));
+
+	anjuta_shell_add_widget (plugin->shell, git_plugin->command_bar_window, 
+	                         "GitCommandBar", _("Git Tasks"), NULL,
+	                         ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
+
+	anjuta_shell_add_widget (plugin->shell, git_plugin->dock_window, "GitDock", 
+	                         _("Git"), NULL, ANJUTA_SHELL_PLACEMENT_CENTER,
+	                         NULL);
 	
 	/* Add watches */
 	git_plugin->project_root_watch_id = anjuta_plugin_add_watch (plugin,
@@ -118,13 +165,12 @@ git_activate_plugin (AnjutaPlugin *plugin)
 														   NULL);
 	
 	
-	
 	/* Git needs a working directory to work with; it can't take full paths,
 	 * so make sure that Git can't be used if there's no project opened. */
-	
 	if (!git_plugin->project_root_directory)
 	{
-		/* Disable the dock and command bar when they're put in */
+		gtk_widget_set_sensitive (git_plugin->command_bar, FALSE);
+		gtk_widget_set_sensitive (git_plugin->dock, FALSE);	
 	}
 	
 	return TRUE;
@@ -139,12 +185,15 @@ git_deactivate_plugin (AnjutaPlugin *plugin)
 	git_plugin = ANJUTA_PLUGIN_GIT (plugin);
 	status = anjuta_shell_get_status (plugin->shell, NULL);
 	
-	DEBUG_PRINT ("%s", "Git: Dectivating Git plugin …");
+	DEBUG_PRINT ("%s", "Git: Dectivating Git plugin.\n");
 	
 	anjuta_plugin_remove_watch (plugin, git_plugin->project_root_watch_id, 
 								TRUE);
 	anjuta_plugin_remove_watch (plugin, git_plugin->editor_watch_id,
 								TRUE);
+
+	anjuta_shell_remove_widget (plugin->shell, git_plugin->command_bar_window, NULL);
+	anjuta_shell_remove_widget (plugin->shell, git_plugin->dock_window, NULL);
 	
 	g_free (git_plugin->project_root_directory);
 	g_free (git_plugin->current_editor_filename);
@@ -158,6 +207,8 @@ git_finalize (GObject *obj)
 	Git *git_plugin;
 
 	git_plugin = ANJUTA_PLUGIN_GIT (obj);
+
+	g_print ("Finalizing.\n");
 
 	g_object_unref (git_plugin->command_queue);
 	

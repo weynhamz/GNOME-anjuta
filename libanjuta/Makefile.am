@@ -11,6 +11,7 @@ AM_CPPFLAGS = \
 	$(GCONF_CFLAGS) \
 	$(GLADE_DEPRECATED_CFLAGS) \
 	$(LIBXML_CFLAGS) \
+	$(GDL_CFLAGS) \
 	-DDATADIR="\"$(datadir)\"" \
 	-DPACKAGE_PIXMAPS_DIR="\"$(datadir)/pixmaps/$(PACKAGE)\"" \
 	-DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" \
@@ -27,7 +28,8 @@ libanjuta_la_LIBADD = \
 	$(GCONF_LIBS) \
 	$(GLADE_DEPRECATED_LIBS) \
 	$(LIBXML_LIBS) \
-	$(GLIB_LIBS)
+	$(GLIB_LIBS) \
+	$(GDL_CFLAGS)
 
 libanjuta_la_SOURCES= \
 	anjuta-enum-types.h \
@@ -87,7 +89,13 @@ libanjuta_la_SOURCES= \
 	anjuta-drop-entry.c \
 	anjuta-drop-entry.h \
 	anjuta-tabber.c \
-	anjuta-tabber.h
+	anjuta-tabber.h \
+	anjuta-command-bar.c \
+	anjuta-command-bar.h \
+	anjuta-dock.c \
+	anjuta-dock.h \
+	anjuta-dock-pane.c \
+	anjuta-dock-pane.h 
 
 
 if HAVE_PLUGIN_GLADE
@@ -149,7 +157,10 @@ libanjuta_include = \
 	anjuta-project.h \
 	anjuta-command-queue.h \
 	anjuta-drop-entry.h \
-	anjuta-tabber.h
+	anjuta-tabber.h \
+	anjuta-command-bar.h \
+	anjuta-dock.h \
+	anjuta-dock-pane.h
 
 libanjutainclude_HEADERS = \
 	$(libanjuta_include) \

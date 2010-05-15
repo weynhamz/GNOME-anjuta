@@ -30,6 +30,7 @@
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-file-manager.h>
 #include <libanjuta/anjuta-shell.h>
+#include <libanjuta/anjuta-dock.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-command-queue.h>
 
@@ -53,6 +54,12 @@ struct _Git
 	
 	gchar *project_root_directory;
 	gchar *current_editor_filename;
+
+	GtkWidget *command_bar;
+	GtkWidget *dock;
+	GtkWidget *command_bar_window;
+	GtkWidget *dock_window;
+	
 	IAnjutaMessageView *message_view;
 	AnjutaCommandQueue *command_queue;
 	
