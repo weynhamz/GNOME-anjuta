@@ -1,12 +1,13 @@
 # Shavian translation for anjuta.
 # Copyright (C) 2009 The Gnome Foundation.
 # Thomas Thurman <tthurman@gnome.org>, 2009.
+# Transliterate Anjuta as ·𐑨𐑯𐑡𐑵𐑑𐑩
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&component=core application\n"
 "POT-Creation-Date: 2010-05-07 15:11+0000\n"
-"PO-Revision-Date: 2010-05-12 18:35 -0400\n"
+"PO-Revision-Date: 2010-05-16 16:05 -0400\n"
 "Last-Translator: Thomas Thurman <tthurman@gnome.org>\n"
 "Language-Team: Shavian <ubuntu-l10n-en-shaw@launchpad.net>\n"
 "MIME-Version: 1.0\n"
@@ -14,10 +15,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n!=1;\n"
 
-#, fuzzy
 #: ../anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
-msgstr "Anjuta 𐑲𐑛"
+msgstr "·𐑨𐑯𐑡𐑵𐑑𐑩 IDE"
 
 #: ../anjuta.desktop.in.in.h:2
 msgid "Develop software in an integrated development environment"
@@ -62,13 +62,13 @@ msgstr "𐑐𐑤𐑳𐑜𐑦𐑯 %s 𐑓𐑱𐑤𐑟 𐑑 𐑮𐑧𐑡𐑦𐑕�
 msgid "The file you are trying to open contains an invalid byte sequence."
 msgstr "𐑞 𐑓𐑲𐑤 𐑿 𐑸 𐑑𐑮𐑲𐑦𐑙 𐑑 𐑴𐑐𐑩𐑯 𐑒𐑩𐑯𐑑𐑱𐑯𐑟 𐑩𐑯 𐑦𐑯𐑝𐑨𐑤𐑦𐑛 𐑚𐑲𐑑 𐑕𐑰𐑒𐑢𐑩𐑯𐑕."
 
-#, fuzzy, c-format
+#, c-format
 #: ../libanjuta/anjuta-convert.c:168 ../libanjuta/anjuta-convert.c:207
 msgid ""
 "Anjuta was not able to automatically determine the encoding of the file you "
 "want to open."
 msgstr ""
-"Anjuta 𐑢𐑪𐑟 𐑯𐑪𐑑 𐑱𐑚𐑩𐑤 𐑑 𐑷𐑑𐑩𐑥𐑨𐑑𐑦𐑒𐑤𐑦 𐑛𐑦𐑑𐑻𐑥𐑦𐑯 𐑞 𐑧𐑯𐑒𐑴𐑛𐑦𐑙 𐑝 𐑞 𐑓𐑲𐑤 𐑿 𐑢𐑪𐑯𐑑 𐑑 𐑴𐑐𐑩𐑯."
+"·𐑨𐑯𐑡𐑵𐑑𐑩 𐑢𐑪𐑟 𐑯𐑪𐑑 𐑱𐑚𐑩𐑤 𐑑 𐑷𐑑𐑩𐑥𐑨𐑑𐑦𐑒𐑤𐑦 𐑛𐑦𐑑𐑻𐑥𐑦𐑯 𐑞 𐑧𐑯𐑒𐑴𐑛𐑦𐑙 𐑝 𐑞 𐑓𐑲𐑤 𐑿 𐑢𐑪𐑯𐑑 𐑑 𐑴𐑐𐑩𐑯."
 
 #: ../libanjuta/anjuta-encodings.c:137 ../libanjuta/anjuta-encodings.c:182
 #: ../libanjuta/anjuta-encodings.c:184 ../libanjuta/anjuta-encodings.c:186
@@ -205,15 +205,13 @@ msgstr "𐑒𐑨𐑯𐑪𐑑 𐑧𐑒𐑕𐑩𐑒𐑿𐑑 𐑒𐑩𐑥𐑭𐑯�
 msgid "execvp failed"
 msgstr "execvp 𐑓𐑱𐑤𐑛"
 
-#, fuzzy
 #: ../libanjuta/anjuta-plugin.c:326 ../libanjuta/anjuta-plugin-manager.c:2312
 msgid "Anjuta Shell"
-msgstr "Anjuta 𐑖𐑧𐑤"
+msgstr "·𐑨𐑯𐑡𐑵𐑑𐑩 𐑖𐑧𐑤"
 
-#, fuzzy
 #: ../libanjuta/anjuta-plugin.c:327
 msgid "Anjuta shell that will contain the plugin"
-msgstr "Anjuta 𐑖𐑧𐑤 𐑞𐑨𐑑 𐑢𐑦𐑤 𐑒𐑩𐑯𐑑𐑱𐑯 𐑞 𐑐𐑤𐑳𐑜𐑦𐑯"
+msgstr "·𐑨𐑯𐑡𐑵𐑑𐑩 𐑖𐑧𐑤 𐑞𐑨𐑑 𐑢𐑦𐑤 𐑒𐑩𐑯𐑑𐑱𐑯 𐑞 𐑐𐑤𐑳𐑜𐑦𐑯"
 
 #, c-format
 #: ../libanjuta/anjuta-plugin-manager.c:733
@@ -248,15 +246,14 @@ msgstr "𐑐𐑮𐑦𐑓𐑻𐑛 𐑐𐑤𐑳𐑜𐑦𐑯𐑟"
 msgid "Only show user activatable plugins"
 msgstr "𐑴𐑯𐑤𐑦 𐑖𐑴 𐑿𐑟𐑼 activatable 𐑐𐑤𐑳𐑜𐑦𐑯𐑟"
 
-#, fuzzy
 #: ../libanjuta/anjuta-plugin-manager.c:1197
 msgid ""
 "These are the plugins selected by you when Anjuta prompted to choose one of "
 "many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
 "you again to choose different plugin."
 msgstr ""
-"𐑞𐑰𐑟 𐑸 𐑞 𐑐𐑤𐑳𐑜𐑦𐑯𐑟 𐑕𐑩𐑤𐑧𐑒𐑑𐑩𐑛 𐑚𐑲 𐑿 𐑢𐑧𐑯 Anjuta 𐑐𐑮𐑪𐑥𐑐𐑑𐑩𐑛 𐑑 𐑗𐑵𐑟 𐑢𐑳𐑯 𐑝 𐑥𐑧𐑯𐑦 𐑕𐑿𐑑𐑩𐑚𐑩𐑤 "
-"𐑐𐑤𐑳𐑜𐑦𐑯𐑟. 𐑮𐑦𐑥𐑵𐑝𐑦𐑙 𐑞 𐑐𐑮𐑦𐑓𐑻𐑛 𐑐𐑤𐑳𐑜𐑦𐑯 𐑢𐑦𐑤 𐑤𐑧𐑑 Anjuta 𐑐𐑮𐑪𐑥𐑐𐑑 𐑿 𐑩𐑜𐑱𐑯 𐑑 𐑗𐑵𐑟 𐑛𐑦𐑓𐑼𐑩𐑯𐑑 "
+"𐑞𐑰𐑟 𐑸 𐑞 𐑐𐑤𐑳𐑜𐑦𐑯𐑟 𐑕𐑩𐑤𐑧𐑒𐑑𐑩𐑛 𐑚𐑲 𐑿 𐑢𐑧𐑯 ·𐑨𐑯𐑡𐑵𐑑𐑩 𐑐𐑮𐑪𐑥𐑐𐑑𐑩𐑛 𐑑 𐑗𐑵𐑟 𐑢𐑳𐑯 𐑝 𐑥𐑧𐑯𐑦 𐑕𐑿𐑑𐑩𐑚𐑩𐑤 "
+"𐑐𐑤𐑳𐑜𐑦𐑯𐑟. 𐑮𐑦𐑥𐑵𐑝𐑦𐑙 𐑞 𐑐𐑮𐑦𐑓𐑻𐑛 𐑐𐑤𐑳𐑜𐑦𐑯 𐑢𐑦𐑤 𐑤𐑧𐑑 ·𐑨𐑯𐑡𐑵𐑑𐑩 𐑐𐑮𐑪𐑥𐑐𐑑 𐑿 𐑩𐑜𐑱𐑯 𐑑 𐑗𐑵𐑟 𐑛𐑦𐑓𐑼𐑩𐑯𐑑 "
 "𐑐𐑤𐑳𐑜𐑦𐑯."
 
 #: ../libanjuta/anjuta-plugin-manager.c:1223
@@ -308,20 +305,17 @@ msgstr "𐑨𐑒𐑑𐑦𐑝𐑱𐑑𐑩𐑛 𐑐𐑤𐑳𐑜𐑦𐑯𐑟"
 msgid "Currently activated plugins"
 msgstr "𐑒𐑳𐑮𐑩𐑯𐑑𐑤𐑦 𐑨𐑒𐑑𐑦𐑝𐑱𐑑𐑩𐑛 𐑐𐑤𐑳𐑜𐑦𐑯𐑟"
 
-#, fuzzy
 #: ../libanjuta/anjuta-plugin-manager.c:2313
 msgid "Anjuta shell for which the plugins are made"
-msgstr "Anjuta 𐑖𐑧𐑤 𐑓𐑹 𐑢𐑦𐑗 𐑞 𐑐𐑤𐑳𐑜𐑦𐑯𐑟 𐑸 𐑥𐑱𐑛"
+msgstr "·𐑨𐑯𐑡𐑵𐑑𐑩 𐑖𐑧𐑤 𐑓𐑹 𐑢𐑦𐑗 𐑞 𐑐𐑤𐑳𐑜𐑦𐑯𐑟 𐑸 𐑥𐑱𐑛"
 
-#, fuzzy
 #: ../libanjuta/anjuta-plugin-manager.c:2321
 msgid "Anjuta Status"
-msgstr "Anjuta 𐑕𐑑𐑱𐑑𐑫𐑕"
+msgstr "·𐑨𐑯𐑡𐑵𐑑𐑩 𐑕𐑑𐑱𐑑𐑫𐑕"
 
-#, fuzzy
 #: ../libanjuta/anjuta-plugin-manager.c:2322
 msgid "Anjuta status to use in loading and unloading of plugins"
-msgstr "Anjuta 𐑕𐑑𐑱𐑑𐑫𐑕 𐑑 𐑿𐑕 𐑦𐑯 𐑤𐑴𐑛𐑦𐑙 𐑯 𐑩𐑯𐑤𐑴𐑛𐑦𐑙 𐑝 𐑐𐑤𐑳𐑜𐑦𐑯𐑟"
+msgstr "·𐑨𐑯𐑡𐑵𐑑𐑩 𐑕𐑑𐑱𐑑𐑫𐑕 𐑑 𐑿𐑕 𐑦𐑯 𐑤𐑴𐑛𐑦𐑙 𐑯 𐑩𐑯𐑤𐑴𐑛𐑦𐑙 𐑝 𐑐𐑤𐑳𐑜𐑦𐑯𐑟"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
@@ -366,13 +360,14 @@ msgstr "𐑓𐑲𐑤 𐑑 syncronize 𐑞 𐑐𐑮𐑴𐑓𐑲𐑤 ·𐑦·𐑥�
 msgid "Please select a plugin from the list"
 msgstr "𐑐𐑤𐑰𐑟 𐑕𐑩𐑤𐑧𐑒𐑑 𐑩 𐑐𐑤𐑳𐑜𐑦𐑯 𐑓𐑮𐑪𐑥 𐑞 𐑤𐑦𐑕𐑑"
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../libanjuta/anjuta-profile.c:672
 msgid ""
 "Failed to read '%s': XML parse error. Invalid or corrupted Anjuta plugins "
 "profile."
 msgstr ""
-"𐑓𐑱𐑤𐑛 𐑑 𐑮𐑰𐑛 '%s': ·𐑦·𐑥·𐑤 𐑐𐑸𐑕 𐑻𐑼. 𐑦𐑯𐑝𐑨𐑤𐑦𐑛 𐑹 𐑒𐑼𐑳𐑐𐑑𐑩𐑛 Anjuta 𐑐𐑤𐑳𐑜𐑦𐑯𐑟 𐑐𐑮𐑴𐑓𐑲𐑤."
+"𐑓𐑱𐑤𐑛 𐑑 𐑮𐑰𐑛 '%s': ·𐑦·𐑥·𐑤 𐑐𐑸𐑕 𐑻𐑼. 𐑦𐑯𐑝𐑨𐑤𐑦𐑛 𐑹 𐑒𐑼𐑳𐑐𐑑𐑩𐑛 ·𐑨𐑯𐑡𐑵𐑑𐑩 𐑐𐑤𐑳𐑜𐑦𐑯𐑟 𐑐𐑮𐑴𐑓𐑲𐑤."
 
 #. <Pluginname>: Install it from <some location on the web>
 #, c-format
@@ -409,10 +404,9 @@ msgstr "𐑒𐑨𐑑𐑧𐑜𐑹𐑰"
 msgid "General"
 msgstr "𐑡𐑧𐑯𐑼𐑩𐑤"
 
-#, fuzzy
 #: ../libanjuta/anjuta-preferences-dialog.c:236
 msgid "Anjuta Preferences"
-msgstr "Anjuta 𐑐𐑮𐑧𐑓𐑼𐑩𐑯𐑕𐑩𐑟"
+msgstr "·𐑨𐑯𐑡𐑵𐑑𐑩 𐑐𐑮𐑧𐑓𐑼𐑩𐑯𐑕𐑩𐑟"
 
 #: ../libanjuta/anjuta-save-prompt.c:157
 msgid "Select the items to save:"
@@ -435,7 +429,8 @@ msgstr "𐑲𐑑𐑩𐑥"
 msgid "_Discard changes"
 msgstr "_𐑛𐑦𐑕𐑒𐑭𐑮𐑛 𐑗𐑱𐑯𐑡𐑩𐑟"
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../libanjuta/anjuta-save-prompt.c:297
 msgid ""
 "<b>There is %d item with unsaved changes. Save changes before closing?</b>"
@@ -482,15 +477,17 @@ msgstr ""
 "𐑥𐑦𐑕𐑦𐑙 𐑐𐑨𐑒𐑦𐑡𐑩𐑟. 𐑐𐑤𐑰𐑟 𐑦𐑯𐑕𐑑𐑷𐑤 \"packagekit-𐑯𐑴𐑥\" 𐑐𐑨𐑒𐑦𐑡 𐑓𐑮𐑪𐑥 𐑿𐑼 𐑛𐑦𐑕𐑑𐑮𐑦𐑚𐑿𐑖𐑩𐑯, 𐑹 "
 "𐑦𐑯𐑕𐑑𐑷𐑤 𐑞 𐑥𐑦𐑕𐑦𐑙 𐑐𐑨𐑒𐑦𐑡𐑩𐑟 𐑥𐑨𐑯𐑘𐑫𐑩𐑤𐑦."
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../libanjuta/anjuta-utils.c:515
 msgid "Installation failed: %s"
 msgstr "𐑦𐑯𐑕𐑑𐑩𐑤𐑱𐑖𐑩𐑯 𐑓𐑱𐑤𐑛: %s"
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../libanjuta/anjuta-utils.c:575
 msgid "The \"%s\" package is not installed.\nPlease install it."
-msgstr "𐑞 \"%s\" 𐑘𐑵𐑑𐑦𐑤𐑩𐑑𐑰 𐑦𐑟 𐑯𐑪𐑑 𐑦𐑯𐑕𐑑𐑷𐑤𐑛.\n𐑐𐑤𐑰𐑟 𐑦𐑯𐑕𐑑𐑷𐑤 𐑦𐑑."
+msgstr "𐑞 \"%s\" 𐑐𐑨𐑒𐑦𐑡 𐑦𐑟 𐑯𐑪𐑑 𐑦𐑯𐑕𐑑𐑷𐑤𐑛.\n𐑐𐑤𐑰𐑟 𐑦𐑯𐑕𐑑𐑷𐑤 𐑦𐑑."
 
 #, c-format
 #: ../libanjuta/anjuta-utils.c:593
@@ -515,8 +512,8 @@ msgid ""
 "Unable to display help. Please make sure the Anjuta documentation package is "
 "installed. It can be downloaded from http://anjuta.org."
 msgstr ""
-"𐑳𐑯𐑱𐑚𐑩𐑤 𐑑 𐑛𐑦𐑕𐑐𐑤𐑱 𐑣𐑧𐑤𐑐. 𐑐𐑤𐑰𐑟 𐑥𐑱𐑒 𐑖𐑫𐑼 𐑞 Anjuta 𐑛𐑪𐑒𐑿𐑥𐑩𐑯𐑑𐑱𐑖𐑩𐑯 𐑐𐑨𐑒𐑦𐑡 𐑦𐑟 𐑦𐑯𐑕𐑑𐑷𐑤𐑛. 𐑦𐑑 "
-"𐑒𐑨𐑯 𐑚𐑰 𐑛𐑬𐑯𐑤𐑴𐑛𐑩𐑛 𐑓𐑮𐑪𐑥 ·𐑣·𐑑·𐑑·𐑐://anjuta.𐑹𐑜."
+"𐑳𐑯𐑱𐑚𐑩𐑤 𐑑 𐑛𐑦𐑕𐑐𐑤𐑱 𐑣𐑧𐑤𐑐. 𐑐𐑤𐑰𐑟 𐑥𐑱𐑒 𐑖𐑫𐑼 𐑞 ·𐑨𐑯𐑡𐑵𐑑𐑩 𐑛𐑪𐑒𐑿𐑥𐑩𐑯𐑑𐑱𐑖𐑩𐑯 𐑐𐑨𐑒𐑦𐑡 𐑦𐑟 𐑦𐑯𐑕𐑑𐑷𐑤𐑛. "
+"𐑦𐑑 𐑒𐑨𐑯 𐑚𐑰 𐑛𐑬𐑯𐑤𐑴𐑛𐑩𐑛 𐑓𐑮𐑪𐑥 http://anjuta.org."
 
 #, c-format
 #: ../libanjuta/anjuta-utils.c:2229
@@ -593,7 +590,8 @@ msgstr "𐑞 pixbuf 𐑑 𐑮𐑧𐑯𐑛𐑻."
 msgid "Widget not found: %s"
 msgstr "𐑢𐑦𐑡𐑩𐑑 𐑯𐑪𐑑 𐑓𐑬𐑯𐑛: %s"
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../libanjuta/resources.c:79 ../libanjuta/resources.c:101
 msgid "Could not find application pixmap file: %s"
 msgstr "𐑒𐑫𐑛 𐑯𐑪𐑑 𐑓𐑲𐑯𐑛 𐑩𐑐𐑤𐑦𐑒𐑱𐑕𐑩𐑯 pixmap 𐑓𐑲𐑤: %s"
@@ -805,7 +803,8 @@ msgstr "𐑒𐑩𐑥𐑭𐑯𐑛 𐑑𐑻𐑥𐑩𐑯𐑱𐑑𐑩𐑛 𐑢𐑦�
 msgid "Command terminated for an unknown reason"
 msgstr "𐑒𐑩𐑥𐑭𐑯𐑛 𐑑𐑻𐑥𐑩𐑯𐑱𐑑𐑩𐑛 𐑓𐑹 𐑩𐑯 𐑳𐑯𐑴𐑯 𐑮𐑰𐑟𐑩𐑯"
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/build-basic-autotools/plugin.c:1084
 msgid "Total time taken: %lu secs\n"
 msgstr "𐑑𐑴𐑑𐑩𐑤 𐑑𐑲𐑥 𐑑𐑱𐑒𐑩𐑯: %lu secs\n"
@@ -879,10 +878,9 @@ msgstr "_𐑒𐑤𐑰𐑯 𐑐𐑮𐑩𐑡𐑧𐑒𐑑"
 msgid "Clean whole project"
 msgstr "𐑒𐑤𐑰𐑯 𐑣𐑴𐑤 𐑐𐑮𐑪𐑡𐑧𐑒𐑑"
 
-#, fuzzy
 #: ../plugins/build-basic-autotools/plugin.c:2460
 msgid "C_onfigure Project…"
-msgstr "C_onfigure 𐑐𐑮𐑩𐑡𐑧𐑒𐑑…"
+msgstr "_𐑒𐑩𐑯𐑓𐑦𐑜𐑘𐑼 𐑐𐑮𐑩𐑡𐑧𐑒𐑑…"
 
 #: ../plugins/build-basic-autotools/plugin.c:2461
 msgid "Configure project"
@@ -922,10 +920,9 @@ msgstr "_𐑒𐑤𐑰𐑯 𐑥𐑪𐑛𐑿𐑤"
 msgid "Clean module associated with current file"
 msgstr "𐑒𐑤𐑰𐑯 𐑥𐑪𐑛𐑿𐑤 𐑩𐑕𐑴𐑖𐑦𐑱𐑑𐑩𐑛 𐑢𐑦𐑞 𐑒𐑳𐑮𐑩𐑯𐑑 𐑓𐑲𐑤"
 
-#, fuzzy
 #: ../plugins/build-basic-autotools/plugin.c:2490
 msgid "Co_mpile File"
-msgstr "Co_mpile 𐑓𐑲𐑤"
+msgstr "_𐑒𐑪𐑥𐑐𐑲𐑤 𐑓𐑲𐑤"
 
 #: ../plugins/build-basic-autotools/plugin.c:2491
 msgid "Compile current editor file"
@@ -1011,12 +1008,13 @@ msgstr "_𐑦𐑯𐑕𐑑𐑷𐑤 (%s)"
 msgid "_Clean (%s)"
 msgstr "_𐑒𐑤𐑰𐑯 (%s)"
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/build-basic-autotools/plugin.c:2629
 msgid "Co_mpile (%s)"
-msgstr "_𐑒𐑪𐑥𐑐𐑲𐑤"
+msgstr "_𐑒𐑪𐑥𐑐𐑲𐑤 (%s)"
 
-#, fuzzy, c-format
+#, c-format
 #: ../plugins/build-basic-autotools/plugin.c:2629
 msgid "Co_mpile"
 msgstr "_𐑒𐑪𐑥𐑐𐑲𐑤"
@@ -1188,10 +1186,11 @@ msgstr "Autogen 𐑑𐑧𐑥𐑐𐑤𐑱𐑑 𐑿𐑕𐑑 𐑓𐑹 𐑞 𐑦𐑥
 msgid "File to which the processed template will be written"
 msgstr "𐑓𐑲𐑤 𐑑 𐑢𐑦𐑗 𐑞 𐑐𐑮𐑴𐑕𐑧𐑕𐑑 𐑑𐑧𐑥𐑐𐑤𐑱𐑑 𐑢𐑦𐑤 𐑚𐑰 𐑮𐑦𐑑𐑩𐑯"
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/class-gen/generator.c:402
 msgid "Failed to write autogen definition file"
-msgstr "𐑓𐑱𐑤𐑛 𐑑 𐑮𐑰𐑛 𐑓𐑲𐑤"
+msgstr "𐑓𐑱𐑤𐑛 𐑑 𐑮𐑲𐑑 autogen 𐑛𐑧𐑓𐑩𐑯𐑦𐑖𐑩𐑯 𐑓𐑲𐑤"
 
 #, fuzzy
 #: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1127
@@ -1202,10 +1201,11 @@ msgstr ""
 "𐑒𐑫𐑛 𐑯𐑪𐑑 𐑓𐑲𐑯𐑛 autogen 𐑝𐑻𐑠𐑩𐑯 5; 𐑐𐑤𐑰𐑟 𐑦𐑯𐑕𐑑𐑷𐑤 𐑞 autogen 𐑐𐑨𐑒𐑦𐑡. 𐑿 𐑒𐑨𐑯 𐑜𐑧𐑑 𐑦𐑑 𐑓𐑮𐑪𐑥 "
 "·𐑣·𐑑·𐑑·𐑐://autogen.sourceforge.𐑯𐑧𐑑."
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/class-gen/plugin.c:242 ../plugins/class-gen/plugin.c:410
 msgid "Failed to execute autogen: %s"
-msgstr "𐑓𐑱𐑤𐑛 𐑑 𐑨𐑒𐑑𐑦𐑝𐑱𐑑 𐑐𐑤𐑳𐑜𐑦𐑯: %s"
+msgstr "𐑓𐑱𐑤𐑛 𐑑 𐑧𐑒𐑕𐑩𐑒𐑿𐑑 autogen: %s"
 
 #: ../plugins/class-gen/window.c:94
 msgid "Guess from type"
@@ -1561,7 +1561,8 @@ msgstr "𐑸 𐑿 𐑖𐑫𐑼 𐑞𐑨𐑑 𐑿 𐑛𐑵 𐑯𐑪𐑑 𐑢𐑪�
 msgid "CVS command failed. See above for details"
 msgstr "CVS 𐑒𐑩𐑥𐑭𐑯𐑛 𐑓𐑱𐑤𐑛. 𐑕𐑰 𐑩𐑚𐑳𐑝 𐑓𐑹 𐑛𐑰𐑑𐑱𐑤𐑟"
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/cvs-plugin/cvs-execute.c:130
 msgid "CVS command successful! Time taken: %ld second"
 msgid_plural "CVS command successful! Time taken: %ld seconds"
@@ -1777,10 +1778,9 @@ msgstr "𐑦𐑯𐑱𐑚𐑩𐑤 _𐑷𐑤"
 msgid "Enter an address in hexadecimal or select one in the data"
 msgstr "𐑧𐑯𐑑𐑼 𐑩𐑯 𐑩𐑛𐑮𐑧𐑕 𐑦𐑯 hexadecimal 𐑹 𐑕𐑩𐑤𐑧𐑒𐑑 𐑢𐑳𐑯 𐑦𐑯 𐑞 𐑛𐑱𐑑𐑩"
 
-#, fuzzy
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:21
 msgid "Hide process para_meters"
-msgstr "𐑣𐑲𐑛 𐑐𐑮𐑴𐑕𐑧𐑕 para_meters"
+msgstr "𐑣𐑲𐑛 𐑐𐑮𐑴𐑕𐑧𐑕 _𐑐𐑼𐑨𐑥𐑩𐑑𐑼𐑟"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:22
 msgid "Inspect"
@@ -2022,7 +2022,7 @@ msgstr "𐑛𐑰𐑨𐑒𐑑𐑦𐑝𐑱𐑑 𐑷𐑤 breakpoints"
 #, fuzzy
 #: ../plugins/debug-manager/breakpoints.c:1863
 msgid "R_emove All Breakpoints"
-msgstr "R_emove 𐑷𐑤 Breakpoints"
+msgstr "_𐑮𐑦𐑥𐑵𐑝 𐑷𐑤 Breakpoints"
 
 #. Display label
 #. short-cut
@@ -2250,7 +2250,7 @@ msgstr "𐑛𐑩𐑕𐑐𐑤𐑱 𐑦𐑯𐑓𐑼𐑥𐑱𐑖𐑩𐑯 𐑪𐑯 �
 #, fuzzy
 #: ../plugins/debug-manager/plugin.c:943
 msgid "Info _Kernel User Struct"
-msgstr "𐑦𐑯𐑓𐑴 _Kernel 𐑿𐑟𐑼 Struct"
+msgstr "𐑦𐑯𐑓𐑴 _𐑒𐑻𐑯𐑩𐑤 𐑿𐑟𐑼 Struct"
 
 #, fuzzy
 #: ../plugins/debug-manager/plugin.c:945
@@ -2343,10 +2343,9 @@ msgstr "𐑛𐑩𐑕𐑐𐑤𐑱 𐑓𐑳𐑙𐑒𐑖𐑩𐑯 𐑸𐑜𐑿𐑥�
 
 #. Action name
 #. Stock icon, if any
-#, fuzzy
 #: ../plugins/debug-manager/plugin.c:1079
 msgid "Pa_use Program"
-msgstr "Pa_use 𐑐𐑮𐑴𐑜𐑮𐑨𐑥"
+msgstr "_𐑐𐑷𐑟 𐑐𐑮𐑴𐑜𐑮𐑨𐑥"
 
 #. Display label
 #. short-cut
@@ -2563,10 +2562,9 @@ msgstr "𐑔𐑮𐑧𐑛 𐑪𐑐𐑼𐑱𐑖𐑩𐑯𐑟"
 
 #. Action name
 #. Stock icon, if any
-#, fuzzy
 #: ../plugins/debug-manager/watch.c:372
 msgid "Ins_pect/Evaluate…"
-msgstr "Ins_pect/𐑦𐑝𐑨𐑤𐑘𐑵𐑱𐑑…"
+msgstr "_𐑦𐑯𐑕𐑐𐑧𐑒𐑑/𐑦𐑝𐑨𐑤𐑘𐑵𐑱𐑑…"
 
 #. Display label
 #. short-cut
@@ -2673,11 +2671,12 @@ msgstr "𐑕𐑻𐑗"
 msgid "Help display"
 msgstr "𐑣𐑧𐑤𐑐 𐑛𐑩𐑕𐑐𐑤𐑱"
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/document-manager/action-callbacks.c:314
 msgid ""
 "Are you sure you want to reload '%s'?\nAny unsaved changes will be lost."
-msgstr "𐑸 𐑿 𐑖𐑫𐑼 𐑿 𐑢𐑪𐑯𐑑 𐑑 𐑮𐑦𐑥𐑵𐑝 𐑐𐑨𐑒𐑦𐑡 \"%s\"?"
+msgstr "𐑸 𐑿 𐑖𐑫𐑼 𐑿 𐑢𐑪𐑯𐑑 𐑑 𐑮𐑰𐑤𐑴𐑛 '%s'?\n𐑧𐑯𐑦 unsaved 𐑗𐑱𐑯𐑡𐑩𐑟 𐑢𐑦𐑤 𐑚𐑰 𐑤𐑪𐑕𐑑."
 
 #: ../plugins/document-manager/action-callbacks.c:323
 msgid "_Reload"
@@ -2819,10 +2818,9 @@ msgstr "𐑕𐑱𐑝 _𐑨𐑟…"
 msgid "Save the current file with a different name"
 msgstr "𐑕𐑱𐑝 𐑞 𐑒𐑳𐑮𐑩𐑯𐑑 𐑓𐑲𐑤 𐑢𐑦𐑞 𐑩 𐑛𐑦𐑓𐑼𐑩𐑯𐑑 𐑯𐑱𐑥"
 
-#, fuzzy
 #: ../plugins/document-manager/plugin.c:155
 msgid "Save A_ll"
-msgstr "𐑕𐑱𐑝 A_ll"
+msgstr "𐑕𐑱𐑝 _𐑷𐑤"
 
 #: ../plugins/document-manager/plugin.c:156
 msgid "Save all currently open files, except new files"
@@ -2844,20 +2842,17 @@ msgstr "𐑒𐑤𐑴𐑟 𐑷𐑤"
 msgid "Close all files"
 msgstr "𐑒𐑤𐑴𐑕 𐑷𐑤 𐑓𐑲𐑤𐑟"
 
-#, fuzzy
 #: ../plugins/document-manager/plugin.c:164
 msgid "Close Other"
 msgstr "𐑒𐑤𐑴𐑟 𐑳𐑞𐑼"
 
-#, fuzzy
 #: ../plugins/document-manager/plugin.c:165
 msgid "Close other documents"
 msgstr "𐑒𐑤𐑴𐑟 𐑳𐑞𐑼 𐑛𐑪𐑒𐑿𐑥𐑩𐑯𐑑𐑕"
 
-#, fuzzy
 #: ../plugins/document-manager/plugin.c:167
 msgid "Reload F_ile"
-msgstr "𐑮𐑰𐑤𐑴𐑛 F_ile"
+msgstr "𐑮𐑰𐑤𐑴𐑛 _𐑓𐑲𐑤"
 
 #: ../plugins/document-manager/plugin.c:168
 msgid "Reload current file"
@@ -2891,7 +2886,7 @@ msgstr "_𐑑𐑮𐑨𐑯𐑕𐑓𐑪𐑮𐑥"
 #, fuzzy
 #: ../plugins/document-manager/plugin.c:189
 msgid "_Make Selection Uppercase"
-msgstr "_Make 𐑕𐑦𐑤𐑧𐑒𐑖𐑩𐑯 Uppercase"
+msgstr "_𐑥𐑱𐑒 𐑕𐑦𐑤𐑧𐑒𐑖𐑩𐑯 Uppercase"
 
 #, fuzzy
 #: ../plugins/document-manager/plugin.c:190
@@ -2969,17 +2964,16 @@ msgstr "𐑕𐑩𐑤𐑧𐑒𐑑 _𐑒𐑴𐑛 𐑚𐑤𐑪𐑒"
 msgid "Select the current code block"
 msgstr "𐑕𐑩𐑤𐑧𐑒𐑑 𐑞 𐑒𐑳𐑮𐑩𐑯𐑑 𐑒𐑴𐑛 𐑚𐑤𐑪𐑒"
 
-#, fuzzy
 #: ../plugins/document-manager/plugin.c:221
 msgid "Co_mment"
-msgstr "Co_mment"
+msgstr "_𐑒𐑳𐑥𐑥𐑩𐑯𐑑"
 
 #. Block comment: Uses line-comment (comment that affects only single line
 #. such as '//' or '#') and comments a block of lines.
 #, fuzzy
 #: ../plugins/document-manager/plugin.c:224
 msgid "_Block Comment/Uncomment"
-msgstr "_Block 𐑒𐑳𐑥𐑥𐑩𐑯𐑑/Uncomment"
+msgstr "_𐑚𐑤𐑪𐑒 𐑒𐑳𐑥𐑥𐑩𐑯𐑑/Uncomment"
 
 #: ../plugins/document-manager/plugin.c:225
 msgid "Block comment the selected text"
@@ -2990,7 +2984,7 @@ msgstr "𐑚𐑤𐑪𐑒 𐑒𐑳𐑥𐑥𐑩𐑯𐑑 𐑞 𐑕𐑩𐑤𐑧𐑒�
 #, fuzzy
 #: ../plugins/document-manager/plugin.c:229
 msgid "Bo_x Comment/Uncomment"
-msgstr "Bo_x 𐑒𐑳𐑥𐑥𐑩𐑯𐑑/Uncomment"
+msgstr "_𐑚𐑪𐑒𐑕 𐑒𐑳𐑥𐑥𐑩𐑯𐑑/Uncomment"
 
 #: ../plugins/document-manager/plugin.c:230
 msgid "Box comment the selected text"
@@ -3003,7 +2997,7 @@ msgstr "𐑚𐑪𐑒𐑕 𐑒𐑳𐑥𐑥𐑩𐑯𐑑 𐑞 𐑕𐑩𐑤𐑧𐑒�
 #, fuzzy
 #: ../plugins/document-manager/plugin.c:236
 msgid "_Stream Comment/Uncomment"
-msgstr "_Stream 𐑒𐑳𐑥𐑥𐑩𐑯𐑑/Uncomment"
+msgstr "_𐑕𐑑𐑮𐑰𐑥 𐑒𐑳𐑥𐑥𐑩𐑯𐑑/Uncomment"
 
 #: ../plugins/document-manager/plugin.c:237
 msgid "Stream comment the selected text"
@@ -3050,10 +3044,9 @@ msgstr "𐑐𐑮𐑰𐑝𐑦𐑩𐑕 _𐑣𐑦𐑕𐑑𐑼𐑦"
 msgid "Go to previous history"
 msgstr "𐑜𐑴 𐑑 𐑐𐑮𐑰𐑝𐑦𐑩𐑕 𐑣𐑦𐑕𐑑𐑼𐑦"
 
-#, fuzzy
 #: ../plugins/document-manager/plugin.c:258
 msgid "Next Histor_y"
-msgstr "𐑯𐑧𐑒𐑕𐑑 Histor_y"
+msgstr "𐑯𐑧𐑒𐑕𐑑 _𐑣𐑦𐑕𐑑𐑼𐑦"
 
 #: ../plugins/document-manager/plugin.c:259
 msgid "Go to next history"
@@ -3284,10 +3277,9 @@ msgstr "𐑯𐑧𐑒𐑕𐑑 𐑛𐑪𐑒𐑿𐑥𐑩𐑯𐑑"
 msgid "Switch to next document"
 msgstr "𐑕𐑢𐑦𐑗 𐑑 𐑯𐑧𐑒𐑕𐑑 𐑛𐑪𐑒𐑿𐑥𐑩𐑯𐑑"
 
-#, fuzzy
 #: ../plugins/document-manager/plugin.c:378
 msgid "Bookmar_k"
-msgstr "Bookmar_k"
+msgstr "_𐑚𐑫𐑒𐑥𐑸𐑒"
 
 #: ../plugins/document-manager/plugin.c:379
 msgid "_Add Bookmark"
@@ -3416,7 +3408,8 @@ msgid "Automatic"
 msgstr "𐑷𐑑𐑴𐑥𐑨𐑑𐑦𐑒"
 
 #. this may fail, too
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/document-manager/plugin.c:1561
 msgid "Autosave failed for %s"
 msgstr "Autosave 𐑓𐑱𐑤𐑛 𐑓𐑹 %s"
@@ -3485,11 +3478,12 @@ msgstr "𐑳𐑯𐑴𐑯 𐑲𐑑𐑩𐑥"
 #. * the %s is the name of the item. Please keep the _ in front
 #. * of the number to give these menu items a mnemonic.
 #.
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:978
 msgctxt "recent menu label"
 msgid "_%d. %s"
-msgstr "%d. %s"
+msgstr "_%d. %s"
 
 #. This is the format that is used for items in a recent files menu.
 #. * The %d is the number of the item, the %s is the name of the item.
@@ -3531,10 +3525,9 @@ msgstr "𐑛𐑪𐑒𐑿𐑥𐑩𐑯𐑑 𐑥𐑨𐑯𐑩𐑡𐑼"
 msgid "All files"
 msgstr "𐑷𐑤 𐑓𐑲𐑤𐑟"
 
-#, fuzzy
 #: ../plugins/file-loader/plugin.c:502
 msgid "Anjuta Projects"
-msgstr "Anjuta 𐑐𐑮𐑩𐑡𐑧𐑒𐑑𐑕"
+msgstr "·𐑨𐑯𐑡𐑵𐑑𐑩 𐑐𐑮𐑩𐑡𐑧𐑒𐑑𐑕"
 
 #: ../plugins/file-loader/plugin.c:508
 msgid "C/C++ source files"
@@ -3897,11 +3890,10 @@ msgstr "𐑕𐑒𐑮𐑦𐑐𐑑"
 msgid "Info Documentation"
 msgstr "𐑦𐑯𐑓𐑴 𐑛𐑪𐑒𐑿𐑥𐑩𐑯𐑑𐑱𐑖𐑩𐑯"
 
-#, fuzzy
 #: ../plugins/gbf-am/gbf-am-project.c:217
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:215
 msgid "Lisp Module"
-msgstr "𐑤𐑦𐑕𐑐 𐑥𐑪𐑛𐑿𐑤"
+msgstr "·𐑤𐑦𐑕𐑐 𐑥𐑪𐑛𐑿𐑤"
 
 #: ../plugins/gbf-am/gbf-am-project.c:220
 #: ../plugins/gbf-am/gbf-am-project.c:3356
@@ -3921,25 +3913,21 @@ msgstr "·𐑡𐑭𐑝𐑩 𐑥𐑪𐑛𐑿𐑤"
 msgid "Python Module"
 msgstr "·𐑐𐑲𐑔𐑭𐑯 𐑥𐑪𐑛𐑿𐑤"
 
-#, fuzzy
 #: ../plugins/gbf-am/gbf-am-project.c:229
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:227
 msgid "Generic rule"
 msgstr "𐑡𐑩𐑯𐑧𐑮𐑦𐑒 𐑮𐑵𐑤"
 
-#, fuzzy
 #: ../plugins/gbf-am/gbf-am-project.c:232
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:230
 msgid "Extra target"
 msgstr "𐑧𐑒𐑕𐑑𐑮𐑩 𐑑𐑸𐑜𐑧𐑑"
 
-#, fuzzy
 #: ../plugins/gbf-am/gbf-am-project.c:235
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:233
 msgid "Configure file"
 msgstr "𐑒𐑩𐑯𐑓𐑦𐑜𐑘𐑼 𐑓𐑲𐑤"
 
-#, fuzzy
 #: ../plugins/gbf-am/gbf-am-project.c:238
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:236
 msgid "Interface file"
@@ -3963,7 +3951,6 @@ msgstr "𐑜𐑤𐑦𐑚 genmarshal"
 msgid "Intl rule"
 msgstr "Intl 𐑮𐑵𐑤"
 
-#, fuzzy
 #: ../plugins/gbf-am/gbf-am-project.c:2559
 #: ../plugins/gbf-am/gbf-am-project.c:2637
 #: ../plugins/gbf-am/gbf-am-project.c:2846
@@ -3977,7 +3964,6 @@ msgstr "Intl 𐑮𐑵𐑤"
 msgid "Group doesn't exist"
 msgstr "𐑜𐑮𐑵𐑐 𐑛𐑳𐑟𐑯𐑑 𐑧𐑒𐑟𐑦𐑕𐑑"
 
-#, fuzzy
 #: ../plugins/gbf-am/gbf-am-project.c:2579
 #: ../plugins/gbf-am/gbf-am-project.c:2682
 #: ../plugins/gbf-am/gbf-am-project.c:3098
@@ -4017,7 +4003,7 @@ msgstr "𐑳𐑯𐑱𐑚𐑩𐑤 𐑑 𐑳𐑐𐑛𐑱𐑑 𐑐𐑮𐑩𐑡𐑧�
 msgid "Invalid or remote path (only local paths supported)"
 msgstr "𐑦𐑯𐑝𐑨𐑤𐑦𐑛 𐑹 𐑮𐑦𐑥𐑴𐑑 𐑐𐑭𐑔 (𐑴𐑯𐑤𐑦 𐑤𐑴𐑒𐑩𐑤 𐑐𐑭𐑞𐑟 𐑕𐑩𐑐𐑹𐑑𐑩𐑛)"
 
-#, fuzzy, c-format
+#, c-format
 #: ../plugins/gbf-am/gbf-am-project.c:2751
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2713
 #: ../plugins/dir-project/dir-project.c:693
@@ -4034,12 +4020,10 @@ msgstr "𐑥𐑨𐑤𐑓𐑹𐑥𐑛 𐑐𐑮𐑪𐑡𐑧𐑒𐑑"
 msgid "Please specify group name"
 msgstr "𐑐𐑤𐑰𐑟 𐑕𐑐𐑧𐑕𐑦𐑓𐑲 𐑜𐑮𐑵𐑐 𐑯𐑱𐑥"
 
-#, fuzzy
 #: ../plugins/gbf-am/gbf-am-project.c:2973
 msgid "Group name can only contain alphanumeric, '_', '-' or '.' characters"
 msgstr "𐑜𐑮𐑵𐑐 𐑯𐑱𐑥 𐑒𐑨𐑯 𐑴𐑯𐑤𐑦 𐑒𐑩𐑯𐑑𐑱𐑯 𐑨𐑤𐑓𐑩𐑯𐑵𐑥𐑧𐑮𐑦𐑒, '_', '-' 𐑹 '.' 𐑒𐑨𐑮𐑩𐑒𐑑𐑼𐑟"
 
-#, fuzzy
 #: ../plugins/gbf-am/gbf-am-project.c:2982
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2925
 msgid "Parent group doesn't exist"
@@ -4050,7 +4034,6 @@ msgstr "𐑐𐑺𐑩𐑯𐑑 𐑜𐑮𐑵𐑐 𐑛𐑳𐑟𐑯𐑑 𐑧𐑒𐑟�
 msgid "Group already exists"
 msgstr "𐑜𐑮𐑵𐑐 𐑷𐑤𐑮𐑧𐑛𐑦 𐑧𐑒𐑟𐑦𐑕𐑑𐑕"
 
-#, fuzzy
 #: ../plugins/gbf-am/gbf-am-project.c:3003
 #: ../plugins/gbf-am/gbf-am-project.c:3030
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2946
@@ -4058,7 +4041,6 @@ msgstr "𐑜𐑮𐑵𐑐 𐑷𐑤𐑮𐑧𐑛𐑦 𐑧𐑒𐑟𐑦𐑕𐑑𐑕"
 msgid "Group couldn't be created"
 msgstr "𐑜𐑮𐑵𐑐 𐑒𐑫𐑛𐑯𐑑 𐑚𐑰 𐑒𐑮𐑦𐑱𐑑𐑩𐑛"
 
-#, fuzzy
 #: ../plugins/gbf-am/gbf-am-project.c:3063
 msgid "Group couldn't be removed"
 msgstr "𐑜𐑮𐑵𐑐 𐑒𐑫𐑛𐑯𐑑 𐑚𐑰 𐑮𐑦𐑥𐑵𐑝𐑛"
@@ -4067,7 +4049,6 @@ msgstr "𐑜𐑮𐑵𐑐 𐑒𐑫𐑛𐑯𐑑 𐑚𐑰 𐑮𐑦𐑥𐑵𐑝𐑛"
 msgid "Please specify target name"
 msgstr "𐑐𐑤𐑰𐑟 𐑕𐑐𐑧𐑕𐑦𐑓𐑲 𐑑𐑸𐑜𐑧𐑑 𐑯𐑱𐑥"
 
-#, fuzzy
 #: ../plugins/gbf-am/gbf-am-project.c:3227
 msgid "Target name can only contain alphanumeric, '_', '-' or '.' characters"
 msgstr "𐑑𐑸𐑜𐑧𐑑 𐑯𐑱𐑥 𐑒𐑨𐑯 𐑴𐑯𐑤𐑦 𐑒𐑩𐑯𐑑𐑱𐑯 𐑨𐑤𐑓𐑩𐑯𐑵𐑥𐑧𐑮𐑦𐑒, '_', '-' 𐑹 '.' 𐑒𐑨𐑮𐑩𐑒𐑑𐑼𐑟"
@@ -4095,12 +4076,10 @@ msgstr "𐑡𐑧𐑯𐑼𐑩𐑤 𐑓𐑱𐑤𐑘𐑼 𐑦𐑯 𐑑𐑸𐑜𐑧�
 msgid "Newly created target could not be identified"
 msgstr "𐑯𐑿𐑤𐑦 𐑒𐑮𐑦𐑱𐑑𐑩𐑛 𐑑𐑸𐑜𐑧𐑑 𐑒𐑫𐑛 𐑯𐑪𐑑 𐑚𐑰 𐑲𐑛𐑧𐑯𐑑𐑦𐑓𐑲𐑛"
 
-#, fuzzy
 #: ../plugins/gbf-am/gbf-am-project.c:3328
 msgid "Target couldn't be removed"
 msgstr "𐑑𐑸𐑜𐑧𐑑 𐑒𐑫𐑛𐑯𐑑 𐑚𐑰 𐑮𐑦𐑥𐑵𐑝𐑛"
 
-#, fuzzy
 #: ../plugins/gbf-am/gbf-am-project.c:3428
 #: ../plugins/gbf-am/gbf-am-project.c:3687
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3317
@@ -4108,7 +4087,6 @@ msgstr "𐑑𐑸𐑜𐑧𐑑 𐑒𐑫𐑛𐑯𐑑 𐑚𐑰 𐑮𐑦𐑥𐑵𐑝�
 msgid "Source doesn't exist"
 msgstr "𐑕𐑹𐑕 𐑛𐑳𐑟𐑯𐑑 𐑧𐑒𐑟𐑦𐑕𐑑"
 
-#, fuzzy
 #: ../plugins/gbf-am/gbf-am-project.c:3532
 msgid ""
 "Source file name can only contain alphanumeric, '_', '-' or '.' characters"
@@ -4126,7 +4104,6 @@ msgstr "𐑡𐑧𐑯𐑼𐑩𐑤 𐑓𐑱𐑤𐑘𐑼 𐑦𐑯 𐑨𐑛𐑦𐑙 
 msgid "Newly added source file could not be identified"
 msgstr "𐑯𐑿𐑤𐑦 𐑨𐑛𐑩𐑛 𐑕𐑹𐑕 𐑓𐑲𐑤 𐑒𐑫𐑛 𐑯𐑪𐑑 𐑚𐑰 𐑲𐑛𐑧𐑯𐑑𐑦𐑓𐑲𐑛"
 
-#, fuzzy
 #: ../plugins/gbf-am/gbf-am-project.c:3695
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3520
 msgid "Source couldn't be removed"
@@ -4306,7 +4283,6 @@ msgstr "𐑩𐑛𐑝𐑭𐑯𐑕𐑑…"
 msgid "Invalid GbfMkfileConfigValue type"
 msgstr "𐑦𐑯𐑝𐑨𐑤𐑦𐑛 GbfMkfileConfigValue 𐑑𐑲𐑐"
 
-#, fuzzy
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2699
 msgid "Project doesn't exist"
 msgstr "𐑐𐑮𐑩𐑡𐑧𐑒𐑑 𐑛𐑳𐑟𐑯𐑑 𐑧𐑒𐑟𐑦𐑕𐑑"
@@ -4316,7 +4292,6 @@ msgstr "𐑐𐑮𐑩𐑡𐑧𐑒𐑑 𐑛𐑳𐑟𐑯𐑑 𐑧𐑒𐑟𐑦𐑕�
 msgid "Group coudn't be removed"
 msgstr "𐑜𐑮𐑵𐑐 coudn't 𐑚𐑰 𐑮𐑦𐑥𐑵𐑝𐑛"
 
-#, fuzzy
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3169
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3196
 msgid "Target couldn't be created"
@@ -4335,7 +4310,6 @@ msgstr "𐑕𐑹𐑕 𐑓𐑲𐑤 𐑥𐑳𐑕𐑑 𐑚𐑰 𐑦𐑯𐑕𐑲𐑛
 msgid "Source is already in target"
 msgstr "𐑕𐑹𐑕 𐑦𐑟 𐑷𐑤𐑮𐑧𐑛𐑦 𐑦𐑯 𐑑𐑸𐑜𐑧𐑑"
 
-#, fuzzy
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3456
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3488
 msgid "Source couldn't be added"
@@ -4357,13 +4331,13 @@ msgstr "𐑤𐑴𐑛𐑦𐑙 𐑧𐑒𐑕𐑩𐑒𐑿𐑑𐑩𐑚𐑩𐑤: %s\n"
 msgid "Loading Core: %s\n"
 msgstr "𐑤𐑴𐑛𐑦𐑙 𐑒𐑴𐑮: %s\n"
 
-#, fuzzy, c-format
+#, c-format
 #: ../plugins/gdb/debugger.c:828
 msgid ""
 "Unable to find: %s.\nUnable to initialize debugger.\nMake sure Anjuta is "
 "installed correctly."
 msgstr ""
-"𐑳𐑯𐑱𐑚𐑩𐑤 𐑑 𐑓𐑲𐑯𐑛: %s.\n𐑳𐑯𐑱𐑚𐑩𐑤 𐑑 𐑦𐑯𐑦𐑖𐑩𐑤𐑲𐑟 𐑛𐑰𐑚𐑳𐑜𐑼.\n𐑥𐑱𐑒 𐑖𐑫𐑼 Anjuta 𐑦𐑟 𐑦𐑯𐑕𐑑𐑷𐑤𐑛 "
+"𐑳𐑯𐑱𐑚𐑩𐑤 𐑑 𐑓𐑲𐑯𐑛: %s.\n𐑳𐑯𐑱𐑚𐑩𐑤 𐑑 𐑦𐑯𐑦𐑖𐑩𐑤𐑲𐑟 𐑛𐑰𐑚𐑳𐑜𐑼.\n𐑥𐑱𐑒 𐑖𐑫𐑼 ·𐑨𐑯𐑡𐑵𐑑𐑩 𐑦𐑟 𐑦𐑯𐑕𐑑𐑷𐑤𐑛 "
 "𐑒𐑩𐑮𐑧𐑒𐑑𐑤𐑦."
 
 #: ../plugins/gdb/debugger.c:973
@@ -4401,7 +4375,8 @@ msgid "Program exited with error code %s\n"
 msgstr "𐑐𐑮𐑴𐑜𐑮𐑨𐑥 𐑧𐑜𐑟𐑦𐑑𐑩𐑛 𐑢𐑦𐑞 𐑻𐑼 𐑒𐑴𐑛 %s\n"
 
 #. The program has reached one breakpoint and will stop
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/gdb/debugger.c:1320
 msgid "Breakpoint number %s hit\n"
 msgstr "Breakpoint 𐑯𐑳𐑥𐑚𐑼 %s 𐑣𐑦𐑑\n"
@@ -4448,10 +4423,9 @@ msgid ""
 "new process?"
 msgstr "𐑩 𐑐𐑮𐑴𐑕𐑧𐑕 𐑦𐑟 𐑷𐑤𐑮𐑧𐑛𐑦 𐑮𐑳𐑯𐑦𐑙.\n𐑢𐑫𐑛 𐑿 𐑤𐑲𐑒 𐑑 𐑑𐑻𐑥𐑩𐑯𐑱𐑑 𐑦𐑑 𐑯 𐑩𐑑𐑨𐑗 𐑞 𐑯𐑿 𐑐𐑮𐑴𐑕𐑧𐑕?"
 
-#, fuzzy
 #: ../plugins/gdb/debugger.c:2052
 msgid "Anjuta is unable to attach to itself."
-msgstr "Anjuta 𐑦𐑟 𐑳𐑯𐑱𐑚𐑩𐑤 𐑑 𐑩𐑑𐑨𐑗 𐑑 𐑦𐑑𐑕𐑧𐑤𐑓."
+msgstr "·𐑨𐑯𐑡𐑵𐑑𐑩 𐑦𐑟 𐑳𐑯𐑱𐑚𐑩𐑤 𐑑 𐑩𐑑𐑨𐑗 𐑑 𐑦𐑑𐑕𐑧𐑤𐑓."
 
 #: ../plugins/gdb/debugger.c:2102
 msgid "Program terminated\n"
@@ -4461,10 +4435,11 @@ msgstr "𐑐𐑮𐑴𐑜𐑮𐑨𐑥 𐑑𐑻𐑥𐑩𐑯𐑱𐑑𐑩𐑛\n"
 msgid "Program detached\n"
 msgstr "𐑐𐑮𐑴𐑜𐑮𐑨𐑥 𐑛𐑦𐑑𐑨𐑗𐑑\n"
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/gdb/debugger.c:2137
 msgid "Detaching the process…\n"
-msgstr "𐑩𐑑𐑨𐑗𐑦𐑙 𐑑 𐑐𐑮𐑴𐑕𐑧𐑕: %d…\n"
+msgstr "Detaching 𐑞 𐑐𐑮𐑴𐑕𐑧𐑕…\n"
 
 #: ../plugins/gdb/debugger.c:2158
 msgid "Interrupting the process\n"
@@ -4479,7 +4454,8 @@ msgstr "𐑕𐑧𐑯𐑛𐑦𐑙 𐑕𐑦𐑜𐑯𐑩𐑤 %s 𐑑 𐑞 𐑐𐑮�
 msgid "Error whilst signaling the process."
 msgstr "𐑻𐑼 𐑢𐑲𐑤𐑕𐑑 𐑕𐑦𐑜𐑯𐑩𐑤𐑦𐑙 𐑞 𐑐𐑮𐑴𐑕𐑧𐑕."
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/gdb/plugin.c:112
 msgid ""
 "Failed to create FIFO file named %s. The program will run without a terminal."
@@ -4975,10 +4951,11 @@ msgstr "Git: 𐑓𐑲𐑤 𐑕𐑑𐑱𐑡𐑛 𐑓𐑹 𐑨𐑛."
 msgid "Please select a file."
 msgstr "𐑐𐑤𐑰𐑟 𐑕𐑩𐑤𐑧𐑒𐑑 𐑩 𐑓𐑲𐑤."
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/git/git-add-remote-dialog.c:41
 msgid "Git: Added remote branch \"%s\"."
-msgstr "𐑨𐑛 𐑩 𐑮𐑦𐑥𐑴𐑑 𐑚𐑮𐑭𐑯𐑗"
+msgstr "Git: 𐑨𐑛𐑩𐑛 𐑮𐑦𐑥𐑴𐑑 𐑚𐑮𐑭𐑯𐑗 \"%s\"."
 
 #: ../plugins/git/git-add-remote-dialog.c:81
 #: ../plugins/git/git-create-branch-dialog.c:117
@@ -5032,12 +5009,14 @@ msgstr "𐑐𐑤𐑰𐑟 𐑧𐑯𐑑𐑼 𐑞 𐑒𐑩𐑥𐑦𐑑 𐑷𐑔𐑼
 msgid "Please enter the commit author's e-mail address."
 msgstr "𐑐𐑤𐑰𐑟 𐑧𐑯𐑑𐑼 𐑞 𐑒𐑩𐑥𐑦𐑑 𐑷𐑔𐑼'𐑕 𐑧-𐑥𐑱𐑤 𐑩𐑛𐑮𐑧𐑕."
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/git/git-create-branch-dialog.c:41
 msgid "Git: Created branch \"%s\"."
-msgstr "𐑒𐑮𐑦𐑱𐑑 𐑩 𐑚𐑮𐑭𐑯𐑗"
+msgstr "Git: 𐑒𐑮𐑦𐑱𐑑𐑩𐑛 𐑚𐑮𐑭𐑯𐑗 \"%s\"."
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/git/git-create-tag-dialog.c:41
 msgid "Git: Created tag \"%s\"."
 msgstr "Git: 𐑒𐑮𐑦𐑱𐑑𐑩𐑛 𐑑𐑨𐑜 \"%s\"."
@@ -5970,7 +5949,7 @@ msgstr "𐑩𐑕𐑴𐑕𐑦𐑱𐑖𐑩𐑯 𐑲𐑑𐑩𐑥 𐑓𐑲𐑤𐑯�
 msgid "No associations initialized: nothing to save"
 msgstr "𐑯𐑴 𐑩𐑕𐑴𐑕𐑦𐑱𐑖𐑩𐑯𐑟 𐑦𐑯𐑦𐑖𐑩𐑤𐑲𐑟𐑛: 𐑯𐑳𐑔𐑦𐑙 𐑑 𐑕𐑱𐑝"
 
-#, fuzzy, c-format
+#, c-format
 #: ../plugins/glade/plugin.c:863
 msgid "Couldn't save associations because project root isn't set"
 msgstr "𐑒𐑫𐑛𐑯𐑑 𐑕𐑱𐑝 𐑩𐑕𐑴𐑕𐑦𐑱𐑖𐑩𐑯𐑟 𐑚𐑦𐑒𐑪𐑟 𐑐𐑮𐑪𐑡𐑧𐑒𐑑 𐑮𐑵𐑑 𐑦𐑟𐑯𐑑 𐑕𐑧𐑑"
@@ -6000,20 +5979,20 @@ msgstr "𐑭𐑓𐑑𐑼 𐑚𐑩𐑜𐑦𐑯"
 msgid "End of file"
 msgstr "𐑧𐑯𐑛 𐑝 𐑓𐑲𐑤"
 
-#, fuzzy, c-format
+#, c-format
 #: ../plugins/glade/plugin.c:1356
 msgid "Couldn't introspect the signal"
 msgstr "𐑒𐑫𐑛𐑯𐑑 𐑦𐑯𐑑𐑮𐑩𐑕𐑐𐑧𐑒𐑑 𐑞 𐑕𐑦𐑜𐑯𐑩𐑤"
 
-#, fuzzy, c-format
+#, c-format
 #: ../plugins/glade/plugin.c:1378
 msgid "Python language isn't supported yet"
-msgstr "𐑐𐑲𐑔𐑭𐑯 𐑤𐑨𐑙𐑜𐑢𐑩𐑡 𐑦𐑟𐑯𐑑 𐑕𐑩𐑐𐑹𐑑𐑩𐑛 𐑘𐑧𐑑"
+msgstr "·𐑐𐑲𐑔𐑭𐑯 𐑤𐑨𐑙𐑜𐑢𐑩𐑡 𐑦𐑟𐑯𐑑 𐑕𐑩𐑐𐑹𐑑𐑩𐑛 𐑘𐑧𐑑"
 
-#, fuzzy, c-format
+#, c-format
 #: ../plugins/glade/plugin.c:1391
 msgid "Vala language isn't supported yet"
-msgstr "𐑝𐑭𐑤𐑩 𐑤𐑨𐑙𐑜𐑢𐑩𐑡 𐑦𐑟𐑯𐑑 𐑕𐑩𐑐𐑹𐑑𐑩𐑛 𐑘𐑧𐑑"
+msgstr "·𐑝𐑭𐑤𐑩 𐑤𐑨𐑙𐑜𐑢𐑩𐑡 𐑦𐑟𐑯𐑑 𐑕𐑩𐑐𐑹𐑑𐑩𐑛 𐑘𐑧𐑑"
 
 #, c-format
 #: ../plugins/glade/plugin.c:1950
@@ -6031,7 +6010,6 @@ msgstr "𐑳𐑯𐑴𐑯 𐑧𐑛𐑦𐑑𐑹 𐑤𐑨𐑙𐑜𐑢𐑩𐑡 \"%s\
 msgid "Error while adding a new handler stub: %s"
 msgstr "𐑻𐑼 𐑢𐑲𐑤 𐑨𐑛𐑦𐑙 𐑩 𐑯𐑿 𐑣𐑨𐑯𐑛𐑤𐑼 𐑕𐑑𐑩𐑚: %s"
 
-#, fuzzy
 #: ../plugins/glade/plugin.c:2042 ../plugins/glade/plugin.c:2126
 msgid "Couldn't find signal information"
 msgstr "𐑒𐑫𐑛𐑯𐑑 𐑓𐑲𐑯𐑛 𐑕𐑦𐑜𐑯𐑩𐑤 𐑦𐑯𐑓𐑼𐑥𐑱𐑖𐑩𐑯"
@@ -6046,7 +6024,6 @@ msgid ""
 "To avoid this message turn off \"%s\" flag in Preferences->Glade GUI Designer"
 msgstr "𐑑 𐑩𐑝𐑶𐑛 𐑞𐑦𐑕 𐑥𐑧𐑕𐑦𐑡 𐑑𐑻𐑯 𐑪𐑓 \"%s\" 𐑓𐑤𐑨𐑜 𐑦𐑯 𐑐𐑮𐑧𐑓𐑼𐑩𐑯𐑕𐑩𐑟->·𐑜𐑤𐑱𐑛 GUI 𐑛𐑩𐑟𐑲𐑯𐑼"
 
-#, fuzzy
 #: ../plugins/glade/plugin.c:2312
 msgid "Couldn't find an associated document"
 msgstr "𐑒𐑫𐑛𐑯𐑑 𐑓𐑲𐑯𐑛 𐑩𐑯 𐑩𐑕𐑴𐑖𐑦𐑱𐑑𐑩𐑛 𐑛𐑪𐑒𐑿𐑥𐑩𐑯𐑑"
@@ -6064,7 +6041,6 @@ msgstr "𐑳𐑯𐑱𐑚𐑩𐑤 𐑑 𐑮𐑰𐑛 𐑓𐑲𐑤: %s."
 msgid "Top level widget"
 msgstr "𐑑𐑪𐑐 𐑤𐑧𐑝𐑩𐑤 𐑢𐑦𐑡𐑩𐑑"
 
-#, fuzzy
 #: ../plugins/glade/plugin.c:3674
 msgid "Couldn't find a default signal name"
 msgstr "𐑒𐑫𐑛𐑯𐑑 𐑓𐑲𐑯𐑛 𐑩 𐑛𐑦𐑓𐑷𐑤𐑑 𐑕𐑦𐑜𐑯𐑩𐑤 𐑯𐑱𐑥"
@@ -6369,7 +6345,8 @@ msgstr "𐑓𐑱𐑤𐑛 𐑑 𐑮𐑰𐑛 𐑓𐑲𐑤"
 msgid "Failed to parse XML structure"
 msgstr "𐑓𐑱𐑤𐑛 𐑑 𐑐𐑸𐑕 XML 𐑕𐑑𐑮𐑳𐑒𐑗𐑼"
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/gtodo/libgtodo.c:646
 msgid "File is not a valid gtodo file"
 msgstr "𐑓𐑲𐑤 𐑦𐑟 𐑯𐑪𐑑 𐑩 𐑝𐑨𐑤𐑦𐑛 gtodo 𐑓𐑲𐑤"
@@ -6387,7 +6364,8 @@ msgstr "𐑚𐑦𐑟𐑯𐑩𐑕"
 msgid "Unfiled"
 msgstr "Unfiled"
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/gtodo/libgtodo.c:755
 msgid "No Gtodo Client to save."
 msgstr "𐑯𐑴 Gtodo 𐑒𐑤𐑲𐑩𐑯𐑑 𐑑 𐑕𐑱𐑝."
@@ -6424,12 +6402,13 @@ msgstr "𐑛𐑦𐑤𐑰𐑑"
 msgid "<New category (%d)>"
 msgstr "<𐑯𐑿 𐑒𐑨𐑑𐑧𐑜𐑹𐑰 (%d)>"
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/gtodo/notification.c:68
 msgid "The following item is due in %i minute:"
 msgid_plural "The following item is due in %i minutes:"
-msgstr[0] "𐑞 𐑓𐑪𐑤𐑴𐑦𐑙 𐑲𐑑𐑩𐑥 𐑦𐑟 𐑛𐑿:"
-msgstr[1] "𐑞 𐑓𐑪𐑤𐑴𐑦𐑙 𐑲𐑑𐑩𐑥 𐑦𐑟 𐑛𐑿:"
+msgstr[0] "𐑞 𐑓𐑪𐑤𐑴𐑦𐑙 𐑲𐑑𐑩𐑥 𐑦𐑟 𐑛𐑿 𐑦𐑯 %i 𐑥𐑦𐑯𐑩𐑑:"
+msgstr[1] "𐑞 𐑓𐑪𐑤𐑴𐑦𐑙 𐑲𐑑𐑩𐑥 𐑦𐑟 𐑛𐑿 𐑦𐑯 %i 𐑥𐑦𐑯𐑦𐑑𐑕:"
 
 #: ../plugins/gtodo/notification.c:77
 msgid "The following item is due:"
@@ -6528,12 +6507,13 @@ msgid "Items that are past due"
 msgstr "𐑲𐑑𐑩𐑥𐑟 𐑞𐑨𐑑 𐑸 𐑐𐑭𐑕𐑑 𐑛𐑿"
 
 #. tb for highlighting in x days
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/gtodo/preferences.c:154
 msgid "Items that are due in the next %i day"
 msgid_plural "Items that are due in the next %i days"
-msgstr[0] "𐑲𐑑𐑩𐑥𐑟 𐑞𐑨𐑑 𐑸 𐑛𐑿 𐑑𐑫𐑛𐑱"
-msgstr[1] "𐑲𐑑𐑩𐑥𐑟 𐑞𐑨𐑑 𐑸 𐑛𐑿 𐑑𐑫𐑛𐑱"
+msgstr[0] "𐑲𐑑𐑩𐑥𐑟 𐑞𐑨𐑑 𐑸 𐑛𐑿 𐑦𐑯 𐑞 𐑯𐑧𐑒𐑕𐑑 %i 𐑛𐑱"
+msgstr[1] "𐑲𐑑𐑩𐑥𐑟 𐑞𐑨𐑑 𐑸 𐑛𐑿 𐑦𐑯 𐑞 𐑯𐑧𐑒𐑕𐑑 %i 𐑛𐑱𐑟"
 
 #: ../plugins/gtodo/preferences.c:168
 msgid "Miscellaneous"
@@ -6561,7 +6541,8 @@ msgstr "𐑷𐑑𐑴-𐑐𐑻𐑡"
 msgid "Notification"
 msgstr "𐑯𐑴𐑑𐑦𐑓𐑦𐑒𐑱𐑖𐑩𐑯"
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/gtodo/preferences.c:218
 msgid "Allow to-do items to notify me when they are due in %i minute"
 msgid_plural "Allow to-do items to notify me when they are due in %i minutes"
@@ -6580,7 +6561,6 @@ msgstr "𐑒𐑮𐑦𐑱𐑑 𐑩 𐑑𐑭𐑕𐑒 𐑤𐑦𐑕𐑑"
 msgid "No Date"
 msgstr "𐑯𐑴 𐑛𐑱𐑑"
 
-#, fuzzy
 #: ../plugins/macro/anjuta-macro.ui.h:2
 msgid "Edit…"
 msgstr "𐑧𐑛𐑦𐑑…"
@@ -6613,7 +6593,7 @@ msgstr "𐑐𐑮𐑧𐑕 𐑕𐑹𐑑𐑒𐑳𐑑"
 #, fuzzy
 #: ../plugins/macro/macro-db.c:256
 msgid "Anjuta macros"
-msgstr "Anjuta macros"
+msgstr "·𐑨𐑯𐑡𐑵𐑑𐑩 macros"
 
 #, fuzzy
 #: ../plugins/macro/macro-db.c:260
@@ -6811,33 +6791,37 @@ msgstr "𐑕𐑱𐑝 𐑥𐑧𐑕𐑦𐑡"
 msgid "Next/Previous Message"
 msgstr "𐑯𐑧𐑒𐑕𐑑/𐑐𐑮𐑰𐑝𐑦𐑩𐑕 𐑥𐑧𐑕𐑦𐑡"
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/message-view/plugin.c:341
 msgid "%d Message"
 msgid_plural "%d Messages"
-msgstr[0] "𐑥𐑧𐑕𐑦𐑡"
-msgstr[1] "𐑥𐑧𐑕𐑦𐑡"
+msgstr[0] "%d 𐑥𐑧𐑕𐑦𐑡"
+msgstr[1] "%d 𐑥𐑧𐑕𐑦𐑡𐑩𐑟"
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/message-view/plugin.c:350
 msgid "%d Info"
 msgid_plural "%d Infos"
-msgstr[0] "_𐑦𐑯𐑓𐑴"
-msgstr[1] "_𐑦𐑯𐑓𐑴"
+msgstr[0] "%d 𐑦𐑯𐑓𐑴"
+msgstr[1] "%d Infos"
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/message-view/plugin.c:359
 msgid "%d Warning"
 msgid_plural "%d Warnings"
-msgstr[0] "𐑢𐑹𐑯𐑦𐑙"
-msgstr[1] "𐑢𐑹𐑯𐑦𐑙"
+msgstr[0] "%d 𐑢𐑹𐑯𐑦𐑙"
+msgstr[1] "%d 𐑢𐑪𐑮𐑯𐑦𐑙𐑟"
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/message-view/plugin.c:368
 msgid "%d Error"
 msgid_plural "%d Errors"
-msgstr[0] "𐑻𐑼"
-msgstr[1] "𐑻𐑼"
+msgstr[0] "%d 𐑻𐑼"
+msgstr[1] "%d 𐑻𐑼𐑟"
 
 #: ../plugins/patch/patch-plugin.c:94
 msgid "File/Directory to patch"
@@ -6916,14 +6900,13 @@ msgstr "_𐑐𐑨𐑗…"
 msgid "Patch files/directories"
 msgstr "𐑐𐑨𐑗 𐑓𐑲𐑤𐑟/𐑛𐑲𐑮𐑧𐑒𐑑𐑼𐑦𐑟"
 
-#, fuzzy
 #: ../plugins/project-import/plugin.c:68
 msgid ""
 "Generation of project file failed. Cannot find an appropriate project "
 "template to use. Please make sure your version of Anjuta is up-to-date."
 msgstr ""
 "𐑡𐑧𐑯𐑻𐑱𐑖𐑪𐑯 𐑝 𐑐𐑮𐑪𐑡𐑧𐑒𐑑 𐑓𐑲𐑤 𐑓𐑱𐑤𐑛. 𐑒𐑨𐑯𐑪𐑑 𐑓𐑲𐑯𐑛 𐑩𐑯 𐑩𐑐𐑮𐑴𐑐𐑮𐑦𐑩𐑑 𐑐𐑮𐑪𐑡𐑧𐑒𐑑 𐑑𐑧𐑥𐑐𐑤𐑱𐑑 𐑑 𐑿𐑕. "
-"𐑐𐑤𐑰𐑟 𐑥𐑱𐑒 𐑖𐑫𐑼 𐑿𐑼 𐑝𐑻𐑠𐑩𐑯 𐑝 Anjuta 𐑦𐑟 𐑳𐑐-𐑑-𐑛𐑱𐑑."
+"𐑐𐑤𐑰𐑟 𐑥𐑱𐑒 𐑖𐑫𐑼 𐑿𐑼 𐑝𐑻𐑠𐑩𐑯 𐑝 ·𐑨𐑯𐑡𐑵𐑑𐑩 𐑦𐑟 𐑳𐑐-𐑑-𐑛𐑱𐑑."
 
 #, c-format
 #: ../plugins/project-import/plugin.c:88
@@ -6939,21 +6922,24 @@ msgstr ""
 "𐑩 𐑓𐑲𐑤 𐑯𐑱𐑥𐑛 \"%s\" 𐑒𐑨𐑯𐑪𐑑 𐑚𐑰 𐑮𐑦𐑑𐑩𐑯: %s. 𐑗𐑧𐑒 𐑦𐑓 𐑿 𐑣𐑨𐑝 𐑮𐑲𐑑 𐑨𐑒𐑕𐑧𐑕 𐑑 𐑞 𐑐𐑮𐑪𐑡𐑧𐑒𐑑 "
 "𐑛𐑲𐑮𐑧𐑒𐑑𐑼𐑦."
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/project-import/plugin.c:200
 msgid "Please select a project backend to open %s."
-msgstr "𐑐𐑤𐑰𐑟 𐑕𐑩𐑤𐑧𐑒𐑑 𐑩 𐑐𐑤𐑳𐑜𐑦𐑯 𐑑 𐑴𐑐𐑩𐑯 <b>%s</b>."
+msgstr "𐑐𐑤𐑰𐑟 𐑕𐑩𐑤𐑧𐑒𐑑 𐑩 𐑐𐑮𐑪𐑡𐑧𐑒𐑑 𐑚𐑨𐑒𐑧𐑯𐑛 𐑑 𐑴𐑐𐑩𐑯 %s."
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/project-import/plugin.c:220
 msgid ""
 "Could not find a valid project backend for the given directory (%s). Please "
 "select a different directory, or try upgrading to a newer version of Anjuta."
 msgstr ""
 "𐑒𐑫𐑛 𐑯𐑪𐑑 𐑓𐑲𐑯𐑛 𐑩 𐑝𐑨𐑤𐑦𐑛 𐑐𐑮𐑪𐑡𐑧𐑒𐑑 𐑚𐑨𐑒𐑧𐑯𐑛 𐑓𐑹 𐑞 𐑜𐑦𐑝𐑩𐑯 𐑛𐑲𐑮𐑧𐑒𐑑𐑼𐑦 (%s). 𐑐𐑤𐑰𐑟 𐑕𐑩𐑤𐑧𐑒𐑑 𐑩 "
-"𐑛𐑦𐑓𐑼𐑩𐑯𐑑 𐑛𐑲𐑮𐑧𐑒𐑑𐑼𐑦, 𐑹 𐑑𐑮𐑲 𐑩𐑐𐑜𐑮𐑱𐑛𐑦𐑙 𐑑 𐑩 𐑯𐑿𐑼 𐑝𐑻𐑠𐑩𐑯 𐑝 Anjuta."
+"𐑛𐑦𐑓𐑼𐑩𐑯𐑑 𐑛𐑲𐑮𐑧𐑒𐑑𐑼𐑦, 𐑹 𐑑𐑮𐑲 𐑩𐑐𐑜𐑮𐑱𐑛𐑦𐑙 𐑑 𐑩 𐑯𐑿𐑼 𐑝𐑻𐑠𐑩𐑯 𐑝 ·𐑨𐑯𐑡𐑵𐑑𐑩."
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/project-import/plugin.c:290
 #: ../plugins/project-import/plugin.c:346
 msgid ""
@@ -7095,7 +7081,6 @@ msgstr "𐑯𐑴 𐑑𐑸𐑜𐑧𐑑 𐑣𐑨𐑟 𐑚𐑰𐑯 𐑕𐑩𐑤𐑧
 msgid "Group properties"
 msgstr "𐑜𐑮𐑵𐑐 𐑐𐑮𐑪𐑐𐑼𐑑𐑦𐑟"
 
-#, fuzzy
 #: ../plugins/project-manager/plugin.c:446
 msgid "No properties available for this group"
 msgstr "𐑯𐑴 𐑐𐑮𐑪𐑐𐑼𐑑𐑦𐑟 𐑩𐑝𐑱𐑤𐑩𐑚𐑩𐑤 𐑓𐑹 𐑞𐑦𐑕 𐑜𐑮𐑵𐑐"
@@ -7138,43 +7123,43 @@ msgid ""
 "project?\n\n"
 msgstr "𐑸 𐑿 𐑖𐑫𐑼 𐑿 𐑢𐑪𐑯𐑑 𐑑 𐑮𐑦𐑥𐑵𐑝 𐑞 𐑓𐑪𐑤𐑴𐑦𐑙 𐑕𐑹𐑕 𐑓𐑲𐑤 𐑓𐑮𐑪𐑥 𐑞 𐑐𐑮𐑪𐑡𐑧𐑒𐑑?\n\n"
 
-#, fuzzy
 #: ../plugins/project-manager/plugin.c:705
 msgid ""
 "Are you sure you want to remove the following elements from the project?\n\n"
 msgstr "𐑸 𐑿 𐑖𐑫𐑼 𐑿 𐑢𐑪𐑯𐑑 𐑑 𐑮𐑦𐑥𐑵𐑝 𐑞 𐑓𐑪𐑤𐑴𐑦𐑙 𐑧𐑤𐑩𐑥𐑩𐑯𐑑𐑕 𐑓𐑮𐑪𐑥 𐑞 𐑐𐑮𐑪𐑡𐑧𐑒𐑑?\n\n"
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/project-manager/plugin.c:722
 msgid "Group: %s\n"
-msgstr "𐑜𐑮𐑵𐑐:"
+msgstr "𐑜𐑮𐑵𐑐: %s\n"
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/project-manager/plugin.c:725
 msgid "Target: %s\n"
-msgstr "𐑑𐑸𐑜𐑧𐑑: %s"
+msgstr "𐑑𐑸𐑜𐑧𐑑: %s\n"
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/project-manager/plugin.c:728
 msgid "Source: %s\n"
-msgstr "𐑕𐑹𐑕:"
+msgstr "𐑕𐑹𐑕: %s\n"
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/project-manager/plugin.c:731
 msgid "Shortcut: %s\n"
-msgstr "𐑕𐑹𐑑𐑒𐑳𐑑:"
+msgstr "𐑕𐑹𐑑𐑒𐑳𐑑: %s\n"
 
-#, fuzzy
 #: ../plugins/project-manager/plugin.c:743
 msgid "The group will not be deleted from the file system."
 msgstr "𐑞 𐑜𐑮𐑵𐑐 𐑢𐑦𐑤 𐑯𐑪𐑑 𐑚𐑰 𐑛𐑦𐑤𐑰𐑑𐑩𐑛 𐑓𐑮𐑪𐑥 𐑞 𐑓𐑲𐑤 𐑕𐑦𐑕𐑑𐑩𐑥."
 
-#, fuzzy
 #: ../plugins/project-manager/plugin.c:745
 msgid "The source file will not be deleted from the file system."
 msgstr "𐑞 𐑕𐑹𐑕 𐑓𐑲𐑤 𐑢𐑦𐑤 𐑯𐑪𐑑 𐑚𐑰 𐑛𐑦𐑤𐑰𐑑𐑩𐑛 𐑓𐑮𐑪𐑥 𐑞 𐑓𐑲𐑤 𐑕𐑦𐑕𐑑𐑩𐑥."
 
-#, fuzzy
 #: ../plugins/project-manager/plugin.c:750
 msgid "Confirm remove"
 msgstr "𐑒𐑪𐑯𐑓𐑻𐑥 𐑮𐑦𐑥𐑵𐑝"
@@ -7234,10 +7219,9 @@ msgstr "𐑨𐑛 _𐑕𐑹𐑕 𐑓𐑲𐑤…"
 msgid "Add a source file to project"
 msgstr "𐑨𐑛 𐑩 𐑕𐑹𐑕 𐑓𐑲𐑤 𐑑 𐑐𐑮𐑪𐑡𐑧𐑒𐑑"
 
-#, fuzzy
 #: ../plugins/project-manager/plugin.c:932
 msgid "Close Pro_ject"
-msgstr "𐑒𐑤𐑴𐑟 Pro_ject"
+msgstr "𐑒𐑤𐑴𐑟 _𐑐𐑮𐑩𐑡𐑧𐑒𐑑"
 
 #: ../plugins/project-manager/plugin.c:932
 msgid "Close project"
@@ -7263,10 +7247,9 @@ msgstr "𐑨𐑛 _𐑑𐑸𐑜𐑧𐑑"
 msgid "Add _Source File"
 msgstr "𐑨𐑛 _𐑕𐑹𐑕 𐑓𐑲𐑤"
 
-#, fuzzy
 #: ../plugins/project-manager/plugin.c:966
 msgid "Re_move"
-msgstr "Re_move"
+msgstr "_𐑮𐑦𐑥𐑵𐑝"
 
 #: ../plugins/project-manager/plugin.c:966
 msgid "Remove from project"
@@ -7358,15 +7341,17 @@ msgstr ""
 "𐑓𐑰𐑤𐑛 \"%s\" 𐑥𐑳𐑕𐑑 𐑕𐑑𐑸𐑑 𐑢𐑦𐑞 𐑩 𐑤𐑧𐑑𐑼, 𐑩 𐑛𐑦𐑡𐑦𐑑 𐑹 𐑩𐑯 𐑩𐑯𐑛𐑻𐑕𐑒𐑪𐑮 𐑯 𐑒𐑩𐑯𐑑𐑱𐑯 𐑴𐑯𐑤𐑦 𐑤𐑧𐑑𐑼𐑟, "
 "𐑛𐑦𐑡𐑩𐑑𐑕, 𐑩𐑯𐑛𐑻𐑕𐑒𐑪𐑮, 𐑥𐑲𐑯𐑩𐑕 𐑯 𐑛𐑪𐑑. 𐑐𐑤𐑰𐑟 𐑓𐑦𐑒𐑕 𐑦𐑑."
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/project-wizard/druid.c:614
 msgid ""
 "Field \"%s\" must start with a letter, a digit, an underscore or a directory "
 "separator and contain only letters, digits, underscore, directory separator, "
 "minus and dot. Please fix it."
 msgstr ""
-"𐑓𐑰𐑤𐑛 \"%s\" 𐑥𐑳𐑕𐑑 𐑕𐑑𐑸𐑑 𐑢𐑦𐑞 𐑩 𐑤𐑧𐑑𐑼, 𐑩 𐑛𐑦𐑡𐑦𐑑 𐑹 𐑩𐑯 𐑩𐑯𐑛𐑻𐑕𐑒𐑪𐑮 𐑯 𐑒𐑩𐑯𐑑𐑱𐑯 𐑴𐑯𐑤𐑦 𐑤𐑧𐑑𐑼𐑟, "
-"𐑛𐑦𐑡𐑩𐑑𐑕, 𐑩𐑯𐑛𐑻𐑕𐑒𐑪𐑮, 𐑥𐑲𐑯𐑩𐑕 𐑯 𐑛𐑪𐑑. 𐑐𐑤𐑰𐑟 𐑓𐑦𐑒𐑕 𐑦𐑑."
+"𐑓𐑰𐑤𐑛 \"%s\" 𐑥𐑳𐑕𐑑 𐑕𐑑𐑸𐑑 𐑢𐑦𐑞 𐑩 𐑤𐑧𐑑𐑼, 𐑩 𐑛𐑦𐑡𐑦𐑑, 𐑩𐑯 𐑩𐑯𐑛𐑻𐑕𐑒𐑪𐑮 𐑹 𐑩 𐑛𐑲𐑮𐑧𐑒𐑑𐑼𐑦 𐑕𐑧𐑐𐑼𐑱𐑑𐑼 𐑯 "
+"𐑒𐑩𐑯𐑑𐑱𐑯 𐑴𐑯𐑤𐑦 𐑤𐑧𐑑𐑼𐑟, 𐑛𐑦𐑡𐑩𐑑𐑕, 𐑩𐑯𐑛𐑻𐑕𐑒𐑪𐑮, 𐑛𐑲𐑮𐑧𐑒𐑑𐑼𐑦 𐑕𐑧𐑐𐑼𐑱𐑑𐑼, 𐑥𐑲𐑯𐑩𐑕 𐑯 𐑛𐑪𐑑. 𐑐𐑤𐑰𐑟 𐑓𐑦𐑒𐑕 "
+"𐑦𐑑."
 
 #, c-format
 #: ../plugins/project-wizard/druid.c:619
@@ -7414,7 +7399,6 @@ msgstr ""
 "𐑕𐑳𐑥 𐑦𐑥𐑐𐑹𐑑𐑩𐑯𐑑 𐑐𐑮𐑴𐑜𐑮𐑨𐑥𐑟 𐑹 𐑛𐑦𐑝𐑧𐑤𐑩𐑐𐑥𐑩𐑯𐑑 𐑐𐑨𐑒𐑦𐑡𐑩𐑟 𐑮𐑦𐑒𐑢𐑲𐑼𐑛 𐑑 𐑚𐑦𐑤𐑛 𐑞𐑦𐑕 𐑐𐑮𐑪𐑡𐑧𐑒𐑑 𐑸 "
 "𐑥𐑦𐑕𐑦𐑙. 𐑐𐑤𐑰𐑟 𐑥𐑱𐑒 𐑖𐑫𐑼 𐑞𐑱 𐑸 𐑦𐑯𐑕𐑑𐑷𐑤𐑛 𐑐𐑮𐑪𐑐𐑼𐑤𐑦 𐑚𐑦𐑓𐑹 𐑡𐑧𐑯𐑼𐑱𐑑𐑦𐑙 𐑞 𐑐𐑮𐑪𐑡𐑧𐑒𐑑.\n"
 
-#, fuzzy
 #: ../plugins/project-wizard/druid.c:879
 msgid "Install missing packages"
 msgstr "𐑦𐑯𐑕𐑑𐑷𐑤 𐑥𐑦𐑕𐑦𐑙 𐑐𐑨𐑒𐑦𐑡𐑩𐑟"
@@ -7462,10 +7446,11 @@ msgstr "𐑕𐑒𐑦𐑐𐑦𐑙 %s: 𐑓𐑲𐑤 𐑷𐑤𐑮𐑧𐑛𐑦 𐑧�
 msgid "Creating %s … Failed to create directory"
 msgstr "𐑒𐑮𐑦𐑱𐑑𐑦𐑙 %s … 𐑓𐑱𐑤𐑛 𐑑 𐑒𐑮𐑦𐑱𐑑 𐑛𐑲𐑮𐑧𐑒𐑑𐑼𐑦"
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/project-wizard/install.c:519
 msgid "Creating %s (using AutoGen)… %s"
-msgstr "𐑒𐑮𐑦𐑱𐑑𐑦𐑙 %s … %s"
+msgstr "𐑒𐑮𐑦𐑱𐑑𐑦𐑙 %s (𐑿𐑟𐑦𐑙 AutoGen)… %s"
 
 #, c-format
 #: ../plugins/project-wizard/install.c:524
@@ -7577,7 +7562,6 @@ msgstr "𐑩 𐑡𐑩𐑯𐑧𐑮𐑦𐑒 wx 𐑢𐑦𐑡𐑩𐑑𐑕 𐑐𐑮�
 msgid "A sample SDL project"
 msgstr "𐑩 𐑕𐑭𐑥𐑐𐑩𐑤 SDL 𐑐𐑮𐑩𐑡𐑧𐑒𐑑"
 
-#, fuzzy
 #: ../plugins/project-wizard/templates/translatable-strings.h:14
 msgid "A shared or a static library project"
 msgstr "𐑩 𐑖𐑺𐑛 𐑹 𐑩 𐑕𐑑𐑨𐑑𐑦𐑒 𐑤𐑲𐑚𐑮𐑼𐑦 𐑐𐑮𐑩𐑡𐑧𐑒𐑑"
@@ -7615,15 +7599,14 @@ msgstr ""
 "𐑨𐑛𐑟 𐑕𐑩𐑐𐑹𐑑 𐑓𐑹 𐑦𐑯𐑑𐑻𐑯𐑨𐑖𐑩𐑯𐑩𐑤𐑦𐑟𐑱𐑖𐑩𐑯 𐑕𐑴 𐑞𐑨𐑑 𐑿𐑼 𐑐𐑮𐑩𐑡𐑧𐑒𐑑 𐑒𐑨𐑯 𐑣𐑨𐑝 𐑑𐑮𐑩𐑯𐑕𐑤𐑱𐑖𐑩𐑯𐑟 𐑦𐑯 "
 "𐑛𐑦𐑓𐑼𐑩𐑯𐑑 𐑤𐑨𐑙𐑜𐑢𐑩𐑡𐑩𐑟"
 
-#, fuzzy
 #: ../plugins/project-wizard/templates/translatable-strings.h:22
 msgid "Anjuta Plugin"
-msgstr "Anjuta 𐑐𐑤𐑳𐑜𐑦𐑯"
+msgstr "·𐑨𐑯𐑡𐑵𐑑𐑩 𐑐𐑤𐑳𐑜𐑦𐑯"
 
 #, fuzzy
 #: ../plugins/project-wizard/templates/translatable-strings.h:23
 msgid "Anjuta plugin project that uses libanjuta framework"
-msgstr "Anjuta 𐑐𐑤𐑳𐑜𐑦𐑯 𐑐𐑮𐑩𐑡𐑧𐑒𐑑 𐑞𐑨𐑑 𐑿𐑕𐑩𐑟 libanjuta 𐑓𐑮𐑱𐑥𐑢𐑻𐑒"
+msgstr "·𐑨𐑯𐑡𐑵𐑑𐑩 𐑐𐑤𐑳𐑜𐑦𐑯 𐑐𐑮𐑩𐑡𐑧𐑒𐑑 𐑞𐑨𐑑 𐑿𐑕𐑩𐑟 libanjuta 𐑓𐑮𐑱𐑥𐑢𐑻𐑒"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:24
 msgid "Applet Title:"
@@ -7638,12 +7621,10 @@ msgstr "𐑚𐑱𐑕𐑦𐑒 𐑦𐑯𐑓𐑼𐑥𐑱𐑖𐑩𐑯"
 msgid "Berkeley Software Distribution License (BSD)"
 msgstr "𐑚𐑻𐑒𐑤𐑰 𐑕𐑪𐑓𐑑𐑢𐑺 𐑛𐑦𐑕𐑑𐑮𐑦𐑚𐑿𐑖𐑩𐑯 𐑤𐑲𐑕𐑩𐑯𐑕 (BSD)"
 
-#, fuzzy
 #: ../plugins/project-wizard/templates/translatable-strings.h:28
 msgid "Build library as"
 msgstr "𐑚𐑦𐑤𐑛 𐑤𐑲𐑚𐑮𐑼𐑦 𐑨𐑟"
 
-#, fuzzy
 #: ../plugins/project-wizard/templates/translatable-strings.h:29
 msgid ""
 "Comma separated, other plugins that this plugin depends on. It could be "
@@ -7735,7 +7716,6 @@ msgstr "𐑡𐑩𐑯𐑧𐑮𐑦𐑒 (𐑥𐑦𐑯𐑩𐑥𐑩𐑤)"
 msgid "Generic C++"
 msgstr "𐑡𐑩𐑯𐑧𐑮𐑦𐑒 C++"
 
-#, fuzzy
 #: ../plugins/project-wizard/templates/translatable-strings.h:52
 msgid "Generic JavaScript"
 msgstr "𐑡𐑩𐑯𐑧𐑮𐑦𐑒 ·𐑡𐑭𐑝𐑩𐑕𐑒𐑮𐑦𐑐𐑑"
@@ -7785,7 +7765,6 @@ msgstr "𐑦𐑯𐑑𐑼𐑓𐑱𐑕 𐑦𐑥𐑐𐑤𐑩𐑥𐑧𐑯𐑑𐑩�
 msgid "Interface:"
 msgstr "𐑦𐑯𐑑𐑼𐑓𐑱𐑕:"
 
-#, fuzzy
 #: ../plugins/project-wizard/templates/translatable-strings.h:63
 msgid "Library"
 msgstr "𐑤𐑲𐑚𐑮𐑼𐑦"
@@ -7825,12 +7804,10 @@ msgstr "𐑯𐑱𐑥 𐑝 𐑞 𐑝𐑨𐑤𐑿 𐑑 𐑢𐑪𐑗"
 msgid "No license"
 msgstr "𐑯𐑴 𐑤𐑲𐑕𐑩𐑯𐑕"
 
-#, fuzzy
 #: ../plugins/project-wizard/templates/translatable-strings.h:72
 msgid "Only Shared"
 msgstr "𐑴𐑯𐑤𐑦 𐑖𐑺𐑛"
 
-#, fuzzy
 #: ../plugins/project-wizard/templates/translatable-strings.h:73
 msgid "Only Static"
 msgstr "𐑴𐑯𐑤𐑦 𐑕𐑑𐑨𐑑𐑦𐑒"
@@ -7859,7 +7836,6 @@ msgstr "𐑐𐑤𐑳𐑜𐑦𐑯 𐑑𐑲𐑑𐑩𐑤:"
 msgid "Plugin class name"
 msgstr "𐑐𐑤𐑳𐑜𐑦𐑯 𐑒𐑤𐑭𐑕 𐑯𐑱𐑥"
 
-#, fuzzy
 #: ../plugins/project-wizard/templates/translatable-strings.h:80
 msgid "Plugin has menus or/and toolbars"
 msgstr "𐑐𐑤𐑳𐑜𐑦𐑯 𐑣𐑨𐑟 𐑥𐑧𐑯𐑿𐑟 𐑹/𐑯 𐑑𐑵𐑤𐑚𐑸𐑟"
@@ -7872,7 +7848,6 @@ msgstr "𐑐𐑤𐑳𐑜𐑦𐑯 𐑦𐑯𐑑𐑼𐑓𐑱𐑕𐑩𐑟 𐑑 𐑦�
 msgid "Project Name:"
 msgstr "𐑐𐑮𐑩𐑡𐑧𐑒𐑑 𐑯𐑱𐑥:"
 
-#, fuzzy
 #: ../plugins/project-wizard/templates/translatable-strings.h:83
 msgid "Project directory, output file etc."
 msgstr "𐑐𐑮𐑩𐑡𐑧𐑒𐑑 𐑛𐑲𐑮𐑧𐑒𐑑𐑼𐑦, 𐑬𐑑𐑐𐑫𐑑 𐑓𐑲𐑤 𐑧𐑑𐑕."
@@ -7881,7 +7856,6 @@ msgstr "𐑐𐑮𐑩𐑡𐑧𐑒𐑑 𐑛𐑲𐑮𐑧𐑒𐑑𐑼𐑦, 𐑬𐑑�
 msgid "Project directory:"
 msgstr "𐑐𐑮𐑩𐑡𐑧𐑒𐑑 𐑛𐑲𐑮𐑧𐑒𐑑𐑼𐑦:"
 
-#, fuzzy
 #: ../plugins/project-wizard/templates/translatable-strings.h:85
 msgid ""
 "Project name must not contain spaces, because it will be the name of the "
@@ -7901,7 +7875,7 @@ msgstr "𐑐𐑮𐑩𐑡𐑧𐑒𐑑 𐑪𐑐𐑖𐑩𐑯𐑟"
 #, fuzzy
 #: ../plugins/project-wizard/templates/translatable-strings.h:88
 msgid "Python webproject using Django Web Framework"
-msgstr "𐑐𐑲𐑔𐑭𐑯 webproject 𐑿𐑟𐑦𐑙 Django 𐑢𐑧𐑚 𐑓𐑮𐑱𐑥𐑢𐑻𐑒"
+msgstr "·𐑐𐑲𐑔𐑭𐑯 webproject 𐑿𐑟𐑦𐑙 Django 𐑢𐑧𐑚 𐑓𐑮𐑱𐑥𐑢𐑻𐑒"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:89
 msgid "Require Package:"
@@ -7961,12 +7935,10 @@ msgstr "SDL"
 msgid "Select code license"
 msgstr "𐑕𐑩𐑤𐑧𐑒𐑑 𐑒𐑴𐑛 𐑤𐑲𐑕𐑩𐑯𐑕"
 
-#, fuzzy
 #: ../plugins/project-wizard/templates/translatable-strings.h:103
 msgid "Select library type to build"
 msgstr "𐑕𐑩𐑤𐑧𐑒𐑑 𐑤𐑲𐑚𐑮𐑼𐑦 𐑑𐑲𐑐 𐑑 𐑚𐑦𐑤𐑛"
 
-#, fuzzy
 #: ../plugins/project-wizard/templates/translatable-strings.h:104
 msgid "Shared and Static library"
 msgstr "𐑖𐑺𐑛 𐑯 𐑕𐑑𐑨𐑑𐑦𐑒 𐑤𐑲𐑚𐑮𐑼𐑦"
@@ -8265,10 +8237,9 @@ msgstr "𐑮𐑦𐑐𐑰𐑑 𐑞 𐑤𐑭𐑕𐑑 𐑓𐑲𐑯𐑛 𐑒𐑩𐑥
 msgid "Find _Previous"
 msgstr "𐑓𐑲𐑯𐑛 _𐑐𐑮𐑰𐑝𐑦𐑩𐑕"
 
-#, fuzzy
 #: ../plugins/search/plugin.c:78
 msgid "Find and R_eplace…"
-msgstr "𐑓𐑲𐑯𐑛 𐑯 R_eplace…"
+msgstr "𐑓𐑲𐑯𐑛 𐑯 _𐑮𐑦𐑐𐑤𐑱𐑕…"
 
 #: ../plugins/search/plugin.c:80
 msgid ""
@@ -8279,10 +8250,9 @@ msgstr "𐑕𐑻𐑗 𐑓𐑹 𐑯 𐑮𐑦𐑐𐑤𐑱𐑕 𐑩 𐑕𐑑𐑮�
 msgid "Search and Replace"
 msgstr "𐑕𐑻𐑗 𐑯 𐑮𐑦𐑐𐑤𐑱𐑕"
 
-#, fuzzy
 #: ../plugins/search/plugin.c:85
 msgid "Fin_d in Files…"
-msgstr "Fin_d 𐑦𐑯 𐑓𐑲𐑤𐑟…"
+msgstr "_𐑓𐑲𐑯𐑛 𐑦𐑯 𐑓𐑲𐑤𐑟…"
 
 #: ../plugins/search/plugin.c:86
 msgid "Search for a string in multiple files or directories"
@@ -8381,12 +8351,13 @@ msgstr "𐑞 𐑥𐑨𐑗 \"%s\" 𐑢𐑪𐑟 𐑯𐑪𐑑 𐑓𐑬𐑯𐑛."
 msgid "The maximum number of results has been reached."
 msgstr "𐑞 𐑥𐑨𐑒𐑕𐑦𐑥𐑩𐑥 𐑯𐑳𐑥𐑚𐑼 𐑝 𐑮𐑦𐑟𐑳𐑤𐑑𐑕 𐑣𐑨𐑟 𐑚𐑰𐑯 𐑮𐑰𐑗𐑑."
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/search/search-replace.c:1131
 msgid "%d match has been replaced."
 msgid_plural "%d matches have been replaced."
-msgstr[0] "𐑯𐑴 𐑑𐑸𐑜𐑧𐑑 𐑣𐑨𐑟 𐑚𐑰𐑯 𐑕𐑩𐑤𐑧𐑒𐑑𐑩𐑛"
-msgstr[1] "𐑯𐑴 𐑑𐑸𐑜𐑧𐑑 𐑣𐑨𐑟 𐑚𐑰𐑯 𐑕𐑩𐑤𐑧𐑒𐑑𐑩𐑛"
+msgstr[0] "%d 𐑥𐑨𐑗 𐑣𐑨𐑟 𐑚𐑰𐑯 𐑮𐑦𐑐𐑤𐑱𐑕𐑑."
+msgstr[1] "%d 𐑥𐑨𐑗𐑩𐑟 𐑣𐑨𐑝 𐑚𐑰𐑯 𐑮𐑦𐑐𐑤𐑱𐑕𐑑."
 
 #: ../plugins/search/search-replace.c:1298
 msgid "Unable to build user interface for Search and Replace"
@@ -8548,15 +8519,13 @@ msgstr "𐑮𐑰𐑕𐑩𐑯𐑑 𐑐𐑮𐑪𐑡𐑧𐑒𐑑𐑕"
 msgid "Links"
 msgstr "𐑤𐑦𐑙𐑒𐑕"
 
-#, fuzzy
 #: ../plugins/starter/starter.c:487
 msgid "Anjuta Home Page"
-msgstr "Anjuta 𐑣𐑴𐑥 𐑐𐑱𐑡"
+msgstr "·𐑨𐑯𐑡𐑵𐑑𐑩 𐑣𐑴𐑥 𐑐𐑱𐑡"
 
-#, fuzzy
 #: ../plugins/starter/starter.c:493
 msgid "Anjuta Manual"
-msgstr "Anjuta 𐑥𐑨𐑯𐑘𐑫𐑩𐑤"
+msgstr "·𐑨𐑯𐑡𐑵𐑑𐑩 𐑥𐑨𐑯𐑘𐑫𐑩𐑤"
 
 #, fuzzy
 #: ../plugins/starter/starter.c:499
@@ -9077,10 +9046,9 @@ msgstr "𐑥𐑦𐑕𐑦𐑙: %s"
 msgid "Obstructed: %s"
 msgstr "𐑩𐑚𐑕𐑑𐑮𐑩𐑒𐑑𐑦𐑛: %s"
 
-#, fuzzy
 #: ../plugins/symbol-db/plugin.c:317
 msgid "Tag De_claration"
-msgstr "𐑑𐑨𐑜 De_claration"
+msgstr "𐑑𐑨𐑜 _𐑛𐑧𐑒𐑤𐑻𐑱𐑖𐑩𐑯"
 
 #: ../plugins/symbol-db/plugin.c:319
 msgid "Go to symbol declaration"
@@ -9220,22 +9188,22 @@ msgstr "𐑿𐑟 ·𐑜𐑯𐑴𐑥 𐑑𐑻𐑥𐑦𐑯𐑩𐑤 𐑐𐑮𐑴�
 
 #: ../plugins/terminal/anjuta-terminal-plugin.ui.h:4
 msgid "Use currently selected profile in GNOME terminal"
-msgstr "𐑿𐑟 𐑒𐑳𐑮𐑩𐑯𐑑𐑤𐑦 𐑕𐑩𐑤𐑧𐑒𐑑𐑩𐑛 𐑐𐑮𐑴𐑓𐑲𐑤 𐑦𐑯 𐑯𐑴𐑥 𐑑𐑻𐑥𐑦𐑯𐑩𐑤"
+msgstr "𐑿𐑟 𐑒𐑳𐑮𐑩𐑯𐑑𐑤𐑦 𐑕𐑩𐑤𐑧𐑒𐑑𐑩𐑛 𐑐𐑮𐑴𐑓𐑲𐑤 𐑦𐑯 ·𐑜𐑯𐑴𐑥 𐑑𐑻𐑥𐑦𐑯𐑩𐑤"
 
 #, fuzzy
 #: ../plugins/terminal/terminal.c:626
 msgid "Ctrl-C"
-msgstr "·𐑒𐑑𐑮𐑤-𐑕𐑰"
+msgstr "𐑒𐑑𐑮𐑤-C"
 
 #, fuzzy
 #: ../plugins/terminal/terminal.c:634
 msgid "Ctrl-X"
-msgstr "·𐑒𐑑𐑮𐑤-𐑧𐑒𐑕"
+msgstr "𐑒𐑑𐑮𐑤-X"
 
 #, fuzzy
 #: ../plugins/terminal/terminal.c:642
 msgid "Ctrl-Z"
-msgstr "·𐑒𐑑𐑮𐑤-𐑟𐑰"
+msgstr "𐑒𐑑𐑮𐑤-Z"
 
 #: ../plugins/terminal/terminal.c:781
 msgid "terminal operations"
@@ -9255,10 +9223,9 @@ msgstr "𐑒𐑩𐑥𐑭𐑯𐑛:"
 msgid "Edit as script"
 msgstr "𐑧𐑛𐑦𐑑 𐑨𐑟 𐑕𐑒𐑮𐑦𐑐𐑑"
 
-#, fuzzy
 #: ../plugins/tools/anjuta-tools.ui.h:4
 msgid "Edit command as script in Anjuta on close"
-msgstr "𐑧𐑛𐑦𐑑 𐑒𐑩𐑥𐑭𐑯𐑛 𐑨𐑟 𐑕𐑒𐑮𐑦𐑐𐑑 𐑦𐑯 Anjuta 𐑪𐑯 𐑒𐑤𐑴𐑕"
+msgstr "𐑧𐑛𐑦𐑑 𐑒𐑩𐑥𐑭𐑯𐑛 𐑨𐑟 𐑕𐑒𐑮𐑦𐑐𐑑 𐑦𐑯 ·𐑨𐑯𐑡𐑵𐑑𐑩 𐑪𐑯 𐑒𐑤𐑴𐑕"
 
 #: ../plugins/tools/anjuta-tools.ui.h:7
 msgid "Parameters:"
@@ -9346,13 +9313,13 @@ msgstr "𐑿 𐑥𐑳𐑕𐑑 𐑐𐑮𐑩𐑝𐑲𐑛 𐑩 𐑑𐑵𐑤 𐑒�
 msgid "A tool with the same name already exists!"
 msgstr "𐑩 𐑑𐑵𐑤 𐑢𐑦𐑞 𐑞 𐑕𐑱𐑥 𐑯𐑱𐑥 𐑷𐑤𐑮𐑧𐑛𐑦 𐑧𐑒𐑟𐑦𐑕𐑑𐑕!"
 
-#, fuzzy
 #: ../plugins/tools/editor.c:824
 msgid ""
 "The shortcut is already used by another component in Anjuta. Do you want to "
 "keep it anyway?"
 msgstr ""
-"𐑞 𐑕𐑹𐑑𐑒𐑳𐑑 𐑦𐑟 𐑷𐑤𐑮𐑧𐑛𐑦 𐑿𐑕𐑑 𐑚𐑲 𐑩𐑯𐑳𐑞𐑼 𐑒𐑩𐑥𐑐𐑴𐑯𐑩𐑯𐑑 𐑦𐑯 Anjuta. 𐑛𐑵 𐑿 𐑢𐑪𐑯𐑑 𐑑 𐑒𐑰𐑐 𐑦𐑑 𐑧𐑯𐑦𐑢𐑱?"
+"𐑞 𐑕𐑹𐑑𐑒𐑳𐑑 𐑦𐑟 𐑷𐑤𐑮𐑧𐑛𐑦 𐑿𐑕𐑑 𐑚𐑲 𐑩𐑯𐑳𐑞𐑼 𐑒𐑩𐑥𐑐𐑴𐑯𐑩𐑯𐑑 𐑦𐑯 ·𐑨𐑯𐑡𐑵𐑑𐑩. 𐑛𐑵 𐑿 𐑢𐑪𐑯𐑑 𐑑 𐑒𐑰𐑐 𐑦𐑑 "
+"𐑧𐑯𐑦𐑢𐑱?"
 
 #: ../plugins/tools/editor.c:908
 msgid "Unable to edit script"
@@ -9603,7 +9570,7 @@ msgstr "_𐑒𐑢𐑦𐑑"
 #, fuzzy
 #: ../src/anjuta-actions.h:25
 msgid "Quit Anjuta IDE"
-msgstr "𐑒𐑢𐑦𐑑 Anjuta 𐑲𐑛"
+msgstr "𐑒𐑢𐑦𐑑 ·𐑨𐑯𐑡𐑵𐑑𐑩 IDE"
 
 #: ../src/anjuta-actions.h:32
 msgid "_Preferences"
@@ -9654,42 +9621,37 @@ msgstr "_𐑣𐑧𐑤𐑐"
 msgid "_User's Manual"
 msgstr "_𐑿𐑟𐑼'𐑕 𐑥𐑨𐑯𐑘𐑫𐑩𐑤"
 
-#, fuzzy
 #: ../src/anjuta-actions.h:64
 msgid "Anjuta user's manual"
-msgstr "Anjuta 𐑿𐑟𐑼'𐑟 𐑥𐑨𐑯𐑘𐑫𐑩𐑤"
+msgstr "·𐑨𐑯𐑡𐑵𐑑𐑩 𐑿𐑟𐑼'𐑟 𐑥𐑨𐑯𐑘𐑫𐑩𐑤"
 
 #: ../src/anjuta-actions.h:67
 msgid "Kick start _tutorial"
 msgstr "𐑒𐑦𐑒 𐑕𐑑𐑸𐑑 _𐑑𐑵𐑑𐑪𐑮𐑰𐑩𐑤"
 
-#, fuzzy
 #: ../src/anjuta-actions.h:68
 msgid "Anjuta Kick start tutorial"
-msgstr "Anjuta 𐑒𐑦𐑒 𐑕𐑑𐑸𐑑 𐑑𐑵𐑑𐑪𐑮𐑰𐑩𐑤"
+msgstr "·𐑨𐑯𐑡𐑵𐑑𐑩 𐑒𐑦𐑒 𐑕𐑑𐑸𐑑 𐑑𐑵𐑑𐑪𐑮𐑰𐑩𐑤"
 
 #: ../src/anjuta-actions.h:71
 msgid "_Advanced tutorial"
 msgstr "_𐑩𐑛𐑝𐑭𐑯𐑕𐑑 𐑑𐑵𐑑𐑪𐑮𐑰𐑩𐑤"
 
-#, fuzzy
 #: ../src/anjuta-actions.h:72
 msgid "Anjuta advanced tutorial"
-msgstr "Anjuta 𐑩𐑛𐑝𐑭𐑯𐑕𐑑 𐑑𐑵𐑑𐑪𐑮𐑰𐑩𐑤"
+msgstr "·𐑨𐑯𐑡𐑵𐑑𐑩 𐑩𐑛𐑝𐑭𐑯𐑕𐑑 𐑑𐑵𐑑𐑪𐑮𐑰𐑩𐑤"
 
 #: ../src/anjuta-actions.h:75
 msgid "_Frequently Asked Questions"
 msgstr "_𐑓𐑮𐑰𐑒𐑢𐑧𐑯𐑑𐑤𐑦 𐑭𐑕𐑒𐑑 𐑒𐑢𐑧𐑕𐑗𐑩𐑯𐑟"
 
-#, fuzzy
 #: ../src/anjuta-actions.h:76
 msgid "Anjuta frequently asked questions"
-msgstr "Anjuta 𐑓𐑮𐑰𐑒𐑢𐑧𐑯𐑑𐑤𐑦 𐑭𐑕𐑒𐑑 𐑒𐑢𐑧𐑕𐑗𐑩𐑯𐑟"
+msgstr "·𐑨𐑯𐑡𐑵𐑑𐑩 𐑓𐑮𐑰𐑒𐑢𐑧𐑯𐑑𐑤𐑦 𐑭𐑕𐑒𐑑 𐑒𐑢𐑧𐑕𐑗𐑩𐑯𐑟"
 
-#, fuzzy
 #: ../src/anjuta-actions.h:79
 msgid "Anjuta _Home Page"
-msgstr "Anjuta _Home 𐑐𐑱𐑡"
+msgstr "·𐑨𐑯𐑡𐑵𐑑𐑩 _𐑣𐑴𐑥 𐑐𐑱𐑡"
 
 #: ../src/anjuta-actions.h:80
 msgid "Online documentation and resources"
@@ -9699,10 +9661,9 @@ msgstr "𐑪𐑯𐑤𐑲𐑯 𐑛𐑪𐑒𐑿𐑥𐑩𐑯𐑑𐑱𐑖𐑩𐑯 �
 msgid "Report _Bugs/Patches/Requests"
 msgstr "𐑮𐑩𐑐𐑹𐑑 _𐑚𐑳𐑜𐑟/𐑐𐑨𐑗𐑩𐑟/𐑮𐑦𐑒𐑢𐑧𐑕𐑑𐑕"
 
-#, fuzzy
 #: ../src/anjuta-actions.h:84
 msgid "Submit a bug report, patch or feature request for Anjuta"
-msgstr "𐑕𐑩𐑚𐑥𐑦𐑑 𐑩 𐑚𐑳𐑜 𐑮𐑩𐑐𐑹𐑑, 𐑐𐑨𐑗 𐑹 𐑓𐑰𐑗𐑼 𐑮𐑦𐑒𐑢𐑧𐑕𐑑 𐑓𐑹 Anjuta"
+msgstr "𐑕𐑩𐑚𐑥𐑦𐑑 𐑩 𐑚𐑳𐑜 𐑮𐑩𐑐𐑹𐑑, 𐑐𐑨𐑗 𐑹 𐑓𐑰𐑗𐑼 𐑮𐑦𐑒𐑢𐑧𐑕𐑑 𐑓𐑹 ·𐑨𐑯𐑡𐑵𐑑𐑩"
 
 #: ../src/anjuta-actions.h:87
 msgid "Ask a _Question"
@@ -9717,19 +9678,17 @@ msgstr "𐑕𐑩𐑚𐑥𐑦𐑑 𐑩 𐑒𐑢𐑧𐑕𐑑𐑦𐑩𐑯 𐑓𐑹 
 msgid "_About"
 msgstr "_𐑩𐑚𐑬𐑑"
 
-#, fuzzy
 #: ../src/anjuta-actions.h:92
 msgid "About Anjuta"
-msgstr "𐑩𐑚𐑬𐑑 Anjuta"
+msgstr "𐑩𐑚𐑬𐑑 ·𐑨𐑯𐑡𐑵𐑑𐑩"
 
 #: ../src/anjuta-actions.h:95
 msgid "About External _Plugins"
 msgstr "𐑩𐑚𐑬𐑑 𐑦𐑒𐑕𐑑𐑻𐑯𐑩𐑤 _𐑐𐑤𐑳𐑜𐑦𐑯𐑟"
 
-#, fuzzy
 #: ../src/anjuta-actions.h:96
 msgid "About third-party Anjuta plugins"
-msgstr "𐑩𐑚𐑬𐑑 𐑔𐑻𐑛-𐑐𐑸𐑑𐑦 Anjuta 𐑐𐑤𐑳𐑜𐑦𐑯𐑟"
+msgstr "𐑩𐑚𐑬𐑑 𐑔𐑻𐑛-𐑐𐑸𐑑𐑦 ·𐑨𐑯𐑡𐑵𐑑𐑩 𐑐𐑤𐑳𐑜𐑦𐑯𐑟"
 
 #: ../src/anjuta-app.c:625
 msgid "Edit"
@@ -9743,10 +9702,10 @@ msgstr "𐑦𐑯𐑕𐑑𐑷𐑤𐑛 𐑐𐑤𐑳𐑜𐑦𐑯𐑟"
 msgid "Shortcuts"
 msgstr "𐑖𐑹𐑑𐑒𐑳𐑑𐑕"
 
-#, fuzzy, c-format
+#, c-format
 #: ../src/anjuta-app.c:988
 msgid "Value doesn't exist"
-msgstr "𐑐𐑮𐑴𐑜𐑮𐑨𐑥 '%s' 𐑛𐑳𐑟 𐑯𐑪𐑑 𐑧𐑒𐑟𐑦𐑕𐑑"
+msgstr "𐑝𐑨𐑤𐑿 𐑛𐑳𐑟𐑯𐑑 𐑧𐑒𐑟𐑦𐑕𐑑"
 
 #: ../src/main.c:74
 msgid "Specify the size and location of the main window"
@@ -9775,19 +9734,17 @@ msgstr "𐑛𐑵 𐑯𐑪𐑑 𐑴𐑐𐑩𐑯 𐑤𐑭𐑕𐑑 𐑕𐑧𐑖𐑩
 msgid "Do not open last project and files on startup"
 msgstr "𐑛𐑵 𐑯𐑪𐑑 𐑴𐑐𐑩𐑯 𐑤𐑭𐑕𐑑 𐑐𐑮𐑪𐑡𐑧𐑒𐑑 𐑯 𐑓𐑲𐑤𐑟 𐑪𐑯 𐑕𐑑𐑸𐑑𐑳𐑐"
 
-#, fuzzy
 #: ../src/main.c:106
 msgid "Shut down Anjuta properly, releasing all resources (for debugging)"
-msgstr "𐑖𐑳𐑑 𐑛𐑬𐑯 Anjuta 𐑐𐑮𐑪𐑐𐑼𐑤𐑦, 𐑮𐑦𐑤𐑰𐑕𐑦𐑙 𐑷𐑤 𐑮𐑦𐑟𐑹𐑕𐑩𐑟 (𐑓𐑹 𐑛𐑰𐑚𐑳𐑜𐑦𐑙)"
+msgstr "𐑖𐑳𐑑 𐑛𐑬𐑯 ·𐑨𐑯𐑡𐑵𐑑𐑩 𐑐𐑮𐑪𐑐𐑼𐑤𐑦, 𐑮𐑦𐑤𐑰𐑕𐑦𐑙 𐑷𐑤 𐑮𐑦𐑟𐑹𐑕𐑩𐑟 (𐑓𐑹 𐑛𐑰𐑚𐑳𐑜𐑦𐑙)"
 
 #: ../src/main.c:174
 msgid "- Integrated Development Environment"
 msgstr "- 𐑦𐑯𐑑𐑩𐑜𐑮𐑱𐑑𐑩𐑛 𐑛𐑦𐑝𐑧𐑤𐑩𐑐𐑥𐑩𐑯𐑑 𐑧𐑯𐑝𐑲𐑼𐑯𐑥𐑩𐑯𐑑"
 
-#, fuzzy
 #: ../src/main.c:250
 msgid "Anjuta"
-msgstr "Anjuta"
+msgstr "·𐑨𐑯𐑡𐑵𐑑𐑩"
 
 #: ../src/preferences.ui.h:1
 msgid "Appearance"
@@ -9966,7 +9923,6 @@ msgstr "C++/·𐑡𐑭𐑝𐑩 𐑩𐑕𐑦𐑕𐑑𐑩𐑯𐑕"
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/·𐑡𐑭𐑝𐑩/𐑝𐑭𐑤𐑩"
 
-#, fuzzy
 #: ../plugins/language-support-cpp-java/cpp-java-assist.c:1374
 msgid "C/C++"
 msgstr "𐑕𐑰/𐑕𐑰++"
@@ -9976,7 +9932,6 @@ msgstr "𐑕𐑰/𐑕𐑰++"
 msgid "GtkSourceView Editor"
 msgstr "GtkSourceView 𐑧𐑛𐑦𐑑𐑹"
 
-#, fuzzy
 #: ../plugins/gdb/anjuta-gdb.plugin.in.h:1
 msgid "GNU Debugger Plugin"
 msgstr "·𐑜𐑯𐑿 𐑛𐑰𐑚𐑳𐑜𐑼 𐑐𐑤𐑳𐑜𐑦𐑯"
@@ -9999,16 +9954,15 @@ msgstr "API 𐑣𐑧𐑤𐑐"
 #, fuzzy
 #: ../plugins/devhelp/anjuta-devhelp.plugin.in.h:2
 msgid "Devhelp Plugin for Anjuta."
-msgstr "Devhelp 𐑐𐑤𐑳𐑜𐑦𐑯 𐑓𐑹 Anjuta."
+msgstr "Devhelp 𐑐𐑤𐑳𐑜𐑦𐑯 𐑓𐑹 ·𐑨𐑯𐑡𐑵𐑑𐑩."
 
 #: ../plugins/document-manager/anjuta-document-manager.plugin.in.h:2
 msgid "Provides document management capabilities."
 msgstr "𐑐𐑮𐑩𐑝𐑲𐑛𐑟 𐑛𐑪𐑒𐑿𐑥𐑩𐑯𐑑 𐑥𐑨𐑯𐑩𐑡𐑥𐑩𐑯𐑑 𐑒𐑱𐑐𐑩𐑚𐑦𐑤𐑩𐑑𐑰𐑟."
 
-#, fuzzy
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:1
 msgid "Anjuta File Assistant Plugin"
-msgstr "Anjuta 𐑓𐑲𐑤 𐑩𐑕𐑦𐑕𐑑𐑩𐑯𐑑 𐑐𐑤𐑳𐑜𐑦𐑯"
+msgstr "·𐑨𐑯𐑡𐑵𐑑𐑩 𐑓𐑲𐑤 𐑩𐑕𐑦𐑕𐑑𐑩𐑯𐑑 𐑐𐑤𐑳𐑜𐑦𐑯"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:3
 msgid "File Assistant"
@@ -10027,10 +9981,9 @@ msgstr "𐑩 𐑕𐑩𐑚𐑝𐑻𐑠𐑩𐑯 𐑒𐑤𐑲𐑩𐑯𐑑 𐑐𐑤�
 msgid "Glade File"
 msgstr "·𐑜𐑤𐑱𐑛 𐑓𐑲𐑤"
 
-#, fuzzy
 #: ../plugins/glade/anjuta-glade.plugin.in.h:2
 msgid "Glade Plugin for Anjuta."
-msgstr "𐑜𐑤𐑱𐑛 𐑐𐑤𐑳𐑜𐑦𐑯 𐑓𐑹 Anjuta."
+msgstr "𐑜𐑤𐑱𐑛 𐑐𐑤𐑳𐑜𐑦𐑯 𐑓𐑹 ·𐑨𐑯𐑡𐑵𐑑𐑩."
 
 #: ../plugins/glade/anjuta-glade.plugin.in.h:3
 msgid "Glade interface designer"
@@ -10043,7 +9996,7 @@ msgstr "𐑑𐑭𐑕𐑒 𐑥𐑨𐑯𐑩𐑡𐑼"
 #, fuzzy
 #: ../plugins/gtodo/anjuta-gtodo.plugin.in.h:2
 msgid "Todo Plugin for Anjuta."
-msgstr "Todo 𐑐𐑤𐑳𐑜𐑦𐑯 𐑓𐑹 Anjuta."
+msgstr "Todo 𐑐𐑤𐑳𐑜𐑦𐑯 𐑓𐑹 ·𐑨𐑯𐑡𐑵𐑑𐑩."
 
 #, fuzzy
 #: ../plugins/macro/anjuta-macro.plugin.in.h:1
@@ -10062,10 +10015,9 @@ msgstr "𐑐𐑨𐑗 𐑐𐑤𐑳𐑜𐑦𐑯"
 msgid "Patches files and directories."
 msgstr "𐑐𐑨𐑗𐑩𐑟 𐑓𐑲𐑤𐑟 𐑯 𐑛𐑲𐑮𐑧𐑒𐑑𐑼𐑦𐑟."
 
-#, fuzzy
 #: ../plugins/tools/anjuta-tools.plugin.in.h:2
 msgid "Use external program from Anjuta"
-msgstr "𐑿𐑟 𐑦𐑒𐑕𐑑𐑻𐑯𐑩𐑤 𐑐𐑮𐑴𐑜𐑮𐑨𐑥 𐑓𐑮𐑪𐑥 Anjuta"
+msgstr "𐑿𐑟 𐑦𐑒𐑕𐑑𐑻𐑯𐑩𐑤 𐑐𐑮𐑴𐑜𐑮𐑨𐑥 𐑓𐑮𐑪𐑥 ·𐑨𐑯𐑡𐑵𐑑𐑩"
 
 #, fuzzy
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in.h:1
@@ -10077,10 +10029,9 @@ msgstr "Automake 𐑚𐑦𐑤𐑛"
 msgid "Basic autotools build plugin."
 msgstr "𐑚𐑱𐑕𐑦𐑒 autotools 𐑚𐑦𐑤𐑛 𐑐𐑤𐑳𐑜𐑦𐑯."
 
-#, fuzzy
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:2
 msgid "Terminal Plugin for Anjuta."
-msgstr "𐑑𐑻𐑥𐑦𐑯𐑩𐑤 𐑐𐑤𐑳𐑜𐑦𐑯 𐑓𐑹 Anjuta."
+msgstr "𐑑𐑻𐑥𐑦𐑯𐑩𐑤 𐑐𐑤𐑳𐑜𐑦𐑯 𐑓𐑹 ·𐑨𐑯𐑡𐑵𐑑𐑩."
 
 #: ../plugins/cvs-plugin/anjuta-cvs.plugin.in.h:1
 msgid "A version control system plugin"
@@ -10093,7 +10044,7 @@ msgstr "CVS 𐑐𐑤𐑳𐑜𐑦𐑯"
 #, fuzzy
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:1
 msgid "Import an existing autotools project to Anjuta"
-msgstr "𐑦𐑥𐑐𐑹𐑑 𐑩𐑯 𐑧𐑒𐑟𐑦𐑕𐑑𐑦𐑙 autotools 𐑐𐑮𐑩𐑡𐑧𐑒𐑑 𐑑 Anjuta"
+msgstr "𐑦𐑥𐑐𐑹𐑑 𐑩𐑯 𐑧𐑒𐑟𐑦𐑕𐑑𐑦𐑙 autotools 𐑐𐑮𐑩𐑡𐑧𐑒𐑑 𐑑 ·𐑨𐑯𐑡𐑵𐑑𐑩"
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:2
 msgid "Project Import Assistant"
@@ -10138,10 +10089,9 @@ msgstr "𐑒𐑩𐑥𐑐𐑴𐑯𐑩𐑯𐑑 𐑓𐑹 𐑕𐑻𐑗𐑦𐑙"
 msgid "Searching"
 msgstr "𐑕𐑻𐑗𐑦𐑙"
 
-#, fuzzy
 #: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:1
 msgid "Anjuta Class Generator Plugin"
-msgstr "Anjuta 𐑒𐑤𐑭𐑕 𐑡𐑧𐑯𐑻𐑱𐑑𐑻 𐑐𐑤𐑳𐑜𐑦𐑯"
+msgstr "·𐑨𐑯𐑡𐑵𐑑𐑩 𐑒𐑤𐑭𐑕 𐑡𐑧𐑯𐑻𐑱𐑑𐑻 𐑐𐑤𐑳𐑜𐑦𐑯"
 
 #, fuzzy
 #: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:2
@@ -10152,15 +10102,13 @@ msgstr "𐑕𐑰++/GObject 𐑒𐑤𐑭𐑕"
 msgid "Project Manager"
 msgstr "𐑐𐑮𐑩𐑡𐑧𐑒𐑑 𐑥𐑨𐑯𐑩𐑡𐑼"
 
-#, fuzzy
 #: ../plugins/project-manager/anjuta-project-manager.plugin.in.h:2
 msgid "Project Manager Plugin for Anjuta."
-msgstr "𐑐𐑮𐑩𐑡𐑧𐑒𐑑 𐑥𐑨𐑯𐑩𐑡𐑼 𐑐𐑤𐑳𐑜𐑦𐑯 𐑓𐑹 Anjuta."
+msgstr "𐑐𐑮𐑩𐑡𐑧𐑒𐑑 𐑥𐑨𐑯𐑩𐑡𐑼 𐑐𐑤𐑳𐑜𐑦𐑯 𐑓𐑹 ·𐑨𐑯𐑡𐑵𐑑𐑩."
 
-#, fuzzy
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:2
 msgid "Symbol Database Plugin for Anjuta."
-msgstr "𐑕𐑦𐑥𐑚𐑩𐑤 𐑛𐑱𐑑𐑩𐑚𐑱𐑕 𐑐𐑤𐑳𐑜𐑦𐑯 𐑓𐑹 Anjuta."
+msgstr "𐑕𐑦𐑥𐑚𐑩𐑤 𐑛𐑱𐑑𐑩𐑚𐑱𐑕 𐑐𐑤𐑳𐑜𐑦𐑯 𐑓𐑹 ·𐑨𐑯𐑡𐑵𐑑𐑩."
 
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Manages messages from external apps"
@@ -10214,12 +10162,12 @@ msgstr "Autotools 𐑚𐑨𐑒𐑧𐑯𐑛"
 msgid "Autotools backend for project manager"
 msgstr "Autotools 𐑚𐑨𐑒𐑧𐑯𐑛 𐑓𐑹 𐑐𐑮𐑪𐑡𐑧𐑒𐑑 𐑥𐑨𐑯𐑩𐑡𐑼"
 
-#, fuzzy, c-format
+#, c-format
+#, fuzzy
 #: ../plugins/js-debugger/plugin.c:122
 msgid "Error: %s"
-msgstr "𐑻𐑼𐑟:"
+msgstr "𐑻𐑼: %s"
 
-#, fuzzy
 #: ../plugins/js-debugger/plugin.c:142
 #: ../plugins/js-debugger/debugger-js.c:546
 msgid "Error: cant bind port"
@@ -10228,14 +10176,12 @@ msgstr "𐑻𐑼: 𐑒𐑨𐑯𐑑 𐑚𐑲𐑯𐑛 𐑐𐑹𐑑"
 #, fuzzy
 #: ../plugins/js-debugger/js_debugger.plugin.in.h:1
 msgid "Anjuta JS Debugger Plugin"
-msgstr "Anjuta JS 𐑛𐑰𐑚𐑳𐑜𐑼 𐑐𐑤𐑳𐑜𐑦𐑯"
+msgstr "·𐑨𐑯𐑡𐑵𐑑𐑩 JS 𐑛𐑰𐑚𐑳𐑜𐑼 𐑐𐑤𐑳𐑜𐑦𐑯"
 
-#, fuzzy
 #: ../plugins/js-debugger/js_debugger.plugin.in.h:2
 msgid "Javascript Debugger Plugin"
 msgstr "·𐑡𐑭𐑝𐑩𐑕𐑒𐑮𐑦𐑐𐑑 𐑛𐑰𐑚𐑳𐑜𐑼 𐑐𐑤𐑳𐑜𐑦𐑯"
 
-#, fuzzy
 #: ../plugins/language-support-js/plugin.c:332
 #: ../plugins/language-support-js/plugin.c:341
 msgid "JavaScript"
@@ -10251,7 +10197,6 @@ msgstr "JS"
 msgid "JS Support Plugin"
 msgstr "JS 𐑕𐑩𐑐𐑹𐑑 𐑐𐑤𐑳𐑜𐑦𐑯"
 
-#, fuzzy
 #: ../plugins/language-support-js/js-support-plugin.plugin.in.h:2
 msgid "JavaScript Support Plugin"
 msgstr "·𐑡𐑭𐑝𐑩𐑕𐑒𐑮𐑦𐑐𐑑 𐑕𐑩𐑐𐑹𐑑 𐑐𐑤𐑳𐑜𐑦𐑯"
@@ -10281,7 +10226,6 @@ msgstr "Gjs repository's 𐑛𐑲𐑮𐑧𐑒𐑑𐑼𐑦:   "
 msgid "Highlight missed semicolon"
 msgstr "𐑣𐑲𐑤𐑲𐑑 𐑥𐑦𐑕𐑑 semicolon"
 
-#, fuzzy
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
 msgid "Min character for completion "
 msgstr "𐑥𐑦𐑯 𐑒𐑨𐑮𐑩𐑒𐑑𐑼 𐑓𐑹 𐑒𐑩𐑥𐑐𐑤𐑰𐑖𐑩𐑯 "
