@@ -31,7 +31,7 @@
 #include "plugin.h"
 #include "anjuta-design-document.h"
 
-#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-glade.ui"
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-glade.xml"
 
 static gpointer parent_class;
 
