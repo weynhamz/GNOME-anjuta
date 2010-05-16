@@ -247,14 +247,14 @@ foo_canvas_line_class_init (FooCanvasLineClass *klass)
 static void
 foo_canvas_line_init (FooCanvasLine *line)
 {
-	line->width = 0.0;
+	line->width = 1.0;
 	line->cap = GDK_CAP_BUTT;
 	line->join = GDK_JOIN_MITER;
 	line->line_style = GDK_LINE_SOLID;
 	line->shape_a = 0.0;
 	line->shape_b = 0.0;
 	line->shape_c = 0.0;
-	line->aa = FALSE;
+	line->aa = TRUE;
 	line->smooth = FALSE;
 }
 

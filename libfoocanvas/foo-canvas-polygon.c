@@ -199,8 +199,8 @@ foo_canvas_polygon_class_init (FooCanvasPolygonClass *klass)
 static void
 foo_canvas_polygon_init (FooCanvasPolygon *poly)
 {
-	poly->width = 0.0;
-	poly->aa = FALSE;
+	poly->width = 1.0;
+	poly->aa = TRUE;
 }
 
 static void

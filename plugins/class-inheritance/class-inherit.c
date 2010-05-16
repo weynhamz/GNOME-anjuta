@@ -96,7 +96,6 @@ create_canvas_arrow_item (FooCanvasGroup *canvas_group,
 	                            foo_canvas_polygon_get_type (),
 	                            "points", triangle,
 	                            "fill_color_gdk", fill_color,
-	                            "aa", TRUE,
 	                            NULL);
 	foo_canvas_points_unref (triangle);
 	return item;
@@ -121,8 +120,6 @@ create_canvas_line_item (FooCanvasGroup *canvas_group, GdkColor *fill_color,
 		                     "points", points,
 		                     "fill_color_gdk",
 		                     fill_color,
-		                     "width_units", 1.0,
-		                     "aa", TRUE,
 		                     NULL);
 	foo_canvas_points_unref (points);
 	return item;
@@ -709,8 +706,6 @@ cls_node_draw_expanded (ClsNode *cls_node)
 	                     "y2", (gdouble) cls_node->height,
 	                     "outline_color_gdk",
 	                     &cls_node->plugin->style[STYLE_FG],
-	                     "width_units", 1.0,
-	                     "aa", TRUE,
 	                     NULL);
 }
 
@@ -748,8 +743,6 @@ cls_node_draw_collapsed (ClsNode *cls_node)
 		                     &cls_node->plugin->style[STYLE_BG],
 		                     "outline_color_gdk",
 		                     &cls_node->plugin->style[STYLE_FG],
-		                     "width_units", 1.0,
-		                     "aa", TRUE,
 		                     NULL);
 	g_signal_connect (GTK_OBJECT (item), "event",
 					  G_CALLBACK (on_collapsed_class_event),
@@ -849,7 +842,6 @@ cls_node_draw_edge (ClsNode *cls_node_to, ClsNodeEdge *cls_edge, ClsNode *cls_no
 			foo_canvas_item_new (foo_canvas_root
 			                     (FOO_CANVAS (cls_node_from->canvas)), 
 			                     foo_canvas_line_get_type(),
-			                     "aa", TRUE,
 			                     "smooth", TRUE,
 			                     "last_arrowhead", TRUE,
 			                     "arrow_shape_a", (gdouble) 8.0,
@@ -857,7 +849,6 @@ cls_node_draw_edge (ClsNode *cls_node_to, ClsNodeEdge *cls_edge, ClsNode *cls_no
 			                     "arrow_shape_c", (gdouble) 3.0,
 			                     "fill_color_gdk",
 			                     &cls_node_from->plugin->style[STYLE_FG],
-			                     "width_units", 1.0,
 			                     "points", points,
 			                     NULL);
 		foo_canvas_item_lower_to_bottom (cls_edge->canvas_line);

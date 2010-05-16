@@ -171,8 +171,6 @@ create_class_item_tooltip (ClsNode *cls_node, const gchar *tooltip_text)
 		                     &cls_node->plugin->style[STYLE_ITEM_BG],
 		                     "outline_color_gdk",
 		                     &cls_node->plugin->style[STYLE_FG],
-		                     "aa", TRUE,
-		                     "width_units", 1.0,
 		                     NULL);
 	/* shadow */
 	canvas_item =

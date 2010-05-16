@@ -246,8 +246,8 @@ foo_canvas_re_init (FooCanvasRE *re)
 	re->y1 = 0.0;
 	re->x2 = 0.0;
 	re->y2 = 0.0;
-	re->width = 0.0;
-	re->aa = FALSE;
+	re->width = 1.0;
+	re->aa = TRUE;
 }
 
 static void
