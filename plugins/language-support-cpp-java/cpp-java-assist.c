@@ -75,9 +75,9 @@ struct _CppJavaAssistPriv {
 	GList* tips;
 	IAnjutaIterable* calltip_iter;
 
-	gboolean async_calltip_file;
-	gboolean async_calltip_system;
-	gboolean async_calltip_project;
+	gint async_calltip_file;
+	gint async_calltip_system;
+	gint async_calltip_project;
 
 	GCancellable* cancel_calltip_system;
 	GCancellable* cancel_calltip_file;
@@ -89,13 +89,9 @@ struct _CppJavaAssistPriv {
 	IAnjutaIterable* start_iter;
 	gchar* pre_word;
 
-	gboolean async_file;
-	gboolean async_system;
-	gboolean async_project;
-
 	gint async_file_id;
-	gint async_system_id;	
-	gint async_project_id;	
+	gint async_system_id;
+	gint async_project_id;
 	
 	GCancellable* cancel_system;
 	GCancellable* cancel_file;
@@ -189,6 +185,9 @@ static GList*
 cpp_java_assist_create_completion_from_symbols (IAnjutaIterable* symbols, gboolean local_only)
 {
 	GList* list = NULL;
+
+	if (!symbols)
+		return NULL;
 	do
 	{
 		IAnjutaSymbol* symbol = IANJUTA_SYMBOL (symbols);
@@ -606,53 +605,23 @@ on_symbol_search_complete (gint search_id, IAnjutaIterable* symbols, CppJavaAssi
 		proposals = cpp_java_assist_create_completion_from_symbols (symbols, FALSE);
 	}
 
+	if (search_id == assist->priv->async_file_id)
+		assist->priv->async_file_id = 0;
+	else if (search_id == assist->priv->async_project_id)
+		assist->priv->async_project_id = 0;
+	else if (search_id == assist->priv->async_system_id)
+		assist->priv->async_system_id = 0;
+	else
+		g_assert_not_reached ();
+	
 	g_completion_add_items (assist->priv->completion_cache, proposals);
-	gboolean running = assist->priv->async_system || assist->priv->async_file ||
-		assist->priv->async_project;
+	gboolean running = assist->priv->async_system_id || assist->priv->async_file_id ||
+		assist->priv->async_project_id;
+	
 	cpp_java_assist_populate_real (assist, !running);
 	g_list_free (proposals);
 	g_object_unref (symbols);
 }
-
-/**
- * notify_system_finished:
- * @notify: the notifycation object
- * @assist: self
- *
- * Called when the system search was finished
- */
-static void
-notify_system_finished (AnjutaAsyncNotify* notify, CppJavaAssist* assist)
-{
-	assist->priv->async_system = FALSE;
-}
-
-/**
- * notify_file_finished:
- * @notify: the notifycation object
- * @assist: self
- *
- * Called when the file search was finished
- */
-static void
-notify_file_finished (AnjutaAsyncNotify* notify, CppJavaAssist* assist)
-{
-	assist->priv->async_file = FALSE;
-}
-
-/**
- * notify_project_finished:
- * @notify: the notifycation object
- * @assist: self
- *
- * Called when the file search was finished
- */
-static void
-notify_project_finished (AnjutaAsyncNotify* notify, CppJavaAssist* assist)
-{
-	assist->priv->async_project = FALSE;
-}
-
 
 /**
  * cpp_java_assist_create_autocompletion_cache:
@@ -678,7 +647,6 @@ cpp_java_assist_create_autocompletion_cache (CppJavaAssist* assist, IAnjutaItera
 	else
 	{
 		gchar *pattern = g_strconcat (pre_word, "%", NULL);
-		AnjutaAsyncNotify* notify = NULL;
 		IAnjutaSymbolType match_types = IANJUTA_SYMBOL_TYPE_MAX;
 		IAnjutaSymbolField fields = IANJUTA_SYMBOL_FIELD_SIMPLE |
 			IANJUTA_SYMBOL_FIELD_TYPE |
@@ -693,9 +661,6 @@ cpp_java_assist_create_autocompletion_cache (CppJavaAssist* assist, IAnjutaItera
 			GFile *file = ianjuta_file_get_file (IANJUTA_FILE (assist->priv->iassist), NULL);
 			if (file != NULL)
 			{
-				notify = anjuta_async_notify_new();
-				g_signal_connect (notify, "finished", G_CALLBACK(notify_file_finished), assist);
-				assist->priv->async_file = TRUE;
 				g_cancellable_reset (assist->priv->cancel_file);
 				assist->priv->async_file_id =
 					ianjuta_symbol_manager_search_file_async (assist->priv->isymbol_manager,
@@ -704,7 +669,7 @@ cpp_java_assist_create_autocompletion_cache (CppJavaAssist* assist, IAnjutaItera
 					                                          fields,
 					                                          pattern, file, -1, -1, 
 					                                          assist->priv->cancel_file,
-					                                          notify, 
+					                                          NULL, 
 					                                          (IAnjutaSymbolManagerSearchCallback) on_symbol_search_complete,
 					                                          assist,
 					                                          NULL);
@@ -713,9 +678,6 @@ cpp_java_assist_create_autocompletion_cache (CppJavaAssist* assist, IAnjutaItera
 		}
 		/* This will avoid duplicates of FUNCTION and PROTOTYPE */
 		match_types &= ~IANJUTA_SYMBOL_TYPE_FUNCTION;
-		notify = anjuta_async_notify_new();
-		g_signal_connect (notify, "finished", G_CALLBACK(notify_project_finished), assist);
-		assist->priv->async_project = TRUE;
 		g_cancellable_reset (assist->priv->cancel_project);
 		assist->priv->async_project_id =
 			ianjuta_symbol_manager_search_project_async (assist->priv->isymbol_manager,
@@ -725,15 +687,10 @@ cpp_java_assist_create_autocompletion_cache (CppJavaAssist* assist, IAnjutaItera
 			                                             pattern, 
 			                                             IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC, -1, -1, 
 			                                             assist->priv->cancel_project,
-			                                             notify, 
+			                                             NULL, 
 			                                             (IAnjutaSymbolManagerSearchCallback) on_symbol_search_complete, 
 			                                             assist,
 			                                             NULL);
-		
-
-		notify = anjuta_async_notify_new();
-		g_signal_connect (notify, "finished", G_CALLBACK(notify_system_finished), assist);
-		assist->priv->async_system = TRUE;
 		g_cancellable_reset (assist->priv->cancel_system);
 		assist->priv->async_system_id = 
 			ianjuta_symbol_manager_search_system_async (assist->priv->isymbol_manager,
@@ -742,7 +699,7 @@ cpp_java_assist_create_autocompletion_cache (CppJavaAssist* assist, IAnjutaItera
 			                                            fields,
 			                                            pattern, IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC, -1, -1,
 			                                            assist->priv->cancel_system,
-			                                            notify, 
+			                                            NULL, 
 			                                            (IAnjutaSymbolManagerSearchCallback) on_symbol_search_complete, 
 			                                            assist,
 			                                            NULL);
@@ -831,8 +788,16 @@ static void
 on_calltip_search_complete (gint search_id, IAnjutaIterable* symbols, CppJavaAssist* assist)
 {
 	assist->priv->tips = cpp_java_assist_create_calltips (symbols, assist->priv->tips);
-	gboolean running = !(assist->priv->async_calltip_system || assist->priv->async_calltip_file ||
-		assist->priv->async_calltip_project);
+	if (search_id == assist->priv->async_calltip_file)
+		assist->priv->async_calltip_file = 0;
+	else if (search_id == assist->priv->async_calltip_project)
+		assist->priv->async_calltip_project = 0;
+	else if (search_id == assist->priv->async_calltip_system)
+		assist->priv->async_calltip_system = 0;
+	else
+		g_assert_not_reached ();
+	gboolean running = assist->priv->async_calltip_system || assist->priv->async_calltip_file ||
+		assist->priv->async_calltip_project;
 
 	DEBUG_PRINT ("Calltip search finished with %d items", g_list_length (assist->priv->tips));
 	
@@ -846,45 +811,6 @@ on_calltip_search_complete (gint search_id, IAnjutaIterable* symbols, CppJavaAss
 }
 
 /**
- * notify_system_calltips_finished:
- * @notify: the notifycation object
- * @assist: self
- *
- * Called when the system search was finished
- */
-static void
-notify_system_calltips_finished (AnjutaAsyncNotify* notify, CppJavaAssist* assist)
-{
-	assist->priv->async_calltip_system = FALSE;
-}
-
-/**
- * notify_file_calltips_finished:
- * @notify: the notifycation object
- * @assist: self
- *
- * Called when the file search was finished
- */
-static void
-notify_file_calltips_finished (AnjutaAsyncNotify* notify, CppJavaAssist* assist)
-{
-	assist->priv->async_calltip_file = FALSE;
-}
-
-/**
- * notify_project_calltips_finished:
- * @notify: the notifycation object
- * @assist: self
- *
- * Called when the file search was finished
- */
-static void
-notify_project_calltips_finished (AnjutaAsyncNotify* notify, CppJavaAssist* assist)
-{
-	assist->priv->async_calltip_project = FALSE;
-}
-
-/**
  * cpp_java_assist_query_calltip:
  * @assist: self
  * @call_context: name of method/function
@@ -894,6 +820,7 @@ notify_project_calltips_finished (AnjutaAsyncNotify* notify, CppJavaAssist* assi
 static void
 cpp_java_assist_query_calltip (CppJavaAssist *assist, const gchar *call_context)
 {	
+	CppJavaAssistPriv* priv = assist->priv;
 	IAnjutaSymbolType types = 
 		IANJUTA_SYMBOL_TYPE_PROTOTYPE |
 		IANJUTA_SYMBOL_TYPE_FUNCTION |
@@ -904,67 +831,61 @@ cpp_java_assist_query_calltip (CppJavaAssist *assist, const gchar *call_context)
 		IANJUTA_SYMBOL_FIELD_TYPE |
 		IANJUTA_SYMBOL_FIELD_ACCESS |
 		IANJUTA_SYMBOL_FIELD_KIND;
-	AnjutaAsyncNotify* notify;
+
+	
 	/* Search file */
 	if (IANJUTA_IS_FILE (assist->priv->itip))
 	{
-		GFile *file = ianjuta_file_get_file (IANJUTA_FILE (assist->priv->itip), NULL);
-
+		GFile *file = ianjuta_file_get_file (IANJUTA_FILE (priv->itip), NULL);
 
 		if (file != NULL)
 		{
-			notify = anjuta_async_notify_new();
-			g_signal_connect (notify, "finished", G_CALLBACK(notify_file_calltips_finished), assist);
-			assist->priv->async_calltip_file = TRUE;
 			g_cancellable_reset (assist->priv->cancel_calltip_file);
-			ianjuta_symbol_manager_search_file_async (assist->priv->isymbol_manager,
-			                                          types,
-			                                          TRUE, 
-			                                          fields,
-			                                          call_context, file, -1, -1,
-			                                          assist->priv->cancel_calltip_file,
-			                                          notify,
-			                                          (IAnjutaSymbolManagerSearchCallback) on_calltip_search_complete,
-			                                          assist,
-			                                          NULL);			
+			priv->async_calltip_file = 
+				ianjuta_symbol_manager_search_file_async (assist->priv->isymbol_manager,
+				                                          types,
+				                                          TRUE, 
+				                                          fields,
+				                                          call_context, file, -1, -1,
+				                                          assist->priv->cancel_calltip_file,
+				                                          NULL,
+				                                          (IAnjutaSymbolManagerSearchCallback) on_calltip_search_complete,
+				                                          assist,
+				                                          NULL);
 			g_object_unref (file);
 		}
 	}
 
 	types &= ~IANJUTA_SYMBOL_TYPE_FUNCTION;
 	/* Search Project */
-	notify = anjuta_async_notify_new();
-	g_signal_connect (notify, "finished", G_CALLBACK(notify_project_calltips_finished), assist);
-	assist->priv->async_calltip_project = TRUE;
 	g_cancellable_reset (assist->priv->cancel_calltip_file);
-	ianjuta_symbol_manager_search_project_async (assist->priv->isymbol_manager,
-	                                             types,
-	                                             TRUE, 
-	                                             fields,
-	                                             call_context, 
-	                                             IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC, -1, -1,
-	                                             assist->priv->cancel_calltip_project,
-	                                             notify,
-	                                             (IAnjutaSymbolManagerSearchCallback) on_calltip_search_complete,
-	                                             assist,
-	                                             NULL);
+	priv->async_calltip_project = 
+		ianjuta_symbol_manager_search_project_async (assist->priv->isymbol_manager,
+		                                             types,
+		                                             TRUE, 
+		                                             fields,
+		                                             call_context, 
+		                                             IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC, -1, -1,
+		                                             assist->priv->cancel_calltip_project,
+		                                             NULL,
+		                                             (IAnjutaSymbolManagerSearchCallback) on_calltip_search_complete,
+		                                             assist,
+		                                             NULL);
 	
 	/* Search system */
-	notify = anjuta_async_notify_new();
-	g_signal_connect (notify, "finished", G_CALLBACK(notify_system_calltips_finished), assist);
-	assist->priv->async_calltip_system = TRUE;
 	g_cancellable_reset (assist->priv->cancel_calltip_file);
-	ianjuta_symbol_manager_search_system_async (assist->priv->isymbol_manager,
-	                                            types,
-	                                            TRUE, 
-	                                            fields,
-	                                            call_context, 
-	                                            IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC, -1, -1,
-	                                            assist->priv->cancel_calltip_system,
-	                                            notify,
-	                                            (IAnjutaSymbolManagerSearchCallback) on_calltip_search_complete,
-	                                            assist,
-	                                            NULL);
+	assist->priv->async_calltip_system = 
+		ianjuta_symbol_manager_search_system_async (assist->priv->isymbol_manager,
+		                                            types,
+		                                            TRUE, 
+		                                            fields,
+		                                            call_context, 
+		                                            IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC, -1, -1,
+		                                            assist->priv->cancel_calltip_system,
+		                                            NULL,
+		                                            (IAnjutaSymbolManagerSearchCallback) on_calltip_search_complete,
+		                                            assist,
+		                                            NULL);
 }
 
 /**
@@ -1197,6 +1118,22 @@ cpp_java_assist_calltip (CppJavaAssist *assist)
 	g_object_unref (iter);
 	return FALSE;
 }
+/**
+ * cpp_java_assist_none:
+ * @self: IAnjutaProvider object
+ * @assist: CppJavaAssist object
+ *
+ * Indicate that there is nothing to autocomplete
+ */
+static void
+cpp_java_assist_none (IAnjutaProvider* self,
+                      CppJavaAssist* assist)
+{
+	ianjuta_editor_assist_proposals (assist->priv->iassist,
+	                                 self,
+	                                 NULL, TRUE, NULL);
+}
+
 
 /**
  * cpp_java_assist_populate:
@@ -1208,16 +1145,23 @@ static void
 cpp_java_assist_populate (IAnjutaProvider* self, IAnjutaIterable* cursor, GError** e)
 {
 	CppJavaAssist* assist = CPP_JAVA_ASSIST (self);
-
+	
+	/* Check if we actually want autocompletion at all */
+	if (!anjuta_preferences_get_bool_with_default (anjuta_preferences_default (),
+	                                               PREF_AUTOCOMPLETE_ENABLE,
+	                                               TRUE))
+	{
+		cpp_java_assist_none (self, assist);
+		return;
+	}
+	
 	/* Check if this is a valid text region for completion */
 	IAnjutaEditorAttribute attrib = ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL(cursor),
 	                                                                   NULL);
 	if (attrib == IANJUTA_EDITOR_STRING ||
 	    attrib == IANJUTA_EDITOR_COMMENT)
 	{
-		ianjuta_editor_assist_proposals (assist->priv->iassist,
-		                                 IANJUTA_PROVIDER(self),
-		                                 NULL, TRUE, NULL);
+		cpp_java_assist_none (self, assist);
 		return;
 	}
 
@@ -1271,9 +1215,7 @@ cpp_java_assist_populate (IAnjutaProvider* self, IAnjutaIterable* cursor, GError
 		g_object_unref (assist->priv->start_iter);
 		assist->priv->start_iter = NULL;
 	}
-	ianjuta_editor_assist_proposals (assist->priv->iassist,
-	                                 IANJUTA_PROVIDER(self),
-	                                 NULL, TRUE, NULL);
+	cpp_java_assist_none (self, assist);
 } 
 
 /**
@@ -1440,13 +1382,7 @@ cpp_java_assist_finalize (GObject *object)
 	CppJavaAssist *assist = CPP_JAVA_ASSIST (object);
 	cpp_java_assist_uninstall (assist);
 	cpp_java_assist_clear_completion_cache (assist);
-#if 0
-	if (assist->priv->calltip_context)
-	{
-		g_free (assist->priv->calltip_context);
-		assist->priv->calltip_context = NULL;
-	}
-#endif
+	cpp_java_assist_clear_calltip_context (assist);
 	g_object_unref (assist->priv->cancel_calltip_file);
 	g_object_unref (assist->priv->cancel_calltip_project);
 	g_object_unref (assist->priv->cancel_calltip_system);

@@ -2195,7 +2195,7 @@ iassist_proposals(IAnjutaEditorAssist* iassist,
 				IAnjutaEditorAssistProposal* proposal = prop->data;
 				GtkSourceCompletionItem* item;
 				if (proposal->markup)
-				{    	    
+				{
 					item = gtk_source_completion_item_new_with_markup(proposal->markup,
 					                                                  proposal->text,
 					                                                  proposal->icon,
@@ -2207,7 +2207,7 @@ iassist_proposals(IAnjutaEditorAssist* iassist,
 					                                      proposal->text,
 					                                      proposal->icon,
 					                                      proposal->info);
-				}    	                                    
+				}
 				items = g_list_append (items, item);
 				g_object_set_data (G_OBJECT(item), "__data", proposal->data);
 			}

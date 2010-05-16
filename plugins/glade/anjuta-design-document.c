@@ -155,7 +155,7 @@ static void ifile_savable_save (IAnjutaFileSavable* file, GError **e)
 		{
 			anjuta_status_set (status, _("Glade project '%s' saved"),
 							   glade_project_get_name(project));
-			g_signal_emit_by_name(G_OBJECT(self), "save_point", TRUE);
+			g_signal_emit_by_name(G_OBJECT(self), "update-save-ui", TRUE);
 		} 
 		else 
 		{

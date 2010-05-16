@@ -180,13 +180,6 @@ sdb_search_command_run (AnjutaCommand *command)
 			break;			
 	}
 
-	if (priv->iterator_result == NULL)
-	{
-		DEBUG_PRINT("Async search returned no results");
-		/* 1 is for error occurred */
-		return 1;
-	}
-
 	if (priv->is_cancelled == FALSE)
 	{
 		DEBUG_PRINT ("Notify!");

@@ -126,6 +126,18 @@ select symbol_id_base, symbol.name from heritage
 #include "symbol-db-engine-utils.h"
 
 
+#include <glib/gprintf.h>
+
+#define WRITE_SQL_LOG(format, ...) ;
+/*
+#define WRITE_SQL_LOG(format, ...) { \
+		FILE *file; \
+		file = fopen("/tmp/sql.log", "a"); \
+		g_fprintf (file, format";\n", ##__VA_ARGS__); \
+		fclose (file); \
+}
+*/
+
 /*
  * utility macros
  */
@@ -710,6 +722,9 @@ sdb_engine_disconnect_from_db (SymbolDBEngine * dbe)
 	g_return_val_if_fail (dbe != NULL, FALSE);
 	priv = dbe->priv;
 
+	DEBUG_PRINT ("VACUUM command issued on %s", priv->cnc_string);
+	sdb_engine_execute_non_select_sql (dbe, "VACUUM");
+	
 	DEBUG_PRINT ("Disconnecting from %s", priv->cnc_string);
 	g_free (priv->cnc_string);
 	priv->cnc_string = NULL;
@@ -2969,7 +2984,7 @@ sdb_engine_connect_to_db (SymbolDBEngine * dbe, const gchar *cnc_string)
 	 */
 	priv->db_connection
 		= gda_connection_open_from_string ("SQLite", cnc_string, NULL, 
-										   GDA_CONNECTION_OPTIONS_NONE, NULL);	
+										   GDA_CONNECTION_OPTIONS_THREAD_SAFE, NULL);	
 	
 	if (!GDA_IS_CONNECTION (priv->db_connection))
 	{
@@ -3353,6 +3368,10 @@ CREATE TABLE workspace (workspace_id integer PRIMARY KEY AUTOINCREMENT,
 		return FALSE;
 	}
 	MP_SET_HOLDER_BATCH_STR(priv, param, workspace_name, ret_bool, ret_value);
+
+
+	WRITE_SQL_LOG ("INSERT INTO workspace (workspace_name, analyse_time) "
+	 			"VALUES ('%s', datetime ('now', 'localtime'))	", workspace_name);
 	
 	/* execute the query with parametes just set */
 	if (gda_connection_statement_execute_non_select (priv->db_connection, 
@@ -3504,7 +3523,11 @@ CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
 	}
 	
 	MP_SET_HOLDER_BATCH_INT(priv, param, wks_id, ret_bool, ret_value);	
-		
+
+	WRITE_SQL_LOG ("INSERT INTO project (project_name, wrkspace_id, analyse_time) "
+	 	"VALUES ('%s',"
+	 	"%d, datetime ('now', 'localtime'))", project, wks_id);
+		 
 	/* execute the query with parametes just set */
 	if (gda_connection_statement_execute_non_select (priv->db_connection, 
 														  (GdaStatement*)stmt, 
@@ -3721,6 +3744,11 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 		}		
 
 		MP_SET_HOLDER_BATCH_INT(priv, param, language_id, ret_bool, ret_value);
+
+
+		WRITE_SQL_LOG ("INSERT INTO file (file_path, prj_id, lang_id, analyse_time) VALUES ("
+	 	"'%s', %d, %d, "
+	 	"datetime ('now', 'localtime'))", local_filepath, project_id, language_id);
 		
 		/* execute the query with parametes just set */
 		if (gda_connection_statement_execute_non_select (priv->db_connection, 
@@ -4081,7 +4109,7 @@ sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 	}
 	
 	MP_SET_HOLDER_BATCH_STR(priv, param, type_name, ret_bool, ret_value);
-	
+
 	/* execute the query with parametes just set */
 	if (gda_connection_statement_execute_non_select (priv->db_connection, 
 													 (GdaStatement*)stmt, 
@@ -4110,6 +4138,10 @@ sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 	}	
 	else 
 	{
+
+		WRITE_SQL_LOG ("INSERT INTO sym_type (type_type, type_name) VALUES ('%s', '%s')", 
+	    				type, type_name );
+		
 		const GValue *value = gda_set_get_holder_value (last_inserted, "+0");
 		table_id = g_value_get_int (value);
 	}		
@@ -4202,6 +4234,9 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 			is_container = 1;
 		
 		MP_SET_HOLDER_BATCH_INT(priv, param, is_container, ret_bool, ret_value);
+
+		WRITE_SQL_LOG ("INSERT INTO sym_kind (kind_name, is_container) VALUES('%s',"
+		    "%d)", kind_name, is_container);
 		
 		/* execute the query with parametes just set */
 		if (gda_connection_statement_execute_non_select(priv->db_connection, 
@@ -4463,6 +4498,9 @@ sdb_engine_add_new_heritage (SymbolDBEngine * dbe, gint base_symbol_id,
 	}
 	
 	MP_SET_HOLDER_BATCH_INT(priv, param, derived_symbol_id, ret_bool, ret_value);		
+
+	WRITE_SQL_LOG ("INSERT INTO heritage (symbol_id_base, symbol_id_derived) VALUES(%d, "
+	"%d)", base_symbol_id, derived_symbol_id);
 	
 	/* execute the query with parametes just set */
 	if (gda_connection_statement_execute_non_select (priv->db_connection, 
@@ -4569,6 +4607,10 @@ sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, const tagEntry * tag_
 		}
 	}
 	else  {
+
+		WRITE_SQL_LOG ("INSERT INTO scope (scope_name, type_id) VALUES('%s'"
+	 			", %d)",  scope, type_table_id);
+		
 		const GValue *value = gda_set_get_holder_value (last_inserted, "+0");
 		table_id = g_value_get_int (value);
 	}	
@@ -4772,6 +4814,14 @@ sdb_engine_add_new_tmp_heritage_scope (SymbolDBEngine * dbe,
 	}
 	else 
 	{
+
+	WRITE_SQL_LOG ("INSERT INTO __tmp_heritage_scope (symbol_referer_id, field_inherits, "
+	 	"field_struct, field_typeref, field_enum, field_union, "
+	 	"field_class, field_namespace) VALUES (%d,"
+	 	"'%s', '%s', '%s', '%s', '%s', '%s', '%s')", symbol_referer_id,
+	    	field_inherits, field_struct, field_typeref,
+			field_enum, field_union, field_class, field_namespace);
+	    		
 		const GValue *value = gda_set_get_holder_value (last_inserted, "+0");
 		table_id = g_value_get_int (value);
 	}
@@ -5603,6 +5653,20 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	}
 	
 	MP_SET_HOLDER_BATCH_INT(priv, param, update_flag, ret_bool, ret_value);
+
+	WRITE_SQL_LOG (	 	"INSERT INTO symbol (file_defined_id, name, file_position, "
+	 	"is_file_scope, signature, returntype, scope_definition_id, scope_id, type_id, "
+	 	"kind_id, access_kind_id, implementation_kind_id, update_flag) VALUES("
+	 	"%d , '%s' "
+	 	", %d, "
+	 	"%d , '%s' "
+	 	", '%s', "
+		"%d, %d, %d, %d, %d, "
+	 	"%d, %d)", file_defined_id, name, file_position, 
+	    is_file_scope, signature, returntype, scope_definition_id, scope_id, type_id, 
+	    kind_id, access_kind_id, implementation_kind_id, update_flag);
+	    
+	    
 	
 	/* execute the query with parametes just set */
 	gint nrows;

@@ -1408,10 +1408,6 @@ foo_canvas_text_draw (FooCanvasItem *item, GdkDrawable *drawable,
 		gdk_gc_set_clip_rectangle (text->gc, &rect);
 	}
 
-	if (text->stipple)
-		foo_canvas_set_stipple_origin (item->canvas, text->gc);
-
-
 	gdk_draw_layout (drawable, text->gc, text->cx, text->cy, text->layout);
 
 	if (text->clip)

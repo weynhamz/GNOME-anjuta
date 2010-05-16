@@ -107,8 +107,6 @@ struct _FooCanvasLine {
 	double *first_coords;	/* Array of points describing polygon for the first arrowhead */
 	double *last_coords;	/* Array of points describing polygon for the last arrowhead */
 
-	GdkGC *gc;		/* GC for drawing line */
-
 	GdkBitmap *stipple;	/* Stipple pattern */
 
 	double width;		/* Width of the line */
@@ -122,19 +120,14 @@ struct _FooCanvasLine {
 	GdkLineStyle line_style;/* Style for the line */
 
 	gulong fill_pixel;	/* Color for line */
-
 	guint32 fill_rgba;		/* RGBA color for outline */ /*AA*/
 
 	int num_points;		/* Number of points in the line */
-	guint fill_color;	/* Fill color, RGBA */
-
-	int spline_steps;	/* Number of steps in each spline segment */
-
 	guint width_pixels : 1;	/* Is the width specified in pixels or units? */
 	guint first_arrow : 1;	/* Draw first arrowhead? */
 	guint last_arrow : 1;	/* Draw last arrowhead? */
 	guint smooth : 1;	/* Smooth line (with parabolic splines)? */
-	gboolean line_smoothed : 1; /* If smooth == TRUE, has the line been smoothened */
+	guint aa: 1; /* Enable anti-alias for this item */
 };
 
 struct _FooCanvasLineClass {
