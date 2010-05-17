@@ -22,6 +22,45 @@
 #include "plugin.h"
 #include "git-vcs-interface.h"
 #include "git-branches-pane.h"
+#include "git-create-branch-pane.h"
+#include "git-delete-branches-pane.h"
+#include "git-switch-branch-pane.h"
+
+AnjutaCommandBarEntry branch_entries[] =
+{
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_FRAME,
+		"NULL",
+		N_("Branch tools"),
+		NULL,
+		NULL,
+		NULL
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"CreateBranch",
+		N_("Create a branch"),
+		N_("Create a branch"),
+		GTK_STOCK_NEW,
+		G_CALLBACK (on_create_branch_button_clicked)
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"DeleteBranches",
+		N_("Delete selected branches"),
+		N_("Delete selected branches"),
+		GTK_STOCK_DELETE,
+		G_CALLBACK (on_delete_branches_button_clicked)
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"Switch",
+		N_("Switch to this branch"),
+		N_("Switch to the selected branch"),
+		GTK_STOCK_JUMP_TO,
+		G_CALLBACK (on_switch_branch_button_clicked)
+	}
+};
 
 static gpointer parent_class;
 
@@ -122,7 +161,6 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	Git *git_plugin;
 	GtkWidget *command_bar_viewport;
 	GtkWidget *dock_viewport;
-	AnjutaDockPane *pane;
 	
 	DEBUG_PRINT ("%s", "Git: Activating Git plugin …");
 	
@@ -176,10 +214,11 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	                                                                      GIT_BRANCH_TYPE_REMOTE);
 
 	/* Add the panes to the dock */
-	pane = git_branches_pane_new (git_plugin);
+	git_plugin->branches_pane = git_branches_pane_new (git_plugin);
 	anjuta_dock_add_pane (ANJUTA_DOCK (git_plugin->dock), "Branches", 
-	                      _("Branches"), NULL, pane, GDL_DOCK_CENTER, NULL, 0, 
-	                      NULL);
+	                      _("Branches"), NULL, git_plugin->branches_pane,   
+	                      GDL_DOCK_CENTER, branch_entries, 
+	                      G_N_ELEMENTS (branch_entries), git_plugin);
 	
 	/* Add watches */
 	git_plugin->project_root_watch_id = anjuta_plugin_add_watch (plugin,

@@ -163,7 +163,13 @@ libanjuta_git_la_SOURCES = \
 	git-pane.c \
 	git-pane.h \
 	git-branches-pane.c \
-	git-branches-pane.h
+	git-branches-pane.h \
+	git-create-branch-pane.c \
+	git-create-branch-pane.h \
+	git-delete-branches-pane.c \
+	git-delete-branch-pane.h \
+	git-switch-branch-pane.c \
+	git-switch-branch-pane.h
 
 libanjuta_git_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
