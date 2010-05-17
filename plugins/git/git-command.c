@@ -452,7 +452,7 @@ git_command_class_init (GitCommandClass *klass)
 														  "",
 														  "Directory to run git in.",
 														  "",
-														  G_PARAM_CONSTRUCT_ONLY | G_PARAM_READWRITE));
+														  G_PARAM_READWRITE));
 	
 	g_object_class_install_property (object_class, PROP_SINGLE_LINE_OUTPUT,
 									 g_param_spec_boolean ("single-line-output",
