@@ -317,6 +317,14 @@ git_command_error_handler (GitCommand *self, const gchar *output)
 }
 
 static void
+git_command_clear_args_list (GitCommand *self)
+{
+	g_list_foreach (self->priv->args, (GFunc) g_free, NULL);
+	g_list_free (self->priv->args);
+	self->priv->args = NULL;
+}
+
+static void
 git_command_child_exited (AnjutaLauncher *launcher, gint child_pid, gint status, 
 						  gulong time, GitCommand *self)
 {	
@@ -325,6 +333,9 @@ git_command_child_exited (AnjutaLauncher *launcher, gint child_pid, gint status,
 		anjuta_command_set_error_message (ANJUTA_COMMAND (self),
 										  self->priv->error_string->str);
 	}
+
+	/* Clear the argument list to make the command reusable */
+	git_command_clear_args_list (self);
 	
 	anjuta_command_notify_complete (ANJUTA_COMMAND (self), 
 									(guint) WEXITSTATUS (status));
@@ -352,18 +363,11 @@ static void
 git_command_finalize (GObject *object)
 {
 	GitCommand *self;
-	GList *current_arg;
 	GList *current_info;
 	
 	self = GIT_COMMAND (object);
 	
-	current_arg = self->priv->args;
-	
-	while (current_arg)
-	{
-		g_free (current_arg->data);
-		current_arg = g_list_next (current_arg);
-	}
+	git_command_clear_args_list (self);
 	
 	current_info = self->priv->info_queue->head;
 	
