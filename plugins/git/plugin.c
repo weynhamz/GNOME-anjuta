@@ -91,7 +91,7 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 
 	anjuta_command_start_automatic_monitor (ANJUTA_COMMAND (git_plugin->local_branch_list_command));
 	anjuta_command_start (ANJUTA_COMMAND (git_plugin->local_branch_list_command));
-	anjuta_command_start (ANJUTA_COMMAND (git_plugin->remote_branch_list_command));
+	
 
 	gtk_widget_set_sensitive (git_plugin->dock, TRUE);
 	gtk_widget_set_sensitive (git_plugin->command_bar, TRUE);
@@ -155,6 +155,15 @@ on_editor_removed (AnjutaPlugin *plugin, const gchar *name, gpointer user_data)
 	git_plugin->current_editor_filename = NULL;
 }
 
+static void
+on_local_branch_list_command_finished (AnjutaCommand *command, 
+                                       guint return_code, Git *plugin)
+{
+	/* Always run the remote list command after the local command finishes */
+	if (return_code == 0)
+		anjuta_command_start (ANJUTA_COMMAND (plugin->remote_branch_list_command));
+}
+
 static gboolean
 git_activate_plugin (AnjutaPlugin *plugin)
 {
@@ -212,6 +221,11 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	                                                                     GIT_BRANCH_TYPE_LOCAL);
 	git_plugin->remote_branch_list_command = git_branch_list_command_new (NULL,
 	                                                                      GIT_BRANCH_TYPE_REMOTE);
+
+	g_signal_connect (G_OBJECT (git_plugin->local_branch_list_command), 
+	                  "command-finished",
+	                  G_CALLBACK (on_local_branch_list_command_finished),
+	                  git_plugin);
 
 	/* Add the panes to the dock */
 	git_plugin->branches_pane = git_branches_pane_new (git_plugin);
