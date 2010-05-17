@@ -26,6 +26,7 @@
 #define _GIT_BRANCH_LIST_COMMAND_H_
 
 #include <glib-object.h>
+#include <gio/gio.h>
 #include "git-command.h"
 #include "git-branch.h"
 
@@ -64,7 +65,7 @@ struct _GitBranchListCommand
 GType git_branch_list_command_get_type (void) G_GNUC_CONST;
 GitBranchListCommand *git_branch_list_command_new (const gchar *working_directory, 
 												   GitBranchType type);
-GQueue *git_branch_list_command_get_output (GitBranchListCommand *self);
+GList *git_branch_list_command_get_output (GitBranchListCommand *self);
 
 G_END_DECLS
 

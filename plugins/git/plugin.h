@@ -33,6 +33,7 @@
 #include <libanjuta/anjuta-dock.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-command-queue.h>
+#include "git-branch-list-command.h"
 
 extern GType git_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_GIT         (git_get_type (NULL))
@@ -59,6 +60,10 @@ struct _Git
 	GtkWidget *dock;
 	GtkWidget *command_bar_window;
 	GtkWidget *dock_window;
+
+	/* Branch list commands */
+	GitBranchListCommand *local_branch_list_command;
+	GitBranchListCommand *remote_branch_list_command;
 	
 	IAnjutaMessageView *message_view;
 	AnjutaCommandQueue *command_queue;

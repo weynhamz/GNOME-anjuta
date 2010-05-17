@@ -21,6 +21,7 @@
 
 #include "plugin.h"
 #include "git-vcs-interface.h"
+#include "git-branches-pane.h"
 
 static gpointer parent_class;
 
@@ -42,6 +43,17 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	
 	g_free (project_root_uri);
 
+	g_object_set (G_OBJECT (git_plugin->local_branch_list_command),
+	              "working-directory", git_plugin->project_root_directory, 
+	              NULL);
+	g_object_set (G_OBJECT (git_plugin->remote_branch_list_command),
+	              "working-directory", git_plugin->project_root_directory, 
+	              NULL);
+
+	anjuta_command_start_automatic_monitor (ANJUTA_COMMAND (git_plugin->local_branch_list_command));
+	anjuta_command_start (ANJUTA_COMMAND (git_plugin->local_branch_list_command));
+	anjuta_command_start (ANJUTA_COMMAND (git_plugin->remote_branch_list_command));
+
 	gtk_widget_set_sensitive (git_plugin->dock, TRUE);
 	gtk_widget_set_sensitive (git_plugin->command_bar, TRUE);
 }
@@ -55,6 +67,9 @@ on_project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	
 	git_plugin = ANJUTA_PLUGIN_GIT (plugin);
 	status = anjuta_shell_get_status (plugin->shell, NULL);
+	
+	anjuta_command_stop_automatic_monitor (ANJUTA_COMMAND (git_plugin->local_branch_list_command));
+	anjuta_command_stop_automatic_monitor (ANJUTA_COMMAND (git_plugin->remote_branch_list_command));
 	
 	g_free (git_plugin->project_root_directory);
 	git_plugin->project_root_directory = NULL;
@@ -107,6 +122,7 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	Git *git_plugin;
 	GtkWidget *command_bar_viewport;
 	GtkWidget *dock_viewport;
+	AnjutaDockPane *pane;
 	
 	DEBUG_PRINT ("%s", "Git: Activating Git plugin …");
 	
@@ -150,6 +166,20 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	anjuta_shell_add_widget (plugin->shell, git_plugin->dock_window, "GitDock", 
 	                         _("Git"), NULL, ANJUTA_SHELL_PLACEMENT_CENTER,
 	                         NULL);
+
+	/* Create the branch list commands. There are two commands because some 
+	 * views need to be able to tell the difference between local and 
+	 * remote branches */
+	git_plugin->local_branch_list_command = git_branch_list_command_new (NULL,
+	                                                                     GIT_BRANCH_TYPE_LOCAL);
+	git_plugin->remote_branch_list_command = git_branch_list_command_new (NULL,
+	                                                                      GIT_BRANCH_TYPE_REMOTE);
+
+	/* Add the panes to the dock */
+	pane = git_branches_pane_new (git_plugin);
+	anjuta_dock_add_pane (ANJUTA_DOCK (git_plugin->dock), "Branches", 
+	                      _("Branches"), NULL, pane, GDL_DOCK_CENTER, NULL, 0, 
+	                      NULL);
 	
 	/* Add watches */
 	git_plugin->project_root_watch_id = anjuta_plugin_add_watch (plugin,
@@ -194,6 +224,9 @@ git_deactivate_plugin (AnjutaPlugin *plugin)
 
 	anjuta_shell_remove_widget (plugin->shell, git_plugin->command_bar_window, NULL);
 	anjuta_shell_remove_widget (plugin->shell, git_plugin->dock_window, NULL);
+
+	g_object_unref (git_plugin->local_branch_list_command);
+	g_object_unref (git_plugin->remote_branch_list_command);
 	
 	g_free (git_plugin->project_root_directory);
 	g_free (git_plugin->current_editor_filename);
@@ -207,8 +240,6 @@ git_finalize (GObject *obj)
 	Git *git_plugin;
 
 	git_plugin = ANJUTA_PLUGIN_GIT (obj);
-
-	g_print ("Finalizing.\n");
 
 	g_object_unref (git_plugin->command_queue);
 	
