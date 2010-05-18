@@ -48,8 +48,6 @@ struct _SymbolDBQuery
 };
 
 GType sdb_query_get_type (void) G_GNUC_CONST;
-IAnjutaIterable* sdb_query_search (gchar *search_string);
-IAnjutaIterable* sdb_query_search_prefix (gchar *search_string);
 
 G_END_DECLS
 
