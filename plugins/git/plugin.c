@@ -164,6 +164,33 @@ on_local_branch_list_command_finished (AnjutaCommand *command,
 		anjuta_command_start (ANJUTA_COMMAND (plugin->remote_branch_list_command));
 }
 
+static void
+on_branch_list_command_data_arrived (AnjutaCommand *command, Git *plugin)
+{
+	AnjutaStatus *status;
+	GList *current_branch;
+	GitBranch *branch;
+	gchar *name;
+
+	status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL);
+	current_branch = git_branch_list_command_get_output (GIT_BRANCH_LIST_COMMAND (command));
+
+	while (current_branch)
+	{
+		branch = current_branch->data;
+
+		if (git_branch_is_active (branch))
+		{
+			name = git_branch_get_name (branch);
+
+			anjuta_status_set_default (status, _("Branch"), "%s", name);
+			g_free (name);
+		}
+
+		current_branch = g_list_next (current_branch);
+	}
+}
+
 static gboolean
 git_activate_plugin (AnjutaPlugin *plugin)
 {
@@ -226,6 +253,19 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	                  "command-finished",
 	                  G_CALLBACK (on_local_branch_list_command_finished),
 	                  git_plugin);
+
+	/* Detect the active branch and indicate it in the status bar. The active
+	 * branch should never be a remote branch in practice, but it is possible to
+	 * have that happen nonetheless. */
+	g_signal_connect (G_OBJECT (git_plugin->local_branch_list_command),
+	                  "data-arrived",
+	                  G_CALLBACK (on_branch_list_command_data_arrived),
+	                  plugin);
+
+	g_signal_connect (G_OBJECT (git_plugin->remote_branch_list_command),
+	                  "data-arrived",
+	                  G_CALLBACK (on_branch_list_command_data_arrived),
+	                  plugin);
 
 	/* Add the panes to the dock */
 	git_plugin->branches_pane = git_branches_pane_new (git_plugin);
