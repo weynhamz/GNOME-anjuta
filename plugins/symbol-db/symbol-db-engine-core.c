@@ -6570,6 +6570,20 @@ symbol_db_engine_set_db_case_sensitive (SymbolDBEngine *dbe, gboolean case_sensi
 		sdb_engine_execute_unknown_sql (dbe, "PRAGMA case_sensitive_like = 0");
 }
 
+const GHashTable*
+symbol_db_engine_get_type_conversion_hash (SymbolDBEngine *dbe)
+{
+	g_return_val_if_fail (SYMBOL_IS_DB_ENGINE (dbe), NULL);
+	return dbe->priv->sym_type_conversion_hash;
+}
+
+const gchar*
+symbol_db_engine_get_project_directory (SymbolDBEngine *dbe)
+{
+	g_return_val_if_fail (SYMBOL_IS_DB_ENGINE (dbe), NULL);
+	return dbe->priv->project_directory;
+}
+
 GdaStatement*
 symbol_db_engine_get_statement (SymbolDBEngine *dbe, const gchar *sql_str)
 {

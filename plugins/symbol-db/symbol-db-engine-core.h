@@ -276,6 +276,18 @@ GdaStatement*
 symbol_db_engine_get_statement (SymbolDBEngine *dbe, const gchar *sql_str);
 
 /**
+ * Get conversion hash table used to convert symbol type name to enum value
+ */
+const GHashTable*
+symbol_db_engine_get_type_conversion_hash (SymbolDBEngine *dbe);
+
+/**
+ * Gets the project directory (used to construct absolute paths)
+ */
+const gchar*
+symbol_db_engine_get_project_directory (SymbolDBEngine *dbe);
+
+/**
  * Executes a parameterized sql statement
  */
 GdaDataModel*
