@@ -115,6 +115,8 @@ on_project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 
 	gtk_widget_set_sensitive (git_plugin->dock, FALSE);
 	gtk_widget_set_sensitive (git_plugin->command_bar, FALSE);
+
+	anjuta_status_set_default (status, _("Branch"), NULL);
 }
 
 static void
