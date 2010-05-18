@@ -3,7 +3,7 @@ if HAVE_PLUGIN_GLADE
 
 # Plugin UI file
 glade_uidir = $(anjuta_ui_dir)
-glade_ui_DATA = anjuta-glade.ui
+glade_ui_DATA = anjuta-glade.xml
 
 # Plugin Icon file
 glade_pixmapsdir = $(anjuta_image_dir)

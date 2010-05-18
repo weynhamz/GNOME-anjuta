@@ -2260,10 +2260,6 @@ foo_canvas_realize (GtkWidget *widget)
 				 | GDK_LEAVE_NOTIFY_MASK
 				 | GDK_FOCUS_CHANGE_MASK));
 
-	/* Create our own temporary pixmap gc and realize all the items */
-
-	canvas->pixmap_gc = gdk_gc_new (canvas->layout.bin_window);
-
 	(* FOO_CANVAS_ITEM_GET_CLASS (canvas->root)->realize) (canvas->root);
 }
 
@@ -2282,9 +2278,6 @@ foo_canvas_unrealize (GtkWidget *widget)
 	/* Unrealize items and parent widget */
 
 	(* FOO_CANVAS_ITEM_GET_CLASS (canvas->root)->unrealize) (canvas->root);
-
-	g_object_unref (canvas->pixmap_gc);
-	canvas->pixmap_gc = NULL;
 
 	if (GTK_WIDGET_CLASS (canvas_parent_class)->unrealize)
 		(* GTK_WIDGET_CLASS (canvas_parent_class)->unrealize) (widget);
@@ -2908,14 +2901,15 @@ static void
 foo_canvas_draw_background (FooCanvas *canvas,
 			    int x, int y, int width, int height)
 {
+	cairo_t *cr;
+	
 	/* By default, we use the style background. */
-	gdk_gc_set_foreground (canvas->pixmap_gc,
-			       &GTK_WIDGET (canvas)->style->bg[GTK_STATE_NORMAL]);
-	gdk_draw_rectangle (canvas->layout.bin_window,
-			    canvas->pixmap_gc,
-			    TRUE,
-			    x, y,
-			    width, height);
+	cr = gdk_cairo_create (canvas->layout.bin_window);
+	cairo_set_antialias (cr, CAIRO_ANTIALIAS_NONE);
+	gdk_cairo_set_source_color (cr, &GTK_WIDGET (canvas)->style->bg[GTK_STATE_NORMAL]);
+	cairo_rectangle (cr, x, y, width, height);
+	cairo_fill(cr);
+	cairo_destroy (cr);
 }
 
 static void
@@ -3546,26 +3540,6 @@ foo_canvas_get_color_pixel (FooCanvas *canvas, guint rgba)
 	gdk_rgb_find_color (colormap, &color);
 
 	return color.pixel;
-}
-
-
-/* FIXME: This function is not useful anymore */
-/**
- * foo_canvas_set_stipple_origin:
- * @canvas: A canvas.
- * @gc: GC on which to set the stipple origin.
- *
- * Sets the stipple origin of the specified GC as is appropriate for the canvas,
- * so that it will be aligned with other stipple patterns used by canvas items.
- * This is typically only needed by item implementations.
- **/
-void
-foo_canvas_set_stipple_origin (FooCanvas *canvas, GdkGC *gc)
-{
-	g_return_if_fail (FOO_IS_CANVAS (canvas));
-	g_return_if_fail (GDK_IS_GC (gc));
-
-	gdk_gc_set_ts_origin (gc, 0, 0);
 }
 
 static gboolean

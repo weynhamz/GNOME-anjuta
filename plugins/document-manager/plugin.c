@@ -1625,8 +1625,8 @@ on_notify_timer (AnjutaPreferences* prefs,
 #define REGISTER_NOTIFY(key, func, type) \
 	notify_id = anjuta_preferences_notify_add_##type (ep->prefs, \
 											   key, func, ep, NULL); \
-	ep->gconf_notify_ids = g_list_prepend (ep->gconf_notify_ids, \
-										   GUINT_TO_POINTER (notify_id));
+	ep->notify_ids = g_list_prepend (ep->notify_ids, \
+								     GUINT_TO_POINTER (notify_id));
 static void
 prefs_init (DocmanPlugin *ep)
 {
@@ -1644,15 +1644,15 @@ static void
 prefs_finalize (DocmanPlugin *ep)
 {
 	GList *node;
-	node = ep->gconf_notify_ids;
+	node = ep->notify_ids;
 	while (node)
 	{
 		anjuta_preferences_notify_remove (ep->prefs,
 										  GPOINTER_TO_UINT (node->data));
 		node = g_list_next (node);
 	}
-	g_list_free (ep->gconf_notify_ids);
-	ep->gconf_notify_ids = NULL;
+	g_list_free (ep->notify_ids);
+	ep->notify_ids = NULL;
 }
 
 static gboolean
@@ -1862,7 +1862,7 @@ docman_plugin_instance_init (GObject *obj)
 	DocmanPlugin *plugin = ANJUTA_PLUGIN_DOCMAN (obj);
 	plugin->uiid = 0;
 	plugin->g_tabbing = FALSE;
-	plugin->gconf_notify_ids = NULL;
+	plugin->notify_ids = NULL;
 	plugin->support_plugins = NULL;
 }
 

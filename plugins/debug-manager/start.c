@@ -43,8 +43,6 @@
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/anjuta-utils.h>
 
-#include <gconf/gconf-client.h>
-
 #include <gio/gio.h>
 #include <glib/gi18n.h>
 #include <stdlib.h>
@@ -168,7 +166,7 @@ struct _DmaStart
 #define RUN_PROGRAM_ACTION_GROUP "ActionGroupRun"
 #define RUN_PROGRAM_PARAMETER_ACTION "ActionProgramParameters"
 
-#define GCONF_NOT_CHECK_DEBUG "/apps/anjuta/debug_manager/silent_non_debug_config"
+#define PREFS_NOT_CHECK_DEBUG "debug_silent_non_debug_config"
 
 static void attach_process_clear (AttachProcess * ap, gint ClearRequest);
 
@@ -837,12 +835,12 @@ attach_process_destroy (AttachProcess * ap)
 static gboolean
 show_check_debug_dialog (DmaStart *this)
 {
-	GConfClient *client;
+	AnjutaPreferences* prefs = anjuta_preferences_default ();
 	gboolean no_check_debug;
 	gint res = GTK_RESPONSE_OK;
 
-	client = gconf_client_get_default ();
-	no_check_debug = gconf_client_get_bool (client, GCONF_NOT_CHECK_DEBUG, NULL);
+	no_check_debug = anjuta_preferences_get_bool (prefs, 
+	                                              PREFS_NOT_CHECK_DEBUG);
 	
 	if (!no_check_debug)
 	{
@@ -866,7 +864,7 @@ show_check_debug_dialog (DmaStart *this)
 	
 		if (gtk_toggle_button_get_active	(do_not_show))
 		{
-			gconf_client_set_bool (client, GCONF_NOT_CHECK_DEBUG, TRUE, NULL);
+			anjuta_preferences_set_bool (prefs, PREFS_NOT_CHECK_DEBUG, TRUE);
 		}
 	
 		gtk_widget_destroy (dialog);

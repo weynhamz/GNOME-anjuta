@@ -156,3 +156,5 @@ PRAGMA case_sensitive_like = 1;
 PRAGMA journal_mode = OFF;
 PRAGMA read_uncommitted = 1;
 PRAGMA foreign_keys = OFF;
+PRAGMA auto_vacuum = 0;
+

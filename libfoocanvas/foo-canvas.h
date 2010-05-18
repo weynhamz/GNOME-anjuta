@@ -360,9 +360,6 @@ struct _FooCanvas {
 	/* If non-NULL, the currently focused item */
 	FooCanvasItem *focused_item;
 
-	/* GC for temporary draw pixmap */
-	GdkGC *pixmap_gc;
-
 	/* Event on which selection of current item is based */
 	GdkEvent pick_event;
 
@@ -517,13 +514,6 @@ int foo_canvas_get_color (FooCanvas *canvas, const char *spec, GdkColor *color);
 /* Allocates a color from the RGB value passed into this function. */
 gulong foo_canvas_get_color_pixel (FooCanvas *canvas,
 				   guint        rgba);
-     
-
-/* Sets the stipple origin of the specified gc so that it will be aligned with
- * all the stipples used in the specified canvas.  This is intended for use only
- * by canvas item implementations.
- */
-void foo_canvas_set_stipple_origin (FooCanvas *canvas, GdkGC *gc);
 
 G_END_DECLS
 
