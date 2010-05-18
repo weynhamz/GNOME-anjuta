@@ -22,6 +22,7 @@
 #include "libanjuta/anjuta-debug.h"
 
 #include <string.h>
+#include <stdio.h>
 
 /* Type definition
  *---------------------------------------------------------------------------*/
@@ -324,6 +325,11 @@ anjuta_token_first_word (AnjutaToken *list)
 
 	for (item = anjuta_token_first_item (list); item != NULL; item = anjuta_token_next_item (item))
 	{
+		if (anjuta_token_list (item) != list)
+		{
+			item = NULL;
+			break;
+		}
 		switch (anjuta_token_get_type (item))
 		{
 		case ANJUTA_TOKEN_START:
@@ -333,6 +339,7 @@ anjuta_token_first_word (AnjutaToken *list)
 			item = NULL;
 			break;
 		default:
+			if (anjuta_token_is_empty (item)) continue;
 			break;
 		}
 		break;
@@ -344,23 +351,31 @@ anjuta_token_first_word (AnjutaToken *list)
 AnjutaToken *
 anjuta_token_next_word (AnjutaToken *item)
 {
-	for (item = anjuta_token_next_item (item); item != NULL; item = anjuta_token_next_item (item))
+	AnjutaToken *next;
+	
+	for (next = anjuta_token_next_item (item); next != NULL; next = anjuta_token_next_item (next))
 	{
-		switch (anjuta_token_get_type (item))
+		if (anjuta_token_list (item) != anjuta_token_list (next))
+		{
+			next = NULL;
+			break;
+		}
+		switch (anjuta_token_get_type (next))
 		{
 		case ANJUTA_TOKEN_START:
 		case ANJUTA_TOKEN_NEXT:
 			continue;
 		case ANJUTA_TOKEN_LAST:
-			item = NULL;
-			break;	
+			next = NULL;
+			break;
 		default:
+			if (anjuta_token_is_empty (next)) continue;
 			break;
 		}
 		break;
 	}
-
-	return item;
+	
+	return next;
 }
 
 AnjutaToken *
@@ -371,6 +386,11 @@ anjuta_token_nth_word (AnjutaToken *list, guint n)
 
 	for (item = anjuta_token_first_item (list); item != NULL; item = anjuta_token_next_item (item))
 	{
+		if (anjuta_token_list (item) != list)
+		{
+			item = NULL;
+			break;
+		}
 		switch (anjuta_token_get_type (item))
 		{
 		case ANJUTA_TOKEN_START:

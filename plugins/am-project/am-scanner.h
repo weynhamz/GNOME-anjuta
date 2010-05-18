@@ -39,10 +39,11 @@ typedef struct _AmpAmScanner AmpAmScanner;
 AmpAmScanner *amp_am_scanner_new (AmpProject *project, AmpGroup *group);
 void amp_am_scanner_free (AmpAmScanner *scanner);
 
-AnjutaToken *amp_am_scanner_parse_token (AmpAmScanner *scanner, AnjutaToken *token, GFile *filename, GError **error);
+AnjutaToken *amp_am_scanner_parse_token (AmpAmScanner *scanner, AnjutaToken *root, AnjutaToken *content, GFile *filename, GError **error);
 
 void amp_am_scanner_set_am_variable (AmpAmScanner *scanner, AnjutaTokenType variable, AnjutaToken *name, AnjutaToken *list);
 void amp_am_scanner_include (AmpAmScanner *scanner, AnjutaToken *name);
+void amp_am_scanner_update_variable (AmpAmScanner *scanner, AnjutaToken *variable);
 
 
 void amp_am_yyerror (YYLTYPE *loc, AmpAmScanner *scanner, char const *s);

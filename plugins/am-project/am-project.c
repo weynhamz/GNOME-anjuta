@@ -86,6 +86,14 @@ typedef enum {
 	AM_GROUP_TOKEN_LAST
 } AmpGroupTokenCategory;
 
+typedef struct _AmpVariable AmpVariable;
+
+struct _AmpVariable {
+	gchar *name;
+	AnjutaTokenType assign;
+	AnjutaToken *value;
+};
+
 typedef struct _AmpRootData AmpRootData;
 
 struct _AmpRootData {
@@ -101,6 +109,7 @@ struct _AmpGroupData {
 	AnjutaTokenFile *tfile;		/* Corresponding Makefile */
 	GList *tokens[AM_GROUP_TOKEN_LAST];					/* List of token used by this group */
 	AnjutaToken *make_token;
+	GHashTable *variables;
 };
 
 typedef enum _AmpTargetFlag
@@ -737,6 +746,44 @@ amp_project_free_module_hash (AmpProject *project)
 	}
 }
 
+/* Variable object
+ *---------------------------------------------------------------------------*/
+
+static const gchar *
+amp_variable_get_name (AmpVariable *variable)
+{
+	return variable->name;
+}
+
+static gchar *
+amp_variable_evaluate (AmpVariable *variable, AmpProject *project)
+{
+	return anjuta_token_evaluate (variable->value);
+}
+
+static AmpVariable*
+amp_variable_new (gchar *name, AnjutaTokenType assign, AnjutaToken *value)
+{
+    AmpVariable *variable = NULL;
+
+	g_return_val_if_fail (name != NULL, NULL);
+	
+	variable = g_slice_new0(AmpVariable); 
+	variable->name = g_strdup (name);
+	variable->assign = assign;
+	variable->value = value;
+
+	return variable;
+}
+
+static void
+amp_variable_free (AmpVariable *variable)
+{
+	g_free (variable->name);
+	
+    g_slice_free (AmpVariable, variable);
+}
+
 /* Group objects
  *---------------------------------------------------------------------------*/
 
@@ -803,7 +850,7 @@ amp_group_set_makefile (AmpGroup *node, GFile *makefile, AmpProject* project)
 		token = anjuta_token_file_load (group->tfile, NULL);
 			
 		scanner = amp_am_scanner_new (project, node);
-		group->make_token = amp_am_scanner_parse_token (scanner, token, makefile, NULL);
+		group->make_token = amp_am_scanner_parse_token (scanner, anjuta_token_new_static (ANJUTA_TOKEN_FILE, NULL), token, makefile, NULL);
 		amp_am_scanner_free (scanner);
 	}
 	else
@@ -833,6 +880,8 @@ amp_group_new (GFile *file, gboolean dist_only)
 						ANJUTA_PROJECT_CAN_REMOVE |
 						ANJUTA_PROJECT_CAN_SAVE;
 	group->dist_only = dist_only;
+	group->variables = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, (GDestroyNotify)amp_variable_free);
+
 
     return g_node_new (group);
 }
@@ -852,7 +901,7 @@ amp_group_free (AmpGroup *node)
 		if (group->tokens[i] != NULL) g_list_free (group->tokens[i]);
 	}
     g_slice_free (AmpGroupData, group);
-	
+	if (group->variables) g_hash_table_destroy (group->variables);
 
 	g_node_destroy (node);
 }
@@ -1162,7 +1211,7 @@ amp_project_load_properties (AmpProject *project, AnjutaToken *macro, AnjutaToke
 {
 	AnjutaProjectProperty *item;
 	
-	//fprintf (stdout, "property list:\n");
+	//fprintf (stderr, "property list:\n");
 	//anjuta_token_dump (args);
 
 	project->ac_init = macro;
@@ -1276,7 +1325,7 @@ amp_project_load_config (AmpProject *project, AnjutaToken *arg_list)
 
 		/* File list */
 		scanner = amp_ac_scanner_new (project);
-		fprintf (stdout, "\nParse list\n");
+		fprintf (stderr, "\nParse list\n");
 		
 		arg = anjuta_token_first_item (arg_list);
 		list = amp_ac_scanner_parse_token (scanner, arg, AC_SPACE_LIST_STATE, NULL);
@@ -1356,7 +1405,7 @@ project_load_target (AmpProject *project, AnjutaToken *name, AnjutaTokenType tok
 	split_automake_variable (value, &flags, &install, NULL);
 
 	amp_group_add_token (parent, name, AM_GROUP_TARGET);
-	
+
 	for (arg = anjuta_token_first_word (list); arg != NULL; arg = anjuta_token_next_word (arg))
 	{
 		gchar *value;
@@ -1367,7 +1416,10 @@ project_load_target (AmpProject *project, AnjutaToken *name, AnjutaTokenType tok
 		gpointer find;
 
 		value = anjuta_token_evaluate (arg);
-		canon_id = canonicalize_automake_variable (value);		
+		
+		/* This happens for variable token which are considered as value */
+		if (value == NULL) continue;
+		canon_id = canonicalize_automake_variable (value);
 		
 		/* Check if target already exists */
 		find = value;
@@ -1815,7 +1867,7 @@ project_load_makefile (AmpProject *project, GFile *file, AnjutaProjectNode *pare
 		return group;
 	}
 	
-	/* Parse makefile.am */	
+	/* Parse makefile.am */
 	DEBUG_PRINT ("Parse: %s", g_file_get_uri (makefile));
 	tfile = amp_group_set_makefile (group, makefile, project);
 	g_hash_table_insert (project->files, makefile, tfile);
@@ -1881,6 +1933,7 @@ amp_project_set_am_variable (AmpProject* project, AmpGroup* group, AnjutaTokenTy
 		break;
 	}
 }
+
 
 /* Public functions
  *---------------------------------------------------------------------------*/
@@ -1951,15 +2004,15 @@ amp_project_load_root (AmpProject *project, AnjutaProjectNode *node, GError **er
 	g_hash_table_insert (project->files, configure_file, project->configure_file);
 	g_object_add_toggle_ref (G_OBJECT (project->configure_file), remove_config_file, project);
 	arg = anjuta_token_file_load (project->configure_file, NULL);
-	//fprintf (stdout, "AC file before parsing\n");
+	//fprintf (stderr, "AC file before parsing\n");
 	//anjuta_token_dump (arg);
-	//fprintf (stdout, "\n");
+	//fprintf (stderr, "\n");
 	scanner = amp_ac_scanner_new (project);
 	project->configure_token = amp_ac_scanner_parse_token (scanner, arg, 0, &err);
-	//fprintf (stdout, "AC file after parsing\n");
+	//fprintf (stderr, "AC file after parsing\n");
 	//anjuta_token_check (arg);
 	//anjuta_token_dump (project->configure_token);
-	//fprintf (stdout, "\n");
+	//fprintf (stderr, "\n");
 	amp_ac_scanner_free (scanner);
 	if (project->configure_token == NULL)
 	{
@@ -3410,6 +3463,57 @@ gchar *
 amp_group_get_id (AmpGroup *group)
 {
 	return g_file_get_uri (AMP_GROUP_DATA (group)->base.file);
+}
+
+void
+amp_group_update_variable (AmpGroup *group, AnjutaToken *variable)
+{
+	AnjutaToken *arg;
+	char *name = NULL;
+	AnjutaToken *value = NULL;
+	AmpVariable *var;
+
+	arg = anjuta_token_first_item (variable);
+	name = g_strstrip (anjuta_token_evaluate (arg));
+	arg = anjuta_token_next_item (arg);
+	value = anjuta_token_next_item (arg);
+
+	var = (AmpVariable *)g_hash_table_lookup (AMP_GROUP_DATA (group)->variables, name);
+	if (var != NULL)
+	{
+		var->value = value;
+	}
+	else
+	{
+		var = amp_variable_new (name, 0, value);
+		g_hash_table_insert (AMP_GROUP_DATA (group)->variables, var->name, var);
+	}
+
+	if (name) g_free (name);
+}
+
+AnjutaToken*
+amp_group_get_variable_token (AmpGroup *group, AnjutaToken *variable)
+{
+	guint length;
+	const gchar *string;
+	gchar *name;
+	AmpVariable *var;
+		
+	length = anjuta_token_get_length (variable);
+	string = anjuta_token_get_string (variable);
+	if (string[1] == '(')
+	{
+		name = g_strndup (string + 2, length - 3);
+	}
+	else
+	{
+		name = g_strndup (string + 1, 1);
+	}
+	var = g_hash_table_lookup (AMP_GROUP_DATA (group)->variables, name);
+	g_free (name);
+
+	return var != NULL ? var->value : NULL;
 }
 
 /* Target access functions

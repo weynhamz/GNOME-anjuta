@@ -31,7 +31,8 @@
 %}
 
 
-%token	EOL	'\n'
+%token	END_OF_FILE
+%token	END_OF_LINE	'\n'
 %token	SPACE
 %token	TAB '\t'
 %token	HASH '#'
@@ -157,7 +158,6 @@ amp_am_automake_variable (AnjutaToken *token)
 
 %}
 
-
 %%
 
 file:
@@ -165,27 +165,14 @@ file:
 	| file statement
 	;
 
-/*statement:
-	end_of_line
-	| space  end_of_line
-	| definition  end_of_line
-	| am_variable  end_of_line
-	| rule  command_list
-	| include
-	;*/
-
 statement:
 	end_of_line
 	| space  end_of_line
 	| definition  end_of_line
 	| am_variable  end_of_line
 	| include  end_of_line
-	| line  end_of_line {
-		g_message ("line");
-	}
-	| rule  command_list {
-		g_message ("rule");
-	}
+	| line  end_of_line
+	| rule  command_list
 	;
 	
 am_variable:
@@ -206,21 +193,34 @@ am_variable:
 
 include:
 	optional_space  include_token  value_list {
-		amp_am_scanner_include (scanner, $3);
+		$$ = anjuta_token_new_static (ANJUTA_TOKEN_LIST, NULL);
+		anjuta_token_merge ($$, $2);
+		anjuta_token_merge ($$, $3);
+		amp_am_scanner_include (scanner, $$);
 	}
 
 definition:
 	head_list  equal_token value_list {
-		g_message ("definition %s", anjuta_token_evaluate ($1));
+        $$ = anjuta_token_new_static (ANJUTA_TOKEN_DEFINITION, NULL);
+        anjuta_token_merge_own_children ($1);
+        anjuta_token_merge ($$, $1);
+        anjuta_token_merge ($$, $2);
+        anjuta_token_merge ($$, $3);
+        amp_am_scanner_update_variable (scanner, $$);
 	}
 	| head_list  equal_token {
-		g_message ("definition %s", anjuta_token_evaluate ($1));
+		$$ = anjuta_token_new_static (ANJUTA_TOKEN_DEFINITION, NULL);
+        anjuta_token_merge_own_children ($1);
+        anjuta_token_merge ($$, $1);
+        anjuta_token_merge ($$, $2);
+		amp_am_scanner_update_variable (scanner, $$);
 	}
 	;
 
 rule:
 	depend_list  end_of_line
-	| depend_list  SEMI_COLON  command_line  EOL
+	| depend_list  SEMI_COLON  command_line  END_OF_LINE
+	| depend_list  SEMI_COLON  command_line  END_OF_FILE
 	;
 
 depend_list:
@@ -229,7 +229,8 @@ depend_list:
 
 command_list:
 	/* empty */
-	| command_list TAB command_line EOL
+	| command_list TAB command_line END_OF_LINE
+	| command_list TAB command_line END_OF_FILE
 	;
 
 line:
@@ -238,9 +239,12 @@ line:
 
 /* Lists
  *----------------------------------------------------------------------------*/
-
+ 
 end_of_line:
-	EOL {
+	END_OF_LINE {
+		$$ = NULL;
+	}
+	| END_OF_FILE {
 		$$ = NULL;
 	}
 	| comment {
@@ -249,7 +253,7 @@ end_of_line:
 	;
 
 comment:
-	HASH not_eol_list EOL
+	HASH not_eol_list END_OF_LINE
 	;
 
 not_eol_list:
@@ -352,29 +356,19 @@ head:
 	| head variable_token
 	;
 
-/*value:
-	value_token {
-		$$ = anjuta_token_new_static (ANJUTA_TOKEN_ARGUMENT, NULL);
-		anjuta_token_merge ($$, $1);
-	}
-	| space_token {
-		$$ = anjuta_token_new_static (ANJUTA_TOKEN_ARGUMENT, NULL);
-		anjuta_token_merge ($$, $1);
-	}
-	| value value_token {
-		anjuta_token_merge ($1, $2);
-	}
-	| value space_token {
-		anjuta_token_merge ($1, $2);
-	}
-	;*/
-
 value:
 	value_token {
 		$$ = anjuta_token_new_static (ANJUTA_TOKEN_ARGUMENT, NULL);
 		anjuta_token_merge ($$, $1);
 	}
+	| variable {
+		$$ = anjuta_token_new_static (ANJUTA_TOKEN_ARGUMENT, NULL);
+		anjuta_token_insert_after ($1, $$);
+	}
 	| value value_token {
+		anjuta_token_merge ($1, $2);
+	}
+	| value variable {
 		anjuta_token_merge ($1, $2);
 	}
 	;
@@ -388,6 +382,12 @@ name_prerequisite:
 	| variable_token
 	| name_prerequisite prerequisite_token
 	| name_prerequisite variable_token
+	;
+
+variable:
+	variable_token {
+		amp_am_scanner_parse_variable (scanner, $$);
+	}
 	;
 
 /* Tokens
@@ -416,7 +416,6 @@ command_token:
 
 value_token:
 	name_token
-	| variable_token
 	| equal_token
 	| rule_token
 	| depend_token

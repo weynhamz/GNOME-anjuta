@@ -256,6 +256,7 @@ arg_list_body:
         //anjuta_token_dump ($2);
         //fprintf(stdout, "arg_list_body arg\n");
         //anjuta_token_dump ($3);
+        anjuta_token_merge ($1, $2);
         anjuta_token_merge ($1, $3);
         //fprintf(stdout, "arg_list_body merge\n");
         //anjuta_token_dump ($1);

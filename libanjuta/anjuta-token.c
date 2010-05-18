@@ -96,6 +96,33 @@ struct _AnjutaToken
  *---------------------------------------------------------------------------*/
 
 static AnjutaToken *
+anjuta_token_next2 (AnjutaToken *token) 
+{
+	AnjutaToken *last = token;
+	AnjutaToken *next;
+
+	while (last != NULL)
+	{
+		next = last->next;
+		if (next == NULL)
+		{
+			last = last->parent;
+			if (last != NULL)
+			{
+				for (; last->last != NULL; last = last->last);
+			}
+		}
+		else
+		{
+			for (; next->children != NULL; next = next->children);
+			break;
+		}
+	}
+	
+	return next;
+} 
+ 
+static AnjutaToken *
 anjuta_token_next_child (AnjutaToken *child, AnjutaToken **last)
 {
 	if (child == NULL) return child;
@@ -132,19 +159,34 @@ anjuta_token_next_child (AnjutaToken *child, AnjutaToken **last)
 static AnjutaToken *
 anjuta_token_next_after_children (AnjutaToken *token)
 {
-	if (token->next != NULL)
+	while (token->next == NULL)
 	{
-		return token->next;
-	}
-	else if (token->parent != NULL)
-	{
-		return anjuta_token_next_after_children (token->parent);
-	}
-	else
-	{
-		return NULL;
-	}
+		token = token->parent;
+		if (token == NULL) return NULL;
+	};
+	
+	return token->next;
 }
+
+static AnjutaToken *
+anjuta_token_next_item_after_children (AnjutaToken *parent)
+{
+	AnjutaToken *token;
+	AnjutaToken *last;
+	
+	for (last = parent; last->last != NULL; last = last->last);
+
+	for (token = last; token->parent != NULL; token = token->parent)
+	{
+		if (token->parent == parent)
+		{
+			return anjuta_token_next_after_children (parent);
+		}
+	}
+	
+	return anjuta_token_next_after_children (last);
+}
+
 
 AnjutaToken *
 anjuta_token_copy (AnjutaToken *token)
@@ -170,8 +212,16 @@ anjuta_token_copy (AnjutaToken *token)
 	return copy;
 }
 
+/**
+ * anjuta_token_unlink_token:
+ * @token: a #AnjutaToken object.
+ *
+ * Unlink a single token, not the complete item, from the token tree.
+ *
+ * Return value: the removed token tree
+ */
 static AnjutaToken *
-anjuta_token_unlink (AnjutaToken *token)
+anjuta_token_unlink_token (AnjutaToken *token)
 {
 
 	if (token->prev != NULL)
@@ -191,6 +241,36 @@ anjuta_token_unlink (AnjutaToken *token)
 	}
 	token->prev = NULL;
 
+	return token;
+}
+
+/**
+ * anjuta_token_insert_token_before:
+ * @sibling: a #AnjutaToken object.
+ * @token: a #AnjutaToken object.
+ *
+ * Insert token before sibling.
+ *
+ * Return value: inserted token
+ */
+static AnjutaToken *
+anjuta_token_insert_token_before (AnjutaToken *sibling, AnjutaToken *token)
+{
+	token->prev = sibling->prev;
+	token->next = sibling;
+
+	if (token->prev != NULL)
+	{
+		token->prev->next = token;
+	}
+	sibling->prev = token;
+	
+	if ((sibling->parent != NULL) && (sibling->parent->children == sibling))
+	{
+		sibling->parent->children = token;
+	}
+	token->parent = sibling->parent;
+	
 	return token;
 }
 
@@ -219,80 +299,51 @@ anjuta_token_evaluate_token (AnjutaToken *token, GString *value, gboolean raw)
 }	
 
 static void
-anjuta_token_show (AnjutaToken *token, gint indent)
+anjuta_token_show (AnjutaToken *token, gint indent, gchar parent)
 {
-	fprintf (stdout, "%*s%p", indent, "", token);
-	fprintf (stdout, ": %d \"%.*s\" %p/%p %s\n",
+	static gchar type[] = "\0";
+	
+	type[0] = parent;
+	fprintf (stderr, "%*s%s %p", indent, "", type, token);
+	fprintf (stderr, ": %d \"%.*s\" %p/%p (%p/%p) %s\n",
 	    anjuta_token_get_type (token),
 	    anjuta_token_get_length (token),
 	    anjuta_token_get_string (token),
 	    token->last, token->children,
+		token->group, token->parent,
 	    anjuta_token_get_flags (token) & ANJUTA_TOKEN_REMOVED ? " (removed)" : "");
 }
 
 static AnjutaToken*
-anjuta_token_dump_child (AnjutaToken *token, gint indent)
+anjuta_token_dump_child (AnjutaToken *token, gint indent, gchar type)
 {
-
-	anjuta_token_show (token, indent);
+	AnjutaToken *last;
+	AnjutaToken *child;
+	
+	anjuta_token_show (token, indent, type);
+	indent += 4;
+	
+	last = token;
+	if (token->last != NULL)
+	{
+		do
+		{
+			child = last->next;
+			if (child == NULL) break;
+			last = anjuta_token_dump_child (child, indent, '+');
+		}
+		while (child != token->last);
+	}
 	
 	if (token->children != NULL)
 	{
-		AnjutaToken *child;
-		AnjutaToken *next = NULL;
-		AnjutaToken *last = anjuta_token_next_after_children (token);
-		
-		for (child = token->children; child != NULL;)
+		for (child = token->children; child != NULL; child = child->next)
 		{
-			if (child == last)
-			{
-				return child;
-			}
-			if (next == NULL)
-			{
-				next = anjuta_token_dump_child (child, indent + 4);
-			}
-			if (child == next)
-			{
-				next = NULL;
-				
-#if 0
-				/* Look for previous children */
-				for (child = anjuta_token_next (child); child != NULL; child = child->parent)
-				{
-					if (child->parent == token) break;
-				};
-				continue;
-#endif
-			}
-			child = anjuta_token_next (child);
+			child = anjuta_token_dump_child (child, indent, '*');
 		}
 	}
 	
-	if (token->last != NULL)
-	{
-		AnjutaToken *child;
-		AnjutaToken *next = NULL;
-		
-		for (child = anjuta_token_next (token); child != NULL; child = anjuta_token_next (child))
-		{
-			if (next == NULL)
-			{
-				next = anjuta_token_dump_child (child, indent + 4);
-				if (child == token->last)
-				{
-					return child;
-				}
-			}
-			if (child == next) next = NULL;
-			if (child == token->last)
-			{
-				return child;
-			}
-		}
-	}
-
-	return token;
+	return last;
 }
 
 static gboolean
@@ -300,7 +351,7 @@ anjuta_token_check_child (AnjutaToken *token, AnjutaToken *parent)
 {
 	if (token->parent != parent)
 	{
-		anjuta_token_show (token, 0);
+		anjuta_token_show (token, 0, 0);
 		fprintf(stderr, "Error: Children has %p as parent instead of %p\n", token->parent, parent);
 		return FALSE;
 	}
@@ -463,13 +514,24 @@ AnjutaToken *
 anjuta_token_next_item (AnjutaToken *item)
 {
 	AnjutaToken *last;
+	AnjutaToken *next = item;
 
-	if (item == NULL) return NULL;
-
-	if ((item->group != NULL) && (item == item->group->last)) return NULL;
-	for (last = item; last->last != NULL; last = last->last);
-
-	return last->next;
+	while (next != NULL)
+	{
+		for (last = next; last->last != NULL; last = last->last);
+		next = last->next;
+		if (next == NULL)
+		{
+			next = last->parent;
+		}
+		else
+		{
+			for (; next->children != NULL; next = next->children);
+			break;
+		}
+	}
+	
+	return next;
 }
 
 AnjutaToken *
@@ -913,7 +975,7 @@ anjuta_token_merge_children (AnjutaToken *first, AnjutaToken *end)
 	{
 		anjuta_token_insert_before (end, first);
 	}
-	anjuta_token_unlink (end);
+	anjuta_token_unlink_token (end);
 	if (end->last != NULL)
 	{
 		first->last = end->last;
@@ -925,16 +987,41 @@ anjuta_token_merge_children (AnjutaToken *first, AnjutaToken *end)
 	return first;
 }
 
+/**
+ * anjuta_token_merge_previous:
+ * @list: a #AnjutaToken object representing a list
+ * @first: a #AnjutaToken object for the new beginning of the list
+ *
+ * If the list token is not already linked with first, it is inserted
+ * just before first.
+ * If the list token is already linked, it must be in the same list after
+ * first token. It it possible to have several tokens beweent list and
+ * first.
+ *
+ * Return value: the new list
+ */
 AnjutaToken *
-anjuta_token_merge_previous (AnjutaToken *first, AnjutaToken *end)
+anjuta_token_merge_previous (AnjutaToken *list, AnjutaToken *first)
 {
-	if ((end == NULL) || (first == end)) return first;
+	AnjutaToken *token;
+	
+	if ((first == NULL) || (list == first)) return list;
 
-	anjuta_token_unlink (first);
-	anjuta_token_insert_before (end, first);
-	end->group = first;
+	/* Change group of all tokens from end to first
+	 * if the list is already linked */
+	if ((list->prev != NULL) || (list->parent != NULL))
+	{
+		for (token = first; token != list; token = anjuta_token_next_item (token))
+		{
+			token->group = list;
+		}
+	}
+	
+	token = anjuta_token_next (list);
+	anjuta_token_unlink_token (list);
+	anjuta_token_insert_token_before (first, list);
 
-	return first;
+	return list;
 }
 
 AnjutaToken *anjuta_token_split (AnjutaToken *token, guint size)
@@ -1008,18 +1095,28 @@ anjuta_token_evaluate (AnjutaToken *token)
 
 	if (token != NULL)
 	{
-		AnjutaToken *last = token->last;
-		AnjutaToken *child;
+		AnjutaToken *next;
 		
-		for (child = token; child != NULL; child = anjuta_token_next_child (child, &last))
+		next = anjuta_token_next_item (token);
+		for (; token != next; token = anjuta_token_next2 (token))
 		{
-			anjuta_token_evaluate_token (child, value, TRUE);
+			if (token->children == NULL)
+			{
+				anjuta_token_evaluate_token (token, value, TRUE);
+			}
 		}
 	}
 
 	/* Return NULL and free data for an empty string */
 	return g_string_free (value, *(value->str) == '\0');
 }
+
+gboolean
+anjuta_token_is_empty (AnjutaToken *token)
+{
+	return (token == NULL) || ((token->data.length == 0) && (token->last == NULL) && (token->children == NULL));
+}
+
 
 /* Other functions
  *---------------------------------------------------------------------------*/
@@ -1063,7 +1160,7 @@ anjuta_token_dump (AnjutaToken *token)
 {
 	if (token == NULL) return;
 	
-	anjuta_token_dump_child (token, 0);
+	anjuta_token_dump_child (token, 0, 0);
 }
 
 void
@@ -1075,7 +1172,7 @@ anjuta_token_dump_link (AnjutaToken *token)
 
 	for (; token != last; token = anjuta_token_next (token))
 	{
-		anjuta_token_show (token, 0);
+		anjuta_token_show (token, 0, 0);
 	}
 }
 
@@ -1084,7 +1181,7 @@ anjuta_token_check (AnjutaToken *token)
 {
 	if ((token->children != NULL) && (token->last != NULL))
 	{
-		anjuta_token_show (token, 0);
+		anjuta_token_show (token, 0, 0);
 		fprintf(stderr, "Error: Previous token has both non NULL children and last\n");
 
 		return FALSE;
@@ -1213,7 +1310,7 @@ anjuta_token_free (AnjutaToken *token)
 	anjuta_token_free_children (token);
 
 	next = anjuta_token_next (token);
-	anjuta_token_unlink (token);
+	anjuta_token_unlink_token (token);
 	if ((token->data.pos != NULL) && !(token->data.flags & ANJUTA_TOKEN_STATIC))
 	{
 		g_free (token->data.pos);

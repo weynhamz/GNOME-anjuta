@@ -39,7 +39,7 @@ typedef enum
 	ANJUTA_TOKEN_CONTENT,
 	ANJUTA_TOKEN_ARGUMENT,
 	ANJUTA_TOKEN_VALUE,
-	ANJUTA_TOKEN_EOV,
+	ANJUTA_TOKEN_EOV,	// 16390
 	ANJUTA_TOKEN_PARSED,
 	ANJUTA_TOKEN_KEYWORD,
 	ANJUTA_TOKEN_OPERATOR,
@@ -49,7 +49,7 @@ typedef enum
 	ANJUTA_TOKEN_STATEMENT,
 	ANJUTA_TOKEN_NUMBER,
 	ANJUTA_TOKEN_JUNK,
-	ANJUTA_TOKEN_COMMENT,
+	ANJUTA_TOKEN_COMMENT,	// 16400
 	ANJUTA_TOKEN_OPEN_QUOTE,
 	ANJUTA_TOKEN_CLOSE_QUOTE,
 	ANJUTA_TOKEN_ESCAPE,
@@ -59,7 +59,7 @@ typedef enum
 	ANJUTA_TOKEN_NEXT,
 	ANJUTA_TOKEN_LAST,
 	ANJUTA_TOKEN_ITEM,
-	ANJUTA_TOKEN_STRING,
+	ANJUTA_TOKEN_STRING,	// 16410
 	ANJUTA_TOKEN_ERROR,
 	ANJUTA_TOKEN_WORD,
 	ANJUTA_TOKEN_LIST,
@@ -129,6 +129,7 @@ AnjutaToken *anjuta_token_split (AnjutaToken *token, guint size);
 AnjutaToken *anjuta_token_cut (AnjutaToken *token, guint pos, guint size);
 
 gchar *anjuta_token_evaluate (AnjutaToken *token);
+gboolean anjuta_token_is_empty (AnjutaToken *token);
 
 void anjuta_token_dump (AnjutaToken *token);
 gboolean anjuta_token_check (AnjutaToken *token);

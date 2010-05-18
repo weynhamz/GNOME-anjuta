@@ -89,7 +89,6 @@ void amp_project_load_config (AmpProject *project, AnjutaToken *arg_list);
 void amp_project_load_properties (AmpProject *project, AnjutaToken *macro, AnjutaToken *list);
 void amp_project_load_module (AmpProject *project, AnjutaToken *module);
 
-
 AmpGroup *amp_project_get_root (AmpProject *project);
 AmpGroup *amp_project_get_group (AmpProject *project, const gchar *id);
 AmpTarget *amp_project_get_target (AmpProject *project, const gchar *id);
@@ -139,6 +138,8 @@ void amp_node_all_foreach (AnjutaProjectNode *node, AnjutaProjectNodeFunc func, 
 GFile *amp_group_get_directory (AmpGroup *group);
 GFile *amp_group_get_makefile (AmpGroup *group);
 gchar *amp_group_get_id (AmpGroup *group);
+void amp_group_update_variable (AmpGroup *group, AnjutaToken *variable);
+AnjutaToken* amp_group_get_variable_token (AmpGroup *group, AnjutaToken *variable);
 
 const gchar *amp_target_get_name (AmpTarget *target);
 gchar *amp_target_get_id (AmpTarget *target);

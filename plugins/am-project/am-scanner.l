@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License along
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 %{
 
 #include "am-scanner.h"
@@ -35,7 +35,7 @@
 
 #define YY_DECL static int am_yylex (YYSTYPE * yylval_param,YYLTYPE * yylloc_param ,yyscan_t yyscanner)
 
-#define YY_USER_INIT {yy_flex_debug = 1;}
+//#define YY_USER_INIT {yy_flex_debug = 1;}
 
 static int amp_am_scanner_parse_end (AmpAmScanner *scanner);
 
@@ -44,13 +44,14 @@ static int amp_am_scanner_parse_end (AmpAmScanner *scanner);
 
 struct _AmpAmScanner
 {
-    yyscan_t scanner;
+	yyscan_t scanner;
 
 	AnjutaTokenStream *stream;
 
-    AmpProject *project;
-    AmpGroup *group;
+	AmpProject *project;
+	AmpGroup *group;
 	GHashTable *orphan_properties;
+	gboolean eof;
 };
 
 %}
@@ -74,7 +75,9 @@ NAME          [^ \t\n\r:#=$"'`&@\\]*
 
 %%
 
-<INITIAL>\n 						{ RETURN (EOL); }
+<INITIAL><<EOF>>					{ gint ret = amp_am_scanner_parse_end (yyextra); if (ret !=1) return ret; }
+
+<INITIAL>\n 						{ RETURN (END_OF_LINE); }
 
 <INITIAL>([ ]|\\\n)([ \t]|\\\n)*	{ RETURN (SPACE); }
 
@@ -82,7 +85,7 @@ NAME          [^ \t\n\r:#=$"'`&@\\]*
 
 <INITIAL>([ ]|\\\n)([ \t]|\\\n)* 	{ RETURN (SPACE); }
 
-<INITIAL>([ \t])*#.*\n 				{ RETURN (EOL); }
+<INITIAL>([ \t])*#.*\n 				{ RETURN (END_OF_LINE); }
 
 <INITIAL>\t 						{ RETURN (TAB); }
 
@@ -202,16 +205,23 @@ NAME          [^ \t\n\r:#=$"'`&@\\]*
 static gint
 amp_am_scanner_parse_end (AmpAmScanner *scanner)
 {
-    yypop_buffer_state(scanner->scanner);
-    scanner->stream = anjuta_token_stream_pop (scanner->stream);
-
     if (scanner->stream == NULL)
     {
         yyterminate();
     }
     else
     {
-        return 1;
+        yypop_buffer_state(scanner->scanner);
+        scanner->stream = anjuta_token_stream_pop (scanner->stream);
+
+        if (scanner->stream == NULL)
+        {
+            yyterminate();
+        }
+        else
+        {
+            return 1;
+        }
     }
 }
 
@@ -241,43 +251,46 @@ amp_am_scanner_set_am_variable (AmpAmScanner *scanner, AnjutaTokenType variable,
 }
 
 void
-amp_am_scanner_include (AmpAmScanner *scanner, AnjutaToken *name)
+amp_am_scanner_include (AmpAmScanner *scanner, AnjutaToken *list)
 {
 	GFile *file;
 	AnjutaTokenFile *include;
 	AnjutaToken *token;
+	AnjutaToken *name;
 	gchar *filename;
 
+	name = anjuta_token_first_item (list);
+	name = anjuta_token_next_item (name);
 	filename = g_strstrip (anjuta_token_evaluate (name));
 	g_message ("read include =%s=", filename);
 	file = g_file_resolve_relative_path (anjuta_token_stream_get_current_directory (scanner->stream), filename);
 	g_free (filename);
 	include = anjuta_token_file_new (file);
 	token = anjuta_token_file_load (include, NULL);
-	//g_message ("read file =%s= arg %p", g_file_get_path (file), token);
-	amp_am_scanner_parse_token (scanner, token, file, NULL);
+	amp_am_scanner_parse_token (scanner, list, token, file, NULL);
 	g_object_unref (file);
 }
 
 void
+amp_am_scanner_update_variable (AmpAmScanner *scanner, AnjutaToken *variable)
+{
+    amp_group_update_variable (scanner->group, variable);
+}
+
+
+void
 amp_am_scanner_parse_variable (AmpAmScanner *scanner, AnjutaToken *variable)
 {
-	AnjutaToken *group;
+	AnjutaToken *value;
 	AnjutaToken *content;
 
 	anjuta_token_set_type (variable, ANJUTA_TOKEN_VARIABLE);
-	content = anjuta_token_new_static (ANJUTA_TOKEN_CONTENT, NULL);
-	anjuta_token_stream_append_token (scanner->stream, content);
 
-	/*group = mkp_project_get_variable_token (scanner->project, variable);
-	fprintf(stdout, "get variable %s is %p\n", anjuta_token_evaluate (variable), group);
-	if (group != NULL)
+	value = amp_group_get_variable_token (scanner->group, variable);
+	if (value != NULL)
 	{
-		fprintf (stdout,"variable %s\n", anjuta_token_get_string (variable));
-		//anjuta_token_dump (group);
-		amp_am_scanner_parse_token (scanner, group, NULL, NULL);
-		//anjuta_token_free (token);
-	}*/
+		amp_am_scanner_parse_token (scanner, variable, value, NULL, NULL);
+	}
 }
 
 
@@ -285,12 +298,12 @@ amp_am_scanner_parse_variable (AmpAmScanner *scanner, AnjutaToken *variable)
  *---------------------------------------------------------------------------*/
 
 AnjutaToken *
-amp_am_scanner_parse_token (AmpAmScanner *scanner, AnjutaToken *token, GFile *filename, GError **error)
+amp_am_scanner_parse_token (AmpAmScanner *scanner, AnjutaToken *root, AnjutaToken *content, GFile *filename, GError **error)
 {
     AnjutaToken *first;
     AnjutaTokenStream *stream;
 
-    stream = anjuta_token_stream_push (scanner->stream, token, filename);
+    stream = anjuta_token_stream_push (scanner->stream, root, content, filename);
     first = anjuta_token_stream_get_root (stream);
 
     if (scanner->stream != NULL)
@@ -341,8 +354,9 @@ amp_am_scanner_new (AmpProject *project, AmpGroup *group)
 
 	scanner = g_new0 (AmpAmScanner, 1);
 
-    scanner->project = project;
-    scanner->group = group;
+	scanner->project = project;
+	scanner->group = group;
+	scanner->eof = FALSE;
 
 	/* Create hash table for sources list */
 	scanner->orphan_properties = g_hash_table_new_full (g_str_hash, g_str_equal, (GDestroyNotify)g_free, (GDestroyNotify)amp_target_property_buffer_free);

@@ -143,7 +143,8 @@ anjuta_token_stream_tokenize (AnjutaTokenStream *stream, gint type, gsize length
                 else
                 {
                     /* Get several token */
-                    anjuta_token_append_child (frag, copy);
+                    anjuta_token_insert_after (frag, copy);
+                    anjuta_token_merge (frag, copy);
                 }
 
                 if (toklen == (length + stream->begin))
@@ -160,7 +161,8 @@ anjuta_token_stream_tokenize (AnjutaTokenStream *stream, gint type, gsize length
             }
             else
             {
-                anjuta_token_append_child (frag, copy);
+                anjuta_token_insert_after (frag, copy);
+                anjuta_token_merge (frag, copy);
                 length -= toklen;
                 end = anjuta_token_next (end);
                 stream->begin = 0;
@@ -285,7 +287,8 @@ anjuta_token_stream_get_current_directory (AnjutaTokenStream *stream)
 /**
  * anjuta_token_stream_push:
  * @parent: a parent #AnjutaTokenStream object or NULL.
- * @token: a token list.
+ * @root: a token or NULL
+ * @content: a token list.
  *
  * Create a new stream from a list of tokens. If a parent stream is passed,
  * the new stream keep a link on it, so we can return it when the new stream
@@ -294,22 +297,22 @@ anjuta_token_stream_get_current_directory (AnjutaTokenStream *stream)
  * Return value: The newly created stream.
  */
 AnjutaTokenStream *
-anjuta_token_stream_push (AnjutaTokenStream *parent, AnjutaToken *token, GFile *filename)
+anjuta_token_stream_push (AnjutaTokenStream *parent, AnjutaToken *root, AnjutaToken *content, GFile *filename)
 {
 	AnjutaTokenStream *child;
 
 	child = g_new (AnjutaTokenStream, 1);
-	child->first = token;
+	child->first = content;
 	child->pos = 0;
 	child->begin = 0;
 	child->parent = parent;
 
-	child->next = anjuta_token_next (token);
+	child->next = anjuta_token_next (content);
 	child->start = child->next;
-	child->last = anjuta_token_last (token);
-	if (child->last == token) child->last = NULL;
+	child->last = anjuta_token_last (content);
+	if (child->last == content) child->last = NULL;
 
-	child->root = anjuta_token_new_static (ANJUTA_TOKEN_FILE, NULL);
+	child->root = root == NULL ? anjuta_token_new_static (ANJUTA_TOKEN_FILE, NULL) : root;
 	if (filename == NULL)
 	{
 		child->current_directory = parent == NULL ? NULL : g_object_ref (parent->current_directory);

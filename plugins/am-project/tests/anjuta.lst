@@ -142,8 +142,69 @@
                     SOURCE (19:4:0:0:58): libanjuta/interfaces/ianjuta-vcs.c
                     SOURCE (19:4:0:0:59): libanjuta/interfaces/ianjuta-wizard.c
                     SOURCE (19:4:0:0:60): libanjuta/interfaces/libanjuta-iface-marshallers.c
-                TARGET (19:4:0:1): $(libanjuta_interfaces_include)
-                TARGET (19:4:0:2): $(files_idl)
+                TARGET (19:4:0:1): ianjuta-buildable.h
+                TARGET (19:4:0:2): ianjuta-builder.h
+                TARGET (19:4:0:3): ianjuta-debug-manager.h
+                TARGET (19:4:0:4): ianjuta-debugger.h
+                TARGET (19:4:0:5): ianjuta-debugger-breakpoint.h
+                TARGET (19:4:0:6): ianjuta-debugger-instruction.h
+                TARGET (19:4:0:7): ianjuta-debugger-memory.h
+                TARGET (19:4:0:8): ianjuta-debugger-register.h
+                TARGET (19:4:0:9): ianjuta-debugger-variable.h
+                TARGET (19:4:0:10): ianjuta-document.h
+                TARGET (19:4:0:11): ianjuta-document-manager.h
+                TARGET (19:4:0:12): ianjuta-editor.h
+                TARGET (19:4:0:13): ianjuta-editor-assist.h
+                TARGET (19:4:0:14): ianjuta-editor-cell.h
+                TARGET (19:4:0:15): ianjuta-editor-cell-style.h
+                TARGET (19:4:0:16): ianjuta-editor-comment.h
+                TARGET (19:4:0:17): ianjuta-editor-convert.h
+                TARGET (19:4:0:18): ianjuta-editor-factory.h
+                TARGET (19:4:0:19): ianjuta-editor-folds.h
+                TARGET (19:4:0:20): ianjuta-editor-goto.h
+                TARGET (19:4:0:21): ianjuta-editor-hover.h
+                TARGET (19:4:0:22): ianjuta-editor-language.h
+                TARGET (19:4:0:23): ianjuta-editor-line-mode.h
+                TARGET (19:4:0:24): ianjuta-editor-search.h
+                TARGET (19:4:0:25): ianjuta-editor-selection.h
+                TARGET (19:4:0:26): ianjuta-editor-tip.h
+                TARGET (19:4:0:27): ianjuta-editor-view.h
+                TARGET (19:4:0:28): ianjuta-editor-zoom.h
+                TARGET (19:4:0:29): ianjuta-environment.h
+                TARGET (19:4:0:30): ianjuta-file.h
+                TARGET (19:4:0:31): ianjuta-file-loader.h
+                TARGET (19:4:0:32): ianjuta-file-manager.h
+                TARGET (19:4:0:33): ianjuta-file-savable.h
+                TARGET (19:4:0:34): ianjuta-help.h
+                TARGET (19:4:0:35): ianjuta-indicable.h
+                TARGET (19:4:0:36): ianjuta-iterable.h
+                TARGET (19:4:0:37): ianjuta-iterable-tree.h
+                TARGET (19:4:0:38): ianjuta-language.h
+                TARGET (19:4:0:39): ianjuta-language-support.h
+                TARGET (19:4:0:40): ianjuta-loader.h
+                TARGET (19:4:0:41): ianjuta-macro.h
+                TARGET (19:4:0:42): ianjuta-markable.h
+                TARGET (19:4:0:43): ianjuta-message-manager.h
+                TARGET (19:4:0:44): ianjuta-message-view.h
+                TARGET (19:4:0:45): ianjuta-plugin-factory.h
+                TARGET (19:4:0:46): ianjuta-preferences.h
+                TARGET (19:4:0:47): ianjuta-print.h
+                TARGET (19:4:0:48): ianjuta-project.h
+                TARGET (19:4:0:49): ianjuta-project-backend.h
+                TARGET (19:4:0:50): ianjuta-project-manager.h
+                TARGET (19:4:0:51): ianjuta-provider.h
+                TARGET (19:4:0:52): ianjuta-stream.h
+                TARGET (19:4:0:53): ianjuta-stream-loader.h
+                TARGET (19:4:0:54): ianjuta-stream-savable.h
+                TARGET (19:4:0:55): ianjuta-symbol.h
+                TARGET (19:4:0:56): ianjuta-symbol-manager.h
+                TARGET (19:4:0:57): ianjuta-terminal.h
+                TARGET (19:4:0:58): ianjuta-todo.h
+                TARGET (19:4:0:59): ianjuta-vcs.h
+                TARGET (19:4:0:60): ianjuta-wizard.h
+                TARGET (19:4:0:61): libanjuta-iface-marshallers.h
+                TARGET (19:4:0:62): libanjuta-interfaces.h
+                TARGET (19:4:0:63): libanjuta.idl
             TARGET (19:4:1): libanjuta.la
                 SOURCE (19:4:1:0): libanjuta/anjuta-enum-types.h
                 SOURCE (19:4:1:1): libanjuta/anjuta-enum-types.c
@@ -213,10 +274,44 @@
                 SOURCE (19:4:2:0): libanjuta/anjuta-glade-catalog.c
             TARGET (19:4:3): catalog
                 SOURCE (19:4:3:0): libanjuta/anjuta-glade.xml
-            TARGET (19:4:4): $(libanjuta_include)
-            TARGET (19:4:5): anjuta-enum-types.h
-            TARGET (19:4:6): pkgconfig
-                SOURCE (19:4:6:0): libanjuta/libanjuta-1.0.pc
+            TARGET (19:4:4): libanjuta.h
+            TARGET (19:4:5): anjuta-debug.h
+            TARGET (19:4:6): anjuta-shell.h
+            TARGET (19:4:7): anjuta-status.h
+            TARGET (19:4:8): anjuta-encodings.h
+            TARGET (19:4:9): anjuta-convert.h
+            TARGET (19:4:10): anjuta-plugin.h
+            TARGET (19:4:11): anjuta-plugin-description.h
+            TARGET (19:4:12): anjuta-plugin-manager.h
+            TARGET (19:4:13): anjuta-plugin-handle.h
+            TARGET (19:4:14): anjuta-profile.h
+            TARGET (19:4:15): anjuta-profile-manager.h
+            TARGET (19:4:16): anjuta-marshal.h
+            TARGET (19:4:17): anjuta-utils.h
+            TARGET (19:4:18): anjuta-preferences-dialog.h
+            TARGET (19:4:19): anjuta-preferences.h
+            TARGET (19:4:20): anjuta-ui.h
+            TARGET (19:4:21): anjuta-launcher.h
+            TARGET (19:4:22): anjuta-session.h
+            TARGET (19:4:23): anjuta-save-prompt.h
+            TARGET (19:4:24): anjuta-serializer.h
+            TARGET (19:4:25): anjuta-error.h
+            TARGET (19:4:26): resources.h
+            TARGET (19:4:27): anjuta-vcs-status-tree-view.h
+            TARGET (19:4:28): anjuta-vcs-status.h
+            TARGET (19:4:29): anjuta-command.h
+            TARGET (19:4:30): anjuta-async-command.h
+            TARGET (19:4:31): anjuta-async-notify.h
+            TARGET (19:4:32): anjuta-sync-command.h
+            TARGET (19:4:33): anjuta-version.h
+            TARGET (19:4:34): gbf-project.h
+            TARGET (19:4:35): anjuta-project.h
+            TARGET (19:4:36): anjuta-command-queue.h
+            TARGET (19:4:37): anjuta-tabber.h
+            TARGET (19:4:38): anjuta-token.h
+            TARGET (19:4:39): anjuta-enum-types.h
+            TARGET (19:4:40): pkgconfig
+                SOURCE (19:4:40:0): libanjuta/libanjuta-1.0.pc
         GROUP (19:5): plugins
             GROUP (19:5:0): gtodo
                 TARGET (19:5:0:0): gtodo_ui
@@ -1337,7 +1432,6 @@
                     SOURCE (19:5:24:8:33): plugins/symbol-db/symbol-db-views.h
                     SOURCE (19:5:24:8:34): plugins/symbol-db/libgda-extra/gda-data-model-concat.c
                     SOURCE (19:5:24:8:35): plugins/symbol-db/libgda-extra/gda-data-model-concat.h
-                    SOURCE (19:5:24:8:36): plugins/symbol-db/$(BUILT_SOURCES)
             GROUP (19:5:25): git
                 TARGET (19:5:25:0): git_glade
                     SOURCE (19:5:25:0:0): plugins/git/anjuta-git.ui
@@ -1734,6 +1828,9 @@
                 SOURCE (19:6:4:7): src/action-callbacks.h
                 SOURCE (19:6:4:8): src/action-callbacks.c
                 SOURCE (19:6:4:9): src/main.c
+            TARGET (19:6:5): anjuta-shell
+                SOURCE (19:6:5:0): src/shell.c
+                SOURCE (19:6:5:1): src/shell.h
         GROUP (19:7): manuals
             GROUP (19:7:0): reference
                 GROUP (19:7:0:0): libanjuta
