@@ -358,7 +358,7 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 			if (file_list->next)
 			{
 				/* Save header file */
-				ianjuta_file_savable_save_as (IANJUTA_FILE_SAVABLE (teh), (GFile *)file_list->data, NULL);		
+				ianjuta_file_savable_save_as (IANJUTA_FILE_SAVABLE (teh), (GFile *)file_list->next->data, NULL);		
 			}		
 
 
