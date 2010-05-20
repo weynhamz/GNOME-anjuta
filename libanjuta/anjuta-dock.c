@@ -58,6 +58,7 @@ anjuta_dock_finalize (GObject *object)
 
 	self = ANJUTA_DOCK (object);
 
+	g_hash_table_destroy (self->priv->panes);
 	g_free (self->priv);
 
 	G_OBJECT_CLASS (anjuta_dock_parent_class)->finalize (object);
