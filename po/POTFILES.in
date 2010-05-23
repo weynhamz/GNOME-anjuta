@@ -134,8 +134,6 @@ plugins/git/git-switch-dialog.c
 plugins/git/git-ui-utils.c
 plugins/git/git-unstage-dialog.c
 plugins/git/plugin.c
-plugins/glade/anjuta-glade.glade
-plugins/glade/designer-associations-item.c
 plugins/glade/plugin.c
 plugins/glade/anjuta-design-document.c
 plugins/gtodo/add_edit_item.c
