@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
 "POT-Creation-Date: 2010-05-07 15:11+0000\n"
-"PO-Revision-Date: 2010-05-22 18:35+0700\n"
+"PO-Revision-Date: 2010-05-24 05:15+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: GNOME Indonesian Translation Team <gnome@i15n.org>\n"
 "MIME-Version: 1.0\n"
@@ -1279,11 +1279,15 @@ msgid ""
 "won't be removed from CVS before you use CVS Commit. <b>You have been warned!"
 "</b>"
 msgstr ""
+"<b>Mohon dicatat: </b>\n"
+"\n"
+"Menekan OK akan menghapus berkas dari disk dan dari CVS. Tentu saja, berkas "
+"tak akan dihapus dari CVS sebelum Anda memakai CVS Commit. <b>Anda telah "
+"diperingatkan!</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:4
-#, fuzzy
 msgid "Be verbose"
-msgstr "Uraikanlah"
+msgstr ""
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:5
 #: ../plugins/git/anjuta-git.ui.h:22
@@ -1552,18 +1556,17 @@ msgstr "Anda yakin tidak ingin suatu pesan log?"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:125
 msgid "CVS command failed. See above for details"
-msgstr ""
+msgstr "Perintah CVS gagal. Lihat di atas untuk rincian"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:130
 #, c-format
 msgid "CVS command successful! Time taken: %ld second"
 msgid_plural "CVS command successful! Time taken: %ld seconds"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Perintah CVS sukses! Menghabiskan waktu: %ld detik"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:221
 msgid "CVS command is running — please wait until it finishes!"
-msgstr ""
+msgstr "Perintah CVS sedang berjalan! — silakan tunggu sampai itu selesai!"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:229
 #: ../plugins/cvs-plugin/cvs-execute.c:233 ../plugins/cvs-plugin/plugin.c:467
@@ -1587,7 +1590,7 @@ msgstr "T_ambah"
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:54
 msgid "Add a new file/directory to the CVS tree"
-msgstr ""
+msgstr "Tambahkan suatu berkas/direktori baru ke tree CVS"
 
 #. Action name
 #. Stock icon, if any
@@ -1599,7 +1602,7 @@ msgstr "_Hapus"
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:62
 msgid "Remove a file/directory from CVS tree"
-msgstr ""
+msgstr "Hapus suatu berkas/direktori dari tree CVS"
 
 #. Action name
 #. Stock icon, if any
@@ -1611,7 +1614,7 @@ msgstr "_Commit"
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:70 ../plugins/cvs-plugin/plugin.c:129
 msgid "Commit your changes to the CVS tree"
-msgstr ""
+msgstr "Commit perubahan Anda ke tree CVS"
 
 #. Action name
 #. Stock icon, if any
@@ -1624,7 +1627,7 @@ msgstr "_Update"
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:78 ../plugins/cvs-plugin/plugin.c:137
 msgid "Syncronize your local copy with the CVS tree"
-msgstr ""
+msgstr "Selaraskan salinan lokal Anda dengan tree CVS"
 
 #. Action name
 #. Stock icon, if any
@@ -1636,33 +1639,31 @@ msgstr "_Diff"
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:86 ../plugins/cvs-plugin/plugin.c:145
 msgid "Show differences between your local copy and the tree"
-msgstr ""
+msgstr "Perlihatkan perbedaan antara salinan lokal Anda dengan tree"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:92 ../plugins/cvs-plugin/plugin.c:151
-#, fuzzy
 msgid "_Show Status"
-msgstr "Papan &keterangan"
+msgstr "Tunjukkan _Status"
 
 #. Display label
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:94 ../plugins/cvs-plugin/plugin.c:153
 msgid "Show the status of a file/directory"
-msgstr ""
+msgstr "Perlihatkan status dari suatu berkas/direktori"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:100 ../plugins/cvs-plugin/plugin.c:159
-#, fuzzy
 msgid "_Show Log"
-msgstr "Tunjukkan &Log..."
+msgstr "Tunjukkan _Log"
 
 #. Display label
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:102 ../plugins/cvs-plugin/plugin.c:161
 msgid "Show the log of a file/directory"
-msgstr ""
+msgstr "Perlihatkan log dari suatu berkas/direktori"
 
 #. Action name
 #. Stock icon, if any
@@ -1674,16 +1675,15 @@ msgstr "_Impor Tree"
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:110
 msgid "Import a new source tree to CVS"
-msgstr ""
+msgstr "Impor suatu tree sumber baru ke CVS"
 
 #: ../plugins/cvs-plugin/plugin.c:360
-#, fuzzy
 msgid "CVS operations"
-msgstr "%1 dari %2 operasi telah selesai"
+msgstr "Operasi CVS"
 
 #: ../plugins/cvs-plugin/plugin.c:366
 msgid "CVS popup operations"
-msgstr ""
+msgstr "Operasi popup CVS"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:1
 msgid ""
@@ -1694,55 +1694,53 @@ msgid ""
 "source code corresponding to the instructions, so some commands can perform "
 "in a strange way, especially steps."
 msgstr ""
+"<span weight=\"bold\" size=\"larger\">Anda yakin ingin men-debug suatu "
+"program tanpa memakai konfigurasi Debug?</span>\n"
+"\n"
+"Ketika optimasi difungsikan, debugger tak selalu dapat mengidentifikasi kode "
+"sumber yang mengacu ke instruksi, sehingga beberapa perintah dapat "
+"dijalankan secara aneh, khususnya step."
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:4
-#, fuzzy
 msgid "Add Watch"
-msgstr "&Tambah penanda..."
+msgstr "Tambah Watch"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:5
 msgid "Address:"
 msgstr "Alamat:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:6
-#, fuzzy
 msgid "Attach to process"
-msgstr "Tidak bisa melampirkan %s!"
+msgstr "Kaitkan ke proses"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:7
-#, fuzzy
 msgid "Breakpoint properties"
-msgstr "Properti kolom"
+msgstr "Properti breakpoint"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:8
 #: ../plugins/debug-manager/breakpoints.c:2017
 msgid "Breakpoints"
-msgstr ""
+msgstr "Breakpoint"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:9
-#, fuzzy
 msgid "CPU Registers"
-msgstr "Register Memori"
+msgstr "Register CPU"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:10
-#, fuzzy
 msgid "Change Watch"
-msgstr "Ganti Ikon"
+msgstr "Ubah Watch"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:11
-#, fuzzy
 msgid "Connect to remote target"
-msgstr "Hubungkan dengan komputer lain"
+msgstr "Hubungkan ke target remote"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:12
-#, fuzzy
 msgid "Debugger command"
-msgstr "&Jalankan perintah..."
+msgstr "Perintah debugger"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:13
-#, fuzzy
 msgid "Debugger command:"
-msgstr "&Jalankan perintah..."
+msgstr "Perintah debugger:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:14
 msgid "Debugger:"
@@ -1759,21 +1757,19 @@ msgstr "Matikan"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:17
 msgid "Display process _tree"
-msgstr ""
+msgstr "Tampilkan _tree proses"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:18
-#, fuzzy
 msgid "Do not show again"
 msgstr "Jangan tampilkan lagi"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:19
-#, fuzzy
 msgid "Enable _all"
-msgstr "B&ersihkan semua"
+msgstr "Fungsik_an semua"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:20
 msgid "Enter an address in hexadecimal or select one in the data"
-msgstr ""
+msgstr "Masukkan suatu alamat dalam heksadesimal atau pilih satu di data"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:21
 msgid "Hide process para_meters"
@@ -1790,9 +1786,8 @@ msgstr ""
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:24
 #: ../plugins/debug-manager/plugin.c:967
 #: ../plugins/debug-manager/plugin.c:1067
-#, fuzzy
 msgid "Kernel Signals"
-msgstr "Pengujian Signal"
+msgstr "Sinyal Kernel"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:25
 #: ../plugins/debug-manager/breakpoints.c:1944
@@ -1817,48 +1812,42 @@ msgid "Print:"
 msgstr "Cetak:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:30
-#, fuzzy
 msgid "Program Interrupt"
-msgstr "interupsi %s tidak diketahui"
+msgstr "Interupsi Program"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:31
-#, fuzzy
 msgid "Remote debugging"
-msgstr "Pengaturan debug"
+msgstr "Pen-debug-an remote"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:32
 msgid "SIGINT"
 msgstr "SIGINT"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:33
-#, fuzzy
 msgid "Select one directory"
-msgstr "Pilih Direktori Sementara"
+msgstr "Pilih satu direktori"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:34
-#, fuzzy
 msgid "Serial Line Connection"
-msgstr "%s bukan sebuah baris serial"
+msgstr "Sambungan Serial"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:35
-#, fuzzy
 msgid "Set Signal Property"
-msgstr "Tidak dapat menset pengolah sinyal"
+msgstr "Tata Properti Sinyal"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:36
 #: ../plugins/debug-manager/sharedlib.c:214
 #, fuzzy
 msgid "Shared libraries"
-msgstr "Gunakan perpustakaan terbagi"
+msgstr "Pustaka ..."
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:37
 msgid "Signal:"
 msgstr "Sinyal:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:38
-#, fuzzy
 msgid "Source Directories"
-msgstr "Mengoptimasi direktori: "
+msgstr "Direktori Sumber"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:39
 msgid "Start Debugger"
@@ -1869,9 +1858,8 @@ msgid "Stop:"
 msgstr "Stop:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:41
-#, fuzzy
 msgid "TCP/IP Connection"
-msgstr "Koneksi TCP aktif"
+msgstr "Koneksi TCP/IP"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:42
 #: ../plugins/project-wizard/property.c:309
@@ -1879,29 +1867,24 @@ msgid "Yes"
 msgstr "Ya"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:43
-#, fuzzy
 msgid "_Attach"
-msgstr "Lampirkan"
+msgstr "K_ait"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:44
-#, fuzzy
 msgid "_Automatic update"
-msgstr "Update otomatis"
+msgstr "Upd_ate otomatis"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:45
-#, fuzzy
 msgid "_Condition:"
-msgstr "Kondisi"
+msgstr "_Kondisi:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:46
-#, fuzzy
 msgid "_Disable all"
-msgstr "B&ersihkan semua"
+msgstr "_Matikan semua"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:47
-#, fuzzy
 msgid "_Hide paths"
-msgstr "Path Pencarian"
+msgstr "Sembunyikan pat_h"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:48
 msgid "_Location:"
@@ -1913,24 +1896,20 @@ msgstr "_Nama:"
 
 #. This is the number of time that the program executes the line where a breakpoint is located. It is used as a list header, so I have tried to find a quite short name.
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:51
-#, fuzzy
 msgid "_Pass count:"
-msgstr "Cacah lewat"
+msgstr "_Cacah lewat:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:52
-#, fuzzy
 msgid "_Process to attach to:"
-msgstr "Tidak bisa melampirkan %s!"
+msgstr "_Proses untuk dikait:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:53
-#, fuzzy
 msgid "_Remove all"
-msgstr "Hapus semua"
+msgstr "_Hapus semua"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:55
-#, fuzzy
 msgid "_Value:"
-msgstr "Tingkat Cahaya/_Value:"
+msgstr "_Nilai:"
 
 #: ../plugins/debug-manager/breakpoints.c:1710
 msgid "Are you sure you want to delete all the breakpoints?"
@@ -2041,14 +2020,12 @@ msgid "Jump to breakpoint location"
 msgstr "Lompat ke lokasi breakpoint"
 
 #: ../plugins/debug-manager/breakpoints.c:1913
-#, fuzzy
 msgid "Disable Breakpoint"
-msgstr "Larangkan Meter"
+msgstr "Matikan Breakpoint"
 
 #: ../plugins/debug-manager/breakpoints.c:1914
-#, fuzzy
 msgid "Disable a breakpoint"
-msgstr "Larangkan Meter"
+msgstr "Menonaktifkan suatu breakpoint"
 
 #: ../plugins/debug-manager/breakpoints.c:1944
 #: ../plugins/tools/anjuta-tools.ui.h:5
@@ -2075,16 +2052,14 @@ msgstr "Keadaan"
 
 #: ../plugins/debug-manager/breakpoints.c:1994
 #: ../plugins/debug-manager/breakpoints.c:2000
-#, fuzzy
 msgid "Breakpoint operations"
-msgstr "%1 dari %2 operasi telah selesai"
+msgstr "Operasi breakpoint"
 
 #. create goto menu_item.
 #: ../plugins/debug-manager/data_view.c:386
 #: ../plugins/debug-manager/sparse_view.c:491
-#, fuzzy
 msgid "_Go to address"
-msgstr "Me-resolve alamat dari %s"
+msgstr "_Pergi ke alamat"
 
 #: ../plugins/debug-manager/debug_tree.c:126
 #: ../plugins/gbf-am/gbf-am-properties.c:974 ../plugins/tools/editor.c:468
@@ -2160,14 +2135,12 @@ msgstr ""
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/plugin.c:851
-#, fuzzy
 msgid "_Debug"
 msgstr "_Debug"
 
 #: ../plugins/debug-manager/plugin.c:859
-#, fuzzy
 msgid "_Start Debugger"
-msgstr "Start Debugger"
+msgstr "_Start Debugger"
 
 #: ../plugins/debug-manager/plugin.c:867
 msgid "_Debug Program"
@@ -2202,9 +2175,8 @@ msgid "Say goodbye to the debugger"
 msgstr ""
 
 #: ../plugins/debug-manager/plugin.c:899
-#, fuzzy
 msgid "Add source paths…"
-msgstr "Tambahkan Sumber Kamus"
+msgstr "Tambah path sumber..."
 
 #: ../plugins/debug-manager/plugin.c:901
 msgid "Add additional source paths"
@@ -2214,23 +2186,20 @@ msgstr ""
 #. Stock icon, if any
 #: ../plugins/debug-manager/plugin.c:911
 #: ../plugins/debug-manager/plugin.c:1019
-#, fuzzy
 msgid "Debugger Command…"
-msgstr "&Jalankan perintah..."
+msgstr "Perintah Debugger..."
 
 #. Display label
 #. short-cut
 #: ../plugins/debug-manager/plugin.c:913
 #: ../plugins/debug-manager/plugin.c:1021
-#, fuzzy
 msgid "Custom debugger command"
-msgstr "&Masukkan perintah sendiri..."
+msgstr "Perintah debugger gubahan"
 
 #: ../plugins/debug-manager/plugin.c:919
 #: ../plugins/debug-manager/plugin.c:1027
-#, fuzzy
 msgid "_Info"
-msgstr "Info"
+msgstr "_Info"
 
 #: ../plugins/debug-manager/plugin.c:927
 msgid "Info _Target Files"
@@ -2241,9 +2210,8 @@ msgid "Display information on the files the debugger is active with"
 msgstr ""
 
 #: ../plugins/debug-manager/plugin.c:935
-#, fuzzy
 msgid "Info _Program"
-msgstr "(program eksternal)"
+msgstr "Info _Program"
 
 #: ../plugins/debug-manager/plugin.c:937
 msgid "Display information on the execution status of the program"
@@ -2367,9 +2335,8 @@ msgstr ""
 #: ../plugins/debug-manager/plugin.c:1127
 #: ../plugins/debug-manager/plugin.c:1133
 #: ../plugins/debug-manager/plugin.c:1139
-#, fuzzy
 msgid "Debugger operations"
-msgstr "%1 dari %2 operasi telah selesai"
+msgstr "Operasi debugger"
 
 #: ../plugins/debug-manager/queue.c:524
 #, c-format
@@ -2439,48 +2406,40 @@ msgid "Send to process"
 msgstr "Kirim ke proses"
 
 #: ../plugins/debug-manager/signals.c:355
-#, fuzzy
 msgid "Kernel signals"
-msgstr "Pengujian Signal"
+msgstr "Sinyal kernel"
 
 #: ../plugins/debug-manager/signals.c:477
 #: ../plugins/debug-manager/signals.c:483
-#, fuzzy
 msgid "Signal operations"
-msgstr "%1 dari %2 operasi telah selesai"
+msgstr "Operasi sinyal"
 
 #: ../plugins/debug-manager/sparse_view.c:1200
-#, fuzzy
 msgid "Show Line Numbers"
 msgstr "Tampilkan Nomor Baris"
 
 #: ../plugins/debug-manager/sparse_view.c:1201
-#, fuzzy
 msgid "Whether to display line numbers"
-msgstr "Apakah menunjukkan nomor baris"
+msgstr "Apakah menampilkan nomor baris"
 
 #: ../plugins/debug-manager/sparse_view.c:1208
-#, fuzzy
 msgid "Show Line Markers"
 msgstr "Tampilkan Tanda Baris"
 
 #: ../plugins/debug-manager/sparse_view.c:1209
-#, fuzzy
 msgid "Whether to display line marker pixbufs"
-msgstr "Apakah menampilkan tanda baris pixbufs"
+msgstr "Apakah menampilkan pixbuf tanda baris"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/stack_trace.c:554
-#, fuzzy
 msgid "Set current frame"
-msgstr "Bukan frame sekarang"
+msgstr "Tata frame kini"
 
 #: ../plugins/debug-manager/stack_trace.c:562
 #: ../plugins/debug-manager/threads.c:390
-#, fuzzy
 msgid "View Source"
-msgstr "Menampilkan Source Frame"
+msgstr "Tilik Sumber"
 
 #: ../plugins/debug-manager/stack_trace.c:600
 #: ../plugins/debug-manager/threads.c:426
@@ -2892,14 +2851,12 @@ msgid "_Print…"
 msgstr "_Cetak…"
 
 #: ../plugins/document-manager/plugin.c:175
-#, fuzzy
 msgid "Print the current file"
-msgstr "Cetak berkas yang aktif sekarang"
+msgstr "Cetak berkas kini"
 
 #: ../plugins/document-manager/plugin.c:182
-#, fuzzy
 msgid "_Print Preview"
-msgstr "Tampilan Cetak"
+msgstr "_Pratilik Cetak"
 
 #: ../plugins/document-manager/plugin.c:183
 #, fuzzy
@@ -3038,42 +2995,36 @@ msgid "Go to the matching brace in the editor"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:249
-#, fuzzy
 msgid "_Start of Block"
-msgstr "%u grup blok\n"
+msgstr "Awa_l Blok"
 
 #: ../plugins/document-manager/plugin.c:250
 msgid "Go to the start of the current block"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:252
-#, fuzzy
 msgid "_End of Block"
-msgstr "blok %s: ** Akhir file **\n"
+msgstr "Akhi_r Blok"
 
 #: ../plugins/document-manager/plugin.c:253
 msgid "Go to the end of the current block"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:255
-#, fuzzy
 msgid "Previous _History"
-msgstr "Hapus sejarah"
+msgstr "Ri_wayat Sebelumnya"
 
 #: ../plugins/document-manager/plugin.c:256
-#, fuzzy
 msgid "Go to previous history"
-msgstr "Ubah sebuah URL Goto sebelumnya: "
+msgstr "Pergi ke riwayat sebelumnya"
 
 #: ../plugins/document-manager/plugin.c:258
-#, fuzzy
 msgid "Next Histor_y"
-msgstr "Halaman berikutnya"
+msgstr "Riwa_yat Berikutnya"
 
 #: ../plugins/document-manager/plugin.c:259
-#, fuzzy
 msgid "Go to next history"
-msgstr "Ubah sebuah URL Goto sebelumnya: "
+msgstr "Pergi ke riwayat berikutnya"
 
 #: ../plugins/document-manager/plugin.c:264 ../plugins/search/plugin.c:67
 msgid "_Search"
@@ -3101,15 +3052,13 @@ msgstr "Matikan _Pencarian Cepat"
 #: ../plugins/document-manager/plugin.c:274 ../plugins/gtodo/interface.c:168
 #: ../src/anjuta-actions.h:30
 #: ../plugins/language-support-cpp-java/plugin.c:1882
-#, fuzzy
 msgid "_Edit"
 msgstr "_Edit"
 
 #. menu title
 #: ../plugins/document-manager/plugin.c:275
-#, fuzzy
 msgid "_Editor"
-msgstr "Penyunting"
+msgstr "_Editor"
 
 #: ../plugins/document-manager/plugin.c:282
 msgid "_Add Editor View"
@@ -3765,16 +3714,14 @@ msgid "Do not show unversioned files"
 msgstr ""
 
 #: ../plugins/file-manager/file-manager.ui.h:6
-#, fuzzy
 msgid "Filter"
-msgstr "Penyaringan"
+msgstr "Filter"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
 #: ../plugins/symbol-db/plugin.c:2129 ../plugins/symbol-db/plugin.c:2178
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:6
-#, fuzzy
 msgid "Global"
-msgstr "Luas"
+msgstr "Global"
 
 #: ../plugins/file-manager/file-manager.ui.h:8
 msgid "Root directory if no project is open:"
@@ -4694,9 +4641,8 @@ msgid "Branch to switch to:"
 msgstr "Pilih ke layar penuh"
 
 #: ../plugins/git/anjuta-git.ui.h:18
-#, fuzzy
 msgid "Branch:"
-msgstr "<b>Branch:</b> %s"
+msgstr "Branch:"
 
 #: ../plugins/git/anjuta-git.ui.h:19
 #, fuzzy
@@ -4848,19 +4794,16 @@ msgid "Good revision:"
 msgstr "Luncuran %s [Revisi %s]"
 
 #: ../plugins/git/anjuta-git.ui.h:53
-#, fuzzy
 msgid "Grep:"
-msgstr "Yunani"
+msgstr "Grep:"
 
 #: ../plugins/git/anjuta-git.ui.h:54
-#, fuzzy
 msgid "Hard"
-msgstr "Sulit"
+msgstr "Hard"
 
 #: ../plugins/git/anjuta-git.ui.h:55
-#, fuzzy
 msgid "Head"
-msgstr "Kepala"
+msgstr "Head"
 
 #: ../plugins/git/anjuta-git.ui.h:56
 #, fuzzy
@@ -4888,9 +4831,8 @@ msgid "Mixed"
 msgstr "Campuran"
 
 #: ../plugins/git/anjuta-git.ui.h:63
-#, fuzzy
 msgid "Mode:"
-msgstr "_mode:"
+msgstr "Mode:"
 
 #: ../plugins/git/anjuta-git.ui.h:67
 #, fuzzy
@@ -4899,12 +4841,11 @@ msgstr "Halaman sebelumnya"
 
 #: ../plugins/git/anjuta-git.ui.h:68
 msgid "Pull"
-msgstr ""
+msgstr "Pull"
 
 #: ../plugins/git/anjuta-git.ui.h:69
-#, fuzzy
 msgid "Push"
-msgstr "Tekan"
+msgstr "Push"
 
 #: ../plugins/git/anjuta-git.ui.h:70
 msgid "Push all branches and tags"
@@ -4915,9 +4856,8 @@ msgid "Push all tags"
 msgstr ""
 
 #: ../plugins/git/anjuta-git.ui.h:72
-#, fuzzy
 msgid "Rebase"
-msgstr "_Reset"
+msgstr "Rebase"
 
 #: ../plugins/git/anjuta-git.ui.h:73
 #, fuzzy
@@ -4953,9 +4893,8 @@ msgid "Repository to push to:"
 msgstr "T&ambahkan ke Repository..."
 
 #: ../plugins/git/anjuta-git.ui.h:80
-#, fuzzy
 msgid "Reset Tree"
-msgstr "tree dari partisi?\n"
+msgstr "Reset Tree"
 
 #: ../plugins/git/anjuta-git.ui.h:81
 #, fuzzy
@@ -5054,11 +4993,11 @@ msgstr "Soft"
 
 #: ../plugins/git/anjuta-git.ui.h:101
 msgid "Squash"
-msgstr ""
+msgstr "Squash"
 
 #: ../plugins/git/anjuta-git.ui.h:102 ../plugins/git/plugin.c:811
 msgid "Stash"
-msgstr ""
+msgstr "Stash"
 
 #: ../plugins/git/anjuta-git.ui.h:103
 msgid "Stash Message (Optional)"
@@ -5086,14 +5025,12 @@ msgid "Switch to Another Branch"
 msgstr ""
 
 #: ../plugins/git/anjuta-git.ui.h:109
-#, fuzzy
 msgid "Tag name:"
-msgstr "Nama tag"
+msgstr "Nama tag:"
 
 #: ../plugins/git/anjuta-git.ui.h:110
-#, fuzzy
 msgid "Tag/Commit"
-msgstr "Nama Tag"
+msgstr "Tag/Commit"
 
 #. Action name
 #. Stock icon, if any
@@ -5146,19 +5083,16 @@ msgid "View the Log for File/Folder:"
 msgstr ""
 
 #: ../plugins/git/anjuta-git.ui.h:124
-#, fuzzy
 msgid "page 1"
-msgstr "halaman"
+msgstr "halaman 1"
 
 #: ../plugins/git/anjuta-git.ui.h:125
-#, fuzzy
 msgid "page 2"
-msgstr "halaman"
+msgstr "halaman 2"
 
 #: ../plugins/git/anjuta-git.ui.h:126
-#, fuzzy
 msgid "page 3"
-msgstr "halaman"
+msgstr "halaman 3"
 
 #: ../plugins/git/git-add-dialog.c:36
 msgid "Git: File staged for add."
@@ -5413,9 +5347,8 @@ msgstr ""
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:68 ../plugins/git/plugin.c:575
-#, fuzzy
 msgid "_Git"
-msgstr "Git"
+msgstr "_Git"
 
 #. Action name
 #. Stock icon, if any
@@ -5427,9 +5360,8 @@ msgstr "_Perubahan"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:87 ../plugins/subversion/plugin.c:76
-#, fuzzy
 msgid "_Commit…"
-msgstr "Nama Tag"
+msgstr "_Commit…"
 
 #. Display label
 #. short-cut
@@ -5454,7 +5386,7 @@ msgstr ""
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:103
 msgid "_Stash"
-msgstr ""
+msgstr "_Stash"
 
 #. Action name
 #. Stock icon, if any
@@ -5505,9 +5437,8 @@ msgstr "Repositori sedang mati/offline"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:143
-#, fuzzy
 msgid "_Push…"
-msgstr "Tekan"
+msgstr "_Push…"
 
 #. Display label
 #. short-cut
@@ -5519,7 +5450,7 @@ msgstr ""
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:151
 msgid "_Pull…"
-msgstr ""
+msgstr "_Pull…"
 
 #. Display label
 #. short-cut
@@ -5530,9 +5461,8 @@ msgstr ""
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:159
-#, fuzzy
 msgid "_Fetch"
-msgstr "Mengambil sumber %s\n"
+msgstr "_Fetch"
 
 #. Display label
 #. short-cut
@@ -5651,9 +5581,8 @@ msgstr ""
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:247
-#, fuzzy
 msgid "_Apply…"
-msgstr "Terapkan"
+msgstr "Ter_apkan..."
 
 #. Display label
 #. short-cut
@@ -5924,9 +5853,8 @@ msgstr "Putar balik semua!"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:439
-#, fuzzy
 msgid "Bisect"
-msgstr "_Bisect"
+msgstr "Bisect"
 
 #. Display label
 #. short-cut
@@ -6453,14 +6381,12 @@ msgid "You need to select a to do item before you can edit it"
 msgstr ""
 
 #: ../plugins/gtodo/add_edit_item.c:118
-#, fuzzy
 msgid "Add Item"
-msgstr "Hapus item"
+msgstr "Tambah Butir"
 
 #: ../plugins/gtodo/add_edit_item.c:121
-#, fuzzy
 msgid "Edit Item"
-msgstr "Edit item"
+msgstr "Sunting Butir"
 
 #: ../plugins/gtodo/add_edit_item.c:152 ../plugins/gtodo/add_edit_item.c:153
 #: ../plugins/gtodo/list_tooltip.c:42
@@ -6474,9 +6400,8 @@ msgstr "Kategori:"
 
 #: ../plugins/gtodo/add_edit_item.c:193 ../plugins/gtodo/add_edit_item.c:472
 #: ../plugins/gtodo/mcategory.c:20 ../plugins/gtodo/todo_db.c:76
-#, fuzzy
 msgid "Edit Categories"
-msgstr "k_ategori yang Tersedia"
+msgstr "Sunting Kategori"
 
 #: ../plugins/gtodo/add_edit_item.c:205 ../plugins/gtodo/list_tooltip.c:48
 #: ../plugins/gtodo/list_tooltip.c:54
@@ -6497,9 +6422,8 @@ msgstr "Prioritas: "
 
 #: ../plugins/gtodo/add_edit_item.c:258 ../plugins/gtodo/add_edit_item.c:259
 #: ../plugins/gtodo/list_tooltip.c:81
-#, fuzzy
 msgid "Comment:"
-msgstr "Keterangan: "
+msgstr "Komentar:"
 
 #: ../plugins/gtodo/add_edit_item.c:283
 msgid "Completed"
@@ -6507,9 +6431,8 @@ msgstr "Selesai"
 
 #: ../plugins/gtodo/add_edit_item.c:289 ../plugins/gtodo/add_edit_item.c:335
 #: ../plugins/gtodo/add_edit_item.c:448
-#, fuzzy
 msgid "started:"
-msgstr "Dimulai"
+msgstr "dimulai:"
 
 #: ../plugins/gtodo/add_edit_item.c:289 ../plugins/gtodo/add_edit_item.c:296
 #: ../plugins/gtodo/add_edit_item.c:332 ../plugins/gtodo/add_edit_item.c:333
@@ -6519,9 +6442,8 @@ msgstr "Tidak Tersedia"
 
 #: ../plugins/gtodo/add_edit_item.c:296 ../plugins/gtodo/add_edit_item.c:339
 #: ../plugins/gtodo/add_edit_item.c:448
-#, fuzzy
 msgid "stopped:"
-msgstr "Dihentikan."
+msgstr "dihentikan:"
 
 #: ../plugins/gtodo/callback.c:17
 msgid "You need to select a to-do item before you can remove it"
@@ -6776,7 +6698,6 @@ msgid "Show in main window"
 msgstr "Tinggi dari jendela utama dalam piksel"
 
 #: ../plugins/gtodo/preferences.c:130 ../plugins/gtodo/preferences.c:132
-#, fuzzy
 msgid "Highlight"
 msgstr "Sorot"
 
@@ -6814,9 +6735,8 @@ msgstr ""
 
 #. Translators: Second part of the sentence "Purge items after %d days"
 #: ../plugins/gtodo/preferences.c:182
-#, fuzzy
 msgid "days."
-msgstr "5 Hari"
+msgstr "hari."
 
 #: ../plugins/gtodo/preferences.c:195 ../plugins/gtodo/preferences.c:197
 #, fuzzy
@@ -6855,44 +6775,36 @@ msgid "Edit…"
 msgstr "Edit"
 
 #: ../plugins/macro/anjuta-macro.ui.h:3
-#, fuzzy
 msgid "Macro details:"
-msgstr "Detail sertifikat"
+msgstr "Rincian makro:"
 
 #: ../plugins/macro/anjuta-macro.ui.h:4
-#, fuzzy
 msgid "Macro text:"
-msgstr "Tambah teks"
+msgstr "Teks makro:"
 
 #: ../plugins/macro/anjuta-macro.ui.h:5
-#, fuzzy
 msgid "Macros:"
-msgstr "Makro"
+msgstr "Makro:"
 
 #: ../plugins/macro/anjuta-macro.ui.h:7
-#, fuzzy
 msgid "Shortcut:"
-msgstr "Pintas"
+msgstr "Pintas:"
 
 #: ../plugins/macro/macro-actions.c:127
-#, fuzzy
 msgid "Press macro shortcut…"
-msgstr "Tombol Perintah"
+msgstr "Tekan pintasan makro..."
 
 #: ../plugins/macro/macro-actions.c:134
-#, fuzzy
 msgid "Press shortcut"
-msgstr "Tombol Perintah"
+msgstr "Tekan pintasan"
 
 #: ../plugins/macro/macro-db.c:256
-#, fuzzy
 msgid "Anjuta macros"
-msgstr "IDE Anjuta"
+msgstr "Makro Anjuta"
 
 #: ../plugins/macro/macro-db.c:260
-#, fuzzy
 msgid "My macros"
-msgstr "Komputerku"
+msgstr "Makroku"
 
 #: ../plugins/macro/macro-dialog.c:145
 #, c-format
@@ -6907,9 +6819,8 @@ msgid "Insert"
 msgstr "Sisipkan"
 
 #: ../plugins/macro/macro-dialog.c:280
-#, fuzzy
 msgid "Insert macro"
-msgstr "menjalankan macro"
+msgstr "Sisipkan makro"
 
 #: ../plugins/macro/macro-edit.c:207
 #, fuzzy
@@ -6927,33 +6838,28 @@ msgid "%Y"
 msgstr "%Y"
 
 #: ../plugins/macro/plugin.c:35
-#, fuzzy
 msgid "Macros"
 msgstr "Makro"
 
 #: ../plugins/macro/plugin.c:42
-#, fuzzy
 msgid "_Insert Macro…"
-msgstr "menjalankan macro"
+msgstr "S_isipkan Macro..."
 
 #: ../plugins/macro/plugin.c:44
 msgid "Insert a macro using a shortcut"
-msgstr ""
+msgstr "Sisipkan suatu makro memakai sebuah pintasan"
 
 #: ../plugins/macro/plugin.c:49
-#, fuzzy
 msgid "_Add Macro…"
 msgstr "T_ambah Makro..."
 
 #: ../plugins/macro/plugin.c:51
-#, fuzzy
 msgid "Add a macro"
-msgstr "T_ambah Makro..."
+msgstr "Tambahkan suatu makro"
 
 #: ../plugins/macro/plugin.c:56
-#, fuzzy
 msgid "Macros…"
-msgstr "Makro"
+msgstr "Makro..."
 
 #: ../plugins/macro/plugin.c:58
 msgid "Add/Edit/Remove macros"
@@ -6967,31 +6873,27 @@ msgstr "%1 dari %2 operasi telah selesai"
 #. text style in editor
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:3
 msgid "Diagonal"
-msgstr ""
+msgstr "Diagonal"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:4
 msgid "Error message indicator style:"
 msgstr ""
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:5
-#, fuzzy
 msgid "Errors:"
-msgstr "Ralat"
+msgstr "Error:"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:6
-#, fuzzy
 msgid "Indicators"
-msgstr "Indikator: "
+msgstr "Indikator"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:8
-#, fuzzy
 msgid "Message colors"
-msgstr "Balikan warna"
+msgstr "Warna pesan"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:9
-#, fuzzy
 msgid "Messages options"
-msgstr "Opsi tingkat lanjut:"
+msgstr "Opsi pesan"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:10
 msgid "Normal message indicator style:"
@@ -7042,13 +6944,12 @@ msgid "Warning message indicator style:"
 msgstr ""
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:26
-#, fuzzy
 msgid "Warnings:"
-msgstr "PERINGATAN"
+msgstr "Warning:"
 
 #: ../plugins/message-view/anjuta-msgman.c:75
 msgid "Close all message tabs"
-msgstr ""
+msgstr "Tutup semua tab pesan"
 
 #: ../plugins/message-view/message-view.c:498
 msgid "Icon"
@@ -7066,49 +6967,40 @@ msgid "Error writing %s"
 msgstr "Ada kesalahan saat menulis `%s'"
 
 #: ../plugins/message-view/plugin.c:78
-#, fuzzy
 msgid "_Copy Message"
-msgstr "Log &pesan"
+msgstr "_Salin Pesan"
 
 #: ../plugins/message-view/plugin.c:79
-#, fuzzy
 msgid "Copy message"
-msgstr "Log &pesan"
+msgstr "Salin pesan"
 
 #: ../plugins/message-view/plugin.c:82
-#, fuzzy
 msgid "_Next Message"
 msgstr "Pesa_n Berikutnya"
 
 #: ../plugins/message-view/plugin.c:83
-#, fuzzy
 msgid "Next message"
-msgstr "Pesa_n Berikutnya"
+msgstr "Pesan berikutnya"
 
 #: ../plugins/message-view/plugin.c:86
-#, fuzzy
 msgid "_Previous Message"
 msgstr "_Pesan Sebelumnya"
 
 #: ../plugins/message-view/plugin.c:87
-#, fuzzy
 msgid "Previous message"
-msgstr "_Pesan Sebelumnya"
+msgstr "Pesan sebelumnya"
 
 #: ../plugins/message-view/plugin.c:90
-#, fuzzy
 msgid "_Save Message"
 msgstr "_Simpan Pesan"
 
 #: ../plugins/message-view/plugin.c:91
-#, fuzzy
 msgid "Save message"
-msgstr "_Simpan Pesan"
+msgstr "Simpan pesan"
 
 #: ../plugins/message-view/plugin.c:228
-#, fuzzy
 msgid "Next/Previous Message"
-msgstr "Buka pesan email sebelumnya"
+msgstr "Pesan Berikutnya/Sebelumnya"
 
 #: ../plugins/message-view/plugin.c:341
 #, c-format
@@ -8116,33 +8008,28 @@ msgid "Interface:"
 msgstr "Antarmuka"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:63
-#, fuzzy
 msgid "Library"
-msgstr "%s (library)"
+msgstr "Pustaka"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:64
-#, fuzzy
 msgid "License"
 msgstr "Lisensi"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:65
-#, fuzzy
 msgid "Main Class:"
-msgstr "Daftar kelas"
+msgstr "Kelas Utama:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:66
-#, fuzzy
 msgid "Main class"
-msgstr "Daftar kelas"
+msgstr "Kelas utama"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:67
-#, fuzzy
 msgid "Makefile project"
-msgstr "Nama proyek:"
+msgstr "Projek makefile"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:68
 msgid "Makefile-based project"
-msgstr ""
+msgstr "Projek berbasis makefile"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:69
 msgid "Mininum SDL version required"
@@ -8153,9 +8040,8 @@ msgid "Name of the value to watch"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:71
-#, fuzzy
 msgid "No license"
-msgstr "Tanpa Lisensi"
+msgstr "Tanpa lisensi"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:72
 msgid "Only Shared"
@@ -8210,9 +8096,8 @@ msgid "Project directory, output file etc."
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:84
-#, fuzzy
 msgid "Project directory:"
-msgstr "&Buat direktori"
+msgstr "Direktori projek:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:85
 msgid ""
@@ -8221,23 +8106,20 @@ msgid ""
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:86
-#, fuzzy
 msgid "Project name:"
 msgstr "Nama projek:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:87
-#, fuzzy
 msgid "Project options"
-msgstr "Opsi tingkat lanjut:"
+msgstr "Opsi projek"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:88
 msgid "Python webproject using Django Web Framework"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:89
-#, fuzzy
 msgid "Require Package:"
-msgstr "Manajemen Paket"
+msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:90
 msgid "Require SDL version:"
@@ -8459,9 +8341,8 @@ msgid "Choose Directories:"
 msgstr "Mengoptimasi direktori: "
 
 #: ../plugins/search/anjuta-search.ui.h:5
-#, fuzzy
 msgid "Choose Files:"
-msgstr "Berkas antrian"
+msgstr "Pilih Berkas:"
 
 #: ../plugins/search/anjuta-search.ui.h:6
 msgid "Expand regex back references"
@@ -8502,23 +8383,20 @@ msgid "Ignore Binary Files"
 msgstr "Tampilkan berkas binary"
 
 #: ../plugins/search/anjuta-search.ui.h:13
-#, fuzzy
 msgid "Ignore Directories:"
-msgstr "Mengoptimasi direktori: "
+msgstr "Abaikan Direktori:"
 
 #: ../plugins/search/anjuta-search.ui.h:14
-#, fuzzy
 msgid "Ignore Files:"
-msgstr "Berkas antrian"
+msgstr "Abaikan Berkas:"
 
 #: ../plugins/search/anjuta-search.ui.h:15
 msgid "Ignore Hidden Directories"
 msgstr ""
 
 #: ../plugins/search/anjuta-search.ui.h:16
-#, fuzzy
 msgid "Ignore Hidden Files"
-msgstr "Tampilkan Berkas _Tersembunyi"
+msgstr "Abaikan Berkas Tersembunyi"
 
 #: ../plugins/search/anjuta-search.ui.h:17
 msgid "Match at start of word"
@@ -8529,91 +8407,75 @@ msgid "Match complete lines"
 msgstr ""
 
 #: ../plugins/search/anjuta-search.ui.h:20
-#, fuzzy
 msgid "Match complete words"
-msgstr "Kata untuk dicocokkan"
+msgstr "Cocok dengan kata lengkap"
 
 #: ../plugins/search/anjuta-search.ui.h:21
-#, fuzzy
 msgid "Maximum Actions"
-msgstr "Lebih Banyak Aksi:"
+msgstr "Aksi Maksimum"
 
 #: ../plugins/search/anjuta-search.ui.h:22
-#, fuzzy
 msgid "Modify"
 msgstr "Ubah"
 
 #: ../plugins/search/anjuta-search.ui.h:23
-#, fuzzy
 msgid "New Name:"
-msgstr "Nama baru"
+msgstr "Nama Baru:"
 
 #: ../plugins/search/anjuta-search.ui.h:24
-#, fuzzy
 msgid "No Limit"
-msgstr "tidak terbatas"
+msgstr "Tanpa Batas"
 
 #: ../plugins/search/anjuta-search.ui.h:26
-#, fuzzy
 msgid "Parameters"
-msgstr "Parameter:"
+msgstr "Parameter"
 
 #: ../plugins/search/anjuta-search.ui.h:27
-#, fuzzy
 msgid "Regular expression"
-msgstr "Ekspresi _Reguler"
+msgstr "Ekspresi reguler"
 
 #: ../plugins/search/anjuta-search.ui.h:28
-#, fuzzy
 msgid "Replace With:"
-msgstr "Ganti dengan:"
+msgstr "Ganti Dengan:"
 
 #: ../plugins/search/anjuta-search.ui.h:30
-#, fuzzy
 msgid "Search Action:"
-msgstr "Aksi perintah"
+msgstr "Aksi Pencarian:"
 
 #: ../plugins/search/anjuta-search.ui.h:31
-#, fuzzy
 msgid "Search Direction:"
-msgstr "&Arah transfer"
+msgstr "Direktori Pencarian:"
 
 #. This is "the search expression" (noun)
 #: ../plugins/search/anjuta-search.ui.h:33
-#, fuzzy
 msgid "Search Expression"
-msgstr "Ekspresi kosong"
+msgstr "Ekspresi Pencarian"
 
 #. This is "the search expression" (noun)
 #: ../plugins/search/anjuta-search.ui.h:35
-#, fuzzy
 msgid "Search Expression:"
-msgstr "Ekspresi kosong"
+msgstr "Ekspresi Pencarian:"
 
 #: ../plugins/search/anjuta-search.ui.h:36
 msgid "Search In:"
 msgstr "Cari di:"
 
 #: ../plugins/search/anjuta-search.ui.h:37
-#, fuzzy
 msgid "Search Recursively"
-msgstr "Path Pencarian"
+msgstr "Cari Secara Rekursif"
 
 #: ../plugins/search/anjuta-search.ui.h:38
-#, fuzzy
 msgid "Search Target"
-msgstr "Berkas target:"
+msgstr "Target Pencarian"
 
 #. User can select variables that contain lists of files, so this is a combined noun
 #: ../plugins/search/anjuta-search.ui.h:40
-#, fuzzy
 msgid "Search variable"
-msgstr "Kecepatan Variabel:"
+msgstr "Variabel pencarian"
 
 #: ../plugins/search/anjuta-search.ui.h:41
-#, fuzzy
 msgid "Setting"
-msgstr "Tetapan"
+msgstr "Tatanan"
 
 #: ../plugins/search/plugin.c:68
 msgid "_Find…"
@@ -9005,23 +8867,20 @@ msgid "File/URL to Remove:"
 msgstr "Coba `%s ./%s' untuk menghapus berkas %s.\n"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:18
-#, fuzzy
 msgid "First Path:"
-msgstr "Path &remote:"
+msgstr "Path Pertama:"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:20
-#, fuzzy
 msgid "Ignore ancestry"
-msgstr "Mengabaikan error"
+msgstr "Abaikan asal usul"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:22
 msgid "Merge changes into working copy"
 msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:25
-#, fuzzy
 msgid "Other Revision:"
-msgstr "Luncuran %s [Revisi %s]"
+msgstr "Revisi Lain:"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:27
 msgid "Previous Commit Messages:"
@@ -9036,29 +8895,24 @@ msgid "Recurse"
 msgstr "Rekursi"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:30
-#, fuzzy
 msgid "Remember Password"
-msgstr "Ingat _sandi"
+msgstr "Ingat Kata Sandi"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:31
-#, fuzzy
 msgid "Remember this decision"
 msgstr "Ingat pilihan ini"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:32
-#, fuzzy
 msgid "Remove file/directory"
-msgstr "Direktori [%s], File mask: %s"
+msgstr "Hapus berkas/direktori"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:33
-#, fuzzy
 msgid "Repository Head"
-msgstr "Pemimpin Kota"
+msgstr "Head Repositori"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:34
-#, fuzzy
 msgid "Repository authorization"
-msgstr "Nama=Otorisasi"
+msgstr "Otorisasi repositori"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:36
 #, fuzzy
@@ -9075,9 +8929,8 @@ msgid "Save open files before diffing"
 msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:40
-#, fuzzy
 msgid "Second Path:"
-msgstr "Path &remote:"
+msgstr "Path Kedua:"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:41
 #, fuzzy
@@ -9099,14 +8952,12 @@ msgid "Start Revision:"
 msgstr "Luncuran %s [Revisi %s]"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:48
-#, fuzzy
 msgid "Subversion Options"
-msgstr "Opsi tingkat lanjut:"
+msgstr "Opsi Subversion"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:49
-#, fuzzy
 msgid "Subversion Preferences"
-msgstr "Preferensi Applet"
+msgstr "Preferensi Subversion"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:50
 msgid "Switch to branch/tag"
@@ -9251,9 +9102,8 @@ msgstr ""
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:124
-#, fuzzy
 msgid "Merge…"
-msgstr "Gabung"
+msgstr "Gabung..."
 
 #. Display label
 #. short-cut
@@ -9290,9 +9140,8 @@ msgstr ""
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:199
-#, fuzzy
 msgid "Copy…"
-msgstr "_Salin"
+msgstr "Salin..."
 
 #. Action name
 #. Stock icon, if any
@@ -9354,14 +9203,12 @@ msgid "Diff"
 msgstr "Diff"
 
 #: ../plugins/subversion/subversion-log-dialog.c:151
-#, fuzzy
 msgid "Revision"
-msgstr "Revisi:"
+msgstr "Revisi"
 
 #: ../plugins/subversion/subversion-log-dialog.c:160
-#, fuzzy
 msgid "Short Log"
-msgstr "Log &pesan"
+msgstr "Log Singkat"
 
 #: ../plugins/subversion/subversion-log-dialog.c:257
 #, fuzzy
@@ -9440,61 +9287,54 @@ msgstr "Pemutakhiran selesai"
 
 #: ../plugins/subversion/svn-command.c:158
 #: ../plugins/subversion/svn-command.c:225
-#, fuzzy
 msgid "Authentication canceled"
-msgstr "%s: e2fsck dibatalkan.\n"
+msgstr "Otentikasi dibatalkan"
 
 #: ../plugins/subversion/svn-command.c:198
-#, fuzzy
 msgid "Hostname:"
-msgstr "Nama Host:"
+msgstr "Nama host:"
 
 #: ../plugins/subversion/svn-command.c:199
-#, fuzzy
 msgid "Fingerprint:"
-msgstr "<b>Sidik jari:</b>"
+msgstr "Sidik jari:"
 
 #: ../plugins/subversion/svn-command.c:200
-#, fuzzy
 msgid "Valid from:"
-msgstr "Valid dari:"
+msgstr "Berlaku sejak:"
 
 #: ../plugins/subversion/svn-command.c:201
-#, fuzzy
 msgid "Valid until:"
 msgstr "Berlaku hingga:"
 
 #: ../plugins/subversion/svn-command.c:202
-#, fuzzy
 msgid "Issuer DN:"
-msgstr "E@e '%Dn' dalam %p (%i)"
+msgstr "DN penerbit:"
 
 #: ../plugins/subversion/svn-command.c:203
-#, fuzzy
 msgid "DER certificate:"
-msgstr "%s - Sertifikat kadaluarsa!"
+msgstr "Sertifikat DER:"
 
 #: ../plugins/subversion/svn-command.c:350
 #: ../plugins/subversion/svn-command.c:366
-#, fuzzy, c-format
+#, c-format
 msgid "Deleted: %s"
-msgstr "%s '%s' telah dihapus"
+msgstr "Dihapus: %s"
 
 #: ../plugins/subversion/svn-command.c:353
 #: ../plugins/subversion/svn-command.c:372
-#, fuzzy, c-format
+#, c-format
 msgid "Added: %s"
-msgstr "Ditambahkan"
+msgstr "Ditambah: %s"
 
 #: ../plugins/subversion/svn-command.c:363
-#, fuzzy, c-format
+#, c-format
 msgid "Resolved: %s"
-msgstr "Telah dipecahkan"
+msgstr "Dipecahkan: %s"
 
 #: ../plugins/subversion/svn-command.c:369
-#, fuzzy, c-format
+#, c-format
 msgid "Updated: %s"
-msgstr "Termutakhirkan"
+msgstr "Dimutakhirkan: %s"
 
 #: ../plugins/subversion/svn-command.c:375
 #, fuzzy, c-format
@@ -9502,24 +9342,24 @@ msgid "Externally Updated: %s"
 msgstr "Terakhir diperbarui:"
 
 #: ../plugins/subversion/svn-command.c:409
-#, fuzzy, c-format
+#, c-format
 msgid "Modified: %s"
-msgstr "Tgl Perubahan"
+msgstr "Diubah: %s"
 
 #: ../plugins/subversion/svn-command.c:412
-#, fuzzy, c-format
+#, c-format
 msgid "Merged: %s"
-msgstr "Klip Tergabung"
+msgstr "Digabung: %s"
 
 #: ../plugins/subversion/svn-command.c:415
-#, fuzzy, c-format
+#, c-format
 msgid "Conflicted: %s"
-msgstr "Bertentangan"
+msgstr "Bertentangan: %s"
 
 #: ../plugins/subversion/svn-command.c:419
-#, fuzzy, c-format
+#, c-format
 msgid "Missing: %s"
-msgstr "Hilang"
+msgstr "Hilang: %s"
 
 #: ../plugins/subversion/svn-command.c:422
 #, c-format
@@ -9605,9 +9445,8 @@ msgid "Symbol Database"
 msgstr "Kesalahan basis data: %s"
 
 #: ../plugins/symbol-db/symbol-db-prefs.c:471
-#, fuzzy
 msgid "API Tags"
-msgstr "Tag global"
+msgstr "Tag API"
 
 #: ../plugins/symbol-db/symbol-db-system.c:807
 msgid "Resuming glb scan."
@@ -9628,14 +9467,12 @@ msgid ""
 msgstr ""
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:4
-#, fuzzy
 msgid "Available API tags"
-msgstr "Plugin Tersedia"
+msgstr "Tag API yang tersedia"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:5
-#, fuzzy
 msgid "Checking if package is parseable…"
-msgstr "Paket `%s' tidak tersedia. \n"
+msgstr "Memeriksa apakah paket dapat di-parse..."
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:7
 msgid "Parallel scan of project and global symbols"
@@ -9654,9 +9491,8 @@ msgid ""
 msgstr ""
 
 #: ../plugins/terminal/anjuta-terminal-plugin.ui.h:2
-#, fuzzy
 msgid "Terminal options"
-msgstr "%1 dari %2 operasi telah selesai"
+msgstr "Opsi terminal"
 
 #: ../plugins/terminal/anjuta-terminal-plugin.ui.h:3
 msgid "Use GNOME Terminal profile:"
@@ -9679,40 +9515,34 @@ msgid "Ctrl-Z"
 msgstr "Ctrl-Z"
 
 #: ../plugins/terminal/terminal.c:781
-#, fuzzy
 msgid "terminal operations"
-msgstr "%1 dari %2 operasi telah selesai"
+msgstr "operasi terminal"
 
 #: ../plugins/terminal/terminal.c:799 ../plugins/terminal/terminal.c:968
 #: ../plugins/terminal/terminal.c:1021
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
-#, fuzzy
 msgid "Terminal"
 msgstr "Terminal"
 
 #: ../plugins/tools/anjuta-tools.ui.h:2
-#, fuzzy
 msgid "Command:"
-msgstr "COMMAND"
+msgstr "Perintah:"
 
 #: ../plugins/tools/anjuta-tools.ui.h:3
-#, fuzzy
 msgid "Edit as script"
-msgstr "Jadikan s_ebagai Pesan Baru..."
+msgstr "Sunting sebagai skrip"
 
 #: ../plugins/tools/anjuta-tools.ui.h:4
 msgid "Edit command as script in Anjuta on close"
 msgstr ""
 
 #: ../plugins/tools/anjuta-tools.ui.h:7
-#, fuzzy
 msgid "Parameters:"
 msgstr "Parameter:"
 
 #: ../plugins/tools/anjuta-tools.ui.h:9
-#, fuzzy
 msgid "Save all files"
-msgstr "Simpan seluruh berkas yang terbuka"
+msgstr "Simpan semua berkas"
 
 #: ../plugins/tools/anjuta-tools.ui.h:10
 #, fuzzy
@@ -9721,30 +9551,25 @@ msgstr "&Potong\tAlt+X"
 
 #. This is the Unix stderr, see http://en.wikipedia.org/wiki/Standard_streams
 #: ../plugins/tools/anjuta-tools.ui.h:12
-#, fuzzy
 msgid "Standard error:"
-msgstr "Kesalahan kritis"
+msgstr "Error standar:"
 
 #. This is the Unix stdin. See http://en.wikipedia.org/wiki/Standard_streams
 #: ../plugins/tools/anjuta-tools.ui.h:14
-#, fuzzy
 msgid "Standard input:"
-msgstr "{masukan baku}"
+msgstr "Masukan standar:"
 
 #. This is the standard Unis stdout, see http://en.wikipedia.org/wiki/Standard_streams
 #: ../plugins/tools/anjuta-tools.ui.h:16
-#, fuzzy
 msgid "Standard output:"
-msgstr "output standar"
+msgstr "Keluaran standar:"
 
 #: ../plugins/tools/anjuta-tools.ui.h:17
-#, fuzzy
 msgid "Tool Editor"
-msgstr "Editor &default:"
+msgstr "Editor Alat"
 
 #: ../plugins/tools/anjuta-tools.ui.h:18 ../plugins/tools/plugin.c:256
 #: ../plugins/tools/plugin.c:263 ../plugins/tools/anjuta-tools.plugin.in.h:1
-#, fuzzy
 msgid "Tools"
 msgstr "Perkakas"
 
@@ -9759,9 +9584,8 @@ msgid "Working directory:"
 msgstr "Atur direktori kerja"
 
 #: ../plugins/tools/anjuta-tools.ui.h:21
-#, fuzzy
 msgid "_Variable…"
-msgstr "Variabel"
+msgstr "_Variabel..."
 
 #: ../plugins/tools/dialog.c:177
 #, fuzzy, c-format
@@ -9769,28 +9593,24 @@ msgid "Are you sure you want to delete the '%s' tool?"
 msgstr "Apa Anda yakin ingin menghapus \"%s\" secara permanen?"
 
 #: ../plugins/tools/dialog.c:343
-#, fuzzy
 msgid "Tool"
-msgstr "_Program"
+msgstr "Alat"
 
 #: ../plugins/tools/editor.c:316
 msgid "ask at runtime"
 msgstr ""
 
 #: ../plugins/tools/editor.c:321
-#, fuzzy
 msgid "undefined"
-msgstr "Belum didefinisikan"
+msgstr "tak terdefinisi"
 
 #: ../plugins/tools/editor.c:471
-#, fuzzy
 msgid "Meaning"
-msgstr "Perintah     Arti"
+msgstr "Artinya"
 
 #: ../plugins/tools/editor.c:619
-#, fuzzy
 msgid "Disabled"
-msgstr "tidak aktif"
+msgstr "Dinonaktifkan"
 
 #: ../plugins/tools/editor.c:791
 msgid "You must provide a tool name!"
@@ -10007,40 +9827,33 @@ msgid "New message pane"
 msgstr "_Buat Email Baru"
 
 #: ../plugins/tools/tool.c:84
-#, fuzzy
 msgid "New buffer"
 msgstr "Buffer baru"
 
 #: ../plugins/tools/tool.c:85
-#, fuzzy
 msgid "Replace buffer"
-msgstr "Penimbal VBR"
+msgstr "Gantikan buffer"
 
 #: ../plugins/tools/tool.c:86
-#, fuzzy
 msgid "Insert into buffer"
-msgstr "Masukkan dalam pesan"
+msgstr "Sisipkan ke buffer"
 
 #: ../plugins/tools/tool.c:87
-#, fuzzy
 msgid "Append to buffer"
-msgstr "Audio yang dibuffer:"
+msgstr "Tambahkan ke buffer"
 
 #: ../plugins/tools/tool.c:88
-#, fuzzy
 msgid "Replace selection"
-msgstr "Ganti bagian terpilih"
+msgstr "Gantikan bagian terpilih"
 
 #. Translators: Checkbox if a dialog should be shown after some operation finishes, so translate as "to pop up a dialog"
 #: ../plugins/tools/tool.c:90
-#, fuzzy
 msgid "Popup dialog"
-msgstr "Dialog pilih"
+msgstr "Dialog popup"
 
 #: ../plugins/tools/tool.c:91
-#, fuzzy
 msgid "Discard output"
-msgstr "Output Perintah"
+msgstr "Buang keluaran"
 
 #: ../plugins/tools/tool.c:96
 msgid "None"
@@ -10066,9 +9879,8 @@ msgid "Copyright (c) Naba Kumar"
 msgstr "Hak Cipta (c) Naba Kumar"
 
 #: ../src/anjuta.c:424
-#, fuzzy
 msgid "Loaded Session…"
-msgstr "Detail sesi"
+msgstr "Sesi Termuat..."
 
 #: ../src/anjuta-actions.h:23
 msgid "_File"
@@ -10100,14 +9912,12 @@ msgid "Reset the widgets docking layout to default"
 msgstr ""
 
 #: ../src/anjuta-actions.h:47
-#, fuzzy
 msgid "_Full Screen"
-msgstr "Layar Penuh"
+msgstr "Layar _Penuh"
 
 #: ../src/anjuta-actions.h:48
-#, fuzzy
 msgid "Toggle fullscreen mode"
-msgstr "Rubah mode layar penuh"
+msgstr "Jungkit mode layar penuh"
 
 #: ../src/anjuta-actions.h:51
 msgid "_Lock Dock Layout"
@@ -10148,9 +9958,8 @@ msgid "Anjuta Kick start tutorial"
 msgstr ""
 
 #: ../src/anjuta-actions.h:71
-#, fuzzy
 msgid "_Advanced tutorial"
-msgstr "Opsi tingkat lanjut:"
+msgstr "Tutorial tingkat lanjut"
 
 #: ../src/anjuta-actions.h:72
 msgid "Anjuta advanced tutorial"
@@ -10183,23 +9992,20 @@ msgid "Submit a bug report, patch or feature request for Anjuta"
 msgstr ""
 
 #: ../src/anjuta-actions.h:87
-#, fuzzy
 msgid "Ask a _Question"
-msgstr "Pilihan pertanyaan"
+msgstr "Ajukan _Pertanyaan"
 
 #: ../src/anjuta-actions.h:88
 msgid "Submit a question for FAQs"
 msgstr ""
 
 #: ../src/anjuta-actions.h:91
-#, fuzzy
 msgid "_About"
-msgstr "Keterangan Progr_am"
+msgstr "Ihw_al"
 
 #: ../src/anjuta-actions.h:92
-#, fuzzy
 msgid "About Anjuta"
-msgstr "IDE Anjuta"
+msgstr "Tentang Anjuta"
 
 #: ../src/anjuta-actions.h:95
 msgid "About External _Plugins"
@@ -10218,14 +10024,13 @@ msgid "Installed plugins"
 msgstr "Plugin terpasang"
 
 #: ../src/anjuta-app.c:916
-#, fuzzy
 msgid "Shortcuts"
-msgstr "Jalan Pintas"
+msgstr "Pintas"
 
 #: ../src/anjuta-app.c:988
-#, fuzzy, c-format
+#, c-format
 msgid "Value doesn't exist"
-msgstr "File '%s' tidak ada."
+msgstr "Nilai tak ada"
 
 #: ../src/main.c:74
 msgid "Specify the size and location of the main window"
@@ -10238,9 +10043,8 @@ msgid "WIDTHxHEIGHT+XOFF+YOFF"
 msgstr "WIDTHxHEIGHT+XOFF+YOFF"
 
 #: ../src/main.c:82
-#, fuzzy
 msgid "Do not show the splash screen"
-msgstr "Jangan tampilkan kecepatan"
+msgstr "Jangan tampilkan layar splash"
 
 #: ../src/main.c:88
 msgid "Start a new instance and do not open the file in an existing instance"
@@ -10308,9 +10112,8 @@ msgid "Icons only"
 msgstr "Hanya icon"
 
 #: ../src/preferences.ui.h:14
-#, fuzzy
 msgid "Project Defaults"
-msgstr "Pulih ke lalai"
+msgstr "Default Projek"
 
 #: ../src/preferences.ui.h:15
 msgid "Select project directory"
@@ -10342,9 +10145,8 @@ msgstr "Hanya teks"
 
 #. translators: translate the same as in gnome-control-center
 #: ../src/preferences.ui.h:24
-#, fuzzy
 msgid "Toolbar button labels:"
-msgstr "Label tom_bol pada kotak tombol:"
+msgstr "Label tombol bilah alat:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.schemas.in.h:1
 msgid "Do not display warning if not using a Debug configuration"
@@ -10415,37 +10217,32 @@ msgid "Show calltips"
 msgstr "&Tampilkan pesan"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
-#, fuzzy
 msgid "Smart Indentation"
-msgstr "<b>Indentasi Otomatis</b>"
+msgstr "Indentasi Pintar"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
 msgid "Statement indentation size in spaces:"
 msgstr ""
 
 #: ../plugins/language-support-cpp-java/plugin.c:1888
-#, fuzzy
 msgid "Auto-Indent"
-msgstr "Indentasi Automatis"
+msgstr "Indentasi Otomatis"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1889
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr ""
 
 #: ../plugins/language-support-cpp-java/plugin.c:1894
-#, fuzzy
 msgid "Swap .h/.c"
-msgstr "Beban Swap"
+msgstr "Tukar .h/.c"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1895
-#, fuzzy
 msgid "Swap C header and source files"
-msgstr "Kode program Java"
+msgstr "Tukar header C dan berkas sumber"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1936
-#, fuzzy
 msgid "C++/Java Assistance"
-msgstr "Pemandu Visual"
+msgstr "Asisten C++/Java"
 
 #: ../plugins/language-support-cpp-java/plugin.c:2048
 #: ../plugins/language-support-cpp-java/plugin.c:2061
@@ -10593,14 +10390,12 @@ msgid "C++ and Java support plugin for code completion, auto-indentation, etc."
 msgstr ""
 
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:2
-#, fuzzy
 msgid "Project Assistant"
-msgstr "Asisten _Delegasi"
+msgstr "Asisten Projek"
 
 #: ../plugins/search/anjuta-search.plugin.in.h:1
-#, fuzzy
 msgid "Component for searching"
-msgstr "Sedang mencari ekstensi"
+msgstr "Komponen untuk pencarian"
 
 #: ../plugins/search/anjuta-search.plugin.in.h:2
 msgid "Searching"
@@ -10718,24 +10513,20 @@ msgid "Add brace after function call autocompletion"
 msgstr ""
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:3
-#, fuzzy
 msgid "Gir repository's directory:   "
-msgstr "Akar Direktori Penjelajah Berkas"
+msgstr "Direktori repositori gir:"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:4
-#, fuzzy
 msgid "Gjs repository's directory:   "
-msgstr "Akar Direktori Penjelajah Berkas"
+msgstr "Direktori repositori gjs:"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:5
-#, fuzzy
 msgid "Highlight missed semicolon"
-msgstr "Tandai lokasi pesan pembangunan di penyunting"
+msgstr "Tandai titik koma yang hilang"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
-#, fuzzy
 msgid "Min character for completion "
-msgstr "Aktifkan kode debug"
+msgstr "Cacah karakter minimum untuk pelengkapan"
 
 #: ../plugins/symbol-db/symbol-db-views.c:169
 msgid "Symbol"
