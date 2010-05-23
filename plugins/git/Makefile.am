@@ -46,8 +46,6 @@ libanjuta_git_la_SOURCES = \
 	plugin.h \
 	git-command.c \
 	git-command.h \
-	git-ui-utils.c \
-	git-ui-utils.h \
 	git-diff-command.c \
 	git-diff-command.h \
 	git-status.c \

@@ -34,7 +34,7 @@
 #include "git-remove-command.h"
 #include "git-clone-command.h"
 
-#include "git-ui-utils.h"
+#include "git-pane.h"
 
 void git_ivcs_iface_init (IAnjutaVcsIface *iface);
 void git_ivcs_add (IAnjutaVcs *obj, GList *files, 

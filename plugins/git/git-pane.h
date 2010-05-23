@@ -22,6 +22,7 @@
 
 #include <glib-object.h>
 #include <libanjuta/anjuta-dock-pane.h>
+#include <libanjuta/interfaces/ianjuta-message-manager.h>
 #include "plugin.h"
 
 G_BEGIN_DECLS
@@ -47,6 +48,10 @@ struct _GitPane
 };
 
 GType git_pane_get_type (void) G_GNUC_CONST;
+
+/* Static helper methods */
+void git_pane_create_message_view (Git *plugin);
+void git_pane_on_command_info_arrived (AnjutaCommand *command, Git *plugin);
 
 G_END_DECLS
 

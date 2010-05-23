@@ -26,6 +26,8 @@
 #include <gio/gio.h>
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-message-view.h>
+#include <libanjuta/interfaces/ianjuta-editor.h>
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-file-manager.h>

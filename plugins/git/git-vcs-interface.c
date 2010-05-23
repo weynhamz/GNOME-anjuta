@@ -91,10 +91,10 @@ git_ivcs_checkout (IAnjutaVcs *obj,
 	g_free (path);
 	g_free (dir_name);
 
-	git_create_message_view (plugin);
+	git_pane_create_message_view (plugin);
 
 	g_signal_connect (G_OBJECT (clone_command), "data-arrived",
-	                  G_CALLBACK (on_git_command_info_arrived),
+	                  G_CALLBACK (git_pane_on_command_info_arrived),
 	                  plugin);
 
 	g_signal_connect (G_OBJECT (clone_command), "command-finished",
