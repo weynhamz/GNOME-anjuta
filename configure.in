@@ -112,8 +112,6 @@ AC_DEFINE_UNQUOTED(PREF_SUFFIX,
       "${PREF_SUFFIX}",
 	  [Suffix to add to preferences directory])
 
-AC_ISC_POSIX
-AC_HEADER_STDC
 AM_DISABLE_STATIC
 AM_PROG_LIBTOOL
 
