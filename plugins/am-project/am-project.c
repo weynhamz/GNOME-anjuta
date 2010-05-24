@@ -1128,6 +1128,8 @@ static void
 foreach_node_destroy (AnjutaProjectNode    *g_node,
 		      gpointer  data)
 {
+	AmpProject *project = (AmpProject *)data;
+	
 	switch (AMP_NODE_DATA (g_node)->type & ANJUTA_PROJECT_TYPE_MASK) {
 		case ANJUTA_PROJECT_GROUP:
 			//g_hash_table_remove (project->groups, g_file_get_uri (AMP_GROUP_NODE (g_node)->file));
@@ -2171,7 +2173,7 @@ amp_project_unload (AmpProject *project)
 	monitors_remove (project);
 	
 	/* project data */
-	project_node_destroy (project, project->root_node);
+	//project_node_destroy (project, project->root_node);
 	project->root_node = NULL;
 
 	if (project->configure_file)	g_object_unref (G_OBJECT (project->configure_file));
