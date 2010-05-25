@@ -1376,6 +1376,7 @@ project_manager_load_gbf (ProjectManagerPlugin *pm_plugin)
 
 	DEBUG_PRINT ("loading project %s\n\n", dirname);
 	anjuta_pm_project_load (pm_plugin->project, dirfile, &error);
+	update_ui (pm_plugin);
 
 	g_free (basename);
 	g_free (dirname);

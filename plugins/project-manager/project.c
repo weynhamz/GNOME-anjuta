@@ -417,6 +417,7 @@ on_pm_project_load_incomplete (AnjutaProjectNode *node, AnjutaPmProject *project
 	
 	if ((state & ANJUTA_PROJECT_INCOMPLETE) && !(state & ANJUTA_PROJECT_LOADING))
 	{
+		//g_message ("incomplete node %s", anjuta_project_node_get_name (node));
 		project->incomplete_node++;
 		anjuta_project_node_set_state (node, ANJUTA_PROJECT_LOADING);
 		//g_message ("load incomplete %p", node);
@@ -490,6 +491,8 @@ pm_command_load_complete (AnjutaPmProject *project, PmJob *job)
 	}
 	else
 	{
+		gboolean load = job->command == LOAD;
+	
 		if (job->command == LOAD)
 		{
 			g_object_set (G_OBJECT (project->model), "project", project, NULL);
@@ -516,13 +519,14 @@ pm_command_load_complete (AnjutaPmProject *project, PmJob *job)
 		{
 			project->incomplete_node--;
 			//g_message ("remaining node %d", project->incomplete_node);
+			if (project->incomplete_node == 0) load = TRUE;
 		}
 		anjuta_project_node_clear_state (job->node, ANJUTA_PROJECT_LOADING | ANJUTA_PROJECT_INCOMPLETE);
 		anjuta_project_node_all_foreach (job->node, (AnjutaProjectNodeFunc)on_pm_project_load_incomplete, project);
 		
 		if (project->incomplete_node == 0)
 		{
-			g_signal_emit (G_OBJECT (project), signals[job->command == LOAD ? LOADED : UPDATED], 0, NULL);
+			g_signal_emit (G_OBJECT (project), signals[load ? LOADED : UPDATED], 0, NULL);
 		}
 		check_queue (project->job_queue, job->map);
 	}
@@ -689,7 +693,6 @@ pm_project_idle_func (AnjutaPmProject *project)
 static void
 on_node_updated (IAnjutaProject *sender, AnjutaProjectNode *node, AnjutaPmProject *project)
 {
-	g_message ("on node updated %p", node);
 	pm_project_push_command (project, RELOAD, node);
 }
  

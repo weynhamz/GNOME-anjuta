@@ -2086,14 +2086,12 @@ amp_project_load_package (AmpProject *project, AnjutaProjectNode *node, GError *
 	gchar *err;
 	gchar *out;
 	gint status;
-	
+
 	cmd = g_strdup_printf ("pkg-config --cflags %s", anjuta_project_node_get_name (node));
 
 	if (g_spawn_command_line_sync (cmd, &out, &err, &status, error))
 	{
 		gchar **flags;
-		
-		anjuta_project_node_clear_state (node, ANJUTA_PROJECT_INCOMPLETE);
 
 		flags = g_strsplit (out, " ", -1);
 
