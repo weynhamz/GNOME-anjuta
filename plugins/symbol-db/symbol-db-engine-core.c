@@ -3216,7 +3216,7 @@ sdb_engine_check_db_version_and_upgrade (SymbolDBEngine *dbe,
                                          const gchar* cnc_string)
 {
 	SymbolDBEnginePriv *priv;
-	gint version;
+	gdouble version;
 
 	priv = dbe->priv;
 	
@@ -3233,9 +3233,9 @@ sdb_engine_check_db_version_and_upgrade (SymbolDBEngine *dbe,
 	 * automatic upgrading system. Deleting & recreating the db is anyway
 	 * the best option to do.
 	 */
-	if (version < atoi (SYMBOL_DB_VERSION))
+	if (version < atof (SYMBOL_DB_VERSION))
 	{
-		DEBUG_PRINT	 ("Upgrading from version %d to "SYMBOL_DB_VERSION, version);
+		DEBUG_PRINT	 ("Upgrading from version %f to "SYMBOL_DB_VERSION, version);
 		
 		/* we need a full recreation of db. Because of the sym_kind table
 		 * which changed its data but not its fields, we must recreate the
