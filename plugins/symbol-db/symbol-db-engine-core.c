@@ -138,6 +138,18 @@ select symbol_id_base, symbol.name from heritage
 }
 */
 
+typedef struct _TableMapTmpHeritage {
+	gint symbol_referer_id;
+	gchar *field_inherits;
+	gchar *field_struct;
+	gchar *field_typeref;
+	gchar *field_enum;
+	gchar *field_union;
+	gchar *field_class;
+	gchar *field_namespace;
+
+} TableMapTmpHeritage;
+
 /*
  * utility macros
  */
@@ -281,6 +293,38 @@ sdb_engine_insert_cache (GHashTable* hash_table, const gchar* key,
 }
 
 static void
+sdb_engine_table_map_tmp_heritage_destroy (TableMapTmpHeritage *node)
+{
+	g_free (node->field_inherits);
+	g_free (node->field_struct);
+	g_free (node->field_typeref);
+	g_free (node->field_enum);
+	g_free (node->field_union);
+	g_free (node->field_class);
+	g_free (node->field_namespace);
+
+	g_slice_free (TableMapTmpHeritage, node);
+}
+
+static void
+sdb_engine_clear_table_maps (SymbolDBEngine *dbe)
+{
+	SymbolDBEnginePriv *priv = dbe->priv;
+	if (priv->tmp_heritage_tablemap)
+	{
+		TableMapTmpHeritage *node;
+		while ((node = g_queue_pop_head (priv->tmp_heritage_tablemap)) != NULL)
+		{
+			sdb_engine_table_map_tmp_heritage_destroy (node);
+		}
+
+		/* queue should be void. Free it */
+		g_queue_free (priv->tmp_heritage_tablemap);
+		priv->tmp_heritage_tablemap = NULL;
+	}
+}
+
+static void
 sdb_engine_clear_caches (SymbolDBEngine* dbe)
 {
 	SymbolDBEnginePriv *priv = dbe->priv;
@@ -294,6 +338,14 @@ sdb_engine_clear_caches (SymbolDBEngine* dbe)
 	priv->kind_cache = NULL;
 	priv->access_cache = NULL;
 	priv->implementation_cache = NULL;
+}
+
+static void
+sdb_engine_init_table_maps (SymbolDBEngine *dbe)
+{
+	SymbolDBEnginePriv *priv = dbe->priv;
+	
+	priv->tmp_heritage_tablemap = g_queue_new ();
 }
 
 static void
@@ -2363,30 +2415,6 @@ sdb_engine_init (SymbolDBEngine * object)
 			"WHERE sym_type.type_type = ## /* name:'symtype' type:gchararray */ "
 				"AND scope.scope_name = ## /* name:'scopename' type:gchararray */) LIMIT 1");
 	
-	/* -- tmp heritage -- */
-	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
-	 								PREP_QUERY_TMP_HERITAGE_NEW,
-	 	"INSERT INTO __tmp_heritage_scope (symbol_referer_id, field_inherits, "
-	 	"field_struct, field_typeref, field_enum, field_union, "
-	 	"field_class, field_namespace) VALUES (## /* name:'symreferid' "
-	 	"type:gint */, ## /* name:'finherits' type:gchararray */, ## /* "
-	 	"name:'fstruct' type:gchararray */, ## /* name:'ftyperef' "
-	 	"type:gchararray */, ## /* name:'fenum' type:gchararray */, ## /* "
-	 	"name:'funion' type:gchararray */, ## /* name:'fclass' type:gchararray "
-	 	"*/, ## /* name:'fnamespace' type:gchararray */)");
-	
-	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
-	 								PREP_QUERY_GET_ALL_FROM_TMP_HERITAGE,
-	 	"SELECT * FROM __tmp_heritage_scope");
-	
-	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
-	 								PREP_QUERY_GET_ALL_FROM_TMP_HERITAGE_WITH_INHERITS,
-	 	"SELECT * FROM __tmp_heritage_scope WHERE field_inherits != ''");
-	
-	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
-	 								PREP_QUERY_TMP_HERITAGE_DELETE_ALL,
-	 	"DELETE FROM __tmp_heritage_scope");
-	
 	/* -- symbol -- */
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 	 								PREP_QUERY_SYMBOL_NEW,
@@ -2543,6 +2571,9 @@ sdb_engine_init (SymbolDBEngine * object)
 	
 	/* init cache hashtables */
 	sdb_engine_init_caches (sdbe);
+
+	/* init table maps */
+	sdb_engine_init_table_maps (sdbe);
 	
 	sdbe->priv->file_symbols_cache = g_tree_new_full ((GCompareDataFunc)&symbol_db_gtree_compare_func, 
 										 NULL,
@@ -2696,6 +2727,7 @@ sdb_engine_finalize (GObject * object)
 		g_async_queue_unref (priv->signals_queue);
 	
 	sdb_engine_clear_caches (dbe);
+	sdb_engine_clear_table_maps (dbe);
 
 	g_free (priv->anjuta_db_file);
 	priv->anjuta_db_file = NULL;
@@ -3272,9 +3304,8 @@ symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
 	/* save the project_directory */
 	priv->project_directory = g_strdup (prj_directory);
 
-	cnc_string = g_strdup_printf ("DB_DIR=%s;DB_NAME=%s", base_db_path,
+	 cnc_string = g_strdup_printf ("DB_DIR=%s;DB_NAME=%s", base_db_path,
 								priv->anjuta_db_file);
-
 	DEBUG_PRINT ("Connecting to "
 				 "database with %s...", cnc_string);
 	connect_res = sdb_engine_connect_to_db (dbe, cnc_string);
@@ -4628,210 +4659,60 @@ sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, const tagEntry * tag_
  *
  * Saves the tagEntry info for a second pass parsing.
  * Usually we don't know all the symbol at the first scan of the tags. We need
- * a second one. These tuples are created for that purpose.
+ * a second one. 
  *
- * @return the table_id of the inserted tuple. -1 on error.
  */
-static GNUC_INLINE gint
+static GNUC_INLINE void
 sdb_engine_add_new_tmp_heritage_scope (SymbolDBEngine * dbe,
 									   const tagEntry * tag_entry,
 									   gint symbol_referer_id)
 {
-/*
-	CREATE TABLE __tmp_heritage_scope (tmp_heritage_scope_id integer PRIMARY KEY 
-							AUTOINCREMENT,
-							symbol_referer_id integer not null,
-							field_inherits varchar(256) not null,
-							field_struct varchar(256),
-							field_typeref varchar(256),
-							field_enum varchar(256),
-							field_union varchar(256),
-							field_class varchar(256),
-							field_namespace varchar(256)
-							);
-*/
-	const GdaSet *plist;
-	const GdaStatement *stmt;
-	GdaHolder *param;
-	GdaSet *last_inserted;
-	gint table_id;
 	SymbolDBEnginePriv *priv;
 	const gchar *field_inherits, *field_struct, *field_typeref,
 		*field_enum, *field_union, *field_class, *field_namespace;
-	gboolean good_tag;
-	GValue *ret_value;
-	gboolean ret_bool;
-
-	/* we assume that tag_entry is != NULL */
-	/* init the flag */
-	good_tag = FALSE;
+	TableMapTmpHeritage * node;
 
 	priv = dbe->priv;
+
+	node = g_slice_new0 (TableMapTmpHeritage);	
+	node->symbol_referer_id = symbol_referer_id;
 	
-		
-	if ((field_inherits = tagsField (tag_entry, "inherits")) == NULL)
+	if ((field_inherits = tagsField (tag_entry, "inherits")) != NULL)
 	{
-		field_inherits = "";
+		node->field_inherits = g_strdup (field_inherits);
 	}
-	else
-		good_tag = TRUE;
 
-	if ((field_struct = tagsField (tag_entry, "struct")) == NULL)
+	if ((field_struct = tagsField (tag_entry, "struct")) != NULL)
 	{
-		field_struct = "";
+		node->field_struct = g_strdup (field_struct);
 	}
-	else
-		good_tag = TRUE;
 
-	if ((field_typeref = tagsField (tag_entry, "typeref")) == NULL)
+	if ((field_typeref = tagsField (tag_entry, "typeref")) != NULL)
 	{
-		field_typeref = "";
+		node->field_typeref = g_strdup (field_typeref);
 	}
-	else
-		good_tag = TRUE;
 
-	if ((field_enum = tagsField (tag_entry, "enum")) == NULL)
+	if ((field_enum = tagsField (tag_entry, "enum")) != NULL)
 	{
-		field_enum = "";
+		node->field_enum = g_strdup (field_enum);
 	}
-	else
-		good_tag = TRUE;
 
-	if ((field_union = tagsField (tag_entry, "union")) == NULL)
+	if ((field_union = tagsField (tag_entry, "union")) != NULL)
 	{
-		field_union = "";
+		node->field_union = g_strdup (field_union);
 	}
-	else
-		good_tag = TRUE;
  
-	if ((field_class = tagsField (tag_entry, "class")) == NULL)
+	if ((field_class = tagsField (tag_entry, "class")) != NULL)
 	{
-		field_class = "";
-	}
-	else
-		good_tag = TRUE;
-
-	if ((field_namespace = tagsField (tag_entry, "namespace")) == NULL)
-	{
-		field_namespace = "";
-	}
-	else
-		good_tag = TRUE;
-
-	if (!good_tag)
-		return -1;
-
-
-	if ((stmt = sdb_engine_get_statement_by_query_id (dbe, PREP_QUERY_TMP_HERITAGE_NEW))
-		== NULL)
-	{
-		g_warning ("query is null");
-		return -1;
+		node->field_class = g_strdup (field_class);
 	}
 
-	plist = sdb_engine_get_query_parameters_list (dbe,PREP_QUERY_TMP_HERITAGE_NEW);
-		
-	/* symreferid parameter */
-	if ((param = gda_set_get_holder ((GdaSet*)plist, "symreferid")) == NULL)
+	if ((field_namespace = tagsField (tag_entry, "namespace")) != NULL)
 	{
-		g_warning ("param symreferid is NULL from pquery!");
-		return -1;
-	}
-	
-	MP_SET_HOLDER_BATCH_INT(priv, param, symbol_referer_id, ret_bool, ret_value);	
-	
-	/* finherits parameter */
-	if ((param = gda_set_get_holder ((GdaSet*)plist, "finherits")) == NULL)
-	{
-		g_warning ("param finherits is NULL from pquery!");
-		return -1;
-	}
-	
-	MP_SET_HOLDER_BATCH_STR(priv, param, field_inherits, ret_bool, ret_value);	
-	
-
-	/* fstruct parameter */
-	if ((param = gda_set_get_holder ((GdaSet*)plist, "fstruct")) == NULL)
-	{
-		g_warning ("param fstruct is NULL from pquery!");
-		return -1;
-	}
-	
-	MP_SET_HOLDER_BATCH_STR(priv, param, field_struct, ret_bool, ret_value);	
-	
-	/* ftyperef parameter */
-	if ((param = gda_set_get_holder ((GdaSet*)plist, "ftyperef")) == NULL)
-	{
-		g_warning ("param ftyperef is NULL from pquery!");
-		return -1;
-	}
-	
-	MP_SET_HOLDER_BATCH_STR(priv, param, field_typeref, ret_bool, ret_value);	
-	
-	/* fenum parameter */
-	if ((param = gda_set_get_holder ((GdaSet*)plist, "fenum")) == NULL)
-	{
-		g_warning ("param fenum is NULL from pquery!");
-		return -1;
-	}
-	
-	MP_SET_HOLDER_BATCH_STR(priv, param, field_enum, ret_bool, ret_value);		
-	
-	/* funion parameter */
-	if ((param = gda_set_get_holder ((GdaSet*)plist, "funion")) == NULL)
-	{
-		g_warning ("param funion is NULL from pquery!");
-		return -1;
-	}
-	
-	MP_SET_HOLDER_BATCH_STR(priv, param, field_union, ret_bool, ret_value);
-		
-	/* fclass parameter */
-	if ((param = gda_set_get_holder ((GdaSet*)plist, "fclass")) == NULL)
-	{
-		g_warning ("param fclass is NULL from pquery!");
-		return -1;
-	}
-	
-	MP_SET_HOLDER_BATCH_STR(priv, param, field_class, ret_bool, ret_value);	
-
-	/* fnamespace parameter */
-	if ((param = gda_set_get_holder ((GdaSet*)plist, "fnamespace")) == NULL)
-	{
-		g_warning ("param fnamespace is NULL from pquery!");
-		return -1;
-	}
-	
-	MP_SET_HOLDER_BATCH_STR(priv, param, field_namespace, ret_bool, ret_value);		
-
-	/* execute the query with parametes just set */
-	if (gda_connection_statement_execute_non_select (priv->db_connection, 
-													 (GdaStatement*)stmt, 
-													 (GdaSet*)plist, &last_inserted,
-													 NULL) == -1)
-	{
-		table_id = -1;
-	}
-	else 
-	{
-
-	WRITE_SQL_LOG ("INSERT INTO __tmp_heritage_scope (symbol_referer_id, field_inherits, "
-	 	"field_struct, field_typeref, field_enum, field_union, "
-	 	"field_class, field_namespace) VALUES (%d,"
-	 	"'%s', '%s', '%s', '%s', '%s', '%s', '%s')", symbol_referer_id,
-	    	field_inherits, field_struct, field_typeref,
-			field_enum, field_union, field_class, field_namespace);
-	    		
-		const GValue *value = gda_set_get_holder_value (last_inserted, "+0");
-		table_id = g_value_get_int (value);
+		node->field_namespace = g_strdup (field_namespace);
 	}
 
-	if (last_inserted)
-		g_object_unref (last_inserted);	
-
-	MP_RESET_PLIST(plist);
-	
-	return table_id;
+	g_queue_push_head (priv->tmp_heritage_tablemap, node);
 }
 
 /** 
@@ -4841,13 +4722,12 @@ sdb_engine_add_new_tmp_heritage_scope (SymbolDBEngine * dbe,
  */
 static GNUC_INLINE gint
 sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
-									   GdaDataModel * data, gint data_row,
+									   TableMapTmpHeritage * node,
 									   gchar * token_name,
-									   const GValue * token_value)
+									   const gchar * token_value)
 {
 	gint scope_id;
 	GValue *value1, *value2;
-	const GValue *value_id2;
 	gint symbol_referer_id;
 	const gchar *tmp_str;
 	gchar **tmp_str_splitted;
@@ -4861,10 +4741,10 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 	GValue *ret_value;
 	gboolean ret_bool;
 
-	g_return_val_if_fail (G_VALUE_HOLDS_STRING (token_value), FALSE);
+	g_return_val_if_fail (token_value != NULL, FALSE);
 		
 	priv = dbe->priv;
-	tmp_str = g_value_get_string (token_value);
+	tmp_str = token_value;
 
 	/* we don't need empty strings */
 	if (strlen (tmp_str) <= 0)
@@ -4924,11 +4804,8 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 	/* if we reach this point we should have a good scope_id.
 	 * Go on with symbol updating.
 	 */
-	value_id2 = gda_data_model_get_value_at (data, 
-						gda_data_model_get_column_index(data, "symbol_referer_id"), 
-											 data_row, NULL);
-	symbol_referer_id = g_value_get_int (value_id2);
-	
+	symbol_referer_id = node->symbol_referer_id;
+		
 	if ((stmt = sdb_engine_get_statement_by_query_id (dbe,
 											 PREP_QUERY_UPDATE_SYMBOL_SCOPE_ID))
 		== NULL)
@@ -4976,7 +4853,7 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
  * @note *DO NOT FREE data* inside this function.
  */
 static void
-sdb_engine_second_pass_update_scope (SymbolDBEngine * dbe, GdaDataModel * data)
+sdb_engine_second_pass_update_scope (SymbolDBEngine * dbe)
 {
 	SymbolDBEnginePriv *priv;
 	/*
@@ -4993,69 +4870,62 @@ sdb_engine_second_pass_update_scope (SymbolDBEngine * dbe, GdaDataModel * data)
 	 * Go on with the parsing then.
 	 */
 	gint i;
+	gsize queue_length;
 	
 	priv = dbe->priv;	
 	
-	DEBUG_PRINT ("Processing %d rows", gda_data_model_get_n_rows (data));
+	DEBUG_PRINT ("Processing %d rows", g_queue_get_length (priv->tmp_heritage_tablemap));
+
+	/* get a fixed length. There may be some tail_pushes during this loop */
+	queue_length = g_queue_get_length (priv->tmp_heritage_tablemap);
 	
-	for (i = 0; i < gda_data_model_get_n_rows (data); i++)
+	for (i = 0; i < queue_length; i++)
 	{
-		GValue *value;		
+		TableMapTmpHeritage *node;
+		node = g_queue_pop_head (priv->tmp_heritage_tablemap);
 		
-		if ((value =
-			 (GValue *) gda_data_model_get_value_at (data, 
-						gda_data_model_get_column_index(data, "field_class"),
-															  i, NULL)) != NULL)
+		if (node->field_class != NULL)
 		{
-			sdb_engine_second_pass_update_scope_1 (dbe, data, i, "class",
-												   value);
+			sdb_engine_second_pass_update_scope_1 (dbe, node, "class", node->field_class);
 		}
 
-		if ((value =
-			 (GValue *) gda_data_model_get_value_at (data, 
-						gda_data_model_get_column_index(data,"field_struct"),
-															  i, NULL)) != NULL)
-		{
-			sdb_engine_second_pass_update_scope_1 (dbe, data, i, "struct",
-												   value);
+		if (node->field_struct != NULL)
+		{		
+			sdb_engine_second_pass_update_scope_1 (dbe, node, "struct", node->field_struct);
 		}
 
-		if ((value =
-			 (GValue *) gda_data_model_get_value_at (data, 
-						gda_data_model_get_column_index(data, "field_typeref"),
-															  i, NULL)) != NULL)
+		if (node->field_typeref != NULL)
 		{
 			/* this is a "typedef", not a "typeref". */
-			sdb_engine_second_pass_update_scope_1 (dbe, data, i, "typedef",
-												   value);
+			sdb_engine_second_pass_update_scope_1 (dbe, node, "typedef", node->field_typeref);
 		}
 
-		if ((value =
-			 (GValue *) gda_data_model_get_value_at (data, 
-						gda_data_model_get_column_index(data, "field_enum"),
-															  i, NULL)) != NULL)
+		if (node->field_enum != NULL)
 		{
-			sdb_engine_second_pass_update_scope_1 (dbe, data, i, "enum", value);
+			sdb_engine_second_pass_update_scope_1 (dbe, node, "enum", node->field_enum);
 		}
 
-		if ((value =
-			 (GValue *) gda_data_model_get_value_at (data, 
-						gda_data_model_get_column_index(data, "field_union"),
-															  i, NULL)) != NULL)
+		if (node->field_union != NULL)
 		{
-			sdb_engine_second_pass_update_scope_1 (dbe, data, i, "union",
-												   value);
+			sdb_engine_second_pass_update_scope_1 (dbe, node, "union", node->field_union);
 		}
 
-		if ((value =
-			 (GValue *) gda_data_model_get_value_at (data, 
-						gda_data_model_get_column_index(data, "field_namespace"),
-															  i, NULL)) != NULL)
+		if (node->field_namespace != NULL)
 		{
-			sdb_engine_second_pass_update_scope_1 (dbe, data, i, "namespace",
-												   value);
+			sdb_engine_second_pass_update_scope_1 (dbe, node, "namespace", node->field_namespace);
+		}
+
+		/* last check: if inherits is not null keep the node for a later task */
+		if (node->field_inherits != NULL)
+		{
+			g_queue_push_tail (priv->tmp_heritage_tablemap, node);
+		}
+		else 
+		{
+			sdb_engine_table_map_tmp_heritage_destroy (node);
 		}
 	}
+
 }
 
 /**
@@ -5065,8 +4935,7 @@ sdb_engine_second_pass_update_scope (SymbolDBEngine * dbe, GdaDataModel * data)
  * @note *CALL THIS AFTER second_pass_update_scope ()*
  */
 static void
-sdb_engine_second_pass_update_heritage (SymbolDBEngine * dbe,
-										GdaDataModel * data)
+sdb_engine_second_pass_update_heritage (SymbolDBEngine * dbe)
 {
 	gint i;
 	SymbolDBEnginePriv *priv;
@@ -5075,26 +4944,33 @@ sdb_engine_second_pass_update_heritage (SymbolDBEngine * dbe,
 	
 	priv = dbe->priv;
 	
-	DEBUG_PRINT ("%s", "sdb_engine_second_pass_update_heritage ()");
+	DEBUG_PRINT ("Updating heritage... (%d) elements", 
+	    g_queue_get_length (priv->tmp_heritage_tablemap));
 	
-	for (i = 0; i < gda_data_model_get_n_rows (data); i++)
+	for (i = 0; i < g_queue_get_length (priv->tmp_heritage_tablemap); i++)
 	{
-		const GValue *value;
 		const gchar *inherits;
 		gchar *item;
 		gchar **inherits_list;
 		gint j;
-		
-		value = gda_data_model_get_value_at (data, 
-						gda_data_model_get_column_index(data, "field_inherits"), i, 
-											 NULL);
-		inherits = g_value_get_string (value);
+		TableMapTmpHeritage *node;
+
+		node = g_queue_pop_head (priv->tmp_heritage_tablemap);		
+		inherits = node->field_inherits;
+
+		if (inherits == NULL)
+		{
+			g_warning ("Inherits was NULL on sym_referer id %d", 
+			    node->symbol_referer_id);
+			sdb_engine_table_map_tmp_heritage_destroy (node);
+			continue;
+		}
 
 		/* there can be multiple inheritance. Check that. */
 		inherits_list = g_strsplit (inherits, ",", 0);
 
 		if (inherits_list != NULL)
-			DEBUG_PRINT ("inherits %s\n", inherits);
+			DEBUG_PRINT ("inherits %s", inherits);
 
 		/* retrieve as much info as we can from the items */
 		for (j = 0; j < g_strv_length (inherits_list); j++)
@@ -5105,10 +4981,9 @@ sdb_engine_second_pass_update_heritage (SymbolDBEngine * dbe,
 			gint namespaces_length;
 			gint base_klass_id;
 			gint derived_klass_id;
-			const GValue *value;
 
 			item = inherits_list[j];
-			DEBUG_PRINT ("heritage %s\n", item);
+			DEBUG_PRINT ("heritage %s", item);
 
 			/* A item may have this string form:
 			 * MyFooNamespace1::MyFooNamespace2::MyFooClass
@@ -5132,27 +5007,26 @@ sdb_engine_second_pass_update_heritage (SymbolDBEngine * dbe,
 				/* have a last check before setting namespace_name to null.
 				 * check whether the field_namespace is void or not.
 				 */
-				const GValue *namespace_value;
 				const gchar *tmp_namespace;
 				gchar **tmp_namespace_array = NULL;
 				gint tmp_namespace_length;
 
-				namespace_value =
-					gda_data_model_get_value_at (data, 
-						gda_data_model_get_column_index(data, "field_namespace"),
-												 i, NULL);
-				tmp_namespace = g_value_get_string (namespace_value);
+				tmp_namespace = node->field_namespace;
 				if (tmp_namespace != NULL)
 				{
 					tmp_namespace_array = g_strsplit (tmp_namespace, "::", 0);
 					tmp_namespace_length = g_strv_length (tmp_namespace_array);
 
 					if (tmp_namespace_length > 0)
+					{
 						namespace_name =
 							g_strdup (tmp_namespace_array
 									  [tmp_namespace_length - 1]);
+					}
 					else
+					{
 						namespace_name = NULL;
+					}
 				}
 				else
 				{
@@ -5169,10 +5043,9 @@ sdb_engine_second_pass_update_heritage (SymbolDBEngine * dbe,
 			/* get the derived_klass_id. It should be the 
 			 * symbol_referer_id field into __tmp_heritage_scope table
 			 */
-			if ((value = (GValue *) gda_data_model_get_value_at (data,
-																 1, i, NULL)) != NULL)
+			if (node->symbol_referer_id > 0)
 			{
-				derived_klass_id = g_value_get_int (value);
+				derived_klass_id = node->symbol_referer_id;
 			}
 			else
 			{
@@ -5243,88 +5116,16 @@ sdb_engine_second_pass_update_heritage (SymbolDBEngine * dbe,
 static void
 sdb_engine_second_pass_do (SymbolDBEngine * dbe)
 {
-	const GdaStatement *stmt1, *stmt2, *stmt3;
-	GdaDataModel *data_model;
 	SymbolDBEnginePriv *priv;
 
 	priv = dbe->priv;
-	
-	DEBUG_PRINT ("%s", "sdb_engine_second_pass_do()");	
 
 	/* prepare for scope second scan */
-	if ((stmt1 =
-		 sdb_engine_get_statement_by_query_id (dbe,
-									 PREP_QUERY_GET_ALL_FROM_TMP_HERITAGE))
-		== NULL)
+	if (g_queue_get_length (priv->tmp_heritage_tablemap) > 0)
 	{
-		g_warning ("query is null");
-		return;
+		sdb_engine_second_pass_update_scope (dbe);
+		sdb_engine_second_pass_update_heritage (dbe);
 	}
-
-	/* execute the query */
-	data_model = gda_connection_statement_execute_select (priv->db_connection, 
-														  (GdaStatement*)stmt1, 
-														  NULL, NULL);
-	
-	if (!GDA_IS_DATA_MODEL (data_model) ||
-		gda_data_model_get_n_rows (GDA_DATA_MODEL (data_model)) <= 0)
-	{
-		if (data_model != NULL)
-			g_object_unref (data_model);
-		data_model = NULL;
-	}
-	else
-	{
-		sdb_engine_second_pass_update_scope (dbe, data_model);
-	}
-
-	if (data_model != NULL)
-		g_object_unref (data_model);
-
-	/* prepare for heritage second scan */
-	if ((stmt2 =
-		 sdb_engine_get_statement_by_query_id (dbe,
-						 PREP_QUERY_GET_ALL_FROM_TMP_HERITAGE_WITH_INHERITS))
-		== NULL)
-	{
-		g_warning ("query is null");
-		return;
-	}
-
-	/* execute the query */
-	data_model = gda_connection_statement_execute_select (priv->db_connection, 
-														  (GdaStatement*)stmt2, 
-														  NULL, NULL);
-
-	if (!GDA_IS_DATA_MODEL (data_model) ||
-		gda_data_model_get_n_rows (GDA_DATA_MODEL (data_model)) <= 0)
-	{
-		if (data_model != NULL)
-			g_object_unref (data_model);
-		data_model = NULL;
-	}
-	else
-	{
-		sdb_engine_second_pass_update_heritage (dbe, data_model);
-	}
-
-	if (data_model != NULL)
-		g_object_unref (data_model);
-
-	/* clean tmp heritage table */
-	if ((stmt3 =
-		 sdb_engine_get_statement_by_query_id (dbe,
-									 PREP_QUERY_TMP_HERITAGE_DELETE_ALL))
-		== NULL)
-	{
-		g_warning ("query is null");
-		return;
-	}
-
-	/* execute the query */
-	gda_connection_statement_execute_non_select (priv->db_connection, 
-														  (GdaStatement*)stmt3, 
-														  NULL, NULL, NULL);	
 }
 
 /**
@@ -5715,7 +5516,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	
 	/* before returning the table_id we have to fill some infoz on temporary tables
 	 * so that in a second pass we can parse also the heritage and scope fields.
-	 */
+	 */	
 	if (table_id > 0)
 		sdb_engine_add_new_tmp_heritage_scope (dbe, tag_entry, table_id);
 

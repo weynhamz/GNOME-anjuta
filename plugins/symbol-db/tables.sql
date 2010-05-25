@@ -106,17 +106,6 @@ CREATE TABLE scope (scope_id integer PRIMARY KEY AUTOINCREMENT,
 DROP TABLE IF EXISTS version;
 CREATE TABLE version (sdb_version numeric PRIMARY KEY);
 
-DROP TABLE IF EXISTS __tmp_heritage_scope;
-CREATE TABLE __tmp_heritage_scope (tmp_heritage_scope_id integer PRIMARY KEY AUTOINCREMENT,
-                            symbol_referer_id integer not null,
-                            field_inherits text,
-                            field_struct text,
-                            field_typeref text,
-                            field_enum text,
-                            field_union text,
-                            field_class text,
-                            field_namespace text
-                            );
 
 DROP TABLE IF EXISTS __tmp_removed;
 CREATE TABLE __tmp_removed (tmp_removed_id integer PRIMARY KEY AUTOINCREMENT,

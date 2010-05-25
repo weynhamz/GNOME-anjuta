@@ -166,10 +166,6 @@ typedef enum
 	PREP_QUERY_GET_PARENT_SCOPE_ID_BY_SYMBOL_ID,
 	PREP_QUERY_GET_PARENT_SCOPE_ID_BY_SYMBOL_ID_BY_SYMBOL_ID,
 	PREP_QUERY_GET_SCOPE_DEFINITION_ID_BY_WALK_DOWN_SCOPE_PATH,
-	PREP_QUERY_TMP_HERITAGE_NEW,
-	PREP_QUERY_GET_ALL_FROM_TMP_HERITAGE,
-	PREP_QUERY_GET_ALL_FROM_TMP_HERITAGE_WITH_INHERITS,
-	PREP_QUERY_TMP_HERITAGE_DELETE_ALL,
 	PREP_QUERY_SYMBOL_NEW,
 	PREP_QUERY_GET_SYMBOL_SCOPE_DEFINITION_ID,
 	PREP_QUERY_GET_SYMBOL_ID_BY_CLASS_NAME,
@@ -313,9 +309,12 @@ struct _SymbolDBEnginePriv
 	/* Caches */
 	GHashTable *kind_cache;
 	GHashTable *access_cache;
-	GHashTable *implementation_cache;	
+	GHashTable *implementation_cache;
+
+	/* Table maps */
+	GQueue *tmp_heritage_tablemap;
 	
-	GTree *file_symbols_cache;
+	GTree *file_symbols_cache;		
 	
 	static_query_node *static_query_list[PREP_QUERY_COUNT]; 
 	dyn_query_node *dyn_query_list[DYN_PREP_QUERY_COUNT];
