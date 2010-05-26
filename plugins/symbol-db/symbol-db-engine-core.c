@@ -3182,13 +3182,13 @@ symbol_db_engine_close_db (SymbolDBEngine *dbe)
 	return ret;
 }
 
-static gint 
+static gdouble 
 sdb_engine_get_db_version (SymbolDBEngine *dbe)
 {
 	GdaDataModel *data_model;
 	const GValue *value_id;
 	gchar *query;
-	gint version_id;
+	gdouble version_id;
 	gint col;
 	
 	/* set the current symbol db database version. This may help if new tables/fields
@@ -3202,7 +3202,11 @@ sdb_engine_get_db_version (SymbolDBEngine *dbe)
 
 	col = gda_data_model_get_column_index(data_model, "sdb_version");
 	value_id = gda_data_model_get_value_at (data_model, col, 0, NULL);
-	version_id = g_value_get_int (value_id);
+
+	if (G_VALUE_HOLDS_DOUBLE (value_id))
+		version_id = g_value_get_double (value_id);
+	else
+		version_id = (gdouble)g_value_get_int (value_id);
 	
 	g_object_unref (data_model);
 	/* no need to free query of course */
