@@ -3126,6 +3126,20 @@ interface IAnjutaProject
 	void free_node (AnjutaProjectNode *node);
 
 	/**
+	 * ianjuta_project_set_property:
+	 * @obj: Self
+	 * @node: Node
+	 * @property: Property
+	 * @value: Value
+	 * @err: Error propagation and reporting
+	 *
+	 * Change a properties on node.
+	 *
+	 * Return value: FALSE if some properties cannot be set.
+	 */
+	gboolean set_property (AnjutaProjectNode *parent, AnjutaProjectProperty* property, const gchar *value);
+
+	/**
 	 * ianjuta_project_new_root_node:
 	 * @obj: Self
 	 * @file: Project file or directory

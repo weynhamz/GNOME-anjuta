@@ -3339,6 +3339,17 @@ iproject_save_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **error
 	return node;
 }
 
+static gboolean
+iproject_set_property (IAnjutaProject *obj, AnjutaProjectNode *node, AnjutaProjectProperty *property, const gchar *value, GError **error)
+{
+	AnjutaProjectProperty *new_prop;
+	
+	new_prop = amp_node_property_set (node, property, value);
+	amp_project_update_property (AMP_PROJECT (obj), new_prop);
+	
+	return TRUE;
+}
+
 static AnjutaProjectNode *
 iproject_new_node (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile *file, const gchar *name, GError **err)
 {
@@ -3431,6 +3442,7 @@ iproject_iface_init(IAnjutaProjectIface* iface)
 	iface->configure_node = iproject_configure_node;
 	iface->load_node = iproject_load_node;
 	iface->save_node = iproject_save_node;
+	iface->set_property = iproject_set_property;
 	iface->new_node = iproject_new_node;
 	iface->free_node = iproject_free_node;
 	iface->new_root_node = iproject_new_root_node;

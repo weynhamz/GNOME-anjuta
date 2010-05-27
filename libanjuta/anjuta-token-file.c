@@ -333,8 +333,8 @@ anjuta_token_file_update (AnjutaTokenFile *file, AnjutaToken *token)
 		}
 	}
 
-	fprintf (stdout, "Dump config list from file:\n");
-	anjuta_token_dump (file->content);
+	//fprintf (stdout, "Dump config list from file:\n");
+	//anjuta_token_dump (file->content);
 
 	
 	return TRUE;

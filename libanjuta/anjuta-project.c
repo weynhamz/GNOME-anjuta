@@ -533,13 +533,18 @@ AnjutaProjectProperty *
 anjuta_project_node_get_property (AnjutaProjectNode *node, AnjutaProjectProperty *property)
 {
 	GList *item;
-
+	AnjutaProjectPropertyInfo *info;
+	
+	/* Get main property */
+	info = (AnjutaProjectPropertyInfo *)property->data;
+	if (info->override != NULL) property = info->override;
+	
 	/* Get properties list */
 	item = g_list_first (NODE_DATA (node)->properties);
 
 	for (; item != NULL; item = g_list_next (item))
 	{
-		AnjutaProjectPropertyInfo *info = (AnjutaProjectPropertyInfo *)item->data;
+		info = (AnjutaProjectPropertyInfo *)item->data;
 
 		if (info->override == NULL)
 		{

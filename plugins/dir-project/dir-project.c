@@ -1034,6 +1034,16 @@ iproject_free_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
 	project_node_destroy (DIR_PROJECT (obj), node);
 }
 
+static gboolean
+iproject_set_property (IAnjutaProject *obj, AnjutaProjectNode *node, AnjutaProjectProperty *property, const gchar *value, GError **error)
+{
+	g_set_error (error, IANJUTA_PROJECT_ERROR, 
+				IANJUTA_PROJECT_ERROR_NOT_SUPPORTED,
+		_("Project doesn't allow to set properties"));
+		
+	return FALSE;
+}
+
 static AnjutaProjectNode *
 iproject_new_root_node (IAnjutaProject *obj, GFile *file, GError **error)
 {
@@ -1119,6 +1129,7 @@ iproject_iface_init(IAnjutaProjectIface* iface)
 	iface->save_node = iproject_save_node;
 	iface->new_node = iproject_new_node;
 	iface->free_node = iproject_free_node;
+	iface->set_property = iproject_set_property;
 
 	iface->add_group = iproject_add_group;
 	iface->add_source = iproject_add_source;

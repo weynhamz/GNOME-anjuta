@@ -36,7 +36,7 @@ GList* anjuta_pm_project_new_module (AnjutaPmProject *project, GtkWindow *parent
 GList* anjuta_pm_project_new_package (AnjutaPmProject *project, GtkWindow *parent, GtkTreeIter *default_module, GList *packages_to_add);
 
 
-gboolean pm_project_create_properties_dialog (IAnjutaProject *project, GtkWidget **dialog, GtkWindow *parent, AnjutaProjectNode *node);
+GtkWidget *pm_project_create_properties_dialog (AnjutaPmProject *project, GtkWindow *parent, AnjutaProjectNode *node);
 
 G_END_DECLS
 

@@ -102,6 +102,7 @@ typedef enum
 {
 	LOAD = 0,
 	RELOAD,
+	SAVE,
 	ADD,
 	REMOVE,
 	EXIT,
@@ -598,6 +599,9 @@ static PmCommandWork PmCommands[LAST_COMMAND] = {
 			{pm_command_load_setup,
 			pm_command_load_work,
 			pm_command_load_complete},
+			{NULL,
+			pm_command_save_work,
+			NULL},
 			{pm_command_add_setup,
 			pm_command_save_work,
 			NULL},
@@ -931,6 +935,25 @@ anjuta_pm_project_remove (AnjutaPmProject *project, AnjutaProjectNode *node, GEr
 }
 
 gboolean
+anjuta_pm_project_set_properties (AnjutaPmProject *project, AnjutaProjectNode *node, GList *properties, GError **error)
+{
+	GList *item;
+	gboolean valid = FALSE;
+
+	for (item = g_list_first (properties); item != NULL; item = g_list_next (item))
+	{
+		AnjutaProjectPropertyValue *prop = (AnjutaProjectPropertyValue *)item->data;
+		
+		valid = ianjuta_project_set_property (project->project, node, prop->property, prop->value, error);
+		if (!valid) break;
+	}
+	
+	if (valid) pm_project_push_command (project, SAVE, node);
+	
+	return valid;
+}
+
+gboolean
 anjuta_pm_project_remove_data (AnjutaPmProject *project, GbfTreeData *data, GError **error)
 {
 	GtkTreeIter iter;
@@ -1024,34 +1047,37 @@ anjuta_pm_project_get_node_from_file (AnjutaPmProject *project, AnjutaProjectNod
 gboolean
 anjuta_pm_project_show_properties_dialog (AnjutaPmProject *project, GbfTreeData *data)
 {
-	GtkWidget **dialog;
+	GtkWidget **dialog_ptr;
 	AnjutaProjectNode *node;
 	
 	if (data == NULL)
 	{
 		/* Show project properties dialog */
-		dialog = &project->properties_dialog;
+		dialog_ptr = &project->properties_dialog;
 		node = project->root;
 	}
 	else
 	{
 		/* Show node properties dialog */
-		dialog = &data->properties_dialog;
+		dialog_ptr = &data->properties_dialog;
 		node = anjuta_pm_project_get_node (project, data);
 	}
 	
-	if (*dialog != NULL)
+	if (*dialog_ptr != NULL)
 	{
 		/* Show already existing dialog */
-		gtk_window_present (GTK_WINDOW (*dialog));
+		gtk_window_present (GTK_WINDOW (*dialog_ptr));
 	}
 	else
 	{
-		pm_project_create_properties_dialog (
-			project->project,
-			dialog,
+		*dialog_ptr = pm_project_create_properties_dialog (
+			project,
 			GTK_WINDOW (project->plugin->shell),
 			node);
+		if (*dialog_ptr != NULL)
+		{
+			g_object_add_weak_pointer (*dialog_ptr, dialog_ptr);
+		}
 	}
 
 	return TRUE;

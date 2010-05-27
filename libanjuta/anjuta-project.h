@@ -108,6 +108,11 @@ typedef struct
 
 typedef GList AnjutaProjectProperty;
 
+typedef struct
+{
+	AnjutaProjectProperty *property;
+	gchar *value;
+} AnjutaProjectPropertyValue;
 
 typedef struct
 {

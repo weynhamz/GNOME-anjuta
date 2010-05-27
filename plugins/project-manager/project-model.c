@@ -662,9 +662,9 @@ load_project (GbfProjectModel *model, AnjutaPmProject *proj)
 	//model->priv->project_updated_handler =
 	//	g_signal_connect (anjuta_pm_project_get_project (model->priv->proj), "project-updated",
 	//			  (GCallback) project_updated_cb, model);
-	model->priv->project_updated_handler =
-		g_signal_connect (anjuta_pm_project_get_project (model->priv->proj), "project-updated",
-				  (GCallback) project_updated_cb, model);
+	//model->priv->project_updated_handler =
+	//	g_signal_connect (anjuta_pm_project_get_project (model->priv->proj), "project-updated",
+	//			  (GCallback) project_updated_cb, model);
 }
 
 static void 
@@ -693,9 +693,9 @@ unload_project (GbfProjectModel *model)
 		g_list_free (model->priv->shortcuts);
 		model->priv->shortcuts = NULL;
 
-		g_signal_handler_disconnect (anjuta_pm_project_get_project (model->priv->proj),
-					     model->priv->project_updated_handler);
-		model->priv->project_updated_handler = 0;
+		//g_signal_handler_disconnect (anjuta_pm_project_get_project (model->priv->proj),
+		//			     model->priv->project_updated_handler);
+		//model->priv->project_updated_handler = 0;
 		model->priv->proj = NULL;
 
 		insert_empty_node (model);
