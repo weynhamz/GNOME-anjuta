@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-master-po-gl-1952\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-24 10:55+0200\n"
-"PO-Revision-Date: 2010-05-24 10:55+0200\n"
+"POT-Creation-Date: 2010-05-30 17:37+0200\n"
+"PO-Revision-Date: 2010-05-30 17:37+0200\n"
 "Last-Translator: Fran Diéguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Galician <gnome@g11.net>\n"
 "MIME-Version: 1.0\n"
@@ -678,7 +678,7 @@ msgstr "Anchura do tipo de letra"
 
 #: ../libfoocanvas/foo-canvas-text.c:279 ../libfoocanvas/foo-canvas-text.c:280
 msgid "Font stretch"
-msgstr ""
+msgstr "Estiramento do tipo de letra"
 
 #: ../libfoocanvas/foo-canvas-text.c:289 ../libfoocanvas/foo-canvas-text.c:290
 msgid "Font size"
@@ -762,7 +762,7 @@ msgstr "Altura do texto renderizado"
 
 #: ../libfoocanvas/foo-canvas-text.c:449
 msgid "Font family set"
-msgstr "Conxunto do tipo de letra"
+msgstr "Conxunto de familia de tipo de letra"
 
 #: ../libfoocanvas/foo-canvas-text.c:450
 msgid "Whether this tag affects the font family"
@@ -770,7 +770,7 @@ msgstr "Indica se esta etiqueta afecta á familia do tipo de letra"
 
 #: ../libfoocanvas/foo-canvas-text.c:453
 msgid "Font style set"
-msgstr ""
+msgstr "Conxunto de estilo do tipo de letra"
 
 #: ../libfoocanvas/foo-canvas-text.c:454
 msgid "Whether this tag affects the font style"
@@ -778,7 +778,7 @@ msgstr "Indica se esta etiqueta afecta ao estilo do tipo de letra"
 
 #: ../libfoocanvas/foo-canvas-text.c:457
 msgid "Font variant set"
-msgstr ""
+msgstr "Conxunto de variante do tipo de letra"
 
 #: ../libfoocanvas/foo-canvas-text.c:458
 msgid "Whether this tag affects the font variant"
@@ -786,7 +786,7 @@ msgstr "Indica se esta etiqueta afecta á variante do tipo de letra"
 
 #: ../libfoocanvas/foo-canvas-text.c:461
 msgid "Font weight set"
-msgstr ""
+msgstr "Conxunto de peso do tipo de letra"
 
 #: ../libfoocanvas/foo-canvas-text.c:462
 msgid "Whether this tag affects the font weight"
@@ -794,15 +794,15 @@ msgstr "Indica se esta etiqueta afecta á anchura do tipo de letra"
 
 #: ../libfoocanvas/foo-canvas-text.c:465
 msgid "Font stretch set"
-msgstr ""
+msgstr "Conxunto de estiramento do tipo de letra"
 
 #: ../libfoocanvas/foo-canvas-text.c:466
 msgid "Whether this tag affects the font stretch"
-msgstr ""
+msgstr "Indica se esta etiqueta afecta ao estiramento do tipo de letra"
 
 #: ../libfoocanvas/foo-canvas-text.c:469
 msgid "Font size set"
-msgstr ""
+msgstr "Conxunto do tamaño do tipo de letra"
 
 #: ../libfoocanvas/foo-canvas-text.c:470
 msgid "Whether this tag affects the font size"
@@ -810,7 +810,7 @@ msgstr "Indica se esta etiqueta afecta ao tamaño de tipo de letra"
 
 #: ../libfoocanvas/foo-canvas-text.c:473
 msgid "Rise set"
-msgstr ""
+msgstr "Conxunto de elevación"
 
 #: ../libfoocanvas/foo-canvas-text.c:474
 msgid "Whether this tag affects the rise"
@@ -818,7 +818,7 @@ msgstr "Indica se esta etiqueta afecta á elevación"
 
 #: ../libfoocanvas/foo-canvas-text.c:477
 msgid "Strikethrough set"
-msgstr ""
+msgstr "Conxunto de riscado"
 
 #: ../libfoocanvas/foo-canvas-text.c:478
 msgid "Whether this tag affects strikethrough"
@@ -826,7 +826,7 @@ msgstr "Indica se esta etiqueta afecta ao riscado"
 
 #: ../libfoocanvas/foo-canvas-text.c:481
 msgid "Underline set"
-msgstr ""
+msgstr "Conxunto do subliñado"
 
 #: ../libfoocanvas/foo-canvas-text.c:482
 msgid "Whether this tag affects underlining"
@@ -834,7 +834,7 @@ msgstr "Indica se esta etiqueta afecta ao subliñado"
 
 #: ../libfoocanvas/foo-canvas-text.c:485
 msgid "Scale set"
-msgstr ""
+msgstr "Conxunto de escala"
 
 #: ../libfoocanvas/foo-canvas-text.c:486
 msgid "Whether this tag affects font scaling"
