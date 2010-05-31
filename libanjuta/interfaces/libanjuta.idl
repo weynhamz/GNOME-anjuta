@@ -5269,130 +5269,57 @@ interface IAnjutaSymbol
 	 */
 	enum Field
 	{
-
-		FIELD_SIMPLE = 1,														
-		FIELD_FILE_PATH = 2,
-		FIELD_IMPLEMENTATION = 4,
-		FIELD_ACCESS = 8,
-		FIELD_KIND = 16,
-		FIELD_TYPE = 32,
-		FIELD_TYPE_NAME = 64,
+		FIELD_SIMPLE = 0,
+		FIELD_ID = 1,
+		FIELD_NAME = 2,
+		FIELD_FILE_POS = 4,
+		FIELD_FILE_SCOPE = 8,
+		FIELD_SIGNATURE = 16,
+		FIELD_RETURNTYPE = 32,
+		FIELD_FILE_PATH = 64,
+		FIELD_IMPLEMENTATION = 128,
+		FIELD_ACCESS = 256,
+		FIELD_KIND = 512,
+		FIELD_TYPE = 1024,
+		FIELD_TYPE_NAME = 2048,
+		FIELD_END = 4096
 	}
-	
-	/**
-	 * ianjuta_symbol_get_id:
-	 * @obj: Self
-	 * @err: Error propagation and reporting.
-	 *
-	 * An unique identifier for the symbol: pay attention that when engine re-parse
-	 * the files this id may change.
-	 *
-	 * Returns: 0 on error, otherwise the id of the symbol mapped in the db.
-	 */
-	gint get_id ();
-	
-	/**
-	 * ianjuta_symbol_get_name:
-	 * @obj: Self
-	 * @err: Error propagation and reporting.
-	 *
-	 * Returns: The name of the symbol
-	 */
-	const gchar *get_name ();
+
+	gboolean get_boolean (Field field);
+	gint get_int (Field field);
+	const gchar* get_string (Field field);
 	
 	/**
 	 * ianjuta_symbol_get_file:
 	 * @obj: Self
 	 * @err: Error propagation and reporting.
 	 *
-	 * Returns: The file where the symbol is declared in.
+	 * Returns: Convenience method to get GFile object for
+	 * #IANJUTA_SYMBOL_FIELD_FILE_PATH field. The file where the
+	 * symbol is declared.
 	 */
 	GFile *get_file();
-	
-	/**
-	 * ianjuta_symbol_get_line:
-	 * @obj: Self
-	 * @err: Error propagation and reporting.
-	 *
-	 * Returns: Line of the file the symbol is declared in.
-	 */	
-	gulong get_line ();	
-
-	/**
-	 * ianjuta_symbol_is_local:
-	 * @obj: Self
-	 * @err: Error propagation and reporting.
-	 *
-	 * Is the symbol a static (private) one?
-	 *
-	 * Returns: TRUE if the symbol is local (private, etc), FALSE elsewhere.
-	 */	
-	gboolean is_local ();
-	
-	/**
-	 *ianjuta_symbol_get_args:
-	 * @obj: Self
-	 * @err: Error propagation and reporting.
-	 *
- 	 *
-	 * If symbol has a kind "function" then this will return a string with the args of the
-	 * function itself.
-	 *
-	 * Returns: args as const string or NULL
-	 */	
-	const gchar *get_args ();
-
-	/**
-	 *ianjuta_symbol_get_returntype:
-	 * @obj: Self
-	 * @err: Error propagation and reporting.
-	 *
- 	 *
-	 * If symbol has a kind "function" then this will return a string with the 
-	 * return type of the function itself.
-	 *
-	 * Returns: returntype as const string or NULL
-	 */	
-	const gchar *get_returntype ();	
 	
 	/**
 	 * ianjuta_symbol_get_sym_type:
 	 * @obj: Self
 	 * @err: Error propagation and reporting.
 	 *
-	 * You can obtain an IAnjutaSymbolType of the symbol.
-	 * To have a string representation see ianjuta_symbol_get_extra_info_string ().
-	 * You *need* a symbol with #IANJUTA_SYMBOL_FIELD_TYPE enabled attribute. e.g. use ianjuta_symbol_manager_search
-	 * passing #IANJUTA_SYMBOL_FIELD_TYPE as info_fields.
+	 * Returns: Convenience method to get value of #IANJUTA_SYMBOL_FIELD_TYPE
+	 * field typecasted to IAnjutaSymbolType. Numerical value is unchanged.
 	 *
 	 * Returns: a #IAnjutaSymbolType
 	 */
 	Type get_sym_type ();
 	
 	/** 
-	 * ianjuta_symbol_get_extra_info_string:
-	 * @obj: Self
- 	 * @sym_info: Just one IANJUTA_SYMBOL_FIELD_* per time. It is NOT possible to pass something like
-	 * FIELD_1 | FIELD_2 | ....
-	 * Note: You will not have anything passing IANJUTA_SYMBOL_FIELD_SIMPLE, just a NULL value.
-	 * 
-	 * @err: Error propagation and reporting.
-	 *
-	 * Returns: a string representation of the field required. For instance passing
-	 * IANJUTA_SYMBOL_FIELD_FILE_PATH you'll have a const gchar* representing the absolute file path, 
-	 * passing IANJUTA_SYMBOL_FIELD_ACCESS the access attribute, as "public", "private", etc.
- 	 */
-	const gchar *get_extra_info_string (Field sym_info);
-
-	/** 
 	 * ianjuta_symbol_get_icon:
 	 * @obj: Self
 	 * @err: Error propagation and reporting.
 	 *
-	 * You *need* a symbol with #IANJUTA_SYMBOL_FIELD_ACCESS | 
-	 * #IANJUTA_SYMBOL_FIELD_KIND enabled attribute. e.g. use 
-	 * ianjuta_symbol_manager_search passing #IANJUTA_SYMBOL_FIELD_ACCESS | 
-	 * #IANJUTA_SYMBOL_FIELD_KIND as info_fields.
+	 * You *need* a query with #IANJUTA_SYMBOL_FIELD_ACCESS | 
+	 * #IANJUTA_SYMBOL_FIELD_KIND fields enabled. Gives a convenient
+	 * 16x16 icon for the symbol.
 	 *
 	 * Returns: a Pixbuf icon representing the symbol. 
 	 */
