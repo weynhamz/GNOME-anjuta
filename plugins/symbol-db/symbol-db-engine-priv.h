@@ -292,6 +292,7 @@ struct _SymbolDBEnginePriv
 	AnjutaLauncher *ctags_launcher;
 	GList *removed_launchers;
 	gboolean shutting_down;
+	gboolean is_first_population;
 	
 	GMutex* mutex;
 	GAsyncQueue* signals_queue;
@@ -313,6 +314,9 @@ struct _SymbolDBEnginePriv
 
 	/* Table maps */
 	GQueue *tmp_heritage_tablemap;
+	GHashTable *sym_type_tablemap_hash;
+	GQueue *sym_type_tablemap_queue;
+	guint sym_type_tablemap_id;
 	
 	GTree *file_symbols_cache;		
 	
