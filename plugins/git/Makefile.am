@@ -18,7 +18,9 @@ git_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin) \
 	git-branches-pane.c\
 	git-branches-pane.h\
 	git-pane.c        \
-	git-pane.h
+	git-pane.h        \
+	git-merge-pane.c        \
+	git-merge-pane.h
 
 # NOTE :
 # The naming convention is very intentional
@@ -167,7 +169,9 @@ libanjuta_git_la_SOURCES = \
 	git-delete-branches-pane.c \
 	git-delete-branch-pane.h \
 	git-switch-branch-pane.c \
-	git-switch-branch-pane.h
+	git-switch-branch-pane.h \
+	git-merge-pane.c \
+	git-merge-pane.h
 
 libanjuta_git_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 

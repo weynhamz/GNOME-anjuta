@@ -98,3 +98,20 @@ git_pane_on_command_info_arrived (AnjutaCommand *command, Git *plugin)
 		g_free (message);
 	}
 }
+
+void
+git_pane_set_log_view_column_label (GtkTextBuffer *buffer, 
+                                    GtkTextIter *location,
+                                    GtkTextMark *mark,
+                                    GtkLabel *column_label)
+{
+	gint column;
+	gchar *text;
+
+	column = gtk_text_iter_get_line_offset (location) + 1;
+	text = g_strdup_printf (_("Column %i"), column);
+
+	gtk_label_set_text (column_label, text);
+
+	g_free (text);
+}

@@ -25,6 +25,7 @@
 #include "git-create-branch-pane.h"
 #include "git-delete-branches-pane.h"
 #include "git-switch-branch-pane.h"
+#include "git-merge-pane.h"
 
 AnjutaCommandBarEntry branch_entries[] =
 {
@@ -59,6 +60,14 @@ AnjutaCommandBarEntry branch_entries[] =
 		N_("Switch to the selected branch"),
 		GTK_STOCK_JUMP_TO,
 		G_CALLBACK (on_switch_branch_button_clicked)
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"Merge",
+		N_("Merge"),
+		N_("Merge a revision into the current branch"),
+		GTK_STOCK_CONVERT,
+		G_CALLBACK (on_merge_button_clicked)
 	}
 };
 

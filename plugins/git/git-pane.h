@@ -52,6 +52,10 @@ GType git_pane_get_type (void) G_GNUC_CONST;
 /* Static helper methods */
 void git_pane_create_message_view (Git *plugin);
 void git_pane_on_command_info_arrived (AnjutaCommand *command, Git *plugin);
+void git_pane_set_log_view_column_label (GtkTextBuffer *buffer, 
+                                         GtkTextIter *location,
+                                         GtkTextMark *mark,
+                                         GtkLabel *column_label);
 
 G_END_DECLS
 
