@@ -965,9 +965,23 @@ anjuta_launcher_execution_done_cleanup (AnjutaLauncher *launcher,
 	if (launcher->priv->pty_output_buffer)
 		g_free (launcher->priv->pty_output_buffer);
 	if (launcher->priv->stdout_buffer)
+	{
+		/* Send remaining data if last line is not terminated with EOL */
+		(launcher->priv->output_callback)(launcher,
+			       ANJUTA_LAUNCHER_OUTPUT_STDOUT,
+			       launcher->priv->stdout_buffer,
+			       launcher->priv->callback_data);
 		g_free (launcher->priv->stdout_buffer);
+	}
 	if (launcher->priv->stderr_buffer)
+	{
+		/* Send remaining data if last line is not terminated with EOL */
+		(launcher->priv->output_callback)(launcher,
+			       ANJUTA_LAUNCHER_OUTPUT_STDERR,
+			       launcher->priv->stderr_buffer,
+			       launcher->priv->callback_data);
 		g_free (launcher->priv->stdout_buffer);
+	}
 	
 	/* Save them before we re-initialize */
 	child_status = launcher->priv->child_status;
