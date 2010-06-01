@@ -334,7 +334,7 @@ on_filter_button_tooltip (GtkWidget* widget,
 {
 	gchar* temp = NULL;
 	MessageView* view = anjuta_msgman_get_current_view (ANJUTA_MSGMAN(plugin->msgman));
-	if (view)
+	if (!view)
 		return FALSE;
 	if (widget == plugin->normal)
 	{
