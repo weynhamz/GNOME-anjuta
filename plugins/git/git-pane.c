@@ -62,9 +62,9 @@ git_pane_create_message_view (Git *plugin)
 		
 	message_manager = anjuta_shell_get_interface  (ANJUTA_PLUGIN (plugin)->shell,	
 												   IAnjutaMessageManager, NULL);
-	plugin->message_view =  ianjuta_message_manager_get_view_by_name (message_manager, 
-																	  _("Git"), 
-																	  NULL);
+	plugin->message_view = ianjuta_message_manager_get_view_by_name (message_manager, 
+																	 _("Git"), 
+																	 NULL);
 	if (!plugin->message_view)
 	{
 		plugin->message_view = ianjuta_message_manager_add_view (message_manager, 
