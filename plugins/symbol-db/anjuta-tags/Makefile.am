@@ -142,5 +142,6 @@ if ENABLE_VALA
 anjuta_tags_SOURCES += vala.c ctags-visitor.c
 AM_CPPFLAGS += -DENABLE_VALA
 BUILT_SOURCES = ctags-visitor.c
+DISTCLEANFILES = ctags-visitor.c ctags-vala.h
 endif
 

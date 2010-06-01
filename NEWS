@@ -1,3 +1,15 @@
+Anjuta 2.31.2 "There are no ugly girls, just lazy ones" (25 May 2010) -- Johannes Schmid
+
+New:
+- class-inheritance is included using libfoocanvas
+
+Bugs fixed:
+file-wizard: #616810 Error when creating new c source and header
+language-support-cpp-java: bgo#618314  - Anjuta crash on while editing
+symbol-db: Fixes #bgo 617433 Tab switching is slow because of rescanned symbols
+symbol-db: Partially fixes bgo #615429: Optimize global and local views sql queries
+libanjuta: Completes fixing bgo #615428: new column is_container
+
 Anjuta 2.31.1 "Better late than never" (6 May 2010) -- Johannes Schmid
 
 New:

@@ -1,110 +1,7 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy toplevel-contextual -->
-  <object class="GtkAdjustment" id="adjustment1">
-    <property name="value">50</property>
-    <property name="lower">1</property>
-    <property name="upper">1000</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
-  </object>
-  <object class="GtkAdjustment" id="adjustment2">
-    <property name="value">50</property>
-    <property name="lower">1</property>
-    <property name="upper">1000</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
-  </object>
-  <object class="GtkListStore" id="model1">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">Top</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Bottom</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Left</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Right</col>
-      </row>
-    </data>
-  </object>
-  <object class="GtkListStore" id="model2">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes" comments="text style in editor">Underline-Plain</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes" comments="text style in editor">Underline-Squiggle</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes" comments="text style in editor, TT is for typewriter text">Underline-TT</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes" comments="text style in editor">Diagonal</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes" comments="text style in editor">Strike-Out</col>
-      </row>
-    </data>
-  </object>
-  <object class="GtkListStore" id="model3">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">Underline-Plain</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Underline-Squiggle</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Underline-TT</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Diagonal</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Strike-Out</col>
-      </row>
-    </data>
-  </object>
-  <object class="GtkListStore" id="model4">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">Underline-Plain</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Underline-Squiggle</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Underline-TT</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Diagonal</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Strike-Out</col>
-      </row>
-    </data>
-  </object>
   <object class="GtkWindow" id="preferences_dialog_messages">
     <property name="title" translatable="yes">window6</property>
     <child>
@@ -124,19 +21,6 @@
                 <property name="n_columns">2</property>
                 <property name="column_spacing">5</property>
                 <property name="row_spacing">5</property>
-                <child>
-                  <object class="GtkLabel" id="label138">
-                    <property name="visible">True</property>
-                    <property name="xalign">0</property>
-                    <property name="label" translatable="yes">Tab position:</property>
-                  </object>
-                  <packing>
-                    <property name="top_attach">3</property>
-                    <property name="bottom_attach">4</property>
-                    <property name="x_options">GTK_FILL</property>
-                    <property name="y_options"></property>
-                  </packing>
-                </child>
                 <child>
                   <object class="GtkSpinButton" id="preferences_spin:int:50:0:truncat.mesg.first">
                     <property name="can_focus">True</property>
@@ -207,23 +91,10 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkComboBox" id="preferences_combo:text:Top,Bottom,Left,Right:0:messages.tab.position">
-                    <property name="visible">True</property>
-                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                    <property name="model">model1</property>
-                    <child>
-                      <object class="GtkCellRendererText" id="renderer1"/>
-                      <attributes>
-                        <attribute name="text">0</attribute>
-                      </attributes>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="left_attach">1</property>
-                    <property name="right_attach">2</property>
-                    <property name="top_attach">3</property>
-                    <property name="bottom_attach">4</property>
-                  </packing>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
                 </child>
                 <child>
                   <placeholder/>
@@ -382,7 +253,7 @@
                 <property name="column_spacing">5</property>
                 <property name="row_spacing">5</property>
                 <child>
-                  <object class="GtkColorButton" id="preferences_color:color:#E00000:0:messages.color.error">
+                  <object class="GtkColorButton" id="preferences_color:color:#FF0000:0:messages.color.error">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
@@ -395,7 +266,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkColorButton" id="preferences_color:color:#F05000:0:messages.color.warning">
+                  <object class="GtkColorButton" id="preferences_color:color:#00FF00:0:messages.color.warning">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
@@ -458,5 +329,108 @@
         </child>
       </object>
     </child>
+  </object>
+  <object class="GtkListStore" id="model4">
+    <columns>
+      <!-- column-name gchararray -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">Underline-Plain</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Underline-Squiggle</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Underline-TT</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Diagonal</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Strike-Out</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkListStore" id="model3">
+    <columns>
+      <!-- column-name gchararray -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">Underline-Plain</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Underline-Squiggle</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Underline-TT</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Diagonal</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Strike-Out</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkListStore" id="model2">
+    <columns>
+      <!-- column-name gchararray -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes" comments="text style in editor">Underline-Plain</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes" comments="text style in editor">Underline-Squiggle</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes" comments="text style in editor, TT is for typewriter text">Underline-TT</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes" comments="text style in editor">Diagonal</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes" comments="text style in editor">Strike-Out</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkListStore" id="model1">
+    <columns>
+      <!-- column-name gchararray -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">Top</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Bottom</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Left</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Right</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkAdjustment" id="adjustment2">
+    <property name="lower">1</property>
+    <property name="upper">1000</property>
+    <property name="value">50</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="adjustment1">
+    <property name="lower">1</property>
+    <property name="upper">1000</property>
+    <property name="value">50</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
   </object>
 </interface>
