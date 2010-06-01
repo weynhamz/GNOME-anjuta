@@ -29,7 +29,7 @@ typedef struct _NPWHeaderList NPWHeaderList;
 NPWHeader* npw_header_new (void);
 void npw_header_free (NPWHeader* self);
 
-void npw_header_set_name (NPWHeader* this, const gchar* name);
+void npw_header_set_name (NPWHeader* this, const gchar* name, gint lang);
 const gchar* npw_header_get_name (const NPWHeader* self);
 
 void npw_header_set_filename (NPWHeader* this, const gchar* filename);
@@ -38,7 +38,7 @@ const gchar* npw_header_get_filename (const NPWHeader* self);
 void npw_header_set_category (NPWHeader* this, const gchar* category);
 const gchar* npw_header_get_category(const NPWHeader* self);
 
-void npw_header_set_description (NPWHeader* this, const gchar* description);
+void npw_header_set_description (NPWHeader* this, const gchar* description, gint lang);
 const gchar* npw_header_get_description (const NPWHeader* self);
 
 void npw_header_set_iconfile (NPWHeader* this, const gchar* confile);

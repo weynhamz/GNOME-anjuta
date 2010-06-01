@@ -215,7 +215,7 @@ cb_druid_add_summary_property (NPWProperty* property, gpointer user_data)
 	if (npw_property_get_options (property) & NPW_SUMMARY_OPTION)
 	{
 		g_string_append_printf (text, "%s %s\n",
-								_(npw_property_get_label (property)), 
+								npw_property_get_label (property), 
 								npw_property_get_value (property));
 	}
 }
@@ -233,7 +233,7 @@ npw_druid_fill_summary_page (NPWDruid* druid)
 
 	/* The project type is translated too, it is something like
 	 * generic, GNOME applet, Makefile project... */
-	g_string_append_printf (text, _("Project Type: %s\n"), _(npw_header_get_name (druid->header)));
+	g_string_append_printf (text, _("Project Type: %s\n"), npw_header_get_name (druid->header));
 
 	for (i = 0; (page = g_queue_peek_nth (druid->page_list, i)) != NULL; ++i)
 	{
@@ -291,8 +291,8 @@ cb_druid_insert_project_icon (gpointer data, gpointer user_data)
 	gtk_list_store_append (store, &iter);
 	pixbuf = gdk_pixbuf_new_from_file (npw_header_get_iconfile (header), NULL);
 	gtk_list_store_set (store, &iter, PIXBUF_COLUMN, pixbuf,
-						TEXT_COLUMN, _(npw_header_get_name (header)),
-						DESC_COLUMN, _(npw_header_get_description (header)),
+						TEXT_COLUMN, npw_header_get_name (header),
+						DESC_COLUMN, npw_header_get_description (header),
 						DATA_COLUMN, header,
 						-1);
 	
@@ -442,7 +442,7 @@ cb_druid_add_property (NPWProperty* property, gpointer user_data)
 
 		/* Add label and entry */
 		gtk_table_resize (data->table, data->row + 1, 2);
-		label = gtk_label_new (_(npw_property_get_label (property)));
+		label = gtk_label_new (npw_property_get_label (property));
 		gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
 		gtk_misc_set_padding (GTK_MISC (label), 6, 6);
 		gtk_table_attach (data->table, label, 0, 1, data->row, data->row + 1,
@@ -466,7 +466,7 @@ npw_druid_fill_property_page (NPWDruid* druid, NPWPage* page)
 	gtk_container_foreach (GTK_CONTAINER (npw_page_get_widget (page)), cb_druid_destroy_widget, NULL);
  		
 	/* Update title	*/
-	gtk_assistant_set_page_title (GTK_ASSISTANT (druid->window), widget, _(npw_page_get_label (page)));
+	gtk_assistant_set_page_title (GTK_ASSISTANT (druid->window), widget, npw_page_get_label (page));
 
 	/* Add new widget */
 	data.druid = druid;
@@ -592,7 +592,7 @@ cb_save_valid_property (NPWProperty* property, gpointer user_data)
 		{
 			g_string_append_printf (data->error,
 									_("\nField \"%s\" is mandatory. Please enter it."),
-									_(npw_property_get_label (property)));
+									npw_property_get_label (property));
 			npw_property_remove_value (property);
 		}
 	}
@@ -607,12 +607,12 @@ cb_save_valid_property (NPWProperty* property, gpointer user_data)
 		case NPW_FILENAME_RESTRICTION:
 			g_string_append_printf (data->error,
 									_("Field \"%s\" must start with a letter, a digit or an underscore and contain only letters, digits, underscore, minus and dot. Please fix it."),
-									_(npw_property_get_label (property)));
+									npw_property_get_label (property));
 			break;
 		case NPW_DIRECTORY_RESTRICTION:
 			g_string_append_printf (data->error,
 									_("Field \"%s\" must start with a letter, a digit, an underscore or a directory separator and contain only letters, digits, underscore, directory separator, minus and dot. Please fix it."),
-									_(npw_property_get_label (property)));
+									npw_property_get_label (property));
 			break;
 		default:
 			g_string_append_printf (data->error,

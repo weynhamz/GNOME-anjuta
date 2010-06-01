@@ -30,13 +30,17 @@
 #include "header.h"
 
 #include <glib.h>
+#include <glib/gi18n.h>
+
 #include <libanjuta/anjuta-utils.h>
 
 /*---------------------------------------------------------------------------*/
 
 struct _NPWHeader {
 	gchar* name;
+	gint name_lang;
 	gchar* description;
+	gint description_lang;
 	gchar* iconfile;
 	gchar* category;
 	gchar* filename;
@@ -60,6 +64,8 @@ npw_header_new (void)
 void
 npw_header_free (NPWHeader* self)
 {
+	if (self == NULL) return;
+	
 	g_free (self->name);
 	g_free (self->description);
 	g_free (self->iconfile);
@@ -67,23 +73,30 @@ npw_header_free (NPWHeader* self)
 	g_free (self->filename);
 	g_list_free (self->required_programs);
 	g_list_free (self->required_packages);
+	g_slice_free (NPWHeader, self);
 }
 
 void
-npw_header_set_name (NPWHeader* self, const gchar* name)
+npw_header_set_name (NPWHeader* self, const gchar* name, gint lang)
 {
-	self->name = g_strdup (name);
+	if (lang >= self->name_lang)
+	{
+		g_free (self->name);
+		self->name = g_strdup (name);
+		self->name_lang = lang;
+	}
 }
 
 const gchar*
 npw_header_get_name (const NPWHeader* self)
 {
-	return self->name;
+	return self->name_lang == 0 ? _(self->name) : self->name;
 }
 
 void
 npw_header_set_filename (NPWHeader* self, const gchar* filename)
 {
+	g_free (self->filename);
 	self->filename = g_strdup (filename);
 }
 
@@ -96,6 +109,7 @@ npw_header_get_filename (const NPWHeader* self)
 void
 npw_header_set_category (NPWHeader* self, const gchar* category)
 {
+	g_free (self->category);
 	self->category =g_strdup (category);
 }
 
@@ -106,20 +120,26 @@ npw_header_get_category (const NPWHeader* self)
 }
 
 void
-npw_header_set_description (NPWHeader* self, const gchar* description)
+npw_header_set_description (NPWHeader* self, const gchar* description, gint lang)
 {
-	self->description = g_strdup (description);
+	if (lang >= self->description_lang)
+	{
+		g_free (self->description);
+		self->description = g_strdup (description);
+		self->description_lang = lang;
+	}
 }
 
 const gchar*
 npw_header_get_description (const NPWHeader* self)
 {
-	return self->description;
+	return self->description_lang == 0 ? _(self->description) : self->description;
 }
 
 void
 npw_header_set_iconfile (NPWHeader* self, const gchar* iconfile)
 {
+	g_free (self->iconfile);
 	self->iconfile = g_strdup (iconfile);
 }
 
@@ -210,7 +230,7 @@ npw_header_list_free (GList* list)
 static gint
 compare_header_name (NPWHeader *a, NPWHeader *b)
 {
-	return g_ascii_strcasecmp (npw_header_get_name (a), npw_header_get_name (b));
+	return g_utf8_collate (npw_header_get_name (a), npw_header_get_name (b));
 }
 
 GList *
