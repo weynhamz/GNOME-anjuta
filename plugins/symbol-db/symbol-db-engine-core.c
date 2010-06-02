@@ -254,7 +254,10 @@ static void
 sdb_engine_second_pass_do (SymbolDBEngine * dbe);
 
 static void
-sdb_engine_sym_type_tablemap_db_flush (SymbolDBEngine * dbe);
+sdb_engine_tablemap_db_flush_sym_type (SymbolDBEngine * dbe);
+
+static void
+sdb_engine_tablemap_db_flush_scope_def (SymbolDBEngine * dbe);
 
 void
 sdb_engine_dyn_child_query_node_destroy (gpointer data);
@@ -327,7 +330,7 @@ sdb_engine_table_map_tmp_heritage_destroy (TableMapTmpHeritage *node)
 }
 
 static void
-sdb_engine_clear_table_maps (SymbolDBEngine *dbe)
+sdb_engine_clear_tablemaps (SymbolDBEngine *dbe)
 {
 	SymbolDBEnginePriv *priv = dbe->priv;
 	if (priv->tmp_heritage_tablemap)
@@ -342,6 +345,40 @@ sdb_engine_clear_table_maps (SymbolDBEngine *dbe)
 		g_queue_free (priv->tmp_heritage_tablemap);
 		priv->tmp_heritage_tablemap = NULL;
 	}
+
+	if (priv->sym_type_tablemap_queue)
+	{
+		/* as said on population, queue elements shoudn't be freed here.
+		 * They'll automatically be freed when hash table'll be destroyed 
+		 */
+		g_queue_clear (priv->sym_type_tablemap_queue);
+		g_queue_free (priv->sym_type_tablemap_queue);
+		priv->sym_type_tablemap_queue = NULL;
+	}
+	
+	if (priv->sym_type_tablemap_hash)
+	{
+		g_hash_table_destroy (priv->sym_type_tablemap_hash);
+		priv->sym_type_tablemap_hash = NULL;
+	}
+
+	/* reset also the counter, even if it wouldn't be necessary */
+	priv->sym_type_tablemap_id = 1;
+
+	if (priv->scope_def_tablemap_queue)
+	{
+		g_queue_clear (priv->scope_def_tablemap_queue);
+		g_queue_free (priv->scope_def_tablemap_queue);
+		priv->scope_def_tablemap_queue = NULL;		
+	}
+	
+	if (priv->scope_def_tablemap_hash)
+	{
+		g_hash_table_destroy (priv->scope_def_tablemap_hash);
+		priv->scope_def_tablemap_hash = NULL;
+	}
+
+	priv->scope_def_tablemap_id = 1;
 }
 
 static void
@@ -375,7 +412,14 @@ sdb_engine_init_table_maps (SymbolDBEngine *dbe)
 	    													NULL);	    													
 	priv->sym_type_tablemap_queue = g_queue_new ();
 	priv->sym_type_tablemap_id = 1;
-	
+
+	/* scope_def_tablemap */
+	priv->scope_def_tablemap_hash = g_hash_table_new_full (g_str_hash,
+	    													g_str_equal,
+	    													g_free,
+	    													NULL);
+	priv->scope_def_tablemap_queue = g_queue_new ();
+	priv->scope_def_tablemap_id = 1;
 }
 
 static void
@@ -1665,14 +1709,16 @@ sdb_engine_ctags_output_thread (gpointer data, gpointer user_data)
 					gint tmp_inserted;
 					gint tmp_updated;
 
-					/* proceed with second passes */
+					/* scan has ended. Go go with second step. */
 					DEBUG_PRINT ("%s", "FOUND end-of-group-files marker."
 								 "go on with sdb_engine_second_pass_do ()");
 					
 					chars_ptr += len_marker;
 					remaining_chars -= len_marker;
 					
-					/* will emit symbol_scope_updated */
+					/* will emit symbol_scope_updated and will flush on disk 
+					 * tablemaps
+					 */
 					sdb_engine_second_pass_do (dbe);					
 					
 					/* Here we are. It's the right time to notify the listeners
@@ -1790,9 +1836,6 @@ sdb_engine_timeout_trigger_signals (gpointer user_data)
 					/* perform flush on db of the tablemaps, if this is the 1st scan */
 					if (priv->is_first_population == TRUE)
 					{
-						sdb_engine_sym_type_tablemap_db_flush (dbe);
-
-
 						/* ok, set the flag to false. We're done with it */
 						priv->is_first_population = FALSE;
 					}
@@ -2768,7 +2811,7 @@ sdb_engine_finalize (GObject * object)
 		g_async_queue_unref (priv->signals_queue);
 	
 	sdb_engine_clear_caches (dbe);
-	sdb_engine_clear_table_maps (dbe);
+	sdb_engine_clear_tablemaps (dbe);
 
 	g_free (priv->anjuta_db_file);
 	priv->anjuta_db_file = NULL;
@@ -4115,83 +4158,69 @@ sdb_engine_extract_type_qualifier (const gchar *string, const gchar *expr)
 }
 
 static void
-sdb_engine_sym_type_tablemap_db_flush (SymbolDBEngine * dbe)
+sdb_engine_tablemap_db_flush_sym_type (SymbolDBEngine * dbe)
 {
-	GString *transaction_str;
 	SymbolDBEnginePriv *priv;
 	gint i;
 	gint queue_length;
-
-	priv = dbe->priv;
-	DEBUG_PRINT ("Preparing SYM_TYPE flush on db");
-
-	GTimer *sym_timer_DEBUG  = g_timer_new ();	
-	
-	transaction_str = g_string_new ("BEGIN TRANSACTION;");
-
-	queue_length = g_queue_get_length (priv->sym_type_tablemap_queue);
-#if 0		
-	for (i = 0; i < queue_length; i++)
-	{
-		gchar * value = g_queue_pop_head (priv->sym_type_tablemap_queue);
-		gchar **tokens = g_strsplit (value, "|", 2);
-		
-		g_string_append_printf (transaction_str, 
-		    "INSERT INTO sym_type (type_type, type_name) VALUES ('%s', '%s');", 
-	    				tokens[0], tokens[1]);
-		
-		g_strfreev(tokens);
-		/* no need to free value, it'll be freed when associated value 
-		 * on hashtable'll be freed
-		 */
-	}
-#endif
-
 	const GdaSet *plist;
 	const GdaStatement *stmt;
-	GdaHolder *param;
-	GdaSet *last_inserted = NULL;
+	GdaHolder *param_type;
+	GdaHolder *param_typename;
 	GValue *ret_value;
 	gboolean ret_bool;
+	GError *error = NULL;
+	
 
-	gda_connection_begin_transaction (priv->db_connection, "symtype", 
-	    GDA_TRANSACTION_ISOLATION_SERIALIZABLE, NULL);
-		
-		
+	priv = dbe->priv;
+	
+	DEBUG_PRINT ("Preparing SYM_TYPE flush on db");
+#ifdef DEBUG
+	GTimer *sym_timer_DEBUG  = g_timer_new ();	
+#endif	
+
+	queue_length = g_queue_get_length (priv->sym_type_tablemap_queue);
+
+	gda_connection_begin_transaction (priv->db_connection, "symtypetrans", 
+	    GDA_TRANSACTION_ISOLATION_READ_UNCOMMITTED, &error);
+
+	if (error)
+	{
+		g_warning (error->message);
+		g_object_unref (error);
+		error = NULL;
+	}
+
+	if ((stmt = sdb_engine_get_statement_by_query_id (dbe, PREP_QUERY_SYM_TYPE_NEW))
+		== NULL)
+	{
+		g_warning ("query is null");
+		return;
+	}
+
+	plist = sdb_engine_get_query_parameters_list (dbe, PREP_QUERY_SYM_TYPE_NEW);	
+
+	/* type parameter */
+	if ((param_type = gda_set_get_holder ((GdaSet*)plist, "type")) == NULL)
+	{
+		g_warning ("param type is NULL from pquery!");
+		return;
+	}
+	
+	/* type_name parameter */
+	if ((param_typename = gda_set_get_holder ((GdaSet*)plist, "typename")) == NULL)
+	{
+		g_warning ("param typename is NULL from pquery!");
+		return;
+	}
+	
 	for (i = 0; i < queue_length; i++)
 	{
 		gchar * value = g_queue_pop_head (priv->sym_type_tablemap_queue);
+		gchar **tokens = g_strsplit (value, "|", 2);		
 
-		DEBUG_DUMP_HASH_VALUES (value);
-		
-		gchar **tokens = g_strsplit (value, "|", 2);
-		
-		if ((stmt = sdb_engine_get_statement_by_query_id (dbe, PREP_QUERY_SYM_TYPE_NEW))
-			== NULL)
-		{
-			g_warning ("query is null");
-			return -1;
-		}
-
-		plist = sdb_engine_get_query_parameters_list (dbe, PREP_QUERY_SYM_TYPE_NEW);
-
-		/* type parameter */
-		if ((param = gda_set_get_holder ((GdaSet*)plist, "type")) == NULL)
-		{
-			g_warning ("param type is NULL from pquery!");
-			return -1;
-		}
-
-		MP_SET_HOLDER_BATCH_STR(priv, param, tokens[0], ret_bool, ret_value);
-
-		/* type_name parameter */
-		if ((param = gda_set_get_holder ((GdaSet*)plist, "typename")) == NULL)
-		{
-			g_warning ("param typename is NULL from pquery!");
-			return -1;
-		}
-		
-		MP_SET_HOLDER_BATCH_STR(priv, param, tokens[1], ret_bool, ret_value);
+		MP_SET_HOLDER_BATCH_STR(priv, param_type, tokens[0], ret_bool, ret_value);		
+		MP_SET_HOLDER_BATCH_STR(priv, param_typename, tokens[1], ret_bool, ret_value);
 
 		/* execute the query with parametes just set */
 		gda_connection_statement_execute_non_select (priv->db_connection, 
@@ -4203,35 +4232,24 @@ sdb_engine_sym_type_tablemap_db_flush (SymbolDBEngine * dbe)
 		/* no need to free value, it'll be freed when associated value 
 		 * on hashtable'll be freed
 		 */
-
+		MP_RESET_PLIST(plist);
 	}
 
-	gda_connection_commit_transaction (priv->db_connection, "symtype", NULL);
+	gda_connection_commit_transaction (priv->db_connection, "symtypetrans", &error);
+
+	if (error)
+	{
+		g_warning (error->message);
+		g_object_unref (error);
+		error = NULL;
+	}
 	
+#ifdef DEBUG	
 	gdouble elapsed_DEBUG = g_timer_elapsed (sym_timer_DEBUG, NULL);	
 	DEBUG_PRINT ("===== elapsed using GDA TRANSACTION: %f", elapsed_DEBUG);
-
-	
-#if 0	
-	transaction_str = g_string_append (transaction_str, "COMMIT;");
-	
-	gdouble elapsed_DEBUG = g_timer_elapsed (sym_timer_DEBUG, NULL);	
-	DEBUG_PRINT ("elapsed string building: %f", elapsed_DEBUG);
-	g_timer_reset (sym_timer_DEBUG);
-	
-
-	DEBUG_WRITE_SQL_LOG (transaction_str->str);
-	
-	/* we're ready to execute the transaction */
-	sdb_engine_execute_non_select_sql (dbe, transaction_str->str);
-
-	elapsed_DEBUG = g_timer_elapsed (sym_timer_DEBUG, NULL);	
-	DEBUG_PRINT ("elapsed sql executing: %f", elapsed_DEBUG);
 	g_timer_destroy (sym_timer_DEBUG);
+#endif
 	
-	g_string_free (transaction_str, TRUE);
-	DEBUG_PRINT ("DONE");
-#endif	
 }
 
 /* ### Thread note: this function inherits the mutex lock ### */
@@ -4241,7 +4259,7 @@ sdb_engine_add_new_sym_type_1st (SymbolDBEngine * dbe, const tagEntry * tag_entr
 {
 	SymbolDBEnginePriv *priv;	
 	gchar *key_to_find;
-	gpointer *value;
+	gpointer value;
 	gint table_id;
 
 	priv = dbe->priv;
@@ -4272,6 +4290,9 @@ sdb_engine_add_new_sym_type_1st (SymbolDBEngine * dbe, const tagEntry * tag_entr
 	{
 		/* fine, return the id found */
 		table_id = GPOINTER_TO_INT (value);
+
+		/* and free key_to_find */
+		g_free (key_to_find);
 	}
 
 	return table_id;
@@ -4766,6 +4787,144 @@ sdb_engine_add_new_heritage (SymbolDBEngine * dbe, gint base_symbol_id,
 	MP_RESET_PLIST(plist);
 }
 
+static void
+sdb_engine_tablemap_db_flush_scope_def (SymbolDBEngine * dbe)
+{
+	SymbolDBEnginePriv *priv;
+	gint i;
+	gint queue_length;
+	const GdaSet *plist;
+	const GdaStatement *stmt;
+	GdaHolder *param;
+	GValue *ret_value;
+	gboolean ret_bool;
+	GError *error = NULL;
+
+	priv = dbe->priv;
+	DEBUG_PRINT ("Preparing SCOPE flush on db");
+#ifdef DEBUG
+	GTimer *sym_timer_DEBUG  = g_timer_new ();
+#endif
+	queue_length = g_queue_get_length (priv->scope_def_tablemap_queue);
+
+	gda_connection_begin_transaction (priv->db_connection, "scopetrans", 
+	    GDA_TRANSACTION_ISOLATION_READ_UNCOMMITTED, &error);
+	
+	if (error)
+	{
+		g_warning (error->message);
+		g_object_unref (error);
+		error = NULL;
+	}
+	
+	if ((stmt = sdb_engine_get_statement_by_query_id (dbe, PREP_QUERY_SCOPE_NEW))
+		== NULL)
+	{
+		g_warning ("query is null");
+		return;
+	}
+
+	plist = sdb_engine_get_query_parameters_list (dbe, PREP_QUERY_SCOPE_NEW);
+	
+	for (i = 0; i < queue_length; i++)
+	{
+		gchar * value = g_queue_pop_head (priv->scope_def_tablemap_queue);
+		gchar **tokens = g_strsplit (value, "|", 2);		
+
+		/* type parameter */
+		if ((param = gda_set_get_holder ((GdaSet*)plist, "scope")) == NULL)
+		{
+			g_warning ("param type is NULL from pquery!");
+			return;
+		}
+
+		MP_SET_HOLDER_BATCH_STR(priv, param, tokens[0], ret_bool, ret_value);
+
+		/* type_name parameter */
+		if ((param = gda_set_get_holder ((GdaSet*)plist, "typeid")) == NULL)
+		{
+			g_warning ("param typename is NULL from pquery!");
+			return;
+		}
+		
+		MP_SET_HOLDER_BATCH_INT(priv, param, atoi (tokens[1]), ret_bool, ret_value);
+
+		/* execute the query with parametes just set */
+		gda_connection_statement_execute_non_select (priv->db_connection, 
+														 (GdaStatement*)stmt, 
+														 (GdaSet*)plist, NULL,
+														 NULL);
+
+		g_strfreev(tokens);
+		/* no need to free value, it'll be freed when associated value 
+		 * on hashtable'll be freed
+		 */
+		
+		MP_RESET_PLIST(plist);
+	}	
+	
+	gda_connection_commit_transaction (priv->db_connection, "scopetrans", &error);
+	
+	if (error)
+	{
+		g_warning (error->message);
+		g_object_unref (error);
+		error = NULL;
+	}
+	
+#ifdef DEBUG	
+	gdouble elapsed_DEBUG = g_timer_elapsed (sym_timer_DEBUG, NULL);	
+	DEBUG_PRINT ("===== elapsed using GDA TRANSACTION: %f", elapsed_DEBUG);
+	g_timer_destroy (sym_timer_DEBUG);
+#endif	
+	
+}
+
+static gint
+sdb_engine_add_new_scope_definition_1st (SymbolDBEngine *dbe, const tagEntry *tag_entry,
+    								gint type_table_id, const gchar* scope)
+{
+	SymbolDBEnginePriv *priv;
+	gpointer value;
+	gint table_id;
+	gchar *key_to_find;
+
+	priv = dbe->priv;
+
+	key_to_find = g_strdup_printf ("%s|%d", scope, type_table_id);
+	
+	/* use a check-first, insert later pattern. Have a look at the hashtable if 
+	 * we find the correct key
+	 */
+	value = g_hash_table_lookup (priv->scope_def_tablemap_hash, key_to_find);
+
+	if (value == NULL)
+	{
+		gint new_id = priv->scope_def_tablemap_id++;
+			
+		/* no value has been found, proceed with insertion */
+		g_hash_table_insert (priv->scope_def_tablemap_hash, key_to_find, 
+		    		GINT_TO_POINTER (new_id));
+
+		/* insert the key_to_find also in the queue.
+		 * we won't dup the gchar, so that it'll be freed once the hash table'll be
+		 * destroyed 
+		 */
+		g_queue_push_tail (priv->scope_def_tablemap_queue, key_to_find);
+		
+		table_id = new_id;
+	}
+	else 
+	{
+		/* fine, return the id found */
+		table_id = GPOINTER_TO_INT (value);
+		
+		g_free (key_to_find);
+	}
+
+	return table_id;
+}
+
 /* ### Thread note: this function inherits the mutex lock ### */
 static GNUC_INLINE gint
 sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, const tagEntry * tag_entry,
@@ -4785,8 +4944,7 @@ sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, const tagEntry * tag_
 	GdaHolder *param;
 	GdaSet *last_inserted = NULL;
 	GValue *ret_value;
-	gboolean ret_bool;
-	
+	gboolean ret_bool;	
 	SymbolDBEnginePriv *priv;
 
 	g_return_val_if_fail (tag_entry->kind != NULL, -1);
@@ -4807,6 +4965,14 @@ sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, const tagEntry * tag_
 		return -1;
 	}
 
+	/* is this the first population? if yes skip to the proper function */
+	if (priv->is_first_population == TRUE)
+	{
+		table_id = sdb_engine_add_new_scope_definition_1st (dbe, tag_entry, type_table_id, scope);
+		return table_id;
+	}
+	
+	
 	if ((stmt = sdb_engine_get_statement_by_query_id (dbe, PREP_QUERY_SCOPE_NEW))
 		== NULL)
 	{
@@ -5341,6 +5507,14 @@ sdb_engine_second_pass_do (SymbolDBEngine * dbe)
 
 	priv = dbe->priv;
 
+	/* are we in a first population scan? */
+	if (priv->is_first_population == TRUE)
+	{
+		sdb_engine_tablemap_db_flush_sym_type (dbe);
+		sdb_engine_tablemap_db_flush_scope_def (dbe);
+	}
+
+	
 	/* prepare for scope second scan */
 	if (g_queue_get_length (priv->tmp_heritage_tablemap) > 0)
 	{

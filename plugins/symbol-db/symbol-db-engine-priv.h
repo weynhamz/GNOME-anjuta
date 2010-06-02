@@ -38,7 +38,7 @@
 #define ANJUTA_DB_FILE	".anjuta_sym_db"
 
 /* if tables.sql changes or general db structure changes modify also the value here */
-#define SYMBOL_DB_VERSION	"300.1"
+#define SYMBOL_DB_VERSION	"300.2"
 
 #define TABLES_SQL			PACKAGE_DATA_DIR"/tables.sql"
 
@@ -314,9 +314,14 @@ struct _SymbolDBEnginePriv
 
 	/* Table maps */
 	GQueue *tmp_heritage_tablemap;
+	
 	GHashTable *sym_type_tablemap_hash;
 	GQueue *sym_type_tablemap_queue;
 	guint sym_type_tablemap_id;
+	
+	GHashTable *scope_def_tablemap_hash;
+	GQueue *scope_def_tablemap_queue;
+	guint scope_def_tablemap_id;
 	
 	GTree *file_symbols_cache;		
 	
