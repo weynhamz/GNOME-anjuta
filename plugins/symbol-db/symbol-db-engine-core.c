@@ -145,6 +145,15 @@ select symbol_id_base, symbol.name from heritage
 		fclose (file); \
 }
 
+#define DEBUG_DUMP_HASH_VALUES(value) ;
+/*
+#define DEBUG_DUMP_HASH_VALUES(value) { \
+		FILE *file; \
+		file = fopen("/tmp/hash_values.log", "a"); \
+		g_fprintf (file, "%s\n", value); \
+		fclose (file); \
+}
+*/
 
 typedef struct _TableMapTmpHeritage {
 	gint symbol_referer_id;
@@ -3642,7 +3651,7 @@ CREATE TABLE language (language_id integer PRIMARY KEY AUTOINCREMENT,
 		const GdaSet *plist;
 		const GdaStatement *stmt;
 		GdaHolder *param;
-		GdaSet *last_inserted;
+		GdaSet *last_inserted = NULL;
 		GValue *ret_value;
 		gboolean ret_bool;
 
@@ -4141,7 +4150,7 @@ sdb_engine_sym_type_tablemap_db_flush (SymbolDBEngine * dbe)
 	const GdaSet *plist;
 	const GdaStatement *stmt;
 	GdaHolder *param;
-	GdaSet *last_inserted;
+	GdaSet *last_inserted = NULL;
 	GValue *ret_value;
 	gboolean ret_bool;
 
@@ -4152,6 +4161,9 @@ sdb_engine_sym_type_tablemap_db_flush (SymbolDBEngine * dbe)
 	for (i = 0; i < queue_length; i++)
 	{
 		gchar * value = g_queue_pop_head (priv->sym_type_tablemap_queue);
+
+		DEBUG_DUMP_HASH_VALUES (value);
+		
 		gchar **tokens = g_strsplit (value, "|", 2);
 		
 		if ((stmt = sdb_engine_get_statement_by_query_id (dbe, PREP_QUERY_SYM_TYPE_NEW))
@@ -4282,7 +4294,7 @@ sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 	const GdaSet *plist;
 	const GdaStatement *stmt;
 	GdaHolder *param;
-	GdaSet *last_inserted;
+	GdaSet *last_inserted = NULL;
 	SymbolDBEnginePriv *priv;
 	GValue *ret_value;
 	gboolean ret_bool;
@@ -4434,7 +4446,7 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 		const GdaSet *plist;
 		const GdaStatement *stmt;
 		GdaHolder *param;
-		GdaSet *last_inserted;
+		GdaSet *last_inserted = NULL;
 		GValue *ret_value;
 		gboolean ret_bool;
 		gint is_container = 0;
@@ -4549,7 +4561,7 @@ sdb_engine_add_new_sym_access (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 		const GdaSet *plist;
 		const GdaStatement *stmt;
 		GdaHolder *param;
-		GdaSet *last_inserted;
+		GdaSet *last_inserted = NULL;
 		GValue *ret_value;
 		gboolean ret_bool;		
 
@@ -4639,7 +4651,7 @@ sdb_engine_add_new_sym_implementation (SymbolDBEngine * dbe,
 		const GdaSet *plist;
 		const GdaStatement *stmt;
 		GdaHolder *param;
-		GdaSet *last_inserted;
+		GdaSet *last_inserted = NULL;
 		GValue *ret_value;
 		gboolean ret_bool;
 
@@ -4771,7 +4783,7 @@ sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, const tagEntry * tag_
 	const GdaSet *plist;
 	const GdaStatement *stmt;
 	GdaHolder *param;
-	GdaSet *last_inserted;
+	GdaSet *last_inserted = NULL;
 	GValue *ret_value;
 	gboolean ret_bool;
 	
@@ -5371,7 +5383,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	const GdaSet *plist;
 	const GdaStatement *stmt;
 	GdaHolder *param;
-	GdaSet *last_inserted;
+	GdaSet *last_inserted = NULL;
 	gint table_id, symbol_id;
 	const gchar* name;
 	gint file_position = 0;
