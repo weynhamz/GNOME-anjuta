@@ -30,8 +30,6 @@
 #define SYMBOL_DB_QUERY_RESULT_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), \
 	SYMBOL_DB_TYPE_QUERY_RESULT, SymbolDBQueryResultPriv))
 
-#define FIELD_INDEX(f) (sdb_query_result_get_field_index(f))
-
 enum {
 	PROP_SDB_0,
 	PROP_SDB_COLUMNS,
@@ -56,15 +54,6 @@ GQuark
 symbol_db_query_result_error_quark (void)
 {
 	return g_quark_from_static_string ("symbol-db-query-return-error-quark");
-}
-
-G_INLINE_FUNC gint
-sdb_query_result_get_field_index (IAnjutaSymbolField field)
-{
-	gint idx = 0;
-	while (field >>= 1)
-		idx++;
-	return idx;
 }
 
 static gboolean
@@ -97,12 +86,11 @@ sdb_query_result_validate_field (SymbolDBQueryResult *result,
 static void
 sdb_query_result_instance_init (SymbolDBQueryResult *result)
 {
-	gint i, fields_count;
+	gint i;
 	
 	result->priv = SYMBOL_DB_QUERY_RESULT_GET_PRIVATE (result);
-	fields_count = FIELD_INDEX(IANJUTA_SYMBOL_FIELD_END);
-	result->priv->col_map = g_new (gint, fields_count);
-	for (i = 0; i < fields_count; i++)
+	result->priv->col_map = g_new (gint, IANJUTA_SYMBOL_FIELD_END);
+	for (i = 0; i < IANJUTA_SYMBOL_FIELD_END; i++)
 		result->priv->col_map[i] = -1;
 }
 
@@ -130,13 +118,13 @@ sdb_query_result_set_property (GObject *object, guint prop_id,
 	switch (prop_id)
 	{
 	case PROP_SDB_COLUMNS:
-		for (i = 0; i < FIELD_INDEX (IANJUTA_SYMBOL_FIELD_END); i++)
+		for (i = 0; i < IANJUTA_SYMBOL_FIELD_END; i++)
 			priv->col_map[i] = -1;
 		i = 0;
 		cols_order = g_value_get_pointer (value);
 		while (!(*cols_order & IANJUTA_SYMBOL_FIELD_END))
 		{
-			priv->col_map[FIELD_INDEX (*cols_order)] = i;
+			priv->col_map[*cols_order] = i;
 			i++;
 			cols_order++;
 		}
@@ -249,7 +237,7 @@ isymbol_get_boolean (IAnjutaSymbol *isymbol, IAnjutaSymbolField field,
 	result = SYMBOL_DB_QUERY_RESULT (isymbol);
 	if (!sdb_query_result_validate_field (result, field, err)) return FALSE;
 	
-	col = result->priv->col_map[FIELD_INDEX(field)];
+	col = result->priv->col_map[field];
 	val = gda_data_model_iter_get_value_at (result->priv->iter, col);
 	return g_value_get_boolean (val);
 }
@@ -267,7 +255,7 @@ isymbol_get_int (IAnjutaSymbol *isymbol, IAnjutaSymbolField field,
 	result = SYMBOL_DB_QUERY_RESULT (isymbol);
 	if (!sdb_query_result_validate_field (result, field, err)) return FALSE;
 
-	col = result->priv->col_map[FIELD_INDEX(field)];
+	col = result->priv->col_map[field];
 	val = gda_data_model_iter_get_value_at (result->priv->iter, col);
 	if (field & IANJUTA_SYMBOL_FIELD_TYPE)
 	{
@@ -291,7 +279,7 @@ isymbol_get_string (IAnjutaSymbol *isymbol, IAnjutaSymbolField field,
 	result = SYMBOL_DB_QUERY_RESULT (isymbol);
 	if (!sdb_query_result_validate_field (result, field, err)) return FALSE;
 
-	col = result->priv->col_map[FIELD_INDEX(field)];
+	col = result->priv->col_map[field];
 	val = gda_data_model_iter_get_value_at (result->priv->iter, col);
 	return (const gchar*) g_value_get_string (val);
 }
