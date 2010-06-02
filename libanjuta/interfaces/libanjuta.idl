@@ -5269,20 +5269,21 @@ interface IAnjutaSymbol
 	 */
 	enum Field
 	{
-		FIELD_SIMPLE = 0,
-		FIELD_ID = 1,
-		FIELD_NAME = 2,
-		FIELD_FILE_POS = 4,
-		FIELD_FILE_SCOPE = 8,
-		FIELD_SIGNATURE = 16,
-		FIELD_RETURNTYPE = 32,
-		FIELD_FILE_PATH = 64,
-		FIELD_IMPLEMENTATION = 128,
-		FIELD_ACCESS = 256,
-		FIELD_KIND = 512,
-		FIELD_TYPE = 1024,
-		FIELD_TYPE_NAME = 2048,
-		FIELD_END = 4096
+		FIELD_ID,
+		FIELD_NAME,
+		FIELD_FILE_POS,
+		FILED_SCOPE_DEF_ID,
+		FIELD_FILE_SCOPE,
+		FIELD_SIGNATURE,
+		FIELD_RETURNTYPE,
+		FIELD_FILE_PATH,
+		FIELD_IMPLEMENTATION,
+		FIELD_ACCESS,
+		FIELD_KIND,
+		FIELD_TYPE,
+		FIELD_TYPE_NAME,
+		FIELD_IS_CONTAINER,
+		FIELD_END
 	}
 
 	gboolean get_boolean (Field field);
@@ -5347,7 +5348,7 @@ interface IAnjutaSymbolQuery
 	
 	typedef void (*AsyncResult) (IAnjutaIterable* result, gpointer user_data);
 	void set_async (gboolean async_mode);
-	void set_fields (IAnjutaSymbolField info_fields);
+	void set_fields (IAnjutaSymbolField field0, ...);
 	void set_filter (IAnjutaSymbolType filters, gboolean includes_types);
 	void set_file_scope (IAnjutaSymbolQueryFileScope filescope_search);
 	void set_offset (gint offset);
