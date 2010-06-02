@@ -206,7 +206,7 @@ on_cpu_registers_updated (const GList *registers, gpointer user_data, GError *er
 static void
 cpu_registers_update (CpuRegisters *self)
 {
-	if (GTK_WIDGET_MAPPED (self->window))
+	if (gtk_widget_get_mapped (self->window))
 	{
 		dma_queue_update_register (
 				self->debugger,
