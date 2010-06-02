@@ -20,8 +20,9 @@
 #include <limits.h>
 #include <libgda/gda-statement.h>
 #include <libanjuta/interfaces/ianjuta-symbol-query.h>
-#include "symbol-db-query.h"
 #include "symbol-db-engine.h"
+#include "symbol-db-query.h"
+#include "symbol-db-query-result.h"
 
 #define SYMBOL_DB_QUERY_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), \
 	SYMBOL_DB_TYPE_QUERY, SymbolDBQueryPriv))
@@ -41,9 +42,9 @@ enum
 struct _SymbolDBQueryPriv {
 	GdaStatement *stmt;
 	gboolean prepared;
-	
+
 	IAnjutaSymbolQueryName name;
-	IAnjutaSymbolField fields;
+	IAnjutaSymbolField fields[IANJUTA_SYMBOL_FIELD_END];
 	IAnjutaSymbolType filters;
 	IAnjutaSymbolQueryFileScope scope;
 
@@ -57,51 +58,50 @@ struct _SymbolDBQueryPriv {
 	GdaHolder *param_pattern, *param_file_path, *param_limit, *param_offset;
 };
 
+typedef enum
+{
+	SDB_QUERY_TABLE_SYMBOL,
+	SDB_QUERY_TABLE_FILE,
+	SDB_QUERY_TABLE_IMPLEMENTATION,
+	SDB_QUERY_TABLE_ACCESS,
+	SDB_QUERY_TABLE_TYPE,
+	SDB_QUERY_TABLE_KIND,
+	SDB_QUERY_TABLE_MAX,
+}  SdbQueryTable;
+
+/* This array must map to each table enumerated above */
+static gchar *table_joins[] =
+{
+	NULL,
+	"LEFT JOIN file ON symbol.file_defined_id = file.file_id",
+	"LEFT JOIN sym_implementation ON symbol.implementation_kind_id = sym_implementation.sym_impl_id",
+	"LEFT JOIN sym_access ON symbol.access_kind_id = sym_access.access_kind_id",
+	"LEFT JOIN sym_type ON symbol.type_id = sym_type.type_id",
+	"LEFT JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id",
+};
+
 typedef struct
 {
-	IAnjutaSymbolType fields;
-	gchar *columns;
-	gchar *join;
-} SymbolDBQueryFieldSpec;
+	gchar *column;
+	SdbQueryTable table;
+} SdbQueryFieldSpec;
 
-SymbolDBQueryFieldSpec field_specs[] = {
-	{
-		IANJUTA_SYMBOL_FIELD_SIMPLE,
-		"symbol.symbol_id "
-		"symbol.name "
-		"symbol.file_position "
-		"symbol.scope_definition_id "
-		"symbol.signature "
-		"symbol.returntype "
-		"symbol.is_file_scope ",
-		NULL},
-	{
-		IANJUTA_SYMBOL_FIELD_FILE_PATH,
-		"file.file_path",
-		"LEFT JOIN file ON symbol.file_defined_id = file.file_id"
-	},
-	{
-		IANJUTA_SYMBOL_FIELD_IMPLEMENTATION,
-		"sym_implementation.implementation_name",
-		"LEFT JOIN sym_implementation ON symbol.implementation_kind_id = sym_implementation.sym_impl_id"
-	},
-	{
-		IANJUTA_SYMBOL_FIELD_ACCESS,
-		"sym_access.access_name",
-		"LEFT JOIN sym_access ON symbol.access_kind_id = sym_access.access_kind_id"
-	},
-	{
-		IANJUTA_SYMBOL_FIELD_TYPE | IANJUTA_SYMBOL_FIELD_TYPE_NAME,
-		"sym_type.type_type "
-		"sym_type.type_name",
-		"LEFT JOIN sym_type ON symbol.type_id = sym_type.type_id"
-	},
-	{
-		IANJUTA_SYMBOL_FIELD_KIND,
-		"sym_kind.kind_name "
-		"sym_kind.is_container",
-		"LEFT JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id"
-	}
+/* This table must map to each IAnjutaSymbolField value */
+SdbQueryFieldSpec field_specs[] = {
+	{"symbol.symbol_id ", SDB_QUERY_TABLE_SYMBOL},
+	{"symbol.name ", SDB_QUERY_TABLE_SYMBOL},
+	{"symbol.file_position ", SDB_QUERY_TABLE_SYMBOL},
+	{"symbol.scope_definition_id ", SDB_QUERY_TABLE_SYMBOL},
+	{"symbol.signature ", SDB_QUERY_TABLE_SYMBOL},
+	{"symbol.returntype ", SDB_QUERY_TABLE_SYMBOL},
+	{"symbol.is_file_scope ", SDB_QUERY_TABLE_SYMBOL},
+	{"file.file_path", SDB_QUERY_TABLE_FILE},
+	{"sym_implementation.implementation_name", SDB_QUERY_TABLE_IMPLEMENTATION},
+	{"sym_access.access_name", SDB_QUERY_TABLE_ACCESS},
+	{"sym_type.type_type ", SDB_QUERY_TABLE_TYPE},
+	{"sym_type.type_name", SDB_QUERY_TABLE_TYPE},
+	{"sym_kind.kind_name ", SDB_QUERY_TABLE_KIND},
+	{"sym_kind.is_container", SDB_QUERY_TABLE_KIND}
 };
 
 /* FIXME: This maps to the bit position of IAnjutaSymbolType enum. This can
@@ -145,8 +145,10 @@ static void
 sdb_query_build_sql_head (SymbolDBQuery *query, GString *sql)
 {
 	GString *sql_joins;
-	gint specs_len, i;
+	gint i;
+	gboolean tables_joined[SDB_QUERY_TABLE_MAX];
 	SymbolDBQueryPriv *priv;
+	IAnjutaSymbolField *field_ptr;
 
 	g_return_if_fail (SYMBOL_DB_IS_QUERY (query));
 	g_return_if_fail (sql != NULL);
@@ -154,18 +156,30 @@ sdb_query_build_sql_head (SymbolDBQuery *query, GString *sql)
 	priv = SYMBOL_DB_QUERY (query)->priv;
 	g_return_if_fail (priv->fields != 0);
 
+	/* Ensure the lookup tables in order */
+	g_assert (sizeof (table_joins) == SDB_QUERY_TABLE_MAX);
+	g_assert (sizeof (field_specs) == IANJUTA_SYMBOL_FIELD_END);
+	
+	for (i = 0; i < SDB_QUERY_TABLE_MAX; i++)
+		tables_joined[i] = FALSE;
+	/* "symbol" table is in built, so skip it */
+	tables_joined[SDB_QUERY_TABLE_SYMBOL] = TRUE;
+	
 	g_string_assign (sql, "SELECT ");
 	sql_joins = g_string_new_len ("", 512);
-	specs_len = sizeof (field_specs) / sizeof (SymbolDBQueryFieldSpec);
-	for (i = 0; i < specs_len; i++)
+	field_ptr = priv->fields;
+	while (*field_ptr != IANJUTA_SYMBOL_FIELD_END)
 	{
-		if (field_specs[i].fields & priv->fields)
+		g_string_append (sql, field_specs[*field_ptr].column);
+		g_string_append (sql, " ");
+		if (!tables_joined[field_specs[*field_ptr].table])
 		{
-			g_string_append (sql, field_specs[i].columns);
-			g_string_append (sql, " ");
-			g_string_append (sql_joins, field_specs[i].join);
+			tables_joined[field_specs[*field_ptr].table] = TRUE;
+			g_string_append (sql_joins,
+			                 table_joins[field_specs[*field_ptr].table]);
 			g_string_append (sql_joins, " ");
 		}
+		field_ptr++;
 	}
 	g_string_append (sql, "FROM symbol ");
 	g_string_append (sql, sql_joins->str);
@@ -278,6 +292,11 @@ sdb_query_init (SymbolDBQuery *query)
 	
 	priv = query->priv = SYMBOL_DB_QUERY_GET_PRIVATE(query);
 
+	/* By default only ID and Name fields are enabled */
+	priv->fileds[0] = IANJUTA_SYMBOL_FIELD_ID;
+	priv->fileds[1] = IANJUTA_SYMBOL_FIELD_NAME;
+	priv->fileds[2] = IANJUTA_SYMBOL_FIELD_END;
+	
 	/* Prepare sql parameter holders */
 	param = priv->param_pattern = gda_holder_new_string ("pattern", "");
 	param_holders = g_slist_prepend (param_holders, param);
@@ -438,7 +457,7 @@ sdb_query_class_init (SymbolDBQueryClass *klass)
 static IAnjutaIterable*
 sdb_query_execute (SymbolDBQuery *query)
 {
-	SymbolDBEngineIterator *iter;
+	SymbolDBQueryResult *iter;
 	GdaDataModel *data_model;
 	SymbolDBQueryPriv *priv = query->priv;
 	
@@ -450,9 +469,10 @@ sdb_query_execute (SymbolDBQuery *query)
 	data_model = symbol_db_engine_execute_select (priv->dbe_selected,
 	                                              priv->stmt,
 	                                              priv->params);
-	iter = symbol_db_engine_iterator_new (data_model, 
-	                                      symbol_db_engine_get_type_conversion_hash (priv->dbe_selected),
-	                                      symbol_db_engine_get_project_directory (priv->dbe_selected));
+	iter = symbol_db_query_result_new (data_model, 
+	                                   priv->fields,
+	                                   symbol_db_engine_get_type_conversion_hash (priv->dbe_selected),
+	                                   symbol_db_engine_get_project_directory (priv->dbe_selected));
 	return IANJUTA_ITERABLE (iter);
 }
 
@@ -509,7 +529,7 @@ sdb_query_search_file (IAnjutaSymbolQuery *query, const gchar *search_string,
 	g_value_set_static_string (&sv, search_string);
 	gda_holder_set_value (priv->param_pattern, &sv, NULL);
 
-	abs_file_path = g_file_get_path (file);
+	abs_file_path = g_file_get_path ((GFile*)file);
 	rel_file_path = symbol_db_util_get_file_db_path (priv->dbe_selected, abs_file_path);
 	g_value_take_string (&sv, rel_file_path);
 	gda_holder_set_value (priv->param_file_path, &sv, NULL);
