@@ -5332,6 +5332,14 @@ interface IAnjutaSymbolQuery
 	#include "ianjuta-iterable.h"
 	#include "ianjuta-symbol.h"
 
+	enum Mode
+	{
+		MODE_SYNC,
+		MODE_ASYNC,
+		MODE_QUEUED_SINGLE,
+		MODE_QUEUED_MULTI
+	}
+	
 	enum Name
 	{
 		SEARCH_SYSTEM,
@@ -5347,9 +5355,9 @@ interface IAnjutaSymbolQuery
 	}
 	
 	typedef void (*AsyncResult) (IAnjutaIterable* result, gpointer user_data);
-	void set_async (gboolean async_mode);
+	void set_mode (IAnjutaSymbolQueryMode mode);
 	void set_fields (IAnjutaSymbolField field0, ...);
-	void set_filter (IAnjutaSymbolType filters, gboolean includes_types);
+	void set_filters (IAnjutaSymbolType filters, gboolean includes_types);
 	void set_file_scope (IAnjutaSymbolQueryFileScope filescope_search);
 	void set_offset (gint offset);
 	void set_limit (gint limit);

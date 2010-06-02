@@ -18,6 +18,7 @@
  */
 
 #include <limits.h>
+#include <stdarg.h>
 #include <libgda/gda-statement.h>
 #include <libanjuta/interfaces/ianjuta-symbol-query.h>
 #include "symbol-db-engine.h"
@@ -30,7 +31,10 @@
 enum
 {
 	PROP_0,
-	PROP_QUERY_KIND,
+	PROP_QUERY_NAME,
+	PROP_QUERY_MODE,
+	PROP_FILTERS,
+	PROP_FILE_SCOPE,
 	PROP_STATEMENT,
 	PROP_LIMIT,
 	PROP_OFFSET,
@@ -44,9 +48,10 @@ struct _SymbolDBQueryPriv {
 	gboolean prepared;
 
 	IAnjutaSymbolQueryName name;
+	IAnjutaSymbolQueryMode mode;
 	IAnjutaSymbolField fields[IANJUTA_SYMBOL_FIELD_END];
 	IAnjutaSymbolType filters;
-	IAnjutaSymbolQueryFileScope scope;
+	IAnjutaSymbolQueryFileScope file_scope;
 
 	gboolean async;
 	SymbolDBEngine *dbe_system;
@@ -293,9 +298,9 @@ sdb_query_init (SymbolDBQuery *query)
 	priv = query->priv = SYMBOL_DB_QUERY_GET_PRIVATE(query);
 
 	/* By default only ID and Name fields are enabled */
-	priv->fileds[0] = IANJUTA_SYMBOL_FIELD_ID;
-	priv->fileds[1] = IANJUTA_SYMBOL_FIELD_NAME;
-	priv->fileds[2] = IANJUTA_SYMBOL_FIELD_END;
+	priv->fields[0] = IANJUTA_SYMBOL_FIELD_ID;
+	priv->fields[1] = IANJUTA_SYMBOL_FIELD_NAME;
+	priv->fields[2] = IANJUTA_SYMBOL_FIELD_END;
 	
 	/* Prepare sql parameter holders */
 	param = priv->param_pattern = gda_holder_new_string ("pattern", "");
@@ -323,13 +328,30 @@ sdb_query_finalize (GObject *object)
 static void
 sdb_query_set_property (GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec)
 {
+	SymbolDBQuery *query;
 	SymbolDBQueryPriv *priv;
 
 	g_return_if_fail (SYMBOL_DB_IS_QUERY (object));
-	priv = SYMBOL_DB_QUERY (object)->priv;
+	query = SYMBOL_DB_QUERY (object);
+	priv = query->priv;
 	
 	switch (prop_id)
 	{
+	case PROP_QUERY_NAME:
+		priv->name = g_value_get_enum (value);
+		sdb_query_update (query);
+		break;
+	case PROP_QUERY_MODE:
+		priv->mode = g_value_get_enum (value);
+		break;
+	case PROP_FILTERS:
+		priv->filters = g_value_get_enum (value);
+		sdb_query_update (query);
+		break;
+	case PROP_FILE_SCOPE:
+		priv->file_scope = g_value_get_enum (value);
+		sdb_query_update (query);
+		break;
 	case PROP_LIMIT:
 		gda_holder_set_value (priv->param_limit, value, NULL);
 		break;
@@ -361,6 +383,18 @@ sdb_query_get_property (GObject *object, guint prop_id, GValue *value, GParamSpe
 	
 	switch (prop_id)
 	{
+	case PROP_QUERY_NAME:
+		g_value_set_enum (value, priv->name);
+		break;
+	case PROP_QUERY_MODE:
+		g_value_set_enum (value, priv->mode);
+		break;
+	case PROP_FILTERS:
+		g_value_set_enum (value, priv->filters);
+		break;
+	case PROP_FILE_SCOPE:
+		g_value_set_enum (value, priv->file_scope);
+		break;
 	case PROP_STATEMENT:
 		g_value_set_object (value, priv->stmt);
 		break;
@@ -393,14 +427,41 @@ sdb_query_class_init (SymbolDBQueryClass *klass)
 	object_class->get_property = sdb_query_get_property;
 
 	g_object_class_install_property (object_class,
-	                                 PROP_QUERY_KIND,
-	                                 g_param_spec_enum ("query-kind",
-	                                                    "Query kind",
-	                                                    "The query kind",
+	                                 PROP_QUERY_NAME,
+	                                 g_param_spec_enum ("query-name",
+	                                                    "Query name",
+	                                                    "The query name",
 	                                                    IANJUTA_TYPE_SYMBOL_QUERY_NAME,
 	                                                    IANJUTA_SYMBOL_QUERY_SEARCH_PROJECT,
 	                                                    G_PARAM_READABLE |
 	                                                    G_PARAM_CONSTRUCT));
+	g_object_class_install_property (object_class,
+	                                 PROP_QUERY_MODE,
+	                                 g_param_spec_enum ("query-mode",
+	                                                    "Query Mode",
+	                                                    "The query mode",
+	                                                    IANJUTA_TYPE_SYMBOL_QUERY_MODE,
+	                                                    IANJUTA_SYMBOL_QUERY_MODE_SYNC,
+	                                                    G_PARAM_READABLE |
+	                                                    G_PARAM_WRITABLE));
+	g_object_class_install_property (object_class,
+	                                 PROP_FILTERS,
+	                                 g_param_spec_enum ("filters",
+	                                                    "Symbol type filters",
+	                                                    "The symbol type filters",
+	                                                    IANJUTA_TYPE_SYMBOL_TYPE,
+	                                                    -1,
+	                                                    G_PARAM_READABLE |
+	                                                    G_PARAM_WRITABLE));
+	g_object_class_install_property (object_class,
+	                                 PROP_FILE_SCOPE,
+	                                 g_param_spec_enum ("file-scope",
+	                                                    "file scope",
+	                                                    "The file scope search",
+	                                                    IANJUTA_TYPE_SYMBOL_QUERY_FILE_SCOPE,
+	                                                    IANJUTA_SYMBOL_QUERY_SEARCH_FS_IGNORE,
+	                                                    G_PARAM_READABLE |
+	                                                    G_PARAM_WRITABLE));
 	g_object_class_install_property (object_class,
 	                                 PROP_STATEMENT,
 	                                 g_param_spec_object ("statement",
@@ -540,9 +601,85 @@ sdb_query_search_file (IAnjutaSymbolQuery *query, const gchar *search_string,
 }
 
 static void
+sdb_query_set_fields (IAnjutaSymbolQuery *query, IAnjutaSymbolField field0, ...)
+{
+	gint i = 0;
+	IAnjutaSymbolField arg;
+	va_list vl;
+	SymbolDBQueryPriv *priv;
+
+	g_return_if_fail (SYMBOL_DB_IS_QUERY (query));
+
+	priv = SYMBOL_DB_QUERY (query)->priv;
+	va_start (vl, field0);
+	arg = field0;
+	priv->fields[i] = arg;
+	i++;
+	while (arg != IANJUTA_SYMBOL_FIELD_END)
+	{
+		arg = va_arg (vl, IAnjutaSymbolField);
+		priv->fields[i] = arg;
+		i++;
+	}
+	va_end (vl);
+}
+
+static void
+sdb_query_set_mode (IAnjutaSymbolQuery *query, IAnjutaSymbolQueryMode mode,
+                    GError **err)
+{
+	g_object_set (query, "query-mode", mode, NULL);
+}
+
+static void
+sdb_query_set_filters (IAnjutaSymbolQuery *query, IAnjutaSymbolType filters,
+                       gboolean include_types, GError **err)
+{
+	g_object_set (query, "filters", filters, NULL);
+	/* FIXME: include_types */
+}
+
+static void
+sdb_query_set_limit (IAnjutaSymbolQuery *query, gint limit, GError **err)
+{
+	g_object_set (query, "limit", limit, NULL);
+}
+
+static void
+sdb_query_set_offset (IAnjutaSymbolQuery *query, gint offset, GError **err)
+{
+	g_object_set (query, "offset", offset, NULL);
+}
+
+static void
+sdb_query_set_file_scope (IAnjutaSymbolQuery *query,
+                          IAnjutaSymbolQueryFileScope file_scope,
+                          GError **err)
+{
+	g_object_set (query, "file-scope", file_scope, NULL);
+}
+
+static void
 ianjuta_symbol_query_iface_init (IAnjutaSymbolQueryIface *iface)
 {
 	iface->search_system = sdb_query_search_system;
 	iface->search_project = sdb_query_search_project;
 	iface->search_file = sdb_query_search_file;
+	iface->set_fields = sdb_query_set_fields;
+	iface->set_mode = sdb_query_set_mode;
+	iface->set_filters = sdb_query_set_filters;
+	iface->set_file_scope = sdb_query_set_file_scope;
+	iface->set_limit = sdb_query_set_limit;
+	iface->set_offset = sdb_query_set_offset;
+}
+
+SymbolDBQuery *
+symbol_db_query_new (SymbolDBEngine *system_db_engine,
+                     SymbolDBEngine *project_db_engine,
+                     IAnjutaSymbolQueryName name)
+{
+	return g_object_new (SYMBOL_DB_TYPE_QUERY,
+	                     "db-engine-system", system_db_engine,
+	                     "db-engine-project", project_db_engine,
+	                     "query-name", name, NULL);
 }
