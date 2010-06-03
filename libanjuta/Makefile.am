@@ -29,7 +29,7 @@ libanjuta_la_LIBADD = \
 	$(GLADE_DEPRECATED_LIBS) \
 	$(LIBXML_LIBS) \
 	$(GLIB_LIBS) \
-	$(GDL_CFLAGS)
+	$(GDL_LIBS)
 
 libanjuta_la_SOURCES= \
 	anjuta-enum-types.h \
