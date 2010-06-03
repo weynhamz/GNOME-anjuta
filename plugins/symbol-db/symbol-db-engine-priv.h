@@ -49,8 +49,8 @@
 #define THREADS_MAX_CONCURRENT			2
 #define TRIGGER_SIGNALS_DELAY			100
 
-#define MEMORY_POOL_STRING_SIZE			200
-#define MEMORY_POOL_INT_SIZE			200
+#define MEMORY_POOL_STRING_SIZE			400
+#define MEMORY_POOL_INT_SIZE			400
 
 #define DUMMY_VOID_STRING				""
 #define MP_VOID_STRING					"-"
@@ -293,6 +293,7 @@ struct _SymbolDBEnginePriv
 	GList *removed_launchers;
 	gboolean shutting_down;
 	gboolean is_first_population;
+	gboolean is_tablemaps_forced;
 	
 	GMutex* mutex;
 	GAsyncQueue* signals_queue;

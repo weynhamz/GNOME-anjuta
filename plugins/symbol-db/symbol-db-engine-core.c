@@ -1839,6 +1839,12 @@ sdb_engine_timeout_trigger_signals (gpointer user_data)
 						/* ok, set the flag to false. We're done with it */
 						priv->is_first_population = FALSE;
 					}
+
+					/* were we forced to use tablemaps? Ok, reset the flag to true */
+					if (priv->is_tablemaps_forced == TRUE)
+					{
+						priv->is_first_population = TRUE;
+					}
 					
 					/* get the process id from the queue */
 					gint int_tmp = GPOINTER_TO_INT(g_async_queue_pop (priv->scan_process_id_queue));
@@ -2284,6 +2290,7 @@ sdb_engine_init (SymbolDBEngine * object)
 	sdbe->priv->removed_launchers = NULL;
 	sdbe->priv->shutting_down = FALSE;
 	sdbe->priv->is_first_population = FALSE;
+	sdbe->priv->is_tablemaps_forced = FALSE;
 
 	/* set the ctags executable path to NULL */
 	sdbe->priv->ctags_path = NULL;
@@ -3256,6 +3263,8 @@ symbol_db_engine_close_db (SymbolDBEngine *dbe)
 	priv->thread_pool = NULL;
 	ret = sdb_engine_disconnect_from_db (dbe);
 
+	priv->is_tablemaps_forced = FALSE;
+	
 	g_free (priv->db_directory);
 	priv->db_directory = NULL;
 	
@@ -3364,7 +3373,7 @@ sdb_engine_check_db_version_and_upgrade (SymbolDBEngine *dbe,
 
 gint
 symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
-						  const gchar * prj_directory)
+						  const gchar * prj_directory, gboolean force_tablemaps)
 {
 	SymbolDBEnginePriv *priv;
 	gboolean needs_tables_creation = FALSE;
@@ -3380,6 +3389,13 @@ symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
 
 	priv = dbe->priv;
 
+	priv->is_tablemaps_forced = force_tablemaps;
+	if (priv->is_tablemaps_forced == TRUE)
+	{
+		priv->is_first_population = TRUE;
+	}
+	
+	
 	/* check whether the db filename already exists. If it's not the case
 	 * create the tables for the database. */
 	gchar *db_file = g_strdup_printf ("%s/%s.db", base_db_path,
