@@ -21,6 +21,7 @@
 #define _SYMBOL_DB_QUERY_H_
 
 #include <glib-object.h>
+#include <libanjuta/anjuta-async-command.h>
 #include <libanjuta/interfaces/ianjuta-iterable.h>
 
 G_BEGIN_DECLS
@@ -38,12 +39,12 @@ typedef struct _SymbolDBQueryPriv SymbolDBQueryPriv;
 
 struct _SymbolDBQueryClass
 {
-	GObjectClass parent_class;
+	AnjutaAsyncCommandClass parent_class;
 };
 
 struct _SymbolDBQuery
 {
-	GObject parent_instance;
+	AnjutaAsyncCommand parent_instance;
 	SymbolDBQueryPriv *priv;
 };
 

@@ -61,6 +61,10 @@ struct _SymbolDBQueryPriv {
 	/* Param holders */
 	GdaSet *params;
 	GdaHolder *param_pattern, *param_file_path, *param_limit, *param_offset;
+
+	/* Aync results */
+	gboolean is_canceled;
+	IAnjutaIterable *async_result;
 };
 
 typedef enum
@@ -140,7 +144,7 @@ static gchar* kind_names[] =
 
 static void ianjuta_symbol_query_iface_init (IAnjutaSymbolQueryIface *iface);
 
-G_DEFINE_TYPE_WITH_CODE (SymbolDBQuery, sdb_query, G_TYPE_OBJECT,
+G_DEFINE_TYPE_WITH_CODE (SymbolDBQuery, sdb_query, ANJUTA_TYPE_ASYNC_COMMAND,
                          G_IMPLEMENT_INTERFACE (IANJUTA_TYPE_SYMBOL_QUERY,
                                                 ianjuta_symbol_query_iface_init));
 /**
@@ -288,6 +292,84 @@ sdb_query_update (SymbolDBQuery *query)
 	g_string_free (sql, TRUE);
 }
 
+static IAnjutaIterable*
+sdb_query_execute_real (SymbolDBQuery *query)
+{
+	SymbolDBQueryResult *iter;
+	GdaDataModel *data_model;
+	SymbolDBQueryPriv *priv = query->priv;
+	
+	if (!priv->prepared)
+	{
+		sdb_query_update (query);
+		priv->prepared = TRUE;
+	}
+	data_model = symbol_db_engine_execute_select (priv->dbe_selected,
+	                                              priv->stmt,
+	                                              priv->params);
+	iter = symbol_db_query_result_new (data_model, 
+	                                   priv->fields,
+	                                   symbol_db_engine_get_type_conversion_hash (priv->dbe_selected),
+	                                   symbol_db_engine_get_project_directory (priv->dbe_selected));
+	return IANJUTA_ITERABLE (iter);
+}
+
+static IAnjutaIterable*
+sdb_query_execute (SymbolDBQuery *query)
+{
+	switch (query->priv->mode)
+	{
+		case IANJUTA_SYMBOL_QUERY_MODE_SYNC:
+			return sdb_query_execute_real (query);
+		case IANJUTA_SYMBOL_QUERY_MODE_ASYNC:
+			query->priv->is_canceled = FALSE;
+			anjuta_command_start (ANJUTA_COMMAND (query));
+			return NULL;
+		case IANJUTA_SYMBOL_QUERY_MODE_QUEUED_SINGLE:
+		case IANJUTA_SYMBOL_QUERY_MODE_QUEUED_MULTI:
+			/* FIXME */
+		default:
+			g_warn_if_reached ();
+	}
+	return NULL;
+}
+
+static void
+on_sdb_query_async_data_arrived (SymbolDBQuery *query, gpointer data)
+{
+	if (!query->priv->is_canceled)
+		g_signal_emit_by_name (query, "async-result",
+		                       query->priv->async_result);
+	g_object_unref (query->priv->async_result);
+	query->priv->async_result = NULL;
+	query->priv->is_canceled = FALSE;
+}
+
+static guint
+sdb_query_async_run (AnjutaCommand *command)
+{
+	SymbolDBQuery *query;
+
+	g_return_val_if_fail (SYMBOL_DB_IS_QUERY (command), -1);
+	query = SYMBOL_DB_QUERY (command);
+
+	g_return_val_if_fail (query->priv->mode == IANJUTA_SYMBOL_QUERY_MODE_ASYNC, -1);
+	
+	query->priv->async_result = sdb_query_execute_real (query);
+	return 0;
+}
+
+static void
+sdb_query_async_cancel (AnjutaCommand *command)
+{
+	SymbolDBQuery *query;
+	g_return_if_fail (SYMBOL_DB_IS_QUERY (command));
+	query = SYMBOL_DB_QUERY (command);
+
+	g_return_if_fail (query->priv->mode != IANJUTA_SYMBOL_QUERY_MODE_SYNC);
+	query->priv->is_canceled = TRUE;
+}
+
 static void
 sdb_query_init (SymbolDBQuery *query)
 {
@@ -317,6 +399,11 @@ sdb_query_init (SymbolDBQuery *query)
 
 	priv->params = gda_set_new (param_holders);
 	g_slist_free (param_holders);
+
+	/* Prepare async signals */
+	priv->is_canceled = FALSE;
+	g_signal_connect (query, "notify-data-arrived",
+	                  G_CALLBACK (on_sdb_query_async_data_arrived), query);
 }
 
 static void
@@ -420,11 +507,16 @@ static void
 sdb_query_class_init (SymbolDBQueryClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
+	AnjutaCommandClass *command_class = ANJUTA_COMMAND_CLASS (klass);
+	
 	g_type_class_add_private (klass, sizeof (SymbolDBQueryPriv));
 
 	object_class->finalize = sdb_query_finalize;
 	object_class->set_property = sdb_query_set_property;
 	object_class->get_property = sdb_query_get_property;
+
+	command_class->run = sdb_query_async_run;
+	command_class->cancel = sdb_query_async_cancel;
 
 	g_object_class_install_property (object_class,
 	                                 PROP_QUERY_NAME,
@@ -513,28 +605,6 @@ sdb_query_class_init (SymbolDBQueryClass *klass)
 	                                                      "The selected SymbolDBEngine",
 	                                                      SYMBOL_TYPE_DB_ENGINE,
 	                                                      G_PARAM_READABLE));
-}
-
-static IAnjutaIterable*
-sdb_query_execute (SymbolDBQuery *query)
-{
-	SymbolDBQueryResult *iter;
-	GdaDataModel *data_model;
-	SymbolDBQueryPriv *priv = query->priv;
-	
-	if (!priv->prepared)
-	{
-		sdb_query_update (query);
-		priv->prepared = TRUE;
-	}
-	data_model = symbol_db_engine_execute_select (priv->dbe_selected,
-	                                              priv->stmt,
-	                                              priv->params);
-	iter = symbol_db_query_result_new (data_model, 
-	                                   priv->fields,
-	                                   symbol_db_engine_get_type_conversion_hash (priv->dbe_selected),
-	                                   symbol_db_engine_get_project_directory (priv->dbe_selected));
-	return IANJUTA_ITERABLE (iter);
 }
 
 static IAnjutaIterable*

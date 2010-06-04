@@ -5354,7 +5354,8 @@ interface IAnjutaSymbolQuery
 		SEARCH_FS_PRIVATE = 0		
 	}
 	
-	typedef void (*AsyncResult) (IAnjutaIterable* result, gpointer user_data);
+	void ::async_result (GObject* result);
+	
 	void set_mode (IAnjutaSymbolQueryMode mode);
 	void set_fields (IAnjutaSymbolField field0, ...);
 	void set_filters (IAnjutaSymbolType filters, gboolean includes_types);
