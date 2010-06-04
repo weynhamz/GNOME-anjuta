@@ -167,6 +167,24 @@ typedef struct _TableMapTmpHeritage {
 
 } TableMapTmpHeritage;
 
+typedef struct _TableMapSymbol {	
+	gint symbol_id;
+	gint file_defined_id;
+	gchar *name;
+    gint file_position;
+	gint is_file_scope;
+	gchar *signature;
+	gchar *returntype;
+	gint scope_definition_id;
+	gint scope_id;
+	gint type_id;
+	gint kind_id;
+	gint access_kind_id;
+	gint implementation_kind_id;
+	gint update_flag;	
+
+} TableMapSymbol;
+
 /*
  * utility macros
  */
@@ -259,6 +277,9 @@ sdb_engine_tablemap_db_flush_sym_type (SymbolDBEngine * dbe);
 static void
 sdb_engine_tablemap_db_flush_scope_def (SymbolDBEngine * dbe);
 
+static void
+sdb_engine_tablemap_db_flush_symbol (SymbolDBEngine * dbe);
+
 void
 sdb_engine_dyn_child_query_node_destroy (gpointer data);
 
@@ -316,7 +337,18 @@ sdb_engine_insert_cache (GHashTable* hash_table, const gchar* key,
 }
 
 static void
-sdb_engine_table_map_tmp_heritage_destroy (TableMapTmpHeritage *node)
+sdb_engine_tablemap_symbol_destroy (gpointer data)
+{
+	TableMapSymbol *node = (TableMapSymbol *)data;
+	g_free (node->signature);
+	g_free (node->returntype);
+	g_free (node->name);
+
+	g_slice_free (TableMapSymbol, node);
+}
+
+static void
+sdb_engine_tablemap_tmp_heritage_destroy (TableMapTmpHeritage *node)
 {
 	g_free (node->field_inherits);
 	g_free (node->field_struct);
@@ -338,7 +370,7 @@ sdb_engine_clear_tablemaps (SymbolDBEngine *dbe)
 		TableMapTmpHeritage *node;
 		while ((node = g_queue_pop_head (priv->tmp_heritage_tablemap)) != NULL)
 		{
-			sdb_engine_table_map_tmp_heritage_destroy (node);
+			sdb_engine_tablemap_tmp_heritage_destroy (node);
 		}
 
 		/* queue should be void. Free it */
@@ -379,6 +411,22 @@ sdb_engine_clear_tablemaps (SymbolDBEngine *dbe)
 	}
 
 	priv->scope_def_tablemap_id = 1;
+	
+	if (priv->symbol_tablemap_queue)
+	{
+		g_queue_clear (priv->symbol_tablemap_queue);
+		g_queue_free (priv->symbol_tablemap_queue);
+		priv->symbol_tablemap_queue = NULL;
+	}
+
+	if (priv->symbol_tablemap_hash)
+	{
+		g_hash_table_destroy (priv->symbol_tablemap_hash);
+		priv->symbol_tablemap_hash = NULL;
+	}
+
+	priv->symbol_tablemap_id = 1;
+		    
 }
 
 static void
@@ -420,6 +468,14 @@ sdb_engine_init_table_maps (SymbolDBEngine *dbe)
 	    													NULL);
 	priv->scope_def_tablemap_queue = g_queue_new ();
 	priv->scope_def_tablemap_id = 1;
+
+	/* symbol_tablemap */
+	priv->symbol_tablemap_hash = g_hash_table_new_full (g_str_hash,
+	    													g_str_equal,
+	    													g_free,
+	    													sdb_engine_tablemap_symbol_destroy);
+	priv->symbol_tablemap_queue = g_queue_new ();
+	priv->symbol_tablemap_id = 1;
 }
 
 static void
@@ -4203,7 +4259,7 @@ sdb_engine_tablemap_db_flush_sym_type (SymbolDBEngine * dbe)
 	if (error)
 	{
 		g_warning (error->message);
-		g_object_unref (error);
+		g_error_free (error);
 		error = NULL;
 	}
 
@@ -4256,7 +4312,7 @@ sdb_engine_tablemap_db_flush_sym_type (SymbolDBEngine * dbe)
 	if (error)
 	{
 		g_warning (error->message);
-		g_object_unref (error);
+		g_error_free (error);
 		error = NULL;
 	}
 	
@@ -4265,7 +4321,9 @@ sdb_engine_tablemap_db_flush_sym_type (SymbolDBEngine * dbe)
 	DEBUG_PRINT ("===== elapsed using GDA TRANSACTION: %f", elapsed_DEBUG);
 	g_timer_destroy (sym_timer_DEBUG);
 #endif
-	
+
+	/* free also all the keys/values on hashtable */
+	g_hash_table_remove_all (priv->sym_type_tablemap_hash);	
 }
 
 /* ### Thread note: this function inherits the mutex lock ### */
@@ -4829,7 +4887,7 @@ sdb_engine_tablemap_db_flush_scope_def (SymbolDBEngine * dbe)
 	if (error)
 	{
 		g_warning (error->message);
-		g_object_unref (error);
+		g_error_free (error);		
 		error = NULL;
 	}
 	
@@ -4884,7 +4942,7 @@ sdb_engine_tablemap_db_flush_scope_def (SymbolDBEngine * dbe)
 	if (error)
 	{
 		g_warning (error->message);
-		g_object_unref (error);
+		g_error_free (error);
 		error = NULL;
 	}
 	
@@ -4893,7 +4951,9 @@ sdb_engine_tablemap_db_flush_scope_def (SymbolDBEngine * dbe)
 	DEBUG_PRINT ("===== elapsed using GDA TRANSACTION: %f", elapsed_DEBUG);
 	g_timer_destroy (sym_timer_DEBUG);
 #endif	
-	
+
+	/* free also all the keys/values on hashtable */
+	g_hash_table_remove_all (priv->scope_def_tablemap_hash);
 }
 
 static gint
@@ -5325,7 +5385,7 @@ sdb_engine_second_pass_update_scope (SymbolDBEngine * dbe)
 		}
 		else 
 		{
-			sdb_engine_table_map_tmp_heritage_destroy (node);
+			sdb_engine_tablemap_tmp_heritage_destroy (node);
 		}
 	}
 
@@ -5365,7 +5425,7 @@ sdb_engine_second_pass_update_heritage (SymbolDBEngine * dbe)
 		{
 			g_warning ("Inherits was NULL on sym_referer id %d", 
 			    node->symbol_referer_id);
-			sdb_engine_table_map_tmp_heritage_destroy (node);
+			sdb_engine_tablemap_tmp_heritage_destroy (node);
 			continue;
 		}
 
@@ -5528,6 +5588,7 @@ sdb_engine_second_pass_do (SymbolDBEngine * dbe)
 	{
 		sdb_engine_tablemap_db_flush_sym_type (dbe);
 		sdb_engine_tablemap_db_flush_scope_def (dbe);
+		sdb_engine_tablemap_db_flush_symbol (dbe);
 	}
 
 	
@@ -5538,6 +5599,303 @@ sdb_engine_second_pass_do (SymbolDBEngine * dbe)
 		sdb_engine_second_pass_update_heritage (dbe);
 	}
 }
+
+
+static void
+sdb_engine_tablemap_db_flush_symbol (SymbolDBEngine * dbe)
+{
+	SymbolDBEnginePriv *priv;
+	gint i;
+	gint queue_length;
+	const GdaSet *plist;
+	const GdaStatement *stmt;
+	GdaHolder *param;
+	GValue *ret_value;
+	gboolean ret_bool;
+	GError *error = NULL;
+
+	priv = dbe->priv;
+	DEBUG_PRINT ("Preparing SYMBOL flush on db");
+#ifdef DEBUG
+	GTimer *sym_timer_DEBUG  = g_timer_new ();
+#endif
+	queue_length = g_queue_get_length (priv->symbol_tablemap_queue);
+
+	gda_connection_begin_transaction (priv->db_connection, "symboltrans", 
+	    GDA_TRANSACTION_ISOLATION_READ_UNCOMMITTED, &error);
+	
+	if (error)
+	{
+		g_warning (error->message);
+		g_error_free (error);
+		error = NULL;
+	}
+	
+	if ((stmt = sdb_engine_get_statement_by_query_id (dbe, PREP_QUERY_SYMBOL_NEW))
+		== NULL)
+	{
+		g_warning ("query is null");
+		return;
+	}
+
+	plist = sdb_engine_get_query_parameters_list (dbe, PREP_QUERY_SYMBOL_NEW);
+	
+	for (i = 0; i < queue_length; i++)
+	{
+		TableMapSymbol * node;
+		node = (TableMapSymbol *)g_queue_pop_head (priv->symbol_tablemap_queue);
+
+		/* filedefid parameter */
+		if ((param = gda_set_get_holder ((GdaSet*)plist, "filedefid")) == NULL)
+		{
+			g_warning ("param filedefid is NULL from pquery!");
+			return;
+		}
+		
+		MP_SET_HOLDER_BATCH_INT(priv, param, node->file_defined_id, ret_bool, ret_value);
+
+		/* name parameter */
+		if ((param = gda_set_get_holder ((GdaSet*)plist, "name")) == NULL)
+		{
+			g_warning ("param name is NULL from pquery!");			
+			return;
+		}
+		
+		MP_SET_HOLDER_BATCH_STR(priv, param, node->name, ret_bool, ret_value);		
+
+		/* typeid parameter */
+		if ((param = gda_set_get_holder ((GdaSet*)plist, "typeid")) == NULL)
+		{
+			g_warning ("param typeid is NULL from pquery!");
+			return;			
+		}
+		
+		MP_SET_HOLDER_BATCH_INT(priv, param, node->type_id, ret_bool, ret_value);		
+
+		/* common params */
+
+		/* fileposition parameter */
+		if ((param = gda_set_get_holder ((GdaSet*)plist, "fileposition")) == NULL)
+		{
+			g_warning ("param fileposition is NULL from pquery!");
+			return;
+		}
+		
+		MP_SET_HOLDER_BATCH_INT(priv, param, node->file_position, ret_bool, ret_value);
+		
+		/* isfilescope parameter */
+		if ((param = gda_set_get_holder ((GdaSet*)plist, "isfilescope")) == NULL)	
+		{
+			g_warning ("param isfilescope is NULL from pquery!");
+			return;
+		}
+		
+		MP_SET_HOLDER_BATCH_INT(priv, param, node->is_file_scope, ret_bool, ret_value);
+		
+		/* signature parameter */
+		if ((param = gda_set_get_holder ((GdaSet*)plist, "signature")) == NULL)	
+		{
+			g_warning ("param signature is NULL from pquery!");
+			return;
+		}
+		
+		MP_SET_HOLDER_BATCH_STR(priv, param, node->signature, ret_bool, ret_value);
+
+		/* returntype parameter */
+		if ((param = gda_set_get_holder ((GdaSet*)plist, "returntype")) == NULL)	
+		{
+			g_warning ("param returntype is NULL from pquery!");
+			return;
+		}
+		
+		MP_SET_HOLDER_BATCH_STR(priv, param, node->returntype, ret_bool, ret_value);	
+		
+		/* scopedefinitionid parameter */
+		if ((param = gda_set_get_holder ((GdaSet*)plist, "scopedefinitionid")) == NULL)	
+		{
+			g_warning ("param scopedefinitionid is NULL from pquery!");
+			return;
+		}
+		
+		MP_SET_HOLDER_BATCH_INT(priv, param, node->scope_definition_id, ret_bool, ret_value);
+		
+		/* scopeid parameter */
+		if ((param = gda_set_get_holder ((GdaSet*)plist, "scopeid")) == NULL)	
+		{
+			g_warning ("param scopeid is NULL from pquery!");
+			return;
+		}
+		
+		MP_SET_HOLDER_BATCH_INT(priv, param, node->scope_id, ret_bool, ret_value);
+		
+		/* kindid parameter */
+		if ((param = gda_set_get_holder ((GdaSet*)plist, "kindid")) == NULL)	
+		{
+			g_warning ("param kindid is NULL from pquery!");
+			return;
+		}
+		
+		MP_SET_HOLDER_BATCH_INT(priv, param, node->kind_id, ret_bool, ret_value);
+		
+		/* accesskindid parameter */
+		if ((param = gda_set_get_holder ((GdaSet*)plist, "accesskindid")) == NULL)	
+		{
+			g_warning ("param accesskindid is NULL from pquery!");
+			return;
+		}
+		
+		MP_SET_HOLDER_BATCH_INT(priv, param, node->access_kind_id, ret_bool, ret_value);
+
+		/* implementationkindid parameter */
+		if ((param = gda_set_get_holder ((GdaSet*)plist, "implementationkindid")) == NULL)	
+		{
+			g_warning ("param implementationkindid is NULL from pquery!");
+			return;
+		}
+		
+		MP_SET_HOLDER_BATCH_INT(priv, param, node->implementation_kind_id, ret_bool, ret_value);
+		
+		/* updateflag parameter */
+		if ((param = gda_set_get_holder ((GdaSet*)plist, "updateflag")) == NULL)
+		{
+			g_warning ("param updateflag is NULL from pquery!");
+			return;
+		}
+		
+		MP_SET_HOLDER_BATCH_INT(priv, param, node->update_flag, ret_bool, ret_value);
+
+		
+		/* execute the query with parametes just set */
+		gda_connection_statement_execute_non_select (priv->db_connection, 
+														 (GdaStatement*)stmt, 
+														 (GdaSet*)plist, NULL,
+														 NULL);
+
+		/* no need to free value, it'll be freed when associated value 
+		 * on hashtable'll be freed
+		 */
+		
+		MP_RESET_PLIST(plist);
+	}	
+	
+	gda_connection_commit_transaction (priv->db_connection, "symboltrans", &error);
+	
+	if (error)
+	{
+		g_warning (error->message);
+		g_error_free (error);
+		error = NULL;
+	}
+	
+#ifdef DEBUG	
+	gdouble elapsed_DEBUG = g_timer_elapsed (sym_timer_DEBUG, NULL);	
+	DEBUG_PRINT ("===== elapsed using GDA TRANSACTION: %f", elapsed_DEBUG);
+	g_timer_destroy (sym_timer_DEBUG);
+#endif	
+
+	/* free also all the keys/values on hashtable */
+	g_hash_table_remove_all (priv->symbol_tablemap_hash);
+}
+
+/**
+ * ### Thread note: this function inherits the mutex lock ### 
+ *
+ * A specific function to perform a fast 1st insertion of symbols on db.
+ * This function avoids over-complex logic on an already complex 
+ * sdb_engine_add_new_symbol (). Here we won't use update case but we'll consider
+ * just a plain insertion on tablemaps, of course, and a flush_on_db later.
+ *
+ */
+static gint
+sdb_engine_add_new_symbol_1st (SymbolDBEngine *dbe, const tagEntry *tag_entry,
+    							gint file_defined_id)
+{
+	SymbolDBEnginePriv *priv;
+	gint table_id = -1;
+	const gchar* name;
+	gint file_position = 0;
+	gint is_file_scope = 0;
+	const gchar *signature;
+	const gchar *returntype;
+	gint scope_definition_id = 0;
+	gint scope_id = 0;
+	gint type_id = 0;
+	gint kind_id = 0;
+	gint access_kind_id = 0;
+	gint implementation_kind_id = 0;
+	gchar *key_to_find;
+	gpointer value;
+
+	g_return_val_if_fail (dbe != NULL, -1);
+	g_return_val_if_fail (tag_entry != NULL, -1);
+	
+	priv = dbe->priv;
+
+	/* parse the entry name */
+	name = tag_entry->name;
+	file_position = tag_entry->address.lineNumber;
+	is_file_scope = tag_entry->fileScope;
+	signature = tagsField (tag_entry, "signature");	
+	returntype = tagsField (tag_entry, "returntype");	
+	
+	type_id = sdb_engine_add_new_sym_type (dbe, tag_entry);
+	scope_definition_id = sdb_engine_add_new_scope_definition (dbe, tag_entry,
+															   type_id);
+	scope_id = 0;
+
+	kind_id = sdb_engine_add_new_sym_kind (dbe, tag_entry);	
+	access_kind_id = sdb_engine_add_new_sym_access (dbe, tag_entry);	
+	implementation_kind_id = sdb_engine_add_new_sym_implementation (dbe, tag_entry);	
+
+	key_to_find = g_strdup_printf ("%s|%d|%d", name, file_defined_id, file_position);
+	
+	/* use a check-first, insert later pattern. Have a look at the hashtable if 
+	 * we find the correct key
+	 */
+	value = g_hash_table_lookup (priv->symbol_tablemap_hash, key_to_find);
+
+	if (value == NULL)
+	{
+		TableMapSymbol *node;
+		gint new_id;
+
+		new_id = priv->symbol_tablemap_id++;
+		
+		node = g_slice_new0 (TableMapSymbol);		
+		node->symbol_id = new_id;
+		node->access_kind_id = access_kind_id;
+		node->file_defined_id = file_defined_id;
+		node->file_position = file_position;
+		node->implementation_kind_id = implementation_kind_id;
+		node->is_file_scope = is_file_scope;
+		node->kind_id = kind_id;
+		node->name = g_strdup (name);						/* to be freed */
+		node->returntype = g_strdup (returntype);			/* to be freed */
+		node->scope_definition_id = scope_definition_id;
+		node->scope_id = scope_id;
+		node->signature = g_strdup (signature);				/* to be freed */
+		node->type_id = type_id;
+		node->update_flag = 0;
+		
+		/* no value has been found, proceed with insertion */
+		g_hash_table_insert (priv->symbol_tablemap_hash, key_to_find, node);
+
+		/* insert the node also in the queue. */
+		g_queue_push_tail (priv->symbol_tablemap_queue, node);
+		
+		table_id = new_id;
+	}
+	else 
+	{
+		/* fine, return the id found */
+		table_id = GPOINTER_TO_INT (value);
+
+		g_free (key_to_find);
+	}
+	
+	return table_id;
+}
+    
 
 /**
  * ### Thread note: this function inherits the mutex lock ### 
@@ -5595,6 +5953,15 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	g_return_val_if_fail (dbe != NULL, -1);
 	priv = dbe->priv;
 
+	if (priv->is_first_population == TRUE)
+	{
+		table_id = sdb_engine_add_new_symbol_1st (dbe, tag_entry, file_defined_id);
+		if (table_id > 0)
+			sdb_engine_add_new_tmp_heritage_scope (dbe, tag_entry, table_id);
+		
+		return table_id;
+	}
+	
 	/* keep it at 0 if sym_update == false */
 	if (sym_update == FALSE)
 		update_flag = 0;
@@ -5705,6 +6072,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 							   sym_list);
 		}
 	}
+	
 	/* ok then, parse the symbol id value */
 	if (symbol_id <= 0)
 	{
@@ -5882,6 +6250,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	
 	/* execute the query with parametes just set */
 	gint nrows;
+	
 	nrows = gda_connection_statement_execute_non_select (priv->db_connection, 
 													 (GdaStatement*)stmt, 
 													 (GdaSet*)plist, &last_inserted,
@@ -5924,6 +6293,8 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	
 	if (last_inserted)
 		g_object_unref (last_inserted);	
+
+	/* post population phase */
 	
 	/* before returning the table_id we have to fill some infoz on temporary tables
 	 * so that in a second pass we can parse also the heritage and scope fields.

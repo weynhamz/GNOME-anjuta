@@ -323,6 +323,10 @@ struct _SymbolDBEnginePriv
 	GHashTable *scope_def_tablemap_hash;
 	GQueue *scope_def_tablemap_queue;
 	guint scope_def_tablemap_id;
+
+	GHashTable *symbol_tablemap_hash;
+	GQueue *symbol_tablemap_queue;
+	guint symbol_tablemap_id;
 	
 	GTree *file_symbols_cache;		
 	
