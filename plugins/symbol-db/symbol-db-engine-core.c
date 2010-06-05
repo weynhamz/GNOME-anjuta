@@ -1707,6 +1707,7 @@ sdb_engine_timeout_trigger_signals (gpointer user_data)
 				{
 					/* get the process id from the queue */
 					gint int_tmp = GPOINTER_TO_INT(g_async_queue_pop (priv->scan_process_id_queue));
+					priv->scanning--;
 					g_signal_emit (dbe, signals[SCAN_END], 0, int_tmp);
 				}
 					break;
@@ -1976,7 +1977,8 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 	{
 		sdb_engine_ctags_launcher_create (dbe);
 	}
-	
+
+	priv->scanning++; /* Enter scanning state */
 	g_signal_emit_by_name (dbe, "scan-begin",
 	                       anjuta_launcher_get_child_pid (priv->ctags_launcher));
 	
@@ -2177,7 +2179,7 @@ sdb_engine_init (SymbolDBEngine * object)
 	sdbe->priv->updated_symbols_id = g_async_queue_new ();
 	sdbe->priv->updated_scope_symbols_id = g_async_queue_new ();
 	sdbe->priv->inserted_symbols_id = g_async_queue_new ();
-	
+	sdbe->priv->scanning = 0;
 	
 	/*
 	 * STATIC QUERY STRUCTURE INITIALIZE
@@ -3016,6 +3018,13 @@ symbol_db_engine_is_connected (SymbolDBEngine * dbe)
 	
 	return priv->db_connection && priv->cnc_string && priv->sql_parser && 
 		gda_connection_is_opened (priv->db_connection );
+}
+
+gboolean
+symbol_db_engine_is_scanning (SymbolDBEngine *dbe)
+{
+	g_return_val_if_fail (SYMBOL_IS_DB_ENGINE (dbe), FALSE);
+	return (dbe->priv->scanning > 0);
 }
 
 /**

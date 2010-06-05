@@ -126,6 +126,12 @@ gboolean
 symbol_db_engine_is_connected (SymbolDBEngine * dbe);
 
 /**
+ * Check if engine is scanning busy
+ */
+gboolean
+symbol_db_engine_is_scanning (SymbolDBEngine *dbe);
+
+/**
  * Getter for the connection string. Returned char must be freed by caller.
  */
 gchar *

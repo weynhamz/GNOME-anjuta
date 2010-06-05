@@ -64,6 +64,7 @@ struct _SymbolDBQueryPriv {
 
 	/* Aync results */
 	gboolean is_canceled;
+	gboolean query_queued;
 	IAnjutaIterable *async_result;
 };
 
@@ -315,26 +316,6 @@ sdb_query_execute_real (SymbolDBQuery *query)
 	return IANJUTA_ITERABLE (iter);
 }
 
-static IAnjutaIterable*
-sdb_query_execute (SymbolDBQuery *query)
-{
-	switch (query->priv->mode)
-	{
-		case IANJUTA_SYMBOL_QUERY_MODE_SYNC:
-			return sdb_query_execute_real (query);
-		case IANJUTA_SYMBOL_QUERY_MODE_ASYNC:
-			query->priv->is_canceled = FALSE;
-			anjuta_command_start (ANJUTA_COMMAND (query));
-			return NULL;
-		case IANJUTA_SYMBOL_QUERY_MODE_QUEUED_SINGLE:
-		case IANJUTA_SYMBOL_QUERY_MODE_QUEUED_MULTI:
-			/* FIXME */
-		default:
-			g_warn_if_reached ();
-	}
-	return NULL;
-}
-
 static void
 on_sdb_query_async_data_arrived (SymbolDBQuery *query, gpointer data)
 {
@@ -369,6 +350,49 @@ sdb_query_async_cancel (AnjutaCommand *command)
 
 	g_return_if_fail (query->priv->mode != IANJUTA_SYMBOL_QUERY_MODE_SYNC);
 	query->priv->is_canceled = TRUE;
+	query->priv->query_queued = FALSE;
+}
+
+static void
+on_sdb_query_dbe_scan_end (SymbolDBEngine *dbe, gint something,
+                           SymbolDBQuery *query)
+{
+	g_return_if_fail (SYMBOL_DB_IS_QUERY (query));
+	g_return_if_fail (query->priv->mode == IANJUTA_SYMBOL_QUERY_MODE_QUEUED_SINGLE);
+	
+	if (!query->priv->is_canceled && query->priv->query_queued &&
+	    !symbol_db_engine_is_scanning (query->priv->dbe_system) &&
+	    !symbol_db_engine_is_scanning (query->priv->dbe_project))
+	{
+		g_signal_emit_by_name (query, "async-result",
+		                       sdb_query_execute_real (query));
+		query->priv->is_canceled = FALSE;
+		query->priv->query_queued = FALSE;
+	}
+}
+
+static IAnjutaIterable*
+sdb_query_execute (SymbolDBQuery *query)
+{
+	switch (query->priv->mode)
+	{
+		case IANJUTA_SYMBOL_QUERY_MODE_SYNC:
+			return sdb_query_execute_real (query);
+		case IANJUTA_SYMBOL_QUERY_MODE_ASYNC:
+			query->priv->is_canceled = FALSE;
+			anjuta_command_start (ANJUTA_COMMAND (query));
+			return NULL;
+		case IANJUTA_SYMBOL_QUERY_MODE_QUEUED_SINGLE:
+			query->priv->is_canceled = FALSE;
+			query->priv->query_queued = TRUE;
+			on_sdb_query_dbe_scan_end (NULL, 0, query);
+			break;
+		case IANJUTA_SYMBOL_QUERY_MODE_QUEUED_MULTI:
+			/* FIXME */
+		default:
+			g_warn_if_reached ();
+	}
+	return NULL;
 }
 
 static void
@@ -403,6 +427,8 @@ sdb_query_init (SymbolDBQuery *query)
 
 	/* Prepare async signals */
 	priv->is_canceled = FALSE;
+	priv->async_result = NULL;
+	priv->query_queued = FALSE;
 	g_signal_connect (query, "notify-data-arrived",
 	                  G_CALLBACK (on_sdb_query_async_data_arrived), query);
 }
@@ -447,10 +473,28 @@ sdb_query_set_property (GObject *object, guint prop_id, const GValue *value, GPa
 		gda_holder_set_value (priv->param_offset, value, NULL);
 		break;
 	case PROP_DB_ENGINE_SYSTEM:
+		if (priv->dbe_system)
+		{
+			g_signal_handlers_disconnect_by_func (priv->dbe_system,
+			                                      on_sdb_query_dbe_scan_end,
+			                                      query);
+		}
+		g_object_unref (priv->dbe_system);
 		priv->dbe_system = g_value_get_object (value);
+		g_signal_connect (priv->dbe_system, "scan-end",
+		                  G_CALLBACK (on_sdb_query_dbe_scan_end), query);
 		break;
 	case PROP_DB_ENGINE_PROJECT:
+		if (priv->dbe_project)
+		{
+			g_signal_handlers_disconnect_by_func (priv->dbe_project,
+			                                      on_sdb_query_dbe_scan_end,
+			                                      query);
+		}
+		g_object_unref (priv->dbe_system);
 		priv->dbe_project = g_value_get_object (value);
+		g_signal_connect (priv->dbe_project, "scan-end",
+		                  G_CALLBACK (on_sdb_query_dbe_scan_end), query);
 		break;
 	case PROP_DB_ENGINE_SELECTED:
 		priv->dbe_selected = g_value_get_object (value);

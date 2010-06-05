@@ -289,6 +289,7 @@ struct _SymbolDBEnginePriv
 	GAsyncQueue *updated_symbols_id;
 	GAsyncQueue *updated_scope_symbols_id;
 	GAsyncQueue *inserted_symbols_id;
+	gint scanning;
 	
 	gchar *shared_mem_str;
 	FILE *shared_mem_file;
