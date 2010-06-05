@@ -1,3 +1,16 @@
+Anjuta 2.30.2 "Javascript isn't an island at all" (5 June 2010) -- Johannes Schmid
+
+Bugs fixed:
+language-support-cpp-java: bgo#618955  - Smart brace completion is no longer smart
+language-support-cpp-java: bgo#618314  - Anjuta crash on while editing
+message-view: Remove tab position preferences and give colors better defaults
+file-wizard: #616810 Error when creating new c source and header
+language-support-js: bgo#617734 - Load/Unload the plugin properly when a .js file is open
+document-manager: fixed bgo #616739 - doesn't open .ui files, neither in xml mode
+anjuta-tags: bgo #616780. Handle more cases.
+anjuta-tags: bgo #616780 - Wrong return type recognition
+anjuta: Add APR_UTILS to subversion CFLAGS and LIBS (bgo#617149)
+
 Anjuta 2.30.1 "BASIC's not the answer" (26 April 2010) -- Johannes Schmid
 
 Bugs fixed:
