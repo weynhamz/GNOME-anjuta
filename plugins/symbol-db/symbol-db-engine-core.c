@@ -1766,8 +1766,7 @@ sdb_engine_ctags_output_thread (gpointer data, gpointer user_data)
 					gint tmp_updated;
 
 					/* scan has ended. Go go with second step. */
-					DEBUG_PRINT ("%s", "FOUND end-of-group-files marker."
-								 "go on with sdb_engine_second_pass_do ()");
+					DEBUG_PRINT ("FOUND end-of-group-files marker.");
 					
 					chars_ptr += len_marker;
 					remaining_chars -= len_marker;
@@ -1821,7 +1820,17 @@ sdb_engine_ctags_output_thread (gpointer data, gpointer user_data)
 					/* emit signal. The end of files-group can be cannot be
 					 * determined by the caller. This is the only way.
 					 */
-					DEBUG_PRINT ("%s", "EMITTING scan-end");
+					DEBUG_PRINT ("EMITTING scan-end");
+#ifdef DEBUG	
+					if (priv->first_scan_timer_DEBUG != NULL)
+					{
+						DEBUG_PRINT ("TOTAL FIRST SCAN elapsed: %f",
+						    g_timer_elapsed (priv->first_scan_timer_DEBUG, NULL));
+						g_timer_destroy (priv->first_scan_timer_DEBUG);
+						priv->first_scan_timer_DEBUG = NULL;
+					}
+#endif
+					
 					g_async_queue_push (priv->signals_queue, GINT_TO_POINTER(SCAN_END + 1));
 				}
 				
@@ -1845,7 +1854,7 @@ sdb_engine_ctags_output_thread (gpointer data, gpointer user_data)
 	}
 	else 
 	{
-		DEBUG_PRINT ("%s", "no len_chars > len_marker");
+		DEBUG_PRINT ("no len_chars > len_marker");
 	}
 	
 	SDB_UNLOCK(priv);
@@ -1939,7 +1948,6 @@ sdb_engine_timeout_trigger_signals (gpointer user_data)
 	if (g_thread_pool_unprocessed (priv->thread_pool) == 0 &&
 		g_thread_pool_get_num_threads (priv->thread_pool) == 0)
 	{
-		/*DEBUG_PRINT ("%s", "removing signals trigger");*/
 		/* remove the trigger coz we don't need it anymore... */
 		g_source_remove (priv->timeout_trigger_handler);
 		priv->timeout_trigger_handler = 0;
@@ -2173,9 +2181,15 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 	{
 		sdb_engine_ctags_launcher_create (dbe);
 	}
-	
+
+	DEBUG_PRINT ("EMITTING scan begin.");
 	g_signal_emit_by_name (dbe, "scan-begin",
 	                       anjuta_launcher_get_child_pid (priv->ctags_launcher));
+
+#ifdef DEBUG	
+	if (priv->first_scan_timer_DEBUG == NULL)
+		priv->first_scan_timer_DEBUG = g_timer_new ();
+#endif	
 	
 	/* create the shared memory file */
 	if (priv->shared_mem_file == 0)
@@ -3661,7 +3675,7 @@ CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
 			
 			if (symbol_db_engine_add_new_workspace (dbe, workspace_name) == FALSE)
 			{	
-				DEBUG_PRINT ("%s", "Project cannot be added because a default workspace "
+				DEBUG_PRINT ("Project cannot be added because a default workspace "
 							 "cannot be created");				
 				return FALSE;
 			}
@@ -3872,7 +3886,7 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 	gchar *relative_path = symbol_db_util_get_file_db_path (dbe, local_filepath);
 	if (relative_path == NULL)
 	{
-		DEBUG_PRINT ("%s", "relative_path == NULL");
+		DEBUG_PRINT ("relative_path == NULL");
 		SDB_UNLOCK(priv);
 		return FALSE;
 	}	
@@ -7022,8 +7036,6 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 	g_return_val_if_fail (text_buffers != NULL, FALSE);
 	g_return_val_if_fail (buffer_sizes != NULL, FALSE);
 	
-	DEBUG_PRINT ("%s", "");
-
 	temp_files = g_ptr_array_new();	
 	real_files_on_db = g_ptr_array_new();
 	

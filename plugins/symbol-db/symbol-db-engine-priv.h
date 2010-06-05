@@ -340,6 +340,10 @@ struct _SymbolDBEnginePriv
 	GQueue *mem_pool_string;
 	GQueue *mem_pool_int;
 #endif
+
+#ifdef DEBUG
+	GTimer *first_scan_timer_DEBUG;
+#endif	
 };
 
 #endif
