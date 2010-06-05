@@ -951,6 +951,7 @@ plugins/language-support-cpp-java/cxxparser/Makefile
 plugins/run-program/Makefile
 plugins/starter/Makefile
 plugins/language-support-js/Makefile
+plugins/language-support-vala/Makefile
 anjuta.desktop.in
 manuals/Makefile
 manuals/reference/Makefile
@@ -997,9 +998,10 @@ else
         echo "Building GtkSourceView based editor: ...................NO"
 fi
 if [ test x$enable_vala = xyes ]; then
-        echo "Building Vala ctags parser (requires vala):.............YES"
+        echo "Building Vala support: .................................YES"
 else
-        echo "Building Vala ctags parser (requires vala):.............NO"
+        echo "Building Vala support: .................................NO"
+        echo "        Requires libvala (>= $VALA_REQUIRED)"
 fi
 if [ test x$libgraphviz_found = xyes ]; then
         echo "Building class inheritance plugin: .....................YES"
