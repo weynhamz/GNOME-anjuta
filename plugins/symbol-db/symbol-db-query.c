@@ -115,7 +115,8 @@ SdbQueryFieldSpec field_specs[] = {
 
 /* FIXME: This maps to the bit position of IAnjutaSymbolType enum. This can
  * easily get out of hand if IAnjutaSymbolType enum value and this is not
- * associated more concretely through DB.
+ * associated more concretely through DB. To do it properly, get this list
+ * from database directly instead of hardcoding here.
  */
 static gchar* kind_names[] =
 {
@@ -671,27 +672,18 @@ sdb_query_search_file (IAnjutaSymbolQuery *query, const gchar *search_string,
 }
 
 static void
-sdb_query_set_fields (IAnjutaSymbolQuery *query, IAnjutaSymbolField field0, ...)
+sdb_query_set_fields (IAnjutaSymbolQuery *query, gint n_fields,
+                      IAnjutaSymbolField *fields, GError **err)
 {
-	gint i = 0;
-	IAnjutaSymbolField arg;
-	va_list vl;
+	gint i;
 	SymbolDBQueryPriv *priv;
 
 	g_return_if_fail (SYMBOL_DB_IS_QUERY (query));
 
 	priv = SYMBOL_DB_QUERY (query)->priv;
-	va_start (vl, field0);
-	arg = field0;
-	priv->fields[i] = arg;
-	i++;
-	while (arg != IANJUTA_SYMBOL_FIELD_END)
-	{
-		arg = va_arg (vl, IAnjutaSymbolField);
-		priv->fields[i] = arg;
-		i++;
-	}
-	va_end (vl);
+	for (i = 0; i < n_fields; i++)
+		priv->fields[i] = fields[i];
+	priv->fields[i] = IANJUTA_SYMBOL_FIELD_END;
 }
 
 static void

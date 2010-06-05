@@ -5357,7 +5357,7 @@ interface IAnjutaSymbolQuery
 	void ::async_result (GObject* result);
 	
 	void set_mode (IAnjutaSymbolQueryMode mode);
-	void set_fields (IAnjutaSymbolField field0, ...);
+	void set_fields (gint n_fields, IAnjutaSymbolField *fields);
 	void set_filters (IAnjutaSymbolType filters, gboolean includes_types);
 	void set_file_scope (IAnjutaSymbolQueryFileScope filescope_search);
 	void set_offset (gint offset);
