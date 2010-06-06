@@ -1766,7 +1766,7 @@ sdb_engine_ctags_output_thread (gpointer data, gpointer user_data)
 					gint tmp_updated;
 
 					/* scan has ended. Go go with second step. */
-					DEBUG_PRINT ("FOUND end-of-group-files marker.");
+					DEBUG_PRINT ("%s", "FOUND end-of-group-files marker.");
 					
 					chars_ptr += len_marker;
 					remaining_chars -= len_marker;
@@ -1820,7 +1820,7 @@ sdb_engine_ctags_output_thread (gpointer data, gpointer user_data)
 					/* emit signal. The end of files-group can be cannot be
 					 * determined by the caller. This is the only way.
 					 */
-					DEBUG_PRINT ("EMITTING scan-end");
+					DEBUG_PRINT ("%s", "EMITTING scan-end");
 #ifdef DEBUG	
 					if (priv->first_scan_timer_DEBUG != NULL)
 					{
@@ -1851,10 +1851,6 @@ sdb_engine_ctags_output_thread (gpointer data, gpointer user_data)
 			/* found out a new marker */ 
 			marker_ptr = strstr (marker_ptr + len_marker, CTAGS_MARKER);
 		} while (remaining_chars + len_marker < len_chars || marker_ptr != NULL);
-	}
-	else 
-	{
-		DEBUG_PRINT ("no len_chars > len_marker");
 	}
 	
 	SDB_UNLOCK(priv);
@@ -2182,7 +2178,7 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 		sdb_engine_ctags_launcher_create (dbe);
 	}
 
-	DEBUG_PRINT ("EMITTING scan begin.");
+	DEBUG_PRINT ("%s", "EMITTING scan begin.");
 	g_signal_emit_by_name (dbe, "scan-begin",
 	                       anjuta_launcher_get_child_pid (priv->ctags_launcher));
 
@@ -3675,7 +3671,7 @@ CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
 			
 			if (symbol_db_engine_add_new_workspace (dbe, workspace_name) == FALSE)
 			{	
-				DEBUG_PRINT ("Project cannot be added because a default workspace "
+				DEBUG_PRINT ("%s", "Project cannot be added because a default workspace "
 							 "cannot be created");				
 				return FALSE;
 			}
@@ -3886,7 +3882,7 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 	gchar *relative_path = symbol_db_util_get_file_db_path (dbe, local_filepath);
 	if (relative_path == NULL)
 	{
-		DEBUG_PRINT ("relative_path == NULL");
+		DEBUG_PRINT ("%s", "relative_path == NULL");
 		SDB_UNLOCK(priv);
 		return FALSE;
 	}	
