@@ -61,6 +61,7 @@ struct _SymbolDBQueryPriv {
 	/* Param holders */
 	GdaSet *params;
 	GdaHolder *param_pattern, *param_file_path, *param_limit, *param_offset;
+	GdaHolder *param_file_line, *param_id;
 
 	/* Aync results */
 	gboolean is_canceled;
@@ -266,6 +267,55 @@ sdb_query_update (SymbolDBQuery *query)
 				) ";
 			priv->filters &= IANJUTA_SYMBOL_FIELD_FILE_PATH;
 			break;
+		case IANJUTA_SYMBOL_QUERY_SEARCH_ID:
+			condition = "(symbol.symbol_id = ## /* name:'symbolid' type:gint */)";
+			break;
+		case IANJUTA_SYMBOL_QUERY_SEARCH_MEMBERS:
+			condition =
+				"(symbol.scope_id IN \
+				( \
+					SELECT symbol.scope_definition_id \
+					FROM symbol \
+					WHERE symbol.symbol_id = ## /* name:'symbolid' type:gint */ \
+				) \
+				AND symbol.scope_id > 0) ORDER BY symbol.name) ";
+			break;
+		case IANJUTA_SYMBOL_QUERY_SEARCH_CLASS_PARENTS:
+			condition =
+				"(symbol.symbol_id IN \
+				( \
+					SELECT heritage.symbol_id_base \
+					FROM heritage \
+					WHERE heritage.symbol_id_derived = ## /* name:'symbolid' type:gint */ \
+				)) ";
+			break;
+		case IANJUTA_SYMBOL_QUERY_SEARCH_SCOPE:
+			condition =
+				"(file.file_path = ## /* name:'filepath' type:gchararray */ \
+				 AND symbol.file_position <= ## /* name:'linenum' type:gint */)  \
+				 ORDER BY symbol.file_position DESC ";
+			g_object_set (query, "limit", 1, NULL);
+			break;
+		case IANJUTA_SYMBOL_QUERY_SEARCH_PARENT_SCOPE:
+			condition =
+				"(symbol.scope_definition_id IN \
+				( \
+					SELECT symbol.scope_id \
+					FROM symbol \
+					WHERE symbol.symbol_id = ## /* name:'symbolid' type:gint */ \
+				) ";
+			g_object_set (query, "limit", 1, NULL);
+			break;
+		case IANJUTA_SYMBOL_QUERY_SEARCH_PARENT_SCOPE_FILE:
+			condition =
+				"(symbol.scope_definition_id IN \
+				( \
+					SELECT symbol.scope_id \
+					FROM symbol \
+					WHERE symbol.symbol_id = ## /* name:'symbolid' type:gint */ \
+				) AND file.file_path = ## /* name:'filepath' type:gchararray */ ";
+			g_object_set (query, "limit", 1, NULL);
+			break;
 		default:
 			g_warning ("Invalid query kind");
 			g_warn_if_reached ();
@@ -420,6 +470,12 @@ sdb_query_init (SymbolDBQuery *query)
 	param_holders = g_slist_prepend (param_holders, param);
 
 	param = priv->param_limit = gda_holder_new_int ("offset", 0);
+	param_holders = g_slist_prepend (param_holders, param);
+
+	param = priv->param_id = gda_holder_new_int ("symbolid", 0);
+	param_holders = g_slist_prepend (param_holders, param);
+
+	param = priv->param_file_line = gda_holder_new_int ("fileline", 0);
 	param_holders = g_slist_prepend (param_holders, param);
 
 	priv->params = gda_set_new (param_holders);
@@ -652,6 +708,56 @@ sdb_query_class_init (SymbolDBQueryClass *klass)
 	                                                      G_PARAM_READABLE));
 }
 
+static void
+sdb_query_set_fields (IAnjutaSymbolQuery *query, gint n_fields,
+                      IAnjutaSymbolField *fields, GError **err)
+{
+	gint i;
+	SymbolDBQueryPriv *priv;
+
+	g_return_if_fail (SYMBOL_DB_IS_QUERY (query));
+
+	priv = SYMBOL_DB_QUERY (query)->priv;
+	for (i = 0; i < n_fields; i++)
+		priv->fields[i] = fields[i];
+	priv->fields[i] = IANJUTA_SYMBOL_FIELD_END;
+}
+
+static void
+sdb_query_set_mode (IAnjutaSymbolQuery *query, IAnjutaSymbolQueryMode mode,
+                    GError **err)
+{
+	g_object_set (query, "query-mode", mode, NULL);
+}
+
+static void
+sdb_query_set_filters (IAnjutaSymbolQuery *query, IAnjutaSymbolType filters,
+                       gboolean include_types, GError **err)
+{
+	g_object_set (query, "filters", filters, NULL);
+	/* FIXME: include_types */
+}
+
+static void
+sdb_query_set_limit (IAnjutaSymbolQuery *query, gint limit, GError **err)
+{
+	g_object_set (query, "limit", limit, NULL);
+}
+
+static void
+sdb_query_set_offset (IAnjutaSymbolQuery *query, gint offset, GError **err)
+{
+	g_object_set (query, "offset", offset, NULL);
+}
+
+static void
+sdb_query_set_file_scope (IAnjutaSymbolQuery *query,
+                          IAnjutaSymbolQueryFileScope file_scope,
+                          GError **err)
+{
+	g_object_set (query, "file-scope", file_scope, NULL);
+}
+
 static IAnjutaIterable*
 sdb_query_search_system (IAnjutaSymbolQuery *query,
                          const gchar *search_string, GError **error)
@@ -715,68 +821,163 @@ sdb_query_search_file (IAnjutaSymbolQuery *query, const gchar *search_string,
 	return sdb_query_execute (SYMBOL_DB_QUERY (query));
 }
 
-static void
-sdb_query_set_fields (IAnjutaSymbolQuery *query, gint n_fields,
-                      IAnjutaSymbolField *fields, GError **err)
+static IAnjutaIterable*
+sdb_query_search_id (IAnjutaSymbolQuery *query, gint symbol_id,
+                     GError **error)
 {
-	gint i;
+	GValue iv = {0};
 	SymbolDBQueryPriv *priv;
 
-	g_return_if_fail (SYMBOL_DB_IS_QUERY (query));
+	g_return_val_if_fail (SYMBOL_DB_IS_QUERY (query), NULL);
+	g_return_val_if_fail (symbol_id > 0, NULL);
+	
+	priv = SYMBOL_DB_QUERY (query)->priv;
+	g_return_val_if_fail (priv->name == IANJUTA_SYMBOL_QUERY_SEARCH_ID, NULL);
+
+	g_value_init (&iv, G_TYPE_INT);
+	g_value_set_int (&iv, symbol_id);
+	gda_holder_set_value (priv->param_id, &iv, NULL);
+	g_value_reset (&iv);
+	
+	return sdb_query_execute (SYMBOL_DB_QUERY (query));
+}
+
+static IAnjutaIterable*
+sdb_query_search_members (IAnjutaSymbolQuery *query, IAnjutaSymbol *symbol,
+                          GError **error)
+{
+	GValue iv = {0};
+	SymbolDBQueryPriv *priv;
+
+	g_return_val_if_fail (SYMBOL_DB_IS_QUERY (query), NULL);
 
 	priv = SYMBOL_DB_QUERY (query)->priv;
-	for (i = 0; i < n_fields; i++)
-		priv->fields[i] = fields[i];
-	priv->fields[i] = IANJUTA_SYMBOL_FIELD_END;
+	g_return_val_if_fail (priv->name == IANJUTA_SYMBOL_QUERY_SEARCH_MEMBERS, NULL);
+
+	g_value_init (&iv, G_TYPE_INT);
+	g_value_set_int (&iv, ianjuta_symbol_get_int (symbol, IANJUTA_SYMBOL_FIELD_ID, NULL));
+	gda_holder_set_value (priv->param_id, &iv, NULL);
+	g_value_reset (&iv);
+	
+	return sdb_query_execute (SYMBOL_DB_QUERY (query));
 }
 
-static void
-sdb_query_set_mode (IAnjutaSymbolQuery *query, IAnjutaSymbolQueryMode mode,
-                    GError **err)
+static IAnjutaIterable*
+sdb_query_search_class_parents (IAnjutaSymbolQuery *query, IAnjutaSymbol *symbol,
+                                GError **error)
 {
-	g_object_set (query, "query-mode", mode, NULL);
+	GValue iv = {0};
+	SymbolDBQueryPriv *priv;
+
+	g_return_val_if_fail (SYMBOL_DB_IS_QUERY (query), NULL);
+
+	priv = SYMBOL_DB_QUERY (query)->priv;
+	g_return_val_if_fail (priv->name == IANJUTA_SYMBOL_QUERY_SEARCH_CLASS_PARENTS, NULL);
+
+	g_value_init (&iv, G_TYPE_INT);
+	g_value_set_int (&iv, ianjuta_symbol_get_int (symbol, IANJUTA_SYMBOL_FIELD_ID, NULL));
+	gda_holder_set_value (priv->param_id, &iv, NULL);
+	g_value_reset (&iv);
+	
+	return sdb_query_execute (SYMBOL_DB_QUERY (query));
 }
 
-static void
-sdb_query_set_filters (IAnjutaSymbolQuery *query, IAnjutaSymbolType filters,
-                       gboolean include_types, GError **err)
+static IAnjutaIterable*
+sdb_query_search_scope (IAnjutaSymbolQuery *query, const gchar *file_path,
+                        gint file_line, GError **error)
 {
-	g_object_set (query, "filters", filters, NULL);
-	/* FIXME: include_types */
+	gchar *db_relative_path;
+	GValue v = {0};
+	SymbolDBQueryPriv *priv;
+
+	g_return_val_if_fail (SYMBOL_DB_IS_QUERY (query), NULL);
+
+	priv = SYMBOL_DB_QUERY (query)->priv;
+	g_return_val_if_fail (priv->name == IANJUTA_SYMBOL_QUERY_SEARCH_SCOPE, NULL);
+
+	g_value_init (&v, G_TYPE_INT);
+	g_value_set_int (&v, file_line);
+	gda_holder_set_value (priv->param_file_line, &v, NULL);
+	g_value_reset (&v);
+
+	db_relative_path = symbol_db_util_get_file_db_path (priv->dbe_selected, file_path);
+	if (db_relative_path == NULL)
+		return NULL;
+	g_value_init (&v, G_TYPE_STRING);
+	g_value_take_string (&v, db_relative_path);
+	gda_holder_set_value (priv->param_file_path, &v, NULL);
+	g_value_reset (&v);
+	
+	return sdb_query_execute (SYMBOL_DB_QUERY (query));
 }
 
-static void
-sdb_query_set_limit (IAnjutaSymbolQuery *query, gint limit, GError **err)
+static IAnjutaIterable*
+sdb_query_search_parent_scope (IAnjutaSymbolQuery *query, IAnjutaSymbol *symbol,
+                               GError **error)
 {
-	g_object_set (query, "limit", limit, NULL);
+	GValue iv = {0};
+	SymbolDBQueryPriv *priv;
+
+	g_return_val_if_fail (SYMBOL_DB_IS_QUERY (query), NULL);
+
+	priv = SYMBOL_DB_QUERY (query)->priv;
+	g_return_val_if_fail (priv->name == IANJUTA_SYMBOL_QUERY_SEARCH_PARENT_SCOPE, NULL);
+
+	g_value_init (&iv, G_TYPE_INT);
+	g_value_set_int (&iv, ianjuta_symbol_get_int (symbol, IANJUTA_SYMBOL_FIELD_ID, NULL));
+	gda_holder_set_value (priv->param_id, &iv, NULL);
+	g_value_reset (&iv);
+
+	return sdb_query_execute (SYMBOL_DB_QUERY (query));
 }
 
-static void
-sdb_query_set_offset (IAnjutaSymbolQuery *query, gint offset, GError **err)
+static IAnjutaIterable*
+sdb_query_search_parent_scope_file (IAnjutaSymbolQuery *query, IAnjutaSymbol *symbol,
+                               const gchar *file_path, GError **error)
 {
-	g_object_set (query, "offset", offset, NULL);
-}
+	gchar *db_relative_path;
+	GValue v = {0};
+	SymbolDBQueryPriv *priv;
 
-static void
-sdb_query_set_file_scope (IAnjutaSymbolQuery *query,
-                          IAnjutaSymbolQueryFileScope file_scope,
-                          GError **err)
-{
-	g_object_set (query, "file-scope", file_scope, NULL);
+	g_return_val_if_fail (SYMBOL_DB_IS_QUERY (query), NULL);
+
+	priv = SYMBOL_DB_QUERY (query)->priv;
+	g_return_val_if_fail (priv->name == IANJUTA_SYMBOL_QUERY_SEARCH_PARENT_SCOPE_FILE, NULL);
+
+	g_value_init (&v, G_TYPE_INT);
+	g_value_set_int (&v, ianjuta_symbol_get_int (symbol, IANJUTA_SYMBOL_FIELD_ID, NULL));
+	gda_holder_set_value (priv->param_id, &v, NULL);
+	g_value_reset (&v);
+
+	db_relative_path = symbol_db_util_get_file_db_path (priv->dbe_selected, file_path);
+	if (db_relative_path == NULL)
+		return NULL;
+	g_value_init (&v, G_TYPE_STRING);
+	g_value_take_string (&v, db_relative_path);
+	gda_holder_set_value (priv->param_file_path, &v, NULL);
+	g_value_reset (&v);
+	
+	return sdb_query_execute (SYMBOL_DB_QUERY (query));
 }
 
 static void
 ianjuta_symbol_query_iface_init (IAnjutaSymbolQueryIface *iface)
 {
-	iface->search_system = sdb_query_search_system;
-	iface->search_project = sdb_query_search_project;
-	iface->search_file = sdb_query_search_file;
 	iface->set_fields = sdb_query_set_fields;
 	iface->set_mode = sdb_query_set_mode;
 	iface->set_filters = sdb_query_set_filters;
 	iface->set_file_scope = sdb_query_set_file_scope;
 	iface->set_limit = sdb_query_set_limit;
 	iface->set_offset = sdb_query_set_offset;
+	iface->search_system = sdb_query_search_system;
+	iface->search_project = sdb_query_search_project;
+	iface->search_file = sdb_query_search_file;
+	iface->search_id = sdb_query_search_id;
+	iface->search_members = sdb_query_search_members;
+	iface->search_class_parents = sdb_query_search_class_parents;
+	iface->search_scope = sdb_query_search_scope;
+	iface->search_parent_scope = sdb_query_search_parent_scope;
+	iface->search_parent_scope_file = sdb_query_search_parent_scope_file;
 }
 
 SymbolDBQuery *
