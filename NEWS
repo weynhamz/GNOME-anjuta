@@ -1,3 +1,20 @@
+Anjuta 2.31.3 "Smile, tommorow will be worse" (7 June 2010) -- Johannes Schmid
+
+New:
+- language-support for Vala
+
+Updated:
+- Symbol database is super fast now
+- Glade plugins was cleaned a lot and doesn't spit warnings anymore
+
+Bugs fixed:
+anjuta: bgo #618273  - Anjuta closes when pressing ESC in the save dialog
+bgo #586428  - paths with symlinks do not get 'real' absolute paths
+language-support-cpp-java: bgo#618955  - Smart brace completion is no longer smart
+message-view: bgo#620209  - Message View Crashes When Hovering Mouse Cursor Over Message Toggle Icons
+npw: fix #610934  - Improve translations for the wizard files
+Remove deprecated GTK+ symbols. Fixes bug 572754.
+
 Anjuta 2.31.2 "There are no ugly girls, just lazy ones" (25 May 2010) -- Johannes Schmid
 
 New:

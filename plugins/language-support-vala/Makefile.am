@@ -1,13 +1,12 @@
 if ENABLE_VALA
 
-# Where to install the plugin
-plugindir = $(anjuta_plugin_dir)
-
 # Plugin description file
 plugin_in_files = anjuta-vala.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
-plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+# Where to install the plugin
+vala_plugindir = $(anjuta_plugin_dir)
+vala_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 # NOTE :
 # The naming convention is very intentional
@@ -33,6 +32,7 @@ AM_CPPFLAGS = \
 	--no-warn
 
 # The plugin
+plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-language-vala.la
 
 # Plugin sources
@@ -57,6 +57,7 @@ endif # ENABLE_VALA
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
+	$(vala_plugin_DATA) \
 	$(libanjuta_language_vala_la_VALASOURCES:.vala=.c)
 
 -include $(top_srcdir)/git.mk

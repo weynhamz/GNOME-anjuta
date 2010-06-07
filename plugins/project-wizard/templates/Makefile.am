@@ -44,6 +44,6 @@ wizard_files_DATA = \
 # Translate wiz file
 %.wiz: %.wiz.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -x -u -c $(top_builddir)/po/.intltool-merge-cache
 
-EXTRA_DIST = $(wizard_files_DATA)
+EXTRA_DIST = $(wizard_files_DATA) $(template_in_files)
 
 -include $(top_srcdir)/git.mk
