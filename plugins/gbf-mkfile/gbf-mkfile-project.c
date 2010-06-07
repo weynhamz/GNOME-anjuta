@@ -424,7 +424,7 @@ uri_normalize (const gchar *path_or_uri, const gchar *base_uri)
 	{
 		GFile *file;
 
-		file = g_file_new_for_commandline_arg (path_or_uri);
+		file = anjuta_util_file_new_for_commandline_arg (path_or_uri);
 		normalized_uri = g_file_get_uri (file);
 		g_object_unref (file);
 	}
@@ -2759,7 +2759,7 @@ impl_probe (GbfProject  *_project,
 	/* use _for_commandline_arg to resolve eventually relative path against
 	 * current directory
 	 */
-	file = g_file_new_for_commandline_arg (path);
+	file = anjuta_util_file_new_for_commandline_arg (path);
 	root_path = g_file_get_path (file);
 	g_object_unref (file);
 	if (root_path != NULL && g_file_test (root_path, G_FILE_TEST_IS_DIR)) {

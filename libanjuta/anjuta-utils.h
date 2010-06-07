@@ -111,6 +111,8 @@ pid_t anjuta_util_execute_terminal_shell (const gchar *dir, const gchar *command
 gchar* anjuta_util_escape_quotes(const gchar* str);
 
 gchar* anjuta_util_get_real_path (const gchar *path);
+gchar* anjuta_util_get_current_dir (void);
+GFile *anjuta_util_file_new_for_commandline_arg (const gchar *arg);
 
 gchar* anjuta_util_uri_get_dirname (const gchar *uri);
 gchar* anjuta_util_replace_home_dir_with_tilde (const gchar *uri);

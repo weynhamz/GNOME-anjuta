@@ -197,9 +197,8 @@ build_gtk_file_chooser_create_and_set_uri (GtkFileChooser *chooser, const gchar 
 		g_error_free (error);
 	}
 	g_object_unref (dir);
-
-	gtk_file_chooser_set_current_folder_uri (chooser, uri);
-	return gtk_file_chooser_set_uri (chooser, uri);
+	
+	return gtk_file_chooser_set_current_folder_uri (chooser, uri);
 }
 
 /* Do not delete the automatically created folder */
