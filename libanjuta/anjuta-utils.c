@@ -2399,7 +2399,7 @@ anjuta_utils_drop_get_files (GtkSelectionData *selection_data)
 
 	for (i = 0; uris[i] != NULL; i++)
 	{
-		GFile* file = g_file_new_for_uri (uris[0]);
+		GFile* file = g_file_new_for_uri (uris[i]);
 		files = g_slist_append(files, file);
 	}
 
