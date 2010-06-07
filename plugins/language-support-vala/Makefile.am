@@ -33,11 +33,11 @@ AM_CPPFLAGS = \
 	--no-warn
 
 # The plugin
-plugin_LTLIBRARIES = libanjuta-vala.la
+plugin_LTLIBRARIES = libanjuta-language-vala.la
 
 # Plugin sources
-libanjuta_vala_la_VALASOURCES = locator.vala plugin.vala provider.vala report.vala
-libanjuta_vala_la_SOURCES = plugin.vala.stamp $(libanjuta_vala_la_VALASOURCES:.vala=.c)
+libanjuta_language_vala_la_VALASOURCES = locator.vala plugin.vala provider.vala report.vala
+libanjuta_language_vala_la_SOURCES = plugin.vala.stamp $(libanjuta_language_vala_la_VALASOURCES:.vala=.c)
 
 
 plugin.vala.stamp: $(libanjuta_vala_la_VALASOURCES)
@@ -45,10 +45,10 @@ plugin.vala.stamp: $(libanjuta_vala_la_VALASOURCES)
 	@touch $@
 
 
-libanjuta_vala_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
+libanjuta_language_vala_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 # Plugin dependencies
-libanjuta_vala_la_LIBADD = \
+libanjuta_language_vala_la_LIBADD = \
 	$(LIBANJUTA_LIBS) \
 	$(VALA_LIBS)
 
@@ -57,7 +57,7 @@ endif # ENABLE_VALA
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
-	$(libanjuta_vala_la_VALASOURCES:.vala=.c)
+	$(libanjuta_language_vala_la_VALASOURCES:.vala=.c)
 
 -include $(top_srcdir)/git.mk
 
