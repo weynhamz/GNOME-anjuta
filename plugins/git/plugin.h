@@ -64,6 +64,7 @@ struct _Git
 	GtkWidget *dock_window;
 
 	/* Dock panes */
+	AnjutaDockPane *status_pane;
 	AnjutaDockPane *branches_pane;
 
 	/* Branch list commands */

@@ -26,6 +26,7 @@
 #include "git-delete-branches-pane.h"
 #include "git-switch-branch-pane.h"
 #include "git-merge-pane.h"
+#include "git-status-pane.h"
 
 AnjutaCommandBarEntry branch_entries[] =
 {
@@ -100,6 +101,8 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 
 	anjuta_command_start_automatic_monitor (ANJUTA_COMMAND (git_plugin->local_branch_list_command));
 	anjuta_command_start (ANJUTA_COMMAND (git_plugin->local_branch_list_command));
+
+	anjuta_dock_pane_refresh (git_plugin->status_pane);
 	
 
 	gtk_widget_set_sensitive (git_plugin->dock, TRUE);
@@ -279,6 +282,11 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	                  plugin);
 
 	/* Add the panes to the dock */
+	git_plugin->status_pane = git_status_pane_new (git_plugin);
+	anjuta_dock_add_pane (ANJUTA_DOCK (git_plugin->dock), "Status",
+	                      _("Status"), NULL, git_plugin->status_pane,
+	                      GDL_DOCK_CENTER, NULL, 0, NULL);
+	
 	git_plugin->branches_pane = git_branches_pane_new (git_plugin);
 	anjuta_dock_add_pane (ANJUTA_DOCK (git_plugin->dock), "Branches", 
 	                      _("Branches"), NULL, git_plugin->branches_pane,   
