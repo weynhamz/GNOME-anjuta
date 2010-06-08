@@ -88,7 +88,7 @@ static gchar *table_joins[] =
 	"LEFT JOIN sym_implementation ON symbol.implementation_kind_id = sym_implementation.sym_impl_id",
 	"LEFT JOIN sym_access ON symbol.access_kind_id = sym_access.access_kind_id",
 	"LEFT JOIN sym_type ON symbol.type_id = sym_type.type_id",
-	"LEFT JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id",
+	"LEFT JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id"
 };
 
 typedef struct
@@ -168,9 +168,9 @@ sdb_query_build_sql_head (SymbolDBQuery *query, GString *sql)
 	priv = SYMBOL_DB_QUERY (query)->priv;
 	g_return_if_fail (priv->fields != 0);
 
-	/* Ensure the lookup tables in order */
-	g_assert (sizeof (table_joins) == SDB_QUERY_TABLE_MAX);
-	g_assert (sizeof (field_specs) == IANJUTA_SYMBOL_FIELD_END);
+	/* Ensure the lookup tables are in order */
+	g_assert (sizeof (table_joins)/sizeof (gchar*) == SDB_QUERY_TABLE_MAX);
+	g_assert (sizeof (field_specs)/sizeof (SdbQueryFieldSpec) == IANJUTA_SYMBOL_FIELD_END);
 	
 	for (i = 0; i < SDB_QUERY_TABLE_MAX; i++)
 		tables_joined[i] = FALSE;

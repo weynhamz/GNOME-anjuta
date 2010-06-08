@@ -1222,7 +1222,7 @@ cls_inherit_init (AnjutaClassInheritance *plugin)
 		                                     IANJUTA_SYMBOL_QUERY_SEARCH_PROJECT,
 		                                     NULL);
 	ianjuta_symbol_query_set_fields (plugin->query_project,
-	                                 sizeof (query_fields_simple),
+	                                 sizeof (query_fields_simple)/sizeof (IAnjutaSymbolField),
 	                                 query_fields_simple, NULL);
 	ianjuta_symbol_query_set_filters (plugin->query_project,
 	                                  IANJUTA_SYMBOL_TYPE_CLASS,
@@ -1235,7 +1235,7 @@ cls_inherit_init (AnjutaClassInheritance *plugin)
 		                                     IANJUTA_SYMBOL_QUERY_SEARCH_ID,
 		                                     NULL);
 	ianjuta_symbol_query_set_fields (plugin->query_id,
-	                                 sizeof (query_fields_simple),
+	                                 sizeof (query_fields_simple)/sizeof (IAnjutaSymbolField),
 	                                 query_fields_simple, NULL);
 	
 	plugin->query_members =
@@ -1243,7 +1243,7 @@ cls_inherit_init (AnjutaClassInheritance *plugin)
 		                                     IANJUTA_SYMBOL_QUERY_SEARCH_MEMBERS,
 		                                     NULL);
 	ianjuta_symbol_query_set_fields (plugin->query_members,
-	                                 sizeof (query_fields),
+	                                 sizeof (query_fields)/sizeof (IAnjutaSymbolField),
 	                                 query_fields, NULL);
 	
 	plugin->query_parents =
@@ -1251,6 +1251,6 @@ cls_inherit_init (AnjutaClassInheritance *plugin)
 		                                     IANJUTA_SYMBOL_QUERY_SEARCH_CLASS_PARENTS,
 		                                     NULL);
 	ianjuta_symbol_query_set_fields (plugin->query_parents,
-	                                 sizeof (query_fields_simple),
+	                                 sizeof (query_fields_simple)/sizeof (IAnjutaSymbolField),
 	                                 query_fields_simple, NULL);
 }
