@@ -23,6 +23,7 @@
 #include <glib-object.h>
 #include <libanjuta/anjuta-async-command.h>
 #include <libanjuta/interfaces/ianjuta-iterable.h>
+#include <libanjuta/interfaces/ianjuta-symbol-query.h>
 
 G_BEGIN_DECLS
 
