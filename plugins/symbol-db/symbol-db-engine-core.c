@@ -122,7 +122,6 @@ select symbol_id_base, symbol.name from heritage
 #include "readtags.h"
 #include "symbol-db-engine-priv.h"
 #include "symbol-db-engine-core.h"
-#include "symbol-db-engine-iterator.h"
 #include "symbol-db-engine-utils.h"
 
 

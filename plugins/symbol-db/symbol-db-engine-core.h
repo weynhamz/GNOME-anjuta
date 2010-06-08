@@ -27,10 +27,11 @@
 
 #include <glib-object.h>
 #include <glib.h>
+#include <libgda/gda-statement.h>
+#include <libgda/gda-data-model.h>
 #include <libanjuta/interfaces/ianjuta-symbol.h>
 #include <libanjuta/interfaces/ianjuta-language.h>
 #include <libanjuta/anjuta-plugin.h>
-#include "symbol-db-engine-iterator.h"
 
 G_BEGIN_DECLS
 

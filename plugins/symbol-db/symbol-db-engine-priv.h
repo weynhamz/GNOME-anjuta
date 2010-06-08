@@ -264,7 +264,6 @@ typedef enum {
 
 
 typedef IAnjutaSymbolType SymType;
-typedef IAnjutaSymbolManagerSearchFileScope SymSearchFileScope;
 
 /* the SymbolDBEngine Private structure */
 struct _SymbolDBEnginePriv

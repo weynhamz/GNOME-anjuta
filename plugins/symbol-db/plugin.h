@@ -47,6 +47,7 @@ typedef struct _SymbolDBPluginClass SymbolDBPluginClass;
 
 #include "symbol-db-system.h"
 #include "symbol-db-prefs.h"
+#include "symbol-db-query.h"
 
 /* default value for ctags executable. User must have it installed. This is a 
  * personalized version of ctags for Anjuta.
@@ -110,10 +111,6 @@ struct _SymbolDBPlugin {
 	GtkWidget *progress_bar_system;			/* symbol db progress bar - system (globals) */
 	
 	GtkTreeModel *file_model;               /* File symbols model */
-	
-	GtkWidget *dbv_view_tree_search;		/* search symbols */
-	GtkWidget *dbv_view_search_tab_label;	
-	
 	GtkWidget *pref_tree_view; 				/* Preferences treeview */
 	
 	/* current editor */
@@ -130,6 +127,8 @@ struct _SymbolDBPlugin {
 	gint files_count_system_done;
 	gchar *current_scanned_package;
 	GList *session_packages;
+
+	IAnjutaSymbolQuery *search_query;
 	
 	GTree *proc_id_tree;				/* the scan processes'll receive an id from 
 	 									 * the symbol engine when scan-end happens. 
