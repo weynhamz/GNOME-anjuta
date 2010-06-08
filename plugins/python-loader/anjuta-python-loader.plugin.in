@@ -1,0 +1,9 @@
+[Anjuta Plugin]
+Name=Python loader
+Description=Allows loading Anjuta plugins written in Python
+Location=anjuta-pyloader:PythonLoaderPlugin
+#Icon=anjuta-python-loader-plugin.png
+Interfaces=IAnjutaPluginLoader
+
+[Plugin Loader]
+SupportedLanguage=Python

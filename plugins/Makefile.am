@@ -38,5 +38,6 @@ SUBDIRS = . \
 	language-support-js \
 	language-support-vala \
 	language-support-python
+	python-loader
 
 -include $(top_srcdir)/git.mk
