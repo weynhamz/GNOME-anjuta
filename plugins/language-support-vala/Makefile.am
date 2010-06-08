@@ -40,7 +40,7 @@ libanjuta_language_vala_la_VALASOURCES = locator.vala plugin.vala provider.vala 
 libanjuta_language_vala_la_SOURCES = plugin.vala.stamp $(libanjuta_language_vala_la_VALASOURCES:.vala=.c)
 
 
-plugin.vala.stamp: $(libanjuta_vala_la_VALASOURCES)
+plugin.vala.stamp: $(libanjuta_language_vala_la_VALASOURCES)
 	$(VALAC) --disable-warnings --vapidir $(srcdir) --pkg vala-1.0 --pkg libanjuta-1.0 -C $^
 	@touch $@
 
