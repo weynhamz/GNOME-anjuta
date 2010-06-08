@@ -248,9 +248,13 @@ cls_inherit_create_node (AnjutaClassInheritance *plugin,
 			                            IAnjutaSymbolManager, NULL);
 
 	cls_node->sym_name =
-		g_strdup (ianjuta_symbol_get_name (IANJUTA_SYMBOL (node_sym), NULL));
+		g_strdup (ianjuta_symbol_get_string (IANJUTA_SYMBOL (node_sym),
+		                                     IANJUTA_SYMBOL_FIELD_NAME,
+		                                     NULL));
 	cls_node->klass_id =
-		ianjuta_symbol_get_id (IANJUTA_SYMBOL (node_sym), NULL);
+		ianjuta_symbol_get_int (IANJUTA_SYMBOL (node_sym),
+		                        IANJUTA_SYMBOL_FIELD_ID,
+		                        NULL);
 	cls_node->members =
 		g_hash_table_new_full (g_str_hash, g_str_equal,
 		                       (GDestroyNotify) g_free,
@@ -339,16 +343,22 @@ cls_node_expand (ClsNode *cls_node, ClsNodeExpansionType expansion_type)
 	gint method_order = 0;
 	IAnjutaSymbol *node_sym;
 	IAnjutaIterable *iter;
+	GError *err = NULL;
 	
 	if (cls_node->expansion_status == expansion_type ||
 	    expansion_type == CLS_NODE_COLLAPSED)
 		return FALSE;
 
 	node_sym =
-		ianjuta_symbol_manager_get_symbol_by_id (cls_node->sym_manager,
-		                                         cls_node->klass_id,
-		                                         IANJUTA_SYMBOL_FIELD_SIMPLE,
-		                                         NULL);
+		IANJUTA_SYMBOL (ianjuta_symbol_query_search_id (cls_node->plugin->query_id,
+		                                                cls_node->klass_id,
+		                                                &err));
+	if (err)
+	{
+		g_warning ("Symbol ID query failed: %s", err->message);
+		g_error_free (err);
+		err = NULL;
+	}
 	if (!node_sym)
 		return FALSE;
 	
@@ -363,14 +373,15 @@ cls_node_expand (ClsNode *cls_node, ClsNodeExpansionType expansion_type)
 	g_string_printf (label, "{%s", cls_node->sym_name);
 	
 	/* get members from the passed symbol node */
-	iter = ianjuta_symbol_manager_get_members (cls_node->sym_manager, node_sym,
-	                                           IANJUTA_SYMBOL_FIELD_SIMPLE|
-	                                           IANJUTA_SYMBOL_FIELD_KIND |
-	                                           IANJUTA_SYMBOL_FIELD_TYPE |
-	                                           IANJUTA_SYMBOL_FIELD_TYPE_NAME |
-	                                           IANJUTA_SYMBOL_FIELD_ACCESS |
-	                                           IANJUTA_SYMBOL_FIELD_FILE_PATH,
-	                                           NULL);
+	iter = ianjuta_symbol_query_search_members (cls_node->plugin->query_members,
+	                                            node_sym, &err);
+	if (err)
+	{
+		g_warning ("Class members query failed: %s", err->message);
+		g_error_free (err);
+		err = NULL;
+	}
+
 	real_items_length = ianjuta_iterable_get_length (iter, NULL);
 	
 	/* set the max number of items to draw */
@@ -399,15 +410,19 @@ cls_node_expand (ClsNode *cls_node, ClsNodeExpansionType expansion_type)
 			GdkPixbuf *icon;
 			
 			symbol = IANJUTA_SYMBOL (iter);
-			name = g_strdup (ianjuta_symbol_get_name (symbol, NULL));
-			args = ianjuta_symbol_get_args (symbol, NULL);
+			name = g_strdup (ianjuta_symbol_get_string (symbol,
+			                                            IANJUTA_SYMBOL_FIELD_NAME,
+			                                            NULL));
+			args = ianjuta_symbol_get_string (symbol,
+			                                  IANJUTA_SYMBOL_FIELD_SIGNATURE,
+			                                  NULL);
 			icon = (GdkPixbuf*) ianjuta_symbol_get_icon (symbol, NULL);
 			
 			if (!args) /* Member variables */
 			{
 				ClsNodeItem *cls_item = g_new0 (ClsNodeItem, 1);
 
-				type_name = ianjuta_symbol_get_extra_info_string (symbol, IANJUTA_SYMBOL_FIELD_TYPE_NAME, NULL);
+				type_name = ianjuta_symbol_get_string (symbol, IANJUTA_SYMBOL_FIELD_TYPE_NAME, NULL);
 				cls_item->cls_node = cls_node;
 				cls_item->label = g_strconcat (name, " : ", type_name, NULL);
 				cls_item->order = var_order++;
@@ -422,9 +437,10 @@ cls_node_expand (ClsNode *cls_node, ClsNodeExpansionType expansion_type)
 
 				/* Setup file and line */
 				cls_item->type_name = g_strdup (type_name);
-				cls_item->line = ianjuta_symbol_get_line (symbol, NULL);
+				cls_item->line = ianjuta_symbol_get_int (symbol,
+				                                         IANJUTA_SYMBOL_FIELD_FILE_POS,
+				                                         NULL);
 				cls_item->file = ianjuta_symbol_get_file (symbol, NULL);
-				g_object_ref (cls_item->file);
 			}
 			else /* Member methods */
 			{
@@ -446,15 +462,18 @@ cls_node_expand (ClsNode *cls_node, ClsNodeExpansionType expansion_type)
 						cls_item->file = NULL;
 
 						/* Setup file and line */
-						cls_item->line = ianjuta_symbol_get_line (symbol, NULL);
+						cls_item->line = ianjuta_symbol_get_int (symbol,
+						                                         IANJUTA_SYMBOL_FIELD_FILE_POS,
+						                                         NULL);
 						cls_item->file = ianjuta_symbol_get_file (symbol, NULL);
-						g_object_ref (cls_item->file);
 					}
 				}
 				else /* We did not find a member entry, create a new one */
 				{
 					ClsNodeItem *cls_item = g_new0 (ClsNodeItem, 1);
-					type_name = ianjuta_symbol_get_returntype (symbol, NULL);
+					type_name = ianjuta_symbol_get_string (symbol,
+					                                       IANJUTA_SYMBOL_FIELD_RETURNTYPE,
+					                                       NULL);
 
 					cls_item->cls_node = cls_node;
 					if (type_name)
@@ -486,9 +505,10 @@ cls_node_expand (ClsNode *cls_node, ClsNodeExpansionType expansion_type)
 					                     cls_item);
 					
 					/* Setup file and line */
-					cls_item->line = ianjuta_symbol_get_line (symbol, NULL);
+					cls_item->line = ianjuta_symbol_get_int (symbol,
+					                                         IANJUTA_SYMBOL_FIELD_FILE_POS,
+					                                         NULL);
 					cls_item->file = ianjuta_symbol_get_file (symbol, NULL);
-					g_object_ref (cls_item->file);
 				}
 			}
 			i++;
@@ -950,10 +970,10 @@ on_cls_node_delete_marked (gpointer key, ClsNode *cls_node, gpointer data)
 void
 cls_inherit_update (AnjutaClassInheritance *plugin)
 {
-	IAnjutaSymbolManager *sm;
 	IAnjutaIterable *iter;
 	IAnjutaSymbol *symbol;
 	ClsNode *cls_node;
+	GError *err = NULL;
 
 	g_return_if_fail (plugin != NULL);
 
@@ -965,18 +985,15 @@ cls_inherit_update (AnjutaClassInheritance *plugin)
 	if (plugin->top_dir == NULL)
 		goto cleanup;
 	
-	sm = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
-									 IAnjutaSymbolManager, NULL);
-	if (!sm)
-		goto cleanup;
-	
-	/* Get all classes */	
-	iter = ianjuta_symbol_manager_search (sm, IANJUTA_SYMBOL_TYPE_CLASS, 
-										  TRUE,
-										  IANJUTA_SYMBOL_FIELD_SIMPLE,
-										  NULL, TRUE,
-	                                      IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC, 
-	    								  FALSE, -1, -1, NULL);
+	/* Get all classes */
+	iter = ianjuta_symbol_query_search_project (plugin->query_project,
+	                                            NULL, &err);
+	if (err)
+	{
+		g_warning ("Classes query in project failed: %s", err->message);
+		g_error_free (err);
+		err = NULL;
+	}
 	if (!iter)
 	{
 		DEBUG_PRINT ("%s", "cls_inherit_update_graph (): search returned no items.");
@@ -998,10 +1015,16 @@ cls_inherit_update (AnjutaClassInheritance *plugin)
 		symbol = IANJUTA_SYMBOL (iter);
 
 		/* get parents of the current class */
-		parents = ianjuta_symbol_manager_get_class_parents (sm, symbol, 
-															IANJUTA_SYMBOL_FIELD_SIMPLE, 
-															NULL);
+		parents =
+			ianjuta_symbol_query_search_class_parents (plugin->query_parents,
+			                                           symbol, &err);
 
+		if (err)
+		{
+			g_warning ("Class parents query failed: %s", err->message);
+			g_error_free (err);
+			err = NULL;
+		}
 		/* if no parents are found then continue */
 		if (parents == NULL || ianjuta_iterable_get_length (parents, NULL) <= 0)
 		{
@@ -1010,7 +1033,9 @@ cls_inherit_update (AnjutaClassInheritance *plugin)
 			continue;
 		}
 
-		if ((klass_id = ianjuta_symbol_get_id (symbol, NULL)) <= 0)
+		if ((klass_id = ianjuta_symbol_get_int (symbol,
+		                                        IANJUTA_SYMBOL_FIELD_ID,
+		                                        NULL)) <= 0)
 		{
 			/*DEBUG_PRINT ("%s", "ClassInheritance: klass_id cannot be <= 0");*/
 			continue;
@@ -1031,7 +1056,9 @@ cls_inherit_update (AnjutaClassInheritance *plugin)
 			ClsNode *parent_node;
 			IAnjutaSymbol *parent_symbol;
 			parent_symbol = IANJUTA_SYMBOL (parents);
-			parent_id = ianjuta_symbol_get_id (parent_symbol, NULL);
+			parent_id = ianjuta_symbol_get_int (parent_symbol,
+			                                    IANJUTA_SYMBOL_FIELD_ID,
+			                                    NULL);
 			
 			parent_node = g_hash_table_lookup (plugin->nodes,
 			                                   GINT_TO_POINTER (parent_id));
@@ -1099,7 +1126,6 @@ cls_inherit_graph_init (AnjutaClassInheritance *plugin, gchar* graph_label)
 {
 	Agsym_t *sym;
 	gchar dpi_text[16];
-
 	snprintf (dpi_text, 16, "%d", INCH_TO_PIXELS_CONVERSION_FACTOR);
 	aginit ();
 	plugin->graph = agopen (graph_label, AGDIGRAPH);
@@ -1108,13 +1134,33 @@ cls_inherit_graph_init (AnjutaClassInheritance *plugin, gchar* graph_label)
 	if (!(sym = agfindattr(plugin->graph->proto->n, "dpi")))
 		sym = agraphattr(plugin->graph, "dpi", dpi_text);
 	agxset(plugin->graph, sym->index, dpi_text);
+
 }
 
 void
 cls_inherit_init (AnjutaClassInheritance *plugin)
 {
 	GtkWidget *s_window;
-
+	IAnjutaSymbolManager *sym_manager;
+	static IAnjutaSymbolField query_fields_simple[] =
+	{
+		IANJUTA_SYMBOL_FIELD_ID,
+		IANJUTA_SYMBOL_FIELD_NAME,
+	};
+	static IAnjutaSymbolField query_fields[] =
+	{
+		IANJUTA_SYMBOL_FIELD_ID,
+		IANJUTA_SYMBOL_FIELD_NAME,
+		IANJUTA_SYMBOL_FIELD_RETURNTYPE,
+		IANJUTA_SYMBOL_FIELD_SIGNATURE,
+		IANJUTA_SYMBOL_FIELD_FILE_POS,
+		IANJUTA_SYMBOL_FIELD_FILE_PATH,
+		IANJUTA_SYMBOL_FIELD_ACCESS,
+		IANJUTA_SYMBOL_FIELD_KIND,
+		IANJUTA_SYMBOL_FIELD_TYPE,
+		IANJUTA_SYMBOL_FIELD_TYPE_NAME
+	};
+	
 	/* Initialize graph layout engine */
 	cls_inherit_graph_init (plugin, _(DEFAULT_GRAPH_NAME));
 	
@@ -1166,4 +1212,45 @@ cls_inherit_init (AnjutaClassInheritance *plugin)
 
 	g_object_ref (plugin->menu);
 	g_object_ref (plugin->update);
+	
+	/* Create symbol queries */
+	sym_manager =
+			anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+			                            IAnjutaSymbolManager, NULL);
+	plugin->query_project =
+		ianjuta_symbol_manager_create_query (sym_manager,
+		                                     IANJUTA_SYMBOL_QUERY_SEARCH_PROJECT,
+		                                     NULL);
+	ianjuta_symbol_query_set_fields (plugin->query_project,
+	                                 sizeof (query_fields_simple),
+	                                 query_fields_simple, NULL);
+	ianjuta_symbol_query_set_filters (plugin->query_project,
+	                                  IANJUTA_SYMBOL_TYPE_CLASS,
+	                                  TRUE, NULL);
+	ianjuta_symbol_query_set_file_scope (plugin->query_project,
+	                                     IANJUTA_SYMBOL_QUERY_SEARCH_FS_PUBLIC,
+	                                     NULL);
+	plugin->query_id =
+		ianjuta_symbol_manager_create_query (sym_manager,
+		                                     IANJUTA_SYMBOL_QUERY_SEARCH_ID,
+		                                     NULL);
+	ianjuta_symbol_query_set_fields (plugin->query_id,
+	                                 sizeof (query_fields_simple),
+	                                 query_fields_simple, NULL);
+	
+	plugin->query_members =
+		ianjuta_symbol_manager_create_query (sym_manager,
+		                                     IANJUTA_SYMBOL_QUERY_SEARCH_MEMBERS,
+		                                     NULL);
+	ianjuta_symbol_query_set_fields (plugin->query_members,
+	                                 sizeof (query_fields),
+	                                 query_fields, NULL);
+	
+	plugin->query_parents =
+		ianjuta_symbol_manager_create_query (sym_manager,
+		                                     IANJUTA_SYMBOL_QUERY_SEARCH_CLASS_PARENTS,
+		                                     NULL);
+	ianjuta_symbol_query_set_fields (plugin->query_parents,
+	                                 sizeof (query_fields_simple),
+	                                 query_fields_simple, NULL);
 }
