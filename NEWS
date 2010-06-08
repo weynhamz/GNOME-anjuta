@@ -1,3 +1,32 @@
+Anjuta 2.31.3 "Smile, tommorow will be worse" (7 June 2010) -- Johannes Schmid
+
+New:
+- language-support for Vala
+
+Updated:
+- Symbol database is super fast now
+- Glade plugins was cleaned a lot and doesn't spit warnings anymore
+
+Bugs fixed:
+anjuta: bgo #618273  - Anjuta closes when pressing ESC in the save dialog
+bgo #586428  - paths with symlinks do not get 'real' absolute paths
+language-support-cpp-java: bgo#618955  - Smart brace completion is no longer smart
+message-view: bgo#620209  - Message View Crashes When Hovering Mouse Cursor Over Message Toggle Icons
+npw: fix #610934  - Improve translations for the wizard files
+Remove deprecated GTK+ symbols. Fixes bug 572754.
+
+Anjuta 2.31.2 "There are no ugly girls, just lazy ones" (25 May 2010) -- Johannes Schmid
+
+New:
+- class-inheritance is included using libfoocanvas
+
+Bugs fixed:
+file-wizard: #616810 Error when creating new c source and header
+language-support-cpp-java: bgo#618314  - Anjuta crash on while editing
+symbol-db: Fixes #bgo 617433 Tab switching is slow because of rescanned symbols
+symbol-db: Partially fixes bgo #615429: Optimize global and local views sql queries
+libanjuta: Completes fixing bgo #615428: new column is_container
+
 Anjuta 2.31.1 "Better late than never" (6 May 2010) -- Johannes Schmid
 
 New:

@@ -799,7 +799,7 @@ anjuta_app_set_geometry (AnjutaApp *app, const gchar *geometry)
 		if (sscanf (geometry, "%dx%d+%d+%d", &width, &height,
 					&posx, &posy) == 4)
 		{
-			if (GTK_WIDGET_REALIZED (app))
+			if (gtk_widget_get_realized (GTK_WIDGET (app)))
 			{
 				gtk_window_resize (GTK_WINDOW (app), width, height);
 			}
@@ -823,7 +823,7 @@ anjuta_app_set_geometry (AnjutaApp *app, const gchar *geometry)
 		height = gdk_screen_height () - 25;
 		width = (width < 790)? width : 790;
 		height = (height < 575)? width : 575;
-		if (GTK_WIDGET_REALIZED (app) == FALSE)
+		if (gtk_widget_get_realized (GTK_WIDGET (app)) == FALSE)
 		{
 			gtk_window_set_default_size (GTK_WINDOW (app), width, height);
 			gtk_window_move (GTK_WINDOW (app), posx, posy);

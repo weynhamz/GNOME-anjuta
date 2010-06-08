@@ -38,7 +38,7 @@
 #define ANJUTA_DB_FILE	".anjuta_sym_db"
 
 /* if tables.sql changes or general db structure changes modify also the value here */
-#define SYMBOL_DB_VERSION	"300"
+#define SYMBOL_DB_VERSION	"300.2"
 
 #define TABLES_SQL			PACKAGE_DATA_DIR"/tables.sql"
 
@@ -49,8 +49,8 @@
 #define THREADS_MAX_CONCURRENT			2
 #define TRIGGER_SIGNALS_DELAY			100
 
-#define MEMORY_POOL_STRING_SIZE			200
-#define MEMORY_POOL_INT_SIZE			200
+#define MEMORY_POOL_STRING_SIZE			400
+#define MEMORY_POOL_INT_SIZE			400
 
 #define DUMMY_VOID_STRING				""
 #define MP_VOID_STRING					"-"
@@ -166,10 +166,6 @@ typedef enum
 	PREP_QUERY_GET_PARENT_SCOPE_ID_BY_SYMBOL_ID,
 	PREP_QUERY_GET_PARENT_SCOPE_ID_BY_SYMBOL_ID_BY_SYMBOL_ID,
 	PREP_QUERY_GET_SCOPE_DEFINITION_ID_BY_WALK_DOWN_SCOPE_PATH,
-	PREP_QUERY_TMP_HERITAGE_NEW,
-	PREP_QUERY_GET_ALL_FROM_TMP_HERITAGE,
-	PREP_QUERY_GET_ALL_FROM_TMP_HERITAGE_WITH_INHERITS,
-	PREP_QUERY_TMP_HERITAGE_DELETE_ALL,
 	PREP_QUERY_SYMBOL_NEW,
 	PREP_QUERY_GET_SYMBOL_SCOPE_DEFINITION_ID,
 	PREP_QUERY_GET_SYMBOL_ID_BY_CLASS_NAME,
@@ -297,6 +293,8 @@ struct _SymbolDBEnginePriv
 	AnjutaLauncher *ctags_launcher;
 	GList *removed_launchers;
 	gboolean shutting_down;
+	gboolean is_first_population;
+	gboolean is_tablemaps_forced;
 	
 	GMutex* mutex;
 	GAsyncQueue* signals_queue;
@@ -314,9 +312,24 @@ struct _SymbolDBEnginePriv
 	/* Caches */
 	GHashTable *kind_cache;
 	GHashTable *access_cache;
-	GHashTable *implementation_cache;	
+	GHashTable *implementation_cache;
+
+	/* Table maps */
+	GQueue *tmp_heritage_tablemap;
 	
-	GTree *file_symbols_cache;
+	GHashTable *sym_type_tablemap_hash;
+	GQueue *sym_type_tablemap_queue;
+	guint sym_type_tablemap_id;
+	
+	GHashTable *scope_def_tablemap_hash;
+	GQueue *scope_def_tablemap_queue;
+	guint scope_def_tablemap_id;
+
+	GHashTable *symbol_tablemap_hash;
+	GQueue *symbol_tablemap_queue;
+	guint symbol_tablemap_id;
+	
+	GTree *file_symbols_cache;		
 	
 	static_query_node *static_query_list[PREP_QUERY_COUNT]; 
 	dyn_query_node *dyn_query_list[DYN_PREP_QUERY_COUNT];
@@ -328,6 +341,10 @@ struct _SymbolDBEnginePriv
 	GQueue *mem_pool_string;
 	GQueue *mem_pool_int;
 #endif
+
+#ifdef DEBUG
+	GTimer *first_scan_timer_DEBUG;
+#endif	
 };
 
 #endif

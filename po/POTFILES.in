@@ -134,8 +134,6 @@ plugins/git/git-switch-dialog.c
 plugins/git/git-ui-utils.c
 plugins/git/git-unstage-dialog.c
 plugins/git/plugin.c
-plugins/glade/anjuta-glade.glade
-plugins/glade/designer-associations-item.c
 plugins/glade/plugin.c
 plugins/glade/anjuta-design-document.c
 plugins/gtodo/add_edit_item.c
@@ -176,7 +174,24 @@ plugins/project-wizard/druid.c
 plugins/project-wizard/install.c
 plugins/project-wizard/plugin.c
 plugins/project-wizard/property.c
-plugins/project-wizard/templates/translatable-strings.h
+[type: gettext/xml]plugins/project-wizard/templates/minimal.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/terminal.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/cpp.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/django.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/gtk.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/anjuta-plugin.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/gtkmm.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/wxwin.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/xlib.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/xlib-dock.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/gcj.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/java.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/js.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/python.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/mkfile.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/sdl.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/gnome-applet.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/library.wiz.in
 [type: gettext/glade]plugins/run-program/anjuta-run-program.ui
 plugins/run-program/execute.c
 plugins/run-program/parameters.c

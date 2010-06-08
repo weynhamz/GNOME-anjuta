@@ -620,7 +620,8 @@ on_symbol_search_complete (gint search_id, IAnjutaIterable* symbols, CppJavaAssi
 	
 	cpp_java_assist_populate_real (assist, !running);
 	g_list_free (proposals);
-	g_object_unref (symbols);
+	if (symbols)
+		g_object_unref (symbols);
 }
 
 /**
@@ -807,7 +808,8 @@ on_calltip_search_complete (gint search_id, IAnjutaIterable* symbols, CppJavaAss
 		                         assist->priv->calltip_iter,
 		                         NULL);
 	}
-	g_object_unref (symbols);
+	if (symbols)
+		g_object_unref (symbols);
 }
 
 /**

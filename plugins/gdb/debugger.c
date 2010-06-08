@@ -40,6 +40,7 @@
 #include <libanjuta/anjuta-launcher.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-marshal.h>
+#include <libanjuta/anjuta-utils.h>
 #include <libanjuta/interfaces/ianjuta-debugger-breakpoint.h>
 #include <libanjuta/interfaces/ianjuta-debugger-register.h>
 #include <libanjuta/interfaces/ianjuta-debugger-memory.h>
@@ -1087,10 +1088,50 @@ debugger_handle_post_execution (Debugger *debugger)
 	}
 }
 
+static const gchar *
+debugger_parse_filename (const GDBMIValue *frame)
+{
+	const GDBMIValue *filename, *fullname;
+	const gchar *file_str = NULL;
+	
+	/* Get filename from file if possible to keep symbolic links */
+	filename = gdbmi_value_hash_lookup (frame, "file");
+	if (filename)
+	{
+		file_str = gdbmi_value_literal_get (filename);
+		if (!g_path_is_absolute (file_str))
+		{
+			/* Path is not absolute */
+			file_str = NULL;
+		}
+	}
+	
+	/* Try fullname value to get an absolute path */
+	if (file_str == NULL)
+	{
+		fullname = gdbmi_value_hash_lookup (frame, "fullname");
+		if (fullname)
+		{
+			file_str = gdbmi_value_literal_get (fullname);
+		}
+		else
+		{
+			if (filename)
+			{
+				file_str = gdbmi_value_literal_get (filename);
+			}
+		}
+	}
+	
+	if ((file_str != NULL) && (*file_str == '\0')) file_str = NULL;
+	
+	return file_str;
+}
+
 static void
 debugger_process_frame (Debugger *debugger, const GDBMIValue *val)
 {
-	const GDBMIValue *file, *line, *frame, *addr, *fullname, *thread;
+	const GDBMIValue *line, *frame, *addr, *thread;
 	const gchar *file_str = NULL;
 	guint line_num = 0;
 	gulong addr_num = 0;
@@ -1107,21 +1148,7 @@ debugger_process_frame (Debugger *debugger, const GDBMIValue *val)
 	frame = gdbmi_value_hash_lookup (val, "frame");
 	if (frame)
 	{
-		fullname = gdbmi_value_hash_lookup (frame, "fullname");
-		if (fullname)
-		{
-			file_str = gdbmi_value_literal_get (fullname);
-			if (*file_str == '\0') file_str = NULL;
-		}
-		else
-		{
-			file = gdbmi_value_hash_lookup (frame, "file");
-			if (file)
-			{
-				file_str = gdbmi_value_literal_get (file);
-				if (*file_str == '\0') file_str = NULL;
-			}
-		}
+		file_str = debugger_parse_filename (frame);
 
 		if (file_str != NULL)
 		{
@@ -1404,13 +1431,7 @@ parse_breakpoint (IAnjutaDebuggerBreakpointItem* bp, const GDBMIValue *brkpnt)
 		bp->id = strtoul (value, NULL, 10);
 	}
 
-	literal = gdbmi_value_hash_lookup (brkpnt, "fullname");
-	if (literal == NULL) literal = gdbmi_value_hash_lookup (brkpnt, "file");
-	if (literal)
-	{
-		value = gdbmi_value_literal_get (literal);
-		bp->file = (gchar *)value;
-	}
+	bp->file = (gchar *)debugger_parse_filename (brkpnt);
 	
 	literal = gdbmi_value_hash_lookup (brkpnt, "line");
 	if (literal)
@@ -1827,7 +1848,7 @@ debugger_get_source_path (Debugger *debugger, const gchar *file)
 	{
 		/* The file could be found nowhere. Use current directory */
 		gchar *cwd;
-		cwd = g_get_current_dir ();
+		cwd = anjuta_util_get_current_dir ();
 		path = g_build_filename (cwd, file, NULL);
 		g_free (cwd);
 	}
@@ -3089,13 +3110,8 @@ parse_frame (IAnjutaDebuggerFrame *frame, const GDBMIValue *frame_hash)
 	else
 		frame->level = 0;
 
-	literal = gdbmi_value_hash_lookup (frame_hash, "fullname");
-	if (literal == NULL)
-		literal = gdbmi_value_hash_lookup (frame_hash, "file");
-	if (literal)
-		frame->file = (gchar *)gdbmi_value_literal_get (literal);
-	else
-		frame->file = NULL;
+
+	frame->file = (gchar *)debugger_parse_filename (frame_hash);
 	
 	literal = gdbmi_value_hash_lookup (frame_hash, "line");
 	if (literal)

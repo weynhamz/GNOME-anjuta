@@ -69,6 +69,7 @@ on_anjuta_delete_event (AnjutaApp *app, GdkEvent *event, gpointer data)
 	{
 		switch (gtk_dialog_run (GTK_DIALOG (save_prompt)))
 		{
+			case GTK_RESPONSE_DELETE_EVENT:
 			case ANJUTA_SAVE_PROMPT_RESPONSE_CANCEL:
 				gtk_widget_destroy (GTK_WIDGET (save_prompt));
 				/* Do not exit now */

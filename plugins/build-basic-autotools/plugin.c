@@ -1322,10 +1322,6 @@ build_execute_command_in_context (BuildContext* context, GError **err)
 	/* Send options to make */
 	if (strcmp (build_program_get_basename (context->program), "make") == 0)
 	{
-		if (!anjuta_preferences_get_bool (prefs , PREF_TRANSLATE_MESSAGE))
-		{
-			build_program_add_env (context->program, "LANGUAGE", "C");
-		}
 		if (anjuta_preferences_get_bool (prefs , PREF_PARALLEL_MAKE))
 		{
 			gchar *arg = g_strdup_printf ("-j%d", anjuta_preferences_get_int (prefs , PREF_PARALLEL_MAKE_JOB));
@@ -1336,6 +1332,14 @@ build_execute_command_in_context (BuildContext* context, GError **err)
 		{
 			build_program_insert_arg (context->program, 1, "-k");
 		}
+	}
+	
+	/* Set a current working directory which can contains symbolic links */
+	build_program_add_env (context->program, "PWD", context->program->work_dir);
+
+	if (!anjuta_preferences_get_bool (prefs , PREF_TRANSLATE_MESSAGE))
+	{
+		build_program_add_env (context->program, "LANGUAGE", "C");
 	}
 	
 	build_program_override (context->program, context->environment);
@@ -2040,7 +2044,7 @@ build_configure_dialog (BasicAutotoolsPlugin *plugin, BuildFunc func, const gcha
 	
 		build_dir = g_file_get_path (file);
 		g_object_unref (file);
-	
+
 		args = build_configuration_get_args (config);
 		
 		if (run_autogen)

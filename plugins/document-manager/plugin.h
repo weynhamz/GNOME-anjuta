@@ -39,7 +39,7 @@ struct _DocmanPlugin{
 	/* Timer interval in mins */
 	gint autosave_it;
 	
-	GList *gconf_notify_ids;
+	GList *notify_ids;
 	
 	/* Support plugins */
 	GList *support_plugins;

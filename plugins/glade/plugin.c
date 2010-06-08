@@ -31,7 +31,7 @@
 #include "plugin.h"
 #include "anjuta-design-document.h"
 
-#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-glade.ui"
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-glade.xml"
 
 static gpointer parent_class;
 
@@ -387,6 +387,7 @@ activate_plugin (AnjutaPlugin *plugin)
 		gtk_paned_add1 (GTK_PANED(priv->paned), priv->view_box);
 		gtk_paned_add2 (GTK_PANED(priv->paned), GTK_WIDGET(glade_app_get_editor()));
 
+		gtk_widget_set_size_request (priv->view_box, -1, 300);
 		
 		gtk_widget_show_all (priv->paned);
 		gtk_notebook_set_scrollable (GTK_NOTEBOOK (glade_app_get_editor ()->notebook),
@@ -528,6 +529,7 @@ gchar* glade_get_filename(GladePlugin *plugin)
 static void
 ifile_open (IAnjutaFile *ifile, GFile* file, GError **err)
 {
+	AnjutaPlugin* plugin = ANJUTA_PLUGIN (ifile);
 	GladePluginPriv *priv;
 	GladeProject *project;
 	GtkListStore *store;
@@ -540,6 +542,7 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **err)
 	g_return_if_fail (file != NULL);
 
 	priv = ANJUTA_PLUGIN_GLADE (ifile)->priv;
+	store = GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (priv->projects_combo)));
 
 	filename = g_file_get_path (file);
 	if (!filename)
@@ -547,6 +550,9 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **err)
 		gchar* uri = g_file_get_parse_name(file);
 		anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN (ifile)->shell),
 		                            _("Not local file: %s"), uri);
+		if (gtk_tree_model_iter_n_children (GTK_TREE_MODEL (store), NULL) <= 0)
+			anjuta_plugin_deactivate (ANJUTA_PLUGIN (plugin));
+		
 		g_free (uri);
 		return;
 	}
@@ -585,10 +591,11 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **err)
 		gchar* name = g_file_get_parse_name (file);
 		anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN (ifile)->shell),
 		                            _("Could not open %s"), name);
+		if (gtk_tree_model_iter_n_children (GTK_TREE_MODEL (store), NULL) <= 0)
+			anjuta_plugin_deactivate (ANJUTA_PLUGIN (plugin));
 		g_free (name);
 		return;
 	}
-	store = GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (priv->projects_combo)));
 	gtk_list_store_append (store, &iter);
 	gtk_list_store_set (store, &iter, NAME_COL, glade_project_get_name(project),
 	                    PROJECT_COL, project, -1);

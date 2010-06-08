@@ -135,7 +135,7 @@ cls_node_item_free (ClsNodeItem *cls_item)
 	if (cls_item->file)
 		g_object_unref (cls_item->file);
 	if (cls_item->icon)
-		gdk_pixbuf_unref (cls_item->icon);
+		g_object_unref (cls_item->icon);
 	
 	if (cls_item->tooltip_timeout)
 		g_source_remove (cls_item->tooltip_timeout);
@@ -412,7 +412,7 @@ cls_node_expand (ClsNode *cls_node, ClsNodeExpansionType expansion_type)
 				cls_item->label = g_strconcat (name, " : ", type_name, NULL);
 				cls_item->order = var_order++;
 				if (icon)
-					gdk_pixbuf_ref (icon);
+					g_object_ref (icon);
 				cls_item->icon = icon;
 				
 				g_hash_table_insert (cls_node->members,
@@ -478,7 +478,7 @@ cls_node_expand (ClsNode *cls_node, ClsNodeExpansionType expansion_type)
 					cls_item->type_name = g_strdup (type_name);
 					cls_item->order = method_order++;
 					if (icon)
-						gdk_pixbuf_ref (icon);
+						g_object_ref (icon);
 					cls_item->icon = icon;
 					
 					g_string_append_printf (label, "|%s", cls_item->label);

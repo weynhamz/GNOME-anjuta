@@ -4,7 +4,7 @@ AC_PREREQ(2.59)
 
 m4_define(anjuta_major_version,  2)
 m4_define(anjuta_minor_version, 31)
-m4_define(anjuta_micro_version,  1)
+m4_define(anjuta_micro_version,  3)
 m4_define(anjuta_nano_version, 0)
 m4_define(anjuta_version, anjuta_major_version.anjuta_minor_version.anjuta_micro_version.anjuta_nano_version)
 
@@ -26,16 +26,15 @@ AC_SUBST(ANJUTA_VERSION)
 
 GLIB_REQUIRED=2.18.0
 GDK_PIXBUF_REQUIRED=2.0.0
-GTK_REQUIRED=2.17.10
+GTK_REQUIRED=2.20.0
 PANGO_REQUIRED=0.23
-ORBIT_REQUIRED=2.6.0
 GCONF_REQUIRED=2.12.0
 VTE_REQUIRED=0.9.0
 VTE_NEW_REQUIRED=0.13.1
 LIBXML_REQUIRED=2.4.23
 LIBDEVHELP_REQUIRED=0.22
 GDL_REQUIRED=2.27.1
-GLADEUI_REQUIRED=3.6.0
+GLADEUI_REQUIRED=3.7.1
 NEON_REQUIRED=0.28.2
 SVN_MAJOR=1
 SVN_MINOR=5
@@ -43,7 +42,7 @@ SVN_PATCH=0
 SUBVERSION_REQUIRED=$SVN_MAJOR.$SVN_MINOR.$SVN_PATCH
 GTKSOURCEVIEW_REQUIRED=2.9.7
 LIBWNCK_REQUIRED=2.12
-GDA_REQUIRED=4.0.0
+GDA_REQUIRED=4.1.6
 UNIQUE_REQUIRED=1.0.0
 VALA_REQUIRED=0.7.8
 LIBGRAPHVIZ_REQUIRED=1.0
@@ -52,7 +51,6 @@ AC_SUBST(GLIB_REQUIRED)
 AC_SUBST(GDK_PIXBUF_REQUIRED)
 AC_SUBST(GTK_REQUIRED)
 AC_SUBST(PANGO_REQUIRED)
-AC_SUBST(ORBIT_REQUIRED)
 AC_SUBST(VTE_REQUIRED)
 AC_SUBST(LIBXML_REQUIRED)
 AC_SUBST(PANGO_REQUIRED)
@@ -114,8 +112,6 @@ AC_DEFINE_UNQUOTED(PREF_SUFFIX,
       "${PREF_SUFFIX}",
 	  [Suffix to add to preferences directory])
 
-AC_ISC_POSIX
-AC_HEADER_STDC
 AM_DISABLE_STATIC
 AM_PROG_LIBTOOL
 
@@ -155,8 +151,6 @@ PKG_CHECK_MODULES(GTK, gtk+-2.0 >= $GTK_REQUIRED)
 PKG_CHECK_MODULES(PANGO, pango >= $PANGO_REQUIRED)
 
 PKG_CHECK_MODULES(GDK_PIXBUF, gdk-pixbuf-2.0 >= $GDK_PIXBUF_REQUIRED)
-
-PKG_CHECK_MODULES(ORBIT, ORBit-2.0 >= $ORBIT_REQUIRED)
 
 PKG_CHECK_MODULES(GCONF, gconf-2.0 >= $GCONF_REQUIRED)
 
@@ -957,6 +951,7 @@ plugins/language-support-cpp-java/cxxparser/Makefile
 plugins/run-program/Makefile
 plugins/starter/Makefile
 plugins/language-support-js/Makefile
+plugins/language-support-vala/Makefile
 anjuta.desktop.in
 manuals/Makefile
 manuals/reference/Makefile
@@ -1003,9 +998,10 @@ else
         echo "Building GtkSourceView based editor: ...................NO"
 fi
 if [ test x$enable_vala = xyes ]; then
-        echo "Building Vala ctags parser (requires vala):.............YES"
+        echo "Building Vala support: .................................YES"
 else
-        echo "Building Vala ctags parser (requires vala):.............NO"
+        echo "Building Vala support: .................................NO"
+        echo "        Requires libvala (>= $VALA_REQUIRED)"
 fi
 if [ test x$libgraphviz_found = xyes ]; then
         echo "Building class inheritance plugin: .....................YES"
