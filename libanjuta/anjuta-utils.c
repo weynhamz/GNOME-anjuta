@@ -1012,8 +1012,8 @@ anjuta_util_create_dir (const gchar* path)
 				NULL, NULL);
 		if (g_file_info_get_file_type (info) != G_FILE_TYPE_DIRECTORY)
 		{
-			g_message ("Warning: %s is a file. \n \
-					It is trying to be treated as a directory.",g_file_get_path (dir));
+			g_message ("Warning: %s is a file. \n "
+					"It is trying to be treated as a directory.",g_file_get_path (dir));
 			g_object_unref (dir);
 			return FALSE;
 		}
