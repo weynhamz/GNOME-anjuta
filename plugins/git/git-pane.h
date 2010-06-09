@@ -56,6 +56,7 @@ void git_pane_set_log_view_column_label (GtkTextBuffer *buffer,
                                          GtkTextIter *location,
                                          GtkTextMark *mark,
                                          GtkLabel *column_label);
+gchar *git_pane_get_log_from_text_view (GtkTextView *text_view);
 
 G_END_DECLS
 

@@ -36,10 +36,7 @@ on_ok_button_clicked (GtkButton *button, GitMergePane *self)
 	GtkToggleButton *use_custom_log_check;
 	gchar *revision;
 	gchar *log;
-	GtkTextView *log_text_view;
-	GtkTextBuffer *log_buffer;
-	GtkTextIter start_iter;
-	GtkTextIter end_iter;
+	GtkTextView *log_view;
 	GitMergeCommand *merge_command;
 
 	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
@@ -56,15 +53,9 @@ on_ok_button_clicked (GtkButton *button, GitMergePane *self)
 
 	if (gtk_toggle_button_get_active (use_custom_log_check))
 	{
-		log_text_view = GTK_TEXT_VIEW (gtk_builder_get_object (self->priv->builder,
-		                                                       "log_text_view"));
-		log_buffer = gtk_text_view_get_buffer (log_text_view);
-
-		gtk_text_buffer_get_start_iter (log_buffer, &start_iter);
-		gtk_text_buffer_get_end_iter (log_buffer, &end_iter);
-
-		log = gtk_text_buffer_get_text (log_buffer, &start_iter, &end_iter, 
-		                                FALSE);
+		log_view = GTK_TEXT_VIEW (gtk_builder_get_object (self->priv->builder,
+		                                                  "log_view"));
+		log = git_pane_get_log_from_text_view (log_view);
 	}
 
 	merge_command = git_merge_command_new (plugin->project_root_directory, 

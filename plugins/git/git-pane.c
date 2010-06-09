@@ -115,3 +115,21 @@ git_pane_set_log_view_column_label (GtkTextBuffer *buffer,
 
 	g_free (text);
 }
+
+gchar *
+git_pane_get_log_from_text_view (GtkTextView *text_view)
+{
+	GtkTextBuffer *log_buffer;
+	GtkTextIter start_iter;
+	GtkTextIter end_iter;
+	gchar *log;
+
+	log_buffer = gtk_text_view_get_buffer(text_view);
+	
+	gtk_text_buffer_get_start_iter(log_buffer, &start_iter);
+	gtk_text_buffer_get_end_iter(log_buffer, &end_iter) ;
+
+	log = gtk_text_buffer_get_text(log_buffer, &start_iter, &end_iter, FALSE);
+	
+	return log;
+}
