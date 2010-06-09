@@ -9,7 +9,6 @@ m4_define(anjuta_nano_version, 0)
 m4_define(anjuta_version, anjuta_major_version.anjuta_minor_version.anjuta_micro_version.anjuta_nano_version)
 
 AC_INIT(anjuta, anjuta_version, http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta)
-m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
 AC_CONFIG_SRCDIR(src/main.c)
 
 AC_DEFINE(ANJUTA_MAJOR_VERSION, anjuta_major_version, [Anjuta major version])
@@ -66,7 +65,8 @@ AC_SUBST(GDA_REQUIRED)
 AC_SUBST(UNIQUE_REQUIRED)
 AC_SUBST(LIBGRAPHVIZ_REQUIRED)
 
-AM_INIT_AUTOMAKE([1.9 dist-bzip2 no-dist-gzip])
+AM_INIT_AUTOMAKE([1.11 dist-bzip2 no-dist-gzip])
+AM_SILENT_RULES([yes])
 AC_CONFIG_HEADERS(config.h)
 AC_DISABLE_STATIC
 AM_MAINTAINER_MODE
