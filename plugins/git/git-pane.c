@@ -133,3 +133,38 @@ git_pane_get_log_from_text_view (GtkTextView *text_view)
 	
 	return log;
 }
+
+gboolean
+git_pane_check_input (GtkWidget *parent, GtkWidget *widget, const gchar *input,
+                      const gchar *error_message)
+{
+	gboolean ret;
+	GtkWidget *dialog;
+
+	ret = FALSE;
+
+	if (input)
+	{
+		if (strlen (input) > 0)
+			ret = TRUE;
+	}
+
+	if (!ret)
+	{
+		dialog = gtk_message_dialog_new (GTK_WINDOW (parent),
+										 GTK_DIALOG_DESTROY_WITH_PARENT,
+										 GTK_MESSAGE_WARNING,
+										 GTK_BUTTONS_OK,
+		                                 "%s",
+										 error_message);
+
+		gtk_dialog_run (GTK_DIALOG (dialog));
+		gtk_widget_destroy (dialog);
+
+		gtk_window_set_focus (GTK_WINDOW (parent), widget);
+	}
+
+
+	return ret;
+}
+
