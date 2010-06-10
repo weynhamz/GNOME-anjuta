@@ -173,7 +173,9 @@ libanjuta_git_la_SOURCES = \
 	git-merge-pane.c \
 	git-merge-pane.h \
 	git-status-pane.h \
-	git-status-pane.c
+	git-status-pane.c \
+	git-commit-pane.h \
+	git-commit-pane.c
 
 libanjuta_git_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 

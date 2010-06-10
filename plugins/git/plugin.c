@@ -27,6 +27,7 @@
 #include "git-switch-branch-pane.h"
 #include "git-merge-pane.h"
 #include "git-status-pane.h"
+#include "git-commit-pane.h"
 
 AnjutaCommandBarEntry branch_entries[] =
 {
@@ -69,6 +70,25 @@ AnjutaCommandBarEntry branch_entries[] =
 		N_("Merge a revision into the current branch"),
 		GTK_STOCK_CONVERT,
 		G_CALLBACK (on_merge_button_clicked)
+	}
+};
+
+AnjutaCommandBarEntry status_entries[] = {
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_FRAME,
+		"NULL",
+		N_("Changes"),
+		NULL,
+		NULL,
+		NULL
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"Commit",
+		N_("Commit"),
+		N_("Commit changes"),
+		GTK_STOCK_APPLY,
+		G_CALLBACK (on_commit_button_clicked)
 	}
 };
 
@@ -285,7 +305,8 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	git_plugin->status_pane = git_status_pane_new (git_plugin);
 	anjuta_dock_add_pane (ANJUTA_DOCK (git_plugin->dock), "Status",
 	                      _("Status"), NULL, git_plugin->status_pane,
-	                      GDL_DOCK_CENTER, NULL, 0, NULL);
+	                      GDL_DOCK_CENTER, status_entries, 
+	                      G_N_ELEMENTS (status_entries), git_plugin);
 	
 	git_plugin->branches_pane = git_branches_pane_new (git_plugin);
 	anjuta_dock_add_pane (ANJUTA_DOCK (git_plugin->dock), "Branches", 
