@@ -772,6 +772,92 @@ anjuta_util_get_real_path (const gchar *path)
 	return NULL;
 }
 
+/**
+ * anjuta_util_get_current_dir:
+ *
+ * Get current working directory, unlike g_get_current_dir, keeps symbolic links
+ * in path name.
+ *
+ * Returns: The current working directory.
+ */
+gchar*
+anjuta_util_get_current_dir (void)
+{
+	const gchar *pwd;
+	
+	pwd = g_getenv ("PWD");
+	if (pwd != NULL)
+	{
+		return g_strdup (pwd);
+	}
+	else
+	{
+		return g_get_current_dir ();
+	}
+}
+
+static gboolean
+is_valid_scheme_character (char c)
+{
+	return g_ascii_isalnum (c) || c == '+' || c == '-' || c == '.';
+}
+
+/* Following RFC 2396, valid schemes are built like:
+ *       scheme        = alpha *( alpha | digit | "+" | "-" | "." )
+ */
+static gboolean
+has_valid_scheme (const char *uri)
+{
+	const char *p;
+
+	p = uri;
+
+	if (!g_ascii_isalpha (*p))
+		return FALSE;
+
+	do {
+		p++;
+	} while (is_valid_scheme_character (*p));
+
+	return *p == ':';
+}
+
+/**
+ * anjuta_util_file_new_for_commandline_arg:
+ *
+ * @arg: URI or relative or absolute file path
+ *
+ * Create a new file corresponding to arg, unlike g_file_new_for_commandline_arg,
+ * keeps symbolic links in path name.
+ *
+ * Returns: A new GFile object
+ */
+GFile *
+anjuta_util_file_new_for_commandline_arg (const gchar *arg)
+{
+	GFile *file;
+	char *filename;
+	char *current_dir;
+
+	g_return_val_if_fail (arg != NULL, NULL);
+
+	if (g_path_is_absolute (arg))
+		return g_file_new_for_path (arg);
+
+	if (has_valid_scheme (arg))
+		return g_file_new_for_uri (arg);
+
+	current_dir = anjuta_util_get_current_dir ();
+	filename = g_build_filename (current_dir, arg, NULL);
+	g_free (current_dir);
+
+	file = g_file_new_for_path (filename);
+	g_free (filename);
+
+	return file;
+}
+
+
 /* Dedup a list of paths - duplicates are removed from the tail.
 ** Useful for deduping Recent Files and Recent Projects */
 GList*
@@ -2313,7 +2399,7 @@ anjuta_utils_drop_get_files (GtkSelectionData *selection_data)
 
 	for (i = 0; uris[i] != NULL; i++)
 	{
-		GFile* file = g_file_new_for_commandline_arg (uris[0]);
+		GFile* file = g_file_new_for_uri (uris[i]);
 		files = g_slist_append(files, file);
 	}
 

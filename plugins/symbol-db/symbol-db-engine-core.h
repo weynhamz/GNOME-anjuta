@@ -106,6 +106,9 @@ symbol_db_engine_set_ctags_path (SymbolDBEngine *dbe,
  *        directory of /home/user/project/foo_prj/. On db it'll be represented as
  *        src/file.c. In this way you can move around the project dir without dealing
  *        with relative paths.
+ * @param force_tablemaps Defaults to FALSE. Set this to TRUE if you want all
+ *        scans to use the tablemaps method. This could be useful for global db
+ *        but not for project one.
  */
 #define DB_OPEN_STATUS_FATAL		-1
 #define DB_OPEN_STATUS_NORMAL		0
@@ -113,7 +116,7 @@ symbol_db_engine_set_ctags_path (SymbolDBEngine *dbe,
 #define DB_OPEN_STATUS_UPGRADE		2
 gint
 symbol_db_engine_open_db (SymbolDBEngine *dbe, const gchar* base_db_path,
-						  const gchar * prj_directory);
+						  const gchar * prj_directory, gboolean force_tablemaps);
 
 /** Disconnect db, gda client and db_connection */
 gboolean 

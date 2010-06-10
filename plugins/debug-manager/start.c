@@ -188,7 +188,7 @@ get_source_directories (AnjutaPlugin *plugin)
 	GFile *file;
 
 	return NULL;
-	cwd = g_get_current_dir();
+	cwd = anjuta_util_get_current_dir();
 	file = g_file_new_for_path (cwd);
 	search_dirs = g_list_prepend (search_dirs, g_file_get_uri (file));
 	g_object_unref (file);

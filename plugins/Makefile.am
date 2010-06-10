@@ -35,6 +35,7 @@ SUBDIRS = . \
 	dir-project \
 	starter \
 	js-debugger \
-	language-support-js
+	language-support-js \
+	language-support-vala
 
 -include $(top_srcdir)/git.mk

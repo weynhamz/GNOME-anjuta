@@ -209,8 +209,7 @@ main (int argc, char *argv[])
 		gchar** filename;
 		for (filename = anjuta_filenames; *filename != NULL; filename++)
 		{
-			GFile* file = g_file_new_for_commandline_arg(*filename);
-
+			GFile* file = anjuta_util_file_new_for_commandline_arg(*filename);
 			g_free (*filename);
 			*filename = g_file_get_uri (file);
 			g_object_unref (file);

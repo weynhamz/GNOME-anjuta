@@ -434,7 +434,7 @@ uri_normalize (const gchar *path_or_uri, const gchar *base_uri)
 	{
 		GFile *file;
 
-		file = g_file_new_for_commandline_arg (path_or_uri);
+		file = anjuta_util_file_new_for_commandline_arg (path_or_uri);
 		normalized_uri = g_file_get_uri (file);
 		g_object_unref (file);
 	}

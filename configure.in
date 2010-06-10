@@ -4,12 +4,11 @@ AC_PREREQ(2.59)
 
 m4_define(anjuta_major_version,  2)
 m4_define(anjuta_minor_version, 31)
-m4_define(anjuta_micro_version,  2)
+m4_define(anjuta_micro_version,  3)
 m4_define(anjuta_nano_version, 0)
 m4_define(anjuta_version, anjuta_major_version.anjuta_minor_version.anjuta_micro_version.anjuta_nano_version)
 
 AC_INIT(anjuta, anjuta_version, http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta)
-m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
 AC_CONFIG_SRCDIR(src/main.c)
 
 AC_DEFINE(ANJUTA_MAJOR_VERSION, anjuta_major_version, [Anjuta major version])
@@ -66,7 +65,8 @@ AC_SUBST(GDA_REQUIRED)
 AC_SUBST(UNIQUE_REQUIRED)
 AC_SUBST(LIBGRAPHVIZ_REQUIRED)
 
-AM_INIT_AUTOMAKE([1.9 dist-bzip2 no-dist-gzip])
+AM_INIT_AUTOMAKE([1.11 dist-bzip2 no-dist-gzip])
+AM_SILENT_RULES([yes])
 AC_CONFIG_HEADERS(config.h)
 AC_DISABLE_STATIC
 AM_MAINTAINER_MODE
@@ -112,8 +112,6 @@ AC_DEFINE_UNQUOTED(PREF_SUFFIX,
       "${PREF_SUFFIX}",
 	  [Suffix to add to preferences directory])
 
-AC_ISC_POSIX
-AC_HEADER_STDC
 AM_DISABLE_STATIC
 AM_PROG_LIBTOOL
 
@@ -953,6 +951,7 @@ plugins/language-support-cpp-java/cxxparser/Makefile
 plugins/run-program/Makefile
 plugins/starter/Makefile
 plugins/language-support-js/Makefile
+plugins/language-support-vala/Makefile
 anjuta.desktop.in
 manuals/Makefile
 manuals/reference/Makefile
@@ -999,9 +998,10 @@ else
         echo "Building GtkSourceView based editor: ...................NO"
 fi
 if [ test x$enable_vala = xyes ]; then
-        echo "Building Vala ctags parser (requires vala):.............YES"
+        echo "Building Vala support: .................................YES"
 else
-        echo "Building Vala ctags parser (requires vala):.............NO"
+        echo "Building Vala support: .................................NO"
+        echo "        Requires libvala (>= $VALA_REQUIRED)"
 fi
 if [ test x$libgraphviz_found = xyes ]; then
         echo "Building class inheritance plugin: .....................YES"

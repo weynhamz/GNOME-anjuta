@@ -77,7 +77,7 @@ cg_generator_make_absolute (const gchar *path)
 	}
 	else
 	{
-		current_dir = g_get_current_dir ();
+		current_dir = anjuta_util_get_current_dir ();
 		abs_path = g_build_filename (current_dir, path, NULL);
 		g_free (current_dir);
 	}

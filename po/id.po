@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
 "POT-Creation-Date: 2010-05-23 22:29+0000\n"
-"PO-Revision-Date: 2010-05-27 02:33+0700\n"
+"PO-Revision-Date: 2010-06-04 12:11+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: GNOME Indonesian Translation Team <gnome@i15n.org>\n"
 "MIME-Version: 1.0\n"
@@ -1518,7 +1518,6 @@ msgstr ""
 "diperingatkan!</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:4
-#, fuzzy
 msgid "Be verbose"
 msgstr "Uraikanlah"
 
@@ -3280,13 +3279,13 @@ msgid "Remove current view of the document"
 msgstr "Buang tilikan kini dari dokumen"
 
 #: ../plugins/document-manager/plugin.c:288
+#, fuzzy
 msgid "U_ndo"
-msgstr ""
+msgstr "Batalka_n"
 
 #: ../plugins/document-manager/plugin.c:289
-#, fuzzy
 msgid "Undo the last action"
-msgstr "Batalkan kegiatan terakhir"
+msgstr "Batalkan aksi terakhir"
 
 #: ../plugins/document-manager/plugin.c:291
 #, fuzzy
@@ -3294,9 +3293,8 @@ msgid "_Redo"
 msgstr "_Jadi Lagi"
 
 #: ../plugins/document-manager/plugin.c:292
-#, fuzzy
 msgid "Redo the last undone action"
-msgstr "Lakukan kegiatan yang dibatalkan"
+msgstr "Lakukan lagi aksi terakhir yang dibatalkan"
 
 #: ../plugins/document-manager/plugin.c:294
 msgid "C_ut"
@@ -3391,11 +3389,11 @@ msgstr "Tampilkan/sembunyikan karakter penanda ujung baris"
 #: ../plugins/document-manager/plugin.c:337
 #, fuzzy
 msgid "Line _Wrapping"
-msgstr "Mode baris wraping"
+msgstr "Mode _Wraping Baris"
 
 #: ../plugins/document-manager/plugin.c:338
 msgid "Enable/disable line wrapping"
-msgstr ""
+msgstr "Aktifkan/nonaktifkan pindah baris otomatis bila baris terlalu panjang"
 
 #: ../plugins/document-manager/plugin.c:343
 msgid "Zoom In"
@@ -3600,7 +3598,7 @@ msgstr "Penyimpanan otomatis komplit"
 #: ../plugins/document-manager/search-box.c:383
 #, c-format
 msgid "Search for \"%s\" reached the end and was continued at the top."
-msgstr ""
+msgstr "Pencarian atas \"%s\" telah mencapai akhir dan dilanjutkan dari awal."
 
 #: ../plugins/document-manager/search-box.c:389
 #, c-format
@@ -3608,12 +3606,13 @@ msgid ""
 "Search for \"%s\" reached the end and was continued at the top but no new "
 "match was found."
 msgstr ""
+"Pencarian atas \"%s\" telah mencapai akhir dan dilanjutkan dari awal tapi "
+"tak ditemukan kecocokan baru."
 
 #: ../plugins/document-manager/search-box.c:446
 #: ../plugins/search/anjuta-search.ui.h:18
-#, fuzzy
 msgid "Match case"
-msgstr "Cocokkan huruf"
+msgstr "Cocok huruf besar kecil"
 
 #. we create a placeholder menuitem, to be used in case
 #. * the menu is empty. this placeholder will stay around
@@ -3626,21 +3625,20 @@ msgstr "Cocokkan huruf"
 #. * recent chooser menu widget.
 #.
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:522
-#, fuzzy
 msgid "No items found"
-msgstr "Tidak menemukan objek"
+msgstr "Butir tak ditemukan"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:670
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:726
-#, fuzzy, c-format
+#, c-format
 msgid "No recently used resource found with URI \"%s\""
-msgstr "Tidak ada sumber yang sering digunakan dengan URI '%s'"
+msgstr "Tidak ada sumber yang baru digunakan dengan URI \"%s\""
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:750
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:758
-#, fuzzy, c-format
+#, c-format
 msgid "This function is not implemented for widgets of class '%s'"
-msgstr "Fungsi ini tidak diterapkan untuk widget kelas '%s'"
+msgstr "Fungsi ini tidak diimplementasikan untuk widget kelas '%s'"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:937
 #: ../plugins/starter/starter.c:111
@@ -3695,6 +3693,15 @@ msgid ""
 "\n"
 "You may choose to try opening it with the following plugins or applications."
 msgstr ""
+"<b>Tak bisa membuka \"%s\"</b>.\n"
+"\n"
+"Tak ada plugin, aksi default, atau aplikasi yang ditata untuk menangani tipe "
+"berkas ini.\n"
+"\n"
+"Tipe MIME: %s\n"
+"\n"
+"Anda boleh memilih untuk mencoba membukanya dengan plugin atau aplikasi "
+"berikut."
 
 #: ../plugins/file-loader/plugin.c:280
 msgid "Open with:"
@@ -3733,11 +3740,11 @@ msgstr "Berkas sumber Pascal"
 
 #: ../plugins/file-loader/plugin.c:537
 msgid "PHP source files"
-msgstr ""
+msgstr "Berkas sumber PHP"
 
 #: ../plugins/file-loader/plugin.c:544
 msgid "Perl source files"
-msgstr ""
+msgstr "Berkas sumber Perl"
 
 #: ../plugins/file-loader/plugin.c:550
 msgid "Python source files"
@@ -3803,7 +3810,7 @@ msgstr "Baru"
 
 #: ../plugins/file-loader/plugin.c:1254
 msgid "New file, project and project components."
-msgstr ""
+msgstr "Berkas, projek, dan komponen projek baru."
 
 #: ../plugins/file-loader/plugin.c:1261 ../plugins/file-loader/plugin.c:1301
 msgid "Open"
@@ -3842,23 +3849,23 @@ msgstr "Buka Dengan"
 
 #: ../plugins/file-manager/file-manager.ui.h:1
 msgid "Choose Directory to show if no project is open"
-msgstr ""
+msgstr "Pilih direktori untuk ditampilkan bila tak ada projek terbuka"
 
 #: ../plugins/file-manager/file-manager.ui.h:2
 msgid "Do not show backup files"
-msgstr ""
+msgstr "Jangan tampilkan berkas cadangan"
 
 #: ../plugins/file-manager/file-manager.ui.h:3
 msgid "Do not show binary files (.o, .la, etc.)"
-msgstr ""
+msgstr "Jangan tampilkan berkas biner (.o, .la, dsb.)"
 
 #: ../plugins/file-manager/file-manager.ui.h:4
 msgid "Do not show hidden files"
-msgstr ""
+msgstr "Jangan tampilkan berkas tersembunyi"
 
 #: ../plugins/file-manager/file-manager.ui.h:5
 msgid "Do not show unversioned files"
-msgstr ""
+msgstr "Jangan tampilkan berkas tanpa versi"
 
 #: ../plugins/file-manager/file-manager.ui.h:6
 msgid "Filter"
@@ -3872,7 +3879,7 @@ msgstr "Global"
 
 #: ../plugins/file-manager/file-manager.ui.h:8
 msgid "Root directory if no project is open:"
-msgstr ""
+msgstr "Direktori root bila tak ada projek dibuka:"
 
 #: ../plugins/file-manager/file-model.c:120
 msgid "Loading..."
@@ -3888,7 +3895,7 @@ msgstr "URI Basis"
 
 #: ../plugins/file-manager/file-view.c:657
 msgid "URI of the top-most path displayed"
-msgstr ""
+msgstr "URI dari path paling atas yang ditampilkan"
 
 #: ../plugins/file-manager/plugin.c:74
 msgid "_Rename"
@@ -3900,7 +3907,7 @@ msgstr "Ubah nama berkas atau direktori"
 
 #: ../plugins/file-manager/plugin.c:297
 msgid "File manager popup actions"
-msgstr ""
+msgstr "Aksi popup manajer berkas"
 
 #: ../plugins/file-manager/plugin.c:330
 msgid "Files"
@@ -3925,13 +3932,15 @@ msgstr "Tambahkan ke repositori"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:4
 msgid "Create corresponding header file"
-msgstr ""
+msgstr "Buat berkas header terkait"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:5
 msgid ""
 "Enter the File name.\n"
 "The extension will be added according to the type."
 msgstr ""
+"Masukkan nama berkas.\n"
+"Ekstensi akan ditambahkan sesuai dengan tipe."
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:7
 msgid "File Information"
@@ -3956,7 +3965,7 @@ msgstr "Tipe:"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:13
 msgid "Use Template for the Header file"
-msgstr ""
+msgstr "Pakai Templat bagi berkas Header"
 
 #: ../plugins/file-wizard/file.c:84
 msgid "C Source File"
@@ -3996,16 +4005,15 @@ msgstr "Lainnya"
 
 #: ../plugins/file-wizard/file.c:105
 msgid "BSD Public License"
-msgstr ""
+msgstr "Lisensi Publik BSD"
 
 #: ../plugins/file-wizard/file.c:183
 msgid "Unable to build user interface for New File"
-msgstr ""
+msgstr "Tak bisa membangun antar muka pengguna bagi Berkas Baru"
 
 #: ../plugins/gbf-am/gbf-am-config.c:98 ../plugins/gbf-am/gbf-am-config.c:132
-#, fuzzy
 msgid "Invalid GbfAmConfigValue type"
-msgstr "%s: jenis kotak surat tidak dikenali"
+msgstr "Tipe GbfAmConfigValue tak valid"
 
 #: ../plugins/gbf-am/gbf-am-dialogs.ui.h:1
 msgid "Add _Package"
@@ -4042,9 +4050,8 @@ msgstr "Pustaka Statik"
 #: ../plugins/gbf-am/gbf-am-project.c:3354
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:200
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3255
-#, fuzzy
 msgid "Shared Library"
-msgstr "pustaka bersama"
+msgstr "Pustaka Bersama"
 
 #: ../plugins/gbf-am/gbf-am-project.c:205
 #: ../plugins/gbf-am/gbf-am-project.c:3358
@@ -4120,18 +4127,17 @@ msgstr "Berkas antarmuka"
 #: ../plugins/gbf-am/gbf-am-project.c:241
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:239
 msgid "GLib mkenums"
-msgstr ""
+msgstr "GLib mkenums"
 
 #: ../plugins/gbf-am/gbf-am-project.c:244
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:242
 msgid "GLib genmarshal"
-msgstr ""
+msgstr "GLib genmarshal"
 
 #: ../plugins/gbf-am/gbf-am-project.c:247
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:245
-#, fuzzy
 msgid "Intl rule"
-msgstr "Modul akses"
+msgstr "Aturan intl"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2559
 #: ../plugins/gbf-am/gbf-am-project.c:2637
@@ -4143,9 +4149,8 @@ msgstr "Modul akses"
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2812
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2998
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3146
-#, fuzzy
 msgid "Group doesn't exist"
-msgstr "Grup %s tak ada"
+msgstr "Grup tak ada"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2579
 #: ../plugins/gbf-am/gbf-am-project.c:2682
@@ -4157,9 +4162,8 @@ msgstr "Grup %s tak ada"
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3041
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3221
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3407
-#, fuzzy
 msgid "Target doesn't exist"
-msgstr "File '%s' tidak ada."
+msgstr "Target tak ada"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2613
 #: ../plugins/gbf-am/gbf-am-project.c:2657
@@ -4179,14 +4183,13 @@ msgstr "File '%s' tidak ada."
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3242
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3474
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3535
-#, fuzzy
 msgid "Unable to update project"
-msgstr "Data peserta %s tidak dapat diperbarui"
+msgstr "Tak bisa memutakhirkan projek"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2743
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2692
 msgid "Invalid or remote path (only local paths supported)"
-msgstr ""
+msgstr "Path tak valid atau jauh (hanya path lokal yang didukung)"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2751
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2713
@@ -4194,27 +4197,25 @@ msgstr ""
 #: ../plugins/dir-project/dir-project.c:765
 #, c-format
 msgid "Project doesn't exist or invalid path"
-msgstr ""
+msgstr "Projek tak ada atau path tak valid"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2762
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2727
-#, fuzzy
 msgid "Malformed project"
-msgstr "Nama proyek:"
+msgstr "Projek salah bentuk"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2959
-#, fuzzy
 msgid "Please specify group name"
-msgstr "Silahkan tuliskan nama untuk perintah."
+msgstr "Silakan nyatakan nama grup"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2973
 msgid "Group name can only contain alphanumeric, '_', '-' or '.' characters"
-msgstr ""
+msgstr "Nama grup hanya boleh memuat karakter alfanumerik, '_', '-', atau '.'"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2982
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2925
 msgid "Parent group doesn't exist"
-msgstr ""
+msgstr "Grup induk tak ada"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2993
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2936
@@ -4226,95 +4227,93 @@ msgstr "Grup telah ada"
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2946
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2973
 msgid "Group couldn't be created"
-msgstr ""
+msgstr "Grup tak dapat dibuat"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3063
 msgid "Group couldn't be removed"
-msgstr ""
+msgstr "Grup tak dapat dihapus"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3213
-#, fuzzy
 msgid "Please specify target name"
-msgstr "Spesifikasikan nama dari target CPU"
+msgstr "Silakan nyatakan nama target"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3227
 msgid "Target name can only contain alphanumeric, '_', '-' or '.' characters"
 msgstr ""
+"Nama target hanya boleh memuat karakter alfanumerik, '_', '-', atau '.'"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3236
 msgid "Shared library target name must be of the form 'libxxx.la'"
-msgstr ""
+msgstr "Target pustaka bersama mesti berbentuk 'libxxx.la'"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3245
 msgid "Static library target name must be of the form 'libxxx.a'"
-msgstr ""
+msgstr "Target pustaka statik mesti berbentuk 'libxxx.la'"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3257
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3159
-#, fuzzy
 msgid "Target already exists"
-msgstr "Berkas tujuan telah ada"
+msgstr "Target telah ada"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3267
 msgid "General failure in target creation"
-msgstr ""
+msgstr "Kegagalan umum dalam pembuatan target"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3295
 msgid "Newly created target could not be identified"
-msgstr ""
+msgstr "Target yang baru dibuat tak dapat diidentifikasi"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3328
 msgid "Target couldn't be removed"
-msgstr ""
+msgstr "Target tak dapat dihapus"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3428
 #: ../plugins/gbf-am/gbf-am-project.c:3687
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3317
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3512
-#, fuzzy
 msgid "Source doesn't exist"
-msgstr "File '%s' tidak ada."
+msgstr "Sumber tak ada"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3532
 msgid ""
 "Source file name can only contain alphanumeric, '_', '-' or '.' characters"
 msgstr ""
+"Nama berkas sumber hanya boleh memuat karakter alfanumerik, '_', '-', atau "
+"'.'"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3612
 msgid "Source file is already in given target"
-msgstr ""
+msgstr "Berkas sumber telah diberikan di target"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3630
 msgid "General failure in adding source file"
-msgstr ""
+msgstr "Kegagalan umum dalam menambahkan berkas sumber"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3664
 msgid "Newly added source file could not be identified"
-msgstr ""
+msgstr "Berkas sumber yang baru ditambahkan tak dapat diidentifikasi"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3695
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3520
 msgid "Source couldn't be removed"
-msgstr ""
+msgstr "Sumber tak dapat dihapus"
 
 #: ../plugins/gbf-am/gbf-am-project.c:4111
 #: ../plugins/gbf-am/gbf-am-project.c:4112
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3830
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3831
-#, fuzzy
 msgid "Project directory"
-msgstr "Direktori projek:"
+msgstr "Direktori projek"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:344
 #: ../plugins/gbf-am/gbf-am-properties.c:396
-#, fuzzy
 msgid "Enter new module"
-msgstr "_Masukkan teks baru:"
+msgstr "Masukkan modul baru"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:437
 #: ../plugins/gbf-am/gbf-am-properties.c:933
 msgid "Module/Packages"
-msgstr ""
+msgstr "Modul/Paket"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:444
 #: ../plugins/gbf-am/gbf-am-properties.c:942
@@ -4327,22 +4326,22 @@ msgid ""
 "Are you sure you want to remove module \"%s\" and all its associated "
 "packages?"
 msgstr ""
+"Anda yakin ingin menghapus modul \"%s\" dan semua paket terkait dengannya?"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:532
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to remove package \"%s\"?"
-msgstr "Anda yakin akan menghapus driver <b>%s</b>?"
+msgstr "Anda yakin ingin menghapus paket \"%s\"?"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:590
 #: ../plugins/gbf-am/gbf-am-properties.c:672
-#, fuzzy
 msgid "Enter new variable"
-msgstr "_Masukkan teks baru:"
+msgstr "Masukkan variabel baru"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:703
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to remove variable \"%s\"?"
-msgstr "Anda yakin akan menghapus driver <b>%s</b>?"
+msgstr "Anda yakin ingin menghapus variabel \"%s\"?"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:857
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:180
@@ -4363,9 +4362,8 @@ msgid "URI:"
 msgstr "URI:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1232
-#, fuzzy
 msgid "Use"
-msgstr "Pakai:"
+msgstr "Pakai"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1324
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:247
@@ -4373,75 +4371,65 @@ msgid "Group name:"
 msgstr "Nama grup:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1327
-#, fuzzy
 msgid "Advanced"
-msgstr "Diperluas"
+msgstr "Tingkat lanjut"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1332
 #: ../plugins/gbf-am/gbf-am-properties.c:1422
-#, fuzzy
 msgid "C compiler flags:"
-msgstr "Opsi kompiler:"
+msgstr "Flag kompiler C:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1334
-#, fuzzy
 msgid "C preprocessor flags:"
-msgstr "Opsi kompiler:"
+msgstr "Flag preprosesor C:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1336
-#, fuzzy
 msgid "C++ compiler flags:"
-msgstr "Opsi kompiler:"
+msgstr "Flag kompiler C++:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1338
 msgid "gcj compiler flags (ahead-of-time):"
-msgstr ""
+msgstr "Flag kompiler gcj (ahead-of-time):"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1340
 msgid "Java compiler flags (just-in-time):"
-msgstr ""
+msgstr "Flag kompiler java (just-in-time):"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1342
 #: ../plugins/gbf-am/gbf-am-properties.c:1430
 msgid "Fortran compiler flags:"
-msgstr ""
+msgstr "Flag kompiler Fortran:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1345
-#, fuzzy
 msgid "Includes (deprecated):"
-msgstr "Maksima B (dimansuhkan)"
+msgstr "Include (tak berlaku lagi):"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1356
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:261
-#, fuzzy
 msgid "Install directories:"
-msgstr "Mengoptimasi direktori: "
+msgstr "Direktori instalasi:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1424
-#, fuzzy
 msgid "C preprocessor flags"
-msgstr "Opsi kompiler:"
+msgstr "Flag preprosesor C"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1426
-#, fuzzy
 msgid "C++ compiler flags"
-msgstr "Opsi kompiler:"
+msgstr "Flag kompiler C++"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1428
 msgid "gcj compiler flags (ahead-of-time)"
-msgstr ""
+msgstr "Flag kompiler gcj (ahead-of-time)"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1434
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:413
-#, fuzzy
 msgid "Linker flags:"
-msgstr "Opsi kompiler:"
+msgstr "Flag linker:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1440
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:419
-#, fuzzy
 msgid "Libraries:"
-msgstr "perpustakaan: %s\n"
+msgstr "Pustaka:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1446
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:425
@@ -4449,21 +4437,18 @@ msgid "Dependencies:"
 msgstr "Ketergantungan:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1449
-#, fuzzy
 msgid "Advanced options"
-msgstr "Pilihan lanjutan"
+msgstr "Opsi tingkat lanjut"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1524
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:350
-#, fuzzy
 msgid "Target name:"
-msgstr "nama jaringan target"
+msgstr "Nama target:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1533
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:359
-#, fuzzy
 msgid "Group:"
-msgstr "Kelompok:"
+msgstr "Grup:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1551
 #: ../plugins/gbf-am/gbf-am-properties.c:1567
@@ -4471,9 +4456,8 @@ msgstr "Kelompok:"
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:377
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:394
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:401
-#, fuzzy
 msgid "Install directory:"
-msgstr "&Buat direktori"
+msgstr "Direktori instalasi:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1586
 msgid "Advanced…"
@@ -4481,57 +4465,54 @@ msgstr "Tingkat lanjut..."
 
 #: ../plugins/gbf-mkfile/gbf-mkfile-config.c:102
 #: ../plugins/gbf-mkfile/gbf-mkfile-config.c:136
-#, fuzzy
 msgid "Invalid GbfMkfileConfigValue type"
-msgstr "%s: jenis kotak surat tidak dikenali"
+msgstr "Tipe GbfMkfileConfigValue tak valid"
 
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2699
-#, fuzzy
 msgid "Project doesn't exist"
-msgstr "File '%s' tidak ada."
+msgstr "Projek tak ada."
 
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3006
 msgid "Group coudn't be removed"
-msgstr ""
+msgstr "Grup tak dapat dihapus"
 
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3169
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3196
 msgid "Target couldn't be created"
-msgstr ""
+msgstr "Target tak dapat dibuat"
 
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3229
 msgid "Target coudn't be removed"
-msgstr ""
+msgstr "Target tak dapat dihapus"
 
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3427
 msgid "Source file must be inside the project directory"
-msgstr ""
+msgstr "Berkas sumber mesti di dalam direktori projek"
 
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3439
 msgid "Source is already in target"
-msgstr ""
+msgstr "Sumber telah ada di target"
 
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3456
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3488
 msgid "Source couldn't be added"
-msgstr ""
+msgstr "Sumber tak dapat ditambahkan"
 
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:250
-#, fuzzy
 msgid "Includes:"
-msgstr "Sertakan"
+msgstr "Include:"
 
 #. The %s argument is a program name, anjuta by example
 #: ../plugins/gdb/debugger.c:712
-#, fuzzy, c-format
+#, c-format
 msgid "Loading Executable: %s\n"
-msgstr "grup yang dapat dieksekusi"
+msgstr "Memuat Executable: %s\n"
 
 #. The %s argument is a file name
 #: ../plugins/gdb/debugger.c:743
-#, fuzzy, c-format
+#, c-format
 msgid "Loading Core: %s\n"
-msgstr "Referensi Penting"
+msgstr "Memuat Core: %s\n"
 
 #: ../plugins/gdb/debugger.c:828
 #, c-format
@@ -4540,68 +4521,69 @@ msgid ""
 "Unable to initialize debugger.\n"
 "Make sure Anjuta is installed correctly."
 msgstr ""
+"Tak bisa temukan: %s.\n"
+"Tak bisa menginisialisasi debugger.\n"
+"Pastikan Anjuta terpasang dengan benar."
 
 #: ../plugins/gdb/debugger.c:973
 msgid "Getting ready to start debugging session…\n"
-msgstr ""
+msgstr "Bersiap memulai sesi debug…\n"
 
 #: ../plugins/gdb/debugger.c:979
-#, fuzzy
 msgid "Loading Executable: "
-msgstr "grup yang dapat dieksekusi"
+msgstr "Memuat Executable:"
 
 #: ../plugins/gdb/debugger.c:988
-#, fuzzy
 msgid "No executable specified.\n"
-msgstr "Tidak ada penerima yang disebutkan.\n"
+msgstr "Tak ada executable yang dinyatakan.\n"
 
 #: ../plugins/gdb/debugger.c:991
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr ""
+"Buka suatu executable atau cantolkan ke suatu proses untuk memulai debug.\n"
 
 #: ../plugins/gdb/debugger.c:1000
 msgid "There was an error whilst launching the debugger.\n"
-msgstr ""
+msgstr "Ada kesalahan ketika meluncurkan debugger.\n"
 
 #: ../plugins/gdb/debugger.c:1004
 msgid "Make sure 'gdb' is installed on the system.\n"
-msgstr ""
+msgstr "Pastikan 'gdb' terpasang pada sistem.\n"
 
 #: ../plugins/gdb/debugger.c:1294
 msgid "Program exited normally\n"
-msgstr ""
+msgstr "Program keluar secara normal\n"
 
 #: ../plugins/gdb/debugger.c:1305
 #, c-format
 msgid "Program exited with error code %s\n"
-msgstr ""
+msgstr "Program keluar dengan kode kesalahan %s\n"
 
 #. The program has reached one breakpoint and will stop
 #: ../plugins/gdb/debugger.c:1320
 #, c-format
 msgid "Breakpoint number %s hit\n"
-msgstr ""
+msgstr "Breakpoint nomor %s kena\n"
 
 #: ../plugins/gdb/debugger.c:1329
-#, fuzzy
 msgid "Function finished\n"
-msgstr "Selesai dengan suskses."
+msgstr "Fungsi berakhir\n"
 
 #: ../plugins/gdb/debugger.c:1335
-#, fuzzy
 msgid "Stepping finished\n"
-msgstr "Selesai dengan suskses."
+msgstr "Step selesai\n"
 
 #: ../plugins/gdb/debugger.c:1341
-#, fuzzy
 msgid "Location reached\n"
-msgstr "[Batas bookmark]"
+msgstr "Lokasi dicapai\n"
 
 #: ../plugins/gdb/debugger.c:1735
 msgid ""
 "The program is attached.\n"
 "Do you still want to stop the debugger?"
 msgstr ""
+"Program sedang dicantoli.\n"
+"Anda masih ingin menghentikan debugger?"
 
 #. The %s argument is an error message returned by gdb.
 #. * It is something like, "No such file or directory"
@@ -4611,70 +4593,71 @@ msgid ""
 "Unable to connect to remote target, %s\n"
 "Do you want to try again?"
 msgstr ""
+"Tak bisa menyambung ke target jauh, %s\n"
+"Anda ingin mencoba lagi?"
 
 #: ../plugins/gdb/debugger.c:1914
-#, fuzzy
 msgid "Debugger connected\n"
-msgstr "Terhubung dengan %s"
+msgstr "Debugger tersambung\n"
 
 #: ../plugins/gdb/debugger.c:1988
-#, fuzzy
 msgid "Program attached\n"
-msgstr "Lampirkan Berkas"
+msgstr "Program dicantol\n"
 
 #: ../plugins/gdb/debugger.c:2009
-#, fuzzy, c-format
+#, c-format
 msgid "Attaching to process: %d…\n"
-msgstr "Tidak bisa melampirkan %s!"
+msgstr "Mencantol ke proses: %d…\n"
 
 #: ../plugins/gdb/debugger.c:2035
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
 msgstr ""
+"Suatu proses telah sedang berjalan.\n"
+"Apakah Anda ingin mengakhirinya dan mencantol ke proses baru?"
 
 #: ../plugins/gdb/debugger.c:2052
 msgid "Anjuta is unable to attach to itself."
-msgstr ""
+msgstr "Anjuta tak bisa mencantol ke dirinya sendiri."
 
 #: ../plugins/gdb/debugger.c:2102
-#, fuzzy
 msgid "Program terminated\n"
-msgstr "Pilihan pengakhiran.\n"
+msgstr "Program diakhiri\n"
 
 #: ../plugins/gdb/debugger.c:2117
-#, fuzzy
 msgid "Program detached\n"
-msgstr "Menghapus signature.\n"
+msgstr "Program dilepas cantol\n"
 
 #: ../plugins/gdb/debugger.c:2137
-#, fuzzy, c-format
+#, c-format
 msgid "Detaching the process…\n"
-msgstr "Proses &Antrian"
+msgstr "Melepas cantolan proses…\n"
 
 #: ../plugins/gdb/debugger.c:2158
-#, fuzzy
 msgid "Interrupting the process\n"
-msgstr "Proses &Antrian"
+msgstr "Menginterupsi proses\n"
 
 #: ../plugins/gdb/debugger.c:3949
 #, c-format
 msgid "Sending signal %s to the process: %d"
-msgstr ""
+msgstr "Mengirim sinyal %s ke proses: %d"
 
 #: ../plugins/gdb/debugger.c:3975
 msgid "Error whilst signaling the process."
-msgstr ""
+msgstr "Kesalahan ketika mensinyal proses."
 
 #: ../plugins/gdb/plugin.c:112
 #, c-format
 msgid ""
 "Failed to create FIFO file named %s. The program will run without a terminal."
 msgstr ""
+"Gagal membuat berkas FIFO bernama %s. Program akan berjalan tanpa suatu "
+"terminal."
 
 #: ../plugins/gdb/plugin.c:198
 msgid "Cannot start terminal for debugging."
-msgstr ""
+msgstr "Tak bisa memulai terminal untuk debug."
 
 #: ../plugins/git/anjuta-git.ui.h:1
 msgid "Add File"
@@ -4682,53 +4665,50 @@ msgstr "Tambah Berkas"
 
 #: ../plugins/git/anjuta-git.ui.h:2
 msgid "Add Remote Branch"
-msgstr ""
+msgstr "Tambah Cabang Jauh"
 
 #. A signed off by line is something git adds to the end of a commit message that indicates that a patch passes your scrutiny as you commit it to your git tree.
 #: ../plugins/git/anjuta-git.ui.h:4
 msgid "Add signed-off-by line"
-msgstr ""
+msgstr "Tambah baris signed-off-by"
 
 #: ../plugins/git/anjuta-git.ui.h:5
+#, fuzzy
 msgid "Amend the previous commit"
-msgstr ""
+msgstr "Amend commit sebelumnya"
 
 #: ../plugins/git/anjuta-git.ui.h:6
 msgid "Annotate this tag"
-msgstr ""
+msgstr "Annotasikan tag ini"
 
 #. Normally when you fetch new objets from a remote branch you are tracking, git overwrites the data from the last fetch. With this option, data will be appended to the previous information, preserving it if the user should need it.
 #: ../plugins/git/anjuta-git.ui.h:8
 msgid "Append fetch data"
-msgstr ""
+msgstr "Append data yang diambil"
 
 #: ../plugins/git/anjuta-git.ui.h:9
-#, fuzzy
 msgid "Apply Stash"
-msgstr "Mengaplikasikan Untaian"
+msgstr "Terapkan Stash"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/git/anjuta-git.ui.h:10 ../plugins/git/plugin.c:239
-#, fuzzy
 msgid "Apply mailbox files"
-msgstr "Aplikasikan ke &File"
+msgstr "Terapkan berkas mailbox"
 
 #: ../plugins/git/anjuta-git.ui.h:11
 msgid "Apply the selected stash"
-msgstr ""
+msgstr "Terapkan stash yang dipilih"
 
 #. "Author" means search for commits whose author matches the given grep expression. "Grep" searches through commit logs and patches.
 #: ../plugins/git/anjuta-git.ui.h:13
-#, fuzzy
 msgid "Author/Grep"
-msgstr "Pengarang metadata"
+msgstr "Penulis/Grup"
 
 #: ../plugins/git/anjuta-git.ui.h:14
 #: ../plugins/project-wizard/templates/translatable-strings.h:25
-#, fuzzy
 msgid "Author:"
-msgstr "Pembuat"
+msgstr "Penulis:"
 
 #: ../plugins/git/anjuta-git.ui.h:15
 msgid "Bad revision:"
@@ -4748,11 +4728,11 @@ msgstr "Branch:"
 
 #: ../plugins/git/anjuta-git.ui.h:19
 msgid "Branches"
-msgstr "Percabangan"
+msgstr "Branch-branch"
 
 #: ../plugins/git/anjuta-git.ui.h:20
 msgid "Branches must be fully merged"
-msgstr ""
+msgstr "Branch mesti digabung secara penuh"
 
 #: ../plugins/git/anjuta-git.ui.h:21
 msgid "Branches to delete:"
@@ -4765,30 +4745,27 @@ msgstr "Perubahan:"
 
 #: ../plugins/git/anjuta-git.ui.h:24
 msgid "Check Out Files"
-msgstr ""
+msgstr "Check Out Berkas"
 
 #: ../plugins/git/anjuta-git.ui.h:25
 msgid "Check out all local changes"
-msgstr ""
+msgstr "Check out semua perubahan lokal"
 
 #: ../plugins/git/anjuta-git.ui.h:26
 msgid "Check out the branch after it is created"
-msgstr ""
+msgstr "Check out cabang setelah dibuat"
 
 #: ../plugins/git/anjuta-git.ui.h:27
-#, fuzzy
 msgid "Cherry Pick"
-msgstr "Pilih jenis huruf"
+msgstr "Cherry Pick"
 
 #: ../plugins/git/anjuta-git.ui.h:28
-#, fuzzy
 msgid "Clear all stashes"
-msgstr "Hapus semua bookmark?"
+msgstr "Hapus semua stash"
 
 #: ../plugins/git/anjuta-git.ui.h:29
-#, fuzzy
 msgid "Column 1"
-msgstr "COLUMN"
+msgstr "Kolom 1"
 
 #: ../plugins/git/anjuta-git.ui.h:30
 #: ../plugins/subversion/anjuta-subversion.ui.h:7
@@ -4797,16 +4774,15 @@ msgstr "Commit Perubahan"
 
 #: ../plugins/git/anjuta-git.ui.h:31
 msgid "Commit on fast-forward merges"
-msgstr ""
+msgstr "Commit pada gabungan maju-cepat (fast-fordward)"
 
 #: ../plugins/git/anjuta-git.ui.h:32
 msgid "Commit to Cherry Pick:"
-msgstr ""
+msgstr "Commit ke Cherry Pick:"
 
 #: ../plugins/git/anjuta-git.ui.h:33
-#, fuzzy
 msgid "Commit to revert:"
-msgstr "_Kembalikan ke Awal"
+msgstr "Commit untuk di-revert:"
 
 #: ../plugins/git/anjuta-git.ui.h:34
 msgid "Create Branch"
@@ -4818,7 +4794,7 @@ msgstr "Buat Tag"
 
 #: ../plugins/git/anjuta-git.ui.h:36
 msgid "Create patch series"
-msgstr ""
+msgstr "Buat seri patch"
 
 #: ../plugins/git/anjuta-git.ui.h:37 ../plugins/git/git-log-dialog.c:189
 #: ../plugins/subversion/subversion-log-dialog.c:141
@@ -4831,25 +4807,23 @@ msgstr "Hapus Branch"
 
 #: ../plugins/git/anjuta-git.ui.h:39
 msgid "Delete Remote Branch"
-msgstr ""
+msgstr "Hapus Branch Jauh"
 
 #: ../plugins/git/anjuta-git.ui.h:40
 msgid "Delete Tags"
 msgstr "Hapus Tag"
 
 #: ../plugins/git/anjuta-git.ui.h:41
-#, fuzzy
 msgid "Do not commit"
-msgstr "Jangan dikembalikan"
+msgstr "Jangan commit"
 
 #: ../plugins/git/anjuta-git.ui.h:42
-#, fuzzy
 msgid "Do not follow tags"
-msgstr "  nofollow  jangan ikuti tautan simbolik\n"
+msgstr "Jangan ikuti tag"
 
 #: ../plugins/git/anjuta-git.ui.h:43
 msgid "Drop the selected stash"
-msgstr ""
+msgstr "Drop stash yang dipilih"
 
 #: ../plugins/git/anjuta-git.ui.h:44
 msgid "E-mail:"
@@ -4857,20 +4831,18 @@ msgstr "E-mail:"
 
 #: ../plugins/git/anjuta-git.ui.h:45
 msgid "Fetch remote branches after creation"
-msgstr ""
+msgstr "Ambil branch jauh setelah pembuatan"
 
 #: ../plugins/git/anjuta-git.ui.h:46
-#, fuzzy
 msgid "Filters"
-msgstr "_Tapis"
+msgstr "Tapis"
 
 #: ../plugins/git/anjuta-git.ui.h:47
 msgid "Folder to create patches in:"
-msgstr ""
+msgstr "Folder tempat membuat patch:"
 
 #: ../plugins/git/anjuta-git.ui.h:48
 #: ../plugins/subversion/anjuta-subversion.ui.h:19
-#, fuzzy
 msgid "Force"
 msgstr "Paksa"
 
@@ -4880,7 +4852,7 @@ msgstr "Dari:"
 
 #: ../plugins/git/anjuta-git.ui.h:51
 msgid "Generate patches relative to:"
-msgstr ""
+msgstr "Jangkitkan patch relatif terhadap:"
 
 #: ../plugins/git/anjuta-git.ui.h:52
 msgid "Good revision:"
@@ -4899,27 +4871,23 @@ msgid "Head"
 msgstr "Head"
 
 #: ../plugins/git/anjuta-git.ui.h:56
-#, fuzzy
 msgid "Ignore Files"
-msgstr "Abaikan Berkas:"
+msgstr "Berkas Abai"
 
 #: ../plugins/git/anjuta-git.ui.h:58
 #: ../plugins/subversion/anjuta-subversion.ui.h:21
-#, fuzzy
 msgid "Log Message:"
-msgstr "Pesan log:"
+msgstr "Pesan Log:"
 
 #: ../plugins/git/anjuta-git.ui.h:60
 msgid "Mailbox file containing patches:"
-msgstr ""
+msgstr "Berkas mailbox yang memuat patch:"
 
 #: ../plugins/git/anjuta-git.ui.h:61
-#, fuzzy
 msgid "Merge"
 msgstr "Gabung"
 
 #: ../plugins/git/anjuta-git.ui.h:62
-#, fuzzy
 msgid "Mixed"
 msgstr "Campuran"
 
@@ -4928,9 +4896,8 @@ msgid "Mode:"
 msgstr "Mode:"
 
 #: ../plugins/git/anjuta-git.ui.h:67
-#, fuzzy
 msgid "Previous commit"
-msgstr "Halaman sebelumnya"
+msgstr "Commit sebelumnya"
 
 #: ../plugins/git/anjuta-git.ui.h:68
 msgid "Pull"
@@ -4942,142 +4909,123 @@ msgstr "Push"
 
 #: ../plugins/git/anjuta-git.ui.h:70
 msgid "Push all branches and tags"
-msgstr ""
+msgstr "Pull semua branch dan tag"
 
 #: ../plugins/git/anjuta-git.ui.h:71
 msgid "Push all tags"
-msgstr ""
+msgstr "Push semua tag"
 
 #: ../plugins/git/anjuta-git.ui.h:72
 msgid "Rebase"
 msgstr "Rebase"
 
 #: ../plugins/git/anjuta-git.ui.h:73
-#, fuzzy
 msgid "Remote"
-msgstr "_Jauh"
+msgstr "Jauh"
 
 #: ../plugins/git/anjuta-git.ui.h:74
 msgid "Remote branch to rebase from:"
-msgstr ""
+msgstr "Rebase dari branch jauh:"
 
 #: ../plugins/git/anjuta-git.ui.h:75
-#, fuzzy
 msgid "Remote to delete:"
-msgstr "Tidak dapat menghapus %1!"
+msgstr "Jauh yang akan dihapus:"
 
 #: ../plugins/git/anjuta-git.ui.h:76
-#, fuzzy
 msgid "Remove File"
-msgstr "Hapus berkas '%s'?"
+msgstr "Berkas Hapus"
 
 #: ../plugins/git/anjuta-git.ui.h:77
-#, fuzzy
 msgid "Repository origin"
-msgstr "Asal Dimensi"
+msgstr "Asal repositori"
 
 #: ../plugins/git/anjuta-git.ui.h:78
 msgid "Repository to pull from:"
-msgstr ""
+msgstr "Pull dari repositori:"
 
 #: ../plugins/git/anjuta-git.ui.h:79
-#, fuzzy
 msgid "Repository to push to:"
-msgstr "T&ambahkan ke Repository..."
+msgstr "Push ke repositori:"
 
 #: ../plugins/git/anjuta-git.ui.h:80
 msgid "Reset Tree"
 msgstr "Reset Tree"
 
 #: ../plugins/git/anjuta-git.ui.h:81
-#, fuzzy
 msgid "Reset to:"
-msgstr "Kembalikan ke standar"
+msgstr "Reset ke:"
 
 #: ../plugins/git/anjuta-git.ui.h:82
-#, fuzzy
 msgid "Restore index"
-msgstr "Indeks AVI"
+msgstr "Restore Indeks"
 
 #: ../plugins/git/anjuta-git.ui.h:83
 #: ../plugins/subversion/anjuta-subversion.ui.h:35
-#, fuzzy
 msgid "Retrieving status…"
-msgstr "Pesan %d / %d / Status: %s"
+msgstr "Mengambil status…"
 
 #: ../plugins/git/anjuta-git.ui.h:84
-#, fuzzy
 msgid "Revert Commit"
-msgstr "Putar balik suatu commit"
+msgstr "Revert Commit"
 
 #: ../plugins/git/anjuta-git.ui.h:85
-#, fuzzy
 msgid "Revision/Tag:"
-msgstr "Nama Tag"
+msgstr "Revisi/Tag:"
 
 #: ../plugins/git/anjuta-git.ui.h:87
-#, fuzzy
 msgid "Select Files to Check Out:"
-msgstr "Pilih objek untuk disimpan:"
+msgstr "Pilih Berkas untuk Check Out:"
 
 #: ../plugins/git/anjuta-git.ui.h:88
 #: ../plugins/subversion/anjuta-subversion.ui.h:42
-#, fuzzy
 msgid "Select Files to Commit:"
-msgstr "Pilih file-file yang hendak dibuka"
+msgstr "Pilih Berkas untuk Commit:"
 
 #: ../plugins/git/anjuta-git.ui.h:89
-#, fuzzy
 msgid "Select Files to Ignore:"
-msgstr "Pilih file-file yang hendak dibuka"
+msgstr "Pilih Berkas untuk Diabaikan:"
 
 #: ../plugins/git/anjuta-git.ui.h:90
 #: ../plugins/subversion/anjuta-subversion.ui.h:43
-#, fuzzy
 msgid "Select Files to Mark as Resolved:"
-msgstr "Pilih objek untuk disimpan:"
+msgstr "Pilih Berkas untuk Ditandai sebagai Terpecahkan:"
 
 #: ../plugins/git/anjuta-git.ui.h:91
-#, fuzzy
 msgid "Select Files to Unstage:"
-msgstr "Pilih file-file yang hendak dibuka"
+msgstr "Pilih Berkas untuk Unstage:"
 
 #: ../plugins/git/anjuta-git.ui.h:92
-#, fuzzy
 msgid "Select Mailbox File"
-msgstr "Pilih Berkas Adzan"
+msgstr "Pilih Berkas Mailbox"
 
 #: ../plugins/git/anjuta-git.ui.h:93
-#, fuzzy
 msgid "Select a Folder"
-msgstr "Pilih Folder"
+msgstr "Pilih suatu Folder"
 
 #: ../plugins/git/anjuta-git.ui.h:94
-#, fuzzy
 msgid "Select file to add:"
-msgstr "Tambah berkas ke proyek"
+msgstr "Tambah berkas untuk ditambahkan:"
 
 #: ../plugins/git/anjuta-git.ui.h:95
-#, fuzzy
 msgid "Select file to remove:"
-msgstr "Coba `%s ./%s' untuk menghapus berkas %s.\n"
+msgstr "Pilih berkas untuk dihapus:"
 
 #: ../plugins/git/anjuta-git.ui.h:96
 #: ../plugins/subversion/anjuta-subversion.ui.h:44
 msgid "Set Conflicts as Resolved"
-msgstr ""
+msgstr "Tata Konflik sebagai Terpecahkah"
 
 #: ../plugins/git/anjuta-git.ui.h:97
 msgid "Show source revision in log message"
-msgstr ""
+msgstr "Tampilkan revisi sumber di pesan log"
 
 #: ../plugins/git/anjuta-git.ui.h:98
 msgid "Show the contents of the selected stash in an editor"
-msgstr ""
+msgstr "Tampilkan isi stash yang dipilih dalam suatu penyunting"
 
 #: ../plugins/git/anjuta-git.ui.h:99
 msgid "Sign this tag"
-msgstr ""
+msgstr "Tanda tangani tag ini"
 
 #: ../plugins/git/anjuta-git.ui.h:100
 msgid "Soft"
@@ -5093,11 +5041,11 @@ msgstr "Stash"
 
 #: ../plugins/git/anjuta-git.ui.h:103
 msgid "Stash Message (Optional)"
-msgstr ""
+msgstr "Pesan Stash (Opsional)"
 
 #: ../plugins/git/anjuta-git.ui.h:104
 msgid "Stash Uncommitted Changes"
-msgstr ""
+msgstr "Perubahan Belum Di-commit Stash"
 
 #: ../plugins/git/anjuta-git.ui.h:105
 msgid "Stash indexed changes"
@@ -6678,7 +6626,7 @@ msgstr "Pembesaran _ke luar"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:17
 msgid "Truncate long messages"
-msgstr ""
+msgstr "Penggal pesan panjang"
 
 #. text style in editor
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:19
@@ -6811,7 +6759,7 @@ msgstr "Menggunakan proxy %s"
 
 #: ../plugins/patch/patch-plugin.c:209
 msgid "Patching…\n"
-msgstr ""
+msgstr "Mempatch...\n"
 
 #: ../plugins/patch/patch-plugin.c:219
 #, fuzzy
@@ -7029,11 +6977,11 @@ msgstr "Tidak ada gambar yang dibuka"
 #: ../plugins/project-manager/gbf-project-util.c:229
 #: ../plugins/project-manager/gbf-project-util.c:236
 msgid "Cannot add group"
-msgstr ""
+msgstr "Tak bisa menambah grup"
 
 #: ../plugins/project-manager/gbf-project-util.c:237
 msgid "No parent group selected"
-msgstr ""
+msgstr "Tak ada grup induk yang dipilih"
 
 #: ../plugins/project-manager/gbf-project-util.c:407
 #: ../plugins/project-manager/gbf-project-util.c:414
@@ -7069,7 +7017,7 @@ msgstr "Pengaturan kelompok"
 
 #: ../plugins/project-manager/plugin.c:446
 msgid "No properties available for this group"
-msgstr ""
+msgstr "Tak tersedia properti bagi grup ini"
 
 #: ../plugins/project-manager/plugin.c:451
 #, fuzzy
@@ -7078,7 +7026,7 @@ msgstr "Properti kolom"
 
 #: ../plugins/project-manager/plugin.c:460
 msgid "No properties available for this target"
-msgstr ""
+msgstr "Tak tersedia properti bagi target ini"
 
 #: ../plugins/project-manager/plugin.c:492
 #: ../plugins/project-manager/plugin.c:907
@@ -7088,12 +7036,12 @@ msgstr "Properti kolom"
 
 #: ../plugins/project-manager/plugin.c:511
 msgid "Refreshing symbol tree…"
-msgstr ""
+msgstr "Menyegarkan tree simbol..."
 
 #: ../plugins/project-manager/plugin.c:518
 #, c-format
 msgid "Failed to refresh project: %s"
-msgstr ""
+msgstr "Gagal menyegarkan projek: %s"
 
 #: ../plugins/project-manager/plugin.c:696
 #, fuzzy
@@ -7153,11 +7101,11 @@ msgstr "Pintas"
 
 #: ../plugins/project-manager/plugin.c:743
 msgid "The group will not be deleted from the file system."
-msgstr ""
+msgstr "Grup tak akan dihapus dari sistem berkas."
 
 #: ../plugins/project-manager/plugin.c:745
 msgid "The source file will not be deleted from the file system."
-msgstr ""
+msgstr "Berkas sumber tak akan dihapus dari sistem berkas."
 
 #: ../plugins/project-manager/plugin.c:750
 #, fuzzy
@@ -7193,7 +7141,7 @@ msgstr "_Penyegaran"
 
 #: ../plugins/project-manager/plugin.c:912
 msgid "Refresh project manager tree"
-msgstr ""
+msgstr "Segarkan tree manajer projek"
 
 #: ../plugins/project-manager/plugin.c:917
 #, fuzzy
@@ -7226,11 +7174,11 @@ msgstr "Pilih Berkas Torrent"
 #: ../plugins/project-manager/plugin.c:946
 #: ../plugins/project-manager/plugin.c:961
 msgid "Add a source file to project"
-msgstr ""
+msgstr "Tambah suatu berkas sumber ke projek"
 
 #: ../plugins/project-manager/plugin.c:932
 msgid "Close Pro_ject"
-msgstr ""
+msgstr "Tutup Pro_jek"
 
 #: ../plugins/project-manager/plugin.c:932
 #, fuzzy
@@ -9404,9 +9352,9 @@ msgstr "Galat"
 
 #. Display the name of the command
 #: ../plugins/tools/execute.c:469
-#, fuzzy, c-format
+#, c-format
 msgid "Running command: %s…\n"
-msgstr "Menjalankan perintah: %s\n"
+msgstr "Menjalankan perintah: %s…\n"
 
 #: ../plugins/tools/execute.c:509
 #, c-format
@@ -9414,42 +9362,39 @@ msgid "Completed unsuccessfully with status code %d\n"
 msgstr ""
 
 #: ../plugins/tools/execute.c:629
-#, fuzzy
 msgid "Unable to create a buffer: command aborted"
-msgstr "Gagal menyelesaikan penyalinan berkas"
+msgstr "Tak bisa membuat suatu penyangga: perintah digugurkan"
 
 #: ../plugins/tools/execute.c:641
 msgid "No document currently open: command aborted"
 msgstr ""
 
 #: ../plugins/tools/execute.c:1019
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to open input file %s, command aborted"
-msgstr "Gagal menyelesaikan penyalinan berkas"
+msgstr "Tak bisa membuka berkas masukan %s, perintah digugurkan"
 
 #: ../plugins/tools/fileop.c:248
-#, fuzzy
 msgid "Missing tool name"
-msgstr "File name tidak ada"
+msgstr "Nama alat tak ada"
 
 #: ../plugins/tools/fileop.c:258
-#, fuzzy, c-format
+#, c-format
 msgid "Unexpected element \"%s\""
-msgstr "Elemen tidak diduga"
+msgstr "Elemen tak diharapkan \"%s\""
 
 #: ../plugins/tools/fileop.c:537
 msgid "Error when loading external tools"
 msgstr ""
 
 #: ../plugins/tools/fileop.c:703
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to open %s for writing"
-msgstr "Tidak bisa membuka '%1' untuk menulis."
+msgstr "Tak bisa membuka %s untuk menulis."
 
 #: ../plugins/tools/plugin.c:179
-#, fuzzy
 msgid "Tool operations"
-msgstr "%1 dari %2 operasi telah selesai"
+msgstr "Operasi peralatan"
 
 #: ../plugins/tools/variable.c:84
 msgid "Project root URI"
@@ -9650,11 +9595,11 @@ msgstr "Jungkit mode layar penuh"
 
 #: ../src/anjuta-actions.h:51
 msgid "_Lock Dock Layout"
-msgstr ""
+msgstr "Kunci Tata _Letak Dok"
 
 #: ../src/anjuta-actions.h:52
 msgid "Lock the current dock layout so that widgets cannot be moved"
-msgstr ""
+msgstr "Kunci tata letak dok kini sehingga widget tak dapat dipindah"
 
 #: ../src/anjuta-actions.h:55
 msgid "_Toolbar"
@@ -9669,55 +9614,52 @@ msgid "_Help"
 msgstr "Ba_ntuan"
 
 #: ../src/anjuta-actions.h:63
-#, fuzzy
 msgid "_User's Manual"
-msgstr "Transfer &manual..."
+msgstr "Manual Pengg_una"
 
 #: ../src/anjuta-actions.h:64
 msgid "Anjuta user's manual"
-msgstr ""
+msgstr "Manual pengguna Anjuta"
 
 #: ../src/anjuta-actions.h:67
 msgid "Kick start _tutorial"
-msgstr ""
+msgstr "_Tutorial kick start"
 
 #: ../src/anjuta-actions.h:68
 msgid "Anjuta Kick start tutorial"
-msgstr ""
+msgstr "Tutorial kick start Anjuta"
 
 #: ../src/anjuta-actions.h:71
 msgid "_Advanced tutorial"
-msgstr "Tutorial tingkat lanjut"
+msgstr "Tutori_al tingkat lanjut"
 
 #: ../src/anjuta-actions.h:72
 msgid "Anjuta advanced tutorial"
-msgstr ""
+msgstr "Tutorial tingkat lanjut Anjuta"
 
 #: ../src/anjuta-actions.h:75
-#, fuzzy
 msgid "_Frequently Asked Questions"
-msgstr "Pertanyaan Yang Sering Muncul"
+msgstr "Pertanyaan Yang _Sering Muncul"
 
 #: ../src/anjuta-actions.h:76
 msgid "Anjuta frequently asked questions"
-msgstr ""
+msgstr "Pertanyaan yang sering muncul tentang Anjuta"
 
 #: ../src/anjuta-actions.h:79
-#, fuzzy
 msgid "Anjuta _Home Page"
-msgstr "Alamat home page pengguna."
+msgstr "Laman Seramb_i Anjuta"
 
 #: ../src/anjuta-actions.h:80
 msgid "Online documentation and resources"
-msgstr ""
+msgstr "Dokumentasi dan sumber daya daring"
 
 #: ../src/anjuta-actions.h:83
 msgid "Report _Bugs/Patches/Requests"
-msgstr ""
+msgstr "Laporkan _Bug/Patch/Permintaan"
 
 #: ../src/anjuta-actions.h:84
 msgid "Submit a bug report, patch or feature request for Anjuta"
-msgstr ""
+msgstr "Ajukan suatu laporan bug, patch, atau permintaan fitur bagi Anjuta"
 
 #: ../src/anjuta-actions.h:87
 msgid "Ask a _Question"
@@ -9725,7 +9667,7 @@ msgstr "Ajukan _Pertanyaan"
 
 #: ../src/anjuta-actions.h:88
 msgid "Submit a question for FAQs"
-msgstr ""
+msgstr "Ajukan suatu pertanyaan bagi FAQ"
 
 #: ../src/anjuta-actions.h:91
 msgid "_About"
@@ -9737,11 +9679,11 @@ msgstr "Tentang Anjuta"
 
 #: ../src/anjuta-actions.h:95
 msgid "About External _Plugins"
-msgstr ""
+msgstr "Tentang _Plugin Eksternal"
 
 #: ../src/anjuta-actions.h:96
 msgid "About third-party Anjuta plugins"
-msgstr ""
+msgstr "Tentang plugin Anjuta dari pihak ketika"
 
 #: ../src/anjuta-app.c:625
 msgid "Edit"
@@ -9762,7 +9704,7 @@ msgstr "Nilai tak ada"
 
 #: ../src/main.c:74
 msgid "Specify the size and location of the main window"
-msgstr ""
+msgstr "Nyatakan ukuran dan lokasi dari jendela utama"
 
 #. This is the format you can specify the size andposition
 #. * of the window on command line
@@ -9777,18 +9719,20 @@ msgstr "Jangan tampilkan layar splash"
 #: ../src/main.c:88
 msgid "Start a new instance and do not open the file in an existing instance"
 msgstr ""
+"Mulai suatu instansi baru dan jangan buka berkas dalam suatu instansi yang "
+"telah ada"
 
 #: ../src/main.c:94
 msgid "Do not open last session on startup"
-msgstr ""
+msgstr "Jangan buka sesi terakhir pada startup"
 
 #: ../src/main.c:100
 msgid "Do not open last project and files on startup"
-msgstr ""
+msgstr "Jangan buka berkas dan projek terakhir pada startup"
 
 #: ../src/main.c:106
 msgid "Shut down Anjuta properly, releasing all resources (for debugging)"
-msgstr ""
+msgstr "Matikan Anjuta dengan benar, merilis semua sumber daya (untuk debug)"
 
 #: ../src/main.c:174
 msgid "- Integrated Development Environment"
@@ -9816,16 +9760,16 @@ msgstr "Nama pengembang:"
 
 #: ../src/preferences.ui.h:6
 msgid "Do not load last project and files on startup"
-msgstr ""
+msgstr "Jangan muat berkas dan projek terakhir pada startup"
 
 #: ../src/preferences.ui.h:7
 msgid "Do not load last session on startup"
-msgstr ""
+msgstr "Jangan muat sesi terakhir pada startup"
 
 #. Style of the buttons/tabs used to select docked windows in anjuta
 #: ../src/preferences.ui.h:9
 msgid "Dock switcher style:"
-msgstr ""
+msgstr "Gaya penukar dok:"
 
 #: ../src/preferences.ui.h:10
 msgid "GNOME toolbar setting"
@@ -9878,15 +9822,15 @@ msgstr "Label tombol bilah alat:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.schemas.in.h:1
 msgid "Do not display warning if not using a Debug configuration"
-msgstr ""
+msgstr "Jangan tampilkan peringatan bila tidak memakai suatu konfigurasi Debug"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:1
 msgid "Add '(' after function call autocompletion"
-msgstr ""
+msgstr "Tambahkan '(' setelah pelengkapan otomatis pemanggilan fungsi"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:2
 msgid "Add a space after function call autocompletion"
-msgstr ""
+msgstr "Tambahkan satu spasi setelah pelengkapan otomatis pemanggilan fungsi"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:3
 msgid "Auto-complete"
@@ -9894,15 +9838,15 @@ msgstr "Lengkapi otomatis"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:4
 msgid "Autocompletion (C/C++/Java only)"
-msgstr ""
+msgstr "Pelengkapan otomatis (hanya C/C++/Java)"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:5
 msgid "Brace indentation size in spaces:"
-msgstr ""
+msgstr "Ukuran indentasi kurung dalam spasi:"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:6
 msgid "Calltips"
-msgstr ""
+msgstr "Calltip"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:7
 msgid "Enable code completion"
@@ -9934,9 +9878,8 @@ msgstr "Indentasi kurung"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:7
-#, fuzzy
 msgid "Show calltips"
-msgstr "&Tampilkan pesan"
+msgstr "Tampilkan calltip"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
 msgid "Smart Indentation"
@@ -9944,7 +9887,7 @@ msgstr "Indentasi Pintar"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
 msgid "Statement indentation size in spaces:"
-msgstr ""
+msgstr "Ukuran indentasi pernyataan dalam spasi:"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1888
 msgid "Auto-Indent"
@@ -9953,6 +9896,7 @@ msgstr "Indentasi Otomatis"
 #: ../plugins/language-support-cpp-java/plugin.c:1889
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr ""
+"Indent otomatis baris atau pilihan kini berdasar pada tatanan indentasi"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1894
 msgid "Swap .h/.c"

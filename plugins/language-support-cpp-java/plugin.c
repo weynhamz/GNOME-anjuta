@@ -1498,31 +1498,27 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 			/* If the previous char is a ' we don't have to autocomplete */
 			if (*prev_char != '\'')
 			{
-				
+				ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (editor), NULL);
 				ianjuta_iterable_next (iter, NULL);
 				switch (ch)
 				{
-					case '[': ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (editor), NULL);
+					case '[': 
 							  ianjuta_editor_insert (editor, iter,
 													 "]", 1, NULL);
-							  ianjuta_document_end_undo_action (IANJUTA_DOCUMENT (editor), NULL);
 							  break;
-					case '(': ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (editor), NULL);
+					case '(': 
 							  ianjuta_editor_insert (editor, iter,
 													 ")", 1, NULL);
-							  ianjuta_document_end_undo_action (IANJUTA_DOCUMENT (editor), NULL);
 							  break;
-					default: break;
+					default: 
+						       break;
 				}
-
-				ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (editor), NULL);
-				ianjuta_iterable_previous (iter, NULL);
 				ianjuta_editor_goto_position (editor, iter, NULL);
 				ianjuta_document_end_undo_action (IANJUTA_DOCUMENT (editor), NULL);
 			}
 			g_object_unref (previous);
 		}
-		else if (ch == ']' || ch == ')' || ch == '"' || ch == '\'')
+		else if (ch == '"' || ch == '\'')
 		{
 			gchar *prev_char;
 			IAnjutaIterable *previous;
@@ -1553,8 +1549,6 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 					
 					ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (editor), NULL);
 					ianjuta_editor_insert (editor, iter, c, 1, NULL);
-
-					ianjuta_iterable_previous (iter, NULL);
 					ianjuta_editor_goto_position (editor, iter, NULL);
 					ianjuta_document_end_undo_action (IANJUTA_DOCUMENT (editor), NULL);	
 					

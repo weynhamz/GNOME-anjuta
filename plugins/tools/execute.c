@@ -814,7 +814,7 @@ atp_execution_context_execute (ATPExecutionContext* this,
 	/* Change working directory */
 	if (this->directory != NULL)
 	{
-		prev_dir = g_get_current_dir();
+		prev_dir = anjuta_util_get_current_dir();
 		chdir (this->directory);
 	}
 	/* Execute */
