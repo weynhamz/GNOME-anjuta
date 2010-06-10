@@ -139,6 +139,11 @@ on_ok_button_clicked (GtkButton *button, GitCommitPane *self)
 	                                         author_email,
 	                                         selected_paths);
 
+	g_free (log);
+	g_free (author_name);
+	g_free (author_email);
+	git_command_free_string_list (selected_paths);
+
 	git_pane_create_message_view (plugin);
 
 	g_signal_connect (G_OBJECT (commit_command), "data-arrived",
