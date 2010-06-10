@@ -514,8 +514,7 @@ git_status_pane_new (Git *plugin)
 }
 
 static void
-selected_items_table_foreach (GHashTable *hash_table, gchar *path, gchar value,
-                              GList **list)
+selected_items_table_foreach (gchar *path, gchar *value, GList **list)
 {
 	*list = g_list_append (*list, g_strdup (path));
 }
