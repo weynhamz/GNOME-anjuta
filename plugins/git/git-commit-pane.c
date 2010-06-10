@@ -118,6 +118,15 @@ on_ok_button_clicked (GtkButton *button, GitCommitPane *self)
 	author_name = NULL;
 	author_email = NULL;
 
+	if (!git_pane_check_input (GTK_WIDGET (ANJUTA_PLUGIN (plugin)->shell),
+							   GTK_WIDGET (log_view), log,
+	                           _("Please enter a log message.")))
+	{
+		g_free (log);
+
+		return;
+	}
+
 	if (gtk_toggle_button_get_active (use_custom_author_info_check))
 	{
 		name_entry = GTK_EDITABLE (gtk_builder_get_object (self->priv->builder,
@@ -127,6 +136,23 @@ on_ok_button_clicked (GtkButton *button, GitCommitPane *self)
 
 		author_name = gtk_editable_get_chars (name_entry, 0, -1);
 		author_email = gtk_editable_get_chars (email_entry, 0, -1);
+
+		/* Check both the name and e-mail fields with one statement instead of 
+		 * two */
+		if (!git_pane_check_input (GTK_WIDGET (ANJUTA_PLUGIN (plugin)->shell),
+		                           GTK_WIDGET (name_entry), author_name,
+		                           _("Please enter the commit author's name")) ||
+		    !git_pane_check_input (GTK_WIDGET (ANJUTA_PLUGIN (plugin)->shell),
+		                           GTK_WIDGET (email_entry), 
+		                           author_email,
+		                           _("Please enter the commit author's e-mail address.")))
+		{
+			g_free (log);
+			g_free (author_name);
+			g_free (author_email);
+
+			return;
+		}
 	}
 
 	selected_paths = git_status_pane_get_all_selected_items (GIT_STATUS_PANE (plugin->status_pane));
