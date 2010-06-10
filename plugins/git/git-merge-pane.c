@@ -51,11 +51,28 @@ on_ok_button_clicked (GtkButton *button, GitMergePane *self)
 	revision = gtk_editable_get_chars (revision_entry, 0, -1);
 	log = NULL;
 
+	if (!git_pane_check_input (GTK_WIDGET (ANJUTA_PLUGIN (plugin)->shell),
+	                           GTK_WIDGET (revision_entry), revision,
+	                           _("Please enter a revision.")))
+	{
+		g_free (revision);
+		return;
+	}
+
 	if (gtk_toggle_button_get_active (use_custom_log_check))
 	{
 		log_view = GTK_TEXT_VIEW (gtk_builder_get_object (self->priv->builder,
 		                                                  "log_view"));
 		log = git_pane_get_log_from_text_view (log_view);
+
+		if (!git_pane_check_input (GTK_WIDGET (ANJUTA_PLUGIN (plugin)->shell),
+		                           GTK_WIDGET (log_view), log,
+		                           _("Please enter a log message.")))
+		{
+			g_free (revision);
+			g_free (log);
+			return;
+		}
 	}
 
 	merge_command = git_merge_command_new (plugin->project_root_directory, 
@@ -97,14 +114,14 @@ on_cancel_button_clicked (GtkButton *button, GitMergePane *self)
 static void
 on_use_custom_log_check_toggled (GtkToggleButton *button, GitMergePane *self)
 {
-	GtkWidget *log_text_view;
+	GtkWidget *log_view;
 	gboolean active;
 
-	log_text_view = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
-	                                                    "log_text_view"));
+	log_view = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
+	                                               "log_view"));
 	active = gtk_toggle_button_get_active (button);
 
-	gtk_widget_set_sensitive (log_text_view, active);
+	gtk_widget_set_sensitive (log_view, active);
 }
 
 static void
