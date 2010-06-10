@@ -15,28 +15,6 @@ CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
                       analyse_time date
                       );
 
-DROP TABLE IF EXISTS file_include;
-CREATE TABLE file_include (file_include_id integer PRIMARY KEY AUTOINCREMENT,
-                           file_include_type text not null unique
-                           );
-
-DROP TABLE IF EXISTS ext_include;
-CREATE TABLE ext_include (prj_id integer REFERENCES project (project_id),
-                          file_incl_id integer REFERENCES file_include (file_include_id),
-                          PRIMARY KEY (prj_id, file_incl_id)
-                          );
-
-DROP TABLE IF EXISTS file_ignore;
-CREATE TABLE file_ignore (file_ignore_id integer PRIMARY KEY AUTOINCREMENT,
-                          file_ignore_type text unique                          
-                          );
-
-DROP TABLE IF EXISTS ext_ignore;
-CREATE TABLE ext_ignore (prj_id integer REFERENCES project (project_id),
-                         file_ign_id integer REFERENCES file_ignore (file_ignore_id),
-                         PRIMARY KEY (prj_id, file_ign_id)
-                         );
-
 DROP TABLE IF EXISTS file;
 CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
                    file_path text not null unique,
