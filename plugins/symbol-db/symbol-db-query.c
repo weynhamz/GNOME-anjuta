@@ -192,13 +192,9 @@ sdb_query_build_sql_head (SymbolDBQuery *query, GString *sql)
 		else
 			g_string_append (sql, ", ");
 		
-		DEBUG_PRINT ("table id = %d", field_specs[*field_ptr].table);
-		DEBUG_PRINT ("table jd = %d", tables_joined[field_specs[*field_ptr].table]);
-		
 		g_string_append (sql, field_specs[*field_ptr].column);
 		if (tables_joined[field_specs[*field_ptr].table] == FALSE)
 		{
-			DEBUG_PRINT ("Joining: %s" , table_joins[field_specs[*field_ptr].table]);
 			g_string_append (sql_joins,
 			                 table_joins[field_specs[*field_ptr].table]);
 			g_string_append (sql_joins, " ");
@@ -206,7 +202,6 @@ sdb_query_build_sql_head (SymbolDBQuery *query, GString *sql)
 		}
 		field_ptr++;
 	}
-	DEBUG_PRINT ("Join str = %s", sql_joins->str);
 	g_string_append (sql, " FROM symbol ");
 	g_string_append (sql, sql_joins->str);
 	g_string_append (sql, " WHERE ");
@@ -250,6 +245,20 @@ sdb_query_build_sql_kind_filter (SymbolDBQuery *query, GString *sql)
 }
 
 static void
+sdb_query_add_field (SymbolDBQuery *query, IAnjutaSymbolField field)
+{
+	gint idx = 0;
+	while (query->priv->fields[idx] != IANJUTA_SYMBOL_FIELD_END)
+	{
+		if (query->priv->fields[idx]  == field)
+			return;
+		idx++;
+	}
+	query->priv->fields[idx] = field;
+	query->priv->fields[idx + 1] = IANJUTA_SYMBOL_FIELD_END;
+}
+
+static void
 sdb_query_update (SymbolDBQuery *query)
 {
 	const gchar *condition;
@@ -278,7 +287,7 @@ sdb_query_update (SymbolDBQuery *query)
 						WHERE file_path = ## /* name:'filepath' type:gchararray */ \
 					) \
 				) ";
-			priv->filters &= IANJUTA_SYMBOL_FIELD_FILE_PATH;
+			sdb_query_add_field (query, IANJUTA_SYMBOL_FIELD_FILE_PATH);
 			break;
 		case IANJUTA_SYMBOL_QUERY_SEARCH_ID:
 			condition = "(symbol.symbol_id = ## /* name:'symbolid' type:gint */)";
@@ -305,8 +314,9 @@ sdb_query_update (SymbolDBQuery *query)
 		case IANJUTA_SYMBOL_QUERY_SEARCH_SCOPE:
 			condition =
 				"(file.file_path = ## /* name:'filepath' type:gchararray */ \
-				 AND symbol.file_position <= ## /* name:'linenum' type:gint */)  \
+				 AND symbol.file_position <= ## /* name:'fileline' type:gint */)  \
 				 ORDER BY symbol.file_position DESC ";
+			sdb_query_add_field (query, IANJUTA_SYMBOL_FIELD_FILE_PATH);
 			g_object_set (query, "limit", 1, NULL);
 			break;
 		case IANJUTA_SYMBOL_QUERY_SEARCH_PARENT_SCOPE:
@@ -327,6 +337,7 @@ sdb_query_update (SymbolDBQuery *query)
 					FROM symbol \
 					WHERE symbol.symbol_id = ## /* name:'symbolid' type:gint */ \
 				) AND file.file_path = ## /* name:'filepath' type:gchararray */ ";
+			sdb_query_add_field (query, IANJUTA_SYMBOL_FIELD_FILE_PATH);
 			g_object_set (query, "limit", 1, NULL);
 			break;
 		default:
@@ -920,7 +931,7 @@ sdb_query_search_file (IAnjutaSymbolQuery *query, const gchar *search_string,
 	g_value_take_string (&sv, rel_file_path);
 	gda_holder_set_value (priv->param_file_path, &sv, NULL);
 	g_free (abs_file_path);
-	g_value_reset (&sv);
+	g_value_unset (&sv);
 	
 	return sdb_query_execute (SYMBOL_DB_QUERY (query));
 }
@@ -941,7 +952,7 @@ sdb_query_search_id (IAnjutaSymbolQuery *query, gint symbol_id,
 	g_value_init (&iv, G_TYPE_INT);
 	g_value_set_int (&iv, symbol_id);
 	gda_holder_set_value (priv->param_id, &iv, NULL);
-	g_value_reset (&iv);
+	g_value_unset (&iv);
 	
 	return sdb_query_execute (SYMBOL_DB_QUERY (query));
 }
@@ -958,12 +969,10 @@ sdb_query_search_members (IAnjutaSymbolQuery *query, IAnjutaSymbol *symbol,
 	priv = SYMBOL_DB_QUERY (query)->priv;
 	g_return_val_if_fail (priv->name == IANJUTA_SYMBOL_QUERY_SEARCH_MEMBERS, NULL);
 
-	DEBUG_PRINT ("Getting members of %d", ianjuta_symbol_get_int (symbol, IANJUTA_SYMBOL_FIELD_ID, NULL));
-	
 	g_value_init (&iv, G_TYPE_INT);
 	g_value_set_int (&iv, ianjuta_symbol_get_int (symbol, IANJUTA_SYMBOL_FIELD_ID, NULL));
 	gda_holder_set_value (priv->param_id, &iv, NULL);
-	g_value_reset (&iv);
+	g_value_unset (&iv);
 	
 	return sdb_query_execute (SYMBOL_DB_QUERY (query));
 }
@@ -983,7 +992,7 @@ sdb_query_search_class_parents (IAnjutaSymbolQuery *query, IAnjutaSymbol *symbol
 	g_value_init (&iv, G_TYPE_INT);
 	g_value_set_int (&iv, ianjuta_symbol_get_int (symbol, IANJUTA_SYMBOL_FIELD_ID, NULL));
 	gda_holder_set_value (priv->param_id, &iv, NULL);
-	g_value_reset (&iv);
+	g_value_unset (&iv);
 	
 	return sdb_query_execute (SYMBOL_DB_QUERY (query));
 }
@@ -1004,15 +1013,16 @@ sdb_query_search_scope (IAnjutaSymbolQuery *query, const gchar *file_path,
 	g_value_init (&v, G_TYPE_INT);
 	g_value_set_int (&v, file_line);
 	gda_holder_set_value (priv->param_file_line, &v, NULL);
-	g_value_reset (&v);
+	g_value_unset (&v);
 
 	db_relative_path = symbol_db_util_get_file_db_path (priv->dbe_selected, file_path);
 	if (db_relative_path == NULL)
 		return NULL;
+
 	g_value_init (&v, G_TYPE_STRING);
 	g_value_take_string (&v, db_relative_path);
 	gda_holder_set_value (priv->param_file_path, &v, NULL);
-	g_value_reset (&v);
+	g_value_unset (&v);
 	
 	return sdb_query_execute (SYMBOL_DB_QUERY (query));
 }
@@ -1032,7 +1042,7 @@ sdb_query_search_parent_scope (IAnjutaSymbolQuery *query, IAnjutaSymbol *symbol,
 	g_value_init (&iv, G_TYPE_INT);
 	g_value_set_int (&iv, ianjuta_symbol_get_int (symbol, IANJUTA_SYMBOL_FIELD_ID, NULL));
 	gda_holder_set_value (priv->param_id, &iv, NULL);
-	g_value_reset (&iv);
+	g_value_unset (&iv);
 
 	return sdb_query_execute (SYMBOL_DB_QUERY (query));
 }
@@ -1053,7 +1063,7 @@ sdb_query_search_parent_scope_file (IAnjutaSymbolQuery *query, IAnjutaSymbol *sy
 	g_value_init (&v, G_TYPE_INT);
 	g_value_set_int (&v, ianjuta_symbol_get_int (symbol, IANJUTA_SYMBOL_FIELD_ID, NULL));
 	gda_holder_set_value (priv->param_id, &v, NULL);
-	g_value_reset (&v);
+	g_value_unset (&v);
 
 	db_relative_path = symbol_db_util_get_file_db_path (priv->dbe_selected, file_path);
 	if (db_relative_path == NULL)
@@ -1061,7 +1071,7 @@ sdb_query_search_parent_scope_file (IAnjutaSymbolQuery *query, IAnjutaSymbol *sy
 	g_value_init (&v, G_TYPE_STRING);
 	g_value_take_string (&v, db_relative_path);
 	gda_holder_set_value (priv->param_file_path, &v, NULL);
-	g_value_reset (&v);
+	g_value_unset (&v);
 	
 	return sdb_query_execute (SYMBOL_DB_QUERY (query));
 }
