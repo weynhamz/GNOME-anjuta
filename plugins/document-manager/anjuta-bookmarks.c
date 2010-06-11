@@ -55,7 +55,7 @@ struct _AnjutaBookmarksPrivate
 	GtkWidget* grip;
 
 	GtkWidget* menu;
-	
+	IAnjutaSymbolQuery *query_scope;
 	DocmanPlugin* docman;
 };
 
@@ -270,7 +270,7 @@ anjuta_bookmarks_init (AnjutaBookmarks *bookmarks)
 
 	GtkWidget* item_rename;
 	GtkWidget* item_remove;
-	
+
 	priv->window = gtk_vbox_new (FALSE, 5);
 	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW(scrolled_window),
@@ -357,6 +357,7 @@ anjuta_bookmarks_finalize (GObject *object)
 	AnjutaBookmarks* bookmarks = ANJUTA_BOOKMARKS (object);
 	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);
 
+	g_object_unref (priv->query_scope);
 	gtk_widget_destroy (priv->menu);
 	
 	anjuta_shell_remove_widget (ANJUTA_PLUGIN(priv->docman)->shell,
@@ -385,7 +386,17 @@ anjuta_bookmarks_new (DocmanPlugin* docman)
 	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);
 	priv->docman = docman;
 
+	IAnjutaSymbolManager* sym_manager;
+	static IAnjutaSymbolField fields[] = {IANJUTA_SYMBOL_FIELD_NAME};
 	
+	sym_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN(priv->docman)->shell,
+											  IAnjutaSymbolManager, NULL);
+	priv->query_scope =
+		ianjuta_symbol_manager_create_query (sym_manager,
+											 IANJUTA_SYMBOL_QUERY_SEARCH_SCOPE,
+											  IANJUTA_SYMBOL_QUERY_DB_PROJECT,
+											  NULL);
+	ianjuta_symbol_query_set_fields (priv->query_scope, 1, fields, NULL);
 	
 	anjuta_shell_add_widget_custom (ANJUTA_PLUGIN(docman)->shell,
 	                                priv->window,
@@ -406,29 +417,26 @@ anjuta_bookmarks_new (DocmanPlugin* docman)
 static gchar*
 anjuta_bookmarks_get_text_from_file (AnjutaBookmarks* bookmarks, GFile* file, gint line)
 {
+	gchar* text;
 	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);
-	/* If we can get the symbol scope - take it */
-	IAnjutaSymbolManager* sym_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN(priv->docman)->shell,
-																	IAnjutaSymbolManager,
-																	NULL);
-	
-	if (sym_manager != NULL)
+
+	if (priv->query_scope != NULL)
 	{
 		gchar* path = g_file_get_path (file);
 		IAnjutaIterable* iter = 
-			ianjuta_symbol_manager_get_scope (sym_manager,
-											  path,
-											  line,
-											  IANJUTA_SYMBOL_FIELD_SIMPLE,
-											  NULL);
+			ianjuta_symbol_query_search_scope (priv->query_scope,
+											   path, line, NULL);
 		g_free (path);
 		if (iter)
 		{
-			return g_strdup (ianjuta_symbol_get_name(IANJUTA_SYMBOL(iter), NULL));
+			text = g_strdup (ianjuta_symbol_get_string (IANJUTA_SYMBOL(iter),
+														IANJUTA_SYMBOL_FIELD_NAME,
+														NULL));
+			g_object_unref (iter);
+			return text;
 		}
 	}
 	{
-		gchar* text;
 		GFileInfo* info;
 		/* As last chance, take file + line */
 		info = g_file_query_info (file,
