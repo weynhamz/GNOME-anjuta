@@ -50,10 +50,29 @@ on_ok_button_clicked (GtkButton *button, GitCreateBranchPane *self)
 	name = gtk_editable_get_chars (GTK_EDITABLE (name_entry), 0, -1);
 	revision = NULL;
 
+	if (!git_pane_check_input (GTK_WIDGET (ANJUTA_PLUGIN (plugin)->shell),
+	                           GTK_WIDGET (name_entry), name,
+	                           _("Please enter a branch name.")))
+	{
+		g_free (name);
+
+		return;
+	}
+
 	if (gtk_toggle_button_get_active (revision_radio))
 	{
 		revision = gtk_editable_get_chars (GTK_EDITABLE (revision_entry), 0, 
 		                                   -1);
+
+		if (!git_pane_check_input (GTK_WIDGET (ANJUTA_PLUGIN (plugin)->shell),
+		                           GTK_WIDGET (revision_entry), revision,
+		                           _("Please enter a revision.")))
+		{
+			g_free (name);
+			g_free (revision);
+
+			return;
+		}
 	}
 
 	create_command = git_branch_create_command_new (plugin->project_root_directory,
