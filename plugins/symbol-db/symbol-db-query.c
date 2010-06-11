@@ -20,6 +20,7 @@
 #include <limits.h>
 #include <stdarg.h>
 #include <libgda/gda-statement.h>
+#include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-symbol-query.h>
 #include "symbol-db-engine.h"
 #include "symbol-db-query.h"
@@ -32,6 +33,7 @@ enum
 {
 	PROP_0,
 	PROP_QUERY_NAME,
+	PROP_QUERY_DB,
 	PROP_QUERY_MODE,
 	PROP_FILTERS,
 	PROP_FILE_SCOPE,
@@ -45,6 +47,7 @@ enum
 
 struct _SymbolDBQueryPriv {
 	GdaStatement *stmt;
+	gchar *sql_stmt;
 	gboolean prepared;
 
 	IAnjutaSymbolQueryName name;
@@ -103,15 +106,15 @@ SdbQueryFieldSpec field_specs[] = {
 	{"symbol.name ", SDB_QUERY_TABLE_SYMBOL},
 	{"symbol.file_position ", SDB_QUERY_TABLE_SYMBOL},
 	{"symbol.scope_definition_id ", SDB_QUERY_TABLE_SYMBOL},
+	{"symbol.is_file_scope ", SDB_QUERY_TABLE_SYMBOL},
 	{"symbol.signature ", SDB_QUERY_TABLE_SYMBOL},
 	{"symbol.returntype ", SDB_QUERY_TABLE_SYMBOL},
-	{"symbol.is_file_scope ", SDB_QUERY_TABLE_SYMBOL},
 	{"file.file_path", SDB_QUERY_TABLE_FILE},
 	{"sym_implementation.implementation_name", SDB_QUERY_TABLE_IMPLEMENTATION},
 	{"sym_access.access_name", SDB_QUERY_TABLE_ACCESS},
+	{"sym_kind.kind_name ", SDB_QUERY_TABLE_KIND},
 	{"sym_type.type_type ", SDB_QUERY_TABLE_TYPE},
 	{"sym_type.type_name", SDB_QUERY_TABLE_TYPE},
-	{"sym_kind.kind_name ", SDB_QUERY_TABLE_KIND},
 	{"sym_kind.is_container", SDB_QUERY_TABLE_KIND}
 };
 
@@ -122,6 +125,7 @@ SdbQueryFieldSpec field_specs[] = {
  */
 static gchar* kind_names[] =
 {
+	NULL,
 	"undef",
 	"class",
 	"enum",
@@ -161,6 +165,7 @@ sdb_query_build_sql_head (SymbolDBQuery *query, GString *sql)
 	gboolean tables_joined[SDB_QUERY_TABLE_MAX];
 	SymbolDBQueryPriv *priv;
 	IAnjutaSymbolField *field_ptr;
+	gboolean first_field = TRUE;
 
 	g_return_if_fail (SYMBOL_DB_IS_QUERY (query));
 	g_return_if_fail (sql != NULL);
@@ -174,28 +179,37 @@ sdb_query_build_sql_head (SymbolDBQuery *query, GString *sql)
 	
 	for (i = 0; i < SDB_QUERY_TABLE_MAX; i++)
 		tables_joined[i] = FALSE;
-	/* "symbol" table is in built, so skip it */
+	/* "symbol" table is in-built, so skip it */
 	tables_joined[SDB_QUERY_TABLE_SYMBOL] = TRUE;
 	
 	g_string_assign (sql, "SELECT ");
-	sql_joins = g_string_new_len ("", 512);
+	sql_joins = g_string_sized_new (512);
 	field_ptr = priv->fields;
 	while (*field_ptr != IANJUTA_SYMBOL_FIELD_END)
 	{
+		if (first_field)
+			first_field = FALSE;
+		else
+			g_string_append (sql, ", ");
+		
+		DEBUG_PRINT ("table id = %d", field_specs[*field_ptr].table);
+		DEBUG_PRINT ("table jd = %d", tables_joined[field_specs[*field_ptr].table]);
+		
 		g_string_append (sql, field_specs[*field_ptr].column);
-		g_string_append (sql, " ");
-		if (!tables_joined[field_specs[*field_ptr].table])
+		if (tables_joined[field_specs[*field_ptr].table] == FALSE)
 		{
-			tables_joined[field_specs[*field_ptr].table] = TRUE;
+			DEBUG_PRINT ("Joining: %s" , table_joins[field_specs[*field_ptr].table]);
 			g_string_append (sql_joins,
 			                 table_joins[field_specs[*field_ptr].table]);
 			g_string_append (sql_joins, " ");
+			tables_joined[field_specs[*field_ptr].table] = TRUE;
 		}
 		field_ptr++;
 	}
-	g_string_append (sql, "FROM symbol ");
+	DEBUG_PRINT ("Join str = %s", sql_joins->str);
+	g_string_append (sql, " FROM symbol ");
 	g_string_append (sql, sql_joins->str);
-	g_string_append (sql, "WHERE ");
+	g_string_append (sql, " WHERE ");
 	g_string_free (sql_joins, TRUE);
 }
 
@@ -215,9 +229,10 @@ sdb_query_build_sql_kind_filter (SymbolDBQuery *query, GString *sql)
 	filters = priv->filters;
 	if (filters)
 	{
-		g_string_append (sql, "(symbol.kind_id IN (SELECT kind_id FROM sym_kind WHERE kind_name IN (");
+		g_string_append (sql, "(symbol.kind_id IN (SELECT sym_kind_id FROM sym_kind WHERE kind_name IN (");
 		while (filters)
 		{
+			bit_count++;
 			if (filters & 1)
 			{
 				if (first) first = FALSE;
@@ -228,7 +243,7 @@ sdb_query_build_sql_kind_filter (SymbolDBQuery *query, GString *sql)
 			}
 			filters >>= 1;
 		}
-		g_string_append (sql, ")) ");
+		g_string_append (sql, "))) ");
 		return TRUE;
 	}
 	return FALSE;
@@ -247,13 +262,11 @@ sdb_query_update (SymbolDBQuery *query)
 	/* Prepare select conditions */
 	switch (priv->name)
 	{
-		case IANJUTA_SYMBOL_QUERY_SEARCH_PROJECT:
+		case IANJUTA_SYMBOL_QUERY_SEARCH:
 			condition = " (symbol.name LIKE ## /* name:'pattern' type:gchararray */) ";
-			priv->dbe_selected = priv->dbe_project;
 			break;
-		case IANJUTA_SYMBOL_QUERY_SEARCH_SYSTEM:
-			condition = " (symbol.name LIKE ## /* name:'pattern' type:gchararray */) ";
-			priv->dbe_selected = priv->dbe_system;
+		case IANJUTA_SYMBOL_QUERY_SEARCH_ALL:
+			condition = "1 = 1 ";
 			break;
 		case IANJUTA_SYMBOL_QUERY_SEARCH_FILE:
 			condition = " \
@@ -278,7 +291,7 @@ sdb_query_update (SymbolDBQuery *query)
 					FROM symbol \
 					WHERE symbol.symbol_id = ## /* name:'symbolid' type:gint */ \
 				) \
-				AND symbol.scope_id > 0) ORDER BY symbol.name) ";
+				AND symbol.scope_id > 0) ORDER BY symbol.name ";
 			break;
 		case IANJUTA_SYMBOL_QUERY_SEARCH_CLASS_PARENTS:
 			condition =
@@ -339,9 +352,17 @@ sdb_query_update (SymbolDBQuery *query)
 	g_string_append (sql, "LIMIT ## /* name:'limit' type:gint */ ");
 	g_string_append (sql, "OFFSET ## /* name:'offset' type:gint */ ");
 
+	DEBUG_PRINT ("sql = %s", sql->str);
+	
 	/* Prepare statement */
-	priv->stmt = symbol_db_engine_get_statement (priv->dbe_selected, sql->str);
-	g_string_free (sql, TRUE);
+	g_free (priv->sql_stmt);
+	priv->sql_stmt = sql->str;
+	if (priv->stmt) g_object_unref (priv->stmt);
+	if (symbol_db_engine_is_connected (priv->dbe_selected))
+		priv->stmt = symbol_db_engine_get_statement (priv->dbe_selected, sql->str);
+	else
+		priv->stmt = NULL;
+	g_string_free (sql, FALSE);
 }
 
 static IAnjutaIterable*
@@ -359,6 +380,7 @@ sdb_query_execute_real (SymbolDBQuery *query)
 	data_model = symbol_db_engine_execute_select (priv->dbe_selected,
 	                                              priv->stmt,
 	                                              priv->params);
+	if (!data_model) return NULL;
 	iter = symbol_db_query_result_new (data_model, 
 	                                   priv->fields,
 	                                   symbol_db_engine_get_type_conversion_hash (priv->dbe_selected),
@@ -404,13 +426,32 @@ sdb_query_async_cancel (AnjutaCommand *command)
 }
 
 static void
+on_sdb_query_dbe_connected (SymbolDBEngine *dbe, SymbolDBQuery *query)
+{
+	g_return_if_fail (SYMBOL_DB_IS_QUERY (query));
+
+	if (!query->priv->stmt)
+	{
+		g_assert (query->priv->sql_stmt);
+		query->priv->stmt =
+			symbol_db_engine_get_statement (query->priv->dbe_selected,
+			                                query->priv->sql_stmt);
+	}
+}
+
+static void
+on_sdb_query_dbe_disconnected (SymbolDBEngine *dbe, SymbolDBQuery *query)
+{
+}
+
+static void
 on_sdb_query_dbe_scan_end (SymbolDBEngine *dbe, gint something,
                            SymbolDBQuery *query)
 {
 	g_return_if_fail (SYMBOL_DB_IS_QUERY (query));
-	g_return_if_fail (query->priv->mode == IANJUTA_SYMBOL_QUERY_MODE_QUEUED_SINGLE);
 	
-	if (!query->priv->is_canceled && query->priv->query_queued &&
+	if (query->priv->mode == IANJUTA_SYMBOL_QUERY_MODE_QUEUED_SINGLE &&
+	    !query->priv->is_canceled && query->priv->query_queued &&
 	    !symbol_db_engine_is_scanning (query->priv->dbe_system) &&
 	    !symbol_db_engine_is_scanning (query->priv->dbe_project))
 	{
@@ -485,13 +526,65 @@ sdb_query_init (SymbolDBQuery *query)
 	priv->is_canceled = FALSE;
 	priv->async_result = NULL;
 	priv->query_queued = FALSE;
-	g_signal_connect (query, "notify-data-arrived",
+	g_signal_connect (query, "data-arrived",
 	                  G_CALLBACK (on_sdb_query_async_data_arrived), query);
+}
+
+static void
+sdb_query_dispose (GObject *object)
+{
+	SymbolDBQueryPriv *priv;
+
+	priv = SYMBOL_DB_QUERY (object)->priv;
+	if (priv->dbe_selected)
+	{
+		g_signal_handlers_disconnect_by_func (priv->dbe_selected,
+		                                      on_sdb_query_dbe_scan_end,
+		                                      object);
+		g_signal_handlers_disconnect_by_func (priv->dbe_selected,
+		                                      on_sdb_query_dbe_connected,
+		                                      object);
+		g_signal_handlers_disconnect_by_func (priv->dbe_selected,
+		                                      on_sdb_query_dbe_disconnected,
+		                                      object);
+		g_object_unref (priv->dbe_selected);
+		priv->dbe_selected = NULL;
+	}
+	if (priv->dbe_system)
+	{
+		g_object_unref (priv->dbe_system);
+		priv->dbe_system = NULL;
+	}
+	if (priv->dbe_project)
+	{
+		g_object_unref (priv->dbe_project);
+		priv->dbe_project = NULL;
+	}
+	if (priv->stmt)
+	{
+		g_object_unref (priv->stmt);
+		priv->stmt = NULL;
+	}
+	if (priv->params)
+	{
+		g_object_unref (priv->params);
+		priv->params = NULL;
+	}
+	if (priv->async_result)
+	{
+		g_object_unref (priv->async_result);
+		priv->async_result = NULL;
+	}
+	G_OBJECT_CLASS (sdb_query_parent_class)->dispose (object);
 }
 
 static void
 sdb_query_finalize (GObject *object)
 {
+	SymbolDBQueryPriv *priv;
+
+	priv = SYMBOL_DB_QUERY (object)->priv;
+	g_free (priv->sql_stmt);
 	G_OBJECT_CLASS (sdb_query_parent_class)->finalize (object);
 }
 
@@ -529,31 +622,33 @@ sdb_query_set_property (GObject *object, guint prop_id, const GValue *value, GPa
 		gda_holder_set_value (priv->param_offset, value, NULL);
 		break;
 	case PROP_DB_ENGINE_SYSTEM:
-		if (priv->dbe_system)
-		{
-			g_signal_handlers_disconnect_by_func (priv->dbe_system,
-			                                      on_sdb_query_dbe_scan_end,
-			                                      query);
-		}
-		g_object_unref (priv->dbe_system);
+		g_assert (priv->dbe_system == NULL);
 		priv->dbe_system = g_value_get_object (value);
-		g_signal_connect (priv->dbe_system, "scan-end",
-		                  G_CALLBACK (on_sdb_query_dbe_scan_end), query);
 		break;
 	case PROP_DB_ENGINE_PROJECT:
-		if (priv->dbe_project)
-		{
-			g_signal_handlers_disconnect_by_func (priv->dbe_project,
-			                                      on_sdb_query_dbe_scan_end,
-			                                      query);
-		}
-		g_object_unref (priv->dbe_system);
+		g_assert (priv->dbe_project == NULL);
 		priv->dbe_project = g_value_get_object (value);
-		g_signal_connect (priv->dbe_project, "scan-end",
-		                  G_CALLBACK (on_sdb_query_dbe_scan_end), query);
 		break;
-	case PROP_DB_ENGINE_SELECTED:
-		priv->dbe_selected = g_value_get_object (value);
+	case PROP_QUERY_DB:
+		g_assert (priv->dbe_project != NULL);
+		g_assert (priv->dbe_system != NULL);
+		g_assert (priv->dbe_selected == NULL);
+		switch (g_value_get_enum (value))
+		{
+			case IANJUTA_SYMBOL_QUERY_DB_PROJECT:
+				priv->dbe_selected = priv->dbe_project;
+				break;
+			case IANJUTA_SYMBOL_QUERY_DB_SYSTEM:
+				priv->dbe_selected = priv->dbe_system;
+				break;
+		}
+		g_object_ref (priv->dbe_selected);
+		g_signal_connect (priv->dbe_selected, "scan-end",
+		                  G_CALLBACK (on_sdb_query_dbe_scan_end), query);
+		g_signal_connect (priv->dbe_selected, "db-connected",
+		                  G_CALLBACK (on_sdb_query_dbe_connected), query);
+		g_signal_connect (priv->dbe_selected, "db-disconnected",
+		                  G_CALLBACK (on_sdb_query_dbe_disconnected), query);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -598,6 +693,9 @@ sdb_query_get_property (GObject *object, guint prop_id, GValue *value, GParamSpe
 	case PROP_DB_ENGINE_PROJECT:
 		g_value_set_object (value, priv->dbe_project);
 		break;
+	case PROP_DB_ENGINE_SELECTED:
+		g_value_set_object (value, priv->dbe_selected);
+		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 		break;
@@ -613,6 +711,7 @@ sdb_query_class_init (SymbolDBQueryClass *klass)
 	g_type_class_add_private (klass, sizeof (SymbolDBQueryPriv));
 
 	object_class->finalize = sdb_query_finalize;
+	object_class->dispose = sdb_query_dispose;
 	object_class->set_property = sdb_query_set_property;
 	object_class->get_property = sdb_query_get_property;
 
@@ -625,9 +724,19 @@ sdb_query_class_init (SymbolDBQueryClass *klass)
 	                                                    "Query name",
 	                                                    "The query name",
 	                                                    IANJUTA_TYPE_SYMBOL_QUERY_NAME,
-	                                                    IANJUTA_SYMBOL_QUERY_SEARCH_PROJECT,
+	                                                    IANJUTA_SYMBOL_QUERY_SEARCH,
 	                                                    G_PARAM_READABLE |
-	                                                    G_PARAM_CONSTRUCT));
+	                                                    G_PARAM_WRITABLE |
+	                                                    G_PARAM_CONSTRUCT_ONLY));
+	g_object_class_install_property (object_class,
+	                                 PROP_QUERY_DB,
+	                                 g_param_spec_enum ("query-db",
+	                                                    "Query DB",
+	                                                    "The query database",
+	                                                    IANJUTA_TYPE_SYMBOL_QUERY_DB,
+	                                                    IANJUTA_SYMBOL_QUERY_DB_PROJECT,
+	                                                    G_PARAM_WRITABLE |
+	                                                    G_PARAM_CONSTRUCT_ONLY));
 	g_object_class_install_property (object_class,
 	                                 PROP_QUERY_MODE,
 	                                 g_param_spec_enum ("query-mode",
@@ -643,7 +752,7 @@ sdb_query_class_init (SymbolDBQueryClass *klass)
 	                                                    "Symbol type filters",
 	                                                    "The symbol type filters",
 	                                                    IANJUTA_TYPE_SYMBOL_TYPE,
-	                                                    -1,
+	                                                    IANJUTA_SYMBOL_TYPE_NONE,
 	                                                    G_PARAM_READABLE |
 	                                                    G_PARAM_WRITABLE));
 	g_object_class_install_property (object_class,
@@ -689,7 +798,7 @@ sdb_query_class_init (SymbolDBQueryClass *klass)
 	                                                      SYMBOL_TYPE_DB_ENGINE,
 	                                                      G_PARAM_READABLE |
 	                                                      G_PARAM_WRITABLE |
-	                                                      G_PARAM_CONSTRUCT));
+	                                                      G_PARAM_CONSTRUCT_ONLY));
 	g_object_class_install_property (object_class,
 	                                 PROP_DB_ENGINE_PROJECT,
 	                                 g_param_spec_object ("db-engine-project",
@@ -698,7 +807,7 @@ sdb_query_class_init (SymbolDBQueryClass *klass)
 	                                                      SYMBOL_TYPE_DB_ENGINE,
 	                                                      G_PARAM_READABLE |
 	                                                      G_PARAM_WRITABLE |
-	                                                      G_PARAM_CONSTRUCT));
+	                                                      G_PARAM_CONSTRUCT_ONLY));
 	g_object_class_install_property (object_class,
 	                                 PROP_DB_ENGINE_SELECTED,
 	                                 g_param_spec_object ("db-engine-selected",
@@ -721,6 +830,7 @@ sdb_query_set_fields (IAnjutaSymbolQuery *query, gint n_fields,
 	for (i = 0; i < n_fields; i++)
 		priv->fields[i] = fields[i];
 	priv->fields[i] = IANJUTA_SYMBOL_FIELD_END;
+	sdb_query_update (SYMBOL_DB_QUERY (query));
 }
 
 static void
@@ -759,8 +869,8 @@ sdb_query_set_file_scope (IAnjutaSymbolQuery *query,
 }
 
 static IAnjutaIterable*
-sdb_query_search_system (IAnjutaSymbolQuery *query,
-                         const gchar *search_string, GError **error)
+sdb_query_search (IAnjutaSymbolQuery *query, const gchar *search_string,
+                  GError **error)
 {
 	GValue sv = {0};
 	SymbolDBQueryPriv *priv;
@@ -768,7 +878,7 @@ sdb_query_search_system (IAnjutaSymbolQuery *query,
 	g_return_val_if_fail (SYMBOL_DB_IS_QUERY (query), NULL);
 
 	priv = SYMBOL_DB_QUERY (query)->priv;
-	g_return_val_if_fail (priv->name == IANJUTA_SYMBOL_QUERY_SEARCH_SYSTEM, NULL);
+	g_return_val_if_fail (priv->name == IANJUTA_SYMBOL_QUERY_SEARCH, NULL);
 
 	g_value_init (&sv, G_TYPE_STRING);
 	g_value_set_static_string (&sv, search_string);
@@ -777,20 +887,14 @@ sdb_query_search_system (IAnjutaSymbolQuery *query,
 }
 
 static IAnjutaIterable*
-sdb_query_search_project (IAnjutaSymbolQuery *query,
-                          const gchar *search_string, GError **error)
+sdb_query_search_all (IAnjutaSymbolQuery *query, GError **error)
 {
-	GValue sv = {0};
 	SymbolDBQueryPriv *priv;
 
 	g_return_val_if_fail (SYMBOL_DB_IS_QUERY (query), NULL);
 
 	priv = SYMBOL_DB_QUERY (query)->priv;
-	g_return_val_if_fail (priv->name == IANJUTA_SYMBOL_QUERY_SEARCH_PROJECT, NULL);
-
-	g_value_init (&sv, G_TYPE_STRING);
-	g_value_set_static_string (&sv, search_string);
-	gda_holder_set_value (priv->param_pattern, &sv, NULL);
+	g_return_val_if_fail (priv->name == IANJUTA_SYMBOL_QUERY_SEARCH_ALL, NULL);
 	return sdb_query_execute (SYMBOL_DB_QUERY (query));
 }
 
@@ -805,7 +909,7 @@ sdb_query_search_file (IAnjutaSymbolQuery *query, const gchar *search_string,
 	g_return_val_if_fail (SYMBOL_DB_IS_QUERY (query), NULL);
 
 	priv = SYMBOL_DB_QUERY (query)->priv;
-	g_return_val_if_fail (priv->name == IANJUTA_SYMBOL_QUERY_SEARCH_SYSTEM, NULL);
+	g_return_val_if_fail (priv->name == IANJUTA_SYMBOL_QUERY_SEARCH_FILE, NULL);
 
 	g_value_init (&sv, G_TYPE_STRING);
 	g_value_set_static_string (&sv, search_string);
@@ -854,6 +958,8 @@ sdb_query_search_members (IAnjutaSymbolQuery *query, IAnjutaSymbol *symbol,
 	priv = SYMBOL_DB_QUERY (query)->priv;
 	g_return_val_if_fail (priv->name == IANJUTA_SYMBOL_QUERY_SEARCH_MEMBERS, NULL);
 
+	DEBUG_PRINT ("Getting members of %d", ianjuta_symbol_get_int (symbol, IANJUTA_SYMBOL_FIELD_ID, NULL));
+	
 	g_value_init (&iv, G_TYPE_INT);
 	g_value_set_int (&iv, ianjuta_symbol_get_int (symbol, IANJUTA_SYMBOL_FIELD_ID, NULL));
 	gda_holder_set_value (priv->param_id, &iv, NULL);
@@ -969,8 +1075,8 @@ ianjuta_symbol_query_iface_init (IAnjutaSymbolQueryIface *iface)
 	iface->set_file_scope = sdb_query_set_file_scope;
 	iface->set_limit = sdb_query_set_limit;
 	iface->set_offset = sdb_query_set_offset;
-	iface->search_system = sdb_query_search_system;
-	iface->search_project = sdb_query_search_project;
+	iface->search = sdb_query_search;
+	iface->search_all = sdb_query_search_all;
 	iface->search_file = sdb_query_search_file;
 	iface->search_id = sdb_query_search_id;
 	iface->search_members = sdb_query_search_members;
@@ -983,10 +1089,12 @@ ianjuta_symbol_query_iface_init (IAnjutaSymbolQueryIface *iface)
 SymbolDBQuery *
 symbol_db_query_new (SymbolDBEngine *system_db_engine,
                      SymbolDBEngine *project_db_engine,
-                     IAnjutaSymbolQueryName name)
+                     IAnjutaSymbolQueryName name,
+                     IAnjutaSymbolQueryDb db)
 {
 	return g_object_new (SYMBOL_DB_TYPE_QUERY,
 	                     "db-engine-system", system_db_engine,
 	                     "db-engine-project", project_db_engine,
-	                     "query-name", name, NULL);
+	                     "query-db", db, "query-name", name,
+	                      NULL);
 }

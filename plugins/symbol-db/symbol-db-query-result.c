@@ -41,15 +41,21 @@ enum {
 
 struct _SymbolDBQueryResultPriv
 {
-	IAnjutaSymbolField valid_fields;
 	gint *col_map;
+	GdaDataModel *data_model;
 	GdaDataModelIter *iter;
 	const GHashTable *sym_type_conversion_hash;
 	gchar *project_root;
 };
 
-static GObjectClass* parent_class = NULL;
+static void isymbol_iface_init (IAnjutaSymbolIface *iface);
+static void isymbol_iter_iface_init (IAnjutaIterableIface *iface);
 
+G_DEFINE_TYPE_WITH_CODE (SymbolDBQueryResult, sdb_query_result, G_TYPE_OBJECT,
+                         G_IMPLEMENT_INTERFACE (IANJUTA_TYPE_SYMBOL,
+                                                isymbol_iface_init)
+                         G_IMPLEMENT_INTERFACE (IANJUTA_TYPE_ITERABLE,
+                                                isymbol_iter_iface_init));
 GQuark
 symbol_db_query_result_error_quark (void)
 {
@@ -69,14 +75,18 @@ sdb_query_result_validate_field (SymbolDBQueryResult *result,
 		             SYMBOL_DB_QUERY_RESULT_ERROR_INVALID_FIELD,
 		             "Invalid symbol query field '%d'. It should be less than '%d'",
 		             field, IANJUTA_SYMBOL_FIELD_END);
+		g_warning ("Invalid symbol query field '%d'. It should be less than '%d'",
+		           field, IANJUTA_SYMBOL_FIELD_END);
 		return FALSE;
 	}
 	
-	if (result->priv->valid_fields & field)
+	if (result->priv->col_map [field] == -1)
 	{
 		g_set_error (err, SYMBOL_DB_QUERY_RESULT_ERROR,
 		             SYMBOL_DB_QUERY_RESULT_ERROR_FIELD_NOT_PRESENT,
 		             "Symbol field '%' is present in the query. Make sure to "
+		             "include the during query creation.", field);
+		g_warning ("Symbol field '%' is present in the query. Make sure to "
 		             "include the during query creation.", field);
 		return FALSE;
 	}
@@ -84,7 +94,7 @@ sdb_query_result_validate_field (SymbolDBQueryResult *result,
 }
 
 static void
-sdb_query_result_instance_init (SymbolDBQueryResult *result)
+sdb_query_result_init (SymbolDBQueryResult *result)
 {
 	gint i;
 	
@@ -95,12 +105,30 @@ sdb_query_result_instance_init (SymbolDBQueryResult *result)
 }
 
 static void
+sdb_query_result_dispose (GObject *object)
+{
+	SymbolDBQueryResult *result = SYMBOL_DB_QUERY_RESULT (object);
+	if (result->priv->data_model)
+	{
+		g_object_unref (result->priv->data_model);
+		result->priv->data_model = NULL;
+	}
+	if (result->priv->iter)
+	{
+		g_object_unref (result->priv->iter);
+		result->priv->iter = NULL;
+	}
+	G_OBJECT_CLASS (sdb_query_result_parent_class)->dispose (object);
+}
+
+static void
 sdb_query_result_finalize (GObject *object)
 {
 	SymbolDBQueryResult *result = SYMBOL_DB_QUERY_RESULT (object);
-	
+
+	g_free (result->priv->project_root);
 	g_free (result->priv->col_map);
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (sdb_query_result_parent_class)->finalize (object);
 }
 
 static void
@@ -122,7 +150,7 @@ sdb_query_result_set_property (GObject *object, guint prop_id,
 			priv->col_map[i] = -1;
 		i = 0;
 		cols_order = g_value_get_pointer (value);
-		while (!(*cols_order & IANJUTA_SYMBOL_FIELD_END))
+		while (!(*cols_order == IANJUTA_SYMBOL_FIELD_END))
 		{
 			priv->col_map[*cols_order] = i;
 			i++;
@@ -130,12 +158,13 @@ sdb_query_result_set_property (GObject *object, guint prop_id,
 		}
 		break;
 	case PROP_SDB_DATA_MODEL:
+		data_model = GDA_DATA_MODEL (g_value_get_object (value));
+		if (priv->data_model) g_object_unref (priv->data_model);
+		priv->data_model = data_model;
 		if (priv->iter)
 			g_object_unref (priv->iter);
-		data_model = GDA_DATA_MODEL (g_value_get_object (value));
 		priv->iter = gda_data_model_create_iter (data_model);
 		gda_data_model_iter_move_at_row (priv->iter, 0);
-		g_object_unref (data_model);
 		break;
 	case PROP_SDB_SYM_TYPE_CONVERSION_HASH:
 		priv->sym_type_conversion_hash = g_value_get_pointer (value);
@@ -185,12 +214,14 @@ sdb_query_result_class_init (SymbolDBQueryResultClass *klass)
 	object_class->set_property = sdb_query_result_set_property;
 	object_class->get_property = sdb_query_result_get_property;
 	object_class->finalize = sdb_query_result_finalize;
+	object_class->dispose = sdb_query_result_dispose;
 
 	g_object_class_install_property
 		(object_class, PROP_SDB_COLUMNS,
 		 g_param_spec_pointer ("fields-order",
 		                      "Fields order",
 		                      "List of data fields in the order found in data model terminated by end field",
+		                      G_PARAM_WRITABLE |
 		                      G_PARAM_CONSTRUCT_ONLY));
 	g_object_class_install_property
 		(object_class, PROP_SDB_DATA_MODEL,
@@ -198,6 +229,7 @@ sdb_query_result_class_init (SymbolDBQueryResultClass *klass)
 		                      "a GdaDataModel",
 		                      "GdaDataModel of the result set",
 		                      GDA_TYPE_DATA_MODEL,
+		                      G_PARAM_WRITABLE |
 		                      G_PARAM_CONSTRUCT_ONLY));
 	g_object_class_install_property
 		(object_class, PROP_SDB_DATA_ITER,
@@ -257,11 +289,15 @@ isymbol_get_int (IAnjutaSymbol *isymbol, IAnjutaSymbolField field,
 
 	col = result->priv->col_map[field];
 	val = gda_data_model_iter_get_value_at (result->priv->iter, col);
-	if (field & IANJUTA_SYMBOL_FIELD_TYPE)
+	if (!val) return 0;
+	if (field == IANJUTA_SYMBOL_FIELD_TYPE)
 	{
 		const gchar* type_str = g_value_get_string (val);
-		return (gint)g_hash_table_lookup ((GHashTable*)result->priv->sym_type_conversion_hash, 
-		                                  type_str);
+		gint type_val = 
+			(gint)g_hash_table_lookup ((GHashTable*)result->priv->sym_type_conversion_hash, 
+			                           type_str);
+		DEBUG_PRINT ("Type str = %s = %d", type_str, type_val);
+		return type_val;
 	}
 	return g_value_get_int (val);
 }
@@ -281,6 +317,7 @@ isymbol_get_string (IAnjutaSymbol *isymbol, IAnjutaSymbolField field,
 
 	col = result->priv->col_map[field];
 	val = gda_data_model_iter_get_value_at (result->priv->iter, col);
+	if (!val) return NULL;
 	return (const gchar*) g_value_get_string (val);
 }
 
@@ -419,16 +456,11 @@ isymbol_iter_get_position (IAnjutaIterable *iterable, GError **err)
 static gint
 isymbol_iter_get_length (IAnjutaIterable *iterable, GError **err)
 {
-	GdaDataModel *data_model;
-	gint len;
 	SymbolDBQueryResult *result;
 
 	g_return_val_if_fail (SYMBOL_DB_IS_QUERY_RESULT (iterable), FALSE);
 	result = SYMBOL_DB_QUERY_RESULT (iterable);	
-	g_object_get (G_OBJECT (result->priv->iter), "data-model", &data_model, NULL);
-	len = gda_data_model_get_n_rows (data_model);
-	g_object_unref (data_model);
-	return len;
+	return gda_data_model_get_n_rows (result->priv->data_model);
 }
 
 static IAnjutaIterable *
@@ -445,7 +477,7 @@ isymbol_iter_assign (IAnjutaIterable *iter, IAnjutaIterable *src_iter, GError **
 }
 
 static void
-isymbol_iter_iface_init (IAnjutaIterableIface *iface, GError **err)
+isymbol_iter_iface_init (IAnjutaIterableIface *iface)
 {
 	iface->first = isymbol_iter_first;
 	iface->next = isymbol_iter_next;
@@ -472,8 +504,3 @@ symbol_db_query_result_new (GdaDataModel *data_model,
 	                     "project-root", project_root_dir,
 	                     NULL);
 }
-
-ANJUTA_TYPE_BEGIN (SymbolDBQueryResult, sdb_query_result, SYMBOL_DB_TYPE_QUERY_RESULT);
-ANJUTA_TYPE_ADD_INTERFACE (isymbol, IANJUTA_TYPE_SYMBOL);
-ANJUTA_TYPE_ADD_INTERFACE (isymbol_iter, IANJUTA_TYPE_ITERABLE);
-ANJUTA_TYPE_END;

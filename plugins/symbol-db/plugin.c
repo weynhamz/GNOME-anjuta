@@ -206,8 +206,8 @@ goto_file_tag (SymbolDBPlugin *sdb_plugin, const gchar *word,
 		iterator = NULL;
 		if (symbol_db_engine_is_connected (engine)) 
 		{		
-			iterator = ianjuta_symbol_query_search_project (sdb_plugin->search_query,
-															word, NULL);
+			iterator = ianjuta_symbol_query_search (sdb_plugin->search_query,
+			                                        word, NULL);
 		}
 	
 		if (iterator != NULL && ianjuta_iterable_get_length (iterator, NULL) > 0)
@@ -294,9 +294,9 @@ on_goto_file_tag_decl_activate (GtkAction *action, SymbolDBPlugin *sdb_plugin)
 static void
 on_find_symbol (GtkAction *action, SymbolDBPlugin *sdb_plugin)
 {
+#if 0
 	DEBUG_PRINT ("on_find_symbol (GtkAction *action, gpointer user_data)");
 	GtkEntry * entry;
-#if 0
 	anjuta_shell_present_widget(ANJUTA_PLUGIN(sdb_plugin)->shell,
 								sdb_plugin->dbv_main, NULL);
 	
@@ -2189,7 +2189,8 @@ symbol_db_activate (AnjutaPlugin *plugin)
 			IANJUTA_SYMBOL_FIELD_FILE_POS
 		};
 	sdb_plugin->search_query = ianjuta_symbol_manager_create_query (IANJUTA_SYMBOL_MANAGER (sdb_plugin),
-	                                                            IANJUTA_SYMBOL_QUERY_SEARCH_PROJECT,
+	                                                            IANJUTA_SYMBOL_QUERY_SEARCH,
+	                                                            IANJUTA_SYMBOL_QUERY_DB_PROJECT,
 	                                                            NULL);
 	ianjuta_symbol_query_set_fields (sdb_plugin->search_query, 3, search_fields, NULL);
 	return TRUE;
@@ -2503,14 +2504,16 @@ ipreferences_iface_init(IAnjutaPreferencesIface* iface)
 /* IAnjutaSymbolManager implementation */
 static IAnjutaSymbolQuery*
 isymbol_manager_create_query (IAnjutaSymbolManager *isymbol_manager,
-                              IAnjutaSymbolQueryName query_name, GError **err)
+                              IAnjutaSymbolQueryName query_name,
+                              IAnjutaSymbolQueryDb db,
+                              GError **err)
 {
 	SymbolDBPlugin *sdb_plugin;
 	SymbolDBQuery *query;
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (isymbol_manager);
 	
 	query = symbol_db_query_new (sdb_plugin->sdbe_globals,
-	                             sdb_plugin->sdbe_project, query_name);
+	                             sdb_plugin->sdbe_project, query_name, db);
 	return IANJUTA_SYMBOL_QUERY (query);
 }
 

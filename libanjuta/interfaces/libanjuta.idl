@@ -5215,6 +5215,7 @@ interface IAnjutaSymbol
 	 */                   
 	enum Type               
 	{
+		TYPE_NONE = 0,
 		TYPE_UNDEF = 1,                
 		TYPE_CLASS = 2,                
 		TYPE_ENUM = 4,                 
@@ -5339,11 +5340,17 @@ interface IAnjutaSymbolQuery
 		MODE_QUEUED_SINGLE,
 		MODE_QUEUED_MULTI
 	}
+
+	enum Db
+	{
+		DB_PROJECT,
+		DB_SYSTEM
+	}
 	
 	enum Name
 	{
-		SEARCH_SYSTEM,
-		SEARCH_PROJECT,
+		SEARCH,
+		SEARCH_ALL,
 		SEARCH_FILE,
 		SEARCH_ID,
 		SEARCH_MEMBERS,
@@ -5369,8 +5376,8 @@ interface IAnjutaSymbolQuery
 	void set_offset (gint offset);
 	void set_limit (gint limit);
 	
-	IAnjutaIterable* search_system (const gchar *pattern);
-	IAnjutaIterable* search_project (const gchar *pattern);
+	IAnjutaIterable* search (const gchar *pattern);
+	IAnjutaIterable* search_all ();
 	IAnjutaIterable* search_file (const gchar *pattern, const GFile *file);
 	IAnjutaIterable* search_members (IAnjutaSymbol *symbol);
 	IAnjutaIterable* search_class_parents (IAnjutaSymbol *symbol);
@@ -5415,7 +5422,7 @@ interface IAnjutaSymbolManager
 	 */
 	void ::sys_scan_end (gint process_id);
 
-	IAnjutaSymbolQuery* create_query (IAnjutaSymbolQueryName name);
+	IAnjutaSymbolQuery* create_query (IAnjutaSymbolQueryName name, IAnjutaSymbolQueryDb db);
 }
 
 /**

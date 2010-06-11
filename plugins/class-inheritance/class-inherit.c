@@ -986,8 +986,7 @@ cls_inherit_update (AnjutaClassInheritance *plugin)
 		goto cleanup;
 	
 	/* Get all classes */
-	iter = ianjuta_symbol_query_search_project (plugin->query_project,
-	                                            NULL, &err);
+	iter = ianjuta_symbol_query_search_all (plugin->query_project, &err);
 	if (err)
 	{
 		g_warning ("Classes query in project failed: %s", err->message);
@@ -1219,7 +1218,8 @@ cls_inherit_init (AnjutaClassInheritance *plugin)
 			                            IAnjutaSymbolManager, NULL);
 	plugin->query_project =
 		ianjuta_symbol_manager_create_query (sym_manager,
-		                                     IANJUTA_SYMBOL_QUERY_SEARCH_PROJECT,
+		                                     IANJUTA_SYMBOL_QUERY_SEARCH_ALL,
+		                                     IANJUTA_SYMBOL_QUERY_DB_PROJECT,
 		                                     NULL);
 	ianjuta_symbol_query_set_fields (plugin->query_project,
 	                                 sizeof (query_fields_simple)/sizeof (IAnjutaSymbolField),
@@ -1233,6 +1233,7 @@ cls_inherit_init (AnjutaClassInheritance *plugin)
 	plugin->query_id =
 		ianjuta_symbol_manager_create_query (sym_manager,
 		                                     IANJUTA_SYMBOL_QUERY_SEARCH_ID,
+		                                     IANJUTA_SYMBOL_QUERY_DB_PROJECT,
 		                                     NULL);
 	ianjuta_symbol_query_set_fields (plugin->query_id,
 	                                 sizeof (query_fields_simple)/sizeof (IAnjutaSymbolField),
@@ -1241,6 +1242,7 @@ cls_inherit_init (AnjutaClassInheritance *plugin)
 	plugin->query_members =
 		ianjuta_symbol_manager_create_query (sym_manager,
 		                                     IANJUTA_SYMBOL_QUERY_SEARCH_MEMBERS,
+		                                     IANJUTA_SYMBOL_QUERY_DB_PROJECT,
 		                                     NULL);
 	ianjuta_symbol_query_set_fields (plugin->query_members,
 	                                 sizeof (query_fields)/sizeof (IAnjutaSymbolField),
@@ -1249,6 +1251,7 @@ cls_inherit_init (AnjutaClassInheritance *plugin)
 	plugin->query_parents =
 		ianjuta_symbol_manager_create_query (sym_manager,
 		                                     IANJUTA_SYMBOL_QUERY_SEARCH_CLASS_PARENTS,
+		                                     IANJUTA_SYMBOL_QUERY_DB_PROJECT,
 		                                     NULL);
 	ianjuta_symbol_query_set_fields (plugin->query_parents,
 	                                 sizeof (query_fields_simple)/sizeof (IAnjutaSymbolField),
