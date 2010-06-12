@@ -144,17 +144,18 @@ find_file_line (IAnjutaIterable *iterator, gboolean impl, const gchar *current_d
 			break;  
 		}
 		
-		symbol_kind = ianjuta_symbol_get_string (iter_node, SYMINFO_KIND, NULL);				
+		symbol_kind = ianjuta_symbol_get_string (iter_node, IANJUTA_SYMBOL_FIELD_KIND, NULL);				
 		is_decl = g_strcmp0 (symbol_kind, "prototype") == 0 || 
 			g_strcmp0 (symbol_kind, "interface") == 0;
 		
 		if (is_decl == !impl) 
 		{
-			const gchar *_path;
-			_path = ianjuta_symbol_get_string (iter_node,
-			                                   IANJUTA_SYMBOL_FIELD_FILE_PATH,
-			                                   NULL);
+			GFile *file;
+			gchar *_path;
+			file = ianjuta_symbol_get_file (iter_node, NULL);
 			/* if the path matches the current document we return immidiately */
+			_path = g_file_get_path (file);
+			g_object_unref (file);
 			if (!current_document || g_strcmp0 (_path, current_document) == 0)
 			{
 				*line = ianjuta_symbol_get_int (iter_node,
@@ -162,15 +163,19 @@ find_file_line (IAnjutaIterable *iterator, gboolean impl, const gchar *current_d
 				                                NULL);
 				g_free (path);
 				
-				return g_strdup (_path);
+				return _path;
 			}
 			/* we store the first match incase there is no match against the current document */
 			else if (_line == -1)
 			{
-				path = g_strdup (_path);
+				path = _path;
 				_line = ianjuta_symbol_get_int (iter_node,
 				                                IANJUTA_SYMBOL_FIELD_FILE_POS,
 				                                NULL);
+			}
+			else
+			{
+				g_free (_path);
 			}
 		}
 	} while (ianjuta_iterable_next (iterator, NULL) == TRUE);
@@ -2183,16 +2188,19 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	gtk_widget_hide (sdb_plugin->progress_bar_system);	
 	
 	static IAnjutaSymbolField search_fields[] =
-		{
-			IANJUTA_SYMBOL_FIELD_KIND,
-			IANJUTA_SYMBOL_FIELD_FILE_PATH,
-			IANJUTA_SYMBOL_FIELD_FILE_POS
-		};
-	sdb_plugin->search_query = ianjuta_symbol_manager_create_query (IANJUTA_SYMBOL_MANAGER (sdb_plugin),
-	                                                            IANJUTA_SYMBOL_QUERY_SEARCH,
-	                                                            IANJUTA_SYMBOL_QUERY_DB_PROJECT,
-	                                                            NULL);
-	ianjuta_symbol_query_set_fields (sdb_plugin->search_query, 3, search_fields, NULL);
+	{
+		IANJUTA_SYMBOL_FIELD_KIND,
+		IANJUTA_SYMBOL_FIELD_FILE_PATH,
+		IANJUTA_SYMBOL_FIELD_FILE_POS
+	};
+	sdb_plugin->search_query =
+		ianjuta_symbol_manager_create_query (IANJUTA_SYMBOL_MANAGER (sdb_plugin),
+		                                     IANJUTA_SYMBOL_QUERY_SEARCH,
+		                                     IANJUTA_SYMBOL_QUERY_DB_PROJECT,
+		                                     NULL);
+	ianjuta_symbol_query_set_fields (sdb_plugin->search_query,
+	                                 G_N_ELEMENTS (search_fields),
+	                                 search_fields, NULL);
 	return TRUE;
 }
 
