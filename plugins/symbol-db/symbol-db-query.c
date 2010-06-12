@@ -953,6 +953,13 @@ sdb_query_search_file (IAnjutaSymbolQuery *query, const gchar *search_string,
 }
 
 static IAnjutaIterable*
+sdb_query_search_in_scope (IAnjutaSymbolQuery *query, const gchar *pattern,
+                           IAnjutaSymbol *scope, GError **error)
+{
+	return NULL; /* FIXME */
+}
+
+static IAnjutaIterable*
 sdb_query_search_id (IAnjutaSymbolQuery *query, gint symbol_id,
                      GError **error)
 {
@@ -1031,6 +1038,13 @@ sdb_query_search_parent_scope_file (IAnjutaSymbolQuery *query, IAnjutaSymbol *sy
 	return sdb_query_execute (SYMBOL_DB_QUERY (query));
 }
 
+static IAnjutaIterable*
+sdb_query_search_scope_chain (IAnjutaSymbolQuery *query, const gchar *file_path,
+                              gint file_line, GError **error)
+{
+	return NULL; /* FIXME */
+}
+
 static void
 ianjuta_symbol_query_iface_init (IAnjutaSymbolQueryIface *iface)
 {
@@ -1044,12 +1058,14 @@ ianjuta_symbol_query_iface_init (IAnjutaSymbolQueryIface *iface)
 	iface->search = sdb_query_search;
 	iface->search_all = sdb_query_search_all;
 	iface->search_file = sdb_query_search_file;
+	iface->search_in_scope = sdb_query_search_in_scope;
 	iface->search_id = sdb_query_search_id;
 	iface->search_members = sdb_query_search_members;
 	iface->search_class_parents = sdb_query_search_class_parents;
 	iface->search_scope = sdb_query_search_scope;
 	iface->search_parent_scope = sdb_query_search_parent_scope;
 	iface->search_parent_scope_file = sdb_query_search_parent_scope_file;
+	iface->search_scope_chain = sdb_query_search_scope_chain;
 }
 
 SymbolDBQuery *
