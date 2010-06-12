@@ -67,7 +67,8 @@ struct _SymbolDBQueryPriv {
 	GdaHolder *param_file_line, *param_id;
 
 	/* Aync results */
-	gboolean is_canceled;
+	gint async_count;
+	gint cancel_count;
 	gboolean query_queued;
 	IAnjutaIterable *async_result;
 };
@@ -402,12 +403,12 @@ sdb_query_execute_real (SymbolDBQuery *query)
 static void
 on_sdb_query_async_data_arrived (SymbolDBQuery *query, gpointer data)
 {
-	if (!query->priv->is_canceled)
+	query->priv->async_count++;
+	if (query->priv->async_count > query->priv->cancel_count)
 		g_signal_emit_by_name (query, "async-result",
 		                       query->priv->async_result);
 	g_object_unref (query->priv->async_result);
 	query->priv->async_result = NULL;
-	query->priv->is_canceled = FALSE;
 }
 
 static guint
@@ -432,7 +433,7 @@ sdb_query_async_cancel (AnjutaCommand *command)
 	query = SYMBOL_DB_QUERY (command);
 
 	g_return_if_fail (query->priv->mode != IANJUTA_SYMBOL_QUERY_MODE_SYNC);
-	query->priv->is_canceled = TRUE;
+	query->priv->cancel_count++;
 	query->priv->query_queued = FALSE;
 }
 
@@ -462,13 +463,12 @@ on_sdb_query_dbe_scan_end (SymbolDBEngine *dbe, gint something,
 	g_return_if_fail (SYMBOL_DB_IS_QUERY (query));
 	
 	if (query->priv->mode == IANJUTA_SYMBOL_QUERY_MODE_QUEUED_SINGLE &&
-	    !query->priv->is_canceled && query->priv->query_queued &&
+	    query->priv->query_queued &&
 	    !symbol_db_engine_is_scanning (query->priv->dbe_system) &&
 	    !symbol_db_engine_is_scanning (query->priv->dbe_project))
 	{
 		g_signal_emit_by_name (query, "async-result",
 		                       sdb_query_execute_real (query));
-		query->priv->is_canceled = FALSE;
 		query->priv->query_queued = FALSE;
 	}
 }
@@ -481,11 +481,9 @@ sdb_query_execute (SymbolDBQuery *query)
 		case IANJUTA_SYMBOL_QUERY_MODE_SYNC:
 			return sdb_query_execute_real (query);
 		case IANJUTA_SYMBOL_QUERY_MODE_ASYNC:
-			query->priv->is_canceled = FALSE;
 			anjuta_command_start (ANJUTA_COMMAND (query));
 			return NULL;
 		case IANJUTA_SYMBOL_QUERY_MODE_QUEUED_SINGLE:
-			query->priv->is_canceled = FALSE;
 			query->priv->query_queued = TRUE;
 			on_sdb_query_dbe_scan_end (NULL, 0, query);
 			break;
@@ -534,7 +532,8 @@ sdb_query_init (SymbolDBQuery *query)
 	g_slist_free (param_holders);
 
 	/* Prepare async signals */
-	priv->is_canceled = FALSE;
+	priv->async_count = 0;
+	priv->cancel_count = 0;
 	priv->async_result = NULL;
 	priv->query_queued = FALSE;
 	g_signal_connect (query, "data-arrived",
