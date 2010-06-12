@@ -61,6 +61,8 @@ SymbolDBQueryResult* symbol_db_query_result_new (GdaDataModel *data_model,
                                                  const GHashTable *sym_type_conversion_hash,
                                                  const gchar *project_root_dir);
 
+gboolean symbol_db_query_result_is_empty (SymbolDBQueryResult *result);
+
 G_END_DECLS
 
 #endif /* _SYMBOL_DB_QUERY_RESULT_H_ */

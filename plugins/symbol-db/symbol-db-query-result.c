@@ -46,6 +46,7 @@ struct _SymbolDBQueryResultPriv
 	GdaDataModelIter *iter;
 	const GHashTable *sym_type_conversion_hash;
 	gchar *project_root;
+	gboolean result_is_empty;
 };
 
 static void isymbol_iface_init (IAnjutaSymbolIface *iface);
@@ -102,6 +103,7 @@ sdb_query_result_init (SymbolDBQueryResult *result)
 	result->priv->col_map = g_new (gint, IANJUTA_SYMBOL_FIELD_END);
 	for (i = 0; i < IANJUTA_SYMBOL_FIELD_END; i++)
 		result->priv->col_map[i] = -1;
+	result->priv->result_is_empty = TRUE;
 }
 
 static void
@@ -158,13 +160,15 @@ sdb_query_result_set_property (GObject *object, guint prop_id,
 		}
 		break;
 	case PROP_SDB_DATA_MODEL:
+		priv->result_is_empty = TRUE;
 		data_model = GDA_DATA_MODEL (g_value_get_object (value));
 		if (priv->data_model) g_object_unref (priv->data_model);
 		priv->data_model = data_model;
 		if (priv->iter)
 			g_object_unref (priv->iter);
 		priv->iter = gda_data_model_create_iter (data_model);
-		gda_data_model_iter_move_at_row (priv->iter, 0);
+		if (gda_data_model_iter_move_at_row (priv->iter, 0))
+			priv->result_is_empty = FALSE;
 		break;
 	case PROP_SDB_SYM_TYPE_CONVERSION_HASH:
 		priv->sym_type_conversion_hash = g_value_get_pointer (value);
@@ -332,7 +336,9 @@ isymbol_get_file (IAnjutaSymbol *isymbol, GError **err)
 {
 	SymbolDBQueryResult *result;
 	const gchar* file_path;
-
+	gchar *abs_file_path;
+	GFile *file;
+	
 	g_return_val_if_fail (SYMBOL_DB_IS_QUERY_RESULT (isymbol), NULL);
 
 	result = SYMBOL_DB_QUERY_RESULT (isymbol);
@@ -340,8 +346,10 @@ isymbol_get_file (IAnjutaSymbol *isymbol, GError **err)
 	file_path = isymbol_get_string (isymbol, IANJUTA_SYMBOL_FIELD_FILE_PATH, err);
 	if (!file_path)
 		return NULL;
-	
-	return g_file_new_for_path (file_path);
+	abs_file_path = g_build_filename (result->priv->project_root, file_path, NULL);
+	file = g_file_new_for_path (abs_file_path);
+	g_free (abs_file_path);
+	return file;
 }
 
 static const GdkPixbuf*
@@ -503,4 +511,10 @@ symbol_db_query_result_new (GdaDataModel *data_model,
 	                     "sym-type-conversion-hash", sym_type_conversion_hash,
 	                     "project-root", project_root_dir,
 	                     NULL);
+}
+
+gboolean
+symbol_db_query_result_is_empty (SymbolDBQueryResult *result)
+{
+	return result->priv->result_is_empty;
 }

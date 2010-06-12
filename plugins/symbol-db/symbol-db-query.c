@@ -397,6 +397,11 @@ sdb_query_execute_real (SymbolDBQuery *query)
 	                                   priv->fields,
 	                                   symbol_db_engine_get_type_conversion_hash (priv->dbe_selected),
 	                                   symbol_db_engine_get_project_directory (priv->dbe_selected));
+	if (symbol_db_query_result_is_empty (iter))
+	{
+		g_object_unref (iter);
+		return NULL;
+	}
 	return IANJUTA_ITERABLE (iter);
 }
 
