@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-master-po-gl-1952\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-30 17:37+0200\n"
-"PO-Revision-Date: 2010-05-30 17:37+0200\n"
+"POT-Creation-Date: 2010-06-12 17:26+0200\n"
+"PO-Revision-Date: 2010-06-12 17:27+0200\n"
 "Last-Translator: Fran Diéguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Galician <gnome@g11.net>\n"
 "MIME-Version: 1.0\n"
@@ -206,13 +206,13 @@ msgstr "Tailandés"
 msgid "Unknown"
 msgstr "Descoñecido"
 
-#: ../libanjuta/anjuta-launcher.c:1154 ../libanjuta/resources.c:267
+#: ../libanjuta/anjuta-launcher.c:1168 ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276 ../plugins/gdb/utilities.c:282
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "Non é posíbel executar a orde: \"%s\""
 
-#: ../libanjuta/anjuta-launcher.c:1155
+#: ../libanjuta/anjuta-launcher.c:1169
 msgid "execvp failed"
 msgstr "fallou o execvp"
 
@@ -526,17 +526,17 @@ msgstr ""
 "Instálea."
 
 #. Try xterm
-#: ../libanjuta/anjuta-utils.c:1086
+#: ../libanjuta/anjuta-utils.c:1172
 msgid "Cannot find a terminal; using xterm, even if it may not work"
 msgstr "Non é posíbel encontrar un terminal, usar xterm, mesmo se non funciona"
 
-#: ../libanjuta/anjuta-utils.c:1122 ../libanjuta/anjuta-utils.c:1126
-#: ../libanjuta/anjuta-utils.c:1154 ../libanjuta/anjuta-utils.c:1158
+#: ../libanjuta/anjuta-utils.c:1208 ../libanjuta/anjuta-utils.c:1212
+#: ../libanjuta/anjuta-utils.c:1240 ../libanjuta/anjuta-utils.c:1244
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "Non é posíbel executar a orde: %s (usando o intérprete de ordes %s)\n"
 
-#: ../libanjuta/anjuta-utils.c:1790
+#: ../libanjuta/anjuta-utils.c:1894
 msgid ""
 "Unable to display help. Please make sure the Anjuta documentation package is "
 "installed. It can be downloaded from http://anjuta.org."
@@ -544,7 +544,7 @@ msgstr ""
 "Non é posíbel mostrar a axuda. Asegúrese de que o paquete de documentación "
 "do Anjuta está instalado. Pódese baixar de http://anjuta.org."
 
-#: ../libanjuta/anjuta-utils.c:2229
+#: ../libanjuta/anjuta-utils.c:2333
 #, c-format
 msgid "Unable to load user interface file: %s"
 msgstr "Non é posíbel cargar un ficheiro de interface de usuario: %s"
@@ -1026,7 +1026,7 @@ msgid "Command exited with status %d"
 msgstr "A orde saíu co estado %d"
 
 #: ../plugins/build-basic-autotools/plugin.c:1048
-#: ../plugins/build-basic-autotools/plugin.c:1524
+#: ../plugins/build-basic-autotools/plugin.c:1528
 #, c-format
 msgid "Command canceled by user"
 msgstr "A orde foi cancelada polo usuario"
@@ -1067,7 +1067,7 @@ msgid "Build %d: %s"
 msgstr "Construír %d: %s"
 
 #. Need to run make clean before
-#: ../plugins/build-basic-autotools/plugin.c:1518
+#: ../plugins/build-basic-autotools/plugin.c:1522
 msgid ""
 "Before using this new configuration, the default one needs to be removed. Do "
 "you want to do that ?"
@@ -1075,204 +1075,204 @@ msgstr ""
 "Antes de empregar esta nova configuración, precísase eliminar a predefinida, "
 "Quere facelo?"
 
-#: ../plugins/build-basic-autotools/plugin.c:1822
+#: ../plugins/build-basic-autotools/plugin.c:1826
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 "Non é posíbel compilar \"%s\": Non se definiu ningunha regra de compilación "
 "para este tipo de ficheiro."
 
-#: ../plugins/build-basic-autotools/plugin.c:1957
+#: ../plugins/build-basic-autotools/plugin.c:1961
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
 msgstr ""
 "Non é posíbel configurar o proxecto: Falta un script de configuración en %s."
 
-#: ../plugins/build-basic-autotools/plugin.c:2438
-#: ../plugins/build-basic-autotools/plugin.c:2512
-#: ../plugins/build-basic-autotools/plugin.c:2522
-#: ../plugins/build-basic-autotools/plugin.c:2540
-#: ../plugins/build-basic-autotools/plugin.c:2550
-#: ../plugins/build-basic-autotools/plugin.c:2607
+#: ../plugins/build-basic-autotools/plugin.c:2442
+#: ../plugins/build-basic-autotools/plugin.c:2516
+#: ../plugins/build-basic-autotools/plugin.c:2526
+#: ../plugins/build-basic-autotools/plugin.c:2544
+#: ../plugins/build-basic-autotools/plugin.c:2554
+#: ../plugins/build-basic-autotools/plugin.c:2611
 #, c-format
 msgid "_Build"
 msgstr "_Construír"
 
-#: ../plugins/build-basic-autotools/plugin.c:2442
+#: ../plugins/build-basic-autotools/plugin.c:2446
 msgid "_Build Project"
 msgstr "_Construír o proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2443
+#: ../plugins/build-basic-autotools/plugin.c:2447
 msgid "Build whole project"
 msgstr "Construír todo o proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2448
+#: ../plugins/build-basic-autotools/plugin.c:2452
 msgid "_Install Project"
 msgstr "_Instalar o proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2449
+#: ../plugins/build-basic-autotools/plugin.c:2453
 msgid "Install whole project"
 msgstr "Instalar todo o proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2454
+#: ../plugins/build-basic-autotools/plugin.c:2458
 msgid "_Clean Project"
 msgstr "_Limpar o proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2455
+#: ../plugins/build-basic-autotools/plugin.c:2459
 msgid "Clean whole project"
 msgstr "Limpar todo o proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2460
+#: ../plugins/build-basic-autotools/plugin.c:2464
 msgid "C_onfigure Project…"
 msgstr "Configurar o proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2461
+#: ../plugins/build-basic-autotools/plugin.c:2465
 msgid "Configure project"
 msgstr "Configurar o proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2466
+#: ../plugins/build-basic-autotools/plugin.c:2470
 msgid "Build _Tarball"
 msgstr "Construír o arquivo _tar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2467
+#: ../plugins/build-basic-autotools/plugin.c:2471
 msgid "Build project tarball distribution"
 msgstr "Construír a distribución en arquivo tar do proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2472
+#: ../plugins/build-basic-autotools/plugin.c:2476
 msgid "_Build Module"
 msgstr "C_onstruír o módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2473
+#: ../plugins/build-basic-autotools/plugin.c:2477
 msgid "Build module associated with current file"
 msgstr "Construír o módulo asociado ao ficheiro actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:2478
+#: ../plugins/build-basic-autotools/plugin.c:2482
 msgid "_Install Module"
 msgstr "_Instalar o módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2479
+#: ../plugins/build-basic-autotools/plugin.c:2483
 msgid "Install module associated with current file"
 msgstr "Instalar o módulo asociado ao ficheiro actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:2484
+#: ../plugins/build-basic-autotools/plugin.c:2488
 msgid "_Clean Module"
 msgstr "_Limpar o módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2485
+#: ../plugins/build-basic-autotools/plugin.c:2489
 msgid "Clean module associated with current file"
 msgstr "Limpar o módulo asociado ao ficheiro actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:2490
+#: ../plugins/build-basic-autotools/plugin.c:2494
 msgid "Co_mpile File"
 msgstr "Co_mpilar o ficheiro"
 
-#: ../plugins/build-basic-autotools/plugin.c:2491
+#: ../plugins/build-basic-autotools/plugin.c:2495
 msgid "Compile current editor file"
 msgstr "Compilar o ficheiro actual do editor"
 
-#: ../plugins/build-basic-autotools/plugin.c:2496
+#: ../plugins/build-basic-autotools/plugin.c:2500
 msgid "Select Configuration"
 msgstr "Seleccionar a configuración"
 
-#: ../plugins/build-basic-autotools/plugin.c:2497
+#: ../plugins/build-basic-autotools/plugin.c:2501
 msgid "Select current configuration"
 msgstr "Seleccionar a configuración actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:2502
+#: ../plugins/build-basic-autotools/plugin.c:2506
 msgid "Remove Configuration"
 msgstr "Eliminar a configuración"
 
-#: ../plugins/build-basic-autotools/plugin.c:2503
+#: ../plugins/build-basic-autotools/plugin.c:2507
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr ""
 "Limpar o proxecto (distclean) e eliminar o cartafol de configuración se for "
 "posíbel"
 
-#: ../plugins/build-basic-autotools/plugin.c:2516
-#: ../plugins/build-basic-autotools/plugin.c:2544
+#: ../plugins/build-basic-autotools/plugin.c:2520
+#: ../plugins/build-basic-autotools/plugin.c:2548
 msgid "_Compile"
 msgstr "_Compilar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2517
-#: ../plugins/build-basic-autotools/plugin.c:2545
+#: ../plugins/build-basic-autotools/plugin.c:2521
+#: ../plugins/build-basic-autotools/plugin.c:2549
 msgid "Compile file"
 msgstr "Compilar o ficheiro"
 
-#: ../plugins/build-basic-autotools/plugin.c:2523
-#: ../plugins/build-basic-autotools/plugin.c:2551
+#: ../plugins/build-basic-autotools/plugin.c:2527
+#: ../plugins/build-basic-autotools/plugin.c:2555
 msgid "Build module"
 msgstr "Construír o módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2528
-#: ../plugins/build-basic-autotools/plugin.c:2556
-#: ../plugins/build-basic-autotools/plugin.c:2614
+#: ../plugins/build-basic-autotools/plugin.c:2532
+#: ../plugins/build-basic-autotools/plugin.c:2560
+#: ../plugins/build-basic-autotools/plugin.c:2618
 #, c-format
 msgid "_Install"
 msgstr "_Instalar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2529
-#: ../plugins/build-basic-autotools/plugin.c:2557
+#: ../plugins/build-basic-autotools/plugin.c:2533
+#: ../plugins/build-basic-autotools/plugin.c:2561
 msgid "Install module"
 msgstr "Instalar o módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2534
-#: ../plugins/build-basic-autotools/plugin.c:2562
-#: ../plugins/build-basic-autotools/plugin.c:2621
+#: ../plugins/build-basic-autotools/plugin.c:2538
+#: ../plugins/build-basic-autotools/plugin.c:2566
+#: ../plugins/build-basic-autotools/plugin.c:2625
 #, c-format
 msgid "_Clean"
 msgstr "_Limpar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2535
-#: ../plugins/build-basic-autotools/plugin.c:2563
+#: ../plugins/build-basic-autotools/plugin.c:2539
+#: ../plugins/build-basic-autotools/plugin.c:2567
 msgid "Clean module"
 msgstr "Limpar o módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2568
+#: ../plugins/build-basic-autotools/plugin.c:2572
 msgid "_Cancel command"
 msgstr "_Cancelar a orde"
 
-#: ../plugins/build-basic-autotools/plugin.c:2569
+#: ../plugins/build-basic-autotools/plugin.c:2573
 msgid "Cancel build command"
 msgstr "Cancelar a orde de construción"
 
-#: ../plugins/build-basic-autotools/plugin.c:2607
+#: ../plugins/build-basic-autotools/plugin.c:2611
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Construír (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2614
+#: ../plugins/build-basic-autotools/plugin.c:2618
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Instalar (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2621
+#: ../plugins/build-basic-autotools/plugin.c:2625
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Limpar (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2629
+#: ../plugins/build-basic-autotools/plugin.c:2633
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Co_mpilar (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2629
+#: ../plugins/build-basic-autotools/plugin.c:2633
 #, c-format
 msgid "Co_mpile"
 msgstr "Co_mpilar"
 
-#: ../plugins/build-basic-autotools/plugin.c:3165
+#: ../plugins/build-basic-autotools/plugin.c:3169
 msgid "Build commands"
 msgstr "Ordes de construción"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:3174
+#: ../plugins/build-basic-autotools/plugin.c:3178
 msgid "Build popup commands"
 msgstr "Ordes de construción para xanelas emerxentes"
 
-#: ../plugins/build-basic-autotools/plugin.c:3556
-#: ../plugins/build-basic-autotools/plugin.c:3564
+#: ../plugins/build-basic-autotools/plugin.c:3560
+#: ../plugins/build-basic-autotools/plugin.c:3568
 msgid "Build Autotools"
 msgstr "Construír Autotools"
 
@@ -1351,7 +1351,22 @@ msgstr "<b>Propiedades de clase xerais</b>"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:18
 #: ../plugins/file-wizard/file.c:103
-#: ../plugins/project-wizard/templates/translatable-strings.h:48
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:14
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:14
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:14
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:18
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:18
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:16
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:14
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:16
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:16
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:15
+#: ../plugins/project-wizard/templates/java.wiz.in.h:15
+#: ../plugins/project-wizard/templates/js.wiz.in.h:8
+#: ../plugins/project-wizard/templates/python.wiz.in.h:15
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:12
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:19
+#: ../plugins/project-wizard/templates/library.wiz.in.h:15
 msgid "General Public License (GPL)"
 msgstr "Licenza pública xeral (GPL)"
 
@@ -1369,7 +1384,22 @@ msgstr "Acompañar tanto a declaración como a implantación"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:22
 #: ../plugins/file-wizard/file.c:104
-#: ../plugins/project-wizard/templates/translatable-strings.h:62
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:17
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:17
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:17
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:20
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:25
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:18
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:16
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:18
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:18
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:18
+#: ../plugins/project-wizard/templates/java.wiz.in.h:18
+#: ../plugins/project-wizard/templates/js.wiz.in.h:10
+#: ../plugins/project-wizard/templates/python.wiz.in.h:18
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:13
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:23
+#: ../plugins/project-wizard/templates/library.wiz.in.h:17
 msgid "Lesser General Public License (LGPL)"
 msgstr "Licenza pública xeral menor (LGPL)"
 
@@ -1424,7 +1454,7 @@ msgstr "Ficheiro no que se escribirá o modelo que se procese"
 msgid "Failed to write autogen definition file"
 msgstr "Produciuse un fallo ao escribir o ficheiro de definición AutoGen"
 
-#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1127
+#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1135
 msgid ""
 "Could not find autogen version 5; please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net."
@@ -1647,8 +1677,8 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "Ignorar o ficheiro .cvsrc (recomendado)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
-#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2125
-#: ../plugins/symbol-db/plugin.c:2167
+#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2127
+#: ../plugins/symbol-db/plugin.c:2169
 msgid "Local"
 msgstr "Local"
 
@@ -1990,7 +2020,7 @@ msgid "Debugger:"
 msgstr "Depurador:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:15
-#: ../plugins/project-wizard/templates/translatable-strings.h:34
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:12
 msgid "Description:"
 msgstr "Descrición:"
 
@@ -2104,7 +2134,7 @@ msgid "TCP/IP Connection"
 msgstr "Conexión TCP/IP"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:42
-#: ../plugins/project-wizard/property.c:309
+#: ../plugins/project-wizard/property.c:339
 msgid "Yes"
 msgstr "Si"
 
@@ -2298,8 +2328,8 @@ msgid "Breakpoint operations"
 msgstr "Operacións do punto de interrupción"
 
 #. create goto menu_item.
-#: ../plugins/debug-manager/data_view.c:386
-#: ../plugins/debug-manager/sparse_view.c:491
+#: ../plugins/debug-manager/data_view.c:392
+#: ../plugins/debug-manager/sparse_view.c:497
 msgid "_Go to address"
 msgstr "_Ir ao enderezo"
 
@@ -2640,19 +2670,19 @@ msgstr "Sinais do núcleo"
 msgid "Signal operations"
 msgstr "Operación de sinal"
 
-#: ../plugins/debug-manager/sparse_view.c:1200
+#: ../plugins/debug-manager/sparse_view.c:1206
 msgid "Show Line Numbers"
 msgstr "Mostrar os números de liña"
 
-#: ../plugins/debug-manager/sparse_view.c:1201
+#: ../plugins/debug-manager/sparse_view.c:1207
 msgid "Whether to display line numbers"
 msgstr "Indica se se mostran os números de liña"
 
-#: ../plugins/debug-manager/sparse_view.c:1208
+#: ../plugins/debug-manager/sparse_view.c:1214
 msgid "Show Line Markers"
 msgstr "Mostrar os marcadores de liña"
 
-#: ../plugins/debug-manager/sparse_view.c:1209
+#: ../plugins/debug-manager/sparse_view.c:1215
 msgid "Whether to display line marker pixbufs"
 msgstr "Indica se se mostran os marcadores de liña dos pixbufs"
 
@@ -2744,7 +2774,7 @@ msgstr ""
 msgid "Path"
 msgstr "Camiño"
 
-#: ../plugins/debug-manager/start.c:1386 ../plugins/gdb/debugger.c:1738
+#: ../plugins/debug-manager/start.c:1386 ../plugins/gdb/debugger.c:1759
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -2870,8 +2900,8 @@ msgstr "Contidos"
 #: ../plugins/search/search-replace.c:1717
 #: ../plugins/search/search-replace.c:1724
 #: ../plugins/search/search-replace.c:1736
-#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2135
-#: ../plugins/symbol-db/plugin.c:2184
+#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2137
+#: ../plugins/symbol-db/plugin.c:2186
 msgid "Search"
 msgstr "Buscar"
 
@@ -3270,7 +3300,7 @@ msgstr "Repetir a busca rápida"
 
 #: ../plugins/document-manager/plugin.c:274 ../plugins/gtodo/interface.c:168
 #: ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:1882
+#: ../plugins/language-support-cpp-java/plugin.c:1876
 msgid "_Edit"
 msgstr "_Editar"
 
@@ -3885,7 +3915,7 @@ msgid "Filter"
 msgstr "Filtro"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2130 ../plugins/symbol-db/plugin.c:2179
+#: ../plugins/symbol-db/plugin.c:2132 ../plugins/symbol-db/plugin.c:2181
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:6
 msgid "Global"
 msgstr "Global"
@@ -4369,7 +4399,22 @@ msgid "Package name:"
 msgstr "Nome do paquete:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:863
-#: ../plugins/project-wizard/templates/translatable-strings.h:109
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:26
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:26
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:26
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:29
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:46
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:27
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:25
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:27
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:27
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:28
+#: ../plugins/project-wizard/templates/java.wiz.in.h:29
+#: ../plugins/project-wizard/templates/js.wiz.in.h:17
+#: ../plugins/project-wizard/templates/python.wiz.in.h:27
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:33
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:32
+#: ../plugins/project-wizard/templates/library.wiz.in.h:31
 msgid "Version:"
 msgstr "Versión:"
 
@@ -4519,18 +4564,18 @@ msgid "Includes:"
 msgstr "Includes:"
 
 #. The %s argument is a program name, anjuta by example
-#: ../plugins/gdb/debugger.c:712
+#: ../plugins/gdb/debugger.c:713
 #, c-format
 msgid "Loading Executable: %s\n"
 msgstr "Cargando o executábel: %s\n"
 
 #. The %s argument is a file name
-#: ../plugins/gdb/debugger.c:743
+#: ../plugins/gdb/debugger.c:744
 #, c-format
 msgid "Loading Core: %s\n"
 msgstr "Cargando o core: %s\n"
 
-#: ../plugins/gdb/debugger.c:828
+#: ../plugins/gdb/debugger.c:829
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -4541,59 +4586,59 @@ msgstr ""
 "Non é posíbel inicializar o depurador.\n"
 "Asegúrese de que o Anjuta está correctamente instalado."
 
-#: ../plugins/gdb/debugger.c:973
+#: ../plugins/gdb/debugger.c:974
 msgid "Getting ready to start debugging session…\n"
 msgstr "Preparándose para comezar a sesión de depuración...\n"
 
-#: ../plugins/gdb/debugger.c:979
+#: ../plugins/gdb/debugger.c:980
 msgid "Loading Executable: "
 msgstr "Cargando executábel: "
 
-#: ../plugins/gdb/debugger.c:988
+#: ../plugins/gdb/debugger.c:989
 msgid "No executable specified.\n"
 msgstr "Non hai ningún executábel especificado.\n"
 
-#: ../plugins/gdb/debugger.c:991
+#: ../plugins/gdb/debugger.c:992
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr ""
 "Abrir un executábel ou acoplar a un proceso para comezar a depuración.\n"
 
-#: ../plugins/gdb/debugger.c:1000
+#: ../plugins/gdb/debugger.c:1001
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "Produciuse un erro ao iniciar o depurador.\n"
 
-#: ../plugins/gdb/debugger.c:1004
+#: ../plugins/gdb/debugger.c:1005
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "Asegúrese de que 'gdb' está instalado no sistema.\n"
 
-#: ../plugins/gdb/debugger.c:1294
+#: ../plugins/gdb/debugger.c:1321
 msgid "Program exited normally\n"
 msgstr "O programa saíu con normalidade\n"
 
-#: ../plugins/gdb/debugger.c:1305
+#: ../plugins/gdb/debugger.c:1332
 #, c-format
 msgid "Program exited with error code %s\n"
 msgstr "O programa saíu co código de erro %s\n"
 
 #. The program has reached one breakpoint and will stop
-#: ../plugins/gdb/debugger.c:1320
+#: ../plugins/gdb/debugger.c:1347
 #, c-format
 msgid "Breakpoint number %s hit\n"
 msgstr "Encontrouse o número do punto de interrupción %s\n"
 
-#: ../plugins/gdb/debugger.c:1329
+#: ../plugins/gdb/debugger.c:1356
 msgid "Function finished\n"
 msgstr "A función terminou\n"
 
-#: ../plugins/gdb/debugger.c:1335
+#: ../plugins/gdb/debugger.c:1362
 msgid "Stepping finished\n"
 msgstr "Non hai máis pasos\n"
 
-#: ../plugins/gdb/debugger.c:1341
+#: ../plugins/gdb/debugger.c:1368
 msgid "Location reached\n"
 msgstr "Chegouse á localización\n"
 
-#: ../plugins/gdb/debugger.c:1735
+#: ../plugins/gdb/debugger.c:1756
 msgid ""
 "The program is attached.\n"
 "Do you still want to stop the debugger?"
@@ -4603,7 +4648,7 @@ msgstr ""
 
 #. The %s argument is an error message returned by gdb.
 #. * It is something like, "No such file or directory"
-#: ../plugins/gdb/debugger.c:1896
+#: ../plugins/gdb/debugger.c:1917
 #, c-format
 msgid ""
 "Unable to connect to remote target, %s\n"
@@ -4612,20 +4657,20 @@ msgstr ""
 "Non foi posíbel conectar co destino remoto, %s\n"
 "Quere tentalo de novo?"
 
-#: ../plugins/gdb/debugger.c:1914
+#: ../plugins/gdb/debugger.c:1935
 msgid "Debugger connected\n"
 msgstr "O depurador está conectado\n"
 
-#: ../plugins/gdb/debugger.c:1988
+#: ../plugins/gdb/debugger.c:2009
 msgid "Program attached\n"
 msgstr "Programa acoplado\n"
 
-#: ../plugins/gdb/debugger.c:2009
+#: ../plugins/gdb/debugger.c:2030
 #, c-format
 msgid "Attaching to process: %d…\n"
 msgstr "Acoplando ao proceso: %d...\n"
 
-#: ../plugins/gdb/debugger.c:2035
+#: ../plugins/gdb/debugger.c:2056
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -4633,33 +4678,33 @@ msgstr ""
 "Xa hai un proceso executándose.\n"
 "Quere finalizalo e acoplar o proceso novo?"
 
-#: ../plugins/gdb/debugger.c:2052
+#: ../plugins/gdb/debugger.c:2073
 msgid "Anjuta is unable to attach to itself."
 msgstr "O Anjuta non é capaz de acoplarse a si mesmo."
 
-#: ../plugins/gdb/debugger.c:2102
+#: ../plugins/gdb/debugger.c:2123
 msgid "Program terminated\n"
 msgstr "O programa finalizou\n"
 
-#: ../plugins/gdb/debugger.c:2117
+#: ../plugins/gdb/debugger.c:2138
 msgid "Program detached\n"
 msgstr "O programa separouse\n"
 
-#: ../plugins/gdb/debugger.c:2137
+#: ../plugins/gdb/debugger.c:2158
 #, c-format
 msgid "Detaching the process…\n"
 msgstr "Separando o proceso...\n"
 
-#: ../plugins/gdb/debugger.c:2158
+#: ../plugins/gdb/debugger.c:2179
 msgid "Interrupting the process\n"
 msgstr "Interrompendo o proceso\n"
 
-#: ../plugins/gdb/debugger.c:3949
+#: ../plugins/gdb/debugger.c:3965
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "Mandando o sinal %s ao proceso: %d"
 
-#: ../plugins/gdb/debugger.c:3975
+#: ../plugins/gdb/debugger.c:3991
 msgid "Error whilst signaling the process."
 msgstr "Produciuse un erro ao sinalizar o proceso."
 
@@ -4721,7 +4766,22 @@ msgid "Author/Grep"
 msgstr "Autor/Grep"
 
 #: ../plugins/git/anjuta-git.ui.h:14
-#: ../plugins/project-wizard/templates/translatable-strings.h:25
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:6
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:6
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:6
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:9
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:5
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:7
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:6
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:8
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:8
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:6
+#: ../plugins/project-wizard/templates/java.wiz.in.h:7
+#: ../plugins/project-wizard/templates/js.wiz.in.h:2
+#: ../plugins/project-wizard/templates/python.wiz.in.h:7
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:6
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:7
+#: ../plugins/project-wizard/templates/library.wiz.in.h:6
 msgid "Author:"
 msgstr "Autor:"
 
@@ -6812,7 +6872,23 @@ msgstr ""
 "\"%s\""
 
 #: ../plugins/project-import/project-import.ui.h:1
-#: ../plugins/project-wizard/templates/translatable-strings.h:35
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:11
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:11
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:11
+#: ../plugins/project-wizard/templates/django.wiz.in.h:1
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:14
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:13
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:12
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:11
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:13
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:13
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:11
+#: ../plugins/project-wizard/templates/java.wiz.in.h:12
+#: ../plugins/project-wizard/templates/js.wiz.in.h:5
+#: ../plugins/project-wizard/templates/python.wiz.in.h:12
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:9
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:13
+#: ../plugins/project-wizard/templates/library.wiz.in.h:12
 #: ../plugins/subversion/anjuta-subversion.ui.h:9
 msgid "Destination:"
 msgstr "Destino:"
@@ -7200,12 +7276,12 @@ msgstr ""
 msgid "Project Type: %s\n"
 msgstr "Tipo de proxecto: %s\n"
 
-#: ../plugins/project-wizard/druid.c:393
+#: ../plugins/project-wizard/druid.c:401
 #, c-format
 msgid "Unable to find any project template in %s"
 msgstr "Non é posíbel encontrar ningún modelo de proxecto en %s"
 
-#: ../plugins/project-wizard/druid.c:594
+#: ../plugins/project-wizard/druid.c:602
 #, c-format
 msgid ""
 "\n"
@@ -7214,7 +7290,7 @@ msgstr ""
 "\n"
 "O campo \"%s\" é obrigatorio. Introdúzao."
 
-#: ../plugins/project-wizard/druid.c:609
+#: ../plugins/project-wizard/druid.c:617
 #, c-format
 msgid ""
 "Field \"%s\" must start with a letter, a digit or an underscore and contain "
@@ -7224,7 +7300,7 @@ msgstr ""
 "tamén conter só letras, díxitos, guións baixos, o signo menos ou puntos. "
 "Arránxeo."
 
-#: ../plugins/project-wizard/druid.c:614
+#: ../plugins/project-wizard/druid.c:622
 #, c-format
 msgid ""
 "Field \"%s\" must start with a letter, a digit, an underscore or a directory "
@@ -7235,12 +7311,12 @@ msgstr ""
 "separador de directorio e ademais debe conter só letras, díxitos, guións "
 "baixos, separador de directorios, signo menos ou puntos. Arránxeo."
 
-#: ../plugins/project-wizard/druid.c:619
+#: ../plugins/project-wizard/druid.c:627
 #, c-format
 msgid "Unknown error."
 msgstr "Erro descoñecido."
 
-#: ../plugins/project-wizard/druid.c:646
+#: ../plugins/project-wizard/druid.c:654
 #, c-format
 msgid ""
 "Directory \"%s\" is not empty. Project creation could fail if some files "
@@ -7249,20 +7325,20 @@ msgstr ""
 "O cartafol \"%s\" non está baleiro. A creación do proxecto podería fallar se "
 "non é posíbel escribir nalgúns ficheiros. Quere continuar?"
 
-#: ../plugins/project-wizard/druid.c:648
+#: ../plugins/project-wizard/druid.c:656
 #, c-format
 msgid "File \"%s\" already exists. Do you want to overwrite it?"
 msgstr "O ficheiro \"%s\" xa existe. Quere sobrescribilo?"
 
-#: ../plugins/project-wizard/druid.c:679
+#: ../plugins/project-wizard/druid.c:687
 msgid "Invalid entry"
 msgstr "Entrada non válida"
 
-#: ../plugins/project-wizard/druid.c:690
+#: ../plugins/project-wizard/druid.c:698
 msgid "Dubious entry"
 msgstr "Entrada dubidosa"
 
-#: ../plugins/project-wizard/druid.c:851
+#: ../plugins/project-wizard/druid.c:859
 #, c-format
 msgid ""
 "\n"
@@ -7271,7 +7347,7 @@ msgstr ""
 "\n"
 "Faltan os programas: %s."
 
-#: ../plugins/project-wizard/druid.c:862
+#: ../plugins/project-wizard/druid.c:870
 #, c-format
 msgid ""
 "\n"
@@ -7280,7 +7356,7 @@ msgstr ""
 "\n"
 "Faltan os paquetes: %s."
 
-#: ../plugins/project-wizard/druid.c:871
+#: ../plugins/project-wizard/druid.c:879
 msgid ""
 "Some important programs or development packages required to build this "
 "project are missing. Please make sure they are installed properly before "
@@ -7290,12 +7366,12 @@ msgstr ""
 "construír este proxecto. Asegúrese de que están instalados apropiadamente "
 "antes de xerar o proxecto.\n"
 
-#: ../plugins/project-wizard/druid.c:879
+#: ../plugins/project-wizard/druid.c:887
 msgid "Install missing packages"
 msgstr "Instalar os paquetes que faltan"
 
 # erro no msgid: distrubution
-#: ../plugins/project-wizard/druid.c:887
+#: ../plugins/project-wizard/druid.c:895
 msgid ""
 "The missing programs are usually part of some distrubution packages and can "
 "be searched for in your Application Manager. Similarly, the development "
@@ -7311,11 +7387,11 @@ msgstr ""
 "neles. Normalmente acaban co sufixo -dev ou -devel nos nomes dos paquetes e "
 "pódense encontrar buscando no seu Xestor de aplicativos."
 
-#: ../plugins/project-wizard/druid.c:895
+#: ../plugins/project-wizard/druid.c:903
 msgid "Missing components"
 msgstr "Faltan compoñentes"
 
-#: ../plugins/project-wizard/druid.c:1027
+#: ../plugins/project-wizard/druid.c:1035
 #, c-format
 msgid "Unable to build project assistant user interface reading %s."
 msgstr ""
@@ -7357,264 +7433,234 @@ msgstr "Creando %s ... %s"
 msgid "Executing: %s"
 msgstr "Executando: %s"
 
-#: ../plugins/project-wizard/plugin.c:157
+#: ../plugins/project-wizard/plugin.c:50
+#, c-format
+msgid "Unable to extrat project template %s: %s"
+msgstr "Non foi posíbel extraer o modelo de proxecto %s: %s"
+
+#: ../plugins/project-wizard/plugin.c:276
 msgid "New Project Assistant"
 msgstr "Asistente de proxecto novo"
 
-#: ../plugins/project-wizard/property.c:311
-#: ../plugins/project-wizard/property.c:424
+#: ../plugins/project-wizard/property.c:341
+#: ../plugins/project-wizard/property.c:454
 msgid "No"
 msgstr "Non"
 
-#: ../plugins/project-wizard/property.c:322
+#: ../plugins/project-wizard/property.c:352
 msgid "Select directory"
 msgstr "Seleccionar o cartafol"
 
-#: ../plugins/project-wizard/property.c:330
+#: ../plugins/project-wizard/property.c:360
 msgid "Select file"
 msgstr "Seleccionar ficheiro"
 
-#: ../plugins/project-wizard/property.c:382 ../plugins/tools/editor.c:522
+#: ../plugins/project-wizard/property.c:412 ../plugins/tools/editor.c:522
 msgid "Select an Image File"
 msgstr "Seleccione un ficheiro de imaxe"
 
-#: ../plugins/project-wizard/property.c:407
-#: ../plugins/project-wizard/property.c:497 ../plugins/tools/editor.c:556
+#: ../plugins/project-wizard/property.c:437
+#: ../plugins/project-wizard/property.c:527 ../plugins/tools/editor.c:556
 #: ../plugins/tools/editor.c:703
 msgid "Choose Icon"
 msgstr "Escoller icona"
 
-#: ../plugins/project-wizard/property.c:467
+#: ../plugins/project-wizard/property.c:497
 msgid "Choose directory"
 msgstr "Elixir o cartafol"
 
-#: ../plugins/project-wizard/property.c:471
+#: ../plugins/project-wizard/property.c:501
 msgid "Choose file"
 msgstr "Elixir ficheiro"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:1
-msgid "A GNOME applet project"
-msgstr "Un proxecto de miniaplicativo do GNOME"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:2
-msgid "A generic C++ project"
-msgstr "Un proxecto C++ xenérico"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:3
-msgid "A generic GTK+ project"
-msgstr "Un proxecto GTK+ xenérico"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:4
-msgid "A generic GTKmm (C++) project"
-msgstr "Un proxectoGTKmm (C++) xenérico"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:5
-msgid "A generic Xlib dock applet"
-msgstr "Un miniaplicativo ancorábel Xlib xenérico"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:6
-msgid "A generic Xlib project"
-msgstr "Un proxecto Xlib xenérico"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:7
-msgid "A generic java project using automake project management"
-msgstr "Un proxecto Java xenérico usando a xestión de proxectos do Automake"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:8
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:1
+#: ../plugins/project-wizard/templates/js.wiz.in.h:1
 msgid "A generic minimal and flat project"
 msgstr "Un proxecto xenérico mínimo e plano"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:9
-msgid ""
-"A generic natively compiled java project using the GNU Java Compiler (gcj)"
-msgstr ""
-"Un proxecto xenérico de Java compilado nativamente usando o Compilador de "
-"Java GNU (gcj)"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:10
-msgid "A generic project"
-msgstr "Un proxecto xenérico"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:11
-msgid "A generic python project using automake project management"
-msgstr ""
-"Un proxecto xenérico de Python usando a xestión de proxectos do Automake"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:12
-msgid "A generic wx Widgets project"
-msgstr "Un proxecto xenérico Wx Widgets"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:13
-msgid "A sample SDL project"
-msgstr "Un proxecto SDL de exemplo"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:14
-msgid "A shared or a static library project"
-msgstr "Un proxecto de biblioteca estática ou compartida"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:15
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:2
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:2
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:1
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:2
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:2
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:2
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:2
+#: ../plugins/project-wizard/templates/library.wiz.in.h:2
 msgid "Add C++ support:"
 msgstr "Engadir a compatibilidade para C++:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:16
-msgid "Add gtk-doc system:"
-msgstr "Engadir o sistema gtk-doc:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:17
-msgid "Add internationalization:"
-msgstr "Engadir a internacionalización:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:18
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:3
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:3
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:3
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:5
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:4
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:3
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:4
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:4
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:3
+#: ../plugins/project-wizard/templates/java.wiz.in.h:4
+#: ../plugins/project-wizard/templates/python.wiz.in.h:4
 msgid "Add shared library support:"
 msgstr "Engadir a compatibilidde de biblioteca compartida:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:19
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:4
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:6
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:2
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:5
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:5
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:4
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:4
+#: ../plugins/project-wizard/templates/library.wiz.in.h:4
 msgid "Adds C++ support to the project so that C++ source files can be built"
 msgstr ""
 "Engade a compatibilidade de C++ ao proxecto para que se poida construír o "
 "ficheiro fonte C++"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:20
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:5
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:4
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:4
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:7
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:5
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:4
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:6
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:6
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:4
+#: ../plugins/project-wizard/templates/java.wiz.in.h:5
+#: ../plugins/project-wizard/templates/python.wiz.in.h:5
 msgid "Adds support for building shared libraries in your project"
 msgstr ""
 "Engade a compatibilidade para construír bibliotecas compartidas no seu "
 "proxecto"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:21
-msgid ""
-"Adds support for internationalization so that your project can have "
-"translations in different languages"
-msgstr ""
-"Engade a compatibilidade para a internacionalización de forma que o seu "
-"proxecto poderá ser traducido a diferentes idiomas"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:22
-msgid "Anjuta Plugin"
-msgstr "Engadido de Anjuta"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:23
-msgid "Anjuta plugin project that uses libanjuta framework"
-msgstr ""
-"Un proxecto de engadido do Anjuta que usa o contorno de traballo libanjuta"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:24
-msgid "Applet Title:"
-msgstr "Título do miniaplicativo:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:26
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:7
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:7
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:7
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:10
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:6
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:8
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:7
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:9
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:9
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:7
+#: ../plugins/project-wizard/templates/java.wiz.in.h:8
+#: ../plugins/project-wizard/templates/js.wiz.in.h:3
+#: ../plugins/project-wizard/templates/python.wiz.in.h:8
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:7
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:8
+#: ../plugins/project-wizard/templates/library.wiz.in.h:7
 msgid "Basic information"
 msgstr "Información básica"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:27
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:8
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:8
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:8
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:11
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:7
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:9
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:8
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:10
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:10
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:8
+#: ../plugins/project-wizard/templates/java.wiz.in.h:9
+#: ../plugins/project-wizard/templates/js.wiz.in.h:4
+#: ../plugins/project-wizard/templates/python.wiz.in.h:9
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:8
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:9
+#: ../plugins/project-wizard/templates/library.wiz.in.h:8
 msgid "Berkeley Software Distribution License (BSD)"
 msgstr "Licenza de distribución de software de Berkeley (BSD)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:28
-msgid "Build library as"
-msgstr "Construír biblioteca como:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:29
-msgid ""
-"Comma separated, other plugins that this plugin depends on. It could be "
-"either primary interface name or plugin location (library:class)"
-msgstr ""
-"Outros engadidos dos que depende este engadido separados por comas. Pode ser "
-"o nome de interface primaria ou ben a localización do engadido (biblioteca:"
-"clase)"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:30
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:9
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:9
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:9
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:12
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:9
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:10
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:9
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:11
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:11
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:9
+#: ../plugins/project-wizard/templates/java.wiz.in.h:10
+#: ../plugins/project-wizard/templates/python.wiz.in.h:10
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:10
+#: ../plugins/project-wizard/templates/library.wiz.in.h:10
 msgid "Configure external packages"
 msgstr "Configurar os paquetes externos"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:31
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:10
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:10
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:10
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:13
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:10
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:11
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:10
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:12
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:12
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:10
+#: ../plugins/project-wizard/templates/java.wiz.in.h:11
+#: ../plugins/project-wizard/templates/python.wiz.in.h:11
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:11
+#: ../plugins/project-wizard/templates/library.wiz.in.h:11
 msgid "Configure external packages:"
 msgstr "Configurar os paquetes externos:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:32
-msgid "Create Gtk Builder interface file"
-msgstr "Crear o ficheiro de interface Gtk Builder"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:33
-msgid "Create a template Gtk Builder interface file"
-msgstr "Crear un modelo de ficheiro de interface Gtk Builder"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:36
-msgid "Display description of the applet"
-msgstr "Mostrar a descrición do miniaplicativo"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:37
-msgid "Display description of the plugin"
-msgstr "Mostrar a descrición do engadido"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:38
-msgid "Display title of the applet"
-msgstr "Mostrar o título do miniaplicativo"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:39
-msgid "Display title of the plugin"
-msgstr "Mostrar o título do engadido"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:40
-msgid "Django Project"
-msgstr "Proxecto Django"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:41
-msgid "Django Project information"
-msgstr "Información do proxecto Django"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:42
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:12
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:12
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:12
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:15
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:16
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:13
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:12
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:14
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:14
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:12
+#: ../plugins/project-wizard/templates/java.wiz.in.h:13
+#: ../plugins/project-wizard/templates/js.wiz.in.h:6
+#: ../plugins/project-wizard/templates/python.wiz.in.h:13
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:10
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:16
+#: ../plugins/project-wizard/templates/library.wiz.in.h:13
 msgid "Email address:"
 msgstr "Enderezo de correo electrónico:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:43
-msgid "GCJ needs to know which class contains the main() function"
-msgstr "O GCJ ten que saber que clase contén a función main()"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:44
-msgid "GNOME Applet"
-msgstr "Miniaplicativo do GNOME"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:45
-msgid "GTK+"
-msgstr "GTK+"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:46
-msgid "GTKmm"
-msgstr "GTKmm"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:47
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:13
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:13
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:13
+#: ../plugins/project-wizard/templates/django.wiz.in.h:4
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:17
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:17
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:15
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:13
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:15
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:15
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:14
+#: ../plugins/project-wizard/templates/java.wiz.in.h:14
+#: ../plugins/project-wizard/templates/js.wiz.in.h:7
+#: ../plugins/project-wizard/templates/python.wiz.in.h:14
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:11
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:18
+#: ../plugins/project-wizard/templates/library.wiz.in.h:14
 msgid "General Project Information"
 msgstr "Información xeral do proxecto"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:49
-msgid "Generic"
-msgstr "Xenérico"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:50
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:15
 msgid "Generic (Minimal)"
 msgstr "Xenérico (mínimo)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:51
-msgid "Generic C++"
-msgstr "C++ xenérico"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:52
-msgid "Generic JavaScript"
-msgstr "JavaScript xenérico"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:53
-msgid "Generic gcj compiled java"
-msgstr "Java xenérico compilado con Gjc"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:54
-msgid "Generic java (automake)"
-msgstr "Java xenérico (Automake)"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:55
-msgid "Generic python (automake)"
-msgstr "Python xenérico (Automake)"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:56
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:16
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:16
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:16
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:19
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:19
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:17
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:15
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:17
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:17
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:17
+#: ../plugins/project-wizard/templates/java.wiz.in.h:17
+#: ../plugins/project-wizard/templates/python.wiz.in.h:17
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:20
+#: ../plugins/project-wizard/templates/library.wiz.in.h:16
 msgid ""
 "Give a package name that your project require. You may also mention what is "
 "the required version of the package. For example, 'libgnomeui-2.0' or "
@@ -7624,115 +7670,353 @@ msgstr ""
 "mencionar que versión de paquete se require. Por exemplo, 'libgnomeui-2.0' "
 "ou 'libgnomeui-2.0 >= 2.2.0'"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:57
-msgid "Icon File:"
-msgstr "Ficheiro de icona:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:58
-msgid "Icon file for the plugin"
-msgstr "O ficheiro de icona para o engadido"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:59
-msgid "Implement plugin interfaces"
-msgstr "Implementar as interfaces de engadido"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:60
-msgid "Interface implemented by the plugin"
-msgstr "Interface implementada polo engadido"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:61
-msgid "Interface:"
-msgstr "Interface:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:63
-msgid "Library"
-msgstr "Biblioteca"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:64
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:18
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:18
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:18
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:21
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:26
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:19
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:17
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:19
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:19
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:19
+#: ../plugins/project-wizard/templates/java.wiz.in.h:19
+#: ../plugins/project-wizard/templates/js.wiz.in.h:11
+#: ../plugins/project-wizard/templates/python.wiz.in.h:19
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:14
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:24
+#: ../plugins/project-wizard/templates/library.wiz.in.h:19
 msgid "License"
 msgstr "Licenza"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:65
-msgid "Main Class:"
-msgstr "Clase principal:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:66
-msgid "Main class"
-msgstr "Clase principal"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:67
-msgid "Makefile project"
-msgstr "Proxecto Makefile"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:68
-msgid "Makefile-based project"
-msgstr "Proxecto baseado no Makefile"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:69
-msgid "Mininum SDL version required"
-msgstr "Versión SDL mínima que se require"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:70
-msgid "Name of the value to watch"
-msgstr "Nome do valor que se vai vixiar"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:71
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:19
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:19
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:19
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:22
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:28
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:20
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:18
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:20
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:20
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:21
+#: ../plugins/project-wizard/templates/java.wiz.in.h:22
+#: ../plugins/project-wizard/templates/js.wiz.in.h:12
+#: ../plugins/project-wizard/templates/python.wiz.in.h:20
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:16
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:25
+#: ../plugins/project-wizard/templates/library.wiz.in.h:20
 msgid "No license"
 msgstr "Sen licenza"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:72
-msgid "Only Shared"
-msgstr "Só compartida"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:73
-msgid "Only Static"
-msgstr "Só estatica"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:74
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:20
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:20
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:20
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:23
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:29
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:21
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:19
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:21
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:21
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:22
+#: ../plugins/project-wizard/templates/java.wiz.in.h:23
+#: ../plugins/project-wizard/templates/js.wiz.in.h:13
+#: ../plugins/project-wizard/templates/python.wiz.in.h:21
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:17
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:26
+#: ../plugins/project-wizard/templates/library.wiz.in.h:23
 msgid "Options for project build system"
 msgstr "Opcións para o sistema de construción do proxecto"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:75
-msgid "Plugin Class Name:"
-msgstr "Nome de clase do engadido:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:76
-msgid "Plugin Dependencies:"
-msgstr "Dependencias do engadido:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:77
-msgid "Plugin Description:"
-msgstr "Descrición do engadido:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:78
-msgid "Plugin Title:"
-msgstr "Título do engadido:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:79
-msgid "Plugin class name"
-msgstr "Nome de clase do engadido"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:80
-msgid "Plugin has menus or/and toolbars"
-msgstr "O engadido ten menús e/ou barras de ferramentas"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:81
-msgid "Plugin interfaces to implement"
-msgstr "Interfaces de engadido que se van implementar"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:82
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:21
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:21
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:21
+#: ../plugins/project-wizard/templates/django.wiz.in.h:5
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:24
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:37
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:22
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:20
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:22
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:22
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:23
+#: ../plugins/project-wizard/templates/java.wiz.in.h:24
+#: ../plugins/project-wizard/templates/js.wiz.in.h:14
+#: ../plugins/project-wizard/templates/python.wiz.in.h:22
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:18
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:27
+#: ../plugins/project-wizard/templates/library.wiz.in.h:24
 msgid "Project Name:"
 msgstr "Nome do proxecto:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:83
-msgid "Project directory, output file etc."
-msgstr "Cartafol do proxecto, ficheiro de saída etc."
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:22
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:22
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:22
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:25
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:39
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:23
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:21
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:23
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:23
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:24
+#: ../plugins/project-wizard/templates/java.wiz.in.h:25
+#: ../plugins/project-wizard/templates/js.wiz.in.h:15
+#: ../plugins/project-wizard/templates/python.wiz.in.h:23
+#: ../plugins/project-wizard/templates/mkfile.wiz.in.h:6
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:19
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:28
+#: ../plugins/project-wizard/templates/library.wiz.in.h:25
+msgid "Project options"
+msgstr "Opcións do proxecto"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:84
-msgid "Project directory:"
-msgstr "Cartafol do proxecto:"
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:23
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:23
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:23
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:26
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:40
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:24
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:22
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:24
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:24
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:25
+#: ../plugins/project-wizard/templates/java.wiz.in.h:26
+#: ../plugins/project-wizard/templates/python.wiz.in.h:24
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:29
+#: ../plugins/project-wizard/templates/library.wiz.in.h:26
+msgid "Require Package:"
+msgstr "Requírese o paquete:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:85
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:24
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:24
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:24
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:27
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:41
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:25
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:23
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:25
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:25
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:26
+#: ../plugins/project-wizard/templates/java.wiz.in.h:27
+#: ../plugins/project-wizard/templates/js.wiz.in.h:16
+#: ../plugins/project-wizard/templates/python.wiz.in.h:25
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:32
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:30
+#: ../plugins/project-wizard/templates/library.wiz.in.h:27
+msgid "Select code license"
+msgstr "Seleccionar a licenza do código"
+
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:25
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:25
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:25
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:28
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:43
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:26
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:24
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:26
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:26
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:27
+#: ../plugins/project-wizard/templates/java.wiz.in.h:28
+#: ../plugins/project-wizard/templates/python.wiz.in.h:26
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:31
+#: ../plugins/project-wizard/templates/library.wiz.in.h:30
+msgid "Use pkg-config to add library support from other packages"
+msgstr ""
+"Usar pkg-config para engadir a compatibilidade de biblioteca doutros paquetes"
+
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:27
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:27
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:27
+#: ../plugins/project-wizard/templates/django.wiz.in.h:7
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:31
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:29
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:27
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:29
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:29
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:29
+#: ../plugins/project-wizard/templates/java.wiz.in.h:31
+#: ../plugins/project-wizard/templates/js.wiz.in.h:18
+#: ../plugins/project-wizard/templates/python.wiz.in.h:29
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:34
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:33
+#: ../plugins/project-wizard/templates/library.wiz.in.h:32
+msgid "project name"
+msgstr "nome do proxecto"
+
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:1
+msgid "A generic project"
+msgstr "Un proxecto xenérico"
+
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:2
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:2
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:4
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:3
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:2
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:3
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:3
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:2
+#: ../plugins/project-wizard/templates/java.wiz.in.h:3
+#: ../plugins/project-wizard/templates/python.wiz.in.h:3
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:3
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:3
+#: ../plugins/project-wizard/templates/library.wiz.in.h:3
+msgid "Add internationalization:"
+msgstr "Engadir a internacionalización:"
+
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:5
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:5
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:8
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:6
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:5
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:7
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:7
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:5
+#: ../plugins/project-wizard/templates/java.wiz.in.h:6
+#: ../plugins/project-wizard/templates/python.wiz.in.h:6
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:5
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:5
+#: ../plugins/project-wizard/templates/library.wiz.in.h:5
+msgid ""
+"Adds support for internationalization so that your project can have "
+"translations in different languages"
+msgstr ""
+"Engade a compatibilidade para a internacionalización de forma que o seu "
+"proxecto poderá ser traducido a diferentes idiomas"
+
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:15
+msgid "Generic"
+msgstr "Xenérico"
+
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:1
+msgid "A generic C++ project"
+msgstr "Un proxecto C++ xenérico"
+
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:15
+msgid "Generic C++"
+msgstr "C++ xenérico"
+
+#: ../plugins/project-wizard/templates/django.wiz.in.h:2
+msgid "Django Project"
+msgstr "Proxecto Django"
+
+#: ../plugins/project-wizard/templates/django.wiz.in.h:3
+msgid "Django Project information"
+msgstr "Información do proxecto Django"
+
+#: ../plugins/project-wizard/templates/django.wiz.in.h:6
+msgid "Python webproject using Django Web Framework"
+msgstr "Proxecto web en Python usando o contorno de traballo web Django"
+
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:1
+msgid "A generic GTK+ project"
+msgstr "Un proxecto GTK+ xenérico"
+
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:3
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:2
+#: ../plugins/project-wizard/templates/java.wiz.in.h:2
+#: ../plugins/project-wizard/templates/python.wiz.in.h:2
+msgid "Add gtk-doc system:"
+msgstr "Engadir o sistema gtk-doc:"
+
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:16
+msgid "GTK+"
+msgstr "GTK+"
+
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:30
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:28
+#: ../plugins/project-wizard/templates/java.wiz.in.h:30
+#: ../plugins/project-wizard/templates/python.wiz.in.h:28
+msgid "gtk-doc is used to compile API documentations for GObject based classes"
+msgstr ""
+"O gtk-doc úsase para compilar documentacións API para clases baseadas en "
+"GObject"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:3
+msgid "Anjuta Plugin"
+msgstr "Engadido de Anjuta"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:4
+msgid "Anjuta plugin project that uses libanjuta framework"
+msgstr ""
+"Un proxecto de engadido do Anjuta que usa o contorno de traballo libanjuta"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:8
+msgid ""
+"Comma separated, other plugins that this plugin depends on. It could be "
+"either primary interface name or plugin location (library:class)"
+msgstr ""
+"Outros engadidos dos que depende este engadido separados por comas. Pode ser "
+"o nome de interface primaria ou ben a localización do engadido (biblioteca:"
+"clase)"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:11
+msgid "Create Gtk Builder interface file"
+msgstr "Crear o ficheiro de interface Gtk Builder"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:12
+msgid "Create a template Gtk Builder interface file"
+msgstr "Crear un modelo de ficheiro de interface Gtk Builder"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:14
+msgid "Display description of the plugin"
+msgstr "Mostrar a descrición do engadido"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:15
+msgid "Display title of the plugin"
+msgstr "Mostrar o título do engadido"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:20
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:21
+msgid "Icon File:"
+msgstr "Ficheiro de icona:"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:21
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:22
+msgid "Icon file for the plugin"
+msgstr "O ficheiro de icona para o engadido"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:22
+msgid "Implement plugin interfaces"
+msgstr "Implementar as interfaces de engadido"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:23
+msgid "Interface implemented by the plugin"
+msgstr "Interface implementada polo engadido"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:24
+msgid "Interface:"
+msgstr "Interface:"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:27
+msgid "Name of the value to watch"
+msgstr "Nome do valor que se vai vixiar"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:30
+msgid "Plugin Class Name:"
+msgstr "Nome de clase do engadido:"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:31
+msgid "Plugin Dependencies:"
+msgstr "Dependencias do engadido:"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:32
+msgid "Plugin Description:"
+msgstr "Descrición do engadido:"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:33
+msgid "Plugin Title:"
+msgstr "Título do engadido:"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:34
+msgid "Plugin class name"
+msgstr "Nome de clase do engadido"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:35
+msgid "Plugin has menus or/and toolbars"
+msgstr "O engadido ten menús e/ou barras de ferramentas"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:36
+msgid "Plugin interfaces to implement"
+msgstr "Interfaces de engadido que se van implementar"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:38
 msgid ""
 "Project name must not contain spaces, because it will be the name of the "
 "project build target (executable, library etc.)"
@@ -7740,124 +8024,222 @@ msgstr ""
 "O nome do proxecto non debe conter espazos porque será o nome do destino de "
 "construción do proxecto (executábel, biblioteca etc.)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:86
-msgid "Project name:"
-msgstr "Nome do proxecto:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:87
-msgid "Project options"
-msgstr "Opcións do proxecto"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:88
-msgid "Python webproject using Django Web Framework"
-msgstr "Proxecto web en Python usando o contorno de traballo web Django"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:89
-msgid "Require Package:"
-msgstr "Requírese o paquete:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:90
-msgid "Require SDL version:"
-msgstr "Requírese a versión SDL:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:91
-msgid "Require SDL_gfx library"
-msgstr "Requírese a biblioteca SDL_gfx"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:92
-msgid "Require SDL_gfx:"
-msgstr "Requírese SDL_gfx:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:93
-msgid "Require SDL_image library"
-msgstr "Requírese a biblioteca SDL_image"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:94
-msgid "Require SDL_image:"
-msgstr "Requírese SDL_image:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:95
-msgid "Require SDL_mixer library"
-msgstr "Requírese a biblioteca SDL_mixer"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:96
-msgid "Require SDL_mixer:"
-msgstr "Requírese SDL_mixer:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:97
-msgid "Require SDL_net library"
-msgstr "Requírese a biblioteca SDL_net"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:98
-msgid "Require SDL_net:"
-msgstr "Requírese SDL_net:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:99
-msgid "Require SDL_ttf library"
-msgstr "Requírese a biblioteca SDL_ttf"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:100
-msgid "Require SDL_ttf:"
-msgstr "Requírese SDL_ttf:"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:101
-msgid "SDL"
-msgstr "SDL"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:102
-msgid "Select code license"
-msgstr "Seleccionar a licenza do código"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:103
-msgid "Select library type to build"
-msgstr "Seleccione a tipo de biblioteca a construir"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:104
-msgid "Shared and Static library"
-msgstr "Biblioteca estática ou compartida"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:105
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:42
 msgid "Shell values to watch"
 msgstr "Valores do intérprete de ordes que se van vixiar"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:106
-msgid "Use pkg-config to add library support from other packages"
-msgstr ""
-"Usar pkg-config para engadir a compatibilidade de biblioteca doutros paquetes"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:107
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:44
 msgid "Value Name:"
 msgstr "Nome do valor:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:108
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:45
 msgid "Values to watch"
 msgstr "Valores para vixiar"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:110
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:47
 msgid "Whether the plugin has menus or toolbars"
 msgstr "Indica se o engadido ten menús ou barras de ferramentas"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:111
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:1
+msgid "A generic GTKmm (C++) project"
+msgstr "Un proxectoGTKmm (C++) xenérico"
+
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:14
+msgid "GTKmm"
+msgstr "GTKmm"
+
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:1
+msgid "A generic wx Widgets project"
+msgstr "Un proxecto xenérico Wx Widgets"
+
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:26
 msgid "Wx Widgets"
 msgstr "Widgets Wx"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:112
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:1
+msgid "A generic Xlib project"
+msgstr "Un proxecto Xlib xenérico"
+
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:28
 msgid "Xlib"
 msgstr "Xlib"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:113
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:1
+msgid "A generic Xlib dock applet"
+msgstr "Un miniaplicativo ancorábel Xlib xenérico"
+
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:28
 msgid "Xlib dock"
 msgstr "Ancorábel Xlib"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:114
-msgid "gtk-doc is used to compile API documentations for GObject based classes"
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:1
+msgid ""
+"A generic natively compiled java project using the GNU Java Compiler (gcj)"
 msgstr ""
-"O gtk-doc úsase para compilar documentacións API para clases baseadas en "
-"GObject"
+"Un proxecto xenérico de Java compilado nativamente usando o Compilador de "
+"Java GNU (gcj)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:115
-msgid "project name"
-msgstr "nome do proxecto"
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:13
+msgid "GCJ needs to know which class contains the main() function"
+msgstr "O GCJ ten que saber que clase contén a función main()"
+
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:16
+msgid "Generic gcj compiled java"
+msgstr "Java xenérico compilado con Gjc"
+
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:20
+#: ../plugins/project-wizard/templates/java.wiz.in.h:20
+msgid "Main Class:"
+msgstr "Clase principal:"
+
+#: ../plugins/project-wizard/templates/java.wiz.in.h:1
+msgid "A generic java project using automake project management"
+msgstr "Un proxecto Java xenérico usando a xestión de proxectos do Automake"
+
+#: ../plugins/project-wizard/templates/java.wiz.in.h:16
+msgid "Generic java (automake)"
+msgstr "Java xenérico (Automake)"
+
+#: ../plugins/project-wizard/templates/java.wiz.in.h:21
+msgid "Main class"
+msgstr "Clase principal"
+
+#: ../plugins/project-wizard/templates/js.wiz.in.h:9
+msgid "Generic JavaScript"
+msgstr "JavaScript xenérico"
+
+#: ../plugins/project-wizard/templates/python.wiz.in.h:1
+msgid "A generic python project using automake project management"
+msgstr ""
+"Un proxecto xenérico de Python usando a xestión de proxectos do Automake"
+
+#: ../plugins/project-wizard/templates/python.wiz.in.h:16
+msgid "Generic python (automake)"
+msgstr "Python xenérico (Automake)"
+
+#: ../plugins/project-wizard/templates/mkfile.wiz.in.h:1
+msgid "Makefile project"
+msgstr "Proxecto Makefile"
+
+#: ../plugins/project-wizard/templates/mkfile.wiz.in.h:2
+msgid "Makefile-based project"
+msgstr "Proxecto baseado no Makefile"
+
+#: ../plugins/project-wizard/templates/mkfile.wiz.in.h:3
+msgid "Project directory, output file etc."
+msgstr "Cartafol do proxecto, ficheiro de saída etc."
+
+#: ../plugins/project-wizard/templates/mkfile.wiz.in.h:4
+msgid "Project directory:"
+msgstr "Cartafol do proxecto:"
+
+#: ../plugins/project-wizard/templates/mkfile.wiz.in.h:5
+msgid "Project name:"
+msgstr "Nome do proxecto:"
+
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:1
+msgid "A sample SDL project"
+msgstr "Un proxecto SDL de exemplo"
+
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:15
+msgid "Mininum SDL version required"
+msgstr "Versión SDL mínima que se require"
+
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:20
+msgid "Require SDL version:"
+msgstr "Requírese a versión SDL:"
+
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:21
+msgid "Require SDL_gfx library"
+msgstr "Requírese a biblioteca SDL_gfx"
+
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:22
+msgid "Require SDL_gfx:"
+msgstr "Requírese SDL_gfx:"
+
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:23
+msgid "Require SDL_image library"
+msgstr "Requírese a biblioteca SDL_image"
+
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:24
+msgid "Require SDL_image:"
+msgstr "Requírese SDL_image:"
+
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:25
+msgid "Require SDL_mixer library"
+msgstr "Requírese a biblioteca SDL_mixer"
+
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:26
+msgid "Require SDL_mixer:"
+msgstr "Requírese SDL_mixer:"
+
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:27
+msgid "Require SDL_net library"
+msgstr "Requírese a biblioteca SDL_net"
+
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:28
+msgid "Require SDL_net:"
+msgstr "Requírese SDL_net:"
+
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:29
+msgid "Require SDL_ttf library"
+msgstr "Requírese a biblioteca SDL_ttf"
+
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:30
+msgid "Require SDL_ttf:"
+msgstr "Requírese SDL_ttf:"
+
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:31
+msgid "SDL"
+msgstr "SDL"
+
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:1
+msgid "A GNOME applet project"
+msgstr "Un proxecto de miniaplicativo do GNOME"
+
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:6
+msgid "Applet Title:"
+msgstr "Título do miniaplicativo:"
+
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:14
+msgid "Display description of the applet"
+msgstr "Mostrar a descrición do miniaplicativo"
+
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:15
+msgid "Display title of the applet"
+msgstr "Mostrar o título do miniaplicativo"
+
+#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:17
+msgid "GNOME Applet"
+msgstr "Miniaplicativo do GNOME"
+
+#: ../plugins/project-wizard/templates/library.wiz.in.h:1
+msgid "A shared or a static library project"
+msgstr "Un proxecto de biblioteca estática ou compartida"
+
+#: ../plugins/project-wizard/templates/library.wiz.in.h:9
+msgid "Build library as"
+msgstr "Construír biblioteca como:"
+
+#: ../plugins/project-wizard/templates/library.wiz.in.h:18
+msgid "Library"
+msgstr "Biblioteca"
+
+#: ../plugins/project-wizard/templates/library.wiz.in.h:21
+msgid "Only Shared"
+msgstr "Só compartida"
+
+#: ../plugins/project-wizard/templates/library.wiz.in.h:22
+msgid "Only Static"
+msgstr "Só estatica"
+
+#: ../plugins/project-wizard/templates/library.wiz.in.h:28
+msgid "Select library type to build"
+msgstr "Seleccione a tipo de biblioteca a construir"
+
+#: ../plugins/project-wizard/templates/library.wiz.in.h:29
+msgid "Shared and Static library"
+msgstr "Biblioteca estática ou compartida"
 
 #: ../plugins/run-program/anjuta-run-program.ui.h:2
 msgid "Choose a working directory"
@@ -8967,19 +9349,19 @@ msgstr "Xeración de herdanzas..."
 msgid "%d files scanned out of %d"
 msgstr "%d ficheiros escaneados fora de %d"
 
-#: ../plugins/symbol-db/plugin.c:1789
+#: ../plugins/symbol-db/plugin.c:1790
 msgid "Populating symbol database…"
 msgstr "Poboar a bd con símbolos..."
 
-#: ../plugins/symbol-db/plugin.c:2115 ../plugins/symbol-db/plugin.c:2210
+#: ../plugins/symbol-db/plugin.c:2117 ../plugins/symbol-db/plugin.c:2212
 msgid "Symbols"
 msgstr "Símbolos"
 
-#: ../plugins/symbol-db/plugin.c:2219
+#: ../plugins/symbol-db/plugin.c:2221
 msgid "SymbolDb popup actions"
 msgstr "Accións en xanelas emerxentes de SymbolDb"
 
-#: ../plugins/symbol-db/plugin.c:2227
+#: ../plugins/symbol-db/plugin.c:2229
 msgid "SymbolDb menu actions"
 msgstr "Accións do menú de SymbolDb"
 
@@ -9425,7 +9807,7 @@ msgstr "Cadea"
 msgid "Copyright (c) Naba Kumar"
 msgstr "Dereitos de autor (c) Naba Kumar"
 
-#: ../src/anjuta.c:424
+#: ../src/anjuta.c:432
 msgid "Loaded Session…"
 msgstr "Sesión cargada..."
 
@@ -9613,7 +9995,7 @@ msgstr ""
 msgid "- Integrated Development Environment"
 msgstr "- Contorno de desenvolvemento integrado (IDE)"
 
-#: ../src/main.c:250
+#: ../src/main.c:249
 msgid "Anjuta"
 msgstr "Anjuta"
 
@@ -9766,30 +10148,30 @@ msgstr "Sangría intelixente"
 msgid "Statement indentation size in spaces:"
 msgstr "Instrución do tamaño da sangría en espazos:"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1888
+#: ../plugins/language-support-cpp-java/plugin.c:1882
 msgid "Auto-Indent"
 msgstr "Sangrar automaticamente"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1889
+#: ../plugins/language-support-cpp-java/plugin.c:1883
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr ""
 "Sangrar automaticamente a liña ou selección actual segundo os parámetros da "
 "sangría"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1894
+#: ../plugins/language-support-cpp-java/plugin.c:1888
 msgid "Swap .h/.c"
 msgstr "Intercambiar .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1895
+#: ../plugins/language-support-cpp-java/plugin.c:1889
 msgid "Swap C header and source files"
 msgstr "Intercambiar os ficheiros C da cabeceira e da fonte"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1936
+#: ../plugins/language-support-cpp-java/plugin.c:1930
 msgid "C++/Java Assistance"
 msgstr "Asistencia C++/Java"
 
-#: ../plugins/language-support-cpp-java/plugin.c:2048
-#: ../plugins/language-support-cpp-java/plugin.c:2061
+#: ../plugins/language-support-cpp-java/plugin.c:2042
+#: ../plugins/language-support-cpp-java/plugin.c:2055
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
