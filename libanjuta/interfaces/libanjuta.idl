@@ -5352,12 +5352,14 @@ interface IAnjutaSymbolQuery
 		SEARCH,
 		SEARCH_ALL,
 		SEARCH_FILE,
+		SEARCH_IN_SCOPE,
 		SEARCH_ID,
 		SEARCH_MEMBERS,
 		SEARCH_CLASS_PARENTS,
 		SEARCH_SCOPE,
 		SEARCH_PARENT_SCOPE,
-		SEARCH_PARENT_SCOPE_FILE
+		SEARCH_PARENT_SCOPE_FILE,
+		SEARCH_SCOPE_CHAIN
 	}
 
 	enum FileScope
@@ -5375,16 +5377,19 @@ interface IAnjutaSymbolQuery
 	void set_file_scope (IAnjutaSymbolQueryFileScope filescope_search);
 	void set_offset (gint offset);
 	void set_limit (gint limit);
+	void cancel ();
 	
 	IAnjutaIterable* search (const gchar *pattern);
 	IAnjutaIterable* search_all ();
 	IAnjutaIterable* search_file (const gchar *pattern, const GFile *file);
+	IAnjutaIterable* search_in_scope (const gchar *pattern, IAnjutaSymbol *scope);
 	IAnjutaIterable* search_members (IAnjutaSymbol *symbol);
 	IAnjutaIterable* search_class_parents (IAnjutaSymbol *symbol);
 	IAnjutaIterable* search_id (gint symbol_id);
 	IAnjutaIterable* search_scope (const gchar *file_path, gint line);
 	IAnjutaIterable* search_parent_scope (IAnjutaSymbol *symbol);
 	IAnjutaIterable* search_parent_scope_file (IAnjutaSymbol *symbol, const gchar *file_path);
+	IAnjutaIterable* search_scope_chain (const gchar *file, gint line);
 }
 
 /**
