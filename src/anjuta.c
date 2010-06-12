@@ -242,6 +242,7 @@ anjuta_new (gchar *prog_name, gchar **files, gboolean no_splash,
 	GFile *session_profile;
 	gchar *remembered_plugins;
 	gchar *project_uri = NULL;
+	gchar *template_uri = NULL;
 	gchar *profile_name = NULL;
 	GError *error = NULL;
 	
@@ -328,6 +329,7 @@ anjuta_new (gchar *prog_name, gchar **files, gboolean no_splash,
 		session_dir = USER_SESSION_PATH_NEW;
 		
 		project_uri = extract_project_from_session (session_dir);
+		template_uri = NULL;
 		
 		session = anjuta_session_new (session_dir);
 		anjuta_session_clear (session);
@@ -343,6 +345,11 @@ anjuta_new (gchar *prog_name, gchar **files, gboolean no_splash,
 				/* Pick up the first project file for loading later */
 				g_free (project_uri);
 				project_uri = g_strdup (*node);
+			}
+			else if (anjuta_util_is_template_file (*node))
+			{
+				g_free (template_uri);
+				template_uri = g_strdup (*node);
 			}
 			else
 			{
@@ -401,16 +408,16 @@ anjuta_new (gchar *prog_name, gchar **files, gboolean no_splash,
 	g_signal_connect (profile_manager, "profile-scoped",
 					  G_CALLBACK (on_profile_scoped), app);
 	/* Load project file */
-	if (project_uri)
+	if ((project_uri != NULL) && (template_uri == NULL))
 	{
 		GFile* file = g_file_new_for_uri (project_uri);
 		IAnjutaFileLoader *loader;
 		loader = anjuta_shell_get_interface (ANJUTA_SHELL (app),
 											 IAnjutaFileLoader, NULL);
 		ianjuta_file_loader_load (loader, file, FALSE, NULL);
-		g_free (project_uri);
 		g_object_unref (file);
 	}
+	g_free (project_uri);
 	anjuta_profile_manager_thaw (profile_manager, &error);
 	
 	if (error)
@@ -424,5 +431,18 @@ anjuta_new (gchar *prog_name, gchar **files, gboolean no_splash,
 	
 	anjuta_status_progress_tick (status, NULL, _("Loaded Session…"));
 	anjuta_status_disable_splash (status, TRUE);
+	
+	/* Load template file */
+	if (template_uri != NULL)
+	{
+		GFile* file = g_file_new_for_uri (template_uri);
+		IAnjutaFileLoader *loader;
+		loader = anjuta_shell_get_interface (ANJUTA_SHELL (app),
+											 IAnjutaFileLoader, NULL);
+		ianjuta_file_loader_load (loader, file, FALSE, NULL);
+		g_free (template_uri);
+		g_object_unref (file);
+	}
+	
 	return app;
 }
