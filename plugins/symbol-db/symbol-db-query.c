@@ -290,6 +290,15 @@ sdb_query_update (SymbolDBQuery *query)
 				) ";
 			sdb_query_add_field (query, IANJUTA_SYMBOL_FIELD_FILE_PATH);
 			break;
+		case IANJUTA_SYMBOL_QUERY_SEARCH_IN_SCOPE:
+			condition = " (symbol.name LIKE ## /* name:'pattern' type:gchararray */ \
+				AND symbol.scope_id = \
+					(\
+						SELECT scope_definition_id \
+						FROM symbol \
+						WHERE symbol_id = ## /* name:'symbolid' type:gint */ \
+					)) ";
+			break;
 		case IANJUTA_SYMBOL_QUERY_SEARCH_ID:
 			condition = "(symbol.symbol_id = ## /* name:'symbolid' type:gint */)";
 			break;
@@ -958,10 +967,14 @@ sdb_query_search_file (IAnjutaSymbolQuery *query, const gchar *search_string,
 }
 
 static IAnjutaIterable*
-sdb_query_search_in_scope (IAnjutaSymbolQuery *query, const gchar *pattern,
+sdb_query_search_in_scope (IAnjutaSymbolQuery *query, const gchar *search_string,
                            IAnjutaSymbol *scope, GError **error)
 {
-	return NULL; /* FIXME */
+	SDB_QUERY_SEARCH_HEADER;
+	g_return_val_if_fail (priv->name == IANJUTA_SYMBOL_QUERY_SEARCH, NULL);
+	SDB_PARAM_SET_STATIC_STRING (priv->param_pattern, search_string);
+	SDB_PARAM_SET_INT (priv->param_id, ianjuta_symbol_get_int (scope, IANJUTA_SYMBOL_FIELD_ID, NULL));
+	return sdb_query_execute (SYMBOL_DB_QUERY (query));
 }
 
 static IAnjutaIterable*
