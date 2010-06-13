@@ -68,10 +68,12 @@ struct _SymbolDBQueryPriv {
 	GdaHolder *param_file_line, *param_id;
 
 	/* Aync results */
-	gint pending_async_count;
-	gint pending_cancel_count;
 	gboolean query_queued;
-	IAnjutaIterable *async_result;
+	GAsyncQueue *async_result_queue;
+	guint async_poll_id;
+	gint async_run_count;
+	gint async_cancel_count;
+	gint async_result_count;
 };
 
 /* Enumerated list of DB tables used in queries */
@@ -157,7 +159,7 @@ static gchar* kind_names[] =
 
 static void ianjuta_symbol_query_iface_init (IAnjutaSymbolQueryIface *iface);
 
-G_DEFINE_TYPE_WITH_CODE (SymbolDBQuery, sdb_query, ANJUTA_TYPE_ASYNC_COMMAND,
+G_DEFINE_TYPE_WITH_CODE (SymbolDBQuery, sdb_query, G_TYPE_OBJECT,
                          G_IMPLEMENT_INTERFACE (IANJUTA_TYPE_SYMBOL_QUERY,
                                                 ianjuta_symbol_query_iface_init));
 /**
@@ -233,12 +235,8 @@ sdb_query_build_sql_head (SymbolDBQuery *query, GString *sql)
  * Constructs the necessary sql conditional to filter the resultset to
  * only those set to filtered symbol types. It will add a subquery to
  * achieve this filter.
- *
- * Returns: Returns TRUE if SQL conditional was appened in @sql, otherwise
- * returns FALSE. This return value can be used to determin correct
- * concatenation of SQL statement segments.
  */
-static gboolean
+static void
 sdb_query_build_sql_kind_filter (SymbolDBQuery *query, GString *sql)
 {
 	gboolean first = TRUE;
@@ -246,8 +244,8 @@ sdb_query_build_sql_kind_filter (SymbolDBQuery *query, GString *sql)
 	IAnjutaSymbolType filters;
 	SymbolDBQueryPriv *priv;
 
-	g_return_val_if_fail (SYMBOL_DB_IS_QUERY (query), TRUE);
-	g_return_val_if_fail (sql != NULL, TRUE);
+	g_return_if_fail (SYMBOL_DB_IS_QUERY (query));
+	g_return_if_fail (sql != NULL);
 
 	priv = SYMBOL_DB_QUERY (query)->priv;
 
@@ -257,7 +255,7 @@ sdb_query_build_sql_kind_filter (SymbolDBQuery *query, GString *sql)
 	filters = priv->filters;
 	if (filters)
 	{
-		g_string_append (sql, "(symbol.kind_id IN (SELECT sym_kind_id FROM sym_kind WHERE kind_name IN (");
+		g_string_append (sql, "AND (symbol.kind_id IN (SELECT sym_kind_id FROM sym_kind WHERE kind_name IN (");
 		while (filters)
 		{
 			bit_count++;
@@ -272,9 +270,31 @@ sdb_query_build_sql_kind_filter (SymbolDBQuery *query, GString *sql)
 			filters >>= 1;
 		}
 		g_string_append (sql, "))) ");
-		return TRUE;
 	}
-	return FALSE;
+}
+
+static void
+sdb_query_build_sql_file_scope (SymbolDBQuery *query, GString *sql)
+{
+	SymbolDBQueryPriv *priv;
+
+	g_return_if_fail (SYMBOL_DB_IS_QUERY (query));
+	g_return_if_fail (sql != NULL);
+
+	priv = SYMBOL_DB_QUERY (query)->priv;
+
+	switch (priv->file_scope)
+	{
+		case IANJUTA_SYMBOL_QUERY_SEARCH_FS_IGNORE:
+			return;
+		case IANJUTA_SYMBOL_QUERY_SEARCH_FS_PRIVATE:
+			g_string_append (sql, "AND (symbol.is_file_scope = 1) ");
+			return;
+		case IANJUTA_SYMBOL_QUERY_SEARCH_FS_PUBLIC:
+			g_string_append (sql, "AND (symbol.is_file_scope = 0) ");
+			return;
+	}
+	g_warn_if_reached ();
 }
 
 /**
@@ -415,12 +435,14 @@ sdb_query_update (SymbolDBQuery *query)
 	/* Add head of the SQL statement */
 	sdb_query_build_sql_head (query, sql);
 
-	/* Add symbol type filters of the SQL statement */
-	if (sdb_query_build_sql_kind_filter (query, sql))
-		g_string_append (sql, "AND ");
-
 	/* Add condition of the SQL statement */
 	g_string_append (sql, condition);
+
+	/* Add symbol type filters of the SQL statement */
+	sdb_query_build_sql_kind_filter (query, sql);
+		
+	/* Add filter for file scope */
+	sdb_query_build_sql_file_scope (query, sql);
 	
 	/* Add tail of the SQL statement */
 	g_string_append (sql, "LIMIT ## /* name:'limit' type:gint */ ");
@@ -454,10 +476,9 @@ sdb_query_update (SymbolDBQuery *query)
  * 
  * Returns: Result set iterator.
  */
-static IAnjutaIterable*
+static SymbolDBQueryResult*
 sdb_query_execute_real (SymbolDBQuery *query)
 {
-	SymbolDBQueryResult *iter;
 	GdaDataModel *data_model;
 	SymbolDBQueryPriv *priv = query->priv;
 	
@@ -469,19 +490,26 @@ sdb_query_execute_real (SymbolDBQuery *query)
 	data_model = symbol_db_engine_execute_select (priv->dbe_selected,
 	                                              priv->stmt,
 	                                              priv->params);
-	if (!data_model) return NULL;
-	iter = symbol_db_query_result_new (data_model, 
+	if (!data_model) return GINT_TO_POINTER (-1);
+	return symbol_db_query_result_new (data_model, 
 	                                   priv->fields,
 	                                   symbol_db_engine_get_type_conversion_hash (priv->dbe_selected),
 	                                   symbol_db_engine_get_project_directory (priv->dbe_selected));
+}
 
-	/* Empty resultset is useless for us. Return NULL instead */
-	if (symbol_db_query_result_is_empty (iter))
+static void
+sdb_query_handle_result (SymbolDBQuery *query, SymbolDBQueryResult *result)
+{
+	if (GPOINTER_TO_INT (result) == -1)
+		g_signal_emit_by_name (query, "async-result", NULL);
+	else
 	{
-		g_object_unref (iter);
-		return NULL;
+		if (symbol_db_query_result_is_empty (result))
+			g_signal_emit_by_name (query, "async-result", NULL);
+		else
+			g_signal_emit_by_name (query, "async-result", result);
+		g_object_unref (result);
 	}
-	return IANJUTA_ITERABLE (iter);
 }
 
 /*
@@ -490,21 +518,24 @@ sdb_query_execute_real (SymbolDBQuery *query)
  * anymore, then emits the "async-result" signal (because its not covered by
  * the cancelatoin), otherwise, it reduces cancelable commands count.
  */
-static void
-on_sdb_query_async_data_arrived (SymbolDBQuery *query, gpointer data)
+static gboolean
+on_sdb_query_async_poll (gpointer data)
 {
-	query->priv->pending_async_count--;
-	if (query->priv->pending_cancel_count <= 0)
-		g_signal_emit_by_name (query, "async-result",
-		                       query->priv->async_result);
-	else
-		query->priv->pending_cancel_count--;
+	SymbolDBQueryResult *result;
+	SymbolDBQuery *query = SYMBOL_DB_QUERY (data);
 	
-	if (query->priv->async_result)
+	while ((result = g_async_queue_try_pop (query->priv->async_result_queue)))
 	{
-		g_object_unref (query->priv->async_result);
-		query->priv->async_result = NULL;
+		query->priv->async_result_count++;
+		if (query->priv->async_result_count > query->priv->async_cancel_count)
+		{
+			sdb_query_handle_result (query, result);
+		}
 	}
+	if (query->priv->async_result_count < query->priv->async_run_count)
+		return TRUE; /* More results coming */
+	query->priv->async_poll_id = 0;
+	return FALSE; /* No more results coming */
 }
 
 /**
@@ -514,18 +545,17 @@ on_sdb_query_async_data_arrived (SymbolDBQuery *query, gpointer data)
  * Implementation of anjuta_command_run(). Runs the async command, presumably
  * from a different thread, and emits the data-arrived signal on command object.
  */
-static guint
-sdb_query_async_run (AnjutaCommand *command)
+static gpointer
+sdb_query_async_run (gpointer data)
 {
-	SymbolDBQuery *query;
+	GAsyncQueue *queue;
+	SymbolDBQuery *query = SYMBOL_DB_QUERY (data);
+	SymbolDBQueryPriv *priv = query->priv;
 
-	g_return_val_if_fail (SYMBOL_DB_IS_QUERY (command), -1);
-	query = SYMBOL_DB_QUERY (command);
-
-	g_return_val_if_fail (query->priv->mode == IANJUTA_SYMBOL_QUERY_MODE_ASYNC, -1);
-	
-	query->priv->async_result = sdb_query_execute_real (query);
-	anjuta_command_notify_data_arrived (command);
+	g_async_queue_ref (priv->async_result_queue);
+	queue = priv->async_result_queue;
+	g_async_queue_push (queue, sdb_query_execute_real (query));
+	g_async_queue_unref (queue);
 	return 0;
 }
 
@@ -540,15 +570,16 @@ sdb_query_async_run (AnjutaCommand *command)
  * any pending query queue (for queued mode).
  */
 static void
-sdb_query_async_cancel (AnjutaCommand *command)
+sdb_query_async_cancel (IAnjutaSymbolQuery *query, GError **err)
 {
-	SymbolDBQuery *query;
-	g_return_if_fail (SYMBOL_DB_IS_QUERY (command));
-	query = SYMBOL_DB_QUERY (command);
+	SymbolDBQueryPriv *priv;
 
-	g_return_if_fail (query->priv->mode != IANJUTA_SYMBOL_QUERY_MODE_SYNC);
-	query->priv->pending_cancel_count = query->priv->pending_async_count;
-	query->priv->query_queued = FALSE;
+	g_return_if_fail (SYMBOL_DB_IS_QUERY (query));
+	priv = SYMBOL_DB_QUERY (query)->priv;
+	
+	g_return_if_fail (priv->mode != IANJUTA_SYMBOL_QUERY_MODE_SYNC);
+	priv->async_cancel_count = priv->async_run_count;
+	priv->query_queued = FALSE;
 }
 
 /* When the DB is connected, any pending SQL statement will be compiled */
@@ -583,8 +614,7 @@ on_sdb_query_dbe_scan_end (SymbolDBEngine *dbe, gint something,
 	    !symbol_db_engine_is_scanning (query->priv->dbe_system) &&
 	    !symbol_db_engine_is_scanning (query->priv->dbe_project))
 	{
-		g_signal_emit_by_name (query, "async-result",
-		                       sdb_query_execute_real (query));
+		sdb_query_handle_result (query, sdb_query_execute_real (query));
 		query->priv->query_queued = FALSE;
 	}
 }
@@ -607,13 +637,30 @@ on_sdb_query_dbe_scan_end (SymbolDBEngine *dbe, gint something,
 static IAnjutaIterable*
 sdb_query_execute (SymbolDBQuery *query)
 {
+	SymbolDBQueryResult *result;
 	switch (query->priv->mode)
 	{
 		case IANJUTA_SYMBOL_QUERY_MODE_SYNC:
-			return sdb_query_execute_real (query);
+			result = sdb_query_execute_real (query);
+
+			if (GPOINTER_TO_INT (result) == -1) /* Error trap */
+				return NULL;
+
+			/* Empty resultset is useless for us. Return NULL instead */
+			if (symbol_db_query_result_is_empty (result))
+			{
+				g_object_unref (result);
+				return NULL;
+			}
+			return IANJUTA_ITERABLE (result);
 		case IANJUTA_SYMBOL_QUERY_MODE_ASYNC:
-			query->priv->pending_async_count++;
-			anjuta_command_start (ANJUTA_COMMAND (query));
+			query->priv->async_run_count++;
+			if (query->priv->async_poll_id == 0)
+			{
+				query->priv->async_poll_id =
+					g_idle_add (on_sdb_query_async_poll, query);
+			}
+			g_thread_create (sdb_query_async_run, query, FALSE, NULL);
 			return NULL;
 		case IANJUTA_SYMBOL_QUERY_MODE_QUEUED_SINGLE:
 			query->priv->query_queued = TRUE;
@@ -664,12 +711,12 @@ sdb_query_init (SymbolDBQuery *query)
 	g_slist_free (param_holders);
 
 	/* Prepare async signals */
-	priv->pending_async_count = 0;
-	priv->pending_cancel_count = 0;
-	priv->async_result = NULL;
+	priv->async_run_count = 0;
+	priv->async_cancel_count = 0;
+	priv->async_result_count = 0;
 	priv->query_queued = FALSE;
-	g_signal_connect (query, "data-arrived",
-	                  G_CALLBACK (on_sdb_query_async_data_arrived), query);
+
+	priv->async_result_queue = g_async_queue_new ();
 }
 
 static void
@@ -712,10 +759,15 @@ sdb_query_dispose (GObject *object)
 		g_object_unref (priv->params);
 		priv->params = NULL;
 	}
-	if (priv->async_result)
+	if (priv->async_result_queue)
 	{
-		g_object_unref (priv->async_result);
-		priv->async_result = NULL;
+		g_object_unref (priv->async_result_queue);
+		priv->async_result_queue = NULL;
+	}
+	if (priv->async_poll_id)
+	{
+		g_warning ("There are still running async threads!");
+	    g_source_remove (priv->async_poll_id);
 	}
 	G_OBJECT_CLASS (sdb_query_parent_class)->dispose (object);
 }
@@ -848,7 +900,6 @@ static void
 sdb_query_class_init (SymbolDBQueryClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
-	AnjutaCommandClass *command_class = ANJUTA_COMMAND_CLASS (klass);
 	
 	g_type_class_add_private (klass, sizeof (SymbolDBQueryPriv));
 
@@ -856,9 +907,6 @@ sdb_query_class_init (SymbolDBQueryClass *klass)
 	object_class->dispose = sdb_query_dispose;
 	object_class->set_property = sdb_query_set_property;
 	object_class->get_property = sdb_query_get_property;
-
-	command_class->run = sdb_query_async_run;
-	command_class->cancel = sdb_query_async_cancel;
 
 	g_object_class_install_property (object_class,
 	                                 PROP_QUERY_NAME,
@@ -1013,12 +1061,6 @@ sdb_query_set_file_scope (IAnjutaSymbolQuery *query,
                           GError **err)
 {
 	g_object_set (query, "file-scope", file_scope, NULL);
-}
-
-static void
-sdb_query_cancel (IAnjutaSymbolQuery *query, GError **err)
-{
-	anjuta_command_cancel (ANJUTA_COMMAND (query));
 }
 
 /* Search queries */
@@ -1188,7 +1230,7 @@ ianjuta_symbol_query_iface_init (IAnjutaSymbolQueryIface *iface)
 	iface->set_file_scope = sdb_query_set_file_scope;
 	iface->set_limit = sdb_query_set_limit;
 	iface->set_offset = sdb_query_set_offset;
-	iface->cancel = sdb_query_cancel;
+	iface->cancel = sdb_query_async_cancel;
 	iface->search = sdb_query_search;
 	iface->search_all = sdb_query_search_all;
 	iface->search_file = sdb_query_search_file;

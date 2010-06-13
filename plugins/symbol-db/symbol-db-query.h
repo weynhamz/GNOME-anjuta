@@ -1,6 +1,6 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
- * anjuta
+ * symbol-db-query.h
  * Copyright (C) Naba Kumar 2010 <naba@gnome.org>
  * 
  * anjuta is free software: you can redistribute it and/or modify it
@@ -40,12 +40,12 @@ typedef struct _SymbolDBQueryPriv SymbolDBQueryPriv;
 
 struct _SymbolDBQueryClass
 {
-	AnjutaAsyncCommandClass parent_class;
+	GObject parent_class;
 };
 
 struct _SymbolDBQuery
 {
-	AnjutaAsyncCommand parent_instance;
+	GObject parent_instance;
 	SymbolDBQueryPriv *priv;
 };
 
