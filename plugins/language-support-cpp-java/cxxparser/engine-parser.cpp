@@ -119,7 +119,7 @@ EngineParser::parseExpression(const string &in)
 void 
 EngineParser::setSymbolManager (IAnjutaSymbolManager *manager)
 {
-	static IAnjutaSymbolField query_scope_chain_fields[] =
+	static IAnjutaSymbolField query_parent_scope_fields[] =
 	{
 		IANJUTA_SYMBOL_FIELD_ID, IANJUTA_SYMBOL_FIELD_NAME,
 		IANJUTA_SYMBOL_FIELD_KIND, IANJUTA_SYMBOL_FIELD_TYPE
@@ -147,12 +147,9 @@ EngineParser::setSymbolManager (IAnjutaSymbolManager *manager)
 	query_parent_scope = ianjuta_symbol_manager_create_query (manager,
 						IANJUTA_SYMBOL_QUERY_SEARCH_PARENT_SCOPE,
 						IANJUTA_SYMBOL_QUERY_DB_PROJECT, NULL);
-	query_scope_chain = ianjuta_symbol_manager_create_query (manager,
-						IANJUTA_SYMBOL_QUERY_SEARCH_SCOPE_CHAIN,
-						IANJUTA_SYMBOL_QUERY_DB_PROJECT, NULL);
-	ianjuta_symbol_query_set_fields (query_scope_chain,
-									 G_N_ELEMENTS (query_scope_chain_fields),
-									 query_scope_chain_fields, NULL);
+	ianjuta_symbol_query_set_fields (query_parent_scope,
+									 G_N_ELEMENTS (query_parent_scope_fields),
+									 query_parent_scope_fields, NULL);
 }
 
 void 
@@ -178,36 +175,40 @@ EngineParser::trim (string& str, string trimChars /* = "{};\r\n\t\v " */)
 /**
  * @return NULL on global 
  */
-IAnjutaIterable *
-EngineParser::getCurrentScopeChainByFileLine (const char* full_file_path, 
-    										  unsigned long linenum)
-{	
-	IAnjutaIterable *iter = 		
-		ianjuta_symbol_query_search_scope_chain (query_scope_chain, full_file_path, linenum, NULL);
+void
+EngineParser::getNearestClassInCurrentScopeChainByFileLine (const char* full_file_path, 
+                                                            unsigned long linenum,
+                                                            string &out_type_name)
+{
+	IAnjutaIterable *iter;
 
-	DEBUG_PRINT ("Checking for completion scope..");
-	/* it's a global one if it's NULL or if it has just only one element */
-	if (iter == NULL || ianjuta_iterable_get_length (iter, NULL) <= 1)
+	/* Find current scope of given file and line */
+	iter = ianjuta_symbol_query_search_scope (query_scope, full_file_path, linenum, NULL);
+	if (iter == NULL)
+		return;
+
+	/* FIXME: this method doesn't take into consideration 
+	 * classes with same name on multiple namespaces 
+	 */
+	if (iter != NULL)
 	{
-		DEBUG_PRINT ("...we've a global completion scope");
-		if (iter != NULL)
-		{
-			g_object_unref (iter);
-		}
-
-		iter = NULL;
-	}
-	else 
-	{		
 		do 
 		{
+			IAnjutaIterable *parent_iter;
 			IAnjutaSymbol *node = IANJUTA_SYMBOL (iter);
-			DEBUG_PRINT ("Got completion scope name: %s", 
-				ianjuta_symbol_get_string (node, IANJUTA_SYMBOL_FIELD_NAME, NULL));
-		} while (ianjuta_iterable_next (iter, NULL) == TRUE);
+			DEBUG_PRINT ("sym_name = %s", ianjuta_symbol_get_string (node, IANJUTA_SYMBOL_FIELD_NAME, NULL));
+			if (ianjuta_symbol_get_sym_type (node, NULL) == IANJUTA_SYMBOL_TYPE_CLASS)
+			{
+				out_type_name = ianjuta_symbol_get_string (node, IANJUTA_SYMBOL_FIELD_NAME, NULL);
+				break;
+			}
+			parent_iter = ianjuta_symbol_query_search_parent_scope (query_parent_scope, node, NULL);
+			g_object_unref (iter);
+			iter = parent_iter;
+		} while (iter);
+		if (iter)
+			g_object_unref (iter);
 	}
-	
-	return iter;
 }
 
 bool
@@ -269,33 +270,12 @@ EngineParser::getTypeNameAndScopeByToken (ExpressionResult &result,
 		 * calling are passed. Go on finding for the first symbol of type class that
 		 * is reachable through the scopes chain.
 		 */	
-		
-		IAnjutaIterable* scope_chain_iter = 
-			ianjuta_symbol_query_search_scope_chain (query_scope_chain, full_file_path.c_str (), linenum, NULL);
 
 		/* will we find a good class scope? */
 		out_type_scope = result.m_scope.empty() ? "" : result.m_scope.c_str();
 		out_type_name = ""; 
 
-		/* FIXME: this method doesn't take into consideration 
-		 * classes with same name on multiple namespaces 
-		 */
-		if (scope_chain_iter != NULL)
-		{
-			do 
-			{
-				IAnjutaSymbol *node = IANJUTA_SYMBOL (scope_chain_iter);
-				DEBUG_PRINT ("sym_name = %s", ianjuta_symbol_get_string (node, IANJUTA_SYMBOL_FIELD_NAME, NULL));
-				if (ianjuta_symbol_get_sym_type (node, NULL) == IANJUTA_SYMBOL_TYPE_CLASS)
-				{
-					out_type_name = ianjuta_symbol_get_string (node, IANJUTA_SYMBOL_FIELD_NAME, NULL);
-					break;
-				}				
-			} while (ianjuta_iterable_next (scope_chain_iter, NULL) == TRUE);
-
-			g_object_unref (scope_chain_iter);
-		}		
-		
+		getNearestClassInCurrentScopeChainByFileLine (full_file_path.c_str (), linenum, out_type_name);
 		if (out_type_name.empty ()) 
 		{
 			DEBUG_PRINT ("'this' has not a type name");

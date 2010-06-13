@@ -5358,8 +5358,7 @@ interface IAnjutaSymbolQuery
 		SEARCH_CLASS_PARENTS,
 		SEARCH_SCOPE,
 		SEARCH_PARENT_SCOPE,
-		SEARCH_PARENT_SCOPE_FILE,
-		SEARCH_SCOPE_CHAIN
+		SEARCH_PARENT_SCOPE_FILE
 	}
 
 	enum FileScope
@@ -5389,7 +5388,6 @@ interface IAnjutaSymbolQuery
 	IAnjutaIterable* search_scope (const gchar *file_path, gint line);
 	IAnjutaIterable* search_parent_scope (IAnjutaSymbol *symbol);
 	IAnjutaIterable* search_parent_scope_file (IAnjutaSymbol *symbol, const gchar *file_path);
-	IAnjutaIterable* search_scope_chain (const gchar *file, gint line);
 }
 
 /**

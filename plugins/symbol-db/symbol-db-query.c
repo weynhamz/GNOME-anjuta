@@ -1056,13 +1056,6 @@ sdb_query_search_parent_scope_file (IAnjutaSymbolQuery *query, IAnjutaSymbol *sy
 	return sdb_query_execute (SYMBOL_DB_QUERY (query));
 }
 
-static IAnjutaIterable*
-sdb_query_search_scope_chain (IAnjutaSymbolQuery *query, const gchar *file_path,
-                              gint file_line, GError **error)
-{
-	return NULL; /* FIXME */
-}
-
 static void
 ianjuta_symbol_query_iface_init (IAnjutaSymbolQueryIface *iface)
 {
@@ -1083,7 +1076,6 @@ ianjuta_symbol_query_iface_init (IAnjutaSymbolQueryIface *iface)
 	iface->search_scope = sdb_query_search_scope;
 	iface->search_parent_scope = sdb_query_search_parent_scope;
 	iface->search_parent_scope_file = sdb_query_search_parent_scope_file;
-	iface->search_scope_chain = sdb_query_search_scope_chain;
 }
 
 SymbolDBQuery *

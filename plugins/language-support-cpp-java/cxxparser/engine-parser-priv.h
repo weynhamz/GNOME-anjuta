@@ -45,8 +45,9 @@ public:
 	/* setter for the IAnjutaSymbolManager. */
 	void setSymbolManager (IAnjutaSymbolManager *manager);
 
-	IAnjutaIterable * getCurrentScopeChainByFileLine (const char* full_file_path,
-	    											  unsigned long linenum);
+	void getNearestClassInCurrentScopeChainByFileLine (const char* full_file_path,
+	                                                   unsigned long linenum,
+	                                                   string &out_type_name);
 
 	IAnjutaIterable * getCurrentSearchableScope (string &type_name, string &type_scope);
 	
@@ -125,7 +126,6 @@ private:
 	IAnjutaSymbolQuery *query_search;
 	IAnjutaSymbolQuery *query_search_in_scope;
 	IAnjutaSymbolQuery *query_parent_scope;
-	IAnjutaSymbolQuery *query_scope_chain;
 };
 
 
