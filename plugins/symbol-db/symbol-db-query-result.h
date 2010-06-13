@@ -1,6 +1,6 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
- * anjuta
+ * symbol-db-query-result.h
  * Copyright (C) Naba Kumar 2010 <naba@gnome.org>
  * 
  * anjuta is free software: you can redistribute it and/or modify it
