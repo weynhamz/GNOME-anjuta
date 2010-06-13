@@ -67,8 +67,8 @@ struct _SymbolDBQueryPriv {
 	GdaHolder *param_file_line, *param_id;
 
 	/* Aync results */
-	gint async_count;
-	gint cancel_count;
+	gint pending_async_count;
+	gint pending_cancel_count;
 	gboolean query_queued;
 	IAnjutaIterable *async_result;
 };
@@ -336,7 +336,7 @@ sdb_query_update (SymbolDBQuery *query)
 					SELECT symbol.scope_id \
 					FROM symbol \
 					WHERE symbol.symbol_id = ## /* name:'symbolid' type:gint */ \
-				) ";
+				)) ";
 			g_object_set (query, "limit", 1, NULL);
 			break;
 		case IANJUTA_SYMBOL_QUERY_SEARCH_PARENT_SCOPE_FILE:
@@ -346,7 +346,7 @@ sdb_query_update (SymbolDBQuery *query)
 					SELECT symbol.scope_id \
 					FROM symbol \
 					WHERE symbol.symbol_id = ## /* name:'symbolid' type:gint */ \
-				) AND file.file_path = ## /* name:'filepath' type:gchararray */ ";
+				) AND file.file_path = ## /* name:'filepath' type:gchararray */) ";
 			sdb_query_add_field (query, IANJUTA_SYMBOL_FIELD_FILE_PATH);
 			g_object_set (query, "limit", 1, NULL);
 			break;
@@ -417,12 +417,18 @@ sdb_query_execute_real (SymbolDBQuery *query)
 static void
 on_sdb_query_async_data_arrived (SymbolDBQuery *query, gpointer data)
 {
-	query->priv->async_count++;
-	if (query->priv->async_count > query->priv->cancel_count)
+	query->priv->pending_async_count--;
+	if (query->priv->pending_cancel_count <= 0)
 		g_signal_emit_by_name (query, "async-result",
 		                       query->priv->async_result);
-	g_object_unref (query->priv->async_result);
-	query->priv->async_result = NULL;
+	else
+		query->priv->pending_cancel_count--;
+	
+	if (query->priv->async_result)
+	{
+		g_object_unref (query->priv->async_result);
+		query->priv->async_result = NULL;
+	}
 }
 
 static guint
@@ -436,6 +442,7 @@ sdb_query_async_run (AnjutaCommand *command)
 	g_return_val_if_fail (query->priv->mode == IANJUTA_SYMBOL_QUERY_MODE_ASYNC, -1);
 	
 	query->priv->async_result = sdb_query_execute_real (query);
+	anjuta_command_notify_data_arrived (command);
 	return 0;
 }
 
@@ -447,7 +454,7 @@ sdb_query_async_cancel (AnjutaCommand *command)
 	query = SYMBOL_DB_QUERY (command);
 
 	g_return_if_fail (query->priv->mode != IANJUTA_SYMBOL_QUERY_MODE_SYNC);
-	query->priv->cancel_count++;
+	query->priv->pending_cancel_count = query->priv->pending_async_count;
 	query->priv->query_queued = FALSE;
 }
 
@@ -495,6 +502,7 @@ sdb_query_execute (SymbolDBQuery *query)
 		case IANJUTA_SYMBOL_QUERY_MODE_SYNC:
 			return sdb_query_execute_real (query);
 		case IANJUTA_SYMBOL_QUERY_MODE_ASYNC:
+			query->priv->pending_async_count++;
 			anjuta_command_start (ANJUTA_COMMAND (query));
 			return NULL;
 		case IANJUTA_SYMBOL_QUERY_MODE_QUEUED_SINGLE:
@@ -546,8 +554,8 @@ sdb_query_init (SymbolDBQuery *query)
 	g_slist_free (param_holders);
 
 	/* Prepare async signals */
-	priv->async_count = 0;
-	priv->cancel_count = 0;
+	priv->pending_async_count = 0;
+	priv->pending_cancel_count = 0;
 	priv->async_result = NULL;
 	priv->query_queued = FALSE;
 	g_signal_connect (query, "data-arrived",
@@ -632,7 +640,7 @@ sdb_query_set_property (GObject *object, guint prop_id, const GValue *value, GPa
 		priv->mode = g_value_get_enum (value);
 		break;
 	case PROP_FILTERS:
-		priv->filters = g_value_get_enum (value);
+		priv->filters = g_value_get_int (value);
 		sdb_query_update (query);
 		break;
 	case PROP_FILE_SCOPE:
@@ -697,7 +705,7 @@ sdb_query_get_property (GObject *object, guint prop_id, GValue *value, GParamSpe
 		g_value_set_enum (value, priv->mode);
 		break;
 	case PROP_FILTERS:
-		g_value_set_enum (value, priv->filters);
+		g_value_set_int (value, priv->filters);
 		break;
 	case PROP_FILE_SCOPE:
 		g_value_set_enum (value, priv->file_scope);
@@ -772,13 +780,14 @@ sdb_query_class_init (SymbolDBQueryClass *klass)
 	                                                    G_PARAM_WRITABLE));
 	g_object_class_install_property (object_class,
 	                                 PROP_FILTERS,
-	                                 g_param_spec_enum ("filters",
-	                                                    "Symbol type filters",
-	                                                    "The symbol type filters",
-	                                                    IANJUTA_TYPE_SYMBOL_TYPE,
-	                                                    IANJUTA_SYMBOL_TYPE_NONE,
-	                                                    G_PARAM_READABLE |
-	                                                    G_PARAM_WRITABLE));
+	                                 g_param_spec_int ("filters",
+	                                                   "Symbol type filters",
+	                                                   "The symbol type filters",
+	                                                   IANJUTA_SYMBOL_TYPE_NONE,
+	                                                   IANJUTA_SYMBOL_TYPE_MAX,
+	                                                   IANJUTA_SYMBOL_TYPE_NONE,
+	                                                   G_PARAM_READABLE |
+	                                                   G_PARAM_WRITABLE));
 	g_object_class_install_property (object_class,
 	                                 PROP_FILE_SCOPE,
 	                                 g_param_spec_enum ("file-scope",

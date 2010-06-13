@@ -85,9 +85,9 @@ sdb_query_result_validate_field (SymbolDBQueryResult *result,
 	{
 		g_set_error (err, SYMBOL_DB_QUERY_RESULT_ERROR,
 		             SYMBOL_DB_QUERY_RESULT_ERROR_FIELD_NOT_PRESENT,
-		             "Symbol field '%' is present in the query. Make sure to "
+		             "Symbol field '%d' is present in the query. Make sure to "
 		             "include the during query creation.", field);
-		g_warning ("Symbol field '%' is present in the query. Make sure to "
+		g_warning ("Symbol field '%d' is present in the query. Make sure to "
 		             "include the during query creation.", field);
 		return FALSE;
 	}
@@ -300,7 +300,6 @@ isymbol_get_int (IAnjutaSymbol *isymbol, IAnjutaSymbolField field,
 		gint type_val = 
 			(gint)g_hash_table_lookup ((GHashTable*)result->priv->sym_type_conversion_hash, 
 			                           type_str);
-		DEBUG_PRINT ("Type str = %s = %d", type_str, type_val);
 		return type_val;
 	}
 	return g_value_get_int (val);
@@ -322,7 +321,8 @@ isymbol_get_string (IAnjutaSymbol *isymbol, IAnjutaSymbolField field,
 	col = result->priv->col_map[field];
 	val = gda_data_model_iter_get_value_at (result->priv->iter, col);
 	if (!val) return NULL;
-	return (const gchar*) g_value_get_string (val);
+	if (!G_VALUE_HOLDS_STRING (val)) return NULL;
+	return g_value_get_string (val);
 }
 
 static IAnjutaSymbolType 
