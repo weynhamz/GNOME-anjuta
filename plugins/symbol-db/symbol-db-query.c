@@ -1,6 +1,6 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
- * anjuta
+ * symbol-db-query.c
  * Copyright (C) Naba Kumar 2010 <naba@gnome.org>
  * 
  * anjuta is free software: you can redistribute it and/or modify it
@@ -29,6 +29,7 @@
 #define SYMBOL_DB_QUERY_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), \
 	SYMBOL_DB_TYPE_QUERY, SymbolDBQueryPriv))
 
+/* Class properties */
 enum
 {
 	PROP_0,
@@ -73,6 +74,7 @@ struct _SymbolDBQueryPriv {
 	IAnjutaIterable *async_result;
 };
 
+/* Enumerated list of DB tables used in queries */
 typedef enum
 {
 	SDB_QUERY_TABLE_SYMBOL,
@@ -95,13 +97,16 @@ static gchar *table_joins[] =
 	"LEFT JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id"
 };
 
+/* Spec to associate a coloum to its table */
 typedef struct
 {
 	gchar *column;
 	SdbQueryTable table;
 } SdbQueryFieldSpec;
 
-/* This table must map to each IAnjutaSymbolField value */
+/* Association of all columns to its tables.
+ * This table must map to each IAnjutaSymbolField value
+ */
 SdbQueryFieldSpec field_specs[] = {
 	{"symbol.symbol_id ", SDB_QUERY_TABLE_SYMBOL},
 	{"symbol.name ", SDB_QUERY_TABLE_SYMBOL},
@@ -156,7 +161,14 @@ G_DEFINE_TYPE_WITH_CODE (SymbolDBQuery, sdb_query, ANJUTA_TYPE_ASYNC_COMMAND,
                          G_IMPLEMENT_INTERFACE (IANJUTA_TYPE_SYMBOL_QUERY,
                                                 ianjuta_symbol_query_iface_init));
 /**
- * This creates SQL header like "SELECT ... FROM symbol LEFT JOIN ... WHERE "
+ * sdb_query_build_sql_head:
+ * @query: The query object
+ * @sql: The string where sql statement will be constructed.
+ * 
+ * This creates SQL header like "SELECT ... FROM symbol LEFT JOIN ... WHERE ".
+ * It goes through the list of fields specified for the query and constructs
+ * the SELECT part. At the same time, also adds the necessary table joins
+ * needed for the columns.
  */
 static void
 sdb_query_build_sql_head (SymbolDBQuery *query, GString *sql)
@@ -175,16 +187,20 @@ sdb_query_build_sql_head (SymbolDBQuery *query, GString *sql)
 	g_return_if_fail (priv->fields != 0);
 
 	/* Ensure the lookup tables are in order */
-	g_assert (sizeof (table_joins)/sizeof (gchar*) == SDB_QUERY_TABLE_MAX);
-	g_assert (sizeof (field_specs)/sizeof (SdbQueryFieldSpec) == IANJUTA_SYMBOL_FIELD_END);
-	
+	g_assert (G_N_ELEMENTS (table_joins) == SDB_QUERY_TABLE_MAX);
+	g_assert (G_N_ELEMENTS (field_specs) == IANJUTA_SYMBOL_FIELD_END);
+
+	/* Initialize table joins state to FALSE */
 	for (i = 0; i < SDB_QUERY_TABLE_MAX; i++)
 		tables_joined[i] = FALSE;
+	
 	/* "symbol" table is in-built, so skip it */
 	tables_joined[SDB_QUERY_TABLE_SYMBOL] = TRUE;
 	
 	g_string_assign (sql, "SELECT ");
 	sql_joins = g_string_sized_new (512);
+
+	/* For each field, construct the coloumns list and the necessary joins */
 	field_ptr = priv->fields;
 	while (*field_ptr != IANJUTA_SYMBOL_FIELD_END)
 	{
@@ -209,6 +225,19 @@ sdb_query_build_sql_head (SymbolDBQuery *query, GString *sql)
 	g_string_free (sql_joins, TRUE);
 }
 
+/**
+ * sdb_query_build_sql_kind_filter:
+ * @query: The query.
+ * @sql: The string where filter SQL code is appended.
+ * 
+ * Constructs the necessary sql conditional to filter the resultset to
+ * only those set to filtered symbol types. It will add a subquery to
+ * achieve this filter.
+ *
+ * Returns: Returns TRUE if SQL conditional was appened in @sql, otherwise
+ * returns FALSE. This return value can be used to determin correct
+ * concatenation of SQL statement segments.
+ */
 static gboolean
 sdb_query_build_sql_kind_filter (SymbolDBQuery *query, GString *sql)
 {
@@ -222,6 +251,9 @@ sdb_query_build_sql_kind_filter (SymbolDBQuery *query, GString *sql)
 
 	priv = SYMBOL_DB_QUERY (query)->priv;
 
+	/* For each filter, identified by bit shifting filters mask, create
+	 * SQL subquery to select only those symbol types.
+	 */
 	filters = priv->filters;
 	if (filters)
 	{
@@ -245,10 +277,21 @@ sdb_query_build_sql_kind_filter (SymbolDBQuery *query, GString *sql)
 	return FALSE;
 }
 
+/**
+ * sdb_query_add_field:
+ * @query: The query.
+ * @field: The field to add.
+ * 
+ * Adds @field to current list of fields if it does not already is there.
+ * It is used to add additional required fields for some queries which the
+ * user may not have set himself.
+ */
 static void
 sdb_query_add_field (SymbolDBQuery *query, IAnjutaSymbolField field)
 {
 	gint idx = 0;
+
+	/* Iterate until the given field is found in the list, otherwise add it */
 	while (query->priv->fields[idx] != IANJUTA_SYMBOL_FIELD_END)
 	{
 		if (query->priv->fields[idx]  == field)
@@ -259,6 +302,15 @@ sdb_query_add_field (SymbolDBQuery *query, IAnjutaSymbolField field)
 	query->priv->fields[idx + 1] = IANJUTA_SYMBOL_FIELD_END;
 }
 
+/**
+ * sdb_query_update:
+ * @query: The query
+ * 
+ * Updates the SQL query based on latest set paramenters. Usually called
+ * after some parameter influencing the SQL contruct is changed. It will
+ * also attempt of compile the resulting SQL statement if possible, otherwise
+ * defer it for later when for database connection is established.
+ */
 static void
 sdb_query_update (SymbolDBQuery *query)
 {
@@ -291,7 +343,8 @@ sdb_query_update (SymbolDBQuery *query)
 			sdb_query_add_field (query, IANJUTA_SYMBOL_FIELD_FILE_PATH);
 			break;
 		case IANJUTA_SYMBOL_QUERY_SEARCH_IN_SCOPE:
-			condition = " (symbol.name LIKE ## /* name:'pattern' type:gchararray */ \
+			condition = " \
+				(symbol.name LIKE ## /* name:'pattern' type:gchararray */ \
 				AND symbol.scope_id = \
 					(\
 						SELECT scope_definition_id \
@@ -379,6 +432,10 @@ sdb_query_update (SymbolDBQuery *query)
 	g_free (priv->sql_stmt);
 	priv->sql_stmt = sql->str;
 	if (priv->stmt) g_object_unref (priv->stmt);
+
+	/* If database is not connected, defer the statement compilation for later,
+	 * otherwise compile it now.
+	 */
 	if (symbol_db_engine_is_connected (priv->dbe_selected))
 		priv->stmt = symbol_db_engine_get_statement (priv->dbe_selected, sql->str);
 	else
@@ -386,6 +443,17 @@ sdb_query_update (SymbolDBQuery *query)
 	g_string_free (sql, FALSE);
 }
 
+/**
+ * sdb_query_execute_real:
+ * @query: The query
+ *
+ * Executes the query for real. If for some reason, the SQL statement wasn't
+ * compiled before, it will be compiled now. Subsequent invocation would not
+ * require recompilation, unless some parameters involved in SQL contruct has
+ * been changed.
+ * 
+ * Returns: Result set iterator.
+ */
 static IAnjutaIterable*
 sdb_query_execute_real (SymbolDBQuery *query)
 {
@@ -406,6 +474,8 @@ sdb_query_execute_real (SymbolDBQuery *query)
 	                                   priv->fields,
 	                                   symbol_db_engine_get_type_conversion_hash (priv->dbe_selected),
 	                                   symbol_db_engine_get_project_directory (priv->dbe_selected));
+
+	/* Empty resultset is useless for us. Return NULL instead */
 	if (symbol_db_query_result_is_empty (iter))
 	{
 		g_object_unref (iter);
@@ -414,6 +484,12 @@ sdb_query_execute_real (SymbolDBQuery *query)
 	return IANJUTA_ITERABLE (iter);
 }
 
+/*
+ * The callback from async command. Reduces the currently pending async
+ * command invocation counts. If there are no more pending canceled commands
+ * anymore, then emits the "async-result" signal (because its not covered by
+ * the cancelatoin), otherwise, it reduces cancelable commands count.
+ */
 static void
 on_sdb_query_async_data_arrived (SymbolDBQuery *query, gpointer data)
 {
@@ -431,6 +507,13 @@ on_sdb_query_async_data_arrived (SymbolDBQuery *query, gpointer data)
 	}
 }
 
+/**
+ * sdb_query_async_run:
+ * @command: The command.
+ * 
+ * Implementation of anjuta_command_run(). Runs the async command, presumably
+ * from a different thread, and emits the data-arrived signal on command object.
+ */
 static guint
 sdb_query_async_run (AnjutaCommand *command)
 {
@@ -446,6 +529,16 @@ sdb_query_async_run (AnjutaCommand *command)
 	return 0;
 }
 
+/**
+ * sdb_query_cancel:
+ * @command: The async command.
+ * 
+ * Implementation of anjuta_command_cancel().
+ * Cancels any currently executing async commands. Puts the currently pending
+ * async invocation count into pending cancel count, which will be eventually
+ * counted down to 0 without emitting "async-result" signal. Also, clears
+ * any pending query queue (for queued mode).
+ */
 static void
 sdb_query_async_cancel (AnjutaCommand *command)
 {
@@ -458,6 +551,7 @@ sdb_query_async_cancel (AnjutaCommand *command)
 	query->priv->query_queued = FALSE;
 }
 
+/* When the DB is connected, any pending SQL statement will be compiled */
 static void
 on_sdb_query_dbe_connected (SymbolDBEngine *dbe, SymbolDBQuery *query)
 {
@@ -477,6 +571,7 @@ on_sdb_query_dbe_disconnected (SymbolDBEngine *dbe, SymbolDBQuery *query)
 {
 }
 
+/* The callback for DB scan-end. Any queued query will be executed here */
 static void
 on_sdb_query_dbe_scan_end (SymbolDBEngine *dbe, gint something,
                            SymbolDBQuery *query)
@@ -494,6 +589,21 @@ on_sdb_query_dbe_scan_end (SymbolDBEngine *dbe, gint something,
 	}
 }
 
+/**
+ * sdb_query_execute:
+ * @query: The query
+ *
+ * Executes the query. If the query is in sync mode, the query is executed
+ * immediately. If the query is in async mode, an async command is started
+ * and pending async count increased. If the query is in queued mode, the
+ * query is executed immediately if the DB is not busy scanning, otherwise,
+ * it is defered until the DB is done scanning (at which point "async-result"
+ * will be emitted).
+ *
+ * Returns: The resultset iterator for sync or sucessful queued queries,
+ * otherwise returns NULL for async or unsuccessful queued queires (their
+ * results will be delivered via "async-result" signal).
+ */
 static IAnjutaIterable*
 sdb_query_execute (SymbolDBQuery *query)
 {
@@ -850,6 +960,8 @@ sdb_query_class_init (SymbolDBQueryClass *klass)
 	                                                      G_PARAM_READABLE));
 }
 
+/* IAnjutaSymbolQuery implementation */
+
 static void
 sdb_query_set_fields (IAnjutaSymbolQuery *query, gint n_fields,
                       IAnjutaSymbolField *fields, GError **err)
@@ -860,6 +972,8 @@ sdb_query_set_fields (IAnjutaSymbolQuery *query, gint n_fields,
 	g_return_if_fail (SYMBOL_DB_IS_QUERY (query));
 
 	priv = SYMBOL_DB_QUERY (query)->priv;
+
+	/* Transfer the given list of column fields to internal array */
 	for (i = 0; i < n_fields; i++)
 		priv->fields[i] = fields[i];
 	priv->fields[i] = IANJUTA_SYMBOL_FIELD_END;
@@ -980,7 +1094,7 @@ sdb_query_search_in_scope (IAnjutaSymbolQuery *query, const gchar *search_string
                            IAnjutaSymbol *scope, GError **error)
 {
 	SDB_QUERY_SEARCH_HEADER;
-	g_return_val_if_fail (priv->name == IANJUTA_SYMBOL_QUERY_SEARCH, NULL);
+	g_return_val_if_fail (priv->name == IANJUTA_SYMBOL_QUERY_SEARCH_IN_SCOPE, NULL);
 	SDB_PARAM_SET_STATIC_STRING (priv->param_pattern, search_string);
 	SDB_PARAM_SET_INT (priv->param_id, ianjuta_symbol_get_int (scope, IANJUTA_SYMBOL_FIELD_ID, NULL));
 	return sdb_query_execute (SYMBOL_DB_QUERY (query));

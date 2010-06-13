@@ -63,6 +63,18 @@ symbol_db_query_result_error_quark (void)
 	return g_quark_from_static_string ("symbol-db-query-return-error-quark");
 }
 
+/**
+ * sdb_query_result_validate_field:
+ * @result: The resultset.
+ * @field: The requested field to validate.
+ * @err: The err to set (or NULL).
+ *
+ * Validates the query if the requested column is part of the resultset or
+ * within the valid range of columns. If not a warning is printed and the
+ * return error is set accordingly.
+ *
+ * Returns: TRUE if @field is valide, otherwise err is set if not NULL.
+ */
 static gboolean
 sdb_query_result_validate_field (SymbolDBQueryResult *result,
                                  IAnjutaSymbolField field,
