@@ -129,6 +129,12 @@ EngineParser::setSymbolManager (IAnjutaSymbolManager *manager)
 		IANJUTA_SYMBOL_FIELD_ID, IANJUTA_SYMBOL_FIELD_NAME,
 		IANJUTA_SYMBOL_FIELD_KIND
 	};
+	static IAnjutaSymbolField query_search_in_scope_fields[] =
+	{
+		IANJUTA_SYMBOL_FIELD_ID, IANJUTA_SYMBOL_FIELD_NAME,
+		IANJUTA_SYMBOL_FIELD_KIND, IANJUTA_SYMBOL_FIELD_RETURNTYPE,
+		IANJUTA_SYMBOL_FIELD_SIGNATURE
+	};
 	query_search = ianjuta_symbol_manager_create_query (manager,
 						IANJUTA_SYMBOL_QUERY_SEARCH,
 						IANJUTA_SYMBOL_QUERY_DB_PROJECT, NULL);
@@ -144,6 +150,9 @@ EngineParser::setSymbolManager (IAnjutaSymbolManager *manager)
 	query_search_in_scope = ianjuta_symbol_manager_create_query (manager,
 						IANJUTA_SYMBOL_QUERY_SEARCH_IN_SCOPE,
 						IANJUTA_SYMBOL_QUERY_DB_PROJECT, NULL);
+	ianjuta_symbol_query_set_fields (query_search_in_scope,
+	                                 G_N_ELEMENTS (query_search_in_scope_fields),
+	                                 query_search_in_scope_fields, NULL);
 	query_parent_scope = ianjuta_symbol_manager_create_query (manager,
 						IANJUTA_SYMBOL_QUERY_SEARCH_PARENT_SCOPE,
 						IANJUTA_SYMBOL_QUERY_DB_PROJECT, NULL);
