@@ -122,10 +122,10 @@ private:
 	CppTokenizer *_main_tokenizer;
 	CppTokenizer *_extra_tokenizer;
 	
-	IAnjutaSymbolQuery *query_scope;
-	IAnjutaSymbolQuery *query_search;
-	IAnjutaSymbolQuery *query_search_in_scope;
-	IAnjutaSymbolQuery *query_parent_scope;
+	IAnjutaSymbolQuery *_query_scope;
+	IAnjutaSymbolQuery *_query_search;
+	IAnjutaSymbolQuery *_query_search_in_scope;
+	IAnjutaSymbolQuery *_query_parent_scope;
 };
 
 

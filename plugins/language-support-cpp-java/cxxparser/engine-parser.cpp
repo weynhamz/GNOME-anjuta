@@ -135,30 +135,35 @@ EngineParser::setSymbolManager (IAnjutaSymbolManager *manager)
 		IANJUTA_SYMBOL_FIELD_KIND, IANJUTA_SYMBOL_FIELD_RETURNTYPE,
 		IANJUTA_SYMBOL_FIELD_SIGNATURE
 	};
-	query_search = ianjuta_symbol_manager_create_query (manager,
-						IANJUTA_SYMBOL_QUERY_SEARCH,
-						IANJUTA_SYMBOL_QUERY_DB_PROJECT, NULL);
-	ianjuta_symbol_query_set_filters (query_search,
-		(IAnjutaSymbolType) (IANJUTA_SYMBOL_TYPE_SCOPE_CONTAINER |
-		 IANJUTA_SYMBOL_TYPE_TYPEDEF), TRUE, NULL);
-	ianjuta_symbol_query_set_fields (query_search,
-									 G_N_ELEMENTS (query_search_fields),
-									 query_search_fields, NULL);
-	query_scope = ianjuta_symbol_manager_create_query (manager,
-						IANJUTA_SYMBOL_QUERY_SEARCH_SCOPE,
-						IANJUTA_SYMBOL_QUERY_DB_PROJECT, NULL);
-	query_search_in_scope = ianjuta_symbol_manager_create_query (manager,
-						IANJUTA_SYMBOL_QUERY_SEARCH_IN_SCOPE,
-						IANJUTA_SYMBOL_QUERY_DB_PROJECT, NULL);
-	ianjuta_symbol_query_set_fields (query_search_in_scope,
+	_query_search =
+		ianjuta_symbol_manager_create_query (manager,
+		                                     IANJUTA_SYMBOL_QUERY_SEARCH,
+		                                     IANJUTA_SYMBOL_QUERY_DB_PROJECT, NULL);
+	ianjuta_symbol_query_set_filters (_query_search,
+	                                  (IAnjutaSymbolType)
+	                                  (IANJUTA_SYMBOL_TYPE_SCOPE_CONTAINER |
+	                                   IANJUTA_SYMBOL_TYPE_TYPEDEF), TRUE, NULL);
+	ianjuta_symbol_query_set_fields (_query_search,
+	                                 G_N_ELEMENTS (query_search_fields),
+	                                 query_search_fields, NULL);
+	_query_scope =
+		ianjuta_symbol_manager_create_query (manager,
+		                                     IANJUTA_SYMBOL_QUERY_SEARCH_SCOPE,
+		                                     IANJUTA_SYMBOL_QUERY_DB_PROJECT, NULL);
+	_query_search_in_scope =
+		ianjuta_symbol_manager_create_query (manager,
+		                                     IANJUTA_SYMBOL_QUERY_SEARCH_IN_SCOPE,
+		                                     IANJUTA_SYMBOL_QUERY_DB_PROJECT, NULL);
+	ianjuta_symbol_query_set_fields (_query_search_in_scope,
 	                                 G_N_ELEMENTS (query_search_in_scope_fields),
 	                                 query_search_in_scope_fields, NULL);
-	query_parent_scope = ianjuta_symbol_manager_create_query (manager,
-						IANJUTA_SYMBOL_QUERY_SEARCH_PARENT_SCOPE,
-						IANJUTA_SYMBOL_QUERY_DB_PROJECT, NULL);
-	ianjuta_symbol_query_set_fields (query_parent_scope,
-									 G_N_ELEMENTS (query_parent_scope_fields),
-									 query_parent_scope_fields, NULL);
+	_query_parent_scope =
+		ianjuta_symbol_manager_create_query (manager,
+		                                     IANJUTA_SYMBOL_QUERY_SEARCH_PARENT_SCOPE,
+		                                     IANJUTA_SYMBOL_QUERY_DB_PROJECT, NULL);
+	ianjuta_symbol_query_set_fields (_query_parent_scope,
+	                                 G_N_ELEMENTS (query_parent_scope_fields),
+	                                 query_parent_scope_fields, NULL);
 }
 
 void 
@@ -192,7 +197,8 @@ EngineParser::getNearestClassInCurrentScopeChainByFileLine (const char* full_fil
 	IAnjutaIterable *iter;
 
 	/* Find current scope of given file and line */
-	iter = ianjuta_symbol_query_search_scope (query_scope, full_file_path, linenum, NULL);
+	iter = ianjuta_symbol_query_search_scope (_query_scope, full_file_path,
+	                                          linenum, NULL);
 	if (iter == NULL)
 		return;
 
@@ -211,7 +217,9 @@ EngineParser::getNearestClassInCurrentScopeChainByFileLine (const char* full_fil
 				out_type_name = ianjuta_symbol_get_string (node, IANJUTA_SYMBOL_FIELD_NAME, NULL);
 				break;
 			}
-			parent_iter = ianjuta_symbol_query_search_parent_scope (query_parent_scope, node, NULL);
+			parent_iter =
+				ianjuta_symbol_query_search_parent_scope (_query_parent_scope,
+				                                          node, NULL);
 			g_object_unref (iter);
 			iter = parent_iter;
 		} while (iter);
@@ -333,7 +341,9 @@ EngineParser::getTypeNameAndScopeByToken (ExpressionResult &result,
 		}
 
 		IAnjutaIterable* curr_scope_iter = 
-			ianjuta_symbol_query_search_scope (query_scope, full_file_path.c_str (), linenum, NULL);
+			ianjuta_symbol_query_search_scope (_query_scope,
+			                                   full_file_path.c_str (),
+			                                   linenum, NULL);
 
 		if (curr_scope_iter != NULL)
 		{
@@ -387,7 +397,7 @@ EngineParser::getCurrentSearchableScope (string &type_name, string &type_scope)
 {
 	// FIXME: case of more results now it's hardcoded to 1
 	IAnjutaIterable *curr_searchable_scope =
-		ianjuta_symbol_query_search (query_search, type_name.c_str(), NULL);
+		ianjuta_symbol_query_search (_query_search, type_name.c_str(), NULL);
 	
 	if (curr_searchable_scope != NULL)
 	{
@@ -438,8 +448,10 @@ EngineParser::switchTypedefToStruct (IAnjutaIterable * test,
 	IAnjutaSymbol *node = IANJUTA_SYMBOL (test);	
 	IAnjutaIterable *new_struct;
 
-	DEBUG_PRINT ("Switching TYPEDEF (%d) ==> to STRUCT", ianjuta_symbol_get_int (node, IANJUTA_SYMBOL_FIELD_ID, NULL));
-	new_struct = ianjuta_symbol_query_search_parent_scope (query_parent_scope, node, NULL);
+	DEBUG_PRINT ("Switching TYPEDEF (%d) ==> to STRUCT",
+	             ianjuta_symbol_get_int (node, IANJUTA_SYMBOL_FIELD_ID, NULL));
+	new_struct = ianjuta_symbol_query_search_parent_scope (_query_parent_scope,
+	                                                       node, NULL);
 	                                         
 	if (new_struct != NULL)
 	{
@@ -461,14 +473,14 @@ EngineParser::switchMemberToContainer (IAnjutaIterable * test)
 {
 	IAnjutaSymbol *node = IANJUTA_SYMBOL (test);	
 	IAnjutaIterable *new_container;
-	const gchar* sym_type_name = ianjuta_symbol_get_string (node, 
-	                                   IANJUTA_SYMBOL_FIELD_TYPE_NAME, NULL);
+	const gchar* sym_type_name =
+		ianjuta_symbol_get_string (node, IANJUTA_SYMBOL_FIELD_TYPE_NAME, NULL);
 
 	DEBUG_PRINT ("Switching container with type_name %s", sym_type_name);
 
 	/* hopefully we'll find a new container for the type_name of test param */
-	new_container = ianjuta_symbol_query_search (query_search,
-		            sym_type_name, NULL);
+	new_container = ianjuta_symbol_query_search (_query_search,
+	                                             sym_type_name, NULL);
 	if (new_container != NULL)
 	{
 		g_object_unref (test);
@@ -577,8 +589,9 @@ EngineParser::processExpression(const string& stmt,
 
 		node = IANJUTA_SYMBOL (curr_searchable_scope);
 		
-		iter = ianjuta_symbol_query_search_in_scope (query_search_in_scope,
-		                result.m_name.c_str (), node, NULL);
+		iter = ianjuta_symbol_query_search_in_scope (_query_search_in_scope,
+		                                             result.m_name.c_str (),
+		                                             node, NULL);
 		
 		if (iter == NULL)
 		{

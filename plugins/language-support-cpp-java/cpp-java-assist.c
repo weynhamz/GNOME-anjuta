@@ -1340,121 +1340,121 @@ cpp_java_assist_new (IAnjutaEditor *ieditor,
 	/* Calltip in file */
 	assist->priv->calltip_query_file =
 		ianjuta_symbol_manager_create_query (isymbol_manager,
-											 IANJUTA_SYMBOL_QUERY_SEARCH_FILE,
-											 IANJUTA_SYMBOL_QUERY_DB_PROJECT,
-											 NULL);
+		                                     IANJUTA_SYMBOL_QUERY_SEARCH_FILE,
+		                                     IANJUTA_SYMBOL_QUERY_DB_PROJECT,
+		                                     NULL);
 	ianjuta_symbol_query_set_fields (assist->priv->calltip_query_file,
-									 G_N_ELEMENTS (calltip_fields),
-									 calltip_fields, NULL);
+	                                 G_N_ELEMENTS (calltip_fields),
+	                                 calltip_fields, NULL);
 	ianjuta_symbol_query_set_filters (assist->priv->calltip_query_file,
-									  IANJUTA_SYMBOL_TYPE_PROTOTYPE |
-									  IANJUTA_SYMBOL_TYPE_FUNCTION |
-									  IANJUTA_SYMBOL_TYPE_METHOD |
-									  IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG,
-									  TRUE, NULL);
+	                                  IANJUTA_SYMBOL_TYPE_PROTOTYPE |
+	                                  IANJUTA_SYMBOL_TYPE_FUNCTION |
+	                                  IANJUTA_SYMBOL_TYPE_METHOD |
+	                                  IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG,
+	                                  TRUE, NULL);
 	ianjuta_symbol_query_set_file_scope (assist->priv->calltip_query_file,
-										 IANJUTA_SYMBOL_QUERY_SEARCH_FS_PRIVATE, NULL);
+	                                     IANJUTA_SYMBOL_QUERY_SEARCH_FS_PRIVATE, NULL);
 	ianjuta_symbol_query_set_mode (assist->priv->calltip_query_file,
-								   IANJUTA_SYMBOL_QUERY_MODE_ASYNC, NULL);
+	                               IANJUTA_SYMBOL_QUERY_MODE_ASYNC, NULL);
 	g_signal_connect (assist->priv->calltip_query_file, "async-result",
-					  G_CALLBACK (on_calltip_search_complete), assist);
+	                  G_CALLBACK (on_calltip_search_complete), assist);
 	/* Calltip in project */
 	assist->priv->calltip_query_project =
 		ianjuta_symbol_manager_create_query (isymbol_manager,
-											 IANJUTA_SYMBOL_QUERY_SEARCH,
-											 IANJUTA_SYMBOL_QUERY_DB_PROJECT,
-											 NULL);
+		                                     IANJUTA_SYMBOL_QUERY_SEARCH,
+		                                     IANJUTA_SYMBOL_QUERY_DB_PROJECT,
+		                                     NULL);
 	ianjuta_symbol_query_set_fields (assist->priv->calltip_query_project,
-									 G_N_ELEMENTS (calltip_fields),
-									 calltip_fields, NULL);
+	                                 G_N_ELEMENTS (calltip_fields),
+	                                 calltip_fields, NULL);
 	ianjuta_symbol_query_set_filters (assist->priv->calltip_query_project,
-									  IANJUTA_SYMBOL_TYPE_PROTOTYPE |
-									  IANJUTA_SYMBOL_TYPE_METHOD |
-									  IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG,
-									  TRUE, NULL);
+	                                  IANJUTA_SYMBOL_TYPE_PROTOTYPE |
+	                                  IANJUTA_SYMBOL_TYPE_METHOD |
+	                                  IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG,
+	                                  TRUE, NULL);
 	ianjuta_symbol_query_set_file_scope (assist->priv->calltip_query_project,
-										 IANJUTA_SYMBOL_QUERY_SEARCH_FS_PUBLIC, NULL);
+	                                     IANJUTA_SYMBOL_QUERY_SEARCH_FS_PUBLIC, NULL);
 	ianjuta_symbol_query_set_mode (assist->priv->calltip_query_project,
-								   IANJUTA_SYMBOL_QUERY_MODE_ASYNC, NULL);
+	                               IANJUTA_SYMBOL_QUERY_MODE_ASYNC, NULL);
 	g_signal_connect (assist->priv->calltip_query_project, "async-result",
-					  G_CALLBACK (on_calltip_search_complete), assist);
+	                  G_CALLBACK (on_calltip_search_complete), assist);
 	/* Calltip in system */
 	assist->priv->calltip_query_system =
 		ianjuta_symbol_manager_create_query (isymbol_manager,
-											 IANJUTA_SYMBOL_QUERY_SEARCH,
-											 IANJUTA_SYMBOL_QUERY_DB_SYSTEM,
-											 NULL);
+		                                     IANJUTA_SYMBOL_QUERY_SEARCH,
+		                                     IANJUTA_SYMBOL_QUERY_DB_SYSTEM,
+		                                     NULL);
 	ianjuta_symbol_query_set_fields (assist->priv->calltip_query_system,
-									 G_N_ELEMENTS (calltip_fields),
-									 calltip_fields, NULL);
+	                                 G_N_ELEMENTS (calltip_fields),
+	                                 calltip_fields, NULL);
 	ianjuta_symbol_query_set_filters (assist->priv->calltip_query_system,
-									  IANJUTA_SYMBOL_TYPE_PROTOTYPE |
-									  IANJUTA_SYMBOL_TYPE_METHOD |
-									  IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG,
-									  TRUE, NULL);
+	                                  IANJUTA_SYMBOL_TYPE_PROTOTYPE |
+	                                  IANJUTA_SYMBOL_TYPE_METHOD |
+	                                  IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG,
+	                                  TRUE, NULL);
 	ianjuta_symbol_query_set_file_scope (assist->priv->calltip_query_system,
-										 IANJUTA_SYMBOL_QUERY_SEARCH_FS_PUBLIC, NULL);
+	                                     IANJUTA_SYMBOL_QUERY_SEARCH_FS_PUBLIC, NULL);
 	ianjuta_symbol_query_set_mode (assist->priv->calltip_query_system,
-								   IANJUTA_SYMBOL_QUERY_MODE_ASYNC, NULL);
+	                               IANJUTA_SYMBOL_QUERY_MODE_ASYNC, NULL);
 	g_signal_connect (assist->priv->calltip_query_system, "async-result",
-					  G_CALLBACK (on_calltip_search_complete), assist);
-	
+	                  G_CALLBACK (on_calltip_search_complete), assist);
+
 	/* Create autocomplete queries */
 	/* AC in file */
 	assist->priv->ac_query_file =
 		ianjuta_symbol_manager_create_query (isymbol_manager,
-											 IANJUTA_SYMBOL_QUERY_SEARCH_FILE,
-											 IANJUTA_SYMBOL_QUERY_DB_PROJECT,
-											 NULL);
+		                                     IANJUTA_SYMBOL_QUERY_SEARCH_FILE,
+		                                     IANJUTA_SYMBOL_QUERY_DB_PROJECT,
+		                                     NULL);
 	ianjuta_symbol_query_set_fields (assist->priv->ac_query_file,
-									 G_N_ELEMENTS (ac_fields),
-									 ac_fields, NULL);
+	                                 G_N_ELEMENTS (ac_fields),
+	                                 ac_fields, NULL);
 	ianjuta_symbol_query_set_file_scope (assist->priv->ac_query_file,
-										 IANJUTA_SYMBOL_QUERY_SEARCH_FS_PRIVATE, NULL);
+	                                     IANJUTA_SYMBOL_QUERY_SEARCH_FS_PRIVATE, NULL);
 	ianjuta_symbol_query_set_mode (assist->priv->ac_query_file,
-								   IANJUTA_SYMBOL_QUERY_MODE_ASYNC, NULL);
+	                               IANJUTA_SYMBOL_QUERY_MODE_ASYNC, NULL);
 	g_signal_connect (assist->priv->ac_query_file, "async-result",
-					  G_CALLBACK (on_symbol_search_complete), assist);
+	                  G_CALLBACK (on_symbol_search_complete), assist);
 	/* AC in project */
 	assist->priv->ac_query_project =
 		ianjuta_symbol_manager_create_query (isymbol_manager,
-											 IANJUTA_SYMBOL_QUERY_SEARCH,
-											 IANJUTA_SYMBOL_QUERY_DB_PROJECT,
-											 NULL);
+		                                     IANJUTA_SYMBOL_QUERY_SEARCH,
+		                                     IANJUTA_SYMBOL_QUERY_DB_PROJECT,
+		                                     NULL);
 	ianjuta_symbol_query_set_fields (assist->priv->ac_query_project,
-									 G_N_ELEMENTS (ac_fields),
-									 ac_fields, NULL);
+	                                 G_N_ELEMENTS (ac_fields),
+	                                 ac_fields, NULL);
 	ianjuta_symbol_query_set_file_scope (assist->priv->ac_query_project,
-										 IANJUTA_SYMBOL_QUERY_SEARCH_FS_PUBLIC, NULL);
+	                                     IANJUTA_SYMBOL_QUERY_SEARCH_FS_PUBLIC, NULL);
 	ianjuta_symbol_query_set_mode (assist->priv->ac_query_project,
-								   IANJUTA_SYMBOL_QUERY_MODE_ASYNC, NULL);
+	                               IANJUTA_SYMBOL_QUERY_MODE_ASYNC, NULL);
 	g_signal_connect (assist->priv->ac_query_project, "async-result",
-					  G_CALLBACK (on_symbol_search_complete), assist);
+	                  G_CALLBACK (on_symbol_search_complete), assist);
 	/* AC in system */
 	assist->priv->ac_query_system =
 		ianjuta_symbol_manager_create_query (isymbol_manager,
-											 IANJUTA_SYMBOL_QUERY_SEARCH,
-											 IANJUTA_SYMBOL_QUERY_DB_SYSTEM,
-											 NULL);
+		                                     IANJUTA_SYMBOL_QUERY_SEARCH,
+		                                     IANJUTA_SYMBOL_QUERY_DB_SYSTEM,
+		                                     NULL);
 	ianjuta_symbol_query_set_fields (assist->priv->ac_query_system,
-									 G_N_ELEMENTS (ac_fields),
-									 ac_fields, NULL);
+	                                 G_N_ELEMENTS (ac_fields),
+	                                 ac_fields, NULL);
 	ianjuta_symbol_query_set_file_scope (assist->priv->ac_query_system,
-										 IANJUTA_SYMBOL_QUERY_SEARCH_FS_PUBLIC, NULL);
+	                                     IANJUTA_SYMBOL_QUERY_SEARCH_FS_PUBLIC, NULL);
 	ianjuta_symbol_query_set_mode (assist->priv->ac_query_system,
-								   IANJUTA_SYMBOL_QUERY_MODE_ASYNC, NULL);
+	                               IANJUTA_SYMBOL_QUERY_MODE_ASYNC, NULL);
 	g_signal_connect (assist->priv->ac_query_system, "async-result",
-					  G_CALLBACK (on_symbol_search_complete), assist);
-	
+	                  G_CALLBACK (on_symbol_search_complete), assist);
+
 	/* Members autocompletion */
 	assist->priv->query_members =
 		ianjuta_symbol_manager_create_query (isymbol_manager,
-											 IANJUTA_SYMBOL_QUERY_SEARCH_MEMBERS,
-											 IANJUTA_SYMBOL_QUERY_DB_PROJECT,
-											 NULL);
+		                                     IANJUTA_SYMBOL_QUERY_SEARCH_MEMBERS,
+		                                     IANJUTA_SYMBOL_QUERY_DB_PROJECT,
+		                                     NULL);
 	ianjuta_symbol_query_set_fields (assist->priv->query_members,
-									 G_N_ELEMENTS (ac_fields),
-									 ac_fields, NULL);
+	                                 G_N_ELEMENTS (ac_fields),
+	                                 ac_fields, NULL);
 	/* Install support */
 	cpp_java_assist_install (assist, ieditor);
 
