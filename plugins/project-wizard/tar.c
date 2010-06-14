@@ -94,7 +94,8 @@ on_tar_listed (GPid pid,
 			}
 		}
 		while (status == G_IO_STATUS_AGAIN);
-		g_io_channel_close (output);
+		g_io_channel_shutdown (output, TRUE, NULL);
+		g_io_channel_unref (output);
 		g_string_free (line, TRUE);
 		
 		list = g_list_reverse (list);
@@ -129,7 +130,8 @@ on_tar_completed (GPid pid,
 			{
 				error = g_error_new_literal (IANJUTA_WIZARD_ERROR, 0, message);
 			}
-			g_io_channel_close (stderr);
+			g_io_channel_shutdown (stderr, TRUE, NULL);
+			g_io_channel_unref (stderr);
 		}
 			
 		((NPWTarCompleteFunc)pack->callback) (pack->destination, pack->tarfile, pack->data, error);
