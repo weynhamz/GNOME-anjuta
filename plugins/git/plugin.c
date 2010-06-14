@@ -118,13 +118,18 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	g_object_set (G_OBJECT (git_plugin->remote_branch_list_command),
 	              "working-directory", git_plugin->project_root_directory, 
 	              NULL);
+	g_object_set (G_OBJECT (git_plugin->commit_status_command),
+	              "working-directory", git_plugin->project_root_directory,
+	              NULL);
+	g_object_set (G_OBJECT (git_plugin->not_updated_status_command),
+	              "working-directory", git_plugin->project_root_directory,
+	              NULL);
 
 	anjuta_command_start_automatic_monitor (ANJUTA_COMMAND (git_plugin->local_branch_list_command));
+	anjuta_command_start_automatic_monitor (ANJUTA_COMMAND (git_plugin->commit_status_command));
 	anjuta_command_start (ANJUTA_COMMAND (git_plugin->local_branch_list_command));
-
-	anjuta_dock_pane_refresh (git_plugin->status_pane);
+	anjuta_command_start (ANJUTA_COMMAND (git_plugin->commit_status_command));
 	
-
 	gtk_widget_set_sensitive (git_plugin->dock, TRUE);
 	gtk_widget_set_sensitive (git_plugin->command_bar, TRUE);
 }
@@ -140,7 +145,7 @@ on_project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	status = anjuta_shell_get_status (plugin->shell, NULL);
 	
 	anjuta_command_stop_automatic_monitor (ANJUTA_COMMAND (git_plugin->local_branch_list_command));
-	anjuta_command_stop_automatic_monitor (ANJUTA_COMMAND (git_plugin->remote_branch_list_command));
+	anjuta_command_stop_automatic_monitor (ANJUTA_COMMAND (git_plugin->commit_status_command));
 	
 	g_free (git_plugin->project_root_directory);
 	git_plugin->project_root_directory = NULL;
@@ -189,13 +194,17 @@ on_editor_removed (AnjutaPlugin *plugin, const gchar *name, gpointer user_data)
 	git_plugin->current_editor_filename = NULL;
 }
 
+/* This function is used to run the next command in a series of commands, 
+ * usually used in cases where different types of data need to be treated 
+ * differently, like local vs. remote branches or staged or unstaged status
+ * items. */
 static void
-on_local_branch_list_command_finished (AnjutaCommand *command, 
-                                       guint return_code, Git *plugin)
+run_next_command (AnjutaCommand *command, 
+                  guint return_code, 
+                  AnjutaCommand *next_command)
 {
-	/* Always run the remote list command after the local command finishes */
 	if (return_code == 0)
-		anjuta_command_start (ANJUTA_COMMAND (plugin->remote_branch_list_command));
+		anjuta_command_start (ANJUTA_COMMAND (next_command));
 }
 
 static void
@@ -285,8 +294,8 @@ git_activate_plugin (AnjutaPlugin *plugin)
 
 	g_signal_connect (G_OBJECT (git_plugin->local_branch_list_command), 
 	                  "command-finished",
-	                  G_CALLBACK (on_local_branch_list_command_finished),
-	                  git_plugin);
+	                  G_CALLBACK (run_next_command),
+	                  git_plugin->remote_branch_list_command);
 
 	/* Detect the active branch and indicate it in the status bar. The active
 	 * branch should never be a remote branch in practice, but it is possible to
@@ -300,6 +309,20 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	                  "data-arrived",
 	                  G_CALLBACK (on_branch_list_command_data_arrived),
 	                  plugin);
+
+	/* Create the status list commands. The different commands correspond to 
+	 * the two different sections in status output: Changes to be committed 
+	 * (staged) and Changed but not updated (unstaged.) */
+	git_plugin->commit_status_command = git_status_command_new (NULL,
+	                                                            GIT_STATUS_SECTION_COMMIT);
+	git_plugin->not_updated_status_command = git_status_command_new (NULL,
+	                                                                 GIT_STATUS_SECTION_NOT_UPDATED);
+
+	/* Always run the not updated commmand after the commmit command. */
+	g_signal_connect (G_OBJECT (git_plugin->commit_status_command), 
+	                  "command-finished",
+	                  G_CALLBACK (run_next_command),
+	                  git_plugin->not_updated_status_command);
 
 	/* Add the panes to the dock */
 	git_plugin->status_pane = git_status_pane_new (git_plugin);
@@ -360,6 +383,8 @@ git_deactivate_plugin (AnjutaPlugin *plugin)
 
 	g_object_unref (git_plugin->local_branch_list_command);
 	g_object_unref (git_plugin->remote_branch_list_command);
+	g_object_unref (git_plugin->commit_status_command);
+	g_object_unref (git_plugin->not_updated_status_command);
 	
 	g_free (git_plugin->project_root_directory);
 	g_free (git_plugin->current_editor_filename);
