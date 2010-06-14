@@ -60,7 +60,9 @@ libanjuta_project_wizard_la_SOURCES= \
 	install.c \
 	install.h \
 	autogen.c \
-	autogen.h 
+	autogen.h \
+	tar.c \
+	tar.h
 
 EXTRA_DIST = \
 	$(plugin_in_files) \

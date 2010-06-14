@@ -3,8 +3,11 @@ _Name=Project Assistant
 _Description=Project Assistant
 Location=anjuta-project-wizard:NPWPlugin
 Icon=anjuta-project-wizard-plugin-48.png
-Interfaces=IAnjutaWizard
+Interfaces=IAnjutaFile,IAnjutaWizard
 UserActivatable=no
+
+[File Loader]
+SupportedMimeTypes=application/x-anjuta-compressed-project-template
 
 [Wizard]
 _Title=Project

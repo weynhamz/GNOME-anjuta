@@ -1462,7 +1462,25 @@ gboolean
 anjuta_util_is_project_file (const gchar *filename)
 {
 	gsize len = strlen (filename);
-	return (len > 8) && (strcmp (filename + len - 7, ".anjuta") == 0);
+	return ((len > 8) && (strcmp (filename + len - 7, ".anjuta") == 0));
+}
+
+/**
+ * anjuta_util_is_template_file:
+ * @filename: the file name
+ *
+ * Return TRUE if the file is an template project file. It is implemented by
+ * checking only the file extension. So it does not check the existence
+ * of the file. But it is working on an URI if it does not containt a
+ * fragment.
+ *
+ * Returns: TRUE if the file is a template file, else FALSE
+ */
+gboolean
+anjuta_util_is_template_file (const gchar *filename)
+{
+	gsize len = strlen (filename);
+	return ((len > 9) && (strcmp (filename + len - 8, ".wiz.tgz") == 0));
 }
 
 /**

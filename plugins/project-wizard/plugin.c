@@ -28,9 +28,116 @@
 #include "plugin.h"
 
 #include "druid.h"
+#include "tar.h"
 
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-wizard.h>
+#include <libanjuta/interfaces/ianjuta-file.h>
+
+
+/* Private functions
+ *---------------------------------------------------------------------------*/
+
+static void
+npw_open_project_template (GFile *destination, GFile *tarfile, gpointer data, GError *error)
+{
+	NPWPlugin *plugin = (NPWPlugin *)data;
+	
+	if (error != NULL)
+	{
+		gchar *tarname = g_file_get_path (tarfile);
+		
+		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),_("Unable to extrat project template %s: %s"), tarname, error->message);
+	}
+	else
+	{
+		/* Show the project wizard dialog, loading only the new projects */
+		gchar *path;
+		
+		path = g_file_get_path (destination);
+		npw_plugin_show_wizard (plugin, path);
+		g_free (path);
+	}
+}
+
+static gboolean
+npw_install_project_template_with_callback (NPWPlugin *plugin, GFile *file, NPWTarCompleteFunc callback, GError **error)
+{
+	GFileInputStream *stream;
+	gchar *name;
+	gchar *ext;
+	gchar *path;
+	GFile *dest;
+	gboolean ok;
+	GError *err = NULL;
+	
+	/* Check if tarfile exist */
+	stream = g_file_read (file, NULL, error);
+	if (stream == NULL)
+	{
+		return FALSE;
+	}
+	g_input_stream_close (G_INPUT_STREAM (stream), NULL, NULL);
+	
+	/* Get name without extension */
+	name = g_file_get_basename (file);
+	ext = strchr (name, '.');
+	if (ext != NULL) *ext = '\0';
+	
+	/* Create a directory for template */
+	path = g_build_filename (g_get_user_data_dir (), "anjuta", "project", name, NULL);
+	g_free (name);
+	dest = g_file_new_for_path (path);
+	g_free (path);
+	ok = g_file_make_directory_with_parents (dest, NULL, &err);
+	if (err != NULL)
+	{
+		if (err->code == G_IO_ERROR_EXISTS)
+		{
+			/* Allow to overwrite directories */
+			ok = TRUE;
+			g_error_free (err);
+		}
+		else
+		{
+			g_object_unref (dest);
+			
+			return FALSE;
+		}
+	}
+	
+	ok = npw_tar_extract (dest, file, callback, plugin, error);
+	g_object_unref (dest);
+	
+	return ok;
+}
+
+/* Public functions
+ *---------------------------------------------------------------------------*/
+
+/* Display the project wizard selection dialog using only templates in the 
+ * specified directory if non NULL */
+gboolean
+npw_plugin_show_wizard (NPWPlugin *plugin, const gchar *directory)
+{
+	if (plugin->install != NULL)
+	{
+		/* New project wizard is busy copying project file */
+	}
+	else if (plugin->druid == NULL)
+	{
+		/* Create a new project wizard druid */
+		npw_druid_new (plugin, directory);
+	}
+
+	if (plugin->druid != NULL)
+	{
+		/* New project wizard druid is waiting for user inputs */
+		npw_druid_show (plugin->druid);
+	}
+
+	return TRUE;
+}
 
 /*---------------------------------------------------------------------------*/
 
@@ -100,26 +207,13 @@ npw_plugin_class_init (GObjectClass *klass)
 	klass->finalize = npw_plugin_finalize;
 }
 
+/* IAnjutaWizard implementation
+ *---------------------------------------------------------------------------*/
+
 static void
 iwizard_activate (IAnjutaWizard *wiz, GError **err)
 {
-	NPWPlugin *plugin = ANJUTA_PLUGIN_NPW (wiz);
-	
-	if (plugin->install != NULL)
-	{
-		/* New project wizard is busy copying project file */
-	}
-	else if (plugin->druid == NULL)
-	{
-		/* Create a new project wizard druid */
-		npw_druid_new (plugin);
-	}
-
-	if (plugin->druid != NULL)
-	{
-		/* New project wizard druid is waiting for user inputs */
-		npw_druid_show (plugin->druid);
-	}
+	npw_plugin_show_wizard (ANJUTA_PLUGIN_NPW (wiz), NULL);
 }
 
 static void
@@ -128,7 +222,32 @@ iwizard_iface_init (IAnjutaWizardIface *iface)
 	iface->activate = iwizard_activate;
 }
 
+/* IAnjutaFile implementation
+ *---------------------------------------------------------------------------*/
+
+static void
+ifile_open (IAnjutaFile *ifile, GFile* file, GError **error)
+{
+	NPWPlugin *plugin = ANJUTA_PLUGIN_NPW (ifile);
+
+	npw_install_project_template_with_callback (plugin, file, npw_open_project_template, error);
+}
+
+static GFile*
+ifile_get_file (IAnjutaFile* ifile, GError** error)
+{
+	return NULL;
+}
+
+static void
+ifile_iface_init(IAnjutaFileIface *iface)
+{
+	iface->open = ifile_open;
+	iface->get_file = ifile_get_file;
+}
+ 
 ANJUTA_PLUGIN_BEGIN (NPWPlugin, npw_plugin);
+ANJUTA_PLUGIN_ADD_INTERFACE (ifile, IANJUTA_TYPE_FILE);
 ANJUTA_PLUGIN_ADD_INTERFACE (iwizard, IANJUTA_TYPE_WIZARD);
 ANJUTA_PLUGIN_END;
 

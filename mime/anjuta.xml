@@ -9,4 +9,9 @@
     <glob pattern="*.anjuta"/>
     <glob pattern="*.prj"/>
   </mime-type>
+  <mime-type type="application/x-anjuta-compressed-project-template">
+    <sub-class-of type="application/x-compressed-tar"/>
+    <comment>Anjuta IDE Compressed Project Template</comment>
+    <glob pattern="*.wiz.tgz"/>
+  </mime-type>
 </mime-info>
