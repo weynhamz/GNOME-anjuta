@@ -41,6 +41,8 @@ enum
 	PROP_STATEMENT,
 	PROP_LIMIT,
 	PROP_OFFSET,
+	PROP_ORDER_BY,
+	PROP_GROUP_BY,
 	PROP_DB_ENGINE_SYSTEM,
 	PROP_DB_ENGINE_PROJECT,
 	PROP_DB_ENGINE_SELECTED
@@ -56,8 +58,9 @@ struct _SymbolDBQueryPriv {
 	IAnjutaSymbolField fields[IANJUTA_SYMBOL_FIELD_END];
 	IAnjutaSymbolType filters;
 	IAnjutaSymbolQueryFileScope file_scope;
+	IAnjutaSymbolField group_by;
+	IAnjutaSymbolField order_by;
 
-	gboolean async;
 	SymbolDBEngine *dbe_system;
 	SymbolDBEngine *dbe_project;
 	SymbolDBEngine *dbe_selected;
@@ -273,30 +276,6 @@ sdb_query_build_sql_kind_filter (SymbolDBQuery *query, GString *sql)
 	}
 }
 
-static void
-sdb_query_build_sql_file_scope (SymbolDBQuery *query, GString *sql)
-{
-	SymbolDBQueryPriv *priv;
-
-	g_return_if_fail (SYMBOL_DB_IS_QUERY (query));
-	g_return_if_fail (sql != NULL);
-
-	priv = SYMBOL_DB_QUERY (query)->priv;
-
-	switch (priv->file_scope)
-	{
-		case IANJUTA_SYMBOL_QUERY_SEARCH_FS_IGNORE:
-			return;
-		case IANJUTA_SYMBOL_QUERY_SEARCH_FS_PRIVATE:
-			g_string_append (sql, "AND (symbol.is_file_scope = 1) ");
-			return;
-		case IANJUTA_SYMBOL_QUERY_SEARCH_FS_PUBLIC:
-			g_string_append (sql, "AND (symbol.is_file_scope = 0) ");
-			return;
-	}
-	g_warn_if_reached ();
-}
-
 /**
  * sdb_query_add_field:
  * @query: The query.
@@ -442,7 +421,27 @@ sdb_query_update (SymbolDBQuery *query)
 	sdb_query_build_sql_kind_filter (query, sql);
 		
 	/* Add filter for file scope */
-	sdb_query_build_sql_file_scope (query, sql);
+	switch (priv->file_scope)
+	{
+		case IANJUTA_SYMBOL_QUERY_SEARCH_FS_IGNORE:
+			break;
+		case IANJUTA_SYMBOL_QUERY_SEARCH_FS_PRIVATE:
+			g_string_append (sql, "AND (symbol.is_file_scope = 1) ");
+			break;
+		case IANJUTA_SYMBOL_QUERY_SEARCH_FS_PUBLIC:
+			g_string_append (sql, "AND (symbol.is_file_scope = 0) ");
+			break;
+		default:
+			g_warn_if_reached ();
+	}
+
+	/* Group by clause */
+	if (priv->group_by != IANJUTA_SYMBOL_FIELD_END)
+		g_string_append_printf (sql, "GROUP BY %s ", field_specs[priv->group_by].column);
+
+	/* Order by clause */
+	if (priv->order_by != IANJUTA_SYMBOL_FIELD_END)
+		g_string_append_printf (sql, "ORDER BY %s ", field_specs[priv->order_by].column);
 	
 	/* Add tail of the SQL statement */
 	g_string_append (sql, "LIMIT ## /* name:'limit' type:gint */ ");
@@ -687,6 +686,9 @@ sdb_query_init (SymbolDBQuery *query)
 	priv->fields[0] = IANJUTA_SYMBOL_FIELD_ID;
 	priv->fields[1] = IANJUTA_SYMBOL_FIELD_NAME;
 	priv->fields[2] = IANJUTA_SYMBOL_FIELD_END;
+
+	priv->group_by = IANJUTA_SYMBOL_FIELD_END;
+	priv->order_by = IANJUTA_SYMBOL_FIELD_END;
 	
 	/* Prepare sql parameter holders */
 	param = priv->param_pattern = gda_holder_new_string ("pattern", "");
@@ -815,6 +817,14 @@ sdb_query_set_property (GObject *object, guint prop_id, const GValue *value, GPa
 	case PROP_OFFSET:
 		gda_holder_set_value (priv->param_offset, value, NULL);
 		break;
+	case PROP_GROUP_BY:
+		priv->group_by = g_value_get_enum (value);
+		sdb_query_update (query);
+		break;
+	case PROP_ORDER_BY:
+		priv->group_by = g_value_get_enum (value);
+		sdb_query_update (query);
+		break;
 	case PROP_DB_ENGINE_SYSTEM:
 		g_assert (priv->dbe_system == NULL);
 		priv->dbe_system = g_value_get_object (value);
@@ -880,6 +890,12 @@ sdb_query_get_property (GObject *object, guint prop_id, GValue *value, GParamSpe
 		break;
 	case PROP_OFFSET:
 		g_value_copy (gda_holder_get_value (priv->param_offset), value);
+		break;
+	case PROP_GROUP_BY:
+		g_value_set_enum (value, priv->group_by);
+		break;
+	case PROP_ORDER_BY:
+		g_value_set_enum (value, priv->order_by);
 		break;
 	case PROP_DB_ENGINE_SYSTEM:
 		g_value_set_object (value, priv->dbe_system);
@@ -980,7 +996,24 @@ sdb_query_class_init (SymbolDBQueryClass *klass)
 	                                                   0, INT_MAX, 0,
 	                                                   G_PARAM_READABLE |
 	                                                   G_PARAM_WRITABLE));
-	
+	g_object_class_install_property (object_class,
+	                                 PROP_GROUP_BY,
+	                                 g_param_spec_enum ("group-by",
+	                                                    "Query group by",
+	                                                    "Group by given field",
+	                                                    IANJUTA_TYPE_SYMBOL_FIELD,
+	                                                    IANJUTA_SYMBOL_FIELD_END,
+	                                                    G_PARAM_READABLE |
+	                                                    G_PARAM_WRITABLE));
+	g_object_class_install_property (object_class,
+	                                 PROP_ORDER_BY,
+	                                 g_param_spec_enum ("order-by",
+	                                                    "Query order by",
+	                                                    "Query order by given field",
+	                                                    IANJUTA_TYPE_SYMBOL_FIELD,
+	                                                    IANJUTA_SYMBOL_FIELD_END,
+	                                                    G_PARAM_READABLE |
+	                                                    G_PARAM_WRITABLE));	
 	g_object_class_install_property (object_class,
 	                                 PROP_DB_ENGINE_SYSTEM,
 	                                 g_param_spec_object ("db-engine-system",
@@ -1053,6 +1086,18 @@ static void
 sdb_query_set_offset (IAnjutaSymbolQuery *query, gint offset, GError **err)
 {
 	g_object_set (query, "offset", offset, NULL);
+}
+
+static void
+sdb_query_set_group_by (IAnjutaSymbolQuery *query, IAnjutaSymbolField field, GError **err)
+{
+	g_object_set (query, "group-by", field, NULL);
+}
+
+static void
+sdb_query_set_order_by (IAnjutaSymbolQuery *query, IAnjutaSymbolField field, GError **err)
+{
+	g_object_set (query, "order-by", field, NULL);
 }
 
 static void
@@ -1230,6 +1275,8 @@ ianjuta_symbol_query_iface_init (IAnjutaSymbolQueryIface *iface)
 	iface->set_file_scope = sdb_query_set_file_scope;
 	iface->set_limit = sdb_query_set_limit;
 	iface->set_offset = sdb_query_set_offset;
+	iface->set_group_by = sdb_query_set_group_by;
+	iface->set_order_by = sdb_query_set_order_by;
 	iface->cancel = sdb_query_async_cancel;
 	iface->search = sdb_query_search;
 	iface->search_all = sdb_query_search_all;

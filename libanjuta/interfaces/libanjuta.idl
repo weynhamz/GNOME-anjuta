@@ -5376,6 +5376,8 @@ interface IAnjutaSymbolQuery
 	void set_file_scope (IAnjutaSymbolQueryFileScope filescope_search);
 	void set_offset (gint offset);
 	void set_limit (gint limit);
+	void set_group_by (IAnjutaSymbolField field);
+	void set_order_by (IAnjutaSymbolField field);
 	void cancel ();
 	
 	IAnjutaIterable* search (const gchar *pattern);

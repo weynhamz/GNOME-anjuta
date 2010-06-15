@@ -1406,6 +1406,8 @@ cpp_java_assist_new (IAnjutaEditor *ieditor,
 		                                     IANJUTA_SYMBOL_QUERY_SEARCH_FILE,
 		                                     IANJUTA_SYMBOL_QUERY_DB_PROJECT,
 		                                     NULL);
+	ianjuta_symbol_query_set_group_by (assist->priv->ac_query_file,
+	                                   IANJUTA_SYMBOL_FIELD_NAME, NULL);
 	ianjuta_symbol_query_set_fields (assist->priv->ac_query_file,
 	                                 G_N_ELEMENTS (ac_fields),
 	                                 ac_fields, NULL);
@@ -1421,6 +1423,8 @@ cpp_java_assist_new (IAnjutaEditor *ieditor,
 		                                     IANJUTA_SYMBOL_QUERY_SEARCH,
 		                                     IANJUTA_SYMBOL_QUERY_DB_PROJECT,
 		                                     NULL);
+	ianjuta_symbol_query_set_group_by (assist->priv->ac_query_project,
+	                                   IANJUTA_SYMBOL_FIELD_NAME, NULL);
 	ianjuta_symbol_query_set_fields (assist->priv->ac_query_project,
 	                                 G_N_ELEMENTS (ac_fields),
 	                                 ac_fields, NULL);
@@ -1436,6 +1440,8 @@ cpp_java_assist_new (IAnjutaEditor *ieditor,
 		                                     IANJUTA_SYMBOL_QUERY_SEARCH,
 		                                     IANJUTA_SYMBOL_QUERY_DB_SYSTEM,
 		                                     NULL);
+	ianjuta_symbol_query_set_group_by (assist->priv->ac_query_system,
+	                                   IANJUTA_SYMBOL_FIELD_NAME, NULL);
 	ianjuta_symbol_query_set_fields (assist->priv->ac_query_system,
 	                                 G_N_ELEMENTS (ac_fields),
 	                                 ac_fields, NULL);

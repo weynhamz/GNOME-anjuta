@@ -21,7 +21,6 @@
 #define _SYMBOL_DB_QUERY_H_
 
 #include <glib-object.h>
-#include <libanjuta/anjuta-async-command.h>
 #include <libanjuta/interfaces/ianjuta-iterable.h>
 #include <libanjuta/interfaces/ianjuta-symbol-query.h>
 
@@ -40,7 +39,7 @@ typedef struct _SymbolDBQueryPriv SymbolDBQueryPriv;
 
 struct _SymbolDBQueryClass
 {
-	GObject parent_class;
+	GObjectClass parent_class;
 };
 
 struct _SymbolDBQuery
