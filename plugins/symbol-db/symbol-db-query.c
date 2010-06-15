@@ -447,8 +447,6 @@ sdb_query_update (SymbolDBQuery *query)
 	g_string_append (sql, "LIMIT ## /* name:'limit' type:gint */ ");
 	g_string_append (sql, "OFFSET ## /* name:'offset' type:gint */ ");
 
-	DEBUG_PRINT ("sql = %s", sql->str);
-	
 	/* Prepare statement */
 	g_free (priv->sql_stmt);
 	priv->sql_stmt = sql->str;
@@ -700,7 +698,7 @@ sdb_query_init (SymbolDBQuery *query)
 	param = priv->param_limit = gda_holder_new_int ("limit", INT_MAX);
 	param_holders = g_slist_prepend (param_holders, param);
 
-	param = priv->param_limit = gda_holder_new_int ("offset", 0);
+	param = priv->param_offset = gda_holder_new_int ("offset", 0);
 	param_holders = g_slist_prepend (param_holders, param);
 
 	param = priv->param_id = gda_holder_new_int ("symbolid", 0);

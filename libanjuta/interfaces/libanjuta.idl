@@ -5363,9 +5363,9 @@ interface IAnjutaSymbolQuery
 
 	enum FileScope
 	{
-		SEARCH_FS_IGNORE = -1,
-		SEARCH_FS_PUBLIC = 1,
-		SEARCH_FS_PRIVATE = 0		
+		SEARCH_FS_IGNORE,
+		SEARCH_FS_PUBLIC,
+		SEARCH_FS_PRIVATE
 	}
 	
 	void ::async_result (GObject* result);

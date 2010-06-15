@@ -179,7 +179,7 @@ sdb_query_result_set_property (GObject *object, guint prop_id,
 		if (priv->iter)
 			g_object_unref (priv->iter);
 		priv->iter = gda_data_model_create_iter (data_model);
-		if (gda_data_model_iter_move_at_row (priv->iter, 0))
+		if (gda_data_model_iter_move_to_row (priv->iter, 0))
 			priv->result_is_empty = FALSE;
 		break;
 	case PROP_SDB_SYM_TYPE_CONVERSION_HASH:
