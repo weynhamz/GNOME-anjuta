@@ -111,6 +111,7 @@ struct _SymbolDBPlugin {
 	GtkWidget *progress_bar_system;			/* symbol db progress bar - system (globals) */
 	
 	GtkTreeModel *file_model;               /* File symbols model */
+	GtkWidget *search_entry;                /* The search entry box */
 	GtkWidget *pref_tree_view; 				/* Preferences treeview */
 	
 	/* current editor */

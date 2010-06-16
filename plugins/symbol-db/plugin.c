@@ -299,18 +299,11 @@ on_goto_file_tag_decl_activate (GtkAction *action, SymbolDBPlugin *sdb_plugin)
 static void
 on_find_symbol (GtkAction *action, SymbolDBPlugin *sdb_plugin)
 {
-#if 0
-	DEBUG_PRINT ("on_find_symbol (GtkAction *action, gpointer user_data)");
-	GtkEntry * entry;
 	anjuta_shell_present_widget(ANJUTA_PLUGIN(sdb_plugin)->shell,
 								sdb_plugin->dbv_main, NULL);
 	
-	entry = symbol_db_view_search_get_entry ( 
-					SYMBOL_DB_VIEW_SEARCH (sdb_plugin->dbv_view_tree_search));
-	entry = NULL;
 	gtk_notebook_set_current_page (GTK_NOTEBOOK(sdb_plugin->dbv_notebook), 2);
-	gtk_widget_grab_focus (GTK_WIDGET (entry));
-#endif
+	gtk_widget_grab_focus (GTK_WIDGET (sdb_plugin->search_entry));
 }
 
 static GtkActionEntry actions[] = 
@@ -2133,10 +2126,11 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	gtk_notebook_append_page (GTK_NOTEBOOK (sdb_plugin->dbv_notebook),
 							  view, gtk_label_new (_("Global" )));
 
-	/* Global symbols */
+	/* Search symbols */
 	view = symbol_db_view_new (SYMBOL_DB_VIEW_SEARCH,
 	                           sdb_plugin->sdbe_project,
 	                           sdb_plugin);
+	sdb_plugin->search_entry = symbol_db_view_get_search_entry (view);
 	gtk_notebook_append_page (GTK_NOTEBOOK (sdb_plugin->dbv_notebook),
 							  view, gtk_label_new (_("Search" )));
 

@@ -34,6 +34,8 @@ typedef enum {
 GtkWidget* symbol_db_view_new (SymbolViewType view_type,
                                SymbolDBEngine *dbe, SymbolDBPlugin *plugin);
 
+GtkWidget* symbol_db_view_get_search_entry (GtkWidget *search_view);
+
 G_END_DECLS
 
 #endif /* _SYMBOL_DB_VIEWS_H_ */

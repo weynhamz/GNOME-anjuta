@@ -95,6 +95,9 @@ sdb_model_search_get_children (SymbolDBModel *model, gint tree_level,
 
 	if (tree_level > 0)
 		return NULL; /* It's a flat list */
+
+	if (priv->search_pattern == NULL || strlen (priv->search_pattern) == 2)
+		return NULL;
 	
 	g_object_get (model, "symbol-db-engine", &dbe, NULL);
 	

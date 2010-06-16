@@ -217,7 +217,14 @@ symbol_db_view_new (SymbolViewType view_type,
 		gtk_widget_show (vbox);
 		gtk_box_pack_start (GTK_BOX (vbox), entry, FALSE, FALSE, 0);
 		gtk_box_pack_start (GTK_BOX (vbox), sw, TRUE, TRUE, 0);
+		g_object_set_data (G_OBJECT (vbox), "search_entry", entry);
 		return vbox;
 	}
 	return sw;
+}
+
+GtkWidget*
+symbol_db_view_get_search_entry (GtkWidget *search_view)
+{
+	return g_object_get_data (G_OBJECT (search_view), "search_entry");
 }
