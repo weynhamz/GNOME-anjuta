@@ -49,9 +49,8 @@ enum
 };
 
 struct _SymbolDBQueryPriv {
-	GdaStatement *stmt;
 	gchar *sql_stmt;
-	gboolean prepared;
+	GdaStatement *stmt;
 
 	IAnjutaSymbolQueryName name;
 	IAnjutaSymbolQueryMode mode;
@@ -302,6 +301,22 @@ sdb_query_add_field (SymbolDBQuery *query, IAnjutaSymbolField field)
 }
 
 /**
+ * sdb_query_reset:
+ * @query: The query
+ * 
+ * Resets the query to unprepared status.
+ */
+static void
+sdb_query_reset (SymbolDBQuery *query)
+{
+	if (query->priv->stmt)
+		g_object_unref (query->priv->stmt);
+	query->priv->stmt = NULL;
+	g_free (query->priv->sql_stmt);
+	query->priv->sql_stmt = NULL;
+}
+
+/**
  * sdb_query_update:
  * @query: The query
  * 
@@ -478,12 +493,16 @@ sdb_query_execute_real (SymbolDBQuery *query)
 {
 	GdaDataModel *data_model;
 	SymbolDBQueryPriv *priv = query->priv;
+
+	if (!symbol_db_engine_is_connected (priv->dbe_selected) ||
+	    symbol_db_engine_is_scanning (priv->dbe_selected))
+		return NULL;
 	
-	if (!priv->prepared)
-	{
+	if (!priv->sql_stmt)
 		sdb_query_update (query);
-		priv->prepared = TRUE;
-	}
+	else if (!priv->stmt)
+		priv->stmt = symbol_db_engine_get_statement (priv->dbe_selected,
+		                                             priv->sql_stmt);
 	data_model = symbol_db_engine_execute_select (priv->dbe_selected,
 	                                              priv->stmt,
 	                                              priv->params);
@@ -585,9 +604,8 @@ on_sdb_query_dbe_connected (SymbolDBEngine *dbe, SymbolDBQuery *query)
 {
 	g_return_if_fail (SYMBOL_DB_IS_QUERY (query));
 
-	if (!query->priv->stmt)
+	if (!query->priv->stmt && query->priv->sql_stmt)
 	{
-		g_assert (query->priv->sql_stmt);
 		query->priv->stmt =
 			symbol_db_engine_get_statement (query->priv->dbe_selected,
 			                                query->priv->sql_stmt);
@@ -644,7 +662,7 @@ sdb_query_execute (SymbolDBQuery *query)
 				return NULL;
 
 			/* Empty resultset is useless for us. Return NULL instead */
-			if (symbol_db_query_result_is_empty (result))
+			if (result == NULL || symbol_db_query_result_is_empty (result))
 			{
 				g_object_unref (result);
 				return NULL;
@@ -796,18 +814,18 @@ sdb_query_set_property (GObject *object, guint prop_id, const GValue *value, GPa
 	{
 	case PROP_QUERY_NAME:
 		priv->name = g_value_get_enum (value);
-		sdb_query_update (query);
+		sdb_query_reset (query);
 		break;
 	case PROP_QUERY_MODE:
 		priv->mode = g_value_get_enum (value);
 		break;
 	case PROP_FILTERS:
 		priv->filters = g_value_get_int (value);
-		sdb_query_update (query);
+		sdb_query_reset (query);
 		break;
 	case PROP_FILE_SCOPE:
 		priv->file_scope = g_value_get_enum (value);
-		sdb_query_update (query);
+		sdb_query_reset (query);
 		break;
 	case PROP_LIMIT:
 		gda_holder_set_value (priv->param_limit, value, NULL);
@@ -817,11 +835,11 @@ sdb_query_set_property (GObject *object, guint prop_id, const GValue *value, GPa
 		break;
 	case PROP_GROUP_BY:
 		priv->group_by = g_value_get_enum (value);
-		sdb_query_update (query);
+		sdb_query_reset (query);
 		break;
 	case PROP_ORDER_BY:
 		priv->group_by = g_value_get_enum (value);
-		sdb_query_update (query);
+		sdb_query_reset (query);
 		break;
 	case PROP_DB_ENGINE_SYSTEM:
 		g_assert (priv->dbe_system == NULL);
@@ -1056,7 +1074,7 @@ sdb_query_set_fields (IAnjutaSymbolQuery *query, gint n_fields,
 	for (i = 0; i < n_fields; i++)
 		priv->fields[i] = fields[i];
 	priv->fields[i] = IANJUTA_SYMBOL_FIELD_END;
-	sdb_query_update (SYMBOL_DB_QUERY (query));
+	sdb_query_reset (SYMBOL_DB_QUERY (query));
 }
 
 static void
