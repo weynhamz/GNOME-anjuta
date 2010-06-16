@@ -2133,6 +2133,13 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	gtk_notebook_append_page (GTK_NOTEBOOK (sdb_plugin->dbv_notebook),
 							  view, gtk_label_new (_("Global" )));
 
+	/* Global symbols */
+	view = symbol_db_view_new (SYMBOL_DB_VIEW_SEARCH,
+	                           sdb_plugin->sdbe_project,
+	                           sdb_plugin);
+	gtk_notebook_append_page (GTK_NOTEBOOK (sdb_plugin->dbv_notebook),
+							  view, gtk_label_new (_("Search" )));
+
 	gtk_widget_show_all (sdb_plugin->dbv_notebook);
 
 	/* setting focus to the tree_view*/
