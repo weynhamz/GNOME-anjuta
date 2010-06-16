@@ -36,15 +36,6 @@ typedef struct _SymbolDBModelFileClass SymbolDBModelFileClass;
 typedef struct _SymbolDBModelFile SymbolDBModelFile;
 typedef struct _SymbolDBModelFilePriv SymbolDBModelFilePriv;
 
-enum {
-	SYMBOL_DB_MODEL_FILE_COL_SYMBOL_ID,
-	SYMBOL_DB_MODEL_FILE_COL_PIXBUF,
-	SYMBOL_DB_MODEL_FILE_COL_LABEL,
-	SYMBOL_DB_MODEL_FILE_COL_FILE,
-	SYMBOL_DB_MODEL_FILE_COL_LINE,
-	SYMBOL_DB_MODEL_FILE_COL_N_COLS
-};
-
 struct _SymbolDBModelFileClass
 {
 	SymbolDBModelProjectClass parent_class;
