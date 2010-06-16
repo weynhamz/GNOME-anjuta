@@ -4361,7 +4361,8 @@ interface IAnjutaDebugger
 			WITH_IGNORE = 1 << 15,
 			WITH_TIME = 1 << 11,
 			WITH_CONDITION = 1 << 12,
-			WITH_TEMPORARY = 1 << 13
+			WITH_TEMPORARY = 1 << 13,
+			WITH_PENDING = 1 << 14,
 		}
 
 		struct Item
@@ -4377,6 +4378,7 @@ interface IAnjutaDebugger
 			guint times;
 			gchar *condition;
 			gboolean temporary;
+			gboolean pending;
 		}
 
 		enum Method

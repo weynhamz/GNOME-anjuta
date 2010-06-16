@@ -180,6 +180,10 @@ breakpoint_item_update_from_debugger (BreakpointItem *bi, const IAnjutaDebuggerB
 	{
 		bi->bp.temporary = bp->temporary;
 	}
+	if (bp->type & IANJUTA_DEBUGGER_BREAKPOINT_WITH_PENDING)
+	{
+		bi->bp.pending = bp->pending;
+	}
 	if ((bp->type & IANJUTA_DEBUGGER_BREAKPOINT_WITH_ENABLE) &&
 		!(bi->changed & IANJUTA_DEBUGGER_BREAKPOINT_WITH_ENABLE))
 	{
@@ -447,6 +451,10 @@ breakpoints_dbase_update_in_treeview (BreakpointsDBase *bd, BreakpointItem *bi)
 	else if (bi->bp.temporary)
 	{
 		format = "temporary (%d)";
+	}
+	else if (bi->bp.pending)
+	{
+		format = "pending (%d)";
 	}
 	else 
 	{
