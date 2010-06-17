@@ -496,7 +496,7 @@ sdb_query_execute_real (SymbolDBQuery *query)
 
 	if (!symbol_db_engine_is_connected (priv->dbe_selected) ||
 	    symbol_db_engine_is_scanning (priv->dbe_selected))
-		return NULL;
+		return GINT_TO_POINTER (-1);
 	
 	if (!priv->sql_stmt)
 		sdb_query_update (query);
