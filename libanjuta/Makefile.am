@@ -95,7 +95,9 @@ libanjuta_la_SOURCES= \
 	anjuta-dock.c \
 	anjuta-dock.h \
 	anjuta-dock-pane.c \
-	anjuta-dock-pane.h 
+	anjuta-dock-pane.h \
+	anjuta-file-list.c \
+	anjuta-file-list.h
 
 
 if HAVE_PLUGIN_GLADE
@@ -160,7 +162,8 @@ libanjuta_include = \
 	anjuta-tabber.h \
 	anjuta-command-bar.h \
 	anjuta-dock.h \
-	anjuta-dock-pane.h
+	anjuta-dock-pane.h \
+	anjuta-file-list.h
 
 libanjutainclude_HEADERS = \
 	$(libanjuta_include) \

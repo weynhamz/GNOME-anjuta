@@ -28,10 +28,14 @@
 
 		<glade-widget-class name="AnjutaDropEntry" title="Drop Entry"
 		 generic-name="dropentry" />
+
+		 <glade-widget-class name="AnjutaFileList" title="File List"
+		 generic-name="filelist1" />
 	</glade-widget-classes>
 
 	<glade-widget-group name="Anjuta" title="Anjuta">
 		<glade-widget-class-ref name="AnjutaVcsStatusTreeView" />
 		<glade-widget-class-ref name="AnjutaDropEntry" />
+		<glade-widget-class-ref name="AnjutaFileList" />
 	</glade-widget-group>
 </glade-catalog>
