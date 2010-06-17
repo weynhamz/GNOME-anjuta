@@ -5175,10 +5175,15 @@ interface IAnjutaMacro
  * SECTION:ianjuta-symbol
  * @title: IAnjutaSymbol
  * @short_description: Source code symbol interface
- * @see_also: #IAnjutaSymbolManager
+ * @see_also: #IAnjutaSymbolQuery, #IAnjutaSymbolManager
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-symbol.h
  * 
+ * This interface is used to define a symbol, normally got from symbol
+ * queries. A symbol has various fields that can be retrieved by using
+ * their get methods. A symbol will have only those fields which have
+ * been selected to be included in their respective queries, so make sure
+ * the needed fields are correctly specified during query creation.
  */
 interface IAnjutaSymbol
 {
@@ -5187,8 +5192,8 @@ interface IAnjutaSymbol
 	
 	/** 
 	 * IAnjutaSymbolType:
-	 * @IANJUTA_SYMBOL_TYPE_UNDEF: Unknown type. If you have to search for all the known
-	 * types use this flag because it's quicker than #IANJUTA_SYMBOL_TYPE_MAX.
+	 * @IANJUTA_SYMBOL_TYPE_NONE: None spedified.
+	 * @IANJUTA_SYMBOL_TYPE_UNDEF: Unknown type.
 	 * @IANJUTA_SYMBOL_TYPE_CLASS: Class declaration
 	 * @IANJUTA_SYMBOL_TYPE_ENUM: Enum declaration 
 	 * @IANJUTA_SYMBOL_TYPE_ENUMERATOR: Enumerator value 
@@ -5210,8 +5215,7 @@ interface IAnjutaSymbol
 	 * @IANJUTA_SYMBOL_TYPE_FILE: File (Pseudo tag) 
 	 * @IANJUTA_SYMBOL_TYPE_OTHER: Other (non C/C++/Java tag) 
 	 * @IANJUTA_SYMBOL_TYPE_SCOPE_CONTAINER: types which are subjected to create a scope.
-	 * @IANJUTA_SYMBOL_TYPE_MAX: Maximum value, means all known values. You can reach
-	 * the same result using IANJUTA_SYMBOL_TYPE_UNDEF, which is much faster.
+	 * @IANJUTA_SYMBOL_TYPE_MAX: Maximum value, used as end marker.
 	 */                   
 	enum Type               
 	{
@@ -5243,30 +5247,38 @@ interface IAnjutaSymbol
 
 	/** 
 	 * IAnjutaSymbolField:
-	 * @IANJUTA_SYMBOL_FIELD_SIMPLE: With this field you will have name, line of declaration,
-	 *                               is_file_scope and signature of the symbol.
-	 * @IANJUTA_SYMBOL_FIELD_FILE_PATH: The path to the file. It's obtained using something like
-	 *									g_strconcat ("/home/user/project_dir/", 
-	 *									"src/db/realative/path/file.c");
-	 * @IANJUTA_SYMBOL_FIELD_IMPLEMENTATION: implementation attribute of a symbol. It may be
-	 *										"pure virtual", "virtual", etc.
-	 * @IANJUTA_SYMBOL_FIELD_ACCESS: access attribute of a symbol. It may be "public", "private" etc.
-	 * @IANJUTA_SYMBOL_FIELD_KIND: kind attribute of a symbol. "enumerator", "namespace", "class" are
-	 *							  some examples.
-	 * @IANJUTA_SYMBOL_FIELD_TYPE: type attribute of a symbol. Use this field in conjunction with
-	 *						#IANJUTA_SYMBOL_FIELD_TYPE_NAME as the query would retrieve both
-	 *						attributes in a quicker way.
-	 * @IANJUTA_SYMBOL_FIELD_TYPE_NAME: type_name attribute of a symbol. If a type could be
-	 *									"class" then its type_name may be "MyFooClass" etc.
-	 * @IANJUTA_SYMBOL_FIELD_LANGUAGE: the language of the symbol, e.g. "C", "Java", etc.
-	 * @IANJUTA_SYMBOL_FIELD_FILE_IGNORE: field mainly ignored.
-	 * @IANJUTA_SYMBOL_FIELD_FILE_INCLUDE: field mainly ignored.
-	 * @IANJUTA_SYMBOL_FIELD_PROJECT_NAME: the project this symbol belongs to.
-	 * @IANJUTA_SYMBOL_FIELD_WORKSPACE_NAME: the workspace this symbol belongs to.
-	 *
-	 * Field masks. Used mainly to retrieve the fields of a symbol
-	 * throught the call to ianjuta_symbol_get_extra_info_string () or the various
-	 * ianjuta_symbol_manager_* () functions
+	 * @IANJUTA_SYMBOL_FIELD_ID: Integer. A unique ID of the symbol
+	 * @IANJUTA_SYMBOL_FIELD_NAME: String. Name of the symbol
+	 * @IANJUTA_SYMBOL_FIELD_FILE_POS: Integer. The file line number where the symbol is found.
+	 * @IANJUTA_SYMBOL_FIELD_SCOPE_DEF_ID: Integer. A unique ID to define scope created by this symbol.
+	 * @IANJUTA_SYMBOL_FIELD_FILE_SCOPE: Boolean: TRUE if symbol is within file scope,
+	 *     otherwise FALSE.
+	 * @IANJUTA_SYMBOL_FIELD_SIGNATURE: String. Signature of a method, if symbol is a funtion.
+	 *     Namely, the arguments list of the funtion.
+	 * @IANJUTA_SYMBOL_FIELD_RETURNTYPE: String. Return type of a method, if symbol is a function.
+	 * @IANJUTA_SYMBOL_FIELD_FILE_PATH: String. The relative path to the file where the symbol is found.
+	 * @IANJUTA_SYMBOL_FIELD_IMPLEMENTATION: String. Implementation attribute of a symbol. It may be
+	 *     "pure virtual", "virtual", etc.
+	 * @IANJUTA_SYMBOL_FIELD_ACCESS: String. Access attribute of a symbol.
+	 *     It may be "public", "private" etc.
+	 * @IANJUTA_SYMBOL_FIELD_KIND: Kind attribute of a symbol, such as
+	 *     "enumerator", "namespace", "class" etc.
+	 * @IANJUTA_SYMBOL_FIELD_TYPE: Both string and Integer. Type attribute of a symbol.
+	 *     In string form, it is name of the type in string form.
+	 *     In integer form, it is IAnjutaSymbolType enumerator value.
+	 * @IANJUTA_SYMBOL_FIELD_TYPE_NAME: type_name attribute of a symbol.
+	 *     If a type could be "class" then its type_name may be "MyFooClass" etc.
+	 * @IANJUTA_SYMBOL_FIELD_IS_CONTAINER: Boolean. TRUE if symbol is
+	 *     a scope container, such as namespace, class, struct etc., otherwise
+	 *     FALSE.
+	 * @IANJUTA_SYMBOL_FIELD_END: The end marker.
+	 * 
+	 * Symbol Fields. Used to define and retrieve results from query. Each of
+	 * these fields are either integer or string. Use the right method to
+	 * retrieve them. That is, for integer use ianjuta_symbol_get_integer(),
+	 * for string use ianjuta_symbol_get_string, and for boolean use
+	 * ianjuta_symbol_get_boolean(). Some fields can be in both forms,
+	 * e.g. #IANJUTA_SYMBOL_FIELD_TYPE.
 	 */
 	enum Field
 	{
@@ -5287,8 +5299,34 @@ interface IAnjutaSymbol
 		FIELD_END
 	}
 
+	/**
+	 * ianjuta_symbol_get_boolean:
+	 * @obj: Self
+	 * @field: The field to retrieve.
+	 * @err: Error propagation and reporting.
+	 *
+	 * Retreives the boolean value of a boolean @field.
+	 */
 	gboolean get_boolean (Field field);
+	
+	/**
+	 * ianjuta_symbol_get_int:
+	 * @obj: Self
+	 * @field: The field to retrieve.
+	 * @err: Error propagation and reporting.
+	 *
+	 * Retreives the integer value of an integer @field.
+	 */
 	gint get_int (Field field);
+	
+	/**
+	 * ianjuta_symbol_get_string:
+	 * @obj: Self
+	 * @field: The field to retrieve.
+	 * @err: Error propagation and reporting.
+	 *
+	 * Retreives the string value of a string @field.
+	 */
 	const gchar* get_string (Field field);
 	
 	/**
@@ -5296,18 +5334,21 @@ interface IAnjutaSymbol
 	 * @obj: Self
 	 * @err: Error propagation and reporting.
 	 *
-	 * Returns: Convenience method to get GFile object for
+	 * A convenience method to get GFile object for
 	 * #IANJUTA_SYMBOL_FIELD_FILE_PATH field. The file where the
-	 * symbol is declared.
+	 * symbol is declared. It contains the absolute path of the file
+	 * unlike raw value of field #IANJUTA_SYMBOL_FIELD_FILE_PATH.
+	 *
+	 * Returns: A GFile object. It must be unrefed after use.
 	 */
-	GFile *get_file();
+	GFile* get_file();
 	
 	/**
 	 * ianjuta_symbol_get_sym_type:
 	 * @obj: Self
 	 * @err: Error propagation and reporting.
 	 *
-	 * Returns: Convenience method to get value of #IANJUTA_SYMBOL_FIELD_TYPE
+	 * A convenience method to get value of #IANJUTA_SYMBOL_FIELD_TYPE
 	 * field typecasted to IAnjutaSymbolType. Numerical value is unchanged.
 	 *
 	 * Returns: a #IAnjutaSymbolType
@@ -5319,15 +5360,65 @@ interface IAnjutaSymbol
 	 * @obj: Self
 	 * @err: Error propagation and reporting.
 	 *
-	 * You *need* a query with #IANJUTA_SYMBOL_FIELD_ACCESS | 
-	 * #IANJUTA_SYMBOL_FIELD_KIND fields enabled. Gives a convenient
-	 * 16x16 icon for the symbol.
+	 * A convenience method to get a small icon (16x16) representing the symbol
+	 * kind. You *need* a query with fields #IANJUTA_SYMBOL_FIELD_ACCESS and 
+	 * #IANJUTA_SYMBOL_FIELD_KIND selected.
 	 *
-	 * Returns: a Pixbuf icon representing the symbol. 
+	 * Returns: a Pixbuf icon representing the symbol. Ref the icon if you
+	 * need to keep it.
 	 */
-	const GdkPixbuf *get_icon ();	
+	const GdkPixbuf *get_icon ();
 }
 
+/**
+ * SECTION:ianjuta-symbol-query
+ * @title: IAnjutaSymbolQuery
+ * @short_description: Source code symbol query interface
+ * @see_also: #IAnjutaSymbolManager, #IAnjutaSymbol
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-symbol-query.h
+ * 
+ * A query object will have this interface that allows to tweak various
+ * query parameters. Except for the #IAnjutaSymbolQueryName and
+ * #IAnjutaSymbolQueryDb parameters, everything else is changable
+ * post-creation.
+ *
+ * Note that chaning a query parameter, except for limit and offset will
+ * result in re-preparing the query the next time it is executed, so it is
+ * not advisable to change it each time the query is executed. For such
+ * cases, create different queries with different parameters.
+ *
+ * A query is signified by a name enumeration (#IAnjutaSymbolQueryName) which
+ * practically determines the query type and its execution condition. Each
+ * query name is assigned to pre-defined query statement and can only be
+ * set during creation time. Then only its specific ianjuta_symbol_query_search_*()
+ * can be used to execute the query. These specific execution methods are
+ * provided to make it convenient to pass query parameters easily and to
+ * ensure all the needed parameters are given.
+ *
+ * A query can run in different modes, defined by #IAnjutaSymbolQueryMode, by
+ * default it is executed in synchrounous mode #IANJUTA_SYMBOL_QUERY_MODE_SYNC
+ * and can be changed using ianjuta_query_set_mode(). #IANJUTA_SYMBOL_QUERY_MODE_ASYNC
+ * runs it in asynchronous mode in a separate thread and can be canceled with
+ * ianjuta_symbol_query_cancel().
+ * 
+ * A query runs on a database, defined by #IAnjutaSymbolQueryDb, and can be
+ * only selected at creatation time.
+ * 
+ * In addition, there are many other filters that can be set to the query
+ * to refine the query results. For example, ianjuta_symbol_query_set_fields()
+ * is used to set the needed symbol fields to retrieve, ianjuta_symbol_query_set_filters()
+ * is used to filter the results with symbol types, ianjuta_symbol_query_set_file_scope()
+ * limits the results to either public or private scope within the source file,
+ * ianjuta_symbol_query_set_group_by() is used to group the results on a given
+ * field, ianjuta_symbol_query_set_order_by is used to order the results on a
+ * given field.
+ * 
+ * ianjuta_symbol_query_set_limit() and ianjuta_symbol_query_set_offset() are
+ * used to change limit and offset of the resultset. Note again that these
+ * parameters do not require re-preparation of query, so can be safely used
+ * any time without performance hit.
+ */
 interface IAnjutaSymbolQuery
 {
 	#include "ianjuta-iterable.h"
