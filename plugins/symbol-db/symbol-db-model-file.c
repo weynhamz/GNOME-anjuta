@@ -136,7 +136,7 @@ sdb_model_file_get_children (SymbolDBModel *model, gint tree_level,
 	SymbolDBEngine *dbe;
 	SymbolDBModelFilePriv *priv;
 	gint parent_id = 0;
-	gchar *relative_path = NULL;
+	const gchar *relative_path = NULL;
 	GValue ival = {0};
 	GValue sval = {0};
 
