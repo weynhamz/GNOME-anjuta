@@ -68,38 +68,26 @@ gchar*
 symbol_db_util_get_full_local_path (SymbolDBEngine *dbe, const gchar* file)
 {
 	SymbolDBEnginePriv *priv;
-	gchar *full_path;
-	
 	g_return_val_if_fail (dbe != NULL, NULL);
 	
 	priv = dbe->priv;
-	full_path = g_strdup_printf ("%s%s", priv->project_directory, file);
-	return full_path;	
+	return g_build_filename (priv->project_directory, file, NULL);
 }
 
-gchar*
+const gchar*
 symbol_db_util_get_file_db_path (SymbolDBEngine *dbe, const gchar* full_local_file_path)
 {
 	SymbolDBEnginePriv *priv;
-	gchar *relative_path;
-	const gchar *tmp;
 	g_return_val_if_fail (dbe != NULL, NULL);
 	g_return_val_if_fail (full_local_file_path != NULL, NULL);
 		
 	priv = dbe->priv;
 	
-	if (priv->db_directory == NULL)
+	if (priv->db_directory == NULL ||
+	    strlen (priv->project_directory) >= strlen (full_local_file_path)) 
 		return NULL;
 
-	if (strlen (priv->project_directory) >= strlen (full_local_file_path)) 
-	{
-		return NULL;
-	}
-
-	tmp = full_local_file_path + strlen (priv->project_directory);
-	relative_path = strdup (tmp);
-
-	return relative_path;
+	return full_local_file_path + strlen (priv->project_directory) + 1;
 }
 
 GPtrArray *

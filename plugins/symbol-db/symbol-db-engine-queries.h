@@ -29,7 +29,6 @@
 #include <glib.h>
 
 #include "symbol-db-engine.h"
-#include "symbol-db-engine-iterator.h"
 
 
 

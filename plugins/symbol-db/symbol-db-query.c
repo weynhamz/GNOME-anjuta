@@ -1178,7 +1178,8 @@ static IAnjutaIterable*
 sdb_query_search_file (IAnjutaSymbolQuery *query, const gchar *search_string,
                        const GFile *file, GError **error)
 {
-	gchar *rel_file_path, *abs_file_path;
+	const gchar *rel_file_path;
+	gchar *abs_file_path;
 	SDB_QUERY_SEARCH_HEADER;
 	g_return_val_if_fail (priv->name == IANJUTA_SYMBOL_QUERY_SEARCH_FILE, NULL);
 
@@ -1186,8 +1187,7 @@ sdb_query_search_file (IAnjutaSymbolQuery *query, const gchar *search_string,
 	rel_file_path = symbol_db_util_get_file_db_path (priv->dbe_selected, abs_file_path);
 
 	SDB_PARAM_SET_STATIC_STRING (priv->param_pattern, search_string);
-	SDB_PARAM_TAKE_STRING (priv->param_file_path, rel_file_path);
-	
+	SDB_PARAM_SET_STATIC_STRING (priv->param_file_path, rel_file_path);
 	g_free (abs_file_path);
 	return sdb_query_execute (SYMBOL_DB_QUERY (query));
 }
@@ -1241,7 +1241,7 @@ static IAnjutaIterable*
 sdb_query_search_scope (IAnjutaSymbolQuery *query, const gchar *file_path,
                         gint file_line, GError **error)
 {
-	gchar *db_relative_path;
+	const gchar *db_relative_path;
 	SDB_QUERY_SEARCH_HEADER;
 	g_return_val_if_fail (priv->name == IANJUTA_SYMBOL_QUERY_SEARCH_SCOPE, NULL);
 
@@ -1250,7 +1250,7 @@ sdb_query_search_scope (IAnjutaSymbolQuery *query, const gchar *file_path,
 		return NULL;
 
 	SDB_PARAM_SET_INT (priv->param_file_line, file_line);
-	SDB_PARAM_TAKE_STRING (priv->param_file_path, db_relative_path);
+	SDB_PARAM_SET_STATIC_STRING (priv->param_file_path, db_relative_path);
 	return sdb_query_execute (SYMBOL_DB_QUERY (query));
 }
 
@@ -1269,7 +1269,7 @@ static IAnjutaIterable*
 sdb_query_search_parent_scope_file (IAnjutaSymbolQuery *query, IAnjutaSymbol *symbol,
                                const gchar *file_path, GError **error)
 {
-	gchar *db_relative_path;
+	const gchar *db_relative_path;
 	SDB_QUERY_SEARCH_HEADER;
 	g_return_val_if_fail (priv->name == IANJUTA_SYMBOL_QUERY_SEARCH_PARENT_SCOPE_FILE, NULL);
 
@@ -1278,7 +1278,7 @@ sdb_query_search_parent_scope_file (IAnjutaSymbolQuery *query, IAnjutaSymbol *sy
 		return NULL;
 	
 	SDB_PARAM_SET_INT (priv->param_id, ianjuta_symbol_get_int (symbol, IANJUTA_SYMBOL_FIELD_ID, NULL));
-	SDB_PARAM_TAKE_STRING (priv->param_file_path, db_relative_path);
+	SDB_PARAM_SET_STATIC_STRING (priv->param_file_path, db_relative_path);
 	return sdb_query_execute (SYMBOL_DB_QUERY (query));
 }
 

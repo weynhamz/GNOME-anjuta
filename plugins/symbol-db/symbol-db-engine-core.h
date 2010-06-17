@@ -240,12 +240,12 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe,
 
 /** Remove a file, together with its symbols, from a project. */
 gboolean 
-symbol_db_engine_remove_file (SymbolDBEngine *dbe, const gchar* project, 
-							  const gchar* abs_file);
+symbol_db_engine_remove_file (SymbolDBEngine *dbe, const gchar *project,
+                              const gchar* rel_file);
 
 void
-symbol_db_engine_remove_files (SymbolDBEngine * dbe, const gchar * project,
-							  const GPtrArray * files);
+symbol_db_engine_remove_files (SymbolDBEngine * dbe, const gchar *project,
+                               const GPtrArray *rel_files);
 
 /**
  * Update symbols of saved files. 
@@ -271,6 +271,13 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar * proj
 										GPtrArray * real_files_list,
 										const GPtrArray * text_buffers,
 										const GPtrArray * buffer_sizes);
+
+/**
+ * Retrieves the list of files in project. The data model contains only 1
+ * column, which is the file name.
+ */
+GdaDataModel*
+symbol_db_engine_get_files_for_project (SymbolDBEngine *dbe);
 
 /**
  * Set the opened db case sensitive. The searches on this db will then be performed

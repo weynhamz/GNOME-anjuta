@@ -57,7 +57,7 @@ symbol_db_util_get_full_local_path (SymbolDBEngine *dbe, const gchar* db_file);
  * /home/user/foo_project/src/foo.c returned file should be /src/foo.c.
  * Return NULL on error.
  */
-gchar *
+const gchar *
 symbol_db_util_get_file_db_path (SymbolDBEngine *dbe, const gchar* full_local_file_path);
 
 /** 

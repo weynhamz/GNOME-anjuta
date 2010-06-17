@@ -941,7 +941,9 @@ on_project_element_removed (IAnjutaProjectManager *pm, GFile *gfile,
 	{
 		DEBUG_PRINT ("%s", "on_project_element_removed");
 		symbol_db_engine_remove_file (sdb_plugin->sdbe_project, 
-			sdb_plugin->project_root_dir, filename);
+		                              sdb_plugin->project_root_dir,
+		                              symbol_db_util_get_file_db_path (sdb_plugin->sdbe_project,
+		                                                               filename));
 		
 		g_free (filename);
 	}
@@ -1329,7 +1331,6 @@ do_update_project_symbols (SymbolDBPlugin *sdb_plugin, const gchar *root_dir)
 	return FALSE;
 }
 
-#if 0
 /**
  * @return TRUE is a scan process is started, FALSE elsewhere.
  */
@@ -1388,35 +1389,25 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 
 	/* some files may have added/removed editing Makefile.am while
 	 * Anjuta was offline. Check this case too.
+	 * FIXME: Get rid of data model here.
 	 */
-	SymbolDBEngineIterator *it = 
-		symbol_db_engine_get_files_for_project (sdb_plugin->sdbe_project, 
-												NULL,
-												SYMINFO_FILE_PATH);
-
-	if (it != NULL && symbol_db_engine_iterator_get_n_items (it) > 0)
+	GdaDataModel *model =
+		symbol_db_engine_get_files_for_project (sdb_plugin->sdbe_project);
+	GdaDataModelIter *it =
+		gda_data_model_create_iter (model);
+	
+	if (it && gda_data_model_iter_move_to_row (it, 0))
 	{
 		GPtrArray *remove_array;
 		remove_array = g_ptr_array_new ();
 		do {
-			SymbolDBEngineIteratorNode *dbin;
-			dbin = (SymbolDBEngineIteratorNode *) it;
-			
-			const gchar * file = 
-				symbol_db_engine_iterator_node_get_symbol_extra_string (dbin,
-													SYMINFO_FILE_PATH);
+			const GValue *val = gda_data_model_iter_get_value_at (it, 0);
+			const gchar * file = g_value_get_string (val);
 			
 			if (file && g_hash_table_remove (prj_elements_hash, file) == FALSE)
-			{
-				/* hey, we dind't find an element to remove the the project list.
-				 * So, probably, this is a new file added in offline mode via Makefile.am
-				 * editing.
-				 * Keep a reference to it.
-				 */
-				/*DEBUG_PRINT ("ARRAY REMOVE %s", file);*/
-				g_ptr_array_add (remove_array, (gpointer)file);
-			}
-		} while (symbol_db_engine_iterator_move_next (it));
+				g_ptr_array_add (remove_array, (gpointer) file);
+			
+		} while (gda_data_model_iter_move_next (it));
 		
 		symbol_db_engine_remove_files (sdb_plugin->sdbe_project,
 									   sdb_plugin->project_opened,
@@ -1471,12 +1462,12 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 	}
 	
 	g_object_unref (it);
+	g_object_unref (model);
 	g_ptr_array_free (to_add_files, TRUE);
 	g_hash_table_destroy (prj_elements_hash);
 	
 	return real_added > 0 ? TRUE : FALSE;	
 }
-#endif
 
 static void
 on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
@@ -1717,22 +1708,12 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 				g_ptr_array_foreach (sources_array, (GFunc)g_free, NULL);
 				g_ptr_array_free (sources_array, TRUE);
 			}
-#if 0
+
 			/* check for offline changes */				
 			flag_offline = do_check_offline_files_changed (sdb_plugin);
-#endif
+
 			/* update any files of the project which isn't up-to-date */
 			flag_update = do_update_project_symbols (sdb_plugin, root_dir);
-			
-			/* if they're both false then there won't be a place where
-			 * the do_check_languages_count () is called. Check the returns
-			 * and to it here
-			 */
-			if (flag_offline == FALSE && flag_update == FALSE)
-			{
-				/* check for the number of languages used in the opened project. */
-				//do_check_languages_count (sdb_plugin);				
-			}				
 		}
 		gtk_progress_bar_set_text (GTK_PROGRESS_BAR (sdb_plugin->progress_bar_project),
 								   _("Populating symbol database…"));
@@ -1838,8 +1819,6 @@ on_scan_end_manager (SymbolDBEngine *dbe, gint process_id,
 			gboolean parallel_scan = anjuta_preferences_get_bool (sdb_plugin->prefs, 
 														 PARALLEL_SCAN); 
 			
-			//do_check_languages_count (sdb_plugin);
-			
 			/* check the system population has a parallel fashion or not. */			 
 			if (parallel_scan == FALSE)
 				do_import_system_sources (sdb_plugin);			
@@ -1854,7 +1833,6 @@ on_scan_end_manager (SymbolDBEngine *dbe, gint process_id,
 		case TASK_ELEMENT_ADDED:
 			DEBUG_PRINT ("received TASK_ELEMENT_ADDED");
 			sdb_plugin->is_adding_element = FALSE;
-			//do_check_languages_count (sdb_plugin);
 			break;
 			
 		case TASK_OFFLINE_CHANGES:		
@@ -1865,8 +1843,6 @@ on_scan_end_manager (SymbolDBEngine *dbe, gint process_id,
 										  sdb_plugin);		
 										  
 			sdb_plugin->is_offline_scanning = FALSE;
-			
-			//do_check_languages_count (sdb_plugin);
 			break;
 			
 		case TASK_PROJECT_UPDATE:		
