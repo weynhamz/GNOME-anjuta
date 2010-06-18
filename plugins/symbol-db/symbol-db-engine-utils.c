@@ -87,7 +87,7 @@ symbol_db_util_get_file_db_path (SymbolDBEngine *dbe, const gchar* full_local_fi
 	    strlen (priv->project_directory) >= strlen (full_local_file_path)) 
 		return NULL;
 
-	return full_local_file_path + strlen (priv->project_directory) + 1;
+	return full_local_file_path + strlen (priv->project_directory);
 }
 
 GPtrArray *
