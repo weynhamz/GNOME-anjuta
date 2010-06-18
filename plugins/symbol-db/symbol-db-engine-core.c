@@ -6896,7 +6896,7 @@ symbol_db_engine_remove_file (SymbolDBEngine * dbe, const gchar *project,
 	
 	SDB_LOCK(priv);
 
-	if (strlen (rel_file)) 
+	if (strlen (rel_file) <= 0)
 	{
 		g_warning ("wrong file to delete.");
 		SDB_UNLOCK(priv);
@@ -7139,7 +7139,7 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 GdaDataModel*
 symbol_db_engine_get_files_for_project (SymbolDBEngine *dbe)
 {
-	return sdb_engine_execute_select_sql (dbe, "SELECT file.file_path FROME file");
+	return sdb_engine_execute_select_sql (dbe, "SELECT file.file_path FROM file");
 }
 
 /* ~~~ Thread note: this function locks the mutex ~~~ */ 

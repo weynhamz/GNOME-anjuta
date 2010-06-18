@@ -1354,8 +1354,8 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 	/* fill an hash table with all the items of the list just taken. 
 	 * We won't g_strdup () the elements because they'll be freed later
 	 */
-	prj_elements_hash = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, 
-											  NULL);
+	prj_elements_hash = g_hash_table_new_full (g_str_hash, g_str_equal,
+	                                           NULL, g_free);
 	
 	for (i = 0; i <  g_list_length (prj_elements_list); i++)
 	{	
@@ -1382,7 +1382,11 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 			continue;
 		}
 
-		g_hash_table_insert (prj_elements_hash, filename, GINT_TO_POINTER (1));		
+		g_hash_table_insert (prj_elements_hash,
+		                     (gpointer) symbol_db_util_get_file_db_path
+		                 	   (sdb_plugin->sdbe_project,
+			                     filename),
+		                     filename);
 		g_object_unref (gfile);
 	}	
 	
@@ -1405,13 +1409,14 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 			const gchar * file = g_value_get_string (val);
 			
 			if (file && g_hash_table_remove (prj_elements_hash, file) == FALSE)
-				g_ptr_array_add (remove_array, (gpointer) file);
+				g_ptr_array_add (remove_array, g_strdup (file));
 			
 		} while (gda_data_model_iter_move_next (it));
 		
 		symbol_db_engine_remove_files (sdb_plugin->sdbe_project,
 									   sdb_plugin->project_opened,
-									   remove_array);		
+									   remove_array);
+		g_ptr_array_foreach (remove_array, (GFunc) g_free, NULL);
 		g_ptr_array_free (remove_array, TRUE);		
 	}
 
@@ -1431,7 +1436,9 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 		for (i = 0; i < g_hash_table_size (prj_elements_hash); i++)
 		{
 			/*DEBUG_PRINT ("ARRAY ADD %s", (gchar*)g_list_nth_data (keys, i));*/
-			g_ptr_array_add (to_add_files, g_list_nth_data (keys, i));
+			g_ptr_array_add (to_add_files,
+			                 g_hash_table_lookup (prj_elements_hash,
+			                                      g_list_nth_data (keys, i)));
 		}		
 	}
 
