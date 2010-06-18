@@ -5404,9 +5404,9 @@ interface IAnjutaSymbol
  *
  * A query can run in different modes, defined by #IAnjutaSymbolQueryMode, by
  * default it is executed in synchrounous mode #IANJUTA_SYMBOL_QUERY_MODE_SYNC
- * and can be changed using ianjuta_query_set_mode(). #IANJUTA_SYMBOL_QUERY_MODE_ASYNC
- * runs it in asynchronous mode in a separate thread and can be canceled with
- * ianjuta_symbol_query_cancel().
+ * and can be changed using ianjuta_symbol_query_set_mode().
+ * #IANJUTA_SYMBOL_QUERY_MODE_ASYNC runs it in asynchronous mode in a separate
+ * thread and can be canceled with ianjuta_symbol_query_cancel().
  * 
  * A query runs on a database, defined by #IAnjutaSymbolQueryDb, and can be
  * only selected at creatation time.
