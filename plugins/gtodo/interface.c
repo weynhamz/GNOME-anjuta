@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "main.h"
 #include <libanjuta/anjuta-utils.h>
+#include <libanjuta/anjuta-preferences.h>
 #include "debug_printf.h"
 
 /* the main window struct */
@@ -11,7 +12,7 @@ mwindow mw;
 
 /* settings struct */
 sets settings;
-GConfClient* client;    
+AnjutaPreferences *preferences;
 
 /* the connection to the xml file */
 GTodoClient *cl = NULL;
@@ -37,43 +38,34 @@ static void set_read_only()
 
 void gtodo_load_settings ()
 {
-	debug_printf(DEBUG_INFO, "Creating gconf client");
-	client = gconf_client_get_default();
+	debug_printf(DEBUG_INFO, "Creating anjuta preferences client");
+	preferences = anjuta_preferences_default ();
 	
-	gconf_client_add_dir(client,
-			"/apps/gtodo/prefs",
-			GCONF_CLIENT_PRELOAD_NONE,
-			NULL);
-	gconf_client_add_dir(client,
-			"/apps/gtodo/view",
-			GCONF_CLIENT_PRELOAD_NONE,
-			NULL);
+	debug_printf(DEBUG_INFO, "Loading settings from anjuta preferences");
 
-	debug_printf(DEBUG_INFO, "Loading settings from gconf");
-
-	settings.place = gconf_client_get_bool(client, "/apps/gtodo/prefs/restore-position",NULL);;
-	settings.size =  gconf_client_get_bool(client, "/apps/gtodo/prefs/restore-size",NULL);;
-	settings.ask_delete_category 	=  gconf_client_get_bool(client, "/apps/gtodo/prefs/ask-delete-category",NULL);
+	settings.place = anjuta_preferences_get_bool(preferences, "gtodo.restore-position");;
+	settings.size =  anjuta_preferences_get_bool(preferences, "gtodo.restore-size");;
+	settings.ask_delete_category 	=  anjuta_preferences_get_bool(preferences, "gtodo.ask-delete-category");
 	/* this is kinda (thanks gtk :-/) buggy.. gtk need fix first */
-//	settings.list_tooltip		= gconf_client_get_bool(client, "/apps/gtodo/prefs/show-tooltip",NULL);
+//	settings.list_tooltip		= anjuta_preferences_get_bool(preferences, "gtodo.show-tooltip");
 	/* auto purge is default on.. */
-	settings.auto_purge		= gconf_client_get_bool(client, "/apps/gtodo/prefs/auto-purge",NULL);
+	settings.auto_purge		= anjuta_preferences_get_bool(preferences, "gtodo.auto-purge");
 	/* set default auto purge to a week */	
-	settings.purge_days		= gconf_client_get_int(client, "/apps/gtodo/prefs/auto-purge-days",NULL);
-	settings.due_color 		= gconf_client_get_string(client, "/apps/gtodo/prefs/due-color",NULL);
-	settings.due_today_color 	= gconf_client_get_string(client, "/apps/gtodo/prefs/due-today-color",NULL);
-	settings.due_in_days_color 	= gconf_client_get_string(client, "/apps/gtodo/prefs/due-in-days-color",NULL);
-	settings.due_days 		= gconf_client_get_int(client, "/apps/gtodo/prefs/due-days",NULL);
-	settings.sorttype 		= gconf_client_get_int(client, "/apps/gtodo/prefs/sort-type",NULL);	
-	settings.sortorder 		= gconf_client_get_int(client, "/apps/gtodo/prefs/sort-order",NULL);	
+	settings.purge_days		= anjuta_preferences_get_int(preferences, "gtodo.auto-purge-days");
+	settings.due_color 		= anjuta_preferences_get(preferences, "gtodo.due-color");
+	settings.due_today_color 	= anjuta_preferences_get(preferences, "gtodo.due-today-color");
+	settings.due_in_days_color 	= anjuta_preferences_get(preferences, "gtodo.due-in-days-color");
+	settings.due_days 		= anjuta_preferences_get_int(preferences, "gtodo.due-days");
+	settings.sorttype 		= anjuta_preferences_get_int(preferences, "gtodo.sort-type");
+	settings.sortorder 		= anjuta_preferences_get_int(preferences, "gtodo.sort-order");
 	/* treeview hide preferences.. */
-	settings.hide_done 		= gconf_client_get_bool(client, "/apps/gtodo/prefs/hide-done",NULL);
-	settings.hide_due 		= gconf_client_get_bool(client, "/apps/gtodo/prefs/hide-due",NULL);
-	settings.hide_nodate 		=  gconf_client_get_bool(client, "/apps/gtodo/prefs/hide-nodate",NULL);
-	settings.hl_indays		= gconf_client_get_bool(client,"/apps/gtodo/prefs/hl-indays",NULL);
-	settings.hl_due			= gconf_client_get_bool(client,"/apps/gtodo/prefs/hl-due",NULL);
-	settings.hl_today		= gconf_client_get_bool(client,"/apps/gtodo/prefs/hl-today",NULL);
-	pref_gconf_set_notifications(client);
+	settings.hide_done 		= anjuta_preferences_get_bool(preferences, "gtodo.hide-done");
+	settings.hide_due 		= anjuta_preferences_get_bool(preferences, "gtodo.hide-due");
+	settings.hide_nodate 		=  anjuta_preferences_get_bool(preferences, "gtodo.hide-nodate");
+	settings.hl_indays		= anjuta_preferences_get_bool(preferences,"gtodo.hl-indays");
+	settings.hl_due			= anjuta_preferences_get_bool(preferences,"gtodo.hl-due");
+	settings.hl_today		= anjuta_preferences_get_bool(preferences,"gtodo.hl-today");
+	pref_set_notifications(preferences);
 }
 
 void gtodo_update_settings()
@@ -86,13 +78,13 @@ void gtodo_update_settings()
 	
 	/* read the categorys */
 	{
-		int i =  gconf_client_get_int(client, "/apps/gtodo/view/last-category",NULL);
+		int i =  anjuta_preferences_get_int(preferences, "gtodo.last-category");
 		debug_printf(DEBUG_INFO, "Reading categories");
 		read_categorys();
 		gtk_combo_box_set_active(GTK_COMBO_BOX(mw.option),i);
 	}
 	/* nasty thing to fix the tooltip in the list */
-	if(gconf_client_get_bool(client, "/apps/gtodo/prefs/show-tooltip",NULL))
+	if(anjuta_preferences_get_bool(preferences, "gtodo.show-tooltip"))
 	{
 		gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(mw.treeview), FALSE);			
 	}
@@ -215,21 +207,21 @@ GtkWidget * gui_create_todo_widget()
 	column = gtk_tree_view_column_new_with_attributes(_("Priority"), renderer, "text" , PRIOSTR,"strikethrough", DONE, "foreground-set", DUE,"foreground", COLOR, NULL);
 	gtk_tree_view_column_set_sort_column_id (column, PRIOSTR);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(mw.treeview), column);    
-	if(!gconf_client_get_bool(client, "/apps/gtodo/view/show-priority-column",NULL)) gtk_tree_view_column_set_visible(column, FALSE);
+	if(!anjuta_preferences_get_bool(preferences, "gtodo.show-priority-column")) gtk_tree_view_column_set_visible(column, FALSE);
 
 	renderer =  gtk_cell_renderer_text_new();
 	g_object_set (renderer, "yalign", 0.0, NULL);
 	column = gtk_tree_view_column_new_with_attributes(_("Due date"), renderer, "text" , F_DATE,"strikethrough", DONE, "foreground-set", DUE,"foreground", COLOR,NULL);
 	gtk_tree_view_column_set_sort_column_id (column, F_DATE);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(mw.treeview), column);    
-	if(!gconf_client_get_bool(client, "/apps/gtodo/prefs/show-due-column",NULL)) gtk_tree_view_column_set_visible(column, FALSE);
+	if(!anjuta_preferences_get_bool(preferences, "gtodo.show-due-column")) gtk_tree_view_column_set_visible(column, FALSE);
 
 	renderer =  gtk_cell_renderer_text_new();
 	g_object_set (renderer, "yalign", 0.0, NULL);
 	column = gtk_tree_view_column_new_with_attributes(_("Category"), renderer, "text" , CATEGORY,"strikethrough", DONE, "foreground-set", DUE,"foreground", COLOR,NULL);
 	gtk_tree_view_column_set_sort_column_id (column, CATEGORY);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(mw.treeview), column);   	
-	if(!gconf_client_get_bool(client, "/apps/gtodo/view/show-category-column",NULL)) gtk_tree_view_column_set_visible(column, FALSE);
+	if(!anjuta_preferences_get_bool(preferences, "gtodo.show-category-column")) gtk_tree_view_column_set_visible(column, FALSE);
 
 	renderer =  gtk_cell_renderer_text_new();
 	g_object_set (renderer, "yalign", 0.0, "wrap-mode", PANGO_WRAP_WORD, "wrap-width", 500, NULL);
@@ -290,19 +282,19 @@ void gtodo_set_hide_done(gboolean hide_it)
 {
 	/*    settings.hide_done = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM (gtk_item_factory_get_widget(mw.item_factory, N_("/View/Todo List/Hide Completed Items"))));*/
 	settings.hide_done = hide_it;
-	gconf_client_set_bool(client, "/apps/gtodo/prefs/hide-done", settings.hide_done,NULL);
+	anjuta_preferences_set_bool(preferences, "gtodo.hide-done", settings.hide_done);
 }
 
 void gtodo_set_hide_nodate(gboolean hide_it)
 {
 	settings.hide_nodate = hide_it;
-	gconf_client_set_bool(client, "/apps/gtodo/prefs/hide-nodate", settings.hide_nodate, NULL);
+	anjuta_preferences_set_bool(preferences, "gtodo.hide-nodate", settings.hide_nodate);
 }
 
 void gtodo_set_hide_due(gboolean hide_it)
 {
 	settings.hide_due = hide_it;
-	gconf_client_set_bool(client, "/apps/gtodo/prefs/hide-due", settings.hide_due, NULL);
+	anjuta_preferences_set_bool(preferences, "gtodo.hide-due", settings.hide_due);
 }
 
 gboolean gtodo_get_hide_done()
@@ -323,14 +315,14 @@ gboolean gtodo_get_hide_due()
 void gtodo_set_sorting_order (gboolean ascending_sort)
 {
 	settings.sortorder = ascending_sort;
-	gconf_client_set_int(client, "/apps/gtodo/prefs/sort-order",settings.sortorder,NULL);
+	anjuta_preferences_set_int(preferences, "gtodo.sort-order",settings.sortorder);
 	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE (mw.sortmodel),0, settings.sortorder);
 }
 
 void gtodo_set_sorting_type (int sorting_type)
 {
 	settings.sorttype = sorting_type;
-	gconf_client_set_int(client, "/apps/gtodo/prefs/sort-type",sorting_type,NULL);
+	anjuta_preferences_set_int(preferences, "gtodo.sort-type",sorting_type);
 	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE (gtk_tree_view_get_model(GTK_TREE_VIEW(mw.treeview))),0, settings.sortorder);
 	category_changed();
 }
