@@ -5275,8 +5275,8 @@ interface IAnjutaSymbol
 	 * 
 	 * Symbol Fields. Used to define and retrieve results from query. Each of
 	 * these fields are either integer or string. Use the right method to
-	 * retrieve them. That is, for integer use ianjuta_symbol_get_integer(),
-	 * for string use ianjuta_symbol_get_string, and for boolean use
+	 * retrieve them. That is, for integer use ianjuta_symbol_get_int(),
+	 * for string use ianjuta_symbol_get_string(), and for boolean use
 	 * ianjuta_symbol_get_boolean(). Some fields can be in both forms,
 	 * e.g. #IANJUTA_SYMBOL_FIELD_TYPE.
 	 */
@@ -5306,6 +5306,8 @@ interface IAnjutaSymbol
 	 * @err: Error propagation and reporting.
 	 *
 	 * Retreives the boolean value of a boolean @field.
+	 * 
+	 * Returns: The boolean
 	 */
 	gboolean get_boolean (Field field);
 	
@@ -5316,6 +5318,8 @@ interface IAnjutaSymbol
 	 * @err: Error propagation and reporting.
 	 *
 	 * Retreives the integer value of an integer @field.
+	 * 
+	 * Returns: The integer
 	 */
 	gint get_int (Field field);
 	
@@ -5326,6 +5330,8 @@ interface IAnjutaSymbol
 	 * @err: Error propagation and reporting.
 	 *
 	 * Retreives the string value of a string @field.
+	 * 
+	 * Returns: The string
 	 */
 	const gchar* get_string (Field field);
 	
@@ -5424,6 +5430,24 @@ interface IAnjutaSymbolQuery
 	#include "ianjuta-iterable.h"
 	#include "ianjuta-symbol.h"
 
+	/**
+	 * IAnjutaSymbolQueryMode:
+	 * @IANJUTA_SYMBOL_QUERY_MODE_SYNC: Syncronous query. The result is immediately
+	 *     available as retrun value of search call.
+	 * @IANJUTA_SYMBOL_QUERY_MODE_ASYNC: Asynchronous query. The search call
+	 *     return immediately and result delievered as a signal later. The actual
+	 *     query is done in a separate thread.
+	 * @IANJUTA_SYMBOL_QUERY_MODE_QUEUED_SINGLE: If the database is busy
+	 *     scanning, then return immediately without result, but query is performed
+	 *     later when database is ready and result delivered through signal. Only
+	 *     one query can stay active, so calling search multiple times would
+	 *     result in only the last one being active.
+	 * @IANJUTA_SYMBOL_QUERY_MODE_QUEUED_MULTI: Equivalent to
+	 *     #IANJUTA_SYMBOL_QUERY_MODE_QUEUED_SINGLE, but all searches are queued.
+	 *
+	 * This parameter determines the mode of query execution. By default,
+	 * IANJUTA_SYMBOL_QUERY_MODE_SYNC is selected.
+	 */
 	enum Mode
 	{
 		MODE_SYNC,
@@ -5432,12 +5456,36 @@ interface IAnjutaSymbolQuery
 		MODE_QUEUED_MULTI
 	}
 
+	/**
+	 * IAnjutaSymbolQueryDb:
+	 * @IANJUTA_SYMBOL_QUERY_DB_PROJECT: Select project database.
+	 * @IANJUTA_SYMBOL_QUERY_DB_SYSTEM: Select system database.
+	 *
+	 * Sets the database to use for the query. System database is where
+	 * all system library symbols are found. While project database is where
+	 * currently open project's symbols are found.
+	 */
 	enum Db
 	{
 		DB_PROJECT,
 		DB_SYSTEM
 	}
-	
+
+	/**
+	 * IAnjutaSymbolQueryName:
+	 * @IANJUTA_SYMBOL_QUERY_SEARCH: Query to perform basic substring search.
+	 * @IANJUTA_SYMBOL_QUERY_SEARCH_ALL: Query to get all symbols
+	 * @IANJUTA_SYMBOL_QUERY_SEARCH_FILE: Query to perform substring search in a file.
+	 * @IANJUTA_SYMBOL_QUERY_SEARCH_IN_SCOPE: Query to perform substring search in a scope.
+	 * @IANJUTA_SYMBOL_QUERY_SEARCH_ID: Query to find the symbol of given ID.
+	 * @IANJUTA_SYMBOL_QUERY_SEARCH_MEMBERS: Query to find members of a scope (eg. class).
+	 * @IANJUTA_SYMBOL_QUERY_SEARCH_CLASS_PARENTS: Query to get parents of a class.
+	 * @IANJUTA_SYMBOL_QUERY_SEARCH_SCOPE: Query to find scope name of a file position.
+	 * @IANJUTA_SYMBOL_QUERY_SEARCH_PARENT_SCOPE: Query to get the parent scope of a symbol.
+	 * @IANJUTA_SYMBOL_QUERY_SEARCH_PARENT_SCOPE_FILE: Query to get the parent scope of a symbol in the file.
+	 * 
+	 * Names of query that defined what kind of query it is.
+	 */
 	enum Name
 	{
 		SEARCH,
@@ -5452,34 +5500,234 @@ interface IAnjutaSymbolQuery
 		SEARCH_PARENT_SCOPE_FILE
 	}
 
+	/**
+	 * IAnjutaSymbolQueryFileScope:
+	 * @IANJUTA_SYMBOL_QUERY_SEARCH_FS_IGNORE: Ignore file scope
+	 * @IANJUTA_SYMBOL_QUERY_SEARCH_FS_PUBLIC: Only public symbols visible to rest of project.
+	 * @IANJUTA_SYMBOL_QUERY_SEARCH_FS_PRIVATE: Only private symbols visible inside a file.
+	 * 
+	 * Defines file scope of symbols to query.
+	 */
 	enum FileScope
 	{
 		SEARCH_FS_IGNORE,
 		SEARCH_FS_PUBLIC,
 		SEARCH_FS_PRIVATE
 	}
-	
+
+	/**
+	 * IAnjutaSymbolQuery::async_result:
+	 * @ianjutasymbolquery: Self
+	 * @arg1: Query result (IAnjutaIterable, IAnjutaSymbol) of an async
+	 *     or queued search. NULL if no result is found or some error happened.
+	 *
+	 * This signal is emitted for every search of the Query involved in async
+	 * mode, unless cancled by ianjuta_symbol_query_cancel(). For single queued
+	 * query, only result of the last search is emitted (if it wasn't database
+	 * was busy when search was invoked).
+	 */
 	void ::async_result (GObject* result);
-	
+
+	/**
+	 * ianjuta_symbol_query_set_mode:
+	 * @obj: Self
+	 * @mode: The mode of query.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Sets the mode of Query.
+	 */
 	void set_mode (IAnjutaSymbolQueryMode mode);
+
+	/**
+	 * ianjuta_symbol_query_set_fields:
+	 * @obj: Self
+	 * @n_fields: Then number of fields to retrieve.
+	 * @fields: The fields to retrieve in the query. The array length must
+	 *   be @n_fields.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Sets the fields of Query.
+	 */
 	void set_fields (gint n_fields, IAnjutaSymbolField *fields);
+
+	/**
+	 * ianjuta_symbol_query_set_filters:
+	 * @obj: Self
+	 * @filters: The mode of query.
+	 * @include_types: TRUE if filter is positive, FALSE if reversed.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Sets the bit mask of symbol type filters. if @include_types is TRUE,
+	 * symbols satisfying the given symbol types are selected, otherwise
+	 * they are excluded.
+	 */
 	void set_filters (IAnjutaSymbolType filters, gboolean includes_types);
+
+	/**
+	 * ianjuta_symbol_query_set_file_scope:
+	 * @obj: Self
+	 * @filescope_search: The filescope to search.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Sets the filescope search of Query.
+	 */
 	void set_file_scope (IAnjutaSymbolQueryFileScope filescope_search);
+
+	/**
+	 * ianjuta_symbol_query_set_offset:
+	 * @obj: Self
+	 * @offset: Offset of the resultset.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Sets the offset index of Query results.
+	 */
 	void set_offset (gint offset);
+
+	/**
+	 * ianjuta_symbol_query_set_limit:
+	 * @obj: Self
+	 * @limit: The limit of query.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Sets the limit of Query results. No more than @limit results are
+	 * returned.
+	 */
 	void set_limit (gint limit);
+
+	/**
+	 * ianjuta_symbol_query_set_group_by:
+	 * @obj: Self
+	 * @field: The field to group results.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Sets the field with which result of query is grouped. As a result
+	 * there will be no duplicates of with this field.
+	 */
 	void set_group_by (IAnjutaSymbolField field);
+
+	/**
+	 * ianjuta_symbol_query_set_order_by:
+	 * @obj: Self
+	 * @field: The field to order the result.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Sets the field with which result of query is ordered.
+	 */
 	void set_order_by (IAnjutaSymbolField field);
+
+	/**
+	 * ianjuta_symbol_query_set_cancel:
+	 * @obj: Self
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Cancels any pending non-sync searches. After calling this, it is
+	 * guaranteed that "async-result" will not be called any more for any
+	 * past searches. New searches will have their results signaled as
+	 * normal.
+	 */
 	void cancel ();
 	
+	/**
+	 * ianjuta_symbol_query_search:
+	 * @obj: Self
+	 * @pattern: Search pattern in compliance with SQL LIKE syntax
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Executes #IANJUTA_SYMBOL_QUERY_SEARCH query.
+	 */
 	IAnjutaIterable* search (const gchar *pattern);
+	
+	/**
+	 * ianjuta_symbol_query_search_all:
+	 * @obj: Self
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Executes #IANJUTA_SYMBOL_QUERY_SEARCH_ALL query.
+	 */
 	IAnjutaIterable* search_all ();
+	
+	/**
+	 * ianjuta_symbol_query_search_file:
+	 * @obj: Self
+	 * @pattern: Search pattern in compliance with SQL LIKE syntax
+	 * @file: The file whose symbols are searched.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Executes #IANJUTA_SYMBOL_QUERY_SEARCH_FILE query.
+	 */
 	IAnjutaIterable* search_file (const gchar *pattern, const GFile *file);
+	
+	/**
+	 * ianjuta_symbol_query_search_in_scope:
+	 * @obj: Self
+	 * @pattern: Search pattern in compliance with SQL LIKE syntax
+	 * @scope: The scope inside which symbols are searched.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Executes #IANJUTA_SYMBOL_QUERY_SEARCH_IN_SCOPE query.
+	 */
 	IAnjutaIterable* search_in_scope (const gchar *pattern, IAnjutaSymbol *scope);
+	
+	/**
+	 * ianjuta_symbol_query_search_members:
+	 * @obj: Self
+	 * @symbol: The symbol whose members to get.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Executes #IANJUTA_SYMBOL_QUERY_SEARCH_MEMBERS query.
+	 */
 	IAnjutaIterable* search_members (IAnjutaSymbol *symbol);
+	
+	/**
+	 * ianjuta_symbol_query_search_class_parents:
+	 * @obj: Self
+	 * @symbol: The class symbol whose parents to get.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Executes #IANJUTA_SYMBOL_QUERY_SEARCH_CLASS_PARENTS query.
+	 */
 	IAnjutaIterable* search_class_parents (IAnjutaSymbol *symbol);
+	
+	/**
+	 * ianjuta_symbol_query_search_id:
+	 * @obj: Self
+	 * @symbol: The symbol id whose details to get.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Executes #IANJUTA_SYMBOL_QUERY_SEARCH_ID query.
+	 */
 	IAnjutaIterable* search_id (gint symbol_id);
+	
+	/**
+	 * ianjuta_symbol_query_search_scope:
+	 * @obj: Self
+	 * @file_path: The file where the scope is.
+	 * @line: The line where the scope is.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Executes #IANJUTA_SYMBOL_QUERY_SEARCH_SCOPE query.
+	 */
 	IAnjutaIterable* search_scope (const gchar *file_path, gint line);
+
+	/**
+	 * ianjuta_symbol_query_search_parent_scope:
+	 * @obj: Self
+	 * @symbol: The symbol whose parent scope is to be found.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Executes #IANJUTA_SYMBOL_QUERY_SEARCH_PARENT_SCOPE query.
+	 */
 	IAnjutaIterable* search_parent_scope (IAnjutaSymbol *symbol);
+
+	/**
+	 * ianjuta_symbol_query_search_parent_scope_file:
+	 * @symbol: The symbol whose parent scope is to be found.
+	 * @obj: Self
+	 * @file_path: The file where the parent scope is to be found.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Executes #IANJUTA_SYMBOL_QUERY_SEARCH_PARENT_SCOPE_FILE query.
+	 */
 	IAnjutaIterable* search_parent_scope_file (IAnjutaSymbol *symbol, const gchar *file_path);
 }
 
@@ -5518,6 +5766,20 @@ interface IAnjutaSymbolManager
 	 */
 	void ::sys_scan_end (gint process_id);
 
+	/**
+	 * ianjuta_symbol_manager_create_query:
+	 * @obj: Self
+	 * @name: Name of the query. It decides what query type it is.
+	 * @db: The database to use.
+	 * @err: Error propagation and reporting.
+	 *
+	 * Create a query object. By default only #IANJUTA_SYMBOL_FIELD_ID and
+	 * and #IANJUTA_SYMBOL_FIELD_NAME are selected, limit is set to infinity,
+	 * offset is set to 0, no filters are set and mode is set to
+	 * #IANJUTA_SYMBOL_QUERY_MODE_SYNC.
+	 *
+	 * Returns: A #IAnjutaSymbolQuery object
+	 */
 	IAnjutaSymbolQuery* create_query (IAnjutaSymbolQueryName name, IAnjutaSymbolQueryDb db);
 }
 
