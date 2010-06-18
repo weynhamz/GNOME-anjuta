@@ -357,7 +357,7 @@ cb_druid_insert_project_page (gpointer value, gpointer user_data)
 
 /* Fill project selection page */
 static gboolean
-npw_druid_fill_selection_page (NPWDruid* druid)
+npw_druid_fill_selection_page (NPWDruid* druid, const gchar *directory)
 {
 	gchar* dir;
 	const gchar * const * sys_dir;
@@ -370,23 +370,31 @@ npw_druid_fill_selection_page (NPWDruid* druid)
 	/* Create list of projects */
 	druid->header_list = npw_header_list_new ();	
 	
-	/* Read project template in user directory,
-	 * normally ~/.local/share/anjuta/project,
-	 * the first template read override the others */
-	dir = g_build_filename (g_get_user_data_dir (), "anjuta", "project", NULL);
-	npw_header_list_readdir (&druid->header_list, dir);
-	g_free (dir);
-	
-	/* Read project template in system directory */	
-	for (sys_dir = g_get_system_data_dirs (); *sys_dir != NULL; sys_dir++)
+	if (directory != NULL)
 	{
-		dir = g_build_filename (*sys_dir, "anjuta", "project", NULL);
-		npw_header_list_readdir (&druid->header_list, PROJECT_WIZARD_DIRECTORY);
-		g_free (dir);
+		/* Read project template only in specified directory */
+		npw_header_list_readdir (&druid->header_list, directory);
 	}
+	else
+	{
+		/* Read project template in user directory,
+		 * normally ~/.local/share/anjuta/project,
+		 * the first template read override the others */
+		dir = g_build_filename (g_get_user_data_dir (), "anjuta", "project", NULL);
+		npw_header_list_readdir (&druid->header_list, dir);
+		g_free (dir);
+	
+		/* Read project template in system directory */	
+		for (sys_dir = g_get_system_data_dirs (); *sys_dir != NULL; sys_dir++)
+		{
+			dir = g_build_filename (*sys_dir, "anjuta", "project", NULL);
+			npw_header_list_readdir (&druid->header_list, dir);
+			g_free (dir);
+		}
 
-	/* Read anjuta installation directory */
-	npw_header_list_readdir (&druid->header_list, PROJECT_WIZARD_DIRECTORY);
+		/* Read anjuta installation directory */
+		npw_header_list_readdir (&druid->header_list, PROJECT_WIZARD_DIRECTORY);
+	}
 	
 	if (g_list_length (druid->header_list) == 0)
 	{
@@ -1008,7 +1016,7 @@ on_druid_finish (GtkAssistant* assistant, NPWDruid* druid)
 }
 
 static GtkWidget*
-npw_druid_create_assistant (NPWDruid* druid)
+npw_druid_create_assistant (NPWDruid* druid, const gchar *directory)
 {
 	AnjutaShell *shell;
 	GtkBuilder *builder;
@@ -1046,7 +1054,7 @@ npw_druid_create_assistant (NPWDruid* druid)
 	g_signal_connect(G_OBJECT(assistant), "key-press-event", G_CALLBACK(on_project_wizard_key_press_event), druid);
 
 	/* Setup project selection page */
-	if (!npw_druid_fill_selection_page (druid))
+	if (!npw_druid_fill_selection_page (druid, directory))
 	{
 		return NULL;
 	}
@@ -1117,7 +1125,7 @@ npw_druid_add_default_property (NPWDruid* druid)
  *---------------------------------------------------------------------------*/
 
 NPWDruid*
-npw_druid_new (NPWPlugin* plugin)
+npw_druid_new (NPWPlugin* plugin, const gchar *directory)
 {
 	NPWDruid* druid;
 
@@ -1138,7 +1146,7 @@ npw_druid_new (NPWPlugin* plugin)
 	druid->plugin = plugin;
 	druid->error_extra_widget = NULL;
 
-	if (npw_druid_create_assistant (druid) == NULL)
+	if (npw_druid_create_assistant (druid, directory) == NULL)
 	{
 		npw_druid_free (druid);
 		

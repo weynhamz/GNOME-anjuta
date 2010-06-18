@@ -44,6 +44,12 @@
 		defined as "[+" and "+]" in the wizard template.
 		</para>
 		<para>
+		All blocks on the project wizard are included in a <emphasis>project-template
+		</emphasis> block. This is needed because a valid XML file should have a
+		single root block. This block was not used in older version of the format,
+		so it is optional to keep backward compatibility.
+		</para>
+		<para>
 		The <emphasis>header</emphasis> block is the only exception, it is read 
 		directly from the template file and do not use autogen.
 		It must be the first block and must be valid a xml
@@ -454,6 +460,42 @@
 				This element will open the file file_name
 				in Anjuta.
 			</para>
+		</para>
+	</sect1>
+	<sect1 id="internationalization">
+		<title>Internationalization</title>
+		<para>
+			The newer version of the project wizard format, used by Anjuta 2.31 and
+			greater, supports the standard xml:lang attribute. So the translation
+			can be merged in the .wiz file considering it as an xml file and
+			using standard tools. The attributes having a name starting with '_'
+			are considered as translatable.
+		</para>
+		<para>
+			The translation tools (intltool-merge) has to
+			recognized the .wiz as an .xml file before being preprocessed by
+			<emphasis>autogen</emphasis>. This adds additional constraints when
+			writing the .wiz file, in particular you have to take care of
+			quoting in attribute values. In addition, you need to have the 
+			<emphasis>project-template</emphasis> root node. So your template
+			will not be compatible with older version of Anjuta.
+		</para>
+	</sect1>
+	<sect1 id="distribution">
+		<title>Distribution</title>
+		<para>
+			You can write your own project template and distribute them in a gzip
+			compressed tar file. The archive has to included all files needed by
+			your template.
+		</para>
+		<para>
+			With Anjuta version 2.30 or below, the user has to decompress this archive
+			in a directory named <filename>anjuta/project</filename> in the data
+			directory defined according to 
+			<ulink type="http" url="http://www.freedesktop.org/Standards/basedir-spec">XDG Base Directory Specification</ulink>.
+			With Anjuta version 2.31 or greater, if you name your archive with the
+			extension <filename>.wiz.tgz</filename> the template will be automatically
+			installed and then executed if used as anjuta argument.
 		</para>
 	</sect1>
 </chapter>

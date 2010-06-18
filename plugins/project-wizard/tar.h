@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
-    druid.h
-    Copyright (C) 2004 Sebastien Granjoux
+    tar.h
+    Copyright (C) 2010 Sebastien Granjoux
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,19 +18,17 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef __DRUID_H__
-#define __DRUID_H__
+#ifndef __TAR_H__
+#define __TAR_H__
 
-#define ICON_FILE "anjuta-project-wizard-plugin-48.png"
+#include <glib.h>
+#include <gio/gio.h>
 
-#include <glib.h> 
+typedef void (*NPWTarListFunc) (GFile *tarfile, GList *list, gpointer data, GError *error);
+typedef void (*NPWTarCompleteFunc) (GFile *destination, GFile *tarfile, gpointer data, GError *error);
 
-struct _NPWPlugin;
-typedef struct _NPWDruid NPWDruid;
+gboolean npw_tar_list (GFile *tarfile, NPWTarListFunc list, gpointer data, GError **error);
 
-NPWDruid* npw_druid_new (struct _NPWPlugin* plugin, const gchar *directory);
-void npw_druid_free (NPWDruid* druid);
-
-void npw_druid_show (NPWDruid* druid);
+gboolean npw_tar_extract (GFile *destination, GFile *tarfile, NPWTarCompleteFunc complete, gpointer data, GError **error);
 
 #endif

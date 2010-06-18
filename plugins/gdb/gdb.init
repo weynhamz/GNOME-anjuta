@@ -9,5 +9,4 @@ set height 0
 set width 0
 set breakpoint pending on
 set backtrace limit 0
-set stop-on-solib-events 1
-
+handle SIGINT stop print nopass
