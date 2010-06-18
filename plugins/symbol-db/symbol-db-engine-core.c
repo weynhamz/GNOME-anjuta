@@ -6544,10 +6544,10 @@ on_scan_update_files_symbols_end (SymbolDBEngine * dbe,
 		
 		/* clean the db from old un-updated with the last update step () */
 		if (sdb_engine_update_file (dbe, node + 
-									strlen (priv->project_directory)) == FALSE)
+									strlen (priv->project_directory) + 1) == FALSE)
 		{
 			g_warning ("Error processing file %s", node + 
-					   strlen (priv->project_directory) );
+					   strlen (priv->project_directory) + 1);
 			return;
 		}
 		g_free (node);
