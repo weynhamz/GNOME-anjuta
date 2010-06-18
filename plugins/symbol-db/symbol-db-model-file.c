@@ -136,7 +136,7 @@ sdb_model_file_get_children (SymbolDBModel *model, gint tree_level,
 	SymbolDBEngine *dbe;
 	SymbolDBModelFilePriv *priv;
 	gint parent_id = 0;
-	gchar *relative_path = NULL;
+	const gchar *relative_path = NULL;
 	GValue ival = {0};
 	GValue sval = {0};
 
@@ -174,7 +174,7 @@ sdb_model_file_get_children (SymbolDBModel *model, gint tree_level,
 	gda_holder_set_value (priv->param_limit, &ival, NULL);
 	g_value_set_int (&ival, offset);
 	gda_holder_set_value (priv->param_offset, &ival, NULL);
-	g_value_take_string (&sval, relative_path);
+	g_value_set_static_string (&sval, relative_path);
 	gda_holder_set_value (priv->param_file_path, &sval, NULL);
 	g_value_reset (&sval);
 

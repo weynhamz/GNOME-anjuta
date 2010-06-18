@@ -25,6 +25,7 @@
 #define _CLASS_INHERITANCE_H_
 
 #include <libanjuta/anjuta-plugin.h>
+#include <libanjuta/interfaces/ianjuta-symbol-query.h>
 
 #include <gvc.h>		/* graphviz */
 
@@ -76,6 +77,12 @@ struct _AnjutaClassInheritance {
 	
 	/* Style colors */
 	GdkColor style[N_STYLES];
+
+	/* Search queries */
+	IAnjutaSymbolQuery *query_project;
+	IAnjutaSymbolQuery *query_id;
+	IAnjutaSymbolQuery *query_members;
+	IAnjutaSymbolQuery *query_parents;
 };
 
 struct _AnjutaClassInheritanceClass {

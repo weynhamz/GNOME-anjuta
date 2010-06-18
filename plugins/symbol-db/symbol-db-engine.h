@@ -37,10 +37,6 @@
  */
 
 #include "symbol-db-engine-core.h"
-#include "symbol-db-engine-iterator-node.h"
-#include "symbol-db-engine-iterator.h"
-
-#include "symbol-db-engine-queries.h"
 #include "symbol-db-engine-utils.h"
 
 

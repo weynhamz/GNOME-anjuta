@@ -51,11 +51,18 @@ typedef void (*DebuggerParserFunc) (Debugger *debugger,
 									const GList *cli_result,
 									GError* error);
 
+typedef enum
+{
+	DEBUGGER_COMMAND_NO_ERROR = 1 << 0,
+	DEBUGGER_COMMAND_KEEP_RESULT = 1 << 1,
+	DEBUGGER_COMMAND_PREPEND = 1 << 2,
+} DebuggerCommandFlags;
+
+
 struct _DebuggerCommand
 {
 	gchar *cmd;
-	gboolean suppress_error;
-	gboolean keep_result;
+	DebuggerCommandFlags flags;
 	DebuggerParserFunc parser;
 	IAnjutaDebuggerCallback callback;
 	gpointer user_data;
