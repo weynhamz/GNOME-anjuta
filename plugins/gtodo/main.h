@@ -59,7 +59,6 @@ typedef struct{
 
 typedef struct
 {
-	gboolean size, place;
 	gboolean ask_delete_category;
 	gboolean auto_purge;
 	gint purge_days;

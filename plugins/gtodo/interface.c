@@ -43,8 +43,6 @@ void gtodo_load_settings ()
 	
 	debug_printf(DEBUG_INFO, "Loading settings from anjuta preferences");
 
-	settings.place = anjuta_preferences_get_bool(preferences, "gtodo.restore-position");;
-	settings.size =  anjuta_preferences_get_bool(preferences, "gtodo.restore-size");;
 	settings.ask_delete_category 	=  anjuta_preferences_get_bool(preferences, "gtodo.ask-delete-category");
 	/* this is kinda (thanks gtk :-/) buggy.. gtk need fix first */
 //	settings.list_tooltip		= anjuta_preferences_get_bool(preferences, "gtodo.show-tooltip");

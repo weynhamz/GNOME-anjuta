@@ -316,14 +316,6 @@ static void pref_changed_show_tooltip(AnjutaPreferences *preferences, const char
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(mw.treeview), !value);
 }
 
-static void  pref_changed_restore_size(AnjutaPreferences *preferences, const char *key, gboolean value, gpointer data)
-{
-	settings.size = value;
-}    
-static void  pref_changed_restore_place(AnjutaPreferences *preferences, const char *key, gboolean value, gpointer data)
-{
-	settings.place = value;
-}    
 static void  pref_changed_ask_delete_category(AnjutaPreferences *preferences, const char *key, gboolean value, gpointer data)
 {
 	settings.ask_delete_category = value;
@@ -399,14 +391,6 @@ static void  pref_changed_hide_nodate(AnjutaPreferences *preferences, const char
 
 void pref_set_notifications(AnjutaPreferences *preferences)
 {
-	anjuta_preferences_notify_add_bool (preferences, "gtodo.restore-size",
-			(AnjutaPreferencesNotifyBool)pref_changed_restore_size,
-			NULL, NULL);
-
-	anjuta_preferences_notify_add_bool(preferences,"gtodo.restore-position",
-			(AnjutaPreferencesNotifyBool) pref_changed_restore_place,
-			NULL, NULL);
-
 	anjuta_preferences_notify_add_bool(preferences,"gtodo.show-tooltip",
 			(AnjutaPreferencesNotifyBool) pref_changed_show_tooltip,
 			NULL, NULL);
