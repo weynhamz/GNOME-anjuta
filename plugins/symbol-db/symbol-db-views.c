@@ -218,6 +218,7 @@ symbol_db_view_new (SymbolViewType view_type,
 		gtk_box_pack_start (GTK_BOX (vbox), entry, FALSE, FALSE, 0);
 		gtk_box_pack_start (GTK_BOX (vbox), sw, TRUE, TRUE, 0);
 		g_object_set_data (G_OBJECT (vbox), "search_entry", entry);
+		gtk_tree_view_set_show_expanders (GTK_TREE_VIEW (dbv), FALSE);
 		return vbox;
 	}
 	return sw;
