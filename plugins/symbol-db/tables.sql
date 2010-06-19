@@ -37,7 +37,8 @@ CREATE TABLE symbol (symbol_id integer PRIMARY KEY AUTOINCREMENT,
                      returntype text,
                      scope_definition_id integer,
                      scope_id integer,
-                     type_id integer REFERENCES sym_type (type_id),
+                     type_type text not null,
+					 type_name text not null,
                      kind_id integer REFERENCES sym_kind (sym_kind_id),
                      access_kind_id integer REFERENCES sym_access (sym_access_id),
                      implementation_kind_id integer REFERENCES sym_implementation (sym_impl_id),
@@ -45,12 +46,12 @@ CREATE TABLE symbol (symbol_id integer PRIMARY KEY AUTOINCREMENT,
                      unique (name, file_defined_id, file_position)
                      );
 
-DROP TABLE IF EXISTS sym_type;
-CREATE TABLE sym_type (type_id integer PRIMARY KEY AUTOINCREMENT,
-                   type_type text not null,
-                   type_name text not null,
-                   unique (type_type, type_name)
-                   );
+--DROP TABLE IF EXISTS sym_type;
+--CREATE TABLE sym_type (type_id integer PRIMARY KEY AUTOINCREMENT,
+--                   type_type text not null,
+--                   type_name text not null,
+--                   unique (type_type, type_name)
+--                   );
 
 DROP TABLE IF EXISTS sym_kind;
 CREATE TABLE sym_kind (sym_kind_id integer PRIMARY KEY AUTOINCREMENT,
@@ -90,14 +91,16 @@ CREATE TABLE __tmp_removed (tmp_removed_id integer PRIMARY KEY AUTOINCREMENT,
                             symbol_removed_id integer not null
                             );
 
-DROP INDEX IF EXISTS symbol_idx_1;
-CREATE INDEX symbol_idx_1 ON symbol (name, file_defined_id, type_id);
 
-DROP INDEX IF EXISTS symbol_idx_2;
-CREATE INDEX symbol_idx_2 ON symbol (scope_id);
+--DROP INDEX IF EXISTS symbol_idx_1;
+CREATE INDEX symbol_idx_1 ON symbol (name, file_defined_id, type_type, type_name);
 
-DROP INDEX IF EXISTS symbol_idx_3;
-CREATE INDEX symbol_idx_3 ON symbol (type_id);
+--DROP INDEX IF EXISTS symbol_idx_2;
+--CREATE INDEX symbol_idx_2 ON symbol (scope_id);
+
+-- FIXME
+--DROP INDEX IF EXISTS symbol_idx_3;
+--CREATE INDEX symbol_idx_3 ON symbol (type_id);
 
 DROP TRIGGER IF EXISTS delete_file_trg;
 CREATE TRIGGER delete_file_trg BEFORE DELETE ON file

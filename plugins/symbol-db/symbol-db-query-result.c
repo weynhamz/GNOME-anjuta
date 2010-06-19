@@ -310,8 +310,8 @@ isymbol_get_int (IAnjutaSymbol *isymbol, IAnjutaSymbolField field,
 	{
 		const gchar* type_str = g_value_get_string (val);
 		gint type_val = 
-			(gint)g_hash_table_lookup ((GHashTable*)result->priv->sym_type_conversion_hash, 
-			                           type_str);
+			GPOINTER_TO_INT (g_hash_table_lookup ((GHashTable*)result->priv->sym_type_conversion_hash, 
+			                           type_str));
 		return type_val;
 	}
 	return g_value_get_int (val);

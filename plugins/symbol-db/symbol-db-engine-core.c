@@ -271,9 +271,6 @@ static void
 sdb_engine_second_pass_do (SymbolDBEngine * dbe);
 
 static void
-sdb_engine_tablemap_db_flush_sym_type (SymbolDBEngine * dbe);
-
-static void
 sdb_engine_tablemap_db_flush_scope_def (SymbolDBEngine * dbe);
 
 static void
@@ -2471,18 +2468,6 @@ sdb_engine_init (SymbolDBEngine * object)
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 									PREP_QUERY_GET_LANGUAGE_COUNT,
 	 	"SELECT COUNT(*) FROM language");	
-	
-	/* -- sym type -- */
-	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
-									PREP_QUERY_SYM_TYPE_NEW,
-		"INSERT INTO sym_type (type_type, type_name) VALUES (## /* name:'type' "
-	 	"type:gchararray */, ## /* name:'typename' type:gchararray */)");
-
-	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
-									PREP_QUERY_GET_SYM_TYPE_ID,
-	 	"SELECT type_id FROM sym_type WHERE type_type = ## /* name:'type' "
-	 	"type:gchararray */ AND type_name = ## /* name:'typename' "
-	 	"type:gchararray */ LIMIT 1");
 
 	/* -- sym kind -- */
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
@@ -2564,51 +2549,44 @@ sdb_engine_init (SymbolDBEngine * object)
 	 	"## /* name:'scopedsymid' type:gint */) "
 	 	"ORDER BY file_position DESC");
 	
-	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
-	 								PREP_QUERY_GET_SCOPE_DEFINITION_ID_BY_WALK_DOWN_SCOPE_PATH,
-	 	"SELECT scope_definition_id FROM symbol "
-	 	"WHERE scope_id = ## /* name:'scopeid' type:gint */ AND scope_definition_id = ("
-		 	"SELECT scope.scope_id FROM scope "
-			"INNER JOIN sym_type ON scope.type_id = sym_type.type_id "
-			"WHERE sym_type.type_type = ## /* name:'symtype' type:gchararray */ "
-				"AND scope.scope_name = ## /* name:'scopename' type:gchararray */) LIMIT 1");
-	
 	/* -- symbol -- */
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 	 								PREP_QUERY_SYMBOL_NEW,
 	 	"INSERT INTO symbol (file_defined_id, name, file_position, "
-	 	"is_file_scope, signature, returntype, scope_definition_id, scope_id, type_id, "
+	 	"is_file_scope, signature, returntype, scope_definition_id, scope_id, "
+	    "type_type, type_name, "
 	 	"kind_id, access_kind_id, implementation_kind_id, update_flag) VALUES("
 	 	"## /* name:'filedefid' type:gint */, ## /* name:'name' "
 	 	"type:gchararray */, ## /* name:'fileposition' type:gint */, ## /* "
 	 	"name:'isfilescope' type:gint */, ## /* name:'signature' "
 	 	"type:gchararray */, ## /* name:'returntype' type:gchararray */, "
 		"## /* name:'scopedefinitionid' type:gint */, ## "
-	 	"/* name:'scopeid' type:gint */,## /* name:'typeid' type:gint */, ## "
-	 	"/* name:'kindid' type:gint */,## /* name:'accesskindid' type:gint */, "
+	 	"/* name:'scopeid' type:gint */,## /* name:'typetype' type:gchararray */, "
+	    "## /* name:'typename' type:gchararray */, "
+		"## /* name:'kindid' type:gint */,## /* name:'accesskindid' type:gint */, "
 	 	"## /* name:'implementationkindid' type:gint */, ## /* "
 	 	"name:'updateflag' type:gint */)");
 	
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 	 								PREP_QUERY_GET_SYMBOL_SCOPE_DEFINITION_ID,
-	 	"SELECT scope_definition_id FROM symbol JOIN sym_type ON symbol.type_id "
-	 	"= sym_type.type_id WHERE sym_type.type_type = ## /* name:'tokenname' "
-	 	"type:gchararray */ AND sym_type.type_name = ## /* name:'objectname' "
+	 	"SELECT scope_definition_id FROM symbol "
+	 	"WHERE type_type = ## /* name:'tokenname' "
+	 	"type:gchararray */ AND type_name = ## /* name:'objectname' "
 	 	"type:gchararray */ LIMIT 1");
 	
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 	 								PREP_QUERY_GET_SYMBOL_ID_BY_CLASS_NAME,
-	 	"SELECT symbol_id FROM symbol JOIN sym_type ON symbol.type_id = "
-	 	"sym_type.type_id AND symbol.scope_id = 0 WHERE sym_type.type_type='class' AND "
+	 	"SELECT symbol_id FROM symbol "
+	 	"WHERE scope_id = 0 AND type_type='class' AND "
 	 	"name = ## /* name:'klassname' type:gchararray */ LIMIT 1");
 	
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 	 								PREP_QUERY_GET_SYMBOL_ID_BY_CLASS_NAME_AND_NAMESPACE,
 	 	"SELECT symbol_id FROM symbol JOIN scope ON symbol.scope_id = "
-	 	"scope.scope_id JOIN sym_type ON scope.type_id = sym_type.type_id "
+	 	"scope.scope_id "
 	 	"WHERE symbol.name = ## /* name:'klassname' type:gchararray */ AND "
 	 	"scope.scope_name = ## /* name:'namespacename' type:gchararray */ AND "
-	 	"sym_type.type_type = 'namespace' LIMIT 1");
+	 	"symbol.type_type = 'namespace' LIMIT 1");
 	
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 	 								PREP_QUERY_UPDATE_SYMBOL_SCOPE_ID,
@@ -2618,9 +2596,8 @@ sdb_engine_init (SymbolDBEngine * object)
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 	 								PREP_QUERY_UPDATE_SYMBOL_SCOPE_ID_MIXED,
 		"UPDATE symbol SET scope_id = (SELECT scope_definition_id FROM symbol "
-		"JOIN sym_type ON symbol.type_id "
-	 	"= sym_type.type_id WHERE sym_type.type_type = ## /* name:'tokenname' "
-	 	"type:gchararray */ AND sym_type.type_name = ## /* name:'objectname' "
+		"WHERE type_type = ## /* name:'tokenname' "
+	 	"type:gchararray */ AND type_name = ## /* name:'objectname' "
 	 	"type:gchararray */ LIMIT 1) "
 	 	"WHERE symbol_id = ## /* name:'symbolid' type:gint */");
 	
@@ -3136,16 +3113,6 @@ sdb_engine_set_defaults_db_parameters (SymbolDBEngine * dbe)
 	symbol_db_engine_set_db_case_sensitive (dbe, TRUE);
 }
 
-/**
- * Delete all entries that don't have a reference on symbol table.
- */
-static void
-sdb_engine_normalize_sym_type (SymbolDBEngine * dbe)
-{	
-	sdb_engine_execute_unknown_sql (dbe, "DELETE FROM sym_type WHERE type_id NOT IN "
-		"(SELECT type_id FROM symbol)");
-}
-
 /* Will create priv->db_connection.
  * Connect to database identified by db_directory.
  * Usually db_directory is defined also into priv. We let it here as parameter 
@@ -3515,9 +3482,6 @@ symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
 	}
 	
 	sdb_engine_set_defaults_db_parameters (dbe);
-
-	/* normalize some tables */
-	sdb_engine_normalize_sym_type (dbe);
 
 	g_free (cnc_string);
 	g_free (db_file);
@@ -4237,6 +4201,8 @@ sdb_engine_extract_type_qualifier (const gchar *string, const gchar *expr)
 	return res;
 }
 
+
+#if 0
 static void
 sdb_engine_tablemap_db_flush_sym_type (SymbolDBEngine * dbe)
 {
@@ -4333,53 +4299,9 @@ sdb_engine_tablemap_db_flush_sym_type (SymbolDBEngine * dbe)
 	/* free also all the keys/values on hashtable */
 	g_hash_table_remove_all (priv->sym_type_tablemap_hash);	
 }
+#endif
 
-/* ### Thread note: this function inherits the mutex lock ### */
-static GNUC_INLINE gint
-sdb_engine_add_new_sym_type_1st (SymbolDBEngine * dbe, const tagEntry * tag_entry,
-    							const gchar* type, const gchar* type_name)
-{
-	SymbolDBEnginePriv *priv;	
-	gchar *key_to_find;
-	gpointer value;
-	gint table_id;
-
-	priv = dbe->priv;
-	key_to_find = g_strconcat (type, "|", type_name, NULL);
-	
-	/* use a check-first, insert later pattern. Have a look at the hashtable if 
-	 * we find the correct key
-	 */
-	value = g_hash_table_lookup (priv->sym_type_tablemap_hash, key_to_find);
-
-	if (value == NULL)
-	{
-		gint new_id = priv->sym_type_tablemap_id++;
-			
-		/* no value has been found, proceed with insertion */
-		g_hash_table_insert (priv->sym_type_tablemap_hash, key_to_find, 
-		    		GINT_TO_POINTER (new_id));
-
-		/* insert the key_to_find also in the queue.
-		 * we won't dup the gchar, so that it'll be freed once the hash table'll be
-		 * destroyed 
-		 */
-		g_queue_push_tail (priv->sym_type_tablemap_queue, key_to_find);
-		
-		table_id = new_id;
-	}
-	else 
-	{
-		/* fine, return the id found */
-		table_id = GPOINTER_TO_INT (value);
-
-		/* and free key_to_find */
-		g_free (key_to_find);
-	}
-
-	return table_id;
-}
-
+#if 0
 /* ### Thread note: this function inherits the mutex lock ### */
 static GNUC_INLINE gint
 sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, const tagEntry * tag_entry)
@@ -4508,6 +4430,7 @@ sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 	g_free (type_regex);
 	return table_id;
 }
+#endif
 
 /* ### Thread note: this function inherits the mutex lock ### */
 static gint
@@ -5594,7 +5517,6 @@ sdb_engine_second_pass_do (SymbolDBEngine * dbe)
 	/* are we in a first population scan? */
 	if (priv->is_first_population == TRUE)
 	{
-		sdb_engine_tablemap_db_flush_sym_type (dbe);
 		sdb_engine_tablemap_db_flush_scope_def (dbe);
 		sdb_engine_tablemap_db_flush_symbol (dbe);
 	}
@@ -5607,7 +5529,6 @@ sdb_engine_second_pass_do (SymbolDBEngine * dbe)
 		sdb_engine_second_pass_update_heritage (dbe);
 	}
 }
-
 
 static void
 sdb_engine_tablemap_db_flush_symbol (SymbolDBEngine * dbe)
@@ -5808,106 +5729,6 @@ sdb_engine_tablemap_db_flush_symbol (SymbolDBEngine * dbe)
 /**
  * ### Thread note: this function inherits the mutex lock ### 
  *
- * A specific function to perform a fast 1st insertion of symbols on db.
- * This function avoids over-complex logic on an already complex 
- * sdb_engine_add_new_symbol (). Here we won't use update case but we'll consider
- * just a plain insertion on tablemaps, of course, and a flush_on_db later.
- *
- */
-static gint
-sdb_engine_add_new_symbol_1st (SymbolDBEngine *dbe, const tagEntry *tag_entry,
-    							gint file_defined_id)
-{
-	SymbolDBEnginePriv *priv;
-	gint table_id = -1;
-	const gchar* name;
-	gint file_position = 0;
-	gint is_file_scope = 0;
-	const gchar *signature;
-	const gchar *returntype;
-	gint scope_definition_id = 0;
-	gint scope_id = 0;
-	gint type_id = 0;
-	gint kind_id = 0;
-	gint access_kind_id = 0;
-	gint implementation_kind_id = 0;
-	gchar *key_to_find;
-	gpointer value;
-
-	g_return_val_if_fail (dbe != NULL, -1);
-	g_return_val_if_fail (tag_entry != NULL, -1);
-	
-	priv = dbe->priv;
-
-	/* parse the entry name */
-	name = tag_entry->name;
-	file_position = tag_entry->address.lineNumber;
-	is_file_scope = tag_entry->fileScope;
-	signature = tagsField (tag_entry, "signature");	
-	returntype = tagsField (tag_entry, "returntype");	
-	
-	type_id = sdb_engine_add_new_sym_type (dbe, tag_entry);
-	scope_definition_id = sdb_engine_add_new_scope_definition (dbe, tag_entry,
-															   type_id);
-	scope_id = 0;
-
-	kind_id = sdb_engine_add_new_sym_kind (dbe, tag_entry);	
-	access_kind_id = sdb_engine_add_new_sym_access (dbe, tag_entry);	
-	implementation_kind_id = sdb_engine_add_new_sym_implementation (dbe, tag_entry);	
-
-	key_to_find = g_strdup_printf ("%s|%d|%d", name, file_defined_id, file_position);
-	
-	/* use a check-first, insert later pattern. Have a look at the hashtable if 
-	 * we find the correct key
-	 */
-	value = g_hash_table_lookup (priv->symbol_tablemap_hash, key_to_find);
-
-	if (value == NULL)
-	{
-		TableMapSymbol *node;
-		gint new_id;
-
-		new_id = priv->symbol_tablemap_id++;
-		
-		node = g_slice_new0 (TableMapSymbol);		
-		node->symbol_id = new_id;
-		node->access_kind_id = access_kind_id;
-		node->file_defined_id = file_defined_id;
-		node->file_position = file_position;
-		node->implementation_kind_id = implementation_kind_id;
-		node->is_file_scope = is_file_scope;
-		node->kind_id = kind_id;
-		node->name = g_strdup (name);						/* to be freed */
-		node->returntype = g_strdup (returntype);			/* to be freed */
-		node->scope_definition_id = scope_definition_id;
-		node->scope_id = scope_id;
-		node->signature = g_strdup (signature);				/* to be freed */
-		node->type_id = type_id;
-		node->update_flag = 0;
-		
-		/* no value has been found, proceed with insertion */
-		g_hash_table_insert (priv->symbol_tablemap_hash, key_to_find, node);
-
-		/* insert the node also in the queue. */
-		g_queue_push_tail (priv->symbol_tablemap_queue, node);
-		
-		table_id = new_id;
-	}
-	else 
-	{
-		/* fine, return the id found */
-		table_id = GPOINTER_TO_INT (value);
-
-		g_free (key_to_find);
-	}
-	
-	return table_id;
-}
-    
-
-/**
- * ### Thread note: this function inherits the mutex lock ### 
- *
  * base_prj_path can be NULL. In that case path info tag_entry will be taken
  * as an absolute path.
  * fake_file can be used when a buffer updating is being executed. In that 
@@ -5919,22 +5740,6 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 						   gint file_defined_id,
 						   gboolean sym_update)
 {
-/*
-	CREATE TABLE symbol (symbol_id integer PRIMARY KEY AUTOINCREMENT,
-                     file_defined_id integer not null REFERENCES file (file_id),
-                     name varchar (256) not null,
-                     file_position integer,
-                     is_file_scope integer,
-                     signature varchar (256),
-                     scope_definition_id integer,
-                     scope_id integer,
-                     type_id integer REFERENCES sym_type (type_id),
-                     kind_id integer REFERENCES sym_kind (sym_kind_id),
-                     access_kind_id integer REFERENCES sym_access (sym_access_id),
-                     implementation_kind_id integer REFERENCES sym_implementation 
-								(sym_impl_id)
-                     );
-*/
 	SymbolDBEnginePriv *priv;
 	const GdaSet *plist;
 	const GdaStatement *stmt;
@@ -5957,18 +5762,12 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	gint update_flag;
 	GValue *ret_value;
 	gboolean ret_bool;
-		
+	gchar *type_regex;;
+	const gchar *type_type;
+	const gchar *type_name;
+	
 	g_return_val_if_fail (dbe != NULL, -1);
 	priv = dbe->priv;
-
-	if (priv->is_first_population == TRUE)
-	{
-		table_id = sdb_engine_add_new_symbol_1st (dbe, tag_entry, file_defined_id);
-		if (table_id > 0)
-			sdb_engine_add_new_tmp_heritage_scope (dbe, tag_entry, table_id);
-		
-		return table_id;
-	}
 	
 	/* keep it at 0 if sym_update == false */
 	if (sym_update == FALSE)
@@ -5983,11 +5782,47 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	file_position = tag_entry->address.lineNumber;
 	is_file_scope = tag_entry->fileScope;
 
+	/* 
+	 * signature 
+	 */
 	signature = tagsField (tag_entry, "signature");	
-	returntype = tagsField (tag_entry, "returntype");	
-	
-	type_id = sdb_engine_add_new_sym_type (dbe, tag_entry);
 
+	/*
+	 * return type
+	 */
+	returntype = tagsField (tag_entry, "returntype");	
+
+	/* 
+	 * sym_type
+	 */
+	/* we assume that tag_entry is != NULL */
+	type_type = tag_entry->kind;
+	type_regex = NULL;
+	
+	if (g_strcmp0 (type_type, "member") == 0 || 
+	    g_strcmp0 (type_type, "variable") == 0 || 
+	    g_strcmp0 (type_type, "field") == 0)
+	{
+		type_regex = sdb_engine_extract_type_qualifier (tag_entry->address.pattern, 
+		                                                tag_entry->name);
+		/*DEBUG_PRINT ("type_regex for %s [kind %s] is %s", tag_entry->name, 
+		             tag_entry->kind, type_regex);*/
+		type_name = type_regex;
+
+		/* if the extractor failed we should fallback to the default one */
+		if (type_name == NULL)
+			type_name = tag_entry->name;
+	}
+	else 
+	{
+		type_name = tag_entry->name;
+	}
+	
+
+	/*
+	 * scope definition
+	 */
+	 
 	/* scope_definition_id tells what scope this symbol defines
 	 * this call *MUST BE DONE AFTER* sym_type table population.
 	 */
@@ -6115,14 +5950,24 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 		
 		MP_SET_HOLDER_BATCH_STR(priv, param, name, ret_bool, ret_value);		
 
-		/* typeid parameter */
-		if ((param = gda_set_get_holder ((GdaSet*)plist, "typeid")) == NULL)
+		/* typetype parameter */
+		if ((param = gda_set_get_holder ((GdaSet*)plist, "typetype")) == NULL)
 		{
-			g_warning ("param typeid is NULL from pquery!");
+			g_warning ("param typetype is NULL from pquery!");
 			return -1;			
 		}
 		
-		MP_SET_HOLDER_BATCH_INT(priv, param, type_id, ret_bool, ret_value);		
+		MP_SET_HOLDER_BATCH_STR(priv, param, type_type, ret_bool, ret_value);		
+
+		/* typenameparameter */
+		if ((param = gda_set_get_holder ((GdaSet*)plist, "typename")) == NULL)
+		{
+			g_warning ("param typename is NULL from pquery!");
+			return -1;			
+		}
+		
+		MP_SET_HOLDER_BATCH_STR(priv, param, type_name, ret_bool, ret_value);		
+		
 	}
 	else
 	{
@@ -6310,6 +6155,8 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	if (table_id > 0)
 		sdb_engine_add_new_tmp_heritage_scope (dbe, tag_entry, table_id);
 
+	g_free (type_regex);
+	
 	return table_id;
 }
 
