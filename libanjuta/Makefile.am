@@ -233,7 +233,7 @@ Anjuta-1.0.gir: $(libanjuta_la_SOURCES) libanjuta.la
 # Using interfaces/*.c is not very nice but otherwise we get circular
 # dependencies : libanjuta.la depends on libanjuta-interfaces.la and
 # IAnjuta-1.0.gir depends on Anjuta-1.0.gir
-IAnjuta-1.0.gir: $(libanjuta_interfaces_la_SOURCES) interfaces/libanjuta-interfaces.la
+IAnjuta-1.0.gir: $(libanjuta_interfaces_la_SOURCES) interfaces/libanjuta-interfaces.la Anjuta-1.0.gir
 	$(INTROSPECTION_SCANNER) --namespace IAnjuta --nsversion 1.0 \
 		--add-include-path . \
 		--include GConf-2.0 --include Gtk-2.0 --include Anjuta-1.0 \
@@ -249,8 +249,8 @@ IAnjuta-1.0.gir: $(libanjuta_interfaces_la_SOURCES) interfaces/libanjuta-interfa
 Anjuta-1.0.typelib: Anjuta-1.0.gir
 	$(INTROSPECTION_COMPILER) $< -o $@
 
-IAnjuta-1.0.typelib: IAnjuta-1.0.gir
-	$(INTROSPECTION_COMPILER) $< -o $@
+IAnjuta-1.0.typelib: IAnjuta-1.0.gir Anjuta-1.0.gir
+	$(INTROSPECTION_COMPILER) --includedir . $< -o $@
 
 endif
 
