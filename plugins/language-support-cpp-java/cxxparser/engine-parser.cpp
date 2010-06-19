@@ -129,6 +129,11 @@ EngineParser::setSymbolManager (IAnjutaSymbolManager *manager)
 		IANJUTA_SYMBOL_FIELD_ID, IANJUTA_SYMBOL_FIELD_NAME,
 		IANJUTA_SYMBOL_FIELD_KIND
 	};
+	static IAnjutaSymbolField query_scope_fields[] =
+	{
+		IANJUTA_SYMBOL_FIELD_ID, IANJUTA_SYMBOL_FIELD_NAME,
+		IANJUTA_SYMBOL_FIELD_SIGNATURE
+	};
 	static IAnjutaSymbolField query_search_in_scope_fields[] =
 	{
 		IANJUTA_SYMBOL_FIELD_ID, IANJUTA_SYMBOL_FIELD_NAME,
@@ -150,6 +155,9 @@ EngineParser::setSymbolManager (IAnjutaSymbolManager *manager)
 		ianjuta_symbol_manager_create_query (manager,
 		                                     IANJUTA_SYMBOL_QUERY_SEARCH_SCOPE,
 		                                     IANJUTA_SYMBOL_QUERY_DB_PROJECT, NULL);
+	ianjuta_symbol_query_set_fields (_query_scope,
+	                                 G_N_ELEMENTS (query_scope_fields),
+	                                 query_scope_fields, NULL);
 	_query_search_in_scope =
 		ianjuta_symbol_manager_create_query (manager,
 		                                     IANJUTA_SYMBOL_QUERY_SEARCH_IN_SCOPE,

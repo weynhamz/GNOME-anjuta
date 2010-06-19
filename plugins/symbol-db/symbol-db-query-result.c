@@ -97,10 +97,10 @@ sdb_query_result_validate_field (SymbolDBQueryResult *result,
 	{
 		g_set_error (err, SYMBOL_DB_QUERY_RESULT_ERROR,
 		             SYMBOL_DB_QUERY_RESULT_ERROR_FIELD_NOT_PRESENT,
-		             "Symbol field '%d' is present in the query. Make sure to "
-		             "include the during query creation.", field);
-		g_warning ("Symbol field '%d' is present in the query. Make sure to "
-		             "include the during query creation.", field);
+		             "Symbol field '%d' is not present in the query. Make sure to "
+		             "include it during query creation.", field);
+		g_warning ("Symbol field '%d' is not present in the query. Make sure to "
+		             "include it during query creation.", field);
 		return FALSE;
 	}
 	return TRUE;
