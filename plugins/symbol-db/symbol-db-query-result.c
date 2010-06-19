@@ -290,7 +290,7 @@ isymbol_get_boolean (IAnjutaSymbol *isymbol, IAnjutaSymbolField field,
 	return g_value_get_boolean (val);
 }
 
-static gboolean
+static gint
 isymbol_get_int (IAnjutaSymbol *isymbol, IAnjutaSymbolField field,
                  GError **err)
 {
@@ -305,7 +305,7 @@ isymbol_get_int (IAnjutaSymbol *isymbol, IAnjutaSymbolField field,
 
 	col = result->priv->col_map[field];
 	val = gda_data_model_iter_get_value_at (result->priv->iter, col);
-	if (!val) return 0;
+	if (!val || !G_VALUE_HOLDS_STRING(val)) return 0;
 	if (field == IANJUTA_SYMBOL_FIELD_TYPE)
 	{
 		const gchar* type_str = g_value_get_string (val);
