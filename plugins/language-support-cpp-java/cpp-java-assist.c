@@ -608,8 +608,6 @@ on_symbol_search_complete (IAnjutaSymbolQuery *query, IAnjutaIterable* symbols,
 	
 	cpp_java_assist_populate_real (assist, !running);
 	g_list_free (proposals);
-	if (symbols)
-		g_object_unref (symbols);
 }
 
 /**
@@ -761,8 +759,6 @@ on_calltip_search_complete (IAnjutaSymbolQuery *query, IAnjutaIterable* symbols,
 		                         assist->priv->calltip_iter,
 		                         NULL);
 	}
-	if (symbols)
-		g_object_unref (symbols);
 }
 
 /**

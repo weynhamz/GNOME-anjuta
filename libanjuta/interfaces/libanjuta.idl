@@ -5526,7 +5526,8 @@ interface IAnjutaSymbolQuery
 	 * This signal is emitted for every search of the Query involved in async
 	 * mode, unless cancled by ianjuta_symbol_query_cancel(). For single queued
 	 * query, only result of the last search is emitted (if it wasn't database
-	 * was busy when search was invoked).
+	 * was busy when search was invoked). Unlike in sync counterpart,
+	 * do not unref @result after use.
 	 */
 	void ::async_result (GObject* result);
 
