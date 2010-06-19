@@ -5439,13 +5439,11 @@ interface IAnjutaSymbolQuery
 	 * @IANJUTA_SYMBOL_QUERY_MODE_ASYNC: Asynchronous query. The search call
 	 *     return immediately and result delievered as a signal later. The actual
 	 *     query is done in a separate thread.
-	 * @IANJUTA_SYMBOL_QUERY_MODE_QUEUED_SINGLE: If the database is busy
-	 *     scanning, then return immediately without result, but query is performed
-	 *     later when database is ready and result delivered through signal. Only
-	 *     one query can stay active, so calling search multiple times would
+	 * @IANJUTA_SYMBOL_QUERY_MODE_QUEUED: If the database is busy
+	 *     scanning, then the query is performed later when database is ready.
+	 *     It returns NULL and result is delivered through async-result signal.
+	 *     Only query can stay queued, so calling search multiple times would
 	 *     result in only the last one being active.
-	 * @IANJUTA_SYMBOL_QUERY_MODE_QUEUED_MULTI: Equivalent to
-	 *     #IANJUTA_SYMBOL_QUERY_MODE_QUEUED_SINGLE, but all searches are queued.
 	 *
 	 * This parameter determines the mode of query execution. By default,
 	 * IANJUTA_SYMBOL_QUERY_MODE_SYNC is selected.
@@ -5454,8 +5452,7 @@ interface IAnjutaSymbolQuery
 	{
 		MODE_SYNC,
 		MODE_ASYNC,
-		MODE_QUEUED_SINGLE,
-		MODE_QUEUED_MULTI
+		MODE_QUEUED
 	}
 
 	/**

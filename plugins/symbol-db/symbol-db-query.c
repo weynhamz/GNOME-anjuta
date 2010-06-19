@@ -624,7 +624,7 @@ on_sdb_query_dbe_scan_end (SymbolDBEngine *dbe, gint something,
 {
 	g_return_if_fail (SYMBOL_DB_IS_QUERY (query));
 	
-	if (query->priv->mode == IANJUTA_SYMBOL_QUERY_MODE_QUEUED_SINGLE &&
+	if (query->priv->mode == IANJUTA_SYMBOL_QUERY_MODE_QUEUED &&
 	    query->priv->query_queued &&
 	    !symbol_db_engine_is_scanning (query->priv->dbe_system) &&
 	    !symbol_db_engine_is_scanning (query->priv->dbe_project))
@@ -677,12 +677,10 @@ sdb_query_execute (SymbolDBQuery *query)
 			}
 			g_thread_create (sdb_query_async_run, query, FALSE, NULL);
 			return NULL;
-		case IANJUTA_SYMBOL_QUERY_MODE_QUEUED_SINGLE:
+		case IANJUTA_SYMBOL_QUERY_MODE_QUEUED:
 			query->priv->query_queued = TRUE;
 			on_sdb_query_dbe_scan_end (NULL, 0, query);
 			break;
-		case IANJUTA_SYMBOL_QUERY_MODE_QUEUED_MULTI:
-			/* FIXME */
 		default:
 			g_warn_if_reached ();
 	}
