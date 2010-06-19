@@ -494,8 +494,12 @@ sdb_query_execute_real (SymbolDBQuery *query)
 	GdaDataModel *data_model;
 	SymbolDBQueryPriv *priv = query->priv;
 
-	if (!symbol_db_engine_is_connected (priv->dbe_selected) ||
-	    symbol_db_engine_is_scanning (priv->dbe_selected))
+	if (!symbol_db_engine_is_connected (priv->dbe_selected))
+	{
+		g_warning ("Attempt to make a query when database is not connected");
+		return GINT_TO_POINTER (-1);
+	}
+	if (symbol_db_engine_is_scanning (priv->dbe_selected))
 		return GINT_TO_POINTER (-1);
 	
 	if (!priv->sql_stmt)
@@ -517,7 +521,10 @@ static void
 sdb_query_handle_result (SymbolDBQuery *query, SymbolDBQueryResult *result)
 {
 	if (GPOINTER_TO_INT (result) == -1)
+	{
+		g_warning ("Error in executing query");
 		g_signal_emit_by_name (query, "async-result", NULL);
+	}
 	else
 	{
 		if (symbol_db_query_result_is_empty (result))
@@ -626,8 +633,7 @@ on_sdb_query_dbe_scan_end (SymbolDBEngine *dbe, gint something,
 	
 	if (query->priv->mode == IANJUTA_SYMBOL_QUERY_MODE_QUEUED &&
 	    query->priv->query_queued &&
-	    !symbol_db_engine_is_scanning (query->priv->dbe_system) &&
-	    !symbol_db_engine_is_scanning (query->priv->dbe_project))
+	    !symbol_db_engine_is_scanning (query->priv->dbe_selected))
 	{
 		sdb_query_handle_result (query, sdb_query_execute_real (query));
 		query->priv->query_queued = FALSE;
