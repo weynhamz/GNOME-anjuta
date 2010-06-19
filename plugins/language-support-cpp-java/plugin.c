@@ -507,7 +507,7 @@ parse_mode_line_vim (CppJavaPlugin *plugin, const gchar *modeline)
 {
 	gchar **strv, **ptr;
 	
-	strv = g_strsplit (modeline, " ", -1);
+	strv = g_strsplit_set (modeline, " \t:", -1);
 	ptr = strv;
 	while (*ptr)
 	{
@@ -516,15 +516,15 @@ parse_mode_line_vim (CppJavaPlugin *plugin, const gchar *modeline)
 		if (keyval[0])
 		{
 			g_strstrip (keyval[0]);
-      if (keyval[1])
-      {
-			  g_strstrip (keyval[1]);
-			  set_indentation_param_vim (plugin, g_strchug (keyval[0]),
-                                     g_strchug (keyval[1]));
-      }
-      else
-			  set_indentation_param_vim (plugin, g_strchug (keyval[0]),
-                                     NULL);        
+			if (keyval[1])
+			{
+				g_strstrip (keyval[1]);
+				set_indentation_param_vim (plugin, g_strchug (keyval[0]),
+				                           g_strchug (keyval[1]));
+			}
+			else
+				set_indentation_param_vim (plugin, g_strchug (keyval[0]),
+				                           NULL);        
 		}
 		g_strfreev (keyval);
 		ptr++;
@@ -549,18 +549,18 @@ extract_mode_line (const gchar *comment_text, gboolean* vim)
 		}
 	}
 	/* Search for vim-like modelines */
-	begin_modeline = strstr (comment_text, "vim:set");
+	begin_modeline = strstr (comment_text, "vim:");
 	if (begin_modeline)
 	{
-		begin_modeline += 7;
-		end_modeline = strstr (begin_modeline, ":");
+		begin_modeline += strlen ("vim:");
+		end_modeline = strstr (begin_modeline, "*/");
 		/* Check for escape characters */
 		while (end_modeline)
 		{
 			 if (!g_str_equal ((end_modeline - 1), "\\"))
 				break;
 			end_modeline++;
-			end_modeline = strstr (end_modeline, ":");
+			end_modeline = strstr (end_modeline, "*/");
 		}
 		if (end_modeline)
 		{
