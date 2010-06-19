@@ -963,6 +963,13 @@ on_cls_node_delete_marked (gpointer key, ClsNode *cls_node, gpointer data)
 	return TRUE;
 }
 
+static gboolean
+on_cls_node_delete (gpointer key, ClsNode *cls_node, gpointer data)
+{
+	cls_node_unlink (cls_node);
+	return TRUE;
+}
+
 /*----------------------------------------------------------------------------
  * update the internal graphviz graph-structure, then redraw the graph on the 
  * canvas
@@ -970,29 +977,35 @@ on_cls_node_delete_marked (gpointer key, ClsNode *cls_node, gpointer data)
 void
 cls_inherit_update (AnjutaClassInheritance *plugin)
 {
-	IAnjutaIterable *iter;
+	g_return_if_fail (plugin != NULL);
+
+	if (plugin->top_dir == NULL)
+	{
+		/* No project, delete all nodes */
+		g_hash_table_foreach_remove (plugin->nodes,
+		                             (GHRFunc) on_cls_node_delete,
+		                             NULL);
+		cls_inherit_draw (plugin);
+	}
+	else
+	{
+		/* Get all classes */
+		ianjuta_symbol_query_search_all (plugin->query_project, NULL);
+	}
+}
+
+static void
+on_cls_inherit_update (IAnjutaSymbolQuery *query, IAnjutaIterable *iter,
+                       AnjutaClassInheritance *plugin)
+{
 	IAnjutaSymbol *symbol;
 	ClsNode *cls_node;
 	GError *err = NULL;
-
-	g_return_if_fail (plugin != NULL);
-
+	
 	/* Mark all nodes for deletion. Selectively, they will be unmarked below */
 	g_hash_table_foreach (plugin->nodes,
 	                      (GHFunc) on_cls_node_mark_for_deletion,
 	                      NULL);
-
-	if (plugin->top_dir == NULL)
-		goto cleanup;
-	
-	/* Get all classes */
-	iter = ianjuta_symbol_query_search_all (plugin->query_project, &err);
-	if (err)
-	{
-		g_warning ("Classes query in project failed: %s", err->message);
-		g_error_free (err);
-		err = NULL;
-	}
 	if (!iter)
 	{
 		DEBUG_PRINT ("%s", "cls_inherit_update_graph (): search returned no items.");
@@ -1073,8 +1086,6 @@ cls_inherit_update (AnjutaClassInheritance *plugin)
 		g_object_unref (parents);
 
 	} while (ianjuta_iterable_next (iter, NULL) == TRUE);
-
-	g_object_unref (iter);
 
 cleanup:
 	
@@ -1221,6 +1232,11 @@ cls_inherit_init (AnjutaClassInheritance *plugin)
 		                                     IANJUTA_SYMBOL_QUERY_SEARCH_ALL,
 		                                     IANJUTA_SYMBOL_QUERY_DB_PROJECT,
 		                                     NULL);
+	g_signal_connect (plugin->query_project, "async-result",
+	                  G_CALLBACK (on_cls_inherit_update), plugin);
+	ianjuta_symbol_query_set_mode (plugin->query_project,
+	                               IANJUTA_SYMBOL_QUERY_MODE_QUEUED,
+	                               NULL);
 	ianjuta_symbol_query_set_fields (plugin->query_project,
 	                                 sizeof (query_fields_simple)/sizeof (IAnjutaSymbolField),
 	                                 query_fields_simple, NULL);
