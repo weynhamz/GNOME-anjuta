@@ -1591,8 +1591,7 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 		anjuta_cache_path = anjuta_util_get_user_cache_file_path (".", NULL);
 		if (symbol_db_engine_open_db (sdb_plugin->sdbe_globals, 
 							  anjuta_cache_path, 
-							  PROJECT_GLOBALS,
-		    				  FALSE) == DB_OPEN_STATUS_FATAL)
+							  PROJECT_GLOBALS) == DB_OPEN_STATUS_FATAL)
 		{
 			g_error ("Opening global project under %s", anjuta_cache_path);
 		}
@@ -1652,7 +1651,7 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 		/* we'll use the same values for db_directory and project_directory */
 		DEBUG_PRINT ("Opening db %s and project_dir %s", root_dir, root_dir);
 		gint open_status = symbol_db_engine_open_db (sdb_plugin->sdbe_project, root_dir, 
-										  root_dir, FALSE);
+										  root_dir);
 
 		/* is it a fresh-new project? is it an imported project with 
 		 * no 'new' symbol-db database but the 'old' one symbol-browser? 
@@ -1994,8 +1993,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	anjuta_cache_path = anjuta_util_get_user_cache_file_path (".", NULL);
 	if (symbol_db_engine_open_db (sdb_plugin->sdbe_globals, 
 							  anjuta_cache_path, 
-							  PROJECT_GLOBALS,
-	    					  TRUE) == DB_OPEN_STATUS_FATAL)
+							  PROJECT_GLOBALS) == DB_OPEN_STATUS_FATAL)
 	{
 		g_error ("Opening global project under %s", anjuta_cache_path);
 	}

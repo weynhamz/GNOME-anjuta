@@ -1695,6 +1695,12 @@ sdb_engine_timeout_trigger_signals (gpointer user_data)
 		
 				case SCAN_END:
 				{
+					/* reset count */
+					priv->symbols_scanned_count = 0;
+
+					gda_connection_commit_transaction (priv->db_connection, "symboltrans",
+		    						NULL);
+					
 					/* perform flush on db of the tablemaps, if this is the 1st scan */
 					if (priv->is_first_population == TRUE)
 					{
@@ -1702,12 +1708,6 @@ sdb_engine_timeout_trigger_signals (gpointer user_data)
 						priv->is_first_population = FALSE;
 					}
 
-					/* were we forced to use tablemaps? Ok, reset the flag to true */
-					if (priv->is_tablemaps_forced == TRUE)
-					{
-						priv->is_first_population = TRUE;
-					}
-					
 					/* get the process id from the queue */
 					gint int_tmp = GPOINTER_TO_INT(g_async_queue_pop (priv->scan_process_id_queue));
 					priv->scanning--;
@@ -2159,7 +2159,8 @@ sdb_engine_init (SymbolDBEngine * object)
 	sdbe->priv->removed_launchers = NULL;
 	sdbe->priv->shutting_down = FALSE;
 	sdbe->priv->is_first_population = FALSE;
-	sdbe->priv->is_tablemaps_forced = FALSE;
+
+	sdbe->priv->symbols_scanned_count = 0;
 
 	/* set the ctags executable path to NULL */
 	sdbe->priv->ctags_path = NULL;
@@ -2954,9 +2955,8 @@ sdb_engine_connect_to_db (SymbolDBEngine * dbe, const gchar *cnc_string)
 	/* establish a connection. If the sqlite file does not exist it will 
 	 * be created 
 	 */
-	priv->db_connection
-		= gda_connection_open_from_string ("SQLite", cnc_string, NULL, 
-		/* FIXME */								   GDA_CONNECTION_OPTIONS_THREAD_SAFE, NULL);	
+	priv->db_connection = gda_connection_open_from_string ("SQLite", cnc_string, NULL, 
+										   GDA_CONNECTION_OPTIONS_THREAD_SAFE, NULL);	
 	
 	if (!GDA_IS_CONNECTION (priv->db_connection))
 	{
@@ -3117,7 +3117,8 @@ symbol_db_engine_close_db (SymbolDBEngine *dbe)
 	priv->thread_pool = NULL;
 	ret = sdb_engine_disconnect_from_db (dbe);
 
-	priv->is_tablemaps_forced = FALSE;
+	/* reset count */
+	priv->symbols_scanned_count = 0;
 	
 	g_free (priv->db_directory);
 	priv->db_directory = NULL;
@@ -3227,7 +3228,7 @@ sdb_engine_check_db_version_and_upgrade (SymbolDBEngine *dbe,
 
 gint
 symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
-						  const gchar * prj_directory, gboolean force_tablemaps)
+						  const gchar * prj_directory)
 {
 	SymbolDBEnginePriv *priv;
 	gboolean needs_tables_creation = FALSE;
@@ -3243,12 +3244,7 @@ symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
 
 	priv = dbe->priv;
 
-	priv->is_tablemaps_forced = force_tablemaps;
-	if (priv->is_tablemaps_forced == TRUE)
-	{
-		priv->is_first_population = TRUE;
-	}
-	
+	priv->symbols_scanned_count = 0;
 	
 	/* check whether the db filename already exists. If it's not the case
 	 * create the tables for the database. */
@@ -4988,6 +4984,15 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 
 	g_return_val_if_fail (tag_entry != NULL, -1);
 
+
+	if (priv->symbols_scanned_count++ % 10000 == 0)
+	{
+		gda_connection_commit_transaction (priv->db_connection, "symboltrans",
+		    NULL);
+		gda_connection_begin_transaction (priv->db_connection, "symboltrans",
+	    			GDA_TRANSACTION_ISOLATION_READ_UNCOMMITTED, NULL);
+	}
+	
 	/* parse the entry name */
 	name = tag_entry->name;
 	file_position = tag_entry->address.lineNumber;

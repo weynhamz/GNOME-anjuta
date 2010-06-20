@@ -290,7 +290,7 @@ struct _SymbolDBEnginePriv
 	GList *removed_launchers;
 	gboolean shutting_down;
 	gboolean is_first_population;
-	gboolean is_tablemaps_forced;
+	gsize symbols_scanned_count;
 	
 	GMutex* mutex;
 	GAsyncQueue* signals_queue;

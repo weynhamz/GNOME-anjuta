@@ -104,7 +104,7 @@ int main (int argc, char** argv)
 	
     engine = symbol_db_engine_new_full ("anjuta-tags", "benchmark-db");
   
-	if (symbol_db_engine_open_db (engine, root_dir, root_dir, FALSE) == DB_OPEN_STATUS_FATAL)
+	if (symbol_db_engine_open_db (engine, root_dir, root_dir) == DB_OPEN_STATUS_FATAL)
 	{
 		g_message ("Could not open database: %s", root_dir);
 		return -1;
