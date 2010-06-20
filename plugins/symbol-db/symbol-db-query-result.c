@@ -310,10 +310,10 @@ isymbol_get_int (IAnjutaSymbol *isymbol, IAnjutaSymbolField field,
 	{
 		if (!G_VALUE_HOLDS_STRING (val))
 			return (gint) IANJUTA_SYMBOL_TYPE_NONE;
-		gint type_val = 
-			(gint)g_hash_table_lookup ((GHashTable*)result->priv->sym_type_conversion_hash, 
-			                           g_value_get_string (val));
-		return type_val;
+		else 
+			return GPOINTER_TO_INT (g_hash_table_lookup
+			                        ((GHashTable*)result->priv->sym_type_conversion_hash, 
+			                         g_value_get_string (val)));
 	}
 	return g_value_get_int (val);
 }
