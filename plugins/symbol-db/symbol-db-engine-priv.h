@@ -171,24 +171,6 @@ typedef struct _static_query_node
 
 } static_query_node;
 
-/* WARNING: these must match the ones on libanjuta.idl [IAnjutaSymbol::Field] */
-typedef enum {
-	SYMINFO_SIMPLE = 1,
-	SYMINFO_FILE_PATH = 2,
-	SYMINFO_IMPLEMENTATION = 4,
-	SYMINFO_ACCESS = 8,
-	SYMINFO_KIND = 16,
-	SYMINFO_TYPE = 32,
-	SYMINFO_TYPE_NAME = 64,
-	SYMINFO_LANGUAGE = 128,
-	SYMINFO_FILE_IGNORE = 256,
-	SYMINFO_FILE_INCLUDE = 512,
-	SYMINFO_PROJECT_NAME = 1024,
-	SYMINFO_WORKSPACE_NAME = 2048
-	
-} SymExtraInfo;
-
-
 typedef IAnjutaSymbolType SymType;
 
 /* the SymbolDBEngine Private structure */
@@ -245,7 +227,8 @@ struct _SymbolDBEnginePriv
 	GTree *file_symbols_cache;		
 	
 	static_query_node *static_query_list[PREP_QUERY_COUNT]; 
-	
+
+	/* Memory pool */
 	GQueue *mem_pool_string;
 	GQueue *mem_pool_int;
 
