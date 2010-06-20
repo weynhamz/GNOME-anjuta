@@ -85,7 +85,6 @@ typedef enum
 	SDB_QUERY_TABLE_FILE,
 	SDB_QUERY_TABLE_IMPLEMENTATION,
 	SDB_QUERY_TABLE_ACCESS,
-	SDB_QUERY_TABLE_TYPE,
 	SDB_QUERY_TABLE_KIND,
 	SDB_QUERY_TABLE_MAX,
 }  SdbQueryTable;
@@ -97,7 +96,6 @@ static gchar *table_joins[] =
 	"LEFT JOIN file ON symbol.file_defined_id = file.file_id",
 	"LEFT JOIN sym_implementation ON symbol.implementation_kind_id = sym_implementation.sym_impl_id",
 	"LEFT JOIN sym_access ON symbol.access_kind_id = sym_access.access_kind_id",
-	"LEFT JOIN sym_type ON symbol.type_id = sym_type.type_id",
 	"LEFT JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id"
 };
 
@@ -119,12 +117,12 @@ SdbQueryFieldSpec field_specs[] = {
 	{"symbol.is_file_scope ", SDB_QUERY_TABLE_SYMBOL},
 	{"symbol.signature ", SDB_QUERY_TABLE_SYMBOL},
 	{"symbol.returntype ", SDB_QUERY_TABLE_SYMBOL},
+	{"symbol.type_type", SDB_QUERY_TABLE_SYMBOL},
+	{"symbol.type_name", SDB_QUERY_TABLE_SYMBOL},
 	{"file.file_path", SDB_QUERY_TABLE_FILE},
 	{"sym_implementation.implementation_name", SDB_QUERY_TABLE_IMPLEMENTATION},
 	{"sym_access.access_name", SDB_QUERY_TABLE_ACCESS},
 	{"sym_kind.kind_name ", SDB_QUERY_TABLE_KIND},
-	{"sym_type.type_type ", SDB_QUERY_TABLE_TYPE},
-	{"sym_type.type_name", SDB_QUERY_TABLE_TYPE},
 	{"sym_kind.is_container", SDB_QUERY_TABLE_KIND}
 };
 
