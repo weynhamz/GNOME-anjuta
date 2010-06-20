@@ -92,15 +92,6 @@ typedef struct _TableMapSymbol {
 	query_list_ptr [query_type] = q; \
 }
 
-#define DYN_QUERY_POPULATE_INIT_NODE(dquery_list_ptr, dquery_type, gtree_child) { \
-	dyn_query_node *dq = g_new0 (dyn_query_node, 1); \
-	dq->dyn_query_id = dquery_type; \
-	dq->sym_extra_info_gtree = NULL; \
-	dq->has_gtree_child = gtree_child; \
-	dquery_list_ptr [dquery_type] = dq; \
-}
-
-
 typedef void (SymbolDBEngineCallback) (SymbolDBEngine * dbe,
 									   gpointer user_data);
 
@@ -166,9 +157,6 @@ static GObjectClass *parent_class = NULL;
 static void 
 sdb_engine_second_pass_do (SymbolDBEngine * dbe);
 
-void
-sdb_engine_dyn_child_query_node_destroy (gpointer data);
-
 static gint
 sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 						   int file_defined_id, gboolean sym_update);
@@ -178,15 +166,6 @@ sdb_engine_get_statement_by_query_id (SymbolDBEngine * dbe, static_query_type qu
 
 GNUC_INLINE const GdaSet *
 sdb_engine_get_query_parameters_list (SymbolDBEngine *dbe, static_query_type query_id);
-
-GNUC_INLINE const DynChildQueryNode *
-sdb_engine_get_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type query_id,
-									 SymExtraInfo sym_info, gsize other_parameters);
-
-GNUC_INLINE const DynChildQueryNode *
-sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type query_id,
-									 	SymExtraInfo sym_info, gsize other_parameters,
-										const gchar *sql);
 
 GNUC_INLINE gint
 sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, static_query_type qtype,
@@ -434,189 +413,6 @@ sdb_engine_get_statement_by_query_id (SymbolDBEngine * dbe, static_query_type qu
 	return node->stmt;
 }
 
-
-/**
- *
- */
-GNUC_INLINE const DynChildQueryNode *
-sdb_engine_get_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type query_id,
-									 SymExtraInfo sym_info, gsize other_parameters)
-{
-	dyn_query_node *node;
-	SymbolDBEnginePriv *priv;
-
-	priv = dbe->priv;
-
-	node = priv->dyn_query_list[query_id];
-
-	if (node == NULL || node->sym_extra_info_gtree == NULL) 
-	{
-		/* we didn't find any extra info symbol, nor it has been added before */
-		return NULL;
-	}
-	
-	if (node->has_gtree_child == FALSE) 
-	{
-		/* use only sym_info as key, ignore other_parameters */
-		return g_tree_lookup (node->sym_extra_info_gtree, GINT_TO_POINTER (sym_info));
-	}
-	else {
-		GTree *child_gtree;
-		DynChildQueryNode *result;
-		
-		child_gtree = g_tree_lookup (node->sym_extra_info_gtree, GINT_TO_POINTER (sym_info));
-		if (child_gtree == NULL) 
-		{			
-			return NULL;
-		}
-		
-		result = g_tree_lookup (child_gtree, GINT_TO_POINTER (other_parameters));
-		return result;
-	}
-}
-
-void
-sdb_engine_dyn_child_query_node_destroy (gpointer data)
-{
-	DynChildQueryNode *node_to_destroy;
-
-	node_to_destroy = (DynChildQueryNode *)data;
-
-	g_free (node_to_destroy->query_str);
-	if (node_to_destroy->stmt)
-		g_object_unref (node_to_destroy->stmt);
-	if (node_to_destroy->plist)
-		g_object_unref (node_to_destroy->plist);
-	g_free (node_to_destroy);
-}
-
-
-GNUC_INLINE const DynChildQueryNode *
-sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type query_id,
-									 	SymExtraInfo sym_info, gsize other_parameters,
-										const gchar *sql)
-{
-	dyn_query_node *node;
-	SymbolDBEnginePriv *priv;
-	priv = dbe->priv;
-	
-	/* no way: if connection is NULL we will break here. There must be
-	 * a connection established to db before using this function */
-	g_return_val_if_fail (priv->db_connection != NULL, NULL);
-
-	node = priv->dyn_query_list[query_id];
-	
-	g_return_val_if_fail (node != NULL, NULL);
-	
-	if (node->sym_extra_info_gtree == NULL) 
-	{
-		/* lazy initialization */
-		if (node->has_gtree_child == FALSE)
-		{
-			node->sym_extra_info_gtree = 
-					g_tree_new_full ((GCompareDataFunc)&symbol_db_gtree_compare_func, 
-										 NULL,
-										 NULL,
-										 sdb_engine_dyn_child_query_node_destroy);
-		}
-		else
-		{
-			node->sym_extra_info_gtree = 
-					g_tree_new_full ((GCompareDataFunc)&symbol_db_gtree_compare_func, 
-										 NULL,
-										 NULL,
-										 (GDestroyNotify)g_tree_destroy);
-		}
-	}
-
-	if (node->has_gtree_child == FALSE) 
-	{
-		/* main GTree has direct DynChildQueryNode* as its leaves, other parameters
-		 * will be ignored
-		 */
-		DynChildQueryNode *dyn_node;
-
-		/* check if a DynChildQueryNode already exists in the gtree */
-		if ( (dyn_node = g_tree_lookup (node->sym_extra_info_gtree, 
-		    GINT_TO_POINTER (sym_info))) != NULL) 
-		{
-			g_warning ("************************* returning already present object");
-			/* strange enough but we found something. Return it. */
-			return dyn_node;
-		}
-		
-		dyn_node = g_new0 (DynChildQueryNode, 1);
-		
-		/* create a new GdaStatement */
-		dyn_node->plist = NULL;
-		dyn_node->stmt =
-			gda_sql_parser_parse_string (priv->sql_parser, sql, NULL, 
-										 NULL);
-
-		if (gda_statement_get_parameters ((GdaStatement*)dyn_node->stmt, 
-										  &dyn_node->plist, NULL) == FALSE)
-		{
-			g_warning ("Error on getting parameters for dyn %d", query_id);
-		}
-		
-		dyn_node->query_str = g_strdup (sql);
-				
-		/* insert it into gtree, thanks */
-		g_tree_insert (node->sym_extra_info_gtree, GINT_TO_POINTER (sym_info), dyn_node);
-		
-		/* return it */
-		return dyn_node;
-	}
-	else
-	{
-		/* ok, this is a slightly more complex case */
-		GTree *child_gtree;
-		DynChildQueryNode *dyn_node;
-		gboolean insert_into_main = FALSE;
-
-		if ((child_gtree = g_tree_lookup (node->sym_extra_info_gtree, 
-		    GINT_TO_POINTER (sym_info))) != NULL)
-		{
-			insert_into_main = FALSE;
-		}
-		else {
-			/* creating a new child_gtree.... */
-			insert_into_main = TRUE;
-			child_gtree = g_tree_new_full ((GCompareDataFunc)&symbol_db_gtree_compare_func,
- 									 NULL,
- 									 NULL, 
-									 sdb_engine_dyn_child_query_node_destroy);			
-		}		
-			
-		dyn_node = g_new0 (DynChildQueryNode, 1);
-		
-		/* create a new GdaStatement */
-		dyn_node->plist = NULL;
-		dyn_node->stmt = gda_sql_parser_parse_string (priv->sql_parser, sql, NULL, 
-										 NULL);
-
-		if (gda_statement_get_parameters ((GdaStatement*)dyn_node->stmt, 
-										  &dyn_node->plist, NULL) == FALSE)
-		{
-			g_warning ("Error on getting parameters for dyn %d", query_id);
-		}
-		
-		dyn_node->query_str = g_strdup (sql);
-
-		/* insert the dyn_node into child_gtree, then child_gtree into main_gtree */	
-		g_tree_insert (child_gtree, GINT_TO_POINTER (other_parameters), dyn_node);
-
-		if (insert_into_main == TRUE)
-		{
-			g_tree_insert (node->sym_extra_info_gtree, GINT_TO_POINTER (sym_info), 
-			    child_gtree);
-		}		
-		
-		/* return it */
-		return dyn_node;		
-	}	
-}
-
 /**
  * ### Thread note: this function inherits the mutex lock ### 
  *
@@ -669,31 +465,6 @@ sdb_engine_free_cached_queries (SymbolDBEngine *dbe)
 		/* last but not the least free the node itself */
 		g_free (node);
 		priv->static_query_list[i] = NULL;
-	}
-}
-
-static void
-sdb_engine_free_cached_dynamic_queries (SymbolDBEngine *dbe)
-{
-	SymbolDBEnginePriv *priv;
-	gint i;
-	dyn_query_node *node;
-
-	priv = dbe->priv;
-	
-	for (i = 0; i < DYN_PREP_QUERY_COUNT; i++)
-	{
-		node = priv->dyn_query_list[i];
-		
-		if (node != NULL && node->sym_extra_info_gtree != NULL)
-		{	
-			g_tree_destroy (node->sym_extra_info_gtree);			
-			node->sym_extra_info_gtree = NULL;
-		}		
-		
-		/* last but not the least free the node itself */
-		g_free (node);
-		priv->dyn_query_list[i] = NULL;		
 	}
 }
 
@@ -2470,46 +2241,6 @@ sdb_engine_init (SymbolDBEngine * object)
 		"## /* name:'prjname' type:gchararray */) AND "
 		"file_path = ## /* name:'filepath' type:gchararray */");
 	
-	
-	/*
-	 * DYNAMIC QUERY STRUCTURE INITIALIZE
-	 */
-	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
-									DYN_PREP_QUERY_GET_CLASS_PARENTS_BY_SYMBOL_ID,
-									FALSE);
-	
-	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
-									DYN_PREP_QUERY_GET_CURRENT_SCOPE,				
-									FALSE);
-	
-	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
-								 	DYN_PREP_QUERY_GET_SYMBOL_INFO_BY_ID,
-									FALSE);
-
-	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
-								 	DYN_PREP_QUERY_FIND_SYMBOL_NAME_BY_PATTERN,
-									TRUE);
-
-	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
-									DYN_PREP_QUERY_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED,			
-									TRUE);
-
-	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
-									DYN_PREP_QUERY_FIND_SYMBOL_BY_NAME_PATTERN_FILE,
-									TRUE);
-
-	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
-									DYN_PREP_QUERY_FIND_SYMBOL_IN_SCOPE,
-									TRUE);	
-	
-	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
-								 	DYN_PREP_QUERY_GET_SCOPE_MEMBERS_BY_SYMBOL_ID,
-									TRUE);
-
-	DYN_QUERY_POPULATE_INIT_NODE(sdbe->priv->dyn_query_list,
-									DYN_PREP_QUERY_GET_FILES_FOR_PROJECT,
-								 	TRUE);
-	
 	/* init cache hashtables */
 	sdb_engine_init_caches (sdbe);
 
@@ -2616,7 +2347,6 @@ sdb_engine_finalize (GObject * object)
 		sdb_engine_disconnect_from_db (dbe);	
 	
 	sdb_engine_free_cached_queries (dbe);
-	sdb_engine_free_cached_dynamic_queries (dbe);
 	
 	if (priv->scan_process_id_queue)
 	{

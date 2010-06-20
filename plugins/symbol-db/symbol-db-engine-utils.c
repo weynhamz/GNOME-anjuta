@@ -39,15 +39,6 @@ sdb_engine_get_statement_by_query_id (SymbolDBEngine * dbe, static_query_type qu
 extern GNUC_INLINE const GdaSet *
 sdb_engine_get_query_parameters_list (SymbolDBEngine *dbe, static_query_type query_id);
 
-extern GNUC_INLINE const DynChildQueryNode *
-sdb_engine_get_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type query_id,
-									 SymExtraInfo sym_info, gsize other_parameters);
-
-extern GNUC_INLINE const DynChildQueryNode *
-sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type query_id,
-									 	SymExtraInfo sym_info, gsize other_parameters,
-										const gchar *sql);
-
 /*
  * implementation starts here 
  */

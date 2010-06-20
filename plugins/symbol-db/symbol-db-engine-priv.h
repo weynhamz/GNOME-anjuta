@@ -191,57 +191,6 @@ typedef struct _static_query_node
 
 } static_query_node;
 
-typedef enum {
-	DYN_PREP_QUERY_GET_CLASS_PARENTS_BY_SYMBOL_ID = 0,
-	DYN_PREP_QUERY_GET_CURRENT_SCOPE,
-	DYN_PREP_QUERY_GET_SYMBOL_INFO_BY_ID,
-	DYN_PREP_QUERY_FIND_SYMBOL_NAME_BY_PATTERN,
-	DYN_PREP_QUERY_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED,
-	DYN_PREP_QUERY_FIND_SYMBOL_BY_NAME_PATTERN_FILE,
-	DYN_PREP_QUERY_FIND_SYMBOL_IN_SCOPE,
-	DYN_PREP_QUERY_GET_SCOPE_MEMBERS_BY_SYMBOL_ID,
-	DYN_PREP_QUERY_GET_FILES_FOR_PROJECT,
-	DYN_PREP_QUERY_COUNT
-		
-} dyn_query_type;
-
-/**
- * dyn_query_node's possible structures
- *
- *           sym_extra_info_gtree          with has_gtree_child = FALSE
- *                   |
- *       ... +-------+-------+ ...
- *           |       |       |    <========  keys = sym_info
- *         CDQN    CDQN    CDQN              values = ChildDynQueryNode
- *
- *
- *
- *           sym_extra_info_gtree          with has_gtree_child = TRUE
- *                   |
- *       ... +-------+-------+ ...
- *           |       |       |    <========  keys = sym_info, values = GTree
- *         GTree    GTree   GTree            
- *         / | \     |       |    <========  keys = other_parameters, values = ChildDynQueryNode
- *        /  |  \   ...     ...   
- *     CDQN CDQN CDQN
- *
- *
- */
-typedef struct _dyn_query_node {
-	dyn_query_type dyn_query_id;
-	GTree * sym_extra_info_gtree;
-	gboolean has_gtree_child;
-	
-} dyn_query_node;
-
-typedef struct _ChildDynQueryNode {
-	gchar *query_str;
-	GdaStatement *stmt;
-	GdaSet *plist;	
-	
-} DynChildQueryNode;
-
-
 /* WARNING: these must match the ones on libanjuta.idl [IAnjutaSymbol::Field] */
 typedef enum {
 	SYMINFO_SIMPLE = 1,
@@ -316,7 +265,6 @@ struct _SymbolDBEnginePriv
 	GTree *file_symbols_cache;		
 	
 	static_query_node *static_query_list[PREP_QUERY_COUNT]; 
-	dyn_query_node *dyn_query_list[DYN_PREP_QUERY_COUNT];
 	
 #ifdef USE_ASYNC_QUEUE	
 	GAsyncQueue *mem_pool_string;
