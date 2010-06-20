@@ -38,7 +38,7 @@
 #define ANJUTA_DB_FILE	".anjuta_sym_db"
 
 /* if tables.sql changes or general db structure changes modify also the value here */
-#define SYMBOL_DB_VERSION	"300.4"
+#define SYMBOL_DB_VERSION	"300.5"
 
 #define TABLES_SQL			PACKAGE_DATA_DIR"/tables.sql"
 
@@ -54,6 +54,8 @@
 
 #define DUMMY_VOID_STRING				""
 #define MP_VOID_STRING					"-"
+
+#define BATCH_SYMBOL_NUMBER				5000
 
 #define MP_RESET_OBJ_STR(gvalue) \
 		g_value_set_static_string (gvalue, DUMMY_VOID_STRING);

@@ -49,7 +49,21 @@
 
 #include <glib/gprintf.h>
 
+/*
+ * utility macros
+ */
+#define STATIC_QUERY_POPULATE_INIT_NODE(query_list_ptr, query_type, gda_stmt) { \
+	static_query_node *q = g_new0 (static_query_node, 1); \
+	q->query_id = query_type; \
+	q->query_str = gda_stmt; \
+	q->stmt = NULL; \
+	q->plist = NULL; \
+	query_list_ptr [query_type] = q; \
+}
 
+/*
+ * typedefs
+ */
 typedef struct _TableMapTmpHeritage {
 	gint symbol_referer_id;
 	gchar *field_inherits;
@@ -80,23 +94,11 @@ typedef struct _TableMapSymbol {
 
 } TableMapSymbol;
 
-/*
- * utility macros
- */
-#define STATIC_QUERY_POPULATE_INIT_NODE(query_list_ptr, query_type, gda_stmt) { \
-	static_query_node *q = g_new0 (static_query_node, 1); \
-	q->query_id = query_type; \
-	q->query_str = gda_stmt; \
-	q->stmt = NULL; \
-	q->plist = NULL; \
-	query_list_ptr [query_type] = q; \
-}
-
 typedef void (SymbolDBEngineCallback) (SymbolDBEngine * dbe,
 									   gpointer user_data);
 
 /* 
- * signals 
+ * signals enum
  */
 enum
 {
@@ -111,8 +113,6 @@ enum
 	SYMBOL_REMOVED,
 	LAST_SIGNAL
 };
-
-static unsigned int signals[LAST_SIGNAL] = { 0 };
 
 /*
  * enums
@@ -150,6 +150,14 @@ typedef struct _ScanFiles1Data {
  * global file variables
  */ 
 static GObjectClass *parent_class = NULL;
+static unsigned int signals[LAST_SIGNAL] = { 0 };
+
+
+#ifdef DEBUG
+static GTimer *sym_timer_DEBUG  = NULL;
+static gint tags_total_DEBUG = 0;
+static gdouble elapsed_total_DEBUG = 0;
+#endif
 
 /*
  * forward declarations 
@@ -1142,12 +1150,6 @@ gboolean sdb_engine_udpated_scope_gtree_populate (gpointer key,
 	return FALSE;
 }
 
-#ifdef DEBUG
-static GTimer *sym_timer_DEBUG  = NULL;
-static gint tags_total_DEBUG = 0;
-static gdouble elapsed_total_DEBUG = 0;
-#endif
-
 /**
  * ### Thread note: this function inherits the mutex lock ###
  *
@@ -1215,6 +1217,36 @@ sdb_engine_populate_db_by_tags (SymbolDBEngine * dbe, FILE* fd,
 			g_free (tag_entry_file_cache);
 			tag_entry_file_cache = g_strdup (tag_entry.file);
 		}
+		
+		if (priv->symbols_scanned_count++ % BATCH_SYMBOL_NUMBER == 0)
+		{
+			GError *error = NULL;
+			
+			/* if we aren't at the first cycle then we can commit the transaction */
+			if (priv->symbols_scanned_count > 1)
+			{
+				gda_connection_commit_transaction (priv->db_connection, "symboltrans",
+					&error);
+
+				if (error)
+				{
+					DEBUG_PRINT ("err: %s", error->message);
+					g_error_free (error);
+					error = NULL;
+				}
+			}
+			
+			gda_connection_begin_transaction (priv->db_connection, "symboltrans",
+						GDA_TRANSACTION_ISOLATION_READ_UNCOMMITTED, &error);
+			
+			if (error)
+			{
+				DEBUG_PRINT ("err: %s", error->message);
+				g_error_free (error);
+				error = NULL;
+			}			
+		}
+		
 		/* insert or update a symbol */
 		sdb_engine_add_new_symbol (dbe, &tag_entry, file_defined_id,
 								   force_sym_update);
@@ -1396,7 +1428,7 @@ sdb_engine_ctags_output_thread (gpointer data, gpointer user_data)
 #ifdef DEBUG	
 					if (priv->first_scan_timer_DEBUG != NULL)
 					{
-						DEBUG_PRINT ("TOTAL FIRST SCAN elapsed: %f",
+						DEBUG_PRINT ("~~~~~ TOTAL FIRST SCAN elapsed: %f ",
 						    g_timer_elapsed (priv->first_scan_timer_DEBUG, NULL));
 						g_timer_destroy (priv->first_scan_timer_DEBUG);
 						priv->first_scan_timer_DEBUG = NULL;
@@ -1469,8 +1501,10 @@ sdb_engine_timeout_trigger_signals (gpointer user_data)
 					/* reset count */
 					priv->symbols_scanned_count = 0;
 
+					DEBUG_PRINT ("Committing symboltrans transaction...");
 					gda_connection_commit_transaction (priv->db_connection, "symboltrans",
 		    						NULL);
+					DEBUG_PRINT ("... Done!");
 					
 					/* perform flush on db of the tablemaps, if this is the 1st scan */
 					if (priv->is_first_population == TRUE)
@@ -1651,7 +1685,7 @@ sdb_engine_scan_files_2 (GFile *gfile,
 		return;
 	}
 	
-	DEBUG_PRINT ("sent to stdin %s", local_path);
+	/* DEBUG_PRINT ("sent to stdin %s", local_path); */
 	anjuta_launcher_send_stdin (priv->ctags_launcher, local_path);
 	anjuta_launcher_send_stdin (priv->ctags_launcher, "\n");
 	
@@ -3710,6 +3744,7 @@ sdb_engine_extract_type_qualifier (const gchar *string, const gchar *expr)
 }
 
 /* ### Thread note: this function inherits the mutex lock ### */
+/* Uses cache lookup to speed up symbols search. */
 static gint
 sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 {
@@ -3732,6 +3767,7 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 	if (kind_name == NULL)
 		return -1;
 
+	/* cache lookup */
 	table_id = sdb_engine_cache_lookup (priv->kind_cache, kind_name);
 	if (table_id != -1)
 	{
@@ -3821,6 +3857,7 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 }
 
 /* ### Thread note: this function inherits the mutex lock ### */
+/* Uses cache lookup to speed up symbols search. */
 static gint
 sdb_engine_add_new_sym_access (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 {
@@ -3843,7 +3880,8 @@ sdb_engine_add_new_sym_access (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 		/* no access associated with current tag */
 		return -1;
 	}
-	
+
+	/* cache lookup */
 	table_id = sdb_engine_cache_lookup (priv->access_cache, access);
 	if (table_id != -1)
 	{
@@ -3912,6 +3950,7 @@ sdb_engine_add_new_sym_access (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 }
 
 /* ### Thread note: this function inherits the mutex lock ### */
+/* Uses cache lookup to speed up symbols search. */
 static gint
 sdb_engine_add_new_sym_implementation (SymbolDBEngine * dbe,
 									   const tagEntry * tag_entry)
@@ -3934,6 +3973,8 @@ sdb_engine_add_new_sym_implementation (SymbolDBEngine * dbe,
 		/* no implementation associated with current tag */
 		return -1;
 	}
+
+	/* cache lookup */
 	table_id = sdb_engine_cache_lookup (priv->implementation_cache, implementation);
 	if (table_id != -1)
 	{
@@ -4694,15 +4735,6 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 
 	g_return_val_if_fail (tag_entry != NULL, -1);
 
-
-	if (priv->symbols_scanned_count++ % 10000 == 0)
-	{
-		gda_connection_commit_transaction (priv->db_connection, "symboltrans",
-		    NULL);
-		gda_connection_begin_transaction (priv->db_connection, "symboltrans",
-	    			GDA_TRANSACTION_ISOLATION_READ_UNCOMMITTED, NULL);
-	}
-	
 	/* parse the entry name */
 	name = tag_entry->name;
 	file_position = tag_entry->address.lineNumber;
