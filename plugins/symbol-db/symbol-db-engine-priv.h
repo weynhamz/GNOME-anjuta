@@ -55,9 +55,6 @@
 #define DUMMY_VOID_STRING				""
 #define MP_VOID_STRING					"-"
 
-#define USE_ASYNC_QUEUE
-#undef USE_ASYNC_QUEUE
-
 #define MP_RESET_OBJ_STR(gvalue) \
 		g_value_set_static_string (gvalue, DUMMY_VOID_STRING);
 
@@ -76,22 +73,6 @@
 		} \
 }
 
-#ifdef USE_ASYNC_QUEUE
-#define MP_LEND_OBJ_STR(sdb_priv, OUT_gvalue) \
-		OUT_gvalue = (GValue*)g_async_queue_pop(sdb_priv->mem_pool_string); \
-		MP_RESET_OBJ_STR(OUT_gvalue);
-
-#define MP_RETURN_OBJ_STR(sdb_priv, gvalue) \
-		g_value_set_static_string (gvalue, MP_VOID_STRING); \
-		g_async_queue_push(sdb_priv->mem_pool_string, gvalue); 
-
-#define MP_LEND_OBJ_INT(sdb_priv, OUT_gvalue) \
-		OUT_gvalue = (GValue*)g_async_queue_pop(sdb_priv->mem_pool_int); 
-
-#define MP_RETURN_OBJ_INT(sdb_priv, gvalue) \
-		g_async_queue_push(sdb_priv->mem_pool_int, gvalue); 
-
-#else
 #define MP_LEND_OBJ_STR(sdb_priv, OUT_gvalue) \
 		OUT_gvalue = (GValue*)g_queue_pop_head(sdb_priv->mem_pool_string); \
 		MP_RESET_OBJ_STR(OUT_gvalue);
@@ -105,7 +86,6 @@
 
 #define MP_RETURN_OBJ_INT(sdb_priv, gvalue) \
 		g_queue_push_head(sdb_priv->mem_pool_int, gvalue);
-#endif
 
 /* ret_value, even if not used outside, permits variable reusing without 
  * forcing the compiler to redeclare it everytime
@@ -266,13 +246,8 @@ struct _SymbolDBEnginePriv
 	
 	static_query_node *static_query_list[PREP_QUERY_COUNT]; 
 	
-#ifdef USE_ASYNC_QUEUE	
-	GAsyncQueue *mem_pool_string;
-	GAsyncQueue *mem_pool_int;
-#else
 	GQueue *mem_pool_string;
 	GQueue *mem_pool_int;
-#endif
 
 #ifdef DEBUG
 	GTimer *first_scan_timer_DEBUG;

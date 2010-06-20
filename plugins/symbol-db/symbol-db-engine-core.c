@@ -2253,13 +2253,8 @@ sdb_engine_init (SymbolDBEngine * object)
 										 NULL);
 	
 	/* init memory pool object for GValue strings */
-#ifdef USE_ASYNC_QUEUE	
-	sdbe->priv->mem_pool_string = g_async_queue_new_full (g_free);
-	sdbe->priv->mem_pool_int = g_async_queue_new_full (g_free);
-#else
 	sdbe->priv->mem_pool_string = g_queue_new ();
 	sdbe->priv->mem_pool_int = g_queue_new ();	
-#endif
 	
 	for (i = 0; i < MEMORY_POOL_STRING_SIZE; i++) 
 	{
@@ -2267,11 +2262,7 @@ sdb_engine_init (SymbolDBEngine * object)
   		g_value_init (value, G_TYPE_STRING);		
 		g_value_set_static_string (value, MP_VOID_STRING);
 		
-#ifdef USE_ASYNC_QUEUE	
-		g_async_queue_push (sdbe->priv->mem_pool_string, value);
-#else
 		g_queue_push_head (sdbe->priv->mem_pool_string, value);
-#endif		
 	}
 
 	for (i = 0; i < MEMORY_POOL_INT_SIZE; i++) 
@@ -2279,11 +2270,7 @@ sdb_engine_init (SymbolDBEngine * object)
 		GValue *value = g_slice_new0 (GValue);
   		g_value_init (value, G_TYPE_INT);
 		
-#ifdef USE_ASYNC_QUEUE			
-		g_async_queue_push (sdbe->priv->mem_pool_int, value);		
-#else
 		g_queue_push_head (sdbe->priv->mem_pool_int, value);		
-#endif		
 	}	
 }
 
@@ -2418,12 +2405,6 @@ sdb_engine_finalize (GObject * object)
 	
 	g_tree_destroy (priv->file_symbols_cache);
 
-#ifdef USE_ASYNC_QUEUE	
-	g_async_queue_unref (priv->mem_pool_string);
-	g_async_queue_unref (priv->mem_pool_int);
-	priv->mem_pool_string = NULL;
-	priv->mem_pool_int = NULL;	
-#else
 	g_queue_foreach (priv->mem_pool_string, (GFunc)sdb_engine_gvalue_free, NULL);
 	g_queue_free (priv->mem_pool_string);
 	
@@ -2432,7 +2413,6 @@ sdb_engine_finalize (GObject * object)
 	
 	priv->mem_pool_string = NULL;
 	priv->mem_pool_int = NULL;	
-#endif
 	
 	g_free (priv);
 	
