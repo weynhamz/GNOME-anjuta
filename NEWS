@@ -1,3 +1,13 @@
+Anjuta 2.30.2.1 "Bye, bye Sourceforge.net" (21 June 2010) -- Johannes Schmid
+
+Annoucement: The anjuta mailing lists have move to the gnome.org servers:
+anjuta-list@gnome.org: General discussion
+anjuta-devel-list@gnome.org: Development discussion
+
+Bugs fixed:
+libanjuta: bgo#620664  - Drag and drop of multiple source files
+language-support-cpp-java: Support more vim modelines
+
 Anjuta 2.30.2 "Javascript isn't an island at all" (5 June 2010) -- Johannes Schmid
 
 Bugs fixed:
