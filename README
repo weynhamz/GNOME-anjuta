@@ -93,7 +93,6 @@ Contact Email addresses for Anjuta:
 -----------------------------------
 
 Anjuta Home site:	http://anjuta.org.
-Anjuta Project site: 	http://www.sourceforge.net/projects/anjuta
 
 For general discussions and queries use the discussion forums (two forums) 
 at the project site. Please report bugs at the projects bug tracking system
@@ -101,19 +100,16 @@ or the mailing lists at the project site. News of Anjuta is also available
 at the project site.
 
 To subscribe to one or more of the mailing lists, visit 
-[ http://www.sourceforge.net/mail/?group_id=14222 ].
-or send a mail at <listname>-request@lists.sourceforge.net with a subject 
-just "subscribe". Where, <listname> is anjuta-list or anjuta-devel.
+[http://mail.gnome.org/mailman/listinfo/anjuta-devel-list].
+or send a mail at <listname>-request@gnome.org with a subject 
+just "subscribe". Where, <listname> is anjuta-list or anjuta-devel-list.
 
 Mailing lists:
-	o anjuta-list@lists.anjuta.sourceforge.net
+	o anjuta-list@gnome.org
 		For general discussion.
 	
-	o anjuta-devel@lists.anjuta.sourceforge.net
+	o anjuta-devel-list@gnome.org
 		For development discussion.
-
-	o anjuta-announce@lists.anjuta.sourceforge.net
-		For announcements of new releases.
 
 -------------
 REQUIREMENTS:
