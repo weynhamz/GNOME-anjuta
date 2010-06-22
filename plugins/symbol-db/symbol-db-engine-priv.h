@@ -55,7 +55,7 @@
 #define DUMMY_VOID_STRING				""
 #define MP_VOID_STRING					"-"
 
-#define BATCH_SYMBOL_NUMBER				5000
+#define BATCH_SYMBOL_NUMBER				35000
 
 #define MP_RESET_OBJ_STR(gvalue) \
 		g_value_set_static_string (gvalue, DUMMY_VOID_STRING);

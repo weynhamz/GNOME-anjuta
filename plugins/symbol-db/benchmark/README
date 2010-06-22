@@ -1,0 +1,14 @@
+To have good performances tests you can run:
+
+./populate-test-dir.sh
+
+and then 
+
+valgrind --tool=callgrind --collect-systime=yes  \
+		 --callgrind-out-file=callgrind.out  ./.libs/benchmark test-dir
+
+
+The former creates ./test-dir with all the sources of Anjuta and populate a db on
+that directory.
+The latter launches callgrind which enumerates a lot of data of the execution: 
+functions call, timings, number of calls, etc.
