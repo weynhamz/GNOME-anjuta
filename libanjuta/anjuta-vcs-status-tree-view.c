@@ -490,6 +490,8 @@ create_selected_paths_list (GtkTreeModel *model, GtkTreePath *path,
 	
 	if (selected)
 		*list = g_list_append (*list, g_strdup (file_path));
+
+	g_free (file_path);
 	
 	return FALSE;
 }
