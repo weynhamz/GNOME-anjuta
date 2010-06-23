@@ -20,7 +20,9 @@ git_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin) \
 	git-pane.c        \
 	git-pane.h        \
 	git-merge-pane.c        \
-	git-merge-pane.h
+	git-merge-pane.h        \
+	git-add-files-pane.h        \
+	git-add-files-pane.c
 
 # NOTE :
 # The naming convention is very intentional
@@ -175,7 +177,9 @@ libanjuta_git_la_SOURCES = \
 	git-status-pane.h \
 	git-status-pane.c \
 	git-commit-pane.h \
-	git-commit-pane.c
+	git-commit-pane.c \
+	git-add-files-pane.c \
+	git-add-files-pane.h
 
 libanjuta_git_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 

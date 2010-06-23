@@ -28,6 +28,7 @@
 #include "git-merge-pane.h"
 #include "git-status-pane.h"
 #include "git-commit-pane.h"
+#include "git-add-files-pane.h"
 
 AnjutaCommandBarEntry branch_entries[] =
 {
@@ -89,7 +90,24 @@ AnjutaCommandBarEntry status_entries[] = {
 		N_("Commit changes"),
 		GTK_STOCK_APPLY,
 		G_CALLBACK (on_commit_button_clicked)
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_FRAME,
+		"NULL",
+		N_("Files"),
+		NULL,
+		NULL,
+		NULL
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"AddFiles",
+		N_("Add"),
+		N_("Add files to the index"),
+		GTK_STOCK_ADD,
+		G_CALLBACK (on_add_button_clicked)
 	}
+	
 };
 
 static gpointer parent_class;
