@@ -33,6 +33,16 @@ enum
 	NUM_COLS
 };
 
+/* DND Targets */
+GtkTargetEntry dnd_target_entries[] =
+{
+	{
+		"text/uri-list",
+		0,
+		0
+	}
+};
+
 struct _AnjutaFileListPriv
 {
 	gchar *relative_path;
@@ -49,11 +59,248 @@ struct _AnjutaFileListPriv
 G_DEFINE_TYPE (AnjutaFileList, anjuta_file_list, GTK_TYPE_VBOX);
 
 static void
+anjuta_file_list_append_placeholder (AnjutaFileList *self)
+{
+	GtkTreeIter iter;
+
+	gtk_list_store_append (self->priv->list_model, &iter);
+
+	gtk_list_store_set (self->priv->list_model, &iter, COL_PATH, NULL, -1);
+
+	self->priv->placeholder = iter;
+}
+
+
+static void
+path_cell_data_func (GtkTreeViewColumn *column, GtkCellRenderer *renderer,  
+                     GtkTreeModel *model,  GtkTreeIter *iter, 
+                     GtkTreeView *list_view)
+{
+	gchar *path;
+	GtkStyle *style;
+
+	gtk_tree_model_get (model, iter, COL_PATH, &path, -1);
+	style = gtk_widget_get_style (GTK_WIDGET (list_view));
+
+	/* NULL path means this is the placeholder */
+	if (path)
+	{
+		g_object_set (G_OBJECT (renderer), 
+					  "foreground-gdk", &(style->text[GTK_STATE_NORMAL]),
+		              "style", PANGO_STYLE_NORMAL,
+		              "text", path, 
+		              NULL);
+	}
+	else
+	{
+		g_object_set (G_OBJECT (renderer), 
+		              "foreground-gdk", &(style->text[GTK_STATE_INSENSITIVE]),
+		              "style", PANGO_STYLE_ITALIC,
+		              "text", _("Drop a file or enter a path here"), 
+		              NULL);
+	}
+
+	g_free (path);
+}
+
+static void
+on_path_renderer_editing_started (GtkCellRenderer *renderer, 
+                                  GtkCellEditable *editable,
+                                  const gchar *tree_path,
+                                  GtkTreeModel *list_model)
+{
+	GtkTreeIter iter;
+	gchar *path;
+
+	/* Don't show placeholder text in the edit widget */
+	gtk_tree_model_get_iter_from_string (list_model, &iter, tree_path);
+
+	gtk_tree_model_get (list_model, &iter, COL_PATH, &path, -1);
+
+	if (!path)
+	{
+		if (GTK_IS_ENTRY (editable))
+			gtk_entry_set_text (GTK_ENTRY (editable), "");
+	}
+}
+
+static void
+on_path_renderer_edited (GtkCellRendererText *renderer, gchar *path,
+                         gchar *new_text, AnjutaFileList *self)
+{
+	GtkTreeIter iter;
+	gchar *current_path;
+
+	gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (self->priv->list_model),
+	                                     &iter, path);
+	gtk_tree_model_get (GTK_TREE_MODEL (self->priv->list_model), &iter,  
+	                    COL_PATH, &current_path, -1);
+
+	/* Interpret empty new_text as a cancellation of the edit */
+	if (g_utf8_strlen (new_text, -1) > 0)
+	{
+		/* If the placeholder is being edited, a new one has to be created */
+		if (!current_path)
+			anjuta_file_list_append_placeholder (self);
+
+		gtk_list_store_set (self->priv->list_model, &iter, COL_PATH, new_text, 
+		                    -1);
+	}
+}
+
+static void
+on_list_view_drag_data_received (GtkWidget *list_view, GdkDragContext *context,
+                                 gint x, gint y, GtkSelectionData *data, 
+                                 gint target_type, gint time, 
+                                 AnjutaFileList *self)
+{
+	gboolean success;
+	gchar **uri_list;
+	gint i;
+	GFile *parent_file;
+	GFile *file;
+	gchar *path;
+	GtkTreeIter iter;
+	
+	success = FALSE;
+
+	if ((data != NULL) && (data->length >= 0))
+	{
+		if (target_type == 0)
+		{
+			uri_list = gtk_selection_data_get_uris (data);
+			parent_file = NULL;
+
+			if (self->priv->relative_path)
+				parent_file = g_file_new_for_path (self->priv->relative_path);
+			
+			for (i = 0; uri_list[i]; i++)
+			{
+				file = g_file_new_for_uri (uri_list[i]);
+
+				if (parent_file)
+				{
+					path = g_file_get_relative_path (parent_file, file);
+
+					g_object_unref (parent_file);
+				}
+				else
+					path = g_file_get_path (file);
+
+				if (path)
+				{
+					gtk_list_store_insert_before (self->priv->list_model, 
+					                              &iter, 
+					                              &(self->priv->placeholder));
+					gtk_list_store_set (self->priv->list_model, &iter,
+					                    COL_PATH, path,
+					                    -1);
+
+					g_free (path);
+				}
+
+				g_object_unref (file);
+			}
+			
+			success = TRUE;
+
+			g_strfreev (uri_list);
+		}
+	}
+
+	/* Do not delete source data */
+	gtk_drag_finish (context, success, FALSE, time);
+}
+
+static gboolean
+on_list_view_drag_drop (GtkWidget *widget, GdkDragContext *context, 
+                        gint x, gint y, guint time, gpointer user_data)
+{
+	GdkAtom target_type;
+
+	target_type = gtk_drag_dest_find_target (widget, context, NULL);
+
+	if (target_type != GDK_NONE)
+		gtk_drag_get_data (widget, context, target_type, time);
+	else
+		gtk_drag_finish (context, FALSE, FALSE, time);
+
+	return TRUE;
+}
+
+static gboolean
+on_list_view_item_selected (GtkTreeSelection *selection, GtkTreeModel *model,
+                            GtkTreePath *tree_path,  
+                            gboolean path_currently_selected, 
+                            AnjutaFileList *self)
+{
+
+	gboolean sensitive;
+	GtkTreeIter iter;
+	gchar *path;
+
+	sensitive = FALSE;
+
+	if (!path_currently_selected)
+	{
+		gtk_tree_model_get_iter (model, &iter, tree_path);
+		gtk_tree_model_get (model, &iter, COL_PATH, &path, -1);
+
+		if (path)
+		{
+			sensitive = TRUE;
+			
+			g_free (path);
+		}
+	}
+
+	gtk_widget_set_sensitive (self->priv->copy_button, sensitive);
+	gtk_widget_set_sensitive (self->priv->remove_button, sensitive);
+
+	return TRUE;
+}
+
+static void
+on_copy_button_clicked (GtkButton *button, GtkTreeSelection *selection)
+{
+	GtkTreeModel *list_model;
+	GtkTreeIter selected_iter;
+	GtkTreeIter new_iter;
+	gchar *path;
+
+	if (gtk_tree_selection_get_selected (selection, &list_model, 
+	                                     &selected_iter))
+	{
+		gtk_tree_model_get (list_model, &selected_iter, COL_PATH, &path, -1);
+		gtk_list_store_insert_after (GTK_LIST_STORE (list_model), &new_iter, 
+		                             &selected_iter);
+
+		gtk_list_store_set (GTK_LIST_STORE (list_model), &new_iter, COL_PATH,
+		                    path, -1);
+
+		g_free (path);
+	}
+}
+
+static void
+on_remove_button_clicked (GtkButton *button, GtkTreeSelection *selection)
+{
+	GtkTreeIter iter;
+	GtkTreeModel *list_model;
+	
+	if (gtk_tree_selection_get_selected (selection, &list_model, &iter))
+		gtk_list_store_remove (GTK_LIST_STORE (list_model), &iter);
+}
+
+static void
 anjuta_file_list_init (AnjutaFileList *self)
 {
 	GtkWidget *scrolled_window;
 	GtkWidget *button_box;
 	GtkWidget *clear_button;
+	GtkTreeSelection *selection;
+	GtkTreeViewColumn *column;
+	GtkCellRenderer *renderer;
 
 	self->priv = g_new0 (AnjutaFileListPriv, 1);
 	self->priv->list_view = gtk_tree_view_new ();
@@ -65,12 +312,71 @@ anjuta_file_list_init (AnjutaFileList *self)
 	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
 	clear_button = gtk_button_new_from_stock (GTK_STOCK_CLEAR);
 
+	gtk_widget_set_sensitive (self->priv->copy_button, FALSE);
+	gtk_widget_set_sensitive (self->priv->remove_button, FALSE);
+
+	g_signal_connect_swapped (G_OBJECT (clear_button), "clicked",
+	                          G_CALLBACK (anjuta_file_list_clear),
+	                          self);
+
 	/* File list view */
 	gtk_box_set_spacing (GTK_BOX (self), 2);
 	gtk_box_set_homogeneous (GTK_BOX (self), FALSE);
 
 	gtk_tree_view_set_model (GTK_TREE_VIEW (self->priv->list_view), 
 	                         GTK_TREE_MODEL (self->priv->list_model));
+	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (self->priv->list_view),
+	                                   FALSE);
+
+	/* Path column */
+	column = gtk_tree_view_column_new ();
+	renderer = gtk_cell_renderer_text_new ();
+
+	gtk_tree_view_column_pack_start (column, renderer, TRUE);
+	gtk_tree_view_column_set_cell_data_func (column, renderer, 
+	                                         (GtkTreeCellDataFunc) path_cell_data_func,
+	                                         self->priv->list_view,
+	                                         NULL);
+	g_object_set (G_OBJECT (renderer), "editable", TRUE, NULL);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (self->priv->list_view),
+	                             column);
+
+	g_signal_connect (G_OBJECT (renderer), "editing-started",
+	                  G_CALLBACK (on_path_renderer_editing_started),
+	                  self->priv->list_model);
+
+	g_signal_connect (G_OBJECT (renderer), "edited",
+	                  G_CALLBACK (on_path_renderer_edited),
+	                  self);
+
+	/* DND */
+	gtk_tree_view_enable_model_drag_dest (GTK_TREE_VIEW (self->priv->list_view), 
+	                                      dnd_target_entries,
+	                                      G_N_ELEMENTS (dnd_target_entries),
+	                                      GDK_ACTION_COPY);
+
+	g_signal_connect (G_OBJECT (self->priv->list_view), "drag-drop",
+	                  G_CALLBACK (on_list_view_drag_drop),
+	                  NULL);
+
+	g_signal_connect (G_OBJECT (self->priv->list_view), "drag-data-received",
+	                  G_CALLBACK (on_list_view_drag_data_received),
+	                  self);
+
+	/* Selection handling */
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (self->priv->list_view));
+	
+	gtk_tree_selection_set_select_function (selection, 
+	                                        (GtkTreeSelectionFunc) on_list_view_item_selected,
+	                                        self, NULL);
+
+	g_signal_connect (G_OBJECT (self->priv->copy_button), "clicked",
+	                  G_CALLBACK (on_copy_button_clicked),
+	                  selection);
+
+	g_signal_connect (G_OBJECT (self->priv->remove_button), "clicked",
+	                  G_CALLBACK (on_remove_button_clicked), 
+	                  selection);
 
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
 	                                                     GTK_POLICY_AUTOMATIC,
@@ -82,17 +388,28 @@ anjuta_file_list_init (AnjutaFileList *self)
 
 	/* Button box */
 	gtk_box_set_spacing (GTK_BOX (button_box), 5);
+	gtk_button_box_set_layout (GTK_BUTTON_BOX (button_box), 
+	                           GTK_BUTTONBOX_START);
 
 	gtk_container_add (GTK_CONTAINER (button_box), self->priv->copy_button);
 	gtk_container_add (GTK_CONTAINER (button_box), self->priv->remove_button);
 	gtk_container_add (GTK_CONTAINER (button_box), clear_button);
 	gtk_box_pack_start (GTK_BOX (self), button_box, FALSE, FALSE, 0);
+
+	anjuta_file_list_append_placeholder (self);
+
+	gtk_widget_show_all (GTK_WIDGET (self));
 }
 
 static void
 anjuta_file_list_finalize (GObject *object)
 {
-	/* TODO: Add deinitalization code here */
+	AnjutaFileList *self;
+
+	self = ANJUTA_FILE_LIST (object);
+
+	g_free (self->priv->relative_path);
+	g_free (self->priv);
 
 	G_OBJECT_CLASS (anjuta_file_list_parent_class)->finalize (object);
 }
@@ -156,7 +473,7 @@ anjuta_file_list_class_init (AnjutaFileListClass *klass)
 	                                                      "relative-path",
 	                                                      _("Path that all files in the list should be relative to"),
 	                                                      "",
-	                                                      0));
+	                                                      G_PARAM_READWRITE));
 }
 
 
@@ -166,14 +483,45 @@ anjuta_file_list_new (void)
 	return g_object_new (ANJUTA_TYPE_FILE_LIST, NULL);
 }
 
-GList *
-anjuta_file_list_anjuta_file_lst_get_paths (AnjutaFileList *self)
+static gboolean
+list_model_foreach (GtkTreeModel *list_model, GtkTreePath *tree_path,
+                    GtkTreeIter *iter, GList **list)
 {
-	return NULL;
+	gchar *path;
+
+	gtk_tree_model_get (list_model, iter, COL_PATH, &path, -1);
+
+	/* Make sure not to add the placeholder to the list */
+	if (path)
+		*list = g_list_append (*list, path);
+
+	return FALSE;
+}
+
+GList *
+anjuta_file_list_get_paths (AnjutaFileList *self)
+{
+	GList *list;
+
+	list = NULL;
+
+	gtk_tree_model_foreach (GTK_TREE_MODEL (self->priv->list_model),
+	                        (GtkTreeModelForeachFunc) list_model_foreach,
+	                        &list);
+
+	return list;
 }
 
 void
 anjuta_file_list_set_relative_path (AnjutaFileList *self, const gchar *path)
 {
+	g_object_set (G_OBJECT (self), "relative-path", path, NULL);
+}
 
+void
+anjuta_file_list_clear (AnjutaFileList *self)
+{	
+	gtk_list_store_clear (self->priv->list_model);
+
+	anjuta_file_list_append_placeholder (self);
 }

@@ -51,8 +51,10 @@ struct _AnjutaFileList
 
 GType anjuta_file_list_get_type (void) G_GNUC_CONST;
 GtkWidget * anjuta_file_list_new (void);
-GList * anjuta_file_list_anjuta_file_lst_get_paths (AnjutaFileList *self);
-void anjuta_file_list_set_relative_path (AnjutaFileList *self, const gchar *path);
+GList * anjuta_file_list_get_paths (AnjutaFileList *self);
+void anjuta_file_list_set_relative_path (AnjutaFileList *self, 
+                                         const gchar *path);
+void anjuta_file_list_clear (AnjutaFileList *self);
 
 G_END_DECLS
 
