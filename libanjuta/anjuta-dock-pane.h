@@ -1,6 +1,6 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
- * git-shell-test
+ * anjuta
  * Copyright (C) James Liggett 2010 <jrliggett@cox.net>
  * 
  * git-shell-test is free software: you can redistribute it and/or modify it

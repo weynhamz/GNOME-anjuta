@@ -1,6 +1,6 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
- * git-shell-test
+ * anjuta
  * Copyright (C) James Liggett 2010 <jrliggett@cox.net>
  * 
  * git-shell-test is free software: you can redistribute it and/or modify it
@@ -143,7 +143,7 @@ anjuta_dock_pane_refresh (AnjutaDockPane *self)
  * anjuta_dock_pane_get_widget:
  * @self: An AnjutaDockPane
  *
- * Returns the widget assocatioed with the given pane. The returned widget is 
+ * Returns the widget associated with the given pane. The returned widget is 
  * owned by the pane and should not be destroyed or modified.
  */
 GtkWidget *
