@@ -179,7 +179,9 @@ libanjuta_git_la_SOURCES = \
 	git-commit-pane.h \
 	git-commit-pane.c \
 	git-add-files-pane.c \
-	git-add-files-pane.h
+	git-add-files-pane.h \
+	git-remove-files-pane.c \
+	git-remove-files-pane.h
 
 libanjuta_git_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 

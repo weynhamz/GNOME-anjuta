@@ -29,6 +29,7 @@
 #include "git-status-pane.h"
 #include "git-commit-pane.h"
 #include "git-add-files-pane.h"
+#include "git-remove-files-pane.h"
 
 AnjutaCommandBarEntry branch_entries[] =
 {
@@ -106,8 +107,15 @@ AnjutaCommandBarEntry status_entries[] = {
 		N_("Add files to the index"),
 		GTK_STOCK_ADD,
 		G_CALLBACK (on_add_button_clicked)
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"RemoveFiles",
+		N_("Remove"),
+		N_("Remove files from the repository"),
+		GTK_STOCK_REMOVE,
+		G_CALLBACK (on_remove_button_clicked)
 	}
-	
 };
 
 static gpointer parent_class;
