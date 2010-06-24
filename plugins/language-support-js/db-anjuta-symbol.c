@@ -41,6 +41,8 @@ struct _DbAnjutaSymbolPrivate
 	IAnjutaSymbolManager *obj;
 	gchar *self_name;
 	IAnjutaSymbol *self;
+	IAnjutaSymbolQuery *query_file;
+	IAnjutaSymbolQuery *query_members;
 };
 
 #define DB_ANJUTA_SYMBOL_PRIVATE(o)  (G_TYPE_INSTANCE_GET_PRIVATE ((o), DB_TYPE_ANJUTA_SYMBOL, DbAnjutaSymbolPrivate))
@@ -65,10 +67,15 @@ db_anjuta_symbol_finalize (GObject *object)
 {
 	DbAnjutaSymbolPrivate *priv = DB_ANJUTA_SYMBOL_PRIVATE (object);
 
-	g_object_unref (priv->self);
+	if (priv->query_file)
+		g_object_unref (priv->query_file);
+	if (priv->query_members)
+		g_object_unref (priv->query_members);
+	if (priv->self)
+		g_object_unref (priv->self);
 	g_free (priv->self_name);
-	g_object_unref (priv->file);
-	g_object_unref (priv->self);
+	if (priv->file)
+		g_object_unref (priv->file);
 	G_OBJECT_CLASS (db_anjuta_symbol_parent_class)->finalize (object);
 }
 
@@ -90,15 +97,20 @@ db_anjuta_symbol_new_for_symbol (IAnjutaSymbolManager *obj, IAnjutaSymbol *self)
 	DbAnjutaSymbol *object = DB_ANJUTA_SYMBOL (g_object_new (DB_TYPE_ANJUTA_SYMBOL, NULL));
 	DbAnjutaSymbolPrivate *priv = DB_ANJUTA_SYMBOL_PRIVATE (object);
 
-	priv->obj = obj;
 	priv->self = self;
 
+	priv->query_members =
+		ianjuta_symbol_manager_create_query (obj,
+		                                     IANJUTA_SYMBOL_QUERY_SEARCH_MEMBERS,
+		                                     IANJUTA_SYMBOL_QUERY_DB_PROJECT,
+		                                     NULL);
 	return object;
 }
 
 DbAnjutaSymbol*
 db_anjuta_symbol_new (const gchar *file_name)
 {
+	IAnjutaSymbolManager *sym_man;
 	DbAnjutaSymbol *self = DB_ANJUTA_SYMBOL (g_object_new (DB_TYPE_ANJUTA_SYMBOL, NULL));
 	DbAnjutaSymbolPrivate *priv = DB_ANJUTA_SYMBOL_PRIVATE (self);
 
@@ -108,23 +120,34 @@ db_anjuta_symbol_new (const gchar *file_name)
 	if (!plugin)
 		return NULL;
 
-	priv->obj = anjuta_shell_get_interface (plugin->shell, IAnjutaSymbolManager, NULL);
+	sym_man = anjuta_shell_get_interface (plugin->shell, IAnjutaSymbolManager, NULL);
 
 	priv->file = g_file_new_for_path (file_name);
 	priv->self_name = g_file_get_basename (priv->file);
 	if (strcmp (priv->self_name + strlen (priv->self_name) - 3, ".js") == 0)
 		priv->self_name[strlen (priv->self_name) - 3] = '\0';
 
-	iter = ianjuta_symbol_manager_search_file (priv->obj, IANJUTA_SYMBOL_TYPE_CLASS | IANJUTA_SYMBOL_TYPE_VARIABLE
-												| IANJUTA_SYMBOL_TYPE_FILE | IANJUTA_SYMBOL_TYPE_OTHER,
-												TRUE, (IAnjutaSymbolField)(IANJUTA_SYMBOL_FIELD_SIMPLE | IANJUTA_SYMBOL_FIELD_FILE_PATH),
-												"%", priv->file, -1, -1, NULL);
+	/* Weird. We should have a separate file check query type */
+	priv->query_file =
+		ianjuta_symbol_manager_create_query (sym_man,
+		                                     IANJUTA_SYMBOL_QUERY_SEARCH_FILE,
+		                                     IANJUTA_SYMBOL_QUERY_DB_PROJECT,
+		                                     NULL);
+	iter = ianjuta_symbol_query_search_file (priv->query_file,
+	                                         "%", priv->file, NULL);
 	if (iter == NULL)
 	{
 		DEBUG_PRINT ("Not IN DB: %s", file_name);
+		g_object_unref (self);
 		return NULL;
 	}
 	g_object_unref (iter);
+
+	priv->query_members =
+		ianjuta_symbol_manager_create_query (sym_man,
+		                                     IANJUTA_SYMBOL_QUERY_SEARCH_MEMBERS,
+		                                     IANJUTA_SYMBOL_QUERY_DB_PROJECT,
+		                                     NULL);
 	return self;
 }
 
@@ -176,7 +199,7 @@ db_anjuta_symbol_get_member (IJsSymbol *obj, const gchar * name)
 	{
 		g_assert (priv->file != NULL);
 
-		IAnjutaIterable *iter = ianjuta_symbol_manager_search_file (priv->obj, IANJUTA_SYMBOL_TYPE_MAX, TRUE,  IANJUTA_SYMBOL_FIELD_SIMPLE, name, priv->file, -1, -1, NULL);
+		IAnjutaIterable *iter = ianjuta_symbol_query_search_file (priv->query_file, name, priv->file, NULL);
 		if (iter)
 		{
 			IAnjutaSymbol *symbol = IANJUTA_SYMBOL (iter);
@@ -194,7 +217,7 @@ db_anjuta_symbol_get_name (IJsSymbol *obj)
 
 	const gchar *ret = NULL;
 	if (priv->self)
-		ret = ianjuta_symbol_get_name (IANJUTA_SYMBOL (priv->self), NULL);
+		ret = ianjuta_symbol_get_string (IANJUTA_SYMBOL (priv->self), IANJUTA_SYMBOL_FIELD_NAME, NULL);
 	else
 		ret = priv->self_name;
 
@@ -216,12 +239,12 @@ db_anjuta_symbol_list_member (IJsSymbol *obj)
 
 	if (priv->self)
 	{
-		iter = ianjuta_symbol_manager_get_members (priv->obj, priv->self, IANJUTA_SYMBOL_FIELD_SIMPLE, NULL);
+		iter = ianjuta_symbol_query_search_members (priv->query_members, priv->self, NULL);
 	}else
 	{
 		g_assert (priv->file != NULL);
 
-		iter = ianjuta_symbol_manager_search_file (priv->obj, IANJUTA_SYMBOL_TYPE_MAX, TRUE,  IANJUTA_SYMBOL_FIELD_SIMPLE, "%", priv->file, -1, -1, NULL);
+		iter = ianjuta_symbol_query_search_file (priv->query_file, "%", priv->file, NULL);
 	}
 	if (!iter)
 	{
@@ -230,7 +253,7 @@ db_anjuta_symbol_list_member (IJsSymbol *obj)
 	}
 	do {
 		IAnjutaSymbol *symbol = IANJUTA_SYMBOL (iter);
-		ret = g_list_append (ret, g_strdup (ianjuta_symbol_get_name (symbol, NULL)));
+		ret = g_list_append (ret, g_strdup (ianjuta_symbol_get_string (symbol, IANJUTA_SYMBOL_FIELD_NAME, NULL)));
 	}while (ianjuta_iterable_next (iter, NULL));
 	g_object_unref (iter);
 	return ret;

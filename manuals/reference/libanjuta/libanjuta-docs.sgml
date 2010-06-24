@@ -142,6 +142,7 @@
 	<xi:include href="xml/ianjuta-stream-loader.xml"/>
 	<xi:include href="xml/ianjuta-stream-savable.xml"/>
 	<xi:include href="xml/ianjuta-symbol.xml"/>
+	<xi:include href="xml/ianjuta-symbol-query.xml"/>
 	<xi:include href="xml/ianjuta-symbol-manager.xml"/>
 	<xi:include href="xml/ianjuta-terminal.xml"/>
 	<xi:include href="xml/ianjuta-todo.xml"/>

@@ -38,7 +38,7 @@
 #define ANJUTA_DB_FILE	".anjuta_sym_db"
 
 /* if tables.sql changes or general db structure changes modify also the value here */
-#define SYMBOL_DB_VERSION	"300.2"
+#define SYMBOL_DB_VERSION	"300.4"
 
 #define TABLES_SQL			PACKAGE_DATA_DIR"/tables.sql"
 
@@ -264,7 +264,6 @@ typedef enum {
 
 
 typedef IAnjutaSymbolType SymType;
-typedef IAnjutaSymbolManagerSearchFileScope SymSearchFileScope;
 
 /* the SymbolDBEngine Private structure */
 struct _SymbolDBEnginePriv
@@ -285,6 +284,7 @@ struct _SymbolDBEnginePriv
 	GAsyncQueue *updated_symbols_id;
 	GAsyncQueue *updated_scope_symbols_id;
 	GAsyncQueue *inserted_symbols_id;
+	gint scanning;
 	
 	gchar *shared_mem_str;
 	FILE *shared_mem_file;

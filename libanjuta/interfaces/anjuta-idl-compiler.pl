@@ -757,13 +757,14 @@ sub get_canonical_names
 sub get_arg_type_info
 {
 	my ($type, $info) = @_;
-	if (defined ($type_map->{$type}))
+	if (defined ($type) && defined ($type_map->{$type}))
 	{
 		if (defined ($type_map->{$type}->{$info}))
 		{
 			return $type_map->{$type}->{$info};
 		}
 	}
+	return "";
 }
 
 sub get_return_type_val
@@ -796,6 +797,10 @@ sub get_arg_assert
 		$type = $type_arg;
 		$type =~ s/\s//g;
 	}
+
+	## No asserts if type is not defined.
+	return "" if !defined ($type);
+	
 	if (!defined($force) || $force eq "")
 	{
 		$force = 0;
@@ -1169,14 +1174,24 @@ struct _${class}Iface {
 		my $rettype = normalize_namespace($class, $class_hr->{$m}->{'rettype'});
 		my $args = normalize_namespace($class, $class_hr->{$m}->{'args'});
 		$args = convert_args($args);
-		if ($args ne '')
+
+		## No comma for the last arg if it's "..." variable args */
+		if ($args ne '' && $args !~ /\.\.\.$/)
 		{
 			$args .= ", ";
 		}
 		if ($func !~ /^\:\:/)
 		{
 			$rettype = convert_ret($rettype);
-			$answer .= "\t$rettype (*$func) ($class *obj, ${args}GError **err);\n";
+			## No GError **err arg for functions with variable args */
+			if ($args !~ /\.\.\.$/)
+			{
+				$answer .= "\t$rettype (*$func) ($class *obj, ${args}GError **err);\n";
+			}
+			else
+			{
+				$answer .= "\t$rettype (*$func) ($class *obj, ${args});\n";
+			}
 		}
 	}
 	$answer .=
@@ -1213,14 +1228,21 @@ GType  ${prefix}_get_type        (void);
 		my $rettype = normalize_namespace($class, $class_hr->{$m}->{'rettype'});
 		my $args = normalize_namespace($class, $class_hr->{$m}->{'args'});
 		$args = convert_args($args);
-		if ($args ne '')
+		if ($args ne '' && $args !~ /\.\.\.$/)
 		{
 			$args .= ", ";
 		}
 		if ($func !~ /^\:\:/)
 		{
 			$rettype = convert_ret($rettype);
-			$answer .= "${rettype} ${prefix}_$func ($class *obj, ${args}GError **err);\n\n";
+			if ($args !~ /\.\.\.$/)
+			{
+				$answer .= "${rettype} ${prefix}_$func ($class *obj, ${args}GError **err);\n\n";
+			}
+			else
+			{
+				$answer .= "${rettype} ${prefix}_$func ($class *obj, ${args});\n\n";
+			}
 		}
 	}
 	$answer .=

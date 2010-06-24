@@ -40,7 +40,7 @@ AM_CPPFLAGS = \
 	$(LIBXML_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
 	-DPACKAGE_SRC_DIR=\"$(srcdir)\" \
-	-DGIR_PATH=\"$(girdir)\" \
+	-DGIR_PATH=\"$(INTROSPECTION_GIRDIR)\" \
 	-DGJS_PATH=\"$(gjsdir)\" \
 	-DG_LOG_DOMAIN=\"language-support-js\"
 

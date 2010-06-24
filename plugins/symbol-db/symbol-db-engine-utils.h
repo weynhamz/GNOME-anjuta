@@ -57,21 +57,8 @@ symbol_db_util_get_full_local_path (SymbolDBEngine *dbe, const gchar* db_file);
  * /home/user/foo_project/src/foo.c returned file should be /src/foo.c.
  * Return NULL on error.
  */
-gchar *
+const gchar *
 symbol_db_util_get_file_db_path (SymbolDBEngine *dbe, const gchar* full_local_file_path);
-
-/** 
- * Hash table that converts from a char like 'class' 'struct' etc to an 
- * IANJUTA_SYMBOL_TYPE
- */
-const GHashTable *
-symbol_db_util_get_sym_type_conversion_hash (SymbolDBEngine *dbe);
-
-/**
- * @return a GPtrArray that must be freed from caller.
- */
-GPtrArray *
-symbol_db_util_fill_type_array (SymType match_types);
 
 /**
  * Try to get all the files with zero symbols: these should be the ones
@@ -88,38 +75,5 @@ symbol_db_util_get_files_with_zero_symbols (SymbolDBEngine *dbe);
  */
 const GdkPixbuf *
 symbol_db_util_get_pixbuf  (const gchar *node_type, const gchar *node_access);
-
-/**
- * @param pattern The pattern you want to test to check if it's an exact pattern 
- * or not. An exact pattern can be "foo_function", while a LIKE pattern can be
- * "foo_func%". You can escape the '%' by prefixing it with another '%', e.g. 
- * "strange_search_%%_yeah"
- */
-gboolean
-symbol_db_util_is_pattern_exact_match (const gchar *pattern);
-
-/**
- * This function gets all the .c/.h source files in the specified dir and returns
- * the GPtrArray associated.
- * 
- * @param dir Directory of the files
- * @return A GPtrArray composed by gchar * strings like "dir + g_file_info_get_name ()"
- */
-GPtrArray * 
-symbol_db_util_get_c_source_files (const gchar* dir);
-
-/**
- * This function gets all the source files in the specified dir that match mime type
- * specified in the hashtable and returns the GPtrArray associated.
- * 
- * @param dir Directory of the files
- * @param mimes Hash table where the keys must be the mimes of the source files.
- * for convenience set the values to the same value of the keys.
- * @return A GPtrArray composed by gchar * strings like "dir + g_file_info_get_name ()"
- */
-GPtrArray * 
-symbol_db_util_get_source_files_by_mime (const gchar* dir, const GHashTable *mimes);
-
-
 
 #endif

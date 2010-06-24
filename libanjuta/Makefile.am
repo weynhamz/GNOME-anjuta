@@ -222,6 +222,54 @@ EXTRA_DIST = \
 DISTCLEANFILES = \
   anjuta-enum-types.h \
   anjuta-enum-types.c \
-  stamp-anjuta-enum-types.h
+  stamp-anjuta-enum-types.h \
+  Anjuta-1.0.gir \
+  IAnjuta-1.0.gir \
+  Anjuta-1.0.typelib \
+  IAnjuta-1.0.typelib
+
+if HAVE_INTROSPECTION
+
+girdir = $(INTROSPECTION_GIRDIR)
+gir_DATA = Anjuta-1.0.gir IAnjuta-1.0.gir
+
+typelibdir = $(INTROSPECTION_TYPELIBDIR)
+typelib_DATA = Anjuta-1.0.typelib IAnjuta-1.0.typelib
+
+Anjuta-1.0.gir: $(libanjuta_la_SOURCES) libanjuta.la
+	$(INTROSPECTION_SCANNER) --namespace Anjuta --nsversion 1.0 \
+		--include GConf-2.0 --include Gtk-2.0 \
+		--library libanjuta.la \
+		--libtool "$(LIBTOOL)" \
+		--output $@ \
+		--pkg-export libanjuta-1.0 \
+		-I$(top_srcdir) -I. \
+		$(libanjuta_la_SOURCES) \
+		$(libanjuta_include)
+
+# Using interfaces/*.c is not very nice but otherwise we get circular
+# dependencies : libanjuta.la depends on libanjuta-interfaces.la and
+# IAnjuta-1.0.gir depends on Anjuta-1.0.gir
+IAnjuta-1.0.gir: $(libanjuta_interfaces_la_SOURCES) interfaces/libanjuta-interfaces.la Anjuta-1.0.gir
+	$(INTROSPECTION_SCANNER) --namespace IAnjuta --nsversion 1.0 \
+		--add-include-path . \
+		--include GConf-2.0 --include Gtk-2.0 --include Anjuta-1.0 \
+		--library interfaces/libanjuta-interfaces.la \
+		--library libanjuta.la \
+		--libtool "$(LIBTOOL)" \
+		--output $@ \
+		--pkg-export libanjuta-1.0 \
+		-I$(top_srcdir) -I. \
+		interfaces/*.c \
+		interfaces/*.h
+
+Anjuta-1.0.typelib: Anjuta-1.0.gir
+	$(INTROSPECTION_COMPILER) $< -o $@
+
+IAnjuta-1.0.typelib: IAnjuta-1.0.gir Anjuta-1.0.gir
+	$(INTROSPECTION_COMPILER) --includedir . $< -o $@
+
+endif
+
 
 -include $(top_srcdir)/git.mk

@@ -86,6 +86,7 @@ struct _SymbolDBModelProjectPriv
 	GdaStatement *stmt;
 	GdaSet *params;
 	GdaHolder *param_parent_id, *param_limit, *param_offset;
+	gboolean show_file_line;
 };
 
 enum {
@@ -106,7 +107,8 @@ enum {
 enum
 {
 	PROP_0,
-	PROP_SYMBOL_DB_ENGINE
+	PROP_SYMBOL_DB_ENGINE,
+	PROP_SHOW_FILE_LINE
 };
 
 G_DEFINE_TYPE (SymbolDBModelProject, sdb_model_project,
@@ -275,6 +277,26 @@ sdb_model_project_get_query_value (SymbolDBModel *model,
 				g_free (escaped);
 			}
 		}
+		if (SYMBOL_DB_MODEL_PROJECT (model)->priv->show_file_line)
+		{
+			ret_value =
+				gda_data_model_iter_get_value_at (iter,
+					                              DATA_COL_SYMBOL_FILE_PATH);
+			if (ret_value && G_VALUE_HOLDS_STRING (ret_value))
+			{
+				gint file_line = 0;
+				const gchar* file_name = g_value_get_string (ret_value);
+				
+				ret_value =
+					gda_data_model_iter_get_value_at (iter,
+					                                  DATA_COL_SYMBOL_FILE_LINE);
+				file_line = g_value_get_int (ret_value);
+				g_string_append_printf
+					(label,
+					 "\n<span font-size=\"x-small\" font-weight=\"ultralight\"><tt>%s:%d</tt></span>",
+					 file_name, file_line);
+			}
+		}
 		g_value_take_string (value, label->str);
 		g_string_free (label, FALSE);
 		return TRUE;
@@ -352,6 +374,9 @@ sdb_model_project_set_property (GObject *object, guint prop_id,
 		
 		symbol_db_model_update (SYMBOL_DB_MODEL (object));
 		break;
+	case PROP_SHOW_FILE_LINE:
+		priv->show_file_line = g_value_get_boolean (value);
+		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 		break;
@@ -371,6 +396,9 @@ sdb_model_project_get_property (GObject *object, guint prop_id,
 	{
 	case PROP_SYMBOL_DB_ENGINE:
 		g_value_set_object (value, priv->dbe);
+		break;
+	case PROP_SHOW_FILE_LINE:
+		g_value_set_boolean (value, priv->show_file_line);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -479,6 +507,14 @@ sdb_model_project_class_init (SymbolDBModelProjectClass *klass)
 		                      G_PARAM_READABLE |
 		                      G_PARAM_WRITABLE |
 		                      G_PARAM_CONSTRUCT_ONLY));
+	g_object_class_install_property
+		(object_class, PROP_SHOW_FILE_LINE,
+		 g_param_spec_boolean ("show-file-line",
+		                       "Show file and line",
+		                       "Show file and line number in labels",
+		                       FALSE,
+		                       G_PARAM_READABLE |
+		                       G_PARAM_WRITABLE));
 }
 
 GtkTreeModel*

@@ -56,38 +56,30 @@ libanjuta_symbol_db_la_SOURCES = \
 	plugin.h \
 	readtags.c \
 	readtags.h \
-	symbol-db-engine-iterator.c \
-	symbol-db-engine-iterator.h \
-	symbol-db-view-search.h \
-	symbol-db-view-search.c \
-	symbol-db-engine-iterator-node.h \
-	symbol-db-engine-iterator-node.c \
 	symbol-db-system.h \
 	symbol-db-system.c \
 	symbol-db-prefs.h \
 	symbol-db-prefs.c \
-	symbol-db-engine-queries.c \
-	symbol-db-engine-queries.h \
 	symbol-db-engine-utils.c \
 	symbol-db-engine-utils.h \
 	symbol-db-engine-priv.h \
 	symbol-db-engine-core.c \
 	symbol-db-engine-core.h \
 	symbol-db-engine.h \
-	symbol-db-iface.c \
-	symbol-db-iface.h \
-	symbol-db-search-command.h \
-	symbol-db-search-command.c \
+	symbol-db-query.h \
+	symbol-db-query.c \
+	symbol-db-query-result.h \
+	symbol-db-query-result.c \
 	symbol-db-model.c \
 	symbol-db-model.h \
 	symbol-db-model-project.c \
 	symbol-db-model-project.h \
 	symbol-db-model-file.c \
 	symbol-db-model-file.h \
+	symbol-db-model-search.c \
+	symbol-db-model-search.h \
 	symbol-db-views.c \
 	symbol-db-views.h \
-	libgda-extra/gda-data-model-concat.c \
-	libgda-extra/gda-data-model-concat.h \
 	$(BUILT_SOURCES)
 
 libanjuta_symbol_db_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)

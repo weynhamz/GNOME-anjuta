@@ -122,7 +122,6 @@ select symbol_id_base, symbol.name from heritage
 #include "readtags.h"
 #include "symbol-db-engine-priv.h"
 #include "symbol-db-engine-core.h"
-#include "symbol-db-engine-iterator.h"
 #include "symbol-db-engine-utils.h"
 
 
@@ -1512,7 +1511,7 @@ sdb_engine_get_file_defined_id (SymbolDBEngine* dbe,
 		
 		/* we expect here an absolute path */
 		g_value_set_static_string (value,
-							tag_entry->file + strlen (base_prj_path) );
+		                           tag_entry->file + strlen (base_prj_path));
 	}
 	else
 	{
@@ -1909,6 +1908,7 @@ sdb_engine_timeout_trigger_signals (gpointer user_data)
 					
 					/* get the process id from the queue */
 					gint int_tmp = GPOINTER_TO_INT(g_async_queue_pop (priv->scan_process_id_queue));
+					priv->scanning--;
 					g_signal_emit (dbe, signals[SCAN_END], 0, int_tmp);
 				}
 					break;
@@ -2178,6 +2178,7 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 		sdb_engine_ctags_launcher_create (dbe);
 	}
 
+	priv->scanning++; /* Enter scanning state */
 	DEBUG_PRINT ("%s", "EMITTING scan begin.");
 	g_signal_emit_by_name (dbe, "scan-begin",
 	                       anjuta_launcher_get_child_pid (priv->ctags_launcher));
@@ -2386,7 +2387,7 @@ sdb_engine_init (SymbolDBEngine * object)
 	sdbe->priv->updated_symbols_id = g_async_queue_new ();
 	sdbe->priv->updated_scope_symbols_id = g_async_queue_new ();
 	sdbe->priv->inserted_symbols_id = g_async_queue_new ();
-	
+	sdbe->priv->scanning = 0;
 	
 	/*
 	 * STATIC QUERY STRUCTURE INITIALIZE
@@ -3207,6 +3208,13 @@ symbol_db_engine_is_connected (SymbolDBEngine * dbe)
 		gda_connection_is_opened (priv->db_connection );
 }
 
+gboolean
+symbol_db_engine_is_scanning (SymbolDBEngine *dbe)
+{
+	g_return_val_if_fail (SYMBOL_IS_DB_ENGINE (dbe), FALSE);
+	return (dbe->priv->scanning > 0);
+}
+
 /**
  * Creates required tables for the database to work.
  * Sets is_first_population flag to TRUE.
@@ -3280,7 +3288,7 @@ gboolean
 symbol_db_engine_file_exists (SymbolDBEngine * dbe, const gchar * abs_file_path)
 {
 	SymbolDBEnginePriv *priv;
-	gchar *relative;
+	const gchar *relative;
 	gint file_defined_id;
 	GValue *value;
 
@@ -3305,12 +3313,10 @@ symbol_db_engine_file_exists (SymbolDBEngine * dbe, const gchar * abs_file_path)
 													"filepath",
 													value)) < 0)
 	{	
-		g_free (relative);
 		SDB_UNLOCK(priv);
 		return FALSE;	
 	}
 
-	g_free (relative);
 	SDB_UNLOCK(priv);
 	return TRUE;	
 }
@@ -3879,7 +3885,7 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 	 * e.g.: we have a file on disk: "/tmp/foo/src/file.c" and a db_directory located on
 	 * "/tmp/foo/". The entry on db will be "src/file.c" 
 	 */
-	gchar *relative_path = symbol_db_util_get_file_db_path (dbe, local_filepath);
+	const gchar *relative_path = symbol_db_util_get_file_db_path (dbe, local_filepath);
 	if (relative_path == NULL)
 	{
 		DEBUG_PRINT ("%s", "relative_path == NULL");
@@ -3909,7 +3915,6 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 			== NULL)
 		{
 			g_warning ("query is null");
-			g_free (relative_path);
 			SDB_UNLOCK(priv);
 			return FALSE;
 		}
@@ -3920,7 +3925,6 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 		if ((param = gda_set_get_holder ((GdaSet*)plist, "filepath")) == NULL)
 		{
 			g_warning ("param langname is NULL from pquery!");
-			g_free (relative_path);			
 			SDB_UNLOCK(priv);
 			return FALSE;
 		}
@@ -3931,7 +3935,6 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 		if ((param = gda_set_get_holder ((GdaSet*)plist, "prjid")) == NULL)
 		{
 			g_warning ("param prjid is NULL from pquery!");
-			g_free (relative_path);
 			SDB_UNLOCK(priv);
 			return FALSE;
 		}
@@ -3942,7 +3945,6 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 		if ((param = gda_set_get_holder ((GdaSet*)plist, "langid")) == NULL)
 		{
 			g_warning ("param langid is NULL from pquery!");
-			g_free (relative_path);
 			SDB_UNLOCK(priv);
 			return FALSE;
 		}		
@@ -3961,16 +3963,12 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 														 NULL) == -1)
 		{		
 			MP_RESET_PLIST(plist);
-			
-			g_free (relative_path);
 			SDB_UNLOCK(priv);
 			return FALSE;
 		}	
 
 		MP_RESET_PLIST(plist);
 	}
-	
-	g_free (relative_path);
 	
 	SDB_UNLOCK(priv);
 	return TRUE;
@@ -6549,7 +6547,7 @@ on_scan_update_files_symbols_end (SymbolDBEngine * dbe,
 									strlen (priv->project_directory)) == FALSE)
 		{
 			g_warning ("Error processing file %s", node + 
-					   strlen (priv->project_directory) );
+					   strlen (priv->project_directory));
 			return;
 		}
 		g_free (node);
@@ -6790,8 +6788,8 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe,
 		file_name = g_value_get_string (value);
 		if (priv->project_directory != NULL)
 		{
-			file_abs_path = g_strdup_printf ("%s%s", priv->project_directory,
-										file_name);
+			file_abs_path = g_build_filename (priv->project_directory,
+			                                  file_name, NULL);
 		}
 
 		gfile = g_file_new_for_path (file_abs_path);
@@ -6880,8 +6878,8 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe,
 
 /* ~~~ Thread note: this function locks the mutex ~~~ */ 
 gboolean
-symbol_db_engine_remove_file (SymbolDBEngine * dbe, const gchar * project,
-							  const gchar * abs_file)
+symbol_db_engine_remove_file (SymbolDBEngine * dbe, const gchar *project,
+                              const gchar *rel_file)
 {
 	SymbolDBEnginePriv *priv;	
 	const GdaSet *plist;
@@ -6893,19 +6891,19 @@ symbol_db_engine_remove_file (SymbolDBEngine * dbe, const gchar * project,
 	
 	g_return_val_if_fail (dbe != NULL, FALSE);
 	g_return_val_if_fail (project != NULL, FALSE);
-	g_return_val_if_fail (abs_file != NULL, FALSE);
+	g_return_val_if_fail (rel_file != NULL, FALSE);
 	priv = dbe->priv;
 	
 	SDB_LOCK(priv);
 
-	if (strlen (abs_file) < strlen (priv->project_directory)) 
+	if (strlen (rel_file) <= 0)
 	{
 		g_warning ("wrong file to delete.");
 		SDB_UNLOCK(priv);
 		return FALSE;
 	}
 	
-	DEBUG_PRINT ("deleting from db %s", abs_file);
+	DEBUG_PRINT ("deleting from db %s", rel_file);
 	
 	if ((stmt = sdb_engine_get_statement_by_query_id (dbe, 
 									PREP_QUERY_REMOVE_FILE_BY_PROJECT_NAME)) == NULL)
@@ -6933,8 +6931,7 @@ symbol_db_engine_remove_file (SymbolDBEngine * dbe, const gchar * project,
 		return FALSE;
 	}
 	
-	gchar * file_on_db = symbol_db_util_get_file_db_path (dbe, abs_file);
-	MP_SET_HOLDER_BATCH_STR(priv, param, file_on_db, ret_bool, ret_value);	
+	MP_SET_HOLDER_BATCH_STR(priv, param, rel_file, ret_bool, ret_value);	
 
 	/* Triggers will take care of updating/deleting connected symbols
 	 * tuples, like sym_kind, sym_type etc */	
@@ -6946,7 +6943,6 @@ symbol_db_engine_remove_file (SymbolDBEngine * dbe, const gchar * project,
 	/* emits removed symbols signals */
 	sdb_engine_detects_removed_ids (dbe);
 	
-	g_free (file_on_db);
 	SDB_UNLOCK(priv);
 	
 	return TRUE;
@@ -6954,7 +6950,7 @@ symbol_db_engine_remove_file (SymbolDBEngine * dbe, const gchar * project,
 
 void
 symbol_db_engine_remove_files (SymbolDBEngine * dbe, const gchar * project,
-							  const GPtrArray * files)
+                                                         const GPtrArray * files)
 {
 	SymbolDBEnginePriv *priv;	
 	gint i;
@@ -6986,17 +6982,15 @@ on_scan_update_buffer_end (SymbolDBEngine * dbe, gint process_id, gpointer data)
 	for (i = 0; i < files_to_scan->len; i++)
 	{
 		gchar *node = (gchar *) g_ptr_array_index (files_to_scan, i);
-		gchar *relative_path = symbol_db_util_get_file_db_path (dbe, node);
+		const gchar *relative_path = symbol_db_util_get_file_db_path (dbe, node);
 		if (relative_path != NULL)
 		{
 			/* will be emitted removed signals */
 			if (sdb_engine_update_file (dbe, relative_path) == FALSE)
 			{
 				g_warning ("Error processing file %s", node);
-				g_free (relative_path);
 				return;
 			}
-			g_free (relative_path);
 		}
 		g_free (node);
 	}
@@ -7038,7 +7032,7 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 	/* obtain a GPtrArray with real_files on database */
 	for (i=0; i < real_files_list->len; i++) 
 	{
-		gchar *relative_path;
+		const gchar *relative_path;
 		const gchar *curr_abs_file;
 		FILE *buffer_mem_file;
 		const gchar *temp_buffer;
@@ -7065,7 +7059,7 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 					   "relative_path is NULL");
 			continue;
 		}
-		g_ptr_array_add (real_files_on_db, relative_path);
+		g_ptr_array_add (real_files_on_db, (gpointer) relative_path);
 
 		/* it's ok to have just the base filename to create the
 		 * target buffer one */
@@ -7138,12 +7132,14 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 	
 	g_ptr_array_free (temp_files, TRUE);
 	
-	/* and the real_files_on_db too */
-	for (i=0; i < real_files_on_db->len; i++)
-		g_free (g_ptr_array_index (real_files_on_db, i));
-	
 	g_ptr_array_free (real_files_on_db, TRUE);
 	return ret_id;
+}
+
+GdaDataModel*
+symbol_db_engine_get_files_for_project (SymbolDBEngine *dbe)
+{
+	return sdb_engine_execute_select_sql (dbe, "SELECT file.file_path FROM file");
 }
 
 /* ~~~ Thread note: this function locks the mutex ~~~ */ 
@@ -7159,6 +7155,20 @@ symbol_db_engine_set_db_case_sensitive (SymbolDBEngine *dbe, gboolean case_sensi
 		sdb_engine_execute_unknown_sql (dbe, "PRAGMA case_sensitive_like = 1");
 	else 
 		sdb_engine_execute_unknown_sql (dbe, "PRAGMA case_sensitive_like = 0");
+}
+
+const GHashTable*
+symbol_db_engine_get_type_conversion_hash (SymbolDBEngine *dbe)
+{
+	g_return_val_if_fail (SYMBOL_IS_DB_ENGINE (dbe), NULL);
+	return dbe->priv->sym_type_conversion_hash;
+}
+
+const gchar*
+symbol_db_engine_get_project_directory (SymbolDBEngine *dbe)
+{
+	g_return_val_if_fail (SYMBOL_IS_DB_ENGINE (dbe), NULL);
+	return dbe->priv->project_directory;
 }
 
 GdaStatement*

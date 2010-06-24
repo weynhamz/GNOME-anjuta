@@ -4,6 +4,59 @@
 #include "../symbol-db-engine.h"
 #include <gtk/gtk.h>
 
+static GPtrArray * 
+get_source_files_by_mime (const gchar* dir, const GHashTable *mimes)
+{
+	GPtrArray* files = g_ptr_array_new();
+	GFile *file;
+	GFileEnumerator *enumerator;
+	GFileInfo* info;
+	GError *error = NULL;
+	gchar *buildable_dir;
+
+	g_return_val_if_fail (dir != NULL, NULL);
+	g_return_val_if_fail (mimes != NULL, NULL);
+		
+	if ((file = g_file_new_for_commandline_arg (dir)) == NULL)
+		return NULL;
+		
+	enumerator = g_file_enumerate_children (file, 
+			G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE ","
+			G_FILE_ATTRIBUTE_STANDARD_NAME,
+			G_FILE_QUERY_INFO_NONE,
+			NULL, &error);
+	
+	if (!enumerator)
+	{
+		g_warning ("Could not enumerate: %s %s\n", 
+				g_file_get_path (file),
+				error->message);
+		g_error_free (error);
+		g_object_unref (file);
+		return files;
+	}
+
+	buildable_dir = g_file_get_path (file);
+		
+	for (info = g_file_enumerator_next_file (enumerator, NULL, NULL); info != NULL; 
+			info = g_file_enumerator_next_file (enumerator, NULL, NULL))
+	{
+		const gchar *mime_type = g_file_info_get_content_type (info);
+		if (!mime_type)
+			continue;
+		if (g_hash_table_lookup ((GHashTable*)mimes, mime_type) != NULL)
+		{
+			g_ptr_array_add (files, g_build_filename (buildable_dir, g_file_info_get_name (info), NULL));
+		}
+	}
+
+	g_free (buildable_dir);
+	g_object_unref (enumerator);
+	g_object_unref (file);
+		
+	return files;
+}
+
 static void on_single_file_scan_end (SymbolDBEngine* engine, GPtrArray* files)
 {
 	static int i = 0;
@@ -65,7 +118,7 @@ int main (int argc, char** argv)
 	g_hash_table_insert (mimes, "text/x-c++src", "text/x-c++src");
 	g_hash_table_insert (mimes, "text/x-c+++hdr", "text/x-c++hdr");
 	
-	files = symbol_db_util_get_source_files_by_mime (root_dir, mimes);
+	files = get_source_files_by_mime (root_dir, mimes);
 	g_hash_table_destroy (mimes);
 
 	for (i = 0; i < files->len; i++)
