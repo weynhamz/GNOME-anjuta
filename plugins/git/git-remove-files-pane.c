@@ -72,7 +72,7 @@ static void
 git_remove_files_pane_init (GitRemoveFilesPane *self)
 {
 	gchar *objects[] = {"remove_pane",
-		NULL};
+						NULL};
 	GError *error = NULL;
 	GtkWidget *ok_button;
 	GtkWidget *cancel_button;

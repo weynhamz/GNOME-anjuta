@@ -51,7 +51,7 @@ struct _GitRemoveFilesPane
 };
 
 GType git_remove_files_pane_get_type (void) G_GNUC_CONST;
-AnjutaDockPane * git_remove_files_pane_new (Git *plugin);
+AnjutaDockPane *git_remove_files_pane_new (Git *plugin);
 
 void on_remove_button_clicked (GtkAction *action, Git *plugin);
 
