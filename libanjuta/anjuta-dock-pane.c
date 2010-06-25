@@ -38,6 +38,16 @@ enum
 	ANJUTA_DOCK_PANE_PLUGIN = 1
 };
 
+enum
+{
+	SINGLE_SELECTION_CHANGED,
+	MULTIPLE_SELECTION_CHANGED,
+
+	LAST_SIGNAL
+};
+
+static guint anjuta_dock_pane_signals[LAST_SIGNAL] = { 0 };
+
 struct _AnjutaDockPanePriv
 {
 	AnjutaPlugin *plugin;
@@ -102,6 +112,16 @@ anjuta_dock_pane_get_property (GObject *object, guint property_id,
 }
 
 static void
+anjuta_dock_pane_single_selection_changed (AnjutaDockPane *pane)
+{
+}
+
+static void
+anjuta_dock_pane_multiple_selection_changed (AnjutaDockPane *pane)
+{
+}
+
+static void
 anjuta_dock_pane_class_init (AnjutaDockPaneClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
@@ -112,6 +132,8 @@ anjuta_dock_pane_class_init (AnjutaDockPaneClass *klass)
 	object_class->get_property = anjuta_dock_pane_get_property;
 	klass->refresh = NULL;
 	klass->get_widget = NULL;
+	klass->single_selection_changed = anjuta_dock_pane_single_selection_changed;
+	klass->multiple_selection_changed = anjuta_dock_pane_multiple_selection_changed;
 
 	param_spec = g_param_spec_object ("plugin", "Plugin", 
 	                                  "Plugin object associated with this pane.",
@@ -119,6 +141,44 @@ anjuta_dock_pane_class_init (AnjutaDockPaneClass *klass)
 	                                  G_PARAM_READWRITE);
 	g_object_class_install_property (object_class, ANJUTA_DOCK_PANE_PLUGIN, 
 	                                 param_spec);
+
+	/** 
+	 * AnjutaDockPane::single-selection-changed
+	 * @pane: An AnjutaDockPane
+	 *
+	 * This signal is emitted by pane subclasses to notify clients that
+	 * the user has selected an item. This signal should be used when users are
+	 * expected to only select one item at a time.
+	 */
+	anjuta_dock_pane_signals[SINGLE_SELECTION_CHANGED] = 
+		g_signal_new ("single-selection-changed",
+		              G_OBJECT_CLASS_TYPE (klass),
+		              G_SIGNAL_RUN_FIRST,
+		              G_STRUCT_OFFSET (AnjutaDockPaneClass, single_selection_changed),
+		              NULL, 
+		              NULL,
+		              g_cclosure_marshal_VOID__VOID,
+		              G_TYPE_NONE,
+		              0);
+
+	/**
+	 * AnjutaDockPane::multiple-selection-changed
+	 * @pane: An AnjutaDockPane
+	 *
+	 * This signal is emitted by pane subclasses to notify clients that the set
+	 * of selected items in the pane has changed. 
+	 */
+	anjuta_dock_pane_signals[MULTIPLE_SELECTION_CHANGED] =
+		g_signal_new ("multiple-selection-changed",
+		              G_OBJECT_CLASS_TYPE (klass),
+		              G_SIGNAL_RUN_FIRST,
+		              G_STRUCT_OFFSET (AnjutaDockPaneClass, multiple_selection_changed),
+		              NULL, 
+		              NULL,
+		              g_cclosure_marshal_VOID__VOID,
+		              G_TYPE_NONE,
+		              0);
+	                                                                   
 }
 
 /**
@@ -165,3 +225,26 @@ anjuta_dock_pane_get_plugin (AnjutaDockPane *self)
 	return self->priv->plugin;
 }
 
+/**
+ * anjuta_dock_pane_notify_single_selection_changed:
+ * @self: An AnjutaDockPane
+ *
+ * Emits the single-selection-changed signal.
+ */
+void
+anjuta_dock_pane_notify_single_selection_changed (AnjutaDockPane *self)
+{
+	g_signal_emit_by_name (self, "single-selection-changed", NULL);
+}
+
+/**
+ * anjuta_dock_pane_notify_multiple_selection_changed:
+ * @pane: An AnjutaDockPane 
+ *
+ * Emits the multiple-selection-changed signal.
+ */
+void
+anjuta_dock_pane_notify_multiple_selection_changed (AnjutaDockPane *self)
+{
+	g_signal_emit_by_name (self, "multiple-selection-changed", NULL);
+}

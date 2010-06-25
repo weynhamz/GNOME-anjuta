@@ -44,6 +44,10 @@ struct _AnjutaDockPaneClass
 	/* Virtual methods */
 	void (*refresh) (AnjutaDockPane *self);
 	GtkWidget * (*get_widget) (AnjutaDockPane *self);
+
+	/* Signals */
+	void (*single_selection_changed) (AnjutaDockPane *self);
+	void (*multiple_selection_changed) (AnjutaDockPane *self);
 };
 
 struct _AnjutaDockPane
@@ -57,6 +61,8 @@ GType anjuta_dock_pane_get_type (void) G_GNUC_CONST;
 void anjuta_dock_pane_refresh (AnjutaDockPane *self);
 GtkWidget *anjuta_dock_pane_get_widget (AnjutaDockPane *self);
 AnjutaPlugin *anjuta_dock_pane_get_plugin (AnjutaDockPane *self);
+void anjuta_dock_pane_notify_single_selection_changed (AnjutaDockPane *self);
+void anjuta_dock_pane_notify_multiple_selection_changed (AnjutaDockPane *self);
 
 G_END_DECLS
 
