@@ -26,6 +26,7 @@
 #define _GIT_REMOTE_LIST_COMMAND_H_
 
 #include <glib-object.h>
+#include <gio/gio.h>
 #include "git-raw-output-command.h"
 
 G_BEGIN_DECLS
@@ -39,6 +40,7 @@ G_BEGIN_DECLS
 
 typedef struct _GitRemoteListCommandClass GitRemoteListCommandClass;
 typedef struct _GitRemoteListCommand GitRemoteListCommand;
+typedef struct _GitRemoteListCommandPriv GitRemoteListCommandPriv;
 
 struct _GitRemoteListCommandClass
 {
@@ -48,6 +50,8 @@ struct _GitRemoteListCommandClass
 struct _GitRemoteListCommand
 {
 	GitRawOutputCommand parent_instance;
+
+	GitRemoteListCommandPriv *priv;
 };
 
 GType git_remote_list_command_get_type (void) G_GNUC_CONST;

@@ -24,17 +24,30 @@
 
 #include "git-remote-list-command.h"
 
+struct _GitRemoteListCommandPriv
+{
+	GFileMonitor *file_monitor;
+};
+
 G_DEFINE_TYPE (GitRemoteListCommand, git_remote_list_command, GIT_TYPE_RAW_OUTPUT_COMMAND);
 
 static void
 git_remote_list_command_init (GitRemoteListCommand *self)
 {
-
+	self->priv = g_new0 (GitRemoteListCommandPriv, 1);
 }
 
 static void
 git_remote_list_command_finalize (GObject *object)
 {
+	GitRemoteListCommand *self;
+
+	self = GIT_REMOTE_LIST_COMMAND (object);
+
+	anjuta_command_stop_automatic_monitor (ANJUTA_COMMAND (self));
+
+	g_free (self->priv);
+
 	G_OBJECT_CLASS (git_remote_list_command_parent_class)->finalize (object);
 }
 
@@ -47,6 +60,62 @@ git_remote_list_command_run (AnjutaCommand *command)
 }
 
 static void
+on_file_monitor_changed (GFileMonitor *monitor, GFile *file, GFile *other_file,
+                         GFileMonitorEvent event, AnjutaCommand *command)
+{
+	/* Git recreates the config file when it changes */
+	if (event == G_FILE_MONITOR_EVENT_CREATED)
+		anjuta_command_start (command);
+}
+
+static gboolean
+git_remote_list_command_start_automatic_monitor (AnjutaCommand *command)
+{
+	GitRemoteListCommand *self;
+	gchar *working_directory;
+	gchar *git_config_path;
+	GFile *git_config_file;
+
+	self = GIT_REMOTE_LIST_COMMAND (command);
+	g_object_get (G_OBJECT (self), "working-directory", &working_directory, 
+	              NULL);
+	git_config_path = g_strjoin (G_DIR_SEPARATOR_S,
+	                             working_directory,
+	                             ".git",
+	                             "config",
+	                             NULL);
+	git_config_file = g_file_new_for_path (git_config_path);
+
+	g_free (git_config_path);
+
+	self->priv->file_monitor = g_file_monitor_file (git_config_file, 0, NULL, 
+	                                                NULL);
+
+	g_signal_connect (G_OBJECT (self->priv->file_monitor ), "changed",
+	                  G_CALLBACK (on_file_monitor_changed),
+	                  self);
+
+	g_object_unref (git_config_file);
+
+	return TRUE;
+}
+
+static void
+git_remote_list_command_stop_automatic_monitor (AnjutaCommand *command)
+{
+	GitRemoteListCommand *self;
+
+	self = GIT_REMOTE_LIST_COMMAND (command);
+
+	if (self->priv->file_monitor)
+	{
+		g_file_monitor_cancel (self->priv->file_monitor);
+		g_object_unref (self->priv->file_monitor);
+		self->priv->file_monitor = NULL;
+	}
+}
+
+static void
 git_remote_list_command_class_init (GitRemoteListCommandClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
@@ -54,6 +123,8 @@ git_remote_list_command_class_init (GitRemoteListCommandClass *klass)
 
 	object_class->finalize = git_remote_list_command_finalize;
 	command_class->run = git_remote_list_command_run;
+	command_class->start_automatic_monitor = git_remote_list_command_start_automatic_monitor;
+	command_class->stop_automatic_monitor = git_remote_list_command_stop_automatic_monitor;
 }
 
 
