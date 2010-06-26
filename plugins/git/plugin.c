@@ -30,6 +30,7 @@
 #include "git-commit-pane.h"
 #include "git-add-files-pane.h"
 #include "git-remove-files-pane.h"
+#include "git-remotes-pane.h"
 
 AnjutaCommandBarEntry branch_entries[] =
 {
@@ -150,11 +151,16 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	g_object_set (G_OBJECT (git_plugin->not_updated_status_command),
 	              "working-directory", git_plugin->project_root_directory,
 	              NULL);
+	g_object_set (G_OBJECT (git_plugin->remote_list_command),
+	              "working-directory", git_plugin->project_root_directory,
+	              NULL);
 
 	anjuta_command_start_automatic_monitor (ANJUTA_COMMAND (git_plugin->local_branch_list_command));
 	anjuta_command_start_automatic_monitor (ANJUTA_COMMAND (git_plugin->commit_status_command));
+	anjuta_command_start_automatic_monitor (ANJUTA_COMMAND (git_plugin->remote_list_command));
 	anjuta_command_start (ANJUTA_COMMAND (git_plugin->local_branch_list_command));
 	anjuta_command_start (ANJUTA_COMMAND (git_plugin->commit_status_command));
+	anjuta_command_start (ANJUTA_COMMAND (git_plugin->remote_list_command));
 	
 	gtk_widget_set_sensitive (git_plugin->dock, TRUE);
 	gtk_widget_set_sensitive (git_plugin->command_bar, TRUE);
@@ -344,6 +350,9 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	git_plugin->not_updated_status_command = git_status_command_new (NULL,
 	                                                                 GIT_STATUS_SECTION_NOT_UPDATED);
 
+	/* Remote list command */
+	git_plugin->remote_list_command = git_remote_list_command_new (NULL);
+
 	/* Always run the not updated commmand after the commmit command. */
 	g_signal_connect (G_OBJECT (git_plugin->commit_status_command), 
 	                  "command-finished",
@@ -362,6 +371,11 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	                      _("Branches"), NULL, git_plugin->branches_pane,   
 	                      GDL_DOCK_CENTER, branch_entries, 
 	                      G_N_ELEMENTS (branch_entries), git_plugin);
+
+	git_plugin->remotes_pane = git_remotes_pane_new (git_plugin);
+	anjuta_dock_add_pane (ANJUTA_DOCK (git_plugin->dock), "Remotes", 
+	                      _("Remotes"), NULL, git_plugin->remotes_pane,
+	                      GDL_DOCK_CENTER, NULL, 0, NULL);
 	
 	/* Add watches */
 	git_plugin->project_root_watch_id = anjuta_plugin_add_watch (plugin,
@@ -411,6 +425,7 @@ git_deactivate_plugin (AnjutaPlugin *plugin)
 	g_object_unref (git_plugin->remote_branch_list_command);
 	g_object_unref (git_plugin->commit_status_command);
 	g_object_unref (git_plugin->not_updated_status_command);
+	g_object_unref (git_plugin->remote_list_command);
 	
 	g_free (git_plugin->project_root_directory);
 	g_free (git_plugin->current_editor_filename);

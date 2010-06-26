@@ -37,6 +37,7 @@
 #include <libanjuta/anjuta-command-queue.h>
 #include "git-branch-list-command.h"
 #include "git-status-command.h"
+#include "git-remote-list-command.h"
 
 extern GType git_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_GIT         (git_get_type (NULL))
@@ -67,6 +68,7 @@ struct _Git
 	/* Dock panes */
 	AnjutaDockPane *status_pane;
 	AnjutaDockPane *branches_pane;
+	AnjutaDockPane *remotes_pane;
 
 	/* List commands for various panes. 
 	 * Keep them in the plugin so that the commands have the most direct
@@ -75,6 +77,7 @@ struct _Git
 	GitBranchListCommand *remote_branch_list_command;
 	GitStatusCommand *commit_status_command;
 	GitStatusCommand *not_updated_status_command;
+	GitRemoteListCommand *remote_list_command;
 	
 	IAnjutaMessageView *message_view;
 	AnjutaCommandQueue *command_queue;
