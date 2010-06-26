@@ -26,6 +26,18 @@ struct _GitRemotesPanePriv
 
 G_DEFINE_TYPE (GitRemotesPane, git_remotes_pane, GIT_TYPE_PANE);
 
+static gboolean
+on_remote_selected (GtkTreeSelection *selection, GtkTreeModel *model,
+                    GtkTreePath *path, GtkTreeIter *iter, 
+                    gboolean path_currently_selected,
+                    AnjutaDockPane *pane)
+{
+	if (!path_currently_selected)
+		anjuta_dock_pane_notify_single_selection_changed (pane);
+
+	return TRUE;
+}
+
 static void
 git_remotes_pane_init (GitRemotesPane *self)
 {
@@ -33,6 +45,8 @@ git_remotes_pane_init (GitRemotesPane *self)
 						"remotes_list_model",
 						NULL};
 	GError *error = NULL;
+	GtkTreeView *remotes_view;
+	GtkTreeSelection *selection;
 
 	self->priv = g_new0 (GitRemotesPanePriv, 1);
 	self->priv->builder = gtk_builder_new ();
@@ -44,6 +58,15 @@ git_remotes_pane_init (GitRemotesPane *self)
 		g_warning ("Couldn't load builder file: %s", error->message);
 		g_error_free (error);
 	}
+
+	remotes_view = GTK_TREE_VIEW (gtk_builder_get_object (self->priv->builder,
+	                                                      "remotes_view"));
+	selection = gtk_tree_view_get_selection (remotes_view);
+
+
+	gtk_tree_selection_set_select_function (selection,
+	                                        (GtkTreeSelectionFunc) on_remote_selected,
+	                                        self, NULL);
 }
 
 static void
@@ -130,5 +153,22 @@ git_remotes_pane_new (Git *plugin)
 gchar *
 git_remotes_pane_get_selected_remote (GitRemotesPane *self)
 {
-	return NULL;
+	GtkTreeView *remotes_view;
+	GtkTreeSelection *selection;
+	GtkTreeModel *remotes_list_model;
+	gchar *remote;
+	GtkTreeIter iter;
+
+	remotes_view = GTK_TREE_VIEW (gtk_builder_get_object (self->priv->builder,
+	                                                      "remotes_view"));
+	selection = gtk_tree_view_get_selection (remotes_view);
+	remote = NULL;
+
+	if (gtk_tree_selection_get_selected (selection, &remotes_list_model, 
+	                                     &iter))
+	{
+		gtk_tree_model_get (remotes_list_model, &iter, 0, &remote, -1);
+	}
+
+	return remote;
 }
