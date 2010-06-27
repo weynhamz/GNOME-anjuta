@@ -4,7 +4,7 @@ gdb_ui_DATA =
 
 # Plugin glade file
 anjuta_gladedir = $(anjuta_glade_dir)
-anjuta_glade_DATA =
+anjuta_glade_DATA = anjuta-gdb.ui
 
 anjuta_datadir = $(anjuta_data_dir)
 anjuta_data_DATA = gdb.init
@@ -43,7 +43,9 @@ libanjuta_gdb_la_SOURCES = \
 	plugin.c \
 	plugin.h \
 	utilities.c \
-	utilities.h
+	utilities.h \
+	preferences.c \
+	preferences.h
 
 noinst_PROGRAMS = gdbmi-test
 gdbmi_test_SOURCES = gdbmi-test.c gdbmi.c gdbmi.h debugger.h

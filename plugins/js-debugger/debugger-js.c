@@ -179,6 +179,7 @@ variable_create (DebuggerJs* object, struct Task *task)
 	var->type = g_strdup ("object");
 	var->value = g_strdup ("object");
 	var->children = 0;
+	var->has_more = FALSE;
 	var->changed = TRUE;
 	var->exited = FALSE;
 	var->deleted = FALSE;
@@ -337,6 +338,7 @@ varibale_list_children (DebuggerJs* object, struct Task *task)
 				var->type = g_strdup (str + k + 1);
 				var->value = g_strdup ("");
 				var->children = 1;
+				var->has_more = FALSE;
 				k = i;
 			}
 			else if (j == 1)

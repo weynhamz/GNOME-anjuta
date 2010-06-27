@@ -585,7 +585,7 @@ gdb_var_create (IAnjutaDebuggerVariableObject *variable, gpointer user_data, GEr
 					   VALUE_COLUMN, variable->value, -1);
 	
 
-	if (variable->children == -1)
+	if ((variable->children == -1) || variable->has_more)
 	{
 		/* Find the number of children */
 		DmaVariablePacket *pack_child =
@@ -985,7 +985,7 @@ debug_tree_add_watch (DebugTree *tree, const IAnjutaDebuggerVariableObject* var,
 							(IAnjutaDebuggerCallback)gdb_var_evaluate_expression,
 							pack);
 				}
-				if (var->children == -1)
+				if ((var->children == -1) || var->has_more)
 				{
 					/* Get number of children */
 					DmaVariablePacket *pack =
