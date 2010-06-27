@@ -127,7 +127,8 @@ AM_GCONF_SOURCE_2
 dnl ***************************************************************************
 dnl Check for GObject-Introspection
 dnl ***************************************************************************
-GOBJECT_INTROSPECTION_CHECK([$GI_REQUIRED])
+m4_ifdef(GOBJECT_INTROSPECTION_CHECK, [GOBJECT_INTROSPECTION_CHECK([0.6.7])],
+AM_CONDITIONAL(HAVE_INTROSPECTION, false))
 
 dnl ***************************************************************************
 dnl Set gjsdir
