@@ -494,7 +494,8 @@ sdb_query_execute_real (SymbolDBQuery *query)
 
 	if (!symbol_db_engine_is_connected (priv->dbe_selected))
 	{
-		g_warning ("Attempt to make a query when database is not connected");
+		g_warning ("Attempt to make a query when database (%s) is not connected",
+		    symbol_db_engine_get_project_directory (priv->dbe_selected));
 		return GINT_TO_POINTER (-1);
 	}
 	if (symbol_db_engine_is_scanning (priv->dbe_selected))

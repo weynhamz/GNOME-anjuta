@@ -135,6 +135,9 @@ struct _DebuggerPriv
 	gboolean has_python_support;
 	gboolean has_thread_info;
 	gboolean has_frozen_varobjs;
+	
+	/* Pretty printers command */
+	gchar *load_pretty_printer;
 };
 
 static gpointer parent_class;
@@ -303,6 +306,8 @@ debugger_initialize (Debugger *debugger)
 	debugger->priv->gdb_log = anjuta_log && (atoi(anjuta_log) > DEBUGGER_LOG_LEVEL);
 
 	debugger->priv->environment = NULL;
+	
+	debugger->priv->load_pretty_printer = NULL;
 }
 
 static void
@@ -809,6 +814,74 @@ debugger_set_environment (Debugger *debugger, gchar **variables)
 	return TRUE;
 }
 
+gboolean
+debugger_set_pretty_printers (Debugger *debugger, const GList *pretty_printers)
+{
+	GString *load = g_string_new (NULL);
+	GList *item;
+	GList *directories = NULL;
+
+	/* Unload previous pretty printers */
+	g_free (debugger->priv->load_pretty_printer);
+
+	/* Get all necessary directories */
+	for (item = g_list_first ((GList *)pretty_printers); item != NULL; item = g_list_next (item))
+	{
+		GdbPrettyPrinter *printer = (GdbPrettyPrinter *)item->data;
+		gchar *dir;
+		
+		if (printer->enable)
+		{
+			dir = g_path_get_dirname (printer->path);
+			if (g_list_find_custom (directories, dir, (GCompareFunc)strcmp) == NULL)
+			{
+				directories = g_list_prepend (directories, dir);
+			}
+			else
+			{
+				g_free (dir);
+			}
+		}
+	}
+	/* Add them in the command */
+	if (directories != NULL)
+	{
+		g_string_append (load, "python\nimport sys\n");
+
+		for (item = g_list_first (directories); item != NULL; item = g_list_next (item))
+		{
+			g_string_append_printf (load, "sys.path.insert(0,'%s')\n", (gchar *)item->data);
+			g_free (item->data);
+		}
+		g_list_free (directories);
+
+		/* Import all modules and call register function*/
+		for (item = g_list_first ((GList *)pretty_printers); item != NULL; item = g_list_next (item))
+		{
+			GdbPrettyPrinter *printer = (GdbPrettyPrinter *)item->data;
+			gchar *name;
+
+			if (printer->enable && (printer->function != NULL))
+			{
+				/* Remove .py extension */
+				name = g_path_get_basename (printer->path);
+				if (g_str_has_suffix (name, ".py"))
+				{
+					name[strlen (name) - 3] = '\0';
+				}
+
+				if (printer->function != NULL)
+				g_string_append_printf (load, "import %s\n%s.%s(None)\n", name, name, printer->function);
+			}
+		}
+		g_string_append (load, "end");
+	}
+
+	debugger->priv->load_pretty_printer = g_string_free (load, FALSE);
+
+	return TRUE;
+}
+
 static void
 debugger_list_features_completed (Debugger *debugger,
 									const GDBMIValue *mi_result,
@@ -859,6 +932,12 @@ debugger_list_features_completed (Debugger *debugger,
 	{
 		debugger_queue_command (debugger, "set stop-on-solib-events 1", DEBUGGER_COMMAND_PREPEND, NULL, NULL, NULL);
 	}
+
+	if (debugger->priv->has_python_support && (debugger->priv->load_pretty_printer != NULL))
+	{
+		debugger_queue_command (debugger, debugger->priv->load_pretty_printer, 0, NULL, NULL, NULL);
+		debugger_queue_command (debugger, "-enable-pretty-printing", 0, NULL, NULL, NULL);
+	}
 }
 
 static gboolean
@@ -874,8 +953,10 @@ debugger_list_features (Debugger *debugger)
 }
 
 gboolean
-debugger_start (Debugger *debugger, const GList *search_dirs,
-				const gchar *prog, gboolean is_libtool_prog)
+debugger_start (Debugger *debugger,
+				const GList *search_dirs,
+				const gchar *prog,
+				gboolean is_libtool_prog)
 {
 	gchar *command_str, *dir, *tmp, *text, *msg;
 	gboolean ret;
@@ -943,7 +1024,7 @@ debugger_start (Debugger *debugger, const GList *search_dirs,
 		node = g_list_next (node);
 	}
 	
-	/* Now save the dir list. Order is automatically revesed */
+	/* Now save the dir list. Order is automatically reversed */
 	node = dir_list;
 	while (node)
 	{
@@ -952,7 +1033,7 @@ debugger_start (Debugger *debugger, const GList *search_dirs,
 		node = g_list_next (node);
 	}
 	g_list_free (dir_list);
-	
+
 	if (prog && strlen(prog) > 0)
 	{
 		gchar *quoted_prog = gdb_quote (prog);
@@ -1085,7 +1166,7 @@ debugger_start (Debugger *debugger, const GList *search_dirs,
 	debugger_list_features (debugger);
 
 	debugger_queue_command (debugger, "handle SIGINT stop print nopass", 0, NULL, NULL, NULL);
-	
+
 	return TRUE;
 }
 
@@ -3798,30 +3879,34 @@ gdb_var_list_children (Debugger *debugger,
 		for(i = 0 ; i < numchild; ++i)
 		{
 			const GDBMIValue *const gdbmi_chl = 
-                                gdbmi_value_list_get_nth (children, i);
+							gdbmi_value_list_get_nth (children, i);
 			IAnjutaDebuggerVariableObject *var;
-		
+
 			var = g_new0 (IAnjutaDebuggerVariableObject, 1);
 
-		       	literal  = gdbmi_value_hash_lookup (gdbmi_chl, "name");
+			literal  = gdbmi_value_hash_lookup (gdbmi_chl, "name");
 			if (literal)
-  				var->name = (gchar *)gdbmi_value_literal_get (literal);
+				var->name = (gchar *)gdbmi_value_literal_get (literal);
 
 			literal = gdbmi_value_hash_lookup (gdbmi_chl, "exp");
 			if (literal)
-				var->expression = (gchar *)gdbmi_value_literal_get(literal);
-                
+			var->expression = (gchar *)gdbmi_value_literal_get(literal);
+
 			literal = gdbmi_value_hash_lookup (gdbmi_chl, "type");
 			if (literal)
 				var->type = (gchar *)gdbmi_value_literal_get(literal);
 
-        		literal = gdbmi_value_hash_lookup (gdbmi_chl, "value");
+			literal = gdbmi_value_hash_lookup (gdbmi_chl, "value");
 			if (literal)
 				var->value = (gchar *)gdbmi_value_literal_get(literal);
 
-        		literal = gdbmi_value_hash_lookup (gdbmi_chl, "numchild");
+			literal = gdbmi_value_hash_lookup (gdbmi_chl, "numchild");
 			if (literal)
 				var->children = strtoul(gdbmi_value_literal_get(literal), NULL, 10);
+
+			literal = gdbmi_value_hash_lookup (gdbmi_chl, "has_more");
+			if (literal)
+				var->has_more = *gdbmi_value_literal_get(literal) == '1' ? TRUE : FALSE;
 
 			list = g_list_prepend (list, var);
 		}
@@ -3866,6 +3951,16 @@ gdb_var_create (Debugger *debugger,
 
 		result = gdbmi_value_hash_lookup (mi_results, "numchild");
 		var.children = strtoul (gdbmi_value_literal_get(result), NULL, 10);
+
+		result = gdbmi_value_hash_lookup (mi_results, "has_more");
+		if (result != NULL)
+		{
+			var.has_more = *gdbmi_value_literal_get(result) == '1' ? TRUE : FALSE;
+		}
+		else
+		{
+			var.has_more = FALSE;
+		}
 	}
 	callback (&var, user_data, error);
 
@@ -4018,6 +4113,7 @@ debugger_finalize (GObject *obj)
 	g_string_free (debugger->priv->stdo_acc, TRUE);
 	g_string_free (debugger->priv->stde_line, TRUE);
 	g_free (debugger->priv->remote_server);
+	g_free (debugger->priv->load_pretty_printer);
 	g_free (debugger->priv);
 	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }

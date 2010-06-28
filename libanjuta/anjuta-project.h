@@ -60,14 +60,14 @@ typedef enum
 	ANJUTA_TARGET_GENMARSHAL
 } AnjutaProjectTargetClass;
 
-typedef struct 
+typedef struct _AnjutaProjectTargetInformation
 {
 	gchar *name;
 	AnjutaProjectTargetClass base;
 	gchar *mime_type;
 } AnjutaProjectTargetInformation;
 
-typedef AnjutaProjectTargetInformation* AnjutaProjectTargetType;
+typedef struct _AnjutaProjectTargetInformation* AnjutaProjectTargetType;
 
 typedef struct
 {

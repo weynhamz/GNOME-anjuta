@@ -236,7 +236,7 @@ execute_with_terminal (RunProgramPlugin *plugin,
 					   const gchar *dir, const gchar *cmd, gchar **env)
 {
 	IAnjutaTerminal *term;
-	GPid pid = -1;
+	GPid pid = 0;
 	gchar* launcher_path = g_find_program_in_path("anjuta-launcher");
 	gchar *new_cmd;
 	RunProgramChild *child;
@@ -293,6 +293,7 @@ execute_with_terminal (RunProgramPlugin *plugin,
 			{
 				child->source = g_child_watch_add (pid, on_child_terminated, plugin);
 			}
+
 			g_strfreev (argv);
 		}
 		g_free (term_cmd);
@@ -308,9 +309,19 @@ execute_with_terminal (RunProgramPlugin *plugin,
 		child->use_signal = TRUE;
 	
 		pid = ianjuta_terminal_execute_command (term, dir, new_cmd, env, NULL);
+		
 		g_free (new_cmd);
 	}
-	child->pid = pid;
+
+	if (pid > 0)
+	{
+		child->pid = pid;
+	}
+	else
+	{
+		on_child_terminated (0, 0, plugin);
+		pid = 0;
+	}
 	
 	return pid;
 }
@@ -346,6 +357,7 @@ execute_without_terminal (RunProgramPlugin *plugin,
 	}
 	else
 	{
+		on_child_terminated (0, 0, plugin);
 		pid = 0;
 	}
 	

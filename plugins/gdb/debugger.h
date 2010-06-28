@@ -25,6 +25,8 @@
 #include <gtk/gtk.h>
 #include "gdbmi.h"
 
+#include "preferences.h"
+
 #include <libanjuta/interfaces/ianjuta-message-view.h>
 #include <libanjuta/interfaces/ianjuta-debugger.h>
 
@@ -84,8 +86,13 @@ GType debugger_get_type (void);
 Debugger* debugger_new (GtkWindow *parent_win, GObject* instance);
 void debugger_free (Debugger *debugger);
 
-gboolean debugger_start (Debugger *debugger, const GList *search_dirs,
-							const gchar *prog, gboolean is_libtool_prog);
+gboolean debugger_set_pretty_printers (Debugger *debugger,
+									const GList *pretty_printers);
+
+gboolean debugger_start (Debugger *debugger,
+						const GList *search_dirs,
+						const gchar *prog,
+						gboolean is_libtool_prog);
 
 gboolean debugger_stop (Debugger *debugger);
 gboolean debugger_abort (Debugger *debugger);

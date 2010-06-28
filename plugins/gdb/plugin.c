@@ -34,6 +34,7 @@
 #include <sys/stat.h>
 
 #include "debugger.h"
+#include "preferences.h"
 
 #include <libanjuta/interfaces/ianjuta-debugger.h>
 #include <libanjuta/interfaces/ianjuta-debugger-breakpoint.h>
@@ -42,6 +43,7 @@
 #include <libanjuta/interfaces/ianjuta-debugger-instruction.h>
 #include <libanjuta/interfaces/ianjuta-debugger-variable.h>
 #include <libanjuta/interfaces/ianjuta-terminal.h>
+#include <libanjuta/interfaces/ianjuta-preferences.h>
 #include <libanjuta/anjuta-plugin.h>
 #include <signal.h>
 
@@ -64,6 +66,9 @@ struct _GdbPlugin
 
 	/* Terminal */
 	pid_t term_pid;
+
+	/* Pretty printer list */
+	GList *pretty_printers;
 };
 
 struct _GdbPluginClass
@@ -234,6 +239,30 @@ gdb_plugin_initialize (GdbPlugin *this)
 	g_signal_connect_swapped (this, "debugger-stopped", G_CALLBACK (on_debugger_stopped), this);
 	debugger_set_output_callback (this->debugger, this->output_callback, this->output_user_data);
 	if (this->view) debugger_set_log (this->debugger, this->view);
+	
+	debugger_set_pretty_printers (this->debugger, this->pretty_printers);
+}
+
+/* Callback for saving session
+ *---------------------------------------------------------------------------*/
+
+static void
+on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase, AnjutaSession *session, GdbPlugin *this)
+{
+	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
+		return;
+
+	gdb_save_pretty_printers (session, this->pretty_printers);
+}
+
+static void on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, AnjutaSession *session, GdbPlugin *this)
+{
+	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
+		return;
+
+	g_list_foreach (this->pretty_printers, (GFunc)gdb_pretty_printer_free, NULL);
+	g_list_free (this->pretty_printers);
+	this->pretty_printers = gdb_load_pretty_printers (session);
 }
 
 /* AnjutaPlugin functions
@@ -242,10 +271,18 @@ gdb_plugin_initialize (GdbPlugin *this)
 static gboolean
 gdb_plugin_activate_plugin (AnjutaPlugin* plugin)
 {
-	/* GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin); */
+	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
 
 	DEBUG_PRINT ("%s", "GDB: Activating Gdb plugin...");
+	this->pretty_printers = NULL;
 
+	/* Connect to session signal */
+	g_signal_connect (plugin->shell, "save-session",
+					  G_CALLBACK (on_session_save), this);
+	g_signal_connect (plugin->shell, "load-session",
+					  G_CALLBACK (on_session_load), this);
+	
+	
 	return TRUE;
 }
 
@@ -261,6 +298,10 @@ gdb_plugin_deactivate_plugin (AnjutaPlugin* plugin)
 		debugger_free (this->debugger);
 		this->debugger = NULL;
 	}
+	
+	g_list_foreach (this->pretty_printers, (GFunc)gdb_pretty_printer_free, NULL);
+	g_list_free (this->pretty_printers);
+	this->pretty_printers = NULL;
 	
 	return TRUE;
 }
@@ -1153,6 +1194,28 @@ idebugger_variable_iface_init (IAnjutaDebuggerVariableIface *iface)
 	iface->update = idebugger_variable_update;
 }
 
+/* Implementation of IAnjutaPreference interface
+ *---------------------------------------------------------------------------*/
+
+static void
+ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** error)
+{
+	gdb_merge_preferences (prefs, &(ANJUTA_PLUGIN_GDB (ipref)->pretty_printers));
+}
+
+static void
+ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** error)
+{
+	gdb_unmerge_preferences (prefs);
+}
+
+static void
+ipreferences_iface_init(IAnjutaPreferencesIface* iface)
+{
+	iface->merge = ipreferences_merge;
+	iface->unmerge = ipreferences_unmerge;
+}
+
 ANJUTA_PLUGIN_BEGIN (GdbPlugin, gdb_plugin);
 ANJUTA_PLUGIN_ADD_INTERFACE(idebugger, IANJUTA_TYPE_DEBUGGER);
 ANJUTA_PLUGIN_ADD_INTERFACE(idebugger_breakpoint, IANJUTA_TYPE_DEBUGGER_BREAKPOINT);
@@ -1160,6 +1223,7 @@ ANJUTA_PLUGIN_ADD_INTERFACE(idebugger_register, IANJUTA_TYPE_DEBUGGER_REGISTER);
 ANJUTA_PLUGIN_ADD_INTERFACE(idebugger_memory, IANJUTA_TYPE_DEBUGGER_MEMORY);
 ANJUTA_PLUGIN_ADD_INTERFACE(idebugger_instruction, IANJUTA_TYPE_DEBUGGER_INSTRUCTION);
 ANJUTA_PLUGIN_ADD_INTERFACE(idebugger_variable, IANJUTA_TYPE_DEBUGGER_VARIABLE);
+ANJUTA_PLUGIN_ADD_INTERFACE (ipreferences, IANJUTA_TYPE_PREFERENCES);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (GdbPlugin, gdb_plugin);

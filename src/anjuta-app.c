@@ -724,10 +724,30 @@ anjuta_app_key_press_event (GtkWidget   *widget,
 	if (grand_parent_class == NULL)
 		grand_parent_class = g_type_class_peek_parent (parent_class);
 
-	/* handle focus widget key events */
-	if (!handled)
-		handled = gtk_window_propagate_key_event (window, event);
-
+	switch (event->keyval)
+	{
+		case GDK_F1:
+		case GDK_F2:
+		case GDK_F3:
+		case GDK_F4:
+		case GDK_F5:
+		case GDK_F6:
+		case GDK_F7:
+		case GDK_F8:
+		case GDK_F9:
+		case GDK_F10:
+		case GDK_F11:
+		case GDK_F12:
+			/* handle mnemonics and accelerators */
+			if (!handled)
+				handled = gtk_window_activate_key (window, event);
+			break;
+		default:
+			/* handle focus widget key events */
+			if (!handled)
+				handled = gtk_window_propagate_key_event (window, event);
+	}
+	
 	/* handle mnemonics and accelerators */
 	if (!handled)
 		handled = gtk_window_activate_key (window, event);

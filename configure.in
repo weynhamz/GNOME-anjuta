@@ -45,6 +45,7 @@ GDA_REQUIRED=4.1.6
 UNIQUE_REQUIRED=1.0.0
 VALA_REQUIRED=0.7.8
 LIBGRAPHVIZ_REQUIRED=1.0
+GI_REQUIRED=0.6.6
 
 AC_SUBST(GLIB_REQUIRED)
 AC_SUBST(GDK_PIXBUF_REQUIRED)
@@ -124,11 +125,15 @@ AC_PATH_PROG(GCONFTOOL, gconftool-2)
 AM_GCONF_SOURCE_2
 
 dnl ***************************************************************************
-dnl Set gjsdir && girdir
+dnl Check for GObject-Introspection
 dnl ***************************************************************************
-girdir=`pkg-config --variable=girdir gobject-introspection-1.0`
+m4_ifdef(GOBJECT_INTROSPECTION_CHECK, [GOBJECT_INTROSPECTION_CHECK([0.6.7])],
+AM_CONDITIONAL(HAVE_INTROSPECTION, false))
+
+dnl ***************************************************************************
+dnl Set gjsdir
+dnl ***************************************************************************
 gjsdir=`pkg-config --variable=jsdir gjs-1.0`
-AC_SUBST(girdir)
 AC_SUBST(gjsdir)
 
 dnl ***************************************************************************
