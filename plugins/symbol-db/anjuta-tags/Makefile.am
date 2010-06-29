@@ -10,7 +10,7 @@ AM_CPPFLAGS = \
 AM_CFLAGS =\
 	 -I$(top_srcdir)/plugins/symbol-db/anjuta-tags/js-parser \
 	 $(WARN_CFLAGS) \
-	 $(GLIB_CFLAGS) \
+	 $(ANJUTA_CFLAGS) \
 	 $(VALA_CFLAGS) \
 	 $(LIBXML_CFLAGS)
 
@@ -127,12 +127,8 @@ anjuta_tags_SOURCES = \
 	ctags-utils.c     \
 	ctags-utils.h
 
-anjuta_tags_LDFLAGS = \
-		$(GLIB_LDFLAGS) \
-		$(LIBXML_LDFLAGS)
-
 anjuta_tags_LDADD = \
-		$(GLIB_LIBS) \
+		$(ANJUTA_LIBS) \
 		$(VALA_LIBS) \
 		$(LIBXML_LIBS)
 
