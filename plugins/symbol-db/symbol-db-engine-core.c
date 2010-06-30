@@ -406,10 +406,19 @@ sdb_engine_get_statement_by_query_id (SymbolDBEngine * dbe, static_query_type qu
 
 	if (node->stmt == NULL)
 	{
+		GError *error = NULL;
+		
 		/* create a new GdaStatement */
 		node->stmt =
 			gda_sql_parser_parse_string (priv->sql_parser, node->query_str, NULL, 
-										 NULL);
+										 &error);
+
+		if (error)
+		{
+			g_warning (error->message);
+			g_error_free (error);
+			return NULL;
+		}
 
 		if (gda_statement_get_parameters ((GdaStatement*)node->stmt, 
 										  &node->plist, NULL) == FALSE)
@@ -582,134 +591,6 @@ sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, static_query_type 
 	return table_id;
 }
 
-/**
- * ### Thread note: this function inherits the mutex lock ### 
- *
- * This is the same as sdb_engine_get_tuple_id_by_unique_name () but for two
- * unique parameters. This should be the quickest way. Surely quicker than
- * use g_strdup_printf () with a va_list for example.
- * @return -1 on error. Otherwise the id of table
- *
- */
-static GNUC_INLINE gint
-sdb_engine_get_tuple_id_by_unique_name2 (SymbolDBEngine * dbe, 
-										 static_query_type qtype,
-										 gchar * param_key1,
-										 GValue * value1,
-										 gchar * param_key2,
-										 GValue * value2)
-{
-	const GdaSet *plist;
-	const GdaStatement *stmt;
-	GdaHolder *param;
-	GdaDataModel *data_model;
-	const GValue *num;
-	gint table_id;
-	SymbolDBEnginePriv *priv;
-	gboolean ret_bool;
-	GValue *ret_value;
-	
-	priv = dbe->priv;
-
-	/* get prepared query */
-	if ((stmt = sdb_engine_get_statement_by_query_id (dbe, qtype)) == NULL)
-	{
-		g_warning ("Query is null");
-		if (G_VALUE_HOLDS_STRING (value1) == TRUE)
-			MP_RESET_OBJ_STR(value1);
-		if (G_VALUE_HOLDS_STRING (value2) == TRUE)
-			MP_RESET_OBJ_STR(value2);
-		return -1;
-	}
-
-	plist = sdb_engine_get_query_parameters_list (dbe, qtype);
-	
-	/* look for and set the first parameter */
-	if ((param = gda_set_get_holder ((GdaSet*)plist, param_key1)) == NULL)
-	{
-		g_warning ("sdb_engine_get_tuple_id_by_unique_name2: "
-				   "param is NULL from pquery! [par1: %s] [par2: %s]\n",
-				   param_key1, param_key2);
-		if (G_VALUE_HOLDS_STRING (value1) == TRUE)
-			MP_RESET_OBJ_STR(value1);
-		if (G_VALUE_HOLDS_STRING (value2) == TRUE)
-			MP_RESET_OBJ_STR(value2);
-		return -1;
-	}
-	
-	ret_value = gda_holder_take_static_value (param, value1, &ret_bool, NULL);	
-	if (ret_value != NULL)
-	{
-		if (G_VALUE_HOLDS_STRING (ret_value) == TRUE)
-		{
-			MP_RETURN_OBJ_STR(priv, ret_value);
-		}
-		else
-		{
-			MP_RETURN_OBJ_INT(priv, ret_value);
-		}	
-	}
-		
-	
-	/* ...and the second one */
-	if ((param = gda_set_get_holder ((GdaSet*)plist, param_key2)) == NULL)
-	{
-		g_warning ("sdb_engine_get_tuple_id_by_unique_name2: "
-				   "param is NULL from pquery! [par1: %s] [par2: %s]\n",
-				   param_key1, param_key2);
-		
-		if (G_VALUE_HOLDS_STRING (value1) == TRUE)
-			MP_RESET_OBJ_STR(value1);
-		if (G_VALUE_HOLDS_STRING (value2) == TRUE)
-			MP_RESET_OBJ_STR(value2);
-		return -1;
-	}
-	
-	ret_value = gda_holder_take_static_value (param, value2, &ret_bool, NULL);	
-	if (ret_value != NULL)
-	{
-		if (G_VALUE_HOLDS_STRING (ret_value) == TRUE)
-		{
-			MP_RETURN_OBJ_STR(priv, ret_value);
-		}
-		else
-		{
-			MP_RETURN_OBJ_INT(priv, ret_value);
-		}	
-	}
-
-	/* execute the query with parametes just set */
-	data_model = gda_connection_statement_execute_select (priv->db_connection, 
-														  (GdaStatement*)stmt, 
-														  (GdaSet*)plist, NULL);
-		
-	if (!GDA_IS_DATA_MODEL (data_model) ||
-		gda_data_model_get_n_rows (GDA_DATA_MODEL (data_model)) <= 0)
-	{
-		if (data_model != NULL)
-			g_object_unref (data_model);
-		
-		if (G_VALUE_HOLDS_STRING (value1) == TRUE)
-			MP_RESET_OBJ_STR(value1);
-		if (G_VALUE_HOLDS_STRING (value2) == TRUE)
-			MP_RESET_OBJ_STR(value2);
-		return -1;
-	}
-
-	/* get and parse the results. */
-	num = gda_data_model_get_value_at (GDA_DATA_MODEL (data_model), 0, 0, NULL);
-
-	table_id = g_value_get_int (num);
-	g_object_unref (data_model);
-
-	if (G_VALUE_HOLDS_STRING (value1) == TRUE)
-		MP_RESET_OBJ_STR(value1);
-	if (G_VALUE_HOLDS_STRING (value2) == TRUE)
-		MP_RESET_OBJ_STR(value2);
-	
-	return table_id;
-}
-
 /* ### Thread note: this function inherits the mutex lock ### */
 static GNUC_INLINE gint
 sdb_engine_get_tuple_id_by_unique_name3 (SymbolDBEngine * dbe, 
@@ -867,6 +748,7 @@ sdb_engine_get_tuple_id_by_unique_name3 (SymbolDBEngine * dbe,
 
 	return table_id;
 }
+
 
 /* ### Thread note: this function inherits the mutex lock ### */
 static GNUC_INLINE gint
@@ -2163,20 +2045,29 @@ sdb_engine_init (SymbolDBEngine * object)
 	/* -- symbol -- */
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 	 								PREP_QUERY_SYMBOL_NEW,
-	 	"INSERT INTO symbol (file_defined_id, name, file_position, "
-	 	"is_file_scope, signature, returntype, scope_definition_id, scope_id, "
-	    "type_type, type_name, "
-	 	"kind_id, access_kind_id, implementation_kind_id, update_flag) VALUES("
-	 	"## /* name:'filedefid' type:gint */, ## /* name:'name' "
-	 	"type:gchararray */, ## /* name:'fileposition' type:gint */, ## /* "
-	 	"name:'isfilescope' type:gint */, ## /* name:'signature' "
-	 	"type:gchararray */, ## /* name:'returntype' type:gchararray */, "
-		"## /* name:'scopedefinitionid' type:gint */, ## "
-	 	"/* name:'scopeid' type:gint */,## /* name:'typetype' type:gchararray */, "
-	    "## /* name:'typename' type:gchararray */, "
-		"## /* name:'kindid' type:gint */,## /* name:'accesskindid' type:gint */, "
-	 	"## /* name:'implementationkindid' type:gint */, ## /* "
-	 	"name:'updateflag' type:gint */)");
+	 	"INSERT INTO symbol (file_defined_id, name, file_position, \
+	 	 					 is_file_scope, signature, returntype, \
+	    					 scope_definition_id, scope_id, \
+	    					 type_type, type_name, kind_id, access_kind_id, \
+	 						 implementation_kind_id, update_flag) \
+	    		VALUES( \
+	 				## /* name:'filedefid' type:gint */, \
+					## /* name:'name' type:gchararray */, \
+					## /* name:'fileposition' type:gint */, \
+					## /* name:'isfilescope' type:gint */, \
+					## /* name:'signature' type:gchararray */, \
+					## /* name:'returntype' type:gchararray */, \
+	    			CASE ## /* name:'scopedefinitionid' type:gint */ \
+	    				WHEN -1 THEN (SELECT scope_id FROM scope \
+	    							  WHERE scope_name = ## /* name:'scope' type:gchararray */ \
+	    							  LIMIT 1) \
+	    				ELSE ## /* name:'scopedefinitionid' type:gint */ END, \
+					## /* name:'scopeid' type:gint */, \
+					## /* name:'typetype' type:gchararray */, \
+	    			## /* name:'typename' type:gchararray */, \
+					## /* name:'kindid' type:gint */,## /* name:'accesskindid' type:gint */, \
+					## /* name:'implementationkindid' type:gint */, \
+					## /* name:'updateflag' type:gint */)");
 	
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 	 								PREP_QUERY_GET_SYMBOL_SCOPE_DEFINITION_ID,
@@ -2201,8 +2092,10 @@ sdb_engine_init (SymbolDBEngine * object)
 	
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 	 								PREP_QUERY_UPDATE_SYMBOL_SCOPE_ID,
-	 	"UPDATE symbol SET scope_id =  ## /* name:'scopeid' type:gint */ "
-	 	"WHERE symbol_id = ## /* name:'symbolid' type:gint */");
+	 	"UPDATE symbol SET scope_id = (SELECT scope_definition_id FROM symbol WHERE \
+	    	type_type = ## /* name:'tokenname' type:gchararray */ AND \
+	    	type_name = ## /* name:'objectname' type:gchararray */ LIMIT 1) \
+	 	 WHERE symbol_id = ## /* name:'symbolid' type:gint */");
 	
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 	 								PREP_QUERY_UPDATE_SYMBOL_SCOPE_ID_MIXED,
@@ -4171,30 +4064,14 @@ sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, const tagEntry * tag_
 	}
 	
 	MP_SET_HOLDER_BATCH_INT(priv, param, type_table_id, ret_bool, ret_value);
-
+	
 	/* execute the query with parameters just set */
 	if (gda_connection_statement_execute_non_select (priv->db_connection, 
 													 (GdaStatement*)stmt, 
 													 (GdaSet*)plist, &last_inserted,
 													 NULL) == -1)
 	{
-		GValue *value1, *value2;
-		/* let's check for an already present scope table with scope and type_id infos. */
-		MP_LEND_OBJ_STR (priv, value1);
-		g_value_set_static_string (value1, scope);
-
-		MP_LEND_OBJ_INT (priv, value2);		
-		g_value_set_int (value2, type_table_id);
-	
-		if ((table_id = sdb_engine_get_tuple_id_by_unique_name2 (dbe,
-												 PREP_QUERY_GET_SCOPE_ID,
-												 "scope", 
-												 value1,
-												 "typeid",
-												 value2)) < 0)
-		{
-			table_id = -1;
-		}
+		table_id = -1;
 	}
 	else  
 	{
@@ -4276,14 +4153,12 @@ sdb_engine_add_new_tmp_heritage_scope (SymbolDBEngine * dbe,
  *
  * Return the symbol_id of the changed symbol 
  */
-static GNUC_INLINE gint
+static GNUC_INLINE void
 sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 									   TableMapTmpHeritage * node,
 									   gchar * token_name,
 									   const gchar * token_value)
 {
-	gint scope_id;
-	GValue *value1, *value2;
 	gint symbol_referer_id;
 	const gchar *tmp_str;
 	gchar **tmp_str_splitted;
@@ -4297,7 +4172,7 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 	GValue *ret_value;
 	gboolean ret_bool;
 
-	g_return_val_if_fail (token_value != NULL, FALSE);
+	g_return_if_fail (token_value != NULL);
 		
 	priv = dbe->priv;
 	tmp_str = token_value;
@@ -4305,7 +4180,7 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 	/* we don't need empty strings */
 	if (strlen (tmp_str) <= 0)
 	{
-		return -1;
+		return;
 	}
 
 	/* we could have something like "First::Second::Third::Fourth" as tmp_str, so 
@@ -4330,33 +4205,11 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 	else
 	{
 		g_strfreev (tmp_str_splitted);
-		return -1;
+		return;
 	}
 
 	g_strfreev (tmp_str_splitted);
 
-	MP_LEND_OBJ_STR (priv, value1);	
-	g_value_set_static_string (value1, token_name);
-
-	MP_LEND_OBJ_STR (priv, value2);
-	g_value_set_static_string (value2, object_name);
-
-	if ((scope_id = sdb_engine_get_tuple_id_by_unique_name2 (dbe,
-									 PREP_QUERY_GET_SYMBOL_SCOPE_DEFINITION_ID,
-									 "tokenname",
-									 value1,
-									 "objectname",
-									 value2)) < 0)
-	{
-		if (free_token_name)
-			g_free (token_name);
-
-		return -1;
-	}
-	
-	if (free_token_name)
-		g_free (token_name);
-	
 	/* if we reach this point we should have a good scope_id.
 	 * Go on with symbol updating.
 	 */
@@ -4367,25 +4220,35 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 		== NULL)
 	{
 		g_warning ("query is null");
-		return -1;
+		return;
 	}
 
 	plist = sdb_engine_get_query_parameters_list (dbe, PREP_QUERY_UPDATE_SYMBOL_SCOPE_ID);
 
-	/* scopeid parameter */
-	if ((param = gda_set_get_holder ((GdaSet*)plist, "scopeid")) == NULL)
+	/* tokenname parameter */
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "tokenname")) == NULL)
 	{
-		g_warning ("param scopeid is NULL from pquery!");
-		return -1;
+		g_warning ("param tokenname is NULL from pquery!");
+		return;
 	}
 
-	MP_SET_HOLDER_BATCH_INT(priv, param, scope_id, ret_bool, ret_value);		
+	MP_SET_HOLDER_BATCH_STR(priv, param, token_name, ret_bool, ret_value);		
+
+	/* objectname parameter */
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "objectname")) == NULL)
+	{
+		g_warning ("param objectname is NULL from pquery!");
+		return;
+	}
+
+	MP_SET_HOLDER_BATCH_STR(priv, param, object_name, ret_bool, ret_value);		
+	
 
 	/* symbolid parameter */
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "symbolid")) == NULL)
 	{
 		g_warning ("param symbolid is NULL from pquery!");
-		return -1;
+		return;
 	}
 
 	MP_SET_HOLDER_BATCH_INT(priv, param, symbol_referer_id, ret_bool, ret_value);
@@ -4398,7 +4261,10 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 
 	MP_RESET_PLIST(plist);
 	
-	return symbol_referer_id;
+	if (free_token_name)
+		g_free (token_name);
+	
+	return;
 }
 
 /**
@@ -4493,6 +4359,7 @@ sdb_engine_second_pass_update_scope (SymbolDBEngine * dbe)
 static void
 sdb_engine_second_pass_update_heritage (SymbolDBEngine * dbe)
 {
+#if 0	
 	gint i;
 	SymbolDBEnginePriv *priv;
 	
@@ -4657,8 +4524,9 @@ sdb_engine_second_pass_update_heritage (SymbolDBEngine * dbe)
 			sdb_engine_add_new_heritage (dbe, base_klass_id, derived_klass_id);
 		}
 
-		g_strfreev (inherits_list);			
+		g_strfreev (inherits_list);
 	}	
+#endif	
 }
 
 /**
@@ -4711,7 +4579,6 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	const gchar *returntype;
 	gint scope_definition_id = 0;
 	gint scope_id = 0;
-	gint type_id = 0;
 	gint kind_id = 0;
 	gint access_kind_id = 0;
 	gint implementation_kind_id = 0;
@@ -4782,10 +4649,11 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	 */
 	 
 	/* scope_definition_id tells what scope this symbol defines
-	 * this call *MUST BE DONE AFTER* sym_type table population.
 	 */
+
+	/* FIXME: 0 is for 'old' type_id. Now it's gone. */
 	scope_definition_id = sdb_engine_add_new_scope_definition (dbe, tag_entry,
-															   type_id);
+															   0);
 
 	/* the container scopes can be: union, struct, typeref, class, namespace etc.
 	 * this field will be parsed in the second pass.
@@ -4814,7 +4682,6 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	
 	if (update_flag == FALSE)
 	{
-		/* FIXME: are we sure to force this to -1? */
 		symbol_id = -1;
 	}
 	else 
@@ -4827,12 +4694,15 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 		g_value_set_int (value2, file_defined_id);
 
 		MP_LEND_OBJ_INT (priv, value3);		
-		g_value_set_int (value3, type_id);
+
+		/* FIXME: type_id has gone */
+		g_value_set_int (value3, 0);
 		
 		MP_LEND_OBJ_INT (priv, value4);		
 		g_value_set_int (value4, file_position);		
 
-		sym_list = g_tree_lookup (priv->file_symbols_cache, GINT_TO_POINTER(type_id));
+		/* FIXME: type_id has gone */
+		sym_list = g_tree_lookup (priv->file_symbols_cache, GINT_TO_POINTER(0));
 		
 		symbol_id = sdb_engine_get_tuple_id_by_unique_name4 (dbe,
 								  PREP_QUERY_GET_SYMBOL_ID_BY_UNIQUE_INDEX_KEY_EXT,
@@ -4854,7 +4724,8 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 			g_value_set_int (value6, file_defined_id);
 
 			MP_LEND_OBJ_INT (priv, value7);		
-			g_value_set_int (value7, type_id);		
+			/* FIXME: type_id has gone */
+			g_value_set_int (value7, 0);
 
 			symbol_id = sdb_engine_get_tuple_id_by_unique_name3 (dbe,
 								  PREP_QUERY_GET_SYMBOL_ID_BY_UNIQUE_INDEX_KEY_EXT2,
@@ -4869,7 +4740,9 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 			 * those for sure will have an high probability for an updated scope.
 			 */
 			sym_list = g_list_prepend (sym_list, GINT_TO_POINTER(symbol_id));
-			g_tree_insert (priv->file_symbols_cache, GINT_TO_POINTER(type_id), 
+
+			/* FIXME: type_id has gone */
+			g_tree_insert (priv->file_symbols_cache, GINT_TO_POINTER(0), 
 							   sym_list);
 		}
 	}
@@ -4999,6 +4872,16 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	}
 	
 	MP_SET_HOLDER_BATCH_INT(priv, param, scope_definition_id, ret_bool, ret_value);
+
+
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "scope")) == NULL)
+	{
+		g_warning ("param scope is NULL from pquery!");
+		return -1;
+	}
+
+	/* scope is to be considered the tag name */
+	MP_SET_HOLDER_BATCH_STR(priv, param, tag_entry->name, ret_bool, ret_value);
 	
 	/* scopeid parameter */
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "scopeid")) == NULL)	
@@ -5047,7 +4930,15 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 
 	/* execute the query with parametes just set */
 	gint nrows;
-	
+/*
+	GError *err = NULL;
+	DEBUG_PRINT ("%s", gda_statement_to_sql_extended (stmt, priv->db_connection, 
+	    (GdaSet*)plist, 0, NULL, &err));
+	if (err != NULL)
+	{
+		g_error (err->message);
+	}
+*/	
 	nrows = gda_connection_statement_execute_non_select (priv->db_connection, 
 													 (GdaStatement*)stmt, 
 													 (GdaSet*)plist, &last_inserted,
