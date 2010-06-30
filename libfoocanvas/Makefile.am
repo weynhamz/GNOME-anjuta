@@ -2,8 +2,7 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir) \
 	-I$(top_builddir) \
 	$(WARN_CFLAGS) \
-	$(GTK_CFLAGS) \
-	$(PANG_CFLAGS) \
+	$(ANJUTA_CFLAGS) \
     -DFOOCANVASLIBDIR=\""$(libdir)"\" \
     -DFOOCANVASDATADIR=\""$(datadir)"\" \
     -DFOOCANVASPIXMAPDIR=\""$(datadir)/pixmaps"\" \
@@ -16,9 +15,8 @@ AM_CPPFLAGS = \
 lib_LTLIBRARIES = libanjuta-foocanvas.la
 
 libanjuta_foocanvas_la_LIBADD = \
-	$(RENDER_LIBS) \
-	$(GTK_LIBS) \
-	$(PANGO_LIBS)
+	$(ANJUTA_LIBS) \
+	$(RENDER_LIBS)
 
 libanjuta_foocanvas_la_SOURCES = \
 	foo-canvas-line.h \
