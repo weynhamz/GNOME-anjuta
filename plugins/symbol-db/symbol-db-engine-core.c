@@ -1140,7 +1140,9 @@ sdb_engine_populate_db_by_tags (SymbolDBEngine * dbe, FILE* fd,
 	g_free (tag_entry_file_cache);
 
 	if (force_sym_update == TRUE)
-	{	
+	{
+/* FIXME */		
+#if 0		
 		/* any scope_updated symbols to the releative queue */
 		g_tree_foreach (priv->file_symbols_cache, 
 					sdb_engine_udpated_scope_gtree_populate, dbe);
@@ -1151,6 +1153,7 @@ sdb_engine_populate_db_by_tags (SymbolDBEngine * dbe, FILE* fd,
 										 NULL,
 										 NULL,
 										 NULL);
+#endif		
 	}
 	
 #ifdef DEBUG
@@ -4907,8 +4910,11 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 		MP_LEND_OBJ_INT (priv, value4);		
 		g_value_set_int (value4, file_position);		
 
+/* FIXME */
+#if 0
 		/* FIXME: type_id has gone */
 		sym_list = g_tree_lookup (priv->file_symbols_cache, GINT_TO_POINTER(0));
+#endif		
 		
 		symbol_id = sdb_engine_get_tuple_id_by_unique_name4 (dbe,
 								  PREP_QUERY_GET_SYMBOL_ID_BY_UNIQUE_INDEX_KEY_EXT,
@@ -4939,7 +4945,8 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 								  "filedefid",value6,
 								  "typeid", value7);			
 		}
-
+/* FIXME */		
+#if 0
 		if (symbol_id > 0) {
 			/* attach to list the value of symbol: when this will have parsed all its
 			 * symbols we'll be ready to check the lists with more than an element:
@@ -4951,6 +4958,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 			g_tree_insert (priv->file_symbols_cache, GINT_TO_POINTER(0), 
 							   sym_list);
 		}
+#endif		
 	}
 	
 	/* ok then, parse the symbol id value */
