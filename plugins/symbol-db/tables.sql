@@ -71,8 +71,7 @@ CREATE TABLE heritage (symbol_id_base integer REFERENCES symbol (symbol_id),
 DROP TABLE IF EXISTS scope;
 CREATE TABLE scope (scope_id integer PRIMARY KEY AUTOINCREMENT,
                     scope_name text not null,
-                    type_id integer,
-                    unique (scope_name, type_id)
+                    unique (scope_name)
                     );
 
 DROP TABLE IF EXISTS version;

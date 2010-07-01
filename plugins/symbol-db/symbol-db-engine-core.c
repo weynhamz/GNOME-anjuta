@@ -2004,13 +2004,14 @@ sdb_engine_init (SymbolDBEngine * object)
 	/* -- scope -- */
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 	 								PREP_QUERY_SCOPE_NEW,
-	 	"INSERT INTO scope (scope_name, type_id) VALUES(## /* name:'scope' "
-	 	"type:gchararray */, ## /* name:'typeid' type:gint */)");
+	 	"INSERT INTO scope (scope_name) VALUES(\
+		 		## /* name:'scope' type:gchararray */)");
 	
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 	 								PREP_QUERY_GET_SCOPE_ID,
-	 	"SELECT scope_id FROM scope WHERE scope_name = ## /* name:'scope' "
-	 	"type:gchararray */ AND type_id = ## /* name:'typeid' type:gint */ LIMIT 1");
+	 	"SELECT scope_id FROM scope \
+	     WHERE scope_name = ## /* name:'scope' type:gchararray */ \
+	     LIMIT 1");
 	
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 	 								PREP_QUERY_GET_PARENT_SCOPE_ID_BY_SYMBOL_ID_NO_FILE,
@@ -2128,17 +2129,18 @@ sdb_engine_init (SymbolDBEngine * object)
 	
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 	 								PREP_QUERY_UPDATE_SYMBOL_ALL,
-	 	"UPDATE symbol SET is_file_scope = ## /* name:'isfilescope' type:gint "
-	 	"*/, file_position = ## /* name:'fileposition' type:gint */, "
-	 	"signature = ## /* name:'signature' type:gchararray */, "
-	    "returntype = ## /* name:'returntype' type:gchararray */, "
-	 	"scope_definition_id = ## /* name:'scopedefinitionid' type:gint */, "
-	 	"scope_id = ## /* name:'scopeid' type:gint */, kind_id = "
-	 	"## /* name:'kindid' type:gint */, access_kind_id = ## /* name:"
-	 	"'accesskindid' type:gint */, implementation_kind_id = ## /* name:"
-	 	"'implementationkindid' type:gint */, update_flag = ## /* name:"
-	 	"'updateflag' type:gint */ WHERE symbol_id = ## /* name:'symbolid' type:"
-	 	"gint */");
+	 	"UPDATE symbol SET \
+	    		is_file_scope = ## /* name:'isfilescope' type:gint */, \
+	    		file_position = ## /* name:'fileposition' type:gint */, \
+	    		signature = ## /* name:'signature' type:gchararray */, \
+	    		returntype = ## /* name:'returntype' type:gchararray */, \
+	    		scope_definition_id = ## /* name:'scopedefinitionid' type:gint */, \
+	    		scope_id = ## /* name:'scopeid' type:gint */, \
+	    		kind_id = ## /* name:'kindid' type:gint */, \
+	    		access_kind_id = ## /* name:'accesskindid' type:gint */, \
+	    		implementation_kind_id = ## /* name:'implementationkindid' type:gint */, \
+	    		update_flag = ## /* name:'updateflag' type:gint */ \
+	    WHERE symbol_id = ## /* name:'symbolid' type:gint */");
 	
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 	 								PREP_QUERY_REMOVE_NON_UPDATED_SYMBOLS,
@@ -4000,16 +4002,8 @@ sdb_engine_add_new_heritage (SymbolDBEngine * dbe, gint base_symbol_id,
 
 /* ### Thread note: this function inherits the mutex lock ### */
 static GNUC_INLINE gint
-sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, const tagEntry * tag_entry,
-									 gint type_table_id)
+sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 {
-/*
-	CREATE TABLE scope (scope_id integer PRIMARY KEY AUTOINCREMENT,
-                    scope_name varchar(256) not null,
-                    type_id integer REFERENCES sym_type (type_id),
-					unique (scope_name, type_id)
-                    );
-*/
 	const gchar *scope;
 	gint table_id;
 	const GdaSet *plist;
@@ -4056,15 +4050,6 @@ sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, const tagEntry * tag_
 	
 	MP_SET_HOLDER_BATCH_STR(priv, param, scope, ret_bool, ret_value);	
 
-	/* typeid parameter */
-	if ((param = gda_set_get_holder ((GdaSet*)plist, "typeid")) == NULL)
-	{
-		g_warning ("param typeid is NULL from pquery!");
-		return -1;
-	}
-	
-	MP_SET_HOLDER_BATCH_INT(priv, param, type_table_id, ret_bool, ret_value);
-	
 	/* execute the query with parameters just set */
 	if (gda_connection_statement_execute_non_select (priv->db_connection, 
 													 (GdaStatement*)stmt, 
@@ -4552,6 +4537,234 @@ sdb_engine_second_pass_do (SymbolDBEngine * dbe)
 	}
 }
 
+GNUC_INLINE static void
+sdb_engine_add_new_symbol_case_1 (SymbolDBEngine *dbe,
+    							  gint symbol_id,
+    							  GdaSet **plist_ptr,
+								  GdaStatement **stmt_ptr)
+{
+	GValue *ret_value;
+	gboolean ret_bool;
+	GdaHolder *param;
+
+	const GdaSet * plist = *plist_ptr;
+	const GdaStatement * stmt = *stmt_ptr;
+	
+	/* case 1 */
+	
+	/* create specific query for a fresh new symbol */
+	if ((stmt = sdb_engine_get_statement_by_query_id (dbe,
+											 PREP_QUERY_UPDATE_SYMBOL_ALL))
+		== NULL)
+	{
+		g_warning ("query is null");
+		return;
+	}
+
+	plist = sdb_engine_get_query_parameters_list (dbe, PREP_QUERY_UPDATE_SYMBOL_ALL);
+		
+	/* symbolid parameter */
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "symbolid")) == NULL)
+	{
+		g_warning ("param isfilescope is NULL from pquery!");
+		return;
+	}
+
+	MP_SET_HOLDER_BATCH_INT(dbe->priv, param, symbol_id, ret_bool, ret_value);	
+
+	*plist_ptr = (GdaSet*)plist;
+	*stmt_ptr = (GdaStatement*)stmt;	
+}
+
+GNUC_INLINE static void
+sdb_engine_add_new_symbol_case_2_3 (SymbolDBEngine *dbe,
+    							  gint symbol_id,
+    							  GdaSet **plist_ptr,
+								  GdaStatement **stmt_ptr,
+    							  gint file_defined_id,
+    							  const gchar *name,
+    							  const gchar *type_type,
+    							  const gchar *type_name)
+{
+	GValue *ret_value;
+	GdaHolder *param;
+	gboolean ret_bool;
+
+	const GdaSet * plist = *plist_ptr;
+	const GdaStatement * stmt = *stmt_ptr;
+
+	/* create specific query for a fresh new symbol */
+	if ((stmt = sdb_engine_get_statement_by_query_id (dbe, PREP_QUERY_SYMBOL_NEW))
+		== NULL)
+	{
+		g_warning ("query is null");
+		return;
+	}
+
+	plist = sdb_engine_get_query_parameters_list (dbe, PREP_QUERY_SYMBOL_NEW);
+	
+	/* filedefid parameter */
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "filedefid")) == NULL)
+	{
+		g_warning ("param filedefid is NULL from pquery!");
+		return;
+	}
+		
+	MP_SET_HOLDER_BATCH_INT(dbe->priv, param, file_defined_id, ret_bool, ret_value);
+
+	/* name parameter */
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "name")) == NULL)
+	{
+		g_warning ("param name is NULL from pquery!");			
+		return;
+	}
+		
+	MP_SET_HOLDER_BATCH_STR(dbe->priv, param, name, ret_bool, ret_value);		
+
+	/* typetype parameter */
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "typetype")) == NULL)
+	{
+		g_warning ("param typetype is NULL from pquery!");
+		return;			
+	}
+		
+	MP_SET_HOLDER_BATCH_STR(dbe->priv, param, type_type, ret_bool, ret_value);		
+
+	/* typenameparameter */
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "typename")) == NULL)
+	{
+		g_warning ("param typename is NULL from pquery!");
+		return;			
+	}
+		
+	MP_SET_HOLDER_BATCH_STR(dbe->priv, param, type_name, ret_bool, ret_value);
+
+	*plist_ptr = (GdaSet*)plist;
+	*stmt_ptr = (GdaStatement*)stmt;
+}
+
+GNUC_INLINE static void
+sdb_engine_add_new_symbol_common_params (SymbolDBEngine *dbe, 
+										 const GdaSet *plist,
+								  		 const GdaStatement *stmt,
+    									 gint file_position,
+    									 gint is_file_scope,
+										 const gchar *signature,	
+    									 const gchar *returntype,
+    								     gint scope_definition_id,
+    							  		 const gchar *name,
+    									 gint scope_id,
+    									 gint kind_id,
+    									 gint access_kind_id,
+    									 gint implementation_kind_id,
+    									 gboolean update_flag)
+{
+	GValue *ret_value;
+	GdaHolder *param;
+	gboolean ret_bool;
+
+	/* fileposition parameter */
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "fileposition")) == NULL)
+	{
+		g_warning ("param fileposition is NULL from pquery!");
+		return;
+	}
+	
+	MP_SET_HOLDER_BATCH_INT(dbe->priv, param, file_position, ret_bool, ret_value);
+	
+	/* isfilescope parameter */
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "isfilescope")) == NULL)	
+	{
+		g_warning ("param isfilescope is NULL from pquery!");
+		return;
+	}
+	
+	MP_SET_HOLDER_BATCH_INT(dbe->priv, param, is_file_scope, ret_bool, ret_value);
+	
+	/* signature parameter */
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "signature")) == NULL)	
+	{
+		g_warning ("param signature is NULL from pquery!");
+		return;
+	}
+	
+	MP_SET_HOLDER_BATCH_STR(dbe->priv, param, signature, ret_bool, ret_value);
+
+	/* returntype parameter */
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "returntype")) == NULL)	
+	{
+		g_warning ("param returntype is NULL from pquery!");
+		return;
+	}
+	
+	MP_SET_HOLDER_BATCH_STR(dbe->priv, param, returntype, ret_bool, ret_value);	
+	
+	/* scopedefinitionid parameter */
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "scopedefinitionid")) == NULL)	
+	{
+		g_warning ("param scopedefinitionid is NULL from pquery!");
+		return;
+	}
+	
+	MP_SET_HOLDER_BATCH_INT(dbe->priv, param, scope_definition_id, ret_bool, ret_value);
+
+
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "scope")) == NULL)
+	{
+		g_warning ("param scope is NULL from pquery!");
+		return;
+	}
+
+	/* scope is to be considered the tag name */
+	MP_SET_HOLDER_BATCH_STR(dbe->priv, param, name, ret_bool, ret_value);
+	
+	/* scopeid parameter */
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "scopeid")) == NULL)	
+	{
+		g_warning ("param scopeid is NULL from pquery!");
+		return;
+	}
+	
+	MP_SET_HOLDER_BATCH_INT(dbe->priv, param, scope_id, ret_bool, ret_value);
+	
+	/* kindid parameter */
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "kindid")) == NULL)	
+	{
+		g_warning ("param kindid is NULL from pquery!");
+		return;
+	}
+	
+	MP_SET_HOLDER_BATCH_INT(dbe->priv, param, kind_id, ret_bool, ret_value);
+	
+	/* accesskindid parameter */
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "accesskindid")) == NULL)	
+	{
+		g_warning ("param accesskindid is NULL from pquery!");
+		return;
+	}
+	
+	MP_SET_HOLDER_BATCH_INT(dbe->priv, param, access_kind_id, ret_bool, ret_value);
+
+	/* implementationkindid parameter */
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "implementationkindid")) == NULL)	
+	{
+		g_warning ("param implementationkindid is NULL from pquery!");
+		return;
+	}
+	
+	MP_SET_HOLDER_BATCH_INT(dbe->priv, param, implementation_kind_id, ret_bool, ret_value);
+	
+	/* updateflag parameter */
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "updateflag")) == NULL)
+	{
+		g_warning ("param updateflag is NULL from pquery!");
+		return;
+	}
+	
+	MP_SET_HOLDER_BATCH_INT(dbe->priv, param, update_flag, ret_bool, ret_value);	
+}
+
+
 /**
  * ### Thread note: this function inherits the mutex lock ### 
  *
@@ -4567,9 +4780,8 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 						   gboolean sym_update)
 {
 	SymbolDBEnginePriv *priv;
-	const GdaSet *plist;
-	const GdaStatement *stmt;
-	GdaHolder *param;
+	GdaSet *plist;
+	GdaStatement *stmt;
 	GdaSet *last_inserted = NULL;
 	gint table_id, symbol_id;
 	const gchar* name;
@@ -4585,11 +4797,10 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	GValue *value1, *value2, *value3, *value4, *value5, *value6, *value7;
 	gboolean sym_was_updated = FALSE;
 	gint update_flag;
-	GValue *ret_value;
-	gboolean ret_bool;
 	gchar *type_regex;;
 	const gchar *type_type;
 	const gchar *type_name;
+	gint nrows;
 	
 	g_return_val_if_fail (dbe != NULL, -1);
 	priv = dbe->priv;
@@ -4648,12 +4859,8 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	 * scope definition
 	 */
 	 
-	/* scope_definition_id tells what scope this symbol defines
-	 */
-
-	/* FIXME: 0 is for 'old' type_id. Now it's gone. */
-	scope_definition_id = sdb_engine_add_new_scope_definition (dbe, tag_entry,
-															   0);
+	/* scope_definition_id tells what scope this symbol defines */
+	scope_definition_id = sdb_engine_add_new_scope_definition (dbe, tag_entry);
 
 	/* the container scopes can be: union, struct, typeref, class, namespace etc.
 	 * this field will be parsed in the second pass.
@@ -4664,8 +4871,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	
 	access_kind_id = sdb_engine_add_new_sym_access (dbe, tag_entry);
 	
-	implementation_kind_id =
-		sdb_engine_add_new_sym_implementation (dbe, tag_entry);
+	implementation_kind_id = sdb_engine_add_new_sym_implementation (dbe, tag_entry);
 	
 	/* ok: was the symbol updated [at least on it's type_id/name]? 
 	 * There are 3 cases:
@@ -4680,11 +4886,11 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	 *     also scope_ids and other things.
 	 */
 	
-	if (update_flag == FALSE)
+	if (update_flag == FALSE)	/* symbol is new */
 	{
 		symbol_id = -1;
 	}
-	else 
+	else 						/* symbol is updated */
 	{
 		GList *sym_list;		
 		MP_LEND_OBJ_STR (priv, value1);	
@@ -4751,199 +4957,44 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	if (symbol_id <= 0)
 	{
 		/* case 2 and 3 */
-		sym_was_updated = FALSE;
+		sym_was_updated = FALSE;		
+		plist = NULL;
+		stmt = NULL;		
 
-		/* create specific query for a fresh new symbol */
-		if ((stmt = sdb_engine_get_statement_by_query_id (dbe, PREP_QUERY_SYMBOL_NEW))
-			== NULL)
-		{
-			g_warning ("query is null");
-			return -1;
-		}
-
-		plist = sdb_engine_get_query_parameters_list (dbe, PREP_QUERY_SYMBOL_NEW);
-		
-		/* filedefid parameter */
-		if ((param = gda_set_get_holder ((GdaSet*)plist, "filedefid")) == NULL)
-		{
-			g_warning ("param filedefid is NULL from pquery!");
-			return -1;
-		}
-		
-		MP_SET_HOLDER_BATCH_INT(priv, param, file_defined_id, ret_bool, ret_value);
-
-		/* name parameter */
-		if ((param = gda_set_get_holder ((GdaSet*)plist, "name")) == NULL)
-		{
-			g_warning ("param name is NULL from pquery!");			
-			return -1;
-		}
-		
-		MP_SET_HOLDER_BATCH_STR(priv, param, name, ret_bool, ret_value);		
-
-		/* typetype parameter */
-		if ((param = gda_set_get_holder ((GdaSet*)plist, "typetype")) == NULL)
-		{
-			g_warning ("param typetype is NULL from pquery!");
-			return -1;			
-		}
-		
-		MP_SET_HOLDER_BATCH_STR(priv, param, type_type, ret_bool, ret_value);		
-
-		/* typenameparameter */
-		if ((param = gda_set_get_holder ((GdaSet*)plist, "typename")) == NULL)
-		{
-			g_warning ("param typename is NULL from pquery!");
-			return -1;			
-		}
-		
-		MP_SET_HOLDER_BATCH_STR(priv, param, type_name, ret_bool, ret_value);		
-		
+		sdb_engine_add_new_symbol_case_2_3 (dbe, symbol_id, &plist, &stmt, file_defined_id,
+    							  name, type_type, type_name);
 	}
 	else
 	{
 		/* case 1 */
-		sym_was_updated = TRUE;
-
-		/* create specific query for a fresh new symbol */
-		if ((stmt = sdb_engine_get_statement_by_query_id (dbe,
-												 PREP_QUERY_UPDATE_SYMBOL_ALL))
-			== NULL)
-		{
-			g_warning ("query is null");
-			return -1;
-		}
-
-		plist = sdb_engine_get_query_parameters_list (dbe, PREP_QUERY_UPDATE_SYMBOL_ALL);
+		sym_was_updated = TRUE;		
+		plist = NULL;
+		stmt = NULL;
 		
-		/* symbolid parameter */
-		if ((param = gda_set_get_holder ((GdaSet*)plist, "symbolid")) == NULL)
-		{
-			g_warning ("param isfilescope is NULL from pquery!");
-			return -1;
-		}
-
-		MP_SET_HOLDER_BATCH_INT(priv, param, symbol_id, ret_bool, ret_value);
+		sdb_engine_add_new_symbol_case_1 (dbe, symbol_id, &plist, &stmt);
 	}
 
 	/* common params */
+	sdb_engine_add_new_symbol_common_params (dbe,  plist, stmt,
+    									  	 file_position, is_file_scope,
+	    									 signature,	returntype, scope_definition_id,
+    							  		 	 tag_entry->name, scope_id, kind_id,
+    									 	 access_kind_id, implementation_kind_id,
+    									 	 update_flag);
 
-	/* fileposition parameter */
-	if ((param = gda_set_get_holder ((GdaSet*)plist, "fileposition")) == NULL)
-	{
-		g_warning ("param fileposition is NULL from pquery!");
-		return -1;
-	}
-	
-	MP_SET_HOLDER_BATCH_INT(priv, param, file_position, ret_bool, ret_value);
-	
-	/* isfilescope parameter */
-	if ((param = gda_set_get_holder ((GdaSet*)plist, "isfilescope")) == NULL)	
-	{
-		g_warning ("param isfilescope is NULL from pquery!");
-		return -1;
-	}
-	
-	MP_SET_HOLDER_BATCH_INT(priv, param, is_file_scope, ret_bool, ret_value);
-	
-	/* signature parameter */
-	if ((param = gda_set_get_holder ((GdaSet*)plist, "signature")) == NULL)	
-	{
-		g_warning ("param signature is NULL from pquery!");
-		return -1;
-	}
-	
-	MP_SET_HOLDER_BATCH_STR(priv, param, signature, ret_bool, ret_value);
-
-	/* returntype parameter */
-	if ((param = gda_set_get_holder ((GdaSet*)plist, "returntype")) == NULL)	
-	{
-		g_warning ("param returntype is NULL from pquery!");
-		return -1;
-	}
-	
-	MP_SET_HOLDER_BATCH_STR(priv, param, returntype, ret_bool, ret_value);	
-	
-	/* scopedefinitionid parameter */
-	if ((param = gda_set_get_holder ((GdaSet*)plist, "scopedefinitionid")) == NULL)	
-	{
-		g_warning ("param scopedefinitionid is NULL from pquery!");
-		return -1;
-	}
-	
-	MP_SET_HOLDER_BATCH_INT(priv, param, scope_definition_id, ret_bool, ret_value);
-
-
-	if ((param = gda_set_get_holder ((GdaSet*)plist, "scope")) == NULL)
-	{
-		g_warning ("param scope is NULL from pquery!");
-		return -1;
-	}
-
-	/* scope is to be considered the tag name */
-	MP_SET_HOLDER_BATCH_STR(priv, param, tag_entry->name, ret_bool, ret_value);
-	
-	/* scopeid parameter */
-	if ((param = gda_set_get_holder ((GdaSet*)plist, "scopeid")) == NULL)	
-	{
-		g_warning ("param scopeid is NULL from pquery!");
-		return -1;
-	}
-	
-	MP_SET_HOLDER_BATCH_INT(priv, param, scope_id, ret_bool, ret_value);
-	
-	/* kindid parameter */
-	if ((param = gda_set_get_holder ((GdaSet*)plist, "kindid")) == NULL)	
-	{
-		g_warning ("param kindid is NULL from pquery!");
-		return -1;
-	}
-	
-	MP_SET_HOLDER_BATCH_INT(priv, param, kind_id, ret_bool, ret_value);
-	
-	/* accesskindid parameter */
-	if ((param = gda_set_get_holder ((GdaSet*)plist, "accesskindid")) == NULL)	
-	{
-		g_warning ("param accesskindid is NULL from pquery!");
-		return -1;
-	}
-	
-	MP_SET_HOLDER_BATCH_INT(priv, param, access_kind_id, ret_bool, ret_value);
-
-	/* implementationkindid parameter */
-	if ((param = gda_set_get_holder ((GdaSet*)plist, "implementationkindid")) == NULL)	
-	{
-		g_warning ("param implementationkindid is NULL from pquery!");
-		return -1;
-	}
-	
-	MP_SET_HOLDER_BATCH_INT(priv, param, implementation_kind_id, ret_bool, ret_value);
-	
-	/* updateflag parameter */
-	if ((param = gda_set_get_holder ((GdaSet*)plist, "updateflag")) == NULL)
-	{
-		g_warning ("param updateflag is NULL from pquery!");
-		return -1;
-	}
-	
-	MP_SET_HOLDER_BATCH_INT(priv, param, update_flag, ret_bool, ret_value);
-
+	GError * error = NULL;
 	/* execute the query with parametes just set */
-	gint nrows;
-/*
-	GError *err = NULL;
-	DEBUG_PRINT ("%s", gda_statement_to_sql_extended (stmt, priv->db_connection, 
-	    (GdaSet*)plist, 0, NULL, &err));
-	if (err != NULL)
-	{
-		g_error (err->message);
-	}
-*/	
 	nrows = gda_connection_statement_execute_non_select (priv->db_connection, 
 													 (GdaStatement*)stmt, 
 													 (GdaSet*)plist, &last_inserted,
-													 NULL);
+													 &error);
 
+	if (error)
+	{
+		g_warning ("SQL parsing failed: %s",error->message);
+		g_error_free (error);
+	}
+	
 	MP_RESET_PLIST(plist);
 	
 	if (sym_was_updated == FALSE)
