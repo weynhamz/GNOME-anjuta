@@ -55,7 +55,7 @@
 #define DUMMY_VOID_STRING				""
 #define MP_VOID_STRING					"-"
 
-#define BATCH_SYMBOL_NUMBER				35000
+#define BATCH_SYMBOL_NUMBER				15000
 
 #define MP_RESET_OBJ_STR(gvalue) \
 		g_value_set_static_string (gvalue, DUMMY_VOID_STRING);
@@ -153,7 +153,6 @@ typedef enum
 	PREP_QUERY_UPDATE_SYMBOL_SCOPE_ID_MIXED,
 	PREP_QUERY_GET_SYMBOL_ID_BY_UNIQUE_INDEX_KEY,
 	PREP_QUERY_GET_SYMBOL_ID_BY_UNIQUE_INDEX_KEY_EXT,
-	PREP_QUERY_GET_SYMBOL_ID_BY_UNIQUE_INDEX_KEY_EXT2,
 	PREP_QUERY_UPDATE_SYMBOL_ALL,
 	PREP_QUERY_REMOVE_NON_UPDATED_SYMBOLS,
 	PREP_QUERY_RESET_UPDATE_FLAG_SYMBOLS,
@@ -225,8 +224,6 @@ struct _SymbolDBEnginePriv
 
 	/* Table maps */
 	GQueue *tmp_heritage_tablemap;
-	
-	GTree *file_symbols_cache;		
 	
 	static_query_node *static_query_list[PREP_QUERY_COUNT]; 
 
