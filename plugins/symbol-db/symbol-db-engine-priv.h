@@ -221,6 +221,7 @@ struct _SymbolDBEnginePriv
 	GHashTable *kind_cache;
 	GHashTable *access_cache;
 	GHashTable *implementation_cache;
+	GHashTable *language_cache;
 
 	/* Table maps */
 	GQueue *tmp_heritage_tablemap;

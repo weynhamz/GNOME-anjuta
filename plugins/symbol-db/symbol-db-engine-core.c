@@ -251,10 +251,13 @@ sdb_engine_clear_caches (SymbolDBEngine* dbe)
 		g_hash_table_destroy (priv->access_cache);	
 	if (priv->implementation_cache)
 		g_hash_table_destroy (priv->implementation_cache);
+	if (priv->language_cache)
+		g_hash_table_destroy (priv->language_cache);
 	
 	priv->kind_cache = NULL;
 	priv->access_cache = NULL;
 	priv->implementation_cache = NULL;
+	priv->language_cache = NULL;
 }
 
 static void
@@ -284,6 +287,11 @@ sdb_engine_init_caches (SymbolDBEngine* dbe)
 											g_str_equal,
 											g_free,
 											NULL);	
+
+	priv->language_cache = g_hash_table_new_full (g_str_hash,
+	    									g_str_equal,
+	    									g_free,
+	    									NULL);
 }
 
 /* ~~~ Thread note: this function locks the mutex ~~~ */ 
@@ -636,7 +644,7 @@ sdb_engine_get_tuple_id_by_unique_name4 (SymbolDBEngine * dbe,
 	
 	if ((param = gda_set_get_holder ((GdaSet*)plist, param_key1)) == NULL)
 	{
-		g_warning ("sdb_engine_get_tuple_id_by_unique_name: param is NULL "
+		g_warning ("sdb_engine_get_tuple_id_by_unique_name4: param is NULL "
 				   "from pquery!\n");
 		if (G_VALUE_HOLDS_STRING (value1) == TRUE)
 			MP_RESET_OBJ_STR(value1);
@@ -843,35 +851,6 @@ sdb_engine_get_file_defined_id (SymbolDBEngine* dbe,
 	}
 
 	return file_defined_id;
-}
-
-/* ### Thread note: this function inherits the mutex lock ### */
-/* FIXME: manage the scope updated symbols? I think it' useless */
-static
-gboolean sdb_engine_udpated_scope_gtree_populate (gpointer key,
-                                                  gpointer value,
-                                                  gpointer data)
-{
-	SymbolDBEnginePriv *priv;
-	SymbolDBEngine * dbe = data;
-	priv = dbe->priv;
-
-	GList *list;
-	list = value;
-	if (g_list_length  (list) > 1)
-	{
-		GList *item = list;
-		while (item != NULL)
-		{
-			g_async_queue_push (priv->updated_scope_symbols_id, 
-								(gpointer) item->data);
-			item = item->next;
-		}
-	}
-	
-	/* proceed with a freeing of the values */
-	g_list_free (list);
-	return FALSE;
 }
 
 /**
@@ -1727,14 +1706,18 @@ sdb_engine_init (SymbolDBEngine * object)
 	/* -- project -- */
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 									PREP_QUERY_PROJECT_NEW, 
-	 	"INSERT INTO project (project_name, wrkspace_id, analyse_time) "
-	 	"VALUES (## /* name:'prjname' type:gchararray */,"
-	 	"## /* name:'wsid' type:gint */, datetime ('now', 'localtime'))");
+	 	"INSERT INTO project (project_name, wrkspace_id, analyse_time) VALUES (\
+		 	## /* name:'prjname' type:gchararray */, \
+	 		(SELECT workspace_id FROM workspace \
+	    	 WHERE \
+	    			workspace_name = ## /* name:'wsname' type:gchararray */ LIMIT 1), \
+	    	datetime ('now', 'localtime'))");
 
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 									PREP_QUERY_GET_PROJECT_ID_BY_UNIQUE_NAME, 
-	 	"SELECT project_id FROM project WHERE project_name = ## /* name:'prjname' "
-	 	"type:gchararray */ LIMIT 1");
+	 	"SELECT project_id FROM project \
+	     WHERE \
+	    	project_name = ## /* name:'prjname' type:gchararray */ LIMIT 1");
 
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 									PREP_QUERY_UPDATE_PROJECT_ANALYSE_TIME, 
@@ -1744,15 +1727,18 @@ sdb_engine_init (SymbolDBEngine * object)
 	/* -- file -- */
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 									PREP_QUERY_FILE_NEW, 
-	 	"INSERT INTO file (file_path, prj_id, lang_id, analyse_time) VALUES ("
-	 	"## /* name:'filepath' type:gchararray */, ## /* name:'prjid' "
-	 	"type:gint */, ## /* name:'langid' type:gint */, "
-	 	"datetime ('now', 'localtime'))");
+	 	"INSERT INTO file (file_path, prj_id, lang_id, analyse_time) VALUES (\
+	 	  ## /* name:'filepath' type:gchararray */, \
+		  (SELECT project_id FROM project \
+	     	WHERE \
+	    		project_name = ## /* name:'prjname' type:gchararray */ LIMIT 1), \
+		  ## /* name:'langid' type:gint */, \
+	 	  datetime ('now', 'localtime'))");
 	
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 									PREP_QUERY_GET_FILE_ID_BY_UNIQUE_NAME, 
-		"SELECT file_id FROM file WHERE file_path = ## /* name:'filepath' "
-	 	"type:gchararray */ LIMIT 1");
+		"SELECT file_id FROM file \
+	     WHERE file_path = ## /* name:'filepath' type:gchararray */ LIMIT 1");
 	
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 									PREP_QUERY_GET_ALL_FROM_FILE_BY_PROJECT_NAME,
@@ -2862,13 +2848,6 @@ gboolean
 symbol_db_engine_add_new_project (SymbolDBEngine * dbe, const gchar * workspace,
 								  const gchar * project)
 {
-/*
-CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
-                      project_name varchar (50) not null unique,
-                      wrkspace_id integer REFERENCES workspace (workspace_id),
-                      analyse_time DATE
-                      );
-*/
 	const GdaSet *plist;
 	const GdaStatement *stmt;
 	GdaHolder *param;
@@ -2876,7 +2855,6 @@ CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
 	gint wks_id;
 	SymbolDBEnginePriv *priv;
 	GValue *ret_value;
-	GValue *value;
 	gboolean ret_bool;
 
 	g_return_val_if_fail (dbe != NULL, FALSE);	
@@ -2917,20 +2895,6 @@ CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
 		workspace_name = workspace;
 	}
 
-	MP_LEND_OBJ_STR (priv, value);
-	g_value_set_static_string (value, workspace_name);
-
-	/* get workspace id */
-	if ((wks_id = sdb_engine_get_tuple_id_by_unique_name (dbe,
-				 PREP_QUERY_GET_WORKSPACE_ID_BY_UNIQUE_NAME,
-				 "wsname",
-				 value)) <= 0)
-	{
-		DEBUG_PRINT ("No workspace id");
-		SDB_UNLOCK(priv);
-		return FALSE;
-	}	
-	
 	/* insert new project */
 	if ((stmt =
 		 sdb_engine_get_statement_by_query_id (dbe, PREP_QUERY_PROJECT_NEW)) == NULL)
@@ -2952,14 +2916,14 @@ CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
 	
 	MP_SET_HOLDER_BATCH_STR(priv, param, project, ret_bool, ret_value);	
 		
-	if ((param = gda_set_get_holder ((GdaSet*)plist, "wsid")) == NULL)
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "wsname")) == NULL)
 	{
-		g_warning ("param prjname is NULL from pquery!");
+		g_warning ("param wsname is NULL from pquery!");
 		SDB_UNLOCK(priv);
 		return FALSE;
 	}
 	
-	MP_SET_HOLDER_BATCH_INT(priv, param, wks_id, ret_bool, ret_value);	
+	MP_SET_HOLDER_BATCH_STR(priv, param, workspace_name, ret_bool, ret_value);	
 
 	/* execute the query with parametes just set */
 	if (gda_connection_statement_execute_non_select (priv->db_connection, 
@@ -2977,13 +2941,10 @@ CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
 }
 
 /* ### Thread note: this function inherits the mutex lock ### */
+/* Uses cache lookup to speed up symbols search. */
 static gint
 sdb_engine_add_new_language (SymbolDBEngine * dbe, const gchar *language)
 {
-/*
-CREATE TABLE language (language_id integer PRIMARY KEY AUTOINCREMENT,
-                       language_name varchar (50) not null unique);
-*/
 	gint table_id;
 	GValue *value;
 	SymbolDBEnginePriv *priv;		
@@ -2992,6 +2953,13 @@ CREATE TABLE language (language_id integer PRIMARY KEY AUTOINCREMENT,
 	
 	priv = dbe->priv;
 
+	/* cache lookup */
+	table_id = sdb_engine_cache_lookup (priv->language_cache, language);
+	if (table_id != -1)
+	{
+		return table_id;
+	}
+	
 	MP_LEND_OBJ_STR(priv, value);
 	g_value_set_static_string (value, language);
 
@@ -3037,6 +3005,7 @@ CREATE TABLE language (language_id integer PRIMARY KEY AUTOINCREMENT,
 		else {
 			const GValue *value = gda_set_get_holder_value (last_inserted, "+0");
 			table_id = g_value_get_int (value);
+			sdb_engine_insert_cache (priv->language_cache, language, table_id);
 		}		
 		
 		if (last_inserted)
@@ -3067,19 +3036,14 @@ static gboolean
 sdb_engine_add_new_db_file (SymbolDBEngine * dbe, const gchar * project_name,
 						 const gchar * local_filepath, const gchar * language)
 {
-/*
-CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
-                   file_path TEXT not null unique,
-                   prj_id integer REFERENCES project (projec_id),
-                   lang_id integer REFERENCES language (language_id),
-                   analyse_time DATE
-                   );
-*/
+	const GdaSet *plist;
+	const GdaStatement *stmt;
+	GdaHolder *param;
+	GValue *ret_value;
+	gboolean ret_bool;
+	GError * error = NULL;
 	SymbolDBEnginePriv *priv;
-	gint project_id;
 	gint language_id;
-	gint file_id;
-	GValue *value, *value2;
 	
 	priv = dbe->priv;
 
@@ -3088,21 +3052,6 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 		return FALSE;
 
 	SDB_LOCK(priv);
-	
-	MP_LEND_OBJ_STR(priv, value);	
-	g_value_set_static_string (value, project_name);
-
-	/* check for an already existing table with project "project". */
-	if ((project_id = sdb_engine_get_tuple_id_by_unique_name (dbe,
-								  PREP_QUERY_GET_PROJECT_ID_BY_UNIQUE_NAME,
-								  "prjname",
-								  value)) < 0)
-	{
-		g_warning ("no project with that name (%s) exists", project_name);
-		SDB_UNLOCK(priv);
-		return FALSE;
-	}
-	
 
 	/* we're gonna set the file relative to the project folder, not the full one.
 	 * e.g.: we have a file on disk: "/tmp/foo/src/file.c" and a db_directory located on
@@ -3116,77 +3065,69 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 		return FALSE;
 	}	
 	
-	MP_LEND_OBJ_STR(priv, value2);
-	g_value_set_static_string (value2, relative_path);	
+	/* insert a new entry on db */	
+	language_id = sdb_engine_add_new_language (dbe, language);
 
-	if ((file_id = sdb_engine_get_tuple_id_by_unique_name (dbe,
-								   PREP_QUERY_GET_FILE_ID_BY_UNIQUE_NAME,
-								   "filepath",
-								   value2)) < 0)
+	if ((stmt = sdb_engine_get_statement_by_query_id (dbe, PREP_QUERY_FILE_NEW))
+		== NULL)
 	{
-		/* insert a new entry on db */
-		const GdaSet *plist;
-		const GdaStatement *stmt;
-		GdaHolder *param;
-		GValue *ret_value;
-		gboolean ret_bool;
-
-		
-		language_id = sdb_engine_add_new_language (dbe, language);
-
-		if ((stmt = sdb_engine_get_statement_by_query_id (dbe, PREP_QUERY_FILE_NEW))
-			== NULL)
-		{
-			g_warning ("query is null");
-			SDB_UNLOCK(priv);
-			return FALSE;
-		}
-
-		plist = sdb_engine_get_query_parameters_list (dbe, PREP_QUERY_FILE_NEW);
-		
-		/* filepath parameter */
-		if ((param = gda_set_get_holder ((GdaSet*)plist, "filepath")) == NULL)
-		{
-			g_warning ("param langname is NULL from pquery!");
-			SDB_UNLOCK(priv);
-			return FALSE;
-		}
-		
-		MP_SET_HOLDER_BATCH_STR(priv, param, relative_path, ret_bool, ret_value);
-								
-		/* project id parameter */
-		if ((param = gda_set_get_holder ((GdaSet*)plist, "prjid")) == NULL)
-		{
-			g_warning ("param prjid is NULL from pquery!");
-			SDB_UNLOCK(priv);
-			return FALSE;
-		}
-
-		MP_SET_HOLDER_BATCH_INT(priv, param, project_id, ret_bool, ret_value);
-		
-		/* language id parameter */
-		if ((param = gda_set_get_holder ((GdaSet*)plist, "langid")) == NULL)
-		{
-			g_warning ("param langid is NULL from pquery!");
-			SDB_UNLOCK(priv);
-			return FALSE;
-		}		
-
-		MP_SET_HOLDER_BATCH_INT(priv, param, language_id, ret_bool, ret_value);
-
-		/* execute the query with parametes just set */
-		if (gda_connection_statement_execute_non_select (priv->db_connection, 
-														 (GdaStatement*)stmt, 
-														 (GdaSet*)plist, NULL,
-														 NULL) == -1)
-		{		
-			MP_RESET_PLIST(plist);
-			SDB_UNLOCK(priv);
-			return FALSE;
-		}	
-
-		MP_RESET_PLIST(plist);
+		g_warning ("query is null");
+		SDB_UNLOCK(priv);
+		return FALSE;
 	}
+
+	plist = sdb_engine_get_query_parameters_list (dbe, PREP_QUERY_FILE_NEW);
+		
+	/* filepath parameter */
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "filepath")) == NULL)
+	{
+		g_warning ("param langname is NULL from pquery!");
+		SDB_UNLOCK(priv);
+		return FALSE;
+	}
+		
+	MP_SET_HOLDER_BATCH_STR(priv, param, relative_path, ret_bool, ret_value);
+								
+	/* project name parameter */
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "prjname")) == NULL)
+	{
+		g_warning ("param prjname is NULL from pquery!");
+		SDB_UNLOCK(priv);
+		return FALSE;
+	}
+
+	MP_SET_HOLDER_BATCH_STR(priv, param, project_name, ret_bool, ret_value);
+		
+	/* language id parameter */
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "langid")) == NULL)
+	{
+		g_warning ("param langid is NULL from pquery!");
+		SDB_UNLOCK(priv);
+		return FALSE;
+	}		
+
+	MP_SET_HOLDER_BATCH_INT(priv, param, language_id, ret_bool, ret_value);
+
+	/* execute the query with parametes just set */
+	if (gda_connection_statement_execute_non_select (priv->db_connection, 
+													 (GdaStatement*)stmt, 
+													 (GdaSet*)plist, NULL,
+													 &error) == -1)
+	{		
+		if (error)
+		{
+			g_warning ("%s [%s]", error->message,
+				gda_statement_to_sql_extended ((GdaStatement*)stmt, priv->db_connection,
+			                               (GdaSet*)plist, 0, NULL, NULL));
+			g_error_free (error);
+		}
+		
+		MP_RESET_PLIST(plist);
+		SDB_UNLOCK(priv);
+		return FALSE;
+	}	
+	
+	MP_RESET_PLIST(plist);
 	
 	SDB_UNLOCK(priv);
 	return TRUE;
@@ -3460,11 +3401,6 @@ sdb_engine_extract_type_qualifier (const gchar *string, const gchar *expr)
 static gint
 sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 {
-/* 
-	CREATE TABLE sym_kind (sym_kind_id integer PRIMARY KEY AUTOINCREMENT,
-                       kind_name varchar (50) not null unique
-                       );
-*/
 	const gchar *kind_name;
 	gint table_id;
 	GValue *value;
@@ -3573,11 +3509,6 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 static gint
 sdb_engine_add_new_sym_access (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 {
-/* 
-	CREATE TABLE sym_access (access_kind_id integer PRIMARY KEY AUTOINCREMENT,
-                         access_name varchar (50) not null unique
-                         );
-*/	
 	const gchar *access;
 	gint table_id;
 	GValue *value;
@@ -3667,11 +3598,6 @@ static gint
 sdb_engine_add_new_sym_implementation (SymbolDBEngine * dbe,
 									   const tagEntry * tag_entry)
 {
-/*	
-	CREATE TABLE sym_implementation (sym_impl_id integer PRIMARY KEY AUTOINCREMENT,
-                                 implementation_name varchar (50) not null unique
-                                 );
-*/
 	const gchar *implementation;
 	gint table_id;
 	GValue *value;
@@ -4456,6 +4382,15 @@ sdb_engine_add_new_symbol_case_2_3 (SymbolDBEngine *dbe,
 		
 	MP_SET_HOLDER_BATCH_STR(dbe->priv, param, type_name, ret_bool, ret_value);
 
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "scope")) == NULL)
+	{
+		g_warning ("param scope is NULL from pquery!");
+		return;
+	}
+
+	/* scope is to be considered the tag name */
+	MP_SET_HOLDER_BATCH_STR(dbe->priv, param, name, ret_bool, ret_value);
+	
 	*plist_ptr = (GdaSet*)plist;
 	*stmt_ptr = (GdaStatement*)stmt;
 }
@@ -4468,8 +4403,7 @@ sdb_engine_add_new_symbol_common_params (SymbolDBEngine *dbe,
     									 gint is_file_scope,
 										 const gchar *signature,	
     									 const gchar *returntype,
-    								     gint scope_definition_id,
-    							  		 const gchar *name,
+    								     gint scope_definition_id,    							  		 
     									 gint scope_id,
     									 gint kind_id,
     									 gint access_kind_id,
@@ -4526,15 +4460,6 @@ sdb_engine_add_new_symbol_common_params (SymbolDBEngine *dbe,
 	MP_SET_HOLDER_BATCH_INT(dbe->priv, param, scope_definition_id, ret_bool, ret_value);
 
 
-	if ((param = gda_set_get_holder ((GdaSet*)plist, "scope")) == NULL)
-	{
-		g_warning ("param scope is NULL from pquery!");
-		return;
-	}
-
-	/* scope is to be considered the tag name */
-	MP_SET_HOLDER_BATCH_STR(dbe->priv, param, name, ret_bool, ret_value);
-	
 	/* scopeid parameter */
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "scopeid")) == NULL)	
 	{
@@ -4760,7 +4685,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	sdb_engine_add_new_symbol_common_params (dbe,  plist, stmt,
     									  	 file_position, is_file_scope,
 	    									 signature,	returntype, scope_definition_id,
-    							  		 	 tag_entry->name, scope_id, kind_id,
+    							  		 	 scope_id, kind_id,
     									 	 access_kind_id, implementation_kind_id,
     									 	 update_flag);
 	

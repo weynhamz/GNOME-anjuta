@@ -87,11 +87,14 @@ CREATE TABLE __tmp_removed (tmp_removed_id integer PRIMARY KEY AUTOINCREMENT,
 DROP INDEX IF EXISTS symbol_idx_1;
 CREATE INDEX symbol_idx_1 ON symbol (name, file_defined_id, type_type, type_name);
 
+-- removing this index isn't worth because the performance gain is invisible.
 DROP INDEX IF EXISTS symbol_idx_2;
 CREATE INDEX symbol_idx_2 ON symbol (scope_id);
 
+-- removing this index isn't worth because the performance gain is invisible.
 DROP INDEX IF EXISTS symbol_idx_3;
 CREATE INDEX symbol_idx_3 ON symbol (type_type, type_name);
+
 
 DROP TRIGGER IF EXISTS delete_file_trg;
 CREATE TRIGGER delete_file_trg BEFORE DELETE ON file
