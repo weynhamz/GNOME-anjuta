@@ -84,7 +84,6 @@ symbol_db_util_get_file_db_path (SymbolDBEngine *dbe, const gchar* full_local_fi
 GPtrArray *
 symbol_db_util_get_files_with_zero_symbols (SymbolDBEngine *dbe)
 {
-	/*select * from file where file_id not in (select file_defined_id from symbol);*/
 	SymbolDBEnginePriv *priv;
 	GdaDataModel *data_model;
 	GPtrArray *files_to_scan;
@@ -93,10 +92,10 @@ symbol_db_util_get_files_with_zero_symbols (SymbolDBEngine *dbe)
 
 	g_return_val_if_fail (dbe != NULL, NULL);
 	priv = dbe->priv;
-	
+
 	if (priv->mutex)
 		g_mutex_lock (priv->mutex);	
-	
+
 	if ((stmt = sdb_engine_get_statement_by_query_id (dbe,
 								 PREP_QUERY_GET_ALL_FROM_FILE_WHERE_NOT_IN_SYMBOLS))
 		== NULL)

@@ -2758,12 +2758,6 @@ gboolean
 symbol_db_engine_add_new_workspace (SymbolDBEngine * dbe,
 									const gchar * workspace_name)
 {
-/*
-CREATE TABLE workspace (workspace_id integer PRIMARY KEY AUTOINCREMENT,
-                        workspace_name varchar (50) not null unique,
-                        analyse_time DATE
-                        );
-*/
 	const GdaSet *plist;
 	const GdaStatement *stmt;
 	GdaHolder *param;
@@ -3116,10 +3110,12 @@ sdb_engine_add_new_db_file (SymbolDBEngine * dbe, const gchar * project_name,
 	{		
 		if (error)
 		{
-			g_warning ("%s [%s]", error->message,
-				gda_statement_to_sql_extended ((GdaStatement*)stmt, priv->db_connection,
-			                               (GdaSet*)plist, 0, NULL, NULL));
+			gchar * sql_str = gda_statement_to_sql_extended ((GdaStatement*)stmt, 
+			    priv->db_connection, (GdaSet*)plist, 0, NULL, NULL);
+			
+			g_warning ("%s [%s]", error->message, sql_str);
 			g_error_free (error);
+			g_free (sql_str);
 		}
 		
 		MP_RESET_PLIST(plist);
@@ -3155,7 +3151,6 @@ sdb_engine_get_unique_scan_id (SymbolDBEngine * dbe)
 	return ret_id;
 }
 
-/* !!!! FIXME: not yet tested !!!! */
 gint
 symbol_db_engine_add_new_files (SymbolDBEngine *dbe, 
     							IAnjutaLanguage* lang_manager,
@@ -3684,12 +3679,6 @@ static void
 sdb_engine_add_new_heritage (SymbolDBEngine * dbe, gint base_symbol_id,
 							 gint derived_symbol_id)
 {
-/*
-	CREATE TABLE heritage (symbol_id_base integer REFERENCES symbol (symbol_id),
-                       symbol_id_derived integer REFERENCES symbol (symbol_id),
-                       PRIMARY KEY (symbol_id_base, symbol_id_derived)
-                       );
-*/
 	const GdaSet *plist;
 	const GdaStatement *stmt;
 	GdaHolder *param;
@@ -4087,7 +4076,6 @@ sdb_engine_second_pass_update_scope (SymbolDBEngine * dbe)
 static void
 sdb_engine_second_pass_update_heritage (SymbolDBEngine * dbe)
 {
-#if 0	
 	gint i;
 	SymbolDBEnginePriv *priv;
 	
@@ -4254,7 +4242,6 @@ sdb_engine_second_pass_update_heritage (SymbolDBEngine * dbe)
 
 		g_strfreev (inherits_list);
 	}	
-#endif	
 }
 
 /**
@@ -5279,11 +5266,7 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe,
 
 		/* remove one hour to the db_file_time. */
 		db_time = mktime (&filetm) - 3600;
-/*
-		DEBUG_PRINT ("%s %d ## %d", file_abs_path, db_time, 
-		    g_file_info_get_attribute_uint64 (gfile_info, 
-										  G_FILE_ATTRIBUTE_TIME_MODIFIED));
-*/
+
 		guint64 modified_time = g_file_info_get_attribute_uint64 (gfile_info, 
 										  G_FILE_ATTRIBUTE_TIME_MODIFIED);
 		if (difftime (db_time, modified_time) < 0 ||
