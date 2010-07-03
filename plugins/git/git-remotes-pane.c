@@ -22,18 +22,27 @@
 struct _GitRemotesPanePriv
 {
 	GtkBuilder *builder;
+	gchar *selected_remote;
 };
 
 G_DEFINE_TYPE (GitRemotesPane, git_remotes_pane, GIT_TYPE_PANE);
 
 static gboolean
 on_remote_selected (GtkTreeSelection *selection, GtkTreeModel *model,
-                    GtkTreePath *path, GtkTreeIter *iter, 
-                    gboolean path_currently_selected,
-                    AnjutaDockPane *pane)
+                    GtkTreePath *path, gboolean path_currently_selected,
+                    GitRemotesPane *self)
 {
+	GtkTreeIter iter;
+
 	if (!path_currently_selected)
-		anjuta_dock_pane_notify_single_selection_changed (pane);
+	{
+		gtk_tree_model_get_iter (model, &iter, path);
+
+		g_free (self->priv->selected_remote);
+		gtk_tree_model_get (model, &iter, 0, &(self->priv->selected_remote), -1);
+		
+		anjuta_dock_pane_notify_single_selection_changed (ANJUTA_DOCK_PANE (self));
+	}
 
 	return TRUE;
 }
@@ -77,6 +86,7 @@ git_remotes_pane_finalize (GObject *object)
 	self = GIT_REMOTES_PANE (object);
 
 	g_object_unref (self->priv->builder);
+	g_free (self->priv->selected_remote);
 	g_free (self->priv);
 
 	G_OBJECT_CLASS (git_remotes_pane_parent_class)->finalize (object);
@@ -153,22 +163,5 @@ git_remotes_pane_new (Git *plugin)
 gchar *
 git_remotes_pane_get_selected_remote (GitRemotesPane *self)
 {
-	GtkTreeView *remotes_view;
-	GtkTreeSelection *selection;
-	GtkTreeModel *remotes_list_model;
-	gchar *remote;
-	GtkTreeIter iter;
-
-	remotes_view = GTK_TREE_VIEW (gtk_builder_get_object (self->priv->builder,
-	                                                      "remotes_view"));
-	selection = gtk_tree_view_get_selection (remotes_view);
-	remote = NULL;
-
-	if (gtk_tree_selection_get_selected (selection, &remotes_list_model, 
-	                                     &iter))
-	{
-		gtk_tree_model_get (remotes_list_model, &iter, 0, &remote, -1);
-	}
-
-	return remote;
+	return self->priv->selected_remote;
 }
