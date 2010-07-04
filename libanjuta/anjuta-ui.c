@@ -75,7 +75,8 @@
 
 struct _AnjutaUIPrivate {
 	GtkIconFactory *icon_factory;
-	GtkTreeModel *model;
+	GtkTreeModel *name_model;
+	GtkTreeModel *accel_model;
 	GHashTable *customizable_actions_hash;
 	GHashTable *uncustomizable_actions_hash;
 };
@@ -90,50 +91,6 @@ enum {
 	COLUMN_GROUP,
 	N_COLUMNS
 };
-
-#if 0
-static void
-sensitivity_toggled (GtkCellRendererToggle *cell,
-					 const gchar *path_str, GtkTreeModel *model)
-{
-	GtkTreePath *path;
-	GtkTreeIter iter;
-	GtkAction *action;
-	gboolean sensitive;
-	
-	path = gtk_tree_path_new_from_string (path_str);
-	gtk_tree_model_get_iter (model, &iter, path);
-	
-	gtk_tree_model_get (model, &iter,
-						COLUMN_SENSITIVE, &sensitive,
-						COLUMN_ACTION, &action, -1);
-	g_object_set (G_OBJECT (action), "sensitive", !sensitive, NULL);
-	gtk_tree_store_set (GTK_TREE_STORE (model), &iter,
-						COLUMN_SENSITIVE, !sensitive, -1);
-	gtk_tree_path_free (path);
-}
-#endif
-
-static void
-visibility_toggled (GtkCellRendererToggle *cell,
-					const gchar *path_str, GtkTreeModel *model)
-{
-	GtkTreePath *path;
-	GtkTreeIter iter;
-	GtkAction *action;
-	gboolean visible;
-	
-	path = gtk_tree_path_new_from_string (path_str);
-	gtk_tree_model_get_iter (model, &iter, path);
-	
-	gtk_tree_model_get (model, &iter,
-						COLUMN_VISIBLE, &visible,
-						COLUMN_ACTION, &action, -1);
-	g_object_set (G_OBJECT (action), "visible", !visible, NULL);
-	gtk_tree_store_set (GTK_TREE_STORE (model), &iter,
-						COLUMN_VISIBLE, !visible, -1);
-	gtk_tree_path_free (path);
-}
 
 static gchar*
 get_action_label (GtkAction *action)
@@ -159,85 +116,737 @@ get_action_label (GtkAction *action)
 	return action_label;
 }
 
+/* Find action in tree */
+static gboolean
+find_action (GtkTreeModel *model, GtkTreeIter *iter, GtkAction *action)
+{
+	GtkTreeIter group;
+	gboolean valid;
+	
+	for (valid = gtk_tree_model_get_iter_first (model, &group);
+		valid;
+		valid = gtk_tree_model_iter_next (model, &group))
+	{
+		for (valid = gtk_tree_model_iter_children (model, iter, &group);
+			valid;
+			valid = gtk_tree_model_iter_next (model, iter))
+		{
+			GtkAction *child_action;
+			
+			gtk_tree_model_get (model, iter, COLUMN_ACTION, &child_action, -1);
+			g_object_unref (child_action);
+			if (action == child_action) return TRUE;
+		}
+	}
+	
+	return FALSE;
+}
+
+/* Find group in tree starting after sibling or from beginning if sibling is
+ * NULL */
+static gboolean
+find_group_after (GtkTreeModel *model, GtkTreeIter *iter, GtkTreeIter *sibling, const gchar *group_label)
+{
+	gboolean valid;
+
+	if (sibling == NULL)
+	{
+		valid = gtk_tree_model_get_iter_first (model, iter);
+	}
+	else
+	{
+		*iter = *sibling;
+		valid = gtk_tree_model_iter_next (model, iter);
+	}
+	while (valid)
+	{
+		gchar *label;
+		gint comp;
+
+		gtk_tree_model_get (model, iter, COLUMN_ACTION_LABEL, &label, -1);
+		comp = strcmp (label, group_label);
+		g_free (label);
+
+		if (comp == 0) return TRUE;
+		
+		valid = gtk_tree_model_iter_next (model, iter);
+	}
+	
+	return FALSE;
+}
+
+/* Find position for new label */
+static GtkTreeIter *
+find_sorted_name (GtkTreeModel *model, GtkTreeIter *iter, const gchar *label)
+{
+	gboolean valid;
+
+	do
+	{
+		gchar *iter_label;
+		gint comp;
+
+		gtk_tree_model_get (model, iter, COLUMN_ACTION_LABEL, &iter_label, -1);
+
+		comp = g_utf8_collate (label, iter_label);
+		g_free (iter_label);
+
+		if (comp <= 0) return iter;
+
+		valid = gtk_tree_model_iter_next (model, iter);
+	} while (valid);
+
+	return NULL;
+}
+
+/* Find position for new accel */
+static gboolean
+find_sorted_accel (GtkTreeModel *model, GtkTreeIter *iter, GtkAction *action)
+{
+	GtkTreeIter group;
+	gboolean valid;
+	const gchar *accel_path;
+	GtkAccelKey key;
+
+	accel_path = gtk_action_get_accel_path (action);
+	if ((accel_path == NULL) ||
+	!gtk_accel_map_lookup_entry (accel_path, &key) ||
+	((key.accel_key == 0) && (key.accel_mods == 0)))
+	{
+		/* No accelerator */
+		return FALSE;
+	}
+	
+	for (valid = gtk_tree_model_get_iter_first (model, &group);
+		valid;
+		valid = gtk_tree_model_iter_next (model, &group))
+	{
+		for (valid = gtk_tree_model_iter_children (model, iter, &group);
+			valid;
+			valid = gtk_tree_model_iter_next (model, iter))
+		{
+			GtkAction *child_action;
+			GtkAccelKey child_key;
+			
+			gtk_tree_model_get (model, iter, COLUMN_ACTION, &child_action, -1);
+			accel_path = gtk_action_get_accel_path (child_action);
+			g_object_unref (child_action);
+			if ((accel_path == NULL) ||
+			!gtk_accel_map_lookup_entry (accel_path, &child_key) ||
+			((child_key.accel_key == 0) && (child_key.accel_mods == 0)))
+			{
+				/* No more accelerator and as accelerators are sorted, there is
+				 * no need to go further */
+				return TRUE;
+			}
+			
+			if ((child_key.accel_key > key.accel_key) ||
+				((child_key.accel_key == key.accel_key) && (child_key.accel_mods >= key.accel_mods)))
+			{
+				/* Find next accelerator */
+				return TRUE;
+			}
+		}
+	}
+	
+	return FALSE;
+}
+
+static void
+insert_sorted_by_accel (GtkTreeModel *model, GtkTreeIter *iter, const gchar *group_label, GtkAction *action)
+{
+	GtkTreeIter next;
+	GtkTreeIter parent;
+	
+	if (find_sorted_accel (model, &next, action))
+	{
+		gchar *label;
+
+		/* Try to set next action in an already existing parent */
+		gtk_tree_model_iter_parent (model, &parent, &next);
+		gtk_tree_model_get (model, &parent, COLUMN_ACTION_LABEL, &label, -1);
+		if (strcmp (label, group_label) == 0)
+		{
+			/* Already the right group, just insert action */
+			gtk_tree_store_insert_before (GTK_TREE_STORE (model), iter, &parent, &next);
+		}
+		else
+		{
+			/* Try to put in the previous group */
+			GtkTreePath *path;
+			gboolean prev;
+
+			path = gtk_tree_model_get_path (model, &next);
+			prev = gtk_tree_path_prev (path);
+			gtk_tree_path_free (path);
+
+			if (!prev)
+			{
+				path = gtk_tree_model_get_path (model, &parent);
+				if (gtk_tree_path_prev (path))
+				{
+					g_free (label);
+					gtk_tree_model_get_iter (model, &parent, path);
+					gtk_tree_model_get (model, &parent, COLUMN_ACTION_LABEL, &label, -1);
+					if (strcmp (label, group_label) != 0)
+					{
+						/* Create new parent */
+						next = parent;
+						gtk_tree_store_insert_after (GTK_TREE_STORE (model), &parent, NULL, &next);
+					}
+				}
+				else
+				{
+					next = parent;
+					gtk_tree_store_insert_before (GTK_TREE_STORE (model), &parent, NULL, &next);
+				}
+				gtk_tree_path_free (path);
+				gtk_tree_store_set (GTK_TREE_STORE (model), &parent,
+									COLUMN_ACTION_LABEL, group_label,
+									COLUMN_SHOW_VISIBLE, FALSE,
+									-1);
+				
+				/* Add action at the end */
+				gtk_tree_store_append (GTK_TREE_STORE (model), iter, &parent);
+			}
+			else
+			{
+				/* Split parent and add new parent in the middle */
+				GtkTreeIter split;
+				gboolean valid;
+
+				gtk_tree_store_insert_after (GTK_TREE_STORE (model), &split, NULL, &parent);
+				gtk_tree_store_set (GTK_TREE_STORE (model), &split,
+									COLUMN_ACTION_LABEL, label,
+									COLUMN_SHOW_VISIBLE, FALSE,
+									-1);
+
+				do
+				{
+					GtkTreeIter child;
+					GdkPixbuf *pixbuf;
+					gchar *action_label;
+					gboolean visible;
+					gboolean sensitive;
+					GtkAction *action;
+					gpointer action_group;
+
+					gtk_tree_model_get (model, &next,
+										COLUMN_PIXBUF, &pixbuf,
+										COLUMN_ACTION_LABEL, &action_label,
+										COLUMN_VISIBLE, &visible,
+										COLUMN_SENSITIVE, &sensitive,
+										COLUMN_ACTION, &action,
+										COLUMN_GROUP, &action_group,
+										-1);
+					gtk_tree_store_append (GTK_TREE_STORE (model), &child, &split);
+					gtk_tree_store_set (GTK_TREE_STORE (model), &child,
+										COLUMN_PIXBUF, pixbuf,
+										COLUMN_ACTION_LABEL, action_label,
+										COLUMN_VISIBLE, visible,
+										COLUMN_SHOW_VISIBLE, TRUE,
+										COLUMN_SENSITIVE, sensitive,
+										COLUMN_ACTION, action,
+										COLUMN_GROUP, action_group,
+										-1);
+					if (pixbuf) g_object_unref (pixbuf);
+					if (action) g_object_unref (action);
+					g_free (action_label);
+
+					valid = gtk_tree_store_remove (GTK_TREE_STORE (model), &next);
+				} while (valid);
+
+				/* Add new parent */
+				gtk_tree_store_insert_before (GTK_TREE_STORE (model), &parent, NULL, &split);
+				gtk_tree_store_set (GTK_TREE_STORE (model), &parent,
+									COLUMN_ACTION_LABEL, group_label,
+									COLUMN_SHOW_VISIBLE, FALSE,
+									-1);
+
+				gtk_tree_store_append (GTK_TREE_STORE (model), iter, &parent);
+			}
+		}
+		g_free (label);
+	}
+	else
+	{
+		if (find_group_after (model, &parent, NULL, group_label))
+		{
+			GtkTreeIter child;
+			GtkAction *child_action;
+			const gchar *accel_path;
+			GtkAccelKey key;
+
+			/* Find last group */
+			while (find_group_after (model, &next, &parent, group_label))
+			{
+				parent = next;
+			}
+
+			gtk_tree_model_iter_children (model, &child, &parent);
+			gtk_tree_model_get (model, &child, COLUMN_ACTION, &child_action, -1);
+
+			accel_path = gtk_action_get_accel_path (child_action);
+			g_object_unref (child_action);
+			if ((accel_path != NULL) &&
+				gtk_accel_map_lookup_entry (accel_path, &key) &&
+				((key.accel_key != 0) || (key.accel_mods != 0)))
+			{
+				/* Create new group */
+				gtk_tree_store_append (GTK_TREE_STORE (model), &parent, NULL);
+				gtk_tree_store_set (GTK_TREE_STORE (model), &parent,
+									COLUMN_ACTION_LABEL, group_label,
+									COLUMN_SHOW_VISIBLE, FALSE,
+									-1);
+			
+			}
+		}
+		else
+		{
+			/* Create new group */
+			gtk_tree_store_append (GTK_TREE_STORE (model), &parent, NULL);
+			gtk_tree_store_set (GTK_TREE_STORE (model), &parent,
+								COLUMN_ACTION_LABEL, group_label,
+								COLUMN_SHOW_VISIBLE, FALSE,
+								-1);
+		}
+
+		/* Append action */
+		gtk_tree_store_append (GTK_TREE_STORE (model), iter, &parent);
+	}
+}
+
+static void
+insert_sorted_by_name (GtkTreeModel *model, GtkTreeIter *iter, const gchar *group_label, GtkAction *action)
+{
+	GtkTreeIter parent;
+	GtkTreeIter child;
+	GtkTreeIter *sibling;
+	gchar *label;
+
+	if (!find_group_after (model, &parent, NULL, group_label))
+	{
+		/* Insert group for label */
+		if (gtk_tree_model_get_iter_first (model, &child))
+		{
+			sibling = find_sorted_name (model, &child, group_label);
+		}
+		else
+		{
+			sibling = NULL;
+		}
+		gtk_tree_store_insert_before (GTK_TREE_STORE (model), &parent, NULL, sibling);
+		gtk_tree_store_set (GTK_TREE_STORE (model), &parent,
+							COLUMN_ACTION_LABEL, group_label,
+							COLUMN_SHOW_VISIBLE, FALSE,
+							-1);
+	}
+	
+	if (gtk_tree_model_iter_children (model, &child, &parent))
+	{
+		label = get_action_label (action);
+		sibling = find_sorted_name (model, &child, label);
+		g_free (label);
+	}
+	else
+	{
+		sibling = NULL;
+	}
+
+	gtk_tree_store_insert_before (GTK_TREE_STORE (model), iter, &parent, sibling);
+}
+
+static void
+fill_action_data (GtkTreeModel *model, GtkTreeIter *iter, GtkAction *action, GtkActionGroup *group)
+{
+	gchar *action_label;
+	gchar *icon;
+	GdkPixbuf *pixbuf = NULL;
+	GtkWidget *dummy = NULL;
+	
+	action_label = get_action_label (action);
+	g_object_get (G_OBJECT (action), "stock-id", &icon, NULL);
+	if (icon != NULL)
+	{
+		GtkWidget *dummy = gtk_label_new ("Dummy");
+		g_object_ref_sink(G_OBJECT(dummy));
+		pixbuf = gtk_widget_render_icon (dummy, icon,
+										 GTK_ICON_SIZE_MENU, NULL);
+	}
+	gtk_tree_store_set (GTK_TREE_STORE (model), iter,
+						COLUMN_PIXBUF, pixbuf,
+						COLUMN_ACTION_LABEL, action_label,
+						COLUMN_VISIBLE, gtk_action_get_visible (action),
+						COLUMN_SHOW_VISIBLE, TRUE,
+						COLUMN_SENSITIVE, gtk_action_get_sensitive (action),
+						COLUMN_ACTION, action,
+						COLUMN_GROUP, group,
+						-1);
+	if (pixbuf != NULL) g_object_unref (G_OBJECT (pixbuf));
+	if (dummy != NULL) g_object_unref (dummy);
+	g_free (icon);
+	g_free (action_label);
+}
+
+/* Remove all actions in the action group group */
+static void
+remove_action_in_group (GtkTreeModel *model, GtkActionGroup *group)
+{
+	GtkTreeIter parent;
+	gboolean valid;
+
+	valid = gtk_tree_model_get_iter_first (model, &parent);
+	while (valid)
+	{
+		/* Check each action, as a parent can contains actions from different
+		 * groups */
+		GtkTreeIter child;
+
+		valid = gtk_tree_model_iter_children (model, &child, &parent);
+		while (valid)
+		{
+			gpointer child_group;
+
+			gtk_tree_model_get (model, &child, COLUMN_GROUP, &child_group, -1);
+
+			if (child_group == (gpointer)group)
+			{
+				valid = gtk_tree_store_remove (GTK_TREE_STORE (model), &child);
+			}
+			else
+			{
+				valid = gtk_tree_model_iter_next (model, &child);
+			}
+		}
+
+		/* if parent is now empty remove it */
+		if (!gtk_tree_model_iter_has_child (model, &parent))
+		{
+			valid = gtk_tree_store_remove (GTK_TREE_STORE (model), &parent);
+		}
+		else
+		{
+			valid = gtk_tree_model_iter_next (model, &parent);
+		}
+	}
+}
+
+#if 0
+static void
+sensitivity_toggled (GtkCellRendererToggle *cell,
+					 const gchar *path_str, GtkTreeView *tree_view)
+{
+	GtkTreeModel *model;
+	GtkTreeModel *other_model;
+	GtkTreePath *path;
+	GtkTreeIter iter;
+	GtkAction *action;
+	gboolean sensitive;
+	
+	model = gtk_tree_view_get_model (tree_view);
+	path = gtk_tree_path_new_from_string (path_str);
+	gtk_tree_model_get_iter (model, &iter, path);
+	gtk_tree_path_free (path);
+	
+	gtk_tree_model_get (model, &iter,
+						COLUMN_SENSITIVE, &sensitive,
+						COLUMN_ACTION, &action, -1);
+	g_object_set (G_OBJECT (action), "sensitive", !sensitive, NULL);
+	g_object_unref (action);
+	
+	gtk_tree_store_set (GTK_TREE_STORE (model), &iter,
+						COLUMN_SENSITIVE, !sensitive, -1);
+
+	/* Update other model */
+	other_model = g_object_get_data (G_OBJECT (tree_view), "other_model");
+	if (find_action (other_model, &iter, action))
+	{
+		gtk_tree_store_set (GTK_TREE_STORE (other_model), &iter,
+							COLUMN_SENSITIVE, !sensitive, -1);
+	}
+}
+#endif
+
+static void
+visibility_toggled (GtkCellRendererToggle *cell,
+					const gchar *path_str, GtkTreeView *tree_view)
+{
+	GtkTreeModel *model;
+	GtkTreeModel *other_model;
+	GtkTreePath *path;
+	GtkTreeIter iter;
+	GtkAction *action;
+	gboolean visible;
+
+	model = gtk_tree_view_get_model (tree_view);
+	path = gtk_tree_path_new_from_string (path_str);
+	gtk_tree_model_get_iter (model, &iter, path);
+	gtk_tree_path_free (path);
+
+	gtk_tree_model_get (model, &iter,
+						COLUMN_VISIBLE, &visible,
+						COLUMN_ACTION, &action, -1);
+	g_object_set (G_OBJECT (action), "visible", !visible, NULL);
+	g_object_unref (action);
+	gtk_tree_store_set (GTK_TREE_STORE (model), &iter,
+						COLUMN_VISIBLE, !visible, -1);
+						
+	/* Update other model */
+	other_model = g_object_get_data (G_OBJECT (tree_view), "other_model");
+	if (find_action (other_model, &iter, action))
+	{
+		gtk_tree_store_set (GTK_TREE_STORE (other_model), &iter,
+							COLUMN_VISIBLE, !visible, -1);
+	}
+}
+
 static void
 accel_edited_callback (GtkCellRendererAccel *cell,
                        const char          *path_string,
                        guint                keyval,
                        GdkModifierType      mask,
                        guint                hardware_keycode,
-                       gpointer             data)
+                       GtkTreeView          *tree_view)
 {
-	GtkTreeModel *model = (GtkTreeModel *)data;
-	GtkTreePath *path = gtk_tree_path_new_from_string (path_string);
+	GtkTreeModel *model;
+	GtkTreePath *path;
 	GtkTreeIter iter;
 	GtkAction *action;
 	const gchar *accel_path;
-	
+
+	model = gtk_tree_view_get_model (tree_view);
+	path = gtk_tree_path_new_from_string (path_string);
 	gtk_tree_model_get_iter (model, &iter, path);
+	gtk_tree_path_free (path);
+
 	gtk_tree_model_get (model, &iter,
 						COLUMN_ACTION, &action, -1);
 	
 	/* sanity check */
 	if (action == NULL)
 		return;
-	
+		
 	accel_path = gtk_action_get_accel_path (action);
+	g_object_unref (action);
 	if (accel_path) {
 		gtk_accel_map_change_entry (accel_path, keyval, mask, TRUE);
 	}
-	
-	gtk_tree_path_free (path);
 }
 
 static void
 accel_cleared_callback (GtkCellRendererAccel *cell,
 						const char *path_string,
-						gpointer data)
+						GtkTreeView *tree_view)
 {
-	GtkTreeModel *model = (GtkTreeModel *)data;
-	GtkTreePath *path = gtk_tree_path_new_from_string (path_string);
+	GtkTreeModel *model;
+	GtkTreePath *path;
 	GtkTreeIter iter;
 	GtkAction *action;
 	const gchar *accel_path;
-	
-	
+
+
+	model = gtk_tree_view_get_model (tree_view);
+	path = gtk_tree_path_new_from_string (path_string);
 	gtk_tree_model_get_iter (model, &iter, path);
+	gtk_tree_path_free (path);
+
 	gtk_tree_model_get (model, &iter,
 						COLUMN_ACTION, &action, -1);
-	
+
 	/* sanity check */
 	if (action == NULL)
 		return;
 	
 	accel_path = gtk_action_get_accel_path (action);
+	g_object_unref (action);
 	if (accel_path) {
 		gtk_accel_map_change_entry (accel_path, 0, 0, TRUE);
 	}
-	
-	gtk_tree_path_free (path);
 }
-	
-	
 
-static gint
-iter_compare_func (GtkTreeModel *model, GtkTreeIter *a,
-				   GtkTreeIter *b, gpointer user_data)
+/* Fill the model sorted by accelerator with data from default model sorted by
+ * name */
+static void
+fill_sort_by_accel_store (GtkTreeStore *store, GtkTreeModel *model)
 {
-	gchar *text_a;
-	gchar *text_b;
-	gint retval = 0;
+	gboolean valid;
+	GtkTreeIter group;
+
+	for (valid = gtk_tree_model_get_iter_first (model, &group);
+		valid;
+		valid = gtk_tree_model_iter_next (model, &group))
+	{
+		GtkTreeIter iter;
+		gchar *group_label;
+
+		gtk_tree_model_get (model, &group,
+							COLUMN_ACTION_LABEL, &group_label,
+							-1);
+
+		for (valid = gtk_tree_model_iter_children (model, &iter, &group);
+			valid;
+			valid = gtk_tree_model_iter_next (model, &iter))
+		{
+			GtkTreeIter child;
+			GdkPixbuf *pixbuf;
+			gchar *action_label;
+			gboolean visible;
+			gboolean sensitive;
+			GtkAction *action;
+			gpointer action_group;
+
+			gtk_tree_model_get (model, &iter,
+								COLUMN_PIXBUF, &pixbuf,
+								COLUMN_ACTION_LABEL, &action_label,
+								COLUMN_VISIBLE, &visible,
+								COLUMN_SENSITIVE, &sensitive,
+								COLUMN_ACTION, &action,
+								COLUMN_GROUP, &action_group,
+								-1);
+
+			if (action != NULL)
+			{
+				insert_sorted_by_accel (GTK_TREE_MODEL (store), &child, group_label, action);
+				
+				gtk_tree_store_set (store, &child,
+									COLUMN_PIXBUF, pixbuf,
+									COLUMN_ACTION_LABEL, action_label,
+									COLUMN_VISIBLE, visible,
+									COLUMN_SHOW_VISIBLE, TRUE,
+									COLUMN_SENSITIVE, sensitive,
+									COLUMN_ACTION, action,
+									COLUMN_GROUP, action_group,
+									-1);
+									
+									
+			}
+			if (pixbuf != NULL) g_object_unref (pixbuf);
+			g_free (action_label);
+			if (action != NULL) g_object_unref (action);
+		}
+		g_free (group_label);
+	}
+}
+
+/* Switch to the model sorted by name if use_name is true or sorted by
+ * accelerator if use_name is false */
+static void
+change_tree_model (GtkTreeView *tree_view, gboolean use_name)
+{
+	gboolean has_name;
+
+	has_name = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (tree_view), "name_model"));
+	if (has_name != use_name)
+	{
+		GtkTreeModel *model;
+		GtkTreeModel *other_model;
+		GtkTreeIter iter;
+		GtkTreePath *path;
+		GList *expanded = NULL;
+		GtkAction *selected_action = NULL;
+		gchar *selected_group = NULL;
+		GtkTreeSelection *selection;
+		GList *item;
+
+		/* Save selection */
+		model = gtk_tree_view_get_model (tree_view);
+		selection = gtk_tree_view_get_selection (tree_view);
+		if (gtk_tree_selection_get_selected (selection, NULL, &iter))
+		{
+			gtk_tree_model_get (model, &iter,
+								COLUMN_ACTION_LABEL, &selected_group,
+								COLUMN_ACTION, &selected_action,
+								-1);
+		}
+
+		/* Save expanded groups */
+		for (path = gtk_tree_path_new_first ();
+			gtk_tree_model_get_iter (model, &iter, path);
+			gtk_tree_path_next (path))
+		{
+			if (gtk_tree_view_row_expanded (tree_view, path))
+			{
+				gchar *label;
+				
+				gtk_tree_model_get (model, &iter, COLUMN_ACTION_LABEL, &label, -1);
+				expanded = g_list_prepend (expanded, label);
+				g_message ("expanded %s", label);
+			}
+		}
+		gtk_tree_path_free (path);
+
+		/* Swap model */
+		other_model = g_object_get_data (G_OBJECT (tree_view), "other_model");
 	
-	gtk_tree_model_get (model, a, COLUMN_ACTION_LABEL, &text_a, -1);
-	gtk_tree_model_get (model, b, COLUMN_ACTION_LABEL, &text_b, -1);
-	if (text_a == NULL && text_b == NULL) retval = 0;
-	else if (text_a == NULL) retval = -1;
-	else if (text_b == NULL) retval = 1;
-	else retval =  strcasecmp (text_a, text_b);
-	
-	g_free(text_a);
-	g_free(text_b);
-	
-	return retval;
+		if (!gtk_tree_model_get_iter_first (other_model, &iter) && !use_name)
+		{
+			/* Accelerator model is empty fill it */
+			fill_sort_by_accel_store (GTK_TREE_STORE (other_model), model);
+		}
+		
+		gtk_tree_view_set_model (tree_view, other_model);
+		g_object_set_data (G_OBJECT (tree_view), "other_model", model);
+		g_object_set_data (G_OBJECT (tree_view), "name_model", GINT_TO_POINTER (use_name));
+
+		/* Expand same group */
+		for (item = g_list_first (expanded); item != NULL; item = g_list_next (item))
+		{
+			gchar *label = (gchar *)item->data;
+			gboolean valid;
+
+			for (valid = find_group_after (other_model, &iter, NULL, label);
+				valid;
+				valid = find_group_after (other_model, &iter, &iter, label))
+			{
+				path = gtk_tree_model_get_path (other_model, &iter);
+				gtk_tree_view_expand_row (tree_view, path, FALSE);
+				gtk_tree_path_free (path);
+			}
+			g_free (label);
+		}
+		g_list_free (expanded);
+
+		/* Restore selection */
+		if (selected_action != NULL)
+		{
+			find_action (other_model, &iter, selected_action);
+			gtk_tree_selection_select_iter (selection, &iter);
+			g_object_unref (selected_action);
+		}
+		else if (selected_group != NULL)
+		{
+			find_group_after (other_model, &iter, NULL, selected_group);
+			gtk_tree_selection_select_iter (selection, &iter);
+		}
+		/* Display selected row */
+		if ((selected_action != NULL) || (selected_group != NULL))
+		{
+			GtkTreePath *path;
+			
+			path = gtk_tree_model_get_path (other_model, &iter);
+			gtk_tree_view_scroll_to_cell (tree_view, path, NULL, TRUE, 0.5, 0);
+			gtk_tree_path_free (path);
+		}
+		g_free (selected_group);
+	}
+}
+
+static void
+accel_sort_by_accel_callback (GtkTreeViewColumn *column,
+						gpointer data)
+{
+	GtkTreeView *tree_view = (GtkTreeView *)data;
+
+	change_tree_model (tree_view, FALSE);
+}
+
+static void
+accel_sort_by_name_callback (GtkTreeViewColumn *column,
+						gpointer data)
+{
+	GtkTreeView *tree_view = (GtkTreeView *)data;
+
+	change_tree_model (tree_view, TRUE);
 }
 
 static void
@@ -268,8 +877,9 @@ accel_set_func (GtkTreeViewColumn *tree_column,
 			else
 				g_object_set (G_OBJECT (cell), "visible", TRUE,
 							  "accel-key", 0,
-							  "accel-mods", 0, NULL);	
+							  "accel-mods", 0, NULL);
 		}
+		g_object_unref (action);
 	}
 }
 						 
@@ -280,17 +890,22 @@ anjuta_ui_dispose (GObject *obj)
 {
 	AnjutaUI *ui = ANJUTA_UI (obj);
 
-	if (ui->priv->model) {
+	if (ui->priv->name_model) {
 		/* This will also release the refs on actions.
 		 * Clear is necessary because following unref() might not actually
 		 * finalize the model. It basically ensures all refs on actions
 		 * are released irrespective of whether the model is finalized
 		 * or not.
 		 */
-		gtk_tree_store_clear (GTK_TREE_STORE (ui->priv->model));
+		gtk_tree_store_clear (GTK_TREE_STORE (ui->priv->name_model));
 		
-		g_object_unref (G_OBJECT (ui->priv->model));
-		ui->priv->model = NULL;
+		g_object_unref (G_OBJECT (ui->priv->name_model));
+		ui->priv->name_model = NULL;
+	}
+	if (ui->priv->accel_model) {
+		gtk_tree_store_clear (GTK_TREE_STORE (ui->priv->accel_model));
+		g_object_unref (G_OBJECT (ui->priv->accel_model));
+		ui->priv->accel_model = NULL;
 	}
 	if (ui->priv->customizable_actions_hash)
 	{
@@ -349,7 +964,7 @@ anjuta_ui_init (AnjutaUI *ui)
 	ui->priv->icon_factory = gtk_icon_factory_new ();
 	gtk_icon_factory_add_default (ui->priv->icon_factory);
 	
-	/* Create Accel editor model */
+	/* Create Accel editor sorted by name model */
 	store = gtk_tree_store_new (N_COLUMNS,
 								GDK_TYPE_PIXBUF,
 								G_TYPE_STRING,
@@ -357,14 +972,23 @@ anjuta_ui_init (AnjutaUI *ui)
 								G_TYPE_BOOLEAN,
 								G_TYPE_BOOLEAN,
 								G_TYPE_OBJECT,
-								G_TYPE_STRING);
-	gtk_tree_sortable_set_sort_func (GTK_TREE_SORTABLE(store), COLUMN_ACTION_LABEL,
-									 iter_compare_func, NULL, NULL);
-	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE(store),
-										  COLUMN_ACTION_LABEL, GTK_SORT_ASCENDING);
+								G_TYPE_POINTER);
 	
 	/* unreferenced in dispose() method. */
-	ui->priv->model = GTK_TREE_MODEL (store);
+	ui->priv->name_model = GTK_TREE_MODEL (store);
+	
+	/* Create Accel editor sorted by accelerator model */
+	store = gtk_tree_store_new (N_COLUMNS,
+								GDK_TYPE_PIXBUF,
+								G_TYPE_STRING,
+								G_TYPE_BOOLEAN,
+								G_TYPE_BOOLEAN,
+								G_TYPE_BOOLEAN,
+								G_TYPE_OBJECT,
+								G_TYPE_POINTER);
+	
+	/* unreferenced in dispose() method. */
+	ui->priv->accel_model = GTK_TREE_MODEL (store);
 }
 
 /**
@@ -496,10 +1120,7 @@ anjuta_ui_add_action_group (AnjutaUI *ui,
 							gboolean can_customize)
 {
 	GList *actions, *l;
-	GtkTreeIter parent;
-	GdkPixbuf *pixbuf;
-	gint n_actions_added = 0;
-	
+
 	g_return_if_fail (ANJUTA_IS_UI (ui));
 	g_return_if_fail (GTK_IS_ACTION_GROUP (action_group));
 	g_return_if_fail (action_group_name != NULL);
@@ -519,19 +1140,8 @@ anjuta_ui_add_action_group (AnjutaUI *ui,
 	}
 	
 	actions = gtk_action_group_list_actions (action_group);
-	gtk_tree_store_append (GTK_TREE_STORE (ui->priv->model),
-						   &parent, NULL);
-	pixbuf = NULL;
-	gtk_tree_store_set (GTK_TREE_STORE (ui->priv->model), &parent,
-						COLUMN_PIXBUF, pixbuf,
-						COLUMN_ACTION_LABEL, action_group_label,
-						COLUMN_GROUP, action_group_name,
-						COLUMN_SHOW_VISIBLE, FALSE,
-						-1);
 	for (l = actions; l; l = l->next)
 	{
-		gchar *action_label;
-		gchar *icon;
 		guint signal_id;
 		gint n_handlers;
 		GtkTreeIter iter;
@@ -545,55 +1155,18 @@ anjuta_ui_add_action_group (AnjutaUI *ui,
 												   0, TRUE);
 		if (n_handlers == 0)
 			continue; /* The action element is not user configuration */
-		
-		n_actions_added++;
-		
-		gtk_tree_store_append (GTK_TREE_STORE (ui->priv->model),
-							   &iter, &parent);
-		action_label = get_action_label (action);
-		g_object_get (G_OBJECT (action), "stock-id", &icon, NULL);
-		if (icon)
+
+		insert_sorted_by_name (ui->priv->name_model, &iter, action_group_label, action);
+		fill_action_data (ui->priv->name_model, &iter, action, action_group);
+
+		if (gtk_tree_model_get_iter_first (ui->priv->accel_model, &iter))
 		{
-			GtkWidget *dummy = gtk_label_new ("Dummy");
-			g_object_ref_sink(G_OBJECT(dummy));
-			pixbuf = gtk_widget_render_icon (dummy, icon,
-											 GTK_ICON_SIZE_MENU, NULL);
-			if (pixbuf)
-			{
-				gtk_tree_store_set (GTK_TREE_STORE (ui->priv->model), &iter,
-									COLUMN_PIXBUF, pixbuf,
-									COLUMN_ACTION_LABEL, action_label,
-									COLUMN_VISIBLE, gtk_action_get_visible (action),
-									COLUMN_SHOW_VISIBLE, TRUE,
-									COLUMN_SENSITIVE, gtk_action_get_sensitive(action),
-									COLUMN_ACTION, action,
-									COLUMN_GROUP, action_group_name,
-									-1);
-				g_object_unref (G_OBJECT (pixbuf));
-			}
-			g_object_unref (dummy);
-			g_free (icon);
+			/* accel model is filled only if needed */
+			insert_sorted_by_accel (ui->priv->accel_model, &iter, action_group_label, action);
+			fill_action_data (ui->priv->accel_model, &iter, action, action_group);
 		}
-		else
-		{
-			gtk_tree_store_set (GTK_TREE_STORE (ui->priv->model), &iter,
-								COLUMN_ACTION_LABEL, action_label,
-								COLUMN_VISIBLE, gtk_action_get_visible (action),
-								COLUMN_SHOW_VISIBLE, TRUE,
-								COLUMN_SENSITIVE, gtk_action_get_sensitive (action),
-								COLUMN_ACTION, action,
-								COLUMN_GROUP, action_group_name,
-								-1);
-		}
-		g_free (action_label);
 	}
-	
 	g_list_free(actions);
-	
-	/* If there are no actions in the group, removed the group node */
-	if (n_actions_added == 0)
-		gtk_tree_store_remove (GTK_TREE_STORE (ui->priv->model),
-							   &parent);
 }
 
 static gboolean
@@ -616,39 +1189,13 @@ on_action_group_remove_hash (gpointer key, gpointer value, gpointer data)
 void
 anjuta_ui_remove_action_group (AnjutaUI *ui, GtkActionGroup *action_group)
 {
-	GtkTreeModel *model;
-	GtkTreeIter iter;
-	gboolean valid;
-
 	g_return_if_fail (ANJUTA_IS_UI (ui));
-		
-	const gchar *name;
-	name = gtk_action_group_get_name (action_group);
-	model = ui->priv->model;
-	valid = gtk_tree_model_get_iter_first (model, &iter);
-	while (valid)
-	{
-		gchar *group;
-		const gchar *group_name;
-		
-		gtk_tree_model_get (model, &iter, COLUMN_GROUP, &group, -1);
-		group_name = gtk_action_group_get_name (GTK_ACTION_GROUP (action_group));
-		
-		if (group_name == NULL || group == NULL)
-		{
-			valid = gtk_tree_model_iter_next (model, &iter);
-			continue;
-		}
-		if (strcmp (group_name, group) == 0)
-		{
-			valid = gtk_tree_store_remove (GTK_TREE_STORE (model), &iter);
-		}
-		else
-			valid = gtk_tree_model_iter_next (model, &iter);
-		g_free(group);
-	}
+
+	remove_action_in_group (ui->priv->name_model, action_group);
+	remove_action_in_group (ui->priv->accel_model, action_group);
+
 	gtk_ui_manager_remove_action_group (GTK_UI_MANAGER (ui), action_group);
-	
+
 	g_hash_table_foreach_remove (ui->priv->customizable_actions_hash,
 								 on_action_group_remove_hash, action_group);
 	g_hash_table_foreach_remove (ui->priv->uncustomizable_actions_hash,
@@ -833,15 +1380,16 @@ anjuta_ui_get_accel_editor (AnjutaUI *ui)
 	GtkTreeStore *store;
 	GtkTreeViewColumn *column;
 	GtkCellRenderer *renderer;
-	
-	store = GTK_TREE_STORE (ui->priv->model);
+
+	store = GTK_TREE_STORE (ui->priv->name_model);
 	
 	tree_view = gtk_tree_view_new_with_model (GTK_TREE_MODEL (store));
+	g_object_set_data (G_OBJECT (tree_view), "other_model", ui->priv->accel_model);
+	g_object_set_data (G_OBJECT (tree_view), "name_model", GINT_TO_POINTER (TRUE));
 	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (tree_view), TRUE);
 	
 	/* Columns */
 	column = gtk_tree_view_column_new ();
-	/* gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE); */
 	gtk_tree_view_column_set_title (column, _("Action"));
 
 	renderer = gtk_cell_renderer_pixbuf_new ();
@@ -855,11 +1403,14 @@ anjuta_ui_get_accel_editor (AnjutaUI *ui)
 										COLUMN_ACTION_LABEL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), column);
 	gtk_tree_view_set_expander_column (GTK_TREE_VIEW (tree_view), column);
-	gtk_tree_view_column_set_sort_column_id (column, 0);
+	gtk_tree_view_column_set_clickable (column, TRUE);
+	g_signal_connect (G_OBJECT (column), "clicked",
+					  G_CALLBACK (accel_sort_by_name_callback),
+					  tree_view);
 	
 	renderer = gtk_cell_renderer_toggle_new ();
 	g_signal_connect (G_OBJECT (renderer), "toggled",
-					  G_CALLBACK (visibility_toggled), store);
+					  G_CALLBACK (visibility_toggled), tree_view);
 	column = gtk_tree_view_column_new_with_attributes (_("Visible"),
 													   renderer,
 													   "active",
@@ -867,37 +1418,37 @@ anjuta_ui_get_accel_editor (AnjutaUI *ui)
 													   "visible",
 													   COLUMN_SHOW_VISIBLE,
 													   NULL);
-	/* gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE); */
 	gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), column);
 #if 0
 	renderer = gtk_cell_renderer_toggle_new ();
 	g_signal_connect (G_OBJECT (renderer), "toggled",
-					  G_CALLBACK (sensitivity_toggled), store);
+					  G_CALLBACK (sensitivity_toggled), tree_view);
 	column = gtk_tree_view_column_new_with_attributes (_("Sensitive"),
 													   renderer,
 													   "active",
 													   COLUMN_SENSITIVE,
 													   NULL);
-	/* gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE); */
 	gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), column);
 #endif
 	column = gtk_tree_view_column_new ();
 	gtk_tree_view_column_set_title (column, _("Shortcut"));
-	/* gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);	*/
 	renderer = g_object_new (GTK_TYPE_CELL_RENDERER_ACCEL,
 							"editable", TRUE,
 							NULL);
 	g_signal_connect (G_OBJECT (renderer), "accel-edited",
 					  G_CALLBACK (accel_edited_callback),
-					  store);
+					  tree_view);
 	g_signal_connect (G_OBJECT (renderer), "accel-cleared",
 					  G_CALLBACK (accel_cleared_callback),
-					  store);
+					  tree_view);
 	g_object_set (G_OBJECT (renderer), "editable", TRUE, NULL);
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
 	gtk_tree_view_column_set_cell_data_func (column, renderer, accel_set_func, NULL, NULL);
-	gtk_tree_view_column_set_sort_column_id (column, COLUMN_ACTION);
+	gtk_tree_view_column_set_clickable (column, TRUE);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), column);
+	g_signal_connect (G_OBJECT (column), "clicked",
+					  G_CALLBACK (accel_sort_by_accel_callback),
+					  tree_view);
 	
 	sw = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw),
