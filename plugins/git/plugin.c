@@ -31,6 +31,7 @@
 #include "git-add-files-pane.h"
 #include "git-remove-files-pane.h"
 #include "git-remotes-pane.h"
+#include "git-push-pane.h"
 
 AnjutaCommandBarEntry branch_entries[] =
 {
@@ -76,7 +77,8 @@ AnjutaCommandBarEntry branch_entries[] =
 	}
 };
 
-AnjutaCommandBarEntry status_entries[] = {
+AnjutaCommandBarEntry status_entries[] = 
+{
 	{
 		ANJUTA_COMMAND_BAR_ENTRY_FRAME,
 		"NULL",
@@ -117,6 +119,27 @@ AnjutaCommandBarEntry status_entries[] = {
 		GTK_STOCK_REMOVE,
 		G_CALLBACK (on_remove_button_clicked)
 	}
+};
+
+AnjutaCommandBarEntry remotes_entries[] =
+{
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_FRAME,
+		"NULL",
+		N_("Remote repository tools"),
+		NULL,
+		NULL,
+		NULL
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"Push",
+		N_("Push"),
+		N_("Push changes to a remote repository"),
+		GTK_STOCK_GO_FORWARD,
+		G_CALLBACK (on_push_button_clicked)
+	}
+	
 };
 
 static gpointer parent_class;
@@ -375,7 +398,8 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	git_plugin->remotes_pane = git_remotes_pane_new (git_plugin);
 	anjuta_dock_add_pane (ANJUTA_DOCK (git_plugin->dock), "Remotes", 
 	                      _("Remotes"), NULL, git_plugin->remotes_pane,
-	                      GDL_DOCK_CENTER, NULL, 0, NULL);
+	                      GDL_DOCK_CENTER, remotes_entries, 
+	                      G_N_ELEMENTS (remotes_entries), git_plugin);
 	
 	/* Add watches */
 	git_plugin->project_root_watch_id = anjuta_plugin_add_watch (plugin,

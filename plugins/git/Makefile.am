@@ -14,17 +14,7 @@ plugin_in_files = git.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
 git_plugindir = $(anjuta_plugin_dir)
-git_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin) \
-	git-branches-pane.c\
-	git-branches-pane.h\
-	git-pane.c        \
-	git-pane.h        \
-	git-merge-pane.c        \
-	git-merge-pane.h        \
-	git-add-files-pane.h        \
-	git-add-files-pane.c        \
-	git-remotes-pane.h        \
-	git-remotes-pane.c
+git_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin) 
 
 # NOTE :
 # The naming convention is very intentional
@@ -185,7 +175,11 @@ libanjuta_git_la_SOURCES = \
 	git-remove-files-pane.c \
 	git-remove-files-pane.h \
 	git-remotes-pane.c \
-	git-remotes-pane.h
+	git-remotes-pane.h \
+	git-push-pane.c \
+	git-push-pane.h \
+	git-repository-selector.h \
+	git-repository-selector.c
 
 libanjuta_git_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
