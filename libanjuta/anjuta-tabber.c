@@ -185,7 +185,12 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 	AnjutaTabber* tabber = ANJUTA_TABBER (widget);
 
 	GList* child;
-	gint x = allocation->x;
+	gint x;
+	if (gtk_widget_get_direction (widget) == GTK_TEXT_DIR_LTR)
+		x = allocation->x;
+	else
+		x = allocation->x + allocation->width;
+
 	gint y = allocation->y;
 	gint padding = anjuta_tabber_get_padding (widget);
 	gint child_width;
@@ -216,11 +221,18 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 
 			child_alloc.width = child_width;
 			child_alloc.height = MAX(child_req.height, allocation->height);
-			child_alloc.x = x + style->xthickness + padding;
+
+			if (gtk_widget_get_direction (widget) == GTK_TEXT_DIR_LTR)
+				child_alloc.x = x + style->xthickness + padding;
+			else
+				child_alloc.x = x - child_width - style->xthickness - padding;
 			child_alloc.y = y + style->ythickness + padding;
 
 			gtk_widget_size_allocate (GTK_WIDGET (child->data), &child_alloc);
-			x += child_width + style->xthickness + 2 * padding;
+			if (gtk_widget_get_direction (widget) == GTK_TEXT_DIR_LTR)
+				x += child_width + style->xthickness + 2 * padding;
+			else
+				x -= child_width + style->xthickness + 2 * padding;
 		}
 	}
 }
