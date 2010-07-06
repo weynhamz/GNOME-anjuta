@@ -1,4 +1,4 @@
-# Slovenian translation for anjuta.
+# Slovenian translations for anjuta.
 # Copyright (C) 2005-2007 Free Software Foundation, Inc.
 # This file is distributed under the same license as the anjuta package.
 #
@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&component=core application\n"
-"POT-Creation-Date: 2010-06-16 20:35+0000\n"
-"PO-Revision-Date: 2010-06-17 11:06+0100\n"
+"POT-Creation-Date: 2010-07-01 20:24+0000\n"
+"PO-Revision-Date: 2010-07-06 07:53+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -269,7 +269,7 @@ msgid "Available Plugins"
 msgstr "Razpoložljivi vstavki"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1036
-#: ../src/anjuta-app.c:914
+#: ../src/anjuta-app.c:934
 msgid "Preferred plugins"
 msgstr "Priljubljeni vstavki"
 
@@ -430,7 +430,7 @@ msgstr "Kategorija"
 #: ../libanjuta/anjuta-preferences-dialog.c:138
 #: ../libanjuta/anjuta-preferences-dialog.c:141
 #: ../plugins/gbf-am/gbf-am-dialogs.ui.h:3
-#: ../src/anjuta-app.c:901
+#: ../src/anjuta-app.c:921
 #: ../src/preferences.ui.h:11
 msgid "General"
 msgstr "Splošno"
@@ -1531,7 +1531,7 @@ msgstr "XML opis uporabniškega vmesnika"
 msgid "Args: %s"
 msgstr "Argumenti: %s"
 
-#: ../plugins/class-inheritance/class-inherit.c:1157
+#: ../plugins/class-inheritance/class-inherit.c:1213
 #: ../plugins/debug-manager/sharedlib.c:144
 #: ../plugins/debug-manager/signals.c:332
 msgid "Update"
@@ -1671,8 +1671,8 @@ msgstr "Prezri .cvsrc datoteko (priporočeno)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
 #: ../plugins/git/anjuta-git.ui.h:57
-#: ../plugins/symbol-db/plugin.c:2127
-#: ../plugins/symbol-db/plugin.c:2169
+#: ../plugins/symbol-db/plugin.c:2056
+#: ../plugins/symbol-db/plugin.c:2098
 msgid "Local"
 msgstr "Krajevno"
 
@@ -1767,7 +1767,7 @@ msgstr "Uporabniško ime:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:52
 msgid "Vendor tag:"
-msgstr "Oznaka prodajalca:"
+msgstr "Oznaka ponudnika:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:53
 #: ../plugins/git/anjuta-git.ui.h:123
@@ -1811,7 +1811,7 @@ msgstr "Modul"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:441
 msgid "Vendor"
-msgstr "Prodajalec"
+msgstr "Ponudnik"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:444
 msgid "Release"
@@ -2783,7 +2783,7 @@ msgid "Path"
 msgstr "Pot"
 
 #: ../plugins/debug-manager/start.c:1386
-#: ../plugins/gdb/debugger.c:1846
+#: ../plugins/gdb/debugger.c:1927
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -2867,13 +2867,13 @@ msgstr "Iskanje pomoči:"
 #: ../plugins/devhelp/plugin.c:223
 #: ../plugins/document-manager/plugin.c:242
 #: ../plugins/message-view/plugin.c:76
-#: ../plugins/symbol-db/plugin.c:314
+#: ../plugins/symbol-db/plugin.c:311
 msgid "_Go to"
 msgstr "_Pojdi na"
 
 #: ../plugins/devhelp/plugin.c:232
 msgid "_API Reference"
-msgstr "_API referenca"
+msgstr "Sklic _API"
 
 #: ../plugins/devhelp/plugin.c:234
 msgid "Browse API Pages"
@@ -2915,8 +2915,8 @@ msgstr "Vsebina"
 #: ../plugins/search/search-replace.c:1724
 #: ../plugins/search/search-replace.c:1736
 #: ../plugins/search/search-replace.c:2065
-#: ../plugins/symbol-db/plugin.c:2137
-#: ../plugins/symbol-db/plugin.c:2186
+#: ../plugins/symbol-db/plugin.c:2066
+#: ../plugins/symbol-db/plugin.c:2118
 msgid "Search"
 msgstr "Iskanje"
 
@@ -2947,7 +2947,7 @@ msgid "Remove bookmark"
 msgstr "Odstrani zaznamek"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:331
-#: ../plugins/document-manager/anjuta-bookmarks.c:393
+#: ../plugins/document-manager/anjuta-bookmarks.c:404
 #: ../plugins/document-manager/plugin.c:421
 msgid "Bookmarks"
 msgstr "Zaznamki"
@@ -3370,7 +3370,7 @@ msgstr "Izreži trenutno besedilo iz urejevalnika v odložišče"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/document-manager/plugin.c:297
-#: ../plugins/terminal/terminal.c:609
+#: ../plugins/terminal/terminal.c:616
 msgid "_Copy"
 msgstr "_Kopiraj"
 
@@ -3379,7 +3379,7 @@ msgid "Copy the selected text to the clipboard"
 msgstr "Kopiraj izbrano besedilo na odložišče"
 
 #: ../plugins/document-manager/plugin.c:300
-#: ../plugins/terminal/terminal.c:617
+#: ../plugins/terminal/terminal.c:624
 msgid "_Paste"
 msgstr "_Prilepi"
 
@@ -3938,8 +3938,8 @@ msgid "Filter"
 msgstr "Filter"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2132
-#: ../plugins/symbol-db/plugin.c:2181
+#: ../plugins/symbol-db/plugin.c:2061
+#: ../plugins/symbol-db/plugin.c:2110
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:6
 msgid "Global"
 msgstr "Splošno"
@@ -4008,7 +4008,7 @@ msgid ""
 "The extension will be added according to the type."
 msgstr ""
 "Vnesite ime datoteke.\n"
-"Končnica bo dodana glede na vrsto datoteke."
+"Pripona bo dodana glede na vrsto datoteke."
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:7
 msgid "File Information"
@@ -4121,7 +4121,7 @@ msgstr "Samostojne knjižnice"
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:200
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3255
 msgid "Shared Library"
-msgstr "Deljene knjižnice"
+msgstr "Souporabljene knjižnice"
 
 #: ../plugins/gbf-am/gbf-am-project.c:205
 #: ../plugins/gbf-am/gbf-am-project.c:3358
@@ -4389,7 +4389,7 @@ msgstr "Različica"
 #: ../plugins/gbf-am/gbf-am-properties.c:530
 #, c-format
 msgid "Are you sure you want to remove module \"%s\" and all its associated packages?"
-msgstr "Ali zares želite odstraniti modul \"%s\" in vse njegove povezane pakete?"
+msgstr "Ali zares želite odstraniti modul \"%s\" in vse povezane pakete?"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:532
 #, c-format
@@ -4437,7 +4437,7 @@ msgstr "Različica:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:866
 msgid "URI:"
-msgstr "URI:"
+msgstr "Naslov URI:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1232
 msgid "Use"
@@ -4581,18 +4581,18 @@ msgid "Includes:"
 msgstr "Vključuje:"
 
 #. The %s argument is a program name, anjuta by example
-#: ../plugins/gdb/debugger.c:722
+#: ../plugins/gdb/debugger.c:727
 #, c-format
 msgid "Loading Executable: %s\n"
 msgstr "Nalaganje izvršljive datoteke: : %s\n"
 
 #. The %s argument is a file name
-#: ../plugins/gdb/debugger.c:753
+#: ../plugins/gdb/debugger.c:758
 #, c-format
 msgid "Loading Core: %s\n"
 msgstr "Nalaganje jedra: %s\n"
 
-#: ../plugins/gdb/debugger.c:902
+#: ../plugins/gdb/debugger.c:983
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -4600,61 +4600,61 @@ msgid ""
 "Make sure Anjuta is installed correctly."
 msgstr ""
 "Ni mogoče najti: %s.\n"
-"Ni mogoče zagnati razhroščevalnika.\n"
+"Ni mogoče začeti razhroščevalnika.\n"
 "Prepričajte se, da je program Anjuta nameščen pravilno."
 
-#: ../plugins/gdb/debugger.c:1047
+#: ../plugins/gdb/debugger.c:1128
 msgid "Getting ready to start debugging session…\n"
 msgstr "Priprava na začetek seje razhroščevanja ...\n"
 
-#: ../plugins/gdb/debugger.c:1053
+#: ../plugins/gdb/debugger.c:1134
 msgid "Loading Executable: "
 msgstr "Nalaganje izvršljive datoteke: "
 
-#: ../plugins/gdb/debugger.c:1062
+#: ../plugins/gdb/debugger.c:1143
 msgid "No executable specified.\n"
 msgstr "Ni določene izvršljive datoteke.\n"
 
-#: ../plugins/gdb/debugger.c:1065
+#: ../plugins/gdb/debugger.c:1146
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr "Odprite izvršljivo datoteko ali pripnite opravilo za začetek razhroščevanja.\n"
 
-#: ../plugins/gdb/debugger.c:1074
+#: ../plugins/gdb/debugger.c:1155
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "Prišlo je do napake med zaganjanjem razhroščevalnika.\n"
 
-#: ../plugins/gdb/debugger.c:1078
+#: ../plugins/gdb/debugger.c:1159
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "Prepričajte se, da je 'gdb' nameščen na sistemu.\n"
 
-#: ../plugins/gdb/debugger.c:1399
+#: ../plugins/gdb/debugger.c:1480
 msgid "Program exited normally\n"
 msgstr "Program zaključen po pričakovanjih\n"
 
-#: ../plugins/gdb/debugger.c:1410
+#: ../plugins/gdb/debugger.c:1491
 #, c-format
 msgid "Program exited with error code %s\n"
 msgstr "Program zaključen z napako kode %s\n"
 
 #. The program has reached one breakpoint and will stop
-#: ../plugins/gdb/debugger.c:1425
+#: ../plugins/gdb/debugger.c:1506
 #, c-format
 msgid "Breakpoint number %s hit\n"
 msgstr "Zadetek prekinitvene točke številka %s\n"
 
-#: ../plugins/gdb/debugger.c:1434
+#: ../plugins/gdb/debugger.c:1515
 msgid "Function finished\n"
 msgstr "Funkcija končana\n"
 
-#: ../plugins/gdb/debugger.c:1440
+#: ../plugins/gdb/debugger.c:1521
 msgid "Stepping finished\n"
 msgstr "Koračenje končano\n"
 
-#: ../plugins/gdb/debugger.c:1446
+#: ../plugins/gdb/debugger.c:1527
 msgid "Location reached\n"
 msgstr "Mesto doseženo\n"
 
-#: ../plugins/gdb/debugger.c:1843
+#: ../plugins/gdb/debugger.c:1924
 msgid ""
 "The program is attached.\n"
 "Do you still want to stop the debugger?"
@@ -4664,7 +4664,7 @@ msgstr ""
 
 #. The %s argument is an error message returned by gdb.
 #. * It is something like, "No such file or directory"
-#: ../plugins/gdb/debugger.c:2004
+#: ../plugins/gdb/debugger.c:2085
 #, c-format
 msgid ""
 "Unable to connect to remote target, %s\n"
@@ -4673,63 +4673,63 @@ msgstr ""
 "Ni se mogoče povezati z oddaljenim ciljem %s\n"
 "Ali želite poskusiti znova?"
 
-#: ../plugins/gdb/debugger.c:2022
+#: ../plugins/gdb/debugger.c:2103
 msgid "Debugger connected\n"
-msgstr "Razhroščevalnik povezan\n"
+msgstr "Razhroščevalnik je povezan\n"
 
-#: ../plugins/gdb/debugger.c:2096
+#: ../plugins/gdb/debugger.c:2177
 msgid "Program attached\n"
-msgstr "Program pripet\n"
+msgstr "Program je pripet\n"
 
-#: ../plugins/gdb/debugger.c:2117
+#: ../plugins/gdb/debugger.c:2198
 #, c-format
 msgid "Attaching to process: %d…\n"
 msgstr "Pripenjanje k opravilu: %d ...\n"
 
-#: ../plugins/gdb/debugger.c:2143
+#: ../plugins/gdb/debugger.c:2224
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
 msgstr ""
-"Opravilo že teče.\n"
+"Opravilo je že zagnano.\n"
 "Ali želite trenutno opravilo zaključiti in pripeti novo opravilo?"
 
-#: ../plugins/gdb/debugger.c:2160
+#: ../plugins/gdb/debugger.c:2241
 msgid "Anjuta is unable to attach to itself."
 msgstr "Ni mogoče pripeti samemu sebi."
 
-#: ../plugins/gdb/debugger.c:2210
+#: ../plugins/gdb/debugger.c:2291
 msgid "Program terminated\n"
 msgstr "Program zaključen\n"
 
-#: ../plugins/gdb/debugger.c:2225
+#: ../plugins/gdb/debugger.c:2306
 msgid "Program detached\n"
 msgstr "Program odklopljen\n"
 
-#: ../plugins/gdb/debugger.c:2245
+#: ../plugins/gdb/debugger.c:2326
 #, c-format
 msgid "Detaching the process…\n"
 msgstr "Odklapljanje opravila ...\n"
 
-#: ../plugins/gdb/debugger.c:2268
+#: ../plugins/gdb/debugger.c:2349
 msgid "Interrupting the process\n"
 msgstr "Prekinjanje opravila\n"
 
-#: ../plugins/gdb/debugger.c:4063
+#: ../plugins/gdb/debugger.c:4159
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "Pošiljanje signala %s na opravilo: %d"
 
-#: ../plugins/gdb/debugger.c:4089
+#: ../plugins/gdb/debugger.c:4185
 msgid "Error whilst signaling the process."
 msgstr "Napaka med signaliziranjem opravila."
 
-#: ../plugins/gdb/plugin.c:112
+#: ../plugins/gdb/plugin.c:117
 #, c-format
 msgid "Failed to create FIFO file named %s. The program will run without a terminal."
 msgstr "Napaka med ustvarjanjem datoteke FIFO z imenom %s. Program bo zagnan brez terminalskega okna."
 
-#: ../plugins/gdb/plugin.c:198
+#: ../plugins/gdb/plugin.c:203
 msgid "Cannot start terminal for debugging."
 msgstr "Ni mogoče zagnati terminala za razhroščevanje."
 
@@ -4917,7 +4917,7 @@ msgstr "Zavrzi izbrano zalogo"
 
 #: ../plugins/git/anjuta-git.ui.h:44
 msgid "E-mail:"
-msgstr "E-pošta:"
+msgstr "Elektronska pošta:"
 
 #: ../plugins/git/anjuta-git.ui.h:45
 msgid "Fetch remote branches after creation"
@@ -5103,7 +5103,7 @@ msgstr "Izbor datoteke za brisanje:"
 #: ../plugins/git/anjuta-git.ui.h:96
 #: ../plugins/subversion/anjuta-subversion.ui.h:44
 msgid "Set Conflicts as Resolved"
-msgstr "Določi neskladja kot razrešena"
+msgstr "Določi spore kot razrešene"
 
 #: ../plugins/git/anjuta-git.ui.h:97
 msgid "Show source revision in log message"
@@ -5183,11 +5183,11 @@ msgstr "Za:"
 
 #: ../plugins/git/anjuta-git.ui.h:116
 msgid "URL"
-msgstr "URL"
+msgstr "Naslov URL"
 
 #: ../plugins/git/anjuta-git.ui.h:117
 msgid "URL:"
-msgstr "URL:"
+msgstr "Naslov URL:"
 
 #: ../plugins/git/anjuta-git.ui.h:118
 msgid "Unstage Files"
@@ -5267,7 +5267,7 @@ msgstr "Vnesite predelavo."
 
 #: ../plugins/git/git-cat-file-menu.c:36
 msgid "Git: File retrieved."
-msgstr "Git: datoteka je prenesena."
+msgstr "Git: datoteka je pridobljena."
 
 #: ../plugins/git/git-checkout-files-dialog.c:36
 msgid "Git: Files checked out."
@@ -5660,13 +5660,13 @@ msgstr "Odstrani datoteke iz določila uveljavitve"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:215
 msgid "_Resolve conflicts…"
-msgstr "_Razreši neskladja ..."
+msgstr "_Razreši spore ..."
 
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:217
 msgid "Mark conflicted files as resolved"
-msgstr "Označi neskladja kot razrešena"
+msgstr "Označi datoteke v sporu kot razrešene"
 
 #. Action name
 #. Stock icon, if any
@@ -5703,7 +5703,7 @@ msgstr "Začni uporabljati nize popravkov"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:255
 msgid "_Continue with resolved conflicts"
-msgstr "_Nadaljuj z razrešenimi neskladji"
+msgstr "_Nadaljuj z razrešenimi spori"
 
 #. Display label
 #. short-cut
@@ -5838,7 +5838,7 @@ msgstr "Pre_skoči"
 #. short-cut
 #: ../plugins/git/plugin.c:345
 msgid "Skip the current conflicted commit and continue"
-msgstr "Preskoči trenutno sporno uveljavitev in nadaljuj"
+msgstr "Preskoči trenutno uveljavitev v sporu in nadaljuj"
 
 #. Display label
 #. short-cut
@@ -6331,7 +6331,7 @@ msgstr "Osebno"
 
 #: ../plugins/gtodo/libgtodo.c:664
 msgid "Business"
-msgstr "Služba"
+msgstr "Službeno"
 
 #: ../plugins/gtodo/libgtodo.c:666
 msgid "Unfiled"
@@ -6573,11 +6573,11 @@ msgstr "Pritisni bližnjico"
 
 #: ../plugins/macro/macro-db.c:256
 msgid "Anjuta macros"
-msgstr "Anjuta makroji"
+msgstr "Anjuta makri"
 
 #: ../plugins/macro/macro-db.c:260
 msgid "My macros"
-msgstr "Moji makroji"
+msgstr "Moji makri"
 
 #: ../plugins/macro/macro-dialog.c:145
 #, c-format
@@ -6684,7 +6684,7 @@ msgstr "Število prikazanih zadnjih znakov:"
 #. text style in editor
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:15
 msgid "Strike-Out"
-msgstr "PRečrtano"
+msgstr "Prečrtano"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:17
 msgid "Truncate long messages"
@@ -6838,7 +6838,7 @@ msgstr "Uveljavljanje popravkov ..."
 
 #: ../plugins/patch/patch-plugin.c:224
 msgid "There are unfinished jobs: please wait until they are finished."
-msgstr "Obstajajo nedokončane naloge. Počakajte dokler se ne končajo."
+msgstr "Obstajajo nedokončani posli. Počakajte dokler se ne končajo."
 
 #: ../plugins/patch/patch-plugin.c:266
 msgid ""
@@ -6861,7 +6861,7 @@ msgstr "Suhi zagon"
 
 #: ../plugins/patch/patch-plugin.ui.h:2
 msgid "File/Directory to patch:"
-msgstr "Popravkov map in datotek:"
+msgstr "Datoteka ali mapa za popravke:"
 
 #: ../plugins/patch/patch-plugin.ui.h:4
 msgid "Patch file:"
@@ -6916,7 +6916,7 @@ msgstr "Ni mogoče najti hrbtenice projekta za mapo (%s). Izberite drugo mapo al
 #: ../plugins/project-import/plugin.c:346
 #, c-format
 msgid "Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
-msgstr "Ni mogoče objaviti na določen URI naslov \"%s\". Prišlo je do napake: \"%s\""
+msgstr "Ni mogoče objaviti na določen naslov URI \"%s\". Prišlo je do napake: \"%s\""
 
 #: ../plugins/project-import/project-import.ui.h:1
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:11
@@ -7169,7 +7169,7 @@ msgstr ""
 #: ../plugins/project-manager/plugin.c:865
 #, c-format
 msgid "Failed to retrieve URI info of %s: %s"
-msgstr "Napaka med pridobivanjem URI podrobnosti %s: %s"
+msgstr "Napaka med pridobivanjem naslova URI podrobnosti %s: %s"
 
 #: ../plugins/project-manager/plugin.c:903
 msgid "_Project"
@@ -7395,7 +7395,7 @@ msgstr "Namestitev manjkajočih paketov"
 
 #: ../plugins/project-wizard/druid.c:895
 msgid "The missing programs are usually part of some distrubution packages and can be searched for in your Application Manager. Similarly, the development packages are contained in special packages that your distribution provides to allow development of projects based on them. They usually end with a \"-dev\" or \"-devel\" suffix in package names and can be found by searching in your Application Manager."
-msgstr "Manjkajoči programi so običajno del nekaterih paketov distribucij in jih je mogoče najti v upravljalniku programov. Podobno paketi za razvoj kode, običajno pripadajo posebnim paketom, ki so del distribucije in omogočajo razvijanje projektov. Ti so običajno poimenovani tako, da vsebujejo končnice -\"-dev\" ali \"-devel\" in imena paketov. Najdete jih lahko v upravljalniku programov."
+msgstr "Manjkajoči programi so običajno del nekaterih paketov distribucij in jih je mogoče najti v upravljalniku programov. Podobno paketi za razvoj kode, običajno pripadajo posebnim paketom, ki so del distribucije in omogočajo razvijanje projektov. Ti so običajno poimenovani tako, da vsebujejo pripone -\"-dev\" ali \"-devel\" in imena paketov. Najdete jih lahko v upravljalniku programov."
 
 #: ../plugins/project-wizard/druid.c:903
 msgid "Missing components"
@@ -7486,7 +7486,7 @@ msgstr "Izberi datoteko"
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:1
 #: ../plugins/project-wizard/templates/js.wiz.in.h:1
 msgid "A generic minimal and flat project"
-msgstr "Izvorni minimal in falt projekt"
+msgstr "Izvorni minimal in flat projekt"
 
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:2
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:2
@@ -8435,7 +8435,7 @@ msgstr "Poišči v:"
 
 #: ../plugins/search/anjuta-search.ui.h:37
 msgid "Search Recursively"
-msgstr "Išči po strukturi map"
+msgstr "Poišči po strukturi map"
 
 #: ../plugins/search/anjuta-search.ui.h:38
 msgid "Search Target"
@@ -8473,7 +8473,7 @@ msgstr "Najdi _predhodne"
 
 #: ../plugins/search/plugin.c:78
 msgid "Find and R_eplace…"
-msgstr "Poišči in _zamenjaj ..."
+msgstr "Najdi in _zamenjaj ..."
 
 #: ../plugins/search/plugin.c:80
 msgid "Search for and replace a string or regular expression with another string"
@@ -8486,7 +8486,7 @@ msgstr "Poišči in zamenjaj"
 
 #: ../plugins/search/plugin.c:85
 msgid "Fin_d in Files…"
-msgstr "Poišči v _datotekah ..."
+msgstr "Najdi v _datotekah ..."
 
 #: ../plugins/search/plugin.c:86
 msgid "Search for a string in multiple files or directories"
@@ -8661,7 +8661,7 @@ msgstr "Urejevalnik"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:4
 msgid "Enable autocompletion for document words"
-msgstr "Omogoči dopolnjevanje za besede dokumentov"
+msgstr "Omogoči samodejno izpolnjevanje za besede dokumentov"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:6
 msgid "Font:"
@@ -8745,7 +8745,7 @@ msgstr "Prelomi vrstice na širino papirja"
 #: ../plugins/starter/starter.c:362
 #: ../plugins/starter/anjuta-starter.plugin.in.h:1
 msgid "Starter"
-msgstr "Zaganjalec"
+msgstr "Zaganjalnik"
 
 #: ../plugins/starter/starter.c:403
 msgid "Create File/Project"
@@ -8984,13 +8984,13 @@ msgstr "Združi spremembe v delovno različico."
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:92
 msgid "_Resolve Conflicts…"
-msgstr "_Razreši neskladja ..."
+msgstr "_Razreši spore ..."
 
 #. Display label
 #. short-cut
 #: ../plugins/subversion/plugin.c:94
 msgid "Resolve conflicts in your working copy."
-msgstr "Razreši neskladja v delovni različici."
+msgstr "Razreši spore v delovni različici."
 
 #. Action name
 #. Stock icon, if any
@@ -9280,7 +9280,7 @@ msgstr "Združeno: %s"
 #: ../plugins/subversion/svn-command.c:415
 #, c-format
 msgid "Conflicted: %s"
-msgstr "V neskladju: %s"
+msgstr "V sporu: %s"
 
 #: ../plugins/subversion/svn-command.c:419
 #, c-format
@@ -9292,65 +9292,65 @@ msgstr "Manjkajoče: %s"
 msgid "Obstructed: %s"
 msgstr "Ovirano: %s"
 
-#: ../plugins/symbol-db/plugin.c:318
+#: ../plugins/symbol-db/plugin.c:315
 msgid "Tag De_claration"
 msgstr "Raz_glas oznak"
 
-#: ../plugins/symbol-db/plugin.c:320
+#: ../plugins/symbol-db/plugin.c:317
 msgid "Go to symbol declaration"
 msgstr "Skoči na razglas simbolov"
 
 #. Translators: Go to the line where the tag is implemented
-#: ../plugins/symbol-db/plugin.c:327
+#: ../plugins/symbol-db/plugin.c:324
 msgid "Tag _Implementation"
 msgstr "_Vstavljanje oznak"
 
-#: ../plugins/symbol-db/plugin.c:329
+#: ../plugins/symbol-db/plugin.c:326
 msgid "Go to symbol definition"
 msgstr "Skoči na določilo simbola"
 
-#: ../plugins/symbol-db/plugin.c:336
+#: ../plugins/symbol-db/plugin.c:333
 msgid "_Find Symbol…"
 msgstr "_Poišči simbol ..."
 
-#: ../plugins/symbol-db/plugin.c:337
+#: ../plugins/symbol-db/plugin.c:334
 msgid "Find Symbol"
 msgstr "Poišči simbol"
 
-#: ../plugins/symbol-db/plugin.c:1024
+#: ../plugins/symbol-db/plugin.c:1011
 #, c-format
 msgid "%s: Generating inheritances…"
 msgstr "%s: ustvarjanje nasledstva ..."
 
-#: ../plugins/symbol-db/plugin.c:1029
+#: ../plugins/symbol-db/plugin.c:1016
 #, c-format
 msgid "%s: %d files scanned out of %d"
 msgstr "%s: preiskanih %d od %d datotek"
 
-#: ../plugins/symbol-db/plugin.c:1060
+#: ../plugins/symbol-db/plugin.c:1047
 #, c-format
 msgid "Generating inheritances…"
 msgstr "Ustvarjanje nasledstva ..."
 
-#: ../plugins/symbol-db/plugin.c:1062
+#: ../plugins/symbol-db/plugin.c:1049
 #, c-format
 msgid "%d files scanned out of %d"
 msgstr "preiskanih %d od %d datotek"
 
-#: ../plugins/symbol-db/plugin.c:1790
+#: ../plugins/symbol-db/plugin.c:1726
 msgid "Populating symbol database…"
 msgstr "Nalaganje zbirke simbolov ..."
 
-#: ../plugins/symbol-db/plugin.c:2117
-#: ../plugins/symbol-db/plugin.c:2212
+#: ../plugins/symbol-db/plugin.c:2046
+#: ../plugins/symbol-db/plugin.c:2131
 msgid "Symbols"
 msgstr "Simboli"
 
-#: ../plugins/symbol-db/plugin.c:2221
+#: ../plugins/symbol-db/plugin.c:2140
 msgid "SymbolDb popup actions"
 msgstr "SimbolDb pojavna dejanja"
 
-#: ../plugins/symbol-db/plugin.c:2229
+#: ../plugins/symbol-db/plugin.c:2148
 msgid "SymbolDb menu actions"
 msgstr "SimbolDb dejanja menija"
 
@@ -9416,28 +9416,33 @@ msgstr "Uporabi profil terminala:"
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "Uporabi trenutno izbran profil GNOME terminala"
 
-#: ../plugins/terminal/terminal.c:626
+#: ../plugins/terminal/terminal.c:633
 msgid "Ctrl-C"
 msgstr "Ctrl-C"
 
-#: ../plugins/terminal/terminal.c:634
+#: ../plugins/terminal/terminal.c:641
 msgid "Ctrl-X"
 msgstr "Ctrl-X"
 
-#: ../plugins/terminal/terminal.c:642
+#: ../plugins/terminal/terminal.c:649
 msgid "Ctrl-Z"
 msgstr "Ctrl-Z"
 
-#: ../plugins/terminal/terminal.c:781
+#: ../plugins/terminal/terminal.c:788
 msgid "terminal operations"
 msgstr "terminalska opravila"
 
-#: ../plugins/terminal/terminal.c:799
-#: ../plugins/terminal/terminal.c:968
-#: ../plugins/terminal/terminal.c:1021
+#: ../plugins/terminal/terminal.c:806
+#: ../plugins/terminal/terminal.c:982
+#: ../plugins/terminal/terminal.c:1035
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
 msgid "Terminal"
 msgstr "Terminal"
+
+#: ../plugins/terminal/terminal.c:931
+#, c-format
+msgid "Unable to execute command"
+msgstr "Ni mogoče izvesti ukaza."
 
 #: ../plugins/tools/anjuta-tools.ui.h:2
 msgid "Command:"
@@ -9639,7 +9644,7 @@ msgstr "Izbrano polno ime datoteke v vstavku upravljalnika datotek"
 
 #: ../plugins/tools/variable.c:89
 msgid "Selected full file name without extension in the file manager plugin"
-msgstr "Izbrano polno ime datoteke brez končnice v vstavku upravljalnika datotek"
+msgstr "Izbrano polno ime datoteke brez pripone v vstavku upravljalnika datotek"
 
 #: ../plugins/tools/variable.c:90
 msgid "Selected file name in the file manager plugin"
@@ -9647,11 +9652,11 @@ msgstr "Izbrano ime datoteke v vstavku upravljalnika datotek"
 
 #: ../plugins/tools/variable.c:91
 msgid "Selected file name without extension in the file manager plugin"
-msgstr "Izbrano ime datoteke brez končnice v vstavku upravljalnika datotek"
+msgstr "Izbrano ime datoteke brez pripone v vstavku upravljalnika datotek"
 
 #: ../plugins/tools/variable.c:92
 msgid "Selected file's extension in the file manager plugin"
-msgstr "Izbrana končnica datoteke v vstavku upravljalnika datotek"
+msgstr "Izbrana pripona datoteke v vstavku upravljalnika datotek"
 
 #: ../plugins/tools/variable.c:93
 msgid "Selected URI in the project manager plugin"
@@ -9667,7 +9672,7 @@ msgstr "Izbrano polno ime datoteke v vstavku upravljalnika projekta"
 
 #: ../plugins/tools/variable.c:96
 msgid "Selected full file name without extension in the project manager plugin"
-msgstr "Izbrano ime datoteke brez končnice v vstavku upravljalnika projekta"
+msgstr "Izbrano ime datoteke brez pripone v vstavku upravljalnika projekta"
 
 #: ../plugins/tools/variable.c:97
 msgid "Selected file name in the project manager plugin"
@@ -9675,23 +9680,23 @@ msgstr "Izbrano ime datoteke v vstavku upravljalnika projekta"
 
 #: ../plugins/tools/variable.c:98
 msgid "Selected file name without extension in the project manager plugin"
-msgstr "Izbrano ime brez končnice v vstavku upravljalnika projekta"
+msgstr "Izbrano ime brez pripone v vstavku upravljalnika projekta"
 
 #: ../plugins/tools/variable.c:99
 msgid "Selected file extension in the project manager plugin"
-msgstr "Izbrana končnica datoteke v vstavku upravljalnika projekta"
+msgstr "Izbrana pripona datoteke v vstavku upravljalnika projekta"
 
 #: ../plugins/tools/variable.c:100
 msgid "Currently edited file name"
-msgstr "Ime trenutno urejane datoteka"
+msgstr "Ime datoteke trenutno v urejanju"
 
 #: ../plugins/tools/variable.c:101
 msgid "Currently edited file name without extension"
-msgstr "Trenutno urejana datoteka brez končnice"
+msgstr "Datoteka, trenutno v urejanju brez pripone"
 
 #: ../plugins/tools/variable.c:102
 msgid "Currently edited file directory"
-msgstr "Mapa trenutno urejane datoteke"
+msgstr "Mapa datoteke trenutno v urejanju"
 
 #: ../plugins/tools/variable.c:103
 msgid "Currently selected text in editor"
@@ -9832,7 +9837,7 @@ msgstr "Pokaži ali skrij orodno vrstico"
 
 #: ../src/anjuta-actions.h:61
 msgid "_Help"
-msgstr "_Pomoč"
+msgstr "Pomo_č"
 
 #: ../src/anjuta-actions.h:63
 msgid "_User's Manual"
@@ -9910,15 +9915,15 @@ msgstr "O zunanjih vstavkih Anjute"
 msgid "Edit"
 msgstr "Uredi"
 
-#: ../src/anjuta-app.c:912
+#: ../src/anjuta-app.c:932
 msgid "Installed plugins"
 msgstr "Naloženi vstavki"
 
-#: ../src/anjuta-app.c:916
+#: ../src/anjuta-app.c:936
 msgid "Shortcuts"
 msgstr "Tipkovne bližnjice"
 
-#: ../src/anjuta-app.c:988
+#: ../src/anjuta-app.c:1008
 #, c-format
 msgid "Value doesn't exist"
 msgstr "Vrednost ne obstaja"
@@ -10041,15 +10046,15 @@ msgstr "Oznake na gumbih orodne vrstice:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.schemas.in.h:1
 msgid "Do not display warning if not using a Debug configuration"
-msgstr "Ne prikaži opozorila, kadar nastavitve Debug niso v uporabi"
+msgstr "Ne prikaži opozorila, kadar nastavitve razhroščevanja niso v uporabi"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:1
 msgid "Add '(' after function call autocompletion"
-msgstr "Dodaj '(' za samodejnim dopolnjevanjem klica funkcije"
+msgstr "Dodaj '(' za samodejnim izpolnjevanjem klica funkcije"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:2
 msgid "Add a space after function call autocompletion"
-msgstr "Dodaj presledek za samodejnim dopolnjevanjem klica funkcije"
+msgstr "Dodaj presledek za samodejnim izpolnjevanjem klica funkcije"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:3
 msgid "Auto-complete"
@@ -10057,7 +10062,7 @@ msgstr "Samodejno izpolnjevanje"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:4
 msgid "Autocompletion (C/C++/Java only)"
-msgstr "Samodejno dopolnjevanje (le C/C++/Java)"
+msgstr "Samodejno izpolnjevanje (le C/C++/Java)"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:5
 msgid "Brace indentation size in spaces:"
@@ -10133,7 +10138,7 @@ msgstr "C++/Java pomočnik"
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
-#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1318
+#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1231
 msgid "C/C++"
 msgstr "C/C++"
 
@@ -10156,7 +10161,7 @@ msgstr "Nadzor različic Git"
 
 #: ../plugins/devhelp/anjuta-devhelp.plugin.in.h:1
 msgid "API Help"
-msgstr "API Pomoč"
+msgstr "API pomoč"
 
 #: ../plugins/devhelp/anjuta-devhelp.plugin.in.h:2
 msgid "Devhelp Plugin for Anjuta."
@@ -10164,7 +10169,7 @@ msgstr "Vstavek Anjute za Devhelp"
 
 #: ../plugins/class-inheritance/anjuta-class-inheritance.plugin.in.h:1
 msgid "A graph painter for the inheritance of the classes."
-msgstr "Risalec za nasledstvo lastnosti razredov"
+msgstr "Risalnik za nasledstvo lastnosti razredov"
 
 #: ../plugins/class-inheritance/anjuta-class-inheritance.plugin.in.h:2
 msgid "Class Inheritance"
@@ -10212,7 +10217,7 @@ msgstr "Vstavek Todo opravil za Anjuto."
 
 #: ../plugins/macro/anjuta-macro.plugin.in.h:1
 msgid "Insert predefined macros into Editor"
-msgstr "Vstavi predhodno določene makroje v urejevalnik"
+msgstr "Vstavi predhodno določene makre v urejevalnik"
 
 #: ../plugins/macro/anjuta-macro.plugin.in.h:2
 msgid "Macro Plugin"
@@ -10368,7 +10373,7 @@ msgid "Error: %s"
 msgstr "Napaka: %s"
 
 #: ../plugins/js-debugger/plugin.c:142
-#: ../plugins/js-debugger/debugger-js.c:546
+#: ../plugins/js-debugger/debugger-js.c:548
 msgid "Error: cant bind port"
 msgstr "Napaka: ni mogoče povezati vrat"
 
@@ -10403,7 +10408,7 @@ msgstr "<b>JS mape iskanja</b>"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:2
 msgid "Add brace after function call autocompletion"
-msgstr "Dodaj zaklepaj za samodejno dopolnjenim klicem funkcije"
+msgstr "Dodaj zaklepaj za samodejno izpolnjenim klicem funkcije"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:3
 msgid "Gir repository's directory:   "
@@ -10421,1188 +10426,7 @@ msgstr "Poudari izpuščeno podpičje"
 msgid "Min character for completion "
 msgstr "Najmanjše število znakov za dopolnjevanje"
 
-#: ../plugins/symbol-db/symbol-db-views.c:169
+#: ../plugins/symbol-db/symbol-db-views.c:182
 msgid "Symbol"
 msgstr "Simbol"
-
-#~ msgid "Online"
-#~ msgstr "Povezano"
-#~ msgid "<b>Handler template</b>"
-#~ msgstr "<b>Predloga upravljalnika</b>"
-#~ msgid "<b>Manage associations</b>"
-#~ msgstr "<b>Urejanje zvez</b>"
-#~ msgid "<b>New association</b>"
-#~ msgstr "<b>Nova zveza</b>"
-#~ msgid "Associate"
-#~ msgstr "Zveži"
-#~ msgid "Automatically add resources"
-#~ msgstr "Samodejno dodajanje virov"
-#~ msgid "Designer"
-#~ msgstr "Snovalnik"
-#~ msgid "Insert handler on edit"
-#~ msgstr "Vstavi upravljalnik med urejanjem"
-#~ msgid "Position type"
-#~ msgstr "Vrsta lega"
-#~ msgid "Separated designer layout"
-#~ msgstr "Ločena razporeditev postavitev"
-#~ msgid "Special regexp"
-#~ msgstr "Posebni logični izraz"
-#~ msgid "Widget name"
-#~ msgstr "Ime gradnika"
-#~ msgid "Association item has no designer"
-#~ msgstr "Predmet zveze nima določenega oblikovalca"
-#~ msgid "Association item has no editor"
-#~ msgstr "Predmet zveze nima določenega urejevalnika"
-#~ msgid "Bad association item option in the node %s"
-#~ msgstr "Neveljavna možnost predmeta zveze v vozlišču %s"
-#~ msgid "no filename found in the node %s"
-#~ msgstr "ni datoteke v vozlišču %s"
-#~ msgid "invalid %s property value"
-#~ msgstr "neveljavna %s vrednost lastnosti"
-#~ msgid "Association item filename has no path"
-#~ msgstr "Ime datoteke predmeta zveze nima določene poti"
-#~ msgid "No associations initialized: nothing to save"
-#~ msgstr "Ni zagnanih zvez: ni sprememb za shranjevanje"
-#~ msgid "Couldn't save associations because project root isn't set"
-#~ msgstr "Ni mogoče shraniti zvez, ker koren projekta ni določen"
-#~ msgid "Failed to save associations"
-#~ msgstr "Ni mogoče shraniti zvez"
-#~ msgid "Current"
-#~ msgstr "Trenutno"
-#~ msgid "Before end"
-#~ msgstr "Pred koncem"
-#~ msgid "After begin"
-#~ msgstr "Po začetku"
-#~ msgid "End of file"
-#~ msgstr "Konec datoteke"
-#~ msgid "Couldn't introspect the signal"
-#~ msgstr "Ni mogoče določiti signala"
-#~ msgid "Python language isn't supported yet"
-#~ msgstr "Programski jezik Python še ni podprt."
-#~ msgid "Vala language isn't supported yet"
-#~ msgstr "Programski jezik Vala še ni podprt."
-#~ msgid "There is no associated editor for the designer"
-#~ msgstr "Ni zveze med urejevalnikom in oblikovalcem"
-#~ msgid "Unknown editor language \"%s\""
-#~ msgstr "Neznan jezik urejevalnika \"%s\""
-#~ msgid "Error while adding a new handler stub: %s"
-#~ msgstr "Napaka med dodajanjem upravljalnika: %s"
-#~ msgid "Couldn't find signal information"
-#~ msgstr "Ni mogoče najti podrobnosti signala"
-#~ msgid "Error while adding a new handler stub: No current editor"
-#~ msgstr "Napaka med dodajanjem upravljalnika: ni trenutnega urejevalnika"
-#~ msgid ""
-#~ "To avoid this message turn off \"%s\" flag in Preferences->Glade GUI "
-#~ "Designer"
-#~ msgstr ""
-#~ "Sporočilo se ne bo prikazovalo, če onemogočite zastavico \"%s\" med "
-#~ "Možnosti->Snovalnik vmesnikov Glade"
-#~ msgid "Couldn't find an associated document"
-#~ msgstr "Ni mogoče najti ustreznega dokumenta"
-#~ msgid "Those documents are already associated"
-#~ msgstr "Ti dokumenti imajo že določeno zvezo"
-#~ msgid "Unable to read file: %s."
-#~ msgstr "Ni mogoče prebrati datoteke: %s."
-#~ msgid "Top level widget"
-#~ msgstr "Gradnik vrhnje ravni"
-#~ msgid "Couldn't find a default signal name"
-#~ msgstr "Ni mogoče najti privzetega imena signala"
-#~ msgid "Project %s has no deprecated widgets or version mismatches."
-#~ msgstr "Projekt %s nima zastarelih gradnikov ali neskladnosti različic"
-#~ msgid "There is no Glade project"
-#~ msgstr "Ni ustreznega Glade projekta"
-#~ msgid "_Glade"
-#~ msgstr "_Glade"
-#~ msgid "Switch between designer/code"
-#~ msgstr "Preklopi med oblikovalcem in kodo"
-#~ msgid "Insert handler stub"
-#~ msgstr "Dodajanje upravljalnika"
-#~ msgid "Insert handler stub, autoposition"
-#~ msgstr "Vstavi upravljalnik , samodejno"
-#~ msgid "Associate last designer and last editor"
-#~ msgstr "Zveži povezavo med zadnjim oblikovalcem in urejevalnikom"
-#~ msgid "Associate last designer and editor"
-#~ msgstr "Zveži povezavo med zadnjim oblikovalcem in urejevalnikom"
-#~ msgid "Associations dialog…"
-#~ msgstr "Okno zvez ..."
-#~ msgid "Versioning…"
-#~ msgstr "Sledenje različic ..."
-#~ msgid "Switch between library versions and check deprecations"
-#~ msgstr "Preklopi med različicami knjižnic in preveri odvisnosti"
-#~ msgid "Set as default resource target"
-#~ msgstr "Nastavi kot privzeti cilj virov"
-#~ msgid "Current default target"
-#~ msgstr "Trenutno privzeti cilj"
-#~ msgid "Save the current file"
-#~ msgstr "Shrani trenutno datoteko"
-#~ msgid "Redo the last action"
-#~ msgstr "Ponovi zadnji ukaz"
-#~ msgid "Cut the selection"
-#~ msgstr "Izreži izbrano"
-#~ msgid "Copy the selection"
-#~ msgstr "Kopiraj izbrano"
-#~ msgid "Paste the clipboard"
-#~ msgstr "Prilepi iz odložišča"
-#~ msgid "Delete the selection"
-#~ msgstr "Izbriši izbor"
-#~ msgid "Glade designer operations"
-#~ msgstr "Opravila oblikovalca vmesnikov Glade"
-#~ msgid "Go back in undo history"
-#~ msgstr "Vrni se po zgodovini razveljavitev"
-#~ msgid "Go forward in undo history"
-#~ msgstr "Pojdi naprej po zgodovini razveljavitev"
-#~ msgid "Glade Clipboard"
-#~ msgstr "Odložišče Glade"
-#~ msgid "Glade GUI Designer"
-#~ msgstr "Snovalnik vmesnikov Glade"
-#~ msgid "Edit&#x2026;"
-#~ msgstr "Uredi&#x2026;"
-#~ msgid "Tab position:"
-#~ msgstr "Položaj zavihkov:"
-#~ msgid "No Messages"
-#~ msgstr "Ni sporočil"
-#~ msgid "No Infos"
-#~ msgstr "Ni podrobnosti"
-#~ msgid "No Warnings"
-#~ msgstr "Ni opozoril"
-#~ msgid "No Errors"
-#~ msgstr "Ni napak"
-#~ msgid "Loading…"
-#~ msgstr "Nalaganje ..."
-#~ msgid "Autocompletion pop up choices"
-#~ msgstr "Pojavne možnosti samodejnega dopolnjevanja"
-#~ msgid "wxWidgets"
-#~ msgstr "wxWidgets"
-#~ msgid "private"
-#~ msgstr "zasebno"
-#~ msgid "protected"
-#~ msgstr "zaščiteno"
-#~ msgid "public"
-#~ msgstr "javno"
-#~ msgid "Gdb plugin."
-#~ msgstr "Gdb vstavek."
-#~ msgid "Up to date"
-#~ msgstr "Posodobljeno"
-#~ msgid "<b>Build</b>"
-#~ msgstr "<b>Izgradnja</b>"
-#~ msgid "<b>Configuration:</b>"
-#~ msgstr "<b>Nastavitev:</b>"
-#~ msgid "<b>Install</b>"
-#~ msgstr "<b>Nameščeno</b>"
-#~ msgid "Program '%s' does not exists"
-#~ msgstr "Program '%s' ne obstaja"
-#~ msgid "C_onfigure Project..."
-#~ msgstr "Nastavitev _projekta ..."
-#~ msgid "<b>CVS Options</b>"
-#~ msgstr "<b>Možnosti CVS</b>"
-#~ msgid "<b>Options:</b>"
-#~ msgstr "<b>Možnosti:</b>"
-#~ msgid "<b>Options</b>"
-#~ msgstr "<b>Možnosti</b>"
-#~ msgid "<b>Repository: </b>"
-#~ msgstr "<b>Skladišče: </b>"
-#~ msgid "<b>Debugger:</b>"
-#~ msgstr "<b>Razhroščevalnik</b>"
-#~ msgid "Debugger Command..."
-#~ msgstr "Ukaz razhroščevanja ..."
-#~ msgid "Pid"
-#~ msgstr "PID"
-#~ msgid "Id"
-#~ msgstr "ID"
-#~ msgid "Ins_pect/Evaluate..."
-#~ msgstr "_Preveri/oceni ..."
-#~ msgid "Add Watch..."
-#~ msgstr "Dodaj opazovanje ..."
-#~ msgid "_Print..."
-#~ msgstr "_Natisni ..."
-#~ msgid "recent menu label|_%d. %s"
-#~ msgstr "_%d. %s"
-#~ msgid "recent menu label|%d. %s"
-#~ msgstr "%d. %s"
-#~ msgid "_Open..."
-#~ msgstr "_Odpri ..."
-#~ msgid "Url:"
-#~ msgstr "URL:"
-#~ msgid "Advanced..."
-#~ msgstr "Napredno ..."
-#~ msgid "Source coudn't be removed"
-#~ msgstr "Vira ni mogoče odstraniti"
-#~ msgid "<b>Tags</b>"
-#~ msgstr "<b>Oznake</b>"
-#~ msgid "Add signed off by line"
-#~ msgstr "Dodaj odpis po vrsticah"
-#~ msgid "_Commit..."
-#~ msgstr "_Uveljavitev ..."
-#~ msgid "_View log..."
-#~ msgstr "_Pogled beležnice ..."
-#~ msgid "_Push..."
-#~ msgstr "_Objavi ..."
-#~ msgid "_Pull..."
-#~ msgstr "_Sprejmi ..."
-#~ msgid "_Add..."
-#~ msgstr "_Dodaj ..."
-#~ msgid "_Remove..."
-#~ msgstr "_Odstrani ..."
-#~ msgid "_Ignore..."
-#~ msgstr "_Prezri ..."
-#~ msgid "Create patch series..."
-#~ msgstr "Ustvari niz popravkov ..."
-#~ msgid "_Switch to another branch..."
-#~ msgstr "_Preklopi na drugo vejo ..."
-#~ msgid "_Merge..."
-#~ msgstr "_Združi ..."
-#~ msgid "_Delete..."
-#~ msgstr "_Izbriši ..."
-#~ msgid "_Delete tag..."
-#~ msgstr "_Izbriši oznake ..."
-#~ msgid "Unknown language of the editor \"%s\""
-#~ msgstr "Neznan jezik urejevalnika \"%s\""
-#~ msgid "n/a"
-#~ msgstr "n/a"
-#~ msgid "Misc"
-#~ msgstr "Razno"
-#~ msgid "<b>Macros:</b>"
-#~ msgstr "<b>Makri:</b>"
-#~ msgid "Edit..."
-#~ msgstr "Uredi ..."
-#~ msgid "Macros..."
-#~ msgstr "Makri ..."
-#~ msgid "_Patch..."
-#~ msgstr "_Uveljavi popravke ..."
-#~ msgid "<b>Project name</b>"
-#~ msgstr "<b>Ime projekta</b>"
-#~ msgid "_Select file to add..."
-#~ msgstr "_Izbor datoteke za dodajanje ..."
-#~ msgid "Add _Group..."
-#~ msgstr "Dodaj _skupino ..."
-#~ msgid "Add _Target..."
-#~ msgstr "Dodaj _cilj ..."
-#~ msgid "Add _Source File..."
-#~ msgstr "Dodaj _izvorno datoteko ..."
-#~ msgid "_Add To Project"
-#~ msgstr "_Dodaj projektu"
-#~ msgid "Select project type"
-#~ msgstr "Izbor vrste projekta"
-#~ msgid "Create a template gtk builder interface file"
-#~ msgstr "Ustvari Gtk datoteko vmesnika"
-#~ msgid "Run In Terminal"
-#~ msgstr "Zaženi v _terminalu"
-#~ msgid "Program Parameters..."
-#~ msgstr "Parametri programa ..."
-#~ msgid "<b>Actions</b>"
-#~ msgstr "<b>Dejanja</b>"
-#~ msgid "<b>Parameters</b>"
-#~ msgstr "<b>Parametri</b>"
-#~ msgid "<b>Scope</b>"
-#~ msgstr "<b>Obseg</b>"
-#~ msgid "Searching..."
-#~ msgstr "Iskanje ..."
-#~ msgid "_Update..."
-#~ msgstr "_Posodobitev ..."
-#~ msgid "Merge..."
-#~ msgstr "Združi ..."
-#~ msgid "_View Log..."
-#~ msgstr "_ Pogled beležnice ..."
-#~ msgid "_Diff..."
-#~ msgstr "_Primerjava vsebine ..."
-#~ msgid "Copy..."
-#~ msgstr "Kopiraj ..."
-#~ msgid "Diff..."
-#~ msgstr "_Primerjava vsebine ..."
-#~ msgid "_Find Symbol..."
-#~ msgstr "_Poišči simbol ..."
-#~ msgid "<b>Global</b>"
-#~ msgstr "<b>Splošno</b>"
-#~ msgid "<b>Terminal options</b>"
-#~ msgstr "<b>Terminalske možnosti</b>"
-#~ msgid "<b>Tools</b>"
-#~ msgstr "<b>Orodja</b>"
-#~ msgid "_Variable..."
-#~ msgstr "_Spremenljivka ..."
-#~ msgid "Select projects directory"
-#~ msgstr "Izbor mape projektov"
-#~ msgid "GtkSourceview editor"
-#~ msgstr "Urejevalnik GtkSourceview"
-#~ msgid "Fixed data-view"
-#~ msgstr "Določen podatkovni pogled"
-#~ msgid ""
-#~ "General Public License (GPL)\n"
-#~ "Lesser General Public License (LGPL)\n"
-#~ "No License"
-#~ msgstr ""
-#~ "Splošno javno dovoljenje (GPL)\n"
-#~ "Manj splošno dovoljenja GNU (LGPL)\n"
-#~ "Brez dovoljenja"
-#~ msgid "Directory"
-#~ msgstr "Mapa"
-#~ msgid ""
-#~ "Top\n"
-#~ "Bottom\n"
-#~ "Left\n"
-#~ "Right"
-#~ msgstr ""
-#~ "Zgoraj\n"
-#~ "Spodaj\n"
-#~ "Levo\n"
-#~ "Desno"
-#~ msgid "<b>Filter</b>"
-#~ msgstr "<b>Filter</b>"
-#~ msgid "*"
-#~ msgstr "*"
-#~ msgid "Command Line Parameters"
-#~ msgstr "Parametri ukazne vrstice"
-#~ msgid "Enter a Hexa adress or select one in the data"
-#~ msgstr "Vnesite hex naslov ali izberite enega med podatki"
-#~ msgid "Execute Program"
-#~ msgstr "Izvedi program"
-#~ msgid "_Pass:"
-#~ msgstr "_Prehod:"
-#~ msgid "<b>Log Message:</b>"
-#~ msgstr "<b>Sporočilo beleženja:</b>"
-#~ msgid "<b>Log message:</b>"
-#~ msgstr "<b>Sporočilo beleženja:</b>"
-#~ msgid "<b>Mode:</b>"
-#~ msgstr "<b>Način:</b>"
-#~ msgid "<b>Revision:</b>"
-#~ msgstr "<b>Predelava</b>"
-#~ msgid "<b>Select file to add:</b>"
-#~ msgstr "<b>Izbor datoteke za dodajanje:</b>"
-#~ msgid "<b>Tag name:</b>"
-#~ msgstr "<b>Ime oznake:</b>"
-#~ msgid "<b>URL:</b>"
-#~ msgstr "<b>URL:</b>"
-#~ msgid "on_widget_signal"
-#~ msgstr "on_widget_signal"
-#~ msgid "widget_signal_cb"
-#~ msgstr "widget_signal_cb"
-#~ msgid ""
-#~ "Underline-Plain\n"
-#~ "Underline-Squiggle\n"
-#~ "Underline-TT\n"
-#~ "Diagonal\n"
-#~ "Strike-Out"
-#~ msgstr ""
-#~ "Podčrtano-prosto\n"
-#~ "Podčrtano-vijuga\n"
-#~ "Podčrtano-TT\n"
-#~ "Diagonala\n"
-#~ "Odčrtano"
-#~ msgid "No message details"
-#~ msgstr "Ni podrobnosti sporočila"
-#~ msgid "Function Name"
-#~ msgstr "Ime funkcije"
-#~ msgid "Self"
-#~ msgstr "Samo"
-#~ msgid "Children"
-#~ msgstr "Podrejeno"
-#~ msgid "% Time"
-#~ msgstr "% čas"
-#~ msgid "Cumulative Seconds"
-#~ msgstr "Zbirni čas v sekundah"
-#~ msgid "Self Seconds"
-#~ msgstr "Lastni čas v sekundah"
-#~ msgid "Self ms/call"
-#~ msgstr "Lastni ms/klic"
-#~ msgid "Total ms/call"
-#~ msgstr "Skupaj ms/klic"
-#~ msgid ""
-#~ "Could not get profiling data.\n"
-#~ "\n"
-#~ "Please check the path to this target's profiling data file."
-#~ msgstr ""
-#~ "Ni mogoče pridobiti podatkov profila.\n"
-#~ "\n"
-#~ "Preverite ali pot do datoteke profila cilja."
-#~ msgid ""
-#~ "This target does not have any profiling data.\n"
-#~ "\n"
-#~ "Please ensure that the target is complied with profiling support and that "
-#~ "it is run at least once."
-#~ msgstr ""
-#~ "Cilj nima ustreznih podatkov profila.\n"
-#~ "\n"
-#~ "Prepričajte se, da je cilj izgrajen s podporo profilov in da je zagnan "
-#~ "vsaj enkrat."
-#~ msgid "Profiler"
-#~ msgstr "Upravljalnik profilov"
-#~ msgid "Select Target..."
-#~ msgstr "Izbor cilja ..."
-#~ msgid "Refresh"
-#~ msgstr "Osveži"
-#~ msgid "Application Performance Profiler"
-#~ msgstr "Prifiliranje izvajanja programov"
-#~ msgid "Flat Profile"
-#~ msgstr "Ploski profil"
-#~ msgid "Call Graph"
-#~ msgstr "Graf klicev"
-#~ msgid "Function Call Tree"
-#~ msgstr "Struktura klica funkcije"
-#~ msgid "Function Call Chart"
-#~ msgstr "Preglednica klica funkcije"
-#~ msgid "<b>Called By</b>"
-#~ msgstr "<b>Klican z</b>"
-#~ msgid "<b>Called</b>"
-#~ msgstr "<b>Klican</b>"
-#~ msgid "<b>Functions</b>"
-#~ msgstr "<b>Funkcije</b>"
-#~ msgid "<b>Profiling Data</b>"
-#~ msgstr "<b>Podatki prifiliranja</b>"
-#~ msgid "<b>Select Target to Profile</b>"
-#~ msgstr "<b>Izbor profila za cilj</b>"
-#~ msgid "<b>Symbols</b>"
-#~ msgstr "<b>Simboli</b>"
-#~ msgid "<b>Time Propagation</b>"
-#~ msgstr "<b>Čas razširjanja</b>"
-#~ msgid "Automatically refresh profile data display"
-#~ msgstr "Samodejno osveži podatke profila prikaza"
-#~ msgid "Do not propagate time for these symbols:"
-#~ msgstr "Ne razširjaj časa za te simbole:"
-#~ msgid "Do not show static functions"
-#~ msgstr "Ne prikaži statičnih funkcij"
-#~ msgid "Do not show these symbols:"
-#~ msgstr "Ne prikaži simbolov:"
-#~ msgid ""
-#~ "Enter one symbol specification per line.\n"
-#~ "\n"
-#~ "For information on symbol specifications, see section \n"
-#~ "4.5 of the gprof info page."
-#~ msgstr ""
-#~ "Vnesite eno določilo simbola na vrstico.\n"
-#~ "\n"
-#~ "Za več podrobnosti o določilih simbolov, si oglejte\n"
-#~ "poglavje 4.5 dokumentacije gprof. "
-#~ msgid "Options..."
-#~ msgstr "Možnosti ..."
-#~ msgid "Profiling Options"
-#~ msgstr "Možnosti profiliranja"
-#~ msgid "Propagate time for all symbols"
-#~ msgstr "Razširjaj čas za vse simbole"
-#~ msgid "Propagate time for only these symbols:"
-#~ msgstr "Razširjaj čas le za te simbole:"
-#~ msgid "Select Other Target..."
-#~ msgstr "Izbor drugega cilja ..."
-#~ msgid "Select Profiling Target"
-#~ msgstr "Izbor cilja profila ..."
-#~ msgid "Show all symbols"
-#~ msgstr "Pokaži vse simbole"
-#~ msgid "Show functions that could have been called but never were"
-#~ msgstr ""
-#~ "Pokaži funkcije, ki so bi bile lahko klicane, vendar nikoli niso bile"
-#~ msgid "Show only these symbols:"
-#~ msgstr "Pokaži le simbole:"
-#~ msgid "Show uncalled functions"
-#~ msgstr "Pokaži neklicane funkcije"
-#~ msgid "Use this profiling data file:"
-#~ msgstr "Uporaba datoteke s podatki profila:"
-#~ msgid "Please, fix the configuration"
-#~ msgstr "Popravite nastavitve ..."
-#~ msgid ""
-#~ "Project name: %s\n"
-#~ "Project type: %s\n"
-#~ "Project path: %s\n"
-#~ msgstr ""
-#~ "Ime projekta: %s\n"
-#~ "Vrsta projekta: %s\n"
-#~ "Pot projekta: %s\n"
-#~ msgid "This assistant will import an existing project into Anjuta."
-#~ msgstr "Pomočnik bo uvozil obstoječ projekt v programsko okolje Anjuta."
-#~ msgid "<b>Enter the project name:</b>"
-#~ msgstr "<b>Vnos imena projekta:</b>"
-#~ msgid "<b>Enter the base path of your project:</b>"
-#~ msgstr "<b>Vnost osnovne poti projekta:</b>"
-#~ msgid "Couldn't load glade file"
-#~ msgstr "Ni mogoče naložiti datoteke glade"
-#~ msgid "Icon choice"
-#~ msgstr "Izbira ikone"
-#~ msgid "_Sample action"
-#~ msgstr "_Primer dejanja"
-#~ msgid "Sample action"
-#~ msgstr "Primer dejanja"
-#~ msgid "Sample file operations"
-#~ msgstr "Primer opravila datoteke"
-#~ msgid "SamplePlugin"
-#~ msgstr "PrimerVstavka"
-#~ msgid "<b>Autocompletion</b>"
-#~ msgstr "<b>Samodejno dopolnjevanje</b>"
-#~ msgid "<b>Basic Indentation</b>"
-#~ msgstr "<b>Osnovni zamik</b>"
-#~ msgid "<b>Code folding</b>"
-#~ msgstr "<b>Zvijanje kode</b>"
-#~ msgid "<b>Highlight style</b>"
-#~ msgstr "<b>Slog poudarjanja</b>"
-#~ msgid "<b>Misc options</b>"
-#~ msgstr "<b>Druge možnosti</b>"
-#~ msgid "<b>Other colors</b>"
-#~ msgstr "<b>Ostale barve</b>"
-#~ msgid "Add line number every:"
-#~ msgstr "Dodaj številko vrstice vsakih:"
-#~ msgid "Add page header"
-#~ msgstr "Dodaj glavo strani"
-#~ msgid "Attributes:"
-#~ msgstr "Atributi:"
-#~ msgid "Autocomplete XML/HTML closing tags"
-#~ msgstr "Samodejno zaključi XML/HTML oznake"
-#~ msgid "Background color:"
-#~ msgstr "Barva ozadja:"
-#~ msgid "Basic Indentation"
-#~ msgstr "Osnovni zamik"
-#~ msgid "Bold"
-#~ msgstr "Krepko"
-#~ msgid "Calltip background:"
-#~ msgstr "Barva ozadja namigov kodnih zapisov:"
-#~ msgid "Caret (cursor) color:"
-#~ msgstr "Barva kazalnika:"
-#~ msgid "Caret blink period in ms"
-#~ msgstr "Utripanje kazalnika v ms"
-#~ msgid "Choose autocomplete for single match"
-#~ msgstr "Izbor samodejnega zaključevanja ob enojni možnosti"
-#~ msgid "Collapse all code folds on file open"
-#~ msgstr "Razpni vsa vozlišča kode ob odpiranju datoteke"
-#~ msgid "Colors & Fonts"
-#~ msgstr "Barve & pisave"
-#~ msgid "Compact folding"
-#~ msgstr "Skrči zvijanje"
-#~ msgid "Disable syntax highlighting"
-#~ msgstr "Onemogoči poudarjanje skladnje"
-#~ msgid "Draw line below folded lines"
-#~ msgstr "Izriši črto pod zvitimi vrsticami"
-#~ msgid "Edge column"
-#~ msgstr "Robni stolpec"
-#~ msgid "Editor caret (cursor) width in pixels"
-#~ msgstr "Urejanje širine kazalnika v točkah"
-#~ msgid "Enable HTML tags folding"
-#~ msgstr "Omogoči zvijanje HTML oznak"
-#~ msgid "Enable automatic indentation"
-#~ msgstr "Omogoči samodejno zamikanje"
-#~ msgid "Enable braces check"
-#~ msgstr "Omogoči preverjanje oklepajev"
-#~ msgid "Enable code folding"
-#~ msgstr "Omogoči zvojanje kode"
-#~ msgid "Enable comments folding"
-#~ msgstr "Omogoči zvijanje opomb"
-#~ msgid "Enable line wrap"
-#~ msgstr "Omogoči prelom vrstic"
-#~ msgid "Enable python comments folding"
-#~ msgstr "Omogoči zvijanje python opomb"
-#~ msgid "Enable python quoted strings folding"
-#~ msgstr "Omogoči zvijanje python kode v narekovajih"
-#~ msgid "Filter extraneous characters in DOS mode"
-#~ msgstr "Filtriraj zunanje znake v DOS načinu"
-#~ msgid "Fonts and colors for editor"
-#~ msgstr "Pisava in barve za urejevalnik"
-#~ msgid "Foreground color:"
-#~ msgstr "Barva pisave:"
-#~ msgid "Indent closing braces"
-#~ msgstr "Zamik zaklepaja"
-#~ msgid "Indent opening braces"
-#~ msgstr "Zamik uklepaja"
-#~ msgid "Indentation size in spaces:"
-#~ msgstr "Velikost zamika v presledkih:"
-#~ msgid "Italic"
-#~ msgstr "Poševno"
-#~ msgid "Line numbers margin width in pixels"
-#~ msgstr "Širina robu vrstičnih številk v točkah"
-#~ msgid "Maintain past Indentation"
-#~ msgstr "Ohrani predhodno zamikanje"
-#~ msgid "Margin Fold visible"
-#~ msgstr "Viden rob zvijanja kode"
-#~ msgid "Margin Linenum visible"
-#~ msgstr "Viden rob oštevilčenja vrstic"
-#~ msgid "Margin Marker visible"
-#~ msgstr "Viden rob zaznamovanja"
-#~ msgid "Monochrome"
-#~ msgstr "Enobarvno"
-#~ msgid ""
-#~ "Plus/Minus\n"
-#~ "Arrows\n"
-#~ "Circular\n"
-#~ "Squares"
-#~ msgstr ""
-#~ "Plus/minus\n"
-#~ "Puščice\n"
-#~ "Krožci\n"
-#~ "Kvadratki"
-#~ msgid "Pressing backspace un-indents"
-#~ msgstr "Z vračalko odstranite zamik"
-#~ msgid "Pressing tab inserts indentation"
-#~ msgstr "S tipko tab vstavite zamik"
-#~ msgid "Selection background:"
-#~ msgstr "Ozadje izbora:"
-#~ msgid "Selection foreground:"
-#~ msgstr "Pisava izbora:"
-#~ msgid "Strip trailling spaces on file save"
-#~ msgstr "Med shranjevanjem obreži presledke na koncu vrstic"
-#~ msgid "Use default"
-#~ msgstr "Uporabi privzeto"
-#~ msgid "View EOL chars"
-#~ msgstr "Pokaži EOL znake"
-#~ msgid "View Indentation Guides"
-#~ msgstr "Pokaži vodila zamika"
-#~ msgid "View Line Wrap"
-#~ msgstr "Pokaži prelom vrstice"
-#~ msgid "View Whitespaces"
-#~ msgstr "Pokaži presledne znake"
-#~ msgid "View indentation whitespaces"
-#~ msgstr "Pokaži presledne znake zamika"
-#~ msgid "Wrap bookmarks search around"
-#~ msgstr "Zakroži iskanje zaznamkov"
-#~ msgid "File: %s"
-#~ msgstr "Datoteka: %s"
-#~ msgid "Unable to get text buffer for printing"
-#~ msgstr "Ni mogoče prebrati medpomnilnika za tiskanje"
-#~ msgid "No file to print!"
-#~ msgstr "Ni izbrane datoteke za tiskanje!"
-#~ msgid "Scintilla Editor"
-#~ msgstr "Urejevalnik Scintilla"
-#~ msgid ""
-#~ "The file '%s' has been changed.\n"
-#~ "Do you want to reload it ?"
-#~ msgstr ""
-#~ "Datoteka '%s' je bila spremenjena.\n"
-#~ "Ali želite datoteko ponovno naložiti?"
-#~ msgid ""
-#~ "The file '%s' has been changed.\n"
-#~ "Do you want to loose your changes and reload it ?"
-#~ msgstr ""
-#~ "Datoteka '%s' je bila spremenjena.\n"
-#~ "Ali želite izgubiti spremembe in datoteko ponovno naložiti?"
-#~ msgid ""
-#~ "The file '%s' has been deleted.\n"
-#~ "Do you confirm and close it ?"
-#~ msgstr ""
-#~ "Datoteka '%s' je bila izbrisana.\n"
-#~ "Ali potrdite dejanje in zaprete pogovorno okno?"
-#~ msgid ""
-#~ "The file '%s' has been deleted.\n"
-#~ "Do you want to loose your changes and close it ?"
-#~ msgstr ""
-#~ "Datoteka '%s' je bila izbrisana. \n"
-#~ "Ali želite preklicati spremembe in datoteko zapreti?"
-#~ msgid "Could not get file info"
-#~ msgstr "Ni mogoče pridobiti podrobnosti datoteke"
-#~ msgid "This file is too big. Unable to allocate memory."
-#~ msgstr "Datoteka je prevelika, ni mogoče odločiti pomnilnika"
-#~ msgid "Could not open file"
-#~ msgstr "Ni mogoče odpreti datoteke"
-#~ msgid "Error while reading from file"
-#~ msgstr "Napaka med branjem iz datoteke"
-#~ msgid ""
-#~ "The file does not look like a text file or the file encoding is not "
-#~ "supported. Please check if the encoding of file is in the supported "
-#~ "encodings list. If not, add it from the preferences."
-#~ msgstr ""
-#~ "Datoteka ni videti kot običajna besedilna datoteka ali pa ni podprto "
-#~ "kodiranje. Preverite ali je kodni nabor ustrezen in sovpada s seznamom. V "
-#~ "primeru, da ne sovpada, ga dodajte med možnostmi."
-#~ msgid "Loading file..."
-#~ msgstr "Nalaganje datoteke ..."
-#~ msgid ""
-#~ "Could not load file: %s\n"
-#~ "\n"
-#~ "Details: %s"
-#~ msgstr ""
-#~ "Ni mogoče naložiti datoteke: %s\n"
-#~ "\n"
-#~ "Podrobnosti: %s."
-#~ msgid "File loaded successfully"
-#~ msgstr "Datoteka supešno naložena"
-#~ msgid "Saving file..."
-#~ msgstr "Shranjevanje datoteke ..."
-#~ msgid "Could not save intermediate file %s: %s"
-#~ msgstr "Ni mogoče shraniti vmesne datoteke %s: %s."
-#~ msgid "File saved successfully"
-#~ msgstr "Datoteka uspešno shranjena"
-#~ msgid ""
-#~ "Cannot load Global defaults and configuration files:\n"
-#~ "%s.\n"
-#~ "This may result in improper behaviour or instabilities.\n"
-#~ "Anjuta will fall back to built in (limited) settings"
-#~ msgstr ""
-#~ "Ni mogoče naložiti splošnih lastnosti in nastavitvenih datotek:\n"
-#~ "%s.\n"
-#~ "Napaka se lahko pojavi kadar program ne deluje stabilno.\n"
-#~ "Program Anjuta bo povrnil prvotne privzete in omejene nastavitve."
-#~ msgid "<b>Scratchbox Options</b>\n"
-#~ msgstr "<b>Scratchbox možnosti</b>\n"
-#~ msgid "Scratchbox directory:"
-#~ msgstr "Scratchbox mapa:"
-#~ msgid "Scratchbox target:"
-#~ msgstr "Scratchbox cilj:"
-#~ msgid "Scratchbox version:"
-#~ msgstr "Različica Scratchbox:"
-#~ msgid "Scratchbox"
-#~ msgstr "Scratchbox"
-#~ msgid "<b>Font:</b>"
-#~ msgstr "<b>Pisava:</b>"
-#~ msgid "<b>View</b>"
-#~ msgstr "<b>Pogled</b>"
-#~ msgid "<b>End Revision:</b>"
-#~ msgstr "<b>Končna predelava:</b>"
-#~ msgid "<b>Subversion Options</b>"
-#~ msgstr "<b>Možnosti Subversion</b>"
-#~ msgid "Ctags executable:"
-#~ msgstr "Ctag izvršljive datoteke: "
-#~ msgid ""
-#~ "Default\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Privzeto\n"
-#~ "\n"
-#~ msgid "Unable to build user interface for tool variable"
-#~ msgstr "Ni mogoče izgraditi uporabniškega vmesnika za spremenljivke orodja"
-#~ msgid "Unable to build user interface for tool editor"
-#~ msgstr "Ni mogoče izgraditi uporabniškega vmesnika za urejevalnik orodij"
-#~ msgid "<b>Program to test:</b>"
-#~ msgstr "<b>Program za testiranje:</b>"
-#~ msgid "<b>Valgrind</b>"
-#~ msgstr "<b>Valgrind</b>"
-#~ msgid ""
-#~ "Memcheck\n"
-#~ "Addrcheck\n"
-#~ "Helgrind"
-#~ msgstr ""
-#~ "Memcheck\n"
-#~ "Addrcheck\n"
-#~ "Helgrind"
-#~ msgid "Select Tool:"
-#~ msgstr "Izbor orodja:"
-#~ msgid "Select Valgrind Target"
-#~ msgstr "Izbor Valgrind cilja"
-#~ msgid "Select debugging target"
-#~ msgstr "Izbor cilja razhroščevanja"
-#~ msgid "Valgrind"
-#~ msgstr "Valgrind"
-#~ msgid ""
-#~ "No executable target selected for debugging with Valgrind. Please select "
-#~ "one."
-#~ msgstr ""
-#~ "Ni izbranega izvedljivega cilja za razhroščevanje z valgrind vstavkom. "
-#~ "Izberite enega."
-#~ msgid ""
-#~ "There aren't any available executable targets for this project.\n"
-#~ "Please create one first."
-#~ msgstr ""
-#~ "Na voljo ni prostih izvedljivih ciljev projekta.\n"
-#~ "Najprej enega ustvarite."
-#~ msgid "Choose file where to save Valgrind log"
-#~ msgstr "Izberite datoteko za shranjevanje Valgrind beleženja"
-#~ msgid "Open Valgrind log file"
-#~ msgstr "Odpri Valgrind datoteko beleženja"
-#~ msgid "_Valgrind"
-#~ msgstr "_Valgrind"
-#~ msgid "_Select Tool and Run..."
-#~ msgstr "_Izbor orodja in zagon"
-#~ msgid "_Kill Execution"
-#~ msgstr "_Ubij izvajanje"
-#~ msgid "_Load Log"
-#~ msgstr "_Naloži beležnico"
-#~ msgid "S_ave Log"
-#~ msgstr "_Shrani beležnico"
-#~ msgid "Edit Rules"
-#~ msgstr "Uredi pravila"
-#~ msgid "Use Valgrind debug tool"
-#~ msgstr "Uporabi Valgrind orodje razhroščevanja"
-#~ msgid "<b>Valgrind general preferences</b>"
-#~ msgstr "<b>Splošne možnosti Valgrind</b>"
-#~ msgid "Valgrind binary file path:"
-#~ msgstr "Pot do Valgrind binarne datoteke:"
-#~ msgid "Choose Valgrind Binary File Path..."
-#~ msgstr "Izberite pot do Valgrind binarne datoteke ..."
-#~ msgid "Preview"
-#~ msgstr "Predogled"
-#~ msgid "lines above and below the target line."
-#~ msgstr "vrstice nad in pod ciljno vrstico."
-#~ msgid "Failed to create pipe to '%s': %s"
-#~ msgstr "Napaka med ustvarjanjem cevi v '%s': %s"
-#~ msgid "Failed to create child process '%s': %s"
-#~ msgstr "Napaka med ustvarjanjem podrejenega opravila '%s': %s"
-#~ msgid ""
-#~ "Reached the end of the input file or error in parsing valgrind output."
-#~ msgstr ""
-#~ "Dosežen konec vhodne datoteke ali pa je prišlo do napake med "
-#~ "razčlenjevanjem valgrind odvoda."
-#~ msgid "Process exited."
-#~ msgstr "opravilo se je zaključilo."
-#~ msgid "Could not get the right valgrind-binary gconf key:"
-#~ msgstr "Ni mogoče pridobiti ustreznega valgrind-binary gconf ključa:"
-#~ msgid ""
-#~ "Valgrind binary [%s] does not exist. Please check the preferences or "
-#~ "install Valgrind package."
-#~ msgstr ""
-#~ "Valgrind binarna datoteka [%s] ne obstaja. Preverite lastnosti in "
-#~ "namestite paket Valgrind."
-#~ msgid "Could not get the right pipe for the process."
-#~ msgstr "Ni mogoče dobiti ustrezne cevi opravila."
-#~ msgid ""
-#~ "Invalid syntax in settings '%s'.\n"
-#~ "Please enter a value of the form \"<integer>,<integer>,<integer>\"."
-#~ msgstr ""
-#~ "Neveljavna skladnja med nastavitvami '%s'.\n"
-#~ "Vnesite vrednost v obliki \"<število>,<število>,<število>\"."
-#~ msgid "Override default settings"
-#~ msgstr "Prepiši privzete nastavitve"
-#~ msgid "Enter <size>,<assoc>,<line_size>:"
-#~ msgstr "Vnesite <size>,<assoc>,<line_size>:"
-#~ msgid "Cachegrind"
-#~ msgstr "Cachegrind"
-#~ msgid "Function contains"
-#~ msgstr "Funkcija vsebuje"
-#~ msgid "Object contains"
-#~ msgstr "Predmet vsebuje"
-#~ msgid "Source filename contains"
-#~ msgstr "Izvorno ime datoteke vsebuje"
-#~ msgid "Invalid regular expression: '%s': %s"
-#~ msgstr "Neveljaven logični izraz: '%s': %s"
-#~ msgid "Valgrind Suppression Rules"
-#~ msgstr "Valgrind pravila preprečevanja"
-#~ msgid "Valgrind Suppression"
-#~ msgstr "Valgrind preprečevanje"
-#~ msgid "Cu_t"
-#~ msgstr "I_zreži"
-#~ msgid "Suppress"
-#~ msgstr "Prepreči"
-#~ msgid "Edit in Custom Editor"
-#~ msgstr "Uredi v privzetem urejevalniku"
-#~ msgid "Demangle C++ symbol names"
-#~ msgstr "Razločevanje C++ imen simbolov"
-#~ msgid "Show"
-#~ msgstr "Pokaži"
-#~ msgid "callers in stack trace"
-#~ msgstr "klici v zaznanem skladu"
-#~ msgid "Stop showing errors if there are too many"
-#~ msgstr "Prekini prikazovanje napak, če je teh preveč"
-#~ msgid "Round malloc sizes to next word"
-#~ msgstr "Zaokroži malloc velikosti do naslednje besede"
-#~ msgid "Trace any child processes forked off by the program being debugged"
-#~ msgstr ""
-#~ "Zaznavanje podrejenih opravil odločenih med razhroščevanjem programa"
-#~ msgid "Track open file descriptors"
-#~ msgstr "Sledi opisovalcem odprtih datotek"
-#~ msgid "Add time stamps to log messages"
-#~ msgstr "Dodaj časovni žig sporočilom dnevnika"
-#~ msgid "Call __libc_freeres() at exit before checking for memory leaks"
-#~ msgstr ""
-#~ "Call __libc_freeres() ob izhodu pred rpeverjanjem puščanja pomnilnika"
-#~ msgid "Suppressions File:"
-#~ msgstr "Datoteka preprečevanja:"
-#~ msgid "Choose Valgrind Suppressions File..."
-#~ msgstr "Izbor Valgrind datoteke preprečevanja ..."
-#~ msgid "Helgrind"
-#~ msgstr "Helgrind"
-#~ msgid "Assume thread stacks are used privately"
-#~ msgstr "Predvidi, da so niti skladov uporabljene zasebno"
-#~ msgid "Show location of last word access on error:"
-#~ msgstr "Pokaži mesto zadnjega dostopa pred napako:"
-#~ msgid "Memcheck"
-#~ msgstr "Preverjanje pomnilnika"
-#~ msgid "Memory leaks"
-#~ msgstr "Uhajanje pomnilnika"
-#~ msgid "Leak check:"
-#~ msgstr "Preverjanje uhajanja:"
-#~ msgid "Show reachable blocks in leak check"
-#~ msgstr "Pokaži dosegljive bloke med preverjanjem puščanja"
-#~ msgid "Leak resolution:"
-#~ msgstr "Ločljivost uhajanja:"
-#~ msgid "Keep up to"
-#~ msgstr "Ohrani na"
-#~ msgid "bytes in the queue after being free()'d"
-#~ msgstr "bajti v vrsti po sprostitvi"
-#~ msgid "Work around bugs generated by gcc 2.96"
-#~ msgstr "Ustvarjanje obhodov hroščev preko gcc 2.96"
-#~ msgid "Grow"
-#~ msgstr "Razširi"
-#~ msgid "Shrink"
-#~ msgstr "Skrči"
-#~ msgid "Rule name:"
-#~ msgstr "Ime pravila:"
-#~ msgid "Suppress messages of type:"
-#~ msgstr "Prepreči sporočila vrste:"
-#~ msgid "Suppress when using:"
-#~ msgstr "Prepreči med uporabo:"
-#~ msgid "System call:"
-#~ msgstr "Sistemski klic:"
-#~ msgid "Call chain:"
-#~ msgstr "Klicna veriga:"
-#~ msgid "Error saving to suppression file '%s': %s"
-#~ msgstr "Napaka med pisanjem v datoteko preprečevanja '%s': %s"
-#~ msgid "You have forgotten to name your suppression rule."
-#~ msgstr "Pravilo preprečevanja ni poimenovano."
-#~ msgid "Cannot save suppression rules: %s"
-#~ msgstr "Ni mogoče shraniti pravil preprečevanja: %s"
-#~ msgid "You have not set a suppressions file in your settings."
-#~ msgstr "Med nastavitvami ni nastavljenih pravil preprečevanja."
-#~ msgid "<b>Session</b>"
-#~ msgstr "<b>Seja</b>"
-#~ msgid ""
-#~ "Default\n"
-#~ "Text below icons\n"
-#~ "Text beside icons\n"
-#~ "Icons only\n"
-#~ "Text only"
-#~ msgstr ""
-#~ "Privzeto\n"
-#~ "Besedilo pod ikonami\n"
-#~ "Besedilo ob ikonah\n"
-#~ "Le ikone\n"
-#~ "Le besedilo"
-#~ msgid ""
-#~ "Text\n"
-#~ "Icons\n"
-#~ "Text + Icons\n"
-#~ "Gnome toolbar setting\n"
-#~ "Tabs"
-#~ msgstr ""
-#~ "Besedilot\n"
-#~ "Ikone\n"
-#~ "Besedilo in ikone\n"
-#~ "Nastavitve Gnome orodne vrstice\n"
-#~ "Zavihki"
-#~ msgid "<b>Calltips</b>"
-#~ msgstr "<b>Namigi kodnih zapisov</b>"
-#~ msgid "<b>Smart Indentation</b>"
-#~ msgstr "<b>Pametni zamik</b>"
-#~ msgid "Enable adaptive indentation"
-#~ msgstr "Omogoči prilagodljivo zamikanje"
-#~ msgid "Pressing tab indents"
-#~ msgstr "Tipko tab zamakne vnos"
-#~ msgid "Sample Plugin"
-#~ msgstr "Vzorčni vstavek"
-#~ msgid "Sample Plugin for Anjuta."
-#~ msgstr "Vzorčni vstavek za program Anjuta."
-#~ msgid "An alternate editor based on Scintilla"
-#~ msgstr "Alternativni urejevalnik na osnovi Scintilla"
-#~ msgid "Change build commands to use scratchbox 1 or 2"
-#~ msgstr "Spremeni ukaze izgradnje za uporabo Scratchbox 1 ali 2"
-#~ msgid "Application performance profiler"
-#~ msgstr "Prifiliranje izvajanja programov"
-#~ msgid "Profile"
-#~ msgstr "Profil"
-#~ msgid "Powerful debugging tool."
-#~ msgstr "Mogočno orodje za razhroščevanje"
-#~ msgid "Valgrind Plugin"
-#~ msgstr "Vstavek Valgrind"
-#~ msgid "Modify Signal"
-#~ msgstr "Spremeni signal"
-#~ msgid "Select to _Brace"
-#~ msgstr "Izbor _oklepaja"
-#~ msgid "Select the text in the matching braces"
-#~ msgstr "Izbor besedila med pripadajočima uklepajem in zaklepajem"
-#~ msgid "Print Preview"
-#~ msgstr "Predogled tiskanja"
-
-#, fuzzy
-#~ msgid "Removed"
-#~ msgstr "Odstrani"
-
-#, fuzzy
-#~ msgid "Outdated"
-#~ msgstr "Zagnano"
-#~ msgid "Show Notification Tray Icon"
-#~ msgstr "Pokaži ikono v sistemski vrstici"
-#~ msgid "/_New"
-#~ msgstr "/_Novo"
-#~ msgid "/_Hide"
-#~ msgstr "/_Skrij"
-#~ msgid "/_Show"
-#~ msgstr "/_Pokaži"
-#~ msgid "/_Quit"
-#~ msgstr "/_Končaj"
-#~ msgid "Todo List"
-#~ msgstr "Seznam opravil"
-#~ msgid "Todo List Manager"
-#~ msgstr "Upravljalnik seznama nalog"
-#~ msgid "The file you selected is a link and can't be added to the project"
-#~ msgstr ""
-#~ "Datoteka, ki ste jo izbrali je povezava in je ni mogoče dodati k projektu."
-#~ msgid "A generic GNOME project"
-#~ msgstr "Izvorni GNOME projekt"
-#~ msgid "GNOME"
-#~ msgstr "GNOME"
-#~ msgid "Use libglade for the UI"
-#~ msgstr "Uporabi libglade za uporabniški vmesnik"
-#~ msgid ""
-#~ "Use the libglade-2.0 library to load the glade interface file at runtime"
-#~ msgstr ""
-#~ "Uporabi libglade-2.0 knjižnice za nalaganje datoteke vmesnika glade ob "
-#~ "zagonu"
-#~ msgid "Scintilla based component for editing files"
-#~ msgstr "Enota Scintilla za urejanje datotek"
-#~ msgid "Loaded: "
-#~ msgstr "Naloženo:"
-#~ msgid "Revision: "
-#~ msgstr "Predelava:"
-#~ msgid "gtk-apply"
-#~ msgstr "gtk-apply"
-#~ msgid "gtk-cancel"
-#~ msgstr "gtk-cancel"
-#~ msgid "gtk-connect"
-#~ msgstr "gtk-connect"
-#~ msgid " Stop: "
-#~ msgstr "Ustavi:"
-#~ msgid " Print: "
-#~ msgstr " Natisni:"
-#~ msgid "Loaded Project... Initializing"
-#~ msgstr "Naložen projekt ... zaganjanje enot"
-#~ msgid "Loaded Project..."
-#~ msgstr "Naložen projekt ..."
-#~ msgid "<b>Project description:</b>"
-#~ msgstr "<b>Opis projekta:</b>"
-#~ msgid "<b>Select the type of application to be developed</b>"
-#~ msgstr "<b>Izbor vrste programa, ki ga boste razvijali</b>"
-#~ msgid "Application Assistant"
-#~ msgstr "Pomočnik programa"
-#~ msgid "Basic Information"
-#~ msgstr "Osnovne podrobnosti"
-#~ msgid "Enter the basic Project information"
-#~ msgstr "Vnesite osnovne podrobnosti projekta"
-#~ msgid "Project Type"
-#~ msgstr "Vrsta projekta"
-#~ msgid ""
-#~ "The Application Assistant will generate a basic skeleton for a project, "
-#~ "including all of the build files. It will ask for details of the initial "
-#~ "structure for the application. Please answer the questions carefully, as "
-#~ "it may not be possible to change some of the settings later."
-#~ msgstr ""
-#~ "Pomočnik programov bo ustvaril osnovi skelet projekta vključno z "
-#~ "ustreznimi datotekami za prevajanje. Poslušajte čim bolj natančno "
-#~ "odgovoriti na naslednja vprašanja, saj nekaterih sprememb ni mogoče "
-#~ "narediti kasneje."
-#~ msgid "label"
-#~ msgstr "oznaka"
-#~ msgid "Ne_xt Occurrence"
-#~ msgstr "_Naslednji zadetek"
-#~ msgid "Find the next occurrence of current word"
-#~ msgstr "Poišči naslednji zadetek trenutne besede"
-#~ msgid "Pre_vious Occurrence"
-#~ msgstr "_Predhodni zadetek"
-#~ msgid "Find the previous occurrence of current word"
-#~ msgstr "Poišči predhodni zadetek trenutne besede"
-#~ msgid "Directories to scan"
-#~ msgstr "Mape za preiskovanje"
-#~ msgid "Please enter a name and at least one directory."
-#~ msgstr "Vpišite ime in vsaj eno mapo."
-#~ msgid "Anjuta tags files"
-#~ msgstr "Anjuta označi datoteke"
-#~ msgid "Scanning package: %s"
-#~ msgstr "Preiskovanje paketa: %s"
-#~ msgid "Completed system tags generation"
-#~ msgstr "Zaključeno ustvarjanje sistemskih oznak"
-#~ msgid "Symbol Browser"
-#~ msgstr "Brskalnik simbolov"
-#~ msgid "No file details"
-#~ msgstr "Ni podrobnosti datoteke"
-#~ msgid "<b>Available API tags:</b>"
-#~ msgstr "<b>API oznake na voljo:</b>"
-#~ msgid "<b>Create API tags:</b>"
-#~ msgstr "<b>Ustvari API oznake:</b>"
-#~ msgid "Add Directory"
-#~ msgstr "Dodaj mapo"
-#~ msgid "Add directories in the list to scan:"
-#~ msgstr "Dodajte mape na seznam za preiskovanje:"
-#~ msgid "Create API tags"
-#~ msgstr "Ustvari API oznake"
-#~ msgid "Load API tags from project configuration"
-#~ msgstr "Naloži API oznake iz nastavitev projekta"
-#~ msgid "Update Global Tags"
-#~ msgstr "Po_sodobi splošne oznake"
-#~ msgid "Goto _Definition"
-#~ msgstr "Skoči na definicije"
-#~ msgid "Goto De_claration"
-#~ msgstr "Skoči na _deklaracije"
-#~ msgid "_Find Usage"
-#~ msgstr "_Poišči uporabo"
-#~ msgid "Find usage of symbol in project"
-#~ msgstr "Poišči uporabo simbola v projektu"
-#~ msgid "Symbol navigations"
-#~ msgstr "Krmiljenje simbolov"
-#~ msgid "Symbol Browser Plugin for Anjuta."
-#~ msgstr "Vstavek Anjute za brskanje po simbolih."
-#~ msgid "_Toggle Bookmark"
-#~ msgstr "_Preklop zaznamkov"
-#~ msgid "_First Bookmark"
-#~ msgstr "_Prvi zaznamek"
-#~ msgid "Jump to the first bookmark in the file"
-#~ msgstr "Skok na prvi zaznamek v datoteki"
-#~ msgid "_Last Bookmark"
-#~ msgstr "_Zadnji zaznamek"
-#~ msgid "Jump to the last bookmark in the file"
-#~ msgstr "Skoči na zadnji zaznamek v datoteki"
-#~ msgid "Editor bookmarks"
-#~ msgstr "Zaznamki urejevalnika"
-#~ msgid "Case sensitive"
-#~ msgstr "Razlikovanje velikih in malih črke"
-#~ msgid "Case insensitive"
-#~ msgstr "Ne upoštevaj velikosti črk"
-#~ msgid "Failed to read '%s': %s"
-#~ msgstr "Napaka med branjem '%s': %s"
-#~ msgid "No read permission for: %s"
-#~ msgstr "Ni dovoljenja za branje za: %s"
-#~ msgid "Failed to read '%s': XML parse error"
-#~ msgstr "Napaka med branjem '%s': XML napaka razčlenjevanja"
-#~ msgid "Unable to create file: %s."
-#~ msgstr "Ni mogoče ustvariti datoteke: %s."
-#~ msgid "Unable to complete file copy"
-#~ msgstr "Ni mogoče končati kopiranja datoteke"
-#~ msgid "Command Line Parameters:"
-#~ msgstr "Parametri ukazne vrstice"
-#~ msgid "Program parameters"
-#~ msgstr "Parametri programa"
-#~ msgid "Stop at beginning"
-#~ msgstr "Ustavi na začetku"
-#~ msgid "Previous Help"
-#~ msgstr "Predhodna pomoč"
-#~ msgid "Go to previous help page"
-#~ msgstr "Skoči na predhodno stran pomoči"
-#~ msgid "Next Help"
-#~ msgstr "Naslednja pomoč"
-#~ msgid "Go to next help page"
-#~ msgstr "Skoči na naslednjo stran pomoči"
-#~ msgid "Books"
-#~ msgstr "Knjige"
-#~ msgid "Failed to write data to file."
-#~ msgstr "Napaka med pisanjem podatkov v datoteko."
-#~ msgid "Application Assistent"
-#~ msgstr "Pomočnik programa"
-#~ msgid "Choose ctags executable"
-#~ msgstr "Izbor Ctag izvršljivih datotek"
-#~ msgid "<b>Build Options:</b>"
-#~ msgstr "<b>Možnosti izgradnje:</b>"
-#~ msgid "make: Entering directory '%s'"
-#~ msgstr "make: Vstopanje v mapo '%s'"
-#~ msgid "make[%d]: Entering directory `%s'"
-#~ msgstr "make[%d]: Vstopanje v mapo `%s'"
-#~ msgid "make: Entering directory `%s'"
-#~ msgstr "make: Vstopanje v mapo `%s'"
-#~ msgid "make: Leaving directory '%s'"
-#~ msgstr "make: Zapuščanje mape '%s'"
-#~ msgid "make[%d]: Leaving directory `%s'"
-#~ msgstr "make[%d]: Zapuščanje mape `%s'"
-#~ msgid "make: Leaving directory `%s'"
-#~ msgstr "make: Zapuščanje mape `%s'"
-#~ msgid "Autogenerate"
-#~ msgstr "Samodejno ustvarjanje"
-#~ msgid "Run C_onfigure..."
-#~ msgstr "Zagon nastavitve ..."
-#~ msgid "Run _Autogenerate..."
-#~ msgstr "Zagon _Autogenerate ..."
-#~ msgid "Could not set file permissions %s: %s."
-#~ msgstr "Ni mogoče določiti dovoljen %s: %s."
-#~ msgid "Refresh file manager tree"
-#~ msgstr "Osveži drevo upravljalnika datotek"
-#~ msgid "Close"
-#~ msgstr "Zapri"
-#~ msgid "Could not obtain backup filename"
-#~ msgstr "Ni mogoče dobiti varnostne kopije datoteke"
-#~ msgid "Unsaved Document %d"
-#~ msgstr "Neshranjen dokument %d"
-#~ msgid "Saving..."
-#~ msgstr "Shranjevanje ..."
-#~ msgid "The file %s was modified by another application. Save it anyway?"
-#~ msgstr ""
-#~ "Datoteka %s je bila spremenjena z drugim programom. Ali naj bo vseeno "
-#~ "shranjena?"
-#~ msgid "Enable VFS file monitoring"
-#~ msgstr "Omogoči VFS nadzor datotek"
-#~ msgid "button"
-#~ msgstr "gumb"
 
