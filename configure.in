@@ -145,7 +145,7 @@ dnl Check base modules
 PKG_CHECK_MODULES([ANJUTA], 
    [gthread-2.0 >= $GTHREAD_REQUIRED 
 	unique-1.0 >= $UNIQUE_REQUIRED
-	dbus-glib-1 gtk+-2.0 >= $GTK_REQUIRED
+	gtk+-2.0 >= $GTK_REQUIRED
 	gdk-pixbuf-2.0 >= $GDK_PIXBUF_REQUIRED
 	gconf-2.0 >= $GCONF_REQUIRED
 	vte >= $VTE_REQUIRED
