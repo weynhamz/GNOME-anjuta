@@ -123,6 +123,9 @@ git_repository_selector_init (GitRepositorySelector *self)
 	/* Set the selected repository label to a resonable default. */
 	git_repository_selector_set_remote (self, NULL);
 
+	/* Allow focusing */
+	gtk_widget_set_can_focus (GTK_WIDGET (self), TRUE);
+
 	gtk_widget_show_all (GTK_WIDGET (self));
 }
 
@@ -140,11 +143,28 @@ git_repository_selector_finalize (GObject *object)
 }
 
 static void
+git_repository_selector_grab_focus (GtkWidget *widget)
+{
+	GitRepositorySelector *self;
+
+	self = GIT_REPOSITORY_SELECTOR (widget);
+
+	GTK_WIDGET_CLASS (git_repository_selector_parent_class)->grab_focus (widget);
+
+	/* Only the URL entry can grab focus */
+	gtk_notebook_set_page (GTK_NOTEBOOK (self->priv->notebook), 
+	                       GIT_REPOSITORY_SELECTOR_URL);
+	gtk_widget_grab_focus (self->priv->url_entry);
+}
+
+static void
 git_repository_selector_class_init (GitRepositorySelectorClass *klass)
 {
-	GObjectClass* object_class = G_OBJECT_CLASS (klass);;
+	GObjectClass *object_class = G_OBJECT_CLASS (klass);
+	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
 	object_class->finalize = git_repository_selector_finalize;
+	widget_class->grab_focus = git_repository_selector_grab_focus;
 }
 
 
