@@ -806,6 +806,9 @@ plugins/gbf-mkfile/Makefile
 plugins/gbf-mkfile/gbf-mkfile-parse
 plugins/gbf-mkfile/GBF/Makefile
 plugins/symbol-db/benchmark/Makefile
+plugins/symbol-db/benchmark/symbol-db/Makefile
+plugins/symbol-db/benchmark/libgda/Makefile
+plugins/symbol-db/benchmark/sqlite/Makefile
 plugins/symbol-db/images/Makefile
 plugins/symbol-db/Makefile
 plugins/symbol-db/anjuta-tags/Makefile
