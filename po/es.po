@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2010-06-12 08:21+0000\n"
-"PO-Revision-Date: 2010-06-15 19:24+0200\n"
+"POT-Creation-Date: 2010-06-25 10:09+0000\n"
+"PO-Revision-Date: 2010-06-26 10:17+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -253,7 +253,7 @@ msgstr "Carga"
 msgid "Available Plugins"
 msgstr "Complementos disponibles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:914
+#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:934
 msgid "Preferred plugins"
 msgstr "Complementos preferidos"
 
@@ -423,7 +423,7 @@ msgstr "Categoría"
 #. FIXME: Make the general page first
 #: ../libanjuta/anjuta-preferences-dialog.c:138
 #: ../libanjuta/anjuta-preferences-dialog.c:141
-#: ../plugins/gbf-am/gbf-am-dialogs.ui.h:3 ../src/anjuta-app.c:901
+#: ../plugins/gbf-am/gbf-am-dialogs.ui.h:3 ../src/anjuta-app.c:921
 #: ../src/preferences.ui.h:11
 msgid "General"
 msgstr "General"
@@ -1485,7 +1485,7 @@ msgstr "Implementación"
 
 #: ../plugins/class-gen/window.c:501 ../plugins/class-gen/window.c:511
 #: ../plugins/class-gen/window.c:533
-#: ../plugins/debug-manager/breakpoints.c:1944
+#: ../plugins/debug-manager/breakpoints.c:1952
 #: ../plugins/debug-manager/debug_tree.c:126
 msgid "Type"
 msgstr "Tipo"
@@ -1537,7 +1537,7 @@ msgstr "Descripción XML de la interfaz de usuario"
 msgid "Args: %s"
 msgstr "Args: %s"
 
-#: ../plugins/class-inheritance/class-inherit.c:1157
+#: ../plugins/class-inheritance/class-inherit.c:1213
 #: ../plugins/debug-manager/sharedlib.c:144
 #: ../plugins/debug-manager/signals.c:332
 msgid "Update"
@@ -1680,8 +1680,8 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "Ignorar el archivo .cvsrc (recomendado)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
-#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2127
-#: ../plugins/symbol-db/plugin.c:2169
+#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2069
+#: ../plugins/symbol-db/plugin.c:2111
 msgid "Local"
 msgstr "Local"
 
@@ -1994,7 +1994,7 @@ msgid "Breakpoint properties"
 msgstr "Propiedades de los puntos de parada"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:8
-#: ../plugins/debug-manager/breakpoints.c:2017
+#: ../plugins/debug-manager/breakpoints.c:2025
 msgid "Breakpoints"
 msgstr "Puntos de parada"
 
@@ -2066,7 +2066,7 @@ msgid "Kernel Signals"
 msgstr "Señales del núcleo"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:25
-#: ../plugins/debug-manager/breakpoints.c:1944
+#: ../plugins/debug-manager/breakpoints.c:1952
 msgid "Location"
 msgstr "Ubicación"
 
@@ -2186,147 +2186,147 @@ msgstr "Elimina_r todo"
 msgid "_Value:"
 msgstr "_Valor:"
 
-#: ../plugins/debug-manager/breakpoints.c:1710
+#: ../plugins/debug-manager/breakpoints.c:1718
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "¿Está seguro de querer borrar todos los puntos de parada?"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1807
+#: ../plugins/debug-manager/breakpoints.c:1815
 msgid "_Breakpoints"
 msgstr "_Puntos de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1815
+#: ../plugins/debug-manager/breakpoints.c:1823
 msgid "Toggle Breakpoint"
 msgstr "Conmutar punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1817
+#: ../plugins/debug-manager/breakpoints.c:1825
 msgid "Toggle breakpoint at the current location"
 msgstr "Activar un punto de parada en la posición actual"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1823
+#: ../plugins/debug-manager/breakpoints.c:1831
 msgid "Add Breakpoint…"
 msgstr "Añadir punto de parada…"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1825
+#: ../plugins/debug-manager/breakpoints.c:1833
 msgid "Add a breakpoint"
 msgstr "Añadir un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1831
+#: ../plugins/debug-manager/breakpoints.c:1839
 msgid "Remove Breakpoint"
 msgstr "Quitar punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1833
+#: ../plugins/debug-manager/breakpoints.c:1841
 msgid "Remove a breakpoint"
 msgstr "Quitar un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1839
+#: ../plugins/debug-manager/breakpoints.c:1847
 msgid "Edit Breakpoint"
 msgstr "Editar punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1841
+#: ../plugins/debug-manager/breakpoints.c:1849
 msgid "Edit breakpoint properties"
 msgstr "Editar las propiedades de un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1847
-#: ../plugins/debug-manager/breakpoints.c:1918
+#: ../plugins/debug-manager/breakpoints.c:1855
+#: ../plugins/debug-manager/breakpoints.c:1926
 msgid "Enable Breakpoint"
 msgstr "Activar punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1849
-#: ../plugins/debug-manager/breakpoints.c:1919
+#: ../plugins/debug-manager/breakpoints.c:1857
+#: ../plugins/debug-manager/breakpoints.c:1927
 msgid "Enable a breakpoint"
 msgstr "Activar un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1855
+#: ../plugins/debug-manager/breakpoints.c:1863
 msgid "Disable All Breakpoints"
 msgstr "Desactivar todos los puntos de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1857
+#: ../plugins/debug-manager/breakpoints.c:1865
 msgid "Deactivate all breakpoints"
 msgstr "Desactivar todos los puntos de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1863
+#: ../plugins/debug-manager/breakpoints.c:1871
 msgid "R_emove All Breakpoints"
 msgstr "_Quitar todos los puntos de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1865
+#: ../plugins/debug-manager/breakpoints.c:1873
 msgid "Remove all breakpoints"
 msgstr "Quitar todos los puntos de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1874
+#: ../plugins/debug-manager/breakpoints.c:1882
 msgid "Jump to Breakpoint"
 msgstr "Saltar a punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1876
+#: ../plugins/debug-manager/breakpoints.c:1884
 msgid "Jump to breakpoint location"
 msgstr "Saltar a la ubicación de un punto de parada"
 
-#: ../plugins/debug-manager/breakpoints.c:1913
+#: ../plugins/debug-manager/breakpoints.c:1921
 msgid "Disable Breakpoint"
 msgstr "Desactivar el punto de parada"
 
-#: ../plugins/debug-manager/breakpoints.c:1914
+#: ../plugins/debug-manager/breakpoints.c:1922
 msgid "Disable a breakpoint"
 msgstr "Desactivar un punto de parada"
 
-#: ../plugins/debug-manager/breakpoints.c:1944
+#: ../plugins/debug-manager/breakpoints.c:1952
 #: ../plugins/tools/anjuta-tools.ui.h:5
 msgid "Enabled"
 msgstr "Activado"
 
-#: ../plugins/debug-manager/breakpoints.c:1944
+#: ../plugins/debug-manager/breakpoints.c:1952
 #: ../plugins/debug-manager/stack_trace.c:667
 #: ../plugins/debug-manager/threads.c:481
 msgid "Address"
 msgstr "Dirección"
 
-#: ../plugins/debug-manager/breakpoints.c:1945
+#: ../plugins/debug-manager/breakpoints.c:1953
 msgid "Condition"
 msgstr "Condición"
 
-#: ../plugins/debug-manager/breakpoints.c:1945
+#: ../plugins/debug-manager/breakpoints.c:1953
 msgid "Pass count"
 msgstr "Conteo de pasadas"
 
-#: ../plugins/debug-manager/breakpoints.c:1945
+#: ../plugins/debug-manager/breakpoints.c:1953
 msgid "State"
 msgstr "Estado"
 
-#: ../plugins/debug-manager/breakpoints.c:1994
-#: ../plugins/debug-manager/breakpoints.c:2000
+#: ../plugins/debug-manager/breakpoints.c:2002
+#: ../plugins/debug-manager/breakpoints.c:2008
 msgid "Breakpoint operations"
 msgstr "Operaciones de los puntos de parada"
 
@@ -2779,7 +2779,7 @@ msgstr ""
 msgid "Path"
 msgstr "Ruta"
 
-#: ../plugins/debug-manager/start.c:1386 ../plugins/gdb/debugger.c:1759
+#: ../plugins/debug-manager/start.c:1386 ../plugins/gdb/debugger.c:1846
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -2860,7 +2860,7 @@ msgid "Search Help:"
 msgstr "Buscar en la ayuda:"
 
 #: ../plugins/devhelp/plugin.c:223 ../plugins/document-manager/plugin.c:242
-#: ../plugins/message-view/plugin.c:76 ../plugins/symbol-db/plugin.c:314
+#: ../plugins/message-view/plugin.c:76 ../plugins/symbol-db/plugin.c:311
 msgid "_Go to"
 msgstr "_Ir a"
 
@@ -2905,8 +2905,8 @@ msgstr "Contenido"
 #: ../plugins/search/search-replace.c:1717
 #: ../plugins/search/search-replace.c:1724
 #: ../plugins/search/search-replace.c:1736
-#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2137
-#: ../plugins/symbol-db/plugin.c:2186
+#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2079
+#: ../plugins/symbol-db/plugin.c:2131
 msgid "Search"
 msgstr "Buscar"
 
@@ -2936,7 +2936,7 @@ msgid "Remove bookmark"
 msgstr "Quitar marcador"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:331
-#: ../plugins/document-manager/anjuta-bookmarks.c:393
+#: ../plugins/document-manager/anjuta-bookmarks.c:404
 #: ../plugins/document-manager/plugin.c:421
 msgid "Bookmarks"
 msgstr "Marcadores"
@@ -3354,7 +3354,7 @@ msgstr "Corta el texto seleccionado al portapapeles"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/document-manager/plugin.c:297 ../plugins/terminal/terminal.c:609
+#: ../plugins/document-manager/plugin.c:297 ../plugins/terminal/terminal.c:616
 msgid "_Copy"
 msgstr "_Copiar"
 
@@ -3362,7 +3362,7 @@ msgstr "_Copiar"
 msgid "Copy the selected text to the clipboard"
 msgstr "Copia el texto seleccionado al portapapeles"
 
-#: ../plugins/document-manager/plugin.c:300 ../plugins/terminal/terminal.c:617
+#: ../plugins/document-manager/plugin.c:300 ../plugins/terminal/terminal.c:624
 msgid "_Paste"
 msgstr "_Pegar"
 
@@ -3918,7 +3918,7 @@ msgid "Filter"
 msgstr "Filtro"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2132 ../plugins/symbol-db/plugin.c:2181
+#: ../plugins/symbol-db/plugin.c:2074 ../plugins/symbol-db/plugin.c:2123
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:6
 msgid "Global"
 msgstr "Global"
@@ -4570,18 +4570,18 @@ msgid "Includes:"
 msgstr "Inclusiones:"
 
 #. The %s argument is a program name, anjuta by example
-#: ../plugins/gdb/debugger.c:713
+#: ../plugins/gdb/debugger.c:722
 #, c-format
 msgid "Loading Executable: %s\n"
 msgstr "Cargando ejecutable: %s\n"
 
 #. The %s argument is a file name
-#: ../plugins/gdb/debugger.c:744
+#: ../plugins/gdb/debugger.c:753
 #, c-format
 msgid "Loading Core: %s\n"
 msgstr "Cargando core: %s\n"
 
-#: ../plugins/gdb/debugger.c:829
+#: ../plugins/gdb/debugger.c:902
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -4592,59 +4592,59 @@ msgstr ""
 "No es posible inicializar el depurador.\n"
 "Asegúrese de que Anjuta está instalado correctamente."
 
-#: ../plugins/gdb/debugger.c:974
+#: ../plugins/gdb/debugger.c:1047
 msgid "Getting ready to start debugging session…\n"
 msgstr "Preparándose para iniciar la sesión de depuración…\n"
 
-#: ../plugins/gdb/debugger.c:980
+#: ../plugins/gdb/debugger.c:1053
 msgid "Loading Executable: "
 msgstr "Cargando ejecutable: "
 
-#: ../plugins/gdb/debugger.c:989
+#: ../plugins/gdb/debugger.c:1062
 msgid "No executable specified.\n"
 msgstr "No hay ningún ejecutable especificado.\n"
 
-#: ../plugins/gdb/debugger.c:992
+#: ../plugins/gdb/debugger.c:1065
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr ""
 "Abre un ejecutable o se acopla a un proceso para iniciar la depuración.\n"
 
-#: ../plugins/gdb/debugger.c:1001
+#: ../plugins/gdb/debugger.c:1074
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "Hubo un error al lanzar el depurador.\n"
 
-#: ../plugins/gdb/debugger.c:1005
+#: ../plugins/gdb/debugger.c:1078
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "Asegúrese de que «gdb» está instalado en el sistema.\n"
 
-#: ../plugins/gdb/debugger.c:1321
+#: ../plugins/gdb/debugger.c:1399
 msgid "Program exited normally\n"
 msgstr "El programa salió normalmente\n"
 
-#: ../plugins/gdb/debugger.c:1332
+#: ../plugins/gdb/debugger.c:1410
 #, c-format
 msgid "Program exited with error code %s\n"
 msgstr "El programa salió con el código de error %s\n"
 
 #. The program has reached one breakpoint and will stop
-#: ../plugins/gdb/debugger.c:1347
+#: ../plugins/gdb/debugger.c:1425
 #, c-format
 msgid "Breakpoint number %s hit\n"
 msgstr "Se llegó al punto de parada %s\n"
 
-#: ../plugins/gdb/debugger.c:1356
+#: ../plugins/gdb/debugger.c:1434
 msgid "Function finished\n"
 msgstr "Función terminada\n"
 
-#: ../plugins/gdb/debugger.c:1362
+#: ../plugins/gdb/debugger.c:1440
 msgid "Stepping finished\n"
 msgstr "Paso terminado\n"
 
-#: ../plugins/gdb/debugger.c:1368
+#: ../plugins/gdb/debugger.c:1446
 msgid "Location reached\n"
 msgstr "Ubicación alcanzada\n"
 
-#: ../plugins/gdb/debugger.c:1756
+#: ../plugins/gdb/debugger.c:1843
 msgid ""
 "The program is attached.\n"
 "Do you still want to stop the debugger?"
@@ -4654,7 +4654,7 @@ msgstr ""
 
 #. The %s argument is an error message returned by gdb.
 #. * It is something like, "No such file or directory"
-#: ../plugins/gdb/debugger.c:1917
+#: ../plugins/gdb/debugger.c:2004
 #, c-format
 msgid ""
 "Unable to connect to remote target, %s\n"
@@ -4663,20 +4663,20 @@ msgstr ""
 "No se pudo conectar con el objetivo remoto, %s.\n"
 "¿Quiere intentarlo de nuevo?"
 
-#: ../plugins/gdb/debugger.c:1935
+#: ../plugins/gdb/debugger.c:2022
 msgid "Debugger connected\n"
 msgstr "Depurador conectado\n"
 
-#: ../plugins/gdb/debugger.c:2009
+#: ../plugins/gdb/debugger.c:2096
 msgid "Program attached\n"
 msgstr "Programa acoplado\n"
 
-#: ../plugins/gdb/debugger.c:2030
+#: ../plugins/gdb/debugger.c:2117
 #, c-format
 msgid "Attaching to process: %d…\n"
 msgstr "Acoplándose al proceso: %d…\n"
 
-#: ../plugins/gdb/debugger.c:2056
+#: ../plugins/gdb/debugger.c:2143
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -4684,33 +4684,33 @@ msgstr ""
 "Ya se está ejecutando un proceso.\n"
 "¿Quiere terminarlo y acoplarse al proceso nuevo?"
 
-#: ../plugins/gdb/debugger.c:2073
+#: ../plugins/gdb/debugger.c:2160
 msgid "Anjuta is unable to attach to itself."
 msgstr "Anjuta no puede acoplarse a sí mismo."
 
-#: ../plugins/gdb/debugger.c:2123
+#: ../plugins/gdb/debugger.c:2210
 msgid "Program terminated\n"
 msgstr "Programa terminado\n"
 
-#: ../plugins/gdb/debugger.c:2138
+#: ../plugins/gdb/debugger.c:2225
 msgid "Program detached\n"
 msgstr "Programa desacoplado\n"
 
-#: ../plugins/gdb/debugger.c:2158
+#: ../plugins/gdb/debugger.c:2245
 #, c-format
 msgid "Detaching the process…\n"
 msgstr "Desacoplando el proceso…\n"
 
-#: ../plugins/gdb/debugger.c:2179
+#: ../plugins/gdb/debugger.c:2268
 msgid "Interrupting the process\n"
 msgstr "Interrumpiendo el proceso\n"
 
-#: ../plugins/gdb/debugger.c:3965
+#: ../plugins/gdb/debugger.c:4063
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "Enviar la señal %s al proceso: %d"
 
-#: ../plugins/gdb/debugger.c:3991
+#: ../plugins/gdb/debugger.c:4089
 msgid "Error whilst signaling the process."
 msgstr "Error al mandar señales al proceso."
 
@@ -7439,7 +7439,6 @@ msgstr "Ejecutando: %s"
 
 #: ../plugins/project-wizard/plugin.c:50
 #, c-format
-#| msgid "Unable to find any project template in %s"
 msgid "Unable to extrat project template %s: %s"
 msgstr "No se pudo extraer la plantilla %s del proyecto: %s"
 
@@ -9303,64 +9302,64 @@ msgstr "Faltan: %s"
 msgid "Obstructed: %s"
 msgstr "Obstruídos: %s"
 
-#: ../plugins/symbol-db/plugin.c:318
+#: ../plugins/symbol-db/plugin.c:315
 msgid "Tag De_claration"
 msgstr "Declaración de _etiqueta"
 
-#: ../plugins/symbol-db/plugin.c:320
+#: ../plugins/symbol-db/plugin.c:317
 msgid "Go to symbol declaration"
 msgstr "Ir a declaración del símbolo"
 
 #. Translators: Go to the line where the tag is implemented
-#: ../plugins/symbol-db/plugin.c:327
+#: ../plugins/symbol-db/plugin.c:324
 msgid "Tag _Implementation"
 msgstr "_Implementación de etiquetas"
 
-#: ../plugins/symbol-db/plugin.c:329
+#: ../plugins/symbol-db/plugin.c:326
 msgid "Go to symbol definition"
 msgstr "Ir a definición del símbolo"
 
-#: ../plugins/symbol-db/plugin.c:336
+#: ../plugins/symbol-db/plugin.c:333
 msgid "_Find Symbol…"
 msgstr "_Buscar símbolo…"
 
-#: ../plugins/symbol-db/plugin.c:337
+#: ../plugins/symbol-db/plugin.c:334
 msgid "Find Symbol"
 msgstr "Buscar símbolo"
 
-#: ../plugins/symbol-db/plugin.c:1024
+#: ../plugins/symbol-db/plugin.c:1011
 #, c-format
 msgid "%s: Generating inheritances…"
 msgstr "%s: Generando herencias…"
 
-#: ../plugins/symbol-db/plugin.c:1029
+#: ../plugins/symbol-db/plugin.c:1016
 #, c-format
 msgid "%s: %d files scanned out of %d"
 msgstr "%s: %d archivos analizados de %d"
 
-#: ../plugins/symbol-db/plugin.c:1060
+#: ../plugins/symbol-db/plugin.c:1047
 #, c-format
 msgid "Generating inheritances…"
 msgstr "Generando herencias…"
 
-#: ../plugins/symbol-db/plugin.c:1062
+#: ../plugins/symbol-db/plugin.c:1049
 #, c-format
 msgid "%d files scanned out of %d"
 msgstr "%d archivos analizados de %d"
 
-#: ../plugins/symbol-db/plugin.c:1790
+#: ../plugins/symbol-db/plugin.c:1740
 msgid "Populating symbol database…"
 msgstr "Llenando la BB. DD. de símbolos…"
 
-#: ../plugins/symbol-db/plugin.c:2117 ../plugins/symbol-db/plugin.c:2212
+#: ../plugins/symbol-db/plugin.c:2059 ../plugins/symbol-db/plugin.c:2144
 msgid "Symbols"
 msgstr "Símbolos"
 
-#: ../plugins/symbol-db/plugin.c:2221
+#: ../plugins/symbol-db/plugin.c:2153
 msgid "SymbolDb popup actions"
 msgstr "Acciones emergentes de la BB DD de símbolos"
 
-#: ../plugins/symbol-db/plugin.c:2229
+#: ../plugins/symbol-db/plugin.c:2161
 msgid "SymbolDb menu actions"
 msgstr "Acciones del menú de la BB DD de símbolos"
 
@@ -9440,27 +9439,33 @@ msgstr "Usar el perfil del terminal de GNOME:"
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "Usar el perfil actualmente seleccionado en el terminal de GNOME"
 
-#: ../plugins/terminal/terminal.c:626
+#: ../plugins/terminal/terminal.c:633
 msgid "Ctrl-C"
 msgstr "Ctrl-C"
 
-#: ../plugins/terminal/terminal.c:634
+#: ../plugins/terminal/terminal.c:641
 msgid "Ctrl-X"
 msgstr "Ctrl-X"
 
-#: ../plugins/terminal/terminal.c:642
+#: ../plugins/terminal/terminal.c:649
 msgid "Ctrl-Z"
 msgstr "Ctrl-Z"
 
-#: ../plugins/terminal/terminal.c:781
+#: ../plugins/terminal/terminal.c:788
 msgid "terminal operations"
 msgstr "operaciones en la terminal"
 
-#: ../plugins/terminal/terminal.c:799 ../plugins/terminal/terminal.c:968
-#: ../plugins/terminal/terminal.c:1021
+#: ../plugins/terminal/terminal.c:806 ../plugins/terminal/terminal.c:982
+#: ../plugins/terminal/terminal.c:1035
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
 msgid "Terminal"
 msgstr "Terminal"
+
+#: ../plugins/terminal/terminal.c:931
+#, c-format
+#| msgid "Unable to execute: %s."
+msgid "Unable to execute command"
+msgstr "No se puede ejecutar el comando"
 
 #: ../plugins/tools/anjuta-tools.ui.h:2
 msgid "Command:"
@@ -9955,15 +9960,15 @@ msgstr "Acerca de los complementos de terceros"
 msgid "Edit"
 msgstr "Editar"
 
-#: ../src/anjuta-app.c:912
+#: ../src/anjuta-app.c:932
 msgid "Installed plugins"
 msgstr "Complementos instalados"
 
-#: ../src/anjuta-app.c:916
+#: ../src/anjuta-app.c:936
 msgid "Shortcuts"
 msgstr "Combinaciones de teclas"
 
-#: ../src/anjuta-app.c:988
+#: ../src/anjuta-app.c:1008
 #, c-format
 msgid "Value doesn't exist"
 msgstr "El valor no existe"
@@ -10184,7 +10189,7 @@ msgstr "Asistencia para C++/Java"
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
-#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1318
+#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1231
 msgid "C/C++"
 msgstr "C/C++"
 
@@ -10475,7 +10480,7 @@ msgstr "Resaltar punto y coma perdido"
 msgid "Min character for completion "
 msgstr "Caracteres mínimos para autocompletado "
 
-#: ../plugins/symbol-db/symbol-db-views.c:169
+#: ../plugins/symbol-db/symbol-db-views.c:182
 msgid "Symbol"
 msgstr "Símbolo"
 

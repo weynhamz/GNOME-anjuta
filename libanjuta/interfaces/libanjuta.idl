@@ -4560,6 +4560,7 @@ interface IAnjutaDebugger
 			gboolean exited;
 			gboolean deleted;
 			gint children;
+			gboolean has_more;
 		}
 
 		/**
@@ -5766,20 +5767,6 @@ interface IAnjutaSymbolManager
 	 */
 	void ::sys_scan_end (gint process_id);
 
-	/**
-	 * IAnjutaSymbolManager::db_ready:
-	 * @obj: Self
-	 * 
-	 * This signal is emitted when databases are ready for queries. 
-	 * A new database is created with tables, then it becomes ready.
-	 * A connection is made to an existing database, then it becomes ready.
-	 * Note that the signal may be emitted when no symbols are yet present on it:
-	 * you should rely on #IAnjutaSymbolManager::prj_scan_end and 
-	 * #IAnjutaSymbolManager::sys_scan_end to be sure that something has actually
-	 * been inserted into the dbs.
-	 */
-	void ::db_ready ();
-		
 	/**
 	 * ianjuta_symbol_manager_create_query:
 	 * @obj: Self

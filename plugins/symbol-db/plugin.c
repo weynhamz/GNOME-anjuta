@@ -1572,7 +1572,6 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 					const GValue *value, gpointer user_data)
 {
 	IAnjutaProjectManager *pm;
-	IAnjutaSymbolManager *sm;
 	SymbolDBPlugin *sdb_plugin;
 	const gchar *root_uri;
 	gchar *root_dir;
@@ -1595,9 +1594,7 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 							  PROJECT_GLOBALS,
 		    				  FALSE) == DB_OPEN_STATUS_FATAL)
 		{
-			g_critical ("Opening global project under %s", anjuta_cache_path);
-			g_free (anjuta_cache_path);
-			return;
+			g_error ("Opening global project under %s", anjuta_cache_path);
 		}
 		g_free (anjuta_cache_path);
 	
@@ -1616,9 +1613,6 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	
 	pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (sdb_plugin)->shell,
 									 IAnjutaProjectManager, NULL);
-
-	sm = anjuta_shell_get_interface (ANJUTA_PLUGIN (sdb_plugin)->shell,
-									 IAnjutaSymbolManager, NULL);
 	
 	/*
 	 *   The Project thing
@@ -1682,15 +1676,7 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 			default:
 				break;
 		}
-
-
-		/* if we reach this point we have both databases connected. 
-		 * we can then emit the signal for db ready. 
-		 */
-		DEBUG_PRINT ("DBs are ready");
-		g_signal_emit_by_name (sm, "db-ready", NULL);
-
-		
+			
 		/* if project did not exist add a new project */
 		if (project_exist == FALSE)
 		{
@@ -1956,6 +1942,8 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	 */
 	if (ctags_path == NULL) 
 	{
+		DEBUG_PRINT ("ctags is not in preferences. Trying a default one %s", 
+				   CTAGS_PATH);
 		ctags_path = g_strdup (CTAGS_PATH);
 	}
 	
@@ -2009,8 +1997,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 							  PROJECT_GLOBALS,
 	    					  TRUE) == DB_OPEN_STATUS_FATAL)
 	{
-		g_critical ("Opening global project under %s", anjuta_cache_path);
-		return FALSE;
+		g_error ("Opening global project under %s", anjuta_cache_path);
 	}
 	
 	g_free (anjuta_cache_path);

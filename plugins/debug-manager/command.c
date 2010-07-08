@@ -286,8 +286,11 @@ typedef enum
 	DMA_UPDATE_VARIABLE_COMMAND =
 	    UPDATE_VARIABLE | CANCEL_IF_PROGRAM_RUNNING |
 		NEED_PROGRAM_STOPPED | NEED_PROGRAM_RUNNING,
+	/* DMA_INTERRUPT_COMMAND doesn't automatically go in stop-program state
+	 * because sometimes it doesn't work. I don't know if it comes from anjuta,
+	 * anjuta-launcher, vte or gdb */
 	DMA_INTERRUPT_COMMAND =
-		INTERRUPT_COMMAND | STOP_PROGRAM |
+		INTERRUPT_COMMAND |
 		ASYNCHRONOUS | NEED_PROGRAM_RUNNING,
 } DmaDebuggerCommand;
 
