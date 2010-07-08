@@ -178,8 +178,8 @@ libanjuta_git_la_SOURCES = \
 	git-remotes-pane.h \
 	git-push-pane.c \
 	git-push-pane.h \
-	git-repository-selector.h \
-	git-repository-selector.c
+	git-repository-selector.c \
+	git-repository-selector.h 
 
 libanjuta_git_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
