@@ -32,6 +32,7 @@
 #include "git-remove-files-pane.h"
 #include "git-remotes-pane.h"
 #include "git-push-pane.h"
+#include "git-pull-pane.h"
 
 AnjutaCommandBarEntry branch_entries[] =
 {
@@ -138,6 +139,14 @@ AnjutaCommandBarEntry remotes_entries[] =
 		N_("Push changes to a remote repository"),
 		GTK_STOCK_GO_FORWARD,
 		G_CALLBACK (on_push_button_clicked)
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"Pull",
+		N_("Pull"),
+		N_("Pull changes from a remote repository"),
+		GTK_STOCK_GO_BACK,
+		G_CALLBACK (on_pull_button_clicked)
 	}
 	
 };
