@@ -2,6 +2,9 @@
 #include <gtk/gtk.h>
 #include <sql-parser/gda-sql-parser.h>
 
+#define HASH_VALUES_FILE "../data/hash_values.log"
+#define DB_FILE "example_db"
+
 GdaConnection *open_connection (void);
 void display_products_contents (GdaConnection *cnc);
 void create_table (GdaConnection *cnc);
@@ -16,6 +19,7 @@ void run_sql_non_select (GdaConnection *cnc, const gchar *sql);
 GdaSqlParser *sql_parser;
 GQueue *mem_pool_string;
 GQueue *values_queue;
+
 
 #define MEMORY_POOL_STRING_SIZE			100000
 #define DUMMY_VOID_STRING				""
@@ -42,6 +46,19 @@ GQueue *values_queue;
 		MP_RETURN_OBJ_STR(ret_value); \
 	} \
 }
+
+#define MP_RESET_PLIST(plist) { \
+		if (plist != NULL) \
+		{ \
+			GSList* holders; \
+			for (holders = plist->holders; holders; holders = holders->next) { \
+				GValue *gvalue = (GValue*)gda_holder_get_value (holders->data); \
+				if (G_VALUE_HOLDS_STRING(gvalue)) \
+					MP_RESET_OBJ_STR(gvalue); \
+			} \
+		} \
+}
+
 
 static GdaDataModel *
 execute_select_sql (GdaConnection *cnc, const gchar *sql)
@@ -119,7 +136,7 @@ load_queue_values ()
 	gchar line[80];
 	values_queue = g_queue_new ();
 
-	FILE *file = fopen ("./hash_values.log", "r");
+	FILE *file = fopen (HASH_VALUES_FILE, "r");
 
 	while( fgets(line,sizeof(line),file) )
 	{
@@ -156,6 +173,22 @@ clear_memory_pool ()
 	mem_pool_string = NULL;
 }
 
+static void
+delete_previous_db ()
+{
+	GFile *file;
+
+	g_message ("deleting file "DB_FILE"...");
+	
+	file = g_file_new_for_path (DB_FILE);
+
+	g_file_delete (file, NULL, NULL);
+
+	g_object_unref (file);
+
+	g_message ("..OK");
+}
+
 int
 main (int argc, char *argv[])
 {
@@ -168,6 +201,8 @@ main (int argc, char *argv[])
 	gda_init ();
     GdaConnection *cnc;
 
+	delete_previous_db ();
+	
 	/* open connections */
 	cnc = open_connection ();
 	create_table (cnc);
@@ -198,18 +233,18 @@ main (int argc, char *argv[])
 GdaConnection *
 open_connection ()
 {
-        GdaConnection *cnc;
-        GError *error = NULL;
+	GdaConnection *cnc;
+    GError *error = NULL;
 
 	/* open connection */
-        cnc = gda_connection_open_from_string ("SQLite", "DB_DIR=.;DB_NAME=example_db", NULL,
+    cnc = gda_connection_open_from_string ("SQLite", "DB_DIR=.;DB_NAME="DB_FILE, NULL,
 					       GDA_CONNECTION_OPTIONS_THREAD_SAFE,
 					       &error);
-        if (!cnc) {
-                g_print ("Could not open connection to SQLite database in example_db.db file: %s\n",
+    if (!cnc) {
+    	g_print ("Could not open connection to SQLite database in example_db.db file: %s\n",
                          error && error->message ? error->message : "No detail");
-                exit (1);
-        }
+        exit (1);
+    }
 
 	/* create an SQL parser */
 	sql_parser = gda_connection_create_parser (cnc);
@@ -218,7 +253,7 @@ open_connection ()
 	/* attach the parser object to the connection */
 	g_object_set_data_full (G_OBJECT (cnc), "parser", sql_parser, g_object_unref);
 
-        return cnc;
+    return cnc;
 }
 
 /*
@@ -305,6 +340,8 @@ insert_data (GdaConnection *cnc)
 
 		if (last_inserted)
 			g_object_unref (last_inserted);
+		
+		MP_RESET_PLIST(plist);
 	}
 	
 	elapsed_DEBUG = g_timer_elapsed (sym_timer_DEBUG, NULL);
