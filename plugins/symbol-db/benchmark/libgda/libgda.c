@@ -265,7 +265,7 @@ insert_data (GdaConnection *cnc)
 		/* execute the query with parametes just set */
 		gda_connection_statement_execute_non_select (cnc, 
 														 (GdaStatement*)stmt, 
-														 (GdaSet*)plist, &last_inserted,
+														 (GdaSet*)plist, NULL,
 														 NULL);
 
 		g_strfreev(tokens);
@@ -273,8 +273,6 @@ insert_data (GdaConnection *cnc)
 		 * on hashtable'll be freed
 		 */
 
-		if (last_inserted)
-			g_object_unref (last_inserted);
 	}
 	
 	elapsed_DEBUG = g_timer_elapsed (sym_timer_DEBUG, NULL);
