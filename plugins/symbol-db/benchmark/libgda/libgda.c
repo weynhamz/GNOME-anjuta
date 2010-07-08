@@ -5,6 +5,13 @@
 #define HASH_VALUES_FILE "../data/hash_values.log"
 #define DB_FILE "example_db"
 
+#define SDB_PARAM_SET_STRING(gda_param, str_value) \
+	g_value_init (&v, G_TYPE_STRING); \
+	g_value_set_string (&v, (str_value)); \
+	gda_holder_set_value ((gda_param), &v, NULL); \
+	g_value_unset (&v);
+
+
 GdaConnection *open_connection (void);
 void display_products_contents (GdaConnection *cnc);
 void create_table (GdaConnection *cnc);
@@ -17,47 +24,7 @@ const GdaStatement *get_select_statement_by_query_id (GdaConnection * cnc, GdaSe
 void run_sql_non_select (GdaConnection *cnc, const gchar *sql);
 
 GdaSqlParser *sql_parser;
-GQueue *mem_pool_string;
 GQueue *values_queue;
-
-
-#define MEMORY_POOL_STRING_SIZE			100000
-#define DUMMY_VOID_STRING				""
-#define MP_VOID_STRING					"-"
-
-#define MP_RESET_OBJ_STR(gvalue) \
-		g_value_set_static_string (gvalue, DUMMY_VOID_STRING);
-
-#define MP_LEND_OBJ_STR(OUT_gvalue) \
-		OUT_gvalue = (GValue*)g_queue_pop_head(mem_pool_string); \
-		MP_RESET_OBJ_STR(OUT_gvalue);
-
-#define MP_RETURN_OBJ_STR(gvalue) \
-		g_value_set_static_string (gvalue, MP_VOID_STRING); \
-		g_queue_push_head(mem_pool_string, gvalue); 
-
-#define MP_SET_HOLDER_BATCH_STR(param, string_, ret_bool, ret_value) { \
-	GValue *value_str; \
-	MP_LEND_OBJ_STR(value_str); \
-	g_value_set_static_string (value_str, string_); \
-	ret_value = gda_holder_take_static_value (param, value_str, &ret_bool, NULL); \
-	if (ret_value != NULL && G_VALUE_HOLDS_STRING (ret_value) == TRUE) \
-	{ \
-		MP_RETURN_OBJ_STR(ret_value); \
-	} \
-}
-
-#define MP_RESET_PLIST(plist) { \
-		if (plist != NULL) \
-		{ \
-			GSList* holders; \
-			for (holders = plist->holders; holders; holders = holders->next) { \
-				GValue *gvalue = (GValue*)gda_holder_get_value (holders->data); \
-				if (G_VALUE_HOLDS_STRING(gvalue)) \
-					MP_RESET_OBJ_STR(gvalue); \
-			} \
-		} \
-}
 
 
 static GdaDataModel *
@@ -146,32 +113,6 @@ load_queue_values ()
 	fclose (file);
 }
 
-
-static void
-create_memory_pool ()
-{
-	gint i;
-	mem_pool_string = g_queue_new ();
-
-	g_message ("creating memory pool...");
-	for (i = 0; i < MEMORY_POOL_STRING_SIZE; i++) 
-	{
-		GValue *value = gda_value_new (G_TYPE_STRING);
-		g_value_set_static_string (value, MP_VOID_STRING);		
-		g_queue_push_head (mem_pool_string, value);
-	}	
-	g_message ("..OK");
-}
-
-static void 
-clear_memory_pool ()
-{
-	g_queue_foreach (mem_pool_string, (GFunc)gda_value_free, NULL);
-	g_queue_free (mem_pool_string);
-	
-	mem_pool_string = NULL;
-}
-
 static void
 delete_previous_db ()
 {
@@ -213,16 +154,12 @@ main (int argc, char *argv[])
 	 */
 	load_queue_values ();
 
-	create_memory_pool ();
-
 	insert_data (cnc);	
 
 	
     gda_connection_close (cnc);
 	g_object_unref (cnc);
 
-	clear_memory_pool ();
-	
     return 0;
 }
 
@@ -281,8 +218,6 @@ insert_data (GdaConnection *cnc)
 	GdaSet *plist = NULL;
 	const GdaStatement *stmt;
 	GdaHolder *param;
-	GValue *ret_value;
-	gboolean ret_bool;
 	gint i;
 	gdouble elapsed_DEBUG;
 	GTimer *sym_timer_DEBUG  = g_timer_new ();	
@@ -307,7 +242,7 @@ insert_data (GdaConnection *cnc)
 		gchar * value = g_queue_pop_head (values_queue);	
 		gchar **tokens = g_strsplit (value, "|", 2);
 		GdaSet *last_inserted = NULL;
-		
+		GValue v = {0};		
 		
 		/* type parameter */
 		if ((param = gda_set_get_holder ((GdaSet*)plist, "type")) == NULL)
@@ -315,8 +250,8 @@ insert_data (GdaConnection *cnc)
 			g_warning ("param type is NULL from pquery!");
 			return;
 		}
-
-		MP_SET_HOLDER_BATCH_STR(param, tokens[0], ret_bool, ret_value);
+		
+		SDB_PARAM_SET_STRING (param, tokens[0]);
 
 		/* type_name parameter */
 		if ((param = gda_set_get_holder ((GdaSet*)plist, "typename")) == NULL)
@@ -325,7 +260,7 @@ insert_data (GdaConnection *cnc)
 			return;
 		}
 		
-		MP_SET_HOLDER_BATCH_STR(param, tokens[1], ret_bool, ret_value);
+		SDB_PARAM_SET_STRING (param, tokens[1]);
 
 		/* execute the query with parametes just set */
 		gda_connection_statement_execute_non_select (cnc, 
@@ -340,8 +275,6 @@ insert_data (GdaConnection *cnc)
 
 		if (last_inserted)
 			g_object_unref (last_inserted);
-		
-		MP_RESET_PLIST(plist);
 	}
 	
 	elapsed_DEBUG = g_timer_elapsed (sym_timer_DEBUG, NULL);
