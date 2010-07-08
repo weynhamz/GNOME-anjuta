@@ -97,8 +97,7 @@ get_insert_statement_by_query_id (GdaSet **plist)
  				"type:gchararray */, ## /* name:'typename' type:gchararray */)";
 
 	/* create a new GdaStatement */
-	stmt = gda_sql_parser_parse_string (sql_parser, sql, NULL, 
-										 NULL);
+	stmt = gda_sql_parser_parse_string (sql_parser, sql, NULL, NULL);
 
 	if (gda_statement_get_parameters ((GdaStatement*)stmt, 
 									  plist, NULL) == FALSE)
@@ -263,7 +262,7 @@ void
 create_table (GdaConnection *cnc)
 {
 	run_sql_non_select (cnc, "DROP table IF EXISTS sym_type");
-        run_sql_non_select (cnc, "CREATE TABLE sym_type (type_id integer PRIMARY KEY AUTOINCREMENT,"
+    run_sql_non_select (cnc, "CREATE TABLE sym_type (type_id integer PRIMARY KEY AUTOINCREMENT,"
                    "type_type text not null,"
                    "type_name text not null,"
                    "unique (type_type, type_name))");
@@ -295,6 +294,13 @@ insert_data (GdaConnection *cnc)
 
 	gint queue_length = g_queue_get_length (values_queue);
 
+	if ((stmt = get_insert_statement_by_query_id (&plist))
+		== NULL)
+	{
+		g_warning ("query is null");
+		return;
+	}
+	
 	g_message ("populating transaction..");
 	for (i = 0; i < queue_length; i++)
 	{
@@ -302,12 +308,6 @@ insert_data (GdaConnection *cnc)
 		gchar **tokens = g_strsplit (value, "|", 2);
 		GdaSet *last_inserted = NULL;
 		
-		if ((stmt = get_insert_statement_by_query_id (&plist))
-			== NULL)
-		{
-			g_warning ("query is null");
-			return;
-		}
 		
 		/* type parameter */
 		if ((param = gda_set_get_holder ((GdaSet*)plist, "type")) == NULL)
