@@ -163,5 +163,5 @@ git_remotes_pane_new (Git *plugin)
 gchar *
 git_remotes_pane_get_selected_remote (GitRemotesPane *self)
 {
-	return self->priv->selected_remote;
+	return g_strdup (self->priv->selected_remote);
 }
