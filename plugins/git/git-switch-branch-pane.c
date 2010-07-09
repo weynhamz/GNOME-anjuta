@@ -35,6 +35,11 @@ on_switch_branch_button_clicked (GtkAction *action, Git *plugin)
 		g_free (selected_branch);
 
 		g_signal_connect (G_OBJECT (checkout_command), "command-finished",
+		                  G_CALLBACK (git_pane_report_errors),
+		                  plugin);
+
+
+		g_signal_connect (G_OBJECT (checkout_command), "command-finished",
 		                  G_CALLBACK (g_object_unref),
 		                  NULL);
 		

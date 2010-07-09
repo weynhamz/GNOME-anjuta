@@ -81,6 +81,11 @@ on_ok_button_clicked (GtkButton *button, GitCreateBranchPane *self)
 	                                                gtk_toggle_button_get_active (checkout_check));
 
 	g_signal_connect (G_OBJECT (create_command), "command-finished",
+	                  G_CALLBACK (git_pane_report_errors),
+	                  plugin);
+
+
+	g_signal_connect (G_OBJECT (create_command), "command-finished",
 	                  G_CALLBACK (g_object_unref),
 	                  NULL);
 

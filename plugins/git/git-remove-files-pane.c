@@ -48,6 +48,11 @@ on_ok_button_clicked (GtkButton *button, GitRemoveFilesPane *self)
 	git_command_free_string_list (paths);
 
 	g_signal_connect (G_OBJECT (remove_command), "command-finished",
+	                  G_CALLBACK (git_pane_report_errors),
+	                  plugin);
+
+
+	g_signal_connect (G_OBJECT (remove_command), "command-finished",
 	                  G_CALLBACK (g_object_unref),
 	                  NULL);
 
