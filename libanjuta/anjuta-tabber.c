@@ -186,10 +186,15 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 
 	GList* child;
 	gint x;
-	if (gtk_widget_get_direction (widget) == GTK_TEXT_DIR_LTR)
-		x = allocation->x;
-	else
-		x = allocation->x + allocation->width;
+	switch (gtk_widget_get_direction (widget))
+	{
+		case GTK_TEXT_DIR_RTL:
+			x = allocation->x + allocation->width;
+			break;
+		case GTK_TEXT_DIR_LTR:
+		default:
+			x = allocation->x;
+	}
 
 	gint y = allocation->y;
 	gint padding = anjuta_tabber_get_padding (widget);
@@ -222,17 +227,20 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 			child_alloc.width = child_width;
 			child_alloc.height = MAX(child_req.height, allocation->height);
 
-			if (gtk_widget_get_direction (widget) == GTK_TEXT_DIR_LTR)
-				child_alloc.x = x + style->xthickness + padding;
-			else
-				child_alloc.x = x - child_width - style->xthickness - padding;
+			switch (gtk_widget_get_direction (widget))
+			{
+				case GTK_TEXT_DIR_RTL:
+					child_alloc.x = x - child_width - style->xthickness - padding;
+					x -= child_width + style->xthickness + 2 * padding;
+					break;
+				case GTK_TEXT_DIR_LTR:
+				default:
+					child_alloc.x = x + style->xthickness + padding;
+					x += child_width + style->xthickness + 2 * padding;
+			}
 			child_alloc.y = y + style->ythickness + padding;
 
 			gtk_widget_size_allocate (GTK_WIDGET (child->data), &child_alloc);
-			if (gtk_widget_get_direction (widget) == GTK_TEXT_DIR_LTR)
-				x += child_width + style->xthickness + 2 * padding;
-			else
-				x -= child_width + style->xthickness + 2 * padding;
 		}
 	}
 }
