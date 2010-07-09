@@ -59,7 +59,8 @@ void git_pane_set_log_view_column_label (GtkTextBuffer *buffer,
 gchar *git_pane_get_log_from_text_view (GtkTextView *text_view);
 gboolean git_pane_check_input (GtkWidget *parent, GtkWidget *widget, 
                                const gchar *input, const gchar *error_message);
-                      
+void git_pane_report_errors (AnjutaCommand *command, guint return_code, 
+                             Git *plugin);                      
 
 G_END_DECLS
 

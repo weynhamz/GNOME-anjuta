@@ -168,3 +168,101 @@ git_pane_check_input (GtkWidget *parent, GtkWidget *widget, const gchar *input,
 	return ret;
 }
 
+static void
+message_dialog (GtkMessageType message_type, const gchar *message, Git *plugin)
+{
+	const gchar *dialog_title;
+	GtkWidget *image;
+	GtkWidget *dialog;
+	GtkWidget *close_button;
+	GtkWidget *content_area;
+	GtkWidget *hbox;
+	GtkWidget *scrolled_window;
+	GtkWidget *text_view;
+	GtkTextBuffer *text_buffer;
+
+	dialog_title = NULL;
+	image = gtk_image_new ();
+
+	switch (message_type)
+	{
+		case GTK_MESSAGE_ERROR:
+			gtk_image_set_from_icon_name (GTK_IMAGE (image), 
+			                              GTK_STOCK_DIALOG_ERROR, 
+			                              GTK_ICON_SIZE_DIALOG);
+			dialog_title = _("Git Error");
+			break;
+		case GTK_MESSAGE_WARNING:
+			gtk_image_set_from_icon_name (GTK_IMAGE (image), 
+			                              GTK_STOCK_DIALOG_WARNING,
+			                              GTK_ICON_SIZE_DIALOG);
+			dialog_title = _("Git Warning");
+			break;
+		default:
+			break;
+	}
+		
+
+	dialog = gtk_dialog_new_with_buttons (dialog_title,
+	                                      GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
+	                                      GTK_DIALOG_DESTROY_WITH_PARENT,
+	                                      NULL);
+
+	close_button = gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_CLOSE,
+	                                      GTK_RESPONSE_CLOSE);
+	content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
+	hbox = gtk_hbox_new (FALSE, 2);
+	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+	text_view = gtk_text_view_new ();
+	text_buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text_view));
+
+	gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
+	gtk_widget_set_size_request (text_view, 500, 150);
+	
+	gtk_container_add (GTK_CONTAINER (scrolled_window), text_view);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_window),
+	                                     GTK_SHADOW_IN);
+
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
+	                                GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+
+	gtk_text_view_set_editable (GTK_TEXT_VIEW (text_view), FALSE);
+	gtk_text_buffer_set_text (text_buffer, message, strlen (message));
+
+	gtk_box_pack_start (GTK_BOX (hbox), image, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
+
+	gtk_box_pack_start (GTK_BOX (content_area), hbox, TRUE, TRUE, 0);
+
+	gtk_widget_grab_default (close_button);
+	gtk_widget_grab_focus (close_button);
+
+	g_signal_connect (G_OBJECT (dialog), "response",
+	                  G_CALLBACK (gtk_widget_destroy),
+	                  NULL);
+
+	gtk_widget_show_all (dialog);
+	
+}
+
+void
+git_pane_report_errors (AnjutaCommand *command, guint return_code, Git *plugin)
+{
+	gchar *message;
+	
+	/* In some cases, git might report errors yet still indicate success.
+	 * When this happens, use a warning dialog instead of an error, so the user
+	 * knows that something actually happened. */
+	message = anjuta_command_get_error_message (command);
+	
+	if (message)
+	{
+		if (return_code != 0)
+			message_dialog (GTK_MESSAGE_ERROR, message, plugin);
+		else
+			message_dialog (GTK_MESSAGE_WARNING, message, plugin);
+		
+		g_free (message);
+	}
+}
+
