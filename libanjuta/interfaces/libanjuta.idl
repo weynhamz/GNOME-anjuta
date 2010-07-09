@@ -4337,6 +4337,20 @@ interface IAnjutaDebugger
 	void disable_log ();
 
 	/**
+	* ianjuta_debugger_dump_stack_trace:
+	* @obj: Self
+	* @callback: Callback to call getting a list of frame
+	* @user_data: User data that is passed back to the callback
+	* @err: Error propagation and reporting.
+	* 
+	* Return a stack trace valid for a bug reports.
+	* This function is optional.
+	* 
+	* Returns: TRUE if sucessful, otherwise FALSE.
+	*/
+	gboolean dump_stack_trace (Callback callback, gpointer user_data);
+	
+	/**
 	 * SECTION:ianjuta-debugger-breakpoint
 	 * @title: IAnjutaDebuggerBreakpoint
 	 * @short_description: Breakpoint Debugger interface

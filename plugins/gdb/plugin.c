@@ -820,6 +820,16 @@ idebugger_list_register (IAnjutaDebugger *plugin, IAnjutaDebuggerCallback callba
 }
 
 static gboolean
+idebugger_dump_stack_trace (IAnjutaDebugger *plugin, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
+{
+	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
+
+	debugger_dump_stack_trace (this->debugger, callback, user_data);
+
+	return TRUE;
+}
+
+static gboolean
 idebugger_callback (IAnjutaDebugger *plugin, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
 {
 
@@ -890,6 +900,7 @@ idebugger_iface_init (IAnjutaDebuggerIface *iface)
 	iface->set_thread = idebugger_set_thread;
 	iface->info_thread = idebugger_info_thread;
 	iface->list_register = idebugger_list_register;
+	iface->dump_stack_trace = idebugger_dump_stack_trace;
 
 	iface->send_command = idebugger_send_command;
 

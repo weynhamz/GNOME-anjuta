@@ -97,6 +97,7 @@ gboolean dma_queue_info_udot (DmaDebuggerQueue *self, IAnjutaDebuggerCallback ca
 gboolean dma_queue_info_variables (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data);
 gboolean dma_queue_set_frame (DmaDebuggerQueue *self, guint frame);
 gboolean dma_queue_list_frame (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data);
+gboolean dma_queue_dump_stack_trace (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data);
 gboolean dma_queue_list_register (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data);
 gboolean dma_queue_callback (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data);
 void dma_queue_enable_log (DmaDebuggerQueue *self, IAnjutaMessageView *log);

@@ -96,7 +96,8 @@ typedef enum
 	INFO_VARIABLES_COMMAND,
 	SET_FRAME_COMMAND,
 	LIST_FRAME_COMMAND,
-	UPDATE_REGISTER_COMMAND,	/* 0x30 */
+	DUMP_STACK_TRACE_COMMAND,	/* 0x30 */
+	UPDATE_REGISTER_COMMAND,
 	WRITE_REGISTER_COMMAND,
 	EVALUATE_COMMAND,
 	INSPECT_COMMAND,
@@ -252,6 +253,9 @@ typedef enum
 		NEED_PROGRAM_STOPPED,
 	DMA_LIST_FRAME_COMMAND =
 		LIST_FRAME_COMMAND |
+		NEED_PROGRAM_STOPPED | NEED_PROGRAM_RUNNING,
+	DMA_DUMP_STACK_TRACE_COMMAND =
+		DUMP_STACK_TRACE_COMMAND |
 		NEED_PROGRAM_STOPPED | NEED_PROGRAM_RUNNING,
 	DMA_UPDATE_REGISTER_COMMAND =
 		UPDATE_REGISTER_COMMAND |
@@ -571,6 +575,10 @@ dma_command_new (DmaDebuggerCommand cmd_type,...)
 		cmd->callback = va_arg (args, IAnjutaDebuggerCallback);
 		cmd->user_data = va_arg (args, gpointer);
 		break;
+	case DUMP_STACK_TRACE_COMMAND:
+		cmd->callback = va_arg (args, IAnjutaDebuggerCallback);
+		cmd->user_data = va_arg (args, gpointer);
+		break;
 	case LIST_REGISTER_COMMAND:
 		cmd->callback = va_arg (args, IAnjutaDebuggerCallback);
 		cmd->user_data = va_arg (args, gpointer);
@@ -885,6 +893,12 @@ dma_queue_list_frame (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback ,
 }
 
 gboolean
+dma_queue_dump_stack_trace (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data)
+{
+	return dma_debugger_queue_append (self, dma_command_new (DMA_DUMP_STACK_TRACE_COMMAND, callback, user_data));
+}
+
+gboolean
 dma_queue_callback (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data)
 {
 	return dma_debugger_queue_append (self, dma_command_new (DMA_CALLBACK_COMMAND, callback, user_data));
@@ -1048,6 +1062,7 @@ dma_command_free (DmaQueueCommand *cmd)
 	    break;
 	case SET_FRAME_COMMAND:
 	case LIST_FRAME_COMMAND:
+	case DUMP_STACK_TRACE_COMMAND:
 	case INSPECT_MEMORY_COMMAND:
 	case DISASSEMBLE_COMMAND:
 		break;
@@ -1319,6 +1334,9 @@ dma_command_run (DmaQueueCommand *cmd, IAnjutaDebugger *debugger,
 	case LIST_FRAME_COMMAND:
 		ret = ianjuta_debugger_list_frame (debugger, callback, queue, err);	
 		break;
+	case DUMP_STACK_TRACE_COMMAND:
+		ret = ianjuta_debugger_dump_stack_trace (debugger, callback, queue, err);	
+		break;
 	case LIST_REGISTER_COMMAND:
 		ret = ianjuta_debugger_register_list_register (IANJUTA_DEBUGGER_REGISTER (debugger), callback, queue, err);	
 		break;
@@ -1429,6 +1447,7 @@ dma_command_callback (DmaQueueCommand *cmd, const gpointer data, GError *err)
 	case INFO_UDOT_COMMAND:
 	case INFO_VARIABLES_COMMAND:
 	case LIST_FRAME_COMMAND:
+	case DUMP_STACK_TRACE_COMMAND:
 	case LIST_REGISTER_COMMAND:
 	case UPDATE_REGISTER_COMMAND:
 	case INSPECT_MEMORY_COMMAND:
