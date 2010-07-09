@@ -83,7 +83,7 @@ on_ok_button_clicked (GtkButton *button, GitPullPane *self)
 
 	git_pane_create_message_view (plugin);
 
-	g_signal_connect (G_OBJECT (pull_command), "data_arrived",
+	g_signal_connect (G_OBJECT (pull_command), "data-arrived",
 	                  G_CALLBACK (git_pane_on_command_info_arrived),
 	                  plugin);
 
