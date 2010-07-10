@@ -48,6 +48,7 @@ struct _GitPane
 };
 
 GType git_pane_get_type (void) G_GNUC_CONST;
+void git_pane_remove_from_dock (GitPane *self);
 
 /* Static helper methods */
 void git_pane_create_message_view (Git *plugin);

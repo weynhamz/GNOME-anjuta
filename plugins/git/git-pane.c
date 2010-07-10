@@ -48,6 +48,17 @@ git_pane_class_init (GitPaneClass *klass)
 	object_class->finalize = git_pane_finalize;
 }
 
+void
+git_pane_remove_from_dock (GitPane *self)
+{
+	Git *plugin;
+
+	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
+
+	anjuta_dock_remove_pane (ANJUTA_DOCK (plugin->dock), 
+	                         ANJUTA_DOCK_PANE (self));
+}
+
 static void
 on_message_view_destroyed (Git* plugin, gpointer destroyed_view)
 {

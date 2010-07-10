@@ -98,19 +98,7 @@ on_ok_button_clicked (GtkButton *button, GitPullPane *self)
 
 	anjuta_command_start (ANJUTA_COMMAND (pull_command));
 	
-	anjuta_dock_remove_pane (ANJUTA_DOCK (plugin->dock), 
-	                         ANJUTA_DOCK_PANE (self));
-}
-
-static void
-on_cancel_button_clicked (GtkButton *button, GitPullPane *self)
-{
-	Git *plugin;
-
-	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
-
-	anjuta_dock_remove_pane (ANJUTA_DOCK (plugin->dock), 
-	                         ANJUTA_DOCK_PANE (self));
+	git_pane_remove_from_dock (GIT_PANE (self));
 }
 
 static void
@@ -160,9 +148,9 @@ git_pull_pane_init (GitPullPane *self)
 	                  G_CALLBACK (on_ok_button_clicked),
 	                  self);
 
-	g_signal_connect (G_OBJECT (cancel_button), "clicked",
-	                  G_CALLBACK (on_cancel_button_clicked),
-	                  self);
+	g_signal_connect_swapped (G_OBJECT (cancel_button), "clicked",
+	                          G_CALLBACK (git_pane_remove_from_dock),
+	                          self);
 }
 
 static void
