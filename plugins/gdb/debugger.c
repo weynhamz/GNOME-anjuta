@@ -2467,6 +2467,25 @@ debugger_run_to_position (Debugger *debugger, const gchar *file, guint line)
 }
 
 void
+debugger_run_from_position (Debugger *debugger, const gchar *file, guint line)
+{
+	gchar *buff;
+	gchar *quoted_file;
+
+	DEBUG_PRINT ("%s", "In function: debugger_run_from_position()");
+	
+	g_return_if_fail (IS_DEBUGGER (debugger));
+	g_return_if_fail (debugger->priv->prog_is_running == TRUE);
+
+	quoted_file = gdb_quote (file);	
+	buff = g_strdup_printf ("-exec-jump \"\\\"%s\\\":%u\"",
+							quoted_file, line);
+	g_free (quoted_file);
+	debugger_queue_command (debugger, buff, 0, NULL, NULL, NULL);
+	g_free (buff);
+}
+
+void
 debugger_run_to_address (Debugger *debugger, gulong address)
 {
 	gchar *buff;
@@ -2482,6 +2501,21 @@ debugger_run_to_address (Debugger *debugger, gulong address)
 	debugger_queue_command (debugger, buff, 0, NULL, NULL, NULL);
 	g_free (buff);
 	debugger_queue_command (debugger, "-exec-continue", 0, NULL, NULL, NULL);
+}
+
+void
+debugger_run_from_address (Debugger *debugger, gulong address)
+{
+	gchar *buff;
+
+	DEBUG_PRINT ("%s", "In function: debugger_run_from_address()");
+	
+	g_return_if_fail (IS_DEBUGGER (debugger));
+	g_return_if_fail (debugger->priv->prog_is_running == TRUE);
+	
+	buff = g_strdup_printf ("-exec-jump *0x%lx", address);
+	debugger_queue_command (debugger, buff, 0, NULL, NULL, NULL);
+	g_free (buff);
 }
 
 void

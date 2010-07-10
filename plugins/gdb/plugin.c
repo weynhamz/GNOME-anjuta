@@ -820,6 +820,16 @@ idebugger_list_register (IAnjutaDebugger *plugin, IAnjutaDebuggerCallback callba
 }
 
 static gboolean
+idebugger_run_from (IAnjutaDebugger *plugin, const gchar *file, gint line, GError **err)
+{
+	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
+	
+	debugger_run_from_position (this->debugger, file, line);
+
+	return TRUE;
+}
+
+static gboolean
 idebugger_dump_stack_trace (IAnjutaDebugger *plugin, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
@@ -876,6 +886,7 @@ idebugger_iface_init (IAnjutaDebuggerIface *iface)
 	iface->step_over = idebugger_step_over;
 	iface->step_out = idebugger_step_out;
 	iface->run_to = idebugger_run_to;
+	iface->run_from = idebugger_run_from;
 	iface->exit = idebugger_exit;
 	iface->interrupt = idebugger_interrupt;
 
@@ -1122,6 +1133,16 @@ idebugger_instruction_run_to_address (IAnjutaDebuggerInstruction *plugin, gulong
 	return TRUE;
 }
 
+static gboolean
+idebugger_instruction_run_from_address (IAnjutaDebuggerInstruction *plugin, gulong address, GError **err)
+{
+	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
+	
+	debugger_run_from_address (this->debugger, address);
+
+	return TRUE;
+}
+
 static void
 idebugger_instruction_iface_init (IAnjutaDebuggerInstructionIface *iface)
 {
@@ -1129,6 +1150,7 @@ idebugger_instruction_iface_init (IAnjutaDebuggerInstructionIface *iface)
 	iface->step_in_instruction = idebugger_instruction_step_in;
 	iface->step_over_instruction = idebugger_instruction_step_over;
 	iface->run_to_address = idebugger_instruction_run_to_address;
+	iface->run_from_address = idebugger_instruction_run_from_address;
 }
 
 /* Implementation of IAnjutaDebuggerVariable interface

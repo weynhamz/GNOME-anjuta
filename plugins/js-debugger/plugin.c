@@ -473,6 +473,14 @@ idebugger_list_register (IAnjutaDebugger *plugin, IAnjutaDebuggerCallback callba
 }
 
 static gboolean
+idebugger_run_from (IAnjutaDebugger *plugin, const gchar *file, gint line, GError **err)
+{
+	DEBUG_PRINT ("%s", "run_from: Not Implemented");
+
+	return FALSE;
+}
+
+static gboolean
 idebugger_dump_stack_trace (IAnjutaDebugger *plugin, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
 {
 	DEBUG_PRINT ("%s", "dump_stack_trace: Not Implemented");
@@ -519,6 +527,7 @@ idebugger_iface_init (IAnjutaDebuggerIface *iface)
 	iface->step_over = idebugger_step_over;
 	iface->step_out = idebugger_step_out;
 	iface->run_to = idebugger_run_to;
+	iface->run_from = idebugger_run_from;
 	iface->exit = idebugger_exit;
 	iface->interrupt = idebugger_interrupt;
 
