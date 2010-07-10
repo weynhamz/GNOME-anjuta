@@ -2,6 +2,109 @@
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy toplevel-contextual -->
+  <object class="GtkAdjustment" id="adjustment1">
+    <property name="lower">1</property>
+    <property name="upper">1000</property>
+    <property name="value">50</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="adjustment2">
+    <property name="lower">1</property>
+    <property name="upper">1000</property>
+    <property name="value">50</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkListStore" id="model1">
+    <columns>
+      <!-- column-name gchararray -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">Top</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Bottom</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Left</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Right</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkListStore" id="model2">
+    <columns>
+      <!-- column-name gchararray -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes" comments="text style in editor">Underline-Plain</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes" comments="text style in editor">Underline-Squiggle</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes" comments="text style in editor, TT is for typewriter text">Underline-TT</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes" comments="text style in editor">Diagonal</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes" comments="text style in editor">Strike-Out</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkListStore" id="model3">
+    <columns>
+      <!-- column-name gchararray -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">Underline-Plain</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Underline-Squiggle</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Underline-TT</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Diagonal</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Strike-Out</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkListStore" id="model4">
+    <columns>
+      <!-- column-name gchararray -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">Underline-Plain</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Underline-Squiggle</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Underline-TT</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Diagonal</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Strike-Out</col>
+      </row>
+    </data>
+  </object>
   <object class="GtkWindow" id="preferences_dialog_messages">
     <property name="title" translatable="yes">window6</property>
     <child>
@@ -9,7 +112,6 @@
         <property name="visible">True</property>
         <child>
           <object class="GtkFrame" id="frame36">
-            <property name="visible">True</property>
             <property name="border_width">5</property>
             <property name="label_xalign">0</property>
             <property name="shadow_type">none</property>
@@ -329,108 +431,5 @@
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkListStore" id="model4">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">Underline-Plain</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Underline-Squiggle</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Underline-TT</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Diagonal</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Strike-Out</col>
-      </row>
-    </data>
-  </object>
-  <object class="GtkListStore" id="model3">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">Underline-Plain</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Underline-Squiggle</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Underline-TT</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Diagonal</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Strike-Out</col>
-      </row>
-    </data>
-  </object>
-  <object class="GtkListStore" id="model2">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes" comments="text style in editor">Underline-Plain</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes" comments="text style in editor">Underline-Squiggle</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes" comments="text style in editor, TT is for typewriter text">Underline-TT</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes" comments="text style in editor">Diagonal</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes" comments="text style in editor">Strike-Out</col>
-      </row>
-    </data>
-  </object>
-  <object class="GtkListStore" id="model1">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">Top</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Bottom</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Left</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Right</col>
-      </row>
-    </data>
-  </object>
-  <object class="GtkAdjustment" id="adjustment2">
-    <property name="lower">1</property>
-    <property name="upper">1000</property>
-    <property name="value">50</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
-  </object>
-  <object class="GtkAdjustment" id="adjustment1">
-    <property name="lower">1</property>
-    <property name="upper">1000</property>
-    <property name="value">50</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
   </object>
 </interface>

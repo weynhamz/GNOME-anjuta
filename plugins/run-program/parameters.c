@@ -299,8 +299,8 @@ on_select_target (RunDialog* dlg)
 	GtkWidget *sel_dlg = gtk_file_chooser_dialog_new (
 			_("Load Target to run"), GTK_WINDOW (dlg->win),
 			 GTK_FILE_CHOOSER_ACTION_OPEN,
-			 GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
-			 GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
+			 GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+			 GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
 	gtk_file_chooser_set_select_multiple (GTK_FILE_CHOOSER(sel_dlg), FALSE);
 	gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER (sel_dlg), TRUE);
 

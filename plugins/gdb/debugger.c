@@ -2467,6 +2467,25 @@ debugger_run_to_position (Debugger *debugger, const gchar *file, guint line)
 }
 
 void
+debugger_run_from_position (Debugger *debugger, const gchar *file, guint line)
+{
+	gchar *buff;
+	gchar *quoted_file;
+
+	DEBUG_PRINT ("%s", "In function: debugger_run_from_position()");
+	
+	g_return_if_fail (IS_DEBUGGER (debugger));
+	g_return_if_fail (debugger->priv->prog_is_running == TRUE);
+
+	quoted_file = gdb_quote (file);	
+	buff = g_strdup_printf ("-exec-jump \"\\\"%s\\\":%u\"",
+							quoted_file, line);
+	g_free (quoted_file);
+	debugger_queue_command (debugger, buff, 0, NULL, NULL, NULL);
+	g_free (buff);
+}
+
+void
 debugger_run_to_address (Debugger *debugger, gulong address)
 {
 	gchar *buff;
@@ -2482,6 +2501,21 @@ debugger_run_to_address (Debugger *debugger, gulong address)
 	debugger_queue_command (debugger, buff, 0, NULL, NULL, NULL);
 	g_free (buff);
 	debugger_queue_command (debugger, "-exec-continue", 0, NULL, NULL, NULL);
+}
+
+void
+debugger_run_from_address (Debugger *debugger, gulong address)
+{
+	gchar *buff;
+
+	DEBUG_PRINT ("%s", "In function: debugger_run_from_address()");
+	
+	g_return_if_fail (IS_DEBUGGER (debugger));
+	g_return_if_fail (debugger->priv->prog_is_running == TRUE);
+	
+	buff = g_strdup_printf ("-exec-jump *0x%lx", address);
+	debugger_queue_command (debugger, buff, 0, NULL, NULL, NULL);
+	g_free (buff);
 }
 
 void
@@ -3446,6 +3480,45 @@ debugger_list_frame (Debugger *debugger, IAnjutaDebuggerCallback callback, gpoin
 
 	debugger_queue_command (debugger, "-stack-list-frames", DEBUGGER_COMMAND_NO_ERROR | DEBUGGER_COMMAND_KEEP_RESULT, NULL, NULL, NULL);
 	debugger_queue_command (debugger, "-stack-list-arguments 1", DEBUGGER_COMMAND_NO_ERROR, debugger_stack_finish, callback, user_data);
+}
+
+static void
+debugger_dump_stack_finish (Debugger *debugger, const GDBMIValue *mi_results, const GList *cli_results, GError *error)
+{
+	IAnjutaDebuggerCallback callback = debugger->priv->current_cmd.callback;
+	gpointer user_data = debugger->priv->current_cmd.user_data;
+	
+	if (callback != NULL)
+	{
+		GString *result;
+		GList *item;
+		
+		result = g_string_new (NULL);
+		
+		for (item = g_list_first ((GList *)cli_results); item != NULL; item = g_list_next (item))
+		{
+			const gchar *line = (const gchar *)item->data;
+			
+			/* Keep only data outputed by CLI command */
+			if (*line == '~')
+			{
+				g_string_append (result, line + 1);
+			}
+		}
+		
+		callback (result->str, user_data, NULL);
+		
+		g_string_free (result, TRUE);
+	}
+}
+
+void debugger_dump_stack_trace (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data)
+{
+	DEBUG_PRINT ("%s", "In function: debugger_dump_stack_frame()");
+
+	g_return_if_fail (IS_DEBUGGER (debugger));
+
+	debugger_queue_command (debugger, "thread apply all backtrace", DEBUGGER_COMMAND_NO_ERROR, debugger_dump_stack_finish, func, user_data);
 }
 
 /* Thread functions

@@ -419,6 +419,7 @@ typedef struct _NPWDruidAddPropertyData
 	NPWDruid* druid;
 	guint row;
 	GtkTable *table;
+	GtkWidget *first_entry;
 } NPWDruidAddPropertyData;
 
 static void
@@ -459,6 +460,9 @@ cb_druid_add_property (NPWProperty* property, gpointer user_data)
 			(GtkAttachOptions)(GTK_EXPAND|GTK_FILL), (GtkAttachOptions)(0), 0, 0);
 		
 		data->row++;
+		
+		/* Set first entry */
+		if (data->first_entry == NULL) data->first_entry = entry;
 	}
 };
 
@@ -480,7 +484,14 @@ npw_druid_fill_property_page (NPWDruid* druid, NPWPage* page)
 	data.druid = druid;
 	data.row = 0;
 	data.table = GTK_TABLE (npw_page_get_widget (page));
+	data.first_entry = NULL;
 	npw_page_foreach_property (page, (GFunc)cb_druid_add_property, &data);
+
+	/* Move focus on first entry */
+	if (data.first_entry != NULL)
+	{
+		gtk_container_set_focus_child (GTK_CONTAINER (data.table), data.first_entry);
+	}
 	
 	gtk_widget_show_all (widget);
 }

@@ -710,6 +710,42 @@ on_run_to_cursor_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 }
 
 static void
+on_run_from_cursor_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
+{
+	if (plugin->queue)
+	{
+		if ((plugin->disassemble != NULL) && (dma_disassemble_is_focus (plugin->disassemble)))
+		{
+			gulong address;
+			
+			address = dma_disassemble_get_current_address (plugin->disassemble);
+			dma_queue_run_from_address (plugin->queue, address);
+		}
+		else
+		{
+			IAnjutaEditor *editor;
+			GFile* file;
+			gchar *filename;
+			gint line;
+
+			editor = dma_get_current_editor (ANJUTA_PLUGIN (plugin));
+			if (editor == NULL)
+				return;
+			file = ianjuta_file_get_file (IANJUTA_FILE (editor), NULL);
+			if (file == NULL)
+				return;
+	
+			filename = g_file_get_path (file);
+	
+			line = ianjuta_editor_get_lineno (editor, NULL);
+			dma_queue_run_from (plugin->queue, filename, line);
+			g_free (filename);
+			g_object_unref (file);
+		}
+	}
+}
+
+static void
 on_debugger_interrupt_activate (GtkAction* action, DebugManagerPlugin* plugin)
 {
 	if (plugin->queue)
@@ -981,6 +1017,7 @@ static GtkActionEntry actions_stopped[] =
 		N_("Continue the execution of the program"),   /* Tooltip */
 		G_CALLBACK (on_run_continue_action_activate)   /* action callback */
 	},
+	
 	{
 		"ActionDebuggerStepIn",
 		"debugger-step-into",
@@ -1012,6 +1049,14 @@ static GtkActionEntry actions_stopped[] =
 		"F8",                              
 		N_("Run to the cursor"),              
 		G_CALLBACK (on_run_to_cursor_action_activate) 
+	},
+	{
+		"ActionDebuggerRunFromPosition",    
+		"debugger-run-from-cursor",                             
+		N_("_Run from Cursor"),           
+		NULL,                              
+		N_("Run from the cursor"),              
+		G_CALLBACK (on_run_from_cursor_action_activate) 
 	},
 	{
 		"ActionGdbCommand",
