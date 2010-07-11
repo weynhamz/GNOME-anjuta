@@ -37,6 +37,7 @@
 #include "git-unstage-pane.h"
 #include "git-diff-pane.h"
 #include "git-add-remote-pane.h"
+#include "git-delete-remote-pane.h"
 
 AnjutaCommandBarEntry branch_entries[] =
 {
@@ -168,6 +169,14 @@ AnjutaCommandBarEntry remotes_entries[] =
 		N_("Add a remote repository"),
 		GTK_STOCK_NEW,
 		G_CALLBACK (on_add_remote_button_clicked)
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"DeleteRemote",
+		N_("Delete selected remote"),
+		N_("Delete a remote"),
+		GTK_STOCK_DELETE,
+		G_CALLBACK (on_delete_remote_button_clicked)
 	},
 	{
 		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
