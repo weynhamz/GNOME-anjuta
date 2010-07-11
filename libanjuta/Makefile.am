@@ -23,27 +23,45 @@ libanjuta_la_LIBADD = \
 libanjuta_la_SOURCES= \
 	anjuta-enum-types.h \
 	anjuta-enum-types.c \
+	anjuta-marshal.h \
 	anjuta-marshal.c \
 	anjuta-shell.c \
+	anjuta-shell.h \
 	anjuta-status.c \
+	anjuta-status.h \
 	anjuta-encodings.c \
+	anjuta-encodings.h \
 	anjuta-convert.c \
+	anjuta-convert.h \
 	anjuta-preferences-dialog.c \
+	anjuta-preferences-dialog.h \
 	anjuta-preferences.c \
+	anjuta-preferences.h \
 	anjuta-plugin.c \
+	anjuta-plugin.h \
 	anjuta-plugin-handle.h \
 	anjuta-plugin-handle.c \
 	anjuta-plugin-description.c \
+	anjuta-plugin-description.h \
 	anjuta-plugin-manager.c \
+	anjuta-plugin-manager.h \
 	anjuta-profile.c \
+	anjuta-profile.h \
 	anjuta-profile-manager.c \
+	anjuta-profile-manager.h \
 	anjuta-ui.c \
+	anjuta-ui.h \
 	anjuta-launcher.c \
+	anjuta-launcher.h \
 	anjuta-utils.c \
+	anjuta-utils.h \
 	anjuta-utils-priv.h \
 	anjuta-session.c \
+	anjuta-session.h \
 	anjuta-save-prompt.c \
+	anjuta-save-prompt.h \
 	anjuta-serializer.c \
+	anjuta-serializer.h \
 	resources.c \
 	resources.h \
 	anjuta-c-plugin-factory.c \
@@ -76,7 +94,9 @@ libanjuta_la_SOURCES= \
 	anjuta-project.c \
 	anjuta-project.h \
 	anjuta-tabber.c \
-	anjuta-tabber.h
+	anjuta-tabber.h \
+	anjuta-pkg-config-chooser.h \
+	anjuta-pkg-config-chooser.c
 
 
 if HAVE_PLUGIN_GLADE
@@ -137,7 +157,8 @@ libanjuta_include = \
 	gbf-project.h \
 	anjuta-project.h \
 	anjuta-command-queue.h \
-	anjuta-tabber.h
+	anjuta-tabber.h \
+	anjuta-pkg-config-chooser.h
 
 libanjutainclude_HEADERS = \
 	$(libanjuta_include) \
@@ -218,8 +239,7 @@ Anjuta-1.0.gir: $(libanjuta_la_SOURCES) libanjuta.la
 		--output $@ \
 		--pkg-export libanjuta-1.0 \
 		-I$(top_srcdir) -I. \
-		$(libanjuta_la_SOURCES) \
-		$(libanjuta_include)
+		$(libanjuta_la_SOURCES)
 
 # Using interfaces/*.c is not very nice but otherwise we get circular
 # dependencies : libanjuta.la depends on libanjuta-interfaces.la and
