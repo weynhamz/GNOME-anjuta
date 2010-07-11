@@ -187,7 +187,9 @@ libanjuta_git_la_SOURCES = \
 	git-unstage-pane.c \
 	git-unstage-pane.h \
 	git-diff-pane.c \
-	git-diff-pane.h
+	git-diff-pane.h \
+	git-add-remote-pane.c \
+	git-add-remote-pane.h
 
 libanjuta_git_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
