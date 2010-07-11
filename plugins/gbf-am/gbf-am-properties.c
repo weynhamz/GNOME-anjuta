@@ -35,6 +35,7 @@
 #include <glib/gi18n.h>
 
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-pkg-config-chooser.h>
 
 #include "gbf-am-config.h"
 #include "gbf-am-properties.h"
@@ -180,62 +181,6 @@ recursive_config_foreach_cb (const gchar *key, GbfAmConfigValue *value,
 	gtk_table_attach (GTK_TABLE (table), widget, 1, 2,
 			  position, position+1,
 			  GTK_FILL | GTK_EXPAND, GTK_FILL, 5, 3);
-}
-
-static GtkListStore *
-packages_get_pkgconfig_list (void)
-{
-	GtkListStore *store;
-	GtkTreeIter iter;
-	gchar line[1024];
-	gchar *tmpfile, *pkg_cmd;
-	FILE *pkg_fd;
-	
-	store = gtk_list_store_new (N_PKG_COLUMNS, G_TYPE_STRING,
-				    G_TYPE_STRING);
-	
-	/* Now get all the pkg-config info */
-	tmpfile = g_strdup_printf ("%s%cpkgmodules--%d", g_get_tmp_dir (),
-				   G_DIR_SEPARATOR, getpid());
-	pkg_cmd = g_strconcat ("pkg-config --list-all 2>/dev/null | sort > ",
-			       tmpfile, NULL);
-	if (system (pkg_cmd) == -1)
-		return store;
-	pkg_fd = fopen (tmpfile, "r");
-	if (!pkg_fd) {
-		g_warning ("Can not open %s for reading", tmpfile);
-		g_free (tmpfile);
-		return store;
-	}
-	while (fgets (line, 1024, pkg_fd)) {
-		gchar *name_end;
-		gchar *desc_start;
-		gchar *description;
-		gchar *name;
-		
-		if (line[0] == '\0')
-			continue;
-		
-		name_end = line;
-		while (!isspace(*name_end))
-			name_end++;
-		desc_start = name_end;
-		while (isspace(*desc_start))
-			desc_start++;
-		
-		name = g_strndup (line, name_end-line);
-		description = g_strndup (desc_start, strlen (desc_start)-1);
-		
-		gtk_list_store_append (store, &iter);
-		gtk_list_store_set (store, &iter,
-				    COL_PKG_PACKAGE, name,
-				    COL_PKG_DESCRIPTION, description,
-				    -1);
-	}
-	fclose (pkg_fd);
-	unlink (tmpfile);
-	g_free (tmpfile);
-	return store;
 }
 
 static void
@@ -417,9 +362,6 @@ add_package_clicked_cb (GtkWidget *button, GbfAmProject *project)
 	GtkTreePath *path;
 	GtkWidget *dlg;
 	GtkWidget *pkg_treeview;
-	GtkListStore *store;
-	GtkCellRenderer *renderer;
-	GtkTreeViewColumn *col;
 	gchar *pkg_to_add = NULL;
 	GbfAmConfigMapping *config;
 	GError* error = NULL;
@@ -433,36 +375,13 @@ add_package_clicked_cb (GtkWidget *button, GbfAmProject *project)
 
 	dlg = GTK_WIDGET (gtk_builder_get_object (bxml, "package_selection_dialog"));
 	pkg_treeview = GTK_WIDGET (gtk_builder_get_object (bxml, "pkg_treeview"));
-	renderer = gtk_cell_renderer_text_new ();
-	col = gtk_tree_view_column_new_with_attributes (_("Module/Packages"),
-							renderer,
-							"text", COL_PKG_PACKAGE,
-							NULL);
-	gtk_tree_view_column_set_sort_column_id (col, COL_PKG_PACKAGE);
-	gtk_tree_view_append_column (GTK_TREE_VIEW (pkg_treeview), col);
-	renderer = gtk_cell_renderer_text_new ();
-	col = gtk_tree_view_column_new_with_attributes (_("Version"),
-							renderer,
-							"text",
-							COL_PKG_DESCRIPTION,
-							NULL);
-	gtk_tree_view_append_column (GTK_TREE_VIEW (pkg_treeview), col);
+	anjuta_pkg_config_chooser_show_active_column (ANJUTA_PKG_CONFIG_CHOOSER (pkg_treeview),
+	                                    FALSE);
 	
-	store = packages_get_pkgconfig_list ();
-	gtk_tree_view_set_model (GTK_TREE_VIEW (pkg_treeview),
-				 GTK_TREE_MODEL (store));
 	if (gtk_dialog_run (GTK_DIALOG (dlg)) == GTK_RESPONSE_ACCEPT)
-	{
-		GtkTreeSelection *sel;
-		GtkTreeIter pkg_iter;
-		
-		sel = gtk_tree_view_get_selection (GTK_TREE_VIEW (pkg_treeview));
-		if (gtk_tree_selection_get_selected (sel, NULL, &pkg_iter))
-		{
-			gtk_tree_model_get (GTK_TREE_MODEL (store),
-					    &pkg_iter, COL_PKG_PACKAGE,
-					    &pkg_to_add, -1);
-		}
+	{	
+		pkg_to_add = 
+			anjuta_pkg_config_chooser_get_selected_package (ANJUTA_PKG_CONFIG_CHOOSER (pkg_treeview));
 	}
 	gtk_widget_destroy (dlg);
 	
