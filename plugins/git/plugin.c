@@ -35,6 +35,7 @@
 #include "git-pull-pane.h"
 #include "git-checkout-pane.h"
 #include "git-unstage-pane.h"
+#include "git-diff-pane.h"
 
 AnjutaCommandBarEntry branch_entries[] =
 {
@@ -97,6 +98,14 @@ AnjutaCommandBarEntry status_entries[] =
 		N_("Commit changes"),
 		GTK_STOCK_APPLY,
 		G_CALLBACK (on_commit_button_clicked)
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"Diff",
+		N_("Diff uncommitted changes"),
+		N_("Show a diff of uncommitted changes in an editor"),
+		GTK_STOCK_ZOOM_100,
+		G_CALLBACK (on_diff_button_clicked)
 	},
 	{
 		ANJUTA_COMMAND_BAR_ENTRY_FRAME,

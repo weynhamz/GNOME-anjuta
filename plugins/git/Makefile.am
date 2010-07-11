@@ -185,7 +185,9 @@ libanjuta_git_la_SOURCES = \
 	git-checkout-pane.c \
 	git-checkout-pane.h \
 	git-unstage-pane.c \
-	git-unstage-pane.h
+	git-unstage-pane.h \
+	git-diff-pane.c \
+	git-diff-pane.h
 
 libanjuta_git_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
