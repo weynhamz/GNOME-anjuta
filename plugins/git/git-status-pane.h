@@ -51,9 +51,12 @@ struct _GitStatusPane
 
 GType git_status_pane_get_type (void) G_GNUC_CONST;
 AnjutaDockPane *git_status_pane_new (Git *plugin);
-GList *git_status_pane_get_selected_commit_items (GitStatusPane *self);
-GList *git_status_pane_get_selected_not_updated_items (GitStatusPane *self);
-GList *git_status_pane_get_all_selected_items (GitStatusPane *self);
+GList *git_status_pane_get_selected_commit_items (GitStatusPane *self,
+                                                  AnjutaVcsStatus status_codes);
+GList *git_status_pane_get_selected_not_updated_items (GitStatusPane *self,
+                                                       AnjutaVcsStatus status_codes);
+GList *git_status_pane_get_all_selected_items (GitStatusPane *self,
+                                               AnjutaVcsStatus status_codes);
 
 G_END_DECLS
 

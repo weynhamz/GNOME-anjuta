@@ -36,6 +36,13 @@ enum
 	STATUS_TYPE_NOT_UPDATED
 };
 
+/* Data for generating lists of selected items */
+typedef struct
+{
+	AnjutaVcsStatus status_codes;
+	GList *list;
+} StatusSelectionData;
+
 struct _GitStatusPanePriv
 {
 	GtkBuilder *builder;
@@ -225,6 +232,7 @@ on_selected_renderer_toggled (GtkCellRendererToggle *renderer, gchar *tree_path,
 	GtkTreeModel *status_model;
 	GtkTreeIter iter;
 	gboolean selected;
+	AnjutaVcsStatus status;
 	gchar *path;
 	gint type;
 	
@@ -234,7 +242,8 @@ on_selected_renderer_toggled (GtkCellRendererToggle *renderer, gchar *tree_path,
 	gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (status_model), &iter,
 	                                     tree_path);
 	gtk_tree_model_get (status_model, &iter, 
-	                    COL_SELECTED, &selected, 
+	                    COL_SELECTED, &selected,
+	                    COL_STATUS, &status,
 	                    COL_PATH, &path,
 	                    COL_TYPE, &type,
 	                    -1);
@@ -249,11 +258,11 @@ on_selected_renderer_toggled (GtkCellRendererToggle *renderer, gchar *tree_path,
 	{
 		case STATUS_TYPE_COMMIT:
 			g_hash_table_insert (self->priv->selected_commit_items, 
-		                 		 g_strdup (path), NULL);
+		                 		 g_strdup (path), GINT_TO_POINTER (status));
 			break;
 		case STATUS_TYPE_NOT_UPDATED:
 			g_hash_table_insert (self->priv->selected_not_updated_items,
-			                     g_strdup (path), NULL);
+			                     g_strdup (path), GINT_TO_POINTER (status));
 			break;
 		default:
 			break;
@@ -511,53 +520,61 @@ git_status_pane_new (Git *plugin)
 }
 
 static void
-selected_items_table_foreach (gchar *path, gchar *value, GList **list)
+selected_items_table_foreach (gchar *path, gpointer status, 
+                              StatusSelectionData *data)
 {
-	*list = g_list_append (*list, g_strdup (path));
+	if (GPOINTER_TO_INT (status) & data->status_codes)
+		data->list = g_list_append (data->list, g_strdup (path));
 }
 
 GList *
-git_status_pane_get_selected_commit_items (GitStatusPane *self)
+git_status_pane_get_selected_commit_items (GitStatusPane *self,
+                                           AnjutaVcsStatus status_codes)
 {
-	GList *list;
+	StatusSelectionData data;
 
-	list = NULL;
+	data.status_codes = status_codes;
+	data.list = NULL;
 
 	g_hash_table_foreach (self->priv->selected_commit_items, 
 	                      (GHFunc) selected_items_table_foreach,
-	                      &list);
+	                      &data);
 
-	return list;
+	return data.list;
 }
 
 GList *
-git_status_pane_get_selected_not_updated_items (GitStatusPane *self)
+git_status_pane_get_selected_not_updated_items (GitStatusPane *self,
+                                                AnjutaVcsStatus status_codes)
 {
-	GList *list;
+	StatusSelectionData data;
 
-	list = NULL;
+	data.status_codes = status_codes;
+	data.list = NULL;
 
 	g_hash_table_foreach (self->priv->selected_not_updated_items, 
 	                      (GHFunc) selected_items_table_foreach,
-	                      &list);
+	                      &data);
 
-	return list;
+	return data.list;
 }
 
 GList *
-git_status_pane_get_all_selected_items (GitStatusPane *self)
+git_status_pane_get_all_selected_items (GitStatusPane *self,
+                                        AnjutaVcsStatus status_codes)
 {
-	GList *list;
+	StatusSelectionData data;
 
-	list = NULL;
+	data.status_codes = status_codes;
+	data.list = NULL;
 
 	g_hash_table_foreach (self->priv->selected_commit_items, 
 	                      (GHFunc) selected_items_table_foreach,
-	                      &list);
+	                      &data);
 
 	g_hash_table_foreach (self->priv->selected_not_updated_items, 
 	                      (GHFunc) selected_items_table_foreach,
-	                      &list);
+	                      &data);
 
-	return list;
+	return data.list;
 }
