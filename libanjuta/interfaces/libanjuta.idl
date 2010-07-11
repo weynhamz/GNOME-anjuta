@@ -5858,21 +5858,6 @@ interface IAnjutaPrint
 }
 
 /**
- * SECTION:ianjuta-language-support
- * @title: IAnjutaLanguageSupport
- * @short_description: Programming language specific supports from plugins
- * @see_also: 
- * @stability: Unstable
- * @include: libanjuta/interfaces/ianjuta-language-support.h
- * 
- */
-interface IAnjutaLanguageSupport
-{
-    List<const gchar*> get_supported_languages ();
-    gboolean supports(const gchar *language);
-}
-
-/**
  * SECTION:ianjuta-preferences
  * @title: IAnjutaPreferences
  * @short_description: Preferences interface
