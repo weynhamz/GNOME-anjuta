@@ -33,6 +33,7 @@
 #include "git-remotes-pane.h"
 #include "git-push-pane.h"
 #include "git-pull-pane.h"
+#include "git-checkout-pane.h"
 
 AnjutaCommandBarEntry branch_entries[] =
 {
@@ -119,7 +120,16 @@ AnjutaCommandBarEntry status_entries[] =
 		N_("Remove files from the repository"),
 		GTK_STOCK_REMOVE,
 		G_CALLBACK (on_remove_button_clicked)
-	}
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"Checkout",
+		N_("Check out"),
+		N_("Revert changes in unstaged files"),
+		GTK_STOCK_UNDO,
+		G_CALLBACK (on_checkout_button_clicked)
+	},
+	
 };
 
 AnjutaCommandBarEntry remotes_entries[] =
