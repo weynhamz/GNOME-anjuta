@@ -34,6 +34,7 @@
 #include "git-push-pane.h"
 #include "git-pull-pane.h"
 #include "git-checkout-pane.h"
+#include "git-unstage-pane.h"
 
 AnjutaCommandBarEntry branch_entries[] =
 {
@@ -129,6 +130,14 @@ AnjutaCommandBarEntry status_entries[] =
 		GTK_STOCK_UNDO,
 		G_CALLBACK (on_checkout_button_clicked)
 	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"Unstage",
+		N_("Unstage"),
+		N_("Remove staged files from the index"),
+		GTK_STOCK_CANCEL,
+		G_CALLBACK (on_unstage_button_clicked)
+	}
 	
 };
 
