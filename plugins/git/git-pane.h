@@ -23,6 +23,7 @@
 #include <glib-object.h>
 #include <libanjuta/anjuta-dock-pane.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
+#include <libanjuta/interfaces/ianjuta-editor.h>
 #include "plugin.h"
 
 G_BEGIN_DECLS
@@ -61,7 +62,9 @@ gchar *git_pane_get_log_from_text_view (GtkTextView *text_view);
 gboolean git_pane_check_input (GtkWidget *parent, GtkWidget *widget, 
                                const gchar *input, const gchar *error_message);
 void git_pane_report_errors (AnjutaCommand *command, guint return_code, 
-                             Git *plugin);                      
+                             Git *plugin);
+void git_pane_send_raw_output_to_editor (AnjutaCommand *command, 
+                                         IAnjutaEditor *editor);
 
 G_END_DECLS
 

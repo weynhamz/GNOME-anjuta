@@ -277,3 +277,20 @@ git_pane_report_errors (AnjutaCommand *command, guint return_code, Git *plugin)
 	}
 }
 
+void
+git_pane_send_raw_output_to_editor (AnjutaCommand *command, 
+                                    IAnjutaEditor *editor)
+{
+	GQueue *output;
+	gchar *line;
+
+	output = git_raw_output_command_get_output (GIT_RAW_OUTPUT_COMMAND (command));
+
+	while (g_queue_peek_head (output))
+	{
+		line = g_queue_pop_head (output);
+		ianjuta_editor_append (editor, line, strlen (line), NULL);
+		g_free (line);
+	}
+}
+
