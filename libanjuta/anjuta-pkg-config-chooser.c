@@ -32,7 +32,7 @@ enum
 
 enum
 {
-	COLUMN_SELECTED,
+	COLUMN_ACTIVE,
 	COLUMN_NAME,
 	COLUMN_DESCRIPTION,
 	N_COLUMNS
@@ -68,7 +68,7 @@ filter_visible_func (GtkTreeModel* model,
 	{
 		gboolean show;
 		gtk_tree_model_get (model, iter,
-		                    COLUMN_SELECTED, &show, -1);
+		                    COLUMN_ACTIVE, &show, -1);
 		return show;
 	}
 }
@@ -113,7 +113,7 @@ on_listall_output (AnjutaLauncher * launcher,
 		
 		gtk_list_store_append (store, &iter);
 		gtk_list_store_set (store, &iter,
-		                    COLUMN_SELECTED, FALSE,
+		                    COLUMN_ACTIVE, FALSE,
 		                    COLUMN_NAME, pkgs[0],
 		                    COLUMN_DESCRIPTION, g_strstrip(pkgs[1]), -1);
 		g_strfreev (pkgs);
@@ -162,7 +162,7 @@ on_package_toggled (GtkCellRenderer* renderer,
 	active = !active;
 	
 	gtk_list_store_set (GTK_LIST_STORE (chooser->priv->model),
-	                    &iter, COLUMN_SELECTED, active, -1);
+	                    &iter, COLUMN_ACTIVE, active, -1);
 	gtk_tree_model_get (chooser->priv->model, &iter,
 	                    COLUMN_NAME, &package, -1);
 	
@@ -205,7 +205,7 @@ anjuta_pkg_config_chooser_init (AnjutaPkgConfigChooser *chooser)
 	g_signal_connect (renderer, "toggled", G_CALLBACK(on_package_toggled), chooser);
 	column = gtk_tree_view_column_new_with_attributes ("",
 	                                                   renderer,
-	                                                   "active", COLUMN_SELECTED,
+	                                                   "active", COLUMN_ACTIVE,
 	                                                   NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (chooser), column);
 
@@ -318,11 +318,11 @@ anjuta_pkg_config_chooser_get_active_packages (AnjutaPkgConfigChooser* chooser)
 		do
 		{
 			gchar* model_pkg;
-			gboolean selected;
+			gboolean active;
 			gtk_tree_model_get (chooser->priv->model, &iter,
 			                    COLUMN_NAME, &model_pkg,
-			                    COLUMN_SELECTED, &selected, -1);
-			if (selected)
+			                    COLUMN_ACTIVE, &active, -1);
+			if (active)
 			{
 				packages = g_list_append (packages, model_pkg);
 			}
@@ -364,7 +364,7 @@ anjuta_pkg_config_chooser_set_active_packages (AnjutaPkgConfigChooser* chooser, 
 				if (g_str_equal (model_pkg, pkg->data))
 				{
 					gtk_list_store_set (GTK_LIST_STORE (chooser->priv->model), &iter,
-					                    COLUMN_SELECTED, TRUE, -1);
+					                    COLUMN_ACTIVE, TRUE, -1);
 				}
 				g_free (model_pkg);
 			}
@@ -406,7 +406,7 @@ anjuta_pkg_config_chooser_show_active_column (AnjutaPkgConfigChooser* chooser, g
 
 	g_return_if_fail (ANJUTA_IS_PKG_CONFIG_CHOOSER (chooser));
 	
-	column = gtk_tree_view_get_column (GTK_TREE_VIEW (chooser), COLUMN_NAME);
+	column = gtk_tree_view_get_column (GTK_TREE_VIEW (chooser), COLUMN_ACTIVE);
 	gtk_tree_view_column_set_visible (column, show_column);
 }
 
@@ -420,18 +420,23 @@ anjuta_pkg_config_chooser_show_active_column (AnjutaPkgConfigChooser* chooser, g
 gchar* 
 anjuta_pkg_config_chooser_get_selected_package (AnjutaPkgConfigChooser* chooser)
 {
-	GtkTreeIter iter;
-	GtkTreeModel* model;
+	GtkTreeIter sort_iter;
 	GtkTreeSelection* selection;
 
 	g_return_val_if_fail (ANJUTA_IS_PKG_CONFIG_CHOOSER (chooser), NULL);
 	
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (chooser));
 
-	if (gtk_tree_selection_get_selected (selection, &model, &iter))
+	if (gtk_tree_selection_get_selected (selection, NULL, &sort_iter))
 	{
 		gchar* package;
-		gtk_tree_model_get (model, &iter, COLUMN_NAME, &package, NULL);
+		GtkTreeIter filter_iter;
+		GtkTreeIter iter;
+		gtk_tree_model_sort_convert_iter_to_child_iter (chooser->priv->sort_model,
+		                                                &filter_iter, &sort_iter);
+		gtk_tree_model_filter_convert_iter_to_child_iter (chooser->priv->filter_model,
+		                                                  &iter, &filter_iter);
+		gtk_tree_model_get (chooser->priv->model, &iter, COLUMN_NAME, &package, -1);
 
 		return package;
 	}
