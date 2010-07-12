@@ -191,7 +191,9 @@ libanjuta_git_la_SOURCES = \
 	git-add-remote-pane.c \
 	git-add-remote-pane.h \
 	git-delete-remote-pane.c \
-	git-delete-remote-pane.h
+	git-delete-remote-pane.h \
+	git-fetch-pane.c \
+	git-fetch-pane.h
 
 libanjuta_git_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 

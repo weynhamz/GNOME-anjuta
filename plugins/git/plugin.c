@@ -38,6 +38,7 @@
 #include "git-diff-pane.h"
 #include "git-add-remote-pane.h"
 #include "git-delete-remote-pane.h"
+#include "git-fetch-pane.h"
 
 AnjutaCommandBarEntry branch_entries[] =
 {
@@ -193,6 +194,14 @@ AnjutaCommandBarEntry remotes_entries[] =
 		N_("Pull changes from a remote repository"),
 		GTK_STOCK_GO_BACK,
 		G_CALLBACK (on_pull_button_clicked)
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"Fetch",
+		N_("Fetch"),
+		N_("Fetch changes from remote repositories"),
+		GTK_STOCK_CONNECT,
+		G_CALLBACK (on_fetch_button_clicked)
 	}
 	
 };
