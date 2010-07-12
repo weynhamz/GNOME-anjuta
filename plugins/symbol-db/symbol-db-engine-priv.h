@@ -49,8 +49,8 @@
 #define THREADS_MAX_CONCURRENT			2
 #define TRIGGER_SIGNALS_DELAY			100
 
-#define MEMORY_POOL_STRING_SIZE			400
-#define MEMORY_POOL_INT_SIZE			400
+#define MEMORY_POOL_STRING_SIZE			40000
+#define MEMORY_POOL_INT_SIZE			40000
 
 #define DUMMY_VOID_STRING				""
 #define MP_VOID_STRING					"-"
@@ -64,55 +64,56 @@
  * GdaHolders.
  */
 #define MP_RESET_PLIST(plist) { \
-		if (plist != NULL) \
-		{ \
-			GSList* holders; \
-			for (holders = plist->holders; holders; holders = holders->next) { \
-				GValue *gvalue = (GValue*)gda_holder_get_value (holders->data); \
-				if (G_VALUE_HOLDS_STRING(gvalue)) \
-					MP_RESET_OBJ_STR(gvalue); \
-			} \
+	if (plist != NULL) \
+	{ \
+		GSList* holders; \
+		for (holders = plist->holders; holders; holders = holders->next) { \
+			GValue *gvalue = (GValue*)gda_holder_get_value (holders->data); \
+			if (G_VALUE_HOLDS_STRING(gvalue)) \
+				MP_RESET_OBJ_STR(gvalue); \
 		} \
-}
-
-#define MP_LEND_OBJ_STR(sdb_priv, OUT_gvalue) \
-		OUT_gvalue = (GValue*)g_queue_pop_head(sdb_priv->mem_pool_string); \
-		MP_RESET_OBJ_STR(OUT_gvalue);
-
-#define MP_RETURN_OBJ_STR(sdb_priv, gvalue) \
-		g_value_set_static_string (gvalue, MP_VOID_STRING); \
-		g_queue_push_head(sdb_priv->mem_pool_string, gvalue); 
-
-#define MP_LEND_OBJ_INT(sdb_priv, OUT_gvalue) \
-		OUT_gvalue = (GValue*)g_queue_pop_head(sdb_priv->mem_pool_int); 
-
-#define MP_RETURN_OBJ_INT(sdb_priv, gvalue) \
-		g_queue_push_head(sdb_priv->mem_pool_int, gvalue);
-
-/* ret_value, even if not used outside, permits variable reusing without 
- * forcing the compiler to redeclare it everytime
- */
-#define MP_SET_HOLDER_BATCH_STR(priv, param, string_, ret_bool, ret_value) { \
-	GValue *value_str; \
-	MP_LEND_OBJ_STR(priv, value_str); \
-	g_value_set_static_string (value_str, string_); \
-	ret_value = gda_holder_take_static_value (param, value_str, &ret_bool, NULL); \
-	if (ret_value != NULL && G_VALUE_HOLDS_STRING (ret_value) == TRUE) \
-	{ \
-		MP_RETURN_OBJ_STR(priv, ret_value); \
 	} \
 }
 
-#define MP_SET_HOLDER_BATCH_INT(priv, param, int_, ret_bool, ret_value) { \
-	GValue *value_int; \
-	MP_LEND_OBJ_INT(priv, value_int); \
-	g_value_set_int (value_int, int_); \
-	ret_value = gda_holder_take_static_value (param, value_int, &ret_bool, NULL); \
-	if (ret_value != NULL && G_VALUE_HOLDS_INT (ret_value) == TRUE) \
-	{ \
-		MP_RETURN_OBJ_INT(priv, ret_value); \
-	} \
-}
+#define SDB_QUERY_SEARCH_HEADER \
+	GValue v = {0}; \
+	SymbolDBQueryPriv *priv; \
+	g_return_val_if_fail (SYMBOL_DB_IS_QUERY (query), NULL); \
+	priv = SYMBOL_DB_QUERY (query)->priv;
+
+#define SDB_GVALUE_SET_INT(value, int_value) \
+	g_value_init (&value, G_TYPE_INT); \
+	g_value_set_int (&value, (int_value));
+
+#define SDB_GVALUE_SET_STRING(value, str_value) \
+	g_value_init (&value, G_TYPE_STRING); \
+	g_value_set_string (&value, (str_value));
+
+#define SDB_GVALUE_SET_STATIC_STRING(value, str_value) \
+	g_value_init (&value, G_TYPE_STRING); \
+	g_value_set_static_string (&value, (str_value)); 
+	
+
+#define SDB_PARAM_SET_INT(gda_param, int_value) \
+	SDB_GVALUE_SET_INT(v, int_value); \
+	gda_holder_set_value ((gda_param), &v, NULL); \
+	g_value_unset (&v);
+
+#define SDB_PARAM_SET_STRING(gda_param, str_value) \
+	SDB_GVALUE_SET_STRING(v, str_value); \
+	gda_holder_set_value ((gda_param), &v, NULL); \
+	g_value_unset (&v);
+
+#define SDB_PARAM_SET_STATIC_STRING(gda_param, str_value) \
+	SDB_GVALUE_SET_STATIC_STRING(v, str_value); \
+	gda_holder_set_value ((gda_param), &v, NULL); \
+	g_value_unset (&v);
+
+#define SDB_PARAM_TAKE_STRING(gda_param, str_value) \
+	g_value_init (&v, G_TYPE_STRING); \
+	g_value_take_string (&v, (str_value)); \
+	gda_holder_set_value ((gda_param), &v, NULL); \
+	g_value_unset (&v);
 
 #define SDB_LOCK(priv) if (priv->mutex) g_mutex_lock (priv->mutex);
 #define SDB_UNLOCK(priv) if (priv->mutex) g_mutex_unlock (priv->mutex);

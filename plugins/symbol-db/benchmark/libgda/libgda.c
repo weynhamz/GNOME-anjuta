@@ -265,7 +265,7 @@ insert_data (GdaConnection *cnc)
 		/* execute the query with parametes just set */
 		gda_connection_statement_execute_non_select (cnc, 
 														 (GdaStatement*)stmt, 
-														 (GdaSet*)plist, NULL,
+														 (GdaSet*)plist, &last_inserted,
 														 NULL);
 
 		g_strfreev(tokens);

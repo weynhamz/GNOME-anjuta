@@ -536,8 +536,6 @@ sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, static_query_type 
 	const GValue *num;
 	gint table_id;
 	SymbolDBEnginePriv *priv;
-	GValue *ret_value;	
-	gboolean ret_bool;
 	
 	priv = dbe->priv;
 
@@ -557,18 +555,7 @@ sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, static_query_type 
 		return -1;
 	}
 
-	ret_value = gda_holder_take_static_value (param, param_value, &ret_bool, NULL);	
-	if (ret_value != NULL)
-	{
-		if (G_VALUE_HOLDS_STRING (ret_value) == TRUE)
-		{		
-			MP_RETURN_OBJ_STR(priv, ret_value);
-		}
-		else
-		{
-			MP_RETURN_OBJ_INT(priv, ret_value);
-		}
-	}	
+	gda_holder_set_value (param, param_value, NULL);
 	
 	/* execute the query with parametes just set */
 	data_model = gda_connection_statement_execute_select (priv->db_connection, 
@@ -580,9 +567,6 @@ sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, static_query_type 
 	{
 		if (data_model != NULL)
 			g_object_unref (data_model);
-
-		if (G_VALUE_HOLDS_STRING (param_value) == TRUE)
-			MP_RESET_OBJ_STR(param_value);
 		return -1;
 	}
 
@@ -593,9 +577,6 @@ sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, static_query_type 
 	g_object_unref (data_model);
 
 	/* set the value to a dummy string because we won't use the real value anymore */
-	if (G_VALUE_HOLDS_STRING (param_value) == TRUE)
-		MP_RESET_OBJ_STR(param_value);	
-	
 	return table_id;
 }
 
@@ -619,24 +600,13 @@ sdb_engine_get_tuple_id_by_unique_name4 (SymbolDBEngine * dbe,
 	const GValue *num;
 	gint table_id;
 	SymbolDBEnginePriv *priv;
-	gboolean ret_bool;
-	GValue *ret_value;
-	
+
 	priv = dbe->priv;
 
 	/* get prepared query */
 	if ((stmt = sdb_engine_get_statement_by_query_id (dbe, qtype)) == NULL)
 	{
 		g_warning ("Query is null");
-		if (G_VALUE_HOLDS_STRING (value1) == TRUE)
-			MP_RESET_OBJ_STR(value1);
-		if (G_VALUE_HOLDS_STRING (value2) == TRUE)
-			MP_RESET_OBJ_STR(value2);
-		if (G_VALUE_HOLDS_STRING (value3) == TRUE)
-			MP_RESET_OBJ_STR(value3);
-		if (G_VALUE_HOLDS_STRING (value4) == TRUE)
-			MP_RESET_OBJ_STR(value4);
-
 		return -1;
 	}
 
@@ -646,120 +616,40 @@ sdb_engine_get_tuple_id_by_unique_name4 (SymbolDBEngine * dbe,
 	{
 		g_warning ("sdb_engine_get_tuple_id_by_unique_name4: param is NULL "
 				   "from pquery!\n");
-		if (G_VALUE_HOLDS_STRING (value1) == TRUE)
-			MP_RESET_OBJ_STR(value1);
-		if (G_VALUE_HOLDS_STRING (value2) == TRUE)
-			MP_RESET_OBJ_STR(value2);
-		if (G_VALUE_HOLDS_STRING (value3) == TRUE)
-			MP_RESET_OBJ_STR(value3);
-		if (G_VALUE_HOLDS_STRING (value4) == TRUE)
-			MP_RESET_OBJ_STR(value4);
-
 		return -1;
 	}
 	
-	ret_value = gda_holder_take_static_value (param, value1, &ret_bool, NULL);	
-	if (ret_value != NULL)
-	{
-		if (G_VALUE_HOLDS_STRING (ret_value) == TRUE)
-		{
-			MP_RETURN_OBJ_STR(priv, ret_value);
-		}
-		else
-		{
-			MP_RETURN_OBJ_INT(priv, ret_value);
-		}	
-	}
+	gda_holder_set_value (param, value1, NULL);	
 
 	/* ...and the second one */
 	if ((param = gda_set_get_holder ((GdaSet*)plist, param_key2)) == NULL)
 	{
 		g_warning ("sdb_engine_get_tuple_id_by_unique_name4: "
 				   "param is NULL from pquery!");
-		if (G_VALUE_HOLDS_STRING (value1) == TRUE)
-			MP_RESET_OBJ_STR(value1);
-		if (G_VALUE_HOLDS_STRING (value2) == TRUE)
-			MP_RESET_OBJ_STR(value2);
-		if (G_VALUE_HOLDS_STRING (value3) == TRUE)
-			MP_RESET_OBJ_STR(value3);
-		if (G_VALUE_HOLDS_STRING (value4) == TRUE)
-			MP_RESET_OBJ_STR(value4);
-		
 		return -1;
 	}
 	
-	ret_value = gda_holder_take_static_value (param, value2, &ret_bool, NULL);	
-	if (ret_value != NULL)
-	{
-		if (G_VALUE_HOLDS_STRING (ret_value) == TRUE)
-		{
-			MP_RETURN_OBJ_STR(priv, ret_value);
-		}
-		else
-		{
-			MP_RETURN_OBJ_INT(priv, ret_value);
-		}	
-	}
+	gda_holder_set_value (param, value2, NULL);	
 
 	/* ...and the third one */
 	if ((param = gda_set_get_holder ((GdaSet*)plist, param_key3)) == NULL)
 	{
 		g_warning ("sdb_engine_get_tuple_id_by_unique_name4: "
 				   "param is NULL from pquery!");
-		if (G_VALUE_HOLDS_STRING (value1) == TRUE)
-			MP_RESET_OBJ_STR(value1);
-		if (G_VALUE_HOLDS_STRING (value2) == TRUE)
-			MP_RESET_OBJ_STR(value2);
-		if (G_VALUE_HOLDS_STRING (value3) == TRUE)
-			MP_RESET_OBJ_STR(value3);
-		if (G_VALUE_HOLDS_STRING (value4) == TRUE)
-			MP_RESET_OBJ_STR(value4);
-
 		return -1;
 	}
 	
-	ret_value = gda_holder_take_static_value (param, value3, &ret_bool, NULL);	
-	if (ret_value != NULL)
-	{
-		if (G_VALUE_HOLDS_STRING (ret_value) == TRUE)
-		{
-			MP_RETURN_OBJ_STR(priv, ret_value);
-		}
-		else
-		{
-			MP_RETURN_OBJ_INT(priv, ret_value);
-		}	
-	}
+	gda_holder_set_value (param, value3, NULL);	
 		
 	/* ...and the fourth one */
 	if ((param = gda_set_get_holder ((GdaSet*)plist, param_key4)) == NULL)
 	{
 		g_warning ("sdb_engine_get_tuple_id_by_unique_name4: "
 				   "param is NULL from pquery!");
-		if (G_VALUE_HOLDS_STRING (value1) == TRUE)
-			MP_RESET_OBJ_STR(value1);
-		if (G_VALUE_HOLDS_STRING (value2) == TRUE)
-			MP_RESET_OBJ_STR(value2);
-		if (G_VALUE_HOLDS_STRING (value3) == TRUE)
-			MP_RESET_OBJ_STR(value3);
-		if (G_VALUE_HOLDS_STRING (value4) == TRUE)
-			MP_RESET_OBJ_STR(value4);
-
 		return -1;
 	}
 
-	ret_value = gda_holder_take_static_value (param, value4, &ret_bool, NULL);	
-	if (ret_value != NULL)
-	{
-		if (G_VALUE_HOLDS_STRING (ret_value) == TRUE)
-		{
-			MP_RETURN_OBJ_STR(priv, ret_value);
-		}
-		else
-		{
-			MP_RETURN_OBJ_INT(priv, ret_value);
-		}	
-	}
+	gda_holder_set_value (param, value4, NULL);	
 			
 	/* execute the query with parametes just set */
 	data_model = gda_connection_statement_execute_select (priv->db_connection, 
@@ -771,16 +661,7 @@ sdb_engine_get_tuple_id_by_unique_name4 (SymbolDBEngine * dbe,
 	{
 		if (data_model != NULL)
 			g_object_unref (data_model);
-		
-		if (G_VALUE_HOLDS_STRING (value1) == TRUE)
-			MP_RESET_OBJ_STR(value1);
-		if (G_VALUE_HOLDS_STRING (value2) == TRUE)
-			MP_RESET_OBJ_STR(value2);
-		if (G_VALUE_HOLDS_STRING (value3) == TRUE)
-			MP_RESET_OBJ_STR(value3);
-		if (G_VALUE_HOLDS_STRING (value4) == TRUE)
-			MP_RESET_OBJ_STR(value4);
-		
+	
 		return -1;
 	}
 
@@ -789,16 +670,6 @@ sdb_engine_get_tuple_id_by_unique_name4 (SymbolDBEngine * dbe,
 
 	table_id = g_value_get_int (num);
 	g_object_unref (data_model);
-	
-	if (G_VALUE_HOLDS_STRING (value1) == TRUE)
-		MP_RESET_OBJ_STR(value1);
-	if (G_VALUE_HOLDS_STRING (value2) == TRUE)
-		MP_RESET_OBJ_STR(value2);
-	if (G_VALUE_HOLDS_STRING (value3) == TRUE)
-		MP_RESET_OBJ_STR(value3);
-	if (G_VALUE_HOLDS_STRING (value4) == TRUE)
-		MP_RESET_OBJ_STR(value4);
-
 	return table_id;
 }
 
@@ -810,34 +681,35 @@ sdb_engine_get_file_defined_id (SymbolDBEngine* dbe,
 								tagEntry* tag_entry)
 {
 	SymbolDBEnginePriv *priv;
-	GValue* value;
+	GValue v = {0};
 	
 	priv = dbe->priv;	
 
-	MP_LEND_OBJ_STR(priv, value);
-	
 	gint file_defined_id = 0;
 	if (base_prj_path != NULL && g_str_has_prefix (tag_entry->file, base_prj_path))
 	{
 		/* in this case fake_file will be ignored. */
 		
 		/* we expect here an absolute path */
-		g_value_set_static_string (value,
-		                           tag_entry->file + strlen (base_prj_path));
+		SDB_GVALUE_SET_STATIC_STRING(v, tag_entry->file + strlen (base_prj_path));
 	}
 	else
 	{
 		/* check whether the fake_file can substitute the tag_entry->file one */
 		if (fake_file_on_db == NULL)
-			g_value_set_static_string (value, tag_entry->file);
+		{
+			SDB_GVALUE_SET_STATIC_STRING(v, tag_entry->file);
+		}
 		else
-			g_value_set_static_string (value, fake_file_on_db);
+		{
+			SDB_GVALUE_SET_STATIC_STRING(v, fake_file_on_db);
+		}
 	}
 	
 	if ((file_defined_id = sdb_engine_get_tuple_id_by_unique_name (dbe,
 													PREP_QUERY_GET_FILE_ID_BY_UNIQUE_NAME,
 													"filepath",
-													value)) < 0)
+													&v)) < 0)
 	{	
 		/* if we arrive here there should be some sync problems between the filenames
 		 * in database and the ones in the ctags files. We trust in db's ones,
@@ -845,7 +717,7 @@ sdb_engine_get_file_defined_id (SymbolDBEngine* dbe,
 		 */
 		g_warning ("sync problems between db and ctags filenames entries. "
 				   "File was %s (base_path: %s, fake_file: %s, tag_file: %s)", 
-				   g_value_get_string (value), base_prj_path, fake_file_on_db, 
+				   g_value_get_string (&v), base_prj_path, fake_file_on_db, 
 				   tag_entry->file);
 		return -1;
 	}
@@ -2467,7 +2339,7 @@ symbol_db_engine_file_exists (SymbolDBEngine * dbe, const gchar * abs_file_path)
 	SymbolDBEnginePriv *priv;
 	const gchar *relative;
 	gint file_defined_id;
-	GValue *value;
+	GValue v = {0};
 
 	g_return_val_if_fail (dbe != NULL, FALSE);
 	g_return_val_if_fail (abs_file_path != NULL, FALSE);
@@ -2482,20 +2354,20 @@ symbol_db_engine_file_exists (SymbolDBEngine * dbe, const gchar * abs_file_path)
 		SDB_UNLOCK(priv);
 		return FALSE;
 	}	
-	MP_LEND_OBJ_STR(priv, value);	
-	g_value_set_static_string (value, relative);	
+
+	SDB_GVALUE_SET_STATIC_STRING(v, relative);	
 
 	if ((file_defined_id = sdb_engine_get_tuple_id_by_unique_name (dbe,
 													PREP_QUERY_GET_FILE_ID_BY_UNIQUE_NAME,
 													"filepath",
-													value)) < 0)
+													&v)) < 0)
 	{	
 		SDB_UNLOCK(priv);
 		return FALSE;	
 	}
 
 	SDB_UNLOCK(priv);
-	return TRUE;	
+	return TRUE;
 }
 
 gboolean 
@@ -2715,8 +2587,7 @@ symbol_db_engine_add_new_workspace (SymbolDBEngine * dbe,
 	const GdaStatement *stmt;
 	GdaHolder *param;
 	SymbolDBEnginePriv *priv;
-	GValue *ret_value;
-	gboolean ret_bool;
+	GValue v = {0};
 
 	g_return_val_if_fail (dbe != NULL, FALSE);	
 	priv = dbe->priv;
@@ -2741,19 +2612,17 @@ symbol_db_engine_add_new_workspace (SymbolDBEngine * dbe,
 		SDB_UNLOCK(priv);
 		return FALSE;
 	}
-	MP_SET_HOLDER_BATCH_STR(priv, param, workspace_name, ret_bool, ret_value);
+	SDB_PARAM_SET_STRING(param, workspace_name);
 
 	/* execute the query with parametes just set */
 	if (gda_connection_statement_execute_non_select (priv->db_connection, 
 														  (GdaStatement*)stmt, 
 														  (GdaSet*)plist, NULL, NULL) == -1)
 	{		
-		MP_RESET_PLIST(plist);
 		SDB_UNLOCK(priv);
 		return FALSE;
 	}
 
-	MP_RESET_PLIST(plist);
 	SDB_UNLOCK(priv);
 	return TRUE;
 }
@@ -2763,23 +2632,22 @@ gboolean
 symbol_db_engine_project_exists (SymbolDBEngine * dbe,	/*gchar* workspace, */
 							   	const gchar * project_name)
 {
-	GValue *value;
 	SymbolDBEnginePriv *priv;
 	gint prj_id;
+	GValue v = {0};
 
 	priv = dbe->priv;
 
 	SDB_LOCK(priv);
 	
 	g_return_val_if_fail (priv->db_connection != NULL, FALSE);
-	MP_LEND_OBJ_STR(priv,value);	
-	g_value_set_static_string (value, project_name);
+	SDB_GVALUE_SET_STATIC_STRING(v, project_name);
 
 	/* test the existence of the project in db */
 	if ((prj_id = sdb_engine_get_tuple_id_by_unique_name (dbe,
 				PREP_QUERY_GET_PROJECT_ID_BY_UNIQUE_NAME,
 				"prjname",
-				 value)) <= 0)
+				 &v)) <= 0)
 	{
 		SDB_UNLOCK(priv);
 		return FALSE;
@@ -2801,8 +2669,7 @@ symbol_db_engine_add_new_project (SymbolDBEngine * dbe, const gchar * workspace,
 	const gchar *workspace_name;
 	gint wks_id;
 	SymbolDBEnginePriv *priv;
-	GValue *ret_value;
-	gboolean ret_bool;
+	GValue v = {0};
 
 	g_return_val_if_fail (dbe != NULL, FALSE);	
 	priv = dbe->priv;
@@ -2811,17 +2678,15 @@ symbol_db_engine_add_new_project (SymbolDBEngine * dbe, const gchar * workspace,
 	
 	if (workspace == NULL)
 	{
-		GValue *value;
 		workspace_name = "anjuta_workspace_default";	
 		
 		DEBUG_PRINT ("adding default workspace... '%s'", workspace_name);
-		MP_LEND_OBJ_STR(priv, value);		
-		g_value_set_static_string (value, workspace_name);
+		SDB_GVALUE_SET_STATIC_STRING(v, workspace_name);
 		
 		if ((wks_id = sdb_engine_get_tuple_id_by_unique_name (dbe,
 				 PREP_QUERY_GET_WORKSPACE_ID_BY_UNIQUE_NAME,
 				 "wsname",
-				 value)) <= 0)
+				 &v)) <= 0)
 		{ 
 			
 			/* symbol_db_engine_add_new_workspace 'll lock so unlock here before */			
@@ -2842,6 +2707,8 @@ symbol_db_engine_add_new_project (SymbolDBEngine * dbe, const gchar * workspace,
 		workspace_name = workspace;
 	}
 
+	g_value_unset (&v);
+	
 	/* insert new project */
 	if ((stmt =
 		 sdb_engine_get_statement_by_query_id (dbe, PREP_QUERY_PROJECT_NEW)) == NULL)
@@ -2860,8 +2727,8 @@ symbol_db_engine_add_new_project (SymbolDBEngine * dbe, const gchar * workspace,
 		SDB_UNLOCK(priv);
 		return FALSE;
 	}
-	
-	MP_SET_HOLDER_BATCH_STR(priv, param, project, ret_bool, ret_value);	
+
+	SDB_PARAM_SET_STRING(param, project);
 		
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "wsname")) == NULL)
 	{
@@ -2869,20 +2736,18 @@ symbol_db_engine_add_new_project (SymbolDBEngine * dbe, const gchar * workspace,
 		SDB_UNLOCK(priv);
 		return FALSE;
 	}
-	
-	MP_SET_HOLDER_BATCH_STR(priv, param, workspace_name, ret_bool, ret_value);	
+
+	SDB_PARAM_SET_STRING(param, workspace_name);
 
 	/* execute the query with parametes just set */
 	if (gda_connection_statement_execute_non_select (priv->db_connection, 
 														  (GdaStatement*)stmt, 
 														  (GdaSet*)plist, NULL, NULL) == -1)
 	{		
-		MP_RESET_PLIST(plist);
 		SDB_UNLOCK(priv);
 		return FALSE;
 	}
 
-	MP_RESET_PLIST(plist);
 	SDB_UNLOCK(priv);
 	return TRUE;
 }
@@ -2893,8 +2758,8 @@ static gint
 sdb_engine_add_new_language (SymbolDBEngine * dbe, const gchar *language)
 {
 	gint table_id;
-	GValue *value;
-	SymbolDBEnginePriv *priv;		
+	SymbolDBEnginePriv *priv;
+	GValue v = {0};
 	
 	g_return_val_if_fail (language != NULL, -1);
 	
@@ -2906,24 +2771,23 @@ sdb_engine_add_new_language (SymbolDBEngine * dbe, const gchar *language)
 	{
 		return table_id;
 	}
-	
-	MP_LEND_OBJ_STR(priv, value);
-	g_value_set_static_string (value, language);
+
+	SDB_GVALUE_SET_STATIC_STRING (v, language);
 
 	/* check for an already existing table with language "name". */
 	if ((table_id = sdb_engine_get_tuple_id_by_unique_name (dbe,
 						PREP_QUERY_GET_LANGUAGE_ID_BY_UNIQUE_NAME,
 						"langname",
-						value)) < 0)
+						&v)) < 0)
 	{
 		/* insert a new entry on db */
 		const GdaSet *plist;
 		const GdaStatement *stmt;
 		GdaHolder *param;
 		GdaSet *last_inserted = NULL;
-		GValue *ret_value;
-		gboolean ret_bool;
 
+		g_value_unset (&v);
+		
 		if ((stmt = sdb_engine_get_statement_by_query_id (dbe, PREP_QUERY_LANGUAGE_NEW))
 			== NULL)
 		{
@@ -2938,8 +2802,8 @@ sdb_engine_add_new_language (SymbolDBEngine * dbe, const gchar *language)
 			g_warning ("param langname is NULL from pquery!");
 			return FALSE;
 		}
-		
-		MP_SET_HOLDER_BATCH_STR(priv, param, language, ret_bool, ret_value);		
+
+		SDB_PARAM_SET_STRING(param, language);
 				
 		/* execute the query with parametes just set */
 		if (gda_connection_statement_execute_non_select (priv->db_connection, 
@@ -2957,8 +2821,6 @@ sdb_engine_add_new_language (SymbolDBEngine * dbe, const gchar *language)
 		
 		if (last_inserted)
 			g_object_unref (last_inserted);
-
-		MP_RESET_PLIST(plist);
 	}
 
 	return table_id;
@@ -2986,11 +2848,10 @@ sdb_engine_add_new_db_file (SymbolDBEngine * dbe, const gchar * project_name,
 	const GdaSet *plist;
 	const GdaStatement *stmt;
 	GdaHolder *param;
-	GValue *ret_value;
-	gboolean ret_bool;
 	GError * error = NULL;
 	SymbolDBEnginePriv *priv;
 	gint language_id;
+	GValue v = {0};
 	
 	priv = dbe->priv;
 
@@ -3032,8 +2893,8 @@ sdb_engine_add_new_db_file (SymbolDBEngine * dbe, const gchar * project_name,
 		SDB_UNLOCK(priv);
 		return FALSE;
 	}
-		
-	MP_SET_HOLDER_BATCH_STR(priv, param, relative_path, ret_bool, ret_value);
+
+	SDB_PARAM_SET_STRING(param, relative_path);
 								
 	/* project name parameter */
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "prjname")) == NULL)
@@ -3043,7 +2904,7 @@ sdb_engine_add_new_db_file (SymbolDBEngine * dbe, const gchar * project_name,
 		return FALSE;
 	}
 
-	MP_SET_HOLDER_BATCH_STR(priv, param, project_name, ret_bool, ret_value);
+	SDB_PARAM_SET_STRING(param, project_name);
 		
 	/* language id parameter */
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "langid")) == NULL)
@@ -3053,7 +2914,7 @@ sdb_engine_add_new_db_file (SymbolDBEngine * dbe, const gchar * project_name,
 		return FALSE;
 	}		
 
-	MP_SET_HOLDER_BATCH_INT(priv, param, language_id, ret_bool, ret_value);
+	SDB_PARAM_SET_INT(param, language_id);
 
 	/* execute the query with parametes just set */
 	if (gda_connection_statement_execute_non_select (priv->db_connection, 
@@ -3071,7 +2932,6 @@ sdb_engine_add_new_db_file (SymbolDBEngine * dbe, const gchar * project_name,
 			g_free (sql_str);
 		}
 		
-		MP_RESET_PLIST(plist);
 		SDB_UNLOCK(priv);
 		return FALSE;
 	}	
@@ -3351,8 +3211,8 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 {
 	const gchar *kind_name;
 	gint table_id;
-	GValue *value;
 	SymbolDBEnginePriv *priv;
+	GValue v = {0};
 	
 	priv = dbe->priv;
 		
@@ -3370,24 +3230,23 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 		return table_id;
 	}
 
-	MP_LEND_OBJ_STR(priv, value);	
-	g_value_set_static_string (value, kind_name);
+	SDB_GVALUE_SET_STATIC_STRING (v, kind_name);
 	
 	if ((table_id = sdb_engine_get_tuple_id_by_unique_name (dbe,
 										PREP_QUERY_GET_SYM_KIND_BY_UNIQUE_NAME,
 										"kindname",
-										value)) < 0)
+										&v)) < 0)
 	{
 		const GdaSet *plist;
 		const GdaStatement *stmt;
 		GdaHolder *param;
 		GdaSet *last_inserted = NULL;
-		GValue *ret_value;
-		gboolean ret_bool;
 		gint is_container = 0;
 		SymType sym_type;
 		GError * error = NULL;
 
+		g_value_unset (&v);
+		
 		/* not found. Go on with inserting  */
 		if ((stmt = sdb_engine_get_statement_by_query_id (dbe, PREP_QUERY_SYM_KIND_NEW))
 			== NULL)
@@ -3405,7 +3264,7 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 			return FALSE;
 		}
 
-		MP_SET_HOLDER_BATCH_STR(priv, param, kind_name, ret_bool, ret_value);
+		SDB_PARAM_SET_STRING (param, kind_name);
 
 		/* container parameter */
 		if ((param = gda_set_get_holder ((GdaSet*)plist, "container")) == NULL)
@@ -3419,8 +3278,8 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 		
 		if (sym_type & IANJUTA_SYMBOL_TYPE_SCOPE_CONTAINER)
 			is_container = 1;
-		
-		MP_SET_HOLDER_BATCH_INT(priv, param, is_container, ret_bool, ret_value);
+
+		SDB_PARAM_SET_INT (param, is_container);
 
 		/* execute the query with parametes just set */
 		if (gda_connection_statement_execute_non_select(priv->db_connection, 
@@ -3445,8 +3304,6 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 			g_warning ("SQL error: %s", error->message);
 			g_error_free (error);
 		}
-		
-		MP_RESET_PLIST(plist);
 	}
 
 	return table_id;
@@ -3459,8 +3316,8 @@ sdb_engine_add_new_sym_access (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 {
 	const gchar *access;
 	gint table_id;
-	GValue *value;
 	SymbolDBEnginePriv *priv;
+	GValue v = {0};
 
 	priv = dbe->priv;
 		
@@ -3479,21 +3336,20 @@ sdb_engine_add_new_sym_access (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 		return table_id;
 	}
 
-	MP_LEND_OBJ_STR(priv, value);	
-	g_value_set_static_string (value, access);
+	SDB_GVALUE_SET_STATIC_STRING (v, access);
 
 	if ((table_id = sdb_engine_get_tuple_id_by_unique_name (dbe,
 									PREP_QUERY_GET_SYM_ACCESS_BY_UNIQUE_NAME,
 									"accesskind",
-									value)) < 0)
+									&v)) < 0)
 	{
 		const GdaSet *plist;
 		const GdaStatement *stmt;
 		GdaHolder *param;
 		GdaSet *last_inserted = NULL;
-		GValue *ret_value;
-		gboolean ret_bool;		
 
+		g_value_unset (&v);
+		
 		/* not found. Go on with inserting  */
 		if ((stmt =
 			 sdb_engine_get_statement_by_query_id (dbe,
@@ -3511,8 +3367,8 @@ sdb_engine_add_new_sym_access (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 			g_warning ("param accesskind is NULL from pquery!");
 			return -1;
 		}
-		
-		MP_SET_HOLDER_BATCH_STR(priv, param, access, ret_bool, ret_value);
+
+		SDB_PARAM_SET_STRING (param, access);
 		
 		/* execute the query with parametes just set */
 		if (gda_connection_statement_execute_non_select (priv->db_connection, 
@@ -3531,11 +3387,8 @@ sdb_engine_add_new_sym_access (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 		}		
 		
 		if (last_inserted)
-			g_object_unref (last_inserted);			
-
-		MP_RESET_PLIST(plist);
-	}	
-
+			g_object_unref (last_inserted);
+	}
 
 	return table_id;
 }
@@ -3548,8 +3401,8 @@ sdb_engine_add_new_sym_implementation (SymbolDBEngine * dbe,
 {
 	const gchar *implementation;
 	gint table_id;
-	GValue *value;
 	SymbolDBEnginePriv *priv;
+	GValue v = {0};
 
 	priv = dbe->priv;
 			
@@ -3567,21 +3420,20 @@ sdb_engine_add_new_sym_implementation (SymbolDBEngine * dbe,
 		return table_id;
 	}
 
-	MP_LEND_OBJ_STR(priv, value);	
-	g_value_set_static_string (value, implementation);
+	SDB_GVALUE_SET_STATIC_STRING(v, implementation);
 
 	if ((table_id = sdb_engine_get_tuple_id_by_unique_name (dbe,
 							PREP_QUERY_GET_SYM_IMPLEMENTATION_BY_UNIQUE_NAME,
 							"implekind",
-							value)) < 0)
+							&v)) < 0)
 	{
 		const GdaSet *plist;
 		const GdaStatement *stmt;
 		GdaHolder *param;
 		GdaSet *last_inserted = NULL;
-		GValue *ret_value;
-		gboolean ret_bool;
 
+		g_value_unset (&v);
+		
 		/* not found. Go on with inserting  */
 		if ((stmt = sdb_engine_get_statement_by_query_id (dbe,
 										 PREP_QUERY_SYM_IMPLEMENTATION_NEW)) ==
@@ -3591,7 +3443,8 @@ sdb_engine_add_new_sym_implementation (SymbolDBEngine * dbe,
 			return -1;
 		}
 
-		plist = sdb_engine_get_query_parameters_list (dbe, PREP_QUERY_SYM_IMPLEMENTATION_NEW);
+		plist = sdb_engine_get_query_parameters_list (dbe, 
+		    PREP_QUERY_SYM_IMPLEMENTATION_NEW);
 		
 		/* implekind parameter */
 		if ((param = gda_set_get_holder ((GdaSet*)plist, "implekind")) == NULL)
@@ -3599,16 +3452,16 @@ sdb_engine_add_new_sym_implementation (SymbolDBEngine * dbe,
 			g_warning ("param accesskind is NULL from pquery!");
 			return -1;
 		}
-		
-		MP_SET_HOLDER_BATCH_STR(priv, param, implementation, ret_bool, ret_value);		
 
+		SDB_PARAM_SET_STRING(param, implementation);
+		
 		/* execute the query with parametes just set */
 		if (gda_connection_statement_execute_non_select (priv->db_connection, 
 														 (GdaStatement*)stmt, 
 														 (GdaSet*)plist, &last_inserted,
 														 NULL) == -1)
 		{		
-			table_id = -1;		
+			table_id = -1;
 		}			
 		else
 		{
@@ -3620,8 +3473,6 @@ sdb_engine_add_new_sym_implementation (SymbolDBEngine * dbe,
 		}
 		if (last_inserted)
 			g_object_unref (last_inserted);	
-
-		MP_RESET_PLIST(plist);
 	}
 	
 	return table_id;
@@ -3635,10 +3486,8 @@ sdb_engine_add_new_heritage (SymbolDBEngine * dbe, gint base_symbol_id,
 	const GdaSet *plist;
 	const GdaStatement *stmt;
 	GdaHolder *param;
-	GValue *ret_value;
-	gboolean ret_bool;
 	SymbolDBEnginePriv *priv;
-	
+	GValue v = {0};	
 	
 	g_return_if_fail (base_symbol_id > 0);
 	g_return_if_fail (derived_symbol_id > 0);
@@ -3660,8 +3509,8 @@ sdb_engine_add_new_heritage (SymbolDBEngine * dbe, gint base_symbol_id,
 		g_warning ("param accesskind is NULL from pquery!");
 		return;
 	}
-	
-	MP_SET_HOLDER_BATCH_INT(priv, param, base_symbol_id, ret_bool, ret_value);		
+
+	SDB_PARAM_SET_INT(param, base_symbol_id);
 
 	/* symderived id parameter */
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "symderived")) == NULL)
@@ -3669,8 +3518,8 @@ sdb_engine_add_new_heritage (SymbolDBEngine * dbe, gint base_symbol_id,
 		g_warning ("param symderived is NULL from pquery!");
 		return;
 	}
-	
-	MP_SET_HOLDER_BATCH_INT(priv, param, derived_symbol_id, ret_bool, ret_value);		
+
+	SDB_PARAM_SET_INT(param, derived_symbol_id);	
 
 	/* execute the query with parametes just set */
 	if (gda_connection_statement_execute_non_select (priv->db_connection, 
@@ -3680,8 +3529,6 @@ sdb_engine_add_new_heritage (SymbolDBEngine * dbe, gint base_symbol_id,
 	{		
 		g_warning ("Error adding heritage");
 	}	
-
-	MP_RESET_PLIST(plist);
 }
 
 
@@ -3695,9 +3542,8 @@ sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, const tagEntry * tag_
 	const GdaStatement *stmt;
 	GdaHolder *param;
 	GdaSet *last_inserted = NULL;
-	GValue *ret_value;
-	gboolean ret_bool;	
 	SymbolDBEnginePriv *priv;
+	GValue v = {0};
 
 	g_return_val_if_fail (tag_entry->kind != NULL, -1);
 
@@ -3732,8 +3578,8 @@ sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, const tagEntry * tag_
 		g_warning ("param scope is NULL from pquery!");
 		return -1;
 	}
-	
-	MP_SET_HOLDER_BATCH_STR(priv, param, scope, ret_bool, ret_value);	
+
+	SDB_PARAM_SET_STRING (param, scope);
 
 	/* execute the query with parameters just set */
 	if (gda_connection_statement_execute_non_select (priv->db_connection, 
@@ -3752,8 +3598,6 @@ sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, const tagEntry * tag_
 	if (last_inserted)
 		g_object_unref (last_inserted);	
 
-	MP_RESET_PLIST(plist);
-	
 	return table_id;
 }
 
@@ -3839,8 +3683,7 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 	const GdaStatement *stmt;
 	GdaHolder *param;
 	SymbolDBEnginePriv *priv;
-	GValue *ret_value;
-	gboolean ret_bool;
+	GValue v = {0};
 
 	g_return_if_fail (token_value != NULL);
 		
@@ -3902,7 +3745,7 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 		return;
 	}
 
-	MP_SET_HOLDER_BATCH_STR(priv, param, token_name, ret_bool, ret_value);		
+	SDB_PARAM_SET_STRING(param, token_name);
 
 	/* objectname parameter */
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "objectname")) == NULL)
@@ -3911,8 +3754,7 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 		return;
 	}
 
-	MP_SET_HOLDER_BATCH_STR(priv, param, object_name, ret_bool, ret_value);		
-	
+	SDB_PARAM_SET_STRING(param, object_name);
 
 	/* symbolid parameter */
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "symbolid")) == NULL)
@@ -3921,7 +3763,7 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 		return;
 	}
 
-	MP_SET_HOLDER_BATCH_INT(priv, param, symbol_referer_id, ret_bool, ret_value);
+	SDB_PARAM_SET_INT(param, symbol_referer_id);
 
 	/* execute the query with parametes just set */
 	gda_connection_statement_execute_non_select (priv->db_connection, 
@@ -3929,8 +3771,6 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 													 (GdaSet*)plist, NULL,
 													 NULL);
 
-	MP_RESET_PLIST(plist);
-	
 	if (free_token_name)
 		g_free (token_name);
 	
@@ -4228,9 +4068,8 @@ sdb_engine_add_new_symbol_case_1 (SymbolDBEngine *dbe,
     							  GdaSet **plist_ptr,
 								  GdaStatement **stmt_ptr)
 {
-	GValue *ret_value;
-	gboolean ret_bool;
 	GdaHolder *param;
+	GValue v = {0};
 
 	const GdaSet * plist = *plist_ptr;
 	const GdaStatement * stmt = *stmt_ptr;
@@ -4255,8 +4094,8 @@ sdb_engine_add_new_symbol_case_1 (SymbolDBEngine *dbe,
 		return;
 	}
 
-	MP_SET_HOLDER_BATCH_INT(dbe->priv, param, symbol_id, ret_bool, ret_value);	
-
+	SDB_PARAM_SET_INT(param, symbol_id);
+	
 	*plist_ptr = (GdaSet*)plist;
 	*stmt_ptr = (GdaStatement*)stmt;	
 }
@@ -4271,9 +4110,8 @@ sdb_engine_add_new_symbol_case_2_3 (SymbolDBEngine *dbe,
     							  const gchar *type_type,
     							  const gchar *type_name)
 {
-	GValue *ret_value;
 	GdaHolder *param;
-	gboolean ret_bool;
+	GValue v = {0};
 
 	const GdaSet * plist = *plist_ptr;
 	const GdaStatement * stmt = *stmt_ptr;
@@ -4294,8 +4132,8 @@ sdb_engine_add_new_symbol_case_2_3 (SymbolDBEngine *dbe,
 		g_warning ("param filedefid is NULL from pquery!");
 		return;
 	}
-		
-	MP_SET_HOLDER_BATCH_INT(dbe->priv, param, file_defined_id, ret_bool, ret_value);
+
+	SDB_PARAM_SET_INT(param, file_defined_id);
 
 	/* name parameter */
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "name")) == NULL)
@@ -4303,8 +4141,8 @@ sdb_engine_add_new_symbol_case_2_3 (SymbolDBEngine *dbe,
 		g_warning ("param name is NULL from pquery!");			
 		return;
 	}
-		
-	MP_SET_HOLDER_BATCH_STR(dbe->priv, param, name, ret_bool, ret_value);		
+
+	SDB_PARAM_SET_STRING(param, name);
 
 	/* typetype parameter */
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "typetype")) == NULL)
@@ -4312,8 +4150,8 @@ sdb_engine_add_new_symbol_case_2_3 (SymbolDBEngine *dbe,
 		g_warning ("param typetype is NULL from pquery!");
 		return;			
 	}
-		
-	MP_SET_HOLDER_BATCH_STR(dbe->priv, param, type_type, ret_bool, ret_value);		
+
+	SDB_PARAM_SET_STRING(param, type_type);
 
 	/* typenameparameter */
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "typename")) == NULL)
@@ -4321,8 +4159,8 @@ sdb_engine_add_new_symbol_case_2_3 (SymbolDBEngine *dbe,
 		g_warning ("param typename is NULL from pquery!");
 		return;			
 	}
-		
-	MP_SET_HOLDER_BATCH_STR(dbe->priv, param, type_name, ret_bool, ret_value);
+
+	SDB_PARAM_SET_STRING(param, type_name);
 
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "scope")) == NULL)
 	{
@@ -4331,7 +4169,7 @@ sdb_engine_add_new_symbol_case_2_3 (SymbolDBEngine *dbe,
 	}
 
 	/* scope is to be considered the tag name */
-	MP_SET_HOLDER_BATCH_STR(dbe->priv, param, name, ret_bool, ret_value);
+	SDB_PARAM_SET_STRING(param, name);
 	
 	*plist_ptr = (GdaSet*)plist;
 	*stmt_ptr = (GdaStatement*)stmt;
@@ -4352,9 +4190,8 @@ sdb_engine_add_new_symbol_common_params (SymbolDBEngine *dbe,
     									 gint implementation_kind_id,
     									 gboolean update_flag)
 {
-	GValue *ret_value;
 	GdaHolder *param;
-	gboolean ret_bool;
+	GValue v = {0};
 
 	/* fileposition parameter */
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "fileposition")) == NULL)
@@ -4362,8 +4199,8 @@ sdb_engine_add_new_symbol_common_params (SymbolDBEngine *dbe,
 		g_warning ("param fileposition is NULL from pquery!");
 		return;
 	}
-	
-	MP_SET_HOLDER_BATCH_INT(dbe->priv, param, file_position, ret_bool, ret_value);
+
+	SDB_PARAM_SET_INT (param, file_position);
 	
 	/* isfilescope parameter */
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "isfilescope")) == NULL)	
@@ -4371,8 +4208,8 @@ sdb_engine_add_new_symbol_common_params (SymbolDBEngine *dbe,
 		g_warning ("param isfilescope is NULL from pquery!");
 		return;
 	}
-	
-	MP_SET_HOLDER_BATCH_INT(dbe->priv, param, is_file_scope, ret_bool, ret_value);
+
+	SDB_PARAM_SET_INT (param, is_file_scope);
 	
 	/* signature parameter */
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "signature")) == NULL)	
@@ -4380,8 +4217,8 @@ sdb_engine_add_new_symbol_common_params (SymbolDBEngine *dbe,
 		g_warning ("param signature is NULL from pquery!");
 		return;
 	}
-	
-	MP_SET_HOLDER_BATCH_STR(dbe->priv, param, signature, ret_bool, ret_value);
+
+	SDB_PARAM_SET_STRING(param, signature);
 
 	/* returntype parameter */
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "returntype")) == NULL)	
@@ -4389,8 +4226,8 @@ sdb_engine_add_new_symbol_common_params (SymbolDBEngine *dbe,
 		g_warning ("param returntype is NULL from pquery!");
 		return;
 	}
-	
-	MP_SET_HOLDER_BATCH_STR(dbe->priv, param, returntype, ret_bool, ret_value);	
+
+	SDB_PARAM_SET_STRING(param, returntype);
 	
 	/* scopedefinitionid parameter */
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "scopedefinitionid")) == NULL)	
@@ -4398,9 +4235,8 @@ sdb_engine_add_new_symbol_common_params (SymbolDBEngine *dbe,
 		g_warning ("param scopedefinitionid is NULL from pquery!");
 		return;
 	}
-	
-	MP_SET_HOLDER_BATCH_INT(dbe->priv, param, scope_definition_id, ret_bool, ret_value);
 
+	SDB_PARAM_SET_INT(param, scope_definition_id);
 
 	/* scopeid parameter */
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "scopeid")) == NULL)	
@@ -4408,8 +4244,8 @@ sdb_engine_add_new_symbol_common_params (SymbolDBEngine *dbe,
 		g_warning ("param scopeid is NULL from pquery!");
 		return;
 	}
-	
-	MP_SET_HOLDER_BATCH_INT(dbe->priv, param, scope_id, ret_bool, ret_value);
+
+	SDB_PARAM_SET_INT(param, scope_id);
 	
 	/* kindid parameter */
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "kindid")) == NULL)	
@@ -4417,8 +4253,8 @@ sdb_engine_add_new_symbol_common_params (SymbolDBEngine *dbe,
 		g_warning ("param kindid is NULL from pquery!");
 		return;
 	}
-	
-	MP_SET_HOLDER_BATCH_INT(dbe->priv, param, kind_id, ret_bool, ret_value);
+
+	SDB_PARAM_SET_INT(param, kind_id);
 	
 	/* accesskindid parameter */
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "accesskindid")) == NULL)	
@@ -4426,8 +4262,8 @@ sdb_engine_add_new_symbol_common_params (SymbolDBEngine *dbe,
 		g_warning ("param accesskindid is NULL from pquery!");
 		return;
 	}
-	
-	MP_SET_HOLDER_BATCH_INT(dbe->priv, param, access_kind_id, ret_bool, ret_value);
+
+	SDB_PARAM_SET_INT(param, access_kind_id);
 
 	/* implementationkindid parameter */
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "implementationkindid")) == NULL)	
@@ -4435,8 +4271,8 @@ sdb_engine_add_new_symbol_common_params (SymbolDBEngine *dbe,
 		g_warning ("param implementationkindid is NULL from pquery!");
 		return;
 	}
-	
-	MP_SET_HOLDER_BATCH_INT(dbe->priv, param, implementation_kind_id, ret_bool, ret_value);
+
+	SDB_PARAM_SET_INT(param, implementation_kind_id);
 	
 	/* updateflag parameter */
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "updateflag")) == NULL)
@@ -4444,8 +4280,8 @@ sdb_engine_add_new_symbol_common_params (SymbolDBEngine *dbe,
 		g_warning ("param updateflag is NULL from pquery!");
 		return;
 	}
-	
-	MP_SET_HOLDER_BATCH_INT(dbe->priv, param, update_flag, ret_bool, ret_value);	
+
+	SDB_PARAM_SET_INT(param, update_flag);
 }
 
 
@@ -4478,7 +4314,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	gint kind_id = 0;
 	gint access_kind_id = 0;
 	gint implementation_kind_id = 0;
-	GValue *value1, *value2, *value3, *value4;
+	GValue v1 = {0}, v2 = {0}, v3 = {0}, v4 = {0};
 	gboolean sym_was_updated = FALSE;
 	gboolean update_flag;
 	gchar *type_regex;;
@@ -4530,8 +4366,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 		/* if the extractor failed we should fallback to the default one */
 		if (type_name == NULL)
 			type_name = tag_entry->name;
-	}
-	else 
+	}	else 
 	{
 		type_name = tag_entry->name;
 	}
@@ -4577,17 +4412,10 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 		/* We should use more value and set them with the same values because
 		 * sdb_engine_get_tuple_id_by_unique_name () will manage them
 	 	 */
-		MP_LEND_OBJ_STR (priv, value1);	
-		g_value_set_static_string (value1, name);
-
-		MP_LEND_OBJ_INT (priv, value2);
-		g_value_set_int (value2, file_defined_id);
-
-		MP_LEND_OBJ_STR (priv, value3);		
-		g_value_set_static_string (value3, type_type);
-
-		MP_LEND_OBJ_STR (priv, value4);
-		g_value_set_static_string (value4, type_name);
+		SDB_GVALUE_SET_STATIC_STRING(v1, name);
+		SDB_GVALUE_SET_INT(v2, file_defined_id);
+		SDB_GVALUE_SET_STATIC_STRING(v3, type_type);
+		SDB_GVALUE_SET_STATIC_STRING(v4, type_name);
 		
 		/* 
 		 * We cannot live without this select because we must know whether a similar 
@@ -4596,10 +4424,10 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 		 */
 		symbol_id = sdb_engine_get_tuple_id_by_unique_name4 (dbe,
 							  PREP_QUERY_GET_SYMBOL_ID_BY_UNIQUE_INDEX_KEY_EXT,
-							  "symname", value1,
-							  "filedefid",value2,
-							  "typetype", value3,
-		    				  "typename", value4);
+							  "symname", &v1,
+							  "filedefid", &v2,
+							  "typetype", &v3,
+		    				  "typename", &v4);
 	}
 	
 	/* ok then, parse the symbol id value */
@@ -4785,8 +4613,7 @@ sdb_engine_update_file (SymbolDBEngine * dbe, const gchar * file_on_db)
 	const GdaStatement *stmt1, *stmt2, *stmt3;
 	GdaHolder *param;
 	SymbolDBEnginePriv *priv;
-	GValue *ret_value;
-	gboolean ret_bool;
+	GValue v = {0};
 
 	priv = dbe->priv;
 
@@ -4821,7 +4648,7 @@ sdb_engine_update_file (SymbolDBEngine * dbe, const gchar * file_on_db)
 		return FALSE;
 	}
 	
-	MP_SET_HOLDER_BATCH_STR(priv, param, file_on_db, ret_bool, ret_value);
+	SDB_PARAM_SET_STRING(param, file_on_db);
 	
 	gda_connection_statement_execute_non_select (priv->db_connection, (GdaStatement*)stmt1, 
 														 (GdaSet*)plist1, NULL, NULL);	
@@ -4847,12 +4674,10 @@ sdb_engine_update_file (SymbolDBEngine * dbe, const gchar * file_on_db)
 		g_warning ("param filepath is NULL from pquery!");
 		return FALSE;
 	}
-	MP_SET_HOLDER_BATCH_STR(priv, param, file_on_db, ret_bool, ret_value);
+	SDB_PARAM_SET_STRING(param, file_on_db);
 	
 	gda_connection_statement_execute_non_select (priv->db_connection, (GdaStatement*)stmt2, 
 														 (GdaSet*)plist2, NULL, NULL);	
-
-	MP_RESET_PLIST(plist2);
 
 	/* last but not least, update the file analyse_time */
 	if ((stmt3 = sdb_engine_get_statement_by_query_id (dbe,
@@ -4874,13 +4699,11 @@ sdb_engine_update_file (SymbolDBEngine * dbe, const gchar * file_on_db)
 		return FALSE;
 	}
 	
-	MP_SET_HOLDER_BATCH_STR(priv, param, file_on_db, ret_bool, ret_value);
+	SDB_PARAM_SET_STRING(param, file_on_db);
 
 	gda_connection_statement_execute_non_select (priv->db_connection, (GdaStatement*)stmt3, 
 														 (GdaSet*)plist3, NULL, NULL);	
 
-	MP_RESET_PLIST(plist3);
-	
 	SDB_UNLOCK(priv);
 	return TRUE;
 }
@@ -4897,8 +4720,7 @@ on_scan_update_files_symbols_end (SymbolDBEngine * dbe,
 	SymbolDBEnginePriv *priv;
 	GPtrArray *files_to_scan;
 	gint i;
-	GValue *ret_value;
-	gboolean ret_bool;
+	GValue v = {0};
 
 	g_return_if_fail (dbe != NULL);
 	g_return_if_fail (update_data != NULL);
@@ -4968,7 +4790,7 @@ on_scan_update_files_symbols_end (SymbolDBEngine * dbe,
 			return;
 		}
 		
-		MP_SET_HOLDER_BATCH_STR(priv, param, update_data->project, ret_bool, ret_value);
+		SDB_PARAM_SET_STRING(param, update_data->project);
 	
 		gda_connection_statement_execute_non_select (priv->db_connection, 
 													 (GdaStatement*)stmt, 
@@ -5076,8 +4898,7 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe,
 	gint i;
 	GPtrArray *files_to_scan;
 	SymbolDBEnginePriv *priv;
-	GValue *ret_value;
-	gboolean ret_bool;
+	GValue v = {0};
 	
 	g_return_val_if_fail (dbe != NULL, FALSE);
 	
@@ -5109,7 +4930,7 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe,
 		return FALSE;
 	}
 
-	MP_SET_HOLDER_BATCH_STR(priv, param, project_name, ret_bool, ret_value);	
+	SDB_PARAM_SET_STRING(param, project_name);	
 	
 	/* execute the query with parametes just set */
 	GType gtype_array [6] = {	G_TYPE_INT, 
@@ -5262,8 +5083,7 @@ symbol_db_engine_remove_file (SymbolDBEngine * dbe, const gchar *project,
 	const GdaSet *plist;
 	const GdaStatement *stmt;
 	GdaHolder *param;
-	GValue *ret_value;
-	gboolean ret_bool;
+	GValue v = {0};
 
 	
 	g_return_val_if_fail (dbe != NULL, FALSE);
@@ -5299,7 +5119,7 @@ symbol_db_engine_remove_file (SymbolDBEngine * dbe, const gchar *project,
 		return FALSE;
 	}
 
-	MP_SET_HOLDER_BATCH_STR(priv, param, project, ret_bool, ret_value);
+	SDB_PARAM_SET_STRING(param, project);
 	
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "filepath")) == NULL)
 	{
@@ -5308,7 +5128,7 @@ symbol_db_engine_remove_file (SymbolDBEngine * dbe, const gchar *project,
 		return FALSE;
 	}
 	
-	MP_SET_HOLDER_BATCH_STR(priv, param, rel_file, ret_bool, ret_value);	
+	SDB_PARAM_SET_STRING(param, rel_file);	
 
 	/* Triggers will take care of updating/deleting connected symbols
 	 * tuples, like sym_kind, sym_type etc */	

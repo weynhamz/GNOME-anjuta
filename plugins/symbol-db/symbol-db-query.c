@@ -1128,35 +1128,6 @@ sdb_query_set_file_scope (IAnjutaSymbolQuery *query,
 
 /* Search queries */
 
-#define SDB_QUERY_SEARCH_HEADER \
-	GValue v = {0}; \
-	SymbolDBQueryPriv *priv; \
-	g_return_val_if_fail (SYMBOL_DB_IS_QUERY (query), NULL); \
-	priv = SYMBOL_DB_QUERY (query)->priv;
-
-#define SDB_PARAM_SET_INT(gda_param, int_value) \
-	g_value_init (&v, G_TYPE_INT); \
-	g_value_set_int (&v, (int_value)); \
-	gda_holder_set_value ((gda_param), &v, NULL); \
-	g_value_unset (&v);
-
-#define SDB_PARAM_SET_STRING(gda_param, str_value) \
-	g_value_init (&v, G_TYPE_STRING); \
-	g_value_set_string (&v, (str_value)); \
-	gda_holder_set_value ((gda_param), &v, NULL); \
-	g_value_unset (&v);
-
-#define SDB_PARAM_SET_STATIC_STRING(gda_param, str_value) \
-	g_value_init (&v, G_TYPE_STRING); \
-	g_value_set_static_string (&v, (str_value)); \
-	gda_holder_set_value ((gda_param), &v, NULL); \
-	g_value_unset (&v);
-
-#define SDB_PARAM_TAKE_STRING(gda_param, str_value) \
-	g_value_init (&v, G_TYPE_STRING); \
-	g_value_take_string (&v, (str_value)); \
-	gda_holder_set_value ((gda_param), &v, NULL); \
-	g_value_unset (&v);
 
 static IAnjutaIterable*
 sdb_query_search (IAnjutaSymbolQuery *query, const gchar *search_string,
