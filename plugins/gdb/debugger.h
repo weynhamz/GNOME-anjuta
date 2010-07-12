@@ -138,7 +138,9 @@ void debugger_stepi_in (Debugger *debugger);
 void debugger_stepi_over (Debugger *debugger);
 void debugger_run_to_location (Debugger *debugger, const gchar *loc);
 void debugger_run_to_position (Debugger *debugger, const gchar *file, guint line);
+void debugger_run_from_position (Debugger *debugger, const gchar *file, guint line);
 void debugger_run_to_address (Debugger *debugger, gulong address);
+void debugger_run_from_address (Debugger *debugger, gulong address);
 
 /* Breakpoint */
 void debugger_add_breakpoint_at_line (Debugger *debugger, const gchar* file, guint line, IAnjutaDebuggerCallback callback, gpointer user_data);
@@ -178,6 +180,7 @@ void debugger_write_register (Debugger *debugger, const gchar *name, const gchar
 void debugger_list_argument (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data);
 void debugger_list_frame (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data);
 void debugger_set_frame (Debugger *debugger, gsize frame);
+void debugger_dump_stack_trace (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data);
 
 /* Thread */
 void debugger_list_thread (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data);

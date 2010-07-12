@@ -3996,6 +3996,20 @@ interface IAnjutaDebugger
 	gboolean run_to (const gchar* file, gint line);
 	
 	/**
+	* ianjuta_debugger_run_from:
+	* @obj: Self
+	* @callback: Callback to call getting a list of frame
+	* @user_data: User data that is passed back to the callback
+	* @err: Error propagation and reporting.
+	* 
+	* Execute the program from a new position.
+	* This function is optional.
+	*
+	* Returns: TRUE if sucessful, otherwise FALSE.
+	*/
+	gboolean run_from (const gchar *file, gint line);
+	
+	/**
 	* ianjuta_debugger_exit:
 	* @obj: Self
 	* @err: Error propagation and reporting.
@@ -4335,6 +4349,20 @@ interface IAnjutaDebugger
 	* Disable debugger log.
 	*/
 	void disable_log ();
+
+	/**
+	* ianjuta_debugger_dump_stack_trace:
+	* @obj: Self
+	* @callback: Callback to call getting a list of frame
+	* @user_data: User data that is passed back to the callback
+	* @err: Error propagation and reporting.
+	* 
+	* Return a stack trace valid for a bug reports.
+	* This function is optional.
+	* 
+	* Returns: TRUE if sucessful, otherwise FALSE.
+	*/
+	gboolean dump_stack_trace (Callback callback, gpointer user_data);
 
 	/**
 	 * SECTION:ianjuta-debugger-breakpoint
@@ -4832,6 +4860,19 @@ interface IAnjutaDebugger
 		* FALSE, the callback will not be called.
 		*/
 		gboolean run_to_address (gulong address);
+
+		/**
+		* ianjuta_debugger_instruction_run_from_address:
+		* @obj: Self
+		* @address: Run from this addresss
+		* @err: Error propagation and reporting.
+		* 
+		* Restart the program starting from address address
+		*
+		* Returns: TRUE if the request succeed and the callback is called. If 
+		* FALSE, the callback will not be called.
+		*/
+		gboolean run_from_address (gulong address);
 	}
 		
 }

@@ -71,11 +71,11 @@
 	OR \
 	( \
 		symbol.scope_id = ## /* name:'parent' type:gint */ \
-		AND symbol.kind_id NOT IN \
+		AND symbol.kind_id IN \
 		( \
 			SELECT sym_kind_id \
 			FROM sym_kind \
-			WHERE sym_kind.kind_name = 'namespace' \
+			WHERE sym_kind.kind_name = 'class' \
 		) \
 		AND symbol.scope_definition_id IN \
 		( \

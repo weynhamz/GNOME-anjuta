@@ -80,9 +80,11 @@ typedef enum
 	STEP_OUT_COMMAND,
 	RUN_COMMAND,		
 	RUN_TO_COMMAND,
-	STEPI_IN_COMMAND,			/* 0x20 */
+	RUN_FROM_COMMAND,			/* 0x20 */
+	STEPI_IN_COMMAND,
 	STEPI_OVER_COMMAND,
 	RUN_TO_ADDRESS_COMMAND,
+	RUN_FROM_ADDRESS_COMMAND,
 	EXIT_COMMAND,
 	HANDLE_SIGNAL_COMMAND,
 	LIST_LOCAL_COMMAND,
@@ -94,9 +96,10 @@ typedef enum
 	INFO_FRAME_COMMAND,
 	INFO_ARGS_COMMAND,
 	INFO_VARIABLES_COMMAND,
-	SET_FRAME_COMMAND,
+	SET_FRAME_COMMAND,			/* 0x30 */
 	LIST_FRAME_COMMAND,
-	UPDATE_REGISTER_COMMAND,	/* 0x30 */
+	DUMP_STACK_TRACE_COMMAND,
+	UPDATE_REGISTER_COMMAND,
 	WRITE_REGISTER_COMMAND,
 	EVALUATE_COMMAND,
 	INSPECT_COMMAND,
@@ -205,6 +208,9 @@ typedef enum
 	DMA_RUN_TO_COMMAND =
 		RUN_TO_COMMAND | RUN_PROGRAM |
 		NEED_PROGRAM_STOPPED,
+	DMA_RUN_FROM_COMMAND =
+		RUN_FROM_COMMAND | RUN_PROGRAM |
+		NEED_PROGRAM_STOPPED,
 	DMA_STEPI_IN_COMMAND =
 		STEPI_IN_COMMAND | RUN_PROGRAM |
 		NEED_PROGRAM_STOPPED,
@@ -213,6 +219,9 @@ typedef enum
 		NEED_PROGRAM_STOPPED,
 	DMA_RUN_TO_ADDRESS_COMMAND =
 		RUN_TO_ADDRESS_COMMAND | RUN_PROGRAM |
+		NEED_PROGRAM_STOPPED,
+	DMA_RUN_FROM_ADDRESS_COMMAND =
+		RUN_FROM_ADDRESS_COMMAND | RUN_PROGRAM |
 		NEED_PROGRAM_STOPPED,
 	DMA_EXIT_COMMAND =
 		EXIT_COMMAND | LOAD_PROGRAM |
@@ -252,6 +261,9 @@ typedef enum
 		NEED_PROGRAM_STOPPED,
 	DMA_LIST_FRAME_COMMAND =
 		LIST_FRAME_COMMAND |
+		NEED_PROGRAM_STOPPED | NEED_PROGRAM_RUNNING,
+	DMA_DUMP_STACK_TRACE_COMMAND =
+		DUMP_STACK_TRACE_COMMAND |
 		NEED_PROGRAM_STOPPED | NEED_PROGRAM_RUNNING,
 	DMA_UPDATE_REGISTER_COMMAND =
 		UPDATE_REGISTER_COMMAND |
@@ -437,6 +449,10 @@ dma_command_new (DmaDebuggerCommand cmd_type,...)
 		cmd->data.pos.file = g_strdup (va_arg (args, gchar *));
 		cmd->data.pos.line = va_arg (args, guint);
 		break;
+	case RUN_FROM_COMMAND:
+		cmd->data.pos.file = g_strdup (va_arg (args, gchar *));
+		cmd->data.pos.line = va_arg (args, guint);
+		break;
 	case STEP_IN_COMMAND:
 		break;
 	case STEP_OVER_COMMAND:
@@ -444,6 +460,9 @@ dma_command_new (DmaDebuggerCommand cmd_type,...)
 	case STEP_OUT_COMMAND:
 		break;
 	case RUN_TO_ADDRESS_COMMAND:
+		cmd->data.pos.address = va_arg (args, guint);
+		break;
+	case RUN_FROM_ADDRESS_COMMAND:
 		cmd->data.pos.address = va_arg (args, guint);
 		break;
 	case STEPI_IN_COMMAND:
@@ -568,6 +587,10 @@ dma_command_new (DmaDebuggerCommand cmd_type,...)
 		cmd->data.frame.frame = va_arg (args, guint);
 		break;
 	case LIST_FRAME_COMMAND:
+		cmd->callback = va_arg (args, IAnjutaDebuggerCallback);
+		cmd->user_data = va_arg (args, gpointer);
+		break;
+	case DUMP_STACK_TRACE_COMMAND:
 		cmd->callback = va_arg (args, IAnjutaDebuggerCallback);
 		cmd->user_data = va_arg (args, gpointer);
 		break;
@@ -729,6 +752,12 @@ dma_queue_run_to (DmaDebuggerQueue *self, const gchar *file, gint line)
 }
 
 gboolean
+dma_queue_run_from (DmaDebuggerQueue *self, const gchar *file, gint line)
+{
+	return dma_debugger_queue_append (self, dma_command_new (DMA_RUN_FROM_COMMAND, file, line));
+}
+
+gboolean
 dma_queue_step_out (DmaDebuggerQueue *self)
 {
 	return dma_debugger_queue_append (self, dma_command_new (DMA_STEP_OUT_COMMAND));
@@ -750,6 +779,12 @@ gboolean
 dma_queue_run_to_address (DmaDebuggerQueue *self, gulong address)
 {
 	return dma_debugger_queue_append (self, dma_command_new (DMA_RUN_TO_ADDRESS_COMMAND, address));
+}
+
+gboolean
+dma_queue_run_from_address (DmaDebuggerQueue *self, gulong address)
+{
+	return dma_debugger_queue_append (self, dma_command_new (DMA_RUN_FROM_ADDRESS_COMMAND, address));
 }
 
 gboolean
@@ -882,6 +917,12 @@ gboolean
 dma_queue_list_frame (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data)
 {
 	return dma_debugger_queue_append (self, dma_command_new (DMA_LIST_FRAME_COMMAND, callback, user_data));
+}
+
+gboolean
+dma_queue_dump_stack_trace (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data)
+{
+	return dma_debugger_queue_append (self, dma_command_new (DMA_DUMP_STACK_TRACE_COMMAND, callback, user_data));
 }
 
 gboolean
@@ -1023,6 +1064,7 @@ dma_command_free (DmaQueueCommand *cmd)
 	case STEPI_IN_COMMAND:
 	case STEPI_OVER_COMMAND:
 	case RUN_TO_ADDRESS_COMMAND:
+	case RUN_FROM_ADDRESS_COMMAND:
 	case EXIT_COMMAND:
 	case INTERRUPT_COMMAND:
 	case ENABLE_BREAK_COMMAND:
@@ -1048,6 +1090,7 @@ dma_command_free (DmaQueueCommand *cmd)
 	    break;
 	case SET_FRAME_COMMAND:
 	case LIST_FRAME_COMMAND:
+	case DUMP_STACK_TRACE_COMMAND:
 	case INSPECT_MEMORY_COMMAND:
 	case DISASSEMBLE_COMMAND:
 		break;
@@ -1079,6 +1122,7 @@ dma_command_free (DmaQueueCommand *cmd)
         g_list_free (cmd->data.attach.dirs);
 		break;
 	case RUN_TO_COMMAND:
+	case RUN_FROM_COMMAND:
 	case BREAK_LINE_COMMAND:
 	case BREAK_FUNCTION_COMMAND:
 	case BREAK_ADDRESS_COMMAND:
@@ -1199,6 +1243,9 @@ dma_command_run (DmaQueueCommand *cmd, IAnjutaDebugger *debugger,
 	case RUN_TO_COMMAND:
 		ret = ianjuta_debugger_run_to (debugger, cmd->data.pos.file, cmd->data.pos.line, err);
 		break;
+	case RUN_FROM_COMMAND:
+		ret = ianjuta_debugger_run_from (debugger, cmd->data.pos.file, cmd->data.pos.line, err);
+		break;
 	case STEP_IN_COMMAND:
 		ret = ianjuta_debugger_step_in (debugger, err);	
 		break;
@@ -1210,6 +1257,9 @@ dma_command_run (DmaQueueCommand *cmd, IAnjutaDebugger *debugger,
 		break;
 	case RUN_TO_ADDRESS_COMMAND:
 		ret = ianjuta_debugger_instruction_run_to_address (IANJUTA_DEBUGGER_INSTRUCTION (debugger), cmd->data.pos.address, err);	
+		break;
+	case RUN_FROM_ADDRESS_COMMAND:
+		ret = ianjuta_debugger_instruction_run_from_address (IANJUTA_DEBUGGER_INSTRUCTION (debugger), cmd->data.pos.address, err);	
 		break;
 	case STEPI_IN_COMMAND:
 		ret = ianjuta_debugger_instruction_step_in_instruction (IANJUTA_DEBUGGER_INSTRUCTION (debugger), err);	
@@ -1319,6 +1369,9 @@ dma_command_run (DmaQueueCommand *cmd, IAnjutaDebugger *debugger,
 	case LIST_FRAME_COMMAND:
 		ret = ianjuta_debugger_list_frame (debugger, callback, queue, err);	
 		break;
+	case DUMP_STACK_TRACE_COMMAND:
+		ret = ianjuta_debugger_dump_stack_trace (debugger, callback, queue, err);	
+		break;
 	case LIST_REGISTER_COMMAND:
 		ret = ianjuta_debugger_register_list_register (IANJUTA_DEBUGGER_REGISTER (debugger), callback, queue, err);	
 		break;
@@ -1388,10 +1441,12 @@ dma_command_callback (DmaQueueCommand *cmd, const gpointer data, GError *err)
 	case SET_ENVIRONMENT_COMMAND:	
 	case RUN_COMMAND:
 	case RUN_TO_COMMAND:
+	case RUN_FROM_COMMAND:
 	case STEP_IN_COMMAND:
 	case STEP_OVER_COMMAND:
 	case STEP_OUT_COMMAND:
 	case RUN_TO_ADDRESS_COMMAND:
+	case RUN_FROM_ADDRESS_COMMAND:
 	case STEPI_IN_COMMAND:
 	case STEPI_OVER_COMMAND:
 	case EXIT_COMMAND:
@@ -1429,6 +1484,7 @@ dma_command_callback (DmaQueueCommand *cmd, const gpointer data, GError *err)
 	case INFO_UDOT_COMMAND:
 	case INFO_VARIABLES_COMMAND:
 	case LIST_FRAME_COMMAND:
+	case DUMP_STACK_TRACE_COMMAND:
 	case LIST_REGISTER_COMMAND:
 	case UPDATE_REGISTER_COMMAND:
 	case INSPECT_MEMORY_COMMAND:

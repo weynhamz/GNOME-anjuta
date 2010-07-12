@@ -6,6 +6,7 @@
 
 				<menuitem name="Run" action="ActionDebuggerRunContinue" />
 				<menuitem name="RunToPosition" action="ActionDebuggerRunToPosition" />
+				<menuitem name="RunFromPosition" action="ActionDebuggerRunFromPosition" />
 				<menuitem name="StepIn" action="ActionDebuggerStepIn" />
 				<menuitem name="StepOver" action="ActionDebuggerStepOver" />
 				<menuitem name="StepOut" action="ActionDebuggerStepOut" />
@@ -81,6 +82,7 @@
 	<popup name="PopupStack">
 		<menuitem name="SetCurrentFrame" action="ActionDmaSetCurrentFrame" />
 		<menuitem name="JumpToFrame" action="ActionDmaJumpToFrame" />
+		<menuitem name="DumpStackTrace" action="ActionDmaDumpStackTrace" />
 	</popup>
 	<popup name="PopupWatch">
 		<menuitem name="AddWatch" action="ActionDmaAddWatch" />
