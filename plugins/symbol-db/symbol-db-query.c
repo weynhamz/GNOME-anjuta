@@ -463,7 +463,8 @@ sdb_query_update (SymbolDBQuery *query)
 	/* Prepare statement */
 	g_free (priv->sql_stmt);
 	priv->sql_stmt = sql->str;
-	if (priv->stmt) g_object_unref (priv->stmt);
+	if (priv->stmt) 
+		g_object_unref (priv->stmt);
 
 	/* If database is not connected, defer the statement compilation for later,
 	 * otherwise compile it now.
@@ -525,11 +526,15 @@ sdb_query_handle_result (SymbolDBQuery *query, SymbolDBQueryResult *result)
 	}
 	else
 	{
-		if (symbol_db_query_result_is_empty (result))
+		if (result == NULL || symbol_db_query_result_is_empty (result))
+		{
 			g_signal_emit_by_name (query, "async-result", NULL);
+		}
 		else
+		{			
 			g_signal_emit_by_name (query, "async-result", result);
-		g_object_unref (result);
+			g_object_unref (result);
+		}
 	}
 }
 
@@ -668,7 +673,8 @@ sdb_query_execute (SymbolDBQuery *query)
 			/* Empty resultset is useless for us. Return NULL instead */
 			if (result == NULL || symbol_db_query_result_is_empty (result))
 			{
-				g_object_unref (result);
+				if (result != NULL)
+					g_object_unref (result);
 				return NULL;
 			}
 			return IANJUTA_ITERABLE (result);

@@ -1044,10 +1044,6 @@ sdb_engine_timeout_trigger_signals (gpointer user_data)
 		gpointer sign = NULL;
 		gsize real_signal;
 
-
-
-
-		
 		while (priv->signals_queue != NULL &&  
 		    (sign = g_async_queue_try_pop (priv->signals_queue)) != NULL)  
 		{

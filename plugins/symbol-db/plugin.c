@@ -1367,18 +1367,16 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 		if ((filename = g_file_get_path (gfile)) == NULL || 
 			g_strcmp0 (filename, "") == 0)
 		{
-			g_object_unref (gfile);
-			/* FIXME here */
-			/*DEBUG_PRINT ("hey, filename (uri %s) is NULL", uri);*/
+			if (gfile)
+				g_object_unref (gfile);
 			continue;
 		}
 		
 		/* test its existence */
 		if (g_file_query_exists (gfile, NULL) == FALSE) 
 		{
-			/* FIXME here */
-			/*DEBUG_PRINT ("hey, filename %s (uri %s) does NOT exist", filename, uri);*/
-			g_object_unref (gfile);
+			if (gfile)
+				g_object_unref (gfile);
 			continue;
 		}
 
