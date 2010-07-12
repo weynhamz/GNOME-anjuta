@@ -32,7 +32,6 @@
 #include <libanjuta/interfaces/ianjuta-markable.h>
 #include <libanjuta/interfaces/ianjuta-indicable.h>
 #include <libanjuta/interfaces/ianjuta-print.h>
-#include <libanjuta/interfaces/ianjuta-language-support.h>
 #include <libanjuta/interfaces/ianjuta-document.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
