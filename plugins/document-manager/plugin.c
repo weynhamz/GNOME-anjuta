@@ -40,7 +40,6 @@
 #include <libanjuta/interfaces/ianjuta-editor-assist.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-editor-language.h>
-#include <libanjuta/interfaces/ianjuta-language-support.h>
 #include <libanjuta/interfaces/ianjuta-language.h>
 #include <libanjuta/interfaces/ianjuta-preferences.h>
 #include <libanjuta/interfaces/ianjuta-document.h>
