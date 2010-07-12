@@ -1445,7 +1445,6 @@ sdb_engine_init (SymbolDBEngine * object)
 {
 	SymbolDBEngine *sdbe;
 	GHashTable *h;
-	gint i;
 	
 	sdbe = SYMBOL_DB_ENGINE (object);
 	sdbe->priv = g_new0 (SymbolDBEnginePriv, 1);
@@ -1817,27 +1816,6 @@ sdb_engine_init (SymbolDBEngine * object)
 
 	/* init table maps */
 	sdb_engine_init_table_maps (sdbe);
-	
-	/* init memory pool object for GValue strings */
-	sdbe->priv->mem_pool_string = g_queue_new ();
-	sdbe->priv->mem_pool_int = g_queue_new ();	
-	
-	for (i = 0; i < MEMORY_POOL_STRING_SIZE; i++) 
-	{
-		GValue *value = g_slice_new0 (GValue);
-  		g_value_init (value, G_TYPE_STRING);		
-		g_value_set_static_string (value, MP_VOID_STRING);
-		
-		g_queue_push_head (sdbe->priv->mem_pool_string, value);
-	}
-
-	for (i = 0; i < MEMORY_POOL_INT_SIZE; i++) 
-	{
-		GValue *value = g_slice_new0 (GValue);
-  		g_value_init (value, G_TYPE_INT);
-		
-		g_queue_push_head (sdbe->priv->mem_pool_int, value);		
-	}	
 }
 
 static void
@@ -1850,12 +1828,6 @@ static void
 sdb_engine_unref_removed_launchers (gpointer data, gpointer user_data)
 {
 	g_object_unref (data);
-}
-
-static void 
-sdb_engine_gvalue_free (gpointer data, gpointer user_data)
-{
-	g_slice_free (GValue, data);
 }
 
 static void
@@ -1970,15 +1942,6 @@ sdb_engine_finalize (GObject * object)
 	
 	g_free (priv->ctags_path);
 	priv->ctags_path = NULL;
-	
-	g_queue_foreach (priv->mem_pool_string, (GFunc)sdb_engine_gvalue_free, NULL);
-	g_queue_free (priv->mem_pool_string);
-	
-	g_queue_foreach (priv->mem_pool_int, (GFunc)sdb_engine_gvalue_free, NULL);
-	g_queue_free (priv->mem_pool_int);	
-	
-	priv->mem_pool_string = NULL;
-	priv->mem_pool_int = NULL;	
 	
 	g_free (priv);
 	
@@ -2944,8 +2907,6 @@ sdb_engine_add_new_db_file (SymbolDBEngine * dbe, const gchar * project_name,
 		SDB_UNLOCK(priv);
 		return FALSE;
 	}	
-	
-	MP_RESET_PLIST(plist);
 	
 	SDB_UNLOCK(priv);
 	return TRUE;
@@ -4480,8 +4441,6 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 		g_error_free (error);
 	}
 	
-	MP_RESET_PLIST(plist);
-	
 	if (sym_was_updated == FALSE)
 	{
 		if (nrows > 0)
@@ -4662,8 +4621,6 @@ sdb_engine_update_file (SymbolDBEngine * dbe, const gchar * file_on_db)
 	gda_connection_statement_execute_non_select (priv->db_connection, (GdaStatement*)stmt1, 
 														 (GdaSet*)plist1, NULL, NULL);	
 
-	MP_RESET_PLIST(plist1);
-	
 	/* emits removed symbols signals */
 	sdb_engine_detects_removed_ids (dbe);
 
@@ -4805,7 +4762,6 @@ on_scan_update_files_symbols_end (SymbolDBEngine * dbe,
 													 (GdaStatement*)stmt, 
 													 (GdaSet*)plist, NULL, NULL);
 
-		MP_RESET_PLIST(plist);
 		SDB_UNLOCK(priv);
 	}	
 	
@@ -4955,8 +4911,7 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe,
 	    										GDA_STATEMENT_MODEL_RANDOM_ACCESS,
 	    										gtype_array,
 	    										NULL);
-	MP_RESET_PLIST(plist);
-
+	
 	if (!GDA_IS_DATA_MODEL (data_model) ||
 		(num_rows = gda_data_model_get_n_rows (GDA_DATA_MODEL (data_model))) <= 0)
 	{
@@ -5142,10 +5097,8 @@ symbol_db_engine_remove_file (SymbolDBEngine * dbe, const gchar *project,
 	/* Triggers will take care of updating/deleting connected symbols
 	 * tuples, like sym_kind, sym_type etc */	
 	gda_connection_statement_execute_non_select (priv->db_connection, (GdaStatement*)stmt, 
-														 (GdaSet*)plist, NULL, NULL);	
-	
-	MP_RESET_PLIST(plist);
-	
+														 (GdaSet*)plist, NULL, NULL);
+
 	/* emits removed symbols signals */
 	sdb_engine_detects_removed_ids (dbe);
 	

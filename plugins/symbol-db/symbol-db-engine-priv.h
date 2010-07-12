@@ -49,31 +49,7 @@
 #define THREADS_MAX_CONCURRENT			2
 #define TRIGGER_SIGNALS_DELAY			100
 
-#define MEMORY_POOL_STRING_SIZE			40000
-#define MEMORY_POOL_INT_SIZE			40000
-
-#define DUMMY_VOID_STRING				""
-#define MP_VOID_STRING					"-"
-
 #define BATCH_SYMBOL_NUMBER				15000
-
-#define MP_RESET_OBJ_STR(gvalue) \
-		g_value_set_static_string (gvalue, DUMMY_VOID_STRING);
-
-/* given a GdaSet plist this macro resets all the GValues associated within its
- * GdaHolders.
- */
-#define MP_RESET_PLIST(plist) { \
-	if (plist != NULL) \
-	{ \
-		GSList* holders; \
-		for (holders = plist->holders; holders; holders = holders->next) { \
-			GValue *gvalue = (GValue*)gda_holder_get_value (holders->data); \
-			if (G_VALUE_HOLDS_STRING(gvalue)) \
-				MP_RESET_OBJ_STR(gvalue); \
-		} \
-	} \
-}
 
 #define SDB_QUERY_SEARCH_HEADER \
 	GValue v = {0}; \
@@ -220,10 +196,6 @@ struct _SymbolDBEnginePriv
 	GQueue *tmp_heritage_tablemap;
 	
 	static_query_node *static_query_list[PREP_QUERY_COUNT]; 
-
-	/* Memory pool */
-	GQueue *mem_pool_string;
-	GQueue *mem_pool_int;
 
 #ifdef DEBUG
 	GTimer *first_scan_timer_DEBUG;
