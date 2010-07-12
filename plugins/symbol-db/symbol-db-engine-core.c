@@ -1037,13 +1037,19 @@ sdb_engine_timeout_trigger_signals (gpointer user_data)
 	g_return_val_if_fail (user_data != NULL, FALSE);	
 	priv = dbe->priv;		
 
-	if (g_async_queue_length (priv->signals_queue) > 0)
+	if (priv->signals_queue != NULL && 
+	    g_async_queue_length (priv->signals_queue) > 0)
 	{
 		gpointer tmp;
 		gpointer sign = NULL;
 		gsize real_signal;
-	
-		while ((sign = g_async_queue_try_pop (priv->signals_queue)) != NULL)  
+
+
+
+
+		
+		while (priv->signals_queue != NULL &&  
+		    (sign = g_async_queue_try_pop (priv->signals_queue)) != NULL)  
 		{
 			if (sign == NULL) 
 			{
@@ -1110,7 +1116,8 @@ sdb_engine_timeout_trigger_signals (gpointer user_data)
 		priv->trigger_closure_retries++;
 	}
 	
-	if (g_thread_pool_unprocessed (priv->thread_pool) == 0 &&
+	if (priv->thread_pool != NULL &&
+	    g_thread_pool_unprocessed (priv->thread_pool) == 0 &&
 		g_thread_pool_get_num_threads (priv->thread_pool) == 0)
 	{
 		/* remove the trigger coz we don't need it anymore... */
@@ -1949,9 +1956,11 @@ sdb_engine_finalize (GObject * object)
 
 	if (priv->sym_type_conversion_hash)
 		g_hash_table_destroy (priv->sym_type_conversion_hash);
+	priv->sym_type_conversion_hash = NULL;
 	
 	if (priv->signals_queue)
 		g_async_queue_unref (priv->signals_queue);
+	priv->signals_queue = NULL;
 	
 	sdb_engine_clear_caches (dbe);
 	sdb_engine_clear_tablemaps (dbe);
@@ -4464,10 +4473,10 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 													 (GdaStatement*)stmt, 
 													 (GdaSet*)plist, &last_inserted,
 													 &error);
-
+	
 	if (error)
 	{
-		g_warning ("SQL parsing failed: %s",error->message);
+		DEBUG_PRINT ("SQL parsing failed: %s", error->message);
 		g_error_free (error);
 	}
 	

@@ -15,8 +15,6 @@ benchmark_sqlite_LDFLAGS = \
 	$(PLUGIN_SYMBOL_DB_LIBS) \
 	`pkg-config --libs sqlite3`
 	
-benchmark_libgda_LDADD = ../../libanjuta-symbol-db.la
-
 
 ## File created by the gnome-build tools
 
