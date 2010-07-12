@@ -1,1 +1,1 @@
-SUBDIRS = symbol-db libgda
+SUBDIRS = symbol-db libgda sqlite
