@@ -509,6 +509,7 @@ sdb_query_execute_real (SymbolDBQuery *query)
 	data_model = symbol_db_engine_execute_select (priv->dbe_selected,
 	                                              priv->stmt,
 	                                              priv->params);
+	
 	if (!data_model) return GINT_TO_POINTER (-1);
 	return symbol_db_query_result_new (data_model, 
 	                                   priv->fields,
@@ -526,15 +527,16 @@ sdb_query_handle_result (SymbolDBQuery *query, SymbolDBQueryResult *result)
 	}
 	else
 	{
-		if (result == NULL || symbol_db_query_result_is_empty (result))
+		if (symbol_db_query_result_is_empty (result))
 		{
 			g_signal_emit_by_name (query, "async-result", NULL);
 		}
 		else
 		{			
-			g_signal_emit_by_name (query, "async-result", result);
-			g_object_unref (result);
+			g_signal_emit_by_name (query, "async-result", result);			
 		}
+		if (result)
+			g_object_unref (result);
 	}
 }
 
