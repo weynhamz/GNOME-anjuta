@@ -39,6 +39,7 @@
 #include "git-add-remote-pane.h"
 #include "git-delete-remote-pane.h"
 #include "git-fetch-pane.h"
+#include "git-resolve-conflicts-pane.h"
 
 AnjutaCommandBarEntry branch_entries[] =
 {
@@ -149,8 +150,15 @@ AnjutaCommandBarEntry status_entries[] =
 		N_("Remove staged files from the index"),
 		GTK_STOCK_CANCEL,
 		G_CALLBACK (on_unstage_button_clicked)
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"ResolveConflicts",
+		N_("Resolve conflicts"),
+		N_("Mark selected conflicted files as resolved"),
+		GTK_STOCK_PREFERENCES,
+		G_CALLBACK (on_resolve_conflicts_button_clicked)
 	}
-	
 };
 
 AnjutaCommandBarEntry remotes_entries[] =
