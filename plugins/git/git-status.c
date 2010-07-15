@@ -53,8 +53,22 @@ git_status_init (GitStatus *self)
 						 "deleted", 
 						 GINT_TO_POINTER (ANJUTA_VCS_STATUS_DELETED));
 	
+	/* Git 1.7 added a bunch of different conflicted states */
+
 	g_hash_table_insert (self->priv->status_lookup_table,
 						 "unmerged", 
+						 GINT_TO_POINTER (ANJUTA_VCS_STATUS_CONFLICTED));
+
+	g_hash_table_insert (self->priv->status_lookup_table,
+						 "both modified", 
+						 GINT_TO_POINTER (ANJUTA_VCS_STATUS_CONFLICTED));
+
+	g_hash_table_insert (self->priv->status_lookup_table,
+						 "both added", 
+						 GINT_TO_POINTER (ANJUTA_VCS_STATUS_CONFLICTED));
+
+	g_hash_table_insert (self->priv->status_lookup_table,
+						 "both deleted", 
 						 GINT_TO_POINTER (ANJUTA_VCS_STATUS_CONFLICTED));
 	
 	g_hash_table_insert (self->priv->status_lookup_table,

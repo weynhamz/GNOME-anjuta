@@ -24,7 +24,7 @@
 
 #include "git-status-command.h"
 
-#define STATUS_REGEX "(modified|new file|deleted|unmerged):   (.*)"
+#define STATUS_REGEX "(modified|new file|deleted|unmerged|both modified|both added|both deleted):   (.*)"
 #define UNTRACKED_FILES_REGEX "(?:#\\t)(.*)"
 #define SECTION_COMMIT_REGEX "Changes to be committed:"
 #define SECTION_NOT_UPDATED_REGEX "Changed but not updated:"
