@@ -28,15 +28,14 @@
 		symbol.scope_definition_id, \
 		symbol.signature, \
 		symbol.returntype, \
+		symbol.type_type, \
+		symbol.type_name, \
 		file.file_path, \
 		sym_access.access_name, \
-		sym_type.type_type, \
-		sym_type.type_name, \
 		sym_kind.is_container \
 	FROM symbol \
 	LEFT JOIN file ON symbol.file_defined_id = file.file_id \
 	LEFT JOIN sym_access ON symbol.access_kind_id = sym_access.access_kind_id \
-	LEFT JOIN sym_type ON symbol.type_id = sym_type.type_id \
 	LEFT JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id \
 	WHERE \
 	( \

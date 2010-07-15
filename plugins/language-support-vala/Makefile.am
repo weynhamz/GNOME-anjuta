@@ -31,20 +31,14 @@ AM_CPPFLAGS = \
 	-DG_LOG_DOMAIN=\"language-support-vala\" \
 	--no-warn
 
+VALAFLAGS = --vapidir $(srcdir) --pkg vala-1.0 --pkg libanjuta-1.0
+
 # The plugin
 plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-language-vala.la
 
 # Plugin sources
-libanjuta_language_vala_la_VALASOURCES = locator.vala plugin.vala provider.vala report.vala
-libanjuta_language_vala_la_SOURCES = plugin.vala.stamp $(libanjuta_language_vala_la_VALASOURCES:.vala=.c)
-
-
-plugin.vala.stamp: $(libanjuta_language_vala_la_VALASOURCES)
-	$(VALAC) --disable-warnings --vapidir $(srcdir) --pkg vala-1.0 --pkg libanjuta-1.0 -C $^
-	@touch $@
-
-
+libanjuta_language_vala_la_SOURCES = locator.vala plugin.vala provider.vala report.vala
 libanjuta_language_vala_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 # Plugin dependencies
@@ -52,13 +46,11 @@ libanjuta_language_vala_la_LIBADD = \
 	$(LIBANJUTA_LIBS) \
 	$(VALA_LIBS)
 
-BUILT_SOURCES = plugin.vala.stamp
 endif # ENABLE_VALA
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
-	$(vala_plugin_DATA) \
-	$(libanjuta_language_vala_la_VALASOURCES:.vala=.c)
+	$(vala_plugin_DATA)
 
 -include $(top_srcdir)/git.mk
 

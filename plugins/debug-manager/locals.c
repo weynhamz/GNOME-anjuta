@@ -70,9 +70,7 @@ locals_updated (const gpointer data, gpointer user_data, GError *error)
 	if (g_list_length ((GList*)list) < 1)
 		return;
 
-	debug_tree_update_all(self->debug_tree);
 	debug_tree_replace_list (self->debug_tree, list);
-	debug_tree_update_all(self->debug_tree);
 }
 
 /* Private functions
@@ -187,10 +185,45 @@ dma_thread_add_local (Locals *self, GtkTreeModel *model, gint thread, guint fram
 
 static void locals_update (Locals *self, gint thread)
 {
-	dma_thread_clear_all_locals (self);
-
-	dma_thread_add_local (self, debug_tree_get_model (self->debug_tree), thread, 0);
+	GList *list;
+	DmaThreadLocal *frame;
 	
+	/* Delete all local tree except the main one. It allow to keep the selected
+	 * and the expanded item in the common case. */
+	self->current = NULL;
+	for (list = g_list_first (self->list); list != NULL;)
+	{
+		frame = (DmaThreadLocal *)list->data;
+		
+		if ((frame->thread == thread) && (frame->frame == 0))
+		{
+			self->current = frame;
+			debug_tree_set_model (self->debug_tree, frame->model);
+			list = g_list_next (list);
+		}
+		else
+		{
+			GList *next;
+			
+			debug_tree_remove_model (self->debug_tree, frame->model);
+			g_object_unref (G_OBJECT (frame->model));
+			g_free (frame);
+			next = g_list_next (list);
+			self->list = g_list_delete_link (self->list, list);
+			list = next;
+		}
+	}
+	
+	/* Add new frame if needed */
+	if (self->current == NULL)
+	{
+		dma_thread_add_local (self, debug_tree_get_model (self->debug_tree), thread, 0);
+	}
+	
+	/* Update all variables in all tree, so including watches */
+	debug_tree_update_all (self->debugger);
+	
+	/* List new local variables and display them in local window */
 	dma_queue_list_local (self->debugger, locals_updated, self);
 }
 
@@ -214,6 +247,8 @@ locals_change_frame (Locals *self, guint frame, gint thread)
 	
 	debug_tree_new_model (self->debug_tree);
 	dma_thread_add_local (self, debug_tree_get_model (self->debug_tree), thread, frame);
+	
+	/* List new local variables and display them in local window */
 	dma_queue_list_local (self->debugger, locals_updated, self);
 }
 

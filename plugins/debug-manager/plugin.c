@@ -535,9 +535,7 @@ dma_plugin_debugger_stopped (DebugManagerPlugin *self, GError *err)
 
 	/* clear indicator */
 	set_program_counter (self, NULL, 0, 0);
-	
-	enable_log_view (self, FALSE);
-	
+
 	state = anjuta_shell_get_status(ANJUTA_PLUGIN (self)->shell, NULL);
 	anjuta_status_set_default (state, _("Debugger"), NULL);
 

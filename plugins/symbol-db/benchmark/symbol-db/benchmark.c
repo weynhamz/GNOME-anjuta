@@ -1,8 +1,10 @@
 /* Symbol db performance stress test */
 
 
-#include "../symbol-db-engine.h"
+#include "../../symbol-db-engine.h"
 #include <gtk/gtk.h>
+
+static GMainLoop *main_loop;
 
 static GPtrArray * 
 get_source_files_by_mime (const gchar* dir, const GHashTable *mimes)
@@ -70,7 +72,8 @@ on_scan_end (SymbolDBEngine* engine, gpointer user_data)
 	g_message ("on_scan_end  ()");
 	symbol_db_engine_close_db (engine);
 	g_object_unref (engine);
-  	exit(0);
+
+ 	g_main_loop_quit(main_loop);
 }
 
 int main (int argc, char** argv)
@@ -82,8 +85,10 @@ int main (int argc, char** argv)
 	GFile *g_dir;
 	GHashTable *mimes;
 	int i;
-	
-  	gtk_init(&argc, &argv);
+
+	main_loop = g_main_loop_new (NULL, FALSE);
+
+	gtk_init(&argc, &argv);
   	g_thread_init (NULL);
 	gda_init ();
 	
@@ -104,7 +109,7 @@ int main (int argc, char** argv)
 	
     engine = symbol_db_engine_new_full ("anjuta-tags", "benchmark-db");
   
-	if (symbol_db_engine_open_db (engine, root_dir, root_dir, FALSE) == DB_OPEN_STATUS_FATAL)
+	if (symbol_db_engine_open_db (engine, root_dir, root_dir) == DB_OPEN_STATUS_FATAL)
 	{
 		g_message ("Could not open database: %s", root_dir);
 		return -1;
@@ -133,7 +138,7 @@ int main (int argc, char** argv)
 	g_free (root_dir);
 	g_object_unref (g_dir);
 	
-	gtk_main();
+	g_main_loop_run (main_loop);
 	
 	return 0;
 }

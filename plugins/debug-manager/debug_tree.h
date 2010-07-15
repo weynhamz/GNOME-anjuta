@@ -37,6 +37,8 @@ DebugTree* debug_tree_new (AnjutaPlugin* plugin);
 DebugTree* debug_tree_new_with_view (AnjutaPlugin *plugin, GtkTreeView *view);
 void debug_tree_free (DebugTree *tree);
 
+void debug_tree_dump (void);
+
 void debug_tree_connect (DebugTree *tree, DmaDebuggerQueue *debugger);
 void debug_tree_disconnect (DebugTree *tree);
 
@@ -46,7 +48,8 @@ void debug_tree_add_watch (DebugTree *tree, const IAnjutaDebuggerVariableObject*
 void debug_tree_add_dummy (DebugTree *tree, GtkTreeIter *parent);
 void debug_tree_add_full_watch_list (DebugTree *tree, GList *expressions);
 void debug_tree_add_watch_list (DebugTree *tree, GList *expressions, gboolean auto_update);
-void debug_tree_update_all (DebugTree *tree);
+void debug_tree_update_tree (DebugTree *tree);
+void debug_tree_update_all (DmaDebuggerQueue *debugger);
 
 GList* debug_tree_get_full_watch_list (DebugTree *tree);
 

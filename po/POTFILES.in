@@ -103,9 +103,11 @@ plugins/gbf-mkfile/gbf-mkfile-config.c
 plugins/gbf-mkfile/gbf-mkfile-project.c
 plugins/gbf-mkfile/gbf-mkfile-properties.c
 plugins/dir-project/dir-project.c
+[type: gettext/glade]plugins/gdb/anjuta-gdb.ui
 plugins/gdb/debugger.c
 plugins/gdb/plugin.c
 plugins/gdb/utilities.c
+plugins/gdb/preferences.c
 [type: gettext/glade]plugins/git/anjuta-git.ui
 plugins/git/git-add-dialog.c
 plugins/git/git-add-remote-dialog.c

@@ -5333,12 +5333,12 @@ interface IAnjutaSymbol
 		FIELD_FILE_SCOPE,
 		FIELD_SIGNATURE,
 		FIELD_RETURNTYPE,
+		FIELD_TYPE,
+		FIELD_TYPE_NAME,		
 		FIELD_FILE_PATH,
 		FIELD_IMPLEMENTATION,
 		FIELD_ACCESS,
 		FIELD_KIND,
-		FIELD_TYPE,
-		FIELD_TYPE_NAME,
 		FIELD_IS_CONTAINER,
 		FIELD_END
 	}
@@ -5855,21 +5855,6 @@ interface IAnjutaPrint
 	*/
 
 	void print_preview();
-}
-
-/**
- * SECTION:ianjuta-language-support
- * @title: IAnjutaLanguageSupport
- * @short_description: Programming language specific supports from plugins
- * @see_also: 
- * @stability: Unstable
- * @include: libanjuta/interfaces/ianjuta-language-support.h
- * 
- */
-interface IAnjutaLanguageSupport
-{
-    List<const gchar*> get_supported_languages ();
-    gboolean supports(const gchar *language);
 }
 
 /**

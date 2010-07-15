@@ -15,28 +15,6 @@ CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
                       analyse_time date
                       );
 
-DROP TABLE IF EXISTS file_include;
-CREATE TABLE file_include (file_include_id integer PRIMARY KEY AUTOINCREMENT,
-                           file_include_type text not null unique
-                           );
-
-DROP TABLE IF EXISTS ext_include;
-CREATE TABLE ext_include (prj_id integer REFERENCES project (project_id),
-                          file_incl_id integer REFERENCES file_include (file_include_id),
-                          PRIMARY KEY (prj_id, file_incl_id)
-                          );
-
-DROP TABLE IF EXISTS file_ignore;
-CREATE TABLE file_ignore (file_ignore_id integer PRIMARY KEY AUTOINCREMENT,
-                          file_ignore_type text unique                          
-                          );
-
-DROP TABLE IF EXISTS ext_ignore;
-CREATE TABLE ext_ignore (prj_id integer REFERENCES project (project_id),
-                         file_ign_id integer REFERENCES file_ignore (file_ignore_id),
-                         PRIMARY KEY (prj_id, file_ign_id)
-                         );
-
 DROP TABLE IF EXISTS file;
 CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
                    file_path text not null unique,
@@ -59,20 +37,14 @@ CREATE TABLE symbol (symbol_id integer PRIMARY KEY AUTOINCREMENT,
                      returntype text,
                      scope_definition_id integer,
                      scope_id integer,
-                     type_id integer REFERENCES sym_type (type_id),
+                     type_type text not null,
+					 type_name text not null,
                      kind_id integer REFERENCES sym_kind (sym_kind_id),
                      access_kind_id integer REFERENCES sym_access (sym_access_id),
                      implementation_kind_id integer REFERENCES sym_implementation (sym_impl_id),
                      update_flag integer default 0,
                      unique (name, file_defined_id, file_position)
                      );
-
-DROP TABLE IF EXISTS sym_type;
-CREATE TABLE sym_type (type_id integer PRIMARY KEY AUTOINCREMENT,
-                   type_type text not null,
-                   type_name text not null,
-                   unique (type_type, type_name)
-                   );
 
 DROP TABLE IF EXISTS sym_kind;
 CREATE TABLE sym_kind (sym_kind_id integer PRIMARY KEY AUTOINCREMENT,
@@ -99,8 +71,7 @@ CREATE TABLE heritage (symbol_id_base integer REFERENCES symbol (symbol_id),
 DROP TABLE IF EXISTS scope;
 CREATE TABLE scope (scope_id integer PRIMARY KEY AUTOINCREMENT,
                     scope_name text not null,
-                    type_id integer,
-                    unique (scope_name, type_id)
+                    unique (scope_name)
                     );
 
 DROP TABLE IF EXISTS version;
@@ -112,14 +83,18 @@ CREATE TABLE __tmp_removed (tmp_removed_id integer PRIMARY KEY AUTOINCREMENT,
                             symbol_removed_id integer not null
                             );
 
-DROP INDEX IF EXISTS symbol_idx_1;
-CREATE INDEX symbol_idx_1 ON symbol (name, file_defined_id, type_id);
 
+DROP INDEX IF EXISTS symbol_idx_1;
+CREATE INDEX symbol_idx_1 ON symbol (name, file_defined_id, type_type, type_name);
+
+-- removing this index isn't worth because the performance gain is invisible.
 DROP INDEX IF EXISTS symbol_idx_2;
 CREATE INDEX symbol_idx_2 ON symbol (scope_id);
 
+-- removing this index isn't worth because the performance gain is invisible.
 DROP INDEX IF EXISTS symbol_idx_3;
-CREATE INDEX symbol_idx_3 ON symbol (type_id);
+CREATE INDEX symbol_idx_3 ON symbol (type_type, type_name);
+
 
 DROP TRIGGER IF EXISTS delete_file_trg;
 CREATE TRIGGER delete_file_trg BEFORE DELETE ON file

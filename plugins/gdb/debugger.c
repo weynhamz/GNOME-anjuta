@@ -4047,7 +4047,7 @@ void debugger_create_variable (Debugger *debugger, const gchar* name, IAnjutaDeb
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
-	buff = g_strdup_printf ("-var-create - * %s", name);
+	buff = g_strdup_printf ("-var-create - @ %s", name);
 	debugger_queue_command (debugger, buff, 0, gdb_var_create, callback, user_data);
 	g_free (buff);
 }
@@ -4086,7 +4086,7 @@ gdb_var_update (Debugger *debugger,
 			{
 				const gchar *type_changed = gdbmi_value_literal_get (value);
 				
-				if (strcmp (type_changed, "true"))
+				if (strcmp (type_changed, "true") == 0)
 				{
 					var->deleted = TRUE;
 				}

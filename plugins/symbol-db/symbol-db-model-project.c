@@ -28,15 +28,14 @@
 		symbol.scope_definition_id, \
 		symbol.signature, \
 		symbol.returntype, \
+		symbol.type_type, \
+		symbol.type_name, \
 		file.file_path, \
 		sym_access.access_name, \
-		sym_type.type_type, \
-		sym_type.type_name, \
 		sym_kind.is_container \
 	FROM symbol \
 	LEFT JOIN file ON symbol.file_defined_id = file.file_id \
 	LEFT JOIN sym_access ON symbol.access_kind_id = sym_access.access_kind_id \
-	LEFT JOIN sym_type ON symbol.type_id = sym_type.type_id \
 	LEFT JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id \
 	WHERE \
 	( \
@@ -89,6 +88,7 @@ struct _SymbolDBModelProjectPriv
 	gboolean show_file_line;
 };
 
+/* this values must map the fields of SDB_MODEL_PROJECT_SQL */
 enum {
 	DATA_COL_SYMBOL_ID,
 	DATA_COL_SYMBOL_NAME,
@@ -96,10 +96,10 @@ enum {
 	DATA_COL_SYMBOL_SCOPE_DEFINITION_ID,
 	DATA_COL_SYMBOL_ARGS,
 	DATA_COL_SYMBOL_RETURNTYPE,
+	DATA_COL_SYMBOL_TYPE,
+	DATA_COL_SYMBOL_TYPE_NAME,	
 	DATA_COL_SYMBOL_FILE_PATH,
 	DATA_COL_SYMBOL_ACCESS,
-	DATA_COL_SYMBOL_TYPE,
-	DATA_COL_SYMBOL_TYPE_NAME,
 	DATA_COL_SYMBOL_HAS_CHILD,
 	DATA_N_COLS
 };

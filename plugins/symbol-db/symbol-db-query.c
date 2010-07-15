@@ -85,7 +85,6 @@ typedef enum
 	SDB_QUERY_TABLE_FILE,
 	SDB_QUERY_TABLE_IMPLEMENTATION,
 	SDB_QUERY_TABLE_ACCESS,
-	SDB_QUERY_TABLE_TYPE,
 	SDB_QUERY_TABLE_KIND,
 	SDB_QUERY_TABLE_MAX,
 }  SdbQueryTable;
@@ -97,7 +96,6 @@ static gchar *table_joins[] =
 	"LEFT JOIN file ON symbol.file_defined_id = file.file_id",
 	"LEFT JOIN sym_implementation ON symbol.implementation_kind_id = sym_implementation.sym_impl_id",
 	"LEFT JOIN sym_access ON symbol.access_kind_id = sym_access.access_kind_id",
-	"LEFT JOIN sym_type ON symbol.type_id = sym_type.type_id",
 	"LEFT JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id"
 };
 
@@ -119,12 +117,12 @@ SdbQueryFieldSpec field_specs[] = {
 	{"symbol.is_file_scope ", SDB_QUERY_TABLE_SYMBOL},
 	{"symbol.signature ", SDB_QUERY_TABLE_SYMBOL},
 	{"symbol.returntype ", SDB_QUERY_TABLE_SYMBOL},
+	{"symbol.type_type", SDB_QUERY_TABLE_SYMBOL},
+	{"symbol.type_name", SDB_QUERY_TABLE_SYMBOL},
 	{"file.file_path", SDB_QUERY_TABLE_FILE},
 	{"sym_implementation.implementation_name", SDB_QUERY_TABLE_IMPLEMENTATION},
 	{"sym_access.access_name", SDB_QUERY_TABLE_ACCESS},
 	{"sym_kind.kind_name ", SDB_QUERY_TABLE_KIND},
-	{"sym_type.type_type ", SDB_QUERY_TABLE_TYPE},
-	{"sym_type.type_name", SDB_QUERY_TABLE_TYPE},
 	{"sym_kind.is_container", SDB_QUERY_TABLE_KIND}
 };
 
@@ -465,7 +463,8 @@ sdb_query_update (SymbolDBQuery *query)
 	/* Prepare statement */
 	g_free (priv->sql_stmt);
 	priv->sql_stmt = sql->str;
-	if (priv->stmt) g_object_unref (priv->stmt);
+	if (priv->stmt) 
+		g_object_unref (priv->stmt);
 
 	/* If database is not connected, defer the statement compilation for later,
 	 * otherwise compile it now.
@@ -510,6 +509,7 @@ sdb_query_execute_real (SymbolDBQuery *query)
 	data_model = symbol_db_engine_execute_select (priv->dbe_selected,
 	                                              priv->stmt,
 	                                              priv->params);
+	
 	if (!data_model) return GINT_TO_POINTER (-1);
 	return symbol_db_query_result_new (data_model, 
 	                                   priv->fields,
@@ -528,10 +528,15 @@ sdb_query_handle_result (SymbolDBQuery *query, SymbolDBQueryResult *result)
 	else
 	{
 		if (symbol_db_query_result_is_empty (result))
+		{
 			g_signal_emit_by_name (query, "async-result", NULL);
+		}
 		else
-			g_signal_emit_by_name (query, "async-result", result);
-		g_object_unref (result);
+		{			
+			g_signal_emit_by_name (query, "async-result", result);			
+		}
+		if (result)
+			g_object_unref (result);
 	}
 }
 
@@ -670,7 +675,8 @@ sdb_query_execute (SymbolDBQuery *query)
 			/* Empty resultset is useless for us. Return NULL instead */
 			if (result == NULL || symbol_db_query_result_is_empty (result))
 			{
-				g_object_unref (result);
+				if (result != NULL)
+					g_object_unref (result);
 				return NULL;
 			}
 			return IANJUTA_ITERABLE (result);
@@ -1130,35 +1136,6 @@ sdb_query_set_file_scope (IAnjutaSymbolQuery *query,
 
 /* Search queries */
 
-#define SDB_QUERY_SEARCH_HEADER \
-	GValue v = {0}; \
-	SymbolDBQueryPriv *priv; \
-	g_return_val_if_fail (SYMBOL_DB_IS_QUERY (query), NULL); \
-	priv = SYMBOL_DB_QUERY (query)->priv;
-
-#define SDB_PARAM_SET_INT(gda_param, int_value) \
-	g_value_init (&v, G_TYPE_INT); \
-	g_value_set_int (&v, (int_value)); \
-	gda_holder_set_value ((gda_param), &v, NULL); \
-	g_value_unset (&v);
-
-#define SDB_PARAM_SET_STRING(gda_param, str_value) \
-	g_value_init (&v, G_TYPE_STRING); \
-	g_value_set_string (&v, (str_value)); \
-	gda_holder_set_value ((gda_param), &v, NULL); \
-	g_value_unset (&v);
-
-#define SDB_PARAM_SET_STATIC_STRING(gda_param, str_value) \
-	g_value_init (&v, G_TYPE_STRING); \
-	g_value_set_static_string (&v, (str_value)); \
-	gda_holder_set_value ((gda_param), &v, NULL); \
-	g_value_unset (&v);
-
-#define SDB_PARAM_TAKE_STRING(gda_param, str_value) \
-	g_value_init (&v, G_TYPE_STRING); \
-	g_value_take_string (&v, (str_value)); \
-	gda_holder_set_value ((gda_param), &v, NULL); \
-	g_value_unset (&v);
 
 static IAnjutaIterable*
 sdb_query_search (IAnjutaSymbolQuery *query, const gchar *search_string,

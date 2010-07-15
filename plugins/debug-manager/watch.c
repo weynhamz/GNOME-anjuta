@@ -200,19 +200,12 @@ debug_tree_change_watch_dialog (ExprWatch *ew, GtkTreeIter* iter)
 }
 
 static void
-on_program_stopped (ExprWatch *ew)
-{
-	debug_tree_update_all (ew->debug_tree);
-}
-
-static void
 on_program_exited (ExprWatch *ew)
 {
 	debug_tree_disconnect (ew->debug_tree);
 
 	/* Disconnect to other debugger signal */
 	g_signal_handlers_disconnect_by_func (ew->plugin, G_CALLBACK (on_program_exited), ew);
-	g_signal_handlers_disconnect_by_func (ew->plugin, G_CALLBACK (on_program_stopped), ew);
 }
 
 static void
@@ -224,7 +217,6 @@ on_program_started (ExprWatch *ew)
 	
 	/* Connect to other debugger signal */
 	g_signal_connect_swapped (ew->plugin, "program-exited", G_CALLBACK (on_program_exited), ew);
-	g_signal_connect_swapped (ew->plugin, "program-stopped", G_CALLBACK (on_program_stopped), ew);
 }
 
 /* Menu call backs
@@ -315,7 +307,7 @@ on_debug_tree_update_all_watch (GtkAction *action, gpointer user_data)
 {
 	ExprWatch * ew = (ExprWatch *)user_data;
 	
-	debug_tree_update_all (ew->debug_tree);
+	debug_tree_update_tree (ew->debug_tree);
 }
 
 static void

@@ -1,3 +1,31 @@
+Anjuta 2.31.5 "Too hot to code" (12 June 2010) -- Johannes Schmid
+
+New:
+- Debugger supports pretty-printing now
+
+Updated:
+- More work on the symbol database code quality and performance
+
+Bugs fixed:
+project-wizard: bgo #623754  - focus on wrong text-field
+run: bgo #623944  - buttons swapped on "Program parameters"
+gdb: bgo#494292  - Set next statement
+gdb: bgo #617323  - Save debugger stack trace
+configure: Fix the forced debugging mode even if --disable-debug is given (bgo#612453)
+Fix for bgo #622706 and allow to sort shortcuts by accelerator
+symbol-db: Fixed bgo #617472: doubled items in locals view
+bgo #622526  - HAVE_INTROSPECTION does not appear in AM_CONDITIONAL
+terminal: bgo#619253  - Problem of ianjuta_terminal_execute_command in 2.28
+anjuta: F6 switches focus instead of setting over (bgo#621678)
+symbol-db: Fixed crasher bgo #622139
+project-wizard: bgo #621512  - Remove deprecated glib symbols
+language-support-vala: bgo#620927  - Vala plugin compilation
+libanjuta: bgo#620664  - Drag and drop of multiple source files
+
+Thanks to Abderrahim Kitouni, Akom C, Andika Triwidada, Fran Diéguez,
+G. Baylard, Gennaro Bellizio, Jorge González, Massimo Corà, Matej Urbančič,
+Naba Kumar, Romain Perier Sébastien Granjoux
+
 Anjuta 2.31.3 "Smile, tommorow will be worse" (7 June 2010) -- Johannes Schmid
 
 New:
