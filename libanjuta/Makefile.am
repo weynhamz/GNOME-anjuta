@@ -174,7 +174,6 @@ libanjuta_include = \
 	anjuta-dock.h \
 	anjuta-dock-pane.h \
 	anjuta-file-list.h \
-	anjuta-tabber.h \
 	anjuta-pkg-config-chooser.h
 
 libanjutainclude_HEADERS = \
