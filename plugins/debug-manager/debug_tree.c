@@ -710,6 +710,7 @@ debug_tree_create (DebugTree *tree, GtkTreeView *view)
 	gtk_tree_view_column_add_attribute (column, renderer, "editable", ROOT_COLUMN);
 	g_signal_connect(renderer, "edited", (GCallback) on_debug_tree_variable_changed, tree);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+	gtk_tree_view_column_set_resizable (column, TRUE);
 	gtk_tree_view_column_set_title (column, _(tree_title[0]));
 	gtk_tree_view_append_column (view, column);
 	gtk_tree_view_set_expander_column (view, column);
@@ -723,6 +724,7 @@ debug_tree_create (DebugTree *tree, GtkTreeView *view)
 	g_object_set(renderer, "editable", TRUE, NULL);	
 	g_signal_connect(renderer, "edited", (GCallback) on_debug_tree_value_changed, tree);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+	gtk_tree_view_column_set_resizable (column, TRUE);
 	gtk_tree_view_column_set_title (column, _(tree_title[1]));
 	gtk_tree_view_append_column (view, column);
 
@@ -732,6 +734,7 @@ debug_tree_create (DebugTree *tree, GtkTreeView *view)
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (column, renderer, "text", TYPE_COLUMN);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+	gtk_tree_view_column_set_resizable (column, TRUE);
 	gtk_tree_view_column_set_title (column, _(tree_title[2]));
 	gtk_tree_view_append_column (view, column);
 
