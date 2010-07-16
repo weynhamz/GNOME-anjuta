@@ -39,6 +39,7 @@
 
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-utils.h>
+#include <libanjuta/anjuta-pkg-config-chooser.h>
 
 /*---------------------------------------------------------------------------*/
 
@@ -80,7 +81,8 @@ static const gchar* NPWPropertyTypeString[] = {
 	"list",
 	"directory",
 	"file",
-	"icon"
+	"icon",
+	"package",
 };
 
 static const gchar* NPWPropertyRestrictionString[] = {
@@ -345,6 +347,7 @@ static void
 cb_browse_button_clicked (GtkButton *button, NPWProperty* prop)
 {
 	GtkWidget *dialog;
+	GtkWidget *list;
 	
 	switch (prop->type)
 	{
@@ -364,18 +367,58 @@ cb_browse_button_clicked (GtkButton *button, NPWProperty* prop)
 				      							 GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
 				      							 NULL);
 		break;
+	case NPW_PACKAGE_PROPERTY:
+	{
+		GtkWidget *scroll_window;
+		GtkWidget *content_area;
+		GtkWidget *action_area;
+
+		dialog = gtk_dialog_new_with_buttons (_("Select package"),
+												GTK_WINDOW (gtk_widget_get_ancestor (prop->widget, GTK_TYPE_WINDOW)),
+												GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+												GTK_STOCK_CANCEL,
+												GTK_RESPONSE_REJECT,
+												GTK_STOCK_ADD,
+												GTK_RESPONSE_ACCEPT,
+												NULL);
+		content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
+		action_area = gtk_dialog_get_action_area (GTK_DIALOG (dialog));
+		gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
+		gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
+		gtk_box_set_spacing (GTK_BOX (content_area), 2);
+		gtk_container_set_border_width (GTK_CONTAINER (action_area), 5);
+		gtk_window_set_default_size (GTK_WINDOW (dialog), 600, 500);
+		
+		scroll_window = gtk_scrolled_window_new (NULL, NULL);
+		gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scroll_window), GTK_SHADOW_IN);
+		gtk_container_add (GTK_CONTAINER (content_area), scroll_window);
+
+		list = anjuta_pkg_config_chooser_new ();
+		anjuta_pkg_config_chooser_show_active_column (ANJUTA_PKG_CONFIG_CHOOSER (list), FALSE);
+		gtk_container_add (GTK_CONTAINER (scroll_window), list);
+
+		gtk_widget_show_all (dialog);
+		break;
+	}
 	default:
 		g_return_if_reached ();
 	}
 
 	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT)
-  	{
-    	gchar *filename;
+	{
+		gchar *name;
 
-    	filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
-		gtk_entry_set_text (GTK_ENTRY (prop->widget), filename);
-    	g_free (filename);
-  	}
+		if (prop->type == NPW_PACKAGE_PROPERTY)
+		{
+			name = anjuta_pkg_config_chooser_get_selected_package (ANJUTA_PKG_CONFIG_CHOOSER (list));
+		}
+		else
+		{
+			name = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
+		}
+		gtk_entry_set_text (GTK_ENTRY (prop->widget), name);
+		g_free (name);
+	}
 	gtk_widget_destroy (dialog);
 }
 
@@ -554,6 +597,23 @@ npw_property_create_widget (NPWProperty* prop)
 		if (value) gtk_entry_set_text (GTK_ENTRY (child), value);
 		break;
 	}
+	case NPW_PACKAGE_PROPERTY:
+	{
+		GtkWidget *button;
+	
+		// Use an entry box and a browse button
+		widget = gtk_hbox_new (FALSE, 3);
+
+		entry = gtk_entry_new ();
+		if (value) gtk_entry_set_text (GTK_ENTRY (entry), value);
+		gtk_container_add (GTK_CONTAINER (widget), entry);
+			
+		button = gtk_button_new_from_stock (GTK_STOCK_ADD);
+		g_signal_connect (button, "clicked", G_CALLBACK (cb_browse_button_clicked), prop);
+		gtk_container_add (GTK_CONTAINER (widget), button);
+		gtk_box_set_child_packing (GTK_BOX (widget), button, FALSE, TRUE, 0, GTK_PACK_END);
+		break;
+	}
 	default:
 		return NULL;
 	}
@@ -668,6 +728,9 @@ npw_property_set_value_from_widget (NPWProperty* prop, NPWValueTag tag)
 		}
 		break;
 	}
+	case NPW_PACKAGE_PROPERTY:
+		value = gtk_entry_get_text (GTK_ENTRY (prop->widget));
+		break;
 	default:
 		/* Hidden property */
 		value = prop->defvalue;
