@@ -53,12 +53,11 @@
 	</menubar>
 	<toolbar name="ToolbarMain">
 		<placeholder name="PlaceholderDebugToolbar" >
-			<toolitem name="Run" action="ActionDebuggerRunContinue" />
+			<toolitem name="Run" action="ActionDebuggerContinueSuspend" />
 			<toolitem name="RunToPosition" action="ActionDebuggerRunToPosition" />
 			<toolitem name="StepIn" action="ActionDebuggerStepIn" />
 			<toolitem name="StepOver" action="ActionDebuggerStepOver" />
 			<toolitem name="StepOut" action="ActionDebuggerStepOut" />
-			<toolitem name="PauseProgram" action="ActionGdbPauseProgram" />
 			<separator name="separator1"/>
 			<toolitem name="ToggleBreakpoint" action="ActionDmaToggleBreakpoint" />
 			<separator name="separator2" />
