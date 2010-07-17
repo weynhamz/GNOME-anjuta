@@ -665,11 +665,12 @@ idebugger_variable_assign (IAnjutaDebuggerVariable *plugin, const gchar *name, c
 }
 
 static gboolean
-idebugger_variable_list_children (IAnjutaDebuggerVariable *plugin, const gchar *name, IAnjutaDebuggerCallback callback , gpointer user_data, GError **error)
+idebugger_variable_list_children (IAnjutaDebuggerVariable *plugin, const gchar *name, guint from, IAnjutaDebuggerCallback callback , gpointer user_data, GError **error)
 {
 	puts (name);
 	DEBUG_PRINT ("%s", "variable_list_children: Implemented");
 	JSDbg *self = ANJUTA_PLUGIN_JSDBG (plugin);
+	/* from argument is not used as this function always return all the children */
 	debugger_js_variable_list_children (self->debugger, callback, name, user_data);
 	return TRUE;
 }

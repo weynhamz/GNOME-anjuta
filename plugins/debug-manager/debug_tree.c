@@ -87,6 +87,7 @@ struct _DebugTree {
 struct _DmaVariablePacket {
 	DmaVariableData *data;
 	GtkTreeModel *model;
+	guint from;
 	GtkTreeRowReference* reference;
 	DmaDebuggerQueue *debugger;
 	DmaVariablePacket* next;
@@ -151,6 +152,22 @@ my_gtk_tree_model_foreach_child (GtkTreeModel *const model,
   }
 }
 
+static gint
+my_gtk_tree_model_child_position (GtkTreeModel *model,
+								GtkTreeIter *iter)
+{
+	GtkTreePath *path;
+	gint pos;
+	
+	path = gtk_tree_model_get_path (model, iter);
+	if (path == NULL) return -1;
+
+	for (pos = 0; gtk_tree_path_prev (path); pos++);
+	gtk_tree_path_free (path);
+
+	return pos;
+}
+
 static gboolean 
 get_current_iter (GtkTreeView *view, GtkTreeIter* iter)
 {
@@ -202,7 +219,8 @@ static DmaVariablePacket *
 dma_variable_packet_new(GtkTreeModel *model,
                      GtkTreeIter *iter,
 					 DmaDebuggerQueue *debugger,
-					 DmaVariableData *data)
+					 DmaVariableData *data,
+					 guint from)
 {
 	GtkTreePath *path;
 						 
@@ -212,6 +230,7 @@ dma_variable_packet_new(GtkTreeModel *model,
 	DmaVariablePacket *pack = g_new (DmaVariablePacket, 1);
 
 	pack->data = data;
+	pack->from = from;
 	pack->model = GTK_TREE_MODEL (model);
 	path = gtk_tree_model_get_path(model, iter); 
 	pack->reference = gtk_tree_row_reference_new (model, path);
@@ -372,7 +391,7 @@ debug_tree_remove_children (GtkTreeModel *model, DmaDebuggerQueue *debugger, Gtk
 }
 
 static void
-debug_tree_model_add_dummy (GtkTreeModel *model, GtkTreeIter *parent)
+debug_tree_model_add_dummy_children (GtkTreeModel *model, GtkTreeIter *parent)
 {
 	GtkTreeIter iter;
 
@@ -386,79 +405,76 @@ debug_tree_model_add_dummy (GtkTreeModel *model, GtkTreeIter *parent)
 }
 
 static void
-debug_tree_add_children (GtkTreeModel *model, DmaDebuggerQueue *debugger, GtkTreeIter* parent, const GList *children)
+debug_tree_add_children (GtkTreeModel *model, DmaDebuggerQueue *debugger, GtkTreeIter* parent, guint from, const GList *children)
 {
 	GList *child;
-	
-	child = g_list_first ((GList *)children);
-	
-	if (child == NULL)
+	GtkTreeIter iter;
+	gboolean valid;
+
+	valid = gtk_tree_model_iter_nth_child (model, &iter, parent, from);
+
+	/* Add new children */
+	for (child = g_list_first ((GList *)children); child != NULL; child = g_list_next (child))
 	{
+		IAnjutaDebuggerVariableObject *var = (IAnjutaDebuggerVariableObject *)child->data;
+		DmaVariableData *data;
+		
+		if (!valid)
+		{
+			/* Add new tree node */
+			gtk_tree_store_append(GTK_TREE_STORE(model), &iter, parent);
+
+			gtk_tree_store_set(GTK_TREE_STORE(model), &iter,
+				TYPE_COLUMN, var->type == NULL ? UNKNOWN_TYPE : var->type,
+				VALUE_COLUMN, var->value == NULL ? UNKNOWN_VALUE : var->value,
+				VARIABLE_COLUMN, var->expression,
+				ROOT_COLUMN, FALSE,
+				DTREE_ENTRY_COLUMN, NULL,-1);
+			data = NULL;
+		}
+		else
+		{
+			/* Update tree node */
+			if (var->type != NULL)
+				gtk_tree_store_set(GTK_TREE_STORE(model), &iter, TYPE_COLUMN, var->type, -1);
+			if (var->value != NULL)
+				gtk_tree_store_set(GTK_TREE_STORE(model), &iter, VALUE_COLUMN, var->value, -1);
+			if (var->expression != NULL)
+				gtk_tree_store_set(GTK_TREE_STORE(model), &iter, VARIABLE_COLUMN, var->expression, -1);
+			gtk_tree_model_get(model, &iter, DTREE_ENTRY_COLUMN, &data, -1);
+
+			if (var->name == NULL)
+			{
+				/* Dummy node representing additional children */
+				if (data != NULL)
+				{
+					dma_variable_data_free (data);
+					gtk_tree_store_set(GTK_TREE_STORE (model), &iter, DTREE_ENTRY_COLUMN, NULL, -1);
+					data = NULL;
+				}
+			}
+		}
+
+		if ((var->name != NULL) && (data == NULL))
+		{
+			/* Create new data */
+			data = dma_variable_data_new(var->name, TRUE);
+			gtk_tree_store_set(GTK_TREE_STORE(model), &iter, DTREE_ENTRY_COLUMN, data, -1);
+		}
+
 		/* Clear all children if they exist */
-		debug_tree_remove_children (model, debugger, parent, NULL);
+		debug_tree_remove_children (model, debugger, &iter, NULL);
+		if ((var->children != 0) || var->has_more || (var->name == NULL))
+		{
+			/* Add dummy children */
+			debug_tree_model_add_dummy_children (model, &iter);
+		}
+
+		valid = gtk_tree_model_iter_next (model, &iter); 
 	}
-	else
-	{
-		GtkTreeIter iter;
-		gboolean valid_iter;
-		
-		valid_iter = gtk_tree_model_iter_children (model, &iter, parent); 
-		
-		for (; child != NULL; child = g_list_next (child))
-		{
-			IAnjutaDebuggerVariableObject *var = (IAnjutaDebuggerVariableObject *)child->data;
-			DmaVariableData *data;
-			
-			if (!valid_iter)
-			{
-				/* Add new tree node */
-				gtk_tree_store_append(GTK_TREE_STORE(model), &iter, parent);
-				gtk_tree_store_set(GTK_TREE_STORE(model), &iter,
-					   TYPE_COLUMN, var->type == NULL ? UNKNOWN_TYPE : var->type,
-					   VALUE_COLUMN, var->value == NULL ? UNKNOWN_VALUE : var->value,
-					   VARIABLE_COLUMN, var->expression,
-					   ROOT_COLUMN, FALSE,
-					   DTREE_ENTRY_COLUMN, NULL,-1);
-				data = NULL;
-			}
-			else
-			{
-				/* Update tree node */
-				if (var->type != NULL)
-					gtk_tree_store_set(GTK_TREE_STORE(model), &iter, TYPE_COLUMN, var->type, -1);
-				if (var->value != NULL)
-					gtk_tree_store_set(GTK_TREE_STORE(model), &iter, VALUE_COLUMN, var->value, -1);
-				if (var->expression != NULL)
-					gtk_tree_store_set(GTK_TREE_STORE(model), &iter, VARIABLE_COLUMN, var->expression, -1);
-				gtk_tree_model_get(model, &iter, DTREE_ENTRY_COLUMN, &data, -1);	
-			}
-				
-			if (data == NULL)
-			{
-				/* Create new data */
-				data = dma_variable_data_new(var->name, TRUE);
-				gtk_tree_store_set(GTK_TREE_STORE(model), &iter, DTREE_ENTRY_COLUMN, data, -1);				
-			}
-		
-			if (var->children == 0)
-			{
-				/* Clear all children if they exist */
-				debug_tree_remove_children (model, debugger, &iter, NULL);
-			}
-			else
-			{
-				/* Add dummy children */
-				debug_tree_model_add_dummy (model, &iter);
-			}
-			
-			valid_iter = gtk_tree_model_iter_next (model, &iter); 
-		}
-		if (valid_iter)
-		{
-			/* Remove trailing children */
-			debug_tree_remove_children (model, debugger, parent, &iter);
-		}
-	}	
+	
+	/* Clear remaining old children */
+	if (valid) debug_tree_remove_children (model, debugger, parent, &iter);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -505,7 +521,7 @@ gdb_var_list_children (const GList *children, gpointer user_data, GError *err)
 		return;
 	}
 
-	debug_tree_add_children (pack->model, pack->debugger, &iter, children);
+	debug_tree_add_children (pack->model, pack->debugger, &iter, pack->from, children);
 		  
 	dma_variable_packet_free (pack);
 }
@@ -554,28 +570,16 @@ gdb_var_create (IAnjutaDebuggerVariableObject *variable, gpointer user_data, GEr
 					   VALUE_COLUMN, variable->value, -1);
 	
 
-	if ((variable->children == -1) || variable->has_more)
-	{
-		/* Find the number of children */
-		DmaVariablePacket *pack_child =
-                  dma_variable_packet_new(pack->model, &iter, pack->debugger, data);
-
-		dma_queue_list_children (
-				pack_child->debugger,
-				variable->name,
-				(IAnjutaDebuggerCallback)gdb_var_list_children,
-				pack_child);
-	}
-	else if (variable->children > 0)
-	{
-		debug_tree_model_add_dummy (pack->model, &iter);
-	}
-	else
+	if ((variable->children == 0) && !variable->has_more)
 	{
 		debug_tree_remove_children (pack->model, pack->debugger, &iter, NULL);
 	}
-	
-	
+	else
+	{
+		debug_tree_model_add_dummy_children (pack->model, &iter);
+	}
+
+
 	/* Request value and/or children if they are missing
 	 * reusing same packet if possible */
 	if (variable->value == NULL)
@@ -601,23 +605,68 @@ on_treeview_row_expanded       (GtkTreeView     *treeview,
                                  gpointer         user_data)
 {
 	DebugTree *tree = (DebugTree *)user_data;
-	GtkTreeModel *const model = gtk_tree_view_get_model (treeview);
-	DmaVariableData *data;
-									 
-	gtk_tree_model_get (model, iter, DTREE_ENTRY_COLUMN, &data, -1);
 
-	if ((data != NULL) && (data->name != NULL) && (tree->debugger != NULL))
+	if (tree->debugger != NULL)
 	{
-		DmaVariablePacket *pack;
-					
-		pack = dma_variable_packet_new(model, iter, tree->debugger, data);
-		dma_queue_list_children (
-						tree->debugger,
-						data->name,
-						(IAnjutaDebuggerCallback)gdb_var_list_children,
-						pack);
+		GtkTreeModel *const model = gtk_tree_view_get_model (treeview);
+		DmaVariableData *data;
+
+		gtk_tree_model_get (model, iter, DTREE_ENTRY_COLUMN, &data, -1);
+
+		if ((data != NULL) && (data->name != NULL))
+		{
+			/* Expand variable node */
+			GtkTreeIter child;
+			
+			if (gtk_tree_model_iter_children (model, &child, iter))
+			{
+				DmaVariableData *child_data;
+				
+				gtk_tree_model_get (model, &child, DTREE_ENTRY_COLUMN, &child_data, -1);
+				if ((child_data == NULL) || (child_data->name == NULL))
+				{
+					/* Dummy children, get the real children */
+					DmaVariablePacket *pack;
+
+					pack = dma_variable_packet_new(model, iter, tree->debugger, data, 0);
+					dma_queue_list_children (
+								tree->debugger,
+								data->name,
+								0, 
+								(IAnjutaDebuggerCallback)gdb_var_list_children,
+								pack);
+				}
+			}
+		}
+		else
+		{
+			/* Dummy node representing additional children */
+			GtkTreeIter parent;
+
+			if (gtk_tree_model_iter_parent (model, &parent, iter))
+			{
+				gtk_tree_model_get (model, &parent, DTREE_ENTRY_COLUMN, &data, -1);
+				if ((data != NULL) && (data->name != NULL))
+				{
+					DmaVariablePacket *pack;
+					guint from;
+					gint pos;
+
+					pos = my_gtk_tree_model_child_position (model, iter);
+					from = pos < 0 ? 0 : pos;
+
+					pack = dma_variable_packet_new(model, &parent, tree->debugger, data, from);
+					dma_queue_list_children (
+									tree->debugger,
+									data->name,
+									from,
+									(IAnjutaDebuggerCallback)gdb_var_list_children,
+									pack);
+				}
+			}
+		}
 	}
-								 
+ 
 	return;
 }
 
@@ -668,7 +717,7 @@ on_debug_tree_value_changed (GtkCellRendererText *cell,
 		{
 			/* Variable is valid */
 			dma_queue_assign_variable (tree->debugger, item->name, text);
-			tran = dma_variable_packet_new(model, &iter, tree->debugger, item);
+			tran = dma_variable_packet_new(model, &iter, tree->debugger, item, 0);
 			dma_queue_evaluate_variable (
 					tree->debugger,
 					item->name,
@@ -879,7 +928,7 @@ debug_tree_add_dummy (DebugTree *tree, GtkTreeIter *parent)
 {
 	GtkTreeModel* model = gtk_tree_view_get_model (GTK_TREE_VIEW(tree->view));
 
-	debug_tree_model_add_dummy (model, parent);
+	debug_tree_model_add_dummy_children (model, parent);
 }
 
 /* Get a IAnjutaVariable as argument in order to use the same function without
@@ -913,7 +962,7 @@ debug_tree_add_watch (DebugTree *tree, const IAnjutaDebuggerVariableObject* var,
 				/* Need to create variable before to get value */
 				DmaVariablePacket *pack;
 		
-				pack = dma_variable_packet_new(model, &iter, tree->debugger, data);
+				pack = dma_variable_packet_new(model, &iter, tree->debugger, data, 0);
 				dma_queue_create_variable (
 						tree->debugger,
 						var->expression,
@@ -928,23 +977,11 @@ debug_tree_add_watch (DebugTree *tree, const IAnjutaDebuggerVariableObject* var,
 					/* Get value */
 					DmaVariablePacket *pack =
 					
-					pack = dma_variable_packet_new(model, &iter, tree->debugger, data);
+					pack = dma_variable_packet_new(model, &iter, tree->debugger, data, 0);
 					dma_queue_evaluate_variable (
 							tree->debugger,
 							var->name,
 							(IAnjutaDebuggerCallback)gdb_var_evaluate_expression,
-							pack);
-				}
-				if ((var->children == -1) || var->has_more)
-				{
-					/* Get number of children */
-					DmaVariablePacket *pack =
-					
-					pack = dma_variable_packet_new(model, &iter, tree->debugger, data);
-					dma_queue_list_children (
-							tree->debugger,
-							var->name,
-							(IAnjutaDebuggerCallback)gdb_var_list_children,
 							pack);
 				}
 			}
@@ -1060,7 +1097,7 @@ debug_tree_update_real (GtkTreeModel *model, DmaDebuggerQueue *debugger, GtkTree
 			DmaVariablePacket *pack;
 		
 			gtk_tree_model_get (model, iter, VARIABLE_COLUMN, &exp, -1);
-			pack = dma_variable_packet_new(model, iter, debugger, data);
+			pack = dma_variable_packet_new(model, iter, debugger, data, 0);
 			dma_queue_create_variable (
 					debugger,
 					exp,
@@ -1073,7 +1110,7 @@ debug_tree_update_real (GtkTreeModel *model, DmaDebuggerQueue *debugger, GtkTree
 	}	
 	else if (force || (data->auto_update && data->changed))
 	{
-		DmaVariablePacket *pack = dma_variable_packet_new(model, iter, debugger, data);
+		DmaVariablePacket *pack = dma_variable_packet_new(model, iter, debugger, data, 0);
 		refresh = data->modified != (data->changed != FALSE);
 		data->modified = (data->changed != FALSE);
 		dma_queue_evaluate_variable (

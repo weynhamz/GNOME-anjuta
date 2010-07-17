@@ -4610,18 +4610,24 @@ interface IAnjutaDebugger
 		* ianjuta_debugger_variable_list_children:
 		* @obj: Self
 		* @name: Variable name
+		* @from: Starting from this children (zero-based)
 		* @callback: Callback to call when the children have been
 		* created
 		* @user_data: User data that is passed back to the callback
 	 	* @err: Error propagation and reporting.
 		* 
-		* List and create objects for all children of a
-		* variable object.
+		* List and create objects for variable object's children.
+		* The backend can returns only a part of the children, in
+		* this case a last variable with a NULL name is added to
+		* the list given to the callback function. 
+		* If the remaining children are wanted, this
+		* function must be called again with a from argument
+		* corresponding to the first missing children.
 		*
 		* Returns: TRUE if the request succeed and the callback is
 		* called. If FALSE, the callback will not be called.
 		*/
-		gboolean list_children (const gchar *name, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean list_children (const gchar *name, guint from, IAnjutaDebuggerCallback callback, gpointer user_data);
 
 		/**
 		* ianjuta_debugger_variable_evaluate:

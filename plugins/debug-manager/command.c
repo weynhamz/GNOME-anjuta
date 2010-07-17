@@ -370,6 +370,7 @@ struct _DmaQueueCommand
 		struct {
 			gchar *name;
 			gchar *value;
+			guint from;
 		} var;
 		gchar **env;
 		gchar *dir;
@@ -648,6 +649,7 @@ dma_command_new (DmaDebuggerCommand cmd_type,...)
 		break;
 	case LIST_VARIABLE_CHILDREN:
 		cmd->data.var.name = g_strdup (va_arg (args, gchar *));
+		cmd->data.var.from = (va_arg (args, guint));
 		cmd->callback = va_arg (args, IAnjutaDebuggerCallback);
 		cmd->user_data = va_arg (args, gpointer);
 		break;
@@ -1028,9 +1030,9 @@ dma_queue_assign_variable (DmaDebuggerQueue *self, const gchar *name, const gcha
 }
 
 gboolean
-dma_queue_list_children (DmaDebuggerQueue *self, const gchar *name, IAnjutaDebuggerCallback callback, gpointer user_data)
+dma_queue_list_children (DmaDebuggerQueue *self, const gchar *name, guint from, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
-	return dma_debugger_queue_append (self, dma_command_new (DMA_LIST_VARIABLE_CHILDREN_COMMAND, name, callback, user_data));
+	return dma_debugger_queue_append (self, dma_command_new (DMA_LIST_VARIABLE_CHILDREN_COMMAND, name, from, callback, user_data));
 }
 
 gboolean
@@ -1409,7 +1411,7 @@ dma_command_run (DmaQueueCommand *cmd, IAnjutaDebugger *debugger,
 		ret = ianjuta_debugger_variable_evaluate (IANJUTA_DEBUGGER_VARIABLE (debugger), cmd->data.var.name, callback, queue, err);
 		break;
 	case LIST_VARIABLE_CHILDREN:
-		ret = ianjuta_debugger_variable_list_children (IANJUTA_DEBUGGER_VARIABLE (debugger), cmd->data.var.name, callback, queue, err);
+		ret = ianjuta_debugger_variable_list_children (IANJUTA_DEBUGGER_VARIABLE (debugger), cmd->data.var.name, cmd->data.var.from, callback, queue, err);
 		break;
 	case CREATE_VARIABLE:
 		ret = ianjuta_debugger_variable_create (IANJUTA_DEBUGGER_VARIABLE (debugger), cmd->data.var.name, callback, queue, err);
