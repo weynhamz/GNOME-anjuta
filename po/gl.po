@@ -15,10 +15,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-master-po-gl-1952\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-14 11:23+0200\n"
-"PO-Revision-Date: 2010-07-14 11:24+0200\n"
+"POT-Creation-Date: 2010-07-18 15:55+0200\n"
+"PO-Revision-Date: 2010-07-18 15:56+0200\n"
 "Last-Translator: Fran Diéguez <frandieguez@ubuntu.com>\n"
-"Language-Team: Galician <gnome@g11n.net>\n"
+"Language-Team: Galician <gnome-gl-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -276,13 +276,13 @@ msgstr "Esquecer o engadido seleccionado"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1357
 #: ../libanjuta/anjuta-plugin-manager.c:1508 ../libanjuta/anjuta-profile.c:507
-#: ../plugins/debug-manager/queue.c:537
+#: ../plugins/debug-manager/queue.c:529
 msgid "Select a plugin"
 msgstr "Seleccione un engadido"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1358
 #: ../libanjuta/anjuta-plugin-manager.c:1509
-#: ../plugins/debug-manager/queue.c:538
+#: ../plugins/debug-manager/queue.c:530
 msgid "Please select a plugin to activate"
 msgstr "Seleccione un engadido para activalo"
 
@@ -1482,7 +1482,7 @@ msgstr "Implementación"
 #: ../plugins/class-gen/window.c:501 ../plugins/class-gen/window.c:511
 #: ../plugins/class-gen/window.c:533
 #: ../plugins/debug-manager/breakpoints.c:1952
-#: ../plugins/debug-manager/debug_tree.c:126
+#: ../plugins/debug-manager/debug_tree.c:128
 msgid "Type"
 msgstr "Tipo"
 
@@ -2056,8 +2056,8 @@ msgid "Inspect/Evaluate"
 msgstr "Inspeccionar/avaliar"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:24
-#: ../plugins/debug-manager/plugin.c:1003
-#: ../plugins/debug-manager/plugin.c:1112
+#: ../plugins/debug-manager/plugin.c:1029
+#: ../plugins/debug-manager/plugin.c:1145
 msgid "Kernel Signals"
 msgstr "Sinais do núcleo"
 
@@ -2133,7 +2133,7 @@ msgid "TCP/IP Connection"
 msgstr "Conexión TCP/IP"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:42
-#: ../plugins/project-wizard/property.c:339
+#: ../plugins/project-wizard/property.c:341
 msgid "Yes"
 msgstr "Si"
 
@@ -2332,12 +2332,12 @@ msgstr "Operacións do punto de interrupción"
 msgid "_Go to address"
 msgstr "_Ir ao enderezo"
 
-#: ../plugins/debug-manager/debug_tree.c:126
+#: ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/gbf-am/gbf-am-properties.c:893 ../plugins/tools/editor.c:468
 msgid "Variable"
 msgstr "Variábel"
 
-#: ../plugins/debug-manager/debug_tree.c:126
+#: ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/debug-manager/registers.c:469
 #: ../plugins/gbf-am/gbf-am-properties.c:903
 #: ../plugins/run-program/parameters.c:763 ../plugins/tools/editor.c:474
@@ -2358,17 +2358,17 @@ msgid "Lines"
 msgstr "Liñas"
 
 #. This is the list of local variables.
-#: ../plugins/debug-manager/locals.c:107
+#: ../plugins/debug-manager/locals.c:102
 msgid "Locals"
 msgstr "Locais"
 
-#: ../plugins/debug-manager/plugin.c:337
+#: ../plugins/debug-manager/plugin.c:338
 msgid "Debugger Log"
 msgstr "Rexistro do depurador"
 
-#: ../plugins/debug-manager/plugin.c:411 ../plugins/debug-manager/plugin.c:431
-#: ../plugins/debug-manager/plugin.c:451 ../plugins/debug-manager/plugin.c:473
-#: ../plugins/debug-manager/plugin.c:507 ../plugins/debug-manager/plugin.c:542
+#: ../plugins/debug-manager/plugin.c:411 ../plugins/debug-manager/plugin.c:433
+#: ../plugins/debug-manager/plugin.c:458 ../plugins/debug-manager/plugin.c:485
+#: ../plugins/debug-manager/plugin.c:519 ../plugins/debug-manager/plugin.c:552
 #: ../plugins/debug-manager/anjuta-debug-manager.plugin.in.h:2
 msgid "Debugger"
 msgstr "Depurador"
@@ -2377,237 +2377,249 @@ msgstr "Depurador"
 msgid "Started"
 msgstr "Comezado"
 
-#: ../plugins/debug-manager/plugin.c:431
+#: ../plugins/debug-manager/plugin.c:433
 msgid "Loaded"
 msgstr "Cargado"
 
-#: ../plugins/debug-manager/plugin.c:451
+#. Action name
+#. Stock icon, if any
+#: ../plugins/debug-manager/plugin.c:454
+#: ../plugins/debug-manager/plugin.c:1157
+msgid "Pa_use Program"
+msgstr "D_eter o programa"
+
+#. Display label
+#. short-cut
+#: ../plugins/debug-manager/plugin.c:455
+#: ../plugins/debug-manager/plugin.c:1159
+msgid "Pauses the execution of the program"
+msgstr "Deter a execución do programa"
+
+#: ../plugins/debug-manager/plugin.c:458
 msgid "Running…"
 msgstr "Executando..."
 
-#: ../plugins/debug-manager/plugin.c:473
+#. Action name
+#. Stock icon, if any
+#: ../plugins/debug-manager/plugin.c:481
+#: ../plugins/debug-manager/plugin.c:1049
+msgid "Run/_Continue"
+msgstr "Executar/_continuar"
+
+#. Display label
+#. short-cut
+#: ../plugins/debug-manager/plugin.c:482
+#: ../plugins/debug-manager/plugin.c:1051
+msgid "Continue the execution of the program"
+msgstr "Continuar a execución do programa"
+
+#: ../plugins/debug-manager/plugin.c:485
 msgid "Stopped"
 msgstr "Detido"
 
-#: ../plugins/debug-manager/plugin.c:507
+#: ../plugins/debug-manager/plugin.c:519
 msgid "Unloaded"
 msgstr "Descargado"
 
-#: ../plugins/debug-manager/plugin.c:551
+#: ../plugins/debug-manager/plugin.c:561
 #, c-format
 msgid "Debugger terminated with error %d: %s\n"
 msgstr "O depurador terminou co erro %d: %s\n"
 
-#: ../plugins/debug-manager/plugin.c:564
+#: ../plugins/debug-manager/plugin.c:574
 #, c-format
 msgid "Program has received signal: %s\n"
 msgstr "O programa recibiu o sinal: %s\n"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:887
+#: ../plugins/debug-manager/plugin.c:913
 msgid "_Debug"
 msgstr "_Depurar"
 
-#: ../plugins/debug-manager/plugin.c:895
+#: ../plugins/debug-manager/plugin.c:921
 msgid "_Start Debugger"
 msgstr "_Iniciar a depuración"
 
-#: ../plugins/debug-manager/plugin.c:903
+#: ../plugins/debug-manager/plugin.c:929
 msgid "_Debug Program"
 msgstr "_Depurar o programa"
 
-#: ../plugins/debug-manager/plugin.c:905
+#: ../plugins/debug-manager/plugin.c:931
 msgid "Start debugger and load the program"
 msgstr "Iniciar o depurador e cargar o programa"
 
-#: ../plugins/debug-manager/plugin.c:911
+#: ../plugins/debug-manager/plugin.c:937
 msgid "_Debug Process…"
 msgstr "_Depurar o proceso..."
 
-#: ../plugins/debug-manager/plugin.c:913
+#: ../plugins/debug-manager/plugin.c:939
 msgid "Start debugger and attach to a running program"
 msgstr "Iniciar o depurador e acoplalo a un programa en execución"
 
-#: ../plugins/debug-manager/plugin.c:919
+#: ../plugins/debug-manager/plugin.c:945
 msgid "Debug _Remote Target…"
 msgstr "Depurar o destino _remoto..."
 
-#: ../plugins/debug-manager/plugin.c:921
+#: ../plugins/debug-manager/plugin.c:947
 msgid "Connect to a remote debugging target"
 msgstr "Conectarse cun destino remoto de depuración"
 
-#: ../plugins/debug-manager/plugin.c:927
+#: ../plugins/debug-manager/plugin.c:953
 msgid "Stop Debugger"
 msgstr "Deter o depurador"
 
-#: ../plugins/debug-manager/plugin.c:929
+#: ../plugins/debug-manager/plugin.c:955
 msgid "Say goodbye to the debugger"
 msgstr "Despídase do depurador"
 
-#: ../plugins/debug-manager/plugin.c:935
+#: ../plugins/debug-manager/plugin.c:961
 msgid "Add source paths…"
 msgstr "Engadir os camiños do código fonte..."
 
-#: ../plugins/debug-manager/plugin.c:937
+#: ../plugins/debug-manager/plugin.c:963
 msgid "Add additional source paths"
 msgstr "Engadir os camiños adicionais do código fonte"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:947
-#: ../plugins/debug-manager/plugin.c:1064
+#: ../plugins/debug-manager/plugin.c:973
+#: ../plugins/debug-manager/plugin.c:1097
 msgid "Debugger Command…"
 msgstr "Orde do depurador"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:949
-#: ../plugins/debug-manager/plugin.c:1066
+#: ../plugins/debug-manager/plugin.c:975
+#: ../plugins/debug-manager/plugin.c:1099
 msgid "Custom debugger command"
 msgstr "Personalizar a orde do depurador"
 
-#: ../plugins/debug-manager/plugin.c:955
-#: ../plugins/debug-manager/plugin.c:1072
+#: ../plugins/debug-manager/plugin.c:981
+#: ../plugins/debug-manager/plugin.c:1105
 msgid "_Info"
 msgstr "_Información"
 
-#: ../plugins/debug-manager/plugin.c:963
+#: ../plugins/debug-manager/plugin.c:989
 msgid "Info _Target Files"
 msgstr "Información dos ficheiros de _destino"
 
-#: ../plugins/debug-manager/plugin.c:965
+#: ../plugins/debug-manager/plugin.c:991
 msgid "Display information on the files the debugger is active with"
 msgstr "Mostrar información nos ficheiros nos que o depurador está activo"
 
-#: ../plugins/debug-manager/plugin.c:971
+#: ../plugins/debug-manager/plugin.c:997
 msgid "Info _Program"
 msgstr "Información do _programa"
 
-#: ../plugins/debug-manager/plugin.c:973
+#: ../plugins/debug-manager/plugin.c:999
 msgid "Display information on the execution status of the program"
 msgstr "Mostrar a información sobre estado de execución do programa"
 
-#: ../plugins/debug-manager/plugin.c:979
+#: ../plugins/debug-manager/plugin.c:1005
 msgid "Info _Kernel User Struct"
 msgstr "Información da estrutura de usuario do _núcleo"
 
-#: ../plugins/debug-manager/plugin.c:981
+#: ../plugins/debug-manager/plugin.c:1007
 msgid "Display the contents of kernel 'struct user' for current child"
 msgstr ""
 "Mostrar os contidos da estrutura de usuario do núcleo para o fillo actual"
 
-#: ../plugins/debug-manager/plugin.c:995
-#: ../plugins/debug-manager/plugin.c:1104
+#: ../plugins/debug-manager/plugin.c:1021
+#: ../plugins/debug-manager/plugin.c:1137
 msgid "Shared Libraries"
 msgstr "Bibliotecas compartidas"
 
-#: ../plugins/debug-manager/plugin.c:997
-#: ../plugins/debug-manager/plugin.c:1106
+#: ../plugins/debug-manager/plugin.c:1023
+#: ../plugins/debug-manager/plugin.c:1139
 msgid "Show shared library mappings"
 msgstr "Mostrar os mapeamentos das bibliotecas compartidas"
 
-#: ../plugins/debug-manager/plugin.c:1005
-#: ../plugins/debug-manager/plugin.c:1114
+#: ../plugins/debug-manager/plugin.c:1031
+#: ../plugins/debug-manager/plugin.c:1147
 msgid "Show kernel signals"
 msgstr "Mostrar os sinais do núcleo"
 
-#. Action name
-#. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:1015
-msgid "Run/_Continue"
-msgstr "Executar/_continuar"
+#: ../plugins/debug-manager/plugin.c:1037
+msgid "_Continue/Suspend"
+msgstr "_Continuar/Suspender"
 
-#. Display label
-#. short-cut
-#: ../plugins/debug-manager/plugin.c:1017
-msgid "Continue the execution of the program"
-msgstr "Continuar a execución do programa"
+#: ../plugins/debug-manager/plugin.c:1039
+msgid "Continue or suspend the execution of the program"
+msgstr "Continuar ou suspender a execución do programa"
 
-#: ../plugins/debug-manager/plugin.c:1024
+#: ../plugins/debug-manager/plugin.c:1057
 msgid "Step _In"
 msgstr "Paso para _entrar"
 
-#: ../plugins/debug-manager/plugin.c:1026
+#: ../plugins/debug-manager/plugin.c:1059
 msgid "Single step into function"
 msgstr "Dar un único paso para entrar na función"
 
-#: ../plugins/debug-manager/plugin.c:1032
+#: ../plugins/debug-manager/plugin.c:1065
 msgid "Step O_ver"
 msgstr "Paso por e_ncima"
 
-#: ../plugins/debug-manager/plugin.c:1034
+#: ../plugins/debug-manager/plugin.c:1067
 msgid "Single step over function"
 msgstr "Dar un paso único para pasar por encima da función"
 
-#: ../plugins/debug-manager/plugin.c:1040
+#: ../plugins/debug-manager/plugin.c:1073
 msgid "Step _Out"
 msgstr "Paso para _saír"
 
-#: ../plugins/debug-manager/plugin.c:1042
+#: ../plugins/debug-manager/plugin.c:1075
 msgid "Single step out of function"
 msgstr "Dar un único paso para saír da función"
 
-#: ../plugins/debug-manager/plugin.c:1048
+#: ../plugins/debug-manager/plugin.c:1081
 msgid "_Run to Cursor"
 msgstr "_Executar até o cursor"
 
-#: ../plugins/debug-manager/plugin.c:1050
+#: ../plugins/debug-manager/plugin.c:1083
 msgid "Run to the cursor"
 msgstr "Executar até o cursor"
 
-#: ../plugins/debug-manager/plugin.c:1056
+#: ../plugins/debug-manager/plugin.c:1089
 msgid "_Run from Cursor"
 msgstr "_Executar dende o cursor"
 
-#: ../plugins/debug-manager/plugin.c:1058
+#: ../plugins/debug-manager/plugin.c:1091
 msgid "Run from the cursor"
 msgstr "Executar dende o cursor"
 
-#: ../plugins/debug-manager/plugin.c:1080
+#: ../plugins/debug-manager/plugin.c:1113
 msgid "Info _Global Variables"
 msgstr "Información das variábeis _globais"
 
-#: ../plugins/debug-manager/plugin.c:1082
+#: ../plugins/debug-manager/plugin.c:1115
 msgid "Display all global and static variables of the program"
 msgstr "Mostrar todas as variábeis globais e estáticas do programa"
 
-#: ../plugins/debug-manager/plugin.c:1088
+#: ../plugins/debug-manager/plugin.c:1121
 msgid "Info _Current Frame"
 msgstr "Información do marco a_ctual"
 
-#: ../plugins/debug-manager/plugin.c:1090
+#: ../plugins/debug-manager/plugin.c:1123
 msgid "Display information about the current frame of execution"
 msgstr "Mostrar información sobre o marco actual da execución"
 
-#: ../plugins/debug-manager/plugin.c:1096
+#: ../plugins/debug-manager/plugin.c:1129
 msgid "Info Function _Arguments"
 msgstr "Información dos _argumentos da función"
 
-#: ../plugins/debug-manager/plugin.c:1098
+#: ../plugins/debug-manager/plugin.c:1131
 msgid "Display function arguments of the current frame"
 msgstr "Mostrar os argumentos da función do marco actual"
 
-#. Action name
-#. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:1124
-msgid "Pa_use Program"
-msgstr "D_eter o programa"
-
-#. Display label
-#. short-cut
-#: ../plugins/debug-manager/plugin.c:1126
-msgid "Pauses the execution of the program"
-msgstr "Deter a execución do programa"
-
-#: ../plugins/debug-manager/plugin.c:1166
-#: ../plugins/debug-manager/plugin.c:1172
-#: ../plugins/debug-manager/plugin.c:1178
-#: ../plugins/debug-manager/plugin.c:1184
+#: ../plugins/debug-manager/plugin.c:1199
+#: ../plugins/debug-manager/plugin.c:1205
+#: ../plugins/debug-manager/plugin.c:1211
+#: ../plugins/debug-manager/plugin.c:1217
 msgid "Debugger operations"
 msgstr "Operacións do depurador"
 
-#: ../plugins/debug-manager/queue.c:524
+#: ../plugins/debug-manager/queue.c:516
 #, c-format
 msgid "Unable to find a debugger plugin supporting a target with %s MIME type"
 msgstr ""
@@ -2785,7 +2797,7 @@ msgstr ""
 msgid "Path"
 msgstr "Camiño"
 
-#: ../plugins/debug-manager/start.c:1386 ../plugins/gdb/debugger.c:1927
+#: ../plugins/debug-manager/start.c:1386 ../plugins/gdb/debugger.c:1929
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -2813,51 +2825,51 @@ msgstr "Operacións do fío"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/watch.c:372
+#: ../plugins/debug-manager/watch.c:364
 msgid "Ins_pect/Evaluate…"
 msgstr "Inspeccionar/avaliar"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/watch.c:374
+#: ../plugins/debug-manager/watch.c:366
 msgid "Inspect or evaluate an expression or variable"
 msgstr "Inspeccionar ou avaliar unha expresión ou unha variábel"
 
-#: ../plugins/debug-manager/watch.c:380
+#: ../plugins/debug-manager/watch.c:372
 msgid "Add Watch…"
 msgstr "Engadir o punto de vixilancia"
 
-#: ../plugins/debug-manager/watch.c:388
+#: ../plugins/debug-manager/watch.c:380
 msgid "Remove Watch"
 msgstr "Eliminar o punto de vixilancia"
 
-#: ../plugins/debug-manager/watch.c:396
+#: ../plugins/debug-manager/watch.c:388
 msgid "Update Watch"
 msgstr "Actualizar o punto de vixilancia"
 
-#: ../plugins/debug-manager/watch.c:404
+#: ../plugins/debug-manager/watch.c:396
 msgid "Change Value"
 msgstr "Cambiar o valor"
 
-#: ../plugins/debug-manager/watch.c:412
+#: ../plugins/debug-manager/watch.c:404
 msgid "Update all"
 msgstr "Actualizar todo"
 
-#: ../plugins/debug-manager/watch.c:420
+#: ../plugins/debug-manager/watch.c:412
 msgid "Remove all"
 msgstr "Eliminar todo"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/watch.c:431
+#: ../plugins/debug-manager/watch.c:423
 msgid "Automatic update"
 msgstr "Actualización automática"
 
-#: ../plugins/debug-manager/watch.c:457 ../plugins/debug-manager/watch.c:463
+#: ../plugins/debug-manager/watch.c:449 ../plugins/debug-manager/watch.c:455
 msgid "Watch operations"
 msgstr "Operacións de punto de vixilancia"
 
-#: ../plugins/debug-manager/watch.c:535
+#: ../plugins/debug-manager/watch.c:527
 msgid "Watches"
 msgstr "Punto de vixilancia"
 
@@ -4086,6 +4098,7 @@ msgid "Select Package to add:"
 msgstr "Seleccione o paquete para engadir:"
 
 #: ../plugins/gbf-am/gbf-am-dialogs.ui.h:6
+#: ../plugins/project-wizard/property.c:376
 msgid "Select package"
 msgstr "Seleccionar paquete"
 
@@ -4578,18 +4591,18 @@ msgid "Available pretty printers"
 msgstr "Engadidos dispoñíbeis"
 
 #. The %s argument is a program name, anjuta by example
-#: ../plugins/gdb/debugger.c:727
+#: ../plugins/gdb/debugger.c:729
 #, c-format
 msgid "Loading Executable: %s\n"
 msgstr "Cargando o executábel: %s\n"
 
 #. The %s argument is a file name
-#: ../plugins/gdb/debugger.c:758
+#: ../plugins/gdb/debugger.c:760
 #, c-format
 msgid "Loading Core: %s\n"
 msgstr "Cargando o core: %s\n"
 
-#: ../plugins/gdb/debugger.c:983
+#: ../plugins/gdb/debugger.c:985
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -4600,59 +4613,59 @@ msgstr ""
 "Non é posíbel inicializar o depurador.\n"
 "Asegúrese de que o Anjuta está correctamente instalado."
 
-#: ../plugins/gdb/debugger.c:1128
+#: ../plugins/gdb/debugger.c:1130
 msgid "Getting ready to start debugging session…\n"
 msgstr "Preparándose para comezar a sesión de depuración...\n"
 
-#: ../plugins/gdb/debugger.c:1134
+#: ../plugins/gdb/debugger.c:1136
 msgid "Loading Executable: "
 msgstr "Cargando executábel: "
 
-#: ../plugins/gdb/debugger.c:1143
+#: ../plugins/gdb/debugger.c:1145
 msgid "No executable specified.\n"
 msgstr "Non hai ningún executábel especificado.\n"
 
-#: ../plugins/gdb/debugger.c:1146
+#: ../plugins/gdb/debugger.c:1148
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr ""
 "Abrir un executábel ou acoplar a un proceso para comezar a depuración.\n"
 
-#: ../plugins/gdb/debugger.c:1155
+#: ../plugins/gdb/debugger.c:1157
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "Produciuse un erro ao iniciar o depurador.\n"
 
-#: ../plugins/gdb/debugger.c:1159
+#: ../plugins/gdb/debugger.c:1161
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "Asegúrese de que 'gdb' está instalado no sistema.\n"
 
-#: ../plugins/gdb/debugger.c:1480
+#: ../plugins/gdb/debugger.c:1482
 msgid "Program exited normally\n"
 msgstr "O programa saíu con normalidade\n"
 
-#: ../plugins/gdb/debugger.c:1491
+#: ../plugins/gdb/debugger.c:1493
 #, c-format
 msgid "Program exited with error code %s\n"
 msgstr "O programa saíu co código de erro %s\n"
 
 #. The program has reached one breakpoint and will stop
-#: ../plugins/gdb/debugger.c:1506
+#: ../plugins/gdb/debugger.c:1508
 #, c-format
 msgid "Breakpoint number %s hit\n"
 msgstr "Encontrouse o número do punto de interrupción %s\n"
 
-#: ../plugins/gdb/debugger.c:1515
+#: ../plugins/gdb/debugger.c:1517
 msgid "Function finished\n"
 msgstr "A función terminou\n"
 
-#: ../plugins/gdb/debugger.c:1521
+#: ../plugins/gdb/debugger.c:1523
 msgid "Stepping finished\n"
 msgstr "Non hai máis pasos\n"
 
-#: ../plugins/gdb/debugger.c:1527
+#: ../plugins/gdb/debugger.c:1529
 msgid "Location reached\n"
 msgstr "Chegouse á localización\n"
 
-#: ../plugins/gdb/debugger.c:1924
+#: ../plugins/gdb/debugger.c:1926
 msgid ""
 "The program is attached.\n"
 "Do you still want to stop the debugger?"
@@ -4662,7 +4675,7 @@ msgstr ""
 
 #. The %s argument is an error message returned by gdb.
 #. * It is something like, "No such file or directory"
-#: ../plugins/gdb/debugger.c:2085
+#: ../plugins/gdb/debugger.c:2087
 #, c-format
 msgid ""
 "Unable to connect to remote target, %s\n"
@@ -4671,20 +4684,20 @@ msgstr ""
 "Non foi posíbel conectar co destino remoto, %s\n"
 "Quere tentalo de novo?"
 
-#: ../plugins/gdb/debugger.c:2103
+#: ../plugins/gdb/debugger.c:2105
 msgid "Debugger connected\n"
 msgstr "O depurador está conectado\n"
 
-#: ../plugins/gdb/debugger.c:2177
+#: ../plugins/gdb/debugger.c:2179
 msgid "Program attached\n"
 msgstr "Programa acoplado\n"
 
-#: ../plugins/gdb/debugger.c:2198
+#: ../plugins/gdb/debugger.c:2200
 #, c-format
 msgid "Attaching to process: %d…\n"
 msgstr "Acoplando ao proceso: %d...\n"
 
-#: ../plugins/gdb/debugger.c:2224
+#: ../plugins/gdb/debugger.c:2226
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -4692,33 +4705,37 @@ msgstr ""
 "Xa hai un proceso executándose.\n"
 "Quere finalizalo e acoplar o proceso novo?"
 
-#: ../plugins/gdb/debugger.c:2241
+#: ../plugins/gdb/debugger.c:2243
 msgid "Anjuta is unable to attach to itself."
 msgstr "O Anjuta non é capaz de acoplarse a si mesmo."
 
-#: ../plugins/gdb/debugger.c:2291
+#: ../plugins/gdb/debugger.c:2293
 msgid "Program terminated\n"
 msgstr "O programa finalizou\n"
 
-#: ../plugins/gdb/debugger.c:2306
+#: ../plugins/gdb/debugger.c:2308
 msgid "Program detached\n"
 msgstr "O programa separouse\n"
 
-#: ../plugins/gdb/debugger.c:2326
+#: ../plugins/gdb/debugger.c:2328
 #, c-format
 msgid "Detaching the process…\n"
 msgstr "Separando o proceso...\n"
 
-#: ../plugins/gdb/debugger.c:2349
+#: ../plugins/gdb/debugger.c:2351
 msgid "Interrupting the process\n"
 msgstr "Interrompendo o proceso\n"
 
-#: ../plugins/gdb/debugger.c:4232
+#: ../plugins/gdb/debugger.c:3996
+msgid "more children"
+msgstr "máis fillos"
+
+#: ../plugins/gdb/debugger.c:4249
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "Mandando o sinal %s ao proceso: %d"
 
-#: ../plugins/gdb/debugger.c:4258
+#: ../plugins/gdb/debugger.c:4275
 msgid "Error whilst signaling the process."
 msgstr "Produciuse un erro ao sinalizar o proceso."
 
@@ -7481,34 +7498,34 @@ msgstr "Non foi posíbel extraer o modelo de proxecto %s: %s"
 msgid "New Project Assistant"
 msgstr "Asistente de proxecto novo"
 
-#: ../plugins/project-wizard/property.c:341
-#: ../plugins/project-wizard/property.c:454
+#: ../plugins/project-wizard/property.c:343
+#: ../plugins/project-wizard/property.c:497
 msgid "No"
 msgstr "Non"
 
-#: ../plugins/project-wizard/property.c:352
+#: ../plugins/project-wizard/property.c:355
 msgid "Select directory"
 msgstr "Seleccionar o cartafol"
 
-#: ../plugins/project-wizard/property.c:360
+#: ../plugins/project-wizard/property.c:363
 msgid "Select file"
 msgstr "Seleccionar ficheiro"
 
-#: ../plugins/project-wizard/property.c:412 ../plugins/tools/editor.c:522
+#: ../plugins/project-wizard/property.c:455 ../plugins/tools/editor.c:522
 msgid "Select an Image File"
 msgstr "Seleccione un ficheiro de imaxe"
 
-#: ../plugins/project-wizard/property.c:437
-#: ../plugins/project-wizard/property.c:527 ../plugins/tools/editor.c:556
+#: ../plugins/project-wizard/property.c:480
+#: ../plugins/project-wizard/property.c:570 ../plugins/tools/editor.c:556
 #: ../plugins/tools/editor.c:703
 msgid "Choose Icon"
 msgstr "Escoller icona"
 
-#: ../plugins/project-wizard/property.c:497
+#: ../plugins/project-wizard/property.c:540
 msgid "Choose directory"
 msgstr "Elixir o cartafol"
 
-#: ../plugins/project-wizard/property.c:501
+#: ../plugins/project-wizard/property.c:544
 msgid "Choose file"
 msgstr "Elixir ficheiro"
 
