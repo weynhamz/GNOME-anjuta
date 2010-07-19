@@ -26,6 +26,7 @@
 #define _GIT_TAG_LIST_COMMAND_H_
 
 #include <glib-object.h>
+#include <gio/gio.h>
 #include "git-raw-output-command.h"
 
 G_BEGIN_DECLS
@@ -39,6 +40,7 @@ G_BEGIN_DECLS
 
 typedef struct _GitTagListCommandClass GitTagListCommandClass;
 typedef struct _GitTagListCommand GitTagListCommand;
+typedef struct _GitTagListCommandPriv GitTagListCommandPriv;
 
 struct _GitTagListCommandClass
 {
@@ -48,6 +50,8 @@ struct _GitTagListCommandClass
 struct _GitTagListCommand
 {
 	GitRawOutputCommand parent_instance;
+
+	GitTagListCommandPriv *priv;
 };
 
 GType git_tag_list_command_get_type (void) G_GNUC_CONST;

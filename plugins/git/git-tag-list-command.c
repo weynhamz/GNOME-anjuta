@@ -24,17 +24,29 @@
 
 #include "git-tag-list-command.h"
 
+struct _GitTagListCommandPriv
+{
+	GFileMonitor *file_monitor;
+};
+
 G_DEFINE_TYPE (GitTagListCommand, git_tag_list_command, GIT_TYPE_RAW_OUTPUT_COMMAND);
 
 static void
 git_tag_list_command_init (GitTagListCommand *self)
 {
-
+	self->priv = g_new0 (GitTagListCommandPriv, 1);
 }
 
 static void
 git_tag_list_command_finalize (GObject *object)
 {
+	GitTagListCommand *self;
+
+	self = GIT_TAG_LIST_COMMAND (object);
+
+	anjuta_command_stop_automatic_monitor (ANJUTA_COMMAND (object));
+	g_free (self->priv);
+
 	G_OBJECT_CLASS (git_tag_list_command_parent_class)->finalize (object);
 }
 
@@ -47,6 +59,67 @@ git_tag_list_command_run (AnjutaCommand *command)
 }
 
 static void
+on_file_monitor_changed (GFileMonitor *monitor, GFile *file, GFile *other_file,
+                         GFileMonitorEvent event, AnjutaCommand *command)
+{
+	if (event == G_FILE_MONITOR_EVENT_CREATED ||
+	    event == G_FILE_MONITOR_EVENT_DELETED)
+	{
+		anjuta_command_start (command);
+	}
+}
+
+static gboolean
+git_tag_list_command_start_automatic_monitor (AnjutaCommand *command)
+{
+	GitTagListCommand *self;
+	gchar *working_directory;
+	gchar *git_tags_path;
+	GFile *git_tags_file;
+
+	self = GIT_TAG_LIST_COMMAND (command);
+
+	g_object_get (G_OBJECT (self), "working_directory", &working_directory,
+	              NULL);
+	
+	git_tags_path = g_strconcat (G_DIR_SEPARATOR_S,
+	                             ".git",
+	                             "refs"
+	                             "tags",
+	                             NULL);
+
+	git_tags_file = g_file_new_for_path (git_tags_path);
+
+	self->priv->file_monitor = g_file_monitor_directory (git_tags_file, 0, NULL, 
+	                                                     NULL);
+
+	g_signal_connect (G_OBJECT (self->priv->file_monitor), "changed",
+	                  G_CALLBACK (on_file_monitor_changed),
+	                  command);
+
+	g_free (working_directory);
+	g_free (git_tags_path);
+	g_object_unref (git_tags_file);
+	                    
+	return TRUE;
+}
+
+static void
+git_tag_list_command_stop_automatic_monitor (AnjutaCommand *command)
+{
+	GitTagListCommand *self;
+
+	self = GIT_TAG_LIST_COMMAND (command);
+
+	if (self->priv->file_monitor)
+	{
+		g_file_monitor_cancel (self->priv->file_monitor);
+		g_object_unref (self->priv->file_monitor);
+		self->priv->file_monitor = NULL;
+	}
+}
+
+static void
 git_tag_list_command_class_init (GitTagListCommandClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
@@ -54,6 +127,8 @@ git_tag_list_command_class_init (GitTagListCommandClass *klass)
 
 	object_class->finalize = git_tag_list_command_finalize;
 	command_class->run = git_tag_list_command_run;
+	command_class->start_automatic_monitor = git_tag_list_command_start_automatic_monitor;
+	command_class->stop_automatic_monitor = git_tag_list_command_stop_automatic_monitor;
 }
 
 
