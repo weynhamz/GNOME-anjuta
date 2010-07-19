@@ -86,8 +86,6 @@ git_remote_list_command_start_automatic_monitor (AnjutaCommand *command)
 	                             NULL);
 	git_config_file = g_file_new_for_path (git_config_path);
 
-	g_free (git_config_path);
-
 	self->priv->file_monitor = g_file_monitor_file (git_config_file, 0, NULL, 
 	                                                NULL);
 
@@ -95,6 +93,8 @@ git_remote_list_command_start_automatic_monitor (AnjutaCommand *command)
 	                  G_CALLBACK (on_file_monitor_changed),
 	                  self);
 
+	g_free (git_config_path);
+	g_free (working_directory);
 	g_object_unref (git_config_file);
 
 	return TRUE;
