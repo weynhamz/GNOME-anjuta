@@ -709,7 +709,7 @@ create_box (GtkWidget *term)
 {
 	GtkWidget *sb, *hbox;
 	
-	sb = gtk_vscrollbar_new (GTK_ADJUSTMENT (VTE_TERMINAL (term)->adjustment));
+	sb = gtk_vscrollbar_new (GTK_ADJUSTMENT (vte_terminal_get_adjustment (VTE_TERMINAL (term))));
 	gtk_widget_set_can_focus (sb, FALSE);
 
 	hbox = gtk_hbox_new (FALSE, 0);
