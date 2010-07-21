@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-master-po-gl-1952\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-18 15:55+0200\n"
-"PO-Revision-Date: 2010-07-18 15:56+0200\n"
+"POT-Creation-Date: 2010-07-21 16:38+0200\n"
+"PO-Revision-Date: 2010-07-21 16:39+0200\n"
 "Last-Translator: Fran Diéguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Galician <gnome-gl-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -4586,9 +4586,8 @@ msgid "Includes:"
 msgstr "Includes:"
 
 #: ../plugins/gdb/anjuta-gdb.ui.h:1
-#, fuzzy
 msgid "Available pretty printers"
-msgstr "Engadidos dispoñíbeis"
+msgstr "«Pretty printer» dispoñíbeis"
 
 #. The %s argument is a program name, anjuta by example
 #: ../plugins/gdb/debugger.c:729
@@ -4758,11 +4757,12 @@ msgid ""
 "disabled:\n"
 " %s"
 msgstr ""
+"Desactiváronse, sen rexistrar funciones, os seguintes «pretty printer»:\n"
+" %s"
 
 #: ../plugins/gdb/preferences.c:216
-#, fuzzy
 msgid "Select a pretty printer file"
-msgstr "Seleccione un ficheiro"
+msgstr "Seleccione o ficheiro de «pretty printer»"
 
 #: ../plugins/gdb/preferences.c:353
 msgid "Activate"
