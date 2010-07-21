@@ -27,7 +27,7 @@ enum
 	COL_NAME
 };
 
-GtkTargetEntry drag_targets[] =
+static GtkTargetEntry drag_targets[] =
 {
 	{
 		"STRING",
