@@ -58,3 +58,6 @@ BUILT_SOURCES = foo-canvas-marshal.h
 non-intermediate: foo-canvas-marshal.c
 
 CLEANFILES = foo-canvas-marshal.h foo-canvas-marshal.c
+
+-include $(top_srcdir)/git.mk
+
