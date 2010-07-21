@@ -40,6 +40,7 @@
 #include "git-delete-remote-pane.h"
 #include "git-fetch-pane.h"
 #include "git-resolve-conflicts-pane.h"
+#include "git-tags-pane.h"
 
 AnjutaCommandBarEntry branch_entries[] =
 {
@@ -249,13 +250,18 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	g_object_set (G_OBJECT (git_plugin->remote_list_command),
 	              "working-directory", git_plugin->project_root_directory,
 	              NULL);
+	g_object_set (G_OBJECT (git_plugin->tag_list_command),
+	              "working-directory", git_plugin->project_root_directory,
+	              NULL);
 
 	anjuta_command_start_automatic_monitor (ANJUTA_COMMAND (git_plugin->local_branch_list_command));
 	anjuta_command_start_automatic_monitor (ANJUTA_COMMAND (git_plugin->commit_status_command));
 	anjuta_command_start_automatic_monitor (ANJUTA_COMMAND (git_plugin->remote_list_command));
+	anjuta_command_start_automatic_monitor (ANJUTA_COMMAND (git_plugin->tag_list_command));
 	anjuta_command_start (ANJUTA_COMMAND (git_plugin->local_branch_list_command));
 	anjuta_command_start (ANJUTA_COMMAND (git_plugin->commit_status_command));
 	anjuta_command_start (ANJUTA_COMMAND (git_plugin->remote_list_command));
+	anjuta_command_start (ANJUTA_COMMAND (git_plugin->tag_list_command));
 	
 	gtk_widget_set_sensitive (git_plugin->dock, TRUE);
 	gtk_widget_set_sensitive (git_plugin->command_bar, TRUE);
@@ -454,6 +460,9 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	                  G_CALLBACK (run_next_command),
 	                  git_plugin->not_updated_status_command);
 
+	/* Tag list command */
+	git_plugin->tag_list_command = git_tag_list_command_new (NULL);
+
 	/* Add the panes to the dock */
 	git_plugin->status_pane = git_status_pane_new (git_plugin);
 	anjuta_dock_add_pane (ANJUTA_DOCK (git_plugin->dock), "Status",
@@ -467,11 +476,17 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	                      GDL_DOCK_CENTER, branch_entries, 
 	                      G_N_ELEMENTS (branch_entries), git_plugin);
 
+	git_plugin->tags_pane = git_tags_pane_new (git_plugin);
+	anjuta_dock_add_pane (ANJUTA_DOCK (git_plugin->dock), "Tags", _("Tags"),
+	                      NULL, git_plugin->tags_pane, GDL_DOCK_CENTER,
+	                      NULL, 0, NULL);
+	
 	git_plugin->remotes_pane = git_remotes_pane_new (git_plugin);
 	anjuta_dock_add_pane (ANJUTA_DOCK (git_plugin->dock), "Remotes", 
 	                      _("Remotes"), NULL, git_plugin->remotes_pane,
 	                      GDL_DOCK_CENTER, remotes_entries, 
 	                      G_N_ELEMENTS (remotes_entries), git_plugin);
+
 	
 	/* Add watches */
 	git_plugin->project_root_watch_id = anjuta_plugin_add_watch (plugin,

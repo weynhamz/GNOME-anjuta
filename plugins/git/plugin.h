@@ -38,6 +38,7 @@
 #include "git-branch-list-command.h"
 #include "git-status-command.h"
 #include "git-remote-list-command.h"
+#include "git-tag-list-command.h"
 
 extern GType git_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_GIT         (git_get_type (NULL))
@@ -68,6 +69,7 @@ struct _Git
 	/* Dock panes */
 	AnjutaDockPane *status_pane;
 	AnjutaDockPane *branches_pane;
+	AnjutaDockPane *tags_pane;
 	AnjutaDockPane *remotes_pane;
 
 	/* List commands for various panes. 
@@ -78,6 +80,7 @@ struct _Git
 	GitStatusCommand *commit_status_command;
 	GitStatusCommand *not_updated_status_command;
 	GitRemoteListCommand *remote_list_command;
+	GitTagListCommand *tag_list_command;
 	
 	IAnjutaMessageView *message_view;
 	AnjutaCommandQueue *command_queue;

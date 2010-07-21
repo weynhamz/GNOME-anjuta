@@ -195,7 +195,9 @@ libanjuta_git_la_SOURCES = \
 	git-fetch-pane.c \
 	git-fetch-pane.h \
 	git-resolve-conflicts-pane.c \
-	git-resolve-conflicts-pane.h
+	git-resolve-conflicts-pane.h \
+	git-tags-pane.c \
+	git-tags-pane.h
 
 libanjuta_git_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
