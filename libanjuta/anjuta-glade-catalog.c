@@ -3,4 +3,5 @@
 #include <libanjuta/anjuta-drop-entry.h>
 #include <libanjuta/anjuta-file-list.h>
 #include <libanjuta/anjuta-pkg-config-chooser.h>
+#include <libanjuta/anjuta-column-text-view.h>
 

@@ -36,6 +36,9 @@
 		 generic-name="pkg_config_chooser">
 		</glade-widget-class>
 
+		<glade-widget-class name="AnjutaColumnTextView" title="Column Text View"
+		 generic-name="columntextview" />
+
 	</glade-widget-classes>
 
 	<glade-widget-group name="Anjuta" title="Anjuta">
@@ -43,5 +46,6 @@
 		<glade-widget-class-ref name="AnjutaDropEntry" />
 		<glade-widget-class-ref name="AnjutaFileList" />
 		<glade-widget-class-ref name="AnjutaPkgConfigChooser" />
+		<glade-widget-class-ref name="AnjutaColumnTextView" />
 	</glade-widget-group>
 </glade-catalog>
