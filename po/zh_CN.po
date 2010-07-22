@@ -8,14 +8,15 @@
 # Aron Xu <aronmalache@163.com>, 2009.
 # Hinker <hinkerliu@gmail.com>, 2010.
 # Tao Wang <dancefire@gmail.com>, 2010.
+# Black Penguin <gnomecn@gmail.com>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 2.2.6\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2010-07-18 19:31+0000\n"
-"PO-Revision-Date: 2010-07-19 19:27+1000\n"
+"POT-Creation-Date: 2010-07-21 08:10+0000\n"
+"PO-Revision-Date: 2010-07-21 21:42+1000\n"
 "Last-Translator: Tao Wang <dancefire@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -241,7 +242,7 @@ msgstr ""
 #: ../libanjuta/anjuta-plugin-manager.c:901
 #: ../plugins/symbol-db/symbol-db-prefs.c:463
 msgid "Load"
-msgstr "载入"
+msgstr "加载"
 
 #: ../libanjuta/anjuta-plugin-manager.c:923
 #: ../libanjuta/anjuta-plugin-manager.c:1943
@@ -254,7 +255,7 @@ msgstr "首选插件"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1150
 msgid "Only show user activatable plugins"
-msgstr "只显示用户激活的插件"
+msgstr "只显示用户可激活的插件"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1197
 msgid ""
@@ -284,7 +285,7 @@ msgstr "请选择要激活的插件"
 #: ../libanjuta/anjuta-plugin-manager.c:1372
 #, c-format
 msgid "No plugin is able to load other plugins in %s"
-msgstr "没有插件可以载入，其它插件在 %s"
+msgstr "没有插件可以在 %s 内加载其它插件"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1962
 msgid "Remember this selection"
@@ -330,7 +331,7 @@ msgstr "加载和卸载插件时 Anjuta 的状态"
 #. Avoid space in translated string
 #: ../libanjuta/anjuta-plugin-manager.c:2482
 msgid "Loaded:"
-msgstr "已载入："
+msgstr "已加载："
 
 #: ../libanjuta/anjuta-profile.c:254
 msgid "Plugin Manager"
@@ -526,7 +527,7 @@ msgstr ""
 #: ../libanjuta/anjuta-utils.c:2333
 #, c-format
 msgid "Unable to load user interface file: %s"
-msgstr "无法为新建文件生成用户界面：%s"
+msgstr "无法加载用户界面文件：%s"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:92
 #: ../plugins/file-manager/file-view.c:75
@@ -2346,7 +2347,7 @@ msgstr "已开始"
 
 #: ../plugins/debug-manager/plugin.c:433
 msgid "Loaded"
-msgstr "已载入"
+msgstr "已加载"
 
 #. Action name
 #. Stock icon, if any
@@ -2901,12 +2902,12 @@ msgid ""
 "Are you sure you want to reload '%s'?\n"
 "Any unsaved changes will be lost."
 msgstr ""
-"您确定想要重新载入“%s”吗？\n"
+"您确定想要重新加载“%s”吗？\n"
 "未保存的任何更改都将丢失。"
 
 #: ../plugins/document-manager/action-callbacks.c:323
 msgid "_Reload"
-msgstr "重新载入(_R)"
+msgstr "重新加载(_R)"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:311
 msgid "Add bookmark"
@@ -2974,7 +2975,7 @@ msgstr "自动保存"
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:2
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:1
 msgid "Bottom"
-msgstr "转到"
+msgstr "底部"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:3
 msgid "Do not show tabs"
@@ -2991,7 +2992,7 @@ msgstr "启用文件自动保存"
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:6
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:7
 msgid "Left"
-msgstr "左"
+msgstr "左侧"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:7
 msgid "Position:"
@@ -3000,11 +3001,11 @@ msgstr "位置："
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:8
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:13
 msgid "Right"
-msgstr "右"
+msgstr "右侧"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:9
 msgid "Save files interval in minutes"
-msgstr "自动保存计时器间隔(分钟)"
+msgstr "自动保存间隔(分钟)"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:10
 msgid "Save session interval in minutes"
@@ -3025,7 +3026,7 @@ msgstr "以打开顺序排序"
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:14
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:16
 msgid "Top"
-msgstr "顶"
+msgstr "顶部"
 
 #: ../plugins/document-manager/plugin.c:149
 msgid "_Save"
@@ -3077,11 +3078,11 @@ msgstr "关闭其它文件"
 
 #: ../plugins/document-manager/plugin.c:166
 msgid "Reload F_ile"
-msgstr "重载文件(_I)"
+msgstr "重新加载文件(_I)"
 
 #: ../plugins/document-manager/plugin.c:167
 msgid "Reload current file"
-msgstr "重新载入当前文件"
+msgstr "重新加载当前文件"
 
 #: ../plugins/document-manager/plugin.c:169
 msgid "Recent _Files"
@@ -3580,7 +3581,7 @@ msgstr "编辑器视图设置"
 
 #: ../plugins/document-manager/plugin.c:609
 msgid "Reload"
-msgstr "重新载入"
+msgstr "重新加载"
 
 #: ../plugins/document-manager/plugin.c:615
 msgid "Go to"
@@ -3825,7 +3826,7 @@ msgstr "打开方式"
 #: ../plugins/file-loader/plugin.c:1243 ../plugins/file-loader/plugin.c:1249
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:1
 msgid "File Loader"
-msgstr "文件载入器"
+msgstr "文件加载器"
 
 #: ../plugins/file-loader/plugin.c:1253
 msgid "New"
@@ -3906,7 +3907,7 @@ msgstr "没有项目被打开时的根目录："
 
 #: ../plugins/file-manager/file-model.c:120
 msgid "Loading..."
-msgstr "正在载入..."
+msgstr "正在加载..."
 
 #: ../plugins/file-manager/file-view.c:569
 msgid "Filename"
@@ -4543,13 +4544,13 @@ msgstr "可用的代码美化工具"
 #: ../plugins/gdb/debugger.c:729
 #, c-format
 msgid "Loading Executable: %s\n"
-msgstr "载入可执行文件：%s\n"
+msgstr "正在加载可执行文件：%s\n"
 
 #. The %s argument is a file name
 #: ../plugins/gdb/debugger.c:760
 #, c-format
 msgid "Loading Core: %s\n"
-msgstr "正在载入核心：%s\n"
+msgstr "正在加载核心：%s\n"
 
 #: ../plugins/gdb/debugger.c:985
 #, c-format
@@ -4568,7 +4569,7 @@ msgstr "正在准备启动调试会话 ...\n"
 
 #: ../plugins/gdb/debugger.c:1136
 msgid "Loading Executable: "
-msgstr "载入可执行文件："
+msgstr "正在加载可执行文件："
 
 #: ../plugins/gdb/debugger.c:1145
 msgid "No executable specified.\n"
@@ -6388,11 +6389,11 @@ msgstr "任务"
 
 #: ../plugins/gtodo/plugin.c:342 ../plugins/gtodo/plugin.c:351
 msgid "To-do Manager"
-msgstr "任务项管理器"
+msgstr "任务管理器"
 
 #: ../plugins/gtodo/preferences.c:21
 msgid "To-do List Preferences"
-msgstr "任务项列表首选项"
+msgstr "任务列表首选项"
 
 #: ../plugins/gtodo/preferences.c:84
 msgid "Interface"
@@ -6412,7 +6413,7 @@ msgstr "显示优先级栏"
 
 #: ../plugins/gtodo/preferences.c:106
 msgid "Tooltips in list"
-msgstr "在列表中显示工具提示"
+msgstr "在列表中的工具提示"
 
 #: ../plugins/gtodo/preferences.c:117 ../plugins/gtodo/preferences.c:119
 msgid "Show in main window"
@@ -6425,19 +6426,19 @@ msgstr "高亮"
 #. tb for highlighting due today
 #: ../plugins/gtodo/preferences.c:142
 msgid "Items that are due today"
-msgstr "项目今日到期"
+msgstr "今日到期的任务"
 
 #. tb for highlighting due
 #: ../plugins/gtodo/preferences.c:148
 msgid "Items that are past due"
-msgstr "项目超出预期"
+msgstr "超期的任务"
 
 #. tb for highlighting in x days
 #: ../plugins/gtodo/preferences.c:154
 #, c-format
 msgid "Items that are due in the next %i day"
 msgid_plural "Items that are due in the next %i days"
-msgstr[0] "任务项将在 %i 天后到期"
+msgstr[0] "将在 %i 天后到期的任务"
 
 #: ../plugins/gtodo/preferences.c:168
 msgid "Miscellaneous"
@@ -7189,7 +7190,7 @@ msgstr "从项目中删除"
 #: ../plugins/project-manager/plugin.c:1387
 #, c-format
 msgid "Loading project: %s"
-msgstr "正在载入项目：%s"
+msgstr "正在加载项目：%s"
 
 #: ../plugins/project-manager/plugin.c:1395
 msgid "Created project view…"
@@ -7221,7 +7222,7 @@ msgstr "初始化项目..."
 
 #: ../plugins/project-manager/plugin.c:2474
 msgid "Project Loaded"
-msgstr "项目已被载入"
+msgstr "项目已被加载"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.ui.h:1
 msgid "Details"
@@ -7893,7 +7894,7 @@ msgstr "Anjuta 插件"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:4
 msgid "Anjuta plugin project that uses libanjuta framework"
-msgstr "使用 libAnjuta 框架的 Anjuta 插件项目"
+msgstr "使用 libanjuta 框架的 Anjuta 插件项目"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:8
 msgid ""
@@ -7946,7 +7947,7 @@ msgstr "要监视值的名称"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:30
 msgid "Plugin Class Name:"
-msgstr "* 类名："
+msgstr "插件类名："
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:31
 msgid "Plugin Dependencies:"
@@ -8257,7 +8258,7 @@ msgstr "不使用调试器运行程序"
 
 #: ../plugins/run-program/plugin.c:247
 msgid "Stop Program"
-msgstr "终止程序"
+msgstr "停止程序"
 
 #: ../plugins/run-program/plugin.c:249
 msgid "Kill program"
@@ -8298,7 +8299,7 @@ msgstr "选择文件："
 
 #: ../plugins/search/anjuta-search.ui.h:6
 msgid "Expand regex back references"
-msgstr "在引用后扩展正则表达式"
+msgstr "扩展正则表达式的反向引用"
 
 #: ../plugins/search/anjuta-search.ui.h:7
 msgid "File Filter"
@@ -8466,7 +8467,7 @@ msgstr "在多个文件或目录内搜索指定字符串"
 
 #: ../plugins/search/plugin.c:102
 msgid "Searching…"
-msgstr "搜索"
+msgstr "正在搜索..."
 
 #: ../plugins/search/search_preferences.c:44
 msgid "Basic Search"
@@ -8574,7 +8575,7 @@ msgid ""
 "Do you want to reload it?"
 msgstr ""
 "在磁盘内文件“%s”的内容比当前的文件内容还要新。\n"
-"是否需要重新载入这个文件？ "
+"是否需要重新加载这个文件？ "
 
 #: ../plugins/sourceview/sourceview.c:432
 #, c-format
@@ -8618,7 +8619,7 @@ msgstr "准备打印页面"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:1
 msgid "Color scheme:"
-msgstr "<b>其它颜色</b>"
+msgstr "配色方案："
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:2
 msgid "Create backup files"
@@ -8634,7 +8635,7 @@ msgstr "启用文档自动补全"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:6
 msgid "Font:"
-msgstr "字体："
+msgstr "字体"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:7
 msgid "Highlight current line"
@@ -8650,7 +8651,7 @@ msgstr "高亮样式"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:10
 msgid "Indentation and auto-format options"
-msgstr "<b>缩进和自动格式化选项</b>"
+msgstr "缩进和自动格式化选项"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:12
 msgid "Print line numbers"
@@ -8670,7 +8671,7 @@ msgstr "打印页眉"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:16
 msgid "Printing"
-msgstr "正在打印"
+msgstr "打印"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:17
 msgid "Right margin position in characters"
@@ -8768,19 +8769,19 @@ msgstr "结束版本："
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:16
 msgid "File or directory to diff:"
-msgstr "<b>要比较的文件或目录：</b>"
+msgstr "要比较的文件或目录："
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:17
 msgid "File/URL to Remove:"
-msgstr "<b>要删除的 文件/URL：</b>"
+msgstr "要删除的 文件/URL："
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:18
 msgid "First Path:"
-msgstr "<b>第一个路径：</b>"
+msgstr "第一个路径："
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:20
 msgid "Ignore ancestry"
-msgstr "忽略文件"
+msgstr "忽略之前版本"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:22
 msgid "Merge changes into working copy"
@@ -8840,11 +8841,11 @@ msgstr "第二个路径："
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:41
 msgid "Select Changes to Revert:"
-msgstr "选择要还原的更改"
+msgstr "选择要还原的更改："
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:45
 msgid "Source/Destination Paths:"
-msgstr "来源/目标 路径："
+msgstr "来源/目标的路径："
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:46
 msgid "Source:"
@@ -8900,7 +8901,7 @@ msgstr "工作副本"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:63
 msgid "Working Copy Path:"
-msgstr "<b>工作副本目录：</b>"
+msgstr "工作副本目录："
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:64
 msgid "realm"
@@ -9573,7 +9574,7 @@ msgstr "意外的元素“%s”"
 
 #: ../plugins/tools/fileop.c:537
 msgid "Error when loading external tools"
-msgstr "载入外部工具时发生错误"
+msgstr "加载外部工具时发生错误"
 
 #: ../plugins/tools/fileop.c:703
 #, c-format
@@ -9739,11 +9740,11 @@ msgstr "字符串"
 
 #: ../src/about.c:202
 msgid "Copyright (c) Naba Kumar"
-msgstr "版权所有 (c) Naba Kumar"
+msgstr "版权所有 © Naba Kumar"
 
 #: ../src/anjuta.c:432
 msgid "Loaded Session…"
-msgstr "已载入会话..."
+msgstr "已加载会话..."
 
 #: ../src/anjuta-actions.h:23
 msgid "_File"
@@ -9898,7 +9899,7 @@ msgstr "指定主窗口的大小和位置"
 #. * of the window on command line
 #: ../src/main.c:77
 msgid "WIDTHxHEIGHT+XOFF+YOFF"
-msgstr "宽度x高度+X 偏移+Y 偏移"
+msgstr "宽度x高度+横偏移+纵偏移"
 
 #: ../src/main.c:82
 msgid "Do not show the splash screen"
@@ -9930,7 +9931,7 @@ msgstr "Anjuta"
 
 #: ../src/preferences.ui.h:1
 msgid "Appearance"
-msgstr "<b>外观</b>"
+msgstr "外观"
 
 #: ../src/preferences.ui.h:3
 msgid "Default project directory:"
@@ -9971,7 +9972,7 @@ msgstr "图标文件："
 
 #: ../src/preferences.ui.h:14
 msgid "Project Defaults"
-msgstr "<b>项目默认值</b>"
+msgstr "项目默认值"
 
 #: ../src/preferences.ui.h:15
 msgid "Select project directory"
@@ -9979,7 +9980,7 @@ msgstr "选择项目目录"
 
 #: ../src/preferences.ui.h:16
 msgid "Session"
-msgstr "回话"
+msgstr "会话"
 
 #: ../src/preferences.ui.h:17
 msgid "Tabs"
@@ -10032,7 +10033,7 @@ msgstr "大括号缩进的空白长度："
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:6
 msgid "Calltips"
-msgstr "关闭"
+msgstr "调用提示"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:7
 msgid "Enable code completion"
@@ -10052,7 +10053,7 @@ msgstr "缩进："
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:11
 msgid "Indentation parameters"
-msgstr "<b>缩进参数</b>"
+msgstr "缩进参数"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:12
 msgid "Line up parentheses"
@@ -10065,7 +10066,7 @@ msgstr "括号缩进"
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:7
 msgid "Show calltips"
-msgstr "显示函数成员提示"
+msgstr "显示调用提示"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
 msgid "Smart Indentation"
@@ -10085,11 +10086,11 @@ msgstr "根据缩进设置自动缩进当前或选中行"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1888
 msgid "Swap .h/.c"
-msgstr "交换 .h /.c"
+msgstr "切换 .h /.c"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1889
 msgid "Swap C header and source files"
-msgstr "交换 C 头文件和源文件"
+msgstr "切换 C 头文件和源文件"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1930
 msgid "C++/Java Assistance"
@@ -10110,7 +10111,7 @@ msgstr "GtkSourceView 编辑器"
 
 #: ../plugins/gdb/anjuta-gdb.plugin.in.h:1
 msgid "GNU Debugger Plugin"
-msgstr "GNU 调试器插件"
+msgstr "GNU 调试器(GDB)插件"
 
 #: ../plugins/gdb/anjuta-gdb.plugin.in.h:2
 msgid "Gdb"
@@ -10126,11 +10127,11 @@ msgstr "API 帮助"
 
 #: ../plugins/devhelp/anjuta-devhelp.plugin.in.h:2
 msgid "Devhelp Plugin for Anjuta."
-msgstr "Anjuta 的 Devhelp 插件。"
+msgstr "Anjuta 的开发文档(Devhelp)插件。"
 
 #: ../plugins/class-inheritance/anjuta-class-inheritance.plugin.in.h:1
 msgid "A graph painter for the inheritance of the classes."
-msgstr "类的继承的图形显示"
+msgstr "类的继承关系的图示工具"
 
 #: ../plugins/class-inheritance/anjuta-class-inheritance.plugin.in.h:2
 msgid "Class Inheritance"
@@ -10202,7 +10203,7 @@ msgstr "Automake 创建"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in.h:2
 msgid "Basic autotools build plugin."
-msgstr "基本的 autotools 创建插件。"
+msgstr "基本的 autotools 构建插件。"
 
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:2
 msgid "Terminal Plugin for Anjuta."
@@ -10218,7 +10219,7 @@ msgstr "CVS 插件"
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:1
 msgid "Import an existing autotools project to Anjuta"
-msgstr "把现有的 autotools 项目导入 Anjuta"
+msgstr "把现有的使用 autotools 的项目导入 Anjuta"
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:2
 msgid "Project Import Assistant"
@@ -10258,7 +10259,7 @@ msgstr "用于搜索的组件"
 
 #: ../plugins/search/anjuta-search.plugin.in.h:2
 msgid "Searching"
-msgstr "搜索"
+msgstr "正在搜索"
 
 #: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:1
 msgid "Anjuta Class Generator Plugin"
