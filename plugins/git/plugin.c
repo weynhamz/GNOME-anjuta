@@ -41,6 +41,7 @@
 #include "git-fetch-pane.h"
 #include "git-resolve-conflicts-pane.h"
 #include "git-tags-pane.h"
+#include "git-create-tag-pane.h"
 
 AnjutaCommandBarEntry branch_entries[] =
 {
@@ -85,6 +86,27 @@ AnjutaCommandBarEntry branch_entries[] =
 		G_CALLBACK (on_merge_button_clicked)
 	}
 };
+
+AnjutaCommandBarEntry tag_entries[] =
+{
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_FRAME,
+		"NULL",
+		N_("Tag tools"),
+		NULL,
+		NULL,
+		NULL
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"CreateTag",
+		N_("Create a tag"),
+		N_("Create a tag"),
+		GTK_STOCK_NEW,
+		G_CALLBACK (on_create_tag_button_clicked)
+	}
+};
+
 
 AnjutaCommandBarEntry status_entries[] = 
 {
@@ -479,7 +501,7 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	git_plugin->tags_pane = git_tags_pane_new (git_plugin);
 	anjuta_dock_add_pane (ANJUTA_DOCK (git_plugin->dock), "Tags", _("Tags"),
 	                      NULL, git_plugin->tags_pane, GDL_DOCK_CENTER,
-	                      NULL, 0, NULL);
+	                      tag_entries, G_N_ELEMENTS (tag_entries), plugin);
 	
 	git_plugin->remotes_pane = git_remotes_pane_new (git_plugin);
 	anjuta_dock_add_pane (ANJUTA_DOCK (git_plugin->dock), "Remotes", 
