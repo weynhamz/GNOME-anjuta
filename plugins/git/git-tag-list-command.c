@@ -79,15 +79,16 @@ git_tag_list_command_start_automatic_monitor (AnjutaCommand *command)
 
 	self = GIT_TAG_LIST_COMMAND (command);
 
-	g_object_get (G_OBJECT (self), "working_directory", &working_directory,
+	g_object_get (G_OBJECT (self), "working-directory", &working_directory,
 	              NULL);
-	
-	git_tags_path = g_strconcat (G_DIR_SEPARATOR_S,
-	                             ".git",
-	                             "refs"
-	                             "tags",
-	                             NULL);
 
+	git_tags_path = g_strjoin (G_DIR_SEPARATOR_S,
+	                           working_directory,
+	                           ".git",
+	                           "refs",
+	                           "tags",
+	                           NULL);
+	
 	git_tags_file = g_file_new_for_path (git_tags_path);
 
 	self->priv->file_monitor = g_file_monitor_directory (git_tags_file, 0, NULL, 
