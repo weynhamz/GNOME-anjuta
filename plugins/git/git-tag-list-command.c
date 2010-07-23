@@ -26,7 +26,8 @@
 
 struct _GitTagListCommandPriv
 {
-	GFileMonitor *file_monitor;
+	GFileMonitor *tags_monitor;
+	GFileMonitor *packed_refs_monitor;
 };
 
 G_DEFINE_TYPE (GitTagListCommand, git_tag_list_command, GIT_TYPE_RAW_OUTPUT_COMMAND);
@@ -75,6 +76,8 @@ git_tag_list_command_start_automatic_monitor (AnjutaCommand *command)
 	GitTagListCommand *self;
 	gchar *working_directory;
 	gchar *git_tags_path;
+	gchar *git_packed_refs_path;
+	GFile *git_packed_refs_file;
 	GFile *git_tags_file;
 
 	self = GIT_TAG_LIST_COMMAND (command);
@@ -82,24 +85,45 @@ git_tag_list_command_start_automatic_monitor (AnjutaCommand *command)
 	g_object_get (G_OBJECT (self), "working-directory", &working_directory,
 	              NULL);
 
+	/* Git keeps tag info in two places: as individual files in .git/refs/tags
+	 * and as a file in .git/packed-refs. These "packed refs"
+	 * are used in cases where repositories might have a lot of tags, as having
+	 * to go through tons of individual files is can be a large performance 
+	 * drain. From what I can tell, tags created with git tag get their own 
+	 * file, while tags that are fetched from remote repositories are packed 
+	 * automatically. */
 	git_tags_path = g_strjoin (G_DIR_SEPARATOR_S,
 	                           working_directory,
 	                           ".git",
 	                           "refs",
 	                           "tags",
 	                           NULL);
+	git_packed_refs_path = g_strjoin (G_DIR_SEPARATOR_S,
+	                                  working_directory,
+	                                  ".git",
+	                                  "packed-refs",
+	                                  NULL);
 	
 	git_tags_file = g_file_new_for_path (git_tags_path);
+	git_packed_refs_file = g_file_new_for_path (git_packed_refs_path);
 
-	self->priv->file_monitor = g_file_monitor_directory (git_tags_file, 0, NULL, 
+	self->priv->tags_monitor = g_file_monitor_directory (git_tags_file, 0, NULL, 
 	                                                     NULL);
+	self->priv->packed_refs_monitor = g_file_monitor_file (git_packed_refs_file,
+	                                                       0, NULL, NULL);
 
-	g_signal_connect (G_OBJECT (self->priv->file_monitor), "changed",
+	g_signal_connect (G_OBJECT (self->priv->tags_monitor), "changed",
+	                  G_CALLBACK (on_file_monitor_changed),
+	                  command);
+
+	g_signal_connect (G_OBJECT (self->priv->packed_refs_monitor), "changed",
 	                  G_CALLBACK (on_file_monitor_changed),
 	                  command);
 
 	g_free (working_directory);
 	g_free (git_tags_path);
+	g_free (git_packed_refs_path);
+	g_object_unref (git_packed_refs_file);
 	g_object_unref (git_tags_file);
 	                    
 	return TRUE;
@@ -112,11 +136,18 @@ git_tag_list_command_stop_automatic_monitor (AnjutaCommand *command)
 
 	self = GIT_TAG_LIST_COMMAND (command);
 
-	if (self->priv->file_monitor)
+	if (self->priv->tags_monitor)
 	{
-		g_file_monitor_cancel (self->priv->file_monitor);
-		g_object_unref (self->priv->file_monitor);
-		self->priv->file_monitor = NULL;
+		g_file_monitor_cancel (self->priv->tags_monitor);
+		g_object_unref (self->priv->tags_monitor);
+		self->priv->tags_monitor = NULL;
+	}
+
+	if (self->priv->packed_refs_monitor)
+	{
+		g_file_monitor_cancel (self->priv->packed_refs_monitor);
+		g_object_unref (self->priv->packed_refs_monitor);
+		self->priv->packed_refs_monitor = NULL;
 	}
 }
 
