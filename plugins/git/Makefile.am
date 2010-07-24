@@ -199,7 +199,9 @@ libanjuta_git_la_SOURCES = \
 	git-tags-pane.c \
 	git-tags-pane.h \
 	git-create-tag-pane.c \
-	git-create-tag-pane.h
+	git-create-tag-pane.h \
+	git-delete-tags-pane.c \
+	git-delete-tags-pane.h
 
 libanjuta_git_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 

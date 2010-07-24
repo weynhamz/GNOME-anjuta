@@ -42,6 +42,7 @@
 #include "git-resolve-conflicts-pane.h"
 #include "git-tags-pane.h"
 #include "git-create-tag-pane.h"
+#include "git-delete-tags-pane.h"
 
 AnjutaCommandBarEntry branch_entries[] =
 {
@@ -104,6 +105,14 @@ AnjutaCommandBarEntry tag_entries[] =
 		N_("Create a tag"),
 		GTK_STOCK_NEW,
 		G_CALLBACK (on_create_tag_button_clicked)
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"DeleteTags",
+		N_("Delete selected tags"),
+		N_("Delete selected tags"),
+		GTK_STOCK_DELETE,
+		G_CALLBACK (on_delete_tags_button_clicked)
 	}
 };
 
