@@ -2630,7 +2630,7 @@ debugger_add_breakpoint_finish (Debugger *debugger, const GDBMIValue *mi_results
 }
 	
 void
-debugger_add_breakpoint_at_line (Debugger *debugger, const gchar *file, guint line, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_add_breakpoint_at_line (Debugger *debugger, const gchar *file, guint line, IAnjutaDebuggerBreakpointCallback callback, gpointer user_data)
 {
 	gchar *buff;
 	gchar *quoted_file;
@@ -2644,12 +2644,12 @@ debugger_add_breakpoint_at_line (Debugger *debugger, const gchar *file, guint li
 							debugger->priv->has_pending_breakpoints ? "-f" : "",
 							quoted_file, line);
 	g_free (quoted_file);
-	debugger_queue_command (debugger, buff, 0, debugger_add_breakpoint_finish, callback, user_data);
+	debugger_queue_command (debugger, buff, 0, debugger_add_breakpoint_finish, (IAnjutaDebuggerCallback)callback, user_data);
 	g_free (buff);
 }
 
 void
-debugger_add_breakpoint_at_function (Debugger *debugger, const gchar *file, const gchar *function, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_add_breakpoint_at_function (Debugger *debugger, const gchar *file, const gchar *function, IAnjutaDebuggerBreakpointCallback callback, gpointer user_data)
 {
 	gchar *buff;
 	gchar *quoted_file;
@@ -2667,12 +2667,12 @@ debugger_add_breakpoint_at_function (Debugger *debugger, const gchar *file, cons
 							function,
 							file == NULL ? "" : "\"");
 	g_free (quoted_file);
-	debugger_queue_command (debugger, buff, 0, debugger_add_breakpoint_finish, callback, user_data);
+	debugger_queue_command (debugger, buff, 0, debugger_add_breakpoint_finish, (IAnjutaDebuggerCallback)callback, user_data);
 	g_free (buff);
 }
 
 void
-debugger_add_breakpoint_at_address (Debugger *debugger, gulong address, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_add_breakpoint_at_address (Debugger *debugger, gulong address, IAnjutaDebuggerBreakpointCallback callback, gpointer user_data)
 {
 	gchar *buff;
 
@@ -2683,12 +2683,12 @@ debugger_add_breakpoint_at_address (Debugger *debugger, gulong address, IAnjutaD
 	buff = g_strdup_printf ("-break-insert %s *0x%lx",
 							debugger->priv->has_pending_breakpoints ? "-f" : "",
 							address);
-	debugger_queue_command (debugger, buff, 0, debugger_add_breakpoint_finish, callback, user_data);
+	debugger_queue_command (debugger, buff, 0, debugger_add_breakpoint_finish, (IAnjutaDebuggerCallback)callback, user_data);
 	g_free (buff);
 }
 
 void
-debugger_enable_breakpoint (Debugger *debugger, guint id, gboolean enable, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_enable_breakpoint (Debugger *debugger, guint id, gboolean enable, IAnjutaDebuggerBreakpointCallback callback, gpointer user_data)
 
 {
 	gchar *buff;
@@ -2698,12 +2698,12 @@ debugger_enable_breakpoint (Debugger *debugger, guint id, gboolean enable, IAnju
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
 	buff = g_strdup_printf (enable ? "-break-enable %d" : "-break-disable %d",id);
-	debugger_queue_command (debugger, buff, 0, debugger_add_breakpoint_finish, callback, user_data);
+	debugger_queue_command (debugger, buff, 0, debugger_add_breakpoint_finish, (IAnjutaDebuggerCallback)callback, user_data);
 	g_free (buff);
 }
 
 void
-debugger_ignore_breakpoint (Debugger *debugger, guint id, guint ignore, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_ignore_breakpoint (Debugger *debugger, guint id, guint ignore, IAnjutaDebuggerBreakpointCallback callback, gpointer user_data)
 {
 	gchar *buff;
 	
@@ -2712,12 +2712,12 @@ debugger_ignore_breakpoint (Debugger *debugger, guint id, guint ignore, IAnjutaD
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
 	buff = g_strdup_printf ("-break-after %d %d", id, ignore);
-	debugger_queue_command (debugger, buff, 0, debugger_add_breakpoint_finish, callback, user_data);
+	debugger_queue_command (debugger, buff, 0, debugger_add_breakpoint_finish, (IAnjutaDebuggerCallback)callback, user_data);
 	g_free (buff);
 }
 
 void
-debugger_condition_breakpoint (Debugger *debugger, guint id, const gchar *condition, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_condition_breakpoint (Debugger *debugger, guint id, const gchar *condition, IAnjutaDebuggerBreakpointCallback callback, gpointer user_data)
 {
 	gchar *buff;
 	
@@ -2726,7 +2726,7 @@ debugger_condition_breakpoint (Debugger *debugger, guint id, const gchar *condit
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
 	buff = g_strdup_printf ("-break-condition %d %s", id, condition == NULL ? "" : condition);
-	debugger_queue_command (debugger, buff, 0, debugger_add_breakpoint_finish, callback, user_data);
+	debugger_queue_command (debugger, buff, 0, debugger_add_breakpoint_finish, (IAnjutaDebuggerCallback)callback, user_data);
 	g_free (buff);
 }
 
@@ -2744,7 +2744,7 @@ debugger_remove_breakpoint_finish (Debugger *debugger, const GDBMIValue *mi_resu
 }
 
 void
-debugger_remove_breakpoint (Debugger *debugger, guint id, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_remove_breakpoint (Debugger *debugger, guint id, IAnjutaDebuggerBreakpointCallback callback, gpointer user_data)
 {
 	gchar *buff;
 	
@@ -2753,7 +2753,7 @@ debugger_remove_breakpoint (Debugger *debugger, guint id, IAnjutaDebuggerCallbac
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
 	buff = g_strdup_printf ("-break-delete %d", id);
-	debugger_queue_command (debugger, buff, 0, debugger_remove_breakpoint_finish, callback, user_data);
+	debugger_queue_command (debugger, buff, 0, debugger_remove_breakpoint_finish, (IAnjutaDebuggerCallback)callback, user_data);
 	g_free (buff);
 }
 
@@ -2809,13 +2809,13 @@ debugger_list_breakpoint_finish (Debugger *debugger, const GDBMIValue *mi_result
 }
 
 void
-debugger_list_breakpoint (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_list_breakpoint (Debugger *debugger, IAnjutaDebuggerGListCallback callback, gpointer user_data)
 {
 	DEBUG_PRINT ("%s", "In function: debugger_list_breakpoint()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
-	debugger_queue_command (debugger, "-break-list", 0, debugger_list_breakpoint_finish, callback, user_data);
+	debugger_queue_command (debugger, "-break-list", 0, debugger_list_breakpoint_finish, (IAnjutaDebuggerCallback)callback, user_data);
 }
 
 static void
@@ -2853,7 +2853,7 @@ debugger_print_finish (Debugger *debugger, const GDBMIValue *mi_results, const G
 }
 
 void
-debugger_print (Debugger *debugger, const gchar* variable, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_print (Debugger *debugger, const gchar* variable, IAnjutaDebuggerGCharCallback callback, gpointer user_data)
 {
 	gchar *buff;
 	
@@ -2862,7 +2862,7 @@ debugger_print (Debugger *debugger, const gchar* variable, IAnjutaDebuggerCallba
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
 	buff = g_strdup_printf ("print %s", variable);
-	debugger_queue_command (debugger, buff, DEBUGGER_COMMAND_NO_ERROR, debugger_print_finish, callback, user_data);
+	debugger_queue_command (debugger, buff, DEBUGGER_COMMAND_NO_ERROR, debugger_print_finish, (IAnjutaDebuggerCallback)callback, user_data);
 	g_free (buff);
 }
 
@@ -2883,7 +2883,7 @@ debugger_evaluate_finish (Debugger *debugger, const GDBMIValue *mi_results, cons
 }
 
 void
-debugger_evaluate (Debugger *debugger, const gchar* name, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_evaluate (Debugger *debugger, const gchar* name, IAnjutaDebuggerGCharCallback callback, gpointer user_data)
 {
 	gchar *buff;
 	DEBUG_PRINT ("%s", "In function: debugger_add_watch()");
@@ -2891,7 +2891,7 @@ debugger_evaluate (Debugger *debugger, const gchar* name, IAnjutaDebuggerCallbac
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
 	buff = g_strdup_printf ("-data-evaluate-expression %s", name);
-	debugger_queue_command (debugger, buff, DEBUGGER_COMMAND_NO_ERROR, debugger_evaluate_finish, callback, user_data);
+	debugger_queue_command (debugger, buff, DEBUGGER_COMMAND_NO_ERROR, debugger_evaluate_finish, (IAnjutaDebuggerCallback)callback, user_data);
 	g_free (buff);
 }
 
@@ -2952,7 +2952,7 @@ debugger_list_local_finish (Debugger *debugger, const GDBMIValue *mi_results, co
 }
 
 void
-debugger_list_local (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_list_local (Debugger *debugger, IAnjutaDebuggerGListCallback callback, gpointer user_data)
 {
 	gchar *buff;
 	DEBUG_PRINT ("%s", "In function: debugger_list_local()");
@@ -2962,7 +2962,7 @@ debugger_list_local (Debugger *debugger, IAnjutaDebuggerCallback callback, gpoin
 	buff = g_strdup_printf("-stack-list-arguments 0 %d %d", debugger->priv->current_frame, debugger->priv->current_frame);
 	debugger_queue_command (debugger, buff, DEBUGGER_COMMAND_NO_ERROR | DEBUGGER_COMMAND_KEEP_RESULT, NULL, NULL, NULL);
 	g_free (buff);
-	debugger_queue_command (debugger, "-stack-list-locals 0", DEBUGGER_COMMAND_NO_ERROR, debugger_list_local_finish, callback, user_data);
+	debugger_queue_command (debugger, "-stack-list-locals 0", DEBUGGER_COMMAND_NO_ERROR, debugger_list_local_finish, (IAnjutaDebuggerCallback)callback, user_data);
 }
 
 static void
@@ -3007,7 +3007,7 @@ debugger_list_argument_finish (Debugger *debugger, const GDBMIValue *mi_results,
 }
 
 void
-debugger_list_argument (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_list_argument (Debugger *debugger, IAnjutaDebuggerGListCallback callback, gpointer user_data)
 {
 	gchar *buff;
 
@@ -3016,7 +3016,7 @@ debugger_list_argument (Debugger *debugger, IAnjutaDebuggerCallback callback, gp
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
 	buff = g_strdup_printf("-stack-list-arguments 0 %d %d", debugger->priv->current_frame, debugger->priv->current_frame);
-	debugger_queue_command (debugger, buff, DEBUGGER_COMMAND_NO_ERROR, debugger_list_argument_finish, callback, user_data);
+	debugger_queue_command (debugger, buff, DEBUGGER_COMMAND_NO_ERROR, debugger_list_argument_finish, (IAnjutaDebuggerCallback)callback, user_data);
 	g_free (buff);
 }
 
@@ -3032,7 +3032,7 @@ debugger_info_finish (Debugger *debugger, const GDBMIValue *mi_results, const GL
 }
 
 void
-debugger_info_frame (Debugger *debugger, guint frame, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_info_frame (Debugger *debugger, guint frame, IAnjutaDebuggerGListCallback callback, gpointer user_data)
 {
 	gchar *buff;
 	
@@ -3048,22 +3048,22 @@ debugger_info_frame (Debugger *debugger, guint frame, IAnjutaDebuggerCallback ca
 	{
 		buff = g_strdup_printf ("info frame %d", frame);
 	}
-	debugger_queue_command (debugger, buff, DEBUGGER_COMMAND_NO_ERROR, (DebuggerParserFunc)debugger_info_finish, callback, user_data);
+	debugger_queue_command (debugger, buff, DEBUGGER_COMMAND_NO_ERROR, (DebuggerParserFunc)debugger_info_finish, (IAnjutaDebuggerCallback)callback, user_data);
 	g_free (buff);
 }
 
 void
-debugger_info_signal (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_info_signal (Debugger *debugger, IAnjutaDebuggerGListCallback callback, gpointer user_data)
 {
 	DEBUG_PRINT ("%s", "In function: debugger_info_signal()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
-	debugger_queue_command (debugger, "info signals", DEBUGGER_COMMAND_NO_ERROR, (DebuggerParserFunc)debugger_info_finish, callback, user_data);
+	debugger_queue_command (debugger, "info signals", DEBUGGER_COMMAND_NO_ERROR, (DebuggerParserFunc)debugger_info_finish, (IAnjutaDebuggerCallback)callback, user_data);
 }
 
 void
-debugger_info_sharedlib (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_info_sharedlib (Debugger *debugger, IAnjutaDebuggerGListCallback callback, gpointer user_data)
 {
 	gchar *buff;
 	
@@ -3072,57 +3072,57 @@ debugger_info_sharedlib (Debugger *debugger, IAnjutaDebuggerCallback callback, g
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
 	buff = g_strdup_printf ("info sharedlib");
-	debugger_queue_command (debugger, buff, DEBUGGER_COMMAND_NO_ERROR, (DebuggerParserFunc)debugger_info_finish, callback, user_data);	g_free (buff);
+	debugger_queue_command (debugger, buff, DEBUGGER_COMMAND_NO_ERROR, (DebuggerParserFunc)debugger_info_finish, (IAnjutaDebuggerCallback)callback, user_data);	g_free (buff);
 }
 
 void
-debugger_info_args (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_info_args (Debugger *debugger, IAnjutaDebuggerGListCallback callback, gpointer user_data)
 {
 	DEBUG_PRINT ("%s", "In function: debugger_info_args()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
-	debugger_queue_command (debugger, "info args", DEBUGGER_COMMAND_NO_ERROR, (DebuggerParserFunc)debugger_info_finish, callback, user_data);
+	debugger_queue_command (debugger, "info args", DEBUGGER_COMMAND_NO_ERROR, (DebuggerParserFunc)debugger_info_finish, (IAnjutaDebuggerCallback)callback, user_data);
 }
 
 void
-debugger_info_target (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_info_target (Debugger *debugger, IAnjutaDebuggerGListCallback callback, gpointer user_data)
 {
 	DEBUG_PRINT ("%s", "In function: debugger_info_target()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
-	debugger_queue_command (debugger, "info target", DEBUGGER_COMMAND_NO_ERROR, (DebuggerParserFunc)debugger_info_finish, callback, user_data);
+	debugger_queue_command (debugger, "info target", DEBUGGER_COMMAND_NO_ERROR, (DebuggerParserFunc)debugger_info_finish, (IAnjutaDebuggerCallback)callback, user_data);
 }
 
 void
-debugger_info_program (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_info_program (Debugger *debugger, IAnjutaDebuggerGListCallback callback, gpointer user_data)
 {
 	DEBUG_PRINT ("%s", "In function: debugger_info_program()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
-	debugger_queue_command (debugger, "info program", DEBUGGER_COMMAND_NO_ERROR, (DebuggerParserFunc)debugger_info_finish, callback, user_data);
+	debugger_queue_command (debugger, "info program", DEBUGGER_COMMAND_NO_ERROR, (DebuggerParserFunc)debugger_info_finish, (IAnjutaDebuggerCallback)callback, user_data);
 }
 
 void
-debugger_info_udot (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_info_udot (Debugger *debugger, IAnjutaDebuggerGListCallback callback, gpointer user_data)
 {
 	DEBUG_PRINT ("%s", "In function: debugger_info_udot()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
-	debugger_queue_command (debugger, "info udot", DEBUGGER_COMMAND_NO_ERROR, (DebuggerParserFunc)debugger_info_finish, callback, user_data);
+	debugger_queue_command (debugger, "info udot", DEBUGGER_COMMAND_NO_ERROR, (DebuggerParserFunc)debugger_info_finish, (IAnjutaDebuggerCallback)callback, user_data);
 }
 
 void
-debugger_info_variables (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_info_variables (Debugger *debugger, IAnjutaDebuggerGListCallback callback, gpointer user_data)
 {
 	DEBUG_PRINT ("%s", "In function: debugger_info_variables()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
-	debugger_queue_command (debugger, "info variables", DEBUGGER_COMMAND_NO_ERROR, (DebuggerParserFunc)debugger_info_finish, callback, user_data);
+	debugger_queue_command (debugger, "info variables", DEBUGGER_COMMAND_NO_ERROR, (DebuggerParserFunc)debugger_info_finish, (IAnjutaDebuggerCallback)callback, user_data);
 }
 
 static void
@@ -3200,7 +3200,7 @@ debugger_read_memory_finish (Debugger *debugger, const GDBMIValue *mi_results, c
 }
 
 void
-debugger_inspect_memory (Debugger *debugger, gulong address, guint length, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_inspect_memory (Debugger *debugger, gulong address, guint length, IAnjutaDebuggerMemoryCallback callback, gpointer user_data)
 {
 	gchar *buff;
 	
@@ -3209,7 +3209,7 @@ debugger_inspect_memory (Debugger *debugger, gulong address, guint length, IAnju
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
 	buff = g_strdup_printf ("-data-read-memory 0x%lx x 1 1 %d", address, length);
-	debugger_queue_command (debugger, buff, 0, debugger_read_memory_finish, callback, user_data);
+	debugger_queue_command (debugger, buff, 0, debugger_read_memory_finish, (IAnjutaDebuggerCallback)callback, user_data);
 	g_free (buff);
 }
 
@@ -3297,7 +3297,7 @@ debugger_disassemble_finish (Debugger *debugger, const GDBMIValue *mi_results, c
 }
 
 void
-debugger_disassemble (Debugger *debugger, gulong address, guint length, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_disassemble (Debugger *debugger, gulong address, guint length, IAnjutaDebuggerInstructionCallback callback, gpointer user_data)
 {
 	gchar *buff;
 	gulong end;
@@ -3310,7 +3310,7 @@ debugger_disassemble (Debugger *debugger, gulong address, guint length, IAnjutaD
 	/* Handle overflow */
 	end = (address + length < address) ? G_MAXULONG : address + length;
 	buff = g_strdup_printf ("-data-disassemble -s 0x%lx -e 0x%lx  -- 0", address, end);
-	debugger_queue_command (debugger, buff, 0, debugger_disassemble_finish, callback, user_data);
+	debugger_queue_command (debugger, buff, 0, debugger_disassemble_finish, (IAnjutaDebuggerCallback)callback, user_data);
 	g_free (buff);
 }
 
@@ -3474,14 +3474,14 @@ debugger_stack_finish (Debugger *debugger, const GDBMIValue *mi_results, const G
 }
 
 void
-debugger_list_frame (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_list_frame (Debugger *debugger, IAnjutaDebuggerGListCallback callback, gpointer user_data)
 {
 	DEBUG_PRINT ("%s", "In function: debugger_list_frame()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
 	debugger_queue_command (debugger, "-stack-list-frames", DEBUGGER_COMMAND_NO_ERROR | DEBUGGER_COMMAND_KEEP_RESULT, NULL, NULL, NULL);
-	debugger_queue_command (debugger, "-stack-list-arguments 1", DEBUGGER_COMMAND_NO_ERROR, debugger_stack_finish, callback, user_data);
+	debugger_queue_command (debugger, "-stack-list-arguments 1", DEBUGGER_COMMAND_NO_ERROR, debugger_stack_finish, (IAnjutaDebuggerCallback)callback, user_data);
 }
 
 static void
@@ -3514,13 +3514,13 @@ debugger_dump_stack_finish (Debugger *debugger, const GDBMIValue *mi_results, co
 	}
 }
 
-void debugger_dump_stack_trace (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data)
+void debugger_dump_stack_trace (Debugger *debugger, IAnjutaDebuggerGListCallback func, gpointer user_data)
 {
 	DEBUG_PRINT ("%s", "In function: debugger_dump_stack_frame()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
-	debugger_queue_command (debugger, "thread apply all backtrace", DEBUGGER_COMMAND_NO_ERROR, debugger_dump_stack_finish, func, user_data);
+	debugger_queue_command (debugger, "thread apply all backtrace", DEBUGGER_COMMAND_NO_ERROR, debugger_dump_stack_finish, (IAnjutaDebuggerCallback)func, user_data);
 }
 
 /* Thread functions
@@ -3608,13 +3608,13 @@ debugger_list_thread_finish (Debugger *debugger, const GDBMIValue *mi_results, c
 }
 
 void
-debugger_list_thread (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_list_thread (Debugger *debugger, IAnjutaDebuggerGListCallback callback, gpointer user_data)
 {
 	DEBUG_PRINT ("%s", "In function: debugger_list_thread()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
-	debugger_queue_command (debugger, "-thread-list-ids", DEBUGGER_COMMAND_NO_ERROR, debugger_list_thread_finish, callback, user_data);
+	debugger_queue_command (debugger, "-thread-list-ids", DEBUGGER_COMMAND_NO_ERROR, debugger_list_thread_finish, (IAnjutaDebuggerCallback)callback, user_data);
 }
 
 static void
@@ -3682,7 +3682,7 @@ debugger_info_thread_finish (Debugger *debugger, const GDBMIValue *mi_results, c
 }
 
 void
-debugger_info_thread (Debugger *debugger, gint thread, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_info_thread (Debugger *debugger, gint thread, IAnjutaDebuggerGListCallback callback, gpointer user_data)
 {
 	gchar *buff;
 	guint orig_thread;
@@ -3695,7 +3695,7 @@ debugger_info_thread (Debugger *debugger, gint thread, IAnjutaDebuggerCallback c
 	buff = g_strdup_printf ("-thread-select %d", thread);
 	debugger_queue_command (debugger, buff, 0, (DebuggerParserFunc)debugger_info_set_thread_finish, NULL, NULL);
 	g_free (buff);
-	debugger_queue_command (debugger, "-stack-list-frames 0 0", 0, (DebuggerParserFunc)debugger_info_thread_finish, callback, user_data);
+	debugger_queue_command (debugger, "-stack-list-frames 0 0", 0, (DebuggerParserFunc)debugger_info_thread_finish, (IAnjutaDebuggerCallback)callback, user_data);
 
 	buff = g_strdup_printf ("-thread-select %d", orig_thread);
 	debugger_queue_command (debugger, buff, 0, (DebuggerParserFunc)debugger_info_set_thread_finish, NULL, NULL);
@@ -3800,23 +3800,23 @@ debugger_register_value_finish (Debugger *debugger, const GDBMIValue *mi_results
 }
 
 void
-debugger_list_register (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_list_register (Debugger *debugger, IAnjutaDebuggerGListCallback callback, gpointer user_data)
 {
 	DEBUG_PRINT ("%s", "In function: debugger_list_register()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
-	debugger_queue_command (debugger, "-data-list-register-names", DEBUGGER_COMMAND_NO_ERROR, debugger_register_name_finish, callback, user_data);
+	debugger_queue_command (debugger, "-data-list-register-names", DEBUGGER_COMMAND_NO_ERROR, debugger_register_name_finish, (IAnjutaDebuggerCallback)callback, user_data);
 }
 
 void
-debugger_update_register (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_update_register (Debugger *debugger, IAnjutaDebuggerGListCallback callback, gpointer user_data)
 {
 	DEBUG_PRINT ("%s", "In function: debugger_update_register()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
-	debugger_queue_command (debugger, "-data-list-register-values r", DEBUGGER_COMMAND_NO_ERROR, (DebuggerParserFunc)debugger_register_value_finish, callback, user_data);
+	debugger_queue_command (debugger, "-data-list-register-values r", DEBUGGER_COMMAND_NO_ERROR, (DebuggerParserFunc)debugger_register_value_finish, (IAnjutaDebuggerCallback)callback, user_data);
 }
 
 void
@@ -3902,7 +3902,7 @@ gdb_var_evaluate_expression (Debugger *debugger,
 }
 
 void
-debugger_evaluate_variable (Debugger *debugger, const gchar* name, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_evaluate_variable (Debugger *debugger, const gchar* name, IAnjutaDebuggerGCharCallback callback, gpointer user_data)
 {
 	gchar *buff;
 	
@@ -3911,7 +3911,7 @@ debugger_evaluate_variable (Debugger *debugger, const gchar* name, IAnjutaDebugg
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
 	buff = g_strdup_printf ("-var-evaluate-expression %s", name);
-	debugger_queue_command (debugger, buff, 0, gdb_var_evaluate_expression, callback, user_data);
+	debugger_queue_command (debugger, buff, 0, gdb_var_evaluate_expression, (IAnjutaDebuggerCallback)callback, user_data);
 	g_free (buff);
 }
 
@@ -4008,7 +4008,7 @@ gdb_var_list_children (Debugger *debugger,
 	g_list_free (list);
 }
 
-void debugger_list_variable_children (Debugger *debugger, const gchar* name, guint from, IAnjutaDebuggerCallback callback, gpointer user_data)
+void debugger_list_variable_children (Debugger *debugger, const gchar* name, guint from, IAnjutaDebuggerGListCallback callback, gpointer user_data)
 {
 	gchar *buff;
 	
@@ -4017,7 +4017,7 @@ void debugger_list_variable_children (Debugger *debugger, const gchar* name, gui
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
 	buff = g_strdup_printf ("-var-list-children --all-values %s %d %d", name, from, from + MAX_CHILDREN);
-	debugger_queue_command (debugger, buff, 0, gdb_var_list_children, callback, user_data);
+	debugger_queue_command (debugger, buff, 0, gdb_var_list_children, (IAnjutaDebuggerCallback)callback, user_data);
 	g_free (buff);
 }
 
@@ -4056,7 +4056,7 @@ gdb_var_create (Debugger *debugger,
 
 }
 
-void debugger_create_variable (Debugger *debugger, const gchar* name, IAnjutaDebuggerCallback callback, gpointer user_data)
+void debugger_create_variable (Debugger *debugger, const gchar* name, IAnjutaDebuggerVariableCallback callback, gpointer user_data)
 {
 	gchar *buff;
 	
@@ -4065,7 +4065,7 @@ void debugger_create_variable (Debugger *debugger, const gchar* name, IAnjutaDeb
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
 	buff = g_strdup_printf ("-var-create - @ %s", name);
-	debugger_queue_command (debugger, buff, 0, gdb_var_create, callback, user_data);
+	debugger_queue_command (debugger, buff, 0, gdb_var_create, (IAnjutaDebuggerCallback)callback, user_data);
 	g_free (buff);
 }
 
@@ -4131,13 +4131,13 @@ gdb_var_update (Debugger *debugger,
 	g_list_free (list);
 }
 
-void debugger_update_variable (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
+void debugger_update_variable (Debugger *debugger, IAnjutaDebuggerGListCallback callback, gpointer user_data)
 {
 	DEBUG_PRINT ("%s", "In function: update_variable()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
-	debugger_queue_command (debugger, "-var-update *", 0, gdb_var_update, callback, user_data);
+	debugger_queue_command (debugger, "-var-update *", 0, gdb_var_update, (IAnjutaDebuggerCallback)callback, user_data);
 }
 
 GType

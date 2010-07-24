@@ -1276,18 +1276,18 @@ dma_command_run (DmaQueueCommand *cmd, IAnjutaDebugger *debugger,
 		ret = ianjuta_debugger_interrupt (debugger, err);	
 		break;
 	case ENABLE_BREAK_COMMAND:
-		ret = ianjuta_debugger_breakpoint_enable_breakpoint (IANJUTA_DEBUGGER_BREAKPOINT (debugger), cmd->data.brk.id, cmd->data.brk.enable, callback, queue, err);	
+		ret = ianjuta_debugger_breakpoint_enable_breakpoint (IANJUTA_DEBUGGER_BREAKPOINT (debugger), cmd->data.brk.id, cmd->data.brk.enable, (IAnjutaDebuggerBreakpointCallback)callback, queue, err);	
 		break;
 	case IGNORE_BREAK_COMMAND:
-		ret = ianjuta_debugger_breakpoint_ignore_breakpoint (IANJUTA_DEBUGGER_BREAKPOINT (debugger), cmd->data.brk.id, cmd->data.brk.ignore, callback, queue, err);	
+		ret = ianjuta_debugger_breakpoint_ignore_breakpoint (IANJUTA_DEBUGGER_BREAKPOINT (debugger), cmd->data.brk.id, cmd->data.brk.ignore, (IAnjutaDebuggerBreakpointCallback)callback, queue, err);	
 		break;
 	case REMOVE_BREAK_COMMAND:
-		ret = ianjuta_debugger_breakpoint_clear_breakpoint (IANJUTA_DEBUGGER_BREAKPOINT (debugger), cmd->data.brk.id, callback, queue, err);	
+		ret = ianjuta_debugger_breakpoint_clear_breakpoint (IANJUTA_DEBUGGER_BREAKPOINT (debugger), cmd->data.brk.id, (IAnjutaDebuggerBreakpointCallback)callback, queue, err);	
 		break;
 	case BREAK_LINE_COMMAND:
 		if (dma_command_is_breakpoint_pending (cmd))
 		{	
-			ret = ianjuta_debugger_breakpoint_set_breakpoint_at_line (IANJUTA_DEBUGGER_BREAKPOINT (debugger), cmd->data.pos.file, cmd->data.pos.line, callback, queue, err);	
+			ret = ianjuta_debugger_breakpoint_set_breakpoint_at_line (IANJUTA_DEBUGGER_BREAKPOINT (debugger), cmd->data.pos.file, cmd->data.pos.line, (IAnjutaDebuggerBreakpointCallback)callback, queue, err);	
 		}
 		else
 		{
@@ -1297,7 +1297,7 @@ dma_command_run (DmaQueueCommand *cmd, IAnjutaDebugger *debugger,
 	case BREAK_FUNCTION_COMMAND:
 		if (dma_command_is_breakpoint_pending (cmd))
 		{	
-			ret = ianjuta_debugger_breakpoint_set_breakpoint_at_function (IANJUTA_DEBUGGER_BREAKPOINT (debugger), cmd->data.pos.file, cmd->data.pos.function, callback, queue, err);	
+			ret = ianjuta_debugger_breakpoint_set_breakpoint_at_function (IANJUTA_DEBUGGER_BREAKPOINT (debugger), cmd->data.pos.file, cmd->data.pos.function, (IAnjutaDebuggerBreakpointCallback)callback, queue, err);	
 		}
 		else
 		{
@@ -1307,7 +1307,7 @@ dma_command_run (DmaQueueCommand *cmd, IAnjutaDebugger *debugger,
 	case BREAK_ADDRESS_COMMAND:
 		if (dma_command_is_breakpoint_pending (cmd))
 		{	
-			ret = ianjuta_debugger_breakpoint_set_breakpoint_at_address (IANJUTA_DEBUGGER_BREAKPOINT (debugger), cmd->data.pos.address, callback, queue, err);	
+			ret = ianjuta_debugger_breakpoint_set_breakpoint_at_address (IANJUTA_DEBUGGER_BREAKPOINT (debugger), cmd->data.pos.address, (IAnjutaDebuggerBreakpointCallback)callback, queue, err);	
 		}
 		else
 		{
@@ -1315,70 +1315,70 @@ dma_command_run (DmaQueueCommand *cmd, IAnjutaDebugger *debugger,
 		}
 		break;
 	case CONDITION_BREAK_COMMAND:
-		ret = ianjuta_debugger_breakpoint_condition_breakpoint (IANJUTA_DEBUGGER_BREAKPOINT (debugger), cmd->data.brk.id, cmd->data.brk.condition, callback, queue, err);	
+		ret = ianjuta_debugger_breakpoint_condition_breakpoint (IANJUTA_DEBUGGER_BREAKPOINT (debugger), cmd->data.brk.id, cmd->data.brk.condition, (IAnjutaDebuggerBreakpointCallback)callback, queue, err);	
 		break;
 	case LIST_BREAK_COMMAND:
-		ret = ianjuta_debugger_breakpoint_list_breakpoint (IANJUTA_DEBUGGER_BREAKPOINT (debugger), callback, queue, err);	
+		ret = ianjuta_debugger_breakpoint_list_breakpoint (IANJUTA_DEBUGGER_BREAKPOINT (debugger), (IAnjutaDebuggerGListCallback)callback, queue, err);	
 		break;
 	case INSPECT_COMMAND:
-		ret = ianjuta_debugger_inspect (debugger, cmd->data.watch.name, callback, queue, err);
+		ret = ianjuta_debugger_inspect (debugger, cmd->data.watch.name, (IAnjutaDebuggerGCharCallback)callback, queue, err);
 	    break;
 	case EVALUATE_COMMAND:
-		ret = ianjuta_debugger_evaluate (debugger, cmd->data.watch.name, cmd->data.watch.value, callback, queue, err);
+		ret = ianjuta_debugger_evaluate (debugger, cmd->data.watch.name, cmd->data.watch.value, (IAnjutaDebuggerGCharCallback)callback, queue, err);
 	    break;
 	case LIST_LOCAL_COMMAND:
-		ret = ianjuta_debugger_list_local (debugger, callback, queue, err);	
+		ret = ianjuta_debugger_list_local (debugger, (IAnjutaDebuggerGListCallback)callback, queue, err);	
 		break;
 	case LIST_ARG_COMMAND:
-		ret = ianjuta_debugger_list_argument (debugger, callback, queue, err);	
+		ret = ianjuta_debugger_list_argument (debugger, (IAnjutaDebuggerGListCallback)callback, queue, err);	
 		break;
 	case LIST_THREAD_COMMAND:
-		ret = ianjuta_debugger_list_thread (debugger, callback, queue, err);	
+		ret = ianjuta_debugger_list_thread (debugger, (IAnjutaDebuggerGListCallback)callback, queue, err);	
 		break;
 	case SET_THREAD_COMMAND:
 		ret = ianjuta_debugger_set_thread (debugger, cmd->data.frame.frame, err);	
 		break;
 	case INFO_THREAD_COMMAND:
-		ret = ianjuta_debugger_info_thread (debugger, cmd->data.info.id, callback, queue, err);	
+		ret = ianjuta_debugger_info_thread (debugger, cmd->data.info.id, (IAnjutaDebuggerGListCallback)callback, queue, err);	
 		break;
 	case INFO_SIGNAL_COMMAND:
-		ret = ianjuta_debugger_info_signal (debugger, callback, queue, err);	
+		ret = ianjuta_debugger_info_signal (debugger, (IAnjutaDebuggerGListCallback)callback, queue, err);	
 		break;
 	case INFO_SHAREDLIB_COMMAND:
-		ret = ianjuta_debugger_info_sharedlib (debugger, callback, queue, err);	
+		ret = ianjuta_debugger_info_sharedlib (debugger, (IAnjutaDebuggerGListCallback)callback, queue, err);	
 		break;
 	case INFO_FRAME_COMMAND:
-		ret = ianjuta_debugger_info_frame (debugger, 0, callback, queue, err);	
+		ret = ianjuta_debugger_info_frame (debugger, 0, (IAnjutaDebuggerGListCallback)callback, queue, err);	
 		break;
 	case INFO_ARGS_COMMAND:
-		ret = ianjuta_debugger_info_args (debugger, callback, queue, err);	
+		ret = ianjuta_debugger_info_args (debugger, (IAnjutaDebuggerGListCallback)callback, queue, err);	
 		break;
 	case INFO_TARGET_COMMAND:
-		ret = ianjuta_debugger_info_target (debugger, callback, queue, err);	
+		ret = ianjuta_debugger_info_target (debugger, (IAnjutaDebuggerGListCallback)callback, queue, err);	
 		break;
 	case INFO_PROGRAM_COMMAND:
-		ret = ianjuta_debugger_info_program (debugger, callback, queue, err);	
+		ret = ianjuta_debugger_info_program (debugger, (IAnjutaDebuggerGListCallback)callback, queue, err);	
 		break;
 	case INFO_UDOT_COMMAND:
-		ret = ianjuta_debugger_info_udot (debugger, callback, queue, err);	
+		ret = ianjuta_debugger_info_udot (debugger, (IAnjutaDebuggerGListCallback)callback, queue, err);	
 		break;
 	case INFO_VARIABLES_COMMAND:
-		ret = ianjuta_debugger_info_variables (debugger, callback, queue, err);	
+		ret = ianjuta_debugger_info_variables (debugger, (IAnjutaDebuggerGListCallback)callback, queue, err);	
 		break;
 	case SET_FRAME_COMMAND:
 		ret = ianjuta_debugger_set_frame (debugger, cmd->data.frame.frame, err);	
 		break;
 	case LIST_FRAME_COMMAND:
-		ret = ianjuta_debugger_list_frame (debugger, callback, queue, err);	
+		ret = ianjuta_debugger_list_frame (debugger, (IAnjutaDebuggerGListCallback)callback, queue, err);	
 		break;
 	case DUMP_STACK_TRACE_COMMAND:
-		ret = ianjuta_debugger_dump_stack_trace (debugger, callback, queue, err);	
+		ret = ianjuta_debugger_dump_stack_trace (debugger, (IAnjutaDebuggerGListCallback)callback, queue, err);	
 		break;
 	case LIST_REGISTER_COMMAND:
-		ret = ianjuta_debugger_register_list_register (IANJUTA_DEBUGGER_REGISTER (debugger), callback, queue, err);	
+		ret = ianjuta_debugger_register_list_register (IANJUTA_DEBUGGER_REGISTER (debugger), (IAnjutaDebuggerGListCallback)callback, queue, err);	
 		break;
 	case UPDATE_REGISTER_COMMAND:
-		ret = ianjuta_debugger_register_update_register (IANJUTA_DEBUGGER_REGISTER (debugger), callback, queue, err);	
+		ret = ianjuta_debugger_register_update_register (IANJUTA_DEBUGGER_REGISTER (debugger), (IAnjutaDebuggerGListCallback)callback, queue, err);	
 		break;
 	case WRITE_REGISTER_COMMAND:
 		reg.num = cmd->data.watch.id;
@@ -1387,16 +1387,16 @@ dma_command_run (DmaQueueCommand *cmd, IAnjutaDebugger *debugger,
 		ret = ianjuta_debugger_register_write_register (IANJUTA_DEBUGGER_REGISTER (debugger), &reg, err);	
 		break;
 	case INSPECT_MEMORY_COMMAND:
-		ret = ianjuta_debugger_memory_inspect (IANJUTA_DEBUGGER_MEMORY (debugger), cmd->data.mem.address, cmd->data.mem.length, callback, queue, err);	
+		ret = ianjuta_debugger_memory_inspect (IANJUTA_DEBUGGER_MEMORY (debugger), cmd->data.mem.address, cmd->data.mem.length, (IAnjutaDebuggerMemoryCallback)callback, queue, err);	
 		break;
 	case DISASSEMBLE_COMMAND:
-		ret = ianjuta_debugger_instruction_disassemble (IANJUTA_DEBUGGER_INSTRUCTION (debugger), cmd->data.mem.address, cmd->data.mem.length, callback, queue, err);	
+		ret = ianjuta_debugger_instruction_disassemble (IANJUTA_DEBUGGER_INSTRUCTION (debugger), cmd->data.mem.address, cmd->data.mem.length, (IAnjutaDebuggerInstructionCallback)callback, queue, err);	
 		break;
 	case USER_COMMAND:
 		ret = ianjuta_debugger_send_command (debugger, cmd->data.user.cmd, err);	
 		break;
 	case PRINT_COMMAND:
-		ret = ianjuta_debugger_print (debugger, cmd->data.print.var, callback, queue, err);	
+		ret = ianjuta_debugger_print (debugger, cmd->data.print.var, (IAnjutaDebuggerGCharCallback)callback, queue, err);	
 		break;
 	case HANDLE_SIGNAL_COMMAND:
 		ret = ianjuta_debugger_handle_signal (debugger, cmd->data.signal.name, cmd->data.signal.stop, cmd->data.signal.print, cmd->data.signal.ignore, err);	
@@ -1408,16 +1408,16 @@ dma_command_run (DmaQueueCommand *cmd, IAnjutaDebugger *debugger,
 		ret = ianjuta_debugger_variable_assign (IANJUTA_DEBUGGER_VARIABLE (debugger), cmd->data.var.name, cmd->data.var.value, err);
 		break;
 	case EVALUATE_VARIABLE:
-		ret = ianjuta_debugger_variable_evaluate (IANJUTA_DEBUGGER_VARIABLE (debugger), cmd->data.var.name, callback, queue, err);
+		ret = ianjuta_debugger_variable_evaluate (IANJUTA_DEBUGGER_VARIABLE (debugger), cmd->data.var.name, (IAnjutaDebuggerGCharCallback)callback, queue, err);
 		break;
 	case LIST_VARIABLE_CHILDREN:
-		ret = ianjuta_debugger_variable_list_children (IANJUTA_DEBUGGER_VARIABLE (debugger), cmd->data.var.name, cmd->data.var.from, callback, queue, err);
+		ret = ianjuta_debugger_variable_list_children (IANJUTA_DEBUGGER_VARIABLE (debugger), cmd->data.var.name, cmd->data.var.from, (IAnjutaDebuggerGListCallback)callback, queue, err);
 		break;
 	case CREATE_VARIABLE:
-		ret = ianjuta_debugger_variable_create (IANJUTA_DEBUGGER_VARIABLE (debugger), cmd->data.var.name, callback, queue, err);
+		ret = ianjuta_debugger_variable_create (IANJUTA_DEBUGGER_VARIABLE (debugger), cmd->data.var.name, (IAnjutaDebuggerVariableCallback)callback, queue, err);
 		break;
 	case UPDATE_VARIABLE:
-		ret = ianjuta_debugger_variable_update (IANJUTA_DEBUGGER_VARIABLE (debugger), callback, queue, err);
+		ret = ianjuta_debugger_variable_update (IANJUTA_DEBUGGER_VARIABLE (debugger), (IAnjutaDebuggerGListCallback)callback, queue, err);
 		break;
 	}
 	

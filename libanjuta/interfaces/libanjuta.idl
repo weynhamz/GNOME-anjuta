@@ -1,4 +1,5 @@
 // -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
+// -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 //
 //  libanjuta interfaces. Generate stubs with anjuta-idl-compiler.pl
 // 
@@ -3629,6 +3630,32 @@ interface IAnjutaDebugger
 	#include <gio/gio.h>
 
 	/* Types */
+	/**
+	 * IAnjutaDebuggerError:
+	 * @IANJUTA_DEBUGGER_OK: No error
+	 * @IANJUTA_DEBUGGER_NOT_READY: Debugger is not ready to execute the command
+	 * @IANJUTA_DEBUGGER_NOT_RUNNING: Debugger is not is running state
+	 * @IANJUTA_DEBUGGER_NOT_STOPPED: Debugger is not is stopped state
+	 * @IANJUTA_DEBUGGER_NOT_LOADED: Debugger is not is loaded state
+	 * @IANJUTA_DEBUGGER_NOT_STARTED: Debugger is not in started state
+	 * @IANJUTA_DEBUGGER_NOT_CONNECTED: Debugger is not connected:
+	 * @IANJUTA_DEBUGGER_NOT_IMPLEMENTED: Corresponding function is not implemented
+	 * @IANJUTA_DEBUGGER_CANCEL: Operation has been cancelled
+	 * @IANJUTA_DEBUGGER_UNABLE_TO_CREATE_VARIABLE: Debugger cannot create variable
+	 * @IANJUTA_DEBUGGER_UNABLE_TO_ACCESS_MEMORY: Debugger cannot access memory
+	 * @IANJUTA_DEBUGGER_UNABLE_TO_OPEN_FILE: Debugger cannot open file
+	 * @IANJUTA_DEBUGGER_UNSUPPORTED_FILE_TYPE: Debugger cannot debug such file
+	 * @IANJUTA_DEBUGGER_UNSUPPORTED_VERSION: Debugger is too old
+	 * @IANJUTA_DEBUGGER_UNABLE_TO_FIND_DEBUGGER: Debugger cannot be found
+	 * @IANJUTA_DEBUGGER_ALREADY_DONE: Command has already been executed
+	 * @IANJUTA_DEBUGGER_PROGRAM_NOT_FOUND: Program cannot be found
+	 * @IANJUTA_DEBUGGER_UNABLE_TO_CONNECT: Unable to connect to debugger
+	 * @IANJUTA_DEBUGGER_UNKNOWN_ERROR: Unknown error
+	 * @IANJUTA_DEBUGGER_OTHER_ERROR: other error
+	 *
+	 * This enumeration is used to defined the error returned by the debugger
+	 * backend.
+	 */
 	enum Error
 	{
 		OK              =  0,
@@ -3653,15 +3680,16 @@ interface IAnjutaDebugger
 		OTHER_ERROR
 	}
 
-	enum Data
-	{
-		INFORMATION,
-		BREAKPOINT,
-		FRAME,
-		VARIABLE,
-		REGISTER
-	}
-
+	/**
+	 * IAnjutaDebuggerOutputType:
+	 * @IANJUTA_DEBUGGER_OUTPUT: Output from debugger
+	 * @IANJUTA_DEBUGGER_WARNING_OUTPUT: Warning from debugger
+	 * @IANJUTA_DEBUGGER_ERROR_OUTPUT: Error from debugger
+	 * @IANJUTA_DEBUGGER_INFO_OUTPUT: Additional message from debugger
+	 * 
+	 * This enumeration is used to defined the kind of output in
+	 * #IAnjutaDebuggerOutputCallback
+	 */
 	enum OutputType
 	{
 		OUTPUT,
@@ -3670,6 +3698,18 @@ interface IAnjutaDebugger
 		INFO_OUTPUT
 	}
 
+	/**
+	 * IAnjutaDebuggerState:
+	 * @IANJUTA_DEBUGGER_BUSY: Debugger is executing a command, it can enter in another
+	 *                         at the end of the command.
+	 * @IANJUTA_DEBUGGER_STOPPED: Debugger is stopped.
+	 * @IANJUTA_DEBUGGER_STARTED: Debugger is started but no program is loaded.
+	 * @IANJUTA_DEBUGGER_PROGRAM_LOADED: Debugger is started and has a program loaded.
+	 * @IANJUTA_DEBUGGER_PROGRAM_STOPPED: Debugger is started and has a program stopped.
+	 * @IANJUTA_DEBUGGER_PROGRAM_RUNNING: Debugger is started and has a program running.
+	 * 
+	 * This enumeration is used to defined the different state of the debugger.
+	 */
 	enum State
 	{
 		BUSY,
@@ -3680,6 +3720,19 @@ interface IAnjutaDebugger
 		PROGRAM_RUNNING
 	}
 
+	/**
+	 * IAnjutaDebuggerFrame:
+	 * @thread: Thread identifier.
+	 * @level: Level of the frame, 0 is the topmost one.
+	 * @args: List of argument of the caller.
+	 * @file: Source file name where is the program counter.
+	 * @line: Line number in the file above.
+	 * @function: Function name where is the program counter.
+	 * @library: Library name where is the program counter.
+	 * @address: Address of the program counter.
+	 * 
+	 * This structure keeps all information about a stack frame.
+	 */
 	struct Frame
 	{
 		gint thread;
@@ -3692,12 +3745,51 @@ interface IAnjutaDebugger
 		gulong address;
 	}
 
-	/* Call back functions */
+	/**
+	 * IAnjutaDebuggerCallback:
+	 * @data: data
+	 * @user_data: user data passed to the function
+	 * @error: error
+	 * 
+	 * This callback function is used only by #ianjuta_debugger_callback with a
+	 * NULL data.
+	 */
 	typedef void (*Callback) (const gpointer data, gpointer user_data, GError* err);
+
+	/**
+	 * IAnjutaDebuggerGListCallback:
+	 * @list: list of data
+	 * @user_data: user data passed to the function
+	 * @error: error
+	 * 
+	 * This callback function is used by several debugger functions. Depending on
+	 * the function, the kind of elements in the list is different. It is a string
+	 * for #ianjuta_debugger_list_local or a #IAnjutaDebuggerFrame for
+	 * #ianjuta_debugger_list_frame.
+	 */
 	typedef void (*GListCallback) (const GList* list, gpointer user_data, GError* err);
+
+	/**
+	 * IAnjutaDebuggerCallback:
+	 * @data: string
+	 * @user_data: user data
+	 * @error: error
+	 * 
+	 * This callback function is used by several debugger functions. The data is
+	 * a string
+	 */
 	typedef void (*GCharCallback) (const gchar *value, gpointer user_data, GError* err);
+
+	/**
+	 * IAnjutaDebuggerCallback:
+	 * @data: Self
+	 * @user_data: user data
+	 * @error: error
+	 * 
+	 * This callback function is used only by #ianjuta_debugger_callback with a
+	 * NULL data.
+	 */
 	typedef void (*OutputCallback) (OutputType type, const gchar *output, gpointer user_data);
-	typedef void (*MemoryCallback) (gulong address, guint length, const gchar *data, gpointer user_data, GError *err);
 
 	/* Signals */
 
@@ -3998,8 +4090,8 @@ interface IAnjutaDebugger
 	/**
 	* ianjuta_debugger_run_from:
 	* @obj: Self
-	* @callback: Callback to call getting a list of frame
-	* @user_data: User data that is passed back to the callback
+	* @file: target file name
+	* @line: target line in file
 	* @err: Error propagation and reporting.
 	* 
 	* Execute the program from a new position.
@@ -4045,7 +4137,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean inspect (const gchar* name, Callback callback, gpointer user_data);
+	gboolean inspect (const gchar* name, GCharCallback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_evaluate:
@@ -4060,7 +4152,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean evaluate (const gchar* name, const gchar* value, Callback callback, gpointer user_data);
+	gboolean evaluate (const gchar* name, const gchar* value, GCharCallback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_print:
@@ -4074,7 +4166,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean print (const gchar *variable, Callback callback, gpointer user_data);
+	gboolean print (const gchar *variable, GCharCallback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_list_local:
@@ -4087,7 +4179,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean list_local (Callback callback, gpointer user_data);
+	gboolean list_local (GListCallback callback, gpointer user_data);
 
 	/**
 	* ianjuta_debugger_list_argument:
@@ -4100,7 +4192,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean list_argument (Callback callback, gpointer user_data);
+	gboolean list_argument (GListCallback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_info_signal:
@@ -4113,7 +4205,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean info_signal (Callback callback, gpointer user_data);
+	gboolean info_signal (GListCallback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_info_sharedlib:
@@ -4126,7 +4218,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean info_sharedlib (Callback callback, gpointer user_data);
+	gboolean info_sharedlib (GListCallback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_handle_signal:
@@ -4147,7 +4239,7 @@ interface IAnjutaDebugger
 	* ianjuta_debugger_info_frame:
 	* @obj: Self
 	* @frame: frame number, the top frame has the number 0
-	* @callback: Callback to call getting a string with all information
+	* @callback: Callback to call getting a list of strings with all information
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
@@ -4155,12 +4247,12 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean info_frame (guint frame, Callback callback, gpointer user_data);
+	gboolean info_frame (guint frame, GListCallback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_info_args:
 	* @obj: Self
-	* @callback: Callback to call getting a string with all information
+	* @callback: Callback to call getting a list of strings with all information
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
@@ -4168,12 +4260,12 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean info_args (Callback callback, gpointer user_data);
+	gboolean info_args (GListCallback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_info_target:
 	* @obj: Self
-	* @callback: Callback to call getting a string with all information
+	* @callback: Callback to call getting a list of strings with all information
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
@@ -4181,12 +4273,12 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean info_target (Callback callback, gpointer user_data);
+	gboolean info_target (GListCallback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_info_program:
 	* @obj: Self
-	* @callback: Callback to call getting a string with all information
+	* @callback: Callback to call getting a list of strings with all information
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
@@ -4194,12 +4286,12 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean info_program (Callback callback, gpointer user_data);
+	gboolean info_program (GListCallback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_info_udot:
 	* @obj: Self
-	* @callback: Callback to call getting a string with all information
+	* @callback: Callback to call getting a list of strings with all information
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
@@ -4207,13 +4299,13 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean info_udot (Callback callback, gpointer user_data);
+	gboolean info_udot (GListCallback callback, gpointer user_data);
 	
 	
 	/**
 	* ianjuta_debugger_info_variables:
 	* @obj: Self
-	* @callback: Callback to call getting a string with all information
+	* @callback: Callback to call getting a list of strings with all information
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
@@ -4221,12 +4313,12 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean info_variables (Callback callback, gpointer user_data);
+	gboolean info_variables (GListCallback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_list_frame:
 	* @obj: Self
-	* @callback: Callback to call getting a list of frame
+	* @callback: Callback to call getting a list of #IAnjutaDebuggerFrame
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
@@ -4234,7 +4326,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean list_frame (Callback callback, gpointer user_data);
+	gboolean list_frame (GListCallback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_set_frame:
@@ -4251,7 +4343,7 @@ interface IAnjutaDebugger
 	/**
 	* ianjuta_debugger_list_thread:
 	* @obj: Self
-	* @callback: Callback to call getting a list of thread
+	* @callback: Callback to call getting a list of #IAnjutaDebuggerFrame for each thread
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
@@ -4259,7 +4351,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean list_thread (Callback callback, gpointer user_data);
+	gboolean list_thread (GListCallback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_set_thread:
@@ -4277,7 +4369,7 @@ interface IAnjutaDebugger
 	* ianjuta_debugger_info_thread:
 	* @obj: Self
 	* @thread: thread number
-	* @callback: Callback to call getting a string with all information
+	* @callback: Callback to call getting a list of strings with all information
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
@@ -4285,20 +4377,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean info_thread (gint thread, Callback callback, gpointer user_data);
-
-	/**
-	* ianjuta_debugger_list_register:
-	* @obj: Self
-	* @callback: Callback to call getting a list of registers
-	* @user_data: User data that is passed back to the callback
-	* @err: Error propagation and reporting.
-	* 
-	* Get the list of registers.
-	*
-	* Returns: TRUE if sucessful, otherwise FALSE.
-	*/
-	gboolean list_register (Callback callback, gpointer user_data);
+	gboolean info_thread (gint thread, GListCallback callback, gpointer user_data);
 
 	/**
 	* ianjuta_debugger_send_command:
@@ -4317,7 +4396,7 @@ interface IAnjutaDebugger
 	/**
 	* ianjuta_debugger_callback:
 	* @obj: Self
-	* @callback: Callback to call
+	* @callback: Callback to call. the data argument is NULL.
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
@@ -4353,7 +4432,7 @@ interface IAnjutaDebugger
 	/**
 	* ianjuta_debugger_dump_stack_trace:
 	* @obj: Self
-	* @callback: Callback to call getting a list of frame
+	* @callback: Callback to call getting a list of strings
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
@@ -4362,7 +4441,7 @@ interface IAnjutaDebugger
 	* 
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean dump_stack_trace (Callback callback, gpointer user_data);
+	gboolean dump_stack_trace (GListCallback callback, gpointer user_data);
 
 	/**
 	 * SECTION:ianjuta-debugger-breakpoint
@@ -4376,6 +4455,24 @@ interface IAnjutaDebugger
 	interface IAnjutaDebuggerBreakpoint
 	{	
 		
+		/**
+		 * IAnjutaDebuggerBreakpointType:
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_REMOVED: Set for removed breakpoint
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_UPDATED: Set for changed breakpoint
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_ON_LINE: Set on source line
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_ON_ADDRESS: Set on an addresse
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_ON_FUNCTION: Set on a function name
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_ON_READ: Set on read access
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_ON_WRITE: Set on write access
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_WITH_ENABLE: Has enable information
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_WITH_IGNORE: Has ignore information,
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_WITH_TIME: Has counter information
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_WITH_CONDITION: Has a condition
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_WITH_TEMPORARY: Temporary breakpoint, automatically removed when triggered
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_WITH_PENDING: Pending breakpoint
+		 * 
+		 * This enumeration defined various characteristics of the breakpoint.
+		 */
 		enum Type
 		{
 			REMOVED = 1 << 0,
@@ -4393,6 +4490,23 @@ interface IAnjutaDebugger
 			WITH_PENDING = 1 << 14,
 		}
 
+		/**
+		 * IAnjutaDebuggerBreakpointItem:
+		 * @type: type see #IAnjutaBreakpointType enumeration
+		 * @id: unique identifier
+		 * @file: source file where is the breakpoint
+		 * @line: corresponding source file line number
+		 * @function: corresponding function name
+		 * @address: corresponding address
+		 * @enable: TRUE if the breakpoint is enabled
+		 * @ignore: TRUE if the breakpoint is ignored
+		 * @times: Count how many time the breakpoint is triggered
+		 * @condition: Additional condition for triggering the breakpoint
+		 * @temporary: TRUE if the breakpoint is temporary
+		 * @pending: TRUE if the breakpoint is pending
+		 * 
+		 * This structure keeps all information about a breakpoint.
+		 */
 		struct Item
 		{
 			gint type;
@@ -4409,6 +4523,17 @@ interface IAnjutaDebugger
 			gboolean pending;
 		}
 
+		/**
+		 * IAnjutaDebuggerBreakpointMethod:
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_SET_AT_ADDRESS: Allow to set breakpoint on address
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_SET_AT_FUNCTION: Allow to set breakpoint on function name
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_ENABLE: Allow to disable breakpoint
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_IGNORE: Allow to ignore breakpoint
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_CONDITION: Allow to add a condition on breakpoint
+		 * 
+		 * Defines which breakpoint characteristics are supported by the debugger
+		 * backend.
+		 */
 		enum Method
 		{
 			SET_AT_ADDRESS = 1 << 0,
@@ -4419,13 +4544,23 @@ interface IAnjutaDebugger
 		}
 
 		/**
+		 * IAnjutaDebuggerBreakpointCallback:
+		 * @data: a #IAnjutaBreakpointItem object
+		 * @user_data: user data passed to the function
+		 * @error: error
+		 * 
+		 * This callback function is used to return a #IAnjutaBreakpointItem.
+		 */
+		typedef void (*Callback) (const Item *data, gpointer user_data, GError* err);
+		
+		/**
 		* ianjuta_debugger_breakpoint_implement_breakpoint:
 		* @obj: Self
 		* @err: Error propagation and reporting.
 		* 
 		* Return all implemented methods.
 		*
-		* Returns: A OR of IAnjutaDebuggerBreakpointMethod
+		* Returns: A OR of #IAnjutaDebuggerBreakpointMethod
 		* corresponding to all implemented optional methods.
 		*/
 		gint implement_breakpoint ();
@@ -4444,7 +4579,7 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is called. If 
 		* FALSE, the callback will not be called.
 		*/
-		gboolean set_breakpoint_at_line (const gchar* file, guint line, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean set_breakpoint_at_line (const gchar* file, guint line, Callback callback, gpointer user_data);
 
 	
 		/**
@@ -4461,7 +4596,7 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is called. If 
 		* FALSE, the callback will not be called.
 		*/
-		gboolean set_breakpoint_at_address (gulong address, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean set_breakpoint_at_address (gulong address, Callback callback, gpointer user_data);
 	
 		/**
 		* ianjuta_debugger_breakpoint_set_breakpoint_at_function:
@@ -4478,7 +4613,7 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is called. If 
 		* FALSE, the callback will not be called.
 		*/
-		gboolean set_breakpoint_at_function (const gchar* file, const gchar* function, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean set_breakpoint_at_function (const gchar* file, const gchar* function, Callback callback, gpointer user_data);
 	
 		/**
 		* ianjuta_debugger_breakpoint_clear_breakpoint:
@@ -4494,12 +4629,12 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is called. If 
 		* FALSE, the callback will not be called.
 		*/
-		gboolean clear_breakpoint (guint id, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean clear_breakpoint (guint id, Callback callback, gpointer user_data);
 
 		/**
 		* ianjuta_debugger_breakpoint_list_breakpoint:
 		* @obj: Self
-		* @callback: Callback to call with the list of breakpoints
+		* @callback: Callback to call with the list of #IAnjutaDebuggreBreakpointItem
 		* @user_data: User data that is passed back to the callback
 		* @err: Error propagation and reporting.
 		* 
@@ -4509,7 +4644,7 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is called. If 
 		* FALSE, the callback will not be called.
 		*/
-		gboolean list_breakpoint (IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean list_breakpoint (IAnjutaDebuggerGListCallback callback, gpointer user_data);
 
 		/**
 		* ianjuta_debugger_breakpoint_enable_breakpoint:
@@ -4525,7 +4660,7 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is called. If 
 		* FALSE, the callback will not be called.
 		*/
-		gboolean enable_breakpoint (guint id, gboolean enable, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean enable_breakpoint (guint id, gboolean enable, Callback callback, gpointer user_data);
 	
 		/**
 		* ianjuta_debugger_breakpoint_ignore_breakpoint:
@@ -4542,7 +4677,7 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is called. If 
 		* FALSE, the callback will not be called.
 		*/
-		gboolean ignore_breakpoint (guint id, guint ignore, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean ignore_breakpoint (guint id, guint ignore, Callback callback, gpointer user_data);
 	
 		/**
 		* ianjuta_debugger_breakpoint_condition_breakpoint:
@@ -4560,7 +4695,7 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is called. If 
 		* FALSE, the callback will not be called.
 		*/
-		gboolean condition_breakpoint (guint id, const gchar* condition, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean condition_breakpoint (guint id, const gchar* condition, Callback callback, gpointer user_data);
 	}
 
 	/**
@@ -4578,6 +4713,20 @@ interface IAnjutaDebugger
 	*/
 	interface IAnjutaDebuggerVariable
 	{
+		/**
+		 * IAnjutaDebuggerVariableObject:
+		 * @name: unique variable object name created by backend
+		 * @expression: corresponding variable name or expression
+		 * @type: variable type
+		 * @value: variable value
+		 * @changed: TRUE if the variable has changed
+		 * @exited: TRUE if the variable is outside current scope
+		 * @deleted: TRUE if the variable has been removed
+		 * @children: Number of variable children, -1 if unknown
+		 * @has_more: TRUE if the children value is wrong
+		 * 
+		 * Defines a variable object.
+		 */
 		struct Object
 		{
 			gchar *name;
@@ -4592,6 +4741,16 @@ interface IAnjutaDebugger
 		}
 
 		/**
+		 * IAnjutaDebuggerVariableCallback:
+		 * @data: a #IAnjutaDebuggerVariableObject object
+		 * @user_data: user data passed to the function
+		 * @error: error
+		 * 
+		 * This callback function is used to return a #IAnjutaDebuggerVariableObject.
+		 */
+		typedef void (*Callback) (const Object *data, gpointer user_data, GError* err);
+
+		/**
 		* ianjuta_debugger_variable_create:
 		* @obj: Self
 		* @expression: Variable expression
@@ -4604,7 +4763,7 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is
 		* called. If FALSE, the callback will not be called.
 		*/
-		gboolean create (const gchar *expression, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean create (const gchar *expression, Callback callback, gpointer user_data);
 
 		/**
 		* ianjuta_debugger_variable_list_children:
@@ -4612,7 +4771,7 @@ interface IAnjutaDebugger
 		* @name: Variable name
 		* @from: Starting from this children (zero-based)
 		* @callback: Callback to call when the children have been
-		* created
+		* created with a list of variable objects
 		* @user_data: User data that is passed back to the callback
 	 	* @err: Error propagation and reporting.
 		* 
@@ -4627,7 +4786,7 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is
 		* called. If FALSE, the callback will not be called.
 		*/
-		gboolean list_children (const gchar *name, guint from, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean list_children (const gchar *name, guint from, IAnjutaDebuggerGListCallback callback, gpointer user_data);
 
 		/**
 		* ianjuta_debugger_variable_evaluate:
@@ -4642,7 +4801,7 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is
 		* called. If FALSE, the callback will not be called.
 		*/
-		gboolean evaluate (const gchar *name, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean evaluate (const gchar *name, IAnjutaDebuggerGCharCallback callback, gpointer user_data);
 
 		/**
 		* ianjuta_debugger_variable_assign:
@@ -4662,7 +4821,7 @@ interface IAnjutaDebugger
 		* ianjuta_debugger_variable_update:
 		* @obj: Self
 		* @callback: Callback to call with the list of all changed
-		* variables
+		* variable names
 		* @user_data: User data that is passed back to the callback
 		* @err: Error propagation and reporting.
 		* 
@@ -4671,7 +4830,7 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is
 		* called. If FALSE, the callback will not be called.
 		*/
-		gboolean update (IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean update (IAnjutaDebuggerGListCallback callback, gpointer user_data);
 
 		/**
 		* ianjuta_debugger_variable_destroy:
@@ -4701,6 +4860,14 @@ interface IAnjutaDebugger
 	interface IAnjutaDebuggerRegister
 	{
 
+		/**
+		 * IAnjutaDebuggerRegisterData:
+		 * @num: register identifier
+		 * @name: register name
+		 * @value: register value
+		 * 
+		 * Defines a register data.
+		 */
 		struct Data
 		{
 			guint num;
@@ -4711,7 +4878,7 @@ interface IAnjutaDebugger
 		/**
 		* ianjuta_debugger_register_list_register:
 		* @obj: Self
-		* @callback: Callback to call with the register list
+		* @callback: Callback to call with the #IAnjutaDebuggerRegisterData list
 		* @user_data: User data that is passed back to the callback
 		* @err: Error propagation and reporting.
 		* 
@@ -4721,12 +4888,12 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is
 		* called. If FALSE, the callback will not be called.
 		*/
-		gboolean list_register (IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean list_register (IAnjutaDebuggerGListCallback callback, gpointer user_data);
 
 		/**
 		* ianjuta_debugger_register_update_register:
 		* @obj: Self
-		* @callback: Callback call with the list of all modified registers
+		* @callback: Callback call with the list of all modified #IAnjutaDebuggerRegisterData
 		* @user_data: User data that is passed back to the callback
 		* @err: Error propagation and reporting.
 		* 
@@ -4736,7 +4903,7 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is
 		* called. If FALSE, the callback will not be called.
 		*/
-		gboolean update_register (IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean update_register (IAnjutaDebuggerGListCallback callback, gpointer user_data);
 
 		/**
 		* ianjuta_debugger_register_write_register:
@@ -4763,12 +4930,30 @@ interface IAnjutaDebugger
 	*/
 	interface IAnjutaDebuggerMemory
 	{
+		/**
+		 * IAnjutaDebuggerRegisterMemoryBlock:
+		 * @address: start address of memory block
+		 * @length: size of memory block
+		 * @data: memory block data
+		 * 
+		 * Represent a block of memory.
+		 */
 		struct Block
 		{
 			gulong address;
 			guint length;
 			gchar *data;
 		}
+
+		/**
+		 * IAnjutaDebuggerMemoryCallback:
+		 * @data: a #IAnjutaDebuggerMemoryBlock object
+		 * @user_data: user data passed to the function
+		 * @error: error
+		 * 
+		 * This callback function is used to return a #IAnjutaDebuggerMemoryBlock.
+		 */
+		typedef void (*Callback) (const Block *data, gpointer user_data, GError* err);
 
 		/**
 		* ianjuta_debugger_memory_inspect:
@@ -4784,7 +4969,7 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is
 		* called. If FALSE, the callback will not be called.
 		*/
-		gboolean inspect (gulong address, guint length, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean inspect (gulong address, guint length, Callback callback, gpointer user_data);
 	}
 
 	/**
@@ -4800,6 +4985,14 @@ interface IAnjutaDebugger
 	interface IAnjutaDebuggerInstruction
 	{
 	
+		/**
+		 * IAnjutaDebuggerInstructionALine:
+		 * @address: Address of the line
+		 * @label: Optional label
+		 * @text: Diassembled instruction on the line
+		 * 
+		 * Defines a disassembled line
+		 */
 		struct ALine
 		{
 			gulong address;
@@ -4807,11 +5000,28 @@ interface IAnjutaDebugger
 			const gchar *text;
 		}
 
+		/**
+		 * IAnjutaDebuggerInstructionDisassembly:
+		 * @size: Number of line
+		 * @data: Array of all lines
+		 * 
+		 * Represents a block of diassembled instructions
+		 */
 		struct Disassembly
 		{
 			guint size;
-			ALine data[];	
-		}	
+			ALine data[];
+		}
+
+		/**
+		 * IAnjutaDebuggerInstructionCallback:
+		 * @data: a #IAnjutaDebuggerInstructionDisassembly object
+		 * @user_data: user data passed to the function
+		 * @error: error
+		 * 
+		 * This callback function is used to return a #IAnjutaDebuggerInstructionDisassembly.
+		 */
+		typedef void (*Callback) (const Disassembly *data, gpointer user_data, GError* err);
 
 		/**
 		* ianjuta_debugger_instruction_disassemble:
@@ -4827,7 +5037,7 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is
 		* called. If FALSE, the callback will not be called.
 		*/
-		gboolean disassemble (gulong address, guint length, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean disassemble (gulong address, guint length, Callback callback, gpointer user_data);
 
 		/**
 		* ianjuta_debugger_instruction_step_in_instruction:
@@ -4880,7 +5090,7 @@ interface IAnjutaDebugger
 		*/
 		gboolean run_from_address (gulong address);
 	}
-		
+
 }
 
 /**

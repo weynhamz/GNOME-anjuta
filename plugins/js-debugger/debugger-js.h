@@ -59,14 +59,14 @@ void debugger_js_stepover (DebuggerJs *object);
 void debugger_js_stepout (DebuggerJs *object);
 void debugger_js_stop (DebuggerJs *object);
 void debugger_js_add_breakpoint (DebuggerJs *object, const gchar* file, guint line);
-void debugger_js_breakpoint_list (DebuggerJs *object, IAnjutaDebuggerCallback callback, gpointer user_data);
-void debugger_js_variable_list_children (DebuggerJs *object, IAnjutaDebuggerCallback callback, const gchar *name, gpointer user_data);
+void debugger_js_breakpoint_list (DebuggerJs *object, IAnjutaDebuggerGListCallback callback, gpointer user_data);
+void debugger_js_variable_list_children (DebuggerJs *object, IAnjutaDebuggerGListCallback callback, const gchar *name, gpointer user_data);
 void debugger_js_signal (DebuggerJs *object, IAnjutaDebuggerCallback callback, gpointer user_data);
-void debugger_js_list_local (DebuggerJs *object, IAnjutaDebuggerCallback callback, gpointer user_data);
-void debugger_js_list_thread (DebuggerJs *object, IAnjutaDebuggerCallback callback, gpointer user_data);
-void debugger_js_list_frame (DebuggerJs *object, IAnjutaDebuggerCallback callback, gpointer user_data);
-void debugger_js_info_thread (DebuggerJs *object, IAnjutaDebuggerCallback callback, gint thread, gpointer user_data);
-void debugger_js_variable_create (DebuggerJs *object, IAnjutaDebuggerCallback callback, const gchar *name, gpointer user_data);
+void debugger_js_list_local (DebuggerJs *object, IAnjutaDebuggerGListCallback callback, gpointer user_data);
+void debugger_js_list_thread (DebuggerJs *object, IAnjutaDebuggerGListCallback callback, gpointer user_data);
+void debugger_js_list_frame (DebuggerJs *object, IAnjutaDebuggerGListCallback callback, gpointer user_data);
+void debugger_js_info_thread (DebuggerJs *object, IAnjutaDebuggerGListCallback callback, gint thread, gpointer user_data);
+void debugger_js_variable_create (DebuggerJs *object, IAnjutaDebuggerVariableCallback callback, const gchar *name, gpointer user_data);
 
 G_END_DECLS
 
