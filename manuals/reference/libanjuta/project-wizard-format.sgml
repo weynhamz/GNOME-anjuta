@@ -189,7 +189,7 @@
 		<para>
 			<emphasis>property</emphasis>
 			<programlisting>
-&lt;property type=hidden|boolean|integer|string|list|directory|file|icon
+&lt;property type=hidden|boolean|integer|string|list|directory|file|icon|package
 	name = name _label=label [_description=description] [default=default]
 	[mandatory=yes|no] [exist=yes|no] [summary=yes|no] &gt;
 	[&lt;item&gt;]
@@ -288,6 +288,20 @@
 							file property and allow you to select
 							an icon. The property value will be
 							the name of the file containing the icon.
+							</para>
+						</listitem>
+					</varlistentry>
+					<varlistentry><term>package</term>
+						<listitem>
+							<para>
+							This property is similar to the file
+							property and allow you to select a
+							pkg-config package. It displays an entry
+							box, that you can fill directly, with a
+							button allowing to display all
+							installed packages and select one.
+							The property value will be
+							the name of the package.
 							</para>
 						</listitem>
 					</varlistentry>	

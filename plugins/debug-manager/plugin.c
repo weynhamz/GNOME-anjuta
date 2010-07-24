@@ -76,6 +76,7 @@ struct _DebugManagerPlugin
 	GtkActionGroup *loaded_group;
 	GtkActionGroup *stopped_group;
 	GtkActionGroup *running_group;
+	GtkAction *run_stop_action;
 
 	/* Project */
 	gchar *project_root_uri;
@@ -380,7 +381,6 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 	}
 }
 
-
 /* State functions
  *---------------------------------------------------------------------------*/
 
@@ -406,7 +406,7 @@ dma_plugin_debugger_started (DebugManagerPlugin *this)
 	gtk_action_group_set_sensitive (this->stopped_group, FALSE);
 	gtk_action_group_set_visible (this->running_group, TRUE);
 	gtk_action_group_set_sensitive (this->running_group, FALSE);
-	
+
 	status = anjuta_shell_get_status(ANJUTA_PLUGIN (this)->shell, NULL);
 	anjuta_status_set_default (status, _("Debugger"), _("Started"));
 }
@@ -426,7 +426,9 @@ dma_plugin_program_loaded (DebugManagerPlugin *this)
 	gtk_action_group_set_sensitive (this->loaded_group, TRUE);
 	gtk_action_group_set_sensitive (this->stopped_group, FALSE);
 	gtk_action_group_set_sensitive (this->running_group, FALSE);
-	
+
+	gtk_action_set_sensitive (this->run_stop_action, FALSE);
+
 	status = anjuta_shell_get_status(ANJUTA_PLUGIN (this)->shell, NULL);
 	anjuta_status_set_default (status, _("Debugger"), _("Loaded"));
 }
@@ -446,6 +448,11 @@ dma_plugin_program_running (DebugManagerPlugin *this)
 	gtk_action_group_set_sensitive (this->loaded_group, TRUE);
 	gtk_action_group_set_sensitive (this->stopped_group, FALSE);
 	gtk_action_group_set_sensitive (this->running_group, TRUE);
+	
+	gtk_action_set_sensitive (this->run_stop_action, TRUE);
+	gtk_action_set_stock_id (this->run_stop_action, GTK_STOCK_MEDIA_PAUSE);
+	gtk_action_set_label (this->run_stop_action, _("Pa_use Program"));
+	gtk_action_set_tooltip (this->run_stop_action, _("Pauses the execution of the program"));
 	
 	status = anjuta_shell_get_status(ANJUTA_PLUGIN (this)->shell, NULL);
 	anjuta_status_set_default (status, _("Debugger"), _("Running…"));
@@ -468,6 +475,11 @@ dma_plugin_program_stopped (DebugManagerPlugin *this)
 	gtk_action_group_set_sensitive (this->loaded_group, TRUE);
 	gtk_action_group_set_sensitive (this->stopped_group, TRUE);
 	gtk_action_group_set_sensitive (this->running_group, FALSE);
+
+	gtk_action_set_sensitive (this->run_stop_action, TRUE);
+	gtk_action_set_stock_id (this->run_stop_action, GTK_STOCK_MEDIA_PLAY);
+	gtk_action_set_label (this->run_stop_action, _("Run/_Continue"));
+	gtk_action_set_tooltip (this->run_stop_action, _("Continue the execution of the program"));
 
 	status = anjuta_shell_get_status(ANJUTA_PLUGIN (this)->shell, NULL);
 	anjuta_status_set_default (status, _("Debugger"), _("Stopped"));
@@ -630,6 +642,22 @@ on_run_continue_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 {
 	if (plugin->queue)
 		dma_queue_run (plugin->queue);
+}
+
+static void
+on_continue_suspend_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
+{
+	if (plugin->queue)
+	{
+		if (gtk_action_group_get_sensitive (plugin->running_group))
+		{
+			dma_queue_interrupt (plugin->queue);
+		}
+		else
+		{
+			dma_queue_run (plugin->queue);
+		}
+	}
 }
 
 static void
@@ -1002,6 +1030,14 @@ static GtkActionEntry actions_loaded[] =
 		NULL,
 		N_("Show kernel signals"),
 		G_CALLBACK (on_debugger_signals_activate)
+	},
+	{
+		"ActionDebuggerContinueSuspend",
+		GTK_STOCK_MEDIA_PLAY,
+		N_("_Continue/Suspend"),
+		"F4",
+		N_("Continue or suspend the execution of the program"),
+		G_CALLBACK (on_continue_suspend_action_activate)
 	}
 };
 
@@ -1015,7 +1051,6 @@ static GtkActionEntry actions_stopped[] =
 		N_("Continue the execution of the program"),   /* Tooltip */
 		G_CALLBACK (on_run_continue_action_activate)   /* action callback */
 	},
-	
 	{
 		"ActionDebuggerStepIn",
 		"debugger-step-into",
@@ -1184,6 +1219,9 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 											G_N_ELEMENTS (actions_running),
 											GETTEXT_PACKAGE, TRUE, this);	
 	this->uiid = anjuta_ui_merge (ui, UI_FILE);
+	
+	/* Get run_stop_action */
+	this->run_stop_action = anjuta_ui_get_action (ui, "ActionGroupDebugLoaded", "ActionDebuggerContinueSuspend");
 
 	/* Variable */
 	this->variable = dma_variable_dbase_new (this);

@@ -57,6 +57,8 @@
 #define GDB_PROMPT  "(gdb)"
 #define FILE_BUFFER_SIZE 1024
 #define GDB_PATH "gdb"
+#define MAX_CHILDREN		25		/* Limit the number of variable children
+									 * returned by debugger */
 #define SUMMARY_MAX_LENGTH   90	 /* Should be smaller than 4K to be displayed
 				  * in GtkCellRendererCell */
 
@@ -3983,6 +3985,21 @@ gdb_var_list_children (Debugger *debugger,
 
 			list = g_list_prepend (list, var);
 		}
+
+		literal = gdbmi_value_hash_lookup (mi_results, "has_more");
+		if (literal && (*gdbmi_value_literal_get(literal) == '1'))
+		{
+			/* Add a dummy children to represent additional children */
+			IAnjutaDebuggerVariableObject *var;
+			
+			var = g_new0 (IAnjutaDebuggerVariableObject, 1);
+			var->expression = _("more children");
+			var->type = "";
+			var->value = "";
+			var->has_more = TRUE;
+			list = g_list_prepend (list, var);
+		}
+		
 		list = g_list_reverse (list);
 	}
 
@@ -3991,7 +4008,7 @@ gdb_var_list_children (Debugger *debugger,
 	g_list_free (list);
 }
 
-void debugger_list_variable_children (Debugger *debugger, const gchar* name, IAnjutaDebuggerCallback callback, gpointer user_data)
+void debugger_list_variable_children (Debugger *debugger, const gchar* name, guint from, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
 	gchar *buff;
 	
@@ -3999,7 +4016,7 @@ void debugger_list_variable_children (Debugger *debugger, const gchar* name, IAn
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
-	buff = g_strdup_printf ("-var-list-children --all-values %s", name);
+	buff = g_strdup_printf ("-var-list-children --all-values %s %d %d", name, from, from + MAX_CHILDREN);
 	debugger_queue_command (debugger, buff, 0, gdb_var_list_children, callback, user_data);
 	g_free (buff);
 }

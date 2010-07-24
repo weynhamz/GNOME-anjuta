@@ -1187,11 +1187,11 @@ idebugger_variable_assign (IAnjutaDebuggerVariable *plugin, const gchar *name, c
 }
 
 static gboolean
-idebugger_variable_list_children (IAnjutaDebuggerVariable *plugin, const gchar *name, IAnjutaDebuggerCallback callback , gpointer user_data, GError **error)
+idebugger_variable_list_children (IAnjutaDebuggerVariable *plugin, const gchar *name, guint from, IAnjutaDebuggerCallback callback , gpointer user_data, GError **error)
 {
 	GdbPlugin *gdb = ANJUTA_PLUGIN_GDB (plugin);
 
-	debugger_list_variable_children (gdb->debugger, name, callback, user_data);
+	debugger_list_variable_children (gdb->debugger, name, from, callback, user_data);
 
 	return TRUE;
 }

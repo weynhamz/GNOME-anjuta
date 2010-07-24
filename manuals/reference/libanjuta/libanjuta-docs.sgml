@@ -128,7 +128,6 @@
 	<xi:include href="xml/ianjuta-iterable.xml"/>
 	<xi:include href="xml/ianjuta-iterable-tree.xml"/>
 	<xi:include href="xml/ianjuta-language.xml"/>
-	<xi:include href="xml/ianjuta-language-support.xml"/>
 	<xi:include href="xml/ianjuta-loader.xml"/>
 	<xi:include href="xml/ianjuta-macro.xml"/>
 	<xi:include href="xml/ianjuta-markable.xml"/>

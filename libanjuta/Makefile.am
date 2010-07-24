@@ -244,14 +244,22 @@ INTROSPECTION_SCANNER_ARGS = --add-include-path=$(srcdir)
 INTROSPECTION_COMPILER_ARGS = --includedir=$(srcdir)
 
 if HAVE_INTROSPECTION
-introspection_sources = $(libanjuta_la_SOURCES)
+anjuta_introspection_sources = $(libanjuta_la_SOURCES)
+ianjuta_introspection_sources = interfaces/*.c interfaces/*.h
 
 Anjuta-1_0.gir: libanjuta.la
 Anjuta_1_0_gir_INCLUDES = GObject-2.0 Gtk-2.0
 Anjuta_1_0_gir_CFLAGS = $(ANJUTA_CFLAGS) -I$(top_srcdir)
 Anjuta_1_0_gir_LIBS = libanjuta.la
-Anjuta_1_0_gir_FILES = $(addprefix $(srcdir)/,$(introspection_sources))
+Anjuta_1_0_gir_FILES = $(addprefix $(srcdir)/,$(anjuta_introspection_sources))
 INTROSPECTION_GIRS += Anjuta-1.0.gir
+
+IAnjuta-1_0.gir: interfaces/libanjuta-interfaces.la  libanjuta.la
+IAnjuta_1_0_gir_INCLUDES = GObject-2.0 Gtk-2.0 Anjuta-1.0
+IAnjuta_1_0_gir_CFLAGS = $(LIBANJUTA_CFLAGS) -I$(top_srcdir)
+IAnjuta_1_0_gir_LIBS = interfaces/libanjuta-interfaces.la libanjuta.la
+IAnjuta_1_0_gir_FILES = $(addprefix $(srcdir)/,$(ianjuta_introspection_sources))
+INTROSPECTION_GIRS += IAnjuta-1.0.gir
 
 girdir = $(datadir)/gir-1.0
 dist_gir_DATA = $(INTROSPECTION_GIRS)

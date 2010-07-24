@@ -194,7 +194,7 @@ void debugger_set_log (Debugger *debugger, IAnjutaMessageView *view);
 void debugger_delete_variable (Debugger *debugger, const gchar *name);
 void debugger_evaluate_variable (Debugger *debugger, const gchar *name, IAnjutaDebuggerCallback callback, gpointer user_data);
 void debugger_assign_variable (Debugger *debugger, const gchar *name, const gchar *value);
-void debugger_list_variable_children (Debugger *debugger, const gchar* name, IAnjutaDebuggerCallback callback, gpointer user_data);
+void debugger_list_variable_children (Debugger *debugger, const gchar* name, guint from, IAnjutaDebuggerCallback callback, gpointer user_data);
 void debugger_create_variable (Debugger *debugger, const gchar *name, IAnjutaDebuggerCallback callback, gpointer user_data);
 void debugger_update_variable (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data);
 

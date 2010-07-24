@@ -66,9 +66,6 @@ locals_updated (const gpointer data, gpointer user_data, GError *error)
 
 	if (error != NULL)
 		return;
-	
-	if (g_list_length ((GList*)list) < 1)
-		return;
 
 	debug_tree_replace_list (self->debug_tree, list);
 }

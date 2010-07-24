@@ -329,16 +329,7 @@ dma_queue_emit_debugger_ready (DmaDebuggerQueue *self)
 		AnjutaStatus* status;
 		
 		status = anjuta_shell_get_status(ANJUTA_PLUGIN (self->plugin)->shell, NULL);
-		if (busy)
-		{
-			anjuta_status_busy_push (status);
-			self->busy = TRUE;
-		}
-		else
-		{
-			anjuta_status_busy_pop (status);
-			self->busy = FALSE;
-		}
+		self->busy = busy;
 	}	
 }
 
