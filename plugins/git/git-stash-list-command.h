@@ -26,6 +26,7 @@
 #define _GIT_STASH_LIST_COMMAND_H_
 
 #include <glib-object.h>
+#include <gio/gio.h>
 #include "git-command.h"
 #include "git-stash.h"
 

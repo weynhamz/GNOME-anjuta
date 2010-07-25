@@ -31,6 +31,7 @@ struct _GitStashListCommandPriv
 {
 	GRegex *stash_regex;
 	GQueue *output;
+	GFileMonitor *file_monitor;
 };
 
 G_DEFINE_TYPE (GitStashListCommand, git_stash_list_command, GIT_TYPE_COMMAND);
@@ -62,6 +63,7 @@ git_stash_list_command_finalize (GObject *object)
 	}
 	
 	g_queue_free (self->priv->output);
+	anjuta_command_stop_automatic_monitor (ANJUTA_COMMAND (object));
 	g_free (self->priv);
 
 	G_OBJECT_CLASS (git_stash_list_command_parent_class)->finalize (object);
@@ -118,6 +120,69 @@ git_stash_list_command_handle_output (GitCommand *git_command,
 }
 
 static void
+on_file_monitor_changed (GFileMonitor *file_monitor, GFile *file, 
+                         GFile *other_file, GFileMonitorEvent event,
+                         AnjutaCommand *command)
+{
+	if (event == G_FILE_MONITOR_EVENT_CREATED ||
+	    event == G_FILE_MONITOR_EVENT_DELETED)
+	{
+		anjuta_command_start (command);
+	}
+}
+
+static gboolean
+git_stash_list_command_start_automatic_monitor (AnjutaCommand *command)
+{
+	GitStashListCommand *self;
+	gchar *working_directory;
+	gchar *git_stash_path;
+	GFile *git_stash_file;
+
+	self = GIT_STASH_LIST_COMMAND (command);
+
+	g_object_get (G_OBJECT (self), "working-directory", &working_directory,
+	              NULL);
+
+	git_stash_path = g_strjoin (G_DIR_SEPARATOR_S,
+	                            working_directory,
+	                            ".git",
+	                            "refs",
+	                            "stash",
+	                            NULL);
+
+	git_stash_file = g_file_new_for_path (git_stash_path);
+
+	self->priv->file_monitor = g_file_monitor_file (git_stash_file, 0, NULL, 
+	                                                NULL);
+
+	g_signal_connect (G_OBJECT (self->priv->file_monitor), "changed",
+	                  G_CALLBACK (on_file_monitor_changed),
+	                  command);
+
+	g_free (working_directory);
+	g_free (git_stash_path);
+	g_object_unref (git_stash_file);
+
+	return TRUE;
+}
+
+static void
+git_stash_list_command_stop_automatic_monitor (AnjutaCommand *command)
+{
+	GitStashListCommand *self;
+
+	self = GIT_STASH_LIST_COMMAND (command);
+
+	if (self->priv->file_monitor)
+	{
+		g_file_monitor_cancel (self->priv->file_monitor);
+		g_object_unref (self->priv->file_monitor);
+		self->priv->file_monitor = NULL;
+	}
+}
+
+static void
 git_stash_list_command_class_init (GitStashListCommandClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
@@ -127,6 +192,8 @@ git_stash_list_command_class_init (GitStashListCommandClass *klass)
 	object_class->finalize = git_stash_list_command_finalize;
 	parent_class->output_handler = git_stash_list_command_handle_output;
 	command_class->run = git_stash_list_command_run;
+	command_class->start_automatic_monitor = git_stash_list_command_start_automatic_monitor;
+	command_class->stop_automatic_monitor = git_stash_list_command_stop_automatic_monitor;
 }
 
 
