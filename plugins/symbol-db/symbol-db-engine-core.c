@@ -2895,7 +2895,7 @@ sdb_engine_add_new_db_file (SymbolDBEngine * dbe, const gchar * project_name,
 			gchar * sql_str = gda_statement_to_sql_extended ((GdaStatement*)stmt, 
 			    priv->db_connection, (GdaSet*)plist, 0, NULL, NULL);
 			
-			g_warning ("%s [%s]", error->message, sql_str);
+			DEBUG_PRINT ("%s [%s]", error->message, sql_str);
 			g_error_free (error);
 			g_free (sql_str);
 		}
@@ -3048,7 +3048,7 @@ symbol_db_engine_add_new_files_full (SymbolDBEngine * dbe,
 			sdb_engine_add_new_db_file (dbe, project_name, node_file, 
 									 node_lang) == FALSE)
 		{
-			g_warning ("symbol_db_engine_add_new_files (): "
+			DEBUG_PRINT ("symbol_db_engine_add_new_files (): "
 					   "Error processing file %s, db_directory %s, project_name %s, "
 					   "project_directory %s", node_file, 
 					   priv->db_directory, project_name, priv->project_directory);

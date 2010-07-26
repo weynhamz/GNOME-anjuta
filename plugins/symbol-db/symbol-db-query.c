@@ -789,7 +789,7 @@ sdb_query_dispose (GObject *object)
 	}
 	if (priv->async_result_queue)
 	{
-		g_object_unref (priv->async_result_queue);
+		g_async_queue_unref (priv->async_result_queue);
 		priv->async_result_queue = NULL;
 	}
 	if (priv->async_poll_id)
