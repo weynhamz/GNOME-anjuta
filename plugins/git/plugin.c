@@ -582,6 +582,7 @@ git_deactivate_plugin (AnjutaPlugin *plugin)
 	g_object_unref (git_plugin->commit_status_command);
 	g_object_unref (git_plugin->not_updated_status_command);
 	g_object_unref (git_plugin->remote_list_command);
+	g_object_unref (git_plugin->tag_list_command);
 	g_object_unref (git_plugin->stash_list_command);
 	
 	g_free (git_plugin->project_root_directory);
