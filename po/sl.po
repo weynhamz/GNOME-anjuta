@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&component=core application\n"
-"POT-Creation-Date: 2010-07-01 20:24+0000\n"
-"PO-Revision-Date: 2010-07-06 07:53+0100\n"
+"POT-Creation-Date: 2010-07-24 15:04+0000\n"
+"PO-Revision-Date: 2010-07-26 09:12+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -211,8 +211,8 @@ msgstr "tajsko"
 #: ../libanjuta/anjuta-encodings.c:441
 #: ../plugins/gbf-am/gbf-am-project.c:193
 #: ../plugins/gbf-am/gbf-am-project.c:3372
-#: ../plugins/gbf-am/gbf-am-properties.c:129
-#: ../plugins/gbf-am/gbf-am-properties.c:176
+#: ../plugins/gbf-am/gbf-am-properties.c:130
+#: ../plugins/gbf-am/gbf-am-properties.c:177
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:191
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3267
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:104
@@ -288,13 +288,13 @@ msgstr "Pozabi na izbran vstavek"
 #: ../libanjuta/anjuta-plugin-manager.c:1357
 #: ../libanjuta/anjuta-plugin-manager.c:1508
 #: ../libanjuta/anjuta-profile.c:507
-#: ../plugins/debug-manager/queue.c:537
+#: ../plugins/debug-manager/queue.c:529
 msgid "Select a plugin"
 msgstr "Izbor vstavka"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1358
 #: ../libanjuta/anjuta-plugin-manager.c:1509
-#: ../plugins/debug-manager/queue.c:538
+#: ../plugins/debug-manager/queue.c:530
 msgid "Please select a plugin to activate"
 msgstr "Izbor vstavka za zagon"
 
@@ -448,7 +448,7 @@ msgid "If you do not save, all your changes will be lost."
 msgstr "V primeru, da datoteke ne shranite, bodo izgubljene vse spremembe."
 
 #: ../libanjuta/anjuta-save-prompt.c:189
-#: ../plugins/document-manager/plugin.c:606
+#: ../plugins/document-manager/plugin.c:605
 msgid "Save"
 msgstr "Shrani"
 
@@ -473,20 +473,19 @@ msgstr[3] "<b>Odprti so %d predmeti s spremenjeno vsebino. Ali jih želite shran
 msgid "There is an item with unsaved changes. Save changes before closing?"
 msgstr "Odprt je predmet s spremenjeno vsebino. Ali ga želite shraniti?"
 
-#. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-#: ../libanjuta/anjuta-ui.c:845
+#: ../libanjuta/anjuta-ui.c:1393
 msgid "Action"
 msgstr "Dejanje"
 
-#: ../libanjuta/anjuta-ui.c:863
+#: ../libanjuta/anjuta-ui.c:1414
 msgid "Visible"
 msgstr "Vidno"
 
-#: ../libanjuta/anjuta-ui.c:876
+#: ../libanjuta/anjuta-ui.c:1426
 msgid "Sensitive"
 msgstr "Občutljivo"
 
-#: ../libanjuta/anjuta-ui.c:885
+#: ../libanjuta/anjuta-ui.c:1434
 msgid "Shortcut"
 msgstr "Bližnjica"
 
@@ -1448,7 +1447,7 @@ msgid "Failed to write autogen definition file"
 msgstr "Napaka med zapisovanjem autogen datoteke določitev"
 
 #: ../plugins/class-gen/plugin.c:98
-#: ../plugins/project-wizard/druid.c:1135
+#: ../plugins/project-wizard/druid.c:1146
 msgid "Could not find autogen version 5; please install the autogen package. You can get it from http://autogen.sourceforge.net."
 msgstr "Ni mogoče najti autogen različice 5. Namestite autogen paket. Paket lahko prejmete preko http://autogen.sourceforge.net"
 
@@ -1476,7 +1475,7 @@ msgstr "Izvedba"
 #: ../plugins/class-gen/window.c:511
 #: ../plugins/class-gen/window.c:533
 #: ../plugins/debug-manager/breakpoints.c:1952
-#: ../plugins/debug-manager/debug_tree.c:126
+#: ../plugins/debug-manager/debug_tree.c:128
 msgid "Type"
 msgstr "Vrsta"
 
@@ -1492,7 +1491,7 @@ msgstr "Ime"
 #: ../plugins/class-gen/window.c:503
 #: ../plugins/class-gen/window.c:513
 #: ../plugins/class-gen/window.c:535
-#: ../plugins/debug-manager/stack_trace.c:679
+#: ../plugins/debug-manager/stack_trace.c:712
 msgid "Arguments"
 msgstr "Argumenti"
 
@@ -1671,8 +1670,8 @@ msgstr "Prezri .cvsrc datoteko (priporočeno)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
 #: ../plugins/git/anjuta-git.ui.h:57
-#: ../plugins/symbol-db/plugin.c:2056
-#: ../plugins/symbol-db/plugin.c:2098
+#: ../plugins/symbol-db/plugin.c:2052
+#: ../plugins/symbol-db/plugin.c:2094
 msgid "Local"
 msgstr "Krajevno"
 
@@ -1805,7 +1804,7 @@ msgid "CVSROOT"
 msgstr "CVSROOT"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:438
-#: ../plugins/gbf-am/gbf-am-properties.c:1237
+#: ../plugins/gbf-am/gbf-am-properties.c:1156
 msgid "Module"
 msgstr "Modul"
 
@@ -2060,8 +2059,8 @@ msgid "Inspect/Evaluate"
 msgstr "Preveri/oceni"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:24
-#: ../plugins/debug-manager/plugin.c:967
-#: ../plugins/debug-manager/plugin.c:1067
+#: ../plugins/debug-manager/plugin.c:1029
+#: ../plugins/debug-manager/plugin.c:1145
 msgid "Kernel Signals"
 msgstr "Signali jedra"
 
@@ -2137,7 +2136,7 @@ msgid "TCP/IP Connection"
 msgstr "TCP/IP Povezava"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:42
-#: ../plugins/project-wizard/property.c:339
+#: ../plugins/project-wizard/property.c:341
 msgid "Yes"
 msgstr "Da"
 
@@ -2308,7 +2307,7 @@ msgid "Enabled"
 msgstr "Omogočeno"
 
 #: ../plugins/debug-manager/breakpoints.c:1952
-#: ../plugins/debug-manager/stack_trace.c:667
+#: ../plugins/debug-manager/stack_trace.c:700
 #: ../plugins/debug-manager/threads.c:481
 msgid "Address"
 msgstr "Naslov"
@@ -2336,15 +2335,15 @@ msgstr "Opravila prekinitvene točke"
 msgid "_Go to address"
 msgstr "Pojdi na _naslov"
 
-#: ../plugins/debug-manager/debug_tree.c:126
-#: ../plugins/gbf-am/gbf-am-properties.c:974
+#: ../plugins/debug-manager/debug_tree.c:128
+#: ../plugins/gbf-am/gbf-am-properties.c:893
 #: ../plugins/tools/editor.c:468
 msgid "Variable"
 msgstr "Spremenljivka"
 
-#: ../plugins/debug-manager/debug_tree.c:126
+#: ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/debug-manager/registers.c:469
-#: ../plugins/gbf-am/gbf-am-properties.c:984
+#: ../plugins/gbf-am/gbf-am-properties.c:903
 #: ../plugins/run-program/parameters.c:763
 #: ../plugins/tools/editor.c:474
 msgid "Value"
@@ -2365,20 +2364,20 @@ msgid "Lines"
 msgstr "Vrstice"
 
 #. This is the list of local variables.
-#: ../plugins/debug-manager/locals.c:107
+#: ../plugins/debug-manager/locals.c:102
 msgid "Locals"
 msgstr "Izbrane spremenljivke"
 
-#: ../plugins/debug-manager/plugin.c:337
+#: ../plugins/debug-manager/plugin.c:338
 msgid "Debugger Log"
 msgstr "Beleženje razhroščevanja"
 
 #: ../plugins/debug-manager/plugin.c:411
-#: ../plugins/debug-manager/plugin.c:431
-#: ../plugins/debug-manager/plugin.c:451
-#: ../plugins/debug-manager/plugin.c:473
-#: ../plugins/debug-manager/plugin.c:507
-#: ../plugins/debug-manager/plugin.c:542
+#: ../plugins/debug-manager/plugin.c:433
+#: ../plugins/debug-manager/plugin.c:458
+#: ../plugins/debug-manager/plugin.c:485
+#: ../plugins/debug-manager/plugin.c:519
+#: ../plugins/debug-manager/plugin.c:552
 #: ../plugins/debug-manager/anjuta-debug-manager.plugin.in.h:2
 msgid "Debugger"
 msgstr "Razhroščevalnik"
@@ -2387,228 +2386,248 @@ msgstr "Razhroščevalnik"
 msgid "Started"
 msgstr "Zagnano"
 
-#: ../plugins/debug-manager/plugin.c:431
+#: ../plugins/debug-manager/plugin.c:433
 msgid "Loaded"
 msgstr "Naloženo"
 
-#: ../plugins/debug-manager/plugin.c:451
+#. Action name
+#. Stock icon, if any
+#: ../plugins/debug-manager/plugin.c:454
+#: ../plugins/debug-manager/plugin.c:1157
+msgid "Pa_use Program"
+msgstr "_Premor program"
+
+#. Display label
+#. short-cut
+#: ../plugins/debug-manager/plugin.c:455
+#: ../plugins/debug-manager/plugin.c:1159
+msgid "Pauses the execution of the program"
+msgstr "Premor izvajanja programa"
+
+#: ../plugins/debug-manager/plugin.c:458
 msgid "Running…"
 msgstr "Zagnano ..."
 
-#: ../plugins/debug-manager/plugin.c:473
+#. Action name
+#. Stock icon, if any
+#: ../plugins/debug-manager/plugin.c:481
+#: ../plugins/debug-manager/plugin.c:1049
+msgid "Run/_Continue"
+msgstr "Zaženi/_nadaljuj"
+
+#. Display label
+#. short-cut
+#: ../plugins/debug-manager/plugin.c:482
+#: ../plugins/debug-manager/plugin.c:1051
+msgid "Continue the execution of the program"
+msgstr "Nadaljuj z izvajanjem programa"
+
+#: ../plugins/debug-manager/plugin.c:485
 msgid "Stopped"
 msgstr "Zaustavljeno"
 
-#: ../plugins/debug-manager/plugin.c:507
+#: ../plugins/debug-manager/plugin.c:519
 msgid "Unloaded"
 msgstr "Izključeno"
 
-#: ../plugins/debug-manager/plugin.c:551
+#: ../plugins/debug-manager/plugin.c:561
 #, c-format
 msgid "Debugger terminated with error %d: %s\n"
 msgstr "Razhroščevanje je bilo zaključeno z napako %d: %s\n"
 
-#: ../plugins/debug-manager/plugin.c:564
+#: ../plugins/debug-manager/plugin.c:574
 #, c-format
 msgid "Program has received signal: %s\n"
 msgstr "Program je prejel signal: %s\n"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:851
+#: ../plugins/debug-manager/plugin.c:913
 msgid "_Debug"
 msgstr "_Razhroščevanje"
 
-#: ../plugins/debug-manager/plugin.c:859
+#: ../plugins/debug-manager/plugin.c:921
 msgid "_Start Debugger"
 msgstr "_Zagon razhroščevalnika"
 
-#: ../plugins/debug-manager/plugin.c:867
+#: ../plugins/debug-manager/plugin.c:929
 msgid "_Debug Program"
 msgstr "_Razhroščevanje programa"
 
-#: ../plugins/debug-manager/plugin.c:869
+#: ../plugins/debug-manager/plugin.c:931
 msgid "Start debugger and load the program"
 msgstr "Zaženi razhroščevalnik in naloži program"
 
-#: ../plugins/debug-manager/plugin.c:875
+#: ../plugins/debug-manager/plugin.c:937
 msgid "_Debug Process…"
 msgstr "_Razhroščevanje opravila ..."
 
-#: ../plugins/debug-manager/plugin.c:877
+#: ../plugins/debug-manager/plugin.c:939
 msgid "Start debugger and attach to a running program"
 msgstr "Zaženi razhroščevalnik in ga pripni k zagnanemu programu"
 
-#: ../plugins/debug-manager/plugin.c:883
+#: ../plugins/debug-manager/plugin.c:945
 msgid "Debug _Remote Target…"
 msgstr "Razhroščevanje _oddaljenega cilja ..."
 
-#: ../plugins/debug-manager/plugin.c:885
+#: ../plugins/debug-manager/plugin.c:947
 msgid "Connect to a remote debugging target"
 msgstr "Povezava z oddaljenim ciljem razhroščevanja"
 
-#: ../plugins/debug-manager/plugin.c:891
+#: ../plugins/debug-manager/plugin.c:953
 msgid "Stop Debugger"
 msgstr "Zaustavi razhroščevalnik"
 
-#: ../plugins/debug-manager/plugin.c:893
+#: ../plugins/debug-manager/plugin.c:955
 msgid "Say goodbye to the debugger"
 msgstr "Poslovite se od razhroščevalnika"
 
-#: ../plugins/debug-manager/plugin.c:899
+#: ../plugins/debug-manager/plugin.c:961
 msgid "Add source paths…"
 msgstr "Dodaj poti vira ..."
 
-#: ../plugins/debug-manager/plugin.c:901
+#: ../plugins/debug-manager/plugin.c:963
 msgid "Add additional source paths"
 msgstr "Dodaj dodatne poti vira"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:911
-#: ../plugins/debug-manager/plugin.c:1019
+#: ../plugins/debug-manager/plugin.c:973
+#: ../plugins/debug-manager/plugin.c:1097
 msgid "Debugger Command…"
 msgstr "Ukaz razhroščevalnika ..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:913
-#: ../plugins/debug-manager/plugin.c:1021
+#: ../plugins/debug-manager/plugin.c:975
+#: ../plugins/debug-manager/plugin.c:1099
 msgid "Custom debugger command"
 msgstr "Razhroščevalni ukaz po meri"
 
-#: ../plugins/debug-manager/plugin.c:919
-#: ../plugins/debug-manager/plugin.c:1027
+#: ../plugins/debug-manager/plugin.c:981
+#: ../plugins/debug-manager/plugin.c:1105
 msgid "_Info"
 msgstr "_Podrobnosti"
 
-#: ../plugins/debug-manager/plugin.c:927
+#: ../plugins/debug-manager/plugin.c:989
 msgid "Info _Target Files"
 msgstr "Podrobnosti _ciljnih datotek"
 
-#: ../plugins/debug-manager/plugin.c:929
+#: ../plugins/debug-manager/plugin.c:991
 msgid "Display information on the files the debugger is active with"
 msgstr "Prikaz podrobnosti datotek, na katerih je dejaven razhroščevalnik"
 
-#: ../plugins/debug-manager/plugin.c:935
+#: ../plugins/debug-manager/plugin.c:997
 msgid "Info _Program"
 msgstr "Podrobnosti _programa"
 
-#: ../plugins/debug-manager/plugin.c:937
+#: ../plugins/debug-manager/plugin.c:999
 msgid "Display information on the execution status of the program"
 msgstr "Prikaz podrobnosti stanja izvajanja programa"
 
-#: ../plugins/debug-manager/plugin.c:943
+#: ../plugins/debug-manager/plugin.c:1005
 msgid "Info _Kernel User Struct"
 msgstr "Podrobnosti uporabniške strukture _jedra"
 
-#: ../plugins/debug-manager/plugin.c:945
+#: ../plugins/debug-manager/plugin.c:1007
 msgid "Display the contents of kernel 'struct user' for current child"
 msgstr "Pokaži podrobnosti 'uporabniške strukture' jedra za trenutno podrejeno opravilo"
 
-#: ../plugins/debug-manager/plugin.c:959
-#: ../plugins/debug-manager/plugin.c:1059
+#: ../plugins/debug-manager/plugin.c:1021
+#: ../plugins/debug-manager/plugin.c:1137
 msgid "Shared Libraries"
 msgstr "Knjižnice souporabe"
 
-#: ../plugins/debug-manager/plugin.c:961
-#: ../plugins/debug-manager/plugin.c:1061
+#: ../plugins/debug-manager/plugin.c:1023
+#: ../plugins/debug-manager/plugin.c:1139
 msgid "Show shared library mappings"
 msgstr "Pokaži preslikave souporabe knjižnic"
 
-#: ../plugins/debug-manager/plugin.c:969
-#: ../plugins/debug-manager/plugin.c:1069
+#: ../plugins/debug-manager/plugin.c:1031
+#: ../plugins/debug-manager/plugin.c:1147
 msgid "Show kernel signals"
 msgstr "Pokaži signale jedra"
 
-#. Action name
-#. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:979
-msgid "Run/_Continue"
-msgstr "Zaženi/_nadaljuj"
+#: ../plugins/debug-manager/plugin.c:1037
+msgid "_Continue/Suspend"
+msgstr "_Nadaljuj/Ustavi"
 
-#. Display label
-#. short-cut
-#: ../plugins/debug-manager/plugin.c:981
-msgid "Continue the execution of the program"
-msgstr "Nadaljuj z izvajanjem programa"
+#: ../plugins/debug-manager/plugin.c:1039
+msgid "Continue or suspend the execution of the program"
+msgstr "Nadaljuj ali ustavi izvajanje programa"
 
-#: ../plugins/debug-manager/plugin.c:987
+#: ../plugins/debug-manager/plugin.c:1057
 msgid "Step _In"
 msgstr "_Vstopi"
 
-#: ../plugins/debug-manager/plugin.c:989
+#: ../plugins/debug-manager/plugin.c:1059
 msgid "Single step into function"
 msgstr "Enojni vstop v funkcijo"
 
-#: ../plugins/debug-manager/plugin.c:995
+#: ../plugins/debug-manager/plugin.c:1065
 msgid "Step O_ver"
 msgstr "_Prestopi"
 
-#: ../plugins/debug-manager/plugin.c:997
+#: ../plugins/debug-manager/plugin.c:1067
 msgid "Single step over function"
 msgstr "Enojni prestop funkcije"
 
-#: ../plugins/debug-manager/plugin.c:1003
+#: ../plugins/debug-manager/plugin.c:1073
 msgid "Step _Out"
 msgstr "_Izstopi"
 
-#: ../plugins/debug-manager/plugin.c:1005
+#: ../plugins/debug-manager/plugin.c:1075
 msgid "Single step out of function"
 msgstr "Enojni izstop iz funkcije"
 
-#: ../plugins/debug-manager/plugin.c:1011
+#: ../plugins/debug-manager/plugin.c:1081
 msgid "_Run to Cursor"
-msgstr "_Zaženi na kazalnik"
+msgstr "_Zaženi na kazalko"
 
-#: ../plugins/debug-manager/plugin.c:1013
+#: ../plugins/debug-manager/plugin.c:1083
 msgid "Run to the cursor"
-msgstr "Zaženi na kazalnik"
+msgstr "Zaženi na kazalko"
 
-#: ../plugins/debug-manager/plugin.c:1035
+#: ../plugins/debug-manager/plugin.c:1089
+msgid "_Run from Cursor"
+msgstr "_Zaženi preko kazalke"
+
+#: ../plugins/debug-manager/plugin.c:1091
+msgid "Run from the cursor"
+msgstr "_Zaženi preko kazalke"
+
+#: ../plugins/debug-manager/plugin.c:1113
 msgid "Info _Global Variables"
 msgstr "Podrobnosti _splošnih spremenljivk"
 
-#: ../plugins/debug-manager/plugin.c:1037
+#: ../plugins/debug-manager/plugin.c:1115
 msgid "Display all global and static variables of the program"
 msgstr "Pokaži vse splošne in samostojne spremenljivke programa"
 
-#: ../plugins/debug-manager/plugin.c:1043
+#: ../plugins/debug-manager/plugin.c:1121
 msgid "Info _Current Frame"
 msgstr "Podrobnosti _trenutnega okvirja"
 
-#: ../plugins/debug-manager/plugin.c:1045
+#: ../plugins/debug-manager/plugin.c:1123
 msgid "Display information about the current frame of execution"
 msgstr "Prikaz podrobnosti o trenutnem okvirju izvedbe"
 
-#: ../plugins/debug-manager/plugin.c:1051
+#: ../plugins/debug-manager/plugin.c:1129
 msgid "Info Function _Arguments"
 msgstr "Podrobnosti _argumentov funkcije"
 
-#: ../plugins/debug-manager/plugin.c:1053
+#: ../plugins/debug-manager/plugin.c:1131
 msgid "Display function arguments of the current frame"
 msgstr "Pokaži argumente funkcije trenutnega okvirja"
 
-#. Action name
-#. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:1079
-msgid "Pa_use Program"
-msgstr "_Premor program"
-
-#. Display label
-#. short-cut
-#: ../plugins/debug-manager/plugin.c:1081
-msgid "Pauses the execution of the program"
-msgstr "Premor izvajanja programa"
-
-#: ../plugins/debug-manager/plugin.c:1121
-#: ../plugins/debug-manager/plugin.c:1127
-#: ../plugins/debug-manager/plugin.c:1133
-#: ../plugins/debug-manager/plugin.c:1139
+#: ../plugins/debug-manager/plugin.c:1199
+#: ../plugins/debug-manager/plugin.c:1205
+#: ../plugins/debug-manager/plugin.c:1211
+#: ../plugins/debug-manager/plugin.c:1217
 msgid "Debugger operations"
 msgstr "Opravila razhroščevanja"
 
-#: ../plugins/debug-manager/queue.c:524
+#: ../plugins/debug-manager/queue.c:516
 #, c-format
 msgid "Unable to find a debugger plugin supporting a target with %s MIME type"
 msgstr "Ni mogoče najti vstavka razhroščevalnika s podporo cilja za MIME vrsto %s"
@@ -2696,49 +2715,54 @@ msgstr "Ali naj bodo prikazane zaznamovalne sličice vrstic"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/stack_trace.c:554
+#: ../plugins/debug-manager/stack_trace.c:579
 msgid "Set current frame"
 msgstr "Določi trenutni okvir"
 
-#: ../plugins/debug-manager/stack_trace.c:562
+#: ../plugins/debug-manager/stack_trace.c:587
 #: ../plugins/debug-manager/threads.c:390
 msgid "View Source"
 msgstr "Poglej vir"
 
-#: ../plugins/debug-manager/stack_trace.c:600
+#: ../plugins/debug-manager/stack_trace.c:595
+msgid "Get Stack trace"
+msgstr "Pridobi zaznavo sklada"
+
+#: ../plugins/debug-manager/stack_trace.c:633
 #: ../plugins/debug-manager/threads.c:426
 msgid "Active"
 msgstr "Dejavno"
 
-#: ../plugins/debug-manager/stack_trace.c:611
+#: ../plugins/debug-manager/stack_trace.c:644
 msgid "Frame"
 msgstr "Okvir"
 
 #. Register actions
-#: ../plugins/debug-manager/stack_trace.c:631
+#: ../plugins/debug-manager/stack_trace.c:664
 #: ../plugins/debug-manager/threads.c:451
+#: ../plugins/gdb/preferences.c:358
 #: ../plugins/tools/tool.c:100
 #: ../src/anjuta-app.c:621
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
 msgstr "Datoteka"
 
-#: ../plugins/debug-manager/stack_trace.c:642
+#: ../plugins/debug-manager/stack_trace.c:675
 #: ../plugins/debug-manager/threads.c:460
-#: ../plugins/document-manager/plugin.c:946
+#: ../plugins/document-manager/plugin.c:945
 msgid "Line"
 msgstr "Črta"
 
-#: ../plugins/debug-manager/stack_trace.c:653
+#: ../plugins/debug-manager/stack_trace.c:686
 #: ../plugins/debug-manager/threads.c:469
 msgid "Function"
 msgstr "Funkcija"
 
-#: ../plugins/debug-manager/stack_trace.c:703
+#: ../plugins/debug-manager/stack_trace.c:736
 msgid "Stack"
 msgstr "Sklad"
 
-#: ../plugins/debug-manager/stack_trace.c:770
+#: ../plugins/debug-manager/stack_trace.c:803
 msgid "Stack frame operations"
 msgstr "Opravila okvirja sklada"
 
@@ -2783,7 +2807,7 @@ msgid "Path"
 msgstr "Pot"
 
 #: ../plugins/debug-manager/start.c:1386
-#: ../plugins/gdb/debugger.c:1927
+#: ../plugins/gdb/debugger.c:1929
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -2811,52 +2835,52 @@ msgstr "Nitenje opravil"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/watch.c:372
+#: ../plugins/debug-manager/watch.c:364
 msgid "Ins_pect/Evaluate…"
 msgstr "_Preveri/oceni ..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/watch.c:374
+#: ../plugins/debug-manager/watch.c:366
 msgid "Inspect or evaluate an expression or variable"
 msgstr "Preveri ali oceni izraz spremenljivke"
 
-#: ../plugins/debug-manager/watch.c:380
+#: ../plugins/debug-manager/watch.c:372
 msgid "Add Watch…"
 msgstr "Dodaj opazovanje ..."
 
-#: ../plugins/debug-manager/watch.c:388
+#: ../plugins/debug-manager/watch.c:380
 msgid "Remove Watch"
 msgstr "Odstrani opazovanje"
 
-#: ../plugins/debug-manager/watch.c:396
+#: ../plugins/debug-manager/watch.c:388
 msgid "Update Watch"
 msgstr "Posodobi opazovanje"
 
-#: ../plugins/debug-manager/watch.c:404
+#: ../plugins/debug-manager/watch.c:396
 msgid "Change Value"
 msgstr "Spremeni vrednost"
 
-#: ../plugins/debug-manager/watch.c:412
+#: ../plugins/debug-manager/watch.c:404
 msgid "Update all"
 msgstr "Posodobi vse"
 
-#: ../plugins/debug-manager/watch.c:420
+#: ../plugins/debug-manager/watch.c:412
 msgid "Remove all"
 msgstr "Odstrani vse"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/watch.c:431
+#: ../plugins/debug-manager/watch.c:423
 msgid "Automatic update"
 msgstr "Samodejna posodobitev"
 
-#: ../plugins/debug-manager/watch.c:457
-#: ../plugins/debug-manager/watch.c:463
+#: ../plugins/debug-manager/watch.c:449
+#: ../plugins/debug-manager/watch.c:455
 msgid "Watch operations"
 msgstr "Opravila opazovanja"
 
-#: ../plugins/debug-manager/watch.c:535
+#: ../plugins/debug-manager/watch.c:527
 msgid "Watches"
 msgstr "Opazovanja"
 
@@ -2865,7 +2889,7 @@ msgid "Search Help:"
 msgstr "Iskanje pomoči:"
 
 #: ../plugins/devhelp/plugin.c:223
-#: ../plugins/document-manager/plugin.c:242
+#: ../plugins/document-manager/plugin.c:241
 #: ../plugins/message-view/plugin.c:76
 #: ../plugins/symbol-db/plugin.c:311
 msgid "_Go to"
@@ -2915,8 +2939,8 @@ msgstr "Vsebina"
 #: ../plugins/search/search-replace.c:1724
 #: ../plugins/search/search-replace.c:1736
 #: ../plugins/search/search-replace.c:2065
-#: ../plugins/symbol-db/plugin.c:2066
-#: ../plugins/symbol-db/plugin.c:2118
+#: ../plugins/symbol-db/plugin.c:2062
+#: ../plugins/symbol-db/plugin.c:2114
 msgid "Search"
 msgstr "Iskanje"
 
@@ -2948,7 +2972,7 @@ msgstr "Odstrani zaznamek"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:331
 #: ../plugins/document-manager/anjuta-bookmarks.c:404
-#: ../plugins/document-manager/plugin.c:421
+#: ../plugins/document-manager/plugin.c:420
 msgid "Bookmarks"
 msgstr "Zaznamki"
 
@@ -3060,176 +3084,176 @@ msgstr "Razvrščeno po vrstnem redu odpiranja"
 msgid "Top"
 msgstr "Na vrhu"
 
-#: ../plugins/document-manager/plugin.c:150
+#: ../plugins/document-manager/plugin.c:149
 msgid "_Save"
 msgstr "_Shrani"
 
-#: ../plugins/document-manager/plugin.c:151
+#: ../plugins/document-manager/plugin.c:150
 msgid "Save current file"
 msgstr "Shrani trenutno datoteko"
 
-#: ../plugins/document-manager/plugin.c:152
+#: ../plugins/document-manager/plugin.c:151
 msgid "Save _As…"
 msgstr "Shrani _kot ..."
 
-#: ../plugins/document-manager/plugin.c:153
+#: ../plugins/document-manager/plugin.c:152
 msgid "Save the current file with a different name"
 msgstr "Shrani trenutno datoteko z drugim imenom"
 
-#: ../plugins/document-manager/plugin.c:155
+#: ../plugins/document-manager/plugin.c:154
 msgid "Save A_ll"
 msgstr "Shrani _vse"
 
-#: ../plugins/document-manager/plugin.c:156
+#: ../plugins/document-manager/plugin.c:155
 msgid "Save all currently open files, except new files"
 msgstr "Shrani vse trenutno odprte datoteke, razen novih datotek"
 
-#: ../plugins/document-manager/plugin.c:158
+#: ../plugins/document-manager/plugin.c:157
 msgid "_Close File"
 msgstr "_Zapri datoteko"
 
-#: ../plugins/document-manager/plugin.c:159
+#: ../plugins/document-manager/plugin.c:158
 msgid "Close current file"
 msgstr "Zapri trenutno datoteko"
 
-#: ../plugins/document-manager/plugin.c:161
+#: ../plugins/document-manager/plugin.c:160
 msgid "Close All"
 msgstr "Zapri vse"
 
-#: ../plugins/document-manager/plugin.c:162
+#: ../plugins/document-manager/plugin.c:161
 msgid "Close all files"
 msgstr "Zapri vse datoteke"
 
-#: ../plugins/document-manager/plugin.c:164
+#: ../plugins/document-manager/plugin.c:163
 msgid "Close Other"
 msgstr "Zapri ostale"
 
-#: ../plugins/document-manager/plugin.c:165
+#: ../plugins/document-manager/plugin.c:164
 msgid "Close other documents"
 msgstr "Zapri ostale dokumente"
 
-#: ../plugins/document-manager/plugin.c:167
+#: ../plugins/document-manager/plugin.c:166
 msgid "Reload F_ile"
 msgstr "Ponovno naloži _datoteko"
 
-#: ../plugins/document-manager/plugin.c:168
+#: ../plugins/document-manager/plugin.c:167
 msgid "Reload current file"
 msgstr "Ponovno naloži trenutno datoteko"
 
-#: ../plugins/document-manager/plugin.c:170
+#: ../plugins/document-manager/plugin.c:169
 msgid "Recent _Files"
 msgstr "_Nedavne datoteke"
 
-#: ../plugins/document-manager/plugin.c:174
+#: ../plugins/document-manager/plugin.c:173
 msgid "_Print…"
 msgstr "_Natisni ..."
 
-#: ../plugins/document-manager/plugin.c:175
+#: ../plugins/document-manager/plugin.c:174
 msgid "Print the current file"
 msgstr "Natisni trenutno datoteko"
 
-#: ../plugins/document-manager/plugin.c:182
+#: ../plugins/document-manager/plugin.c:181
 msgid "_Print Preview"
 msgstr "_Predogled tiskanja"
 
-#: ../plugins/document-manager/plugin.c:183
+#: ../plugins/document-manager/plugin.c:182
 msgid "Preview the current file in print format"
 msgstr "Predogled trenutne datoteke v zapisu tiskanja"
 
-#: ../plugins/document-manager/plugin.c:188
+#: ../plugins/document-manager/plugin.c:187
 msgid "_Transform"
 msgstr "_Preoblikuj"
 
 #. menu title
-#: ../plugins/document-manager/plugin.c:189
+#: ../plugins/document-manager/plugin.c:188
 msgid "_Make Selection Uppercase"
 msgstr "Pretvori izbor v _velike črke"
 
-#: ../plugins/document-manager/plugin.c:190
+#: ../plugins/document-manager/plugin.c:189
 msgid "Make the selected text uppercase"
 msgstr "Pretvori izbrano besedilo v velike črke"
 
-#: ../plugins/document-manager/plugin.c:192
+#: ../plugins/document-manager/plugin.c:191
 msgid "Make Selection Lowercase"
 msgstr "Pretvori izbor v male črke"
 
-#: ../plugins/document-manager/plugin.c:193
+#: ../plugins/document-manager/plugin.c:192
 msgid "Make the selected text lowercase"
 msgstr "Pretvori izbrano besedilo v male črke"
 
-#: ../plugins/document-manager/plugin.c:195
+#: ../plugins/document-manager/plugin.c:194
 msgid "Convert EOL to CRLF"
 msgstr "Pretvori EOL v CRLF"
 
-#: ../plugins/document-manager/plugin.c:196
+#: ../plugins/document-manager/plugin.c:195
 msgid "Convert End Of Line characters to DOS EOL (CRLF)"
 msgstr "Pretvori EOL znake v DOS EOL (CRLF)"
 
-#: ../plugins/document-manager/plugin.c:198
+#: ../plugins/document-manager/plugin.c:197
 msgid "Convert EOL to LF"
 msgstr "Pretvori EOL v LF"
 
-#: ../plugins/document-manager/plugin.c:199
+#: ../plugins/document-manager/plugin.c:198
 msgid "Convert End Of Line characters to Unix EOL (LF)"
 msgstr "Pretvori EOL znake v Unix EOL (LF)"
 
-#: ../plugins/document-manager/plugin.c:201
+#: ../plugins/document-manager/plugin.c:200
 msgid "Convert EOL to CR"
 msgstr "Pretvori EOL v CR"
 
-#: ../plugins/document-manager/plugin.c:202
+#: ../plugins/document-manager/plugin.c:201
 msgid "Convert End Of Line characters to Mac OS EOL (CR)"
 msgstr "Pretvori EOL znake v Mac OS EOL (CR)"
 
-#: ../plugins/document-manager/plugin.c:204
+#: ../plugins/document-manager/plugin.c:203
 msgid "Convert EOL to Majority EOL"
 msgstr "Pretvori EOL v večinski EOL"
 
-#: ../plugins/document-manager/plugin.c:205
+#: ../plugins/document-manager/plugin.c:204
 msgid "Convert End Of Line characters to the most common EOL found in the file"
 msgstr "Pretvori EOL znake v znake EOL, ki se v datoteki pojavljajo najpogosteje."
 
-#: ../plugins/document-manager/plugin.c:210
+#: ../plugins/document-manager/plugin.c:209
 msgid "_Select"
 msgstr "_Izberi"
 
-#: ../plugins/document-manager/plugin.c:212
+#: ../plugins/document-manager/plugin.c:211
 msgid "Select _All"
 msgstr "Izberi _vse"
 
-#: ../plugins/document-manager/plugin.c:213
+#: ../plugins/document-manager/plugin.c:212
 msgid "Select all text in the editor"
 msgstr "Izbor celotnega besedila v urejevalniku"
 
-#: ../plugins/document-manager/plugin.c:215
+#: ../plugins/document-manager/plugin.c:214
 msgid "Select _Code Block"
 msgstr "Izbor bloka _kode"
 
-#: ../plugins/document-manager/plugin.c:216
+#: ../plugins/document-manager/plugin.c:215
 msgid "Select the current code block"
 msgstr "Izbor trenutnega bloka kode"
 
-#: ../plugins/document-manager/plugin.c:221
+#: ../plugins/document-manager/plugin.c:220
 msgid "Co_mment"
 msgstr "_Opomba"
 
 #. Block comment: Uses line-comment (comment that affects only single line
 #. such as '//' or '#') and comments a block of lines.
-#: ../plugins/document-manager/plugin.c:224
+#: ../plugins/document-manager/plugin.c:223
 msgid "_Block Comment/Uncomment"
 msgstr "Dodaj/odstrani opombo _bloka"
 
-#: ../plugins/document-manager/plugin.c:225
+#: ../plugins/document-manager/plugin.c:224
 msgid "Block comment the selected text"
 msgstr "Dodaj opombo trenutno izbranemu besedilu"
 
 #. Box comment: Uses stream-comment to comment a block of lines, usually with
 #. some decorations, to give an appearance of box.
-#: ../plugins/document-manager/plugin.c:229
+#: ../plugins/document-manager/plugin.c:228
 msgid "Bo_x Comment/Uncomment"
 msgstr "Preklop opombe v _okvirju"
 
-#: ../plugins/document-manager/plugin.c:230
+#: ../plugins/document-manager/plugin.c:229
 msgid "Box comment the selected text"
 msgstr "Ustvari opombe zajete v okvirju iz izbranega besedila"
 
@@ -3237,85 +3261,85 @@ msgstr "Ustvari opombe zajete v okvirju iz izbranega besedila"
 #. characters -- has start and end comment code) and comments any code from
 #. arbitrary start position to arbitrary end position (can be in middle of
 #. lines).
-#: ../plugins/document-manager/plugin.c:236
+#: ../plugins/document-manager/plugin.c:235
 msgid "_Stream Comment/Uncomment"
 msgstr "Preklop opombe _pretoka"
 
-#: ../plugins/document-manager/plugin.c:237
+#: ../plugins/document-manager/plugin.c:236
 msgid "Stream comment the selected text"
 msgstr "Ustvari opombe pretoka iz izbranega besedila"
 
 #. menu title
-#: ../plugins/document-manager/plugin.c:243
+#: ../plugins/document-manager/plugin.c:242
 msgid "_Line Number…"
 msgstr "_Številka vrstice ..."
 
-#: ../plugins/document-manager/plugin.c:244
+#: ../plugins/document-manager/plugin.c:243
 msgid "Go to a particular line in the editor"
 msgstr "Skoči na določeno vrstico v urejevalniku"
 
-#: ../plugins/document-manager/plugin.c:246
+#: ../plugins/document-manager/plugin.c:245
 msgid "Matching _Brace"
 msgstr "Pripadajoči _oklepaj"
 
-#: ../plugins/document-manager/plugin.c:247
+#: ../plugins/document-manager/plugin.c:246
 msgid "Go to the matching brace in the editor"
 msgstr "Skoči na pripadajoči oklepaj v urejevalniku"
 
-#: ../plugins/document-manager/plugin.c:249
+#: ../plugins/document-manager/plugin.c:248
 msgid "_Start of Block"
 msgstr "_Začetek bloka"
 
-#: ../plugins/document-manager/plugin.c:250
+#: ../plugins/document-manager/plugin.c:249
 msgid "Go to the start of the current block"
 msgstr "Skoči na začetek trenutnega bloka"
 
-#: ../plugins/document-manager/plugin.c:252
+#: ../plugins/document-manager/plugin.c:251
 msgid "_End of Block"
 msgstr "_Konec bloka"
 
-#: ../plugins/document-manager/plugin.c:253
+#: ../plugins/document-manager/plugin.c:252
 msgid "Go to the end of the current block"
 msgstr "Skoči na konec trenutnega bloka"
 
-#: ../plugins/document-manager/plugin.c:255
+#: ../plugins/document-manager/plugin.c:254
 msgid "Previous _History"
 msgstr "Predhodna _zgodovina"
 
-#: ../plugins/document-manager/plugin.c:256
+#: ../plugins/document-manager/plugin.c:255
 msgid "Go to previous history"
 msgstr "Skoči na predhodno zgodovino"
 
-#: ../plugins/document-manager/plugin.c:258
+#: ../plugins/document-manager/plugin.c:257
 msgid "Next Histor_y"
 msgstr "Naslednja zgodov_ina"
 
-#: ../plugins/document-manager/plugin.c:259
+#: ../plugins/document-manager/plugin.c:258
 msgid "Go to next history"
 msgstr "Skoči na naslednjo zgodovino"
 
-#: ../plugins/document-manager/plugin.c:264
+#: ../plugins/document-manager/plugin.c:263
 #: ../plugins/search/plugin.c:67
 msgid "_Search"
 msgstr "I_skanje"
 
-#: ../plugins/document-manager/plugin.c:265
+#: ../plugins/document-manager/plugin.c:264
 msgid "_Quick Search"
 msgstr "_Hitro iskanje"
 
-#: ../plugins/document-manager/plugin.c:266
+#: ../plugins/document-manager/plugin.c:265
 msgid "Quick editor embedded search"
 msgstr "Vgrajeni napredni hitri iskalnik"
 
-#: ../plugins/document-manager/plugin.c:268
+#: ../plugins/document-manager/plugin.c:267
 msgid "Quick _ReSearch"
 msgstr "_Hitro ponovno iskanje"
 
-#: ../plugins/document-manager/plugin.c:269
+#: ../plugins/document-manager/plugin.c:268
 msgid "Repeat quick search"
 msgstr "Ponovi hitro iskanje"
 
-#: ../plugins/document-manager/plugin.c:274
+#: ../plugins/document-manager/plugin.c:273
 #: ../plugins/gtodo/interface.c:168
 #: ../src/anjuta-actions.h:30
 #: ../plugins/language-support-cpp-java/plugin.c:1876
@@ -3323,339 +3347,339 @@ msgid "_Edit"
 msgstr "_Uredi"
 
 #. menu title
-#: ../plugins/document-manager/plugin.c:275
+#: ../plugins/document-manager/plugin.c:274
 msgid "_Editor"
 msgstr "_Urejevalnik"
 
-#: ../plugins/document-manager/plugin.c:282
+#: ../plugins/document-manager/plugin.c:281
 msgid "_Add Editor View"
 msgstr "_Dodaj pogled urejevalnika"
 
-#: ../plugins/document-manager/plugin.c:283
+#: ../plugins/document-manager/plugin.c:282
 msgid "Add one more view of current document"
 msgstr "Dodaj še en pogled trenutnega dokumenta"
 
-#: ../plugins/document-manager/plugin.c:285
+#: ../plugins/document-manager/plugin.c:284
 msgid "_Remove Editor View"
 msgstr "_Odstrani pogled urejevalnika"
 
-#: ../plugins/document-manager/plugin.c:286
+#: ../plugins/document-manager/plugin.c:285
 msgid "Remove current view of the document"
 msgstr "Odstrani trenutni pogled dokumenta"
 
-#: ../plugins/document-manager/plugin.c:288
+#: ../plugins/document-manager/plugin.c:287
 msgid "U_ndo"
 msgstr "_Razveljavi"
 
-#: ../plugins/document-manager/plugin.c:289
+#: ../plugins/document-manager/plugin.c:288
 msgid "Undo the last action"
 msgstr "Razveljavi zadnje dejanje"
 
-#: ../plugins/document-manager/plugin.c:291
+#: ../plugins/document-manager/plugin.c:290
 msgid "_Redo"
 msgstr "_Ponovno uveljavi"
 
-#: ../plugins/document-manager/plugin.c:292
+#: ../plugins/document-manager/plugin.c:291
 msgid "Redo the last undone action"
 msgstr "Obnovi zadnje razveljavljeno dejanje"
 
-#: ../plugins/document-manager/plugin.c:294
+#: ../plugins/document-manager/plugin.c:293
 msgid "C_ut"
 msgstr "_Izreži"
 
-#: ../plugins/document-manager/plugin.c:295
+#: ../plugins/document-manager/plugin.c:294
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "Izreži trenutno besedilo iz urejevalnika v odložišče"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/document-manager/plugin.c:297
+#: ../plugins/document-manager/plugin.c:296
 #: ../plugins/terminal/terminal.c:616
 msgid "_Copy"
 msgstr "_Kopiraj"
 
-#: ../plugins/document-manager/plugin.c:298
+#: ../plugins/document-manager/plugin.c:297
 msgid "Copy the selected text to the clipboard"
 msgstr "Kopiraj izbrano besedilo na odložišče"
 
-#: ../plugins/document-manager/plugin.c:300
+#: ../plugins/document-manager/plugin.c:299
 #: ../plugins/terminal/terminal.c:624
 msgid "_Paste"
 msgstr "_Prilepi"
 
-#: ../plugins/document-manager/plugin.c:301
+#: ../plugins/document-manager/plugin.c:300
 msgid "Paste the content of clipboard at the current position"
 msgstr "Prilepi vsebino odložišča na trenutno mesto"
 
-#: ../plugins/document-manager/plugin.c:309
+#: ../plugins/document-manager/plugin.c:308
 msgid "_Clear"
 msgstr "_Počisti"
 
-#: ../plugins/document-manager/plugin.c:310
+#: ../plugins/document-manager/plugin.c:309
 msgid "Delete the selected text from the editor"
 msgstr "Izbriši izbrano besedilo iz urejevalnika"
 
-#: ../plugins/document-manager/plugin.c:313
+#: ../plugins/document-manager/plugin.c:312
 msgid "_Auto-Complete"
 msgstr "_Samodejno izpolnjevanje"
 
-#: ../plugins/document-manager/plugin.c:314
+#: ../plugins/document-manager/plugin.c:313
 msgid "Auto-complete the current word"
 msgstr "Samodejno zaključevanje trenutne besede"
 
-#: ../plugins/document-manager/plugin.c:319
+#: ../plugins/document-manager/plugin.c:318
 msgid "_Line Number Margin"
 msgstr "_Rob številk vrstic"
 
-#: ../plugins/document-manager/plugin.c:320
+#: ../plugins/document-manager/plugin.c:319
 msgid "Show/Hide line numbers"
 msgstr "Preklopi prikaz številk vrstic"
 
-#: ../plugins/document-manager/plugin.c:322
+#: ../plugins/document-manager/plugin.c:321
 msgid "_Marker Margin"
 msgstr "Rob _zaznamovanj"
 
-#: ../plugins/document-manager/plugin.c:323
+#: ../plugins/document-manager/plugin.c:322
 msgid "Show/Hide marker margin"
 msgstr "Preklopi prikaz robu zaznamovanj"
 
-#: ../plugins/document-manager/plugin.c:325
+#: ../plugins/document-manager/plugin.c:324
 msgid "_Code Fold Margin"
 msgstr "_Rob zvijanja kode"
 
-#: ../plugins/document-manager/plugin.c:326
+#: ../plugins/document-manager/plugin.c:325
 msgid "Show/Hide code fold margin"
 msgstr "Preklopi prikaz robov zvijanja kode"
 
-#: ../plugins/document-manager/plugin.c:328
+#: ../plugins/document-manager/plugin.c:327
 msgid "_Indentation Guides"
 msgstr "_Vodila zamika"
 
-#: ../plugins/document-manager/plugin.c:329
+#: ../plugins/document-manager/plugin.c:328
 msgid "Show/Hide indentation guides"
 msgstr "Pokaži skrij vodila zamika"
 
-#: ../plugins/document-manager/plugin.c:331
+#: ../plugins/document-manager/plugin.c:330
 msgid "_White Space"
 msgstr "_Presledni znak"
 
-#: ../plugins/document-manager/plugin.c:332
+#: ../plugins/document-manager/plugin.c:331
 msgid "Show/Hide white spaces"
 msgstr "Pokaži/skrij presledne znake"
 
-#: ../plugins/document-manager/plugin.c:334
+#: ../plugins/document-manager/plugin.c:333
 msgid "_Line End Characters"
 msgstr "_Znaki konca vrstice"
 
-#: ../plugins/document-manager/plugin.c:335
+#: ../plugins/document-manager/plugin.c:334
 msgid "Show/Hide line end characters"
 msgstr "Pokaži ali skrij znake konca vrstice"
 
-#: ../plugins/document-manager/plugin.c:337
+#: ../plugins/document-manager/plugin.c:336
 msgid "Line _Wrapping"
 msgstr "_Prelom vrstic"
 
-#: ../plugins/document-manager/plugin.c:338
+#: ../plugins/document-manager/plugin.c:337
 msgid "Enable/disable line wrapping"
 msgstr "Omogoči/onemogoči prelom vrstic"
 
-#: ../plugins/document-manager/plugin.c:343
+#: ../plugins/document-manager/plugin.c:342
 msgid "Zoom In"
 msgstr "Približaj"
 
-#: ../plugins/document-manager/plugin.c:344
+#: ../plugins/document-manager/plugin.c:343
 msgid "Zoom in: Increase font size"
 msgstr "Približaj: približaj pisavo"
 
-#: ../plugins/document-manager/plugin.c:346
+#: ../plugins/document-manager/plugin.c:345
 msgid "Zoom Out"
 msgstr "Oddalji"
 
-#: ../plugins/document-manager/plugin.c:347
+#: ../plugins/document-manager/plugin.c:346
 msgid "Zoom out: Decrease font size"
 msgstr "Oddalji: oddalji pisavo"
 
-#: ../plugins/document-manager/plugin.c:352
+#: ../plugins/document-manager/plugin.c:351
 msgid "_Highlight Mode"
 msgstr "_Način poudarjanja"
 
-#: ../plugins/document-manager/plugin.c:356
+#: ../plugins/document-manager/plugin.c:355
 msgid "_Close All Folds"
 msgstr "_Zapri vsa vozlišča zvijanja kode"
 
-#: ../plugins/document-manager/plugin.c:357
+#: ../plugins/document-manager/plugin.c:356
 msgid "Close all code folds in the editor"
 msgstr "V urejevalniku zapri vsa vozlišča zvijanja kode"
 
-#: ../plugins/document-manager/plugin.c:359
+#: ../plugins/document-manager/plugin.c:358
 msgid "_Open All Folds"
 msgstr "_Odpri vsa vozlišča zvijanja kode"
 
-#: ../plugins/document-manager/plugin.c:360
+#: ../plugins/document-manager/plugin.c:359
 msgid "Open all code folds in the editor"
 msgstr "V urejevalniku odpri vsa vozlišča zvijanja kode"
 
-#: ../plugins/document-manager/plugin.c:362
+#: ../plugins/document-manager/plugin.c:361
 msgid "_Toggle Current Fold"
 msgstr "_Preklopi trenutno zvijanje kode"
 
-#: ../plugins/document-manager/plugin.c:363
+#: ../plugins/document-manager/plugin.c:362
 msgid "Toggle current code fold in the editor"
 msgstr "V urejevalniku preklopi trenutno zvijanje kode"
 
-#: ../plugins/document-manager/plugin.c:368
+#: ../plugins/document-manager/plugin.c:367
 msgid "_Documents"
 msgstr "_Dokumenti"
 
-#: ../plugins/document-manager/plugin.c:369
+#: ../plugins/document-manager/plugin.c:368
 msgid "Previous Document"
 msgstr "Predhodni dokument"
 
-#: ../plugins/document-manager/plugin.c:370
+#: ../plugins/document-manager/plugin.c:369
 msgid "Switch to previous document"
 msgstr "Preklopi na prejšnji dokument"
 
-#: ../plugins/document-manager/plugin.c:372
+#: ../plugins/document-manager/plugin.c:371
 msgid "Next Document"
 msgstr "Naslednji dokument"
 
-#: ../plugins/document-manager/plugin.c:373
+#: ../plugins/document-manager/plugin.c:372
 msgid "Switch to next document"
 msgstr "Preklopi na naslednji dokument"
 
-#: ../plugins/document-manager/plugin.c:378
+#: ../plugins/document-manager/plugin.c:377
 msgid "Bookmar_k"
 msgstr "_Zaznamek"
 
-#: ../plugins/document-manager/plugin.c:379
+#: ../plugins/document-manager/plugin.c:378
 msgid "_Add Bookmark"
 msgstr "_Dodaj zaznamek"
 
-#: ../plugins/document-manager/plugin.c:380
+#: ../plugins/document-manager/plugin.c:379
 msgid "Add a bookmark at the current line position"
 msgstr "Dodaj zaznamek na trenutni legi vrstice"
 
-#: ../plugins/document-manager/plugin.c:382
+#: ../plugins/document-manager/plugin.c:381
 msgid "_Previous Bookmark"
 msgstr "_Predhodni zaznamek"
 
-#: ../plugins/document-manager/plugin.c:383
+#: ../plugins/document-manager/plugin.c:382
 msgid "Jump to the previous bookmark in the file"
 msgstr "Skoči na predhodni zaznamek v datoteki"
 
-#: ../plugins/document-manager/plugin.c:385
+#: ../plugins/document-manager/plugin.c:384
 msgid "_Next Bookmark"
 msgstr "_Naslednji zaznamek"
 
-#: ../plugins/document-manager/plugin.c:386
+#: ../plugins/document-manager/plugin.c:385
 msgid "Jump to the next bookmark in the file"
 msgstr "Skoči na naslednji zaznamek v datoteki"
 
-#: ../plugins/document-manager/plugin.c:388
+#: ../plugins/document-manager/plugin.c:387
 msgid "_Clear All Bookmarks"
 msgstr "Počisti _vse zaznamke"
 
-#: ../plugins/document-manager/plugin.c:389
+#: ../plugins/document-manager/plugin.c:388
 msgid "Clear bookmarks"
 msgstr "Počisti zaznamke"
 
-#: ../plugins/document-manager/plugin.c:408
+#: ../plugins/document-manager/plugin.c:407
 msgid "Editor file operations"
 msgstr "Urejanje opravil datotek"
 
-#: ../plugins/document-manager/plugin.c:409
+#: ../plugins/document-manager/plugin.c:408
 msgid "Editor print operations"
 msgstr "Urejanje opravil tiskanja"
 
-#: ../plugins/document-manager/plugin.c:410
+#: ../plugins/document-manager/plugin.c:409
 msgid "Editor text transformation"
 msgstr "Urejanje opravil preoblikovanj"
 
-#: ../plugins/document-manager/plugin.c:411
+#: ../plugins/document-manager/plugin.c:410
 msgid "Editor text selection"
 msgstr "Urejanje izbire besedila"
 
 #. { actions_insert, G_N_ELEMENTS (actions_insert), "ActionGroupEditorInsert", N_("Editor text insertions") },
-#: ../plugins/document-manager/plugin.c:413
+#: ../plugins/document-manager/plugin.c:412
 msgid "Editor code commenting"
 msgstr "Urejanje opomb kode"
 
-#: ../plugins/document-manager/plugin.c:414
+#: ../plugins/document-manager/plugin.c:413
 msgid "Editor navigations"
 msgstr "Urejanje krmiljenja"
 
-#: ../plugins/document-manager/plugin.c:415
+#: ../plugins/document-manager/plugin.c:414
 msgid "Editor edit operations"
 msgstr "Urejanje opravil urejanja"
 
-#: ../plugins/document-manager/plugin.c:416
+#: ../plugins/document-manager/plugin.c:415
 msgid "Editor zoom operations"
 msgstr "Urejanje opravil približanja"
 
-#: ../plugins/document-manager/plugin.c:417
+#: ../plugins/document-manager/plugin.c:416
 msgid "Editor syntax highlighting styles"
 msgstr "Urejanje slogov poudarjanja skladnje"
 
-#: ../plugins/document-manager/plugin.c:418
+#: ../plugins/document-manager/plugin.c:417
 msgid "Editor text formating"
 msgstr "Urejanje oblikovanja besedila"
 
-#: ../plugins/document-manager/plugin.c:419
+#: ../plugins/document-manager/plugin.c:418
 msgid "Simple searching"
 msgstr "Enostavno iskanje"
 
-#: ../plugins/document-manager/plugin.c:420
-#: ../plugins/document-manager/plugin.c:1737
-#: ../plugins/document-manager/plugin.c:2154
-#: ../plugins/document-manager/plugin.c:2164
+#: ../plugins/document-manager/plugin.c:419
+#: ../plugins/document-manager/plugin.c:1736
+#: ../plugins/document-manager/plugin.c:2153
+#: ../plugins/document-manager/plugin.c:2163
 msgid "Documents"
 msgstr "Dokumenti"
 
-#: ../plugins/document-manager/plugin.c:425
+#: ../plugins/document-manager/plugin.c:424
 msgid "Editor view settings"
 msgstr "Nastavitve pogleda urejevalnika"
 
-#: ../plugins/document-manager/plugin.c:610
+#: ../plugins/document-manager/plugin.c:609
 msgid "Reload"
 msgstr "Ponovno naloži"
 
-#: ../plugins/document-manager/plugin.c:616
+#: ../plugins/document-manager/plugin.c:615
 msgid "Go to"
 msgstr "Pojdi na"
 
-#: ../plugins/document-manager/plugin.c:931
+#: ../plugins/document-manager/plugin.c:930
 msgid "OVR"
 msgstr "OVR"
 
-#: ../plugins/document-manager/plugin.c:935
+#: ../plugins/document-manager/plugin.c:934
 msgid "INS"
 msgstr "INS"
 
-#: ../plugins/document-manager/plugin.c:941
-#: ../plugins/document-manager/plugin.c:944
+#: ../plugins/document-manager/plugin.c:940
+#: ../plugins/document-manager/plugin.c:943
 msgid "Zoom"
 msgstr "Približanje"
 
-#: ../plugins/document-manager/plugin.c:947
+#: ../plugins/document-manager/plugin.c:946
 msgid "Col"
 msgstr "Stolpec"
 
-#: ../plugins/document-manager/plugin.c:948
+#: ../plugins/document-manager/plugin.c:947
 msgid "Mode"
 msgstr "Način"
 
 #. Automatic highlight menu
-#: ../plugins/document-manager/plugin.c:1028
+#: ../plugins/document-manager/plugin.c:1027
 msgid "Automatic"
 msgstr "Samodejno"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1561
+#: ../plugins/document-manager/plugin.c:1560
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "Neuspešno samodejno shranjevanje %s"
 
-#: ../plugins/document-manager/plugin.c:1575
+#: ../plugins/document-manager/plugin.c:1574
 msgid "Autosave completed"
 msgstr "Samodejno shranjevanje končano"
 
@@ -3938,8 +3962,8 @@ msgid "Filter"
 msgstr "Filter"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2061
-#: ../plugins/symbol-db/plugin.c:2110
+#: ../plugins/symbol-db/plugin.c:2057
+#: ../plugins/symbol-db/plugin.c:2106
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:6
 msgid "Global"
 msgstr "Splošno"
@@ -4027,7 +4051,7 @@ msgid "New File"
 msgstr "Nova datoteka"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:12
-#: ../plugins/gbf-am/gbf-am-properties.c:1527
+#: ../plugins/gbf-am/gbf-am-properties.c:1446
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:353
 msgid "Type:"
 msgstr "Vrsta:"
@@ -4102,6 +4126,7 @@ msgid "Select Package to add:"
 msgstr "Izbor paketov za dodajanje:"
 
 #: ../plugins/gbf-am/gbf-am-dialogs.ui.h:6
+#: ../plugins/project-wizard/property.c:376
 msgid "Select package"
 msgstr "Izbor paketa"
 
@@ -4371,51 +4396,41 @@ msgstr "Vira ni mogoče odstraniti"
 msgid "Project directory"
 msgstr "Mapa projekta"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:344
-#: ../plugins/gbf-am/gbf-am-properties.c:396
+#: ../plugins/gbf-am/gbf-am-properties.c:289
+#: ../plugins/gbf-am/gbf-am-properties.c:341
 msgid "Enter new module"
 msgstr "Vnesite nov modul"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:437
-#: ../plugins/gbf-am/gbf-am-properties.c:933
-msgid "Module/Packages"
-msgstr "Modul/paketi"
-
-#: ../plugins/gbf-am/gbf-am-properties.c:444
-#: ../plugins/gbf-am/gbf-am-properties.c:942
-msgid "Version"
-msgstr "Različica"
-
-#: ../plugins/gbf-am/gbf-am-properties.c:530
+#: ../plugins/gbf-am/gbf-am-properties.c:449
 #, c-format
 msgid "Are you sure you want to remove module \"%s\" and all its associated packages?"
 msgstr "Ali zares želite odstraniti modul \"%s\" in vse povezane pakete?"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:532
+#: ../plugins/gbf-am/gbf-am-properties.c:451
 #, c-format
 msgid "Are you sure you want to remove package \"%s\"?"
 msgstr "Ali zares želite odstraniti paket \"%s\"?"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:590
-#: ../plugins/gbf-am/gbf-am-properties.c:672
+#: ../plugins/gbf-am/gbf-am-properties.c:509
+#: ../plugins/gbf-am/gbf-am-properties.c:591
 msgid "Enter new variable"
 msgstr "Vstavite novo spremenljivko"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:703
+#: ../plugins/gbf-am/gbf-am-properties.c:622
 #, c-format
 msgid "Are you sure you want to remove variable \"%s\"?"
 msgstr "Ali zares želite odstraniti spremenljivko \"%s\"?"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:857
+#: ../plugins/gbf-am/gbf-am-properties.c:776
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:180
 msgid "Project:"
 msgstr "Projekt:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:860
+#: ../plugins/gbf-am/gbf-am-properties.c:779
 msgid "Package name:"
 msgstr "Ime paketa:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:863
+#: ../plugins/gbf-am/gbf-am-properties.c:782
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:26
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:26
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:26
@@ -4435,109 +4450,117 @@ msgstr "Ime paketa:"
 msgid "Version:"
 msgstr "Različica:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:866
+#: ../plugins/gbf-am/gbf-am-properties.c:785
 msgid "URI:"
 msgstr "Naslov URI:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1232
+#: ../plugins/gbf-am/gbf-am-properties.c:852
+msgid "Module/Packages"
+msgstr "Modul/paketi"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:861
+msgid "Version"
+msgstr "Različica"
+
+#: ../plugins/gbf-am/gbf-am-properties.c:1151
 msgid "Use"
 msgstr "Uporabi"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1324
+#: ../plugins/gbf-am/gbf-am-properties.c:1243
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:247
 msgid "Group name:"
 msgstr "Ime skupine:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1327
+#: ../plugins/gbf-am/gbf-am-properties.c:1246
 msgid "Advanced"
 msgstr "Napredno"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1332
-#: ../plugins/gbf-am/gbf-am-properties.c:1422
+#: ../plugins/gbf-am/gbf-am-properties.c:1251
+#: ../plugins/gbf-am/gbf-am-properties.c:1341
 msgid "C compiler flags:"
 msgstr "Zastavice C prevajalnika:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1334
+#: ../plugins/gbf-am/gbf-am-properties.c:1253
 msgid "C preprocessor flags:"
 msgstr "Zastavice C predprocesorja:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1336
+#: ../plugins/gbf-am/gbf-am-properties.c:1255
 msgid "C++ compiler flags:"
 msgstr "Zastavice C++ prevajalnika:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1338
+#: ../plugins/gbf-am/gbf-am-properties.c:1257
 msgid "gcj compiler flags (ahead-of-time):"
 msgstr "Zastavice gcj prevajalnika (pred-časom):"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1340
+#: ../plugins/gbf-am/gbf-am-properties.c:1259
 msgid "Java compiler flags (just-in-time):"
 msgstr "Zastavice Java prevajalnika (pravočasno):"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1342
-#: ../plugins/gbf-am/gbf-am-properties.c:1430
+#: ../plugins/gbf-am/gbf-am-properties.c:1261
+#: ../plugins/gbf-am/gbf-am-properties.c:1349
 msgid "Fortran compiler flags:"
 msgstr "Zastavice Fortran prevajalnika:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1345
+#: ../plugins/gbf-am/gbf-am-properties.c:1264
 msgid "Includes (deprecated):"
-msgstr "Vključuje (zastarelo):"
+msgstr "Vključuje (opuščeno):"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1356
+#: ../plugins/gbf-am/gbf-am-properties.c:1275
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:261
 msgid "Install directories:"
 msgstr "Mape namestitve:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1424
+#: ../plugins/gbf-am/gbf-am-properties.c:1343
 msgid "C preprocessor flags"
 msgstr "Zastavice C predprocesorja"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1426
+#: ../plugins/gbf-am/gbf-am-properties.c:1345
 msgid "C++ compiler flags"
 msgstr "Zastavice C++ prevajalnika"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1428
+#: ../plugins/gbf-am/gbf-am-properties.c:1347
 msgid "gcj compiler flags (ahead-of-time)"
 msgstr "Zastavice gcj prevajalnika"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1434
+#: ../plugins/gbf-am/gbf-am-properties.c:1353
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:413
 msgid "Linker flags:"
 msgstr "Zastavice povezovalnika:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1440
+#: ../plugins/gbf-am/gbf-am-properties.c:1359
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:419
 msgid "Libraries:"
 msgstr "Knjižnice:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1446
+#: ../plugins/gbf-am/gbf-am-properties.c:1365
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:425
 msgid "Dependencies:"
 msgstr "Odvisnosti:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1449
+#: ../plugins/gbf-am/gbf-am-properties.c:1368
 msgid "Advanced options"
 msgstr "Napredne možnosti"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1524
+#: ../plugins/gbf-am/gbf-am-properties.c:1443
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:350
 msgid "Target name:"
 msgstr "Ime cilja:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1533
+#: ../plugins/gbf-am/gbf-am-properties.c:1452
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:359
 msgid "Group:"
 msgstr "Skupina:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1551
-#: ../plugins/gbf-am/gbf-am-properties.c:1567
-#: ../plugins/gbf-am/gbf-am-properties.c:1574
+#: ../plugins/gbf-am/gbf-am-properties.c:1470
+#: ../plugins/gbf-am/gbf-am-properties.c:1486
+#: ../plugins/gbf-am/gbf-am-properties.c:1493
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:377
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:394
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:401
 msgid "Install directory:"
 msgstr "Mapa namestitve:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1586
+#: ../plugins/gbf-am/gbf-am-properties.c:1505
 msgid "Advanced…"
 msgstr "Napredno ..."
 
@@ -4580,19 +4603,23 @@ msgstr "Vira ni mogoče dodati"
 msgid "Includes:"
 msgstr "Vključuje:"
 
+#: ../plugins/gdb/anjuta-gdb.ui.h:1
+msgid "Available pretty printers"
+msgstr "Razpoložljivi oblikovni tiskalniki"
+
 #. The %s argument is a program name, anjuta by example
-#: ../plugins/gdb/debugger.c:727
+#: ../plugins/gdb/debugger.c:729
 #, c-format
 msgid "Loading Executable: %s\n"
 msgstr "Nalaganje izvršljive datoteke: : %s\n"
 
 #. The %s argument is a file name
-#: ../plugins/gdb/debugger.c:758
+#: ../plugins/gdb/debugger.c:760
 #, c-format
 msgid "Loading Core: %s\n"
 msgstr "Nalaganje jedra: %s\n"
 
-#: ../plugins/gdb/debugger.c:983
+#: ../plugins/gdb/debugger.c:985
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -4603,58 +4630,58 @@ msgstr ""
 "Ni mogoče začeti razhroščevalnika.\n"
 "Prepričajte se, da je program Anjuta nameščen pravilno."
 
-#: ../plugins/gdb/debugger.c:1128
+#: ../plugins/gdb/debugger.c:1130
 msgid "Getting ready to start debugging session…\n"
 msgstr "Priprava na začetek seje razhroščevanja ...\n"
 
-#: ../plugins/gdb/debugger.c:1134
+#: ../plugins/gdb/debugger.c:1136
 msgid "Loading Executable: "
 msgstr "Nalaganje izvršljive datoteke: "
 
-#: ../plugins/gdb/debugger.c:1143
+#: ../plugins/gdb/debugger.c:1145
 msgid "No executable specified.\n"
 msgstr "Ni določene izvršljive datoteke.\n"
 
-#: ../plugins/gdb/debugger.c:1146
+#: ../plugins/gdb/debugger.c:1148
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr "Odprite izvršljivo datoteko ali pripnite opravilo za začetek razhroščevanja.\n"
 
-#: ../plugins/gdb/debugger.c:1155
+#: ../plugins/gdb/debugger.c:1157
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "Prišlo je do napake med zaganjanjem razhroščevalnika.\n"
 
-#: ../plugins/gdb/debugger.c:1159
+#: ../plugins/gdb/debugger.c:1161
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "Prepričajte se, da je 'gdb' nameščen na sistemu.\n"
 
-#: ../plugins/gdb/debugger.c:1480
+#: ../plugins/gdb/debugger.c:1482
 msgid "Program exited normally\n"
 msgstr "Program zaključen po pričakovanjih\n"
 
-#: ../plugins/gdb/debugger.c:1491
+#: ../plugins/gdb/debugger.c:1493
 #, c-format
 msgid "Program exited with error code %s\n"
 msgstr "Program zaključen z napako kode %s\n"
 
 #. The program has reached one breakpoint and will stop
-#: ../plugins/gdb/debugger.c:1506
+#: ../plugins/gdb/debugger.c:1508
 #, c-format
 msgid "Breakpoint number %s hit\n"
 msgstr "Zadetek prekinitvene točke številka %s\n"
 
-#: ../plugins/gdb/debugger.c:1515
+#: ../plugins/gdb/debugger.c:1517
 msgid "Function finished\n"
 msgstr "Funkcija končana\n"
 
-#: ../plugins/gdb/debugger.c:1521
+#: ../plugins/gdb/debugger.c:1523
 msgid "Stepping finished\n"
 msgstr "Koračenje končano\n"
 
-#: ../plugins/gdb/debugger.c:1527
+#: ../plugins/gdb/debugger.c:1529
 msgid "Location reached\n"
 msgstr "Mesto doseženo\n"
 
-#: ../plugins/gdb/debugger.c:1924
+#: ../plugins/gdb/debugger.c:1926
 msgid ""
 "The program is attached.\n"
 "Do you still want to stop the debugger?"
@@ -4664,7 +4691,7 @@ msgstr ""
 
 #. The %s argument is an error message returned by gdb.
 #. * It is something like, "No such file or directory"
-#: ../plugins/gdb/debugger.c:2085
+#: ../plugins/gdb/debugger.c:2087
 #, c-format
 msgid ""
 "Unable to connect to remote target, %s\n"
@@ -4673,20 +4700,20 @@ msgstr ""
 "Ni se mogoče povezati z oddaljenim ciljem %s\n"
 "Ali želite poskusiti znova?"
 
-#: ../plugins/gdb/debugger.c:2103
+#: ../plugins/gdb/debugger.c:2105
 msgid "Debugger connected\n"
 msgstr "Razhroščevalnik je povezan\n"
 
-#: ../plugins/gdb/debugger.c:2177
+#: ../plugins/gdb/debugger.c:2179
 msgid "Program attached\n"
 msgstr "Program je pripet\n"
 
-#: ../plugins/gdb/debugger.c:2198
+#: ../plugins/gdb/debugger.c:2200
 #, c-format
 msgid "Attaching to process: %d…\n"
 msgstr "Pripenjanje k opravilu: %d ...\n"
 
-#: ../plugins/gdb/debugger.c:2224
+#: ../plugins/gdb/debugger.c:2226
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -4694,33 +4721,37 @@ msgstr ""
 "Opravilo je že zagnano.\n"
 "Ali želite trenutno opravilo zaključiti in pripeti novo opravilo?"
 
-#: ../plugins/gdb/debugger.c:2241
+#: ../plugins/gdb/debugger.c:2243
 msgid "Anjuta is unable to attach to itself."
 msgstr "Ni mogoče pripeti samemu sebi."
 
-#: ../plugins/gdb/debugger.c:2291
+#: ../plugins/gdb/debugger.c:2293
 msgid "Program terminated\n"
 msgstr "Program zaključen\n"
 
-#: ../plugins/gdb/debugger.c:2306
+#: ../plugins/gdb/debugger.c:2308
 msgid "Program detached\n"
 msgstr "Program odklopljen\n"
 
-#: ../plugins/gdb/debugger.c:2326
+#: ../plugins/gdb/debugger.c:2328
 #, c-format
 msgid "Detaching the process…\n"
 msgstr "Odklapljanje opravila ...\n"
 
-#: ../plugins/gdb/debugger.c:2349
+#: ../plugins/gdb/debugger.c:2351
 msgid "Interrupting the process\n"
 msgstr "Prekinjanje opravila\n"
 
-#: ../plugins/gdb/debugger.c:4159
+#: ../plugins/gdb/debugger.c:3996
+msgid "more children"
+msgstr "več podrejenih"
+
+#: ../plugins/gdb/debugger.c:4249
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "Pošiljanje signala %s na opravilo: %d"
 
-#: ../plugins/gdb/debugger.c:4185
+#: ../plugins/gdb/debugger.c:4275
 msgid "Error whilst signaling the process."
 msgstr "Napaka med signaliziranjem opravila."
 
@@ -4732,6 +4763,32 @@ msgstr "Napaka med ustvarjanjem datoteke FIFO z imenom %s. Program bo zagnan bre
 #: ../plugins/gdb/plugin.c:203
 msgid "Cannot start terminal for debugging."
 msgstr "Ni mogoče zagnati terminala za razhroščevanje."
+
+#: ../plugins/gdb/preferences.c:123
+#, c-format
+msgid ""
+"The following pretty printers, without a register functions, have been disabled:\n"
+" %s"
+msgstr ""
+"Navedeni oblikovni tiskalniki, brez vpisnih funkcij, so onemogočeni:\n"
+" %s"
+
+#: ../plugins/gdb/preferences.c:216
+msgid "Select a pretty printer file"
+msgstr "Izbor oblikovne datoteke tiskanja"
+
+#: ../plugins/gdb/preferences.c:353
+msgid "Activate"
+msgstr "Omogoči"
+
+#: ../plugins/gdb/preferences.c:365
+msgid "Register Function"
+msgstr "Vpisna funkcija"
+
+#: ../plugins/gdb/preferences.c:389
+#: ../plugins/gdb/preferences.c:397
+msgid "Gdb Debugger"
+msgstr "Razhroščevalnik Gdb"
 
 #: ../plugins/git/anjuta-git.ui.h:1
 msgid "Add File"
@@ -7325,7 +7382,7 @@ msgstr "Vrsta projekta: %s\n"
 msgid "Unable to find any project template in %s"
 msgstr "Ni mogoče najti predloge projekta v %s"
 
-#: ../plugins/project-wizard/druid.c:602
+#: ../plugins/project-wizard/druid.c:613
 #, c-format
 msgid ""
 "\n"
@@ -7334,40 +7391,40 @@ msgstr ""
 "\n"
 "Polje \"%s\" mora biti izpolnjeno. Vnesite podatke."
 
-#: ../plugins/project-wizard/druid.c:617
+#: ../plugins/project-wizard/druid.c:628
 #, c-format
 msgid "Field \"%s\" must start with a letter, a digit or an underscore and contain only letters, digits, underscore, minus and dot. Please fix it."
 msgstr "Polje \"%s\" se mora začeti s črko, številko ali pa vezajem in sme vsebovati le črke, številke, vezaje, znak minus in piko. Popravite ime."
 
-#: ../plugins/project-wizard/druid.c:622
+#: ../plugins/project-wizard/druid.c:633
 #, c-format
 msgid "Field \"%s\" must start with a letter, a digit, an underscore or a directory separator and contain only letters, digits, underscore, directory separator, minus and dot. Please fix it."
 msgstr "Polje \"%s\" se mora začeti s črko, številko, vezajem ali pa ločilnikom mape in sme vsebovati le črke, številke, vezaje, ločilnik mape, znak minus in piko. Popravite ime."
 
-#: ../plugins/project-wizard/druid.c:627
+#: ../plugins/project-wizard/druid.c:638
 #, c-format
 msgid "Unknown error."
 msgstr "Neznana napaka."
 
-#: ../plugins/project-wizard/druid.c:654
+#: ../plugins/project-wizard/druid.c:665
 #, c-format
 msgid "Directory \"%s\" is not empty. Project creation could fail if some files cannot be written. Do you want to continue?"
 msgstr "Mapa \"%s\" ni prazna. Ustvarjanje projekta se ustavi v primeru, da nekaterih datotek ni mogoče prepisati. Ali želite nadaljevati?"
 
-#: ../plugins/project-wizard/druid.c:656
+#: ../plugins/project-wizard/druid.c:667
 #, c-format
 msgid "File \"%s\" already exists. Do you want to overwrite it?"
 msgstr "Datoteka \"%s\" že obstaja. Ali jo želite prepisati?"
 
-#: ../plugins/project-wizard/druid.c:687
+#: ../plugins/project-wizard/druid.c:698
 msgid "Invalid entry"
 msgstr "Neveljaven vnos"
 
-#: ../plugins/project-wizard/druid.c:698
+#: ../plugins/project-wizard/druid.c:709
 msgid "Dubious entry"
 msgstr "Dvomljiv vnos"
 
-#: ../plugins/project-wizard/druid.c:859
+#: ../plugins/project-wizard/druid.c:870
 #, c-format
 msgid ""
 "\n"
@@ -7376,7 +7433,7 @@ msgstr ""
 "\n"
 "Manjkajoči programi: %s."
 
-#: ../plugins/project-wizard/druid.c:870
+#: ../plugins/project-wizard/druid.c:881
 #, c-format
 msgid ""
 "\n"
@@ -7385,23 +7442,23 @@ msgstr ""
 "\n"
 "Manjkajoči paketi: %s."
 
-#: ../plugins/project-wizard/druid.c:879
+#: ../plugins/project-wizard/druid.c:890
 msgid "Some important programs or development packages required to build this project are missing. Please make sure they are installed properly before generating the project.\n"
 msgstr "Nekateri pomembni programi ali pa paketi za razvijanje za izgradnjo projekta niso na voljo. Prepričajte se, da so ti nameščeni preden ustvarite projekt.\n"
 
-#: ../plugins/project-wizard/druid.c:887
+#: ../plugins/project-wizard/druid.c:898
 msgid "Install missing packages"
 msgstr "Namestitev manjkajočih paketov"
 
-#: ../plugins/project-wizard/druid.c:895
+#: ../plugins/project-wizard/druid.c:906
 msgid "The missing programs are usually part of some distrubution packages and can be searched for in your Application Manager. Similarly, the development packages are contained in special packages that your distribution provides to allow development of projects based on them. They usually end with a \"-dev\" or \"-devel\" suffix in package names and can be found by searching in your Application Manager."
 msgstr "Manjkajoči programi so običajno del nekaterih paketov distribucij in jih je mogoče najti v upravljalniku programov. Podobno paketi za razvoj kode, običajno pripadajo posebnim paketom, ki so del distribucije in omogočajo razvijanje projektov. Ti so običajno poimenovani tako, da vsebujejo pripone -\"-dev\" ali \"-devel\" in imena paketov. Najdete jih lahko v upravljalniku programov."
 
-#: ../plugins/project-wizard/druid.c:903
+#: ../plugins/project-wizard/druid.c:914
 msgid "Missing components"
 msgstr "Manjkajoče enote"
 
-#: ../plugins/project-wizard/druid.c:1035
+#: ../plugins/project-wizard/druid.c:1046
 #, c-format
 msgid "Unable to build project assistant user interface reading %s."
 msgstr "Ni mogoče izgraditi uporabniškega vmesnika pomočnika %s."
@@ -7450,36 +7507,36 @@ msgstr "Ni mogoče izločiti predloge projekta %s: %s"
 msgid "New Project Assistant"
 msgstr "Pomočnik novega projekta"
 
-#: ../plugins/project-wizard/property.c:341
-#: ../plugins/project-wizard/property.c:454
+#: ../plugins/project-wizard/property.c:343
+#: ../plugins/project-wizard/property.c:497
 msgid "No"
 msgstr "Ne"
 
-#: ../plugins/project-wizard/property.c:352
+#: ../plugins/project-wizard/property.c:355
 msgid "Select directory"
 msgstr "Izbor mape"
 
-#: ../plugins/project-wizard/property.c:360
+#: ../plugins/project-wizard/property.c:363
 msgid "Select file"
 msgstr "Izbor datoteke"
 
-#: ../plugins/project-wizard/property.c:412
+#: ../plugins/project-wizard/property.c:455
 #: ../plugins/tools/editor.c:522
 msgid "Select an Image File"
 msgstr "Izbor slikovne datoteke"
 
-#: ../plugins/project-wizard/property.c:437
-#: ../plugins/project-wizard/property.c:527
+#: ../plugins/project-wizard/property.c:480
+#: ../plugins/project-wizard/property.c:570
 #: ../plugins/tools/editor.c:556
 #: ../plugins/tools/editor.c:703
 msgid "Choose Icon"
 msgstr "Izbor ikone"
 
-#: ../plugins/project-wizard/property.c:497
+#: ../plugins/project-wizard/property.c:540
 msgid "Choose directory"
 msgstr "Izbor mape"
 
-#: ../plugins/project-wizard/property.c:501
+#: ../plugins/project-wizard/property.c:544
 msgid "Choose file"
 msgstr "Izberi datoteko"
 
@@ -8598,7 +8655,7 @@ msgstr[3] "%d zadetki so zamenjani."
 msgid "Unable to build user interface for Search and Replace"
 msgstr "Ni mogoče izgraditi uporabniškega vmesnika za iskanje in zamenjavo"
 
-#: ../plugins/sourceview/sourceview.c:396
+#: ../plugins/sourceview/sourceview.c:395
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
@@ -8607,7 +8664,7 @@ msgstr ""
 "Datoteka \"%s\" na disku je novejša kot trenutna v medpomnilniku.\n"
 "Ali želite datoteko ponovno naložiti?"
 
-#: ../plugins/sourceview/sourceview.c:433
+#: ../plugins/sourceview/sourceview.c:432
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -8617,18 +8674,18 @@ msgstr ""
 "Ali želite datoteko zapreti?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:470
+#: ../plugins/sourceview/sourceview.c:469
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "Ni mogoče odpreti %s: %s"
 
-#: ../plugins/sourceview/sourceview.c:524
+#: ../plugins/sourceview/sourceview.c:523
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr "Datoteka \"%s\" je le za branje! Ali jo vseeno želite urejati?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:583
+#: ../plugins/sourceview/sourceview.c:582
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "Ni mogoče shraniti %s: %s"
@@ -9337,20 +9394,20 @@ msgstr "Ustvarjanje nasledstva ..."
 msgid "%d files scanned out of %d"
 msgstr "preiskanih %d od %d datotek"
 
-#: ../plugins/symbol-db/plugin.c:1726
+#: ../plugins/symbol-db/plugin.c:1723
 msgid "Populating symbol database…"
 msgstr "Nalaganje zbirke simbolov ..."
 
-#: ../plugins/symbol-db/plugin.c:2046
-#: ../plugins/symbol-db/plugin.c:2131
+#: ../plugins/symbol-db/plugin.c:2042
+#: ../plugins/symbol-db/plugin.c:2127
 msgid "Symbols"
 msgstr "Simboli"
 
-#: ../plugins/symbol-db/plugin.c:2140
+#: ../plugins/symbol-db/plugin.c:2136
 msgid "SymbolDb popup actions"
 msgstr "SimbolDb pojavna dejanja"
 
-#: ../plugins/symbol-db/plugin.c:2148
+#: ../plugins/symbol-db/plugin.c:2144
 msgid "SymbolDb menu actions"
 msgstr "SimbolDb dejanja menija"
 
