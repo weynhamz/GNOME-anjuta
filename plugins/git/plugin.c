@@ -43,6 +43,7 @@
 #include "git-tags-pane.h"
 #include "git-create-tag-pane.h"
 #include "git-delete-tags-pane.h"
+#include "git-stash-pane.h"
 
 AnjutaCommandBarEntry branch_entries[] =
 {
@@ -284,15 +285,20 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	g_object_set (G_OBJECT (git_plugin->tag_list_command),
 	              "working-directory", git_plugin->project_root_directory,
 	              NULL);
+	g_object_set (G_OBJECT (git_plugin->stash_list_command),
+	              "working-directory", git_plugin->project_root_directory,
+	              NULL);
 
 	anjuta_command_start_automatic_monitor (ANJUTA_COMMAND (git_plugin->local_branch_list_command));
 	anjuta_command_start_automatic_monitor (ANJUTA_COMMAND (git_plugin->commit_status_command));
 	anjuta_command_start_automatic_monitor (ANJUTA_COMMAND (git_plugin->remote_list_command));
 	anjuta_command_start_automatic_monitor (ANJUTA_COMMAND (git_plugin->tag_list_command));
+	anjuta_command_start_automatic_monitor (ANJUTA_COMMAND (git_plugin->stash_list_command));
 	anjuta_command_start (ANJUTA_COMMAND (git_plugin->local_branch_list_command));
 	anjuta_command_start (ANJUTA_COMMAND (git_plugin->commit_status_command));
 	anjuta_command_start (ANJUTA_COMMAND (git_plugin->remote_list_command));
 	anjuta_command_start (ANJUTA_COMMAND (git_plugin->tag_list_command));
+	anjuta_command_start (ANJUTA_COMMAND (git_plugin->stash_list_command));
 	
 	gtk_widget_set_sensitive (git_plugin->dock, TRUE);
 	gtk_widget_set_sensitive (git_plugin->command_bar, TRUE);
@@ -494,6 +500,9 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	/* Tag list command */
 	git_plugin->tag_list_command = git_tag_list_command_new (NULL);
 
+	/* Stash list command */
+	git_plugin->stash_list_command = git_stash_list_command_new (NULL);
+
 	/* Add the panes to the dock */
 	git_plugin->status_pane = git_status_pane_new (git_plugin);
 	anjuta_dock_add_pane (ANJUTA_DOCK (git_plugin->dock), "Status",
@@ -517,6 +526,11 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	                      _("Remotes"), NULL, git_plugin->remotes_pane,
 	                      GDL_DOCK_CENTER, remotes_entries, 
 	                      G_N_ELEMENTS (remotes_entries), git_plugin);
+
+	git_plugin->stash_pane = git_stash_pane_new (git_plugin);
+	anjuta_dock_add_pane (ANJUTA_DOCK (git_plugin->dock), "Stash", 
+	                      _("Stash"), NULL, git_plugin->stash_pane,
+	                      GDL_DOCK_CENTER, NULL, 0, NULL);
 
 	
 	/* Add watches */
@@ -568,6 +582,7 @@ git_deactivate_plugin (AnjutaPlugin *plugin)
 	g_object_unref (git_plugin->commit_status_command);
 	g_object_unref (git_plugin->not_updated_status_command);
 	g_object_unref (git_plugin->remote_list_command);
+	g_object_unref (git_plugin->stash_list_command);
 	
 	g_free (git_plugin->project_root_directory);
 	g_free (git_plugin->current_editor_filename);
