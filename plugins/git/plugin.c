@@ -44,6 +44,7 @@
 #include "git-create-tag-pane.h"
 #include "git-delete-tags-pane.h"
 #include "git-stash-pane.h"
+#include "git-stash-changes-pane.h"
 
 AnjutaCommandBarEntry branch_entries[] =
 {
@@ -244,6 +245,27 @@ AnjutaCommandBarEntry remotes_entries[] =
 		GTK_STOCK_CONNECT,
 		G_CALLBACK (on_fetch_button_clicked)
 	}
+	
+};
+
+AnjutaCommandBarEntry stash_entries[] =
+{
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_FRAME,
+		"NULL",
+		N_("Stash tools"),
+		NULL,
+		NULL,
+		NULL
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"StashChanges",
+		N_("Stash uncommitted changes"),
+		N_("Save uncommitted changes without committing them"),
+		GTK_STOCK_SAVE,
+		G_CALLBACK (on_stash_changes_button_clicked)
+	},
 	
 };
 
@@ -530,7 +552,8 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	git_plugin->stash_pane = git_stash_pane_new (git_plugin);
 	anjuta_dock_add_pane (ANJUTA_DOCK (git_plugin->dock), "Stash", 
 	                      _("Stash"), NULL, git_plugin->stash_pane,
-	                      GDL_DOCK_CENTER, NULL, 0, NULL);
+	                      GDL_DOCK_CENTER, stash_entries, 
+	                      G_N_ELEMENTS (stash_entries), git_plugin);
 
 	
 	/* Add watches */
