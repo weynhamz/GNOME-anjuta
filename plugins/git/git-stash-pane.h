@@ -51,7 +51,7 @@ struct _GitStashPane
 GType git_stash_pane_get_type (void) G_GNUC_CONST;
 AnjutaDockPane *git_stash_pane_new (Git *plugin);
 gchar *git_stash_pane_get_selected_stash_id (GitStashPane *self);
-guint git_stash_pane_get_selected_stash_number (GitStashPane *self);
+gint git_stash_pane_get_selected_stash_number (GitStashPane *self);
 
 G_END_DECLS
 

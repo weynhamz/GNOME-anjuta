@@ -184,35 +184,37 @@ git_stash_pane_get_selected_stash_id (GitStashPane *self)
 {
 	GtkTreeView *stash_view;
 	GtkTreeSelection *selection;
+	gchar *id;
 	GtkTreeModel *stash_list_model;
 	GtkTreeIter iter;
-	gchar *id;
-
+	                                   
 	stash_view = GTK_TREE_VIEW (gtk_builder_get_object (self->priv->builder,
 	                                                    "stash_view"));
 	selection = gtk_tree_view_get_selection (stash_view);
+	id = NULL;
 
-	gtk_tree_selection_get_selected (selection, &stash_list_model, &iter);
-	gtk_tree_model_get (stash_list_model, &iter, COL_ID, &id, -1);
+	if (gtk_tree_selection_get_selected (selection, &stash_list_model, &iter))
+		gtk_tree_model_get (stash_list_model, &iter, COL_ID, &id, -1);
 
 	return id;
 }
 
-guint
+gint
 git_stash_pane_get_selected_stash_number (GitStashPane *self)
 {
 	GtkTreeView *stash_view;
 	GtkTreeSelection *selection;
+	guint number;
 	GtkTreeModel *stash_list_model;
 	GtkTreeIter iter;
-	guint number;
 
 	stash_view = GTK_TREE_VIEW (gtk_builder_get_object (self->priv->builder,
 	                                                    "stash_view"));
 	selection = gtk_tree_view_get_selection (stash_view);
+	number = -1;
 
-	gtk_tree_selection_get_selected (selection, &stash_list_model, &iter);
-	gtk_tree_model_get (stash_list_model, &iter, COL_NUMBER, &number, -1);
+	if (gtk_tree_selection_get_selected (selection, &stash_list_model, &iter))
+		gtk_tree_model_get (stash_list_model, &iter, COL_NUMBER, &number, -1);
 
 	return number;
 }
