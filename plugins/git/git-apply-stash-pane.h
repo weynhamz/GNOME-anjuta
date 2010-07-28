@@ -24,5 +24,6 @@
 #include "git-stash-pane.h"
 
 void on_apply_stash_button_clicked (GtkAction *action, Git *plugin);
+void on_apply_stash_index_button_clicked (GtkAction *action, Git *plugin);
 
 #endif

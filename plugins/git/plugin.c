@@ -274,6 +274,14 @@ AnjutaCommandBarEntry stash_entries[] =
 		N_("Apply stashed changes back into the working tree"),
 		GTK_STOCK_APPLY,
 		G_CALLBACK (on_apply_stash_button_clicked)
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"ApplyStashIndex",
+		N_("Apply stash and restore index"),
+		N_("Apply stashed changes back into the working tree and the index"),
+		GTK_STOCK_OK,
+		G_CALLBACK (on_apply_stash_index_button_clicked)
 	}
 	
 };

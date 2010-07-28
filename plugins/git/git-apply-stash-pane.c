@@ -19,8 +19,8 @@
 
 #include "git-apply-stash-pane.h"
 
-void
-on_apply_stash_button_clicked (GtkAction *action, Git *plugin)
+static void
+apply_stash (Git *plugin, gboolean restore_index)
 {
 	gchar *stash;
 	GitStashApplyCommand *apply_command;
@@ -30,7 +30,7 @@ on_apply_stash_button_clicked (GtkAction *action, Git *plugin)
 	if (stash)
 	{
 		apply_command = git_stash_apply_command_new (plugin->project_root_directory,
-		                                             FALSE, stash);
+		                                             restore_index, stash);
 		g_free (stash);
 
 		git_pane_create_message_view (plugin);
@@ -52,5 +52,17 @@ on_apply_stash_button_clicked (GtkAction *action, Git *plugin)
 	}
 	else
 		anjuta_util_dialog_error (NULL, _("No stash selected."));
+}
+
+void
+on_apply_stash_button_clicked (GtkAction *action, Git *plugin)
+{
+	apply_stash (plugin, FALSE);
+}
+
+void
+on_apply_stash_index_button_clicked (GtkAction *action, Git *plugin)
+{
+	apply_stash (plugin, TRUE);
 }
  
