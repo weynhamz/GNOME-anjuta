@@ -292,6 +292,14 @@ AnjutaCommandBarEntry stash_entries[] =
 		N_("Show a diff of the selected stash"),
 		GTK_STOCK_ZOOM_100,
 		G_CALLBACK (on_diff_stash_button_clicked)
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"DropStash",
+		N_("Drop selected stash"),
+		N_("Delete the selected stash"),
+		GTK_STOCK_DELETE,
+		G_CALLBACK (on_drop_stash_button_clicked)
 	}
 };
 

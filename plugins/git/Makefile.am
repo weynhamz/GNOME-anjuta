@@ -209,7 +209,9 @@ libanjuta_git_la_SOURCES = \
 	git-apply-stash-pane.c \
 	git-apply-stash-pane.h \
 	git-diff-stash-pane.c \
-	git-diff-stash-pane.h
+	git-diff-stash-pane.h \
+	git-drop-stash-pane.c \
+	git-drop-stash-pane.h
 
 libanjuta_git_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
