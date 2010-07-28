@@ -46,6 +46,8 @@
 #include "git-stash-pane.h"
 #include "git-stash-changes-pane.h"
 #include "git-apply-stash-pane.h"
+#include "git-diff-stash-pane.h"
+#include "git-drop-stash-pane.h"
 
 AnjutaCommandBarEntry branch_entries[] =
 {
@@ -282,8 +284,15 @@ AnjutaCommandBarEntry stash_entries[] =
 		N_("Apply stashed changes back into the working tree and the index"),
 		GTK_STOCK_OK,
 		G_CALLBACK (on_apply_stash_index_button_clicked)
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"DiffStash",
+		N_("Diff selected stash"),
+		N_("Show a diff of the selected stash"),
+		GTK_STOCK_ZOOM_100,
+		G_CALLBACK (on_diff_stash_button_clicked)
 	}
-	
 };
 
 static gpointer parent_class;
