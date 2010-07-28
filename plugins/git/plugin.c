@@ -48,6 +48,7 @@
 #include "git-apply-stash-pane.h"
 #include "git-diff-stash-pane.h"
 #include "git-drop-stash-pane.h"
+#include "git-clear-stash-pane.h"
 
 AnjutaCommandBarEntry branch_entries[] =
 {
@@ -300,6 +301,14 @@ AnjutaCommandBarEntry stash_entries[] =
 		N_("Delete the selected stash"),
 		GTK_STOCK_DELETE,
 		G_CALLBACK (on_drop_stash_button_clicked)
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"ClearStashes",
+		N_("Clear all stashes"),
+		N_("Delete all stashes in this repository"),
+		GTK_STOCK_CLEAR,
+		G_CALLBACK (on_clear_stash_button_clicked)
 	}
 };
 
