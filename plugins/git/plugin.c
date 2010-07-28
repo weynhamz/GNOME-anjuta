@@ -45,6 +45,7 @@
 #include "git-delete-tags-pane.h"
 #include "git-stash-pane.h"
 #include "git-stash-changes-pane.h"
+#include "git-apply-stash-pane.h"
 
 AnjutaCommandBarEntry branch_entries[] =
 {
@@ -266,6 +267,14 @@ AnjutaCommandBarEntry stash_entries[] =
 		GTK_STOCK_SAVE,
 		G_CALLBACK (on_stash_changes_button_clicked)
 	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"ApplyStash",
+		N_("Apply selected stash"),
+		N_("Apply stashed changes back into the working tree"),
+		GTK_STOCK_APPLY,
+		G_CALLBACK (on_apply_stash_button_clicked)
+	}
 	
 };
 
