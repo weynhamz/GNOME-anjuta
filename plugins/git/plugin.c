@@ -49,6 +49,7 @@
 #include "git-diff-stash-pane.h"
 #include "git-drop-stash-pane.h"
 #include "git-clear-stash-pane.h"
+#include "git-rebase-pane.h"
 
 AnjutaCommandBarEntry branch_entries[] =
 {
@@ -248,8 +249,47 @@ AnjutaCommandBarEntry remotes_entries[] =
 		N_("Fetch changes from remote repositories"),
 		GTK_STOCK_CONNECT,
 		G_CALLBACK (on_fetch_button_clicked)
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_FRAME,
+		"NULL",
+		N_("Rebase"),
+		NULL,
+		NULL,
+		NULL
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"RebaseStart",
+		N_("Rebase against selected remote"),
+		N_("Start a rebase operation relative to the selected remote repository"),
+		NULL,
+		G_CALLBACK (on_rebase_start_button_clicked)
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"RebaseContinue",
+		N_("Continue"),
+		N_("Continue a rebase with resolved conflicts"),
+		NULL,
+		G_CALLBACK (on_rebase_continue_button_clicked)
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"RebaseSkip",
+		N_("Skip"),
+		N_("Skip the current revision"),
+		NULL,
+		G_CALLBACK (on_rebase_skip_button_clicked)
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"RebaseAbort",
+		N_("Abort"),
+		N_("Abort the rebase and return the repository to its previous state"),
+		NULL,
+		G_CALLBACK (on_rebase_abort_button_clicked)
 	}
-	
 };
 
 AnjutaCommandBarEntry stash_entries[] =
