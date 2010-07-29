@@ -149,6 +149,7 @@ gboolean anjuta_util_builder_get_objects (GtkBuilder *builder, const gchar *firs
 
 /* Helper for drag and drop */
 GSList *anjuta_utils_drop_get_files (GtkSelectionData *selection_data);
+GPtrArray *anjuta_util_clone_string_gptrarray (const GPtrArray* source);
 
 /* Temporarily copied here */
 

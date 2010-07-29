@@ -2423,3 +2423,32 @@ anjuta_utils_drop_get_files (GtkSelectionData *selection_data)
 
 	return files;
 }
+
+/**
+ * anjuta_utils_clone_string_gptrarray:
+ * @source: The source GPtrArray containing items representing strings
+ *
+ * Clones the contents of source GPtrArray into a new allocated GPtrArray.
+ *
+ * Return a new allocated GPtrArray with strings g_strdup (), NULL on error.
+ * The returned array has set g_free as GDestroyNotity function, so that user
+ * should only care to g_ptr_array_unref () without freeing the strings.
+ */
+GPtrArray *
+anjuta_util_clone_string_gptrarray (const GPtrArray* source)
+{
+	gint i;
+	GPtrArray *dest;
+	
+	g_return_val_if_fail (source != NULL, NULL);
+		
+	dest = g_ptr_array_sized_new (source->len);
+	g_ptr_array_set_free_func (dest, g_free);
+
+	for (i = 0; i < source->len; i++)
+	{
+		g_ptr_array_add (dest, g_strdup (g_ptr_array_index (source, i)));
+	}
+
+	return dest;
+}
