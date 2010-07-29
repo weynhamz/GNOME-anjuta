@@ -38,7 +38,7 @@
 #define ANJUTA_DB_FILE	".anjuta_sym_db"
 
 /* if tables.sql changes or general db structure changes modify also the value here */
-#define SYMBOL_DB_VERSION	"300.6"
+#define SYMBOL_DB_VERSION	"300.7"
 
 #define TABLES_SQL			PACKAGE_DATA_DIR"/tables.sql"
 
@@ -148,20 +148,22 @@ struct _SymbolDBEnginePriv
 {
 	gchar *anjuta_db_file;
 	gchar *ctags_path;
-	
+
+	/* Database tools */
 	GdaConnection *db_connection;
 	GdaSqlParser *sql_parser;
 	gchar *db_directory;
 	gchar *project_directory;
 	gchar *cnc_string;
 
+	/* Scanning */
 	gint scan_process_id;
-	GAsyncQueue *scan_process_id_queue;
+	GAsyncQueue *scan_process_id_aqueue;
 	
-	GAsyncQueue *scan_queue;	
-	GAsyncQueue *updated_symbols_id;
-	GAsyncQueue *updated_scope_symbols_id;
-	GAsyncQueue *inserted_symbols_id;
+	GAsyncQueue *scan_aqueue;	
+	GAsyncQueue *updated_syms_id_aqueue;
+	GAsyncQueue *updated_scope_syms_id_aqueue;
+	GAsyncQueue *inserted_syms_id_aqueue;
 	gint scanning;
 	
 	gchar *shared_mem_str;
@@ -172,17 +174,19 @@ struct _SymbolDBEnginePriv
 	gboolean shutting_down;
 	gboolean is_first_population;
 	gsize symbols_scanned_count;
-	
+
+	GAsyncQueue *waiting_scan_aqueue;
+
+	/* Threads management */
 	GMutex* mutex;
-	GAsyncQueue* signals_queue;
+	GAsyncQueue* signals_aqueue;
 	
-	GThreadPool *thread_pool;
-	
-	gint timeout_trigger_handler;
-	
+	GThreadPool *thread_pool;	
+	gint timeout_trigger_handler;	
 	gint trigger_closure_retries;
 	gint thread_closure_retries;
-	
+
+	/* Miscellanea */
 	GHashTable *sym_type_conversion_hash;
 	GHashTable *garbage_shared_mem_files;
 	

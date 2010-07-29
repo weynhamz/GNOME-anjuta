@@ -92,8 +92,7 @@ symbol_db_engine_new_full (const gchar * ctags_path, const gchar * database_name
  * Set a new path for ctags executable.
  */ 
 gboolean
-symbol_db_engine_set_ctags_path (SymbolDBEngine *dbe,
-								  const gchar * ctags_path);
+symbol_db_engine_set_ctags_path (SymbolDBEngine *dbe, const gchar * ctags_path);
 
 /**
  * Open, create or upgrade a database at given directory. 
@@ -164,7 +163,7 @@ symbol_db_engine_add_new_workspace (SymbolDBEngine *dbe, const gchar* workspace)
  */
 gboolean 
 symbol_db_engine_add_new_project (SymbolDBEngine *dbe, const gchar* workspace, 
-								  const gchar* project);
+								  const gchar* project, gdouble version);
 
 /** 
  * Test project existence. 
@@ -176,13 +175,14 @@ symbol_db_engine_project_exists (SymbolDBEngine *dbe, /*gchar* workspace, */
 
 
 /** 
- * Add a group of files of a single language to a project. It will perform also 
- * a symbols scannig/populating of db if scan_symbols is TRUE.
- * This function requires an opened db, i.e. You must call 
+ * Add a group of files to a project. It will perform also 
+ * a symbols scannig/populating of db if force_scan is TRUE.
+ * This function requires an opened db, i.e. You must test db ststus with  
  * symbol_db_engine_open_db () before.
+ * The function must be called from within the main thread.
  * 
- * @note if some file fails to enter the db the function will return without
- * processing the remaining files.
+ * @note if some file fails to enter into the db the function will return without
+ * 		  processing the remaining files.
  * @param project_name something like 'foo_project', or 'helloworld_project'. Can be NULL,
  *        for example when you're populating after abort.
  * @param project_directory something like the base path '/home/user/projects/foo_project/'
@@ -199,10 +199,11 @@ symbol_db_engine_project_exists (SymbolDBEngine *dbe, /*gchar* workspace, */
  *        this function. The function'll write entries on the db.
  * @param languages is an array of 'languages'. It must have the same number of 
  *		  elments that files_path has. It should be populated like this: "C", "C++",
- *		  "Java"
- * 		  This is done to be uniform to the language-manager plugin.
+ *		  "Java" etc.
+ * 		  This is done to be normalized with the language-manager plugin.
  * @param force_scan If FALSE a check on db will be done to see
- *		  whether the file is already present or not.
+ *		  whether the file is already present or not. In the latter care the scan will begin.
+ *
  * @return scan process id if insertion is successful, -1 on error.
  */
 gint
@@ -218,8 +219,9 @@ symbol_db_engine_add_new_files_full (SymbolDBEngine *dbe,
  * symbol_db_engine_add_new_files_full because you won't have to specify the
  * GPtrArray of languages, but it'll try to autodetect them.
  * When added, the files are forced to be scanned.
+ *
+ * @return scan process id if insertion is successful, -1 on error.
  */
-/* !!!! FIXME: not yet tested !!!! */
 gint
 symbol_db_engine_add_new_files (SymbolDBEngine *dbe, 
     							IAnjutaLanguage* lang_manager,
