@@ -499,7 +499,7 @@ sdb_system_do_engine_scan (SymbolDBSystem *sdbs, EngineScanData *es_data)
 								 languages_array);
 		
 		symbol_db_engine_add_new_project (priv->sdbe_globals, NULL,
-								  		es_data->package_name);
+								  		es_data->package_name, 1.0);
 	}
 	else 
 	{
@@ -513,7 +513,7 @@ sdb_system_do_engine_scan (SymbolDBSystem *sdbs, EngineScanData *es_data)
 	 * infact to have more references of the same files in different
 	 * packages
 	 */
-	proc_id = symbol_db_engine_add_new_files_full (priv->sdbe_globals,
+	proc_id = symbol_db_engine_add_new_files_full_async (priv->sdbe_globals,
 							es_data->special_abort_scan == FALSE ? 
 									es_data->package_name : NULL, 
 							files_to_scan_array,
@@ -682,17 +682,6 @@ on_pkg_config_exit (AnjutaLauncher * launcher, int child_pid,
 						 g_queue_get_length (priv->engine_queue),
 						 es_data->package_name);
 			g_queue_push_tail (priv->engine_queue, es_data);
-
-/*			
-			gint i;			
-			for (i = 0; i < g_queue_get_length (priv->engine_queue); i++)
-			{
-				EngineScanData *node;
-				node = g_queue_peek_nth (priv->engine_queue, i);
-				DEBUG_PRINT ("DEBUG queue engine [%d]: %s", i, 
-							 node->package_name);
-			}
-*/		
 		}
 		else
 		{

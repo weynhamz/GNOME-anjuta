@@ -409,7 +409,7 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 		}
 	}
 
-	real_files_list = g_ptr_array_new ();
+	real_files_list = g_ptr_array_new_with_free_func (g_free);
 	g_ptr_array_add (real_files_list, local_path);
 
 	text_buffers = g_ptr_array_new ();
@@ -441,7 +441,8 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 		g_tree_insert (sdb_plugin->proc_id_tree, GINT_TO_POINTER (proc_id),
 					   GINT_TO_POINTER (TASK_BUFFER_UPDATE));		
 	}
-	
+
+	g_ptr_array_unref (real_files_list);
 	g_free (current_buffer);  
 	g_object_unref (file);
 
@@ -779,8 +780,8 @@ do_add_new_files (SymbolDBPlugin *sdb_plugin, const GPtrArray *sources_array,
 	plugin = ANJUTA_PLUGIN (sdb_plugin);
 
 	/* create array of languages and the wannabe scanned files */
-	languages_array = g_ptr_array_new ();
-	to_scan_array = g_ptr_array_new ();
+	languages_array = g_ptr_array_new_with_free_func (g_free);
+	to_scan_array = g_ptr_array_new_with_free_func (g_free);
 	
 	/* to speed the things up we must avoid the dups */
 	check_unique_file_hash = g_hash_table_new_full (g_str_hash, 
@@ -874,7 +875,7 @@ do_add_new_files (SymbolDBPlugin *sdb_plugin, const GPtrArray *sources_array,
 	 */
 	if (to_scan_array->len > 0)
 	{		
-		gint proc_id = 	symbol_db_engine_add_new_files_full (sdb_plugin->sdbe_project, 
+		gint proc_id = 	symbol_db_engine_add_new_files_full_async (sdb_plugin->sdbe_project, 
 					sdb_plugin->project_opened, to_scan_array, languages_array, 
 														   TRUE);
 		
@@ -883,14 +884,11 @@ do_add_new_files (SymbolDBPlugin *sdb_plugin, const GPtrArray *sources_array,
 					   GINT_TO_POINTER (task));
 	}
 
-	g_ptr_array_foreach (languages_array, (GFunc)g_free, NULL);
-	g_ptr_array_free (languages_array, TRUE);
-	
 	/* get the real added number of files */
 	added_num = to_scan_array->len;
-	
-	g_ptr_array_foreach (to_scan_array, (GFunc)g_free, NULL);
-	g_ptr_array_free (to_scan_array, TRUE);	
+
+	g_ptr_array_unref (languages_array);
+	g_ptr_array_unref (to_scan_array);	
 	
 	g_hash_table_destroy (check_unique_file_hash);
 	
@@ -910,7 +908,7 @@ on_project_element_added (IAnjutaProjectManager *pm, GFile *gfile,
 
 	filename = g_file_get_path (gfile);
 
-	files_array = g_ptr_array_new ();
+	files_array = g_ptr_array_new_with_free_func (g_free);
 	g_ptr_array_add (files_array, filename);
 
 	sdb_plugin->is_adding_element = TRUE;	
@@ -922,8 +920,7 @@ on_project_element_added (IAnjutaProjectManager *pm, GFile *gfile,
 		sdb_plugin->is_adding_element = FALSE;
 	}
 	
-	g_ptr_array_foreach (files_array, (GFunc)g_free, NULL);
-	g_ptr_array_free (files_array, TRUE);
+	g_ptr_array_unref (files_array);
 }
 
 static void
@@ -948,15 +945,6 @@ on_project_element_removed (IAnjutaProjectManager *pm, GFile *gfile,
 		g_free (filename);
 	}
 }
-
-static void
-sources_array_free (gpointer data)
-{
-	GPtrArray* sources = (GPtrArray*) data;
-	g_ptr_array_foreach (sources, (GFunc)g_free, NULL);
-	g_ptr_array_free (sources, TRUE);
-}
-
 
 static void
 on_system_scan_package_start (SymbolDBEngine *dbe, guint num_files, 
@@ -1236,9 +1224,9 @@ do_import_project_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 					 g_list_length (prj_elements_list));
 
 	/* create the storage array. The file names will be strdup'd and put here. 
-	 + This is just a sort of GList -> GPtrArray conversion.
+	 * This is just a sort of GList -> GPtrArray conversion.
 	 */
-	sources_array = g_ptr_array_new ();
+	sources_array = g_ptr_array_new_with_free_func (g_free);
 	for (i=0; i < g_list_length (prj_elements_list); i++)
 	{	
 		gchar *local_filename;
@@ -1269,8 +1257,7 @@ do_import_project_sources (AnjutaPlugin *plugin, IAnjutaProjectManager *pm,
 
 	
 	/* free the ptr array */
-	g_ptr_array_foreach (sources_array, (GFunc)g_free, NULL);
-	g_ptr_array_free (sources_array, TRUE);
+	g_ptr_array_unref (sources_array);
 
 	/* and the list of project files */
 	g_list_foreach (prj_elements_list, (GFunc) g_object_unref, NULL);
@@ -1303,8 +1290,7 @@ do_import_system_sources (SymbolDBPlugin *sdb_plugin)
 	{
 		do_import_system_sources_after_abort (sdb_plugin, sys_src_array);
 			
-		g_ptr_array_foreach (sys_src_array, (GFunc)g_free, NULL);
-		g_ptr_array_free (sys_src_array, TRUE);
+		g_ptr_array_unref (sys_src_array);
 	}	
 }
 
@@ -1401,7 +1387,7 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 	if (it && gda_data_model_iter_move_to_row (it, 0))
 	{
 		GPtrArray *remove_array;
-		remove_array = g_ptr_array_new ();
+		remove_array = g_ptr_array_new_with_free_func (g_free);
 		do {
 			const GValue *val = gda_data_model_iter_get_value_at (it, 0);
 			const gchar * file = g_value_get_string (val);
@@ -1414,8 +1400,7 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 		symbol_db_engine_remove_files (sdb_plugin->sdbe_project,
 									   sdb_plugin->project_opened,
 									   remove_array);
-		g_ptr_array_foreach (remove_array, (GFunc) g_free, NULL);
-		g_ptr_array_free (remove_array, TRUE);		
+		g_ptr_array_unref (remove_array);
 	}
 
 	/* great, at this point we should have this situation:
@@ -1468,7 +1453,7 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 	
 	g_object_unref (it);
 	g_object_unref (model);
-	g_ptr_array_free (to_add_files, TRUE);
+	g_ptr_array_unref (to_add_files);
 	g_hash_table_destroy (prj_elements_hash);
 	
 	return real_added > 0 ? TRUE : FALSE;	
@@ -1640,12 +1625,8 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	{
 		gboolean needs_sources_scan = FALSE;
 		gboolean project_exist = FALSE;
-		GHashTable* lang_hash;
 		guint id;
 			
-		lang_hash = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, 
-										  sources_array_free);
-
 		/* we'll use the same values for db_directory and project_directory */
 		DEBUG_PRINT ("Opening db %s and project_dir %s", root_dir, root_dir);
 		gint open_status = symbol_db_engine_open_db (sdb_plugin->sdbe_project, root_dir, 
@@ -1680,7 +1661,8 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 			DEBUG_PRINT ("Creating new project.");
 			symbol_db_engine_add_new_project (sdb_plugin->sdbe_project,
 											  NULL,	/* still no workspace logic */
-											  sdb_plugin->project_opened);
+											  sdb_plugin->project_opened,
+			    							  1.0);
 		}
 
 		/*
@@ -1707,10 +1689,8 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 
 			if (sources_array != NULL && sources_array->len > 0) 
 			{				
-				do_import_project_sources_after_abort (plugin, sources_array);
-				
-				g_ptr_array_foreach (sources_array, (GFunc)g_free, NULL);
-				g_ptr_array_free (sources_array, TRUE);
+				do_import_project_sources_after_abort (plugin, sources_array);				
+				g_ptr_array_unref (sources_array);
 			}
 
 			/* check for offline changes */				
@@ -1729,8 +1709,6 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 
 		/* root dir */
 		sdb_plugin->project_root_dir = root_dir;
-			
-		g_hash_table_unref (lang_hash);			
 	}
 	/* this is uri */
 	sdb_plugin->project_root_uri = g_strdup (root_uri);	
@@ -1959,7 +1937,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	 * you'll be able to get in O(1) the _index in the second array, where the 
 	 * scan process ids are stored. This is true in the other way too.
 	 */
-	sdb_plugin->buffer_update_files = g_ptr_array_new ();
+	sdb_plugin->buffer_update_files = g_ptr_array_new_with_free_func (g_free);
 	sdb_plugin->buffer_update_ids = g_ptr_array_new ();
 	sdb_plugin->buffer_update_semaphore = FALSE;
 	
@@ -2262,14 +2240,13 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 
 	if (sdb_plugin->buffer_update_files)
 	{
-		g_ptr_array_foreach (sdb_plugin->buffer_update_files, (GFunc)g_free, NULL);
-		g_ptr_array_free (sdb_plugin->buffer_update_files, TRUE);
+		g_ptr_array_unref (sdb_plugin->buffer_update_files);
 		sdb_plugin->buffer_update_files = NULL;
 	}
 
 	if (sdb_plugin->buffer_update_ids)
 	{
-		g_ptr_array_free (sdb_plugin->buffer_update_ids, TRUE);
+		g_ptr_array_unref (sdb_plugin->buffer_update_ids);
 		sdb_plugin->buffer_update_ids = NULL;		
 	}	
 		
@@ -2505,10 +2482,41 @@ isymbol_manager_create_query (IAnjutaSymbolManager *isymbol_manager,
 	return IANJUTA_SYMBOL_QUERY (query);
 }
 
+static gboolean
+isymbol_manager_add_package (IAnjutaSymbolManager *isymbol_manager,
+    						 const gchar* pkg_name, 
+    						 const gchar* pkg_version, 
+    						 const GList* files,
+    						 GError *err)
+{
+	
+}
+
+static gboolean
+isymbol_manager_activate_package (IAnjutaSymbolManager *isymbol_manager,
+    							  const gchar *pkg_name, 
+    							  const gchar *pkg_version,
+    							  GError *err)
+{
+	
+}
+
+static gboolean
+isymbol_manager_deactivate_package (IAnjutaSymbolManager *isymbol_manager,
+        							const gchar *pkg_name, 
+    							  	const gchar *pkg_version,
+    							  	GError *err)
+{
+	
+}
+
 static void
 isymbol_manager_iface_init (IAnjutaSymbolManagerIface *iface)
 {
 	iface->create_query = isymbol_manager_create_query;
+	iface->add_package = isymbol_manager_add_package;
+	iface->activate_package = isymbol_manager_activate_package;
+	iface->deactivate_package = isymbol_manager_deactivate_package;
 }
 
 ANJUTA_PLUGIN_BEGIN (SymbolDBPlugin, symbol_db);

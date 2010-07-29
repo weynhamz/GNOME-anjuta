@@ -94,6 +94,14 @@ typedef struct _TableMapSymbol {
 
 } TableMapSymbol;
 
+typedef struct _EngineScanDataAsync {
+	GPtrArray *files_list;
+	GPtrArray *real_files_list;
+	gboolean symbols_update;
+	
+} EngineScanDataAsync;
+
+
 typedef void (SymbolDBEngineCallback) (SymbolDBEngine * dbe,
 									   gpointer user_data);
 
@@ -221,6 +229,17 @@ sdb_engine_tablemap_tmp_heritage_destroy (TableMapTmpHeritage *node)
 	g_free (node->field_namespace);
 
 	g_slice_free (TableMapTmpHeritage, node);
+}
+
+static void
+sdb_engine_scan_data_destroy (gpointer data)
+{
+	EngineScanDataAsync *esda =  (EngineScanDataAsync *)data;
+
+	g_ptr_array_unref (esda->files_list);
+	g_ptr_array_unref (esda->real_files_list);
+
+	g_free (esda);
 }
 
 static void
@@ -1079,7 +1098,7 @@ sdb_engine_timeout_trigger_signals (gpointer user_data)
 
 					/* get the process id from the queue */
 					gint int_tmp = GPOINTER_TO_INT(g_async_queue_pop (priv->scan_process_id_aqueue));
-					priv->scanning--;
+					priv->is_scanning = FALSE;
 					g_signal_emit (dbe, signals[SCAN_END], 0, int_tmp);
 				}
 					break;
@@ -1321,7 +1340,6 @@ sdb_engine_scan_files_2 (GFile *gfile,
  * on db. In this mode files_list and real_files_list must have the same size.
  *
  */
-/* server mode version */
 static gboolean
 sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 						 const GPtrArray *real_files_list, gboolean symbols_update)
@@ -1329,19 +1347,7 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 	SymbolDBEnginePriv *priv;
 	gint i;
 
-	g_return_val_if_fail (files_list != NULL, FALSE);
-	
-	if (files_list->len == 0)
-		return FALSE;	
-	
-	/* start process in server mode */
 	priv = dbe->priv;
-
-	if (real_files_list != NULL && (files_list->len != real_files_list->len)) 
-	{
-		g_warning ("no matched size between real_files_list and files_list");		
-		return FALSE;
-	}
 	
 	/* if ctags_launcher isn't initialized, then do it now. */
 	/* lazy initialization */
@@ -1350,7 +1356,9 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 		sdb_engine_ctags_launcher_create (dbe);
 	}
 
-	priv->scanning++; /* Enter scanning state */
+	
+	/* Enter scanning state */
+	priv->is_scanning = TRUE; 
 	DEBUG_PRINT ("%s", "EMITTING scan begin.");
 	g_signal_emit_by_name (dbe, "scan-begin",
 	                       anjuta_launcher_get_child_pid (priv->ctags_launcher));
@@ -1431,6 +1439,68 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 								 (GAsyncReadyCallback)sdb_engine_scan_files_2,
 								 sf_data);
 	}
+
+	return TRUE;
+}
+
+static void
+on_scan_files_async_end (SymbolDBEngine *dbe, gint process_id, gpointer user_data)
+{
+	SymbolDBEnginePriv *priv;
+	EngineScanDataAsync *esda;
+
+	priv = dbe->priv;
+	
+	/* fine, check on the queue if there's something left to scan */
+	if ((esda = g_async_queue_try_pop (priv->waiting_scan_aqueue)) == NULL)
+		return;
+
+	sdb_engine_scan_files_1 (dbe, esda->files_list, esda->real_files_list, 
+	    esda->symbols_update);
+
+	sdb_engine_scan_data_destroy (esda);	
+}
+
+static gboolean
+sdb_engine_scan_files_async (SymbolDBEngine * dbe, const GPtrArray * files_list,
+						 const GPtrArray *real_files_list, gboolean symbols_update)
+{
+	SymbolDBEnginePriv *priv;
+	g_return_val_if_fail (files_list != NULL, FALSE);
+	
+	if (files_list->len == 0)
+		return FALSE;	
+	
+	priv = dbe->priv;
+
+	if (real_files_list != NULL && (files_list->len != real_files_list->len)) 
+	{
+		g_warning ("no matched size between real_files_list and files_list");		
+		return FALSE;
+	}
+
+	/* is the engine scanning or is there already something waiting on the queue? */
+	if (symbol_db_engine_is_scanning (dbe) == TRUE ||
+	    g_async_queue_length (priv->waiting_scan_aqueue) > 0)
+	{
+		/* push the data into the queue for later retrieval */
+		EngineScanDataAsync * esda = g_new0 (EngineScanDataAsync, 1);
+
+		esda->files_list = anjuta_util_clone_string_gptrarray (files_list);
+		if (real_files_list)
+			esda->real_files_list = anjuta_util_clone_string_gptrarray (real_files_list);
+		else
+			esda->real_files_list = NULL;
+		esda->symbols_update = symbols_update;
+
+		g_async_queue_push (priv->waiting_scan_aqueue, esda);
+		return TRUE;
+	}
+
+	/* there's no scan active right now nor data waiting on the queue. 
+	 * Proceed with normal scan.
+	 */
+	sdb_engine_scan_files_1 (dbe, files_list, real_files_list, symbols_update);
 
 	return TRUE;
 }
@@ -1558,7 +1628,12 @@ sdb_engine_init (SymbolDBEngine * object)
 	sdbe->priv->updated_syms_id_aqueue = g_async_queue_new ();
 	sdbe->priv->updated_scope_syms_id_aqueue = g_async_queue_new ();
 	sdbe->priv->inserted_syms_id_aqueue = g_async_queue_new ();
-	sdbe->priv->scanning = 0;
+	sdbe->priv->is_scanning = FALSE;
+
+	sdbe->priv->waiting_scan_aqueue = g_async_queue_new_full (sdb_engine_scan_data_destroy);
+	sdbe->priv->waiting_scan_handler = g_signal_connect (G_OBJECT (sdbe), "scan-end",
+ 				G_CALLBACK (on_scan_files_async_end), NULL);
+
 	
 	/*
 	 * STATIC QUERY STRUCTURE INITIALIZE
@@ -1833,6 +1908,9 @@ sdb_engine_finalize (GObject * object)
 	
 	dbe = SYMBOL_DB_ENGINE (object);
 	priv = dbe->priv;
+
+	g_signal_handler_disconnect (dbe, priv->waiting_scan_handler);
+	priv->waiting_scan_handler = 0;
 	
 	if (priv->thread_pool)
 	{
@@ -1897,6 +1975,12 @@ sdb_engine_finalize (GObject * object)
 		g_async_queue_unref (priv->inserted_syms_id_aqueue);
 		priv->inserted_syms_id_aqueue = NULL;
 	}	
+
+	if (priv->waiting_scan_aqueue)
+	{
+		g_async_queue_unref (priv->waiting_scan_aqueue);
+		priv->waiting_scan_aqueue = NULL;
+	}
 	
 	if (priv->shared_mem_file) 
 	{
@@ -2228,7 +2312,7 @@ gboolean
 symbol_db_engine_is_scanning (SymbolDBEngine *dbe)
 {
 	g_return_val_if_fail (SYMBOL_IS_DB_ENGINE (dbe), FALSE);
-	return (dbe->priv->scanning > 0);
+	return dbe->priv->is_scanning;
 }
 
 /**
@@ -2929,17 +3013,8 @@ sdb_engine_get_unique_scan_id (SymbolDBEngine * dbe)
 	return ret_id;
 }
 
-void
-symbol_db_engine_add_new_files_async (SymbolDBEngine *dbe, 
-    							IAnjutaLanguage* lang_manager,
-								const gchar * project_name,
-							    const GPtrArray *sources_array)
-{
-	
-}
-
 gint
-symbol_db_engine_add_new_files (SymbolDBEngine *dbe, 
+symbol_db_engine_add_new_files_async (SymbolDBEngine *dbe, 
     							IAnjutaLanguage* lang_manager,
 								const gchar * project_name,
 							    const GPtrArray *sources_array)
@@ -2954,7 +3029,7 @@ symbol_db_engine_add_new_files (SymbolDBEngine *dbe,
 
 	priv = dbe->priv;
 
-	lang_array = g_ptr_array_new ();
+	lang_array = g_ptr_array_new_with_free_func (g_free);
 
 	for (i = 0; i < sources_array->len; i++)
 	{		
@@ -2999,18 +3074,17 @@ symbol_db_engine_add_new_files (SymbolDBEngine *dbe,
 		g_object_unref (gfile_info);
 	}
 
-	gint res = symbol_db_engine_add_new_files_full (dbe, project_name, sources_array,
+	gint res = symbol_db_engine_add_new_files_full_async (dbe, project_name, sources_array,
 	    lang_array, TRUE);
 
 	/* free resources */
-	g_ptr_array_foreach (lang_array, (GFunc)g_free, NULL);
-	g_ptr_array_free (lang_array, TRUE);
+	g_ptr_array_unref (lang_array);
 
 	return res;
 }
 
 gint
-symbol_db_engine_add_new_files_full (SymbolDBEngine * dbe, 
+symbol_db_engine_add_new_files_full_async (SymbolDBEngine * dbe, 
 								const gchar * project_name,
 								const GPtrArray * files_path, 
 								const GPtrArray * languages,
@@ -3019,7 +3093,6 @@ symbol_db_engine_add_new_files_full (SymbolDBEngine * dbe,
 	gint i;
 	SymbolDBEnginePriv *priv;
 	GPtrArray * filtered_files_path;
-	GPtrArray * filtered_languages;
 	gboolean ret_code;
 	gint ret_id;
 	
@@ -3033,7 +3106,6 @@ symbol_db_engine_add_new_files_full (SymbolDBEngine * dbe,
 	g_return_val_if_fail (languages->len > 0, FALSE);
 
 	filtered_files_path = g_ptr_array_new ();
-	filtered_languages = g_ptr_array_new ();
 	
 	for (i = 0; i < files_path->len; i++)
 	{
@@ -3072,14 +3144,15 @@ symbol_db_engine_add_new_files_full (SymbolDBEngine * dbe,
 	 * AnjutaLauncher and ctags in server mode. After the ctags cmd has been 
 	 * executed, the populating process'll take place.
 	 */
-	ret_code = sdb_engine_scan_files_1 (dbe, filtered_files_path, NULL, FALSE);
+	ret_code = sdb_engine_scan_files_async (dbe, filtered_files_path, NULL, FALSE);
 	
 	if (ret_code == TRUE)
 		ret_id = sdb_engine_get_unique_scan_id (dbe);
 	else
 		ret_id = -1;
-	
-	g_ptr_array_free (filtered_files_path, TRUE);
+
+	/* no need to free the items contained in the array */
+	g_ptr_array_unref (filtered_files_path);
 	return ret_id;
 }
 
@@ -4722,7 +4795,6 @@ on_scan_update_files_symbols_end (SymbolDBEngine * dbe,
 					   strlen (priv->project_directory));
 			return;
 		}
-		g_free (node);
 	}
 		
 	g_signal_handlers_disconnect_by_func (dbe, on_scan_update_files_symbols_end,
@@ -4769,7 +4841,7 @@ on_scan_update_files_symbols_end (SymbolDBEngine * dbe,
 	}	
 	
 	/* free the GPtrArray. */
-	g_ptr_array_free (files_to_scan, TRUE);
+	g_ptr_array_unref (files_to_scan);
 
 	g_free (update_data->project);
 	g_free (update_data);
@@ -4777,7 +4849,7 @@ on_scan_update_files_symbols_end (SymbolDBEngine * dbe,
 
 gint
 symbol_db_engine_update_files_symbols (SymbolDBEngine * dbe, const gchar * project, 
-									   GPtrArray * files_path,
+									   const GPtrArray * files_path,
 									   gboolean update_prj_analyse_time)
 {
 	SymbolDBEnginePriv *priv;
@@ -4792,14 +4864,14 @@ symbol_db_engine_update_files_symbols (SymbolDBEngine * dbe, const gchar * proje
 	g_return_val_if_fail (priv->db_connection != NULL, FALSE);
 	g_return_val_if_fail (project != NULL, FALSE);
 
-	ready_files = g_ptr_array_new ();
+	ready_files = g_ptr_array_new_with_free_func (g_free);
 	
 	/* check if the files exist in db before passing them to the scan procedure */
 	for (i = 0; i < files_path->len; i++) 
 	{
 		gchar *curr_abs_file;
 		
-		curr_abs_file = g_ptr_array_index (files_path, i);
+		curr_abs_file = g_strdup (g_ptr_array_index (files_path, i));
 		/* check if the file exists in db. We will not scan buffers for files
 		 * which aren't already in db
 		 */
@@ -4815,14 +4887,11 @@ symbol_db_engine_update_files_symbols (SymbolDBEngine * dbe, const gchar * proje
 		/* ok the file exists in db. Add it to ready_files */
 		g_ptr_array_add (ready_files, curr_abs_file);
 	}
-	
-	/* free just the array but not its values */
-	g_ptr_array_free (files_path, FALSE);
-	
+		
 	/* if no file has been added to the array then bail out here */
 	if (ready_files->len <= 0)
 	{
-		g_ptr_array_free (ready_files, TRUE);
+		g_ptr_array_unref (ready_files);
 		DEBUG_PRINT ("not enough files to update");
 		return -1;
 	}
@@ -4839,8 +4908,8 @@ symbol_db_engine_update_files_symbols (SymbolDBEngine * dbe, const gchar * proje
 	 */
 	g_signal_connect (G_OBJECT (dbe), "scan-end",
 					  G_CALLBACK (on_scan_update_files_symbols_end), update_data);
-	
-	ret_code = sdb_engine_scan_files_1 (dbe, ready_files, NULL, TRUE);
+
+	ret_code = sdb_engine_scan_files_async (dbe, ready_files, NULL, TRUE);
 	if (ret_code == TRUE)
 		ret_id = sdb_engine_get_unique_scan_id (dbe);
 	else
@@ -4929,7 +4998,7 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe,
 	}
 
 	/* initialize the array */
-	files_to_scan = g_ptr_array_new ();
+	files_to_scan = g_ptr_array_new_with_free_func (g_free);
 
 	/* we can now scan each filename entry to check the last modification time. */
 	for (i = 0; i < num_rows; i++)
@@ -5029,10 +5098,13 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe,
 	if (files_to_scan->len > 0)
 	{
 		SDB_UNLOCK(priv);
-		
+
 		/* at the end let the scanning function do its job */
-		return symbol_db_engine_update_files_symbols (dbe, project_name,
+		gint id = symbol_db_engine_update_files_symbols (dbe, project_name,
 											   files_to_scan, TRUE);
+
+		g_ptr_array_unref (files_to_scan);
+		return id;
 	}
 	
 	SDB_UNLOCK(priv);
@@ -5154,20 +5226,19 @@ on_scan_update_buffer_end (SymbolDBEngine * dbe, gint process_id, gpointer data)
 				return;
 			}
 		}
-		g_free (node);
 	}
 		
 	g_signal_handlers_disconnect_by_func (dbe, on_scan_update_buffer_end,
 										  files_to_scan);
 
 	/* free the GPtrArray. */
-	g_ptr_array_free (files_to_scan, TRUE);
+	g_ptr_array_unref (files_to_scan);
 	data = files_to_scan = NULL;
 }
 
 gint
 symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *project,
-										GPtrArray * real_files_list,
+										const GPtrArray * real_files,
 										const GPtrArray * text_buffers,
 										const GPtrArray * buffer_sizes)
 {
@@ -5177,6 +5248,7 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 	gboolean ret_code;
 	/* array that'll represent the /dev/shm/anjuta-XYZ files */
 	GPtrArray *temp_files;
+	GPtrArray *real_files_list;
 	GPtrArray *real_files_on_db;
 	
 	g_return_val_if_fail (dbe != NULL, FALSE);
@@ -5184,12 +5256,13 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 	
 	g_return_val_if_fail (priv->db_connection != NULL, FALSE);
 	g_return_val_if_fail (project != NULL, FALSE);
-	g_return_val_if_fail (real_files_list != NULL, FALSE);
+	g_return_val_if_fail (real_files != NULL, FALSE);
 	g_return_val_if_fail (text_buffers != NULL, FALSE);
 	g_return_val_if_fail (buffer_sizes != NULL, FALSE);
 	
-	temp_files = g_ptr_array_new();	
-	real_files_on_db = g_ptr_array_new();
+	temp_files = g_ptr_array_new_with_free_func (g_free);	
+	real_files_on_db = g_ptr_array_new_with_free_func (g_free);
+	real_files_list = anjuta_util_clone_string_gptrarray (real_files);
 	
 	/* obtain a GPtrArray with real_files on database */
 	for (i=0; i < real_files_list->len; i++) 
@@ -5217,8 +5290,7 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 		relative_path = symbol_db_util_get_file_db_path (dbe, curr_abs_file);
 		if (relative_path == NULL)
 		{
-			g_warning ("symbol_db_engine_update_buffer_symbols  (): "
-					   "relative_path is NULL");
+			g_warning ("relative_path is NULL");
 			continue;
 		}
 		g_ptr_array_add (real_files_on_db, (gpointer) relative_path);
@@ -5281,20 +5353,16 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 		g_signal_connect (G_OBJECT (dbe), "scan-end",
 						  G_CALLBACK (on_scan_update_buffer_end), real_files_list);
 	
-		ret_code = sdb_engine_scan_files_1 (dbe, temp_files, real_files_on_db, TRUE);
+		ret_code = sdb_engine_scan_files_async (dbe, temp_files, real_files_on_db, TRUE);
 		if (ret_code == TRUE)
 			ret_id = sdb_engine_get_unique_scan_id (dbe);
 		else
 			ret_id = -1;
 	}
 	
-	/* let's free the temp_files array */
-	for (i=0; i < temp_files->len; i++)
-		g_free (g_ptr_array_index (temp_files, i));
 	
-	g_ptr_array_free (temp_files, TRUE);
-	
-	g_ptr_array_free (real_files_on_db, TRUE);
+	g_ptr_array_unref (temp_files);	
+	g_ptr_array_unref (real_files_on_db);
 	return ret_id;
 }
 

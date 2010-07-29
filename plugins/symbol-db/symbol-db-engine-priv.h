@@ -141,6 +141,7 @@ typedef struct _static_query_node
 
 } static_query_node;
 
+/* normalize with iface naming */
 typedef IAnjutaSymbolType SymType;
 
 /* the SymbolDBEngine Private structure */
@@ -164,7 +165,7 @@ struct _SymbolDBEnginePriv
 	GAsyncQueue *updated_syms_id_aqueue;
 	GAsyncQueue *updated_scope_syms_id_aqueue;
 	GAsyncQueue *inserted_syms_id_aqueue;
-	gint scanning;
+	gboolean is_scanning;
 	
 	gchar *shared_mem_str;
 	FILE *shared_mem_file;
@@ -176,6 +177,7 @@ struct _SymbolDBEnginePriv
 	gsize symbols_scanned_count;
 
 	GAsyncQueue *waiting_scan_aqueue;
+	gulong waiting_scan_handler;
 
 	/* Threads management */
 	GMutex* mutex;

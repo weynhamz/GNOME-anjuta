@@ -204,14 +204,20 @@ symbol_db_engine_project_exists (SymbolDBEngine *dbe, /*gchar* workspace, */
  * @param force_scan If FALSE a check on db will be done to see
  *		  whether the file is already present or not. In the latter care the scan will begin.
  *
+ * The function is suffixed with 'async'. This means that the scanning of the files is delayed
+ * until the scanner is available. So you should use the gint id returned to identify
+ * if a 'scan-end' signal is the one that you were expecting. 
+ * Please note also that, if db is disconnected before the waiting queue is processed,
+ * the scan of those files won't be performed.
+ *
  * @return scan process id if insertion is successful, -1 on error.
  */
 gint
-symbol_db_engine_add_new_files_full (SymbolDBEngine *dbe, 
-									const gchar * project_name,
-							    	const GPtrArray *files_path,
-									const GPtrArray *languages,
-									gboolean force_scan);
+symbol_db_engine_add_new_files_full_async (SymbolDBEngine *dbe, 
+										   const gchar * project_name,
+							    		   const GPtrArray *files_path,
+										   const GPtrArray *languages,
+										   gboolean force_scan);
 
 /**
  * See symbol_db_engine_add_new_files_full () for doc.
@@ -220,13 +226,20 @@ symbol_db_engine_add_new_files_full (SymbolDBEngine *dbe,
  * GPtrArray of languages, but it'll try to autodetect them.
  * When added, the files are forced to be scanned.
  *
+ *
+ * The function is suffixed with 'async'. This means that the scanning of the files is delayed
+ * until the scanner is available. So you should use the gint id returned to identify
+ * if a 'scan-end' signal is the one that you were expecting. 
+ * Please note also that, if db is disconnected before the waiting queue is processed,
+ * the scan of those files won't be performed.
+ *
  * @return scan process id if insertion is successful, -1 on error.
  */
 gint
-symbol_db_engine_add_new_files (SymbolDBEngine *dbe, 
-    							IAnjutaLanguage* lang_manager,
-								const gchar * project_name,
-							    const GPtrArray *files_path);
+symbol_db_engine_add_new_files_async (SymbolDBEngine *dbe, 
+    								  IAnjutaLanguage* lang_manager,
+									  const gchar * project_name,
+							    	  const GPtrArray *files_path);
 
 /**
  * Update symbols of the whole project. It scans all file symbols etc. 
@@ -248,26 +261,23 @@ symbol_db_engine_remove_files (SymbolDBEngine * dbe, const gchar *project,
 
 /**
  * Update symbols of saved files. 
- * @note WARNING: files_path and it's contents will be freed on 
- * on_scan_update_files_symbols_end () callback.
  * @return scan process id if insertion is successful, -1 on 'no files scanned'.
  */
 gint
 symbol_db_engine_update_files_symbols (SymbolDBEngine *dbe, const gchar *project, 
-									   GPtrArray *files_path,
+									   const GPtrArray *files_path,
 									   gboolean update_prj_analyse_time);
 
 /**
  * Update symbols of a file by a memory-buffer to perform a real-time updating 
  * of symbols. 
  * @param real_files_list: full path on disk to 'real file' to update. e.g.
- * /home/foouser/fooproject/src/main.c. They'll be freed inside this function 
- * when the scan has ended. 
+ * /home/foouser/fooproject/src/main.c. 
  * @return scan process id if insertion is successful, -1 on error.
  */
 gint
 symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar * project,
-										GPtrArray * real_files_list,
+										const GPtrArray * real_files_list,
 										const GPtrArray * text_buffers,
 										const GPtrArray * buffer_sizes);
 
