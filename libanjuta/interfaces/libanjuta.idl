@@ -6039,6 +6039,47 @@ interface IAnjutaSymbolManager
 	 * Returns: A #IAnjutaSymbolQuery object
 	 */
 	IAnjutaSymbolQuery* create_query (IAnjutaSymbolQueryName name, IAnjutaSymbolQueryDb db);
+
+	/**
+	 * ianjuta_symbol_manager_add_package:
+	 * @obj: Self
+ 	 * @pkg-name: Name of the package to scan. Should be the name given by
+	 * pkg-config 
+ 	 * @pkg_version: Version of the package
+ 	 * or by the language implementation (Python, Javascript, etc.)
+ 	 * @files: A list of GFile's to scan for this package
+ 	 *
+ 	 * Reads the package files into the database. 
+	 *
+	 * Returns: TRUE if the package will be loaded into the db, FALSE if the package
+	 * already exists
+ 	 */
+	gboolean add_package (const gchar* pkg_name, const gchar* pkg_version, const GList* files);
+
+	/**
+	 * ianjuta_symbol_manager_activate_package:
+	 * @obj: Self
+ 	 * @pkg_name: Name of the package to activate
+ 	 * @pkg_version: Version of the package
+ 	 *
+ 	 * Activates the package for searches in the global symbol database.
+ 	 *
+ 	 * Returns: TRUE if the package was loaded (or will be loaded once scanned). 
+ 	 * FALSE if the version given was newer than the version in the database or the 
+ 	 * package was not found. In this case, add_package() should be called.
+ 	 */
+	gboolean activate_package (const gchar *pkg_name, const gchar *pkg_version);
+
+	/**
+	 * ianjuta_symbol_manager_deactivate_package:
+	 * @obj: Self
+ 	 * @package: name of the package
+ 	 * 
+ 	 * Deactivates the package if it was found. If package is NULL, deactivate all
+ 	 * packages
+ 	 */
+	gboolean deactivate_package (const gchar* pkg_name, const gchar *pkg_version);
+	
 }
 
 /**
