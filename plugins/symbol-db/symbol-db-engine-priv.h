@@ -38,7 +38,7 @@
 #define ANJUTA_DB_FILE	".anjuta_sym_db"
 
 /* if tables.sql changes or general db structure changes modify also the value here */
-#define SYMBOL_DB_VERSION	"300.7"
+#define SYMBOL_DB_VERSION	"300.8"
 
 #define TABLES_SQL			PACKAGE_DATA_DIR"/tables.sql"
 
@@ -61,6 +61,10 @@
 	g_value_init (&value, G_TYPE_INT); \
 	g_value_set_int (&value, (int_value));
 
+#define SDB_GVALUE_SET_DOUBLE(value, double_value) \
+	g_value_init (&value, G_TYPE_DOUBLE); \
+	g_value_set_double (&value, (double_value));
+
 #define SDB_GVALUE_SET_STRING(value, str_value) \
 	g_value_init (&value, G_TYPE_STRING); \
 	g_value_set_string (&value, (str_value));
@@ -72,6 +76,11 @@
 
 #define SDB_PARAM_SET_INT(gda_param, int_value) \
 	SDB_GVALUE_SET_INT(v, int_value); \
+	gda_holder_set_value ((gda_param), &v, NULL); \
+	g_value_unset (&v);
+
+#define SDB_PARAM_SET_DOUBLE(gda_param, double_value) \
+	SDB_GVALUE_SET_DOUBLE(v, double_value); \
 	gda_holder_set_value ((gda_param), &v, NULL); \
 	g_value_unset (&v);
 

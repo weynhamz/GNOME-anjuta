@@ -160,10 +160,12 @@ symbol_db_engine_add_new_workspace (SymbolDBEngine *dbe, const gchar* workspace)
  * @param workspace Can be NULL. In that case a default workspace will be created, 
  * 					and project will depend on that.
  * @param project Project name. Must NOT be NULL.
+ * @param version Version of the project, or of the package that project represents. 
+ * If not sure pass "1.0".
  */
 gboolean 
 symbol_db_engine_add_new_project (SymbolDBEngine *dbe, const gchar* workspace, 
-								  const gchar* project, gdouble version);
+								  const gchar* project, const gchar* version);
 
 /** 
  * Test project existence. 
@@ -215,6 +217,7 @@ symbol_db_engine_project_exists (SymbolDBEngine *dbe, /*gchar* workspace, */
 gint
 symbol_db_engine_add_new_files_full_async (SymbolDBEngine *dbe, 
 										   const gchar * project_name,
+    									   const gchar * project_version,
 							    		   const GPtrArray *files_path,
 										   const GPtrArray *languages,
 										   gboolean force_scan);
@@ -239,6 +242,7 @@ gint
 symbol_db_engine_add_new_files_async (SymbolDBEngine *dbe, 
     								  IAnjutaLanguage* lang_manager,
 									  const gchar * project_name,
+    								  const gchar * project_version,
 							    	  const GPtrArray *files_path);
 
 /**

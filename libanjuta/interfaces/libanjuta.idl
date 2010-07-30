@@ -6068,7 +6068,7 @@ interface IAnjutaSymbolManager
  	 * FALSE if the version given was newer than the version in the database or the 
  	 * package was not found. In this case, add_package() should be called.
  	 */
-	gboolean activate_package (const gchar *pkg_name, const gchar *pkg_version);
+	gboolean activate_package (const gchar *pkg_name, const gchar* pkg_version);
 
 	/**
 	 * ianjuta_symbol_manager_deactivate_package:
@@ -6078,7 +6078,7 @@ interface IAnjutaSymbolManager
  	 * Deactivates the package if it was found. If package is NULL, deactivate all
  	 * packages
  	 */
-	gboolean deactivate_package (const gchar* pkg_name, const gchar *pkg_version);
+	gboolean deactivate_package (const gchar* pkg_name, const gchar* pkg_version);
 	
 }
 

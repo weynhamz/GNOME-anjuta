@@ -1655,8 +1655,9 @@ sdb_engine_init (SymbolDBEngine * object)
 	/* -- project -- */
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 									PREP_QUERY_PROJECT_NEW, 
-	 	"INSERT INTO project (project_name, wrkspace_id, analyse_time) VALUES (\
+	 	"INSERT INTO project (project_name, project_version, wrkspace_id, analyse_time) VALUES (\
 		 	## /* name:'prjname' type:gchararray */, \
+			## /* name:'prjversion' type:gchararray */, \
 	 		(SELECT workspace_id FROM workspace \
 	    	 WHERE \
 	    			workspace_name = ## /* name:'wsname' type:gchararray */ LIMIT 1), \
@@ -1682,7 +1683,9 @@ sdb_engine_init (SymbolDBEngine * object)
 	 	  ## /* name:'filepath' type:gchararray */, \
 		  (SELECT project_id FROM project \
 	     	WHERE \
-	    		project_name = ## /* name:'prjname' type:gchararray */ LIMIT 1), \
+	    		project_name = ## /* name:'prjname' type:gchararray */ AND \
+	    		project_version = ## /* name:'prjversion' type:gchararray */ \
+	    		LIMIT 1), \
 		  ## /* name:'langid' type:gint */, \
 	 	  datetime ('now', 'localtime'))");
 	
@@ -2712,7 +2715,7 @@ symbol_db_engine_project_exists (SymbolDBEngine * dbe,	/*gchar* workspace, */
 /* ~~~ Thread note: this function locks the mutex ~~~ */ 
 gboolean
 symbol_db_engine_add_new_project (SymbolDBEngine * dbe, const gchar * workspace,
-								  const gchar * project, gdouble version)
+								  const gchar * project, const gchar* version)
 {
 	const GdaSet *plist;
 	const GdaStatement *stmt;
@@ -2777,9 +2780,18 @@ symbol_db_engine_add_new_project (SymbolDBEngine * dbe, const gchar * workspace,
 		g_warning ("param prjname is NULL from pquery!");
 		SDB_UNLOCK(priv);
 		return FALSE;
-	}
+	}	
 
 	SDB_PARAM_SET_STRING(param, project);
+
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "prjversion")) == NULL)
+	{
+		g_warning ("param prjversion is NULL from pquery!");
+		SDB_UNLOCK(priv);
+		return FALSE;
+	}	
+
+	SDB_PARAM_SET_STRING(param, version);	
 		
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "wsname")) == NULL)
 	{
@@ -2894,7 +2906,8 @@ sdb_engine_add_new_language (SymbolDBEngine * dbe, const gchar *language)
  */
 static gboolean
 sdb_engine_add_new_db_file (SymbolDBEngine * dbe, const gchar * project_name,
-						 const gchar * local_filepath, const gchar * language)
+    					const gchar *project_version,  const gchar * local_filepath, 
+    					const gchar * language)
 {
 	const GdaSet *plist;
 	const GdaStatement *stmt;
@@ -2956,6 +2969,16 @@ sdb_engine_add_new_db_file (SymbolDBEngine * dbe, const gchar * project_name,
 	}
 
 	SDB_PARAM_SET_STRING(param, project_name);
+	
+	/* prjversion parameter */
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "prjversion")) == NULL)
+	{
+		g_warning ("param prjversion is NULL from pquery!");
+		SDB_UNLOCK(priv);
+		return FALSE;
+	}
+
+	SDB_PARAM_SET_STRING(param, project_version);
 		
 	/* language id parameter */
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "langid")) == NULL)
@@ -3017,6 +3040,7 @@ gint
 symbol_db_engine_add_new_files_async (SymbolDBEngine *dbe, 
     							IAnjutaLanguage* lang_manager,
 								const gchar * project_name,
+    							const gchar * project_version,
 							    const GPtrArray *sources_array)
 {
 	SymbolDBEnginePriv *priv;
@@ -3074,8 +3098,8 @@ symbol_db_engine_add_new_files_async (SymbolDBEngine *dbe,
 		g_object_unref (gfile_info);
 	}
 
-	gint res = symbol_db_engine_add_new_files_full_async (dbe, project_name, sources_array,
-	    lang_array, TRUE);
+	gint res = symbol_db_engine_add_new_files_full_async (dbe, project_name, project_version, 
+	    sources_array, lang_array, TRUE);
 
 	/* free resources */
 	g_ptr_array_unref (lang_array);
@@ -3086,6 +3110,7 @@ symbol_db_engine_add_new_files_async (SymbolDBEngine *dbe,
 gint
 symbol_db_engine_add_new_files_full_async (SymbolDBEngine * dbe, 
 								const gchar * project_name,
+    							const gchar * project_version,
 								const GPtrArray * files_path, 
 								const GPtrArray * languages,
 								gboolean force_scan)
@@ -3125,12 +3150,13 @@ symbol_db_engine_add_new_files_full_async (SymbolDBEngine * dbe,
 		}
 		
 		if (project_name != NULL && 
-			sdb_engine_add_new_db_file (dbe, project_name, node_file, 
+			sdb_engine_add_new_db_file (dbe, project_name, project_version, node_file, 
 									 node_lang) == FALSE)
 		{
 			DEBUG_PRINT ("Error processing file %s, db_directory %s, project_name %s, "
-					   "project_directory %s", node_file, 
-					   priv->db_directory, project_name, priv->project_directory);
+			    		"project_version %s, project_directory %s", node_file, 
+					   	priv->db_directory, project_name, project_version, 
+			    		priv->project_directory);
 			return -1;
 		}
 		
@@ -5287,7 +5313,7 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 			continue;
 		}		
 		
-		relative_path = symbol_db_util_get_file_db_path (dbe, curr_abs_file);
+		relative_path = g_strdup (symbol_db_util_get_file_db_path (dbe, curr_abs_file));
 		if (relative_path == NULL)
 		{
 			g_warning ("relative_path is NULL");

@@ -499,7 +499,7 @@ sdb_system_do_engine_scan (SymbolDBSystem *sdbs, EngineScanData *es_data)
 								 languages_array);
 		
 		symbol_db_engine_add_new_project (priv->sdbe_globals, NULL,
-								  		es_data->package_name, 1.0);
+								  		es_data->package_name, "1.0");
 	}
 	else 
 	{
@@ -516,6 +516,7 @@ sdb_system_do_engine_scan (SymbolDBSystem *sdbs, EngineScanData *es_data)
 	proc_id = symbol_db_engine_add_new_files_full_async (priv->sdbe_globals,
 							es_data->special_abort_scan == FALSE ? 
 									es_data->package_name : NULL, 
+	    					"1.0",
 							files_to_scan_array,
 							languages_array,
 							es_data->special_abort_scan == FALSE ? 

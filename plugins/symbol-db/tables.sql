@@ -11,10 +11,10 @@ CREATE TABLE workspace (workspace_id integer PRIMARY KEY AUTOINCREMENT,
 DROP TABLE IF EXISTS project;
 CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
                       project_name text not null,
-                      version numeric not null default 1.0,
+                      project_version text not null default '1.0',
                       wrkspace_id integer REFERENCES workspace (workspace_id),
                       analyse_time date,
-                      unique (project_name, version)
+                      unique (project_name, project_version)
                       );
 
 DROP TABLE IF EXISTS file;

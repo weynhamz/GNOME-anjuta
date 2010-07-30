@@ -475,8 +475,6 @@ on_editor_buffer_symbol_update_scan_end (SymbolDBEngine *dbe, gint process_id,
 			
 			str = (gchar*)g_ptr_array_remove_index (sdb_plugin->buffer_update_files, 
 													i);
-			/* we can now free it */
-			g_free (str);			
 		}
 	}
 
@@ -876,7 +874,7 @@ do_add_new_files (SymbolDBPlugin *sdb_plugin, const GPtrArray *sources_array,
 	if (to_scan_array->len > 0)
 	{		
 		gint proc_id = 	symbol_db_engine_add_new_files_full_async (sdb_plugin->sdbe_project, 
-					sdb_plugin->project_opened, to_scan_array, languages_array, 
+					sdb_plugin->project_opened, "1.0", to_scan_array, languages_array, 
 														   TRUE);
 		
 		/* insert the proc id associated within the task */
@@ -1662,7 +1660,7 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 			symbol_db_engine_add_new_project (sdb_plugin->sdbe_project,
 											  NULL,	/* still no workspace logic */
 											  sdb_plugin->project_opened,
-			    							  1.0);
+			    							  "1.0");
 		}
 
 		/*
@@ -2489,7 +2487,25 @@ isymbol_manager_add_package (IAnjutaSymbolManager *isymbol_manager,
     						 const GList* files,
     						 GError *err)
 {
+	SymbolDBPlugin *sdb_plugin;
+	SymbolDBQuery *query;
+	IAnjutaLanguage *lang_manager;
 	
+	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (isymbol_manager);
+	lang_manager =anjuta_shell_get_interface (ANJUTA_PLUGIN (sdb_plugin)->shell, IAnjutaLanguage, 
+										NULL);	
+	
+	if (symbol_db_engine_add_new_project (sdb_plugin->sdbe_globals, NULL, pkg_name, 
+	    pkg_version) == FALSE)
+	{
+		return FALSE;
+	}
+
+	symbol_db_engine_add_new_files_async (sdb_plugin->sdbe_globals, lang_manager, 
+	    pkg_name, pkg_version, files);
+	
+	
+	return TRUE;
 }
 
 static gboolean
@@ -2499,6 +2515,7 @@ isymbol_manager_activate_package (IAnjutaSymbolManager *isymbol_manager,
     							  GError *err)
 {
 	
+	return TRUE;
 }
 
 static gboolean
@@ -2507,7 +2524,8 @@ isymbol_manager_deactivate_package (IAnjutaSymbolManager *isymbol_manager,
     							  	const gchar *pkg_version,
     							  	GError *err)
 {
-	
+
+	return TRUE;
 }
 
 static void
