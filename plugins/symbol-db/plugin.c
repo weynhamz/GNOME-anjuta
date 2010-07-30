@@ -1266,7 +1266,7 @@ static void
 do_import_system_sources (SymbolDBPlugin *sdb_plugin)
 {	
 	/* system's packages management */				
-	GList *item = sdb_plugin->session_packages; 
+	GList *item = sdb_plugin->session_packages;
 	while (item != NULL)
 	{
 		/* the function will take care of checking if the package is already 
@@ -2490,6 +2490,8 @@ isymbol_manager_add_package (IAnjutaSymbolManager *isymbol_manager,
 	SymbolDBPlugin *sdb_plugin;
 	SymbolDBQuery *query;
 	IAnjutaLanguage *lang_manager;
+	GPtrArray *files_array;
+	GList *node;
 	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (isymbol_manager);
 	lang_manager =anjuta_shell_get_interface (ANJUTA_PLUGIN (sdb_plugin)->shell, IAnjutaLanguage, 
@@ -2501,9 +2503,21 @@ isymbol_manager_add_package (IAnjutaSymbolManager *isymbol_manager,
 		return FALSE;
 	}
 
-	symbol_db_engine_add_new_files_async (sdb_plugin->sdbe_globals, lang_manager, 
-	    pkg_name, pkg_version, files);
+	files_array = g_ptr_array_sized_new (g_list_length (files));
+	g_ptr_array_set_free_func (files_array, g_free);
+
+	node = files;
+	while (node != NULL)
+	{
+		g_ptr_array_add (files_array, g_strdup (node->data));
+
+		node = node->next;
+	}
 	
+	symbol_db_engine_add_new_files_async (sdb_plugin->sdbe_globals, lang_manager, 
+	    pkg_name, pkg_version, files_array);	
+
+	g_ptr_array_unref (files_array);
 	
 	return TRUE;
 }
@@ -2514,7 +2528,8 @@ isymbol_manager_activate_package (IAnjutaSymbolManager *isymbol_manager,
     							  const gchar *pkg_version,
     							  GError *err)
 {
-	
+g_list_prepend (sdb_plugin->session_packages,
+												   g_strdup (package));		
 	return TRUE;
 }
 
