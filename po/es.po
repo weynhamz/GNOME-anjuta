@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2010-07-17 15:39+0000\n"
-"PO-Revision-Date: 2010-07-18 12:56+0200\n"
+"POT-Creation-Date: 2010-07-31 13:52+0000\n"
+"PO-Revision-Date: 2010-07-31 19:56+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -2546,12 +2546,10 @@ msgid "Show kernel signals"
 msgstr "Mostrar señales del núcleo"
 
 #: ../plugins/debug-manager/plugin.c:1037
-#| msgid "_Continue"
 msgid "_Continue/Suspend"
 msgstr "_Continuar/suspender"
 
 #: ../plugins/debug-manager/plugin.c:1039
-#| msgid "Continue the execution of the program"
 msgid "Continue or suspend the execution of the program"
 msgstr "Continuar o suspender la ejecución del programa"
 
@@ -2738,7 +2736,7 @@ msgstr "Marco"
 
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:664
-#: ../plugins/debug-manager/threads.c:451 ../plugins/gdb/preferences.c:358
+#: ../plugins/debug-manager/threads.c:451 ../plugins/gdb/preferences.c:360
 #: ../plugins/tools/tool.c:100 ../src/anjuta-app.c:621
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
@@ -4594,7 +4592,6 @@ msgid "Includes:"
 msgstr "Inclusiones:"
 
 #: ../plugins/gdb/anjuta-gdb.ui.h:1
-#| msgid "Available plugins"
 msgid "Available pretty printers"
 msgstr "«Pretty printer» disponibles"
 
@@ -4735,7 +4732,6 @@ msgid "Interrupting the process\n"
 msgstr "Interrumpiendo el proceso\n"
 
 #: ../plugins/gdb/debugger.c:3996
-#| msgid "Children"
 msgid "more children"
 msgstr "más hijos"
 
@@ -4760,34 +4756,38 @@ msgstr ""
 msgid "Cannot start terminal for debugging."
 msgstr "No se pudo iniciar el terminal para depurar."
 
-#: ../plugins/gdb/preferences.c:123
+#. Translators: pretty printer file is a kind of script allowing gdb to display
+#. * variable content in a simpler way, removing implementation details
+#: ../plugins/gdb/preferences.c:125
 #, c-format
 msgid ""
-"The following pretty printers, without a register functions, have been "
-"disabled:\n"
-" %s"
+"The register function hasn't been found automatically in the following "
+"pretty printer files:\n"
+"%s\n"
+"You need to fill yourself the register function columns before enabling the "
+"rows. Most of the time the register function name contains the word "
+"\"register\"."
 msgstr ""
-"Se han desactivado, sin registrar funciones, los siguientes «pretty "
-"printer»:\n"
-" %s"
+"La función registrada no se ha encontrado automáticamente en los siguientes "
+"archivos de «pretty printer»:\n"
+"%s\n"
+"Debe rellenar las columnas de registro de función antes de activar las "
+"filas. La mayoría de las veces el nombre de registro de función contiene la "
+"palabra «register»."
 
-#: ../plugins/gdb/preferences.c:216
-#| msgid "Select project type"
+#: ../plugins/gdb/preferences.c:220
 msgid "Select a pretty printer file"
 msgstr "Seleccionar el archivo de «pretty printer»"
 
-#: ../plugins/gdb/preferences.c:353
-#| msgid "Active"
+#: ../plugins/gdb/preferences.c:355
 msgid "Activate"
 msgstr "Activar"
 
-#: ../plugins/gdb/preferences.c:365
-#| msgid "Current Function"
+#: ../plugins/gdb/preferences.c:367
 msgid "Register Function"
 msgstr "Registrar función"
 
-#: ../plugins/gdb/preferences.c:389 ../plugins/gdb/preferences.c:397
-#| msgid "Debugger"
+#: ../plugins/gdb/preferences.c:391 ../plugins/gdb/preferences.c:399
 msgid "Gdb Debugger"
 msgstr "Depurador Gdb"
 
@@ -10547,6 +10547,15 @@ msgstr "Caracteres mínimos para autocompletado "
 #: ../plugins/symbol-db/symbol-db-views.c:182
 msgid "Symbol"
 msgstr "Símbolo"
+
+#~ msgid ""
+#~ "The following pretty printers, without a register functions, have been "
+#~ "disabled:\n"
+#~ " %s"
+#~ msgstr ""
+#~ "Se han desactivado, sin registrar funciones, los siguientes «pretty "
+#~ "printer»:\n"
+#~ " %s"
 
 #~ msgid "<b>Handler template</b>"
 #~ msgstr "<b>Plantilla del manejador</b>"
