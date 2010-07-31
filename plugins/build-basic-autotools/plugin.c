@@ -2140,7 +2140,7 @@ build_get_uri_configuration (BasicAutotoolsPlugin *plugin, const gchar *uri)
 	for (cfg = build_configuration_list_get_first (plugin->configurations); cfg != NULL; cfg = build_configuration_next (cfg))
 	{
 		const gchar *root = build_configuration_list_get_build_uri  (plugin->configurations, cfg);
-		gsize len = strlen (root);
+		gsize len = root != NULL ? strlen (root) : 0;
 
 		if ((len > uri_len) && (strncmp (uri, root, len) == 0))
 		{
