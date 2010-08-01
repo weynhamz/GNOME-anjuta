@@ -1,0 +1,5 @@
+[Anjuta Plugin]
+Location=python_plugin:PythonPlugin
+Icon=python_plugin.png
+Name=Python support Plugin
+Description=Python support plugin for code completion, auto indentation etc.

@@ -867,9 +867,6 @@ plugins/project-wizard/templates/sdl/Makefile
 plugins/project-wizard/templates/sdl/src/Makefile
 plugins/project-wizard/templates/sdl/po/Makefile
 plugins/project-wizard/templates/licenses/Makefile
-plugins/project-wizard/templates/gnome-applet/Makefile
-plugins/project-wizard/templates/gnome-applet/src/Makefile
-plugins/project-wizard/templates/gnome-applet/po/Makefile
 plugins/project-wizard/templates/library/Makefile
 plugins/project-wizard/templates/library/src/Makefile
 plugins/project-wizard/templates/library/po/Makefile
@@ -882,6 +879,7 @@ plugins/run-program/Makefile
 plugins/starter/Makefile
 plugins/language-support-js/Makefile
 plugins/language-support-vala/Makefile
+plugins/language-support-python/Makefile
 anjuta.desktop.in
 manuals/Makefile
 manuals/reference/Makefile
