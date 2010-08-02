@@ -49,7 +49,6 @@ typedef struct _PythonPluginClass PythonPluginClass;
 
 struct _PythonPlugin{
 	AnjutaPlugin parent;
-	GtkWidget *widget;
 	gint uiid;
 	GtkActionGroup *action_group;
 
@@ -65,7 +64,6 @@ struct _PythonPlugin{
 	/* Watches */
 	gint project_root_watch_id;
 	gint editor_watch_id;
-	gint fm_watch_id;
 
 	
 	/* Adaptive indentation parameters */

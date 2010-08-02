@@ -1,13 +1,6 @@
 <!--*- xml -*-->
 <ui>
 	<menubar name="MenuMain">
-		<menu name="MenuFile" action="ActionMenuFile">
-			<placeholder name="PlaceholderFileMenus">
-				<menuitem name="SampleAction" action="ActionFileSample" />
-			</placeholder>
-		</menu>
-	</menubar>
-	<menubar name="MenuMain">
 		<menu name="MenuEdit" action="ActionMenuEdit">
 			<placeholder name="PlaceholderOperationMenus">
 				<separator name="separator1"/>

@@ -925,7 +925,7 @@ install_support (PythonPlugin *lang_plugin)
 		ianjuta_language_get_name_from_editor (lang_manager, 
 											   IANJUTA_EDITOR_LANGUAGE (lang_plugin->current_editor), NULL);
 	
-	DEBUG_PRINT("Language support intalled for: %s",
+	DEBUG_PRINT("Language support installed for: %s",
 				lang_plugin->current_language);
 	
 	if (lang_plugin->current_language &&
@@ -1038,19 +1038,31 @@ on_value_added_current_editor (AnjutaPlugin *plugin, const gchar *name,
 	IAnjutaDocument* doc = IANJUTA_DOCUMENT(g_value_get_object (value));
 	lang_plugin = (PythonPlugin*) (plugin);
 
-/*	anjuta_util_dialog_info (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
-							 "on_value_added_current_editor");*/
-
 	
 	if (IANJUTA_IS_EDITOR(doc))
+	{
 		lang_plugin->current_editor = G_OBJECT(doc);
+	}
 	else
 	{
 		lang_plugin->current_editor = NULL;
 		return;
 	}
-	if (IANJUTA_IS_EDITOR(lang_plugin->current_editor))
+	if (lang_plugin->current_editor)
+	{
+		IAnjutaEditor* editor = IANJUTA_EDITOR (lang_plugin->current_editor);
+		GFile* current_editor_file = ianjuta_file_get_file (IANJUTA_FILE (editor), 
+		                                                    NULL);
+
+		if (current_editor_file)
+		{		
+			lang_plugin->current_editor_filename = g_file_get_path (current_editor_file);
+			g_object_unref (current_editor_file);
+		}
+		
 		install_support (lang_plugin);
+	}
+	
 	g_signal_connect (lang_plugin->current_editor, "language-changed",
 					  G_CALLBACK (on_editor_language_changed),
 					  plugin);
@@ -1068,6 +1080,9 @@ on_value_removed_current_editor (AnjutaPlugin *plugin, const gchar *name,
 										  plugin);
 	if (IANJUTA_IS_EDITOR(lang_plugin->current_editor))
 		uninstall_support (lang_plugin);
+
+	g_free (lang_plugin->current_editor_filename);
+	lang_plugin->current_editor_filename = NULL;
 	lang_plugin->current_editor = NULL;
 }
 
@@ -1331,74 +1346,6 @@ on_project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 }
 
-static void
-on_editor_added (AnjutaPlugin *plugin, const gchar *name, const GValue *value,
-				 gpointer user_data)
-{
-	PythonPlugin *python_plugin;
-	IAnjutaEditor *editor;
-	GFile *current_editor_file;
-	
-	python_plugin = ANJUTA_PLUGIN_PYTHON (plugin);
-	editor = g_value_get_object (value);
-	
-	g_free (python_plugin->current_editor_filename);	
-	python_plugin->current_editor_filename = NULL;
-	
-	if (IANJUTA_IS_EDITOR (editor))
-	{
-		current_editor_file = ianjuta_file_get_file (IANJUTA_FILE (editor), 
-													 NULL);
-
-		if (current_editor_file)
-		{		
-			python_plugin->current_editor_filename = g_file_get_path (current_editor_file);
-			g_object_unref (current_editor_file);
-		}
-	}
-}
-
-static void
-on_editor_removed (AnjutaPlugin *plugin, const gchar *name, gpointer user_data)
-{
-	PythonPlugin *python_plugin;
-	
-	python_plugin = ANJUTA_PLUGIN_PYTHON (plugin);
-	
-	g_free (python_plugin->current_editor_filename);
-	python_plugin->current_editor_filename = NULL;
-}
-
-static void
-on_fm_file_added (AnjutaPlugin *plugin, const char *name,
-				  const GValue *value, gpointer data)
-{
-	PythonPlugin *python_plugin;
-	GFile *file;
-	
-	python_plugin = ANJUTA_PLUGIN_PYTHON (plugin);
-	
-	g_free (python_plugin->current_fm_filename);
-	
-	file = G_FILE (g_value_get_object (value));
-	python_plugin->current_fm_filename = g_file_get_path (file);
-}
-
-static void
-on_fm_file_removed (AnjutaPlugin *plugin, const char *name, gpointer data)
-{
-	PythonPlugin *python_plugin;
-	
-	python_plugin = ANJUTA_PLUGIN_PYTHON (plugin);
-	
-	g_free (python_plugin->current_fm_filename);
-	python_plugin->current_fm_filename = NULL;
-}
-
-// end of code from git plugin
-
-
-
 static gboolean
 python_plugin_activate (AnjutaPlugin *plugin)
 {
@@ -1430,12 +1377,6 @@ python_plugin_activate (AnjutaPlugin *plugin)
 											plugin);
 	python_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 
-	python_plugin->editor_watch_id = 
-		anjuta_plugin_add_watch (plugin,
-								  IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
-								 on_value_added_current_editor,
-								 on_value_removed_current_editor,
-								 plugin);
 	initialized = FALSE;
 
 	/* Add watches */
@@ -1447,15 +1388,9 @@ python_plugin_activate (AnjutaPlugin *plugin)
 	
 	python_plugin->editor_watch_id = anjuta_plugin_add_watch (plugin,
 														   IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
-														   on_editor_added,
-														   on_editor_removed,
+														   on_value_added_current_editor,
+														   on_value_removed_current_editor,
 														   NULL);
-	
-	python_plugin->fm_watch_id = anjuta_plugin_add_watch (plugin,
-													   IANJUTA_FILE_MANAGER_SELECTED_FILE,
-													   on_fm_file_added,
-													   on_fm_file_removed,
-													   NULL);
 	return TRUE;
 }
 
@@ -1468,20 +1403,18 @@ python_plugin_deactivate (AnjutaPlugin *plugin)
 	lang_plugin = (PythonPlugin*) (plugin);
 	DEBUG_PRINT ("%s", "PythonPlugin: Dectivating PythonPlugin plugin ...");
 
-	anjuta_shell_remove_widget (plugin->shell, ((PythonPlugin*)plugin)->widget,
-								NULL);
-
 	anjuta_plugin_remove_watch (plugin,
 								lang_plugin->editor_watch_id,
 								TRUE);
+	anjuta_plugin_remove_watch (plugin,
+								lang_plugin->project_root_watch_id,
+								TRUE);	
 
 
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	anjuta_ui_remove_action_group (ui, ((PythonPlugin*)plugin)->action_group);
-	anjuta_ui_unmerge (ui, ((PythonPlugin*)plugin)->uiid);
+	anjuta_ui_remove_action_group (ui, ANJUTA_PLUGIN_PYTHON(plugin)->action_group);
+	anjuta_ui_unmerge (ui, ANJUTA_PLUGIN_PYTHON(plugin)->uiid);
 	
-	//lang_plugin->action_group = NULL;
-	//lang_plugin->uiid = 0;
 	DEBUG_PRINT ("%s", "PythonPlugin: Deactivated plugin.");
 	
 	return TRUE;
@@ -1511,9 +1444,6 @@ python_plugin_instance_init (GObject *obj)
 	plugin->editor_watch_id = 0;
 	plugin->uiid = 0;
 	plugin->assist = NULL;
-
-	plugin->widget = NULL;
-
 }
 
 static void

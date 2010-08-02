@@ -25,8 +25,8 @@
 #include <ctype.h>
 #include <string.h>
 #include <unistd.h>
-#include <sys/stat.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-launcher.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-editor-cell.h>
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
@@ -40,7 +40,6 @@
 #include "python-utils.h"
 
 #define PREF_AUTOCOMPLETE_ENABLE "language.python.code.completion.enable"
-#define PREF_AUTOCOMPLETE_CHOICES "language.python.code.completion.choices"
 #define PREF_AUTOCOMPLETE_SPACE_AFTER_FUNC "language.python.code.completion.space.after.func"
 #define PREF_AUTOCOMPLETE_BRACE_AFTER_FUNC "language.python.code.completion.brace.after.func"
 #define PREF_CALLTIP_ENABLE "language.python.code.calltip.enable"
@@ -76,26 +75,25 @@ struct _PythonAssistPriv {
 	IAnjutaEditorAssist* iassist;
 	IAnjutaEditorTip* itip;
 	IAnjutaEditor* editor;
+	AnjutaLauncher* launcher;
 
 	const gchar* project_root;
 	const gchar* editor_filename;
 	
 	/* Last used cache */
 	gchar *search_cache;
-	gchar *scope_context_cache;
 	gchar *pre_word;
 	gchar *calltip_context;
 	gint calltip_context_position;
 	
 	GCompletion *completion_cache;
 	gint cache_position;
-	gboolean editor_only;
-	guint word_idle;
+	GString* rope_cache;
 
 	IAnjutaIterable* start_iter;
 };
 
-static gchar* //OK
+static gchar*
 completion_function (gpointer data)
 {
 	PythonAssistTag * tag = (PythonAssistTag*) data;
@@ -236,19 +234,18 @@ python_assist_get_pre_word (IAnjutaEditor* editor, IAnjutaIterable *iter)
 }
 
 static void 
-python_assist_destroy_completion_cache (PythonAssist *assist,
-										  gboolean cancel_idle)
+python_assist_destroy_completion_cache (PythonAssist *assist)
 {
+	if (assist->priv->launcher)
+	{
+		g_object_unref (assist->priv->launcher);
+		assist->priv->launcher = NULL;
+	}
 	if (assist->priv->search_cache)
 	{
 		g_free (assist->priv->search_cache);
 		assist->priv->search_cache = NULL;
 	}
-	if (assist->priv->scope_context_cache)
-	{
-		g_free (assist->priv->scope_context_cache);
-		assist->priv->scope_context_cache = NULL;
-	} 
 	if (assist->priv->completion_cache)
 	{
 		GList* items = assist->priv->completion_cache->items;
@@ -260,10 +257,10 @@ python_assist_destroy_completion_cache (PythonAssist *assist,
 		g_completion_free (assist->priv->completion_cache);
 		assist->priv->completion_cache = NULL;
 	}
-	if (assist->priv->word_idle > 0 && cancel_idle)
+	if (assist->priv->rope_cache)
 	{
-		g_source_remove (assist->priv->word_idle);
-		assist->priv->word_idle = 0;
+		g_free (assist->priv->rope_cache);
+		assist->priv->rope_cache = NULL;
 	}
 }
 
@@ -311,7 +308,7 @@ is_cache_fresh (IAnjutaEditor *editor, gint editor_position, gint cache_position
 {
 	gint i;
 
-	if (editor_position<cache_position)
+	if (editor_position < cache_position)
 		return FALSE;
 	IAnjutaIterable *begin = ianjuta_editor_get_position_from_offset (editor, cache_position, NULL);
 	IAnjutaIterable *end = ianjuta_editor_get_position_from_offset (editor, editor_position, NULL);
@@ -339,10 +336,8 @@ static void free_proposal (IAnjutaEditorAssistProposal* proposal)
 void
 python_assist_update_autocomplete (PythonAssist *assist)
 {
-	gint max_completions, length;
+	gint length;
 	GList *completion_list;
-
-	gboolean queries_active = FALSE; //FIXME: Remove this variable
 	
 	IAnjutaEditor *editor = (IAnjutaEditor*)assist->priv->editor;
 	int editor_position = ianjuta_editor_get_offset(editor,NULL);
@@ -351,9 +346,9 @@ python_assist_update_autocomplete (PythonAssist *assist)
 
 	if (!is_cache_fresh(editor, editor_position, assist->priv->cache_position))
 	{
-		//TODO: python_assist_destroy_completion_cache (assist, TRUE);
+		python_assist_destroy_completion_cache (assist);
 		ianjuta_editor_assist_proposals (assist->priv->iassist, IANJUTA_PROVIDER(assist),
-		                                 NULL, !queries_active, NULL);
+		                                 NULL, TRUE, NULL);
 		return;
 	}
 
@@ -361,7 +356,7 @@ python_assist_update_autocomplete (PythonAssist *assist)
 	if (assist->priv->completion_cache == NULL)
 	{
 		ianjuta_editor_assist_proposals (assist->priv->iassist, IANJUTA_PROVIDER(assist),
-		                                 NULL, !queries_active, NULL);
+		                                 NULL, TRUE, NULL);
 		return;
 	}
 
@@ -375,12 +370,6 @@ python_assist_update_autocomplete (PythonAssist *assist)
 	{
 		completion_list = assist->priv->completion_cache->items;
 	}
-
-		
-	max_completions =
-		anjuta_preferences_get_int_with_default (assist->priv->preferences,
-												 PREF_AUTOCOMPLETE_CHOICES,
-												 MAX_COMPLETIONS);
 
 	length = g_list_length (completion_list);
 
@@ -407,19 +396,17 @@ python_assist_update_autocomplete (PythonAssist *assist)
 		}
 		suggestions = g_list_reverse (suggestions);
 		ianjuta_editor_assist_proposals (assist->priv->iassist, IANJUTA_PROVIDER(assist),
-		                                 suggestions, !queries_active, NULL);
+		                                 suggestions, TRUE, NULL);
 		g_list_foreach (suggestions, (GFunc) free_proposal, NULL);
 		g_list_free (suggestions);
 	}
 	else
 	{
 		ianjuta_editor_assist_proposals (assist->priv->iassist, IANJUTA_PROVIDER(assist),
-		                                 NULL, !queries_active, NULL);
+		                                 NULL, TRUE, NULL);
 		return;
 	}
 }
-
-// NEW CODE ENDS
 
 /* Returns NULL if creation fails */
 static gchar*
@@ -446,6 +433,45 @@ create_tmp_file (const gchar* source)
 	}	
 }
 
+static void 
+on_autocomplete_output (AnjutaLauncher *launcher,
+                        AnjutaLauncherOutputType output_type,
+                        const gchar *chars,
+                        gpointer user_data)
+{
+	PythonAssist* assist = PYTHON_ASSIST (user_data);
+	if (output_type == ANJUTA_LAUNCHER_OUTPUT_STDOUT)
+	{
+		if (assist->priv->rope_cache)
+		{
+			g_string_append (assist->priv->rope_cache, chars);
+		}
+		else
+		{
+			assist->priv->rope_cache = g_string_new (chars);
+		}
+	}
+}
+
+static void
+on_autocomplete_finished (AnjutaLauncher* launcher,
+                          int child_pid, int exit_status,
+                          gulong time, gpointer user_data)
+{
+	PythonAssist* assist = PYTHON_ASSIST (user_data);
+	DEBUG_PRINT ("Python-Complete took %lu seconds", time);
+	if (exit_status != 0)
+	{
+		python_assist_destroy_completion_cache (assist);
+		return;
+	}
+	else
+	{
+		g_message ("PythonAssist: %s", assist->priv->rope_cache->str);
+		g_string_free (assist->priv->rope_cache, TRUE);
+		assist->priv->rope_cache = NULL;
+	}
+}
 
 /* This needs to be ported to AnjutaLauncher and made asynchronous. Extra
  * points for avoiding the intermediate script and using the Python/C API
@@ -457,16 +483,13 @@ python_assist_create_word_completion_cache (PythonAssist *assist)
 	IAnjutaEditor *editor = IANJUTA_EDITOR (assist->priv->iassist);
 	const gchar *cur_filename;
 	gint offset = ianjuta_editor_get_offset(editor, NULL);
-	gchar *project = g_strdup (assist->priv->project_root);
+	const gchar *project = assist->priv->project_root;
 	gchar *interpreter_path;
 	gchar *ropecommand;
 
 	GList *suggestions = NULL;
-	GList *suggestnow = NULL;
 	gchar *source = ianjuta_editor_get_text_all (editor, NULL);
 	gchar *tmp_file;
-	FILE *rope;
-	gchar tmptag[BUFFER_SIZE];
 
 	cur_filename = assist->priv->editor_filename;
 	if (!project)
@@ -486,31 +509,16 @@ python_assist_create_word_completion_cache (PythonAssist *assist)
 	                              cur_filename, tmp_file, offset);
 
 	g_free (tmp_file);
-	g_free (project);
 	DEBUG_PRINT ("%s\n", ropecommand);
 
-	rope = popen (ropecommand, "r");
+	assist->priv->launcher = anjuta_launcher_new ();
+	g_signal_connect (assist->priv->launcher, "child-exited",
+	                  G_CALLBACK(on_autocomplete_finished), assist);
+	anjuta_launcher_execute (assist->priv->launcher, ropecommand,
+	                         on_autocomplete_output,
+	                         assist);
 	g_free (ropecommand);
-		
-	while (fgets(tmptag, BUFFER_SIZE, rope) != NULL)
-	{
-		PythonAssistTag *tag = g_new0 (PythonAssistTag, 1);
-		tag->name = g_strdup (get_tag_name(tmptag));
-			
-		tag->type = get_tag_type(tmptag); 
-		tag->is_func = (tag->type == IANJUTA_SYMBOL_TYPE_FUNCTION ||
-						tag->type == IANJUTA_SYMBOL_TYPE_METHOD ||
-						tag->type == IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG);
-		if (!g_list_find_custom (suggestions, tag, completion_compare))
-		{
-			suggestions = g_list_prepend (suggestions, tag);
-			suggestnow = g_list_append (suggestnow, tag->name);
-		}
-		else
-			g_free (tag);
-	}
-	pclose(rope);
-
+	
 	assist->priv->completion_cache = g_completion_new (completion_function);
 	g_completion_add_items (assist->priv->completion_cache, suggestions);
 	assist->priv->cache_position = offset;
@@ -725,18 +733,13 @@ python_assist_calltip (PythonAssist *assist)
 static void
 on_editor_char_added (IAnjutaEditor *editor, IAnjutaIterable *insert_pos,
 					  gchar ch, PythonAssist *assist)
-{
-	gboolean enable_complete =
-		anjuta_preferences_get_bool_with_default (assist->priv->preferences,
-												 PREF_AUTOCOMPLETE_ENABLE,
-												 TRUE);
-	
+{	
 	gboolean enable_calltips =
 		anjuta_preferences_get_bool_with_default (assist->priv->preferences,
 												 PREF_CALLTIP_ENABLE,
 												 TRUE);
-
-	python_assist_calltip (assist);
+	if (enable_calltips)
+		python_assist_calltip (assist);
 
 }
 
@@ -877,7 +880,7 @@ python_assist_populate (IAnjutaProvider* self, IAnjutaIterable* iter, GError** e
 
 			// If previous character isn't a <dot>, clear cache
 			if (!is_scope_context_character (get_previous_character(editor)))
-				python_assist_destroy_completion_cache (assist, TRUE);
+				python_assist_destroy_completion_cache (assist);
 				python_assist_update_autocomplete (assist);
 			    
 			return;
@@ -984,7 +987,7 @@ python_assist_install (PythonAssist *assist, IAnjutaEditor *ieditor)
 
 	if (IANJUTA_IS_EDITOR_TIP (ieditor))
 	{
-		/*FIXME*/ assist->priv->itip = IANJUTA_EDITOR_TIP (ieditor);
+		assist->priv->itip = IANJUTA_EDITOR_TIP (ieditor);
 	
 		g_signal_connect (ieditor, "char-added",
 						  G_CALLBACK (on_editor_char_added), assist);
@@ -1023,7 +1026,7 @@ python_assist_finalize (GObject *object)
 {
 	PythonAssist *assist = PYTHON_ASSIST (object);
 	python_assist_uninstall (assist);
-	python_assist_destroy_completion_cache (assist, TRUE);
+	python_assist_destroy_completion_cache (assist);
 	if (assist->priv->calltip_context)
 	{
 		g_free (assist->priv->calltip_context);
