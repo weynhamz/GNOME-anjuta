@@ -1,3 +1,22 @@
+Anjuta 2.31.6 "Thank you, The Hague" (2 Aug 2010) -- Johannes Schmid
+
+Updated:
+- Debugger is now much more polished (Sebastien)
+- Project wizard shows better package chooser
+
+Bugs fixed:
+build: bgo #625604  - anjuta crashes on starting the debugger
+gdb: bgo#625605  - register function is not found in a pretty printer
+symbol-db: bgo #625350 - critical warning on project unload
+debugger: bgo#558954  - Documentation for debug interfaces is incomplete
+libanjuta: bgo#624660 introspection build order problem
+debugger: bgo #515395  - Mouse cursor is a clock in debug mode
+debugger: bgo #598187  - Feature request: Make 'Locals' columns configurable
+project-wizard: bgo #624091  - Use AnjutaPkgConfigChooser
+debugger: bgo #516112  - Debugger create too much variable objects
+
+Thanks to 
+
 Anjuta 2.31.5 "Too hot to code" (12 June 2010) -- Johannes Schmid
 
 New:

@@ -201,7 +201,7 @@ if test "$user_disabled_devhelp" = 1; then
 else
 	AC_MSG_RESULT(no)
 	PKG_CHECK_MODULES(PLUGIN_DEVHELP, 
-				[libdevhelp-1.0 >= $LIBDEVHELP_REQUIRED webkit-1.0],
+				[libdevhelp-2.0 >= $LIBDEVHELP_REQUIRED webkit-1.0],
 				[
 				    devhelp_enabled=yes
 				], [
