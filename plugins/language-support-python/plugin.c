@@ -1250,20 +1250,7 @@ on_auto_complete (GtkAction *action, gpointer data)
 	PythonPlugin *lang_plugin = (PythonPlugin*) (data);;
 	PythonAssist *assist = PYTHON_ASSIST (lang_plugin->assist);
 	
-	python_assist_create_word_completion_cache (assist);
-	python_assist_update_autocomplete (assist);	
-
-
-
-/*	if (lang_plugin->assist)
-	{
-//		python_assist_check (lang_plugin->assist, TRUE, TRUE, FALSE);
-			dialog = gtk_message_dialog_new          (NULL,
-                                             GTK_DIALOG_NO_SEPARATOR,
-                                             GTK_MESSAGE_INFO,
-                                              GTK_BUTTONS_OK, "%s", "on_auto_complete");
-		gtk_widget_show (dialog);
-	}*/
+	// TODO
 }
 
 static GtkActionEntry actions[] = {

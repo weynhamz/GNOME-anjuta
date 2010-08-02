@@ -71,16 +71,6 @@ PythonAssist *python_assist_new (IAnjutaEditorAssist *assist,
                                  const gchar *editor_filename,
                                  const gchar *project_root);
 
-
-void python_assist_check (PythonAssist *assist, gboolean autocomplete,
-								gboolean calltips, gboolean backspace);
-gboolean
-python_assist_create_word_completion_cache (PythonAssist *assist);
-
-void
-python_assist_update_autocomplete (PythonAssist *assist);
-
-
 G_END_DECLS
 
 #endif /* _PYTHON_ASSIST_H_ */
