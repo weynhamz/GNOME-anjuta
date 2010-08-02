@@ -46,10 +46,10 @@
 #define PREF_FILTER_UNVERSIONED "filemanager.filter.unversioned"
 
 #define REGISTER_NOTIFY(key, func, type) \
-	notify_id = anjuta_preferences_notify_add_##type (file_manager->prefs, \
+	notify_id = anjuta_preferences_notify_add_##type (prefs, \
 											   key, func, file_manager, NULL); \
-	file_manager->gconf_notify_ids = g_list_prepend (file_manager->gconf_notify_ids, \
-										   GUINT_TO_POINTER(notify_id));
+	file_manager->notify_ids = g_list_prepend (file_manager->notify_ids, \
+										       GUINT_TO_POINTER(notify_id));
 
 static gpointer parent_class;
 
@@ -80,7 +80,7 @@ static void
 file_manager_set_default_uri (AnjutaFileManager* file_manager)
 {
 	GFile *file;	
-	gchar* path = anjuta_preferences_get (file_manager->prefs, PREF_ROOT);
+	gchar* path = anjuta_preferences_get (anjuta_preferences_default(), PREF_ROOT);
 		
 	if (path)
 	{
@@ -270,10 +270,10 @@ on_notify(AnjutaPreferences* prefs,
 	GtkTreeModel* file_model = gtk_tree_model_sort_get_model (GTK_TREE_MODEL_SORT(sort_model));
 	
 	g_object_set (G_OBJECT (file_model),
-				  "filter_binary", anjuta_preferences_get_bool (file_manager->prefs, PREF_FILTER_BINARY),
-				  "filter_hidden", anjuta_preferences_get_bool (file_manager->prefs, PREF_FILTER_HIDDEN),
-				  "filter_backup", anjuta_preferences_get_bool (file_manager->prefs, PREF_FILTER_BACKUP),
-				  "filter_unversioned", anjuta_preferences_get_bool (file_manager->prefs, PREF_FILTER_UNVERSIONED), NULL);
+				  "filter_binary", anjuta_preferences_get_bool (prefs, PREF_FILTER_BINARY),
+				  "filter_hidden", anjuta_preferences_get_bool (prefs, PREF_FILTER_HIDDEN),
+				  "filter_backup", anjuta_preferences_get_bool (prefs, PREF_FILTER_BACKUP),
+				  "filter_unversioned", anjuta_preferences_get_bool (prefs, PREF_FILTER_UNVERSIONED), NULL);
 	file_view_refresh (file_manager->fv);
 }
 
@@ -283,11 +283,10 @@ file_manager_activate (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 	AnjutaFileManager *file_manager;
 	gint notify_id;
+	AnjutaPreferences* prefs = anjuta_preferences_default ();
 	
 	DEBUG_PRINT ("%s", "AnjutaFileManager: Activating AnjutaFileManager plugin ...");
 	file_manager = (AnjutaFileManager*) plugin;
-
-	file_manager->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	
 	/* Add all UI actions and merge UI */
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
@@ -342,7 +341,7 @@ file_manager_activate (AnjutaPlugin *plugin)
 	REGISTER_NOTIFY (PREF_FILTER_BACKUP, on_notify, bool);
 	REGISTER_NOTIFY (PREF_FILTER_HIDDEN, on_notify, bool);
 	REGISTER_NOTIFY (PREF_FILTER_UNVERSIONED, on_notify, bool);
-	on_notify (anjuta_preferences_default(), NULL, FALSE, file_manager);
+	on_notify (prefs, NULL, FALSE, file_manager);
 	
 	return TRUE;
 }
@@ -371,11 +370,12 @@ file_manager_finalize (GObject *obj)
 {
 	AnjutaFileManager *plugin = (AnjutaFileManager*)obj;
 	GList* id;
-	for (id = plugin->gconf_notify_ids; id != NULL; id = id->next)
+	for (id = plugin->notify_ids; id != NULL; id = id->next)
 	{
-		anjuta_preferences_notify_remove(plugin->prefs,GPOINTER_TO_UINT(id->data));
+		anjuta_preferences_notify_remove(anjuta_preferences_default (),
+		                                 GPOINTER_TO_UINT(id->data));
 	}
-	g_list_free(plugin->gconf_notify_ids);
+	g_list_free(plugin->notify_ids);
 	
 	/* Finalization codes here */
 	G_OBJECT_CLASS (parent_class)->finalize (obj);
@@ -393,7 +393,7 @@ file_manager_instance_init (GObject *obj)
 {
 	AnjutaFileManager *plugin = (AnjutaFileManager*)obj;
 	
-	plugin->gconf_notify_ids = NULL;
+	plugin->notify_ids = NULL;
 	plugin->have_project = FALSE;
 	
 	plugin->uiid = 0;

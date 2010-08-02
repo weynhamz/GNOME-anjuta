@@ -41,6 +41,9 @@ typedef struct _BreakpointsDBase BreakpointsDBase;
 BreakpointsDBase *breakpoints_dbase_new (DebugManagerPlugin *plugin);
 void breakpoints_dbase_destroy (BreakpointsDBase * bd);
 
+/* Handler for breakpoint toggle on double clicking line marks gutter */
+void breakpoint_toggle_handler(GtkAction * action, gint line_number, BreakpointsDBase *bd);
+
 G_END_DECLS
 											
 #endif

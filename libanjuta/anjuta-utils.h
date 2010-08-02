@@ -111,6 +111,8 @@ pid_t anjuta_util_execute_terminal_shell (const gchar *dir, const gchar *command
 gchar* anjuta_util_escape_quotes(const gchar* str);
 
 gchar* anjuta_util_get_real_path (const gchar *path);
+gchar* anjuta_util_get_current_dir (void);
+GFile *anjuta_util_file_new_for_commandline_arg (const gchar *arg);
 
 gchar* anjuta_util_uri_get_dirname (const gchar *uri);
 gchar* anjuta_util_replace_home_dir_with_tilde (const gchar *uri);
@@ -119,6 +121,7 @@ gchar* anjuta_util_str_middle_truncate (const gchar *string,
 										 guint        truncate_length);
 
 gboolean anjuta_util_is_project_file (const gchar *filename);
+gboolean anjuta_util_is_template_file (const gchar *filename);
 gchar* anjuta_util_get_file_mime_type (GFile *file);
 gchar* anjuta_util_get_local_path_from_uri (const gchar *uri);
 
@@ -149,6 +152,15 @@ GSList *anjuta_utils_drop_get_files (GtkSelectionData *selection_data);
 
 /* Temporarily copied here */
 
+/**
+ * ANJUTA_TYPE_BEGIN:
+ * @class_name: Name of the object
+ * @prefix: Prefix used for object methods
+ * @parent_type: The parent type of the object
+ *
+ * Create a new GObject for Anjuta. You can use ANJUTA_TYPE_ADD_INTERFACE
+ * to add interfaces to it and should close it using ANJUTA_TYPE_END
+ */
 #define ANJUTA_TYPE_BEGIN(class_name, prefix, parent_type) \
 GType                                                     \
 prefix##_get_type (void)                                  \
@@ -172,11 +184,24 @@ prefix##_get_type (void)                                  \
         type = g_type_register_static (parent_type,       \
                                        #class_name,       \
                                        &type_info, 0);
+
+/**
+ * ANJUTA_TYPE_END
+ *
+ * Ends a declaration that began with ANJUTA_TYPE_BEGIN
+ */
 #define ANJUTA_TYPE_END                                   \
      }                                                    \
   return type;                                            \
 }
 
+/**
+ * ANJUTA_TYPE_ADD_INTERFACE:
+ * @prefix: Prefix for the interface methods
+ * @interface_type: Type of the interface to implement
+ *
+ * Adds an interface to a declaration started with ANJUTA_TYPE_BEGIN
+ */
 #define ANJUTA_TYPE_ADD_INTERFACE(prefix,interface_type)  \
     {                                                     \
         GInterfaceInfo iface_info = {                     \
@@ -189,6 +214,15 @@ prefix##_get_type (void)                                  \
                                      &iface_info);        \
     }
 
+/**
+ * ANJUTA_TYPE_BOILERPLATE:
+ * @class_name: Name of the object
+ * @prefix: Prefix for the class methods
+ * @parent_type: Parent type for object
+ *
+ * Simpliefied version of ANJUTA_TYPE_BEGIN that just creates an Object
+ * without interfaces and doesn't need ANJUTA_TYPE_END
+ */
 #define ANJUTA_TYPE_BOILERPLATE(class_name, prefix, parent_type) \
 ANJUTA_TYPE_BEGIN(class_name, prefix, parent_type);              \
 ANJUTA_TYPE_END

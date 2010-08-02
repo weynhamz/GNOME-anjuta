@@ -448,7 +448,7 @@ anjuta_status_progress_add_ticks (AnjutaStatus *status, gint ticks)
 	g_return_if_fail (ticks >= 0);
 	
 	status->priv->total_ticks += ticks;
-	if (!GTK_WIDGET_REALIZED (status))
+	if (!gtk_widget_get_realized (GTK_WIDGET (status)))
 	{
 		if (status->priv->splash == NULL &&
 			status->priv->splash_file &&

@@ -38,8 +38,14 @@
 
 #define PROJECT_WIZARD_EXTENSION	".wiz"
 
+typedef struct {
+	const gchar *string;
+	gint id;
+} NPWStringMapping;
+
 typedef enum {
 	NPW_NO_TAG = 0,
+	NPW_PROJECT_TEMPLATE_TAG,
 	NPW_PROJECT_WIZARD_TAG,
 	NPW_NAME_TAG,
 	NPW_DESCRIPTION_TAG,
@@ -56,8 +62,32 @@ typedef enum {
 	NPW_ACTION_TAG,
 	NPW_RUN_TAG,
 	NPW_OPEN_TAG,
-	NPW_UNKNOW_TAG
+	NPW_UNKNOW_TAG,
+	NPW_LAST_TAG
 } NPWTag;
+
+static NPWStringMapping npw_tag_mapping [] = {
+		{"project-template", NPW_PROJECT_TEMPLATE_TAG},
+		{"project-wizard", NPW_PROJECT_WIZARD_TAG},
+		{"_name", NPW_NAME_TAG},
+		{"name", NPW_NAME_TAG},
+		{"_description", NPW_DESCRIPTION_TAG},
+		{"description", NPW_DESCRIPTION_TAG},
+		{"icon", NPW_ICON_TAG},
+		{"category", NPW_CATEGORY_TAG},
+		{"required-program", NPW_REQUIRED_PROGRAM_TAG},
+		{"required-package", NPW_REQUIRED_PACKAGE_TAG},
+		{"page", NPW_PAGE_TAG},
+		{"property", NPW_PROPERTY_TAG},
+		{"item", NPW_ITEM_TAG},
+		{"directory", NPW_DIRECTORY_TAG},
+		{"content", NPW_CONTENT_TAG},
+		{"file", NPW_FILE_TAG},
+		{"action", NPW_ACTION_TAG},
+		{"run", NPW_RUN_TAG},
+		{"open", NPW_OPEN_TAG},
+		{NULL, NPW_UNKNOW_TAG}
+	};
 
 typedef enum {
 	NPW_NO_ATTRIBUTE = 0,
@@ -78,8 +108,35 @@ typedef enum {
 	NPW_AUTOGEN_ATTRIBUTE,
 	NPW_COMMAND_ATTRIBUTE,
 	NPW_FILE_ATTRIBUTE,
-	NPW_UNKNOW_ATTRIBUTE
+	NPW_XML_LANG_ATTRIBUTE,
+	NPW_UNKNOW_ATTRIBUTE,
+	NPW_LAST_ATTRIBUTE
 } NPWAttribute;
+
+static NPWStringMapping npw_attribute_mapping [] = {
+		{"name", NPW_NAME_ATTRIBUTE},
+		{"_label", NPW_LABEL_ATTRIBUTE},
+		{"label", NPW_LABEL_ATTRIBUTE},
+		{"_description", NPW_DESCRIPTION_ATTRIBUTE},
+		{"description", NPW_DESCRIPTION_ATTRIBUTE},
+		{"default", NPW_VALUE_ATTRIBUTE},
+		{"value", NPW_VALUE_ATTRIBUTE},
+		{"type", NPW_TYPE_ATTRIBUTE},
+		{"restriction", NPW_RESTRICTION_ATTRIBUTE},
+		{"summary", NPW_SUMMARY_ATTRIBUTE},
+		{"mandatory", NPW_MANDATORY_ATTRIBUTE},
+		{"editable", NPW_EDITABLE_ATTRIBUTE},
+		{"exist", NPW_EXIST_ATTRIBUTE},
+		{"source", NPW_SOURCE_ATTRIBUTE},
+		{"destination", NPW_DESTINATION_ATTRIBUTE},
+		{"executable", NPW_EXECUTABLE_ATTRIBUTE},
+		{"project", NPW_PROJECT_ATTRIBUTE},
+		{"autogen", NPW_AUTOGEN_ATTRIBUTE},
+		{"command", NPW_COMMAND_ATTRIBUTE},
+		{"file", NPW_FILE_ATTRIBUTE},
+		{"xml:lang", NPW_XML_LANG_ATTRIBUTE},
+		{NULL, NPW_UNKNOW_ATTRIBUTE}
+	};
 
 typedef enum {
 	NPW_HEADER_PARSER,
@@ -144,151 +201,33 @@ npw_header_list_readdir (GList** list, const gchar* path)
 static NPWTag
 parse_tag (const char* name)
 {
-	if (strcmp (name, "project-wizard") == 0)
+	NPWStringMapping *mapping;
+
+	for (mapping = npw_tag_mapping; mapping->string != NULL; mapping++)
 	{
-		return NPW_PROJECT_WIZARD_TAG;
+		if (strcmp (name, mapping->string) == 0)
+		{
+			return (NPWTag)mapping->id;
+		}
 	}
-	else if ((strcmp ("_name", name) == 0) || (strcmp ("name", name) == 0))
-	{
-		return NPW_NAME_TAG;
-	}
-	else if ((strcmp ("_description", name) == 0) || (strcmp ("description", name) == 0))
-	{
-		return NPW_DESCRIPTION_TAG;
-	}
-	else if (strcmp ("icon", name) == 0)
-	{
-		return NPW_ICON_TAG;
-	}
-	else if (strcmp ("category", name) == 0)
-	{
-		return NPW_CATEGORY_TAG;
-	}
-	else if (strcmp ("required-program", name) == 0)
-	{
-		return NPW_REQUIRED_PROGRAM_TAG;
-	}
-	else if (strcmp ("required-package", name) == 0)
-	{
-		return NPW_REQUIRED_PACKAGE_TAG;
-	}
-	else if (strcmp ("page", name) == 0)
-	{
-		return NPW_PAGE_TAG;
-	}
-	else if (strcmp ("property", name) == 0)
-	{
-		return NPW_PROPERTY_TAG;
-	}
-	else if (strcmp ("item", name) == 0)
-	{
-		return NPW_ITEM_TAG;
-	}	
-	else if (strcmp ("directory", name) == 0)
-	{
-		return NPW_DIRECTORY_TAG;
-	}
-	else if (strcmp ("content", name) == 0)
-	{
-		return NPW_CONTENT_TAG;
-	}
-	else if (strcmp ("file", name) == 0)
-	{
-		return NPW_FILE_TAG;
-	}
-	else if (strcmp ("action", name) == 0)
-	{
-		return NPW_ACTION_TAG;
-	}
-	else if (strcmp ("run", name) == 0)
-	{
-		return NPW_RUN_TAG;
-	}
-	else if (strcmp ("open", name) == 0)
-	{
-		return NPW_OPEN_TAG;
-	}
-	else
-	{
-		return NPW_UNKNOW_TAG;
-	}
+	
+	return NPW_UNKNOW_TAG;
 }
 
 static NPWAttribute
 parse_attribute (const char* name)
 {
-	if (strcmp ("name", name) == 0)
+	NPWStringMapping *mapping;
+
+	for (mapping = npw_attribute_mapping; mapping->string != NULL; mapping++)
 	{
-		return NPW_NAME_ATTRIBUTE;
+		if (strcmp (name, mapping->string) == 0)
+		{
+			return (NPWAttribute)mapping->id;
+		}
 	}
-	else if (strcmp ("_label", name) == 0)
-	{
-		return NPW_LABEL_ATTRIBUTE;
-	}
-	else if (strcmp ("_description", name) == 0)
-	{
-		return NPW_DESCRIPTION_ATTRIBUTE;
-	}
-	else if (strcmp ("default", name) == 0 || strcmp ("value", name) == 0)
-	{
-		return NPW_VALUE_ATTRIBUTE;
-	}
-	else if (strcmp ("type", name) == 0)
-	{
-		return NPW_TYPE_ATTRIBUTE;
-	}
-	else if (strcmp ("restriction", name) == 0)
-	{
-		return NPW_RESTRICTION_ATTRIBUTE;
-	}
-	else if (strcmp ("summary", name) == 0)
-	{
-		return NPW_SUMMARY_ATTRIBUTE;
-	}
-	else if (strcmp ("mandatory", name) == 0)
-	{
-		return NPW_MANDATORY_ATTRIBUTE;
-	}
-	else if (strcmp ("editable", name) == 0)
-	{
-		return NPW_EDITABLE_ATTRIBUTE;
-	}
-	else if (strcmp ("exist", name) == 0)
-	{
-		return NPW_EXIST_ATTRIBUTE;
-	}
-	else if (strcmp ("source", name) == 0)
-	{
-		return NPW_SOURCE_ATTRIBUTE;
-	}
-	else if (strcmp ("destination", name) == 0)
-	{
-		return NPW_DESTINATION_ATTRIBUTE;
-	}
-	else if (strcmp ("executable", name) == 0)
-	{
-		return NPW_EXECUTABLE_ATTRIBUTE;
-	}
-	else if (strcmp ("project", name) == 0)
-	{
-		return NPW_PROJECT_ATTRIBUTE;
-	}
-	else if (strcmp ("autogen", name) == 0)
-	{
-		return NPW_AUTOGEN_ATTRIBUTE;
-	}
-	else if (strcmp ("command", name) == 0)
-	{
-		return NPW_COMMAND_ATTRIBUTE;
-	}
-	else if (strcmp ("file", name) == 0)
-	{
-		return NPW_FILE_ATTRIBUTE;
-	}
-	else
-	{	
-		return NPW_UNKNOW_ATTRIBUTE;
-	}
+	
+	return NPW_UNKNOW_ATTRIBUTE;
 }
 
 static gboolean
@@ -336,10 +275,53 @@ parser_critical (GMarkupParseContext* ctx, const gchar* format,...)
 	va_end (args);
 	g_free (msg);
 }
+
+/* Represent a language as an integer:
+ * < 0 for a not applicable language
+ *  0 for not specified language
+ * > 0 for an applicable language, higher number means a better match */
+static gint
+get_tag_language (const gchar** attributes,
+					const gchar** values)
+{
+	const gchar *lang = NULL;
+	
+	while (*attributes != NULL)
+	{
+		if (parse_attribute (*attributes) == NPW_XML_LANG_ATTRIBUTE)
+		{
+			lang = *values;
+		}
+		attributes++;
+		values++;
+	}
+	
+	if (lang != NULL)
+	{
+		const gchar* const *local;
+		gint id = G_MAXINT;
+		
+		for (local = g_get_language_names (); *local != NULL; local++)
+		{
+			id--;
+			if (strcmp (*local, lang) == 0)
+			{
+				return id;
+			}
+		}
+		
+		return -1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
 /* Parse project wizard block
  *---------------------------------------------------------------------------*/
 
-#define NPW_HEADER_PARSER_MAX_LEVEL	2	/* Maximum number of nested elements */
+#define NPW_HEADER_PARSER_MAX_LEVEL	3	/* Maximum number of nested elements */
 
 typedef struct _NPWHeaderParser
 {
@@ -355,6 +337,8 @@ typedef struct _NPWHeaderParser
 	NPWHeader* header;
 	/* Name of file read */
 	gchar* filename;
+	/* Language of current tag */
+	gint lang;
 } NPWHeaderParser;
 
 static void
@@ -374,9 +358,11 @@ parse_header_start (GMarkupParseContext* context,
 	{
 		/* Not inside an unknown element */
 		tag = parse_tag (name);
+		
 		switch (*parser->last)
 		{
 		case NPW_NO_TAG:
+		case NPW_PROJECT_TEMPLATE_TAG:
 			/* Top level element */
 			switch (tag)
 			{
@@ -387,6 +373,9 @@ parse_header_start (GMarkupParseContext* context,
 				break;
 			case NPW_UNKNOW_TAG:
 				parser_warning (parser->ctx, "Unknown element \"%s\"", name);
+				break;
+			case NPW_PROJECT_TEMPLATE_TAG:
+				known = TRUE;
 				break;
 			default:
 				break;
@@ -402,6 +391,7 @@ parse_header_start (GMarkupParseContext* context,
 			case NPW_CATEGORY_TAG:
 			case NPW_REQUIRED_PROGRAM_TAG:
 			case NPW_REQUIRED_PACKAGE_TAG:
+				parser->lang = get_tag_language (attributes, values);
 				known = TRUE;
 				break;
 			default:
@@ -453,6 +443,7 @@ parse_header_end (GMarkupParseContext* context,
 			{
 				parser_critical (parser->ctx, "Missing name attribute");
 				npw_header_free (parser->header);
+				parser->header = NULL;
 			}
 
 			/* Stop parsing after first project wizard block
@@ -481,57 +472,28 @@ parse_header_text (GMarkupParseContext* context,
 	GError** error)
 {
 	NPWHeaderParser* parser = (NPWHeaderParser*)data;
+	char* filename;
+	char* path;
 
 	if (parser->unknown == 0)
 	{
 		switch (*parser->last)
 		{
 		case NPW_NAME_TAG:
-			if (npw_header_get_name (parser->header) == NULL)
-			{
-				npw_header_set_name (parser->header, text);
-			}
-			else
-			{
-				parser_critical (parser->ctx, "Duplicated name tag");
-			}
+			npw_header_set_name (parser->header, text, parser->lang);
 			break;
 		case NPW_DESCRIPTION_TAG:
-			if (npw_header_get_description (parser->header) == NULL)
-			{
-				npw_header_set_description (parser->header, text);
-			}
-			else
-			{
-				parser_critical (parser->ctx, "Duplicated description tag");
-			}
+			npw_header_set_description (parser->header, text, parser->lang);
 			break;
 		case NPW_ICON_TAG:
-			if (npw_header_get_iconfile (parser->header) == NULL)
-			{
-				char* filename;
-				char* path;
-
-				path = g_path_get_dirname (parser->filename);
-				filename = g_build_filename (path, text, NULL);
-				npw_header_set_iconfile (parser->header, filename);
-				g_free (path);
-				g_free (filename);
-			}
-			else
-			{
-				parser_critical (parser->ctx, "Duplicated icon tag");
-			}
+			path = g_path_get_dirname (parser->filename);
+			filename = g_build_filename (path, text, NULL);
+			npw_header_set_iconfile (parser->header, filename);
+			g_free (path);
+			g_free (filename);
 			break;
 		case NPW_CATEGORY_TAG:
-			if (npw_header_get_category (parser->header) == NULL)
-			{
-				npw_header_set_category (parser->header, text);
-			}
-			else
-			{
-				parser_critical (parser->ctx, "Duplicated category tag");
-			}
+			npw_header_set_category (parser->header, text);
 			break;
 		case NPW_REQUIRED_PROGRAM_TAG:
 			npw_header_add_required_program (parser->header, text);
@@ -540,6 +502,7 @@ parse_header_text (GMarkupParseContext* context,
 			npw_header_add_required_package (parser->header, text);
 			break;
 		case NPW_PROJECT_WIZARD_TAG:
+		case NPW_PROJECT_TEMPLATE_TAG:
 			/* Nothing to do */
 			break;
 		default:
@@ -667,7 +630,7 @@ npw_header_list_read (GList** list, const gchar* filename)
 /* Parse page block
  *---------------------------------------------------------------------------*/
 
-#define NPW_PAGE_PARSER_MAX_LEVEL	3	/* Maximum number of nested elements */
+#define NPW_PAGE_PARSER_MAX_LEVEL	4	/* Maximum number of nested elements */
 
 struct _NPWPageParser
 {
@@ -681,50 +644,89 @@ struct _NPWPageParser
 	guint unknown;
 	/* page number to read */
 	gint count;
+	/* previous page name list */
+	GList *previous;
 	/* Current page object */
 	NPWPage* page;
 	/* Current property object */
 	NPWProperty* property;
 };
 
+static const gchar *
+get_page_name (const gchar** attributes,
+				const gchar** values)
+{
+	while (*attributes != NULL)
+	{
+		if (parse_attribute (*attributes) == NPW_NAME_ATTRIBUTE)
+		{
+			return *values;
+		}
+		attributes++;
+		values++;
+	}
+
+	return NULL;
+}
+
 static gboolean
 parse_page (NPWPageParser* parser, 
 	const gchar** attributes,
 	const gchar** values)
 {
-	if (parser->count != 0)
-	{
-		/* Skip this page */
-		if (parser->count > 0) parser->count--;
+	const gchar *name;
+	
+	/* Check page name to avoid duplicated page due to translated version */
+	name = get_page_name (attributes, values);
+	if (name == NULL) return FALSE;
 
-		return FALSE;
+	/* If this is a new page, add it in the list and decrement counter */
+	if (g_list_find_custom (parser->previous, name, (GCompareFunc)strcmp) == NULL)
+	{
+		/* New page, add it in list and decrement counter */
+		parser->previous = g_list_prepend (parser->previous, strdup (name));
+		parser->count--;
+	}
+
+	/* Translated page must be after the non translated one */
+	if (parser->count == -1)
+	{
+		gint lang;
+		
+		lang = get_tag_language (attributes, values);
+
+		if (npw_page_set_language (parser->page, lang))
+		{
+			/* Read this page */
+			while (*attributes != NULL)
+			{
+				switch (parse_attribute (*attributes))
+				{
+				case NPW_NAME_ATTRIBUTE:
+					npw_page_set_name (parser->page, *values);
+					break;
+				case NPW_LABEL_ATTRIBUTE:
+					npw_page_set_label (parser->page, *values);
+					break;
+				case NPW_DESCRIPTION_ATTRIBUTE:
+					npw_page_set_description (parser->page, *values);
+					break;
+				case NPW_XML_LANG_ATTRIBUTE:
+					break;
+				default:
+					parser_warning (parser->ctx, "Unknown page attribute \"%s\"", *attributes);
+					break;
+				}
+				attributes++;
+				values++;
+			}
+		}
+		
+		return TRUE;
 	}
 	else
 	{
-		/* Read this page */
-		while (*attributes != NULL)
-		{
-			switch (parse_attribute (*attributes))
-			{
-			case NPW_NAME_ATTRIBUTE:
-				npw_page_set_name (parser->page, *values);
-				break;
-			case NPW_LABEL_ATTRIBUTE:
-				npw_page_set_label (parser->page, *values);
-				break;
-			case NPW_DESCRIPTION_ATTRIBUTE:
-				npw_page_set_description (parser->page, *values);
-				break;
-			default:
-				parser_warning (parser->ctx, "Unknown page attribute \"%s\"", *attributes);
-				break;
-			}
-			attributes++;
-			values++;
-		}
-		parser->count--;
-
-		return TRUE;
+		return FALSE;
 	}
 }
 
@@ -734,7 +736,8 @@ parse_property (NPWPageParser* parser,
 	const gchar** values)
 {
 	parser->property = npw_property_new ();
-	npw_page_add_property (parser->page, parser->property);
+
+	npw_property_set_language (parser->property, get_tag_language (attributes, values));
 
 	while (*attributes != NULL)
 	{
@@ -770,6 +773,8 @@ parse_property (NPWPageParser* parser,
 		case NPW_EXIST_ATTRIBUTE:
 			npw_property_set_exist_option (parser->property, parse_boolean_string (*values));
 			break;
+		case NPW_XML_LANG_ATTRIBUTE:
+			break;
 		default:
 			parser_warning (parser->ctx, "Unknown property attribute \"%s\"", *attributes);
 			break;
@@ -777,6 +782,7 @@ parse_property (NPWPageParser* parser,
 		attributes++;
 		values++;
 	}	
+	parser->property = npw_page_add_property (parser->page, parser->property);
 
 	return TRUE;
 }
@@ -788,7 +794,10 @@ parse_item (NPWPageParser* parser,
 {
 	const gchar* label = NULL;
 	const gchar* name = NULL;
-
+	gint lang;
+	
+	lang = get_tag_language (attributes, values);
+	
 	while (*attributes != NULL)
 	{
 		switch (parse_attribute (*attributes))
@@ -798,6 +807,8 @@ parse_item (NPWPageParser* parser,
 			break;
 		case NPW_LABEL_ATTRIBUTE:
 			label = *values;
+			break;
+		case NPW_XML_LANG_ATTRIBUTE:
 			break;
 		default:
 			parser_warning (parser->ctx, "Unknown item attribute \"%s\"", *attributes);
@@ -813,7 +824,7 @@ parse_item (NPWPageParser* parser,
 	}
 	else
 	{
-		npw_property_add_list_item (parser->property, name, label == NULL ? name : label);
+		npw_property_add_list_item (parser->property, name, label == NULL ? name : label, lang);
 	}
 
 	return TRUE;
@@ -836,9 +847,11 @@ parse_page_start (GMarkupParseContext* context,
 	{
 		/* Not inside an unknown element */
 		tag = parse_tag (name);
+		
 		switch (*parser->last)
 		{
 		case NPW_NO_TAG:
+		case NPW_PROJECT_TEMPLATE_TAG:
 			/* Top level element */
 			switch (tag)
 			{
@@ -847,6 +860,9 @@ parse_page_start (GMarkupParseContext* context,
 				break;
 			case NPW_UNKNOW_TAG:
 				parser_warning (parser->ctx, "Unknown element \"%s\"", name);
+				break;
+			case NPW_PROJECT_TEMPLATE_TAG:
+				known = TRUE;
 				break;
 			default:
 				break;
@@ -946,9 +962,10 @@ npw_page_parser_new (NPWPage* page, const gchar* filename, gint count)
 	parser->last =parser->tag;
 
 	parser->count = count;
+	parser->previous = NULL;
 	parser->page = page;
 	parser->property = NULL;
-
+	
 	parser->ctx = g_markup_parse_context_new (&page_markup_parser, 0, parser, NULL);
 	g_assert (parser->ctx != NULL);
 
@@ -960,6 +977,8 @@ npw_page_parser_free (NPWPageParser* parser)
 {
 	g_return_if_fail (parser != NULL);
 
+	g_list_foreach (parser->previous, (GFunc)g_free, NULL);
+	g_list_free (parser->previous);
 	g_markup_parse_context_free (parser->ctx);
 	g_free (parser);
 }
@@ -1307,10 +1326,12 @@ parse_file_start (GMarkupParseContext* context,
 		switch (parent->tag)
 		{
 		case NPW_NO_TAG:
+		case NPW_PROJECT_TEMPLATE_TAG:
 			/* Top level element */
 			switch (tag)
 			{
 			case NPW_CONTENT_TAG:
+			case NPW_PROJECT_TEMPLATE_TAG:
 				child.tag = tag;
 				break;
 			case NPW_UNKNOW_TAG:
@@ -1472,7 +1493,8 @@ npw_file_list_parser_end_parse (NPWFileListParser* parser, GError** error)
 /* Parse action block
  *---------------------------------------------------------------------------*/
 
-#define NPW_ACTION_PARSER_MAX_LEVEL	2	/* Maximum number of nested elements */
+#define NPW_ACTION_PARSER_MAX_LEVEL	3
+	/* Maximum number of nested elements */
 
 struct _NPWActionListParser
 {
@@ -1574,6 +1596,7 @@ parse_action_start (GMarkupParseContext* context, const gchar* name, const gchar
 		switch (*parser->last)
 		{
 		case NPW_NO_TAG:
+		case NPW_PROJECT_TEMPLATE_TAG:
 			/* Top level element */
 			switch (tag)
 			{
@@ -1582,6 +1605,9 @@ parse_action_start (GMarkupParseContext* context, const gchar* name, const gchar
 				break;
 			case NPW_UNKNOW_TAG:
 				parser_warning (parser->ctx, "Unknown element \"%s\"", name);
+				break;
+			case NPW_PROJECT_TEMPLATE_TAG:
+				known = TRUE;
 				break;
 			default:
 				break;

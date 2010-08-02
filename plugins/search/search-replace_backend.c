@@ -805,7 +805,7 @@ create_search_entries (Search *s)
 			{
 				if (SR_PROJECT == s->range.type)
 					s->range.type = SR_FILES;
-				dir = g_get_current_dir();
+				dir = anjuta_util_get_current_dir();
 			}
 
 			files = get_project_file_list();	

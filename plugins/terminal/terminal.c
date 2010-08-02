@@ -347,22 +347,22 @@ use_default_profile_cb (GtkToggleButton *button,
 
 static void
 terminal_child_exited_cb (VteReaper *reaper, GPid pid, gint status, TerminalPlugin *term_plugin)
-{	
-	gboolean focus;
-	
+{
 	if (term_plugin->child_pid == pid)
 	{
+		gboolean focus;
+
 		focus = gtk_widget_is_focus (term_plugin->term);
-		
+
 		gtk_container_remove (GTK_CONTAINER (term_plugin->frame), term_plugin->term_box);
 		gtk_container_add (GTK_CONTAINER (term_plugin->frame), term_plugin->shell_box);
 		gtk_widget_show_all (term_plugin->shell_box);
 		if (focus)
 			gtk_widget_grab_focus (term_plugin->shell);
-		
+
 		term_plugin->child_pid = 0;
 	}
-	
+
 	g_signal_emit_by_name(term_plugin, "child-exited", pid, status);
 }
 
@@ -374,7 +374,7 @@ terminal_execute (TerminalPlugin *term_plugin, const gchar *directory,
 	GList *args_list, *args_list_ptr;
 	gchar *dir;
 	VteTerminal *term;
-	gboolean focus;
+	pid_t pid;
 	
 	g_return_val_if_fail (command != NULL, 0);
 	
@@ -402,31 +402,38 @@ terminal_execute (TerminalPlugin *term_plugin, const gchar *directory,
 	vte_terminal_reset (term, TRUE, TRUE);
 */
 	
-	focus = gtk_widget_is_focus (term_plugin->shell);
-	
-	gtk_container_remove (GTK_CONTAINER (term_plugin->frame), term_plugin->shell_box);
-	gtk_container_add (GTK_CONTAINER (term_plugin->frame), term_plugin->term_box);
-	gtk_widget_show_all (term_plugin->term_box);
-	if (focus)
-		gtk_widget_grab_focus (term_plugin->term);
+	pid = vte_terminal_fork_command (term, args[0], args,
+										environment, dir,
+										term_plugin->lastlog,
+										term_plugin->update_records,
+										term_plugin->update_records);
 
-	term_plugin->child_pid = vte_terminal_fork_command (term, args[0], args,
-														environment, dir,
-	    												term_plugin->lastlog,
-	    												term_plugin->update_records,
-	    												term_plugin->update_records);
-	vte_reaper_add_child (term_plugin->child_pid);
-	
+	/* vte_terminal_form_command return -1 if there is an error */
+	if (pid > 0)
+	{
+		gboolean focus;
+
+		term_plugin->child_pid = pid;
+
+		/* Display terminal widget */
+		focus = gtk_widget_is_focus (term_plugin->shell);
+		gtk_container_remove (GTK_CONTAINER (term_plugin->frame), term_plugin->shell_box);
+		gtk_container_add (GTK_CONTAINER (term_plugin->frame), term_plugin->term_box);
+		gtk_widget_show_all (term_plugin->term_box);
+		if (focus)
+			gtk_widget_grab_focus (term_plugin->term);
+
+		if (term_plugin->widget_added_to_shell)
+			anjuta_shell_present_widget (ANJUTA_PLUGIN (term_plugin)->shell,
+									 term_plugin->frame, NULL);
+	}
+
 	g_free (dir);
 	g_free (args);
 	g_list_foreach (args_list, (GFunc)g_free, NULL);
 	g_list_free (args_list);
-	
-	if (term_plugin->widget_added_to_shell)
-		anjuta_shell_present_widget (ANJUTA_PLUGIN (term_plugin)->shell,
-									 term_plugin->frame, NULL);
-	
-	return term_plugin->child_pid;
+
+	return pid;
 }
 
 static void
@@ -702,7 +709,7 @@ create_box (GtkWidget *term)
 {
 	GtkWidget *sb, *hbox;
 	
-	sb = gtk_vscrollbar_new (GTK_ADJUSTMENT (VTE_TERMINAL (term)->adjustment));
+	sb = gtk_vscrollbar_new (GTK_ADJUSTMENT (vte_terminal_get_adjustment (VTE_TERMINAL (term))));
 	gtk_widget_set_can_focus (sb, FALSE);
 
 	hbox = gtk_hbox_new (FALSE, 0);
@@ -905,10 +912,11 @@ static pid_t
 iterminal_execute_command (IAnjutaTerminal *terminal,
 						   const gchar *directory,
 						   const gchar *command,
-						   gchar **environment, GError **err)
+						   gchar **environment, GError **error)
 {
 	TerminalPlugin *plugin;
 	const gchar *dir;
+	pid_t pid;
 	
 	plugin = ANJUTA_PLUGIN_TERMINAL (terminal);
 	
@@ -916,8 +924,14 @@ iterminal_execute_command (IAnjutaTerminal *terminal,
 		dir = NULL;
 	else
 		dir = directory;
+
+	pid = terminal_execute (plugin, directory, command, environment);
+	if (pid <= 0)
+	{
+		g_set_error (error, G_SPAWN_ERROR, G_SPAWN_ERROR_FAILED, _("Unable to execute command"));
+	}
 	
-	return terminal_execute (plugin, directory, command, environment);
+	return pid; 
 }
 
 static void

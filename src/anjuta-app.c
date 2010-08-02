@@ -151,7 +151,7 @@ anjuta_app_hide_dockable_widget (AnjutaShell *shell, GtkWidget *widget,
 	g_return_if_fail (dock_item != NULL);
 
 	/* Hide the dockable item */
-	gdl_dock_item_iconify_item (GDL_DOCK_ITEM (dock_item));
+	gdl_dock_item_hide_item (GDL_DOCK_ITEM (dock_item));
 }
 
 static void
@@ -724,10 +724,30 @@ anjuta_app_key_press_event (GtkWidget   *widget,
 	if (grand_parent_class == NULL)
 		grand_parent_class = g_type_class_peek_parent (parent_class);
 
-	/* handle focus widget key events */
-	if (!handled)
-		handled = gtk_window_propagate_key_event (window, event);
-
+	switch (event->keyval)
+	{
+		case GDK_F1:
+		case GDK_F2:
+		case GDK_F3:
+		case GDK_F4:
+		case GDK_F5:
+		case GDK_F6:
+		case GDK_F7:
+		case GDK_F8:
+		case GDK_F9:
+		case GDK_F10:
+		case GDK_F11:
+		case GDK_F12:
+			/* handle mnemonics and accelerators */
+			if (!handled)
+				handled = gtk_window_activate_key (window, event);
+			break;
+		default:
+			/* handle focus widget key events */
+			if (!handled)
+				handled = gtk_window_propagate_key_event (window, event);
+	}
+	
 	/* handle mnemonics and accelerators */
 	if (!handled)
 		handled = gtk_window_activate_key (window, event);
@@ -799,7 +819,7 @@ anjuta_app_set_geometry (AnjutaApp *app, const gchar *geometry)
 		if (sscanf (geometry, "%dx%d+%d+%d", &width, &height,
 					&posx, &posy) == 4)
 		{
-			if (GTK_WIDGET_REALIZED (app))
+			if (gtk_widget_get_realized (GTK_WIDGET (app)))
 			{
 				gtk_window_resize (GTK_WINDOW (app), width, height);
 			}
@@ -823,7 +843,7 @@ anjuta_app_set_geometry (AnjutaApp *app, const gchar *geometry)
 		height = gdk_screen_height () - 25;
 		width = (width < 790)? width : 790;
 		height = (height < 575)? width : 575;
-		if (GTK_WIDGET_REALIZED (app) == FALSE)
+		if (gtk_widget_get_realized (GTK_WIDGET (app)) == FALSE)
 		{
 			gtk_window_set_default_size (GTK_WINDOW (app), width, height);
 			gtk_window_move (GTK_WINDOW (app), posx, posy);

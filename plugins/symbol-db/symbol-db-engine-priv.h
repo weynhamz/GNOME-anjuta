@@ -31,11 +31,14 @@
 #include <libgda/libgda.h>
 #include <sql-parser/gda-sql-parser.h>
 
+#include <libanjuta/interfaces/ianjuta-symbol-manager.h>
+#include <libanjuta/interfaces/ianjuta-symbol.h>
+
 /* file should be specified without the ".db" extension. */
 #define ANJUTA_DB_FILE	".anjuta_sym_db"
 
 /* if tables.sql changes or general db structure changes modify also the value here */
-#define SYMBOL_DB_VERSION	"300"
+#define SYMBOL_DB_VERSION	"300.6"
 
 #define TABLES_SQL			PACKAGE_DATA_DIR"/tables.sql"
 
@@ -46,88 +49,47 @@
 #define THREADS_MAX_CONCURRENT			2
 #define TRIGGER_SIGNALS_DELAY			100
 
-#define MEMORY_POOL_STRING_SIZE			200
-#define MEMORY_POOL_INT_SIZE			200
+#define BATCH_SYMBOL_NUMBER				15000
 
-#define DUMMY_VOID_STRING				""
-#define MP_VOID_STRING					"-"
+#define SDB_QUERY_SEARCH_HEADER \
+	GValue v = {0}; \
+	SymbolDBQueryPriv *priv; \
+	g_return_val_if_fail (SYMBOL_DB_IS_QUERY (query), NULL); \
+	priv = SYMBOL_DB_QUERY (query)->priv;
 
-#define USE_ASYNC_QUEUE
-#undef USE_ASYNC_QUEUE
+#define SDB_GVALUE_SET_INT(value, int_value) \
+	g_value_init (&value, G_TYPE_INT); \
+	g_value_set_int (&value, (int_value));
 
-#define MP_RESET_OBJ_STR(gvalue) \
-		g_value_set_static_string (gvalue, DUMMY_VOID_STRING);
+#define SDB_GVALUE_SET_STRING(value, str_value) \
+	g_value_init (&value, G_TYPE_STRING); \
+	g_value_set_string (&value, (str_value));
 
-/* given a GdaSet plist this macro resets all the GValues associated within its
- * GdaHolders.
- */
-#define MP_RESET_PLIST(plist) { \
-		if (plist != NULL) \
-		{ \
-			GSList* holders; \
-			for (holders = plist->holders; holders; holders = holders->next) { \
-				GValue *gvalue = (GValue*)gda_holder_get_value (holders->data); \
-				if (G_VALUE_HOLDS_STRING(gvalue)) \
-					MP_RESET_OBJ_STR(gvalue); \
-			} \
-		} \
-}
+#define SDB_GVALUE_SET_STATIC_STRING(value, str_value) \
+	g_value_init (&value, G_TYPE_STRING); \
+	g_value_set_static_string (&value, (str_value)); 
+	
 
-#ifdef USE_ASYNC_QUEUE
-#define MP_LEND_OBJ_STR(sdb_priv, OUT_gvalue) \
-		OUT_gvalue = (GValue*)g_async_queue_pop(sdb_priv->mem_pool_string); \
-		MP_RESET_OBJ_STR(OUT_gvalue);
+#define SDB_PARAM_SET_INT(gda_param, int_value) \
+	SDB_GVALUE_SET_INT(v, int_value); \
+	gda_holder_set_value ((gda_param), &v, NULL); \
+	g_value_unset (&v);
 
-#define MP_RETURN_OBJ_STR(sdb_priv, gvalue) \
-		g_value_set_static_string (gvalue, MP_VOID_STRING); \
-		g_async_queue_push(sdb_priv->mem_pool_string, gvalue); 
+#define SDB_PARAM_SET_STRING(gda_param, str_value) \
+	SDB_GVALUE_SET_STRING(v, str_value); \
+	gda_holder_set_value ((gda_param), &v, NULL); \
+	g_value_unset (&v);
 
-#define MP_LEND_OBJ_INT(sdb_priv, OUT_gvalue) \
-		OUT_gvalue = (GValue*)g_async_queue_pop(sdb_priv->mem_pool_int); 
+#define SDB_PARAM_SET_STATIC_STRING(gda_param, str_value) \
+	SDB_GVALUE_SET_STATIC_STRING(v, str_value); \
+	gda_holder_set_value ((gda_param), &v, NULL); \
+	g_value_unset (&v);
 
-#define MP_RETURN_OBJ_INT(sdb_priv, gvalue) \
-		g_async_queue_push(sdb_priv->mem_pool_int, gvalue); 
-
-#else
-#define MP_LEND_OBJ_STR(sdb_priv, OUT_gvalue) \
-		OUT_gvalue = (GValue*)g_queue_pop_head(sdb_priv->mem_pool_string); \
-		MP_RESET_OBJ_STR(OUT_gvalue);
-
-#define MP_RETURN_OBJ_STR(sdb_priv, gvalue) \
-		g_value_set_static_string (gvalue, MP_VOID_STRING); \
-		g_queue_push_head(sdb_priv->mem_pool_string, gvalue); 
-
-#define MP_LEND_OBJ_INT(sdb_priv, OUT_gvalue) \
-		OUT_gvalue = (GValue*)g_queue_pop_head(sdb_priv->mem_pool_int); 
-
-#define MP_RETURN_OBJ_INT(sdb_priv, gvalue) \
-		g_queue_push_head(sdb_priv->mem_pool_int, gvalue);
-#endif
-
-/* ret_value, even if not used outside, permits variable reusing without 
- * forcing the compiler to redeclare it everytime
- */
-#define MP_SET_HOLDER_BATCH_STR(priv, param, string_, ret_bool, ret_value) { \
-	GValue *value_str; \
-	MP_LEND_OBJ_STR(priv, value_str); \
-	g_value_set_static_string (value_str, string_); \
-	ret_value = gda_holder_take_static_value (param, value_str, &ret_bool, NULL); \
-	if (ret_value != NULL && G_VALUE_HOLDS_STRING (ret_value) == TRUE) \
-	{ \
-		MP_RETURN_OBJ_STR(priv, ret_value); \
-	} \
-}
-
-#define MP_SET_HOLDER_BATCH_INT(priv, param, int_, ret_bool, ret_value) { \
-	GValue *value_int; \
-	MP_LEND_OBJ_INT(priv, value_int); \
-	g_value_set_int (value_int, int_); \
-	ret_value = gda_holder_take_static_value (param, value_int, &ret_bool, NULL); \
-	if (ret_value != NULL && G_VALUE_HOLDS_INT (ret_value) == TRUE) \
-	{ \
-		MP_RETURN_OBJ_INT(priv, ret_value); \
-	} \
-}
+#define SDB_PARAM_TAKE_STRING(gda_param, str_value) \
+	g_value_init (&v, G_TYPE_STRING); \
+	g_value_take_string (&v, (str_value)); \
+	gda_holder_set_value ((gda_param), &v, NULL); \
+	g_value_unset (&v);
 
 #define SDB_LOCK(priv) if (priv->mutex) g_mutex_lock (priv->mutex);
 #define SDB_UNLOCK(priv) if (priv->mutex) g_mutex_unlock (priv->mutex);
@@ -142,14 +104,10 @@ typedef enum
 	PREP_QUERY_FILE_NEW,
 	PREP_QUERY_GET_FILE_ID_BY_UNIQUE_NAME,
 	PREP_QUERY_GET_ALL_FROM_FILE_BY_PROJECT_NAME,
-	PREP_QUERY_GET_ALL_FROM_FILE_BY_PROJECT_ID,
 	PREP_QUERY_UPDATE_FILE_ANALYSE_TIME,
 	PREP_QUERY_GET_ALL_FROM_FILE_WHERE_NOT_IN_SYMBOLS,
 	PREP_QUERY_LANGUAGE_NEW,
 	PREP_QUERY_GET_LANGUAGE_ID_BY_UNIQUE_NAME,
-	PREP_QUERY_GET_LANGUAGE_COUNT,
-	PREP_QUERY_SYM_TYPE_NEW,
-	PREP_QUERY_GET_SYM_TYPE_ID,	
 	PREP_QUERY_SYM_KIND_NEW,
 	PREP_QUERY_GET_SYM_KIND_BY_UNIQUE_NAME,
 	PREP_QUERY_SYM_ACCESS_NEW,
@@ -158,24 +116,12 @@ typedef enum
 	PREP_QUERY_GET_SYM_IMPLEMENTATION_BY_UNIQUE_NAME,
 	PREP_QUERY_HERITAGE_NEW,
 	PREP_QUERY_SCOPE_NEW,
-	PREP_QUERY_GET_SCOPE_ID,
-	PREP_QUERY_GET_PARENT_SCOPE_ID_BY_SYMBOL_ID_NO_FILE,
-	PREP_QUERY_GET_PARENT_SCOPE_ID_BY_SYMBOL_ID,
-	PREP_QUERY_GET_PARENT_SCOPE_ID_BY_SYMBOL_ID_BY_SYMBOL_ID,
-	PREP_QUERY_GET_SCOPE_DEFINITION_ID_BY_WALK_DOWN_SCOPE_PATH,
-	PREP_QUERY_TMP_HERITAGE_NEW,
-	PREP_QUERY_GET_ALL_FROM_TMP_HERITAGE,
-	PREP_QUERY_GET_ALL_FROM_TMP_HERITAGE_WITH_INHERITS,
-	PREP_QUERY_TMP_HERITAGE_DELETE_ALL,
+	PREP_QUERY_GET_SCOPE_ID,	
 	PREP_QUERY_SYMBOL_NEW,
-	PREP_QUERY_GET_SYMBOL_SCOPE_DEFINITION_ID,
 	PREP_QUERY_GET_SYMBOL_ID_BY_CLASS_NAME,
 	PREP_QUERY_GET_SYMBOL_ID_BY_CLASS_NAME_AND_NAMESPACE,
 	PREP_QUERY_UPDATE_SYMBOL_SCOPE_ID,
-	PREP_QUERY_UPDATE_SYMBOL_SCOPE_ID_MIXED,
-	PREP_QUERY_GET_SYMBOL_ID_BY_UNIQUE_INDEX_KEY,
 	PREP_QUERY_GET_SYMBOL_ID_BY_UNIQUE_INDEX_KEY_EXT,
-	PREP_QUERY_GET_SYMBOL_ID_BY_UNIQUE_INDEX_KEY_EXT2,
 	PREP_QUERY_UPDATE_SYMBOL_ALL,
 	PREP_QUERY_REMOVE_NON_UPDATED_SYMBOLS,
 	PREP_QUERY_RESET_UPDATE_FLAG_SYMBOLS,
@@ -195,118 +141,7 @@ typedef struct _static_query_node
 
 } static_query_node;
 
-typedef enum {
-	DYN_PREP_QUERY_GET_CLASS_PARENTS = 0,
-	DYN_PREP_QUERY_GET_CLASS_PARENTS_BY_SYMBOL_ID,
-	DYN_PREP_QUERY_GET_GLOBAL_MEMBERS_FILTERED,
-	DYN_PREP_QUERY_GET_SCOPE_MEMBERS,
-	DYN_PREP_QUERY_GET_CURRENT_SCOPE,
-	DYN_PREP_QUERY_GET_FILE_SYMBOLS,
-	DYN_PREP_QUERY_GET_SYMBOL_INFO_BY_ID,
-	DYN_PREP_QUERY_FIND_SYMBOL_NAME_BY_PATTERN,
-	DYN_PREP_QUERY_FIND_SYMBOL_BY_NAME_PATTERN_FILTERED,
-	DYN_PREP_QUERY_FIND_SYMBOL_BY_NAME_PATTERN_FILE,
-	DYN_PREP_QUERY_FIND_SYMBOL_IN_SCOPE,
-	DYN_PREP_QUERY_GET_SCOPE_MEMBERS_BY_SYMBOL_ID,
-	DYN_PREP_QUERY_GET_SCOPE_MEMBERS_BY_SYMBOL_ID_FILTERED,
-	DYN_PREP_QUERY_GET_FILES_FOR_PROJECT,
-	DYN_PREP_QUERY_COUNT
-		
-} dyn_query_type;
-
-/**
- * dyn_query_node's possible structures
- *
- *           sym_extra_info_gtree          with has_gtree_child = FALSE
- *                   |
- *       ... +-------+-------+ ...
- *           |       |       |    <========  keys = sym_info
- *         CDQN    CDQN    CDQN              values = ChildDynQueryNode
- *
- *
- *
- *           sym_extra_info_gtree          with has_gtree_child = TRUE
- *                   |
- *       ... +-------+-------+ ...
- *           |       |       |    <========  keys = sym_info, values = GTree
- *         GTree    GTree   GTree            
- *         / | \     |       |    <========  keys = other_parameters, values = ChildDynQueryNode
- *        /  |  \   ...     ...   
- *     CDQN CDQN CDQN
- *
- *
- */
-typedef struct _dyn_query_node {
-	dyn_query_type dyn_query_id;
-	GTree * sym_extra_info_gtree;
-	gboolean has_gtree_child;
-	
-} dyn_query_node;
-
-typedef struct _ChildDynQueryNode {
-	gchar *query_str;
-	GdaStatement *stmt;
-	GdaSet *plist;	
-	
-} DynChildQueryNode;
-
-
-/* WARNING: these must match the ones on libanjuta.idl [IAnjutaSymbol::Field] */
-typedef enum {
-	SYMINFO_SIMPLE = 1,
-	SYMINFO_FILE_PATH = 2,
-	SYMINFO_IMPLEMENTATION = 4,
-	SYMINFO_ACCESS = 8,
-	SYMINFO_KIND = 16,
-	SYMINFO_TYPE = 32,
-	SYMINFO_TYPE_NAME = 64,
-	SYMINFO_LANGUAGE = 128,
-	SYMINFO_FILE_IGNORE = 256,
-	SYMINFO_FILE_INCLUDE = 512,
-	SYMINFO_PROJECT_NAME = 1024,
-	SYMINFO_WORKSPACE_NAME = 2048
-	
-} SymExtraInfo;
-
-/* WARNING: these must match the ones on libanjuta.idl [IAnjutaSymbol::Type] */
-typedef enum 
-{
-	SYMTYPE_UNDEF = 1,                
-	SYMTYPE_CLASS = 2,                
-	SYMTYPE_ENUM = 4,                 
-	SYMTYPE_ENUMERATOR = 8,           
-	SYMTYPE_FIELD = 16,               
-	SYMTYPE_FUNCTION = 32,            
-	SYMTYPE_INTERFACE = 64,           
-	SYMTYPE_MEMBER = 128,             
-	SYMTYPE_METHOD = 256,             
-	SYMTYPE_NAMESPACE = 512,          
-	SYMTYPE_PACKAGE = 1024,           
-	SYMTYPE_PROTOTYPE = 2048,         
-	SYMTYPE_STRUCT = 4096,            
-	SYMTYPE_TYPEDEF = 8192,           
-	SYMTYPE_UNION = 16384,            
-	SYMTYPE_VARIABLE = 32768,
-	SYMTYPE_EXTERNVAR = 65536,
-	SYMTYPE_MACRO = 131072,
-	SYMTYPE_MACRO_WITH_ARG = 262144,
-	SYMTYPE_FILE = 524288,
-	SYMTYPE_OTHER = 1048576,
-	SYMTYPE_SCOPE_CONTAINER = SYMTYPE_CLASS | SYMTYPE_ENUM | SYMTYPE_ENUMERATOR |
-							SYMTYPE_INTERFACE | SYMTYPE_NAMESPACE | SYMTYPE_PACKAGE |
-							SYMTYPE_STRUCT | SYMTYPE_TYPEDEF | SYMTYPE_UNION,
-	SYMTYPE_MAX = 2097151,	
-		
-} SymType;
-
-/* WARNING: these must match the ones on libanjuta.idl [IAnjutaSymbolManager:SearchFileScope] */
-typedef enum 
-{
-	SYMSEARCH_FILESCOPE_IGNORE = -1,
-	SYMSEARCH_FILESCOPE_PUBLIC = 1,
-	SYMSEARCH_FILESCOPE_PRIVATE = 0
-	
-} SymSearchFileScope;
+typedef IAnjutaSymbolType SymType;
 
 /* the SymbolDBEngine Private structure */
 struct _SymbolDBEnginePriv
@@ -327,6 +162,7 @@ struct _SymbolDBEnginePriv
 	GAsyncQueue *updated_symbols_id;
 	GAsyncQueue *updated_scope_symbols_id;
 	GAsyncQueue *inserted_symbols_id;
+	gint scanning;
 	
 	gchar *shared_mem_str;
 	FILE *shared_mem_file;
@@ -334,6 +170,8 @@ struct _SymbolDBEnginePriv
 	AnjutaLauncher *ctags_launcher;
 	GList *removed_launchers;
 	gboolean shutting_down;
+	gboolean is_first_population;
+	gsize symbols_scanned_count;
 	
 	GMutex* mutex;
 	GAsyncQueue* signals_queue;
@@ -351,20 +189,17 @@ struct _SymbolDBEnginePriv
 	/* Caches */
 	GHashTable *kind_cache;
 	GHashTable *access_cache;
-	GHashTable *implementation_cache;	
-	
-	GTree *file_symbols_cache;
+	GHashTable *implementation_cache;
+	GHashTable *language_cache;
+
+	/* Table maps */
+	GQueue *tmp_heritage_tablemap;
 	
 	static_query_node *static_query_list[PREP_QUERY_COUNT]; 
-	dyn_query_node *dyn_query_list[DYN_PREP_QUERY_COUNT];
-	
-#ifdef USE_ASYNC_QUEUE	
-	GAsyncQueue *mem_pool_string;
-	GAsyncQueue *mem_pool_int;
-#else
-	GQueue *mem_pool_string;
-	GQueue *mem_pool_int;
-#endif
+
+#ifdef DEBUG
+	GTimer *first_scan_timer_DEBUG;
+#endif	
 };
 
 #endif

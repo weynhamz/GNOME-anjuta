@@ -39,15 +39,6 @@ sdb_engine_get_statement_by_query_id (SymbolDBEngine * dbe, static_query_type qu
 extern GNUC_INLINE const GdaSet *
 sdb_engine_get_query_parameters_list (SymbolDBEngine *dbe, static_query_type query_id);
 
-extern GNUC_INLINE const DynChildQueryNode *
-sdb_engine_get_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type query_id,
-									 SymExtraInfo sym_info, gsize other_parameters);
-
-extern GNUC_INLINE const DynChildQueryNode *
-sdb_engine_insert_dyn_query_node_by_id (SymbolDBEngine *dbe, dyn_query_type query_id,
-									 	SymExtraInfo sym_info, gsize other_parameters,
-										const gchar *sql);
-
 /*
  * implementation starts here 
  */
@@ -68,44 +59,31 @@ gchar*
 symbol_db_util_get_full_local_path (SymbolDBEngine *dbe, const gchar* file)
 {
 	SymbolDBEnginePriv *priv;
-	gchar *full_path;
-	
 	g_return_val_if_fail (dbe != NULL, NULL);
 	
 	priv = dbe->priv;
-	full_path = g_strdup_printf ("%s%s", priv->project_directory, file);
-	return full_path;	
+	return g_build_filename (priv->project_directory, file, NULL);
 }
 
-gchar*
+const gchar*
 symbol_db_util_get_file_db_path (SymbolDBEngine *dbe, const gchar* full_local_file_path)
 {
 	SymbolDBEnginePriv *priv;
-	gchar *relative_path;
-	const gchar *tmp;
 	g_return_val_if_fail (dbe != NULL, NULL);
 	g_return_val_if_fail (full_local_file_path != NULL, NULL);
 		
 	priv = dbe->priv;
 	
-	if (priv->db_directory == NULL)
+	if (priv->db_directory == NULL ||
+	    strlen (priv->project_directory) >= strlen (full_local_file_path)) 
 		return NULL;
 
-	if (strlen (priv->project_directory) >= strlen (full_local_file_path)) 
-	{
-		return NULL;
-	}
-
-	tmp = full_local_file_path + strlen (priv->project_directory);
-	relative_path = strdup (tmp);
-
-	return relative_path;
+	return full_local_file_path + strlen (priv->project_directory);
 }
 
 GPtrArray *
 symbol_db_util_get_files_with_zero_symbols (SymbolDBEngine *dbe)
 {
-	/*select * from file where file_id not in (select file_defined_id from symbol);*/
 	SymbolDBEnginePriv *priv;
 	GdaDataModel *data_model;
 	GPtrArray *files_to_scan;
@@ -114,10 +92,10 @@ symbol_db_util_get_files_with_zero_symbols (SymbolDBEngine *dbe)
 
 	g_return_val_if_fail (dbe != NULL, NULL);
 	priv = dbe->priv;
-	
+
 	if (priv->mutex)
 		g_mutex_lock (priv->mutex);	
-	
+
 	if ((stmt = sdb_engine_get_statement_by_query_id (dbe,
 								 PREP_QUERY_GET_ALL_FROM_FILE_WHERE_NOT_IN_SYMBOLS))
 		== NULL)
@@ -283,240 +261,4 @@ symbol_db_util_get_pixbuf  (const gchar *node_type, const gchar *node_access)
 	}
 	
 	return pix;
-}
-
-gboolean
-symbol_db_util_is_pattern_exact_match (const gchar *pattern)
-{
-	gint i;
-	g_return_val_if_fail (pattern != NULL, FALSE);
-	gint str_len = strlen (pattern);
-	gboolean found_sequence = FALSE;
-	gint count = 0;
-	
-	for (i = 0; i < str_len; i++)
-	{
-		gchar c = pattern[i];
-		gint j = i;
-		
-		while (c == '%')
-		{
-			found_sequence = TRUE;
-			count++;
-			/* grab the next one */
-			if (j + 1 < str_len)
-			{				
-				c = pattern[j+1];
-				j++;
-			}
-			else 
-			{
-				break;
-			}			
-		}
-		
-		if (found_sequence)
-			break;
-	}
-
-	return (count % 2 == 1) ? FALSE : TRUE;
-}
-
-GPtrArray *
-symbol_db_util_fill_type_array (SymType match_types)
-{
-	GPtrArray *filter_array;
-	filter_array = g_ptr_array_new ();
-
-	if (match_types & SYMTYPE_CLASS)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("class"));
-	}
-
-	if (match_types & SYMTYPE_ENUM)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("enum"));
-	}
-	
-	if (match_types & SYMTYPE_ENUMERATOR)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("enumerator"));
-	}
-	
-	if (match_types & SYMTYPE_FIELD)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("field"));
-	}
-	
-	if (match_types & SYMTYPE_FUNCTION)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("function"));
-	}
-	
-	if (match_types & SYMTYPE_INTERFACE)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("interface"));
-	}
-	
-	if (match_types & SYMTYPE_MEMBER)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("member"));
-	}
-	
-	if (match_types & SYMTYPE_METHOD)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("method"));
-	}
-	
-	if (match_types & SYMTYPE_NAMESPACE)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("namespace"));
-	}
-	
-	if (match_types & SYMTYPE_PACKAGE)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("package"));
-	}
-	
-	if (match_types & SYMTYPE_PROTOTYPE)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("prototype"));
-	}
-	
-	if (match_types & SYMTYPE_STRUCT)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("struct"));
-	}
-
-	if (match_types & SYMTYPE_TYPEDEF)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("typedef"));
-	}
-	
-	if (match_types & SYMTYPE_STRUCT)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("struct"));
-	}
-	
-	if (match_types & SYMTYPE_UNION)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("union"));
-	}
-	
-	if (match_types & SYMTYPE_VARIABLE)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("variable"));
-	}
-				
-	if (match_types & SYMTYPE_EXTERNVAR)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("externvar"));
-	}
-	
-	if (match_types & SYMTYPE_MACRO)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("macro"));
-	}
-	
-	if (match_types & SYMTYPE_MACRO_WITH_ARG)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("macro_with_arg"));
-	}
-	
-	if (match_types & SYMTYPE_FILE)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("file"));
-	}
-	
-	if (match_types & SYMTYPE_VARIABLE)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("variable"));
-	}
-	
-	if (match_types & SYMTYPE_OTHER)
-	{
-		g_ptr_array_add (filter_array, g_strdup ("other"));
-	}
-
-	return filter_array;
-}
-
-const GHashTable*
-symbol_db_util_get_sym_type_conversion_hash (SymbolDBEngine *dbe)
-{
-	SymbolDBEnginePriv *priv;
-	g_return_val_if_fail (dbe != NULL, NULL);
-	
-	priv = dbe->priv;
-		
-	return priv->sym_type_conversion_hash;
-}
-
-GPtrArray* 
-symbol_db_util_get_c_source_files (const gchar* dir)
-{
-	GHashTable *mimes;
-	GPtrArray *res;
-
-	mimes = g_hash_table_new (g_str_hash, g_str_equal);
-	g_hash_table_insert (mimes, "text/x-csrc", "text/x-csrc");
-	g_hash_table_insert (mimes, "text/x-chdr", "text/x-chdr");
-
-	res = symbol_db_util_get_source_files_by_mime (dir, mimes);
-	
-	g_hash_table_destroy (mimes);
-	return res;
-}
-
-GPtrArray * 
-symbol_db_util_get_source_files_by_mime (const gchar* dir, const GHashTable *mimes)
-{
-	GPtrArray* files = g_ptr_array_new();
-	GFile *file;
-	GFileEnumerator *enumerator;
-	GFileInfo* info;
-	GError *error = NULL;
-	gchar *buildable_dir;
-
-	g_return_val_if_fail (dir != NULL, NULL);
-	g_return_val_if_fail (mimes != NULL, NULL);
-		
-	if ((file = g_file_new_for_commandline_arg (dir)) == NULL)
-		return NULL;
-		
-	enumerator = g_file_enumerate_children (file, 
-			G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE ","
-			G_FILE_ATTRIBUTE_STANDARD_NAME,
-			G_FILE_QUERY_INFO_NONE,
-			NULL, &error);
-	
-	if (!enumerator)
-	{
-		g_warning ("Could not enumerate: %s %s\n", 
-				g_file_get_path (file),
-				error->message);
-		g_error_free (error);
-		g_object_unref (file);
-		return files;
-	}
-
-	buildable_dir = g_file_get_path (file);
-		
-	for (info = g_file_enumerator_next_file (enumerator, NULL, NULL); info != NULL; 
-			info = g_file_enumerator_next_file (enumerator, NULL, NULL))
-	{
-		const gchar *mime_type = g_file_info_get_content_type (info);
-		if (!mime_type)
-			continue;
-		if (g_hash_table_lookup ((GHashTable*)mimes, mime_type) != NULL)
-		{
-			g_ptr_array_add (files, g_build_filename (buildable_dir, g_file_info_get_name (info), NULL));
-		}
-	}
-
-	g_free (buildable_dir);
-	g_object_unref (enumerator);
-	g_object_unref (file);
-		
-	return files;
 }

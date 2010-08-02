@@ -27,10 +27,11 @@
 
 #include <glib-object.h>
 #include <glib.h>
+#include <libgda/gda-statement.h>
+#include <libgda/gda-data-model.h>
 #include <libanjuta/interfaces/ianjuta-symbol.h>
 #include <libanjuta/interfaces/ianjuta-language.h>
 #include <libanjuta/anjuta-plugin.h>
-#include "symbol-db-engine-iterator.h"
 
 G_BEGIN_DECLS
 
@@ -124,6 +125,12 @@ symbol_db_engine_close_db (SymbolDBEngine *dbe);
  */
 gboolean
 symbol_db_engine_is_connected (SymbolDBEngine * dbe);
+
+/**
+ * Check if engine is scanning busy
+ */
+gboolean
+symbol_db_engine_is_scanning (SymbolDBEngine *dbe);
 
 /**
  * Getter for the connection string. Returned char must be freed by caller.
@@ -230,12 +237,12 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe,
 
 /** Remove a file, together with its symbols, from a project. */
 gboolean 
-symbol_db_engine_remove_file (SymbolDBEngine *dbe, const gchar* project, 
-							  const gchar* abs_file);
+symbol_db_engine_remove_file (SymbolDBEngine *dbe, const gchar *project,
+                              const gchar* rel_file);
 
 void
-symbol_db_engine_remove_files (SymbolDBEngine * dbe, const gchar * project,
-							  const GPtrArray * files);
+symbol_db_engine_remove_files (SymbolDBEngine * dbe, const gchar *project,
+                               const GPtrArray *rel_files);
 
 /**
  * Update symbols of saved files. 
@@ -263,6 +270,13 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar * proj
 										const GPtrArray * buffer_sizes);
 
 /**
+ * Retrieves the list of files in project. The data model contains only 1
+ * column, which is the file name.
+ */
+GdaDataModel*
+symbol_db_engine_get_files_for_project (SymbolDBEngine *dbe);
+
+/**
  * Set the opened db case sensitive. The searches on this db will then be performed
  * taking into consideration this SQLite's PRAGMA case_sensitive_like.
  */
@@ -274,6 +288,18 @@ symbol_db_engine_set_db_case_sensitive (SymbolDBEngine *dbe, gboolean case_sensi
  */
 GdaStatement*
 symbol_db_engine_get_statement (SymbolDBEngine *dbe, const gchar *sql_str);
+
+/**
+ * Get conversion hash table used to convert symbol type name to enum value
+ */
+const GHashTable*
+symbol_db_engine_get_type_conversion_hash (SymbolDBEngine *dbe);
+
+/**
+ * Gets the project directory (used to construct absolute paths)
+ */
+const gchar*
+symbol_db_engine_get_project_directory (SymbolDBEngine *dbe);
 
 /**
  * Executes a parameterized sql statement

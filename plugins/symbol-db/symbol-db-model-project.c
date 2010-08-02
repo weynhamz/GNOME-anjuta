@@ -28,20 +28,15 @@
 		symbol.scope_definition_id, \
 		symbol.signature, \
 		symbol.returntype, \
+		symbol.type_type, \
+		symbol.type_name, \
 		file.file_path, \
 		sym_access.access_name, \
-		sym_type.type_type, \
-		sym_type.type_name, \
-		(symbol.kind_id IN \
-		( \
-			SELECT sym_kind_id \
-			FROM sym_kind \
-			WHERE kind_name IN ('class', 'namespace', 'enum', 'struct', 'union') \
-		)) AS has_child \
+		sym_kind.is_container \
 	FROM symbol \
 	LEFT JOIN file ON symbol.file_defined_id = file.file_id \
 	LEFT JOIN sym_access ON symbol.access_kind_id = sym_access.access_kind_id \
-	LEFT JOIN sym_type ON symbol.type_id = sym_type.type_id \
+	LEFT JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id \
 	WHERE \
 	( \
 		symbol.scope_id = ## /* name:'parent' type:gint */ \
@@ -90,8 +85,10 @@ struct _SymbolDBModelProjectPriv
 	GdaStatement *stmt;
 	GdaSet *params;
 	GdaHolder *param_parent_id, *param_limit, *param_offset;
+	gboolean show_file_line;
 };
 
+/* this values must map the fields of SDB_MODEL_PROJECT_SQL */
 enum {
 	DATA_COL_SYMBOL_ID,
 	DATA_COL_SYMBOL_NAME,
@@ -99,10 +96,10 @@ enum {
 	DATA_COL_SYMBOL_SCOPE_DEFINITION_ID,
 	DATA_COL_SYMBOL_ARGS,
 	DATA_COL_SYMBOL_RETURNTYPE,
+	DATA_COL_SYMBOL_TYPE,
+	DATA_COL_SYMBOL_TYPE_NAME,	
 	DATA_COL_SYMBOL_FILE_PATH,
 	DATA_COL_SYMBOL_ACCESS,
-	DATA_COL_SYMBOL_TYPE,
-	DATA_COL_SYMBOL_TYPE_NAME,
 	DATA_COL_SYMBOL_HAS_CHILD,
 	DATA_N_COLS
 };
@@ -110,7 +107,8 @@ enum {
 enum
 {
 	PROP_0,
-	PROP_SYMBOL_DB_ENGINE
+	PROP_SYMBOL_DB_ENGINE,
+	PROP_SHOW_FILE_LINE
 };
 
 G_DEFINE_TYPE (SymbolDBModelProject, sdb_model_project,
@@ -279,6 +277,26 @@ sdb_model_project_get_query_value (SymbolDBModel *model,
 				g_free (escaped);
 			}
 		}
+		if (SYMBOL_DB_MODEL_PROJECT (model)->priv->show_file_line)
+		{
+			ret_value =
+				gda_data_model_iter_get_value_at (iter,
+					                              DATA_COL_SYMBOL_FILE_PATH);
+			if (ret_value && G_VALUE_HOLDS_STRING (ret_value))
+			{
+				gint file_line = 0;
+				const gchar* file_name = g_value_get_string (ret_value);
+				
+				ret_value =
+					gda_data_model_iter_get_value_at (iter,
+					                                  DATA_COL_SYMBOL_FILE_LINE);
+				file_line = g_value_get_int (ret_value);
+				g_string_append_printf
+					(label,
+					 "\n<span font-size=\"x-small\" font-weight=\"ultralight\"><tt>%s:%d</tt></span>",
+					 file_name, file_line);
+			}
+		}
 		g_value_take_string (value, label->str);
 		g_string_free (label, FALSE);
 		return TRUE;
@@ -356,6 +374,9 @@ sdb_model_project_set_property (GObject *object, guint prop_id,
 		
 		symbol_db_model_update (SYMBOL_DB_MODEL (object));
 		break;
+	case PROP_SHOW_FILE_LINE:
+		priv->show_file_line = g_value_get_boolean (value);
+		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 		break;
@@ -375,6 +396,9 @@ sdb_model_project_get_property (GObject *object, guint prop_id,
 	{
 	case PROP_SYMBOL_DB_ENGINE:
 		g_value_set_object (value, priv->dbe);
+		break;
+	case PROP_SHOW_FILE_LINE:
+		g_value_set_boolean (value, priv->show_file_line);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -483,6 +507,14 @@ sdb_model_project_class_init (SymbolDBModelProjectClass *klass)
 		                      G_PARAM_READABLE |
 		                      G_PARAM_WRITABLE |
 		                      G_PARAM_CONSTRUCT_ONLY));
+	g_object_class_install_property
+		(object_class, PROP_SHOW_FILE_LINE,
+		 g_param_spec_boolean ("show-file-line",
+		                       "Show file and line",
+		                       "Show file and line number in labels",
+		                       FALSE,
+		                       G_PARAM_READABLE |
+		                       G_PARAM_WRITABLE));
 }
 
 GtkTreeModel*

@@ -507,7 +507,7 @@ parse_mode_line_vim (CppJavaPlugin *plugin, const gchar *modeline)
 {
 	gchar **strv, **ptr;
 	
-	strv = g_strsplit (modeline, " ", -1);
+	strv = g_strsplit_set (modeline, " \t:", -1);
 	ptr = strv;
 	while (*ptr)
 	{
@@ -516,15 +516,15 @@ parse_mode_line_vim (CppJavaPlugin *plugin, const gchar *modeline)
 		if (keyval[0])
 		{
 			g_strstrip (keyval[0]);
-      if (keyval[1])
-      {
-			  g_strstrip (keyval[1]);
-			  set_indentation_param_vim (plugin, g_strchug (keyval[0]),
-                                     g_strchug (keyval[1]));
-      }
-      else
-			  set_indentation_param_vim (plugin, g_strchug (keyval[0]),
-                                     NULL);        
+			if (keyval[1])
+			{
+				g_strstrip (keyval[1]);
+				set_indentation_param_vim (plugin, g_strchug (keyval[0]),
+				                           g_strchug (keyval[1]));
+			}
+			else
+				set_indentation_param_vim (plugin, g_strchug (keyval[0]),
+				                           NULL);        
 		}
 		g_strfreev (keyval);
 		ptr++;
@@ -549,18 +549,18 @@ extract_mode_line (const gchar *comment_text, gboolean* vim)
 		}
 	}
 	/* Search for vim-like modelines */
-	begin_modeline = strstr (comment_text, "vim:set");
+	begin_modeline = strstr (comment_text, "vim:");
 	if (begin_modeline)
 	{
-		begin_modeline += 7;
-		end_modeline = strstr (begin_modeline, ":");
+		begin_modeline += strlen ("vim:");
+		end_modeline = strstr (begin_modeline, "*/");
 		/* Check for escape characters */
 		while (end_modeline)
 		{
 			 if (!g_str_equal ((end_modeline - 1), "\\"))
 				break;
 			end_modeline++;
-			end_modeline = strstr (end_modeline, ":");
+			end_modeline = strstr (end_modeline, "*/");
 		}
 		if (end_modeline)
 		{
@@ -1498,31 +1498,27 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 			/* If the previous char is a ' we don't have to autocomplete */
 			if (*prev_char != '\'')
 			{
-				
+				ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (editor), NULL);
 				ianjuta_iterable_next (iter, NULL);
 				switch (ch)
 				{
-					case '[': ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (editor), NULL);
+					case '[': 
 							  ianjuta_editor_insert (editor, iter,
 													 "]", 1, NULL);
-							  ianjuta_document_end_undo_action (IANJUTA_DOCUMENT (editor), NULL);
 							  break;
-					case '(': ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (editor), NULL);
+					case '(': 
 							  ianjuta_editor_insert (editor, iter,
 													 ")", 1, NULL);
-							  ianjuta_document_end_undo_action (IANJUTA_DOCUMENT (editor), NULL);
 							  break;
-					default: break;
+					default: 
+						       break;
 				}
-
-				ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (editor), NULL);
-				ianjuta_iterable_previous (iter, NULL);
 				ianjuta_editor_goto_position (editor, iter, NULL);
 				ianjuta_document_end_undo_action (IANJUTA_DOCUMENT (editor), NULL);
 			}
 			g_object_unref (previous);
 		}
-		else if (ch == ']' || ch == ')' || ch == '"' || ch == '\'')
+		else if (ch == '"' || ch == '\'')
 		{
 			gchar *prev_char;
 			IAnjutaIterable *previous;
@@ -1553,8 +1549,6 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 					
 					ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (editor), NULL);
 					ianjuta_editor_insert (editor, iter, c, 1, NULL);
-
-					ianjuta_iterable_previous (iter, NULL);
 					ianjuta_editor_goto_position (editor, iter, NULL);
 					ianjuta_document_end_undo_action (IANJUTA_DOCUMENT (editor), NULL);	
 					

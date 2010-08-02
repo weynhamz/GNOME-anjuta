@@ -178,9 +178,16 @@ anjuta_async_command_class_init (AnjutaAsyncCommandClass *klass)
 	parent_class->notify_progress = notify_progress;
 }
 
+/**
+ * anjuta_async_command_set_error_message:
+ * @command: AnjutaAsyncCommand object
+ * @error_message: The error message that should be used
+ *
+ * Set the error message this async command resulted in
+ */
 void
 anjuta_async_command_set_error_message (AnjutaCommand *command, 
-										gchar *error_message)
+										const gchar *error_message)
 {
 	anjuta_async_command_lock (ANJUTA_ASYNC_COMMAND (command));
 	ANJUTA_COMMAND_GET_CLASS (command)->set_error_message (command, 
@@ -188,6 +195,13 @@ anjuta_async_command_set_error_message (AnjutaCommand *command,
 	anjuta_async_command_unlock (ANJUTA_ASYNC_COMMAND (command));
 }
 
+/**
+ * anjuta_async_command_get_error_message:
+ * @command: AnjutaAsyncCommand object
+ *
+ * Returns: The error message the async command resulted in. The caller
+ * should free the string
+ */
 gchar *
 anjuta_async_command_get_error_message (AnjutaCommand *command)
 {

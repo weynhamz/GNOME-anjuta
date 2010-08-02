@@ -71,9 +71,11 @@ gboolean dma_queue_run (DmaDebuggerQueue *self);
 gboolean dma_queue_step_in (DmaDebuggerQueue *self);
 gboolean dma_queue_step_over (DmaDebuggerQueue *self);
 gboolean dma_queue_run_to (DmaDebuggerQueue *self, const gchar *file, gint line);
+gboolean dma_queue_run_from (DmaDebuggerQueue *self, const gchar *file, gint line);
 gboolean dma_queue_stepi_in (DmaDebuggerQueue *self);
 gboolean dma_queue_stepi_over (DmaDebuggerQueue *self);
 gboolean dma_queue_run_to_address (DmaDebuggerQueue *self, gulong address);
+gboolean dma_queue_run_from_address (DmaDebuggerQueue *self, gulong address);
 gboolean dma_queue_step_out (DmaDebuggerQueue *self);
 gboolean dma_queue_exit (DmaDebuggerQueue *self);
 gboolean dma_queue_interrupt (DmaDebuggerQueue *self);
@@ -97,6 +99,7 @@ gboolean dma_queue_info_udot (DmaDebuggerQueue *self, IAnjutaDebuggerCallback ca
 gboolean dma_queue_info_variables (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data);
 gboolean dma_queue_set_frame (DmaDebuggerQueue *self, guint frame);
 gboolean dma_queue_list_frame (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data);
+gboolean dma_queue_dump_stack_trace (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data);
 gboolean dma_queue_list_register (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data);
 gboolean dma_queue_callback (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data);
 void dma_queue_enable_log (DmaDebuggerQueue *self, IAnjutaMessageView *log);
@@ -117,7 +120,7 @@ gboolean dma_queue_disassemble (DmaDebuggerQueue *self, gulong address, guint le
 gboolean dma_queue_delete_variable (DmaDebuggerQueue *self, const gchar *name);
 gboolean dma_queue_evaluate_variable (DmaDebuggerQueue *self, const gchar *name, IAnjutaDebuggerCallback callback, gpointer user_data);
 gboolean dma_queue_assign_variable (DmaDebuggerQueue *self, const gchar *name, const gchar *value);
-gboolean dma_queue_list_children (DmaDebuggerQueue *self, const gchar *name, IAnjutaDebuggerCallback callback, gpointer user_data);
+gboolean dma_queue_list_children (DmaDebuggerQueue *self, const gchar *name, guint from, IAnjutaDebuggerCallback callback, gpointer user_data);
 gboolean dma_queue_create_variable (DmaDebuggerQueue *self, const gchar *name, IAnjutaDebuggerCallback callback, gpointer user_data);
 gboolean dma_queue_update_variable (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback, gpointer user_data);
 

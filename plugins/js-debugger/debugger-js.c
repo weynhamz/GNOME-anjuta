@@ -179,6 +179,7 @@ variable_create (DebuggerJs* object, struct Task *task)
 	var->type = g_strdup ("object");
 	var->value = g_strdup ("object");
 	var->children = 0;
+	var->has_more = FALSE;
 	var->changed = TRUE;
 	var->exited = FALSE;
 	var->deleted = FALSE;
@@ -337,6 +338,7 @@ varibale_list_children (DebuggerJs* object, struct Task *task)
 				var->type = g_strdup (str + k + 1);
 				var->value = g_strdup ("");
 				var->children = 1;
+				var->has_more = FALSE;
 				k = i;
 			}
 			else if (j == 1)
@@ -667,7 +669,7 @@ debugger_js_add_breakpoint (DebuggerJs *object, const gchar* file, guint line)
 }
 
 void
-debugger_js_breakpoint_list (DebuggerJs *object, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_js_breakpoint_list (DebuggerJs *object, IAnjutaDebuggerGListCallback callback, gpointer user_data)
 {
 	DebuggerJsPrivate *priv = DEBUGGER_JS_PRIVATE(object);
 
@@ -676,7 +678,7 @@ debugger_js_breakpoint_list (DebuggerJs *object, IAnjutaDebuggerCallback callbac
 	task_added (object);
 	struct Task *task = g_new (struct Task, 1);
 	task->user_data = user_data;
-	task->callback = callback;
+	task->callback = (IAnjutaDebuggerCallback)callback;
 	task->line_required = 0;
 	task->task_type = BREAKPOINT_LIST;
 
@@ -701,7 +703,7 @@ debugger_js_signal (DebuggerJs *object, IAnjutaDebuggerCallback callback, gpoint
 }
 
 void
-debugger_js_variable_list_children (DebuggerJs *object, IAnjutaDebuggerCallback callback, const gchar *name, gpointer user_data)
+debugger_js_variable_list_children (DebuggerJs *object, IAnjutaDebuggerGListCallback callback, const gchar *name, gpointer user_data)
 {
 	DebuggerJsPrivate *priv = DEBUGGER_JS_PRIVATE(object);
 
@@ -710,7 +712,7 @@ debugger_js_variable_list_children (DebuggerJs *object, IAnjutaDebuggerCallback 
 	task_added (object);
 	struct Task *task = g_new (struct Task, 1);
 	task->user_data = user_data;
-	task->callback = callback;
+	task->callback = (IAnjutaDebuggerCallback)callback;
 	task->line_required = 1;
 	task->task_type = VARIABLE_LIST_CHILDREN;
 	task->this_data.VareableListChildren.name = g_strdup (name);
@@ -722,7 +724,7 @@ debugger_js_variable_list_children (DebuggerJs *object, IAnjutaDebuggerCallback 
 }
 
 void
-debugger_js_list_local (DebuggerJs *object, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_js_list_local (DebuggerJs *object, IAnjutaDebuggerGListCallback callback, gpointer user_data)
 {
 	DebuggerJsPrivate *priv = DEBUGGER_JS_PRIVATE(object);
 
@@ -731,7 +733,7 @@ debugger_js_list_local (DebuggerJs *object, IAnjutaDebuggerCallback callback, gp
 	task_added (object);
 	struct Task *task = g_new (struct Task, 1);
 	task->user_data = user_data;
-	task->callback = callback;
+	task->callback = (IAnjutaDebuggerCallback)callback;
 	task->line_required = 1;
 	task->task_type = LIST_LOCAL;
 
@@ -741,7 +743,7 @@ debugger_js_list_local (DebuggerJs *object, IAnjutaDebuggerCallback callback, gp
 }
 
 void
-debugger_js_list_thread (DebuggerJs *object, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_js_list_thread (DebuggerJs *object, IAnjutaDebuggerGListCallback callback, gpointer user_data)
 {
 	DebuggerJsPrivate *priv = DEBUGGER_JS_PRIVATE(object);
 
@@ -750,7 +752,7 @@ debugger_js_list_thread (DebuggerJs *object, IAnjutaDebuggerCallback callback, g
 	task_added (object);
 	struct Task *task = g_new (struct Task, 1);
 	task->user_data = user_data;
-	task->callback = callback;
+	task->callback = (IAnjutaDebuggerCallback)callback;
 	task->line_required = 0;
 	task->task_type = LIST_THREAD;
 
@@ -758,7 +760,7 @@ debugger_js_list_thread (DebuggerJs *object, IAnjutaDebuggerCallback callback, g
 }
 
 void
-debugger_js_list_frame (DebuggerJs *object, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_js_list_frame (DebuggerJs *object, IAnjutaDebuggerGListCallback callback, gpointer user_data)
 {
 	DebuggerJsPrivate *priv = DEBUGGER_JS_PRIVATE(object);
 
@@ -767,7 +769,7 @@ debugger_js_list_frame (DebuggerJs *object, IAnjutaDebuggerCallback callback, gp
 	task_added (object);
 	struct Task *task = g_new (struct Task, 1);
 	task->user_data = user_data;
-	task->callback = callback;
+	task->callback = (IAnjutaDebuggerCallback)callback;
 	task->line_required = 1;
 	task->task_type = LIST_FRAME;
 
@@ -777,7 +779,7 @@ debugger_js_list_frame (DebuggerJs *object, IAnjutaDebuggerCallback callback, gp
 }
 
 void
-debugger_js_info_thread (DebuggerJs *object, IAnjutaDebuggerCallback callback, gint thread, gpointer user_data)
+debugger_js_info_thread (DebuggerJs *object, IAnjutaDebuggerGListCallback callback, gint thread, gpointer user_data)
 {
 	DebuggerJsPrivate *priv = DEBUGGER_JS_PRIVATE(object);
 
@@ -786,7 +788,7 @@ debugger_js_info_thread (DebuggerJs *object, IAnjutaDebuggerCallback callback, g
 	task_added (object);
 	struct Task *task = g_new (struct Task, 1);
 	task->user_data = user_data;
-	task->callback = callback;
+	task->callback = (IAnjutaDebuggerCallback)callback;
 	task->line_required = 0;
 	task->task_type = INFO_THREAD;
 
@@ -794,7 +796,7 @@ debugger_js_info_thread (DebuggerJs *object, IAnjutaDebuggerCallback callback, g
 }
 
 void
-debugger_js_variable_create (DebuggerJs *object, IAnjutaDebuggerCallback callback, const gchar *name, gpointer user_data)
+debugger_js_variable_create (DebuggerJs *object, IAnjutaDebuggerVariableCallback callback, const gchar *name, gpointer user_data)
 {
 	DebuggerJsPrivate *priv = DEBUGGER_JS_PRIVATE(object);
 
@@ -805,7 +807,7 @@ debugger_js_variable_create (DebuggerJs *object, IAnjutaDebuggerCallback callbac
 	task_added (object);
 	struct Task *task = g_new (struct Task, 1);
 	task->user_data = user_data;
-	task->callback = callback;
+	task->callback = (IAnjutaDebuggerCallback)callback;
 	task->line_required = 1;
 	task->name = g_strdup (name);
 	task->task_type = VARIABLE_CREATE;

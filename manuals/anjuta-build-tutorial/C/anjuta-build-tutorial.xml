@@ -1174,10 +1174,7 @@ AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
 AC_CONFIG_HEADERS([config.h])
 AM_MAINTAINER_MODE
 
-AC_ISC_POSIX
 AC_PROG_CC
-AM_PROG_CC_STDC
-AC_HEADER_STDC
 
 AC_OUTPUT([
 Makefile
@@ -1236,35 +1233,6 @@ Makefile
 					developer, someone modifying the project, needs these rules and has to
 					run configure with --enable-maintainer-mode to keep those.
 					The real interest of this macro is debatable.
-				</para>
-				</listitem>
-				</varlistentry>
-				<varlistentry>
-				<term>AC_ISC_POSIX</term>
-				<listitem>
-				<para>
-					A bit obscure feature, adding one options to support posix compatibility on
-					some targets.
-				</para>
-				</listitem>
-				</varlistentry>
-				<varlistentry>
-				<term>AM_PROG_CC_STDC</term>
-				<listitem>
-				<para>
-					Try to add an option to the C compiler in order to make it run as ANSI C.
-					I suppose that really few compiler need this, as ANSI C is really basic
-					nowadays. Moreover, this option is now implemented by AC_PROG_CC so it is not
-					needed anymore.
-				</para>
-				</listitem>
-				</varlistentry>
-				<varlistentry>
-				<term>AC_HEADER_STDC</term>
-				<listitem>
-				<para>
-					Check for some standard C header files. Most C compilers provide this
-					now, so it's not really needed.
 				</para>
 				</listitem>
 				</varlistentry>

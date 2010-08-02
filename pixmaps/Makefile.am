@@ -1,9 +1,4 @@
-## Process this file with automake to produce Makefile.in
-
-icondir = $(datadir)/icons/hicolor/48x48/apps
-icon_DATA = anjuta.png
-svgicondir = $(datadir)/icons/hicolor/scalable/apps
-svgicon_DATA = anjuta.svg
+SUBDIRS = 16x16 22x22 24x24 32x32 48x48 scalable
 
 gtk_update_icon_cache = gtk-update-icon-cache -f -t $(datadir)/icons/hicolor
 
@@ -22,8 +17,6 @@ anjuta_pixmapsdir = $(anjuta_image_dir)
 
 anjuta_pixmaps_DATA = \
 	madeinanjuta.xcf \
-	anjuta.svg \
-	anjuta.png \
 	anjuta_logo.png \
 	anjuta_splash.png \
 	directory.png \

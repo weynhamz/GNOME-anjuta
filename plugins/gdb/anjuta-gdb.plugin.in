@@ -3,7 +3,7 @@ _Name=Gdb
 _Description=GNU Debugger Plugin
 Location=anjuta-gdb:GdbPlugin
 Icon=anjuta-gdb.plugin.png
-UserActivatable=no
+UserActivatable=yes
 Interfaces=IAnjutaDebugger
 
 [File Loader]

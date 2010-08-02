@@ -55,7 +55,7 @@ struct _DmaDebuggerQueue {
 	/* Command queue */
 	GQueue *queue;
 	DmaQueueCommand *last;
-	gint prepend_command;
+	GList *insert_command;		/* Insert command at the head of the list */
 	
 	IAnjutaDebuggerState debugger_state;
 	IAnjutaDebuggerState queue_state;
@@ -133,7 +133,8 @@ dma_debugger_queue_clear (DmaDebuggerQueue *self)
 	/* Queue is empty so has the same state than debugger */
 	self->queue_state = self->debugger_state;
 	
-	self->prepend_command = 0;
+	g_list_free (self->insert_command);
+	self->insert_command = NULL;
 }
 		
 static void
@@ -203,7 +204,7 @@ dma_queue_emit_debugger_state_change (DmaDebuggerQueue *self, IAnjutaDebuggerSta
 		break;
 	}
 
-	self->prepend_command++;
+	self->insert_command = g_list_prepend (self->insert_command, g_queue_peek_head_link (self->queue));
 	/* Emit signal */
 	switch (signal)
 	{
@@ -243,7 +244,7 @@ dma_queue_emit_debugger_state_change (DmaDebuggerQueue *self, IAnjutaDebuggerSta
 		g_signal_emit_by_name (self->plugin, "program-running");
 		break;
 	}
-	self->prepend_command--;
+	self->insert_command = g_list_delete_link (self->insert_command, self->insert_command);
 }
 
 static void
@@ -328,16 +329,7 @@ dma_queue_emit_debugger_ready (DmaDebuggerQueue *self)
 		AnjutaStatus* status;
 		
 		status = anjuta_shell_get_status(ANJUTA_PLUGIN (self->plugin)->shell, NULL);
-		if (busy)
-		{
-			anjuta_status_busy_push (status);
-			self->busy = TRUE;
-		}
-		else
-		{
-			anjuta_status_busy_pop (status);
-			self->busy = FALSE;
-		}
+		self->busy = busy;
 	}	
 }
 
@@ -449,7 +441,7 @@ dma_queue_check_state (DmaDebuggerQueue *self, DmaQueueCommand* cmd)
 	{
 		IAnjutaDebuggerState state;
 		
-		if (self->prepend_command || dma_command_has_flag (cmd, HIGH_PRIORITY))
+		if ((self->insert_command != NULL) || dma_command_has_flag (cmd, HIGH_PRIORITY))
 		{
 			/* Prepend command and high priority command use debugger state or current command state */
 			if (self->last != NULL)
@@ -640,27 +632,27 @@ static void
 on_dma_program_moved (DmaDebuggerQueue *self, guint pid, gint tid, gulong address, const gchar* src_path, guint line)
 {
 	DEBUG_PRINT ("%s", "From debugger: program moved");
-	self->prepend_command++;
+	self->insert_command = g_list_prepend (self->insert_command, g_queue_peek_head_link (self->queue));
 	g_signal_emit_by_name (self->plugin, "program-moved", pid, tid, address, src_path, line);
-	self->prepend_command--;
+	self->insert_command = g_list_delete_link (self->insert_command, self->insert_command);
 }
 
 static void
 on_dma_frame_changed (DmaDebuggerQueue *self, guint frame, gint thread)
 {
 	DEBUG_PRINT ("%s", "From debugger: frame changed");
-	self->prepend_command++;
+	self->insert_command = g_list_prepend (self->insert_command, g_queue_peek_head_link (self->queue));
 	g_signal_emit_by_name (self->plugin, "frame-changed", frame, thread);
-	self->prepend_command--;
+	self->insert_command = g_list_delete_link (self->insert_command, self->insert_command);
 }
 
 static void
 on_dma_signal_received (DmaDebuggerQueue *self, const gchar* name, const gchar* description)
 {
 	DEBUG_PRINT ("%s", "From debugger: signal received");
-	self->prepend_command++;
+	self->insert_command = g_list_prepend (self->insert_command, g_queue_peek_head_link (self->queue));
 	g_signal_emit_by_name (self->plugin, "signal-received", name, description);
-	self->prepend_command--;
+	self->insert_command = g_list_delete_link (self->insert_command, self->insert_command);
 }
 
 static void
@@ -669,9 +661,9 @@ on_dma_sharedlib_event (DmaDebuggerQueue *self)
 	DEBUG_PRINT ("%s", "From debugger: shared lib event");
 	self->stop_on_sharedlib = TRUE;
 	dma_debugger_queue_complete (self, IANJUTA_DEBUGGER_PROGRAM_STOPPED);
-	self->prepend_command++;
+	self->insert_command = g_list_prepend (self->insert_command, g_queue_peek_head_link (self->queue));
 	g_signal_emit_by_name (self->plugin, "sharedlib-event");
-	self->prepend_command--;
+	self->insert_command = g_list_delete_link (self->insert_command, self->insert_command);
 	dma_queue_run (self);
 }
 
@@ -686,18 +678,18 @@ dma_debugger_queue_command_callback (const gpointer data, gpointer user_data, GE
 
 	g_return_if_fail (self->last != NULL);
 	
-	self->prepend_command++;
+	self->insert_command = g_list_prepend (self->insert_command, g_queue_peek_head_link (self->queue));
 	if (self->queue_state != IANJUTA_DEBUGGER_STOPPED)
 	{
 		dma_command_callback (self->last, data, err);
 	}
-	self->prepend_command--;
+	self->insert_command = g_list_delete_link (self->insert_command, self->insert_command);
 }
 
 gboolean
 dma_debugger_queue_append (DmaDebuggerQueue *self, DmaQueueCommand *cmd)
 {
-	DEBUG_PRINT("append cmd %x prepend %d", dma_command_get_type (cmd), self->prepend_command);
+	DEBUG_PRINT("append cmd %x prepend %p", dma_command_get_type (cmd), self->insert_command);
 	DEBUG_PRINT("current %x", self->last == NULL ? 0 : dma_command_get_type (self->last));
 	DEBUG_PRINT("queue %x", self->queue->head == NULL ? 0 : dma_command_get_type (self->queue->head->data));
 	
@@ -726,7 +718,7 @@ dma_debugger_queue_append (DmaDebuggerQueue *self, DmaQueueCommand *cmd)
 				dma_debugger_queue_complete (self, self->debugger_state);
 			}
 		}
-		else if ((self->prepend_command > 0) || dma_command_has_flag (cmd, HIGH_PRIORITY))
+		else if (dma_command_has_flag (cmd, HIGH_PRIORITY))
 		{
 			IAnjutaDebuggerState state;
 			
@@ -739,6 +731,20 @@ dma_debugger_queue_append (DmaDebuggerQueue *self, DmaQueueCommand *cmd)
 			
 			/* Prepend command at the beginning */
 			g_queue_push_head (self->queue, cmd);
+		}
+		else if ((self->insert_command != NULL) && (self->insert_command->data != NULL))
+		{
+			IAnjutaDebuggerState state;
+			
+			state = dma_command_is_going_to_state (cmd);
+			if (state != IANJUTA_DEBUGGER_BUSY)
+			{
+				/* Command is changing debugger state */
+				dma_queue_cancel_unexpected (self, state);
+			}
+			
+			/* Insert command in the beginning */
+			g_queue_insert_before (self->queue, (GList *)self->insert_command->data, cmd);
 		}
 		else
 		{
@@ -906,7 +912,7 @@ dma_debugger_queue_instance_init (DmaDebuggerQueue *self)
 	self->queue = g_queue_new ();
 	self->last = NULL;
 	self->busy = FALSE;
-	self->prepend_command = 0;
+	self->insert_command = NULL;
 	self->debugger_state = IANJUTA_DEBUGGER_STOPPED;
 	self->queue_state = IANJUTA_DEBUGGER_STOPPED;
 	self->log = NULL;

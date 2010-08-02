@@ -76,6 +76,7 @@ struct _DebugManagerPlugin
 	GtkActionGroup *loaded_group;
 	GtkActionGroup *stopped_group;
 	GtkActionGroup *running_group;
+	GtkAction *run_stop_action;
 
 	/* Project */
 	gchar *project_root_uri;
@@ -278,12 +279,34 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 		self->current_editor = NULL;
 		return;
 	}
-							 
+
 	self->current_editor = IANJUTA_EDITOR (editor);
 	g_object_add_weak_pointer (G_OBJECT (self->current_editor), (gpointer *)(gpointer)&self->current_editor);
 		
 	/* Restore program counter marker */
 	show_program_counter_in_editor (self);
+
+	/* connect signal to enable/disable breakpoints on double clicking the line marks gutter */
+	/* firstly, find the handler of previously connected signal */
+	/* secondly, connect signal if a handler wasn't found for the signal */
+	guint signal_id = g_signal_lookup( "line-marks-gutter-clicked", IANJUTA_TYPE_EDITOR);
+	glong handler_id = g_signal_handler_find( (gpointer)self->current_editor,
+            G_SIGNAL_MATCH_ID,
+            signal_id,
+            0, NULL, NULL, NULL );
+
+
+	DEBUG_PRINT("current editor %p, breapoints db %p", self->current_editor, self->breakpoints);
+
+	if(!handler_id) {
+		g_signal_connect (
+				self->current_editor,
+				"line-marks-gutter-clicked",
+				G_CALLBACK (breakpoint_toggle_handler),
+				self->breakpoints
+			);
+	}
+
 }
 
 static void
@@ -358,7 +381,6 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 	}
 }
 
-
 /* State functions
  *---------------------------------------------------------------------------*/
 
@@ -384,7 +406,7 @@ dma_plugin_debugger_started (DebugManagerPlugin *this)
 	gtk_action_group_set_sensitive (this->stopped_group, FALSE);
 	gtk_action_group_set_visible (this->running_group, TRUE);
 	gtk_action_group_set_sensitive (this->running_group, FALSE);
-	
+
 	status = anjuta_shell_get_status(ANJUTA_PLUGIN (this)->shell, NULL);
 	anjuta_status_set_default (status, _("Debugger"), _("Started"));
 }
@@ -404,7 +426,9 @@ dma_plugin_program_loaded (DebugManagerPlugin *this)
 	gtk_action_group_set_sensitive (this->loaded_group, TRUE);
 	gtk_action_group_set_sensitive (this->stopped_group, FALSE);
 	gtk_action_group_set_sensitive (this->running_group, FALSE);
-	
+
+	gtk_action_set_sensitive (this->run_stop_action, FALSE);
+
 	status = anjuta_shell_get_status(ANJUTA_PLUGIN (this)->shell, NULL);
 	anjuta_status_set_default (status, _("Debugger"), _("Loaded"));
 }
@@ -424,6 +448,11 @@ dma_plugin_program_running (DebugManagerPlugin *this)
 	gtk_action_group_set_sensitive (this->loaded_group, TRUE);
 	gtk_action_group_set_sensitive (this->stopped_group, FALSE);
 	gtk_action_group_set_sensitive (this->running_group, TRUE);
+	
+	gtk_action_set_sensitive (this->run_stop_action, TRUE);
+	gtk_action_set_stock_id (this->run_stop_action, GTK_STOCK_MEDIA_PAUSE);
+	gtk_action_set_label (this->run_stop_action, _("Pa_use Program"));
+	gtk_action_set_tooltip (this->run_stop_action, _("Pauses the execution of the program"));
 	
 	status = anjuta_shell_get_status(ANJUTA_PLUGIN (this)->shell, NULL);
 	anjuta_status_set_default (status, _("Debugger"), _("Running…"));
@@ -446,6 +475,11 @@ dma_plugin_program_stopped (DebugManagerPlugin *this)
 	gtk_action_group_set_sensitive (this->loaded_group, TRUE);
 	gtk_action_group_set_sensitive (this->stopped_group, TRUE);
 	gtk_action_group_set_sensitive (this->running_group, FALSE);
+
+	gtk_action_set_sensitive (this->run_stop_action, TRUE);
+	gtk_action_set_stock_id (this->run_stop_action, GTK_STOCK_MEDIA_PLAY);
+	gtk_action_set_label (this->run_stop_action, _("Run/_Continue"));
+	gtk_action_set_tooltip (this->run_stop_action, _("Continue the execution of the program"));
 
 	status = anjuta_shell_get_status(ANJUTA_PLUGIN (this)->shell, NULL);
 	anjuta_status_set_default (status, _("Debugger"), _("Stopped"));
@@ -513,9 +547,7 @@ dma_plugin_debugger_stopped (DebugManagerPlugin *self, GError *err)
 
 	/* clear indicator */
 	set_program_counter (self, NULL, 0, 0);
-	
-	enable_log_view (self, FALSE);
-	
+
 	state = anjuta_shell_get_status(ANJUTA_PLUGIN (self)->shell, NULL);
 	anjuta_status_set_default (state, _("Debugger"), NULL);
 
@@ -613,6 +645,22 @@ on_run_continue_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 }
 
 static void
+on_continue_suspend_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
+{
+	if (plugin->queue)
+	{
+		if (gtk_action_group_get_sensitive (plugin->running_group))
+		{
+			dma_queue_interrupt (plugin->queue);
+		}
+		else
+		{
+			dma_queue_run (plugin->queue);
+		}
+	}
+}
+
+static void
 on_step_in_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 {
 	if (plugin->queue)
@@ -681,6 +729,42 @@ on_run_to_cursor_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 	
 			line = ianjuta_editor_get_lineno (editor, NULL);
 			dma_queue_run_to (plugin->queue, filename, line);
+			g_free (filename);
+			g_object_unref (file);
+		}
+	}
+}
+
+static void
+on_run_from_cursor_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
+{
+	if (plugin->queue)
+	{
+		if ((plugin->disassemble != NULL) && (dma_disassemble_is_focus (plugin->disassemble)))
+		{
+			gulong address;
+			
+			address = dma_disassemble_get_current_address (plugin->disassemble);
+			dma_queue_run_from_address (plugin->queue, address);
+		}
+		else
+		{
+			IAnjutaEditor *editor;
+			GFile* file;
+			gchar *filename;
+			gint line;
+
+			editor = dma_get_current_editor (ANJUTA_PLUGIN (plugin));
+			if (editor == NULL)
+				return;
+			file = ianjuta_file_get_file (IANJUTA_FILE (editor), NULL);
+			if (file == NULL)
+				return;
+	
+			filename = g_file_get_path (file);
+	
+			line = ianjuta_editor_get_lineno (editor, NULL);
+			dma_queue_run_from (plugin->queue, filename, line);
 			g_free (filename);
 			g_object_unref (file);
 		}
@@ -946,6 +1030,14 @@ static GtkActionEntry actions_loaded[] =
 		NULL,
 		N_("Show kernel signals"),
 		G_CALLBACK (on_debugger_signals_activate)
+	},
+	{
+		"ActionDebuggerContinueSuspend",
+		GTK_STOCK_MEDIA_PLAY,
+		N_("_Continue/Suspend"),
+		"F4",
+		N_("Continue or suspend the execution of the program"),
+		G_CALLBACK (on_continue_suspend_action_activate)
 	}
 };
 
@@ -990,6 +1082,14 @@ static GtkActionEntry actions_stopped[] =
 		"F8",                              
 		N_("Run to the cursor"),              
 		G_CALLBACK (on_run_to_cursor_action_activate) 
+	},
+	{
+		"ActionDebuggerRunFromPosition",    
+		"debugger-run-from-cursor",                             
+		N_("_Run from Cursor"),           
+		NULL,                              
+		N_("Run from the cursor"),              
+		G_CALLBACK (on_run_from_cursor_action_activate) 
 	},
 	{
 		"ActionGdbCommand",
@@ -1119,6 +1219,9 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 											G_N_ELEMENTS (actions_running),
 											GETTEXT_PACKAGE, TRUE, this);	
 	this->uiid = anjuta_ui_merge (ui, UI_FILE);
+	
+	/* Get run_stop_action */
+	this->run_stop_action = anjuta_ui_get_action (ui, "ActionGroupDebugLoaded", "ActionDebuggerContinueSuspend");
 
 	/* Variable */
 	this->variable = dma_variable_dbase_new (this);

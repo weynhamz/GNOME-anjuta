@@ -28,7 +28,7 @@
 struct _NPWPlugin;
 typedef struct _NPWDruid NPWDruid;
 
-NPWDruid* npw_druid_new (struct _NPWPlugin* plugin);
+NPWDruid* npw_druid_new (struct _NPWPlugin* plugin, const gchar *directory);
 void npw_druid_free (NPWDruid* druid);
 
 void npw_druid_show (NPWDruid* druid);

@@ -15,6 +15,7 @@ SUBDIRS = . \
 	cvs-plugin \
 	macro \
 	class-gen \
+	class-inheritance \
 	patch \
 	subversion \
 	project-import \
@@ -34,6 +35,7 @@ SUBDIRS = . \
 	mk-project \
 	dir-project \
 	js-debugger \
-	language-support-js
+	language-support-js \
+	language-support-vala
 
 -include $(top_srcdir)/git.mk

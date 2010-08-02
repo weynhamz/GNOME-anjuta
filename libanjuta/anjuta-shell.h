@@ -44,6 +44,10 @@ G_BEGIN_DECLS
 typedef struct _AnjutaShell      AnjutaShell;
 typedef struct _AnjutaShellIface AnjutaShellIface;
 
+/**
+ * AnjutaShellError_
+ * @ANJUTA_SHELL_ERROR_DOESNT_EXIST:
+ */
 typedef enum
 {
 	ANJUTA_SHELL_ERROR_DOESNT_EXIST,

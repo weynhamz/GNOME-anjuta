@@ -25,6 +25,15 @@ libanjuta/anjuta-vcs-status-tree-view.c
 libanjuta/cell-renderer-captioned-image.c
 libanjuta/e-splash.c
 libanjuta/resources.c
+libfoocanvas/foo-canvas.c
+libfoocanvas/foo-canvas-line.c
+libfoocanvas/foo-canvas-pixbuf.c
+libfoocanvas/foo-canvas-polygon.c
+libfoocanvas/foo-canvas-rect-ellipse.c
+libfoocanvas/foo-canvas-text.c
+libfoocanvas/foo-canvas-util.c
+libfoocanvas/foo-canvas-widget.c
+libfoocanvas/libfoocanvastypes.c
 [type: gettext/glade]plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui
 plugins/build-basic-autotools/build-options.c
 plugins/build-basic-autotools/configuration-list.c
@@ -40,6 +49,9 @@ plugins/class-gen/plugin.c
 plugins/class-gen/transform.c
 plugins/class-gen/validator.c
 plugins/class-gen/window.c
+plugins/class-inheritance/class-callbacks.c
+plugins/class-inheritance/class-inherit.c
+plugins/class-inheritance/plugin.c
 [type: gettext/glade]plugins/cvs-plugin/anjuta-cvs-plugin.ui
 plugins/cvs-plugin/cvs-actions.c
 plugins/cvs-plugin/cvs-callbacks.c
@@ -91,9 +103,11 @@ plugins/gbf-mkfile/gbf-mkfile-config.c
 plugins/gbf-mkfile/gbf-mkfile-project.c
 plugins/gbf-mkfile/gbf-mkfile-properties.c
 plugins/dir-project/dir-project.c
+[type: gettext/glade]plugins/gdb/anjuta-gdb.ui
 plugins/gdb/debugger.c
 plugins/gdb/plugin.c
 plugins/gdb/utilities.c
+plugins/gdb/preferences.c
 [type: gettext/glade]plugins/git/anjuta-git.ui
 plugins/git/git-add-dialog.c
 plugins/git/git-add-remote-dialog.c
@@ -122,8 +136,6 @@ plugins/git/git-switch-dialog.c
 plugins/git/git-ui-utils.c
 plugins/git/git-unstage-dialog.c
 plugins/git/plugin.c
-plugins/glade/anjuta-glade.glade
-plugins/glade/designer-associations-item.c
 plugins/glade/plugin.c
 plugins/glade/anjuta-design-document.c
 plugins/gtodo/add_edit_item.c
@@ -164,7 +176,24 @@ plugins/project-wizard/druid.c
 plugins/project-wizard/install.c
 plugins/project-wizard/plugin.c
 plugins/project-wizard/property.c
-plugins/project-wizard/templates/translatable-strings.h
+[type: gettext/xml]plugins/project-wizard/templates/minimal.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/terminal.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/cpp.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/django.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/gtk.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/anjuta-plugin.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/gtkmm.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/wxwin.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/xlib.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/xlib-dock.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/gcj.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/java.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/js.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/python.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/mkfile.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/sdl.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/gnome-applet.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/library.wiz.in
 [type: gettext/glade]plugins/run-program/anjuta-run-program.ui
 plugins/run-program/execute.c
 plugins/run-program/parameters.c
@@ -236,6 +265,7 @@ plugins/sourceview/plugin.c
 [type: gettext/ini]plugins/gdb/anjuta-gdb.plugin.in
 [type: gettext/ini]plugins/git/git.plugin.in
 [type: gettext/ini]plugins/devhelp/anjuta-devhelp.plugin.in
+[type: gettext/ini]plugins/class-inheritance/anjuta-class-inheritance.plugin.in
 [type: gettext/ini]plugins/document-manager/anjuta-document-manager.plugin.in
 [type: gettext/ini]plugins/file-wizard/anjuta-file-wizard.plugin.in
 [type: gettext/ini]plugins/file-manager/file-manager.plugin.in
@@ -268,6 +298,9 @@ plugins/js-debugger/plugin.c
 plugins/js-debugger/debugger-js.c
 [type: gettext/ini]plugins/js-debugger/js_debugger.plugin.in
 plugins/language-support-js/plugin.c
-[type: gettext/ini]plugins/language-support-js/js_support_plugin.plugin.in
+[type: gettext/ini]plugins/language-support-js/js-support-plugin.plugin.in
 [type: gettext/glade]plugins/language-support-js/anjuta-language-javascript.ui
-plugins/symbol-db/anjuta-tags/js_parser/Grammar.y
+plugins/symbol-db/anjuta-tags/js-parser/Grammar.y
+plugins/language-support-js/js-parser-y-tab.c
+plugins/symbol-db/anjuta-tags/js-parser/js-parser-y-tab.c
+plugins/symbol-db/symbol-db-views.c

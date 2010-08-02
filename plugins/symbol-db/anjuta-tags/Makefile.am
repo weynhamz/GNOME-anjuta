@@ -10,7 +10,7 @@ AM_CPPFLAGS = \
 AM_CFLAGS =\
 	 -I$(top_srcdir)/plugins/symbol-db/anjuta-tags/js-parser \
 	 $(WARN_CFLAGS) \
-	 $(GLIB_CFLAGS) \
+	 $(ANJUTA_CFLAGS) \
 	 $(VALA_CFLAGS) \
 	 $(LIBXML_CFLAGS)
 
@@ -123,14 +123,12 @@ anjuta_tags_SOURCES = \
 	js-parser/js-context.h	\
 	js-parser/js-node.c	\
 	js-parser/js-node.h	\
-	js-parser/jstypes.h
-
-anjuta_tags_LDFLAGS = \
-		$(GLIB_LDFLAGS) \
-		$(LIBXML_LDFLAGS)
+	js-parser/jstypes.h     \
+	ctags-utils.c     \
+	ctags-utils.h
 
 anjuta_tags_LDADD = \
-		$(GLIB_LIBS) \
+		$(ANJUTA_LIBS) \
 		$(VALA_LIBS) \
 		$(LIBXML_LIBS)
 
@@ -140,5 +138,6 @@ if ENABLE_VALA
 anjuta_tags_SOURCES += vala.c ctags-visitor.c
 AM_CPPFLAGS += -DENABLE_VALA
 BUILT_SOURCES = ctags-visitor.c
+DISTCLEANFILES = ctags-visitor.c ctags-vala.h
 endif
 

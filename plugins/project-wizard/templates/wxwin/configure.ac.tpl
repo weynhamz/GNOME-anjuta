@@ -9,10 +9,7 @@ AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
 AC_CONFIG_HEADERS([config.h])
 AM_MAINTAINER_MODE
 
-AC_ISC_POSIX
 AC_PROG_CC
-AM_PROG_CC_STDC
-AC_HEADER_STDC
 
 WXCONFIG=wx-config
 AC_ARG_WITH(wx-config,
@@ -59,7 +56,7 @@ AM_PROG_LIBTOOL
 [+ENDIF+]
 
 [+IF (=(get "HavePackage") "1")+]
-PKG_CHECK_MODULES([+NameCUpper+], [[+PackageModule1+] [+PackageModule2+] [+PackageModule3+] [+PackageModule4+] [+PackageModule5+]])
+PKG_CHECK_MODULES([+NameCUpper+], [[+PackageModule1+] [+PackageModule2+]])
 [+ENDIF+]
 
 AC_OUTPUT([

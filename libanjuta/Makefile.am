@@ -6,11 +6,7 @@ AM_CPPFLAGS = \
 	-I . \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
-	$(DBUS_GLIB_CFLAGS) \
-	$(GTK_CFLAGS) \
-	$(GCONF_CFLAGS) \
-	$(GLADE_DEPRECATED_CFLAGS) \
-	$(LIBXML_CFLAGS) \
+	$(ANJUTA_CFLAGS) \
 	-DDATADIR="\"$(datadir)\"" \
 	-DPACKAGE_PIXMAPS_DIR="\"$(datadir)/pixmaps/$(PACKAGE)\"" \
 	-DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" \
@@ -22,37 +18,50 @@ lib_LTLIBRARIES = libanjuta.la
 libanjuta_la_LDFLAGS = $(ANJUTA_LDFLAGS) 
 libanjuta_la_LIBADD = \
 	interfaces/libanjuta-interfaces.la \
-	$(DBUS_GLIB_LIBS) \
-	$(GTK_LIBS) \
-	$(GCONF_LIBS) \
-	$(GLADE_DEPRECATED_LIBS) \
-	$(LIBXML_LIBS) \
-	$(GLIB_LIBS)
+	$(ANJUTA_LIBS)
 
 libanjuta_la_SOURCES= \
 	anjuta-enum-types.h \
 	anjuta-enum-types.c \
+	anjuta-marshal.h \
 	anjuta-marshal.c \
 	anjuta-shell.c \
+	anjuta-shell.h \
 	anjuta-status.c \
+	anjuta-status.h \
 	anjuta-encodings.c \
+	anjuta-encodings.h \
 	anjuta-convert.c \
+	anjuta-convert.h \
 	anjuta-preferences-dialog.c \
+	anjuta-preferences-dialog.h \
 	anjuta-preferences.c \
+	anjuta-preferences.h \
 	anjuta-plugin.c \
+	anjuta-plugin.h \
 	anjuta-plugin-handle.h \
 	anjuta-plugin-handle.c \
 	anjuta-plugin-description.c \
+	anjuta-plugin-description.h \
 	anjuta-plugin-manager.c \
+	anjuta-plugin-manager.h \
 	anjuta-profile.c \
+	anjuta-profile.h \
 	anjuta-profile-manager.c \
+	anjuta-profile-manager.h \
 	anjuta-ui.c \
+	anjuta-ui.h \
 	anjuta-launcher.c \
+	anjuta-launcher.h \
 	anjuta-utils.c \
+	anjuta-utils.h \
 	anjuta-utils-priv.h \
 	anjuta-session.c \
+	anjuta-session.h \
 	anjuta-save-prompt.c \
+	anjuta-save-prompt.h \
 	anjuta-serializer.c \
+	anjuta-serializer.h \
 	resources.c \
 	resources.h \
 	anjuta-c-plugin-factory.c \
@@ -93,7 +102,9 @@ libanjuta_la_SOURCES= \
 	anjuta-project.c \
 	anjuta-project.h \
 	anjuta-tabber.c \
-	anjuta-tabber.h
+	anjuta-tabber.h \
+	anjuta-pkg-config-chooser.h \
+	anjuta-pkg-config-chooser.c
 
 if HAVE_PLUGIN_GLADE
 
@@ -154,7 +165,8 @@ libanjuta_include = \
 	anjuta-project.h \
 	anjuta-command-queue.h \
 	anjuta-tabber.h \
-	anjuta-token.h
+	anjuta-token.h \
+	anjuta-pkg-config-chooser.h
 
 libanjutainclude_HEADERS = \
 	$(libanjuta_include) \
@@ -214,5 +226,38 @@ DISTCLEANFILES = \
   anjuta-enum-types.h \
   anjuta-enum-types.c \
   stamp-anjuta-enum-types.h
+
+-include $(INTROSPECTION_MAKEFILE)
+INTROSPECTION_GIRS =
+INTROSPECTION_SCANNER_ARGS = --add-include-path=$(srcdir)
+INTROSPECTION_COMPILER_ARGS = --includedir=$(srcdir)
+
+if HAVE_INTROSPECTION
+anjuta_introspection_sources = $(libanjuta_la_SOURCES)
+ianjuta_introspection_sources = interfaces/*.c interfaces/*.h
+
+Anjuta-1_0.gir: libanjuta.la
+Anjuta_1_0_gir_INCLUDES = GObject-2.0 Gtk-2.0
+Anjuta_1_0_gir_CFLAGS = $(ANJUTA_CFLAGS) -I$(top_srcdir)
+Anjuta_1_0_gir_LIBS = libanjuta.la
+Anjuta_1_0_gir_FILES = $(addprefix $(srcdir)/,$(anjuta_introspection_sources))
+INTROSPECTION_GIRS += Anjuta-1.0.gir
+
+IAnjuta-1_0.gir: interfaces/libanjuta-interfaces.la  libanjuta.la
+IAnjuta_1_0_gir_INCLUDES = GObject-2.0 Gtk-2.0 Anjuta-1.0
+IAnjuta_1_0_gir_CFLAGS = $(LIBANJUTA_CFLAGS) -I$(top_srcdir)
+IAnjuta_1_0_gir_LIBS = interfaces/libanjuta-interfaces.la libanjuta.la
+IAnjuta_1_0_gir_FILES = $(addprefix $(srcdir)/,$(ianjuta_introspection_sources))
+INTROSPECTION_GIRS += IAnjuta-1.0.gir
+
+girdir = $(datadir)/gir-1.0
+dist_gir_DATA = $(INTROSPECTION_GIRS)
+
+typelibdir = $(libdir)/girepository-1.0
+typelib_DATA = $(INTROSPECTION_GIRS:.gir=.typelib)
+
+CLEANFILES = $(dist_gir_DATA) $(typelib_DATA)
+endif
+
 
 -include $(top_srcdir)/git.mk

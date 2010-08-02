@@ -515,6 +515,31 @@ on_stack_view_source_activate (GtkAction *action, gpointer user_data)
 }
 
 static void
+on_got_stack_trace (const gchar *trace, gpointer user_data, GError *error)
+{
+	StackTrace* st = (StackTrace*) user_data;
+	IAnjutaDocumentManager *docman;
+
+	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (st->plugin)->shell, IAnjutaDocumentManager, NULL);
+	if (docman != NULL)
+	{
+		ianjuta_document_manager_add_buffer (docman, "Stack Trace", trace, NULL);
+	}
+}
+
+static void
+on_stack_get_trace (GtkAction *action, gpointer user_data)
+{
+	StackTrace* st = (StackTrace*) user_data;		
+
+	/* Ask debugger to get all frame data */
+	dma_queue_dump_stack_trace (
+			st->debugger,
+			(IAnjutaDebuggerCallback)on_got_stack_trace,
+			st);
+}
+
+static void
 on_stack_trace_row_activated           (GtkTreeView     *treeview,
                                         GtkTreePath     *arg1,
                                         GtkTreeViewColumn *arg2,
@@ -563,6 +588,14 @@ static GtkActionEntry actions_stack_trace[] = {
 		NULL,
 		NULL,
 		G_CALLBACK (on_stack_view_source_activate)
+	},
+	{
+		"ActionDmaDumpStackTrace",
+		NULL,
+		N_("Get Stack trace"),
+		NULL,
+		NULL,
+		G_CALLBACK (on_stack_get_trace)
 	}
 };		
 

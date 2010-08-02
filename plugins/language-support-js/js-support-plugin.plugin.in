@@ -1,0 +1,11 @@
+[Anjuta Plugin]
+Location=js-support-plugin:JSLang
+Icon=js_support_plugin.png
+_Name=JS Support Plugin
+_Description=JavaScript Support Plugin
+Interfaces=IAnjutaLanguageSupport
+UserActivatable=no
+
+[Language Support]
+Languages=JavaScript
+MimeTypes=application/javascript

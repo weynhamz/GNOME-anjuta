@@ -25,8 +25,14 @@
 #include <gtk/gtk.h>
 #include "gdbmi.h"
 
+#include "preferences.h"
+
 #include <libanjuta/interfaces/ianjuta-message-view.h>
 #include <libanjuta/interfaces/ianjuta-debugger.h>
+#include <libanjuta/interfaces/ianjuta-debugger-breakpoint.h>
+#include <libanjuta/interfaces/ianjuta-debugger-memory.h>
+#include <libanjuta/interfaces/ianjuta-debugger-instruction.h>
+#include <libanjuta/interfaces/ianjuta-debugger-variable.h>
 
 G_BEGIN_DECLS
 
@@ -51,11 +57,18 @@ typedef void (*DebuggerParserFunc) (Debugger *debugger,
 									const GList *cli_result,
 									GError* error);
 
+typedef enum
+{
+	DEBUGGER_COMMAND_NO_ERROR = 1 << 0,
+	DEBUGGER_COMMAND_KEEP_RESULT = 1 << 1,
+	DEBUGGER_COMMAND_PREPEND = 1 << 2,
+} DebuggerCommandFlags;
+
+
 struct _DebuggerCommand
 {
 	gchar *cmd;
-	gboolean suppress_error;
-	gboolean keep_result;
+	DebuggerCommandFlags flags;
 	DebuggerParserFunc parser;
 	IAnjutaDebuggerCallback callback;
 	gpointer user_data;
@@ -77,8 +90,13 @@ GType debugger_get_type (void);
 Debugger* debugger_new (GtkWindow *parent_win, GObject* instance);
 void debugger_free (Debugger *debugger);
 
-gboolean debugger_start (Debugger *debugger, const GList *search_dirs,
-							const gchar *prog, gboolean is_libtool_prog);
+gboolean debugger_set_pretty_printers (Debugger *debugger,
+									const GList *pretty_printers);
+
+gboolean debugger_start (Debugger *debugger,
+						const GList *search_dirs,
+						const gchar *prog,
+						gboolean is_libtool_prog);
 
 gboolean debugger_stop (Debugger *debugger);
 gboolean debugger_abort (Debugger *debugger);
@@ -124,62 +142,65 @@ void debugger_stepi_in (Debugger *debugger);
 void debugger_stepi_over (Debugger *debugger);
 void debugger_run_to_location (Debugger *debugger, const gchar *loc);
 void debugger_run_to_position (Debugger *debugger, const gchar *file, guint line);
+void debugger_run_from_position (Debugger *debugger, const gchar *file, guint line);
 void debugger_run_to_address (Debugger *debugger, gulong address);
+void debugger_run_from_address (Debugger *debugger, gulong address);
 
 /* Breakpoint */
-void debugger_add_breakpoint_at_line (Debugger *debugger, const gchar* file, guint line, IAnjutaDebuggerCallback callback, gpointer user_data);
-void debugger_add_breakpoint_at_function (Debugger *debugger, const gchar* file, const gchar* function, IAnjutaDebuggerCallback callback, gpointer user_data);
-void debugger_add_breakpoint_at_address (Debugger *debugger, gulong address, IAnjutaDebuggerCallback callback, gpointer user_data);
-void debugger_remove_breakpoint (Debugger *debugger, guint id, IAnjutaDebuggerCallback callback, gpointer user_data);
-void debugger_list_breakpoint (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data);
-void debugger_enable_breakpoint (Debugger *debugger, guint id, gboolean enable, IAnjutaDebuggerCallback callback, gpointer user_data);
-void debugger_ignore_breakpoint (Debugger *debugger, guint id, guint ignore, IAnjutaDebuggerCallback callback, gpointer user_data);
-void debugger_condition_breakpoint (Debugger *debugger, guint id, const gchar* condition, IAnjutaDebuggerCallback callback, gpointer user_data);
+void debugger_add_breakpoint_at_line (Debugger *debugger, const gchar* file, guint line, IAnjutaDebuggerBreakpointCallback callback, gpointer user_data);
+void debugger_add_breakpoint_at_function (Debugger *debugger, const gchar* file, const gchar* function, IAnjutaDebuggerBreakpointCallback callback, gpointer user_data);
+void debugger_add_breakpoint_at_address (Debugger *debugger, gulong address, IAnjutaDebuggerBreakpointCallback callback, gpointer user_data);
+void debugger_remove_breakpoint (Debugger *debugger, guint id, IAnjutaDebuggerBreakpointCallback callback, gpointer user_data);
+void debugger_list_breakpoint (Debugger *debugger, IAnjutaDebuggerGListCallback callback, gpointer user_data);
+void debugger_enable_breakpoint (Debugger *debugger, guint id, gboolean enable, IAnjutaDebuggerBreakpointCallback callback, gpointer user_data);
+void debugger_ignore_breakpoint (Debugger *debugger, guint id, guint ignore, IAnjutaDebuggerBreakpointCallback callback, gpointer user_data);
+void debugger_condition_breakpoint (Debugger *debugger, guint id, const gchar* condition, IAnjutaDebuggerBreakpointCallback callback, gpointer user_data);
 
 /* Variable */
-void debugger_print (Debugger *debugger, const gchar* variable, IAnjutaDebuggerCallback callback, gpointer user_data);
-void debugger_evaluate (Debugger *debugger, const gchar* name, IAnjutaDebuggerCallback callback, gpointer user_data);
+void debugger_print (Debugger *debugger, const gchar* variable, IAnjutaDebuggerGCharCallback callback, gpointer user_data);
+void debugger_evaluate (Debugger *debugger, const gchar* name, IAnjutaDebuggerGCharCallback callback, gpointer user_data);
 
 /* Info */
-void debugger_list_local (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data);
-void debugger_list_argument (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data);
-void debugger_info_signal (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data);
-void debugger_info_frame (Debugger *debugger, guint frame, IAnjutaDebuggerCallback func, gpointer user_data);
-void debugger_info_sharedlib (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data);
-void debugger_info_args (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data);
-void debugger_info_target (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data);
-void debugger_info_program (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data);
-void debugger_info_udot (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data);
-void debugger_info_variables (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data);
-void debugger_inspect_memory (Debugger *debugger, gulong address, guint length, IAnjutaDebuggerCallback func, gpointer user_data);
-void debugger_disassemble (Debugger *debugger, gulong address, guint length, IAnjutaDebuggerCallback func, gpointer user_data);
+void debugger_list_local (Debugger *debugger, IAnjutaDebuggerGListCallback func, gpointer user_data);
+void debugger_list_argument (Debugger *debugger, IAnjutaDebuggerGListCallback func, gpointer user_data);
+void debugger_info_signal (Debugger *debugger, IAnjutaDebuggerGListCallback func, gpointer user_data);
+void debugger_info_frame (Debugger *debugger, guint frame, IAnjutaDebuggerGListCallback func, gpointer user_data);
+void debugger_info_sharedlib (Debugger *debugger, IAnjutaDebuggerGListCallback func, gpointer user_data);
+void debugger_info_args (Debugger *debugger, IAnjutaDebuggerGListCallback func, gpointer user_data);
+void debugger_info_target (Debugger *debugger, IAnjutaDebuggerGListCallback func, gpointer user_data);
+void debugger_info_program (Debugger *debugger, IAnjutaDebuggerGListCallback func, gpointer user_data);
+void debugger_info_udot (Debugger *debugger, IAnjutaDebuggerGListCallback func, gpointer user_data);
+void debugger_info_variables (Debugger *debugger, IAnjutaDebuggerGListCallback func, gpointer user_data);
+void debugger_inspect_memory (Debugger *debugger, gulong address, guint length, IAnjutaDebuggerMemoryCallback func, gpointer user_data);
+void debugger_disassemble (Debugger *debugger, gulong address, guint length, IAnjutaDebuggerInstructionCallback func, gpointer user_data);
 
 /* Register */
 
-void debugger_list_register (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data);
-void debugger_update_register (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data);
+void debugger_list_register (Debugger *debugger, IAnjutaDebuggerGListCallback func, gpointer user_data);
+void debugger_update_register (Debugger *debugger, IAnjutaDebuggerGListCallback func, gpointer user_data);
 void debugger_write_register (Debugger *debugger, const gchar *name, const gchar *value);
 
 /* Stack */
-void debugger_list_argument (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data);
-void debugger_list_frame (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data);
+void debugger_list_argument (Debugger *debugger, IAnjutaDebuggerGListCallback func, gpointer user_data);
+void debugger_list_frame (Debugger *debugger, IAnjutaDebuggerGListCallback func, gpointer user_data);
 void debugger_set_frame (Debugger *debugger, gsize frame);
+void debugger_dump_stack_trace (Debugger *debugger, IAnjutaDebuggerGListCallback func, gpointer user_data);
 
 /* Thread */
-void debugger_list_thread (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data);
+void debugger_list_thread (Debugger *debugger, IAnjutaDebuggerGListCallback func, gpointer user_data);
 void debugger_set_thread (Debugger *debugger, gint thread);
-void debugger_info_thread (Debugger *debugger, gint thread, IAnjutaDebuggerCallback func, gpointer user_data);
+void debugger_info_thread (Debugger *debugger, gint thread, IAnjutaDebuggerGListCallback func, gpointer user_data);
 
 /* Log */
 void debugger_set_log (Debugger *debugger, IAnjutaMessageView *view);
 
 /* Variable object */
 void debugger_delete_variable (Debugger *debugger, const gchar *name);
-void debugger_evaluate_variable (Debugger *debugger, const gchar *name, IAnjutaDebuggerCallback callback, gpointer user_data);
+void debugger_evaluate_variable (Debugger *debugger, const gchar *name, IAnjutaDebuggerGCharCallback callback, gpointer user_data);
 void debugger_assign_variable (Debugger *debugger, const gchar *name, const gchar *value);
-void debugger_list_variable_children (Debugger *debugger, const gchar* name, IAnjutaDebuggerCallback callback, gpointer user_data);
-void debugger_create_variable (Debugger *debugger, const gchar *name, IAnjutaDebuggerCallback callback, gpointer user_data);
-void debugger_update_variable (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data);
+void debugger_list_variable_children (Debugger *debugger, const gchar* name, guint from, IAnjutaDebuggerGListCallback callback, gpointer user_data);
+void debugger_create_variable (Debugger *debugger, const gchar *name, IAnjutaDebuggerVariableCallback callback, gpointer user_data);
+void debugger_update_variable (Debugger *debugger, IAnjutaDebuggerGListCallback callback, gpointer user_data);
 
 #if 0
 

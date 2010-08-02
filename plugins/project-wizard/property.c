@@ -39,6 +39,7 @@
 
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-utils.h>
+#include <libanjuta/anjuta-pkg-config-chooser.h>
 
 /*---------------------------------------------------------------------------*/
 
@@ -49,6 +50,7 @@ struct _NPWPage
 	gchar* name;
 	gchar* label;
 	gchar* description;
+	gint language;
 	GtkWidget *widget;
 };
 
@@ -59,6 +61,7 @@ struct _NPWProperty {
 	gchar* label;
 	gchar* description;
 	gchar* defvalue;
+	gint language;
 	NPWValue* value;
 	GtkWidget* widget;
 	GSList* items;
@@ -67,6 +70,7 @@ struct _NPWProperty {
 struct _NPWItem {
 	gchar* name;
 	gchar* label;
+	gint language;
 };
 
 static const gchar* NPWPropertyTypeString[] = {
@@ -77,7 +81,8 @@ static const gchar* NPWPropertyTypeString[] = {
 	"list",
 	"directory",
 	"file",
-	"icon"
+	"icon",
+	"package",
 };
 
 static const gchar* NPWPropertyRestrictionString[] = {
@@ -89,13 +94,14 @@ static const gchar* NPWPropertyRestrictionString[] = {
  *---------------------------------------------------------------------------*/
 
 static NPWItem*
-npw_item_new (const gchar *name, const gchar *label)
+npw_item_new (const gchar *name, const gchar *label, gint language)
 {
 	NPWItem *item;
 	
 	item = g_slice_new (NPWItem);
 	item->name = g_strdup (name);
 	item->label = g_strdup (label);
+	item->language = language;
 	
 	return item;
 }
@@ -106,6 +112,18 @@ npw_item_free (NPWItem *item)
 	g_free (item->name);
 	g_free (item->label);
 	g_slice_free (NPWItem, item);
+}
+
+static gint
+npw_item_compare (const NPWItem *a, const NPWItem *b)
+{
+	return g_strcmp0 (a->name, b->name);
+}
+
+static const gchar *
+npw_item_get_label (const NPWItem *item)
+{
+	return item->language == 0 ? _(item->label) : item->label;
 }
 
 /* Property object
@@ -147,6 +165,12 @@ npw_property_restriction_from_string (const gchar* restriction)
 	return NPW_NO_RESTRICTION;
 }
 
+static gint
+npw_property_compare (const NPWProperty *a, const NPWProperty *b)
+{
+	return g_strcmp0 (npw_value_get_name (a->value), npw_value_get_name (b->value));
+}
+
 NPWProperty*
 npw_property_new (void)
 {
@@ -172,6 +196,12 @@ npw_property_free (NPWProperty* prop)
 	g_free (prop->description);
 	g_free (prop->defvalue);
 	g_slice_free (NPWProperty, prop);
+}
+
+void
+npw_property_set_language (NPWProperty* prop, gint language)
+{
+	prop->language = language;
 }
 
 void
@@ -281,25 +311,27 @@ npw_property_get_name (const NPWProperty* prop)
 void
 npw_property_set_label (NPWProperty* prop, const gchar* label)
 {
+	g_free (prop->label);
 	prop->label = g_strdup (label);
 }
 
 const gchar*
 npw_property_get_label (const NPWProperty* prop)
 {
-	return prop->label;
+	return prop->language == 0 ? _(prop->label) : prop->label;
 }
 
 void
 npw_property_set_description (NPWProperty* prop, const gchar* description)
 {
+	g_free (prop->description);
 	prop->description = g_strdup (description);
 }
 
 const gchar*
 npw_property_get_description (const NPWProperty* prop)
 {
-	return prop->description;
+	return prop->language == 0 ? _(prop->description) : prop->description;
 }
 
 static void
@@ -339,13 +371,11 @@ cb_browse_button_clicked (GtkButton *button, NPWProperty* prop)
 	}
 
 	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT)
-  	{
-    	gchar *filename;
-
-    	filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
-		gtk_entry_set_text (GTK_ENTRY (prop->widget), filename);
-    	g_free (filename);
-  	}
+	{
+		gchar* name = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
+		gtk_entry_set_text (GTK_ENTRY (prop->widget), name);
+		g_free (name);
+	}
 	gtk_widget_destroy (dialog);
 }
 
@@ -509,10 +539,10 @@ npw_property_create_widget (NPWProperty* prop)
 		entry = gtk_combo_box_entry_new_text ();
 		for (node = prop->items; node != NULL; node = node->next)
 		{
-			gtk_combo_box_append_text (GTK_COMBO_BOX (entry), _(((NPWItem *)node->data)->label));
+			gtk_combo_box_append_text (GTK_COMBO_BOX (entry), npw_item_get_label((NPWItem *)node->data));
 			if ((value != NULL) && !get_value && (strcmp (value, ((NPWItem *)node->data)->name) == 0))
 			{
-				value = _(((NPWItem *)node->data)->label);
+				value = npw_item_get_label ((NPWItem *)node->data);
 				get_value = TRUE;
 			}
 		}
@@ -522,6 +552,19 @@ npw_property_create_widget (NPWProperty* prop)
 			gtk_editable_set_editable (GTK_EDITABLE (child), FALSE);
 		}
 		if (value) gtk_entry_set_text (GTK_ENTRY (child), value);
+		break;
+	}
+	case NPW_PACKAGE_PROPERTY:
+	{
+		GtkWidget *scroll_window;
+		scroll_window = gtk_scrolled_window_new (NULL, NULL);
+		gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scroll_window), GTK_SHADOW_IN);
+
+		entry = anjuta_pkg_config_chooser_new ();
+		anjuta_pkg_config_chooser_show_active_column (ANJUTA_PKG_CONFIG_CHOOSER (entry), TRUE);
+		gtk_container_add (GTK_CONTAINER (scroll_window), entry);
+
+		widget = scroll_window;
 		break;
 	}
 	default:
@@ -566,6 +609,7 @@ npw_property_set_default (NPWProperty* prop, const gchar* value)
 				sprintf(buffer,"%s%d",value, i);
 				if (!g_file_test (buffer, G_FILE_TEST_EXISTS)) break;
 			}
+			g_free (prop->defvalue);
 			prop->defvalue = buffer;
 			g_free (expand_value);
 
@@ -577,6 +621,7 @@ npw_property_set_default (NPWProperty* prop, const gchar* value)
 	 * the default property */
 	if (prop->defvalue != value)
 	{
+		g_free (prop->defvalue);
 		prop->defvalue = (value == NULL) ? NULL : g_strdup (value);
 	}
 }
@@ -586,6 +631,9 @@ npw_property_set_value_from_widget (NPWProperty* prop, NPWValueTag tag)
 {
 	gchar* alloc_value = NULL;
 	const gchar* value = NULL;
+	GList* packages;
+	GList* node;
+	GString* str_value;
 	gboolean ok;
 
 	switch (prop->type)
@@ -628,7 +676,7 @@ npw_property_set_value_from_widget (NPWProperty* prop, NPWValueTag tag)
 		value = gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (prop->widget))));
 		for (node = prop->items; node != NULL; node = node->next)
 		{
-			if (strcmp (value, _(((NPWItem *)node->data)->label)) == 0)
+			if (strcmp (value, npw_item_get_label((NPWItem *)node->data)) == 0)
 			{
 				value = ((NPWItem *)node->data)->name;
 				break;
@@ -636,6 +684,24 @@ npw_property_set_value_from_widget (NPWProperty* prop, NPWValueTag tag)
 		}
 		break;
 	}
+	case NPW_PACKAGE_PROPERTY:
+		packages = 
+			anjuta_pkg_config_chooser_get_active_packages (ANJUTA_PKG_CONFIG_CHOOSER (prop->widget));
+		str_value = NULL;
+		for (node = packages; node != NULL; node = g_list_next (node))
+		{
+			if (str_value)
+			{
+				g_string_append_printf (str_value, " %s", (gchar*) node->data);
+			}
+			else
+				str_value = g_string_new (node->data);
+		}
+		value = str_value->str;
+		g_string_free (str_value, FALSE);
+		g_list_foreach (packages, (GFunc) g_free, NULL);
+		g_list_free (packages);	
+		break;
 	default:
 		/* Hidden property */
 		value = prop->defvalue;
@@ -690,12 +756,31 @@ npw_property_get_value (const NPWProperty* prop)
 }
 
 gboolean
-npw_property_add_list_item (NPWProperty* prop, const gchar* name, const gchar* label)
+npw_property_add_list_item (NPWProperty* prop, const gchar* name, const gchar* label, gint language)
 {
 	NPWItem* item;
+	GSList *find;
 
-	item = npw_item_new (name, label);
-	prop->items = g_slist_append (prop->items, item);
+	item = npw_item_new (name, label, language);
+	find = g_slist_find_custom (prop->items, item, (GCompareFunc)npw_item_compare);
+	if (find != NULL)
+	{
+		NPWItem* old_item = (NPWItem *)find->data;
+		
+		if (old_item->language <= item->language)
+		{
+			npw_item_free ((NPWItem *)find->data);
+			find->data = item;
+		}
+		else
+		{
+			npw_item_free (item);
+		}
+	}
+	else
+	{
+		prop->items = g_slist_append (prop->items, item);
+	}
 
 	return TRUE;
 }
@@ -800,6 +885,7 @@ npw_page_free (NPWPage* page)
 void
 npw_page_set_name (NPWPage* page, const gchar* name)
 {
+	g_free (page->name);
 	page->name = g_strdup (name);
 }
 
@@ -809,28 +895,44 @@ npw_page_get_name (const NPWPage* page)
 	return page->name;
 }
 
+gboolean
+npw_page_set_language (NPWPage *page, gint language)
+{
+	if (page->language <= language)
+	{
+		page->language = language;
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+
 void
 npw_page_set_label (NPWPage* page, const gchar* label)
 {
+	g_free (page->label);
 	page->label = g_strdup (label);
 }
 
 const gchar*
 npw_page_get_label (const NPWPage* page)
 {
-	return page->label;
+	return page->language == 0 ? _(page->label) : page->label;
 }
 
 void
 npw_page_set_description (NPWPage* page, const gchar* description)
 {
+	g_free (page->description);
 	page->description = g_strdup (description);
 }
 
 const gchar*
 npw_page_get_description (const NPWPage* page)
 {
-	return page->description;
+	return page->language == 0 ? _(page->description) : page->description;
 }
 
 void
@@ -851,8 +953,31 @@ npw_page_foreach_property (const NPWPage* page, GFunc func, gpointer data)
 	g_list_foreach (page->properties, func, data);
 }
 
-void
+NPWProperty *
 npw_page_add_property (NPWPage* page, NPWProperty *prop)
 {
-	page->properties = g_list_append (page->properties, prop);
+	GList *find;
+	
+	find = g_list_find_custom (page->properties, prop, (GCompareFunc)npw_property_compare);
+	if (find == NULL)
+	{
+		page->properties = g_list_append (page->properties, prop);
+	}
+	else
+	{
+		NPWProperty* old_prop = (NPWProperty *)find->data;
+		
+		if (old_prop->language <= prop->language)
+		{
+			npw_property_free (old_prop);
+			find->data = prop;
+		}
+		else
+		{
+			npw_property_free (prop);
+			prop = old_prop;
+		}
+	}
+	
+	return prop;
 }

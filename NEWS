@@ -1,4 +1,110 @@
-Anjuta 2.29.92 "Give me Shortcuts" (8 March 2009) -- Johannes Schmid
+Anjuta 2.31.5 "Too hot to code" (12 June 2010) -- Johannes Schmid
+
+New:
+- Debugger supports pretty-printing now
+
+Updated:
+- More work on the symbol database code quality and performance
+
+Bugs fixed:
+project-wizard: bgo #623754  - focus on wrong text-field
+run: bgo #623944  - buttons swapped on "Program parameters"
+gdb: bgo#494292  - Set next statement
+gdb: bgo #617323  - Save debugger stack trace
+configure: Fix the forced debugging mode even if --disable-debug is given (bgo#612453)
+Fix for bgo #622706 and allow to sort shortcuts by accelerator
+symbol-db: Fixed bgo #617472: doubled items in locals view
+bgo #622526  - HAVE_INTROSPECTION does not appear in AM_CONDITIONAL
+terminal: bgo#619253  - Problem of ianjuta_terminal_execute_command in 2.28
+anjuta: F6 switches focus instead of setting over (bgo#621678)
+symbol-db: Fixed crasher bgo #622139
+project-wizard: bgo #621512  - Remove deprecated glib symbols
+language-support-vala: bgo#620927  - Vala plugin compilation
+libanjuta: bgo#620664  - Drag and drop of multiple source files
+
+Thanks to Abderrahim Kitouni, Akom C, Andika Triwidada, Fran Diéguez,
+G. Baylard, Gennaro Bellizio, Jorge González, Massimo Corà, Matej Urbančič,
+Naba Kumar, Romain Perier Sébastien Granjoux
+
+Anjuta 2.31.3 "Smile, tommorow will be worse" (7 June 2010) -- Johannes Schmid
+
+New:
+- language-support for Vala
+
+Updated:
+- Symbol database is super fast now
+- Glade plugins was cleaned a lot and doesn't spit warnings anymore
+
+Bugs fixed:
+anjuta: bgo #618273  - Anjuta closes when pressing ESC in the save dialog
+bgo #586428  - paths with symlinks do not get 'real' absolute paths
+language-support-cpp-java: bgo#618955  - Smart brace completion is no longer smart
+message-view: bgo#620209  - Message View Crashes When Hovering Mouse Cursor Over Message Toggle Icons
+npw: fix #610934  - Improve translations for the wizard files
+Remove deprecated GTK+ symbols. Fixes bug 572754.
+
+Anjuta 2.31.2 "There are no ugly girls, just lazy ones" (25 May 2010) -- Johannes Schmid
+
+New:
+- class-inheritance is included using libfoocanvas
+
+Bugs fixed:
+file-wizard: #616810 Error when creating new c source and header
+language-support-cpp-java: bgo#618314  - Anjuta crash on while editing
+symbol-db: Fixes #bgo 617433 Tab switching is slow because of rescanned symbols
+symbol-db: Partially fixes bgo #615429: Optimize global and local views sql queries
+libanjuta: Completes fixing bgo #615428: new column is_container
+
+Anjuta 2.31.1 "Better late than never" (6 May 2010) -- Johannes Schmid
+
+New:
+- Symbol-db tree model with direct database access
+This brings faster a faster and more up-to-date symbol tree
+
+Bugs fixed:
+anjuta-tags: bgo #616780 - Wrong return type recognition
+document-manager: fixed bgo #616739 - doesn't open .ui files, neither in xml mode
+anjuta-tags: fixed bgo #616503 - updates to the ctags vala parser.
+symbol-db, language-support-js: bgo #616435 - make distclean removes y.tab.c
+document-manager: bgo#550027  - Open a source tab in full window size
+document-manager: bgo #586689 - close all but this
+symbol-db: Bug 613962 - symbol-db views need alphabetical ordering
+symbol-db: Fixes bgo #614906 - Local view shows namespaces far too often
+symbol-db: bgo #614408 - convert GET_PRIV () to ->priv
+anjuta: Fixed bgo 500962 - Further icons
+symbol-db: Fixed bgo #611834 - Symbol icons are wrong for members
+macro: #613118 - Please fix escaping of UTF-chars in ui file
+
+Anjuta 2.30.1 "BASIC's not the answer" (26 April 2010) -- Johannes Schmid
+
+Bugs fixed:
+symbol-db: Fixed bgo #611834 - Symbol icons are wrong for members
+document-manager: bgo #600083 - close documents by middle-mouse click
+symbol-db: bgo #614936 - compile error with cfiles under js_parser
+symbol-db: bgo #614932 - void function cannot return value
+symbol-db: bgo #614933 - build fail with sun cc because zero-sized struct
+language-support-cpp-java: libstdc++ is not available on Solaris #614928
+gtodo: Deselecting "Hide completed items" does nothing (#614751)
+language-support-cpp-java: bgo#615596  - . -> completions doesn't work with prefixed &, %, etc
+libanjuta: #615718  - anjuta-command crash call on set_error_message.
+js: bgo#615341  - Use correct LDFLAGS for the JS plugins
+dir-project: bgo #616503 consider Vala files as sources
+patch: Fixed bug 616740 - duplicated shortcuts nodes
+
+Anjuta 2.30.0 "Ostern in Berlin" (29 March 2010) -- Johannes Schmid
+
+Bugs fixed:
+git: Free the log message for merges at the right time
+Makefile.am missing libxml flags in some plugins (bgo#613559)
+macro: #613118 - Please fix escaping of UTF-chars in ui file
+project-wizard: JS template support and require GJS 0.6
+build: bgo#612959 - Anjuta crashes when clicked 'Compile'
+language-support-cpp-java: Avoid duplication of local symbols in project search
+language-support-cpp-java: Fixed some undo problems with indentation
+sourceview: bgo#567029 - underline warnings/errors using user-selected message colors
+starter: Add tooltip for recent projects.
+
+Anjuta 2.29.92 "Give me Shortcuts" (8 March 2010) -- Johannes Schmid
 
 Changes:
 - Stabilisation fixes with autocompletion
@@ -16,7 +122,7 @@ fm: bgo#605050 -  Saving a file duplicates its entry in File Manager
 build-basic-autootls: Get make targets for files from language-manager plugin (bgo#611933)
 bgo #611312 -  Make manual page up-to-date
 
-Anjuta 2.29.91 "Vala la Révolution" (22 February 2009) -- Johannes Schmid
+Anjuta 2.29.91 "Vala la Révolution" (22 February 2010) -- Johannes Schmid
 
 Features:
 - Support for Vala symbols in the symbol-db
@@ -32,7 +138,7 @@ project-import: bgo#582717 -  'Create Folder' button not applicable in 'New From
 
 Also special thanks to all translaters!
 
-Anjuta 2.29.90 "Jag älkar svesk..." (7. Februar 2009) -- Johannes Schmid
+Anjuta 2.29.90 "Jag älkar svesk..." (7. Februar 2010) -- Johannes Schmid
 
 Features:
 - None (we are in feature freeze) except new language for Codename ;)
@@ -44,7 +150,7 @@ bgo #608396 -  crash while refreshing a buffer with some breakpoints
 
 This is the first beta release in the 2.30 cycle so please give it some testing!
 
-Anjuta 2.29.6 "Naba is back" (25 January 2009) -- Johannes Schmid
+Anjuta 2.29.6 "Naba is back" (25 January 2010) -- Johannes Schmid
 
 Features:
 - Packagekit integration (Naba Kumar)
@@ -60,7 +166,7 @@ bgo#601750 -  Tooltip evaluation doesn't respects mouse position
 bgo#605060 -  Single-step highlighting works only for the first-opened project
 bgo#607415 -  Anjuta creates lots of random directories
 
-Anjuta 2.29.5 "Birthday present" (12 January 2009) -- Johannes Schmid
+Anjuta 2.29.5 "Birthday present" (12 January 2010) -- Johannes Schmid
 
 Features:
 - Completion for ., ->, and :: in C/C++

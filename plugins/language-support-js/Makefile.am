@@ -13,7 +13,7 @@ js_support_plugin_pixmapsdir = $(anjuta_image_dir)
 js_support_plugin_pixmaps_DATA = js_support_plugin.png
 
 # Plugin description file
-plugin_in_files = js_support_plugin.plugin.in
+plugin_in_files = js-support-plugin.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
 js_support_plugin_plugindir = $(anjuta_plugin_dir)
@@ -40,8 +40,9 @@ AM_CPPFLAGS = \
 	$(LIBXML_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
 	-DPACKAGE_SRC_DIR=\"$(srcdir)\" \
-	-DGIR_PATH=\"$(girdir)\" \
-	-DGJS_PATH=\"$(gjsdir)\"
+	-DGIR_PATH=\"$(INTROSPECTION_GIRDIR)\" \
+	-DGJS_PATH=\"$(gjsdir)\" \
+	-DG_LOG_DOMAIN=\"language-support-js\"
 
 # Where to install the plugin
 plugindir = $(anjuta_plugin_dir)

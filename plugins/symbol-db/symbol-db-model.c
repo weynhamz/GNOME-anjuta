@@ -569,9 +569,11 @@ sdb_model_page_fault (SymbolDBModel *model,
 			}
 		}
 	}
-	
-	g_object_unref (data_iter);
-	g_object_unref (data_model);
+
+	if (data_iter)
+		g_object_unref (data_iter);
+	if (data_model)
+		g_object_unref (data_model);
 	return page;
 }
 

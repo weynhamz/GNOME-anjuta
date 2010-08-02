@@ -27,11 +27,14 @@ G_BEGIN_DECLS
 
 typedef enum {
 	SYMBOL_DB_VIEW_PROJECT,
-	SYMBOL_DB_VIEW_FILE
+	SYMBOL_DB_VIEW_FILE,
+	SYMBOL_DB_VIEW_SEARCH
 } SymbolViewType;
 
 GtkWidget* symbol_db_view_new (SymbolViewType view_type,
                                SymbolDBEngine *dbe, SymbolDBPlugin *plugin);
+
+GtkWidget* symbol_db_view_get_search_entry (GtkWidget *search_view);
 
 G_END_DECLS
 

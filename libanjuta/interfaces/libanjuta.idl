@@ -1,4 +1,5 @@
 // -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
+// -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 //
 //  libanjuta interfaces. Generate stubs with anjuta-idl-compiler.pl
 // 
@@ -114,7 +115,7 @@ interface IAnjutaFile
 		/**
 		 * ianjuta_file_savable_set_dirty:
 		 * @obj: Self
-		 * @dirty: 
+		 * @dirty: Whether the file was edited or not
 		 * @err: Error propagation and reporting
 		 * 
 		 * if @dirty is TRUE, sets dirty for the content. Save point will be
@@ -240,7 +241,8 @@ interface IAnjutaMarkable
 		BREAKPOINT_ENABLED,
 		PROGRAM_COUNTER
 	}
-  /**
+	
+	/**
 	 * IAnjutaMarkable::marker-clicked:
 	 * @obj: Self
 	 * @double_click: whether the marker was double clicked
@@ -1293,6 +1295,16 @@ interface IAnjutaEditor
 	 * number of line breaks in the added or removed text.
 	 */
 	void   ::changed (GObject *position, gboolean added, gint length, gint lines, const gchar *text);
+
+	/**
+	 * IAnjutaEditor::line-marks-gutter-clicked:
+	 * @obj: Self
+	 * @double_click: whether the line marks gutter was double clicked
+	 * @location: location of the clicked marker
+	 * 
+	 * The signal is emitted when the user clicks on a marker
+	 */
+	void   ::line_marks_gutter_clicked (gint location);
 	
 	/**
 	 * ianjuta_editor_get_tabsize:
@@ -2321,7 +2333,7 @@ interface IAnjutaEditor
 	interface IAnjutaEditorGoto
 	{
 		/**
-		 * ianjuta_editor_goto_start_block()
+		 * ianjuta_editor_goto_start_block:
 		 * @obj: Self
 		 * @err: Error propagation and reporting
 		 *
@@ -2330,7 +2342,7 @@ interface IAnjutaEditor
 		void start_block();
 		
 		/**
-		 * ianjuta_editor_goto_end_block()
+		 * ianjuta_editor_goto_end_block:
 		 * @obj: Self
 		 * @err: Error propagation and reporting
 		 *
@@ -2339,7 +2351,7 @@ interface IAnjutaEditor
 		void end_block();
 
 		/**
-		 * ianjuta_editor_goto_matching_brace()
+		 * ianjuta_editor_goto_matching_brace:
 		 * @obj: Self
 		 * @err: Error propagation and reporting
 		 *
@@ -3804,6 +3816,32 @@ interface IAnjutaDebugger
 	#include <gio/gio.h>
 
 	/* Types */
+	/**
+	 * IAnjutaDebuggerError:
+	 * @IANJUTA_DEBUGGER_OK: No error
+	 * @IANJUTA_DEBUGGER_NOT_READY: Debugger is not ready to execute the command
+	 * @IANJUTA_DEBUGGER_NOT_RUNNING: Debugger is not is running state
+	 * @IANJUTA_DEBUGGER_NOT_STOPPED: Debugger is not is stopped state
+	 * @IANJUTA_DEBUGGER_NOT_LOADED: Debugger is not is loaded state
+	 * @IANJUTA_DEBUGGER_NOT_STARTED: Debugger is not in started state
+	 * @IANJUTA_DEBUGGER_NOT_CONNECTED: Debugger is not connected:
+	 * @IANJUTA_DEBUGGER_NOT_IMPLEMENTED: Corresponding function is not implemented
+	 * @IANJUTA_DEBUGGER_CANCEL: Operation has been cancelled
+	 * @IANJUTA_DEBUGGER_UNABLE_TO_CREATE_VARIABLE: Debugger cannot create variable
+	 * @IANJUTA_DEBUGGER_UNABLE_TO_ACCESS_MEMORY: Debugger cannot access memory
+	 * @IANJUTA_DEBUGGER_UNABLE_TO_OPEN_FILE: Debugger cannot open file
+	 * @IANJUTA_DEBUGGER_UNSUPPORTED_FILE_TYPE: Debugger cannot debug such file
+	 * @IANJUTA_DEBUGGER_UNSUPPORTED_VERSION: Debugger is too old
+	 * @IANJUTA_DEBUGGER_UNABLE_TO_FIND_DEBUGGER: Debugger cannot be found
+	 * @IANJUTA_DEBUGGER_ALREADY_DONE: Command has already been executed
+	 * @IANJUTA_DEBUGGER_PROGRAM_NOT_FOUND: Program cannot be found
+	 * @IANJUTA_DEBUGGER_UNABLE_TO_CONNECT: Unable to connect to debugger
+	 * @IANJUTA_DEBUGGER_UNKNOWN_ERROR: Unknown error
+	 * @IANJUTA_DEBUGGER_OTHER_ERROR: other error
+	 *
+	 * This enumeration is used to defined the error returned by the debugger
+	 * backend.
+	 */
 	enum Error
 	{
 		OK              =  0,
@@ -3828,15 +3866,16 @@ interface IAnjutaDebugger
 		OTHER_ERROR
 	}
 
-	enum Data
-	{
-		INFORMATION,
-		BREAKPOINT,
-		FRAME,
-		VARIABLE,
-		REGISTER
-	}
-
+	/**
+	 * IAnjutaDebuggerOutputType:
+	 * @IANJUTA_DEBUGGER_OUTPUT: Output from debugger
+	 * @IANJUTA_DEBUGGER_WARNING_OUTPUT: Warning from debugger
+	 * @IANJUTA_DEBUGGER_ERROR_OUTPUT: Error from debugger
+	 * @IANJUTA_DEBUGGER_INFO_OUTPUT: Additional message from debugger
+	 * 
+	 * This enumeration is used to defined the kind of output in
+	 * #IAnjutaDebuggerOutputCallback
+	 */
 	enum OutputType
 	{
 		OUTPUT,
@@ -3845,6 +3884,18 @@ interface IAnjutaDebugger
 		INFO_OUTPUT
 	}
 
+	/**
+	 * IAnjutaDebuggerState:
+	 * @IANJUTA_DEBUGGER_BUSY: Debugger is executing a command, it can enter in another
+	 *                         at the end of the command.
+	 * @IANJUTA_DEBUGGER_STOPPED: Debugger is stopped.
+	 * @IANJUTA_DEBUGGER_STARTED: Debugger is started but no program is loaded.
+	 * @IANJUTA_DEBUGGER_PROGRAM_LOADED: Debugger is started and has a program loaded.
+	 * @IANJUTA_DEBUGGER_PROGRAM_STOPPED: Debugger is started and has a program stopped.
+	 * @IANJUTA_DEBUGGER_PROGRAM_RUNNING: Debugger is started and has a program running.
+	 * 
+	 * This enumeration is used to defined the different state of the debugger.
+	 */
 	enum State
 	{
 		BUSY,
@@ -3855,6 +3906,19 @@ interface IAnjutaDebugger
 		PROGRAM_RUNNING
 	}
 
+	/**
+	 * IAnjutaDebuggerFrame:
+	 * @thread: Thread identifier.
+	 * @level: Level of the frame, 0 is the topmost one.
+	 * @args: List of argument of the caller.
+	 * @file: Source file name where is the program counter.
+	 * @line: Line number in the file above.
+	 * @function: Function name where is the program counter.
+	 * @library: Library name where is the program counter.
+	 * @address: Address of the program counter.
+	 * 
+	 * This structure keeps all information about a stack frame.
+	 */
 	struct Frame
 	{
 		gint thread;
@@ -3867,12 +3931,51 @@ interface IAnjutaDebugger
 		gulong address;
 	}
 
-	/* Call back functions */
+	/**
+	 * IAnjutaDebuggerCallback:
+	 * @data: data
+	 * @user_data: user data passed to the function
+	 * @error: error
+	 * 
+	 * This callback function is used only by #ianjuta_debugger_callback with a
+	 * NULL data.
+	 */
 	typedef void (*Callback) (const gpointer data, gpointer user_data, GError* err);
+
+	/**
+	 * IAnjutaDebuggerGListCallback:
+	 * @list: list of data
+	 * @user_data: user data passed to the function
+	 * @error: error
+	 * 
+	 * This callback function is used by several debugger functions. Depending on
+	 * the function, the kind of elements in the list is different. It is a string
+	 * for #ianjuta_debugger_list_local or a #IAnjutaDebuggerFrame for
+	 * #ianjuta_debugger_list_frame.
+	 */
 	typedef void (*GListCallback) (const GList* list, gpointer user_data, GError* err);
+
+	/**
+	 * IAnjutaDebuggerCallback:
+	 * @data: string
+	 * @user_data: user data
+	 * @error: error
+	 * 
+	 * This callback function is used by several debugger functions. The data is
+	 * a string
+	 */
 	typedef void (*GCharCallback) (const gchar *value, gpointer user_data, GError* err);
+
+	/**
+	 * IAnjutaDebuggerCallback:
+	 * @data: Self
+	 * @user_data: user data
+	 * @error: error
+	 * 
+	 * This callback function is used only by #ianjuta_debugger_callback with a
+	 * NULL data.
+	 */
 	typedef void (*OutputCallback) (OutputType type, const gchar *output, gpointer user_data);
-	typedef void (*MemoryCallback) (gulong address, guint length, const gchar *data, gpointer user_data, GError *err);
 
 	/* Signals */
 
@@ -4171,6 +4274,20 @@ interface IAnjutaDebugger
 	gboolean run_to (const gchar* file, gint line);
 	
 	/**
+	* ianjuta_debugger_run_from:
+	* @obj: Self
+	* @file: target file name
+	* @line: target line in file
+	* @err: Error propagation and reporting.
+	* 
+	* Execute the program from a new position.
+	* This function is optional.
+	*
+	* Returns: TRUE if sucessful, otherwise FALSE.
+	*/
+	gboolean run_from (const gchar *file, gint line);
+	
+	/**
 	* ianjuta_debugger_exit:
 	* @obj: Self
 	* @err: Error propagation and reporting.
@@ -4206,7 +4323,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean inspect (const gchar* name, Callback callback, gpointer user_data);
+	gboolean inspect (const gchar* name, GCharCallback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_evaluate:
@@ -4221,7 +4338,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean evaluate (const gchar* name, const gchar* value, Callback callback, gpointer user_data);
+	gboolean evaluate (const gchar* name, const gchar* value, GCharCallback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_print:
@@ -4235,7 +4352,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean print (const gchar *variable, Callback callback, gpointer user_data);
+	gboolean print (const gchar *variable, GCharCallback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_list_local:
@@ -4248,7 +4365,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean list_local (Callback callback, gpointer user_data);
+	gboolean list_local (GListCallback callback, gpointer user_data);
 
 	/**
 	* ianjuta_debugger_list_argument:
@@ -4261,7 +4378,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean list_argument (Callback callback, gpointer user_data);
+	gboolean list_argument (GListCallback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_info_signal:
@@ -4274,7 +4391,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean info_signal (Callback callback, gpointer user_data);
+	gboolean info_signal (GListCallback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_info_sharedlib:
@@ -4287,7 +4404,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean info_sharedlib (Callback callback, gpointer user_data);
+	gboolean info_sharedlib (GListCallback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_handle_signal:
@@ -4308,7 +4425,7 @@ interface IAnjutaDebugger
 	* ianjuta_debugger_info_frame:
 	* @obj: Self
 	* @frame: frame number, the top frame has the number 0
-	* @callback: Callback to call getting a string with all information
+	* @callback: Callback to call getting a list of strings with all information
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
@@ -4316,12 +4433,12 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean info_frame (guint frame, Callback callback, gpointer user_data);
+	gboolean info_frame (guint frame, GListCallback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_info_args:
 	* @obj: Self
-	* @callback: Callback to call getting a string with all information
+	* @callback: Callback to call getting a list of strings with all information
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
@@ -4329,12 +4446,12 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean info_args (Callback callback, gpointer user_data);
+	gboolean info_args (GListCallback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_info_target:
 	* @obj: Self
-	* @callback: Callback to call getting a string with all information
+	* @callback: Callback to call getting a list of strings with all information
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
@@ -4342,12 +4459,12 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean info_target (Callback callback, gpointer user_data);
+	gboolean info_target (GListCallback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_info_program:
 	* @obj: Self
-	* @callback: Callback to call getting a string with all information
+	* @callback: Callback to call getting a list of strings with all information
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
@@ -4355,12 +4472,12 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean info_program (Callback callback, gpointer user_data);
+	gboolean info_program (GListCallback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_info_udot:
 	* @obj: Self
-	* @callback: Callback to call getting a string with all information
+	* @callback: Callback to call getting a list of strings with all information
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
@@ -4368,13 +4485,13 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean info_udot (Callback callback, gpointer user_data);
+	gboolean info_udot (GListCallback callback, gpointer user_data);
 	
 	
 	/**
 	* ianjuta_debugger_info_variables:
 	* @obj: Self
-	* @callback: Callback to call getting a string with all information
+	* @callback: Callback to call getting a list of strings with all information
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
@@ -4382,12 +4499,12 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean info_variables (Callback callback, gpointer user_data);
+	gboolean info_variables (GListCallback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_list_frame:
 	* @obj: Self
-	* @callback: Callback to call getting a list of frame
+	* @callback: Callback to call getting a list of #IAnjutaDebuggerFrame
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
@@ -4395,7 +4512,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean list_frame (Callback callback, gpointer user_data);
+	gboolean list_frame (GListCallback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_set_frame:
@@ -4412,7 +4529,7 @@ interface IAnjutaDebugger
 	/**
 	* ianjuta_debugger_list_thread:
 	* @obj: Self
-	* @callback: Callback to call getting a list of thread
+	* @callback: Callback to call getting a list of #IAnjutaDebuggerFrame for each thread
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
@@ -4420,7 +4537,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean list_thread (Callback callback, gpointer user_data);
+	gboolean list_thread (GListCallback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_set_thread:
@@ -4438,7 +4555,7 @@ interface IAnjutaDebugger
 	* ianjuta_debugger_info_thread:
 	* @obj: Self
 	* @thread: thread number
-	* @callback: Callback to call getting a string with all information
+	* @callback: Callback to call getting a list of strings with all information
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
@@ -4446,20 +4563,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean info_thread (gint thread, Callback callback, gpointer user_data);
-
-	/**
-	* ianjuta_debugger_list_register:
-	* @obj: Self
-	* @callback: Callback to call getting a list of registers
-	* @user_data: User data that is passed back to the callback
-	* @err: Error propagation and reporting.
-	* 
-	* Get the list of registers.
-	*
-	* Returns: TRUE if sucessful, otherwise FALSE.
-	*/
-	gboolean list_register (Callback callback, gpointer user_data);
+	gboolean info_thread (gint thread, GListCallback callback, gpointer user_data);
 
 	/**
 	* ianjuta_debugger_send_command:
@@ -4478,7 +4582,7 @@ interface IAnjutaDebugger
 	/**
 	* ianjuta_debugger_callback:
 	* @obj: Self
-	* @callback: Callback to call
+	* @callback: Callback to call. the data argument is NULL.
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
 	* 
@@ -4512,6 +4616,20 @@ interface IAnjutaDebugger
 	void disable_log ();
 
 	/**
+	* ianjuta_debugger_dump_stack_trace:
+	* @obj: Self
+	* @callback: Callback to call getting a list of strings
+	* @user_data: User data that is passed back to the callback
+	* @err: Error propagation and reporting.
+	* 
+	* Return a stack trace valid for a bug reports.
+	* This function is optional.
+	* 
+	* Returns: TRUE if sucessful, otherwise FALSE.
+	*/
+	gboolean dump_stack_trace (GListCallback callback, gpointer user_data);
+
+	/**
 	 * SECTION:ianjuta-debugger-breakpoint
 	 * @title: IAnjutaDebuggerBreakpoint
 	 * @short_description: Breakpoint Debugger interface
@@ -4523,6 +4641,24 @@ interface IAnjutaDebugger
 	interface IAnjutaDebuggerBreakpoint
 	{	
 		
+		/**
+		 * IAnjutaDebuggerBreakpointType:
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_REMOVED: Set for removed breakpoint
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_UPDATED: Set for changed breakpoint
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_ON_LINE: Set on source line
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_ON_ADDRESS: Set on an addresse
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_ON_FUNCTION: Set on a function name
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_ON_READ: Set on read access
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_ON_WRITE: Set on write access
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_WITH_ENABLE: Has enable information
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_WITH_IGNORE: Has ignore information,
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_WITH_TIME: Has counter information
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_WITH_CONDITION: Has a condition
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_WITH_TEMPORARY: Temporary breakpoint, automatically removed when triggered
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_WITH_PENDING: Pending breakpoint
+		 * 
+		 * This enumeration defined various characteristics of the breakpoint.
+		 */
 		enum Type
 		{
 			REMOVED = 1 << 0,
@@ -4536,9 +4672,27 @@ interface IAnjutaDebugger
 			WITH_IGNORE = 1 << 15,
 			WITH_TIME = 1 << 11,
 			WITH_CONDITION = 1 << 12,
-			WITH_TEMPORARY = 1 << 13
+			WITH_TEMPORARY = 1 << 13,
+			WITH_PENDING = 1 << 14,
 		}
 
+		/**
+		 * IAnjutaDebuggerBreakpointItem:
+		 * @type: type see #IAnjutaBreakpointType enumeration
+		 * @id: unique identifier
+		 * @file: source file where is the breakpoint
+		 * @line: corresponding source file line number
+		 * @function: corresponding function name
+		 * @address: corresponding address
+		 * @enable: TRUE if the breakpoint is enabled
+		 * @ignore: TRUE if the breakpoint is ignored
+		 * @times: Count how many time the breakpoint is triggered
+		 * @condition: Additional condition for triggering the breakpoint
+		 * @temporary: TRUE if the breakpoint is temporary
+		 * @pending: TRUE if the breakpoint is pending
+		 * 
+		 * This structure keeps all information about a breakpoint.
+		 */
 		struct Item
 		{
 			gint type;
@@ -4552,8 +4706,20 @@ interface IAnjutaDebugger
 			guint times;
 			gchar *condition;
 			gboolean temporary;
+			gboolean pending;
 		}
 
+		/**
+		 * IAnjutaDebuggerBreakpointMethod:
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_SET_AT_ADDRESS: Allow to set breakpoint on address
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_SET_AT_FUNCTION: Allow to set breakpoint on function name
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_ENABLE: Allow to disable breakpoint
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_IGNORE: Allow to ignore breakpoint
+		 * @IANJUTA_DEBUGGER_BREAKPOINT_CONDITION: Allow to add a condition on breakpoint
+		 * 
+		 * Defines which breakpoint characteristics are supported by the debugger
+		 * backend.
+		 */
 		enum Method
 		{
 			SET_AT_ADDRESS = 1 << 0,
@@ -4564,13 +4730,23 @@ interface IAnjutaDebugger
 		}
 
 		/**
+		 * IAnjutaDebuggerBreakpointCallback:
+		 * @data: a #IAnjutaBreakpointItem object
+		 * @user_data: user data passed to the function
+		 * @error: error
+		 * 
+		 * This callback function is used to return a #IAnjutaBreakpointItem.
+		 */
+		typedef void (*Callback) (const Item *data, gpointer user_data, GError* err);
+		
+		/**
 		* ianjuta_debugger_breakpoint_implement_breakpoint:
 		* @obj: Self
 		* @err: Error propagation and reporting.
 		* 
 		* Return all implemented methods.
 		*
-		* Returns: A OR of IAnjutaDebuggerBreakpointMethod
+		* Returns: A OR of #IAnjutaDebuggerBreakpointMethod
 		* corresponding to all implemented optional methods.
 		*/
 		gint implement_breakpoint ();
@@ -4589,7 +4765,7 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is called. If 
 		* FALSE, the callback will not be called.
 		*/
-		gboolean set_breakpoint_at_line (const gchar* file, guint line, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean set_breakpoint_at_line (const gchar* file, guint line, Callback callback, gpointer user_data);
 
 	
 		/**
@@ -4606,7 +4782,7 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is called. If 
 		* FALSE, the callback will not be called.
 		*/
-		gboolean set_breakpoint_at_address (gulong address, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean set_breakpoint_at_address (gulong address, Callback callback, gpointer user_data);
 	
 		/**
 		* ianjuta_debugger_breakpoint_set_breakpoint_at_function:
@@ -4623,7 +4799,7 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is called. If 
 		* FALSE, the callback will not be called.
 		*/
-		gboolean set_breakpoint_at_function (const gchar* file, const gchar* function, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean set_breakpoint_at_function (const gchar* file, const gchar* function, Callback callback, gpointer user_data);
 	
 		/**
 		* ianjuta_debugger_breakpoint_clear_breakpoint:
@@ -4639,12 +4815,12 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is called. If 
 		* FALSE, the callback will not be called.
 		*/
-		gboolean clear_breakpoint (guint id, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean clear_breakpoint (guint id, Callback callback, gpointer user_data);
 
 		/**
 		* ianjuta_debugger_breakpoint_list_breakpoint:
 		* @obj: Self
-		* @callback: Callback to call with the list of breakpoints
+		* @callback: Callback to call with the list of #IAnjutaDebuggreBreakpointItem
 		* @user_data: User data that is passed back to the callback
 		* @err: Error propagation and reporting.
 		* 
@@ -4654,7 +4830,7 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is called. If 
 		* FALSE, the callback will not be called.
 		*/
-		gboolean list_breakpoint (IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean list_breakpoint (IAnjutaDebuggerGListCallback callback, gpointer user_data);
 
 		/**
 		* ianjuta_debugger_breakpoint_enable_breakpoint:
@@ -4670,7 +4846,7 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is called. If 
 		* FALSE, the callback will not be called.
 		*/
-		gboolean enable_breakpoint (guint id, gboolean enable, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean enable_breakpoint (guint id, gboolean enable, Callback callback, gpointer user_data);
 	
 		/**
 		* ianjuta_debugger_breakpoint_ignore_breakpoint:
@@ -4687,7 +4863,7 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is called. If 
 		* FALSE, the callback will not be called.
 		*/
-		gboolean ignore_breakpoint (guint id, guint ignore, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean ignore_breakpoint (guint id, guint ignore, Callback callback, gpointer user_data);
 	
 		/**
 		* ianjuta_debugger_breakpoint_condition_breakpoint:
@@ -4705,7 +4881,7 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is called. If 
 		* FALSE, the callback will not be called.
 		*/
-		gboolean condition_breakpoint (guint id, const gchar* condition, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean condition_breakpoint (guint id, const gchar* condition, Callback callback, gpointer user_data);
 	}
 
 	/**
@@ -4723,6 +4899,20 @@ interface IAnjutaDebugger
 	*/
 	interface IAnjutaDebuggerVariable
 	{
+		/**
+		 * IAnjutaDebuggerVariableObject:
+		 * @name: unique variable object name created by backend
+		 * @expression: corresponding variable name or expression
+		 * @type: variable type
+		 * @value: variable value
+		 * @changed: TRUE if the variable has changed
+		 * @exited: TRUE if the variable is outside current scope
+		 * @deleted: TRUE if the variable has been removed
+		 * @children: Number of variable children, -1 if unknown
+		 * @has_more: TRUE if the children value is wrong
+		 * 
+		 * Defines a variable object.
+		 */
 		struct Object
 		{
 			gchar *name;
@@ -4733,7 +4923,18 @@ interface IAnjutaDebugger
 			gboolean exited;
 			gboolean deleted;
 			gint children;
+			gboolean has_more;
 		}
+
+		/**
+		 * IAnjutaDebuggerVariableCallback:
+		 * @data: a #IAnjutaDebuggerVariableObject object
+		 * @user_data: user data passed to the function
+		 * @error: error
+		 * 
+		 * This callback function is used to return a #IAnjutaDebuggerVariableObject.
+		 */
+		typedef void (*Callback) (const Object *data, gpointer user_data, GError* err);
 
 		/**
 		* ianjuta_debugger_variable_create:
@@ -4748,24 +4949,30 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is
 		* called. If FALSE, the callback will not be called.
 		*/
-		gboolean create (const gchar *expression, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean create (const gchar *expression, Callback callback, gpointer user_data);
 
 		/**
 		* ianjuta_debugger_variable_list_children:
 		* @obj: Self
 		* @name: Variable name
+		* @from: Starting from this children (zero-based)
 		* @callback: Callback to call when the children have been
-		* created
+		* created with a list of variable objects
 		* @user_data: User data that is passed back to the callback
 	 	* @err: Error propagation and reporting.
 		* 
-		* List and create objects for all children of a
-		* variable object.
+		* List and create objects for variable object's children.
+		* The backend can returns only a part of the children, in
+		* this case a last variable with a NULL name is added to
+		* the list given to the callback function. 
+		* If the remaining children are wanted, this
+		* function must be called again with a from argument
+		* corresponding to the first missing children.
 		*
 		* Returns: TRUE if the request succeed and the callback is
 		* called. If FALSE, the callback will not be called.
 		*/
-		gboolean list_children (const gchar *name, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean list_children (const gchar *name, guint from, IAnjutaDebuggerGListCallback callback, gpointer user_data);
 
 		/**
 		* ianjuta_debugger_variable_evaluate:
@@ -4780,7 +4987,7 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is
 		* called. If FALSE, the callback will not be called.
 		*/
-		gboolean evaluate (const gchar *name, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean evaluate (const gchar *name, IAnjutaDebuggerGCharCallback callback, gpointer user_data);
 
 		/**
 		* ianjuta_debugger_variable_assign:
@@ -4800,7 +5007,7 @@ interface IAnjutaDebugger
 		* ianjuta_debugger_variable_update:
 		* @obj: Self
 		* @callback: Callback to call with the list of all changed
-		* variables
+		* variable names
 		* @user_data: User data that is passed back to the callback
 		* @err: Error propagation and reporting.
 		* 
@@ -4809,7 +5016,7 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is
 		* called. If FALSE, the callback will not be called.
 		*/
-		gboolean update (IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean update (IAnjutaDebuggerGListCallback callback, gpointer user_data);
 
 		/**
 		* ianjuta_debugger_variable_destroy:
@@ -4839,6 +5046,14 @@ interface IAnjutaDebugger
 	interface IAnjutaDebuggerRegister
 	{
 
+		/**
+		 * IAnjutaDebuggerRegisterData:
+		 * @num: register identifier
+		 * @name: register name
+		 * @value: register value
+		 * 
+		 * Defines a register data.
+		 */
 		struct Data
 		{
 			guint num;
@@ -4849,7 +5064,7 @@ interface IAnjutaDebugger
 		/**
 		* ianjuta_debugger_register_list_register:
 		* @obj: Self
-		* @callback: Callback to call with the register list
+		* @callback: Callback to call with the #IAnjutaDebuggerRegisterData list
 		* @user_data: User data that is passed back to the callback
 		* @err: Error propagation and reporting.
 		* 
@@ -4859,12 +5074,12 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is
 		* called. If FALSE, the callback will not be called.
 		*/
-		gboolean list_register (IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean list_register (IAnjutaDebuggerGListCallback callback, gpointer user_data);
 
 		/**
 		* ianjuta_debugger_register_update_register:
 		* @obj: Self
-		* @callback: Callback call with the list of all modified registers
+		* @callback: Callback call with the list of all modified #IAnjutaDebuggerRegisterData
 		* @user_data: User data that is passed back to the callback
 		* @err: Error propagation and reporting.
 		* 
@@ -4874,7 +5089,7 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is
 		* called. If FALSE, the callback will not be called.
 		*/
-		gboolean update_register (IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean update_register (IAnjutaDebuggerGListCallback callback, gpointer user_data);
 
 		/**
 		* ianjuta_debugger_register_write_register:
@@ -4901,12 +5116,30 @@ interface IAnjutaDebugger
 	*/
 	interface IAnjutaDebuggerMemory
 	{
+		/**
+		 * IAnjutaDebuggerRegisterMemoryBlock:
+		 * @address: start address of memory block
+		 * @length: size of memory block
+		 * @data: memory block data
+		 * 
+		 * Represent a block of memory.
+		 */
 		struct Block
 		{
 			gulong address;
 			guint length;
 			gchar *data;
 		}
+
+		/**
+		 * IAnjutaDebuggerMemoryCallback:
+		 * @data: a #IAnjutaDebuggerMemoryBlock object
+		 * @user_data: user data passed to the function
+		 * @error: error
+		 * 
+		 * This callback function is used to return a #IAnjutaDebuggerMemoryBlock.
+		 */
+		typedef void (*Callback) (const Block *data, gpointer user_data, GError* err);
 
 		/**
 		* ianjuta_debugger_memory_inspect:
@@ -4922,7 +5155,7 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is
 		* called. If FALSE, the callback will not be called.
 		*/
-		gboolean inspect (gulong address, guint length, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean inspect (gulong address, guint length, Callback callback, gpointer user_data);
 	}
 
 	/**
@@ -4938,6 +5171,14 @@ interface IAnjutaDebugger
 	interface IAnjutaDebuggerInstruction
 	{
 	
+		/**
+		 * IAnjutaDebuggerInstructionALine:
+		 * @address: Address of the line
+		 * @label: Optional label
+		 * @text: Diassembled instruction on the line
+		 * 
+		 * Defines a disassembled line
+		 */
 		struct ALine
 		{
 			gulong address;
@@ -4945,11 +5186,28 @@ interface IAnjutaDebugger
 			const gchar *text;
 		}
 
+		/**
+		 * IAnjutaDebuggerInstructionDisassembly:
+		 * @size: Number of line
+		 * @data: Array of all lines
+		 * 
+		 * Represents a block of diassembled instructions
+		 */
 		struct Disassembly
 		{
 			guint size;
-			ALine data[];	
-		}	
+			ALine data[];
+		}
+
+		/**
+		 * IAnjutaDebuggerInstructionCallback:
+		 * @data: a #IAnjutaDebuggerInstructionDisassembly object
+		 * @user_data: user data passed to the function
+		 * @error: error
+		 * 
+		 * This callback function is used to return a #IAnjutaDebuggerInstructionDisassembly.
+		 */
+		typedef void (*Callback) (const Disassembly *data, gpointer user_data, GError* err);
 
 		/**
 		* ianjuta_debugger_instruction_disassemble:
@@ -4965,7 +5223,7 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is
 		* called. If FALSE, the callback will not be called.
 		*/
-		gboolean disassemble (gulong address, guint length, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean disassemble (gulong address, guint length, Callback callback, gpointer user_data);
 
 		/**
 		* ianjuta_debugger_instruction_step_in_instruction:
@@ -5004,8 +5262,21 @@ interface IAnjutaDebugger
 		* FALSE, the callback will not be called.
 		*/
 		gboolean run_to_address (gulong address);
+
+		/**
+		* ianjuta_debugger_instruction_run_from_address:
+		* @obj: Self
+		* @address: Run from this addresss
+		* @err: Error propagation and reporting.
+		* 
+		* Restart the program starting from address address
+		*
+		* Returns: TRUE if the request succeed and the callback is called. If 
+		* FALSE, the callback will not be called.
+		*/
+		gboolean run_from_address (gulong address);
 	}
-		
+
 }
 
 /**
@@ -5350,10 +5621,15 @@ interface IAnjutaMacro
  * SECTION:ianjuta-symbol
  * @title: IAnjutaSymbol
  * @short_description: Source code symbol interface
- * @see_also: #IAnjutaSymbolManager
+ * @see_also: #IAnjutaSymbolQuery, #IAnjutaSymbolManager
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-symbol.h
  * 
+ * This interface is used to define a symbol, normally got from symbol
+ * queries. A symbol has various fields that can be retrieved by using
+ * their get methods. A symbol will have only those fields which have
+ * been selected to be included in their respective queries, so make sure
+ * the needed fields are correctly specified during query creation.
  */
 interface IAnjutaSymbol
 {
@@ -5362,9 +5638,8 @@ interface IAnjutaSymbol
 	
 	/** 
 	 * IAnjutaSymbolType:
-	 *
-	 * @IANJUTA_SYMBOL_TYPE_UNDEF: Unknown type. If you have to search for all the known
-	 * types use this flag because it's quicker than #IANJUTA_SYMBOL_TYPE_MAX.
+	 * @IANJUTA_SYMBOL_TYPE_NONE: None spedified.
+	 * @IANJUTA_SYMBOL_TYPE_UNDEF: Unknown type.
 	 * @IANJUTA_SYMBOL_TYPE_CLASS: Class declaration
 	 * @IANJUTA_SYMBOL_TYPE_ENUM: Enum declaration 
 	 * @IANJUTA_SYMBOL_TYPE_ENUMERATOR: Enumerator value 
@@ -5386,11 +5661,11 @@ interface IAnjutaSymbol
 	 * @IANJUTA_SYMBOL_TYPE_FILE: File (Pseudo tag) 
 	 * @IANJUTA_SYMBOL_TYPE_OTHER: Other (non C/C++/Java tag) 
 	 * @IANJUTA_SYMBOL_TYPE_SCOPE_CONTAINER: types which are subjected to create a scope.
-	 * @IANJUTA_SYMBOL_TYPE_MAX: Maximum value, means all known values. You can reach
-	 * the same result using IANJUTA_SYMBOL_TYPE_UNDEF, which is much faster.
+	 * @IANJUTA_SYMBOL_TYPE_MAX: Maximum value, used as end marker.
 	 */                   
 	enum Type               
 	{
+		TYPE_NONE = 0,
 		TYPE_UNDEF = 1,                
 		TYPE_CLASS = 2,                
 		TYPE_ENUM = 4,                 
@@ -5412,171 +5687,492 @@ interface IAnjutaSymbol
 		TYPE_MACRO_WITH_ARG = 262144,  
 		TYPE_FILE = 524288,            
 		TYPE_OTHER = 1048576,          
-		TYPE_SCOPE_CONTAINER = IANJUTA_SYMBOL_TYPE_CLASS | IANJUTA_SYMBOL_TYPE_ENUM | IANJUTA_SYMBOL_TYPE_ENUMERATOR | IANJUTA_SYMBOL_TYPE_INTERFACE | IANJUTA_SYMBOL_TYPE_NAMESPACE | IANJUTA_SYMBOL_TYPE_PACKAGE | IANJUTA_SYMBOL_TYPE_STRUCT | IANJUTA_SYMBOL_TYPE_TYPEDEF | IANJUTA_SYMBOL_TYPE_UNION,
+		TYPE_SCOPE_CONTAINER = IANJUTA_SYMBOL_TYPE_CLASS | IANJUTA_SYMBOL_TYPE_ENUM | IANJUTA_SYMBOL_TYPE_INTERFACE | IANJUTA_SYMBOL_TYPE_NAMESPACE | IANJUTA_SYMBOL_TYPE_PACKAGE | IANJUTA_SYMBOL_TYPE_STRUCT | IANJUTA_SYMBOL_TYPE_UNION,
 		TYPE_MAX = 2097151             
 	}
 
 	/** 
-	 * IAnjutaSymbolField: Field masks. Used mainly to retrieve the fields of a symbol
-	 * throught the call to ianjuta_symbol_get_extra_info_string () or the various
-	 * ianjuta_symbol_manager_* () functions.
-	 *
-	 * @IANJUTA_SYMBOL_FIELD_SIMPLE: With this field you will have name, line of declaration,
-	 *                               is_file_scope and signature of the symbol.
-	 * @IANJUTA_SYMBOL_FIELD_FILE_PATH: The path to the file. It's obtained using something like
-	 *									g_strconcat ("/home/user/project_dir/", 
-	 *									"src/db/realative/path/file.c");
-	 * @IANJUTA_SYMBOL_FIELD_IMPLEMENTATION: implementation attribute of a symbol. It may be
-	 *										"pure virtual", "virtual", etc.
-	 * @IANJUTA_SYMBOL_FIELD_ACCESS: access attribute of a symbol. It may be "public", "private" etc.
-	 * @IANJUTA_SYMBOL_FIELD_KIND: kind attribute of a symbol. "enumerator", "namespace", "class" are
-	 *							  some examples.
-	 * @IANJUTA_SYMBOL_FIELD_TYPE: type attribute of a symbol. Use this field in conjunction with
-	 *						#IANJUTA_SYMBOL_FIELD_TYPE_NAME as the query would retrieve both
-	 *						attributes in a quicker way.
-	 * @IANJUTA_SYMBOL_FIELD_TYPE_NAME: type_name attribute of a symbol. If a type could be
-	 *									"class" then its type_name may be "MyFooClass" etc.
-	 * @IANJUTA_SYMBOL_FIELD_LANGUAGE: the language of the symbol, e.g. "C", "Java", etc.
-	 * @IANJUTA_SYMBOL_FIELD_FILE_IGNORE: field mainly ignored.
-	 * @IANJUTA_SYMBOL_FIELD_FILE_INCLUDE: field mainly ignored.
-	 * @IANJUTA_SYMBOL_FIELD_PROJECT_NAME: the project this symbol belongs to.
-	 * @IANJUTA_SYMBOL_FIELD_WORKSPACE_NAME: the workspace this symbol belongs to.
+	 * IAnjutaSymbolField:
+	 * @IANJUTA_SYMBOL_FIELD_ID: Integer. A unique ID of the symbol
+	 * @IANJUTA_SYMBOL_FIELD_NAME: String. Name of the symbol
+	 * @IANJUTA_SYMBOL_FIELD_FILE_POS: Integer. The file line number where the symbol is found.
+	 * @IANJUTA_SYMBOL_FIELD_SCOPE_DEF_ID: Integer. A unique ID to define scope created by this symbol.
+	 * @IANJUTA_SYMBOL_FIELD_FILE_SCOPE: Boolean: TRUE if symbol is within file scope,
+	 *     otherwise FALSE.
+	 * @IANJUTA_SYMBOL_FIELD_SIGNATURE: String. Signature of a method, if symbol is a funtion.
+	 *     Namely, the arguments list of the funtion.
+	 * @IANJUTA_SYMBOL_FIELD_RETURNTYPE: String. Return type of a method, if symbol is a function.
+	 * @IANJUTA_SYMBOL_FIELD_FILE_PATH: String. The relative path to the file where the symbol is found.
+	 * @IANJUTA_SYMBOL_FIELD_IMPLEMENTATION: String. Implementation attribute of a symbol. It may be
+	 *     "pure virtual", "virtual", etc.
+	 * @IANJUTA_SYMBOL_FIELD_ACCESS: String. Access attribute of a symbol.
+	 *     It may be "public", "private" etc.
+	 * @IANJUTA_SYMBOL_FIELD_KIND: Kind attribute of a symbol, such as
+	 *     "enumerator", "namespace", "class" etc.
+	 * @IANJUTA_SYMBOL_FIELD_TYPE: Both string and Integer. Type attribute of a symbol.
+	 *     In string form, it is name of the type in string form.
+	 *     In integer form, it is IAnjutaSymbolType enumerator value.
+	 * @IANJUTA_SYMBOL_FIELD_TYPE_NAME: type_name attribute of a symbol.
+	 *     If a type could be "class" then its type_name may be "MyFooClass" etc.
+	 * @IANJUTA_SYMBOL_FIELD_IS_CONTAINER: Boolean. TRUE if symbol is
+	 *     a scope container, such as namespace, class, struct etc., otherwise
+	 *     FALSE.
+	 * @IANJUTA_SYMBOL_FIELD_END: The end marker.
+	 * 
+	 * Symbol Fields. Used to define and retrieve results from query. Each of
+	 * these fields are either integer or string. Use the right method to
+	 * retrieve them. That is, for integer use ianjuta_symbol_get_int(),
+	 * for string use ianjuta_symbol_get_string(), and for boolean use
+	 * ianjuta_symbol_get_boolean(). Some fields can be in both forms,
+	 * e.g. #IANJUTA_SYMBOL_FIELD_TYPE.
 	 */
 	enum Field
 	{
-
-		FIELD_SIMPLE = 1,														
-		FIELD_FILE_PATH = 2,
-		FIELD_IMPLEMENTATION = 4,
-		FIELD_ACCESS = 8,
-		FIELD_KIND = 16,
-		FIELD_TYPE = 32,
-		FIELD_TYPE_NAME = 64,
-		FIELD_LANGUAGE = 128,
-		FIELD_FILE_IGNORE = 256,
-		FIELD_FILE_INCLUDE = 512,
-		FIELD_PROJECT_NAME = 1024,
-		FIELD_WORKSPACE_NAME = 2048
+		FIELD_ID,
+		FIELD_NAME,
+		FIELD_FILE_POS,
+		FILED_SCOPE_DEF_ID,
+		FIELD_FILE_SCOPE,
+		FIELD_SIGNATURE,
+		FIELD_RETURNTYPE,
+		FIELD_TYPE,
+		FIELD_TYPE_NAME,		
+		FIELD_FILE_PATH,
+		FIELD_IMPLEMENTATION,
+		FIELD_ACCESS,
+		FIELD_KIND,
+		FIELD_IS_CONTAINER,
+		FIELD_END
 	}
-	
+
 	/**
-	 * ianjuta_symbol_get_id:
+	 * ianjuta_symbol_get_boolean:
 	 * @obj: Self
+	 * @field: The field to retrieve.
 	 * @err: Error propagation and reporting.
 	 *
-	 * An unique identifier for the symbol: pay attention that when engine re-parse
-	 * the files this id may change.
-	 *
-	 * Returns: 0 on error, otherwise the id of the symbol mapped in the db.
+	 * Retreives the boolean value of a boolean @field.
+	 * 
+	 * Returns: The boolean
 	 */
-	gint get_id ();
+	gboolean get_boolean (Field field);
 	
 	/**
-	 * ianjuta_symbol_get_name:
+	 * ianjuta_symbol_get_int:
 	 * @obj: Self
+	 * @field: The field to retrieve.
 	 * @err: Error propagation and reporting.
 	 *
-	 * Returns: The name of the symbol
+	 * Retreives the integer value of an integer @field.
+	 * 
+	 * Returns: The integer
 	 */
-	const gchar *get_name ();
+	gint get_int (Field field);
+	
+	/**
+	 * ianjuta_symbol_get_string:
+	 * @obj: Self
+	 * @field: The field to retrieve.
+	 * @err: Error propagation and reporting.
+	 *
+	 * Retreives the string value of a string @field.
+	 * 
+	 * Returns: The string
+	 */
+	const gchar* get_string (Field field);
 	
 	/**
 	 * ianjuta_symbol_get_file:
 	 * @obj: Self
 	 * @err: Error propagation and reporting.
 	 *
-	 * Returns: The file where the symbol is declared in.
+	 * A convenience method to get GFile object for
+	 * #IANJUTA_SYMBOL_FIELD_FILE_PATH field. The file where the
+	 * symbol is declared. It contains the absolute path of the file
+	 * unlike raw value of field #IANJUTA_SYMBOL_FIELD_FILE_PATH.
+	 *
+	 * Returns: A GFile object. It must be unrefed after use.
 	 */
-	GFile *get_file();
-	
-	/**
-	 * ianjuta_symbol_get_line:
-	 * @obj: Self
-	 * @err: Error propagation and reporting.
-	 *
-	 * Returns: Line of the file the symbol is declared in.
-	 */	
-	gulong get_line ();	
-
-	/**
-	 * ianjuta_symbol_is_local:
-	 * @obj: Self
-	 * @err: Error propagation and reporting.
-	 *
-	 * Is the symbol a static (private) one?
-	 *
-	 * Returns: TRUE if the symbol is local (private, etc), FALSE elsewhere.
-	 */	
-	gboolean is_local ();
-	
-	/**
-	 *ianjuta_symbol_get_args:
-	 * @obj: Self
-	 * @err: Error propagation and reporting.
-	 *
- 	 *
-	 * If symbol has a kind "function" then this will return a string with the args of the
-	 * function itself.
-	 *
-	 * Returns: args as const string or NULL
-	 */	
-	const gchar *get_args ();
-
-	/**
-	 *ianjuta_symbol_get_returntype:
-	 * @obj: Self
-	 * @err: Error propagation and reporting.
-	 *
- 	 *
-	 * If symbol has a kind "function" then this will return a string with the 
-	 * return type of the function itself.
-	 *
-	 * Returns: returntype as const string or NULL
-	 */	
-	const gchar *get_returntype ();	
+	GFile* get_file();
 	
 	/**
 	 * ianjuta_symbol_get_sym_type:
 	 * @obj: Self
 	 * @err: Error propagation and reporting.
 	 *
-	 * You can obtain an IAnjutaSymbolType of the symbol.
-	 * To have a string representation see ianjuta_symbol_get_extra_info_string ().
-	 * You *need* a symbol with #IANJUTA_SYMBOL_FIELD_TYPE enabled attribute. e.g. use ianjuta_symbol_manager_search
-	 * passing #IANJUTA_SYMBOL_FIELD_TYPE as info_fields.
+	 * A convenience method to get value of #IANJUTA_SYMBOL_FIELD_TYPE
+	 * field typecasted to IAnjutaSymbolType. Numerical value is unchanged.
 	 *
 	 * Returns: a #IAnjutaSymbolType
 	 */
 	Type get_sym_type ();
 	
 	/** 
-	 * ianjuta_symbol_get_extra_info_string:
-	 * @obj: Self
- 	 * @sym_info: Just one IANJUTA_SYMBOL_FIELD_* per time. It is NOT possible to pass something like
-	 * FIELD_1 | FIELD_2 | ....
-	 * Note: You will not have anything passing IANJUTA_SYMBOL_FIELD_SIMPLE, just a NULL value.
-	 * 
-	 * @err: Error propagation and reporting.
-	 *
-	 * Returns: a string representation of the field required. For instance passing
-	 * IANJUTA_SYMBOL_FIELD_FILE_PATH you'll have a const gchar* representing the absolute file path, 
-	 * passing IANJUTA_SYMBOL_FIELD_ACCESS the access attribute, as "public", "private", etc.
- 	 */
-	const gchar *get_extra_info_string (Field sym_info);
-
-	/** 
 	 * ianjuta_symbol_get_icon:
 	 * @obj: Self
 	 * @err: Error propagation and reporting.
 	 *
-	 * You *need* a symbol with #IANJUTA_SYMBOL_FIELD_ACCESS | 
-	 * #IANJUTA_SYMBOL_FIELD_KIND enabled attribute. e.g. use 
-	 * ianjuta_symbol_manager_search passing #IANJUTA_SYMBOL_FIELD_ACCESS | 
-	 * #IANJUTA_SYMBOL_FIELD_KIND as info_fields.
+	 * A convenience method to get a small icon (16x16) representing the symbol
+	 * kind. You *need* a query with fields #IANJUTA_SYMBOL_FIELD_ACCESS and 
+	 * #IANJUTA_SYMBOL_FIELD_KIND selected.
 	 *
-	 * Returns: a Pixbuf icon representing the symbol. 
+	 * Returns: a Pixbuf icon representing the symbol. Ref the icon if you
+	 * need to keep it.
 	 */
-	const GdkPixbuf *get_icon ();	
+	const GdkPixbuf *get_icon ();
+}
+
+/**
+ * SECTION:ianjuta-symbol-query
+ * @title: IAnjutaSymbolQuery
+ * @short_description: Source code symbol query interface
+ * @see_also: #IAnjutaSymbolManager, #IAnjutaSymbol
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-symbol-query.h
+ * 
+ * A query object will have this interface that allows to tweak various
+ * query parameters. Except for the #IAnjutaSymbolQueryName and
+ * #IAnjutaSymbolQueryDb parameters, everything else is changable
+ * post-creation.
+ *
+ * Note that chaning a query parameter, except for limit and offset will
+ * result in re-preparing the query the next time it is executed, so it is
+ * not advisable to change it each time the query is executed. For such
+ * cases, create different queries with different parameters.
+ *
+ * A query is signified by a name enumeration (#IAnjutaSymbolQueryName) which
+ * practically determines the query type and its execution condition. Each
+ * query name is assigned to pre-defined query statement and can only be
+ * set during creation time. Then only its specific ianjuta_symbol_query_search_*()
+ * can be used to execute the query. These specific execution methods are
+ * provided to make it convenient to pass query parameters easily and to
+ * ensure all the needed parameters are given.
+ *
+ * A query can run in different modes, defined by #IAnjutaSymbolQueryMode, by
+ * default it is executed in synchrounous mode #IANJUTA_SYMBOL_QUERY_MODE_SYNC
+ * and can be changed using ianjuta_symbol_query_set_mode().
+ * #IANJUTA_SYMBOL_QUERY_MODE_ASYNC runs it in asynchronous mode in a separate
+ * thread and can be canceled with ianjuta_symbol_query_cancel().
+ * 
+ * A query runs on a database, defined by #IAnjutaSymbolQueryDb, and can be
+ * only selected at creatation time.
+ * 
+ * In addition, there are many other filters that can be set to the query
+ * to refine the query results. For example, ianjuta_symbol_query_set_fields()
+ * is used to set the needed symbol fields to retrieve, ianjuta_symbol_query_set_filters()
+ * is used to filter the results with symbol types, ianjuta_symbol_query_set_file_scope()
+ * limits the results to either public or private scope within the source file,
+ * ianjuta_symbol_query_set_group_by() is used to group the results on a given
+ * field, ianjuta_symbol_query_set_order_by is used to order the results on a
+ * given field.
+ * 
+ * ianjuta_symbol_query_set_limit() and ianjuta_symbol_query_set_offset() are
+ * used to change limit and offset of the resultset. Note again that these
+ * parameters do not require re-preparation of query, so can be safely used
+ * any time without performance hit.
+ */
+interface IAnjutaSymbolQuery
+{
+	#include "ianjuta-iterable.h"
+	#include "ianjuta-symbol.h"
+
+	/**
+	 * IAnjutaSymbolQueryMode:
+	 * @IANJUTA_SYMBOL_QUERY_MODE_SYNC: Syncronous query. The result is immediately
+	 *     available as retrun value of search call.
+	 * @IANJUTA_SYMBOL_QUERY_MODE_ASYNC: Asynchronous query. The search call
+	 *     return immediately and result delievered as a signal later. The actual
+	 *     query is done in a separate thread.
+	 * @IANJUTA_SYMBOL_QUERY_MODE_QUEUED: If the database is busy
+	 *     scanning, then the query is performed later when database is ready.
+	 *     It returns NULL and result is delivered through async-result signal.
+	 *     Only query can stay queued, so calling search multiple times would
+	 *     result in only the last one being active.
+	 *
+	 * This parameter determines the mode of query execution. By default,
+	 * IANJUTA_SYMBOL_QUERY_MODE_SYNC is selected.
+	 */
+	enum Mode
+	{
+		MODE_SYNC,
+		MODE_ASYNC,
+		MODE_QUEUED
+	}
+
+	/**
+	 * IAnjutaSymbolQueryDb:
+	 * @IANJUTA_SYMBOL_QUERY_DB_PROJECT: Select project database.
+	 * @IANJUTA_SYMBOL_QUERY_DB_SYSTEM: Select system database.
+	 *
+	 * Sets the database to use for the query. System database is where
+	 * all system library symbols are found. While project database is where
+	 * currently open project's symbols are found.
+	 */
+	enum Db
+	{
+		DB_PROJECT,
+		DB_SYSTEM
+	}
+
+	/**
+	 * IAnjutaSymbolQueryName:
+	 * @IANJUTA_SYMBOL_QUERY_SEARCH: Query to perform basic substring search.
+	 * @IANJUTA_SYMBOL_QUERY_SEARCH_ALL: Query to get all symbols
+	 * @IANJUTA_SYMBOL_QUERY_SEARCH_FILE: Query to perform substring search in a file.
+	 * @IANJUTA_SYMBOL_QUERY_SEARCH_IN_SCOPE: Query to perform substring search in a scope.
+	 * @IANJUTA_SYMBOL_QUERY_SEARCH_ID: Query to find the symbol of given ID.
+	 * @IANJUTA_SYMBOL_QUERY_SEARCH_MEMBERS: Query to find members of a scope (eg. class).
+	 * @IANJUTA_SYMBOL_QUERY_SEARCH_CLASS_PARENTS: Query to get parents of a class.
+	 * @IANJUTA_SYMBOL_QUERY_SEARCH_SCOPE: Query to find scope name of a file position.
+	 * @IANJUTA_SYMBOL_QUERY_SEARCH_PARENT_SCOPE: Query to get the parent scope of a symbol.
+	 * @IANJUTA_SYMBOL_QUERY_SEARCH_PARENT_SCOPE_FILE: Query to get the parent scope of a symbol in the file.
+	 * 
+	 * Names of query that defined what kind of query it is.
+	 */
+	enum Name
+	{
+		SEARCH,
+		SEARCH_ALL,
+		SEARCH_FILE,
+		SEARCH_IN_SCOPE,
+		SEARCH_ID,
+		SEARCH_MEMBERS,
+		SEARCH_CLASS_PARENTS,
+		SEARCH_SCOPE,
+		SEARCH_PARENT_SCOPE,
+		SEARCH_PARENT_SCOPE_FILE
+	}
+
+	/**
+	 * IAnjutaSymbolQueryFileScope:
+	 * @IANJUTA_SYMBOL_QUERY_SEARCH_FS_IGNORE: Ignore file scope
+	 * @IANJUTA_SYMBOL_QUERY_SEARCH_FS_PUBLIC: Only public symbols visible to rest of project.
+	 * @IANJUTA_SYMBOL_QUERY_SEARCH_FS_PRIVATE: Only private symbols visible inside a file.
+	 * 
+	 * Defines file scope of symbols to query.
+	 */
+	enum FileScope
+	{
+		SEARCH_FS_IGNORE,
+		SEARCH_FS_PUBLIC,
+		SEARCH_FS_PRIVATE
+	}
+
+	/**
+	 * IAnjutaSymbolQuery::async_result:
+	 * @ianjutasymbolquery: Self
+	 * @arg1: Query result (IAnjutaIterable, IAnjutaSymbol) of an async
+	 *     or queued search. NULL if no result is found or some error happened.
+	 *
+	 * This signal is emitted for every search of the Query involved in async
+	 * mode, unless cancled by ianjuta_symbol_query_cancel(). For single queued
+	 * query, only result of the last search is emitted (if it wasn't database
+	 * was busy when search was invoked). Unlike in sync counterpart,
+	 * do not unref @result after use.
+	 */
+	void ::async_result (GObject* result);
+
+	/**
+	 * ianjuta_symbol_query_set_mode:
+	 * @obj: Self
+	 * @mode: The mode of query.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Sets the mode of Query.
+	 */
+	void set_mode (IAnjutaSymbolQueryMode mode);
+
+	/**
+	 * ianjuta_symbol_query_set_fields:
+	 * @obj: Self
+	 * @n_fields: Then number of fields to retrieve.
+	 * @fields: The fields to retrieve in the query. The array length must
+	 *   be @n_fields.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Sets the fields of Query.
+	 */
+	void set_fields (gint n_fields, IAnjutaSymbolField *fields);
+
+	/**
+	 * ianjuta_symbol_query_set_filters:
+	 * @obj: Self
+	 * @filters: The mode of query.
+	 * @include_types: TRUE if filter is positive, FALSE if reversed.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Sets the bit mask of symbol type filters. if @include_types is TRUE,
+	 * symbols satisfying the given symbol types are selected, otherwise
+	 * they are excluded.
+	 */
+	void set_filters (IAnjutaSymbolType filters, gboolean includes_types);
+
+	/**
+	 * ianjuta_symbol_query_set_file_scope:
+	 * @obj: Self
+	 * @filescope_search: The filescope to search.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Sets the filescope search of Query.
+	 */
+	void set_file_scope (IAnjutaSymbolQueryFileScope filescope_search);
+
+	/**
+	 * ianjuta_symbol_query_set_offset:
+	 * @obj: Self
+	 * @offset: Offset of the resultset.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Sets the offset index of Query results.
+	 */
+	void set_offset (gint offset);
+
+	/**
+	 * ianjuta_symbol_query_set_limit:
+	 * @obj: Self
+	 * @limit: The limit of query.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Sets the limit of Query results. No more than @limit results are
+	 * returned.
+	 */
+	void set_limit (gint limit);
+
+	/**
+	 * ianjuta_symbol_query_set_group_by:
+	 * @obj: Self
+	 * @field: The field to group results.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Sets the field with which result of query is grouped. As a result
+	 * there will be no duplicates of with this field.
+	 */
+	void set_group_by (IAnjutaSymbolField field);
+
+	/**
+	 * ianjuta_symbol_query_set_order_by:
+	 * @obj: Self
+	 * @field: The field to order the result.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Sets the field with which result of query is ordered.
+	 */
+	void set_order_by (IAnjutaSymbolField field);
+
+	/**
+	 * ianjuta_symbol_query_set_cancel:
+	 * @obj: Self
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Cancels any pending non-sync searches. After calling this, it is
+	 * guaranteed that "async-result" will not be called any more for any
+	 * past searches. New searches will have their results signaled as
+	 * normal.
+	 */
+	void cancel ();
+	
+	/**
+	 * ianjuta_symbol_query_search:
+	 * @obj: Self
+	 * @pattern: Search pattern in compliance with SQL LIKE syntax
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Executes #IANJUTA_SYMBOL_QUERY_SEARCH query.
+	 */
+	IAnjutaIterable* search (const gchar *pattern);
+	
+	/**
+	 * ianjuta_symbol_query_search_all:
+	 * @obj: Self
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Executes #IANJUTA_SYMBOL_QUERY_SEARCH_ALL query.
+	 */
+	IAnjutaIterable* search_all ();
+	
+	/**
+	 * ianjuta_symbol_query_search_file:
+	 * @obj: Self
+	 * @pattern: Search pattern in compliance with SQL LIKE syntax
+	 * @file: The file whose symbols are searched.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Executes #IANJUTA_SYMBOL_QUERY_SEARCH_FILE query.
+	 */
+	IAnjutaIterable* search_file (const gchar *pattern, const GFile *file);
+	
+	/**
+	 * ianjuta_symbol_query_search_in_scope:
+	 * @obj: Self
+	 * @pattern: Search pattern in compliance with SQL LIKE syntax
+	 * @scope: The scope inside which symbols are searched.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Executes #IANJUTA_SYMBOL_QUERY_SEARCH_IN_SCOPE query.
+	 */
+	IAnjutaIterable* search_in_scope (const gchar *pattern, IAnjutaSymbol *scope);
+	
+	/**
+	 * ianjuta_symbol_query_search_members:
+	 * @obj: Self
+	 * @symbol: The symbol whose members to get.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Executes #IANJUTA_SYMBOL_QUERY_SEARCH_MEMBERS query.
+	 */
+	IAnjutaIterable* search_members (IAnjutaSymbol *symbol);
+	
+	/**
+	 * ianjuta_symbol_query_search_class_parents:
+	 * @obj: Self
+	 * @symbol: The class symbol whose parents to get.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Executes #IANJUTA_SYMBOL_QUERY_SEARCH_CLASS_PARENTS query.
+	 */
+	IAnjutaIterable* search_class_parents (IAnjutaSymbol *symbol);
+	
+	/**
+	 * ianjuta_symbol_query_search_id:
+	 * @obj: Self
+	 * @symbol: The symbol id whose details to get.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Executes #IANJUTA_SYMBOL_QUERY_SEARCH_ID query.
+	 */
+	IAnjutaIterable* search_id (gint symbol_id);
+	
+	/**
+	 * ianjuta_symbol_query_search_scope:
+	 * @obj: Self
+	 * @file_path: The file where the scope is.
+	 * @line: The line where the scope is.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Executes #IANJUTA_SYMBOL_QUERY_SEARCH_SCOPE query.
+	 */
+	IAnjutaIterable* search_scope (const gchar *file_path, gint line);
+
+	/**
+	 * ianjuta_symbol_query_search_parent_scope:
+	 * @obj: Self
+	 * @symbol: The symbol whose parent scope is to be found.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Executes #IANJUTA_SYMBOL_QUERY_SEARCH_PARENT_SCOPE query.
+	 */
+	IAnjutaIterable* search_parent_scope (IAnjutaSymbol *symbol);
+
+	/**
+	 * ianjuta_symbol_query_search_parent_scope_file:
+	 * @symbol: The symbol whose parent scope is to be found.
+	 * @obj: Self
+	 * @file_path: The file where the parent scope is to be found.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Executes #IANJUTA_SYMBOL_QUERY_SEARCH_PARENT_SCOPE_FILE query.
+	 */
+	IAnjutaIterable* search_parent_scope_file (IAnjutaSymbol *symbol, const gchar *file_path);
 }
 
 /**
@@ -5593,6 +6189,7 @@ interface IAnjutaSymbolManager
 	#include <libanjuta/anjuta-async-notify.h>	
 	#include "ianjuta-iterable.h"
 	#include "ianjuta-symbol.h"
+	#include "ianjuta-symbol-query.h"
 
 	/**
 	 * IAnjutaSymbolManager::prj_scan_end:
@@ -5602,45 +6199,6 @@ interface IAnjutaSymbolManager
 	 * ends. 
 	 */
 	void ::prj_scan_end (gint process_id);
-
-	/**
-	 * IAnjutaSymbolManager::prj_symbol_inserted:
-	 * @obj: Self
-	 *
-	 * This signal is emitted when a new symbol is added to project db.
-	 * The chain of symbols emitted is inserted, scan-end, removed.
-	 */
-	void ::prj_symbol_inserted (gint symbol_id);
-
-	
-	/**
-	 * IAnjutaSymbolManager::prj_symbol_removed:
-	 * @obj: Self
-	 *
-	 * This signal is emitted when a new symbol is removed from project db.
-	 * The chain of symbols emitted is inserted, scan-end, removed.
-	 */
-	void ::prj_symbol_removed (gint symbol_id);
-
-	/**
-	 * IAnjutaSymbolManager::prj_symbol_updated:
-	 * @obj: Self
-	 *
-	 * This signal is emitted when a new symbol is updated on project db.
-	 * For 'update' we mean updating on all the fields which are not its primary key.
-	 * Be sure to consider the following cases (comment from the core): 
-	 *
-	 * #1. The symbol remains the same [at least on unique index key]. We will 
-	 *     perform only a simple update.
-	 * #2. The symbol has changed: at least on name/type/file. We will insert a 
-	 *     new symbol on table 'symbol'. Deletion of old one will take place 
-	 *     at a second stage, when a delete of all symbols with 
-	 *     'tmp_flag = 0' will be done.
-	 * #3. The symbol has been deleted. As above it will be deleted at 
-	 *     a second stage because of the 'tmp_flag = 0'. Triggers will remove 
-	 *     also scope_ids and other things.
-	 */
-	void ::prj_symbol_updated (gint symbol_id);
 
 	/**
 	 * IAnjutaSymbolManager::sys_scan_end:
@@ -5653,409 +6211,20 @@ interface IAnjutaSymbolManager
 	void ::sys_scan_end (gint process_id);
 
 	/**
-	 * IAnjutaSymbolManager::sys_symbol_inserted:
+	 * ianjuta_symbol_manager_create_query:
 	 * @obj: Self
+	 * @name: Name of the query. It decides what query type it is.
+	 * @db: The database to use.
+	 * @err: Error propagation and reporting.
 	 *
-	 * This signal is emitted when a new symbol is added to system db.
-	 * The chain of symbols emitted is inserted, scan-end, removed.
-	 */	
-	void ::sys_symbol_inserted (gint symbol_id);	
-
-	/**
-	 * IAnjutaSymbolManager::sys_symbol_removed:
-	 * @obj: Self
+	 * Create a query object. By default only #IANJUTA_SYMBOL_FIELD_ID and
+	 * and #IANJUTA_SYMBOL_FIELD_NAME are selected, limit is set to infinity,
+	 * offset is set to 0, no filters are set and mode is set to
+	 * #IANJUTA_SYMBOL_QUERY_MODE_SYNC.
 	 *
-	 * This signal is emitted when a new symbol is removed from system db.
-	 * The chain of symbols emitted is inserted, scan-end, removed.
-	 */	
-	void ::sys_symbol_removed (gint symbol_id);	
-
-	/**
-	 * IAnjutaSymbolManager::sys_symbol_updated:
-	 * @obj: Self
-	 *
-	 * This signal is emitted when a new symbol is updated on system db.
-	 * For 'update' we mean updating on all the fields which are not its primary key.
-	 * Be sure to consider the following cases (comment from the core): 
-	 *
-	 * #1. The symbol remains the same [at least on unique index key]. We will 
-	 *     perform only a simple update.
-	 * #2. The symbol has changed: at least on name/type/file. We will insert a 
-	 *     new symbol on table 'symbol'. Deletion of old one will take place 
-	 *     at a second stage, when a delete of all symbols with 
-	 *     'tmp_flag = 0' will be done.
-	 * #3. The symbol has been deleted. As above it will be deleted at 
-	 *     a second stage because of the 'tmp_flag = 0'. Triggers will remove 
-	 *     also scope_ids and other things.
-	 */	
-	void ::sys_symbol_updated (gint symbol_id);	
-	
-	/** 
-	 * IAnjutaSymbolManagerSearchFileScope: 
- 	 * You cannot use bitwise OR in this parameter.	 
-	 *
-	 * @IANJUTA_SYMBOL_MANAGER_SEARCH_FS_IGNORE: to be ignored (e.g. Will search both private and public scopes). 
-	 * @IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC: only global public function will be searched 
- 	 * (the ones that _do not_ belong to the file scope). 
-	 * @IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PRIVATE: only private or static (for C language) will be searched 
-     * (the ones that _do_ belong to the file scope). 
-	 */	
-	enum SearchFileScope
-	{
-		SEARCH_FS_IGNORE = -1,
-		SEARCH_FS_PUBLIC = 1,
-		SEARCH_FS_PRIVATE = 0		
-	}
-	
-	/**
-	* ianjuta_symbol_manager_search:
-	* @obj: Self
-	* @match_types: If passed #IANJUTA_SYMBOL_TYPE_UNDEF the function will not perfom any filter.
-	* @include_types: Should the result contain or exclude the match_types? TRUE to include them,
-	*				  FALSE to exclude. For example use may want all symbols but classes.
-	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
-	* @match_name: Name of the symbol you want to search for. If you just want to get all the
-	*              symbols then you need to use "%" as pattern. NULL _is not_ accepted.
-	* @partial_name_match: if TRUE it will search for %match_name%, it FALSE for the exact
-	* 					string match_name.
-	* @filescope_search: if #IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC it will search only for public/extern functions. 
-	* 						If #IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PRIVATE it will search also for static/private functions.
-	* 						If #IANJUTA_SYMBOL_MANAGER_SEARCH_FS_IGNORE it'll search for both public and private
-	* @global_tags_search: If TRUE it'll search only for system tags, using pkg-config to retrieve installed packages
-	* info. If FALSE only current project's symbols will be searched.
-	* @results_limit: Limit results to an upper bound. -1 If you don't want to use this par.
-	* @results_offset: Skip results_offset results. -1 If you don't want to use this par.	 
-	* @err: Error propagation and reporting.	 
-	* @deprecated This function is deprecated and should not be used in new code. 
-	*
-	* Database query. The returned #IAnjutaIterable object must be unreffed after use.
-	* 
-	* Returns: an iteratable object, or NULL if error occurs or if no symbols are found.
-	* 
-	*/
-	IAnjutaIterable* search (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *match_name, gboolean partial_name_match, SearchFileScope filescope_search, gboolean global_tags_search, gint results_limit, gint results_offset);
-	
-	/**
-	* ianjuta_symbol_manager_search_system:
-	* @obj: Self
-	* @match_types: If passed #IANJUTA_SYMBOL_TYPE_UNDEF the function will not perfom any filter.
-	* @include_types: Should the result contain or exclude the match_types? TRUE to include them,
-	*				  FALSE to exclude. For example use may want all symbols but classes.
-	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
-	* @pattern Pattern you want to search for. It can me something like 'foo_func' (exact match)
-	*          or something like 'foo_fun%' (LIKE match, matching all the symbol prefixed with 
-	*          'foo_fun'). NULL _is not_ accepted
-	* @filescope_search: if #IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC it will search only for public/extern functions. 
-	* 						If #IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PRIVATE it will search also for static/private functions.
-	* 						If #IANJUTA_SYMBOL_MANAGER_SEARCH_FS_IGNORE it'll search for both public and private
-	* @results_limit: Limit results to an upper bound. -1 If you don't want to use this par.
-	* @results_offset: Skip results_offset results. -1 If you don't want to use this par.	 
-	* @err: Error propagation and reporting.	 
-	*
-	* Database query. The returned #IAnjutaIterable object must be unreffed after use.
-	* The search is case sensitive. Symbols are searched in global (system) packages.
-	* User must have installed the -dev packages of, for istance, gtk+, glib, etc.
-	* 
-	* Returns: an iteratable object, or NULL if error occurs or if no symbols are found.
-	* 
-	*/	
-	IAnjutaIterable* search_system (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *pattern, SearchFileScope filescope_search, gint results_limit, gint results_offset);
-
-	/**
-	* ianjuta_symbol_manager_search_project_async:
-	* @obj: Self
-	* @match_types: If passed #IANJUTA_SYMBOL_TYPE_UNDEF the function will not perfom any filter.
-	* @include_types: Should the result contain or exclude the match_types? TRUE to include them,
-	*				  FALSE to exclude. For example use may want all symbols but classes.
-	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
-	* @pattern Pattern you want to search for. It can me something like 'foo_func' (exact match)
-	*          or something like 'foo_fun%' (LIKE match, matching all the symbol prefixed with 
-	*          'foo_fun'). NULL _is not_ accepted
-	* @filescope_search: if #IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC it will search only for public/extern functions. 
-	* 						If #IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PRIVATE it will search also for static/private functions.
-	* 						If #IANJUTA_SYMBOL_MANAGER_SEARCH_FS_IGNORE it'll search for both public and private
-	* @results_limit: Limit results to an upper bound. -1 If you don't want to use this par.
-	* @results_offset: Skip results_offset results. -1 If you don't want to use this par.	 
-	* @cancel: An optional #GCancellable object to cancel the operation, or NULL.
-	* @notify: #AnjutaAsyncNotify object for finish notification and error reporting.
-	* @callback: #SearchCallback callback to call when query result data from database is available
-	* @callback_user_data: User data passed to callback	 
-	* @err: Error propagation and reporting.	 
-	*
-	* Async database query. The returned #IAnjutaIterable object must be unreffed after use.
-	* The search is case sensitive. Symbols are searched in the global packages (system) context.
-	* 
-	* Returns: guint handle to identify the query result. It would infact be possible to have
-	* more async queries at the same time. This is for identify them. Returns 0 on error.
-	* 
-    */
-	guint search_system_async (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *pattern, SearchFileScope filescope_search, gint results_limit, gint results_offset, GCancellable* cancel, AnjutaAsyncNotify *notify, SearchCallback callback, gpointer callback_user_data);
-	
-	/**
-	* ianjuta_symbol_manager_search_project:
-	* @obj: Self
-	* @match_types: If passed #IANJUTA_SYMBOL_TYPE_UNDEF the function will not perfom any filter.
-	* @include_types: Should the result contain or exclude the match_types? TRUE to include them,
-	*				  FALSE to exclude. For example use may want all symbols but classes.
-	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
-	* @pattern Pattern you want to search for. It can me something like 'foo_func' (exact match)
-	*          or something like 'foo_fun%' (LIKE match, matching all the symbol prefixed with 
-	*          'foo_fun'). NULL _is not_ accepted
-	* @filescope_search: if #IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC it will search only for public/extern functions. 
-	* 						If #IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PRIVATE it will search also for static/private functions.
-	* 						If #IANJUTA_SYMBOL_MANAGER_SEARCH_FS_IGNORE it'll search for both public and private
-	* @results_limit: Limit results to an upper bound. -1 If you don't want to use this par.
-	* @results_offset: Skip results_offset results. -1 If you don't want to use this par.	 
-	* @err: Error propagation and reporting.	 
-	*
-	* Database query. The returned #IAnjutaIterable object must be unreffed after use.
-	* The search is case sensitive. Symbols are searched in current opened project.
-	* 
-	* Returns: an iteratable object, or NULL if error occurs or if no symbols are found.
-	* 
-	*/	
-	IAnjutaIterable* search_project (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *pattern, SearchFileScope filescope_search, gint results_limit, gint results_offset);
-
-	/**
-	* ianjuta_symbol_manager_search_project_async:
-	* @obj: Self
-	* @match_types: If passed #IANJUTA_SYMBOL_TYPE_UNDEF the function will not perfom any filter.
-	* @include_types: Should the result contain or exclude the match_types? TRUE to include them,
-	*				  FALSE to exclude. For example use may want all symbols but classes.
-	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
-	* @pattern Pattern you want to search for. It can me something like 'foo_func' (exact match)
-	*          or something like 'foo_fun%' (LIKE match, matching all the symbol prefixed with 
-	*          'foo_fun'). NULL _is not_ accepted	
-	* @filescope_search: if #IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PUBLIC it will search only for public/extern functions. 
-	* 						If #IANJUTA_SYMBOL_MANAGER_SEARCH_FS_PRIVATE it will search also for static/private functions.
-	* 						If #IANJUTA_SYMBOL_MANAGER_SEARCH_FS_IGNORE it'll search for both public and private
-    * @results_limit: Limit results to an upper bound. -1 If you don't want to use this par.
-	* @results_offset: Skip results_offset results. -1 If you don't want to use this par.	 
-	* @cancel: An optional #GCancellable object to cancel the operation, or NULL.
-	* @notify: #AnjutaAsyncNotify object for finish notification and error reporting.
-	* @callback: #SearchCallback callback to call when query result data from database is available
-	* @callback_user_data: User data passed to callback	 
-	* @err: Error propagation and reporting.	 
-	*
-	* Async database query. The returned #IAnjutaIterable object must be unreffed after use.
-	* The search is case sensitive. Symbols are searched only in the opened project's context.
-	* 
-	* Returns: guint handle to identify the query result. It would infact be possible to have
-	* more async queries at the same time. This is for identify them. Returns 0 on error.
-	* 
-    */	
-	guint search_project_async (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *pattern, SearchFileScope filescope_search, gint results_limit, gint results_offset, GCancellable* cancel, AnjutaAsyncNotify *notify, SearchCallback callback, gpointer callback_user_data);
-	
-	/**
-	* ianjuta_symbol_manager_search_file:
-	* @obj: Self
-	* @match_types: If passed #IANJUTA_SYMBOL_TYPE_UNDEF the function will not perfom any filter.
-	* @include_types: Should the result contain or exclude the match_types? TRUE to include them,
-	*				  FALSE to exclude. For example use may want all symbols but classes.
-	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
-	* @pattern Pattern you want to search for. It can me something like 'foo_func' (exact match)
-	*          or something like 'foo_fun%' (LIKE match, matching all the symbol prefixed with 
-	*          'foo_fun'). NULL _is not_ accepted
-	* @file GFile of the file, belonging to the project, which you want to scan symbols for.
-	*       Note that if the file doesn't belong to the project, it won't be scanned correctly.
-	* @results_limit: Limit results to an upper bound. -1 If you don't want to use this par.
-	* @results_offset: Skip results_offset results. -1 If you don't want to use this par.	 
-	* @err: Error propagation and reporting.	 
-	*
-	* Database query. The returned #IAnjutaIterable object must be unreffed after use.
-	* The search is case sensitive. Symbols are searched only in the specified file.
-	* There won't be distinction in symbols with file_scope = 1 or 0
-	* 
-	* Returns: an iteratable object, or NULL if error occurs or if no symbols are found.
-	* 
-	*/		
-	IAnjutaIterable* search_file (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *pattern, const GFile *file, gint results_limit, gint results_offset);
-
-	/**
-	* ianjuta_symbol_manager_search_file_async:
-	* @obj: Self
-	* @match_types: If passed #IANJUTA_SYMBOL_TYPE_UNDEF the function will not perfom any filter.
-	* @include_types: Should the result contain or exclude the match_types? TRUE to include them,
-	*				  FALSE to exclude. For example use may want all symbols but classes.
-	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
-	* @pattern Pattern you want to search for. It can me something like 'foo_func' (exact match)
-	*          or something like 'foo_fun%' (LIKE match, matching all the symbol prefixed with 
-	*          'foo_fun'). NULL _is not_ accepted
-	* @file GFile of the file, belonging to the project, which you want to scan symbols for.
-	* @results_limit: Limit results to an upper bound. -1 If you don't want to use this par.
-	* @results_offset: Skip results_offset results. -1 If you don't want to use this par.	 
-	* @cancel: An optional #GCancellable object to cancel the operation, or NULL.
-	* @notify: #AnjutaAsyncNotify object for finish notification and error reporting.
-	* @callback: #SearchCallback callback to call when query result data from database is available
-	* @callback_user_data: User data passed to callback	 
-	* @err: Error propagation and reporting.	 
-	*
-	* Async database query. The returned #IAnjutaIterable object must be unreffed after use.
-	* The search is case sensitive. Symbols are searched only in the specified file.
-	* There won't be distinction in symbols with file_scope = 1 or 0
-	* 
-	* Returns: guint handle to identify the query result. It would infact be possible to have
-	* more async queries at the same time. This is for identify them. Returns 0 on error.
-	* 
-    */
-	guint search_file_async (IAnjutaSymbolType match_types, gboolean include_types, IAnjutaSymbolField info_fields, const gchar *pattern, const GFile *file, gint results_limit, gint results_offset, GCancellable* cancel, AnjutaAsyncNotify *notify, SearchCallback callback, gpointer callback_user_data);
-
-	/**
-    * IAnjutaSymbolManagerSearchCallback:
-    * @search_id: id that identifies uniquely the async query.
-    * @result: #IAnjutaIterable iterator object that contains the database query result.
-    * @user_data: User data
-    *
-    * Callback called for an async query to the database.
-	*/
-	typedef void (*SearchCallback) (guint search_id, IAnjutaIterable* result, gpointer user_data);
-	
-	
-	/**
-	* ianjuta_symbol_manager_get_members:
-	* @obj: Self
-	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
-	* @err: Error propagation and reporting.
-	* 
-	* Database query. The returned #IAnjutaIterable object must be unreffed after use.
-	*	 
-	* Returns: an iteratable object, or NULL if error occurs or if no symbols are found.	
-	* 
-	*/
-	IAnjutaIterable* get_members (const IAnjutaSymbol *symbol, IAnjutaSymbolField info_fields);
-	
-	/**
-	* ianjuta_symbol_manager_get_parents:
-	* @obj: Self
-	* @symbol: Symbol which you want to know the parent classes of.
-	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
-	* @err: Error propagation and reporting.
-	* 
-	* Database query. The returned #IAnjutaIterable object must be unreffed after use.
-	* The query is performed in the project db.
-	* 
-	* Returns: if the passed symbol is a class then this function tries to catch its parents.
-	*
-	*/
-	IAnjutaIterable* get_class_parents (const IAnjutaSymbol *symbol, IAnjutaSymbolField info_fields);	
-
-	/**
-	* ianjuta_symbol_manager_get_scope: 
-	* @obj: Self
-	* @filename: full path of the file.
-	* @line line of @filename in which symbol exist.
-	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
-	* @err: Error propagation and reporting.
-	*
-	* Database query. The returned #IAnjutaIterable object must be unreffed after use.	 
-	* It gets the scope specified by the line of the file. 
-	*
-	* Returns: The returned iterator should contain just one element if the query is successful, 
-	* no element or NULL is returned if function went wrong.
-	*
-	*/
-	IAnjutaIterable* get_scope (const gchar* filename, gulong line, IAnjutaSymbolField info_fields);
-
-	/**
-	* ianjuta_symbol_manager_get_parent_scope: 
-	* @obj: Self
-	* @symbol: Symbol which you want to know the parent scope of.
-	* @filename: Can be NULL for a wider search (i.e. not just limited to that file). 
-    *            Full path filename where to search for the parent scope symbol.
-	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
-	* @err: Error propagation and reporting.
-	*
-	* Database query. The returned #IAnjutaIterable object must be unreffed after use.
-	* Find the parent scope given a symbol. The query is performed in the project db.
-	* 
-	* Returns: The returned #IAnjutaIterable object should contain just one element if the 
-	* query is successful, no element or NULL is returned if function went wrong.	
-	* The returned #IAnjutaIterable object must be unreffed after use.
-	*/	
-	IAnjutaIterable* get_parent_scope (const IAnjutaSymbol *symbol, const gchar *filename, IAnjutaSymbolField info_fields);
-
-	/**
-	* ianjuta_symbol_manager_get_scope_chain:
-	* @obj: Self
-	* @filename: Full path filename where to search for the parent scope symbol.  
-	*            Can be NULL for a wider search (i.e. not just limited to that file).
-	* @line: Line of the file where the symbol is.
-	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
-	* @err: Error propagation and reporting.
-	*
- 	* Walk the path up to the root scope given a full_local_file_path and a line number.
- 	* The returned iterator will be populated with IAnjutaSymbol(s)
- 	* so that it could be easily browsed by a client app. 	
- 	* e.g.
- 	* namespace FooBase {
- 	* class FooKlass {
- 	*	
- 	* }
- 	*
- 	* void FooKlass::foo_func () {			<-------------- this is the scoped symbol
-	*              
- 	* }
- 	*
-	* Returns: NULL on error or if scope isn't found. The returned iterator'll contain 
-    * symbols in this order: foo_func, FooKlass, FooBase.
-	*/
-	IAnjutaIterable* get_scope_chain (const gchar* filename, gulong line, IAnjutaSymbolField info_fields);
-
-	/**
-	* ianjuta_symbol_manager_search_symbol_in_scope:
-	* @obj: Self
-	* @pattern Pattern you want to search for. If NULL it will use '%' and LIKE for query.
- 	* @container_symbol_id The container symbol id where you want to search in.
- 	* @match_types Can be set to IANJUTA_SYMBOL_TYPE_UNDEF. In that case these filters will not be taken into consideration. 
- 	* @include_kinds Should the filter_kinds (if not null) be applied as inluded or excluded?
- 	* @results_limit Limit results to an upper bound. -1 If you don't want to use this par.
- 	* @results_offset Skip results_offset results. -1 If you don't want to use this par.
- 	* @info_fields Infos about symbols you want to know. 
-	*
- 	* Usually, for instance in a completion engine we have to search for symbols
- 	* that are part of a container symbol, even for their existence.
- 	* This function would be useful and fast in those cases.	 
-	*/
-	IAnjutaIterable* search_symbol_in_scope (const gchar *pattern, const IAnjutaSymbol *container_symbol, IAnjutaSymbolType match_types, gboolean include_types, gint results_limit, gint results_offset, IAnjutaSymbolField info_fields);
-	
-	
-	/**
-	* ianjuta_symbol_manager_get_symbol_more_info:
-	* @obj: Self
-	* @symbol symbol of which you want to know more infos about.
-	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
-	* @err: Error propagation and reporting.	
-	*
-	* Database query. The returned #IAnjutaIterable object must be unreffed after use.
-	* While at first sight this function may seem as useless, in a deeper inspection
-	* you can see that you can achieve speed improvements for example avoiding 
-	* to pass many info_fields requests to a search query, which itself could require
-	* complicated joins between the db tables, slowing down the thing.
-	* It's up to you to see which method is more performant.
-	*
-	* Returns: The returned #IAnjutaIterable object should contain just one element if the 
-	* query is successful, no element or NULL is returned if function went wrong.	
-	* The returned #IAnjutaIterable object must be unreffed after use.
-	*
-	*/	
-	IAnjutaIterable* get_symbol_more_info (const IAnjutaSymbol *symbol, IAnjutaSymbolField info_fields);
-	
-	/**
-	* ianjuta_symbol_manager_get_symbol_by_id:
-	* @obj: Self
-	* @symbol_id unique id of the symbol you want to know about.
-	* @info_fields: Kind of infos you would like to have available on the resulting Symbols.
-	* @return NULL on error.
-	*
-	* Database query. The returned #IAnjutaIterable object must be unreffed after use.
-	* A symbol is identified by an unique id. If you have its id you can also 
-	* have its object IAnjutaSymbol.	 
-	*
-	* Returns: The returned #IAnjutaIterable object should contain just one element if the 
-	* query is successful, no element or NULL is returned if function went wrong.	
-	* The returned #IAnjutaIterable object must be unreffed after use.	 
-	*/
-	IAnjutaSymbol* get_symbol_by_id (gint symbol_id, IAnjutaSymbolField info_fields);
+	 * Returns: A #IAnjutaSymbolQuery object
+	 */
+	IAnjutaSymbolQuery* create_query (IAnjutaSymbolQueryName name, IAnjutaSymbolQueryDb db);
 }
 
 /**
@@ -6088,21 +6257,6 @@ interface IAnjutaPrint
 	*/
 
 	void print_preview();
-}
-
-/**
- * SECTION:ianjuta-language-support
- * @title: IAnjutaLanguageSupport
- * @short_description: Programming language specific supports from plugins
- * @see_also: 
- * @stability: Unstable
- * @include: libanjuta/interfaces/ianjuta-language-support.h
- * 
- */
-interface IAnjutaLanguageSupport
-{
-    List<const gchar*> get_supported_languages ();
-    gboolean supports(const gchar *language);
 }
 
 /**

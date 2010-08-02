@@ -1,18 +1,18 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy toplevel-contextual -->
   <object class="GtkAdjustment" id="adjustment1">
-    <property name="value">50</property>
     <property name="lower">1</property>
     <property name="upper">1000</property>
+    <property name="value">50</property>
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
   <object class="GtkAdjustment" id="adjustment2">
-    <property name="value">50</property>
     <property name="lower">1</property>
     <property name="upper">1000</property>
+    <property name="value">50</property>
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
@@ -112,7 +112,6 @@
         <property name="visible">True</property>
         <child>
           <object class="GtkFrame" id="frame36">
-            <property name="visible">True</property>
             <property name="border_width">5</property>
             <property name="label_xalign">0</property>
             <property name="shadow_type">none</property>
@@ -124,19 +123,6 @@
                 <property name="n_columns">2</property>
                 <property name="column_spacing">5</property>
                 <property name="row_spacing">5</property>
-                <child>
-                  <object class="GtkLabel" id="label138">
-                    <property name="visible">True</property>
-                    <property name="xalign">0</property>
-                    <property name="label" translatable="yes">Tab position:</property>
-                  </object>
-                  <packing>
-                    <property name="top_attach">3</property>
-                    <property name="bottom_attach">4</property>
-                    <property name="x_options">GTK_FILL</property>
-                    <property name="y_options"></property>
-                  </packing>
-                </child>
                 <child>
                   <object class="GtkSpinButton" id="preferences_spin:int:50:0:truncat.mesg.first">
                     <property name="can_focus">True</property>
@@ -207,23 +193,10 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkComboBox" id="preferences_combo:text:Top,Bottom,Left,Right:0:messages.tab.position">
-                    <property name="visible">True</property>
-                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                    <property name="model">model1</property>
-                    <child>
-                      <object class="GtkCellRendererText" id="renderer1"/>
-                      <attributes>
-                        <attribute name="text">0</attribute>
-                      </attributes>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="left_attach">1</property>
-                    <property name="right_attach">2</property>
-                    <property name="top_attach">3</property>
-                    <property name="bottom_attach">4</property>
-                  </packing>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
                 </child>
                 <child>
                   <placeholder/>
@@ -382,7 +355,7 @@
                 <property name="column_spacing">5</property>
                 <property name="row_spacing">5</property>
                 <child>
-                  <object class="GtkColorButton" id="preferences_color:color:#E00000:0:messages.color.error">
+                  <object class="GtkColorButton" id="preferences_color:color:#FF0000:0:messages.color.error">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
@@ -395,7 +368,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkColorButton" id="preferences_color:color:#F05000:0:messages.color.warning">
+                  <object class="GtkColorButton" id="preferences_color:color:#00FF00:0:messages.color.warning">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>

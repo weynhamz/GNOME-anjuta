@@ -215,7 +215,7 @@ cb_druid_add_summary_property (NPWProperty* property, gpointer user_data)
 	if (npw_property_get_options (property) & NPW_SUMMARY_OPTION)
 	{
 		g_string_append_printf (text, "%s %s\n",
-								_(npw_property_get_label (property)), 
+								npw_property_get_label (property), 
 								npw_property_get_value (property));
 	}
 }
@@ -233,7 +233,7 @@ npw_druid_fill_summary_page (NPWDruid* druid)
 
 	/* The project type is translated too, it is something like
 	 * generic, GNOME applet, Makefile project... */
-	g_string_append_printf (text, _("Project Type: %s\n"), _(npw_header_get_name (druid->header)));
+	g_string_append_printf (text, _("Project Type: %s\n"), npw_header_get_name (druid->header));
 
 	for (i = 0; (page = g_queue_peek_nth (druid->page_list, i)) != NULL; ++i)
 	{
@@ -291,8 +291,8 @@ cb_druid_insert_project_icon (gpointer data, gpointer user_data)
 	gtk_list_store_append (store, &iter);
 	pixbuf = gdk_pixbuf_new_from_file (npw_header_get_iconfile (header), NULL);
 	gtk_list_store_set (store, &iter, PIXBUF_COLUMN, pixbuf,
-						TEXT_COLUMN, _(npw_header_get_name (header)),
-						DESC_COLUMN, _(npw_header_get_description (header)),
+						TEXT_COLUMN, npw_header_get_name (header),
+						DESC_COLUMN, npw_header_get_description (header),
 						DATA_COLUMN, header,
 						-1);
 	
@@ -357,7 +357,7 @@ cb_druid_insert_project_page (gpointer value, gpointer user_data)
 
 /* Fill project selection page */
 static gboolean
-npw_druid_fill_selection_page (NPWDruid* druid)
+npw_druid_fill_selection_page (NPWDruid* druid, const gchar *directory)
 {
 	gchar* dir;
 	const gchar * const * sys_dir;
@@ -370,23 +370,31 @@ npw_druid_fill_selection_page (NPWDruid* druid)
 	/* Create list of projects */
 	druid->header_list = npw_header_list_new ();	
 	
-	/* Read project template in user directory,
-	 * normally ~/.local/share/anjuta/project,
-	 * the first template read override the others */
-	dir = g_build_filename (g_get_user_data_dir (), "anjuta", "project", NULL);
-	npw_header_list_readdir (&druid->header_list, dir);
-	g_free (dir);
-	
-	/* Read project template in system directory */	
-	for (sys_dir = g_get_system_data_dirs (); *sys_dir != NULL; sys_dir++)
+	if (directory != NULL)
 	{
-		dir = g_build_filename (*sys_dir, "anjuta", "project", NULL);
-		npw_header_list_readdir (&druid->header_list, PROJECT_WIZARD_DIRECTORY);
-		g_free (dir);
+		/* Read project template only in specified directory */
+		npw_header_list_readdir (&druid->header_list, directory);
 	}
+	else
+	{
+		/* Read project template in user directory,
+		 * normally ~/.local/share/anjuta/project,
+		 * the first template read override the others */
+		dir = g_build_filename (g_get_user_data_dir (), "anjuta", "project", NULL);
+		npw_header_list_readdir (&druid->header_list, dir);
+		g_free (dir);
+	
+		/* Read project template in system directory */	
+		for (sys_dir = g_get_system_data_dirs (); *sys_dir != NULL; sys_dir++)
+		{
+			dir = g_build_filename (*sys_dir, "anjuta", "project", NULL);
+			npw_header_list_readdir (&druid->header_list, dir);
+			g_free (dir);
+		}
 
-	/* Read anjuta installation directory */
-	npw_header_list_readdir (&druid->header_list, PROJECT_WIZARD_DIRECTORY);
+		/* Read anjuta installation directory */
+		npw_header_list_readdir (&druid->header_list, PROJECT_WIZARD_DIRECTORY);
+	}
 	
 	if (g_list_length (druid->header_list) == 0)
 	{
@@ -411,6 +419,7 @@ typedef struct _NPWDruidAddPropertyData
 	NPWDruid* druid;
 	guint row;
 	GtkTable *table;
+	GtkWidget *first_entry;
 } NPWDruidAddPropertyData;
 
 static void
@@ -440,17 +449,33 @@ cb_druid_add_property (NPWProperty* property, gpointer user_data)
 			gtk_widget_set_tooltip_text (entry, description);
 		}
 
-		/* Add label and entry */
-		gtk_table_resize (data->table, data->row + 1, 2);
-		label = gtk_label_new (_(npw_property_get_label (property)));
+		label = gtk_label_new (npw_property_get_label (property));
 		gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
 		gtk_misc_set_padding (GTK_MISC (label), 6, 6);
-		gtk_table_attach (data->table, label, 0, 1, data->row, data->row + 1,
-			(GtkAttachOptions)(GTK_FILL), (GtkAttachOptions)(0), 0, 0);
-		gtk_table_attach (data->table, entry, 1, 2, data->row, data->row + 1,
-			(GtkAttachOptions)(GTK_EXPAND|GTK_FILL), (GtkAttachOptions)(0), 0, 0);
 		
-		data->row++;
+		switch (npw_property_get_type (property))
+		{
+			case NPW_PACKAGE_PROPERTY:
+				gtk_table_resize (data->table, data->row + 2, 1);
+				gtk_table_attach (data->table, label, 0, 1, data->row, data->row + 1,
+				                  (GtkAttachOptions)(GTK_FILL), 0, 0, 0);
+				gtk_table_attach (data->table, entry, 0, 1, data->row + 1, data->row + 2,
+				                  (GtkAttachOptions)(GTK_EXPAND|GTK_FILL),
+				                  (GtkAttachOptions)(GTK_EXPAND|GTK_FILL), 0, 0);
+				data->row += 2;
+				break;
+			default:
+				/* Add label and entry */
+				gtk_table_resize (data->table, data->row + 1, 2);
+				gtk_table_attach (data->table, label, 0, 1, data->row, data->row + 1,
+				                  (GtkAttachOptions)(GTK_FILL), 0, 0, 0);
+				gtk_table_attach (data->table, entry, 1, 2, data->row, data->row + 1,
+				                  (GtkAttachOptions)(GTK_EXPAND|GTK_FILL), 0, 0, 0);
+				data->row++;
+		}
+		
+		/* Set first entry */
+		if (data->first_entry == NULL) data->first_entry = entry;
 	}
 };
 
@@ -466,13 +491,20 @@ npw_druid_fill_property_page (NPWDruid* druid, NPWPage* page)
 	gtk_container_foreach (GTK_CONTAINER (npw_page_get_widget (page)), cb_druid_destroy_widget, NULL);
  		
 	/* Update title	*/
-	gtk_assistant_set_page_title (GTK_ASSISTANT (druid->window), widget, _(npw_page_get_label (page)));
+	gtk_assistant_set_page_title (GTK_ASSISTANT (druid->window), widget, npw_page_get_label (page));
 
 	/* Add new widget */
 	data.druid = druid;
 	data.row = 0;
 	data.table = GTK_TABLE (npw_page_get_widget (page));
+	data.first_entry = NULL;
 	npw_page_foreach_property (page, (GFunc)cb_druid_add_property, &data);
+
+	/* Move focus on first entry */
+	if (data.first_entry != NULL)
+	{
+		gtk_container_set_focus_child (GTK_CONTAINER (data.table), data.first_entry);
+	}
 	
 	gtk_widget_show_all (widget);
 }
@@ -592,7 +624,7 @@ cb_save_valid_property (NPWProperty* property, gpointer user_data)
 		{
 			g_string_append_printf (data->error,
 									_("\nField \"%s\" is mandatory. Please enter it."),
-									_(npw_property_get_label (property)));
+									npw_property_get_label (property));
 			npw_property_remove_value (property);
 		}
 	}
@@ -607,12 +639,12 @@ cb_save_valid_property (NPWProperty* property, gpointer user_data)
 		case NPW_FILENAME_RESTRICTION:
 			g_string_append_printf (data->error,
 									_("Field \"%s\" must start with a letter, a digit or an underscore and contain only letters, digits, underscore, minus and dot. Please fix it."),
-									_(npw_property_get_label (property)));
+									npw_property_get_label (property));
 			break;
 		case NPW_DIRECTORY_RESTRICTION:
 			g_string_append_printf (data->error,
 									_("Field \"%s\" must start with a letter, a digit, an underscore or a directory separator and contain only letters, digits, underscore, directory separator, minus and dot. Please fix it."),
-									_(npw_property_get_label (property)));
+									npw_property_get_label (property));
 			break;
 		default:
 			g_string_append_printf (data->error,
@@ -1008,7 +1040,7 @@ on_druid_finish (GtkAssistant* assistant, NPWDruid* druid)
 }
 
 static GtkWidget*
-npw_druid_create_assistant (NPWDruid* druid)
+npw_druid_create_assistant (NPWDruid* druid, const gchar *directory)
 {
 	AnjutaShell *shell;
 	GtkBuilder *builder;
@@ -1046,7 +1078,7 @@ npw_druid_create_assistant (NPWDruid* druid)
 	g_signal_connect(G_OBJECT(assistant), "key-press-event", G_CALLBACK(on_project_wizard_key_press_event), druid);
 
 	/* Setup project selection page */
-	if (!npw_druid_fill_selection_page (druid))
+	if (!npw_druid_fill_selection_page (druid, directory))
 	{
 		return NULL;
 	}
@@ -1117,7 +1149,7 @@ npw_druid_add_default_property (NPWDruid* druid)
  *---------------------------------------------------------------------------*/
 
 NPWDruid*
-npw_druid_new (NPWPlugin* plugin)
+npw_druid_new (NPWPlugin* plugin, const gchar *directory)
 {
 	NPWDruid* druid;
 
@@ -1138,7 +1170,7 @@ npw_druid_new (NPWPlugin* plugin)
 	druid->plugin = plugin;
 	druid->error_extra_widget = NULL;
 
-	if (npw_druid_create_assistant (druid) == NULL)
+	if (npw_druid_create_assistant (druid, directory) == NULL)
 	{
 		npw_druid_free (druid);
 		

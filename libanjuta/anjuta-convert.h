@@ -33,6 +33,12 @@
 #include <glib.h>
 #include "anjuta-encodings.h"
 
+/**
+ * AnjutaConvertError:
+ * @ANJUTA_CONVERT_ERROR_AUTO_DETECTION_FAILED: The charset couldn't be autodetected
+ *
+ * Possibly errors that can occur during charset conversion
+ */
 typedef enum 
 {
 	ANJUTA_CONVERT_ERROR_AUTO_DETECTION_FAILED = 1100

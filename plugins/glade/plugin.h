@@ -28,7 +28,6 @@
 #include <gladeui/glade.h>
 #include <gladeui/glade-design-view.h>
 
-extern GType glade_plugin_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_GLADE         (glade_plugin_get_type (NULL))
 #define ANJUTA_PLUGIN_GLADE(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_GLADE, GladePlugin))
 #define ANJUTA_PLUGIN_GLADE_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_GLADE, GladePluginClass))
@@ -56,37 +55,11 @@ void on_undo_activated (GtkAction *action, GladePlugin *plugin);
 void on_redo_activated (GtkAction *action, GladePlugin *plugin);
 void on_delete_activated (GtkAction *action, GladePlugin *plugin);
 
+extern GType glade_plugin_get_type (GTypeModule *module);
+
 gboolean glade_can_undo(GladePlugin *plugin);
 gboolean glade_can_redo(GladePlugin *plugin);
 
 gchar* glade_get_filename(GladePlugin *plugin);
-
-/* GLADE_SIGNAL_EDITOR_EXT means extensible glade signal editor
- * GLADE_LAYOUT_WIDGET_EVENTS means availability of GladeDesignLayout signal for widget events
- */
-
-#define GLADE_LAYOUT_WIDGET_EVENTS 1
-#define GLADE_SIGNAL_EDITOR_EXT 1
-
-#ifndef GLADE_SIGNAL_EDITOR_EXT
-enum
-{
-	GSE_COLUMN_SIGNAL,
-	GSE_COLUMN_HANDLER,
-	GSE_COLUMN_AFTER,
-	GSE_COLUMN_USERDATA,
-	GSE_COLUMN_LOOKUP,
-
-	GSE_COLUMN_USERDATA_SLOT,
-	GSE_COLUMN_LOOKUP_VISIBLE,
-	GSE_COLUMN_AFTER_VISIBLE,
-	GSE_COLUMN_HANDLER_EDITABLE,
-	GSE_COLUMN_USERDATA_EDITABLE,
-	GSE_COLUMN_SLOT,
-	GSE_COLUMN_BOLD,
-	GSE_NUM_COLUMNS
-};
-#endif
-
 
 #endif

@@ -21,6 +21,7 @@
 #include <libanjuta/interfaces/ianjuta-markable.h>
 #include "symbol-db-model-project.h"
 #include "symbol-db-model-file.h"
+#include "symbol-db-model-search.h"
 #include "symbol-db-engine.h"
 #include "symbol-db-views.h"
 #include "plugin.h"
@@ -121,6 +122,12 @@ on_treeview_has_child_toggled (GtkTreeModel *model,
 	g_free (symbol_name);
 }
 
+static void
+on_search_entry_changed (GtkEntry *entry, SymbolDBModelSearch *model)
+{
+	g_object_set (model, "search-pattern", gtk_entry_get_text (entry), NULL);
+}
+
 GtkWidget*
 symbol_db_view_new (SymbolViewType view_type,
                     SymbolDBEngine *dbe, SymbolDBPlugin *plugin)
@@ -130,11 +137,17 @@ symbol_db_view_new (SymbolViewType view_type,
 	GtkWidget *dbv;
 	GtkTreeViewColumn *column;
 	GtkCellRenderer *renderer;
+	GtkWidget *vbox = NULL;
+	GtkWidget *entry;
 
 	switch (view_type)
 	{
 		case SYMBOL_DB_VIEW_FILE:
 			model = symbol_db_model_file_new (dbe);
+			break;
+		case SYMBOL_DB_VIEW_SEARCH:
+			model = symbol_db_model_search_new (dbe);
+			g_object_set (model, "show-file-line", TRUE, NULL);
 			break;
 		default:
 			model = symbol_db_model_project_new (dbe);
@@ -193,5 +206,26 @@ symbol_db_view_new (SymbolViewType view_type,
 	gtk_widget_show (dbv);
 	gtk_container_add (GTK_CONTAINER (sw), dbv);
 	gtk_widget_show (sw);
+
+	if (view_type == SYMBOL_DB_VIEW_SEARCH)
+	{
+		entry = gtk_entry_new ();
+		g_signal_connect (entry, "changed",
+		                  G_CALLBACK (on_search_entry_changed), model);
+		gtk_widget_show (entry);
+		vbox = gtk_vbox_new (FALSE, 3);
+		gtk_widget_show (vbox);
+		gtk_box_pack_start (GTK_BOX (vbox), entry, FALSE, FALSE, 0);
+		gtk_box_pack_start (GTK_BOX (vbox), sw, TRUE, TRUE, 0);
+		g_object_set_data (G_OBJECT (vbox), "search_entry", entry);
+		gtk_tree_view_set_show_expanders (GTK_TREE_VIEW (dbv), FALSE);
+		return vbox;
+	}
 	return sw;
+}
+
+GtkWidget*
+symbol_db_view_get_search_entry (GtkWidget *search_view)
+{
+	return g_object_get_data (G_OBJECT (search_view), "search_entry");
 }

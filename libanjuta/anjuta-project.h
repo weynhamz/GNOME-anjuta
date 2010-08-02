@@ -84,7 +84,7 @@ typedef enum
 	ANJUTA_PROJECT_REMOVE_FILE = 1 << 18
 } AnjutaProjectNodeState;
 
-typedef struct 
+typedef struct _AnjutaProjectTargetInformation
 {
 	AnjutaProjectNodeType type;
 	gchar *name;
@@ -113,6 +113,8 @@ typedef struct
 	AnjutaProjectProperty *property;
 	gchar *value;
 } AnjutaProjectPropertyValue;
+
+typedef struct _AnjutaProjectTargetInformation* AnjutaProjectTargetType;
 
 typedef struct
 {

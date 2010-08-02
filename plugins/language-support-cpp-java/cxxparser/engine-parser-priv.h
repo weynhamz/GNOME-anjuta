@@ -45,11 +45,9 @@ public:
 	/* setter for the IAnjutaSymbolManager. */
 	void setSymbolManager (IAnjutaSymbolManager *manager);
 
-	/* getter for the IAnjutaSymbolManager. */
-	IAnjutaSymbolManager * getSymbolManager ();
-
-	IAnjutaIterable * getCurrentScopeChainByFileLine (const char* full_file_path,
-	    											  unsigned long linenum);
+	void getNearestClassInCurrentScopeChainByFileLine (const char* full_file_path,
+	                                                   unsigned long linenum,
+	                                                   string &out_type_name);
 
 	IAnjutaIterable * getCurrentSearchableScope (string &type_name, string &type_scope);
 	
@@ -64,7 +62,7 @@ public:
 
 	IAnjutaIterable * switchTypedefToStruct (IAnjutaIterable * test, 
 		IAnjutaSymbolField sym_info = 
-			(IAnjutaSymbolField)(IANJUTA_SYMBOL_FIELD_SIMPLE | IANJUTA_SYMBOL_FIELD_KIND));
+			(IAnjutaSymbolField)(IANJUTA_SYMBOL_FIELD_NAME | IANJUTA_SYMBOL_FIELD_KIND));
 
 	IAnjutaIterable * switchMemberToContainer (IAnjutaIterable * test);
 	
@@ -123,7 +121,11 @@ private:
 
 	CppTokenizer *_main_tokenizer;
 	CppTokenizer *_extra_tokenizer;
-	IAnjutaSymbolManager *_sym_man;
+	
+	IAnjutaSymbolQuery *_query_scope;
+	IAnjutaSymbolQuery *_query_search;
+	IAnjutaSymbolQuery *_query_search_in_scope;
+	IAnjutaSymbolQuery *_query_parent_scope;
 };
 
 

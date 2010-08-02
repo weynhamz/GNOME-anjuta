@@ -19,6 +19,15 @@
 
 #include "anjuta-command-queue.h"
 
+/**
+ * SECTION: anjuta-command-queue
+ * @short_description: #AnjutaCommandQueue is used to queue commands
+ * @include: libanjuta/anjuta-async-command.h
+ *
+ * #AnjutaCommandQueue always starts the next command in the queue when
+ * the previous command finishes. That also works for asyncronous commands
+ */
+
 struct _AnjutaCommandQueuePriv
 {
 	GQueue *queue;
@@ -92,6 +101,15 @@ anjuta_command_queue_new (void)
 {
 	return g_object_new (ANJUTA_TYPE_COMMAND_QUEUE, NULL);
 }
+
+/**
+ * anjuta_command_queue_push:
+ * @self: AnjutaCommandQueue object
+ * @command: The command to add
+ *
+ * Adds a command to the Queue and starts it if there are no other commands
+ * waiting
+ */
 
 void
 anjuta_command_queue_push (AnjutaCommandQueue *self, AnjutaCommand *command)

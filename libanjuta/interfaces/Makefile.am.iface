@@ -28,10 +28,23 @@ iface-built.stamp: libanjuta.idl Makefile.am.iface anjuta-idl-compiler.pl
 	echo "changing to $$savedir" && \
 	cd $$savedir && \
 	make
-	
+
 files_idl = libanjuta.idl
 idldir = $(MODULE_INCLUDEDIR)
 idl_HEADERS = $(files_idl)
+
+anjuta-marshal.h: anjuta-marshal.list
+	$(AM_V_GEN)@GLIB_GENMARSHAL@ \
+	        --prefix=anjuta_cclosure_marshal $(srcdir)/anjuta-marshal.list --header > xgen-gmc \
+	&& cp xgen-gmc $(@F) \
+	&& rm -f xgen-gmc
+
+anjuta-marshal.c: anjuta-marshal.h anjuta-marshal.list
+	$(AM_V_GEN)echo "#include \"anjuta-marshal.h\"" > xgenc-gmc \
+	&& @GLIB_GENMARSHAL@ \
+	        --prefix=anjuta_cclosure_marshal $(srcdir)/anjuta-marshal.list --body >> xgenc-gmc \
+	&& cp xgenc-gmc $(@F) \
+	&& rm -f xgenc-gmc
 
 EXTRA_DIST = \
 	iface-built.stamp \

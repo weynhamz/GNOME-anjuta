@@ -45,6 +45,7 @@ typedef enum {
 	NPW_DIRECTORY_PROPERTY,
 	NPW_FILE_PROPERTY,
 	NPW_ICON_PROPERTY,
+	NPW_PACKAGE_PROPERTY,
 	NPW_LAST_PROPERTY
 } NPWPropertyType;
 
@@ -74,6 +75,7 @@ typedef enum {
 NPWProperty* npw_property_new (void);
 void npw_property_free (NPWProperty* prop);
 
+void npw_property_set_language (NPWProperty* prop, gint language);
 void npw_property_set_type (NPWProperty* prop, NPWPropertyType type);
 void npw_property_set_string_type (NPWProperty* prop, const gchar* type);
 NPWPropertyType npw_property_get_type (const NPWProperty* prop);
@@ -103,7 +105,7 @@ gboolean npw_property_save_value_from_widget (NPWProperty* prop);
 gboolean npw_property_remove_value (NPWProperty* prop);
 const char* npw_property_get_value (const NPWProperty* prop);
 
-gboolean npw_property_add_list_item (NPWProperty* prop, const char* name, const gchar* label);
+gboolean npw_property_add_list_item (NPWProperty* prop, const char* name, const gchar* label, gint language);
 
 void npw_property_set_mandatory_option (NPWProperty* prop, gboolean value);
 void npw_property_set_summary_option (NPWProperty* prop, gboolean value);
@@ -116,6 +118,8 @@ NPWPropertyBooleanValue npw_property_get_exist_option (const NPWProperty* prop);
 
 NPWPage* npw_page_new (GHashTable* value);
 void npw_page_free (NPWPage* page);
+
+gboolean npw_page_set_language (NPWPage* page, gint language);
 
 void npw_page_set_name (NPWPage* page, const gchar* name);
 const gchar* npw_page_get_name (const NPWPage* page);
@@ -130,6 +134,6 @@ void npw_page_set_widget (NPWPage* page, GtkWidget *widget);
 GtkWidget *npw_page_get_widget (const NPWPage *page);
 
 void npw_page_foreach_property (const NPWPage* page, GFunc func, gpointer data);
-void npw_page_add_property (NPWPage* page, NPWProperty* prop);
+NPWProperty *npw_page_add_property (NPWPage* page, NPWProperty* prop);
 
 #endif
