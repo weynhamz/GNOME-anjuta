@@ -10,15 +10,14 @@
 # Proxecto Trasno - Adaptación do software libre á lingua galega:  Se desexas
 # colaborar connosco, podes atopar máis información en <http://trasno.net>
 # Fran Diéguez <frandieguez@ubuntu.com>, 2009, 2010.
-# Fran Dieguez <frandieguez@mabishu.com>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-master-po-gl-1952\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-31 19:15+0200\n"
-"PO-Revision-Date: 2010-08-01 23:46+0200\n"
-"Last-Translator: Fran Dieguez <frandieguez@mabishu.com>\n"
+"POT-Creation-Date: 2010-07-21 16:38+0200\n"
+"PO-Revision-Date: 2010-07-21 16:39+0200\n"
+"Last-Translator: Fran Diéguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Galician <gnome-gl-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,7 +26,7 @@ msgstr ""
 
 #: ../anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
-msgstr "IDE Anjutae"
+msgstr "IDE Anjuta"
 
 #: ../anjuta.desktop.in.in.h:2
 msgid "Develop software in an integrated development environment"
@@ -2732,7 +2731,7 @@ msgstr "Marco"
 
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:664
-#: ../plugins/debug-manager/threads.c:451 ../plugins/gdb/preferences.c:360
+#: ../plugins/debug-manager/threads.c:451 ../plugins/gdb/preferences.c:358
 #: ../plugins/tools/tool.c:100 ../src/anjuta-app.c:621
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
@@ -4751,37 +4750,29 @@ msgstr ""
 msgid "Cannot start terminal for debugging."
 msgstr "Non é posíbel iniciar o terminal para a depuración."
 
-#. Translators: pretty printer file is a kind of script allowing gdb to display
-#. * variable content in a simpler way, removing implementation details
-#: ../plugins/gdb/preferences.c:125
+#: ../plugins/gdb/preferences.c:123
 #, c-format
 msgid ""
-"The register function hasn't been found automatically in the following "
-"pretty printer files:\n"
-"%s\n"
-"You need to fill yourself the register function columns before enabling the "
-"rows. Most of the time the register function name contains the word "
-"\"register\"."
+"The following pretty printers, without a register functions, have been "
+"disabled:\n"
+" %s"
 msgstr ""
-"A función rexistrada non se encontrou automaticamente nos seguintes "
-"ficheiros de «pretty printer»:\n"
-"%s\n"
-"Debe rechear as columnas de rexistro de función antes de activar as filas. A "
-"maioría das veces o nome do rexistro de función contén a palabra «register»."
+"Desactiváronse, sen rexistrar funciones, os seguintes «pretty printer»:\n"
+" %s"
 
-#: ../plugins/gdb/preferences.c:220
+#: ../plugins/gdb/preferences.c:216
 msgid "Select a pretty printer file"
 msgstr "Seleccione o ficheiro de «pretty printer»"
 
-#: ../plugins/gdb/preferences.c:355
+#: ../plugins/gdb/preferences.c:353
 msgid "Activate"
 msgstr "Activar"
 
-#: ../plugins/gdb/preferences.c:367
+#: ../plugins/gdb/preferences.c:365
 msgid "Register Function"
 msgstr "Rexistrar función"
 
-#: ../plugins/gdb/preferences.c:391 ../plugins/gdb/preferences.c:399
+#: ../plugins/gdb/preferences.c:389 ../plugins/gdb/preferences.c:397
 msgid "Gdb Debugger"
 msgstr "Depurador Gdb"
 
@@ -10537,14 +10528,6 @@ msgstr "Mínimo de caracteres para o completado"
 #: ../plugins/symbol-db/symbol-db-views.c:182
 msgid "Symbol"
 msgstr "Símbolo"
-
-#~ msgid ""
-#~ "The following pretty printers, without a register functions, have been "
-#~ "disabled:\n"
-#~ " %s"
-#~ msgstr ""
-#~ "Desactiváronse, sen rexistrar funciones, os seguintes «pretty printer»:\n"
-#~ " %s"
 
 #~ msgid "<b>Handler template</b>"
 #~ msgstr "<b>Modelo de manipulador</b>"
