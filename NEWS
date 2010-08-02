@@ -5,6 +5,7 @@ Updated:
 - Project wizard shows better package chooser
 
 Bugs fixed:
+devhelp: Use Devhelp-2 API (bgo#625841)
 build: bgo #625604  - anjuta crashes on starting the debugger
 gdb: bgo#625605  - register function is not found in a pretty printer
 symbol-db: bgo #625350 - critical warning on project unload
@@ -15,7 +16,9 @@ debugger: bgo #598187  - Feature request: Make 'Locals' columns configurable
 project-wizard: bgo #624091  - Use AnjutaPkgConfigChooser
 debugger: bgo #516112  - Debugger create too much variable objects
 
-Thanks to 
+Thanks to Chao-Hsiung Liao, Eleanor Chen, Fran Diéguez, Frédéric Péters,
+Jorge González, Mario Blättermann, Massimo Corà, Matej Urbančič, Naba Kumar,
+Sébastien Granjoux, Sergei Grudinin, Tao Wang
 
 Anjuta 2.31.5 "Too hot to code" (12 June 2010) -- Johannes Schmid
 
