@@ -222,206 +222,6 @@ get_line_indentation_string (IAnjutaEditor *editor, gint spaces, gint line_inden
 	return indent_string;
 }
 
-/* Sets the iter to line end of previous line and TRUE is returned.
- * If there is no previous line, iter is set to first character in the
- * buffer and FALSE is returned.
- */
-static gboolean
-skip_iter_to_previous_line (IAnjutaEditor *editor, IAnjutaIterable *iter)
-{
-	gboolean found = FALSE;
-	gchar ch;
-	
-	while (ianjuta_iterable_previous (iter, NULL))
-	{
-		ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);
-		if (iter_is_newline (iter, ch))
-		{
-			skip_iter_to_newline_head (iter, ch);
-			found = TRUE;
-			break;
-		}
-	}
-	return found;
-}
-
-/* Returns TRUE if the line is continuation of previous line (that is, it is
- * part of the same logical line).
- */
-static gboolean
-line_is_continuation (IAnjutaEditor *editor, IAnjutaIterable *iter)
-{
-	return FALSE; 
-	
-	int is_continuation = FALSE;
-	
-	IAnjutaIterable *new_iter = ianjuta_iterable_clone (iter, NULL);
-	if (skip_iter_to_previous_line (editor, new_iter))
-	{
-		while (ianjuta_iterable_previous (new_iter, NULL))
-		{
-			gchar ch = ianjuta_editor_cell_get_char
-				(IANJUTA_EDITOR_CELL (new_iter), 0, NULL);
-			if (ch == ' ' || ch == '\t')
-				continue;
-			
-			if (ch == '\\')
-			{
-				is_continuation = TRUE;
-				break;
-			}
-			
-			if (iter_is_newline (new_iter, ch))
-				break;
-		}
-	}
-	g_object_unref (new_iter);
-	return is_continuation;
-}
-
-/* Sets the iter to line end of previous logical line and TRUE is returned.
- * If there is no previous logical line, iter is set to first character in the
- * buffer and FALSE is returned. logical line is defined as one or more
- * real lines that are joined with line escapes ('\' at the end of real
- * lines.
- */
-static gboolean
-skip_iter_to_previous_logical_line (IAnjutaEditor *editor,
-									IAnjutaIterable *iter)
-{
-	gboolean found = TRUE;
-	
-	while (line_is_continuation (editor, iter))
-	{
-		/*
-		DEBUG_PRINT ("Line %d is continuation line .. Skipping",
-					 ianjuta_editor_get_line_from_position (editor, iter, NULL));
-		*/
-		found = skip_iter_to_previous_line (editor, iter);
-		if (!found)
-			break;
-	}
-	/*
-	DEBUG_PRINT ("Line %d is *not* continuation line .. Breaking",
-				 ianjuta_editor_get_line_from_position (editor, iter, NULL));
-	*/
-	if (found)
-		found = skip_iter_to_previous_line (editor, iter);
-	/*
-	DEBUG_PRINT ("Line %d is next logical line",
-				 ianjuta_editor_get_line_from_position (editor, iter, NULL));
-	*/
-	return found;
-}
-
-static gboolean
-line_is_preprocessor (IAnjutaEditor *editor, IAnjutaIterable *iter)
-{return FALSE;
-	gboolean is_preprocessor = FALSE;
-	IAnjutaIterable *new_iter = ianjuta_iterable_clone (iter, NULL);
-	
-	if (skip_iter_to_previous_logical_line (editor, new_iter))
-	{
-		/* Forward the newline char and point to line begin of next line */
-		gchar ch;
-		ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (new_iter),
-										   0, NULL);
-		skip_iter_to_newline_tail (new_iter, ch);
-		ianjuta_iterable_next (new_iter, NULL);
-	}
-	/* else, line is already pointed at first char of the line */
-	
-	do
-	{
-		gchar ch;
-		ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (new_iter),
-										   0, NULL);
-/*		if (ch == '#')
-		{
-			is_preprocessor = TRUE;
-			break;
-		}*/
-		if (iter_is_newline (new_iter, ch) || !isspace (ch))
-			break;
-	}
-	while (ianjuta_iterable_next (new_iter, NULL));
-	
-	g_object_unref (new_iter);
-	
-	return is_preprocessor;
-}
-
-/* Skips to the end-of-line of previous non-preprocessor line. Any multiple
- * preprocessor lines are skipped. If current
- * line is not preprocessor line, nothing happens. If there is no previous
- * non-preprocessor line (we are at first line of the document which happens
- * to be preprocessor line), iter is set to the first character in the
- * document. It returns TRUE if the line is preprocessor line, otherwise
- * FALSE.
- */
-static gboolean
-skip_preprocessor_lines (IAnjutaEditor *editor, IAnjutaIterable *iter)
-{
-	return FALSE;
-	gboolean line_found = FALSE;
-	gboolean preprocessor_found = FALSE;
-	IAnjutaIterable *new_iter = ianjuta_iterable_clone (iter, NULL);
-	
-	do
-	{
-		gboolean is_preprocessor = FALSE;
-		if (skip_iter_to_previous_logical_line (editor, new_iter))
-		{
-			gchar ch;
-			ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (new_iter),
-											   0, NULL);
-			skip_iter_to_newline_tail (new_iter, ch);
-			ianjuta_iterable_next (new_iter, NULL);
-		}
-		do
-		{
-			gchar ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (new_iter),
-													 0, NULL);
-			if (ch == '#')
-			{
-				is_preprocessor = TRUE;
-				/*
-				DEBUG_PRINT ("Line %d is preprocessor line .. Skipping",
-							 ianjuta_editor_get_line_from_position
-							 (editor, new_iter, NULL));
-				*/
-				break;
-			}
-			if (iter_is_newline (new_iter, ch) || !isspace (ch))
-			{
-				skip_iter_to_newline_tail (new_iter, ch);
-				break;
-			}
-		}
-		while (ianjuta_iterable_next (new_iter, NULL));
-		
-		if (is_preprocessor)
-		{
-			line_found = skip_iter_to_previous_line (editor, new_iter);
-			ianjuta_iterable_assign (iter, new_iter, NULL);
-			preprocessor_found = TRUE;
-		}
-		else
-		{
-			/*
-			DEBUG_PRINT ("Line %d is *not* preprocessor line .. Breaking",
-						 ianjuta_editor_get_line_from_position
-							(editor, new_iter, NULL));
-			*/
-			break;
-		}
-	}
-	while (line_found);
-	
-	g_object_unref (new_iter);
-	return preprocessor_found;
-}
-
 static void
 set_indentation_param_emacs (PythonPlugin* plugin, const gchar *param,
 					   const gchar *value)
@@ -949,45 +749,6 @@ get_line_indentation_base (PythonPlugin *plugin,
 	return line_indent;
 }
 
-/* Check if iter is inside string. Begining of string
- * is not counted as inside.
- */
-static gboolean
-is_iter_inside_string (IAnjutaIterable *iter)
-{
-	IAnjutaEditorAttribute attrib;
-	
-	attrib = ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL (iter),
-												NULL);
-	/* Check if we are *inside* string. Begining
-	 * of string does not count as inside.
-	 */
-	if (attrib == IANJUTA_EDITOR_STRING)
-	{
-		/* Peek previous attrib and see what it was */
-		if (ianjuta_iterable_previous (iter, NULL))
-		{
-			attrib = ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL
-														(iter),	NULL);
-			if (attrib == IANJUTA_EDITOR_STRING)
-			{
-				/* We are inside string */
-				return TRUE;
-			}
-			else
-			{
-				/* The string just began, not inside.
-				 * Restore iter from the peek
-				 */
-				ianjuta_iterable_next (iter, NULL);
-			}
-		}
-		/* else, there is no previous and so we can't be inside string
-		 */
-	}
-	return FALSE;
-}
-
 static gboolean
 spaces_only (IAnjutaEditor* editor, IAnjutaIterable* begin, IAnjutaIterable* end)
 {
@@ -1145,8 +906,16 @@ install_support (PythonPlugin *lang_plugin)
 	IAnjutaLanguage* lang_manager =
 		anjuta_shell_get_interface (ANJUTA_PLUGIN (lang_plugin)->shell,
 									IAnjutaLanguage, NULL);
-	
-	if (!lang_manager)
+	IAnjutaSymbolManager* sym_manager = 
+		anjuta_shell_get_interface (ANJUTA_PLUGIN (lang_plugin)->shell,
+		                            IAnjutaSymbolManager,
+		                            NULL);
+	IAnjutaDocumentManager* docman = 
+		anjuta_shell_get_interface (ANJUTA_PLUGIN (lang_plugin)->shell,
+		                            IAnjutaDocumentManager,
+		                            NULL);
+		
+	if (!lang_manager || !sym_manager || !docman)
 		return;
 	
 	if (lang_plugin->support_installed)
@@ -1179,7 +948,7 @@ install_support (PythonPlugin *lang_plugin)
 	
 	if (IANJUTA_IS_EDITOR_ASSIST (lang_plugin->current_editor) )
 	{
-		AnjutaPlugin *plugin;
+		AnjutaPlugin *plugin;		
 		AnjutaUI *ui;
 		GtkAction *action;
 		IAnjutaEditorAssist* iassist;
@@ -1198,15 +967,11 @@ install_support (PythonPlugin *lang_plugin)
 						IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI, &value, NULL);
 		project_root = ANJUTA_PLUGIN_PYTHON(plugin)->project_root_directory; //g_value_get_string (&value);
 		editor_filename = ANJUTA_PLUGIN_PYTHON(plugin)->current_editor_filename;
-		
+
 		lang_plugin->assist = python_assist_new (iassist,
-								anjuta_shell_get_interface (plugin->shell,
-											IAnjutaSymbolManager,
-											NULL),
-							    anjuta_shell_get_interface (plugin->shell,
-											IAnjutaDocumentManager,
-											NULL),
-								lang_plugin->prefs, editor_filename, project_root);
+		                                         sym_manager,
+		                                         docman,
+		                                         lang_plugin->prefs, editor_filename, project_root);
 		
 		/* Enable autocompletion action */
 		action = gtk_action_group_get_action (lang_plugin->action_group, 
@@ -1638,9 +1403,6 @@ static gboolean
 python_plugin_activate (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui;
-
-	GtkWidget *wid;
-//	GladeXML *gxml;
 
 	PythonPlugin *python_plugin;
 	static gboolean initialized = FALSE;
