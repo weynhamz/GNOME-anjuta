@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&component=core application\n"
-"POT-Creation-Date: 2010-07-24 15:04+0000\n"
-"PO-Revision-Date: 2010-07-26 09:12+0100\n"
+"POT-Creation-Date: 2010-07-31 17:57+0000\n"
+"PO-Revision-Date: 2010-08-02 13:45+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -2740,7 +2740,7 @@ msgstr "Okvir"
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:664
 #: ../plugins/debug-manager/threads.c:451
-#: ../plugins/gdb/preferences.c:358
+#: ../plugins/gdb/preferences.c:360
 #: ../plugins/tools/tool.c:100
 #: ../src/anjuta-app.c:621
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
@@ -4764,29 +4764,33 @@ msgstr "Napaka med ustvarjanjem datoteke FIFO z imenom %s. Program bo zagnan bre
 msgid "Cannot start terminal for debugging."
 msgstr "Ni mogoče zagnati terminala za razhroščevanje."
 
-#: ../plugins/gdb/preferences.c:123
+#. Translators: pretty printer file is a kind of script allowing gdb to display
+#. * variable content in a simpler way, removing implementation details
+#: ../plugins/gdb/preferences.c:125
 #, c-format
 msgid ""
-"The following pretty printers, without a register functions, have been disabled:\n"
-" %s"
+"The register function hasn't been found automatically in the following pretty printer files:\n"
+"%s\n"
+"You need to fill yourself the register function columns before enabling the rows. Most of the time the register function name contains the word \"register\"."
 msgstr ""
-"Navedeni oblikovni tiskalniki, brez vpisnih funkcij, so onemogočeni:\n"
-" %s"
+"Funkcije vpisnika ni mogoče samodejno najti med datotekami oblikovnega tiskanja:\n"
+"%s\n"
+"Funkcije bo treba vpisati ročno v stolpce pred omogočanjem vrstic. Običajno funckija vpisnika vsebuje besedo \"vpisnik\"."
 
-#: ../plugins/gdb/preferences.c:216
+#: ../plugins/gdb/preferences.c:220
 msgid "Select a pretty printer file"
 msgstr "Izbor oblikovne datoteke tiskanja"
 
-#: ../plugins/gdb/preferences.c:353
+#: ../plugins/gdb/preferences.c:355
 msgid "Activate"
 msgstr "Omogoči"
 
-#: ../plugins/gdb/preferences.c:365
+#: ../plugins/gdb/preferences.c:367
 msgid "Register Function"
 msgstr "Vpisna funkcija"
 
-#: ../plugins/gdb/preferences.c:389
-#: ../plugins/gdb/preferences.c:397
+#: ../plugins/gdb/preferences.c:391
+#: ../plugins/gdb/preferences.c:399
 msgid "Gdb Debugger"
 msgstr "Razhroščevalnik Gdb"
 
@@ -10487,3 +10491,10 @@ msgstr "Najmanjše število znakov za dopolnjevanje"
 msgid "Symbol"
 msgstr "Simbol"
 
+#~ msgid ""
+#~ "The following pretty printers, without a register functions, have been "
+#~ "disabled:\n"
+#~ " %s"
+#~ msgstr ""
+#~ "Navedeni oblikovni tiskalniki, brez vpisnih funkcij, so onemogočeni:\n"
+#~ " %s"
