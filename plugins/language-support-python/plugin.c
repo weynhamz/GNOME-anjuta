@@ -48,7 +48,6 @@
 #include "python-assist.h"
 
 /* Pixmaps */
-#define ANJUTA_PIXMAP_SWAP                "anjuta-swap"
 #define ANJUTA_PIXMAP_COMPLETE			  "anjuta-complete"
 #define ANJUTA_PIXMAP_AUTOCOMPLETE        "anjuta-complete-auto"
 #define ANJUTA_PIXMAP_AUTOINDENT          "anjuta-indent-auto"
@@ -1022,9 +1021,6 @@ on_editor_language_changed (IAnjutaEditor *editor,
 							const gchar *new_language,
 							PythonPlugin *plugin)
 {
-	//anjuta_util_dialog_info (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
-	//						 "New language is %s", new_language);
-
 	uninstall_support (plugin);
 	install_support (plugin);
 }
@@ -1085,117 +1081,6 @@ on_value_removed_current_editor (AnjutaPlugin *plugin, const gchar *name,
 	lang_plugin->current_editor = NULL;
 }
 
-const gchar* SOURCE_EXT[] =
-{
-	".c",
-	".cc",
-	".C",
-	".cpp",
-	".cxx",
-	".ccg",
-	NULL
-};
-
-const gchar* HEADER_EXT[] =
-{
-	".h",
-	".hh",
-	".H",
-	".hpp",
-	".hxx",
-	".hg",
-	NULL
-};
-
-static void
-on_swap_activate (GtkAction* action, gpointer data)
-{
-	GFile* file;
-	GFile* parent;
-	gchar* parent_uri;
-	gchar* basename;
-	gchar* ext;
-	PythonPlugin *lang_plugin = (PythonPlugin*) (data);
-	IAnjutaDocumentManager* docman =
-		anjuta_shell_get_interface (ANJUTA_PLUGIN(lang_plugin)->shell,
-									IAnjutaDocumentManager,
-									NULL);
-	if (!lang_plugin->current_editor || !docman)
-		return;
-	
-	file = ianjuta_file_get_file (IANJUTA_FILE (lang_plugin->current_editor),
-								  NULL);
-	parent = g_file_get_parent (file);
-	parent_uri = g_file_get_uri (parent);
-	basename = g_file_get_basename (file);
-	g_object_unref (file);
-	g_object_unref (parent);
-	ext = strstr (basename, ".");
-	if (ext)
-	{
-		int i;
-		for (i = 0; SOURCE_EXT[i] != NULL; i++)
-		{
-			if (g_str_equal (ext, SOURCE_EXT[i]))
-			{
-				int j;
-				for (j = 0; HEADER_EXT[j] != NULL; j++)
-				{
-					gchar* filename;
-					gchar* uri;
-					GFile* new_file;
-					*ext = '\0';
-					filename = g_strdup_printf ("%s%s", basename, HEADER_EXT[j]);
-					uri = g_build_filename (parent_uri, filename, NULL);
-					new_file = g_file_new_for_uri (uri);
-					g_free (uri);
-					g_free(filename);
-					if (g_file_query_exists (new_file, NULL))
-					{
-						ianjuta_document_manager_goto_file_line (docman,
-																 new_file,
-																 -1,
-																 NULL);
-						g_object_unref (new_file);
-						break;
-					}
-					g_object_unref (new_file);
-				}
-				break;
-			}
-			if (g_str_equal (ext, HEADER_EXT[i]))
-			{
-				int j;
-				for (j = 0; SOURCE_EXT[j] != NULL; j++)
-				{
-					gchar* filename;
-					gchar* uri;
-					GFile* new_file;
-					*ext = '\0';
-					filename = g_strdup_printf ("%s%s", basename, SOURCE_EXT[j]);
-					uri = g_build_filename (parent_uri, filename, NULL);
-					new_file = g_file_new_for_uri (uri);
-					g_free (uri);
-					g_free(filename);
-					if (g_file_query_exists (new_file, NULL))
-					{
-						ianjuta_document_manager_goto_file_line (docman,
-																 new_file,
-																 -1,
-																 NULL);
-						g_object_unref (new_file);
-						break;
-					}
-					g_object_unref (new_file);
-				}
-				break;
-			}
-		}
-	}
-	g_free(basename);
-	g_free (parent_uri);
-}
-
 static void
 on_auto_indent (GtkAction *action, gpointer data)
 {
@@ -1242,15 +1127,6 @@ on_auto_indent (GtkAction *action, gpointer data)
 	}
 	ianjuta_document_end_undo_action (IANJUTA_DOCUMENT(editor), NULL);
 }
- 
-static void
-on_auto_complete (GtkAction *action, gpointer data)
-{
-	PythonPlugin *lang_plugin = (PythonPlugin*) (data);;
-	PythonAssist *assist = PYTHON_ASSIST (lang_plugin->assist);
-	
-	// TODO
-}
 
 static GtkActionEntry actions[] = {
 	{
@@ -1259,24 +1135,11 @@ static GtkActionEntry actions[] = {
 		NULL, NULL, NULL
 	},
 	{
-		"ActionEditAutocomplete",
-		GTK_STOCK_NEW, //ANJUTA_STOCK_AUTOCOMPLETE,
-		N_("_AutoComplete"), "<control>space",
-		N_("AutoComplete the current word"),
-		G_CALLBACK (on_auto_complete)
-	},
-	{
 		"ActionEditAutoindent",
 		GTK_STOCK_NEW, //ANJUTA_STOCK_AUTOINDENT,
-		N_("Auto Indent"), "<control>i",
-		N_("Auto indent current line or selection based on indentation settings"),
+		N_("Auto-Indent"), "<control>i",
+		N_("Auto-indent current line or selection based on indentation settings"),
 		G_CALLBACK (on_auto_indent)
-	},
-	{   "ActionFileSwap", 
-		GTK_STOCK_NEW, 
-		N_("Swap .h/.c"), NULL,
-		N_("Swap c header and source files"),
-		G_CALLBACK (on_swap_activate)
 	}
 };
 
