@@ -916,7 +916,7 @@ if [ test x$devhelp_enabled = xyes ]; then
        echo "Building devhelp plugin: ...............................YES"
 else
        echo "Building devhelp plugin: ...............................NO"
-       echo "        Requires devhelp >= 0.22"
+       echo "        Requires libdevhelp-2.0 (>= $LIBDEVHELP_REQUIRED)"
 fi
 
 if [ test x$sourceview = xyes ]; then
