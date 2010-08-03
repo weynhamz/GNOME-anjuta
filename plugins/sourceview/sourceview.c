@@ -2182,11 +2182,13 @@ iassist_proposals(IAnjutaEditorAssist* iassist,
 		SourceviewProvider* prov;
 		if (!SOURCEVIEW_IS_PROVIDER (node->data))
 			continue;
+		
 		prov = SOURCEVIEW_PROVIDER(node->data);
-		if (prov->cancelled)
-			continue;
 		if (prov->iprov == provider)
 		{
+			if (prov->cancelled)
+				break;
+
 			GList* prop;
 			GList* items = NULL;
 			for (prop = proposals; prop != NULL; prop = g_list_next(prop))
@@ -2212,6 +2214,7 @@ iassist_proposals(IAnjutaEditorAssist* iassist,
 			}
 			gtk_source_completion_context_add_proposals (prov->context, GTK_SOURCE_COMPLETION_PROVIDER(prov),
 			                                             items, finished);
+			break;
 		}
 	}
 }
