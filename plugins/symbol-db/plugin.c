@@ -1695,6 +1695,7 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	
 	if (root_dir)
 	{
+		gboolean needs_sources_scan = FALSE;
 		gboolean project_exist = FALSE;
 		GHashTable* lang_hash;
 		guint id;
