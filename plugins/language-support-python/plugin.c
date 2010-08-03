@@ -68,7 +68,6 @@
 #define PREF_INDENT_TAB_INDENTS "language.python.indent.tab.indents"
 #define PREF_INDENT_STATEMENT_SIZE "language.python.indent.statement.size"
 #define PREF_INDENT_BRACE_SIZE "language.python.indent.brace.size"
-#define PREF_BRACE_AUTOCOMPLETION "language.python.brace.autocompletion"
 
 #define TAB_SIZE (ianjuta_editor_get_tabsize (editor, NULL))
 
