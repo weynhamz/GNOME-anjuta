@@ -76,21 +76,26 @@ struct _PythonAssistPriv {
 	IAnjutaEditorTip* itip;
 	IAnjutaEditor* editor;
 	AnjutaLauncher* launcher;
+	AnjutaLauncher* calltip_launcher;	
 
 	const gchar* project_root;
 	const gchar* editor_filename;
 	
-	/* Last used cache */
+	/* Autocompletion */
 	gchar *search_cache;
 	gchar *pre_word;
-	gchar *calltip_context;
-	gint calltip_context_position;
 	
 	GCompletion *completion_cache;
 	gint cache_position;
 	GString* rope_cache;
-
 	IAnjutaIterable* start_iter;
+
+	/* Calltips */
+	GString* calltip_cache;
+	gchar *calltip_context;
+	gint calltip_context_position;
+	GList *tips;
+	IAnjutaIterable* calltip_iter;
 };
 
 static gchar*
@@ -131,20 +136,7 @@ is_scope_context_character (gchar ch)
 		return TRUE;
 	
 	return FALSE;
-}	
-
-static gboolean 
-is_word_character (gchar ch)
-{
-	if (g_ascii_isspace (ch))
-		return FALSE;
-	if (g_ascii_isalnum (ch))
-		return TRUE;
-	if (ch == '_')
-		return TRUE;
-	
-	return FALSE;
-}	
+}
 
 static gchar* 
 python_assist_get_scope_context (IAnjutaEditor* editor,
@@ -196,39 +188,58 @@ python_assist_get_scope_context (IAnjutaEditor* editor,
 	g_object_unref (end);
 	return scope_chars;
 }
-
-static gchar* 
-python_assist_get_pre_word (IAnjutaEditor* editor, IAnjutaIterable *iter)
+ 
+static gboolean
+python_assist_is_word_character (gchar ch)
 {
-	IAnjutaIterable *end;
+	if (g_ascii_isspace (ch))
+		return FALSE;
+	if (g_ascii_isalnum (ch))
+		return TRUE;
+	if (ch == '_')
+		return TRUE;
+	
+	return FALSE;
+}	
+
+static gchar*
+python_assist_get_pre_word (IAnjutaEditor* editor, IAnjutaIterable *iter, IAnjutaIterable** start_iter)
+{
+	IAnjutaIterable *end = ianjuta_iterable_clone (iter, NULL);
+	IAnjutaIterable *begin = ianjuta_iterable_clone (iter, NULL);
 	gchar ch, *preword_chars = NULL;
 	gboolean out_of_range = FALSE;
 	gboolean preword_found = FALSE;
 	
-	end = ianjuta_iterable_clone (iter, NULL);
-	ianjuta_iterable_next (end, NULL);
-
-	ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);
+	/* Cursor points after the current characters, move back */
+	ianjuta_iterable_previous (begin, NULL);
 	
-	while (ch && is_word_character (ch))
+	ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (begin), 0, NULL);
+	
+	while (ch && python_assist_is_word_character (ch))
 	{
 		preword_found = TRUE;
-		if (!ianjuta_iterable_previous (iter, NULL))
+		if (!ianjuta_iterable_previous (begin, NULL))
 		{
 			out_of_range = TRUE;
 			break;
 		}
-		ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);
+		ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (begin), 0, NULL);
 	}
 	
 	if (preword_found)
 	{
-		IAnjutaIterable *begin = ianjuta_iterable_clone (iter, NULL);
 		if (!out_of_range)
 			ianjuta_iterable_next (begin, NULL);
 		preword_chars = ianjuta_editor_get_text (editor, begin, end, NULL);
-		g_object_unref (begin);
+		*start_iter = begin;
 	}
+	else
+	{
+		g_object_unref (begin);
+		*start_iter = NULL;
+	}
+	
 	g_object_unref (end);
 	return preword_chars;
 }
@@ -264,30 +275,6 @@ python_assist_destroy_completion_cache (PythonAssist *assist)
 	}
 }
 
-static gboolean 
-is_cache_fresh (IAnjutaEditor *editor, gint editor_position, gint cache_position)
-{
-	gint i;
-
-	if (editor_position < cache_position)
-		return FALSE;
-	IAnjutaIterable *begin = ianjuta_editor_get_position_from_offset (editor, cache_position, NULL);
-	IAnjutaIterable *end = ianjuta_editor_get_position_from_offset (editor, editor_position, NULL);
-	
-	gchar* text = ianjuta_editor_get_text (editor, begin, end, NULL);
-
-	if (!text)
-		return TRUE;
-	
-	for (i=0; i<strlen(text); i++)
-		if (text[i]==' ' || text[i]=='\n' || text[i]=='\r' || text[i]==':' || text[i]=='{' || text[i]=='(' || text[i]==';')
-			return FALSE;
-
-	return TRUE;
-}
-
-
-
 static void free_proposal (IAnjutaEditorAssistProposal* proposal)
 {
 	g_free (proposal->label);
@@ -297,46 +284,9 @@ static void free_proposal (IAnjutaEditorAssistProposal* proposal)
 static void
 python_assist_update_autocomplete (PythonAssist *assist)
 {
-	gint length;
-	GList *completion_list;
-	
-	IAnjutaEditor *editor = (IAnjutaEditor*)assist->priv->editor;
-	int editor_position = ianjuta_editor_get_offset(editor,NULL);
-
-	if (!is_cache_fresh(editor, editor_position, assist->priv->cache_position))
-	{
-		python_assist_destroy_completion_cache (assist);
-		ianjuta_editor_assist_proposals (assist->priv->iassist, IANJUTA_PROVIDER(assist),
-		                                 NULL, TRUE, NULL);
-		return;
-	}
-
-	// Check if we need to wait or more results
-	if (assist->priv->completion_cache == NULL)
-	{
-		gboolean finished = (assist->priv->launcher == NULL);
-		ianjuta_editor_assist_proposals (assist->priv->iassist, IANJUTA_PROVIDER(assist),
-		                                 NULL, finished , NULL);
-		return;
-	}
-
-	if (assist->priv->pre_word && strlen(assist->priv->pre_word)>0)
-	{
-	    g_completion_complete (assist->priv->completion_cache, assist->priv->pre_word, NULL);
-
-		completion_list = assist->priv->completion_cache->cache;
-	}
-	else
-	{
-		completion_list = assist->priv->completion_cache->items;
-	}
-
-	length = g_list_length (completion_list);
-
-	DEBUG_PRINT ("Populating %d proposals", length);
-
 	GList *node, *suggestions = NULL;
-
+	GList* completion_list = g_completion_complete (assist->priv->completion_cache, assist->priv->pre_word, NULL);
+	
 	for (node = completion_list; node != NULL; node = g_list_next (node))
 	{
 		PythonAssistTag *tag = node->data;
@@ -369,17 +319,21 @@ create_tmp_file (const gchar* source)
 	if (tmp_fd >= 0)
 	{
 		FILE *rope_file = fdopen (tmp_fd, "w");
-		fprintf (rope_file, "%s", source);
-		fclose (rope_file);
-		close (tmp_fd);
+		if (rope_file)
+		{
+			fprintf (rope_file, "%s", source);
+			fclose (rope_file);
+			close (tmp_fd);
+		}
+		else
+			goto error;
 		return tmp_file;
 	}
-	else
-	{
-		g_warning ("Creating tmp_file failed: %s", err->message);
-		g_error_free (err);
-		return NULL;
-	}	
+
+error:
+	g_warning ("Creating tmp_file failed: %s", err->message);
+	g_error_free (err);
+	return NULL;
 }
 
 static void 
@@ -476,12 +430,12 @@ on_autocomplete_finished (AnjutaLauncher* launcher,
 	}
 }
 
-static void
-python_assist_create_word_completion_cache (PythonAssist *assist)
+static gboolean
+python_assist_create_word_completion_cache (PythonAssist *assist, IAnjutaIterable* cursor)
 {
 	IAnjutaEditor *editor = IANJUTA_EDITOR (assist->priv->iassist);
 	const gchar *cur_filename;
-	gint offset = ianjuta_editor_get_offset(editor, NULL);
+	gint offset = ianjuta_iterable_get_position (cursor, NULL);
 	const gchar *project = assist->priv->project_root;
 	gchar *interpreter_path;
 	gchar *ropecommand;
@@ -501,7 +455,7 @@ python_assist_create_word_completion_cache (PythonAssist *assist)
 	g_free (source);
 
 	if (!tmp_file)
-		return;
+		return FALSE;
 	
 	ropecommand = g_strdup_printf("%s %s -o autocomplete -p \"%s\" -r \"%s\" -s \"%s\" -f %d", 
 	                              interpreter_path, AUTOCOMPLETE_SCRIPT, project, 
@@ -520,12 +474,131 @@ python_assist_create_word_completion_cache (PythonAssist *assist)
 
 	assist->priv->cache_position = offset;
 	assist->priv->search_cache = g_strdup (assist->priv->pre_word);
+
+	return TRUE;
+}
+
+static void
+python_assist_create_calltip_context (PythonAssist* assist,
+                                      const gchar* call_context,
+                                      gint call_context_position,                                      
+                                      IAnjutaIterable* position)
+{
+	assist->priv->calltip_context = g_strdup (call_context);
+	assist->priv->calltip_context_position = call_context_position;
+	assist->priv->calltip_iter = position;
+}
+
+static void 
+on_calltip_output (AnjutaLauncher *launcher,
+                   AnjutaLauncherOutputType output_type,
+                   const gchar *chars,
+                   gpointer user_data)
+{
+	PythonAssist* assist = PYTHON_ASSIST (user_data);
+	DEBUG_PRINT ("Calltip output: %s", chars);
+	if (output_type == ANJUTA_LAUNCHER_OUTPUT_STDOUT)
+	{
+		if (assist->priv->calltip_cache)
+		{
+			g_string_append (assist->priv->calltip_cache, chars);
+		}
+		else
+		{
+			assist->priv->calltip_cache = g_string_new (chars);
+		}
+	}
+}
+
+static void
+on_calltip_finished (AnjutaLauncher* launcher,
+                          int child_pid, int exit_status,
+                          gulong time, gpointer user_data)
+{
+	PythonAssist* assist = PYTHON_ASSIST (user_data);
+	DEBUG_PRINT ("Python-Complete took %lu seconds and returned %d", time, exit_status);
+
+	g_object_unref (launcher);
+	assist->priv->calltip_launcher = NULL;
+
+	if (assist->priv->calltip_cache)
+	{
+		GList* tips = g_list_prepend (NULL, assist->priv->calltip_cache->str);
+		ianjuta_editor_tip_show (IANJUTA_EDITOR_TIP(assist->priv->itip), tips,
+		                         assist->priv->calltip_iter, 
+		                         NULL);
+		g_list_free (tips);
+		g_string_free (assist->priv->calltip_cache, TRUE);
+		assist->priv->calltip_cache = NULL;
+	}
+}
+
+static void
+python_assist_query_calltip (PythonAssist *assist, const gchar *call_context)
+{	
+	IAnjutaEditor *editor = IANJUTA_EDITOR (assist->priv->iassist);
+	gint offset = assist->priv->calltip_context_position;
+	gchar *interpreter_path;
+	const gchar *cur_filename;
+	gchar *source = ianjuta_editor_get_text_all (editor, NULL);
+	const gchar *project = assist->priv->project_root;
+	gchar *tmp_file;
+	gchar *ropecommand;
+
+	cur_filename = assist->priv->editor_filename;
+	if (!project)
+		project = g_get_tmp_dir ();
+	
+	interpreter_path = anjuta_preferences_get (assist->priv->preferences,
+	                                           PREF_INTERPRETER_PATH);
+
+	tmp_file = create_tmp_file (source);
+	g_free (source);
+
+	if (!tmp_file)
+		return;
+	
+	ropecommand = g_strdup_printf("%s %s -o calltip -p \"%s\" -r \"%s\" -s \"%s\" -f %d", 
+								interpreter_path, AUTOCOMPLETE_SCRIPT, project, 
+								cur_filename, tmp_file, offset);
+
+	DEBUG_PRINT ("%s", ropecommand);
+
+	g_free (tmp_file);
+
+	/* Exec command and wait for results */
+	assist->priv->calltip_launcher = anjuta_launcher_new ();
+	g_signal_connect (assist->priv->calltip_launcher, "child-exited",
+	                  G_CALLBACK(on_calltip_finished), assist);
+	anjuta_launcher_execute (assist->priv->calltip_launcher, ropecommand,
+	                         on_calltip_output,
+	                         assist);
+	g_free (ropecommand);	
+}
+
+static void
+python_assist_clear_calltip_context (PythonAssist* assist)
+{
+	if (assist->priv->calltip_launcher)
+	{
+		g_object_unref (assist->priv->calltip_launcher);
+	}	
+	assist->priv->calltip_launcher = NULL;
+	
+	g_free (assist->priv->calltip_context);
+	assist->priv->calltip_context = NULL;
+	
+	g_list_foreach (assist->priv->tips, (GFunc) g_free, NULL);
+	g_list_free (assist->priv->tips);
+	assist->priv->tips = NULL;
+
+	if (assist->priv->calltip_iter)
+		g_object_unref (assist->priv->calltip_iter);
+	assist->priv->calltip_iter = NULL;
 }
 
 
-
-
-static gchar* //OK
+static gchar*
 python_assist_get_calltip_context (PythonAssist *assist,
                                      IAnjutaIterable *iter)
 {
@@ -583,92 +656,14 @@ python_assist_get_calltip_context_position (PythonAssist *assist,
 	return final_offset-1;
 }
 
-/* This needs to be ported to AnjutaLauncher and made asynchronous. Extra
- * points for avoiding the intermediate script and using the Python/C API
- */
-static GList*
-python_assist_create_rope_calltips (PythonAssist *assist, IAnjutaIterable* iter)
-{
-	GList* tips = NULL;
-
-	IAnjutaEditor *editor = IANJUTA_EDITOR (assist->priv->iassist);
-	gint offset = assist->priv->calltip_context_position;
-	gchar *interpreter_path;
-	const gchar *cur_filename;
-	gchar *source = ianjuta_editor_get_text_all (editor, NULL);
-	const gchar *project = assist->priv->project_root;
-	gchar *tmp_file;
-	gchar *ropecommand;
-	gchar calltip[1024];
-	int counter = 0;
-	FILE *rope;
-
-	cur_filename = assist->priv->editor_filename;
-	if (!project)
-		project = g_get_tmp_dir ();
-	
-	interpreter_path = anjuta_preferences_get (assist->priv->preferences,
-	                                           PREF_INTERPRETER_PATH);
-
-	tmp_file = create_tmp_file (source);
-	g_free (source);
-
-	if (!tmp_file)
-		return NULL;
-	
-	ropecommand = g_strdup_printf("%s %s -o calltip -p \"%s\" -r \"%s\" -s \"%s\" -f %d", 
-								interpreter_path, AUTOCOMPLETE_SCRIPT, project, 
-								cur_filename, tmp_file, offset);
-
-	DEBUG_PRINT ("%s\n", ropecommand);
-
-	g_free (tmp_file);
-
-	rope = popen (ropecommand, "r");
-	while (fgets(calltip, 1024, rope) != NULL)
-	{
-		calltip[strlen(calltip)-1] = '\0';
-		tips = g_list_append (tips, g_strdup(calltip));
-		counter++;
-		DEBUG_PRINT ("'Calltip: %s\n'", calltip);
-	}
-	pclose(rope);
-
-	DEBUG_PRINT ("%s(): %d\n", "python_assist_create_rope_calltips", assist->priv->calltip_context_position);
-	DEBUG_PRINT("Calltips returned %d suggestions..\n", counter);
-	
-	return tips;
-}
-
 static gboolean
-python_assist_show_calltip (PythonAssist *assist, gchar *call_context, 
-							  IAnjutaIterable *position_iter)
-{	
-	GList *tips = NULL;
-
-	// Add calltips from rope
-	tips = g_list_concat (tips, python_assist_create_rope_calltips (assist, position_iter));
-	
-	if (tips)
-	{	
-		ianjuta_editor_tip_show (IANJUTA_EDITOR_TIP(assist->priv->itip), tips,
-										 position_iter, 
-										 NULL);
-		g_list_foreach (tips, (GFunc) g_free, NULL);
-		g_list_free (tips);
-		return TRUE;
-	}
-	return FALSE;
-}
-
-static void //NEWLY
 python_assist_calltip (PythonAssist *assist)
 {
 	IAnjutaEditor *editor;
 	IAnjutaIterable *iter;
 	IAnjutaIterable *cur_pos;
-
-	DEBUG_PRINT("calltip started\n");
+	gchar *call_context;
+	gint call_context_position;
 	
 	editor = IANJUTA_EDITOR (assist->priv->iassist);
 	
@@ -676,219 +671,142 @@ python_assist_calltip (PythonAssist *assist)
 	cur_pos = ianjuta_iterable_clone (iter, NULL);
 	ianjuta_iterable_previous (iter, NULL);
 
-	if (1) //calltips)
+	call_context = python_assist_get_calltip_context (assist, iter);
+	call_context_position = python_assist_get_calltip_context_position (assist, iter);
+
+	if (call_context)
 	{
-		gchar *call_context = python_assist_get_calltip_context (assist, iter);
-		gint call_context_position = python_assist_get_calltip_context_position (assist, iter);
-
-		DEBUG_PRINT ("CALLTIP CONTEXT: %s at position %d\n", call_context, call_context_position);
-
-		if (call_context)
+		DEBUG_PRINT ("Searching calltip for: %s", call_context);
+		if (assist->priv->calltip_context &&
+		    g_str_equal (call_context, assist->priv->calltip_context))
 		{
-			if(ianjuta_editor_tip_visible (IANJUTA_EDITOR_TIP (editor), NULL))
+			/* Continue tip */
+			if (assist->priv->tips)
 			{
-				if (!g_str_equal (call_context, assist->priv->calltip_context))
+				if (!ianjuta_editor_tip_visible (IANJUTA_EDITOR_TIP (editor), NULL))
 				{
-					assist->priv->calltip_context_position = call_context_position;
-					
-					python_assist_show_calltip (assist, call_context, 
-					                              iter);
-					g_free (assist->priv->calltip_context);
-					assist->priv->calltip_context = g_strdup(call_context);
-					
+					ianjuta_editor_tip_show (IANJUTA_EDITOR_TIP (editor),
+					                         assist->priv->tips,
+					                         assist->priv->calltip_iter, NULL);
 				}
 			}
-			else
-			{
-				assist->priv->calltip_context_position = call_context_position;
-				python_assist_show_calltip (assist, call_context, 
-				                              iter);
-				g_free (assist->priv->calltip_context);
-				assist->priv->calltip_context = g_strdup(call_context);
-				
-			}
+			g_free (call_context);
+			return TRUE;
 		}
-		else
+		else /* New tip */
 		{
-			//ianjuta_editor_assist_cancel_tips (assist->priv->iassist, NULL);
-			ianjuta_editor_tip_cancel (IANJUTA_EDITOR_TIP(assist->priv->itip), NULL);
-			g_free (assist->priv->calltip_context);
-			assist->priv->calltip_context = NULL;
-			assist->priv->calltip_context_position = -1;
+			if (ianjuta_editor_tip_visible (IANJUTA_EDITOR_TIP (editor), NULL))
+				ianjuta_editor_tip_cancel (IANJUTA_EDITOR_TIP (editor), NULL);
+			
+			python_assist_clear_calltip_context (assist);
+			python_assist_create_calltip_context (assist, call_context, call_context_position, iter);
+			python_assist_query_calltip (assist, call_context);
+			g_free (call_context);
+			return TRUE;
 		}
-		g_free (call_context);
 	}
-	g_object_unref (iter);	
-	DEBUG_PRINT("calltip ended\n");
-}
+	else
+	{
+		if (ianjuta_editor_tip_visible (IANJUTA_EDITOR_TIP (editor), NULL))
+			ianjuta_editor_tip_cancel (IANJUTA_EDITOR_TIP (editor), NULL);
+		python_assist_clear_calltip_context (assist);
+	}
 
-
-
-
-static void
-on_editor_char_added (IAnjutaEditor *editor, IAnjutaIterable *insert_pos,
-					  gchar ch, PythonAssist *assist)
-{	
-	gboolean enable_calltips =
-		anjuta_preferences_get_bool_with_default (assist->priv->preferences,
-												 PREF_CALLTIP_ENABLE,
-												 TRUE);
-	if (enable_calltips)
-		python_assist_calltip (assist);
-
-}
-
-static gboolean
-is_word_or_operator(gchar c)
-{
-	if (is_word_character (c) || c == '.' || c == '-' || c == '>')
-		return TRUE;
+	g_object_unref (iter);
 	return FALSE;
 }
 
-
-static IAnjutaIterable*
-python_parse_expression (PythonAssist* assist, IAnjutaIterable* iter, IAnjutaIterable** start_iter)
+static void
+python_assist_update_pre_word (PythonAssist* assist, const gchar* pre_word)
 {
-	IAnjutaEditor* editor = editor = IANJUTA_EDITOR (assist->priv->iassist);
-	IAnjutaIterable* cur_pos = ianjuta_iterable_clone (iter, NULL);
-	gboolean op_start = FALSE;
-	gboolean ref_start = FALSE;
-	gchar* stmt = NULL;
-
-	DEBUG_PRINT ("parse started\n");
-	
-	/* Search for a operator in the current line */
-	do 
-	{
-		gchar ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL(cur_pos), 0, NULL);
-
-		DEBUG_PRINT ("ch == '%c'", ch);
-		
-		if (!is_word_or_operator (ch))
-			break;
-
-		if (ch == '.' || (op_start && ch == '-') || (ref_start && ch == ':'))
-		{
-			/* Found an operator, get the statement and the pre_word */
-			IAnjutaIterable* pre_word_start = ianjuta_iterable_clone (cur_pos, NULL);
-			IAnjutaIterable* pre_word_end = ianjuta_iterable_clone (iter, NULL);
-			IAnjutaIterable* stmt_end = ianjuta_iterable_clone (pre_word_start, NULL);
-
-			/* Move one character forward so we have the start of the pre_word and
-			 * not the last operator */
-			ianjuta_iterable_next (pre_word_start, NULL);
-			/* If this is a two character operator, skip the second character */
-			if (op_start)
-			{
-				ianjuta_iterable_next (pre_word_start, NULL);
-			}
-			/* Move the end character to be behind the current typed character */
-			ianjuta_iterable_next (pre_word_end, NULL);
-			
-			assist->priv->pre_word = ianjuta_editor_get_text (editor,
-			                                                  pre_word_start, pre_word_end, NULL);
-
-			/* Try to get the name of the variable
-			 * FIXME: What about get_widget()-> for example */
-			while (ianjuta_iterable_previous (cur_pos, NULL))
-			{
-				gchar word_ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL(cur_pos), 0, NULL);
-				if (!is_word_character (word_ch))
-					break;
-			}
-			ianjuta_iterable_next (cur_pos, NULL);
-			stmt = ianjuta_editor_get_text (editor,
-			                                cur_pos, stmt_end, NULL);
-			*start_iter = pre_word_start;
-			g_object_unref (stmt_end);
-			DEBUG_PRINT("parse ended\n");
-			return NULL;
-		}
-	}
-	while (ianjuta_iterable_previous (cur_pos, NULL));
-	DEBUG_PRINT("parse ended\n");
-	return NULL;
-}
-
-static gchar
-get_previous_character(IAnjutaEditor* editor)
-{
-	IAnjutaIterable *cur_pos = ianjuta_editor_get_position (editor, NULL);
-	
-	gchar ch;
-
-		ianjuta_iterable_previous (cur_pos, NULL);
-	ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL(cur_pos), 0, NULL);
-
-	DEBUG_PRINT("Previous char is: %c\n", ch);
-	return ch; 
+	g_free (assist->priv->pre_word);
+	if (pre_word == NULL) 
+		pre_word = "";
+	assist->priv->pre_word = g_strdup (pre_word);
 }
 
 static void
-python_assist_populate (IAnjutaProvider* self, IAnjutaIterable* iter, GError** e)
+python_assist_none (IAnjutaProvider* self,
+                    PythonAssist* assist)
+{
+	ianjuta_editor_assist_proposals (assist->priv->iassist,
+	                                 self,
+	                                 NULL, TRUE, NULL);
+}
+
+static void
+python_assist_populate (IAnjutaProvider* self, IAnjutaIterable* cursor, GError** e)
 {
 	PythonAssist* assist = PYTHON_ASSIST (self);
-	IAnjutaEditor *editor;
-	gboolean autocomplete = anjuta_preferences_get_bool_with_default (assist->priv->preferences,
-	                                                                  PREF_AUTOCOMPLETE_ENABLE,
-	                                                                  TRUE);	
-	editor = IANJUTA_EDITOR (assist->priv->iassist);
-
-	g_free (assist->priv->pre_word);
-	assist->priv->pre_word = NULL;
-
-	ianjuta_iterable_previous (iter, NULL);
+	IAnjutaIterable* start_iter = NULL;
+	gchar* pre_word;
 	
-	if (autocomplete)
+	/* Check if we actually want autocompletion at all */
+	if (!anjuta_preferences_get_bool_with_default (anjuta_preferences_default (),
+	                                               PREF_AUTOCOMPLETE_ENABLE,
+	                                               TRUE))
 	{
-		/* Check for member completion */
-		IAnjutaIterable* start_iter = NULL;
+		python_assist_none (self, assist);
+		return;
+	}
+	
+	/* Check if this is a valid text region for completion */
+	IAnjutaEditorAttribute attrib = ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL(cursor),
+	                                                                   NULL);
+	if (attrib == IANJUTA_EDITOR_STRING ||
+	    attrib == IANJUTA_EDITOR_COMMENT)
+	{
+		python_assist_none (self, assist);
+		return;
+	}
 
-		python_parse_expression (assist, iter, &start_iter);
+	/* Check for calltip */
+	if (assist->priv->itip && 
+	    anjuta_preferences_get_bool_with_default (assist->priv->preferences,
+	                                              PREF_CALLTIP_ENABLE,
+	                                              TRUE))
+	{	
+		python_assist_calltip (assist);	
+	}
 
-		if (start_iter && assist->priv->pre_word && assist->priv->search_cache &&
-		    g_str_has_prefix (assist->priv->pre_word, assist->priv->search_cache))
+	pre_word = python_assist_get_pre_word (IANJUTA_EDITOR (assist->priv->iassist), cursor, &start_iter);
+
+	/* Check if completion was in progress */
+	if (assist->priv->completion_cache)
+	{
+		if (pre_word && g_str_has_prefix (pre_word, assist->priv->pre_word))
 		{
+			/* Great, we just continue the current completion */
 			if (assist->priv->start_iter)
 				g_object_unref (assist->priv->start_iter);
 			assist->priv->start_iter = start_iter;
+
+			python_assist_update_pre_word (assist, pre_word);
 			python_assist_update_autocomplete (assist);
-
-			return;
-		}
-
-		/* Normal autocompletion */
-		/* Moved iter to begin of word */
-		assist->priv->pre_word = python_assist_get_pre_word (editor, iter);
-		DEBUG_PRINT ("Pre word: %s\n", assist->priv->pre_word);
-		
-		if (!assist->priv->search_cache || !assist->priv->pre_word ||
-		    !g_str_has_prefix (assist->priv->pre_word, assist->priv->search_cache))
-		{
-			if (assist->priv->start_iter)
-				g_object_unref (assist->priv->start_iter);
-			assist->priv->start_iter = ianjuta_iterable_clone(iter, NULL);
-			ianjuta_iterable_next (IANJUTA_ITERABLE (assist->priv->start_iter), NULL);
-			python_assist_create_word_completion_cache(assist);
-
-			// If previous character isn't a <dot>, clear cache
-			if (!is_scope_context_character (get_previous_character(editor)))
-				python_assist_destroy_completion_cache (assist);
-				python_assist_update_autocomplete (assist);
-			    
+			g_free (pre_word);
 			return;
 		}
 		else
-		{
-			python_assist_update_autocomplete (assist);
-			return;
-		}
+			python_assist_destroy_completion_cache (assist);
+		g_free (pre_word);
 	}
-	/* Keep completion system happy */
-	ianjuta_editor_assist_proposals (assist->priv->iassist,
-	                                 IANJUTA_PROVIDER(self),
-	                                 NULL, TRUE, NULL);
+
+	if (pre_word && strlen (pre_word) > 3 &&
+		python_assist_create_word_completion_cache (assist, cursor))
+	{
+		if (assist->priv->start_iter)
+			g_object_unref (assist->priv->start_iter);
+		assist->priv->start_iter = start_iter;
+		python_assist_update_pre_word (assist, pre_word);
+		return;
+	}		
+	/* Nothing to propose */
+	if (assist->priv->start_iter)
+	{
+		g_object_unref (assist->priv->start_iter);
+		assist->priv->start_iter = NULL;
+	}
+	python_assist_none (self, assist);
 } 
 
 
@@ -939,8 +857,6 @@ python_assist_activate (IAnjutaProvider* self, IAnjutaIterable* iter, gpointer d
 		ianjuta_editor_insert (te, iter, assistance->str, -1, NULL);
 	}
 	ianjuta_document_end_undo_action (IANJUTA_DOCUMENT (te), NULL);
-
-	DEBUG_PRINT("Reached here safely");
 	
 	/* Show calltip if we completed function */
 	if (add_brace_after_func)
@@ -980,12 +896,6 @@ python_assist_install (PythonAssist *assist, IAnjutaEditor *ieditor)
 	if (IANJUTA_IS_EDITOR_TIP (ieditor))
 	{
 		assist->priv->itip = IANJUTA_EDITOR_TIP (ieditor);
-	
-		g_signal_connect (ieditor, "char-added",
-						  G_CALLBACK (on_editor_char_added), assist);
-		/*g_signal_connect (assist, "backspace",
-						  G_CALLBACK (on_editor_backspace), assist);*/
-
 	}
 	else
 	{
@@ -999,8 +909,6 @@ python_assist_uninstall (PythonAssist *assist)
 	g_return_if_fail (assist->priv->iassist != NULL);
 
 	DEBUG_PRINT ("Python uninstall called\n");
-	
-	g_signal_handlers_disconnect_by_func (assist->priv->iassist, G_CALLBACK (on_editor_char_added), assist);
 
 	ianjuta_editor_assist_remove (assist->priv->iassist, IANJUTA_PROVIDER(assist), NULL);
 
@@ -1019,11 +927,7 @@ python_assist_finalize (GObject *object)
 	PythonAssist *assist = PYTHON_ASSIST (object);
 	python_assist_uninstall (assist);
 	python_assist_destroy_completion_cache (assist);
-	if (assist->priv->calltip_context)
-	{
-		g_free (assist->priv->calltip_context);
-		assist->priv->calltip_context = NULL;
-	}
+	python_assist_clear_calltip_context (assist);
 	g_free (assist->priv);
 	G_OBJECT_CLASS (python_assist_parent_class)->finalize (object);
 }
