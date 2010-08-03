@@ -948,7 +948,6 @@ install_support (PythonPlugin *lang_plugin)
 	{
 		AnjutaPlugin *plugin;		
 		AnjutaUI *ui;
-		GtkAction *action;
 		IAnjutaEditorAssist* iassist;
 
 		const gchar *project_root;
@@ -970,12 +969,6 @@ install_support (PythonPlugin *lang_plugin)
 		                                         sym_manager,
 		                                         docman,
 		                                         lang_plugin->prefs, editor_filename, project_root);
-		
-		/* Enable autocompletion action */
-		action = gtk_action_group_get_action (lang_plugin->action_group, 
-									   "ActionEditAutocomplete");
-		g_object_set (G_OBJECT (action), "visible", TRUE,
-					  "sensitive", TRUE, NULL);
 	}	
 		
 	lang_plugin->support_installed = TRUE;
@@ -996,21 +989,9 @@ uninstall_support (PythonPlugin *lang_plugin)
 	}
 	
 	if (lang_plugin->assist)
-	{
-		AnjutaPlugin *plugin;
-		AnjutaUI *ui;
-		GtkAction *action;
-		
+	{		
 		g_object_unref (lang_plugin->assist);
 		lang_plugin->assist = NULL;
-		
-		/* Disable autocompletion action */
-		plugin = ANJUTA_PLUGIN (lang_plugin);
-		ui = anjuta_shell_get_ui (plugin->shell, NULL);
-		action = gtk_action_group_get_action (lang_plugin->action_group,
-									   "ActionEditAutocomplete");
-		g_object_set (G_OBJECT (action), "visible", FALSE,
-					  "sensitive", FALSE, NULL);
 	}
 	
 	lang_plugin->support_installed = FALSE;
