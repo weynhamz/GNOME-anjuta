@@ -654,7 +654,6 @@ get_current_statement (IAnjutaEditor *editor, gint line_num, gint *found_line_nu
 	} while (isalpha(point_ch) || isdigit(point_ch)); // FIXME: Is this UTF-8 compatible?
 	statement[counter-1] = '\0';
 
-	DEBUG_PRINT ("Statement is: *%s*\n", statement);
 	g_object_unref (iter);
 	return g_strdup_printf("%s", statement);
 }
@@ -866,10 +865,6 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 	/* If autoindent is enabled*/
 	if (anjuta_preferences_get_bool (plugin->prefs, PREF_INDENT_AUTOMATIC))
 	{
-	
-		 DEBUG_PRINT ("Char added at position %d: '%c'", 
-		              ianjuta_iterable_get_position (insert_pos, NULL), ch); 
-	
 		if (iter_is_newline (iter, ch))
 		{
 			skip_iter_to_newline_head (iter, ch);

@@ -475,6 +475,10 @@ python_assist_create_word_completion_cache (PythonAssist *assist, IAnjutaIterabl
 	assist->priv->cache_position = offset;
 	assist->priv->search_cache = g_strdup (assist->priv->pre_word);
 
+	ianjuta_editor_assist_proposals (IANJUTA_EDITOR_ASSIST (assist->priv->iassist),
+	                                 IANJUTA_PROVIDER (assist),
+	                                 NULL, FALSE, NULL);
+	
 	return TRUE;
 }
 
@@ -734,12 +738,40 @@ python_assist_none (IAnjutaProvider* self,
 	                                 NULL, TRUE, NULL);
 }
 
+static gint
+python_assist_dot (IAnjutaEditor* editor,
+                   IAnjutaIterable* cursor)
+{
+	IAnjutaIterable* iter = ianjuta_iterable_clone (cursor, NULL);
+	gboolean retval = FALSE;
+	/* Go backward first as we are behind the current character */
+	if (ianjuta_iterable_previous (iter, NULL))
+	{
+		gchar c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter),
+		                                        0, NULL);
+		retval = (c == '.');
+	}
+	g_object_unref (iter);
+	return retval;
+}
+		    
+
 static void
 python_assist_populate (IAnjutaProvider* self, IAnjutaIterable* cursor, GError** e)
 {
 	PythonAssist* assist = PYTHON_ASSIST (self);
 	IAnjutaIterable* start_iter = NULL;
 	gchar* pre_word;
+	gboolean dot;
+
+	/* Check for calltip */
+	if (assist->priv->itip && 
+	    anjuta_preferences_get_bool_with_default (assist->priv->preferences,
+	                                              PREF_CALLTIP_ENABLE,
+	                                              TRUE))
+	{	
+		python_assist_calltip (assist);	
+	}
 	
 	/* Check if we actually want autocompletion at all */
 	if (!anjuta_preferences_get_bool_with_default (anjuta_preferences_default (),
@@ -760,17 +792,10 @@ python_assist_populate (IAnjutaProvider* self, IAnjutaIterable* cursor, GError**
 		return;
 	}
 
-	/* Check for calltip */
-	if (assist->priv->itip && 
-	    anjuta_preferences_get_bool_with_default (assist->priv->preferences,
-	                                              PREF_CALLTIP_ENABLE,
-	                                              TRUE))
-	{	
-		python_assist_calltip (assist);	
-	}
-
 	pre_word = python_assist_get_pre_word (IANJUTA_EDITOR (assist->priv->iassist), cursor, &start_iter);
 
+	DEBUG_PRINT ("Preword: %s", pre_word);
+	
 	/* Check if completion was in progress */
 	if (assist->priv->completion_cache)
 	{
@@ -786,18 +811,24 @@ python_assist_populate (IAnjutaProvider* self, IAnjutaIterable* cursor, GError**
 			g_free (pre_word);
 			return;
 		}
-		else
-			python_assist_destroy_completion_cache (assist);
-		g_free (pre_word);
 	}
-
-	if (pre_word && strlen (pre_word) > 3 &&
-		python_assist_create_word_completion_cache (assist, cursor))
+	else
+	{
+		python_assist_destroy_completion_cache (assist);
+	}
+	dot = python_assist_dot (IANJUTA_EDITOR (assist->priv->iassist),
+	                         cursor);
+	if (((pre_word && strlen (pre_word) >= 3) || dot) && 
+	    python_assist_create_word_completion_cache (assist, cursor))
 	{
 		if (assist->priv->start_iter)
 			g_object_unref (assist->priv->start_iter);
-		assist->priv->start_iter = start_iter;
-		python_assist_update_pre_word (assist, pre_word);
+		if (start_iter)
+			assist->priv->start_iter = start_iter;
+		else
+			assist->priv->start_iter = ianjuta_iterable_clone (cursor, NULL);
+		python_assist_update_pre_word (assist, pre_word ? pre_word : "");
+		g_free (pre_word);
 		return;
 	}		
 	/* Nothing to propose */
@@ -807,6 +838,7 @@ python_assist_populate (IAnjutaProvider* self, IAnjutaIterable* cursor, GError**
 		assist->priv->start_iter = NULL;
 	}
 	python_assist_none (self, assist);
+	g_free (pre_word);
 } 
 
 
