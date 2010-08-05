@@ -854,6 +854,10 @@ plugins/project-wizard/templates/java/po/Makefile
 plugins/project-wizard/templates/python/Makefile
 plugins/project-wizard/templates/python/src/Makefile
 plugins/project-wizard/templates/python/po/Makefile
+plugins/project-wizard/templates/pygtk/Makefile
+plugins/project-wizard/templates/pygtk/src/Makefile
+plugins/project-wizard/templates/pygtk/po/Makefile
+plugins/project-wizard/templates/pygtk/data/Makefile
 plugins/project-wizard/templates/wxwin/Makefile
 plugins/project-wizard/templates/wxwin/src/Makefile
 plugins/project-wizard/templates/wxwin/po/Makefile

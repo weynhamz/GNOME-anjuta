@@ -190,6 +190,7 @@ plugins/project-wizard/property.c
 [type: gettext/xml]plugins/project-wizard/templates/java.wiz.in
 [type: gettext/xml]plugins/project-wizard/templates/js.wiz.in
 [type: gettext/xml]plugins/project-wizard/templates/python.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/pygtk.wiz.in
 [type: gettext/xml]plugins/project-wizard/templates/mkfile.wiz.in
 [type: gettext/xml]plugins/project-wizard/templates/sdl.wiz.in
 [type: gettext/xml]plugins/project-wizard/templates/library.wiz.in
