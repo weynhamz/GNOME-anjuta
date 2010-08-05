@@ -256,13 +256,13 @@ public class ValaPlugin : Plugin {
 			result.concat (symbol_lookup_inherited (variable.variable_type.data_type, name, prefix_match));
 		} else if (sym is Vala.Field) {
 			var field = (Vala.Field) sym;
-			result.concat (symbol_lookup_inherited (field.field_type.data_type, name, prefix_match));
+			result.concat (symbol_lookup_inherited (field.variable_type.data_type, name, prefix_match));
 		} else if (sym is Vala.Property) {
 			var prop = (Vala.Property) sym;
 			result.concat (symbol_lookup_inherited (prop.property_type.data_type, name, prefix_match));
 		} else if (sym is Vala.FormalParameter) {
 			var fp = (Vala.FormalParameter) sym;
-			result.concat (symbol_lookup_inherited (fp.parameter_type.data_type, name, prefix_match));
+			result.concat (symbol_lookup_inherited (fp.variable_type.data_type, name, prefix_match));
 		}
 
 		return result;

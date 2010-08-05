@@ -116,7 +116,7 @@ public class ValaProvider : Object, IAnjuta.Provider {
 				if (p.ellipsis) {
 					calltip.append("...");
 				} else {
-					calltip.append (p.parameter_type.to_qualified_string());
+					calltip.append (p.variable_type.to_qualified_string());
 					calltip.append (" ").append (p.name);
 				}
 			}
