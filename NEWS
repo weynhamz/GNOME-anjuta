@@ -1,3 +1,11 @@
+Anjuta 2.31.6.1 "Thank you, The Hague (5 Aug 2010) -- Johannes Schmid
+
+Bugs fixed:
+symbol-db: bgo#625964 anjuta-tags does not build
+libanjuta: bgo#621919 AnjutaAsyncCommand class is inconsistent
+
+Thanks to James Liggett and Vicent Untz
+
 Anjuta 2.31.6 "Thank you, The Hague" (2 Aug 2010) -- Johannes Schmid
 
 Updated:
