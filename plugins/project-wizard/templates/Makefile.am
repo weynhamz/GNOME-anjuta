@@ -1,6 +1,6 @@
 
 SUBDIRS = minimal terminal cpp gtk anjuta-plugin \
-	gtkmm wxwin xlib xlib-dock gcj java
+	gtkmm wxwin xlib xlib-dock gcj java \
 	python mkfile sdl library directory licenses m4 js_minimal
 
 template_in_files = \

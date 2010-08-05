@@ -305,8 +305,7 @@ devhelp_activate (AnjutaPlugin *plugin)
 
 #ifndef DISABLE_EMBEDDED_DEVHELP
 	static gboolean init = FALSE;
-	GNode *books;
-	GList *keywords;
+	DhBookManager *book_manager;
 	GtkWidget *label;
 	GtkWidget *books_sw;
 	
@@ -410,8 +409,7 @@ devhelp_activate (AnjutaPlugin *plugin)
 	/*
 	 * Notebook
 	 */
-	books = dh_base_get_book_tree (devhelp->base);
-	keywords = dh_base_get_keywords (devhelp->base);
+	book_manager = dh_base_get_book_manager (devhelp->base);
 	
 	books_sw = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (books_sw),
@@ -421,9 +419,9 @@ devhelp_activate (AnjutaPlugin *plugin)
 									     GTK_SHADOW_NONE);
 	gtk_container_set_border_width (GTK_CONTAINER (books_sw), 2);
 	
-	devhelp->book_tree = dh_book_tree_new (books);
+	devhelp->book_tree = dh_book_tree_new (book_manager);
 	
-	devhelp->search = dh_search_new (keywords);
+	devhelp->search = dh_search_new (book_manager);
 	gtk_widget_set_size_request (devhelp->search, 0, 0);
 	
 	g_signal_connect (devhelp->book_tree,

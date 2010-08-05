@@ -192,7 +192,6 @@ plugins/project-wizard/property.c
 [type: gettext/xml]plugins/project-wizard/templates/python.wiz.in
 [type: gettext/xml]plugins/project-wizard/templates/mkfile.wiz.in
 [type: gettext/xml]plugins/project-wizard/templates/sdl.wiz.in
-[type: gettext/xml]plugins/project-wizard/templates/gnome-applet.wiz.in
 [type: gettext/xml]plugins/project-wizard/templates/library.wiz.in
 [type: gettext/glade]plugins/run-program/anjuta-run-program.ui
 plugins/run-program/execute.c
