@@ -301,8 +301,16 @@ python_assist_update_autocomplete (PythonAssist *assist)
 		suggestions = g_list_prepend (suggestions, proposal);
 	}
 	suggestions = g_list_reverse (suggestions);
-	ianjuta_editor_assist_proposals (assist->priv->iassist, IANJUTA_PROVIDER(assist),
-	                                 suggestions, TRUE, NULL);
+	/* Hide is the only suggetions is exactly the typed word */
+	if (!(g_list_length (suggestions) == 1 && 
+	      g_str_equal (((PythonAssistTag*)(suggestions->data))->name, assist->priv->pre_word)))
+	{
+		ianjuta_editor_assist_proposals (assist->priv->iassist, IANJUTA_PROVIDER(assist),
+		                                 suggestions, TRUE, NULL);
+	}
+	else
+		ianjuta_editor_assist_proposals (assist->priv->iassist, IANJUTA_PROVIDER(assist),
+		                                 NULL, TRUE, NULL);		
 	g_list_foreach (suggestions, (GFunc) free_proposal, NULL);
 	g_list_free (suggestions);
 }
@@ -345,6 +353,7 @@ on_autocomplete_output (AnjutaLauncher *launcher,
 	PythonAssist* assist = PYTHON_ASSIST (user_data);
 	if (output_type == ANJUTA_LAUNCHER_OUTPUT_STDOUT)
 	{
+		printf ("chars from script: %s", chars);
 		if (assist->priv->rope_cache)
 		{
 			g_string_append (assist->priv->rope_cache, chars);
@@ -353,6 +362,10 @@ on_autocomplete_output (AnjutaLauncher *launcher,
 		{
 			assist->priv->rope_cache = g_string_new (chars);
 		}
+	}
+	if (output_type == ANJUTA_LAUNCHER_OUTPUT_STDERR)
+	{
+		g_warning ("Problem in python script: %s", chars);
 	}
 }
 
@@ -377,7 +390,7 @@ on_autocomplete_finished (AnjutaLauncher* launcher,
 		                             0, 0, &err);
 		if (err)
 		{
-			DEBUG_PRINT ("Error creating regex: %s", err->message);
+			g_warning ("Error creating regex: %s", err->message);
 			g_error_free (err);
 			return;
 		}
@@ -500,7 +513,6 @@ on_calltip_output (AnjutaLauncher *launcher,
                    gpointer user_data)
 {
 	PythonAssist* assist = PYTHON_ASSIST (user_data);
-	DEBUG_PRINT ("Calltip output: %s", chars);
 	if (output_type == ANJUTA_LAUNCHER_OUTPUT_STDOUT)
 	{
 		if (assist->priv->calltip_cache)
@@ -801,6 +813,7 @@ python_assist_populate (IAnjutaProvider* self, IAnjutaIterable* cursor, GError**
 	{
 		if (pre_word && g_str_has_prefix (pre_word, assist->priv->pre_word))
 		{
+			DEBUG_PRINT ("Continue autocomplete for %s", pre_word);
 			/* Great, we just continue the current completion */
 			if (assist->priv->start_iter)
 				g_object_unref (assist->priv->start_iter);
@@ -814,6 +827,7 @@ python_assist_populate (IAnjutaProvider* self, IAnjutaIterable* cursor, GError**
 	}
 	else
 	{
+		DEBUG_PRINT ("Cancelling autocomplete");
 		python_assist_destroy_completion_cache (assist);
 	}
 	dot = python_assist_dot (IANJUTA_EDITOR (assist->priv->iassist),
@@ -821,6 +835,7 @@ python_assist_populate (IAnjutaProvider* self, IAnjutaIterable* cursor, GError**
 	if (((pre_word && strlen (pre_word) >= 3) || dot) && 
 	    python_assist_create_word_completion_cache (assist, cursor))
 	{
+		DEBUG_PRINT ("New autocomplete for %s", pre_word);
 		if (assist->priv->start_iter)
 			g_object_unref (assist->priv->start_iter);
 		if (start_iter)
@@ -939,8 +954,6 @@ static void
 python_assist_uninstall (PythonAssist *assist)
 {
 	g_return_if_fail (assist->priv->iassist != NULL);
-
-	DEBUG_PRINT ("Python uninstall called\n");
 
 	ianjuta_editor_assist_remove (assist->priv->iassist, IANJUTA_PROVIDER(assist), NULL);
 

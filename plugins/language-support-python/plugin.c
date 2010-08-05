@@ -1049,8 +1049,8 @@ on_value_removed_current_editor (AnjutaPlugin *plugin, const gchar *name,
 		g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
 										  G_CALLBACK (on_editor_language_changed),
 										  plugin);
-	if (IANJUTA_IS_EDITOR(lang_plugin->current_editor))
-		uninstall_support (lang_plugin);
+
+	uninstall_support (lang_plugin);
 
 	g_free (lang_plugin->current_editor_filename);
 	lang_plugin->current_editor_filename = NULL;
