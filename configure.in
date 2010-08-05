@@ -45,7 +45,7 @@ dnl Glade
 GLADEUI_REQUIRED=3.7.1
 
 dnl Vala
-VALA_REQUIRED=0.7.8
+VALA_REQUIRED=0.9.4
 
 dnl Introspection
 GI_REQUIRED=0.6.6
