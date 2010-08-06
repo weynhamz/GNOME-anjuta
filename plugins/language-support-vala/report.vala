@@ -89,4 +89,7 @@ public class AnjutaReport : Vala.Report {
 			errors.add(Error () {source = source, message = message, error = true});
 		}
 	}
+	public bool errors_found () {
+		return (errors.size != 0);
+	}
 }

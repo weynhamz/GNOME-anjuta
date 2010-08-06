@@ -75,17 +75,23 @@ public class ValaPlugin : Plugin {
 		ThreadFunc parse = () => {
 			lock (context) {
 				Vala.CodeContext.push(context);
+				var report = context.report as AnjutaReport;
 
 				parser = new Vala.Parser ();
 				genie_parser = new Vala.Genie.Parser ();
+				resolver = new Vala.SymbolResolver ();
+				analyzer = new Vala.SemanticAnalyzer ();
 
 				parser.parse (context);
 				genie_parser.parse (context);
+				if (report.errors_found ())
+					return null;
 
-				resolver = new Vala.SymbolResolver ();
 				resolver.resolve (context);
+				if (report.errors_found ())
+					/* TODO: there may be missing packages */
+					return null;
 
-				analyzer = new Vala.SemanticAnalyzer ();
 				analyzer.analyze (context);
 
 				Vala.CodeContext.pop();
@@ -298,8 +304,11 @@ public class ValaPlugin : Plugin {
 			parser.visit_source_file (file);
 			genie_parser.visit_source_file (file);
 
-			resolver.resolve (context);
-			analyzer.visit_source_file (file);
+			if (!report.errors_found ()) {
+				resolver.resolve (context);
+				if (!report.errors_found ())
+					analyzer.visit_source_file (file);
+			}
 
 			Vala.CodeContext.pop ();
 
