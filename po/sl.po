@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&component=core application\n"
-"POT-Creation-Date: 2010-08-04 07:07+0000\n"
-"PO-Revision-Date: 2010-08-04 20:17+0100\n"
+"POT-Creation-Date: 2010-08-06 11:21+0000\n"
+"PO-Revision-Date: 2010-08-06 13:38+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -1355,6 +1355,7 @@ msgstr "Splošne lastnosti razreda"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:16
 #: ../plugins/project-wizard/templates/js.wiz.in.h:8
 #: ../plugins/project-wizard/templates/python.wiz.in.h:16
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:12
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:12
 #: ../plugins/project-wizard/templates/library.wiz.in.h:16
 msgid "General Public License (GPL)"
@@ -1387,6 +1388,7 @@ msgstr "Izpis določil in vključitev v vrstici"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:18
 #: ../plugins/project-wizard/templates/js.wiz.in.h:10
 #: ../plugins/project-wizard/templates/python.wiz.in.h:18
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:13
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:13
 #: ../plugins/project-wizard/templates/library.wiz.in.h:17
 msgid "Lesser General Public License (LGPL)"
@@ -3340,6 +3342,7 @@ msgstr "Ponovi hitro iskanje"
 #: ../plugins/gtodo/interface.c:168
 #: ../src/anjuta-actions.h:30
 #: ../plugins/language-support-cpp-java/plugin.c:1876
+#: ../plugins/language-support-python/plugin.c:1110
 msgid "_Edit"
 msgstr "_Uredi"
 
@@ -4440,6 +4443,7 @@ msgstr "Ime paketa:"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:29
 #: ../plugins/project-wizard/templates/js.wiz.in.h:17
 #: ../plugins/project-wizard/templates/python.wiz.in.h:27
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:24
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:33
 #: ../plugins/project-wizard/templates/library.wiz.in.h:31
 msgid "Version:"
@@ -4849,6 +4853,7 @@ msgstr "Avtor/Grep"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:7
 #: ../plugins/project-wizard/templates/js.wiz.in.h:2
 #: ../plugins/project-wizard/templates/python.wiz.in.h:7
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:3
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:6
 #: ../plugins/project-wizard/templates/library.wiz.in.h:6
 msgid "Author:"
@@ -6988,6 +6993,7 @@ msgstr "Ni mogoče objaviti na določen naslov URI \"%s\". Prišlo je do napake:
 #: ../plugins/project-wizard/templates/java.wiz.in.h:13
 #: ../plugins/project-wizard/templates/js.wiz.in.h:5
 #: ../plugins/project-wizard/templates/python.wiz.in.h:13
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:9
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:9
 #: ../plugins/project-wizard/templates/library.wiz.in.h:13
 #: ../plugins/subversion/anjuta-subversion.ui.h:9
@@ -7603,6 +7609,7 @@ msgstr "Doda podporo za izgradnjo deljenih knjižnic projekta"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:8
 #: ../plugins/project-wizard/templates/js.wiz.in.h:3
 #: ../plugins/project-wizard/templates/python.wiz.in.h:8
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:4
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:7
 #: ../plugins/project-wizard/templates/library.wiz.in.h:7
 msgid "Basic information"
@@ -7621,6 +7628,7 @@ msgstr "Osnovne podrobnosti"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:9
 #: ../plugins/project-wizard/templates/js.wiz.in.h:4
 #: ../plugins/project-wizard/templates/python.wiz.in.h:9
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:5
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:8
 #: ../plugins/project-wizard/templates/library.wiz.in.h:8
 msgid "Berkeley Software Distribution License (BSD)"
@@ -7637,6 +7645,7 @@ msgstr "Berkeley programsko dovoljenje razširjanja (BSD)"
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:9
 #: ../plugins/project-wizard/templates/java.wiz.in.h:10
 #: ../plugins/project-wizard/templates/python.wiz.in.h:10
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:6
 #: ../plugins/project-wizard/templates/library.wiz.in.h:10
 msgid "Check the packages that your project requires"
 msgstr "Preveri zahtevane pakete za projekt"
@@ -7653,6 +7662,7 @@ msgstr "Preveri zahtevane pakete za projekt"
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:10
 #: ../plugins/project-wizard/templates/java.wiz.in.h:11
 #: ../plugins/project-wizard/templates/python.wiz.in.h:11
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:7
 #: ../plugins/project-wizard/templates/library.wiz.in.h:11
 msgid "Configure external packages"
 msgstr "Nastavitev zunanjih paketov"
@@ -7669,6 +7679,7 @@ msgstr "Nastavitev zunanjih paketov"
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:11
 #: ../plugins/project-wizard/templates/java.wiz.in.h:12
 #: ../plugins/project-wizard/templates/python.wiz.in.h:12
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:8
 #: ../plugins/project-wizard/templates/library.wiz.in.h:12
 msgid "Configure external packages:"
 msgstr "Nastavitev zunanjih paketov:"
@@ -7686,6 +7697,7 @@ msgstr "Nastavitev zunanjih paketov:"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:14
 #: ../plugins/project-wizard/templates/js.wiz.in.h:6
 #: ../plugins/project-wizard/templates/python.wiz.in.h:14
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:10
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:10
 #: ../plugins/project-wizard/templates/library.wiz.in.h:14
 msgid "Email address:"
@@ -7705,6 +7717,7 @@ msgstr "Elektronski naslov:"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:15
 #: ../plugins/project-wizard/templates/js.wiz.in.h:7
 #: ../plugins/project-wizard/templates/python.wiz.in.h:15
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:11
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:11
 #: ../plugins/project-wizard/templates/library.wiz.in.h:15
 msgid "General Project Information"
@@ -7727,6 +7740,7 @@ msgstr "Izvorno (automake)"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:19
 #: ../plugins/project-wizard/templates/js.wiz.in.h:11
 #: ../plugins/project-wizard/templates/python.wiz.in.h:19
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:14
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:14
 #: ../plugins/project-wizard/templates/library.wiz.in.h:19
 msgid "License"
@@ -7745,6 +7759,7 @@ msgstr "Dovoljenje"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:22
 #: ../plugins/project-wizard/templates/js.wiz.in.h:12
 #: ../plugins/project-wizard/templates/python.wiz.in.h:20
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:15
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:16
 #: ../plugins/project-wizard/templates/library.wiz.in.h:20
 msgid "No license"
@@ -7763,6 +7778,7 @@ msgstr "Ni dovoljenja"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:23
 #: ../plugins/project-wizard/templates/js.wiz.in.h:13
 #: ../plugins/project-wizard/templates/python.wiz.in.h:21
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:16
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:17
 #: ../plugins/project-wizard/templates/library.wiz.in.h:23
 msgid "Options for project build system"
@@ -7782,6 +7798,7 @@ msgstr "Možnosti za sistem izgradnje projekta"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:24
 #: ../plugins/project-wizard/templates/js.wiz.in.h:14
 #: ../plugins/project-wizard/templates/python.wiz.in.h:22
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:17
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:18
 #: ../plugins/project-wizard/templates/library.wiz.in.h:24
 msgid "Project Name:"
@@ -7800,6 +7817,7 @@ msgstr "Ime projekta:"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:25
 #: ../plugins/project-wizard/templates/js.wiz.in.h:15
 #: ../plugins/project-wizard/templates/python.wiz.in.h:23
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:18
 #: ../plugins/project-wizard/templates/mkfile.wiz.in.h:6
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:19
 #: ../plugins/project-wizard/templates/library.wiz.in.h:25
@@ -7817,6 +7835,7 @@ msgstr "Možnosti projekta"
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:25
 #: ../plugins/project-wizard/templates/java.wiz.in.h:26
 #: ../plugins/project-wizard/templates/python.wiz.in.h:24
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:21
 #: ../plugins/project-wizard/templates/library.wiz.in.h:26
 msgid "Required Packages:"
 msgstr "Zahtevani paketi:"
@@ -7834,6 +7853,7 @@ msgstr "Zahtevani paketi:"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:27
 #: ../plugins/project-wizard/templates/js.wiz.in.h:16
 #: ../plugins/project-wizard/templates/python.wiz.in.h:25
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:22
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:32
 #: ../plugins/project-wizard/templates/library.wiz.in.h:27
 msgid "Select code license"
@@ -7851,6 +7871,7 @@ msgstr "Izbor dovoljenja kode"
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:27
 #: ../plugins/project-wizard/templates/java.wiz.in.h:28
 #: ../plugins/project-wizard/templates/python.wiz.in.h:26
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:23
 #: ../plugins/project-wizard/templates/library.wiz.in.h:30
 msgid "Use pkg-config to add library support from other packages"
 msgstr "Uporabi pkg-config za dodajanje knjižnične podpore drugih paketov"
@@ -7868,6 +7889,7 @@ msgstr "Uporabi pkg-config za dodajanje knjižnične podpore drugih paketov"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:31
 #: ../plugins/project-wizard/templates/js.wiz.in.h:18
 #: ../plugins/project-wizard/templates/python.wiz.in.h:29
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:25
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:34
 #: ../plugins/project-wizard/templates/library.wiz.in.h:32
 msgid "project name"
@@ -7887,6 +7909,7 @@ msgstr "Izvorni projekt"
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:2
 #: ../plugins/project-wizard/templates/java.wiz.in.h:3
 #: ../plugins/project-wizard/templates/python.wiz.in.h:3
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:1
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:3
 #: ../plugins/project-wizard/templates/library.wiz.in.h:3
 msgid "Add internationalization:"
@@ -7902,6 +7925,7 @@ msgstr "Dodaj mednarodne jezikovne možnosti:"
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:5
 #: ../plugins/project-wizard/templates/java.wiz.in.h:6
 #: ../plugins/project-wizard/templates/python.wiz.in.h:6
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:2
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:5
 #: ../plugins/project-wizard/templates/library.wiz.in.h:5
 msgid "Adds support for internationalization so that your project can have translations in different languages"
@@ -8133,6 +8157,14 @@ msgstr "Izvorni projekt python, ki uporablja automake upravljanje"
 #: ../plugins/project-wizard/templates/python.wiz.in.h:17
 msgid "Generic python (automake)"
 msgstr "Izvorni Python (automake)"
+
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:19
+msgid "PyGTK (automake)"
+msgstr "PyGTK (automake)"
+
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:20
+msgid "PyGTK project using automake"
+msgstr "PyGTK projekt, ki uporablja automake upravljanje"
 
 #: ../plugins/project-wizard/templates/mkfile.wiz.in.h:1
 msgid "Makefile project"
@@ -10067,10 +10099,12 @@ msgid "Do not display warning if not using a Debug configuration"
 msgstr "Ne prikaži opozorila, kadar nastavitve razhroščevanja niso v uporabi"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:1
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:7
 msgid "Add '(' after function call autocompletion"
 msgstr "Dodaj '(' za samodejnim izpolnjevanjem klica funkcije"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:2
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:8
 msgid "Add a space after function call autocompletion"
 msgstr "Dodaj presledek za samodejnim izpolnjevanjem klica funkcije"
 
@@ -10083,6 +10117,7 @@ msgid "Autocompletion (C/C++/Java only)"
 msgstr "Samodejno izpolnjevanje (le C/C++/Java)"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:5
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:10
 msgid "Brace indentation size in spaces:"
 msgstr "Velikost zamikanja oklepajev v presledkih:"
 
@@ -10091,6 +10126,7 @@ msgid "Calltips"
 msgstr "Namigi kodnih zapisov"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:7
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:12
 msgid "Enable code completion"
 msgstr "Omogoči dopolnjevanje kode"
 
@@ -10099,6 +10135,7 @@ msgid "Enable smart brace completion"
 msgstr "Omogoči pametno dopolnjevanje oklepajev"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:9
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:13
 msgid "Enable smart indentation"
 msgstr "Omogoči pametno zamikanje"
 
@@ -10119,23 +10156,29 @@ msgid "Parenthesis indentation"
 msgstr "Zamikanje oklepajev"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:16
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:7
 msgid "Show calltips"
 msgstr "Pokaži namige kodnih zapisov"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:17
 msgid "Smart Indentation"
 msgstr "Pametno zamikanje"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:18
 msgid "Statement indentation size in spaces:"
 msgstr "Velikost zamikanja stavkov v presledkih:"
 
+#. ANJUTA_STOCK_AUTOINDENT,
 #: ../plugins/language-support-cpp-java/plugin.c:1882
+#: ../plugins/language-support-python/plugin.c:1116
 msgid "Auto-Indent"
 msgstr "Samodejno zamikanje"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1883
+#: ../plugins/language-support-python/plugin.c:1117
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr "Samodejno zamakni trenutno vrstico na osnovi nastavitev zamikanja"
 
@@ -10159,6 +10202,56 @@ msgstr "C/C++/Java/Vala"
 #: ../plugins/language-support-cpp-java/cpp-java-assist.c:1231
 msgid "C/C++"
 msgstr "C/C++"
+
+#: ../plugins/language-support-python/plugin.c:1198
+msgid "Python Assistance"
+msgstr "Python pomočnik"
+
+#: ../plugins/language-support-python/plugin.c:1297
+#: ../plugins/language-support-python/plugin.c:1306
+#: ../plugins/language-support-python/python-assist.c:925
+msgid "Python"
+msgstr "Python"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:1
+msgid "<b>Autocompletion</b>"
+msgstr "<b>Samodejno dopolnjevanje</b>"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:2
+msgid "<b>Calltips</b>"
+msgstr "<b>Namigi kodnih zapisov</b>"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:3
+msgid "<b>Indentation parameters</b>"
+msgstr "<b>Parametri zamika</b>"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:4
+msgid "<b>Interpreter</b>"
+msgstr "<b>Tolmačnik</b>"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:5
+msgid "<b>Rope Options</b>"
+msgstr "<b>Možnosti pritrjevanja</b>"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:6
+msgid "<b>Smart Indentation</b>"
+msgstr "<b>Pametno zamikanje</b>"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:9
+msgid "Autocomplete"
+msgstr "Samodejno dopolnjevanje"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:11
+msgid "Enable adaptive indentation"
+msgstr "Omogoči prilagodljivo zamikanje"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:14
+msgid "Environment"
+msgstr "Okolje"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:15
+msgid "Path: "
+msgstr "Pot:"
 
 #: ../plugins/sourceview/plugin.c:232
 #: ../plugins/sourceview/plugin.c:273
@@ -10450,14 +10543,19 @@ msgstr "Simbol"
 
 #~ msgid "A GNOME applet project"
 #~ msgstr "Izvorni GNOME apletni projekt"
+
 #~ msgid "Applet Title:"
 #~ msgstr "Naslov apleta:"
+
 #~ msgid "Display description of the applet"
 #~ msgstr "Pokaži opis apleta"
+
 #~ msgid "Display title of the applet"
 #~ msgstr "Pokaži naslov apleta"
+
 #~ msgid "GNOME Applet"
 #~ msgstr "Gnome Aplet"
+
 #~ msgid ""
 #~ "The following pretty printers, without a register functions, have been "
 #~ "disabled:\n"
@@ -10465,4 +10563,3 @@ msgstr "Simbol"
 #~ msgstr ""
 #~ "Navedeni oblikovni tiskalniki, brez vpisnih funkcij, so onemogočeni:\n"
 #~ " %s"
-
