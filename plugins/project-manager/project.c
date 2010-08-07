@@ -389,9 +389,9 @@ pm_free_node (AnjutaProjectNode *node, IAnjutaProject *project)
 {
 	gint type = anjuta_project_node_get_full_type (node);
 	
+	g_message ("free node %p type %x name %s", node, type, anjuta_project_node_get_name (node));
 	if (type & ANJUTA_PROJECT_PROXY)
 	{
-		g_message ("free proxy %p", node);
 		anjuta_project_proxy_unref (node);
 	}
 	else
