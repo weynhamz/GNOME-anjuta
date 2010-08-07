@@ -66,7 +66,7 @@
 
 #define ANJUTA_PIXMAP_PASSWORD "password.png"
 #define FILE_BUFFER_SIZE 1024
-#define FILE_INPUT_BUFFER_SIZE		1048576
+#define FILE_INPUT_BUFFER_SIZE  (1024 * 1024 * 4)
 #ifndef __MAX_BAUD
 #  if defined(B460800)
 #    define __MAX_BAUD B460800
