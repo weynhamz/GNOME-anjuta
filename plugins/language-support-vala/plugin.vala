@@ -230,8 +230,12 @@ public class ValaPlugin : Plugin {
 		}
 		return matching_symbols;
 	}
-	List<Vala.Symbol> symbol_lookup_inherited (Vala.Symbol sym, string name, bool prefix_match, bool invocation = false) {
+	List<Vala.Symbol> symbol_lookup_inherited (Vala.Symbol? sym, string name, bool prefix_match, bool invocation = false) {
 		List<Vala.Symbol> result = null;
+
+		// This may happen if we cannot find all the needed packages
+		if (sym == null)
+			return result;
 
 		var symbol_table = sym.scope.get_symbol_table ();
 		if (symbol_table != null) {
