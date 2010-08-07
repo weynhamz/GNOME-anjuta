@@ -102,12 +102,17 @@ public class ValaProvider : Object, IAnjuta.Provider {
 				parameters = ((Vala.Method) sym).get_parameters ();
 			} else if (sym is Vala.Signal) {
 				parameters = ((Vala.Signal) sym).get_parameters ();
-			} else if (sym is Vala.Delegate) {
-				parameters = ((Vala.Delegate) sym).get_parameters ();
 			} else if (creation_method && sym is Vala.Class) {
 				parameters = ((Vala.Class)sym).default_construction_method.get_parameters ();
+			} else if (sym is Vala.Variable) {
+				var var_type = ((Vala.Variable) sym).variable_type;
+				if (var_type is Vala.DelegateType) {
+					parameters = ((Vala.DelegateType) var_type).delegate_symbol.get_parameters ();
+				} else {
+					return;
+				}
 			} else {
-				return_if_reached ();
+				return;
 			}
 			var calltip = new StringBuilder ("(");
 			var first = true;
