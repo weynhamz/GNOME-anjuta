@@ -240,7 +240,7 @@ public class ValaPlugin : Plugin {
 		var symbol_table = sym.scope.get_symbol_table ();
 		if (symbol_table != null) {
 			foreach (string key in symbol_table.get_keys()) {
-				if (((prefix_match && key.has_prefix (name)) || key == name) && (key != "this")) {
+				if (((prefix_match && key.has_prefix (name)) || key == name)) {
 					result.append (symbol_table[key]);
 				}
 			}
