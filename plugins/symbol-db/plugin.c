@@ -2528,8 +2528,6 @@ isymbol_manager_activate_package (IAnjutaSymbolManager *isymbol_manager,
     							  const gchar *pkg_version,
     							  GError *err)
 {
-g_list_prepend (sdb_plugin->session_packages,
-												   g_strdup (package));		
 	return TRUE;
 }
 

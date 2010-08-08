@@ -23,6 +23,7 @@
 #include <stdlib.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-pkg-config-chooser.h>
 #include <libanjuta/interfaces/ianjuta-iterable.h>
 #include <libanjuta/interfaces/ianjuta-document.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
@@ -2009,6 +2010,8 @@ cpp_java_plugin_class_init (GObjectClass *klass)
 #define PREF_WIDGET_SPACE "preferences_toggle:bool:1:1:language.cpp.code.completion.space.after.func"
 #define PREF_WIDGET_BRACE "preferences_toggle:bool:1:1:language.cpp.code.completion.brace.after.func"
 #define PREF_WIDGET_AUTO "preferences_toggle:bool:1:1:language.cpp.code.completion.enable"
+#define PREF_WIDGET_PKG_CONFIG "pkg_config_chooser1"
+
 
 static void
 on_autocompletion_toggled (GtkToggleButton* button,
@@ -2024,6 +2027,18 @@ on_autocompletion_toggled (GtkToggleButton* button,
 }
 
 static void
+on_package_activated (AnjutaPkgConfigChooser *self, const gchar* package)
+{
+	g_message ("activated %s", package);
+}
+
+static void
+on_package_deactivated (AnjutaPkgConfigChooser *self, const gchar* package)
+{
+	g_message ("deactivated %s", package);
+}
+
+static void
 ipreferences_merge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
 					GError** e)
 {
@@ -2031,6 +2046,7 @@ ipreferences_merge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
 	CppJavaPlugin* plugin = ANJUTA_PLUGIN_CPP_JAVA (ipref);
 	plugin->bxml = gtk_builder_new ();
 	GtkWidget* toggle;
+	GtkWidget* pkg_config;
 		
 	/* Add preferences */
 	if (!gtk_builder_add_from_file (plugin->bxml, PREFS_BUILDER, &error))
@@ -2045,6 +2061,17 @@ ipreferences_merge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
 	g_signal_connect (toggle, "toggled", G_CALLBACK (on_autocompletion_toggled),
 	                  plugin->bxml);
 	on_autocompletion_toggled (GTK_TOGGLE_BUTTON (toggle), plugin->bxml);
+
+	pkg_config = gtk_builder_get_object (plugin->bxml, PREF_WIDGET_PKG_CONFIG);
+	anjuta_pkg_config_chooser_show_active_column (ANJUTA_PKG_CONFIG_CHOOSER (pkg_config), 
+	    										  TRUE);
+	g_signal_connect (G_OBJECT (pkg_config), "package-activated",
+					  G_CALLBACK (on_package_activated), NULL);
+
+	g_signal_connect (G_OBJECT (pkg_config), "package-deactivated",
+					  G_CALLBACK (on_package_deactivated), NULL);
+	
+	gtk_widget_show_all (pkg_config);
 }
 
 static void
