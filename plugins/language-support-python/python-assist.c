@@ -44,7 +44,6 @@
 #define PREF_AUTOCOMPLETE_BRACE_AFTER_FUNC "language.python.code.completion.brace.after.func"
 #define PREF_CALLTIP_ENABLE "language.python.code.calltip.enable"
 #define PREF_INTERPRETER_PATH "language.python.interpreter.path"
-#define PREF_INTERPRETER_PYTHONPATH "language.python.interpreter.PYTHONPATH"
 #define MAX_COMPLETIONS 30
 #define BRACE_SEARCH_LIMIT 500
 #define SCOPE_BRACE_JUMP_LIMIT 50

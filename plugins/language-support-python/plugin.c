@@ -28,6 +28,8 @@
 #include <ctype.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-launcher.h>
+#include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/interfaces/ianjuta-iterable.h>
 #include <libanjuta/interfaces/ianjuta-document.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
@@ -67,6 +69,9 @@
 #define PREF_INDENT_TAB_INDENTS "language.python.indent.tab.indents"
 #define PREF_INDENT_STATEMENT_SIZE "language.python.indent.statement.size"
 #define PREF_INDENT_BRACE_SIZE "language.python.indent.brace.size"
+
+#define PREF_NO_ROPE_WARNING "language.python.no_rope_warning"
+#define PREF_INTERPRETER_PATH "language.python.interpreter.path"
 
 #define TAB_SIZE (ianjuta_editor_get_tabsize (editor, NULL))
 
@@ -892,6 +897,64 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 	g_object_unref (iter);
 }
 
+static void
+on_check_finished (AnjutaLauncher* launcher,
+                   int child_pid, int exit_status,
+                   gulong time, gpointer user_data)
+{	
+	if (exit_status != 0)
+	{
+		GtkWidget* dialog = gtk_dialog_new_with_buttons (_("Python support warning"),
+		                                                 NULL,
+		                                                 GTK_DIALOG_MODAL,
+		                                                 GTK_STOCK_OK,
+		                                                 GTK_RESPONSE_ACCEPT,
+		                                                 NULL);
+		GtkWidget* area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
+		GtkWidget* label = gtk_label_new (_("Couldn't find python-rope (http://rope.sf.net) libraries which\n"
+		                                    "are need for autocompletion in python files.\n"
+		                                    "Please install them and check the python path in the preferences."));
+		GtkWidget* check_button = gtk_check_button_new_with_label (_("Do not show that warning again"));
+
+		gtk_box_pack_start (GTK_BOX (area), label,
+		                    TRUE, TRUE, 5);
+		gtk_box_pack_start (GTK_BOX (area), check_button,
+		                    TRUE, TRUE, 5);
+		gtk_widget_show_all (dialog);
+
+		gtk_dialog_run (GTK_DIALOG(dialog));
+
+		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_button)))
+		{
+			anjuta_preferences_set_bool (anjuta_preferences_default (),
+			                             PREF_NO_ROPE_WARNING,
+			                             TRUE);
+		}
+		gtk_widget_destroy (dialog);
+	}
+	g_object_unref (launcher);
+}				                                    
+
+static void
+check_support (PythonPlugin *python_plugin)
+{
+	if (!anjuta_preferences_get_bool_with_default (anjuta_preferences_default (),
+	                                            PREF_NO_ROPE_WARNING, FALSE))
+	{
+		AnjutaLauncher* launcher = anjuta_launcher_new ();
+		gchar* python_path = anjuta_preferences_get (anjuta_preferences_default(),
+		                                             PREF_INTERPRETER_PATH);
+		gchar* command = g_strdup_printf ("%s -c \"import rope\"", python_path);
+
+		g_signal_connect (launcher, "child-exited",
+	                  G_CALLBACK(on_check_finished), python_plugin);
+		anjuta_launcher_execute (launcher, command, NULL, NULL);
+
+		g_free (python_path);
+		g_free (command);
+	}
+}
+	                                            
 
 static void
 install_support (PythonPlugin *lang_plugin)
@@ -949,6 +1012,8 @@ install_support (PythonPlugin *lang_plugin)
 		gchar *editor_filename;		
 		GValue value = {0,};
 
+		check_support (lang_plugin);
+		
 		plugin = ANJUTA_PLUGIN (lang_plugin);
 		ui = anjuta_shell_get_ui (plugin->shell, NULL);
 		iassist = IANJUTA_EDITOR_ASSIST (lang_plugin->current_editor);
