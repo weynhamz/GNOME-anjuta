@@ -2004,6 +2004,16 @@ interface IAnjutaEditor
         gpointer data;
      }
      
+     /**
+	 * IAnjutaEditorAssist::cancelled
+	 * @obj: Self
+	 * 
+	 * This signal is emitted when the autocompletion is cancelled due to various
+	 * reasons. The provider should avoid to call ianjuta_editor_assist_proposals() after
+	 * this signal.
+	 */
+	 void   ::cancelled ();
+     
      /*
       * ianjuta_editor_assist_add
       * @obj: self
