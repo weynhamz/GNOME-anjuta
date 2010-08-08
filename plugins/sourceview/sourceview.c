@@ -285,6 +285,19 @@ static void on_insert_text (GtkTextBuffer* buffer,
 	}
 }
 
+static void 
+on_cursor_position_changed (GObject    *buffer_obj,
+                            GParamSpec *param_spec,
+                            gpointer    user_data)
+{
+
+	/* Assertions */
+	g_return_if_fail (ANJUTA_IS_SOURCEVIEW (user_data));
+
+	g_signal_emit_by_name (G_OBJECT (user_data), "cursor-moved");
+
+}
+
 /* Called whenever the document is changed */
 static void on_document_modified_changed(GtkTextBuffer* buffer, Sourceview* sv)
 {
@@ -659,6 +672,8 @@ sourceview_instance_init(Sourceview* sv)
 					 G_CALLBACK(on_mark_set),sv);
 	g_signal_connect_after (G_OBJECT(sv->priv->document), "insert-text",
 					  G_CALLBACK(on_insert_text), sv);
+	g_signal_connect (G_OBJECT (sv->priv->document), "notify::cursor-position",
+	                  G_CALLBACK (on_cursor_position_changed), sv);
 					 
 	/* Create View instance */
 	sv->priv->view = ANJUTA_VIEW(anjuta_view_new(sv));
