@@ -243,14 +243,20 @@ python_assist_get_pre_word (IAnjutaEditor* editor, IAnjutaIterable *iter, IAnjut
 	return preword_chars;
 }
 
-static void 
-python_assist_destroy_completion_cache (PythonAssist *assist)
+static void
+python_assist_cancel_queries (PythonAssist* assist)
 {
 	if (assist->priv->launcher)
 	{
 		g_object_unref (assist->priv->launcher);
 		assist->priv->launcher = NULL;
 	}
+}
+
+static void 
+python_assist_destroy_completion_cache (PythonAssist *assist)
+{
+	python_assist_cancel_queries (assist);
 	if (assist->priv->search_cache)
 	{
 		g_free (assist->priv->search_cache);
@@ -278,6 +284,13 @@ static void free_proposal (IAnjutaEditorAssistProposal* proposal)
 {
 	g_free (proposal->label);
 	g_free(proposal);
+}
+
+static void
+python_assist_cancelled (IAnjutaEditorAssist* editor,
+                         PythonAssist* assist)
+{
+	python_assist_cancel_queries (assist);
 }
 
 static void
@@ -933,6 +946,7 @@ python_assist_install (PythonAssist *assist, IAnjutaEditor *ieditor)
 	{
 		assist->priv->iassist = IANJUTA_EDITOR_ASSIST (ieditor);
 		ianjuta_editor_assist_add (IANJUTA_EDITOR_ASSIST (ieditor), IANJUTA_PROVIDER(assist), NULL);
+		g_signal_connect (ieditor, "cancelled", G_CALLBACK (python_assist_cancelled), assist);
 	}
 	else
 	{
@@ -954,7 +968,11 @@ python_assist_uninstall (PythonAssist *assist)
 {
 	g_return_if_fail (assist->priv->iassist != NULL);
 
-	ianjuta_editor_assist_remove (assist->priv->iassist, IANJUTA_PROVIDER(assist), NULL);
+	if (IANJUTA_EDITOR_ASSIST (assist->priv->iassist))
+	{
+		ianjuta_editor_assist_remove (assist->priv->iassist, IANJUTA_PROVIDER(assist), NULL);
+		g_signal_handlers_disconnect_by_func (assist->priv->iassist, python_assist_cancelled, assist);
+	}
 
 	assist->priv->iassist = NULL;
 }
