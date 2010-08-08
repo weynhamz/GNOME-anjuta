@@ -259,30 +259,100 @@ on_assist_tip_destroyed (Sourceview* sv, gpointer where_object_was)
 	sv->priv->assist_tip = NULL;
 }
 
-static void on_insert_text (GtkTextBuffer* buffer, 
-							GtkTextIter* location,
-							char* text,
-							gint len,
-							Sourceview* sv)
+static void 
+on_insert_text (GtkTextBuffer *buffer, 
+                GtkTextIter   *location,
+                gchar         *text,
+                gint           len,
+                Sourceview    *sv)
 {
+	int i = 0, lines = 0;
+	SourceviewCell *cell = sourceview_cell_new (location, GTK_TEXT_VIEW (sv->priv->view));
+	IAnjutaIterable *iter = ianjuta_iterable_clone (IANJUTA_ITERABLE (cell), NULL);
+	GtkTextMark *mark = gtk_text_buffer_create_mark (buffer, NULL, location, TRUE);
+	g_object_unref (cell);
+
+	ianjuta_iterable_set_position (iter, 
+	                               ianjuta_iterable_get_position (iter, NULL) - len, 
+	                               NULL);
+	
 	/* Update the status bar */
-	g_signal_emit_by_name(G_OBJECT(sv), "update_ui");	
-	/* We only want ascii characters */
-	if (len > 1 || strlen(text) > 1)
-		return;
-	else
+	g_signal_emit_by_name (G_OBJECT (sv), "update-ui");
+
+	if (len <= 1 && strlen (text) <= 1)
 	{
-		int offset = gtk_text_iter_get_offset (location);
-		SourceviewCell* cell = sourceview_cell_new (location, 
-													GTK_TEXT_VIEW(sv->priv->view));
-		ianjuta_iterable_previous (IANJUTA_ITERABLE (cell), NULL);
-		g_signal_handlers_block_by_func (buffer, on_insert_text, sv);
-		g_signal_emit_by_name(G_OBJECT(sv), "char_added", cell, text[0]);
-		g_signal_handlers_unblock_by_func (buffer, on_insert_text, sv);
-		/* Reset iterator */
-		gtk_text_buffer_get_iter_at_offset (buffer, location,
-											offset);
+		/* Send the "char-added" signal and revalidate the iterator */
+		g_signal_emit_by_name (G_OBJECT (sv), "char-added", iter, text[0]);
+		gtk_text_buffer_get_iter_at_mark (buffer, location, mark);
 	}
+
+	for (i = 0; i < len; i ++)
+		if (text[i] == '\n')
+			lines ++;
+
+	/* Send the "changed" signal and revalidate the iterator */
+	g_signal_emit_by_name (G_OBJECT (sv), "changed", iter, TRUE, len, lines, text);
+	gtk_text_buffer_get_iter_at_mark (buffer, location, mark);
+
+}
+
+static void
+on_delete_range (GtkTextBuffer *buffer,
+                 GtkTextIter   *start_iter,
+                 GtkTextIter   *end_iter,
+                 gpointer       user_data)
+{
+	Sourceview *sv = NULL;
+
+	/* Assertions */
+	g_return_if_fail (ANJUTA_IS_SOURCEVIEW (user_data));
+	sv = ANJUTA_SOURCEVIEW (user_data);
+
+	sv->priv->deleted_text = gtk_text_buffer_get_text (buffer, start_iter, end_iter, TRUE);
+
+}
+
+static void
+on_delete_range_after (GtkTextBuffer *buffer,
+                       GtkTextIter   *start_iter,
+                       GtkTextIter   *end_iter,
+                       gpointer       user_data)
+{
+	Sourceview *sv = NULL;
+	GtkTextMark *start_mark = NULL, *end_mark = NULL;
+	SourceviewCell *cell = NULL;
+	IAnjutaIterable *position = NULL;
+	gint length = 0, i = 0, lines = 0;
+	
+	/* Assertions */
+	g_return_if_fail (ANJUTA_IS_SOURCEVIEW (user_data));
+	sv = ANJUTA_SOURCEVIEW (user_data);
+
+	/* Get the start iterator of the changed text */
+	cell = sourceview_cell_new (start_iter, GTK_TEXT_VIEW (sv->priv->view));
+	position = IANJUTA_ITERABLE (cell);
+
+	/* We save the text before the default handler */
+	length = strlen (sv->priv->deleted_text);
+	for (i = 0; i < length; i ++)
+		if (sv->priv->deleted_text[i] == '\n')
+			lines ++;
+
+	/* Save the iterators */
+	start_mark = gtk_text_buffer_create_mark (buffer, NULL, start_iter, TRUE);
+	end_mark   = gtk_text_buffer_create_mark (buffer, NULL, end_iter, TRUE);
+
+	g_signal_emit_by_name (G_OBJECT (sv), "changed", 
+	                       position, FALSE, length, lines, sv->priv->deleted_text);
+
+	/* Revalidate the iterators */
+	gtk_text_buffer_get_iter_at_mark (buffer, start_iter, start_mark);
+	gtk_text_buffer_get_iter_at_mark (buffer, end_iter, end_mark);
+
+	/* Delete the saved text */
+	g_free (sv->priv->deleted_text);
+	sv->priv->deleted_text = NULL;
+
 }
 
 static void 
@@ -671,7 +741,11 @@ sourceview_instance_init(Sourceview* sv)
 	g_signal_connect_after(G_OBJECT(sv->priv->document), "mark-set", 
 					 G_CALLBACK(on_mark_set),sv);
 	g_signal_connect_after (G_OBJECT(sv->priv->document), "insert-text",
-					  G_CALLBACK(on_insert_text), sv);
+	                  G_CALLBACK(on_insert_text), sv);
+	g_signal_connect (G_OBJECT(sv->priv->document), "delete-range",
+	                  G_CALLBACK(on_delete_range), sv);
+	g_signal_connect_after (G_OBJECT(sv->priv->document), "delete-range",
+	                  G_CALLBACK(on_delete_range_after), sv);
 	g_signal_connect (G_OBJECT (sv->priv->document), "notify::cursor-position",
 	                  G_CALLBACK (on_cursor_position_changed), sv);
 					 
