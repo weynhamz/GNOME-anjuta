@@ -912,7 +912,7 @@ on_check_finished (AnjutaLauncher* launcher,
 		                                                 NULL);
 		GtkWidget* area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
 		GtkWidget* label = gtk_label_new (_("Couldn't find python-rope (http://rope.sf.net) libraries which\n"
-		                                    "are need for autocompletion in python files.\n"
+		                                    "are needed for autocompletion in python files.\n"
 		                                    "Please install them and check the python path in the preferences."));
 		GtkWidget* check_button = gtk_check_button_new_with_label (_("Do not show that warning again"));
 
