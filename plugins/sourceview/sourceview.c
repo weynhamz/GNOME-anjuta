@@ -2186,8 +2186,7 @@ iassist_proposals(IAnjutaEditorAssist* iassist,
 		prov = SOURCEVIEW_PROVIDER(node->data);
 		if (prov->iprov == provider)
 		{
-			if (prov->cancelled)
-				break;
+			g_return_if_fail (!prov->cancelled);
 
 			GList* prop;
 			GList* items = NULL;
