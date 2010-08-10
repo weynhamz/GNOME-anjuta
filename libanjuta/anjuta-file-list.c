@@ -34,7 +34,7 @@ enum
 };
 
 /* DND Targets */
-GtkTargetEntry dnd_target_entries[] =
+static GtkTargetEntry dnd_target_entries[] =
 {
 	{
 		"text/uri-list",
