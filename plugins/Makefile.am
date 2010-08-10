@@ -13,7 +13,7 @@ SUBDIRS = . \
 	project-wizard \
 	project-manager \
 	cvs-plugin \
-	macro \
+	snippets-manager \
 	class-gen \
 	class-inheritance \
 	patch \
