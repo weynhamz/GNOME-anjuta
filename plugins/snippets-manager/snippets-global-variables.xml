@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<anjuta-global-variables>
+
+	<global-variable name="date" is_command="true" ><![CDATA[date +"%B %e, %Y"]]></global-variable>
+
+	<global-variable name="time" is_command="true" ><![CDATA[date +%T]]></global-variable>
+
+	<global-variable name="date_time" is_command="true" ><![CDATA[date +"%a %B %d %T %Y"]]></global-variable>
+
+	<global-variable name="year" is_command="true" ><![CDATA[date +%Y]]></global-variable>
+
+	<global-variable name="email" is_command="false"><![CDATA[user@host]]></global-variable>
+
+</anjuta-global-variables>
