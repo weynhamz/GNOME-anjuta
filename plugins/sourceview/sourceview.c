@@ -1190,14 +1190,8 @@ static void ieditor_insert(IAnjutaEditor *editor, IAnjutaIterable* icell,
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
 	sourceview_cell_get_iter (cell, &iter);
 	
-	g_signal_handlers_block_by_func (sv->priv->document,
-										  on_insert_text,
-										  sv);
 	gtk_text_buffer_insert(GTK_TEXT_BUFFER(sv->priv->document),
 						   &iter, text, length);
-	g_signal_handlers_unblock_by_func (sv->priv->document,
-									 on_insert_text,
-									 sv);
 }
 
 /* Append text to buffer */
