@@ -40,6 +40,9 @@ libpython_plugin_la_SOURCES = plugin.c plugin.h python-assist.c python-assist.h 
 libpython_plugin_la_LIBADD = \
 	$(LIBANJUTA_LIBS) 
 
+prefs_ui_files = $(python_plugin_glade_DATA)
+include $(top_srcdir)/scripts/build-schemas.mk
+
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(python_plugin_plugin_DATA) \
