@@ -838,7 +838,7 @@ plugins/symbol-db/images/Makefile
 plugins/symbol-db/Makefile
 plugins/symbol-db/anjuta-tags/Makefile
 plugins/project-wizard/Makefile
-plugins/macro/Makefile
+plugins/snippets-manager/Makefile
 plugins/cvs-plugin/Makefile
 plugins/subversion/Makefile
 plugins/git/Makefile
