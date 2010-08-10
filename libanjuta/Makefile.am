@@ -108,7 +108,9 @@ libanjuta_la_SOURCES= \
 	anjuta-pkg-config-chooser.h \
 	anjuta-pkg-config-chooser.c \
 	anjuta-column-text-view.h \
-	anjuta-column-text-view.c
+	anjuta-column-text-view.c \
+	anjuta-file-drop-entry.h \
+	anjuta-file-drop-entry.c
 
 
 
@@ -177,7 +179,8 @@ libanjuta_include = \
 	anjuta-dock-pane.h \
 	anjuta-file-list.h \
 	anjuta-pkg-config-chooser.h \
-	anjuta-column-text-view.h
+	anjuta-column-text-view.h \
+	anjuta-file-drop-entry.h
 
 libanjutainclude_HEADERS = \
 	$(libanjuta_include) \

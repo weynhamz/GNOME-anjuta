@@ -38,6 +38,9 @@
 		<glade-widget-class name="AnjutaColumnTextView" title="Column Text View"
 		 generic-name="columntextview" />
 
+		 <glade-widget-class name="AnjutaFileDropEntry" title="File Drop Entry"
+		 generic-name="filedropentry" />
+
 	</glade-widget-classes>
 
 	<glade-widget-group name="Anjuta" title="Anjuta">
@@ -46,5 +49,6 @@
 		<glade-widget-class-ref name="AnjutaFileList" />
 		<glade-widget-class-ref name="AnjutaPkgConfigChooser" />
 		<glade-widget-class-ref name="AnjutaColumnTextView" />
+		<glade-widget-class-ref name="AnjutaFileDropEntry" />
 	</glade-widget-group>
 </glade-catalog>
