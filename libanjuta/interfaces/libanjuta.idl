@@ -5428,25 +5428,25 @@ interface IAnjutaVcs
 }
 
 /**
- * SECTION:ianjuta-macro
- * @title: IAnjutaMacro
- * @short_description: Macro processor interface
+ * SECTION:ianjuta-snippets-manager
+ * @title: IAnjutaSnippetsManager
+ * @short_description: Snippets Manager interface
  * @see_also: 
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-macro.h
  * 
  */
-interface IAnjutaMacro
+interface IAnjutaSnippetsManager
 {
 	/**
-	 * ianjuta_macro_insert:
-	 * @key: Key of the macro
+	 * ianjuta_snippets_manager_insert:
+	 * @key: Trigger-key of the snippet
 	 * @obj: Self
 	 * @err: Error propagation and reporting
 	 *
-	 * Insert Macro to editor
+	 * Insert snippet in the current editor.
 	 */
-	void insert(const gchar* key);
+	void insert (const gchar* key);
 }
 
 /**
