@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-master-po-gl-1952\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-05 21:56+0200\n"
-"PO-Revision-Date: 2010-08-05 21:55+0200\n"
+"POT-Creation-Date: 2010-08-11 18:28+0200\n"
+"PO-Revision-Date: 2010-08-11 18:30+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Galician <gnome-gl-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -415,7 +415,7 @@ msgid "_Reset"
 msgstr "_Reinicializar"
 
 #: ../libanjuta/anjuta-preferences-dialog.c:95
-#: ../plugins/gtodo/interface.c:229 ../plugins/gtodo/mcategory.c:36
+#: ../plugins/gtodo/interface.c:219 ../plugins/gtodo/mcategory.c:36
 msgid "Category"
 msgstr "Categoría"
 
@@ -1432,24 +1432,24 @@ msgstr "Ficheiro fonte:"
 msgid "Source/Header Headings:"
 msgstr "Encabezamentos fonte/cabeceira:"
 
-#: ../plugins/class-gen/generator.c:132
+#: ../plugins/class-gen/generator.c:133
 #, c-format
 msgid "Header or source file has not been created"
 msgstr "Non se creou o ficheiro de código fonte nin o de cabeceira"
 
-#: ../plugins/class-gen/generator.c:294
+#: ../plugins/class-gen/generator.c:295
 msgid "Autogen template used for the header file"
 msgstr "Modelo AutoGen usado para o ficheiro da cabeceira"
 
-#: ../plugins/class-gen/generator.c:302
+#: ../plugins/class-gen/generator.c:303
 msgid "Autogen template used for the implementation file"
 msgstr "Modelo AutoGen usado para o ficheiro de implementación"
 
-#: ../plugins/class-gen/generator.c:310 ../plugins/class-gen/generator.c:318
+#: ../plugins/class-gen/generator.c:311 ../plugins/class-gen/generator.c:319
 msgid "File to which the processed template will be written"
 msgstr "Ficheiro no que se escribirá o modelo que se procese"
 
-#: ../plugins/class-gen/generator.c:402
+#: ../plugins/class-gen/generator.c:403
 #, c-format
 msgid "Failed to write autogen definition file"
 msgstr "Produciuse un fallo ao escribir o ficheiro de definición AutoGen"
@@ -3321,10 +3321,10 @@ msgstr "Re_petir a busca rápida"
 msgid "Repeat quick search"
 msgstr "Repetir a busca rápida"
 
-#: ../plugins/document-manager/plugin.c:273 ../plugins/gtodo/interface.c:168
+#: ../plugins/document-manager/plugin.c:273 ../plugins/gtodo/interface.c:158
 #: ../src/anjuta-actions.h:30
 #: ../plugins/language-support-cpp-java/plugin.c:1876
-#: ../plugins/language-support-python/plugin.c:1110
+#: ../plugins/language-support-python/plugin.c:1175
 msgid "_Edit"
 msgstr "_Editar"
 
@@ -6305,27 +6305,27 @@ msgstr "Incorporar a folla de estilo (CSS) predefinida"
 msgid "Custom (CSS) style sheet"
 msgstr "Folla de estilo (CSS) personalizada"
 
-#: ../plugins/gtodo/interface.c:34 ../src/anjuta-actions.h:38
+#: ../plugins/gtodo/interface.c:35 ../src/anjuta-actions.h:38
 msgid "_View"
 msgstr "_Ver"
 
-#: ../plugins/gtodo/interface.c:146
+#: ../plugins/gtodo/interface.c:136
 msgid "All"
 msgstr "Todo"
 
-#: ../plugins/gtodo/interface.c:171
+#: ../plugins/gtodo/interface.c:161
 msgid "_Export"
 msgstr "_Exportar"
 
-#: ../plugins/gtodo/interface.c:215
+#: ../plugins/gtodo/interface.c:205
 msgid "Priority"
 msgstr "Prioridade"
 
-#: ../plugins/gtodo/interface.c:222
+#: ../plugins/gtodo/interface.c:212
 msgid "Due date"
 msgstr "Data de vencemento"
 
-#: ../plugins/gtodo/interface.c:236
+#: ../plugins/gtodo/interface.c:226
 msgid "Summary"
 msgstr "Resumo"
 
@@ -6399,19 +6399,19 @@ msgstr "Eliminar"
 msgid "<New category (%d)>"
 msgstr "<Categoría nova (%d)>"
 
-#: ../plugins/gtodo/notification.c:68
+#: ../plugins/gtodo/notification.c:66
 #, c-format
 msgid "The following item is due in %i minute:"
 msgid_plural "The following item is due in %i minutes:"
 msgstr[0] "O seguinte elemento vencerá en %i minuto:"
 msgstr[1] "O seguinte elemento vencerá en %i minutos:"
 
-#: ../plugins/gtodo/notification.c:77
+#: ../plugins/gtodo/notification.c:75
 msgid "The following item is due:"
 msgstr "O seguinte elemento vence:"
 
 #. gtk_container_set_border_width(GTK_CONTAINER(hbox), 9);
-#: ../plugins/gtodo/notification.c:118
+#: ../plugins/gtodo/notification.c:116
 msgid "_Do not show again"
 msgstr "_Non mostrar outra vez"
 
@@ -8675,7 +8675,7 @@ msgid "Unable to build user interface for Search and Replace"
 msgstr ""
 "Non foi posíbel construír a interface de usuario para Buscar e substituír"
 
-#: ../plugins/sourceview/sourceview.c:395
+#: ../plugins/sourceview/sourceview.c:478
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
@@ -8684,7 +8684,7 @@ msgstr ""
 "O ficheiro '%s' no disco é máis recente que o que está no búfer actual.\n"
 "Quere recargalo?"
 
-#: ../plugins/sourceview/sourceview.c:432
+#: ../plugins/sourceview/sourceview.c:515
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -8694,18 +8694,18 @@ msgstr ""
 "Quere pechalo?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:469
+#: ../plugins/sourceview/sourceview.c:552
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "Non foi posíbel abrir %s: %s"
 
-#: ../plugins/sourceview/sourceview.c:523
+#: ../plugins/sourceview/sourceview.c:606
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr "O ficheiro '%s' é de só lectura! Quere editalo de todas as formas?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:582
+#: ../plugins/sourceview/sourceview.c:665
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "Non foi posíbel gardar %s: %s"
@@ -10218,12 +10218,12 @@ msgstr "Instrución do tamaño da sangría en espazos:"
 
 #. ANJUTA_STOCK_AUTOINDENT,
 #: ../plugins/language-support-cpp-java/plugin.c:1882
-#: ../plugins/language-support-python/plugin.c:1116
+#: ../plugins/language-support-python/plugin.c:1181
 msgid "Auto-Indent"
 msgstr "Sangrar automaticamente"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1883
-#: ../plugins/language-support-python/plugin.c:1117
+#: ../plugins/language-support-python/plugin.c:1182
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr ""
 "Sangrar automaticamente a liña ou selección actual segundo os parámetros da "
@@ -10246,17 +10246,36 @@ msgstr "Asistencia C++/Java"
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
-#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1231
+#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1258
 msgid "C/C++"
 msgstr "C/C++"
 
-#: ../plugins/language-support-python/plugin.c:1198
+#: ../plugins/language-support-python/plugin.c:907
+msgid "Python support warning"
+msgstr "Aviso de compatibilidade de Python"
+
+#: ../plugins/language-support-python/plugin.c:914
+msgid ""
+"Couldn't find python-rope (http://rope.sf.net) libraries which\n"
+"are needed for autocompletion in python files.\n"
+"Please install them and check the python path in the preferences."
+msgstr ""
+"Non foi posíbel encontrar as bibliotecas de python-rope \n"
+"(http://rope.sf.net) libraries which que son necesarias para o\n"
+"autocompletado dos ficheiros de python.\n"
+"Instáleas e comprobe o camimño de python nas preferencias."
+
+#: ../plugins/language-support-python/plugin.c:917
+msgid "Do not show that warning again"
+msgstr "Non mostrar o aviso de novo"
+
+#: ../plugins/language-support-python/plugin.c:1263
 msgid "Python Assistance"
 msgstr "Asistente de Python"
 
-#: ../plugins/language-support-python/plugin.c:1297
-#: ../plugins/language-support-python/plugin.c:1306
-#: ../plugins/language-support-python/python-assist.c:925
+#: ../plugins/language-support-python/plugin.c:1362
+#: ../plugins/language-support-python/plugin.c:1371
+#: ../plugins/language-support-python/python-assist.c:937
 msgid "Python"
 msgstr "Python"
 
@@ -10278,7 +10297,7 @@ msgstr "<b>Intérprete</b>"
 
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:5
 msgid "<b>Rope Options</b>"
-msgstr ""
+msgstr "<b>Opcións de Rope</b>"
 
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:6
 msgid "<b>Smart Indentation</b>"
