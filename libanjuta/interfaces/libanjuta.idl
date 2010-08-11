@@ -5446,7 +5446,7 @@ interface IAnjutaSnippetsManager
 	 *
 	 * Insert snippet in the current editor.
 	 */
-	void insert (const gchar* key);
+	gboolean insert (const gchar* key);
 }
 
 /**
