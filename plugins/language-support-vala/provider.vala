@@ -23,6 +23,11 @@ public class ValaProvider : Object, IAnjuta.Provider {
 	static Regex member_access_split;
 	static Regex function_call;
 
+	const string PREF_AUTOCOMPLETE_ENABLE = "language.cpp.code.completion.enable";
+	const string PREF_SPACE_AFTER_FUNC = "language.cpp.code.completion.space.after.func";
+	const string PREF_BRACE_AFTER_FUNC = "language.cpp.code.completion.brace.after.func";
+	const string PREF_CALLTIP_ENABLE = "language.cpp.code.calltip.enable";
+
 	static construct {
 		try {
 			member_access = new Regex("""((?:\w+(?:\s*\([^()]*\))?\.)*)(\w*)$""");
@@ -40,6 +45,9 @@ public class ValaProvider : Object, IAnjuta.Provider {
 		return "Vala";
 	}
 	public void populate (IAnjuta.Iterable iter) throws GLib.Error {
+		if (!plugin.prefs.get_bool_with_default (PREF_AUTOCOMPLETE_ENABLE, true))
+			return;
+
 		var editor = plugin.current_editor as IAnjuta.EditorAssist;
 		var line_start = editor.get_line_begin_position(editor.get_lineno());
 		var current_text = editor.get_text(line_start, iter);
@@ -78,13 +86,45 @@ public class ValaProvider : Object, IAnjuta.Provider {
 	public void activate (IAnjuta.Iterable iter, void* data) {
 		var sym = data as Vala.Symbol;
 		var editor = plugin.current_editor as IAnjuta.EditorAssist;
+		var assist = sym.name;
+		var is_func = false;
+		var calltip = false;
+
+		if (sym is Vala.Method || sym is Vala.Signal) {
+			is_func = true;
+		} else if (sym is Vala.Variable) {
+			if (((Vala.Variable) sym).variable_type is Vala.DelegateType) {
+				is_func = true;
+			}
+		}
+
+		if (is_func) {
+			if (plugin.prefs.get_bool_with_default (PREF_SPACE_AFTER_FUNC, true)) {
+				assist += " ";
+			}
+			if (plugin.prefs.get_bool_with_default (PREF_BRACE_AFTER_FUNC, true)) {
+				assist += "(";
+				if (plugin.prefs.get_bool_with_default (PREF_CALLTIP_ENABLE, true)) {
+					calltip = true;
+				}
+			}
+		}
+
 		(editor as IAnjuta.Document).begin_undo_action();
 		editor.erase(start_pos, iter);
-		editor.insert(start_pos, sym.name, -1);
+		editor.insert(start_pos, assist, -1);
 		(editor as IAnjuta.Document).end_undo_action();
+
+		if (calltip && editor is IAnjuta.EditorTip) {
+			show_call_tip ((IAnjuta.EditorTip) editor);
+		}
 	}
 
-	public void show_call_tip (IAnjuta.EditorTip editor, string to_complete) {
+	public void show_call_tip (IAnjuta.EditorTip editor) {
+		var current_position = editor.get_position ();
+		var line_start = editor.get_line_begin_position(editor.get_lineno());
+		var to_complete = editor.get_text(line_start, current_position);
+
 		List<string> tips = null;
 
 		MatchInfo match_info;
