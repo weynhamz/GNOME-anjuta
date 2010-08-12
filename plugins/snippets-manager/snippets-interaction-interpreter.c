@@ -775,9 +775,12 @@ snippets_interaction_insert_snippet (SnippetsInteraction *snippets_interaction,
 	cur_line    = ianjuta_editor_get_text (priv->cur_editor, line_begin, cur_pos, NULL);
 
 	/* Calculate the current indentation */
-	indent = g_strdup (cur_line);
-	while (cur_line[i] == ' ' || cur_line[i] == '\t')
-		i ++;
+	if (cur_line != NULL)
+		indent = g_strdup (cur_line);
+	else
+		indent = g_strdup ("");
+	while (indent[i] == ' ' || indent[i] == '\t')
+		i ++;	
 	indent[i] = 0;
 
 	/* Get the default content of the snippet */
@@ -785,7 +788,7 @@ snippets_interaction_insert_snippet (SnippetsInteraction *snippets_interaction,
 	                                                       G_OBJECT (snippets_db), 
 	                                                       indent);
 	g_return_if_fail (snippet_default_content != NULL);
-	
+
 	/* Insert the default content into the editor */
 	ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (priv->cur_editor), NULL);
 	ianjuta_editor_insert (priv->cur_editor, 

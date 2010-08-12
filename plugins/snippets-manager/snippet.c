@@ -1073,7 +1073,7 @@ snippet_get_default_content (AnjutaSnippet *snippet,
                              const gchar *indent)
 {
 	gchar* buffer = NULL, *temp = NULL;
-	
+
 	/* Assertions */
 	g_return_val_if_fail (ANJUTA_IS_SNIPPET (snippet), NULL);
 
@@ -1095,7 +1095,7 @@ snippet_get_default_content (AnjutaSnippet *snippet,
 	}
 
 	snippet->priv->default_computed = TRUE;
-	
+
 	return buffer;
 }
 

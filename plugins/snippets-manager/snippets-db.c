@@ -867,7 +867,8 @@ snippets_db_get_snippet (SnippetsDB* snippets_db,
 	
 	/* Assertions */
 	g_return_val_if_fail (ANJUTA_IS_SNIPPETS_DB (snippets_db), NULL);
-	g_return_val_if_fail (trigger_key != NULL, NULL);
+	if (trigger_key == NULL)
+		return NULL;
 
 	/* Get the editor language if not provided */
 	if (language == NULL)
