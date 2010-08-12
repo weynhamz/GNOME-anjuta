@@ -11,5 +11,5 @@
 	<language id="7" name="JavaScript" strings="js,javascript" mime-types="application/javascript"/>
 	<language id="8" name="Perl" strings="perl" mime-types="application/x-perl"/>
 	<language id="9" name="Makefile" strings="makefile" mime-types="text/x-makefile" />
-	<language id="10" name="ShellScript" strings="sh" mime-types="application/x-sh" />
+	<language id="10" name="ShellScript" strings="sh,shell" mime-types="application/x-sh" />
 </languages>
