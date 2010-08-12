@@ -333,7 +333,7 @@ on_delete_range_after (GtkTextBuffer *buffer,
 	position = IANJUTA_ITERABLE (cell);
 
 	/* We save the text before the default handler */
-	length = strlen (sv->priv->deleted_text);
+	length = g_utf8_strlen (sv->priv->deleted_text, -1);
 	for (i = 0; i < length; i ++)
 		if (sv->priv->deleted_text[i] == '\n')
 			lines ++;
