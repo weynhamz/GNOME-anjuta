@@ -276,8 +276,6 @@ fi
 
 AM_CONDITIONAL(ENABLE_VALA, [test x$enable_vala = xyes])
 
-<<<<<<< HEAD
-=======
 dnl Check for Python
 dnl -------------------------------------------------------------
 
@@ -301,7 +299,6 @@ AM_CONDITIONAL(HAVE_PYTHON, [test x$have_python = xyes])
 PKG_CHECK_MODULES(PLUGIN_SYMBOL_DB,
 		[libgda-4.0 >= $GDA_REQUIRED])
 
->>>>>>> python loader plugin
 dnl Setup Anjuta Library flags
 dnl --------------------------
 LIBANJUTA_CFLAGS='$(ANJUTA_CFLAGS) $(DEPRECATED_FLAGS) -I$(top_srcdir) -I$(top_builddir)/libanjuta -DPACKAGE_PIXMAPS_DIR=\""$(datadir)/pixmaps/$(PACKAGE)"\" -DPACKAGE_LIB_DIR=\""$(pkglibdir)"\" -DPACKAGE_DATA_DIR=\""$(datadir)/$(PACKAGE)"\"'
