@@ -559,6 +559,7 @@ snippets_provider_load (SnippetsProvider *snippets_provider,
 
 	priv->request = FALSE;
 	priv->listening = FALSE;
+	
 
 }
 

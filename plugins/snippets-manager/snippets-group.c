@@ -223,7 +223,11 @@ snippets_group_remove_snippet (AnjutaSnippetsGroup* snippets_group,
 		if (!g_strcmp0 (cur_snippet_trigger, trigger_key) &&
 		    snippet_has_language (cur_snippet, language))
 		{
-			if (remove_all_languages_support)
+
+			/* If we should remove all languages or if this is the last language,
+			   we remove the snippet. */
+			if (remove_all_languages_support ||
+			    g_list_length ((GList *)snippet_get_languages (cur_snippet)) == 1)
 			{
 				to_be_deleted_snippet = cur_snippet;
 				break;
