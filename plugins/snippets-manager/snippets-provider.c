@@ -235,6 +235,7 @@ get_proposal_for_snippet (AnjutaSnippet *snippet,
 	IAnjutaEditorAssistProposal *proposal = NULL;
 	SnippetEntry *entry = NULL;
 	gchar *name_with_trigger = NULL;
+	gint i = 0, len = 0;
 
 	/* Assertions */
 	g_return_val_if_fail (ANJUTA_IS_SNIPPET (snippet), NULL);
@@ -248,6 +249,17 @@ get_proposal_for_snippet (AnjutaSnippet *snippet,
 	                                 snippet_get_trigger_key (snippet), "</b>)",
 	                                 NULL);
 	proposal->markup = name_with_trigger;
+
+	/* Fill the label field */
+	proposal->label = g_strdup (snippet_get_name (snippet));
+	len = strlen (proposal->label);
+	for (i = 0; i < len; i ++)
+		if (proposal->label[i] == ' '  ||
+		    proposal->label[i] == '\n' ||
+		    proposal->label[i] == '\t')
+		{
+			proposal->label[i] = '_';
+		}
 
 #if 0
 	/* Fill the info field */
@@ -279,6 +291,7 @@ clear_suggestions_list (SnippetsProvider *snippets_provider)
 
 		g_free (cur_proposal->markup);
 		g_free (cur_proposal->data);
+		g_free (cur_proposal->label);
 		g_free (cur_proposal);		
 	}
 	g_list_free (priv->suggestions_list);
@@ -541,6 +554,7 @@ snippets_provider_load (SnippetsProvider *snippets_provider,
 	ianjuta_editor_assist_add (editor_assist, 
 	                           IANJUTA_PROVIDER (snippets_provider), 
 	                           NULL);
+
 	priv->editor_assist = editor_assist;
 
 	priv->request = FALSE;
@@ -641,6 +655,7 @@ snippets_provider_populate (IAnjutaProvider *self,
 		   separator. */
 		priv->start_iter = ianjuta_iterable_clone (cursor, NULL);
 		priv->request = FALSE;
+
 	}
 
 	clear_suggestions_list (snippets_provider);

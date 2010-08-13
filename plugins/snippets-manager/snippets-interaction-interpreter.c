@@ -335,7 +335,6 @@ update_variables_values (SnippetsInteraction *snippets_interaction,
 		/* Modify the other appearances of the variables */
 		for (iter1 = g_list_first (edited_app_node); iter1 != NULL; iter1 = g_list_next (iter1))
 		{
-
 			/* Skipping the already visited appeareance */
 			if (iter1 == edited_app_node)
 				continue;
@@ -353,10 +352,14 @@ update_variables_values (SnippetsInteraction *snippets_interaction,
 			                               NULL);
 
 			if (modified_value > 0)
-				ianjuta_editor_insert (priv->cur_editor, start_iter, text, modified_value, NULL);
+			{
+				ianjuta_editor_insert (priv->cur_editor, start_iter, text, modified_value, NULL);			
+			}
 			else
-				ianjuta_editor_erase (priv->cur_editor, start_iter, end_iter, NULL);
-
+			{
+				ianjuta_editor_erase (priv->cur_editor, start_iter, end_iter, NULL);			
+			}
+			
 			g_object_unref (start_iter);
 			g_object_unref (end_iter);
 		}
@@ -802,7 +805,7 @@ snippets_interaction_insert_snippet (SnippetsInteraction *snippets_interaction,
 	priv->cur_snippet = snippet;
 	start_snippet_editing_session (snippets_interaction, 
 	                               cur_pos, 
-	                               strlen (snippet_default_content));
+	                               g_utf8_strlen (snippet_default_content, -1));
 
 	g_free (indent);
 	g_free (snippet_default_content);
