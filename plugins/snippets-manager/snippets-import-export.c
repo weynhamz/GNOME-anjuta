@@ -181,8 +181,37 @@ snippets_manager_import_snippets (SnippetsDB *snippets_db,
 void snippets_manager_export_snippets (SnippetsDB *snippets_db,
                                        AnjutaShell *anjuta_shell)
 {
+	GtkWidget *file_chooser = NULL;
+	GtkFileFilter *filter = NULL;
 
 	/* Assertions */
 	g_return_if_fail (ANJUTA_IS_SNIPPETS_DB (snippets_db));
+
+	file_chooser = gtk_file_chooser_dialog_new (_("Export Snippets"),
+	                                            GTK_WINDOW (anjuta_shell),
+	                                            GTK_FILE_CHOOSER_ACTION_SAVE,
+	                                            GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+	                                            GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
+	                                            NULL);
+
+	/* Set up the filter */
+	filter = gtk_file_filter_new ();
+	gtk_file_filter_set_name (filter, "Native format");
+	gtk_file_filter_add_pattern (filter, "*.anjuta-snippets");
+	gtk_file_chooser_set_filter (GTK_FILE_CHOOSER (file_chooser), filter);
+
+	if (gtk_dialog_run (GTK_DIALOG (file_chooser)) == GTK_RESPONSE_ACCEPT)
+	{
+		gchar *uri = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (file_chooser)),
+		      *path = anjuta_util_get_local_path_from_uri (uri);
+
+		snippets_manager_save_snippets_xml_file (NATIVE_FORMAT,
+		                                         snippets_db_get_snippets_groups (snippets_db),
+		                                         path);
+		g_free (path);
+		g_free (uri);
+	}
+	
+	gtk_widget_destroy (file_chooser);
 
 }

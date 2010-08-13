@@ -1132,7 +1132,6 @@ snippets_db_get_snippets_group (SnippetsDB* snippets_db,
 	return NULL;
 }
 
-
 void
 snippets_db_set_snippets_group_name (SnippetsDB *snippets_db,
                                      const gchar *old_group_name,
@@ -1164,6 +1163,27 @@ snippets_db_has_snippets_group_name (SnippetsDB *snippets_db,
                                      const gchar *group_name)
 {
 	return ANJUTA_IS_SNIPPETS_GROUP (snippets_db_get_snippets_group (snippets_db, group_name));
+}
+
+/**
+ * snippets_db_get_snippets_groups:
+ * @snippets_db: A #SnippetsDB object.
+ *
+ * The returned list is owned by the snippets database and should not be 
+ * modified in any way.
+ *
+ * Returns: A #GList with all the snippets groups in the database.
+ */
+GList*
+snippets_db_get_snippets_groups (SnippetsDB *snippets_db)
+{
+	SnippetsDBPrivate *priv = NULL;
+
+	/* Assertions */
+	g_return_val_if_fail (ANJUTA_IS_SNIPPETS_DB (snippets_db), NULL);
+	priv = ANJUTA_SNIPPETS_DB_GET_PRIVATE (snippets_db);
+
+	return priv->snippets_groups;
 }
 
 /**

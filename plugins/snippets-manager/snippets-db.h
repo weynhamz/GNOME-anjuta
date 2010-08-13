@@ -133,6 +133,7 @@ void                       snippets_db_set_snippets_group_name (SnippetsDB *snip
                                                                 const gchar *new_group_name);
 gboolean                   snippets_db_has_snippets_group_name (SnippetsDB *snippets_db,
                                                                 const gchar *group_name);
+GList*                     snippets_db_get_snippets_groups     (SnippetsDB *snippets_db);
 
 /* Global variables handling methods */
 gboolean                   snippets_db_add_global_variable       (SnippetsDB* snippets_db,
