@@ -1525,6 +1525,7 @@ load_session_packages (SymbolDBPlugin *sdb_plugin, GList *hash_glist)
 			if (len <= 1)
 			{
 				g_strfreev(split);
+				node = g_list_next (node);
 				continue;
 			}
 
