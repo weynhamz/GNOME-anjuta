@@ -1462,6 +1462,8 @@ save_session_packages (SymbolDBPlugin *sdb_plugin)
 
 	pkg_list = NULL;
 
+	g_return_val_if_fail (sdb_plugin->session_packages != NULL, NULL);
+	
 	g_hash_table_iter_init (&iter, sdb_plugin->session_packages);
 	while (g_hash_table_iter_next (&iter, &key, &versions)) 
   	{
