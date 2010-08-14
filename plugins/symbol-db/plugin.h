@@ -46,7 +46,6 @@ typedef struct _SymbolDBPluginClass SymbolDBPluginClass;
 
 
 #include "symbol-db-system.h"
-#include "symbol-db-prefs.h"
 #include "symbol-db-query.h"
 
 /* default value for ctags executable. User must have it installed. This is a 
@@ -66,6 +65,9 @@ struct _SymbolDBPlugin {
 	GtkActionGroup *popup_action_group;
 	GtkActionGroup *menu_action_group;	
 	gint merge_id;
+
+	/* preferences */
+	GtkBuilder *prefs_bxml;
 	
 	/* editor monitor */
 	guint buf_update_timeout_id;
@@ -92,9 +94,6 @@ struct _SymbolDBPlugin {
 	
 	/* system's population object */
 	SymbolDBSystem *sdbs;
-	
-	/* preferences object */
-	SymbolDBPrefs *sdbp;
 	
 	GtkWidget *dbv_main;					/* symbol main window [gtk_box] */
 	GtkWidget *dbv_notebook;          		/* main notebook */

@@ -43,11 +43,16 @@
 
 #include "plugin.h"
 #include "symbol-db-engine.h"
-#include "symbol-db-prefs.h"
 #include "symbol-db-views.h"
 
 #define ICON_FILE "anjuta-symbol-db-plugin-48.png"
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-symbol-db-plugin.xml"
+
+#define BUILDER_FILE PACKAGE_DATA_DIR"/glade/anjuta-symbol-db.ui"
+#define BUILDER_ROOT "symbol_prefs"
+#define ICON_FILE "anjuta-symbol-db-plugin-48.png"
+#define PREFS_BUFFER_UPDATE "preferences_toggle:bool:1:1:symboldb.buffer_update"
+#define PREFS_PARALLEL_SCAN "preferences_toggle:bool:1:1:symboldb.parallel_scan"
 
 #define TIMEOUT_INTERVAL_SYMBOLS_UPDATE		10
 #define TIMEOUT_SECONDS_AFTER_LAST_TIP		5
@@ -503,7 +508,7 @@ on_editor_buffer_symbol_update_scan_end (SymbolDBEngine *dbe, gint process_id,
 		}	
 
 		/* add a default timeout to the updating of buffer symbols */	
-		tags_update = anjuta_preferences_get_bool (sdb_plugin->prefs, BUFFER_AUTOSCAN);
+		tags_update = anjuta_preferences_get_bool (sdb_plugin->prefs, PREFS_BUFFER_UPDATE);
 		
 		if (tags_update)
 		{
@@ -680,7 +685,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 		g_object_set (sdb_plugin->file_model, "file-path", local_path, NULL);
 		
 		/* add a default timeout to the updating of buffer symbols */	
-		tags_update = anjuta_preferences_get_bool (sdb_plugin->prefs, BUFFER_AUTOSCAN);
+		tags_update = anjuta_preferences_get_bool (sdb_plugin->prefs, PREFS_BUFFER_UPDATE);
 				
 		if (tags_update)
 		{
@@ -1571,7 +1576,7 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 		
 		/* get preferences about the parallel scan */
 		gboolean parallel_scan = anjuta_preferences_get_bool (sdb_plugin->prefs, 
-															 PARALLEL_SCAN); 
+															 PREFS_PARALLEL_SCAN); 
 		
 		if (parallel_scan == TRUE && 
 			symbol_db_engine_is_connected (sdb_plugin->sdbe_globals) == TRUE)
@@ -1862,7 +1867,7 @@ on_scan_end_manager (SymbolDBEngine *dbe, gint process_id,
 			
 			/* get preferences about the parallel scan */
 			gboolean parallel_scan = anjuta_preferences_get_bool (sdb_plugin->prefs, 
-														 PARALLEL_SCAN); 
+														 PREFS_PARALLEL_SCAN); 
 			
 			/* check the system population has a parallel fashion or not. */			 
 			if (parallel_scan == FALSE)
@@ -2069,10 +2074,6 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	
 	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_project), "scan-end",
 				G_CALLBACK (on_isymbol_manager_prj_scan_end), sdb_plugin);
-
-	
-	/* sets preferences to NULL, it'll be instantiated when required. */
-	sdb_plugin->sdbp = NULL;
 	
 	/* Create widgets */
 	sdb_plugin->dbv_main = gtk_vbox_new(FALSE, 5);
@@ -2411,15 +2412,19 @@ symbol_db_class_init (GObjectClass *klass)
 }
 
 static void
-on_prefs_buffer_update_toggled (SymbolDBPrefs *sdbp, guint value, 
-							  gpointer user_data)
+on_prefs_buffer_update_toggled (GtkToggleButton* button,
+							  	gpointer user_data)
 {
 	SymbolDBPlugin *sdb_plugin;
-	DEBUG_PRINT ("on_prefs_buffer_update_toggled () %d", value);
+	gboolean sensitive;
 	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (user_data);
 	
-	if (value == FALSE)
+	sensitive = gtk_toggle_button_get_active (button);
+
+	DEBUG_PRINT ("on_prefs_buffer_update_toggled () %d", sensitive);
+	
+	if (sensitive == FALSE)
 	{
 		if (sdb_plugin->buf_update_timeout_id)
 			g_source_remove (sdb_plugin->buf_update_timeout_id);
@@ -2431,8 +2436,7 @@ on_prefs_buffer_update_toggled (SymbolDBPrefs *sdbp, guint value,
 			sdb_plugin->buf_update_timeout_id = 
 				g_timeout_add_seconds (TIMEOUT_INTERVAL_SYMBOLS_UPDATE,
 									   on_editor_buffer_symbols_update_timeout,
-									   sdb_plugin);			
-		
+									   sdb_plugin);
 	}	
 }
 
@@ -2441,20 +2445,34 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 {
 	DEBUG_PRINT ("%s", "SymbolDB: ipreferences_merge");	
 	SymbolDBPlugin *sdb_plugin;
+	GtkWidget *buf_up_widget;
 	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (ipref);
-	
-	if (sdb_plugin->sdbp == NULL)
+
+	if (sdb_plugin->prefs_bxml == NULL)
 	{
-		sdb_plugin->sdbp = symbol_db_prefs_new (sdb_plugin->sdbs, 
-												sdb_plugin->sdbe_project,
-												sdb_plugin->sdbe_globals,
-												prefs);
-		
-		g_signal_connect (G_OBJECT (sdb_plugin->sdbp), "buffer-update-toggled",
-						  G_CALLBACK (on_prefs_buffer_update_toggled),
-						  sdb_plugin);				
+		GError* error = NULL;
+		/* Create the preferences page */
+		sdb_plugin->prefs_bxml = gtk_builder_new ();
+		if (!gtk_builder_add_from_file (sdb_plugin->prefs_bxml, BUILDER_FILE, &error))
+		{
+			g_warning ("Couldn't load builder file: %s", error->message);
+			g_error_free(error);
+		}		
 	}
+
+	anjuta_preferences_add_from_builder (prefs,
+									 sdb_plugin->prefs_bxml, 
+									 BUILDER_ROOT, 
+									 _("Symbol Database"),  
+									 ICON_FILE);
+
+	buf_up_widget = GTK_WIDGET (gtk_builder_get_object (sdb_plugin->prefs_bxml, 
+	    PREFS_BUFFER_UPDATE));
+	
+	g_signal_connect (buf_up_widget, "toggled",
+					  G_CALLBACK (on_prefs_buffer_update_toggled),
+					  sdb_plugin);
 }
 
 static void
@@ -2463,12 +2481,10 @@ ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError
 	SymbolDBPlugin *sdb_plugin;
 	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (ipref);
-	
-	if (sdb_plugin->sdbp != NULL)
-	{
-		g_object_unref (sdb_plugin->sdbp);
-		sdb_plugin->sdbp = NULL;
-	}
+
+	anjuta_preferences_remove_page(prefs, _("Symbol Database"));
+	g_object_unref (sdb_plugin->prefs_bxml);
+	sdb_plugin->prefs_bxml = NULL;
 }
 
 static void
