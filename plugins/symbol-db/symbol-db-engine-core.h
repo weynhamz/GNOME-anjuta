@@ -173,7 +173,8 @@ symbol_db_engine_add_new_project (SymbolDBEngine *dbe, const gchar* workspace,
  */
 gboolean 
 symbol_db_engine_project_exists (SymbolDBEngine *dbe, /*gchar* workspace, */
-								  const gchar* project_name);
+								const gchar* project_name,
+    							const gchar* project_version);
 
 
 /** 

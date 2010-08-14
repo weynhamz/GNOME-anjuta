@@ -282,7 +282,8 @@ symbol_db_system_new (SymbolDBPlugin *sdb_plugin,
  */
 gboolean
 symbol_db_system_is_package_parsed (SymbolDBSystem *sdbs, 
-								   const gchar * package_name)
+								   	const gchar * package_name, 
+    								const gchar * package_version)
 {
 	SymbolDBSystemPriv *priv;
 		
@@ -292,7 +293,7 @@ symbol_db_system_is_package_parsed (SymbolDBSystem *sdbs,
 	priv = sdbs->priv;
 	
 	return symbol_db_engine_project_exists (priv->sdbe_globals, 
-											package_name);
+											package_name, package_version);
 }
 
 static void
@@ -718,7 +719,7 @@ symbol_db_system_scan_package (SymbolDBSystem *sdbs,
 	priv = sdbs->priv;
 	
 	/* does is already exist on db? */
-	if (symbol_db_system_is_package_parsed (sdbs, package_name) == TRUE)
+	if (symbol_db_system_is_package_parsed (sdbs, package_name, "1.0") == TRUE)
 	{
 		DEBUG_PRINT ("symbol_db_system_scan_package (): no need to scan %s",
 					 package_name);

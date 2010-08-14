@@ -576,7 +576,7 @@ sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, static_query_type 
 
 	gda_holder_set_value (param, param_value, NULL);
 	
-	/* execute the query with parametes just set */
+	/* execute the query with parameters just set */
 	data_model = gda_connection_statement_execute_select (priv->db_connection, 
 														  (GdaStatement*)stmt, 
 														  (GdaSet*)plist, NULL);
@@ -670,7 +670,7 @@ sdb_engine_get_tuple_id_by_unique_name4 (SymbolDBEngine * dbe,
 
 	gda_holder_set_value (param, value4, NULL);	
 			
-	/* execute the query with parametes just set */
+	/* execute the query with parameters just set */
 	data_model = gda_connection_statement_execute_select (priv->db_connection, 
 														  (GdaStatement*)stmt, 
 														  (GdaSet*)plist, NULL);
@@ -1667,7 +1667,9 @@ sdb_engine_init (SymbolDBEngine * object)
 									PREP_QUERY_GET_PROJECT_ID_BY_UNIQUE_NAME, 
 	 	"SELECT project_id FROM project \
 	     WHERE \
-	    	project_name = ## /* name:'prjname' type:gchararray */ LIMIT 1");
+	    	project_name = ## /* name:'prjname' type:gchararray */ AND \
+	    	project_version = ## /* name:'prjversion' type:gchararray */ \
+	     LIMIT 1");
 
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 									PREP_QUERY_UPDATE_PROJECT_ANALYSE_TIME, 
@@ -2668,7 +2670,7 @@ symbol_db_engine_add_new_workspace (SymbolDBEngine * dbe,
 	}
 	SDB_PARAM_SET_STRING(param, workspace_name);
 
-	/* execute the query with parametes just set */
+	/* execute the query with parameters just set */
 	if (gda_connection_statement_execute_non_select (priv->db_connection, 
 														  (GdaStatement*)stmt, 
 														  (GdaSet*)plist, NULL, NULL) == -1)
@@ -2683,32 +2685,75 @@ symbol_db_engine_add_new_workspace (SymbolDBEngine * dbe,
 
 /* ~~~ Thread note: this function locks the mutex ~~~ */ 
 gboolean
-symbol_db_engine_project_exists (SymbolDBEngine * dbe,	/*gchar* workspace, */
-							   	const gchar * project_name)
+symbol_db_engine_project_exists (SymbolDBEngine * dbe,
+							   	const gchar * project_name,
+    							const gchar * project_version)
 {
 	SymbolDBEnginePriv *priv;
-	gint prj_id;
 	GValue v = {0};
+	const GdaSet *plist;
+	const GdaStatement *stmt;
+	GdaHolder *param;
+	GdaDataModel *data_model;
 
 	priv = dbe->priv;
 
 	SDB_LOCK(priv);
 	
 	g_return_val_if_fail (priv->db_connection != NULL, FALSE);
-	SDB_GVALUE_SET_STATIC_STRING(v, project_name);
-
+	
 	/* test the existence of the project in db */
-	if ((prj_id = sdb_engine_get_tuple_id_by_unique_name (dbe,
-				PREP_QUERY_GET_PROJECT_ID_BY_UNIQUE_NAME,
-				"prjname",
-				 &v)) <= 0)
+	/* get prepared query */
+	if ((stmt = sdb_engine_get_statement_by_query_id (dbe, 
+	    PREP_QUERY_GET_PROJECT_ID_BY_UNIQUE_NAME)) == NULL)
 	{
+		g_warning ("Query is null");
 		SDB_UNLOCK(priv);
 		return FALSE;
 	}
 
+	plist = sdb_engine_get_query_parameters_list (dbe, 
+	    PREP_QUERY_GET_PROJECT_ID_BY_UNIQUE_NAME);
+	
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "prjname")) == NULL)
+	{
+		g_warning ("sdb_engine_get_tuple_id_by_unique_name: param is NULL "
+				   "from pquery!\n");
+		SDB_UNLOCK(priv);
+		return FALSE;
+	}
+
+	SDB_PARAM_SET_STRING (param, project_name);
+
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "prjversion")) == NULL)
+	{
+		g_warning ("sdb_engine_get_tuple_id_by_unique_name: param is NULL "
+				   "from pquery!\n");
+		SDB_UNLOCK(priv);
+		return FALSE;
+	}
+
+	SDB_PARAM_SET_STRING (param, project_version);
+	    
+	/* execute the query with parameters just set */
+	data_model = gda_connection_statement_execute_select (priv->db_connection, 
+														  (GdaStatement*)stmt, 
+														  (GdaSet*)plist, NULL);
+		
+	if (!GDA_IS_DATA_MODEL (data_model) ||
+		gda_data_model_get_n_rows (GDA_DATA_MODEL (data_model)) <= 0)
+	{
+		if (data_model != NULL)
+			g_object_unref (data_model);
+		SDB_UNLOCK(priv);
+		return FALSE;
+	}
+
+	/* we found it and we can return */
+	g_object_unref (data_model);
+
 	SDB_UNLOCK(priv);
-	/* we found it */
+
 	return TRUE;
 }
 
@@ -2802,7 +2847,7 @@ symbol_db_engine_add_new_project (SymbolDBEngine * dbe, const gchar * workspace,
 
 	SDB_PARAM_SET_STRING(param, workspace_name);
 
-	/* execute the query with parametes just set */
+	/* execute the query with parameters just set */
 	if (gda_connection_statement_execute_non_select (priv->db_connection, 
 														  (GdaStatement*)stmt, 
 														  (GdaSet*)plist, NULL, NULL) == -1)
@@ -2868,7 +2913,7 @@ sdb_engine_add_new_language (SymbolDBEngine * dbe, const gchar *language)
 
 		SDB_PARAM_SET_STRING(param, language);
 				
-		/* execute the query with parametes just set */
+		/* execute the query with parameters just set */
 		if (gda_connection_statement_execute_non_select (priv->db_connection, 
 														 (GdaStatement*)stmt, 
 														 (GdaSet*)plist, &last_inserted,
@@ -2990,7 +3035,7 @@ sdb_engine_add_new_db_file (SymbolDBEngine * dbe, const gchar * project_name,
 
 	SDB_PARAM_SET_INT(param, language_id);
 
-	/* execute the query with parametes just set */
+	/* execute the query with parameters just set */
 	if (gda_connection_statement_execute_non_select (priv->db_connection, 
 													 (GdaStatement*)stmt, 
 													 (GdaSet*)plist, NULL,
@@ -3353,7 +3398,7 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 
 		SDB_PARAM_SET_INT (param, is_container);
 
-		/* execute the query with parametes just set */
+		/* execute the query with parameters just set */
 		if (gda_connection_statement_execute_non_select(priv->db_connection, 
 														 (GdaStatement*)stmt, 
 														 (GdaSet*)plist, &last_inserted,
@@ -3442,7 +3487,7 @@ sdb_engine_add_new_sym_access (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 
 		SDB_PARAM_SET_STRING (param, access);
 		
-		/* execute the query with parametes just set */
+		/* execute the query with parameters just set */
 		if (gda_connection_statement_execute_non_select (priv->db_connection, 
 														 (GdaStatement*)stmt, 
 														 (GdaSet*)plist, &last_inserted,
@@ -3527,7 +3572,7 @@ sdb_engine_add_new_sym_implementation (SymbolDBEngine * dbe,
 
 		SDB_PARAM_SET_STRING(param, implementation);
 		
-		/* execute the query with parametes just set */
+		/* execute the query with parameters just set */
 		if (gda_connection_statement_execute_non_select (priv->db_connection, 
 														 (GdaStatement*)stmt, 
 														 (GdaSet*)plist, &last_inserted,
@@ -3593,7 +3638,7 @@ sdb_engine_add_new_heritage (SymbolDBEngine * dbe, gint base_symbol_id,
 
 	SDB_PARAM_SET_INT(param, derived_symbol_id);	
 
-	/* execute the query with parametes just set */
+	/* execute the query with parameters just set */
 	if (gda_connection_statement_execute_non_select (priv->db_connection, 
 													 (GdaStatement*)stmt, 
 													 (GdaSet*)plist, NULL,
@@ -3837,7 +3882,7 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 
 	SDB_PARAM_SET_INT(param, symbol_referer_id);
 
-	/* execute the query with parametes just set */
+	/* execute the query with parameters just set */
 	gda_connection_statement_execute_non_select (priv->db_connection, 
 													 (GdaStatement*)stmt, 
 													 (GdaSet*)plist, NULL,
@@ -4531,7 +4576,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
     									 	 access_kind_id, implementation_kind_id,
     									 	 update_flag);
 	
-	/* execute the query with parametes just set */
+	/* execute the query with parameters just set */
 	nrows = gda_connection_statement_execute_non_select (priv->db_connection, 
 													 (GdaStatement*)stmt, 
 													 (GdaSet*)plist, &last_inserted,
@@ -4995,7 +5040,7 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe,
 
 	SDB_PARAM_SET_STRING(param, project_name);	
 	
-	/* execute the query with parametes just set */
+	/* execute the query with parameters just set */
 	GType gtype_array [6] = {	G_TYPE_INT, 
 								G_TYPE_STRING, 
 								G_TYPE_INT, 

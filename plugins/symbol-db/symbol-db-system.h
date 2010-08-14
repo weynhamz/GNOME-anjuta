@@ -76,8 +76,8 @@ symbol_db_system_new (SymbolDBPlugin *sdb_plugin,
  */
 gboolean 
 symbol_db_system_is_package_parsed (SymbolDBSystem *sdbs, 
-								   const gchar * package_name);
-
+								   	const gchar * package_name, 
+    								const gchar * package_version);
 /**
  * Test whether the package has a good cflags output, i.e. it's parseable.
  * This function does not tell us anything about the db. It could be that 
