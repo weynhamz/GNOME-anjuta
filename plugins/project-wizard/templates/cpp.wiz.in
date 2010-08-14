@@ -33,16 +33,12 @@
 		<property type="boolean" name="HaveI18n" _label="Add internationalization:" _description="Adds support for internationalization so that your project can have translations in different languages" default="1"/>
 		<property type="boolean" name="HavePackage" _label="Configure external packages:" _description="Use pkg-config to add library support from other packages" default="0"/>
 	</page>
-	
-	[+IF (=(get "HavePackage") "1")+]
+
+[+IF (=(get "HavePackage") "1")+]	
 	<page name="packages" _label="Configure external packages" _description="Configure external packages">
-		<property type="package" name="PackageModule1" _label="Require Package:" _description="Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 &gt;= 2.2.0'" mandatory="yes"/>
-		<property type="package" name="PackageModule2" _label="Require Package:" _description="Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 &gt;= 2.2.0'"/>
-		<property type="package" name="PackageModule3" _label="Require Package:" _description="Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 &gt;= 2.2.0'"/>
-		<property type="package" name="PackageModule4" _label="Require Package:" _description="Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 &gt;= 2.2.0'"/>
-		<property type="package" name="PackageModule5" _label="Require Package:" _description="Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 &gt;= 2.2.0'"/>
+		<property type="package" name="PackageModule1" _label="Required Packages:" _description="Check the packages that your project requires" mandatory="yes"/>
 	</page>
-	[+ENDIF+]
+[+ENDIF+]
 	
 	<content>
 		<directory source="terminal" destination="[+Destination+]">

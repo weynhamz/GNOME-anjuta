@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&component=core application\n"
-"POT-Creation-Date: 2010-07-24 15:04+0000\n"
-"PO-Revision-Date: 2010-07-26 09:12+0100\n"
+"POT-Creation-Date: 2010-08-10 17:39+0000\n"
+"PO-Revision-Date: 2010-08-11 13:29+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -421,7 +421,7 @@ msgid "_Reset"
 msgstr "_Povrni"
 
 #: ../libanjuta/anjuta-preferences-dialog.c:95
-#: ../plugins/gtodo/interface.c:229
+#: ../plugins/gtodo/interface.c:219
 #: ../plugins/gtodo/mcategory.c:36
 msgid "Category"
 msgstr "Kategorija"
@@ -1342,22 +1342,22 @@ msgstr "Splošne lastnosti razreda"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:18
 #: ../plugins/file-wizard/file.c:103
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:14
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:14
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:14
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:15
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:15
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:15
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:18
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:18
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:16
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:14
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:16
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:16
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:15
-#: ../plugins/project-wizard/templates/java.wiz.in.h:15
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:19
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:17
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:15
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:17
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:17
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:16
+#: ../plugins/project-wizard/templates/java.wiz.in.h:16
 #: ../plugins/project-wizard/templates/js.wiz.in.h:8
-#: ../plugins/project-wizard/templates/python.wiz.in.h:15
+#: ../plugins/project-wizard/templates/python.wiz.in.h:16
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:12
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:12
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:19
-#: ../plugins/project-wizard/templates/library.wiz.in.h:15
+#: ../plugins/project-wizard/templates/library.wiz.in.h:16
 msgid "General Public License (GPL)"
 msgstr "Splošno javno dovoljenje (GPL)"
 
@@ -1388,8 +1388,8 @@ msgstr "Izpis določil in vključitev v vrstici"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:18
 #: ../plugins/project-wizard/templates/js.wiz.in.h:10
 #: ../plugins/project-wizard/templates/python.wiz.in.h:18
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:13
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:13
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:23
 #: ../plugins/project-wizard/templates/library.wiz.in.h:17
 msgid "Lesser General Public License (LGPL)"
 msgstr "Manj splošno dovoljenja GNU (LGPL)"
@@ -1423,31 +1423,31 @@ msgstr "Izvorna datoteka:"
 msgid "Source/Header Headings:"
 msgstr "Naslovi vira/glave:"
 
-#: ../plugins/class-gen/generator.c:132
+#: ../plugins/class-gen/generator.c:133
 #, c-format
 msgid "Header or source file has not been created"
 msgstr "Glava izvorne datoteke ni bila ustvarjena"
 
-#: ../plugins/class-gen/generator.c:294
+#: ../plugins/class-gen/generator.c:295
 msgid "Autogen template used for the header file"
 msgstr "Autogen predloga uporabljena za datoteko glave"
 
-#: ../plugins/class-gen/generator.c:302
+#: ../plugins/class-gen/generator.c:303
 msgid "Autogen template used for the implementation file"
 msgstr "Predloga autogen za vključevalno datoteko"
 
-#: ../plugins/class-gen/generator.c:310
-#: ../plugins/class-gen/generator.c:318
+#: ../plugins/class-gen/generator.c:311
+#: ../plugins/class-gen/generator.c:319
 msgid "File to which the processed template will be written"
 msgstr "Datoteka v katero bo vpisana prevedena predloga"
 
-#: ../plugins/class-gen/generator.c:402
+#: ../plugins/class-gen/generator.c:403
 #, c-format
 msgid "Failed to write autogen definition file"
 msgstr "Napaka med zapisovanjem autogen datoteke določitev"
 
 #: ../plugins/class-gen/plugin.c:98
-#: ../plugins/project-wizard/druid.c:1146
+#: ../plugins/project-wizard/druid.c:1159
 msgid "Could not find autogen version 5; please install the autogen package. You can get it from http://autogen.sourceforge.net."
 msgstr "Ni mogoče najti autogen različice 5. Namestite autogen paket. Paket lahko prejmete preko http://autogen.sourceforge.net"
 
@@ -2022,7 +2022,6 @@ msgid "Debugger:"
 msgstr "Razhroščevalnik:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:15
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:12
 msgid "Description:"
 msgstr "Opis:"
 
@@ -2740,7 +2739,7 @@ msgstr "Okvir"
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:664
 #: ../plugins/debug-manager/threads.c:451
-#: ../plugins/gdb/preferences.c:358
+#: ../plugins/gdb/preferences.c:360
 #: ../plugins/tools/tool.c:100
 #: ../src/anjuta-app.c:621
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
@@ -2919,21 +2918,21 @@ msgstr "_Poišči pomoč"
 msgid "Search for a term in help"
 msgstr "Poišči besedo v pomoči"
 
-#: ../plugins/devhelp/plugin.c:327
+#: ../plugins/devhelp/plugin.c:326
 msgid "Help operations"
 msgstr "Opravila pomoči"
 
-#: ../plugins/devhelp/plugin.c:346
-#: ../plugins/devhelp/plugin.c:464
+#: ../plugins/devhelp/plugin.c:345
+#: ../plugins/devhelp/plugin.c:462
 #: ../src/anjuta-app.c:638
 msgid "Help"
 msgstr "Pomoč"
 
-#: ../plugins/devhelp/plugin.c:357
+#: ../plugins/devhelp/plugin.c:356
 msgid "Contents"
 msgstr "Vsebina"
 
-#: ../plugins/devhelp/plugin.c:363
+#: ../plugins/devhelp/plugin.c:362
 #: ../plugins/search/search-replace.c:1041
 #: ../plugins/search/search-replace.c:1717
 #: ../plugins/search/search-replace.c:1724
@@ -2944,8 +2943,8 @@ msgstr "Vsebina"
 msgid "Search"
 msgstr "Iskanje"
 
-#: ../plugins/devhelp/plugin.c:381
-#: ../plugins/devhelp/plugin.c:469
+#: ../plugins/devhelp/plugin.c:380
+#: ../plugins/devhelp/plugin.c:467
 msgid "Help display"
 msgstr "Prikaz pomoči"
 
@@ -3340,9 +3339,10 @@ msgid "Repeat quick search"
 msgstr "Ponovi hitro iskanje"
 
 #: ../plugins/document-manager/plugin.c:273
-#: ../plugins/gtodo/interface.c:168
+#: ../plugins/gtodo/interface.c:158
 #: ../src/anjuta-actions.h:30
 #: ../plugins/language-support-cpp-java/plugin.c:1876
+#: ../plugins/language-support-python/plugin.c:1175
 msgid "_Edit"
 msgstr "_Uredi"
 
@@ -4126,7 +4126,6 @@ msgid "Select Package to add:"
 msgstr "Izbor paketov za dodajanje:"
 
 #: ../plugins/gbf-am/gbf-am-dialogs.ui.h:6
-#: ../plugins/project-wizard/property.c:376
 msgid "Select package"
 msgstr "Izbor paketa"
 
@@ -4444,8 +4443,8 @@ msgstr "Ime paketa:"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:29
 #: ../plugins/project-wizard/templates/js.wiz.in.h:17
 #: ../plugins/project-wizard/templates/python.wiz.in.h:27
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:24
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:33
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:32
 #: ../plugins/project-wizard/templates/library.wiz.in.h:31
 msgid "Version:"
 msgstr "Različica:"
@@ -4764,29 +4763,33 @@ msgstr "Napaka med ustvarjanjem datoteke FIFO z imenom %s. Program bo zagnan bre
 msgid "Cannot start terminal for debugging."
 msgstr "Ni mogoče zagnati terminala za razhroščevanje."
 
-#: ../plugins/gdb/preferences.c:123
+#. Translators: pretty printer file is a kind of script allowing gdb to display
+#. * variable content in a simpler way, removing implementation details
+#: ../plugins/gdb/preferences.c:125
 #, c-format
 msgid ""
-"The following pretty printers, without a register functions, have been disabled:\n"
-" %s"
+"The register function hasn't been found automatically in the following pretty printer files:\n"
+"%s\n"
+"You need to fill yourself the register function columns before enabling the rows. Most of the time the register function name contains the word \"register\"."
 msgstr ""
-"Navedeni oblikovni tiskalniki, brez vpisnih funkcij, so onemogočeni:\n"
-" %s"
+"Funkcije vpisnika ni mogoče samodejno najti med datotekami oblikovnega tiskanja:\n"
+"%s\n"
+"Funkcije bo treba vpisati ročno v stolpce pred omogočanjem vrstic. Običajno funckija vpisnika vsebuje besedo \"vpisnik\"."
 
-#: ../plugins/gdb/preferences.c:216
+#: ../plugins/gdb/preferences.c:220
 msgid "Select a pretty printer file"
 msgstr "Izbor oblikovne datoteke tiskanja"
 
-#: ../plugins/gdb/preferences.c:353
+#: ../plugins/gdb/preferences.c:355
 msgid "Activate"
 msgstr "Omogoči"
 
-#: ../plugins/gdb/preferences.c:365
+#: ../plugins/gdb/preferences.c:367
 msgid "Register Function"
 msgstr "Vpisna funkcija"
 
-#: ../plugins/gdb/preferences.c:389
-#: ../plugins/gdb/preferences.c:397
+#: ../plugins/gdb/preferences.c:391
+#: ../plugins/gdb/preferences.c:399
 msgid "Gdb Debugger"
 msgstr "Razhroščevalnik Gdb"
 
@@ -4850,8 +4853,8 @@ msgstr "Avtor/Grep"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:7
 #: ../plugins/project-wizard/templates/js.wiz.in.h:2
 #: ../plugins/project-wizard/templates/python.wiz.in.h:7
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:3
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:6
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:7
 #: ../plugins/project-wizard/templates/library.wiz.in.h:6
 msgid "Author:"
 msgstr "Avtor:"
@@ -6336,28 +6339,28 @@ msgstr "Vstavi privzeto slogovno obliko (CSS)"
 msgid "Custom (CSS) style sheet"
 msgstr "Slog oblikovanja (CSS) po meri"
 
-#: ../plugins/gtodo/interface.c:34
+#: ../plugins/gtodo/interface.c:35
 #: ../src/anjuta-actions.h:38
 msgid "_View"
 msgstr "_Pogled"
 
-#: ../plugins/gtodo/interface.c:146
+#: ../plugins/gtodo/interface.c:136
 msgid "All"
 msgstr "Vse"
 
-#: ../plugins/gtodo/interface.c:171
+#: ../plugins/gtodo/interface.c:161
 msgid "_Export"
 msgstr "_Izvozi"
 
-#: ../plugins/gtodo/interface.c:215
+#: ../plugins/gtodo/interface.c:205
 msgid "Priority"
 msgstr "Prednost"
 
-#: ../plugins/gtodo/interface.c:222
+#: ../plugins/gtodo/interface.c:212
 msgid "Due date"
 msgstr "Datum konca"
 
-#: ../plugins/gtodo/interface.c:236
+#: ../plugins/gtodo/interface.c:226
 msgid "Summary"
 msgstr "Povzetek"
 
@@ -6434,7 +6437,7 @@ msgstr "Izbriši"
 msgid "<New category (%d)>"
 msgstr "<Nova kategorija (%d)>"
 
-#: ../plugins/gtodo/notification.c:68
+#: ../plugins/gtodo/notification.c:66
 #, c-format
 msgid "The following item is due in %i minute:"
 msgid_plural "The following item is due in %i minutes:"
@@ -6443,12 +6446,12 @@ msgstr[1] "Predmeti, ki bodo časovno zaključeni v %i minuti:"
 msgstr[2] "Predmeti, ki bodo časovno zaključeni v %i minutah:"
 msgstr[3] "Predmeti, ki bodo časovno zaključeni v %i minutah:"
 
-#: ../plugins/gtodo/notification.c:77
+#: ../plugins/gtodo/notification.c:75
 msgid "The following item is due:"
 msgstr "Predmeti, ki so prešli zaključni datum:"
 
 #. gtk_container_set_border_width(GTK_CONTAINER(hbox), 9);
-#: ../plugins/gtodo/notification.c:118
+#: ../plugins/gtodo/notification.c:116
 msgid "_Do not show again"
 msgstr "_Ne prikaži znova"
 
@@ -6976,23 +6979,23 @@ msgid "Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\
 msgstr "Ni mogoče objaviti na določen naslov URI \"%s\". Prišlo je do napake: \"%s\""
 
 #: ../plugins/project-import/project-import.ui.h:1
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:11
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:11
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:11
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:12
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:12
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:12
 #: ../plugins/project-wizard/templates/django.wiz.in.h:1
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:14
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:13
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:12
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:11
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:13
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:13
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:11
-#: ../plugins/project-wizard/templates/java.wiz.in.h:12
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:14
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:13
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:12
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:14
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:14
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:12
+#: ../plugins/project-wizard/templates/java.wiz.in.h:13
 #: ../plugins/project-wizard/templates/js.wiz.in.h:5
-#: ../plugins/project-wizard/templates/python.wiz.in.h:12
+#: ../plugins/project-wizard/templates/python.wiz.in.h:13
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:9
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:9
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:13
-#: ../plugins/project-wizard/templates/library.wiz.in.h:12
+#: ../plugins/project-wizard/templates/library.wiz.in.h:13
 #: ../plugins/subversion/anjuta-subversion.ui.h:9
 msgid "Destination:"
 msgstr "Cilj:"
@@ -7382,7 +7385,7 @@ msgstr "Vrsta projekta: %s\n"
 msgid "Unable to find any project template in %s"
 msgstr "Ni mogoče najti predloge projekta v %s"
 
-#: ../plugins/project-wizard/druid.c:613
+#: ../plugins/project-wizard/druid.c:626
 #, c-format
 msgid ""
 "\n"
@@ -7391,40 +7394,40 @@ msgstr ""
 "\n"
 "Polje \"%s\" mora biti izpolnjeno. Vnesite podatke."
 
-#: ../plugins/project-wizard/druid.c:628
+#: ../plugins/project-wizard/druid.c:641
 #, c-format
 msgid "Field \"%s\" must start with a letter, a digit or an underscore and contain only letters, digits, underscore, minus and dot. Please fix it."
 msgstr "Polje \"%s\" se mora začeti s črko, številko ali pa vezajem in sme vsebovati le črke, številke, vezaje, znak minus in piko. Popravite ime."
 
-#: ../plugins/project-wizard/druid.c:633
+#: ../plugins/project-wizard/druid.c:646
 #, c-format
 msgid "Field \"%s\" must start with a letter, a digit, an underscore or a directory separator and contain only letters, digits, underscore, directory separator, minus and dot. Please fix it."
 msgstr "Polje \"%s\" se mora začeti s črko, številko, vezajem ali pa ločilnikom mape in sme vsebovati le črke, številke, vezaje, ločilnik mape, znak minus in piko. Popravite ime."
 
-#: ../plugins/project-wizard/druid.c:638
+#: ../plugins/project-wizard/druid.c:651
 #, c-format
 msgid "Unknown error."
 msgstr "Neznana napaka."
 
-#: ../plugins/project-wizard/druid.c:665
+#: ../plugins/project-wizard/druid.c:678
 #, c-format
 msgid "Directory \"%s\" is not empty. Project creation could fail if some files cannot be written. Do you want to continue?"
 msgstr "Mapa \"%s\" ni prazna. Ustvarjanje projekta se ustavi v primeru, da nekaterih datotek ni mogoče prepisati. Ali želite nadaljevati?"
 
-#: ../plugins/project-wizard/druid.c:667
+#: ../plugins/project-wizard/druid.c:680
 #, c-format
 msgid "File \"%s\" already exists. Do you want to overwrite it?"
 msgstr "Datoteka \"%s\" že obstaja. Ali jo želite prepisati?"
 
-#: ../plugins/project-wizard/druid.c:698
+#: ../plugins/project-wizard/druid.c:711
 msgid "Invalid entry"
 msgstr "Neveljaven vnos"
 
-#: ../plugins/project-wizard/druid.c:709
+#: ../plugins/project-wizard/druid.c:722
 msgid "Dubious entry"
 msgstr "Dvomljiv vnos"
 
-#: ../plugins/project-wizard/druid.c:870
+#: ../plugins/project-wizard/druid.c:883
 #, c-format
 msgid ""
 "\n"
@@ -7433,7 +7436,7 @@ msgstr ""
 "\n"
 "Manjkajoči programi: %s."
 
-#: ../plugins/project-wizard/druid.c:881
+#: ../plugins/project-wizard/druid.c:894
 #, c-format
 msgid ""
 "\n"
@@ -7442,23 +7445,23 @@ msgstr ""
 "\n"
 "Manjkajoči paketi: %s."
 
-#: ../plugins/project-wizard/druid.c:890
+#: ../plugins/project-wizard/druid.c:903
 msgid "Some important programs or development packages required to build this project are missing. Please make sure they are installed properly before generating the project.\n"
 msgstr "Nekateri pomembni programi ali pa paketi za razvijanje za izgradnjo projekta niso na voljo. Prepričajte se, da so ti nameščeni preden ustvarite projekt.\n"
 
-#: ../plugins/project-wizard/druid.c:898
+#: ../plugins/project-wizard/druid.c:911
 msgid "Install missing packages"
 msgstr "Namestitev manjkajočih paketov"
 
-#: ../plugins/project-wizard/druid.c:906
+#: ../plugins/project-wizard/druid.c:919
 msgid "The missing programs are usually part of some distrubution packages and can be searched for in your Application Manager. Similarly, the development packages are contained in special packages that your distribution provides to allow development of projects based on them. They usually end with a \"-dev\" or \"-devel\" suffix in package names and can be found by searching in your Application Manager."
 msgstr "Manjkajoči programi so običajno del nekaterih paketov distribucij in jih je mogoče najti v upravljalniku programov. Podobno paketi za razvoj kode, običajno pripadajo posebnim paketom, ki so del distribucije in omogočajo razvijanje projektov. Ti so običajno poimenovani tako, da vsebujejo pripone -\"-dev\" ali \"-devel\" in imena paketov. Najdete jih lahko v upravljalniku programov."
 
-#: ../plugins/project-wizard/druid.c:914
+#: ../plugins/project-wizard/druid.c:927
 msgid "Missing components"
 msgstr "Manjkajoče enote"
 
-#: ../plugins/project-wizard/druid.c:1046
+#: ../plugins/project-wizard/druid.c:1059
 #, c-format
 msgid "Unable to build project assistant user interface reading %s."
 msgstr "Ni mogoče izgraditi uporabniškega vmesnika pomočnika %s."
@@ -7508,35 +7511,35 @@ msgid "New Project Assistant"
 msgstr "Pomočnik novega projekta"
 
 #: ../plugins/project-wizard/property.c:343
-#: ../plugins/project-wizard/property.c:497
+#: ../plugins/project-wizard/property.c:454
 msgid "No"
 msgstr "Ne"
 
-#: ../plugins/project-wizard/property.c:355
+#: ../plugins/project-wizard/property.c:354
 msgid "Select directory"
 msgstr "Izbor mape"
 
-#: ../plugins/project-wizard/property.c:363
+#: ../plugins/project-wizard/property.c:362
 msgid "Select file"
 msgstr "Izbor datoteke"
 
-#: ../plugins/project-wizard/property.c:455
+#: ../plugins/project-wizard/property.c:412
 #: ../plugins/tools/editor.c:522
 msgid "Select an Image File"
 msgstr "Izbor slikovne datoteke"
 
-#: ../plugins/project-wizard/property.c:480
-#: ../plugins/project-wizard/property.c:570
+#: ../plugins/project-wizard/property.c:437
+#: ../plugins/project-wizard/property.c:527
 #: ../plugins/tools/editor.c:556
 #: ../plugins/tools/editor.c:703
 msgid "Choose Icon"
 msgstr "Izbor ikone"
 
-#: ../plugins/project-wizard/property.c:540
+#: ../plugins/project-wizard/property.c:497
 msgid "Choose directory"
 msgstr "Izbor mape"
 
-#: ../plugins/project-wizard/property.c:544
+#: ../plugins/project-wizard/property.c:501
 msgid "Choose file"
 msgstr "Izberi datoteko"
 
@@ -7551,7 +7554,6 @@ msgstr "Izvorni minimal in flat projekt"
 #: ../plugins/project-wizard/templates/xlib.wiz.in.h:2
 #: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:2
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:2
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:2
 #: ../plugins/project-wizard/templates/library.wiz.in.h:2
 msgid "Add C++ support:"
 msgstr "Dodaj C++ podporo:"
@@ -7576,7 +7578,6 @@ msgstr "Dodaj podporo souporabe knjižnic:"
 #: ../plugins/project-wizard/templates/xlib.wiz.in.h:5
 #: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:5
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:4
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:4
 #: ../plugins/project-wizard/templates/library.wiz.in.h:4
 msgid "Adds C++ support to the project so that C++ source files can be built"
 msgstr "Doda C++ podporo projektu, da je mogoče izgraditi tudi C++ datoteke"
@@ -7608,8 +7609,8 @@ msgstr "Doda podporo za izgradnjo deljenih knjižnic projekta"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:8
 #: ../plugins/project-wizard/templates/js.wiz.in.h:3
 #: ../plugins/project-wizard/templates/python.wiz.in.h:8
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:4
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:7
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:8
 #: ../plugins/project-wizard/templates/library.wiz.in.h:7
 msgid "Basic information"
 msgstr "Osnovne podrobnosti"
@@ -7627,8 +7628,8 @@ msgstr "Osnovne podrobnosti"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:9
 #: ../plugins/project-wizard/templates/js.wiz.in.h:4
 #: ../plugins/project-wizard/templates/python.wiz.in.h:9
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:5
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:8
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:9
 #: ../plugins/project-wizard/templates/library.wiz.in.h:8
 msgid "Berkeley Software Distribution License (BSD)"
 msgstr "Berkeley programsko dovoljenje razširjanja (BSD)"
@@ -7636,8 +7637,7 @@ msgstr "Berkeley programsko dovoljenje razširjanja (BSD)"
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:9
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:9
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:9
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:12
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:9
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:8
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:10
 #: ../plugins/project-wizard/templates/wxwin.wiz.in.h:9
 #: ../plugins/project-wizard/templates/xlib.wiz.in.h:11
@@ -7645,15 +7645,15 @@ msgstr "Berkeley programsko dovoljenje razširjanja (BSD)"
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:9
 #: ../plugins/project-wizard/templates/java.wiz.in.h:10
 #: ../plugins/project-wizard/templates/python.wiz.in.h:10
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:10
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:6
 #: ../plugins/project-wizard/templates/library.wiz.in.h:10
-msgid "Configure external packages"
-msgstr "Nastavitev zunanjih paketov"
+msgid "Check the packages that your project requires"
+msgstr "Preveri zahtevane pakete za projekt"
 
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:10
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:10
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:10
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:13
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:12
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:10
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:11
 #: ../plugins/project-wizard/templates/wxwin.wiz.in.h:10
@@ -7662,70 +7662,70 @@ msgstr "Nastavitev zunanjih paketov"
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:10
 #: ../plugins/project-wizard/templates/java.wiz.in.h:11
 #: ../plugins/project-wizard/templates/python.wiz.in.h:11
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:11
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:7
 #: ../plugins/project-wizard/templates/library.wiz.in.h:11
+msgid "Configure external packages"
+msgstr "Nastavitev zunanjih paketov"
+
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:11
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:11
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:11
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:13
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:11
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:12
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:11
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:13
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:13
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:11
+#: ../plugins/project-wizard/templates/java.wiz.in.h:12
+#: ../plugins/project-wizard/templates/python.wiz.in.h:12
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:8
+#: ../plugins/project-wizard/templates/library.wiz.in.h:12
 msgid "Configure external packages:"
 msgstr "Nastavitev zunanjih paketov:"
-
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:12
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:12
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:12
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:15
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:16
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:13
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:12
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:14
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:14
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:12
-#: ../plugins/project-wizard/templates/java.wiz.in.h:13
-#: ../plugins/project-wizard/templates/js.wiz.in.h:6
-#: ../plugins/project-wizard/templates/python.wiz.in.h:13
-#: ../plugins/project-wizard/templates/sdl.wiz.in.h:10
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:16
-#: ../plugins/project-wizard/templates/library.wiz.in.h:13
-msgid "Email address:"
-msgstr "Elektronski naslov:"
 
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:13
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:13
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:13
-#: ../plugins/project-wizard/templates/django.wiz.in.h:4
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:17
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:15
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:17
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:15
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:14
 #: ../plugins/project-wizard/templates/wxwin.wiz.in.h:13
 #: ../plugins/project-wizard/templates/xlib.wiz.in.h:15
 #: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:15
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:14
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:13
 #: ../plugins/project-wizard/templates/java.wiz.in.h:14
-#: ../plugins/project-wizard/templates/js.wiz.in.h:7
+#: ../plugins/project-wizard/templates/js.wiz.in.h:6
 #: ../plugins/project-wizard/templates/python.wiz.in.h:14
-#: ../plugins/project-wizard/templates/sdl.wiz.in.h:11
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:18
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:10
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:10
 #: ../plugins/project-wizard/templates/library.wiz.in.h:14
+msgid "Email address:"
+msgstr "Elektronski naslov:"
+
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:14
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:14
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:14
+#: ../plugins/project-wizard/templates/django.wiz.in.h:4
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:17
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:18
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:16
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:14
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:16
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:16
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:15
+#: ../plugins/project-wizard/templates/java.wiz.in.h:15
+#: ../plugins/project-wizard/templates/js.wiz.in.h:7
+#: ../plugins/project-wizard/templates/python.wiz.in.h:15
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:11
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:11
+#: ../plugins/project-wizard/templates/library.wiz.in.h:15
 msgid "General Project Information"
 msgstr "Splošne podrobnosti projekta"
 
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:15
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:16
 msgid "Generic (Minimal)"
 msgstr "Izvorno (automake)"
-
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:16
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:16
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:16
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:19
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:19
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:17
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:15
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:17
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:17
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:17
-#: ../plugins/project-wizard/templates/java.wiz.in.h:17
-#: ../plugins/project-wizard/templates/python.wiz.in.h:17
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:20
-#: ../plugins/project-wizard/templates/library.wiz.in.h:16
-msgid "Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 >= 2.2.0'"
-msgstr "Določite ime paketa, ki ga projekt zahteva. Lahko tudi omenite katera različica paketa je zahtevana. Primer, 'libgnomeui-2.0' ali 'libgnomeui-2.0 >= 2.2.0'"
 
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:18
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:18
@@ -7740,8 +7740,8 @@ msgstr "Določite ime paketa, ki ga projekt zahteva. Lahko tudi omenite katera r
 #: ../plugins/project-wizard/templates/java.wiz.in.h:19
 #: ../plugins/project-wizard/templates/js.wiz.in.h:11
 #: ../plugins/project-wizard/templates/python.wiz.in.h:19
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:14
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:14
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:24
 #: ../plugins/project-wizard/templates/library.wiz.in.h:19
 msgid "License"
 msgstr "Dovoljenje"
@@ -7759,8 +7759,8 @@ msgstr "Dovoljenje"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:22
 #: ../plugins/project-wizard/templates/js.wiz.in.h:12
 #: ../plugins/project-wizard/templates/python.wiz.in.h:20
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:15
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:16
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:25
 #: ../plugins/project-wizard/templates/library.wiz.in.h:20
 msgid "No license"
 msgstr "Ni dovoljenja"
@@ -7778,8 +7778,8 @@ msgstr "Ni dovoljenja"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:23
 #: ../plugins/project-wizard/templates/js.wiz.in.h:13
 #: ../plugins/project-wizard/templates/python.wiz.in.h:21
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:16
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:17
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:26
 #: ../plugins/project-wizard/templates/library.wiz.in.h:23
 msgid "Options for project build system"
 msgstr "Možnosti za sistem izgradnje projekta"
@@ -7798,8 +7798,8 @@ msgstr "Možnosti za sistem izgradnje projekta"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:24
 #: ../plugins/project-wizard/templates/js.wiz.in.h:14
 #: ../plugins/project-wizard/templates/python.wiz.in.h:22
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:17
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:18
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:27
 #: ../plugins/project-wizard/templates/library.wiz.in.h:24
 msgid "Project Name:"
 msgstr "Ime projekta:"
@@ -7817,9 +7817,9 @@ msgstr "Ime projekta:"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:25
 #: ../plugins/project-wizard/templates/js.wiz.in.h:15
 #: ../plugins/project-wizard/templates/python.wiz.in.h:23
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:18
 #: ../plugins/project-wizard/templates/mkfile.wiz.in.h:6
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:19
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:28
 #: ../plugins/project-wizard/templates/library.wiz.in.h:25
 msgid "Project options"
 msgstr "Možnosti projekta"
@@ -7827,7 +7827,6 @@ msgstr "Možnosti projekta"
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:23
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:23
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:23
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:26
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:40
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:24
 #: ../plugins/project-wizard/templates/wxwin.wiz.in.h:22
@@ -7836,9 +7835,9 @@ msgstr "Možnosti projekta"
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:25
 #: ../plugins/project-wizard/templates/java.wiz.in.h:26
 #: ../plugins/project-wizard/templates/python.wiz.in.h:24
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:29
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:21
 #: ../plugins/project-wizard/templates/library.wiz.in.h:26
-msgid "Require Package:"
+msgid "Required Packages:"
 msgstr "Zahtevani paketi:"
 
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:24
@@ -7854,8 +7853,8 @@ msgstr "Zahtevani paketi:"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:27
 #: ../plugins/project-wizard/templates/js.wiz.in.h:16
 #: ../plugins/project-wizard/templates/python.wiz.in.h:25
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:22
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:32
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:30
 #: ../plugins/project-wizard/templates/library.wiz.in.h:27
 msgid "Select code license"
 msgstr "Izbor dovoljenja kode"
@@ -7872,7 +7871,7 @@ msgstr "Izbor dovoljenja kode"
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:27
 #: ../plugins/project-wizard/templates/java.wiz.in.h:28
 #: ../plugins/project-wizard/templates/python.wiz.in.h:26
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:31
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:23
 #: ../plugins/project-wizard/templates/library.wiz.in.h:30
 msgid "Use pkg-config to add library support from other packages"
 msgstr "Uporabi pkg-config za dodajanje knjižnične podpore drugih paketov"
@@ -7890,8 +7889,8 @@ msgstr "Uporabi pkg-config za dodajanje knjižnične podpore drugih paketov"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:31
 #: ../plugins/project-wizard/templates/js.wiz.in.h:18
 #: ../plugins/project-wizard/templates/python.wiz.in.h:29
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:25
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:34
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:33
 #: ../plugins/project-wizard/templates/library.wiz.in.h:32
 msgid "project name"
 msgstr "ime projekta"
@@ -7910,8 +7909,8 @@ msgstr "Izvorni projekt"
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:2
 #: ../plugins/project-wizard/templates/java.wiz.in.h:3
 #: ../plugins/project-wizard/templates/python.wiz.in.h:3
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:1
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:3
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:3
 #: ../plugins/project-wizard/templates/library.wiz.in.h:3
 msgid "Add internationalization:"
 msgstr "Dodaj mednarodne jezikovne možnosti:"
@@ -7926,13 +7925,13 @@ msgstr "Dodaj mednarodne jezikovne možnosti:"
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:5
 #: ../plugins/project-wizard/templates/java.wiz.in.h:6
 #: ../plugins/project-wizard/templates/python.wiz.in.h:6
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:2
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:5
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:5
 #: ../plugins/project-wizard/templates/library.wiz.in.h:5
 msgid "Adds support for internationalization so that your project can have translations in different languages"
 msgstr "Doda podporo za mednarodno jezikovno prilagoditev (i18n), da bo mogoče projekt prevesti v druge jezike."
 
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:15
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:16
 msgid "Generic"
 msgstr "Izvorno"
 
@@ -7940,7 +7939,7 @@ msgstr "Izvorno"
 msgid "A generic C++ project"
 msgstr "Izvorni C++ projekt"
 
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:15
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:16
 msgid "Generic C++"
 msgstr "Izvorni C++"
 
@@ -7971,6 +7970,14 @@ msgstr "Dodaj gtk-doc sistem:"
 msgid "GTK+"
 msgstr "GTK+"
 
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:19
+msgid "Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 >= 2.2.0'"
+msgstr "Določite ime paketa, ki ga projekt zahteva. Lahko tudi omenite katera različica paketa je zahtevana. Primer, 'libgnomeui-2.0' ali 'libgnomeui-2.0 >= 2.2.0'"
+
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:26
+msgid "Require Package:"
+msgstr "Zahtevani paketi:"
+
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:30
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:28
 #: ../plugins/project-wizard/templates/java.wiz.in.h:30
@@ -7986,33 +7993,31 @@ msgstr "Vstavek Anjute"
 msgid "Anjuta plugin project that uses libanjuta framework"
 msgstr "Projekt Anjuta vstavkov ki uporabljajo libanjuta okvir"
 
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:8
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:9
 msgid "Comma separated, other plugins that this plugin depends on. It could be either primary interface name or plugin location (library:class)"
 msgstr "Z vejico ločeni vstavki od katerih so odvisni drugi vstavki. To je lahko osnovno ime vmesnika ali mesto vstavka (knjižnica:razred)"
 
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:11
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:12
 msgid "Create Gtk Builder interface file"
 msgstr "Ustvari GtkBuilder vmesniško datoteko"
 
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:12
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:13
 msgid "Create a template Gtk Builder interface file"
 msgstr "Ustvari GtkBuilder predlogo datoteke vmesnika."
 
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:14
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:15
 msgid "Display description of the plugin"
 msgstr "Pokaži opis vstavka"
 
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:15
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:16
 msgid "Display title of the plugin"
 msgstr "Pokaži naslov vstavka"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:20
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:21
 msgid "Icon File:"
 msgstr "Datoteka ikone:"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:21
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:22
 msgid "Icon file for the plugin"
 msgstr "Datoteka ikone za vstavek"
 
@@ -8084,7 +8089,7 @@ msgstr "Ali ima vstavek menije ali orodne vrstice"
 msgid "A generic GTKmm (C++) project"
 msgstr "Izvorni GTKmm (C++) projekt"
 
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:14
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:15
 msgid "GTKmm"
 msgstr "GTKmm"
 
@@ -8116,11 +8121,11 @@ msgstr "Xlib dock"
 msgid "A generic natively compiled java project using the GNU Java Compiler (gcj)"
 msgstr "Izvorni kodno prevedeni java projekt, ki uporablja GNU Java prevajalnik (gcj)"
 
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:13
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:14
 msgid "GCJ needs to know which class contains the main() function"
 msgstr "Program GCJ mora vedeti kateri razred vsebuje funkcijo main()"
 
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:16
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:17
 msgid "Generic gcj compiled java"
 msgstr "Izvorno gcj kodno prevedena java"
 
@@ -8133,7 +8138,7 @@ msgstr "Glavni razred:"
 msgid "A generic java project using automake project management"
 msgstr "Izvorni java projekt, ki uporablja automake upravljanje"
 
-#: ../plugins/project-wizard/templates/java.wiz.in.h:16
+#: ../plugins/project-wizard/templates/java.wiz.in.h:17
 msgid "Generic java (automake)"
 msgstr "Izvorna Java (automake)"
 
@@ -8149,9 +8154,17 @@ msgstr "Izvorni JavaScript"
 msgid "A generic python project using automake project management"
 msgstr "Izvorni projekt python, ki uporablja automake upravljanje"
 
-#: ../plugins/project-wizard/templates/python.wiz.in.h:16
+#: ../plugins/project-wizard/templates/python.wiz.in.h:17
 msgid "Generic python (automake)"
 msgstr "Izvorni Python (automake)"
+
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:19
+msgid "PyGTK (automake)"
+msgstr "PyGTK (automake)"
+
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:20
+msgid "PyGTK project using automake"
+msgstr "PyGTK projekt, ki uporablja automake upravljanje"
 
 #: ../plugins/project-wizard/templates/mkfile.wiz.in.h:1
 msgid "Makefile project"
@@ -8228,26 +8241,6 @@ msgstr "Zahtevan SDL_ttf:"
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:31
 msgid "SDL"
 msgstr "SDL"
-
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:1
-msgid "A GNOME applet project"
-msgstr "Izvorni GNOME apletni projekt"
-
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:6
-msgid "Applet Title:"
-msgstr "Naslov apleta:"
-
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:14
-msgid "Display description of the applet"
-msgstr "Pokaži opis apleta"
-
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:15
-msgid "Display title of the applet"
-msgstr "Pokaži naslov apleta"
-
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:17
-msgid "GNOME Applet"
-msgstr "Gnome Aplet"
 
 #: ../plugins/project-wizard/templates/library.wiz.in.h:1
 msgid "A shared or a static library project"
@@ -8655,7 +8648,7 @@ msgstr[3] "%d zadetki so zamenjani."
 msgid "Unable to build user interface for Search and Replace"
 msgstr "Ni mogoče izgraditi uporabniškega vmesnika za iskanje in zamenjavo"
 
-#: ../plugins/sourceview/sourceview.c:395
+#: ../plugins/sourceview/sourceview.c:478
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
@@ -8664,7 +8657,7 @@ msgstr ""
 "Datoteka \"%s\" na disku je novejša kot trenutna v medpomnilniku.\n"
 "Ali želite datoteko ponovno naložiti?"
 
-#: ../plugins/sourceview/sourceview.c:432
+#: ../plugins/sourceview/sourceview.c:515
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -8674,18 +8667,18 @@ msgstr ""
 "Ali želite datoteko zapreti?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:469
+#: ../plugins/sourceview/sourceview.c:552
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "Ni mogoče odpreti %s: %s"
 
-#: ../plugins/sourceview/sourceview.c:523
+#: ../plugins/sourceview/sourceview.c:606
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr "Datoteka \"%s\" je le za branje! Ali jo vseeno želite urejati?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:582
+#: ../plugins/sourceview/sourceview.c:665
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "Ni mogoče shraniti %s: %s"
@@ -9268,83 +9261,83 @@ msgstr "Subversion: primerjava končana."
 msgid "Subversion: Update complete."
 msgstr "Subversion: posodobitev je končana."
 
-#: ../plugins/subversion/svn-command.c:158
-#: ../plugins/subversion/svn-command.c:225
+#: ../plugins/subversion/svn-command.c:168
+#: ../plugins/subversion/svn-command.c:231
 msgid "Authentication canceled"
 msgstr "Overitev preklicana"
 
-#: ../plugins/subversion/svn-command.c:198
+#: ../plugins/subversion/svn-command.c:204
 msgid "Hostname:"
 msgstr "Ime gostitelja:"
 
-#: ../plugins/subversion/svn-command.c:199
+#: ../plugins/subversion/svn-command.c:205
 msgid "Fingerprint:"
 msgstr "Prstni odtis:"
 
-#: ../plugins/subversion/svn-command.c:200
+#: ../plugins/subversion/svn-command.c:206
 msgid "Valid from:"
 msgstr "Veljavno od:"
 
-#: ../plugins/subversion/svn-command.c:201
+#: ../plugins/subversion/svn-command.c:207
 msgid "Valid until:"
 msgstr "Veljavno do:"
 
-#: ../plugins/subversion/svn-command.c:202
+#: ../plugins/subversion/svn-command.c:208
 msgid "Issuer DN:"
 msgstr "DŠ izdajatelja:"
 
-#: ../plugins/subversion/svn-command.c:203
+#: ../plugins/subversion/svn-command.c:209
 msgid "DER certificate:"
 msgstr "Potrdilo DER:"
 
-#: ../plugins/subversion/svn-command.c:350
-#: ../plugins/subversion/svn-command.c:366
+#: ../plugins/subversion/svn-command.c:375
+#: ../plugins/subversion/svn-command.c:391
 #, c-format
 msgid "Deleted: %s"
 msgstr "Izbrisano: %s"
 
-#: ../plugins/subversion/svn-command.c:353
-#: ../plugins/subversion/svn-command.c:372
+#: ../plugins/subversion/svn-command.c:378
+#: ../plugins/subversion/svn-command.c:397
 #, c-format
 msgid "Added: %s"
 msgstr "Dodano: %s"
 
-#: ../plugins/subversion/svn-command.c:363
+#: ../plugins/subversion/svn-command.c:388
 #, c-format
 msgid "Resolved: %s"
 msgstr "Razrešeno: %s"
 
-#: ../plugins/subversion/svn-command.c:369
+#: ../plugins/subversion/svn-command.c:394
 #, c-format
 msgid "Updated: %s"
 msgstr "Posodobljeno: %s"
 
-#: ../plugins/subversion/svn-command.c:375
+#: ../plugins/subversion/svn-command.c:400
 #, c-format
 msgid "Externally Updated: %s"
 msgstr "Zunanje posodobljeno: %s"
 
-#: ../plugins/subversion/svn-command.c:409
+#: ../plugins/subversion/svn-command.c:434
 #, c-format
 msgid "Modified: %s"
 msgstr "Spremenjeno: %s"
 
-#: ../plugins/subversion/svn-command.c:412
+#: ../plugins/subversion/svn-command.c:437
 #, c-format
 msgid "Merged: %s"
 msgstr "Združeno: %s"
 
-#: ../plugins/subversion/svn-command.c:415
+#: ../plugins/subversion/svn-command.c:440
 #, c-format
 msgid "Conflicted: %s"
 msgstr "V sporu: %s"
 
-#: ../plugins/subversion/svn-command.c:419
+#: ../plugins/subversion/svn-command.c:444
 #, c-format
 msgid "Missing: %s"
 msgstr "Manjkajoče: %s"
 
-#: ../plugins/subversion/svn-command.c:422
+#: ../plugins/subversion/svn-command.c:447
 #, c-format
 msgid "Obstructed: %s"
 msgstr "Ovirano: %s"
@@ -10106,10 +10099,12 @@ msgid "Do not display warning if not using a Debug configuration"
 msgstr "Ne prikaži opozorila, kadar nastavitve razhroščevanja niso v uporabi"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:1
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:7
 msgid "Add '(' after function call autocompletion"
 msgstr "Dodaj '(' za samodejnim izpolnjevanjem klica funkcije"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:2
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:8
 msgid "Add a space after function call autocompletion"
 msgstr "Dodaj presledek za samodejnim izpolnjevanjem klica funkcije"
 
@@ -10122,6 +10117,7 @@ msgid "Autocompletion (C/C++/Java only)"
 msgstr "Samodejno izpolnjevanje (le C/C++/Java)"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:5
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:10
 msgid "Brace indentation size in spaces:"
 msgstr "Velikost zamikanja oklepajev v presledkih:"
 
@@ -10130,6 +10126,7 @@ msgid "Calltips"
 msgstr "Namigi kodnih zapisov"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:7
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:12
 msgid "Enable code completion"
 msgstr "Omogoči dopolnjevanje kode"
 
@@ -10138,6 +10135,7 @@ msgid "Enable smart brace completion"
 msgstr "Omogoči pametno dopolnjevanje oklepajev"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:9
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:13
 msgid "Enable smart indentation"
 msgstr "Omogoči pametno zamikanje"
 
@@ -10158,23 +10156,29 @@ msgid "Parenthesis indentation"
 msgstr "Zamikanje oklepajev"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:16
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:7
 msgid "Show calltips"
 msgstr "Pokaži namige kodnih zapisov"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:17
 msgid "Smart Indentation"
 msgstr "Pametno zamikanje"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:18
 msgid "Statement indentation size in spaces:"
 msgstr "Velikost zamikanja stavkov v presledkih:"
 
+#. ANJUTA_STOCK_AUTOINDENT,
 #: ../plugins/language-support-cpp-java/plugin.c:1882
+#: ../plugins/language-support-python/plugin.c:1181
 msgid "Auto-Indent"
 msgstr "Samodejno zamikanje"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1883
+#: ../plugins/language-support-python/plugin.c:1182
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr "Samodejno zamakni trenutno vrstico na osnovi nastavitev zamikanja"
 
@@ -10195,9 +10199,77 @@ msgstr "C++/Java pomočnik"
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
-#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1231
+#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1258
 msgid "C/C++"
 msgstr "C/C++"
+
+#: ../plugins/language-support-python/plugin.c:907
+msgid "Python support warning"
+msgstr "Opozorilo podpore za Python"
+
+#: ../plugins/language-support-python/plugin.c:914
+msgid ""
+"Couldn't find python-rope (http://rope.sf.net) libraries which\n"
+"are needed for autocompletion in python files.\n"
+"Please install them and check the python path in the preferences."
+msgstr ""
+"Ni mogoče najti knjižnic python-rope (http://rope.sf.net), ki\n"
+"so zahtevane za samodejno dopolnjevanje v datotekah python.\n"
+"Paktei morajo biti nameščeni, pot do njih pa mora biti pravilno določena."
+
+#: ../plugins/language-support-python/plugin.c:917
+msgid "Do not show that warning again"
+msgstr "Opozorila ne prikaži več"
+
+#: ../plugins/language-support-python/plugin.c:1263
+msgid "Python Assistance"
+msgstr "Python pomočnik"
+
+#: ../plugins/language-support-python/plugin.c:1362
+#: ../plugins/language-support-python/plugin.c:1371
+#: ../plugins/language-support-python/python-assist.c:937
+msgid "Python"
+msgstr "Python"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:1
+msgid "<b>Autocompletion</b>"
+msgstr "<b>Samodejno dopolnjevanje</b>"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:2
+msgid "<b>Calltips</b>"
+msgstr "<b>Namigi kodnih zapisov</b>"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:3
+msgid "<b>Indentation parameters</b>"
+msgstr "<b>Parametri zamika</b>"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:4
+msgid "<b>Interpreter</b>"
+msgstr "<b>Tolmačnik</b>"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:5
+msgid "<b>Rope Options</b>"
+msgstr "<b>Možnosti pritrjevanja</b>"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:6
+msgid "<b>Smart Indentation</b>"
+msgstr "<b>Pametno zamikanje</b>"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:9
+msgid "Autocomplete"
+msgstr "Samodejno dopolnjevanje"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:11
+msgid "Enable adaptive indentation"
+msgstr "Omogoči prilagodljivo zamikanje"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:14
+msgid "Environment"
+msgstr "Okolje"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:15
+msgid "Path: "
+msgstr "Pot:"
 
 #: ../plugins/sourceview/plugin.c:232
 #: ../plugins/sourceview/plugin.c:273
@@ -10487,3 +10559,25 @@ msgstr "Najmanjše število znakov za dopolnjevanje"
 msgid "Symbol"
 msgstr "Simbol"
 
+#~ msgid "A GNOME applet project"
+#~ msgstr "Izvorni GNOME apletni projekt"
+
+#~ msgid "Applet Title:"
+#~ msgstr "Naslov apleta:"
+
+#~ msgid "Display description of the applet"
+#~ msgstr "Pokaži opis apleta"
+
+#~ msgid "Display title of the applet"
+#~ msgstr "Pokaži naslov apleta"
+
+#~ msgid "GNOME Applet"
+#~ msgstr "Gnome Aplet"
+
+#~ msgid ""
+#~ "The following pretty printers, without a register functions, have been "
+#~ "disabled:\n"
+#~ " %s"
+#~ msgstr ""
+#~ "Navedeni oblikovni tiskalniki, brez vpisnih funkcij, so onemogočeni:\n"
+#~ " %s"

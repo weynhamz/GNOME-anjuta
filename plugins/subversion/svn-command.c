@@ -29,39 +29,14 @@ struct _SvnCommandPriv
 	svn_client_ctx_t *client_context;
 	apr_pool_t *pool;
 	GQueue *info_messages;
-	GMutex *ui_lock;
-	gboolean main_thread_has_ui_lock;
+	GCond *dialog_finished_condition;
+	GMutex *dialog_finished_lock;
+	gboolean dialog_finished;
 	gboolean cancelled;
 };
 
 G_DEFINE_TYPE (SvnCommand, svn_command, ANJUTA_TYPE_ASYNC_COMMAND);
 
-static gboolean
-svn_command_acquire_ui_lock (SvnCommand *self)
-{
-	gboolean got_lock;
-	
-	if (!self->priv->main_thread_has_ui_lock)
-	{
-		got_lock = g_mutex_trylock (self->priv->ui_lock);
-		
-		if (got_lock)
-			self->priv->main_thread_has_ui_lock = TRUE;
-		
-		return !got_lock;
-	}
-	else
-		return FALSE;
-}
-
-static gboolean
-svn_command_release_ui_lock (GMutex *ui_lock)
-{
-	g_mutex_unlock (ui_lock);
-	g_mutex_free (ui_lock);
-	
-	return FALSE;
-}
 
 /* Auth functions */
 /* In order to prevent deadlocking when Subversion prompts for something, we
@@ -93,6 +68,41 @@ typedef struct
 	apr_pool_t *pool;
 	svn_error_t *error;
 } SSLServerTrustArgs;
+
+
+/* Idle destroy functions. The command threads should wait for the dialogs to 
+ * finish before continuing. These functions signals the condition structure,
+ * allowing them to continue. These functions are executed on the main thread */
+
+static void
+on_simple_prompt_finished (SimplePromptArgs *args)
+{
+	SvnCommand *self;
+
+	self = SVN_COMMAND (args->baton);
+	
+	g_mutex_lock (self->priv->dialog_finished_lock);
+	
+	self->priv->dialog_finished = TRUE;
+	g_cond_signal (self->priv->dialog_finished_condition);
+
+	g_mutex_unlock (self->priv->dialog_finished_lock);
+}
+
+static void
+on_ssl_server_trust_prompt_finished (SSLServerTrustArgs *args)
+{
+	SvnCommand *self;
+
+	self = SVN_COMMAND (args->baton);
+	
+	g_mutex_lock (self->priv->dialog_finished_lock);
+	
+	self->priv->dialog_finished = TRUE;
+	g_cond_signal (self->priv->dialog_finished_condition);
+
+	g_mutex_unlock (self->priv->dialog_finished_lock);
+}
 
 static gboolean
 simple_prompt (SimplePromptArgs *args)
@@ -162,10 +172,6 @@ simple_prompt (SimplePromptArgs *args)
 	gtk_widget_destroy (svn_user_auth);
 	args->error = err;
 	
-	/* Release because main thread should already have the lock */
-	svn_command = SVN_COMMAND (args->baton);
-	svn_command_unlock_ui (svn_command);
-	
 	return FALSE;
 }
 
@@ -228,10 +234,6 @@ ssl_server_trust_prompt (SSLServerTrustArgs *args)
 	gtk_widget_destroy (svn_server_trust);
 	args->error = err;
 	
-	/* Release because main thread should already have the lock */
-	svn_command = SVN_COMMAND (args->baton);
-	svn_command_unlock_ui (svn_command);
-	
 	return FALSE;
 }
 
@@ -244,7 +246,7 @@ svn_auth_simple_prompt_func_cb (svn_auth_cred_simple_t **cred, void *baton,
 	SimplePromptArgs *args;
 	SvnCommand *svn_command;
 	svn_error_t *error;
-	
+
 	args = g_new0 (SimplePromptArgs, 1);
 	args->cred = cred;
 	args->baton = baton;
@@ -255,15 +257,27 @@ svn_auth_simple_prompt_func_cb (svn_auth_cred_simple_t **cred, void *baton,
 	
 	svn_command = SVN_COMMAND (baton);
 	
-	g_idle_add ((GSourceFunc) simple_prompt, args);
+	/* Wait for the dialog to finish */
+	g_mutex_lock (svn_command->priv->dialog_finished_lock);
 	
-	svn_command_lock_ui (svn_command);
-	svn_command_unlock_ui (svn_command);
+	svn_command->priv->dialog_finished = FALSE;
+
+	g_idle_add_full (G_PRIORITY_HIGH_IDLE,
+					 (GSourceFunc) simple_prompt, args, 
+	                 (GDestroyNotify) on_simple_prompt_finished);
+
+	while (!svn_command->priv->dialog_finished)
+	{
+		g_cond_wait (svn_command->priv->dialog_finished_condition, 
+		             svn_command->priv->dialog_finished_lock);
+	}
 	
 	error = args->error;
 	g_free (args->realm);
 	g_free (args->username);
 	g_free (args);
+
+	g_mutex_unlock (svn_command->priv->dialog_finished_lock);
 	
 	return error;
 
@@ -292,17 +306,28 @@ svn_auth_ssl_server_trust_prompt_func_cb (svn_auth_cred_ssl_server_trust_t **cre
 	args->pool = pool;
 	
 	svn_command = SVN_COMMAND (baton);
+
+	/* Wait for the dialog to finish */
+	g_mutex_lock (svn_command->priv->dialog_finished_lock);
 	
+	svn_command->priv->dialog_finished = FALSE;
+
 	g_idle_add_full (G_PRIORITY_HIGH_IDLE,
-					 (GSourceFunc) ssl_server_trust_prompt, args, NULL);
-	
-	svn_command_lock_ui (svn_command);
-	svn_command_unlock_ui (svn_command);
+					 (GSourceFunc) ssl_server_trust_prompt, args, 
+	                 (GDestroyNotify) on_ssl_server_trust_prompt_finished);
+
+	while (!svn_command->priv->dialog_finished)
+	{
+		g_cond_wait (svn_command->priv->dialog_finished_condition, 
+		             svn_command->priv->dialog_finished_lock);
+	}
 	
 	error = args->error;
 	g_free (args->realm);
 	g_free (args->cert_info);
 	g_free (args);
+
+	g_mutex_unlock (svn_command->priv->dialog_finished_lock);
 	
 	return error;
 }
@@ -467,10 +492,8 @@ svn_command_init (SvnCommand *self)
 						   self->priv->pool);
 	
 	self->priv->info_messages = g_queue_new ();
-	self->priv->ui_lock = g_mutex_new ();
-	
-	/* Make sure that the main thread holds the lock */
-	g_idle_add ((GSourceFunc) svn_command_acquire_ui_lock, self);
+	self->priv->dialog_finished_lock = g_mutex_new ();
+	self->priv->dialog_finished_condition = g_cond_new ();
 	
 	/* Fill in the auth baton callbacks */
 	providers = apr_array_make (self->priv->pool, 1, 
@@ -551,7 +574,8 @@ svn_command_finalize (GObject *object)
 		current_message_line = g_list_next (current_message_line);
 	}
 	
-	g_idle_add ((GSourceFunc) svn_command_release_ui_lock, self->priv->ui_lock);
+	g_mutex_free (self->priv->dialog_finished_lock);
+	g_cond_free (self->priv->dialog_finished_condition);
 	
 	g_queue_free (self->priv->info_messages);
 	g_free (self->priv);
@@ -633,24 +657,6 @@ apr_pool_t *
 svn_command_get_pool (SvnCommand *self)
 {
 	return self->priv->pool;
-}
-
-void
-svn_command_lock_ui (SvnCommand *self)
-{
-	g_mutex_lock (self->priv->ui_lock);
-	
-	/* Have the main thread acquire the lock as soon as the other thread is done
-	 * with it. The main thread should *not* acqure the lock, only release 
-	 * it. */
-	self->priv->main_thread_has_ui_lock = FALSE;
-	g_idle_add ((GSourceFunc) svn_command_acquire_ui_lock, self);
-}
-
-void
-svn_command_unlock_ui (SvnCommand *self)
-{
-	g_mutex_unlock (self->priv->ui_lock);
 }
 
 gchar *

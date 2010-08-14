@@ -36,6 +36,7 @@ public class BlockLocator : Vala.CodeVisitor {
 		if (begin <= location && location <= end)
 			if (innermost == null || (innermost_begin <= begin && innermost_end >= end))
 				innermost = b;
+		b.accept_children(this);
 	}
 
 	public override void visit_namespace (Vala.Namespace ns) {

@@ -44,7 +44,7 @@ void category_changed(void)
 		if(i != 0)if( mw.mitems == NULL || mw.mitems[i-2] == NULL) return;
 		if(i == categorys+3)
 		{
-			int j =  gconf_client_get_int(client, "/apps/gtodo/view/last-category",NULL);
+			int j = anjuta_preferences_get_int (preferences, "gtodo.last-category");
 			category_manager();
 			if(j < categorys+3 && mw.mitems != NULL && mw.mitems[j-2] != NULL) gtk_combo_box_set_active(GTK_COMBO_BOX(mw.option),j);
 			gtk_list_store_clear(mw.list);
@@ -53,7 +53,7 @@ void category_changed(void)
 		}
 		gtk_list_store_clear(mw.list);
 		load_category();
-		gconf_client_set_int(client, "/apps/gtodo/view/last-category",i,NULL);
+		anjuta_preferences_set_int (preferences, "gtodo.last-category", i);
 	}
 }
 

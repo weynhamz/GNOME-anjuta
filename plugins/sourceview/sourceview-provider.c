@@ -36,6 +36,9 @@ static void
 on_context_cancelled (GtkSourceCompletionContext* context, SourceviewProvider* provider)
 {
 	g_signal_handlers_disconnect_by_func (context, on_context_cancelled, provider);
+
+	g_signal_emit_by_name (provider->sv, "cancelled");
+	
 	provider->cancelled = TRUE;
 	provider->context = NULL;
 }

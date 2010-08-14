@@ -1474,7 +1474,7 @@ static void
 docman_plugin_set_tab_pos (DocmanPlugin *ep)
 {
 	if (anjuta_preferences_get_bool_with_default (ep->prefs, EDITOR_TABS_HIDE,
-												 TRUE))
+												 FALSE))
 	{
 		gtk_notebook_set_show_tabs (GTK_NOTEBOOK (ep->docman), FALSE);
 	}

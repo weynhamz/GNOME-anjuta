@@ -64,8 +64,6 @@ GQueue * svn_command_get_info_queue (SvnCommand *self);
 void svn_command_set_error (SvnCommand *self, svn_error_t *error);
 svn_client_ctx_t *svn_command_get_client_context (SvnCommand *self);
 apr_pool_t *svn_command_get_pool (SvnCommand *self);
-void svn_command_lock_ui (SvnCommand *self);
-void svn_command_unlock_ui (SvnCommand *self);
 gchar *svn_command_make_canonical_path (SvnCommand *self, const gchar *path);
 
 /* Static methods */

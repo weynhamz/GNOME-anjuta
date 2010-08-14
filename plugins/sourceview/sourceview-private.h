@@ -72,6 +72,9 @@ struct SourceviewPrivate {
 	/* Hover */
 	gchar* tooltip;
 	SourceviewCell* tooltip_cell;
+
+	/* To recover the deleted text */
+	gchar *deleted_text;
 	
 	/* Plugin */
 	AnjutaPlugin* plugin;

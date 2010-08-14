@@ -190,9 +190,9 @@ plugins/project-wizard/property.c
 [type: gettext/xml]plugins/project-wizard/templates/java.wiz.in
 [type: gettext/xml]plugins/project-wizard/templates/js.wiz.in
 [type: gettext/xml]plugins/project-wizard/templates/python.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/pygtk.wiz.in
 [type: gettext/xml]plugins/project-wizard/templates/mkfile.wiz.in
 [type: gettext/xml]plugins/project-wizard/templates/sdl.wiz.in
-[type: gettext/xml]plugins/project-wizard/templates/gnome-applet.wiz.in
 [type: gettext/xml]plugins/project-wizard/templates/library.wiz.in
 [type: gettext/glade]plugins/run-program/anjuta-run-program.ui
 plugins/run-program/execute.c
@@ -261,6 +261,9 @@ plugins/debug-manager/anjuta-debug-manager.schemas.in
 [type: gettext/glade]plugins/language-support-cpp-java/anjuta-language-cpp-java.ui
 plugins/language-support-cpp-java/plugin.c
 plugins/language-support-cpp-java/cpp-java-assist.c
+plugins/language-support-python/plugin.c
+plugins/language-support-python/python-assist.c
+[type: gettext/glade]plugins/language-support-python/python-plugin-properties.ui
 plugins/sourceview/plugin.c
 [type: gettext/ini]plugins/gdb/anjuta-gdb.plugin.in
 [type: gettext/ini]plugins/git/git.plugin.in

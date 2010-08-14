@@ -124,7 +124,7 @@ public class CTagsVisitor : CodeVisitor {
 			if (p.ellipsis) {
 				ret.append("...");
 			} else {
-				ret.append (p.parameter_type.to_qualified_string());
+				ret.append (p.variable_type.to_qualified_string());
 				ret.append (" ");
 				ret.append (p.name);
 			}
@@ -295,7 +295,7 @@ public class CTagsVisitor : CodeVisitor {
 		entry.kind = 'f';
 		entry.access = get_access (f);
 		scope (f, entry.scope);
-		entry.typeref = f.field_type.to_qualified_string();
+		entry.typeref = f.variable_type.to_qualified_string();
 
 		taglist.append(entry);
 //		print_tag(entry);

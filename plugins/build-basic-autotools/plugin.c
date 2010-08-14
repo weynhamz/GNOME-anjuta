@@ -1521,13 +1521,10 @@ build_save_distclean_and_execute_command (BasicAutotoolsPlugin* bplugin, BuildPr
 		// Need to run make clean before
 		if (!anjuta_util_dialog_boolean_question (GTK_WINDOW (ANJUTA_PLUGIN (bplugin)->shell), _("Before using this new configuration, the default one needs to be removed. Do you want to do that ?"), NULL))
 		{
-			GError *err;
-			
-			err = g_error_new (ianjuta_builder_error_quark (),
-									 IANJUTA_BUILDER_CANCELED,
-									 _("Command canceled by user"));
-			
-			build_program_callback (context->program, G_OBJECT (bplugin), context, err);
+			if (err)
+				*err = g_error_new (ianjuta_builder_error_quark (),
+				                   IANJUTA_BUILDER_CANCELED,
+				                   _("Command canceled by user"));
 			
 			return NULL;
 		}
@@ -2140,7 +2137,7 @@ build_get_uri_configuration (BasicAutotoolsPlugin *plugin, const gchar *uri)
 	for (cfg = build_configuration_list_get_first (plugin->configurations); cfg != NULL; cfg = build_configuration_next (cfg))
 	{
 		const gchar *root = build_configuration_list_get_build_uri  (plugin->configurations, cfg);
-		gsize len = strlen (root);
+		gsize len = root != NULL ? strlen (root) : 0;
 
 		if ((len > uri_len) && (strncmp (uri, root, len) == 0))
 		{
