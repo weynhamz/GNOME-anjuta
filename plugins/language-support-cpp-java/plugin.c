@@ -52,6 +52,8 @@
 #define PREFS_BUILDER PACKAGE_DATA_DIR"/glade/anjuta-language-cpp-java.ui"
 #define ICON_FILE "anjuta-language-cpp-java-plugin.png"
 
+#define FIXME_DEFAULT_PACKAGE_VERSION		"1.0"
+
 /* Preferences keys */
 
 #define PREF_INDENT_AUTOMATIC "language.cpp.indent.automatic"
@@ -2027,15 +2029,44 @@ on_autocompletion_toggled (GtkToggleButton* button,
 }
 
 static void
-on_package_activated (AnjutaPkgConfigChooser *self, const gchar* package)
+on_package_activated (AnjutaPkgConfigChooser *self, const gchar* package,
+    				  gpointer data)
 {
-	g_message ("activated %s", package);
+	CppJavaPlugin* plugin;
+	IAnjutaSymbolManager *isymbol_manager;
+
+	plugin = ANJUTA_PLUGIN_CPP_JAVA (data);
+
+	DEBUG_PRINT ("activated %s", package);
+	isymbol_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+												IAnjutaSymbolManager,
+												NULL);
+	
+	ianjuta_symbol_manager_activate_package (isymbol_manager, 
+	    									 package, 
+    							  			 FIXME_DEFAULT_PACKAGE_VERSION,
+    							  			 NULL);
+	
 }
 
 static void
-on_package_deactivated (AnjutaPkgConfigChooser *self, const gchar* package)
+on_package_deactivated (AnjutaPkgConfigChooser *self, const gchar* package,
+    					gpointer data)
 {
-	g_message ("deactivated %s", package);
+	CppJavaPlugin* plugin;
+	IAnjutaSymbolManager *isymbol_manager;
+
+	plugin = ANJUTA_PLUGIN_CPP_JAVA (data);
+
+	DEBUG_PRINT ("deactivated %s", package);
+
+	isymbol_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+												IAnjutaSymbolManager,
+												NULL);
+	ianjuta_symbol_manager_deactivate_package (isymbol_manager, 
+	    									 package, 
+    							  			 FIXME_DEFAULT_PACKAGE_VERSION,
+    							  			 NULL);
 }
 
 static void
@@ -2062,14 +2093,14 @@ ipreferences_merge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
 	                  plugin->bxml);
 	on_autocompletion_toggled (GTK_TOGGLE_BUTTON (toggle), plugin->bxml);
 
-	pkg_config = gtk_builder_get_object (plugin->bxml, PREF_WIDGET_PKG_CONFIG);
+	pkg_config = GTK_WIDGET (gtk_builder_get_object (plugin->bxml, PREF_WIDGET_PKG_CONFIG));
 	anjuta_pkg_config_chooser_show_active_column (ANJUTA_PKG_CONFIG_CHOOSER (pkg_config), 
 	    										  TRUE);
 	g_signal_connect (G_OBJECT (pkg_config), "package-activated",
-					  G_CALLBACK (on_package_activated), NULL);
+					  G_CALLBACK (on_package_activated), plugin);
 
 	g_signal_connect (G_OBJECT (pkg_config), "package-deactivated",
-					  G_CALLBACK (on_package_deactivated), NULL);
+					  G_CALLBACK (on_package_deactivated), plugin);
 	
 	gtk_widget_show_all (pkg_config);
 }
