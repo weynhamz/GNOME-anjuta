@@ -275,7 +275,7 @@ python_assist_destroy_completion_cache (PythonAssist *assist)
 	}
 	if (assist->priv->rope_cache)
 	{
-		g_free (assist->priv->rope_cache);
+		g_string_free (assist->priv->rope_cache, TRUE);
 		assist->priv->rope_cache = NULL;
 	}
 }
