@@ -86,13 +86,17 @@ public class ValaPlugin : Plugin {
 
 				parser.parse (context);
 				genie_parser.parse (context);
-				if (report.errors_found ())
+				if (report.errors_found ()) {
+					Vala.CodeContext.pop();
 					return null;
+				}
 
 				resolver.resolve (context);
-				if (report.errors_found ())
+				if (report.errors_found ()) {
+					Vala.CodeContext.pop();
 					/* TODO: there may be missing packages */
 					return null;
+				}
 
 				analyzer.analyze (context);
 
@@ -119,8 +123,10 @@ public class ValaPlugin : Plugin {
 		//debug("Deactivating ValaPlugin");
 		remove_watch(editor_watch_id, true);
 
-		context = null;
-		source_files = null;
+		lock (context) {
+			context = null;
+			source_files = null;
+		}
 
 		return true;
 	}
