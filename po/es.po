@@ -1,4 +1,4 @@
-# translation of anjuta.HEAD.po to Español
+# translation of anjuta.master.po to Español
 # traducción de Anjuta al Español
 # Copyright © 2001-2003, 2006, 2007, 2008 Free Software Foundation, Inc.
 # This file is distributed under the same license as the anjuta package.
@@ -10,11 +10,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta.HEAD\n"
+"Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2010-08-04 07:07+0000\n"
-"PO-Revision-Date: 2010-08-05 10:22+0200\n"
+"POT-Creation-Date: 2010-08-08 09:48+0000\n"
+"PO-Revision-Date: 2010-08-15 21:24+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -416,7 +416,7 @@ msgid "_Reset"
 msgstr "_Restablecer"
 
 #: ../libanjuta/anjuta-preferences-dialog.c:95
-#: ../plugins/gtodo/interface.c:229 ../plugins/gtodo/mcategory.c:36
+#: ../plugins/gtodo/interface.c:219 ../plugins/gtodo/mcategory.c:36
 msgid "Category"
 msgstr "Categoría"
 
@@ -1366,6 +1366,7 @@ msgstr "Propiedades generales de la clase"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:16
 #: ../plugins/project-wizard/templates/js.wiz.in.h:8
 #: ../plugins/project-wizard/templates/python.wiz.in.h:16
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:12
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:12
 #: ../plugins/project-wizard/templates/library.wiz.in.h:16
 msgid "General Public License (GPL)"
@@ -1398,6 +1399,7 @@ msgstr "Declaración e implementación en línea"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:18
 #: ../plugins/project-wizard/templates/js.wiz.in.h:10
 #: ../plugins/project-wizard/templates/python.wiz.in.h:18
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:13
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:13
 #: ../plugins/project-wizard/templates/library.wiz.in.h:17
 msgid "Lesser General Public License (LGPL)"
@@ -1432,24 +1434,24 @@ msgstr "Archivo de código fuente:"
 msgid "Source/Header Headings:"
 msgstr "Titulares de Fuente/Cabecera:"
 
-#: ../plugins/class-gen/generator.c:132
+#: ../plugins/class-gen/generator.c:133
 #, c-format
 msgid "Header or source file has not been created"
 msgstr "No se ha creado el archivo de cabeceras o fuentes"
 
-#: ../plugins/class-gen/generator.c:294
+#: ../plugins/class-gen/generator.c:295
 msgid "Autogen template used for the header file"
 msgstr "Plantilla de Autogen usada para el archivo de cabecera"
 
-#: ../plugins/class-gen/generator.c:302
+#: ../plugins/class-gen/generator.c:303
 msgid "Autogen template used for the implementation file"
 msgstr "Plantilla de Autogen usada para el archivo de implementación"
 
-#: ../plugins/class-gen/generator.c:310 ../plugins/class-gen/generator.c:318
+#: ../plugins/class-gen/generator.c:311 ../plugins/class-gen/generator.c:319
 msgid "File to which the processed template will be written"
 msgstr "Archivo en el que se escribirá la plantilla procesada"
 
-#: ../plugins/class-gen/generator.c:402
+#: ../plugins/class-gen/generator.c:403
 #, c-format
 msgid "Failed to write autogen definition file"
 msgstr "Falló al escribir el archivo de definición de Autogen"
@@ -3321,9 +3323,10 @@ msgstr "_Repetir búsqueda rápida"
 msgid "Repeat quick search"
 msgstr "Repetir la búsqueda rápida"
 
-#: ../plugins/document-manager/plugin.c:273 ../plugins/gtodo/interface.c:168
+#: ../plugins/document-manager/plugin.c:273 ../plugins/gtodo/interface.c:158
 #: ../src/anjuta-actions.h:30
 #: ../plugins/language-support-cpp-java/plugin.c:1876
+#: ../plugins/language-support-python/plugin.c:1175
 msgid "_Edit"
 msgstr "_Editar"
 
@@ -4428,6 +4431,7 @@ msgstr "Nombre del paquete:"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:29
 #: ../plugins/project-wizard/templates/js.wiz.in.h:17
 #: ../plugins/project-wizard/templates/python.wiz.in.h:27
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:24
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:33
 #: ../plugins/project-wizard/templates/library.wiz.in.h:31
 msgid "Version:"
@@ -4845,6 +4849,7 @@ msgstr "Autor/Grep"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:7
 #: ../plugins/project-wizard/templates/js.wiz.in.h:2
 #: ../plugins/project-wizard/templates/python.wiz.in.h:7
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:3
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:6
 #: ../plugins/project-wizard/templates/library.wiz.in.h:6
 msgid "Author:"
@@ -6306,27 +6311,27 @@ msgstr "Empotrar hoja de estilo (CSS) predeterminada"
 msgid "Custom (CSS) style sheet"
 msgstr "Hoja de estilo (CSS) personalizada"
 
-#: ../plugins/gtodo/interface.c:34 ../src/anjuta-actions.h:38
+#: ../plugins/gtodo/interface.c:35 ../src/anjuta-actions.h:38
 msgid "_View"
 msgstr "_Ver"
 
-#: ../plugins/gtodo/interface.c:146
+#: ../plugins/gtodo/interface.c:136
 msgid "All"
 msgstr "Todo"
 
-#: ../plugins/gtodo/interface.c:171
+#: ../plugins/gtodo/interface.c:161
 msgid "_Export"
 msgstr "_Exportar"
 
-#: ../plugins/gtodo/interface.c:215
+#: ../plugins/gtodo/interface.c:205
 msgid "Priority"
 msgstr "Prioridad"
 
-#: ../plugins/gtodo/interface.c:222
+#: ../plugins/gtodo/interface.c:212
 msgid "Due date"
 msgstr "Fecha de vencimiento"
 
-#: ../plugins/gtodo/interface.c:236
+#: ../plugins/gtodo/interface.c:226
 msgid "Summary"
 msgstr "Resumen"
 
@@ -6400,19 +6405,19 @@ msgstr "Borrar"
 msgid "<New category (%d)>"
 msgstr "<Categoría nueva (%d)>"
 
-#: ../plugins/gtodo/notification.c:68
+#: ../plugins/gtodo/notification.c:66
 #, c-format
 msgid "The following item is due in %i minute:"
 msgid_plural "The following item is due in %i minutes:"
 msgstr[0] "El elemento siguiente caduca en %i minutos:"
 msgstr[1] "El elemento siguiente caduca en %i minutos:"
 
-#: ../plugins/gtodo/notification.c:77
+#: ../plugins/gtodo/notification.c:75
 msgid "The following item is due:"
 msgstr "El siguiente elemento está caducado:"
 
 #. gtk_container_set_border_width(GTK_CONTAINER(hbox), 9);
-#: ../plugins/gtodo/notification.c:118
+#: ../plugins/gtodo/notification.c:116
 msgid "_Do not show again"
 msgstr "_No mostrar de nuevo"
 
@@ -6951,6 +6956,7 @@ msgstr ""
 #: ../plugins/project-wizard/templates/java.wiz.in.h:13
 #: ../plugins/project-wizard/templates/js.wiz.in.h:5
 #: ../plugins/project-wizard/templates/python.wiz.in.h:13
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:9
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:9
 #: ../plugins/project-wizard/templates/library.wiz.in.h:13
 #: ../plugins/subversion/anjuta-subversion.ui.h:9
@@ -7603,6 +7609,7 @@ msgstr "Añade soporte para construir bibliotecas compartidas en su proyecto"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:8
 #: ../plugins/project-wizard/templates/js.wiz.in.h:3
 #: ../plugins/project-wizard/templates/python.wiz.in.h:8
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:4
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:7
 #: ../plugins/project-wizard/templates/library.wiz.in.h:7
 msgid "Basic information"
@@ -7621,6 +7628,7 @@ msgstr "Información básica"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:9
 #: ../plugins/project-wizard/templates/js.wiz.in.h:4
 #: ../plugins/project-wizard/templates/python.wiz.in.h:9
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:5
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:8
 #: ../plugins/project-wizard/templates/library.wiz.in.h:8
 msgid "Berkeley Software Distribution License (BSD)"
@@ -7637,6 +7645,7 @@ msgstr "Licencia de Distribución de Software Berkeley (BSD)"
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:9
 #: ../plugins/project-wizard/templates/java.wiz.in.h:10
 #: ../plugins/project-wizard/templates/python.wiz.in.h:10
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:6
 #: ../plugins/project-wizard/templates/library.wiz.in.h:10
 msgid "Check the packages that your project requires"
 msgstr "Comprobar los paquetes que necesita su proyecto"
@@ -7653,6 +7662,7 @@ msgstr "Comprobar los paquetes que necesita su proyecto"
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:10
 #: ../plugins/project-wizard/templates/java.wiz.in.h:11
 #: ../plugins/project-wizard/templates/python.wiz.in.h:11
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:7
 #: ../plugins/project-wizard/templates/library.wiz.in.h:11
 msgid "Configure external packages"
 msgstr "Configurar paquetes externos"
@@ -7669,6 +7679,7 @@ msgstr "Configurar paquetes externos"
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:11
 #: ../plugins/project-wizard/templates/java.wiz.in.h:12
 #: ../plugins/project-wizard/templates/python.wiz.in.h:12
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:8
 #: ../plugins/project-wizard/templates/library.wiz.in.h:12
 msgid "Configure external packages:"
 msgstr "Configurar paquetes externos:"
@@ -7686,6 +7697,7 @@ msgstr "Configurar paquetes externos:"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:14
 #: ../plugins/project-wizard/templates/js.wiz.in.h:6
 #: ../plugins/project-wizard/templates/python.wiz.in.h:14
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:10
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:10
 #: ../plugins/project-wizard/templates/library.wiz.in.h:14
 msgid "Email address:"
@@ -7705,6 +7717,7 @@ msgstr "Dirección de correo-e:"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:15
 #: ../plugins/project-wizard/templates/js.wiz.in.h:7
 #: ../plugins/project-wizard/templates/python.wiz.in.h:15
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:11
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:11
 #: ../plugins/project-wizard/templates/library.wiz.in.h:15
 msgid "General Project Information"
@@ -7727,6 +7740,7 @@ msgstr "Genérico (pequeño)"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:19
 #: ../plugins/project-wizard/templates/js.wiz.in.h:11
 #: ../plugins/project-wizard/templates/python.wiz.in.h:19
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:14
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:14
 #: ../plugins/project-wizard/templates/library.wiz.in.h:19
 msgid "License"
@@ -7745,6 +7759,7 @@ msgstr "Licencia"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:22
 #: ../plugins/project-wizard/templates/js.wiz.in.h:12
 #: ../plugins/project-wizard/templates/python.wiz.in.h:20
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:15
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:16
 #: ../plugins/project-wizard/templates/library.wiz.in.h:20
 msgid "No license"
@@ -7763,6 +7778,7 @@ msgstr "Sin licencia"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:23
 #: ../plugins/project-wizard/templates/js.wiz.in.h:13
 #: ../plugins/project-wizard/templates/python.wiz.in.h:21
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:16
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:17
 #: ../plugins/project-wizard/templates/library.wiz.in.h:23
 msgid "Options for project build system"
@@ -7782,6 +7798,7 @@ msgstr "Opciones para el sistema de construcción del proyecto"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:24
 #: ../plugins/project-wizard/templates/js.wiz.in.h:14
 #: ../plugins/project-wizard/templates/python.wiz.in.h:22
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:17
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:18
 #: ../plugins/project-wizard/templates/library.wiz.in.h:24
 msgid "Project Name:"
@@ -7800,6 +7817,7 @@ msgstr "Nombre del proyecto:"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:25
 #: ../plugins/project-wizard/templates/js.wiz.in.h:15
 #: ../plugins/project-wizard/templates/python.wiz.in.h:23
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:18
 #: ../plugins/project-wizard/templates/mkfile.wiz.in.h:6
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:19
 #: ../plugins/project-wizard/templates/library.wiz.in.h:25
@@ -7817,8 +7835,8 @@ msgstr "Opciones del proyecto"
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:25
 #: ../plugins/project-wizard/templates/java.wiz.in.h:26
 #: ../plugins/project-wizard/templates/python.wiz.in.h:24
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:21
 #: ../plugins/project-wizard/templates/library.wiz.in.h:26
-#| msgid "Require Package:"
 msgid "Required Packages:"
 msgstr "Paquetes necesarios:"
 
@@ -7835,6 +7853,7 @@ msgstr "Paquetes necesarios:"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:27
 #: ../plugins/project-wizard/templates/js.wiz.in.h:16
 #: ../plugins/project-wizard/templates/python.wiz.in.h:25
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:22
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:32
 #: ../plugins/project-wizard/templates/library.wiz.in.h:27
 msgid "Select code license"
@@ -7852,6 +7871,7 @@ msgstr "Seleccionar la licencia del código"
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:27
 #: ../plugins/project-wizard/templates/java.wiz.in.h:28
 #: ../plugins/project-wizard/templates/python.wiz.in.h:26
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:23
 #: ../plugins/project-wizard/templates/library.wiz.in.h:30
 msgid "Use pkg-config to add library support from other packages"
 msgstr ""
@@ -7870,6 +7890,7 @@ msgstr ""
 #: ../plugins/project-wizard/templates/java.wiz.in.h:31
 #: ../plugins/project-wizard/templates/js.wiz.in.h:18
 #: ../plugins/project-wizard/templates/python.wiz.in.h:29
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:25
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:34
 #: ../plugins/project-wizard/templates/library.wiz.in.h:32
 msgid "project name"
@@ -7889,6 +7910,7 @@ msgstr "Un proyecto genérico"
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:2
 #: ../plugins/project-wizard/templates/java.wiz.in.h:3
 #: ../plugins/project-wizard/templates/python.wiz.in.h:3
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:1
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:3
 #: ../plugins/project-wizard/templates/library.wiz.in.h:3
 msgid "Add internationalization:"
@@ -7904,6 +7926,7 @@ msgstr "Añadir internacionalización:"
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:5
 #: ../plugins/project-wizard/templates/java.wiz.in.h:6
 #: ../plugins/project-wizard/templates/python.wiz.in.h:6
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:2
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:5
 #: ../plugins/project-wizard/templates/library.wiz.in.h:5
 msgid ""
@@ -8160,6 +8183,14 @@ msgstr "Un proyecto Python genérico usando la gestión de proyectos de automake
 #: ../plugins/project-wizard/templates/python.wiz.in.h:17
 msgid "Generic python (automake)"
 msgstr "Python genérico (automake)"
+
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:19
+msgid "PyGTK (automake)"
+msgstr "PyGTK (automake)"
+
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:20
+msgid "PyGTK project using automake"
+msgstr "Proyecto PyGTK usando automake"
 
 #: ../plugins/project-wizard/templates/mkfile.wiz.in.h:1
 msgid "Makefile project"
@@ -10119,10 +10150,12 @@ msgstr ""
 "depuración"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:1
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:7
 msgid "Add '(' after function call autocompletion"
 msgstr "Añadir «(» después de la llamada de autocompletado de la función"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:2
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:8
 msgid "Add a space after function call autocompletion"
 msgstr ""
 "Añadir un espacio después de la llamada de autocompletado de la función"
@@ -10136,6 +10169,7 @@ msgid "Autocompletion (C/C++/Java only)"
 msgstr "Autocompletado (sólo C/C++/Java)"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:5
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:10
 msgid "Brace indentation size in spaces:"
 msgstr "Tamaño de la sangría de la llave en espacios:"
 
@@ -10144,6 +10178,7 @@ msgid "Calltips"
 msgstr "Consejos de llamada"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:7
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:12
 msgid "Enable code completion"
 msgstr "Activar completado del código"
 
@@ -10152,6 +10187,7 @@ msgid "Enable smart brace completion"
 msgstr "Activar completado inteligente de llaves"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:9
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:13
 msgid "Enable smart indentation"
 msgstr "Activar sangría inteligente"
 
@@ -10172,23 +10208,29 @@ msgid "Parenthesis indentation"
 msgstr "Sangrado de paréntesis"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:16
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:7
 msgid "Show calltips"
 msgstr "Mostrar consejos de llamada"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:17
 msgid "Smart Indentation"
 msgstr "Sangrado inteligente"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:18
 msgid "Statement indentation size in spaces:"
 msgstr "Tamaño de sangría en espacios:"
 
+#. ANJUTA_STOCK_AUTOINDENT,
 #: ../plugins/language-support-cpp-java/plugin.c:1882
+#: ../plugins/language-support-python/plugin.c:1181
 msgid "Auto-Indent"
 msgstr "Sangría automática"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1883
+#: ../plugins/language-support-python/plugin.c:1182
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr ""
 "Auto sangrar la línea actual o la selección basándose en los ajustes de "
@@ -10214,6 +10256,83 @@ msgstr "C/C++/Java/Vala"
 #: ../plugins/language-support-cpp-java/cpp-java-assist.c:1231
 msgid "C/C++"
 msgstr "C/C++"
+
+#: ../plugins/language-support-python/plugin.c:907
+msgid "Python support warning"
+msgstr "Aviso del soporte de Python"
+
+#: ../plugins/language-support-python/plugin.c:914
+msgid ""
+"Couldn't find python-rope (http://rope.sf.net) libraries which\n"
+"are needed for autocompletion in python files.\n"
+"Please install them and check the python path in the preferences."
+msgstr ""
+"No se pudieron encontrar las bibliotecas python-rope (http://rope.sf.net)\n"
+"necesarias para el autocompletado en archivos Python.\n"
+"Instálelas y compruebe la ruta de Python en las preferencias."
+
+#: ../plugins/language-support-python/plugin.c:917
+#| msgid "Do not show again"
+msgid "Do not show that warning again"
+msgstr "No mostrar esa advertencia de nuevo"
+
+#: ../plugins/language-support-python/plugin.c:1263
+#| msgid "Project Assistant"
+msgid "Python Assistance"
+msgstr "Asistente de Python"
+
+#: ../plugins/language-support-python/plugin.c:1362
+#: ../plugins/language-support-python/plugin.c:1371
+#: ../plugins/language-support-python/python-assist.c:924
+#| msgid "Python Module"
+msgid "Python"
+msgstr "Python"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:1
+msgid "<b>Autocompletion</b>"
+msgstr "<b>Autocompletado</b>"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:2
+msgid "<b>Calltips</b>"
+msgstr "<b>Consejos de llamada</b>"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:3
+#| msgid "Indentation parameters"
+msgid "<b>Indentation parameters</b>"
+msgstr "<b>Parámetros del sangrado</b>"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:4
+#| msgid "<b>Parameters</b>"
+msgid "<b>Interpreter</b>"
+msgstr "<b>Intérprete</b>"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:5
+#| msgid "<b>Options</b>"
+msgid "<b>Rope Options</b>"
+msgstr "<b>Opciones de rope</b>"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:6
+msgid "<b>Smart Indentation</b>"
+msgstr "<b>Sangrado inteligente</b>"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:9
+#| msgid "Auto-complete"
+msgid "Autocomplete"
+msgstr "Autocompletar"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:11
+msgid "Enable adaptive indentation"
+msgstr "Activar sangría adaptativa"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:14
+#| msgid "Environment Variables:"
+msgid "Environment"
+msgstr "Entorno"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:15
+#| msgid "Path:"
+msgid "Path: "
+msgstr "Ruta: "
 
 #: ../plugins/sourceview/plugin.c:232 ../plugins/sourceview/plugin.c:273
 msgid "GtkSourceView Editor"
@@ -10753,14 +10872,6 @@ msgstr "Símbolo"
 #~ msgid "Edit&#x2026;"
 #~ msgstr "Editar&#x2026;"
 
-#~| msgid "Generic Python (automake)"
-#~ msgid "PyGTK (automake)"
-#~ msgstr "PyGTK (automake)"
-
-#~| msgid "Project name"
-#~ msgid "PyGTK project using automake"
-#~ msgstr "Proyecto PyGTK usando automake"
-
 #~ msgid "Autocompletion pop up choices"
 #~ msgstr "Autocompletar elecciones emergentes"
 
@@ -10806,9 +10917,6 @@ msgstr "Símbolo"
 
 #~ msgid "<b>Options:</b>"
 #~ msgstr "<b>Opciones:</b>"
-
-#~ msgid "<b>Options</b>"
-#~ msgstr "<b>Opciones</b>"
 
 #~ msgid "<b>Repository: </b>"
 #~ msgstr "<b>Repositorio:</b>"
@@ -10945,9 +11053,6 @@ msgstr "Símbolo"
 #~ msgid "<b>Actions</b>"
 #~ msgstr "<b>Acciones</b>"
 
-#~ msgid "<b>Parameters</b>"
-#~ msgstr "<b>Parámetros</b>"
-
 #~ msgid "<b>Scope</b>"
 #~ msgstr "<b>Ámbito</b>"
 
@@ -11019,9 +11124,6 @@ msgstr "Símbolo"
 
 #~ msgid "gtk-execute"
 #~ msgstr "gtk-execute"
-
-#~ msgid "Enable adaptive indentation"
-#~ msgstr "Activar sangría adaptativa"
 
 #~ msgid "Pressing tab indents"
 #~ msgstr "Sangrar al pulsar el tabulador"
@@ -11101,12 +11203,6 @@ msgstr "Símbolo"
 
 #~ msgid "<b>Session</b>"
 #~ msgstr "<b>Sesión</b>"
-
-#~ msgid "<b>Calltips</b>"
-#~ msgstr "<b>Consejos de llamada</b>"
-
-#~ msgid "<b>Smart Indentation</b>"
-#~ msgstr "<b>Sangrado inteligente</b>"
 
 #~ msgid ""
 #~ "Default\n"
@@ -11380,9 +11476,6 @@ msgstr "Símbolo"
 
 #~ msgid "SamplePlugin"
 #~ msgstr "Complemento de ejemplo"
-
-#~ msgid "<b>Autocompletion</b>"
-#~ msgstr "<b>Autocompletado</b>"
 
 #~ msgid "<b>Basic Indentation</b>"
 #~ msgstr "<b>Sangrado básico</b>"
