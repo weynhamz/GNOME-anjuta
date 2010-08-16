@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-master-po-gl-1952\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-11 18:28+0200\n"
-"PO-Revision-Date: 2010-08-11 18:30+0200\n"
+"POT-Creation-Date: 2010-08-17 00:05+0200\n"
+"PO-Revision-Date: 2010-08-17 00:09+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Galician <gnome-gl-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -441,6 +441,7 @@ msgstr "Se non os garda perderanse todos os cambios que fixo."
 
 #: ../libanjuta/anjuta-save-prompt.c:189
 #: ../plugins/document-manager/plugin.c:605
+#: ../plugins/snippets-manager/snippets-editor.ui.h:12
 msgid "Save"
 msgstr "Gardar"
 
@@ -1026,7 +1027,7 @@ msgid "Command exited with status %d"
 msgstr "A orde saíu co estado %d"
 
 #: ../plugins/build-basic-autotools/plugin.c:1048
-#: ../plugins/build-basic-autotools/plugin.c:1528
+#: ../plugins/build-basic-autotools/plugin.c:1527
 #, c-format
 msgid "Command canceled by user"
 msgstr "A orde foi cancelada polo usuario"
@@ -1075,204 +1076,204 @@ msgstr ""
 "Antes de empregar esta nova configuración, precísase eliminar a predefinida, "
 "Quere facelo?"
 
-#: ../plugins/build-basic-autotools/plugin.c:1826
+#: ../plugins/build-basic-autotools/plugin.c:1823
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 "Non é posíbel compilar \"%s\": Non se definiu ningunha regra de compilación "
 "para este tipo de ficheiro."
 
-#: ../plugins/build-basic-autotools/plugin.c:1961
+#: ../plugins/build-basic-autotools/plugin.c:1958
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
 msgstr ""
 "Non é posíbel configurar o proxecto: Falta un script de configuración en %s."
 
-#: ../plugins/build-basic-autotools/plugin.c:2442
-#: ../plugins/build-basic-autotools/plugin.c:2516
-#: ../plugins/build-basic-autotools/plugin.c:2526
-#: ../plugins/build-basic-autotools/plugin.c:2544
-#: ../plugins/build-basic-autotools/plugin.c:2554
-#: ../plugins/build-basic-autotools/plugin.c:2611
+#: ../plugins/build-basic-autotools/plugin.c:2439
+#: ../plugins/build-basic-autotools/plugin.c:2513
+#: ../plugins/build-basic-autotools/plugin.c:2523
+#: ../plugins/build-basic-autotools/plugin.c:2541
+#: ../plugins/build-basic-autotools/plugin.c:2551
+#: ../plugins/build-basic-autotools/plugin.c:2608
 #, c-format
 msgid "_Build"
 msgstr "_Construír"
 
-#: ../plugins/build-basic-autotools/plugin.c:2446
+#: ../plugins/build-basic-autotools/plugin.c:2443
 msgid "_Build Project"
 msgstr "_Construír o proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2447
+#: ../plugins/build-basic-autotools/plugin.c:2444
 msgid "Build whole project"
 msgstr "Construír todo o proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2452
+#: ../plugins/build-basic-autotools/plugin.c:2449
 msgid "_Install Project"
 msgstr "_Instalar o proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2453
+#: ../plugins/build-basic-autotools/plugin.c:2450
 msgid "Install whole project"
 msgstr "Instalar todo o proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2458
+#: ../plugins/build-basic-autotools/plugin.c:2455
 msgid "_Clean Project"
 msgstr "_Limpar o proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2459
+#: ../plugins/build-basic-autotools/plugin.c:2456
 msgid "Clean whole project"
 msgstr "Limpar todo o proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2464
+#: ../plugins/build-basic-autotools/plugin.c:2461
 msgid "C_onfigure Project…"
 msgstr "Configurar o proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2465
+#: ../plugins/build-basic-autotools/plugin.c:2462
 msgid "Configure project"
 msgstr "Configurar o proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2470
+#: ../plugins/build-basic-autotools/plugin.c:2467
 msgid "Build _Tarball"
 msgstr "Construír o arquivo _tar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2471
+#: ../plugins/build-basic-autotools/plugin.c:2468
 msgid "Build project tarball distribution"
 msgstr "Construír a distribución en arquivo tar do proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2476
+#: ../plugins/build-basic-autotools/plugin.c:2473
 msgid "_Build Module"
 msgstr "C_onstruír o módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2477
+#: ../plugins/build-basic-autotools/plugin.c:2474
 msgid "Build module associated with current file"
 msgstr "Construír o módulo asociado ao ficheiro actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:2482
+#: ../plugins/build-basic-autotools/plugin.c:2479
 msgid "_Install Module"
 msgstr "_Instalar o módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2483
+#: ../plugins/build-basic-autotools/plugin.c:2480
 msgid "Install module associated with current file"
 msgstr "Instalar o módulo asociado ao ficheiro actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:2488
+#: ../plugins/build-basic-autotools/plugin.c:2485
 msgid "_Clean Module"
 msgstr "_Limpar o módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2489
+#: ../plugins/build-basic-autotools/plugin.c:2486
 msgid "Clean module associated with current file"
 msgstr "Limpar o módulo asociado ao ficheiro actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:2494
+#: ../plugins/build-basic-autotools/plugin.c:2491
 msgid "Co_mpile File"
 msgstr "Co_mpilar o ficheiro"
 
-#: ../plugins/build-basic-autotools/plugin.c:2495
+#: ../plugins/build-basic-autotools/plugin.c:2492
 msgid "Compile current editor file"
 msgstr "Compilar o ficheiro actual do editor"
 
-#: ../plugins/build-basic-autotools/plugin.c:2500
+#: ../plugins/build-basic-autotools/plugin.c:2497
 msgid "Select Configuration"
 msgstr "Seleccionar a configuración"
 
-#: ../plugins/build-basic-autotools/plugin.c:2501
+#: ../plugins/build-basic-autotools/plugin.c:2498
 msgid "Select current configuration"
 msgstr "Seleccionar a configuración actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:2506
+#: ../plugins/build-basic-autotools/plugin.c:2503
 msgid "Remove Configuration"
 msgstr "Eliminar a configuración"
 
-#: ../plugins/build-basic-autotools/plugin.c:2507
+#: ../plugins/build-basic-autotools/plugin.c:2504
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr ""
 "Limpar o proxecto (distclean) e eliminar o cartafol de configuración se for "
 "posíbel"
 
-#: ../plugins/build-basic-autotools/plugin.c:2520
-#: ../plugins/build-basic-autotools/plugin.c:2548
+#: ../plugins/build-basic-autotools/plugin.c:2517
+#: ../plugins/build-basic-autotools/plugin.c:2545
 msgid "_Compile"
 msgstr "_Compilar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2521
-#: ../plugins/build-basic-autotools/plugin.c:2549
+#: ../plugins/build-basic-autotools/plugin.c:2518
+#: ../plugins/build-basic-autotools/plugin.c:2546
 msgid "Compile file"
 msgstr "Compilar o ficheiro"
 
-#: ../plugins/build-basic-autotools/plugin.c:2527
-#: ../plugins/build-basic-autotools/plugin.c:2555
+#: ../plugins/build-basic-autotools/plugin.c:2524
+#: ../plugins/build-basic-autotools/plugin.c:2552
 msgid "Build module"
 msgstr "Construír o módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2532
-#: ../plugins/build-basic-autotools/plugin.c:2560
-#: ../plugins/build-basic-autotools/plugin.c:2618
+#: ../plugins/build-basic-autotools/plugin.c:2529
+#: ../plugins/build-basic-autotools/plugin.c:2557
+#: ../plugins/build-basic-autotools/plugin.c:2615
 #, c-format
 msgid "_Install"
 msgstr "_Instalar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2533
-#: ../plugins/build-basic-autotools/plugin.c:2561
+#: ../plugins/build-basic-autotools/plugin.c:2530
+#: ../plugins/build-basic-autotools/plugin.c:2558
 msgid "Install module"
 msgstr "Instalar o módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2538
-#: ../plugins/build-basic-autotools/plugin.c:2566
-#: ../plugins/build-basic-autotools/plugin.c:2625
+#: ../plugins/build-basic-autotools/plugin.c:2535
+#: ../plugins/build-basic-autotools/plugin.c:2563
+#: ../plugins/build-basic-autotools/plugin.c:2622
 #, c-format
 msgid "_Clean"
 msgstr "_Limpar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2539
-#: ../plugins/build-basic-autotools/plugin.c:2567
+#: ../plugins/build-basic-autotools/plugin.c:2536
+#: ../plugins/build-basic-autotools/plugin.c:2564
 msgid "Clean module"
 msgstr "Limpar o módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2572
+#: ../plugins/build-basic-autotools/plugin.c:2569
 msgid "_Cancel command"
 msgstr "_Cancelar a orde"
 
-#: ../plugins/build-basic-autotools/plugin.c:2573
+#: ../plugins/build-basic-autotools/plugin.c:2570
 msgid "Cancel build command"
 msgstr "Cancelar a orde de construción"
 
-#: ../plugins/build-basic-autotools/plugin.c:2611
+#: ../plugins/build-basic-autotools/plugin.c:2608
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Construír (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2618
+#: ../plugins/build-basic-autotools/plugin.c:2615
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Instalar (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2625
+#: ../plugins/build-basic-autotools/plugin.c:2622
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Limpar (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2633
+#: ../plugins/build-basic-autotools/plugin.c:2630
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Co_mpilar (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2633
+#: ../plugins/build-basic-autotools/plugin.c:2630
 #, c-format
 msgid "Co_mpile"
 msgstr "Co_mpilar"
 
-#: ../plugins/build-basic-autotools/plugin.c:3169
+#: ../plugins/build-basic-autotools/plugin.c:3166
 msgid "Build commands"
 msgstr "Ordes de construción"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:3178
+#: ../plugins/build-basic-autotools/plugin.c:3175
 msgid "Build popup commands"
 msgstr "Ordes de construción para xanelas emerxentes"
 
-#: ../plugins/build-basic-autotools/plugin.c:3560
-#: ../plugins/build-basic-autotools/plugin.c:3568
+#: ../plugins/build-basic-autotools/plugin.c:3557
+#: ../plugins/build-basic-autotools/plugin.c:3565
 msgid "Build Autotools"
 msgstr "Construír Autotools"
 
@@ -1491,6 +1492,7 @@ msgstr "Tipo"
 #: ../plugins/class-gen/window.c:520 ../plugins/class-gen/window.c:534
 #: ../plugins/run-program/parameters.c:754
 #: ../plugins/search/search_preferences.c:534
+#: ../plugins/snippets-manager/snippets-browser.c:530
 msgid "Name"
 msgstr "Nome"
 
@@ -2965,6 +2967,7 @@ msgstr "_Renomear"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:340
 #: ../plugins/gtodo/callback.c:20 ../plugins/gtodo/callback.c:101
+#: ../plugins/snippets-manager/snippets-editor.ui.h:11
 msgid "Remove"
 msgstr "Eliminar"
 
@@ -4014,8 +4017,7 @@ msgid "File Information"
 msgstr "Información do ficheiro"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:9
-#: ../plugins/git/anjuta-git.ui.h:64 ../plugins/macro/anjuta-macro.ui.h:6
-#: ../plugins/tools/anjuta-tools.ui.h:6
+#: ../plugins/git/anjuta-git.ui.h:64 ../plugins/tools/anjuta-tools.ui.h:6
 msgid "Name:"
 msgstr "Nome:"
 
@@ -6200,7 +6202,7 @@ msgid "Summary:"
 msgstr "Resumo:"
 
 #. option menu label
-#: ../plugins/gtodo/add_edit_item.c:172 ../plugins/macro/anjuta-macro.ui.h:1
+#: ../plugins/gtodo/add_edit_item.c:172
 msgid "Category:"
 msgstr "Categoría:"
 
@@ -6555,107 +6557,6 @@ msgstr "Crear unha lista de tarefas"
 #: ../plugins/gtodo/todo_db.c:165
 msgid "No Date"
 msgstr "Sen data"
-
-#: ../plugins/macro/anjuta-macro.ui.h:2
-msgid "Edit…"
-msgstr "Editar..."
-
-#: ../plugins/macro/anjuta-macro.ui.h:3
-msgid "Macro details:"
-msgstr "Detalles da macro:"
-
-#: ../plugins/macro/anjuta-macro.ui.h:4
-msgid "Macro text:"
-msgstr "Texto da macro:"
-
-#: ../plugins/macro/anjuta-macro.ui.h:5
-msgid "Macros:"
-msgstr "Macros:"
-
-#: ../plugins/macro/anjuta-macro.ui.h:7
-msgid "Shortcut:"
-msgstr "Atallo:"
-
-#: ../plugins/macro/macro-actions.c:127
-msgid "Press macro shortcut…"
-msgstr "Premer no atallo de macro..."
-
-#: ../plugins/macro/macro-actions.c:134
-msgid "Press shortcut"
-msgstr "Premer no atallo"
-
-#: ../plugins/macro/macro-db.c:256
-msgid "Anjuta macros"
-msgstr "Macros do Anjuta"
-
-#: ../plugins/macro/macro-db.c:260
-msgid "My macros"
-msgstr "As miñas macros"
-
-#: ../plugins/macro/macro-dialog.c:145
-#, c-format
-msgid ""
-"Name:\t %s\n"
-"Category:\t %s\n"
-"Shortcut:\t %c\n"
-msgstr ""
-"Nome:\t %s\n"
-"Categoría:\t %s\n"
-"Atallo:\t %c\n"
-
-#: ../plugins/macro/macro-dialog.c:277
-msgid "Insert"
-msgstr "Inserir"
-
-#: ../plugins/macro/macro-dialog.c:280
-msgid "Insert macro"
-msgstr "Inserir a macro"
-
-#: ../plugins/macro/macro-edit.c:207
-msgid "Add/Edit macro"
-msgstr "Engadir/editar unha macro"
-
-#. Macros can expand the current date in the format specified below
-#: ../plugins/macro/macro-util.c:60
-msgid "%Y-%m-%d"
-msgstr "%d-%m-%Y-"
-
-#. Macros can expand the year in the format specified below
-#: ../plugins/macro/macro-util.c:74
-msgid "%Y"
-msgstr "%Y"
-
-#: ../plugins/macro/plugin.c:35
-msgid "Macros"
-msgstr "Macros"
-
-#: ../plugins/macro/plugin.c:42
-msgid "_Insert Macro…"
-msgstr "_Inserir a macro..."
-
-#: ../plugins/macro/plugin.c:44
-msgid "Insert a macro using a shortcut"
-msgstr "Inserir unha macro usando un atallo"
-
-#: ../plugins/macro/plugin.c:49
-msgid "_Add Macro…"
-msgstr "_Engadir unha macro..."
-
-#: ../plugins/macro/plugin.c:51
-msgid "Add a macro"
-msgstr "Engadir unha macro"
-
-#: ../plugins/macro/plugin.c:56
-msgid "Macros…"
-msgstr "Macros"
-
-#: ../plugins/macro/plugin.c:58
-msgid "Add/Edit/Remove macros"
-msgstr "Engadir/editar/eliminar as macros"
-
-#: ../plugins/macro/plugin.c:116
-msgid "Macro operations"
-msgstr "Operacións coas macros"
 
 #. text style in editor
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:3
@@ -8675,6 +8576,166 @@ msgid "Unable to build user interface for Search and Replace"
 msgstr ""
 "Non foi posíbel construír a interface de usuario para Buscar e substituír"
 
+#: ../plugins/snippets-manager/plugin.c:60
+#: ../plugins/snippets-manager/plugin.c:292
+#: ../plugins/snippets-manager/snippets-browser.c:208
+msgid "Snippets"
+msgstr ""
+
+#: ../plugins/snippets-manager/plugin.c:67
+msgid "_Trigger insert"
+msgstr ""
+
+#: ../plugins/snippets-manager/plugin.c:69
+msgid "Insert a snippet using the trigger-key"
+msgstr ""
+
+#: ../plugins/snippets-manager/plugin.c:74
+#, fuzzy
+msgid "_Auto complete insert"
+msgstr "Autocompletar"
+
+#: ../plugins/snippets-manager/plugin.c:76
+#, fuzzy
+msgid "Insert a snippet using auto-completion"
+msgstr "Inserir un manipulador stub, autoposicionamento"
+
+#: ../plugins/snippets-manager/plugin.c:81
+msgid "_Import snippets …"
+msgstr ""
+
+#: ../plugins/snippets-manager/plugin.c:83
+msgid "Import snippets to the database"
+msgstr ""
+
+#: ../plugins/snippets-manager/plugin.c:88
+msgid "_Export snippets …"
+msgstr ""
+
+#: ../plugins/snippets-manager/plugin.c:90
+msgid "Export snippets from the database"
+msgstr ""
+
+#: ../plugins/snippets-manager/plugin.c:317
+#, fuzzy
+msgid "Snippets Manager actions"
+msgstr "Accións do xestor de proxectos"
+
+#: ../plugins/snippets-manager/plugin.c:919
+#: ../plugins/snippets-manager/plugin.c:956
+#: ../plugins/snippets-manager/snippets-provider.c:753
+#: ../plugins/snippets-manager/anjuta-snippets-manager.plugin.in.h:2
+msgid "Code Snippets"
+msgstr ""
+
+#: ../plugins/snippets-manager/snippets-browser.c:549
+msgid "Trigger"
+msgstr ""
+
+#: ../plugins/snippets-manager/snippets-browser.c:560
+#, fuzzy
+msgid "Languages"
+msgstr "Xestor de linguaxes"
+
+#. Insert the Add Snippet menu item
+#: ../plugins/snippets-manager/snippets-browser.c:808
+#, fuzzy
+msgid "Add Snippet …"
+msgstr "Engadir o des_tino"
+
+#. Insert the Add Snippets Group menu item
+#: ../plugins/snippets-manager/snippets-browser.c:818
+#, fuzzy
+msgid "Add Snippets Group …"
+msgstr "Engadir o _grupo"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:1
+#, fuzzy
+msgid "<b>Snippet Content</b>"
+msgstr "<b>Sangría intelixente</b>"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:2
+#, fuzzy
+msgid "<b>Snippet Properties</b>"
+msgstr "<b>Intérprete</b>"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:3
+#, fuzzy
+msgid "<b>Snippet Variables</b>"
+msgstr "Introducir variábeis de contorno:"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:4
+#, fuzzy
+msgid "Add"
+msgstr "_Engadir"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:5
+#, fuzzy
+msgid "Close"
+msgstr "Pechalo todo"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:6
+msgid "Insert"
+msgstr "Inserir"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:7
+msgid ""
+"Keywords are used for better searching of the snippets. They should be "
+"relevant to the snippet content. Type them separated by a single space."
+msgstr ""
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:8
+msgid "Keywords:"
+msgstr "Palabras chave:"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:9
+msgid "Languages:"
+msgstr "Idiomas:"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:10
+msgid "Preview"
+msgstr "Vista previa"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:13
+msgid "Select the Snippets Group to which this snippet belongs."
+msgstr ""
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:14
+msgid "Select the languages for which you want to use this snippet."
+msgstr ""
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:15
+msgid ""
+"Select the name of the Snippet. \n"
+"The role of the name is purely informative."
+msgstr ""
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:17
+#, fuzzy
+msgid "Snippet Name:"
+msgstr "Nome novo:"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:18
+msgid "Snippets Group:"
+msgstr ""
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:19
+msgid "Trigger Key:"
+msgstr "Tecla activadora:"
+
+#: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:1
+msgid "<b>Anjuta variables</b>"
+msgstr "<b>Variábeis de Anjuta</b>"
+
+#: ../plugins/snippets-manager/snippets-import-export.c:145
+#, fuzzy
+msgid "Import Snippets"
+msgstr "Opcións de importación"
+
+#: ../plugins/snippets-manager/snippets-import-export.c:190
+msgid "Export Snippets"
+msgstr ""
+
 #: ../plugins/sourceview/sourceview.c:478
 #, c-format
 msgid ""
@@ -10391,14 +10452,6 @@ msgstr "Xestor de tarefas"
 msgid "Todo Plugin for Anjuta."
 msgstr "Engadido de pendentes para o Anjuta."
 
-#: ../plugins/macro/anjuta-macro.plugin.in.h:1
-msgid "Insert predefined macros into Editor"
-msgstr "Inserir os macros predefinidos no editor"
-
-#: ../plugins/macro/anjuta-macro.plugin.in.h:2
-msgid "Macro Plugin"
-msgstr "Engadido de macro"
-
 #: ../plugins/patch/anjuta-patch.plugin.in.h:1
 msgid "Patch Plugin"
 msgstr "Engadido de parche"
@@ -10496,6 +10549,10 @@ msgstr "Engadido do xestor de proxectos para o Anjuta."
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:2
 msgid "Symbol Database Plugin for Anjuta."
 msgstr "Engadido de base de datos de símbolos para o Anjuta."
+
+#: ../plugins/snippets-manager/anjuta-snippets-manager.plugin.in.h:1
+msgid "Allows insertion of snippets into the editor."
+msgstr ""
 
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Manages messages from external apps"
@@ -10607,6 +10664,84 @@ msgstr "Mínimo de caracteres para o completado"
 #: ../plugins/symbol-db/symbol-db-views.c:182
 msgid "Symbol"
 msgstr "Símbolo"
+
+#~ msgid "Edit…"
+#~ msgstr "Editar..."
+
+#~ msgid "Macro details:"
+#~ msgstr "Detalles da macro:"
+
+#~ msgid "Macro text:"
+#~ msgstr "Texto da macro:"
+
+#~ msgid "Macros:"
+#~ msgstr "Macros:"
+
+#~ msgid "Shortcut:"
+#~ msgstr "Atallo:"
+
+#~ msgid "Press macro shortcut…"
+#~ msgstr "Premer no atallo de macro..."
+
+#~ msgid "Press shortcut"
+#~ msgstr "Premer no atallo"
+
+#~ msgid "Anjuta macros"
+#~ msgstr "Macros do Anjuta"
+
+#~ msgid "My macros"
+#~ msgstr "As miñas macros"
+
+#~ msgid ""
+#~ "Name:\t %s\n"
+#~ "Category:\t %s\n"
+#~ "Shortcut:\t %c\n"
+#~ msgstr ""
+#~ "Nome:\t %s\n"
+#~ "Categoría:\t %s\n"
+#~ "Atallo:\t %c\n"
+
+#~ msgid "Insert macro"
+#~ msgstr "Inserir a macro"
+
+#~ msgid "Add/Edit macro"
+#~ msgstr "Engadir/editar unha macro"
+
+#~ msgid "%Y-%m-%d"
+#~ msgstr "%d-%m-%Y-"
+
+#~ msgid "%Y"
+#~ msgstr "%Y"
+
+#~ msgid "Macros"
+#~ msgstr "Macros"
+
+#~ msgid "_Insert Macro…"
+#~ msgstr "_Inserir a macro..."
+
+#~ msgid "Insert a macro using a shortcut"
+#~ msgstr "Inserir unha macro usando un atallo"
+
+#~ msgid "_Add Macro…"
+#~ msgstr "_Engadir unha macro..."
+
+#~ msgid "Add a macro"
+#~ msgstr "Engadir unha macro"
+
+#~ msgid "Macros…"
+#~ msgstr "Macros"
+
+#~ msgid "Add/Edit/Remove macros"
+#~ msgstr "Engadir/editar/eliminar as macros"
+
+#~ msgid "Macro operations"
+#~ msgstr "Operacións coas macros"
+
+#~ msgid "Insert predefined macros into Editor"
+#~ msgstr "Inserir os macros predefinidos no editor"
+
+#~ msgid "Macro Plugin"
+#~ msgstr "Engadido de macro"
 
 #~ msgid ""
 #~ "The following pretty printers, without a register functions, have been "
@@ -10766,9 +10901,6 @@ msgstr "Símbolo"
 
 #~ msgid "Insert handler stub"
 #~ msgstr "Inserir un manipulador stub"
-
-#~ msgid "Insert handler stub, autoposition"
-#~ msgstr "Inserir un manipulador stub, autoposicionamento"
 
 #~ msgid "Associate last designer and last editor"
 #~ msgstr "Asociar o último deseñador e o último editor"
