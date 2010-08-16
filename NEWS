@@ -1,3 +1,29 @@
+Anjuta 2.31.90 "GSoC is over - we have snippets now" -- Johannes Schmid
+
+New:
+- Python is now fully supported
+- Initial support for python plugins (Abderrahim Kitouni)
+- Snippets plugins from GSoC (Dragos Dena)
+
+Updated:
+- Language support for Vala got a major update
+
+Bugs fixed:
+project-wizard: bgo#625434 - remove cvsignore from templates
+python-support: bgo#626950 Anjuta crash with python support
+build-basic-auotools: bgo#626562 crash refusing to clean the configuration
+symbol-db: bgo#622529 - Crash when trying to open a non-writable project
+symbol-db: bgo#616560  - Symbol views do not display names containing especial chars correctly
+manual: Fixed mailing list adress (bgo#625588)
+language-support-vala: bgo#626306 Symbol completion doesn't work with "this."
+libanjuta: Increase launcher buffer size (bgo#624700)
+class-gen: add missing include (#626265)
+Add PyGTK project template. Fixes bug #608304.
+
+Abderrahim Kitouni, Andika Triwidada, Daniel Nylander, Dragos Dena
+Fran Diéguez, James Liggett, Jens Georg, Jorge González, Leandro Mattioli
+Massimo Corà, Matej Urbančič, Vincent Untz, Yang Hong
+
 Anjuta 2.31.6.1 "Thank you, The Hague (5 Aug 2010) -- Johannes Schmid
 
 Bugs fixed:
