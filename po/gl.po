@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: anjuta-master-po-gl-1952\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-08-17 00:05+0200\n"
-"PO-Revision-Date: 2010-08-17 00:09+0200\n"
+"PO-Revision-Date: 2010-08-17 01:08+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Galician <gnome-gl-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -463,7 +463,7 @@ msgstr[0] ""
 "<b>Hai %d elemento con cambios sen gardar. Quere gardar os cambios antes de "
 "pechar?</b>"
 msgstr[1] ""
-"<b>Hai %d elementos con cambios sen gardar.Quere gardar os cambios antes de "
+"<b>Hai %d elementos con cambios sen gardar. Quere gardar os cambios antes de "
 "pechar?</b>"
 
 #: ../libanjuta/anjuta-save-prompt.c:304
@@ -499,7 +499,7 @@ msgid ""
 "installing missing packages. Please install \"packagekit-gnome\" package "
 "from your distribution, or install the missing packages manually."
 msgstr ""
-"Semella que non ten instalado o paquete PackageKit. PackageKit requírese "
+"Semella que non ten o paquete PackageKit instalado. PackageKit requírese "
 "para instalar os paquetes que faltan. Instale o paquete \"packagekit-gnome\" "
 "para a súa instalación, ou instale os paquetes que faltan de forma manual."
 
@@ -663,7 +663,7 @@ msgstr "Familia de tipo de fonte"
 #: ../libfoocanvas/foo-canvas-text.c:231
 msgid "Name of the font family, e.g. Sans, Helvetica, Times, Monospace"
 msgstr ""
-"Nome da familia do tipo de letra, p.ex: Sans, Helvetica, Times, Monospace"
+"Nome da familia do tipo de letra, p.ex.: Sans, Helvetica, Times, Monospace"
 
 #: ../libfoocanvas/foo-canvas-text.c:247 ../libfoocanvas/foo-canvas-text.c:248
 msgid "Font style"
@@ -848,7 +848,7 @@ msgstr "Argumentos:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:2
 msgid "Build"
-msgstr "_Construír"
+msgstr "Construír"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:3
 msgid "Build Directory:"
@@ -876,7 +876,7 @@ msgstr "Realzar as localizacións das mensaxes no editor"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:9
 msgid "Install"
-msgstr "_Instalar"
+msgstr "Instalar"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:10
 msgid "Install as root:"
@@ -884,7 +884,7 @@ msgstr "Instalar como administrador:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:11
 msgid "Regenerate project"
-msgstr "<b>Rexerar proxecto:</b>"
+msgstr "Rexerar proxecto"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:12
 #: ../plugins/tools/anjuta-tools.ui.h:8
@@ -995,11 +995,11 @@ msgstr "make(\\[\\d+\\])?:\\s+Entrando\\s+no\\s+cartafol\\es+'(.+)'"
 #. * string into the second slot and then replace the first string only.
 #: ../plugins/build-basic-autotools/plugin.c:177
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+`(.+)'"
-msgstr "make(\\[\\d+\\])?:\\s+Deixando\\s+o\\s+cartafol\\es+`(.+)'"
+msgstr "make(\\[\\d+\\])?:\\s+Deixando\\s+\\o\\s+cartafol\\es+`(.+)'"
 
 #: ../plugins/build-basic-autotools/plugin.c:178
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
-msgstr "make(\\[\\d+\\])?:\\s+Deixando\\s+o\\s+cartafol\\es+'(.+)'"
+msgstr "make(\\[\\d+\\])?:\\s+Deixando\\s+\\o\\s+cartafol\\es+'(.+)'"
 
 #: ../plugins/build-basic-autotools/plugin.c:846
 #, c-format
@@ -1073,7 +1073,7 @@ msgid ""
 "Before using this new configuration, the default one needs to be removed. Do "
 "you want to do that ?"
 msgstr ""
-"Antes de empregar esta nova configuración, precísase eliminar a predefinida, "
+"Antes de empregar esta nova configuración, precísase eliminar a predefinida. "
 "Quere facelo?"
 
 #: ../plugins/build-basic-autotools/plugin.c:1823
@@ -1125,7 +1125,7 @@ msgstr "Limpar todo o proxecto"
 
 #: ../plugins/build-basic-autotools/plugin.c:2461
 msgid "C_onfigure Project…"
-msgstr "Configurar o proxecto"
+msgstr "C_onfigurar o proxecto..."
 
 #: ../plugins/build-basic-autotools/plugin.c:2462
 msgid "Configure project"
@@ -1315,7 +1315,7 @@ msgstr "Clase principal:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:9
 msgid "Class Elements"
-msgstr "<b>Elementos de clase</b>"
+msgstr "Elementos de clase"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:10
 msgid "Class Function Prefix:"
@@ -1348,7 +1348,7 @@ msgstr "Prefixo GObject e tipo:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:17
 msgid "General Class Properties"
-msgstr "<b>Propiedades de clase xerais</b>"
+msgstr "Propiedades xerais da clase"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:18
 #: ../plugins/file-wizard/file.c:103
@@ -1411,7 +1411,7 @@ msgstr "Licenza:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:24
 msgid "Member Functions/Variables"
-msgstr "Función de membro/variábeis"
+msgstr "Funcións/Variábeis do membro"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:25
 msgid "No License"
@@ -1440,11 +1440,11 @@ msgstr "Non se creou o ficheiro de código fonte nin o de cabeceira"
 
 #: ../plugins/class-gen/generator.c:295
 msgid "Autogen template used for the header file"
-msgstr "Modelo AutoGen usado para o ficheiro da cabeceira"
+msgstr "Modelo de Autogen usado para o ficheiro da cabeceira"
 
 #: ../plugins/class-gen/generator.c:303
 msgid "Autogen template used for the implementation file"
-msgstr "Modelo AutoGen usado para o ficheiro de implementación"
+msgstr "Modelo de Autogen usado para o ficheiro de implementación"
 
 #: ../plugins/class-gen/generator.c:311 ../plugins/class-gen/generator.c:319
 msgid "File to which the processed template will be written"
@@ -1453,20 +1453,20 @@ msgstr "Ficheiro no que se escribirá o modelo que se procese"
 #: ../plugins/class-gen/generator.c:403
 #, c-format
 msgid "Failed to write autogen definition file"
-msgstr "Produciuse un fallo ao escribir o ficheiro de definición AutoGen"
+msgstr "Produciuse un fallo ao escribir o ficheiro de definición Autogen"
 
 #: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1159
 msgid ""
 "Could not find autogen version 5; please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net."
 msgstr ""
-"Non foi posíbel encontrar a versión 5 do AutoGen. Instale o paquete AutoGen. "
+"Non foi posíbel encontrar a versión 5 do autogen. Instale o paquete autogen. "
 "Pode obtelo en http://autogen.sourceforge.net."
 
 #: ../plugins/class-gen/plugin.c:242 ../plugins/class-gen/plugin.c:410
 #, c-format
 msgid "Failed to execute autogen: %s"
-msgstr "Produciuse un fallo ao executar o AutoGen: %s"
+msgstr "Produciuse un fallo ao executar o autogen: %s"
 
 #: ../plugins/class-gen/window.c:94
 msgid "Guess from type"
@@ -1569,7 +1569,7 @@ msgstr "Saída detallada"
 #: ../plugins/subversion/anjuta-subversion.ui.h:3
 #: ../plugins/tools/anjuta-tools.ui.h:1
 msgid "Browse…"
-msgstr "Examinar..."
+msgstr "Examinar…"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:6
 msgid "CVS Options"
@@ -1642,7 +1642,7 @@ msgstr "Seleccione o ficheiro ou o cartafol do que obter o estado:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:23
 msgid "Choose file or directory to remove:"
-msgstr "Seleccione o ficheiro ou o  cartafol para eliminar:"
+msgstr "Seleccione o ficheiro ou o cartafol para eliminar:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:24
 #: ../plugins/subversion/anjuta-subversion.ui.h:6
@@ -1668,7 +1668,7 @@ msgstr "Non actuar recursivamente"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:29
 msgid "Extern (rsh)"
-msgstr "Extern (rsh)"
+msgstr "Externo (rsh)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:30
 msgid "File is binary"
@@ -2035,7 +2035,7 @@ msgstr "Mostrar a á_rbore do proceso"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:18
 msgid "Do not show again"
-msgstr "_Non mostrar outra vez"
+msgstr "Non mostrar outra vez"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:19
 msgid "Enable _all"
@@ -2091,7 +2091,7 @@ msgstr "Interrupción do programa"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:31
 msgid "Remote debugging"
-msgstr "<b>Depuración remota:</b>"
+msgstr "Depuración remota:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:32
 msgid "SIGINT"
@@ -2210,7 +2210,7 @@ msgstr "Alternar o punto de interrupción na localización actual"
 #. Stock icon, if any
 #: ../plugins/debug-manager/breakpoints.c:1831
 msgid "Add Breakpoint…"
-msgstr "Engadir un punto de interrupción..."
+msgstr "Engadir un punto de interrupción…"
 
 #. Display label
 #. short-cut
@@ -2399,7 +2399,7 @@ msgstr "Deter a execución do programa"
 
 #: ../plugins/debug-manager/plugin.c:458
 msgid "Running…"
-msgstr "Executando..."
+msgstr "Executando…"
 
 #. Action name
 #. Stock icon, if any
@@ -2453,7 +2453,7 @@ msgstr "Iniciar o depurador e cargar o programa"
 
 #: ../plugins/debug-manager/plugin.c:937
 msgid "_Debug Process…"
-msgstr "_Depurar o proceso..."
+msgstr "_Depurar o proceso…"
 
 #: ../plugins/debug-manager/plugin.c:939
 msgid "Start debugger and attach to a running program"
@@ -2461,7 +2461,7 @@ msgstr "Iniciar o depurador e acoplalo a un programa en execución"
 
 #: ../plugins/debug-manager/plugin.c:945
 msgid "Debug _Remote Target…"
-msgstr "Depurar o destino _remoto..."
+msgstr "Depurar o destino _remoto…"
 
 #: ../plugins/debug-manager/plugin.c:947
 msgid "Connect to a remote debugging target"
@@ -2477,7 +2477,7 @@ msgstr "Despídase do depurador"
 
 #: ../plugins/debug-manager/plugin.c:961
 msgid "Add source paths…"
-msgstr "Engadir os camiños do código fonte..."
+msgstr "Engadir os camiños do código fonte…"
 
 #: ../plugins/debug-manager/plugin.c:963
 msgid "Add additional source paths"
@@ -2488,7 +2488,7 @@ msgstr "Engadir os camiños adicionais do código fonte"
 #: ../plugins/debug-manager/plugin.c:973
 #: ../plugins/debug-manager/plugin.c:1097
 msgid "Debugger Command…"
-msgstr "Orde do depurador"
+msgstr "Orde do depurador…"
 
 #. Display label
 #. short-cut
@@ -2829,7 +2829,7 @@ msgstr "Operacións do fío"
 #. Stock icon, if any
 #: ../plugins/debug-manager/watch.c:364
 msgid "Ins_pect/Evaluate…"
-msgstr "Inspeccionar/avaliar"
+msgstr "Ins_peccionar/Avaliar…"
 
 #. Display label
 #. short-cut
@@ -2839,7 +2839,7 @@ msgstr "Inspeccionar ou avaliar unha expresión ou unha variábel"
 
 #: ../plugins/debug-manager/watch.c:372
 msgid "Add Watch…"
-msgstr "Engadir o punto de vixilancia"
+msgstr "Engadir o punto de vixilancia…"
 
 #: ../plugins/debug-manager/watch.c:380
 msgid "Remove Watch"
@@ -3077,7 +3077,7 @@ msgstr "Gardar o ficheiro actual"
 
 #: ../plugins/document-manager/plugin.c:151
 msgid "Save _As…"
-msgstr "Gardar _como..."
+msgstr "Gardar _como…"
 
 #: ../plugins/document-manager/plugin.c:152
 msgid "Save the current file with a different name"
@@ -3130,7 +3130,7 @@ msgstr "_Ficheiros recentes"
 
 #: ../plugins/document-manager/plugin.c:173
 msgid "_Print…"
-msgstr "Imprimir"
+msgstr "Imprimir…"
 
 #: ../plugins/document-manager/plugin.c:174
 msgid "Print the current file"
@@ -3258,7 +3258,7 @@ msgstr "Comentar en fluxo o texto seleccionado"
 #. menu title
 #: ../plugins/document-manager/plugin.c:242
 msgid "_Line Number…"
-msgstr "Número de _liña..."
+msgstr "Número de _liña…"
 
 #: ../plugins/document-manager/plugin.c:243
 msgid "Go to a particular line in the editor"
@@ -3855,7 +3855,7 @@ msgstr "Ficheiro baleiro novo"
 
 #: ../plugins/file-loader/plugin.c:892
 msgid "_Open…"
-msgstr "_Abrir"
+msgstr "_Abrir…"
 
 #: ../plugins/file-loader/plugin.c:903 ../plugins/file-loader/plugin.c:916
 msgid "_Open"
@@ -4546,7 +4546,7 @@ msgstr "Cartafol de instalación:"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:1505
 msgid "Advanced…"
-msgstr "Avanzado"
+msgstr "Avanzado…"
 
 #: ../plugins/gbf-mkfile/gbf-mkfile-config.c:102
 #: ../plugins/gbf-mkfile/gbf-mkfile-config.c:136
@@ -4616,7 +4616,7 @@ msgstr ""
 
 #: ../plugins/gdb/debugger.c:1130
 msgid "Getting ready to start debugging session…\n"
-msgstr "Preparándose para comezar a sesión de depuración...\n"
+msgstr "Preparándose para comezar a sesión de depuración…\n"
 
 #: ../plugins/gdb/debugger.c:1136
 msgid "Loading Executable: "
@@ -4696,7 +4696,7 @@ msgstr "Programa acoplado\n"
 #: ../plugins/gdb/debugger.c:2200
 #, c-format
 msgid "Attaching to process: %d…\n"
-msgstr "Acoplando ao proceso: %d...\n"
+msgstr "Acoplando ao proceso: %d…\n"
 
 #: ../plugins/gdb/debugger.c:2226
 msgid ""
@@ -4721,7 +4721,7 @@ msgstr "O programa separouse\n"
 #: ../plugins/gdb/debugger.c:2328
 #, c-format
 msgid "Detaching the process…\n"
-msgstr "Separando o proceso...\n"
+msgstr "Separando o proceso…\n"
 
 #: ../plugins/gdb/debugger.c:2351
 msgid "Interrupting the process\n"
@@ -5104,7 +5104,7 @@ msgstr "Restabelecer o índice"
 #: ../plugins/git/anjuta-git.ui.h:83
 #: ../plugins/subversion/anjuta-subversion.ui.h:35
 msgid "Retrieving status…"
-msgstr "Obtendo o estado..."
+msgstr "Obtendo o estado…"
 
 #: ../plugins/git/anjuta-git.ui.h:84
 msgid "Revert Commit"
@@ -5297,7 +5297,7 @@ msgstr "Introduza un URL."
 #: ../plugins/git/git-add-remote-dialog.c:111
 #: ../plugins/git/git-fetch-dialog.c:54
 msgid "Git: Fetching…"
-msgstr "Git: Obtendo..."
+msgstr "Git: Obtendo…"
 
 #: ../plugins/git/git-apply-mailbox-dialog.c:45
 msgid "Please select a mailbox file."
@@ -5378,7 +5378,7 @@ msgstr "Autor"
 
 #: ../plugins/git/git-log-dialog.c:317
 msgid "Git: Retrieving log…"
-msgstr "Git: Recuperando o rexistro..."
+msgstr "Git: Recuperando o rexistro…"
 
 #: ../plugins/git/git-log-dialog.c:360
 #: ../plugins/subversion/subversion-add-dialog.c:65
@@ -5446,7 +5446,7 @@ msgstr "Introduza o URL do repositorio ao que mandar (push)."
 
 #: ../plugins/git/git-push-dialog.c:197
 msgid "Git: Pushing…"
-msgstr "Git: Mandando..."
+msgstr "Git: Mandando…"
 
 #: ../plugins/git/git-rebase-dialog.c:60
 msgid "Git: Rebasing"
@@ -5522,7 +5522,7 @@ msgstr "_Cambios"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:87 ../plugins/subversion/plugin.c:76
 msgid "_Commit…"
-msgstr "_Remitir..."
+msgstr "_Remitir…"
 
 #. Display label
 #. short-cut
@@ -5552,7 +5552,7 @@ msgstr "_Reservar"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:111
 msgid "_Stash uncommitted changes…"
-msgstr "_Reservar os cambios non remitidos..."
+msgstr "_Reservar os cambios non remitidos…"
 
 #. Display label
 #. short-cut
@@ -5564,7 +5564,7 @@ msgstr "Gardar os cambios non remitidos e reaplicalos máis tarde"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:119
 msgid "_Apply stashed changes…"
-msgstr "_Aplicar os cambios reservados..."
+msgstr "_Aplicar os cambios reservados…"
 
 #. Display label
 #. short-cut
@@ -5576,7 +5576,7 @@ msgstr "Actualizar os cambios reservados na árbore de traballo"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:127 ../plugins/git/plugin.c:583
 msgid "_View log…"
-msgstr "Ver o rexistro"
+msgstr "_Ver o rexistro…"
 
 #. Display label
 #. short-cut
@@ -5594,7 +5594,7 @@ msgstr "_Repositorio remoto"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:143
 msgid "_Push…"
-msgstr "_Mandar..."
+msgstr "_Mandar…"
 
 #. Display label
 #. short-cut
@@ -5606,7 +5606,7 @@ msgstr "Mandar os cambios ao repositorio remoto"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:151
 msgid "_Pull…"
-msgstr "_Recibir (pull)..."
+msgstr "_Recibir (pull)…"
 
 #. Display label
 #. short-cut
@@ -5638,7 +5638,7 @@ msgstr "_Ficheiros"
 #: ../plugins/git/plugin.c:591 ../plugins/subversion/plugin.c:60
 #: ../plugins/subversion/plugin.c:175
 msgid "_Add…"
-msgstr "_Engadir"
+msgstr "_Engadir…"
 
 #. Display label
 #. short-cut
@@ -7385,7 +7385,7 @@ msgstr "Creando %s ... Falla ao crear o cartafol"
 #: ../plugins/project-wizard/install.c:519
 #, c-format
 msgid "Creating %s (using AutoGen)… %s"
-msgstr "Creando %s (usando o AutoGen)... %s"
+msgstr "Creando %s (usando o Autogen)... %s"
 
 #: ../plugins/project-wizard/install.c:524
 #, c-format
@@ -8591,12 +8591,10 @@ msgid "Insert a snippet using the trigger-key"
 msgstr ""
 
 #: ../plugins/snippets-manager/plugin.c:74
-#, fuzzy
 msgid "_Auto complete insert"
 msgstr "Autocompletar"
 
 #: ../plugins/snippets-manager/plugin.c:76
-#, fuzzy
 msgid "Insert a snippet using auto-completion"
 msgstr "Inserir un manipulador stub, autoposicionamento"
 
@@ -8617,7 +8615,6 @@ msgid "Export snippets from the database"
 msgstr ""
 
 #: ../plugins/snippets-manager/plugin.c:317
-#, fuzzy
 msgid "Snippets Manager actions"
 msgstr "Accións do xestor de proxectos"
 
@@ -8633,44 +8630,36 @@ msgid "Trigger"
 msgstr ""
 
 #: ../plugins/snippets-manager/snippets-browser.c:560
-#, fuzzy
 msgid "Languages"
 msgstr "Xestor de linguaxes"
 
 #. Insert the Add Snippet menu item
 #: ../plugins/snippets-manager/snippets-browser.c:808
-#, fuzzy
 msgid "Add Snippet …"
 msgstr "Engadir o des_tino"
 
 #. Insert the Add Snippets Group menu item
 #: ../plugins/snippets-manager/snippets-browser.c:818
-#, fuzzy
 msgid "Add Snippets Group …"
 msgstr "Engadir o _grupo"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:1
-#, fuzzy
 msgid "<b>Snippet Content</b>"
 msgstr "<b>Sangría intelixente</b>"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:2
-#, fuzzy
 msgid "<b>Snippet Properties</b>"
 msgstr "<b>Intérprete</b>"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:3
-#, fuzzy
 msgid "<b>Snippet Variables</b>"
 msgstr "Introducir variábeis de contorno:"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:4
-#, fuzzy
 msgid "Add"
 msgstr "_Engadir"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:5
-#, fuzzy
 msgid "Close"
 msgstr "Pechalo todo"
 
@@ -8711,7 +8700,6 @@ msgid ""
 msgstr ""
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:17
-#, fuzzy
 msgid "Snippet Name:"
 msgstr "Nome novo:"
 
@@ -8728,7 +8716,6 @@ msgid "<b>Anjuta variables</b>"
 msgstr "<b>Variábeis de Anjuta</b>"
 
 #: ../plugins/snippets-manager/snippets-import-export.c:145
-#, fuzzy
 msgid "Import Snippets"
 msgstr "Opcións de importación"
 
@@ -10114,7 +10101,7 @@ msgstr ""
 
 #: ../src/main.c:174
 msgid "- Integrated Development Environment"
-msgstr "- Contorno de desenvolvemento integrado (IDE)"
+msgstr "- Contorno de desenvolvemento integrado"
 
 #: ../src/main.c:249
 msgid "Anjuta"
@@ -10378,7 +10365,7 @@ msgstr "Contorno"
 
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:15
 msgid "Path: "
-msgstr "Camiño"
+msgstr "Camiño:"
 
 #: ../plugins/sourceview/plugin.c:232 ../plugins/sourceview/plugin.c:273
 msgid "GtkSourceView Editor"
