@@ -77,5 +77,7 @@ void                   snippets_browser_show_editor            (SnippetsBrowser 
 void                   snippets_browser_hide_editor            (SnippetsBrowser *snippets_browser);
 void                   snippets_browser_refilter_snippets_view (SnippetsBrowser *snippets_browser);
 
+GtkWidget*             snippets_browser_get_grip               (SnippetsBrowser *snippets_browser);
+
 #endif /* __SNIPPETS_BROWSER_H__ */
 

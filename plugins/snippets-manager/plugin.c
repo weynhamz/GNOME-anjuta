@@ -286,11 +286,12 @@ snippets_manager_activate (AnjutaPlugin * plugin)
 	snippets_browser_load (snippets_manager_plugin->snippets_browser,
 	                       snippets_manager_plugin->snippets_db,
 	                       snippets_manager_plugin->snippets_interaction);
-	anjuta_shell_add_widget (plugin->shell,
+	anjuta_shell_add_widget_custom (plugin->shell,
 	                         GTK_WIDGET (snippets_manager_plugin->snippets_browser),
 	                         "snippets_browser",
 	                         _("Snippets"),
 	                         GTK_STOCK_FILE,
+	                         snippets_browser_get_grip (snippets_manager_plugin->snippets_browser),
 	                         ANJUTA_SHELL_PLACEMENT_LEFT,
 	                         NULL);
     snippets_manager_plugin->browser_maximized = FALSE;

@@ -46,6 +46,8 @@ struct _SnippetsBrowserPrivate
 	GtkButton *insert_button;
 	GtkToggleButton *edit_button;
 
+	GtkWidget *grip;
+
 	GtkVBox *snippets_view_vbox;
 	GtkScrolledWindow *snippets_view_cont;
 	
@@ -186,13 +188,30 @@ init_browser_layout (SnippetsBrowser *snippets_browser)
 	}
 
 	/* Get the Gtk objects */
-	priv->add_button      = GTK_BUTTON (gtk_builder_get_object (bxml, "add_button"));
-	priv->delete_button   = GTK_BUTTON (gtk_builder_get_object (bxml, "delete_button"));
-	priv->insert_button   = GTK_BUTTON (gtk_builder_get_object (bxml, "insert_button"));
+	priv->add_button      = GTK_BUTTON(gtk_button_new());
+	gtk_container_add (GTK_CONTAINER (priv->add_button),
+	                   gtk_image_new_from_stock (GTK_STOCK_ADD,
+	                                             GTK_ICON_SIZE_MENU));
+	priv->delete_button      = GTK_BUTTON(gtk_button_new());
+	gtk_container_add (GTK_CONTAINER (priv->delete_button),
+	                   gtk_image_new_from_stock (GTK_STOCK_DELETE,
+	                                             GTK_ICON_SIZE_MENU));
+	priv->insert_button      = GTK_BUTTON(gtk_button_new());
+	gtk_container_add (GTK_CONTAINER (priv->insert_button),
+	                   gtk_image_new_from_stock (GTK_STOCK_PASTE,
+	                                             GTK_ICON_SIZE_MENU));
+	priv->grip = gtk_hbox_new (FALSE, 5);
 	priv->edit_button     = GTK_TOGGLE_BUTTON (gtk_builder_get_object (bxml, "edit_button"));
 	priv->snippets_view_cont = GTK_SCROLLED_WINDOW (gtk_builder_get_object (bxml, "snippets_view_cont"));
 	priv->snippets_view_vbox = GTK_VBOX (gtk_builder_get_object (bxml, "snippets_view_vbox"));
 
+	gtk_box_pack_start (GTK_BOX (priv->grip), gtk_label_new (_("Snippets")), FALSE, FALSE, 5);
+	gtk_box_pack_end (GTK_BOX (priv->grip), GTK_WIDGET(priv->insert_button), FALSE, FALSE, 1);	
+	gtk_box_pack_end (GTK_BOX (priv->grip), GTK_WIDGET(priv->delete_button), FALSE, FALSE, 1);
+	gtk_box_pack_end (GTK_BOX (priv->grip), GTK_WIDGET(priv->add_button), FALSE, FALSE, 1);	
+
+	gtk_widget_show_all (priv->grip);
+	
 	/* Assert the objects */
 	g_return_if_fail (GTK_IS_BUTTON (priv->add_button));
 	g_return_if_fail (GTK_IS_BUTTON (priv->delete_button));
@@ -1187,4 +1206,10 @@ on_snippets_editor_close_request (SnippetsEditor *snippets_editor,
 	priv = ANJUTA_SNIPPETS_BROWSER_GET_PRIVATE (user_data);
 
 	gtk_toggle_button_set_active (priv->edit_button, FALSE);
+}
+
+GtkWidget*
+snippets_browser_get_grip (SnippetsBrowser *snippets_browser)
+{
+	return snippets_browser->priv->grip;
 }
