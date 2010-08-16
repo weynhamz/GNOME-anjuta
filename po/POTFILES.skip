@@ -18,6 +18,7 @@ plugins/project-wizard/templates/gnome/src/main.c
 plugins/project-wizard/templates/gnome/src/project.ui
 plugins/project-wizard/templates/gtk/src/project.ui
 plugins/project-wizard/templates/gtkmm/src/project.ui
+plugins/project-wizard/templates/pygtk/data/project.ui
 plugins/scintilla/text_editor_cbs.c
 plugins/symbol-db/symbol-db.glade
 src/anjuta_cbs.c
