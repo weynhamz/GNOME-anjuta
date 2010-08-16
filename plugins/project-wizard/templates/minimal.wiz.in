@@ -48,7 +48,6 @@
 			<file destination="[+NameHLower+].anjuta" source="project.anjuta"/>
 	  	</directory>
 		<directory source="terminal" destination="[+Destination+]">
-			<file source="cvsignore" destination=".cvsignore"/>
 			<directory source="src" destination=".">
 				<file source="main.c"/>
 			</directory>
