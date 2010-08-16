@@ -175,10 +175,15 @@ set_pixbuf (GtkTreeViewColumn *tree_column,
 	
 	gtk_tree_model_get (model, iter,
 			    GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
+	g_message("set_pixbuf data %p", data);
 	g_return_if_fail (data != NULL);
+	/* FIXME: segmentation fault with shortcut when corresponding
+	 * data is removed before the shortcut, so data = NULL.
+	 * Perhaps we can add a GtkTreeReference to the shortcut
+	 * node to remove the shortcut when the node is destroyed */
 
-	if (data->type == GBF_TREE_NODE_SHORTCUT)
-	{
+	if ((data->type == GBF_TREE_NODE_SHORTCUT) && (data->shortcut != NULL))
+ 	{
 		data = data->shortcut;
 	}
 	switch (data->type) {
@@ -222,6 +227,8 @@ set_pixbuf (GtkTreeViewColumn *tree_column,
 			break;
 		}
 		default:
+			/* Can reach this if type = GBF_TREE_NODE_SHORTCUT. It 
+			 * means a shortcut with the original data removed */
 			pixbuf = NULL;
 	}
 
@@ -240,8 +247,11 @@ set_text (GtkTreeViewColumn *tree_column,
 	GbfTreeData *data;
   
 	gtk_tree_model_get (model, iter, GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
+	/* data can be NULL just after gtk_tree_store_insert before
+	calling gtk_tree_store_set */ 
+	g_message ("data is %p", data);
 	g_object_set (GTK_CELL_RENDERER (cell), "text", 
-		      data->name, NULL);
+		      data == NULL ? "" : data->name, NULL);
 }
 
 static gboolean
@@ -574,6 +584,37 @@ gbf_project_view_get_shortcut_list (GbfProjectView *view)
 }
 
 void
+gbf_project_view_remove_all_shortcut (GbfProjectView* view)
+{
+	GtkTreeModel* model;
+	gboolean valid;
+	GtkTreeIter iter;
+
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (view));
+
+	/* Remove all current shortcuts */
+	for (valid = gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &iter, NULL);
+		valid == TRUE;)
+	{
+		GbfTreeData *data;
+			
+		gtk_tree_model_get (GTK_TREE_MODEL (model), &iter, 
+		    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
+	    	-1);
+
+		if (data->type == GBF_TREE_NODE_SHORTCUT)
+		{
+			valid = gbf_project_model_remove (GBF_PROJECT_MODEL (model), &iter);
+		}
+		else
+		{
+			/* No more shortcut */
+			break;
+		}
+	}
+}
+
+void
 gbf_project_view_set_shortcut_list (GbfProjectView *view, GList *shortcuts)
 {
 	GtkTreeModel* model;
@@ -585,26 +626,7 @@ gbf_project_view_set_shortcut_list (GbfProjectView *view, GList *shortcuts)
 		gboolean valid;
 		GtkTreeIter iter;
 		
-		/* Remove all current shortcuts */
-		for (valid = gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &iter, NULL);
-			valid == TRUE;)
-		{
-			GbfTreeData *data;
-			
-			gtk_tree_model_get (GTK_TREE_MODEL (model), &iter, 
-			    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
-		    	-1);
-
-			if (data->type == GBF_TREE_NODE_SHORTCUT)
-			{
-				valid = gbf_project_model_remove (GBF_PROJECT_MODEL (model), &iter);
-			}
-			else
-			{
-				/* No more shortcut, add saved one */
-				break;
-			}
-		}
+		valid = gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &iter, NULL);
 
 		if (valid)
 		{

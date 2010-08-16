@@ -261,8 +261,9 @@ gbf_project_model_instance_init (GbfProjectModel *model)
 
 /* Model data functions ------------ */
 
-gboolean
-gbf_project_model_remove (GbfProjectModel *model, GtkTreeIter *iter)
+/* Remove node without checking its shortcuts */
+static gboolean
+gbf_project_model_remove_children (GbfProjectModel *model, GtkTreeIter *iter)
 {
 	GtkTreeIter child;
 	GbfTreeData *data;
@@ -272,12 +273,108 @@ gbf_project_model_remove (GbfProjectModel *model, GtkTreeIter *iter)
 	valid = gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &child, iter);
 	while (valid)
 	{
-		valid = gbf_project_model_remove (model, &child);
+		valid = gbf_project_model_remove_children (model, &child);
+		
+		/* Free children node */
+		gtk_tree_model_get (GTK_TREE_MODEL (model), &child,
+		   	 GBF_PROJECT_MODEL_COLUMN_DATA, &data,
+		    	-1);
+		valid = gtk_tree_store_remove (GTK_TREE_STORE (model), &child);
+		if (data != NULL) gbf_tree_data_free (data);
 	}
-	
+
+	return valid;
+}
+
+static gboolean
+gbf_project_model_invalidate_children (GbfProjectModel *model, GtkTreeIter *iter)
+{
+	GtkTreeIter child;
+	GbfTreeData *data;
+	gboolean valid;
+
+	/* Mark all children as invalid */
+	valid = gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &child, iter);
+	while (valid)
+	{
+		valid = gbf_project_model_invalidate_children (model, &child);
+		
+		/* Invalidate children node */
+		gtk_tree_model_get (GTK_TREE_MODEL (model), &child,
+		   	 GBF_PROJECT_MODEL_COLUMN_DATA, &data,
+		    	-1);
+		gbf_tree_data_invalidate (data);
+
+		valid = gtk_tree_model_iter_next (model, &child);
+	}
+
+	return valid;
+}
+
+static gboolean
+gbf_project_model_remove_invalid_shortcut (GbfProjectModel *model, GtkTreeIter *iter)
+{
+	GtkTreeIter child;
+	gboolean valid;
+	GbfTreeData *data;
+
+	g_message ("remove_invalid_shortcut %p", iter);
+	/* Get all shortcut */
+	valid = gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &child, iter);
+	while (valid)
+	{
+		gtk_tree_model_get (GTK_TREE_MODEL (model), &child,
+	   		 GBF_PROJECT_MODEL_COLUMN_DATA, &data,
+	    		-1);
+		/* Shortcuts are always at the beginning */
+		if (data->type != GBF_TREE_NODE_SHORTCUT) break;
+		
+		if (data->shortcut->type == GBF_TREE_NODE_INVALID)
+		{
+			g_message ("remove shortcut %p", data);
+			gbf_project_model_remove_children (model, &child);
+			valid = gtk_tree_store_remove (GTK_TREE_STORE (model), &child);
+			if (data != NULL) gbf_tree_data_free (data);
+		}
+		else
+		{
+			gbf_project_model_remove_invalid_shortcut (model, &child); 
+			valid = gtk_tree_model_iter_next (model, &child);
+		}
+	}
+		
+	return FALSE;
+}
+
+gboolean
+gbf_project_model_remove (GbfProjectModel *model, GtkTreeIter *iter)
+{
+	GtkTreeIter child;
+	GbfTreeData *data;
+	gboolean valid;
+
+	/* Check if node is not a shortcut. In this case we need to remove
+	 * all shortcuts first. */
 	gtk_tree_model_get (GTK_TREE_MODEL (model), iter,
 		    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
 		    -1);
+	if (data->type != GBF_TREE_NODE_SHORTCUT)
+	{
+		/* Mark all nodes those will be removed */
+		gbf_project_model_invalidate_children (model, iter);
+		gbf_tree_data_invalidate (data);
+
+		gbf_project_model_remove_invalid_shortcut (model, NULL);
+	}
+	
+	/* Free all children */
+	valid = gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &child, iter);
+	while (valid)
+	{
+		valid = gbf_project_model_remove_children (model, &child);
+	}
+
+	/* Free parent node */
 	valid = gtk_tree_store_remove (GTK_TREE_STORE (model), iter);
 	if (data != NULL) gbf_tree_data_free (data);
 
@@ -373,6 +470,7 @@ add_source (GbfProjectModel    	      *model,
 	
 	data = gbf_tree_data_new_source (source);
 	gtk_tree_store_append (GTK_TREE_STORE (model), &iter, parent);
+	g_message ("add source %p", data);
 	gtk_tree_store_set (GTK_TREE_STORE (model), &iter, 
 			    GBF_PROJECT_MODEL_COLUMN_DATA, data,
 			    -1);
@@ -415,10 +513,13 @@ add_target_shortcut (GbfProjectModel *model,
 	{
 		data = target;
 	}
+	g_message ("add target shortcut %p", data);
 	gtk_tree_store_insert_before (GTK_TREE_STORE (model), &iter, NULL, &sibling);
+	//g_message ("insert done %p ", data);
 	gtk_tree_store_set (GTK_TREE_STORE (model), &iter, 
 			    GBF_PROJECT_MODEL_COLUMN_DATA, data,
 			    -1);
+	g_message ("set done %p ", data);
 	
 	/* add sources */
 	parent = anjuta_pm_project_get_node (model->priv->proj, target);
@@ -474,6 +575,7 @@ move_target_shortcut (GbfProjectModel *model,
 	{
 		gtk_tree_store_remove (GTK_TREE_STORE (model), iter);			
 		gtk_tree_store_insert_before (GTK_TREE_STORE (model), iter, NULL, &sibling);
+		g_message ("move_target_shortcut %p", shortcut);
 		gtk_tree_store_set (GTK_TREE_STORE (model), iter, 
 				    GBF_PROJECT_MODEL_COLUMN_DATA, shortcut,
 				    -1);
@@ -503,6 +605,7 @@ add_package (GbfProjectModel    	      *model,
 	
 	data = gbf_tree_data_new_package (package);
 	gtk_tree_store_append (GTK_TREE_STORE (model), &iter, parent);
+	g_message ("add package %p", data);
 	gtk_tree_store_set (GTK_TREE_STORE (model), &iter, 
 			    GBF_PROJECT_MODEL_COLUMN_DATA, data,
 			    -1);
@@ -528,6 +631,7 @@ add_module (GbfProjectModel 		*model,
 	
 	data = gbf_tree_data_new_module (module);
 	gtk_tree_store_append (GTK_TREE_STORE (model), &iter, parent);
+	g_message ("add_module %p", data);
 	gtk_tree_store_set (GTK_TREE_STORE (model), &iter, 
 			    GBF_PROJECT_MODEL_COLUMN_DATA, data,
 			    -1);
@@ -553,6 +657,7 @@ add_target (GbfProjectModel 		*model,
 	
 	data = gbf_tree_data_new_target (target);
 	gtk_tree_store_append (GTK_TREE_STORE (model), &iter, parent);
+	g_message("add_target %p", data);
 	gtk_tree_store_set (GTK_TREE_STORE (model), &iter, 
 			    GBF_PROJECT_MODEL_COLUMN_DATA, data,
 			    -1);
@@ -568,10 +673,10 @@ add_target (GbfProjectModel 		*model,
 	 * set of public functions to add/remove shortcuts to save
 	 * this information in the project metadata (when that's
 	 * implemented) */
-	if (anjuta_project_node_get_full_type (target) & ANJUTA_PROJECT_PRIMARY)
+	/*if (anjuta_project_node_get_full_type (target) & ANJUTA_PROJECT_PRIMARY)
 	{
 		add_target_shortcut (model, NULL, data, NULL);
-	}
+	}*/
 }
 
 static void 
@@ -588,6 +693,7 @@ add_target_group (GbfProjectModel 	*model,
 	
 	data = gbf_tree_data_new_group (group);
 	gtk_tree_store_append (GTK_TREE_STORE (model), &iter, parent);
+	g_message("add_target_group %p", data);
 	gtk_tree_store_set (GTK_TREE_STORE (model), &iter, 
 			    GBF_PROJECT_MODEL_COLUMN_DATA, data,
 			    -1);
@@ -676,6 +782,7 @@ insert_empty_node (GbfProjectModel *model)
 	empty_node = gbf_tree_data_new_string (_("No project loaded"));
 
 	gtk_tree_store_append (GTK_TREE_STORE (model), &iter, NULL);
+	g_message ("insert_empty_node %p", empty_node);
 	gtk_tree_store_set (GTK_TREE_STORE (model), &iter,
 			    GBF_PROJECT_MODEL_COLUMN_DATA, empty_node,
 			    -1);

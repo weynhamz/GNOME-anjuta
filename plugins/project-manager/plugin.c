@@ -1244,7 +1244,23 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 }
 
 static void
-on_project_updated (AnjutaPmProject *project, GError *error, ProjectManagerPlugin *plugin)
+add_primary_target (AnjutaProjectNode *node, gpointer data)
+{
+	GList ** list = (GList **)data;
+
+	if (anjuta_project_node_get_full_type (node) & ANJUTA_PROJECT_PRIMARY)
+	{
+		gchar *path;
+		
+		path = g_file_get_path (anjuta_project_node_get_file (node));
+		
+		*list = g_list_prepend (*list, g_strconcat ("C ", path, NULL));
+		g_free (path);
+	}
+}
+
+static void
+on_project_updated (AnjutaPmProject *project, AnjutaProjectNode *node, GError *error, ProjectManagerPlugin *plugin)
 {
 	AnjutaStatus *status;
 	gchar *dirname;
@@ -1252,9 +1268,9 @@ on_project_updated (AnjutaPmProject *project, GError *error, ProjectManagerPlugi
 	dirname = anjuta_util_get_local_path_from_uri (plugin->project_root_uri);
 	if (!error)
 	{
-		/* Restore existing shortcut */
 		if (plugin->shortcuts != NULL)
 		{
+			/* Restore existing shortcut */
 			GList *item;
 			
 			gbf_project_view_set_shortcut_list (GBF_PROJECT_VIEW (plugin->view), plugin->shortcuts);
@@ -1275,12 +1291,26 @@ on_project_updated (AnjutaPmProject *project, GError *error, ProjectManagerPlugi
 				}
 			}
 		}
+		else
+		{
+			GList *list = NULL;
+			
+			/* Add new shortcut for PRIMARY target */
+			anjuta_project_node_all_foreach (node, add_primary_target, &list);
+
+			if (list != NULL)
+			{
+				list = g_list_reverse (list);
+				gbf_project_view_set_shortcut_list (GBF_PROJECT_VIEW (plugin->view), list);
+				g_list_free (list);
+			}
+		}
 	}
 	g_free (dirname);
 }
 
 static void
-on_project_loaded (AnjutaPmProject *project, GError *error, ProjectManagerPlugin *plugin)
+on_project_loaded (AnjutaPmProject *project, AnjutaProjectNode *node, GError *error, ProjectManagerPlugin *plugin)
 {
 	AnjutaStatus *status;
 	gchar *dirname;
@@ -1310,21 +1340,29 @@ on_project_loaded (AnjutaPmProject *project, GError *error, ProjectManagerPlugin
 			GList *item;
 			
 			gbf_project_view_set_shortcut_list (GBF_PROJECT_VIEW (plugin->view), plugin->shortcuts);
-			/* Remove used shortcuts */
+			/* Remove all shortcuts, as the project is completely loaded */
 			for (item = g_list_first (plugin->shortcuts); item != NULL;)
 			{
-				if (*((char *)item->data) == 'U')
-				{
-					GList *next = g_list_next (item);
+				GList *next = g_list_next (item);
 					
-					g_free (item->data);
-					plugin->shortcuts = g_list_remove_link (plugin->shortcuts, item);
-					item = next;
-				}
-				else
-				{
-					item = g_list_next (item);
-				}
+				g_free (item->data);
+				plugin->shortcuts = g_list_remove_link (plugin->shortcuts, item);
+				item = next;
+			}
+		}
+		else
+		{
+			GList *list = NULL;
+			
+			/* Add new shortcut for PRIMARY target */
+			anjuta_project_node_all_foreach (node, add_primary_target, &list);
+
+			if (list != NULL)
+			{
+				list = g_list_reverse (list);
+				gbf_project_view_set_shortcut_list (GBF_PROJECT_VIEW (plugin->view), list);
+				g_list_foreach (list, (GFunc)g_free, NULL);
+				g_list_free (list);
 			}
 		}
 		gchar *basename = g_path_get_basename (dirname);

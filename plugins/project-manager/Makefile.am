@@ -22,6 +22,20 @@ plugin_in_files = anjuta-project-manager.plugin.in
 project_plugindir = $(anjuta_plugin_dir)
 project_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
+# Additional marshaller
+project-marshal.h: project-marshal.list
+	$(AM_V_GEN)@GLIB_GENMARSHAL@ \
+	        --prefix=pm_cclosure_marshal $(srcdir)/project-marshal.list --header > xgen-gmc \
+	&& cp xgen-gmc $(@F) \
+	&& rm -f xgen-gmc
+
+project-marshal.c: project-marshal.h project-marshal.list
+	$(AM_V_GEN)echo "#include \"project-marshal.h\"" > xgenc-gmc \
+	&& @GLIB_GENMARSHAL@ \
+	        --prefix=pm_cclosure_marshal $(srcdir)/project-marshal.list --body >> xgenc-gmc \
+	&& cp xgenc-gmc $(@F) \
+	&& rm -f xgenc-gmc
+
 # Include paths
 AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
@@ -36,6 +50,8 @@ plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-project-manager.la
 
 # Plugin sources
+BUILT_SOURCES = project-marshal.c project-marshal.h
+
 libanjuta_project_manager_la_SOURCES = \
 	plugin.c \
 	plugin.h \
@@ -52,7 +68,8 @@ libanjuta_project_manager_la_SOURCES = \
 	project.h		\
 	project.c		\
 	dialogs.c		\
-	dialogs.h
+	dialogs.h		\
+	$(BUILT_SOURCES)
 
 libanjuta_project_manager_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
@@ -65,7 +82,8 @@ EXTRA_DIST = \
 	$(project_plugin_DATA) \
 	$(project_ui_DATA) \
 	$(project_pixmaps_DATA) \
-	$(project_glade_DATA)
+	$(project_glade_DATA) \
+	project-marshal.list
 
 DISTCLEANFILES = \
 	$(project_plugin_DATA) \

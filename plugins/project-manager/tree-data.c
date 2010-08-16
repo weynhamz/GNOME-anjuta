@@ -224,6 +224,12 @@ gbf_tree_data_equal_file (GbfTreeData *data, AnjutaProjectNodeType type, GFile *
 	return equal;
 }
 
+void
+gbf_tree_data_invalidate (GbfTreeData *data)
+{
+	data->type = GBF_TREE_NODE_INVALID;
+}
+
 GbfTreeData *
 gbf_tree_data_new_string (const gchar *string)
 {
@@ -248,7 +254,7 @@ gbf_tree_data_new_shortcut (GbfTreeData *src)
 	data->source = src->source == NULL ? NULL : g_object_ref (src->source);
 	data->is_shortcut = TRUE;
 	data->shortcut = src;
-	src->shortcut = data;
+	//src->shortcut = data;
 	
 	return data;
 }
@@ -375,7 +381,7 @@ gbf_tree_data_free (GbfTreeData *data)
 		if (data->group != NULL) g_object_unref (data->group);
 		g_free (data->target);
 		if (data->source != NULL) g_object_unref (data->source);
-		if (data->shortcut) data->shortcut->shortcut = NULL;
+		//if (data->shortcut) data->shortcut->shortcut = NULL;
 		if (data->properties_dialog) gtk_widget_destroy (data->properties_dialog);
 		g_slice_free (GbfTreeData, data);
 	}

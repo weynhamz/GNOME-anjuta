@@ -111,6 +111,8 @@ struct _AmpGroupData {
 	GList *tokens[AM_GROUP_TOKEN_LAST];					/* List of token used by this group */
 	AnjutaToken *make_token;
 	GHashTable *variables;
+	GFileMonitor *monitor;			/* File monitor */
+	AmpProject *project;			/* Project used by file monitor */
 };
 
 typedef enum _AmpTargetFlag
@@ -849,6 +851,37 @@ amp_group_set_dist_only (AmpGroup *node, gboolean dist_only)
  	AMP_GROUP_DATA (node)->dist_only = dist_only;
 }
 
+static void
+on_group_monitor_changed (GFileMonitor *monitor,
+											GFile *file,
+											GFile *other_file,
+											GFileMonitorEvent event_type,
+											gpointer data)
+{
+	AmpGroup *g_node = data;
+
+	switch (event_type) {
+		case G_FILE_MONITOR_EVENT_CHANGED:
+		case G_FILE_MONITOR_EVENT_DELETED:
+			g_message ("node updated node %p group %p project %p", g_node, AMP_GROUP_DATA (g_node), AMP_GROUP_DATA (g_node)->project);
+			/* project can be NULL, if the node is dummy node because the
+			 * original one is reloaded. */
+			if (!(anjuta_project_node_get_full_type ((AnjutaProjectNode *)g_node) & ANJUTA_PROJECT_PROXY))
+			{
+				g_signal_emit_by_name (G_OBJECT (AMP_GROUP_DATA (g_node)->project), "node-updated", data);
+			}
+			else
+			{
+				g_message ("proxy changed");
+			}
+			g_message ("signal emitted");
+			break;
+		default:
+			break;
+	}
+}
+
+
 static AnjutaTokenFile*
 amp_group_set_makefile (AmpGroup *node, GFile *makefile, AmpProject* project)
 {
@@ -872,12 +905,28 @@ amp_group_set_makefile (AmpGroup *node, GFile *makefile, AmpProject* project)
 		scanner = amp_am_scanner_new (project, node);
 		group->make_token = amp_am_scanner_parse_token (scanner, anjuta_token_new_static (ANJUTA_TOKEN_FILE, NULL), token, makefile, NULL);
 		amp_am_scanner_free (scanner);
+
+		group->monitor = g_file_monitor_file (makefile, 
+						      									G_FILE_MONITOR_NONE,
+						       									NULL,
+						       									NULL);
+		if (group->monitor != NULL)
+		{
+			g_message ("add monitor %s node %p data %p project %p", g_file_get_path (makefile), node, group, project);
+			group->project = project;
+			g_signal_connect (G_OBJECT (group->monitor),
+					  "changed",
+					  G_CALLBACK (on_group_monitor_changed),
+					  node);
+		}
 	}
 	else
 	{
 		group->makefile = NULL;
 		group->tfile = NULL;
 		group->make_token = NULL;
+		if (group->monitor) g_object_unref (group->monitor);
+		group->monitor = NULL;
 	}
 
 	return group->tfile;
@@ -902,7 +951,6 @@ amp_group_new (GFile *file, gboolean dist_only)
 	group->dist_only = dist_only;
 	group->variables = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, (GDestroyNotify)amp_variable_free);
 
-
     return g_node_new (group);
 }
 
@@ -923,6 +971,9 @@ amp_group_free (AmpGroup *node)
     g_slice_free (AmpGroupData, group);
 	if (group->variables) g_hash_table_destroy (group->variables);
 
+	if (group->monitor) g_object_unref (group->monitor);
+	group->monitor = NULL;
+	
 	g_node_destroy (node);
 }
 
@@ -1122,6 +1173,7 @@ monitor_cb (GFileMonitor *monitor,
 		case G_FILE_MONITOR_EVENT_DELETED:
 			/* monitor will be removed here... is this safe? */
 			//amp_project_reload (project, NULL);
+			g_message ("project updated");
 			g_signal_emit_by_name (G_OBJECT (project), "project-updated");
 			break;
 		default:
@@ -1157,7 +1209,7 @@ monitor_add (AmpProject *project, GFile *file)
 			{
 				g_signal_connect (G_OBJECT (monitor),
 						  "changed",
-						  G_CALLBACK (monitor_cb),
+						  G_CALLBACK (on_group_monitor_changed),
 						  project);
 				g_hash_table_insert (project->monitors,
 						     g_object_ref (file),
@@ -2203,7 +2255,7 @@ amp_project_load_root (AmpProject *project, AnjutaProjectNode *node, GError **er
 			return NULL;
 	}
 
-	monitors_setup (project);
+//	monitors_setup (project);
 
 	/* Load all makefiles recursively */
 	if (project_load_makefile (project, project->root_file, node, FALSE) == NULL)

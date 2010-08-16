@@ -69,6 +69,7 @@ GList                      *gbf_project_view_get_all_selected  (GbfProjectView *
 GList                      *gbf_project_view_get_all_selected_iter  (GbfProjectView *view);
 
 GList                      *gbf_project_view_get_shortcut_list (GbfProjectView *view);
+void			gbf_project_view_remove_all_shortcut (GbfProjectView* view);
 void                        gbf_project_view_set_shortcut_list (GbfProjectView *view,
                                                                  GList          *shortcuts);
 

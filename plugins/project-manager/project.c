@@ -24,7 +24,7 @@
 #endif
 
 #include "project.h"
-#include <libanjuta/anjuta-marshal.h>
+#include "project-marshal.h"
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-error.h>
 #include <libanjuta/interfaces/ianjuta-project-backend.h>
@@ -485,10 +485,11 @@ pm_command_load_complete (AnjutaPmProject *project, PmJob *job)
 	anjuta_project_proxy_exchange_data (job->proxy, job->node);
 	anjuta_project_node_exchange (job->proxy, job->node);
 
+	g_message ("pm_command_load_complete");
 	if (job->error != NULL)
 	{
 		g_warning ("unable to load node");
-		g_signal_emit (G_OBJECT (project), signals[job->command == LOAD ? LOADED : UPDATED], 0, job->error);
+		g_signal_emit (G_OBJECT (project), signals[job->command == LOAD ? LOADED : UPDATED], 0, job->node, job->error);
 	}
 	else
 	{
@@ -524,10 +525,15 @@ pm_command_load_complete (AnjutaPmProject *project, PmJob *job)
 		}
 		anjuta_project_node_clear_state (job->node, ANJUTA_PROJECT_LOADING | ANJUTA_PROJECT_INCOMPLETE);
 		anjuta_project_node_all_foreach (job->node, (AnjutaProjectNodeFunc)on_pm_project_load_incomplete, project);
-		
-		if (project->incomplete_node == 0)
+
+		g_message ("emit node %p", job->node);
+		if (load && (project->incomplete_node == 0))
 		{
-			g_signal_emit (G_OBJECT (project), signals[load ? LOADED : UPDATED], 0, NULL);
+			g_signal_emit (G_OBJECT (project), signals[LOADED], 0, job->node, NULL);
+		}
+		else
+		{
+			g_signal_emit (G_OBJECT (project), signals[UPDATED], 0, job->node, NULL);
 		}
 		check_queue (project->job_queue, job->map);
 	}
@@ -1122,14 +1128,29 @@ anjuta_pm_project_class_init (AnjutaPmProjectClass *klass)
 	
 	object_class->finalize = anjuta_pm_project_finalize;
 
+
+ 	/*Change both signal to use marshal_VOID__POINTER_BOXED
+	adding a AnjutaProjectNode pointer corresponding to the
+	 loaded node => done
+	 Such marshal doesn't exist as glib marshal, so look in the
+	 symbol db plugin how to add new marshal => done
+	 ToDo :
+	 This new argument can be used in the plugin object in
+	 order to add corresponding shortcut when the project
+	 is loaded and a new node is loaded.
+	 The plugin should probably get the GFile from the
+	 AnjutaProjectNode object and then use a function
+	 in project-view.c to create the corresponding shortcut*/
+	
 	signals[UPDATED] = g_signal_new ("updated",
 	    G_OBJECT_CLASS_TYPE (object_class),
 	    G_SIGNAL_RUN_LAST,
 	    G_STRUCT_OFFSET (AnjutaPmProjectClass, updated),
 	    NULL, NULL,
-	    g_cclosure_marshal_VOID__BOXED,
+	    pm_cclosure_marshal_VOID__POINTER_BOXED,
 	    G_TYPE_NONE,
-	    1,
+	    2,
+	    G_TYPE_POINTER,
 	    G_TYPE_ERROR);
 	
 	signals[LOADED] = g_signal_new ("loaded",
@@ -1137,9 +1158,10 @@ anjuta_pm_project_class_init (AnjutaPmProjectClass *klass)
 		G_SIGNAL_RUN_LAST,
 		G_STRUCT_OFFSET (AnjutaPmProjectClass, loaded),
 		NULL, NULL,
-		g_cclosure_marshal_VOID__BOXED,
+		pm_cclosure_marshal_VOID__POINTER_BOXED,
 		G_TYPE_NONE,
-		1,
+		2,
+	    G_TYPE_POINTER,
 		G_TYPE_ERROR);
 }
 

@@ -39,7 +39,8 @@ typedef enum {
 	GBF_TREE_NODE_PACKAGE,
 	GBF_TREE_NODE_SOURCE,
 	GBF_TREE_NODE_ROOT,
-	GBF_TREE_NODE_SHORTCUT
+	GBF_TREE_NODE_SHORTCUT,
+	GBF_TREE_NODE_INVALID
 } GbfTreeNodeType;
 
 struct _GbfTreeData
@@ -77,6 +78,7 @@ GbfTreeData   *gbf_tree_data_new_target         (AnjutaProjectNode     *target);
 GbfTreeData   *gbf_tree_data_new_source         (AnjutaProjectNode     *source);
 GbfTreeData   *gbf_tree_data_new_module         (AnjutaProjectNode     *module);
 GbfTreeData   *gbf_tree_data_new_package        (AnjutaProjectNode     *package);
+void				gbf_tree_data_invalidate (GbfTreeData *data);
 void           gbf_tree_data_free               (GbfTreeData           *data);
 
 
