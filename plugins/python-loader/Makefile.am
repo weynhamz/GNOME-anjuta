@@ -49,7 +49,8 @@ libanjuta_python_loader_la_LIBADD = \
 endif # HAVE_PYTHON
 
 EXTRA_DIST = \
-	$(plugin_in_files)
+	$(plugin_in_files) \
+	$(plugin_DATA)
 
 -include $(top_srcdir)/git.mk
 
