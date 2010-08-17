@@ -120,7 +120,11 @@ gdb_check_register_function (PreferenceDialog *dlg, GtkTreeIter *iter)
 	{
 		gchar *msg;
 
-		msg = g_strdup_printf(_("The following pretty printers, without a register functions, have been disabled:\n %s"), list->str);
+		/* Translators: pretty printer file is a kind of script allowing gdb to display
+		 * variable content in a simpler way, removing implementation details */
+		msg = g_strdup_printf(_("The register function hasn't been found automatically in the following pretty printer files:\n"
+								"%s\nYou need to fill yourself the register function columns before enabling the rows. "
+								"Most of the time the register function name contains the word \"register\"."), list->str);
 		anjuta_util_dialog_warning (GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (dlg->treeview))), msg);
 		g_free (msg);
 		g_string_free (list, TRUE);
@@ -141,7 +145,7 @@ gdb_find_register_function (const gchar *path)
 		GRegex *regex;
 		GMatchInfo *match;
 
-		regex = g_regex_new ("^def\\s+(register\w*)\\s*\\(\\w+\\)\\s*:", G_REGEX_CASELESS | G_REGEX_MULTILINE, 0, NULL);
+		regex = g_regex_new ("^def\\s+(register\\w*)\\s*\\(\\w+\\)\\s*:", G_REGEX_CASELESS | G_REGEX_MULTILINE, 0, NULL);
 		if (g_regex_match (regex, content, 0, &match))
 		{
 			function = g_match_info_fetch (match, 1);
@@ -281,8 +285,6 @@ gdb_on_printer_activate (GtkCellRendererToggle *cell_renderer, const gchar *path
 		gtk_tree_model_get (GTK_TREE_MODEL (dlg->model), &iter, GDB_PP_ACTIVE_COLUMN, &enable, -1);
 		enable = !enable;
 		gtk_list_store_set (dlg->model, &iter, GDB_PP_ACTIVE_COLUMN, enable, -1);
-		
-		if (enable) gdb_check_register_function (dlg, &iter);
 	}
 }
 

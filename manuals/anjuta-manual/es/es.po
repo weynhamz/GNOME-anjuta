@@ -1,18 +1,18 @@
-# translation of anjuta.help.HEAD.po to Español
+# translation of anjuta.help.master.po to Español
+# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2009, 2010.
 #
-# Jorge González <jorgegonz@svn.gnome.org>, 2007, 200, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta.help.HEAD\n"
-"POT-Creation-Date: 2009-03-10 18:38+0000\n"
-"PO-Revision-Date: 2009-03-17 00:10+0100\n"
+"Project-Id-Version: anjuta.help.master\n"
+"POT-Creation-Date: 2010-08-08 19:59+0000\n"
+"PO-Revision-Date: 2010-08-17 08:40+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: C/anjuta-manual.xml:27(title)
 msgid "Anjuta IDE Manual"
@@ -5368,17 +5368,22 @@ msgstr ""
 "net/projects/anjuta\"> http://www.sourceforge.net/projects/anjuta</ulink>."
 
 #: C/anjuta-manual.xml:17(para)
+#| msgid ""
+#| "This manual was written by Naba Kumar, Andy Piper, Biswapesh "
+#| "Chattopadhyay and Johannes Schmid. Please send all comments and "
+#| "suggestions regarding this manual to the Anjuta Devel list <email>anjuta-"
+#| "devel@list.sourceforge.net</email>. Comments may also be submitted via "
+#| "the project trackers at SourceForge."
 msgid ""
 "This manual was written by Naba Kumar, Andy Piper, Biswapesh Chattopadhyay "
 "and Johannes Schmid. Please send all comments and suggestions regarding this "
-"manual to the Anjuta Devel list <email>anjuta-devel@list.sourceforge.net</"
-"email>. Comments may also be submitted via the project trackers at "
-"SourceForge."
+"manual to the Anjuta Devel list <email>anjuta-devel-list@gnome.org</email>. "
+"Comments may also be submitted via the project trackers at SourceForge."
 msgstr ""
 "Naba Kumar, Andy Piper, Biswapesh Chattopadhyay y Johannes Schmid "
 "escribieron este manual. Envíe cualquier comentario y sugerencia acerca de "
-"este manual a la lista de desarrollo de Anjuta <email>anjuta-devel@list."
-"sourceforge.net</email>. También se pueden enviar comentarios a traes de la "
+"este manual a la lista de desarrollo de Anjuta <email>anjuta-devel-"
+"list@gnome.org</email>. También se pueden enviar comentarios a traes de la "
 "página del proyecto en SourceForge."
 
 #: C/anjuta-manual.xml:2(title)
@@ -5431,7 +5436,7 @@ msgstr ""
 "<state>MA</state><postcode>02110-1301</postcode><country>EE. UU.</country></"
 "address>"
 
-#. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2.
+#. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
 #: C/anjuta-manual.xml:0(None)
 msgid "translator-credits"
 msgstr "Jorge González <jorgegonz@svn.gnome.org>, 2007-2009"

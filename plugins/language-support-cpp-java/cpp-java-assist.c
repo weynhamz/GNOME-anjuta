@@ -476,13 +476,13 @@ cpp_java_assist_create_completion_cache (CppJavaAssist* assist)
 }
 
 /**
- * cpp_java_assist_clear_completion_cache
+ * cpp_java_assist_cancel_queries:
  * @assist: self
  *
- * Clear the completion cache, aborting all async operations
+ * Abort all async operations
  */
 static void
-cpp_java_assist_clear_completion_cache (CppJavaAssist* assist)
+cpp_java_assist_cancel_queries (CppJavaAssist* assist)
 {
 	ianjuta_symbol_query_cancel (assist->priv->ac_query_file, NULL);
 	ianjuta_symbol_query_cancel (assist->priv->ac_query_project, NULL);
@@ -490,12 +490,26 @@ cpp_java_assist_clear_completion_cache (CppJavaAssist* assist)
 	assist->priv->async_file_id = 0;
 	assist->priv->async_project_id = 0;
 	assist->priv->async_system_id = 0;
+}
+
+/**
+ * cpp_java_assist_clear_completion_cache:
+ * @assist: self
+ *
+ * Clear the completion cache, aborting all async operations
+ */
+static void
+cpp_java_assist_clear_completion_cache (CppJavaAssist* assist)
+{
+	cpp_java_assist_cancel_queries (assist);
 	if (assist->priv->completion_cache)
 	{	
 		g_list_foreach (assist->priv->completion_cache->items, (GFunc) cpp_java_assist_proposal_free, NULL);
 		g_completion_free (assist->priv->completion_cache);
 	}
 	assist->priv->completion_cache = NULL;
+	assist->priv->member_completion = FALSE;
+	assist->priv->autocompletion = FALSE;
 }
 
 /**
@@ -1033,6 +1047,20 @@ cpp_java_assist_calltip (CppJavaAssist *assist)
 	g_object_unref (iter);
 	return FALSE;
 }
+
+/**
+ * cpp_java_assist_cancelled:
+ * @iassist: IAnjutaEditorAssist that emitted the signal
+ * @assist: CppJavaAssist object
+ *
+ * Stop any autocompletion queries when the cancelled signal was received
+ */
+static void
+cpp_java_assist_cancelled (IAnjutaEditorAssist* iassist, CppJavaAssist* assist)
+{
+	cpp_java_assist_cancel_queries (assist);
+}
+
 /**
  * cpp_java_assist_none:
  * @self: IAnjutaProvider object
@@ -1106,14 +1134,13 @@ cpp_java_assist_populate (IAnjutaProvider* self, IAnjutaIterable* cursor, GError
 			cpp_java_assist_populate_real (assist, TRUE);
 			g_free (pre_word);
 			return;
-		}
-		else
-			cpp_java_assist_clear_completion_cache (assist);
+		}			
 		g_free (pre_word);
 	}
+
+	cpp_java_assist_clear_completion_cache (assist);
+	
 	/* Check for member completion */
-	assist->priv->member_completion = FALSE;
-	assist->priv->autocompletion = FALSE;
 	if (cpp_java_assist_create_member_completion_cache (assist, cursor))
 	{
 		assist->priv->member_completion = TRUE;
@@ -1247,6 +1274,7 @@ cpp_java_assist_install (CppJavaAssist *assist, IAnjutaEditor *ieditor)
 	{
 		assist->priv->iassist = IANJUTA_EDITOR_ASSIST (ieditor);
 		ianjuta_editor_assist_add (IANJUTA_EDITOR_ASSIST (ieditor), IANJUTA_PROVIDER(assist), NULL);
+		g_signal_connect (ieditor, "cancelled", G_CALLBACK (cpp_java_assist_cancelled), assist);
 	}
 	else
 	{
@@ -1274,7 +1302,9 @@ static void
 cpp_java_assist_uninstall (CppJavaAssist *assist)
 {
 	g_return_if_fail (assist->priv->iassist != NULL);
-
+	
+	g_signal_handlers_disconnect_by_func (assist->priv->iassist,
+	                                      cpp_java_assist_cancelled, assist);
 	ianjuta_editor_assist_remove (assist->priv->iassist, IANJUTA_PROVIDER(assist), NULL);
 	assist->priv->iassist = NULL;
 }

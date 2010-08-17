@@ -1,6 +1,4 @@
 #include <gtk/gtk.h>
-#include <gconf/gconf.h>
-#include <gconf/gconf-client.h>
 #include "main.h"
 
 void create_notification_window(GTodoItem *item);
@@ -18,8 +16,8 @@ typedef struct
 int check_for_notification_event(void)
 {
 	GTodoList *list = NULL;
-	int min_b_not = gconf_client_get_int(client, "/apps/gtodo/prefs/notify_in_minutes",NULL);
-	if(!gconf_client_get_bool(client, "/apps/gtodo/prefs/do_notification",NULL)) return TRUE;
+	int min_b_not = anjuta_preferences_get_int(preferences, "gtodo.notify_in_minutes");
+	if(!anjuta_preferences_get_bool(preferences, "gtodo.do_notification")) return TRUE;
 	list = gtodo_client_get_todo_item_list(cl, NULL);
 	if(list == NULL) return TRUE;
 	do{

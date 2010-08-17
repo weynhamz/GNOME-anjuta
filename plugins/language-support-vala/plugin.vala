@@ -20,6 +20,7 @@ using Anjuta;
 
 public class ValaPlugin : Plugin {
 	internal weak IAnjuta.Editor current_editor;
+	internal Anjuta.Preferences prefs;
 	uint editor_watch_id;
 
 	Vala.CodeContext context;
@@ -42,6 +43,7 @@ public class ValaPlugin : Plugin {
 		context.report = report;
 		context.profile = Vala.Profile.GOBJECT;
 
+		prefs = shell.get_preferences ();
 		var project = (IAnjuta.ProjectManager) shell.get_object("IAnjutaProjectManager");
 		weak List<string> packages = project.get_packages();
 		add_package(context, "glib-2.0");
@@ -75,17 +77,23 @@ public class ValaPlugin : Plugin {
 		ThreadFunc parse = () => {
 			lock (context) {
 				Vala.CodeContext.push(context);
+				var report = context.report as AnjutaReport;
 
 				parser = new Vala.Parser ();
 				genie_parser = new Vala.Genie.Parser ();
+				resolver = new Vala.SymbolResolver ();
+				analyzer = new Vala.SemanticAnalyzer ();
 
 				parser.parse (context);
 				genie_parser.parse (context);
+				if (report.errors_found ())
+					return null;
 
-				resolver = new Vala.SymbolResolver ();
 				resolver.resolve (context);
+				if (report.errors_found ())
+					/* TODO: there may be missing packages */
+					return null;
 
-				analyzer = new Vala.SemanticAnalyzer ();
 				analyzer.analyze (context);
 
 				Vala.CodeContext.pop();
@@ -166,13 +174,11 @@ public class ValaPlugin : Plugin {
 	}
 
 	public void on_char_added (IAnjuta.EditorTip editor, Object position, char ch) {
-		var current_position = (IAnjuta.Iterable) position;
-		/* include the just added char */
-		current_position.next ();
+		if (!prefs.get_bool_with_default (ValaProvider.PREF_CALLTIP_ENABLE, true))
+			return;
+
 		if (ch == '(') {
-			var line_start = editor.get_line_begin_position(current_editor.get_lineno());
-			var current_text = editor.get_text(line_start, current_position);
-			provider.show_call_tip (editor, current_text);
+			provider.show_call_tip (editor);
 		} else if (ch == ')') {
 			editor.cancel ();
 		}
@@ -224,13 +230,17 @@ public class ValaPlugin : Plugin {
 		}
 		return matching_symbols;
 	}
-	List<Vala.Symbol> symbol_lookup_inherited (Vala.Symbol sym, string name, bool prefix_match, bool invocation = false) {
+	List<Vala.Symbol> symbol_lookup_inherited (Vala.Symbol? sym, string name, bool prefix_match, bool invocation = false) {
 		List<Vala.Symbol> result = null;
+
+		// This may happen if we cannot find all the needed packages
+		if (sym == null)
+			return result;
 
 		var symbol_table = sym.scope.get_symbol_table ();
 		if (symbol_table != null) {
 			foreach (string key in symbol_table.get_keys()) {
-				if (((prefix_match && key.has_prefix (name)) || key == name) && (key != "this")) {
+				if (((prefix_match && key.has_prefix (name)) || key == name)) {
 					result.append (symbol_table[key]);
 				}
 			}
@@ -256,13 +266,13 @@ public class ValaPlugin : Plugin {
 			result.concat (symbol_lookup_inherited (variable.variable_type.data_type, name, prefix_match));
 		} else if (sym is Vala.Field) {
 			var field = (Vala.Field) sym;
-			result.concat (symbol_lookup_inherited (field.field_type.data_type, name, prefix_match));
+			result.concat (symbol_lookup_inherited (field.variable_type.data_type, name, prefix_match));
 		} else if (sym is Vala.Property) {
 			var prop = (Vala.Property) sym;
 			result.concat (symbol_lookup_inherited (prop.property_type.data_type, name, prefix_match));
 		} else if (sym is Vala.FormalParameter) {
 			var fp = (Vala.FormalParameter) sym;
-			result.concat (symbol_lookup_inherited (fp.parameter_type.data_type, name, prefix_match));
+			result.concat (symbol_lookup_inherited (fp.variable_type.data_type, name, prefix_match));
 		}
 
 		return result;
@@ -298,8 +308,11 @@ public class ValaPlugin : Plugin {
 			parser.visit_source_file (file);
 			genie_parser.visit_source_file (file);
 
-			resolver.resolve (context);
-			analyzer.visit_source_file (file);
+			if (!report.errors_found ()) {
+				resolver.resolve (context);
+				if (!report.errors_found ())
+					analyzer.visit_source_file (file);
+			}
 
 			Vala.CodeContext.pop ();
 

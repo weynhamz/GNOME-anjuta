@@ -22,6 +22,7 @@
 #include <plugins/project-wizard/autogen.h>
 
 #include <libanjuta/anjuta-marshal.h>
+#include <libanjuta/anjuta-utils.h>
 
 #include <glib/gstdio.h>
 

@@ -148,7 +148,7 @@ GtkBuilder *anjuta_util_builder_new (const gchar *filename, GError **error);
 gboolean anjuta_util_builder_get_objects (GtkBuilder *builder, const gchar *first_widget,...);
 
 /* Helper for drag and drop */
-GSList *anjuta_utils_drop_get_files (GtkSelectionData *selection_data);
+GSList *anjuta_util_drop_get_files (GtkSelectionData *selection_data);
 
 /* Temporarily copied here */
 

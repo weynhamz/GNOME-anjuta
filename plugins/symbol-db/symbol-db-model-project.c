@@ -19,6 +19,7 @@
 
 #include "symbol-db-engine.h"
 #include "symbol-db-model-project.h"
+#include <libanjuta/anjuta-debug.h>
 
 #define SDB_MODEL_PROJECT_SQL " \
 	SELECT \
@@ -234,8 +235,11 @@ sdb_model_project_get_query_value (SymbolDBModel *model,
 		                                              DATA_COL_SYMBOL_NAME);
 		if (ret_value && G_VALUE_HOLDS_STRING (ret_value))
 		{
+			gchar* escaped;
 			name = g_value_get_string (ret_value);
-			g_string_assign (label, name);
+			escaped = g_markup_escape_text (name, -1);
+			g_string_assign (label, escaped);
+			g_free (escaped);
 		}
 		ret_value = gda_data_model_iter_get_value_at (iter,
 		                                              DATA_COL_SYMBOL_ARGS);
@@ -297,6 +301,7 @@ sdb_model_project_get_query_value (SymbolDBModel *model,
 					 file_name, file_line);
 			}
 		}
+		DEBUG_PRINT ("Output string: %s", label->str);
 		g_value_take_string (value, label->str);
 		g_string_free (label, FALSE);
 		return TRUE;

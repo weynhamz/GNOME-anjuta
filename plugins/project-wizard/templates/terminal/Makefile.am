@@ -10,8 +10,7 @@ wizard_files_DATA = \
 	Makefile.am.tpl \
 	NEWS \
 	project.anjuta \
-	README \
-	cvsignore 
+	README
 
 EXTRA_DIST = $(wizard_files_DATA)
 

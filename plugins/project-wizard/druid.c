@@ -449,17 +449,30 @@ cb_druid_add_property (NPWProperty* property, gpointer user_data)
 			gtk_widget_set_tooltip_text (entry, description);
 		}
 
-		/* Add label and entry */
-		gtk_table_resize (data->table, data->row + 1, 2);
 		label = gtk_label_new (npw_property_get_label (property));
 		gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
 		gtk_misc_set_padding (GTK_MISC (label), 6, 6);
-		gtk_table_attach (data->table, label, 0, 1, data->row, data->row + 1,
-			(GtkAttachOptions)(GTK_FILL), (GtkAttachOptions)(0), 0, 0);
-		gtk_table_attach (data->table, entry, 1, 2, data->row, data->row + 1,
-			(GtkAttachOptions)(GTK_EXPAND|GTK_FILL), (GtkAttachOptions)(0), 0, 0);
 		
-		data->row++;
+		switch (npw_property_get_type (property))
+		{
+			case NPW_PACKAGE_PROPERTY:
+				gtk_table_resize (data->table, data->row + 2, 1);
+				gtk_table_attach (data->table, label, 0, 1, data->row, data->row + 1,
+				                  (GtkAttachOptions)(GTK_FILL), 0, 0, 0);
+				gtk_table_attach (data->table, entry, 0, 1, data->row + 1, data->row + 2,
+				                  (GtkAttachOptions)(GTK_EXPAND|GTK_FILL),
+				                  (GtkAttachOptions)(GTK_EXPAND|GTK_FILL), 0, 0);
+				data->row += 2;
+				break;
+			default:
+				/* Add label and entry */
+				gtk_table_resize (data->table, data->row + 1, 2);
+				gtk_table_attach (data->table, label, 0, 1, data->row, data->row + 1,
+				                  (GtkAttachOptions)(GTK_FILL), 0, 0, 0);
+				gtk_table_attach (data->table, entry, 1, 2, data->row, data->row + 1,
+				                  (GtkAttachOptions)(GTK_EXPAND|GTK_FILL), 0, 0, 0);
+				data->row++;
+		}
 		
 		/* Set first entry */
 		if (data->first_entry == NULL) data->first_entry = entry;

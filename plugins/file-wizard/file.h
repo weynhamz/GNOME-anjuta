@@ -36,7 +36,6 @@ extern "C"
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
-#include <libanjuta/interfaces/ianjuta-macro.h>
 #include <plugin.h>
 
 void display_new_file(AnjutaFileWizardPlugin *plugin,

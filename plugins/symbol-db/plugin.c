@@ -1657,7 +1657,7 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 		switch (open_status)
 		{
 			case DB_OPEN_STATUS_FATAL:
-				g_error ("*** Error in opening db ***");
+				g_warning ("*** Error in opening db ***");
 				return;
 				
 			case DB_OPEN_STATUS_NORMAL:

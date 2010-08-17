@@ -298,7 +298,7 @@ anjuta_preferences_get_int_with_default (AnjutaPreferences *pr,
 #ifdef __GNUC__
 inline
 #endif
-gint
+gboolean
 anjuta_preferences_get_bool_with_default (AnjutaPreferences *pr,
                                           const gchar *key, gboolean default_value)
 {
