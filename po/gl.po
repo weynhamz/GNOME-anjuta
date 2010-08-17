@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-master-po-gl-1952\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-17 00:05+0200\n"
-"PO-Revision-Date: 2010-08-17 01:08+0200\n"
+"POT-Creation-Date: 2010-08-17 11:21+0200\n"
+"PO-Revision-Date: 2010-08-17 11:27+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Galician <gnome-gl-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -228,7 +228,7 @@ msgstr "O intérprete de ordes de Anjuta que conterá o engadido"
 #: ../libanjuta/anjuta-plugin-manager.c:733
 #, c-format
 msgid "Plugin '%s' does not want to be deactivated"
-msgstr "O engadido '%s' non quere ser desactivado"
+msgstr "O engadido «%s» non quere ser desactivado"
 
 #: ../libanjuta/anjuta-plugin-manager.c:764
 #, c-format
@@ -381,14 +381,14 @@ msgid ""
 "Failed to read '%s': XML parse error. Invalid or corrupted Anjuta plugins "
 "profile."
 msgstr ""
-"Produciuse un fallo ao ler '%s': erro de análise de XML. O perfil de "
+"Produciuse un fallo ao ler «%s»: erro de análise de XML. O perfil de "
 "engadidos do Anjuta non é válido ou está danado."
 
 #. <Pluginname>: Install it from <some location on the web>
 #: ../libanjuta/anjuta-profile.c:699
 #, c-format
 msgid "%s: Install it from '%s'\n"
-msgstr "%s: Instáleo de '%s'\n"
+msgstr "%s: Instáleo de «%s»\n"
 
 #: ../libanjuta/anjuta-profile.c:707
 #, c-format
@@ -396,8 +396,7 @@ msgid ""
 "Failed to read '%s': Following mandatory plugins are missing:\n"
 "%s"
 msgstr ""
-"Produciuse un fallo ao ler '%s': faltan os seguintes engadidos "
-"obrigatorios:\n"
+"Produciuse un fallo ao ler «%s»: faltan os seguintes engadidos obrigatorios:\n"
 "%s"
 
 #: ../libanjuta/anjuta-preferences.c:1534
@@ -952,19 +951,19 @@ msgstr "Non hai ningún ficheiro ou proxecto aberto neste momento."
 #: ../plugins/run-program/execute.c:70
 #, c-format
 msgid "Program '%s' is not a local file"
-msgstr "O programa '%s' non é un ficheiro local"
+msgstr "O programa «%s» non é un ficheiro local"
 
 #: ../plugins/build-basic-autotools/executer.c:313
 #: ../plugins/run-program/execute.c:76
 #, c-format
 msgid "Program '%s' does not exist"
-msgstr "O programa '%s' non existe"
+msgstr "O programa «%s» non existe"
 
 #: ../plugins/build-basic-autotools/executer.c:321
 #: ../plugins/run-program/execute.c:80
 #, c-format
 msgid "Program '%s' does not have execution permission"
-msgstr "O program '%s' non ten permiso de execución"
+msgstr "O program «%s» non ten permiso de execución"
 
 #: ../plugins/build-basic-autotools/executer.c:353
 msgid "No executable for this file."
@@ -973,7 +972,7 @@ msgstr "Non hai ningún executábel para este ficheiro."
 #: ../plugins/build-basic-autotools/executer.c:359
 #, c-format
 msgid "Executable '%s' is not up-to-date."
-msgstr "O executábel '%s' non está actualizado."
+msgstr "O executábel «%s» non está actualizado."
 
 #. The translations should match that of 'make' program. Both strings uses
 #. * pearl regular expression
@@ -2940,7 +2939,7 @@ msgid ""
 "Are you sure you want to reload '%s'?\n"
 "Any unsaved changes will be lost."
 msgstr ""
-"Está seguro de que quere recargar '%s'?\n"
+"Está seguro de que quere recargar «%s»?\n"
 "Perderanse todos os cambios que non gardou."
 
 #: ../plugins/document-manager/action-callbacks.c:323
@@ -2996,7 +2995,7 @@ msgid ""
 "The file '%s' already exists.\n"
 "Do you want to replace it with the one you are saving?"
 msgstr ""
-"O ficheiro '%s' xa existe.\n"
+"O ficheiro «%s» xa existe.\n"
 "Quere substituír este ficheiro polo que está gardando?"
 
 #: ../plugins/document-manager/anjuta-docman.c:731
@@ -3709,13 +3708,13 @@ msgstr "Non hai recursos utilizados recentemente co URI `%s'"
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:758
 #, c-format
 msgid "This function is not implemented for widgets of class '%s'"
-msgstr "Esta función non está implementada para os widgets da clase '%s'"
+msgstr "Esta función non está implementada para os widgets da clase «%s»"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:937
 #: ../plugins/starter/starter.c:111
 #, c-format
 msgid "Open '%s'"
-msgstr "Abrir '%s'"
+msgstr "Abrir «%s»"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:967
 msgid "Unknown item"
@@ -6177,7 +6176,7 @@ msgstr "Non foi posíbel crear un proxecto glade novo."
 #: ../plugins/glade/anjuta-design-document.c:183
 #, c-format
 msgid "Glade project '%s' saved"
-msgstr "Gardouse o proxecto glade '%s'"
+msgstr "Gardouse o proxecto glade «%s»"
 
 #: ../plugins/glade/anjuta-design-document.c:163
 #: ../plugins/glade/anjuta-design-document.c:190
@@ -7082,7 +7081,7 @@ msgid ""
 "Failed to remove '%s':\n"
 "%s"
 msgstr ""
-"Produciuse un fallo ao eliminar '%s':\n"
+"Produciuse un fallo ao eliminar «%s»:\n"
 "%s"
 
 #: ../plugins/project-manager/plugin.c:865
@@ -8225,7 +8224,7 @@ msgstr "Cartafol de instalación:"
 #: ../plugins/run-program/execute.c:107
 #, c-format
 msgid "Program directory '%s' is not local"
-msgstr "O cartafol de programa '%s' non é local"
+msgstr "O cartafol de programa «%s» non é local"
 
 #: ../plugins/run-program/parameters.c:300
 msgid "Load Target to run"
@@ -8580,7 +8579,7 @@ msgstr ""
 #: ../plugins/snippets-manager/plugin.c:292
 #: ../plugins/snippets-manager/snippets-browser.c:208
 msgid "Snippets"
-msgstr ""
+msgstr "Fragmentos"
 
 #: ../plugins/snippets-manager/plugin.c:67
 msgid "_Trigger insert"
@@ -8588,46 +8587,46 @@ msgstr ""
 
 #: ../plugins/snippets-manager/plugin.c:69
 msgid "Insert a snippet using the trigger-key"
-msgstr ""
+msgstr "Inserir un fragmento usando unha tecla de activación"
 
 #: ../plugins/snippets-manager/plugin.c:74
 msgid "_Auto complete insert"
-msgstr "Autocompletar"
+msgstr "_Autocompletar a inserción"
 
 #: ../plugins/snippets-manager/plugin.c:76
 msgid "Insert a snippet using auto-completion"
-msgstr "Inserir un manipulador stub, autoposicionamento"
+msgstr "Inserir un fragmento usando autocompletado"
 
 #: ../plugins/snippets-manager/plugin.c:81
 msgid "_Import snippets …"
-msgstr ""
+msgstr "_Importar fragmentos …"
 
 #: ../plugins/snippets-manager/plugin.c:83
 msgid "Import snippets to the database"
-msgstr ""
+msgstr "Importar fragmentos á base de datos"
 
 #: ../plugins/snippets-manager/plugin.c:88
 msgid "_Export snippets …"
-msgstr ""
+msgstr "_Exportar fragmentos …"
 
 #: ../plugins/snippets-manager/plugin.c:90
 msgid "Export snippets from the database"
-msgstr ""
+msgstr "Exportar fragmentos desde a base de datos"
 
 #: ../plugins/snippets-manager/plugin.c:317
 msgid "Snippets Manager actions"
-msgstr "Accións do xestor de proxectos"
+msgstr "Accións do xestor de fragmentos"
 
 #: ../plugins/snippets-manager/plugin.c:919
 #: ../plugins/snippets-manager/plugin.c:956
 #: ../plugins/snippets-manager/snippets-provider.c:753
 #: ../plugins/snippets-manager/anjuta-snippets-manager.plugin.in.h:2
 msgid "Code Snippets"
-msgstr ""
+msgstr "Fragmentos de código"
 
 #: ../plugins/snippets-manager/snippets-browser.c:549
 msgid "Trigger"
-msgstr ""
+msgstr "Activador"
 
 #: ../plugins/snippets-manager/snippets-browser.c:560
 msgid "Languages"
@@ -8672,6 +8671,8 @@ msgid ""
 "Keywords are used for better searching of the snippets. They should be "
 "relevant to the snippet content. Type them separated by a single space."
 msgstr ""
+"As palabras chave úsanse para buscar fragmentos de mellor forma. Deben ser "
+"relevantes ao contido do fragmento. Escríbaas separadas por un espazo simple."
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:8
 msgid "Keywords:"
@@ -8687,17 +8688,19 @@ msgstr "Vista previa"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:13
 msgid "Select the Snippets Group to which this snippet belongs."
-msgstr ""
+msgstr "Seleccione o grupo de fragmentos ao que pertence o fragmento"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:14
 msgid "Select the languages for which you want to use this snippet."
-msgstr ""
+msgstr "Seleccione o idioma para o cal quere usar este fragmento"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:15
 msgid ""
 "Select the name of the Snippet. \n"
 "The role of the name is purely informative."
 msgstr ""
+"Seleccione o nome do fragmento.\n"
+"O rol do nome é puramente informativo."
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:17
 msgid "Snippet Name:"
@@ -8705,7 +8708,7 @@ msgstr "Nome novo:"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:18
 msgid "Snippets Group:"
-msgstr ""
+msgstr "Grupo de fragmentos:"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:19
 msgid "Trigger Key:"
@@ -8717,11 +8720,11 @@ msgstr "<b>Variábeis de Anjuta</b>"
 
 #: ../plugins/snippets-manager/snippets-import-export.c:145
 msgid "Import Snippets"
-msgstr "Opcións de importación"
+msgstr "Importar fragmentos"
 
 #: ../plugins/snippets-manager/snippets-import-export.c:190
 msgid "Export Snippets"
-msgstr ""
+msgstr "Exportar fragmentos"
 
 #: ../plugins/sourceview/sourceview.c:478
 #, c-format
@@ -8729,7 +8732,7 @@ msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
 "Do you want to reload it?"
 msgstr ""
-"O ficheiro '%s' no disco é máis recente que o que está no búfer actual.\n"
+"O ficheiro «%s» no disco é máis recente que o que está no búfer actual.\n"
 "Quere recargalo?"
 
 #: ../plugins/sourceview/sourceview.c:515
@@ -8738,7 +8741,7 @@ msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
 "Do you want to close it?"
 msgstr ""
-"O ficheiro '%s' foi eliminado do disco.\n"
+"O ficheiro «%s» foi eliminado do disco.\n"
 "Quere pechalo?"
 
 #. Could not open <filename>: <error message>
@@ -8750,7 +8753,7 @@ msgstr "Non foi posíbel abrir %s: %s"
 #: ../plugins/sourceview/sourceview.c:606
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
-msgstr "O ficheiro '%s' é de só lectura! Quere editalo de todas as formas?"
+msgstr "O ficheiro «%s» é de só lectura! Quere editalo de todas as formas?"
 
 #. Could not open <filename>: <error message>
 #: ../plugins/sourceview/sourceview.c:665
@@ -9634,7 +9637,7 @@ msgstr "Variábel"
 #: ../plugins/tools/dialog.c:177
 #, c-format
 msgid "Are you sure you want to delete the '%s' tool?"
-msgstr "Está seguro de que quere eliminar a ferramenta '%s'?"
+msgstr "Está seguro de que quere eliminar a ferramenta «%s»?"
 
 #: ../plugins/tools/dialog.c:343
 msgid "Tool"
@@ -10539,7 +10542,7 @@ msgstr "Engadido de base de datos de símbolos para o Anjuta."
 
 #: ../plugins/snippets-manager/anjuta-snippets-manager.plugin.in.h:1
 msgid "Allows insertion of snippets into the editor."
-msgstr ""
+msgstr "Permite a inserción de fragmentos no seu editor."
 
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Manages messages from external apps"
