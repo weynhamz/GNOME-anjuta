@@ -945,6 +945,7 @@ gbf_project_model_find_tree_data (GbfProjectModel 	*model,
 	return retval;
 }
 
+/* Can return shortcut node if exist */
 gboolean 
 gbf_project_model_find_file (GbfProjectModel 	*model,
     GtkTreeIter		*found,

@@ -659,21 +659,25 @@ gbf_project_view_set_shortcut_list (GbfProjectView *view, GList *shortcuts)
 			    			GBF_PROJECT_MODEL_COLUMN_DATA, &data,
 		    				-1);
 
-					gbf_project_model_add_shortcut (GBF_PROJECT_MODEL (model),
-					    	&shortcut,
-					    	&iter,
-					    	data);
-
-					if (expand)
+					/* Avoid duplicated shortcuts */
+					if (data->type != GBF_TREE_NODE_SHORTCUT)
 					{
-						GtkTreePath *path;
+						gbf_project_model_add_shortcut (GBF_PROJECT_MODEL (model),
+					    		&shortcut,
+					    		&iter,
+					    		data);
 
-						path = gtk_tree_model_get_path (GTK_TREE_MODEL (model), &shortcut);
-						gtk_tree_view_expand_row (GTK_TREE_VIEW (view), path, FALSE);
-						gtk_tree_path_free (path);
+						if (expand)
+						{
+							GtkTreePath *path;
+
+							path = gtk_tree_model_get_path (GTK_TREE_MODEL (model), &shortcut);
+							gtk_tree_view_expand_row (GTK_TREE_VIEW (view), path, FALSE);
+							gtk_tree_path_free (path);
+						}
+						/* Mark the shortcut as used */
+						*path = 'U';
 					}
-					/* Mark the shortcut as used */
-					*path = 'U';
 				}
 				g_object_unref (file);
 			}
