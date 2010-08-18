@@ -861,6 +861,7 @@ on_group_monitor_changed (GFileMonitor *monitor,
 	AmpGroup *g_node = data;
 
 	switch (event_type) {
+		case G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
 		case G_FILE_MONITOR_EVENT_CHANGED:
 		case G_FILE_MONITOR_EVENT_DELETED:
 			g_message ("node updated node %p group %p project %p", g_node, AMP_GROUP_DATA (g_node), AMP_GROUP_DATA (g_node)->project);
