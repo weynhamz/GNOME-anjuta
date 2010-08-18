@@ -88,8 +88,10 @@ on_ok_button_clicked (GtkButton *button, GitCreateTagPane *self)
 
 	if (gtk_toggle_button_get_active (annotate_check))
 	{
+		log = anjuta_column_text_view_get_text (log_view);
+
 		if (!git_pane_check_input (GTK_WIDGET (ANJUTA_PLUGIN (plugin)->shell),
-		                           GTK_WIDGET (log_view), revision,
+		                           GTK_WIDGET (log_view), log,
 		                           _("Please enter a log message.")))
 		{
 			g_free (name);
