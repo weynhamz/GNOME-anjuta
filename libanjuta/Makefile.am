@@ -72,8 +72,6 @@ libanjuta_la_SOURCES= \
 	cell-renderer-captioned-image.h \
 	e-splash.h \
 	e-splash.c \
-	anjuta-error.c \
-	anjuta-error.h \
 	anjuta-vcs-status.h \
 	anjuta-vcs-status-tree-view.c \
 	anjuta-vcs-status-tree-view.h \
@@ -145,7 +143,6 @@ libanjuta_include = \
 	anjuta-session.h \
 	anjuta-save-prompt.h \
 	anjuta-serializer.h \
-	anjuta-error.h \
 	resources.h \
 	anjuta-vcs-status-tree-view.h \
 	anjuta-vcs-status.h \
