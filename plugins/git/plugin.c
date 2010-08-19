@@ -50,6 +50,7 @@
 #include "git-drop-stash-pane.h"
 #include "git-clear-stash-pane.h"
 #include "git-rebase-pane.h"
+#include "git-log-pane.h"
 
 AnjutaCommandBarEntry branch_entries[] =
 {
@@ -614,6 +615,11 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	                      _("Status"), NULL, git_plugin->status_pane,
 	                      GDL_DOCK_CENTER, status_entries, 
 	                      G_N_ELEMENTS (status_entries), git_plugin);
+
+	git_plugin->log_pane = git_log_pane_new (git_plugin);
+	anjuta_dock_add_pane (ANJUTA_DOCK (git_plugin->dock), "Log",
+	                      _("Log"), NULL, git_plugin->log_pane,
+	                      GDL_DOCK_CENTER, NULL, 0, NULL);
 	
 	git_plugin->branches_pane = git_branches_pane_new (git_plugin);
 	anjuta_dock_add_pane (ANJUTA_DOCK (git_plugin->dock), "Branches", 

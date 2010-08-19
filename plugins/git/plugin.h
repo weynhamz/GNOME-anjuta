@@ -69,6 +69,7 @@ struct _Git
 
 	/* Dock panes */
 	AnjutaDockPane *status_pane;
+	AnjutaDockPane *log_pane;
 	AnjutaDockPane *branches_pane;
 	AnjutaDockPane *tags_pane;
 	AnjutaDockPane *remotes_pane;

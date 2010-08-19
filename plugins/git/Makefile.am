@@ -215,7 +215,9 @@ libanjuta_git_la_SOURCES = \
 	git-clear-stash-pane.c \
 	git-clear-stash-pane.h \
 	git-rebase-pane.c \
-	git-rebase-pane.h
+	git-rebase-pane.h \
+	git-log-pane.c \
+	git-log-pane.h
 
 libanjuta_git_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
