@@ -1139,7 +1139,8 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, const gchar *dir, gchar *const a
 		/* Set working directory */
 		if (dir != NULL)
 		{
-			chdir (dir);
+			/* Exit if working directory doesn't exist */
+			if (chdir (dir) != 0) _exit(-1);
 		}
 
 		/* Set up environment */
