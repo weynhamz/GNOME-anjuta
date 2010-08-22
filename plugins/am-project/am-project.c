@@ -1991,7 +1991,7 @@ project_load_group_properties (AmpProject *project, AnjutaToken *token, AnjutaTo
 	return NULL;
 }
 
-static AmpGroup* project_load_makefile (AmpProject *project, GFile *file, AmpGroup *parent, gboolean dist_only);
+static AmpGroup* project_load_makefile (AmpProject *project, AmpGroup *group);
 
 static void
 project_load_subdirs (AmpProject *project, AnjutaToken *list, AmpGroup *parent, gboolean dist_only)
@@ -2026,7 +2026,10 @@ project_load_subdirs (AmpProject *project, AnjutaToken *list, AmpGroup *parent, 
 			else
 			{
 				/* Create new group */
-				group = project_load_makefile (project, subdir, parent, dist_only);
+				group = amp_group_new (subdir, dist_only);
+				g_hash_table_insert (project->groups, g_file_get_uri (subdir), group);
+				anjuta_project_node_append (parent, group);
+				group = project_load_makefile (project, group);
 			}
 			amp_group_add_token (group, arg, dist_only ? AM_GROUP_TOKEN_DIST_SUBDIRS : AM_GROUP_TOKEN_SUBDIRS);
 			g_object_unref (subdir);
@@ -2046,25 +2049,13 @@ remove_config_file (gpointer data, GObject *object, gboolean is_last_ref)
 }
 
 static AmpGroup*
-project_load_makefile (AmpProject *project, GFile *file, AnjutaProjectNode *parent, gboolean dist_only)
+project_load_makefile (AmpProject *project, AmpGroup *group)
 {
 	const gchar **filename;
-	AmpGroup *group;
 	AnjutaTokenFile *tfile;
 	GFile *makefile = NULL;
+	GFile *file = anjuta_project_node_get_file ((AnjutaProjectNode *)group);
 
-	/* Create group */
-	if (parent != NULL)
-	{
-		group = amp_group_new (file, dist_only);
-		g_hash_table_insert (project->groups, g_file_get_uri (file), group);
-		anjuta_project_node_append (parent, group);
-	}
-	else
-	{
-		group = project->root_node;
-	}
-	
 	/* Find makefile name
 	 * It has to be in the config_files list with .am extension */
 	for (filename = valid_am_makefiles; *filename != NULL; filename++)
@@ -2189,7 +2180,7 @@ amp_project_load_root (AmpProject *project, AnjutaProjectNode *node, GError **er
 {
 	AmpAcScanner *scanner;
 	AnjutaToken *arg;
-	AnjutaProjectNode *group;
+	AmpGroup *group;
 	GFile *root_file;
 	GFile *configure_file;
 	gboolean ok = TRUE;
@@ -2256,10 +2247,12 @@ amp_project_load_root (AmpProject *project, AnjutaProjectNode *node, GError **er
 			return NULL;
 	}
 
-//	monitors_setup (project);
-
 	/* Load all makefiles recursively */
-	if (project_load_makefile (project, project->root_file, node, FALSE) == NULL)
+	group = amp_group_new (root_file, FALSE);
+	g_hash_table_insert (project->groups, g_file_get_uri (root_file), group);
+	anjuta_project_node_append (node, group);
+	
+	if (project_load_makefile (project, group) == NULL)
 	{
 		g_set_error (error, IANJUTA_PROJECT_ERROR, 
 					IANJUTA_PROJECT_ERROR_DOESNT_EXIST,
@@ -2365,6 +2358,21 @@ amp_project_load_package (AmpProject *project, AnjutaProjectNode *node, GError *
 	return node;
 }
 
+static AnjutaProjectNode *
+amp_project_load_group (AmpProject *project, AnjutaProjectNode *node, GError **error)
+{
+	if (project_load_makefile (project, node) == NULL)
+	{
+		g_set_error (error, IANJUTA_PROJECT_ERROR, 
+					IANJUTA_PROJECT_ERROR_DOESNT_EXIST,
+			_("Project doesn't exist or invalid path"));
+
+		return NULL;
+	}
+
+	return node;
+}
+
 AnjutaProjectNode *
 amp_project_load_node (AmpProject *project, AnjutaProjectNode *node, GError **error) 
 {
@@ -2374,6 +2382,8 @@ amp_project_load_node (AmpProject *project, AnjutaProjectNode *node, GError **er
 		return amp_project_load_root (project, node, error);
 	case ANJUTA_PROJECT_PACKAGE:
 		return amp_project_load_package (project, node, error);
+	case ANJUTA_PROJECT_GROUP:
+		return amp_project_load_group (project, node, error);
 	default:
 		return NULL;
 	}

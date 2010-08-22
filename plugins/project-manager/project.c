@@ -247,8 +247,8 @@ pm_project_map_node (PmJob *job)
 		job->map = g_hash_table_new (g_direct_hash, NULL);
 		old_node = job->node;
 		new_node = job->proxy;
-		
-		//g_hash_table_insert (job->map, old_node, new_node);
+
+		g_hash_table_insert (job->map, old_node, new_node);
 			
 		pm_project_map_children (job, old_node, new_node);
 	}
@@ -504,6 +504,7 @@ pm_command_load_complete (AnjutaPmProject *project, PmJob *job)
 		if (project->root == job->node)
 		{
 			gbf_project_model_update_tree (project->model, job->node, NULL, job->map);
+			gbf_project_model_update_shortcut (project->model, NULL, job->map);
 		}
 		else
 		{
@@ -511,8 +512,8 @@ pm_command_load_complete (AnjutaPmProject *project, PmJob *job)
 			gboolean found;
 			
 			found = gbf_project_model_find_node (project->model, &iter, NULL, job->node);
-			//g_message ("reload node %p found %d", job->node, found);
-			gbf_project_model_update_tree (project->model, job->node, &iter, job->map);
+			gbf_project_model_update_tree (project->model, job->node, found ? &iter : NULL, job->map);
+			gbf_project_model_update_shortcut (project->model, NULL, job->map);
 		}
 		
 		

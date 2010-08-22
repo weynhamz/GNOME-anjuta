@@ -88,6 +88,9 @@ void            gbf_project_model_update_tree (GbfProjectModel *model,
                                                     AnjutaProjectNode *parent,
                                                     GtkTreeIter *iter,
                                                     GHashTable *map);
+void            gbf_project_model_update_shortcut (GbfProjectModel *model,
+                                                    GtkTreeIter *iter,
+                                                    GHashTable *map);
 
 
 #endif
