@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-master-po-gl-1952\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-23 02:26+0200\n"
-"PO-Revision-Date: 2010-08-23 02:26+0200\n"
+"POT-Creation-Date: 2010-08-23 02:28+0200\n"
+"PO-Revision-Date: 2010-08-23 02:28+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Galician <gnome-gl-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -8588,7 +8588,7 @@ msgstr "Fragmentos"
 
 #: ../plugins/snippets-manager/plugin.c:67
 msgid "_Trigger insert"
-msgstr ""
+msgstr "_Disparar insertar"
 
 #: ../plugins/snippets-manager/plugin.c:69
 msgid "Insert a snippet using the trigger-key"
@@ -10214,9 +10214,8 @@ msgid "Auto-complete"
 msgstr "Autocompletar"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:4
-#, fuzzy
 msgid "Autocompletion"
-msgstr "Autocompletar"
+msgstr "Autocompletado"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:5
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:10
