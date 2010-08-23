@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2010-08-17 17:44+0000\n"
-"PO-Revision-Date: 2010-08-18 08:33+0200\n"
+"POT-Creation-Date: 2010-08-22 13:44+0000\n"
+"PO-Revision-Date: 2010-08-23 17:31+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -207,13 +207,13 @@ msgstr "Tailandés"
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: ../libanjuta/anjuta-launcher.c:1168 ../libanjuta/resources.c:267
+#: ../libanjuta/anjuta-launcher.c:1169 ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276 ../plugins/gdb/utilities.c:282
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "No se puede ejecutar el comando: \"%s\""
 
-#: ../libanjuta/anjuta-launcher.c:1169
+#: ../libanjuta/anjuta-launcher.c:1170
 msgid "execvp failed"
 msgstr "ha fallado execvp"
 
@@ -504,12 +504,12 @@ msgstr ""
 "instalar los paquetes que faltan. Instale el paquete «packagekit-gnome» para "
 "su distribución o instale manualmente los paquetes que faltan."
 
-#: ../libanjuta/anjuta-utils.c:515
+#: ../libanjuta/anjuta-utils.c:514
 #, c-format
 msgid "Installation failed: %s"
 msgstr "Falló la instalación: %s"
 
-#: ../libanjuta/anjuta-utils.c:575
+#: ../libanjuta/anjuta-utils.c:582
 #, c-format
 msgid ""
 "The \"%s\" package is not installed.\n"
@@ -518,7 +518,7 @@ msgstr ""
 "El paquete «%s» no está instalado.\n"
 "Instálelo."
 
-#: ../libanjuta/anjuta-utils.c:593
+#: ../libanjuta/anjuta-utils.c:600
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -528,19 +528,19 @@ msgstr ""
 "Instálela."
 
 #. Try xterm
-#: ../libanjuta/anjuta-utils.c:1172
+#: ../libanjuta/anjuta-utils.c:1179
 msgid "Cannot find a terminal; using xterm, even if it may not work"
 msgstr ""
 "No se puede encontrar una terminal, usando xterm, aunque puede que no "
 "funcione"
 
-#: ../libanjuta/anjuta-utils.c:1208 ../libanjuta/anjuta-utils.c:1212
-#: ../libanjuta/anjuta-utils.c:1240 ../libanjuta/anjuta-utils.c:1244
+#: ../libanjuta/anjuta-utils.c:1215 ../libanjuta/anjuta-utils.c:1219
+#: ../libanjuta/anjuta-utils.c:1247 ../libanjuta/anjuta-utils.c:1251
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "No se puede ejecutar el comando: %s (usando shell %s)\n"
 
-#: ../libanjuta/anjuta-utils.c:1894
+#: ../libanjuta/anjuta-utils.c:1901
 msgid ""
 "Unable to display help. Please make sure the Anjuta documentation package is "
 "installed. It can be downloaded from http://anjuta.org."
@@ -548,7 +548,7 @@ msgstr ""
 "No se puede mostrar la ayuda. Asegúrese de que el paquete de documentación "
 "de Anjuta está instalado. Puede ser descargado desde http://anjuta.org."
 
-#: ../libanjuta/anjuta-utils.c:2333
+#: ../libanjuta/anjuta-utils.c:2340
 #, c-format
 msgid "Unable to load user interface file: %s"
 msgstr "No se pudo cargar el archivo de interfaz de usuario: %s"
@@ -2737,7 +2737,7 @@ msgstr "Marco"
 
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:664
-#: ../plugins/debug-manager/threads.c:451 ../plugins/gdb/preferences.c:360
+#: ../plugins/debug-manager/threads.c:451 ../plugins/gdb/preferences.c:363
 #: ../plugins/tools/tool.c:100 ../src/anjuta-app.c:621
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
@@ -4757,9 +4757,12 @@ msgstr ""
 msgid "Cannot start terminal for debugging."
 msgstr "No se pudo iniciar el terminal para depurar."
 
-#. Translators: pretty printer file is a kind of script allowing gdb to display
-#. * variable content in a simpler way, removing implementation details
-#: ../plugins/gdb/preferences.c:125
+#. Translators: pretty printer file is a script containing functions allowing gdb
+#. * to display variable content in a simpler way, typically removing
+#. * implementation details.
+#. * The register function is an additional function in the script. It defines
+#. * which function is used for each type of variables.
+#: ../plugins/gdb/preferences.c:128
 #, c-format
 msgid ""
 "The register function hasn't been found automatically in the following "
@@ -4776,19 +4779,21 @@ msgstr ""
 "filas. La mayoría de las veces el nombre de registro de función contiene la "
 "palabra «register»."
 
-#: ../plugins/gdb/preferences.c:220
+#: ../plugins/gdb/preferences.c:223
 msgid "Select a pretty printer file"
 msgstr "Seleccionar el archivo de «pretty printer»"
 
-#: ../plugins/gdb/preferences.c:355
+#: ../plugins/gdb/preferences.c:358
 msgid "Activate"
 msgstr "Activar"
 
-#: ../plugins/gdb/preferences.c:367
+#. Translators: The "Register Function" column contains the name of a
+#. * function used to register pretty printers in gdb.
+#: ../plugins/gdb/preferences.c:372
 msgid "Register Function"
 msgstr "Registrar función"
 
-#: ../plugins/gdb/preferences.c:391 ../plugins/gdb/preferences.c:399
+#: ../plugins/gdb/preferences.c:396 ../plugins/gdb/preferences.c:404
 msgid "Gdb Debugger"
 msgstr "Depurador Gdb"
 
@@ -7404,7 +7409,8 @@ msgstr "Ejecutando: %s"
 
 #: ../plugins/project-wizard/plugin.c:50
 #, c-format
-msgid "Unable to extrat project template %s: %s"
+#| msgid "Unable to extrat project template %s: %s"
+msgid "Unable to extract project template %s: %s"
 msgstr "No se pudo extraer la plantilla %s del proyecto: %s"
 
 #: ../plugins/project-wizard/plugin.c:276
@@ -10221,7 +10227,6 @@ msgid "Auto-complete"
 msgstr "Autocompletar"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:4
-#| msgid "Autocomplete"
 msgid "Autocompletion"
 msgstr "Autocompletado"
 
