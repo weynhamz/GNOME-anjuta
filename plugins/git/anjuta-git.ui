@@ -381,14 +381,6 @@
       <column type="gchararray"/>
     </columns>
   </object>
-  <object class="GtkListStore" id="log_branch_combo_model">
-    <columns>
-      <!-- column-name active-icon -->
-      <column type="gchararray"/>
-      <!-- column-name name -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
   <object class="GtkListStore" id="remotes_list_model">
     <columns>
       <!-- column-name name -->
@@ -442,6 +434,16 @@
         <col id="1" translatable="yes">Loading...</col>
       </row>
     </data>
+  </object>
+  <object class="GtkListStore" id="log_branch_combo_model">
+    <columns>
+      <!-- column-name active -->
+      <column type="gboolean"/>
+      <!-- column-name active-icon -->
+      <column type="gchararray"/>
+      <!-- column-name name -->
+      <column type="gchararray"/>
+    </columns>
   </object>
   <object class="GtkVBox" id="status_pane">
     <property name="visible">True</property>
@@ -1105,13 +1107,13 @@
                     <child>
                       <object class="GtkCellRendererPixbuf" id="log_branch_combo_active_icon"/>
                       <attributes>
-                        <attribute name="stock-id">0</attribute>
+                        <attribute name="stock-id">1</attribute>
                       </attributes>
                     </child>
                     <child>
                       <object class="GtkCellRendererText" id="log_branch_combo_name"/>
                       <attributes>
-                        <attribute name="text">1</attribute>
+                        <attribute name="text">2</attribute>
                       </attributes>
                     </child>
                   </object>

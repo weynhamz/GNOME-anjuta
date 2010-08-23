@@ -19,10 +19,26 @@
 
 #include "git-log-pane.h"
 
+enum
+{
+	BRANCH_COL_ACTIVE,
+	BRANCH_COL_ACTIVE_ICON,
+	BRANCH_COL_NAME
+};
+
 struct _GitLogPanePriv
 {
 	GtkBuilder *builder;
 	GtkListStore *log_model;
+
+	/* This table maps branch names and iters in the branch combo model. When
+	 * branches get refreshed, use this to make sure that the same branch the
+	 * user was looking at stays selected, unless that branch no longer exists.
+	 * In that case the new active branch is selected */
+	GHashTable *branches_table;
+	gchar *selected_branch;
+	gboolean viewing_active_branch;
+	GtkTreeIter active_branch_iter;
 };
 
 G_DEFINE_TYPE (GitLogPane, git_log_pane, GIT_TYPE_PANE);
@@ -35,12 +51,14 @@ on_local_branch_list_command_started (AnjutaCommand *command,
 	GtkListStore *log_branch_combo_model;
 
 	branch_combo = GTK_COMBO_BOX (gtk_builder_get_object (self->priv->builder,
-	                                                          "branch_combo"));
+	                                                       "branch_combo"));
 	log_branch_combo_model = GTK_LIST_STORE (gtk_builder_get_object (self->priv->builder,
 	                                                                 "log_branch_combo_model"));
 
 	gtk_combo_box_set_model (branch_combo, NULL);
 	gtk_list_store_clear (log_branch_combo_model);
+
+	g_hash_table_remove_all (self->priv->branches_table);
 }
 
 static void
@@ -50,6 +68,7 @@ on_remote_branch_list_command_finished (AnjutaCommand *command,
 {
 	GtkComboBox *branch_combo;
 	GtkTreeModel *log_branch_combo_model;
+	GtkTreeIter *iter;
 
 	branch_combo = GTK_COMBO_BOX (gtk_builder_get_object (self->priv->builder,
 	                                                          "branch_combo"));
@@ -57,6 +76,24 @@ on_remote_branch_list_command_finished (AnjutaCommand *command,
 	                                                                 "log_branch_combo_model"));
 
 	gtk_combo_box_set_model (branch_combo, log_branch_combo_model);
+
+	/* If the user was viewing the active branch, switch to the newly active
+	 * branch if it changes. If another branch was being viewed, stay on that
+	 * one */
+	if ((!self->priv->viewing_active_branch) && 
+	    (self->priv->selected_branch && 
+	    g_hash_table_lookup_extended (self->priv->branches_table, 
+	                                  self->priv->selected_branch, NULL, 
+	                                  (gpointer) &iter)))
+	{
+		gtk_combo_box_set_active_iter (branch_combo, iter);
+	}
+	else
+	{
+		gtk_combo_box_set_active_iter (branch_combo, 
+		                               &(self->priv->active_branch_iter));
+	}
+	
 }
 
 static void
@@ -84,17 +121,58 @@ on_branch_list_command_data_arrived (AnjutaCommand *command,
 
 		if (git_branch_is_active (branch))
 		{
-			gtk_list_store_set (log_branch_combo_model, &iter, 0, 
-			                    GTK_STOCK_APPLY, -1);
+			gtk_list_store_set (log_branch_combo_model, &iter,
+			                    BRANCH_COL_ACTIVE, TRUE,
+			                    BRANCH_COL_ACTIVE_ICON, GTK_STOCK_APPLY,
+			                    -1);
+
+			self->priv->active_branch_iter = iter;
+		}
+		else
+		{
+			gtk_list_store_set (log_branch_combo_model, &iter,
+			                    BRANCH_COL_ACTIVE, FALSE,
+			                    BRANCH_COL_ACTIVE_ICON, NULL,
+			                    -1);
 		}
 
-		gtk_list_store_set (log_branch_combo_model, &iter, 1, name, -1);
+		gtk_list_store_set (log_branch_combo_model, &iter, 
+		                    BRANCH_COL_NAME, name, 
+		                    -1);
+		g_hash_table_insert (self->priv->branches_table, g_strdup (name), 
+		                     g_memdup (&iter, sizeof (GtkTreeIter)));
 
 		g_free (name);
 		
 		current_branch = g_list_next (current_branch);
 	}
 	
+}
+
+static void
+on_branch_combo_changed (GtkComboBox *combo_box, GitLogPane *self)
+{
+	GtkTreeModel *log_branch_combo_model;
+	gchar *branch;
+	GtkTreeIter iter;
+	gboolean active;
+
+	log_branch_combo_model = gtk_combo_box_get_model (combo_box);
+
+	if (gtk_combo_box_get_active_iter (combo_box, &iter))
+	{
+		gtk_tree_model_get (log_branch_combo_model, &iter,
+		                    BRANCH_COL_ACTIVE, &active, 
+							BRANCH_COL_NAME, &branch, 
+							-1);
+
+		self->priv->viewing_active_branch = active;
+
+		g_free (self->priv->selected_branch);
+		self->priv->selected_branch = g_strdup (branch);
+
+		g_free (branch);
+	}
 }
 
 static void
@@ -107,6 +185,7 @@ git_log_pane_init (GitLogPane *self)
 						NULL};
 	GError *error = NULL;
 	GtkTreeView *log_view;
+	GtkComboBox *branch_combo;
 
 	self->priv = g_new0 (GitLogPanePriv, 1);
 	self->priv->builder = gtk_builder_new ();
@@ -119,12 +198,23 @@ git_log_pane_init (GitLogPane *self)
 		g_error_free (error);
 	}
 
-	/* Set up the log model */
 	log_view = GTK_TREE_VIEW (gtk_builder_get_object (self->priv->builder,
 	                                                  "log_view"));
+	branch_combo = GTK_COMBO_BOX (gtk_builder_get_object (self->priv->builder,
+	                                                      "branch_combo"));
+
+	/* Set up the log model */
 	self->priv->log_model = gtk_list_store_new (1, GIT_TYPE_REVISION);
 
 	gtk_tree_view_set_model (log_view, GTK_TREE_MODEL (self->priv->log_model));
+
+	/* Branch handling */
+	self->priv->branches_table = g_hash_table_new_full (g_str_hash, g_str_equal,
+	                                                    g_free, g_free);
+
+	g_signal_connect (G_OBJECT (branch_combo), "changed",
+	                  G_CALLBACK (on_branch_combo_changed),
+	                  self);
 	
 }
 
@@ -136,6 +226,8 @@ git_log_pane_finalize (GObject *object)
 	self = GIT_LOG_PANE (object);
 
 	g_object_unref (self->priv->builder);
+	g_hash_table_destroy (self->priv->branches_table);
+	g_free (self->priv->selected_branch);
 	g_free (self->priv);
 
 	G_OBJECT_CLASS (git_log_pane_parent_class)->finalize (object);
