@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-master-po-gl-1952\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-17 11:21+0200\n"
-"PO-Revision-Date: 2010-08-17 11:27+0200\n"
+"POT-Creation-Date: 2010-08-23 02:26+0200\n"
+"PO-Revision-Date: 2010-08-23 02:26+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Galician <gnome-gl-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -207,13 +207,13 @@ msgstr "Tailandés"
 msgid "Unknown"
 msgstr "Descoñecido"
 
-#: ../libanjuta/anjuta-launcher.c:1168 ../libanjuta/resources.c:267
+#: ../libanjuta/anjuta-launcher.c:1169 ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276 ../plugins/gdb/utilities.c:282
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "Non é posíbel executar a orde: \"%s\""
 
-#: ../libanjuta/anjuta-launcher.c:1169
+#: ../libanjuta/anjuta-launcher.c:1170
 msgid "execvp failed"
 msgstr "fallou o execvp"
 
@@ -502,12 +502,12 @@ msgstr ""
 "para instalar os paquetes que faltan. Instale o paquete \"packagekit-gnome\" "
 "para a súa instalación, ou instale os paquetes que faltan de forma manual."
 
-#: ../libanjuta/anjuta-utils.c:515
+#: ../libanjuta/anjuta-utils.c:514
 #, c-format
 msgid "Installation failed: %s"
 msgstr "Produciuse un fallo na instalación: %s"
 
-#: ../libanjuta/anjuta-utils.c:575
+#: ../libanjuta/anjuta-utils.c:582
 #, c-format
 msgid ""
 "The \"%s\" package is not installed.\n"
@@ -516,7 +516,7 @@ msgstr ""
 "O paquete \"%s\" non está instalado.\n"
 "Instálea."
 
-#: ../libanjuta/anjuta-utils.c:593
+#: ../libanjuta/anjuta-utils.c:600
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -526,17 +526,17 @@ msgstr ""
 "Instálea."
 
 #. Try xterm
-#: ../libanjuta/anjuta-utils.c:1172
+#: ../libanjuta/anjuta-utils.c:1179
 msgid "Cannot find a terminal; using xterm, even if it may not work"
 msgstr "Non é posíbel encontrar un terminal, usar xterm, mesmo se non funciona"
 
-#: ../libanjuta/anjuta-utils.c:1208 ../libanjuta/anjuta-utils.c:1212
-#: ../libanjuta/anjuta-utils.c:1240 ../libanjuta/anjuta-utils.c:1244
+#: ../libanjuta/anjuta-utils.c:1215 ../libanjuta/anjuta-utils.c:1219
+#: ../libanjuta/anjuta-utils.c:1247 ../libanjuta/anjuta-utils.c:1251
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "Non é posíbel executar a orde: %s (usando o intérprete de ordes %s)\n"
 
-#: ../libanjuta/anjuta-utils.c:1894
+#: ../libanjuta/anjuta-utils.c:1901
 msgid ""
 "Unable to display help. Please make sure the Anjuta documentation package is "
 "installed. It can be downloaded from http://anjuta.org."
@@ -544,7 +544,7 @@ msgstr ""
 "Non é posíbel mostrar a axuda. Asegúrese de que o paquete de documentación "
 "do Anjuta está instalado. Pódese baixar de http://anjuta.org."
 
-#: ../libanjuta/anjuta-utils.c:2333
+#: ../libanjuta/anjuta-utils.c:2340
 #, c-format
 msgid "Unable to load user interface file: %s"
 msgstr "Non é posíbel cargar un ficheiro de interface de usuario: %s"
@@ -1678,8 +1678,8 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "Ignorar o ficheiro .cvsrc (recomendado)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
-#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2052
-#: ../plugins/symbol-db/plugin.c:2094
+#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2055
+#: ../plugins/symbol-db/plugin.c:2097
 msgid "Local"
 msgstr "Local"
 
@@ -2732,7 +2732,7 @@ msgstr "Marco"
 
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:664
-#: ../plugins/debug-manager/threads.c:451 ../plugins/gdb/preferences.c:360
+#: ../plugins/debug-manager/threads.c:451 ../plugins/gdb/preferences.c:363
 #: ../plugins/tools/tool.c:100 ../src/anjuta-app.c:621
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
@@ -2924,8 +2924,8 @@ msgstr "Contidos"
 #: ../plugins/search/search-replace.c:1717
 #: ../plugins/search/search-replace.c:1724
 #: ../plugins/search/search-replace.c:1736
-#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2062
-#: ../plugins/symbol-db/plugin.c:2114
+#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2065
+#: ../plugins/symbol-db/plugin.c:2117
 msgid "Search"
 msgstr "Buscar"
 
@@ -3941,7 +3941,7 @@ msgid "Filter"
 msgstr "Filtro"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2057 ../plugins/symbol-db/plugin.c:2106
+#: ../plugins/symbol-db/plugin.c:2060 ../plugins/symbol-db/plugin.c:2109
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:6
 msgid "Global"
 msgstr "Global"
@@ -4751,9 +4751,12 @@ msgstr ""
 msgid "Cannot start terminal for debugging."
 msgstr "Non é posíbel iniciar o terminal para a depuración."
 
-#. Translators: pretty printer file is a kind of script allowing gdb to display
-#. * variable content in a simpler way, removing implementation details
-#: ../plugins/gdb/preferences.c:125
+#. Translators: pretty printer file is a script containing functions allowing gdb
+#. * to display variable content in a simpler way, typically removing
+#. * implementation details.
+#. * The register function is an additional function in the script. It defines
+#. * which function is used for each type of variables.
+#: ../plugins/gdb/preferences.c:128
 #, c-format
 msgid ""
 "The register function hasn't been found automatically in the following "
@@ -4770,19 +4773,21 @@ msgstr ""
 "activar as filas. A maioría das veces o nome da función de rexistro contén a "
 "palabra «register»"
 
-#: ../plugins/gdb/preferences.c:220
+#: ../plugins/gdb/preferences.c:223
 msgid "Select a pretty printer file"
 msgstr "Seleccione o ficheiro de «pretty printer»"
 
-#: ../plugins/gdb/preferences.c:355
+#: ../plugins/gdb/preferences.c:358
 msgid "Activate"
 msgstr "Activar"
 
-#: ../plugins/gdb/preferences.c:367
+#. Translators: The "Register Function" column contains the name of a
+#. * function used to register pretty printers in gdb.
+#: ../plugins/gdb/preferences.c:372
 msgid "Register Function"
 msgstr "Rexistrar función"
 
-#: ../plugins/gdb/preferences.c:391 ../plugins/gdb/preferences.c:399
+#: ../plugins/gdb/preferences.c:396 ../plugins/gdb/preferences.c:404
 msgid "Gdb Debugger"
 msgstr "Depurador Gdb"
 
@@ -7400,7 +7405,7 @@ msgstr "Executando: %s"
 
 #: ../plugins/project-wizard/plugin.c:50
 #, c-format
-msgid "Unable to extrat project template %s: %s"
+msgid "Unable to extract project template %s: %s"
 msgstr "Non foi posíbel extraer o modelo de proxecto %s: %s"
 
 #: ../plugins/project-wizard/plugin.c:276
@@ -9455,19 +9460,19 @@ msgstr "Xeración de herdanzas..."
 msgid "%d files scanned out of %d"
 msgstr "%d ficheiros escaneados fora de %d"
 
-#: ../plugins/symbol-db/plugin.c:1723
+#: ../plugins/symbol-db/plugin.c:1726
 msgid "Populating symbol database…"
 msgstr "Poboar a bd con símbolos..."
 
-#: ../plugins/symbol-db/plugin.c:2042 ../plugins/symbol-db/plugin.c:2127
+#: ../plugins/symbol-db/plugin.c:2045 ../plugins/symbol-db/plugin.c:2130
 msgid "Symbols"
 msgstr "Símbolos"
 
-#: ../plugins/symbol-db/plugin.c:2136
+#: ../plugins/symbol-db/plugin.c:2139
 msgid "SymbolDb popup actions"
 msgstr "Accións en xanelas emerxentes de SymbolDb"
 
-#: ../plugins/symbol-db/plugin.c:2144
+#: ../plugins/symbol-db/plugin.c:2147
 msgid "SymbolDb menu actions"
 msgstr "Accións do menú de SymbolDb"
 
@@ -10209,8 +10214,9 @@ msgid "Auto-complete"
 msgstr "Autocompletar"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:4
-msgid "Autocompletion (C/C++/Java only)"
-msgstr "Autocompletado (só en C/C++/Java)"
+#, fuzzy
+msgid "Autocompletion"
+msgstr "Autocompletar"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:5
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:10
@@ -10654,6 +10660,9 @@ msgstr "Mínimo de caracteres para o completado"
 #: ../plugins/symbol-db/symbol-db-views.c:182
 msgid "Symbol"
 msgstr "Símbolo"
+
+#~ msgid "Autocompletion (C/C++/Java only)"
+#~ msgstr "Autocompletado (só en C/C++/Java)"
 
 #~ msgid "Edit…"
 #~ msgstr "Editar..."
