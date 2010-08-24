@@ -1355,20 +1355,22 @@ ipreferences_merge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
 					GError** e)
 {
 	/* Add preferences */
-	GtkBuilder *pref_page = gtk_builder_new();
+	PythonPlugin* plugin = ANJUTA_PLUGIN_PYTHON (ipref);
 	gchar *objects[] = {"python_preferences_dialog", NULL};
-	gtk_builder_add_objects_from_file(pref_page, PROPERTIES_FILE_UI, objects, NULL);
+	plugin->bxml = gtk_builder_new();
+	gtk_builder_add_objects_from_file(plugin->bxml, PROPERTIES_FILE_UI, objects, NULL);
 	anjuta_preferences_add_from_builder (prefs,
-								 pref_page, "preferences", _("Python"),
-								 ICON_FILE);
-	g_object_unref (pref_page);
+	                                     plugin->bxml, "preferences", _("Python"),
+	                                     ICON_FILE);
 }
 
 static void
 ipreferences_unmerge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
 					  GError** e)
 {
+	PythonPlugin* plugin = ANJUTA_PLUGIN_PYTHON (ipref);
 	anjuta_preferences_remove_page(prefs, _("Python"));
+	g_object_unref (plugin->bxml);
 }
 
 static void
