@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy toplevel-contextual -->
@@ -358,7 +358,7 @@
                           <object class="GtkEntry" id="preferences_entry:text:/usr/bin/python:1:language.python.interpreter.path">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="invisible_char">●</property>
+                            <property name="invisible_char">&#x25CF;</property>
                           </object>
                           <packing>
                             <property name="position">1</property>
@@ -393,12 +393,8 @@
                         </child>
                       </object>
                     </child>
-                    <child type="label">
-                      <object class="GtkLabel" id="label6">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes">&lt;b&gt;Rope Options&lt;/b&gt;</property>
-                        <property name="use_markup">True</property>
-                      </object>
+                    <child type="label_item">
+                      <placeholder/>
                     </child>
                   </object>
                   <packing>
