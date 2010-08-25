@@ -60,11 +60,15 @@ public class ValaPlugin : Plugin {
 
 		var project = (IAnjuta.ProjectManager) shell.get_object("IAnjutaProjectManager");
 		var packages = project.get_packages();
+
+		Vala.CodeContext.push (context);
 		context.add_package("glib-2.0");
 		context.add_package("gobject-2.0");
 
 		foreach (var pkg in packages)
 			context.add_package(pkg);
+
+		Vala.CodeContext.pop ();
 
 		source_files = new Vala.HashMap<string, Vala.SourceFile>(str_hash, str_equal, direct_equal);
 
