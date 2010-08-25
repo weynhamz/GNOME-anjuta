@@ -79,7 +79,7 @@ drag_data_received_cb (GtkWidget *widget, GdkDragContext *context,
 	/* If this is an URL emit DROP_URIS, otherwise chain up the signal */
 	if (info == TARGET_URI_LIST)
 	{
-		files = anjuta_utils_drop_get_files (data);
+		files = anjuta_util_drop_get_files (data);
 
 		if (files != NULL)
 		{

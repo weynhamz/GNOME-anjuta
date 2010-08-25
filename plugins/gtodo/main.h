@@ -3,7 +3,7 @@
 #include <libxml/tree.h>
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
-#include <gconf/gconf-client.h>
+#include <libanjuta/anjuta-preferences.h>
 
 // #include <libgtodo/libgtodo.h>
 #include <libgtodo.h>
@@ -59,7 +59,6 @@ typedef struct{
 
 typedef struct
 {
-	gboolean size, place;
 	gboolean ask_delete_category;
 	gboolean auto_purge;
 	gint purge_days;
@@ -79,7 +78,7 @@ typedef struct
 /*interface.c*/
 extern mwindow mw;
 extern sets settings;
-extern GConfClient *client;
+extern AnjutaPreferences *preferences;
 extern GTodoClient *cl;
 
 void about_window(void);
@@ -137,7 +136,7 @@ void set_sorting_menu_item();
 void windows_moved(GtkWidget *window);
 
 int check_for_notification_event(void);
-void pref_gconf_set_notifications(GConfClient *client);
+void pref_set_notifications(AnjutaPreferences *client);
 
 void export_gui(void);
 void open_playlist(void);

@@ -33,12 +33,12 @@
 		<property type="boolean" name="HaveI18n" _label="Add internationalization:" _description="Adds support for internationalization so that your project can have translations in different languages" default="1"/>
 		<property type="boolean" name="HavePackage" _label="Configure external packages:" _description="Use pkg-config to add library support from other packages" default="0"/>
 	</page>
-	
+
+[+IF (=(get "HavePackage") "1")+]	
 	<page name="packages" _label="Configure external packages" _description="Configure external packages">
-	[+IF (=(get "HavePackage") "1")+]
 		<property type="package" name="PackageModule1" _label="Required Packages:" _description="Check the packages that your project requires" mandatory="yes"/>
-	[+ENDIF+]
 	</page>
+[+ENDIF+]
 	
 	<content>
 		<directory source="terminal" destination="[+Destination+]">
@@ -49,15 +49,10 @@
 			<file source="README"/>
 			<file source="autogen.sh" executable="yes"/>
 			<file destination="[+NameHLower+].anjuta" source="project.anjuta"/>
-			<file source="cvsignore" destination=".cvsignore"/>
-			<directory source="src">
-				<file source="cvsignore" destination=".cvsignore"/>
-			</directory>
 			[+IF (=(get "HaveI18n") "1") +]
 			<directory source="po">
 				<file source="ChangeLog"/>
 				<file source="LINGUAS" />
-				<file source="cvsignore" destination=".cvsignore"/>
 			</directory>
 			[+ENDIF+]
 		</directory>

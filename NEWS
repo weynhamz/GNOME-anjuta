@@ -1,3 +1,59 @@
+Anjuta 2.31.90 "GSoC is over - we have snippets now" -- Johannes Schmid
+
+New:
+- Python is now fully supported
+- Initial support for python plugins (Abderrahim Kitouni)
+- Snippets plugins from GSoC (Dragos Dena)
+
+Updated:
+- Language support for Vala got a major update
+
+Bugs fixed:
+project-wizard: bgo#625434 - remove cvsignore from templates
+python-support: bgo#626950 Anjuta crash with python support
+build-basic-auotools: bgo#626562 crash refusing to clean the configuration
+symbol-db: bgo#622529 - Crash when trying to open a non-writable project
+symbol-db: bgo#616560  - Symbol views do not display names containing especial chars correctly
+manual: Fixed mailing list adress (bgo#625588)
+language-support-vala: bgo#626306 Symbol completion doesn't work with "this."
+libanjuta: Increase launcher buffer size (bgo#624700)
+class-gen: add missing include (#626265)
+Add PyGTK project template. Fixes bug #608304.
+
+Abderrahim Kitouni, Andika Triwidada, Daniel Nylander, Dragos Dena
+Fran Diéguez, James Liggett, Jens Georg, Jorge González, Leandro Mattioli
+Massimo Corà, Matej Urbančič, Vincent Untz, Yang Hong
+
+Anjuta 2.31.6.1 "Thank you, The Hague (5 Aug 2010) -- Johannes Schmid
+
+Bugs fixed:
+symbol-db: bgo#625964 anjuta-tags does not build
+libanjuta: bgo#621919 AnjutaAsyncCommand class is inconsistent
+
+Thanks to James Liggett and Vicent Untz
+
+Anjuta 2.31.6 "Thank you, The Hague" (2 Aug 2010) -- Johannes Schmid
+
+Updated:
+- Debugger is now much more polished (Sebastien)
+- Project wizard shows better package chooser
+
+Bugs fixed:
+devhelp: Use Devhelp-2 API (bgo#625841)
+build: bgo #625604  - anjuta crashes on starting the debugger
+gdb: bgo#625605  - register function is not found in a pretty printer
+symbol-db: bgo #625350 - critical warning on project unload
+debugger: bgo#558954  - Documentation for debug interfaces is incomplete
+libanjuta: bgo#624660 introspection build order problem
+debugger: bgo #515395  - Mouse cursor is a clock in debug mode
+debugger: bgo #598187  - Feature request: Make 'Locals' columns configurable
+project-wizard: bgo #624091  - Use AnjutaPkgConfigChooser
+debugger: bgo #516112  - Debugger create too much variable objects
+
+Thanks to Chao-Hsiung Liao, Eleanor Chen, Fran Diéguez, Frédéric Péters,
+Jorge González, Mario Blättermann, Massimo Corà, Matej Urbančič, Naba Kumar,
+Sébastien Granjoux, Sergei Grudinin, Tao Wang
+
 Anjuta 2.31.5 "Too hot to code" (12 June 2010) -- Johannes Schmid
 
 New:

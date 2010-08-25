@@ -72,8 +72,6 @@ libanjuta_la_SOURCES= \
 	cell-renderer-captioned-image.h \
 	e-splash.h \
 	e-splash.c \
-	anjuta-error.c \
-	anjuta-error.h \
 	anjuta-vcs-status.h \
 	anjuta-vcs-status-tree-view.c \
 	anjuta-vcs-status-tree-view.h \
@@ -152,7 +150,6 @@ libanjuta_include = \
 	anjuta-session.h \
 	anjuta-save-prompt.h \
 	anjuta-serializer.h \
-	anjuta-error.h \
 	resources.h \
 	anjuta-vcs-status-tree-view.h \
 	anjuta-vcs-status.h \
@@ -243,7 +240,7 @@ Anjuta_1_0_gir_LIBS = libanjuta.la
 Anjuta_1_0_gir_FILES = $(addprefix $(srcdir)/,$(anjuta_introspection_sources))
 INTROSPECTION_GIRS += Anjuta-1.0.gir
 
-IAnjuta-1_0.gir: interfaces/libanjuta-interfaces.la  libanjuta.la
+IAnjuta-1_0.gir: interfaces/libanjuta-interfaces.la  libanjuta.la Anjuta-1.0.gir
 IAnjuta_1_0_gir_INCLUDES = GObject-2.0 Gtk-2.0 Anjuta-1.0
 IAnjuta_1_0_gir_CFLAGS = $(LIBANJUTA_CFLAGS) -I$(top_srcdir)
 IAnjuta_1_0_gir_LIBS = interfaces/libanjuta-interfaces.la libanjuta.la

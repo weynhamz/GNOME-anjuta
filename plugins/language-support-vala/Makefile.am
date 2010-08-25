@@ -31,7 +31,7 @@ AM_CPPFLAGS = \
 	-DG_LOG_DOMAIN=\"language-support-vala\" \
 	--no-warn
 
-VALAFLAGS = --vapidir $(srcdir) --pkg vala-1.0 --pkg libanjuta-1.0
+VALAFLAGS = --vapidir $(srcdir) --pkg vala-0.10 --pkg libanjuta-1.0
 
 # The plugin
 plugindir = $(anjuta_plugin_dir)

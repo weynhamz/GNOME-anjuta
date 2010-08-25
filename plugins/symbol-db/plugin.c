@@ -1374,7 +1374,10 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 			continue;
 		}
 
-		g_hash_table_insert (prj_elements_hash,
+		/* Use g_hash_table_replace instead of g_hash_table_insert because the key
+		 * and the value use the same block of memory, both must be changed at
+		 * the same time. */
+		g_hash_table_replace (prj_elements_hash,
 		                     (gpointer) symbol_db_util_get_file_db_path
 		                 	   (sdb_plugin->sdbe_project,
 			                     filename),
@@ -1715,7 +1718,7 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 		switch (open_status)
 		{
 			case DB_OPEN_STATUS_FATAL:
-				g_error ("*** Error in opening db ***");
+				g_warning ("*** Error in opening db ***");
 				return;
 				
 			case DB_OPEN_STATUS_NORMAL:

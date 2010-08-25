@@ -54,12 +54,14 @@
 
 struct _AnjutaCommandPriv
 {
+	gboolean running;
 	gchar *error_message;
 };
 
 enum
 {
 	DATA_ARRIVED,
+	COMMAND_STARTED,
 	COMMAND_FINISHED,
 	PROGRESS,
 
@@ -90,6 +92,39 @@ anjuta_command_finalize (GObject *object)
 	G_OBJECT_CLASS (anjuta_command_parent_class)->finalize (object);
 }
 
+static gboolean
+start_automatic_monitor (AnjutaCommand *self)
+{
+	return FALSE;
+}
+
+static void
+stop_automatic_monitor (AnjutaCommand *self)
+{
+}
+
+static void
+data_arrived (AnjutaCommand *command)
+{
+}
+
+static void
+command_started (AnjutaCommand *command)
+{
+	command->priv->running = TRUE;
+}
+
+static void
+command_finished (AnjutaCommand *command, guint return_code)
+{
+	command->priv->running = FALSE;
+}
+
+static void
+progress (AnjutaCommand *command, gfloat progress)
+{
+}
+
 static void
 anjuta_command_class_init (AnjutaCommandClass *klass)
 {
@@ -105,7 +140,12 @@ anjuta_command_class_init (AnjutaCommandClass *klass)
 	klass->notify_progress = NULL;
 	klass->set_error_message = anjuta_command_set_error_message;
 	klass->get_error_message = anjuta_command_get_error_message;
-	klass->progress = NULL;
+	klass->start_automatic_monitor = start_automatic_monitor;
+	klass->stop_automatic_monitor = stop_automatic_monitor;
+	klass->data_arrived = data_arrived;
+	klass->command_started = command_started;
+	klass->command_finished = command_finished;
+	klass->progress = progress;
 
 	/**
 	 * AnjutaCommand::data-arrived:
@@ -117,12 +157,37 @@ anjuta_command_class_init (AnjutaCommandClass *klass)
 	anjuta_command_signals[DATA_ARRIVED] =
 		g_signal_new ("data-arrived",
 		              G_OBJECT_CLASS_TYPE (klass),
-		              G_SIGNAL_RUN_FIRST,
-		              0,
+		              G_SIGNAL_RUN_LAST,
+		              G_STRUCT_OFFSET (AnjutaCommandClass, data_arrived),
 		              NULL, NULL,
 		              g_cclosure_marshal_VOID__VOID,
 		              G_TYPE_NONE, 
 					  0);
+
+	/**
+	 * AnjuaCommand::command-started:
+	 * @command: Command
+	 *
+	 * Indicates that a command has begun executing. This signal is intended to 
+	 * be used for commands that start themselves automatically.
+	 *
+	 * <note>
+	 *  <para>
+	 *	  Sublasses that override the method for this signal should chain up to
+	 *	  the parent implementation to ensure proper handling of running/not 
+	 *	  running states. 
+	 *	</para>
+	 * </note>
+	 */
+	anjuta_command_signals[COMMAND_STARTED] =
+		g_signal_new ("command-started",
+		              G_OBJECT_CLASS_TYPE (klass),
+		              G_SIGNAL_RUN_FIRST,
+		              G_STRUCT_OFFSET (AnjutaCommandClass, command_started),
+		              NULL, NULL,
+		              g_cclosure_marshal_VOID__VOID,
+		              G_TYPE_NONE, 
+		              0);
 
 	/**
 	 * AnjutaCommand::command-finished:
@@ -130,13 +195,21 @@ anjuta_command_class_init (AnjutaCommandClass *klass)
 	 * @return_code: The return code of the finished commmand
 	 *
 	 * Indicates that the command has completed. Clients should at least handle
-	 * this signal to unref the command object. 
+	 * this signal to unref the command object.
+	 *
+	 * <note>
+	 *  <para>
+	 *	  Sublasses that override the method for this signal should chain up to
+	 *	  the parent implementation to ensure proper handling of running/not 
+	 *	  running states. 
+	 *	</para>
+	 * </note>
 	 */
 	anjuta_command_signals[COMMAND_FINISHED] =
 		g_signal_new ("command-finished",
 		              G_OBJECT_CLASS_TYPE (klass),
 		              G_SIGNAL_RUN_FIRST,
-		              0,
+		              G_STRUCT_OFFSET (AnjutaCommandClass, command_finished),
 		              NULL, NULL,
 		              g_cclosure_marshal_VOID__UINT ,
 		              G_TYPE_NONE, 1,
@@ -175,7 +248,12 @@ anjuta_command_class_init (AnjutaCommandClass *klass)
 void
 anjuta_command_start (AnjutaCommand *self)
 {
-	ANJUTA_COMMAND_GET_CLASS (self)->start (self);
+	if (!self->priv->running)
+	{
+		g_signal_emit_by_name (self, "command-started");
+
+		ANJUTA_COMMAND_GET_CLASS (self)->start (self);
+	}
 }
 
 /**
@@ -234,6 +312,18 @@ anjuta_command_notify_progress (AnjutaCommand *self, gfloat progress)
 }
 
 /**
+ * anjuta_command_is_running:
+ * @self: Command object.
+ *
+ * Return value: %TRUE if the command is currently running; %FALSE otherwise.
+ */
+gboolean
+anjuta_command_is_running (AnjutaCommand *self)
+{
+	return self->priv->running;
+}
+
+/**
  * anjuta_command_set_error_message:
  * @self: Command object.
  * @error_message: Error message.
@@ -264,4 +354,34 @@ gchar *
 anjuta_command_get_error_message (AnjutaCommand *self)
 {
 	return g_strdup (self->priv->error_message);
+}
+
+/**
+ * anjuta_command_start_automatic_monitor:
+ * @self: Command object.
+ *
+ * Sets up any monitoring needed for commands that should start themselves 
+ * automatically in response to some event. 
+ *
+ * Return value: %TRUE if automatic starting is supported by the command and 
+ * no errors were encountered; %FALSE if automatic starting is unsupported or on
+ * error.
+ */
+gboolean
+anjuta_command_start_automatic_monitor (AnjutaCommand *self)
+{
+	return ANJUTA_COMMAND_GET_CLASS (self)->start_automatic_monitor (self);
+}
+
+/**
+ * anjuta_command_stop_automatic_monitor:
+ * @self: Command object.
+ *
+ * Stops automatic monitoring for self executing commands. For commands that 
+ * do not support self-starting, this function does nothing.
+ */
+void
+anjuta_command_stop_automatic_monitor (AnjutaCommand *self)
+{
+	ANJUTA_COMMAND_GET_CLASS (self)->stop_automatic_monitor (self);
 }

@@ -631,9 +631,7 @@ interface IAnjutaIterable
  */
 interface IAnjutaBuilder
 {
-	#include <libanjuta/anjuta-error.h>
-
-	/**
+  /**
    * IAnjutaBuilderError:
    * @IANJUTA_BUILDER_SUCCEED: Build succeeded
    * @IANJUTA_BUILDER_FAILED: Build failed
@@ -1295,6 +1293,14 @@ interface IAnjutaEditor
 	 * number of line breaks in the added or removed text.
 	 */
 	void   ::changed (GObject *position, gboolean added, gint length, gint lines, const gchar *text);
+
+	/**
+	 * IAnjutaEditor::cursor-moved:
+	 * @obj: Self
+	 *
+	 * The signal is a hint that the cursor was moved.
+	 */
+	void   ::cursor_moved ();
 
 	/**
 	 * IAnjutaEditor::line-marks-gutter-clicked:
@@ -2003,6 +2009,16 @@ interface IAnjutaEditor
         GdkPixbuf* icon;
         gpointer data;
      }
+     
+     /**
+	 * IAnjutaEditorAssist::cancelled
+	 * @obj: Self
+	 * 
+	 * This signal is emitted when the autocompletion is cancelled due to various
+	 * reasons. The provider should avoid to call ianjuta_editor_assist_proposals() after
+	 * this signal.
+	 */
+	 void   ::cancelled ();
      
      /*
       * ianjuta_editor_assist_add
@@ -3811,7 +3827,6 @@ interface IAnjutaWizard
 interface IAnjutaDebugger
 {
 	#include "ianjuta-message-view.h"
-	#include <libanjuta/anjuta-error.h>
 	#include <sys/types.h>
 	#include <gio/gio.h>
 
@@ -5596,25 +5611,25 @@ interface IAnjutaVcs
 }
 
 /**
- * SECTION:ianjuta-macro
- * @title: IAnjutaMacro
- * @short_description: Macro processor interface
+ * SECTION:ianjuta-snippets-manager
+ * @title: IAnjutaSnippetsManager
+ * @short_description: Snippets Manager interface
  * @see_also: 
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-macro.h
  * 
  */
-interface IAnjutaMacro
+interface IAnjutaSnippetsManager
 {
 	/**
-	 * ianjuta_macro_insert:
-	 * @key: Key of the macro
+	 * ianjuta_snippets_manager_insert:
+	 * @key: Trigger-key of the snippet
 	 * @obj: Self
 	 * @err: Error propagation and reporting
 	 *
-	 * Insert Macro to editor
+	 * Insert snippet in the current editor.
 	 */
-	void insert(const gchar* key);
+	gboolean insert (const gchar* key);
 }
 
 /**

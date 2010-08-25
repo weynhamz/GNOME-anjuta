@@ -171,9 +171,9 @@ gint anjuta_preferences_get_int_with_default (AnjutaPreferences* pr,
                                               const gchar *key,
                                               gint default_value);
 
-gint anjuta_preferences_get_bool_with_default (AnjutaPreferences* pr,
-                                               const gchar *key,
-                                               gint default_value);
+gboolean anjuta_preferences_get_bool_with_default (AnjutaPreferences* pr,
+                                                   const gchar *key,
+                                                   gboolean default_value);
 
 gchar * anjuta_preferences_default_get (AnjutaPreferences *pr,
                                         const gchar *key);

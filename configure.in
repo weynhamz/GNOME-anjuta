@@ -4,7 +4,7 @@ AC_PREREQ(2.59)
 
 m4_define(anjuta_major_version,  2)
 m4_define(anjuta_minor_version, 31)
-m4_define(anjuta_micro_version,  5)
+m4_define(anjuta_micro_version,  90)
 m4_define(anjuta_nano_version, 0)
 m4_define(anjuta_version, anjuta_major_version.anjuta_minor_version.anjuta_micro_version.anjuta_nano_version)
 
@@ -24,6 +24,7 @@ ANJUTA_VERSION=anjuta_version
 AC_SUBST(ANJUTA_VERSION)
 
 dnl Anjuta core
+GLIB_REQUIRED=2.25.15
 GTK_REQUIRED=2.20.0
 GTHREAD_REQUIRED=2.22.0
 GDK_PIXBUF_REQUIRED=2.0.0
@@ -42,10 +43,10 @@ dnl Devhelp
 LIBDEVHELP_REQUIRED=0.22
 
 dnl Glade
-GLADEUI_REQUIRED=3.7.1
+GLADEUI_REQUIRED=3.6.7
 
 dnl Vala
-VALA_REQUIRED=0.7.8
+VALA_REQUIRED=0.9.5
 
 dnl Introspection
 GI_REQUIRED=0.6.6
@@ -153,7 +154,9 @@ dnl Check base modules
 PKG_CHECK_MODULES([ANJUTA], 
    [gthread-2.0 >= $GTHREAD_REQUIRED 
 	unique-1.0 >= $UNIQUE_REQUIRED
-	dbus-glib-1 gtk+-2.0 >= $GTK_REQUIRED
+	glib-2.0 >= $GLIB_REQUIRED
+	gio-2.0 >= $GLIB_REQUIRED
+	gtk+-2.0 >= $GTK_REQUIRED
 	gdk-pixbuf-2.0 >= $GDK_PIXBUF_REQUIRED
 	gconf-2.0 >= $GCONF_REQUIRED
 	vte >= $VTE_REQUIRED
@@ -186,7 +189,7 @@ if test "$user_disabled_devhelp" = 1; then
 else
 	AC_MSG_RESULT(no)
 	PKG_CHECK_MODULES(PLUGIN_DEVHELP, 
-				[libdevhelp-1.0 >= $LIBDEVHELP_REQUIRED webkit-1.0],
+				[libdevhelp-2.0 >= $LIBDEVHELP_REQUIRED webkit-1.0],
 				[
 				    devhelp_enabled=yes
 				], [
@@ -250,7 +253,7 @@ dnl Check for vala
 dnl -------------------------------------------------------------
 
 PKG_CHECK_MODULES(VALA,
-	[vala-1.0 >= $VALA_REQUIRED],
+	[vala-0.10 >= $VALA_REQUIRED],
 	[enable_vala="yes"],
 	[enable_vala="no"])
 
@@ -260,6 +263,29 @@ if test x$enable_vala = xyes; then
 fi
 
 AM_CONDITIONAL(ENABLE_VALA, [test x$enable_vala = xyes])
+
+dnl Check for Python
+dnl -------------------------------------------------------------
+
+AM_PATH_PYTHON([],
+	[have_python="yes"],
+	[have_python="no"])
+
+if test x$have_python = xyes; then
+	if test -x $PYTHON-config; then
+		PYTHON_CFLAGS=`$PYTHON-config --cflags`
+		PYTHON_LIBS=`$PYTHON-config --libs`
+		AC_SUBST(PYTHON_CFLAGS)
+		AC_SUBST(PYTHON_LIBS)
+	else
+		have_python="no"
+	fi
+fi
+
+AM_CONDITIONAL(HAVE_PYTHON, [test x$have_python = xyes])
+
+PKG_CHECK_MODULES(PLUGIN_SYMBOL_DB,
+		[libgda-4.0 >= $GDA_REQUIRED])
 
 dnl Setup Anjuta Library flags
 dnl --------------------------
@@ -801,7 +827,7 @@ plugins/symbol-db/images/Makefile
 plugins/symbol-db/Makefile
 plugins/symbol-db/anjuta-tags/Makefile
 plugins/project-wizard/Makefile
-plugins/macro/Makefile
+plugins/snippets-manager/Makefile
 plugins/cvs-plugin/Makefile
 plugins/subversion/Makefile
 plugins/git/Makefile
@@ -840,6 +866,10 @@ plugins/project-wizard/templates/java/po/Makefile
 plugins/project-wizard/templates/python/Makefile
 plugins/project-wizard/templates/python/src/Makefile
 plugins/project-wizard/templates/python/po/Makefile
+plugins/project-wizard/templates/pygtk/Makefile
+plugins/project-wizard/templates/pygtk/src/Makefile
+plugins/project-wizard/templates/pygtk/po/Makefile
+plugins/project-wizard/templates/pygtk/data/Makefile
 plugins/project-wizard/templates/wxwin/Makefile
 plugins/project-wizard/templates/wxwin/src/Makefile
 plugins/project-wizard/templates/wxwin/po/Makefile
@@ -869,6 +899,8 @@ plugins/run-program/Makefile
 plugins/starter/Makefile
 plugins/language-support-js/Makefile
 plugins/language-support-vala/Makefile
+plugins/language-support-python/Makefile
+plugins/python-loader/Makefile
 anjuta.desktop.in
 manuals/Makefile
 manuals/reference/Makefile
@@ -904,7 +936,7 @@ if [ test x$devhelp_enabled = xyes ]; then
        echo "Building devhelp plugin: ...............................YES"
 else
        echo "Building devhelp plugin: ...............................NO"
-       echo "        Requires devhelp >= 0.22"
+       echo "        Requires libdevhelp-2.0 (>= $LIBDEVHELP_REQUIRED)"
 fi
 
 if [ test x$sourceview = xyes ]; then

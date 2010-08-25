@@ -22,6 +22,7 @@ namespace Anjuta {
 	public class Command : GLib.Object {
 		public virtual void cancel ();
 		public virtual unowned string get_error_message ();
+		public bool is_running ();
 		public virtual void notify_complete (uint return_code);
 		public virtual void notify_data_arrived ();
 		public virtual void notify_progress (float progress);
@@ -29,7 +30,10 @@ namespace Anjuta {
 		public virtual uint run ();
 		public virtual void set_error_message (string error_message);
 		public virtual void start ();
-		public virtual signal void command_finished (uint p0);
+		public virtual bool start_automatic_monitor ();
+		public virtual void stop_automatic_monitor ();
+		public virtual signal void command_finished (uint return_code);
+		public virtual signal void command_started ();
 		public virtual signal void data_arrived ();
 		public virtual signal void progress (float progress);
 	}
@@ -73,6 +77,18 @@ namespace Anjuta {
 		public virtual signal void child_exited (int child_pid, int exit_status, ulong time_taken_in_seconds);
 	}
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
+	public class PkgConfigChooser : Gtk.TreeView, Atk.Implementor, Gtk.Buildable {
+		[CCode (type = "GtkWidget*", has_construct_function = false)]
+		public PkgConfigChooser ();
+		public unowned GLib.List get_active_packages ();
+		public unowned string get_selected_package ();
+		public void set_active_packages (GLib.List packages);
+		public void show_active_column (bool show_column);
+		public void show_active_only (bool show_selected);
+		public virtual signal void package_activated (string package);
+		public virtual signal void package_deactivated (string package);
+	}
+	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
 	public class Plugin : GLib.Object {
 		public virtual bool activate ();
 		public uint add_watch (string name, [CCode (delegate_target_pos = 3.1)] Anjuta.PluginValueAdded added, Anjuta.PluginValueRemoved removed);
@@ -80,7 +96,7 @@ namespace Anjuta {
 		public bool is_active ();
 		public void remove_watch (uint id, bool send_remove);
 		[NoAccessorMethod]
-		public Anjuta.Shell shell { owned get; set; }
+		public Anjuta.Shell shell { owned get; set construct; }
 		public virtual signal void activated ();
 		public virtual signal void deactivated ();
 	}
@@ -189,7 +205,7 @@ namespace Anjuta {
 		public void @foreach (Anjuta.PreferencesCallback callback, void* data);
 		public unowned string @get (string key);
 		public bool get_bool (string key);
-		public int get_bool_with_default (string key, int default_value);
+		public bool get_bool_with_default (string key, bool default_value);
 		public unowned Gtk.Widget get_dialog ();
 		public int get_int (string key);
 		public int get_int_with_default (string key, int default_value);
@@ -211,7 +227,7 @@ namespace Anjuta {
 		public void sync_to_session ();
 	}
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
-	public class PreferencesDialog : Gtk.Dialog, Gtk.Buildable, Atk.Implementor {
+	public class PreferencesDialog : Gtk.Dialog, Atk.Implementor, Gtk.Buildable {
 		[CCode (type = "GtkWidget*", has_construct_function = false)]
 		public PreferencesDialog ();
 		public void add_page (string name, string title, Gdk.Pixbuf icon, Gtk.Widget page);
@@ -343,7 +359,7 @@ namespace Anjuta {
 		public unowned Gtk.Widget get_widget ();
 	}
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
-	public class SavePrompt : Gtk.MessageDialog, Gtk.Buildable, Atk.Implementor {
+	public class SavePrompt : Gtk.MessageDialog, Atk.Implementor, Gtk.Buildable {
 		[CCode (has_construct_function = false)]
 		public SavePrompt (Gtk.Window parent);
 		public void add_item (string item_name, string item_detail, void* item, Anjuta.SavePromptSaveFunc item_save_func);
@@ -383,7 +399,7 @@ namespace Anjuta {
 		public void sync ();
 	}
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
-	public class Status : Gtk.HBox, Gtk.Buildable, Atk.Implementor, Gtk.Orientable {
+	public class Status : Gtk.HBox, Atk.Implementor, Gtk.Buildable, Gtk.Orientable {
 		[CCode (type = "GtkWidget*", has_construct_function = false)]
 		public Status ();
 		public void add_widget (Gtk.Widget widget);
@@ -407,6 +423,17 @@ namespace Anjuta {
 	}
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
 	public class SyncCommand : Anjuta.Command {
+	}
+	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
+	public class Tabber : Gtk.Container, Atk.Implementor, Gtk.Buildable {
+		[CCode (type = "GtkWidget*", has_construct_function = false)]
+		public Tabber (Gtk.Notebook notebook);
+		public void add_tab (Gtk.Widget tab_label);
+		public GLib.Object notebook { construct; }
+	}
+	[Compact]
+	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
+	public class TabberPriv {
 	}
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
 	public class UI : Gtk.UIManager, Gtk.Buildable {
@@ -436,7 +463,7 @@ namespace Anjuta {
 		public int type;
 	}
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
-	public class VcsStatusTreeView : Gtk.TreeView, Gtk.Buildable, Atk.Implementor {
+	public class VcsStatusTreeView : Gtk.TreeView, Atk.Implementor, Gtk.Buildable {
 		[CCode (type = "GtkWidget*", has_construct_function = false)]
 		public VcsStatusTreeView ();
 		public void add (string path, Anjuta.VcsStatus status, bool selected);
@@ -470,6 +497,9 @@ namespace Anjuta {
 		public abstract unowned Anjuta.UI get_ui () throws GLib.Error;
 		public void get_valist (string first_name, GLib.Type first_type, void* var_args);
 		public abstract void get_value (string name, GLib.Value value) throws GLib.Error;
+		public abstract void hide_dockable_widget (Gtk.Widget widget) throws GLib.Error;
+		public abstract void iconify_dockable_widget (Gtk.Widget widget) throws GLib.Error;
+		public abstract void maximize_widget (string widget_name) throws GLib.Error;
 		public void notify_exit () throws GLib.Error;
 		public abstract void present_widget (Gtk.Widget widget) throws GLib.Error;
 		public abstract void remove_value (string name) throws GLib.Error;
@@ -478,7 +508,9 @@ namespace Anjuta {
 		public abstract void saving_push ();
 		public void session_load (string session_directory) throws GLib.Error;
 		public void session_save (string session_directory) throws GLib.Error;
+		public abstract void show_dockable_widget (Gtk.Widget widget) throws GLib.Error;
 		public void thaw () throws GLib.Error;
+		public abstract void unmaximize () throws GLib.Error;
 		public signal void exiting ();
 		public signal void load_session (int phase, GLib.Object session);
 		[HasEmitter]
@@ -735,7 +767,11 @@ namespace Anjuta {
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
 	public static int util_execute_terminal_shell (string dir, string command);
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
+	public static unowned GLib.File util_file_new_for_commandline_arg (string arg);
+	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
 	public static unowned string util_get_a_tmp_file ();
+	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
+	public static unowned string util_get_current_dir ();
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
 	public static unowned string util_get_file_mime_type (GLib.File file);
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
@@ -778,6 +814,8 @@ namespace Anjuta {
 	public static bool util_install_files (string names);
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
 	public static bool util_is_project_file (string filename);
+	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
+	public static bool util_is_template_file (string filename);
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
 	public static bool util_package_is_installed (string lib, bool show);
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
@@ -826,6 +864,7 @@ namespace IAnjuta {
 		public uint id;
 		public uint ignore;
 		public uint line;
+		public bool pending;
 		public bool temporary;
 		public uint times;
 		public int type;
@@ -878,6 +917,7 @@ namespace IAnjuta {
 		public bool deleted;
 		public bool exited;
 		public weak string expression;
+		public bool has_more;
 		public weak string name;
 		public weak string type;
 		public weak string value;
@@ -936,32 +976,33 @@ namespace IAnjuta {
 		public abstract bool callback (IAnjuta.DebuggerCallback callback) throws GLib.Error;
 		public abstract bool connect (string server, string args, bool terminal, bool stop) throws GLib.Error;
 		public abstract void disable_log () throws GLib.Error;
+		public abstract bool dump_stack_trace (IAnjuta.DebuggerGListCallback callback) throws GLib.Error;
 		public abstract void enable_log (IAnjuta.MessageView log) throws GLib.Error;
 		public static GLib.Quark error_quark ();
-		public abstract bool evaluate (string name, string value, IAnjuta.DebuggerCallback callback) throws GLib.Error;
+		public abstract bool evaluate (string name, string value, IAnjuta.DebuggerGCharCallback callback) throws GLib.Error;
 		public abstract bool exit () throws GLib.Error;
 		public abstract IAnjuta.DebuggerState get_state () throws GLib.Error;
 		public abstract bool handle_signal (string name, bool stop, bool print, bool ignore) throws GLib.Error;
-		public abstract bool info_args (IAnjuta.DebuggerCallback callback) throws GLib.Error;
-		public abstract bool info_frame (uint frame, IAnjuta.DebuggerCallback callback) throws GLib.Error;
-		public abstract bool info_program (IAnjuta.DebuggerCallback callback) throws GLib.Error;
-		public abstract bool info_sharedlib (IAnjuta.DebuggerCallback callback) throws GLib.Error;
-		public abstract bool info_signal (IAnjuta.DebuggerCallback callback) throws GLib.Error;
-		public abstract bool info_target (IAnjuta.DebuggerCallback callback) throws GLib.Error;
-		public abstract bool info_thread (int thread, IAnjuta.DebuggerCallback callback) throws GLib.Error;
-		public abstract bool info_udot (IAnjuta.DebuggerCallback callback) throws GLib.Error;
-		public abstract bool info_variables (IAnjuta.DebuggerCallback callback) throws GLib.Error;
-		public abstract bool inspect (string name, IAnjuta.DebuggerCallback callback) throws GLib.Error;
+		public abstract bool info_args (IAnjuta.DebuggerGListCallback callback) throws GLib.Error;
+		public abstract bool info_frame (uint frame, IAnjuta.DebuggerGListCallback callback) throws GLib.Error;
+		public abstract bool info_program (IAnjuta.DebuggerGListCallback callback) throws GLib.Error;
+		public abstract bool info_sharedlib (IAnjuta.DebuggerGListCallback callback) throws GLib.Error;
+		public abstract bool info_signal (IAnjuta.DebuggerGListCallback callback) throws GLib.Error;
+		public abstract bool info_target (IAnjuta.DebuggerGListCallback callback) throws GLib.Error;
+		public abstract bool info_thread (int thread, IAnjuta.DebuggerGListCallback callback) throws GLib.Error;
+		public abstract bool info_udot (IAnjuta.DebuggerGListCallback callback) throws GLib.Error;
+		public abstract bool info_variables (IAnjuta.DebuggerGListCallback callback) throws GLib.Error;
+		public abstract bool inspect (string name, IAnjuta.DebuggerGCharCallback callback) throws GLib.Error;
 		public abstract bool interrupt () throws GLib.Error;
-		public abstract bool list_argument (IAnjuta.DebuggerCallback callback) throws GLib.Error;
-		public abstract bool list_frame (IAnjuta.DebuggerCallback callback) throws GLib.Error;
-		public abstract bool list_local (IAnjuta.DebuggerCallback callback) throws GLib.Error;
-		public abstract bool list_register (IAnjuta.DebuggerCallback callback) throws GLib.Error;
-		public abstract bool list_thread (IAnjuta.DebuggerCallback callback) throws GLib.Error;
+		public abstract bool list_argument (IAnjuta.DebuggerGListCallback callback) throws GLib.Error;
+		public abstract bool list_frame (IAnjuta.DebuggerGListCallback callback) throws GLib.Error;
+		public abstract bool list_local (IAnjuta.DebuggerGListCallback callback) throws GLib.Error;
+		public abstract bool list_thread (IAnjuta.DebuggerGListCallback callback) throws GLib.Error;
 		public abstract bool load (string file, string mime_type, GLib.List source_search_directories) throws GLib.Error;
-		public abstract bool print (string variable, IAnjuta.DebuggerCallback callback) throws GLib.Error;
+		public abstract bool print (string variable, IAnjuta.DebuggerGCharCallback callback) throws GLib.Error;
 		public abstract bool quit () throws GLib.Error;
 		public abstract bool run () throws GLib.Error;
+		public abstract bool run_from (string file, int line) throws GLib.Error;
 		public abstract bool run_to (string file, int line) throws GLib.Error;
 		public abstract bool send_command (string command) throws GLib.Error;
 		public abstract bool set_environment (string env) throws GLib.Error;
@@ -987,21 +1028,22 @@ namespace IAnjuta {
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface DebuggerBreakpoint : IAnjuta.Debugger, GLib.Object {
-		public abstract bool clear_breakpoint (uint id, IAnjuta.DebuggerCallback callback) throws GLib.Error;
-		public abstract bool condition_breakpoint (uint id, string condition, IAnjuta.DebuggerCallback callback) throws GLib.Error;
-		public abstract bool enable_breakpoint (uint id, bool enable, IAnjuta.DebuggerCallback callback) throws GLib.Error;
+		public abstract bool clear_breakpoint (uint id, IAnjuta.DebuggerBreakpointCallback callback) throws GLib.Error;
+		public abstract bool condition_breakpoint (uint id, string condition, IAnjuta.DebuggerBreakpointCallback callback) throws GLib.Error;
+		public abstract bool enable_breakpoint (uint id, bool enable, IAnjuta.DebuggerBreakpointCallback callback) throws GLib.Error;
 		public static GLib.Quark error_quark ();
-		public abstract bool ignore_breakpoint (uint id, uint ignore, IAnjuta.DebuggerCallback callback) throws GLib.Error;
+		public abstract bool ignore_breakpoint (uint id, uint ignore, IAnjuta.DebuggerBreakpointCallback callback) throws GLib.Error;
 		public abstract int implement_breakpoint () throws GLib.Error;
-		public abstract bool list_breakpoint (IAnjuta.DebuggerCallback callback) throws GLib.Error;
-		public abstract bool set_breakpoint_at_address (ulong address, IAnjuta.DebuggerCallback callback) throws GLib.Error;
-		public abstract bool set_breakpoint_at_function (string file, string function, IAnjuta.DebuggerCallback callback) throws GLib.Error;
-		public abstract bool set_breakpoint_at_line (string file, uint line, IAnjuta.DebuggerCallback callback) throws GLib.Error;
+		public abstract bool list_breakpoint (IAnjuta.DebuggerGListCallback callback) throws GLib.Error;
+		public abstract bool set_breakpoint_at_address (ulong address, IAnjuta.DebuggerBreakpointCallback callback) throws GLib.Error;
+		public abstract bool set_breakpoint_at_function (string file, string function, IAnjuta.DebuggerBreakpointCallback callback) throws GLib.Error;
+		public abstract bool set_breakpoint_at_line (string file, uint line, IAnjuta.DebuggerBreakpointCallback callback) throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface DebuggerInstruction : IAnjuta.Debugger, GLib.Object {
-		public abstract bool disassemble (ulong address, uint length, IAnjuta.DebuggerCallback callback) throws GLib.Error;
+		public abstract bool disassemble (ulong address, uint length, IAnjuta.DebuggerInstructionCallback callback) throws GLib.Error;
 		public static GLib.Quark error_quark ();
+		public abstract bool run_from_address (ulong address) throws GLib.Error;
 		public abstract bool run_to_address (ulong address) throws GLib.Error;
 		public abstract bool step_in_instruction () throws GLib.Error;
 		public abstract bool step_over_instruction () throws GLib.Error;
@@ -1009,24 +1051,24 @@ namespace IAnjuta {
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface DebuggerMemory : IAnjuta.Debugger, GLib.Object {
 		public static GLib.Quark error_quark ();
-		public abstract bool inspect (ulong address, uint length, IAnjuta.DebuggerCallback callback) throws GLib.Error;
+		public abstract bool inspect (ulong address, uint length, IAnjuta.DebuggerMemoryCallback callback) throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface DebuggerRegister : IAnjuta.Debugger, GLib.Object {
 		public static GLib.Quark error_quark ();
-		public abstract bool list_register (IAnjuta.DebuggerCallback callback) throws GLib.Error;
-		public abstract bool update_register (IAnjuta.DebuggerCallback callback) throws GLib.Error;
+		public abstract bool list_register (IAnjuta.DebuggerGListCallback callback) throws GLib.Error;
+		public abstract bool update_register (IAnjuta.DebuggerGListCallback callback) throws GLib.Error;
 		public abstract bool write_register (IAnjuta.DebuggerRegisterData value) throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface DebuggerVariable : IAnjuta.Debugger, GLib.Object {
 		public abstract bool assign (string name, string value) throws GLib.Error;
-		public abstract bool create (string expression, IAnjuta.DebuggerCallback callback) throws GLib.Error;
+		public abstract bool create (string expression, IAnjuta.DebuggerVariableCallback callback) throws GLib.Error;
 		public abstract bool destroy (string name) throws GLib.Error;
 		public static GLib.Quark error_quark ();
-		public abstract bool evaluate (string name, IAnjuta.DebuggerCallback callback) throws GLib.Error;
-		public abstract bool list_children (string name, IAnjuta.DebuggerCallback callback) throws GLib.Error;
-		public abstract bool update (IAnjuta.DebuggerCallback callback) throws GLib.Error;
+		public abstract bool evaluate (string name, IAnjuta.DebuggerGCharCallback callback) throws GLib.Error;
+		public abstract bool list_children (string name, uint from, IAnjuta.DebuggerGListCallback callback) throws GLib.Error;
+		public abstract bool update (IAnjuta.DebuggerGListCallback callback) throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface Document : GLib.Object {
@@ -1099,6 +1141,7 @@ namespace IAnjuta {
 		public signal void backspace ();
 		public signal void changed (GLib.Object position, bool added, int length, int lines, string text);
 		public signal void char_added (GLib.Object position, char ch);
+		public signal void line_marks_gutter_clicked (int location);
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface EditorAssist : IAnjuta.Editor, GLib.Object {
@@ -1107,6 +1150,7 @@ namespace IAnjuta {
 		public abstract void invoke (IAnjuta.Provider provider) throws GLib.Error;
 		public abstract void proposals (IAnjuta.Provider provider, GLib.List proposals, bool finished) throws GLib.Error;
 		public abstract void remove (IAnjuta.Provider provider) throws GLib.Error;
+		public signal void cancelled ();
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface EditorCell : GLib.Object {
@@ -1309,12 +1353,6 @@ namespace IAnjuta {
 		public abstract unowned GLib.List get_strings (IAnjuta.LanguageId id) throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public interface LanguageSupport : GLib.Object {
-		public static GLib.Quark error_quark ();
-		public abstract unowned GLib.List get_supported_languages () throws GLib.Error;
-		public abstract bool supports (string language) throws GLib.Error;
-	}
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface Loader : GLib.Object {
 		public static GLib.Quark error_quark ();
 		public abstract unowned GLib.List find_plugins () throws GLib.Error;
@@ -1448,43 +1486,43 @@ namespace IAnjuta {
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface Symbol : GLib.Object {
 		public static GLib.Quark error_quark ();
-		public abstract unowned string get_args () throws GLib.Error;
-		public abstract unowned string get_extra_info_string (IAnjuta.SymbolField sym_info) throws GLib.Error;
+		public abstract bool get_boolean (IAnjuta.SymbolField field) throws GLib.Error;
 		public abstract unowned GLib.File get_file () throws GLib.Error;
 		public abstract unowned Gdk.Pixbuf get_icon () throws GLib.Error;
-		public abstract int get_id () throws GLib.Error;
-		public abstract ulong get_line () throws GLib.Error;
-		public abstract unowned string get_name () throws GLib.Error;
-		public abstract unowned string get_returntype () throws GLib.Error;
+		public abstract int get_int (IAnjuta.SymbolField field) throws GLib.Error;
+		public abstract unowned string get_string (IAnjuta.SymbolField field) throws GLib.Error;
 		public abstract IAnjuta.SymbolType get_sym_type () throws GLib.Error;
-		public abstract bool is_local () throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface SymbolManager : GLib.Object {
+		public abstract unowned IAnjuta.SymbolQuery create_query (IAnjuta.SymbolQueryName name, IAnjuta.SymbolQueryDb db) throws GLib.Error;
 		public static GLib.Quark error_quark ();
-		public abstract unowned IAnjuta.Iterable get_class_parents (IAnjuta.Symbol symbol, IAnjuta.SymbolField info_fields) throws GLib.Error;
-		public abstract unowned IAnjuta.Iterable get_members (IAnjuta.Symbol symbol, IAnjuta.SymbolField info_fields) throws GLib.Error;
-		public abstract unowned IAnjuta.Iterable get_parent_scope (IAnjuta.Symbol symbol, string filename, IAnjuta.SymbolField info_fields) throws GLib.Error;
-		public abstract unowned IAnjuta.Iterable get_scope (string filename, ulong line, IAnjuta.SymbolField info_fields) throws GLib.Error;
-		public abstract unowned IAnjuta.Iterable get_scope_chain (string filename, ulong line, IAnjuta.SymbolField info_fields) throws GLib.Error;
-		public abstract unowned IAnjuta.Symbol get_symbol_by_id (int symbol_id, IAnjuta.SymbolField info_fields) throws GLib.Error;
-		public abstract unowned IAnjuta.Iterable get_symbol_more_info (IAnjuta.Symbol symbol, IAnjuta.SymbolField info_fields) throws GLib.Error;
-		public abstract unowned IAnjuta.Iterable search (IAnjuta.SymbolType match_types, bool include_types, IAnjuta.SymbolField info_fields, string match_name, bool partial_name_match, IAnjuta.SymbolManagerSearchFileScope filescope_search, bool global_tags_search, int results_limit, int results_offset) throws GLib.Error;
-		public abstract unowned IAnjuta.Iterable search_file (IAnjuta.SymbolType match_types, bool include_types, IAnjuta.SymbolField info_fields, string pattern, GLib.File file, int results_limit, int results_offset) throws GLib.Error;
-		public abstract uint search_file_async (IAnjuta.SymbolType match_types, bool include_types, IAnjuta.SymbolField info_fields, string pattern, GLib.File file, int results_limit, int results_offset, GLib.Cancellable cancel, Anjuta.AsyncNotify notify, IAnjuta.SymbolManagerSearchCallback callback, void* callback_user_data) throws GLib.Error;
-		public abstract unowned IAnjuta.Iterable search_project (IAnjuta.SymbolType match_types, bool include_types, IAnjuta.SymbolField info_fields, string pattern, IAnjuta.SymbolManagerSearchFileScope filescope_search, int results_limit, int results_offset) throws GLib.Error;
-		public abstract uint search_project_async (IAnjuta.SymbolType match_types, bool include_types, IAnjuta.SymbolField info_fields, string pattern, IAnjuta.SymbolManagerSearchFileScope filescope_search, int results_limit, int results_offset, GLib.Cancellable cancel, Anjuta.AsyncNotify notify, IAnjuta.SymbolManagerSearchCallback callback, void* callback_user_data) throws GLib.Error;
-		public abstract unowned IAnjuta.Iterable search_symbol_in_scope (string pattern, IAnjuta.Symbol container_symbol, IAnjuta.SymbolType match_types, bool include_types, int results_limit, int results_offset, IAnjuta.SymbolField info_fields) throws GLib.Error;
-		public abstract unowned IAnjuta.Iterable search_system (IAnjuta.SymbolType match_types, bool include_types, IAnjuta.SymbolField info_fields, string pattern, IAnjuta.SymbolManagerSearchFileScope filescope_search, int results_limit, int results_offset) throws GLib.Error;
-		public abstract uint search_system_async (IAnjuta.SymbolType match_types, bool include_types, IAnjuta.SymbolField info_fields, string pattern, IAnjuta.SymbolManagerSearchFileScope filescope_search, int results_limit, int results_offset, GLib.Cancellable cancel, Anjuta.AsyncNotify notify, IAnjuta.SymbolManagerSearchCallback callback, void* callback_user_data) throws GLib.Error;
 		public signal void prj_scan_end (int process_id);
-		public signal void prj_symbol_inserted (int symbol_id);
-		public signal void prj_symbol_removed (int symbol_id);
-		public signal void prj_symbol_updated (int symbol_id);
 		public signal void sys_scan_end (int process_id);
-		public signal void sys_symbol_inserted (int symbol_id);
-		public signal void sys_symbol_removed (int symbol_id);
-		public signal void sys_symbol_updated (int symbol_id);
+	}
+	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
+	public interface SymbolQuery : GLib.Object {
+		public abstract void cancel () throws GLib.Error;
+		public static GLib.Quark error_quark ();
+		public abstract unowned IAnjuta.Iterable search (string pattern) throws GLib.Error;
+		public abstract unowned IAnjuta.Iterable search_all () throws GLib.Error;
+		public abstract unowned IAnjuta.Iterable search_class_parents (IAnjuta.Symbol symbol) throws GLib.Error;
+		public abstract unowned IAnjuta.Iterable search_file (string pattern, GLib.File file) throws GLib.Error;
+		public abstract unowned IAnjuta.Iterable search_id (int symbol_id) throws GLib.Error;
+		public abstract unowned IAnjuta.Iterable search_in_scope (string pattern, IAnjuta.Symbol scope) throws GLib.Error;
+		public abstract unowned IAnjuta.Iterable search_members (IAnjuta.Symbol symbol) throws GLib.Error;
+		public abstract unowned IAnjuta.Iterable search_parent_scope (IAnjuta.Symbol symbol) throws GLib.Error;
+		public abstract unowned IAnjuta.Iterable search_parent_scope_file (IAnjuta.Symbol symbol, string file_path) throws GLib.Error;
+		public abstract unowned IAnjuta.Iterable search_scope (string file_path, int line) throws GLib.Error;
+		public abstract void set_fields (int n_fields, IAnjuta.SymbolField fields) throws GLib.Error;
+		public abstract void set_file_scope (IAnjuta.SymbolQueryFileScope filescope_search) throws GLib.Error;
+		public abstract void set_filters (IAnjuta.SymbolType filters, bool includes_types) throws GLib.Error;
+		public abstract void set_group_by (IAnjuta.SymbolField field) throws GLib.Error;
+		public abstract void set_limit (int limit) throws GLib.Error;
+		public abstract void set_mode (IAnjuta.SymbolQueryMode mode) throws GLib.Error;
+		public abstract void set_offset (int offset) throws GLib.Error;
+		public abstract void set_order_by (IAnjuta.SymbolField field) throws GLib.Error;
+		public signal void async_result (GLib.Object result);
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface Terminal : GLib.Object {
@@ -1568,15 +1606,8 @@ namespace IAnjuta {
 		WITH_IGNORE,
 		WITH_TIME,
 		WITH_CONDITION,
-		WITH_TEMPORARY
-	}
-	[CCode (cprefix = "IANJUTA_DEBUGGER_", cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public enum DebuggerData {
-		INFORMATION,
-		BREAKPOINT,
-		FRAME,
-		VARIABLE,
-		REGISTER
+		WITH_TEMPORARY,
+		WITH_PENDING
 	}
 	[CCode (cprefix = "IANJUTA_DEBUGGER_", cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public enum DebuggerError {
@@ -1702,29 +1733,57 @@ namespace IAnjuta {
 		MAKE_FILES,
 		PROJECT_FILES
 	}
-	[CCode (cprefix = "IANJUTA_SYMBOL_FIELD_", cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
+	[CCode (cprefix = "IANJUTA_SYMBOL_", cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public enum SymbolField {
-		SIMPLE,
-		FILE_PATH,
-		IMPLEMENTATION,
-		ACCESS,
-		KIND,
-		TYPE,
-		TYPE_NAME,
-		LANGUAGE,
-		FILE_IGNORE,
-		FILE_INCLUDE,
-		PROJECT_NAME,
-		WORKSPACE_NAME
+		FIELD_ID,
+		FIELD_NAME,
+		FIELD_FILE_POS,
+		FILED_SCOPE_DEF_ID,
+		FIELD_FILE_SCOPE,
+		FIELD_SIGNATURE,
+		FIELD_RETURNTYPE,
+		FIELD_TYPE,
+		FIELD_TYPE_NAME,
+		FIELD_FILE_PATH,
+		FIELD_IMPLEMENTATION,
+		FIELD_ACCESS,
+		FIELD_KIND,
+		FIELD_IS_CONTAINER,
+		FIELD_END
 	}
-	[CCode (cprefix = "IANJUTA_SYMBOL_MANAGER_SEARCH_FS_", cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public enum SymbolManagerSearchFileScope {
+	[CCode (cprefix = "IANJUTA_SYMBOL_QUERY_DB_", cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
+	public enum SymbolQueryDb {
+		PROJECT,
+		SYSTEM
+	}
+	[CCode (cprefix = "IANJUTA_SYMBOL_QUERY_SEARCH_FS_", cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
+	public enum SymbolQueryFileScope {
 		IGNORE,
 		PUBLIC,
 		PRIVATE
 	}
+	[CCode (cprefix = "IANJUTA_SYMBOL_QUERY_MODE_", cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
+	public enum SymbolQueryMode {
+		SYNC,
+		ASYNC,
+		QUEUED
+	}
+	[CCode (cprefix = "IANJUTA_SYMBOL_QUERY_", cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
+	public enum SymbolQueryName {
+		SEARCH,
+		SEARCH_ALL,
+		SEARCH_FILE,
+		SEARCH_IN_SCOPE,
+		SEARCH_ID,
+		SEARCH_MEMBERS,
+		SEARCH_CLASS_PARENTS,
+		SEARCH_SCOPE,
+		SEARCH_PARENT_SCOPE,
+		SEARCH_PARENT_SCOPE_FILE
+	}
 	[CCode (cprefix = "IANJUTA_SYMBOL_TYPE_", cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public enum SymbolType {
+		NONE,
 		UNDEF,
 		CLASS,
 		ENUM,
@@ -1756,17 +1815,21 @@ namespace IAnjuta {
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public delegate void BuilderCallback (GLib.Object sender, IAnjuta.BuilderHandle command, GLib.Error err);
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h", has_target = false)]
+	public delegate void DebuggerBreakpointCallback (IAnjuta.DebuggerBreakpointItem data, void* user_data, GLib.Error err);
+	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h", has_target = false)]
 	public delegate void DebuggerCallback (void* data, void* user_data, GLib.Error err);
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h", has_target = false)]
 	public delegate void DebuggerGCharCallback (string value, void* user_data, GLib.Error err);
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h", has_target = false)]
 	public delegate void DebuggerGListCallback (GLib.List list, void* user_data, GLib.Error err);
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h", has_target = false)]
-	public delegate void DebuggerMemoryCallback (ulong address, uint length, string data, void* user_data, GLib.Error err);
+	public delegate void DebuggerInstructionCallback (IAnjuta.DebuggerInstructionDisassembly data, void* user_data, GLib.Error err);
+	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h", has_target = false)]
+	public delegate void DebuggerMemoryCallback (IAnjuta.DebuggerMemoryBlock data, void* user_data, GLib.Error err);
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public delegate void DebuggerOutputCallback (IAnjuta.DebuggerOutputType type, string output);
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public delegate void SymbolManagerSearchCallback (uint search_id, IAnjuta.Iterable result);
+	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h", has_target = false)]
+	public delegate void DebuggerVariableCallback (IAnjuta.DebuggerVariableObject data, void* user_data, GLib.Error err);
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public delegate void VcsDiffCallback (GLib.File file, string diff);
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]

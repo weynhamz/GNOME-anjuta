@@ -3011,7 +3011,6 @@ symbol_db_engine_add_new_files_full (SymbolDBEngine * dbe,
 	gint i;
 	SymbolDBEnginePriv *priv;
 	GPtrArray * filtered_files_path;
-	GPtrArray * filtered_languages;
 	gboolean ret_code;
 	gint ret_id;
 	
@@ -3025,7 +3024,6 @@ symbol_db_engine_add_new_files_full (SymbolDBEngine * dbe,
 	g_return_val_if_fail (languages->len > 0, FALSE);
 
 	filtered_files_path = g_ptr_array_new ();
-	filtered_languages = g_ptr_array_new ();
 	
 	for (i = 0; i < files_path->len; i++)
 	{

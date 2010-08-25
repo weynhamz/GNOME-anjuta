@@ -1,6 +1,6 @@
 
 SUBDIRS = minimal terminal cpp gtk anjuta-plugin \
-	gtkmm wxwin xlib xlib-dock gcj java
+	gtkmm wxwin xlib xlib-dock gcj java pygtk \
 	python mkfile sdl library directory licenses m4 js_minimal
 
 template_in_files = \
@@ -18,6 +18,7 @@ template_in_files = \
 	java.wiz.in \
 	js.wiz.in \
 	python.wiz.in \
+	pygtk.wiz.in \
 	mkfile.wiz.in \
 	sdl.wiz.in \
 	library.wiz.in
@@ -36,6 +37,7 @@ wizard_files_DATA = \
 	gcj-logo.png \
 	java-logo.png \
 	python-logo.png \
+	pygtk-logo.png \
 	mkfile-logo.png \
 	appwiz_sdl.png \
 	$(template_in_files:.wiz.in=.wiz)

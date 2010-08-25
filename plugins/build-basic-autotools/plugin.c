@@ -1521,13 +1521,10 @@ build_save_distclean_and_execute_command (BasicAutotoolsPlugin* bplugin, BuildPr
 		// Need to run make clean before
 		if (!anjuta_util_dialog_boolean_question (GTK_WINDOW (ANJUTA_PLUGIN (bplugin)->shell), _("Before using this new configuration, the default one needs to be removed. Do you want to do that ?"), NULL))
 		{
-			GError *err;
-			
-			err = g_error_new (ianjuta_builder_error_quark (),
-									 IANJUTA_BUILDER_CANCELED,
-									 _("Command canceled by user"));
-			
-			build_program_callback (context->program, G_OBJECT (bplugin), context, err);
+			if (err)
+				*err = g_error_new (ianjuta_builder_error_quark (),
+				                   IANJUTA_BUILDER_CANCELED,
+				                   _("Command canceled by user"));
 			
 			return NULL;
 		}
@@ -2661,7 +2658,7 @@ update_project_ui (BasicAutotoolsPlugin *bb_plugin)
 	g_object_set (G_OBJECT (action), "sensitive", has_project, NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
 								   "ActionBuildCleanProject");
-	g_object_set (G_OBJECT (action), "sensitive", has_project, NULL);
+	g_object_set (G_OBJECT (action), "sensitive", has_makefile, NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
 								   "ActionBuildDistribution");
 	g_object_set (G_OBJECT (action), "sensitive", has_project, NULL);
