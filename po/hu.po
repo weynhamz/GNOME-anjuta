@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-25 19:25+0200\n"
-"PO-Revision-Date: 2010-08-25 19:24+0200\n"
+"POT-Creation-Date: 2010-08-25 19:27+0200\n"
+"PO-Revision-Date: 2010-08-25 19:27+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng at gnome dot hu>\n"
 "Language-Team: Hungarian <gnome at fsf dot hu>\n"
 "MIME-Version: 1.0\n"
@@ -5362,18 +5362,6 @@ msgstr "Válasszon ki törlendő ágakat"
 msgid "Git: Deleted selected tags."
 msgstr "Git: A kiválasztott címkék törölve."
 
-#. Translators: default file name for git diff's output
-#: ../plugins/git/git-diff-dialog.c:42
-#, fuzzy
-msgid "Uncommitted Changes.diff"
-msgstr "Nem véglegesített változtatások félretétele"
-
-#. Translators: file name for an existing commits diff, %s is an SHASUM of a commit
-#: ../plugins/git/git-diff-dialog.c:77
-#, fuzzy, c-format
-msgid "Commit %s.diff"
-msgstr "Revízió diff _megjelenítése"
-
 #: ../plugins/git/git-fetch-dialog.c:40
 msgid "Git: Fetch complete."
 msgstr "Git: A lekérés kész."
@@ -7407,7 +7395,7 @@ msgid "Executing: %s"
 msgstr "Végrehajtás: %s"
 
 #: ../plugins/project-wizard/plugin.c:50
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to extract project template %s: %s"
 msgstr "Nem nyerhető ki a projektsablon (%s): %s"
 
@@ -10639,7 +10627,3 @@ msgstr "Karakterek minimális száma kiegészítéshez "
 #: ../plugins/symbol-db/symbol-db-views.c:182
 msgid "Symbol"
 msgstr "Szimbólum"
-
-#~| msgid "<b>HTML export options:</b>"
-#~ msgid "<b>Rope Options</b>"
-#~ msgstr "<b>Rope beállításai</b>"
