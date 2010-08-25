@@ -24,6 +24,7 @@ public class ValaPlugin : Plugin {
 	uint editor_watch_id;
 
 	Vala.CodeContext context;
+	Cancellable cancel;
 	Vala.Map<string,Vala.SourceFile> source_files;
 	BlockLocator locator = new BlockLocator ();
 
@@ -45,6 +46,17 @@ public class ValaPlugin : Plugin {
 		report.docman = (IAnjuta.DocumentManager) shell.get_object("IAnjutaDocumentManager");
 		context.report = report;
 		context.profile = Vala.Profile.GOBJECT;
+
+		cancel = new Cancellable ();
+		parser = new Vala.Parser ();
+		genie_parser = new Vala.Genie.Parser ();
+		resolver = new Vala.SymbolResolver ();
+		analyzer = new Vala.SemanticAnalyzer ();
+
+		/* This doesn't actually parse anything as there are no files yet,
+		   it's just to set the context in the parsers */
+		parser.parse (context);
+		genie_parser.parse (context);
 
 		var project = (IAnjuta.ProjectManager) shell.get_object("IAnjutaProjectManager");
 		weak List<string> packages = project.get_packages();
@@ -79,20 +91,23 @@ public class ValaPlugin : Plugin {
 				Vala.CodeContext.push(context);
 				var report = context.report as AnjutaReport;
 
-				parser = new Vala.Parser ();
-				genie_parser = new Vala.Genie.Parser ();
-				resolver = new Vala.SymbolResolver ();
-				analyzer = new Vala.SemanticAnalyzer ();
+				foreach (var src in context.get_source_files ()) {
+					parser.visit_source_file (src);
+					genie_parser.visit_source_file (src);
 
-				parser.parse (context);
-				genie_parser.parse (context);
-				if (report.errors_found ()) {
+					if (cancel.is_cancelled ()) {
+						Vala.CodeContext.pop();
+						return null;
+					}
+				}
+
+				if (report.errors_found () || cancel.is_cancelled ()) {
 					Vala.CodeContext.pop();
 					return null;
 				}
 
 				resolver.resolve (context);
-				if (report.errors_found ()) {
+				if (report.errors_found () || cancel.is_cancelled ()) {
 					Vala.CodeContext.pop();
 					/* TODO: there may be missing packages */
 					return null;
@@ -123,6 +138,7 @@ public class ValaPlugin : Plugin {
 		//debug("Deactivating ValaPlugin");
 		remove_watch(editor_watch_id, true);
 
+		cancel.cancel ();
 		lock (context) {
 			context = null;
 			source_files = null;
