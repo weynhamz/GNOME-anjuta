@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-25 19:27+0200\n"
-"PO-Revision-Date: 2010-08-25 19:27+0200\n"
+"POT-Creation-Date: 2010-08-26 02:54+0200\n"
+"PO-Revision-Date: 2010-08-26 02:54+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng at gnome dot hu>\n"
 "Language-Team: Hungarian <gnome at fsf dot hu>\n"
 "MIME-Version: 1.0\n"
@@ -5403,7 +5403,7 @@ msgstr "<b>Ág:</b> %s"
 #: ../plugins/git/git-log-dialog.c:551
 #, c-format
 msgid "<b>Tag:</b> %s"
-msgstr "<b>Címke:</b>%s"
+msgstr "<b>Címke:</b> %s"
 
 #: ../plugins/git/git-log-dialog.c:556
 #, c-format
