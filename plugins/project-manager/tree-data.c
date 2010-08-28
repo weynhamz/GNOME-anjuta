@@ -55,6 +55,8 @@
 gchar *
 gbf_tree_data_get_uri (GbfTreeData *data)
 {
+	return data->node ? g_file_get_uri (anjuta_project_node_get_file (data->node)) : NULL;
+	/*
 	//return g_file_get_uri (anjuta_project_node_get_file (data->node));
 	if (data->source != NULL)
 	{
@@ -76,7 +78,7 @@ gbf_tree_data_get_uri (GbfTreeData *data)
 		return g_file_get_uri (data->group);
 	}
 
-	return NULL;
+	return NULL;*/
 }
 
 GFile *

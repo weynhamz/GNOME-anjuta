@@ -470,7 +470,7 @@ add_source (GbfProjectModel    	      *model,
 	
 	data = gbf_tree_data_new_source (source);
 	gtk_tree_store_append (GTK_TREE_STORE (model), &iter, parent);
-	g_message ("add source %p", data);
+	//g_message ("add source %p", data);
 	gtk_tree_store_set (GTK_TREE_STORE (model), &iter, 
 			    GBF_PROJECT_MODEL_COLUMN_DATA, data,
 			    -1);
@@ -513,13 +513,13 @@ add_target_shortcut (GbfProjectModel *model,
 	{
 		data = target;
 	}
-	g_message ("add target shortcut %p", data);
+	//g_message ("add target shortcut %p", data);
 	gtk_tree_store_insert_before (GTK_TREE_STORE (model), &iter, NULL, &sibling);
 	//g_message ("insert done %p ", data);
 	gtk_tree_store_set (GTK_TREE_STORE (model), &iter, 
 			    GBF_PROJECT_MODEL_COLUMN_DATA, data,
 			    -1);
-	g_message ("set done %p ", data);
+	//g_message ("set done %p ", data);
 	
 	/* add sources */
 	parent = anjuta_pm_project_get_node (model->priv->proj, target);
@@ -605,7 +605,7 @@ add_package (GbfProjectModel    	      *model,
 	
 	data = gbf_tree_data_new_package (package);
 	gtk_tree_store_append (GTK_TREE_STORE (model), &iter, parent);
-	g_message ("add package %p", data);
+	//g_message ("add package %p", data);
 	gtk_tree_store_set (GTK_TREE_STORE (model), &iter, 
 			    GBF_PROJECT_MODEL_COLUMN_DATA, data,
 			    -1);
@@ -631,7 +631,7 @@ add_module (GbfProjectModel 		*model,
 	
 	data = gbf_tree_data_new_module (module);
 	gtk_tree_store_append (GTK_TREE_STORE (model), &iter, parent);
-	g_message ("add_module %p", data);
+	//g_message ("add_module %p", data);
 	gtk_tree_store_set (GTK_TREE_STORE (model), &iter, 
 			    GBF_PROJECT_MODEL_COLUMN_DATA, data,
 			    -1);
@@ -657,7 +657,7 @@ add_target (GbfProjectModel 		*model,
 	
 	data = gbf_tree_data_new_target (target);
 	gtk_tree_store_append (GTK_TREE_STORE (model), &iter, parent);
-	g_message("add_target %p", data);
+	//g_message("add_target %p", data);
 	gtk_tree_store_set (GTK_TREE_STORE (model), &iter, 
 			    GBF_PROJECT_MODEL_COLUMN_DATA, data,
 			    -1);
@@ -693,7 +693,7 @@ add_target_group (GbfProjectModel 	*model,
 	
 	data = gbf_tree_data_new_group (group);
 	gtk_tree_store_append (GTK_TREE_STORE (model), &iter, parent);
-	g_message("add_target_group %p", data);
+	//g_message("add_target_group %p", data);
 	gtk_tree_store_set (GTK_TREE_STORE (model), &iter, 
 			    GBF_PROJECT_MODEL_COLUMN_DATA, data,
 			    -1);

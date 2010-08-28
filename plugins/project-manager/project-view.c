@@ -175,7 +175,6 @@ set_pixbuf (GtkTreeViewColumn *tree_column,
 	
 	gtk_tree_model_get (model, iter,
 			    GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
-	g_message("set_pixbuf data %p", data);
 	g_return_if_fail (data != NULL);
 	/* FIXME: segmentation fault with shortcut when corresponding
 	 * data is removed before the shortcut, so data = NULL.
@@ -249,7 +248,6 @@ set_text (GtkTreeViewColumn *tree_column,
 	gtk_tree_model_get (model, iter, GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
 	/* data can be NULL just after gtk_tree_store_insert before
 	calling gtk_tree_store_set */ 
-	g_message ("data is %p", data);
 	g_object_set (GTK_CELL_RENDERER (cell), "text", 
 		      data == NULL ? "" : data->name, NULL);
 }
@@ -566,7 +564,7 @@ gbf_project_view_get_shortcut_list (GbfProjectView *view)
 				GtkTreePath *path;
 				gboolean expand;
 
-				uri = gbf_tree_data_get_path (data);
+				uri = gbf_tree_data_get_uri (data);
 				path = gtk_tree_model_get_path (GTK_TREE_MODEL (model), &iter);
 				expand = gtk_tree_view_row_expanded (GTK_TREE_VIEW (view), path);
 				gtk_tree_path_free (path);
@@ -637,19 +635,19 @@ gbf_project_view_set_shortcut_list (GbfProjectView *view, GList *shortcuts)
 				GFile *file;
 				GtkTreeIter shortcut;
 				gboolean expand = FALSE;
-				gchar *path = (gchar *)node->data;
+				gchar *uri = (gchar *)node->data;
 
-				if (strncmp (path, "E ", 2) == 0)
+				if (strncmp (uri, "E ", 2) == 0)
 				{
 					expand = TRUE;
-					path += 2;
+					uri += 2;
 				}
-				else if (strncmp (path, "C ", 2) == 0)
+				else if (strncmp (uri, "C ", 2) == 0)
 				{
 					expand = FALSE;
-					path += 2;
+					uri += 2;
 				}
-				file = g_file_new_for_path (path);
+				file = g_file_new_for_uri (uri);
 
 				if (gbf_project_model_find_file  (GBF_PROJECT_MODEL (model), &shortcut, NULL, ANJUTA_PROJECT_UNKNOWN, file))
 				{
@@ -676,7 +674,7 @@ gbf_project_view_set_shortcut_list (GbfProjectView *view, GList *shortcuts)
 							gtk_tree_path_free (path);
 						}
 						/* Mark the shortcut as used */
-						*path = 'U';
+						*uri = 'U';
 					}
 				}
 				g_object_unref (file);

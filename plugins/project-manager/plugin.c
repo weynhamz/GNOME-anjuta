@@ -1252,7 +1252,7 @@ add_primary_target (AnjutaProjectNode *node, gpointer data)
 	{
 		gchar *path;
 		
-		path = g_file_get_path (anjuta_project_node_get_file (node));
+		path = g_file_get_uri (anjuta_project_node_get_file (node));
 		
 		*list = g_list_prepend (*list, g_strconcat ("C ", path, NULL));
 		g_free (path);
@@ -1335,6 +1335,7 @@ on_project_loaded (AnjutaPmProject *project, AnjutaProjectNode *node, GError *er
 	else
 	{
 		/* Restore existing shortcut */
+#if 0
 		if (plugin->shortcuts != NULL)
 		{
 			GList *item;
@@ -1351,6 +1352,7 @@ on_project_loaded (AnjutaPmProject *project, AnjutaProjectNode *node, GError *er
 			}
 		}
 		else
+#endif
 		{
 			GList *list = NULL;
 			
