@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-master-po-gl-1952\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-28 16:53+0200\n"
-"PO-Revision-Date: 2010-08-28 16:55+0200\n"
+"POT-Creation-Date: 2010-08-28 16:57+0200\n"
+"PO-Revision-Date: 2010-08-28 16:58+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Galician <gnome-gl-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -10346,9 +10346,8 @@ msgid "Environment"
 msgstr "Contorno"
 
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:12
-#, fuzzy
 msgid "Interpreter"
-msgstr "<b>Intérprete</b>"
+msgstr "Intérprete"
 
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:13
 msgid "Path: "
@@ -10628,9 +10627,8 @@ msgid "Highlight missed semicolon"
 msgstr "Realzar os puntos e comas que faltan"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:5
-#, fuzzy
 msgid "JS Find dirs"
-msgstr "<b>Cartafoles de búsqueda de JS</b>"
+msgstr "Cartafoles de busca de JS"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
 msgid "Min character for completion "
