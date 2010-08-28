@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-26 02:54+0200\n"
-"PO-Revision-Date: 2010-08-26 02:54+0200\n"
+"POT-Creation-Date: 2010-08-28 12:47+0200\n"
+"PO-Revision-Date: 2010-08-28 12:49+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng at gnome dot hu>\n"
 "Language-Team: Hungarian <gnome at fsf dot hu>\n"
 "MIME-Version: 1.0\n"
@@ -39,8 +39,7 @@ msgstr "A bővítménymodul (%s) nem található"
 #: ../libanjuta/anjuta-c-module.c:222
 #, c-format
 msgid "Unable to find plugin registration function %s in module %s"
-msgstr ""
-"Nem található a bővítményregisztrációs függvény (%s) a következő modulban: %s"
+msgstr "Nem található a bővítményregisztrációs függvény (%s) a következő modulban: %s"
 
 #: ../libanjuta/anjuta-c-module.c:228
 #, c-format
@@ -283,8 +282,7 @@ msgstr "Válasszon ki egy aktiválandó bővítményt"
 #: ../libanjuta/anjuta-plugin-manager.c:1372
 #, c-format
 msgid "No plugin is able to load other plugins in %s"
-msgstr ""
-"Nincs más bővítmények betöltésére képes bővítmény a következő helyen: %s"
+msgstr "Nincs más bővítmények betöltésére képes bővítmény a következő helyen: %s"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1962
 msgid "Remember this selection"
@@ -324,8 +322,7 @@ msgstr "Anjuta állapot"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2322
 msgid "Anjuta status to use in loading and unloading of plugins"
-msgstr ""
-"A bővítmények betöltésekor és eltávolításakor használandó Anjuta állapot"
+msgstr "A bővítmények betöltésekor és eltávolításakor használandó Anjuta állapot"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
@@ -434,7 +431,7 @@ msgstr "Ha nem ment, akkor az összes változtatás elvész."
 
 #: ../libanjuta/anjuta-save-prompt.c:189
 #: ../plugins/document-manager/plugin.c:605
-#: ../plugins/snippets-manager/snippets-editor.ui.h:12
+#: ../plugins/snippets-manager/snippets-editor.ui.h:9
 msgid "Save"
 msgstr "Mentés"
 
@@ -446,20 +443,18 @@ msgstr "Elem"
 msgid "_Discard changes"
 msgstr "_Változtatások eldobása"
 
-#: ../libanjuta/anjuta-save-prompt.c:297
+#: ../libanjuta/anjuta-save-prompt.c:296
 #, c-format
-msgid ""
-"<b>There is %d item with unsaved changes. Save changes before closing?</b>"
-msgid_plural ""
-"<b>There are %d items with unsaved changes. Save changes before closing?</b>"
+msgid "There is %d item with unsaved changes. Save changes before closing?"
+msgid_plural "There are %d items with unsaved changes. Save changes before closing?"
 msgstr[0] ""
-"<b>%d elemben mentetlen módosítások vannak. Bezárás előtt menti a "
-"módosításokat?</b>"
+"%d elemben mentetlen módosítások vannak. Menti a módosításokat bezárás "
+"előtt?"
 msgstr[1] ""
-"<b>%d elemben mentetlen módosítások vannak. Bezárás előtt menti a "
-"módosításokat?</b>"
+"%d elemben mentetlen módosítások vannak. Menti a módosításokat bezárás "
+"előtt?"
 
-#: ../libanjuta/anjuta-save-prompt.c:304
+#: ../libanjuta/anjuta-save-prompt.c:305
 msgid "There is an item with unsaved changes. Save changes before closing?"
 msgstr ""
 "Egy elemben mentetlen módosítások vannak. Menti a módosításokat bezárás "
@@ -658,8 +653,7 @@ msgstr "Betűkészlet-család"
 
 #: ../libfoocanvas/foo-canvas-text.c:231
 msgid "Name of the font family, e.g. Sans, Helvetica, Times, Monospace"
-msgstr ""
-"A betűkészlet-család megnevezése, például Sans, Helvetica, Times, Monospace"
+msgstr "A betűkészlet-család megnevezése, például Sans, Helvetica, Times, Monospace"
 
 #: ../libfoocanvas/foo-canvas-text.c:247 ../libfoocanvas/foo-canvas-text.c:248
 msgid "Font style"
@@ -694,10 +688,8 @@ msgid "Rise"
 msgstr "Eltolás"
 
 #: ../libfoocanvas/foo-canvas-text.c:312
-msgid ""
-"Offset of text above the baseline (below the baseline if rise is negative)"
-msgstr ""
-"Szöveg eltolása az alapvonal fölé (ha az eltolás negatív, az alapvonal alá)"
+msgid "Offset of text above the baseline (below the baseline if rise is negative)"
+msgstr "Szöveg eltolása az alapvonal fölé (ha az eltolás negatív, az alapvonal alá)"
 
 #: ../libfoocanvas/foo-canvas-text.c:322
 msgid "Strikethrough"
@@ -1074,14 +1066,12 @@ msgstr ""
 #: ../plugins/build-basic-autotools/plugin.c:1823
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
-msgstr ""
-"„%s” nem fordítható: nincs megadva fordítási szabály ehhez a fájltípushoz."
+msgstr "„%s” nem fordítható: nincs megadva fordítási szabály ehhez a fájltípushoz."
 
 #: ../plugins/build-basic-autotools/plugin.c:1958
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
-msgstr ""
-"Nem konfigurálható a projekt: a configure parancsfájl hiányzik innen: %s."
+msgstr "Nem konfigurálható a projekt: a configure parancsfájl hiányzik innen: %s."
 
 #: ../plugins/build-basic-autotools/plugin.c:2439
 #: ../plugins/build-basic-autotools/plugin.c:2513
@@ -1178,8 +1168,7 @@ msgid "Remove Configuration"
 msgstr "Konfiguráció eltávolítása"
 
 #: ../plugins/build-basic-autotools/plugin.c:2504
-msgid ""
-"Clean project (distclean) and remove configuration directory if possible"
+msgid "Clean project (distclean) and remove configuration directory if possible"
 msgstr ""
 "Projekt tisztítása (distclean) és a konfigurációs könyvtár eltávolítása, ha "
 "lehetséges"
@@ -1449,7 +1438,7 @@ msgstr "A feldolgozott sablon írása ebbe a fájlba"
 msgid "Failed to write autogen definition file"
 msgstr "Nem sikerült az autogen meghatározási fájl írása"
 
-#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1159
+#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1160
 msgid ""
 "Could not find autogen version 5; please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net."
@@ -2960,7 +2949,7 @@ msgstr "Átnevezés"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:340
 #: ../plugins/gtodo/callback.c:20 ../plugins/gtodo/callback.c:101
-#: ../plugins/snippets-manager/snippets-editor.ui.h:11
+#: ../plugins/snippets-manager/snippets-editor.ui.h:8
 msgid "Remove"
 msgstr "Eltávolítás"
 
@@ -4271,8 +4260,7 @@ msgstr "Adja meg a csoportnevet"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2973
 msgid "Group name can only contain alphanumeric, '_', '-' or '.' characters"
-msgstr ""
-"A csoportnév csak betűket, számokat, illetve _ - . karaktereket tartalmazhat"
+msgstr "A csoportnév csak betűket, számokat, illetve _ - . karaktereket tartalmazhat"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2982
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2925
@@ -4301,8 +4289,7 @@ msgstr "Adja meg a cél nevét"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3227
 msgid "Target name can only contain alphanumeric, '_', '-' or '.' characters"
-msgstr ""
-"A célnév csak betűket, számokat, illetve _ - . karaktereket tartalmazhat"
+msgstr "A célnév csak betűket, számokat, illetve _ - . karaktereket tartalmazhat"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3236
 msgid "Shared library target name must be of the form 'libxxx.la'"
@@ -4337,8 +4324,7 @@ msgid "Source doesn't exist"
 msgstr "A forrás nem létezik"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3532
-msgid ""
-"Source file name can only contain alphanumeric, '_', '-' or '.' characters"
+msgid "Source file name can only contain alphanumeric, '_', '-' or '.' characters"
 msgstr ""
 "A forrásfájl neve csak betűket, számokat, illetve _ - . karaktereket "
 "tartalmazhat"
@@ -4734,8 +4720,7 @@ msgstr "Hiba a folyamatnak való szignálküldés közben."
 
 #: ../plugins/gdb/plugin.c:117
 #, c-format
-msgid ""
-"Failed to create FIFO file named %s. The program will run without a terminal."
+msgid "Failed to create FIFO file named %s. The program will run without a terminal."
 msgstr ""
 "A(z) %s nevű FIFO fájl létrehozása meghiúsult. A program terminál nélkül fog "
 "futni."
@@ -5227,8 +5212,7 @@ msgstr "Törlendő címkék:"
 
 #: ../plugins/git/anjuta-git.ui.h:113
 msgid "This commit concludes a failed merge (use -i)"
-msgstr ""
-"Ez a revízió egy meghiúsult egyesítést zár le (használja a -i kapcsolót)"
+msgstr "Ez a revízió egy meghiúsult egyesítést zár le (használja a -i kapcsolót)"
 
 #: ../plugins/git/anjuta-git.ui.h:115
 msgid "To:"
@@ -5773,8 +5757,7 @@ msgstr "_Megszakítás"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:273
-msgid ""
-"Stop applying the series and return the repository to its original state"
+msgid "Stop applying the series and return the repository to its original state"
 msgstr ""
 "A sorozat alkalmazásának megszakítása és a tároló visszaállítása az eredeti "
 "állapotba"
@@ -5896,8 +5879,7 @@ msgstr "_Mazsolázás…"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:361
-msgid ""
-"Selectively merge individual changes from other branches into the current one"
+msgid "Selectively merge individual changes from other branches into the current one"
 msgstr "Egyedi módosítások szelektív egyesítése más ágakból a jelenlegibe"
 
 #. Action name
@@ -6280,32 +6262,32 @@ msgstr ""
 msgid "Export task list"
 msgstr "Feladatlista exportálása"
 
-#: ../plugins/gtodo/export.c:158
+#: ../plugins/gtodo/export.c:159
 msgid "XML"
 msgstr "XML"
 
-#: ../plugins/gtodo/export.c:159
+#: ../plugins/gtodo/export.c:160
 msgid "Plain Text"
 msgstr "Egyszerű szöveg"
 
-#: ../plugins/gtodo/export.c:160
+#: ../plugins/gtodo/export.c:161
 msgid "HTML"
 msgstr "HTML"
 
 #. add the embed css style sheet tb
-#: ../plugins/gtodo/export.c:167
+#: ../plugins/gtodo/export.c:168
 msgid "Export current category only"
 msgstr "Csak az aktuális kategória exportálása"
 
-#: ../plugins/gtodo/export.c:171
-msgid "<b>HTML export options:</b>"
-msgstr "<b>HTML exportálás beállításai:</b>"
+#: ../plugins/gtodo/export.c:172
+msgid "HTML export options:"
+msgstr "HTML exportálás beállításai:"
 
-#: ../plugins/gtodo/export.c:181
+#: ../plugins/gtodo/export.c:184
 msgid "Embed default (CSS) style sheet"
 msgstr "Alapértelmezett (CSS) stíluslap beágyazása"
 
-#: ../plugins/gtodo/export.c:185
+#: ../plugins/gtodo/export.c:188
 msgid "Custom (CSS) style sheet"
 msgstr "Egyéni (CSS) stíluslap"
 
@@ -6829,8 +6811,7 @@ msgstr ""
 #: ../plugins/project-import/plugin.c:290
 #: ../plugins/project-import/plugin.c:346
 #, c-format
-msgid ""
-"Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
+msgid "Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
 msgstr "A megadott URI („%s”) nem tölthető le. A visszaadott hiba: „%s”"
 
 #: ../plugins/project-import/project-import.ui.h:1
@@ -7223,27 +7204,23 @@ msgstr "Figyelmeztetés"
 msgid "Message"
 msgstr "Üzenet"
 
-#: ../plugins/project-wizard/druid.c:232
-msgid ""
-"<b>Confirm the following information:</b>\n"
-"\n"
-msgstr ""
-"<b>Erősítse meg a következő információkat:</b>\n"
-"\n"
+#: ../plugins/project-wizard/druid.c:233
+msgid "Confirm the following information:"
+msgstr "Erősítse meg a következő információkat:"
 
 #. The project type is translated too, it is something like
 #. * generic, GNOME applet, Makefile project...
-#: ../plugins/project-wizard/druid.c:236
+#: ../plugins/project-wizard/druid.c:237
 #, c-format
 msgid "Project Type: %s\n"
 msgstr "Projekt típusa: %s\n"
 
-#: ../plugins/project-wizard/druid.c:401
+#: ../plugins/project-wizard/druid.c:402
 #, c-format
 msgid "Unable to find any project template in %s"
 msgstr "Nem található egyetlen projektsablon sem itt: %s"
 
-#: ../plugins/project-wizard/druid.c:626
+#: ../plugins/project-wizard/druid.c:627
 #, c-format
 msgid ""
 "\n"
@@ -7252,7 +7229,7 @@ msgstr ""
 "\n"
 "A(z) „%s” mező kitöltése kötelező, kérem tegye ezt meg."
 
-#: ../plugins/project-wizard/druid.c:641
+#: ../plugins/project-wizard/druid.c:642
 #, c-format
 msgid ""
 "Field \"%s\" must start with a letter, a digit or an underscore and contain "
@@ -7262,7 +7239,7 @@ msgstr ""
 "csak betűket, számjegyeket, aláhúzást, kötőjelet és pontot tartalmazhat. "
 "Javítsa ennek megfelelően."
 
-#: ../plugins/project-wizard/druid.c:646
+#: ../plugins/project-wizard/druid.c:647
 #, c-format
 msgid ""
 "Field \"%s\" must start with a letter, a digit, an underscore or a directory "
@@ -7274,12 +7251,12 @@ msgstr ""
 "aláhúzást, könyvtárelválasztót, kötőjelet és pontot tartalmazhat. Javítsa "
 "ennek megfelelően."
 
-#: ../plugins/project-wizard/druid.c:651
+#: ../plugins/project-wizard/druid.c:652
 #, c-format
 msgid "Unknown error."
 msgstr "Ismeretlen hiba."
 
-#: ../plugins/project-wizard/druid.c:678
+#: ../plugins/project-wizard/druid.c:679
 #, c-format
 msgid ""
 "Directory \"%s\" is not empty. Project creation could fail if some files "
@@ -7288,20 +7265,20 @@ msgstr ""
 "A(z) „%s” könyvtár nem üres. A projekt létrehozása sikertelen lehet, ha "
 "néhány fájlt nem sikerül kiírni. Folytatni akarja?"
 
-#: ../plugins/project-wizard/druid.c:680
+#: ../plugins/project-wizard/druid.c:681
 #, c-format
 msgid "File \"%s\" already exists. Do you want to overwrite it?"
 msgstr "A(z) „%s” fájl már létezik. Felül akarja írni?"
 
-#: ../plugins/project-wizard/druid.c:711
+#: ../plugins/project-wizard/druid.c:712
 msgid "Invalid entry"
 msgstr "Érvénytelen bejegyzés"
 
-#: ../plugins/project-wizard/druid.c:722
+#: ../plugins/project-wizard/druid.c:723
 msgid "Dubious entry"
 msgstr "Kétértelmű bejegyzés"
 
-#: ../plugins/project-wizard/druid.c:883
+#: ../plugins/project-wizard/druid.c:884
 #, c-format
 msgid ""
 "\n"
@@ -7310,7 +7287,7 @@ msgstr ""
 "\n"
 "Hiányzó programok: %s."
 
-#: ../plugins/project-wizard/druid.c:894
+#: ../plugins/project-wizard/druid.c:895
 #, c-format
 msgid ""
 "\n"
@@ -7319,7 +7296,7 @@ msgstr ""
 "\n"
 "Hiányzó csomagok: %s."
 
-#: ../plugins/project-wizard/druid.c:903
+#: ../plugins/project-wizard/druid.c:904
 msgid ""
 "Some important programs or development packages required to build this "
 "project are missing. Please make sure they are installed properly before "
@@ -7329,11 +7306,11 @@ msgstr ""
 "csomag hiányzik. Győződjön meg, hogy ezek megfelelően telepítve vannak a "
 "projekt előállítása előtt.\n"
 
-#: ../plugins/project-wizard/druid.c:911
+#: ../plugins/project-wizard/druid.c:912
 msgid "Install missing packages"
 msgstr "Hiányzó csomagok telepítése"
 
-#: ../plugins/project-wizard/druid.c:919
+#: ../plugins/project-wizard/druid.c:920
 msgid ""
 "The missing programs are usually part of some distrubution packages and can "
 "be searched for in your Application Manager. Similarly, the development "
@@ -7348,11 +7325,11 @@ msgstr ""
 "fejlesztésének lehetővé tételéhez. Ezen csomagok neve általában „-dev” vagy "
 "„-devel” végű, és a csomagkezelővel megkereshetők."
 
-#: ../plugins/project-wizard/druid.c:927
+#: ../plugins/project-wizard/druid.c:928
 msgid "Missing components"
 msgstr "Hiányzó komponensek"
 
-#: ../plugins/project-wizard/druid.c:1059
+#: ../plugins/project-wizard/druid.c:1060
 #, c-format
 msgid "Unable to build project assistant user interface reading %s."
 msgstr ""
@@ -7471,8 +7448,7 @@ msgstr "Osztott programkönyvtárak támogatása:"
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:4
 #: ../plugins/project-wizard/templates/library.wiz.in.h:4
 msgid "Adds C++ support to the project so that C++ source files can be built"
-msgstr ""
-"C++ támogatás hozzáadása a projekthez, így C++ fájlok is használhatók lesznek"
+msgstr "C++ támogatás hozzáadása a projekthez, így C++ fájlok is használhatók lesznek"
 
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:5
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:4
@@ -8033,8 +8009,7 @@ msgid "Xlib dock"
 msgstr "Xlib dokk"
 
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:1
-msgid ""
-"A generic natively compiled java project using the GNU Java Compiler (gcj)"
+msgid "A generic natively compiled java project using the GNU Java Compiler (gcj)"
 msgstr ""
 "Általános, natívan fordított, a GNU Java Compilert (gcj) használó Java "
 "projekt"
@@ -8443,8 +8418,7 @@ msgid "Find and R_eplace…"
 msgstr "Keresés és _csere…"
 
 #: ../plugins/search/plugin.c:80
-msgid ""
-"Search for and replace a string or regular expression with another string"
+msgid "Search for and replace a string or regular expression with another string"
 msgstr ""
 "Egy karakterlánc vagy reguláris kifejezés keresése és cseréje egy másik "
 "karakterlánccal"
@@ -8633,30 +8607,18 @@ msgid "Add Snippets Group …"
 msgstr "Töredékcsoport hozzáadása…"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:1
-msgid "<b>Snippet Content</b>"
-msgstr "<b>Töredék tartalma</b>"
-
-#: ../plugins/snippets-manager/snippets-editor.ui.h:2
-msgid "<b>Snippet Properties</b>"
-msgstr "<b>Töredék tulajdonságai</b>"
-
-#: ../plugins/snippets-manager/snippets-editor.ui.h:3
-msgid "<b>Snippet Variables</b>"
-msgstr "<b>Töredék változók</b>"
-
-#: ../plugins/snippets-manager/snippets-editor.ui.h:4
 msgid "Add"
 msgstr "Hozzáadás"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:5
+#: ../plugins/snippets-manager/snippets-editor.ui.h:2
 msgid "Close"
 msgstr "Bezárás"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:6
+#: ../plugins/snippets-manager/snippets-editor.ui.h:3
 msgid "Insert"
 msgstr "Beszúrás"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:7
+#: ../plugins/snippets-manager/snippets-editor.ui.h:4
 msgid ""
 "Keywords are used for better searching of the snippets. They should be "
 "relevant to the snippet content. Type them separated by a single space."
@@ -8664,27 +8626,27 @@ msgstr ""
 "A kulcsszavak a töredékekben való jobb keresést szolgálják. A töredék "
 "tartalmára kell vonatkozniuk. Ezeket egy szóközzel elválasztva adja meg."
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:8
+#: ../plugins/snippets-manager/snippets-editor.ui.h:5
 msgid "Keywords:"
 msgstr "Kulcsszavak:"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:9
+#: ../plugins/snippets-manager/snippets-editor.ui.h:6
 msgid "Languages:"
 msgstr "Nyelvek:"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:10
+#: ../plugins/snippets-manager/snippets-editor.ui.h:7
 msgid "Preview"
 msgstr "Előnézet"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:13
+#: ../plugins/snippets-manager/snippets-editor.ui.h:10
 msgid "Select the Snippets Group to which this snippet belongs."
 msgstr "Válassza ki a töredékcsoportot, amelyhez ez a töredék tartozik."
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:14
+#: ../plugins/snippets-manager/snippets-editor.ui.h:11
 msgid "Select the languages for which you want to use this snippet."
 msgstr "Válassza ki a nyelveket, amelyekhez ezt a töredéket használni kívánja."
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:15
+#: ../plugins/snippets-manager/snippets-editor.ui.h:12
 msgid ""
 "Select the name of the Snippet. \n"
 "The role of the name is purely informative."
@@ -8692,9 +8654,21 @@ msgstr ""
 "Válassza ki a töredék nevét.\n"
 "A név csak információs célokat szolgál."
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:17
+#: ../plugins/snippets-manager/snippets-editor.ui.h:14
+msgid "Snippet Content"
+msgstr "Töredék tartalma"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:15
 msgid "Snippet Name:"
 msgstr "Töredék neve:"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:16
+msgid "Snippet Properties"
+msgstr "Töredék tulajdonságai"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:17
+msgid "Snippet Variables"
+msgstr "Töredék változók"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:18
 msgid "Snippets Group:"
@@ -8705,8 +8679,8 @@ msgid "Trigger Key:"
 msgstr "Aktiváló billentyű:"
 
 #: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:1
-msgid "<b>Anjuta variables</b>"
-msgstr "<b>Anjuta változók</b>"
+msgid "Anjuta variables"
+msgstr "Anjuta változók"
 
 #: ../plugins/snippets-manager/snippets-import-export.c:145
 msgid "Import Snippets"
@@ -9762,8 +9736,7 @@ msgstr "A fájlkezelő bővítményben kiválasztott teljes fájlnév"
 
 #: ../plugins/tools/variable.c:89
 msgid "Selected full file name without extension in the file manager plugin"
-msgstr ""
-"A fájlkezelő bővítményben kiválasztott teljes fájlnév, kiterjesztés nélkül"
+msgstr "A fájlkezelő bővítményben kiválasztott teljes fájlnév, kiterjesztés nélkül"
 
 #: ../plugins/tools/variable.c:90
 msgid "Selected file name in the file manager plugin"
@@ -9791,8 +9764,7 @@ msgstr "A projektkezelő bővítményben kiválasztott teljes fájlnév"
 
 #: ../plugins/tools/variable.c:96
 msgid "Selected full file name without extension in the project manager plugin"
-msgstr ""
-"A projektkezelő bővítményben kiválasztott teljes fájlnév, kiterjesztés nélkül"
+msgstr "A projektkezelő bővítményben kiválasztott teljes fájlnév, kiterjesztés nélkül"
 
 #: ../plugins/tools/variable.c:97
 msgid "Selected file name in the project manager plugin"
@@ -10080,8 +10052,7 @@ msgstr "Ne nyissa meg az utolsó projektet és fájlokat indításkor"
 
 #: ../src/main.c:106
 msgid "Shut down Anjuta properly, releasing all resources (for debugging)"
-msgstr ""
-"Az Anjuta teljes leállítása minden erőforrás elengedésével (hibakereséshez)"
+msgstr "Az Anjuta teljes leállítása minden erőforrás elengedésével (hibakereséshez)"
 
 #: ../src/main.c:174
 msgid "- Integrated Development Environment"
@@ -10171,16 +10142,15 @@ msgstr "Eszköztárgombok címkéi:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.schemas.in.h:1
 msgid "Do not display warning if not using a Debug configuration"
-msgstr ""
-"Ne jelenjen meg figyelmeztetés, ha nem hibakereső beállításokat használ"
+msgstr "Ne jelenjen meg figyelmeztetés, ha nem hibakereső beállításokat használ"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:1
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:6
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:1
 msgid "Add '(' after function call autocompletion"
 msgstr "Függvényhívás automatikus kiegészítése után ( hozzáadása"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:2
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:7
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:2
 msgid "Add a space after function call autocompletion"
 msgstr "Szóköz hozzáadása függvényhívás automatikus kiegészítése után"
 
@@ -10189,20 +10159,22 @@ msgid "Auto-complete"
 msgstr "Automatikus kiegészítés"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:4
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:4
 msgid "Autocompletion"
 msgstr "Automatikus kiegészítés"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:5
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:9
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:5
 msgid "Brace indentation size in spaces:"
 msgstr "Behúzás mérete szóközökben:"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:6
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:6
 msgid "Calltips"
 msgstr "Hívástippek"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:7
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:11
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:8
 msgid "Enable code completion"
 msgstr "Kódkiegészítés engedélyezése"
 
@@ -10211,7 +10183,7 @@ msgid "Enable smart brace completion"
 msgstr "Zárójel-kiegészítés engedélyezése"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:9
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:12
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:9
 msgid "Enable smart indentation"
 msgstr "Intelligens behúzás engedélyezése"
 
@@ -10220,6 +10192,7 @@ msgid "Indent:"
 msgstr "Behúzás:"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:11
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:11
 msgid "Indentation parameters"
 msgstr "Behúzás paraméterei"
 
@@ -10232,18 +10205,18 @@ msgid "Parenthesis indentation"
 msgstr "Zárójelek behúzása"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:15
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:14
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:7
 msgid "Show calltips"
 msgstr "Gyorstippek mutatása"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:16
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:15
 msgid "Smart Indentation"
 msgstr "Intelligens behúzás"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:17
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:16
 msgid "Statement indentation size in spaces:"
 msgstr "Utasításbehúzás mérete szóközökben:"
 
@@ -10309,39 +10282,23 @@ msgstr "Segítség a Pythonhoz"
 msgid "Python"
 msgstr "Python"
 
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:1
-msgid "<b>Autocompletion</b>"
-msgstr "<b>Automatikus kiegészítés</b>"
-
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:2
-msgid "<b>Calltips</b>"
-msgstr "<b>Hívástippek</b>"
-
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:3
-msgid "<b>Indentation parameters</b>"
-msgstr "<b>Behúzás paraméterei</b>"
-
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:4
-msgid "<b>Interpreter</b>"
-msgstr "<b>Értelmező</b>"
-
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:5
-msgid "<b>Smart Indentation</b>"
-msgstr "<b>Intelligens behúzás</b>"
-
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:8
 msgid "Autocomplete"
 msgstr "Automatikus kiegészítés"
 
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:10
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:7
 msgid "Enable adaptive indentation"
 msgstr "Adaptív behúzás engedélyezése"
 
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:13
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:10
 msgid "Environment"
 msgstr "Környezet"
 
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:14
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:12
+msgid "Interpreter"
+msgstr "Értelmező"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:13
 msgid "Path: "
 msgstr "Útvonal: "
 
@@ -10601,24 +10558,24 @@ msgid "JavaScript Support Plugin"
 msgstr "JavaScript támogatás bővítmény"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:1
-msgid "<b>JS Find dirs</b>"
-msgstr "<b>JS keresési könyvtárak</b>"
-
-#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:2
 msgid "Add brace after function call autocompletion"
 msgstr "Zárójel hozzáadása függvényhívás automatikus kiegészítése után"
 
-#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:3
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:2
 msgid "Gir repository's directory:   "
 msgstr "A Gir tároló könyvtára:"
 
-#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:4
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:3
 msgid "Gjs repository's directory:   "
 msgstr "A Gjs tároló könyvtára:"
 
-#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:5
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:4
 msgid "Highlight missed semicolon"
 msgstr "Hiányzó pontosvessző kiemelése"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:5
+msgid "JS Find dirs"
+msgstr "JS keresési könyvtárak"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
 msgid "Min character for completion "
@@ -10627,3 +10584,4 @@ msgstr "Karakterek minimális száma kiegészítéshez "
 #: ../plugins/symbol-db/symbol-db-views.c:182
 msgid "Symbol"
 msgstr "Szimbólum"
+
