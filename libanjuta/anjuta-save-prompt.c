@@ -264,8 +264,7 @@ anjuta_save_prompt_add_item (AnjutaSavePrompt *save_prompt,
 {
 	GtkTreeModel *model;
 	GtkTreeIter iter;
-	gchar *label;
-	const gchar *markup;
+	gchar *label, *markup;
 	gint items_count;
 	
 	g_return_if_fail (ANJUTA_IS_SAVE_PROMPT (save_prompt));
@@ -294,17 +293,18 @@ anjuta_save_prompt_add_item (AnjutaSavePrompt *save_prompt,
 	if (items_count > 1)
 	{
 		label = g_strdup_printf( 
-			ngettext ("<b>There is %d item with unsaved changes. Save changes before closing?</b>",
-					  "<b>There are %d items with unsaved changes. Save changes before closing?</b>",
+			ngettext ("There is %d item with unsaved changes. Save changes before closing?",
+					  "There are %d items with unsaved changes. Save changes before closing?",
 					  items_count), items_count);
+		markup = g_strdup_printf ("<b>%s</b>", label);
+		g_free (label);
 	}
 	else
 	{
-		label = g_strdup_printf("<b>%s</b>", 
+		markup = g_strdup_printf ("<b>%s</b>",
 			_("There is an item with unsaved changes. Save changes before closing?"));
 	}
 
-	markup = label;
 	gtk_message_dialog_set_markup (GTK_MESSAGE_DIALOG (save_prompt), markup);
-	g_free (label);
+	g_free (markup);
 }

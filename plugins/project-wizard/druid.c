@@ -229,7 +229,8 @@ npw_druid_fill_summary_page (NPWDruid* druid)
 	GString* text;
 	GtkLabel* label;
 
-	text = g_string_new (_("<b>Confirm the following information:</b>\n\n"));
+	text = g_string_new (NULL);
+	g_string_append_printf (text, "<b>%s</b>\n\n", _("Confirm the following information:"));
 
 	/* The project type is translated too, it is something like
 	 * generic, GNOME applet, Makefile project... */

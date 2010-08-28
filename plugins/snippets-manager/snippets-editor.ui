@@ -285,8 +285,10 @@ The role of the name is purely informative.</property>
             <child type="label">
               <object class="GtkLabel" id="label1">
                 <property name="visible">True</property>
-                <property name="label" translatable="yes">&lt;b&gt;Snippet Properties&lt;/b&gt;</property>
-                <property name="use_markup">True</property>
+                <property name="label" translatable="yes">Snippet Properties</property>
+                <attributes>
+                  <attribute name="weight" value="PANGO_WEIGHT_BOLD"/>
+                </attributes>
               </object>
             </child>
           </object>
@@ -381,8 +383,10 @@ The role of the name is purely informative.</property>
                         <child type="label">
                           <object class="GtkLabel" id="label7">
                             <property name="visible">True</property>
-                            <property name="label" translatable="yes">&lt;b&gt;Snippet Content&lt;/b&gt;</property>
-                            <property name="use_markup">True</property>
+                            <property name="label" translatable="yes">Snippet Content</property>
+                            <attributes>
+                              <attribute name="weight" value="PANGO_WEIGHT_BOLD"/>
+                            </attributes>
                           </object>
                         </child>
                       </object>
@@ -498,8 +502,10 @@ The role of the name is purely informative.</property>
                         <child type="label">
                           <object class="GtkLabel" id="label8">
                             <property name="visible">True</property>
-                            <property name="label" translatable="yes">&lt;b&gt;Snippet Variables&lt;/b&gt;</property>
-                            <property name="use_markup">True</property>
+                            <property name="label" translatable="yes">Snippet Variables</property>
+                            <attributes>
+                              <attribute name="weight" value="PANGO_WEIGHT_BOLD"/>
+                            </attributes>
                           </object>
                         </child>
                       </object>
