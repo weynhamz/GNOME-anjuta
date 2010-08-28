@@ -3480,7 +3480,6 @@ interface IAnjutaProjectManager
 
 	#include <libanjuta/anjuta-project.h>
 	#include <libanjuta/interfaces/ianjuta-project.h>
-	#include <libanjuta/anjuta-error.h>
 	
 	/**
 	* IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI

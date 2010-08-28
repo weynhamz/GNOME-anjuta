@@ -26,7 +26,6 @@
 #include "project.h"
 #include "project-marshal.h"
 #include <libanjuta/anjuta-debug.h>
-#include <libanjuta/anjuta-error.h>
 #include <libanjuta/interfaces/ianjuta-project-backend.h>
 #include "project-model.h"
 #include "project-view.h"
