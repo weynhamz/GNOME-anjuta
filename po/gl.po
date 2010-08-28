@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-master-po-gl-1952\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-23 02:28+0200\n"
-"PO-Revision-Date: 2010-08-23 02:28+0200\n"
+"POT-Creation-Date: 2010-08-28 16:53+0200\n"
+"PO-Revision-Date: 2010-08-28 16:55+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Galician <gnome-gl-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -440,7 +440,7 @@ msgstr "Se non os garda perderanse todos os cambios que fixo."
 
 #: ../libanjuta/anjuta-save-prompt.c:189
 #: ../plugins/document-manager/plugin.c:605
-#: ../plugins/snippets-manager/snippets-editor.ui.h:12
+#: ../plugins/snippets-manager/snippets-editor.ui.h:9
 msgid "Save"
 msgstr "Gardar"
 
@@ -452,20 +452,19 @@ msgstr "Elemento"
 msgid "_Discard changes"
 msgstr "_Rexeitar os cambios"
 
-#: ../libanjuta/anjuta-save-prompt.c:297
+#: ../libanjuta/anjuta-save-prompt.c:296
 #, c-format
-msgid ""
-"<b>There is %d item with unsaved changes. Save changes before closing?</b>"
+msgid "There is %d item with unsaved changes. Save changes before closing?"
 msgid_plural ""
-"<b>There are %d items with unsaved changes. Save changes before closing?</b>"
+"There are %d items with unsaved changes. Save changes before closing?"
 msgstr[0] ""
-"<b>Hai %d elemento con cambios sen gardar. Quere gardar os cambios antes de "
-"pechar?</b>"
+"Hai %d elemento con cambios sen gardar. Quere gardar os cambios antes de "
+"pechar?"
 msgstr[1] ""
-"<b>Hai %d elementos con cambios sen gardar. Quere gardar os cambios antes de "
-"pechar?</b>"
+"Hai %d elementos con cambios sen gardar. Quere gardar os cambios antes de "
+"pechar?"
 
-#: ../libanjuta/anjuta-save-prompt.c:304
+#: ../libanjuta/anjuta-save-prompt.c:305
 msgid "There is an item with unsaved changes. Save changes before closing?"
 msgstr ""
 "Hai un elemento con cambios sen gardar. Quere gardar os cambios antes de "
@@ -1454,7 +1453,7 @@ msgstr "Ficheiro no que se escribirá o modelo que se procese"
 msgid "Failed to write autogen definition file"
 msgstr "Produciuse un fallo ao escribir o ficheiro de definición Autogen"
 
-#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1159
+#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1160
 msgid ""
 "Could not find autogen version 5; please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net."
@@ -2966,7 +2965,7 @@ msgstr "_Renomear"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:340
 #: ../plugins/gtodo/callback.c:20 ../plugins/gtodo/callback.c:101
-#: ../plugins/snippets-manager/snippets-editor.ui.h:11
+#: ../plugins/snippets-manager/snippets-editor.ui.h:8
 msgid "Remove"
 msgstr "Eliminar"
 
@@ -6282,32 +6281,32 @@ msgstr ""
 msgid "Export task list"
 msgstr "Exportar a lista de tarefas"
 
-#: ../plugins/gtodo/export.c:158
+#: ../plugins/gtodo/export.c:159
 msgid "XML"
 msgstr "XML"
 
-#: ../plugins/gtodo/export.c:159
+#: ../plugins/gtodo/export.c:160
 msgid "Plain Text"
 msgstr "Texto plano"
 
-#: ../plugins/gtodo/export.c:160
+#: ../plugins/gtodo/export.c:161
 msgid "HTML"
 msgstr "HTML"
 
 #. add the embed css style sheet tb
-#: ../plugins/gtodo/export.c:167
+#: ../plugins/gtodo/export.c:168
 msgid "Export current category only"
 msgstr "Exportar só a categoría actual"
 
-#: ../plugins/gtodo/export.c:171
-msgid "<b>HTML export options:</b>"
-msgstr "<b>Opcións de exportación HTML:</b>"
+#: ../plugins/gtodo/export.c:172
+msgid "HTML export options:"
+msgstr "Opcións de exportación HTML:"
 
-#: ../plugins/gtodo/export.c:181
+#: ../plugins/gtodo/export.c:184
 msgid "Embed default (CSS) style sheet"
 msgstr "Incorporar a folla de estilo (CSS) predefinida"
 
-#: ../plugins/gtodo/export.c:185
+#: ../plugins/gtodo/export.c:188
 msgid "Custom (CSS) style sheet"
 msgstr "Folla de estilo (CSS) personalizada"
 
@@ -7231,27 +7230,23 @@ msgstr "Aviso"
 msgid "Message"
 msgstr "Mensaxe"
 
-#: ../plugins/project-wizard/druid.c:232
-msgid ""
-"<b>Confirm the following information:</b>\n"
-"\n"
-msgstr ""
-"<b>Confirme a seguinte información:</b>\n"
-"\n"
+#: ../plugins/project-wizard/druid.c:233
+msgid "Confirm the following information:"
+msgstr "Confirme a seguinte información:"
 
 #. The project type is translated too, it is something like
 #. * generic, GNOME applet, Makefile project...
-#: ../plugins/project-wizard/druid.c:236
+#: ../plugins/project-wizard/druid.c:237
 #, c-format
 msgid "Project Type: %s\n"
 msgstr "Tipo de proxecto: %s\n"
 
-#: ../plugins/project-wizard/druid.c:401
+#: ../plugins/project-wizard/druid.c:402
 #, c-format
 msgid "Unable to find any project template in %s"
 msgstr "Non é posíbel encontrar ningún modelo de proxecto en %s"
 
-#: ../plugins/project-wizard/druid.c:626
+#: ../plugins/project-wizard/druid.c:627
 #, c-format
 msgid ""
 "\n"
@@ -7260,7 +7255,7 @@ msgstr ""
 "\n"
 "O campo \"%s\" é obrigatorio. Introdúzao."
 
-#: ../plugins/project-wizard/druid.c:641
+#: ../plugins/project-wizard/druid.c:642
 #, c-format
 msgid ""
 "Field \"%s\" must start with a letter, a digit or an underscore and contain "
@@ -7270,7 +7265,7 @@ msgstr ""
 "tamén conter só letras, díxitos, guións baixos, o signo menos ou puntos. "
 "Arránxeo."
 
-#: ../plugins/project-wizard/druid.c:646
+#: ../plugins/project-wizard/druid.c:647
 #, c-format
 msgid ""
 "Field \"%s\" must start with a letter, a digit, an underscore or a directory "
@@ -7281,12 +7276,12 @@ msgstr ""
 "separador de directorio e ademais debe conter só letras, díxitos, guións "
 "baixos, separador de directorios, signo menos ou puntos. Arránxeo."
 
-#: ../plugins/project-wizard/druid.c:651
+#: ../plugins/project-wizard/druid.c:652
 #, c-format
 msgid "Unknown error."
 msgstr "Erro descoñecido."
 
-#: ../plugins/project-wizard/druid.c:678
+#: ../plugins/project-wizard/druid.c:679
 #, c-format
 msgid ""
 "Directory \"%s\" is not empty. Project creation could fail if some files "
@@ -7295,20 +7290,20 @@ msgstr ""
 "O cartafol \"%s\" non está baleiro. A creación do proxecto podería fallar se "
 "non é posíbel escribir nalgúns ficheiros. Quere continuar?"
 
-#: ../plugins/project-wizard/druid.c:680
+#: ../plugins/project-wizard/druid.c:681
 #, c-format
 msgid "File \"%s\" already exists. Do you want to overwrite it?"
 msgstr "O ficheiro \"%s\" xa existe. Quere sobrescribilo?"
 
-#: ../plugins/project-wizard/druid.c:711
+#: ../plugins/project-wizard/druid.c:712
 msgid "Invalid entry"
 msgstr "Entrada non válida"
 
-#: ../plugins/project-wizard/druid.c:722
+#: ../plugins/project-wizard/druid.c:723
 msgid "Dubious entry"
 msgstr "Entrada dubidosa"
 
-#: ../plugins/project-wizard/druid.c:883
+#: ../plugins/project-wizard/druid.c:884
 #, c-format
 msgid ""
 "\n"
@@ -7317,7 +7312,7 @@ msgstr ""
 "\n"
 "Faltan os programas: %s."
 
-#: ../plugins/project-wizard/druid.c:894
+#: ../plugins/project-wizard/druid.c:895
 #, c-format
 msgid ""
 "\n"
@@ -7326,7 +7321,7 @@ msgstr ""
 "\n"
 "Faltan os paquetes: %s."
 
-#: ../plugins/project-wizard/druid.c:903
+#: ../plugins/project-wizard/druid.c:904
 msgid ""
 "Some important programs or development packages required to build this "
 "project are missing. Please make sure they are installed properly before "
@@ -7336,12 +7331,12 @@ msgstr ""
 "construír este proxecto. Asegúrese de que están instalados apropiadamente "
 "antes de xerar o proxecto.\n"
 
-#: ../plugins/project-wizard/druid.c:911
+#: ../plugins/project-wizard/druid.c:912
 msgid "Install missing packages"
 msgstr "Instalar os paquetes que faltan"
 
 # erro no msgid: distrubution
-#: ../plugins/project-wizard/druid.c:919
+#: ../plugins/project-wizard/druid.c:920
 msgid ""
 "The missing programs are usually part of some distrubution packages and can "
 "be searched for in your Application Manager. Similarly, the development "
@@ -7357,11 +7352,11 @@ msgstr ""
 "neles. Normalmente acaban co sufixo -dev ou -devel nos nomes dos paquetes e "
 "pódense encontrar buscando no seu Xestor de aplicativos."
 
-#: ../plugins/project-wizard/druid.c:927
+#: ../plugins/project-wizard/druid.c:928
 msgid "Missing components"
 msgstr "Faltan compoñentes"
 
-#: ../plugins/project-wizard/druid.c:1059
+#: ../plugins/project-wizard/druid.c:1060
 #, c-format
 msgid "Unable to build project assistant user interface reading %s."
 msgstr ""
@@ -8648,30 +8643,18 @@ msgid "Add Snippets Group …"
 msgstr "Engadir o _grupo"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:1
-msgid "<b>Snippet Content</b>"
-msgstr "<b>Sangría intelixente</b>"
-
-#: ../plugins/snippets-manager/snippets-editor.ui.h:2
-msgid "<b>Snippet Properties</b>"
-msgstr "<b>Intérprete</b>"
-
-#: ../plugins/snippets-manager/snippets-editor.ui.h:3
-msgid "<b>Snippet Variables</b>"
-msgstr "Introducir variábeis de contorno:"
-
-#: ../plugins/snippets-manager/snippets-editor.ui.h:4
 msgid "Add"
 msgstr "_Engadir"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:5
+#: ../plugins/snippets-manager/snippets-editor.ui.h:2
 msgid "Close"
 msgstr "Pechalo todo"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:6
+#: ../plugins/snippets-manager/snippets-editor.ui.h:3
 msgid "Insert"
 msgstr "Inserir"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:7
+#: ../plugins/snippets-manager/snippets-editor.ui.h:4
 msgid ""
 "Keywords are used for better searching of the snippets. They should be "
 "relevant to the snippet content. Type them separated by a single space."
@@ -8679,27 +8662,27 @@ msgstr ""
 "As palabras chave úsanse para buscar fragmentos de mellor forma. Deben ser "
 "relevantes ao contido do fragmento. Escríbaas separadas por un espazo simple."
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:8
+#: ../plugins/snippets-manager/snippets-editor.ui.h:5
 msgid "Keywords:"
 msgstr "Palabras chave:"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:9
+#: ../plugins/snippets-manager/snippets-editor.ui.h:6
 msgid "Languages:"
 msgstr "Idiomas:"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:10
+#: ../plugins/snippets-manager/snippets-editor.ui.h:7
 msgid "Preview"
 msgstr "Vista previa"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:13
+#: ../plugins/snippets-manager/snippets-editor.ui.h:10
 msgid "Select the Snippets Group to which this snippet belongs."
 msgstr "Seleccione o grupo de fragmentos ao que pertence o fragmento"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:14
+#: ../plugins/snippets-manager/snippets-editor.ui.h:11
 msgid "Select the languages for which you want to use this snippet."
 msgstr "Seleccione o idioma para o cal quere usar este fragmento"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:15
+#: ../plugins/snippets-manager/snippets-editor.ui.h:12
 msgid ""
 "Select the name of the Snippet. \n"
 "The role of the name is purely informative."
@@ -8707,9 +8690,21 @@ msgstr ""
 "Seleccione o nome do fragmento.\n"
 "O rol do nome é puramente informativo."
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:17
+#: ../plugins/snippets-manager/snippets-editor.ui.h:14
+msgid "Snippet Content"
+msgstr "Contidos do fragmento"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:15
 msgid "Snippet Name:"
-msgstr "Nome novo:"
+msgstr "Nome do fragmento:"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:16
+msgid "Snippet Properties"
+msgstr "Propiedades do fragmento"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:17
+msgid "Snippet Variables"
+msgstr "Variábeis do fragmento"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:18
 msgid "Snippets Group:"
@@ -8720,8 +8715,8 @@ msgid "Trigger Key:"
 msgstr "Tecla activadora:"
 
 #: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:1
-msgid "<b>Anjuta variables</b>"
-msgstr "<b>Variábeis de Anjuta</b>"
+msgid "Anjuta variables"
+msgstr "Variábeis de Anjuta"
 
 #: ../plugins/snippets-manager/snippets-import-export.c:145
 msgid "Import Snippets"
@@ -9490,7 +9485,7 @@ msgstr "Base de datos de símbolos"
 msgid "API Tags"
 msgstr "Etiquetas API"
 
-#: ../plugins/symbol-db/symbol-db-system.c:807
+#: ../plugins/symbol-db/symbol-db-system.c:817
 msgid "Resuming glb scan."
 msgstr "Retomar a análise glb."
 
@@ -10200,12 +10195,12 @@ msgstr ""
 "depuración"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:1
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:7
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:1
 msgid "Add '(' after function call autocompletion"
 msgstr "Engadir '(' despois da chamada á función de autocompletado"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:2
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:8
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:2
 msgid "Add a space after function call autocompletion"
 msgstr "Engadir un espazo despois da chamada á función de autocompletado"
 
@@ -10214,20 +10209,22 @@ msgid "Auto-complete"
 msgstr "Autocompletar"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:4
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:4
 msgid "Autocompletion"
 msgstr "Autocompletado"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:5
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:10
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:5
 msgid "Brace indentation size in spaces:"
 msgstr "Tamaño da sangría da chave en espazos:"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:6
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:6
 msgid "Calltips"
 msgstr "Caixa de suxestións"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:7
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:12
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:8
 msgid "Enable code completion"
 msgstr "Activar o completado de código"
 
@@ -10236,7 +10233,7 @@ msgid "Enable smart brace completion"
 msgstr "Activar o completado intelixente de chave"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:9
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:13
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:9
 msgid "Enable smart indentation"
 msgstr "Activar a sangria intelixente"
 
@@ -10245,6 +10242,7 @@ msgid "Indent:"
 msgstr "Sangría:"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:11
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:11
 msgid "Indentation parameters"
 msgstr "Parámetros da s_angría"
 
@@ -10257,18 +10255,18 @@ msgid "Parenthesis indentation"
 msgstr "Sangría de paréntese"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:16
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:14
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:7
 msgid "Show calltips"
 msgstr "Mostrar caixas de suxestión"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:17
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:15
 msgid "Smart Indentation"
 msgstr "Sangría intelixente"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:18
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:16
 msgid "Statement indentation size in spaces:"
 msgstr "Instrución do tamaño da sangría en espazos:"
 
@@ -10329,49 +10327,30 @@ msgstr "Non mostrar o aviso de novo"
 msgid "Python Assistance"
 msgstr "Asistente de Python"
 
-#: ../plugins/language-support-python/plugin.c:1362
-#: ../plugins/language-support-python/plugin.c:1371
+#: ../plugins/language-support-python/plugin.c:1363
+#: ../plugins/language-support-python/plugin.c:1372
 #: ../plugins/language-support-python/python-assist.c:937
 msgid "Python"
 msgstr "Python"
 
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:1
-msgid "<b>Autocompletion</b>"
-msgstr "<b>Autocompletar</b>"
-
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:2
-msgid "<b>Calltips</b>"
-msgstr "<b>Caixa de suxestións</b>"
-
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:3
-msgid "<b>Indentation parameters</b>"
-msgstr "<b>Parámetros da sangría</b>"
-
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:4
-msgid "<b>Interpreter</b>"
-msgstr "<b>Intérprete</b>"
-
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:5
-msgid "<b>Rope Options</b>"
-msgstr "<b>Opcións de Rope</b>"
-
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:6
-msgid "<b>Smart Indentation</b>"
-msgstr "<b>Sangría intelixente</b>"
-
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:9
 msgid "Autocomplete"
 msgstr "Autocompletar"
 
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:11
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:7
 msgid "Enable adaptive indentation"
 msgstr "Activar a sangria adaptativa"
 
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:14
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:10
 msgid "Environment"
 msgstr "Contorno"
 
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:15
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:12
+#, fuzzy
+msgid "Interpreter"
+msgstr "<b>Intérprete</b>"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:13
 msgid "Path: "
 msgstr "Camiño:"
 
@@ -10633,24 +10612,25 @@ msgid "JavaScript Support Plugin"
 msgstr "Engadido de compatibilidade de JavaScript"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:1
-msgid "<b>JS Find dirs</b>"
-msgstr "<b>Cartafoles de búsqueda de JS</b>"
-
-#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:2
 msgid "Add brace after function call autocompletion"
 msgstr "Engadir corchete despois do autocompletado da chamada a función"
 
-#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:3
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:2
 msgid "Gir repository's directory:   "
 msgstr "Cartafol do repositorio Gir:   "
 
-#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:4
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:3
 msgid "Gjs repository's directory:   "
 msgstr "Cartafol do repositorio Gjs:   "
 
-#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:5
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:4
 msgid "Highlight missed semicolon"
 msgstr "Realzar os puntos e comas que faltan"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:5
+#, fuzzy
+msgid "JS Find dirs"
+msgstr "<b>Cartafoles de búsqueda de JS</b>"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
 msgid "Min character for completion "
@@ -10659,6 +10639,33 @@ msgstr "Mínimo de caracteres para o completado"
 #: ../plugins/symbol-db/symbol-db-views.c:182
 msgid "Symbol"
 msgstr "Símbolo"
+
+#~ msgid ""
+#~ "<b>There is %d item with unsaved changes. Save changes before closing?</b>"
+#~ msgid_plural ""
+#~ "<b>There are %d items with unsaved changes. Save changes before closing?</"
+#~ "b>"
+#~ msgstr[0] ""
+#~ "<b>Hai %d elemento con cambios sen gardar. Quere gardar os cambios antes "
+#~ "de pechar?</b>"
+#~ msgstr[1] ""
+#~ "<b>Hai %d elementos con cambios sen gardar. Quere gardar os cambios antes "
+#~ "de pechar?</b>"
+
+#~ msgid "<b>Autocompletion</b>"
+#~ msgstr "<b>Autocompletar</b>"
+
+#~ msgid "<b>Calltips</b>"
+#~ msgstr "<b>Caixa de suxestións</b>"
+
+#~ msgid "<b>Indentation parameters</b>"
+#~ msgstr "<b>Parámetros da sangría</b>"
+
+#~ msgid "<b>Rope Options</b>"
+#~ msgstr "<b>Opcións de Rope</b>"
+
+#~ msgid "<b>Smart Indentation</b>"
+#~ msgstr "<b>Sangría intelixente</b>"
 
 #~ msgid "Autocompletion (C/C++/Java only)"
 #~ msgstr "Autocompletado (só en C/C++/Java)"
