@@ -560,7 +560,6 @@ amp_target_property_buffer_free (AmpTargetPropertyBuffer *buffer)
 	g_list_foreach (buffer->sources, (GFunc)amp_source_free, NULL);
 	g_list_free (buffer->sources);
 	amp_property_free (buffer->properties);
-	g_list_free (buffer->properties);
 	g_free (buffer);
 }
 
@@ -573,7 +572,7 @@ amp_target_property_buffer_add_source (AmpTargetPropertyBuffer *buffer, AmpSourc
 void
 amp_target_property_buffer_add_property (AmpTargetPropertyBuffer *buffer, AnjutaProjectProperty *prop)
 {
-	buffer->properties = g_list_prepend (buffer->properties, prop);
+	buffer->properties = g_list_concat (prop, buffer->properties);
 }
 
 GList *
@@ -1923,37 +1922,25 @@ project_load_target_properties (AmpProject *project, AnjutaToken *name, AnjutaTo
 		anjuta_project_node_children_foreach (parent, find_canonical_target, &find);
 		parent = (gchar *)find != target_id ? (AnjutaProjectNode *)find : NULL;
 
-		/* Get orphan buffer if there is no target */
-		if (parent == NULL)
-		{
-			gchar *orig_key;
-			if (g_hash_table_lookup_extended (orphan_properties, target_id, (gpointer *)&orig_key, (gpointer *)&orphan))
-			{
-				g_hash_table_steal (orphan_properties, target_id);
-				g_free (orig_key);
-			}
-			else
-			{
-				orphan = amp_target_property_buffer_new ();
-			}
-		}
-
 		/* Create property */
 		value = anjuta_token_evaluate (list);
 		prop = amp_property_new (NULL, type, 0, value, list);
 
 		if (parent == NULL)
 		{
+			/* Add property to non existing target, create a dummy target (AmpTargetPropertyBuffer) */
 			gchar *orig_key;
 			AmpTargetPropertyBuffer *orphan = NULL;
 			
 			if (g_hash_table_lookup_extended (orphan_properties, target_id, (gpointer *)&orig_key, (gpointer *)&orphan))
 			{
+				/* Dummy target already created */
 				g_hash_table_steal (orphan_properties, target_id);
 				g_free (orig_key);
 			}
 			else
 			{
+				/* Create dummy target */
 				orphan = amp_target_property_buffer_new ();
 			}
 			amp_target_property_buffer_add_property (orphan, prop);
@@ -1961,6 +1948,7 @@ project_load_target_properties (AmpProject *project, AnjutaToken *name, AnjutaTo
 		}
 		else
 		{
+			/* Add property to existing target */
 			amp_node_property_add (parent, prop);
 			g_free (target_id);
 		}
