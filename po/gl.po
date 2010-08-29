@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-master-po-gl-1952\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-28 16:57+0200\n"
-"PO-Revision-Date: 2010-08-28 16:58+0200\n"
+"POT-Creation-Date: 2010-08-29 22:49+0200\n"
+"PO-Revision-Date: 2010-08-29 22:53+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Galician <gnome-gl-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -3325,7 +3325,7 @@ msgstr "Repetir a busca rápida"
 #: ../plugins/document-manager/plugin.c:273 ../plugins/gtodo/interface.c:158
 #: ../src/anjuta-actions.h:30
 #: ../plugins/language-support-cpp-java/plugin.c:1876
-#: ../plugins/language-support-python/plugin.c:1175
+#: ../plugins/language-support-python/plugin.c:1176
 msgid "_Edit"
 msgstr "_Editar"
 
@@ -10272,12 +10272,12 @@ msgstr "Instrución do tamaño da sangría en espazos:"
 
 #. ANJUTA_STOCK_AUTOINDENT,
 #: ../plugins/language-support-cpp-java/plugin.c:1882
-#: ../plugins/language-support-python/plugin.c:1181
+#: ../plugins/language-support-python/plugin.c:1182
 msgid "Auto-Indent"
 msgstr "Sangrar automaticamente"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1883
-#: ../plugins/language-support-python/plugin.c:1182
+#: ../plugins/language-support-python/plugin.c:1183
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr ""
 "Sangrar automaticamente a liña ou selección actual segundo os parámetros da "
@@ -10308,27 +10308,27 @@ msgstr "C/C++"
 msgid "Python support warning"
 msgstr "Aviso de compatibilidade de Python"
 
-#: ../plugins/language-support-python/plugin.c:914
+#: ../plugins/language-support-python/plugin.c:915
 msgid ""
-"Couldn't find python-rope (http://rope.sf.net) libraries which\n"
-"are needed for autocompletion in python files.\n"
+"Either python path is wrong or python-rope (http://rope.sf.net) libraries\n"
+"aren't installed. Both are required for autocompletion in python files.\n"
 "Please install them and check the python path in the preferences."
 msgstr ""
-"Non foi posíbel encontrar as bibliotecas de python-rope \n"
-"(http://rope.sf.net) libraries which que son necesarias para o\n"
-"autocompletado dos ficheiros de python.\n"
-"Instáleas e comprobe o camimño de python nas preferencias."
+"O camiño de python é incorrecto ou as bibliotecas de python-rope\n"
+"(http://rope.sf.net) non están instaladas. Debe cumprir as dúas \n"
+"para o autocompletado dos ficheiros python.\n"
+"Instáleas e comprobe o camiño de python nas preferencias."
 
-#: ../plugins/language-support-python/plugin.c:917
+#: ../plugins/language-support-python/plugin.c:918
 msgid "Do not show that warning again"
 msgstr "Non mostrar o aviso de novo"
 
-#: ../plugins/language-support-python/plugin.c:1263
+#: ../plugins/language-support-python/plugin.c:1264
 msgid "Python Assistance"
 msgstr "Asistente de Python"
 
-#: ../plugins/language-support-python/plugin.c:1363
-#: ../plugins/language-support-python/plugin.c:1372
+#: ../plugins/language-support-python/plugin.c:1364
+#: ../plugins/language-support-python/plugin.c:1373
 #: ../plugins/language-support-python/python-assist.c:937
 msgid "Python"
 msgstr "Python"
