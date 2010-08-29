@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2010-08-28 10:10+0000\n"
-"PO-Revision-Date: 2010-08-28 14:24+0200\n"
+"POT-Creation-Date: 2010-08-29 15:36+0000\n"
+"PO-Revision-Date: 2010-08-30 01:00+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -456,7 +456,6 @@ msgstr "_Descartar los cambios"
 
 #: ../libanjuta/anjuta-save-prompt.c:296
 #, c-format
-#| msgid "There is an item with unsaved changes. Save changes before closing?"
 msgid "There is %d item with unsaved changes. Save changes before closing?"
 msgid_plural ""
 "There are %d items with unsaved changes. Save changes before closing?"
@@ -3329,7 +3328,7 @@ msgstr "Repetir la búsqueda rápida"
 #: ../plugins/document-manager/plugin.c:273 ../plugins/gtodo/interface.c:158
 #: ../src/anjuta-actions.h:30
 #: ../plugins/language-support-cpp-java/plugin.c:1876
-#: ../plugins/language-support-python/plugin.c:1175
+#: ../plugins/language-support-python/plugin.c:1176
 msgid "_Edit"
 msgstr "_Editar"
 
@@ -6307,7 +6306,6 @@ msgid "Export current category only"
 msgstr "Exportar sólo la categoría actual"
 
 #: ../plugins/gtodo/export.c:172
-#| msgid "<b>HTML export options:</b>"
 msgid "HTML export options:"
 msgstr "Opciones de exportación HTML:"
 
@@ -7239,9 +7237,6 @@ msgid "Message"
 msgstr "Mensaje"
 
 #: ../plugins/project-wizard/druid.c:233
-#| msgid ""
-#| "<b>Confirm the following information:</b>\n"
-#| "\n"
 msgid "Confirm the following information:"
 msgstr "Confirme la siguiente información:"
 
@@ -8699,7 +8694,6 @@ msgstr ""
 "El rol del nombre es simplemente informativo."
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:14
-#| msgid "<b>Snippet Content</b>"
 msgid "Snippet Content"
 msgstr "Contenido del recorte"
 
@@ -8708,12 +8702,10 @@ msgid "Snippet Name:"
 msgstr "Nombre del recorte:"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:16
-#| msgid "<b>Snippet Properties</b>"
 msgid "Snippet Properties"
 msgstr "Propiedades del recorte"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:17
-#| msgid "<b>Snippet Variables</b>"
 msgid "Snippet Variables"
 msgstr "Variables del recorte"
 
@@ -8726,7 +8718,6 @@ msgid "Trigger Key:"
 msgstr "Tecla disparadora:"
 
 #: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:1
-#| msgid "<b>Anjuta variables</b>"
 msgid "Anjuta variables"
 msgstr "Variables de Anjuta"
 
@@ -10293,12 +10284,12 @@ msgstr "Tamaño de sangría en espacios:"
 
 #. ANJUTA_STOCK_AUTOINDENT,
 #: ../plugins/language-support-cpp-java/plugin.c:1882
-#: ../plugins/language-support-python/plugin.c:1181
+#: ../plugins/language-support-python/plugin.c:1182
 msgid "Auto-Indent"
 msgstr "Sangría automática"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1883
-#: ../plugins/language-support-python/plugin.c:1182
+#: ../plugins/language-support-python/plugin.c:1183
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr ""
 "Auto sangrar la línea actual o la selección basándose en los ajustes de "
@@ -10329,26 +10320,32 @@ msgstr "C/C++"
 msgid "Python support warning"
 msgstr "Aviso del soporte de Python"
 
-#: ../plugins/language-support-python/plugin.c:914
+#: ../plugins/language-support-python/plugin.c:915
+#| msgid ""
+#| "Couldn't find python-rope (http://rope.sf.net) libraries which\n"
+#| "are needed for autocompletion in python files.\n"
+#| "Please install them and check the python path in the preferences."
 msgid ""
-"Couldn't find python-rope (http://rope.sf.net) libraries which\n"
-"are needed for autocompletion in python files.\n"
+"Either python path is wrong or python-rope (http://rope.sf.net) libraries\n"
+"aren't installed. Both are required for autocompletion in python files.\n"
 "Please install them and check the python path in the preferences."
 msgstr ""
-"No se pudieron encontrar las bibliotecas python-rope (http://rope.sf.net)\n"
-"necesarias para el autocompletado en archivos Python.\n"
+"O la ruta de Python es errónea o las bibliotecas python-rope (http://rope.sf."
+"net)\n"
+"no están instaladas. Ambas son necesarias para el autocompletado en archivos "
+"Python.\n"
 "Instálelas y compruebe la ruta de Python en las preferencias."
 
-#: ../plugins/language-support-python/plugin.c:917
+#: ../plugins/language-support-python/plugin.c:918
 msgid "Do not show that warning again"
 msgstr "No mostrar esa advertencia de nuevo"
 
-#: ../plugins/language-support-python/plugin.c:1263
+#: ../plugins/language-support-python/plugin.c:1264
 msgid "Python Assistance"
 msgstr "Asistente de Python"
 
-#: ../plugins/language-support-python/plugin.c:1363
-#: ../plugins/language-support-python/plugin.c:1372
+#: ../plugins/language-support-python/plugin.c:1364
+#: ../plugins/language-support-python/plugin.c:1373
 #: ../plugins/language-support-python/python-assist.c:937
 msgid "Python"
 msgstr "Python"
@@ -10366,7 +10363,6 @@ msgid "Environment"
 msgstr "Entorno"
 
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:12
-#| msgid "<b>Interpreter</b>"
 msgid "Interpreter"
 msgstr "Intérprete"
 
@@ -10650,7 +10646,6 @@ msgid "Highlight missed semicolon"
 msgstr "Resaltar punto y coma perdido"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:5
-#| msgid "<b>JS Find dirs</b>"
 msgid "JS Find dirs"
 msgstr "Directorios de búsqueda de JS"
 
