@@ -138,7 +138,7 @@ EngineParser::setSymbolManager (IAnjutaSymbolManager *manager)
 	{
 		IANJUTA_SYMBOL_FIELD_ID, IANJUTA_SYMBOL_FIELD_NAME,
 		IANJUTA_SYMBOL_FIELD_KIND, IANJUTA_SYMBOL_FIELD_RETURNTYPE,
-		IANJUTA_SYMBOL_FIELD_SIGNATURE
+		IANJUTA_SYMBOL_FIELD_SIGNATURE, IANJUTA_SYMBOL_FIELD_TYPE_NAME
 	};
 	_query_search =
 		ianjuta_symbol_manager_create_query (manager,
