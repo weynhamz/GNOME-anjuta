@@ -4,7 +4,7 @@ AC_PREREQ(2.59)
 
 m4_define(anjuta_major_version,  2)
 m4_define(anjuta_minor_version, 31)
-m4_define(anjuta_micro_version,  90)
+m4_define(anjuta_micro_version,  91)
 m4_define(anjuta_nano_version, 0)
 m4_define(anjuta_version, anjuta_major_version.anjuta_minor_version.anjuta_micro_version.anjuta_nano_version)
 
@@ -24,6 +24,7 @@ ANJUTA_VERSION=anjuta_version
 AC_SUBST(ANJUTA_VERSION)
 
 dnl Anjuta core
+GLIB_REQUIRED=2.25.15
 GTK_REQUIRED=2.20.0
 GTHREAD_REQUIRED=2.22.0
 GDK_PIXBUF_REQUIRED=2.0.0
@@ -145,7 +146,9 @@ dnl Check base modules
 PKG_CHECK_MODULES([ANJUTA], 
    [gthread-2.0 >= $GTHREAD_REQUIRED 
 	unique-1.0 >= $UNIQUE_REQUIRED
-	dbus-glib-1 gtk+-2.0 >= $GTK_REQUIRED
+	glib-2.0 >= $GLIB_REQUIRED
+	gio-2.0 >= $GLIB_REQUIRED
+	gtk+-2.0 >= $GTK_REQUIRED
 	gdk-pixbuf-2.0 >= $GDK_PIXBUF_REQUIRED
 	gconf-2.0 >= $GCONF_REQUIRED
 	vte >= $VTE_REQUIRED

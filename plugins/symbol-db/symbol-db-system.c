@@ -155,6 +155,19 @@ sdb_system_finalize (GObject *object)
 	
 	sdbs = SYMBOL_DB_SYSTEM (object);
 	priv = sdbs->priv;
+	
+	/* disconnect all signals */
+	g_signal_handlers_disconnect_by_func (G_OBJECT (priv->sdbe_globals),
+									  on_engine_package_single_file_scan_end,
+									  sdbs);
+	g_signal_handlers_disconnect_matched (G_OBJECT (priv->sdbe_globals),
+									  G_SIGNAL_MATCH_FUNC,
+									  0,
+									  0,
+									  NULL,
+									  on_engine_package_scan_end,
+									  NULL);
+	
 	if (priv->single_package_scan_launcher) 
 	{
 		anjuta_launcher_reset (priv->single_package_scan_launcher);
@@ -167,13 +180,10 @@ sdb_system_finalize (GObject *object)
 	g_queue_free (priv->sscan_queue);
 	priv->sscan_queue = NULL;	
 	
-	/* FIXME: missing engine queue */
-	/* disconnect signals */
-	g_signal_handlers_disconnect_by_func (G_OBJECT (priv->sdbe_globals),
-									  on_engine_package_single_file_scan_end,
-									  sdbs);
-	
-	
+	/* free engine queue */
+	g_queue_foreach (priv->engine_queue, (GFunc)destroy_engine_scan_data, NULL);
+	g_queue_free (priv->engine_queue);
+	priv->engine_queue = NULL;	
 	
 	G_OBJECT_CLASS (sdb_system_parent_class)->finalize (object);
 }

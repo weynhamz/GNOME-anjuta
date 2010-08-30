@@ -631,9 +631,7 @@ interface IAnjutaIterable
  */
 interface IAnjutaBuilder
 {
-	#include <libanjuta/anjuta-error.h>
-
-	/**
+  /**
    * IAnjutaBuilderError:
    * @IANJUTA_BUILDER_SUCCEED: Build succeeded
    * @IANJUTA_BUILDER_FAILED: Build failed
@@ -3643,7 +3641,6 @@ interface IAnjutaWizard
 interface IAnjutaDebugger
 {
 	#include "ianjuta-message-view.h"
-	#include <libanjuta/anjuta-error.h>
 	#include <sys/types.h>
 	#include <gio/gio.h>
 

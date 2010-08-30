@@ -47,7 +47,7 @@ npw_open_project_template (GFile *destination, GFile *tarfile, gpointer data, GE
 	{
 		gchar *tarname = g_file_get_path (tarfile);
 		
-		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),_("Unable to extrat project template %s: %s"), tarname, error->message);
+		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),_("Unable to extract project template %s: %s"), tarname, error->message);
 	}
 	else
 	{

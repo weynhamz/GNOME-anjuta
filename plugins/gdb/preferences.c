@@ -120,8 +120,11 @@ gdb_check_register_function (PreferenceDialog *dlg, GtkTreeIter *iter)
 	{
 		gchar *msg;
 
-		/* Translators: pretty printer file is a kind of script allowing gdb to display
-		 * variable content in a simpler way, removing implementation details */
+		/* Translators: pretty printer file is a script containing functions allowing gdb
+		 * to display variable content in a simpler way, typically removing
+		 * implementation details.
+		 * The register function is an additional function in the script. It defines
+		 * which function is used for each type of variables. */
 		msg = g_strdup_printf(_("The register function hasn't been found automatically in the following pretty printer files:\n"
 								"%s\nYou need to fill yourself the register function columns before enabling the rows. "
 								"Most of the time the register function name contains the word \"register\"."), list->str);
@@ -364,6 +367,8 @@ gdb_merge_preferences (AnjutaPreferences* prefs, GList **list)
 	renderer = gtk_cell_renderer_text_new ();
 	g_object_set(renderer, "editable", TRUE, NULL);	
 	g_signal_connect(renderer, "edited", G_CALLBACK (gdb_on_printer_function_changed), dlg);
+	/* Translators: The "Register Function" column contains the name of a
+	 * function used to register pretty printers in gdb. */
 	column = gtk_tree_view_column_new_with_attributes (_("Register Function"), renderer,
 		"text", GDB_PP_REGISTER_COLUMN, NULL);
 	gtk_tree_view_append_column (dlg->treeview, column);

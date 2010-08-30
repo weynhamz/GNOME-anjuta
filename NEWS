@@ -1,3 +1,24 @@
+Anjuta 2.31.91 "Cold summer rain" (30 Aug 2010) -- Johannes Schmid
+
+Updated:
+- More updates to the vala support
+
+Bugs fixed:
+libanjuta: Fixed bgo #622922: migrated to GDBus
+pm: bgo #626690 - wrong project clean on new-project
+project-wizard: bgo #627595 - Ambiguous strings for translation
+bgo #627648 - Add IDE to Categories in .desktop file
+symbol-db: bgo#622340 - Tried to close project and Anjuta crashed
+bgo #628099 - Remove markup from translatable strings
+language-support-python: bgo#627437 - couldn't find python rope.
+bgo #628286 Fix introspection build when builddir != srcdir
+bgo #628285 Don't distribute the .gir files
+
+Thanks to Abderrahim Kitouni, Andika Triwidada, Ask H. Larsen, Branko Kokanović,
+Bruno Brouard, Christian Kirbach, Fran Diéguez, Gabor Kelemen, James Liggett,
+Jorge González, Massimo Corà, Matej Urbančič, Philip Withnall, Robert Ancell,
+Sébastien Granjoux
+
 Anjuta 2.31.90 "GSoC is over - we have snippets now" -- Johannes Schmid
 
 New:
