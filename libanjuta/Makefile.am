@@ -240,7 +240,7 @@ IAnjuta_1_0_gir_FILES = $(ianjuta_introspection_sources)
 INTROSPECTION_GIRS += IAnjuta-1.0.gir
 
 girdir = $(datadir)/gir-1.0
-dist_gir_DATA = $(INTROSPECTION_GIRS)
+gir_DATA = $(INTROSPECTION_GIRS)
 
 typelibdir = $(libdir)/girepository-1.0
 typelib_DATA = $(INTROSPECTION_GIRS:.gir=.typelib)
