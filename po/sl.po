@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&component=core application\n"
-"POT-Creation-Date: 2010-08-29 09:08+0000\n"
-"PO-Revision-Date: 2010-08-29 11:30+0100\n"
+"POT-Creation-Date: 2010-08-30 16:39+0000\n"
+"PO-Revision-Date: 2010-08-30 18:55+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -3345,7 +3345,7 @@ msgstr "Ponovi hitro iskanje"
 #: ../plugins/gtodo/interface.c:158
 #: ../src/anjuta-actions.h:30
 #: ../plugins/language-support-cpp-java/plugin.c:1876
-#: ../plugins/language-support-python/plugin.c:1175
+#: ../plugins/language-support-python/plugin.c:1176
 msgid "_Edit"
 msgstr "_Uredi"
 
@@ -10224,12 +10224,12 @@ msgstr "Velikost zamikanja stavkov v presledkih:"
 
 #. ANJUTA_STOCK_AUTOINDENT,
 #: ../plugins/language-support-cpp-java/plugin.c:1882
-#: ../plugins/language-support-python/plugin.c:1181
+#: ../plugins/language-support-python/plugin.c:1182
 msgid "Auto-Indent"
 msgstr "Samodejno zamikanje"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1883
-#: ../plugins/language-support-python/plugin.c:1182
+#: ../plugins/language-support-python/plugin.c:1183
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr "Samodejno zamakni trenutno vrstico na osnovi nastavitev zamikanja"
 
@@ -10258,26 +10258,26 @@ msgstr "C/C++"
 msgid "Python support warning"
 msgstr "Opozorilo podpore Python"
 
-#: ../plugins/language-support-python/plugin.c:914
+#: ../plugins/language-support-python/plugin.c:915
 msgid ""
-"Couldn't find python-rope (http://rope.sf.net) libraries which\n"
-"are needed for autocompletion in python files.\n"
+"Either python path is wrong or python-rope (http://rope.sf.net) libraries\n"
+"aren't installed. Both are required for autocompletion in python files.\n"
 "Please install them and check the python path in the preferences."
 msgstr ""
-"Ni mogoče najti knjižnic python-rope (http://rope.sf.net), ki\n"
-"so zahtevane za samodejno dopolnjevanje v datotekah python.\n"
+"Ni mogoče najti knjižnic python-rope ali pa ni določene poti (http://rope.sf.net).\n"
+"Te so zahtevane za samodejno dopolnjevanje v datotekah python.\n"
 "Knjižnice je treba namestiti in določiti ustrezne poti med nastavitvami."
 
-#: ../plugins/language-support-python/plugin.c:917
+#: ../plugins/language-support-python/plugin.c:918
 msgid "Do not show that warning again"
 msgstr "Opozorila ne prikaži več"
 
-#: ../plugins/language-support-python/plugin.c:1263
+#: ../plugins/language-support-python/plugin.c:1264
 msgid "Python Assistance"
 msgstr "Python pomočnik"
 
-#: ../plugins/language-support-python/plugin.c:1363
-#: ../plugins/language-support-python/plugin.c:1372
+#: ../plugins/language-support-python/plugin.c:1364
+#: ../plugins/language-support-python/plugin.c:1373
 #: ../plugins/language-support-python/python-assist.c:937
 msgid "Python"
 msgstr "Python"
