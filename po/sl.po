@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&component=core application\n"
-"POT-Creation-Date: 2010-08-24 20:21+0000\n"
-"PO-Revision-Date: 2010-08-25 08:24+0100\n"
+"POT-Creation-Date: 2010-08-30 16:39+0000\n"
+"PO-Revision-Date: 2010-08-30 18:55+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -449,7 +449,7 @@ msgstr "V primeru, da datoteke ne shranite, bodo izgubljene vse spremembe."
 
 #: ../libanjuta/anjuta-save-prompt.c:189
 #: ../plugins/document-manager/plugin.c:605
-#: ../plugins/snippets-manager/snippets-editor.ui.h:12
+#: ../plugins/snippets-manager/snippets-editor.ui.h:9
 msgid "Save"
 msgstr "Shrani"
 
@@ -461,16 +461,16 @@ msgstr "Predmet"
 msgid "_Discard changes"
 msgstr "_Prezri spremembe"
 
-#: ../libanjuta/anjuta-save-prompt.c:297
+#: ../libanjuta/anjuta-save-prompt.c:296
 #, c-format
-msgid "<b>There is %d item with unsaved changes. Save changes before closing?</b>"
-msgid_plural "<b>There are %d items with unsaved changes. Save changes before closing?</b>"
-msgstr[0] "<b>Odprtih je %d predmetov s spremenjeno vsebino. Ali jih želite shraniti?</b>"
-msgstr[1] "<b>Odprt je %d predmet s spremenjeno vsebino. Ali ga želite shraniti?</b>"
-msgstr[2] "<b>Odprta sta %d predmeta s spremenjeno vsebino. Ali ju želite shraniti?</b>"
-msgstr[3] "<b>Odprti so %d predmeti s spremenjeno vsebino. Ali jih želite shraniti?</b>"
+msgid "There is %d item with unsaved changes. Save changes before closing?"
+msgid_plural "There are %d items with unsaved changes. Save changes before closing?"
+msgstr[0] "Odprtih je %d predmetov s spremenjeno vsebino. Ali jih želite shraniti?"
+msgstr[1] "Odprt je %d predmet s spremenjeno vsebino. Ali ga želite shraniti?"
+msgstr[2] "Odprta sta %d  predmeta s spremenjeno vsebino. Ali ju želite shraniti?"
+msgstr[3] "Odprti so %d predmeti s spremenjeno vsebino. Ali jih želite shraniti?"
 
-#: ../libanjuta/anjuta-save-prompt.c:304
+#: ../libanjuta/anjuta-save-prompt.c:305
 msgid "There is an item with unsaved changes. Save changes before closing?"
 msgstr "Odprt je predmet s spremenjeno vsebino. Ali ga želite shraniti?"
 
@@ -1448,7 +1448,7 @@ msgid "Failed to write autogen definition file"
 msgstr "Napaka med zapisovanjem autogen datoteke določitev"
 
 #: ../plugins/class-gen/plugin.c:98
-#: ../plugins/project-wizard/druid.c:1159
+#: ../plugins/project-wizard/druid.c:1160
 msgid "Could not find autogen version 5; please install the autogen package. You can get it from http://autogen.sourceforge.net."
 msgstr "Ni mogoče najti autogen različice 5. Namestite autogen paket. Paket lahko prejmete preko http://autogen.sourceforge.net"
 
@@ -2984,7 +2984,7 @@ msgstr "Preimenuj"
 #: ../plugins/document-manager/anjuta-bookmarks.c:340
 #: ../plugins/gtodo/callback.c:20
 #: ../plugins/gtodo/callback.c:101
-#: ../plugins/snippets-manager/snippets-editor.ui.h:11
+#: ../plugins/snippets-manager/snippets-editor.ui.h:8
 msgid "Remove"
 msgstr "Odstrani"
 
@@ -3345,7 +3345,7 @@ msgstr "Ponovi hitro iskanje"
 #: ../plugins/gtodo/interface.c:158
 #: ../src/anjuta-actions.h:30
 #: ../plugins/language-support-cpp-java/plugin.c:1876
-#: ../plugins/language-support-python/plugin.c:1175
+#: ../plugins/language-support-python/plugin.c:1176
 msgid "_Edit"
 msgstr "_Uredi"
 
@@ -6316,32 +6316,32 @@ msgstr "Ali ste prepričani, da želite odstraniti vse opravljene naloge v kateg
 msgid "Export task list"
 msgstr "Izvozi seznam opravil"
 
-#: ../plugins/gtodo/export.c:158
+#: ../plugins/gtodo/export.c:159
 msgid "XML"
 msgstr "XML"
 
-#: ../plugins/gtodo/export.c:159
+#: ../plugins/gtodo/export.c:160
 msgid "Plain Text"
 msgstr "Običajno besedilo"
 
-#: ../plugins/gtodo/export.c:160
+#: ../plugins/gtodo/export.c:161
 msgid "HTML"
 msgstr "HTML"
 
 #. add the embed css style sheet tb
-#: ../plugins/gtodo/export.c:167
+#: ../plugins/gtodo/export.c:168
 msgid "Export current category only"
 msgstr "Izvoz le trenutne kategorije"
 
-#: ../plugins/gtodo/export.c:171
-msgid "<b>HTML export options:</b>"
-msgstr "<b>HTML možnosti izvoza:</b>"
+#: ../plugins/gtodo/export.c:172
+msgid "HTML export options:"
+msgstr "HTML možnosti izvoza:"
 
-#: ../plugins/gtodo/export.c:181
+#: ../plugins/gtodo/export.c:184
 msgid "Embed default (CSS) style sheet"
 msgstr "Vstavi privzeto slogovno obliko (CSS)"
 
-#: ../plugins/gtodo/export.c:185
+#: ../plugins/gtodo/export.c:188
 msgid "Custom (CSS) style sheet"
 msgstr "Slog oblikovanja (CSS) po meri"
 
@@ -7270,27 +7270,23 @@ msgstr "Opozorilo"
 msgid "Message"
 msgstr "Sporočilo"
 
-#: ../plugins/project-wizard/druid.c:232
-msgid ""
-"<b>Confirm the following information:</b>\n"
-"\n"
-msgstr ""
-"<b>Potrdite naslednje podrobnosti:</b>\n"
-"\n"
+#: ../plugins/project-wizard/druid.c:233
+msgid "Confirm the following information:"
+msgstr "Potrdite naslednje podrobnosti:"
 
 #. The project type is translated too, it is something like
 #. * generic, GNOME applet, Makefile project...
-#: ../plugins/project-wizard/druid.c:236
+#: ../plugins/project-wizard/druid.c:237
 #, c-format
 msgid "Project Type: %s\n"
 msgstr "Vrsta projekta: %s\n"
 
-#: ../plugins/project-wizard/druid.c:401
+#: ../plugins/project-wizard/druid.c:402
 #, c-format
 msgid "Unable to find any project template in %s"
 msgstr "Ni mogoče najti predloge projekta v %s"
 
-#: ../plugins/project-wizard/druid.c:626
+#: ../plugins/project-wizard/druid.c:627
 #, c-format
 msgid ""
 "\n"
@@ -7299,40 +7295,40 @@ msgstr ""
 "\n"
 "Polje \"%s\" mora biti izpolnjeno. Vnesite podatke."
 
-#: ../plugins/project-wizard/druid.c:641
+#: ../plugins/project-wizard/druid.c:642
 #, c-format
 msgid "Field \"%s\" must start with a letter, a digit or an underscore and contain only letters, digits, underscore, minus and dot. Please fix it."
 msgstr "Polje \"%s\" se mora začeti s črko, številko ali pa vezajem in sme vsebovati le črke, številke, vezaje, znak minus in piko. Popravite ime."
 
-#: ../plugins/project-wizard/druid.c:646
+#: ../plugins/project-wizard/druid.c:647
 #, c-format
 msgid "Field \"%s\" must start with a letter, a digit, an underscore or a directory separator and contain only letters, digits, underscore, directory separator, minus and dot. Please fix it."
 msgstr "Polje \"%s\" se mora začeti s črko, številko, vezajem ali pa ločilnikom mape in sme vsebovati le črke, številke, vezaje, ločilnik mape, znak minus in piko. Popravite ime."
 
-#: ../plugins/project-wizard/druid.c:651
+#: ../plugins/project-wizard/druid.c:652
 #, c-format
 msgid "Unknown error."
 msgstr "Neznana napaka."
 
-#: ../plugins/project-wizard/druid.c:678
+#: ../plugins/project-wizard/druid.c:679
 #, c-format
 msgid "Directory \"%s\" is not empty. Project creation could fail if some files cannot be written. Do you want to continue?"
 msgstr "Mapa \"%s\" ni prazna. Ustvarjanje projekta se ustavi v primeru, da nekaterih datotek ni mogoče prepisati. Ali želite nadaljevati?"
 
-#: ../plugins/project-wizard/druid.c:680
+#: ../plugins/project-wizard/druid.c:681
 #, c-format
 msgid "File \"%s\" already exists. Do you want to overwrite it?"
 msgstr "Datoteka \"%s\" že obstaja. Ali jo želite prepisati?"
 
-#: ../plugins/project-wizard/druid.c:711
+#: ../plugins/project-wizard/druid.c:712
 msgid "Invalid entry"
 msgstr "Neveljaven vnos"
 
-#: ../plugins/project-wizard/druid.c:722
+#: ../plugins/project-wizard/druid.c:723
 msgid "Dubious entry"
 msgstr "Dvomljiv vnos"
 
-#: ../plugins/project-wizard/druid.c:883
+#: ../plugins/project-wizard/druid.c:884
 #, c-format
 msgid ""
 "\n"
@@ -7341,7 +7337,7 @@ msgstr ""
 "\n"
 "Manjkajoči programi: %s."
 
-#: ../plugins/project-wizard/druid.c:894
+#: ../plugins/project-wizard/druid.c:895
 #, c-format
 msgid ""
 "\n"
@@ -7350,23 +7346,23 @@ msgstr ""
 "\n"
 "Manjkajoči paketi: %s."
 
-#: ../plugins/project-wizard/druid.c:903
+#: ../plugins/project-wizard/druid.c:904
 msgid "Some important programs or development packages required to build this project are missing. Please make sure they are installed properly before generating the project.\n"
 msgstr "Nekateri pomembni programi ali pa paketi za razvijanje za izgradnjo projekta niso na voljo. Prepričajte se, da so ti nameščeni preden ustvarite projekt.\n"
 
-#: ../plugins/project-wizard/druid.c:911
+#: ../plugins/project-wizard/druid.c:912
 msgid "Install missing packages"
 msgstr "Namestitev manjkajočih paketov"
 
-#: ../plugins/project-wizard/druid.c:919
+#: ../plugins/project-wizard/druid.c:920
 msgid "The missing programs are usually part of some distrubution packages and can be searched for in your Application Manager. Similarly, the development packages are contained in special packages that your distribution provides to allow development of projects based on them. They usually end with a \"-dev\" or \"-devel\" suffix in package names and can be found by searching in your Application Manager."
 msgstr "Manjkajoči programi so običajno del nekaterih paketov distribucij in jih je mogoče najti v upravljalniku programov. Podobno paketi za razvoj kode, običajno pripadajo posebnim paketom, ki so del distribucije in omogočajo razvijanje projektov. Ti so običajno poimenovani tako, da vsebujejo pripone -\"-dev\" ali \"-devel\" in imena paketov. Najdete jih lahko v upravljalniku programov."
 
-#: ../plugins/project-wizard/druid.c:927
+#: ../plugins/project-wizard/druid.c:928
 msgid "Missing components"
 msgstr "Manjkajoče enote"
 
-#: ../plugins/project-wizard/druid.c:1059
+#: ../plugins/project-wizard/druid.c:1060
 #, c-format
 msgid "Unable to build project assistant user interface reading %s."
 msgstr "Ni mogoče izgraditi uporabniškega vmesnika pomočnika %s."
@@ -8621,54 +8617,42 @@ msgid "Add Snippets Group …"
 msgstr "Dodaj skupino izrezkov..."
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:1
-msgid "<b>Snippet Content</b>"
-msgstr "<b>Vsebina izrezka</b>"
-
-#: ../plugins/snippets-manager/snippets-editor.ui.h:2
-msgid "<b>Snippet Properties</b>"
-msgstr "<b>Lastnosti izrezka</b>"
-
-#: ../plugins/snippets-manager/snippets-editor.ui.h:3
-msgid "<b>Snippet Variables</b>"
-msgstr "<b>Spremenljivke izrezka</b>"
-
-#: ../plugins/snippets-manager/snippets-editor.ui.h:4
 msgid "Add"
 msgstr "Dodaj"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:5
+#: ../plugins/snippets-manager/snippets-editor.ui.h:2
 msgid "Close"
 msgstr "Zapri"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:6
+#: ../plugins/snippets-manager/snippets-editor.ui.h:3
 msgid "Insert"
 msgstr "Vstavi"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:7
+#: ../plugins/snippets-manager/snippets-editor.ui.h:4
 msgid "Keywords are used for better searching of the snippets. They should be relevant to the snippet content. Type them separated by a single space."
 msgstr "Ključne besede so uporabljene za iskanje izrezkov. Te morajo biti določene na osnovi vsebine izrezka. Ključne besede je treba zapisati ločeno z enojnim presledkom."
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:8
+#: ../plugins/snippets-manager/snippets-editor.ui.h:5
 msgid "Keywords:"
 msgstr "Ključne besede:"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:9
+#: ../plugins/snippets-manager/snippets-editor.ui.h:6
 msgid "Languages:"
 msgstr "Jeziki:"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:10
+#: ../plugins/snippets-manager/snippets-editor.ui.h:7
 msgid "Preview"
 msgstr "Predogled"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:13
+#: ../plugins/snippets-manager/snippets-editor.ui.h:10
 msgid "Select the Snippets Group to which this snippet belongs."
 msgstr "Izbor skupine izrezkov, ki ji izrezek pripada."
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:14
+#: ../plugins/snippets-manager/snippets-editor.ui.h:11
 msgid "Select the languages for which you want to use this snippet."
 msgstr "Izbor jezikov katerim izrezek pripada."
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:15
+#: ../plugins/snippets-manager/snippets-editor.ui.h:12
 msgid ""
 "Select the name of the Snippet. \n"
 "The role of the name is purely informative."
@@ -8676,9 +8660,21 @@ msgstr ""
 "Izbor imena izrezka.\n"
 "Ime je namenjeno le preglednosti."
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:17
+#: ../plugins/snippets-manager/snippets-editor.ui.h:14
+msgid "Snippet Content"
+msgstr "Vsebina  izrezka"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:15
 msgid "Snippet Name:"
 msgstr "Ime izrezka:"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:16
+msgid "Snippet Properties"
+msgstr "Lastnosti izrezka"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:17
+msgid "Snippet Variables"
+msgstr "Spremenljivke izrezka"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:18
 msgid "Snippets Group:"
@@ -8689,8 +8685,8 @@ msgid "Trigger Key:"
 msgstr "Ključ sprožilca:"
 
 #: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:1
-msgid "<b>Anjuta variables</b>"
-msgstr "<b>Spremenljivke programa</b>"
+msgid "Anjuta variables"
+msgstr "Anjuta spremenljivke:"
 
 #: ../plugins/snippets-manager/snippets-import-export.c:145
 msgid "Import Snippets"
@@ -10151,12 +10147,12 @@ msgid "Do not display warning if not using a Debug configuration"
 msgstr "Ne prikaži opozorila, kadar nastavitve razhroščevanja niso v uporabi"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:1
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:6
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:1
 msgid "Add '(' after function call autocompletion"
 msgstr "Dodaj '(' za samodejnim dopolnjevanjem klica funkcije"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:2
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:7
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:2
 msgid "Add a space after function call autocompletion"
 msgstr "Dodaj presledek za samodejnim dopolnjevanjem klica funkcije"
 
@@ -10165,20 +10161,22 @@ msgid "Auto-complete"
 msgstr "Samodejno dopolnjevanje"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:4
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:4
 msgid "Autocompletion"
 msgstr "Samodejno dopolnjevanje"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:5
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:9
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:5
 msgid "Brace indentation size in spaces:"
 msgstr "Velikost zamikanja oklepajev v presledkih:"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:6
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:6
 msgid "Calltips"
 msgstr "Namigi kodnih zapisov"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:7
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:11
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:8
 msgid "Enable code completion"
 msgstr "Omogoči dopolnjevanje kode"
 
@@ -10187,7 +10185,7 @@ msgid "Enable smart brace completion"
 msgstr "Omogoči pametno dopolnjevanje oklepajev"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:9
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:12
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:9
 msgid "Enable smart indentation"
 msgstr "Omogoči pametno zamikanje"
 
@@ -10196,6 +10194,7 @@ msgid "Indent:"
 msgstr "Zamik:"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:11
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:11
 msgid "Indentation parameters"
 msgstr "Parametri zamika"
 
@@ -10208,29 +10207,29 @@ msgid "Parenthesis indentation"
 msgstr "Zamikanje oklepajev"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:15
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:14
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:7
 msgid "Show calltips"
 msgstr "Pokaži namige kodnih zapisov"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:16
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:15
 msgid "Smart Indentation"
 msgstr "Pametno zamikanje"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:17
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:16
 msgid "Statement indentation size in spaces:"
 msgstr "Velikost zamikanja stavkov v presledkih:"
 
 #. ANJUTA_STOCK_AUTOINDENT,
 #: ../plugins/language-support-cpp-java/plugin.c:1882
-#: ../plugins/language-support-python/plugin.c:1181
+#: ../plugins/language-support-python/plugin.c:1182
 msgid "Auto-Indent"
 msgstr "Samodejno zamikanje"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1883
-#: ../plugins/language-support-python/plugin.c:1182
+#: ../plugins/language-support-python/plugin.c:1183
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr "Samodejno zamakni trenutno vrstico na osnovi nastavitev zamikanja"
 
@@ -10259,63 +10258,47 @@ msgstr "C/C++"
 msgid "Python support warning"
 msgstr "Opozorilo podpore Python"
 
-#: ../plugins/language-support-python/plugin.c:914
+#: ../plugins/language-support-python/plugin.c:915
 msgid ""
-"Couldn't find python-rope (http://rope.sf.net) libraries which\n"
-"are needed for autocompletion in python files.\n"
+"Either python path is wrong or python-rope (http://rope.sf.net) libraries\n"
+"aren't installed. Both are required for autocompletion in python files.\n"
 "Please install them and check the python path in the preferences."
 msgstr ""
-"Ni mogoče najti knjižnic python-rope (http://rope.sf.net), ki\n"
-"so zahtevane za samodejno dopolnjevanje v datotekah python.\n"
+"Ni mogoče najti knjižnic python-rope ali pa ni določene poti (http://rope.sf.net).\n"
+"Te so zahtevane za samodejno dopolnjevanje v datotekah python.\n"
 "Knjižnice je treba namestiti in določiti ustrezne poti med nastavitvami."
 
-#: ../plugins/language-support-python/plugin.c:917
+#: ../plugins/language-support-python/plugin.c:918
 msgid "Do not show that warning again"
 msgstr "Opozorila ne prikaži več"
 
-#: ../plugins/language-support-python/plugin.c:1263
+#: ../plugins/language-support-python/plugin.c:1264
 msgid "Python Assistance"
 msgstr "Python pomočnik"
 
-#: ../plugins/language-support-python/plugin.c:1363
-#: ../plugins/language-support-python/plugin.c:1372
+#: ../plugins/language-support-python/plugin.c:1364
+#: ../plugins/language-support-python/plugin.c:1373
 #: ../plugins/language-support-python/python-assist.c:937
 msgid "Python"
 msgstr "Python"
 
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:1
-msgid "<b>Autocompletion</b>"
-msgstr "<b>Samodejno dopolnjevanje</b>"
-
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:2
-msgid "<b>Calltips</b>"
-msgstr "<b>Namigi kodnih zapisov</b>"
-
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:3
-msgid "<b>Indentation parameters</b>"
-msgstr "<b>Parametri zamika</b>"
-
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:4
-msgid "<b>Interpreter</b>"
-msgstr "<b>Tolmačnik</b>"
-
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:5
-msgid "<b>Smart Indentation</b>"
-msgstr "<b>Pametno zamikanje</b>"
-
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:8
 msgid "Autocomplete"
 msgstr "Samodejno dopolnjevanje"
 
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:10
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:7
 msgid "Enable adaptive indentation"
 msgstr "Omogoči prilagodljivo zamikanje"
 
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:13
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:10
 msgid "Environment"
 msgstr "Okolje"
 
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:14
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:12
+msgid "Interpreter"
+msgstr "Prevajalnik"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:13
 msgid "Path: "
 msgstr "Pot:"
 
@@ -10576,24 +10559,24 @@ msgid "JavaScript Support Plugin"
 msgstr "Vstavek za podporo JavaScript"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:1
-msgid "<b>JS Find dirs</b>"
-msgstr "<b>JS mape iskanja</b>"
-
-#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:2
 msgid "Add brace after function call autocompletion"
 msgstr "Dodaj zaklepaj za samodejno dopolnjenim klicem funkcije"
 
-#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:3
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:2
 msgid "Gir repository's directory:   "
 msgstr "Gir mapa skladišča:"
 
-#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:4
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:3
 msgid "Gjs repository's directory:   "
 msgstr "Gjs mapa skladišča:"
 
-#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:5
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:4
 msgid "Highlight missed semicolon"
 msgstr "Poudari izpuščeno podpičje"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:5
+msgid "JS Find dirs"
+msgstr "JS iskalnik map"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
 msgid "Min character for completion "
@@ -10603,33 +10586,48 @@ msgstr "Najmanjše število znakov za dopolnjevanje"
 msgid "Symbol"
 msgstr "Simbol"
 
+#~ msgid ""
+#~ "<b>There is %d item with unsaved changes. Save changes before closing?</b>"
+#~ msgid_plural ""
+#~ "<b>There are %d items with unsaved changes. Save changes before closing?</"
+#~ "b>"
+#~ msgstr[0] ""
+#~ "<b>Odprtih je %d predmetov s spremenjeno vsebino. Ali jih želite shraniti?"
+#~ "</b>"
+#~ msgstr[1] ""
+#~ "<b>Odprt je %d predmet s spremenjeno vsebino. Ali ga želite shraniti?</b>"
+#~ msgstr[2] ""
+#~ "<b>Odprta sta %d predmeta s spremenjeno vsebino. Ali ju želite shraniti?</"
+#~ "b>"
+#~ msgstr[3] ""
+#~ "<b>Odprti so %d predmeti s spremenjeno vsebino. Ali jih želite shraniti?</"
+#~ "b>"
+#~ msgid "<b>Autocompletion</b>"
+#~ msgstr "<b>Samodejno dopolnjevanje</b>"
+#~ msgid "<b>Calltips</b>"
+#~ msgstr "<b>Namigi kodnih zapisov</b>"
+#~ msgid "<b>Indentation parameters</b>"
+#~ msgstr "<b>Parametri zamika</b>"
+#~ msgid "<b>Smart Indentation</b>"
+#~ msgstr "<b>Pametno zamikanje</b>"
 #~ msgid "Edit…"
 #~ msgstr "Uredi ..."
-
 #~ msgid "Macro details:"
 #~ msgstr "Podrobnosti makra:"
-
 #~ msgid "Macro text:"
 #~ msgstr "Besedilo makra:"
-
 #~ msgid "Macros:"
 #~ msgstr "Makri:"
-
 #~ msgid "Shortcut:"
 #~ msgstr "Bližnjica:"
-
 #~ msgid "Press macro shortcut…"
 #~ msgstr "Pritisnite bližnjico makra ..."
-
 #~ msgid "Press shortcut"
 #~ msgstr "Pritisni bližnjico"
-
 #~ msgid "Anjuta macros"
 #~ msgstr "Anjuta makri"
-
 #~ msgid "My macros"
 #~ msgstr "Moji makri"
-
 #~ msgid ""
 #~ "Name:\t %s\n"
 #~ "Category:\t %s\n"
@@ -10638,70 +10636,48 @@ msgstr "Simbol"
 #~ "Ime:\t %s\n"
 #~ "Kategorija:\t %s\n"
 #~ "Bližnjica:\t %c\n"
-
 #~ msgid "Insert macro"
 #~ msgstr "Vstavi makro"
-
 #~ msgid "Add/Edit macro"
 #~ msgstr "Dodaj/uredi makro"
-
 #~ msgid "%Y-%m-%d"
 #~ msgstr "%d.%m.%Y"
-
 #~ msgid "%Y"
 #~ msgstr "%Y"
-
 #~ msgid "Macros"
 #~ msgstr "Makri"
-
 #~ msgid "_Insert Macro…"
 #~ msgstr "_Vstavi makro ..."
-
 #~ msgid "Insert a macro using a shortcut"
 #~ msgstr "Vstavite makro z uporabo bližnjice"
-
 #~ msgid "_Add Macro…"
 #~ msgstr "_Dodaj makro ..."
-
 #~ msgid "Add a macro"
 #~ msgstr "Dodaj makro"
-
 #~ msgid "Macros…"
 #~ msgstr "Makri ..."
-
 #~ msgid "Add/Edit/Remove macros"
 #~ msgstr "Dodaj/uredi/odstrani makro"
-
 #~ msgid "Macro operations"
 #~ msgstr "Makro opravila"
-
 #~ msgid "Autocompletion (C/C++/Java only)"
 #~ msgstr "Samodejno dopolnjevanje (le C/C++/Java)"
-
 #~ msgid "<b>Rope Options</b>"
 #~ msgstr "<b>Možnosti pritrjevanja</b>"
-
 #~ msgid "Insert predefined macros into Editor"
 #~ msgstr "Vstavi predhodno določene makre v urejevalnik"
-
 #~ msgid "Macro Plugin"
 #~ msgstr "Makro vstavek"
-
 #~ msgid "A GNOME applet project"
 #~ msgstr "Izvorni GNOME apletni projekt"
-
 #~ msgid "Applet Title:"
 #~ msgstr "Naslov apleta:"
-
 #~ msgid "Display description of the applet"
 #~ msgstr "Pokaži opis apleta"
-
 #~ msgid "Display title of the applet"
 #~ msgstr "Pokaži naslov apleta"
-
 #~ msgid "GNOME Applet"
 #~ msgstr "Gnome Aplet"
-
 #~ msgid ""
 #~ "The following pretty printers, without a register functions, have been "
 #~ "disabled:\n"
@@ -10709,3 +10685,4 @@ msgstr "Simbol"
 #~ msgstr ""
 #~ "Navedeni oblikovni tiskalniki, brez vpisnih funkcij, so onemogočeni:\n"
 #~ " %s"
+

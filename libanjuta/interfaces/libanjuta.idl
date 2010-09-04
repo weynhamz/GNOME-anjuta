@@ -738,19 +738,19 @@ interface IAnjutaBuilder
 	void cancel (Handle handle);
 
 	/**
-	* ianjuta_builder_list_configuration:
-	* @obj: Self
-	* @err: Error propagation and reporting.
-	* 
-	* List all defined configuration. These names returned are
-	* the internal non localized names for the following 
-	* predefined configuration: Debug, Profiling, Optimized.
-	* The default configuration has no name and is not returned.
-	*
-	* Returns: a list configuration name. The names are owned
-	* by the plugin, so only the list has to be free using
-	* g_list_free.
-	*/
+	 * ianjuta_builder_list_configuration:
+	 * @obj: Self
+	 * @err: Error propagation and reporting.
+	 * 
+	 * List all defined configuration. These names returned are
+	 * the internal non localized names for the following 
+	 * predefined configuration: Debug, Profiling, Optimized.
+	 * The default configuration has no name and is not returned.
+	 *
+	 * Returns: (element-type utf8) (transfer container): a list configuration name. The names are owned
+	 * by the plugin, so only the list has to be free using
+	 * g_list_free.
+	 */
 	List<const gchar*> list_configuration();
 
 	/**
@@ -993,12 +993,12 @@ interface IAnjutaLoader
 {
 	#include <libanjuta/anjuta-plugin.h>
 	/**
-	* ianjuta_loader_find_plugins:
-	* @obj: Self
-	* @err: Error propagation and reporting.
-	* 
-	* Returns: all plugins supporting loader interface.
-	*/
+	 * ianjuta_loader_find_plugins:
+	 * @obj: Self
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Returns: (element-type AnjutaPlugin): all plugins supporting loader interface.
+	 */
 	List<AnjutaPlugin*> find_plugins ();
 	
 	/**
@@ -1954,7 +1954,7 @@ interface IAnjutaEditor
 		/**
 		 * ianjuta_editor_tip_show:
 		 * @obj: Self
-		 * @tips: list of alternative tips.
+		 * @tips: (element-type utf8): list of alternative tips.
 		 * @position: Tip position.
 		 * @err: Error propagation and reporting
 		 *
@@ -2052,11 +2052,11 @@ interface IAnjutaEditor
       */
       void invoke(IAnjutaProvider* provider);
       
-     /*
-      * ianjuta_editor_assist_proposals
+     /**
+      * ianjuta_editor_assist_proposals:
       * @obj: self
       * @provider: a IAnjutaProvider
-      * @proposals: a list of IAnjutaProposals
+      * @proposals: (element-type IAnjutaEditorAssistProposal): a list of IAnjutaProposals
       * @finished: whether is was the last call in an async operation
       * @err: Error handling
       *
@@ -2139,7 +2139,7 @@ interface IAnjutaEditor
 		 * Return a list of languages supported by the editor
 		 * Note: These list contains the names in the form
 		 * the editor implementation knows them
-		 *
+		 * Returns: (element-type utf8):
 		 */
 		
 		const List<const gchar*> get_supported_languages ();
@@ -2654,17 +2654,17 @@ interface IAnjutaDocumentManager
 	void set_current_document (IAnjutaDocument *document);
 
 	/**
-	* ianjuta_document_manager_get_doc_widgets:
-	* @obj: Self
-	* @err: Error propagation and reporting.
-	* 
-	* Gets a list of widgets for open documents. Each widget is
-	* a GTK_WIDGET(InjutaDocument*)
-	*
-	* Return value: a list of widgets for all open documents
-	* The returned list (but not the data in the list) must be
-	* freed after use.
-	*/
+	 * ianjuta_document_manager_get_doc_widgets:
+	 * @obj: Self
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Gets a list of widgets for open documents. Each widget is
+	 * a GTK_WIDGET(IAnjutaDocument*)
+	 *
+	 * Return value: (element-type GtkWidget) (transfer container): a list of widgets for
+	 * all open documents. The returned list (but not the data in the list) must be
+	 * freed after use.
+	 */
 	List<GtkWidget*> get_doc_widgets ();
 
 	/**
@@ -2824,12 +2824,13 @@ interface IAnjutaMessageView
 	const gchar* get_current_message ();
 	
 	/**
-	* ianjuta_message_view_get_all_messages:
-	* @obj: Self
-	* @err: Error propagation and reporting.
-	* 
-	* Get a list of all messages. The list has to be freed
-	*/
+	 * ianjuta_message_view_get_all_messages:
+	 * @obj: Self
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Get a list of all messages. The list has to be freed
+	 * Returns: (element-type utf8):
+	 */
 	List<const gchar*> get_all_messages ();
 }
 
@@ -2908,7 +2909,7 @@ interface IAnjutaMessageManager
 	 *
 	 * Get all message-views
 	 *
-	 * Return value: A GList* of all views. You must not
+	 * Return value: (element-type IAnjutaMessageView): A GList* of all views. You must not
 	 * manipulate the list.
 	 */
 	List<IAnjutaMessageView*> get_all_views ();
@@ -3331,12 +3332,12 @@ interface IAnjutaProject
 	*/
 	guint get_capabilities ();
 
-	/*
-	 * ianjuta_project_get_target_types
+	/**
+	 * ianjuta_project_get_target_types:
 	 * @obj: Self
 	 * @err: Error propagation and reporting.
 	 *
-	 * Returns: the list of supported target types
+	 * Returns: (element-type Anjuta.ProjectTargetInformation): the list of supported target types
 	 */
 	List<AnjutaProjectNodeType> get_target_types();
 	
@@ -3362,12 +3363,12 @@ interface IAnjutaProject
 	*/
 	AnjutaProjectNode* get_root ();
 
-	/*
-	 * ianjuta_project_get_packages
+	/**
+	 * ianjuta_project_get_packages:
 	 * @obj: Self
 	 * @err: Error propagation and reporting.
 	 *
-	 * Returns: the list of pkg-config packages that the current project
+	 * Returns: (element-type utf8): the list of pkg-config packages that the current project
 	 * requires in it's configure.ac. Can be NULL if there is no project
 	 * opened currently or no package is required.
 	 */
@@ -3547,17 +3548,17 @@ interface IAnjutaProjectManager
 	// Methods
 	
 	/**
-	* ianjuta_project_manager_get_elements:
-	* @obj: Self
-	* @element_type: Select one element type: source, group or target
-	* @err: Error propagation and reporting.
-	* 
-	* Get a list of all elements of this type in the project.
-	* 
-	* Returns: Get list of #GFile corresponding to all valid elements or %NULL if
-	* there are no elements of this type. Free the returned list with
-	* g_list_free() and the files with g_object_unref().
-	*/
+	 * ianjuta_project_manager_get_elements:
+	 * @obj: Self
+	 * @element_type: Select one element type: source, group or target
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Get a list of all elements of this type in the project.
+	 * 
+	 * Returns: (element-type GFile) (transfer full): Get list of #GFile corresponding to
+	 * all valid elements or %NULL if there are no elements of this type. Free the returned
+	 * list with g_list_free() and the files with g_object_unref().
+	 */
 	List<GFile *> get_elements (AnjutaProjectNodeType element_type);
 	
 	/**
@@ -3573,17 +3574,17 @@ interface IAnjutaProjectManager
 	AnjutaProjectNodeType get_target_type (GFile *target);
 	
 	/**
-	* ianjuta_project_manager_get_targets:
-	* @obj: Self
-	* @target_type: type of the target
-	* @err: Error propagation and reporting.
-	* 
-	* Get a list of targets in the project with the corresponding type.
-	* 
-	* Returns: A list of #GFile corresponding to each target of the requested
-	* type or %NULL if none exists. Free the returned list with g_list_free()
-	* and the files with g_object_unref().
-	*/
+	 * ianjuta_project_manager_get_targets:
+	 * @obj: Self
+	 * @target_type: type of the target
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Get a list of targets in the project with the corresponding type.
+	 * 
+	 * Returns: (element-type GFile) (transfer full): A list of #GFile corresponding to
+	 * each target of the requested type or %NULL if none exists. Free the returned list
+	 * with g_list_free() and the files with g_object_unref().
+	 */
 	List<GFile *> get_targets (AnjutaProjectNodeType target_type);
 	
 	/**
@@ -3599,17 +3600,17 @@ interface IAnjutaProjectManager
 	GFile* get_parent (GFile *element);
 	
 	/**
-	* ianjuta_project_manager_get_children:
-	* @obj: Self
-	* @element: A #GFile corresponding to a parent.
-	* @err: Error propagation and reporting.
-	* 
-	* Gets the list of all children of the corresponding parent.
-	*
-	* Returns: The list of #GFile corresponding to each child of the element or
-	* %NULL if the element has no child. Free the returned list with g_list_free()
-	* and the files with g_object_unref().
-	*/
+	 * ianjuta_project_manager_get_children:
+	 * @obj: Self
+	 * @element: A #GFile corresponding to a parent.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Gets the list of all children of the corresponding parent.
+	 *
+	 * Returns: (element-type GFile) (transfer full): The list of #GFile corresponding to
+	 * each child of the element or %NULL if the element has no child. Free the returned
+	 * list with g_list_free() and the files with g_object_unref().
+	 */
 	List<GFile*> get_children (GFile *element);
 	
 	/**
@@ -3677,26 +3678,26 @@ interface IAnjutaProjectManager
 	GFile* add_source_quiet (const gchar *name, GFile *target);
 	
 	/**
-	* ianjuta_project_manager_add_sources:
-	* @obj: Self.
-	* @names: Sources name or URI to add.
-	* @default_target: A #GFile corresponding to the default target or group or
-	*					%NULL if don't care.
-	* @err: Error propagation and reporting.
-	*
-	* Prompts the user to add several files to the project. Depending on the 
-	* project backend, it can be possible that the source files must
-	* be located in a particular directory.
-	*
-	* You can add non existing file. In this case the element_added
-	* signal will be emitted with a non existing file. So it is
-	* up to the caller to reemit this signal later when the file
-	* is created.
-	*
-	* Returns: A list of #GFile corresponding to all new source files added
-	* in the project. You own the list with the the returned files; use
-	* g_list_free() and g_object_unref() on each file to release them.
-	*/
+	 * ianjuta_project_manager_add_sources:
+	 * @obj: Self.
+	 * @names: (element-type utf8): Sources name or URI to add.
+	 * @default_target: A #GFile corresponding to the default target or group or
+	 *					%NULL if don't care.
+	 * @err: Error propagation and reporting.
+	 *
+	 * Prompts the user to add several files to the project. Depending on the 
+	 * project backend, it can be possible that the source files must
+	 * be located in a particular directory.
+	 *
+	 * You can add non existing file. In this case the element_added
+	 * signal will be emitted with a non existing file. So it is
+	 * up to the caller to reemit this signal later when the file
+	 * is created.
+	 *
+	 * Returns: (element-type GFile) (transfer full): A list of #GFile corresponding to all
+	 * new source files added in the project. You own the list with the the returned files;
+	 * use g_list_free() and g_object_unref() on each file to release them.
+	 */
 	List<GFile*> add_sources (List<const gchar*> names, GFile *default_target);
 	
 	/**
@@ -3742,12 +3743,12 @@ interface IAnjutaProjectManager
 	*/ 
 	gboolean is_open ();
 	
-	/*
-	 * ianjuta_project_manager_get_packages
+	/**
+	 * ianjuta_project_manager_get_packages:
 	 * @obj: Self
 	 * @err: Error propagation and reporting.
 	 *
-	 * Returns: the list of pkg-config packages that the current project
+	 * Returns: (element-type utf8): the list of pkg-config packages that the current project
 	 * requires in it's configure.ac. Can be NULL if there is no project
 	 * opened currently or no package is required.
 	 */
@@ -3958,7 +3959,7 @@ interface IAnjutaDebugger
 
 	/**
 	 * IAnjutaDebuggerGListCallback:
-	 * @list: list of data
+	 * @list: (element-type any): list of data
 	 * @user_data: user data passed to the function
 	 * @error: error
 	 * 
@@ -3970,7 +3971,7 @@ interface IAnjutaDebugger
 	typedef void (*GListCallback) (const GList* list, gpointer user_data, GError* err);
 
 	/**
-	 * IAnjutaDebuggerCallback:
+	 * IAnjutaDebuggerGCharCallback:
 	 * @data: string
 	 * @user_data: user data
 	 * @error: error
@@ -3981,7 +3982,7 @@ interface IAnjutaDebugger
 	typedef void (*GCharCallback) (const gchar *value, gpointer user_data, GError* err);
 
 	/**
-	 * IAnjutaDebuggerCallback:
+	 * IAnjutaDebuggerOutputCallback:
 	 * @data: Self
 	 * @user_data: user data
 	 * @error: error
@@ -4113,32 +4114,32 @@ interface IAnjutaDebugger
 	
 
 	/**
-	* ianjuta_debugger_load:
-	* @obj: Self
-	* @file: filename
-	* @mime_type: mime type of the file
-	* @source_search_directories: List of directories to search for
-	*			      source files.
-	* @err: Error propagation and reporting.
-	* 
-	* Load a program in the debugger.
-	*
-	* Returns: TRUE if sucessful, other FALSE.
-	*/
+	 * ianjuta_debugger_load:
+	 * @obj: Self
+	 * @file: filename
+	 * @mime_type: mime type of the file
+	 * @source_search_directories: (element-type utf8): List of directories to search for
+	 *			      source files.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Load a program in the debugger.
+	 *
+	 * Returns: TRUE if sucessful, other FALSE.
+	 */
 	gboolean load (const gchar *file, const gchar *mime_type, const List<const gchar*> source_search_directories);
 	
 	/**
-	* ianjuta_debugger_attach:
-	* @obj: Self
-	* @pid: pid of the process to debug
-	* @source_search_directories: List of directories to search for
-	*			      source files.
-	* @err: Error propagation and reporting.
-	* 
-	* Attach to an already running process.
-	*
-	* Returns: TRUE if sucessful, other FALSE.
-	*/
+	 * ianjuta_debugger_attach:
+	 * @obj: Self
+	 * @pid: pid of the process to debug
+	 * @source_search_directories: (element-type utf8): List of directories to search for
+	 *			      source files.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Attach to an already running process.
+	 *
+	 * Returns: TRUE if sucessful, other FALSE.
+	 */
 	gboolean attach (pid_t pid, const List<const gchar*> source_search_directories);
 
 	/**
@@ -5527,7 +5528,7 @@ interface IAnjutaVcs
 	/**
 	 * ianjuta_vcs_add:
 	 * @obj: Self
-	 * @files: List of List of files, represented as #Gfile objects, to add
+	 * @files: (element-type GFile): List of List of files, represented as #Gfile objects, to add
 	 * @notify: #AnjutaAsyncNotify object for finish notification and error 
 	 * reporting.
 	 *
@@ -5538,7 +5539,7 @@ interface IAnjutaVcs
 	/**
 	 * ianjuta_vcs_remove:
 	 * @obj: Self
-	 * @files: List of files, represented as #Gfile objects, to remove
+	 * @files: (element-type GFile): List of files, represented as #Gfile objects, to remove
 	 * @notify: #AnjutaAsyncNotify object for finish notification and error 
 	 * reporting.
 	 *
@@ -6430,11 +6431,11 @@ typedef gint Id;
 	 const gchar* get_make_target (Id id);
 
 	/**
-	 * ianjuta_language_get_strings
+	 * ianjuta_language_get_strings:
 	 * @obj: Self
 	 * @id: A valid language id
 	 *
-	 * Returns: A list of strings that represent this language that language
+	 * Returns: (element-type utf8): A list of strings that represent this language that language
 	 */
 	 List<const gchar*> get_strings(Id id);
 	 
@@ -6469,8 +6470,9 @@ typedef gint Id;
 	   * @obj: Self
 	   * @err: Error propagation
 	   *
-	   * Returns: a list of ids of the available languages. Use GPOINTER_TO_INT()
-	   * to receive them. The list but not the values should be free'd with g_list_free()
+	   * Returns: (element-type int) (transfer container): a list of ids of the available
+	   * languages. Use GPOINTER_TO_INT() to receive them. The list but not the
+	   * values should be free'd with g_list_free()
 	   */
 	   GList* get_languages ();
 }

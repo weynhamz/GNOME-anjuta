@@ -96,8 +96,10 @@
         <child type="label">
           <object class="GtkLabel" id="global_vars_label">
             <property name="visible">True</property>
-            <property name="label" translatable="yes">&lt;b&gt;Anjuta variables&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Anjuta variables</property>
+            <attributes>
+              <attribute name="weight" value="PANGO_WEIGHT_BOLD"/>
+            </attributes>
           </object>
         </child>
       </object>

@@ -149,6 +149,7 @@ gtodo_export_gui_create_extra_widget ()
 	GtkWidget *box;
 	GtkWidget *hbox;
 	GtkWidget *w;
+	gchar *markup;
 	ExportExtraWidget *eex = g_new0 (ExportExtraWidget, 1);
 
 
@@ -168,7 +169,9 @@ gtodo_export_gui_create_extra_widget ()
 	gtk_box_pack_start(GTK_BOX(extra_widget), eex->cb_curcat, FALSE, TRUE, 0);           	
 
 	w = gtk_label_new (NULL);
-	gtk_label_set_markup (GTK_LABEL (w), _("<b>HTML export options:</b>"));
+	markup = g_strdup_printf ("<b>%s</b>", _("HTML export options:"));
+	gtk_label_set_markup (GTK_LABEL (w), markup);
+	g_free (markup);
 	gtk_misc_set_alignment (GTK_MISC (w), 0.0, 0.5);
 	gtk_box_pack_start (GTK_BOX (extra_widget), w, FALSE, FALSE, 0);
 
