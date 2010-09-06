@@ -354,6 +354,127 @@ get_project_property (AmpProject *project, AnjutaProjectNode *parent, const gcha
 	return prop;
 }
 
+
+#define NUM_NODE	1000000
+#define NUM_TRY	4
+
+void benchmark(void)
+{
+	GTimer *timer;
+	AnjutaProjectNode *nodes[NUM_NODE];
+	guint i,j;
+	gdouble all_new[NUM_TRY + 1];
+	gdouble all_free[NUM_TRY + 1];
+	gdouble all_both[NUM_TRY + 1] ;
+
+	timer = g_timer_new ();
+
+	for (j = 0; j < NUM_TRY; j++)
+	{
+		g_timer_start (timer);
+		for (i = 0; i < NUM_NODE; i++)
+		{
+			nodes[i] = anjuta_project_introspection_node_new (ANJUTA_PROJECT_ROOT, NULL, "noname", timer);
+		}
+		g_timer_stop (timer);
+		all_new[j] = g_timer_elapsed (timer, NULL);
+		g_timer_start (timer);
+		for (i = 0; i < NUM_NODE; i++)
+		{
+			anjuta_project_introspection_node_free (nodes[i]);
+		}
+		g_timer_stop (timer);
+		all_free[j] = g_timer_elapsed (timer, NULL);
+		g_timer_start (timer);
+		for (i = 0; i < NUM_NODE; i++)
+		{
+			nodes[0] = anjuta_project_introspection_node_new (ANJUTA_PROJECT_ROOT, NULL, "noname", timer);
+			anjuta_project_introspection_node_free (nodes[0]);
+		}
+		g_timer_stop (timer);
+		all_both[j] = g_timer_elapsed (timer, NULL);
+	}
+	all_new[NUM_TRY] = 0;
+	all_free[NUM_TRY] = 0;
+	all_both[NUM_TRY] = 0;
+
+	printf ("all_new ");
+	for (j = 0; j < NUM_TRY; j++)
+	{
+		printf ("%g ", all_new[j]);
+		all_new[NUM_TRY] += all_new[j];
+	}
+	printf (" %g\n", all_new[NUM_TRY] / NUM_TRY);
+	printf ("all_free ");
+	for (j = 0; j < NUM_TRY; j++)
+	{
+		printf ("%g ", all_free[j]);
+		all_free[NUM_TRY] += all_free[j];
+	}
+	printf (" %g\n", all_free[NUM_TRY] / NUM_TRY);
+	printf ("all_both ");
+	for (j = 0; j < NUM_TRY; j++)
+	{
+		printf ("%g ", all_both[j]);
+		all_both[NUM_TRY] += all_both[j];
+	}
+	printf (" %g\n", all_both[NUM_TRY] / NUM_TRY);
+
+	
+	for (j = 0; j < NUM_TRY; j++)
+	{
+		g_timer_start (timer);
+		for (i = 0; i < NUM_NODE; i++)
+		{
+			nodes[i] = anjuta_project_gobject_node_new (ANJUTA_PROJECT_ROOT, NULL, "noname", timer);
+		}
+		g_timer_stop (timer);
+		all_new[j] = g_timer_elapsed (timer, NULL);
+		g_timer_start (timer);
+		for (i = 0; i < NUM_NODE; i++)
+		{
+			anjuta_project_gobject_node_free (nodes[i]);
+		}
+		g_timer_stop (timer);
+		all_free[j] = g_timer_elapsed (timer, NULL);
+		g_timer_start (timer);
+		for (i = 0; i < NUM_NODE; i++)
+		{
+			nodes[0] = anjuta_project_gobject_node_new (ANJUTA_PROJECT_ROOT, NULL, "noname", timer);
+			anjuta_project_gobject_node_free (nodes[0]);
+		}
+		g_timer_stop (timer);
+		all_both[j] = g_timer_elapsed (timer, NULL);
+	}
+	all_new[NUM_TRY] = 0;
+	all_free[NUM_TRY] = 0;
+	all_both[NUM_TRY] = 0;
+
+	printf ("all_new ");
+	for (j = 0; j < NUM_TRY; j++)
+	{
+		printf ("%g ", all_new[j]);
+		all_new[NUM_TRY] += all_new[j];
+	}
+	printf (" %g\n", all_new[NUM_TRY] / NUM_TRY);
+	printf ("all_free ");
+	for (j = 0; j < NUM_TRY; j++)
+	{
+		printf ("%g ", all_free[j]);
+		all_free[NUM_TRY] += all_free[j];
+	}
+	printf (" %g\n", all_free[NUM_TRY] / NUM_TRY);
+	printf ("all_both ");
+	for (j = 0; j < NUM_TRY; j++)
+	{
+		printf ("%g ", all_both[j]);
+		all_both[NUM_TRY] += all_both[j];
+	}
+	printf (" %g\n", all_both[NUM_TRY] / NUM_TRY);
+	
+	exit (1);
+}
+
 /* Automake parsing function
  *---------------------------------------------------------------------------*/
 
@@ -370,6 +491,8 @@ main(int argc, char *argv[])
 
 	/* Initialize program */
 	g_type_init ();
+
+	benchmark ();
 	
 	anjuta_debug_init ();
 

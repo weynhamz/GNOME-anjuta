@@ -154,6 +154,19 @@ typedef GNode AnjutaProjectSource;
 
 typedef void (*AnjutaProjectNodeFunc) (AnjutaProjectNode *node, gpointer data);
 
+/* Temporary function for introspection */
+AnjutaProjectNode * anjuta_project_introspection_node_new (AnjutaProjectNodeType type, GFile *file, const gchar *name, gpointer user_data);
+AnjutaProjectNode * anjuta_project_introspection_node_new0 (void);
+gpointer anjuta_project_introspection_node_get_user_data (AnjutaProjectNode *node);
+void anjuta_project_introspection_node_free (AnjutaProjectNode *node);
+
+void anjuta_project_boxed_node_register (void);
+AnjutaProjectNode *anjuta_project_boxed_node_new (AnjutaProjectNodeType type, GFile *file, const gchar *name, gpointer user_data);
+GType anjuta_project_boxed_node_get_type (void);
+
+#define ANJUTA_TYPE_PROJECT_BOXED_NODE             (anjuta_project_boxed_node_get_type ())
+
+
 AnjutaProjectProperty *anjuta_project_property_next (AnjutaProjectProperty *list);
 AnjutaProjectProperty *anjuta_project_property_override (AnjutaProjectProperty *list, AnjutaProjectProperty *prop);
 AnjutaProjectProperty *anjuta_project_property_next_item (AnjutaProjectProperty *item);
@@ -223,6 +236,42 @@ AnjutaProjectNode *anjuta_project_proxy_get_node (AnjutaProjectNode *proxy);
 
 gboolean anjuta_project_node_is_proxy (AnjutaProjectNode *node);
 
+
+
+
+#define ANJUTA_TYPE_PROJECT_GOBJECT_NODE             		(anjuta_project_gobject_node_get_type ())
+#define ANJUTA_PROJECT_GOBJECT_NODE(obj)             			(G_TYPE_CHECK_INSTANCE_CAST ((obj), ANJUTA_TYPE_PROJECT_GOBJECT_NODE, AnjutaProjectGObjectNode))
+#define ANJUTA_PROJECT_GOBJECT_NODE_CLASS(klass)     	(G_TYPE_CHECK_CLASS_CAST ((klass), ANJUTA_TYPE_PROJECT_GOBJECT_NODE, AnjutaProjectGObjectNodeClass))
+#define ANJUTA_IS_PROJECT_GOBJECT_NODE(obj)          		(G_TYPE_CHECK_INSTANCE_TYPE ((obj), ANJUTA_TYPE_PROJECT_GOBJECT_NODE))
+#define ANJUTA_IS_PROJECT_GOBJECT_NODE_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE ((klass), ANJUTA_TYPE_PROJECT_GOBJECT_NODE))
+#define ANJUTA_PROJECT_GOBJECT_NODE_GET_CLASS(obj)	(G_TYPE_INSTANCE_GET_CLASS ((obj), ANJUTA_TYPE_PROJECT_GOBJECT_NODE, AnjutaProjectGObjectNodeClass))
+
+typedef struct _AnjutaProjectGObjectNodeClass AnjutaProjectGObjectNodeClass;
+typedef struct _AnjutaProjectGObjectNode AnjutaProjectGObjectNode;
+
+struct _AnjutaProjectGObjectNodeClass
+{
+	GObjectClass parent_class;
+};
+
+struct _AnjutaProjectGObjectNode
+{
+	GObject parent_instance;
+	
+    GNode	  *next;
+  	GNode	  *prev;
+  	GNode	  *parent;
+  	GNode	  *children;
+	AnjutaProjectNodeData base;
+	gpointer 	data;
+};
+
+GType anjuta_project_gobject_node_get_type (void) G_GNUC_CONST;
+
+AnjutaProjectGObjectNode* anjuta_project_gobject_node_new (AnjutaProjectNodeType type, GFile *file, const gchar *name, gpointer user_data);
+void anjuta_project_gobject_node_free (AnjutaProjectGObjectNode* project);
+
+void anjuta_project_node_register_boxed (void);
 
 G_END_DECLS
 

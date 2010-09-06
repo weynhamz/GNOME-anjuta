@@ -910,3 +910,257 @@ anjuta_project_node_is_proxy (AnjutaProjectNode *node)
 	return NODE_DATA (node)->type & ANJUTA_PROJECT_PROXY ? TRUE : FALSE;
 }
 
+typedef struct {
+	AnjutaProjectNodeData base;
+	gpointer data;
+	guint reference;
+} AnjutaProjectIntrospectionData;
+
+
+/**
+ * anjuta_project_introspection_node_new:
+ * 
+ * @type: node type
+ * @file: (allow-none): file
+ * @name: file name
+ * @user_data:
+ * 
+ * Returns: (transfer none): A list of #GFile corresponding to
+ * each target of the requested type or %NULL if none exists. Free the returned list
+ * with g_list_free() and the files with g_object_unref().
+ */
+AnjutaProjectNode *
+anjuta_project_introspection_node_new (AnjutaProjectNodeType type, GFile *file, const gchar *name, gpointer user_data)
+{
+	AnjutaProjectIntrospectionData *data;
+	AnjutaProjectNode *node;
+
+	data = g_slice_new0(AnjutaProjectIntrospectionData); 
+	data->base.type = type;
+	data->base.properties = NULL;
+	data->base.file = file != NULL ? g_object_ref (file) : NULL;
+	data->base.name = name != NULL ? g_strdup (name) : NULL;
+	data->data = user_data;
+
+	node = g_node_new (data);
+	//g_message ("New node %p data %p", node, data);
+
+	return node;
+}
+
+/**
+ * anjuta_project_introspection_node_new0:
+ * 
+ * Blah Blah
+ * 
+ * Returns: (transfer none): A list of #GFile corresponding to
+ * each target of the requested type or %NULL if none exists. Free the returned list
+ * with g_list_free() and the files with g_object_unref().
+ */
+AnjutaProjectNode *
+anjuta_project_introspection_node_new0 (void)
+{
+	AnjutaProjectIntrospectionData *data;
+
+	data = g_slice_new0(AnjutaProjectIntrospectionData); 
+	data->base.type = 0;
+	data->base.properties = NULL;
+	data->base.file = NULL;
+	data->base.state = 0;
+
+    return g_node_new (data);
+	
+}
+
+void
+anjuta_project_introspection_node_free (AnjutaProjectNode *node)
+{
+    AnjutaProjectIntrospectionData *data = (AnjutaProjectIntrospectionData *)node->data;
+	
+	//g_message ("Free node %p data %p", node, data);
+	if (data->base.file) g_object_unref (data->base.file);
+	if (data->base.name) g_free (data->base.name);
+	
+    g_slice_free (AnjutaProjectIntrospectionData, data);
+	
+	g_node_destroy (node);
+}
+
+/**
+ * anjuta_project_introspection_node_get_user_data
+ * 
+ * @node: node type
+ * 
+ * Returns: A list of #GFile corresponding to
+ * each target of the requested type or %NULL if none exists. Free the returned list
+ * with g_list_free() and the files with g_object_unref().
+ */
+gpointer
+anjuta_project_introspection_node_get_user_data (AnjutaProjectNode *node)
+{
+    AnjutaProjectIntrospectionData *data = (AnjutaProjectIntrospectionData *)node->data;
+
+	return data->data;
+}
+
+/* Implement GObject
+ *---------------------------------------------------------------------------*/
+
+G_DEFINE_TYPE (AnjutaProjectGObjectNode, anjuta_project_gobject_node, G_TYPE_OBJECT);
+
+static void
+anjuta_project_gobject_node_init (AnjutaProjectGObjectNode *node)
+{
+	node->next = NULL;
+	node->prev = NULL;
+	node->parent = NULL;
+	node->children = NULL;
+	node->base.type = 0;
+	node->base.properties = NULL;
+	node->base.file = NULL;
+	node->base.name = NULL;
+	node->data = NULL;	
+}
+
+static void
+anjuta_project_gobject_node_dispose (GObject *object)
+{
+	AnjutaProjectGObjectNode *node = ANJUTA_PROJECT_GOBJECT_NODE(object);
+
+	if (node->base.file != NULL) g_object_unref (node->base.file);
+	node->base.file = NULL;
+	
+	G_OBJECT_CLASS (anjuta_project_gobject_node_parent_class)->dispose (object);
+}
+
+static void
+anjuta_project_gobject_node_finalize (GObject *object)
+{
+	AnjutaProjectGObjectNode *node = ANJUTA_PROJECT_GOBJECT_NODE(object);
+
+	if (node->base.name != NULL) g_free (node->base.name);
+
+	G_OBJECT_CLASS (anjuta_project_gobject_node_parent_class)->finalize (object);
+}
+
+static void
+anjuta_project_gobject_node_class_init (AnjutaProjectGObjectNodeClass *klass)
+{
+	GObjectClass* object_class = G_OBJECT_CLASS (klass);
+	
+	object_class->finalize = anjuta_project_gobject_node_finalize;
+	object_class->dispose = anjuta_project_gobject_node_dispose;
+}
+
+/* Constructor & Destructor
+ *---------------------------------------------------------------------------*/
+
+/**
+ * anjuta_project_gobject_node_new:
+ * 
+ * @type: node type
+ * @file: (allow-none): file
+ * @name: file name
+ * @user_data:
+ * 
+ * Returns: A list of #GFile corresponding to
+ * each target of the requested type or %NULL if none exists. Free the returned list
+ * with g_list_free() and the files with g_object_unref().
+ */
+AnjutaProjectGObjectNode*
+anjuta_project_gobject_node_new (AnjutaProjectNodeType type, GFile *file, const gchar *name, gpointer user_data)
+{
+	AnjutaProjectGObjectNode* node;
+
+	node = g_object_new (ANJUTA_TYPE_PROJECT_GOBJECT_NODE, NULL);
+	node->base.type = type;
+	if (file != NULL) node->base.file = g_object_ref (file);
+	if (name != NULL) node->base.name = g_strdup (name);
+	node->data = user_data;
+	//g_message ("New gnode %p", node);
+
+	return node;
+}
+
+void
+anjuta_project_gobject_node_free (AnjutaProjectGObjectNode* node)
+{
+	g_message ("Free gnode %p", node);
+	g_object_unref (node);
+}
+
+// (type ANJUTA_TYPE_PROJECT_BOXED_NODE):
+
+/**
+ * anjuta_project_boxed_node_new:
+ * 
+ * @type: node type
+ * @file: (allow-none): file
+ * @name: file name
+ * @user_data:
+ * 
+ * Returns: (type Anjuta.TYPE_PROJECT_BOXED_NODE):  A list of #GFile corresponding to
+ * each target of the requested type or %NULL if none exists. Free the returned list
+ * with g_list_free() and the files with g_object_unref().
+ */
+AnjutaProjectNode *
+anjuta_project_boxed_node_new (AnjutaProjectNodeType type, GFile *file, const gchar *name, gpointer user_data)
+{
+	AnjutaProjectIntrospectionData *data;
+	AnjutaProjectNode *node;
+
+	data = g_slice_new0(AnjutaProjectIntrospectionData); 
+	data->base.type = type;
+	data->base.properties = NULL;
+	data->base.file = file != NULL ? g_object_ref (file) : NULL;
+	data->base.name = name != NULL ? g_strdup (name) : NULL;
+	data->data = user_data;
+	data->reference = 1;
+
+	node = g_node_new (data);
+	//g_message ("New node %p data %p", node, data);
+
+	return node;
+}
+
+static gpointer
+anjuta_project_boxed_node_copy (gpointer boxed)
+{
+	AnjutaProjectNode *node = (AnjutaProjectNode *)boxed;
+	AnjutaProjectIntrospectionData *data = (AnjutaProjectIntrospectionData *)node->data;
+
+	data->reference++;
+
+	return boxed;
+}
+
+static void
+anjuta_project_boxed_node_free (gpointer boxed)
+{
+	AnjutaProjectNode *node = (AnjutaProjectNode *)boxed;
+	AnjutaProjectIntrospectionData *data = (AnjutaProjectIntrospectionData *)node->data;
+
+	data->reference--;
+	if (data->reference == 0)
+	{
+		anjuta_project_introspection_node_free (node);
+	}
+}
+
+void
+anjuta_project_boxed_node_register (void)
+{
+ 	g_boxed_type_register_static ("ANJUTA_TYPE_PROJECT_BOXED_NODE", anjuta_project_boxed_node_copy, anjuta_project_boxed_node_free);
+}
+
+GType
+anjuta_project_boxed_node_get_type (void)
+{
+  static GType type_id = 0;
+
+  if (!type_id)
+ 	type_id = g_boxed_type_register_static ("ANJUTA_TYPE_PROJECT_BOXED_NODE", anjuta_project_boxed_node_copy, anjuta_project_boxed_node_free);
+	
+  return type_id;
+}
+
