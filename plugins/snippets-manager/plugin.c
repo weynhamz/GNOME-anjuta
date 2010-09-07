@@ -64,6 +64,10 @@ static GtkActionEntry actions_snippets[] = {
 	{
 		"ActionEditTriggerInsert",
 		NULL,
+/* Translator: Appears in Edit->Snippets menu. It is used mainly for providing a
+shortcut for the trigger-key based insertion of snippets. It's called like this
+because you type the trigger-key in the editor, followed by Trigger Insert and
+the snippet gets inserted. */
 		N_("_Trigger insert"),
 		"<control>e",
 		N_("Insert a snippet using the trigger-key"),
@@ -71,6 +75,12 @@ static GtkActionEntry actions_snippets[] = {
 	{
 		"ActionEditAutoCompleteInsert",
 		NULL,
+/* Translator: In a similar matter, it also appears in Edit->Snippets. It's another method
+for inserting snippets. In this case, you call Auto complete insert, start
+typing in the editor a string, the database is searched for that string and the
+most relevant snippets are returned in a pop-up like the auto-complete one
+(they are showed by their names). After selecting one of them, the snippet gets
+inserted. */
 		N_("_Auto complete insert"),
 		"<control>r",
 		N_("Insert a snippet using auto-completion"),
