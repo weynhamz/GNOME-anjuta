@@ -240,7 +240,7 @@ on_save_finished (GObject* file, GAsyncResult* result, gpointer data)
 	SourceviewIO* sio = SOURCEVIEW_IO(data);
 	AnjutaShell* shell = ANJUTA_PLUGIN (sio->sv->priv->plugin)->shell;
 	GError* err = NULL;
-	gchar* etag;
+	gchar* etag = NULL;
 	g_file_replace_contents_finish (G_FILE (file),
 	                                result,
 	                                &etag,
