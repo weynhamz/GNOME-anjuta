@@ -252,6 +252,9 @@ typedef struct _AnjutaProjectGObjectNode AnjutaProjectGObjectNode;
 struct _AnjutaProjectGObjectNodeClass
 {
 	GObjectClass parent_class;
+	
+	void (*updated) (GError *error);
+	void (*loaded) (GError *error);
 };
 
 struct _AnjutaProjectGObjectNode

@@ -19,7 +19,8 @@
 
 #include "anjuta-project.h"
 
-#include "anjuta-debug.h"
+#include "anjuta-debug.h" 
+#include "anjuta-marshal.h"
 
 #include <string.h>
 
@@ -1006,6 +1007,25 @@ anjuta_project_introspection_node_get_user_data (AnjutaProjectNode *node)
 /* Implement GObject
  *---------------------------------------------------------------------------*/
 
+enum
+{
+	UPDATED,
+	LOADED,
+	LAST_SIGNAL
+};
+
+enum {
+	PROP_NONE,
+	PROP_NAME,
+	PROP_FILE,
+	PROP_STATE,
+	PROP_TYPE,
+	PROP_DATA
+};
+
+
+static unsigned int signals[LAST_SIGNAL] = { 0 };
+
 G_DEFINE_TYPE (AnjutaProjectGObjectNode, anjuta_project_gobject_node, G_TYPE_OBJECT);
 
 static void
@@ -1043,6 +1063,27 @@ anjuta_project_gobject_node_finalize (GObject *object)
 	G_OBJECT_CLASS (anjuta_project_gobject_node_parent_class)->finalize (object);
 }
 
+static void 
+anjuta_project_gobject_node_get_property (GObject    *object,
+	      guint       prop_id,
+	      GValue     *value,
+	      GParamSpec *pspec)
+{
+	AnjutaProjectGObjectNode *node = ANJUTA_PROJECT_GOBJECT_NODE(object);
+        
+        G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+}
+
+static void 
+anjuta_project_gobject_node_set_property (GObject      *object,
+	      guint         prop_id,
+	      const GValue *value,
+	      GParamSpec   *pspec)
+{
+	AnjutaProjectGObjectNode *node = ANJUTA_PROJECT_GOBJECT_NODE(object);
+       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+}
+
 static void
 anjuta_project_gobject_node_class_init (AnjutaProjectGObjectNodeClass *klass)
 {
@@ -1050,6 +1091,81 @@ anjuta_project_gobject_node_class_init (AnjutaProjectGObjectNodeClass *klass)
 	
 	object_class->finalize = anjuta_project_gobject_node_finalize;
 	object_class->dispose = anjuta_project_gobject_node_dispose;
+	object_class->get_property = anjuta_project_gobject_node_get_property;
+	object_class->set_property = anjuta_project_gobject_node_set_property;
+
+ 	/*Change both signal to use marshal_VOID__POINTER_BOXED
+	adding a AnjutaProjectNode pointer corresponding to the
+	 loaded node => done
+	 Such marshal doesn't exist as glib marshal, so look in the
+	 symbol db plugin how to add new marshal => done
+	 ToDo :
+	 This new argument can be used in the plugin object in
+	 order to add corresponding shortcut when the project
+	 is loaded and a new node is loaded.
+	 The plugin should probably get the GFile from the
+	 AnjutaProjectNode object and then use a function
+	 in project-view.c to create the corresponding shortcut*/
+	
+	signals[UPDATED] = g_signal_new ("updated",
+	    G_OBJECT_CLASS_TYPE (object_class),
+	    G_SIGNAL_RUN_LAST,
+	    G_STRUCT_OFFSET (AnjutaProjectGObjectNodeClass, updated),
+	    NULL, NULL,
+        anjuta_cclosure_marshal_VOID__STRING_BOXED,
+	    G_TYPE_NONE,
+	    2,
+	    G_TYPE_POINTER,
+	    G_TYPE_ERROR);
+	
+	signals[LOADED] = g_signal_new ("loaded",
+		G_OBJECT_CLASS_TYPE (object_class),
+		G_SIGNAL_RUN_LAST,
+		G_STRUCT_OFFSET (AnjutaProjectGObjectNodeClass, loaded),
+		NULL, NULL,
+        anjuta_cclosure_marshal_VOID__STRING_BOXED,
+		G_TYPE_NONE,
+		2,
+	    G_TYPE_POINTER,
+		G_TYPE_ERROR);
+
+	g_object_class_install_property 
+                (G_OBJECT_CLASS (klass), PROP_TYPE,
+                 g_param_spec_pointer ("type", 
+                                       "Type",
+                                       "Node type",
+                                       G_PARAM_READWRITE));
+
+	g_object_class_install_property 
+                (G_OBJECT_CLASS (klass), PROP_STATE,
+                 g_param_spec_pointer ("state", 
+                                       "Stroject",
+                                       "GbfProject Object",
+                                       G_PARAM_READWRITE));
+
+	g_object_class_install_property 
+                (G_OBJECT_CLASS (klass), PROP_DATA,
+                 g_param_spec_pointer ("project", 
+                                       "Project",
+                                       "GbfProject Object",
+                                       G_PARAM_READWRITE));
+
+	g_object_class_install_property 
+                (G_OBJECT_CLASS (klass), PROP_NAME,
+                 g_param_spec_string ("name", 
+                                      "Name",
+                                      "GbfProject Object",
+				       "",
+                                       G_PARAM_READWRITE));
+
+	g_object_class_install_property 
+                (G_OBJECT_CLASS (klass), PROP_FILE,
+                 g_param_spec_object ("file", 
+                                       "PDroject",
+                                       "GbfProject Object",
+				       G_TYPE_FILE,
+                                       G_PARAM_READWRITE));
+
 }
 
 /* Constructor & Destructor
@@ -1085,7 +1201,7 @@ anjuta_project_gobject_node_new (AnjutaProjectNodeType type, GFile *file, const 
 void
 anjuta_project_gobject_node_free (AnjutaProjectGObjectNode* node)
 {
-	g_message ("Free gnode %p", node);
+//	g_message ("Free gnode %p", node);
 	g_object_unref (node);
 }
 
