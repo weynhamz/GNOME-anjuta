@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2010-08-29 15:36+0000\n"
-"PO-Revision-Date: 2010-08-30 01:00+0200\n"
+"POT-Creation-Date: 2010-09-08 20:19+0000\n"
+"PO-Revision-Date: 2010-09-09 20:50+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -8581,19 +8581,17 @@ msgid "Snippets"
 msgstr "Recortes"
 
 #: ../plugins/snippets-manager/plugin.c:67
-#, fuzzy
 msgid "_Trigger insert"
-msgstr "_Disparar"
+msgstr "Insertar _disparador"
 
 #: ../plugins/snippets-manager/plugin.c:69
 msgid "Insert a snippet using the trigger-key"
 msgstr "Insetar un recorte usando la tecla disparadora"
 
 #: ../plugins/snippets-manager/plugin.c:74
-#, fuzzy
 #| msgid "Autocomplete"
 msgid "_Auto complete insert"
-msgstr "_Autocompletar"
+msgstr "Insertar _autocompletar"
 
 #: ../plugins/snippets-manager/plugin.c:76
 msgid "Insert a snippet using auto-completion"
@@ -10321,10 +10319,6 @@ msgid "Python support warning"
 msgstr "Aviso del soporte de Python"
 
 #: ../plugins/language-support-python/plugin.c:915
-#| msgid ""
-#| "Couldn't find python-rope (http://rope.sf.net) libraries which\n"
-#| "are needed for autocompletion in python files.\n"
-#| "Please install them and check the python path in the preferences."
 msgid ""
 "Either python path is wrong or python-rope (http://rope.sf.net) libraries\n"
 "aren't installed. Both are required for autocompletion in python files.\n"
