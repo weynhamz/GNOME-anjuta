@@ -367,7 +367,7 @@
             TARGET (11:5:39): anjuta-enum-types.h
             TARGET (11:5:40): pkgconfig
                 SOURCE (11:5:40:0): libanjuta/libanjuta-1.0.pc
-            TARGET (11:5:41): dist_gir
+            TARGET (11:5:41): gir
                 SOURCE (11:5:41:0): libanjuta/IAnjuta-1.0.gir
             TARGET (11:5:42): typelib
                 SOURCE (11:5:42:0): libanjuta/$(INTROSPECTION_GIRS:.gir=.typelib)
