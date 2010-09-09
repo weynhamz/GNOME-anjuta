@@ -491,8 +491,6 @@ main(int argc, char *argv[])
 
 	/* Initialize program */
 	g_type_init ();
-
-	benchmark ();
 	
 	anjuta_debug_init ();
 
