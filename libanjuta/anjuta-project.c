@@ -280,12 +280,16 @@ anjuta_project_node_append (AnjutaProjectNode *parent, AnjutaProjectNode *node)
 AnjutaProjectNode *
 anjuta_project_node_insert_before (AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNode *node)
 {
+	/* node->parent is filled by the new function */
+	if (node->parent != NULL) node->parent = NULL;
 	return g_node_insert_before (parent, sibling, node);
 }
 
 AnjutaProjectNode *
 anjuta_project_node_insert_after (AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNode *node)
 {
+	/* node->parent is filled by the new function */
+	if (node->parent != NULL) node->parent = NULL;
 	return g_node_insert_after (parent, sibling, node);
 }
 
