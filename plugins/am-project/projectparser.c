@@ -563,7 +563,8 @@ main(int argc, char *argv[])
 		else if (g_ascii_strcasecmp (*command, "remove") == 0)
 		{
 			node = get_node (project, root, *(++command));
-			ianjuta_project_remove_node (project, node, NULL);
+			anjuta_project_node_set_state (node, ANJUTA_PROJECT_REMOVED);
+			ianjuta_project_save_node (project, child, NULL);
 		}
 		else if (g_ascii_strcasecmp (command[0], "add") == 0)
 		{
@@ -665,7 +666,7 @@ main(int argc, char *argv[])
 				item = get_project_property (project, root, command[1]);
 				if (item != NULL)
 				{
-					ianjuta_project_set_string_property (project, root, item, command[2], NULL);
+					ianjuta_project_set_property (project, root, item, command[2], NULL);
 				}
 			}
 			command += 2;

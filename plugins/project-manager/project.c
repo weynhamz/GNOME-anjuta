@@ -889,9 +889,34 @@ anjuta_pm_project_get_root (AnjutaPmProject *project)
 GList *
 anjuta_pm_project_get_packages (AnjutaPmProject *project)
 {
-	if (project->project == NULL) return NULL;
+	AnjutaProjectNode *module;
+	GHashTable *all;
+	GList *packages;
 
-	return ianjuta_project_get_packages (project->project, NULL);
+	g_return_val_if_fail (project != NULL, NULL);
+	
+	all = g_hash_table_new (g_str_hash, g_str_equal);
+	
+	for (module = anjuta_project_node_first_child (project->root); module != NULL; module = anjuta_project_node_next_sibling (module))
+	{
+		if (anjuta_project_node_get_type(module) == ANJUTA_PROJECT_MODULE)
+		{
+			AnjutaProjectNode *package;
+
+			for (package = anjuta_project_node_first_child (module); package != NULL; package = anjuta_project_node_next_sibling (package))
+			{
+				if (anjuta_project_node_get_type (package) == ANJUTA_PROJECT_PACKAGE)
+				{
+					g_hash_table_replace (all, anjuta_project_node_get_name (package), NULL);
+				}
+			}
+		}
+	}
+	
+	packages = g_hash_table_get_keys (all);
+	g_hash_table_destroy (all);
+	
+	return packages;
 }
 
 AnjutaProjectNode *
@@ -912,9 +937,16 @@ anjuta_pm_project_add_group (AnjutaPmProject *project, AnjutaProjectNode *parent
 AnjutaProjectNode *
 anjuta_pm_project_add_target (AnjutaPmProject *project, AnjutaProjectNode *parent, AnjutaProjectNode *sibling, const gchar *name, AnjutaProjectNodeType type, GError **error)
 {
-	g_return_val_if_fail (project->project != NULL, NULL);
+	AnjutaProjectNode *node;
 	
-	return ianjuta_project_add_target (project->project, parent, name, type, error);
+	g_return_val_if_fail (project->project != NULL, NULL);
+
+	node = ianjuta_project_new_node (project->project, parent, ANJUTA_PROJECT_TARGET | type, NULL, name, error);
+	node->parent = parent;
+	node->prev = sibling;
+	pm_project_push_command (project, ADD, node);
+
+	return node;
 }
 
 AnjutaProjectNode *

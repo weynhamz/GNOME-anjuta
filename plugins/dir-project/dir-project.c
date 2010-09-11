@@ -867,34 +867,6 @@ dir_project_probe (GFile *file,
 	return probe ? IANJUTA_PROJECT_PROBE_FILES : 0;
 }
 
-static DirGroup* 
-dir_project_add_group (DirProject  *project,
-		DirGroup *parent,
-		const gchar *name,
-		GError     **error)
-{
-	return NULL;
-}
-
-static DirTarget*
-dir_project_add_target (DirProject  *project,
-		 DirGroup *parent,
-		 const gchar *name,
-		 AnjutaProjectNodeType type,
-		 GError     **error)
-{
-	return NULL;
-}
-
-static DirSource* 
-dir_project_add_source (DirProject  *project,
-		 DirTarget *target,
-		 GFile *file,
-		 GError     **error)
-{
-	return NULL;
-}
-
 static GList *
 dir_project_get_node_info (DirProject *project, GError **error)
 {
@@ -945,66 +917,6 @@ dir_project_new (void)
 /* Implement IAnjutaProject
  *---------------------------------------------------------------------------*/
 
-static AnjutaProjectNode* 
-iproject_add_group (IAnjutaProject *obj, AnjutaProjectNode *parent,  const gchar *name, GError **err)
-{
-	return dir_project_add_group (DIR_PROJECT (obj), parent, name, err);
-}
-
-static AnjutaProjectNode* 
-iproject_add_source (IAnjutaProject *obj, AnjutaProjectNode *parent,  GFile *file, GError **err)
-{
-	return dir_project_add_source (DIR_PROJECT (obj), parent, file, err);
-}
-
-static AnjutaProjectNode* 
-iproject_add_target (IAnjutaProject *obj, AnjutaProjectNode *parent,  const gchar *name,  AnjutaProjectNodeType type, GError **err)
-{
-	return dir_project_add_target (DIR_PROJECT (obj), parent, name, type, err);
-}
-
-static GtkWidget* 
-iproject_configure (IAnjutaProject *obj, GError **err)
-{
-	return NULL;
-}
-
-static guint 
-iproject_get_capabilities (IAnjutaProject *obj, GError **err)
-{
-	return 0;
-}
-
-static GList* 
-iproject_get_packages (IAnjutaProject *obj, GError **err)
-{
-	return NULL;
-}
-
-static AnjutaProjectNode* 
-iproject_get_root (IAnjutaProject *obj, GError **err)
-{
-	return dir_project_get_root (DIR_PROJECT (obj));
-}
-
-static GList* 
-iproject_get_target_types (IAnjutaProject *obj, GError **err)
-{
-	return dir_project_get_node_info (DIR_PROJECT (obj), err);
-}
-
-static gboolean
-iproject_load (IAnjutaProject *obj, GFile *file, GError **err)
-{
-	return dir_project_load (DIR_PROJECT (obj), file, err);
-}
-
-static gboolean
-iproject_refresh (IAnjutaProject *obj, GError **err)
-{
-	return FALSE; //dir_project_reload (DIR_PROJECT (obj), err);
-}
-
 static AnjutaProjectNode *
 iproject_load_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
 {
@@ -1044,78 +956,6 @@ iproject_set_property (IAnjutaProject *obj, AnjutaProjectNode *node, AnjutaProje
 	return FALSE;
 }
 
-static AnjutaProjectNode *
-iproject_new_root_node (IAnjutaProject *obj, GFile *file, GError **error)
-{
-	return project_node_new (DIR_PROJECT (obj), NULL, ANJUTA_PROJECT_ROOT, file, NULL, error);
-}
-
-static AnjutaProjectNode *
-iproject_add_file_node (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, GFile *file, GError **err)
-{
-	return NULL;
-}
-
-static AnjutaProjectNode *
-iproject_add_name_node (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, const gchar *name, GError **error)
-{
-	AnjutaProjectNode *node = NULL;
-	GFile *file;
-	
-	/* Create a group for directory */
-	switch (type & ANJUTA_PROJECT_TYPE_MASK)
-	{
-	case ANJUTA_PROJECT_GROUP:
-		file = g_file_get_child (anjuta_project_node_get_file (parent), name);
-		if (g_file_make_directory (file, NULL, error))
-		{
-			node = project_node_new (DIR_PROJECT (obj), NULL, type, file, NULL, NULL);
-			anjuta_project_node_append (parent, node);
-		}
-		g_object_unref (file);
-		break;
-	default:
-		g_set_error (error, IANJUTA_PROJECT_ERROR, 
-					IANJUTA_PROJECT_ERROR_NOT_SUPPORTED,
-			_("Project doesn't allow to add such type of element"));
-		break;
-	}
-	
-	return node;
-}
-
-static gboolean
-iproject_remove_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
-{
-	project_node_destroy (DIR_PROJECT (obj), node);
-
-	return TRUE;
-}
-
-static AnjutaProjectProperty *
-iproject_set_boolean_property (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProperty *property, gboolean value, GError **err )
-{
-	return NULL;
-}
-
-static AnjutaProjectProperty *
-iproject_set_string_property (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProperty *property, const gchar *value, GError **err )
-{
-	return NULL;
-}
-
-static AnjutaProjectProperty *
-iproject_set_list_property (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProperty *property, const gchar *name, const gchar *value, GError **err )
-{
-	return NULL;
-}
-
-static gboolean
-iproject_remove_property (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProperty *property, GError **err)
-{
-	return FALSE;
-}
-
 static GList* 
 iproject_get_node_info (IAnjutaProject *obj, GError **err)
 {
@@ -1130,25 +970,6 @@ iproject_iface_init(IAnjutaProjectIface* iface)
 	iface->new_node = iproject_new_node;
 	iface->free_node = iproject_free_node;
 	iface->set_property = iproject_set_property;
-
-	iface->add_group = iproject_add_group;
-	iface->add_source = iproject_add_source;
-	iface->add_target = iproject_add_target;
-	iface->configure = iproject_configure;
-	iface->get_capabilities = iproject_get_capabilities;
-	iface->get_packages = iproject_get_packages;
-	iface->get_root = iproject_get_root;
-	iface->get_target_types = iproject_get_target_types;
-	iface->load = iproject_load;
-	iface->refresh = iproject_refresh;
-	iface->new_root_node = iproject_new_root_node;
-	iface->add_file_node = iproject_add_file_node;
-	iface->add_name_node = iproject_add_name_node;
-	iface->remove_node = iproject_remove_node;
-	iface->set_boolean_property = iproject_set_boolean_property;
-	iface->set_string_property = iproject_set_string_property;
-	iface->set_list_property = iproject_set_list_property;
-	iface->remove_property = iproject_remove_property;
 	iface->get_node_info = iproject_get_node_info;
 }
 

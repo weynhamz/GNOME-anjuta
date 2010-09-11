@@ -1128,7 +1128,7 @@ mkp_project_load_root (MkpProject *project, AnjutaProjectNode *node, GError **er
 }
 
 AnjutaProjectNode *
-dir_project_load_node (MkpProject *project, AnjutaProjectNode *node, GError **error) 
+mkp_project_load_node (MkpProject *project, AnjutaProjectNode *node, GError **error) 
 {
 	switch (anjuta_project_node_get_type (node))
 	{
@@ -1365,70 +1365,10 @@ mkp_project_new (void)
 /* Implement IAnjutaProject
  *---------------------------------------------------------------------------*/
 
-static AnjutaProjectNode* 
-iproject_add_group (IAnjutaProject *obj, AnjutaProjectNode *parent,  const gchar *name, GError **err)
-{
-	return NULL;
-}
-
-static AnjutaProjectNode* 
-iproject_add_source (IAnjutaProject *obj, AnjutaProjectNode *parent,  GFile *file, GError **err)
-{
-	return NULL;
-}
-
-static AnjutaProjectNode* 
-iproject_add_target (IAnjutaProject *obj, AnjutaProjectNode *parent,  const gchar *name,  AnjutaProjectNodeType type, GError **err)
-{
-	return NULL;
-}
-
-static GtkWidget* 
-iproject_configure (IAnjutaProject *obj, GError **err)
-{
-	return NULL;
-}
-
-static guint 
-iproject_get_capabilities (IAnjutaProject *obj, GError **err)
-{
-	return 0;
-}
-
-static GList* 
-iproject_get_packages (IAnjutaProject *obj, GError **err)
-{
-	return NULL;
-}
-
-static AnjutaProjectNode* 
-iproject_get_root (IAnjutaProject *obj, GError **err)
-{
-	return mkp_project_get_root (MKP_PROJECT (obj));
-}
-
-static GList* 
-iproject_get_target_types (IAnjutaProject *obj, GError **err)
-{
-	return mkp_project_get_node_info (MKP_PROJECT (obj), err);
-}
-
-static gboolean
-iproject_load (IAnjutaProject *obj, GFile *file, GError **err)
-{
-	return mkp_project_load (MKP_PROJECT (obj), file, err);
-}
-
-static gboolean
-iproject_refresh (IAnjutaProject *obj, GError **err)
-{
-	return FALSE; //mkp_project_reload (MKP_PROJECT (obj), err);
-}
-
 static AnjutaProjectNode *
 iproject_load_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
 {
-	return dir_project_load_node (MKP_PROJECT (obj), node, err);
+	return mkp_project_load_node (MKP_PROJECT (obj), node, err);
 }
 
 static AnjutaProjectNode *
@@ -1447,87 +1387,38 @@ iproject_set_property (IAnjutaProject *obj, AnjutaProjectNode *node, AnjutaProje
 	return FALSE;
 }
 
-static AnjutaProjectNode *
-iproject_new_root_node (IAnjutaProject *obj, GFile *file, GError **err)
-{
-	return project_node_new (MKP_PROJECT (obj), ANJUTA_PROJECT_ROOT, file, NULL);
-}
-
-static AnjutaProjectNode *
-iproject_add_file_node (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, GFile *file, GError **err)
-{
-	return NULL;
-}
-
-static AnjutaProjectNode *
-iproject_add_name_node (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, const gchar *name, GError **err)
-{
-	return NULL;
-}
-
-static gboolean
-iproject_remove_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
-{
-	project_node_destroy (MKP_PROJECT (obj), node);
-
-	return TRUE;
-}
-
-static AnjutaProjectProperty *
-iproject_set_boolean_property (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProperty *property, gboolean value, GError **err )
-{
-	return NULL;
-}
-
-static AnjutaProjectProperty *
-iproject_set_string_property (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProperty *property, const gchar *value, GError **err )
-{
-	return NULL;
-}
-
-static AnjutaProjectProperty *
-iproject_set_list_property (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProperty *property, const gchar *name, const gchar *value, GError **err )
-{
-	return NULL;
-}
-
-static gboolean
-iproject_remove_property (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProperty *property, GError **err)
-{
-	return FALSE;
-}
-
 static GList* 
 iproject_get_node_info (IAnjutaProject *obj, GError **err)
 {
 	return mkp_project_get_node_info (MKP_PROJECT (obj), err);
 }
 
+static AnjutaProjectNode *
+iproject_new_node (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile *file, const gchar *name, GError **err)
+{
+	AnjutaProjectNode *node;
+
+	node = project_node_new (MKP_PROJECT (obj), type, file, name);
+	node->parent = parent;
+	
+	return node;
+}
+
+static void
+iproject_free_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
+{
+	project_node_destroy (MKP_PROJECT (obj), node);
+}
+
 static void
 iproject_iface_init(IAnjutaProjectIface* iface)
 {
-	iface->add_group = iproject_add_group;
-	iface->add_source = iproject_add_source;
-	iface->add_target = iproject_add_target;
-	iface->configure = iproject_configure;
-	iface->get_capabilities = iproject_get_capabilities;
-	iface->get_packages = iproject_get_packages;
-	iface->get_root = iproject_get_root;
-	iface->get_target_types = iproject_get_target_types;
-	iface->load = iproject_load;
-	iface->refresh = iproject_refresh;
 	iface->load_node = iproject_load_node;
 	iface->save_node = iproject_save_node;
 	iface->set_property = iproject_set_property;
-	iface->new_root_node = iproject_new_root_node;
-	iface->add_file_node = iproject_add_file_node;
-	iface->add_name_node = iproject_add_name_node;
-	iface->remove_node = iproject_remove_node;
-	iface->set_boolean_property = iproject_set_boolean_property;
-	iface->set_string_property = iproject_set_string_property;
-	iface->set_list_property = iproject_set_list_property;
-	iface->remove_property = iproject_remove_property;
 	iface->get_node_info = iproject_get_node_info;
+	iface->new_node = iproject_new_node;
+	iface->free_node = iproject_free_node;
 }
 
 /* GObject implementation
