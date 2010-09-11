@@ -593,18 +593,24 @@ main(int argc, char *argv[])
 				if ((command[5] != NULL) && (g_ascii_strcasecmp (command[5], "before") == 0))
 				{
 					sibling = get_node (project, root, command[6]);
-					amp_project_add_sibling_target (project, node, command[3], get_target_type (project, command[4]), FALSE, sibling, NULL);
+					child = ianjuta_project_new_node (project, node, ANJUTA_PROJECT_TARGET | get_target_type (project, command[4]), NULL, command[3], &error);
+					anjuta_project_node_insert_before (node, sibling, child);
+					ianjuta_project_save_node (project, child, NULL);
 					command += 2;
 				}
 				else if ((command[5] != NULL) && (g_ascii_strcasecmp (command[5], "after") == 0))
 				{
 					sibling = get_node (project, root, command[6]);
-					amp_project_add_sibling_target (project, node, command[3], get_target_type (project, command[4]), TRUE, sibling, NULL);
+					child = ianjuta_project_new_node (project, node, ANJUTA_PROJECT_TARGET | get_target_type (project, command[4]), NULL, command[3], &error);
+					anjuta_project_node_insert_after (node, sibling, child);
+					ianjuta_project_save_node (project, child, NULL);
 					command += 2;
 				}
 				else
 				{
-					ianjuta_project_add_target (project, node, command[3], get_target_type (project, command[4]), NULL);
+					child = ianjuta_project_new_node (project, node, ANJUTA_PROJECT_TARGET | get_target_type (project, command[4]), NULL, command[3], &error);
+					anjuta_project_node_insert_after (node, NULL, child);
+					ianjuta_project_save_node (project, child, NULL);
 				}
 				command++;
 			}
@@ -614,7 +620,7 @@ main(int argc, char *argv[])
 
 				if ((command[4] != NULL) && (g_ascii_strcasecmp (command[4], "before") == 0))
 				{
-					sibling = get_file (project, command[5]);
+					sibling = get_node (project, root, command[5]);
 					child = ianjuta_project_new_node (project, node, ANJUTA_PROJECT_SOURCE, file, NULL, &error);
 					anjuta_project_node_insert_before (node, sibling, child);
 					ianjuta_project_save_node (project, child, NULL);
