@@ -574,18 +574,24 @@ main(int argc, char *argv[])
 				if ((command[4] != NULL) && (g_ascii_strcasecmp (command[4], "before") == 0))
 				{
 					sibling = get_node (project, root, command[5]);
-					amp_project_add_sibling_group (project, node, command[3], FALSE, sibling, NULL);
+					child = ianjuta_project_new_node (project, node, ANJUTA_PROJECT_GROUP, NULL, command[3], &error);
+					anjuta_project_node_insert_before (node, sibling, child);
+					ianjuta_project_save_node (project, child, NULL);
 					command += 2;
 				}
 				else if ((command[4] != NULL) && (g_ascii_strcasecmp (command[4], "after") == 0))
 				{
 					sibling = get_node (project, root, command[5]);
-					amp_project_add_sibling_group (project, node, command[3], TRUE, sibling, NULL);
+					child = ianjuta_project_new_node (project, node, ANJUTA_PROJECT_GROUP, NULL, command[3], &error);
+					anjuta_project_node_insert_after (node, sibling, child);
+					ianjuta_project_save_node (project, child, NULL);
 					command += 2;
 				}
 				else
 				{
-					ianjuta_project_add_group (project, node, command[3], NULL);
+					child = ianjuta_project_new_node (project, node, ANJUTA_PROJECT_GROUP, NULL, command[3], &error);
+					anjuta_project_node_insert_after (node, NULL, child);
+					ianjuta_project_save_node (project, child, NULL);
 				}
 			}
 			else if (g_ascii_strcasecmp (command[1], "target") == 0)
