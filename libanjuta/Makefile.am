@@ -134,7 +134,6 @@ libanjuta_include = \
 	anjuta-plugin-handle.h \
 	anjuta-profile.h \
 	anjuta-profile-manager.h \
-	anjuta-marshal.h \
 	anjuta-utils.h \
 	anjuta-preferences-dialog.h \
 	anjuta-preferences.h \
@@ -159,7 +158,8 @@ libanjuta_include = \
 
 libanjutainclude_HEADERS = \
 	$(libanjuta_include) \
-	anjuta-enum-types.h
+	anjuta-enum-types.h \
+	anjuta-marshal.h
 
 BUILT_SOURCES=anjuta-marshal.c anjuta-marshal.h  anjuta-enum-types.h anjuta-enum-types.c
 

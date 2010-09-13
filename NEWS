@@ -1,3 +1,17 @@
+Anjuta 2.31.92 "What's reality like?" (13 Sep 2010) -- Johannes Schmid
+
+Bugs fixed:
+python-loader: bgo #628975 - error in python loader .plugin
+sourceview: bgo #626541 - Crash when saving to unavailable location
+bgo #628397: Fix anjuta-idl-compiler to keep typedef comments
+bgo #628397 - gir build error
+
+Thanks to (mostly translators):
+Abderrahim Kitouni, Andika Triwidada, Aron Xu, Bruno Brouard, Christian Kirbach,
+Claude Paroz, Daniel Nylander, Dragos Dena, Gabor Kelemen, Hiroyuki Sekihara,
+Jorge González, Kjartan Maraas, Philip Withnall, Sébastien Granjoux,
+Takayuki KUSANO
+
 Anjuta 2.31.91 "Cold summer rain" (30 Aug 2010) -- Johannes Schmid
 
 Updated:
