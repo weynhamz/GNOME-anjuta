@@ -9,15 +9,16 @@
 # Hinker <hinkerliu@gmail.com>, 2010.
 # Tao Wang <dancefire@gmail.com>, 2010.
 # Black Penguin <gnomecn@gmail.com>, 2010.
+# Dean Lee <xslidian@gmail.com>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 2.2.6\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2010-07-21 08:10+0000\n"
-"PO-Revision-Date: 2010-07-21 21:42+1000\n"
-"Last-Translator: Tao Wang <dancefire@gmail.com>\n"
+"POT-Creation-Date: 2010-09-04 20:48+0000\n"
+"PO-Revision-Date: 2010-09-08 12:49+0800\n"
+"Last-Translator: Dean Lee <xslidian@lidian.info>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -204,13 +205,13 @@ msgstr "泰国"
 msgid "Unknown"
 msgstr "未知"
 
-#: ../libanjuta/anjuta-launcher.c:1168 ../libanjuta/resources.c:267
+#: ../libanjuta/anjuta-launcher.c:1169 ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276 ../plugins/gdb/utilities.c:282
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "无法执行命令：“%s”"
 
-#: ../libanjuta/anjuta-launcher.c:1169
+#: ../libanjuta/anjuta-launcher.c:1170
 msgid "execvp failed"
 msgstr "执行文件(execvp)失败"
 
@@ -404,7 +405,7 @@ msgid "_Reset"
 msgstr "重置(_R)"
 
 #: ../libanjuta/anjuta-preferences-dialog.c:95
-#: ../plugins/gtodo/interface.c:229 ../plugins/gtodo/mcategory.c:36
+#: ../plugins/gtodo/interface.c:219 ../plugins/gtodo/mcategory.c:36
 msgid "Category"
 msgstr "类别"
 
@@ -430,6 +431,7 @@ msgstr "如果您没有进行保存，未保存的任何更改都将丢失。"
 
 #: ../libanjuta/anjuta-save-prompt.c:189
 #: ../plugins/document-manager/plugin.c:605
+#: ../plugins/snippets-manager/snippets-editor.ui.h:9
 msgid "Save"
 msgstr "保存"
 
@@ -441,15 +443,14 @@ msgstr "项目"
 msgid "_Discard changes"
 msgstr "丢弃更改(_D)"
 
-#: ../libanjuta/anjuta-save-prompt.c:297
+#: ../libanjuta/anjuta-save-prompt.c:296
 #, c-format
-msgid ""
-"<b>There is %d item with unsaved changes. Save changes before closing?</b>"
+msgid "There is %d item with unsaved changes. Save changes before closing?"
 msgid_plural ""
-"<b>There are %d items with unsaved changes. Save changes before closing?</b>"
-msgstr[0] "<b>%d 项有未保存的更改。是否在关闭前保存？</b>"
+"There are %d items with unsaved changes. Save changes before closing?"
+msgstr[0] "有 %d 项存在未保存的更改。是否要在关闭前保存更改？"
 
-#: ../libanjuta/anjuta-save-prompt.c:304
+#: ../libanjuta/anjuta-save-prompt.c:305
 msgid "There is an item with unsaved changes. Save changes before closing?"
 msgstr "存在未保存的更改。是否要在关闭前保存？"
 
@@ -483,12 +484,12 @@ msgstr ""
 "似乎您没有安装 PackageKit。需要使用 PackageKit 来安装缺失的软件包。请从您的系"
 "统中安装“packagekit-gnome”，或者手动安装缺失的软件包。"
 
-#: ../libanjuta/anjuta-utils.c:515
+#: ../libanjuta/anjuta-utils.c:514
 #, c-format
 msgid "Installation failed: %s"
 msgstr "安装失败：%s"
 
-#: ../libanjuta/anjuta-utils.c:575
+#: ../libanjuta/anjuta-utils.c:582
 #, c-format
 msgid ""
 "The \"%s\" package is not installed.\n"
@@ -497,7 +498,7 @@ msgstr ""
 "尚未安装“%s”软件包。\n"
 "请安装该工具。"
 
-#: ../libanjuta/anjuta-utils.c:593
+#: ../libanjuta/anjuta-utils.c:600
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -507,24 +508,24 @@ msgstr ""
 "请安装该工具。"
 
 #. Try xterm
-#: ../libanjuta/anjuta-utils.c:1172
+#: ../libanjuta/anjuta-utils.c:1179
 msgid "Cannot find a terminal; using xterm, even if it may not work"
 msgstr "无法找到可用的终端；使用 xterm，即使它可能无法正常工作"
 
-#: ../libanjuta/anjuta-utils.c:1208 ../libanjuta/anjuta-utils.c:1212
-#: ../libanjuta/anjuta-utils.c:1240 ../libanjuta/anjuta-utils.c:1244
+#: ../libanjuta/anjuta-utils.c:1215 ../libanjuta/anjuta-utils.c:1219
+#: ../libanjuta/anjuta-utils.c:1247 ../libanjuta/anjuta-utils.c:1251
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "无法执行命令：%s(使用 Shell %s)\n"
 
-#: ../libanjuta/anjuta-utils.c:1894
+#: ../libanjuta/anjuta-utils.c:1901
 msgid ""
 "Unable to display help. Please make sure the Anjuta documentation package is "
 "installed. It can be downloaded from http://anjuta.org."
 msgstr ""
 "无法显示帮助。请确定已经安装了 Anjuta 文档包。您可从 http://anjuta.org 下载。"
 
-#: ../libanjuta/anjuta-utils.c:2333
+#: ../libanjuta/anjuta-utils.c:2340
 #, c-format
 msgid "Unable to load user interface file: %s"
 msgstr "无法加载用户界面文件：%s"
@@ -1003,7 +1004,7 @@ msgid "Command exited with status %d"
 msgstr "命令以状态 %d 退出"
 
 #: ../plugins/build-basic-autotools/plugin.c:1048
-#: ../plugins/build-basic-autotools/plugin.c:1528
+#: ../plugins/build-basic-autotools/plugin.c:1527
 #, c-format
 msgid "Command canceled by user"
 msgstr "命令被用户终止"
@@ -1050,199 +1051,199 @@ msgid ""
 "you want to do that ?"
 msgstr "在使用这个新的设置前，需要删除默认的设置。您想这样做吗？"
 
-#: ../plugins/build-basic-autotools/plugin.c:1826
+#: ../plugins/build-basic-autotools/plugin.c:1823
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
 msgstr "不能编译“%s”：没有定义对此文件类型的编译规则。"
 
-#: ../plugins/build-basic-autotools/plugin.c:1961
+#: ../plugins/build-basic-autotools/plugin.c:1958
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
 msgstr "不能配置项目：在 %s 缺少配置脚本。"
 
-#: ../plugins/build-basic-autotools/plugin.c:2442
-#: ../plugins/build-basic-autotools/plugin.c:2516
-#: ../plugins/build-basic-autotools/plugin.c:2526
-#: ../plugins/build-basic-autotools/plugin.c:2544
-#: ../plugins/build-basic-autotools/plugin.c:2554
-#: ../plugins/build-basic-autotools/plugin.c:2611
+#: ../plugins/build-basic-autotools/plugin.c:2439
+#: ../plugins/build-basic-autotools/plugin.c:2513
+#: ../plugins/build-basic-autotools/plugin.c:2523
+#: ../plugins/build-basic-autotools/plugin.c:2541
+#: ../plugins/build-basic-autotools/plugin.c:2551
+#: ../plugins/build-basic-autotools/plugin.c:2608
 #, c-format
 msgid "_Build"
 msgstr "创建(_B)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2446
+#: ../plugins/build-basic-autotools/plugin.c:2443
 msgid "_Build Project"
 msgstr "创建项目(_B)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2447
+#: ../plugins/build-basic-autotools/plugin.c:2444
 msgid "Build whole project"
 msgstr "创建整个项目"
 
-#: ../plugins/build-basic-autotools/plugin.c:2452
+#: ../plugins/build-basic-autotools/plugin.c:2449
 msgid "_Install Project"
 msgstr "安装项目(_I)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2453
+#: ../plugins/build-basic-autotools/plugin.c:2450
 msgid "Install whole project"
 msgstr "安装整个项目"
 
-#: ../plugins/build-basic-autotools/plugin.c:2458
+#: ../plugins/build-basic-autotools/plugin.c:2455
 msgid "_Clean Project"
 msgstr "清理项目(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2459
+#: ../plugins/build-basic-autotools/plugin.c:2456
 msgid "Clean whole project"
 msgstr "清理整个项目"
 
-#: ../plugins/build-basic-autotools/plugin.c:2464
+#: ../plugins/build-basic-autotools/plugin.c:2461
 msgid "C_onfigure Project…"
 msgstr "配置项目(_O)..."
 
-#: ../plugins/build-basic-autotools/plugin.c:2465
+#: ../plugins/build-basic-autotools/plugin.c:2462
 msgid "Configure project"
 msgstr "配置项目"
 
-#: ../plugins/build-basic-autotools/plugin.c:2470
+#: ../plugins/build-basic-autotools/plugin.c:2467
 msgid "Build _Tarball"
 msgstr "创建 Tarball(_T)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2471
+#: ../plugins/build-basic-autotools/plugin.c:2468
 msgid "Build project tarball distribution"
 msgstr "创建项目 tarball 发行包"
 
-#: ../plugins/build-basic-autotools/plugin.c:2476
+#: ../plugins/build-basic-autotools/plugin.c:2473
 msgid "_Build Module"
 msgstr "创建模块(_B)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2477
+#: ../plugins/build-basic-autotools/plugin.c:2474
 msgid "Build module associated with current file"
 msgstr "创建与当前文件关联的模块"
 
-#: ../plugins/build-basic-autotools/plugin.c:2482
+#: ../plugins/build-basic-autotools/plugin.c:2479
 msgid "_Install Module"
 msgstr "安装模块(_I)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2483
+#: ../plugins/build-basic-autotools/plugin.c:2480
 msgid "Install module associated with current file"
 msgstr "安装与当前文件关联的模块"
 
-#: ../plugins/build-basic-autotools/plugin.c:2488
+#: ../plugins/build-basic-autotools/plugin.c:2485
 msgid "_Clean Module"
 msgstr "清理模块(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2489
+#: ../plugins/build-basic-autotools/plugin.c:2486
 msgid "Clean module associated with current file"
 msgstr "清理与当前文件关联的模块"
 
-#: ../plugins/build-basic-autotools/plugin.c:2494
+#: ../plugins/build-basic-autotools/plugin.c:2491
 msgid "Co_mpile File"
 msgstr "编译文件(_M)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2495
+#: ../plugins/build-basic-autotools/plugin.c:2492
 msgid "Compile current editor file"
 msgstr "编译当前编辑器中的文件"
 
-#: ../plugins/build-basic-autotools/plugin.c:2500
+#: ../plugins/build-basic-autotools/plugin.c:2497
 msgid "Select Configuration"
 msgstr "选择配置"
 
-#: ../plugins/build-basic-autotools/plugin.c:2501
+#: ../plugins/build-basic-autotools/plugin.c:2498
 msgid "Select current configuration"
 msgstr "选择当前配置"
 
-#: ../plugins/build-basic-autotools/plugin.c:2506
+#: ../plugins/build-basic-autotools/plugin.c:2503
 msgid "Remove Configuration"
 msgstr "删除配置"
 
-#: ../plugins/build-basic-autotools/plugin.c:2507
+#: ../plugins/build-basic-autotools/plugin.c:2504
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr "清理项目(distclean)并在可能的情况下删除配置目录"
 
-#: ../plugins/build-basic-autotools/plugin.c:2520
-#: ../plugins/build-basic-autotools/plugin.c:2548
+#: ../plugins/build-basic-autotools/plugin.c:2517
+#: ../plugins/build-basic-autotools/plugin.c:2545
 msgid "_Compile"
 msgstr "编译(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2521
-#: ../plugins/build-basic-autotools/plugin.c:2549
+#: ../plugins/build-basic-autotools/plugin.c:2518
+#: ../plugins/build-basic-autotools/plugin.c:2546
 msgid "Compile file"
 msgstr "编译文件"
 
-#: ../plugins/build-basic-autotools/plugin.c:2527
-#: ../plugins/build-basic-autotools/plugin.c:2555
+#: ../plugins/build-basic-autotools/plugin.c:2524
+#: ../plugins/build-basic-autotools/plugin.c:2552
 msgid "Build module"
 msgstr "生成模块"
 
-#: ../plugins/build-basic-autotools/plugin.c:2532
-#: ../plugins/build-basic-autotools/plugin.c:2560
-#: ../plugins/build-basic-autotools/plugin.c:2618
+#: ../plugins/build-basic-autotools/plugin.c:2529
+#: ../plugins/build-basic-autotools/plugin.c:2557
+#: ../plugins/build-basic-autotools/plugin.c:2615
 #, c-format
 msgid "_Install"
 msgstr "安装(_I)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2533
-#: ../plugins/build-basic-autotools/plugin.c:2561
+#: ../plugins/build-basic-autotools/plugin.c:2530
+#: ../plugins/build-basic-autotools/plugin.c:2558
 msgid "Install module"
 msgstr "安装模块"
 
-#: ../plugins/build-basic-autotools/plugin.c:2538
-#: ../plugins/build-basic-autotools/plugin.c:2566
-#: ../plugins/build-basic-autotools/plugin.c:2625
+#: ../plugins/build-basic-autotools/plugin.c:2535
+#: ../plugins/build-basic-autotools/plugin.c:2563
+#: ../plugins/build-basic-autotools/plugin.c:2622
 #, c-format
 msgid "_Clean"
 msgstr "清理(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2539
-#: ../plugins/build-basic-autotools/plugin.c:2567
+#: ../plugins/build-basic-autotools/plugin.c:2536
+#: ../plugins/build-basic-autotools/plugin.c:2564
 msgid "Clean module"
 msgstr "清理模块"
 
-#: ../plugins/build-basic-autotools/plugin.c:2572
+#: ../plugins/build-basic-autotools/plugin.c:2569
 msgid "_Cancel command"
 msgstr "取消命令(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2573
+#: ../plugins/build-basic-autotools/plugin.c:2570
 msgid "Cancel build command"
 msgstr "取消创建命令"
 
-#: ../plugins/build-basic-autotools/plugin.c:2611
+#: ../plugins/build-basic-autotools/plugin.c:2608
 #, c-format
 msgid "_Build (%s)"
 msgstr "创建 (%s)(_B)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2618
+#: ../plugins/build-basic-autotools/plugin.c:2615
 #, c-format
 msgid "_Install (%s)"
 msgstr "安装 (%s)(_I)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2625
+#: ../plugins/build-basic-autotools/plugin.c:2622
 #, c-format
 msgid "_Clean (%s)"
 msgstr "清理 (%s)(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2633
+#: ../plugins/build-basic-autotools/plugin.c:2630
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "编译 (%s)(_M)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2633
+#: ../plugins/build-basic-autotools/plugin.c:2630
 #, c-format
 msgid "Co_mpile"
 msgstr "编译(_M)"
 
-#: ../plugins/build-basic-autotools/plugin.c:3169
+#: ../plugins/build-basic-autotools/plugin.c:3166
 msgid "Build commands"
 msgstr "创建命令"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:3178
+#: ../plugins/build-basic-autotools/plugin.c:3175
 msgid "Build popup commands"
 msgstr "创建弹出命令"
 
-#: ../plugins/build-basic-autotools/plugin.c:3560
-#: ../plugins/build-basic-autotools/plugin.c:3568
+#: ../plugins/build-basic-autotools/plugin.c:3557
+#: ../plugins/build-basic-autotools/plugin.c:3565
 msgid "Build Autotools"
 msgstr "创建 Autotools"
 
@@ -1321,22 +1322,22 @@ msgstr "一般类属性"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:18
 #: ../plugins/file-wizard/file.c:103
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:14
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:14
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:14
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:15
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:15
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:15
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:18
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:18
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:16
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:14
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:16
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:16
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:15
-#: ../plugins/project-wizard/templates/java.wiz.in.h:15
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:19
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:17
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:15
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:17
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:17
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:16
+#: ../plugins/project-wizard/templates/java.wiz.in.h:16
 #: ../plugins/project-wizard/templates/js.wiz.in.h:8
-#: ../plugins/project-wizard/templates/python.wiz.in.h:15
+#: ../plugins/project-wizard/templates/python.wiz.in.h:16
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:12
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:12
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:19
-#: ../plugins/project-wizard/templates/library.wiz.in.h:15
+#: ../plugins/project-wizard/templates/library.wiz.in.h:16
 msgid "General Public License (GPL)"
 msgstr "GNU 通用公共许可证 (GPL)"
 
@@ -1367,8 +1368,8 @@ msgstr "内嵌声明和实现"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:18
 #: ../plugins/project-wizard/templates/js.wiz.in.h:10
 #: ../plugins/project-wizard/templates/python.wiz.in.h:18
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:13
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:13
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:23
 #: ../plugins/project-wizard/templates/library.wiz.in.h:17
 msgid "Lesser General Public License (LGPL)"
 msgstr "GNU 宽通用公共许可证 (LGPL)"
@@ -1402,29 +1403,29 @@ msgstr "源文件："
 msgid "Source/Header Headings:"
 msgstr "源文件/头文件抬头行："
 
-#: ../plugins/class-gen/generator.c:132
+#: ../plugins/class-gen/generator.c:133
 #, c-format
 msgid "Header or source file has not been created"
 msgstr "头文件或者源文件尚未创建"
 
-#: ../plugins/class-gen/generator.c:294
+#: ../plugins/class-gen/generator.c:295
 msgid "Autogen template used for the header file"
 msgstr "头文件使用 Autogen 模板"
 
-#: ../plugins/class-gen/generator.c:302
+#: ../plugins/class-gen/generator.c:303
 msgid "Autogen template used for the implementation file"
 msgstr "用于生成实现文件的 Autogen 模板"
 
-#: ../plugins/class-gen/generator.c:310 ../plugins/class-gen/generator.c:318
+#: ../plugins/class-gen/generator.c:311 ../plugins/class-gen/generator.c:319
 msgid "File to which the processed template will be written"
 msgstr "处理后的模板将要写入的文件"
 
-#: ../plugins/class-gen/generator.c:402
+#: ../plugins/class-gen/generator.c:403
 #, c-format
 msgid "Failed to write autogen definition file"
 msgstr "创建 Autogen 定义文件失败"
 
-#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1146
+#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1160
 msgid ""
 "Could not find autogen version 5; please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net."
@@ -1461,6 +1462,7 @@ msgstr "类型"
 #: ../plugins/class-gen/window.c:520 ../plugins/class-gen/window.c:534
 #: ../plugins/run-program/parameters.c:754
 #: ../plugins/search/search_preferences.c:534
+#: ../plugins/snippets-manager/snippets-browser.c:530
 msgid "Name"
 msgstr "名称"
 
@@ -1646,8 +1648,8 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "忽略 .cvsrc 文件(推荐)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
-#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2052
-#: ../plugins/symbol-db/plugin.c:2094
+#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2055
+#: ../plugins/symbol-db/plugin.c:2097
 msgid "Local"
 msgstr "本地"
 
@@ -1987,7 +1989,6 @@ msgid "Debugger:"
 msgstr "调试器："
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:15
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:12
 msgid "Description:"
 msgstr "描述："
 
@@ -2696,7 +2697,7 @@ msgstr "帧"
 
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:664
-#: ../plugins/debug-manager/threads.c:451 ../plugins/gdb/preferences.c:358
+#: ../plugins/debug-manager/threads.c:451 ../plugins/gdb/preferences.c:363
 #: ../plugins/tools/tool.c:100 ../src/anjuta-app.c:621
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
@@ -2870,29 +2871,29 @@ msgstr "搜索帮助(_S)"
 msgid "Search for a term in help"
 msgstr "在帮助中搜索术语"
 
-#: ../plugins/devhelp/plugin.c:327
+#: ../plugins/devhelp/plugin.c:326
 msgid "Help operations"
 msgstr "帮助操作"
 
-#: ../plugins/devhelp/plugin.c:346 ../plugins/devhelp/plugin.c:464
+#: ../plugins/devhelp/plugin.c:345 ../plugins/devhelp/plugin.c:462
 #: ../src/anjuta-app.c:638
 msgid "Help"
 msgstr "帮助"
 
-#: ../plugins/devhelp/plugin.c:357
+#: ../plugins/devhelp/plugin.c:356
 msgid "Contents"
 msgstr "目录"
 
-#: ../plugins/devhelp/plugin.c:363 ../plugins/search/search-replace.c:1041
+#: ../plugins/devhelp/plugin.c:362 ../plugins/search/search-replace.c:1041
 #: ../plugins/search/search-replace.c:1717
 #: ../plugins/search/search-replace.c:1724
 #: ../plugins/search/search-replace.c:1736
-#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2062
-#: ../plugins/symbol-db/plugin.c:2114
+#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2065
+#: ../plugins/symbol-db/plugin.c:2117
 msgid "Search"
 msgstr "搜索"
 
-#: ../plugins/devhelp/plugin.c:381 ../plugins/devhelp/plugin.c:469
+#: ../plugins/devhelp/plugin.c:380 ../plugins/devhelp/plugin.c:467
 msgid "Help display"
 msgstr "帮助显示"
 
@@ -2929,6 +2930,7 @@ msgstr "重命名(_R)"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:340
 #: ../plugins/gtodo/callback.c:20 ../plugins/gtodo/callback.c:101
+#: ../plugins/snippets-manager/snippets-editor.ui.h:8
 msgid "Remove"
 msgstr "删除"
 
@@ -3282,9 +3284,10 @@ msgstr "快速重新搜索(_R)"
 msgid "Repeat quick search"
 msgstr "重复快速搜索"
 
-#: ../plugins/document-manager/plugin.c:273 ../plugins/gtodo/interface.c:168
+#: ../plugins/document-manager/plugin.c:273 ../plugins/gtodo/interface.c:158
 #: ../src/anjuta-actions.h:30
 #: ../plugins/language-support-cpp-java/plugin.c:1876
+#: ../plugins/language-support-python/plugin.c:1176
 msgid "_Edit"
 msgstr "编辑(_E)"
 
@@ -3896,7 +3899,7 @@ msgid "Filter"
 msgstr "过滤器"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2057 ../plugins/symbol-db/plugin.c:2106
+#: ../plugins/symbol-db/plugin.c:2060 ../plugins/symbol-db/plugin.c:2109
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:6
 msgid "Global"
 msgstr "全局"
@@ -3971,8 +3974,7 @@ msgid "File Information"
 msgstr "文件信息"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:9
-#: ../plugins/git/anjuta-git.ui.h:64 ../plugins/macro/anjuta-macro.ui.h:6
-#: ../plugins/tools/anjuta-tools.ui.h:6
+#: ../plugins/git/anjuta-git.ui.h:64 ../plugins/tools/anjuta-tools.ui.h:6
 msgid "Name:"
 msgstr "名称："
 
@@ -4056,7 +4058,6 @@ msgid "Select Package to add:"
 msgstr "选择要添加的包："
 
 #: ../plugins/gbf-am/gbf-am-dialogs.ui.h:6
-#: ../plugins/project-wizard/property.c:376
 msgid "Select package"
 msgstr "选择包"
 
@@ -4377,8 +4378,8 @@ msgstr "包名称："
 #: ../plugins/project-wizard/templates/java.wiz.in.h:29
 #: ../plugins/project-wizard/templates/js.wiz.in.h:17
 #: ../plugins/project-wizard/templates/python.wiz.in.h:27
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:24
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:33
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:32
 #: ../plugins/project-wizard/templates/library.wiz.in.h:31
 msgid "Version:"
 msgstr "版本："
@@ -4698,29 +4699,41 @@ msgstr "创建管道(FIFO)文件 %s 失败。程序将会脱离终端运行。"
 msgid "Cannot start terminal for debugging."
 msgstr "无法启动终端进行调试。"
 
-#: ../plugins/gdb/preferences.c:123
+#. Translators: pretty printer file is a script containing functions allowing gdb
+#. * to display variable content in a simpler way, typically removing
+#. * implementation details.
+#. * The register function is an additional function in the script. It defines
+#. * which function is used for each type of variables.
+#: ../plugins/gdb/preferences.c:128
 #, c-format
 msgid ""
-"The following pretty printers, without a register functions, have been "
-"disabled:\n"
-" %s"
+"The register function hasn't been found automatically in the following "
+"pretty printer files:\n"
+"%s\n"
+"You need to fill yourself the register function columns before enabling the "
+"rows. Most of the time the register function name contains the word "
+"\"register\"."
 msgstr ""
-"下列没有寄存器功能的代码美化工具已被禁用：\n"
-"%s"
+"未能在下列代码美化工具文件中自动发现注册函数:\n"
+"%s\n"
+"您需要亲自填写各行的注册函数列方可启用该行。通常注册函数的名称含有单"
+"词“register”。"
 
-#: ../plugins/gdb/preferences.c:216
+#: ../plugins/gdb/preferences.c:223
 msgid "Select a pretty printer file"
 msgstr "选择代码美化工具文件"
 
-#: ../plugins/gdb/preferences.c:353
+#: ../plugins/gdb/preferences.c:358
 msgid "Activate"
 msgstr "活动的"
 
-#: ../plugins/gdb/preferences.c:365
+#. Translators: The "Register Function" column contains the name of a
+#. * function used to register pretty printers in gdb.
+#: ../plugins/gdb/preferences.c:372
 msgid "Register Function"
 msgstr "寄存器功能"
 
-#: ../plugins/gdb/preferences.c:389 ../plugins/gdb/preferences.c:397
+#: ../plugins/gdb/preferences.c:396 ../plugins/gdb/preferences.c:404
 msgid "Gdb Debugger"
 msgstr "GDB 调试器"
 
@@ -4783,8 +4796,8 @@ msgstr "作者/查找"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:7
 #: ../plugins/project-wizard/templates/js.wiz.in.h:2
 #: ../plugins/project-wizard/templates/python.wiz.in.h:7
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:3
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:6
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:7
 #: ../plugins/project-wizard/templates/library.wiz.in.h:6
 msgid "Author:"
 msgstr "作者："
@@ -6137,7 +6150,7 @@ msgid "Summary:"
 msgstr "概要："
 
 #. option menu label
-#: ../plugins/gtodo/add_edit_item.c:172 ../plugins/macro/anjuta-macro.ui.h:1
+#: ../plugins/gtodo/add_edit_item.c:172
 msgid "Category:"
 msgstr "类别："
 
@@ -6210,56 +6223,56 @@ msgstr "您真的要删除类别“%s”中所有已完成的任务项吗？"
 msgid "Export task list"
 msgstr "导出任务列表"
 
-#: ../plugins/gtodo/export.c:158
+#: ../plugins/gtodo/export.c:159
 msgid "XML"
 msgstr "XML"
 
-#: ../plugins/gtodo/export.c:159
+#: ../plugins/gtodo/export.c:160
 msgid "Plain Text"
 msgstr "纯文本"
 
-#: ../plugins/gtodo/export.c:160
+#: ../plugins/gtodo/export.c:161
 msgid "HTML"
 msgstr "HTML"
 
 #. add the embed css style sheet tb
-#: ../plugins/gtodo/export.c:167
+#: ../plugins/gtodo/export.c:168
 msgid "Export current category only"
 msgstr "仅导出当前类别"
 
-#: ../plugins/gtodo/export.c:171
-msgid "<b>HTML export options:</b>"
-msgstr "<b>HTML 导出选项：</b>"
+#: ../plugins/gtodo/export.c:172
+msgid "HTML export options:"
+msgstr "HTML 导出选项："
 
-#: ../plugins/gtodo/export.c:181
+#: ../plugins/gtodo/export.c:184
 msgid "Embed default (CSS) style sheet"
 msgstr "嵌入默认(CSS)样式表"
 
-#: ../plugins/gtodo/export.c:185
+#: ../plugins/gtodo/export.c:188
 msgid "Custom (CSS) style sheet"
 msgstr "定制(CSS)样式表"
 
-#: ../plugins/gtodo/interface.c:34 ../src/anjuta-actions.h:38
+#: ../plugins/gtodo/interface.c:35 ../src/anjuta-actions.h:38
 msgid "_View"
 msgstr "查看(_V)"
 
-#: ../plugins/gtodo/interface.c:146
+#: ../plugins/gtodo/interface.c:136
 msgid "All"
 msgstr "显示所有"
 
-#: ../plugins/gtodo/interface.c:171
+#: ../plugins/gtodo/interface.c:161
 msgid "_Export"
 msgstr "导出(_E)"
 
-#: ../plugins/gtodo/interface.c:215
+#: ../plugins/gtodo/interface.c:205
 msgid "Priority"
 msgstr "优先级"
 
-#: ../plugins/gtodo/interface.c:222
+#: ../plugins/gtodo/interface.c:212
 msgid "Due date"
 msgstr "预定日期"
 
-#: ../plugins/gtodo/interface.c:236
+#: ../plugins/gtodo/interface.c:226
 msgid "Summary"
 msgstr "概要"
 
@@ -6332,18 +6345,18 @@ msgstr "删除"
 msgid "<New category (%d)>"
 msgstr "<新类别(%d)>"
 
-#: ../plugins/gtodo/notification.c:68
+#: ../plugins/gtodo/notification.c:66
 #, c-format
 msgid "The following item is due in %i minute:"
 msgid_plural "The following item is due in %i minutes:"
 msgstr[0] "下列项目在 %i 分钟后到期："
 
-#: ../plugins/gtodo/notification.c:77
+#: ../plugins/gtodo/notification.c:75
 msgid "The following item is due:"
 msgstr "下列项目到期了："
 
 #. gtk_container_set_border_width(GTK_CONTAINER(hbox), 9);
-#: ../plugins/gtodo/notification.c:118
+#: ../plugins/gtodo/notification.c:116
 msgid "_Do not show again"
 msgstr "不再显示(_D)"
 
@@ -6483,107 +6496,6 @@ msgstr "创建任务列表"
 #: ../plugins/gtodo/todo_db.c:165
 msgid "No Date"
 msgstr "无日期"
-
-#: ../plugins/macro/anjuta-macro.ui.h:2
-msgid "Edit…"
-msgstr "编辑..."
-
-#: ../plugins/macro/anjuta-macro.ui.h:3
-msgid "Macro details:"
-msgstr "宏细节："
-
-#: ../plugins/macro/anjuta-macro.ui.h:4
-msgid "Macro text:"
-msgstr "宏内容："
-
-#: ../plugins/macro/anjuta-macro.ui.h:5
-msgid "Macros:"
-msgstr "宏："
-
-#: ../plugins/macro/anjuta-macro.ui.h:7
-msgid "Shortcut:"
-msgstr "快捷方式："
-
-#: ../plugins/macro/macro-actions.c:127
-msgid "Press macro shortcut…"
-msgstr "按下宏快捷键..."
-
-#: ../plugins/macro/macro-actions.c:134
-msgid "Press shortcut"
-msgstr "快捷键"
-
-#: ../plugins/macro/macro-db.c:256
-msgid "Anjuta macros"
-msgstr "Anjuta 宏"
-
-#: ../plugins/macro/macro-db.c:260
-msgid "My macros"
-msgstr "我的宏"
-
-#: ../plugins/macro/macro-dialog.c:145
-#, c-format
-msgid ""
-"Name:\t %s\n"
-"Category:\t %s\n"
-"Shortcut:\t %c\n"
-msgstr ""
-"名称：\t %s\n"
-"类别：\t %s\n"
-"快捷方式：\t %c\n"
-
-#: ../plugins/macro/macro-dialog.c:277
-msgid "Insert"
-msgstr "插入"
-
-#: ../plugins/macro/macro-dialog.c:280
-msgid "Insert macro"
-msgstr "插入宏"
-
-#: ../plugins/macro/macro-edit.c:207
-msgid "Add/Edit macro"
-msgstr "添加/编辑 宏"
-
-#. Macros can expand the current date in the format specified below
-#: ../plugins/macro/macro-util.c:60
-msgid "%Y-%m-%d"
-msgstr "%Y年%m月%d日"
-
-#. Macros can expand the year in the format specified below
-#: ../plugins/macro/macro-util.c:74
-msgid "%Y"
-msgstr "%Y"
-
-#: ../plugins/macro/plugin.c:35
-msgid "Macros"
-msgstr "宏"
-
-#: ../plugins/macro/plugin.c:42
-msgid "_Insert Macro…"
-msgstr "插入宏(_I)..."
-
-#: ../plugins/macro/plugin.c:44
-msgid "Insert a macro using a shortcut"
-msgstr "使用快捷方式插入宏"
-
-#: ../plugins/macro/plugin.c:49
-msgid "_Add Macro…"
-msgstr "添加宏(_A)..."
-
-#: ../plugins/macro/plugin.c:51
-msgid "Add a macro"
-msgstr "添加宏"
-
-#: ../plugins/macro/plugin.c:56
-msgid "Macros…"
-msgstr "宏..."
-
-#: ../plugins/macro/plugin.c:58
-msgid "Add/Edit/Remove macros"
-msgstr "添加/编辑/删除宏"
-
-#: ../plugins/macro/plugin.c:116
-msgid "Macro operations"
-msgstr "宏操作"
 
 #. text style in editor
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:3
@@ -6854,23 +6766,23 @@ msgid ""
 msgstr "提供的 URI “%s”不能签出，返回错误：“%s”"
 
 #: ../plugins/project-import/project-import.ui.h:1
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:11
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:11
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:11
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:12
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:12
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:12
 #: ../plugins/project-wizard/templates/django.wiz.in.h:1
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:14
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:13
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:12
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:11
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:13
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:13
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:11
-#: ../plugins/project-wizard/templates/java.wiz.in.h:12
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:14
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:13
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:12
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:14
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:14
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:12
+#: ../plugins/project-wizard/templates/java.wiz.in.h:13
 #: ../plugins/project-wizard/templates/js.wiz.in.h:5
-#: ../plugins/project-wizard/templates/python.wiz.in.h:12
+#: ../plugins/project-wizard/templates/python.wiz.in.h:13
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:9
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:9
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:13
-#: ../plugins/project-wizard/templates/library.wiz.in.h:12
+#: ../plugins/project-wizard/templates/library.wiz.in.h:13
 #: ../plugins/subversion/anjuta-subversion.ui.h:9
 msgid "Destination:"
 msgstr "目的："
@@ -7241,27 +7153,23 @@ msgstr "警告"
 msgid "Message"
 msgstr "信息"
 
-#: ../plugins/project-wizard/druid.c:232
-msgid ""
-"<b>Confirm the following information:</b>\n"
-"\n"
-msgstr ""
-"<b>确认下列信息：</b>\n"
-"\n"
+#: ../plugins/project-wizard/druid.c:233
+msgid "Confirm the following information:"
+msgstr "确认下列信息："
 
 #. The project type is translated too, it is something like
 #. * generic, GNOME applet, Makefile project...
-#: ../plugins/project-wizard/druid.c:236
+#: ../plugins/project-wizard/druid.c:237
 #, c-format
 msgid "Project Type: %s\n"
 msgstr "项目类型：%s\n"
 
-#: ../plugins/project-wizard/druid.c:401
+#: ../plugins/project-wizard/druid.c:402
 #, c-format
 msgid "Unable to find any project template in %s"
 msgstr "在 %s 找不到项目模板"
 
-#: ../plugins/project-wizard/druid.c:613
+#: ../plugins/project-wizard/druid.c:627
 #, c-format
 msgid ""
 "\n"
@@ -7270,7 +7178,7 @@ msgstr ""
 "\n"
 "“%s”是必填的。请填上它。"
 
-#: ../plugins/project-wizard/druid.c:628
+#: ../plugins/project-wizard/druid.c:642
 #, c-format
 msgid ""
 "Field \"%s\" must start with a letter, a digit or an underscore and contain "
@@ -7279,7 +7187,7 @@ msgstr ""
 "“%s”字段必须以字母、数字和下划线开头，并且只能包含字母、数字、下划线、减号和"
 "英文句号。请改正。"
 
-#: ../plugins/project-wizard/druid.c:633
+#: ../plugins/project-wizard/druid.c:647
 #, c-format
 msgid ""
 "Field \"%s\" must start with a letter, a digit, an underscore or a directory "
@@ -7289,32 +7197,32 @@ msgstr ""
 "“%s”字段必须以字母、数字、下划线或目录分隔符开头，并且只能包含字母、数字、下"
 "划线、目录分隔符、减号和英文句号。请改正。"
 
-#: ../plugins/project-wizard/druid.c:638
+#: ../plugins/project-wizard/druid.c:652
 #, c-format
 msgid "Unknown error."
 msgstr "未知错误。"
 
-#: ../plugins/project-wizard/druid.c:665
+#: ../plugins/project-wizard/druid.c:679
 #, c-format
 msgid ""
 "Directory \"%s\" is not empty. Project creation could fail if some files "
 "cannot be written. Do you want to continue?"
 msgstr "“%s”目录非空。如果存在不能写入的文件，项目将会创建失败。仍然要继续吗？"
 
-#: ../plugins/project-wizard/druid.c:667
+#: ../plugins/project-wizard/druid.c:681
 #, c-format
 msgid "File \"%s\" already exists. Do you want to overwrite it?"
 msgstr "文件“%s”已存在。是否要覆盖？"
 
-#: ../plugins/project-wizard/druid.c:698
+#: ../plugins/project-wizard/druid.c:712
 msgid "Invalid entry"
 msgstr "无效的条目"
 
-#: ../plugins/project-wizard/druid.c:709
+#: ../plugins/project-wizard/druid.c:723
 msgid "Dubious entry"
 msgstr "含糊的条目"
 
-#: ../plugins/project-wizard/druid.c:870
+#: ../plugins/project-wizard/druid.c:884
 #, c-format
 msgid ""
 "\n"
@@ -7323,7 +7231,7 @@ msgstr ""
 "\n"
 "缺少程序：%s。"
 
-#: ../plugins/project-wizard/druid.c:881
+#: ../plugins/project-wizard/druid.c:895
 #, c-format
 msgid ""
 "\n"
@@ -7332,7 +7240,7 @@ msgstr ""
 "\n"
 "缺失这些包： %s."
 
-#: ../plugins/project-wizard/druid.c:890
+#: ../plugins/project-wizard/druid.c:904
 msgid ""
 "Some important programs or development packages required to build this "
 "project are missing. Please make sure they are installed properly before "
@@ -7341,11 +7249,11 @@ msgstr ""
 "创建这个项目所需的一些重要程序或开发包缺失。请在生成项目之前确认它们是否被正"
 "确的安装。\n"
 
-#: ../plugins/project-wizard/druid.c:898
+#: ../plugins/project-wizard/druid.c:912
 msgid "Install missing packages"
 msgstr "安装缺失的软件包"
 
-#: ../plugins/project-wizard/druid.c:906
+#: ../plugins/project-wizard/druid.c:920
 msgid ""
 "The missing programs are usually part of some distrubution packages and can "
 "be searched for in your Application Manager. Similarly, the development "
@@ -7359,11 +7267,11 @@ msgstr ""
 "包名一般会以 -dev 或 -devel 后缀结尾，并且可以在应用程序管理器中通过搜索找"
 "到。"
 
-#: ../plugins/project-wizard/druid.c:914
+#: ../plugins/project-wizard/druid.c:928
 msgid "Missing components"
 msgstr "缺少组件"
 
-#: ../plugins/project-wizard/druid.c:1046
+#: ../plugins/project-wizard/druid.c:1060
 #, c-format
 msgid "Unable to build project assistant user interface reading %s."
 msgstr "无法构建项目助手用户界面读取 %s。"
@@ -7405,7 +7313,7 @@ msgstr "正在执行：%s"
 
 #: ../plugins/project-wizard/plugin.c:50
 #, c-format
-msgid "Unable to extrat project template %s: %s"
+msgid "Unable to extract project template %s: %s"
 msgstr "无法提取项目模板 %s：%s"
 
 #: ../plugins/project-wizard/plugin.c:276
@@ -7413,33 +7321,33 @@ msgid "New Project Assistant"
 msgstr "新建项目向导"
 
 #: ../plugins/project-wizard/property.c:343
-#: ../plugins/project-wizard/property.c:497
+#: ../plugins/project-wizard/property.c:454
 msgid "No"
 msgstr "否"
 
-#: ../plugins/project-wizard/property.c:355
+#: ../plugins/project-wizard/property.c:354
 msgid "Select directory"
 msgstr "选择目录"
 
-#: ../plugins/project-wizard/property.c:363
+#: ../plugins/project-wizard/property.c:362
 msgid "Select file"
 msgstr "选择文件"
 
-#: ../plugins/project-wizard/property.c:455 ../plugins/tools/editor.c:522
+#: ../plugins/project-wizard/property.c:412 ../plugins/tools/editor.c:522
 msgid "Select an Image File"
 msgstr "选择一个图像文件"
 
-#: ../plugins/project-wizard/property.c:480
-#: ../plugins/project-wizard/property.c:570 ../plugins/tools/editor.c:556
+#: ../plugins/project-wizard/property.c:437
+#: ../plugins/project-wizard/property.c:527 ../plugins/tools/editor.c:556
 #: ../plugins/tools/editor.c:703
 msgid "Choose Icon"
 msgstr "选择图标"
 
-#: ../plugins/project-wizard/property.c:540
+#: ../plugins/project-wizard/property.c:497
 msgid "Choose directory"
 msgstr "选择目录"
 
-#: ../plugins/project-wizard/property.c:544
+#: ../plugins/project-wizard/property.c:501
 msgid "Choose file"
 msgstr "选择文件"
 
@@ -7454,7 +7362,6 @@ msgstr "通用最小化的项目"
 #: ../plugins/project-wizard/templates/xlib.wiz.in.h:2
 #: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:2
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:2
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:2
 #: ../plugins/project-wizard/templates/library.wiz.in.h:2
 msgid "Add C++ support:"
 msgstr "添加 C++ 支持："
@@ -7479,7 +7386,6 @@ msgstr "添加共享库支持："
 #: ../plugins/project-wizard/templates/xlib.wiz.in.h:5
 #: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:5
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:4
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:4
 #: ../plugins/project-wizard/templates/library.wiz.in.h:4
 msgid "Adds C++ support to the project so that C++ source files can be built"
 msgstr "为项目添加 C++ 支持，以便创建 C++ 源文件。"
@@ -7511,8 +7417,8 @@ msgstr "在您的项目中添加创建共享库的支持"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:8
 #: ../plugins/project-wizard/templates/js.wiz.in.h:3
 #: ../plugins/project-wizard/templates/python.wiz.in.h:8
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:4
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:7
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:8
 #: ../plugins/project-wizard/templates/library.wiz.in.h:7
 msgid "Basic information"
 msgstr "基本信息"
@@ -7530,8 +7436,8 @@ msgstr "基本信息"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:9
 #: ../plugins/project-wizard/templates/js.wiz.in.h:4
 #: ../plugins/project-wizard/templates/python.wiz.in.h:9
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:5
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:8
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:9
 #: ../plugins/project-wizard/templates/library.wiz.in.h:8
 msgid "Berkeley Software Distribution License (BSD)"
 msgstr "Berkeley Software Distribution License (BSD)"
@@ -7539,8 +7445,7 @@ msgstr "Berkeley Software Distribution License (BSD)"
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:9
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:9
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:9
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:12
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:9
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:8
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:10
 #: ../plugins/project-wizard/templates/wxwin.wiz.in.h:9
 #: ../plugins/project-wizard/templates/xlib.wiz.in.h:11
@@ -7548,15 +7453,15 @@ msgstr "Berkeley Software Distribution License (BSD)"
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:9
 #: ../plugins/project-wizard/templates/java.wiz.in.h:10
 #: ../plugins/project-wizard/templates/python.wiz.in.h:10
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:10
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:6
 #: ../plugins/project-wizard/templates/library.wiz.in.h:10
-msgid "Configure external packages"
-msgstr "配置外部包"
+msgid "Check the packages that your project requires"
+msgstr "选中您项目所需要的包"
 
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:10
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:10
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:10
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:13
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:12
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:10
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:11
 #: ../plugins/project-wizard/templates/wxwin.wiz.in.h:10
@@ -7565,75 +7470,70 @@ msgstr "配置外部包"
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:10
 #: ../plugins/project-wizard/templates/java.wiz.in.h:11
 #: ../plugins/project-wizard/templates/python.wiz.in.h:11
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:11
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:7
 #: ../plugins/project-wizard/templates/library.wiz.in.h:11
+msgid "Configure external packages"
+msgstr "配置外部包"
+
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:11
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:11
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:11
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:13
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:11
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:12
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:11
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:13
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:13
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:11
+#: ../plugins/project-wizard/templates/java.wiz.in.h:12
+#: ../plugins/project-wizard/templates/python.wiz.in.h:12
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:8
+#: ../plugins/project-wizard/templates/library.wiz.in.h:12
 msgid "Configure external packages:"
 msgstr "配置外部包："
-
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:12
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:12
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:12
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:15
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:16
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:13
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:12
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:14
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:14
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:12
-#: ../plugins/project-wizard/templates/java.wiz.in.h:13
-#: ../plugins/project-wizard/templates/js.wiz.in.h:6
-#: ../plugins/project-wizard/templates/python.wiz.in.h:13
-#: ../plugins/project-wizard/templates/sdl.wiz.in.h:10
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:16
-#: ../plugins/project-wizard/templates/library.wiz.in.h:13
-msgid "Email address:"
-msgstr "电子邮件地址："
 
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:13
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:13
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:13
-#: ../plugins/project-wizard/templates/django.wiz.in.h:4
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:17
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:15
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:17
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:15
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:14
 #: ../plugins/project-wizard/templates/wxwin.wiz.in.h:13
 #: ../plugins/project-wizard/templates/xlib.wiz.in.h:15
 #: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:15
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:14
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:13
 #: ../plugins/project-wizard/templates/java.wiz.in.h:14
-#: ../plugins/project-wizard/templates/js.wiz.in.h:7
+#: ../plugins/project-wizard/templates/js.wiz.in.h:6
 #: ../plugins/project-wizard/templates/python.wiz.in.h:14
-#: ../plugins/project-wizard/templates/sdl.wiz.in.h:11
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:18
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:10
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:10
 #: ../plugins/project-wizard/templates/library.wiz.in.h:14
+msgid "Email address:"
+msgstr "电子邮件地址："
+
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:14
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:14
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:14
+#: ../plugins/project-wizard/templates/django.wiz.in.h:4
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:17
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:18
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:16
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:14
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:16
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:16
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:15
+#: ../plugins/project-wizard/templates/java.wiz.in.h:15
+#: ../plugins/project-wizard/templates/js.wiz.in.h:7
+#: ../plugins/project-wizard/templates/python.wiz.in.h:15
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:11
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:11
+#: ../plugins/project-wizard/templates/library.wiz.in.h:15
 msgid "General Project Information"
 msgstr "项目常规信息"
 
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:15
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:16
 msgid "Generic (Minimal)"
 msgstr "通用 (Minimal)"
-
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:16
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:16
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:16
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:19
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:19
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:17
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:15
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:17
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:17
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:17
-#: ../plugins/project-wizard/templates/java.wiz.in.h:17
-#: ../plugins/project-wizard/templates/python.wiz.in.h:17
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:20
-#: ../plugins/project-wizard/templates/library.wiz.in.h:16
-msgid ""
-"Give a package name that your project require. You may also mention what is "
-"the required version of the package. For example, 'libgnomeui-2.0' or "
-"'libgnomeui-2.0 >= 2.2.0'"
-msgstr ""
-"给出您的项目所需要的包名。您还可以指出包的版本。例如： “libgnomeui-"
-"2.0”或“libgnomeui-2.0 >= 2.2.0”"
 
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:18
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:18
@@ -7648,8 +7548,8 @@ msgstr ""
 #: ../plugins/project-wizard/templates/java.wiz.in.h:19
 #: ../plugins/project-wizard/templates/js.wiz.in.h:11
 #: ../plugins/project-wizard/templates/python.wiz.in.h:19
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:14
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:14
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:24
 #: ../plugins/project-wizard/templates/library.wiz.in.h:19
 msgid "License"
 msgstr "许可"
@@ -7667,8 +7567,8 @@ msgstr "许可"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:22
 #: ../plugins/project-wizard/templates/js.wiz.in.h:12
 #: ../plugins/project-wizard/templates/python.wiz.in.h:20
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:15
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:16
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:25
 #: ../plugins/project-wizard/templates/library.wiz.in.h:20
 msgid "No license"
 msgstr "无许可"
@@ -7686,8 +7586,8 @@ msgstr "无许可"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:23
 #: ../plugins/project-wizard/templates/js.wiz.in.h:13
 #: ../plugins/project-wizard/templates/python.wiz.in.h:21
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:16
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:17
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:26
 #: ../plugins/project-wizard/templates/library.wiz.in.h:23
 msgid "Options for project build system"
 msgstr "项目创建系统选项"
@@ -7706,8 +7606,8 @@ msgstr "项目创建系统选项"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:24
 #: ../plugins/project-wizard/templates/js.wiz.in.h:14
 #: ../plugins/project-wizard/templates/python.wiz.in.h:22
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:17
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:18
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:27
 #: ../plugins/project-wizard/templates/library.wiz.in.h:24
 msgid "Project Name:"
 msgstr "项目名称："
@@ -7725,9 +7625,9 @@ msgstr "项目名称："
 #: ../plugins/project-wizard/templates/java.wiz.in.h:25
 #: ../plugins/project-wizard/templates/js.wiz.in.h:15
 #: ../plugins/project-wizard/templates/python.wiz.in.h:23
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:18
 #: ../plugins/project-wizard/templates/mkfile.wiz.in.h:6
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:19
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:28
 #: ../plugins/project-wizard/templates/library.wiz.in.h:25
 msgid "Project options"
 msgstr "项目选项"
@@ -7735,7 +7635,6 @@ msgstr "项目选项"
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:23
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:23
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:23
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:26
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:40
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:24
 #: ../plugins/project-wizard/templates/wxwin.wiz.in.h:22
@@ -7744,10 +7643,10 @@ msgstr "项目选项"
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:25
 #: ../plugins/project-wizard/templates/java.wiz.in.h:26
 #: ../plugins/project-wizard/templates/python.wiz.in.h:24
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:29
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:21
 #: ../plugins/project-wizard/templates/library.wiz.in.h:26
-msgid "Require Package:"
-msgstr "需要包："
+msgid "Required Packages:"
+msgstr "需要的包："
 
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:24
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:24
@@ -7762,8 +7661,8 @@ msgstr "需要包："
 #: ../plugins/project-wizard/templates/java.wiz.in.h:27
 #: ../plugins/project-wizard/templates/js.wiz.in.h:16
 #: ../plugins/project-wizard/templates/python.wiz.in.h:25
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:22
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:32
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:30
 #: ../plugins/project-wizard/templates/library.wiz.in.h:27
 msgid "Select code license"
 msgstr "选择代码许可"
@@ -7780,7 +7679,7 @@ msgstr "选择代码许可"
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:27
 #: ../plugins/project-wizard/templates/java.wiz.in.h:28
 #: ../plugins/project-wizard/templates/python.wiz.in.h:26
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:31
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:23
 #: ../plugins/project-wizard/templates/library.wiz.in.h:30
 msgid "Use pkg-config to add library support from other packages"
 msgstr "使用 pkg-config 以从其它软件包中添加库支持"
@@ -7798,8 +7697,8 @@ msgstr "使用 pkg-config 以从其它软件包中添加库支持"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:31
 #: ../plugins/project-wizard/templates/js.wiz.in.h:18
 #: ../plugins/project-wizard/templates/python.wiz.in.h:29
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:25
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:34
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:33
 #: ../plugins/project-wizard/templates/library.wiz.in.h:32
 msgid "project name"
 msgstr "项目名称"
@@ -7818,8 +7717,8 @@ msgstr "通用项目"
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:2
 #: ../plugins/project-wizard/templates/java.wiz.in.h:3
 #: ../plugins/project-wizard/templates/python.wiz.in.h:3
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:1
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:3
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:3
 #: ../plugins/project-wizard/templates/library.wiz.in.h:3
 msgid "Add internationalization:"
 msgstr "添加国际化："
@@ -7834,15 +7733,15 @@ msgstr "添加国际化："
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:5
 #: ../plugins/project-wizard/templates/java.wiz.in.h:6
 #: ../plugins/project-wizard/templates/python.wiz.in.h:6
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:2
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:5
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:5
 #: ../plugins/project-wizard/templates/library.wiz.in.h:5
 msgid ""
 "Adds support for internationalization so that your project can have "
 "translations in different languages"
 msgstr "添加国际化支持，让您项目能够被翻译成不同的语言"
 
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:15
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:16
 msgid "Generic"
 msgstr "通用"
 
@@ -7850,7 +7749,7 @@ msgstr "通用"
 msgid "A generic C++ project"
 msgstr "通用 C++ 项目"
 
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:15
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:16
 msgid "Generic C++"
 msgstr "通用 C++"
 
@@ -7881,6 +7780,19 @@ msgstr "添加 gtk-doc 系统："
 msgid "GTK+"
 msgstr "GTK+"
 
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:19
+msgid ""
+"Give a package name that your project require. You may also mention what is "
+"the required version of the package. For example, 'libgnomeui-2.0' or "
+"'libgnomeui-2.0 >= 2.2.0'"
+msgstr ""
+"给出您的项目所需要的包名。您还可以指出包的版本。例如： “libgnomeui-"
+"2.0”或“libgnomeui-2.0 >= 2.2.0”"
+
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:26
+msgid "Require Package:"
+msgstr "需要包："
+
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:30
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:28
 #: ../plugins/project-wizard/templates/java.wiz.in.h:30
@@ -7896,36 +7808,34 @@ msgstr "Anjuta 插件"
 msgid "Anjuta plugin project that uses libanjuta framework"
 msgstr "使用 libanjuta 框架的 Anjuta 插件项目"
 
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:8
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:9
 msgid ""
 "Comma separated, other plugins that this plugin depends on. It could be "
 "either primary interface name or plugin location (library:class)"
 msgstr ""
 "以逗号分割的、这个插件所依赖的其它插件。可以是主要界面名称或插件位置(库：类)"
 
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:11
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:12
 msgid "Create Gtk Builder interface file"
 msgstr "创建 Gtk Builder 界面文件"
 
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:12
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:13
 msgid "Create a template Gtk Builder interface file"
 msgstr "创建一个 Gtk Builder 界面文件模板"
 
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:14
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:15
 msgid "Display description of the plugin"
 msgstr "显示插件的描述"
 
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:15
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:16
 msgid "Display title of the plugin"
 msgstr "显示插件标题"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:20
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:21
 msgid "Icon File:"
 msgstr "图标文件："
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:21
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:22
 msgid "Icon file for the plugin"
 msgstr "插件的图标文件"
 
@@ -8000,7 +7910,7 @@ msgstr "插件是否有菜单或工具栏"
 msgid "A generic GTKmm (C++) project"
 msgstr "通用 GTKmm (C++) 项目"
 
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:14
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:15
 msgid "GTKmm"
 msgstr "GTKmm"
 
@@ -8033,11 +7943,11 @@ msgid ""
 "A generic natively compiled java project using the GNU Java Compiler (gcj)"
 msgstr "使用 GNU Java 编译器(gcj)进行本地编译的通用 java 项目"
 
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:13
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:14
 msgid "GCJ needs to know which class contains the main() function"
 msgstr "GCJ 需要知道哪一个类中含有 main() 函数"
 
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:16
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:17
 msgid "Generic gcj compiled java"
 msgstr "通用 gcj 编译的 java"
 
@@ -8050,7 +7960,7 @@ msgstr "主类："
 msgid "A generic java project using automake project management"
 msgstr "使用 automake 管理的通用 java 项目"
 
-#: ../plugins/project-wizard/templates/java.wiz.in.h:16
+#: ../plugins/project-wizard/templates/java.wiz.in.h:17
 msgid "Generic java (automake)"
 msgstr "通用 java (automake)"
 
@@ -8066,9 +7976,17 @@ msgstr "通用 JavaScript"
 msgid "A generic python project using automake project management"
 msgstr "使用 automake 管理的通用 python 项目"
 
-#: ../plugins/project-wizard/templates/python.wiz.in.h:16
+#: ../plugins/project-wizard/templates/python.wiz.in.h:17
 msgid "Generic python (automake)"
 msgstr "通用 python (automake)"
+
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:19
+msgid "PyGTK (automake)"
+msgstr "PyGTK (automake)"
+
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:20
+msgid "PyGTK project using automake"
+msgstr "采用 automake 的 PyGTK 项目"
 
 #: ../plugins/project-wizard/templates/mkfile.wiz.in.h:1
 msgid "Makefile project"
@@ -8145,26 +8063,6 @@ msgstr "需要 SDL_ttf："
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:31
 msgid "SDL"
 msgstr "SDL"
-
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:1
-msgid "A GNOME applet project"
-msgstr "GNOME 小程序项目"
-
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:6
-msgid "Applet Title:"
-msgstr "小程序标题："
-
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:14
-msgid "Display description of the applet"
-msgstr "显示小程序的描述"
-
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:15
-msgid "Display title of the applet"
-msgstr "显示小程序的标题"
-
-#: ../plugins/project-wizard/templates/gnome-applet.wiz.in.h:17
-msgid "GNOME Applet"
-msgstr "GNOME 小程序"
 
 #: ../plugins/project-wizard/templates/library.wiz.in.h:1
 msgid "A shared or a static library project"
@@ -8568,7 +8466,156 @@ msgstr[0] "%d 个匹配项被替换。"
 msgid "Unable to build user interface for Search and Replace"
 msgstr "无法为搜索和替换生成用户界面"
 
-#: ../plugins/sourceview/sourceview.c:395
+#: ../plugins/snippets-manager/plugin.c:60
+#: ../plugins/snippets-manager/plugin.c:292
+#: ../plugins/snippets-manager/snippets-browser.c:208
+msgid "Snippets"
+msgstr "片段"
+
+#: ../plugins/snippets-manager/plugin.c:67
+msgid "_Trigger insert"
+msgstr "热键插入(_T)"
+
+#: ../plugins/snippets-manager/plugin.c:69
+msgid "Insert a snippet using the trigger-key"
+msgstr "使用热键插入片段"
+
+#: ../plugins/snippets-manager/plugin.c:74
+msgid "_Auto complete insert"
+msgstr "自动补全插入(_A)"
+
+#: ../plugins/snippets-manager/plugin.c:76
+msgid "Insert a snippet using auto-completion"
+msgstr "采用自动补全插入片段"
+
+#: ../plugins/snippets-manager/plugin.c:81
+msgid "_Import snippets …"
+msgstr "导入片段(_I)..."
+
+#: ../plugins/snippets-manager/plugin.c:83
+msgid "Import snippets to the database"
+msgstr "将片段导入数据库"
+
+#: ../plugins/snippets-manager/plugin.c:88
+msgid "_Export snippets …"
+msgstr "导出片段(_E)..."
+
+#: ../plugins/snippets-manager/plugin.c:90
+msgid "Export snippets from the database"
+msgstr "从数据库导出片段"
+
+#: ../plugins/snippets-manager/plugin.c:317
+msgid "Snippets Manager actions"
+msgstr "片段管理器动作"
+
+#: ../plugins/snippets-manager/plugin.c:919
+#: ../plugins/snippets-manager/plugin.c:956
+#: ../plugins/snippets-manager/snippets-provider.c:753
+#: ../plugins/snippets-manager/anjuta-snippets-manager.plugin.in.h:2
+msgid "Code Snippets"
+msgstr "代码片段"
+
+#: ../plugins/snippets-manager/snippets-browser.c:549
+msgid "Trigger"
+msgstr "热键"
+
+#: ../plugins/snippets-manager/snippets-browser.c:560
+msgid "Languages"
+msgstr "语言"
+
+#. Insert the Add Snippet menu item
+#: ../plugins/snippets-manager/snippets-browser.c:808
+msgid "Add Snippet …"
+msgstr "添加片段..."
+
+#. Insert the Add Snippets Group menu item
+#: ../plugins/snippets-manager/snippets-browser.c:818
+msgid "Add Snippets Group …"
+msgstr "添加片段组..."
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:1
+msgid "Add"
+msgstr "添加"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:2
+msgid "Close"
+msgstr "关闭"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:3
+msgid "Insert"
+msgstr "插入"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:4
+msgid ""
+"Keywords are used for better searching of the snippets. They should be "
+"relevant to the snippet content. Type them separated by a single space."
+msgstr "关键词用于更好地搜索片段。他们应当与片段内容有关。输入时请用空格隔开。"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:5
+msgid "Keywords:"
+msgstr "关键词..."
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:6
+msgid "Languages:"
+msgstr "语言..."
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:7
+msgid "Preview"
+msgstr "预览"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:10
+msgid "Select the Snippets Group to which this snippet belongs."
+msgstr "选择片段所属的片段组。"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:11
+msgid "Select the languages for which you want to use this snippet."
+msgstr "选择片段用于的语言。"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:12
+msgid ""
+"Select the name of the Snippet. \n"
+"The role of the name is purely informative."
+msgstr ""
+"为片段选择名称。\n"
+"名称的作用仅仅是告知性的。"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:14
+msgid "Snippet Content"
+msgstr "片段内容"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:15
+msgid "Snippet Name:"
+msgstr "片段名称..."
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:16
+msgid "Snippet Properties"
+msgstr "片段属性"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:17
+msgid "Snippet Variables"
+msgstr "片段变量"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:18
+msgid "Snippets Group:"
+msgstr "片段组:"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:19
+msgid "Trigger Key:"
+msgstr "热键："
+
+#: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:1
+msgid "Anjuta variables"
+msgstr "Anjuta 变量"
+
+#: ../plugins/snippets-manager/snippets-import-export.c:145
+msgid "Import Snippets"
+msgstr "导入片段"
+
+#: ../plugins/snippets-manager/snippets-import-export.c:190
+msgid "Export Snippets"
+msgstr "导出片段"
+
+#: ../plugins/sourceview/sourceview.c:478
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
@@ -8577,7 +8624,7 @@ msgstr ""
 "在磁盘内文件“%s”的内容比当前的文件内容还要新。\n"
 "是否需要重新加载这个文件？ "
 
-#: ../plugins/sourceview/sourceview.c:432
+#: ../plugins/sourceview/sourceview.c:515
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -8587,18 +8634,18 @@ msgstr ""
 "要关闭它吗？"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:469
+#: ../plugins/sourceview/sourceview.c:552
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "无法打开 %s： %s"
 
-#: ../plugins/sourceview/sourceview.c:523
+#: ../plugins/sourceview/sourceview.c:606
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr "文件“%s”是只读的！仍然要编辑吗？"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:582
+#: ../plugins/sourceview/sourceview.c:665
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "无法保存 %s：%s"
@@ -9168,83 +9215,83 @@ msgstr "Subversion：比较完成。"
 msgid "Subversion: Update complete."
 msgstr "Subversion：更新完成。"
 
-#: ../plugins/subversion/svn-command.c:158
-#: ../plugins/subversion/svn-command.c:225
+#: ../plugins/subversion/svn-command.c:168
+#: ../plugins/subversion/svn-command.c:231
 msgid "Authentication canceled"
 msgstr "验证取消"
 
-#: ../plugins/subversion/svn-command.c:198
+#: ../plugins/subversion/svn-command.c:204
 msgid "Hostname:"
 msgstr "主机名："
 
-#: ../plugins/subversion/svn-command.c:199
+#: ../plugins/subversion/svn-command.c:205
 msgid "Fingerprint:"
 msgstr "指纹："
 
-#: ../plugins/subversion/svn-command.c:200
+#: ../plugins/subversion/svn-command.c:206
 msgid "Valid from:"
 msgstr "有效自："
 
-#: ../plugins/subversion/svn-command.c:201
+#: ../plugins/subversion/svn-command.c:207
 msgid "Valid until:"
 msgstr "有效至："
 
-#: ../plugins/subversion/svn-command.c:202
+#: ../plugins/subversion/svn-command.c:208
 msgid "Issuer DN:"
 msgstr "证书发行者特征名称："
 
-#: ../plugins/subversion/svn-command.c:203
+#: ../plugins/subversion/svn-command.c:209
 msgid "DER certificate:"
 msgstr "DER 认证："
 
-#: ../plugins/subversion/svn-command.c:350
-#: ../plugins/subversion/svn-command.c:366
+#: ../plugins/subversion/svn-command.c:375
+#: ../plugins/subversion/svn-command.c:391
 #, c-format
 msgid "Deleted: %s"
 msgstr "已删除：%s"
 
-#: ../plugins/subversion/svn-command.c:353
-#: ../plugins/subversion/svn-command.c:372
+#: ../plugins/subversion/svn-command.c:378
+#: ../plugins/subversion/svn-command.c:397
 #, c-format
 msgid "Added: %s"
 msgstr "已添加：%s"
 
-#: ../plugins/subversion/svn-command.c:363
+#: ../plugins/subversion/svn-command.c:388
 #, c-format
 msgid "Resolved: %s"
 msgstr "已解决：%s"
 
-#: ../plugins/subversion/svn-command.c:369
+#: ../plugins/subversion/svn-command.c:394
 #, c-format
 msgid "Updated: %s"
 msgstr "已更新：%s"
 
-#: ../plugins/subversion/svn-command.c:375
+#: ../plugins/subversion/svn-command.c:400
 #, c-format
 msgid "Externally Updated: %s"
 msgstr "已外部更新：%s"
 
-#: ../plugins/subversion/svn-command.c:409
+#: ../plugins/subversion/svn-command.c:434
 #, c-format
 msgid "Modified: %s"
 msgstr "已修改：%s"
 
-#: ../plugins/subversion/svn-command.c:412
+#: ../plugins/subversion/svn-command.c:437
 #, c-format
 msgid "Merged: %s"
 msgstr "已合并：%s"
 
-#: ../plugins/subversion/svn-command.c:415
+#: ../plugins/subversion/svn-command.c:440
 #, c-format
 msgid "Conflicted: %s"
 msgstr "冲突：%s"
 
-#: ../plugins/subversion/svn-command.c:419
+#: ../plugins/subversion/svn-command.c:444
 #, c-format
 msgid "Missing: %s"
 msgstr "缺少：%s"
 
-#: ../plugins/subversion/svn-command.c:422
+#: ../plugins/subversion/svn-command.c:447
 #, c-format
 msgid "Obstructed: %s"
 msgstr "阻塞： %s"
@@ -9294,19 +9341,19 @@ msgstr "正在生成继承..."
 msgid "%d files scanned out of %d"
 msgstr "自 %2$d 个文件中扫描了 %1$d 个"
 
-#: ../plugins/symbol-db/plugin.c:1723
+#: ../plugins/symbol-db/plugin.c:1726
 msgid "Populating symbol database…"
 msgstr "正在填充符号库..."
 
-#: ../plugins/symbol-db/plugin.c:2042 ../plugins/symbol-db/plugin.c:2127
+#: ../plugins/symbol-db/plugin.c:2045 ../plugins/symbol-db/plugin.c:2130
 msgid "Symbols"
 msgstr "符号"
 
-#: ../plugins/symbol-db/plugin.c:2136
+#: ../plugins/symbol-db/plugin.c:2139
 msgid "SymbolDb popup actions"
 msgstr "SymbolDb 弹出动作"
 
-#: ../plugins/symbol-db/plugin.c:2144
+#: ../plugins/symbol-db/plugin.c:2147
 msgid "SymbolDb menu actions"
 msgstr "SymbolDb 菜单动作"
 
@@ -9324,7 +9371,7 @@ msgstr "符号库"
 msgid "API Tags"
 msgstr "API 标签"
 
-#: ../plugins/symbol-db/symbol-db-system.c:807
+#: ../plugins/symbol-db/symbol-db-system.c:817
 msgid "Resuming glb scan."
 msgstr "继续 glb 扫描。"
 
@@ -10012,10 +10059,12 @@ msgid "Do not display warning if not using a Debug configuration"
 msgstr "如果没有使用调试选项就不显示警告信息"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:1
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:1
 msgid "Add '(' after function call autocompletion"
 msgstr "函数调用自动补全后添加“(”"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:2
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:2
 msgid "Add a space after function call autocompletion"
 msgstr "函数调用自动补全后添加空格"
 
@@ -10024,18 +10073,22 @@ msgid "Auto-complete"
 msgstr "自动补全"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:4
-msgid "Autocompletion (C/C++/Java only)"
-msgstr "自动补全 (仅 C/C++/Java)"
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:4
+msgid "Autocompletion"
+msgstr "自动补全"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:5
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:5
 msgid "Brace indentation size in spaces:"
 msgstr "大括号缩进的空白长度："
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:6
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:6
 msgid "Calltips"
 msgstr "调用提示"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:7
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:8
 msgid "Enable code completion"
 msgstr "启用代码补全"
 
@@ -10044,6 +10097,7 @@ msgid "Enable smart brace completion"
 msgstr "启用智能大括号补全"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:9
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:9
 msgid "Enable smart indentation"
 msgstr "启用智能缩进"
 
@@ -10052,6 +10106,7 @@ msgid "Indent:"
 msgstr "缩进："
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:11
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:11
 msgid "Indentation parameters"
 msgstr "缩进参数"
 
@@ -10064,23 +10119,29 @@ msgid "Parenthesis indentation"
 msgstr "括号缩进"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:14
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:7
 msgid "Show calltips"
 msgstr "显示调用提示"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:15
 msgid "Smart Indentation"
 msgstr "智能缩进"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:16
 msgid "Statement indentation size in spaces:"
 msgstr "智能缩进的空白长度："
 
+#. ANJUTA_STOCK_AUTOINDENT,
 #: ../plugins/language-support-cpp-java/plugin.c:1882
+#: ../plugins/language-support-python/plugin.c:1182
 msgid "Auto-Indent"
 msgstr "自动缩进"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1883
+#: ../plugins/language-support-python/plugin.c:1183
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr "根据缩进设置自动缩进当前或选中行"
 
@@ -10101,9 +10162,57 @@ msgstr "C++/Java 辅助"
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
-#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1231
+#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1258
 msgid "C/C++"
 msgstr "C/C++"
+
+#: ../plugins/language-support-python/plugin.c:907
+msgid "Python support warning"
+msgstr "Python 支持警告"
+
+#: ../plugins/language-support-python/plugin.c:915
+msgid ""
+"Either python path is wrong or python-rope (http://rope.sf.net) libraries\n"
+"aren't installed. Both are required for autocompletion in python files.\n"
+"Please install them and check the python path in the preferences."
+msgstr ""
+"python 路径错误或 python-rope (http://rope.sf.net) 库未安装。\n"
+"两者对 python 文件的自动补全均必需。\n"
+"请安装他们后检查首选项中的 python 路径。"
+
+#: ../plugins/language-support-python/plugin.c:918
+msgid "Do not show that warning again"
+msgstr "不再显示该警告"
+
+#: ../plugins/language-support-python/plugin.c:1264
+msgid "Python Assistance"
+msgstr "Python 辅助"
+
+#: ../plugins/language-support-python/plugin.c:1364
+#: ../plugins/language-support-python/plugin.c:1373
+#: ../plugins/language-support-python/python-assist.c:937
+msgid "Python"
+msgstr "Python"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:3
+msgid "Autocomplete"
+msgstr "自动补全"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:7
+msgid "Enable adaptive indentation"
+msgstr "启用自适应缩进"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:10
+msgid "Environment"
+msgstr "环境"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:12
+msgid "Interpreter"
+msgstr "解析器"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:13
+msgid "Path: "
+msgstr "路径："
 
 #: ../plugins/sourceview/plugin.c:232 ../plugins/sourceview/plugin.c:273
 msgid "GtkSourceView Editor"
@@ -10176,14 +10285,6 @@ msgstr "任务管理器"
 #: ../plugins/gtodo/anjuta-gtodo.plugin.in.h:2
 msgid "Todo Plugin for Anjuta."
 msgstr "Anjuta 的 Todo 插件。"
-
-#: ../plugins/macro/anjuta-macro.plugin.in.h:1
-msgid "Insert predefined macros into Editor"
-msgstr "向编辑器插入预定义宏"
-
-#: ../plugins/macro/anjuta-macro.plugin.in.h:2
-msgid "Macro Plugin"
-msgstr "宏插件"
 
 #: ../plugins/patch/anjuta-patch.plugin.in.h:1
 msgid "Patch Plugin"
@@ -10281,6 +10382,10 @@ msgstr "Anjuta 的项目管理器插件"
 msgid "Symbol Database Plugin for Anjuta."
 msgstr "Anjuta 符号库插件"
 
+#: ../plugins/snippets-manager/anjuta-snippets-manager.plugin.in.h:1
+msgid "Allows insertion of snippets into the editor."
+msgstr "允许向编辑器插入片段。"
+
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Manages messages from external apps"
 msgstr "管理外部程序的消息"
@@ -10365,24 +10470,24 @@ msgid "JavaScript Support Plugin"
 msgstr "JavaScript 支持插件"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:1
-msgid "<b>JS Find dirs</b>"
-msgstr "<b>JS 查找目录</b>"
-
-#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:2
 msgid "Add brace after function call autocompletion"
 msgstr "函数调用自动补全后添加括号"
 
-#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:3
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:2
 msgid "Gir repository's directory:   "
 msgstr "Gir 仓库的目录："
 
-#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:4
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:3
 msgid "Gjs repository's directory:   "
 msgstr "Gjs 仓库的目录："
 
-#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:5
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:4
 msgid "Highlight missed semicolon"
 msgstr "高亮显示缺失的分号"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:5
+msgid "JS Find dirs"
+msgstr "JS 查找目录"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
 msgid "Min character for completion "
@@ -10391,6 +10496,117 @@ msgstr "代码补全的最少字符"
 #: ../plugins/symbol-db/symbol-db-views.c:182
 msgid "Symbol"
 msgstr "符号"
+
+#~ msgid ""
+#~ "<b>There is %d item with unsaved changes. Save changes before closing?</b>"
+#~ msgid_plural ""
+#~ "<b>There are %d items with unsaved changes. Save changes before closing?</"
+#~ "b>"
+#~ msgstr[0] "<b>%d 项有未保存的更改。是否在关闭前保存？</b>"
+
+#~ msgid ""
+#~ "The following pretty printers, without a register functions, have been "
+#~ "disabled:\n"
+#~ " %s"
+#~ msgstr ""
+#~ "下列没有寄存器功能的代码美化工具已被禁用：\n"
+#~ "%s"
+
+#~ msgid "Edit…"
+#~ msgstr "编辑..."
+
+#~ msgid "Macro details:"
+#~ msgstr "宏细节："
+
+#~ msgid "Macro text:"
+#~ msgstr "宏内容："
+
+#~ msgid "Macros:"
+#~ msgstr "宏："
+
+#~ msgid "Shortcut:"
+#~ msgstr "快捷方式："
+
+#~ msgid "Press macro shortcut…"
+#~ msgstr "按下宏快捷键..."
+
+#~ msgid "Press shortcut"
+#~ msgstr "快捷键"
+
+#~ msgid "Anjuta macros"
+#~ msgstr "Anjuta 宏"
+
+#~ msgid "My macros"
+#~ msgstr "我的宏"
+
+#~ msgid ""
+#~ "Name:\t %s\n"
+#~ "Category:\t %s\n"
+#~ "Shortcut:\t %c\n"
+#~ msgstr ""
+#~ "名称：\t %s\n"
+#~ "类别：\t %s\n"
+#~ "快捷方式：\t %c\n"
+
+#~ msgid "Insert macro"
+#~ msgstr "插入宏"
+
+#~ msgid "Add/Edit macro"
+#~ msgstr "添加/编辑 宏"
+
+#~ msgid "%Y-%m-%d"
+#~ msgstr "%Y年%m月%d日"
+
+#~ msgid "%Y"
+#~ msgstr "%Y"
+
+#~ msgid "Macros"
+#~ msgstr "宏"
+
+#~ msgid "_Insert Macro…"
+#~ msgstr "插入宏(_I)..."
+
+#~ msgid "Insert a macro using a shortcut"
+#~ msgstr "使用快捷方式插入宏"
+
+#~ msgid "_Add Macro…"
+#~ msgstr "添加宏(_A)..."
+
+#~ msgid "Add a macro"
+#~ msgstr "添加宏"
+
+#~ msgid "Macros…"
+#~ msgstr "宏..."
+
+#~ msgid "Add/Edit/Remove macros"
+#~ msgstr "添加/编辑/删除宏"
+
+#~ msgid "Macro operations"
+#~ msgstr "宏操作"
+
+#~ msgid "A GNOME applet project"
+#~ msgstr "GNOME 小程序项目"
+
+#~ msgid "Applet Title:"
+#~ msgstr "小程序标题："
+
+#~ msgid "Display description of the applet"
+#~ msgstr "显示小程序的描述"
+
+#~ msgid "Display title of the applet"
+#~ msgstr "显示小程序的标题"
+
+#~ msgid "GNOME Applet"
+#~ msgstr "GNOME 小程序"
+
+#~ msgid "Autocompletion (C/C++/Java only)"
+#~ msgstr "自动补全 (仅 C/C++/Java)"
+
+#~ msgid "Insert predefined macros into Editor"
+#~ msgstr "向编辑器插入预定义宏"
+
+#~ msgid "Macro Plugin"
+#~ msgstr "宏插件"
 
 #~ msgid "private"
 #~ msgstr "private"
@@ -10530,9 +10746,6 @@ msgstr "符号"
 
 #~ msgid "Insert handler stub"
 #~ msgstr "插入处理句柄"
-
-#~ msgid "Insert handler stub, autoposition"
-#~ msgstr "插入处理句柄，自动定位"
 
 #~ msgid "Associate last designer and last editor"
 #~ msgstr "关联最后使用的设计器和编辑器"
@@ -10847,9 +11060,6 @@ msgstr "符号"
 
 #~ msgid "Ctags executable:"
 #~ msgstr "Ctags 可执行文件："
-
-#~ msgid "Enable adaptive indentation"
-#~ msgstr "启用自适应缩进"
 
 #~ msgid "Pressing tab indents"
 #~ msgstr "按 Tab 键缩进"
@@ -11416,10 +11626,6 @@ msgstr "符号"
 #~ msgstr "编辑"
 
 #, fuzzy
-#~ msgid "Preview"
-#~ msgstr "打印预览"
-
-#, fuzzy
 #~ msgid "Failed to create pipe to '%s': %s"
 #~ msgstr "无法载入工程：%s"
 
@@ -11444,10 +11650,6 @@ msgstr "符号"
 
 #~ msgid "Cu_t"
 #~ msgstr "剪切(_T)"
-
-#, fuzzy
-#~ msgid "Suppress"
-#~ msgstr "支持"
 
 #, fuzzy
 #~ msgid "Show"
@@ -11664,10 +11866,6 @@ msgstr "符号"
 #, fuzzy
 #~ msgid "Directories to scan"
 #~ msgstr "目录"
-
-#, fuzzy
-#~ msgid "Anjuta tags files"
-#~ msgstr "Anjuta 工程文件"
 
 #, fuzzy
 #~ msgid "Symbol Browser"

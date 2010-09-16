@@ -212,6 +212,7 @@ while ($line = <INFILE>)
 	}
 	
 	my $class;
+	my $typedef_hr = {};
 	if (is_interface($line, \$class))
 	{
 		push @level, "interface";
@@ -241,15 +242,14 @@ while ($line = <INFILE>)
 		$linenum++;
 		next;
 	}
-	elsif (is_typedef($line, \$typedef))
+	elsif (is_typedef($line, $typedef_hr))
 	{
 		die "Parse error at $idl_file:$linenum: typedefs should only be in interface"
 			if (current_level(@level) ne "interface");
 		die "Parse error at $idl_file:$linenum: Class name expected"
 			if ($current_class eq "");
 		my $comments_in = get_comments();
-		compile_typedef($data_hr, $current_class, $comments_in, $typedef);
-		$typedef = "";
+		compile_typedef($data_hr, $current_class, $comments_in, $typedef_hr);
 		$linenum++;
 		next;
 	}
@@ -417,7 +417,7 @@ sub is_struct
 
 sub is_typedef
 {
-	my ($line, $typedef_ref) = @_;
+	my ($line, $typedef_hr) = @_;
 	if ($line =~ /^\s*typedef\s*/)
 	{
 		## Check if it is variable typedef and grab the typedef name.
@@ -430,7 +430,7 @@ sub is_typedef
 		{
 			add_class_private ($current_class, $1);
 		}
-		$$typedef_ref = $line;
+		$typedef_hr->{'line'} = $line;
 		## print "Typedef: $line\n";
 		return 1;
 	}
@@ -620,14 +620,16 @@ sub compile_define
 
 sub compile_typedef
 {
-	my ($data_hr, $current_class, $comments, $typedef) = @_;
+	my ($data_hr, $current_class, $comments, $typedef_hr) = @_;
 	my $class_hr = $data_hr->{$current_class};
 	if (!defined($class_hr->{"__typedefs"}))
 	{
 		$class_hr->{"__typedefs"} = [];
 	}
 	my $typedefs_lr = $class_hr->{"__typedefs"};
-	push (@$typedefs_lr, $typedef);
+
+	$typedef_hr->{'__comments'} = $comments;
+	push (@$typedefs_lr, $typedef_hr);
 }
 
 sub compile_enum
@@ -1136,8 +1138,9 @@ typedef struct _${class}Iface ${class}Iface;\n\n";
 	{
 		foreach my $td (@$typedefs_lr)
 		{
-			$td = normalize_namespace ($class, $td);
-			$answer .= $td . "\n";
+			my $comments_out = $td->{'__comments'};
+			my $line = normalize_namespace ($class, $td->{'line'});
+			$answer .= "${comments_out}${line}\n\n";
 		}
 		$answer .= "\n";
 	}

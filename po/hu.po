@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-28 12:47+0200\n"
-"PO-Revision-Date: 2010-08-28 12:49+0200\n"
+"POT-Creation-Date: 2010-08-31 02:06+0200\n"
+"PO-Revision-Date: 2010-08-31 02:06+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng at gnome dot hu>\n"
 "Language-Team: Hungarian <gnome at fsf dot hu>\n"
 "MIME-Version: 1.0\n"
@@ -39,7 +39,8 @@ msgstr "A bővítménymodul (%s) nem található"
 #: ../libanjuta/anjuta-c-module.c:222
 #, c-format
 msgid "Unable to find plugin registration function %s in module %s"
-msgstr "Nem található a bővítményregisztrációs függvény (%s) a következő modulban: %s"
+msgstr ""
+"Nem található a bővítményregisztrációs függvény (%s) a következő modulban: %s"
 
 #: ../libanjuta/anjuta-c-module.c:228
 #, c-format
@@ -282,7 +283,8 @@ msgstr "Válasszon ki egy aktiválandó bővítményt"
 #: ../libanjuta/anjuta-plugin-manager.c:1372
 #, c-format
 msgid "No plugin is able to load other plugins in %s"
-msgstr "Nincs más bővítmények betöltésére képes bővítmény a következő helyen: %s"
+msgstr ""
+"Nincs más bővítmények betöltésére képes bővítmény a következő helyen: %s"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1962
 msgid "Remember this selection"
@@ -322,7 +324,8 @@ msgstr "Anjuta állapot"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2322
 msgid "Anjuta status to use in loading and unloading of plugins"
-msgstr "A bővítmények betöltésekor és eltávolításakor használandó Anjuta állapot"
+msgstr ""
+"A bővítmények betöltésekor és eltávolításakor használandó Anjuta állapot"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
@@ -446,13 +449,12 @@ msgstr "_Változtatások eldobása"
 #: ../libanjuta/anjuta-save-prompt.c:296
 #, c-format
 msgid "There is %d item with unsaved changes. Save changes before closing?"
-msgid_plural "There are %d items with unsaved changes. Save changes before closing?"
+msgid_plural ""
+"There are %d items with unsaved changes. Save changes before closing?"
 msgstr[0] ""
-"%d elemben mentetlen módosítások vannak. Menti a módosításokat bezárás "
-"előtt?"
+"%d elemben mentetlen módosítások vannak. Menti a módosításokat bezárás előtt?"
 msgstr[1] ""
-"%d elemben mentetlen módosítások vannak. Menti a módosításokat bezárás "
-"előtt?"
+"%d elemben mentetlen módosítások vannak. Menti a módosításokat bezárás előtt?"
 
 #: ../libanjuta/anjuta-save-prompt.c:305
 msgid "There is an item with unsaved changes. Save changes before closing?"
@@ -653,7 +655,8 @@ msgstr "Betűkészlet-család"
 
 #: ../libfoocanvas/foo-canvas-text.c:231
 msgid "Name of the font family, e.g. Sans, Helvetica, Times, Monospace"
-msgstr "A betűkészlet-család megnevezése, például Sans, Helvetica, Times, Monospace"
+msgstr ""
+"A betűkészlet-család megnevezése, például Sans, Helvetica, Times, Monospace"
 
 #: ../libfoocanvas/foo-canvas-text.c:247 ../libfoocanvas/foo-canvas-text.c:248
 msgid "Font style"
@@ -688,8 +691,10 @@ msgid "Rise"
 msgstr "Eltolás"
 
 #: ../libfoocanvas/foo-canvas-text.c:312
-msgid "Offset of text above the baseline (below the baseline if rise is negative)"
-msgstr "Szöveg eltolása az alapvonal fölé (ha az eltolás negatív, az alapvonal alá)"
+msgid ""
+"Offset of text above the baseline (below the baseline if rise is negative)"
+msgstr ""
+"Szöveg eltolása az alapvonal fölé (ha az eltolás negatív, az alapvonal alá)"
 
 #: ../libfoocanvas/foo-canvas-text.c:322
 msgid "Strikethrough"
@@ -1066,12 +1071,14 @@ msgstr ""
 #: ../plugins/build-basic-autotools/plugin.c:1823
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
-msgstr "„%s” nem fordítható: nincs megadva fordítási szabály ehhez a fájltípushoz."
+msgstr ""
+"„%s” nem fordítható: nincs megadva fordítási szabály ehhez a fájltípushoz."
 
 #: ../plugins/build-basic-autotools/plugin.c:1958
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
-msgstr "Nem konfigurálható a projekt: a configure parancsfájl hiányzik innen: %s."
+msgstr ""
+"Nem konfigurálható a projekt: a configure parancsfájl hiányzik innen: %s."
 
 #: ../plugins/build-basic-autotools/plugin.c:2439
 #: ../plugins/build-basic-autotools/plugin.c:2513
@@ -1168,7 +1175,8 @@ msgid "Remove Configuration"
 msgstr "Konfiguráció eltávolítása"
 
 #: ../plugins/build-basic-autotools/plugin.c:2504
-msgid "Clean project (distclean) and remove configuration directory if possible"
+msgid ""
+"Clean project (distclean) and remove configuration directory if possible"
 msgstr ""
 "Projekt tisztítása (distclean) és a konfigurációs könyvtár eltávolítása, ha "
 "lehetséges"
@@ -3308,7 +3316,7 @@ msgstr "Gyors keresés ismétlése"
 #: ../plugins/document-manager/plugin.c:273 ../plugins/gtodo/interface.c:158
 #: ../src/anjuta-actions.h:30
 #: ../plugins/language-support-cpp-java/plugin.c:1876
-#: ../plugins/language-support-python/plugin.c:1175
+#: ../plugins/language-support-python/plugin.c:1176
 msgid "_Edit"
 msgstr "S_zerkesztés"
 
@@ -4260,7 +4268,8 @@ msgstr "Adja meg a csoportnevet"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2973
 msgid "Group name can only contain alphanumeric, '_', '-' or '.' characters"
-msgstr "A csoportnév csak betűket, számokat, illetve _ - . karaktereket tartalmazhat"
+msgstr ""
+"A csoportnév csak betűket, számokat, illetve _ - . karaktereket tartalmazhat"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2982
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2925
@@ -4289,7 +4298,8 @@ msgstr "Adja meg a cél nevét"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3227
 msgid "Target name can only contain alphanumeric, '_', '-' or '.' characters"
-msgstr "A célnév csak betűket, számokat, illetve _ - . karaktereket tartalmazhat"
+msgstr ""
+"A célnév csak betűket, számokat, illetve _ - . karaktereket tartalmazhat"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3236
 msgid "Shared library target name must be of the form 'libxxx.la'"
@@ -4324,7 +4334,8 @@ msgid "Source doesn't exist"
 msgstr "A forrás nem létezik"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3532
-msgid "Source file name can only contain alphanumeric, '_', '-' or '.' characters"
+msgid ""
+"Source file name can only contain alphanumeric, '_', '-' or '.' characters"
 msgstr ""
 "A forrásfájl neve csak betűket, számokat, illetve _ - . karaktereket "
 "tartalmazhat"
@@ -4720,7 +4731,8 @@ msgstr "Hiba a folyamatnak való szignálküldés közben."
 
 #: ../plugins/gdb/plugin.c:117
 #, c-format
-msgid "Failed to create FIFO file named %s. The program will run without a terminal."
+msgid ""
+"Failed to create FIFO file named %s. The program will run without a terminal."
 msgstr ""
 "A(z) %s nevű FIFO fájl létrehozása meghiúsult. A program terminál nélkül fog "
 "futni."
@@ -5212,7 +5224,8 @@ msgstr "Törlendő címkék:"
 
 #: ../plugins/git/anjuta-git.ui.h:113
 msgid "This commit concludes a failed merge (use -i)"
-msgstr "Ez a revízió egy meghiúsult egyesítést zár le (használja a -i kapcsolót)"
+msgstr ""
+"Ez a revízió egy meghiúsult egyesítést zár le (használja a -i kapcsolót)"
 
 #: ../plugins/git/anjuta-git.ui.h:115
 msgid "To:"
@@ -5757,7 +5770,8 @@ msgstr "_Megszakítás"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:273
-msgid "Stop applying the series and return the repository to its original state"
+msgid ""
+"Stop applying the series and return the repository to its original state"
 msgstr ""
 "A sorozat alkalmazásának megszakítása és a tároló visszaállítása az eredeti "
 "állapotba"
@@ -5879,7 +5893,8 @@ msgstr "_Mazsolázás…"
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:361
-msgid "Selectively merge individual changes from other branches into the current one"
+msgid ""
+"Selectively merge individual changes from other branches into the current one"
 msgstr "Egyedi módosítások szelektív egyesítése más ágakból a jelenlegibe"
 
 #. Action name
@@ -6811,7 +6826,8 @@ msgstr ""
 #: ../plugins/project-import/plugin.c:290
 #: ../plugins/project-import/plugin.c:346
 #, c-format
-msgid "Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
+msgid ""
+"Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
 msgstr "A megadott URI („%s”) nem tölthető le. A visszaadott hiba: „%s”"
 
 #: ../plugins/project-import/project-import.ui.h:1
@@ -7448,7 +7464,8 @@ msgstr "Osztott programkönyvtárak támogatása:"
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:4
 #: ../plugins/project-wizard/templates/library.wiz.in.h:4
 msgid "Adds C++ support to the project so that C++ source files can be built"
-msgstr "C++ támogatás hozzáadása a projekthez, így C++ fájlok is használhatók lesznek"
+msgstr ""
+"C++ támogatás hozzáadása a projekthez, így C++ fájlok is használhatók lesznek"
 
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:5
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:4
@@ -8009,7 +8026,8 @@ msgid "Xlib dock"
 msgstr "Xlib dokk"
 
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:1
-msgid "A generic natively compiled java project using the GNU Java Compiler (gcj)"
+msgid ""
+"A generic natively compiled java project using the GNU Java Compiler (gcj)"
 msgstr ""
 "Általános, natívan fordított, a GNU Java Compilert (gcj) használó Java "
 "projekt"
@@ -8418,7 +8436,8 @@ msgid "Find and R_eplace…"
 msgstr "Keresés és _csere…"
 
 #: ../plugins/search/plugin.c:80
-msgid "Search for and replace a string or regular expression with another string"
+msgid ""
+"Search for and replace a string or regular expression with another string"
 msgstr ""
 "Egy karakterlánc vagy reguláris kifejezés keresése és cseréje egy másik "
 "karakterlánccal"
@@ -9736,7 +9755,8 @@ msgstr "A fájlkezelő bővítményben kiválasztott teljes fájlnév"
 
 #: ../plugins/tools/variable.c:89
 msgid "Selected full file name without extension in the file manager plugin"
-msgstr "A fájlkezelő bővítményben kiválasztott teljes fájlnév, kiterjesztés nélkül"
+msgstr ""
+"A fájlkezelő bővítményben kiválasztott teljes fájlnév, kiterjesztés nélkül"
 
 #: ../plugins/tools/variable.c:90
 msgid "Selected file name in the file manager plugin"
@@ -9764,7 +9784,8 @@ msgstr "A projektkezelő bővítményben kiválasztott teljes fájlnév"
 
 #: ../plugins/tools/variable.c:96
 msgid "Selected full file name without extension in the project manager plugin"
-msgstr "A projektkezelő bővítményben kiválasztott teljes fájlnév, kiterjesztés nélkül"
+msgstr ""
+"A projektkezelő bővítményben kiválasztott teljes fájlnév, kiterjesztés nélkül"
 
 #: ../plugins/tools/variable.c:97
 msgid "Selected file name in the project manager plugin"
@@ -10052,7 +10073,8 @@ msgstr "Ne nyissa meg az utolsó projektet és fájlokat indításkor"
 
 #: ../src/main.c:106
 msgid "Shut down Anjuta properly, releasing all resources (for debugging)"
-msgstr "Az Anjuta teljes leállítása minden erőforrás elengedésével (hibakereséshez)"
+msgstr ""
+"Az Anjuta teljes leállítása minden erőforrás elengedésével (hibakereséshez)"
 
 #: ../src/main.c:174
 msgid "- Integrated Development Environment"
@@ -10142,7 +10164,8 @@ msgstr "Eszköztárgombok címkéi:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.schemas.in.h:1
 msgid "Do not display warning if not using a Debug configuration"
-msgstr "Ne jelenjen meg figyelmeztetés, ha nem hibakereső beállításokat használ"
+msgstr ""
+"Ne jelenjen meg figyelmeztetés, ha nem hibakereső beállításokat használ"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:1
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:1
@@ -10222,12 +10245,12 @@ msgstr "Utasításbehúzás mérete szóközökben:"
 
 #. ANJUTA_STOCK_AUTOINDENT,
 #: ../plugins/language-support-cpp-java/plugin.c:1882
-#: ../plugins/language-support-python/plugin.c:1181
+#: ../plugins/language-support-python/plugin.c:1182
 msgid "Auto-Indent"
 msgstr "Automatikus behúzás"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1883
-#: ../plugins/language-support-python/plugin.c:1182
+#: ../plugins/language-support-python/plugin.c:1183
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr ""
 "Az aktuális sor vagy kijelölés automatikus behúzása a behúzási beállítások "
@@ -10258,26 +10281,29 @@ msgstr "C/C++"
 msgid "Python support warning"
 msgstr "Python-támogatás figyelmeztetés"
 
-#: ../plugins/language-support-python/plugin.c:914
+#: ../plugins/language-support-python/plugin.c:915
 msgid ""
-"Couldn't find python-rope (http://rope.sf.net) libraries which\n"
-"are needed for autocompletion in python files.\n"
+"Either python path is wrong or python-rope (http://rope.sf.net) libraries\n"
+"aren't installed. Both are required for autocompletion in python files.\n"
 "Please install them and check the python path in the preferences."
 msgstr ""
-"Nem található a python-rope (http://rope.sf.net) programkönyvtárak,\n"
-"amelyek a Python fájlokban való automatikus kiegészítéshez szükségesek.\n"
-"Telepítse ezeket, és ellenőrizze a beállításokban a Python útvonalat."
+"A Python útvonal hibás, vagy a python-rope (http://rope.sf.net) "
+"programkönyvtárak\n"
+"nincsenek telepítve. A Python fájlokban való automatikus kiegészítéshez "
+"mindkettő\n"
+"szükséges. Telepítse ezeket, és ellenőrizze a beállításokban a Python "
+"útvonalat."
 
-#: ../plugins/language-support-python/plugin.c:917
+#: ../plugins/language-support-python/plugin.c:918
 msgid "Do not show that warning again"
 msgstr "Ne mutassa újra ezt a figyelmeztetést"
 
-#: ../plugins/language-support-python/plugin.c:1263
+#: ../plugins/language-support-python/plugin.c:1264
 msgid "Python Assistance"
 msgstr "Segítség a Pythonhoz"
 
-#: ../plugins/language-support-python/plugin.c:1363
-#: ../plugins/language-support-python/plugin.c:1372
+#: ../plugins/language-support-python/plugin.c:1364
+#: ../plugins/language-support-python/plugin.c:1373
 #: ../plugins/language-support-python/python-assist.c:937
 msgid "Python"
 msgstr "Python"
@@ -10584,4 +10610,3 @@ msgstr "Karakterek minimális száma kiegészítéshez "
 #: ../plugins/symbol-db/symbol-db-views.c:182
 msgid "Symbol"
 msgstr "Szimbólum"
-
