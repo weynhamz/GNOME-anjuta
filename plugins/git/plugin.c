@@ -427,6 +427,10 @@ on_project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	
 	anjuta_command_stop_automatic_monitor (ANJUTA_COMMAND (git_plugin->local_branch_list_command));
 	anjuta_command_stop_automatic_monitor (ANJUTA_COMMAND (git_plugin->commit_status_command));
+	anjuta_command_stop_automatic_monitor (ANJUTA_COMMAND (git_plugin->remote_list_command));
+	anjuta_command_stop_automatic_monitor (ANJUTA_COMMAND (git_plugin->tag_list_command));
+	anjuta_command_stop_automatic_monitor (ANJUTA_COMMAND (git_plugin->stash_list_command));
+	anjuta_command_stop_automatic_monitor (ANJUTA_COMMAND (git_plugin->ref_command));
 	
 	g_free (git_plugin->project_root_directory);
 	git_plugin->project_root_directory = NULL;
