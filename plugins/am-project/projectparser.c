@@ -99,7 +99,7 @@ list_group (IAnjutaProject *project, AnjutaProjectNode *root, AnjutaProjectNode 
 	gchar *rel_path;
 	
 	parent = anjuta_project_node_parent (group);
-	if (anjuta_project_node_get_type (parent) == ANJUTA_PROJECT_ROOT)
+	if (anjuta_project_node_get_node_type (parent) == ANJUTA_PROJECT_ROOT)
 	{
 		GFile *root;
 		
@@ -180,7 +180,7 @@ list_children (IAnjutaProject *project, AnjutaProjectNode *root, AnjutaProjectNo
 	count = 0;
 	for (node = anjuta_project_node_first_child (parent); node != NULL; node = anjuta_project_node_next_sibling (node))
 	{
-		if (anjuta_project_node_get_type (node) == ANJUTA_PROJECT_MODULE)
+		if (anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_MODULE)
 		{
 			gchar *child_path = g_strdup_printf ("%s%s%d", path != NULL ? path : "", path != NULL ? ":" : "", count);
 			list_module (project, root, node, indent, child_path);
@@ -192,7 +192,7 @@ list_children (IAnjutaProject *project, AnjutaProjectNode *root, AnjutaProjectNo
 	count = 0;
 	for (node = anjuta_project_node_first_child (parent); node != NULL; node = anjuta_project_node_next_sibling (node))
 	{
-		if (anjuta_project_node_get_type (node) == ANJUTA_PROJECT_PACKAGE)
+		if (anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_PACKAGE)
 		{
 			gchar *child_path = g_strdup_printf ("%s%s%d", path != NULL ? path : "", path != NULL ? ":" : "", count);
 			list_package (project, root, node, indent, child_path);
@@ -204,7 +204,7 @@ list_children (IAnjutaProject *project, AnjutaProjectNode *root, AnjutaProjectNo
 	count = 0;
 	for (node = anjuta_project_node_first_child (parent); node != NULL; node = anjuta_project_node_next_sibling (node))
 	{
-		if (anjuta_project_node_get_type (node) == ANJUTA_PROJECT_GROUP)
+		if (anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_GROUP)
 		{
 			gchar *child_path = g_strdup_printf ("%s%s%d", path != NULL ? path : "", path != NULL ? ":" : "", count);
 			list_group (project, root, node, indent, child_path);
@@ -216,7 +216,7 @@ list_children (IAnjutaProject *project, AnjutaProjectNode *root, AnjutaProjectNo
 	count = 0;
 	for (node = anjuta_project_node_first_child (parent); node != NULL; node = anjuta_project_node_next_sibling (node))
 	{
-		if (anjuta_project_node_get_type (node) == ANJUTA_PROJECT_TARGET)
+		if (anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_TARGET)
 		{
 			gchar *child_path = g_strdup_printf ("%s%s%d", path != NULL ? path : "", path != NULL ? ":" : "", count);
 			list_target (project, root, node, indent, child_path);
@@ -228,7 +228,7 @@ list_children (IAnjutaProject *project, AnjutaProjectNode *root, AnjutaProjectNo
 	count = 0;
 	for (node = anjuta_project_node_first_child (parent); node != NULL; node = anjuta_project_node_next_sibling (node))
 	{
-		if (anjuta_project_node_get_type (node) == ANJUTA_PROJECT_SOURCE)
+		if (anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_SOURCE)
 		{
 			gchar *child_path = g_strdup_printf ("%s%s%d", path != NULL ? path : "", path != NULL ? ":" : "", count);
 			list_source (project, root, node, indent, child_path);
@@ -352,127 +352,6 @@ get_project_property (AmpProject *project, AnjutaProjectNode *parent, const gcha
 	}
 
 	return prop;
-}
-
-
-#define NUM_NODE	1000000
-#define NUM_TRY	4
-
-void benchmark(void)
-{
-	GTimer *timer;
-	AnjutaProjectNode *nodes[NUM_NODE];
-	guint i,j;
-	gdouble all_new[NUM_TRY + 1];
-	gdouble all_free[NUM_TRY + 1];
-	gdouble all_both[NUM_TRY + 1] ;
-
-	timer = g_timer_new ();
-
-	for (j = 0; j < NUM_TRY; j++)
-	{
-		g_timer_start (timer);
-		for (i = 0; i < NUM_NODE; i++)
-		{
-			nodes[i] = anjuta_project_introspection_node_new (ANJUTA_PROJECT_ROOT, NULL, "noname", timer);
-		}
-		g_timer_stop (timer);
-		all_new[j] = g_timer_elapsed (timer, NULL);
-		g_timer_start (timer);
-		for (i = 0; i < NUM_NODE; i++)
-		{
-			anjuta_project_introspection_node_free (nodes[i]);
-		}
-		g_timer_stop (timer);
-		all_free[j] = g_timer_elapsed (timer, NULL);
-		g_timer_start (timer);
-		for (i = 0; i < NUM_NODE; i++)
-		{
-			nodes[0] = anjuta_project_introspection_node_new (ANJUTA_PROJECT_ROOT, NULL, "noname", timer);
-			anjuta_project_introspection_node_free (nodes[0]);
-		}
-		g_timer_stop (timer);
-		all_both[j] = g_timer_elapsed (timer, NULL);
-	}
-	all_new[NUM_TRY] = 0;
-	all_free[NUM_TRY] = 0;
-	all_both[NUM_TRY] = 0;
-
-	printf ("all_new ");
-	for (j = 0; j < NUM_TRY; j++)
-	{
-		printf ("%g ", all_new[j]);
-		all_new[NUM_TRY] += all_new[j];
-	}
-	printf (" %g\n", all_new[NUM_TRY] / NUM_TRY);
-	printf ("all_free ");
-	for (j = 0; j < NUM_TRY; j++)
-	{
-		printf ("%g ", all_free[j]);
-		all_free[NUM_TRY] += all_free[j];
-	}
-	printf (" %g\n", all_free[NUM_TRY] / NUM_TRY);
-	printf ("all_both ");
-	for (j = 0; j < NUM_TRY; j++)
-	{
-		printf ("%g ", all_both[j]);
-		all_both[NUM_TRY] += all_both[j];
-	}
-	printf (" %g\n", all_both[NUM_TRY] / NUM_TRY);
-
-	
-	for (j = 0; j < NUM_TRY; j++)
-	{
-		g_timer_start (timer);
-		for (i = 0; i < NUM_NODE; i++)
-		{
-			nodes[i] = anjuta_project_gobject_node_new (ANJUTA_PROJECT_ROOT, NULL, "noname", timer);
-		}
-		g_timer_stop (timer);
-		all_new[j] = g_timer_elapsed (timer, NULL);
-		g_timer_start (timer);
-		for (i = 0; i < NUM_NODE; i++)
-		{
-			anjuta_project_gobject_node_free (nodes[i]);
-		}
-		g_timer_stop (timer);
-		all_free[j] = g_timer_elapsed (timer, NULL);
-		g_timer_start (timer);
-		for (i = 0; i < NUM_NODE; i++)
-		{
-			nodes[0] = anjuta_project_gobject_node_new (ANJUTA_PROJECT_ROOT, NULL, "noname", timer);
-			anjuta_project_gobject_node_free (nodes[0]);
-		}
-		g_timer_stop (timer);
-		all_both[j] = g_timer_elapsed (timer, NULL);
-	}
-	all_new[NUM_TRY] = 0;
-	all_free[NUM_TRY] = 0;
-	all_both[NUM_TRY] = 0;
-
-	printf ("all_new ");
-	for (j = 0; j < NUM_TRY; j++)
-	{
-		printf ("%g ", all_new[j]);
-		all_new[NUM_TRY] += all_new[j];
-	}
-	printf (" %g\n", all_new[NUM_TRY] / NUM_TRY);
-	printf ("all_free ");
-	for (j = 0; j < NUM_TRY; j++)
-	{
-		printf ("%g ", all_free[j]);
-		all_free[NUM_TRY] += all_free[j];
-	}
-	printf (" %g\n", all_free[NUM_TRY] / NUM_TRY);
-	printf ("all_both ");
-	for (j = 0; j < NUM_TRY; j++)
-	{
-		printf ("%g ", all_both[j]);
-		all_both[NUM_TRY] += all_both[j];
-	}
-	printf (" %g\n", all_both[NUM_TRY] / NUM_TRY);
-	
-	exit (1);
 }
 
 /* Automake parsing function

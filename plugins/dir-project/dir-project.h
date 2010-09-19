@@ -1,5 +1,5 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4; coding: utf-8 -*- */
-/* am-project.h
+/* dir-project.h
  *
  * Copyright (C) 2009  Sébastien Granjoux
  *
@@ -45,11 +45,6 @@ typedef struct _DirProjectClass   DirProjectClass;
 struct _DirProjectClass {
 	GObjectClass parent_class;
 };
-
-typedef AnjutaProjectNode DirGroup;
-typedef AnjutaProjectNode DirTarget;
-typedef AnjutaProjectNode DirSource;
-
 
 GType         dir_project_get_type (void);
 DirProject   *dir_project_new      (void);

@@ -25,10 +25,17 @@
 
 G_BEGIN_DECLS
 
-#define ANJUTA_IS_PROJECT_GROUP(obj) (((AnjutaProjectNodeData *)obj->data)->type == ANJUTA_PROJECT_GROUP)
-#define ANJUTA_IS_PROJECT_TARGET(obj) (((AnjutaProjectNodeData *)obj->data)->type == ANJUTA_PROJECT_TARGET)
-#define ANJUTA_IS_PROJECT_NODE(obj) (1)
-#define ANJUTA_IS_PROJECT_PROPERTY(obj) (1)
+#define ANJUTA_TYPE_PROJECT_NODE 					(anjuta_project_node_get_type ())
+#define ANJUTA_PROJECT_NODE(obj)						(G_TYPE_CHECK_INSTANCE_CAST ((obj), ANJUTA_TYPE_PROJECT_NODE, AnjutaProjectNode))
+#define ANJUTA_PROJECT_NODE_CLASS(klass)		(G_TYPE_CHECK_CLASS_CAST ((klass), ANJUTA_TYPE_PROJECT_NODE, AnjutaProjectNodeClass))
+#define ANJUTA_IS_PROJECT_NODE(obj)					(G_TYPE_CHECK_INSTANCE_TYPE ((obj), ANJUTA_TYPE_PROJECT_NODE))
+#define ANJUTA_IS_PROJECT_NODE_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE ((klass), ANJUTA_TYPE_PROJECT_NODE))
+#define ANJUTA_PROJECT_NODE_GET_CLASS(obj)	(G_TYPE_INSTANCE_GET_CLASS ((obj), ANJUTA_TYPE_PROJECT_NODE, AnjutaProjectNodeClass))
+
+
+typedef struct _AnjutaProjectNode			AnjutaProjectNode;
+typedef struct _AnjutaProjectNodeClass	AnjutaProjectNodeClass;
+
 
 typedef enum
 {
@@ -108,6 +115,8 @@ typedef struct
 
 typedef GList AnjutaProjectProperty;
 
+#define ANJUTA_IS_PROJECT_PROPERTY
+
 typedef struct
 {
 	AnjutaProjectProperty *property;
@@ -125,46 +134,45 @@ typedef struct
 	AnjutaProjectNodeState state;
 } AnjutaProjectNodeData;
 
-#if 0
-typedef struct {
-	AnjutaProjectNodeData node;
-	GFile *directory;
-} AnjutaProjectGroupData;
 
-typedef struct {
-	AnjutaProjectNodeData node;
-	gchar *name;
-	AnjutaProjectTargetType type;
-} AnjutaProjectTargetData;
+#define ANJUTA_PROJECT_NODE_DATA(node)  (node)
 
-typedef struct {
-	AnjutaProjectNodeData node;
+typedef gboolean (*AnjutaProjectNodeTraverseFunc) (AnjutaProjectNode *node, gpointer data);
+typedef void (*AnjutaProjectNodeForeachFunc) (AnjutaProjectNode *node, gpointer data);
+
+
+/**
+ * AnjutaProjectNode:
+ *
+ * The #AnjutaProjectNode struct contains private data only, and should
+ * accessed using the functions below.
+ */
+struct _AnjutaProjectNode
+{
+	GObject object;
+
+	AnjutaProjectNode	*next;
+	AnjutaProjectNode *prev;
+	AnjutaProjectNode	*parent;
+	AnjutaProjectNode *children;
+	
+	AnjutaProjectNodeType type;
+	AnjutaProjectNodeState state;
+	
+	AnjutaProjectProperty *properties;
 	GFile *file;
-} AnjutaProjectSourceData;
-#endif
+	gchar *name;
+};
 
-typedef GNode AnjutaProjectNode;
-#if 0
-typedef GNode AnjutaProjectGroup;
-typedef GNode AnjutaProjectTarget;
-typedef GNode AnjutaProjectSource;
-#endif
+struct _AnjutaProjectNodeClass
+{
+	GObjectClass parent_class;
+	
+	void (*updated) (GError *error);
+	void (*loaded) (GError *error);
+};
 
-#define ANJUTA_PROJECT_NODE_DATA(node)  ((node) != NULL ? (AnjutaProjectNodeData *)((node)->data) : NULL)
-
-typedef void (*AnjutaProjectNodeFunc) (AnjutaProjectNode *node, gpointer data);
-
-/* Temporary function for introspection */
-AnjutaProjectNode * anjuta_project_introspection_node_new (AnjutaProjectNodeType type, GFile *file, const gchar *name, gpointer user_data);
-AnjutaProjectNode * anjuta_project_introspection_node_new0 (void);
-gpointer anjuta_project_introspection_node_get_user_data (AnjutaProjectNode *node);
-void anjuta_project_introspection_node_free (AnjutaProjectNode *node);
-
-void anjuta_project_boxed_node_register (void);
-AnjutaProjectNode *anjuta_project_boxed_node_new (AnjutaProjectNodeType type, GFile *file, const gchar *name, gpointer user_data);
-GType anjuta_project_boxed_node_get_type (void);
-
-#define ANJUTA_TYPE_PROJECT_BOXED_NODE             (anjuta_project_boxed_node_get_type ())
+GType      anjuta_project_node_get_type (void) G_GNUC_CONST;
 
 
 AnjutaProjectProperty *anjuta_project_property_next (AnjutaProjectProperty *list);
@@ -193,13 +201,15 @@ AnjutaProjectNode *anjuta_project_node_grab_children (AnjutaProjectNode *parent,
 AnjutaProjectNode *anjuta_project_node_exchange (AnjutaProjectNode *node, AnjutaProjectNode *replacement);
 AnjutaProjectNode *anjuta_project_node_remove (AnjutaProjectNode *node);
 
-void anjuta_project_node_all_foreach (AnjutaProjectNode *node, AnjutaProjectNodeFunc func, gpointer data);
-void anjuta_project_node_children_foreach (AnjutaProjectNode *node, AnjutaProjectNodeFunc func, gpointer data);
+void anjuta_project_node_foreach (AnjutaProjectNode *node, GTraverseType order, AnjutaProjectNodeForeachFunc func, gpointer data);
+void anjuta_project_node_children_foreach (AnjutaProjectNode *node, AnjutaProjectNodeForeachFunc func, gpointer data);
+AnjutaProjectNode *anjuta_project_node_traverse (AnjutaProjectNode *node, GTraverseType order, AnjutaProjectNodeTraverseFunc func, gpointer data);
+AnjutaProjectNode *anjuta_project_node_children_traverse (AnjutaProjectNode *node, AnjutaProjectNodeTraverseFunc func, gpointer data);
 
 gboolean anjuta_project_node_set_state (AnjutaProjectNode *node, AnjutaProjectNodeState state);
 gboolean anjuta_project_node_clear_state (AnjutaProjectNode *node, AnjutaProjectNodeState state);
 
-AnjutaProjectNodeType anjuta_project_node_get_type (const AnjutaProjectNode *node);
+AnjutaProjectNodeType anjuta_project_node_get_node_type (const AnjutaProjectNode *node);
 AnjutaProjectNodeType anjuta_project_node_get_full_type (const AnjutaProjectNode *node);
 AnjutaProjectNodeState anjuta_project_node_get_state (const AnjutaProjectNode *node);
 gchar *anjuta_project_node_get_name (const AnjutaProjectNode *node);
@@ -231,12 +241,23 @@ AnjutaProjectNodeType anjuta_project_node_info_type (const AnjutaProjectNodeInfo
 
 AnjutaProjectNode *anjuta_project_proxy_new (AnjutaProjectNode *node);
 AnjutaProjectNode *anjuta_project_proxy_unref (AnjutaProjectNode *node);
-AnjutaProjectNode *anjuta_project_proxy_exchange_data (AnjutaProjectNode *proxy, AnjutaProjectNode *node);
+AnjutaProjectNode *anjuta_project_proxy_exchange (AnjutaProjectNode *proxy, AnjutaProjectNode *node);
 AnjutaProjectNode *anjuta_project_proxy_get_node (AnjutaProjectNode *proxy);
 
 gboolean anjuta_project_node_is_proxy (AnjutaProjectNode *node);
 
 
+/* Temporary function for introspection */
+AnjutaProjectNode * anjuta_project_introspection_node_new (AnjutaProjectNodeType type, GFile *file, const gchar *name, gpointer user_data);
+AnjutaProjectNode * anjuta_project_introspection_node_new0 (void);
+gpointer anjuta_project_introspection_node_get_user_data (AnjutaProjectNode *node);
+void anjuta_project_introspection_node_free (AnjutaProjectNode *node);
+
+void anjuta_project_boxed_node_register (void);
+AnjutaProjectNode *anjuta_project_boxed_node_new (AnjutaProjectNodeType type, GFile *file, const gchar *name, gpointer user_data);
+GType anjuta_project_boxed_node_get_type (void);
+
+#define ANJUTA_TYPE_PROJECT_BOXED_NODE             (anjuta_project_boxed_node_get_type ())
 
 
 #define ANJUTA_TYPE_PROJECT_GOBJECT_NODE             		(anjuta_project_gobject_node_get_type ())

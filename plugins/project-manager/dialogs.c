@@ -198,7 +198,7 @@ parent_filter_func (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
 			/* Current node can be used as parent */
 			visible = TRUE;
 		}
-		else if (anjuta_project_node_get_type (node) == type)
+		else if (anjuta_project_node_get_node_type (node) == type)
 		{
 			/* Check if node can be used as sibling */
 			parent = anjuta_project_node_parent (node);
@@ -222,7 +222,7 @@ module_filter_func (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
 	node = gbf_tree_data_get_node (data);
 	if (node != NULL)
 	{
-		AnjutaProjectNodeType type = anjuta_project_node_get_type (node);
+		AnjutaProjectNodeType type = anjuta_project_node_get_node_type (node);
 		
 		visible = (type == ANJUTA_PROJECT_MODULE) || (type == ANJUTA_PROJECT_PACKAGE);
 	}
@@ -540,7 +540,7 @@ create_properties_table (IAnjutaProject *project, AnjutaProjectNode *node)
 	/* Display node type only if several types are possible */
 	node_info = NULL;
 	single = TRUE;
-	type = anjuta_project_node_get_type (node);
+	type = anjuta_project_node_get_node_type (node);
 	for (item = ianjuta_project_get_node_info (project, NULL); item != NULL; item = g_list_next (item))
 	{
 		AnjutaProjectNodeInfo* info = (AnjutaProjectNodeInfo *)item->data;
@@ -703,7 +703,7 @@ pm_project_create_properties_dialog (AnjutaPmProject *project, GtkWindow *parent
 
 	g_return_val_if_fail (node != NULL, FALSE);
 	
-	switch (anjuta_project_node_get_type (node))
+	switch (anjuta_project_node_get_node_type (node))
 	{
 	case ANJUTA_PROJECT_ROOT:
 		title = _("Project properties");

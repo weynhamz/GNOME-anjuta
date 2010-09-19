@@ -89,7 +89,7 @@ amp_project_write_config_list (AmpProject *project)
 }
 
 AnjutaToken *
-amp_project_write_subdirs_list (AmpGroup *project)
+amp_project_write_subdirs_list (AnjutaAmGroupNode *project)
 {
 	AnjutaToken *pos;
 	AnjutaToken *token;

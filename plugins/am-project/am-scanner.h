@@ -36,7 +36,7 @@ G_BEGIN_DECLS
 
 typedef struct _AmpAmScanner AmpAmScanner;
 
-AmpAmScanner *amp_am_scanner_new (AmpProject *project, AmpGroup *group);
+AmpAmScanner *amp_am_scanner_new (AmpProject *project, AnjutaAmGroupNode *group);
 void amp_am_scanner_free (AmpAmScanner *scanner);
 
 AnjutaToken *amp_am_scanner_parse_token (AmpAmScanner *scanner, AnjutaToken *root, AnjutaToken *content, GFile *filename, GError **error);

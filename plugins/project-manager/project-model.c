@@ -465,7 +465,7 @@ add_source (GbfProjectModel    	      *model,
 	GtkTreeIter iter;
 	GbfTreeData *data;
 
-	if ((!source) || (anjuta_project_node_get_type (source) != ANJUTA_PROJECT_SOURCE))
+	if ((!source) || (anjuta_project_node_get_node_type (source) != ANJUTA_PROJECT_SOURCE))
 		return;
 	
 	data = gbf_tree_data_new_source (source);
@@ -600,7 +600,7 @@ add_package (GbfProjectModel    	      *model,
 	GbfTreeData *data;
 	AnjutaProjectNode *node;
 
-	if ((!package) || (anjuta_project_node_get_type (package) != ANJUTA_PROJECT_PACKAGE))
+	if ((!package) || (anjuta_project_node_get_node_type (package) != ANJUTA_PROJECT_PACKAGE))
 		return;
 	
 	data = gbf_tree_data_new_package (package);
@@ -626,7 +626,7 @@ add_module (GbfProjectModel 		*model,
 	GtkTreeIter iter;	
 	GbfTreeData *data;
 	
-	if ((!module) || (anjuta_project_node_get_type (module) != ANJUTA_PROJECT_MODULE))
+	if ((!module) || (anjuta_project_node_get_node_type (module) != ANJUTA_PROJECT_MODULE))
 		return;
 	
 	data = gbf_tree_data_new_module (module);
@@ -652,7 +652,7 @@ add_target (GbfProjectModel 		*model,
 	GtkTreeIter iter;	
 	GbfTreeData *data;
 	
-	if ((!target) || (anjuta_project_node_get_type (target) != ANJUTA_PROJECT_TARGET))
+	if ((!target) || (anjuta_project_node_get_node_type (target) != ANJUTA_PROJECT_TARGET))
 		return;
 	
 	data = gbf_tree_data_new_target (target);
@@ -688,7 +688,7 @@ add_target_group (GbfProjectModel 	*model,
 	AnjutaProjectNode *node;
 	GbfTreeData *data;
 
-	if ((!group) || (anjuta_project_node_get_type (group) != ANJUTA_PROJECT_GROUP))
+	if ((!group) || (anjuta_project_node_get_node_type (group) != ANJUTA_PROJECT_GROUP))
 		return;
 	
 	data = gbf_tree_data_new_group (group);
@@ -730,7 +730,7 @@ add_root (GbfProjectModel 	*model,
 	AnjutaProjectNode *node;
 	GtkTreePath *root_path;
 
-	if ((!root) || (anjuta_project_node_get_type (root) != ANJUTA_PROJECT_ROOT))
+	if ((!root) || (anjuta_project_node_get_node_type (root) != ANJUTA_PROJECT_ROOT))
 		return;
 
 	/* create root reference */
@@ -953,7 +953,7 @@ gbf_project_model_update_tree (GbfProjectModel *model, AnjutaProjectNode *parent
 	/* add the remaining sources, targets and groups */
 	for (node = nodes; node; node = node->next)
 	{
-		switch (anjuta_project_node_get_type (node->data))
+		switch (anjuta_project_node_get_node_type (node->data))
 		{
 		case ANJUTA_PROJECT_GROUP:
 			add_target_group (model, node->data, iter);

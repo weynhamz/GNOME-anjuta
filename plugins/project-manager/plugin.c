@@ -1248,6 +1248,7 @@ add_primary_target (AnjutaProjectNode *node, gpointer data)
 {
 	GList ** list = (GList **)data;
 
+	//g_message ("add_primary_target %s %x", anjuta_project_node_get_name (node), anjuta_project_node_get_full_type (node));
 	if (anjuta_project_node_get_full_type (node) & ANJUTA_PROJECT_PRIMARY)
 	{
 		gchar *path;
@@ -1256,6 +1257,7 @@ add_primary_target (AnjutaProjectNode *node, gpointer data)
 		
 		*list = g_list_prepend (*list, g_strconcat ("C ", path, NULL));
 		g_free (path);
+		g_message ("     added %s", anjuta_project_node_get_name (node));
 	}
 }
 
@@ -1296,7 +1298,8 @@ on_project_updated (AnjutaPmProject *project, AnjutaProjectNode *node, GError *e
 			GList *list = NULL;
 			
 			/* Add new shortcut for PRIMARY target */
-			anjuta_project_node_all_foreach (node, add_primary_target, &list);
+			g_message ("add new shortcut on project_updated");
+			anjuta_project_node_foreach (node, G_POST_ORDER, add_primary_target, &list);
 
 			if (list != NULL)
 			{
@@ -1357,7 +1360,8 @@ on_project_loaded (AnjutaPmProject *project, AnjutaProjectNode *node, GError *er
 			GList *list = NULL;
 			
 			/* Add new shortcut for PRIMARY target */
-			anjuta_project_node_all_foreach (node, add_primary_target, &list);
+			g_message ("add new shortcut on project_loaded");
+			anjuta_project_node_foreach (node, G_POST_ORDER, add_primary_target, &list);
 
 			if (list != NULL)
 			{
@@ -1864,7 +1868,7 @@ get_element_file_from_node (ProjectManagerPlugin *plugin, AnjutaProjectNode *nod
 					  NULL);
 	}
 
-	switch (anjuta_project_node_get_type (node))
+	switch (anjuta_project_node_get_node_type (node))
 	{
 		case ANJUTA_PROJECT_GROUP:
 			file = g_object_ref (anjuta_project_group_get_directory (node));
@@ -1921,7 +1925,7 @@ get_element_type (ProjectManagerPlugin *plugin, GFile *element)
 	
 	node = anjuta_pm_project_get_node_from_file (plugin->project, ANJUTA_PROJECT_UNKNOWN,  element);
 
-	return node == NULL ? ANJUTA_PROJECT_UNKNOWN : anjuta_project_node_get_type (node);
+	return node == NULL ? ANJUTA_PROJECT_UNKNOWN : anjuta_project_node_get_node_type (node);
 }
 
 static GList*
@@ -1969,7 +1973,7 @@ iproject_manager_get_target_type (IAnjutaProjectManager *project_manager,
 
 	if (target != NULL)
 	{
-		return anjuta_project_node_get_type (target);
+		return anjuta_project_node_get_node_type (target);
 	}
 	else
 	{
@@ -2045,21 +2049,21 @@ iproject_manager_get_selected (IAnjutaProjectManager *project_manager,
 	
 	node = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
 										   ANJUTA_PROJECT_SOURCE);
-	if (node && anjuta_project_node_get_type (node) == ANJUTA_PROJECT_SOURCE)
+	if (node && anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_SOURCE)
 	{
 		return g_object_ref (anjuta_project_source_get_file (node));
 	}
 
 	node = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
 										   ANJUTA_PROJECT_TARGET);
-	if (node && anjuta_project_node_get_type (node) == ANJUTA_PROJECT_TARGET)
+	if (node && anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_TARGET)
 	{
 		return get_element_file_from_node (plugin, node, IANJUTA_BUILDER_ROOT_URI);
 	}
 
 	node = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
 										   ANJUTA_PROJECT_GROUP);
-	if (node && anjuta_project_node_get_type (node) == GBF_TREE_NODE_GROUP)
+	if (node && anjuta_project_node_get_node_type (node) == GBF_TREE_NODE_GROUP)
 	{
 		return g_object_ref (anjuta_project_group_get_directory (node));
 	}

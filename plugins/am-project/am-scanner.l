@@ -21,6 +21,7 @@
 
 #include "am-scanner.h"
 #include "am-parser.h"
+#include "am-node.h"
 
 #include "libanjuta/anjuta-debug.h"
 #include "libanjuta/anjuta-token-stream.h"
@@ -49,7 +50,7 @@ struct _AmpAmScanner
 	AnjutaTokenStream *stream;
 
 	AmpProject *project;
-	AmpGroup *group;
+	AnjutaAmGroupNode *group;
 	GHashTable *orphan_properties;
 	gboolean eof;
 };
@@ -348,7 +349,7 @@ free_source_list (GList *source_list)
 }
 
 AmpAmScanner *
-amp_am_scanner_new (AmpProject *project, AmpGroup *group)
+amp_am_scanner_new (AmpProject *project, AnjutaAmGroupNode *group)
 {
 	AmpAmScanner *scanner;
 

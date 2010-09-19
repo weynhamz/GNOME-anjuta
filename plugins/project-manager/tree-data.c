@@ -126,11 +126,11 @@ gbf_tree_data_get_node (GbfTreeData *data)
 void
 gbf_tree_data_replace_node (GbfTreeData *data, AnjutaProjectNode *node)
 {
-	GFile *file = ((AnjutaProjectNodeData *)node->data)->file;
+	GFile *file = ANJUTA_PROJECT_NODE_DATA(node)->file;
 	
 	/* Replace file to keep the same interface */
-	((AnjutaProjectNodeData *)node->data)->file = ((AnjutaProjectNodeData *)data->node->data)->file;
-	((AnjutaProjectNodeData *)data->node->data)->file = file;
+	ANJUTA_PROJECT_NODE_DATA(node)->file = ANJUTA_PROJECT_NODE_DATA(data->node)->file;
+	ANJUTA_PROJECT_NODE_DATA(data->node)->file = file;
 	data->node = node;
 }
 
@@ -213,7 +213,7 @@ gbf_tree_data_equal_file (GbfTreeData *data, AnjutaProjectNodeType type, GFile *
 
 		if (node != NULL)
 		{
-			if ((type == ANJUTA_PROJECT_UNKNOWN) || (type == anjuta_project_node_get_type (node)))
+			if ((type == ANJUTA_PROJECT_UNKNOWN) || (type == anjuta_project_node_get_node_type (node)))
 			{
 				if (g_file_equal (anjuta_project_node_get_file (node), file))
 				{
@@ -333,11 +333,11 @@ gbf_tree_data_new_source (AnjutaProjectNode *source)
 	}
 
 	parent = anjuta_project_node_parent (source);
-	if (anjuta_project_node_get_type (parent) == ANJUTA_PROJECT_GROUP)
+	if (anjuta_project_node_get_node_type (parent) == ANJUTA_PROJECT_GROUP)
 	{
 		data->group = g_object_ref (anjuta_project_group_get_directory (parent));
 	}
-	else if (anjuta_project_node_get_type (parent) == ANJUTA_PROJECT_TARGET)
+	else if (anjuta_project_node_get_node_type (parent) == ANJUTA_PROJECT_TARGET)
 	{
 		AnjutaProjectNode *group;
 		

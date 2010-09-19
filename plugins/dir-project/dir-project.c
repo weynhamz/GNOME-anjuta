@@ -1,5 +1,5 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4; coding: utf-8 -*- */
-/* am-project.c
+/* dir-project.c
  *
  * Copyright (C) 2009  Sébastien Granjoux
  *
@@ -25,6 +25,8 @@
 #endif
 
 #include "dir-project.h"
+
+#include "dir-node.h"
 
 #include <libanjuta/interfaces/ianjuta-project.h>
 #include <libanjuta/anjuta-debug.h>
@@ -57,39 +59,6 @@ struct _DirProject {
 
 	/* List of source files pattern */
 	GList	*sources;
-};
-
-/* convenient shortcut macro the get the AnjutaProjectNode from a GNode */
-#define NODE_DATA(node)  ((node) != NULL ? (AnjutaProjectNodeData *)((node)->data) : NULL)
-#define DIR_GROUP_DATA(node)  ((node) != NULL ? (DirGroupData *)((node)->data) : NULL)
-#define DIR_TARGET_DATA(node)  ((node) != NULL ? (DirTargetData *)((node)->data) : NULL)
-#define DIR_SOURCE_DATA(node)  ((node) != NULL ? (DirSourceData *)((node)->data) : NULL)
-
-
-typedef struct _DirRootData DirRootData;
-
-struct _DirRootData {
-	AnjutaProjectNodeData base;
-};
-
-typedef struct _DirGroupData DirGroupData;
-
-struct _DirGroupData {
-	AnjutaProjectNodeData base;
-	GFileMonitor *monitor;
-	GObject *emitter;
-};
-
-typedef struct _DirTargetData DirTargetData;
-
-struct _DirTargetData {
-	AnjutaProjectNodeData base;
-};
-
-typedef struct _DirSourceData DirSourceData;
-
-struct _DirSourceData {
-	AnjutaProjectNodeData base;
 };
 
 /* A file or directory name part of a path */
@@ -138,171 +107,13 @@ static GObject *parent_class;
  *---------------------------------------------------------------------------*/
 
 static void
-on_file_changed (GFileMonitor *monitor,
-			GFile *file,
-			GFile *other_file,
-			GFileMonitorEvent event_type,
-			gpointer data)
-{
-	AnjutaProjectNode *node = data;
-
-	if (!anjuta_project_node_is_proxy (node))
-	{
-		switch (event_type) {
-			case G_FILE_MONITOR_EVENT_CHANGED:
-			case G_FILE_MONITOR_EVENT_DELETED:
-			case G_FILE_MONITOR_EVENT_CREATED:
-				g_signal_emit_by_name (DIR_GROUP_DATA (node)->emitter, "node-updated", node);
-				break;
-			default:
-				break;
-		}
-	}
-}
-
-/* Root objects
- *---------------------------------------------------------------------------*/
-
-static AnjutaProjectNode*
-dir_root_new (GFile *file)
-{
-	DirRootData *root = NULL;
-
-	g_return_val_if_fail (file != NULL, NULL);
-	
-	root = g_slice_new0(DirRootData); 
-	root->base.type = ANJUTA_PROJECT_ROOT;
-	root->base.properties = NULL;
-	root->base.file = g_file_dup (file);
-
-	return g_node_new (root);
-}
-
-static void
-dir_root_free (AnjutaProjectNode *node)
-{
-	AnjutaProjectNodeData *data = NODE_DATA (node);
-	
-	if (data->file != NULL) g_object_unref (data->file);
-	g_free (data->name);
-	g_slice_free (DirRootData, (DirRootData *)data);
-
-	g_node_destroy (node);
-}
-
-/* Group objects
- *---------------------------------------------------------------------------*/
-
-static DirGroup*
-dir_group_new (GFile *file, GObject *emitter)
-{
-    DirGroupData *group = NULL;
-	DirGroup *node;
-
-	g_return_val_if_fail (file != NULL, NULL);
-	
-	group = g_slice_new0(DirGroupData); 
-	group->base.type = ANJUTA_PROJECT_GROUP;
-	group->base.file = g_object_ref (file);
-	group->base.state = ANJUTA_PROJECT_CAN_ADD_GROUP |
-						ANJUTA_PROJECT_CAN_ADD_SOURCE |
-						ANJUTA_PROJECT_CAN_REMOVE |
-						ANJUTA_PROJECT_REMOVE_FILE;
-	
-	group->emitter = emitter;
-	
-	node = g_node_new (group);
-
-	/* Connect monitor if file exist */
-	if (g_file_query_exists (file, NULL))
-	{
-		group->monitor = g_file_monitor_directory (file, G_FILE_MONITOR_NONE, NULL, NULL);
-
-		g_signal_connect (G_OBJECT (group->monitor),
-							"changed",
-							G_CALLBACK (on_file_changed),
-							node);
-	}
-
-	return node;
-}
-
-static void
-dir_group_free (DirGroup *node)
-{
-    DirGroupData *group = (DirGroupData *)node->data;
-	
-	if (group->monitor != NULL) g_file_monitor_cancel (group->monitor);
-	if (group->base.file) g_object_unref (group->base.file);
-    g_slice_free (DirGroupData, group);
-	//g_message ("free group %p monitor %p", node, group->monitor);
-
-	g_node_destroy (node);
-}
-
-/* Source objects
- *---------------------------------------------------------------------------*/
-
-static DirSource*
-dir_source_new (GFile *file)
-{
-    DirSourceData *source = NULL;
-
-	source = g_slice_new0(DirSourceData); 
-	source->base.type = ANJUTA_PROJECT_SOURCE;
-	source->base.file = g_object_ref (file);
-	source->base.state = ANJUTA_PROJECT_CAN_REMOVE |
-						ANJUTA_PROJECT_REMOVE_FILE;
-
-    return g_node_new (source);
-}
-
-static void
-dir_source_free (DirSource *node)
-{
-    DirSourceData *source = DIR_SOURCE_DATA (node);
-	
-    g_object_unref (source->base.file);
-    g_slice_free (DirSourceData, source);
-
-	g_node_destroy (node);
-}
-
-
-static void
-foreach_node_destroy (AnjutaProjectNode *node,
-		      gpointer  data)
-{
-	gint type = NODE_DATA (node)->type;
-	
-	//g_message ("dir free node %p", node);
-	switch (type & ANJUTA_PROJECT_TYPE_MASK)
-	{
-		case ANJUTA_PROJECT_GROUP:
-			dir_group_free (node);
-			break;
-		case ANJUTA_PROJECT_SOURCE:
-			dir_source_free (node);
-			break;
-		case ANJUTA_PROJECT_ROOT:
-			dir_root_free (node);
-			break;
-		default:
-			g_assert_not_reached ();
-			break;
-	}
-}
-
-static void
-project_node_destroy (DirProject *project, AnjutaProjectNode *g_node)
+project_node_destroy (DirProject *project, AnjutaProjectNode *node)
 {
 	g_return_if_fail (project != NULL);
 	g_return_if_fail (DIR_IS_PROJECT (project));
-	
-	if (g_node) {
-		/* free each node's data first */
-		anjuta_project_node_all_foreach (g_node,
-				 foreach_node_destroy, project);
+
+	if (node) {
+		g_object_unref (node);
 	}
 }
 
@@ -326,13 +137,13 @@ project_node_new (DirProject *project, AnjutaProjectNode *parent, AnjutaProjectN
 					GFile *group_file;
 					
 					group_file = g_file_get_child (anjuta_project_node_get_file (parent), name);
-					node = dir_group_new (group_file, G_OBJECT (project));
+					node = dir_group_node_new (group_file, G_OBJECT (project));
 					g_object_unref (group_file);
 				}
 			}
 			else
 			{
-				node = dir_group_new (file, G_OBJECT (project));
+				node = dir_group_node_new (file, G_OBJECT (project));
 			}
 			break;
 		case ANJUTA_PROJECT_SOURCE:
@@ -349,17 +160,17 @@ project_node_new (DirProject *project, AnjutaProjectNode *parent, AnjutaProjectN
 					GFile *source_file;
 					
 					source_file = g_file_get_child (anjuta_project_node_get_file (parent), name);
-					node = dir_source_new (source_file);
+					node = dir_source_node_new (source_file);
 					g_object_unref (source_file);
 				}
 			}
 			else
 			{
-				node = dir_source_new (file);
+				node = dir_source_node_new (file);
 			}
 			break;
 		case ANJUTA_PROJECT_ROOT:
-			node = dir_root_new (file);
+			node = dir_root_node_new (file);
 			break;
 		default:
 			g_assert_not_reached ();
@@ -367,8 +178,8 @@ project_node_new (DirProject *project, AnjutaProjectNode *parent, AnjutaProjectN
 	}
 	if (node != NULL)
 	{
-		NODE_DATA (node)->type = type;
-		node->parent = parent;
+		ANJUTA_PROJECT_NODE_DATA (node)->type = type;
+		ANJUTA_PROJECT_NODE_DATA (node)->parent = parent;
 	}
 	
 	//g_message ("dir new node %p type %x", node, type);
@@ -663,7 +474,7 @@ dir_project_load_directory (DirProject *project, AnjutaProjectNode *parent, GErr
 	gboolean ok;
 	GFileEnumerator *enumerator;
 
-	enumerator = g_file_enumerate_children (DIR_GROUP_DATA (parent)->base.file,
+	enumerator = g_file_enumerate_children (parent->file,
 	    G_FILE_ATTRIBUTE_STANDARD_NAME,
 	    G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
 	    NULL,
@@ -680,7 +491,7 @@ dir_project_load_directory (DirProject *project, AnjutaProjectNode *parent, GErr
 			GFile *file;
 
 			name = g_file_info_get_name (info);
-			file = g_file_get_child (DIR_GROUP_DATA (parent)->base.file, name);
+			file = g_file_get_child (parent->file, name);
 			g_object_unref (info);
 
 			/* Check if file is a source */
@@ -689,7 +500,7 @@ dir_project_load_directory (DirProject *project, AnjutaProjectNode *parent, GErr
 			if (g_file_query_file_type (file, G_FILE_QUERY_INFO_NONE, NULL) == G_FILE_TYPE_DIRECTORY)
 			{
 				/* Create a group for directory */
-				DirGroup *group;
+				AnjutaProjectNode *group;
 				
 				group = project_node_new (project, NULL, ANJUTA_PROJECT_GROUP, file, NULL, NULL);
 				g_hash_table_insert (project->groups, g_file_get_uri (file), group);
@@ -700,7 +511,7 @@ dir_project_load_directory (DirProject *project, AnjutaProjectNode *parent, GErr
 			else
 			{
 				/* Create a source for files */
-				DirSource *source;
+				AnjutaProjectNode *source;
 
 				source = project_node_new (project, NULL, ANJUTA_PROJECT_SOURCE, file, NULL, NULL);
 				anjuta_project_node_append (parent, source);
@@ -718,7 +529,7 @@ dir_project_load_root (DirProject *project, AnjutaProjectNode *node, GError **er
 {
 	GFile *root_file;
 	GFile *source_file;
-	DirGroup *group;
+	AnjutaProjectNode *group;
 
 	root_file = g_object_ref (anjuta_project_node_get_file (node));
 	DEBUG_PRINT ("reload project %p root file %p", project, root_file);
@@ -754,7 +565,7 @@ dir_project_load_root (DirProject *project, AnjutaProjectNode *node, GError **er
 AnjutaProjectNode *
 dir_project_load_node (DirProject *project, AnjutaProjectNode *node, GError **error) 
 {
-	switch (anjuta_project_node_get_type (node))
+	switch (anjuta_project_node_get_node_type (node))
 	{
 	case ANJUTA_PROJECT_ROOT:
 		return dir_project_load_root (project, node, error);
@@ -775,7 +586,7 @@ foreach_node_save (AnjutaProjectNode *node,
 	
 	if (state & ANJUTA_PROJECT_MODIFIED)
 	{
-		switch (anjuta_project_node_get_type (node))
+		switch (anjuta_project_node_get_node_type (node))
 		{
 		case ANJUTA_PROJECT_GROUP:
 			g_file_make_directory_with_parents (anjuta_project_node_get_file (node), NULL, NULL);
@@ -786,7 +597,7 @@ foreach_node_save (AnjutaProjectNode *node,
 	}
 	else if (state & ANJUTA_PROJECT_REMOVED)
 	{
-		switch (anjuta_project_node_get_type (node))
+		switch (anjuta_project_node_get_node_type (node))
 		{
 		case ANJUTA_PROJECT_GROUP:
 		case ANJUTA_PROJECT_SOURCE:
@@ -807,7 +618,7 @@ AnjutaProjectNode *
 dir_project_save_node (DirProject *project, AnjutaProjectNode *node, GError **error)
 {
 	/* Save children */
-	anjuta_project_node_all_foreach (node, foreach_node_save, project);
+	anjuta_project_node_foreach (node, G_POST_ORDER, foreach_node_save, project);
 	
 	return node;
 }
@@ -895,12 +706,6 @@ dir_project_get_node_info (DirProject *project, GError **error)
 	}
 	
 	return info_list;
-}
-
-static DirGroup *
-dir_project_get_root (DirProject *project)
-{
-	return NULL;
 }
 
 

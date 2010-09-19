@@ -50,17 +50,11 @@
  */ 
 
 /* convenient shortcut macro the get the AnjutaProjectNode from a GNode */
-#define NODE_DATA(node)  ((node) != NULL ? (AnjutaProjectNodeData *)((node)->data) : NULL)
+#define NODE_DATA(node)  node
 #define PROXY_DATA(node)  ((node) != NULL ? (AnjutaProjectProxyData *)((node)->data) : NULL)
 
 /* Properties functions
  *---------------------------------------------------------------------------*/
-
-typedef struct {
-	AnjutaProjectNodeData base;
-	AnjutaProjectNode *node;
-	guint reference;
-} AnjutaProjectProxyData;
 
 /* Properties functions
  *---------------------------------------------------------------------------*/
@@ -207,99 +201,330 @@ anjuta_project_property_foreach (AnjutaProjectProperty *list, GFunc func, gpoint
 AnjutaProjectNode *
 anjuta_project_node_parent(AnjutaProjectNode *node)
 {
+	g_return_val_if_fail (node != NULL, NULL);
+	
 	return node->parent;
 }
 
 AnjutaProjectNode *
 anjuta_project_node_first_child(AnjutaProjectNode *node)
 {
-	return g_node_first_child (node);
+	g_return_val_if_fail (node != NULL, NULL);
+	
+	return node->children;
 }
 
 AnjutaProjectNode *
 anjuta_project_node_last_child(AnjutaProjectNode *node)
 {
-	return g_node_last_child (node);
+	g_return_val_if_fail (node != NULL, NULL);
+
+	node = node->children;
+	if (node)
+		while (node->next)
+			node = node->next;
+
+  return node;
 }
 
 AnjutaProjectNode *
 anjuta_project_node_next_sibling (AnjutaProjectNode *node)
 {
-	return g_node_next_sibling (node);
+	g_return_val_if_fail (node != NULL, NULL);
+	
+	return node->next;
 }
 
 AnjutaProjectNode *
 anjuta_project_node_prev_sibling (AnjutaProjectNode *node)
 {
-	return g_node_prev_sibling (node);
+	g_return_val_if_fail (node != NULL, NULL);
+	
+	return node->prev;
 }
 
 AnjutaProjectNode *anjuta_project_node_nth_child (AnjutaProjectNode *node, guint n)
 {
-	return g_node_nth_child (node, n);
+	g_return_val_if_fail (node != NULL, NULL);
+
+	node = node->children;
+	if (node)
+		while ((n-- > 0) && node)
+			node = node->next;
+
+	return node;
 }
 
-typedef struct
+static AnjutaProjectNode *
+anjuta_project_node_post_order_traverse (AnjutaProjectNode *node, AnjutaProjectNodeTraverseFunc func, gpointer data)
 {
-	AnjutaProjectNodeFunc func;
-	gpointer data;
-} AnjutaProjectNodePacket;
-
-static gboolean
-anjuta_project_node_traverse_func (GNode *node, gpointer data)
-{
-	AnjutaProjectNodePacket *pack = (AnjutaProjectNodePacket *)data;
+	AnjutaProjectNode *child;
 	
-	pack->func ((AnjutaProjectNode *)node, pack->data);
+	child = node->children;
+	while (child != NULL)
+	{
+		AnjutaProjectNode *current;
 
-	return FALSE;
+		current = child;
+		child = current->next;
+		current = anjuta_project_node_post_order_traverse (current, func, data);
+		if (current != NULL)
+		{
+			return current;
+		}
+	}
+	
+	return func (node, data) ? node : NULL;
+}
+
+static AnjutaProjectNode *
+anjuta_project_node_pre_order_traverse (AnjutaProjectNode *node, AnjutaProjectNodeTraverseFunc func, gpointer data)
+{
+	AnjutaProjectNode *child;
+
+	if (func (node, data))
+	{
+		return node;
+	}
+	
+	child = node->children;
+	while (child != NULL)
+	{
+		AnjutaProjectNode *current;
+
+		current = child;
+		child = current->next;
+		current = anjuta_project_node_pre_order_traverse (current, func, data);
+		if (current != NULL)
+		{
+			return current;
+		}
+	}
+
+	return NULL;
+}
+
+
+AnjutaProjectNode *
+anjuta_project_node_traverse (AnjutaProjectNode *node, GTraverseType order, AnjutaProjectNodeTraverseFunc func, gpointer data)
+{
+	g_return_val_if_fail (node != NULL, NULL);
+	g_return_val_if_fail (func != NULL, NULL);
+	g_return_val_if_fail ((order != G_PRE_ORDER) || (order != G_POST_ORDER), NULL);
+
+	switch (order)
+	{
+	case G_PRE_ORDER:
+		return anjuta_project_node_pre_order_traverse (node, func, data);
+	case G_POST_ORDER:
+		return anjuta_project_node_post_order_traverse (node, func, data);
+	default:
+		return NULL;
+	}
+}
+
+AnjutaProjectNode *
+anjuta_project_node_children_traverse (AnjutaProjectNode *node, AnjutaProjectNodeTraverseFunc func, gpointer data)
+{
+	AnjutaProjectNode *child;
+	
+	g_return_val_if_fail (node != NULL, NULL);
+
+	child = node->children;
+	while (child != NULL)
+	{
+		AnjutaProjectNode *current;
+
+		current = child;
+		child = current->next;
+		if (func (current, data))
+		{
+			return current;
+		}
+	}
+
+	return NULL;
+}
+
+static void
+anjuta_project_node_post_order_foreach (AnjutaProjectNode *node, AnjutaProjectNodeForeachFunc func, gpointer data)
+{
+	AnjutaProjectNode *child;
+	
+	child = node->children;
+	while (child != NULL)
+	{
+		AnjutaProjectNode *current;
+
+		current = child;
+		child = current->next;
+		anjuta_project_node_post_order_foreach (current, func, data);
+	}
+	
+	func (node, data);
+}
+
+static void
+anjuta_project_node_pre_order_foreach (AnjutaProjectNode *node, AnjutaProjectNodeForeachFunc func, gpointer data)
+{
+	AnjutaProjectNode *child;
+
+	func (node, data);
+	
+	child = node->children;
+	while (child != NULL)
+	{
+		AnjutaProjectNode *current;
+
+		current = child;
+		child = current->next;
+		anjuta_project_node_pre_order_foreach (current, func, data);
+	}
+}
+
+
+void
+anjuta_project_node_foreach (AnjutaProjectNode *node, GTraverseType order, AnjutaProjectNodeForeachFunc func, gpointer data)
+{
+	g_return_if_fail (node != NULL);
+	g_return_if_fail (func != NULL);
+	g_return_if_fail ((order != G_PRE_ORDER) || (order != G_POST_ORDER));
+
+	switch (order)
+	{
+	case G_PRE_ORDER:
+			anjuta_project_node_pre_order_foreach (node, func, data);
+			break;
+	case G_POST_ORDER:
+			anjuta_project_node_post_order_foreach (node, func, data);
+			break;
+	default:
+			break;
+	}
 }
 
 void
-anjuta_project_node_all_foreach (AnjutaProjectNode *node, AnjutaProjectNodeFunc func, gpointer data)
+anjuta_project_node_children_foreach (AnjutaProjectNode *node, AnjutaProjectNodeForeachFunc func, gpointer data)
 {
-    AnjutaProjectNodePacket pack = {func, data};
+	AnjutaProjectNode *child;
 	
-	/* POST_ORDER is important when deleting the node, children has to be
-	 * deleted first */
-	g_node_traverse (node, G_POST_ORDER, G_TRAVERSE_ALL, -1, anjuta_project_node_traverse_func, &pack);
-}
+	g_return_if_fail (node != NULL);
 
-void
-anjuta_project_node_children_foreach (AnjutaProjectNode *node, AnjutaProjectNodeFunc func, gpointer data)
-{
-	g_node_children_foreach (node, G_TRAVERSE_ALL, func, data);
+	child = node->children;
+	while (child != NULL)
+	{
+		AnjutaProjectNode *current;
+
+		current = child;
+		child = current->next;
+		func (current, data);
+	}
 }
 
 AnjutaProjectNode *
 anjuta_project_node_append (AnjutaProjectNode *parent, AnjutaProjectNode *node)
-{
-	return g_node_append (parent, node);
+{ 
+	return anjuta_project_node_insert_before (parent, NULL, node);
 }
 
 AnjutaProjectNode *
 anjuta_project_node_insert_before (AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNode *node)
 {
-	/* node->parent is filled by the new function */
-	if (node->parent != NULL) node->parent = NULL;
-	return g_node_insert_before (parent, sibling, node);
+	g_return_val_if_fail (node != NULL, NULL);
+	g_return_val_if_fail (parent != NULL, node);
+
+	/* FIXME: Try to avoid filling parent member to allow these checks
+	g_return_val_if_fail (node->parent == NULL)
+	if (sibling)
+		g_return_val_if_fail (sibling->parent == parent, node);*/
+
+	node->parent = parent;
+	if (sibling)
+	{
+		if (sibling->prev)
+		{
+			node->prev = sibling->prev;
+			node->prev->next = node;
+			node->next = sibling;
+			sibling->prev = node;
+		}
+		else
+		{
+			node->parent->children = node;
+			node->next = sibling;
+			sibling->prev = node;
+		}
+	}
+	else
+	{
+		if (parent->children)
+		{
+			sibling = parent->children;
+			while (sibling->next)
+				sibling = sibling->next;
+			node->prev = sibling;
+			sibling->next = node;
+		}
+		else
+		{
+			node->parent->children = node;
+		}
+	}
+
+	return node;	
 }
 
 AnjutaProjectNode *
 anjuta_project_node_insert_after (AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNode *node)
 {
-	/* node->parent is filled by the new function */
-	if (node->parent != NULL) node->parent = NULL;
-	return g_node_insert_after (parent, sibling, node);
+	g_return_val_if_fail (node != NULL, NULL);
+	g_return_val_if_fail (parent != NULL, node);
+
+	/* FIXME: Try to avoid filling parent member to allow these checks
+	g_return_val_if_fail (node->parent == NULL)
+	if (sibling)
+		g_return_val_if_fail (sibling->parent == parent, node);*/
+
+	node->parent = parent;
+	if (sibling)
+    {
+		if (sibling->next)
+		{
+			sibling->next->prev = node;
+		}
+		node->next = sibling->next;
+		node->prev = sibling;
+		sibling->next = node;
+	}
+	else
+    {
+		if (parent->children)
+		{
+			node->next = parent->children;
+			parent->children->prev = node;
+		}
+		parent->children = node;
+	}
+
+	return node;	
 }
 
 AnjutaProjectNode *
 anjuta_project_node_remove (AnjutaProjectNode *node)
 {
-	if (node->parent != NULL)
+	g_return_val_if_fail (node != NULL, NULL);
+
+	if (node->prev)
+		node->prev->next = node->next;
+	else if (node->parent)
+		node->parent->children = node->next;
+	node->parent = NULL;
+	if (node->next)
 	{
-		g_node_unlink (node);
+		node->next->prev = node->prev;
+		node->next = NULL;
 	}
+    node->prev = NULL;
 	
 	return node;
 }
@@ -309,8 +534,8 @@ anjuta_project_node_replace (AnjutaProjectNode *node, AnjutaProjectNode *replace
 {
 	if (node->parent != NULL)
 	{
-		g_node_insert_after (node->parent, node, replacement);
-		g_node_unlink (node);
+		anjuta_project_node_insert_after (node->parent, node, replacement);
+		anjuta_project_node_remove (node);
 	}
 	
 	return replacement;
@@ -319,46 +544,46 @@ anjuta_project_node_replace (AnjutaProjectNode *node, AnjutaProjectNode *replace
 AnjutaProjectNode *
 anjuta_project_node_exchange (AnjutaProjectNode *node, AnjutaProjectNode *replacement)
 {
-	GNode *marker = g_node_new (NULL);
-	GNode *child;
-	GNode *sibling;
-	GNode *next;
+	AnjutaProjectNode *marker = g_object_new (ANJUTA_TYPE_PROJECT_NODE, NULL);
+	AnjutaProjectNode *child;
+	AnjutaProjectNode *sibling;
+	AnjutaProjectNode *next;
 	
 	if (node->parent != NULL)
 	{
-		g_node_insert_after (node->parent, node, marker);
-		g_node_unlink (node);
+		anjuta_project_node_insert_after (node->parent, node, marker);
+		anjuta_project_node_remove (node);
 	}
 	if (replacement->parent != NULL)
 	{
-		g_node_insert_after (replacement->parent, replacement, node);
-		g_node_unlink (replacement);
+		anjuta_project_node_insert_after (replacement->parent, replacement, node);
+		anjuta_project_node_remove (node);
 	}
 	if (marker->parent != NULL)
 	{
-		g_node_insert_after (marker->parent, marker, replacement);
-		g_node_unlink (marker);
+		anjuta_project_node_insert_after (marker->parent, marker, replacement);
+		anjuta_project_node_remove (marker);
 	}
-	g_node_destroy (marker);
+	g_object_unref (marker);
 
 	/* Move all children from node to replacement */
 	sibling = NULL;
-	for (child = g_node_first_child (node); child != NULL; child = next)
+	for (child = anjuta_project_node_first_child (node); child != NULL; child = next)
 	{
-		next = g_node_next_sibling (child);
-		g_node_unlink (child);
-		sibling = g_node_insert_after (replacement, sibling, child);
+		next = anjuta_project_node_next_sibling (child);
+		anjuta_project_node_remove (child);
+		sibling = anjuta_project_node_insert_after (replacement, sibling, child);
 		child = next;
 	}
 	
 	/* Move all children from replacement to node */
-	child = g_node_next_sibling (sibling);
+	child = anjuta_project_node_next_sibling (sibling);
 	sibling = NULL;
 	for (; child != NULL; child = next)
 	{
-		next = g_node_next_sibling (child);
-		g_node_unlink (child);
-		sibling = g_node_insert_after (node, sibling, child);
+		next = anjuta_project_node_next_sibling (child);
+		anjuta_project_node_remove (child);
+		sibling = anjuta_project_node_insert_after (node, sibling, child);
 		child = next;
 	}
 
@@ -371,16 +596,16 @@ anjuta_project_node_grab_children (AnjutaProjectNode *parent, AnjutaProjectNode 
 	AnjutaProjectNode *child;
 	AnjutaProjectNode *sibling;
 	
-	sibling = g_node_last_child (parent);
+	sibling = anjuta_project_node_last_child (parent);
 	
-	for (child = g_node_first_child (node); child != NULL;)
+	for (child = anjuta_project_node_first_child (node); child != NULL;)
 	{
 		AnjutaProjectNode *remove;
 
 		remove = child;
-		child = g_node_next_sibling (child);
-		g_node_unlink (remove);
-		sibling = g_node_insert_after (parent, sibling, remove);
+		child = anjuta_project_node_next_sibling (child);
+		anjuta_project_node_remove (remove);
+		sibling = anjuta_project_node_insert_after (parent, sibling, remove);
 	}
 	
 	return parent;
@@ -390,7 +615,7 @@ anjuta_project_node_grab_children (AnjutaProjectNode *parent, AnjutaProjectNode 
 AnjutaProjectNode *
 anjuta_project_node_prepend (AnjutaProjectNode *parent, AnjutaProjectNode *node)
 {
-	return g_node_prepend (parent, node);
+	return anjuta_project_node_insert_before (parent, parent->children, node);	
 }
 
 gboolean
@@ -416,7 +641,7 @@ anjuta_project_node_get_state (const AnjutaProjectNode *node)
 }
 
 AnjutaProjectNodeType
-anjuta_project_node_get_type (const AnjutaProjectNode *node)
+anjuta_project_node_get_node_type (const AnjutaProjectNode *node)
 {
 	return node == NULL ? ANJUTA_PROJECT_UNKNOWN : (NODE_DATA (node)->type & ANJUTA_PROJECT_TYPE_MASK);
 }
@@ -477,9 +702,7 @@ anjuta_project_node_get_uri (AnjutaProjectNode *node)
 GFile*
 anjuta_project_node_get_file (AnjutaProjectNode *node)
 {
-	AnjutaProjectNodeData *data = NODE_DATA (node);
-
-	if ((data->file == NULL) && (data->name != NULL))
+	if ((NODE_DATA (node)->file == NULL) && (NODE_DATA (node)->name != NULL))
 	{
 		/* Try to create a file */
 		AnjutaProjectNode *parent;
@@ -487,11 +710,11 @@ anjuta_project_node_get_file (AnjutaProjectNode *node)
 		parent = anjuta_project_node_parent (node);
 		if ((parent != NULL) && (NODE_DATA (parent)->file != NULL))
 		{
-			data->file = g_file_get_child (NODE_DATA (parent)->file, data->name);
+			NODE_DATA (node)->file = g_file_get_child (NODE_DATA (parent)->file, NODE_DATA (node)->name);
 		}
 	}
 
-	return data->file;
+	return NODE_DATA (node)->file;
 }
 
 AnjutaProjectProperty *
@@ -649,14 +872,12 @@ anjuta_project_group_get_directory (const AnjutaProjectNode *group)
 }
 
 static gboolean
-anjuta_project_group_compare (GNode *node, gpointer data)
+anjuta_project_group_compare (AnjutaProjectNode *node, gpointer data)
 {
-	GFile *file = *(GFile **)data;
+	GFile *file = (GFile *)data;
 
 	if (((NODE_DATA (node)->type & ANJUTA_PROJECT_TYPE_MASK) == ANJUTA_PROJECT_GROUP) && g_file_equal (NODE_DATA(node)->file, file))
 	{
-		*(AnjutaProjectNode **)data = node;
-
 		return TRUE;
 	}
 	else
@@ -668,12 +889,11 @@ anjuta_project_group_compare (GNode *node, gpointer data)
 AnjutaProjectNode *
 anjuta_project_group_get_node_from_file (const AnjutaProjectNode *root, GFile *directory)
 {
-	GFile *data;
-	
-	data = directory;
-	g_node_traverse	((GNode *)root, G_PRE_ORDER, G_TRAVERSE_ALL, -1, anjuta_project_group_compare, &data);
+	AnjutaProjectNode *node;
 
-	return (data == directory) ? NULL : (AnjutaProjectNode *)data;
+	node = anjuta_project_node_traverse (root, G_PRE_ORDER, anjuta_project_group_compare, directory);
+
+	return node;
 }
 
 AnjutaProjectNode *
@@ -689,14 +909,12 @@ anjuta_project_group_get_node_from_uri (const AnjutaProjectNode *root, const gch
 }
 
 static gboolean
-anjuta_project_target_compare (GNode *node, gpointer data)
+anjuta_project_target_compare (AnjutaProjectNode *node, gpointer data)
 {
-	const gchar *name = *(gchar **)data;
+	const gchar *name = (gchar *)data;
 
 	if (((NODE_DATA (node)->type & ANJUTA_PROJECT_TYPE_MASK) == ANJUTA_PROJECT_TARGET) && (strcmp (NODE_DATA(node)->name, name) == 0))
 	{
-		*(AnjutaProjectNode **)data = node;
-
 		return TRUE;
 	}
 	else
@@ -708,23 +926,20 @@ anjuta_project_target_compare (GNode *node, gpointer data)
 AnjutaProjectNode *
 anjuta_project_target_get_node_from_name (const AnjutaProjectNode *parent, const gchar *name)
 {
-	const gchar *data;
-	
-	data = name;
-	g_node_traverse	((GNode *)parent, G_PRE_ORDER, G_TRAVERSE_ALL, 2, anjuta_project_target_compare, &data);
+	AnjutaProjectNode *node;
 
-	return (data == name) ? NULL : (AnjutaProjectNode *)data;
+	node = anjuta_project_node_traverse (parent, G_PRE_ORDER, anjuta_project_target_compare, name);
+
+	return node;
 }
 
 static gboolean
-anjuta_project_source_compare (GNode *node, gpointer data)
+anjuta_project_source_compare (AnjutaProjectNode *node, gpointer data)
 {
-	GFile *file = *(GFile **)data;
+	GFile *file = (GFile *)data;
 
 	if (((NODE_DATA (node)->type & ANJUTA_PROJECT_TYPE_MASK) == ANJUTA_PROJECT_SOURCE) && g_file_equal (NODE_DATA(node)->file, file))
 	{
-		*(AnjutaProjectNode **)data = node;
-
 		return TRUE;
 	}
 	else
@@ -736,12 +951,12 @@ anjuta_project_source_compare (GNode *node, gpointer data)
 AnjutaProjectNode *
 anjuta_project_source_get_node_from_file (const AnjutaProjectNode *parent, GFile *file)
 {
-	GFile *data;
-	
-	data = file;
-	g_node_traverse	((GNode *)parent, G_PRE_ORDER, G_TRAVERSE_ALL, 2, anjuta_project_source_compare, &data);
+	AnjutaProjectNode *node;
 
-	return (data == file) ? NULL : (AnjutaProjectNode *)data;
+
+	node = anjuta_project_node_traverse (parent, G_PRE_ORDER, anjuta_project_source_compare, file);
+
+	return node;
 }
 
 AnjutaProjectNode *
@@ -795,36 +1010,281 @@ anjuta_project_node_info_type (const AnjutaProjectNodeInfo *info)
 	return info->type;
 }
 
-/* Proxy node functions
+/* Implement GObject
  *---------------------------------------------------------------------------*/
+
+enum
+{
+	UPDATED,
+	LOADED,
+	LAST_SIGNAL
+};
+
+enum {
+	PROP_NONE,
+	PROP_NAME,
+	PROP_FILE,
+	PROP_STATE,
+	PROP_TYPE,
+	PROP_DATA
+};
+
+
+static unsigned int anjuta_project_node_signals[LAST_SIGNAL] = { 0 };
+
+G_DEFINE_TYPE (AnjutaProjectNode, anjuta_project_node, G_TYPE_OBJECT);
+
+static void
+anjuta_project_node_init (AnjutaProjectNode *node)
+{
+	node->next = NULL;
+	node->prev = NULL;
+	node->parent = NULL;
+	node->children = NULL;
+	
+	node->type = 0;
+	node->state = 0;
+	node->properties = NULL;
+	node->file = NULL;
+	node->name = NULL;
+}
+
+static void
+anjuta_project_node_dispose (GObject *object)
+{
+	AnjutaProjectNode *node = ANJUTA_PROJECT_NODE(object);
+
+	//g_message ("anjuta_project_node_dispose node %p children %p parent %p prev %p name %s file %s", node, node->children, node->parent, node->prev, node->name, node->file != NULL ? g_file_get_path (node->file) : "no file");
+
+	anjuta_project_node_remove (node);
+	
+	if (node->file != NULL) g_object_unref (node->file);
+	node->file = NULL;
+
+	while (node->children != NULL)
+	{
+		AnjutaProjectNode *child;
+		
+		child = anjuta_project_node_remove (node->children);
+		g_object_unref (child);
+	}
+	
+	G_OBJECT_CLASS (anjuta_project_node_parent_class)->dispose (object);
+}
+
+static void
+anjuta_project_node_finalize (GObject *object)
+{
+	AnjutaProjectNode *node = ANJUTA_PROJECT_NODE(object);
+
+	if (node->name != NULL) g_free (node->name);
+	
+	G_OBJECT_CLASS (anjuta_project_node_parent_class)->finalize (object);
+}
+
+static void 
+anjuta_project_node_get_gobject_property (GObject    *object,
+	      guint       prop_id,
+	      GValue     *value,
+	      GParamSpec *pspec)
+{
+	AnjutaProjectNode *node = ANJUTA_PROJECT_NODE(object);
+        
+	G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+}
+
+static void 
+anjuta_project_node_set_gobject_property (GObject      *object,
+	      guint         prop_id,
+	      const GValue *value,
+	      GParamSpec   *pspec)
+{
+	AnjutaProjectNode *node = ANJUTA_PROJECT_NODE(object);
+       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+}
+
+static void
+anjuta_project_node_class_init (AnjutaProjectNodeClass *klass)
+{
+	GObjectClass* object_class = G_OBJECT_CLASS (klass);
+	
+	object_class->finalize = anjuta_project_node_finalize;
+	object_class->dispose = anjuta_project_node_dispose;
+	object_class->get_property = anjuta_project_node_get_gobject_property;
+	object_class->set_property = anjuta_project_node_set_gobject_property;
+
+ 	/*Change both signal to use marshal_VOID__POINTER_BOXED
+	adding a AnjutaProjectNode pointer corresponding to the
+	 loaded node => done
+	 Such marshal doesn't exist as glib marshal, so look in the
+	 symbol db plugin how to add new marshal => done
+	 ToDo :
+	 This new argument can be used in the plugin object in
+	 order to add corresponding shortcut when the project
+	 is loaded and a new node is loaded.
+	 The plugin should probably get the GFile from the
+	 AnjutaProjectNode object and then use a function
+	 in project-view.c to create the corresponding shortcut*/
+	
+	anjuta_project_node_signals[UPDATED] = g_signal_new ("updated",
+	    G_OBJECT_CLASS_TYPE (object_class),
+	    G_SIGNAL_RUN_LAST,
+	    G_STRUCT_OFFSET (AnjutaProjectNodeClass, updated),
+	    NULL, NULL,
+        anjuta_cclosure_marshal_VOID__STRING_BOXED,
+	    G_TYPE_NONE,
+	    2,
+	    G_TYPE_POINTER,
+	    G_TYPE_ERROR);
+	
+	anjuta_project_node_signals[LOADED] = g_signal_new ("loaded",
+		G_OBJECT_CLASS_TYPE (object_class),
+		G_SIGNAL_RUN_LAST,
+		G_STRUCT_OFFSET (AnjutaProjectNodeClass, loaded),
+		NULL, NULL,
+        anjuta_cclosure_marshal_VOID__STRING_BOXED,
+		G_TYPE_NONE,
+		2,
+	    G_TYPE_POINTER,
+		G_TYPE_ERROR);
+
+	g_object_class_install_property 
+                (G_OBJECT_CLASS (klass), PROP_TYPE,
+                 g_param_spec_pointer ("type", 
+                                       "Type",
+                                       "Node type",
+                                       G_PARAM_READWRITE));
+
+	g_object_class_install_property 
+                (G_OBJECT_CLASS (klass), PROP_STATE,
+                 g_param_spec_pointer ("state", 
+                                       "Stroject",
+                                       "GbfProject Object",
+                                       G_PARAM_READWRITE));
+
+	g_object_class_install_property 
+                (G_OBJECT_CLASS (klass), PROP_DATA,
+                 g_param_spec_pointer ("project", 
+                                       "Project",
+                                       "GbfProject Object",
+                                       G_PARAM_READWRITE));
+
+	g_object_class_install_property 
+                (G_OBJECT_CLASS (klass), PROP_NAME,
+                 g_param_spec_string ("name", 
+                                      "Name",
+                                      "GbfProject Object",
+				       "",
+                                       G_PARAM_READWRITE));
+
+	g_object_class_install_property 
+                (G_OBJECT_CLASS (klass), PROP_FILE,
+                 g_param_spec_object ("file", 
+                                       "PDroject",
+                                       "GbfProject Object",
+				       G_TYPE_FILE,
+                                       G_PARAM_READWRITE));
+
+}
+
+
+
+/* Proxy node object
+ *---------------------------------------------------------------------------*/
+
+#define ANJUTA_TYPE_PROJECT_PROXY_NODE					(anjuta_project_proxy_node_get_type ())
+#define ANJUTA_PROJECT_PROXY_NODE(obj)					(G_TYPE_CHECK_INSTANCE_CAST ((obj), ANJUTA_TYPE_PROJECT_PROXY_NODE, AnjutaProjectProxyNode))
+
+typedef struct _AnjutaProjectProxyNode AnjutaProjectProxyNode;
+GType anjuta_project_proxy_node_get_type (void) G_GNUC_CONST;
+
+struct _AnjutaProjectProxyNode{
+	AnjutaProjectNode base;
+	AnjutaProjectNode *node;
+	guint reference;
+};
+
 
 AnjutaProjectNode *
 anjuta_project_proxy_new (AnjutaProjectNode *node)
 {
-	AnjutaProjectProxyData *proxy;
-	AnjutaProjectNodeData *data;
+	AnjutaProjectNode *proxy;
+	GTypeQuery node_type_info;
+	GTypeQuery base_type_info;
+	guint extra_size;
 	
-	/* If the node is already a proxy get original node */
-	node = anjuta_project_proxy_get_node (node);
-	data = NODE_DATA (node);
-	
-	/* Create proxy node */
-	proxy = g_slice_new0(AnjutaProjectProxyData);
-	proxy->reference = 1;
-	proxy->node = node;
-	proxy->base.type = data->type | ANJUTA_PROJECT_PROXY;
-	proxy->base.file = data->file != NULL ? g_object_ref (data->file) : NULL;
-	proxy->base.name = g_strdup (data->name);
-		
-	/* Shallow copy of all properties */
-	if ((data->properties == NULL) || (((AnjutaProjectPropertyInfo *)data->properties->data)->override == NULL))
+
+	/* Clone node object */
+	proxy = g_object_new (G_TYPE_FROM_INSTANCE (node), NULL);
+
+	/* Swap specific data */
+	g_type_query (G_TYPE_FROM_INSTANCE (node), &node_type_info);
+	g_type_query (ANJUTA_TYPE_PROJECT_NODE, &base_type_info);
+
+	extra_size = node_type_info.instance_size - base_type_info.instance_size;
+	if (extra_size > 0)
 	{
-		proxy->base.properties = data->properties;
+		gchar *data;
+
+		data = g_new (gchar , extra_size);
+		memcpy (data, ((gchar *)node) +  base_type_info.instance_size, extra_size);
+		memcpy (((gchar *)node) +  base_type_info.instance_size, ((gchar *)proxy) +  base_type_info.instance_size, extra_size);
+		memcpy (((gchar *)proxy) +  base_type_info.instance_size, data, extra_size);
+		g_free (data);
+	}
+
+	/* Copy node data */
+	proxy->type = node->type;
+	proxy->file = node->file != NULL ? g_file_dup (node->file) : NULL;
+	proxy->name = g_strdup (node->name);
+	proxy->state = node->state;
+
+	/* Shallow copy of all properties */
+	if ((node->properties == NULL) || (((AnjutaProjectPropertyInfo *)node->properties->data)->override == NULL))
+	{
+		proxy->properties = node->properties;
 	}
 	else
 	{
 		GList *item;
-		proxy->base.properties = g_list_copy (data->properties);
+
+		proxy->properties = node->properties;
+		node->properties = g_list_copy (proxy->properties);
+		for (item = g_list_first (node->properties); item != NULL; item = g_list_next (item))
+		{
+			AnjutaProjectPropertyInfo *info = (AnjutaProjectPropertyInfo *)item->data;
+			AnjutaProjectPropertyInfo *new_info;
+
+			new_info = g_slice_new0(AnjutaProjectPropertyInfo);
+			new_info->name = g_strdup (info->name);
+			new_info->type = info->type;
+			new_info->value = g_strdup (info->value);
+			new_info->override = info->override;
+			item->data = new_info;
+		}
+	}
+	
+#if 0	
+	/* If the node is already a proxy get original node */
+	node = anjuta_project_proxy_get_node (node);
+	
+	/* Create proxy node */
+	proxy = g_object_new (ANJUTA_TYPE_PROJECT_PROXY_NODE, NULL);
+	proxy->reference = 1;
+	proxy->node = node;
+	proxy->base.type = node->type | ANJUTA_PROJECT_PROXY;
+	proxy->base.file = node->file != NULL ? g_object_ref (node->file) : NULL;
+	proxy->base.name = g_strdup (node->name);
+		
+	/* Shallow copy of all properties */
+	if ((node->properties == NULL) || (((AnjutaProjectPropertyInfo *)node->properties->data)->override == NULL))
+	{
+		proxy->base.properties = node->properties;
+	}
+	else
+	{
+		GList *item;
+		proxy->base.properties = g_list_copy (node->properties);
 		for (item = g_list_first (proxy->base.properties); item != NULL; item = g_list_next (item))
 		{
 			AnjutaProjectPropertyInfo *info = (AnjutaProjectPropertyInfo *)item->data;
@@ -838,57 +1298,132 @@ anjuta_project_proxy_new (AnjutaProjectNode *node)
 			item->data = new_info;
 		}
 	}
-		
-	node = g_node_new (proxy);
-
-	return node;
+#endif		
+	return ANJUTA_PROJECT_NODE (proxy);
 }
 
 AnjutaProjectNode *
 anjuta_project_proxy_unref (AnjutaProjectNode *node)
 {
-	if (NODE_DATA (node)->type & ANJUTA_PROJECT_PROXY)
-	{
-		PROXY_DATA (node)->reference--;
-
-		if (PROXY_DATA (node)->reference == 0)
-		{
-			AnjutaProjectProxyData *proxy = PROXY_DATA (node);
-
-			if (proxy->base.file) g_object_unref (proxy->base.file);
-			g_free (proxy->base.name);
-			if ((proxy->base.properties != NULL) && (((AnjutaProjectPropertyInfo *)proxy->base.properties->data)->override != NULL))
-			{
-				GList *item;
-				
-				for (item = g_list_first (proxy->base.properties); item != NULL; item = g_list_next (item))
-				{
-					AnjutaProjectPropertyInfo *info = (AnjutaProjectPropertyInfo *)item->data;
-
-					g_free (info->name);
-					g_free (info->value);
-					g_slice_free (AnjutaProjectPropertyInfo, info);
-				}
-				g_list_free (proxy->base.properties);
-			}
-			g_slice_free (AnjutaProjectProxyData, proxy);
-			g_node_destroy (node);
-			node = NULL;
-		}
-	}
+	g_object_unref (G_OBJECT (node));
 
 	return node;
 }
 
-AnjutaProjectNode *
-anjuta_project_proxy_exchange_data (AnjutaProjectNode *proxy, AnjutaProjectNode *node)
+/* GObjet implementation
+ *---------------------------------------------------------------------------*/
+
+typedef struct _AnjutaProjectProxyNodeClass AnjutaProjectProxyNodeClass;
+
+struct _AnjutaProjectProxyNodeClass {
+	AnjutaProjectNodeClass parent_class;
+};
+
+G_DEFINE_TYPE (AnjutaProjectProxyNode, anjuta_project_proxy_node, ANJUTA_TYPE_PROJECT_NODE);
+
+static void
+anjuta_project_proxy_node_init (AnjutaProjectProxyNode *node)
 {
+}
+
+static void
+anjuta_project_proxy_node_finalize (GObject *object)
+{
+	AnjutaProjectProxyNode *proxy = ANJUTA_PROJECT_PROXY_NODE (object);
+
+	if (proxy->base.file) g_object_unref (proxy->base.file);
+	g_free (proxy->base.name);
+	
+	if ((proxy->base.properties != NULL) && (((AnjutaProjectPropertyInfo *)proxy->base.properties->data)->override != NULL))
+	{
+		GList *item;
+				
+		for (item = g_list_first (proxy->base.properties); item != NULL; item = g_list_next (item))
+		{
+			AnjutaProjectPropertyInfo *info = (AnjutaProjectPropertyInfo *)item->data;
+
+			g_free (info->name);
+			g_free (info->value);
+			g_slice_free (AnjutaProjectPropertyInfo, info);
+		}
+		g_list_free (proxy->base.properties);
+	}
+	
+	G_OBJECT_CLASS (anjuta_project_proxy_node_parent_class)->finalize (object);
+}
+
+
+static void
+anjuta_project_proxy_node_class_init (AnjutaProjectProxyNodeClass *klass)
+{
+	GObjectClass* object_class = G_OBJECT_CLASS (klass);
+	
+	object_class->finalize = anjuta_project_proxy_node_finalize;
+}
+
+
+/* Proxy node functions
+ *---------------------------------------------------------------------------*/
+
+static void
+reparent_children (AnjutaProjectNode *node, gpointer data)
+{
+	node->parent = ANJUTA_PROJECT_NODE (data);
+}
+
+static void
+free_node_property (gpointer data, gpointer user_data)
+{
+	g_slice_free (AnjutaProjectPropertyInfo, data);
+}
+
+AnjutaProjectNode *
+anjuta_project_proxy_exchange (AnjutaProjectNode *proxy, AnjutaProjectNode *node)
+{
+	GTypeQuery node_type_info;
+	GTypeQuery base_type_info;
+	guint extra_size;
+	AnjutaProjectNode *other;
+	
+
+	/* Swap specific data */
+	g_type_query (G_TYPE_FROM_INSTANCE (node), &node_type_info);
+	g_type_query (ANJUTA_TYPE_PROJECT_NODE, &base_type_info);
+
+	extra_size = node_type_info.instance_size - base_type_info.instance_size;
+	if (extra_size > 0)
+	{
+		gchar *data;
+
+		data = g_new (gchar , extra_size);
+		memcpy (data, ((gchar *)node) +  base_type_info.instance_size, extra_size);
+		memcpy (((gchar *)node) +  base_type_info.instance_size, ((gchar *)proxy) +  base_type_info.instance_size, extra_size);
+		memcpy (((gchar *)proxy) +  base_type_info.instance_size, data, extra_size);
+		g_free (data);
+	}
+
+	/* Exchange link */
+	other = proxy->children;
+	proxy->children = node->children;
+	node->children = other;
+	anjuta_project_node_children_foreach (proxy, reparent_children, proxy);
+	anjuta_project_node_children_foreach (node, reparent_children, node);
+	
+	/* Delete node temporary properties */
+	if ((node->properties != NULL) && (((AnjutaProjectPropertyInfo *)node->properties->data)->override != NULL))
+	{
+		g_list_foreach (node->properties, free_node_property, NULL);
+	}
+	node->properties = proxy->properties;
+	proxy->properties = NULL;
+	
+#if 0	
 	AnjutaProjectNodeData *data;
 	
 	data = proxy->data;
 	proxy->data = node->data;
 	node->data = data;
-	
+#endif	
 	return proxy;
 }
 
@@ -897,9 +1432,9 @@ anjuta_project_proxy_get_node (AnjutaProjectNode *node)
 {
 	g_return_val_if_fail (node != NULL, FALSE);
 
-	if (NODE_DATA (node)->type & ANJUTA_PROJECT_PROXY)
+	if (ANJUTA_PROJECT_NODE (node)->type & ANJUTA_PROJECT_PROXY)
 	{
-		return (PROXY_DATA (node)->node);
+		return ANJUTA_PROJECT_PROXY_NODE (node)->node;
 	}
 	else
 	{
@@ -915,6 +1450,7 @@ anjuta_project_node_is_proxy (AnjutaProjectNode *node)
 	return NODE_DATA (node)->type & ANJUTA_PROJECT_PROXY ? TRUE : FALSE;
 }
 
+#if 0
 typedef struct {
 	AnjutaProjectNodeData base;
 	gpointer data;
@@ -1010,23 +1546,6 @@ anjuta_project_introspection_node_get_user_data (AnjutaProjectNode *node)
 
 /* Implement GObject
  *---------------------------------------------------------------------------*/
-
-enum
-{
-	UPDATED,
-	LOADED,
-	LAST_SIGNAL
-};
-
-enum {
-	PROP_NONE,
-	PROP_NAME,
-	PROP_FILE,
-	PROP_STATE,
-	PROP_TYPE,
-	PROP_DATA
-};
-
 
 static unsigned int signals[LAST_SIGNAL] = { 0 };
 
@@ -1283,4 +1802,4 @@ anjuta_project_boxed_node_get_type (void)
 	
   return type_id;
 }
-
+#endif

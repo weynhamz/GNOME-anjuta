@@ -32,7 +32,6 @@ SUBDIRS = . \
 	run-program \
 	starter \
 	am-project \
-	mk-project \
 	dir-project \
 	js-debugger \
 	language-support-js \

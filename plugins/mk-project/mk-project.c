@@ -1130,7 +1130,7 @@ mkp_project_load_root (MkpProject *project, AnjutaProjectNode *node, GError **er
 AnjutaProjectNode *
 mkp_project_load_node (MkpProject *project, AnjutaProjectNode *node, GError **error) 
 {
-	switch (anjuta_project_node_get_type (node))
+	switch (anjuta_project_node_get_node_type (node))
 	{
 	case ANJUTA_PROJECT_ROOT:
 		return mkp_project_load_root (project, node, error);

@@ -35,7 +35,9 @@ libdir_project_la_SOURCES = \
 	plugin.c \
 	plugin.h \
 	dir-project.c \
-	dir-project.h
+	dir-project.h \
+	dir-node.c \
+	dir-node.h
 
 libdir_project_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 

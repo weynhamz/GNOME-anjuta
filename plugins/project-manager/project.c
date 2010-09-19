@@ -192,7 +192,7 @@ pm_project_compare_node (AnjutaProjectNode *old_node, AnjutaProjectNode *new_nod
 	file1 = anjuta_project_node_get_file (old_node);
 	file2 = anjuta_project_node_get_file (new_node);
 
-	return (anjuta_project_node_get_type (old_node) == anjuta_project_node_get_type (new_node))
+	return (anjuta_project_node_get_node_type (old_node) == anjuta_project_node_get_node_type (new_node))
 		&& ((name1 == NULL) || (name2 == NULL) || (strcmp (name1, name2) == 0))
 		&& ((file1 == NULL) || (file2 == NULL) || g_file_equal (file1, file2)) ? 0 : 1;
 }
@@ -432,8 +432,8 @@ pm_command_load_setup (AnjutaPmProject *project, PmJob *job)
 	g_return_val_if_fail (job->node != NULL, FALSE);
 	
 	job->proxy = anjuta_project_proxy_new (job->node);
-	anjuta_project_node_replace (job->node, job->proxy);
-	anjuta_project_proxy_exchange_data (job->node, job->proxy);
+	/*anjuta_project_node_replace (job->node, job->proxy);
+	anjuta_project_proxy_exchange_data (job->node, job->proxy);*/
 	
 	return TRUE;
 }
@@ -481,8 +481,8 @@ check_queue (GQueue *queue, GHashTable *map)
 static gboolean
 pm_command_load_complete (AnjutaPmProject *project, PmJob *job)
 {
-	anjuta_project_proxy_exchange_data (job->proxy, job->node);
-	anjuta_project_node_exchange (job->proxy, job->node);
+	anjuta_project_proxy_exchange (job->proxy, job->node);
+	//anjuta_project_node_exchange (job->proxy, job->node);
 
 	g_message ("pm_command_load_complete");
 	if (job->error != NULL)
@@ -524,7 +524,7 @@ pm_command_load_complete (AnjutaPmProject *project, PmJob *job)
 			if (project->incomplete_node == 0) load = TRUE;
 		}
 		anjuta_project_node_clear_state (job->node, ANJUTA_PROJECT_LOADING | ANJUTA_PROJECT_INCOMPLETE);
-		anjuta_project_node_all_foreach (job->node, (AnjutaProjectNodeFunc)on_pm_project_load_incomplete, project);
+		anjuta_project_node_foreach (job->node, G_POST_ORDER, (AnjutaProjectNodeForeachFunc)on_pm_project_load_incomplete, project);
 
 		g_message ("emit node %p", job->node);
 		if (load && (project->incomplete_node == 0))
@@ -537,8 +537,9 @@ pm_command_load_complete (AnjutaPmProject *project, PmJob *job)
 		}
 		check_queue (project->job_queue, job->map);
 	}
-	
-	anjuta_project_node_all_foreach (job->proxy, (AnjutaProjectNodeFunc)pm_free_node, project->project);
+
+	pm_free_node (job->proxy, project->project);
+	//anjuta_project_node_foreach (job->proxy, G_POST_ORDER, (AnjutaProjectNodeForeachFunc)pm_free_node, project->project);
 	
 	return TRUE;
 }
@@ -593,7 +594,8 @@ pm_command_remove_complete (AnjutaPmProject *project, PmJob *job)
 
 	/* Remove node from node tree */
 	anjuta_project_node_remove (job->node);
-	anjuta_project_node_all_foreach (job->node, (AnjutaProjectNodeFunc)pm_free_node, project->project);
+	pm_free_node (job->node, project->project);
+	//anjuta_project_node_foreach (job->node, G_POST_ORDER, (AnjutaProjectNodeForeachFunc)pm_free_node, project->project);
 	
 	return TRUE;
 }
@@ -899,13 +901,13 @@ anjuta_pm_project_get_packages (AnjutaPmProject *project)
 	
 	for (module = anjuta_project_node_first_child (project->root); module != NULL; module = anjuta_project_node_next_sibling (module))
 	{
-		if (anjuta_project_node_get_type(module) == ANJUTA_PROJECT_MODULE)
+		if (anjuta_project_node_get_node_type(module) == ANJUTA_PROJECT_MODULE)
 		{
 			AnjutaProjectNode *package;
 
 			for (package = anjuta_project_node_first_child (module); package != NULL; package = anjuta_project_node_next_sibling (package))
 			{
-				if (anjuta_project_node_get_type (package) == ANJUTA_PROJECT_PACKAGE)
+				if (anjuta_project_node_get_node_type (package) == ANJUTA_PROJECT_PACKAGE)
 				{
 					g_hash_table_replace (all, anjuta_project_node_get_name (package), NULL);
 				}
