@@ -365,7 +365,6 @@ git_ref_command_start_automatic_monitor (AnjutaCommand *command)
 	g_free (git_branches_path);
 	g_free (git_tags_path);
 	g_free (git_remotes_path);
-	g_object_unref (remotes_file);
 	g_object_unref (remotes_enumerator);
 	
 	return TRUE;
