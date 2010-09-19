@@ -394,17 +394,22 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	g_object_set (G_OBJECT (git_plugin->stash_list_command),
 	              "working-directory", git_plugin->project_root_directory,
 	              NULL);
+	g_object_set (G_OBJECT (git_plugin->ref_command),
+	              "working-directory", git_plugin->project_root_directory,
+	              NULL);
 
 	anjuta_command_start_automatic_monitor (ANJUTA_COMMAND (git_plugin->local_branch_list_command));
 	anjuta_command_start_automatic_monitor (ANJUTA_COMMAND (git_plugin->commit_status_command));
 	anjuta_command_start_automatic_monitor (ANJUTA_COMMAND (git_plugin->remote_list_command));
 	anjuta_command_start_automatic_monitor (ANJUTA_COMMAND (git_plugin->tag_list_command));
 	anjuta_command_start_automatic_monitor (ANJUTA_COMMAND (git_plugin->stash_list_command));
+	anjuta_command_start_automatic_monitor (ANJUTA_COMMAND (git_plugin->ref_command));
 	anjuta_command_start (ANJUTA_COMMAND (git_plugin->local_branch_list_command));
 	anjuta_command_start (ANJUTA_COMMAND (git_plugin->commit_status_command));
 	anjuta_command_start (ANJUTA_COMMAND (git_plugin->remote_list_command));
 	anjuta_command_start (ANJUTA_COMMAND (git_plugin->tag_list_command));
 	anjuta_command_start (ANJUTA_COMMAND (git_plugin->stash_list_command));
+	anjuta_command_start (ANJUTA_COMMAND (git_plugin->ref_command));
 	
 	gtk_widget_set_sensitive (git_plugin->dock, TRUE);
 	gtk_widget_set_sensitive (git_plugin->command_bar, TRUE);
@@ -597,6 +602,9 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	/* Remote list command */
 	git_plugin->remote_list_command = git_remote_list_command_new (NULL);
 
+	/* Ref list command. used to keep the log up to date */
+	git_plugin->ref_command = git_ref_command_new (NULL);
+
 	/* Always run the not updated commmand after the commmit command. */
 	g_signal_connect (G_OBJECT (git_plugin->commit_status_command), 
 	                  "command-finished",
@@ -696,6 +704,7 @@ git_deactivate_plugin (AnjutaPlugin *plugin)
 	g_object_unref (git_plugin->remote_list_command);
 	g_object_unref (git_plugin->tag_list_command);
 	g_object_unref (git_plugin->stash_list_command);
+	g_object_unref (git_plugin->ref_command);
 	
 	g_free (git_plugin->project_root_directory);
 	g_free (git_plugin->current_editor_filename);

@@ -40,6 +40,7 @@
 #include "git-remote-list-command.h"
 #include "git-tag-list-command.h"
 #include "git-stash-list-command.h"
+#include "git-ref-command.h"
 
 extern GType git_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_GIT         (git_get_type (NULL))
@@ -85,6 +86,7 @@ struct _Git
 	GitRemoteListCommand *remote_list_command;
 	GitTagListCommand *tag_list_command;
 	GitStashListCommand *stash_list_command;
+	GitRefCommand *ref_command;
 	
 	IAnjutaMessageView *message_view;
 	AnjutaCommandQueue *command_queue;

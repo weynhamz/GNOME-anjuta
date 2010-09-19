@@ -34,6 +34,7 @@ struct _GitRefCommandPriv
 	GRegex *tag_ref_regex;
 	GRegex *remote_ref_regex;
 	GHashTable *refs;
+	GHashTable *file_monitors;
 };
 
 G_DEFINE_TYPE (GitRefCommand, git_ref_command, GIT_TYPE_COMMAND);
@@ -190,6 +191,201 @@ git_ref_command_handle_output (GitCommand *git_command, const gchar *output)
 }
 
 static void
+on_file_monitor_changed (GFileMonitor *monitor, GFile *file, GFile *other_file,
+                         GFileMonitorEvent event, AnjutaCommand *command)
+{
+	if (event == G_FILE_MONITOR_EVENT_CREATED ||
+	    event == G_FILE_MONITOR_EVENT_DELETED)
+	{
+		anjuta_command_start (command);
+	}
+}
+
+/* Helper method to add file monitors. The command takes ownership of the 
+ * file */
+static void
+git_ref_command_add_file_monitor (GitRefCommand *self, GFile *file)
+{
+	GFileMonitor *file_monitor;
+
+	file_monitor = g_file_monitor (file, 0, NULL, NULL);
+
+	g_signal_connect (G_OBJECT (file_monitor), "changed",
+	                  G_CALLBACK (on_file_monitor_changed),
+	                  self);
+
+	/* Have the hash table take ownership of both the file and the file
+	 * monitor to keep memory management consistent. */
+	g_hash_table_insert (self->priv->file_monitors, file, file_monitor);
+}
+
+static void
+on_remote_file_monitor_changed (GFileMonitor *monitor, GFile *file, 
+                                GFile *other_file, GFileMonitorEvent event, 
+                                GitRefCommand *self)
+{
+	switch (event)
+	{
+		case G_FILE_MONITOR_EVENT_CREATED:
+			/* A new remote was created */
+			git_ref_command_add_file_monitor (self, g_object_ref (file));
+
+			/* Start the command to reflect changes */
+			anjuta_command_start (ANJUTA_COMMAND (self));
+
+			break;
+		case G_FILE_MONITOR_EVENT_DELETED:
+			/* A remote was deleted--stop monitoring it */
+			g_hash_table_remove (self->priv->file_monitors, file);
+
+			anjuta_command_start (ANJUTA_COMMAND (self));
+
+			break;
+		default:
+			break;
+			
+	};
+}
+
+static gboolean 
+git_ref_command_start_automatic_monitor (AnjutaCommand *command)
+{
+	GitRefCommand *self;
+	gchar *working_directory;
+	gchar *git_head_path;
+	gchar *git_packed_refs_path;
+	gchar *git_branches_path;
+	gchar *git_tags_path;
+	gchar *git_remotes_path;
+	GFile *remotes_file;
+	GFileMonitor *remotes_monitor;
+	GFileEnumerator *remotes_enumerator;
+	GFileInfo *remotes_info;
+	GFile *current_remote_file;
+
+	self = GIT_REF_COMMAND (command);
+
+	g_object_get (self, "working-directory", &working_directory, NULL);
+
+	/* The file monitors tabe keeps track of all the GFiles and GFileMonitors
+	 * that we're tracking. The table takes ownership of the files and the 
+	 * monitors so that cleanup can be done in one step. */
+	self->priv->file_monitors = g_hash_table_new_full (g_file_hash,
+	                                                   (GEqualFunc) g_file_equal,
+	                                                   g_object_unref,
+	                                                   g_object_unref);
+
+	/* Watch for changes to any file that might tell us about changes to 
+	 * branches, tags, remotes, or the active branch */
+	git_head_path = g_strjoin (G_DIR_SEPARATOR_S,
+	                           working_directory,
+	                           ".git",
+	                           "HEAD",
+	                           NULL);
+	git_packed_refs_path = g_strjoin (G_DIR_SEPARATOR_S,
+	                                  working_directory,
+	                                  ".git",
+	                                  "packed-refs",
+	                                  NULL);
+	git_branches_path = g_strjoin (G_DIR_SEPARATOR_S,
+	                               working_directory,
+	                               ".git",
+	                               "refs",
+	                               "heads",
+	                               NULL);
+	git_tags_path = g_strjoin (G_DIR_SEPARATOR_S,
+	                           working_directory,
+	                           ".git",
+	                           "refs",
+	                           "tags",
+	                           NULL);
+	git_remotes_path = g_strjoin (G_DIR_SEPARATOR_S,
+	                              working_directory,
+	                              ".git",
+	                              "refs",
+	                              "remotes",
+	                              NULL);
+
+	git_ref_command_add_file_monitor (self, 
+	                                  g_file_new_for_path (git_head_path));
+
+	git_ref_command_add_file_monitor (self, 
+	                                  g_file_new_for_path (git_packed_refs_path));
+
+	git_ref_command_add_file_monitor (self,
+	                                  g_file_new_for_path (git_branches_path));
+
+	git_ref_command_add_file_monitor (self,
+	                                  g_file_new_for_path (git_tags_path));
+
+	/* Now handle remotes. Git stores the head of each remote branch in its own
+	 * folder under .git/refs/remotes. We need to monitor for changes to each
+	 * remote's folder. */
+	remotes_file = g_file_new_for_path (git_remotes_path);
+
+	/* First, monitor the remotes folder for creation/deletion of remotes */
+	remotes_monitor = g_file_monitor (remotes_file, 0, NULL, NULL);
+
+	g_signal_connect (G_OBJECT (remotes_monitor), "changed",
+	                  G_CALLBACK (on_remote_file_monitor_changed),
+	                  self);
+
+	/* Add the monitor to the hash table to simplify cleanup */
+	g_hash_table_insert (self->priv->file_monitors, remotes_file, 
+						 remotes_monitor);
+	
+	remotes_enumerator = g_file_enumerate_children (remotes_file,
+	                                                G_FILE_ATTRIBUTE_STANDARD_NAME ","
+	                                                G_FILE_ATTRIBUTE_STANDARD_TYPE,
+	                                                0, NULL, NULL);
+
+	remotes_info = g_file_enumerator_next_file (remotes_enumerator, NULL, NULL);
+
+	while (remotes_info)
+	{
+		/* Monitor each remote folder for changes */
+		if (g_file_info_get_attribute_uint32 (remotes_info, 
+		                                      G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
+		{
+			current_remote_file = g_file_get_child (remotes_file,
+			                                        g_file_info_get_name (remotes_info));
+
+			git_ref_command_add_file_monitor (self, current_remote_file);
+		}
+
+		g_object_unref (remotes_info);
+		
+		remotes_info = g_file_enumerator_next_file (remotes_enumerator, NULL, 
+		                                            NULL);
+	}
+
+	g_free (working_directory);
+	g_free (git_head_path);
+	g_free (git_packed_refs_path);
+	g_free (git_branches_path);
+	g_free (git_tags_path);
+	g_free (git_remotes_path);
+	g_object_unref (remotes_file);
+	g_object_unref (remotes_enumerator);
+	
+	return TRUE;
+}
+
+static void
+git_ref_command_stop_automatic_monitor (AnjutaCommand *command)
+{
+	GitRefCommand *self;
+
+	self = GIT_REF_COMMAND (command);
+
+	if (self->priv->file_monitors)
+	{
+		g_hash_table_destroy (self->priv->file_monitors);
+		self->priv->file_monitors = NULL;
+	}
+}
+
+static void
 git_ref_command_class_init (GitRefCommandClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
@@ -199,6 +395,8 @@ git_ref_command_class_init (GitRefCommandClass *klass)
 	object_class->finalize = git_ref_command_finalize;
 	parent_class->output_handler = git_ref_command_handle_output;
 	command_class->run = git_ref_command_run;
+	command_class->start_automatic_monitor = git_ref_command_start_automatic_monitor;
+	command_class->stop_automatic_monitor = git_ref_command_stop_automatic_monitor;
 }
 
 
