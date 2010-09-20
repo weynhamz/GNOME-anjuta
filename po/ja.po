@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta trunk\n"
+"Project-Id-Version: anjuta master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2010-09-12 10:04+0000\n"
+"POT-Creation-Date: 2010-09-19 19:23+0000\n"
 "PO-Revision-Date: 2010-09-13 01:37+0900\n"
 "Last-Translator: Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
@@ -6497,7 +6497,7 @@ msgstr ""
 #: ../plugins/gtodo/export.c:47
 #, fuzzy
 msgid "Export task list"
-msgstr "エキスポート先"
+msgstr "エクスポート先"
 
 #: ../plugins/gtodo/export.c:159
 msgid "XML"
@@ -6540,7 +6540,7 @@ msgstr "すべて"
 
 #: ../plugins/gtodo/interface.c:161
 msgid "_Export"
-msgstr "エキスポート(_E)"
+msgstr "エクスポート(_E)"
 
 #: ../plugins/gtodo/interface.c:205
 msgid "Priority"
@@ -9009,7 +9009,7 @@ msgstr "プロジェクトのインポート"
 #: ../plugins/snippets-manager/snippets-import-export.c:190
 #, fuzzy
 msgid "Export Snippets"
-msgstr "エキスポート先"
+msgstr "エクスポート先"
 
 #: ../plugins/sourceview/sourceview.c:478
 #, fuzzy, c-format
