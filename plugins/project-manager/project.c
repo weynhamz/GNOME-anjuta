@@ -244,8 +244,8 @@ pm_project_map_node (PmJob *job)
 		AnjutaProjectNode *new_node;
 		
 		job->map = g_hash_table_new (g_direct_hash, NULL);
-		old_node = job->node;
-		new_node = job->proxy;
+		old_node = job->proxy;
+		new_node = job->node;
 
 		g_hash_table_insert (job->map, old_node, new_node);
 			
@@ -259,7 +259,7 @@ pm_command_load_work (AnjutaPmProject *project, PmJob *job)
 	AnjutaProjectNode *node;
 	
 
-	node = ianjuta_project_load_node (project->project, job->proxy, &(job->error));
+	node = ianjuta_project_load_node (project->project, job->node, &(job->error));
 	if (job->error == NULL)
 	{
 		pm_project_map_node (job);
@@ -432,8 +432,8 @@ pm_command_load_setup (AnjutaPmProject *project, PmJob *job)
 	g_return_val_if_fail (job->node != NULL, FALSE);
 	
 	job->proxy = anjuta_project_proxy_new (job->node);
-	/*anjuta_project_node_replace (job->node, job->proxy);
-	anjuta_project_proxy_exchange_data (job->node, job->proxy);*/
+	anjuta_project_node_replace (job->node, job->proxy);
+	/*anjuta_project_proxy_exchange_data (job->node, job->proxy);*/
 	
 	return TRUE;
 }
@@ -481,8 +481,8 @@ check_queue (GQueue *queue, GHashTable *map)
 static gboolean
 pm_command_load_complete (AnjutaPmProject *project, PmJob *job)
 {
-	anjuta_project_proxy_exchange (job->proxy, job->node);
-	//anjuta_project_node_exchange (job->proxy, job->node);
+	//anjuta_project_proxy_exchange (job->proxy, job->node);
+	anjuta_project_node_exchange (job->proxy, job->node);
 
 	g_message ("pm_command_load_complete");
 	if (job->error != NULL)

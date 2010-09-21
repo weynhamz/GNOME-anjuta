@@ -532,39 +532,15 @@ anjuta_project_node_remove (AnjutaProjectNode *node)
 AnjutaProjectNode *
 anjuta_project_node_replace (AnjutaProjectNode *node, AnjutaProjectNode *replacement)
 {
-	if (node->parent != NULL)
-	{
-		anjuta_project_node_insert_after (node->parent, node, replacement);
-		anjuta_project_node_remove (node);
-	}
-	
-	return replacement;
-}
-
-AnjutaProjectNode *
-anjuta_project_node_exchange (AnjutaProjectNode *node, AnjutaProjectNode *replacement)
-{
-	AnjutaProjectNode *marker = g_object_new (ANJUTA_TYPE_PROJECT_NODE, NULL);
 	AnjutaProjectNode *child;
 	AnjutaProjectNode *sibling;
 	AnjutaProjectNode *next;
 	
 	if (node->parent != NULL)
 	{
-		anjuta_project_node_insert_after (node->parent, node, marker);
+		anjuta_project_node_insert_after (node->parent, node, replacement);
 		anjuta_project_node_remove (node);
 	}
-	if (replacement->parent != NULL)
-	{
-		anjuta_project_node_insert_after (replacement->parent, replacement, node);
-		anjuta_project_node_remove (node);
-	}
-	if (marker->parent != NULL)
-	{
-		anjuta_project_node_insert_after (marker->parent, marker, replacement);
-		anjuta_project_node_remove (marker);
-	}
-	g_object_unref (marker);
 
 	/* Move all children from node to replacement */
 	sibling = NULL;
@@ -586,6 +562,31 @@ anjuta_project_node_exchange (AnjutaProjectNode *node, AnjutaProjectNode *replac
 		sibling = anjuta_project_node_insert_after (node, sibling, child);
 		child = next;
 	}
+	
+	return replacement;
+}
+
+AnjutaProjectNode *
+anjuta_project_node_exchange (AnjutaProjectNode *node, AnjutaProjectNode *replacement)
+{
+	AnjutaProjectNode *marker = g_object_new (ANJUTA_TYPE_PROJECT_NODE, NULL);
+	
+	if (node->parent != NULL)
+	{
+		anjuta_project_node_insert_after (node->parent, node, marker);
+		anjuta_project_node_remove (node);
+	}
+	if (replacement->parent != NULL)
+	{
+		anjuta_project_node_insert_after (replacement->parent, replacement, node);
+		anjuta_project_node_remove (replacement);
+	}
+	if (marker->parent != NULL)
+	{
+		anjuta_project_node_insert_after (marker->parent, marker, replacement);
+		anjuta_project_node_remove (marker);
+	}
+	g_object_unref (marker);
 
 	return replacement;
 }
@@ -1208,6 +1209,7 @@ struct _AnjutaProjectProxyNode{
 AnjutaProjectNode *
 anjuta_project_proxy_new (AnjutaProjectNode *node)
 {
+#if 0	
 	AnjutaProjectNode *proxy;
 	GTypeQuery node_type_info;
 	GTypeQuery base_type_info;
@@ -1263,8 +1265,9 @@ anjuta_project_proxy_new (AnjutaProjectNode *node)
 			item->data = new_info;
 		}
 	}
+#endif	
+	AnjutaProjectProxyNode *proxy;
 	
-#if 0	
 	/* If the node is already a proxy get original node */
 	node = anjuta_project_proxy_get_node (node);
 	
@@ -1298,7 +1301,7 @@ anjuta_project_proxy_new (AnjutaProjectNode *node)
 			item->data = new_info;
 		}
 	}
-#endif		
+	
 	return ANJUTA_PROJECT_NODE (proxy);
 }
 
@@ -1330,24 +1333,6 @@ static void
 anjuta_project_proxy_node_finalize (GObject *object)
 {
 	AnjutaProjectProxyNode *proxy = ANJUTA_PROJECT_PROXY_NODE (object);
-
-	if (proxy->base.file) g_object_unref (proxy->base.file);
-	g_free (proxy->base.name);
-	
-	if ((proxy->base.properties != NULL) && (((AnjutaProjectPropertyInfo *)proxy->base.properties->data)->override != NULL))
-	{
-		GList *item;
-				
-		for (item = g_list_first (proxy->base.properties); item != NULL; item = g_list_next (item))
-		{
-			AnjutaProjectPropertyInfo *info = (AnjutaProjectPropertyInfo *)item->data;
-
-			g_free (info->name);
-			g_free (info->value);
-			g_slice_free (AnjutaProjectPropertyInfo, info);
-		}
-		g_list_free (proxy->base.properties);
-	}
 	
 	G_OBJECT_CLASS (anjuta_project_proxy_node_parent_class)->finalize (object);
 }
