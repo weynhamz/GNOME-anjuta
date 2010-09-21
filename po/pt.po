@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.32\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-22 00:20+0100\n"
+"POT-Creation-Date: 2010-09-22 00:56+0100\n"
 "PO-Revision-Date: 2010-09-22 00:30+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
@@ -690,7 +690,8 @@ msgstr "Elevação"
 msgid ""
 "Offset of text above the baseline (below the baseline if rise is negative)"
 msgstr ""
-"Deslocamento do texto acima da linha base (abaixo da linha base se a elevação for negativa)"
+"Deslocamento do texto acima da linha base (abaixo da linha base se a "
+"elevação for negativa)"
 
 #: ../libfoocanvas/foo-canvas-text.c:322
 msgid "Strikethrough"
@@ -8655,19 +8656,22 @@ msgstr "Valor por omissão"
 
 #: ../plugins/snippets-manager/snippets-editor.c:48
 msgid "<b>Error:</b> You must choose at least one language for the snippet!"
-msgstr "<b>Erro:</b> Tem de seleccionar pelo menos uma linguagem para o excerto!"
+msgstr ""
+"<b>Erro:</b> Tem de seleccionar pelo menos uma linguagem para o excerto!"
 
 #: ../plugins/snippets-manager/snippets-editor.c:49
 msgid ""
 "<b>Error:</b> The trigger key is already in use for one of the languages!"
 msgstr ""
-"<b>Erro:</b> A sigla de invocação já está a ser utilizada por uma das linguagens!"
+"<b>Erro:</b> A sigla de invocação já está a ser utilizada por uma das "
+"linguagens!"
 
 #: ../plugins/snippets-manager/snippets-editor.c:50
 msgid ""
 "<b>Error:</b> The trigger key can only contain alfanumeric characters and _ !"
 msgstr ""
-"<b>Erro:</b> A sigla de invocação apenas pode conter caracteres alfanuméricos e _ !"
+"<b>Erro:</b> A sigla de invocação apenas pode conter caracteres "
+"alfanuméricos e _ !"
 
 #: ../plugins/snippets-manager/snippets-editor.c:51
 msgid "<b>Error:</b> You haven't entered a trigger key for the snippet!"
@@ -8698,9 +8702,9 @@ msgid ""
 "Keywords are used for better searching of the snippets. They should be "
 "relevant to the snippet content. Type them separated by a single space."
 msgstr ""
-"Palavras-chave são utilizadas para melhor pesquisar nos excertos. Devem "
-"ser relevantes para o conteúdo do excerto. Introduza-as separadas por um "
-"único espaço."
+"Palavras-chave são utilizadas para melhor pesquisar nos excertos. Devem ser "
+"relevantes para o conteúdo do excerto. Introduza-as separadas por um único "
+"espaço."
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:7
 msgid "Keywords:"
@@ -8758,8 +8762,8 @@ msgid ""
 "<b>Warning: Must be unique per language. </b>"
 msgstr ""
 "A sigla de invocação é utilizada para a inserção rápida de um excerto. "
-"Introduza a sigla de invocação no editor seguida do atalho \"Inserção "
-"Rápida\" para inserir um excerto.\n"
+"Introduza a sigla de invocação no editor seguida do atalho \"Inserção Rápida"
+"\" para inserir um excerto.\n"
 "<b>Aviso: Tem de ser única por linguagem. </b>"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:23
@@ -10511,8 +10515,7 @@ msgstr "Plugin CVS"
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:1
 msgid "Import an existing autotools project to Anjuta"
-msgstr "Importar um projecto autotools existente para o Anjuta""\"register\"."
-
+msgstr "Importar um projecto autotools existente para o Anjuta\"register\"."
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:2
 msgid "Project Import Assistant"
