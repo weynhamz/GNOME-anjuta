@@ -1731,6 +1731,21 @@ project_load_group_properties (AmpProject *project, AnjutaToken *token, AnjutaTo
 
 static AnjutaAmGroupNode* project_load_makefile (AmpProject *project, AnjutaAmGroupNode *group);
 
+static gboolean
+find_group (AnjutaProjectNode *node, gpointer data)
+{
+	if ((AMP_NODE_DATA (node)->type  & ANJUTA_PROJECT_TYPE_MASK) == ANJUTA_PROJECT_GROUP)
+	{
+		if (g_file_equal (anjuta_project_node_get_file (node), (GFile *)data))
+		{
+			/* Find group, return node value in pointer */
+			return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
 static void
 project_load_subdirs (AmpProject *project, AnjutaToken *list, AnjutaAmGroupNode *parent, gboolean dist_only)
 {
@@ -1752,9 +1767,7 @@ project_load_subdirs (AmpProject *project, AnjutaToken *list, AnjutaAmGroupNode 
 			subdir = g_file_resolve_relative_path (AMP_GROUP_DATA (parent)->base.file, value);
 			
 			/* Look for already existing group */
-			group_id = g_file_get_uri (subdir);
-			group = g_hash_table_lookup (project->groups, group_id);
-			g_free (group_id);
+			group =anjuta_project_node_children_traverse (parent, find_group, subdir);
 
 			if (group != NULL)
 			{
