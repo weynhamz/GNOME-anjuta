@@ -438,6 +438,8 @@ anjuta_project_node_insert_before (AnjutaProjectNode *parent, AnjutaProjectNode 
 	if (sibling)
 		g_return_val_if_fail (sibling->parent == parent, node);*/
 
+	g_object_ref_sink (node);
+	
 	node->parent = parent;
 	if (sibling)
 	{
@@ -485,6 +487,8 @@ anjuta_project_node_insert_after (AnjutaProjectNode *parent, AnjutaProjectNode *
 	if (sibling)
 		g_return_val_if_fail (sibling->parent == parent, node);*/
 
+	g_object_ref_sink (node);
+	
 	node->parent = parent;
 	if (sibling)
     {
@@ -513,7 +517,7 @@ AnjutaProjectNode *
 anjuta_project_node_remove (AnjutaProjectNode *node)
 {
 	g_return_val_if_fail (node != NULL, NULL);
-
+	
 	if (node->prev)
 		node->prev->next = node->next;
 	else if (node->parent)
@@ -525,6 +529,8 @@ anjuta_project_node_remove (AnjutaProjectNode *node)
 		node->next = NULL;
 	}
     node->prev = NULL;
+
+	g_object_force_floating (node);
 	
 	return node;
 }
@@ -1033,7 +1039,7 @@ enum {
 
 static unsigned int anjuta_project_node_signals[LAST_SIGNAL] = { 0 };
 
-G_DEFINE_TYPE (AnjutaProjectNode, anjuta_project_node, G_TYPE_OBJECT);
+G_DEFINE_TYPE (AnjutaProjectNode, anjuta_project_node, G_TYPE_INITIALLY_UNOWNED);
 
 static void
 anjuta_project_node_init (AnjutaProjectNode *node)

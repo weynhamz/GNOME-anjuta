@@ -149,7 +149,7 @@ typedef void (*AnjutaProjectNodeForeachFunc) (AnjutaProjectNode *node, gpointer 
  */
 struct _AnjutaProjectNode
 {
-	GObject object;
+	GInitiallyUnowned parent_instance;
 
 	AnjutaProjectNode	*next;
 	AnjutaProjectNode *prev;
@@ -166,7 +166,7 @@ struct _AnjutaProjectNode
 
 struct _AnjutaProjectNodeClass
 {
-	GObjectClass parent_class;
+	GInitiallyUnownedClass parent_class;
 	
 	void (*updated) (GError *error);
 	void (*loaded) (GError *error);
@@ -273,14 +273,14 @@ typedef struct _AnjutaProjectGObjectNode AnjutaProjectGObjectNode;
 struct _AnjutaProjectGObjectNodeClass
 {
 	GObjectClass parent_class;
-	
+
 	void (*updated) (GError *error);
 	void (*loaded) (GError *error);
 };
 
 struct _AnjutaProjectGObjectNode
 {
-	GObject parent_instance;
+	GObject object;
 	
     GNode	  *next;
   	GNode	  *prev;
