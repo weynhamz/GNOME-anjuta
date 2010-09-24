@@ -136,36 +136,36 @@ list_module (IAnjutaProject *project, AnjutaProjectNode *root, AnjutaProjectNode
 static void
 list_property (IAnjutaProject *project, AnjutaProjectNode *parent, gint indent)
 {
-	AnjutaProjectProperty *prop;
+	GList *item;
 
-	for (prop = anjuta_project_node_first_property (parent); prop != NULL; prop = anjuta_project_property_next (prop))
+	for (item = anjuta_project_node_get_custom_properties (parent); item != NULL; item = g_list_next (item))
 	{
-		AnjutaProjectPropertyInfo *info;
+		AnjutaProjectProperty *prop;
 		const gchar *msg = NULL;
 
-		info = anjuta_project_property_get_info(prop);
-		if (strcmp (info->name, "Name:") == 0)
+		prop = (AnjutaProjectProperty *)item->data;
+		if (strcmp (prop->name, "Name:") == 0)
 		{
 			msg = "%*sNAME: %s";
 		}
-		else if (strcmp (info->name, "Version:") == 0)
+		else if (strcmp (prop->name, "Version:") == 0)
 		{
 			msg = "%*sVERSION: %s";
 		}
-		else if (strcmp (info->name, "Bug report URL:") == 0)
+		else if (strcmp (prop->name, "Bug report URL:") == 0)
 		{
 			msg = "%*sBUG_REPORT: %s";
 		}
-		else if (strcmp (info->name, "Package name:") == 0)
+		else if (strcmp (prop->name, "Package name:") == 0)
 		{
 			msg = "%*sTARNAME: %s";
 		}
-		else if (strcmp (info->name, "URL:") == 0)
+		else if (strcmp (prop->name, "URL:") == 0)
 		{
 			msg = "%*sURL: %s";
 		}
 
-		if (msg && (info->value != NULL)) print (msg, (indent + 1) * INDENT, "", info->value);
+		if (msg && (prop->value != NULL)) print (msg, (indent + 1) * INDENT, "", prop->value);
 	}
 }
 
@@ -318,14 +318,13 @@ get_target_type (IAnjutaProject *project, const char *id)
 static AnjutaProjectProperty *
 get_project_property (AmpProject *project, AnjutaProjectNode *parent, const gchar *id)
 {
-	AnjutaProjectProperty *item;
+	GList *item;
 	AnjutaProjectProperty *prop = NULL;
 	gint best = G_MAXINT;
 
-	for (item = anjuta_project_node_first_valid_property (parent); item != NULL; item = anjuta_project_property_next (item))
+	for (item = anjuta_project_node_get_native_properties (parent); item != NULL; item = g_list_next (item))
 	{
-		AnjutaProjectPropertyInfo *info = anjuta_project_property_get_info (item);
-		const gchar *name = info->name;
+		const gchar *name = ((AnjutaProjectProperty *)item->data)->name;
 		const gchar *ptr;
 		const gchar *iptr = id;
 		gboolean next = FALSE;
@@ -347,7 +346,7 @@ get_project_property (AmpProject *project, AnjutaProjectNode *parent, const gcha
 		if ((*iptr == '\0') && (miss < best))
 		{
 			best = miss;
-			prop = item;
+			prop =  ((AnjutaProjectProperty *)item->data);
 		}
 	}
 

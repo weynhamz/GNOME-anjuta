@@ -120,7 +120,8 @@ amp_root_new (GFile *file, GError **error)
 
 	root = g_object_new (ANJUTA_TYPE_AM_ROOT_NODE, NULL);
 	root->base.type = ANJUTA_PROJECT_ROOT;
-	root->base.properties = amp_get_project_property_list();
+	root->base.native_properties = amp_get_project_property_list();
+	root->base.custom_properties = NULL;
 	root->base.file = g_file_dup (file);
 	root->base.name = NULL;
 	root->base.state = ANJUTA_PROJECT_CAN_ADD_GROUP |
@@ -172,7 +173,7 @@ anjuta_am_root_node_finalize (GObject *object)
 	AnjutaAmRootNode *root = ANJUTA_AM_ROOT_NODE (object);
 
 	if (root->configure_file != NULL) anjuta_token_file_free (root->configure_file);
-	amp_property_free (root->base.properties);
+	g_list_foreach (root->base.custom_properties, (GFunc)amp_property_free, NULL);
 	
 	G_OBJECT_CLASS (anjuta_am_root_node_parent_class)->finalize (object);
 }
@@ -198,7 +199,8 @@ amp_module_new (AnjutaToken *token, GError **error)
 
 	module = g_object_new (ANJUTA_TYPE_AM_MODULE_NODE, NULL);
 	module->base.type = ANJUTA_PROJECT_MODULE;
-	module->base.properties = amp_get_module_property_list();
+	module->base.native_properties = amp_get_module_property_list();
+	module->base.custom_properties = NULL;
 	module->base.file = NULL;
 	module->base.name = anjuta_token_evaluate (token);
 	module->base.state = ANJUTA_PROJECT_CAN_ADD_PACKAGE |
@@ -236,7 +238,7 @@ anjuta_am_module_node_finalize (GObject *object)
 {
 	AnjutaAmModuleNode *module = ANJUTA_AM_MODULE_NODE (object);
 
-	amp_property_free (module->base.properties);
+	g_list_foreach (module->base.custom_properties, (GFunc)amp_property_free, NULL);
 	
 	G_OBJECT_CLASS (anjuta_am_module_node_parent_class)->finalize (object);
 }
@@ -262,7 +264,8 @@ amp_package_new (const gchar *name, GError **error)
 
 	node = g_object_new (ANJUTA_TYPE_AM_PACKAGE_NODE, NULL);
 	node->base.type = ANJUTA_PROJECT_PACKAGE;
-	node->base.properties = amp_get_package_property_list();
+	node->base.native_properties = amp_get_package_property_list();
+	node->base.custom_properties = NULL;
 	node->base.file = NULL;
 	node->base.name = g_strdup (name);
 	node->base.state =  ANJUTA_PROJECT_CAN_REMOVE;
@@ -308,7 +311,7 @@ anjuta_am_package_node_finalize (GObject *object)
 {
 	AnjutaAmPackageNode *node = ANJUTA_AM_PACKAGE_NODE (object);
 
-	amp_property_free (node->base.properties);
+	g_list_foreach (node->base.custom_properties, (GFunc)amp_property_free, NULL);
 	
 	G_OBJECT_CLASS (anjuta_am_package_node_parent_class)->finalize (object);
 }
@@ -475,7 +478,8 @@ amp_group_new (GFile *file, gboolean dist_only, GError **error)
 	
 	node = g_object_new (ANJUTA_TYPE_AM_GROUP_NODE, NULL);
 	node->base.type = ANJUTA_PROJECT_GROUP;
-	node->base.properties = amp_get_group_property_list();
+	node->base.native_properties = amp_get_group_property_list();
+	node->base.custom_properties = NULL;
 	node->base.file = g_object_ref (file);
 	node->base.name = NULL;
 	node->base.state = ANJUTA_PROJECT_CAN_ADD_GROUP |
@@ -536,7 +540,7 @@ anjuta_am_group_node_finalize (GObject *object)
 	AnjutaAmGroupNode *node = ANJUTA_AM_GROUP_NODE (object);
 	gint i;
 	
-	amp_property_free (node->base.properties);
+	g_list_foreach (node->base.custom_properties, (GFunc)amp_property_free, NULL);
 	if (node->tfile) anjuta_token_file_free (node->tfile);
 	if (node->makefile) g_object_unref (node->makefile);
 	for (i = 0; i < AM_GROUP_TOKEN_LAST; i++)
@@ -635,7 +639,8 @@ amp_target_new (const gchar *name, AnjutaProjectNodeType type, const gchar *inst
 	
 	node = g_object_new (ANJUTA_TYPE_AM_TARGET_NODE, NULL);
 	node->base.type = ANJUTA_PROJECT_TARGET | type;
-	node->base.properties = amp_get_target_property_list(type);
+	node->base.native_properties = amp_get_target_property_list(type);
+	node->base.custom_properties = NULL;
 	node->base.name = g_strdup (name);
 	node->base.file = NULL;
 	node->base.state = ANJUTA_PROJECT_CAN_ADD_MODULE |
@@ -676,7 +681,7 @@ anjuta_am_target_node_finalize (GObject *object)
 {
 	AnjutaAmTargetNode *node = ANJUTA_AM_TARGET_NODE (object);
 
-	amp_property_free (node->base.properties);
+	g_list_foreach (node->base.custom_properties, (GFunc)amp_property_free, NULL);
 	G_OBJECT_CLASS (anjuta_am_target_node_parent_class)->finalize (object);
 }
 
@@ -702,7 +707,8 @@ amp_source_new (GFile *file, GError **error)
 
 	node = g_object_new (ANJUTA_TYPE_AM_SOURCE_NODE, NULL);
 	node->base.type = ANJUTA_PROJECT_SOURCE;
-	node->base.properties = amp_get_source_property_list();
+	node->base.native_properties = amp_get_source_property_list();
+	node->base.custom_properties = NULL;
 	node->base.name = NULL;
 	node->base.file = g_object_ref (file);
 	node->base.state = ANJUTA_PROJECT_CAN_REMOVE;
@@ -738,7 +744,7 @@ anjuta_am_source_node_finalize (GObject *object)
 {
 	AnjutaAmSourceNode *node = ANJUTA_AM_SOURCE_NODE (object);
 
-	amp_property_free (node->base.properties);
+	g_list_foreach (node->base.custom_properties, (GFunc)amp_property_free, NULL);
 	G_OBJECT_CLASS (anjuta_am_source_node_parent_class)->finalize (object);
 }
 

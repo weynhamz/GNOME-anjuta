@@ -1216,7 +1216,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 		return;
 	
 	pm_plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (plugin);
-	
+
 	if (pm_plugin->current_editor_uri)
 		g_free (pm_plugin->current_editor_uri);
 	file = ianjuta_file_get_file (IANJUTA_FILE (editor), NULL);

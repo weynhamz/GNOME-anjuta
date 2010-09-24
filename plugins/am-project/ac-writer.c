@@ -127,10 +127,9 @@ amp_project_update_property (AmpProject *project, AnjutaProjectProperty *propert
 	AnjutaToken *arg;
 	guint pos;
 	const gchar *value;
-	AmpPropertyInfo *info = (AmpPropertyInfo *)anjuta_project_property_get_info (property);
 
-	pos = info->position;
-	value = info->base.value;
+	pos = ((AmpProperty *)property)->position;
+	value = ((AmpProperty *)property)->base.value;
 	
 	if (project->ac_init == NULL)
 	{

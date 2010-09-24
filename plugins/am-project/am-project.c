@@ -452,7 +452,7 @@ amp_target_property_buffer_free (AmpTargetPropertyBuffer *buffer)
 {
 	g_list_foreach (buffer->sources, (GFunc)amp_source_free, NULL);
 	g_list_free (buffer->sources);
-	amp_property_free (buffer->properties);
+	g_list_foreach (buffer->properties, (GFunc)amp_property_free, NULL);
 	g_free (buffer);
 }
 
@@ -465,7 +465,7 @@ amp_target_property_buffer_add_source (AmpTargetPropertyBuffer *buffer, AnjutaAm
 void
 amp_target_property_buffer_add_property (AmpTargetPropertyBuffer *buffer, AnjutaProjectProperty *prop)
 {
-	buffer->properties = g_list_concat (prop, buffer->properties);
+	buffer->properties = g_list_prepend (buffer->properties, prop);
 }
 
 GList *
@@ -1228,7 +1228,7 @@ project_node_save (AmpProject *project, AnjutaProjectNode *g_node, GError **erro
 void
 amp_project_load_properties (AmpProject *project, AnjutaToken *macro, AnjutaToken *args)
 {
-	AnjutaProjectProperty *item;
+	GList *item;
 	
 	//fprintf (stderr, "property list:\n");
 	//anjuta_token_dump (args);
@@ -1236,28 +1236,26 @@ amp_project_load_properties (AmpProject *project, AnjutaToken *macro, AnjutaToke
 	project->ac_init = macro;
 	project->args = args;
 
-	for (item = anjuta_project_node_first_valid_property (project->root_node); item != NULL; item = anjuta_project_property_next (item))
+	for (item = anjuta_project_node_get_native_properties (project->root_node); item != NULL; item = g_list_next (item))
 	{
-		AmpPropertyInfo *info = (AmpPropertyInfo *)anjuta_project_property_get_info (item);
+		AmpProperty *prop = (AmpProperty *)item->data;
 
-		if (info->position >= 0)
+		if (prop->position >= 0)
 		{
-			AnjutaProjectProperty *prop;
-			AnjutaProjectPropertyInfo *new_info;
+			AnjutaProjectProperty *new_prop;
 			AnjutaToken *arg;
 
-			prop = anjuta_project_node_remove_property (project->root_node, item);
-			if (prop == NULL)
+			new_prop = anjuta_project_node_remove_property (project->root_node, prop);
+			if (new_prop != NULL)
 			{
-				amp_property_free (prop);
+				amp_property_free (new_prop);
 			}
-			prop = amp_property_new (NULL, info->token_type, info->position, NULL, macro);
-			anjuta_project_node_insert_property (project->root_node, item, prop);
+			new_prop = amp_property_new (NULL, prop->token_type, prop->position, NULL, macro);
+			anjuta_project_node_insert_property (project->root_node, prop, new_prop);
 
-			new_info = anjuta_project_property_get_info (prop);
-			arg = anjuta_token_nth_word (args, info->position);
-			if ((new_info->value != NULL) && (new_info->value != info->base.value)) g_free (new_info->value);
-			new_info->value = anjuta_token_evaluate (arg);
+			arg = anjuta_token_nth_word (args, prop->position);
+			if ((new_prop->value != NULL) && (new_prop->value != prop->base.value)) g_free (new_prop->value);
+			new_prop->value = anjuta_token_evaluate (arg);
 		}
 	}
 	//g_message ("prop list %p get prop %p", *list, anjuta_project_node_get_property (project->root_node));
@@ -2161,7 +2159,7 @@ amp_project_unload (AmpProject *project)
 	if (project->root_file) g_object_unref (project->root_file);
 	project->root_file = NULL;
 
-	amp_property_free (project->properties);
+	g_list_foreach (project->properties, (GFunc)amp_property_free, NULL);
 	project->properties = amp_get_project_property_list ();
 	
 	/* shortcut hash tables */

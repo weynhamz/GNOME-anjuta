@@ -394,42 +394,45 @@ add_entry (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProper
 	GtkTreeViewColumn *column;
 	GtkTreeModel *model;
 	GtkTreeIter iter;
-	AnjutaProjectPropertyInfo *info = anjuta_project_property_get_info (prop);
+	GList *item;
 
-	if (info->override)
+	if (prop->native != NULL)
 	{
-		label = gtk_label_new (_(((AnjutaProjectPropertyInfo *)info->override->data)->name));
+		label = gtk_label_new (_(prop->native->name));
 	}
 	else
 	{
-		label = gtk_label_new (_(info->name));
+		label = gtk_label_new (_(prop->name));
 	}
 	gtk_misc_set_alignment (GTK_MISC (label), 0, -1);
 	gtk_widget_show (label);
 	gtk_table_attach (GTK_TABLE (table), label, 0, 1, *position, *position+1,
 			  GTK_FILL, GTK_FILL, 5, 3);
 
-	switch (info->type)
+	switch (prop->type)
 	{
 	case ANJUTA_PROJECT_PROPERTY_STRING:
 		entry = gtk_entry_new ();
-		gtk_entry_set_text (GTK_ENTRY (entry), info->value != NULL ? info->value : "");
+		gtk_entry_set_text (GTK_ENTRY (entry), prop->value != NULL ? prop->value : "");
 		break;
 	case ANJUTA_PROJECT_PROPERTY_BOOLEAN:
 		entry = gtk_check_button_new ();
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (entry), (info->value != NULL) && (*info->value == '1'));
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (entry), (prop->value != NULL) && (*prop->value == '1'));
 		break;
 	case ANJUTA_PROJECT_PROPERTY_LIST:
 			model = GTK_TREE_MODEL (gtk_list_store_newv (LIST_COLUMNS_NB, column_type));
 
-			while ((info->override != NULL) && (prop != NULL))
+			if (prop->native != NULL) prop = prop->native;
+			
+			for (item = anjuta_project_node_get_custom_properties (node); item != NULL; item = g_list_next (item))
 			{
-				info = anjuta_project_property_get_info (prop);
-
-				gtk_list_store_append (GTK_LIST_STORE (model), &iter);
-				gtk_list_store_set (GTK_LIST_STORE (model), &iter, NAME_COLUMN, info->name, VALUE_COLUMN, info->value, -1);
-
-				prop = anjuta_project_property_next_item (prop);
+				AnjutaProjectProperty *cust_prop = (AnjutaProjectProperty *)item->data;
+				
+				if (cust_prop->native == prop)
+				{
+					gtk_list_store_append (GTK_LIST_STORE (model), &iter);
+					gtk_list_store_set (GTK_LIST_STORE (model), &iter, NAME_COLUMN, cust_prop->name, VALUE_COLUMN, cust_prop->value, -1);
+				}
 			}
 			
 			gtk_list_store_append (GTK_LIST_STORE (model), &iter);
@@ -512,8 +515,6 @@ create_properties_table (IAnjutaProject *project, AnjutaProjectNode *node)
 	AnjutaProjectNodeType type;
 	AnjutaProjectNodeInfo* node_info;
 	gboolean single;
-	AnjutaProjectProperty *valid_prop;
-
 
 	bxml = anjuta_util_builder_new (GLADE_FILE, NULL);
 	if (!bxml) return NULL;
@@ -562,9 +563,11 @@ create_properties_table (IAnjutaProject *project, AnjutaProjectNode *node)
 
 	/* Display other node properties */
 	single = FALSE;
-	for (valid_prop = anjuta_project_node_first_valid_property (node); valid_prop != NULL; valid_prop = anjuta_project_property_next (valid_prop))
+
+	for (item = anjuta_project_node_get_native_properties (node); item != NULL; item = g_list_next (item))
 	{
-		AnjutaProjectProperty *prop;
+		AnjutaProjectProperty *valid_prop = (AnjutaProjectProperty *)item->data; 
+		AnjutaProjectProperty *prop; 
 		GtkWidget *entry;
 
 		prop = anjuta_project_node_get_property (node, valid_prop);
@@ -587,7 +590,6 @@ create_properties_table (IAnjutaProject *project, AnjutaProjectNode *node)
 		}
 	}
 	table->properties = g_list_reverse (table->properties);
-
 	gtk_widget_show_all (properties);
 	
 	/* Hide expander if it is empty */
@@ -613,21 +615,19 @@ on_properties_dialog_response (GtkWidget *dialog,
 		{
 			PropertyEntry *entry = (PropertyEntry *)item->data;
 			AnjutaProjectProperty *prop;
-			AnjutaProjectPropertyInfo *info;
 			const gchar *text;
 			
 			/* Get property value in node */
 			prop = anjuta_project_node_get_property (table->node, entry->property);
 			if (prop == NULL) prop = entry->property;
 			
-			info = anjuta_project_property_get_info (prop);
-			switch (info->type)
+			switch (prop->type)
 			{
 			case ANJUTA_PROJECT_PROPERTY_STRING:
 				text = gtk_entry_get_text (GTK_ENTRY (entry->entry));
 				if (*text == '\0')
 				{
-					if ((info->value != NULL) && (*info->value != '\0'))
+					if ((prop->value != NULL) && (*prop->value != '\0'))
 					{
 						/* Remove */
 						PropertyValue *value;
@@ -639,7 +639,7 @@ on_properties_dialog_response (GtkWidget *dialog,
 				}
 				else
 				{
-					if (g_strcmp0 (info->value, text) != 0)
+					if (g_strcmp0 (prop->value, text) != 0)
 					{
 						/* Modified */
 						PropertyValue *value;
@@ -653,7 +653,7 @@ on_properties_dialog_response (GtkWidget *dialog,
 				break;
 			case ANJUTA_PROJECT_PROPERTY_BOOLEAN:
 				text = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (entry->entry)) ? "1" : "0";
-				if (g_strcmp0 (info->value, text) != 0)
+				if (g_strcmp0 (prop->value, text) != 0)
 				{
 					/* Modified */
 					PropertyValue *value;

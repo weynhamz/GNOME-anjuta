@@ -45,7 +45,8 @@ dir_root_node_new (GFile *file)
 
 	root = g_object_new (ANJUTA_TYPE_DIR_ROOT_NODE, NULL);
 	root->base.type = ANJUTA_PROJECT_ROOT;
-	root->base.properties = NULL;
+	root->base.custom_properties = NULL;
+	root->base.native_properties = NULL;
 	root->base.file = g_file_dup (file);
 	root->base.name = NULL;
 
@@ -112,7 +113,8 @@ dir_group_node_new (GFile *file, GObject *emitter)
 
 	group = g_object_new (ANJUTA_TYPE_DIR_GROUP_NODE, NULL);
 	group->base.type = ANJUTA_PROJECT_GROUP;
-	group->base.properties = NULL;
+	group->base.native_properties = NULL;
+	group->base.custom_properties = NULL;
 	group->base.file = g_object_ref (file);
 	group->base.name = NULL;
 	group->base.state = ANJUTA_PROJECT_CAN_ADD_GROUP |
@@ -189,7 +191,8 @@ dir_source_node_new (GFile *file)
 
 	source = g_object_new (ANJUTA_TYPE_DIR_SOURCE_NODE, NULL);
 	source->base.type = ANJUTA_PROJECT_SOURCE;
-	source->base.properties = NULL;
+	source->base.native_properties = NULL;
+	source->base.custom_properties = NULL;
 	source->base.name = NULL;
 	source->base.file = g_file_dup (file);
 	source->base.state = ANJUTA_PROJECT_CAN_REMOVE |

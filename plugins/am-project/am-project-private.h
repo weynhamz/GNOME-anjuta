@@ -38,8 +38,8 @@ struct _AmpProperty {
 };
 #endif
 
-struct _AmpPropertyInfo {
-	AnjutaProjectPropertyInfo base;
+struct _AmpProperty {
+	AnjutaProjectProperty base;
 	gint token_type;
 	gint position;
 	AnjutaToken *token;
