@@ -3113,9 +3113,9 @@ interface IAnjutaProject
 	 *
 	 * Reload a project node
 	 *
-	 * Return value: The newly loaded node, NULL if error
+	 * Return value: TRUE if the node has been loaded without error
 	 */
-	AnjutaProjectNode *load_node (AnjutaProjectNode *node);
+	gboolean load_node (AnjutaProjectNode *node);
 
 	/**
 	 * ianjuta_project_save_node:
@@ -3125,34 +3125,53 @@ interface IAnjutaProject
 	 *
 	 * Save a project node
 	 *
-	 * Return value: The saved node, NULL if error
+	 * Return value: TRUE if the node has been saved without error
 	 */
-	AnjutaProjectNode *save_node (AnjutaProjectNode *node);
+	gboolean save_node (AnjutaProjectNode *node);
 
 	/**
-	 * ianjuta_project_new_node:
+	 * ianjuta_project_add_node_after:
 	 * @obj: Self
 	 * @parent: Parent
+	 * @sibling: Sibling
 	 * @type: Node type
 	 * @file: Optional file object for the node
 	 * @name: Optional name for the node
 	 * @err: Error propagation and reporting
 	 *
-	 * Create a new node
+	 * Create a new node and insert it after sibling
 	 *
 	 * Return value: The new node, NULL if error
 	 */
-	AnjutaProjectNode *new_node (AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile *file, const gchar *name);
+	AnjutaProjectNode *add_node_after (AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, GFile *file, const gchar *name);
 
 	/**
-	 * ianjuta_project_free_node:
+	 * ianjuta_project_add_node_before:
+	 * @obj: Self
+	 * @parent: Parent
+	 * @sibling: Sibling
+	 * @type: Node type
+	 * @file: Optional file object for the node
+	 * @name: Optional name for the node
+	 * @err: Error propagation and reporting
+	 *
+	 * Create a new node and insert it before sibling
+	 *
+	 * Return value: The new node, NULL if error
+	 */
+	AnjutaProjectNode *add_node_before (AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, GFile *file, const gchar *name);
+
+	/**
+	 * ianjuta_project_remove_node:
 	 * @obj: Self
 	 * @node: Node
 	 * @err: Error propagation and reporting
 	 *
-	 * Free an already existing node
+	 * Remove a node
+	 *
+	 * Return value: TRUE if the node can be removed
 	 */
-	void free_node (AnjutaProjectNode *node);
+	gboolean remove_node (AnjutaProjectNode *node);
 
 	/**
 	 * ianjuta_project_set_property:
@@ -3167,6 +3186,30 @@ interface IAnjutaProject
 	 * Return value: FALSE if some properties cannot be set.
 	 */
 	gboolean set_property (AnjutaProjectNode *parent, AnjutaProjectProperty* property, const gchar *value);
+
+	/**
+	 * ianjuta_project_remove_property:
+	 * @obj: Self
+	 * @node: Node
+	 * @property: Property
+	 * @err: Error propagation and reporting
+	 *
+	 * Remove a property of the node
+	 *
+	 * Return value: TRUE if the node can be removed
+	 */
+	gboolean remove_property (AnjutaProjectNode *node, AnjutaProjectProperty* property);
+
+	/**
+	 * ianjuta_project_get_root:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Get root_node
+	 *
+	 * Return value: The root node
+	 */
+	AnjutaProjectNode *get_root ();
 
 	/**
 	 * ianjuta_project_get_node_info:
@@ -3197,19 +3240,20 @@ interface IAnjutaProjectBackend
 	/**
 	 * ianjuta_project_backend_new_project:
 	 * @obj: Self
+	 * @file: Project file or directory
 	 * @err: Error propagation and reporting
 	 *
-	 * Get a new GbfProject
+	 * Get a new Anjuta project.
 	 *
 	 * Return value: An object derived from GbfProject
 	 */
-	IAnjutaProject* new_project ();
+	IAnjutaProject* new_project (GFile *file);
 
 	
 	/**
 	 * ianjuta_project_backend_probe:
 	 * @obj: Self
-	 * @file: Project directory
+	 * @file: Project file or directory
 	 * @err: Error propagation and reporting
 	 *
 	 * Check if the directory contains a project supported by this

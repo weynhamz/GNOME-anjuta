@@ -47,7 +47,7 @@ struct _DirProjectClass {
 };
 
 GType         dir_project_get_type (void);
-DirProject   *dir_project_new      (void);
+DirProject   *dir_project_new      (GFile *directory, GError **error);
 
 gint dir_project_probe (GFile *directory, GError     **error);
 

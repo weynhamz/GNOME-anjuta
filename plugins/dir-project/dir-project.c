@@ -49,7 +49,7 @@
 struct _DirProject {
 	GObject         parent;
 
-	GFile			*root_file;
+	AnjutaProjectNode *root;
 
 	/* shortcut hash tables, mapping id -> GNode from the tree above */
 	GHashTable		*groups;
@@ -525,16 +525,14 @@ dir_project_load_directory (DirProject *project, AnjutaProjectNode *parent, GErr
 }
  
 static AnjutaProjectNode *
-dir_project_load_root (DirProject *project, AnjutaProjectNode *node, GError **error) 
+dir_project_load_root (DirProject *project, GError **error) 
 {
-	GFile *root_file;
 	GFile *source_file;
+	GFile *root_file;
 	AnjutaProjectNode *group;
 
-	root_file = g_object_ref (anjuta_project_node_get_file (node));
+	root_file = anjuta_project_node_get_file (project->root);
 	DEBUG_PRINT ("reload project %p root file %p", project, root_file);
-	project->root_file = root_file;
-	//project->root_node = node;
 
 	/* shortcut hash tables */
 	project->groups = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
@@ -549,7 +547,7 @@ dir_project_load_root (DirProject *project, AnjutaProjectNode *node, GError **er
 	}
 
 	group = project_node_new (project, NULL, ANJUTA_PROJECT_GROUP, root_file, NULL, NULL);
-	anjuta_project_node_append (node, group);
+	anjuta_project_node_append (project->root, group);
 	g_hash_table_insert (project->groups, g_file_get_uri (root_file), group);
 
 	/* Load source pattern */
@@ -559,16 +557,17 @@ dir_project_load_root (DirProject *project, AnjutaProjectNode *node, GError **er
 	
 	dir_project_load_directory (project, group, NULL);
 
-	return node;
+	return project->root;
 }
 
 AnjutaProjectNode *
 dir_project_load_node (DirProject *project, AnjutaProjectNode *node, GError **error) 
 {
+	if (node == NULL) node = project->root;
 	switch (anjuta_project_node_get_node_type (node))
 	{
 	case ANJUTA_PROJECT_ROOT:
-		return dir_project_load_root (project, node, error);
+		return dir_project_load_root (project, error);
 	case ANJUTA_PROJECT_GROUP:
 		return dir_project_load_directory (project, node, error);
 	default:
@@ -623,23 +622,6 @@ dir_project_save_node (DirProject *project, AnjutaProjectNode *node, GError **er
 	return node;
 }
 
-gboolean
-dir_project_load (DirProject  *project,
-    GFile *directory,
-	GError     **error)
-{
-	g_return_val_if_fail (directory != NULL, FALSE);
-
-	/*project->root_file = g_object_ref (directory);
-	if (!dir_project_reload (project, error))
-	{
-		g_object_unref (project->root_file);
-		project->root_file = NULL;
-	}*/
-
-	return project->root_file != NULL;
-}
-
 void
 dir_project_unload (DirProject *project)
 {
@@ -647,8 +629,8 @@ dir_project_unload (DirProject *project)
 	/*project_node_destroy (project, project->root_node);
 	project->root_node = NULL;*/
 
-	if (project->root_file) g_object_unref (project->root_file);
-	project->root_file = NULL;
+	if (project->root) project_node_destroy (project, project->root);
+	project->root = NULL;
 
 	/* shortcut hash tables */
 	if (project->groups) g_hash_table_destroy (project->groups);
@@ -713,42 +695,66 @@ dir_project_get_node_info (DirProject *project, GError **error)
  *---------------------------------------------------------------------------*/
 
 DirProject *
-dir_project_new (void)
+dir_project_new (GFile *directory, GError **error)
 {
-	return DIR_PROJECT (g_object_new (DIR_TYPE_PROJECT, NULL));
+	DirProject *project;
+	
+	project = DIR_PROJECT (g_object_new (DIR_TYPE_PROJECT, NULL));
+	project->root = dir_root_node_new (directory);
+
+	return project;
 }
 
 
 /* Implement IAnjutaProject
  *---------------------------------------------------------------------------*/
 
-static AnjutaProjectNode *
+static gboolean
 iproject_load_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
 {
-	return dir_project_load_node (DIR_PROJECT (obj), node, err);
+	node = dir_project_load_node (DIR_PROJECT (obj), node, err);
+
+	return node != NULL;
 }
 
-static AnjutaProjectNode *
+static gboolean
 iproject_save_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
 {
-	return dir_project_save_node (DIR_PROJECT (obj), node, err);
+	node = dir_project_save_node (DIR_PROJECT (obj), node, err);
+
+	return node != NULL;
 }
 
 static AnjutaProjectNode *
-iproject_new_node (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile *file, const gchar *name, GError **error)
+iproject_add_node_before (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, GFile *file, const gchar *name, GError **error)
 {
 	AnjutaProjectNode *node;
 	
 	node = project_node_new (DIR_PROJECT (obj), parent, type, file, name, error);
 	anjuta_project_node_set_state (node, ANJUTA_PROJECT_MODIFIED);
+	anjuta_project_node_insert_before (parent, sibling, node);
 	
 	return node;
 }
 
-static void
-iproject_free_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
+static AnjutaProjectNode *
+iproject_add_node_after (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, GFile *file, const gchar *name, GError **error)
 {
-	project_node_destroy (DIR_PROJECT (obj), node);
+	AnjutaProjectNode *node;
+	
+	node = project_node_new (DIR_PROJECT (obj), parent, type, file, name, error);
+	anjuta_project_node_set_state (node, ANJUTA_PROJECT_MODIFIED);
+	anjuta_project_node_insert_after (parent, sibling, node);
+	
+	return node;
+}
+
+static gboolean
+iproject_remove_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
+{
+	anjuta_project_node_set_state (node, ANJUTA_PROJECT_REMOVED);
+
+	return TRUE;
 }
 
 static gboolean
@@ -759,6 +765,22 @@ iproject_set_property (IAnjutaProject *obj, AnjutaProjectNode *node, AnjutaProje
 		_("Project doesn't allow to set properties"));
 		
 	return FALSE;
+}
+
+static gboolean
+iproject_remove_property (IAnjutaProject *obj, AnjutaProjectNode *node, AnjutaProjectProperty *property, GError **error)
+{
+	g_set_error (error, IANJUTA_PROJECT_ERROR, 
+				IANJUTA_PROJECT_ERROR_NOT_SUPPORTED,
+		_("Project doesn't allow to set properties"));
+		
+	return FALSE;
+}
+
+static AnjutaProjectNode *
+iproject_get_root (IAnjutaProject *obj, GError **error)
+{
+	return DIR_PROJECT (obj)->root;
 }
 
 static GList* 
@@ -772,9 +794,12 @@ iproject_iface_init(IAnjutaProjectIface* iface)
 {
 	iface->load_node = iproject_load_node;
 	iface->save_node = iproject_save_node;
-	iface->new_node = iproject_new_node;
-	iface->free_node = iproject_free_node;
+	iface->add_node_before = iproject_add_node_before;
+	iface->add_node_after = iproject_add_node_after;
+	iface->remove_node = iproject_remove_node;
 	iface->set_property = iproject_set_property;
+	iface->remove_property = iproject_remove_property;
+	iface->get_root = iproject_get_root;
 	iface->get_node_info = iproject_get_node_info;
 }
 
@@ -798,7 +823,7 @@ dir_project_instance_init (DirProject *project)
 	g_return_if_fail (DIR_IS_PROJECT (project));
 	
 	/* project data */
-	project->root_file = NULL;
+	project->root = NULL;
 	//project->root_node = NULL;
 
 	project->monitors = NULL;

@@ -45,6 +45,7 @@ AmpVariable* amp_variable_new (gchar *name, AnjutaTokenType assign, AnjutaToken 
 
 AnjutaProjectNode* amp_root_new (GFile *file, GError **error);
 void amp_root_free (AnjutaAmRootNode *node);
+void amp_root_clear (AnjutaAmRootNode *node);
 AnjutaTokenFile* amp_root_set_configure (AnjutaProjectNode *node, GFile *configure);
 
 AnjutaProjectNode* amp_module_new (AnjutaToken *token, GError **error);

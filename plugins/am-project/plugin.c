@@ -52,11 +52,12 @@ deactivate_plugin (AnjutaPlugin *plugin)
  *---------------------------------------------------------------------------*/
 
 static IAnjutaProject*
-iproject_backend_new_project (IAnjutaProjectBackend* backend, GError** err)
+iproject_backend_new_project (IAnjutaProjectBackend* backend, GFile *file, GError** err)
 {
 	IAnjutaProject *project;
 	DEBUG_PRINT("create new amp project");	
-	project = (IAnjutaProject *)(g_object_new (AMP_TYPE_PROJECT, NULL));
+
+	project = (IAnjutaProject *)amp_project_new (file, err);
 		
 	return project;
 }

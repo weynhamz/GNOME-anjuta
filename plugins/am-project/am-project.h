@@ -66,7 +66,7 @@ typedef struct _AmpPropertyInfo   AmpPropertyInfo;
 typedef struct _AmpTargetPropertyBuffer AmpTargetPropertyBuffer;
 
 GType         amp_project_get_type (void);
-AmpProject   *amp_project_new      (void);
+AmpProject   *amp_project_new      (GFile *file, GError **error);
 
 
 AmpTargetPropertyBuffer* amp_target_property_buffer_new (void);

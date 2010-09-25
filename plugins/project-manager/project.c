@@ -122,9 +122,11 @@ typedef struct _PmCommandWork
 struct _PmJob
 {
 	PmCommand command;
+	AnjutaProjectNodeType type;
 	GFile *file;
 	gchar *name;
 	AnjutaProjectNode *node;
+	AnjutaProjectNode *sibling;
 	GError *error;
 	AnjutaProjectNode *proxy;
 	GHashTable *map;
@@ -158,13 +160,17 @@ static gboolean pm_project_run_command (AnjutaPmProject *project);
  *---------------------------------------------------------------------------*/
 
 static PmJob *
-pm_job_new (PmCommand command, AnjutaProjectNode *node)
+pm_job_new (PmCommand command, AnjutaProjectNode *node, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, GFile *file, const gchar *name)
 {
 	PmJob *job;
 
 	job = g_new0 (PmJob, 1);
 	job->command = command;
 	job->node = node;
+	job->sibling = sibling;
+	job->type = type;
+	if (file != NULL) job->file = g_object_ref (file);
+	if (name != NULL) job->name = g_strdup (name);
 
 	return job;
 }
@@ -174,6 +180,8 @@ pm_job_free (PmJob *job)
 {
 	if (job->error != NULL) g_error_free (job->error);
 	if (job->map != NULL) g_hash_table_destroy (job->map);
+	if (job->file != NULL) g_object_unref (job->file);
+	if (job->name != NULL) g_free (job->name);
 }
 
 /* Worker thread functions
@@ -259,8 +267,7 @@ pm_command_load_work (AnjutaPmProject *project, PmJob *job)
 	AnjutaProjectNode *node;
 	
 
-	node = ianjuta_project_load_node (project->project, job->node, &(job->error));
-	if (job->error == NULL)
+	if (ianjuta_project_load_node (project->project, job->node, &(job->error)))
 	{
 		pm_project_map_node (job);
 	}
@@ -271,11 +278,7 @@ pm_command_load_work (AnjutaPmProject *project, PmJob *job)
 static gboolean
 pm_command_save_work (AnjutaPmProject *project, PmJob *job)
 {
-	AnjutaProjectNode *node;
-	
-	node = ianjuta_project_save_node (project->project, job->node, &(job->error));
-	
-	return TRUE;
+	return ianjuta_project_save_node (project->project, job->node, &(job->error));
 }
 
 static gboolean
@@ -360,7 +363,7 @@ pm_project_stop_thread (AnjutaPmProject *project)
 		project->idle_func = 0;
 
 		// Request to terminate thread
-		job = pm_job_new (EXIT, NULL);
+		job = pm_job_new (EXIT, NULL, NULL, 0, NULL, NULL);
 		g_async_queue_push (project->work_queue, job);
 		g_thread_join (project->worker);
 		project->worker = NULL;
@@ -384,27 +387,11 @@ pm_project_stop_thread (AnjutaPmProject *project)
 }
 
 static void
-pm_free_node (AnjutaProjectNode *node, IAnjutaProject *project)
-{
-	gint type = anjuta_project_node_get_full_type (node);
-	
-	g_message ("free node %p type %x name %s", node, type, anjuta_project_node_get_name (node));
-	if (type & ANJUTA_PROJECT_PROXY)
-	{
-		anjuta_project_proxy_unref (node);
-	}
-	else
-	{
-		ianjuta_project_free_node (project, node, NULL);
-	}
-}
-
-static void
-pm_project_push_command (AnjutaPmProject *project, PmCommand command, AnjutaProjectNode *node)
+pm_project_push_command (AnjutaPmProject *project, PmCommand command, AnjutaProjectNode *node, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, GFile *file, const gchar *name)
 {
 	PmJob *job;
 
-	job = pm_job_new (command, node);
+	job = pm_job_new (command, node, sibling, type, file, name);
 	g_queue_push_tail (project->job_queue, job);
 	
 	pm_project_run_command (project);
@@ -421,7 +408,7 @@ on_pm_project_load_incomplete (AnjutaProjectNode *node, AnjutaPmProject *project
 		project->incomplete_node++;
 		anjuta_project_node_set_state (node, ANJUTA_PROJECT_LOADING);
 		//g_message ("load incomplete %p", node);
-		pm_project_push_command (project, RELOAD, node);
+		pm_project_push_command (project, RELOAD, node, NULL, 0, NULL, NULL);
 	}
 }
 
@@ -538,7 +525,7 @@ pm_command_load_complete (AnjutaPmProject *project, PmJob *job)
 		check_queue (project->job_queue, job->map);
 	}
 
-	pm_free_node (job->proxy, project->project);
+	anjuta_project_proxy_unref  (job->proxy);
 	//anjuta_project_node_foreach (job->proxy, G_POST_ORDER, (AnjutaProjectNodeForeachFunc)pm_free_node, project->project);
 	
 	return TRUE;
@@ -547,19 +534,13 @@ pm_command_load_complete (AnjutaPmProject *project, PmJob *job)
 static gboolean
 pm_command_add_setup (AnjutaPmProject *project, PmJob *job)
 {
-	AnjutaProjectNode *parent;
-	AnjutaProjectNode *sibling;
+	AnjutaProjectNode *node;
 	
 	g_return_val_if_fail (job != NULL, FALSE);
 	g_return_val_if_fail (job->node != NULL, FALSE);
 
-	/* Add new node in project tree.
-	 * It is safe to do it here because the worker thread is waiting */
-	parent = anjuta_project_node_parent (job->node);
-	sibling = job->node->prev;
-	job->node->parent = NULL;
-	job->node->prev = NULL;
-	anjuta_project_node_insert_before (parent, sibling, job->node);
+	node = ianjuta_project_add_node_before (project->project, job->node, job->sibling, job->type, NULL, job->name, NULL);
+	job->node = node;
 	
 	return TRUE;
 }
@@ -576,7 +557,7 @@ pm_command_remove_setup (AnjutaPmProject *project, PmJob *job)
 	if (gbf_project_model_find_node (project->model, &iter, NULL, job->node))
 	{
 		gbf_project_model_remove (project->model, &iter);
-		anjuta_project_node_set_state (job->node, ANJUTA_PROJECT_REMOVED);
+		ianjuta_project_remove_node (project->project, job->node, NULL);
 		
 		return TRUE;
 	}
@@ -593,8 +574,8 @@ pm_command_remove_complete (AnjutaPmProject *project, PmJob *job)
 	g_return_val_if_fail (job->node != NULL, FALSE);
 
 	/* Remove node from node tree */
-	anjuta_project_node_remove (job->node);
-	pm_free_node (job->node, project->project);
+	//anjuta_project_node_remove (job->node);
+	//pm_free_node (job->node, project->project);
 	//anjuta_project_node_foreach (job->node, G_POST_ORDER, (AnjutaProjectNodeForeachFunc)pm_free_node, project->project);
 	
 	return TRUE;
@@ -705,7 +686,7 @@ pm_project_idle_func (AnjutaPmProject *project)
 static void
 on_node_updated (IAnjutaProject *sender, AnjutaProjectNode *node, AnjutaPmProject *project)
 {
-	pm_project_push_command (project, RELOAD, node);
+	pm_project_push_command (project, RELOAD, node, NULL, 0, NULL, NULL);
 }
  
 gboolean 
@@ -777,7 +758,7 @@ anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 	}
 	
 	DEBUG_PRINT ("%s", "Creating new gbf project\n");
-	project->project = ianjuta_project_backend_new_project (backend, NULL);
+	project->project = ianjuta_project_backend_new_project (backend, file, NULL);
 	if (!project->project)
 	{
 		/* FIXME: Set err */
@@ -795,8 +776,8 @@ anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 						G_CALLBACK (on_node_updated),
 						project);
 	
-	project->root = ianjuta_project_new_node (project->project, NULL, ANJUTA_PROJECT_ROOT, file, NULL, NULL);
-	pm_project_push_command (project, LOAD, project->root);
+	project->root = ianjuta_project_get_root (project->project, NULL);
+	pm_project_push_command (project, LOAD, project->root, NULL, 0, NULL, NULL);
 	
 	return TRUE;
 }
@@ -804,7 +785,7 @@ anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 static gboolean
 anjuta_pm_project_reload_node (AnjutaPmProject *project, AnjutaProjectNode *node, GError **error)
 {
-	pm_project_push_command (project, RELOAD, node);
+	pm_project_push_command (project, RELOAD, node, NULL, 0, NULL, NULL);
 
 	return TRUE;
 }
@@ -830,7 +811,7 @@ anjuta_pm_project_refresh (AnjutaPmProject *project, GError **error)
 {
 	//g_message ("reload project %p", project->root);
 	
-	pm_project_push_command (project, RELOAD, project->root);
+	pm_project_push_command (project, RELOAD, project->root, NULL, 0, NULL, NULL);
 
 	return TRUE;
 }
@@ -928,10 +909,7 @@ anjuta_pm_project_add_group (AnjutaPmProject *project, AnjutaProjectNode *parent
 	
 	g_return_val_if_fail (project->project != NULL, NULL);
 	
-	node = ianjuta_project_new_node (project->project, parent, ANJUTA_PROJECT_GROUP, NULL, name, error);
-	node->parent = parent;
-	node->prev = sibling;
-	pm_project_push_command (project, ADD, node);
+	pm_project_push_command (project, ADD, parent, sibling, ANJUTA_PROJECT_GROUP, NULL, name);
 
 	return node;
 }
@@ -943,10 +921,7 @@ anjuta_pm_project_add_target (AnjutaPmProject *project, AnjutaProjectNode *paren
 	
 	g_return_val_if_fail (project->project != NULL, NULL);
 
-	node = ianjuta_project_new_node (project->project, parent, ANJUTA_PROJECT_TARGET | type, NULL, name, error);
-	node->parent = parent;
-	node->prev = sibling;
-	pm_project_push_command (project, ADD, node);
+	pm_project_push_command (project, ADD, parent, sibling, ANJUTA_PROJECT_TARGET | type, NULL, name);
 
 	return node;
 }
@@ -958,10 +933,7 @@ anjuta_pm_project_add_source (AnjutaPmProject *project, AnjutaProjectNode *paren
 
 	g_return_val_if_fail (project->project != NULL, NULL);
 	
-	node = ianjuta_project_new_node (project->project, parent, ANJUTA_PROJECT_SOURCE, NULL, name, error);
-	node->parent = parent;
-	node->prev = sibling;
-	pm_project_push_command (project, ADD, node);
+	pm_project_push_command (project, ADD, parent, sibling, ANJUTA_PROJECT_SOURCE, NULL, name);
 
 	return node;
 }
@@ -969,7 +941,7 @@ anjuta_pm_project_add_source (AnjutaPmProject *project, AnjutaProjectNode *paren
 gboolean
 anjuta_pm_project_remove (AnjutaPmProject *project, AnjutaProjectNode *node, GError **error)
 {
-	pm_project_push_command (project, REMOVE, node);
+	pm_project_push_command (project, REMOVE, node, NULL, 0, NULL, NULL);
 
 	return TRUE;
 }
@@ -988,7 +960,7 @@ anjuta_pm_project_set_properties (AnjutaPmProject *project, AnjutaProjectNode *n
 		if (!valid) break;
 	}
 	
-	if (valid) pm_project_push_command (project, SAVE, node);
+	if (valid) pm_project_push_command (project, SAVE, node, NULL, 0, NULL, NULL);
 	
 	return valid;
 }

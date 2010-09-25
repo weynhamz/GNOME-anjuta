@@ -138,6 +138,16 @@ amp_root_free (AnjutaAmRootNode *node)
 	g_object_unref (G_OBJECT (node));
 }
 
+void
+amp_root_clear (AnjutaAmRootNode *node)
+{
+	if (node->configure_file != NULL) anjuta_token_file_free (node->configure_file);
+	node->configure_file = NULL;
+	
+	g_list_foreach (node->base.custom_properties, (GFunc)amp_property_free, NULL);
+	node->base.custom_properties = NULL;
+}
+
 AnjutaTokenFile*
 amp_root_set_configure (AnjutaProjectNode *node, GFile *configure)
 {
@@ -172,8 +182,7 @@ anjuta_am_root_node_finalize (GObject *object)
 {
 	AnjutaAmRootNode *root = ANJUTA_AM_ROOT_NODE (object);
 
-	if (root->configure_file != NULL) anjuta_token_file_free (root->configure_file);
-	g_list_foreach (root->base.custom_properties, (GFunc)amp_property_free, NULL);
+	amp_root_clear (root);
 	
 	G_OBJECT_CLASS (anjuta_am_root_node_parent_class)->finalize (object);
 }

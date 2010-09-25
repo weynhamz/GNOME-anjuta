@@ -415,12 +415,12 @@ main(int argc, char *argv[])
 				}
 				else
 				{
-					project = IANJUTA_PROJECT (g_object_new (type, NULL));
+					project = amp_project_new (file, NULL);
 				}
 			}
 
-			root = ianjuta_project_new_node (project, NULL, ANJUTA_PROJECT_ROOT, file, NULL, &error);
-			root = ianjuta_project_load_node (project, root, &error);
+			root = ianjuta_project_get_root (project, &error);
+			ianjuta_project_load_node (project, root, &error);
 			g_object_unref (file);
 		}
 		else if (g_ascii_strcasecmp (*command, "list") == 0)
@@ -441,7 +441,7 @@ main(int argc, char *argv[])
 		else if (g_ascii_strcasecmp (*command, "remove") == 0)
 		{
 			node = get_node (project, root, *(++command));
-			anjuta_project_node_set_state (node, ANJUTA_PROJECT_REMOVED);
+			ianjuta_project_remove_node (project, node, NULL);
 			ianjuta_project_save_node (project, child, NULL);
 		}
 		else if (g_ascii_strcasecmp (command[0], "add") == 0)
@@ -453,23 +453,20 @@ main(int argc, char *argv[])
 				if ((command[4] != NULL) && (g_ascii_strcasecmp (command[4], "before") == 0))
 				{
 					sibling = get_node (project, root, command[5]);
-					child = ianjuta_project_new_node (project, node, ANJUTA_PROJECT_GROUP, NULL, command[3], &error);
-					anjuta_project_node_insert_before (node, sibling, child);
+					child = ianjuta_project_add_node_before (project, node, sibling, ANJUTA_PROJECT_GROUP, NULL, command[3], &error);
 					ianjuta_project_save_node (project, child, NULL);
 					command += 2;
 				}
 				else if ((command[4] != NULL) && (g_ascii_strcasecmp (command[4], "after") == 0))
 				{
 					sibling = get_node (project, root, command[5]);
-					child = ianjuta_project_new_node (project, node, ANJUTA_PROJECT_GROUP, NULL, command[3], &error);
-					anjuta_project_node_insert_after (node, sibling, child);
+					child = ianjuta_project_add_node_after (project, node, sibling, ANJUTA_PROJECT_GROUP, NULL, command[3], &error);
 					ianjuta_project_save_node (project, child, NULL);
 					command += 2;
 				}
 				else
 				{
-					child = ianjuta_project_new_node (project, node, ANJUTA_PROJECT_GROUP, NULL, command[3], &error);
-					anjuta_project_node_insert_after (node, NULL, child);
+					child = ianjuta_project_add_node_after (project, node, NULL, ANJUTA_PROJECT_GROUP, NULL, command[3], &error);
 					ianjuta_project_save_node (project, child, NULL);
 				}
 			}
@@ -478,23 +475,20 @@ main(int argc, char *argv[])
 				if ((command[5] != NULL) && (g_ascii_strcasecmp (command[5], "before") == 0))
 				{
 					sibling = get_node (project, root, command[6]);
-					child = ianjuta_project_new_node (project, node, ANJUTA_PROJECT_TARGET | get_target_type (project, command[4]), NULL, command[3], &error);
-					anjuta_project_node_insert_before (node, sibling, child);
+					child = ianjuta_project_add_node_before (project, node, sibling, ANJUTA_PROJECT_TARGET | get_target_type (project, command[4]), NULL, command[3], &error);
 					ianjuta_project_save_node (project, child, NULL);
 					command += 2;
 				}
 				else if ((command[5] != NULL) && (g_ascii_strcasecmp (command[5], "after") == 0))
 				{
 					sibling = get_node (project, root, command[6]);
-					child = ianjuta_project_new_node (project, node, ANJUTA_PROJECT_TARGET | get_target_type (project, command[4]), NULL, command[3], &error);
-					anjuta_project_node_insert_after (node, sibling, child);
+					child = ianjuta_project_add_node_after (project, node, sibling, ANJUTA_PROJECT_TARGET | get_target_type (project, command[4]), NULL, command[3], &error);
 					ianjuta_project_save_node (project, child, NULL);
 					command += 2;
 				}
 				else
 				{
-					child = ianjuta_project_new_node (project, node, ANJUTA_PROJECT_TARGET | get_target_type (project, command[4]), NULL, command[3], &error);
-					anjuta_project_node_insert_after (node, NULL, child);
+					child = ianjuta_project_add_node_after (project, node, NULL, ANJUTA_PROJECT_TARGET | get_target_type (project, command[4]), NULL, command[3], &error);
 					ianjuta_project_save_node (project, child, NULL);
 				}
 				command++;
@@ -506,23 +500,20 @@ main(int argc, char *argv[])
 				if ((command[4] != NULL) && (g_ascii_strcasecmp (command[4], "before") == 0))
 				{
 					sibling = get_node (project, root, command[5]);
-					child = ianjuta_project_new_node (project, node, ANJUTA_PROJECT_SOURCE, file, NULL, &error);
-					anjuta_project_node_insert_before (node, sibling, child);
+					child = ianjuta_project_add_node_before (project, node, sibling, ANJUTA_PROJECT_SOURCE, file, NULL, &error);
 					ianjuta_project_save_node (project, child, NULL);
 					command += 2;
 				}
 				else if ((command[4] != NULL) && (g_ascii_strcasecmp (command[4], "after") == 0))
 				{
 					sibling = get_node (project, root, command[5]);
-					child = ianjuta_project_new_node (project, node, ANJUTA_PROJECT_SOURCE, file, NULL, &error);
-					anjuta_project_node_insert_after (node, sibling, child);
+					child = ianjuta_project_add_node_after (project, node, sibling, ANJUTA_PROJECT_SOURCE, file, NULL, &error);
 					ianjuta_project_save_node (project, child, NULL);
 					command += 2;
 				}
 				else
 				{
-					child = ianjuta_project_new_node (project, node, ANJUTA_PROJECT_SOURCE, file, NULL, &error);
-					anjuta_project_node_insert_after (node, NULL, child);
+					child = ianjuta_project_add_node_after (project, node, NULL, ANJUTA_PROJECT_SOURCE, file, NULL, &error);
 					ianjuta_project_save_node (project, child, NULL);
 				}
 				g_object_unref (file);

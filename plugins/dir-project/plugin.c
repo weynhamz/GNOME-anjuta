@@ -52,12 +52,13 @@ deactivate_plugin (AnjutaPlugin *plugin)
  *---------------------------------------------------------------------------*/
 
 static IAnjutaProject*
-iproject_backend_new_project (IAnjutaProjectBackend* backend, GError** err)
+iproject_backend_new_project (IAnjutaProjectBackend* backend, GFile *file, GError** err)
 {
 	IAnjutaProject *project;
-	DEBUG_PRINT("create new directory project");	
-	project = (IAnjutaProject *)(g_object_new (DIR_TYPE_PROJECT, NULL));
-		
+	DEBUG_PRINT("create new directory project");
+	
+	project = (IAnjutaProject *)dir_project_new (file, err);
+	
 	return project;
 }
 
