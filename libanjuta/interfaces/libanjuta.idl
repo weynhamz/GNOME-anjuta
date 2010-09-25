@@ -3183,9 +3183,9 @@ interface IAnjutaProject
 	 *
 	 * Change a properties on node.
 	 *
-	 * Return value: FALSE if some properties cannot be set.
+	 * Return value: The new property of NULL if the property cannot be set
 	 */
-	gboolean set_property (AnjutaProjectNode *parent, AnjutaProjectProperty* property, const gchar *value);
+	AnjutaProjectProperty *set_property (AnjutaProjectNode *parent, AnjutaProjectProperty* property, const gchar *value);
 
 	/**
 	 * ianjuta_project_remove_property:

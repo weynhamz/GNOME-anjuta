@@ -2722,7 +2722,7 @@ iproject_remove_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err
 	return TRUE;
 }
 
-static gboolean
+static AnjutaProjectProperty *
 iproject_set_property (IAnjutaProject *obj, AnjutaProjectNode *node, AnjutaProjectProperty *property, const gchar *value, GError **error)
 {
 	AnjutaProjectProperty *new_prop;
@@ -2730,7 +2730,7 @@ iproject_set_property (IAnjutaProject *obj, AnjutaProjectNode *node, AnjutaProje
 	new_prop = amp_node_property_set (node, property, value);
 	amp_project_update_property (AMP_PROJECT (obj), new_prop);
 	
-	return TRUE;
+	return new_prop;
 }
 
 static gboolean

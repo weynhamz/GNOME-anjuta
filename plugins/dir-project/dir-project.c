@@ -757,14 +757,14 @@ iproject_remove_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err
 	return TRUE;
 }
 
-static gboolean
+static AnjutaProjectProperty*
 iproject_set_property (IAnjutaProject *obj, AnjutaProjectNode *node, AnjutaProjectProperty *property, const gchar *value, GError **error)
 {
 	g_set_error (error, IANJUTA_PROJECT_ERROR, 
 				IANJUTA_PROJECT_ERROR_NOT_SUPPORTED,
 		_("Project doesn't allow to set properties"));
 		
-	return FALSE;
+	return NULL;
 }
 
 static gboolean
