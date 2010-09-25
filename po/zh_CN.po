@@ -19,7 +19,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
 "POT-Creation-Date: 2010-09-25 09:32+0000\n"
-"PO-Revision-Date: 2010-09-26 00:40+0800\n"
+"PO-Revision-Date: 2010-09-25 16:57+0000\n"
 "Last-Translator: Aron Xu <happyaron.xu@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -8575,14 +8575,13 @@ msgid ""
 msgstr "<b>错误：</b> 热键已被其它语言使用！"
 
 #: ../plugins/snippets-manager/snippets-editor.c:50
-#, fuzzy
 #| msgid ""
 #| "<b>Error:</b> The trigger key can only contain alfanumeric characters and "
 #| "_ !"
 msgid ""
 "<b>Error:</b> The trigger key can only contain alphanumeric characters and "
 "_ !"
-msgstr "<b>错误：</b>热键只能包含字母、数字字符和_！"
+msgstr "<b>错误：</b>热键只能包含字母、数字字符和下划线(_)！"
 
 #: ../plugins/snippets-manager/snippets-editor.c:51
 msgid "<b>Error:</b> You haven't entered a trigger key for the snippet!"
