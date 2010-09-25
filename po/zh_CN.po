@@ -1,5 +1,6 @@
 # Simplified Chinese translation for anjuta.
-# Copyright (C) 2001-2009 Free Software Foundation, Inc.
+# Copyright (C) 2001, 2004, 2009, 2010 Free Software Foundation, Inc.
+# This file is distributed under the same license as anjuta package.
 #
 # Conner Mo <connermo@hotmail.com>, 2001.
 # Noah Bentusi <blue_atlantis400@hotmail.com>, 2004.
@@ -10,15 +11,16 @@
 # Tao Wang <dancefire@gmail.com>, 2010.
 # Black Penguin <gnomecn@gmail.com>, 2010.
 # Dean Lee <xslidian@gmail.com>, 2010.
+# Xianyou Jin <Jinking.this@gmail.com>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 2.2.6\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2010-09-04 20:48+0000\n"
-"PO-Revision-Date: 2010-09-08 12:49+0800\n"
-"Last-Translator: Dean Lee <xslidian@lidian.info>\n"
+"POT-Creation-Date: 2010-09-25 09:32+0000\n"
+"PO-Revision-Date: 2010-09-26 00:40+0800\n"
+"Last-Translator: Aron Xu <happyaron.xu@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -431,7 +433,7 @@ msgstr "如果您没有进行保存，未保存的任何更改都将丢失。"
 
 #: ../libanjuta/anjuta-save-prompt.c:189
 #: ../plugins/document-manager/plugin.c:605
-#: ../plugins/snippets-manager/snippets-editor.ui.h:9
+#: ../plugins/snippets-manager/snippets-editor.ui.h:11
 msgid "Save"
 msgstr "保存"
 
@@ -1455,6 +1457,7 @@ msgstr "实现"
 #: ../plugins/class-gen/window.c:533
 #: ../plugins/debug-manager/breakpoints.c:1952
 #: ../plugins/debug-manager/debug_tree.c:128
+#: ../plugins/snippets-manager/snippets-editor.c:38
 msgid "Type"
 msgstr "类型"
 
@@ -1462,7 +1465,9 @@ msgstr "类型"
 #: ../plugins/class-gen/window.c:520 ../plugins/class-gen/window.c:534
 #: ../plugins/run-program/parameters.c:754
 #: ../plugins/search/search_preferences.c:534
+#: ../plugins/snippets-manager/plugin.c:751
 #: ../plugins/snippets-manager/snippets-browser.c:530
+#: ../plugins/snippets-manager/snippets-editor.c:37
 msgid "Name"
 msgstr "名称"
 
@@ -2930,7 +2935,7 @@ msgstr "重命名(_R)"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:340
 #: ../plugins/gtodo/callback.c:20 ../plugins/gtodo/callback.c:101
-#: ../plugins/snippets-manager/snippets-editor.ui.h:8
+#: ../plugins/snippets-manager/snippets-editor.ui.h:10
 msgid "Remove"
 msgstr "删除"
 
@@ -3088,7 +3093,7 @@ msgstr "重新加载当前文件"
 
 #: ../plugins/document-manager/plugin.c:169
 msgid "Recent _Files"
-msgstr "最近文件(_F)"
+msgstr "最近使用的文件(_F)"
 
 #: ../plugins/document-manager/plugin.c:173
 msgid "_Print…"
@@ -8467,49 +8472,72 @@ msgid "Unable to build user interface for Search and Replace"
 msgstr "无法为搜索和替换生成用户界面"
 
 #: ../plugins/snippets-manager/plugin.c:60
-#: ../plugins/snippets-manager/plugin.c:292
+#: ../plugins/snippets-manager/plugin.c:302
 #: ../plugins/snippets-manager/snippets-browser.c:208
 msgid "Snippets"
 msgstr "片段"
 
-#: ../plugins/snippets-manager/plugin.c:67
+#. Translator: Appears in Edit->Snippets menu. It is used mainly for providing a
+#. shortcut for the trigger-key based insertion of snippets. It's called like this
+#. because you type the trigger-key in the editor, followed by Trigger Insert and
+#. the snippet gets inserted.
+#: ../plugins/snippets-manager/plugin.c:71
 msgid "_Trigger insert"
 msgstr "热键插入(_T)"
 
-#: ../plugins/snippets-manager/plugin.c:69
+#: ../plugins/snippets-manager/plugin.c:73
 msgid "Insert a snippet using the trigger-key"
 msgstr "使用热键插入片段"
 
-#: ../plugins/snippets-manager/plugin.c:74
+#. Translator: In a similar matter, it also appears in Edit->Snippets. It's another method
+#. for inserting snippets. In this case, you call Auto complete insert, start
+#. typing in the editor a string, the database is searched for that string and the
+#. most relevant snippets are returned in a pop-up like the auto-complete one
+#. (they are showed by their names). After selecting one of them, the snippet gets
+#. inserted.
+#: ../plugins/snippets-manager/plugin.c:84
 msgid "_Auto complete insert"
 msgstr "自动补全插入(_A)"
 
-#: ../plugins/snippets-manager/plugin.c:76
+#: ../plugins/snippets-manager/plugin.c:86
 msgid "Insert a snippet using auto-completion"
 msgstr "采用自动补全插入片段"
 
-#: ../plugins/snippets-manager/plugin.c:81
+#: ../plugins/snippets-manager/plugin.c:91
 msgid "_Import snippets …"
 msgstr "导入片段(_I)..."
 
-#: ../plugins/snippets-manager/plugin.c:83
+#: ../plugins/snippets-manager/plugin.c:93
 msgid "Import snippets to the database"
 msgstr "将片段导入数据库"
 
-#: ../plugins/snippets-manager/plugin.c:88
+#: ../plugins/snippets-manager/plugin.c:98
 msgid "_Export snippets …"
 msgstr "导出片段(_E)..."
 
-#: ../plugins/snippets-manager/plugin.c:90
+#: ../plugins/snippets-manager/plugin.c:100
 msgid "Export snippets from the database"
 msgstr "从数据库导出片段"
 
-#: ../plugins/snippets-manager/plugin.c:317
+#: ../plugins/snippets-manager/plugin.c:327
 msgid "Snippets Manager actions"
 msgstr "片段管理器动作"
 
-#: ../plugins/snippets-manager/plugin.c:919
-#: ../plugins/snippets-manager/plugin.c:956
+#: ../plugins/snippets-manager/plugin.c:767
+msgid "Command?"
+msgstr "命令?"
+
+#: ../plugins/snippets-manager/plugin.c:783
+msgid "Variable text"
+msgstr "变量文本"
+
+#: ../plugins/snippets-manager/plugin.c:801
+#: ../plugins/snippets-manager/snippets-editor.c:40
+msgid "Instant value"
+msgstr "常量值"
+
+#: ../plugins/snippets-manager/plugin.c:929
+#: ../plugins/snippets-manager/plugin.c:966
 #: ../plugins/snippets-manager/snippets-provider.c:753
 #: ../plugins/snippets-manager/anjuta-snippets-manager.plugin.in.h:2
 msgid "Code Snippets"
@@ -8533,45 +8561,80 @@ msgstr "添加片段..."
 msgid "Add Snippets Group …"
 msgstr "添加片段组..."
 
+#: ../plugins/snippets-manager/snippets-editor.c:39
+msgid "Default value"
+msgstr "默认值"
+
+#: ../plugins/snippets-manager/snippets-editor.c:48
+msgid "<b>Error:</b> You must choose at least one language for the snippet!"
+msgstr "<b>错误：</b> 您必须为代码片段选择至少一种语言！"
+
+#: ../plugins/snippets-manager/snippets-editor.c:49
+msgid ""
+"<b>Error:</b> The trigger key is already in use for one of the languages!"
+msgstr "<b>错误：</b> 热键已被其它语言使用！"
+
+#: ../plugins/snippets-manager/snippets-editor.c:50
+#, fuzzy
+#| msgid ""
+#| "<b>Error:</b> The trigger key can only contain alfanumeric characters and "
+#| "_ !"
+msgid ""
+"<b>Error:</b> The trigger key can only contain alphanumeric characters and "
+"_ !"
+msgstr "<b>错误：</b>热键只能包含字母、数字字符和_！"
+
+#: ../plugins/snippets-manager/snippets-editor.c:51
+msgid "<b>Error:</b> You haven't entered a trigger key for the snippet!"
+msgstr "<b>错误：</b> 您还未曾为代码片段键入热键！"
+
 #: ../plugins/snippets-manager/snippets-editor.ui.h:1
+msgid "<b>Error:</b> The snippet must belong to a group!"
+msgstr "<b>错误：</b>代码片段必须归属于组中！"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:2
+msgid "<b>Warning:</b> You should choose a name for the snippet!"
+msgstr "<b>警告：</b> 您应该为你的代码片段选择一个名字！"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:3
 msgid "Add"
 msgstr "添加"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:2
+#: ../plugins/snippets-manager/snippets-editor.ui.h:4
 msgid "Close"
 msgstr "关闭"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:3
+#: ../plugins/snippets-manager/snippets-editor.ui.h:5
 msgid "Insert"
 msgstr "插入"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:4
+#: ../plugins/snippets-manager/snippets-editor.ui.h:6
 msgid ""
 "Keywords are used for better searching of the snippets. They should be "
 "relevant to the snippet content. Type them separated by a single space."
 msgstr "关键词用于更好地搜索片段。他们应当与片段内容有关。输入时请用空格隔开。"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:5
-msgid "Keywords:"
-msgstr "关键词..."
-
-#: ../plugins/snippets-manager/snippets-editor.ui.h:6
-msgid "Languages:"
-msgstr "语言..."
-
 #: ../plugins/snippets-manager/snippets-editor.ui.h:7
+msgid "Keywords:"
+msgstr "关键词："
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:8
+msgid "Languages:"
+msgstr "语言："
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:9
 msgid "Preview"
 msgstr "预览"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:10
+#: ../plugins/snippets-manager/snippets-editor.ui.h:12
 msgid "Select the Snippets Group to which this snippet belongs."
 msgstr "选择片段所属的片段组。"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:11
+#: ../plugins/snippets-manager/snippets-editor.ui.h:13
 msgid "Select the languages for which you want to use this snippet."
 msgstr "选择片段用于的语言。"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:12
+#: ../plugins/snippets-manager/snippets-editor.ui.h:14
 msgid ""
 "Select the name of the Snippet. \n"
 "The role of the name is purely informative."
@@ -8579,27 +8642,38 @@ msgstr ""
 "为片段选择名称。\n"
 "名称的作用仅仅是告知性的。"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:14
+#: ../plugins/snippets-manager/snippets-editor.ui.h:16
 msgid "Snippet Content"
 msgstr "片段内容"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:15
+#: ../plugins/snippets-manager/snippets-editor.ui.h:17
 msgid "Snippet Name:"
-msgstr "片段名称..."
+msgstr "片段名称："
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:16
+#: ../plugins/snippets-manager/snippets-editor.ui.h:18
 msgid "Snippet Properties"
 msgstr "片段属性"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:17
+#: ../plugins/snippets-manager/snippets-editor.ui.h:19
 msgid "Snippet Variables"
 msgstr "片段变量"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:18
+#: ../plugins/snippets-manager/snippets-editor.ui.h:20
 msgid "Snippets Group:"
 msgstr "片段组:"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:19
+#: ../plugins/snippets-manager/snippets-editor.ui.h:21
+msgid ""
+"The trigger key is used for fast insertion of the snippet. Type the trigger "
+"key in the editor, followed by the \"Fast Insert\" shortcut to insert a "
+"snippet.\n"
+"<b>Warning: Must be unique per language. </b>"
+msgstr ""
+"热键用于代码片段的快速插入。在编辑器中按热键，紧接着按“快速插入”的快捷键"
+"插入代码片段。\n"
+"<b>警告：在每类语言中必须是唯一的。</b>"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:23
 msgid "Trigger Key:"
 msgstr "热键："
 
@@ -11276,7 +11350,7 @@ msgstr "符号"
 
 #, fuzzy
 #~ msgid "Options..."
-#~ msgstr "选项"
+#~ msgstr "选项..."
 
 #, fuzzy
 #~ msgid "Profiling Options"
@@ -11284,7 +11358,7 @@ msgstr "符号"
 
 #, fuzzy
 #~ msgid "Select Other Target..."
-#~ msgstr "搜索目标"
+#~ msgstr "搜索目标..."
 
 #, fuzzy
 #~ msgid "Select Profiling Target"
