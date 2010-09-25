@@ -8655,7 +8655,7 @@ msgid "<b>Error:</b> The trigger key is already in use for one of the languages!
 msgstr "<b>Napaka:</b> ključ sprožilca je že v uporabi za enega izmed jezikov!"
 
 #: ../plugins/snippets-manager/snippets-editor.c:50
-msgid "<b>Error:</b> The trigger key can only contain alfanumeric characters and _ !"
+msgid "<b>Error:</b> The trigger key can only contain alphanumeric characters and _ !"
 msgstr "<b>Napaka:</b>Ključ sprožilca lahko vsebuje le črke, številke in znak _!"
 
 #: ../plugins/snippets-manager/snippets-editor.c:51

@@ -8628,7 +8628,7 @@ msgstr ""
 
 #: ../plugins/snippets-manager/snippets-editor.c:50
 msgid ""
-"<b>Error:</b> The trigger key can only contain alfanumeric characters and _ !"
+"<b>Error:</b> The trigger key can only contain alphanumeric characters and _ !"
 msgstr ""
 "<b>Error:</b> The trigger key can only contain alphanumeric characters and _ "
 "!"

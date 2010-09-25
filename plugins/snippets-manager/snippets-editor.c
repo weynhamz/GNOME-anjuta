@@ -47,7 +47,7 @@
 
 #define ERROR_LANG_NULL           _("<b>Error:</b> You must choose at least one language for the snippet!")
 #define ERROR_LANG_CONFLICT       _("<b>Error:</b> The trigger key is already in use for one of the languages!")
-#define ERROR_TRIGGER_NOT_VALID   _("<b>Error:</b> The trigger key can only contain alfanumeric characters and _ !")
+#define ERROR_TRIGGER_NOT_VALID   _("<b>Error:</b> The trigger key can only contain alphanumeric characters and _ !")
 #define ERROR_TRIGGER_NULL        _("<b>Error:</b> You haven't entered a trigger key for the snippet!")
 
 #define SNIPPET_VAR_START                 "${"

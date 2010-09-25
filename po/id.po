@@ -8642,7 +8642,7 @@ msgstr "<b>Galat:</b> Kunci pemicu telah dipakai oleh salah satu bahasa!"
 #| msgid ""
 #| "Source file name can only contain alphanumeric, '_', '-' or '.' characters"
 msgid ""
-"<b>Error:</b> The trigger key can only contain alfanumeric characters and _ !"
+"<b>Error:</b> The trigger key can only contain alphanumeric characters and _ !"
 msgstr ""
 "<b>Galat:</b> Kunci pemicu hanya boleh memuat karakter alfanumerik dan _ !"
 

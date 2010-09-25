@@ -8683,7 +8683,7 @@ msgstr "<b>Ошибка:</b> ключ триггера уже используе
 #: ../plugins/snippets-manager/snippets-editor.c:50
 #| msgid ""
 #| "Source file name can only contain alphanumeric, '_', '-' or '.' characters"
-msgid "<b>Error:</b> The trigger key can only contain alfanumeric characters and _ !"
+msgid "<b>Error:</b> The trigger key can only contain alphanumeric characters and _ !"
 msgstr "<b>Ошибка:</b> ключ триггера может содержать только буквенно-цифровые символы и _ !"
 
 #: ../plugins/snippets-manager/snippets-editor.c:51

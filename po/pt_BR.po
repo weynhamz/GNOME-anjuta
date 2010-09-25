@@ -8684,7 +8684,7 @@ msgstr "<b>Erro:</b> Este disparador já está em uso em alguma linguagem!"
 
 #: ../plugins/snippets-manager/snippets-editor.c:50
 msgid ""
-"<b>Error:</b> The trigger key can only contain alfanumeric characters and _ !"
+"<b>Error:</b> The trigger key can only contain alphanumeric characters and _ !"
 msgstr "<b>Erro:</b> O disparador só pode ter caracteres alfa-numéricos e _ !"
 
 #: ../plugins/snippets-manager/snippets-editor.c:51

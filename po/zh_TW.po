@@ -8647,7 +8647,7 @@ msgstr "<b>錯誤：</b>這個觸發鍵已經用於其中一種語言！"
 #: ../plugins/snippets-manager/snippets-editor.c:50
 #| msgid ""
 #| "Source file name can only contain alphanumeric, '_', '-' or '.' characters"
-msgid "<b>Error:</b> The trigger key can only contain alfanumeric characters and _ !"
+msgid "<b>Error:</b> The trigger key can only contain alphanumeric characters and _ !"
 msgstr "<b>錯誤：</b>觸發鍵只能包含英文字母和 _！"
 
 #: ../plugins/snippets-manager/snippets-editor.c:51
