@@ -23,7 +23,9 @@
 #include <glib-object.h>
 #include "git-pane.h"
 #include "git-log-command.h"
+#include "git-log-message-command.h"
 #include "git-ref-command.h"
+#include "giggle-graph-renderer.h"
 
 G_BEGIN_DECLS
 

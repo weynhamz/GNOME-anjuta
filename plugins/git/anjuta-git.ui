@@ -1177,11 +1177,12 @@
                               <object class="GtkTreeView" id="log_view">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
+                                <property name="has_tooltip">True</property>
                                 <child>
-                                  <object class="GtkTreeViewColumn" id="icon_column">
+                                  <object class="GtkTreeViewColumn" id="ref_icon_column">
                                     <property name="resizable">True</property>
                                     <child>
-                                      <object class="GtkCellRendererPixbuf" id="icon_renderer"/>
+                                      <object class="GtkCellRendererPixbuf" id="ref_icon_renderer"/>
                                     </child>
                                   </object>
                                 </child>
@@ -1192,13 +1193,10 @@
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkTreeViewColumn" id="shortlog_column">
+                                  <object class="GtkTreeViewColumn" id="short_log_column">
                                     <property name="resizable">True</property>
                                     <property name="title">Short Log</property>
                                     <property name="expand">True</property>
-                                    <child>
-                                      <object class="GtkCellRendererText" id="shortlog_renderer"/>
-                                    </child>
                                   </object>
                                 </child>
                                 <child>

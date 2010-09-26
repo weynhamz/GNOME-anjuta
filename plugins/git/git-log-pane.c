@@ -21,6 +21,11 @@
 
 enum
 {
+	LOG_COL_REVISION
+};
+
+enum
+{
 	BRANCH_COL_ACTIVE,
 	BRANCH_COL_ACTIVE_ICON,
 	BRANCH_COL_NAME
@@ -30,6 +35,8 @@ struct _GitLogPanePriv
 {
 	GtkBuilder *builder;
 	GtkListStore *log_model;
+	GtkCellRenderer *graph_renderer;
+	GHashTable *refs;
 
 	/* This table maps branch names and iters in the branch combo model. When
 	 * branches get refreshed, use this to make sure that the same branch the
@@ -44,8 +51,8 @@ struct _GitLogPanePriv
 G_DEFINE_TYPE (GitLogPane, git_log_pane, GIT_TYPE_PANE);
 
 static void
-on_local_branch_list_command_started (AnjutaCommand *command, 
-                                      GitLogPane *self)
+on_branch_list_command_started (AnjutaCommand *command, 
+                                GitLogPane *self)
 {
 	GtkComboBox *branch_combo;
 	GtkListStore *log_branch_combo_model;
@@ -62,9 +69,9 @@ on_local_branch_list_command_started (AnjutaCommand *command,
 }
 
 static void
-on_remote_branch_list_command_finished (AnjutaCommand *command,
-                                        guint return_code,
-                                        GitLogPane *self)
+on_branch_list_command_finished (AnjutaCommand *command,
+                                 guint return_code,
+                                 GitLogPane *self)
 {
 	GtkComboBox *branch_combo;
 	GtkTreeModel *log_branch_combo_model;
@@ -150,6 +157,118 @@ on_branch_list_command_data_arrived (AnjutaCommand *command,
 }
 
 static void
+on_log_command_finished (AnjutaCommand *command, guint return_code, 
+						 GitLogPane *self)
+{
+	GtkTreeView *log_view;
+	GQueue *queue;
+	GtkTreeIter iter;
+	GitRevision *revision;
+	
+	if (return_code != 0)
+	{
+		git_pane_report_errors (command, return_code,
+		                        ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self))));
+		g_object_unref (command);
+		
+		return;
+	}
+	
+	log_view = GTK_TREE_VIEW (gtk_builder_get_object (self->priv->builder, 
+	                                                  "log_view"));
+	
+	g_object_ref (self->priv->log_model);
+	gtk_tree_view_set_model (GTK_TREE_VIEW (log_view), NULL);
+	
+	queue = git_log_command_get_output_queue (GIT_LOG_COMMAND (command));
+	
+	while (g_queue_peek_head (queue))
+	{
+		revision = g_queue_pop_head (queue);
+		
+		gtk_list_store_append (self->priv->log_model, &iter);
+		gtk_list_store_set (self->priv->log_model, &iter, LOG_COL_REVISION, 
+		                    revision, -1);
+
+		g_object_unref (revision);
+	}
+	
+	giggle_graph_renderer_validate_model (GIGGLE_GRAPH_RENDERER (self->priv->graph_renderer),
+										  GTK_TREE_MODEL (self->priv->log_model),
+										  0);
+	gtk_tree_view_set_model (GTK_TREE_VIEW (log_view), 
+							 GTK_TREE_MODEL (self->priv->log_model));
+	g_object_unref (self->priv->log_model);
+	
+	g_object_unref (command);
+}
+
+static void
+refresh_log (GitLogPane *self)
+{
+	Git *plugin;
+	GitLogCommand *log_command;
+
+	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
+	
+	/* We don't support filters for now */
+	log_command = git_log_command_new (plugin->project_root_directory,
+	                                   self->priv->selected_branch,
+	                                   NULL,
+	                                   NULL,
+	                                   NULL,
+	                                   NULL,
+	                                   NULL,
+	                                   NULL,
+	                                   NULL);
+
+	g_signal_connect (G_OBJECT (log_command), "command-finished",
+	                  G_CALLBACK (on_log_command_finished),
+	                  self);
+
+	gtk_list_store_clear (self->priv->log_model);
+
+	anjuta_command_start (ANJUTA_COMMAND (log_command));
+}
+
+static void
+on_ref_command_finished (AnjutaCommand *command, guint return_code,
+                         GitLogPane *self)
+{
+	Git *plugin;
+	GitBranchListCommand *branch_list_command;
+
+	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
+
+	if (self->priv->refs)
+		g_hash_table_unref (self->priv->refs);
+
+	self->priv->refs = git_ref_command_get_refs (GIT_REF_COMMAND (command));
+
+	/* Refresh the branch display after the refs get updated */
+	branch_list_command = git_branch_list_command_new (plugin->project_root_directory,
+	                                                   GIT_BRANCH_TYPE_ALL);
+
+	g_signal_connect (G_OBJECT (branch_list_command), "command-started",
+	                  G_CALLBACK (on_branch_list_command_started),
+	                  self);
+
+	g_signal_connect (G_OBJECT (branch_list_command), "command-finished",
+	                  G_CALLBACK (on_branch_list_command_finished),
+	                  self);
+
+	g_signal_connect (G_OBJECT (branch_list_command), "command-finished",
+	                  G_CALLBACK (g_object_unref),
+	                  NULL);
+
+	g_signal_connect (G_OBJECT (branch_list_command), "data-arrived",
+	                  G_CALLBACK (on_branch_list_command_data_arrived),
+	                  self);
+
+	anjuta_command_start (ANJUTA_COMMAND (branch_list_command));
+}
+
+static void
 on_branch_combo_changed (GtkComboBox *combo_box, GitLogPane *self)
 {
 	GtkTreeModel *log_branch_combo_model;
@@ -172,7 +291,240 @@ on_branch_combo_changed (GtkComboBox *combo_box, GitLogPane *self)
 		self->priv->selected_branch = g_strdup (branch);
 
 		g_free (branch);
+
+		/* Refresh the log after the branches are refreshed so that everything 
+		 * happens in a consistent order (refs, branches, log) and that 
+		 * the log only gets refreshed once. Doing the refresh here also 
+		 * lets us kill two birds with one stone: we can handle refreshes and
+		 * different branch selections all in one place. */
+		refresh_log (self);
 	}
+}
+
+
+static void
+author_cell_function (GtkTreeViewColumn *column, GtkCellRenderer *renderer,
+					  GtkTreeModel *model, GtkTreeIter *iter, 
+					  gpointer user_data)
+{
+	GitRevision *revision;
+	gchar *author;
+	
+	gtk_tree_model_get (model, iter, LOG_COL_REVISION, &revision, -1);
+	author = git_revision_get_author (revision);
+	
+	g_object_unref (revision);
+	
+	g_object_set (renderer, "text", author, NULL);
+	
+	g_free (author);
+}
+
+static void
+date_cell_function (GtkTreeViewColumn *column, GtkCellRenderer *renderer,
+					GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
+{
+	GitRevision *revision;
+	gchar *date;
+	
+	gtk_tree_model_get (model, iter, LOG_COL_REVISION, &revision, -1);
+	date = git_revision_get_formatted_date (revision);
+	
+	g_object_unref (revision);
+	
+	g_object_set (renderer, "text", date, NULL);
+	
+	g_free (date);
+}
+
+static void
+short_log_cell_function (GtkTreeViewColumn *column, GtkCellRenderer *renderer,
+						 GtkTreeModel *model, GtkTreeIter *iter, 
+						 gpointer user_data)
+{
+	GitRevision *revision;
+	gchar *short_log;
+	
+	gtk_tree_model_get (model, iter, LOG_COL_REVISION, &revision, -1);
+	short_log = git_revision_get_short_log (revision);
+	
+	g_object_unref (revision);
+	
+	g_object_set (renderer, "text", short_log, NULL);
+	
+	g_free (short_log);
+}
+
+static void
+ref_icon_cell_function (GtkTreeViewColumn *column, GtkCellRenderer *renderer,
+						GtkTreeModel *model, GtkTreeIter *iter, 
+						GitLogPane *self)
+{
+	GitRevision *revision;
+	gchar *sha;
+	
+	gtk_tree_model_get (model, iter, LOG_COL_REVISION, &revision, -1);
+	sha = git_revision_get_sha (revision);
+	
+	g_object_unref (revision);
+	
+	if (g_hash_table_lookup_extended (self->priv->refs, sha, NULL, NULL))
+		g_object_set (renderer, "stock-id", GTK_STOCK_INFO, NULL);
+	else
+		g_object_set (renderer, "stock-id", "", NULL);
+	
+	g_free (sha);
+}
+
+static gboolean
+on_log_view_query_tooltip (GtkWidget *log_view, gint x, gint y,
+                           gboolean keyboard_mode, GtkTooltip *tooltip,
+                           GitLogPane *self)
+{
+	gboolean ret;
+	GtkTreeViewColumn *ref_icon_column;
+	gint bin_x;
+	gint bin_y;
+	GtkTreeViewColumn *current_column;
+	GtkTreePath *path;
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	GitRevision *revision;
+	gchar *sha;
+	GList *ref_list;
+	GList *current_ref;
+	GString *tooltip_string;
+	gchar *ref_name;
+	GitRefType ref_type;
+	
+	ret = FALSE;
+	
+	ref_icon_column = gtk_tree_view_get_column (GTK_TREE_VIEW (log_view), 0);
+	
+	gtk_tree_view_convert_widget_to_bin_window_coords (GTK_TREE_VIEW (log_view),
+													   x, y, &bin_x, &bin_y);
+	gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW (log_view), bin_x, 
+								   bin_y, &path, &current_column, NULL, NULL);
+	
+	/* We need to be in the ref icon column */
+	if (current_column == ref_icon_column)
+	{
+		model = gtk_tree_view_get_model (GTK_TREE_VIEW (log_view));
+		gtk_tree_model_get_iter (model, &iter, path);
+		
+		gtk_tree_model_get (model, &iter, LOG_COL_REVISION, &revision, -1);
+		sha = git_revision_get_sha (revision);
+		
+		g_object_unref (revision);
+		
+		ref_list = g_hash_table_lookup (self->priv->refs, sha);
+		g_free (sha);
+		
+		if (ref_list)
+		{
+			current_ref = ref_list;
+			tooltip_string = g_string_new ("");
+			
+			while (current_ref)
+			{
+				ref_name = git_ref_get_name (GIT_REF (current_ref->data));
+				ref_type = git_ref_get_ref_type (GIT_REF (current_ref->data));
+				
+				if (tooltip_string->len > 0)
+					g_string_append (tooltip_string, "\n");
+				
+				switch (ref_type)
+				{
+					case GIT_REF_TYPE_BRANCH:
+						g_string_append_printf (tooltip_string,
+												_("<b>Branch:</b> %s"),
+												ref_name);
+						break;
+					case GIT_REF_TYPE_TAG:
+						g_string_append_printf (tooltip_string,
+												_("<b>Tag:</b> %s"),
+												ref_name);
+						break;
+					case GIT_REF_TYPE_REMOTE:
+						g_string_append_printf (tooltip_string,
+												_("<b>Remote:</b> %s"),
+												ref_name);
+						break;
+					default:
+						break;
+				}
+				
+				g_free (ref_name);
+				current_ref = g_list_next (current_ref);
+			}
+			
+			gtk_tooltip_set_markup (tooltip, tooltip_string->str);
+			g_string_free (tooltip_string, TRUE);
+			
+			ret = TRUE;
+		}
+	}
+	
+	gtk_tree_path_free (path);
+	return ret;
+	
+	
+}
+
+static void
+on_log_message_command_finished (AnjutaCommand *command, guint return_code,
+								 GitLogPane *self)
+{
+	GtkWidget *log_text_view;
+	GtkTextBuffer *buffer;
+	gchar *log_message;
+	
+	log_text_view = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
+	                                                    "log_text_view"));
+	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (log_text_view));
+	log_message = git_log_message_command_get_message (GIT_LOG_MESSAGE_COMMAND (command));
+	
+	gtk_text_buffer_set_text (buffer, log_message, strlen (log_message));
+	
+	g_free (log_message);
+	g_object_unref (command);
+}
+
+static gboolean
+on_log_view_row_selected (GtkTreeSelection *selection, 
+                          GtkTreeModel *model,
+                          GtkTreePath *path, 
+                          gboolean path_currently_selected,
+                          GitLogPane *self)
+{
+	Git *plugin;
+	GtkTreeIter iter;
+	GitRevision *revision;
+	gchar *sha;
+	GitLogMessageCommand *log_message_command;
+	
+	if (!path_currently_selected)
+	{
+		plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
+
+		gtk_tree_model_get_iter (model, &iter, path);
+		gtk_tree_model_get (model, &iter, LOG_COL_REVISION, &revision, -1);
+		sha = git_revision_get_sha (revision);
+		
+		log_message_command = git_log_message_command_new (plugin->project_root_directory,
+														   sha);
+		
+		g_free (sha);
+		g_object_unref (revision);
+		
+		g_signal_connect (G_OBJECT (log_message_command), "command-finished",
+						  G_CALLBACK (on_log_message_command_finished),
+						  self);
+		
+		anjuta_command_start (ANJUTA_COMMAND (log_message_command));
+	}
+	
+	return TRUE;
 }
 
 static void
@@ -185,7 +537,17 @@ git_log_pane_init (GitLogPane *self)
 						NULL};
 	GError *error = NULL;
 	GtkTreeView *log_view;
+	GtkTreeViewColumn *ref_icon_column;
+	GtkTreeViewColumn *graph_column;
+	GtkTreeViewColumn *short_log_column;
+	GtkTreeViewColumn *author_column;
+	GtkTreeViewColumn *date_column;
+	GtkCellRenderer *ref_icon_renderer;
+	GtkCellRenderer *short_log_renderer;
+	GtkCellRenderer *author_renderer;
+	GtkCellRenderer *date_renderer;
 	GtkComboBox *branch_combo;
+	GtkTreeSelection *selection;
 
 	self->priv = g_new0 (GitLogPanePriv, 1);
 	self->priv->builder = gtk_builder_new ();
@@ -200,13 +562,75 @@ git_log_pane_init (GitLogPane *self)
 
 	log_view = GTK_TREE_VIEW (gtk_builder_get_object (self->priv->builder,
 	                                                  "log_view"));
+	ref_icon_column = GTK_TREE_VIEW_COLUMN (gtk_builder_get_object (self->priv->builder,
+	                                                                "ref_icon_column"));
+	graph_column = GTK_TREE_VIEW_COLUMN (gtk_builder_get_object (self->priv->builder,
+	                                                             "graph_column"));
+	short_log_column = GTK_TREE_VIEW_COLUMN (gtk_builder_get_object (self->priv->builder,
+	                                                                 "short_log_column"));
+	author_column = GTK_TREE_VIEW_COLUMN (gtk_builder_get_object (self->priv->builder,
+	                                                              "author_column"));
+	date_column = GTK_TREE_VIEW_COLUMN (gtk_builder_get_object (self->priv->builder,
+	                                							"date_column"));
+	ref_icon_renderer = GTK_CELL_RENDERER (gtk_builder_get_object (self->priv->builder,
+	                                                               "ref_icon_renderer"));
+	author_renderer = GTK_CELL_RENDERER (gtk_builder_get_object (self->priv->builder,
+	                                                             "author_renderer"));
+	date_renderer = GTK_CELL_RENDERER (gtk_builder_get_object (self->priv->builder,
+	                                                           "date_renderer"));
 	branch_combo = GTK_COMBO_BOX (gtk_builder_get_object (self->priv->builder,
 	                                                      "branch_combo"));
+	selection = gtk_tree_view_get_selection (log_view);
 
 	/* Set up the log model */
 	self->priv->log_model = gtk_list_store_new (1, GIT_TYPE_REVISION);
 
+	/* Ref icon column */
+	gtk_tree_view_column_set_cell_data_func (ref_icon_column, ref_icon_renderer,
+	                                         (GtkTreeCellDataFunc) ref_icon_cell_function,
+	                                         self, NULL);
+
+
+	/* Graph column */
+	self->priv->graph_renderer = giggle_graph_renderer_new ();
+
+	gtk_tree_view_column_pack_start (graph_column, self->priv->graph_renderer,
+	                                 TRUE);
+	gtk_tree_view_column_add_attribute (graph_column, self->priv->graph_renderer,
+	                                    "revision", 0);
+
+	/* Short log column. We have to create this render ouselves becuause Glade
+	 * doesn't seem to give us to option to pack it with expand */
+	short_log_renderer = gtk_cell_renderer_text_new ();
+	g_object_set (G_OBJECT (short_log_renderer), "ellipsize", 
+	              PANGO_ELLIPSIZE_END, NULL);
+	gtk_tree_view_column_pack_start (short_log_column, short_log_renderer, 
+	                                 TRUE);
+	gtk_tree_view_column_set_cell_data_func (short_log_column, short_log_renderer,
+	                                         (GtkTreeCellDataFunc) short_log_cell_function,
+	                                         NULL, NULL);
+
+	/* Author column */
+	gtk_tree_view_column_set_cell_data_func (author_column, author_renderer,
+	                                         (GtkTreeCellDataFunc) author_cell_function,
+	                                         NULL, NULL);
+
+	/* Date column */
+	gtk_tree_view_column_set_cell_data_func (date_column, date_renderer,
+	                                         (GtkTreeCellDataFunc) date_cell_function,
+	                                         NULL, NULL);
+	
 	gtk_tree_view_set_model (log_view, GTK_TREE_MODEL (self->priv->log_model));
+
+	/* Ref icon tooltip */
+	g_signal_connect (G_OBJECT (log_view), "query-tooltip",
+	                  G_CALLBACK (on_log_view_query_tooltip),
+	                  self);
+
+	/* Log message display */
+	gtk_tree_selection_set_select_function (selection,
+	                                        (GtkTreeSelectionFunc) on_log_view_row_selected,
+	                                        self, NULL);
 
 	/* Branch handling */
 	self->priv->branches_table = g_hash_table_new_full (g_str_hash, g_str_equal,
@@ -263,24 +687,8 @@ git_log_pane_new (Git *plugin)
 
 	self = g_object_new (GIT_TYPE_LOG_PANE, "plugin", plugin, NULL);
 
-	g_signal_connect (G_OBJECT (plugin->local_branch_list_command),
-	                  "command-started",
-	                  G_CALLBACK (on_local_branch_list_command_started),
-	                  self);
-
-	g_signal_connect (G_OBJECT (plugin->remote_branch_list_command), 
-	                  "command-finished",
-	                  G_CALLBACK (on_remote_branch_list_command_finished),
-	                  self);
-
-	g_signal_connect (G_OBJECT (plugin->local_branch_list_command), 
-	                  "data-arrived",
-	                  G_CALLBACK (on_branch_list_command_data_arrived),
-	                  self);
-
-	g_signal_connect (G_OBJECT (plugin->remote_branch_list_command),
-	                  "data-arrived",
-	                  G_CALLBACK (on_branch_list_command_data_arrived),
+	g_signal_connect (G_OBJECT (plugin->ref_command), "command-finished",
+	                  G_CALLBACK (on_ref_command_finished),
 	                  self);
 
 	return ANJUTA_DOCK_PANE (self);
