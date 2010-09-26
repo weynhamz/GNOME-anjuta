@@ -385,6 +385,20 @@ git_ref_command_stop_automatic_monitor (AnjutaCommand *command)
 }
 
 static void
+git_ref_command_started (AnjutaCommand *command)
+{
+	GitRefCommand *self;
+
+	self = GIT_REF_COMMAND (command);
+
+	/* Clear out old data from previous runs */
+	g_hash_table_remove_all (self->priv->refs);
+
+	ANJUTA_COMMAND_CLASS (git_ref_command_parent_class)->command_started (command);
+}
+
+
+static void
 git_ref_command_class_init (GitRefCommandClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
@@ -394,6 +408,7 @@ git_ref_command_class_init (GitRefCommandClass *klass)
 	object_class->finalize = git_ref_command_finalize;
 	parent_class->output_handler = git_ref_command_handle_output;
 	command_class->run = git_ref_command_run;
+	command_class->command_started = git_ref_command_started;
 	command_class->start_automatic_monitor = git_ref_command_start_automatic_monitor;
 	command_class->stop_automatic_monitor = git_ref_command_stop_automatic_monitor;
 }
