@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: anjuta master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2010-09-08 20:19+0000\n"
-"PO-Revision-Date: 2010-09-11 14:49+0700\n"
+"POT-Creation-Date: 2010-09-21 21:22+0000\n"
+"PO-Revision-Date: 2010-09-22 09:23+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: GNOME Indonesian Translation Team <gnome@i15n.org>\n"
 "MIME-Version: 1.0\n"
@@ -433,7 +433,7 @@ msgstr "Bila anda tidak menyimpan, semua perubahan anda akan hilang."
 
 #: ../libanjuta/anjuta-save-prompt.c:189
 #: ../plugins/document-manager/plugin.c:605
-#: ../plugins/snippets-manager/snippets-editor.ui.h:9
+#: ../plugins/snippets-manager/snippets-editor.ui.h:11
 msgid "Save"
 msgstr "Simpan"
 
@@ -1471,6 +1471,7 @@ msgstr "Implementasi"
 #: ../plugins/class-gen/window.c:533
 #: ../plugins/debug-manager/breakpoints.c:1952
 #: ../plugins/debug-manager/debug_tree.c:128
+#: ../plugins/snippets-manager/snippets-editor.c:38
 msgid "Type"
 msgstr "Tipe"
 
@@ -1478,7 +1479,9 @@ msgstr "Tipe"
 #: ../plugins/class-gen/window.c:520 ../plugins/class-gen/window.c:534
 #: ../plugins/run-program/parameters.c:754
 #: ../plugins/search/search_preferences.c:534
+#: ../plugins/snippets-manager/plugin.c:751
 #: ../plugins/snippets-manager/snippets-browser.c:530
+#: ../plugins/snippets-manager/snippets-editor.c:37
 msgid "Name"
 msgstr "Nama"
 
@@ -2950,7 +2953,7 @@ msgstr "Ganti Nama"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:340
 #: ../plugins/gtodo/callback.c:20 ../plugins/gtodo/callback.c:101
-#: ../plugins/snippets-manager/snippets-editor.ui.h:8
+#: ../plugins/snippets-manager/snippets-editor.ui.h:10
 msgid "Remove"
 msgstr "Buang"
 
@@ -8528,49 +8531,75 @@ msgid "Unable to build user interface for Search and Replace"
 msgstr "Tak bisa membangun antar muka pengguna bagi Cari dan Ganti"
 
 #: ../plugins/snippets-manager/plugin.c:60
-#: ../plugins/snippets-manager/plugin.c:292
+#: ../plugins/snippets-manager/plugin.c:302
 #: ../plugins/snippets-manager/snippets-browser.c:208
 msgid "Snippets"
 msgstr "Snippet"
 
-#: ../plugins/snippets-manager/plugin.c:67
+#. Translator: Appears in Edit->Snippets menu. It is used mainly for providing a
+#. shortcut for the trigger-key based insertion of snippets. It's called like this
+#. because you type the trigger-key in the editor, followed by Trigger Insert and
+#. the snippet gets inserted.
+#: ../plugins/snippets-manager/plugin.c:71
 msgid "_Trigger insert"
 msgstr "_Penyisipan picu"
 
-#: ../plugins/snippets-manager/plugin.c:69
+#: ../plugins/snippets-manager/plugin.c:73
 msgid "Insert a snippet using the trigger-key"
 msgstr "Sisipkan suatu snippet memakai kunci-picu"
 
-#: ../plugins/snippets-manager/plugin.c:74
+#. Translator: In a similar matter, it also appears in Edit->Snippets. It's another method
+#. for inserting snippets. In this case, you call Auto complete insert, start
+#. typing in the editor a string, the database is searched for that string and the
+#. most relevant snippets are returned in a pop-up like the auto-complete one
+#. (they are showed by their names). After selecting one of them, the snippet gets
+#. inserted.
+#: ../plugins/snippets-manager/plugin.c:84
 msgid "_Auto complete insert"
 msgstr "Penyisip_an lengkapi otomatis"
 
-#: ../plugins/snippets-manager/plugin.c:76
+#: ../plugins/snippets-manager/plugin.c:86
 msgid "Insert a snippet using auto-completion"
 msgstr "Sisipkan suatu snippet memakai pelengkapan otomatis"
 
-#: ../plugins/snippets-manager/plugin.c:81
+#: ../plugins/snippets-manager/plugin.c:91
 msgid "_Import snippets …"
 msgstr "_Impor snippet …"
 
-#: ../plugins/snippets-manager/plugin.c:83
+#: ../plugins/snippets-manager/plugin.c:93
 msgid "Import snippets to the database"
 msgstr "Sisipkan snippet ke basis data"
 
-#: ../plugins/snippets-manager/plugin.c:88
+#: ../plugins/snippets-manager/plugin.c:98
 msgid "_Export snippets …"
 msgstr "_Ekspor snippet …"
 
-#: ../plugins/snippets-manager/plugin.c:90
+#: ../plugins/snippets-manager/plugin.c:100
 msgid "Export snippets from the database"
 msgstr "Ekspor snippet dari basis data"
 
-#: ../plugins/snippets-manager/plugin.c:317
+#: ../plugins/snippets-manager/plugin.c:327
 msgid "Snippets Manager actions"
 msgstr "Aksi Manajer Snippet"
 
-#: ../plugins/snippets-manager/plugin.c:919
-#: ../plugins/snippets-manager/plugin.c:956
+#: ../plugins/snippets-manager/plugin.c:767
+#| msgid "Command"
+msgid "Command?"
+msgstr "Perintah?"
+
+#: ../plugins/snippets-manager/plugin.c:783
+#| msgid "Variable list"
+msgid "Variable text"
+msgstr "Teks variabel"
+
+#: ../plugins/snippets-manager/plugin.c:801
+#: ../plugins/snippets-manager/snippets-editor.c:40
+#| msgid "Inspect/Evaluate"
+msgid "Instant value"
+msgstr "Nilai instan"
+
+#: ../plugins/snippets-manager/plugin.c:929
+#: ../plugins/snippets-manager/plugin.c:966
 #: ../plugins/snippets-manager/snippets-provider.c:753
 #: ../plugins/snippets-manager/anjuta-snippets-manager.plugin.in.h:2
 msgid "Code Snippets"
@@ -8594,19 +8623,54 @@ msgstr "Tambah Snippet …"
 msgid "Add Snippets Group …"
 msgstr "Tambah Grup Snippet …"
 
+#: ../plugins/snippets-manager/snippets-editor.c:39
+#| msgid "Default"
+msgid "Default value"
+msgstr "Nilai bawaan"
+
+#: ../plugins/snippets-manager/snippets-editor.c:48
+msgid "<b>Error:</b> You must choose at least one language for the snippet!"
+msgstr ""
+"<b>Galat:</b> Anda mesti memilih paling tidak satu bahasa bagi snippet!"
+
+#: ../plugins/snippets-manager/snippets-editor.c:49
+msgid ""
+"<b>Error:</b> The trigger key is already in use for one of the languages!"
+msgstr "<b>Galat:</b> Kunci pemicu telah dipakai oleh salah satu bahasa!"
+
+#: ../plugins/snippets-manager/snippets-editor.c:50
+#| msgid ""
+#| "Source file name can only contain alphanumeric, '_', '-' or '.' characters"
+msgid ""
+"<b>Error:</b> The trigger key can only contain alphanumeric characters and _ !"
+msgstr ""
+"<b>Galat:</b> Kunci pemicu hanya boleh memuat karakter alfanumerik dan _ !"
+
+#: ../plugins/snippets-manager/snippets-editor.c:51
+msgid "<b>Error:</b> You haven't entered a trigger key for the snippet!"
+msgstr "<b>Galat:</b> Anda belum memasukkan kunci pemicu bagi snippet!"
+
 #: ../plugins/snippets-manager/snippets-editor.ui.h:1
+msgid "<b>Error:</b> The snippet must belong to a group!"
+msgstr "<b>Galat:</b> Snippet harus dimiliki oleh suatu grup!"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:2
+msgid "<b>Warning:</b> You should choose a name for the snippet!"
+msgstr "<b>Peringatan:</b> Anda mesti memilih nama bagi snippet!"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:3
 msgid "Add"
 msgstr "Tambah"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:2
+#: ../plugins/snippets-manager/snippets-editor.ui.h:4
 msgid "Close"
 msgstr "Tutup"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:3
+#: ../plugins/snippets-manager/snippets-editor.ui.h:5
 msgid "Insert"
 msgstr "Sisipkan"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:4
+#: ../plugins/snippets-manager/snippets-editor.ui.h:6
 msgid ""
 "Keywords are used for better searching of the snippets. They should be "
 "relevant to the snippet content. Type them separated by a single space."
@@ -8615,27 +8679,27 @@ msgstr ""
 "relevan dengan isi snippet. Ketikkan mereka dengan dipisahkan oleh spasi "
 "tunggal."
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:5
+#: ../plugins/snippets-manager/snippets-editor.ui.h:7
 msgid "Keywords:"
 msgstr "Kata Kunci:"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:6
+#: ../plugins/snippets-manager/snippets-editor.ui.h:8
 msgid "Languages:"
 msgstr "Bahasa:"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:7
+#: ../plugins/snippets-manager/snippets-editor.ui.h:9
 msgid "Preview"
 msgstr "Pratilik"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:10
+#: ../plugins/snippets-manager/snippets-editor.ui.h:12
 msgid "Select the Snippets Group to which this snippet belongs."
 msgstr "Tentukan snippet ini masuk ke Grup Snippet mana."
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:11
+#: ../plugins/snippets-manager/snippets-editor.ui.h:13
 msgid "Select the languages for which you want to use this snippet."
 msgstr "Pilih bahasa yang ingan Anda pakaikan snippet ini."
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:12
+#: ../plugins/snippets-manager/snippets-editor.ui.h:14
 msgid ""
 "Select the name of the Snippet. \n"
 "The role of the name is purely informative."
@@ -8643,27 +8707,39 @@ msgstr ""
 "Pilih nama Snippet. \n"
 "Peran nama sepenuhnya hanya untuk informasi."
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:14
+#: ../plugins/snippets-manager/snippets-editor.ui.h:16
 msgid "Snippet Content"
 msgstr "Isi Snippet"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:15
+#: ../plugins/snippets-manager/snippets-editor.ui.h:17
 msgid "Snippet Name:"
 msgstr "Nama Snippet:"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:16
+#: ../plugins/snippets-manager/snippets-editor.ui.h:18
 msgid "Snippet Properties"
 msgstr "Properti Snippet"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:17
+#: ../plugins/snippets-manager/snippets-editor.ui.h:19
 msgid "Snippet Variables"
 msgstr "Variabel Snippet"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:18
+#: ../plugins/snippets-manager/snippets-editor.ui.h:20
 msgid "Snippets Group:"
 msgstr "Grup Snippet:"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:19
+#: ../plugins/snippets-manager/snippets-editor.ui.h:21
+msgid ""
+"The trigger key is used for fast insertion of the snippet. Type the trigger "
+"key in the editor, followed by the \"Fast Insert\" shortcut to insert a "
+"snippet.\n"
+"<b>Warning: Must be unique per language. </b>"
+msgstr ""
+"Kunci pemicu dipakai untuk penyisipan snippet secara cepat. Ketikkan kunci "
+"pemicu di dalam penyunting, diikuti dengan pintasan \"Penyisipan Cepat\" "
+"untuk menyisipkan suatu snippet.\n"
+"<b>Peringatan: Mesti unik per bahasa. </b>"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:23
 msgid "Trigger Key:"
 msgstr "Kunci Picu:"
 
@@ -10247,10 +10323,6 @@ msgid "Python support warning"
 msgstr "Peringatan dukungan Python"
 
 #: ../plugins/language-support-python/plugin.c:915
-#| msgid ""
-#| "Couldn't find python-rope (http://rope.sf.net) libraries which\n"
-#| "are needed for autocompletion in python files.\n"
-#| "Please install them and check the python path in the preferences."
 msgid ""
 "Either python path is wrong or python-rope (http://rope.sf.net) libraries\n"
 "aren't installed. Both are required for autocompletion in python files.\n"

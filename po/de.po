@@ -25,16 +25,16 @@
 # Andre Klapper <ak-47@gmx.net>, 2007.
 # Philipp Kerling <k.philipp@gmail.com>, 2008.
 # Mario Blättermann <mariobl@gnome.org>, 2010.
-# Christian Kirbach  <Christian.Kirbach@googlemail.com>, 2008-2010, 2010.
+# Christian Kirbach  <Christian.Kirbach@googlemail.com>, 2008-2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2010-09-08 20:22+0000\n"
-"PO-Revision-Date: 2010-09-01 14:25+0200\n"
-"Last-Translator: Christian Kirbach  <Christian.Kirbach@googlemail.com>\n"
+"POT-Creation-Date: 2010-09-25 16:30+0000\n"
+"PO-Revision-Date: 2010-09-25 18:50+0100\n"
+"Last-Translator: Mario Blättermann <mariobl@gnome.org>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -460,7 +460,7 @@ msgstr "Wenn nicht gespeichert wird, gehen alle Änderungen verloren."
 
 #: ../libanjuta/anjuta-save-prompt.c:189
 #: ../plugins/document-manager/plugin.c:605
-#: ../plugins/snippets-manager/snippets-editor.ui.h:9
+#: ../plugins/snippets-manager/snippets-editor.ui.h:11
 msgid "Save"
 msgstr "Speichern"
 
@@ -1509,6 +1509,7 @@ msgstr "Implementierung"
 #: ../plugins/class-gen/window.c:533
 #: ../plugins/debug-manager/breakpoints.c:1952
 #: ../plugins/debug-manager/debug_tree.c:128
+#: ../plugins/snippets-manager/snippets-editor.c:38
 msgid "Type"
 msgstr "Typ"
 
@@ -1516,7 +1517,9 @@ msgstr "Typ"
 #: ../plugins/class-gen/window.c:520 ../plugins/class-gen/window.c:534
 #: ../plugins/run-program/parameters.c:754
 #: ../plugins/search/search_preferences.c:534
+#: ../plugins/snippets-manager/plugin.c:751
 #: ../plugins/snippets-manager/snippets-browser.c:530
+#: ../plugins/snippets-manager/snippets-editor.c:37
 msgid "Name"
 msgstr "Name"
 
@@ -3001,7 +3004,7 @@ msgstr "Umbenennen"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:340
 #: ../plugins/gtodo/callback.c:20 ../plugins/gtodo/callback.c:101
-#: ../plugins/snippets-manager/snippets-editor.ui.h:8
+#: ../plugins/snippets-manager/snippets-editor.ui.h:10
 msgid "Remove"
 msgstr "Entfernen"
 
@@ -4627,9 +4630,8 @@ msgid "Includes:"
 msgstr "Includes:"
 
 #: ../plugins/gdb/anjuta-gdb.ui.h:1
-#, fuzzy
 msgid "Available pretty printers"
-msgstr "Verfügbare Drucker"
+msgstr "Verfügbare Quellcodeformatierer"
 
 #. The %s argument is a program name, anjuta by example
 #: ../plugins/gdb/debugger.c:729
@@ -4800,7 +4802,7 @@ msgstr "Terminal zur Fehlerdiagnose kann nicht gestartet werden."
 #. * The register function is an additional function in the script. It defines
 #. * which function is used for each type of variables.
 #: ../plugins/gdb/preferences.c:128
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The register function hasn't been found automatically in the following "
 "pretty printer files:\n"
@@ -4809,17 +4811,16 @@ msgid ""
 "rows. Most of the time the register function name contains the word "
 "\"register\"."
 msgstr ""
-"Die Registerfunktion wurde nicht automatisch in den folgenden Druckdateien "
-"gefunden:\n"
+"Die Registerfunktion wurde nicht automatisch in den folgenden "
+"Quellcodeformatierer-Dateien gefunden:\n"
 "%s\n"
-"Sie müssen die Spalten der Registerfunktion selbst vor dem Aktivieren der "
-"Zeilen ausfüllen. Meistens enthält der Name der Registerfunktion das Wort "
-"»Register«."
+"Sie müssen die Spalten der Registrierfunktion selbst vor dem Aktivieren der "
+"Zeilen ausfüllen. Meistens enthält der Name der Registrierfunktion das Wort "
+"»register«."
 
 #: ../plugins/gdb/preferences.c:223
-#, fuzzy
 msgid "Select a pretty printer file"
-msgstr "Project-Typ wählen"
+msgstr "Quellcodeformatierer-Datei wählen"
 
 #: ../plugins/gdb/preferences.c:358
 msgid "Activate"
@@ -4829,7 +4830,7 @@ msgstr "Aktivieren"
 #. * function used to register pretty printers in gdb.
 #: ../plugins/gdb/preferences.c:372
 msgid "Register Function"
-msgstr "Registerfunktion"
+msgstr "Registrierfunktion"
 
 #: ../plugins/gdb/preferences.c:396 ../plugins/gdb/preferences.c:404
 msgid "Gdb Debugger"
@@ -8695,6 +8696,19 @@ msgstr "Schnipsel aus der Datenbank exportieren"
 msgid "Snippets Manager actions"
 msgstr "Aktionen der Schnipselverwaltung"
 
+#: ../plugins/snippets-manager/plugin.c:767
+msgid "Command?"
+msgstr "Befehl?"
+
+#: ../plugins/snippets-manager/plugin.c:783
+msgid "Variable text"
+msgstr "Variablentext"
+
+#: ../plugins/snippets-manager/plugin.c:801
+#: ../plugins/snippets-manager/snippets-editor.c:40
+msgid "Instant value"
+msgstr "Aktueller Wert"
+
 #: ../plugins/snippets-manager/plugin.c:929
 #: ../plugins/snippets-manager/plugin.c:966
 #: ../plugins/snippets-manager/snippets-provider.c:753
@@ -8720,19 +8734,57 @@ msgstr "Schnipsel hinzufügen …"
 msgid "Add Snippets Group …"
 msgstr "Schnipselgruppe hinzufügen …"
 
+#: ../plugins/snippets-manager/snippets-editor.c:39
+msgid "Default value"
+msgstr "Vorgabewert"
+
+#: ../plugins/snippets-manager/snippets-editor.c:48
+msgid "<b>Error:</b> You must choose at least one language for the snippet!"
+msgstr ""
+"<b>Fehler:</b> Sie müssen mindestens eine Sprache für den Schnipsel wählen!"
+
+#: ../plugins/snippets-manager/snippets-editor.c:49
+msgid ""
+"<b>Error:</b> The trigger key is already in use for one of the languages!"
+msgstr ""
+"<b>Fehler:</b> Der Auslöserschlüssel wird bereits für eine andere Sprache "
+"verwendet!"
+
+#: ../plugins/snippets-manager/snippets-editor.c:50
+msgid ""
+"<b>Error:</b> The trigger key can only contain alphanumeric characters and "
+"_ !"
+msgstr ""
+"<b>Fehler:</b> Der Auslöserschlüssel darf nur alphanumerische Zeichen und _ "
+"enthalten!"
+
+#: ../plugins/snippets-manager/snippets-editor.c:51
+msgid "<b>Error:</b> You haven't entered a trigger key for the snippet!"
+msgstr ""
+"<b>Fehler:</b> Sie haben keinen Auslöserschlüssel für den Schnipsel "
+"eingegeben!"
+
 #: ../plugins/snippets-manager/snippets-editor.ui.h:1
+msgid "<b>Error:</b> The snippet must belong to a group!"
+msgstr "<b>Fehler:</b> Der Schnipsel muss einer Gruppe zugeordnet werden!"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:2
+msgid "<b>Warning:</b> You should choose a name for the snippet!"
+msgstr "<b>Warnung:</b> Sie sollten einen Namen für den Schnipsel wählen!"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:3
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:2
+#: ../plugins/snippets-manager/snippets-editor.ui.h:4
 msgid "Close"
 msgstr "Schließen"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:3
+#: ../plugins/snippets-manager/snippets-editor.ui.h:5
 msgid "Insert"
 msgstr "Einfügen"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:4
+#: ../plugins/snippets-manager/snippets-editor.ui.h:6
 msgid ""
 "Keywords are used for better searching of the snippets. They should be "
 "relevant to the snippet content. Type them separated by a single space."
@@ -8740,27 +8792,27 @@ msgstr ""
 "Schlagwörter erleichtern die Suche nach Schnipseln. Sie sollten den Inhalt "
 "des Schnipsels andeuten. Geben Sie sie durch Leerzeichen getrennt ein."
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:5
+#: ../plugins/snippets-manager/snippets-editor.ui.h:7
 msgid "Keywords:"
 msgstr "Schlagwörter:"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:6
+#: ../plugins/snippets-manager/snippets-editor.ui.h:8
 msgid "Languages:"
 msgstr "Sprachen:"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:7
+#: ../plugins/snippets-manager/snippets-editor.ui.h:9
 msgid "Preview"
 msgstr "Vorschau"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:10
+#: ../plugins/snippets-manager/snippets-editor.ui.h:12
 msgid "Select the Snippets Group to which this snippet belongs."
 msgstr "Wählen Sie die Schnipselgruppe, zu der dieser Schnipsel gehört."
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:11
+#: ../plugins/snippets-manager/snippets-editor.ui.h:13
 msgid "Select the languages for which you want to use this snippet."
 msgstr "Wählen Sie die Sprachen, für die dieser Schnipsel gültig ist"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:12
+#: ../plugins/snippets-manager/snippets-editor.ui.h:14
 msgid ""
 "Select the name of the Snippet. \n"
 "The role of the name is purely informative."
@@ -8768,27 +8820,39 @@ msgstr ""
 "Wählen Sie den Namen des Schnipsels.\n"
 "Der Name dient nur informativen Zwecken."
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:14
+#: ../plugins/snippets-manager/snippets-editor.ui.h:16
 msgid "Snippet Content"
 msgstr "Schnipselinhalt"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:15
+#: ../plugins/snippets-manager/snippets-editor.ui.h:17
 msgid "Snippet Name:"
 msgstr "Schnipselname:"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:16
+#: ../plugins/snippets-manager/snippets-editor.ui.h:18
 msgid "Snippet Properties"
 msgstr "Schnipsel-Eigenschaften"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:17
+#: ../plugins/snippets-manager/snippets-editor.ui.h:19
 msgid "Snippet Variables"
 msgstr "Schnipsel-Variablen"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:18
+#: ../plugins/snippets-manager/snippets-editor.ui.h:20
 msgid "Snippets Group:"
 msgstr "Schnipselgruppe:"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:19
+#: ../plugins/snippets-manager/snippets-editor.ui.h:21
+msgid ""
+"The trigger key is used for fast insertion of the snippet. Type the trigger "
+"key in the editor, followed by the \"Fast Insert\" shortcut to insert a "
+"snippet.\n"
+"<b>Warning: Must be unique per language. </b>"
+msgstr ""
+"Der Auslöserschlüssel wird für das schnelle Einfügen des Schnipsels "
+"verwendet. Geben Sie den Auslöserschlüssel in den Editor ein, gefolgt von "
+"einem Tastenkürzel zum Einfügen des Schnipsels.\n"
+"<b>Warnung: Muss für jede Sprache eindeutig sein. </b>"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:23
 msgid "Trigger Key:"
 msgstr "Tastenkombination:"
 

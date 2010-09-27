@@ -62,7 +62,7 @@ The role of the name is purely informative.</property>
                               <object class="GtkImage" id="name_notify">
                                 <property name="width_request">24</property>
                                 <property name="visible">True</property>
-                                <property name="tooltip_markup">&lt;b&gt;Warning:&lt;/b&gt; You should choose a name for the snippet!</property>
+                                <property name="tooltip_markup" translatable="yes">&lt;b&gt;Warning:&lt;/b&gt; You should choose a name for the snippet!</property>
                                 <property name="stock">gtk-dialog-warning</property>
                               </object>
                               <packing>
@@ -107,7 +107,7 @@ The role of the name is purely informative.</property>
                             <child>
                               <object class="GtkImage" id="group_notify">
                                 <property name="width_request">24</property>
-                                <property name="tooltip_markup">&lt;b&gt;Error:&lt;/b&gt; The snippet must belong to a group!</property>
+                                <property name="tooltip_markup" translatable="yes">&lt;b&gt;Error:&lt;/b&gt; The snippet must belong to a group!</property>
                                 <property name="stock">gtk-dialog-error</property>
                               </object>
                               <packing>
@@ -153,7 +153,7 @@ The role of the name is purely informative.</property>
                                 <property name="visible">True</property>
                                 <property name="sensitive">False</property>
                                 <property name="can_focus">True</property>
-                                <property name="tooltip_markup">The trigger key is used for fast insertion of the snippet. Type the trigger key in the editor, followed by the "Fast Insert" shortcut to insert a snippet.
+                                <property name="tooltip_markup" translatable="yes">The trigger key is used for fast insertion of the snippet. Type the trigger key in the editor, followed by the "Fast Insert" shortcut to insert a snippet.
 &lt;b&gt;Warning: Must be unique per language. &lt;/b&gt;</property>
                                 <property name="invisible_char">&#x25CF;</property>
                               </object>

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&component=core application\n"
-"POT-Creation-Date: 2010-08-30 16:39+0000\n"
-"PO-Revision-Date: 2010-08-30 18:55+0100\n"
+"POT-Creation-Date: 2010-09-22 02:24+0000\n"
+"PO-Revision-Date: 2010-09-22 09:20+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -449,7 +449,7 @@ msgstr "V primeru, da datoteke ne shranite, bodo izgubljene vse spremembe."
 
 #: ../libanjuta/anjuta-save-prompt.c:189
 #: ../plugins/document-manager/plugin.c:605
-#: ../plugins/snippets-manager/snippets-editor.ui.h:9
+#: ../plugins/snippets-manager/snippets-editor.ui.h:11
 msgid "Save"
 msgstr "Shrani"
 
@@ -1477,6 +1477,7 @@ msgstr "Izvedba"
 #: ../plugins/class-gen/window.c:533
 #: ../plugins/debug-manager/breakpoints.c:1952
 #: ../plugins/debug-manager/debug_tree.c:128
+#: ../plugins/snippets-manager/snippets-editor.c:38
 msgid "Type"
 msgstr "Vrsta"
 
@@ -1486,7 +1487,9 @@ msgstr "Vrsta"
 #: ../plugins/class-gen/window.c:534
 #: ../plugins/run-program/parameters.c:754
 #: ../plugins/search/search_preferences.c:534
+#: ../plugins/snippets-manager/plugin.c:751
 #: ../plugins/snippets-manager/snippets-browser.c:530
+#: ../plugins/snippets-manager/snippets-editor.c:37
 msgid "Name"
 msgstr "Ime"
 
@@ -2984,7 +2987,7 @@ msgstr "Preimenuj"
 #: ../plugins/document-manager/anjuta-bookmarks.c:340
 #: ../plugins/gtodo/callback.c:20
 #: ../plugins/gtodo/callback.c:101
-#: ../plugins/snippets-manager/snippets-editor.ui.h:8
+#: ../plugins/snippets-manager/snippets-editor.ui.h:10
 msgid "Remove"
 msgstr "Odstrani"
 
@@ -8550,49 +8553,72 @@ msgid "Unable to build user interface for Search and Replace"
 msgstr "Ni mogoče izgraditi uporabniškega vmesnika za iskanje in zamenjavo"
 
 #: ../plugins/snippets-manager/plugin.c:60
-#: ../plugins/snippets-manager/plugin.c:292
+#: ../plugins/snippets-manager/plugin.c:302
 #: ../plugins/snippets-manager/snippets-browser.c:208
 msgid "Snippets"
 msgstr "Izrezki"
 
-#: ../plugins/snippets-manager/plugin.c:67
+#. Translator: Appears in Edit->Snippets menu. It is used mainly for providing a
+#. shortcut for the trigger-key based insertion of snippets. It's called like this
+#. because you type the trigger-key in the editor, followed by Trigger Insert and
+#. the snippet gets inserted.
+#: ../plugins/snippets-manager/plugin.c:71
 msgid "_Trigger insert"
 msgstr "_Sprožilec vstavljanja"
 
-#: ../plugins/snippets-manager/plugin.c:69
+#: ../plugins/snippets-manager/plugin.c:73
 msgid "Insert a snippet using the trigger-key"
 msgstr "Vstavljanje izrezka kode s določeno sprožilnim ključem"
 
-#: ../plugins/snippets-manager/plugin.c:74
+#. Translator: In a similar matter, it also appears in Edit->Snippets. It's another method
+#. for inserting snippets. In this case, you call Auto complete insert, start
+#. typing in the editor a string, the database is searched for that string and the
+#. most relevant snippets are returned in a pop-up like the auto-complete one
+#. (they are showed by their names). After selecting one of them, the snippet gets
+#. inserted.
+#: ../plugins/snippets-manager/plugin.c:84
 msgid "_Auto complete insert"
 msgstr "_Samodejno dopolnjevanje"
 
-#: ../plugins/snippets-manager/plugin.c:76
+#: ../plugins/snippets-manager/plugin.c:86
 msgid "Insert a snippet using auto-completion"
 msgstr "Dodaj izrezek z uporabo samodejnega dopolnjevanja"
 
-#: ../plugins/snippets-manager/plugin.c:81
+#: ../plugins/snippets-manager/plugin.c:91
 msgid "_Import snippets …"
 msgstr "_Uvozi izrezke ..."
 
-#: ../plugins/snippets-manager/plugin.c:83
+#: ../plugins/snippets-manager/plugin.c:93
 msgid "Import snippets to the database"
 msgstr "Uvozi izrezke v podatkovno zbirko"
 
-#: ../plugins/snippets-manager/plugin.c:88
+#: ../plugins/snippets-manager/plugin.c:98
 msgid "_Export snippets …"
 msgstr "_Izvozi izrezke ..."
 
-#: ../plugins/snippets-manager/plugin.c:90
+#: ../plugins/snippets-manager/plugin.c:100
 msgid "Export snippets from the database"
 msgstr "Izvozi izrezke iz podatkovne zbirke"
 
-#: ../plugins/snippets-manager/plugin.c:317
+#: ../plugins/snippets-manager/plugin.c:327
 msgid "Snippets Manager actions"
 msgstr "Dejanja upravljalnika izrezkov"
 
-#: ../plugins/snippets-manager/plugin.c:919
-#: ../plugins/snippets-manager/plugin.c:956
+#: ../plugins/snippets-manager/plugin.c:767
+msgid "Command?"
+msgstr "Ukaz?"
+
+#: ../plugins/snippets-manager/plugin.c:783
+msgid "Variable text"
+msgstr "Spremenljivo besedilo"
+
+#: ../plugins/snippets-manager/plugin.c:801
+#: ../plugins/snippets-manager/snippets-editor.c:40
+msgid "Instant value"
+msgstr "Trenutna vrednost"
+
+#: ../plugins/snippets-manager/plugin.c:929
+#: ../plugins/snippets-manager/plugin.c:966
 #: ../plugins/snippets-manager/snippets-provider.c:753
 #: ../plugins/snippets-manager/anjuta-snippets-manager.plugin.in.h:2
 msgid "Code Snippets"
@@ -8616,43 +8642,71 @@ msgstr "Dodaj izrezek ..."
 msgid "Add Snippets Group …"
 msgstr "Dodaj skupino izrezkov..."
 
+#: ../plugins/snippets-manager/snippets-editor.c:39
+msgid "Default value"
+msgstr "Privzeta vrednost"
+
+#: ../plugins/snippets-manager/snippets-editor.c:48
+msgid "<b>Error:</b> You must choose at least one language for the snippet!"
+msgstr "<b>Napaka:</b> za izrezek je treba izbrati vsaj en jezik!"
+
+#: ../plugins/snippets-manager/snippets-editor.c:49
+msgid "<b>Error:</b> The trigger key is already in use for one of the languages!"
+msgstr "<b>Napaka:</b> ključ sprožilca je že v uporabi za enega izmed jezikov!"
+
+#: ../plugins/snippets-manager/snippets-editor.c:50
+msgid "<b>Error:</b> The trigger key can only contain alphanumeric characters and _ !"
+msgstr "<b>Napaka:</b>Ključ sprožilca lahko vsebuje le črke, številke in znak _!"
+
+#: ../plugins/snippets-manager/snippets-editor.c:51
+msgid "<b>Error:</b> You haven't entered a trigger key for the snippet!"
+msgstr "<b>Napaka:</b> ni vstavljenega ključa sprožilca za izrezek!"
+
 #: ../plugins/snippets-manager/snippets-editor.ui.h:1
+msgid "<b>Error:</b> The snippet must belong to a group!"
+msgstr "<b>Napaka:</b> izrezek mora pripadati skupini!"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:2
+msgid "<b>Warning:</b> You should choose a name for the snippet!"
+msgstr "<b>Opozorilo:</b> za izrezek je treba izbrati ime!"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:3
 msgid "Add"
 msgstr "Dodaj"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:2
+#: ../plugins/snippets-manager/snippets-editor.ui.h:4
 msgid "Close"
 msgstr "Zapri"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:3
+#: ../plugins/snippets-manager/snippets-editor.ui.h:5
 msgid "Insert"
 msgstr "Vstavi"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:4
+#: ../plugins/snippets-manager/snippets-editor.ui.h:6
 msgid "Keywords are used for better searching of the snippets. They should be relevant to the snippet content. Type them separated by a single space."
 msgstr "Ključne besede so uporabljene za iskanje izrezkov. Te morajo biti določene na osnovi vsebine izrezka. Ključne besede je treba zapisati ločeno z enojnim presledkom."
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:5
+#: ../plugins/snippets-manager/snippets-editor.ui.h:7
 msgid "Keywords:"
 msgstr "Ključne besede:"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:6
+#: ../plugins/snippets-manager/snippets-editor.ui.h:8
 msgid "Languages:"
 msgstr "Jeziki:"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:7
+#: ../plugins/snippets-manager/snippets-editor.ui.h:9
 msgid "Preview"
 msgstr "Predogled"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:10
+#: ../plugins/snippets-manager/snippets-editor.ui.h:12
 msgid "Select the Snippets Group to which this snippet belongs."
 msgstr "Izbor skupine izrezkov, ki ji izrezek pripada."
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:11
+#: ../plugins/snippets-manager/snippets-editor.ui.h:13
 msgid "Select the languages for which you want to use this snippet."
 msgstr "Izbor jezikov katerim izrezek pripada."
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:12
+#: ../plugins/snippets-manager/snippets-editor.ui.h:14
 msgid ""
 "Select the name of the Snippet. \n"
 "The role of the name is purely informative."
@@ -8660,27 +8714,35 @@ msgstr ""
 "Izbor imena izrezka.\n"
 "Ime je namenjeno le preglednosti."
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:14
+#: ../plugins/snippets-manager/snippets-editor.ui.h:16
 msgid "Snippet Content"
 msgstr "Vsebina  izrezka"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:15
+#: ../plugins/snippets-manager/snippets-editor.ui.h:17
 msgid "Snippet Name:"
 msgstr "Ime izrezka:"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:16
+#: ../plugins/snippets-manager/snippets-editor.ui.h:18
 msgid "Snippet Properties"
 msgstr "Lastnosti izrezka"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:17
+#: ../plugins/snippets-manager/snippets-editor.ui.h:19
 msgid "Snippet Variables"
 msgstr "Spremenljivke izrezka"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:18
+#: ../plugins/snippets-manager/snippets-editor.ui.h:20
 msgid "Snippets Group:"
 msgstr "Skupina izrezkov:"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:19
+#: ../plugins/snippets-manager/snippets-editor.ui.h:21
+msgid ""
+"The trigger key is used for fast insertion of the snippet. Type the trigger key in the editor, followed by the \"Fast Insert\" shortcut to insert a snippet.\n"
+"<b>Warning: Must be unique per language. </b>"
+msgstr ""
+"Ključ sprožilca je uporabljen za vnos izrezka. Z vpisom ključa v urejevalniku in pritiskom bližnjice za \"hiter vnos\" se izpiše vsebina izrezka.\n"
+"<b>Opozorilo: ta vrednost mora biti za vsak jezik enoznačna.</b>"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:23
 msgid "Trigger Key:"
 msgstr "Ključ sprožilca:"
 
@@ -10588,6 +10650,7 @@ msgstr "Simbol"
 
 #~ msgid ""
 #~ "<b>There is %d item with unsaved changes. Save changes before closing?</b>"
+
 #~ msgid_plural ""
 #~ "<b>There are %d items with unsaved changes. Save changes before closing?</"
 #~ "b>"
@@ -10602,32 +10665,46 @@ msgstr "Simbol"
 #~ msgstr[3] ""
 #~ "<b>Odprti so %d predmeti s spremenjeno vsebino. Ali jih želite shraniti?</"
 #~ "b>"
+
 #~ msgid "<b>Autocompletion</b>"
 #~ msgstr "<b>Samodejno dopolnjevanje</b>"
+
 #~ msgid "<b>Calltips</b>"
 #~ msgstr "<b>Namigi kodnih zapisov</b>"
+
 #~ msgid "<b>Indentation parameters</b>"
 #~ msgstr "<b>Parametri zamika</b>"
+
 #~ msgid "<b>Smart Indentation</b>"
 #~ msgstr "<b>Pametno zamikanje</b>"
+
 #~ msgid "Edit…"
 #~ msgstr "Uredi ..."
+
 #~ msgid "Macro details:"
 #~ msgstr "Podrobnosti makra:"
+
 #~ msgid "Macro text:"
 #~ msgstr "Besedilo makra:"
+
 #~ msgid "Macros:"
 #~ msgstr "Makri:"
+
 #~ msgid "Shortcut:"
 #~ msgstr "Bližnjica:"
+
 #~ msgid "Press macro shortcut…"
 #~ msgstr "Pritisnite bližnjico makra ..."
+
 #~ msgid "Press shortcut"
 #~ msgstr "Pritisni bližnjico"
+
 #~ msgid "Anjuta macros"
 #~ msgstr "Anjuta makri"
+
 #~ msgid "My macros"
 #~ msgstr "Moji makri"
+
 #~ msgid ""
 #~ "Name:\t %s\n"
 #~ "Category:\t %s\n"
@@ -10636,48 +10713,70 @@ msgstr "Simbol"
 #~ "Ime:\t %s\n"
 #~ "Kategorija:\t %s\n"
 #~ "Bližnjica:\t %c\n"
+
 #~ msgid "Insert macro"
 #~ msgstr "Vstavi makro"
+
 #~ msgid "Add/Edit macro"
 #~ msgstr "Dodaj/uredi makro"
+
 #~ msgid "%Y-%m-%d"
 #~ msgstr "%d.%m.%Y"
+
 #~ msgid "%Y"
 #~ msgstr "%Y"
+
 #~ msgid "Macros"
 #~ msgstr "Makri"
+
 #~ msgid "_Insert Macro…"
 #~ msgstr "_Vstavi makro ..."
+
 #~ msgid "Insert a macro using a shortcut"
 #~ msgstr "Vstavite makro z uporabo bližnjice"
+
 #~ msgid "_Add Macro…"
 #~ msgstr "_Dodaj makro ..."
+
 #~ msgid "Add a macro"
 #~ msgstr "Dodaj makro"
+
 #~ msgid "Macros…"
 #~ msgstr "Makri ..."
+
 #~ msgid "Add/Edit/Remove macros"
 #~ msgstr "Dodaj/uredi/odstrani makro"
+
 #~ msgid "Macro operations"
 #~ msgstr "Makro opravila"
+
 #~ msgid "Autocompletion (C/C++/Java only)"
 #~ msgstr "Samodejno dopolnjevanje (le C/C++/Java)"
+
 #~ msgid "<b>Rope Options</b>"
 #~ msgstr "<b>Možnosti pritrjevanja</b>"
+
 #~ msgid "Insert predefined macros into Editor"
 #~ msgstr "Vstavi predhodno določene makre v urejevalnik"
+
 #~ msgid "Macro Plugin"
 #~ msgstr "Makro vstavek"
+
 #~ msgid "A GNOME applet project"
 #~ msgstr "Izvorni GNOME apletni projekt"
+
 #~ msgid "Applet Title:"
 #~ msgstr "Naslov apleta:"
+
 #~ msgid "Display description of the applet"
 #~ msgstr "Pokaži opis apleta"
+
 #~ msgid "Display title of the applet"
 #~ msgstr "Pokaži naslov apleta"
+
 #~ msgid "GNOME Applet"
 #~ msgstr "Gnome Aplet"
+
 #~ msgid ""
 #~ "The following pretty printers, without a register functions, have been "
 #~ "disabled:\n"
@@ -10685,4 +10784,3 @@ msgstr "Simbol"
 #~ msgstr ""
 #~ "Navedeni oblikovni tiskalniki, brez vpisnih funkcij, so onemogočeni:\n"
 #~ " %s"
-

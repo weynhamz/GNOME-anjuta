@@ -748,7 +748,7 @@ set_up_global_variables_view (SnippetsManagerPlugin *snippets_manager_plugin,
 	/* Set up the name cell */
 	cell = gtk_cell_renderer_text_new ();
 	col = gtk_tree_view_column_new ();
-	gtk_tree_view_column_set_title (col, "Name");
+	gtk_tree_view_column_set_title (col, _("Name"));
 	gtk_tree_view_column_set_sizing (col, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	gtk_tree_view_column_set_resizable (col, TRUE);
 	gtk_tree_view_column_pack_start (col, cell, FALSE);
@@ -764,7 +764,7 @@ set_up_global_variables_view (SnippetsManagerPlugin *snippets_manager_plugin,
 	/* Set up the type cell */
 	cell = gtk_cell_renderer_toggle_new ();
 	col = gtk_tree_view_column_new ();
-	gtk_tree_view_column_set_title (col, "Command?");
+	gtk_tree_view_column_set_title (col, _("Command?"));
 	gtk_tree_view_column_set_sizing (col, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	gtk_tree_view_column_set_resizable (col, TRUE);
 	gtk_tree_view_column_pack_start (col, cell, FALSE);
@@ -780,7 +780,7 @@ set_up_global_variables_view (SnippetsManagerPlugin *snippets_manager_plugin,
 	/* Set up the text cell */
 	cell = gtk_cell_renderer_text_new ();
 	col = gtk_tree_view_column_new ();
-	gtk_tree_view_column_set_title (col, "Variable text");
+	gtk_tree_view_column_set_title (col, _("Variable text"));
 	gtk_tree_view_column_set_sizing (col, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	gtk_tree_view_column_set_resizable (col, TRUE);
 	gtk_tree_view_column_pack_start (col, cell, FALSE);
@@ -798,7 +798,7 @@ set_up_global_variables_view (SnippetsManagerPlugin *snippets_manager_plugin,
 	cell = gtk_cell_renderer_text_new ();
 	g_object_set (cell, "editable", FALSE, NULL);
 	col = gtk_tree_view_column_new ();
-	gtk_tree_view_column_set_title (col, "Instant value");
+	gtk_tree_view_column_set_title (col, _("Instant value"));
 	gtk_tree_view_column_set_sizing (col, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	gtk_tree_view_column_set_resizable (col, TRUE);
 	gtk_tree_view_column_pack_start (col, cell, FALSE);
