@@ -1090,9 +1090,8 @@ cpp_java_assist_populate (IAnjutaProvider* self, IAnjutaIterable* cursor, GError
 	CppJavaAssist* assist = CPP_JAVA_ASSIST (self);
 	
 	/* Check if we actually want autocompletion at all */
-	if (!anjuta_preferences_get_bool_with_default (anjuta_preferences_default (),
-	                                               PREF_AUTOCOMPLETE_ENABLE,
-	                                               TRUE))
+	if (!anjuta_preferences_get_bool (anjuta_preferences_default (),
+	                                  PREF_AUTOCOMPLETE_ENABLE))
 	{
 		cpp_java_assist_none (self, assist);
 		return;
@@ -1110,9 +1109,8 @@ cpp_java_assist_populate (IAnjutaProvider* self, IAnjutaIterable* cursor, GError
 
 	/* Check for calltip */
 	if (assist->priv->itip && 
-	    anjuta_preferences_get_bool_with_default (assist->priv->preferences,
-	                                              PREF_CALLTIP_ENABLE,
-	                                              TRUE))
+	    anjuta_preferences_get_bool (assist->priv->preferences,
+	                                 PREF_CALLTIP_ENABLE))
 	{	
 		assist->priv->calltip_active = cpp_java_assist_calltip (assist);
 			
@@ -1186,13 +1184,11 @@ cpp_java_assist_activate (IAnjutaProvider* self, IAnjutaIterable* iter, gpointer
 	if (prop_data->is_func)
 	{
 		add_space_after_func =
-			anjuta_preferences_get_bool_with_default (assist->priv->preferences,
-													 PREF_AUTOCOMPLETE_SPACE_AFTER_FUNC,
-													 TRUE);
+			anjuta_preferences_get_bool (assist->priv->preferences,
+			                             PREF_AUTOCOMPLETE_SPACE_AFTER_FUNC);
 		add_brace_after_func =
-			anjuta_preferences_get_bool_with_default (assist->priv->preferences,
-													 PREF_AUTOCOMPLETE_BRACE_AFTER_FUNC,
-													 TRUE);
+			anjuta_preferences_get_bool (assist->priv->preferences,
+			                             PREF_AUTOCOMPLETE_BRACE_AFTER_FUNC);
 		if (add_space_after_func)
 			g_string_append (assistance, " ");
 		
@@ -1222,9 +1218,8 @@ cpp_java_assist_activate (IAnjutaProvider* self, IAnjutaIterable* iter, gpointer
 	{
 		/* Check for calltip */
 		if (assist->priv->itip && 
-		    anjuta_preferences_get_bool_with_default (assist->priv->preferences,
-		                                              PREF_CALLTIP_ENABLE,
-		                                              TRUE))	
+		    anjuta_preferences_get_bool (assist->priv->preferences,
+		                                 PREF_CALLTIP_ENABLE))	
 			assist->priv->calltip_active = cpp_java_assist_calltip (assist);
 
 	}	
