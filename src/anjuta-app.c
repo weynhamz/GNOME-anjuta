@@ -251,11 +251,11 @@ anjuta_app_unmaximize (AnjutaShell *shell,
 static void
 on_toolbar_style_changed (AnjutaPreferences* prefs,
                           const gchar* key,
-                          const gchar* tb_style,
                           gpointer user_data)
 {
 	AnjutaApp* app = ANJUTA_APP (user_data);
-		
+	gchar* tb_style = anjuta_preferences_get (prefs, key);
+	
 	if (tb_style)
 	{	
 		if (strcasecmp (tb_style, "Default") == 0)
@@ -280,16 +280,18 @@ on_toolbar_style_changed (AnjutaPreferences* prefs,
 	{
 		gtk_toolbar_unset_style (GTK_TOOLBAR (app->toolbar));
 	}
+	g_free (tb_style);
 }
 
 static void
 on_gdl_style_changed (AnjutaPreferences* prefs,
                       const gchar* key,
-                      const gchar* pr_style,
                       gpointer user_data)
 {
 	AnjutaApp* app = ANJUTA_APP (user_data);
 	GdlSwitcherStyle style = GDL_SWITCHER_STYLE_BOTH;
+
+	gchar* pr_style = anjuta_preferences_get (prefs, key);
 	
 	if (pr_style)
 	{
@@ -308,6 +310,7 @@ on_gdl_style_changed (AnjutaPreferences* prefs,
 	}
 	g_object_set (G_OBJECT(app->layout_manager->master), "switcher-style",
 				  style, NULL);
+	g_free (pr_style);
 }
 
 static void
@@ -535,7 +538,6 @@ anjuta_app_instance_init (AnjutaApp *app)
 	GtkWidget *dockbar;
 	GtkAction* action;
 	GList *plugins_dirs = NULL;
-	gchar* style;
 	GdkGeometry size_hints = {
     	100, 100, 0, 0, 100, 100, 1, 1, 0.0, 0.0, GDK_GRAVITY_NORTH_WEST
   	};
@@ -609,13 +611,9 @@ anjuta_app_instance_init (AnjutaApp *app)
 	g_object_add_weak_pointer (G_OBJECT (app->preferences),
 							   (gpointer)&app->preferences);
 	
-	anjuta_preferences_notify_add_string (app->preferences, "anjuta.gdl.style",
-	                                      on_gdl_style_changed, app, NULL);
-	style = anjuta_preferences_get (app->preferences, "anjuta.gdl.style");
-	
-	on_gdl_style_changed (app->preferences, NULL, 
-	                      style, app);
-	g_free (style);
+	anjuta_preferences_notify_add (app->preferences, "anjuta.gdl.style",
+	                               on_gdl_style_changed, app);
+	on_gdl_style_changed (app->preferences, "anjuta.gdl.style", app);
 	
 	/* Register actions */
 	anjuta_ui_add_action_group_entries (app->ui, "ActionGroupFile", _("File"),
@@ -662,14 +660,11 @@ anjuta_app_instance_init (AnjutaApp *app)
 	action = gtk_ui_manager_get_action (GTK_UI_MANAGER (app->ui),
 										"/MenuMain/MenuView/Toolbar");
 	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION(action),
-								  anjuta_preferences_get_bool_with_default (app->preferences,
-																		   "anjuta.toolbar.visible",
-																		   TRUE));
-	anjuta_preferences_notify_add_string (app->preferences, "anjuta.toolbar.style",
-								   on_toolbar_style_changed, app, NULL);
-	style = anjuta_preferences_get (app->preferences, "anjuta.toolbar.style");
-	on_toolbar_style_changed (app->preferences, NULL, style, app);
-	g_free (style);
+								  anjuta_preferences_get_bool (app->preferences,
+								                               "anjuta.toolbar.visible"));
+	anjuta_preferences_notify_add (app->preferences, "anjuta.toolbar.style",
+								   on_toolbar_style_changed, app);
+	on_toolbar_style_changed (app->preferences, "anjuta.toolbar.style", app);
 
 	/* Create widgets menu */
 	view_menu = 
