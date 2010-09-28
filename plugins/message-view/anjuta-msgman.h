@@ -83,6 +83,6 @@ GtkWidget* anjuta_msgman_get_tabber (AnjutaMsgman* msgman);
 
 void
 on_notify_message_pref (AnjutaPreferences* prefs, const gchar* key,
-                        const gchar* value, gpointer user_data);
+                        gpointer user_data);
 
 #endif /* _ANJUTA_MSGMAN_H */

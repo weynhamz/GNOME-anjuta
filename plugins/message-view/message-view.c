@@ -928,7 +928,7 @@ pref_change_color (MessageView *mview, IAnjutaMessageViewType type,
 
 static void
 on_notify_color (AnjutaPreferences* prefs, const gchar* key,
-                 const gchar* value, gpointer user_data)
+                 gpointer user_data)
 {
 	pref_change_color (MESSAGE_VIEW (user_data),
 					   IANJUTA_MESSAGE_VIEW_TYPE_WARNING,
@@ -939,18 +939,16 @@ static void
 prefs_init (MessageView *mview)
 {
 	gint id;
-	id = anjuta_preferences_notify_add_string (anjuta_preferences_default (),
-	                                           "messages.color.error",
-	                                           on_notify_color,
-	                                           mview,
-	                                           NULL);
+	id = anjuta_preferences_notify_add (anjuta_preferences_default (),
+	                                    "messages.color.error",
+	                                    on_notify_color,
+	                                    mview);
 	mview->privat->notify_ids = g_list_append (mview->privat->notify_ids,
 	                                           GINT_TO_POINTER (id));	
-	id = anjuta_preferences_notify_add_string (anjuta_preferences_default (),
-	                                      "messages.color.warning",
-	                                      on_notify_color,
-	                                      mview,
-	                                      NULL);
+	id = anjuta_preferences_notify_add (anjuta_preferences_default (),
+	                                    "messages.color.warning",
+	                                    on_notify_color,
+	                                    mview);
 	mview->privat->notify_ids = g_list_append (mview->privat->notify_ids,
 	                                         GINT_TO_POINTER (id));
 }

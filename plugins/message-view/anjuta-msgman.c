@@ -286,7 +286,7 @@ set_message_tab(AnjutaPreferences *pref, GtkNotebook *msgman)
 
 void
 on_notify_message_pref (AnjutaPreferences* prefs, const gchar* key,
-                        const gchar* value, gpointer user_data)
+                        gpointer user_data)
 {
 	set_message_tab(prefs, GTK_NOTEBOOK (user_data));
 }

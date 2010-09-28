@@ -587,8 +587,8 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 	anjuta_preferences_add_from_builder (prefs, bxml,
 									"Messages", _("Messages"),
 									 ANJUTA_PIXMAP_MESSAGES);
-	notify_id = anjuta_preferences_notify_add_string (prefs, MESSAGES_TABS_POS, 
-	                                                on_notify_message_pref, plugin->msgman, NULL);
+	notify_id = anjuta_preferences_notify_add (prefs, MESSAGES_TABS_POS, 
+                                               on_notify_message_pref, plugin->msgman);
 		
 	g_object_unref (bxml);
 }
