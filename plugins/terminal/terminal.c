@@ -290,7 +290,6 @@ preferences_changed (AnjutaPreferences *prefs, TerminalPlugin *term)
 static void
 on_notify_prefs_profile(AnjutaPreferences* prefs,
                         const gchar* key,
-                        const gchar* value,
                         gpointer user_data)
 {
 	TerminalPlugin *tp = ANJUTA_PLUGIN_TERMINAL (user_data);
@@ -300,24 +299,23 @@ on_notify_prefs_profile(AnjutaPreferences* prefs,
 static void
 on_notify_prefs_default (AnjutaPreferences* prefs,
                          const gchar* key,
-                         gboolean value,
                          gpointer user_data)
 {
 	TerminalPlugin *tp = ANJUTA_PLUGIN_TERMINAL (user_data);
 	preferences_changed (tp->prefs, tp);
 }
 
-#define REGISTER_NOTIFY(key, func, type) \
-	notify_id = anjuta_preferences_notify_add_##type (tp->prefs, \
-											   key, func, tp, NULL); \
+#define REGISTER_NOTIFY(key, func) \
+	notify_id = anjuta_preferences_notify_add (tp->prefs, \
+											   key, func, tp); \
 	tp->gconf_notify_ids = g_list_prepend (tp->gconf_notify_ids, \
 										   GUINT_TO_POINTER (notify_id));
 static void
 prefs_init (TerminalPlugin *tp)
 {
 	guint notify_id;
-	REGISTER_NOTIFY (PREFS_TERMINAL_PROFILE, on_notify_prefs_profile, string);
-	REGISTER_NOTIFY (PREFS_TERMINAL_PROFILE_USE_DEFAULT, on_notify_prefs_default, bool);
+	REGISTER_NOTIFY (PREFS_TERMINAL_PROFILE, on_notify_prefs_profile);
+	REGISTER_NOTIFY (PREFS_TERMINAL_PROFILE_USE_DEFAULT, on_notify_prefs_default);
 }
 
 static void
