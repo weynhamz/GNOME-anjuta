@@ -1473,8 +1473,7 @@ on_save_prompt (AnjutaShell *shell, AnjutaSavePrompt *save_prompt,
 static void
 docman_plugin_set_tab_pos (DocmanPlugin *ep)
 {
-	if (anjuta_preferences_get_bool_with_default (ep->prefs, EDITOR_TABS_HIDE,
-												 FALSE))
+	if (anjuta_preferences_get_bool (ep->prefs, EDITOR_TABS_HIDE))
 	{
 		gtk_notebook_set_show_tabs (GTK_NOTEBOOK (ep->docman), FALSE);
 	}
@@ -1505,7 +1504,7 @@ docman_plugin_set_tab_pos (DocmanPlugin *ep)
 
 static void
 on_notify_prefs (AnjutaPreferences* prefs, 
-                 const gchar* key, gint value, gpointer user_data)
+                 const gchar* key, gpointer user_data)
 {
 	DocmanPlugin *ep = ANJUTA_PLUGIN_DOCMAN (user_data);
 	docman_plugin_set_tab_pos (ep);
@@ -1579,7 +1578,6 @@ on_docman_auto_save (gpointer data)
 static void
 on_notify_timer (AnjutaPreferences* prefs,
                  const gchar* key,
-                 gboolean value,
                  gpointer user_data)
 {
 	DocmanPlugin *plugin;
@@ -1621,9 +1619,9 @@ on_notify_timer (AnjutaPreferences* prefs,
 	}
 }
 
-#define REGISTER_NOTIFY(key, func, type) \
-	notify_id = anjuta_preferences_notify_add_##type (ep->prefs, \
-											   key, func, ep, NULL); \
+#define REGISTER_NOTIFY(key, func) \
+	notify_id = anjuta_preferences_notify_add (ep->prefs, \
+											   key, func, ep); \
 	ep->notify_ids = g_list_prepend (ep->notify_ids, \
 								     GUINT_TO_POINTER (notify_id));
 static void
@@ -1631,12 +1629,12 @@ prefs_init (DocmanPlugin *ep)
 {
 	guint notify_id;
 	docman_plugin_set_tab_pos (ep);
-	REGISTER_NOTIFY (EDITOR_TABS_HIDE, on_notify_prefs, bool);
-	REGISTER_NOTIFY (EDITOR_TABS_POS, on_notify_prefs, int);
-	REGISTER_NOTIFY (AUTOSAVE_TIMER, on_notify_timer, bool);
-	REGISTER_NOTIFY (SAVE_AUTOMATIC, on_notify_timer, bool);
+	REGISTER_NOTIFY (EDITOR_TABS_HIDE, on_notify_prefs);
+	REGISTER_NOTIFY (EDITOR_TABS_POS, on_notify_prefs);
+	REGISTER_NOTIFY (AUTOSAVE_TIMER, on_notify_timer);
+	REGISTER_NOTIFY (SAVE_AUTOMATIC, on_notify_timer);
 	
-	on_notify_timer(anjuta_preferences_default(), NULL, FALSE, ep);
+	on_notify_timer(anjuta_preferences_default(), NULL, ep);
 }
 
 static void
