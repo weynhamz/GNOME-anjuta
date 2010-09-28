@@ -40,6 +40,7 @@ struct _AnjutaTokenStyle
 {
 	guint max_width;
 	GHashTable *separator;
+	AnjutaTokenStyle *base;
 };
 
 /* Private functions
@@ -148,8 +149,14 @@ anjuta_token_style_lookup (AnjutaTokenStyle *style, AnjutaTokenType type, gboole
 	GList *list;
 	
 	list = g_hash_table_lookup (style->separator, GINT_TO_POINTER (type));
-
-	return anjuta_token_new_string (ANJUTA_TOKEN_NAME, ((AnjutaTokenStyleSeparator *)list->data)->value);
+	if ((list == NULL) && (style->base != NULL))
+	{
+		return anjuta_token_style_lookup (style->base, type, eol);
+	}
+	else
+	{
+		return anjuta_token_new_string (ANJUTA_TOKEN_NAME, ((AnjutaTokenStyleSeparator *)list->data)->value);
+	}
 }
 
 /* Public style functions
@@ -523,8 +530,8 @@ anjuta_token_insert_word_before (AnjutaToken *list, AnjutaToken *sibling, Anjuta
 		default:
 			if (token == sibling)
 			{
-				anjuta_token_insert_before (token, anjuta_token_new_static (ANJUTA_TOKEN_NEXT | ANJUTA_TOKEN_ADDED, NULL));
 				anjuta_token_insert_before (token, item);
+				anjuta_token_insert_before (token, anjuta_token_new_static (ANJUTA_TOKEN_NEXT | ANJUTA_TOKEN_ADDED, NULL));
 				return item;
 			}
 			break;
@@ -604,34 +611,32 @@ anjuta_token_insert_word_after (AnjutaToken *list, AnjutaToken *sibling, AnjutaT
 }
 
 AnjutaToken*
-anjuta_token_remove_word (AnjutaToken *token, AnjutaTokenStyle *user_style)
+anjuta_token_remove_word (AnjutaToken *token)
 {
-	AnjutaTokenStyle *style;
-	AnjutaToken *space;
+	AnjutaToken *next;
 
-	style = user_style != NULL ? user_style : anjuta_token_style_new (NULL," ","\n",NULL,0);
-	anjuta_token_style_update (style, anjuta_token_parent (token));
-	
 	anjuta_token_set_flags (token, ANJUTA_TOKEN_REMOVED);
-	space = anjuta_token_next_item (token);
-	if (space && (anjuta_token_get_type (space) == ANJUTA_TOKEN_SPACE) && (anjuta_token_next (space) != NULL))
+	next = anjuta_token_next_item (token);
+	if ((next != NULL) && (anjuta_token_list (token) == anjuta_token_list (next)) && (anjuta_token_get_type (next) == ANJUTA_TOKEN_NEXT))
 	{
-		/* Remove following space */
-		anjuta_token_set_flags (space, ANJUTA_TOKEN_REMOVED);
+		/* Remove following separator */
+		anjuta_token_set_flags (next, ANJUTA_TOKEN_REMOVED);
 	}
 	else
 	{
-		space = anjuta_token_previous_item (token);
-		if (space && (anjuta_token_get_type (space) == ANJUTA_TOKEN_SPACE) && (anjuta_token_previous (space) != NULL))
+		next = anjuta_token_previous_item (token);
+		if ((next != NULL) && (anjuta_token_list (token) == anjuta_token_list (next)) && (anjuta_token_get_type (next) == ANJUTA_TOKEN_NEXT))
 		{
-			anjuta_token_set_flags (space, ANJUTA_TOKEN_REMOVED);
+			/* Remove previous separator */
+			anjuta_token_set_flags (next, ANJUTA_TOKEN_REMOVED);
+		}
+		else
+		{
+			next = NULL;
 		}
 	}
 	
-	anjuta_token_style_format (style, anjuta_token_parent (token));
-	if (user_style == NULL) anjuta_token_style_free (style);
-	
-	return NULL;
+	return next;
 }
 
 AnjutaToken *
@@ -765,6 +770,20 @@ anjuta_token_style_new (const gchar *start, const gchar *next, const gchar *eol,
 	anjuta_token_style_insert_separator (style, ANJUTA_TOKEN_LAST, last);
 	
 	return style;	
+}
+
+AnjutaTokenStyle *
+anjuta_token_style_new_from_base (AnjutaTokenStyle *base)
+{
+	AnjutaTokenStyle *style;
+	
+	style = g_slice_new0 (AnjutaTokenStyle);
+	style->max_width = base->max_width;
+	style->base = base;
+	
+	style->separator = g_hash_table_new (g_direct_hash, NULL);
+
+	return style;
 }
 
 void

@@ -178,8 +178,9 @@ statement:
 am_variable:
 	optional_space  automake_token  optional_space  equal_token  value_list {
 		$$ = anjuta_token_new_static (ANJUTA_TOKEN_LIST, NULL);
+		if ($1 != NULL) anjuta_token_set_type ($1, ANJUTA_TOKEN_START);
 		anjuta_token_merge ($$, $2);
-		if ($3 != NULL) anjuta_token_set_type ($3, ANJUTA_TOKEN_START);
+		if ($3 != NULL) anjuta_token_set_type ($3, ANJUTA_TOKEN_NEXT);
 		anjuta_token_merge ($$, $4);
 		anjuta_token_merge ($$, $5);
 		amp_am_scanner_set_am_variable (scanner, amp_am_automake_variable ($2), $2, anjuta_token_last_item ($$));

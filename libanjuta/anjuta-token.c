@@ -156,7 +156,7 @@ anjuta_token_next_child (AnjutaToken *child, AnjutaToken **last)
 	return child;
 }
 
-static AnjutaToken *
+AnjutaToken *
 anjuta_token_next_after_children (AnjutaToken *token)
 {
 	while (token->next == NULL)
@@ -234,6 +234,27 @@ anjuta_token_unlink_token (AnjutaToken *token)
 	}
 	token->parent = NULL;
 
+	if ((token->group != NULL) && (token->group->last == token))
+	{
+		AnjutaToken *prev;
+
+		for (prev = token->prev; prev != NULL; prev = prev->prev)
+		{
+			if (prev->group == token->group)
+			{
+				/* Find previous token in the same group */
+				token->group->last = prev;
+				break;
+			}
+			else if (prev == token->group)
+			{
+				/* No more token in group */
+				token->group->last = NULL;
+				break;
+			}
+		}
+	}
+	
 	if (token->next != NULL)
 	{
 		token->next->prev = token->prev;

@@ -95,6 +95,8 @@ gboolean amp_project_get_token_location (AmpProject *project, AnjutaTokenFileLoc
 gboolean amp_project_move (AmpProject *project, const gchar *path);
 gboolean amp_project_save (AmpProject *project, GError **error);
 
+gboolean amp_project_dump (AmpProject *project, AnjutaProjectNode *node);
+
 gchar * amp_project_get_uri (AmpProject *project);
 GFile* amp_project_get_file (AmpProject *project);
 

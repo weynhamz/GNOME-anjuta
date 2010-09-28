@@ -39,6 +39,7 @@ enum AnjutaTokenSearchFlag
 };
 
 AnjutaTokenStyle *anjuta_token_style_new (const gchar *start, const gchar *next, const gchar *eol, const gchar *last, guint max_width);
+AnjutaTokenStyle *anjuta_token_style_new_from_base (AnjutaTokenStyle *base);
 void anjuta_token_style_free (AnjutaTokenStyle *style);
 
 void anjuta_token_style_update (AnjutaTokenStyle *style, AnjutaToken *list);
@@ -51,7 +52,7 @@ AnjutaToken *anjuta_token_next_word (AnjutaToken *item);
 AnjutaToken *anjuta_token_replace_nth_word (AnjutaToken *list, guint n, AnjutaToken *item);
 AnjutaToken *anjuta_token_insert_word_before (AnjutaToken *list, AnjutaToken *sibling, AnjutaToken *baby);
 AnjutaToken *anjuta_token_insert_word_after (AnjutaToken *list, AnjutaToken *sibling, AnjutaToken *baby);
-AnjutaToken *anjuta_token_remove_word (AnjutaToken *token, AnjutaTokenStyle *user_style);
+AnjutaToken *anjuta_token_remove_word (AnjutaToken *token);
 
 AnjutaToken *anjuta_token_insert_token_list (gboolean after, AnjutaToken *list,...);
 AnjutaToken *anjuta_token_find_type (AnjutaToken *list, gint flags, AnjutaTokenType* types);

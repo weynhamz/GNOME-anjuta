@@ -163,9 +163,9 @@ amp_project_write_target (AnjutaToken *makefile, gint type, const gchar *name, g
 	    		ANJUTA_TOKEN_SPACE, " ",
 	    		ANJUTA_TOKEN_OPERATOR, "=",
 	    		ANJUTA_TOKEN_LIST, NULL,
-	    		ANJUTA_TOKEN_START, NULL,
+	            ANJUTA_TOKEN_SPACE, " ",
 	    		NULL);
-
+	
 	return anjuta_token_last_item (token);
 }
 

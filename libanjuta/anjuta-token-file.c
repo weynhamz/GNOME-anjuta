@@ -1,4 +1,5 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * anjuta-token-file.c
  * Copyright (C) Sébastien Granjoux 2009 <seb.sfo@free.fr>
@@ -200,6 +201,47 @@ anjuta_token_file_move (AnjutaTokenFile *file, GFile *new_file)
 	file->file = new_file != NULL ? g_object_ref (new_file) : NULL;
 }
 
+static AnjutaToken *
+anjuta_token_file_remove_token (AnjutaTokenFile *file, AnjutaToken *token)
+{
+	AnjutaToken *last;
+	AnjutaToken *next;
+
+	if ((anjuta_token_get_length (token) > 0))
+	{
+		AnjutaToken *pos = anjuta_token_file_find_position (file, token);
+		guint len = anjuta_token_get_length (token);
+
+		if (pos != NULL)
+		{
+			while (len != 0)
+			{
+				guint flen = anjuta_token_get_length (pos);
+				if (len < flen)
+				{
+					pos = anjuta_token_split (pos, len);
+					flen = len;
+				}
+				pos = anjuta_token_free (pos);
+				len -= flen;
+			}
+		}
+	}
+	
+	last = anjuta_token_last (token); 
+	if ((last != NULL) && (last != token))
+	{
+		next = anjuta_token_next (token);
+		while (next != last)
+		{
+			next = anjuta_token_file_remove_token (file, next);
+		}
+		anjuta_token_file_remove_token (file, next);
+	}		
+
+	return anjuta_token_free (token);
+}
+
 /**
  * anjuta_token_file_update:
  * @file: a #AnjutaTokenFile derived class object.
@@ -257,27 +299,11 @@ anjuta_token_file_update (AnjutaTokenFile *file, AnjutaToken *token)
 	{
 		gint flags = anjuta_token_get_flags (next);
 		
-		if ((flags & ANJUTA_TOKEN_REMOVED) && (anjuta_token_get_length (next) > 0))
+		if (flags & ANJUTA_TOKEN_REMOVED)
 		{
-			AnjutaToken *pos = anjuta_token_file_find_position (file, next);
-			guint len = anjuta_token_get_length (next);
-
-			if (pos != NULL)
-			{
-				while (len != 0)
-				{
-					guint flen = anjuta_token_get_length (pos);
-					if (len < flen)
-					{
-						pos = anjuta_token_split (pos, len);
-						flen = len;
-					}
-					pos = anjuta_token_free (pos);
-					len -= flen;
-				}
-				next = anjuta_token_free (next);
-				continue;
-			}
+			anjuta_token_dump (anjuta_token_list (next));
+			next = anjuta_token_file_remove_token (file, next);
+			continue;
 		}
 		else if (flags & ANJUTA_TOKEN_ADDED)
 		{
