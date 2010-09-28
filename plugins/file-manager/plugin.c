@@ -45,9 +45,9 @@
 #define PREF_FILTER_BACKUP "filemanager.filter.backup"
 #define PREF_FILTER_UNVERSIONED "filemanager.filter.unversioned"
 
-#define REGISTER_NOTIFY(key, func, type) \
-	notify_id = anjuta_preferences_notify_add_##type (prefs, \
-											   key, func, file_manager, NULL); \
+#define REGISTER_NOTIFY(key, func) \
+	notify_id = anjuta_preferences_notify_add (prefs, \
+											   key, func, file_manager); \
 	file_manager->notify_ids = g_list_prepend (file_manager->notify_ids, \
 										       GUINT_TO_POINTER(notify_id));
 
@@ -248,7 +248,6 @@ on_file_view_show_popup_menu (AnjutaFileView* view, GFile* file,
 static void 
 on_notify_root(AnjutaPreferences* prefs,
                          const gchar* key,
-                         const gchar* value,
                          gpointer user_data)
 {
 	AnjutaFileManager* file_manager = (AnjutaFileManager*) user_data;
@@ -262,7 +261,6 @@ on_notify_root(AnjutaPreferences* prefs,
 static void 
 on_notify(AnjutaPreferences* prefs,
           const gchar* key,
-          gboolean value,
           gpointer user_data)
 {
 	AnjutaFileManager* file_manager = (AnjutaFileManager*) user_data;
@@ -336,12 +334,12 @@ file_manager_activate (AnjutaPlugin *plugin)
 								 project_root_removed, NULL);
 	
 	
-	REGISTER_NOTIFY (PREF_ROOT, on_notify_root, string);
-	REGISTER_NOTIFY (PREF_FILTER_BINARY, on_notify, bool);
-	REGISTER_NOTIFY (PREF_FILTER_BACKUP, on_notify, bool);
-	REGISTER_NOTIFY (PREF_FILTER_HIDDEN, on_notify, bool);
-	REGISTER_NOTIFY (PREF_FILTER_UNVERSIONED, on_notify, bool);
-	on_notify (prefs, NULL, FALSE, file_manager);
+	REGISTER_NOTIFY (PREF_ROOT, on_notify_root);
+	REGISTER_NOTIFY (PREF_FILTER_BINARY, on_notify);
+	REGISTER_NOTIFY (PREF_FILTER_BACKUP, on_notify);
+	REGISTER_NOTIFY (PREF_FILTER_HIDDEN, on_notify);
+	REGISTER_NOTIFY (PREF_FILTER_UNVERSIONED, on_notify);
+	on_notify (prefs, NULL, file_manager);
 	
 	return TRUE;
 }
