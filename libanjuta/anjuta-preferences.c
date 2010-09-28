@@ -66,8 +66,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include <gconf/gconf-client.h>
-
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/resources.h>
@@ -84,7 +82,7 @@ struct _AnjutaProperty
 	gchar                    *default_value;
 	guint                     flags;
 	gint                     notify_id;
-	GConfClient              *gclient;
+	GSettings				 *gsettings;
 	
 	/* Set true if custom set/get to be used */
 	gboolean                  custom;
@@ -101,7 +99,7 @@ struct _AnjutaProperty
 
 struct _AnjutaPreferencesPriv
 {
-	GConfClient         *gclient;
+	GSettings           *gsettings;
 	GHashTable          *properties;
 	GtkWidget           *prefs_dialog;
 	AnjutaPluginManager *plugin_manager;
@@ -118,26 +116,19 @@ struct _AnjutaPreferencesForeachData
 	gpointer callback_data;
 };
 
+/* Internal structure for anjuta_preferences_add_notify */
+typedef struct
+{
+	AnjutaPreferences *pr;
+	AnjutaPreferencesNotify func;
+	guint id;
+	gpointer data;
+} AnjutaPreferencesNotifyData;
+
 /* Data for notifications */
 
 #define PREFERENCE_PROPERTY_PREFIX "preferences_"
-#define GCONF_KEY_PREFIX "/apps/anjuta/preferences"
-
-static const gchar *
-build_key (const gchar *key)
-{
-	static gchar buffer[1024];
-	snprintf (buffer, 1024, "%s/%s", GCONF_KEY_PREFIX, key);
-	return buffer;
-}
-
-static const gchar*
-unbuild_key (const gchar* key)
-{
-	if (g_str_has_prefix (key, GCONF_KEY_PREFIX))
-		return key + strlen (GCONF_KEY_PREFIX);
-	return NULL;
-}
+#define GSETTINGS_SCHEME "anjuta_preferences"
 
 /**
  * anjuta_preferences_get:
@@ -158,7 +149,7 @@ anjuta_preferences_get (AnjutaPreferences *pr, const gchar *key)
 	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), NULL);
 	g_return_val_if_fail (key != NULL, NULL);
 
-	return gconf_client_get_string (pr->priv->gclient, build_key (key), NULL);
+	return g_settings_get_string (pr->priv->gsettings, key);
 }
 
 /**
@@ -175,34 +166,15 @@ inline
 #endif
 gint
 anjuta_preferences_get_int (AnjutaPreferences *pr, const gchar *key)
-{
-	gint ret_val;
-	GConfValue *value;
-	
+{	
 	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), 0);
 	g_return_val_if_fail (key != NULL, 0);
-	
-	ret_val = 0;
-	value = gconf_client_get (pr->priv->gclient, build_key (key), NULL);
-	if (value)
-	{
-		switch (value->type)
-		{
-			case GCONF_VALUE_INT:
-				ret_val = gconf_value_get_int (value);
-				break;
-			default:
-				g_warning ("Invalid gconf type for key: %s", key);
-		}
-		gconf_value_free (value);
-	}
-	else
-		DEBUG_PRINT ("The preference key %s is not defined", key);
-	return ret_val;
+
+	return g_settings_get_int (pr->priv->gsettings, key);
 }
 
 /**
- * anjuta_preferences_get_int:
+ * anjuta_preferences_get_bool:
  * @pr: A #AnjutaPreferences object
  * @key: Property key
  *
@@ -213,218 +185,13 @@ anjuta_preferences_get_int (AnjutaPreferences *pr, const gchar *key)
 #ifdef __GNUC__
 inline
 #endif
-gint
+gboolean
 anjuta_preferences_get_bool (AnjutaPreferences *pr, const gchar *key)
 {
-	gboolean ret_val;
-	GConfValue *value;
-	
 	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), 0);
 	g_return_val_if_fail (key != NULL, 0);
-	
-	ret_val = FALSE;
-	value = gconf_client_get (pr->priv->gclient, build_key (key), NULL);
-	if (value)
-	{
-		switch (value->type)
-		{
-			case GCONF_VALUE_BOOL:
-				ret_val = gconf_value_get_bool (value);
-				break;
-			case GCONF_VALUE_INT:
-				ret_val = (gboolean) gconf_value_get_int (value);
-			default:
-				g_warning ("Invalid gconf type for key: %s", key);
-		}
-		gconf_value_free (value);
-	}
-	else
-		DEBUG_PRINT ("The preference key %s is not defined", key);
-	return ret_val;
-}
 
-/**
- * anjuta_preferences_get_int_with_default:
- * @pr: A #AnjutaPreferences object
- * @key: Property key
- * @default_value: Default value to return if the key is not defined.
- *
- * Gets the value of @key as integer.
- *
- * Return value: Key value as integer or @default_value if the
- * key is not defined.
- */
-#ifdef __GNUC__
-inline
-#endif
-gint
-anjuta_preferences_get_int_with_default (AnjutaPreferences *pr,
-										 const gchar *key, gint default_value)
-{
-	gint ret_val;
-	GConfValue *value;
-	
-	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), 0);
-	g_return_val_if_fail (key != NULL, 0);
-	
-	ret_val = default_value;
-	value = gconf_client_get (pr->priv->gclient, build_key (key), NULL);
-	if (value)
-	{
-		switch (value->type)
-		{
-			case GCONF_VALUE_INT:
-				ret_val = gconf_value_get_int (value);
-				break;
-			default:
-				g_warning ("Invalid gconf type for key: %s", key);
-		}
-		gconf_value_free (value);
-	}
-	return ret_val;
-}
-
-/**
- * anjuta_preferences_get_int_with_default:
- * @pr: A #AnjutaPreferences object
- * @key: Property key
- * @default_value: Default value to return if the key is not defined.
- *
- * Gets the value of @key as integer.
- *
- * Return value: Key value as integer or @default_value if the
- * key is not defined.
- */
-#ifdef __GNUC__
-inline
-#endif
-gboolean
-anjuta_preferences_get_bool_with_default (AnjutaPreferences *pr,
-                                          const gchar *key, gboolean default_value)
-{
-	gboolean ret_val;
-	GConfValue *value;
-	
-	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), 0);
-	g_return_val_if_fail (key != NULL, 0);
-	
-	ret_val = default_value;
-	value = gconf_client_get (pr->priv->gclient, build_key (key), NULL);
-	if (value)
-	{
-		switch (value->type)
-		{
-			case GCONF_VALUE_BOOL:
-				ret_val = gconf_value_get_bool (value);
-				break;
-			case GCONF_VALUE_INT:
-				ret_val = (gboolean) gconf_value_get_int (value);
-			default:
-				g_warning ("Invalid gconf type for key: %s", key);
-		}
-		gconf_value_free (value);
-	}
-	return ret_val;
-}
-
-/**
- * anjuta_preferences_default_get:
- * @pr: A #AnjutaPreferences object
- * @key: Property key
- *
- * Gets the default value of @key as string. The default value of the key
- * is the value defined in System defaults (generally installed during 
- * program installation). Returned value must be g_freed() when not required.
- *
- * Return value: Default key value as string or NULL if not defined.
- */
-#ifdef __GNUC__
-inline
-#endif
-gchar *
-anjuta_preferences_default_get (AnjutaPreferences * pr, const gchar * key)
-{
-	GConfValue *val;
-	gchar *str;
-	GError *err = NULL;
-	
-	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), NULL);
-	g_return_val_if_fail (key != NULL, NULL);
-	
-	val = gconf_client_get_default_from_schema (pr->priv->gclient, build_key (key), &err);
-	if (err) {
-		g_error_free (err);
-		return NULL;
-	}
-	str = g_strdup (gconf_value_get_string (val));
-	gconf_value_free (val);
-	return str;
-}
-
-/**
- * anjuta_preferences_default_get_int:
- * @pr: A #AnjutaPreferences object
- * @key: Property key
- *
- * Gets the default value of @key as integer. The default value of the key
- * is the value defined in System defaults (generally installed during 
- * program installation).
- *
- * Return value: Default key value as integer or 0 if the key is not defined.
- */
-#ifdef __GNUC__
-inline
-#endif
-gint
-anjuta_preferences_default_get_int (AnjutaPreferences *pr, const gchar *key)
-{
-	GConfValue *val;
-	gint ret;
-	GError *err = NULL;
-	
-	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), 0);
-	g_return_val_if_fail (key != NULL, 0);
-	val = gconf_client_get_default_from_schema (pr->priv->gclient, build_key (key), &err);
-	if (err) {
-		g_error_free (err);
-		return 0;
-	}
-	ret = gconf_value_get_int (val);
-	gconf_value_free (val);
-	return ret;
-}
-
-/**
- * anjuta_preferences_default_get_int:
- * @pr: A #AnjutaPreferences object
- * @key: Property key
- *
- * Gets the default value of @key as integer. The default value of the key
- * is the value defined in System defaults (generally installed during 
- * program installation).
- *
- * Return value: Default key value as integer or 0 if the key is not defined.
- */
-#ifdef __GNUC__
-inline
-#endif
-gboolean
-anjuta_preferences_default_get_bool (AnjutaPreferences *pr, const gchar *key)
-{
-	GConfValue *val;
-	gint ret;
-	GError *err = NULL;
-	
-	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), 0);
-	g_return_val_if_fail (key != NULL, 0);
-	val = gconf_client_get_default_from_schema (pr->priv->gclient, build_key (key), &err);
-	if (err) {
-		g_error_free (err);
-		return 0;
-	}
-	ret = gconf_value_get_bool (val);
-	gconf_value_free (val);
-	return ret;
+	return g_settings_get_boolean (pr->priv->gsettings, key);
 }
 
 /**
@@ -445,14 +212,7 @@ anjuta_preferences_set (AnjutaPreferences *pr, const gchar *key,
 	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
 	g_return_if_fail (key != NULL);
 
-	if (value && (strlen (value) > 0))
-	{
-		gconf_client_set_string (pr->priv->gclient, build_key (key), value, NULL);
-	}
-	else
-	{
-		gconf_client_set_string (pr->priv->gclient, build_key (key), "", NULL);
-	}
+	g_settings_set_string (pr->priv->gsettings, key, value);
 }
 
 /**
@@ -470,31 +230,10 @@ void
 anjuta_preferences_set_int (AnjutaPreferences *pr, const gchar *key,
 							gint value)
 {
-	GConfValue *gvalue;
-	
 	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
 	g_return_if_fail (key != NULL);
-	
-	gvalue = gconf_client_get (pr->priv->gclient, build_key (key), NULL);
-	if (gvalue)
-	{
-		switch (gvalue->type)
-		{
-			case GCONF_VALUE_INT:
-				gconf_client_set_int (pr->priv->gclient, build_key (key),
-									  value, NULL);
-				break;
-			default:
-				g_warning ("Invalid gconf type for key: %s", key);
-		}
-		gconf_value_free (gvalue);
-	}
-	else
-	{
-		DEBUG_PRINT ("The preference key %s is not defined", key);
-		gconf_client_set_int (pr->priv->gclient, build_key (key),
-							  value, NULL);
-	}
+
+	g_settings_set_int (pr->priv->gsettings, key, value);
 }
 
 /**
@@ -512,33 +251,10 @@ void
 anjuta_preferences_set_bool (AnjutaPreferences *pr, const gchar *key,
 							 gboolean value)
 {
-	GConfValue *gvalue;
-	
 	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
 	g_return_if_fail (key != NULL);
-	
-	gvalue = gconf_client_get (pr->priv->gclient, build_key (key), NULL);
-	if (gvalue)
-	{
-		switch (gvalue->type)
-		{
-			case GCONF_VALUE_INT:
-				g_warning ("Invalid gconf type for key: %s", key);
-			case GCONF_VALUE_BOOL:
-				gconf_client_set_bool (pr->priv->gclient, build_key (key),
-									   value, NULL);
-				break;
-			default:
-				g_warning ("Invalid gconf type for key: %s", key);
-		}
-		gconf_value_free (gvalue);
-	}
-	else
-	{
-		DEBUG_PRINT ("The preference key %s is not defined", key);
-		gconf_client_set_bool (pr->priv->gclient, build_key (key),
-		                       value, NULL);
-	}
+
+	g_settings_set_boolean (pr->priv->gsettings, key, value);
 }
 
 static void
@@ -548,7 +264,6 @@ property_destroy (AnjutaProperty *property)
 	if (property->key) g_free (property->key);
 	if (property->default_value) g_free (property->default_value);
 	g_object_unref (property->object);
-	gconf_client_notify_remove (property->gclient, property->notify_id);
 	g_free (property);
 }
 
@@ -608,388 +323,6 @@ get_data_type_from_string (const gchar* data_type)
 		return (AnjutaPropertyDataType)(-1);
 }
 
-static gchar*
-get_property_value_as_string (AnjutaProperty *prop)
-{
-	gint  int_value;
-	gchar** values;
-	gchar *text_value = NULL;
-	
-	if (prop->custom)
-	{
-		if (prop->get_property != NULL)
-			return prop->get_property (prop);
-		else
-		{
-			g_warning ("%s: Undefined get_property() for custom object",
-					   prop->key);
-			return NULL;
-		}
-	}
-	switch (prop->object_type)
-	{
-	case ANJUTA_PROPERTY_OBJECT_TYPE_TOGGLE:
-		int_value =
-			gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop->object));
-		text_value = g_strdup_printf ("%d", int_value);
-		break;
-		
-	case ANJUTA_PROPERTY_OBJECT_TYPE_SPIN:
-		int_value =
-			gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (prop->object));
-		text_value = g_strdup_printf ("%d", int_value);
-		break;
-	
-	case ANJUTA_PROPERTY_OBJECT_TYPE_ENTRY:
-		text_value =
-			gtk_editable_get_chars (GTK_EDITABLE (prop->object), 0, -1);
-		break;
-	case ANJUTA_PROPERTY_OBJECT_TYPE_COMBO:
-		{
-			gint idx;
-			values = g_object_get_data(G_OBJECT(prop->object), "untranslated");
-			idx = gtk_combo_box_get_active(GTK_COMBO_BOX(prop->object));
-			if (values[idx] != NULL)
-				text_value = g_strdup(values[idx]);
-			break;
-		}
-	case ANJUTA_PROPERTY_OBJECT_TYPE_TEXT:
-		{
-			GtkTextBuffer *buffer;
-			GtkTextIter start_iter;
-			GtkTextIter end_iter;
-			buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (prop->object));
-			gtk_text_buffer_get_start_iter (buffer, &start_iter);
-			gtk_text_buffer_get_end_iter (buffer, &end_iter);
-			text_value =
-				gtk_text_buffer_get_text (buffer, &start_iter, &end_iter, TRUE);
-			break;
-		}
-	case ANJUTA_PROPERTY_OBJECT_TYPE_COLOR:
-		{
-			GdkColor color;
-			gtk_color_button_get_color(GTK_COLOR_BUTTON (prop->object),
-									   &color);
-			text_value = anjuta_util_string_from_color (color.red,  color.green, color.blue);
-		}
-		break;
-	case ANJUTA_PROPERTY_OBJECT_TYPE_FONT:
-		{
-			const gchar *font;
-			font = gtk_font_button_get_font_name (GTK_FONT_BUTTON
-													(prop->object));
-			text_value = g_strdup (font);
-		}
-		break;
-	case ANJUTA_PROPERTY_OBJECT_TYPE_FOLDER:
-	case ANJUTA_PROPERTY_OBJECT_TYPE_FILE:
-		text_value = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (prop->object));
-		break;
-	}
-	if (text_value && (strlen (text_value) == 0))
-	{
-		g_free (text_value);
-		text_value = NULL;
-	}
-	return text_value;
-}
-
-static gint
-get_property_value_as_int (AnjutaProperty *prop)
-{
-	gint  int_value;
-	gchar *text_value;
-	text_value = get_property_value_as_string (prop);
-	int_value = atoi (text_value);
-	g_free (text_value);	
-	return int_value;
-}
-
-static void
-set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
-{
-	gint  int_value;
-	char** values;
-	gint i; 
-	
-	if (prop->custom)
-	{
-		if (prop->set_property != NULL)
-		{
-			prop->set_property (prop, value);
-			return;
-		}
-		else
-		{
-			g_warning ("%s: Undefined set_property() for custom object",
-					   prop->key);
-			return;
-		}
-	}
-	switch (prop->object_type)
-	{
-	case ANJUTA_PROPERTY_OBJECT_TYPE_TOGGLE:
-		if (value) 
-			int_value = atoi (value);
-		else
-			int_value = 0;
-		
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prop->object),
-		                              int_value);
-		break;
-		
-	case ANJUTA_PROPERTY_OBJECT_TYPE_SPIN:
-		if (value) 
-			int_value = atoi (value);
-		else
-			int_value = 0;
-		
-		gtk_spin_button_set_value (GTK_SPIN_BUTTON (prop->object), int_value);
-		break;
-	
-	case ANJUTA_PROPERTY_OBJECT_TYPE_ENTRY:
-		if (value)
-			gtk_entry_set_text (GTK_ENTRY (prop->object), value);
-		else
-			gtk_entry_set_text (GTK_ENTRY (prop->object), "");
-		break;
-	case ANJUTA_PROPERTY_OBJECT_TYPE_COMBO:
-		values = g_object_get_data(G_OBJECT(prop->object), "untranslated");
-		if (value != NULL)
-		{
-			for (i=0; values[i] != NULL; i++)
-			{
-				if (strcmp(value, values[i]) == 0)
-				{
-					gtk_combo_box_set_active(GTK_COMBO_BOX(prop->object), i);
-					break;
-				}
-			}
-		}			
-		break;		
-	case ANJUTA_PROPERTY_OBJECT_TYPE_TEXT:
-		{
-			GtkTextBuffer *buffer;
-			buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (prop->object));
-			if (value)
-				gtk_text_buffer_set_text (buffer, value, -1);
-			else
-				gtk_text_buffer_set_text (buffer, "", -1);
-		}
-		break;
-		
-	case ANJUTA_PROPERTY_OBJECT_TYPE_COLOR:
-		{
-			GdkColor color;
-			
-			if (value)
-				anjuta_util_color_from_string (value, &color.red, &color.green, &color.blue);
-				
-			gtk_color_button_set_color(GTK_COLOR_BUTTON(prop->object), &color);
-		}
-		break;
-		
-	case ANJUTA_PROPERTY_OBJECT_TYPE_FONT:
-		if (value)
-		{
-			/* If the font name is Xfont name, convert it into
-			   Pango font description text -- Just take the family name :) */
-			if (value[0] == '-')
-			{
-				/* Font is xfont name */
-				gchar *font_name, *tmp;
-				const gchar *end, *start;
-				start = value;
-				start = g_strstr_len (&start[1], strlen (&start[1]), "-");
-				end = g_strstr_len (&start[1], strlen (&start[1]), "-");
-				font_name = g_strndup (&start[1], end-start-1);
-				tmp = font_name;
-				
-				/* Set font size to (arbitrary) 12 points */
-				font_name = g_strconcat (tmp, " 12", NULL);
-				g_free (tmp);
-				
-				/* DEBUG_PRINT ("Font set as: %s", font_name); */
-				
-				gtk_font_button_set_font_name (GTK_FONT_BUTTON
-												 (prop->object), font_name);
-				g_free (font_name);
-			}
-			else
-			{				
-				gtk_font_button_set_font_name (GTK_FONT_BUTTON
-												 (prop->object), value);
-			}
-		}
-		break;
-		
-	case ANJUTA_PROPERTY_OBJECT_TYPE_FOLDER:
-		if (value)
-		{
-			gchar *old_folder;
-
-			/* When the user change the folder, the
-			 * current-folder-changed signal is emitted the
-			 * gconf key is updated and this function is called.
-			 * But setting the current folder here emits
-			 * the current-folder-changed signal too.
-			 * Moreover this signal is emitted asynchronously so
-			 * it is not possible to block it here.
-			 * 
-			 * The solution here is to update the widget only
-			 * if it is really needed.
-			 */
-			old_folder = gtk_file_chooser_get_current_folder (GTK_FILE_CHOOSER (prop->object));
-			if ((old_folder == NULL) || strcmp (old_folder, value))
-			{
-				gchar *expand_value = anjuta_util_shell_expand (value);
-				gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (prop->object), expand_value);
-				g_free (expand_value);
-			}
-			g_free (old_folder);
-		}
-		break;
-	case ANJUTA_PROPERTY_OBJECT_TYPE_FILE:
-		if (value)
-		{
-			gchar *expand_value = anjuta_util_shell_expand (value);
-			gtk_file_chooser_set_filename (GTK_FILE_CHOOSER (prop->object),
-															 expand_value);
-			g_free (expand_value);
-		}
-		break;
-	}
-}
-
-static void
-set_property_value_as_int (AnjutaProperty *prop, gint value)
-{
-	gchar *text_value;
-	text_value = g_strdup_printf ("%d", value);
-	set_property_value_as_string (prop, text_value);
-	g_free (text_value);	
-}
-
-static void
-set_property_value_as_bool (AnjutaProperty *prop, gboolean value)
-{
-	gchar *text_value;
-	text_value = g_strdup_printf ("%d", value);
-	set_property_value_as_string (prop, text_value);
-	g_free (text_value);	
-}
-
-static gboolean
-update_property_on_event_str (GtkWidget *widget, GdkEvent *event,
-							  gpointer user_data)
-{
-	AnjutaPreferences *pr;
-	AnjutaProperty *p;
-	gchar *val;
-	
-	pr = ANJUTA_PREFERENCES (g_object_get_data (G_OBJECT (widget),
-												"AnjutaPreferences"));
-	p = (AnjutaProperty *) user_data;
-	val = get_property_value_as_string (p);
-	anjuta_preferences_set (pr, p->key, val);
-	g_free (val);
-	return FALSE;
-}
-
-static void
-update_property_on_change_str (GtkWidget *widget, gpointer user_data)
-{
-	AnjutaPreferences *pr;
-	AnjutaProperty *p;
-	gchar *val;
-
-	pr = ANJUTA_PREFERENCES (g_object_get_data (G_OBJECT (widget),
-												"AnjutaPreferences"));
-	p = (AnjutaProperty *) user_data;
-	val = get_property_value_as_string (p);
-	anjuta_preferences_set (pr, p->key, val);
-	g_free (val);
-}
-
-static gboolean
-block_update_property_on_change_str (GtkWidget *widget, GdkEvent *event,
-							  gpointer user_data)
-{
-	AnjutaProperty *p = (AnjutaProperty *) user_data;
-
-	g_signal_handlers_block_by_func (G_OBJECT(p->object), G_CALLBACK (update_property_on_change_str), p);
-	return FALSE;
-}
-
-static gboolean
-unblock_update_property_on_change_str (GtkWidget *widget, GdkEvent *event,
-							  gpointer user_data)
-{
-	AnjutaProperty *p = (AnjutaProperty *) user_data;
-
-	g_signal_handlers_unblock_by_func (G_OBJECT(p->object), G_CALLBACK (update_property_on_change_str), p);
-	return FALSE;
-}
-
-static void
-update_property_on_change_int (GtkWidget *widget, gpointer user_data)
-{
-	AnjutaPreferences *pr;
-	AnjutaProperty *p;
-	gint val;
-	
-	pr = ANJUTA_PREFERENCES (g_object_get_data (G_OBJECT (widget),
-												"AnjutaPreferences"));
-	p = (AnjutaProperty *) user_data;
-	val = get_property_value_as_int (p);
-	anjuta_preferences_set_int (pr, p->key, val);
-}
-
-static void
-update_property_on_change_bool (GtkWidget *widget, gpointer user_data)
-{
-	AnjutaPreferences *pr;
-	AnjutaProperty *p;
-	gint val;
-	
-	pr = ANJUTA_PREFERENCES (g_object_get_data (G_OBJECT (widget),
-												"AnjutaPreferences"));
-	p = (AnjutaProperty *) user_data;
-	val = get_property_value_as_int (p);
-	anjuta_preferences_set_bool (pr, p->key, val);
-}
-
-static void
-update_property_on_change_color (GtkWidget *widget, gpointer user_data)
-{
-	AnjutaPreferences *pr;
-	AnjutaProperty *p;
-	gchar *val;
-	
-	pr = ANJUTA_PREFERENCES (g_object_get_data (G_OBJECT (widget),
-												"AnjutaPreferences"));
-	p = (AnjutaProperty *) user_data;
-	val = get_property_value_as_string (p);
-	anjuta_preferences_set (pr, p->key, val);
-	g_free (val);
-}
-
-static void
-update_property_on_change_font (GtkWidget *widget,
-								gpointer user_data)
-{
-	AnjutaPreferences *pr;
-	AnjutaProperty *p;
-	gchar *val;
-	
-	pr = ANJUTA_PREFERENCES (g_object_get_data (G_OBJECT (widget),
-												"AnjutaPreferences"));
-	p = (AnjutaProperty *) user_data;
-	val = get_property_value_as_string (p);
-	anjuta_preferences_set (pr, p->key, val);
-	g_free (val);
-}
-
 static void
 unregister_preferences_key (GtkWidget *widget,
 							gpointer user_data)
@@ -1008,108 +341,43 @@ unregister_preferences_key (GtkWidget *widget,
 }
 
 static void
-get_property (GConfClient *gclient, guint cnxt_id,
-			  GConfEntry *entry, gpointer user_data)
-{
-	const gchar *key;
-	GConfValue *value;
-	
-	AnjutaProperty *p = (AnjutaProperty *) user_data;
-	key = gconf_entry_get_key (entry);
-	value = gconf_entry_get_value (entry);
-	/* DEBUG_PRINT ("Preference changed %s", key); */
-
-	if (p->data_type == ANJUTA_PROPERTY_DATA_TYPE_BOOL)
-	{
-		gboolean gconf_value;
-		
-		gconf_value = gconf_value_get_bool (value);
-		set_property_value_as_bool (p, gconf_value);
-	}
-	else if (p->data_type == ANJUTA_PROPERTY_DATA_TYPE_INT)
-	{
-		int gconf_value;
-		
-		gconf_value = gconf_value_get_int (value);
-		set_property_value_as_int (p, gconf_value);
-	}
-	else
-	{
-		const gchar *gconf_value;
-		gconf_value = gconf_value_get_string (value);
-		set_property_value_as_string (p, gconf_value);
-	}
-}
-
-static void
-register_callbacks (AnjutaPreferences *pr, AnjutaProperty *p)
-{
-	GConfClient *gclient;
-	gchar *key_error_msg;
-	
-	gclient = pr->priv->gclient;
+connect_objects (AnjutaPreferences *pr, AnjutaProperty *p)
+{	
 	g_object_set_data (G_OBJECT (p->object), "AnjutaPreferences", pr);
 	switch (p->object_type) {
 		case ANJUTA_PROPERTY_OBJECT_TYPE_ENTRY:
-			g_signal_connect (G_OBJECT(p->object), "changed",
-							  G_CALLBACK (update_property_on_change_str), p);
-			g_signal_connect (G_OBJECT(p->object), "focus_out_event",
-							  G_CALLBACK (update_property_on_event_str), p);
-			g_signal_connect (G_OBJECT(p->object), "focus_out_event",
-							  G_CALLBACK (unblock_update_property_on_change_str), p);
-			g_signal_connect (G_OBJECT(p->object), "focus_in_event",
-							  G_CALLBACK (block_update_property_on_change_str), p);
+			g_settings_bind (p->gsettings, p->key, p->object, "text", 
+			                 G_SETTINGS_BIND_DEFAULT);
 			break;
 		case ANJUTA_PROPERTY_OBJECT_TYPE_SPIN:
-			g_signal_connect (G_OBJECT(p->object), "value-changed",
-							  G_CALLBACK (update_property_on_change_int), p);
+			g_settings_bind (p->gsettings, p->key, p->object, "value", 
+			                 G_SETTINGS_BIND_DEFAULT);
 			break;
 		case ANJUTA_PROPERTY_OBJECT_TYPE_FONT:
-			g_signal_connect (G_OBJECT(p->object), "font-set",
-							  G_CALLBACK (update_property_on_change_font), p);
+			g_settings_bind (p->gsettings, p->key, p->object, "font-name", 
+			                 G_SETTINGS_BIND_DEFAULT);
 			break;
 		case ANJUTA_PROPERTY_OBJECT_TYPE_TEXT:
-			g_signal_connect (G_OBJECT(p->object), "focus_out_event",
-							  G_CALLBACK (update_property_on_event_str), p);
+			/* FIXME */
 			break;
 		case ANJUTA_PROPERTY_OBJECT_TYPE_COMBO:
-			g_signal_connect (G_OBJECT(p->object), "changed",
-							  G_CALLBACK (update_property_on_change_str), p);
+			/* FIXME */
 			break;
 		case ANJUTA_PROPERTY_OBJECT_TYPE_TOGGLE:
-			g_signal_connect (G_OBJECT(p->object), "toggled",
-							  G_CALLBACK (update_property_on_change_bool), p);
+			g_settings_bind (p->gsettings, p->key, p->object, "active", 
+			                 G_SETTINGS_BIND_DEFAULT);
 			break;
 		case ANJUTA_PROPERTY_OBJECT_TYPE_COLOR:
-			g_signal_connect (G_OBJECT(p->object), "color-set",
-							  G_CALLBACK (update_property_on_change_color), p);
+			/* FIXME */
 			break;
 		case ANJUTA_PROPERTY_OBJECT_TYPE_FILE:
-			g_signal_connect (G_OBJECT(p->object), "file-set",
-							  G_CALLBACK (update_property_on_change_str), p);
-			break;
+			/* FIXME */
 		case ANJUTA_PROPERTY_OBJECT_TYPE_FOLDER:
-			g_signal_connect (G_OBJECT(p->object), "current-folder-changed",
-							  G_CALLBACK (update_property_on_change_str), p);
+			/* FIXME */
 			break;
 		default:
 			break;
 	}
-	if (!gconf_valid_key (build_key (p->key), &key_error_msg))
-	{
-		g_warning ("Invalid key \"%s\": Error: \"%s\"", build_key (p->key),
-				   key_error_msg);
-		g_free (key_error_msg);
-	}
-	p->notify_id = gconf_client_notify_add (gclient, build_key (p->key),
-											get_property, p, NULL, NULL);
-	
-	/* Connect to widget destroy signal so we can automatically unregister
-	 * keys so there aren't any potential conflicts or references to 
-	 * nonexistent widgets on subsequent uses of the prefs dialog. */
-	g_signal_connect (G_OBJECT (p->object), "destroy",
-					  G_CALLBACK (unregister_preferences_key),
-					  p);
 }
 
 static gboolean
@@ -1123,33 +391,6 @@ preferences_foreach_callback (gchar *key, struct _AnjutaProperty *p,
 	
 	return TRUE;
 }
-
-static void
-connect_prop_to_object (AnjutaPreferences *pr, AnjutaProperty *p)
-{
-	int gconf_value;
-	gchar *value;
-	
-	if (p->data_type == ANJUTA_PROPERTY_DATA_TYPE_BOOL)
-	{	
-		gconf_value = anjuta_preferences_get_bool (pr, p->key);
-		value = g_strdup_printf ("%d", gconf_value);
-		set_property_value_as_string (p, value);
-	}
-	else if (p->data_type == ANJUTA_PROPERTY_DATA_TYPE_INT)
-	{
-		gconf_value = anjuta_preferences_get_int (pr, p->key);
-		value = g_strdup_printf ("%d", gconf_value);
-		set_property_value_as_string (p, value);
-    }
-	else 
-	{
-		value = anjuta_preferences_get (pr, p->key);
-		set_property_value_as_string (p, value);
-		g_free (value);
-	}
-}
-
 
 /**
  * anjuta_preferences_register_property_raw:
@@ -1177,7 +418,6 @@ anjuta_preferences_register_property_raw (AnjutaPreferences *pr,
 										  AnjutaPropertyDataType  data_type)
 {
 	AnjutaProperty *p;
-	GConfValue *value;
 	
 	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), FALSE);
 	g_return_val_if_fail (GTK_IS_WIDGET (object), FALSE);
@@ -1193,93 +433,18 @@ anjuta_preferences_register_property_raw (AnjutaPreferences *pr,
 	p->object_type = object_type;
 	p->data_type = data_type;
 	p->key = g_strdup (key);
-	p->gclient = pr->priv->gclient;
+	p->gsettings = pr->priv->gsettings;
 	
-	value = gconf_client_get (pr->priv->gclient,
-							  build_key (p->key), NULL);
-	if (value)
-	{
-		/* Verify key type. Unset key if type mismatch. */
-		if (!((value->type == GCONF_VALUE_BOOL &&
-			   data_type == ANJUTA_PROPERTY_DATA_TYPE_BOOL) ||
-			  (value->type == GCONF_VALUE_INT &&
-			   data_type == ANJUTA_PROPERTY_DATA_TYPE_INT) ||
-			  (value->type == GCONF_VALUE_STRING &&
-			   data_type != ANJUTA_PROPERTY_DATA_TYPE_BOOL &&
-			   data_type != ANJUTA_PROPERTY_DATA_TYPE_INT)))
-		{
-			gconf_client_unset (pr->priv->gclient, build_key (key), NULL);
-		}
-		gconf_value_free (value);
-	}
-	if (default_value)
-	{
-		p->default_value = g_strdup (default_value);
-		if (strlen (default_value) > 0)
-		{
-			/* For combo, initialize the untranslated strings */
-			if (object_type == ANJUTA_PROPERTY_OBJECT_TYPE_COMBO) 
-			{
-				gchar *old_value;
-				gchar **vstr;
-				
-				vstr = g_strsplit (default_value, ",", 100);
-				g_object_set_data(G_OBJECT(p->object), "untranslated",
-									vstr);
-				old_value = anjuta_preferences_get (pr, p->key);
-				if (old_value == NULL && vstr[0])
-				{
-					/* DEBUG_PRINT ("Setting default pref value: %s = %s",
-								 p->key, default_value); */
-					anjuta_preferences_set (pr, p->key, vstr[0]);
-				}
-				if (old_value)
-					g_free (old_value);
-			}
-			else if (p->data_type != ANJUTA_PROPERTY_DATA_TYPE_BOOL &&
-					 p->data_type != ANJUTA_PROPERTY_DATA_TYPE_INT)
-			{
-				gchar *old_value;
-				old_value = anjuta_preferences_get (pr, p->key);
-				if (old_value == NULL)
-				{
-					/* DEBUG_PRINT ("Setting default pref value: %s = %s",
-								 p->key, default_value);*/
-					anjuta_preferences_set (pr, p->key, default_value);
-				}
-				if (old_value)
-					g_free (old_value);
-			}
-			else
-			{
-				value = gconf_client_get (pr->priv->gclient,
-										  build_key (p->key), NULL);
-				if (value == NULL)
-				{
-					/* DEBUG_PRINT ("Setting default pref value: %s = %s",
-								 p->key, default_value);*/
-					if (p->data_type == ANJUTA_PROPERTY_DATA_TYPE_INT)
-						gconf_client_set_int (pr->priv->gclient,
-											  build_key (p->key),
-											  atoi (default_value), NULL);
-					else
-						gconf_client_set_bool (pr->priv->gclient,
-											   build_key (p->key),
-											   atoi (default_value), NULL);
-				}
-				if (value)
-					gconf_value_free (value);
-			}
-		}
-	}
 	p->flags = flags;
 	p->custom = FALSE;
 	p->set_property = NULL;
 	p->get_property = NULL;
 	
 	g_hash_table_insert (pr->priv->properties, g_strdup (key), p);
-	connect_prop_to_object (pr, p);
-	register_callbacks (pr, p);
+	connect_objects (pr, p);
+	g_signal_connect (G_OBJECT (p->object), "destroy",
+	                  G_CALLBACK (unregister_preferences_key),
+	                  p);
 	return TRUE;
 }
 
@@ -1307,11 +472,10 @@ anjuta_preferences_register_property_custom (AnjutaPreferences *pr,
 										     const gchar *default_value,
 											 AnjutaPropertyDataType data_type,
 										     guint flags,
-		void    (*set_property) (AnjutaProperty *prop, const gchar *value),
-		gchar * (*get_property) (AnjutaProperty *))
+                                             void    (*set_property) (AnjutaProperty *prop, const gchar *value),
+                                             gchar * (*get_property) (AnjutaProperty *))
 {
 	AnjutaProperty *p;
-	GConfValue *value;
 	
 	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), FALSE);
 	g_return_val_if_fail (GTK_IS_WIDGET (object), FALSE);
@@ -1324,61 +488,8 @@ anjuta_preferences_register_property_custom (AnjutaPreferences *pr,
 	p->object_type = (AnjutaPropertyObjectType) 0;
 	p->data_type = data_type;
 	p->key = g_strdup (key);
-	p->gclient = pr->priv->gclient;
+	p->gsettings = pr->priv->gsettings;
 	
-	value = gconf_client_get (pr->priv->gclient,
-							  build_key (p->key), NULL);
-	if (value)
-	{
-		/* Verify key type. Unset key if type mismatch. */
-		if (!((value->type == GCONF_VALUE_BOOL &&
-			   data_type == ANJUTA_PROPERTY_DATA_TYPE_BOOL) ||
-			  (value->type == GCONF_VALUE_INT &&
-			   data_type == ANJUTA_PROPERTY_DATA_TYPE_INT) ||
-			  (value->type == GCONF_VALUE_STRING)))
-		{
-			gconf_client_unset (pr->priv->gclient, build_key (key), NULL);
-		}
-		gconf_value_free (value);
-	}
-	if (default_value)
-	{
-		p->default_value = g_strdup (default_value);
-		if (p->data_type != ANJUTA_PROPERTY_DATA_TYPE_BOOL &&
-			p->data_type != ANJUTA_PROPERTY_DATA_TYPE_INT)
-		{
-			gchar *old_value;
-			old_value = anjuta_preferences_get (pr, p->key);
-			if (old_value == NULL)
-			{
-				/* DEBUG_PRINT ("Setting default pref value: %s = %s",
-							 p->key, default_value); */
-				anjuta_preferences_set (pr, p->key, default_value);
-			}
-			if (old_value)
-				g_free (old_value);
-		}
-		else
-		{
-			value = gconf_client_get (pr->priv->gclient,
-									  build_key (p->key), NULL);
-			if (value == NULL)
-			{
-				/* DEBUG_PRINT ("Setting default pref value: %s = %s",
-							 p->key, default_value);*/
-				if (p->data_type == ANJUTA_PROPERTY_DATA_TYPE_INT)
-					gconf_client_set_int (pr->priv->gclient,
-										  build_key (p->key),
-										  atoi (default_value), NULL);
-				else
-					gconf_client_set_bool (pr->priv->gclient,
-										   build_key (p->key),
-										   atoi (default_value), NULL);
-			}
-			if (value)
-				gconf_value_free (value);
-		}
-	}
 	p->custom = TRUE;
 	p->flags = flags;
 	p->set_property = set_property;
@@ -1513,36 +624,6 @@ anjuta_preferences_register_all_properties_from_builder_xml (AnjutaPreferences *
 		anjuta_preferences_register_property_from_string (pr, widget,
 		                                                  property);
 	}
-}
-
-/**
- * anjuta_preferences_reset_defaults:
- * @pr: a #AnjutaPreferences object.
- *
- * Resets the default values into the keys
- */
-void
-anjuta_preferences_reset_defaults (AnjutaPreferences * pr)
-{
-	GtkWidget *dlg;
-	
-	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
-	
-	dlg = gtk_message_dialog_new (GTK_WINDOW (pr),
-			GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_QUESTION,
-			GTK_BUTTONS_NONE,
-		     _("Are you sure you want to reset the preferences to\n"
-		       "their default settings?"));
-	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_CANCEL,
-						   GTK_RESPONSE_CANCEL);
-	anjuta_util_dialog_add_button (GTK_DIALOG (dlg), _("_Reset"),
-								   GTK_STOCK_REVERT_TO_SAVED,
-								   GTK_RESPONSE_YES);
-	if (gtk_dialog_run (GTK_DIALOG (dlg)) == GTK_RESPONSE_YES)
-	{
-		/* FIXME: Reset preferences to built-in default values. */
-	}
-	gtk_widget_destroy (dlg);
 }
 
 /**
@@ -1785,12 +866,10 @@ anjuta_preferences_instance_init (AnjutaPreferences *pr)
 												  (GDestroyNotify) property_destroy);
 	pr->priv->notifications = g_hash_table_new_full (g_int_hash,
 	                                                 g_int_equal,
-	                                                 g_free, 
-	                                                 NULL);
+	                                                 NULL, 
+	                                                 g_free);
 	
-	pr->priv->gclient = gconf_client_get_default();
-	gconf_client_add_dir (pr->priv->gclient, GCONF_KEY_PREFIX,
-						  GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
+	pr->priv->gsettings = g_settings_new ("anjuta-preferences");
 
 }
 
@@ -1853,113 +932,42 @@ AnjutaPreferences *anjuta_preferences_default ()
 }
 
 static void
-gconf_notify (GConfEngine* conf,
-              guint id,
-              GConfEntry* entry,
-              gpointer user_data)
+preferences_key_changed (GSettings* settings, const gchar* key,
+                         gpointer user_data)
 {
-	AnjutaPreferences* prefs = anjuta_preferences_default();
-	gpointer notify =
-		g_hash_table_lookup (prefs->priv->notifications,
-		                     &id);
-	
-	if (entry->value)
-	{
-		const gchar* real_key = unbuild_key (entry->key);
-		switch (entry->value->type)
-		{
-			case GCONF_VALUE_INT:
-			{
-				AnjutaPreferencesNotifyInt int_func = notify;
-				int_func (prefs, real_key,
-				          gconf_value_get_int (entry->value), user_data);
-				break;
-			}
-			case GCONF_VALUE_STRING:
-			{
-				AnjutaPreferencesNotify str_func = notify;
-				str_func (prefs, real_key, 
-				          gconf_value_get_string (entry->value), user_data);
-				break;
-			}
-			case GCONF_VALUE_BOOL:
-			{
-				AnjutaPreferencesNotifyBool bool_func = notify;
-				bool_func (prefs, real_key,
-				           gconf_value_get_bool (entry->value), user_data);
-				break;
-			}
-			default:
-				g_warning ("Notification for unknown type of key: %s", entry->key);
-		}
-	}
-}
-
-guint 
-anjuta_preferences_notify_add_int (AnjutaPreferences *pr,
-                                   const gchar *key,
-                                   AnjutaPreferencesNotifyInt func,
-                                   gpointer data,
-                                   GFreeFunc destroy_notify)
-{
-	guint* id = g_new0 (guint, 1);
-	*id = gconf_client_notify_add (pr->priv->gclient,
-	                              build_key (key),
-	                              (GConfClientNotifyFunc) gconf_notify, data, destroy_notify, NULL);
-	g_hash_table_insert (pr->priv->notifications,
-	                     id,
-	                     func);
-	return *id;
-}
+	AnjutaPreferencesNotifyData* data = user_data;
+	data->func (data->pr, key, data->data);
+}                       
 
 /**
- * anjuta_preferences_notify_add_string:
+ * anjuta_preferences_notify_add:
  * @pr: A #AnjutaPreferences object.
  * @key: Key to monitor.
  * @func: User callback function.
  * @data: User data passed to @func
- * @destroy_notify: Destroy notify function - called when notify is removed.
  *
- * This is similar to gconf_client_notify_add(), except that the key is not
- * given as full path. Only anjuta preference key is given. The key prefix
- * is added internally.
+ * Get a notification when a preference value changes 
  *
- * Return value: Notify ID.
  */
-guint 
-anjuta_preferences_notify_add_string (AnjutaPreferences *pr,
-                                      const gchar *key,
-                                      AnjutaPreferencesNotify func,
-                                      gpointer data,
-                                      GFreeFunc destroy_notify)
-{
-	guint* id = g_new0 (guint, 1);
-	*id = gconf_client_notify_add (pr->priv->gclient,
-	                              build_key (key),
-	                              (GConfClientNotifyFunc)gconf_notify, data, destroy_notify, NULL);
-	g_hash_table_insert (pr->priv->notifications,
-	                     id,
-	                     func);
-	return *id;
-}
 
 guint 
-anjuta_preferences_notify_add_bool (AnjutaPreferences *pr,
-                                    const gchar *key,
-                                    AnjutaPreferencesNotifyBool func,
-                                    gpointer data,
-                                    GFreeFunc destroy_notify)
+anjuta_preferences_notify_add (AnjutaPreferences *pr,
+                               const gchar *key,
+                               AnjutaPreferencesNotify func,
+                               gpointer data)
 {
-	guint* id = g_new0 (guint, 1);
-	*id = gconf_client_notify_add (pr->priv->gclient,
-	                              build_key (key),
-	                              (GConfClientNotifyFunc)gconf_notify, data, destroy_notify, NULL);
+	gchar* signal_name = g_strdup_printf ("changed::%s", key);
+	AnjutaPreferencesNotifyData* ndata = g_new0 (AnjutaPreferencesNotifyData, 1);
+	guint id = g_signal_connect (pr->priv->gsettings, signal_name,
+	                             G_CALLBACK (preferences_key_changed),
+	                             ndata);
+	ndata->func = func;
+	ndata->data = data;
 	g_hash_table_insert (pr->priv->notifications,
-	                     id,
-	                     func);
-	return *id;
+	                     GUINT_TO_POINTER(id),
+	                     data);
+	return id;
 }
-
 
 /**
  * anjuta_preferences_notify_remove:
@@ -1971,7 +979,8 @@ anjuta_preferences_notify_add_bool (AnjutaPreferences *pr,
 void
 anjuta_preferences_notify_remove (AnjutaPreferences *pr, guint notify_id)
 {
-	gconf_client_notify_remove (pr->priv->gclient, notify_id);
+	g_signal_handler_disconnect (pr->priv->gsettings, notify_id);
+	g_hash_table_remove (pr->priv->notifications, GUINT_TO_POINTER(notify_id));
 }
 
 /**

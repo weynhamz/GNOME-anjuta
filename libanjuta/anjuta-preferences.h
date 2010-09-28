@@ -166,25 +166,6 @@ gint anjuta_preferences_get_int (AnjutaPreferences *pr,
 gboolean anjuta_preferences_get_bool (AnjutaPreferences *pr,
                                       const gchar *key);
 
-/* Gets the value (int) of a key. If not found, the default_value is returned */
-gint anjuta_preferences_get_int_with_default (AnjutaPreferences* pr,
-                                              const gchar *key,
-                                              gint default_value);
-
-gboolean anjuta_preferences_get_bool_with_default (AnjutaPreferences* pr,
-                                                   const gchar *key,
-                                                   gboolean default_value);
-
-gchar * anjuta_preferences_default_get (AnjutaPreferences *pr,
-                                        const gchar *key);
-
-/* Gets the value (int) of a key */
-gint anjuta_preferences_default_get_int (AnjutaPreferences *pr,
-                                         const gchar *key);
-
-gint anjuta_preferences_default_get_bool (AnjutaPreferences *pr,
-                                          const gchar *key);
-
 /* Dialog methods */
 GtkWidget *anjuta_preferences_get_dialog (AnjutaPreferences *pr);
 gboolean anjuta_preferences_is_dialog_created (AnjutaPreferences *pr);
@@ -193,35 +174,13 @@ gboolean anjuta_preferences_is_dialog_created (AnjutaPreferences *pr);
 
 typedef void (*AnjutaPreferencesNotify) (AnjutaPreferences *pr,
                                          const gchar* key,
-                                         const gchar* value,
                                          gpointer data);
-typedef void (*AnjutaPreferencesNotifyInt) (AnjutaPreferences *pr,
-                                            const gchar* key,
-                                            gint value,
-                                            gpointer data);
-typedef void (*AnjutaPreferencesNotifyBool) (AnjutaPreferences *pr,
-                                             const gchar* key,
-                                             gboolean value,
-                                             gpointer data);
 
-guint anjuta_preferences_notify_add_int (AnjutaPreferences *pr,
-                                         const gchar *key,
-                                         AnjutaPreferencesNotifyInt func,
-                                         gpointer data,
-                                         GFreeFunc destroy_notify);
-
-guint anjuta_preferences_notify_add_string (AnjutaPreferences *pr,
-                                            const gchar *key,
-                                            AnjutaPreferencesNotify func,
-                                            gpointer data,
-                                            GFreeFunc destroy_notify);
-
-guint anjuta_preferences_notify_add_bool (AnjutaPreferences *pr,
-                                          const gchar *key,
-                                          AnjutaPreferencesNotifyBool func,
-                                          gpointer data,
-                                          GFreeFunc destroy_notify);
-
+guint anjuta_preferences_notify_add (AnjutaPreferences *pr,
+                                     const gchar *key,
+                                     AnjutaPreferencesNotify func,
+                                     gpointer data);
+                              
 void anjuta_preferences_notify_remove (AnjutaPreferences *pr, guint notify_id);
 
 const gchar* anjuta_preferences_get_prefix (AnjutaPreferences *pr);
