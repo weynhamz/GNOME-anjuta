@@ -1040,14 +1040,14 @@ imessage_view_append (IAnjutaMessageView *message_view,
 				break;
 			case IANJUTA_MESSAGE_VIEW_TYPE_WARNING:
 				color = anjuta_preferences_get (anjuta_preferences_default(),
-									  "messages.color.warning");
+									  "msgman-color-warning");
 				/* FIXME: There is no GTK_STOCK_WARNING which would fit better here */
 				view->privat->warn_count++;
 				stock_id = GTK_STOCK_DIALOG_WARNING;
 				break;
 			case IANJUTA_MESSAGE_VIEW_TYPE_ERROR:
 				color = anjuta_preferences_get (anjuta_preferences_default(),
-									  "messages.color.error");
+									  "msgman-color-error");
 				view->privat->error_count++;
 				stock_id = GTK_STOCK_STOP;
 				break;

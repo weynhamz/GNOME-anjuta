@@ -124,7 +124,7 @@
                 <property name="column_spacing">5</property>
                 <property name="row_spacing">5</property>
                 <child>
-                  <object class="GtkSpinButton" id="preferences_spin:int:50:0:truncat.mesg.first">
+                  <object class="GtkSpinButton" id="preferences_spin:int:50:0:msgman-truncat-first">
                     <property name="can_focus">True</property>
                     <property name="adjustment">adjustment1</property>
                     <property name="climb_rate">1</property>
@@ -140,7 +140,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkSpinButton" id="preferences_spin:int:50:0:truncat.mesg.last">
+                  <object class="GtkSpinButton" id="preferences_spin:int:50:0:msgman-truncat-first">
                     <property name="can_focus">True</property>
                     <property name="adjustment">adjustment2</property>
                     <property name="climb_rate">1</property>
@@ -180,7 +180,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkCheckButton" id="preferences_toggle:bool:0:0:truncat.messages">
+                  <object class="GtkCheckButton" id="preferences_toggle:bool:0:0:msgman-truncate">
                     <property name="label" translatable="yes">Truncate long messages</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
@@ -270,7 +270,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkComboBox" id="preferences_combo:text:Underline-Plain,Underline-Squiggle,Underline-TT,Diagonal,Strike-Out:0:indicators.style.normal">
+                  <object class="GtkComboBox" id="preferences_combo:text:Underline-Plain,Underline-Squiggle,Underline-TT,Diagonal,Strike-Out:0:msgman-style-normal">
                     <property name="visible">True</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                     <property name="model">model2</property>
@@ -287,7 +287,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkComboBox" id="preferences_combo:text:Underline-Plain,Underline-Squiggle,Underline-TT,Diagonal,Strike-Out:0:indicators.style.warning">
+                  <object class="GtkComboBox" id="preferences_combo:text:Underline-Plain,Underline-Squiggle,Underline-TT,Diagonal,Strike-Out:0:msgman-style-warning">
                     <property name="visible">True</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                     <property name="model">model3</property>
@@ -306,7 +306,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkComboBox" id="preferences_combo:text:Underline-Plain,Underline-Squiggle,Underline-TT,Diagonal,Strike-Out:0:indicators.style.error">
+                  <object class="GtkComboBox" id="preferences_combo:text:Underline-Plain,Underline-Squiggle,Underline-TT,Diagonal,Strike-Out:0:msgman-style-error">
                     <property name="visible">True</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                     <property name="model">model4</property>
@@ -355,7 +355,7 @@
                 <property name="column_spacing">5</property>
                 <property name="row_spacing">5</property>
                 <child>
-                  <object class="GtkColorButton" id="preferences_color:color:#FF0000:0:messages.color.error">
+                  <object class="GtkColorButton" id="preferences_color:color:#FF0000:0:msgman-color-error">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
@@ -368,7 +368,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkColorButton" id="preferences_color:color:#00FF00:0:messages.color.warning">
+                  <object class="GtkColorButton" id="preferences_color:color:#00FF00:0:msgman-color-warning">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
