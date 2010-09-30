@@ -79,7 +79,7 @@ struct _GdbPluginClass
 /* Terminal functions
  *---------------------------------------------------------------------------*/
 
-#define PREF_TERMINAL_COMMAND "anjuta.command.terminal"
+#define PREF_TERMINAL_COMMAND "terminal_command"
 
 static void
 gdb_plugin_stop_terminal (GdbPlugin* plugin)
