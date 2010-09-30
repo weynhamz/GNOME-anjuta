@@ -39,11 +39,11 @@
 #define FILE_MANAGER_BUILDER PACKAGE_DATA_DIR"/glade/file-manager.ui"
 #define FILE_MANAGER_BUILDER_ROOT "filemanager_prefs"
 
-#define PREF_ROOT "filemanager.root"
-#define PREF_FILTER_BINARY "filemanager.filter.binary"
-#define PREF_FILTER_HIDDEN "filemanager.filter.hidden"
-#define PREF_FILTER_BACKUP "filemanager.filter.backup"
-#define PREF_FILTER_UNVERSIONED "filemanager.filter.unversioned"
+#define PREF_ROOT "filemanager-root"
+#define PREF_FILTER_BINARY "filemanager-filter-binary"
+#define PREF_FILTER_HIDDEN "filemanager-filter-hidden"
+#define PREF_FILTER_BACKUP "filemanager-filter-backup"
+#define PREF_FILTER_UNVERSIONED "filemanager-filter-unversioned"
 
 #define REGISTER_NOTIFY(key, func) \
 	notify_id = anjuta_preferences_notify_add (prefs, \
