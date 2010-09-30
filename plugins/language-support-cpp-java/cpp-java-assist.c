@@ -39,10 +39,10 @@
 #include "cpp-java-assist.h"
 #include "cpp-java-utils.h"
 
-#define PREF_AUTOCOMPLETE_ENABLE "language.cpp.code.completion.enable"
-#define PREF_AUTOCOMPLETE_SPACE_AFTER_FUNC "language.cpp.code.completion.space.after.func"
-#define PREF_AUTOCOMPLETE_BRACE_AFTER_FUNC "language.cpp.code.completion.brace.after.func"
-#define PREF_CALLTIP_ENABLE "language.cpp.code.calltip.enable"
+#define PREF_AUTOCOMPLETE_ENABLE "cpp-completion-enable"
+#define PREF_AUTOCOMPLETE_SPACE_AFTER_FUNC "cpp-completion-space-after-func"
+#define PREF_AUTOCOMPLETE_BRACE_AFTER_FUNC "cpp-completion-brace-after-func"
+#define PREF_CALLTIP_ENABLE "cpp-calltip-enable"
 #define BRACE_SEARCH_LIMIT 500
 
 static void cpp_java_assist_iface_init(IAnjutaProviderIface* iface);

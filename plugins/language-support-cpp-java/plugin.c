@@ -53,12 +53,12 @@
 
 /* Preferences keys */
 
-#define PREF_INDENT_AUTOMATIC "language.cpp.indent.automatic"
-#define PREF_INDENT_STATEMENT_SIZE "language.cpp.indent.statement.size"
-#define PREF_INDENT_BRACE_SIZE "language.cpp.indent.brace.size"
-#define PREF_INDENT_PARANTHESE_LINEUP "language.cpp.indent.paranthese.lineup"
-#define PREF_INDENT_PARANTHESE_SIZE "language.cpp.indent.paranthese.size"
-#define PREF_BRACE_AUTOCOMPLETION "language.cpp.brace.autocompletion"
+#define PREF_INDENT_AUTOMATIC "cpp-indent-automatic"
+#define PREF_INDENT_STATEMENT_SIZE "cpp-indent-statement-size"
+#define PREF_INDENT_BRACE_SIZE "cpp-indent-brace-size"
+#define PREF_INDENT_PARANTHESE_LINEUP "cpp-indent-paranthese-lineup"
+#define PREF_INDENT_PARANTHESE_SIZE "cpp-indent-paranthese-size"
+#define PREF_BRACE_AUTOCOMPLETION "cpp-brace-autocompletion"
 
 #define TAB_SIZE (ianjuta_editor_get_tabsize (editor, NULL))
 
