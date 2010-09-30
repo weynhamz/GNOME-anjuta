@@ -42,10 +42,10 @@
 #define ICON_FILE "anjuta-editor-sourceview-plugin-48.png"
 
 #define COMBO_STYLES "combo_styles"
-#define SOURCEVIEW_STYLE "sourceview.style"
+#define SOURCEVIEW_STYLE "sourceview-style"
 
-#define FONT_USE_THEME_BUTTON "preferences_toggle:bool:1:0:sourceview.font.use_theme"
-#define FONT_BUTTON "preferences_font:font:Monospace 12:0:sourceview.font"
+#define FONT_USE_THEME_BUTTON "preferences_toggle:bool:1:0:sourceview-font-use-theme"
+#define FONT_BUTTON "preferences_font:font:Monospace 12:0:sourceview-font"
 
 static gpointer parent_class;
 

@@ -188,10 +188,10 @@ static void sourceview_create_highligth_indic(Sourceview* sv)
 {
 	char* error_color =
 		anjuta_preferences_get (anjuta_preferences_default(),
-		                        "messages.color.error");
+		                        "msgman-color-error");
 	char* warning_color =
 		anjuta_preferences_get (anjuta_preferences_default (),
-		                        "messages.color.warning");
+		                        "msgman-color-error");
 	sv->priv->important_indic = 
 		gtk_text_buffer_create_tag (GTK_TEXT_BUFFER(sv->priv->document),
 									IMPORTANT_INDIC,

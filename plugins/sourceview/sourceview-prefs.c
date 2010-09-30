@@ -30,28 +30,28 @@
 	sv->priv->notify_ids = g_list_prepend (sv->priv->notify_ids, \
 										   GUINT_TO_POINTER(notify_id));
 /* Editor preferences */
-#define HIGHLIGHT_SYNTAX           "sourceview.syntax.highlight"
-#define HIGHLIGHT_CURRENT_LINE	   "sourceview.currentline.highlight"
-#define USE_TABS                   "use.tabs"
-#define HIGHLIGHT_BRACKETS         "sourceview.brackets.highlight"
+#define HIGHLIGHT_SYNTAX           "sourceview-syntax-highlight"
+#define HIGHLIGHT_CURRENT_LINE	   "sourceview-currentline-highlight"
+#define USE_TABS                   "use-tabs"
+#define HIGHLIGHT_BRACKETS         "sourceview-brackets-highlight"
 #define TAB_SIZE                   "tabsize"
-#define INDENT_SIZE                "indent.size"
-#define AUTOCOMPLETION             "sourceview.autocomplete"
+#define INDENT_SIZE                "indent-size"
+#define AUTOCOMPLETION             "sourceview-autocomplete"
 
-#define VIEW_LINENUMBERS           "margin.linenumber.visible"
-#define VIEW_MARKS                 "margin.marker.visible"
-#define VIEW_RIGHTMARGIN           "sourceview.rightmargin.visible"
-#define VIEW_WHITE_SPACES          "view.whitespace"
-#define VIEW_EOL                   "view.eol"
-#define VIEW_LINE_WRAP             "view.line.wrap"
-#define RIGHTMARGIN_POSITION       "sourceview.rightmargin.position"
+#define VIEW_LINENUMBERS           "margin-linenumber-visible"
+#define VIEW_MARKS                 "margin-marker-visible"
+#define VIEW_RIGHTMARGIN           "sourceview-rightmargin-visible"
+#define VIEW_WHITE_SPACES          "docman-whitespace"
+#define VIEW_EOL                   "docman-eol"
+#define VIEW_LINE_WRAP             "docman-line-wrap"
+#define RIGHTMARGIN_POSITION       "sourceview-rightmargin-position"
 
-#define COLOR_ERROR								 "messages.color.error"
-#define COLOR_WARNING							 "messages.color.warning"
+#define COLOR_ERROR							 "msgman-color-error"
+#define COLOR_WARNING							 "msgman-color.warning"
 
 
-#define FONT_THEME "sourceview.font.use_theme"
-#define FONT "sourceview.font"
+#define FONT_THEME "sourceview-font-use-theme"
+#define FONT "sourceview-font"
 #define DESKTOP_FIXED_FONT "/desktop/gnome/interface/monospace_font_name"
 
 
@@ -311,10 +311,10 @@ on_notify_indic_colors (AnjutaPreferences* prefs,
 {
 	char* error_color =
 		anjuta_preferences_get (anjuta_preferences_default(),
-		                        "messages.color.error");
+		                        COLOR_ERROR);
 	char* warning_color =
 		anjuta_preferences_get (anjuta_preferences_default(),
-		                        "messages.color.warning");
+		                        COLOR_WARNING);
 	Sourceview* sv = ANJUTA_SOURCEVIEW (user_data);
 
 	g_object_set (sv->priv->warning_indic, "foreground", warning_color, NULL);
@@ -340,6 +340,8 @@ init_fonts(Sourceview* sv)
 	}
 	else
 	{
+		/* FIXME: Get font from GSettings */
+#if 0	
 		GConfClient *gclient;
 		gchar *desktop_fixed_font;
 		
@@ -352,6 +354,7 @@ init_fonts(Sourceview* sv)
 			anjuta_view_set_font(sv->priv->view, TRUE, NULL);
 		g_free (desktop_fixed_font);
 		g_object_unref (gclient);
+#endif
 	}
 }
 
