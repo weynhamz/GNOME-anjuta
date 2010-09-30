@@ -1112,13 +1112,13 @@ npw_druid_add_default_property (NPWDruid* druid)
 
 	/* Add default base project directory */
 	value = npw_value_heap_find_value (druid->values, ANJUTA_PROJECT_DIRECTORY_PROPERTY);
-	s = anjuta_preferences_get (pref, "anjuta.project.directory");
+	s = anjuta_preferences_get (pref, "project_directory");
 	npw_value_set_value (value, s == NULL ? "~" : s, NPW_VALID_VALUE);
 	g_free (s);
 	
 	/* Add user name */
 	value = npw_value_heap_find_value (druid->values, USER_NAME_PROPERTY);
-	s = anjuta_preferences_get (pref, "anjuta.user.name");
+	s = anjuta_preferences_get (pref, "user_name");
 	if (!s || strlen(s) == 0)
 	{
 		s = (gchar *)g_get_real_name();
@@ -1131,7 +1131,7 @@ npw_druid_add_default_property (NPWDruid* druid)
 	}
 	/* Add Email address */
 	value = npw_value_heap_find_value (druid->values, EMAIL_ADDRESS_PROPERTY);
-	s = anjuta_preferences_get (pref, "anjuta.user.email");
+	s = anjuta_preferences_get (pref, "user_email");
 	/* If Email address not defined in Preferences */
 	if (!s || strlen(s) == 0)
 	{
