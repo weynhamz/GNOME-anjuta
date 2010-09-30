@@ -456,9 +456,9 @@ iwizard_activate (IAnjutaWizard *wiz, G_GNUC_UNUSED GError **err)
 	cg_plugin->window = cg_window_new ();
 
 	user_name = anjuta_preferences_get (cg_plugin->prefs,
-	                                    "anjuta.user.name");
+	                                    "user-name");
 	user_email = anjuta_preferences_get (cg_plugin->prefs,
-	                                     "anjuta.user.email");
+	                                     "user-email");
 	
 	if (user_name != NULL)
 		cg_window_set_author (cg_plugin->window, user_name);
