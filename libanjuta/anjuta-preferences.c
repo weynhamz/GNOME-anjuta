@@ -128,7 +128,7 @@ typedef struct
 /* Data for notifications */
 
 #define PREFERENCE_PROPERTY_PREFIX "preferences_"
-#define GSETTINGS_SCHEME "anjuta_preferences"
+#define GSETTINGS_SCHEME "org.gnome.anjuta"
 
 /**
  * anjuta_preferences_get:
@@ -869,7 +869,7 @@ anjuta_preferences_instance_init (AnjutaPreferences *pr)
 	                                                 NULL, 
 	                                                 g_free);
 	
-	pr->priv->gsettings = g_settings_new ("anjuta-preferences");
+	pr->priv->gsettings = g_settings_new ("org.gnome.anjuta");
 
 }
 
@@ -958,15 +958,16 @@ anjuta_preferences_notify_add (AnjutaPreferences *pr,
 {
 	gchar* signal_name = g_strdup_printf ("changed::%s", key);
 	AnjutaPreferencesNotifyData* ndata = g_new0 (AnjutaPreferencesNotifyData, 1);
-	guint id = g_signal_connect (pr->priv->gsettings, signal_name,
+	ndata->id = g_signal_connect (pr->priv->gsettings, signal_name,
 	                             G_CALLBACK (preferences_key_changed),
 	                             ndata);
+	ndata->pr = pr;
 	ndata->func = func;
 	ndata->data = data;
 	g_hash_table_insert (pr->priv->notifications,
-	                     GUINT_TO_POINTER(id),
-	                     data);
-	return id;
+	                     &ndata->id,
+	                     ndata);
+	return ndata->id;
 }
 
 /**
@@ -980,7 +981,7 @@ void
 anjuta_preferences_notify_remove (AnjutaPreferences *pr, guint notify_id)
 {
 	g_signal_handler_disconnect (pr->priv->gsettings, notify_id);
-	g_hash_table_remove (pr->priv->notifications, GUINT_TO_POINTER(notify_id));
+	g_hash_table_remove (pr->priv->notifications, &notify_id);
 }
 
 /**
