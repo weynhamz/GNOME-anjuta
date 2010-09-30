@@ -611,9 +611,9 @@ anjuta_app_instance_init (AnjutaApp *app)
 	g_object_add_weak_pointer (G_OBJECT (app->preferences),
 							   (gpointer)&app->preferences);
 	
-	anjuta_preferences_notify_add (app->preferences, "anjuta.gdl.style",
+	anjuta_preferences_notify_add (app->preferences, "gdl-style",
 	                               on_gdl_style_changed, app);
-	on_gdl_style_changed (app->preferences, "anjuta.gdl.style", app);
+	on_gdl_style_changed (app->preferences, "gdl-style", app);
 	
 	/* Register actions */
 	anjuta_ui_add_action_group_entries (app->ui, "ActionGroupFile", _("File"),
@@ -654,17 +654,17 @@ anjuta_app_instance_init (AnjutaApp *app)
 	/* create toolbar */	
 	app->toolbar = gtk_ui_manager_get_widget (GTK_UI_MANAGER (app->ui),
 										 "/ToolbarMain");
-    if (!anjuta_preferences_get_bool (app->preferences, "anjuta.toolbar.visible"))
+    if (!anjuta_preferences_get_bool (app->preferences, "toolbar-visible"))
 		gtk_widget_hide (app->toolbar);
 	gtk_box_pack_start (GTK_BOX (main_box), app->toolbar, FALSE, FALSE, 0);
 	action = gtk_ui_manager_get_action (GTK_UI_MANAGER (app->ui),
 										"/MenuMain/MenuView/Toolbar");
 	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION(action),
 								  anjuta_preferences_get_bool (app->preferences,
-								                               "anjuta.toolbar.visible"));
-	anjuta_preferences_notify_add (app->preferences, "anjuta.toolbar.style",
+								                               "toolbar-visible"));
+	anjuta_preferences_notify_add (app->preferences, "toolbar-style",
 								   on_toolbar_style_changed, app);
-	on_toolbar_style_changed (app->preferences, "anjuta.toolbar.style", app);
+	on_toolbar_style_changed (app->preferences, "toolbar-style", app);
 
 	/* Create widgets menu */
 	view_menu = 

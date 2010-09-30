@@ -29,9 +29,9 @@
 
 #include "anjuta.h"
 
-#define ANJUTA_REMEMBERED_PLUGINS "anjuta.remembered.plugins"
-#define ANJUTA_SESSION_SKIP_LAST "anjuta.session.skip.last"
-#define ANJUTA_SESSION_SKIP_LAST_FILES "anjuta.session.skip.last.files"
+#define ANJUTA_REMEMBERED_PLUGINS "remembered-plugins"
+#define ANJUTA_SESSION_SKIP_LAST "session-skip-last"
+#define ANJUTA_SESSION_SKIP_LAST_FILES "session-skip-last-files"
 #define USER_SESSION_PATH_NEW (anjuta_util_get_user_cache_file_path ("session/", NULL))
 
 #define DEFAULT_PROFILE "file://"PACKAGE_DATA_DIR"/profiles/default.profile"
