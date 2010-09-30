@@ -25,9 +25,9 @@
 #include "plugin.h"
 #include "util.h"
 
-#define HIGHLIGHT_MISSEDSEMICOLON "javascript.missed"
-#define GIR_DIR_KEY "javascript.girdir"
-#define GJS_DIR_KEY "javascript.gjsdir"
+#define HIGHLIGHT_MISSEDSEMICOLON "javascript_missed"
+#define GIR_DIR_KEY "javascript_girdir"
+#define GJS_DIR_KEY "javascript_gjsdir"
 
 static gchar*
 get_gjs_path ()
