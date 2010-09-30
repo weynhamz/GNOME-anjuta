@@ -58,8 +58,8 @@
 #define GCONF_LOGIN_SHELL         "login_shell"
 #define GCONF_UPDATE_RECORDS      "update_records"
 
-#define PREFS_TERMINAL_PROFILE_USE_DEFAULT    "terminal.default.profile"
-#define PREFS_TERMINAL_PROFILE                "terminal.profile"
+#define PREFS_TERMINAL_PROFILE_USE_DEFAULT    "terminal-default-profile"
+#define PREFS_TERMINAL_PROFILE                "terminal-profile"
 
 #include <gconf/gconf-client.h>
 #include <vte/vte.h>
