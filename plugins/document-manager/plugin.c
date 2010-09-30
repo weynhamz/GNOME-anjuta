@@ -427,13 +427,13 @@ static struct ActionToggleGroupInfo action_toggle_groups[] = {
 // void pref_set_style_combo(DocmanPlugin *plugin);
 
 
-#define VIEW_LINENUMBERS_MARGIN    "margin.linenumber.visible"
-#define VIEW_MARKER_MARGIN         "margin.marker.visible"
-#define VIEW_FOLD_MARGIN           "margin.fold.visible"
-#define VIEW_INDENTATION_GUIDES    "view.indentation.guides"
-#define VIEW_WHITE_SPACES          "view.whitespace"
-#define VIEW_EOL                   "view.eol"
-#define VIEW_LINE_WRAP             "view.line.wrap"
+#define VIEW_LINENUMBERS_MARGIN    "docman-linenumber-visible"
+#define VIEW_MARKER_MARGIN         "docman-marker-visible"
+#define VIEW_FOLD_MARGIN           "docman-fold-visible"
+#define VIEW_INDENTATION_GUIDES    "docman-indentation-guides"
+#define VIEW_WHITE_SPACES          "docman-whitespace"
+#define VIEW_EOL                   "docman-eol"
+#define VIEW_LINE_WRAP             "docman-line-wrap"
 
 #define MAX_TITLE_LENGTH 80
 
@@ -906,7 +906,7 @@ register_stock_icons (AnjutaPlugin *plugin)
 	END_REGISTER_ICON;
 }
 
-#define TEXT_ZOOM_FACTOR           "text.zoom.factor"
+#define TEXT_ZOOM_FACTOR           "text_zoom_factor"
 
 static void
 update_status (DocmanPlugin *plugin, IAnjutaEditor *te)
@@ -1327,12 +1327,12 @@ on_window_key_press_event (AnjutaShell *shell,
 	return TRUE;
 }
 
-#define EDITOR_TABS_RECENT_FIRST   "editor.tabs.recent.first"
-#define EDITOR_TABS_POS            "editor.tabs.pos"
-#define EDITOR_TABS_HIDE           "editor.tabs.hide"
-#define EDITOR_TABS_ORDERING       "editor.tabs.ordering"
-#define AUTOSAVE_TIMER             "autosave.timer"
-#define SAVE_AUTOMATIC             "save.automatic"
+#define EDITOR_TABS_RECENT_FIRST   "docman-tabs-recent-first"
+#define EDITOR_TABS_POS            "docman-tabs-pos"
+#define EDITOR_TABS_HIDE           "docman-tabs-hide"
+#define EDITOR_TABS_ORDERING       "docman-tabs-ordering"
+#define AUTOSAVE_TIMER             "docman-autosave-timer"
+#define SAVE_AUTOMATIC             "docman-automatic-save"
 
 static gboolean
 on_window_key_release_event (AnjutaShell *shell,

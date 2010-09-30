@@ -48,10 +48,10 @@ enum
 };
 
 /* Preference keys */
-#define EDITOR_TABS_POS            "editor.tabs.pos"
-#define EDITOR_TABS_HIDE           "editor.tabs.hide"
-#define EDITOR_TABS_ORDERING       "editor.tabs.ordering"
-#define EDITOR_TABS_RECENT_FIRST   "editor.tabs.recent.first"
+#define EDITOR_TABS_POS            "docman-tabs-pos"
+#define EDITOR_TABS_HIDE           "docman-tabs-hide"
+#define EDITOR_TABS_ORDERING       "docman-tabs-ordering"
+#define EDITOR_TABS_RECENT_FIRST   "docman-tabs-recent-first"
 
 typedef struct _AnjutaDocmanPage AnjutaDocmanPage;
 

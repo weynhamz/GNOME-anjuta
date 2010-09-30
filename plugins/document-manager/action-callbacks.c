@@ -733,13 +733,13 @@ on_goto_block_end1_activate (GtkAction *action, gpointer user_data)
 		ianjuta_editor_goto_end_block (IANJUTA_EDITOR_GOTO (doc), NULL);
 }
 
-#define VIEW_LINENUMBERS_MARGIN    "margin.linenumber.visible"
-#define VIEW_MARKER_MARGIN         "margin.marker.visible"
-#define VIEW_FOLD_MARGIN           "margin.fold.visible"
-#define VIEW_INDENTATION_GUIDES    "view.indentation.guides"
-#define VIEW_WHITE_SPACES          "view.whitespace"
-#define VIEW_EOL                   "view.eol"
-#define VIEW_LINE_WRAP             "view.line.wrap"
+#define VIEW_LINENUMBERS_MARGIN    "docman-linenumber-visible"
+#define VIEW_MARKER_MARGIN         "docman-marker-visible"
+#define VIEW_FOLD_MARGIN           "docman-fold-visible"
+#define VIEW_INDENTATION_GUIDES    "docman-indentation-guides"
+#define VIEW_WHITE_SPACES          "docman-whitespace"
+#define VIEW_EOL                   "docman-eol"
+#define VIEW_LINE_WRAP             "docman-line-wrap"
 
 void
 on_editor_linenos1_activate (GtkAction *action, gpointer user_data)
