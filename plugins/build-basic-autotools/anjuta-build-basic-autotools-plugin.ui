@@ -163,10 +163,10 @@
       <action-widget response="-5">okbutton3</action-widget>
     </action-widgets>
   </object>
-  <object class="GtkWindow" id="preferences_dialog_build">
+  <object class="GtkWindow" id="preferences-dialog-build">
     <property name="title" translatable="yes">window1</property>
     <child>
-      <object class="GtkVBox" id="preferences_build_container">
+      <object class="GtkVBox" id="preferences-build-container">
         <property name="visible">True</property>
         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
         <child>
@@ -190,7 +190,7 @@
                         <property name="visible">True</property>
                         <property name="spacing">6</property>
                         <child>
-                          <object class="GtkCheckButton" id="preferences_toggle:bool:0:0:build.parallel.make">
+                          <object class="GtkCheckButton" id="preferences_toggle:bool:0:0:build-parallel-make">
                             <property name="label" translatable="yes">Run several commands at a time:</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
@@ -204,7 +204,7 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkSpinButton" id="preferences_spin:int:1:0:build.parallel.make.job">
+                          <object class="GtkSpinButton" id="preferences_spin:int:1:0:build-parallel-make-job">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="xalign">1</property>
@@ -227,7 +227,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="preferences_toggle:bool:0:0:build.continue.error">
+                      <object class="GtkCheckButton" id="preferences_toggle:bool:0:0:build-continue-error">
                         <property name="label" translatable="yes">Continue on errors</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -242,7 +242,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:build.translate.message">
+                      <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:build-translate-message">
                         <property name="label" translatable="yes">Translate messages</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -254,7 +254,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="preferences_toggle:bool:0:0:indicators.automatic">
+                      <object class="GtkCheckButton" id="preferences_toggle:bool:0:0:build-indicators-automatic">
                         <property name="label" translatable="yes">Highlight message locations in editor</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -311,7 +311,7 @@
                         <property name="visible">True</property>
                         <property name="spacing">6</property>
                         <child>
-                          <object class="GtkCheckButton" id="preferences_toggle:bool:0:0:build.install.root">
+                          <object class="GtkCheckButton" id="preferences_toggle:bool:0:0:build-install-root">
                             <property name="label" translatable="yes">Install as root:</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
@@ -326,7 +326,7 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkEntry" id="preferences_entry:text:sudo:0:build.install.root.command">
+                          <object class="GtkEntry" id="preferences_entry:text:sudo:0:build-install-root-command">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                           </object>
