@@ -38,7 +38,7 @@
 #define PREF_USE_SB "build.use_scratchbox"
 #define PREF_SB_PATH "build.scratchbox.path"
 
-#define PREF_TERMINAL_COMMAND "anjuta.command.terminal"
+#define PREF_TERMINAL_COMMAND "terminal-command"
 
 /*----------------------------------------------------------------------------
  * Type definitions
