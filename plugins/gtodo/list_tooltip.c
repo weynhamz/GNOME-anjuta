@@ -185,7 +185,7 @@ gboolean mw_tooltip_timeout(GtkWidget *tv)
 gboolean mw_motion_cb (GtkWidget *tv, GdkEventMotion *event, gpointer null)
 {
 	GtkTreePath *path;
-	if(!anjuta_preferences_get_bool(preferences, "gtodo.show-tooltip")) return FALSE;
+	if(!anjuta_preferences_get_bool(preferences, "gtodo-show-tooltip")) return FALSE;
 
 	if(rect.y == 0 && rect.height == 0 && gtodo_timeout)
 	{
