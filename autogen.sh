@@ -25,4 +25,6 @@ sh -c "cd $srcdir/libanjuta/interfaces && \
 perl anjuta-idl-compiler.pl libanjuta && \
 touch iface-built.stamp"
 
+autopoint --force || exit $?
+
 REQUIRED_AUTOMAKE_VERSION=1.11 GNOME_DATADIR="$gnome_datadir" USE_GNOME2_MACROS=1 USE_COMMON_DOC_BUILD=yes . gnome-autogen.sh
