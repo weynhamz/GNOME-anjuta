@@ -36,7 +36,6 @@
 
 #include "search-replace_backend.h"
 #include "search-replace.h"
-#include "search_preferences.h"
 
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <glib/gi18n.h>
@@ -163,8 +162,6 @@ static GladeWidget glade_widgets[] = {
 	{GE_COMBO_ENTRY, "replace.string.combo", NULL, NULL},
 	/* ACTIONS_MAX */
 	{GE_TEXT, "actions.max", NULL, NULL},
-	/* SETTING_PREF_ENTRY */
-	{GE_TEXT, "setting.pref.entry", NULL, NULL},
 	/* SEARCH_REGEX */
 	{GE_BOOLEAN, "search.regex", NULL, NULL},
 	/* GREEDY */
@@ -195,8 +192,6 @@ static GladeWidget glade_widgets[] = {
 	{GE_BOOLEAN, "search.forward", NULL, NULL},
 	/* SEARCH_BACKWARD */
 	{GE_BOOLEAN, "search.backward", NULL, NULL},
-	/* SEARCH_BASIC */
-	{GE_BOOLEAN, "search.basic", NULL, NULL},
 	/* SEARCH_STRING_COMBO */
 	{GE_COMBO, "search.string.combo", NULL, NULL},
 	/* SEARCH_TARGET_COMBO */
@@ -217,8 +212,6 @@ static GladeWidget glade_widgets[] = {
 	{GE_COMBO, "replace.string.combo", NULL, NULL},
 	/* SEARCH_DIRECTION_COMBO */
 	{GE_COMBO, "search.direction.combo", search_direction_strings, NULL},
-	/* SETTING_PREF_TREEVIEW */
-	{GE_NONE, "setting.pref.treeview", NULL, NULL},
 	{GE_NONE, NULL, NULL, NULL}
 };
 
@@ -255,7 +248,7 @@ static void search_set_toggle_direction(SearchDirection dir);
 static void search_disconnect_set_toggle_connect(GladeWidgetId id, 
 	GCallback function, gboolean active);
 static void search_replace_next_previous(SearchDirection dir);
-static void basic_search_toggled(void);
+
 
 static SearchReplaceGUI *sg = NULL;
 
@@ -1213,8 +1206,6 @@ search_replace_populate(void)
 	populate_value(SEARCH_TARGET_COMBO, &(sr->search.range.type));
 	populate_value(SEARCH_DIRECTION_COMBO, &(sr->search.range.direction));
 	populate_value(ACTIONS_NO_LIMIT, &(sr->search.expr.no_limit));
-
-	populate_value(SEARCH_BASIC, &(sr->search.basic_search));
 	
 	if (sr->search.expr.no_limit)
 		sr->search.expr.actions_max = G_MAXINT;	
@@ -1347,9 +1338,6 @@ create_dialog(void)
 	widget = sr_get_gladewidget(SEARCH_TARGET_COMBO)->widget;
 	g_signal_connect (widget, "changed", G_CALLBACK (on_search_target_changed), NULL);
 
-
-	search_preferences_initialize_setting_treeview(sg->dialog);
-	search_preferences_init();
 
 	gtk_builder_connect_signals (sg->bxml, NULL);
 	return TRUE;
@@ -1509,14 +1497,9 @@ search_update_dialog(void)
 	
 	widget = sr_get_gladewidget(SEARCH_TARGET_COMBO)->widget;
 	search_select_item (GTK_COMBO_BOX(widget), s->range.type);
-	
-	widget = sr_get_gladewidget(SEARCH_BASIC)->widget;
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), s->basic_search);
 
 	widget = sr_get_gladewidget(STOP_BUTTON)->widget; 	
 	gtk_widget_set_sensitive (widget, FALSE);
-
-	basic_search_toggled();
 }
 
 /* -------------- Callbacks --------------------- */
@@ -1985,17 +1968,6 @@ on_setting_basic_search_toggled (GtkToggleButton *togglebutton,
 	}
 	else
 		gtk_widget_hide(frame_basic);
-}
-
-
-static void
-basic_search_toggled(void)
-{
-	GtkToggleButton *togglebutton;
-	
-	togglebutton = GTK_TOGGLE_BUTTON(sr_get_gladewidget(SEARCH_BASIC)->widget);
-	
-	on_setting_basic_search_toggled (togglebutton, NULL);
 }
 
 /***********************************************************************/
