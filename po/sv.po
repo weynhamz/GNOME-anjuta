@@ -8,10 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-03 23:11+0200\n"
-"PO-Revision-Date: 2010-09-03 23:21+0100\n"
+"POT-Creation-Date: 2010-10-02 05:54+0200\n"
+"PO-Revision-Date: 2010-10-02 05:59+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -446,7 +447,7 @@ msgstr "Om du inte sparar kommer alla dina ändringar att gå förlorade."
 
 #: ../libanjuta/anjuta-save-prompt.c:189
 #: ../plugins/document-manager/plugin.c:605
-#: ../plugins/snippets-manager/snippets-editor.ui.h:9
+#: ../plugins/snippets-manager/snippets-editor.ui.h:11
 msgid "Save"
 msgstr "Spara"
 
@@ -1443,7 +1444,7 @@ msgid "Failed to write autogen definition file"
 msgstr "Misslyckades med att skriva definitionsfil för autogen"
 
 #: ../plugins/class-gen/plugin.c:98
-#: ../plugins/project-wizard/druid.c:1160
+#: ../plugins/project-wizard/druid.c:1157
 msgid "Could not find autogen version 5; please install the autogen package. You can get it from http://autogen.sourceforge.net."
 msgstr "Kunde inte hitta autogen version 5. Installera paketet autogen. Du kan hämta det från http://autogen.sourceforge.net."
 
@@ -1472,6 +1473,7 @@ msgstr "Implementation"
 #: ../plugins/class-gen/window.c:533
 #: ../plugins/debug-manager/breakpoints.c:1952
 #: ../plugins/debug-manager/debug_tree.c:128
+#: ../plugins/snippets-manager/snippets-editor.c:38
 msgid "Type"
 msgstr "Typ"
 
@@ -1481,7 +1483,9 @@ msgstr "Typ"
 #: ../plugins/class-gen/window.c:534
 #: ../plugins/run-program/parameters.c:754
 #: ../plugins/search/search_preferences.c:534
+#: ../plugins/snippets-manager/plugin.c:751
 #: ../plugins/snippets-manager/snippets-browser.c:530
+#: ../plugins/snippets-manager/snippets-editor.c:37
 msgid "Name"
 msgstr "Namn"
 
@@ -2977,7 +2981,7 @@ msgstr "Byt namn"
 #: ../plugins/document-manager/anjuta-bookmarks.c:340
 #: ../plugins/gtodo/callback.c:20
 #: ../plugins/gtodo/callback.c:101
-#: ../plugins/snippets-manager/snippets-editor.ui.h:8
+#: ../plugins/snippets-manager/snippets-editor.ui.h:10
 msgid "Remove"
 msgstr "Ta bort"
 
@@ -4300,7 +4304,7 @@ msgstr "Ange gruppnamn"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2973
 msgid "Group name can only contain alphanumeric, '_', '-' or '.' characters"
-msgstr "Gruppnamn kan endast innehålla alfanumeriska tecken, \"_\", \"-\" eller \".\""
+msgstr "Gruppnamn får endast innehålla alfanumeriska tecken, \"_\", \"-\" eller \".\""
 
 #: ../plugins/gbf-am/gbf-am-project.c:2982
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2925
@@ -4329,7 +4333,7 @@ msgstr "Ange målnamn"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3227
 msgid "Target name can only contain alphanumeric, '_', '-' or '.' characters"
-msgstr "Målnamn kan endast innehålla alfanumeriska tecken, \"_\", \"-\" eller \".\""
+msgstr "Målnamn får endast innehålla alfanumeriska tecken, \"_\", \"-\" eller \".\""
 
 #: ../plugins/gbf-am/gbf-am-project.c:3236
 msgid "Shared library target name must be of the form 'libxxx.la'"
@@ -4365,7 +4369,7 @@ msgstr "Källkoden finns inte"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3532
 msgid "Source file name can only contain alphanumeric, '_', '-' or '.' characters"
-msgstr "Källkodsfilnamn kan endast innehålla alfanumeriska tecken, \"_\", \"-\" eller \".\""
+msgstr "Källkodsfilnamn får endast innehålla alfanumeriska tecken, \"_\", \"-\" eller \".\""
 
 #: ../plugins/gbf-am/gbf-am-project.c:3612
 msgid "Source file is already in given target"
@@ -7319,7 +7323,7 @@ msgstr "Ogiltig post"
 msgid "Dubious entry"
 msgstr "Tveksam post"
 
-#: ../plugins/project-wizard/druid.c:884
+#: ../plugins/project-wizard/druid.c:881
 #, c-format
 msgid ""
 "\n"
@@ -7328,7 +7332,7 @@ msgstr ""
 "\n"
 "Saknade program: %s."
 
-#: ../plugins/project-wizard/druid.c:895
+#: ../plugins/project-wizard/druid.c:892
 #, c-format
 msgid ""
 "\n"
@@ -7337,23 +7341,23 @@ msgstr ""
 "\n"
 "Saknade paket: %s."
 
-#: ../plugins/project-wizard/druid.c:904
+#: ../plugins/project-wizard/druid.c:901
 msgid "Some important programs or development packages required to build this project are missing. Please make sure they are installed properly before generating the project.\n"
 msgstr "Några viktiga program eller utvecklingspaket som krävs för att bygga detta projekt saknas. Försäkra dig om att de är korrekt installerade innan projektet genereras.\n"
 
-#: ../plugins/project-wizard/druid.c:912
+#: ../plugins/project-wizard/druid.c:909
 msgid "Install missing packages"
 msgstr "Installera saknade paket"
 
-#: ../plugins/project-wizard/druid.c:920
+#: ../plugins/project-wizard/druid.c:917
 msgid "The missing programs are usually part of some distrubution packages and can be searched for in your Application Manager. Similarly, the development packages are contained in special packages that your distribution provides to allow development of projects based on them. They usually end with a \"-dev\" or \"-devel\" suffix in package names and can be found by searching in your Application Manager."
 msgstr "De saknade programmen är oftast en del av några distributionspaket och kan sökas efter i din programhanterare. På samma sätt finns utvecklingspaketen i speciella paket som din distribution tillhandahåller för att tillåta utveckling av projekt baserade på dem. Dessa slutar oftast med \"-dev\" eller \"-devel\" i paketnamnen och kan hittas genom att söka efter dem i din programhanterare."
 
-#: ../plugins/project-wizard/druid.c:928
+#: ../plugins/project-wizard/druid.c:925
 msgid "Missing components"
 msgstr "Saknade komponenter"
 
-#: ../plugins/project-wizard/druid.c:1060
+#: ../plugins/project-wizard/druid.c:1057
 #, c-format
 msgid "Unable to build project assistant user interface reading %s."
 msgstr "Kunde inte bygga användargränssnitt för projektguiden vid läsning av %s."
@@ -8539,49 +8543,72 @@ msgid "Unable to build user interface for Search and Replace"
 msgstr "Kan inte bygga användargränssnitt för Sök och ersätt"
 
 #: ../plugins/snippets-manager/plugin.c:60
-#: ../plugins/snippets-manager/plugin.c:292
+#: ../plugins/snippets-manager/plugin.c:302
 #: ../plugins/snippets-manager/snippets-browser.c:208
 msgid "Snippets"
 msgstr "Kodsnuttar"
 
-#: ../plugins/snippets-manager/plugin.c:67
+#. Translator: Appears in Edit->Snippets menu. It is used mainly for providing a
+#. shortcut for the trigger-key based insertion of snippets. It's called like this
+#. because you type the trigger-key in the editor, followed by Trigger Insert and
+#. the snippet gets inserted.
+#: ../plugins/snippets-manager/plugin.c:71
 msgid "_Trigger insert"
 msgstr "A_ktivera infogning"
 
-#: ../plugins/snippets-manager/plugin.c:69
+#: ../plugins/snippets-manager/plugin.c:73
 msgid "Insert a snippet using the trigger-key"
 msgstr "Infoga en kodsnutt med aktiverartangenten"
 
-#: ../plugins/snippets-manager/plugin.c:74
+#. Translator: In a similar matter, it also appears in Edit->Snippets. It's another method
+#. for inserting snippets. In this case, you call Auto complete insert, start
+#. typing in the editor a string, the database is searched for that string and the
+#. most relevant snippets are returned in a pop-up like the auto-complete one
+#. (they are showed by their names). After selecting one of them, the snippet gets
+#. inserted.
+#: ../plugins/snippets-manager/plugin.c:84
 msgid "_Auto complete insert"
 msgstr "Infoga med a_utomatisk komplettering"
 
-#: ../plugins/snippets-manager/plugin.c:76
+#: ../plugins/snippets-manager/plugin.c:86
 msgid "Insert a snippet using auto-completion"
 msgstr "Infoga en kodsnutt med automatisk komplettering"
 
-#: ../plugins/snippets-manager/plugin.c:81
+#: ../plugins/snippets-manager/plugin.c:91
 msgid "_Import snippets …"
 msgstr "_Importera kodsnuttar …"
 
-#: ../plugins/snippets-manager/plugin.c:83
+#: ../plugins/snippets-manager/plugin.c:93
 msgid "Import snippets to the database"
 msgstr "Importera kodsnuttar till databasen"
 
-#: ../plugins/snippets-manager/plugin.c:88
+#: ../plugins/snippets-manager/plugin.c:98
 msgid "_Export snippets …"
 msgstr "_Exportera kodsnuttar …"
 
-#: ../plugins/snippets-manager/plugin.c:90
+#: ../plugins/snippets-manager/plugin.c:100
 msgid "Export snippets from the database"
 msgstr "Exportera kodsnuttar från databasen"
 
-#: ../plugins/snippets-manager/plugin.c:317
+#: ../plugins/snippets-manager/plugin.c:327
 msgid "Snippets Manager actions"
 msgstr "Åtgärder för kodsnuttshanterare"
 
-#: ../plugins/snippets-manager/plugin.c:919
-#: ../plugins/snippets-manager/plugin.c:956
+#: ../plugins/snippets-manager/plugin.c:767
+msgid "Command?"
+msgstr "Kommando?"
+
+#: ../plugins/snippets-manager/plugin.c:783
+msgid "Variable text"
+msgstr "Variabeltext"
+
+#: ../plugins/snippets-manager/plugin.c:801
+#: ../plugins/snippets-manager/snippets-editor.c:40
+msgid "Instant value"
+msgstr "Direktvärde"
+
+#: ../plugins/snippets-manager/plugin.c:929
+#: ../plugins/snippets-manager/plugin.c:966
 #: ../plugins/snippets-manager/snippets-provider.c:753
 #: ../plugins/snippets-manager/anjuta-snippets-manager.plugin.in.h:2
 msgid "Code Snippets"
@@ -8605,43 +8632,71 @@ msgstr "Lägg till kodsnutt ..."
 msgid "Add Snippets Group …"
 msgstr "Lägg till kodsnuttsgrupp ..."
 
+#: ../plugins/snippets-manager/snippets-editor.c:39
+msgid "Default value"
+msgstr "Standardvärde"
+
+#: ../plugins/snippets-manager/snippets-editor.c:48
+msgid "<b>Error:</b> You must choose at least one language for the snippet!"
+msgstr "<b>Fel:</b> Du måste välja minst ett språk för kodsnutten!"
+
+#: ../plugins/snippets-manager/snippets-editor.c:49
+msgid "<b>Error:</b> The trigger key is already in use for one of the languages!"
+msgstr "<b>Fel:</b> Aktiverartangenten används redan för ett av språken!"
+
+#: ../plugins/snippets-manager/snippets-editor.c:50
+msgid "<b>Error:</b> The trigger key can only contain alphanumeric characters and _ !"
+msgstr "<b>Fel:</b> Aktiverartangenten får endast innehålla alfanumeriska tecken och _!"
+
+#: ../plugins/snippets-manager/snippets-editor.c:51
+msgid "<b>Error:</b> You haven't entered a trigger key for the snippet!"
+msgstr "<b>Fel:</b> Du har inte angivit en aktiverartangent för kodsnutten!"
+
 #: ../plugins/snippets-manager/snippets-editor.ui.h:1
+msgid "<b>Error:</b> The snippet must belong to a group!"
+msgstr "<b>Fel:</b> Kodsnutten måste tillhöra en grupp!"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:2
+msgid "<b>Warning:</b> You should choose a name for the snippet!"
+msgstr "<b>Varning:</b> Du bör välja ett namn för kodsnutten!"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:3
 msgid "Add"
 msgstr "Lägg till"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:2
+#: ../plugins/snippets-manager/snippets-editor.ui.h:4
 msgid "Close"
 msgstr "Stäng"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:3
+#: ../plugins/snippets-manager/snippets-editor.ui.h:5
 msgid "Insert"
 msgstr "Infoga"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:4
+#: ../plugins/snippets-manager/snippets-editor.ui.h:6
 msgid "Keywords are used for better searching of the snippets. They should be relevant to the snippet content. Type them separated by a single space."
 msgstr "Nyckelord används för bättre sökningar efter kodsnuttar. De ska vara relevanta till kodsnuttens innehåll. Ange dem separerade med ett blanksteg."
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:5
+#: ../plugins/snippets-manager/snippets-editor.ui.h:7
 msgid "Keywords:"
 msgstr "Nyckelord:"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:6
+#: ../plugins/snippets-manager/snippets-editor.ui.h:8
 msgid "Languages:"
 msgstr "Språk:"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:7
+#: ../plugins/snippets-manager/snippets-editor.ui.h:9
 msgid "Preview"
 msgstr "Förhandsvisa"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:10
+#: ../plugins/snippets-manager/snippets-editor.ui.h:12
 msgid "Select the Snippets Group to which this snippet belongs."
 msgstr "Välj den kodsnuttsgrupp till vilken denna kodsnutt tillhör."
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:11
+#: ../plugins/snippets-manager/snippets-editor.ui.h:13
 msgid "Select the languages for which you want to use this snippet."
 msgstr "Välj de språk för vilka du vill använda denna kodsnutt."
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:12
+#: ../plugins/snippets-manager/snippets-editor.ui.h:14
 msgid ""
 "Select the name of the Snippet. \n"
 "The role of the name is purely informative."
@@ -8649,27 +8704,35 @@ msgstr ""
 "Välj ett namn för kodsnutten. \n"
 "Namnet är endast för informativt syfte."
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:14
+#: ../plugins/snippets-manager/snippets-editor.ui.h:16
 msgid "Snippet Content"
 msgstr "Kodsnuttens innehåll"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:15
+#: ../plugins/snippets-manager/snippets-editor.ui.h:17
 msgid "Snippet Name:"
 msgstr "Namn för kodsnutt:"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:16
+#: ../plugins/snippets-manager/snippets-editor.ui.h:18
 msgid "Snippet Properties"
 msgstr "Egenskaper för kodsnutt"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:17
+#: ../plugins/snippets-manager/snippets-editor.ui.h:19
 msgid "Snippet Variables"
 msgstr "Variabler för kodsnutt"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:18
+#: ../plugins/snippets-manager/snippets-editor.ui.h:20
 msgid "Snippets Group:"
 msgstr "Kodsnuttsgrupp:"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:19
+#: ../plugins/snippets-manager/snippets-editor.ui.h:21
+msgid ""
+"The trigger key is used for fast insertion of the snippet. Type the trigger key in the editor, followed by the \"Fast Insert\" shortcut to insert a snippet.\n"
+"<b>Warning: Must be unique per language. </b>"
+msgstr ""
+"Aktiverartangenten används för snabb infogning av kodsnutten. Ange aktiverartangenten i redigeraren följt av genvägen för \"Snabb infogning\" för att infoga en kodsnutt.\n"
+"<b>Varning: Måste vara unik för språket. </b>"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:23
 msgid "Trigger Key:"
 msgstr "Aktiverartangent:"
 
@@ -13440,8 +13503,6 @@ msgstr "Symbol"
 #~ "\" ska skapas"
 #~ msgid "Layout managment"
 #~ msgstr "Layouthantering"
-#~ msgid "Default title"
-#~ msgstr "Standardtitel"
 #~ msgid "Default title for newly created floating docks"
 #~ msgstr "Standardtitel för nyligen skapade flytande dockor"
 #~ msgid ""
