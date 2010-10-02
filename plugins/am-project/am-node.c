@@ -341,36 +341,32 @@ anjuta_am_package_node_class_init (AnjutaAmPackageNodeClass *klass)
 
 
 void
-amp_group_add_token (AnjutaProjectNode *node, AnjutaToken *token, AmpGroupTokenCategory category)
+amp_group_add_token (AnjutaAmGroupNode *group, AnjutaToken *token, AmpGroupTokenCategory category)
 {
-	AnjutaAmGroupNode *group = ANJUTA_AM_GROUP_NODE (node);
-	
 	group->tokens[category] = g_list_prepend (group->tokens[category], token);
 }
 
 GList *
-amp_group_get_token (AnjutaProjectNode *node, AmpGroupTokenCategory category)
+amp_group_get_token (AnjutaAmGroupNode *group, AmpGroupTokenCategory category)
 {
-	AnjutaAmGroupNode *group = ANJUTA_AM_GROUP_NODE (node);
-
 	return group->tokens[category];
 }
 
 AnjutaToken*
-amp_group_get_first_token (AnjutaProjectNode *node, AmpGroupTokenCategory category)
+amp_group_get_first_token (AnjutaAmGroupNode *group, AmpGroupTokenCategory category)
 {
 	GList *list;
 	
-	list = amp_group_get_token (node, category);
+	list = amp_group_get_token (group, category);
 	if (list == NULL) return NULL;
 
 	return (AnjutaToken *)list->data;
 }
 
 void
-amp_group_set_dist_only (AnjutaProjectNode *node, gboolean dist_only)
+amp_group_set_dist_only (AnjutaAmGroupNode *group, gboolean dist_only)
 {
- 	ANJUTA_AM_GROUP_NODE (node)->dist_only = dist_only;
+ 	group->dist_only = dist_only;
 }
 
 static void
@@ -405,11 +401,8 @@ on_group_monitor_changed (GFileMonitor *monitor,
 }
 
 AnjutaTokenFile*
-amp_group_set_makefile (AnjutaProjectNode *node, GFile *makefile, GObject* project)
+amp_group_set_makefile (AnjutaAmGroupNode *group, GFile *makefile, GObject* project)
 {
-	AnjutaAmGroupNode *group;
-
- 	group = ANJUTA_AM_GROUP_NODE (node);
 	if (group->makefile != NULL) g_object_unref (group->makefile);
 	if (group->tfile != NULL) anjuta_token_file_free (group->tfile);
 	if (makefile != NULL)
@@ -422,9 +415,10 @@ amp_group_set_makefile (AnjutaProjectNode *node, GFile *makefile, GObject* proje
 
 		token = anjuta_token_file_load (group->tfile, NULL);
 			
-		scanner = amp_am_scanner_new (project, ANJUTA_AM_GROUP_NODE (node));
+		scanner = amp_am_scanner_new (project, group);
 		group->make_token = amp_am_scanner_parse_token (scanner, anjuta_token_new_static (ANJUTA_TOKEN_FILE, NULL), token, makefile, NULL);
 		amp_am_scanner_free (scanner);
+		fprintf (stderr, "group->make_token %p\n", group->make_token);
 
 		group->monitor = g_file_monitor_file (makefile, 
 						      									G_FILE_MONITOR_NONE,
@@ -432,12 +426,12 @@ amp_group_set_makefile (AnjutaProjectNode *node, GFile *makefile, GObject* proje
 						       									NULL);
 		if (group->monitor != NULL)
 		{
-			g_message ("add monitor %s node %p data %p project %p monitor %p", g_file_get_path (makefile), node, group, project, group->monitor);
+			g_message ("add monitor %s node %p data %p project %p monitor %p", g_file_get_path (makefile), group, group, project, group->monitor);
 			group->project = project;
 			g_signal_connect (G_OBJECT (group->monitor),
 					  "changed",
 					  G_CALLBACK (on_group_monitor_changed),
-					  node);
+					  group);
 		}
 	}
 	else
@@ -452,7 +446,19 @@ amp_group_set_makefile (AnjutaProjectNode *node, GFile *makefile, GObject* proje
 	return group->tfile;
 }
 
-AnjutaProjectNode*
+AnjutaToken*
+amp_group_get_makefile_token (AnjutaAmGroupNode *group)
+{
+	return group->make_token;
+}
+
+gboolean
+amp_group_update_makefile (AnjutaAmGroupNode *group, AnjutaToken *token)
+{
+	return anjuta_token_file_update (group->tfile, token);
+}
+
+AnjutaAmGroupNode*
 amp_group_new (GFile *file, gboolean dist_only, GError **error)
 {
 	AnjutaAmGroupNode *node = NULL;
@@ -499,7 +505,7 @@ amp_group_new (GFile *file, gboolean dist_only, GError **error)
 	node->dist_only = dist_only;
 	node->variables = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, (GDestroyNotify)amp_variable_free);
 
-    return ANJUTA_PROJECT_NODE (node);	
+    return node;	
 }
 
 void
@@ -582,25 +588,18 @@ anjuta_am_group_node_class_init (AnjutaAmGroupNodeClass *klass)
 
 
 void
-amp_target_add_token (AnjutaProjectNode *node, AnjutaToken *token)
+amp_target_add_token (AnjutaAmTargetNode *target, AnjutaToken *token)
 {
-    AnjutaAmTargetNode *target;
-
- 	target = ANJUTA_AM_TARGET_NODE (node);
 	target->tokens = g_list_prepend (target->tokens, token);
 }
 
 GList *
-amp_target_get_token (AnjutaProjectNode *node)
+amp_target_get_token (AnjutaAmTargetNode *node)
 {
-    AnjutaAmTargetNode *target;
-
- 	target = ANJUTA_AM_TARGET_NODE (node);
-	
-	return target->tokens;
+	return node->tokens;
 }
 
-AnjutaProjectNode*
+AnjutaAmTargetNode*
 amp_target_new (const gchar *name, AnjutaProjectNodeType type, const gchar *install, gint flags, GError **error)
 {
 	AnjutaAmTargetNode *node = NULL;
@@ -659,7 +658,7 @@ amp_target_new (const gchar *name, AnjutaProjectNodeType type, const gchar *inst
 	node->flags = flags;
 	node->tokens = NULL;
 	
-	return ANJUTA_PROJECT_NODE (node);
+	return node;
 }
 
 void

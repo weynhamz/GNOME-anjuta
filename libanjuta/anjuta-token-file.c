@@ -301,7 +301,6 @@ anjuta_token_file_update (AnjutaTokenFile *file, AnjutaToken *token)
 		
 		if (flags & ANJUTA_TOKEN_REMOVED)
 		{
-			anjuta_token_dump (anjuta_token_list (next));
 			next = anjuta_token_file_remove_token (file, next);
 			continue;
 		}
@@ -320,7 +319,7 @@ anjuta_token_file_update (AnjutaTokenFile *file, AnjutaToken *token)
 		AnjutaToken *start = NULL;
 		
 		value = g_new (gchar, added);
-		anjuta_token_prepend_child (file->save, anjuta_token_new_with_string (ANJUTA_TOKEN_NAME, value, added));
+		add = anjuta_token_prepend_child (file->save, anjuta_token_new_with_string (ANJUTA_TOKEN_NAME, value, added));
 		
 		/* Find token position */
 		if (prev != NULL)
@@ -355,12 +354,10 @@ anjuta_token_file_update (AnjutaTokenFile *file, AnjutaToken *token)
 					anjuta_token_set_string (next, value, len);
 					value += len;
 				}
+				anjuta_token_clear_flags (next, ANJUTA_TOKEN_ADDED);
 			}
 		}
 	}
-
-	//fprintf (stdout, "Dump config list from file:\n");
-	//anjuta_token_dump (file->content);
 
 	
 	return TRUE;

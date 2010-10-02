@@ -535,23 +535,15 @@ AnjutaToken *
 anjuta_token_next_item (AnjutaToken *item)
 {
 	AnjutaToken *last;
-	AnjutaToken *next = item;
+	AnjutaToken *next;
 
-	while (next != NULL)
-	{
-		for (last = next; last->last != NULL; last = last->last);
-		next = last->next;
-		if (next == NULL)
-		{
-			next = last->parent;
-		}
-		else
-		{
-			for (; next->children != NULL; next = next->children);
-			break;
-		}
-	}
+	if (item == NULL) return NULL;
 	
+	if ((item->group != NULL) && (item->group->last == item)) return NULL;
+	
+	for (last = item; last->last != NULL; last = last->last);
+	next = last->next;
+
 	return next;
 }
 
@@ -1106,28 +1098,105 @@ AnjutaToken *anjuta_token_cut (AnjutaToken *token, guint pos, guint size)
 	return copy;
 }
 
+/* Token foreach
+ *---------------------------------------------------------------------------*/
+
+void
+anjuta_token_foreach (AnjutaToken *token, AnjutaTokenForeachFunc func, gpointer user_data)
+{
+	if (token != NULL)
+	{
+		AnjutaToken *last_parent;
+		AnjutaToken *last_token;
+		gboolean expand = TRUE;
+
+		last_parent = NULL;
+		last_token = token->last == NULL ? token : token->last;
+		while (token != NULL)
+		{
+			if (expand && (token->children != NULL))
+			{
+				/* Enumerate children */
+				token = token->children;
+			}
+			else
+			{
+				if (token->children == NULL)
+				{    
+					/* Take into account only the content of token having no children */
+					if (last_parent == NULL) 
+					{
+						/* Take into account only the content of group having no children */
+						func (token, user_data);
+					}
+				}
+
+				/* Check if we have found the last token */
+				if (token == last_token)
+				{
+					/* Find last token */
+					if (token->last == NULL)
+					{
+						break;
+					}	
+					/* Last token still include additional tokens */
+					last_token = token->last;
+				}
+
+				if (token == last_parent)
+				{
+					/* Find last parent */
+					if (token->last == NULL)
+					{
+						/* Found complete group having children */
+						last_parent = NULL;
+					}
+					else
+					{
+						/* Parent group has additional token */
+						last_parent = token->last;
+					}
+				}
+
+				if (token->next != NULL)
+				{
+					/* Get next sibling */
+					token = token->next;
+					expand = TRUE;
+				}
+				else
+				{
+					/* Get parent */
+					token = token->parent;
+					last_parent = token->last;
+					expand = FALSE;
+				}
+			}
+		}
+	}
+
+	return;
+}
+
 /* Token evaluation
  *---------------------------------------------------------------------------*/
+
+static void
+evaluate_raw_token (AnjutaToken *token, gpointer user_data)
+{
+	GString *value = (GString *)user_data;
+	
+	anjuta_token_evaluate_token (token, value, TRUE);
+}
+	
 
 gchar *
 anjuta_token_evaluate (AnjutaToken *token)
 {
 	GString *value = g_string_new (NULL);
 
-	if (token != NULL)
-	{
-		AnjutaToken *next;
-		
-		next = anjuta_token_next_item (token);
-		for (; token != next; token = anjuta_token_next2 (token))
-		{
-			if (token->children == NULL)
-			{
-				anjuta_token_evaluate_token (token, value, TRUE);
-			}
-		}
-	}
-
+	anjuta_token_foreach (token, evaluate_raw_token, value);
+	
 	/* Return NULL and free data for an empty string */
 	return g_string_free (value, *(value->str) == '\0');
 }

@@ -161,8 +161,13 @@ amp_am_automake_variable (AnjutaToken *token)
 %%
 
 file:
+	/* empty */
+	| statement_list
+	;
+
+statement_list:
 	statement
-	| file statement
+	| statement_list statement
 	;
 
 statement:
@@ -187,8 +192,13 @@ am_variable:
 	}
 	| optional_space automake_token optional_space equal_token
 	{
+		AnjutaToken *list;
+		list = anjuta_token_new_static (ANJUTA_TOKEN_LIST, NULL);
+		anjuta_token_insert_after ($4, list);
 		$$ = anjuta_token_new_static (ANJUTA_TOKEN_LIST, NULL);
 		anjuta_token_merge ($$, $2);
+		anjuta_token_merge ($$, list);
+		amp_am_scanner_set_am_variable (scanner, amp_am_automake_variable ($2), $2, anjuta_token_last_item ($$));
 	}
 	;
 
@@ -292,7 +302,10 @@ head_list_body:
 	;
 
 value_list:
-	space
+	space {
+		$$ = anjuta_token_new_static (ANJUTA_TOKEN_LIST, NULL);
+		anjuta_token_merge ($$, $1);
+	}
 	| optional_space value_list_body optional_space {
 		if ($1 != NULL) anjuta_token_set_type ($1, ANJUTA_TOKEN_START);
 		if ($3 != NULL) anjuta_token_set_type ($3, ANJUTA_TOKEN_LAST);

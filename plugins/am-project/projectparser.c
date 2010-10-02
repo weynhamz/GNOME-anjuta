@@ -180,6 +180,7 @@ list_children (IAnjutaProject *project, AnjutaProjectNode *root, AnjutaProjectNo
 	count = 0;
 	for (node = anjuta_project_node_first_child (parent); node != NULL; node = anjuta_project_node_next_sibling (node))
 	{
+		if (anjuta_project_node_get_state (node) & ANJUTA_PROJECT_REMOVED) continue;
 		if (anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_MODULE)
 		{
 			gchar *child_path = g_strdup_printf ("%s%s%d", path != NULL ? path : "", path != NULL ? ":" : "", count);
@@ -192,6 +193,7 @@ list_children (IAnjutaProject *project, AnjutaProjectNode *root, AnjutaProjectNo
 	count = 0;
 	for (node = anjuta_project_node_first_child (parent); node != NULL; node = anjuta_project_node_next_sibling (node))
 	{
+		if (anjuta_project_node_get_state (node) & ANJUTA_PROJECT_REMOVED) continue;
 		if (anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_PACKAGE)
 		{
 			gchar *child_path = g_strdup_printf ("%s%s%d", path != NULL ? path : "", path != NULL ? ":" : "", count);
@@ -204,6 +206,7 @@ list_children (IAnjutaProject *project, AnjutaProjectNode *root, AnjutaProjectNo
 	count = 0;
 	for (node = anjuta_project_node_first_child (parent); node != NULL; node = anjuta_project_node_next_sibling (node))
 	{
+		if (anjuta_project_node_get_state (node) & ANJUTA_PROJECT_REMOVED) continue;
 		if (anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_GROUP)
 		{
 			gchar *child_path = g_strdup_printf ("%s%s%d", path != NULL ? path : "", path != NULL ? ":" : "", count);
@@ -216,6 +219,7 @@ list_children (IAnjutaProject *project, AnjutaProjectNode *root, AnjutaProjectNo
 	count = 0;
 	for (node = anjuta_project_node_first_child (parent); node != NULL; node = anjuta_project_node_next_sibling (node))
 	{
+		if (anjuta_project_node_get_state (node) & ANJUTA_PROJECT_REMOVED) continue;
 		if (anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_TARGET)
 		{
 			gchar *child_path = g_strdup_printf ("%s%s%d", path != NULL ? path : "", path != NULL ? ":" : "", count);
@@ -228,6 +232,7 @@ list_children (IAnjutaProject *project, AnjutaProjectNode *root, AnjutaProjectNo
 	count = 0;
 	for (node = anjuta_project_node_first_child (parent); node != NULL; node = anjuta_project_node_next_sibling (node))
 	{
+		if (anjuta_project_node_get_state (node) & ANJUTA_PROJECT_REMOVED) continue;
 		if (anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_SOURCE)
 		{
 			gchar *child_path = g_strdup_printf ("%s%s%d", path != NULL ? path : "", path != NULL ? ":" : "", count);

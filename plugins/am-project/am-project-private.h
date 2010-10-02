@@ -26,18 +26,6 @@
 
 G_BEGIN_DECLS
 
-#if 0
-struct _AmpProperty {
-	AnjutaToken *ac_init;				/* AC_INIT macro */
-	AnjutaToken *args;
-	gchar *name;
-	gchar *version;
-	gchar *bug_report;
-	gchar *tarname;
-	gchar *url;
-};
-#endif
-
 struct _AmpProperty {
 	AnjutaProjectProperty base;
 	gint token_type;
@@ -80,6 +68,15 @@ struct _AmpProject {
 	AnjutaTokenStyle *ac_space_list;
 	AnjutaTokenStyle *am_space_list;
 	AnjutaTokenStyle *arg_list;
+};
+
+typedef struct _AmpNodeInfo AmpNodeInfo;
+
+struct _AmpNodeInfo {
+	AnjutaProjectNodeInfo base;
+	AnjutaTokenType token;
+	const gchar *prefix;
+	const gchar *install;
 };
 
 #define ANJUTA_TYPE_AM_ROOT_NODE				(anjuta_am_root_node_get_type ())

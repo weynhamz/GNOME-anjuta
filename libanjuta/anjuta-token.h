@@ -86,6 +86,8 @@ typedef enum
 
 typedef struct _AnjutaToken AnjutaToken;
 
+typedef void (*AnjutaTokenForeachFunc) (AnjutaToken *token, gpointer data);
+
 AnjutaToken *anjuta_token_new_string (AnjutaTokenType type, const gchar *value);
 AnjutaToken *anjuta_token_new_with_string (AnjutaTokenType type, gchar *value, gsize length);
 AnjutaToken *anjuta_token_new_static (AnjutaTokenType type, const gchar *value);
@@ -109,6 +111,8 @@ AnjutaToken *anjuta_token_last (AnjutaToken *token);
 AnjutaToken *anjuta_token_parent (AnjutaToken *token);
 AnjutaToken *anjuta_token_list (AnjutaToken *token);
 AnjutaToken *anjuta_token_next_after_children (AnjutaToken *token);
+void anjuta_token_foreach (AnjutaToken *token, AnjutaTokenForeachFunc func, gpointer user_data);
+
 
 AnjutaToken *anjuta_token_first_item (AnjutaToken *list);
 AnjutaToken *anjuta_token_next_item (AnjutaToken *item);

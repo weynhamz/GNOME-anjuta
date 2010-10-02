@@ -4,8 +4,8 @@ AT_DATA([empty/configure.ac],
 [[AC_CONFIG_FILES(Makefile)
 ]])
 AT_DATA([empty/Makefile.am],
-[[
-]])
+[[]])
+
 AT_DATA([expect],
 [[    GROUP (0): empty1
         TARGET (0:0): target1
@@ -19,6 +19,7 @@ AT_CHECK([diff output expect])
 AT_PARSER_CHECK([load empty1 \
 		 list])
 AT_CHECK([diff output expect])
+
 AT_DATA([expect],
 [[    GROUP (0): empty2
         TARGET (0:0): target1
@@ -33,4 +34,46 @@ AT_CHECK([diff -b output expect])
 AT_PARSER_CHECK([load empty2 \
 		 list])
 AT_CHECK([diff -b output expect])
+
+AT_DATA([expect],
+[[    GROUP (0): empty3
+        TARGET (0:0): target2
+]])
+AT_PARSER_CHECK([load empty2 \
+		 move empty3 \
+		 remove 0:0 \
+		 list \
+		 save])
+AT_CHECK([diff -b output expect])
+AT_PARSER_CHECK([load empty3 \
+		 list])
+AT_CHECK([diff -b output expect])
+
+AT_DATA([expect],
+[[    GROUP (0): empty4
+]])
+AT_PARSER_CHECK([load empty3 \
+		 move empty4 \
+		 remove 0:0 \
+		 list \
+		 save])
+AT_CHECK([diff -b output expect])
+AT_PARSER_CHECK([load empty4 \
+		 list])
+AT_CHECK([diff -b output expect])
+
+AT_DATA([expect],
+[[    GROUP (0): empty5
+        TARGET (0:0): target1
+]])
+AT_PARSER_CHECK([load empty4 \
+		 move empty5 \
+		 add target 0 target1 3 \
+		 list \
+		 save])
+AT_CHECK([diff -b output expect])
+AT_PARSER_CHECK([load empty5 \
+		 list])
+AT_CHECK([diff -b output expect])
+
 AT_CLEANUP

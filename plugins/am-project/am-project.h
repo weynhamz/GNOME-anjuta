@@ -135,7 +135,6 @@ AnjutaProjectNodeType amp_node_get_type (AnjutaProjectNode *node);
 //void amp_node_all_foreach (AnjutaProjectNode *node, AnjutaProjectNodeFunc func, gpointer data);
 
 GFile *amp_group_get_directory (AnjutaAmGroupNode *group);
-GFile *amp_group_get_makefile (AnjutaAmGroupNode *group);
 gchar *amp_group_get_id (AnjutaAmGroupNode *group);
 void amp_group_update_variable (AnjutaAmGroupNode *group, AnjutaToken *variable);
 AnjutaToken* amp_group_get_variable_token (AnjutaAmGroupNode *group, AnjutaToken *variable);
