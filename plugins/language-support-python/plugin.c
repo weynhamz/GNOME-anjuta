@@ -743,7 +743,7 @@ get_line_indentation_base (PythonPlugin *plugin,
 	else
 	{
 		gint line = currentline;
-		while (is_spaces_only(editor, line))
+		while (is_spaces_only(editor, line) && line >= 0)
 			line--;
 		line_indent = get_line_indentation (editor, line);
 	}
