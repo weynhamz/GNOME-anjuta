@@ -789,6 +789,7 @@ git_log_pane_finalize (GObject *object)
 
 	g_object_unref (self->priv->builder);
 	g_hash_table_destroy (self->priv->branches_table);
+	g_hash_table_unref (self->priv->refs);
 	g_free (self->priv->selected_branch);
 	g_free (self->priv);
 
