@@ -26,6 +26,22 @@ enum
 
 enum
 {
+	LOADING_COL_PULSE,
+	LOADING_COL_INDICATOR
+};
+
+/* Loading view modes */
+typedef enum
+{
+	/* Show the real log viewer */
+	LOG_VIEW_NORMAL,
+
+	/* Show the loading view */
+	LOG_VIEW_LOADING
+} LogViewMode;
+
+enum
+{
 	BRANCH_COL_ACTIVE,
 	BRANCH_COL_ACTIVE_ICON,
 	BRANCH_COL_NAME
@@ -46,6 +62,14 @@ struct _GitLogPanePriv
 	gchar *selected_branch;
 	gboolean viewing_active_branch;
 	GtkTreeIter active_branch_iter;
+
+	/* Loading spinner data */
+	guint current_spin_count;
+	guint spin_cycle_steps;
+	guint spin_cycle_duration;
+	gint spin_timer_id;
+	GtkListStore *log_loading_model;
+	GtkTreeIter spinner_iter;
 };
 
 G_DEFINE_TYPE (GitLogPane, git_log_pane, GIT_TYPE_PANE);
@@ -156,6 +180,64 @@ on_branch_list_command_data_arrived (AnjutaCommand *command,
 	
 }
 
+static gboolean
+on_spinner_timeout (GitLogPane *self)
+{
+	if (self->priv->current_spin_count == self->priv->spin_cycle_steps)
+		self->priv->current_spin_count = 0;
+	else
+		self->priv->current_spin_count++;
+
+	gtk_list_store_set (self->priv->log_loading_model,
+	                    &(self->priv->spinner_iter),
+	                    LOADING_COL_PULSE,
+	                    self->priv->current_spin_count,
+	                    -1);
+	return TRUE;
+}
+
+static void
+git_log_pane_set_view_mode (GitLogPane *self, LogViewMode mode)
+{
+	GtkNotebook *loading_notebook;
+
+	loading_notebook = GTK_NOTEBOOK (gtk_builder_get_object (self->priv->builder,
+	                                                         "loading_notebook"));
+
+	switch (mode)
+	{
+		case LOG_VIEW_LOADING:
+			/* Don't create more than one timer */
+			if (self->priv->spin_timer_id <= 0)
+			{
+				self->priv->spin_timer_id = g_timeout_add ((guint) self->priv->spin_cycle_duration / self->priv->spin_cycle_steps,
+				                                           (GSourceFunc) on_spinner_timeout,
+				                                           self);
+			}
+			
+			break;
+		case LOG_VIEW_NORMAL:
+			if (self->priv->spin_timer_id > 0)
+			{
+				g_source_remove (self->priv->spin_timer_id);
+				self->priv->spin_timer_id = 0;
+			}
+
+			/* Reset the spinner */
+			self->priv->current_spin_count = 0;
+
+			gtk_list_store_set (self->priv->log_loading_model,
+			                    &(self->priv->spinner_iter), 
+			                    LOADING_COL_PULSE, 0,
+			                    -1);
+			break;
+		default:
+			break;
+	}
+
+	gtk_notebook_set_current_page (loading_notebook, mode);
+}
+
 static void
 on_log_command_finished (AnjutaCommand *command, guint return_code, 
 						 GitLogPane *self)
@@ -164,6 +246,9 @@ on_log_command_finished (AnjutaCommand *command, guint return_code,
 	GQueue *queue;
 	GtkTreeIter iter;
 	GitRevision *revision;
+
+	/* Show the actual log view */
+	git_log_pane_set_view_mode (self, LOG_VIEW_NORMAL);
 	
 	if (return_code != 0)
 	{
@@ -227,6 +312,9 @@ refresh_log (GitLogPane *self)
 	                  self);
 
 	gtk_list_store_clear (self->priv->log_model);
+
+	/* Show the loading spinner */
+	git_log_pane_set_view_mode (self, LOG_VIEW_LOADING);
 
 	anjuta_command_start (ANJUTA_COMMAND (log_command));
 }
@@ -466,9 +554,7 @@ on_log_view_query_tooltip (GtkWidget *log_view, gint x, gint y,
 	}
 	
 	gtk_tree_path_free (path);
-	return ret;
-	
-	
+	return ret;	
 }
 
 static void
@@ -546,6 +632,12 @@ git_log_pane_init (GitLogPane *self)
 	GtkCellRenderer *short_log_renderer;
 	GtkCellRenderer *author_renderer;
 	GtkCellRenderer *date_renderer;
+	GtkTreeViewColumn *loading_spinner_column;
+	GtkCellRenderer *loading_spinner_renderer;
+	GtkCellRenderer *loading_indicator_renderer;
+	GtkStyle *style;
+	GValue cycle_duration_value = {0,};
+	GValue num_steps_value = {0,};
 	GtkComboBox *branch_combo;
 	GtkTreeSelection *selection;
 
@@ -580,6 +672,8 @@ git_log_pane_init (GitLogPane *self)
 	                                                           "date_renderer"));
 	branch_combo = GTK_COMBO_BOX (gtk_builder_get_object (self->priv->builder,
 	                                                      "branch_combo"));
+	loading_spinner_column = GTK_TREE_VIEW_COLUMN (gtk_builder_get_object (self->priv->builder,
+	                                                                       "loading_spinner_column"));
 	selection = gtk_tree_view_get_selection (log_view);
 
 	/* Set up the log model */
@@ -626,6 +720,50 @@ git_log_pane_init (GitLogPane *self)
 	g_signal_connect (G_OBJECT (log_view), "query-tooltip",
 	                  G_CALLBACK (on_log_view_query_tooltip),
 	                  self);
+
+	/* Loading indicator. The loading indicator is a second tree view display
+	 * that looks just like the real log display, except that it displays a 
+	 * spinner renderer and the text "Loading..." in the Short Log column. */
+	self->priv->log_loading_model = GTK_LIST_STORE (gtk_builder_get_object (self->priv->builder,
+	                                                                        "log_loading_model"));
+	loading_spinner_renderer = gtk_cell_renderer_spinner_new ();
+	loading_indicator_renderer = gtk_cell_renderer_text_new ();
+
+	g_object_set (G_OBJECT (loading_spinner_renderer), "active", TRUE, NULL);
+
+	gtk_tree_view_column_pack_start (loading_spinner_column, 
+	                                 loading_spinner_renderer, FALSE);
+	gtk_tree_view_column_pack_start (loading_spinner_column, 
+	                                 loading_indicator_renderer, TRUE);
+	gtk_tree_view_column_add_attribute (loading_spinner_column,
+	                                    loading_spinner_renderer,
+	                                    "pulse", LOADING_COL_PULSE);
+	gtk_tree_view_column_add_attribute (loading_spinner_column,
+	                                    loading_indicator_renderer,
+	                                    "text", LOADING_COL_INDICATOR);
+
+	/* The loading view always has one row. Cache a copy of its iter for easy
+	 * access. */
+	gtk_tree_model_get_iter_first (GTK_TREE_MODEL (self->priv->log_loading_model), 
+	                               &(self->priv->spinner_iter));
+
+	/* Get some information about spinner cycles from the theme */
+	style = gtk_widget_get_style (GTK_WIDGET (log_view));
+	g_value_init (&cycle_duration_value, G_TYPE_UINT);
+	g_value_init (&num_steps_value, G_TYPE_UINT);
+	
+	gtk_style_get_style_property (style, GTK_TYPE_SPINNER, "cycle-duration",
+	                              &cycle_duration_value);
+	gtk_style_get_style_property (style, GTK_TYPE_SPINNER, "num_steps",
+	                              &num_steps_value);
+
+	self->priv->spin_cycle_duration = g_value_get_uint (&cycle_duration_value);
+	self->priv->spin_cycle_steps = g_value_get_uint (&num_steps_value);
+
+	g_value_unset (&cycle_duration_value);
+	g_value_unset (&num_steps_value);
+
+	g_object_set (G_OBJECT (loading_spinner_renderer), "active", TRUE, NULL);
 
 	/* Log message display */
 	gtk_tree_selection_set_select_function (selection,

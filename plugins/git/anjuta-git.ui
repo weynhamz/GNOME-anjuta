@@ -1241,6 +1241,7 @@
                               <object class="GtkTreeView" id="loading_view">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
+                                <property name="model">log_loading_model</property>
                                 <child>
                                   <object class="GtkTreeViewColumn" id="treeviewcolumn1"/>
                                 </child>
