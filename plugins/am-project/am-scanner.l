@@ -52,7 +52,7 @@ struct _AmpAmScanner
 	AmpProject *project;
 	AnjutaAmGroupNode *group;
 	GHashTable *orphan_properties;
-	gboolean eof;
+	gboolean eof;		/* TRUE to emit EOF at the end */
 };
 
 %}
@@ -206,24 +206,31 @@ NAME          [^ \t\n\r:#=$"'`&@\\]*
 static gint
 amp_am_scanner_parse_end (AmpAmScanner *scanner)
 {
-    if (scanner->stream == NULL)
-    {
-        yyterminate();
-    }
-    else
-    {
-        yypop_buffer_state(scanner->scanner);
+
+   	if (scanner->stream == NULL)
+   	{
+		yyterminate();
+	}
+   	else
+   	{
+		if (scanner->eof)
+		{
+			scanner->eof = FALSE;
+			return END_OF_FILE;
+		}
+       	yypop_buffer_state(scanner->scanner);
         scanner->stream = anjuta_token_stream_pop (scanner->stream);
 
-        if (scanner->stream == NULL)
-        {
-            yyterminate();
-        }
-        else
-        {
-            return 1;
-        }
-    }
+		if (scanner->stream == NULL)
+		{
+			yyterminate();
+		}
+		else
+		{
+			/* Continue parsing the parent file */
+			return 1;
+		}
+	}
 }
 
 /* Parser functions
@@ -306,6 +313,8 @@ amp_am_scanner_parse_token (AmpAmScanner *scanner, AnjutaToken *root, AnjutaToke
 
     stream = anjuta_token_stream_push (scanner->stream, root, content, filename);
     first = anjuta_token_stream_get_root (stream);
+
+	scanner->eof = filename != NULL;
 
     if (scanner->stream != NULL)
     {

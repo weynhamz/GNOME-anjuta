@@ -568,6 +568,8 @@ anjuta_token_insert_word_after (AnjutaToken *list, AnjutaToken *sibling, AnjutaT
 	{
 		AnjutaToken *next;
 		
+		next = anjuta_token_next_item (token);
+		
 		fprintf(stderr, "anjuta_token_first_item list %p sibling %p item %p token %p\n", list, sibling, item, token);
 		switch (anjuta_token_get_type (token))
 		{
@@ -576,9 +578,9 @@ anjuta_token_insert_word_after (AnjutaToken *list, AnjutaToken *sibling, AnjutaT
 			anjuta_token_insert_before (token, item);
 			return item;
 		case ANJUTA_TOKEN_START:		
-			if (token == sibling)
+			if ((sibling == NULL) || (token == sibling))
 			{
-				anjuta_token_insert_after (token, anjuta_token_new_static (ANJUTA_TOKEN_NEXT | ANJUTA_TOKEN_ADDED, NULL));
+				if (next != NULL) anjuta_token_insert_after (token, anjuta_token_new_static (ANJUTA_TOKEN_NEXT | ANJUTA_TOKEN_ADDED, NULL));
 				anjuta_token_insert_after (token, item);
 				return item;
 			}
@@ -601,7 +603,6 @@ anjuta_token_insert_word_after (AnjutaToken *list, AnjutaToken *sibling, AnjutaT
 			break;
 		}
 
-		next = anjuta_token_next_item (token);
 		if (next == NULL)
 		{
 			fprintf(stderr, "anjuta_token_word_after list %p sibling %p item %p token %p\n", list, sibling, item, token);

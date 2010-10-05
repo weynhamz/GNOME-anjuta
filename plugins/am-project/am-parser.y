@@ -160,14 +160,10 @@ amp_am_automake_variable (AnjutaToken *token)
 
 %%
 
+/* File cannot be empty, there at least the END_OF_FILE token */
 file:
-	/* empty */
-	| statement_list
-	;
-
-statement_list:
 	statement
-	| statement_list statement
+	| file statement
 	;
 
 statement:
@@ -304,6 +300,7 @@ head_list_body:
 value_list:
 	space {
 		$$ = anjuta_token_new_static (ANJUTA_TOKEN_LIST, NULL);
+		if ($1 != NULL) anjuta_token_set_type ($1, ANJUTA_TOKEN_START);
 		anjuta_token_merge ($$, $1);
 	}
 	| optional_space value_list_body optional_space {
