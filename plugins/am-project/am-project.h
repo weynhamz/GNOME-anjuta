@@ -100,6 +100,8 @@ gboolean amp_project_dump (AmpProject *project, AnjutaProjectNode *node);
 gchar * amp_project_get_uri (AmpProject *project);
 GFile* amp_project_get_file (AmpProject *project);
 
+void amp_project_add_file (AmpProject *project, GFile *file, AnjutaTokenFile* token);
+
 AnjutaAmGroupNode* amp_project_add_group (AmpProject  *project, AnjutaAmGroupNode *parent, const gchar *name, GError **error);
 AnjutaAmGroupNode* amp_project_add_sibling_group (AmpProject  *project, AnjutaAmGroupNode *parent, const gchar *name, gboolean after, AnjutaAmGroupNode *sibling, GError **error);
 void amp_project_remove_group (AmpProject  *project, AnjutaAmGroupNode *group, GError **error);

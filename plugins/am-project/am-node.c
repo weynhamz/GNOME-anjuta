@@ -458,6 +458,19 @@ amp_group_update_makefile (AnjutaAmGroupNode *group, AnjutaToken *token)
 	return anjuta_token_file_update (group->tfile, token);
 }
 
+gchar *
+amp_group_get_makefile_name (AnjutaAmGroupNode *group)
+{
+	gchar *basename = NULL;
+	
+	if (group->makefile != NULL) 
+	{
+		basename = g_file_get_basename (group->makefile);
+	}
+
+	return basename;
+}
+
 AnjutaAmGroupNode*
 amp_group_new (GFile *file, gboolean dist_only, GError **error)
 {

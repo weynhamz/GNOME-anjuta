@@ -61,6 +61,7 @@ AnjutaToken* amp_group_get_first_token (AnjutaAmGroupNode *group, AmpGroupTokenC
 void amp_group_set_dist_only (AnjutaAmGroupNode *group, gboolean dist_only);
 AnjutaTokenFile* amp_group_set_makefile (AnjutaAmGroupNode *group, GFile *makefile, GObject* project);
 AnjutaToken* amp_group_get_makefile_token (AnjutaAmGroupNode *group);
+gchar *amp_group_get_makefile_name (AnjutaAmGroupNode *group);
 gboolean amp_group_update_makefile (AnjutaAmGroupNode *group, AnjutaToken *token);
 AnjutaAmGroupNode* amp_group_new (GFile *file, gboolean dist_only, GError **error);
 void amp_group_free (AnjutaAmGroupNode *node);

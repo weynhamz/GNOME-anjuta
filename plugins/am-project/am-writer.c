@@ -30,6 +30,7 @@
 
 #include "am-project-private.h"
 #include "am-node.h"
+#include "am-scanner.h"
 
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-utils.h>
@@ -138,6 +139,233 @@ amp_project_write_config_file (AmpProject *project, AnjutaToken *list, gboolean 
 	
 	return token;
 }
+
+
+/* Target objects
+ *---------------------------------------------------------------------------*/
+
+gboolean 
+amp_group_create_token (AmpProject  *project, AnjutaAmGroupNode *group, GError **error)
+{
+	AnjutaAmGroupNode *last;
+	GFile *directory;
+	GFile *makefile;
+	AnjutaToken *list;
+	gchar *basename;
+	AnjutaTokenFile* tfile;
+	AnjutaAmGroupNode *sibling;
+	AnjutaAmGroupNode *parent;
+	gboolean after;
+	gchar *name;
+	
+	/* Get parent target */
+	parent = ANJUTA_AM_GROUP_NODE (anjuta_project_node_parent(ANJUTA_PROJECT_NODE (group)));
+	name = anjuta_project_node_get_name (ANJUTA_PROJECT_NODE (group));
+	directory = g_file_get_child (anjuta_project_node_get_file (ANJUTA_PROJECT_NODE (parent)), name);
+
+	/* Find a sibling if possible */
+	if (anjuta_project_node_prev_sibling (ANJUTA_PROJECT_NODE (group)) != NULL)
+	{
+		sibling = ANJUTA_AM_GROUP_NODE (anjuta_project_node_prev_sibling (ANJUTA_PROJECT_NODE (group)));
+		after = TRUE;
+	}
+	else if (anjuta_project_node_next_sibling (ANJUTA_PROJECT_NODE (group)) != NULL)
+	{
+		sibling = ANJUTA_AM_GROUP_NODE (anjuta_project_node_next_sibling (ANJUTA_PROJECT_NODE (group)));
+		after = FALSE;
+	}
+	else
+	{
+		sibling = NULL;
+		after = TRUE;
+	}
+	
+	/* Create directory */
+	g_file_make_directory (directory, NULL, NULL);
+
+	/* Create Makefile.am */
+	basename = amp_group_get_makefile_name  (parent);
+	if (basename != NULL)
+	{
+		makefile = g_file_get_child (directory, basename);
+		g_free (basename);
+	}
+	else
+	{
+		makefile = g_file_get_child (directory, "Makefile.am");
+	}
+	g_file_replace_contents (makefile, "", 0, NULL, FALSE, G_FILE_CREATE_NONE, NULL, NULL, NULL);
+	tfile = amp_group_set_makefile (group, makefile, G_OBJECT (project));
+	amp_project_add_file (project, makefile, tfile);
+
+	if (sibling == NULL)
+	{
+		/* Find a sibling before */
+		for (last = anjuta_project_node_prev_sibling (group); (last != NULL) && (anjuta_project_node_get_node_type (last) != ANJUTA_PROJECT_GROUP); last = anjuta_project_node_prev_sibling (last));
+		if (last != NULL)
+		{
+			sibling = last;
+			after = TRUE;
+		}
+		else
+		{
+			/* Find a sibling after */
+			for (last = anjuta_project_node_next_sibling (group); (last != NULL) && (anjuta_project_node_get_node_type (last) != ANJUTA_PROJECT_GROUP); last = anjuta_project_node_next_sibling (last));
+			if (last != NULL)
+			{
+				sibling = last;
+				after = FALSE;
+			}
+		}
+	}
+	
+	/* Add in configure */
+	list = NULL;
+	if (sibling) list = amp_group_get_first_token (sibling, AM_GROUP_TOKEN_CONFIGURE);
+	if (list == NULL) list= amp_group_get_first_token (parent, AM_GROUP_TOKEN_CONFIGURE);
+	if (list != NULL) list = anjuta_token_list (list);
+	if (list == NULL)
+	{
+		list = amp_project_write_config_list (project);
+		list = anjuta_token_next (list);
+	}
+	if (list != NULL)
+	{
+		gchar *relative_make;
+		gchar *ext;
+		AnjutaToken *prev = NULL;
+
+		if (sibling)
+		{
+			prev = amp_group_get_first_token (sibling, AM_GROUP_TOKEN_CONFIGURE);
+			/*if ((prev != NULL) && after)
+			{
+				prev = anjuta_token_next_word (prev);
+			}*/
+		}
+		//prev_token = (AnjutaToken *)token_list->data;
+
+		relative_make = g_file_get_relative_path (anjuta_project_node_get_file (project->root), makefile);
+		ext = relative_make + strlen (relative_make) - 3;
+		if (strcmp (ext, ".am") == 0)
+		{
+			*ext = '\0';
+		}
+		//token = anjuta_token_new_string (ANJUTA_TOKEN_NAME | ANJUTA_TOKEN_ADDED,  relative_make);
+		amp_project_write_config_file (project, list, after, prev, relative_make);
+		g_free (relative_make);
+		
+		//style = anjuta_token_style_new (NULL," ","\n",NULL,0);
+		//anjuta_token_add_word (prev_token, token, style);
+		//anjuta_token_style_free (style);
+	}
+
+	/* Add in Makefile.am */
+	if (sibling == NULL)
+	{
+		AnjutaToken *pos;
+		AnjutaToken *makefile;
+		static gint eol_type[] = {ANJUTA_TOKEN_EOL, ANJUTA_TOKEN_SPACE, ANJUTA_TOKEN_COMMENT, 0};
+	
+		makefile = amp_group_get_makefile_token (group);
+		pos = anjuta_token_find_type (makefile, ANJUTA_TOKEN_SEARCH_NOT, eol_type);
+		if (pos == NULL)
+		{
+			pos = anjuta_token_prepend_child (makefile, anjuta_token_new_static (ANJUTA_TOKEN_SPACE, "\n"));
+		}
+
+		list = anjuta_token_insert_token_list (FALSE, pos,
+		    	ANJUTA_TOKEN_SPACE, "\n");
+		list = anjuta_token_insert_token_list (FALSE, list,
+	    		AM_TOKEN_SUBDIRS, "SUBDIRS",
+		    	ANJUTA_TOKEN_SPACE, " ",
+		    	ANJUTA_TOKEN_OPERATOR, "=",
+	    		ANJUTA_TOKEN_LIST, NULL,
+	    		ANJUTA_TOKEN_LAST, NULL,
+	    		NULL);
+		list = anjuta_token_next (anjuta_token_next ( anjuta_token_next (list)));
+	}
+	else
+	{
+		AnjutaToken *prev;
+		
+		prev = amp_group_get_first_token (sibling, AM_GROUP_TOKEN_SUBDIRS);
+		list = anjuta_token_list (prev);
+	}
+
+	if (list != NULL)
+	{
+		AnjutaToken *token;
+		AnjutaToken *prev;
+		AnjutaTokenStyle *style;
+
+		style = anjuta_token_style_new_from_base (project->am_space_list);
+		anjuta_token_style_update (style, list);
+
+		if (sibling)
+		{
+			prev = amp_group_get_first_token (sibling, AM_GROUP_TOKEN_SUBDIRS);
+		}
+		
+		token = anjuta_token_new_string (ANJUTA_TOKEN_NAME | ANJUTA_TOKEN_ADDED, name);
+		if (after)
+		{
+			anjuta_token_insert_word_after (list, prev, token);
+		}
+		else
+		{
+			anjuta_token_insert_word_before (list, prev, token);
+		}
+
+		/* Try to use the same style than the current group list */
+		anjuta_token_style_format (style, list);
+		anjuta_token_style_free (style);
+		
+		amp_group_update_makefile (parent, token);
+		
+		amp_group_add_token (group, token, AM_GROUP_TOKEN_SUBDIRS);
+	}
+	g_free (name);
+
+	return TRUE;
+}
+
+gboolean 
+amp_group_delete_token (AmpProject  *project, AnjutaAmGroupNode *group, GError **error)
+{
+	GList *item;
+	AnjutaProjectNode *parent;
+
+	/* Get parent target */
+	parent =  anjuta_project_node_parent (ANJUTA_PROJECT_NODE (group));
+	if (anjuta_project_node_get_node_type  (parent) != ANJUTA_PROJECT_GROUP) return FALSE;
+
+	for (item = amp_group_get_token (group, AM_GROUP_TOKEN_SUBDIRS); item != NULL; item = g_list_next (item))
+	{
+		AnjutaToken *token = (AnjutaToken *)item->data;
+		AnjutaToken *args;
+		AnjutaTokenStyle *style;
+
+		args = anjuta_token_list (token);
+
+		/* Try to use the same style than the current target list */
+		style = anjuta_token_style_new_from_base (project->am_space_list);
+		anjuta_token_style_update (style, args);
+		
+		anjuta_token_remove_word (token);
+		
+		anjuta_token_style_format (style, args);
+		anjuta_token_style_free (style);
+
+		amp_group_update_makefile (ANJUTA_AM_GROUP_NODE (parent), args);
+	}
+
+	return TRUE;
+}
+
+
+/* Target objects
+ *---------------------------------------------------------------------------*/
 
 static AnjutaToken *
 amp_project_write_target (AnjutaAmGroupNode *group, gint type, const gchar *name, gboolean after, AnjutaToken* sibling)
