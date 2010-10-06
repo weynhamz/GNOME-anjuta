@@ -13,7 +13,7 @@ SUBDIRS = . \
 	project-wizard \
 	project-manager \
 	cvs-plugin \
-	macro \
+	snippets-manager \
 	class-gen \
 	class-inheritance \
 	patch \
@@ -37,7 +37,7 @@ SUBDIRS = . \
 	js-debugger \
 	language-support-js \
 	language-support-vala \
-	language-support-python
+	language-support-python \
 	python-loader
 
 -include $(top_srcdir)/git.mk

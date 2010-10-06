@@ -437,6 +437,10 @@ static struct ActionToggleGroupInfo action_toggle_groups[] = {
 
 #define MAX_TITLE_LENGTH 80
 
+static void
+on_editor_lang_changed (IAnjutaEditor* editor, const gchar* language,
+                        DocmanPlugin* plugin);
+
 static gchar* 
 get_directory_display_name (DocmanPlugin* plugin,
 							GFile* file)
@@ -1067,44 +1071,6 @@ create_highlight_submenu (DocmanPlugin *plugin, IAnjutaEditor *editor)
 }
 
 static void
-on_document_added (AnjutaDocman *docman, IAnjutaDocument *doc,
-				   AnjutaPlugin *plugin)
-{
-	GtkWidget *highlight_submenu, *highlight_menu;
-	DocmanPlugin *docman_plugin;
-	
-	docman_plugin = ANJUTA_PLUGIN_DOCMAN (plugin);
-	g_signal_connect (G_OBJECT (doc), "update_ui",
-					  G_CALLBACK (on_document_update_ui),
-					  docman_plugin);
-	g_signal_connect (G_OBJECT (doc), "update-save-ui",
-					  G_CALLBACK (on_document_update_save_ui),
-					  plugin);
-	/* Present the vbox as this is the widget that was added to the shell */
-	anjuta_shell_present_widget (plugin->shell,
-								 GTK_WIDGET (docman_plugin->vbox), NULL);
-
-	if (IANJUTA_IS_EDITOR (doc))
-	{
-		IAnjutaEditor *te;
-
-		te = IANJUTA_EDITOR (doc);
-	
-		/* Create Highlight submenu */
-		highlight_submenu = 
-			create_highlight_submenu (docman_plugin, te);
-		if (highlight_submenu)
-		{
-			highlight_menu =
-				gtk_ui_manager_get_widget (GTK_UI_MANAGER (docman_plugin->ui),
-						"/MenuMain/MenuView/MenuViewEditor/MenuFormatStyle");
-			gtk_menu_item_set_submenu (GTK_MENU_ITEM (highlight_menu),
-									   highlight_submenu);
-		}
-	}
-}
-
-static void
 on_support_plugin_deactivated (AnjutaPlugin* plugin, DocmanPlugin* docman_plugin)
 {
 	docman_plugin->support_plugins = g_list_remove (docman_plugin->support_plugins, plugin);
@@ -1152,12 +1118,96 @@ unload_unused_support_plugins (DocmanPlugin* docman_plugin,
 }
 
 static void
+update_language_plugin (AnjutaDocman *docman, IAnjutaDocument *doc,
+                        AnjutaPlugin *plugin)
+{
+	if (IANJUTA_IS_EDITOR_LANGUAGE (doc))
+	{
+		DEBUG_PRINT("%s", "Beginning language support");
+		AnjutaPluginManager *plugin_manager;
+		DocmanPlugin* docman_plugin = ANJUTA_PLUGIN_DOCMAN (plugin);
+		IAnjutaLanguage *lang_manager;
+		GList *new_support_plugins, *support_plugin_descs, *needed_plugins, *node;
+		const gchar *language;
+
+		g_signal_handlers_block_by_func (doc, on_editor_lang_changed, plugin);
+		
+		lang_manager = anjuta_shell_get_interface (plugin->shell,
+		                                           IAnjutaLanguage,
+		                                           NULL);
+		if (!lang_manager)
+		{
+			g_warning ("Could not load language manager!");
+			return;
+		}
+		language = ianjuta_language_get_name_from_editor (lang_manager,
+		                                                  IANJUTA_EDITOR_LANGUAGE (doc),
+		                                                  NULL);
+		if (!language)
+		{
+			DEBUG_PRINT ("%s", "Unloading all language support plugins");
+			/* Unload all language support plugins */
+			/* Copy the list because the "deactivate"-signal handler modifies
+			 * the original list */
+			GList* plugins = g_list_copy (docman_plugin->support_plugins);
+			g_list_foreach (plugins, (GFunc) anjuta_plugin_deactivate, NULL);
+			g_list_free (plugins);
+			return;
+		}
+
+		/* Load current language editor support plugins */
+		plugin_manager = anjuta_shell_get_plugin_manager (plugin->shell, NULL);
+		support_plugin_descs = anjuta_plugin_manager_query (plugin_manager,
+		                                                    "Anjuta Plugin",
+		                                                    "Interfaces",
+		                                                    "IAnjutaLanguageSupport",
+		                                                    "Language Support",
+		                                                    "Languages",
+		                                                    language, NULL);
+		new_support_plugins = NULL;
+		for (node = support_plugin_descs; node != NULL; node = g_list_next (node))
+		{
+			gchar *plugin_id;
+
+			AnjutaPluginDescription *desc = node->data;
+
+			anjuta_plugin_description_get_string (desc, "Anjuta Plugin", "Location",
+			                                      &plugin_id);
+
+			new_support_plugins = g_list_append (new_support_plugins, plugin_id);
+		}
+		g_list_free (support_plugin_descs);
+
+		/* Load new plugins */
+		needed_plugins = 
+			load_new_support_plugins (docman_plugin, new_support_plugins,
+			                          plugin_manager);			
+
+		/* Unload unused plugins */
+		unload_unused_support_plugins (docman_plugin, needed_plugins);
+
+		/* Update list */
+		g_list_free (docman_plugin->support_plugins);
+		docman_plugin->support_plugins = needed_plugins;
+
+		if (new_support_plugins)
+		{
+			g_list_foreach (new_support_plugins, (GFunc) g_free, NULL);
+			g_list_free (new_support_plugins);
+		}
+
+		g_signal_handlers_unblock_by_func (doc, on_editor_lang_changed, plugin);
+	}				 
+}
+
+static void
 on_document_changed (AnjutaDocman *docman, IAnjutaDocument *doc,
 					 AnjutaPlugin *plugin)
 {
 	DocmanPlugin *docman_plugin;
 	update_document_ui (plugin, doc);
-	
+
+	docman_plugin = ANJUTA_PLUGIN_DOCMAN (plugin);
 	if (doc)
 	{
 		GValue value = {0, };
@@ -1173,89 +1223,72 @@ on_document_changed (AnjutaDocman *docman, IAnjutaDocument *doc,
 		anjuta_shell_remove_value (plugin->shell, IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
 								   NULL);
 	}
-	docman_plugin = ANJUTA_PLUGIN_DOCMAN (plugin);
+	
 	
 	if (doc && IANJUTA_IS_EDITOR (doc))
 	{
 		update_status (docman_plugin, IANJUTA_EDITOR (doc));
-
-		if (IANJUTA_IS_EDITOR_LANGUAGE (doc))
-		{
-			DEBUG_PRINT("%s", "Beginning language support");
-			AnjutaPluginManager *plugin_manager;
-			IAnjutaLanguage *lang_manager;
-			GList *new_support_plugins, *support_plugin_descs, *needed_plugins, *node;
-			const gchar *language;
-	
-			lang_manager = anjuta_shell_get_interface (plugin->shell,
-														IAnjutaLanguage,
-														NULL);
-			if (!lang_manager)
-			{
-				g_warning ("Could not load language manager!");
-				goto out;
-			}
-			language = ianjuta_language_get_name_from_editor (lang_manager,
-															  IANJUTA_EDITOR_LANGUAGE (doc),
-															  NULL);
-			if (!language)
-			{
-				DEBUG_PRINT ("%s", "Unloading all language support plugins");
-				/* Unload all language support plugins */
-				/* Copy the list because the "deactivate"-signal handler modifies
-				 * the original list */
-				GList* plugins = g_list_copy (docman_plugin->support_plugins);
-				g_list_foreach (plugins, (GFunc) anjuta_plugin_deactivate, NULL);
-				g_list_free (plugins);
-				goto out;
-			}
-
-			/* Load current language editor support plugins */
-			plugin_manager = anjuta_shell_get_plugin_manager (plugin->shell, NULL);
-			support_plugin_descs = anjuta_plugin_manager_query (plugin_manager,
-																"Anjuta Plugin",
-																"Interfaces",
-																"IAnjutaLanguageSupport",
-																"Language Support",
-																"Languages",
-																language, NULL);
-			new_support_plugins = NULL;
-			for (node = support_plugin_descs; node != NULL; node = g_list_next (node))
-			{
-				gchar *plugin_id;
-				
-				AnjutaPluginDescription *desc = node->data;
-				
-				anjuta_plugin_description_get_string (desc, "Anjuta Plugin", "Location",
-													  &plugin_id);
-				
-				new_support_plugins = g_list_append (new_support_plugins, plugin_id);
-			}
-			g_list_free (support_plugin_descs);
-			
-			/* Load new plugins */
-			needed_plugins = 
-				load_new_support_plugins (docman_plugin, new_support_plugins,
-										  plugin_manager);			
-			
-			/* Unload unused plugins */
-			unload_unused_support_plugins (docman_plugin, needed_plugins);
-			
-			/* Update list */
-			g_list_free (docman_plugin->support_plugins);
-			docman_plugin->support_plugins = needed_plugins;
-			
-			if (new_support_plugins)
-			{
-				g_list_foreach (new_support_plugins, (GFunc) g_free, NULL);
-				g_list_free (new_support_plugins);
-			}
-		}
+		update_language_plugin (docman, doc, plugin);
 	}
 	else
 		update_status (docman_plugin, NULL);
-out:
+
 	update_title (ANJUTA_PLUGIN_DOCMAN (plugin));
+}
+
+static void
+on_editor_lang_changed (IAnjutaEditor* editor,
+                        const gchar* language,
+                        DocmanPlugin* plugin)
+{
+	update_language_plugin (ANJUTA_DOCMAN (plugin->docman),
+	                        IANJUTA_DOCUMENT (editor),
+	                        ANJUTA_PLUGIN(plugin));
+}
+
+static void
+on_document_added (AnjutaDocman *docman, IAnjutaDocument *doc,
+				   AnjutaPlugin *plugin)
+{
+	GtkWidget *highlight_submenu, *highlight_menu;
+	DocmanPlugin *docman_plugin;
+	
+	docman_plugin = ANJUTA_PLUGIN_DOCMAN (plugin);
+	g_signal_connect (G_OBJECT (doc), "update_ui",
+					  G_CALLBACK (on_document_update_ui),
+					  docman_plugin);
+	g_signal_connect (G_OBJECT (doc), "update-save-ui",
+					  G_CALLBACK (on_document_update_save_ui),
+					  plugin);
+	
+	/* Present the vbox as this is the widget that was added to the shell */
+	anjuta_shell_present_widget (plugin->shell,
+								 GTK_WIDGET (docman_plugin->vbox), NULL);
+
+	if (IANJUTA_IS_EDITOR (doc))
+	{
+		IAnjutaEditor *te;
+
+		te = IANJUTA_EDITOR (doc);
+
+		/* Check for language changes */
+		g_signal_connect (G_OBJECT (doc), "language-changed",
+		                  G_CALLBACK (on_editor_lang_changed),
+		                  docman_plugin);
+		                              
+		
+		/* Create Highlight submenu */
+		highlight_submenu = 
+			create_highlight_submenu (docman_plugin, te);
+		if (highlight_submenu)
+		{
+			highlight_menu =
+				gtk_ui_manager_get_widget (GTK_UI_MANAGER (docman_plugin->ui),
+						"/MenuMain/MenuView/MenuViewEditor/MenuFormatStyle");
+			gtk_menu_item_set_submenu (GTK_MENU_ITEM (highlight_menu),
+									   highlight_submenu);
+		}
+	}
 }
 
 static gboolean

@@ -150,13 +150,6 @@ plugins/gtodo/plugin.c
 plugins/gtodo/preferences.c
 plugins/gtodo/tasklists.c
 plugins/gtodo/todo_db.c
-[type: gettext/glade]plugins/macro/anjuta-macro.ui
-plugins/macro/macro-actions.c
-plugins/macro/macro-db.c
-plugins/macro/macro-dialog.c
-plugins/macro/macro-edit.c
-plugins/macro/macro-util.c
-plugins/macro/plugin.c
 [type: gettext/glade]plugins/message-view/anjuta-message-manager-plugin.ui
 plugins/message-view/anjuta-msgman.c
 plugins/message-view/message-view.c
@@ -203,6 +196,13 @@ plugins/search/plugin.c
 plugins/search/search_preferences.c
 plugins/search/search-replace.c
 plugins/search/search-replace_backend.c
+plugins/snippets-manager/plugin.c
+plugins/snippets-manager/snippets-browser.c
+plugins/snippets-manager/snippets-editor.c
+[type: gettext/glade]plugins/snippets-manager/snippets-editor.ui
+[type: gettext/glade]plugins/snippets-manager/snippets-manager-preferences.ui
+plugins/snippets-manager/snippets-import-export.c
+plugins/snippets-manager/snippets-provider.c
 plugins/sourceview/sourceview.c
 plugins/sourceview/sourceview-io.c
 plugins/sourceview/sourceview-print.c
@@ -275,7 +275,6 @@ plugins/sourceview/plugin.c
 [type: gettext/ini]plugins/subversion/anjuta-subversion.plugin.in
 [type: gettext/ini]plugins/glade/anjuta-glade.plugin.in
 [type: gettext/ini]plugins/gtodo/anjuta-gtodo.plugin.in
-[type: gettext/ini]plugins/macro/anjuta-macro.plugin.in
 [type: gettext/ini]plugins/patch/anjuta-patch.plugin.in
 [type: gettext/ini]plugins/tools/anjuta-tools.plugin.in
 [type: gettext/ini]plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in
@@ -290,6 +289,7 @@ plugins/sourceview/plugin.c
 [type: gettext/ini]plugins/class-gen/anjuta-class-gen.plugin.in
 [type: gettext/ini]plugins/project-manager/anjuta-project-manager.plugin.in
 [type: gettext/ini]plugins/symbol-db/symbol-db.plugin.in
+[type: gettext/ini]plugins/snippets-manager/anjuta-snippets-manager.plugin.in
 [type: gettext/ini]plugins/message-view/anjuta-message-manager.plugin.in
 [type: gettext/ini]plugins/file-loader/anjuta-loader.plugin.in
 [type: gettext/ini]plugins/debug-manager/anjuta-debug-manager.plugin.in

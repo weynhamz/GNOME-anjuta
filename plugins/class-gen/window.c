@@ -295,7 +295,7 @@ cg_window_validate_go (CgWindow *window)
 
 static void
 cg_window_top_notebook_switch_page_cb (G_GNUC_UNUSED GtkNotebook *notebook,
-                                       G_GNUC_UNUSED GtkNotebookPage *page,
+                                       G_GNUC_UNUSED GtkWidget *page,
                                        guint page_num,
                                        gpointer user_data)
 {

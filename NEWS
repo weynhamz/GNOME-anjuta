@@ -1,3 +1,83 @@
+Anjuta 2.32.0 "Goodbye Berlin" (27 Sep 2010) -- Johannes Schmid
+
+This is our new stable release. Older releases won't see any bug-fixing, support,
+etc and master is now heading for GNOME 3.0 which will rock!
+
+Bugs fixed:
+bgo#630460 PackageKit integration is not working on all distros
+project-wizard: Update default ui file to use gtk+-2.16
+
+Various translation updates, Anjuta is now fully available in over 20 and more
+languages. Thanks for your effort.
+
+Thanks to (again, mostly translators):
+Andika Triwidada, Andrea Zagli, Aron Xu, Bruce Cowan, Bruno Brouard,
+Chao-Hsiung Liao, Christian Kirbach, Duarte Loreto, Fran Diéguez, Gabor Kelemen,
+Jonh Wendell, Jorge González, Kenneth Nielsen, Marek Černocký, Mario Blättermann,
+Matej Urbančič, Michael Kotsarinis, Milo Casagrande, Piotr Drąg, Takayuki KUSANO,
+Yuri Myasoedov
+
+Anjuta 2.31.92 "What's reality like?" (13 Sep 2010) -- Johannes Schmid
+
+Bugs fixed:
+python-loader: bgo #628975 - error in python loader .plugin
+sourceview: bgo #626541 - Crash when saving to unavailable location
+bgo #628397: Fix anjuta-idl-compiler to keep typedef comments
+bgo #628397 - gir build error
+
+Thanks to (mostly translators):
+Abderrahim Kitouni, Andika Triwidada, Aron Xu, Bruno Brouard, Christian Kirbach,
+Claude Paroz, Daniel Nylander, Dragos Dena, Gabor Kelemen, Hiroyuki Sekihara,
+Jorge González, Kjartan Maraas, Philip Withnall, Sébastien Granjoux,
+Takayuki KUSANO
+
+Anjuta 2.31.91 "Cold summer rain" (30 Aug 2010) -- Johannes Schmid
+
+Updated:
+- More updates to the vala support
+
+Bugs fixed:
+libanjuta: Fixed bgo #622922: migrated to GDBus
+pm: bgo #626690 - wrong project clean on new-project
+project-wizard: bgo #627595 - Ambiguous strings for translation
+bgo #627648 - Add IDE to Categories in .desktop file
+symbol-db: bgo#622340 - Tried to close project and Anjuta crashed
+bgo #628099 - Remove markup from translatable strings
+language-support-python: bgo#627437 - couldn't find python rope.
+bgo #628286 Fix introspection build when builddir != srcdir
+bgo #628285 Don't distribute the .gir files
+
+Thanks to Abderrahim Kitouni, Andika Triwidada, Ask H. Larsen, Branko Kokanović,
+Bruno Brouard, Christian Kirbach, Fran Diéguez, Gabor Kelemen, James Liggett,
+Jorge González, Massimo Corà, Matej Urbančič, Philip Withnall, Robert Ancell,
+Sébastien Granjoux
+
+Anjuta 2.31.90 "GSoC is over - we have snippets now" -- Johannes Schmid
+
+New:
+- Python is now fully supported
+- Initial support for python plugins (Abderrahim Kitouni)
+- Snippets plugins from GSoC (Dragos Dena)
+
+Updated:
+- Language support for Vala got a major update
+
+Bugs fixed:
+project-wizard: bgo#625434 - remove cvsignore from templates
+python-support: bgo#626950 Anjuta crash with python support
+build-basic-auotools: bgo#626562 crash refusing to clean the configuration
+symbol-db: bgo#622529 - Crash when trying to open a non-writable project
+symbol-db: bgo#616560  - Symbol views do not display names containing especial chars correctly
+manual: Fixed mailing list adress (bgo#625588)
+language-support-vala: bgo#626306 Symbol completion doesn't work with "this."
+libanjuta: Increase launcher buffer size (bgo#624700)
+class-gen: add missing include (#626265)
+Add PyGTK project template. Fixes bug #608304.
+
+Abderrahim Kitouni, Andika Triwidada, Daniel Nylander, Dragos Dena
+Fran Diéguez, James Liggett, Jens Georg, Jorge González, Leandro Mattioli
+Massimo Corà, Matej Urbančič, Vincent Untz, Yang Hong
+
 Anjuta 2.31.6.1 "Thank you, The Hague (5 Aug 2010) -- Johannes Schmid
 
 Bugs fixed:

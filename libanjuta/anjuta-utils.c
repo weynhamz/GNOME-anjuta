@@ -49,7 +49,7 @@
 #include <pwd.h>
 #endif
 
-#include <dbus/dbus-glib.h>
+#include <gio/gio.h>
 #include <glib/gi18n.h>
 #include <glib.h>
 #include <glib/gstdio.h>
@@ -484,29 +484,28 @@ anjuta_util_dialog_input (GtkWindow *parent, const gchar *prompt,
 }
 
 static void
-on_install_files_done (DBusGProxy *proxy, DBusGProxyCall *call_id,
+on_install_files_done (GObject *proxy, GAsyncResult *result,
 					   gpointer user_data)
 {
 	GError *error = NULL;
-	dbus_g_proxy_end_call (proxy, call_id, &error, G_TYPE_INVALID);
+  	g_dbus_proxy_call_finish ((GDBusProxy *) proxy, result, &error);
 	if (error)
 	{
 		/*
 		  Only dbus error is handled. Rest of the errors are from packagekit
 		  which have already been notified to user by packagekit.
 		*/
-		if (error->domain == DBUS_GERROR)
+		if (error->domain == G_DBUS_ERROR)
 		{
 			const gchar *error_message = NULL;
 
 			/* Service error which implies packagekit is missing */
-			if (error->code == DBUS_GERROR_SERVICE_UNKNOWN)
+			if (error->code == G_DBUS_ERROR_SERVICE_UNKNOWN)
 			{
 				error_message = _("You do not seem to have PackageKit installed. PackageKit is required for installing missing packages. Please install \"packagekit-gnome\" package from your distribution, or install the missing packages manually.");
 			}
 			/* General dbus error implies failure to call dbus method */
-			else if (error->code != DBUS_GERROR_REMOTE_EXCEPTION &&
-					 error->code != DBUS_GERROR_NO_REPLY)
+			else if (error->code != G_DBUS_ERROR_NO_REPLY)
 			{
 				error_message = error->message;
 			}
@@ -522,32 +521,40 @@ on_install_files_done (DBusGProxy *proxy, DBusGProxyCall *call_id,
 gboolean
 anjuta_util_install_files (const gchar * const names)
 {
-	DBusGConnection * connection;
-	DBusGProxy * proxy;
+	GDBusConnection * connection;
+	GDBusProxy * proxy;
 	guint32 xid = 0;
 	gchar ** pkgv;
 
 	if (!names)
 		return FALSE;
 
-	connection = dbus_g_bus_get (DBUS_BUS_SESSION, NULL);
+	connection = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, NULL);
 	if (!connection)
 		return FALSE;
 
-	proxy = dbus_g_proxy_new_for_name (connection,
-									   "org.freedesktop.PackageKit",
-									   "/org/freedesktop/PackageKit",
-									   "org.freedesktop.PackageKit.Modify");
+	proxy = g_dbus_proxy_new_sync (connection,
+								   G_DBUS_PROXY_FLAGS_NONE,
+								   NULL,
+								   "org.freedesktop.PackageKit",
+								   "/org/freedesktop/PackageKit",
+								   "org.freedesktop.PackageKit.Modify",
+								   NULL,
+								   NULL);
 	if (!proxy)
 		return FALSE;
 
 	pkgv = g_strsplit (names, ", ", 0);
-	dbus_g_proxy_begin_call (proxy, "InstallProvideFiles",
-							 on_install_files_done, NULL, NULL,
-							 G_TYPE_UINT, xid,
-							 G_TYPE_STRV, pkgv,
-							 G_TYPE_STRING, "",
-							 G_TYPE_INVALID, G_TYPE_INVALID);
+	g_dbus_proxy_call (proxy, "InstallProvideFiles",
+					   g_variant_new ("(u^ass)",
+									  xid,
+									  pkgv,
+									  ""),
+					   G_DBUS_CALL_FLAGS_NONE,
+					   -1,
+					   NULL,
+					   on_install_files_done,
+					   NULL);
 	g_strfreev (pkgv);
 	return TRUE;
 }
@@ -2398,7 +2405,7 @@ anjuta_util_builder_get_objects (GtkBuilder *builder, const gchar *first_widget,
 }
 
 /**
- * anjuta_utils_drop_get_files:
+ * anjuta_util_drop_get_files:
  * @selection_data: the #GtkSelectionData from drag_data_received
  * @info: the info from drag_data_received
  *
@@ -2407,7 +2414,7 @@ anjuta_util_builder_get_objects (GtkBuilder *builder, const gchar *first_widget,
  * Return value: a list of GFiles
  */
 GSList*
-anjuta_utils_drop_get_files (GtkSelectionData *selection_data)
+anjuta_util_drop_get_files (GtkSelectionData *selection_data)
 {
 	gchar **uris;
 	gint i;

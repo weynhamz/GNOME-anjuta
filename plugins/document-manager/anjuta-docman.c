@@ -92,7 +92,7 @@ static void anjuta_docman_update_page_label (AnjutaDocman *docman,
 											 IAnjutaDocument *doc);
 static void anjuta_docman_grab_text_focus (AnjutaDocman *docman);
 static void on_notebook_switch_page (GtkNotebook *notebook,
-									 GtkNotebookPage *page,
+									 GtkWidget *page,
 									 gint page_num, AnjutaDocman *docman);
 static AnjutaDocmanPage *
 anjuta_docman_get_page_for_document (AnjutaDocman *docman,
@@ -940,7 +940,7 @@ static gboolean g_tabbing = FALSE;
 
 static void
 on_notebook_switch_page (GtkNotebook *notebook,
-						 GtkNotebookPage *notebook_page,
+						 GtkWidget *notebook_page,
 						 gint page_num, AnjutaDocman *docman)
 {
 	if (!docman->priv->shutingdown)

@@ -1,0 +1,6 @@
+[Anjuta Plugin]
+_Name=Code Snippets
+_Description=Allows insertion of snippets into the editor.
+Location=anjuta-snippets-manager:SnippetsManagerPlugin
+Icon=anjuta-snippets-manager.png
+Interfaces=IAnjutaSnippetsManager

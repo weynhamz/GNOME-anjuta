@@ -76,6 +76,9 @@ struct _PythonPlugin{
 	
 	/* Assist */
 	PythonAssist *assist;
+
+	/* Preferences */
+	GtkBuilder* bxml;
 };
 
 struct _PythonPluginClass{

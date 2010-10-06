@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<anjuta-snippets-packet>
+<anjuta-snippets-group>
+<name><![CDATA[Comments and licenses]]></name>
+<anjuta-snippets>
+<anjuta-snippet trigger="bsd" name="BSD License">
+<languages><![CDATA[Python ]]></languages>
+<variables>
+<variable name="userfullname" default="User Name" is_global="true" />
+</variables>
+<snippet-content><![CDATA[# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+# 1. Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+# 3. Neither the name of ${userfullname} nor the name of any other
+#    contributor may be used to endorse or promote products derived
+#    from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY ${userfullname} AND CONTRIBUTORS ``AS IS'' AND
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL ${userfullname} OR ANY OTHER
+# CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+]]></snippet-content>
+<keywords><![CDATA[BSD license perl python sh shell comment ]]></keywords>
+</anjuta-snippet>
+<anjuta-snippet trigger="bsd" name="BSD License">
+<languages><![CDATA[C++ ]]></languages>
+<variables>
+<variable name="userfullname" default="User Name" is_global="true" />
+</variables>
+<snippet-content><![CDATA[// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions
+// are met:
+// 1. Redistributions of source code must retain the above copyright
+//    notice, this list of conditions and the following disclaimer.
+// 2. Redistributions in binary form must reproduce the above copyright
+//    notice, this list of conditions and the following disclaimer in the
+//    documentation and/or other materials provided with the distribution.
+// 3. Neither the name of ${userfullname} nor the name of any other
+//    contributor may be used to endorse or promote products derived
+//    from this software without specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY ${userfullname} AND CONTRIBUTORS ``AS IS'' AND
+// ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+// ARE DISCLAIMED. IN NO EVENT SHALL ${userfullname} OR ANY OTHER
+// CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+// EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
+// PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+// OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+// ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+]]></snippet-content>
+<keywords><![CDATA[BSD license C++ comment ]]></keywords>
+</anjuta-snippet>
+<anjuta-snippet trigger="bsd" name="BSD License">
+<languages><![CDATA[C ]]></languages>
+<variables>
+<variable name="userfullname" default="User Name" is_global="true" />
+</variables>
+<snippet-content><![CDATA[/*
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 3. Neither the name of ${userfullname} nor the name of any other
+ *    contributor may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY ${userfullname} AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL ${userfullname} OR ANY OTHER
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+]]></snippet-content>
+<keywords><![CDATA[BSD license C comment ]]></keywords>
+</anjuta-snippet>
+<anjuta-snippet trigger="c" name="Comment block">
+<languages><![CDATA[C++ Java C C# ]]></languages>
+<variables>
+</variables>
+<snippet-content><![CDATA[/* ${END_CURSOR_POSITION} */]]></snippet-content>
+<keywords><![CDATA[comment ]]></keywords>
+</anjuta-snippet>
+<anjuta-snippet trigger="co" name="Comment line">
+<languages><![CDATA[C# C++ C Java ]]></languages>
+<variables>
+</variables>
+<snippet-content><![CDATA[// ${END_CURSOR_POSITION}]]></snippet-content>
+<keywords><![CDATA[comment ]]></keywords>
+</anjuta-snippet>
+<anjuta-snippet trigger="gpl" name="GPL License">
+<languages><![CDATA[Python ]]></languages>
+<variables>
+<variable name="filename" default="file" is_global="true" />
+<variable name="year" default="2010" is_global="true" />
+<variable name="userfullname" default="User Name" is_global="true" />
+</variables>
+<snippet-content><![CDATA[# ${filename}
+#
+# Copyright (C) ${year} - ${userfullname}
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+]]></snippet-content>
+<keywords><![CDATA[GPL license Perl python shell sh comment ]]></keywords>
+</anjuta-snippet>
+<anjuta-snippet trigger="gpl" name="GPL License">
+<languages><![CDATA[C++ ]]></languages>
+<variables>
+<variable name="filename" default="file" is_global="true" />
+<variable name="year" default="2010" is_global="true" />
+<variable name="userfullname" default="User Name" is_global="true" />
+</variables>
+<snippet-content><![CDATA[// ${filename}
+//
+// Copyright (C) ${year} - ${userfullname}
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+]]></snippet-content>
+<keywords><![CDATA[GPL license C++ comment ]]></keywords>
+</anjuta-snippet>
+<anjuta-snippet trigger="gpl" name="GPL License">
+<languages><![CDATA[C ]]></languages>
+<variables>
+<variable name="filename" default="file" is_global="true" />
+<variable name="year" default="2010" is_global="true" />
+<variable name="userfullname" default="User Name" is_global="true" />
+</variables>
+<snippet-content><![CDATA[/*
+ * ${filename}
+ *
+ * Copyright (C) ${year} - ${userfullname}
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+]]></snippet-content>
+<keywords><![CDATA[GPL license C comment ]]></keywords>
+</anjuta-snippet>
+<anjuta-snippet trigger="header" name="Header guard">
+<languages><![CDATA[C C++ ]]></languages>
+<variables>
+<variable name="filename_prefix" default="FILE_NAME" is_global="false" />
+</variables>
+<snippet-content><![CDATA[#ifndef ${filename_prefix}_H
+#define ${filename_prefix}_H
+
+#include <glib.h>
+
+G_BEGIN_DECLS
+
+${END_CURSOR_POSITION}
+
+G_END_DECLS
+
+#endif /* ${filename_prefix}_H */
+]]></snippet-content>
+<keywords><![CDATA[comment header copyright C C++ email date time ]]></keywords>
+</anjuta-snippet>
+<anjuta-snippet trigger="lgpl" name="LGPL License">
+<languages><![CDATA[Python ]]></languages>
+<variables>
+<variable name="year" default="2010" is_global="true" />
+<variable name="userfullname" default="User Name" is_global="true" />
+</variables>
+<snippet-content><![CDATA[# Copyright (C) ${year}  ${userfullname}
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Lesser General Public License for more details.
+# 
+# You should have received a copy of the GNU Lesser General Public
+# License along with main.c; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor Boston, MA 02110-1301,  USA
+]]></snippet-content>
+<keywords><![CDATA[lgpl python sh perl comment header ]]></keywords>
+</anjuta-snippet>
+<anjuta-snippet trigger="lgpl" name="LGPL License">
+<languages><![CDATA[C++ ]]></languages>
+<variables>
+<variable name="year" default="2010" is_global="true" />
+<variable name="userfullname" default="User Name" is_global="true" />
+</variables>
+<snippet-content><![CDATA[// Copyright (C) ${year}  ${userfullname}
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2.1 of the License, or (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+// 
+// You should have received a copy of the GNU Lesser General Public
+// License along with main.c; if not, write to the Free Software
+// Foundation, Inc., 51 Franklin Street, Fifth Floor Boston, MA 02110-1301,  USA
+]]></snippet-content>
+<keywords><![CDATA[lgpl C++ cpp comment header ]]></keywords>
+</anjuta-snippet>
+<anjuta-snippet trigger="lgpl" name="LGPL License">
+<languages><![CDATA[C ]]></languages>
+<variables>
+<variable name="year" default="2010" is_global="true" />
+<variable name="userfullname" default="User Name" is_global="true" />
+</variables>
+<snippet-content><![CDATA[/*
+ * Copyright (C) ${year}  ${userfullname}
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with main.c; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor Boston, MA 02110-1301,  USA
+ */
+]]></snippet-content>
+<keywords><![CDATA[lgpl C comment header ]]></keywords>
+</anjuta-snippet>
+<anjuta-snippet trigger="top_com" name="Top comment">
+<languages><![CDATA[Python ]]></languages>
+<variables>
+<variable name="filename" default="file" is_global="true" />
+<variable name="date_time" default="" is_global="true" />
+<variable name="year" default="2010" is_global="true" />
+<variable name="userfullname" default="User Name" is_global="true" />
+<variable name="email" default="user@domain.org" is_global="true" />
+</variables>
+<snippet-content><![CDATA[
+#           ${filename}
+#  ${date_time}
+#  Copyright  ${year}  ${userfullname}
+#  <${email}>
+]]></snippet-content>
+<keywords><![CDATA[comment header copyright perl shell python sh license email ]]></keywords>
+</anjuta-snippet>
+<anjuta-snippet trigger="top_com" name="Top comment">
+<languages><![CDATA[C# ]]></languages>
+<variables>
+<variable name="copyright_file_name" default="copyright.txt" is_global="false" />
+<variable name="license_file_name" default="license.txt" is_global="false" />
+<variable name="userfullname" default="User Name" is_global="true" />
+<variable name="email" default="user@domain.org" is_global="true" />
+<variable name="version" default="1.0" is_global="false" />
+</variables>
+<snippet-content><![CDATA[// <file>
+//     <copyright see="prj:///doc/${copyright_file_name}"/>
+//     <license see="prj:///doc/${license_file_name}"/>
+//     <owner name="${userfullname}"  email="${email}"/>
+//     <version value="${version}"/>
+// </file>
+]]></snippet-content>
+<keywords><![CDATA[comment header copyright C# csharp license date time email ]]></keywords>
+</anjuta-snippet>
+<anjuta-snippet trigger="top_com" name="Top Comment">
+<languages><![CDATA[C++ ]]></languages>
+<variables>
+<variable name="filename" default="file" is_global="true" />
+<variable name="date_time" default="" is_global="true" />
+<variable name="year" default="2010" is_global="true" />
+<variable name="userfullname" default="User Name" is_global="true" />
+<variable name="email" default="user@domain.org" is_global="true" />
+</variables>
+<snippet-content><![CDATA[//           ${filename}
+//  ${date_time}
+//  Copyright  ${year}  ${userfullname}
+//  <${email}>
+]]></snippet-content>
+<keywords><![CDATA[comment header copyright C++ email date time ]]></keywords>
+</anjuta-snippet>
+<anjuta-snippet trigger="top_com" name="Top Comment">
+<languages><![CDATA[C ]]></languages>
+<variables>
+<variable name="filename" default="file" is_global="true" />
+<variable name="date_time" default="" is_global="true" />
+<variable name="year" default="2010" is_global="true" />
+<variable name="userfullname" default="User Name" is_global="true" />
+<variable name="email" default="user@domain.org" is_global="true" />
+</variables>
+<snippet-content><![CDATA[/***************************************************************************
+ *            ${filename}
+ *
+ *  ${date_time}
+ *  Copyright  ${year}  ${userfullname}
+ *  <${email}>
+ ****************************************************************************/
+]]></snippet-content>
+<keywords><![CDATA[comment header copyright C email date time ]]></keywords>
+</anjuta-snippet>
+</anjuta-snippets>
+</anjuta-snippets-group>
+<anjuta-snippets-group>
+<name><![CDATA[Control structures]]></name>
+<anjuta-snippets>
+<anjuta-snippet trigger="cond" name="Conditional assignment">
+<languages><![CDATA[C++ Java C C# ]]></languages>
+<variables>
+<variable name="false_case" default="/* False case */" is_global="false" />
+<variable name="true_case" default="/* True case */" is_global="false" />
+<variable name="condition" default="/* condition */" is_global="false" />
+</variables>
+<snippet-content><![CDATA[(${condition}) ? ${true_case} : ${false_case}${END_CURSOR_POSITION}]]></snippet-content>
+<keywords><![CDATA[cond ? if else elif statement ]]></keywords>
+</anjuta-snippet>
+<anjuta-snippet trigger="do" name="Do while loop">
+<languages><![CDATA[C++ Java C C# ]]></languages>
+<variables>
+<variable name="condition" default="/* condition */" is_global="false" />
+</variables>
+<snippet-content><![CDATA[do
+{
+	${END_CURSOR_POSITION}
+
+} while (${condition});
+]]></snippet-content>
+<keywords><![CDATA[do loop while repeat for ]]></keywords>
+</anjuta-snippet>
+<anjuta-snippet trigger="else" name="Else">
+<languages><![CDATA[C C++ Java C# ]]></languages>
+<variables>
+</variables>
+<snippet-content><![CDATA[else
+{
+	${END_CURSOR_POSITION}
+}]]></snippet-content>
+<keywords><![CDATA[else statement if elif ]]></keywords>
+</anjuta-snippet>
+<anjuta-snippet trigger="elif" name="Else if">
+<languages><![CDATA[C++ C Java C# ]]></languages>
+<variables>
+<variable name="condition" default="/* condition */" is_global="false" />
+</variables>
+<snippet-content><![CDATA[else if (${condition})
+{
+	${END_CURSOR_POSITION}
+}]]></snippet-content>
+<keywords><![CDATA[else if elif statement ]]></keywords>
+</anjuta-snippet>
+<anjuta-snippet trigger="for" name="For loop">
+<languages><![CDATA[C++ Java C# ]]></languages>
+<variables>
+<variable name="type" default="int" is_global="false" />
+<variable name="iter" default="i" is_global="false" />
+<variable name="init" default="0" is_global="false" />
+<variable name="max" default="n" is_global="false" />
+<variable name="count" default="1" is_global="false" />
+</variables>
+<snippet-content><![CDATA[for (${type} ${iter} = ${init}; ${iter} < ${max}; ${iter} += ${count})
+{
+	${END_CURSOR_POSITION}
+}
+]]></snippet-content>
+<keywords><![CDATA[for C loop statement iter ]]></keywords>
+</anjuta-snippet>
+<anjuta-snippet trigger="for" name="For loop">
+<languages><![CDATA[C ]]></languages>
+<variables>
+<variable name="iter" default="i" is_global="false" />
+<variable name="init" default="0" is_global="false" />
+<variable name="max" default="n" is_global="false" />
+<variable name="count" default="1" is_global="false" />
+</variables>
+<snippet-content><![CDATA[for (${iter} = ${init}; ${iter} < ${max}; ${iter} += ${count})
+{
+	${END_CURSOR_POSITION}
+}
+]]></snippet-content>
+<keywords><![CDATA[for C loop statement iter ]]></keywords>
+</anjuta-snippet>
+<anjuta-snippet trigger="if" name="If">
+<languages><![CDATA[C C++ Java C# ]]></languages>
+<variables>
+<variable name="condition" default="/* condition */" is_global="false" />
+</variables>
+<snippet-content><![CDATA[if (${condition})
+{
+	${END_CURSOR_POSITION}
+}
+]]></snippet-content>
+<keywords><![CDATA[if statement else ]]></keywords>
+</anjuta-snippet>
+<anjuta-snippet trigger="while" name="While loop">
+<languages><![CDATA[C++ C Java C# ]]></languages>
+<variables>
+<variable name="condition" default="/* condition */" is_global="false" />
+</variables>
+<snippet-content><![CDATA[while (${condition})
+{
+	${END_CURSOR_POSITION}
+}]]></snippet-content>
+<keywords><![CDATA[while loop repeat do for ]]></keywords>
+</anjuta-snippet>
+</anjuta-snippets>
+</anjuta-snippets-group>
+</anjuta-snippets-packet>

@@ -20,6 +20,7 @@ using Anjuta;
 
 public class ValaPlugin : Plugin {
 	internal weak IAnjuta.Editor current_editor;
+	internal Anjuta.Preferences prefs;
 	uint editor_watch_id;
 
 	Vala.CodeContext context;
@@ -42,6 +43,7 @@ public class ValaPlugin : Plugin {
 		context.report = report;
 		context.profile = Vala.Profile.GOBJECT;
 
+		prefs = shell.get_preferences ();
 		var project = (IAnjuta.ProjectManager) shell.get_object("IAnjutaProjectManager");
 		weak List<string> packages = project.get_packages();
 		add_package(context, "glib-2.0");
@@ -84,13 +86,17 @@ public class ValaPlugin : Plugin {
 
 				parser.parse (context);
 				genie_parser.parse (context);
-				if (report.errors_found ())
+				if (report.errors_found ()) {
+					Vala.CodeContext.pop();
 					return null;
+				}
 
 				resolver.resolve (context);
-				if (report.errors_found ())
+				if (report.errors_found ()) {
+					Vala.CodeContext.pop();
 					/* TODO: there may be missing packages */
 					return null;
+				}
 
 				analyzer.analyze (context);
 
@@ -117,8 +123,10 @@ public class ValaPlugin : Plugin {
 		//debug("Deactivating ValaPlugin");
 		remove_watch(editor_watch_id, true);
 
-		context = null;
-		source_files = null;
+		lock (context) {
+			context = null;
+			source_files = null;
+		}
 
 		return true;
 	}
@@ -172,13 +180,11 @@ public class ValaPlugin : Plugin {
 	}
 
 	public void on_char_added (IAnjuta.EditorTip editor, Object position, char ch) {
-		var current_position = (IAnjuta.Iterable) position;
-		/* include the just added char */
-		current_position.next ();
+		if (!prefs.get_bool_with_default (ValaProvider.PREF_CALLTIP_ENABLE, true))
+			return;
+
 		if (ch == '(') {
-			var line_start = editor.get_line_begin_position(current_editor.get_lineno());
-			var current_text = editor.get_text(line_start, current_position);
-			provider.show_call_tip (editor, current_text);
+			provider.show_call_tip (editor);
 		} else if (ch == ')') {
 			editor.cancel ();
 		}

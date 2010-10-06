@@ -1,4 +1,10 @@
-# German translatio of the Anjuta manual.
+# German translation of the Anjuta manual.
+#
+# line number margin  - Rand für Zeilennummern
+# marker margin    -  Markierungsrand
+# code fold margin - Textfaltungsrand
+#
+#
 # Mario Blättermann <mariobl@gnome.org>, 2009, 2010.
 # Jonas Rebmann <jonas.rebmann@googlemail.com>, 2010.
 # Christian Kirbach <Christian.Kirbach@googlemail.com>, 2010.
@@ -6,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta doc\n"
-"POT-Creation-Date: 2010-03-06 09:31+0000\n"
-"PO-Revision-Date: 2010-03-06 12:19+0100\n"
+"POT-Creation-Date: 2010-09-25 16:58+0000\n"
+"PO-Revision-Date: 2010-09-25 10:53+0200\n"
 "Last-Translator: Christian Kirbach <Christian.Kirbach@googlemail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -271,6 +277,15 @@ msgid ""
 "you will need to reconfigure them (not in Anjuta, because they are fixed) if "
 "you want to use these shortcuts."
 msgstr ""
+"<emphasis>Editorseite wechseln:</emphasis><keycombo><keycap>Strg</"
+"keycap><keycap>Alt</keycap><keycap>Bild ↑</keycap></keycombo> (vorwärts) und "
+"<keycombo><keycap>Strg</keycap><keycap>Alt</keycap><keycap>Bild ↓</keycap></"
+"keycombo> (rückwärts). Sie können auch Seiten wechseln, indem Sie mit der "
+"rechten Maustaste auf die Karteireiter klicken und einen Dateinamen aus dem "
+"Einblendmenü wählen (dies ist nützlich, wenn alle Karteireiter nicht sofort "
+"sichtbar sind). Einige Arbeitsumgebungen haben eventuell diese "
+"Tastenkombinationen zugewiesen. In diesem Fall müssen Sie diese (nicht in "
+"Anjuta) anders belegen, wenn Sie sie in Anjuta verwenden möchten."
 
 #: C/anjuta-manual.xml:49(para)
 msgid ""
@@ -283,6 +298,15 @@ msgid ""
 "application> website. You will also have to install the related "
 "<application>Devhelp</application> books."
 msgstr ""
+"<emphasis>Kontexthilfe:</emphasis><keycombo><keycap>Umschalt</"
+"keycap><keycap>F1</keycap></keycombo>. Bewegen Sie die Eingabemarke über das "
+"Wort (z.B. ein Funktionsname), für das Sie die API-Hilfe aufrufen möchten, "
+"und verwenden Sie diese Tastenkombination. Die Kontexthilfe funktioniert "
+"nur, wenn <application>Devhelp</application> installiert ist; Andernfalls "
+"sind das Menü Kontexthilfe und der Knopf in der Werkzeugleiste deaktiviert. "
+"Sie können Devhelp von der <application>Devhelp</application>-Webseite "
+"beziehen. Sie müssen dann auch die zugehörigen <application>Devhelp</"
+"application>-Bücher installieren."
 
 #: C/anjuta-manual.xml:60(para)
 msgid ""
@@ -292,6 +316,12 @@ msgid ""
 "remaining part will appear. Scroll and select the right word from the list "
 "if you find one."
 msgstr ""
+"<emphasis>Automatische Vervollständigung:</emphasis><keycombo><keycap>Strg</"
+"keycap><keycap>Eingabetaste</keycap></keycombo>. Positionieren Sie die "
+"Eingabemarke genau hinter ein unvollständiges Wort und verwenden Sie diese "
+"Tastenkombination. Eine Liste mit möglichen Vervollständigungen wird darauf "
+"hin eingeblendet. Sie können in der Liste blättern, um die gewünschte "
+"Ergänzung zu suchen und auszuwählen."
 
 #: C/anjuta-manual.xml:68(para)
 msgid ""
@@ -299,6 +329,9 @@ msgid ""
 "the right side of menu item labels. Shortcuts can also be changed as "
 "explained in the tip below."
 msgstr ""
+"<emphasis>Weitere Tastenkombinationen:</emphasis> Schauen Sie nach "
+"Tastenkombinationen, die rechts neben Menüeinträgen dargestellt sind. "
+"Tastenkombinationen können auch wie im Hinweis unten erklärt geändert werden."
 
 #: C/anjuta-manual.xml:75(title)
 msgid "Customize shortcuts"
@@ -339,6 +372,14 @@ msgid ""
 "have a lot of files opened, but not all of them are visible in the page tab "
 "area."
 msgstr ""
+"Das <interface>Dokumentenfenster</interface> hat jeweils nur ein Dokument "
+"aktiv (wenn Dateien geöffnet sind). Alle Dateibefehle wirken sich auf das "
+"aktive Dokument aus. Sie können zu jedem geöffneten Dokument durch einen "
+"Mausklick auf den jeweiligen Karteireiter wechseln. Sie können auch das "
+"gleiche tun, in dem Sie mit der rechten Maustaste auf einen beliebigen "
+"Karteireiter klicken und das gewünschte Dokument aus dem erscheinenden "
+"Einblendfenster wählen. Dies ist besonders dann nützlich, wenn viele Dateien "
+"geöffnet sind, aber nicht alle zugehörigen Dateireiter sichtbar sind."
 
 #: C/anjuta-manual.xml:108(para)
 msgid ""
@@ -347,6 +388,11 @@ msgid ""
 "interface> is usually hidden. Double-clicking on any item in the "
 "<interface>Project window</interface> will open that file."
 msgstr ""
+"Das <interface>Projektfenster</interface> enthält den Baum der "
+"Projektdateien, wenn ein Projekt geöffnet ist. Andernfalls ist das "
+"<interface>Projektfenster</interface> normalerweise verborgen. Ein "
+"Doppelklick auf ein beliebiges Objekt im  <interface>Projektfenster</"
+"interface> öffnet diese Datei."
 
 #: C/anjuta-manual.xml:116(para)
 msgid ""
@@ -357,6 +403,14 @@ msgid ""
 "application as configured in the GNOME MIME preferences. Right-clicking "
 "opens a context menu which gives you choices about how to open the file."
 msgstr ""
+"Das <interface>Dateifenster</interface> enthält einen Dateibaum. Falls kein "
+"Projekt geöffnet ist, so zeigt der Dateibaum normalerweise den obersten "
+"Ordner des Dateisystems. Dies kann aber in den Einstellungen angepasst "
+"werden. Wenn ein Projekt geöffnet ist, so werden im Fenster alle Dateien des "
+"Projekts angezeigt. Ein Doppelklick auf eine Datei öffnet diese mit der "
+"zugehörigen Anwendung, so wie es in den GNOME MIME-Einstellungen festgelegt "
+"ist. Ein Rechtsklick öffnet ein Kontextmenü, das Ihnen weitere Möglichkeiten "
+"zum Öffnen der Datei anbietet."
 
 #: C/anjuta-manual.xml:125(para)
 msgid ""
@@ -364,12 +418,18 @@ msgid ""
 "in the project generated from the <application>ctags</application> parser. "
 "Double-clicking opens an editor window with the corresponding file and line."
 msgstr ""
+"Das <interface>Symbolfenster</interface> zeigt einen Baum der verfügbaren "
+"Symbole im Projekt, der durch Verarbeiten der  <application>ctags</"
+"application> gebildet wird. Ein Doppelklick öffnet ein Editorfenster mit der "
+"jeweiligen Datei in der entsprechenden Zeile."
 
 #: C/anjuta-manual.xml:130(para)
 msgid ""
 "There is also a <interface>Search tab</interface> in the Symbols window "
 "where you can search for symbols."
 msgstr ""
+"Es gibt auch einen <interface>Suchreiter</interface> im Symbolfenster, wo "
+"Sie nach Symbolen suchen können."
 
 #: C/anjuta-manual.xml:136(para)
 msgid ""
@@ -381,6 +441,14 @@ msgid ""
 "many other operations. <application>Anjuta</application> also adds its own "
 "messages here when necessary."
 msgstr ""
+"Das <interface>Nachrichtenfenster</interface> stellt alle Ausgaben dar "
+"(sowohl <filename>stdout</filename> als auch <filename>stderr</filename>) "
+"dar, wenn ein externer Befehl ausgeführt wird. Das "
+"<interface>Nachrichtenfenster</interface> ist normalerweise verborgen, wird "
+"aber bei Ausführung externer Befehle eingeblendet, wie z.B. beim Kompilieren "
+"einer Datei oder des Projekts, Fehleranalyse, Suche und vielen weiteren "
+"Vorgängen. <application>Anjuta</application> fügt auch bei Bedarf eigene "
+"Nachrichten hier ein."
 
 #: C/anjuta-manual.xml:144(para)
 msgid ""
@@ -391,6 +459,12 @@ msgid ""
 "on such a message will take you to the particular file and line number "
 "specified in the message."
 msgstr ""
+"Die Farbverwendung bei der Darstellung ist von Bedeutung. Nachrichten in der "
+"voreingestellten Vordergrundfarbe (normalerweise schwarz) sind normale "
+"Nachrichten. Orange Nachrichten sind Warnungen, und rote repräsentieren "
+"Fehler. Warnungen und Fehlernachrichten sind <emphasis>verknüpft</emphasis>: "
+"Ein Doppelklick auf eine solche Nachricht öffnet die entsprechende Datei in "
+"der jeweiligen Zeilennummer."
 
 #: C/anjuta-manual.xml:152(para)
 msgid ""
@@ -399,12 +473,18 @@ msgid ""
 "Double-clicking on such messages will open the file and highlight the line "
 "containing the error."
 msgstr ""
+"Wenn Sie zum Beispiel eine Datei kompilieren, die Fehler enthält, so werden "
+"rote Nachrichten die Probleme erläutern und auf die Fehlerstelle hinweisen. "
+"Ein Doppelklick auf eine solche Nachricht öffnet die Datei und hebt die "
+"Zeile mit dem Fehler hervor."
 
 #: C/anjuta-manual.xml:160(para)
 msgid ""
 "The <interface>Terminal window</interface> is a terminal emulator where you "
 "can type commands just like in the GNOME Terminal application."
 msgstr ""
+"Das <interface>Terminalfenster</interface> ist ein Terminal-Emulator, in dem "
+"Sie wie im GNOME-Terminal Befehle eingeben können."
 
 #: C/anjuta-manual.xml:168(title)
 msgid "Session management"
@@ -435,9 +515,10 @@ msgstr "Anlegen einer neuen Datei und Einfügen von Text"
 
 #: C/anjuta-manual.xml:8(title)
 msgid "Creating a New File"
-msgstr "Erzeugen einer neuen Datei"
+msgstr "Erstellen einer neuen Datei"
 
 #: C/anjuta-manual.xml:9(para)
+#, fuzzy
 msgid ""
 "To create a new file, choose <menuchoice><guisubmenu>File</"
 "guisubmenu><guimenuitem>New</guimenuitem></menuchoice> from the menu bar, or "
@@ -446,6 +527,13 @@ msgid ""
 "is windowed). New documents will be named <filename>newfile#1</filename>, "
 "<filename>newfile#2</filename>, <filename>newfile#3</filename> and so on."
 msgstr ""
+"Um eine neue Datei anzulegen, wählen Sie <menuchoice><guisubmenu>Datei</"
+"guisubmenu><guimenuitem>Neu</guimenuitem></menuchoice> in der Menüleiste, "
+"oder klicken Sie auf den Knopf <guibutton>Neue Datei</guibutton> in der "
+"Werkzeugleiste. Es wird daraufhin im Editor eine neue Seite angezeigt (oder "
+"ein neues Fenster, falls das übergeordnete Dokument ??). Neue Dokumente "
+"werden <filename>Neue Datei 1</filename>, <filename>Neue Datei 2</filename>, "
+"<filename>Neue Datei 3</filename> usw. benannt."
 
 #: C/anjuta-manual.xml:19(title)
 msgid "Save file"
@@ -499,6 +587,11 @@ msgid ""
 "windows and add the output there. You can save the contents of these windows "
 "to real files if you like."
 msgstr ""
+"<application>Anjuta</application> erstellt gelegentlich während einiger "
+"Vorgänge neue Dateifenster. Zum Beispiel erzeugen einige Subversion-Vorgänge "
+"wie <command>Diff</command> und <command>Protokoll ansehen</command> neue "
+"Dateifenster und geben die Ausgaben dort aus. Sie können bei Bedarf den "
+"Inhalt dieser Fenster in Dateien abspeichern."
 
 #: C/anjuta-manual.xml:54(title)
 msgid "Inserting Macros"
@@ -509,6 +602,8 @@ msgid ""
 "You can use <emphasis>macros</emphasis> to quickly edit repetitive sequences "
 "of text."
 msgstr ""
+"Sie können <emphasis>Makros</emphasis> verwenden, um schnell wiederholende "
+"Textpassagen zu bearbeiten."
 
 #: C/anjuta-manual.xml:59(para)
 msgid "The Macro plugin must be activated."
@@ -524,6 +619,9 @@ msgid ""
 "as \"My macros\"). Anjuta macros are not modifiable, but you can define and "
 "modify your own user macros."
 msgstr ""
+"Es gibt zwei Arten Makros: Anjuta-Makros und Benutzer-Makros (sie werden als "
+"»Meine Makros« angezeigt). Anjuta-Makros können nicht verändert werden, aber "
+"Sie können Benutzer-Makros erstellen und bearbeiten."
 
 #: C/anjuta-manual.xml:69(para)
 msgid ""
@@ -535,6 +633,14 @@ msgid ""
 "dialog window. Choose <guibutton>Insert</guibutton>. The expanded macro text "
 "is inserted at the cursor position."
 msgstr ""
+"Zum Einfügen eines Makros positionieren Sie die Eingabemarke an die "
+"gewünschte Stelle. Wählen Sie  <menuchoice><guisubmenu>Bearbeiten</"
+"guisubmenu><guisubmenu>Makros</guisubmenu><guimenuitem>Makros …</"
+"guimenuitem></menuchoice>. Es wird ein Dialog geöffnet. Wählen Sie das "
+"gewünschte Makro aus der Liste. Das Ergebnis der Makro-Umsetzung wird im "
+"Fenster dargestellt und eine Zusammenfassung wird im Dialogfenster "
+"angezeigt. Wählen Sie <guibutton>Einfügen</guibutton>. Der umgesetzte "
+"Makrotext wird an der aktuellen Position der Eingabemarke eingefügt."
 
 #: C/anjuta-manual.xml:82(title)
 msgid "Macro"
@@ -551,6 +657,11 @@ msgid ""
 "guimenuitem></menuchoice>, then to press the desired macro shortcut. "
 "<placeholder-1/>"
 msgstr ""
+"Eine andere Möglichkeit Makros einzufügen ist "
+"<menuchoice><guisubmenu>Bearbeiten</guisubmenu><guisubmenu>Makros</"
+"guisubmenu><guimenuitem>Makro einfügen …</guimenuitem></menuchoice> "
+"auszuwählen, und dann die gewünschte Makro-Tastenkombination zu drücken. "
+"<placeholder-1/>"
 
 #: C/anjuta-manual.xml:91(title)
 msgid "Defining Macros"
@@ -566,6 +677,15 @@ msgid ""
 "will indicate the cursor position after the macro insertion. Choose "
 "<guibutton>OK</guibutton>. The macro is added to the list."
 msgstr ""
+"Wählen Sie im Fenster »Makro einfügen« <guibutton>Hinzufügen</guibutton> oder "
+"wählen Sie <menuchoice><guisubmenu>Bearbeiten</"
+"guisubmenu><guisubmenu>Makros</guisubmenu><guimenuitem>Makro hinzufügen … </"
+"guimenuitem></menuchoice>. Daraufhin öffnet sich das Fenster »Hinzufügen/"
+"Bearbeiten«. Geben Sie den Namen des Makros ein, wählen oder definieren Sie "
+"eine Kategorie und legen Sie eine Tastenkombination fest. Bearbeiten Sie "
+"dann Text relativ zu Ihrem Makro. Das Zeichen » | « deutet die Position der "
+"Eingabemarke nach Ausführung des Makros an. Klicken Sie auf <guibutton>OK</"
+"guibutton>. Das Makro wird zur Liste hinzugefügt."
 
 #: C/anjuta-manual.xml:100(para)
 msgid ""
@@ -573,6 +693,9 @@ msgid ""
 "<guibutton>Remove</guibutton>. This only works for user macros (My Macros), "
 "of course."
 msgstr ""
+"Sie können auch ein Makro löschen, indem Sie es in der Liste auswählen und "
+"<guibutton>Entfernen</guibutton> klicken. Dies ist natürlich nur mit "
+"Benutzer-Makros (»Meine Makros«) möglich."
 
 #: C/anjuta-manual.xml:108(title)
 msgid "Add/Edit Macro"
@@ -587,6 +710,9 @@ msgid ""
 "Similarly, you can edit and modify a macro by selecting it in the list and "
 "choosing <guibutton>Edit</guibutton>. <placeholder-1/>"
 msgstr ""
+"Auf ähnliche Weise können Sie ein Makro bearbeiten und ändern, indem Sie es "
+"in der Liste auswählen und <guibutton>Bearbeiten</guibutton> wählen. "
+"<placeholder-1/>"
 
 #: C/anjuta-manual.xml:117(title)
 msgid "Macro Keywords"
@@ -597,6 +723,9 @@ msgid ""
 "Macro keywords are available. They can be included in macro definitions. "
 "These macro keywords start and finish with the character ' @ '."
 msgstr ""
+"Makro-Schlüsselwörter stehen zur Verfügung. Sie können in Makro-Definitionen "
+"eingebunden werden. Makro-Schlüsselwörter beginnen und enden jeweils mit dem "
+"Zeichen » @ «."
 
 #: C/anjuta-manual.xml:126(title)
 msgid "Keyword Macro"
@@ -658,7 +787,7 @@ msgstr "Dialog zum Öffnen mehrerer Dateien"
 
 #: C/anjuta-manual.xml:168(screeninfo)
 msgid "The Open File dialog in multiple-select mode"
-msgstr ""
+msgstr "Der Dialog »Datei öffnen« im Modus für mehrere Dateien"
 
 #: C/anjuta-manual.xml:173(para)
 msgid ""
@@ -670,10 +799,18 @@ msgid ""
 "the dialog and the file list will be limited to the files of the selected "
 "type only."
 msgstr ""
+"Sie können die Einstellung <emphasis>Verborgene Dateien zeigen</emphasis> im "
+"Einblendfenster aktivieren, das nach einem Rechtsklick im Dialog zum Öffnen "
+"von Dateien erscheint. Mit dieser Einstellung werden verborgene Dateien (ihr "
+"Name beginnt mit ».«) in der Dateiliste sichtbar. Nehmen Sie diese "
+"Einstellung zurück, um verborgene Dateien nicht anzuzeigen. Der Dialog zum "
+"Öffnen von Dateien besitzt auch einen eingebauten Typenfilter. Wählen Sie "
+"den entsprechenden Dateitypenfilter im Dialog, und die Dateiliste wird auf "
+"Dateien des gewählten Typs beschränkt."
 
 #: C/anjuta-manual.xml:194(screeninfo)
 msgid "The Save As File"
-msgstr ""
+msgstr "Als Datei speichern"
 
 #: C/anjuta-manual.xml:184(para)
 msgid ""
@@ -686,10 +823,19 @@ msgid ""
 "click <guibutton>Save</guibutton> to save the new file with the name "
 "supplied. <placeholder-1/>"
 msgstr ""
+"<emphasis>Speichern einer Datei:</emphasis> Wählen Sie zum Speichern einer "
+"Datei <menuchoice><guisubmenu>Datei</guisubmenu><guimenuitem>Speichern</"
+"guimenuitem></menuchoice> aus der Menüzeile und klicken auf den Knopf  "
+"<guibutton>Speichern</guibutton> in der Werkzeugleiste, oder drücken "
+"<keycombo><keycap>Strg</keycap><keycap>S</keycap></keycombo>. Falls die "
+"Datei neu ist, wird der Dialog <interface>Speichern unter</interface> "
+"geöffnet. Geben Sie einen Dateinamen ein und klicken Sie auf "
+"<guibutton>Speichern</guibutton>, um die neue Datei unter dem angegebenen "
+"Namen abzuspeichern. <placeholder-1/>"
 
 #: C/anjuta-manual.xml:199(title)
 msgid "File autosave"
-msgstr ""
+msgstr "Automatisches Speichern einer Datei"
 
 #: C/anjuta-manual.xml:200(para)
 msgid ""
@@ -699,6 +845,13 @@ msgid ""
 "saved them first manually. <emphasis>You must save a file manually before "
 "autosave or <guimenuitem>Save All</guimenuitem> will work with it.</emphasis>"
 msgstr ""
+"Wenn automatisches Speichern aktiviert ist, so speichert Anjuta nicht "
+"automatisch neue Dateien. Sie müssen diese zunächst selbst speichern. Das "
+"gleiche gilt für die Einstellung <guimenuitem>Alle speichern</guimenuitem>: "
+"Anjuta speichert nicht neue Dateien, solange Sie diese noch nicht selbst "
+"gespeichert haben. <emphasis>Sie müssen zuerst eine Datei selbst speichern, "
+"bevor automatisches Speichern oder <guimenuitem>Alle speichern</guimenuitem> "
+"mit diesen funktioniert.</emphasis>"
 
 #: C/anjuta-manual.xml:211(para)
 msgid ""
@@ -709,10 +862,17 @@ msgid ""
 "appear prompting you to enter the new filename. Enter the name and click "
 "<guibutton>Save</guibutton>."
 msgstr ""
+"<emphasis>Eine Datei unter anderem Namen speichern:</emphasis> Sie können "
+"explizit eine Datei unter einem neuen Namen speichern. Wählen Sie dazu "
+"<menuchoice><guisubmenu>Datei</guisubmenu><guimenuitem>Speichern unter</"
+"guimenuitem></menuchoice> aus der Menüzeile. Der Dialog <interface>Datei "
+"speichern unter</interface> wird geöffnet und fragt Sie nach dem neuen "
+"Dateinamen. Geben Sie den Namen ein und klicken Sie auf "
+"<guibutton>Speichern</guibutton>."
 
 #: C/anjuta-manual.xml:219(title)
 msgid "File save as overwrite"
-msgstr ""
+msgstr "Datei beim Speichern überschreiben"
 
 #: C/anjuta-manual.xml:220(para)
 msgid ""
@@ -722,6 +882,13 @@ msgid ""
 "ensure that you want to overwrite it. Clicking <guibutton>Yes</guibutton> "
 "will overwrite the file with the file you are saving."
 msgstr ""
+"Wenn Sie <guimenuitem>Speichern unter</guimenuitem> mit einer bestehenden "
+"Datei verwenden, so wird das Original nicht gelöscht. Es verbleibt seit dem "
+"letzten Speichern unverändert. Falls eine Datei mit dem neuen Dateinamen "
+"bereits besteht, dann wird ein Bestätigungsdialog angezeigt, um "
+"sicherzustellen, dass Sie sie überschreiben wollen. Mit einem Klick auf "
+"<guibutton>Ja</guibutton> wird die Datei mit derjenigen überschrieben, die "
+"Sie speichern."
 
 #: C/anjuta-manual.xml:232(para)
 msgid ""
@@ -733,6 +900,14 @@ msgid ""
 "or is a new file, then <application>Anjuta</application> will prompt you to "
 "save the file before closing it."
 msgstr ""
+"<emphasis>Eine Datei schließen:</emphasis> Wählen Sie zum Schließen einer "
+"Datei <menuchoice><guisubmenu>Datei</guisubmenu><guimenuitem>Schließen</"
+"guimenuitem></menuchoice> aus der Menüzeile, oder klicken Sie auf den Knopf  "
+"<guibutton>Schließen</guibutton> in der Werkzeugleiste (Sie können eine "
+"Datei auch durch Klick auf das Kreuz (»X«) im Reiter zum Dateinamen "
+"schließen.). So wird die aktuelle Datei geschlossen. Falls die Datei neu "
+"oder nicht gespeichert ist, so wird <application>Anjuta</application> "
+"nachfragen, ob die Datei vor dem Schließen gespeichert werden soll."
 
 #: C/anjuta-manual.xml:249(title)
 msgid "Editing Files"
@@ -751,11 +926,11 @@ msgstr ""
 
 #: C/anjuta-manual.xml:256(title) C/anjuta-manual.xml:265(title)
 msgid "Editor Margins"
-msgstr ""
+msgstr "Editorränder"
 
 #: C/anjuta-manual.xml:267(screeninfo) C/anjuta-manual.xml:315(screeninfo)
 msgid "The Tags toolbar"
-msgstr ""
+msgstr "Die Werkzeugleiste für Beschriftungen"
 
 #: C/anjuta-manual.xml:257(para)
 msgid ""
@@ -768,6 +943,15 @@ msgid ""
 "The rest can be made visible via <menuchoice><guimenu>View</"
 "guimenu><guisubmenu>Editor</guisubmenu></menuchoice>. <placeholder-1/>"
 msgstr ""
+"<emphasis>Editorränder:</emphasis> Editorränder befinden sich links des "
+"Editors und werden für einige bestimmte Zwecke verwendet. Es stehen drei "
+"Editorränder zur Verfügung: Der <emphasis>Zeilennummernrand</emphasis>, der "
+"<emphasis>Markierungsrand</emphasis> und der <emphasis>Rand für "
+"Textfaltungen</emphasis>. Per Voreinstellung (das heißt beim ersten Start "
+"von <application>Anjuta</application>) ist nur der Rand für Textfaltungen "
+"sichtbar. Die anderen beiden können über das Menü "
+"<menuchoice><guimenu>Ansicht</guimenu><guisubmenu>Editor</guisubmenu></"
+"menuchoice> sichtbar geschaltet werden. <placeholder-1/>"
 
 #: C/anjuta-manual.xml:272(para)
 msgid ""
@@ -780,6 +964,15 @@ msgid ""
 "newline, if present). You can set font properties for the line number margin "
 "in the preferences."
 msgstr ""
+"Der<emphasis>Rand für Zeilennummern</emphasis> ist der größte aller drei "
+"Ränder (und etwas dunkler als die anderen) und gibt die Zeilennummern eines "
+"Dokumentes an. Der <emphasis>Rand für Zeilennummern</emphasis> kann über den "
+"Menüpunkt <menuchoice><guimenu>Ansicht</guimenu><guisubmenu>Editor</"
+"guisubmenu><guimenuitem>Rand für Zeilennummern</guimenuitem></menuchoice> "
+"angezeigt oder verborgen werden. Ein Linksklick auf den Rand markiert eine "
+"ganze Zeile (einschließlich des Zeilenumbruchs, sofern vorhanden). Sie "
+"können eine Schriftart für den Zeilennummernrand in den Einstellungen "
+"festlegen."
 
 #: C/anjuta-manual.xml:281(para)
 msgid ""
@@ -797,6 +990,21 @@ msgid ""
 "details). A line indicator marker is used to indicate the current program "
 "position in the debugger."
 msgstr ""
+"Der <emphasis>Markierungsrand</emphasis> kann über den Menüpunkt "
+"<menuchoice><guimenu>Ansicht</guimenu><guisubmenu>Editor</"
+"guisubmenu><guimenuitem>Markierungsrand</guimenuitem></menuchoice> verborgen "
+"und angezeigt werden. Dieser Rand zeigt grafische Symbole zur Markierung "
+"einer Zeile. Der Rand kann Markierungen für Lesezeichen (blau und "
+"rechteckig), für Haltepunkte (rot und rund) sowie Zeilenangaben enthalten "
+"(gelber spitzer Pfeil). Eine Markierung für Lesezeichen deutet eine Zeile "
+"mit Lesezeichen an und kann über das Menü <menuchoice><guimenu>Gehe zu</"
+"guimenu><guisubmenu>Lesezeichen</guisubmenu><guimenuitem> Lesezeichen an/"
+"aus</guimenuitem></menuchoice> ein- und ausgeschaltet werden, sofern sich "
+"die Eingabemarke in dieser Zeile befindet. Eine Markierung für Haltepunkte "
+"wird bei der Fehlerdiagnose verwendet, um einen Haltepunkt festzulegen "
+"(lesen Sie den Abschnitt Fehlerdiagnose für weitere Informationen). Eine "
+"Markierung für Zeilennummern gibt die aktuelle Programmposition während der "
+"Fehlerdiagnose an."
 
 #: C/anjuta-manual.xml:294(para)
 msgid ""
@@ -806,14 +1014,20 @@ msgid ""
 "that a block of code has been folded below the line. For more details on "
 "code folding, see the section <emphasis>Code Folding</emphasis> below."
 msgstr ""
+"Der <emphasis>Textfaltungsrand</emphasis> enthält gegebenenfalls den "
+"Faltungsbaum. Ein Klick auf Knoten im Faltungsbaum klappt Code-Blöcke ein "
+"oder aus. Es wird ein Unterstrich unter einer eingeklappten Zeile angezeigt, "
+"um zu verdeutlichen, dass ein Code-Block unter der Zeile eingeklappt wurde. "
+"Lesen Sie für weitere Informationen zum Falten den Abschnitt "
+"<emphasis>Textfaltung</emphasis> weiter unten."
 
 #: C/anjuta-manual.xml:302(title)
 msgid "Invisible margin marker"
-msgstr ""
+msgstr "Verborgener Markierungsrand"
 
 #: C/anjuta-manual.xml:313(title)
 msgid "Editor markers when the marker margin is invisible"
-msgstr ""
+msgstr "Editorränder im Falle unsichtbarer Markierungsränder"
 
 #: C/anjuta-manual.xml:303(para)
 msgid ""
@@ -827,10 +1041,20 @@ msgid ""
 "guimenu><guisubmenu>Editor</guisubmenu><guimenuitem>Marker Margin</"
 "guimenuitem></menuchoice>. <placeholder-1/>"
 msgstr ""
+"Falls der Markierungsrand nicht sichtbar ist, zeigt Anjuta Markierungen als "
+"Hintergrundfarbe einer Zeile an. Wenn zum Beispiel eine Markierung eines "
+"Haltepunkts für eine Zeile gesetzt ist und der Markierungsrand nicht "
+"sichtbar ist, so wird diese Zeile mit einem roten Hintergrund dargestellt. "
+"Ähnlich wird für ein Lesezeichen und eine Zeilennummernmarkierung die "
+"Hintergrundfarbe tiefblau bzw. gelb sein. Wenn Ihnen dies nicht gefällt "
+"(eventuell. im Zusammenspiel mit dem aktuell verwendeten Thema), so können "
+"Sie den Markierungsrand im Menü <menuchoice><guimenu>Ansicht</"
+"guimenu><guisubmenu>Editor</guisubmenu><guimenuitem>Markierungsrand</"
+"guimenuitem></menuchoice> einschalten. <placeholder-1/>"
 
 #: C/anjuta-manual.xml:323(title)
 msgid "Editor Guides"
-msgstr ""
+msgstr "Bearbeitungshilfen"
 
 #: C/anjuta-manual.xml:324(para)
 msgid ""
@@ -847,7 +1071,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:333(title) C/anjuta-manual.xml:335(screeninfo)
 msgid "Editor with guides"
-msgstr ""
+msgstr "Editor mit Bearbeitungshilfen"
 
 #: C/anjuta-manual.xml:341(title)
 msgid "Syntax highlighting"
@@ -863,6 +1087,14 @@ msgid ""
 "the menu <menuchoice><guimenu>View</guimenu><guisubmenu>Editor</"
 "guisubmenu><guisubmenu> Highlight Mode</guisubmenu></menuchoice>."
 msgstr ""
+"<application>Anjuta</application> kann die Syntax von vielen verschiedenen "
+"Sprachen hervorheben. Dies geschieht normalerweise automatisch durch "
+"Erkennung der Dateiart anhand der Erweiterung. Falls <application>Anjuta</"
+"application> einen Dateityp nicht erkennen kann, dann wird keine "
+"Syntaxhervorhebung eingesetzt. Sie können explizit einen Hervorhebungsmodus "
+"erzwingen, indem Sie den Stil im Menü <menuchoice><guimenu>Ansicht</"
+"guimenu><guisubmenu>Editor</guisubmenu><guisubmenu> Hervorhebungsmodus</"
+"guisubmenu></menuchoice> wählen."
 
 #: C/anjuta-manual.xml:352(para)
 msgid ""
@@ -874,10 +1106,18 @@ msgid ""
 "properties defined by Anjuta in the file <filename>$home/.config/anjuta/"
 "scintilla/editor-style.properties</filename>."
 msgstr ""
+"Anjuta verwendet eine Eigenschaftendatei mit dem Namen <filename>$prefix/"
+"share/anjuta/properties/anjuta.properties</filename>, die das gleiche Format "
+"wie eine SciTE-Eigenschaftendatei besitzt, aber nicht alle Eigenschaften "
+"verwendet. Der Stil jedes Elements für alle Sprachen ist in der Datei "
+"<filename>$prefix/share/anjuta/properties/styles.properties</filename> "
+"hinterlegt. Sie verwendet einige gewöhnliche Eigenschaften, die von Anjuta "
+"in der Datei <filename>$home/.config/anjuta/scintilla/editor-style."
+"properties</filename> festgelegt sind."
 
 #: C/anjuta-manual.xml:365(title)
 msgid "Code folding"
-msgstr "Einfalten des Codes"
+msgstr "Textfaltung"
 
 #: C/anjuta-manual.xml:366(para)
 msgid ""
@@ -888,6 +1128,13 @@ msgid ""
 "+/- symbol or up/down arrow). These fold points automatically appear for "
 "source files which use code blocks."
 msgstr ""
+"Anjuta kann <emphasis>Code-Faltungen</emphasis> für Quelldateien mit in "
+"Blöcken strukturierten Sprachen (wie C, C++, Pascal, und Java) anzeigen. "
+"Alle Code-Blöcke in Quelldateien können ein- und ausgeklappt werden, indem "
+"auf die Faltungspunkte im Rand für Code-Faltung des <interface>Editor</"
+"interface>-fensters geklickt wird (normalerweise ein »+/-«- Symbol oder ein "
+"Pfeil nach oben/unten). Die Faltungspunkte erscheinen automatisch in "
+"Quelldateien, die Code-Blöcke enthalten."
 
 #: C/anjuta-manual.xml:374(para)
 msgid ""
@@ -895,12 +1142,18 @@ msgid ""
 "thousands of lines. Once the folds are closed, a document appears to become "
 "smaller, facilitating easy browsing and editing of the file."
 msgstr ""
+"Code-Faltung ist besonders nützlich beim Bearbeiten von sehr großen "
+"Quelldateien mit tausenden Zeilen. Sobald Teile eingeklappt sind, scheint "
+"ein Dokument kleiner zu sein, und einfaches Durchsuchen und Bearbeiten "
+"werden möglich."
 
 #: C/anjuta-manual.xml:380(para)
 msgid ""
 "Please note that code folding and editor guides are only available in the "
 "Scintilla-based editor."
 msgstr ""
+"Bitte beachten Sie, dass Code-Faltung und Bearbeitungshilfen nur im "
+"Scintilla-Editor verfügbar sind."
 
 #: C/anjuta-manual.xml:387(title)
 msgid "Auto-formatting source code"
@@ -916,24 +1169,39 @@ msgid ""
 "bar. You can change the style of formatting by customizing the choices in "
 "the preferences."
 msgstr ""
+"Anjuta kann C- oder C++-Quelldateien oder Header-Dateien automatisch "
+"formatieren (automatisch einrücken). Dies ermöglicht eine gute Übersicht "
+"über den Quellcode, verbessert die Lesbarkeit, reduziert die "
+"Wahrscheinlichkeit von Syntaxfehlern und spart vor allem Zeit. Zum "
+"automatischen Einrücken wählen Sie <menuchoice><guimenu>Bearbeiten</"
+"guimenu><guimenuitem>Automatisches Einrücken </guimenuitem></menuchoice> in "
+"der Menüzeile. Sie können den Stil der Formatierung in den Einstellungen "
+"selbst anpassen."
 
 #: C/anjuta-manual.xml:401(title)
 msgid "The Symbol Browser"
-msgstr ""
+msgstr "Der Symbol-Browser"
 
 #: C/anjuta-manual.xml:402(para)
+#, fuzzy
 msgid ""
 "You can browse C and C++ source and header files using <emphasis>tags</"
 "emphasis> in the files. A tag (or <emphasis>symbol</emphasis>) refers to a "
 "named entity such as a function definition, structure, or macro. Anjuta "
 "scans open C and C++ source and header files for available tags."
 msgstr ""
+"Sie können C- und C++-Quelldateien und -Headerdateien anhand von "
+"<emphasis>tags??</emphasis> in den Dateien durchsuchen. A tag (oder "
+"<emphasis>Symbol</emphasis>) refers to a named entity such as a function "
+"definition, structure, or macro. Anjuta durchsucht offene C-und C++-"
+"Quelldateien und Header-Dateien nach vorhandenen tags."
 
 #: C/anjuta-manual.xml:415(title) C/anjuta-manual.xml:417(screeninfo)
 msgid "Symbol browser"
-msgstr ""
+msgstr "Symbol-Browser"
 
 #: C/anjuta-manual.xml:407(para)
+#, fuzzy
 msgid ""
 "<application>Anjuta</application> will automatically scan for tags in all of "
 "the source and header files of any open project. You can jump to any "
@@ -942,17 +1210,28 @@ msgid ""
 "which file the tag is found in. The symbol browser lists all available "
 "symbols in the project. <placeholder-1/>"
 msgstr ""
+"<application>Anjuta</application> sucht automatisch nach tags in allen "
+"Quell- und Header-Dateien eines geöffneten Projekts. Sie können zu jeder "
+"Funktionsdefinition, Strukturdefinition, Klassendefinition oder anderen tags "
+"springen, ohne die entsprechende Datei zuvor zu öffnen. Sie müssen auch gar "
+"nicht wissen, in welcher Datei der Tag gefunden wurde. Der Symbol-Browser "
+"listet alle im Projekt verfügbaren Symbole auf. <placeholder-1/>"
 
 #: C/anjuta-manual.xml:423(title)
+#, fuzzy
 msgid "Tag synchronization"
-msgstr ""
+msgstr "Tag-Abgleich"
 
 #: C/anjuta-manual.xml:424(para)
+#, fuzzy
 msgid ""
 "You don't have to worry about the synchronization and update of the tag "
 "database. <application>Anjuta</application> will take care of everything. "
 "You just have to decide which tag you want to go to!"
 msgstr ""
+"Sie müssen sich nicht um Abgleich und Aktualisierung der Tag-Datenbank "
+"kümmern. <application>Anjuta</application> übernimmt dies alles. Sie müssen "
+"lediglich entscheiden, welche Tags sie anspringen möchten!"
 
 #: C/anjuta-manual.xml:435(title)
 msgid "Searching for and Replacing text in files"
@@ -971,6 +1250,12 @@ msgid ""
 "keycap><keycap>F</keycap></keycombo>. This will open the <interface>Find</"
 "interface> dialog."
 msgstr ""
+"Um nach einer <emphasis>Zeichenkette</emphasis> oder einem "
+"<emphasis>regulären Ausdruck</emphasis> in der aktuellen Datei zu suchen, "
+"wählen Sie <menuchoice><guimenu>Bearbeiten</guimenu><guisubmenu>Suchen</"
+"guisubmenu><guimenuitem>Finden</guimenuitem></menuchoice> oder drücken Sie "
+"<keycombo><keycap>Strg</keycap><keycap>Alt</keycap><keycap>F</keycap></"
+"keycombo>. Daraufhin wird der Dialog <interface>Finden</interface> geöffnet."
 
 #: C/anjuta-manual.xml:445(para)
 msgid ""
@@ -979,6 +1264,11 @@ msgid ""
 "direction of search, whether the search is case-sensitive or not, and the "
 "scope of the search. Click <guibutton>Search</guibutton> to start searching."
 msgstr ""
+"Geben Sie die zu suchende Zeichenkette in das Feld ein und wählen Sie, ob es "
+"eine normale Zeichenkette oder ein regulärer Ausdruck ist. Sie können auch "
+"die Suchrichtung, die Beachtung von Groß-/Kleinschreibung und den "
+"Suchbereich festlegen. Klicken Sie zum Starten der Suche auf "
+"<guibutton>Suchen</guibutton>."
 
 #: C/anjuta-manual.xml:451(para)
 msgid ""
@@ -988,6 +1278,11 @@ msgid ""
 "successful, Anjuta will display a message indicating that the search text "
 "was not found."
 msgstr ""
+"Bei erfolgreicher Suche springt Anjuta den Suchtreffer an oder führt eine "
+"weitere Aktion aus (entsprechend der <guilabel>Suchaktion</guilabel>, die "
+"Sie im Reiter <guilabel>Suchziel</guilabel> gewählt haben). Wenn die Suche "
+"ohne Erfolg blieb, wird Anjuta eine Nachricht anzeigen, die darüber "
+"informiert."
 
 #: C/anjuta-manual.xml:456(para)
 msgid ""
@@ -999,14 +1294,24 @@ msgid ""
 "string in the <guilabel>Search Expression</guilabel> text box in the search "
 "dialog."
 msgstr ""
+"Wenn Sie die Suche fortsetzen möchten, drücken Sie den Knopf "
+"<guibutton>Suchen</guibutton> ein weiteres Mal oder drücken Sie "
+"keycombo><keycap>Strg</keycap><keycap>G</keycap></keycombo>. So wird der "
+"nächste Suchtreffer aufgesucht (Verwenden Sie <keycombo><keycap>Umschalt</"
+"keycap><keycap>Strg</keycap><keycap>G</keycap></keycombo> für den "
+"vorhergehenden Suchtreffer). Sie können den Suchtext ändern, indem Sie die "
+"neue Zeichenkette in das Textfeld <guilabel>Suchausdruck</guilabel> im "
+"Suchdialog eingeben."
 
 #: C/anjuta-manual.xml:465(title)
 msgid "Search Text dialog"
-msgstr ""
+msgstr "Dialog »Suchtext«"
 
 #: C/anjuta-manual.xml:470(para)
 msgid "To stop a long search, press the <guibutton>Stop</guibutton> button."
 msgstr ""
+"Drücken Sie zum Anhalten einer langen Suche den Knopf <guibutton>Stopp</"
+"guibutton>."
 
 #: C/anjuta-manual.xml:475(title)
 msgid "Specifying Search Range"
@@ -1017,6 +1322,8 @@ msgid ""
 "In the <interface>Search Target</interface> tab, define the search location "
 "and the action to be performed if the search succeeds."
 msgstr ""
+"Legen Sie im Reiter <interface>Suchziel</interface> den Suchbereich und die "
+"Aktion fest, die im Falle eines Sucherfolgs ausgeführt werden soll."
 
 #: C/anjuta-manual.xml:480(para)
 msgid "You can define the maximum number of actions to be performed."
@@ -1024,7 +1331,7 @@ msgstr "Sie können die maximale Anzahl der auszuführenden Aktionen festlegen."
 
 #: C/anjuta-manual.xml:484(title)
 msgid "Search Target dialog"
-msgstr ""
+msgstr "Dialog »Suchziel«"
 
 #: C/anjuta-manual.xml:489(para)
 msgid "You can select which text will be searched."
@@ -1032,7 +1339,7 @@ msgstr "Sie können wählen, nach welchem Text gesucht werden soll."
 
 #: C/anjuta-manual.xml:493(title)
 msgid "Search Target In choice"
-msgstr ""
+msgstr "Auswahlmöglichkeiten für »Suchen in«"
 
 #: C/anjuta-manual.xml:499(title)
 msgid "Searching in Files"
@@ -1043,6 +1350,8 @@ msgid ""
 "To find text in your project, set <guilabel>Search In</guilabel> to All "
 "Project Files."
 msgstr ""
+"Setzen Sie zur Textsuche in Ihrem Projekt <guilabel>Suchen in</guilabel> auf "
+"»Alle Projektdateien«."
 
 #: C/anjuta-manual.xml:504(para)
 msgid ""
@@ -1051,6 +1360,11 @@ msgid ""
 "guilabel> or <guilabel>Match complete words</guilabel> options. Click "
 "<guibutton>Search</guibutton> to start searching."
 msgstr ""
+"Geben Sie im Reiter <guilabel>Suchausdruck</guilabel> den zu suchenden Text "
+"ein und legen Sie die Sucheinstellungen fest, wie z.B. <guilabel>Groß-/"
+"Kleinschreibung berücksichtigen</guilabel> oder <guilabel>Nur vollständige "
+"Wörter berücksichtigen</guilabel>. Starten Sie die Suche mit  "
+"<guibutton>Suchen</guibutton>."
 
 #: C/anjuta-manual.xml:509(para)
 msgid ""
@@ -1058,18 +1372,24 @@ msgid ""
 "Specify File Patterns. Define the search variables. Click <guibutton>Search</"
 "guibutton> to start searching."
 msgstr ""
+"Verwenden Sie zum Suchen von Text in mehreren Dateien das Feld "
+"<guilabel>Suchen in</guilabel> zur Eingabe von Dateimustern. Legen Sie die "
+"Suchvariablen fest. Klicken Sie anschließen zum Start der Suche auf "
+"<guibutton>Suchen</guibutton>."
 
 #: C/anjuta-manual.xml:515(title)
 msgid "Search File Pattern"
-msgstr ""
+msgstr "Dateisuchmuster"
 
 #: C/anjuta-manual.xml:525(title)
 msgid "Specifying a Search Action"
-msgstr ""
+msgstr "Einen Suchvorgang angeben"
 
 #: C/anjuta-manual.xml:526(para)
 msgid "You can select which action will be performed when a search succeeds."
 msgstr ""
+"Sie können auswählen welche Aktion bei erfolgreicher Suche ausgeführt werden "
+"soll."
 
 #: C/anjuta-manual.xml:529(para)
 msgid ""
@@ -1077,10 +1397,13 @@ msgid ""
 "<guilabel>Search Direction</guilabel> , and so on), some actions may be "
 "unavailable."
 msgstr ""
+"Abhängig von der vorherigen Auswahl (<guilabel>Suche in</guilabel>, "
+"<guilabel>Suchrichtung</guilabel> usw.) stehen einige Vorgänge nicht zur "
+"Verfügung."
 
 #: C/anjuta-manual.xml:535(title)
 msgid "Search Target Action choice"
-msgstr ""
+msgstr "Auswahlmöglichkeiten für die Aktion »Suchziel«"
 
 #: C/anjuta-manual.xml:543(title) C/anjuta-manual.xml:551(title)
 msgid "Replacing"
@@ -1093,16 +1416,23 @@ msgid ""
 "text box, and also specify whether or not you want to be prompted before "
 "each replacement takes place (Replace First Match or Replace All Matches)."
 msgstr ""
+"Suchen und Ersetzen ist vergleichbar mit der Textsuche, mit dem Unterschied, "
+"dass Sie auch den Ersatztext im Textfeld <guilabel>Ersetzen durch</guilabel> "
+"eingeben können. Und Sie können auch festlegen, ob Sie vor jeder Ersetzung "
+"gefragt werden möchten (»Ersten Treffer ersetzen« und »Alle Treffer ersetzen«)."
 
 #: C/anjuta-manual.xml:556(para)
 msgid ""
 "Choose <guibutton>Replace</guibutton> to replace the matched text or "
 "<guibutton>Forward</guibutton> to jump to the next matched text."
 msgstr ""
+"Wählen Sie <guibutton>Ersetzen</guibutton> zum Ersetzen der Übereinstimmung "
+"oder <guibutton>Weiter</guibutton>, um zur nächsten Übereinstimmung zu "
+"gelangen."
 
 #: C/anjuta-manual.xml:563(title)
 msgid "Search Setting"
-msgstr ""
+msgstr "Sucheinstellungen"
 
 #: C/anjuta-manual.xml:564(para)
 msgid "You may also save search options."
@@ -1113,10 +1443,12 @@ msgid ""
 "The item highlighted in red is the active item. The default item specifies "
 "search settings which are loaded when Anjuta launches."
 msgstr ""
+"Das in rot hervorgehobene Objekt ist das aktive. Das vorausgewählte Objekt "
+"gibt Sucheinstellungen vor, die beim Start von Anjuta geladen werden."
 
 #: C/anjuta-manual.xml:572(title)
 msgid "Search Setting dialog"
-msgstr ""
+msgstr "Dialog zu den Sucheinstellungen"
 
 #: C/anjuta-manual.xml:583(title)
 msgid "Printing a file"
@@ -1140,6 +1472,14 @@ msgid ""
 "your editor plugin preferences contains additional options which let you "
 "print with line numbers, wrapped lines and/or headers. <placeholder-1/>"
 msgstr ""
+"Sie können die Druckvorschau mit <menuchoice><guisubmenu>Datei</"
+"guisubmenu><guimenuitem>Druckvorschau</guimenuitem></menuchoice> aufrufen. "
+"Die aktuelle Datei wird abgebildet und eine Druckvorschau angezeigt. Im "
+"Editor hervorgehobener Quelltext wird auch ähnlich in der Vorschau "
+"hervorgehoben (und im Ausdruck). Der Reiter <guilabel>Drucken</guilabel> in "
+"den Einstellungen der Editor-Plugins weitere Einstellungen, die den Ausdruck "
+"mit Zeilennummern, umgebrochenen Zeilen und/oder Headern ermöglichen. "
+"<placeholder-1/>"
 
 #: C/anjuta-manual.xml:601(title)
 msgid "Print Preferences"
@@ -1158,6 +1498,12 @@ msgid ""
 "appropriate print parameters and press <guibutton>Print</guibutton> to print "
 "the file."
 msgstr ""
+"Wenn Sie nun drucken möchten und mit der Vorschau zufrieden sind, wählen Sie "
+"<menuchoice><guisubmenu>Datei</guisubmenu><guimenuitem>Drucken</"
+"guimenuitem></menuchoice> oder <guibutton>Drucken</guibutton> im "
+"Vorschaufenster. Der unten gezeigte Druckdialog wird daraufhin geöffnet. "
+"Wählen Sie die passenden Druckeinstellungen und klicken Sie zum Drucken der "
+"Datei auf <guibutton>Drucken</guibutton>."
 
 #: C/anjuta-manual.xml:615(para)
 msgid ""
@@ -1165,6 +1511,10 @@ msgid ""
 "orientation and paper type. Remember to set them up properly according to "
 "your printer, otherwise printing may not look correct."
 msgstr ""
+"Sie können auch Hoch- oder Querformat, Papiergröße, Seitenorientierung und "
+"Papiertyp festlegen. Vergessen Sie nicht die richtigen Einstellungen für "
+"Ihren Drucker zu treffen, da andernfalls der Ausdruck nicht wie erwartet "
+"sein kann."
 
 #: C/anjuta-manual.xml:622(title) C/anjuta-manual.xml:624(screeninfo)
 msgid "Print Dialog"
@@ -1181,6 +1531,11 @@ msgid ""
 "might fail on some oddly-configured projects, but as long as the project "
 "uses automake/autoconf in a typical way, it should work."
 msgstr ""
+"Anjuta verfügt über ein mächtiges Plugin zur Projektverwaltung, das die "
+"meisten auf <ulink type=\"info\" url=\"info:automake\">automake/autoconf</"
+"ulink> basierenden Projekte öffnen kann. In einigen ungewöhnlich "
+"konfigurierten Projekten kann es fehlschlagen, aber solange das Projekt  "
+"automake/autoconf auf typische Weise verwendet, sollte es funktionieren."
 
 #: C/anjuta-manual.xml:13(para)
 msgid ""
@@ -1194,6 +1549,15 @@ msgid ""
 "or switching back and forth between Anjuta and other tools is quite possible "
 "without any hindrance."
 msgstr ""
+"Das vorteilhafte ist, dass Anjuta nichts zusätzlich zu den in der "
+"Projektstruktur hinterlegten Projektinformationen speichert. Das heißt, es "
+"gibt keine separaten Projektdaten von Anjuta, und alle Projektarbeiten "
+"geschehen direkt in der Projektstruktur. So ist es möglich, das Projekt ohne "
+"Anjuta zu verwalten und zu entwickeln, ohne den Zwang, zu einem Anjuta-"
+"eigenen Format umwandeln zu müssen. Technisch betrachtet sind Anjuta-"
+"Projekte automake-Projekte, und so ist gemischte Entwicklung (mit und ohne "
+"Anjuta-Anwender) als auch der Wechsel zwischen Entwicklungsplattformen ohne "
+"Hindernisse möglich."
 
 #: C/anjuta-manual.xml:26(title)
 msgid "Creating a New Project"
@@ -1222,12 +1586,19 @@ msgid ""
 "menuchoice> to start the application wizard. Read the first page carefully. "
 "Click on <guibutton>Next</guibutton> to proceed."
 msgstr ""
+"Zum Erstellen eines neuen Projekts wählen Sie den Menüpunkt "
+"<menuchoice><guisubmenu>Datei</guisubmenu><guisubmenu>Neu</"
+"guisubmenu><guimenuitem>Projekt …</guimenuitem></menuchoice>, um so den "
+"Projekt-Assistenten zu starten. Lesen Sie die erste Seite sorgsam. Klicken "
+"Sie auf <guibutton>Vor</guibutton>, um fortzusetzen."
 
 #: C/anjuta-manual.xml:48(para)
 msgid ""
 "Select the type of application you want to create in the second page. Click "
 "on <guibutton>Next</guibutton> to proceed."
 msgstr ""
+"WÄhlen Sie die Art der zu erstellenden Anwendung auf der zweiten Seite. "
+"Klicken Sie auf <guibutton>Vor</guibutton>, um fortzusetzen."
 
 #: C/anjuta-manual.xml:54(para)
 msgid ""
@@ -1260,12 +1631,16 @@ msgid ""
 "The final step is to verify the information you have just supplied. Click on "
 "<guibutton>Finish</guibutton> to start generating the project."
 msgstr ""
+"Im letzten Schritt sollen Sie die eingegebenen Informationen prüfen. Klicken "
+"Sie zur Erstellung des Projekts auf <guibutton>Beenden</guibutton>."
 
 #: C/anjuta-manual.xml:86(para)
 msgid ""
 "Once the project has been generated, you can try it out by building it and "
 "executing it."
 msgstr ""
+"Sobald das Projekt erstellt wurde, können Sie es testen und es erstellen "
+"oder ausführen."
 
 #: C/anjuta-manual.xml:92(title)
 msgid "Importing Projects"
@@ -1289,6 +1664,9 @@ msgid ""
 "type=\"info\" url=\"info:automake\">autoconf/automake</ulink> or, to a very "
 "limited extent, a plain Makefile."
 msgstr ""
+"Der Importiervorgang funktioniert nur, wenn das bestehende Projekt <ulink "
+"type=\"info\" url=\"info:automake\">autoconf/automake</ulink> oder in "
+"gewissem Rahmen ein Makefile verwendet."
 
 #: C/anjuta-manual.xml:113(title)
 msgid "Loading and Saving Projects"
@@ -1317,6 +1695,10 @@ msgid ""
 "guisubmenu></menuchoice>. Choose the project filename from the list, and the "
 "project will be opened."
 msgstr ""
+"Wenn ein Projekt jüngst geöffnet wurde, dann finden Sie es im Menü "
+"<menuchoice><guisubmenu>Datei</guisubmenu><guisubmenu>Zuletzt geöffnet</"
+"guisubmenu></menuchoice>. Wählen Sie den Dateinamen des Projekts aus der "
+"Liste, und das Projekt wird geöffnet."
 
 #: C/anjuta-manual.xml:128(para)
 msgid ""
@@ -1455,26 +1837,36 @@ msgid ""
 "Select <menuchoice><guisubmenu>Project</guisubmenu><guimenuitem>Add Group</"
 "guimenuitem></menuchoice> and a dialog to add a new group will pop up."
 msgstr ""
+"Wählen Sie <menuchoice><guisubmenu>Projekt</guisubmenu><guimenuitem>Gruppe "
+"hinzufügen …</guimenuitem></menuchoice> und ein Dialog zum Hinzufügen neuer "
+"Gruppen erscheint."
 
 #: C/anjuta-manual.xml:259(para)
 msgid "Select the group under which to add the new group."
 msgstr ""
+"Wählen Sie die Gruppe, innerhalb der die neue Gruppe hinzugefügt werden soll."
 
 #: C/anjuta-manual.xml:262(para)
 msgid "Enter the name of the new group and click <guibutton>Add</guibutton>."
 msgstr ""
+"Geben Sie den namen der neuen Gruppe ein und klicken Sie auf "
+"<guibutton>Hinzufügen</guibutton>."
 
 #: C/anjuta-manual.xml:248(para)
 msgid ""
 "To add a new group (which is a directory in automake-based projects): "
 "<placeholder-1/>"
 msgstr ""
+"So fügen Sie eine neue Gruppe hinzu (die einem Ordner in automake-Projekten "
+"entspricht): <placeholder-1/>"
 
 #: C/anjuta-manual.xml:266(para)
 msgid ""
 "With automake projects, a new directory with the given name will be created "
 "under the parent group's directory."
 msgstr ""
+"In Automake-Projekten wird ein neuer Ordner mit dem angegebenen Namen im "
+"Ordner der übergeordneten Gruppe erstellt."
 
 #: C/anjuta-manual.xml:271(para)
 msgid ""
@@ -1491,10 +1883,12 @@ msgstr "Entfernen von Gruppen"
 msgid ""
 "Right-click the group in the <interface>Project Manager</interface> view."
 msgstr ""
+"Klicken Sie mit der rechten Maustaste auf die Gruppe in der Ansicht "
+"<interface>Projektverwaltung</interface>."
 
 #: C/anjuta-manual.xml:287(para) C/anjuta-manual.xml:426(para)
 msgid "Select <guimenuitem>Remove</guimenuitem> from the context menu."
-msgstr ""
+msgstr "Wählen Sie <guimenuitem>Entfernen</guimenuitem> im Kontextmenü."
 
 #: C/anjuta-manual.xml:280(para)
 msgid "To remove a group: <placeholder-1/>"
@@ -2383,7 +2777,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:3(title)
 msgid "Debugging"
-msgstr "Debuggen (Fehlerdiagnose)"
+msgstr "Fehlerdiagnose"
 
 #: C/anjuta-manual.xml:5(emphasis)
 msgid "To debug is human. To fix it is divine..."
@@ -3909,15 +4303,14 @@ msgstr ""
 msgid ""
 "This manual was written by Naba Kumar, Andy Piper, Biswapesh Chattopadhyay "
 "and Johannes Schmid. Please send all comments and suggestions regarding this "
-"manual to the Anjuta Devel list <email>anjuta-devel@list.sourceforge.net</"
-"email>. Comments may also be submitted via the project trackers at "
-"SourceForge."
+"manual to the Anjuta Devel list <email>anjuta-devel-list@gnome.org</email>. "
+"Comments may also be submitted via the project trackers at SourceForge."
 msgstr ""
 "Dieses Handbuch wurde von Naba Kumar, Andy Piper, Biswapesh Chattopadhyay "
 "und Johannes Schmid geschrieben. Bitte senden Sie alle Vorschläge und "
 "Kommentare, die dieses Handbuch betreffen, an die Anjuta Devel-Mailing-Liste "
-"<email>anjuta-devel@list.sourceforge.net</email>. Es können auch Kommentare "
-"auf der Projektseite auf SourceForge abgegeben werden."
+"<email>anjuta-devel-list@gnome.org</email>. Es können auch Kommentare auf "
+"der Projektseite auf SourceForge abgegeben werden."
 
 #: C/anjuta-manual.xml:2(title)
 msgid "License"

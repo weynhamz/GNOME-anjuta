@@ -34,7 +34,7 @@
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
-#include <libanjuta/interfaces/ianjuta-macro.h>
+#include <libanjuta/interfaces/ianjuta-snippets-manager.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-project.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
@@ -109,8 +109,8 @@ static NewFileGUI *nfg = NULL;
 
 
 static gboolean create_new_file_dialog(IAnjutaDocumentManager *docman);
-static void insert_notice(IAnjutaMacro* macro, const gchar* license_type, gint comment_type);
-static void insert_header(IAnjutaMacro* macro, gint source_type);
+static void insert_notice(IAnjutaSnippetsManager* snippets_manager, const gchar* license_type, gint comment_type);
+static void insert_header(IAnjutaSnippetsManager* snippets_manager, gint source_type);
 
 static void
 on_add_to_project_toggled (GtkWidget* toggle_button, NewFileGUI *gui)
@@ -246,7 +246,7 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 	gint source_type;
 	IAnjutaDocumentManager *docman;
 	GtkWidget *toplevel;
-	IAnjutaMacro* macro;
+	IAnjutaSnippetsManager* snippets_manager;
 	IAnjutaEditor *te = NULL;
 	IAnjutaEditor *teh = NULL;
 	gboolean ok = TRUE;
@@ -254,8 +254,8 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 	toplevel= gtk_widget_get_toplevel (window);
 	docman = IANJUTA_DOCUMENT_MANAGER (g_object_get_data (G_OBJECT(toplevel),
 										"IAnjutaDocumentManager"));
-	macro = anjuta_shell_get_interface (ANJUTA_PLUGIN(docman)->shell, 
-		                       IAnjutaMacro, NULL);
+	snippets_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN(docman)->shell, 
+		                                           IAnjutaSnippetsManager, NULL);
 	entry = GTK_WIDGET (gtk_builder_get_object (nfg->bxml, NEW_FILE_ENTRY));
 	name = gtk_entry_get_text(GTK_ENTRY(entry));
 
@@ -303,11 +303,11 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 	if (gtk_widget_get_sensitive (checkbutton) &&
 			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton)))
 	{
-		insert_header(macro, source_type);
+		insert_header(snippets_manager, source_type);
 		if (teh != NULL)
 		{
 			ianjuta_document_manager_set_current_document (docman, IANJUTA_DOCUMENT(teh), NULL);		
-			insert_header (macro, new_file_type[source_type].header);
+			insert_header (snippets_manager, new_file_type[source_type].header);
 			ianjuta_document_manager_set_current_document (docman, IANJUTA_DOCUMENT(te), NULL);		
 		}
 	}
@@ -321,12 +321,12 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 		license_type = new_license_type[sel].type;
 		comment_type = new_file_type[source_type].comment;
 		                                  
-		insert_notice(macro, license_type, comment_type);		
+		insert_notice(snippets_manager, license_type, comment_type);		
 		if (teh != NULL)
 		{
 			comment_type = new_file_type[new_file_type[source_type].header].comment;
 			ianjuta_document_manager_set_current_document (docman, IANJUTA_DOCUMENT(teh), NULL);		
-			insert_notice(macro, license_type, comment_type);		
+			insert_notice(snippets_manager, license_type, comment_type);		
 			ianjuta_document_manager_set_current_document (docman, IANJUTA_DOCUMENT(te), NULL);		
 		}
 	}
@@ -461,53 +461,17 @@ on_new_file_license_toggled(GtkToggleButton *button, gpointer user_data)
 }
 
 static void
-insert_notice(IAnjutaMacro* macro, const gchar* license_type, gint comment_type)
+insert_notice(IAnjutaSnippetsManager* snippets_manager, const gchar* license_type, gint comment_type)
 {
-	const gchar *template;
 	gchar *name;
 
-	switch (comment_type)
-	{
-		case CMT_C:
-			template = "/* %s */";
-			break;
-		case CMT_CPP:
-			template = "// %s";
-			break;
-		case CMT_P:
-			template = "# %s";
-			break;
-		default:
-			template = "/* %s */";
-			break;
-	}
-
-	name = g_strdup_printf(template, license_type);
-	ianjuta_macro_insert(macro, name, NULL);
+	name = g_utf8_strdown (license_type, -1);
+	ianjuta_snippets_manager_insert(snippets_manager, name, NULL);
 	g_free (name);
 }
 
 static void
-insert_header(IAnjutaMacro* macro, gint source_type)
+insert_header(IAnjutaSnippetsManager* snippets_manager, gint source_type)
 {
-	switch (source_type)
-	{
-		case  LGE_C: case LGE_HC:
-			ianjuta_macro_insert(macro, "Header_c", NULL);
-			break;
-		case  LGE_CPLUS: case LGE_JAVA:
-			ianjuta_macro_insert(macro, "Header_cpp", NULL);
-			break;
-		case  LGE_CSHARP:
-			ianjuta_macro_insert(macro, "Header_csharp", NULL);
-			break;
-		case LGE_PERL:
-			ianjuta_macro_insert(macro, "Header_perl", NULL);
-			break;
-		case LGE_SHELL:
-			ianjuta_macro_insert(macro, "Header_shell", NULL);
-			break;
-		default:
-			break;
-	}
+	ianjuta_snippets_manager_insert (snippets_manager, "top_com", NULL);
 }

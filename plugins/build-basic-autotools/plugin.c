@@ -2658,7 +2658,7 @@ update_project_ui (BasicAutotoolsPlugin *bb_plugin)
 	g_object_set (G_OBJECT (action), "sensitive", has_project, NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
 								   "ActionBuildCleanProject");
-	g_object_set (G_OBJECT (action), "sensitive", has_project, NULL);
+	g_object_set (G_OBJECT (action), "sensitive", has_makefile, NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
 								   "ActionBuildDistribution");
 	g_object_set (G_OBJECT (action), "sensitive", has_project, NULL);

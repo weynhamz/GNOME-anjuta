@@ -191,7 +191,7 @@ anjuta_msgman_page_from_widget (AnjutaMsgman * msgman, MessageView * mv)
 
 static void
 on_notebook_switch_page (GtkNotebook * notebook,
-			 GtkNotebookPage * npage,
+			 GtkWidget * npage,
 			 gint page_num, AnjutaMsgman * msgman)
 {
 	g_signal_emit_by_name(G_OBJECT(msgman), "view_changed");

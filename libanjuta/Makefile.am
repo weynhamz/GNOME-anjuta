@@ -72,8 +72,6 @@ libanjuta_la_SOURCES= \
 	cell-renderer-captioned-image.h \
 	e-splash.h \
 	e-splash.c \
-	anjuta-error.c \
-	anjuta-error.h \
 	anjuta-vcs-status.h \
 	anjuta-vcs-status-tree-view.c \
 	anjuta-vcs-status-tree-view.h \
@@ -136,7 +134,6 @@ libanjuta_include = \
 	anjuta-plugin-handle.h \
 	anjuta-profile.h \
 	anjuta-profile-manager.h \
-	anjuta-marshal.h \
 	anjuta-utils.h \
 	anjuta-preferences-dialog.h \
 	anjuta-preferences.h \
@@ -145,7 +142,6 @@ libanjuta_include = \
 	anjuta-session.h \
 	anjuta-save-prompt.h \
 	anjuta-serializer.h \
-	anjuta-error.h \
 	resources.h \
 	anjuta-vcs-status-tree-view.h \
 	anjuta-vcs-status.h \
@@ -162,7 +158,8 @@ libanjuta_include = \
 
 libanjutainclude_HEADERS = \
 	$(libanjuta_include) \
-	anjuta-enum-types.h
+	anjuta-enum-types.h \
+	anjuta-marshal.h
 
 BUILT_SOURCES=anjuta-marshal.c anjuta-marshal.h  anjuta-enum-types.h anjuta-enum-types.c
 
@@ -226,24 +223,24 @@ INTROSPECTION_COMPILER_ARGS = --includedir=$(srcdir)
 
 if HAVE_INTROSPECTION
 anjuta_introspection_sources = $(libanjuta_la_SOURCES)
-ianjuta_introspection_sources = interfaces/*.c interfaces/*.h
+ianjuta_introspection_sources = $(srcdir)/interfaces/*.c $(srcdir)/interfaces/*.h
 
 Anjuta-1_0.gir: libanjuta.la
 Anjuta_1_0_gir_INCLUDES = GObject-2.0 Gtk-2.0
 Anjuta_1_0_gir_CFLAGS = $(ANJUTA_CFLAGS) -I$(top_srcdir)
-Anjuta_1_0_gir_LIBS = libanjuta.la
-Anjuta_1_0_gir_FILES = $(addprefix $(srcdir)/,$(anjuta_introspection_sources))
+Anjuta_1_0_gir_LIBS = anjuta
+Anjuta_1_0_gir_FILES = $(anjuta_introspection_sources)
 INTROSPECTION_GIRS += Anjuta-1.0.gir
 
-IAnjuta-1_0.gir: interfaces/libanjuta-interfaces.la  libanjuta.la Anjuta-1.0.gir
+IAnjuta-1_0.gir: interfaces/libanjuta-interfaces.la libanjuta.la Anjuta-1.0.gir
 IAnjuta_1_0_gir_INCLUDES = GObject-2.0 Gtk-2.0 Anjuta-1.0
 IAnjuta_1_0_gir_CFLAGS = $(LIBANJUTA_CFLAGS) -I$(top_srcdir)
-IAnjuta_1_0_gir_LIBS = interfaces/libanjuta-interfaces.la libanjuta.la
-IAnjuta_1_0_gir_FILES = $(addprefix $(srcdir)/,$(ianjuta_introspection_sources))
+IAnjuta_1_0_gir_LIBS = interfaces/libanjuta-interfaces.la anjuta
+IAnjuta_1_0_gir_FILES = $(ianjuta_introspection_sources)
 INTROSPECTION_GIRS += IAnjuta-1.0.gir
 
 girdir = $(datadir)/gir-1.0
-dist_gir_DATA = $(INTROSPECTION_GIRS)
+gir_DATA = $(INTROSPECTION_GIRS)
 
 typelibdir = $(libdir)/girepository-1.0
 typelib_DATA = $(INTROSPECTION_GIRS:.gir=.typelib)

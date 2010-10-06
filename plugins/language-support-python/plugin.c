@@ -743,7 +743,7 @@ get_line_indentation_base (PythonPlugin *plugin,
 	else
 	{
 		gint line = currentline;
-		while (is_spaces_only(editor, line))
+		while (is_spaces_only(editor, line) && line >= 0)
 			line--;
 		line_indent = get_line_indentation (editor, line);
 	}
@@ -911,8 +911,9 @@ on_check_finished (AnjutaLauncher* launcher,
 		                                                 GTK_RESPONSE_ACCEPT,
 		                                                 NULL);
 		GtkWidget* area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
-		GtkWidget* label = gtk_label_new (_("Couldn't find python-rope (http://rope.sf.net) libraries which\n"
-		                                    "are needed for autocompletion in python files.\n"
+
+		GtkWidget* label = gtk_label_new (_("Either python path is wrong or python-rope (http://rope.sf.net) libraries\n"
+		                                    "aren't installed. Both are required for autocompletion in python files.\n"
 		                                    "Please install them and check the python path in the preferences."));
 		GtkWidget* check_button = gtk_check_button_new_with_label (_("Do not show that warning again"));
 
@@ -1355,20 +1356,22 @@ ipreferences_merge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
 					GError** e)
 {
 	/* Add preferences */
-	GtkBuilder *pref_page = gtk_builder_new();
+	PythonPlugin* plugin = ANJUTA_PLUGIN_PYTHON (ipref);
 	gchar *objects[] = {"python_preferences_dialog", NULL};
-	gtk_builder_add_objects_from_file(pref_page, PROPERTIES_FILE_UI, objects, NULL);
+	plugin->bxml = gtk_builder_new();
+	gtk_builder_add_objects_from_file(plugin->bxml, PROPERTIES_FILE_UI, objects, NULL);
 	anjuta_preferences_add_from_builder (prefs,
-								 pref_page, "preferences", _("Python"),
-								 ICON_FILE);
-	g_object_unref (pref_page);
+	                                     plugin->bxml, "preferences", _("Python"),
+	                                     ICON_FILE);
 }
 
 static void
 ipreferences_unmerge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
 					  GError** e)
 {
+	PythonPlugin* plugin = ANJUTA_PLUGIN_PYTHON (ipref);
 	anjuta_preferences_remove_page(prefs, _("Python"));
+	g_object_unref (plugin->bxml);
 }
 
 static void
