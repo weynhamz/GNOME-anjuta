@@ -29,16 +29,14 @@
 
 G_BEGIN_DECLS
 
-AnjutaToken *amp_project_write_config_list (AmpProject *project);
-AnjutaToken *amp_project_write_config_file (AmpProject *project, AnjutaToken *list, gboolean after, AnjutaToken *sibling, const gchar *filename);
-AnjutaToken *amp_project_write_source_list (AnjutaToken *makefile, const gchar *name, gboolean after, AnjutaToken* sibling);
-
 gboolean amp_group_create_token (AmpProject *project, AnjutaAmGroupNode *group, GError **error);
 gboolean amp_group_delete_token (AmpProject  *project, AnjutaAmGroupNode *target, GError **error);
 
 gboolean amp_target_create_token (AmpProject  *project, AnjutaAmTargetNode *target, GError **error);
 gboolean amp_target_delete_token (AmpProject  *project, AnjutaAmTargetNode *target, GError **error);
 
+gboolean amp_source_create_token (AmpProject  *project, AnjutaAmSourceNode *source, GError **error);
+gboolean amp_source_delete_token (AmpProject  *project, AnjutaAmSourceNode *source, GError **error);
 
 G_END_DECLS
 

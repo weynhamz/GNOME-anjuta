@@ -720,6 +720,17 @@ anjuta_am_target_node_class_init (AnjutaAmTargetNodeClass *klass)
 /* Source object
  *---------------------------------------------------------------------------*/
 
+AnjutaToken *
+amp_source_get_token (AnjutaAmSourceNode *node)
+{
+	return node->token;
+}
+
+void
+amp_source_add_token (AnjutaAmSourceNode *node, AnjutaToken *token)
+{
+	node->token = token;
+}
 
 AnjutaProjectNode*
 amp_source_new (GFile *file, GError **error)
@@ -733,6 +744,7 @@ amp_source_new (GFile *file, GError **error)
 	node->base.name = NULL;
 	node->base.file = g_object_ref (file);
 	node->base.state = ANJUTA_PROJECT_CAN_REMOVE;
+	node->token = NULL;
 
 	return ANJUTA_PROJECT_NODE (node);
 }

@@ -148,6 +148,9 @@ void amp_source_free (AnjutaAmSourceNode *node);
 gchar *amp_source_get_id (AnjutaAmSourceNode *source);
 GFile *amp_source_get_file (AnjutaAmSourceNode *source);
 
+gchar* canonicalize_automake_variable (gchar *name);
+
+
 G_END_DECLS
 
 #endif /* _AM_PROJECT_H_ */

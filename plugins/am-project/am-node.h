@@ -85,6 +85,8 @@ void amp_target_free (AnjutaAmTargetNode *node);
 
 AnjutaProjectNode* amp_source_new (GFile *file, GError **error);
 void amp_source_free (AnjutaAmSourceNode *node);
+AnjutaToken *amp_source_get_token (AnjutaAmSourceNode *node);
+void amp_source_add_token (AnjutaAmSourceNode *node, AnjutaToken *token);
 
 G_END_DECLS
 

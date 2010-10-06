@@ -310,7 +310,7 @@ file_type (GFile *file, const gchar *filename)
  *---------------------------------------------------------------------------*/
 
 /* Remove invalid character according to automake rules */
-static gchar*
+gchar*
 canonicalize_automake_variable (gchar *name)
 {
 	gchar *canon_name = g_strdup (name);
@@ -588,95 +588,6 @@ find_canonical_target (AnjutaProjectNode *node, gpointer data)
 
 /* Source objects
  *---------------------------------------------------------------------------*/
-
-static gboolean 
-amp_source_fill_token (AmpProject  *project, AnjutaAmSourceNode *source, GError **error)
-{
-	AnjutaAmGroupNode *group;
-	AnjutaAmTargetNode *target;
-	gboolean after;
-	AnjutaToken *token;
-	AnjutaToken *prev;
-	AnjutaToken *args;
-	gchar *relative_name;
-
-	/* Get parent target */
-	target = ANJUTA_AM_TARGET_NODE (anjuta_project_node_parent (ANJUTA_PROJECT_NODE (source)));
-	if ((target == NULL) || (anjuta_project_node_get_node_type (target) != ANJUTA_PROJECT_TARGET)) return FALSE;
-	
-	group = ANJUTA_AM_GROUP_NODE (anjuta_project_node_parent (ANJUTA_PROJECT_NODE (target)));
-	relative_name = g_file_get_relative_path (AMP_GROUP_DATA (group)->base.file, AMP_SOURCE_DATA (source)->base.file);
-
-	/* Add in Makefile.am */
-	/* Find a sibling if possible */
-	if (source->base.prev != NULL)
-	{
-		prev = AMP_SOURCE_DATA (source->base.prev)->token;
-		after = TRUE;
-		args = anjuta_token_list (prev);
-	}
-	else if (source->base.next != NULL)
-	{
-		prev = AMP_SOURCE_DATA (source->base.next)->token;
-		after = FALSE;
-		args = anjuta_token_list (prev);
-	}
-	else
-	{
-		prev = NULL;
-		args = NULL;
-	}
-	
-	if (args == NULL)
-	{
-		gchar *target_var;
-		gchar *canon_name;
-		AnjutaToken *var;
-		GList *list;
-		
-		canon_name = canonicalize_automake_variable (AMP_TARGET_DATA (target)->base.name);
-		target_var = g_strconcat (canon_name,  "_SOURCES", NULL);
-
-		/* Search where the target is declared */
-		var = NULL;
-		list = amp_target_get_token (target);
-		if (list != NULL)
-		{
-			var = (AnjutaToken *)list->data;
-			if (var != NULL)
-			{
-				var = anjuta_token_list (var);
-				if (var != NULL)
-				{
-					var = anjuta_token_list (var);
-				}
-			}
-		}
-		
-		args = amp_project_write_source_list (AMP_GROUP_DATA (group)->make_token, target_var, after, var);
-		g_free (target_var);
-	}
-	
-	if (args != NULL)
-	{
-		token = anjuta_token_new_string (ANJUTA_TOKEN_NAME | ANJUTA_TOKEN_ADDED, relative_name);
-		if (after)
-		{
-			anjuta_token_insert_word_after (args, prev, token);
-		}
-		else
-		{
-			anjuta_token_insert_word_before (args, prev, token);
-		}
-	
-		anjuta_token_style_format (project->am_space_list, args);
-		anjuta_token_file_update (AMP_GROUP_DATA (group)->tfile, token);
-	}
-	
-	AMP_SOURCE_DATA (source)->token = token;
-
-	return TRUE;
-}
 
 /*
  * File monitoring support --------------------------------
@@ -2369,7 +2280,7 @@ iproject_add_node_before (IAnjutaProject *obj, AnjutaProjectNode *parent, Anjuta
 		case ANJUTA_PROJECT_SOURCE:
 			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
 			anjuta_project_node_insert_before (parent, sibling, node);
-			amp_source_fill_token (AMP_PROJECT (obj), node, NULL);
+			amp_source_create_token (AMP_PROJECT (obj), node, NULL);
 			break;
 		default:
 			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
@@ -2407,7 +2318,7 @@ iproject_add_node_after (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaP
 		case ANJUTA_PROJECT_SOURCE:
 			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
 			anjuta_project_node_insert_after (parent, sibling, node);
-			amp_source_fill_token (AMP_PROJECT (obj), node, NULL);
+			amp_source_create_token (AMP_PROJECT (obj), node, NULL);
 			break;
 		default:
 			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
@@ -2434,6 +2345,7 @@ iproject_remove_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err
 			amp_target_delete_token (AMP_PROJECT (obj), node, NULL);
 			break;
 		case ANJUTA_PROJECT_SOURCE:
+			amp_source_delete_token (AMP_PROJECT (obj), node, NULL);
 			break;
 		default:
 			break;
