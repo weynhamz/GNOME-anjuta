@@ -583,6 +583,7 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 	{
 		g_warning ("Couldn't load builder file: %s", error->message);
 		g_error_free (error);
+		return;
 	}
 	anjuta_preferences_add_from_builder (prefs, bxml,
 									"Messages", _("Messages"),

@@ -340,8 +340,7 @@ init_fonts(Sourceview* sv)
 	}
 	else
 	{
-		/* FIXME: Get font from GSettings */
-#if 0	
+		/* FIXME: Get font from GSettings */	
 		GConfClient *gclient;
 		gchar *desktop_fixed_font;
 		
@@ -354,7 +353,6 @@ init_fonts(Sourceview* sv)
 			anjuta_view_set_font(sv->priv->view, TRUE, NULL);
 		g_free (desktop_fixed_font);
 		g_object_unref (gclient);
-#endif
 	}
 }
 
