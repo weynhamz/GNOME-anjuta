@@ -124,7 +124,7 @@ AM_GCONF_SOURCE_2
 dnl ***************************************************************************
 dnl Check for GObject-Introspection
 dnl ***************************************************************************
-m4_ifdef([GOBJECT_INTROSPECTION_CHECK], [GOBJECT_INTROSPECTION_CHECK([0.6.7])], 
+m4_ifdef([GOBJECT_INTROSPECTION_CHECK], [GOBJECT_INTROSPECTION_CHECK([0.6.7])],
 [AM_CONDITIONAL(HAVE_INTROSPECTION, false)])
 
 dnl ***************************************************************************
@@ -143,8 +143,8 @@ fi
 
 dnl Check base modules
 
-PKG_CHECK_MODULES([ANJUTA], 
-   [gthread-2.0 >= $GTHREAD_REQUIRED 
+PKG_CHECK_MODULES([ANJUTA],
+   [gthread-2.0 >= $GTHREAD_REQUIRED
 	unique-1.0 >= $UNIQUE_REQUIRED
 	glib-2.0 >= $GLIB_REQUIRED
 	gio-2.0 >= $GLIB_REQUIRED
@@ -203,7 +203,7 @@ if test "$user_disabled_devhelp" = 1; then
 	devhelp_enabled="no"
 else
 	AC_MSG_RESULT(no)
-	PKG_CHECK_MODULES(PLUGIN_DEVHELP, 
+	PKG_CHECK_MODULES(PLUGIN_DEVHELP,
 				[libdevhelp-2.0 >= $LIBDEVHELP_REQUIRED webkit-1.0],
 				[
 				    devhelp_enabled=yes
@@ -245,7 +245,7 @@ dnl Check for gtksourceview
 dnl -------------------------------------------------------------
 
 AC_ARG_ENABLE(plugin-sourceview,
-	AC_HELP_STRING([--disable-plugin-sourceview],[Disable gtksourceview based editor in Anjuta]), 
+	AC_HELP_STRING([--disable-plugin-sourceview],[Disable gtksourceview based editor in Anjuta]),
 	[ if test "$enableval" = "no"; then
 		user_disabled_sourceview=1
 	  fi ],
@@ -318,7 +318,7 @@ AC_SUBST(LIBFOOCANVAS_LIBS)
 
 dnl Checks for Xft/XRender for foocanvas
 dnl
-AC_CHECK_LIB(Xrender, XRenderFindFormat, 
+AC_CHECK_LIB(Xrender, XRenderFindFormat,
 	[AC_SUBST(RENDER_LIBS, "-lXrender -lXext")
 	 AC_DEFINE(HAVE_RENDER, 1, [Define if libXrender is available.])],
 	[AC_SUBST(RENDER_LIBS, "")],
@@ -542,7 +542,7 @@ else
 fi
 
 AC_SUBST(GMAKE)
- 
+
 dnl Checks for missing prototypes
 dnl -----------------------------
 AC_CHECKING("for missing prototypes")
@@ -596,7 +596,7 @@ if test -x "$SVNCONFIG"; then
 		AC_MSG_RESULT(yes)
 else
 		AC_MSG_RESULT(not found)
-		
+
 		dnl just a fallback to debian's config so that it works for me :)
 		AC_ARG_WITH(svn-include,
 								[[  --with-svn-include=DIR   Use the given path to the subversion headers.]],
@@ -679,7 +679,7 @@ if test -n "$SVN_INCLUDE" ; then
 	if test x"$have_apr" = "xno"; then
 		SVN_INCLUDE=""
 	fi
-	
+
 	dnl -----------------------------------------
 	dnl APR util. Required by subversion (devel)
 	dnl------------------------------------------
@@ -689,7 +689,7 @@ if test -n "$SVN_INCLUDE" ; then
 	if test x"$have_apr_util" = "xno"; then
 		SVN_INCLUDE=""
 	fi
-	
+
 	dnl -----------------------------------------
 	dnl NEON. Required by subversion (devel)
 	dnl------------------------------------------
@@ -764,7 +764,7 @@ AC_SUBST(SYMBOL_DB_SHM)
 
 dnl Check for graphviz (class inheritance and profiler plugins)
 AC_ARG_ENABLE(graphviz,
-	AC_HELP_STRING([--disable-graphviz],[Disable GraphViz support in Anjuta]), 
+	AC_HELP_STRING([--disable-graphviz],[Disable GraphViz support in Anjuta]),
 	[ if test "$enableval" = "no"; then
 		user_disabled_graphviz=1
 	  fi ],
@@ -777,7 +777,7 @@ if test "$user_disabled_graphviz" = 1; then
 else
 	AC_MSG_RESULT(no)
 	PKG_CHECK_MODULES(GRAPHVIZ,
-		[libgvc >= $LIBGRAPHVIZ_REQUIRED libgraph >= $LIBGRAPHVIZ_REQUIRED], 
+		[libgvc >= $LIBGRAPHVIZ_REQUIRED libgraph >= $LIBGRAPHVIZ_REQUIRED],
 		[libgraphviz_found="yes"],
 		[libgraphviz_found="no"])
 fi
