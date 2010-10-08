@@ -166,7 +166,7 @@ struct _DmaStart
 #define RUN_PROGRAM_ACTION_GROUP "ActionGroupRun"
 #define RUN_PROGRAM_PARAMETER_ACTION "ActionProgramParameters"
 
-#define PREFS_NOT_CHECK_DEBUG "debug_silent_non_debug_config"
+#define PREFS_NOT_CHECK_DEBUG "debug-silent-non-debug-config"
 
 static void attach_process_clear (AttachProcess * ap, gint ClearRequest);
 
