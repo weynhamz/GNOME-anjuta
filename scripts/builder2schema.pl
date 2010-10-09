@@ -30,9 +30,11 @@ if ($#ARGV == 2) {
 my $parser = new XML::Parser(Style => "Stream");
 $parser->parsefile($ARGV[0]);
 
-my %keys = {};
+print "\t</schema>\n";
+print "</schemalist>";
 
 sub StartTag {
+	my %keys = {};
 	my $parser = shift;
 	my $key = shift;
 	if ($key =~ /object/) {
@@ -83,6 +85,3 @@ sub StartTag {
 sub EndTag {}
 
 sub Text {}
-
-print "\t</schema>\n";
-print "</schemalist>";
