@@ -116,146 +116,9 @@ struct _AnjutaPreferencesForeachData
 	gpointer callback_data;
 };
 
-/* Internal structure for anjuta_preferences_add_notify */
-typedef struct
-{
-	AnjutaPreferences *pr;
-	AnjutaPreferencesNotify func;
-	guint id;
-	gpointer data;
-} AnjutaPreferencesNotifyData;
-
-/* Data for notifications */
-
 #define PREFERENCE_PROPERTY_PREFIX "preferences_"
-#define GSETTINGS_SCHEME "org.gnome.anjuta"
 
-/**
- * anjuta_preferences_get:
- * @pr: A #AnjutaPreferences object
- * @key: Property key
- *
- * Gets the value of @key as string. Returned string should be g_freed() when not
- * required.
- *
- * Return value: Key value as string or NULL if the key is not defined.
- */
-#ifdef __GNUC__
-inline
-#endif
-gchar *
-anjuta_preferences_get (AnjutaPreferences *pr, const gchar *key)
-{
-	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), NULL);
-	g_return_val_if_fail (key != NULL, NULL);
-
-	return g_settings_get_string (pr->priv->gsettings, key);
-}
-
-/**
- * anjuta_preferences_get_int:
- * @pr: A #AnjutaPreferences object
- * @key: Property key
- *
- * Gets the value of @key as integer.
- *
- * Return value: Key value as integer or 0 if the key is not defined.
- */
-#ifdef __GNUC__
-inline
-#endif
-gint
-anjuta_preferences_get_int (AnjutaPreferences *pr, const gchar *key)
-{	
-	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), 0);
-	g_return_val_if_fail (key != NULL, 0);
-
-	return g_settings_get_int (pr->priv->gsettings, key);
-}
-
-/**
- * anjuta_preferences_get_bool:
- * @pr: A #AnjutaPreferences object
- * @key: Property key
- *
- * Gets the value of @key as integer.
- *
- * Return value: Key value as boolean or FALSE if the key is not defined.
- */
-#ifdef __GNUC__
-inline
-#endif
-gboolean
-anjuta_preferences_get_bool (AnjutaPreferences *pr, const gchar *key)
-{
-	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), 0);
-	g_return_val_if_fail (key != NULL, 0);
-
-	return g_settings_get_boolean (pr->priv->gsettings, key);
-}
-
-/**
- * anjuta_preferences_set:
- * @pr: A #AnjutaPreferences object.
- * @key: Property key.
- * @value: Value of the key.
- *
- * Sets the value of @key in current session.
- */
-#ifdef __GNUC__
-inline
-#endif
-void
-anjuta_preferences_set (AnjutaPreferences *pr, const gchar *key,
-						const gchar *value)
-{
-	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
-	g_return_if_fail (key != NULL);
-
-	g_settings_set_string (pr->priv->gsettings, key, value);
-}
-
-/**
- * anjuta_preferences_set_int:
- * @pr: A #AnjutaPreferences object.
- * @key: Property key.
- * @value: Integer value of the key.
- *
- * Sets the value of @key in current session.
- */
-#ifdef __GNUC__
-inline
-#endif
-void
-anjuta_preferences_set_int (AnjutaPreferences *pr, const gchar *key,
-							gint value)
-{
-	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
-	g_return_if_fail (key != NULL);
-
-	g_settings_set_int (pr->priv->gsettings, key, value);
-}
-
-/**
- * anjuta_preferences_set_bool:
- * @pr: A #AnjutaPreferences object.
- * @key: Property key.
- * @value: Boolean value of the key.
- *
- * Sets the value of @key in current session.
- */
-#ifdef __GNUC__
-inline
-#endif
-void
-anjuta_preferences_set_bool (AnjutaPreferences *pr, const gchar *key,
-							 gboolean value)
-{
-	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
-	g_return_if_fail (key != NULL);
-
-	g_settings_set_boolean (pr->priv->gsettings, key, value);
-}
+G_DEFINE_TYPE (AnjutaPreferences, anjuta_preferences, G_TYPE_OBJECT);
 
 static void
 property_destroy (AnjutaProperty *property)
@@ -341,20 +204,20 @@ unregister_preferences_key (GtkWidget *widget,
 }
 
 static void
-connect_objects (AnjutaPreferences *pr, AnjutaProperty *p)
+connect_objects (AnjutaPreferences *pr, GSettings* settings, AnjutaProperty *p)
 {	
 	g_object_set_data (G_OBJECT (p->object), "AnjutaPreferences", pr);
 	switch (p->object_type) {
 		case ANJUTA_PROPERTY_OBJECT_TYPE_ENTRY:
-			g_settings_bind (p->gsettings, p->key, p->object, "text", 
+			g_settings_bind (settings, p->key, p->object, "text", 
 			                 G_SETTINGS_BIND_DEFAULT);
 			break;
 		case ANJUTA_PROPERTY_OBJECT_TYPE_SPIN:
-			g_settings_bind (p->gsettings, p->key, p->object, "value", 
+			g_settings_bind (settings, p->key, p->object, "value", 
 			                 G_SETTINGS_BIND_DEFAULT);
 			break;
 		case ANJUTA_PROPERTY_OBJECT_TYPE_FONT:
-			g_settings_bind (p->gsettings, p->key, p->object, "font-name", 
+			g_settings_bind (settings, p->key, p->object, "font-name", 
 			                 G_SETTINGS_BIND_DEFAULT);
 			break;
 		case ANJUTA_PROPERTY_OBJECT_TYPE_TEXT:
@@ -364,7 +227,7 @@ connect_objects (AnjutaPreferences *pr, AnjutaProperty *p)
 			/* FIXME */
 			break;
 		case ANJUTA_PROPERTY_OBJECT_TYPE_TOGGLE:
-			g_settings_bind (p->gsettings, p->key, p->object, "active", 
+			g_settings_bind (settings, p->key, p->object, "active", 
 			                 G_SETTINGS_BIND_DEFAULT);
 			break;
 		case ANJUTA_PROPERTY_OBJECT_TYPE_COLOR:
@@ -380,21 +243,10 @@ connect_objects (AnjutaPreferences *pr, AnjutaProperty *p)
 	}
 }
 
-static gboolean
-preferences_foreach_callback (gchar *key, struct _AnjutaProperty *p, 
-							  struct _AnjutaPreferencesForeachData *data)
-{	
-	if (p->object_type != ANJUTA_PROPERTY_OBJECT_TYPE_COMBO)
-	{
-		return data->callback (data->pr, key, data->callback_data);
-	}
-	
-	return TRUE;
-}
-
 /**
  * anjuta_preferences_register_property_raw:
  * @pr: a #AnjutaPreferences object
+ * @settings: the #GSettings object associated with that property
  * @object: Widget to register
  * @key: Property key
  * @default_value: Default value of the key
@@ -410,6 +262,7 @@ preferences_foreach_callback (gchar *key, struct _AnjutaProperty *p,
  */
 gboolean
 anjuta_preferences_register_property_raw (AnjutaPreferences *pr,
+                                          GSettings *settings,
 										  GtkWidget *object,
 										  const gchar *key,
 										  const gchar *default_value,
@@ -441,69 +294,10 @@ anjuta_preferences_register_property_raw (AnjutaPreferences *pr,
 	p->get_property = NULL;
 	
 	g_hash_table_insert (pr->priv->properties, g_strdup (key), p);
-	connect_objects (pr, p);
+	connect_objects (pr, settings, p);
 	g_signal_connect (G_OBJECT (p->object), "destroy",
 	                  G_CALLBACK (unregister_preferences_key),
 	                  p);
-	return TRUE;
-}
-
-/**
- * anjuta_preferences_register_property_custom:
- * @pr: a #AnjutaPreferences object.
- * @object: Object to register.
- * @key: Property key.
- * @default_value: Default value of the key.
- * @data_type: property data type.
- * @flags: Flags
- * @set_property: Set property to widget callback.
- * @get_property: Get property from widget callback.
- * 
- * This is meant for complex widgets which can not be set/get with the
- * standard object set/get methods. Custom set/get methods are passed for
- * the property to set/get the value to/from the widget.
- * 
- * Return value: TRUE if sucessful.
- */
-gboolean
-anjuta_preferences_register_property_custom (AnjutaPreferences *pr,
-											 GtkWidget *object,
-										     const gchar *key,
-										     const gchar *default_value,
-											 AnjutaPropertyDataType data_type,
-										     guint flags,
-                                             void    (*set_property) (AnjutaProperty *prop, const gchar *value),
-                                             gchar * (*get_property) (AnjutaProperty *))
-{
-	AnjutaProperty *p;
-	
-	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), FALSE);
-	g_return_val_if_fail (GTK_IS_WIDGET (object), FALSE);
-	g_return_val_if_fail (key != NULL, FALSE);
-	g_return_val_if_fail (strlen(key) > 0, FALSE);
-	
-	p = g_new0 (AnjutaProperty, 1);
-	g_object_ref (object);
-	p->object = object;
-	p->object_type = (AnjutaPropertyObjectType) 0;
-	p->data_type = data_type;
-	p->key = g_strdup (key);
-	p->gsettings = pr->priv->gsettings;
-	
-	p->custom = TRUE;
-	p->flags = flags;
-	p->set_property = set_property;
-	p->get_property = get_property;
-
-	g_hash_table_insert (pr->priv->properties, g_strdup (key), p);
-
-	/* Connect to widget destroy signal so we can automatically unregister
-	 * keys so there aren't any potential conflicts or references to 
-	 * nonexistent widgets on subsequent uses of the prefs dialog. */
-	g_object_set_data (G_OBJECT (p->object), "AnjutaPreferences", pr);
-	g_signal_connect (G_OBJECT (p->object), "destroy",
-					  G_CALLBACK (unregister_preferences_key),
-					  p);
 	return TRUE;
 }
 
@@ -520,6 +314,7 @@ anjuta_preferences_register_property_custom (AnjutaPreferences *pr,
  */
 gboolean
 anjuta_preferences_register_property_from_string (AnjutaPreferences *pr,
+                                                  GSettings* settings,
 												  GtkWidget *object,
 												  const gchar *property_desc)
 {
@@ -561,7 +356,7 @@ anjuta_preferences_register_property_from_string (AnjutaPreferences *pr,
 		g_strfreev (fields);
 		return FALSE;
 	}
-	anjuta_preferences_register_property_raw (pr, object, key, default_value,
+	anjuta_preferences_register_property_raw (pr, settings, object, key, default_value,
 											  flags,  object_type,
 											  data_type);
 	g_strfreev (fields);
@@ -581,6 +376,7 @@ anjuta_preferences_register_property_from_string (AnjutaPreferences *pr,
 void
 anjuta_preferences_register_all_properties_from_builder_xml (AnjutaPreferences *pr,
                                                              GtkBuilder *builder,
+                                                             GSettings *settings,
                                                              GtkWidget *parent)
 {
 	GSList *widgets;
@@ -621,42 +417,16 @@ anjuta_preferences_register_all_properties_from_builder_xml (AnjutaPreferences *
 			continue;
 
 		property = &name[strlen (PREFERENCE_PROPERTY_PREFIX)];
-		anjuta_preferences_register_property_from_string (pr, widget,
+		anjuta_preferences_register_property_from_string (pr, settings, widget,
 		                                                  property);
 	}
-}
-
-/**
- * anjuta_preferences_foreach:
- * @pr: A #AnjutaPreferences object.
- * @callback: User callback function.
- * @data: User data passed to @callback
- *
- * Calls @callback function for each of the registered property keys. Keys
- * with matching @filter flags are left out of the loop. If @filter is
- * ANJUTA_PREFERENCES_FILTER_NONE, all properties are selected for the loop.
- */
-void
-anjuta_preferences_foreach (AnjutaPreferences *pr,
-							AnjutaPreferencesCallback callback,
-							gpointer data)
-{
-	struct _AnjutaPreferencesForeachData foreach_data;
-	
-	foreach_data.pr = pr;
-	foreach_data.callback = callback;
-	foreach_data.callback_data = data;
-	
-	g_hash_table_find (pr->priv->properties, 
-					   (GHRFunc) preferences_foreach_callback,
-					   &foreach_data);
-
 }
 
 /**
  * anjuta_preferences_add_page:
  * @pr: a #AnjutaPreferences object
  * @builder: #GtkBuilder object containing the preferences page
+ * @settings: the #GSettings object associated with that page
  * @gwidget_name: Page widget name (as give with glade interface editor).
  * The widget will be searched with the given name and detached
  * (that is, removed from the container, if present) from it's parent.
@@ -690,10 +460,11 @@ anjuta_preferences_foreach (AnjutaPreferences *pr,
  * anjuta preferences dialogs and study the widget names.
  */
 void
-anjuta_preferences_add_from_builder (AnjutaPreferences* pr, 
-                                     GtkBuilder* builder,
-                                     const gchar* widget_name,
-                                     const gchar* title,
+anjuta_preferences_add_from_builder (AnjutaPreferences *pr, 
+                                     GtkBuilder *builder,
+                                     GSettings *settings,
+                                     const gchar *widget_name,
+                                     const gchar *title,
                                      const gchar *icon_filename)
 {
 	GtkWidget *parent;
@@ -727,7 +498,7 @@ anjuta_preferences_add_from_builder (AnjutaPreferences* pr,
 	pixbuf = gdk_pixbuf_new_from_file (image_path, NULL);
 	anjuta_preferences_dialog_add_page (ANJUTA_PREFERENCES_DIALOG (pr->priv->prefs_dialog),
 										widget_name, title, pixbuf, page);
-	anjuta_preferences_register_all_properties_from_builder_xml (pr, builder, page);
+	anjuta_preferences_register_all_properties_from_builder_xml (pr, builder, settings, page);
 	g_object_unref (page);
 	g_free (image_path);
 	g_object_unref (pixbuf);
@@ -772,6 +543,13 @@ on_preferences_dialog_destroyed (GtkWidget *preferencess_dialog,
 	pr->priv->prefs_dialog = NULL;
 }
 
+
+/*
+ * anjuta_preferences_get_dialog:
+ * @pr: AnjutaPreferences object
+ *
+ * Returns: The preference dialog. Creates the dialog if it doesn't exist
+ */
 GtkWidget *
 anjuta_preferences_get_dialog (AnjutaPreferences *pr)
 {
@@ -808,39 +586,16 @@ anjuta_preferences_get_dialog (AnjutaPreferences *pr)
 	}
 }
 
+/*
+ * anjuta_preferences_is_dialog_created:
+ * @pr: AnjutaPreferences
+ *
+ * Returns: Whether the preference dialog was already created
+ */
 gboolean
 anjuta_preferences_is_dialog_created (AnjutaPreferences *pr)
 {
 	return (pr->priv->prefs_dialog != NULL);
-}
-
-static void anjuta_preferences_class_init    (AnjutaPreferencesClass *class);
-static void anjuta_preferences_instance_init (AnjutaPreferences      *pr);
-
-GType
-anjuta_preferences_get_type ()
-{
-	static GType obj_type = 0;
-	
-	if (!obj_type)
-	{
-		static const GTypeInfo obj_info = 
-		{
-			sizeof (AnjutaPreferencesClass),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) anjuta_preferences_class_init,
-			(GClassFinalizeFunc) NULL,
-			NULL,           /* class_data */
-			sizeof (AnjutaPreferencesClass),
-			0,              /* n_preallocs */
-			(GInstanceInitFunc) anjuta_preferences_instance_init,
-			NULL            /* value_table */
-		};
-		obj_type = g_type_register_static (G_TYPE_OBJECT,
-		                                   "AnjutaPreferences", &obj_info, 0);
-	}
-	return obj_type;
 }
 
 static void
@@ -857,7 +612,7 @@ anjuta_preferences_dispose (GObject *obj)
 }
 
 static void
-anjuta_preferences_instance_init (AnjutaPreferences *pr)
+anjuta_preferences_init (AnjutaPreferences *pr)
 {
 	pr->priv = g_new0 (AnjutaPreferencesPriv, 1);
 	
@@ -929,71 +684,4 @@ anjuta_preferences_new (AnjutaPluginManager *plugin_manager)
 AnjutaPreferences *anjuta_preferences_default ()
 {
 	return default_preferences;
-}
-
-static void
-preferences_key_changed (GSettings* settings, const gchar* key,
-                         gpointer user_data)
-{
-	AnjutaPreferencesNotifyData* data = user_data;
-	data->func (data->pr, key, data->data);
-}                       
-
-/**
- * anjuta_preferences_notify_add:
- * @pr: A #AnjutaPreferences object.
- * @key: Key to monitor.
- * @func: User callback function.
- * @data: User data passed to @func
- *
- * Get a notification when a preference value changes 
- *
- */
-
-guint 
-anjuta_preferences_notify_add (AnjutaPreferences *pr,
-                               const gchar *key,
-                               AnjutaPreferencesNotify func,
-                               gpointer data)
-{
-	gchar* signal_name = g_strdup_printf ("changed::%s", key);
-	AnjutaPreferencesNotifyData* ndata = g_new0 (AnjutaPreferencesNotifyData, 1);
-	ndata->id = g_signal_connect (pr->priv->gsettings, signal_name,
-	                             G_CALLBACK (preferences_key_changed),
-	                             ndata);
-	ndata->pr = pr;
-	ndata->func = func;
-	ndata->data = data;
-	g_hash_table_insert (pr->priv->notifications,
-	                     &ndata->id,
-	                     ndata);
-	return ndata->id;
-}
-
-/**
- * anjuta_preferences_notify_remove:
- * @pr: A #AnjutaPreferences object.
- * @notify_id: Notify ID returned by anjuta_preferences_notify_add().
- *
- * Removes the notify callback added with anjuta_preferences_notify_add().
- */
-void
-anjuta_preferences_notify_remove (AnjutaPreferences *pr, guint notify_id)
-{
-	g_signal_handler_disconnect (pr->priv->gsettings, notify_id);
-	g_hash_table_remove (pr->priv->notifications, &notify_id);
-}
-
-/**
- * anjuta_preferences_get_prefix:
- * @pr: A #AnjutaPreferences object.
- *
- * Returns the gconf key prefix used by anjuta to store its preferences.
- *
- * Return value: preferences keys prefix.
- */
-const gchar*
-anjuta_preferences_get_prefix (AnjutaPreferences *pr)
-{
-	return PREFERENCE_PROPERTY_PREFIX;
 }
