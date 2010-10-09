@@ -22,7 +22,7 @@
 #include <libanjuta/anjuta-preferences.h>
 #include "message-view.h"
 
-#define MESSAGES_TABS_POS  "messages.tab.position"
+#define MESSAGES_TABS_POS "messages-tab-position"
 
 #define ANJUTA_TYPE_MSGMAN        (anjuta_msgman_get_type ())
 #define ANJUTA_MSGMAN(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_MSGMAN, AnjutaMsgman))
@@ -82,7 +82,7 @@ gboolean anjuta_msgman_deserialize (AnjutaMsgman *msgman,
 GtkWidget* anjuta_msgman_get_tabber (AnjutaMsgman* msgman);
 
 void
-on_notify_message_pref (AnjutaPreferences* prefs, const gchar* key,
+on_notify_message_pref (GSettings* settings, const gchar* key,
                         gpointer user_data);
 
 #endif /* _ANJUTA_MSGMAN_H */

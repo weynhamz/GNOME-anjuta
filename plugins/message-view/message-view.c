@@ -22,7 +22,11 @@
 
 #include "message-view.h"
 #define MESSAGE_TYPE message_get_type()
-	
+
+#define PREFERENCES_SCHEMA "org.gnome.anjuta.message-manager"
+#define COLOR_ERROR "messages.color.error"
+#define COLOR_WARNING "messages.color.warning"
+
 struct _MessageViewPrivate
 {
 	//guint num_messages;
@@ -48,8 +52,7 @@ struct _MessageViewPrivate
 	gchar *pixmap;
 	gboolean highlite;
 	
-	/* gconf notification ids */
-	GList *notify_ids;
+	GSettings* settings;
 };
 
 typedef struct
@@ -432,11 +435,7 @@ static void
 message_view_dispose (GObject *obj)
 {
 	MessageView *mview = MESSAGE_VIEW (obj);
-	if (mview->privat->notify_ids)
-	{
-		prefs_finalize (mview);
-		mview->privat->notify_ids = NULL;
-	}
+	prefs_finalize (mview);
 	if (mview->privat->tree_view)
 	{
 		mview->privat->tree_view = NULL;
@@ -908,7 +907,7 @@ pref_change_color (MessageView *mview, IAnjutaMessageViewType type,
 	GtkTreeIter iter;
 	gboolean success;
 	
-	color = anjuta_preferences_get (anjuta_preferences_default(), color_pref_key);
+	color = g_settings_get_string (mview->privat->settings, color_pref_key);
 	store = GTK_LIST_STORE (mview->privat->model);
 	success = gtk_tree_model_get_iter_first (GTK_TREE_MODEL (store), &iter);
 	while (success)
@@ -927,45 +926,33 @@ pref_change_color (MessageView *mview, IAnjutaMessageViewType type,
 
 
 static void
-on_notify_color (AnjutaPreferences* prefs, const gchar* key,
+on_notify_color (GSettings* settings, const gchar* key,
                  gpointer user_data)
 {
-	pref_change_color (MESSAGE_VIEW (user_data),
-					   IANJUTA_MESSAGE_VIEW_TYPE_WARNING,
-					   key);
+	if (g_str_equal (key, COLOR_ERROR))
+	    pref_change_color (MESSAGE_VIEW (user_data),
+	                       IANJUTA_MESSAGE_VIEW_TYPE_ERROR,
+	                       key);
+	else
+	    pref_change_color (MESSAGE_VIEW (user_data),
+	                       IANJUTA_MESSAGE_VIEW_TYPE_WARNING,
+	                       key);
 }
 
 static void
 prefs_init (MessageView *mview)
 {
-	gint id;
-	id = anjuta_preferences_notify_add (anjuta_preferences_default (),
-	                                    "messages.color.error",
-	                                    on_notify_color,
-	                                    mview);
-	mview->privat->notify_ids = g_list_append (mview->privat->notify_ids,
-	                                           GINT_TO_POINTER (id));	
-	id = anjuta_preferences_notify_add (anjuta_preferences_default (),
-	                                    "messages.color.warning",
-	                                    on_notify_color,
-	                                    mview);
-	mview->privat->notify_ids = g_list_append (mview->privat->notify_ids,
-	                                         GINT_TO_POINTER (id));
+	mview->privat->settings = g_settings_new (PREFERENCES_SCHEMA);
+	g_signal_connect (mview->privat->settings, "changed::" COLOR_ERROR,
+	                  G_CALLBACK (on_notify_color), mview);
+	g_signal_connect (mview->privat->settings, "changed::" COLOR_WARNING,
+	                  G_CALLBACK (on_notify_color), mview);
 }
 
 static void
 prefs_finalize (MessageView *mview)
 {
-	GList *node;
-	node = mview->privat->notify_ids;
-	while (node)
-	{
-		anjuta_preferences_notify_remove (anjuta_preferences_default(),
-										  GPOINTER_TO_INT (node->data));
-		node = g_list_next (node);
-	}
-	g_list_free (mview->privat->notify_ids);
-	mview->privat->notify_ids = NULL;
+	g_object_unref (mview->privat->settings);
 }
 
 /* IAnjutaMessageView interface implementation */
@@ -1039,15 +1026,13 @@ imessage_view_append (IAnjutaMessageView *message_view,
 				stock_id = GTK_STOCK_INFO;
 				break;
 			case IANJUTA_MESSAGE_VIEW_TYPE_WARNING:
-				color = anjuta_preferences_get (anjuta_preferences_default(),
-									  "msgman-color-warning");
+				color = g_settings_get_string (view->privat->settings, COLOR_WARNING);
 				/* FIXME: There is no GTK_STOCK_WARNING which would fit better here */
 				view->privat->warn_count++;
 				stock_id = GTK_STOCK_DIALOG_WARNING;
 				break;
 			case IANJUTA_MESSAGE_VIEW_TYPE_ERROR:
-				color = anjuta_preferences_get (anjuta_preferences_default(),
-									  "msgman-color-error");
+				color = g_settings_get_string (view->privat->settings, COLOR_ERROR);
 				view->privat->error_count++;
 				stock_id = GTK_STOCK_STOP;
 				break;

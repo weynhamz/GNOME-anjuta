@@ -44,6 +44,7 @@ struct _MessageViewPlugin {
 	GtkWidget* info;
 	
 	gboolean widget_shown;
+	GSettings* settings;
 };
 
 struct _MessageViewPluginClass {

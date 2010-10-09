@@ -29,6 +29,7 @@
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-message-manager.xml"
 #define PREFS_BUILDER PACKAGE_DATA_DIR"/glade/anjuta-message-manager-plugin.ui"
+#define PREFERENCES_SCHEMA "org.gnome.anjuta.message-manager"
 
 /* Pixmaps */
 #define ANJUTA_PIXMAP_MESSAGES                "anjuta-messages-plugin-48.png"
@@ -146,67 +147,6 @@ register_stock_icons (AnjutaPlugin *plugin)
 	END_REGISTER_ICON;
 }
 
-#if 0 /* Disable session saving/loading until a way is found to avoid
-       * number of message panes infinitely growing */
-static void
-on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
-				 AnjutaSession *session, MessageViewPlugin *plugin)
-{
-	gboolean success;
-	const gchar *dir;
-	gchar *messages_file;
-	AnjutaSerializer *serializer;
-		
-	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
-		return;
-	
-	dir = anjuta_session_get_session_directory (session);
-	messages_file = g_build_filename (dir, "messages.txt", NULL);
-	serializer = anjuta_serializer_new (messages_file,
-										ANJUTA_SERIALIZER_WRITE);
-	if (!serializer)
-	{
-		g_free (messages_file);
-		return;
-	}
-	success = anjuta_msgman_serialize (ANJUTA_MSGMAN (plugin->msgman),
-									   serializer);
-	g_object_unref (serializer);
-	if (!success)
-	{
-		g_warning ("Serialization failed: deleting %s", messages_file);
-		unlink (messages_file);
-	}
-	g_free (messages_file);
-}
-
-static void
-on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
-				 AnjutaSession *session, MessageViewPlugin *plugin)
-{
-	const gchar *dir;
-	gchar *messages_file;
-	AnjutaSerializer *serializer;
-	
-	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
-		return;
-	
-	dir = anjuta_session_get_session_directory (session);
-	messages_file = g_build_filename (dir, "messages.txt", NULL);
-	serializer = anjuta_serializer_new (messages_file,
-										ANJUTA_SERIALIZER_READ);
-	if (!serializer)
-	{
-		g_free (messages_file);
-		return;
-	}
-	anjuta_msgman_remove_all_views (ANJUTA_MSGMAN (plugin->msgman));
-	anjuta_msgman_deserialize (ANJUTA_MSGMAN (plugin->msgman), serializer);
-	g_object_unref (serializer);
-	g_free (messages_file);
-}
-#endif
-
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
@@ -245,13 +185,6 @@ activate_plugin (AnjutaPlugin *plugin)
 	g_object_set (G_OBJECT (action_prev), "sensitive", FALSE, NULL);
 	g_object_set (G_OBJECT (action_copy), "sensitive", FALSE, NULL);
 	
-#if 0
-	/* Connect to save and load session */
-	g_signal_connect (G_OBJECT (plugin->shell), "save-session",
-					  G_CALLBACK (on_session_save), plugin);
-	g_signal_connect (G_OBJECT (plugin->shell), "load-session",
-					  G_CALLBACK (on_session_load), plugin);
-#endif
 	initialized = TRUE;
 	mv_plugin->widget_shown = FALSE;
 	return TRUE;
@@ -266,15 +199,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	DEBUG_PRINT ("%s", "MessageViewPlugin: Dectivating message view plugin ...");
 	
 	mplugin = ANJUTA_PLUGIN_MESSAGE_VIEW (plugin);
-#if 0
-	/* Disconnect signals */
-	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
-										  G_CALLBACK (on_session_save),
-										  plugin);
-	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
-										  G_CALLBACK (on_session_load),
-										  plugin);
-#endif
+
 	/* Widget is removed as soon as it is destroyed */
 	if (mplugin->widget_shown)
 		gtk_widget_destroy (mplugin->msgman);
@@ -291,7 +216,8 @@ deactivate_plugin (AnjutaPlugin *plugin)
 static void
 message_view_plugin_dispose (GObject *obj)
 {
-	// MessageViewPlugin *plugin = ANJUTA_PLUGIN_MESSAGE_VIEW (obj);
+	MessageViewPlugin *plugin = ANJUTA_PLUGIN_MESSAGE_VIEW (obj);
+	g_object_unref (plugin->settings);
 	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
@@ -309,6 +235,7 @@ message_view_plugin_instance_init (GObject *obj)
 	plugin->action_group = NULL;
 	plugin->msgman = NULL;
 	plugin->uiid = 0;
+	plugin->settings = g_settings_new (PREFERENCES_SCHEMA);
 }
 
 static void
@@ -569,8 +496,6 @@ ianjuta_msgman_iface_init (IAnjutaMessageManagerIface *iface)
 	iface->set_view_icon_from_stock = ianjuta_msgman_set_view_icon_from_stock;
 }
 
-static guint notify_id;
-
 static void
 ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
@@ -585,19 +510,18 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 		g_error_free (error);
 		return;
 	}
-	anjuta_preferences_add_from_builder (prefs, bxml,
+	anjuta_preferences_add_from_builder (prefs, bxml, plugin->settings,
 									"Messages", _("Messages"),
 									 ANJUTA_PIXMAP_MESSAGES);
-	notify_id = anjuta_preferences_notify_add (prefs, MESSAGES_TABS_POS, 
-                                               on_notify_message_pref, plugin->msgman);
-		
+	
+	g_signal_connect (plugin->settings, "changed::messages-tab-position",
+	                  G_CALLBACK (on_notify_message_pref), plugin->msgman);		
 	g_object_unref (bxml);
 }
 
 static void
 ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
-	anjuta_preferences_notify_remove(prefs, notify_id);
 	anjuta_preferences_remove_page(prefs, _("Messages"));
 }
 
