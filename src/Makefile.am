@@ -51,6 +51,7 @@ anjuta_LDADD =  \
 anjuta_LDFLAGS = $(ANJUTA_LDFLAGS)
 
 prefs_ui_files = preferences.ui
+prefs_keyfile = anjuta.gschema-part.xml
 include $(top_srcdir)/scripts/build-schemas.mk
 
 noinst_PROGRAMS =  anjuta-shell

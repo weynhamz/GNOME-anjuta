@@ -41,7 +41,8 @@ libanjuta_cvs_plugin_la_SOURCES = \
 	cvs-callbacks.h \
 	cvs-interface.c \
 	cvs-interface.h
-	
+
+prefs_name = org.gnome.anjuta.cvs
 prefs_ui_files = anjuta-cvs-plugin.ui
 include $(top_srcdir)/scripts/build-schemas.mk
 

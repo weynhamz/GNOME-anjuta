@@ -41,6 +41,7 @@ libpython_plugin_la_LIBADD = \
 	$(LIBANJUTA_LIBS) 
 
 prefs_ui_files = $(python_plugin_glade_DATA)
+prefs_keyfile = python-plugin.gschema-part.xml
 include $(top_srcdir)/scripts/build-schemas.mk
 
 EXTRA_DIST = \

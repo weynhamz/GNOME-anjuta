@@ -78,6 +78,8 @@ libanjuta_sourceview_la_LIBADD = \
 	$(PLUGIN_SOURCEVIEW_LIBS) \
 	$(LIBANJUTA_LIBS)
 
+prefs_name = org.gnome.anjuta.sourceview
+prefs_keyfile = sourceview.gschema-part.xml
 prefs_ui_files = anjuta-editor-sourceview.ui
 include $(top_srcdir)/scripts/build-schemas.mk
 
