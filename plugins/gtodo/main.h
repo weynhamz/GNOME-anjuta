@@ -136,7 +136,7 @@ void set_sorting_menu_item();
 void windows_moved(GtkWidget *window);
 
 int check_for_notification_event(void);
-void pref_set_notifications(AnjutaPreferences *client);
+void pref_set_notifications(GSettings *gsettings);
 
 void export_gui(void);
 void open_playlist(void);

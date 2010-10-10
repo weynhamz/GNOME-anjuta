@@ -67,7 +67,11 @@ void preferences_remove_signals()
 	g_signal_handlers_disconnect_by_func(G_OBJECT(cb),
 		G_CALLBACK(preferences_cb_toggle_show_notification), NULL);
 }
-			
+
+#define GSETTINGS_SCHEMA "org.gnome.anjuta.gtodo"
+#define PREF_SHOW_DUE_COLUMN "gtodo-show-due-column"
+#define PREF_SHOW_CATEGORY_COLUMN "gtodo-show-category-column"
+
 GtkWidget *preferences_widget()
 {
 	GtkWidget *vbox,  *vbox2;
@@ -77,6 +81,7 @@ GtkWidget *preferences_widget()
 	gchar *tmp;
 
 	notebook = gtk_notebook_new();
+	GSettings* settings = g_settings_new (GSETTINGS_SCHEMA);
 
 	/********* FIRST TAB ***************/
 	vbox2 = gtk_vbox_new(FALSE, 0);
@@ -89,27 +94,20 @@ GtkWidget *preferences_widget()
 	gtk_box_pack_start(GTK_BOX(vbox),cb_show_date, FALSE, TRUE, 0); 
 	/* set it to current value and add signal handler */
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(cb_show_date), 
-		anjuta_preferences_get_bool(preferences, "gtodo-show-due-column"));
+		g_settings_set_boolean(gsettings, PREFS_SHOW_DUE_COLUMN));
 			
 	g_signal_connect(G_OBJECT(cb_show_date), "toggled", G_CALLBACK(preferences_cb_show_date), NULL);
 
 	cb = gtk_check_button_new_with_label(_("Show category column"));
 	gtk_box_pack_start(GTK_BOX(vbox),cb, FALSE, TRUE, 0); 	
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(cb), anjuta_preferences_get_bool(preferences, "gtodo-show-category-column"));
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(cb), 
+	                             g_settings_get_boolean (gsettings, PREF_SHOW_DUE_COLUMN));
 	g_signal_connect(G_OBJECT(cb), "toggled", G_CALLBACK(preferences_cb_toggle_show_category_column), NULL);
 
 	cb = gtk_check_button_new_with_label(_("Show priority column"));
 	gtk_box_pack_start(GTK_BOX(vbox),cb, FALSE, TRUE, 0); 	
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(cb), anjuta_preferences_get_bool(preferences, "gtodo-show-priority-column"));
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(cb), g_settings_get_boolean (gsettings, PREF_SHOW_CATEGORY_COLUMN));
 	g_signal_connect(G_OBJECT(cb), "toggled", G_CALLBACK(preferences_cb_toggle_show_priority_column), NULL);
-
-	cb_list_tooltip = gtk_check_button_new_with_label(_("Tooltips in list"));
-	gtk_box_pack_start(GTK_BOX(vbox),cb_list_tooltip, FALSE, TRUE, 0); 
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(cb_list_tooltip),
-		anjuta_preferences_get_bool(preferences, "gtodo-show-tooltip"));
-
-	g_signal_connect(G_OBJECT(cb_list_tooltip), "toggled", G_CALLBACK(preferences_cb_do_tooltip), NULL);
-
 
 
 	/** add the page **/
@@ -226,6 +224,7 @@ GtkWidget *preferences_widget()
 	g_signal_connect(G_OBJECT(cb), "toggled", G_CALLBACK(preferences_cb_toggle_show_notification), NULL);
 
 	gtk_widget_show_all (notebook);
+	g_object_unref (gsettings);
 	return notebook;
 }
 
@@ -287,20 +286,6 @@ static void preferences_cb_show_date(GtkWidget *chbox)
 	}		
 }
 
-static void preferences_cb_do_tooltip(GtkWidget *chbox)
-{
-	anjuta_preferences_set_bool(preferences, "gtodo-show-tooltip", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(chbox)));
-	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(chbox)))
-
-	{
-		gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(mw.treeview), FALSE);			
-	}
-	else		
-	{
-		gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(mw.treeview), TRUE);
-	}
-}
-
 static void preferences_cb_auto_purge(GtkWidget *cb, GtkWidget *hbox)
 {
 	anjuta_preferences_set_bool(preferences, "gtodo-auto-purge", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(cb)));
@@ -311,7 +296,7 @@ static void preferences_cb_auto_purge(GtkWidget *cb, GtkWidget *hbox)
 }
 
 
-static void pref_changed_show_tooltip(AnjutaPreferences *preferences, const char *key, gpointer data)
+static void pref_changed_show_headers(AnjutaPreferences *preferences, const char *key, gpointer data)
 {
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(mw.treeview), 
                                       !anjuta_preferences_get_bool (preferences, key));
