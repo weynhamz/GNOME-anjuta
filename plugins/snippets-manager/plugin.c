@@ -40,6 +40,8 @@
 #define GLOBAL_VAR_NEW_NAME   "new_global_var_name"
 #define GLOBAL_VAR_NEW_VALUE  "new_global_var_value"
 
+#define PREF_SCHEMA "org.gnome.anjuta.snippets"
+
 static gpointer parent_class;
 
 /* Menu callbacks and actions */
@@ -408,6 +410,8 @@ snippets_manager_dispose (GObject * obj)
 	if (ANJUTA_IS_SNIPPETS_PROVIDER (snippets_manager->snippets_provider))
 		g_object_unref (snippets_manager->snippets_provider);
 
+	g_object_unref (snippets_manager->settings);
+	
 	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
@@ -424,6 +428,8 @@ snippets_manager_plugin_instance_init (GObject * obj)
 	snippets_manager->action_group = NULL;
 	snippets_manager->uiid = -1;
 
+	snippets_manager->settings = g_settings_new (PREF_SCHEMA);
+	
 	snippets_manager->snippets_db = snippets_db_new ();
 	snippets_manager->snippets_interaction = snippets_interaction_new ();
 	snippets_manager->snippets_browser = snippets_browser_new ();
@@ -926,8 +932,9 @@ ipreferences_merge (IAnjutaPreferences* ipref,
 		g_warning ("Couldn't load preferences ui file: %s", error->message);
 		g_error_free (error);
 	}
-	anjuta_preferences_add_from_builder (prefs, bxml, SNIPPETS_MANAGER_PREFERENCES_ROOT, _("Code Snippets"),
-								 ICON_FILE);
+	anjuta_preferences_add_from_builder (prefs, bxml, snippets_manager_plugin->settings,
+	                                     SNIPPETS_MANAGER_PREFERENCES_ROOT, _("Code Snippets"),
+	                                     ICON_FILE);
 
 	/* Get the Gtk objects */
 	global_vars_view  = GTK_TREE_VIEW (gtk_builder_get_object (bxml, "global_vars_view"));

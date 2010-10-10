@@ -68,7 +68,11 @@ libanjuta_snippets_manager_la_SOURCES = \
 	snippets-provider.h\
 	snippets-import-export.c\
 	snippets-import-export.h
-	
+
+prefs_name = org.gnome.anjuta.snippets
+prefs_ui_files = snippets-manager-preferences.ui
+include $(top_srcdir)/scripts/build-schemas.mk
+
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(snippets_manager_pixmaps_DATA) \
