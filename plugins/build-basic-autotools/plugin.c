@@ -59,6 +59,7 @@
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-build-basic-autotools-plugin.xml"
 #define MAX_BUILD_PANES 3
+#define PREF_SCHEMA "org.gnome.anjuta.build"
 #define PREF_INDICATORS_AUTOMATIC "build-indicators-automatic"
 #define PREF_INSTALL_ROOT "build-install-root"
 #define PREF_INSTALL_ROOT_COMMAND "build-install-root-command"
@@ -961,7 +962,7 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 			context->locations = g_slist_prepend (context->locations, loc);
 			
 			/* If current editor file is same as indicator file, set indicator */
-			if (anjuta_preferences_get_bool (anjuta_shell_get_preferences (context->plugin->shell, NULL), PREF_INDICATORS_AUTOMATIC))
+			if (g_settings_get_boolean (p->settings, PREF_INDICATORS_AUTOMATIC))
 			{
 				build_indicator_location_set (loc, p->current_editor,
 											  p->current_editor_filename);
@@ -1317,18 +1318,18 @@ build_set_command_in_context (BuildContext* context, BuildProgram *prog)
 static gboolean
 build_execute_command_in_context (BuildContext* context, GError **err)
 {
-	AnjutaPreferences* prefs = anjuta_shell_get_preferences (context->plugin->shell, NULL);
+	GSettings* settings = ANJUTA_PLUGIN_BASIC_AUTOTOOLS(context->plugin)->settings;
 	
 	/* Send options to make */
 	if (strcmp (build_program_get_basename (context->program), "make") == 0)
 	{
-		if (anjuta_preferences_get_bool (prefs , PREF_PARALLEL_MAKE))
+		if (g_settings_get_int (settings, PREF_PARALLEL_MAKE))
 		{
-			gchar *arg = g_strdup_printf ("-j%d", anjuta_preferences_get_int (prefs , PREF_PARALLEL_MAKE_JOB));
+			gchar *arg = g_strdup_printf ("-j%d", g_settings_get_int (settings , PREF_PARALLEL_MAKE_JOB));
 			build_program_insert_arg (context->program, 1, arg);
 			g_free (arg);
 		}
-		if (anjuta_preferences_get_bool (prefs , PREF_CONTINUE_ON_ERROR))
+		if (g_settings_get_boolean (settings, PREF_CONTINUE_ON_ERROR))
 		{
 			build_program_insert_arg (context->program, 1, "-k");
 		}
@@ -1337,7 +1338,7 @@ build_execute_command_in_context (BuildContext* context, GError **err)
 	/* Set a current working directory which can contains symbolic links */
 	build_program_add_env (context->program, "PWD", context->program->work_dir);
 
-	if (!anjuta_preferences_get_bool (prefs , PREF_TRANSLATE_MESSAGE))
+	if (!g_settings_get_boolean (settings, PREF_TRANSLATE_MESSAGE))
 	{
 		build_program_add_env (context->program, "LANGUAGE", "C");
 	}
@@ -1641,11 +1642,10 @@ build_is_file_built (BasicAutotoolsPlugin *plugin, const gchar *filename,
 static gchar*
 get_root_install_command(BasicAutotoolsPlugin *bplugin)
 {
-	AnjutaPlugin* plugin = ANJUTA_PLUGIN(bplugin);
-	AnjutaPreferences* prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
-	if (anjuta_preferences_get_bool (prefs , PREF_INSTALL_ROOT))
+	GSettings* settings = bplugin->settings;
+	if (g_settings_get_boolean (settings, PREF_INSTALL_ROOT))
 	{
-		gchar* command = anjuta_preferences_get(prefs, PREF_INSTALL_ROOT_COMMAND);
+		gchar* command = g_settings_get_string (settings, PREF_INSTALL_ROOT_COMMAND);
 		if (command != NULL)
 			return command;
 		else
@@ -2986,16 +2986,14 @@ value_added_project_build_uri (AnjutaPlugin *plugin, const gchar *name,
 static gint
 on_update_indicators_idle (gpointer data)
 {
-	AnjutaPlugin *plugin = ANJUTA_PLUGIN (data);
 	BasicAutotoolsPlugin *ba_plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (data);
 	IAnjutaEditor *editor = ba_plugin->current_editor;
 	
 	/* If indicators are not yet updated in the editor, do it */
 	if (ba_plugin->current_editor_filename &&
 		IANJUTA_IS_INDICABLE (editor) &&
-		anjuta_preferences_get_bool (anjuta_shell_get_preferences (plugin->shell,
-																  NULL),
-									PREF_INDICATORS_AUTOMATIC))
+		g_settings_get_boolean (ba_plugin->settings,
+		                        PREF_INDICATORS_AUTOMATIC))
 	{
 		GList *node;
 		node = ba_plugin->contexts_pool;
@@ -3243,6 +3241,10 @@ deactivate_plugin (AnjutaPlugin *plugin)
 static void
 dispose (GObject *obj)
 {
+	BasicAutotoolsPlugin *ba_plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (obj);
+
+	g_object_unref (ba_plugin->settings);
+	
 	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
@@ -3299,6 +3301,7 @@ basic_autotools_plugin_instance_init (GObject *obj)
 	ba_plugin->last_exec_uri = NULL;
 	ba_plugin->editors_created = g_hash_table_new (g_direct_hash,
 												   g_direct_equal);
+	ba_plugin->settings = g_settings_new (PREF_SCHEMA);
 }
 
 static void
@@ -3536,6 +3539,7 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 	GtkWidget *root_entry;
 	GtkWidget *make_entry;
 	GtkBuilder *bxml;
+	BasicAutotoolsPlugin *plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (ipref);
 		
 	/* Create the preferences page */
 	bxml =  anjuta_util_builder_new (BUILDER_FILE, NULL);
@@ -3554,7 +3558,8 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 	g_signal_connect(G_OBJECT(make_check), "toggled", G_CALLBACK(on_root_check_toggled), make_entry);
 	on_root_check_toggled (make_check, make_entry);
 	
-	anjuta_preferences_add_from_builder (prefs, bxml, BUILD_PREFS_ROOT, _("Build Autotools"),  ICON_FILE);
+	anjuta_preferences_add_from_builder (prefs, bxml, plugin->settings, 
+	                                     BUILD_PREFS_ROOT, _("Build Autotools"),  ICON_FILE);
 	
 	g_object_unref (bxml);
 }
