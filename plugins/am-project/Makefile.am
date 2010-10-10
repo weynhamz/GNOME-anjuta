@@ -54,7 +54,7 @@ libam_project_la_LIBADD = \
 	$(GIO_LIBS) \
 	$(LIBANJUTA_LIBS)
 
-AM_YFLAGS = -t -v -g -rall
+AM_YFLAGS = -t -v -g -rall -r lookahead,itemset
 
 ac-scanner.c: $(srcdir)/ac-scanner.l ac-parser.c
 	$(LEXCOMPILE) -o $@ $<

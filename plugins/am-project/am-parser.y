@@ -289,11 +289,15 @@ head_list:
 head_list_body:
 	head {
 		$$ = anjuta_token_new_static (ANJUTA_TOKEN_NAME, NULL);
-	anjuta_token_merge ($$, $1);
+		anjuta_token_merge ($$, $1);
+	}
+	| head_list_body  space  next_head {
+		anjuta_token_merge ($1, $2);
+		anjuta_token_merge ($1, $3);
 	}
 	| head_list_body  space  head {
 		anjuta_token_merge ($1, $2);
-	anjuta_token_merge ($1, $3);
+		anjuta_token_merge ($1, $3);
 	}
 	;
 
@@ -345,13 +349,24 @@ space:
 		$$ = anjuta_token_new_static (ANJUTA_TOKEN_SPACE, NULL);
 		anjuta_token_merge ($$, $1);
 	}
+	/*| space_variable {
+		$$ = anjuta_token_new_static (ANJUTA_TOKEN_SPACE, NULL);
+		anjuta_token_merge ($$, $1);
+	}*/
 	| space space_token {
 		anjuta_token_merge ($1, $2);
 	}
+	/*| space space_variable {
+		anjuta_token_merge ($1, $2);
+	}*/
 	;
 
 head:
 	head_token {
+		$$ = anjuta_token_new_static (ANJUTA_TOKEN_NAME, NULL);
+		anjuta_token_merge ($$, $1);
+	}
+	| variable {
 		$$ = anjuta_token_new_static (ANJUTA_TOKEN_NAME, NULL);
 		anjuta_token_merge ($$, $1);
 	}
@@ -364,7 +379,32 @@ head:
 	| head include_token {
 		anjuta_token_merge ($1, $2);
 	}
-	| head variable_token
+	| head variable {
+		anjuta_token_merge ($1, $2);
+	}
+	;
+
+next_head:
+	automake_token {
+		$$ = anjuta_token_new_static (ANJUTA_TOKEN_NAME, NULL);
+		anjuta_token_merge ($$, $1);
+	}
+	| include_token {
+		$$ = anjuta_token_new_static (ANJUTA_TOKEN_NAME, NULL);
+		anjuta_token_merge ($$, $1);
+	}
+	| next_head head_token {
+		anjuta_token_merge ($1, $2);
+	}
+	| next_head automake_token {
+		anjuta_token_merge ($1, $2);
+	}
+	| next_head include_token {
+		anjuta_token_merge ($1, $2);
+	}
+	| next_head variable {
+		anjuta_token_merge ($1, $2);
+	}
 	;
 
 value:
@@ -374,7 +414,7 @@ value:
 	}
 	| variable {
 		$$ = anjuta_token_new_static (ANJUTA_TOKEN_ARGUMENT, NULL);
-		anjuta_token_insert_after ($1, $$);
+		anjuta_token_merge ($$, $1);
 	}
 	| value value_token {
 		anjuta_token_merge ($1, $2);
@@ -390,9 +430,9 @@ prerequisite:
 
 name_prerequisite:
 	prerequisite_token
-	| variable_token
+	| variable
 	| name_prerequisite prerequisite_token
-	| name_prerequisite variable_token
+	| name_prerequisite variable
 	;
 
 variable:

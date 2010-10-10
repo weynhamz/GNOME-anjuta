@@ -414,6 +414,7 @@ amp_group_set_makefile (AnjutaAmGroupNode *group, GFile *makefile, GObject* proj
 		group->tfile = anjuta_token_file_new (makefile);
 
 		token = anjuta_token_file_load (group->tfile, NULL);
+		amp_project_add_file (project, makefile, group->tfile);
 			
 		scanner = amp_am_scanner_new (project, group);
 		group->make_token = amp_am_scanner_parse_token (scanner, anjuta_token_new_static (ANJUTA_TOKEN_FILE, NULL), token, makefile, NULL);

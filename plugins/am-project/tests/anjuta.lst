@@ -429,36 +429,37 @@
                     SOURCE (11:6:1:4:4): plugins/message-view/message-view.c
                     SOURCE (11:6:1:4:5): plugins/message-view/message-view.h
             GROUP (11:6:2): gdb
-                GROUP (11:6:2:6): images
-                    TARGET (11:6:2:6:0): images
-                        SOURCE (11:6:2:6:0:0): plugins/gdb/images/breakpoint.png
-                        SOURCE (11:6:2:6:0:1): plugins/gdb/images/locals.png
-                        SOURCE (11:6:2:6:0:2): plugins/gdb/images/stack.png
-                TARGET (11:6:2:0): anjuta_glade
-                    SOURCE (11:6:2:0:0): plugins/gdb/anjuta-gdb.ui
-                TARGET (11:6:2:1): anjuta_data
-                    SOURCE (11:6:2:1:0): plugins/gdb/gdb.init
-                TARGET (11:6:2:2): plugin_pixmaps
-                    SOURCE (11:6:2:2:0): plugins/gdb/anjuta-gdb.plugin.png
-                    SOURCE (11:6:2:2:1): plugins/gdb/pointer.png
-                TARGET (11:6:2:3): anjuta_plugin
-                    SOURCE (11:6:2:3:0): plugins/gdb/$(plugin_in_files:.plugin.in=.plugin)
-                TARGET (11:6:2:4): libanjuta-gdb.la
-                    SOURCE (11:6:2:4:0): plugins/gdb/gdbmi.c
-                    SOURCE (11:6:2:4:1): plugins/gdb/gdbmi.h
-                    SOURCE (11:6:2:4:2): plugins/gdb/debugger.c
-                    SOURCE (11:6:2:4:3): plugins/gdb/debugger.h
-                    SOURCE (11:6:2:4:4): plugins/gdb/plugin.c
-                    SOURCE (11:6:2:4:5): plugins/gdb/plugin.h
-                    SOURCE (11:6:2:4:6): plugins/gdb/utilities.c
-                    SOURCE (11:6:2:4:7): plugins/gdb/utilities.h
-                    SOURCE (11:6:2:4:8): plugins/gdb/preferences.c
-                    SOURCE (11:6:2:4:9): plugins/gdb/preferences.h
-                TARGET (11:6:2:5): gdbmi-test
-                    SOURCE (11:6:2:5:0): plugins/gdb/gdbmi-test.c
-                    SOURCE (11:6:2:5:1): plugins/gdb/gdbmi.c
-                    SOURCE (11:6:2:5:2): plugins/gdb/gdbmi.h
+                GROUP (11:6:2:7): images
+                    TARGET (11:6:2:7:0): images
+                        SOURCE (11:6:2:7:0:0): plugins/gdb/images/breakpoint.png
+                        SOURCE (11:6:2:7:0:1): plugins/gdb/images/locals.png
+                        SOURCE (11:6:2:7:0:2): plugins/gdb/images/stack.png
+                TARGET (11:6:2:0): gdb_ui
+                TARGET (11:6:2:1): anjuta_glade
+                    SOURCE (11:6:2:1:0): plugins/gdb/anjuta-gdb.ui
+                TARGET (11:6:2:2): anjuta_data
+                    SOURCE (11:6:2:2:0): plugins/gdb/gdb.init
+                TARGET (11:6:2:3): plugin_pixmaps
+                    SOURCE (11:6:2:3:0): plugins/gdb/anjuta-gdb.plugin.png
+                    SOURCE (11:6:2:3:1): plugins/gdb/pointer.png
+                TARGET (11:6:2:4): anjuta_plugin
+                    SOURCE (11:6:2:4:0): plugins/gdb/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:2:5): libanjuta-gdb.la
+                    SOURCE (11:6:2:5:0): plugins/gdb/gdbmi.c
+                    SOURCE (11:6:2:5:1): plugins/gdb/gdbmi.h
+                    SOURCE (11:6:2:5:2): plugins/gdb/debugger.c
                     SOURCE (11:6:2:5:3): plugins/gdb/debugger.h
+                    SOURCE (11:6:2:5:4): plugins/gdb/plugin.c
+                    SOURCE (11:6:2:5:5): plugins/gdb/plugin.h
+                    SOURCE (11:6:2:5:6): plugins/gdb/utilities.c
+                    SOURCE (11:6:2:5:7): plugins/gdb/utilities.h
+                    SOURCE (11:6:2:5:8): plugins/gdb/preferences.c
+                    SOURCE (11:6:2:5:9): plugins/gdb/preferences.h
+                TARGET (11:6:2:6): gdbmi-test
+                    SOURCE (11:6:2:6:0): plugins/gdb/gdbmi-test.c
+                    SOURCE (11:6:2:6:1): plugins/gdb/gdbmi.c
+                    SOURCE (11:6:2:6:2): plugins/gdb/gdbmi.h
+                    SOURCE (11:6:2:6:3): plugins/gdb/debugger.h
             GROUP (11:6:3): debug-manager
                 GROUP (11:6:3:5): images
                     TARGET (11:6:3:5:0): images
@@ -707,7 +708,6 @@
                             TARGET (11:6:9:0:5:1:0): wizard_files
                                 SOURCE (11:6:9:0:5:1:0:0): plugins/project-wizard/templates/gtkmm/po/POTFILES.in
                         TARGET (11:6:9:0:5:2): wizard_files
-                            SOURCE (11:6:9:0:5:2:0): plugins/project-wizard/templates/gtkmm/ 
                     GROUP (11:6:9:0:6): wxwin
                         GROUP (11:6:9:0:6:0): src
                             TARGET (11:6:9:0:6:0:0): wizard_files
@@ -863,7 +863,6 @@
                     SOURCE (11:6:9:1:1): plugins/project-wizard/applogo.png
                     SOURCE (11:6:9:1:2): plugins/project-wizard/appwizard.png
                 TARGET (11:6:9:2): wizard_ui
-                    SOURCE (11:6:9:2:0): plugins/project-wizard/  
                 TARGET (11:6:9:3): wizard_pixmaps
                     SOURCE (11:6:9:3:0): plugins/project-wizard/anjuta-project-wizard-plugin.svg
                     SOURCE (11:6:9:3:1): plugins/project-wizard/anjuta-project-wizard-plugin-48.png
@@ -922,6 +921,7 @@
                     SOURCE (11:6:10:4:13): plugins/project-manager/project.c
                     SOURCE (11:6:10:4:14): plugins/project-manager/dialogs.c
                     SOURCE (11:6:10:4:15): plugins/project-manager/dialogs.h
+                    SOURCE (11:6:10:4:16): plugins/project-manager/$(BUILT_SOURCES)
             GROUP (11:6:11): cvs-plugin
                 TARGET (11:6:11:0): cvs_plugin_glade
                     SOURCE (11:6:11:0:0): plugins/cvs-plugin/anjuta-cvs-plugin.ui
@@ -1497,6 +1497,7 @@
                     SOURCE (11:6:25:8:25): plugins/symbol-db/symbol-db-model-search.h
                     SOURCE (11:6:25:8:26): plugins/symbol-db/symbol-db-views.c
                     SOURCE (11:6:25:8:27): plugins/symbol-db/symbol-db-views.h
+                    SOURCE (11:6:25:8:28): plugins/symbol-db/$(BUILT_SOURCES)
             GROUP (11:6:26): git
                 TARGET (11:6:26:0): git_glade
                     SOURCE (11:6:26:0:0): plugins/git/anjuta-git.ui
@@ -1752,152 +1753,141 @@
                     SOURCE (11:6:29:2:3): plugins/starter/starter.c
             GROUP (11:6:30): am-project
                 TARGET (11:6:30:0): plugin_ui
-                    SOURCE (11:6:30:0:0): plugins/am-project/ 
-                TARGET (11:6:30:1): plugin_pixmaps
-                    SOURCE (11:6:30:1:0): plugins/am-project/am-project-plugin-48.png
-                TARGET (11:6:30:2): plugin
-                    SOURCE (11:6:30:2:0): plugins/am-project/$(plugin_in_files:.plugin.in=.plugin)
-                TARGET (11:6:30:3): libam-project.la
-                    SOURCE (11:6:30:3:0): plugins/am-project/plugin.c
-                    SOURCE (11:6:30:3:1): plugins/am-project/plugin.h
-                    SOURCE (11:6:30:3:2): plugins/am-project/am-project.c
-                    SOURCE (11:6:30:3:3): plugins/am-project/am-project.h
-                    SOURCE (11:6:30:3:4): plugins/am-project/am-scanner.l
-                    SOURCE (11:6:30:3:5): plugins/am-project/am-parser.y
-                    SOURCE (11:6:30:3:6): plugins/am-project/am-scanner.h
-                    SOURCE (11:6:30:3:7): plugins/am-project/ac-scanner.l
-                    SOURCE (11:6:30:3:8): plugins/am-project/ac-parser.y
-                    SOURCE (11:6:30:3:9): plugins/am-project/ac-scanner.h
-                    SOURCE (11:6:30:3:10): plugins/am-project/ac-writer.h
-                    SOURCE (11:6:30:3:11): plugins/am-project/ac-writer.c
-                    SOURCE (11:6:30:3:12): plugins/am-project/am-writer.h
-                    SOURCE (11:6:30:3:13): plugins/am-project/am-writer.c
-                    SOURCE (11:6:30:3:14): plugins/am-project/am-project-private.h
-                    SOURCE (11:6:30:3:15): plugins/am-project/am-properties.c
-                    SOURCE (11:6:30:3:16): plugins/am-project/am-properties.h
-                TARGET (11:6:30:4): projectparser
-                    SOURCE (11:6:30:4:0): plugins/am-project/projectparser.c
-            GROUP (11:6:31): mk-project
+                TARGET (11:6:30:1): plugin_glade
+                TARGET (11:6:30:2): plugin_pixmaps
+                    SOURCE (11:6:30:2:0): plugins/am-project/am-project-plugin-48.png
+                TARGET (11:6:30:3): plugin
+                    SOURCE (11:6:30:3:0): plugins/am-project/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:30:4): libam-project.la
+                    SOURCE (11:6:30:4:0): plugins/am-project/plugin.c
+                    SOURCE (11:6:30:4:1): plugins/am-project/plugin.h
+                    SOURCE (11:6:30:4:2): plugins/am-project/am-project.c
+                    SOURCE (11:6:30:4:3): plugins/am-project/am-project.h
+                    SOURCE (11:6:30:4:4): plugins/am-project/am-scanner.l
+                    SOURCE (11:6:30:4:5): plugins/am-project/am-parser.y
+                    SOURCE (11:6:30:4:6): plugins/am-project/am-scanner.h
+                    SOURCE (11:6:30:4:7): plugins/am-project/ac-scanner.l
+                    SOURCE (11:6:30:4:8): plugins/am-project/ac-parser.y
+                    SOURCE (11:6:30:4:9): plugins/am-project/ac-scanner.h
+                    SOURCE (11:6:30:4:10): plugins/am-project/ac-writer.h
+                    SOURCE (11:6:30:4:11): plugins/am-project/ac-writer.c
+                    SOURCE (11:6:30:4:12): plugins/am-project/am-writer.h
+                    SOURCE (11:6:30:4:13): plugins/am-project/am-writer.c
+                    SOURCE (11:6:30:4:14): plugins/am-project/am-project-private.h
+                    SOURCE (11:6:30:4:15): plugins/am-project/am-properties.c
+                    SOURCE (11:6:30:4:16): plugins/am-project/am-properties.h
+                    SOURCE (11:6:30:4:17): plugins/am-project/am-node.c
+                    SOURCE (11:6:30:4:18): plugins/am-project/am-node.h
+                TARGET (11:6:30:5): projectparser
+                    SOURCE (11:6:30:5:0): plugins/am-project/projectparser.c
+            GROUP (11:6:31): dir-project
                 TARGET (11:6:31:0): plugin_ui
-                    SOURCE (11:6:31:0:0): plugins/mk-project/ 
                 TARGET (11:6:31:1): plugin_glade
-                    SOURCE (11:6:31:1:0): plugins/mk-project/mk-project.ui
-                TARGET (11:6:31:2): plugin_pixmaps
-                    SOURCE (11:6:31:2:0): plugins/mk-project/mk-project-plugin-48.png
-                TARGET (11:6:31:3): plugin
-                    SOURCE (11:6:31:3:0): plugins/mk-project/$(plugin_in_files:.plugin.in=.plugin)
-                TARGET (11:6:31:4): libmk-project.la
-                    SOURCE (11:6:31:4:0): plugins/mk-project/plugin.c
-                    SOURCE (11:6:31:4:1): plugins/mk-project/plugin.h
-                    SOURCE (11:6:31:4:2): plugins/mk-project/mk-project.c
-                    SOURCE (11:6:31:4:3): plugins/mk-project/mk-project.h
-                    SOURCE (11:6:31:4:4): plugins/mk-project/mk-scanner.l
-                    SOURCE (11:6:31:4:5): plugins/mk-project/mk-parser.y
-                    SOURCE (11:6:31:4:6): plugins/mk-project/mk-scanner.h
-                    SOURCE (11:6:31:4:7): plugins/mk-project/mk-rule.c
-                    SOURCE (11:6:31:4:8): plugins/mk-project/mk-rule.h
-                    SOURCE (11:6:31:4:9): plugins/mk-project/mk-project-private.h
-            GROUP (11:6:32): dir-project
-                TARGET (11:6:32:0): plugin_ui
-                    SOURCE (11:6:32:0:0): plugins/dir-project/ 
-                TARGET (11:6:32:1): plugin_data
-                    SOURCE (11:6:32:1:0): plugins/dir-project/sources.list
-                TARGET (11:6:32:2): plugin_pixmaps
-                    SOURCE (11:6:32:2:0): plugins/dir-project/dir-project-plugin-48.png
-                TARGET (11:6:32:3): plugin
-                    SOURCE (11:6:32:3:0): plugins/dir-project/$(plugin_in_files:.plugin.in=.plugin)
-                TARGET (11:6:32:4): libdir-project.la
-                    SOURCE (11:6:32:4:0): plugins/dir-project/plugin.c
-                    SOURCE (11:6:32:4:1): plugins/dir-project/plugin.h
-                    SOURCE (11:6:32:4:2): plugins/dir-project/dir-project.c
-                    SOURCE (11:6:32:4:3): plugins/dir-project/dir-project.h
-            GROUP (11:6:33): js-debugger
-                TARGET (11:6:33:0): js_debugger_pixmaps
-                    SOURCE (11:6:33:0:0): plugins/js-debugger/js_debugger.png
-                TARGET (11:6:33:1): js_debugger_plugin
-                    SOURCE (11:6:33:1:0): plugins/js-debugger/$(plugin_in_files:.plugin.in=.plugin)
-                TARGET (11:6:33:2): libjs_debugger.la
-                    SOURCE (11:6:33:2:0): plugins/js-debugger/debugger-js.c
-                    SOURCE (11:6:33:2:1): plugins/js-debugger/debugger-js.h
-                    SOURCE (11:6:33:2:2): plugins/js-debugger/debugger-server.c
-                    SOURCE (11:6:33:2:3): plugins/js-debugger/debugger-server.h
-                    SOURCE (11:6:33:2:4): plugins/js-debugger/plugin.c
-                    SOURCE (11:6:33:2:5): plugins/js-debugger/plugin.h
-            GROUP (11:6:34): language-support-js
-                TARGET (11:6:34:0): js_support_plugin_glade
-                    SOURCE (11:6:34:0:0): plugins/language-support-js/anjuta-language-javascript.ui
-                TARGET (11:6:34:1): js_support_plugin_ui
-                    SOURCE (11:6:34:1:0): plugins/language-support-js/anjuta-language-javascript.xml
-                TARGET (11:6:34:2): js_support_plugin_pixmaps
-                    SOURCE (11:6:34:2:0): plugins/language-support-js/js_support_plugin.png
-                TARGET (11:6:34:3): js_support_plugin_plugin
-                    SOURCE (11:6:34:3:0): plugins/language-support-js/$(plugin_in_files:.plugin.in=.plugin)
-                TARGET (11:6:34:4): libjs-support-plugin.la
-                    SOURCE (11:6:34:4:0): plugins/language-support-js/plugin.c
-                    SOURCE (11:6:34:4:1): plugins/language-support-js/plugin.h
-                    SOURCE (11:6:34:4:2): plugins/language-support-js/code-completion.c
-                    SOURCE (11:6:34:4:3): plugins/language-support-js/code-completion.h
-                    SOURCE (11:6:34:4:4): plugins/language-support-js/util.c
-                    SOURCE (11:6:34:4:5): plugins/language-support-js/util.h
-                    SOURCE (11:6:34:4:6): plugins/language-support-js/js-parser-y-tab.c
-                    SOURCE (11:6:34:4:7): plugins/language-support-js/js-parser-y-tab.h
-                    SOURCE (11:6:34:4:8): plugins/language-support-js/lex.yy.c
-                    SOURCE (11:6:34:4:9): plugins/language-support-js/lex.yy.h
-                    SOURCE (11:6:34:4:10): plugins/language-support-js/js-node.c
-                    SOURCE (11:6:34:4:11): plugins/language-support-js/js-node.h
-                    SOURCE (11:6:34:4:12): plugins/language-support-js/js-context.c
-                    SOURCE (11:6:34:4:13): plugins/language-support-js/js-context.h
-                    SOURCE (11:6:34:4:14): plugins/language-support-js/jsparse.c
-                    SOURCE (11:6:34:4:15): plugins/language-support-js/jsparse.h
-                    SOURCE (11:6:34:4:16): plugins/language-support-js/ijs-symbol.h
-                    SOURCE (11:6:34:4:17): plugins/language-support-js/ijs-symbol.c
-                    SOURCE (11:6:34:4:18): plugins/language-support-js/gir-symbol.c
-                    SOURCE (11:6:34:4:19): plugins/language-support-js/gir-symbol.h
-                    SOURCE (11:6:34:4:20): plugins/language-support-js/gi-symbol.c
-                    SOURCE (11:6:34:4:21): plugins/language-support-js/gi-symbol.h
-                    SOURCE (11:6:34:4:22): plugins/language-support-js/simple-symbol.c
-                    SOURCE (11:6:34:4:23): plugins/language-support-js/simple-symbol.h
-                    SOURCE (11:6:34:4:24): plugins/language-support-js/local-symbol.c
-                    SOURCE (11:6:34:4:25): plugins/language-support-js/local-symbol.h
-                    SOURCE (11:6:34:4:26): plugins/language-support-js/node-symbol.c
-                    SOURCE (11:6:34:4:27): plugins/language-support-js/node-symbol.h
-                    SOURCE (11:6:34:4:28): plugins/language-support-js/import-symbol.c
-                    SOURCE (11:6:34:4:29): plugins/language-support-js/import-symbol.h
-                    SOURCE (11:6:34:4:30): plugins/language-support-js/dir-symbol.c
-                    SOURCE (11:6:34:4:31): plugins/language-support-js/dir-symbol.h
-                    SOURCE (11:6:34:4:32): plugins/language-support-js/std-symbol.c
-                    SOURCE (11:6:34:4:33): plugins/language-support-js/std-symbol.h
-                    SOURCE (11:6:34:4:34): plugins/language-support-js/database-symbol.c
-                    SOURCE (11:6:34:4:35): plugins/language-support-js/database-symbol.h
-                    SOURCE (11:6:34:4:36): plugins/language-support-js/db-anjuta-symbol.c
-                    SOURCE (11:6:34:4:37): plugins/language-support-js/db-anjuta-symbol.h
-                    SOURCE (11:6:34:4:38): plugins/language-support-js/jstypes.h
-            GROUP (11:6:35): language-support-vala
-                TARGET (11:6:35:0): vala_plugin
-                    SOURCE (11:6:35:0:0): plugins/language-support-vala/$(plugin_in_files:.plugin.in=.plugin)
-                TARGET (11:6:35:1): libanjuta-language-vala.la
-                    SOURCE (11:6:35:1:0): plugins/language-support-vala/locator.vala
-                    SOURCE (11:6:35:1:1): plugins/language-support-vala/plugin.vala
-                    SOURCE (11:6:35:1:2): plugins/language-support-vala/provider.vala
-                    SOURCE (11:6:35:1:3): plugins/language-support-vala/report.vala
-            GROUP (11:6:36): language-support-python
-                TARGET (11:6:36:0): python_plugin_ui
-                    SOURCE (11:6:36:0:0): plugins/language-support-python/python-plugin.xml
-                TARGET (11:6:36:1): python_plugin_glade
-                    SOURCE (11:6:36:1:0): plugins/language-support-python/python-plugin-properties.ui
-                TARGET (11:6:36:2): python_plugin_pixmaps
-                    SOURCE (11:6:36:2:0): plugins/language-support-python/python_plugin.png
-                TARGET (11:6:36:3): anjuta-python-autocomplete.py
-                TARGET (11:6:36:4): python_plugin_plugin
-                    SOURCE (11:6:36:4:0): plugins/language-support-python/$(plugin_in_files:.plugin.in=.plugin)
-                TARGET (11:6:36:5): libpython_plugin.la
-                    SOURCE (11:6:36:5:0): plugins/language-support-python/plugin.c
-                    SOURCE (11:6:36:5:1): plugins/language-support-python/plugin.h
-                    SOURCE (11:6:36:5:2): plugins/language-support-python/python-assist.c
-                    SOURCE (11:6:36:5:3): plugins/language-support-python/python-assist.h
-                    SOURCE (11:6:36:5:4): plugins/language-support-python/python-utils.c
-                    SOURCE (11:6:36:5:5): plugins/language-support-python/python-utils.h
-            GROUP (11:6:37): python-loader
+                TARGET (11:6:31:2): plugin_data
+                    SOURCE (11:6:31:2:0): plugins/dir-project/sources.list
+                TARGET (11:6:31:3): plugin_pixmaps
+                    SOURCE (11:6:31:3:0): plugins/dir-project/dir-project-plugin-48.png
+                TARGET (11:6:31:4): plugin
+                    SOURCE (11:6:31:4:0): plugins/dir-project/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:31:5): libdir-project.la
+                    SOURCE (11:6:31:5:0): plugins/dir-project/plugin.c
+                    SOURCE (11:6:31:5:1): plugins/dir-project/plugin.h
+                    SOURCE (11:6:31:5:2): plugins/dir-project/dir-project.c
+                    SOURCE (11:6:31:5:3): plugins/dir-project/dir-project.h
+                    SOURCE (11:6:31:5:4): plugins/dir-project/dir-node.c
+                    SOURCE (11:6:31:5:5): plugins/dir-project/dir-node.h
+            GROUP (11:6:32): js-debugger
+                TARGET (11:6:32:0): js_debugger_pixmaps
+                    SOURCE (11:6:32:0:0): plugins/js-debugger/js_debugger.png
+                TARGET (11:6:32:1): js_debugger_plugin
+                    SOURCE (11:6:32:1:0): plugins/js-debugger/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:32:2): libjs_debugger.la
+                    SOURCE (11:6:32:2:0): plugins/js-debugger/debugger-js.c
+                    SOURCE (11:6:32:2:1): plugins/js-debugger/debugger-js.h
+                    SOURCE (11:6:32:2:2): plugins/js-debugger/debugger-server.c
+                    SOURCE (11:6:32:2:3): plugins/js-debugger/debugger-server.h
+                    SOURCE (11:6:32:2:4): plugins/js-debugger/plugin.c
+                    SOURCE (11:6:32:2:5): plugins/js-debugger/plugin.h
+            GROUP (11:6:33): language-support-js
+                TARGET (11:6:33:0): js_support_plugin_glade
+                    SOURCE (11:6:33:0:0): plugins/language-support-js/anjuta-language-javascript.ui
+                TARGET (11:6:33:1): js_support_plugin_ui
+                    SOURCE (11:6:33:1:0): plugins/language-support-js/anjuta-language-javascript.xml
+                TARGET (11:6:33:2): js_support_plugin_pixmaps
+                    SOURCE (11:6:33:2:0): plugins/language-support-js/js_support_plugin.png
+                TARGET (11:6:33:3): js_support_plugin_plugin
+                    SOURCE (11:6:33:3:0): plugins/language-support-js/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:33:4): libjs-support-plugin.la
+                    SOURCE (11:6:33:4:0): plugins/language-support-js/plugin.c
+                    SOURCE (11:6:33:4:1): plugins/language-support-js/plugin.h
+                    SOURCE (11:6:33:4:2): plugins/language-support-js/code-completion.c
+                    SOURCE (11:6:33:4:3): plugins/language-support-js/code-completion.h
+                    SOURCE (11:6:33:4:4): plugins/language-support-js/util.c
+                    SOURCE (11:6:33:4:5): plugins/language-support-js/util.h
+                    SOURCE (11:6:33:4:6): plugins/language-support-js/js-parser-y-tab.c
+                    SOURCE (11:6:33:4:7): plugins/language-support-js/js-parser-y-tab.h
+                    SOURCE (11:6:33:4:8): plugins/language-support-js/lex.yy.c
+                    SOURCE (11:6:33:4:9): plugins/language-support-js/lex.yy.h
+                    SOURCE (11:6:33:4:10): plugins/language-support-js/js-node.c
+                    SOURCE (11:6:33:4:11): plugins/language-support-js/js-node.h
+                    SOURCE (11:6:33:4:12): plugins/language-support-js/js-context.c
+                    SOURCE (11:6:33:4:13): plugins/language-support-js/js-context.h
+                    SOURCE (11:6:33:4:14): plugins/language-support-js/jsparse.c
+                    SOURCE (11:6:33:4:15): plugins/language-support-js/jsparse.h
+                    SOURCE (11:6:33:4:16): plugins/language-support-js/ijs-symbol.h
+                    SOURCE (11:6:33:4:17): plugins/language-support-js/ijs-symbol.c
+                    SOURCE (11:6:33:4:18): plugins/language-support-js/gir-symbol.c
+                    SOURCE (11:6:33:4:19): plugins/language-support-js/gir-symbol.h
+                    SOURCE (11:6:33:4:20): plugins/language-support-js/gi-symbol.c
+                    SOURCE (11:6:33:4:21): plugins/language-support-js/gi-symbol.h
+                    SOURCE (11:6:33:4:22): plugins/language-support-js/simple-symbol.c
+                    SOURCE (11:6:33:4:23): plugins/language-support-js/simple-symbol.h
+                    SOURCE (11:6:33:4:24): plugins/language-support-js/local-symbol.c
+                    SOURCE (11:6:33:4:25): plugins/language-support-js/local-symbol.h
+                    SOURCE (11:6:33:4:26): plugins/language-support-js/node-symbol.c
+                    SOURCE (11:6:33:4:27): plugins/language-support-js/node-symbol.h
+                    SOURCE (11:6:33:4:28): plugins/language-support-js/import-symbol.c
+                    SOURCE (11:6:33:4:29): plugins/language-support-js/import-symbol.h
+                    SOURCE (11:6:33:4:30): plugins/language-support-js/dir-symbol.c
+                    SOURCE (11:6:33:4:31): plugins/language-support-js/dir-symbol.h
+                    SOURCE (11:6:33:4:32): plugins/language-support-js/std-symbol.c
+                    SOURCE (11:6:33:4:33): plugins/language-support-js/std-symbol.h
+                    SOURCE (11:6:33:4:34): plugins/language-support-js/database-symbol.c
+                    SOURCE (11:6:33:4:35): plugins/language-support-js/database-symbol.h
+                    SOURCE (11:6:33:4:36): plugins/language-support-js/db-anjuta-symbol.c
+                    SOURCE (11:6:33:4:37): plugins/language-support-js/db-anjuta-symbol.h
+                    SOURCE (11:6:33:4:38): plugins/language-support-js/jstypes.h
+            GROUP (11:6:34): language-support-vala
+                TARGET (11:6:34:0): vala_plugin
+                    SOURCE (11:6:34:0:0): plugins/language-support-vala/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:34:1): libanjuta-language-vala.la
+                    SOURCE (11:6:34:1:0): plugins/language-support-vala/locator.vala
+                    SOURCE (11:6:34:1:1): plugins/language-support-vala/plugin.vala
+                    SOURCE (11:6:34:1:2): plugins/language-support-vala/provider.vala
+                    SOURCE (11:6:34:1:3): plugins/language-support-vala/report.vala
+            GROUP (11:6:35): language-support-python
+                TARGET (11:6:35:0): python_plugin_ui
+                    SOURCE (11:6:35:0:0): plugins/language-support-python/python-plugin.xml
+                TARGET (11:6:35:1): python_plugin_glade
+                    SOURCE (11:6:35:1:0): plugins/language-support-python/python-plugin-properties.ui
+                TARGET (11:6:35:2): python_plugin_pixmaps
+                    SOURCE (11:6:35:2:0): plugins/language-support-python/python_plugin.png
+                TARGET (11:6:35:3): anjuta-python-autocomplete.py
+                TARGET (11:6:35:4): python_plugin_plugin
+                    SOURCE (11:6:35:4:0): plugins/language-support-python/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:35:5): libpython_plugin.la
+                    SOURCE (11:6:35:5:0): plugins/language-support-python/plugin.c
+                    SOURCE (11:6:35:5:1): plugins/language-support-python/plugin.h
+                    SOURCE (11:6:35:5:2): plugins/language-support-python/python-assist.c
+                    SOURCE (11:6:35:5:3): plugins/language-support-python/python-assist.h
+                    SOURCE (11:6:35:5:4): plugins/language-support-python/python-utils.c
+                    SOURCE (11:6:35:5:5): plugins/language-support-python/python-utils.h
+            GROUP (11:6:36): python-loader
+                TARGET (11:6:36:0): plugin
+                    SOURCE (11:6:36:0:0): plugins/python-loader/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:36:1): libanjuta-python-loader.la
+                    SOURCE (11:6:36:1:0): plugins/python-loader/plugin.c
+                    SOURCE (11:6:36:1:1): plugins/python-loader/plugin.h
         GROUP (11:7): src
             TARGET (11:7:0): anjuta_glade
                 SOURCE (11:7:0:0): src/preferences.ui

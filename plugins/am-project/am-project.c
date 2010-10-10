@@ -541,7 +541,8 @@ remove_config_file (gpointer data, GObject *object, gboolean is_last_ref)
 	if (is_last_ref)
 	{
 		AmpProject *project = (AmpProject *)data;
-		g_hash_table_remove (project->files, anjuta_token_file_get_file (ANJUTA_TOKEN_FILE (object)));
+		if (project->files)
+			g_hash_table_remove (project->files, anjuta_token_file_get_file (ANJUTA_TOKEN_FILE (object)));
 	}
 }
 
@@ -963,7 +964,7 @@ project_load_target (AmpProject *project, AnjutaToken *name, AnjutaTokenType tok
 
 	amp_group_add_token (parent, name, AM_GROUP_TARGET);
 
-	//fprintf (stderr, "load_target list %p word %p\n", list, anjuta_token_first_word (list));
+	//fprintf (stderr, "load_target list %p word %p next %p\n", list, anjuta_token_first_word (list), anjuta_token_next_word (anjuta_token_first_word (list)));
 	for (arg = anjuta_token_first_word (list); arg != NULL; arg = anjuta_token_next_word (arg))
 	{
 		gchar *value;
@@ -975,7 +976,7 @@ project_load_target (AmpProject *project, AnjutaToken *name, AnjutaTokenType tok
 
 		value = anjuta_token_evaluate (arg);
 
-		//fprintf (stderr, "target value =%s=\n", value);
+		//fprintf (stderr, "target arg %p value =%s=\n", arg, value);
 		/* This happens for variable token which are considered as value */
 		if (value == NULL) continue;
 		canon_id = canonicalize_automake_variable (value);
@@ -1108,13 +1109,14 @@ project_load_sources (AmpProject *project, AnjutaToken *name, AnjutaToken *list,
 			GFile *src_file;
 		
 			value = anjuta_token_evaluate (arg);
+			if (value == NULL) continue;
 
 			/* Create source */
 			src_file = g_file_get_child (parent_file, value);
 			source = project_node_new (project, ANJUTA_PROJECT_SOURCE | ANJUTA_PROJECT_PROJECT, src_file, NULL, NULL);
 			g_object_unref (src_file);
 			AMP_SOURCE_DATA(source)->token = arg;
-
+	
 			if (orphan != NULL)
 			{
 				amp_target_property_buffer_add_source (orphan, source);
@@ -1205,6 +1207,7 @@ project_load_data (AmpProject *project, AnjutaToken *name, AnjutaToken *list, An
 			GFile *src_file;
 		
 			value = anjuta_token_evaluate (arg);
+			if (value == NULL) continue;
 
 			/* Create source */
 			src_file = g_file_get_child (parent_file, value);
@@ -1409,12 +1412,11 @@ project_load_makefile (AmpProject *project, AnjutaAmGroupNode *group)
 		/* Unable to find automake file */
 		return group;
 	}
-	
+
 	/* Parse makefile.am */
 	DEBUG_PRINT ("Parse: %s", g_file_get_uri (makefile));
 	tfile = amp_group_set_makefile (group, makefile, project);
-	g_hash_table_insert (project->files, makefile, tfile);
-	g_object_add_toggle_ref (G_OBJECT (tfile), remove_config_file, project);
+
 	
 	return group;
 }

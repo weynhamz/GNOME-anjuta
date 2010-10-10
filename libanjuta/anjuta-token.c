@@ -66,6 +66,44 @@
  * arguments and then one sub group for each argument.
  */ 
 
+/*
+ * A token with its pointer can be put in one of the following case:
+ *
+ * * Simple token:
+ *		children = NULL && last = NULL
+ *		This is the case of a simple token without any children.
+ *
+ * * Composite token:
+ *		children = NULL && last != NULL
+ *		This is the case of a token grouping several other tokens, representing
+ *		by example an item in a list.
+ *
+ * * Parent token:
+ *		children != NULL && last == NULL
+ *		This is the case of a token having children, by example a variable where
+ *		the children represent the content. Most of the time the value of the 
+ *		parent token is ignored.
+ *
+ * * Composite parent token:
+ *		children != NULL && last != NULL && (last in list)
+ *		This case represents a variable which is split into several tokens. The
+ *		children represents the content of the variable. The token up to last
+ *		corresponds to the variable name. After getting the variable content, the
+ *		next token is after the last token of the variable.
+ *
+ * * Composite parent token:
+ *		children != NULL && last != NULL && (last in children)
+ *		This case would represent a variable which is split into several token
+ *		with one inside the children of the variable. This is not possible as
+ *		the complete name of the variable is needed to get the children.
+ *
+ * * Composite parent token:
+ *		children != NULL && last != NULL && (last in parent)
+ *		This case represents a variable split into several token where the
+ *		last element is a sibling of one parent of the token. I think this case
+ *		is possible.
+ *
+ */
 
 typedef struct _AnjutaTokenData AnjutaTokenData;
 
@@ -524,25 +562,37 @@ anjuta_token_last_item (AnjutaToken *list)
 AnjutaToken *
 anjuta_token_first_item (AnjutaToken *list)
 {
-	if (list == NULL) return NULL;
-	if (list->children != NULL) return list->children;
-	if (list->last != NULL) return list->next;
+	AnjutaToken *first = NULL;
+	
+	if (list != NULL)
+	{
+		if (list->children != NULL)
+		{
+			first = list->children;
+		}
+		else if (list->last != NULL)
+		{
+			first = list->next;
+		}
+	}
 
-	return NULL;
+	return first;
 }
 
 AnjutaToken *
 anjuta_token_next_item (AnjutaToken *item)
 {
 	AnjutaToken *last;
-	AnjutaToken *next;
+	AnjutaToken *next = NULL;
 
-	if (item == NULL) return NULL;
-	
-	if ((item->group != NULL) && (item->group->last == item)) return NULL;
-	
-	for (last = item; last->last != NULL; last = last->last);
-	next = last->next;
+	if (item != NULL)
+	{
+		if ((item->group == NULL) || (item->group->last != item))
+		{
+			for (last = item; last->last != NULL; last = last->last);
+			next = anjuta_token_next (last);
+		}
+	}
 
 	return next;
 }
@@ -1116,6 +1166,18 @@ anjuta_token_foreach (AnjutaToken *token, AnjutaTokenForeachFunc func, gpointer 
 		{
 			if (expand && (token->children != NULL))
 			{
+				/* Check if we have found the last token */
+				if (token == last_token)
+				{
+					/* Find last token */
+					if (token->last == NULL)
+					{
+						break;
+					}	
+					/* Last token still include additional tokens */
+					last_token = token->last;
+				}
+
 				/* Enumerate children */
 				token = token->children;
 			}
@@ -1169,6 +1231,61 @@ anjuta_token_foreach (AnjutaToken *token, AnjutaTokenForeachFunc func, gpointer 
 					/* Get parent */
 					token = token->parent;
 					last_parent = token->last;
+					expand = FALSE;
+				}
+			}
+		}
+	}
+
+	return;
+}
+
+void
+anjuta_token_foreach_member (AnjutaToken *token, AnjutaTokenForeachFunc func, gpointer user_data)
+{
+	if (token != NULL)
+	{
+		AnjutaToken *last_token;
+		gboolean expand = TRUE;
+
+		last_token = token->last == NULL ? token : token->last;
+		while (token != NULL)
+		{
+			if (expand && (token->children != NULL))
+			{
+				/* Enumerate children */
+				token = token->children;
+			}
+			else
+			{
+				if (token->children == NULL)
+				{    
+					/* Take into account only the content of group having no children */
+					func (token, user_data);
+				}
+
+				/* Check if we have found the last token */
+				if (token == last_token)
+				{
+					/* Find last token */
+					if (token->last == NULL)
+					{
+						break;
+					}	
+					/* Last token still include additional tokens */
+					last_token = token->last;
+				}
+
+				if (token->next != NULL)
+				{
+					/* Get next sibling */
+					token = token->next;
+					expand = TRUE;
+				}
+				else
+				{
+					/* Get parent */
+					token = token->parent;
 					expand = FALSE;
 				}
 			}

@@ -368,11 +368,22 @@ anjuta_token_file_get_token_location (AnjutaTokenFile *file, AnjutaTokenFileLoca
 {
 	AnjutaTokenFileLocation loc = {NULL, 1, 1};
 	AnjutaToken *pos;
-	const gchar *target = anjuta_token_get_string (token);
-	
+	const gchar *target;
+
+	anjuta_token_dump (token);
+	do
+	{
+		target = anjuta_token_get_string (token); 
+		if (target != NULL) break;
+
+		/* token is a group or an empty token, looks for group members or
+		 * following token */
+		token = anjuta_token_next_after_children (token);
+	} while (token != NULL);
+
 	for (pos = file->content; pos != NULL; pos = anjuta_token_next (pos))
 	{
-		if (!(anjuta_token_get_flags (pos) & ANJUTA_TOKEN_REMOVED) && (anjuta_token_get_length (pos)))
+		if (!(anjuta_token_get_flags (pos) & ANJUTA_TOKEN_REMOVED) && (anjuta_token_get_length (pos) > 0))
 		{
 			const gchar *ptr;
 			const gchar *end;
