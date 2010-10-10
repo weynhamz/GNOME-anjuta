@@ -1,7 +1,6 @@
 
 ## The '.' is to make sure install-data-hook rule is executed first
 SUBDIRS = . \
-	gtodo \
 	message-view \
 	gdb \
 	debug-manager \
