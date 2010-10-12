@@ -106,7 +106,9 @@ symbol-db-marshal.c: symbol-db-marshal.h symbol-db-marshal.list
 	&& rm -f xgenc-gmc
 
 
-
+prefs_ui_files = anjuta-symbol-db.ui
+prefs_name = org.gnome.anjuta.symbol-db
+include $(top_srcdir)/scripts/build-schemas.mk
 
 EXTRA_DIST = \
 	$(plugin_in_files) \

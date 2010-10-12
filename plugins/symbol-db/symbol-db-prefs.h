@@ -68,7 +68,7 @@ GType sdb_prefs_get_type (void) G_GNUC_CONST;
 
 SymbolDBPrefs *
 symbol_db_prefs_new (SymbolDBSystem *sdbs, SymbolDBEngine *sdbe_project,
-					 SymbolDBEngine *sdbe_globals, AnjutaPreferences *prefs,
+					 SymbolDBEngine *sdbe_globals, GSettings* settings,
 					 GList *enabled_packages);
 
 
