@@ -48,7 +48,7 @@ libanjuta_document_manager_la_SOURCES= \
 	anjuta-bookmarks.h \
 	anjuta-bookmarks.c
 
-prefs_ui = org.gnome.anjuta.document-manager
+prefs_name = org.gnome.anjuta.document-manager
 prefs_keyfile = document-manager.gschema-part.xml
 prefs_ui_files = anjuta-document-manager.ui
 include $(top_srcdir)/scripts/build-schemas.mk
