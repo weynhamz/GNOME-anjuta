@@ -58,7 +58,7 @@ libanjuta_build_basic_autotools_la_LIBADD = \
 
 libanjuta_build_basic_autotools_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
-prefs_name = org.gnome.anjuta.build-basic-autotools
+prefs_name = org.gnome.anjuta.build
 prefs_ui_files = anjuta-build-basic-autotools-plugin.ui
 include $(top_srcdir)/scripts/build-schemas.mk
 
