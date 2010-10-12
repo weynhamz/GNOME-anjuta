@@ -40,7 +40,7 @@ struct _CppJavaPlugin {
 	GtkActionGroup *action_group;
 	gint uiid;
 	
-	AnjutaPreferences *prefs;
+	GSettings* settings;
 	gint editor_watch_id;
 	GObject *current_editor;
 	gboolean support_installed;
