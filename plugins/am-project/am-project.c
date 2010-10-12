@@ -997,7 +997,7 @@ project_load_target (AmpProject *project, AnjutaToken *name, AnjutaTokenType tok
 		//fprintf(stderr, "create target %p\n", target);
 		if (target != NULL)
 		{
-			amp_target_add_token (target, arg);
+			amp_target_add_token (target, arg, AM_TARGET_TOKEN_TARGET);
 			anjuta_project_node_append (parent, target);
 			DEBUG_PRINT ("create target %p name %s", target, value);
 
@@ -1101,7 +1101,11 @@ project_load_sources (AmpProject *project, AnjutaToken *name, AnjutaToken *list,
 				orphan = amp_target_property_buffer_new ();
 			}
 		}
-
+		else
+		{
+			amp_target_add_token (parent, name, AM_TARGET_TOKEN_SOURCES);
+		}
+		
 		for (arg = anjuta_token_first_word (list); arg != NULL; arg = anjuta_token_next_word (arg))
 		{
 			gchar *value;
@@ -1186,7 +1190,7 @@ project_load_data (AmpProject *project, AnjutaToken *name, AnjutaToken *list, An
 	{
 		/* Create target */
 		target = amp_target_new (target_id, info->base.type, install, flags, NULL);
-		amp_target_add_token (target, arg);
+		amp_target_add_token (target, arg, AM_TARGET_TOKEN_TARGET);
 		anjuta_project_node_append (parent, target);
 		DEBUG_PRINT ("create target %p name %s", target, target_id);
 	}
@@ -1820,23 +1824,6 @@ amp_project_remove_group (AmpProject  *project,
 	}
 
 	amp_group_free (group);
-}
-
-void 
-amp_project_remove_target (AmpProject  *project,
-		    AnjutaAmTargetNode *target,
-		    GError     **error)
-{
-	GList *token_list;
-
-	if (anjuta_project_node_get_node_type (target) != ANJUTA_PROJECT_TARGET) return;
-	
-	for (token_list = amp_target_get_token (target); token_list != NULL; token_list = g_list_next (token_list))
-	{
-		anjuta_token_remove_word ((AnjutaToken *)token_list->data);
-	}
-
-	amp_target_free (target);
 }
 
 void 

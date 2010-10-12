@@ -602,16 +602,17 @@ anjuta_am_group_node_class_init (AnjutaAmGroupNodeClass *klass)
 
 
 void
-amp_target_add_token (AnjutaAmTargetNode *target, AnjutaToken *token)
+amp_target_add_token (AnjutaAmTargetNode *target, AnjutaToken *token, AmpTargetTokenCategory category)
 {
-	target->tokens = g_list_prepend (target->tokens, token);
+	target->tokens[category] = g_list_prepend (target->tokens[category], token);
 }
 
 GList *
-amp_target_get_token (AnjutaAmTargetNode *node)
+amp_target_get_token (AnjutaAmTargetNode *node, AmpTargetTokenCategory category)
 {
-	return node->tokens;
+	return node->tokens[category];
 }
+
 
 AnjutaAmTargetNode*
 amp_target_new (const gchar *name, AnjutaProjectNodeType type, const gchar *install, gint flags, GError **error)
@@ -670,7 +671,7 @@ amp_target_new (const gchar *name, AnjutaProjectNodeType type, const gchar *inst
 						ANJUTA_PROJECT_CAN_REMOVE;
 	node->install = g_strdup (install);
 	node->flags = flags;
-	node->tokens = NULL;
+	memset (node->tokens, 0, sizeof (node->tokens));
 	
 	return node;
 }

@@ -145,11 +145,17 @@ struct _AnjutaAmGroupNode {
 
 GType anjuta_am_target_node_get_type (void) G_GNUC_CONST;
 
+typedef enum {
+	AM_TARGET_TOKEN_TARGET,
+	AM_TARGET_TOKEN_SOURCES,
+	AM_TARGET_TOKEN_LAST
+} AmpTargetTokenCategory;
+
 struct _AnjutaAmTargetNode {
 	AnjutaProjectNode base;
 	gchar *install;
 	gint flags;
-	GList* tokens;	
+	GList* tokens[AM_TARGET_TOKEN_LAST];	
 };
 
 

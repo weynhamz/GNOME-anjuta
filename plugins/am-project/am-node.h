@@ -78,8 +78,9 @@ typedef enum _AmpTargetFlag
 	AM_TARGET_MAN_SECTION = 31 << 7
 } AmpTargetFlag;
 
-void amp_target_add_token (AnjutaAmTargetNode *node, AnjutaToken *token);
-GList * amp_target_get_token (AnjutaAmTargetNode *node);
+
+void amp_target_add_token (AnjutaAmTargetNode *group, AnjutaToken *token, AmpTargetTokenCategory category);
+GList * amp_target_get_token (AnjutaAmTargetNode *group, AmpTargetTokenCategory category);
 AnjutaAmTargetNode* amp_target_new (const gchar *name, AnjutaProjectNodeType type, const gchar *install, gint flags, GError **error);
 void amp_target_free (AnjutaAmTargetNode *node);
 

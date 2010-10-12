@@ -6,6 +6,8 @@ AT_DATA([empty/configure.ac],
 AT_DATA([empty/Makefile.am],
 [[]])
 
+
+
 AT_DATA([expect],
 [[    GROUP (0): empty1
         TARGET (0:0): target1
@@ -25,6 +27,8 @@ AT_CHECK([diff -b empty1/Makefile.am reference])
 AT_PARSER_CHECK([load empty1 \
 		 list])
 AT_CHECK([diff output expect])
+
+
 
 AT_DATA([expect],
 [[    GROUP (0): empty2
@@ -48,6 +52,8 @@ AT_PARSER_CHECK([load empty2 \
 		 list])
 AT_CHECK([diff -b output expect])
 
+
+
 AT_DATA([expect],
 [[    GROUP (0): empty3
         TARGET (0:0): target2
@@ -68,6 +74,8 @@ AT_PARSER_CHECK([load empty3 \
 		 list])
 AT_CHECK([diff -b output expect])
 
+
+
 AT_DATA([expect],
 [[    GROUP (0): empty4
 ]])
@@ -86,6 +94,8 @@ AT_CHECK([diff -b empty4/Makefile.am reference])
 AT_PARSER_CHECK([load empty4 \
 		 list])
 AT_CHECK([diff -b output expect])
+
+
 
 AT_DATA([expect],
 [[    GROUP (0): empty5
@@ -106,5 +116,7 @@ AT_CHECK([diff -b empty5/Makefile.am reference])
 AT_PARSER_CHECK([load empty5 \
 		 list])
 AT_CHECK([diff -b output expect])
+
+
 
 AT_CLEANUP

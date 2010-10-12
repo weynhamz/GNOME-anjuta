@@ -467,7 +467,7 @@ amp_target_create_token (AmpProject  *project, AnjutaAmTargetNode *target, GErro
 	prev = NULL;
 	if (sibling != NULL)
 	{
-		last = amp_target_get_token (sibling);
+		last = amp_target_get_token (sibling, AM_TARGET_TOKEN_TARGET);
 
 		if (last != NULL) 
 		{
@@ -548,7 +548,7 @@ amp_target_create_token (AmpProject  *project, AnjutaAmTargetNode *target, GErro
 		
 		amp_group_update_makefile (parent, token);
 		
-		amp_target_add_token (target, token);
+		amp_target_add_token (target, token, AM_TARGET_TOKEN_TARGET);
 	}
 	g_free (name);
 
@@ -564,7 +564,7 @@ amp_target_delete_token (AmpProject  *project, AnjutaAmTargetNode *target, GErro
 	/* Get parent target */
 	parent = ANJUTA_AM_GROUP_NODE (anjuta_project_node_parent (ANJUTA_PROJECT_NODE (target)));
 
-	for (item = amp_target_get_token (target); item != NULL; item = g_list_next (item))
+	for (item = amp_target_get_token (target, AM_TARGET_TOKEN_TARGET); item != NULL; item = g_list_next (item))
 	{
 		AnjutaToken *token = (AnjutaToken *)item->data;
 		AnjutaToken *args;
@@ -627,13 +627,18 @@ amp_project_write_source_list (AnjutaAmGroupNode *group, const gchar *name, gboo
 		}
 	}
 	
+	pos = anjuta_token_insert_token_list (after, pos,
+		    ANJUTA_TOKEN_EOL, "\n",
+		    NULL);
+	amp_group_update_makefile (group, pos);
+	
 	token = anjuta_token_insert_token_list (after, pos,
 	    		ANJUTA_TOKEN_LIST, NULL,
 	    		ANJUTA_TOKEN_NAME, name,
 	    		ANJUTA_TOKEN_SPACE, " ",
 	    		ANJUTA_TOKEN_OPERATOR, "=",
 	    		ANJUTA_TOKEN_LIST, NULL,
-	    		ANJUTA_TOKEN_START, NULL,
+	            ANJUTA_TOKEN_SPACE, " ",
 	    		NULL);
 
 	return anjuta_token_last_item (token);
@@ -680,6 +685,17 @@ amp_source_create_token (AmpProject  *project, AnjutaAmSourceNode *source, GErro
 		prev = NULL;
 		args = NULL;
 	}
+
+	/* Check if a valid source variable is already defined */
+	if (args == NULL)
+	{
+		GList *last;
+		for (last = amp_target_get_token (target, AM_TARGET_TOKEN_SOURCES); last != NULL; last = g_list_next (last))
+		{
+			args = anjuta_token_last_item (anjuta_token_list ((AnjutaToken *)last->data));
+			break;
+		}
+	}
 	
 	if (args == NULL)
 	{
@@ -693,7 +709,7 @@ amp_source_create_token (AmpProject  *project, AnjutaAmSourceNode *source, GErro
 
 		/* Search where the target is declared */
 		var = NULL;
-		list = amp_target_get_token (target);
+		list = amp_target_get_token (target, AM_TARGET_TOKEN_TARGET);
 		if (list != NULL)
 		{
 			var = (AnjutaToken *)list->data;
