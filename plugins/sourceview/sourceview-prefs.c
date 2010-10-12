@@ -25,10 +25,10 @@
 #include <gconf/gconf-client.h>
 
 #define REGISTER_NOTIFY(key, func) \
-	notify_id = anjuta_preferences_notify_add (sv->priv->prefs, \
-											   key, func, sv); \
-	sv->priv->notify_ids = g_list_prepend (sv->priv->notify_ids, \
-										   GUINT_TO_POINTER(notify_id));
+	g_signal_connect (sv->priv->settings, "changed::" key, G_CALLBACK(func), sv);
+
+#define PREF_SCHEMA "org.gnome.anjuta.sourceview"
+
 /* Editor preferences */
 #define HIGHLIGHT_SYNTAX           "sourceview-syntax-highlight"
 #define HIGHLIGHT_CURRENT_LINE	   "sourceview-currentline-highlight"
@@ -56,7 +56,7 @@
 
 
 static void
-on_notify_view_spaces (AnjutaPreferences* prefs,
+on_notify_view_spaces (GSettings* settings,
                        const gchar* key,
                        gpointer user_data)
 {
@@ -65,7 +65,7 @@ on_notify_view_spaces (AnjutaPreferences* prefs,
 	GtkSourceDrawSpacesFlags flags = 
 		gtk_source_view_get_draw_spaces (GTK_SOURCE_VIEW (sv->priv->view));
 	
-	if (anjuta_preferences_get_bool (prefs, key))
+	if (g_settings_get_boolean (settings, key))
 		flags |= (GTK_SOURCE_DRAW_SPACES_SPACE | GTK_SOURCE_DRAW_SPACES_TAB);
 	else
 		flags &= ~(GTK_SOURCE_DRAW_SPACES_SPACE | GTK_SOURCE_DRAW_SPACES_TAB);
@@ -75,7 +75,7 @@ on_notify_view_spaces (AnjutaPreferences* prefs,
 }
 
 static void
-on_notify_view_eol (AnjutaPreferences* prefs,
+on_notify_view_eol (GSettings* settings,
                     const gchar* key,
                     gpointer user_data)
 {
@@ -84,7 +84,7 @@ on_notify_view_eol (AnjutaPreferences* prefs,
 	GtkSourceDrawSpacesFlags flags = 
 		gtk_source_view_get_draw_spaces (GTK_SOURCE_VIEW (sv->priv->view));
 	
-	if (anjuta_preferences_get_bool (prefs, key))
+	if (g_settings_get_boolean (settings, key))
 		flags |= GTK_SOURCE_DRAW_SPACES_NEWLINE;
 	else
 		flags &= ~GTK_SOURCE_DRAW_SPACES_NEWLINE;
@@ -94,7 +94,7 @@ on_notify_view_eol (AnjutaPreferences* prefs,
 }
 
 static void
-on_notify_line_wrap (AnjutaPreferences* prefs,
+on_notify_line_wrap (GSettings* settings,
                            const gchar* key,
                            gpointer user_data)
 {
@@ -102,11 +102,11 @@ on_notify_line_wrap (AnjutaPreferences* prefs,
 	sv = ANJUTA_SOURCEVIEW(user_data);
 	
 	gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (sv->priv->view),
-	                             anjuta_preferences_get_bool (prefs, key) ? GTK_WRAP_WORD : GTK_WRAP_NONE);
+	                             g_settings_get_boolean (settings, key) ? GTK_WRAP_WORD : GTK_WRAP_NONE);
 }
 
 static void
-on_notify_disable_hilite (AnjutaPreferences* prefs,
+on_notify_disable_hilite (GSettings* settings,
                           const gchar* key,
                           gpointer user_data)
 {
@@ -114,12 +114,12 @@ on_notify_disable_hilite (AnjutaPreferences* prefs,
 	sv = ANJUTA_SOURCEVIEW(user_data);
 
 	gtk_source_buffer_set_highlight_syntax(GTK_SOURCE_BUFFER(sv->priv->document),
-	                                       anjuta_preferences_get_bool (prefs, key));
+	                                       g_settings_get_boolean (settings, key));
 
 }
 
 static void
-on_notify_highlight_current_line(AnjutaPreferences* prefs,
+on_notify_highlight_current_line(GSettings* settings,
                                  const gchar* key,
                                  gpointer user_data)
 {
@@ -127,11 +127,11 @@ on_notify_highlight_current_line(AnjutaPreferences* prefs,
 	sv = ANJUTA_SOURCEVIEW(user_data);
 
 	gtk_source_view_set_highlight_current_line(GTK_SOURCE_VIEW(sv->priv->view),
-	                                           anjuta_preferences_get_bool (prefs, key));
+	                                           g_settings_get_boolean (settings, key));
 }
 
 static void
-on_notify_tab_size (AnjutaPreferences* prefs,
+on_notify_tab_size (GSettings* settings,
                     const gchar* key,
                     gpointer user_data)
 {
@@ -142,11 +142,11 @@ on_notify_tab_size (AnjutaPreferences* prefs,
 	g_return_if_fail(GTK_IS_SOURCE_VIEW(sv->priv->view));
 
 	gtk_source_view_set_tab_width(GTK_SOURCE_VIEW(sv->priv->view),
-	                              anjuta_preferences_get_int (prefs, key));
+	                              g_settings_get_int (sv->priv->settings, key));
 }
 
 static void
-on_notify_use_tab_for_indentation (AnjutaPreferences* prefs,
+on_notify_use_tab_for_indentation (GSettings* settings,
                                    const gchar* key,
                                    gpointer user_data)
 {
@@ -154,11 +154,11 @@ on_notify_use_tab_for_indentation (AnjutaPreferences* prefs,
 	sv = ANJUTA_SOURCEVIEW(user_data);
 
 	gtk_source_view_set_insert_spaces_instead_of_tabs(GTK_SOURCE_VIEW(sv->priv->view),
-	                                                  !anjuta_preferences_get_bool (prefs, key));
+	                                                  !g_settings_get_boolean (settings, key));
 }
 
 static void
-on_notify_braces_check (AnjutaPreferences* prefs,
+on_notify_braces_check (GSettings* settings,
                         const gchar* key,
                         gpointer user_data)
 {
@@ -166,11 +166,11 @@ on_notify_braces_check (AnjutaPreferences* prefs,
 	sv = ANJUTA_SOURCEVIEW(user_data);
 
 	gtk_source_buffer_set_highlight_matching_brackets(GTK_SOURCE_BUFFER(sv->priv->document), 
-	                                                  anjuta_preferences_get_bool (prefs, key));
+	                                                  g_settings_get_boolean (settings, key));
 }
 
 static void
-on_notify_autocompletion (AnjutaPreferences* prefs,
+on_notify_autocompletion (GSettings* settings,
                          const gchar* key,
                          gpointer user_data)
 {
@@ -178,7 +178,7 @@ on_notify_autocompletion (AnjutaPreferences* prefs,
 	sv = ANJUTA_SOURCEVIEW(user_data);
 	GtkSourceCompletion* completion = gtk_source_view_get_completion(GTK_SOURCE_VIEW(sv->priv->view));
 
-	if (anjuta_preferences_get_bool (prefs, key))
+	if (g_settings_get_boolean (settings, key))
 	{
 		DEBUG_PRINT ("Register word completion provider");
 		GtkSourceCompletionWords *prov_words;
@@ -209,7 +209,7 @@ on_notify_autocompletion (AnjutaPreferences* prefs,
 }
 
 static void
-on_notify_view_marks (AnjutaPreferences* prefs,
+on_notify_view_marks (GSettings* settings,
                       const gchar* key,
                       gpointer user_data)
 {
@@ -217,12 +217,12 @@ on_notify_view_marks (AnjutaPreferences* prefs,
 	sv = ANJUTA_SOURCEVIEW(user_data);
 
 	gtk_source_view_set_show_line_marks(GTK_SOURCE_VIEW(sv->priv->view), 
-	                                    anjuta_preferences_get_bool (prefs, key));
+	                                    g_settings_get_boolean (settings, key));
 
 }
 
 static void
-on_notify_view_linenums (AnjutaPreferences* prefs,
+on_notify_view_linenums (GSettings* settings,
                          const gchar* key,
                          gpointer user_data)
 {
@@ -230,12 +230,12 @@ on_notify_view_linenums (AnjutaPreferences* prefs,
 	sv = ANJUTA_SOURCEVIEW(user_data);
 	
 	gtk_source_view_set_show_line_numbers(GTK_SOURCE_VIEW(sv->priv->view), 
-	                                      anjuta_preferences_get_bool (prefs, key));
+	                                      g_settings_get_boolean (settings, key));
 	
 }
 
 static void
-on_notify_view_right_margin (AnjutaPreferences* prefs,
+on_notify_view_right_margin (GSettings* settings,
                              const gchar* key,
                              gpointer user_data)
 {
@@ -243,11 +243,11 @@ on_notify_view_right_margin (AnjutaPreferences* prefs,
 	sv = ANJUTA_SOURCEVIEW(user_data);
 	
 	gtk_source_view_set_show_right_margin(GTK_SOURCE_VIEW(sv->priv->view), 
-	                                      anjuta_preferences_get_bool (prefs, key));
+	                                      g_settings_get_boolean (settings, key));
 }
 
 static void
-on_notify_right_margin_position (AnjutaPreferences* prefs,
+on_notify_right_margin_position (GSettings* settings,
                                  const gchar* key,
                                  gpointer user_data)
 {
@@ -255,34 +255,33 @@ on_notify_right_margin_position (AnjutaPreferences* prefs,
 	sv = ANJUTA_SOURCEVIEW(user_data);
 	
 	gtk_source_view_set_right_margin_position(GTK_SOURCE_VIEW(sv->priv->view), 
-	                                          anjuta_preferences_get_bool (prefs, key));
+	                                          g_settings_get_boolean (settings, key));
 	
 }
 
 static void
-on_notify_font (AnjutaPreferences* prefs,
+on_notify_font (GSettings* settings,
                 const gchar* key,
                 gpointer user_data)
 {
 	Sourceview *sv;
 	sv = ANJUTA_SOURCEVIEW(user_data);
-	gchar* font = anjuta_preferences_get (prefs, key);
-		
-	if (font != NULL)
-		anjuta_view_set_font(sv->priv->view, FALSE,
-		                     font);
+	gchar* font = g_settings_get_string (settings, key);
+
+	anjuta_view_set_font(sv->priv->view, FALSE,
+	                     font);
 	g_free (font);
 }
 
 static void
-on_notify_font_theme (AnjutaPreferences* prefs,
+on_notify_font_theme (GSettings* settings,
                       const gchar* key,
                       gpointer user_data)
 {
 	Sourceview *sv;
 	sv = ANJUTA_SOURCEVIEW(user_data);
 	
-	if (anjuta_preferences_get_bool (prefs, key))
+	if (g_settings_get_boolean (settings, key))
 	{
 		GConfClient *gclient = gconf_client_get_default ();
 		gchar *desktop_fixed_font;
@@ -296,24 +295,23 @@ on_notify_font_theme (AnjutaPreferences* prefs,
 	}
 	else
 	{
-		gchar* font = anjuta_preferences_get (prefs, FONT);
-		if (font != NULL)
-			anjuta_view_set_font(sv->priv->view, FALSE, font);
+		gchar* font = g_settings_get_string (settings, FONT);
+		anjuta_view_set_font(sv->priv->view, FALSE, font);
 		g_free (font);
 	}
 }
 
 /* Preferences notifications */
 static void
-on_notify_indic_colors (AnjutaPreferences* prefs,
+on_notify_indic_colors (GSettings* settings,
                         const gchar *key,
                         gpointer user_data)
 {
 	char* error_color =
-		anjuta_preferences_get (anjuta_preferences_default(),
+		 g_settings_get_string (settings,
 		                        COLOR_ERROR);
 	char* warning_color =
-		anjuta_preferences_get (anjuta_preferences_default(),
+		 g_settings_get_string (settings,
 		                        COLOR_WARNING);
 	Sourceview* sv = ANJUTA_SOURCEVIEW (user_data);
 
@@ -329,13 +327,12 @@ init_fonts(Sourceview* sv)
 {
 	gboolean font_theme;
 	
-	font_theme = anjuta_preferences_get_bool (sv->priv->prefs, FONT_THEME);
+	font_theme = g_settings_get_boolean (sv->priv->settings, FONT_THEME);
 	
 	if (!font_theme)
 	{
-		gchar* font = anjuta_preferences_get (sv->priv->prefs, FONT);
-		if (font != NULL)
-			anjuta_view_set_font(sv->priv->view, FALSE, font);
+		gchar* font = g_settings_get_string (sv->priv->settings, FONT);
+		anjuta_view_set_font(sv->priv->view, FALSE, font);
 		g_free (font);
 	}
 	else
@@ -359,20 +356,26 @@ init_fonts(Sourceview* sv)
 static int
 get_key_int(Sourceview* sv, const gchar* key)
 {
-	return anjuta_preferences_get_int (sv->priv->prefs, key);
+	return g_settings_get_int (sv->priv->settings, key);
 }
 
 static int
 get_key_bool(Sourceview* sv, const gchar* key)
 {
-	return anjuta_preferences_get_bool (sv->priv->prefs, key);
+	return g_settings_get_int (sv->priv->settings, key);
 }
+
+#define PREF_SCHEMA_MSGMAN "org.gnome.anjuta.message-manager"
 
 void 
 sourceview_prefs_init(Sourceview* sv)
 {
-	guint notify_id;
 	GtkSourceDrawSpacesFlags flags = 0;
+	GSettings* msg_settings = g_settings_new (PREF_SCHEMA_MSGMAN);
+	/* We create a new GSettings object here because if we used the one from
+	 * the editor might be destroyed while the plugin is still alive
+	 */
+	sv->priv->settings = g_settings_new (PREF_SCHEMA);
 	
 	/* Init */
 	gtk_source_buffer_set_highlight_syntax(GTK_SOURCE_BUFFER(sv->priv->document), 
@@ -408,7 +411,7 @@ sourceview_prefs_init(Sourceview* sv)
 
 	init_fonts(sv);
 
-	on_notify_autocompletion(sv->priv->prefs, AUTOCOMPLETION, sv);
+	on_notify_autocompletion(sv->priv->settings, AUTOCOMPLETION, sv);
   
 	/* Register gconf notifications */
 	REGISTER_NOTIFY (TAB_SIZE, on_notify_tab_size);
@@ -426,18 +429,14 @@ sourceview_prefs_init(Sourceview* sv)
 	REGISTER_NOTIFY (RIGHTMARGIN_POSITION, on_notify_right_margin_position);
 	REGISTER_NOTIFY (FONT_THEME, on_notify_font_theme);
 	REGISTER_NOTIFY (FONT, on_notify_font);
-	REGISTER_NOTIFY (COLOR_ERROR, on_notify_indic_colors);
-	REGISTER_NOTIFY (COLOR_WARNING, on_notify_indic_colors);
+
+	g_signal_connect (msg_settings, "changed::" COLOR_ERROR,
+	                  G_CALLBACK (on_notify_indic_colors), sv);
+	g_signal_connect (msg_settings, "changed::" COLOR_WARNING,
+	                  G_CALLBACK (on_notify_indic_colors), sv);	
 }
 
 void sourceview_prefs_destroy(Sourceview* sv)
 {
-	AnjutaPreferences* prefs = sv->priv->prefs;
-	GList* id;
-	DEBUG_PRINT("%s", "Destroying preferences");
-	for (id = sv->priv->notify_ids; id != NULL; id = id->next)
-	{
-		anjuta_preferences_notify_remove(prefs,GPOINTER_TO_UINT(id->data));
-	}
-	g_list_free(sv->priv->notify_ids);
+	g_object_unref (sv->priv->settings);
 }

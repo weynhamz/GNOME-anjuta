@@ -43,7 +43,7 @@ struct SourceviewPrivate {
 	gboolean read_only;
 	
 	/* Preferences */
-	AnjutaPreferences* prefs;
+	GSettings* settings;
 	GList* notify_ids;
 	
 	/* Popup menu */

@@ -38,6 +38,7 @@
 #include "sourceview.h"
 #include "sourceview-private.h"
 
+#define PREF_SCHEMA "org.gnome.anjuta.sourceview"
 #define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-editor-sourceview.ui"
 #define ICON_FILE "anjuta-editor-sourceview-plugin-48.png"
 
@@ -85,14 +86,18 @@ sourceview_plugin_finalize (GObject *obj)
 static void
 sourceview_plugin_dispose (GObject *obj)
 {
-	/* Disposition codes */
+	SourceviewPlugin* plugin = ANJUTA_PLUGIN_SOURCEVIEW (obj);
+
+	g_object_unref (plugin->settings);
+	
 	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
 static void
 sourceview_plugin_instance_init (GObject *obj)
 {
-
+	SourceviewPlugin* plugin = ANJUTA_PLUGIN_SOURCEVIEW (obj);
+	plugin->settings = g_settings_new (PREF_SCHEMA);
 }
 
 static void
@@ -115,8 +120,8 @@ ieditor_factory_new_editor(IAnjutaEditorFactory* factory,
 								GError** error)
 {
 	AnjutaPlugin* plugin = ANJUTA_PLUGIN(factory);
-	AnjutaPreferences* prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
-	gchar* current_style = anjuta_preferences_get (prefs, SOURCEVIEW_STYLE);
+	SourceviewPlugin* splugin = ANJUTA_PLUGIN_SOURCEVIEW (plugin);
+	gchar* current_style = g_settings_get_string (splugin->settings, SOURCEVIEW_STYLE);
 	GtkSourceStyleSchemeManager* manager = gtk_source_style_scheme_manager_get_default();
 	Sourceview* sv;
 	sv = sourceview_new(file, filename, plugin);
@@ -142,14 +147,14 @@ enum
 };
 
 static GtkTreeModel*
-create_style_model (AnjutaPreferences* prefs, GtkTreeIter** current)
+create_style_model (GSettings* settings, GtkTreeIter** current)
 {
 	GtkListStore* model = gtk_list_store_new (3, G_TYPE_STRING, G_TYPE_STRING,
 											  G_TYPE_STRING);
 	GtkSourceStyleSchemeManager* manager = gtk_source_style_scheme_manager_get_default();
 	const gchar* const *styles = gtk_source_style_scheme_manager_get_scheme_ids (manager);
 	const gchar* const *style;
-	gchar* current_style = anjuta_preferences_get (prefs, SOURCEVIEW_STYLE);
+	gchar* current_style = g_settings_get_string (settings, SOURCEVIEW_STYLE);
 	*current = NULL;
 	for (style = styles; *style != NULL; style++)
 	{
@@ -185,9 +190,9 @@ on_style_changed (GtkComboBox* combo, SourceviewPlugin* plugin)
 						COLUMN_ID, &id, -1);
 	scheme = gtk_source_style_scheme_manager_get_scheme (manager, id);
 
-	anjuta_preferences_set (anjuta_shell_get_preferences (shell, NULL),
-							SOURCEVIEW_STYLE,
-							id);
+	g_settings_set_string (plugin->settings,
+	                       SOURCEVIEW_STYLE,
+	                       id);
 	g_free (id);
 	
 	
@@ -227,7 +232,8 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 		return;
 	}
 	anjuta_preferences_add_from_builder (prefs,
-	                                     builder, 
+	                                     builder,
+	                                     plugin->settings,
 	                                     "Editor", 
 	                                     _("GtkSourceView Editor"), 
 	                                     ICON_FILE);
@@ -241,7 +247,7 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 	/* Init styles combo */
 	plugin->combo_styles = GTK_WIDGET (gtk_builder_get_object (builder, COMBO_STYLES));
 	gtk_combo_box_set_model (GTK_COMBO_BOX (plugin->combo_styles),
-							 create_style_model(prefs, &iter));
+							 create_style_model(plugin->settings, &iter));
 	g_signal_connect (plugin->combo_styles, "changed", G_CALLBACK (on_style_changed), plugin);
 	
 	gtk_cell_layout_clear (GTK_CELL_LAYOUT(plugin->combo_styles));

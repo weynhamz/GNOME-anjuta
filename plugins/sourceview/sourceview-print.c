@@ -66,8 +66,8 @@ draw_page (GtkPrintOperation        *operation,
 
 static void
 end_print (GtkPrintOperation        *operation, 
-					 GtkPrintContext          *context,
-					 SourceviewPrinting* printing)
+           GtkPrintContext          *context,
+           SourceviewPrinting* printing)
 {
 	g_object_unref (printing->compositor);
 	g_slice_free (SourceviewPrinting, printing);
@@ -76,6 +76,8 @@ end_print (GtkPrintOperation        *operation,
 static GtkPrintOperation*
 print_setup (Sourceview* sv)
 {
+	/* FIXME */
+#if 0	
 	GtkSourceView *view = GTK_SOURCE_VIEW (sv->priv->view);
 	GtkSourcePrintCompositor *compositor;
 	GtkPrintOperation *operation;
@@ -85,50 +87,50 @@ print_setup (Sourceview* sv)
 	
 	filename = ianjuta_document_get_filename (IANJUTA_DOCUMENT (sv), NULL);
 	basename = g_filename_display_basename (filename);
-	
+
 	compositor = gtk_source_print_compositor_new_from_view (view);
-	
-	if (anjuta_preferences_get_int (sv->priv->prefs, PRINT_LINEWRAP))
+
+	if (g_settings_get_int (sv->priv->settings, PRINT_LINEWRAP))
 	{
 		gtk_source_print_compositor_set_wrap_mode (compositor,
-																							 GTK_WRAP_WORD_CHAR);
+		                                           GTK_WRAP_WORD_CHAR);
 	}
 	else
 		gtk_source_print_compositor_set_wrap_mode (compositor,
-																						 GTK_WRAP_NONE);
-	
+		                                           GTK_WRAP_NONE);
+
 	gtk_source_print_compositor_set_print_line_numbers (compositor,
-																											anjuta_preferences_get_bool (sv->priv->prefs,
-																											                             PRINT_LINENUMBERS));
-	
+	                                                    anjuta_preferences_get_bool (sv->priv->prefs,
+	                                                                                 PRINT_LINENUMBERS));
+
 	gtk_source_print_compositor_set_header_format (compositor,
-																								 TRUE,
-																								 "%x",
-																								 basename,
-																								 "Page %N/%Q");
-	
+	                                               TRUE,
+	                                               "%x",
+	                                               basename,
+	                                               "Page %N/%Q");
+
 	gtk_source_print_compositor_set_footer_format (compositor,
-																								 TRUE,
-																								 "%T",
-																								 basename,
-																								 "Page %N/%Q");
-	
+	                                               TRUE,
+	                                               "%T",
+	                                               basename,
+	                                               "Page %N/%Q");
+
 	gtk_source_print_compositor_set_print_header (compositor,
-																								anjuta_preferences_get_bool (sv->priv->prefs,
-																																						PRINT_HEADER));
+	                                              anjuta_preferences_get_bool (sv->priv->prefs,
+	                                                                           PRINT_HEADER));
 	gtk_source_print_compositor_set_print_footer (compositor,
-																								anjuta_preferences_get_bool (sv->priv->prefs,
-																																						PRINT_FOOTER));
-	
-	
+	                                              anjuta_preferences_get_bool (sv->priv->prefs,
+	                                                                           PRINT_FOOTER));
+
+
 	gtk_source_print_compositor_set_highlight_syntax (compositor,
-																										anjuta_preferences_get_bool (sv->priv->prefs,
-																																								PRINT_HIGHLIGHT)),
-	
+	                                                  anjuta_preferences_get_bool (sv->priv->prefs,
+	                                                                               PRINT_HIGHLIGHT)),
+
 	operation = gtk_print_operation_new ();
-	
+
 	gtk_print_operation_set_job_name (operation, basename);
-	
+
 	gtk_print_operation_set_show_progress (operation, TRUE);
 	
 	printing->compositor = compositor;
@@ -147,6 +149,8 @@ print_setup (Sourceview* sv)
 	g_free (basename);
 	
 	return operation;
+#endif
+	return NULL;
 }
 
 void 

@@ -289,8 +289,8 @@ sourceview_io_save_as (SourceviewIO* sio, GFile* file)
 	
 	cancel_monitor (sio);
 	
-	backup = anjuta_preferences_get_bool (sio->sv->priv->prefs,
-					 "sourceview-backup");
+	backup = g_settings_get_boolean (sio->sv->priv->settings,
+	                                 "sourceview-backup");
 	
 	if (sio->last_encoding == NULL)
 	{
