@@ -38,6 +38,8 @@
 #include "action-callbacks.h"
 #include "anjuta.h"
 
+#define TOOLBAR_VISIBLE "toolbar-visible"
+
 void
 on_exit1_activate (GtkAction * action, AnjutaApp *app)
 {
@@ -86,9 +88,9 @@ on_toolbar_view_toggled (GtkAction *action, AnjutaApp *app)
 	{
 		gtk_widget_hide (app->toolbar);
 	}
-	anjuta_preferences_set_bool (app->preferences,
-								"toolbar-visible",
-								status);
+	g_settings_set_boolean (app->settings,
+	                        TOOLBAR_VISIBLE,
+	                        status);
 }
 
 void

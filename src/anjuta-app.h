@@ -57,6 +57,7 @@ struct _AnjutaApp
 	AnjutaStatus *status;
 	AnjutaUI *ui;
 	AnjutaPreferences *preferences;
+	GSettings* settings;
 	AnjutaPluginManager *plugin_manager;
 	AnjutaProfileManager *profile_manager;
 
