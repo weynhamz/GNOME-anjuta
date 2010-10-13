@@ -177,6 +177,7 @@ GType      anjuta_project_node_get_type (void) G_GNUC_CONST;
 
 
 
+AnjutaProjectNode *anjuta_project_node_root (AnjutaProjectNode *node);
 AnjutaProjectNode *anjuta_project_node_parent (AnjutaProjectNode *node);
 AnjutaProjectNode *anjuta_project_node_first_child (AnjutaProjectNode *node);
 AnjutaProjectNode *anjuta_project_node_last_child (AnjutaProjectNode *node);

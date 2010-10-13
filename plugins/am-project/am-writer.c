@@ -234,6 +234,7 @@ amp_group_create_token (AmpProject  *project, AnjutaAmGroupNode *group, GError *
 		gchar *relative_make;
 		gchar *ext;
 		AnjutaToken *prev = NULL;
+		AnjutaToken *token;
 
 		if (sibling)
 		{
@@ -251,13 +252,9 @@ amp_group_create_token (AmpProject  *project, AnjutaAmGroupNode *group, GError *
 		{
 			*ext = '\0';
 		}
-		//token = anjuta_token_new_string (ANJUTA_TOKEN_NAME | ANJUTA_TOKEN_ADDED,  relative_make);
-		amp_project_write_config_file (project, list, after, prev, relative_make);
+		token = amp_project_write_config_file (project, list, after, prev, relative_make);
+		amp_group_add_token (group, token, AM_GROUP_TOKEN_CONFIGURE);
 		g_free (relative_make);
-		
-		//style = anjuta_token_style_new (NULL," ","\n",NULL,0);
-		//anjuta_token_add_word (prev_token, token, style);
-		//anjuta_token_style_free (style);
 	}
 
 	/* Add in Makefile.am */
@@ -275,8 +272,10 @@ amp_group_create_token (AmpProject  *project, AnjutaAmGroupNode *group, GError *
 		}
 
 		list = anjuta_token_insert_token_list (FALSE, pos,
-		    	ANJUTA_TOKEN_SPACE, "\n");
-		list = anjuta_token_insert_token_list (FALSE, list,
+		                                       ANJUTA_TOKEN_EOL, "\n",
+		                                       NULL);
+		amp_group_update_makefile (parent, list);	
+		list = anjuta_token_insert_token_list (FALSE, pos,
 	    		AM_TOKEN_SUBDIRS, "SUBDIRS",
 		    	ANJUTA_TOKEN_SPACE, " ",
 		    	ANJUTA_TOKEN_OPERATOR, "=",
@@ -335,6 +334,7 @@ amp_group_delete_token (AmpProject  *project, AnjutaAmGroupNode *group, GError *
 {
 	GList *item;
 	AnjutaProjectNode *parent;
+	AnjutaProjectNode *root;
 
 	/* Get parent target */
 	parent =  anjuta_project_node_parent (ANJUTA_PROJECT_NODE (group));
@@ -360,6 +360,29 @@ amp_group_delete_token (AmpProject  *project, AnjutaAmGroupNode *group, GError *
 		amp_group_update_makefile (ANJUTA_AM_GROUP_NODE (parent), args);
 	}
 
+	/* Remove from configure file */
+	root = anjuta_project_node_root (ANJUTA_PROJECT_NODE (group));
+
+	for (item = amp_group_get_token (group, AM_GROUP_TOKEN_CONFIGURE); item != NULL; item = g_list_next (item))
+	{
+		AnjutaToken *token = (AnjutaToken *)item->data;
+		AnjutaToken *args;
+		AnjutaTokenStyle *style;
+
+		args = anjuta_token_list (token);
+
+		/* Try to use the same style than the current group list */
+		style = anjuta_token_style_new_from_base (project->ac_space_list);
+		anjuta_token_style_update (style, args);
+		
+		anjuta_token_remove_word (token);
+		
+		anjuta_token_style_format (style, args);
+		anjuta_token_style_free (style);
+
+		amp_root_update_configure (ANJUTA_AM_ROOT_NODE (root), args);
+	}	
+	
 	return TRUE;
 }
 

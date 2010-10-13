@@ -6,9 +6,21 @@ AT_DATA([empty/configure.ac],
 AT_DATA([empty/Makefile.am],
 [[
 ]])
+
+
+
 AT_DATA([expect],
 [[    GROUP (0): empty1
         GROUP (0:0): group1
+]])
+AT_DATA([reference.am],
+[[
+SUBDIRS = \
+	group1
+]])
+AT_DATA([reference.ac],
+[[AC_CONFIG_FILES(Makefile
+group1/Makefile)
 ]])
 AT_PARSER_CHECK([load empty \
 		 move empty1 \
@@ -16,13 +28,29 @@ AT_PARSER_CHECK([load empty \
 		 list \
 		 save])
 AT_CHECK([diff output expect])
+AT_CHECK([diff -b empty1/configure.ac reference.ac])
+AT_CHECK([diff -b empty1/Makefile.am reference.am])
 AT_PARSER_CHECK([load empty1 \
 		 list])
 AT_CHECK([diff output expect])
+
+
+
 AT_DATA([expect],
 [[    GROUP (0): empty2
         GROUP (0:0): group1
 	GROUP (0:1): group2
+]])
+AT_DATA([reference.am],
+[[
+SUBDIRS = \
+	group1 \
+	group2
+]])
+AT_DATA([reference.ac],
+[[AC_CONFIG_FILES(Makefile
+group1/Makefile
+group2/Makefile)
 ]])
 AT_PARSER_CHECK([load empty1 \
 		 move empty2 \
@@ -30,7 +58,90 @@ AT_PARSER_CHECK([load empty1 \
 		 list \
 		 save])
 AT_CHECK([diff -b output expect])
+AT_CHECK([diff -b empty2/configure.ac reference.ac])
+AT_CHECK([diff -b empty2/Makefile.am reference.am])
 AT_PARSER_CHECK([load empty2 \
 		 list])
 AT_CHECK([diff -b output expect])
+
+
+
+AT_DATA([expect],
+[[    GROUP (0): empty3
+        GROUP (0:0): group2
+]])
+AT_DATA([reference.am],
+[[
+SUBDIRS = \
+	group2
+]])
+AT_DATA([reference.ac],
+[[AC_CONFIG_FILES(Makefile
+group2/Makefile)
+]])
+AT_PARSER_CHECK([load empty2 \
+		 move empty3 \
+		 remove 0:0\
+		 list \
+		 save])
+AT_CHECK([diff -b output expect])
+AT_CHECK([diff -b empty3/configure.ac reference.ac])
+AT_CHECK([diff -b empty3/Makefile.am reference.am])
+AT_PARSER_CHECK([load empty3 \
+		 list])
+AT_CHECK([diff -b output expect])
+
+
+
+AT_DATA([expect],
+[[    GROUP (0): empty4
+]])
+AT_DATA([reference.am],
+[[
+SUBDIRS = \ 
+
+]])
+AT_DATA([reference.ac],
+[[AC_CONFIG_FILES(Makefile)
+]])
+AT_PARSER_CHECK([load empty3 \
+		 move empty4 \
+		 remove 0:0\
+		 list \
+		 save])
+AT_CHECK([diff -b output expect])
+AT_CHECK([diff -b empty4/configure.ac reference.ac])
+AT_CHECK([diff -b empty4/Makefile.am reference.am])
+AT_PARSER_CHECK([load empty4 \
+		 list])
+AT_CHECK([diff -b output expect])
+
+
+
+AT_DATA([expect],
+[[    GROUP (0): empty1
+        GROUP (0:0): group1
+]])
+AT_DATA([reference.am],
+[[
+SUBDIRS = \
+	group1
+]])
+AT_DATA([reference.ac],
+[[AC_CONFIG_FILES(Makefile
+group1/Makefile)
+]])
+AT_PARSER_CHECK([load empty \
+		 move empty1 \
+		 add group 0 group1 \
+		 list \
+		 save])
+AT_CHECK([diff output expect])
+AT_CHECK([diff -b empty1/configure.ac reference.ac])
+AT_CHECK([diff -b empty1/Makefile.am reference.am])
+AT_PARSER_CHECK([load empty1 \
+		 list])
+AT_CHECK([diff output expect])
+
+
 AT_CLEANUP

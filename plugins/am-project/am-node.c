@@ -159,6 +159,11 @@ amp_root_set_configure (AnjutaProjectNode *node, GFile *configure)
 	return root->configure_file;
 }
 
+gboolean
+amp_root_update_configure (AnjutaAmRootNode *group, AnjutaToken *token)
+{
+	return anjuta_token_file_update (group->configure_file, token);
+}
 
 /* GObjet implementation
  *---------------------------------------------------------------------------*/

@@ -65,6 +65,19 @@ anjuta_project_node_parent(AnjutaProjectNode *node)
 }
 
 AnjutaProjectNode *
+anjuta_project_node_root (AnjutaProjectNode *node)
+{
+	g_return_val_if_fail (node != NULL, NULL);
+
+	while (node->parent != NULL)
+	{
+		node = node->parent;
+	}
+
+	return node;
+}
+
+AnjutaProjectNode *
 anjuta_project_node_first_child(AnjutaProjectNode *node)
 {
 	g_return_val_if_fail (node != NULL, NULL);
