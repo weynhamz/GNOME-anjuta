@@ -212,11 +212,22 @@ directory_has_makefile_am (BasicAutotoolsPlugin *bb_plugin, const char *dirname 
 	}
 	g_free (configure);
 
-	/* Check for Makefile.am */
+	/* Check for Makefile.am or GNUmakefile.am */
+	
+	makefile_am_exists = TRUE;
+	
 	makefile_am = g_build_filename (dirname, "Makefile.am", NULL);
-	makefile_am_exists = g_file_test (makefile_am, G_FILE_TEST_EXISTS);
-	g_free (makefile_am);
+	if (! g_file_test (makefile_am, G_FILE_TEST_EXISTS)) {
+		g_free (makefile_am);
 
+		makefile_am = g_build_filename (dirname, "GNUmakefile.am", NULL);
+		if (!g_file_test (makefile_am, G_FILE_TEST_EXISTS)) {
+			g_free (makefile_am);
+	
+			makefile_am_exists = FALSE;
+		}
+	}
+	
 	return makefile_am_exists;
 }
 

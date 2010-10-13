@@ -2764,8 +2764,11 @@ impl_probe (GbfProject  *_project,
 	g_object_unref (file);
 	if (root_path != NULL && g_file_test (root_path, G_FILE_TEST_IS_DIR)) {
 		retval = ((file_exists (root_path, "Makefile") ||
+			   file_exists (root_path, "GNUmakefile") ||
 				   file_exists (root_path, "makefile")) &&
 				   !(file_exists (root_path, "Makefile.am") || 
+				     file_exists (root_path, "GNUmakefile.am") ||
+				     file_exists (root_path, "GNUmakefile.in") ||
 					 file_exists (root_path, "Makefile.in")));
 		g_free (root_path);
 	}
@@ -3914,8 +3917,11 @@ gbf_mkfile_project_probe (GFile *file, GError **err)
 	root_path = g_file_get_path (file);
 	if ((root_path) != NULL && g_file_test (root_path, G_FILE_TEST_IS_DIR)) {
 		retval = ((file_exists (root_path, "Makefile") ||
+			   file_exists (root_path, "GNUmakefile") ||
 				   file_exists (root_path, "makefile")) &&
 				   !(file_exists (root_path, "Makefile.am") || 
+				     file_exists (root_path, "GNUmakefile.am") ||
+				     file_exists (root_path, "GNUmakefile.in") ||
 					 file_exists (root_path, "Makefile.in")));
 	}
 	g_free (root_path);
