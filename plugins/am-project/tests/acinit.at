@@ -7,11 +7,11 @@ AT_DATA([empty/Makefile.am],
 [[
 ]])
 AT_DATA([expect],
-[[    NAME: empty
+[[PROPERTY (Name): empty
     GROUP (0): empty
 ]])
 AT_PARSER_CHECK([load empty \
-		 set name empty \
+		 set : name empty \
 		 list \
 		 save])
 AT_CHECK([diff -b output expect])
@@ -19,11 +19,11 @@ AT_PARSER_CHECK([load empty \
 		list])
 AT_CHECK([diff -b output expect])
 AT_DATA([expect],
-[[    NAME: empty2
+[[PROPERTY (Name): empty2
     GROUP (0): empty
 ]])
 AT_PARSER_CHECK([load empty \
-		 set name empty2 \
+		 set : name empty2 \
 		 list \
 		 save])
 AT_CHECK([diff -b output expect])
@@ -31,12 +31,12 @@ AT_PARSER_CHECK([load empty \
 		list])
 AT_CHECK([diff -b output expect])
 AT_DATA([expect],
-[[    NAME: empty2
-    VERSION: 0.1
+[[PROPERTY (Name): empty2
+PROPERTY (Version): 0.1
     GROUP (0): empty
 ]])
 AT_PARSER_CHECK([load empty \
-		 set version 0.1 \
+		 set : version 0.1 \
 		 list \
 		 save])
 AT_CHECK([diff -b output expect])
@@ -44,13 +44,13 @@ AT_PARSER_CHECK([load empty \
 		list])
 AT_CHECK([diff -b output expect])
 AT_DATA([expect],
-[[    NAME: empty2
-    VERSION: 0.1
-    TARNAME: empty3
+[[PROPERTY (Name): empty2
+PROPERTY (Version): 0.1
+PROPERTY (Package name): empty3
     GROUP (0): empty
 ]])
 AT_PARSER_CHECK([load empty \
-		 set pack empty3 \
+		 set : pack empty3 \
 		 list \
 		 save])
 AT_CHECK([diff -b output expect])

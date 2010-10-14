@@ -1,6 +1,6 @@
-    NAME: anjuta
-    VERSION: anjuta_version
-    BUG_REPORT: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta
+PROPERTY (Name): anjuta
+PROPERTY (Version): anjuta_version
+PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta
     MODULE (0): [ANJUTA]
         PACKAGE (0:0): gthread-2.0
         PACKAGE (0:1): unique-1.0

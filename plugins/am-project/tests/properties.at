@@ -1,0 +1,36 @@
+AT_SETUP([Set node properties])
+AS_MKDIR_P([empty])
+AT_DATA([empty/configure.ac],
+[[AC_CONFIG_FILES(Makefile)
+]])
+AT_DATA([empty/Makefile.am],
+[[
+bin_PROGRAMS = target1
+]])
+
+
+
+AT_DATA([expect],
+[[    GROUP (0): empty1
+        TARGET (0:0): target1
+]])
+AT_DATA([reference.am],
+[[
+bin_PROGRAMS = target1
+
+target1_LIBADD = \
+	$(GDL_LIBS)
+]])
+AT_PARSER_CHECK([load empty \
+		move empty1 \
+		set 0:0 addlib '$(GDL_LIBS)' \
+		list \
+		save])
+AT_CHECK([diff output expect])
+AT_CHECK([diff -b empty1/Makefile.am reference.am])
+AT_PARSER_CHECK([load empty1 \
+		 list])
+AT_CHECK([diff output expect])
+
+
+AT_CLEANUP

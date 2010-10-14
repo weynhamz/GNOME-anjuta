@@ -86,6 +86,8 @@
 %token  TARGET_LFLAGS
 %token  TARGET_YFLAGS
 %token  TARGET_DEPENDENCIES
+%token  TARGET_LIBADD
+%token  TARGET_LDADD
 
 
 %defines
@@ -554,6 +556,8 @@ automake_token:
 	|  TARGET_LFLAGS
 	|  TARGET_YFLAGS
 	|  TARGET_DEPENDENCIES
+	|  TARGET_LIBADD
+	|  TARGET_LDADD
 	;
 
 include_token:
