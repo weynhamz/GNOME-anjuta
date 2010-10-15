@@ -53,16 +53,16 @@ static GList* AmpProjectPropertyList = NULL;
 
 
 static AmpProperty AmpGroupProperties[] = {
-	{{N_("Linker flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, AM_TOKEN__LDFLAGS, 0, NULL},
-	{{N_("C preprocessor flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, AM_TOKEN__CPPFLAGS, 0, NULL},
-	{{N_("C compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, AM_TOKEN__CFLAGS, 0, NULL},
-	{{N_("C++ compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, AM_TOKEN__CXXFLAGS, 0, NULL},
-	{{N_("Java Compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, AM_TOKEN__JAVACFLAGS, 0, NULL},
-	{{N_("Fortan compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, AM_TOKEN__FCFLAGS, 0, NULL},
-	{{N_("Objective C compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, AM_TOKEN__OBJCFLAGS, 0, NULL},
-	{{N_("Lex/Flex flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, AM_TOKEN__LFLAGS, 0, NULL},
-	{{N_("Yacc/Bison flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL},AM_TOKEN__YFLAGS, 0, NULL},
-	{{N_("Install directories:"), ANJUTA_PROJECT_PROPERTY_LIST, NULL, NULL}, AM_TOKEN_DIR, 0, NULL},
+	{{N_("Linker flags:"), ANJUTA_PROJECT_PROPERTY_LIST, NULL, NULL}, AM_TOKEN__LDFLAGS, 0, NULL},
+	{{N_("C preprocessor flags:"), ANJUTA_PROJECT_PROPERTY_LIST, NULL, NULL}, AM_TOKEN__CPPFLAGS, 0, NULL},
+	{{N_("C compiler flags:"), ANJUTA_PROJECT_PROPERTY_LIST, NULL, NULL}, AM_TOKEN__CFLAGS, 0, NULL},
+	{{N_("C++ compiler flags:"), ANJUTA_PROJECT_PROPERTY_LIST, NULL, NULL}, AM_TOKEN__CXXFLAGS, 0, NULL},
+	{{N_("Java Compiler flags:"), ANJUTA_PROJECT_PROPERTY_LIST, NULL, NULL}, AM_TOKEN__JAVACFLAGS, 0, NULL},
+	{{N_("Fortan compiler flags:"), ANJUTA_PROJECT_PROPERTY_LIST, NULL, NULL}, AM_TOKEN__FCFLAGS, 0, NULL},
+	{{N_("Objective C compiler flags:"), ANJUTA_PROJECT_PROPERTY_LIST, NULL, NULL}, AM_TOKEN__OBJCFLAGS, 0, NULL},
+	{{N_("Lex/Flex flags:"), ANJUTA_PROJECT_PROPERTY_LIST, NULL, NULL}, AM_TOKEN__LFLAGS, 0, NULL},
+	{{N_("Yacc/Bison flags:"), ANJUTA_PROJECT_PROPERTY_LIST, NULL, NULL},AM_TOKEN__YFLAGS, 0, NULL},
+	{{N_("Install directories:"), ANJUTA_PROJECT_PROPERTY_MAP, NULL, NULL}, AM_TOKEN_DIR, 0, NULL},
 	{{NULL, ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, 0, 0, NULL}};
 
 static GList* AmpGroupPropertyList = NULL;
@@ -71,18 +71,18 @@ static GList* AmpGroupPropertyList = NULL;
 static AmpProperty AmpTargetProperties[] = {
 	{{N_("Do not install:"), ANJUTA_PROJECT_PROPERTY_BOOLEAN, NULL, NULL}, AM_TOKEN__PROGRAMS, 3, NULL},
 	{{N_("Installation directory:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, AM_TOKEN__PROGRAMS, 6, NULL},
-	{{N_("Linker flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, AM_TOKEN_TARGET_LDFLAGS, 0, NULL},
-	{{N_("Additional libraries:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, AM_TOKEN_TARGET_LIBADD, 0, NULL},
-	{{N_("Additional objects:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, AM_TOKEN_TARGET_LDADD, 0, NULL},
-	{{N_("C preprocessor flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, AM_TOKEN_TARGET_CPPFLAGS, 0, NULL},
-	{{N_("C compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, AM_TOKEN_TARGET_CFLAGS, 0, NULL},
-	{{N_("C++ compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, AM_TOKEN_TARGET_CXXFLAGS, 0, NULL},
-	{{N_("Java Compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, AM_TOKEN_TARGET_JAVACFLAGS, 0, NULL},
-	{{N_("Fortan compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, AM_TOKEN_TARGET_FCFLAGS, 0, NULL},
-	{{N_("Objective C compiler flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, AM_TOKEN_TARGET_OBJCFLAGS, 0, NULL},
-	{{N_("Lex/Flex flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, AM_TOKEN_TARGET_LFLAGS, 0, NULL},
-	{{N_("Yacc/Bison flags:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, AM_TOKEN_TARGET_YFLAGS, 0, NULL},
-	{{N_("Additional dependencies:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, AM_TOKEN_TARGET_DEPENDENCIES, 0, NULL},
+	{{N_("Linker flags:"), ANJUTA_PROJECT_PROPERTY_LIST, NULL, NULL}, AM_TOKEN_TARGET_LDFLAGS, 0, NULL},
+	{{N_("Additional libraries:"), ANJUTA_PROJECT_PROPERTY_LIST, NULL, NULL}, AM_TOKEN_TARGET_LIBADD, 0, NULL},
+	{{N_("Additional objects:"), ANJUTA_PROJECT_PROPERTY_LIST, NULL, NULL}, AM_TOKEN_TARGET_LDADD, 0, NULL},
+	{{N_("C preprocessor flags:"), ANJUTA_PROJECT_PROPERTY_LIST, NULL, NULL}, AM_TOKEN_TARGET_CPPFLAGS, 0, NULL},
+	{{N_("C compiler flags:"), ANJUTA_PROJECT_PROPERTY_LIST, NULL, NULL}, AM_TOKEN_TARGET_CFLAGS, 0, NULL},
+	{{N_("C++ compiler flags:"), ANJUTA_PROJECT_PROPERTY_LIST, NULL, NULL}, AM_TOKEN_TARGET_CXXFLAGS, 0, NULL},
+	{{N_("Java Compiler flags:"), ANJUTA_PROJECT_PROPERTY_LIST, NULL, NULL}, AM_TOKEN_TARGET_JAVACFLAGS, 0, NULL},
+	{{N_("Fortan compiler flags:"), ANJUTA_PROJECT_PROPERTY_LIST, NULL, NULL}, AM_TOKEN_TARGET_FCFLAGS, 0, NULL},
+	{{N_("Objective C compiler flags:"), ANJUTA_PROJECT_PROPERTY_LIST, NULL, NULL}, AM_TOKEN_TARGET_OBJCFLAGS, 0, NULL},
+	{{N_("Lex/Flex flags:"), ANJUTA_PROJECT_PROPERTY_LIST, NULL, NULL}, AM_TOKEN_TARGET_LFLAGS, 0, NULL},
+	{{N_("Yacc/Bison flags:"), ANJUTA_PROJECT_PROPERTY_LIST, NULL, NULL}, AM_TOKEN_TARGET_YFLAGS, 0, NULL},
+	{{N_("Additional dependencies:"), ANJUTA_PROJECT_PROPERTY_LIST, NULL, NULL}, AM_TOKEN_TARGET_DEPENDENCIES, 0, NULL},
 	{{N_("Include in distribution:"), ANJUTA_PROJECT_PROPERTY_BOOLEAN, NULL, NULL}, AM_TOKEN__PROGRAMS, 2, NULL},
 	{{N_("Build for check only:"), ANJUTA_PROJECT_PROPERTY_BOOLEAN, NULL, NULL}, AM_TOKEN__PROGRAMS, 4, NULL},
 	{{N_("Do not use prefix:"), ANJUTA_PROJECT_PROPERTY_BOOLEAN, NULL, NULL}, AM_TOKEN__PROGRAMS, 1, NULL},
@@ -92,7 +92,7 @@ static AmpProperty AmpTargetProperties[] = {
 static GList* AmpTargetPropertyList = NULL;
 
 static AmpProperty AmpManTargetProperties[] = {
-	{{N_("Additional dependencies:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, 0, 0, NULL},
+	{{N_("Additional dependencies:"), ANJUTA_PROJECT_PROPERTY_LIST, NULL, NULL}, 0, 0, NULL},
 	{{N_("Do not use prefix:"), ANJUTA_PROJECT_PROPERTY_BOOLEAN, NULL, NULL}, AM_TOKEN__PROGRAMS, 1, NULL},
 	{{N_("Manual section:"), ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, AM_TOKEN__PROGRAMS, 5, NULL},
 	{{NULL, ANJUTA_PROJECT_PROPERTY_STRING, NULL, NULL}, 0, 0, NULL}};
@@ -205,7 +205,7 @@ amp_node_property_add (AnjutaProjectNode *node, AnjutaProjectProperty *new_prop)
 
 		if ((prop->token_type == ((AmpProperty *)new_prop)->token_type) && (prop->position == ((AmpProperty *)new_prop)->position))
 		{
-			if (prop->base.type != ANJUTA_PROJECT_PROPERTY_LIST)
+			if (prop->base.type != ANJUTA_PROJECT_PROPERTY_MAP)
 			{
 				/* Replace property */
 				AnjutaProjectProperty *old_prop;

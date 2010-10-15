@@ -997,7 +997,7 @@ project_load_target (AmpProject *project, AnjutaToken *name, AnjutaTokenType tok
 		//fprintf(stderr, "create target %p\n", target);
 		if (target != NULL)
 		{
-			amp_target_add_token (target, arg, AM_TARGET_TOKEN_TARGET);
+			amp_target_add_token (target, ANJUTA_TOKEN_ARGUMENT, arg);
 			anjuta_project_node_append (parent, target);
 			DEBUG_PRINT ("create target %p name %s", target, value);
 
@@ -1103,7 +1103,7 @@ project_load_sources (AmpProject *project, AnjutaToken *name, AnjutaToken *list,
 		}
 		else
 		{
-			amp_target_add_token (parent, name, AM_TARGET_TOKEN_SOURCES);
+			amp_target_add_token (parent, AM_TOKEN__SOURCES, name);
 		}
 		
 		for (arg = anjuta_token_first_word (list); arg != NULL; arg = anjuta_token_next_word (arg))
@@ -1190,7 +1190,7 @@ project_load_data (AmpProject *project, AnjutaToken *name, AnjutaToken *list, An
 	{
 		/* Create target */
 		target = amp_target_new (target_id, info->base.type, install, flags, NULL);
-		amp_target_add_token (target, arg, AM_TARGET_TOKEN_TARGET);
+		amp_target_add_token (target, ANJUTA_TOKEN_ARGUMENT, arg);
 		anjuta_project_node_append (parent, target);
 		DEBUG_PRINT ("create target %p name %s", target, target_id);
 	}
@@ -1259,7 +1259,10 @@ project_load_target_properties (AmpProject *project, AnjutaToken *name, AnjutaTo
 		parent = (gchar *)find != target_id ? (AnjutaProjectNode *)find : NULL;
 
 		/* Create property */
+		g_message ("new property");
+		anjuta_token_dump (list);
 		value = anjuta_token_evaluate (list);
+		g_message ("variable value =%s", value);
 		prop = amp_property_new (NULL, type, 0, value, list);
 
 		if (parent == NULL)
@@ -1476,6 +1479,8 @@ amp_project_set_am_variable (AmpProject* project, AnjutaAmGroupNode* group, Anju
 	case AM_TOKEN_TARGET_LFLAGS:
 	case AM_TOKEN_TARGET_YFLAGS:
 	case AM_TOKEN_TARGET_DEPENDENCIES:
+	case AM_TOKEN_TARGET_LIBADD:
+	case AM_TOKEN_TARGET_LDADD:
 		project_load_target_properties (project, name, variable, list, group, orphan_properties);
 		break;
 	default:

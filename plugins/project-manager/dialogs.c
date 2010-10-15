@@ -412,6 +412,7 @@ add_entry (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProper
 	switch (prop->type)
 	{
 	case ANJUTA_PROJECT_PROPERTY_STRING:
+	case ANJUTA_PROJECT_PROPERTY_LIST:
 		entry = gtk_entry_new ();
 		gtk_entry_set_text (GTK_ENTRY (entry), prop->value != NULL ? prop->value : "");
 		break;
@@ -419,7 +420,7 @@ add_entry (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProper
 		entry = gtk_check_button_new ();
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (entry), (prop->value != NULL) && (*prop->value == '1'));
 		break;
-	case ANJUTA_PROJECT_PROPERTY_LIST:
+	case ANJUTA_PROJECT_PROPERTY_MAP:
 			model = GTK_TREE_MODEL (gtk_list_store_newv (LIST_COLUMNS_NB, column_type));
 
 			if (prop->native != NULL) prop = prop->native;
@@ -624,6 +625,7 @@ on_properties_dialog_response (GtkWidget *dialog,
 			switch (prop->type)
 			{
 			case ANJUTA_PROJECT_PROPERTY_STRING:
+			case ANJUTA_PROJECT_PROPERTY_LIST:
 				text = gtk_entry_get_text (GTK_ENTRY (entry->entry));
 				if (*text == '\0')
 				{
@@ -664,7 +666,7 @@ on_properties_dialog_response (GtkWidget *dialog,
 					modified = g_list_prepend (modified, value);
 				}
 				break;
-			case ANJUTA_PROJECT_PROPERTY_LIST:
+			case ANJUTA_PROJECT_PROPERTY_MAP:
 				break;
 			default:
 				break;

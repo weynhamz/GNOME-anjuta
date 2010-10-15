@@ -23,6 +23,7 @@
 #define _AM_NODE_H_
 
 #include "am-project-private.h"
+#include "am-scanner.h"
 
 #include <glib-object.h>
 
@@ -52,7 +53,7 @@ gboolean amp_root_update_configure (AnjutaAmRootNode *group, AnjutaToken *token)
 AnjutaProjectNode* amp_module_new (AnjutaToken *token, GError **error);
 void amp_module_free (AnjutaAmModuleNode *node);
 
-AnjutaProjectNode* am_package_node_new (const gchar *name, GError **error);
+AnjutaProjectNode* amp_package_new (const gchar *name, GError **error);
 void amp_package_free (AnjutaAmPackageNode *node);
 void amp_package_set_version (AnjutaAmPackageNode *node, const gchar *compare, const gchar *version);
 
@@ -80,8 +81,8 @@ typedef enum _AmpTargetFlag
 } AmpTargetFlag;
 
 
-void amp_target_add_token (AnjutaAmTargetNode *group, AnjutaToken *token, AmpTargetTokenCategory category);
-GList * amp_target_get_token (AnjutaAmTargetNode *group, AmpTargetTokenCategory category);
+void amp_target_add_token (AnjutaAmTargetNode *group, AmTokenType type, AnjutaToken *token);
+GList * amp_target_get_token (AnjutaAmTargetNode *group, AmTokenType type);
 AnjutaAmTargetNode* amp_target_new (const gchar *name, AnjutaProjectNodeType type, const gchar *install, gint flags, GError **error);
 void amp_target_free (AnjutaAmTargetNode *node);
 

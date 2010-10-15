@@ -39,8 +39,6 @@
 #include <string.h>
 #include <ctype.h>
 
-/* Node types
- *---------------------------------------------------------------------------*/
 
 
 /* Helper functions
@@ -66,6 +64,89 @@ error_set (GError **error, gint code, const gchar *message)
                                                       message);
                 }
         }
+}
+
+/* Tagged token list
+ *
+ * This structure is used to keep a list of useful tokens in each
+ * node. It is a two levels list. The level lists all kinds of token
+ * and has a pointer of another list of token of  this kind.
+ *---------------------------------------------------------------------------*/
+
+typedef struct _TaggedTokenItem {
+	AmTokenType type;
+	GList *tokens;
+} TaggedTokenItem;
+
+
+static TaggedTokenItem *
+tagged_token_item_new (AmTokenType type)
+{
+    TaggedTokenItem *item;
+
+	item = g_slice_new0(TaggedTokenItem); 
+
+	item->type = type;
+
+	return item;
+}
+
+static void
+tagged_token_item_free (TaggedTokenItem* item)
+{
+	g_list_free (item->tokens);
+    g_slice_free (TaggedTokenItem, item);
+}
+
+static gint
+tagged_token_item_compare (gconstpointer a, gconstpointer b)
+{
+	return ((TaggedTokenItem *)a)->type - (GPOINTER_TO_INT(b));
+}
+
+static GList*
+tagged_token_list_insert (GList *list, AmTokenType type, AnjutaToken *token)
+{
+	GList *existing;
+	
+	existing = g_list_find_custom (list, GINT_TO_POINTER (type), tagged_token_item_compare);
+	if (existing == NULL)
+	{
+		/* Add a new item */
+		TaggedTokenItem *item;
+
+		item = tagged_token_item_new (type);
+		list = g_list_prepend (list, item);
+		existing = list;
+	}
+
+	((TaggedTokenItem *)(existing->data))->tokens = g_list_prepend (((TaggedTokenItem *)(existing->data))->tokens, token);
+
+	return list;
+}
+
+static GList*
+tagged_token_list_get (GList *list, AmTokenType type)
+{
+	GList *existing;
+	GList *tokens = NULL;
+	
+	existing = g_list_find_custom (list, GINT_TO_POINTER (type), tagged_token_item_compare);
+	if (existing != NULL)
+	{
+		tokens = ((TaggedTokenItem *)(existing->data))->tokens;
+	}
+	
+	return tokens;
+}
+
+static GList*
+tagged_token_list_free (GList *list)
+{
+	g_list_foreach (list, (GFunc)tagged_token_item_free, NULL);
+	g_list_free (list);
+
+	return NULL;
 }
 
 
@@ -419,9 +500,9 @@ amp_group_set_makefile (AnjutaAmGroupNode *group, GFile *makefile, GObject* proj
 		group->tfile = anjuta_token_file_new (makefile);
 
 		token = anjuta_token_file_load (group->tfile, NULL);
-		amp_project_add_file (project, makefile, group->tfile);
+		amp_project_add_file (AMP_PROJECT (project), makefile, group->tfile);
 			
-		scanner = amp_am_scanner_new (project, group);
+		scanner = amp_am_scanner_new (AMP_PROJECT (project), group);
 		group->make_token = amp_am_scanner_parse_token (scanner, anjuta_token_new_static (ANJUTA_TOKEN_FILE, NULL), token, makefile, NULL);
 		amp_am_scanner_free (scanner);
 		fprintf (stderr, "group->make_token %p\n", group->make_token);
@@ -577,6 +658,7 @@ anjuta_am_group_node_finalize (GObject *object)
 	g_list_foreach (node->base.custom_properties, (GFunc)amp_property_free, NULL);
 	if (node->tfile) anjuta_token_file_free (node->tfile);
 	if (node->makefile) g_object_unref (node->makefile);
+
 	for (i = 0; i < AM_GROUP_TOKEN_LAST; i++)
 	{
 		if (node->tokens[i] != NULL) g_list_free (node->tokens[i]);
@@ -607,15 +689,15 @@ anjuta_am_group_node_class_init (AnjutaAmGroupNodeClass *klass)
 
 
 void
-amp_target_add_token (AnjutaAmTargetNode *target, AnjutaToken *token, AmpTargetTokenCategory category)
+amp_target_add_token (AnjutaAmTargetNode *target, AmTokenType type, AnjutaToken *token)
 {
-	target->tokens[category] = g_list_prepend (target->tokens[category], token);
+	target->tokens = tagged_token_list_insert (target->tokens, type, token);
 }
 
 GList *
-amp_target_get_token (AnjutaAmTargetNode *node, AmpTargetTokenCategory category)
+amp_target_get_token (AnjutaAmTargetNode *target, AmTokenType type)
 {
-	return node->tokens[category];
+	return tagged_token_list_get	(target->tokens, type);
 }
 
 
@@ -676,7 +758,7 @@ amp_target_new (const gchar *name, AnjutaProjectNodeType type, const gchar *inst
 						ANJUTA_PROJECT_CAN_REMOVE;
 	node->install = g_strdup (install);
 	node->flags = flags;
-	memset (node->tokens, 0, sizeof (node->tokens));
+	node->tokens = NULL;
 	
 	return node;
 }
@@ -710,6 +792,9 @@ anjuta_am_target_node_finalize (GObject *object)
 	AnjutaAmTargetNode *node = ANJUTA_AM_TARGET_NODE (object);
 
 	g_list_foreach (node->base.custom_properties, (GFunc)amp_property_free, NULL);
+	tagged_token_list_free (node->tokens);
+	node->tokens = NULL;
+	
 	G_OBJECT_CLASS (anjuta_am_target_node_parent_class)->finalize (object);
 }
 

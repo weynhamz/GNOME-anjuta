@@ -101,8 +101,9 @@ typedef struct _AnjutaProjectTargetInformation
 typedef enum
 {
 	ANJUTA_PROJECT_PROPERTY_STRING = 1,
+	ANJUTA_PROJECT_PROPERTY_LIST,
 	ANJUTA_PROJECT_PROPERTY_BOOLEAN,
-	ANJUTA_PROJECT_PROPERTY_LIST
+	ANJUTA_PROJECT_PROPERTY_MAP
 } AnjutaProjectValueType;
 
 typedef struct _AnjutaProjectProperty AnjutaProjectProperty;

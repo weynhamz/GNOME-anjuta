@@ -155,7 +155,7 @@ struct _AnjutaAmTargetNode {
 	AnjutaProjectNode base;
 	gchar *install;
 	gint flags;
-	GList* tokens[AM_TARGET_TOKEN_LAST];	
+	GList* tokens;	
 };
 
 

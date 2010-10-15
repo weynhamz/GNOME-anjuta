@@ -90,12 +90,13 @@ list_property (IAnjutaProject *project, AnjutaProjectNode *parent, gint indent)
 		switch (prop->type)
 		{
 		case ANJUTA_PROJECT_PROPERTY_STRING:
+		case ANJUTA_PROJECT_PROPERTY_LIST:
 				g_string_assign (value, prop->value == NULL ? "" : prop->value);
 				break;
 		case ANJUTA_PROJECT_PROPERTY_BOOLEAN:
 				g_string_assign (value, (prop->value != NULL) && (*prop->value == '1') ? "true" : "false");
 				break;
-		case ANJUTA_PROJECT_PROPERTY_LIST:
+		case ANJUTA_PROJECT_PROPERTY_MAP:
 				g_string_assign (value, "");
 				for (list = anjuta_project_node_get_custom_properties (parent); list != NULL; list = g_list_next (list))
 				{
