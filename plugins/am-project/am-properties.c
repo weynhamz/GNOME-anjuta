@@ -202,6 +202,8 @@ amp_node_property_add (AnjutaProjectNode *node, AnjutaProjectProperty *new_prop)
 	for (item = anjuta_project_node_get_native_properties (node); item != NULL; item = g_list_next (item))
 	{
 		AmpProperty *prop = (AmpProperty *)item->data;
+		AnjutaToken *arg;
+		GString *list;
 
 		if ((prop->token_type == ((AmpProperty *)new_prop)->token_type) && (prop->position == ((AmpProperty *)new_prop)->position))
 		{
@@ -217,6 +219,36 @@ amp_node_property_add (AnjutaProjectNode *node, AnjutaProjectProperty *new_prop)
 				}
 			}
 			anjuta_project_node_insert_property (node, (AnjutaProjectProperty *)prop, new_prop);
+
+			switch (prop->base.type)
+			{
+			case  ANJUTA_PROJECT_PROPERTY_LIST:
+				/* Re-evaluate token to remove useless space between item */
+				
+				list = g_string_new (new_prop->value);
+				g_string_assign (list, "");
+				for (arg = anjuta_token_first_word (((AmpProperty *)new_prop)->token); arg != NULL; arg = anjuta_token_next_word (arg))
+				{
+					gchar *value = anjuta_token_evaluate (arg);
+
+					if (value != NULL)
+					{
+						if (list->len != 0) g_string_append_c (list, ' ');
+						g_string_append (list, value);
+					}
+				}
+				g_free (new_prop->value);
+				new_prop->value = g_string_free (list, FALSE);
+				break;
+			case ANJUTA_PROJECT_PROPERTY_MAP:
+			case ANJUTA_PROJECT_PROPERTY_STRING:
+				/* Strip leading and trailing space */
+				new_prop->value = g_strstrip (new_prop->value);
+				break;
+			default:
+				break;
+			}
+			
 			set = TRUE;
 			break;
 		}

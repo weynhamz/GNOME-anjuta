@@ -1207,10 +1207,7 @@ project_load_target_properties (AmpProject *project, AnjutaToken *name, AnjutaTo
 		parent = (gchar *)find != target_id ? (AnjutaProjectNode *)find : NULL;
 
 		/* Create property */
-		g_message ("new property");
-		anjuta_token_dump (list);
 		value = anjuta_token_evaluate (list);
-		g_message ("variable value =%s", value);
 		prop = amp_property_new (NULL, type, 0, value, list);
 
 		if (parent == NULL)
