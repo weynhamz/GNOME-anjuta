@@ -373,7 +373,7 @@ amp_am_scanner_new (AmpProject *project, AnjutaAmGroupNode *group)
 	scanner->eof = FALSE;
 
 	/* Create hash table for sources list */
-	scanner->orphan_properties = g_hash_table_new_full (g_str_hash, g_str_equal, (GDestroyNotify)g_free, (GDestroyNotify)amp_target_property_buffer_free);
+	scanner->orphan_properties = g_hash_table_new_full (g_str_hash, g_str_equal, (GDestroyNotify)g_free, (GDestroyNotify)amp_target_free);
 
     yylex_init(&scanner->scanner);
     yyset_extra (scanner, scanner->scanner);

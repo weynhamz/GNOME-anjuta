@@ -140,6 +140,24 @@ tagged_token_list_get (GList *list, AmTokenType type)
 	return tokens;
 }
 
+static AnjutaTokenType
+tagged_token_list_next (GList *list, AmTokenType type)
+{
+	AnjutaTokenType best = 0;
+	
+	for (list = g_list_first (list); list != NULL; list = g_list_next (list))
+	{
+		TaggedTokenItem *item = (TaggedTokenItem *)list->data;
+
+		if ((item->type > type) && ((best == 0) || (item->type < best)))
+		{
+			best = item->type;
+		}
+	}
+
+	return best;
+}
+
 static GList*
 tagged_token_list_free (GList *list)
 {
@@ -700,6 +718,17 @@ amp_target_get_token (AnjutaAmTargetNode *target, AmTokenType type)
 	return tagged_token_list_get	(target->tokens, type);
 }
 
+AnjutaTokenType
+amp_target_get_first_token_type (AnjutaAmTargetNode *target)
+{
+	return tagged_token_list_next (target->tokens, 0);
+}
+
+AnjutaTokenType
+amp_target_get_next_token_type (AnjutaAmTargetNode *target, AnjutaTokenType type)
+{
+	return tagged_token_list_next (target->tokens, type);
+}
 
 AnjutaAmTargetNode*
 amp_target_new (const gchar *name, AnjutaProjectNodeType type, const gchar *install, gint flags, GError **error)
