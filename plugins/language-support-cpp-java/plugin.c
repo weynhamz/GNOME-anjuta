@@ -2011,9 +2011,9 @@ cpp_java_plugin_class_init (GObjectClass *klass)
 	klass->dispose = cpp_java_plugin_dispose;
 }
 
-#define PREF_WIDGET_SPACE "preferences_toggle:bool:1:1:language.cpp.code.completion.space.after.func"
-#define PREF_WIDGET_BRACE "preferences_toggle:bool:1:1:language.cpp.code.completion.brace.after.func"
-#define PREF_WIDGET_AUTO "preferences_toggle:bool:1:1:language.cpp.code.completion.enable"
+#define PREF_WIDGET_SPACE "preferences_toggle:bool:1:1:cpp-completion-space-after-func"
+#define PREF_WIDGET_BRACE "preferences_toggle:bool:1:1:cpp-completion-brace-after-func"
+#define PREF_WIDGET_AUTO "preferences_toggle:bool:1:1:cpp-completion-enable"
 
 static void
 on_autocompletion_toggled (GtkToggleButton* button,
