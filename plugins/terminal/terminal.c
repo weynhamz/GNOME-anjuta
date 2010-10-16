@@ -980,8 +980,10 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 	                                     "Terminal", _("Terminal"), ICON_FILE);
 	
 	term_plugin->pref_profile_combo = GTK_WIDGET (gtk_builder_get_object (bxml, "profile_list_combo"));
-	term_plugin->pref_default_button = GTK_WIDGET (gtk_builder_get_object (bxml, "preferences_toggle:bool:1:0:terminal.default.profile"));
+	term_plugin->pref_default_button = GTK_WIDGET (gtk_builder_get_object (bxml, "preferences_toggle:bool:1:0:terminal-default-profile"));
 
+#if 0
+	/* FIXME: Update to GSettings */
 	/* Update the currently available list of terminal profiles */
 	client = gconf_client_get_default ();
 	profiles = gconf_client_get_list (client, GCONF_PROFILE_LIST,
@@ -1009,6 +1011,7 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 		g_string_free (default_value, TRUE);
 	}
 	else
+#endif
 	{
 		/* No profile, perhaps GNOME Terminal is not installed,
 		 * Remove selection */
