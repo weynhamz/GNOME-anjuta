@@ -89,6 +89,7 @@ NewfileType new_file_type[] = {
 	{N_("Perl Source File"), ".pl", -1, TRUE, TRUE, CMT_P, LGE_PERL},
 	{N_("Python Source File"), ".py", -1, TRUE, FALSE, CMT_P, LGE_PYTHON},
 	{N_("Shell Script File"), ".sh", -1, TRUE, TRUE, CMT_P, LGE_SHELL},
+	{N_("Vala Source File"), ".vala", -1, FALSE, CMT_CPP, LGE_VALA},
 	{N_("Other"), NULL, -1, FALSE, FALSE, CMT_C, LGE_C}
 };
 
