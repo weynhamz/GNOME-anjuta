@@ -38,7 +38,8 @@
 #define PREF_USE_SB "build.use_scratchbox"
 #define PREF_SB_PATH "build.scratchbox.path"
 
-#define PREF_TERMINAL_COMMAND "terminal-command"
+#define PREF_SCHEMA "org.gnome.anjuta.run"
+#define PREF_TERMINAL_COMMAND "run-terminal-command"
 
 /*----------------------------------------------------------------------------
  * Type definitions
@@ -260,16 +261,12 @@ execute_with_terminal (RunProgramPlugin *plugin,
 	if (term == NULL)
 	{
 		/* Use gnome terminal or another user defined one */
-		AnjutaPreferences *pref;
+		GSettings* settings = g_settings_new (PREF_SCHEMA);
 		gchar *term_cmd;
 		gchar **argv;
 		
-		pref = anjuta_shell_get_preferences (ANJUTA_PLUGIN (plugin)->shell, NULL);
-		term_cmd = anjuta_preferences_get (pref, PREF_TERMINAL_COMMAND);
-		if (!term_cmd)
-		{
-			term_cmd = g_strdup ("gnome-terminal --disable-factory -e %s");
-		}
+		term_cmd = g_settings_get_string (settings, PREF_TERMINAL_COMMAND);
+		g_object_unref (settings);
 		if (g_shell_parse_argv (term_cmd, NULL, &argv, NULL))
 		{
 			gchar **arg;
@@ -422,6 +419,8 @@ run_program (RunProgramPlugin *plugin)
 	g_free (quote_target);
 
 	/* Take care of scratchbox */
+	/* FIXME: scratchbox */
+#if 0
 	prefs = anjuta_shell_get_preferences (ANJUTA_PLUGIN(plugin)->shell, NULL);
 	if (anjuta_preferences_get_bool (prefs , PREF_USE_SB))
 	{
@@ -437,7 +436,7 @@ run_program (RunProgramPlugin *plugin)
 		dir = g_strdup(real_dir);
 		g_free (olddir);
 	}
-	
+#endif	
 	if (run_in_terminal)
 	{
 		pid = execute_with_terminal (plugin, dir, cmd, env);
