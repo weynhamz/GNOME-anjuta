@@ -2056,7 +2056,9 @@ autodetect_language (Sourceview* sv)
 	
 	language = gtk_source_language_manager_guess_language (gtk_source_language_manager_get_default (), filename, io_mime_type);
 	if (!language)
+	{
 		goto out;
+	}
 	
 	detected_language = gtk_source_language_get_id (language);	
 	

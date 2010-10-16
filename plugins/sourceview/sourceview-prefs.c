@@ -111,46 +111,6 @@ on_notify_line_wrap (GSettings* settings,
 }
 
 static void
-on_notify_syntax_hilite (GSettings* settings,
-                          const gchar* key,
-                          gpointer user_data)
-{
-	Sourceview *sv;
-	sv = ANJUTA_SOURCEVIEW(user_data);
-
-	gtk_source_buffer_set_highlight_syntax(GTK_SOURCE_BUFFER(sv->priv->document),
-	                                       g_settings_get_boolean (settings, key));
-
-}
-
-static void
-on_notify_highlight_current_line(GSettings* settings,
-                                 const gchar* key,
-                                 gpointer user_data)
-{
-	Sourceview *sv;
-	sv = ANJUTA_SOURCEVIEW(user_data);
-
-	gtk_source_view_set_highlight_current_line(GTK_SOURCE_VIEW(sv->priv->view),
-	                                           g_settings_get_boolean (settings, key));
-}
-
-static void
-on_notify_tab_size (GSettings* settings,
-                    const gchar* key,
-                    gpointer user_data)
-{
-	Sourceview *sv;
-
-	sv = ANJUTA_SOURCEVIEW(user_data);
-
-	g_return_if_fail(GTK_IS_SOURCE_VIEW(sv->priv->view));
-
-	gtk_source_view_set_tab_width(GTK_SOURCE_VIEW(sv->priv->view),
-	                              g_settings_get_int (sv->priv->settings, key));
-}
-
-static void
 on_notify_use_tab_for_indentation (GSettings* settings,
                                    const gchar* key,
                                    gpointer user_data)
@@ -160,18 +120,6 @@ on_notify_use_tab_for_indentation (GSettings* settings,
 
 	gtk_source_view_set_insert_spaces_instead_of_tabs(GTK_SOURCE_VIEW(sv->priv->view),
 	                                                  !g_settings_get_boolean (settings, key));
-}
-
-static void
-on_notify_braces_check (GSettings* settings,
-                        const gchar* key,
-                        gpointer user_data)
-{
-	Sourceview *sv;
-	sv = ANJUTA_SOURCEVIEW(user_data);
-
-	gtk_source_buffer_set_highlight_matching_brackets(GTK_SOURCE_BUFFER(sv->priv->document), 
-	                                                  g_settings_get_boolean (settings, key));
 }
 
 static void
@@ -211,57 +159,6 @@ on_notify_autocompletion (GSettings* settings,
 			}
 		}
 	}
-}
-
-static void
-on_notify_view_marks (GSettings* settings,
-                      const gchar* key,
-                      gpointer user_data)
-{
-	Sourceview *sv;
-	sv = ANJUTA_SOURCEVIEW(user_data);
-
-	gtk_source_view_set_show_line_marks(GTK_SOURCE_VIEW(sv->priv->view), 
-	                                    g_settings_get_boolean (settings, key));
-
-}
-
-static void
-on_notify_view_linenums (GSettings* settings,
-                         const gchar* key,
-                         gpointer user_data)
-{
-	Sourceview *sv;
-	sv = ANJUTA_SOURCEVIEW(user_data);
-	
-	gtk_source_view_set_show_line_numbers(GTK_SOURCE_VIEW(sv->priv->view), 
-	                                      g_settings_get_boolean (settings, key));
-	
-}
-
-static void
-on_notify_view_right_margin (GSettings* settings,
-                             const gchar* key,
-                             gpointer user_data)
-{
-	Sourceview *sv;
-	sv = ANJUTA_SOURCEVIEW(user_data);
-	
-	gtk_source_view_set_show_right_margin(GTK_SOURCE_VIEW(sv->priv->view), 
-	                                      g_settings_get_boolean (settings, key));
-}
-
-static void
-on_notify_right_margin_position (GSettings* settings,
-                                 const gchar* key,
-                                 gpointer user_data)
-{
-	Sourceview *sv;
-	sv = ANJUTA_SOURCEVIEW(user_data);
-	
-	gtk_source_view_set_right_margin_position(GTK_SOURCE_VIEW(sv->priv->view), 
-	                                          g_settings_get_boolean (settings, key));
-	
 }
 
 static void
@@ -370,29 +267,42 @@ sourceview_prefs_init(Sourceview* sv)
 	sv->priv->settings = g_settings_new (PREF_SCHEMA);
 	sv->priv->docman_settings = g_settings_new (DOCMAN_PREF_SCHEMA);
 	sv->priv->msgman_settings = g_settings_new (MSGMAN_PREF_SCHEMA);
-	
-	/* Init */
-	gtk_source_buffer_set_highlight_syntax(GTK_SOURCE_BUFFER(sv->priv->document), 
-	                                       g_settings_get_boolean (sv->priv->settings, HIGHLIGHT_SYNTAX));
-	
-	gtk_source_view_set_highlight_current_line(GTK_SOURCE_VIEW(sv->priv->view),
-	                                           g_settings_get_boolean (sv->priv->settings, HIGHLIGHT_CURRENT_LINE));
-	gtk_source_view_set_tab_width(GTK_SOURCE_VIEW(sv->priv->view), 
-	                              g_settings_get_int (sv->priv->settings, TAB_SIZE));
+
+	/* Bind simple options to GSettings */	
+	g_settings_bind (sv->priv->settings, HIGHLIGHT_SYNTAX,
+			 sv->priv->document, "highlight-syntax",
+			 G_SETTINGS_BIND_GET);
+	g_settings_bind (sv->priv->settings, HIGHLIGHT_CURRENT_LINE,
+			 sv->priv->view, "highlight-current-line",
+			 G_SETTINGS_BIND_GET);
+	g_settings_bind (sv->priv->settings, TAB_SIZE,
+			 sv->priv->view, "tab-width",
+			 G_SETTINGS_BIND_GET);	
+	g_settings_bind (sv->priv->settings, HIGHLIGHT_BRACKETS,
+			 sv->priv->document, "highlight-matching-brackets",
+			 G_SETTINGS_BIND_GET);
+
+	g_settings_bind (sv->priv->settings, VIEW_MARKS,
+			 sv->priv->view, "show-line-marks",
+			 G_SETTINGS_BIND_GET);	
+
+	g_settings_bind (sv->priv->settings, RIGHTMARGIN_POSITION,
+			 sv->priv->view, "right-margin-position",
+			 G_SETTINGS_BIND_GET);	
+
+	g_settings_bind (sv->priv->settings, VIEW_RIGHTMARGIN,
+			 sv->priv->view, "show-right-margin",
+			 G_SETTINGS_BIND_GET);	
+
+	g_settings_bind (sv->priv->settings, VIEW_LINENUMBERS,
+			 sv->priv->view, "show-line-numbers",
+			 G_SETTINGS_BIND_GET);	
+
+	/* Init non-simple options */
 	gtk_source_view_set_indent_width(GTK_SOURCE_VIEW(sv->priv->view), -1); /* Same as tab width */
 	gtk_source_view_set_insert_spaces_instead_of_tabs(GTK_SOURCE_VIEW(sv->priv->view),
 	                                                  !g_settings_get_boolean (sv->priv->settings, USE_TABS));
-	gtk_source_buffer_set_highlight_matching_brackets(GTK_SOURCE_BUFFER(sv->priv->document), 
-	                                                  g_settings_get_boolean (sv->priv->settings, HIGHLIGHT_BRACKETS));
-	gtk_source_view_set_show_line_marks(GTK_SOURCE_VIEW(sv->priv->view), 
-	                                    g_settings_get_boolean (sv->priv->settings, VIEW_MARKS));
-	gtk_source_view_set_right_margin_position(GTK_SOURCE_VIEW(sv->priv->view), 
-	                                          g_settings_get_int (sv->priv->settings, RIGHTMARGIN_POSITION));
-	gtk_source_view_set_show_right_margin(GTK_SOURCE_VIEW(sv->priv->view), 
-	                                      g_settings_get_boolean (sv->priv->settings, VIEW_RIGHTMARGIN));
-	gtk_source_view_set_show_line_numbers(GTK_SOURCE_VIEW(sv->priv->view), 
-	                                      g_settings_get_boolean (sv->priv->settings, VIEW_LINENUMBERS));
-	
+			 
 	gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (sv->priv->view),
 	                             g_settings_get_boolean (sv->priv->docman_settings, DOCMAN_VIEW_EOL) ? GTK_WRAP_WORD : GTK_WRAP_NONE);
 
@@ -409,17 +319,9 @@ sourceview_prefs_init(Sourceview* sv)
 
 	on_notify_autocompletion(sv->priv->settings, AUTOCOMPLETION, sv);
   
-	/* Register gconf notifications */
-	REGISTER_NOTIFY (sv->priv->settings, TAB_SIZE, on_notify_tab_size);
+	/* Register notifications */
 	REGISTER_NOTIFY (sv->priv->settings, USE_TABS, on_notify_use_tab_for_indentation);
-	REGISTER_NOTIFY (sv->priv->settings, HIGHLIGHT_SYNTAX, on_notify_syntax_hilite);
-	REGISTER_NOTIFY (sv->priv->settings, HIGHLIGHT_CURRENT_LINE, on_notify_highlight_current_line);
-	REGISTER_NOTIFY (sv->priv->settings, HIGHLIGHT_BRACKETS, on_notify_braces_check);
 	REGISTER_NOTIFY (sv->priv->settings, AUTOCOMPLETION, on_notify_autocompletion);
-	REGISTER_NOTIFY (sv->priv->settings, VIEW_MARKS, on_notify_view_marks);
-	REGISTER_NOTIFY (sv->priv->settings, VIEW_LINENUMBERS, on_notify_view_linenums);
-	REGISTER_NOTIFY (sv->priv->settings, VIEW_RIGHTMARGIN, on_notify_view_right_margin);
-	REGISTER_NOTIFY (sv->priv->settings, RIGHTMARGIN_POSITION, on_notify_right_margin_position);
 
 	REGISTER_NOTIFY (sv->priv->docman_settings, DOCMAN_VIEW_WHITE_SPACES, on_notify_view_spaces);
 	REGISTER_NOTIFY (sv->priv->docman_settings, DOCMAN_VIEW_EOL, on_notify_view_eol);  
