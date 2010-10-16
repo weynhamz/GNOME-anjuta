@@ -68,8 +68,8 @@
 #define PREF_TRANSLATE_MESSAGE "build-translate-message"
 #define PREF_CONTINUE_ON_ERROR "build-continue-error"
 
-#define BUILD_PREFS_DIALOG "preferences_dialog_build"
-#define BUILD_PREFS_ROOT "preferences_build_container"
+#define BUILD_PREFS_DIALOG "preferences-dialog-build"
+#define BUILD_PREFS_ROOT "preferences-build-container"
 #define INSTALL_ROOT_CHECK "preferences_toggle:bool:0:0:build-install-root"
 #define INSTALL_ROOT_ENTRY "preferences_entry:text:sudo:0:build-install-root-command"
 #define PARALLEL_MAKE_CHECK "preferences_toggle:bool:0:0:build-parallel-make"
