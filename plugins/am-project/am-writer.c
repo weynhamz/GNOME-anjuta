@@ -816,3 +816,11 @@ amp_source_delete_token (AmpProject  *project, AnjutaAmSourceNode *source, GErro
 	return TRUE;
 }
 
+
+/* Properties
+ *---------------------------------------------------------------------------*/
+
+gboolean amp_project_update_am_property (AmpProject *project, AnjutaProjectProperty *property)
+{
+	return TRUE;
+}

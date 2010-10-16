@@ -106,12 +106,20 @@ typedef enum
 	ANJUTA_PROJECT_PROPERTY_MAP
 } AnjutaProjectValueType;
 
+typedef enum
+{
+	ANJUTA_PROJECT_PROPERTY_READ_ONLY = 1 << 0,
+	ANJUTA_PROJECT_PROPERTY_READ_WRITE = 1 << 1,
+} AnjutaProjectPropertyFlags;
+
+
 typedef struct _AnjutaProjectProperty AnjutaProjectProperty;
 
 struct _AnjutaProjectProperty
 {
 	gchar *name;
 	AnjutaProjectValueType type;
+	AnjutaProjectPropertyFlags flags;
 	gchar *value;
 	AnjutaProjectProperty *native;
 };

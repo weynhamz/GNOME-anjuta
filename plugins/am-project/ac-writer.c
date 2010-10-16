@@ -121,7 +121,7 @@ skip_comment (AnjutaToken *token)
  *---------------------------------------------------------------------------*/
 
 gboolean
-amp_project_update_property (AmpProject *project, AnjutaProjectProperty *property)
+amp_project_update_ac_property (AmpProject *project, AnjutaProjectProperty *property)
 {
 	AnjutaToken *token;
 	AnjutaToken *arg;

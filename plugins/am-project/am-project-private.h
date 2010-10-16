@@ -26,10 +26,17 @@
 
 G_BEGIN_DECLS
 
+typedef enum {
+	AM_PROPERTY_IN_CONFIGURE = 1 << 0,
+	AM_PROPERTY_IN_MAKEFILE = 1 << 1
+} AmpPropertyFlag;
+
+
 struct _AmpProperty {
 	AnjutaProjectProperty base;
 	gint token_type;
 	gint position;
+	AmpPropertyFlag flags;
 	AnjutaToken *token;
 };
 

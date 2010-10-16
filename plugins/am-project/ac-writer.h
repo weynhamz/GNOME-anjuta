@@ -29,7 +29,7 @@
 
 G_BEGIN_DECLS
 
-gboolean amp_project_update_property (AmpProject *project, AnjutaProjectProperty *property); 
+gboolean amp_project_update_ac_property (AmpProject *project, AnjutaProjectProperty *property); 
 
 G_END_DECLS
 

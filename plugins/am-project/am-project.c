@@ -2096,67 +2096,6 @@ amp_project_add_file (AmpProject *project, GFile *file, AnjutaTokenFile* token)
 	g_object_add_toggle_ref (G_OBJECT (token), remove_config_file, project);
 }
 
-#if 0
-gchar *
-amp_project_get_property (AmpProject *project, AmpPropertyType type)
-{
-	const gchar *value = NULL;
-
-	if (project->property != NULL)
-	{
-		switch (type)
-		{
-			case AMP_PROPERTY_NAME:
-				value = project->property->name;
-				break;
-			case AMP_PROPERTY_VERSION:
-				value = project->property->version;
-				break;
-			case AMP_PROPERTY_BUG_REPORT:
-				value = project->property->bug_report;
-				break;
-			case AMP_PROPERTY_TARNAME:
-				value = project->property->tarname;
-				if (value == NULL) return ac_init_default_tarname (project->property->name);
-				break;
-			case AMP_PROPERTY_URL:
-				value = project->property->url;
-				break;
-		}
-	}
-
-	return value == NULL ? NULL : g_strdup (value);
-}
-
-gboolean
-amp_project_set_property (AmpProject *project, AmpPropertyType type, const gchar *value)
-{
-	if (project->property == NULL)
-	{
-		project->property = amp_property_new (NULL, NULL);
-	}
-	switch (type)
-	{
-		case AMP_PROPERTY_NAME:
-			STR_REPLACE (project->property->name, value);
-			break;
-		case AMP_PROPERTY_VERSION:
-			STR_REPLACE (project->property->version, value);
-			break;
-		case AMP_PROPERTY_BUG_REPORT:
-			STR_REPLACE (project->property->bug_report, value);
-			break;
-		case AMP_PROPERTY_TARNAME:
-			STR_REPLACE (project->property->tarname, value);
-			break;
-		case AMP_PROPERTY_URL:
-			STR_REPLACE (project->property->url, value);
-			break;
-	}
-	
-	return amp_project_update_property (project, type);
-}
-#endif
 
 /* Implement IAnjutaProject
  *---------------------------------------------------------------------------*/
@@ -2297,9 +2236,20 @@ static AnjutaProjectProperty *
 iproject_set_property (IAnjutaProject *obj, AnjutaProjectNode *node, AnjutaProjectProperty *property, const gchar *value, GError **error)
 {
 	AnjutaProjectProperty *new_prop;
+	gint flags;
 	
 	new_prop = amp_node_property_set (node, property, value);
-	amp_project_update_property (AMP_PROJECT (obj), new_prop);
+
+	flags = ((AmpProperty *)new_prop->native)->flags;
+	
+	if (flags & AM_PROPERTY_IN_CONFIGURE)
+	{
+		amp_project_update_ac_property (AMP_PROJECT (obj), new_prop);
+	}
+	else if (flags & AM_PROPERTY_IN_MAKEFILE)
+	{
+		amp_project_update_am_property (AMP_PROJECT (obj), new_prop);
+	}
 	
 	return new_prop;
 }
