@@ -24,10 +24,13 @@
 
 #include <gconf/gconf-client.h>
 
-#define REGISTER_NOTIFY(key, func) \
-	g_signal_connect (sv->priv->settings, "changed::" key, G_CALLBACK(func), sv);
+#define REGISTER_NOTIFY(settings, key, func) \
+	g_signal_connect (settings, "changed::" key, G_CALLBACK(func), sv);
 
 #define PREF_SCHEMA "org.gnome.anjuta.sourceview"
+#define DOCMAN_PREF_SCHEMA "org.gnome.anjuta.document-manager"
+#define MSGMAN_PREF_SCHEMA "org.gnome.anjuta.message-manager"
+
 
 /* Editor preferences */
 #define HIGHLIGHT_SYNTAX           "sourceview-syntax-highlight"
@@ -38,16 +41,18 @@
 #define INDENT_SIZE                "indent-size"
 #define AUTOCOMPLETION             "sourceview-autocomplete"
 
-#define VIEW_LINENUMBERS           "margin-linenumber-visible"
 #define VIEW_MARKS                 "margin-marker-visible"
+
+#define VIEW_LINENUMBERS           "margin-linenumber-visible"
 #define VIEW_RIGHTMARGIN           "sourceview-rightmargin-visible"
-#define VIEW_WHITE_SPACES          "docman-whitespace"
-#define VIEW_EOL                   "docman-eol"
-#define VIEW_LINE_WRAP             "docman-line-wrap"
 #define RIGHTMARGIN_POSITION       "sourceview-rightmargin-position"
 
-#define COLOR_ERROR							 "msgman-color-error"
-#define COLOR_WARNING							 "msgman-color.warning"
+#define DOCMAN_VIEW_WHITE_SPACES          "docman-whitespace"
+#define DOCMAN_VIEW_EOL                   "docman-eol"
+#define DOCMAN_VIEW_LINE_WRAP             "docman-line-wrap"
+
+#define MSGMAN_COLOR_ERROR		  "msgman-color-error"
+#define MSGMAN_COLOR_WARNING		  "msgman-color.warning"
 
 
 #define FONT_THEME "sourceview-font-use-theme"
@@ -106,7 +111,7 @@ on_notify_line_wrap (GSettings* settings,
 }
 
 static void
-on_notify_disable_hilite (GSettings* settings,
+on_notify_syntax_hilite (GSettings* settings,
                           const gchar* key,
                           gpointer user_data)
 {
@@ -309,10 +314,10 @@ on_notify_indic_colors (GSettings* settings,
 {
 	char* error_color =
 		 g_settings_get_string (settings,
-		                        COLOR_ERROR);
+		                        MSGMAN_COLOR_ERROR);
 	char* warning_color =
 		 g_settings_get_string (settings,
-		                        COLOR_WARNING);
+		                        MSGMAN_COLOR_WARNING);
 	Sourceview* sv = ANJUTA_SOURCEVIEW (user_data);
 
 	g_object_set (sv->priv->warning_indic, "foreground", warning_color, NULL);
@@ -327,7 +332,7 @@ init_fonts(Sourceview* sv)
 {
 	gboolean font_theme;
 	
-	font_theme = g_settings_get_boolean (sv->priv->settings, FONT_THEME);
+	font_theme = FALSE; //g_settings_get_boolean (sv->priv->settings, FONT_THEME);
 	
 	if (!font_theme)
 	{
@@ -335,6 +340,7 @@ init_fonts(Sourceview* sv)
 		anjuta_view_set_font(sv->priv->view, FALSE, font);
 		g_free (font);
 	}
+#if 0
 	else
 	{
 		/* FIXME: Get font from GSettings */	
@@ -351,59 +357,49 @@ init_fonts(Sourceview* sv)
 		g_free (desktop_fixed_font);
 		g_object_unref (gclient);
 	}
+#endif
 }
-
-static int
-get_key_int(Sourceview* sv, const gchar* key)
-{
-	return g_settings_get_int (sv->priv->settings, key);
-}
-
-static int
-get_key_bool(Sourceview* sv, const gchar* key)
-{
-	return g_settings_get_int (sv->priv->settings, key);
-}
-
-#define PREF_SCHEMA_MSGMAN "org.gnome.anjuta.message-manager"
 
 void 
 sourceview_prefs_init(Sourceview* sv)
 {
 	GtkSourceDrawSpacesFlags flags = 0;
-	GSettings* msg_settings = g_settings_new (PREF_SCHEMA_MSGMAN);
 	/* We create a new GSettings object here because if we used the one from
 	 * the editor might be destroyed while the plugin is still alive
 	 */
 	sv->priv->settings = g_settings_new (PREF_SCHEMA);
+	sv->priv->docman_settings = g_settings_new (DOCMAN_PREF_SCHEMA);
+	sv->priv->msgman_settings = g_settings_new (MSGMAN_PREF_SCHEMA);
 	
 	/* Init */
 	gtk_source_buffer_set_highlight_syntax(GTK_SOURCE_BUFFER(sv->priv->document), 
-	                                       get_key_bool(sv, HIGHLIGHT_SYNTAX));
+	                                       g_settings_get_boolean (sv->priv->settings, HIGHLIGHT_SYNTAX));
+	
 	gtk_source_view_set_highlight_current_line(GTK_SOURCE_VIEW(sv->priv->view),
-	                                           get_key_bool(sv, HIGHLIGHT_CURRENT_LINE));
+	                                           g_settings_get_boolean (sv->priv->settings, HIGHLIGHT_CURRENT_LINE));
 	gtk_source_view_set_tab_width(GTK_SOURCE_VIEW(sv->priv->view), 
-	                              get_key_int(sv, TAB_SIZE));
+	                              g_settings_get_int (sv->priv->settings, TAB_SIZE));
 	gtk_source_view_set_indent_width(GTK_SOURCE_VIEW(sv->priv->view), -1); /* Same as tab width */
 	gtk_source_view_set_insert_spaces_instead_of_tabs(GTK_SOURCE_VIEW(sv->priv->view),
-	                                                  !get_key_bool(sv, USE_TABS));
+	                                                  !g_settings_get_boolean (sv->priv->settings, USE_TABS));
 	gtk_source_buffer_set_highlight_matching_brackets(GTK_SOURCE_BUFFER(sv->priv->document), 
-	                                                  get_key_bool(sv, HIGHLIGHT_BRACKETS));
+	                                                  g_settings_get_boolean (sv->priv->settings, HIGHLIGHT_BRACKETS));
 	gtk_source_view_set_show_line_marks(GTK_SOURCE_VIEW(sv->priv->view), 
-	                                    get_key_bool(sv, VIEW_MARKS));
-	gtk_source_view_set_show_line_numbers(GTK_SOURCE_VIEW(sv->priv->view), 
-	                                      get_key_bool(sv, VIEW_LINENUMBERS));
-	gtk_source_view_set_show_right_margin(GTK_SOURCE_VIEW(sv->priv->view), 
-	                                      get_key_bool(sv, VIEW_RIGHTMARGIN));
+	                                    g_settings_get_boolean (sv->priv->settings, VIEW_MARKS));
 	gtk_source_view_set_right_margin_position(GTK_SOURCE_VIEW(sv->priv->view), 
-	                                          get_key_int(sv, RIGHTMARGIN_POSITION));
+	                                          g_settings_get_int (sv->priv->settings, RIGHTMARGIN_POSITION));
+	gtk_source_view_set_show_right_margin(GTK_SOURCE_VIEW(sv->priv->view), 
+	                                      g_settings_get_boolean (sv->priv->settings, VIEW_RIGHTMARGIN));
+	gtk_source_view_set_show_line_numbers(GTK_SOURCE_VIEW(sv->priv->view), 
+	                                      g_settings_get_boolean (sv->priv->settings, VIEW_LINENUMBERS));
+	
 	gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (sv->priv->view),
-	                             get_key_bool (sv, VIEW_EOL) ? GTK_WRAP_WORD : GTK_WRAP_NONE);
+	                             g_settings_get_boolean (sv->priv->docman_settings, DOCMAN_VIEW_EOL) ? GTK_WRAP_WORD : GTK_WRAP_NONE);
 
 
-	if (get_key_bool (sv, VIEW_WHITE_SPACES))
+	if (g_settings_get_boolean (sv->priv->docman_settings, DOCMAN_VIEW_WHITE_SPACES))
 		flags |= (GTK_SOURCE_DRAW_SPACES_SPACE | GTK_SOURCE_DRAW_SPACES_TAB);
-	if (get_key_bool (sv, VIEW_EOL))
+	if (g_settings_get_boolean (sv->priv->docman_settings, DOCMAN_VIEW_EOL))
 		flags |= GTK_SOURCE_DRAW_SPACES_NEWLINE;
 
 	gtk_source_view_set_draw_spaces (GTK_SOURCE_VIEW (sv->priv->view),
@@ -414,29 +410,32 @@ sourceview_prefs_init(Sourceview* sv)
 	on_notify_autocompletion(sv->priv->settings, AUTOCOMPLETION, sv);
   
 	/* Register gconf notifications */
-	REGISTER_NOTIFY (TAB_SIZE, on_notify_tab_size);
-	REGISTER_NOTIFY (USE_TABS, on_notify_use_tab_for_indentation);
-	REGISTER_NOTIFY (HIGHLIGHT_SYNTAX, on_notify_disable_hilite);
-	REGISTER_NOTIFY (HIGHLIGHT_CURRENT_LINE, on_notify_highlight_current_line);
-	REGISTER_NOTIFY (HIGHLIGHT_BRACKETS, on_notify_braces_check);
-	REGISTER_NOTIFY (AUTOCOMPLETION, on_notify_autocompletion);
-	REGISTER_NOTIFY (VIEW_MARKS, on_notify_view_marks);
-	REGISTER_NOTIFY (VIEW_LINENUMBERS, on_notify_view_linenums);
-	REGISTER_NOTIFY (VIEW_WHITE_SPACES, on_notify_view_spaces);
-	REGISTER_NOTIFY (VIEW_EOL, on_notify_view_eol);  
-	REGISTER_NOTIFY (VIEW_LINE_WRAP, on_notify_line_wrap);
-	REGISTER_NOTIFY (VIEW_RIGHTMARGIN, on_notify_view_right_margin);
-	REGISTER_NOTIFY (RIGHTMARGIN_POSITION, on_notify_right_margin_position);
-	REGISTER_NOTIFY (FONT_THEME, on_notify_font_theme);
-	REGISTER_NOTIFY (FONT, on_notify_font);
+	REGISTER_NOTIFY (sv->priv->settings, TAB_SIZE, on_notify_tab_size);
+	REGISTER_NOTIFY (sv->priv->settings, USE_TABS, on_notify_use_tab_for_indentation);
+	REGISTER_NOTIFY (sv->priv->settings, HIGHLIGHT_SYNTAX, on_notify_syntax_hilite);
+	REGISTER_NOTIFY (sv->priv->settings, HIGHLIGHT_CURRENT_LINE, on_notify_highlight_current_line);
+	REGISTER_NOTIFY (sv->priv->settings, HIGHLIGHT_BRACKETS, on_notify_braces_check);
+	REGISTER_NOTIFY (sv->priv->settings, AUTOCOMPLETION, on_notify_autocompletion);
+	REGISTER_NOTIFY (sv->priv->settings, VIEW_MARKS, on_notify_view_marks);
+	REGISTER_NOTIFY (sv->priv->settings, VIEW_LINENUMBERS, on_notify_view_linenums);
+	REGISTER_NOTIFY (sv->priv->settings, VIEW_RIGHTMARGIN, on_notify_view_right_margin);
+	REGISTER_NOTIFY (sv->priv->settings, RIGHTMARGIN_POSITION, on_notify_right_margin_position);
 
-	g_signal_connect (msg_settings, "changed::" COLOR_ERROR,
+	REGISTER_NOTIFY (sv->priv->docman_settings, DOCMAN_VIEW_WHITE_SPACES, on_notify_view_spaces);
+	REGISTER_NOTIFY (sv->priv->docman_settings, DOCMAN_VIEW_EOL, on_notify_view_eol);  
+	REGISTER_NOTIFY (sv->priv->docman_settings, DOCMAN_VIEW_LINE_WRAP, on_notify_line_wrap);
+	REGISTER_NOTIFY (sv->priv->settings, FONT_THEME, on_notify_font_theme);
+	REGISTER_NOTIFY (sv->priv->settings, FONT, on_notify_font);
+
+	g_signal_connect (sv->priv->msgman_settings, "changed::" MSGMAN_COLOR_ERROR,
 	                  G_CALLBACK (on_notify_indic_colors), sv);
-	g_signal_connect (msg_settings, "changed::" COLOR_WARNING,
+	g_signal_connect (sv->priv->msgman_settings, "changed::" MSGMAN_COLOR_WARNING,
 	                  G_CALLBACK (on_notify_indic_colors), sv);	
 }
 
 void sourceview_prefs_destroy(Sourceview* sv)
 {
 	g_object_unref (sv->priv->settings);
+	g_object_unref (sv->priv->msgman_settings);
+	g_object_unref (sv->priv->docman_settings);	
 }
