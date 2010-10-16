@@ -84,7 +84,7 @@ NewfileType new_file_type[] = {
 	{N_("C Source File"), ".c", LGE_HC, TRUE, TRUE, CMT_C, LGE_C},
 	{N_("C/C++ Header File"), ".h", -1, TRUE, TRUE, CMT_C, LGE_HC},
 	{N_("C++ Source File"), ".cxx", LGE_HC, TRUE, TRUE, CMT_CPP, LGE_CPLUS},
-	{N_("C# Source File"), ".c#", LGE_HC, FALSE, TRUE, CMT_CPP, LGE_CSHARP},
+	{N_("C# Source File"), ".c#", -1, FALSE, FALSE, CMT_CPP, LGE_CSHARP},
 	{N_("Java Source File"), ".java", -1, FALSE, FALSE, CMT_CPP, LGE_JAVA},
 	{N_("Perl Source File"), ".pl", -1, TRUE, TRUE, CMT_P, LGE_PERL},
 	{N_("Python Source File"), ".py", -1, TRUE, FALSE, CMT_P, LGE_PYTHON},
