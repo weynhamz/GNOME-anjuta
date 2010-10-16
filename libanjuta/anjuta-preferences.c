@@ -99,7 +99,6 @@ struct _AnjutaProperty
 
 struct _AnjutaPreferencesPriv
 {
-	GSettings           *gsettings;
 	GHashTable          *properties;
 	GtkWidget           *prefs_dialog;
 	AnjutaPluginManager *plugin_manager;
@@ -127,6 +126,7 @@ property_destroy (AnjutaProperty *property)
 	if (property->key) g_free (property->key);
 	if (property->default_value) g_free (property->default_value);
 	g_object_unref (property->object);
+	g_object_unref (property->gsettings);
 	g_free (property);
 }
 
@@ -155,8 +155,6 @@ get_object_type_from_string (const gchar* object_type)
 		return ANJUTA_PROPERTY_OBJECT_TYPE_SPIN;
 	else if (strcmp (object_type, "toggle") == 0)
 		return ANJUTA_PROPERTY_OBJECT_TYPE_TOGGLE;
-	else if (strcmp (object_type, "text") == 0)
-		return ANJUTA_PROPERTY_OBJECT_TYPE_TEXT;
 	else if (strcmp (object_type, "color") == 0)
 		return ANJUTA_PROPERTY_OBJECT_TYPE_COLOR;
 	else if (strcmp (object_type, "font") == 0)
@@ -203,6 +201,75 @@ unregister_preferences_key (GtkWidget *widget,
 	g_free (key);
 }
 
+static GVariant*
+string_to_gdkcolor (const GValue* value, const GVariantType* type, gpointer user_data)
+{
+	GdkColor* color = g_value_get_boxed (value);
+	gchar* name = gdk_color_to_string (color);
+	
+	GVariant* variant = g_variant_new_string (name);
+	g_free (name);
+	
+	return variant;
+}
+
+static gboolean
+gdkcolor_to_string (GValue* value, GVariant* variant, gpointer user_data)
+{
+	GdkColor color;
+	gdk_color_parse (g_variant_get_string (variant, NULL), &color);
+	g_value_set_boxed (value, &color);
+	return TRUE;
+}
+
+static GVariant*
+active_to_string (const GValue* value, const GVariantType* type, gpointer user_data)
+{
+	AnjutaProperty* p = user_data;
+	GtkComboBox* combo = GTK_COMBO_BOX(p->object);
+	gint idx;
+	gchar** values = g_object_get_data(G_OBJECT(combo), "untranslated");
+	GVariant* variant;
+	
+	idx = gtk_combo_box_get_active(combo);
+
+	variant = g_variant_new_string (values[idx]);
+	
+	return variant;
+}
+
+static gboolean
+string_to_active (GValue* value, GVariant* variant, gpointer user_data)
+{
+	AnjutaProperty* p = user_data;
+	GtkComboBox* combo = GTK_COMBO_BOX(p->object);
+	const gchar* text_value = g_variant_get_string (variant, NULL);
+	gchar** values = g_object_get_data(G_OBJECT(combo), "untranslated");
+	int i;
+	
+	for (i=0; values[i] != NULL; i++)
+	{
+		if (strcmp(text_value, values[i]) == 0)
+		{
+			g_value_set_int (value, i);
+			return TRUE;
+		}
+	}
+		
+	return FALSE;
+}
+
+static void
+update_file_property (GtkWidget* widget, gpointer user_data)
+{
+	AnjutaProperty* p = user_data;
+	gchar* text_value = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (p->object));
+	
+	g_settings_set_string (p->gsettings, p->key, text_value);
+	
+	g_free (text_value);
+}
+
 static void
 connect_objects (AnjutaPreferences *pr, GSettings* settings, AnjutaProperty *p)
 {	
@@ -220,23 +287,50 @@ connect_objects (AnjutaPreferences *pr, GSettings* settings, AnjutaProperty *p)
 			g_settings_bind (settings, p->key, p->object, "font-name", 
 			                 G_SETTINGS_BIND_DEFAULT);
 			break;
-		case ANJUTA_PROPERTY_OBJECT_TYPE_TEXT:
-			/* FIXME */
-			break;
 		case ANJUTA_PROPERTY_OBJECT_TYPE_COMBO:
-			/* FIXME */
+			g_settings_bind_with_mapping (settings, p->key, 
+									 p->object, "active",
+									 G_SETTINGS_BIND_DEFAULT,
+									 string_to_active,		
+									 active_to_string,					 
+									 p,
+									 NULL);
 			break;
 		case ANJUTA_PROPERTY_OBJECT_TYPE_TOGGLE:
 			g_settings_bind (settings, p->key, p->object, "active", 
 			                 G_SETTINGS_BIND_DEFAULT);
 			break;
 		case ANJUTA_PROPERTY_OBJECT_TYPE_COLOR:
-			/* FIXME */
+			g_settings_bind_with_mapping (settings, p->key, 
+									 p->object, "color",
+									 G_SETTINGS_BIND_DEFAULT,
+									 gdkcolor_to_string,
+									 string_to_gdkcolor,							 
+									 p,
+									 NULL);
+									 
 			break;
 		case ANJUTA_PROPERTY_OBJECT_TYPE_FILE:
-			/* FIXME */
+			/* Set initial value */
+			{
+				gchar* filename = g_settings_get_string (p->gsettings, p->key);
+				gtk_file_chooser_set_filename (GTK_FILE_CHOOSER (p->object),
+											   filename);
+				g_free (filename);
+			}
+			g_signal_connect (G_OBJECT(p->object), "file-set",
+							  G_CALLBACK (update_file_property), p);
+			break;
 		case ANJUTA_PROPERTY_OBJECT_TYPE_FOLDER:
-			/* FIXME */
+			/* Set initial value */
+			{
+				gchar* filename = g_settings_get_string (p->gsettings, p->key);
+				gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (p->object),
+											 		 filename);
+				g_free (filename);
+			}
+			g_signal_connect (G_OBJECT(p->object), "current-folder-changed",
+							  G_CALLBACK (update_file_property), p);
 			break;
 		default:
 			break;
@@ -286,12 +380,30 @@ anjuta_preferences_register_property_raw (AnjutaPreferences *pr,
 	p->object_type = object_type;
 	p->data_type = data_type;
 	p->key = g_strdup (key);
-	p->gsettings = pr->priv->gsettings;
+	p->gsettings = settings;
+	g_object_ref (p->gsettings);
 	
 	p->flags = flags;
 	p->custom = FALSE;
 	p->set_property = NULL;
 	p->get_property = NULL;
+	
+	if (default_value)
+	{
+		p->default_value = g_strdup (default_value);
+		if (strlen (default_value) > 0)
+		{
+			/* For combo, initialize the untranslated strings */
+			if (object_type == ANJUTA_PROPERTY_OBJECT_TYPE_COMBO)
+			{
+				gchar **vstr;
+
+				vstr = g_strsplit (default_value, ",", 100);
+				g_object_set_data_full (G_OBJECT(p->object), "untranslated",
+									    vstr, (GDestroyNotify) g_strfreev);
+			}
+		}
+	}
 	
 	g_hash_table_insert (pr->priv->properties, g_strdup (key), p);
 	connect_objects (pr, settings, p);
@@ -623,9 +735,6 @@ anjuta_preferences_init (AnjutaPreferences *pr)
 	                                                 g_int_equal,
 	                                                 NULL, 
 	                                                 g_free);
-	
-	pr->priv->gsettings = g_settings_new ("org.gnome.anjuta");
-
 }
 
 static void
