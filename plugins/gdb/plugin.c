@@ -79,7 +79,8 @@ struct _GdbPluginClass
 /* Terminal functions
  *---------------------------------------------------------------------------*/
 
-#define PREF_TERMINAL_COMMAND "terminal_command"
+#define PREF_SCHEMA "org.gnome.anjuta.run"
+#define PREF_TERMINAL_COMMAND "run-terminal-command"
 
 static void
 gdb_plugin_stop_terminal (GdbPlugin* plugin)
@@ -128,16 +129,14 @@ gdb_plugin_start_terminal (GdbPlugin* plugin)
 	if (term == NULL)
 	{
 		/* Use gnome terminal or another user defined one */
-		AnjutaPreferences *pref;
+		GSettings* settings;
 		gchar *term_cmd;
 		gchar **argv;
 		
-		pref = anjuta_shell_get_preferences (ANJUTA_PLUGIN (plugin)->shell, NULL);
-		term_cmd = anjuta_preferences_get (pref, PREF_TERMINAL_COMMAND);
-		if (!term_cmd)
-		{
-			term_cmd = g_strdup ("gnome-terminal --disable-factory -e %s");
-		}
+		settings = g_settings_new (PREF_SCHEMA);
+
+		term_cmd = g_settings_get_string (settings, PREF_TERMINAL_COMMAND);
+		g_object_unref (settings);
 		if (g_shell_parse_argv (term_cmd, NULL, &argv, NULL))
 		{
 			GPid gpid;
