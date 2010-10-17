@@ -934,7 +934,7 @@ project_load_target (AmpProject *project, AnjutaToken *name, AnjutaTokenType tok
 
 		/* Create target */
 		target = amp_target_new (value, info->base.type, install, flags, NULL);
-		//fprintf(stderr, "create target %p\n", target);
+		//fprintf(stderr, "create target %s %p\n", value, target);
 		if (target != NULL)
 		{
 			amp_target_add_token (target, ANJUTA_TOKEN_ARGUMENT, arg);
@@ -1289,6 +1289,7 @@ project_load_subdirs (AmpProject *project, AnjutaToken *list, AnjutaAmGroupNode 
 		gchar *value;
 		
 		value = anjuta_token_evaluate (arg);
+		if (value == NULL) continue;		/* Empty value, a comment of a quote by example */
 		
 		/* Skip ., it is a special case, used to defined build order */
 		if (strcmp (value, ".") != 0)
@@ -1408,6 +1409,7 @@ amp_project_set_am_variable (AmpProject* project, AnjutaAmGroupNode* group, Anju
 	case AM_TOKEN__CFLAGS:
 	case AM_TOKEN__CXXFLAGS:
 	case AM_TOKEN__JAVACFLAGS:
+	case AM_TOKEN__VALAFLAGS:
 	case AM_TOKEN__FCFLAGS:
 	case AM_TOKEN__OBJCFLAGS:
 	case AM_TOKEN__LFLAGS:
@@ -1419,6 +1421,7 @@ amp_project_set_am_variable (AmpProject* project, AnjutaAmGroupNode* group, Anju
 	case AM_TOKEN_TARGET_CFLAGS:
 	case AM_TOKEN_TARGET_CXXFLAGS:
 	case AM_TOKEN_TARGET_JAVACFLAGS:
+	case AM_TOKEN_TARGET_VALAFLAGS:
 	case AM_TOKEN_TARGET_FCFLAGS:
 	case AM_TOKEN_TARGET_OBJCFLAGS:
 	case AM_TOKEN_TARGET_LFLAGS:

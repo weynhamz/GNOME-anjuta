@@ -734,6 +734,7 @@ AnjutaAmTargetNode*
 amp_target_new (const gchar *name, AnjutaProjectNodeType type, const gchar *install, gint flags, GError **error)
 {
 	AnjutaAmTargetNode *node = NULL;
+	const gchar *basename;
 
 	/* Validate target name */
 	if (!name || strlen (name) <= 0)
@@ -747,29 +748,35 @@ amp_target_new (const gchar *name, AnjutaProjectNodeType type, const gchar *inst
 		const gchar *ptr = name;
 		while (*ptr) {
 			if (!isalnum (*ptr) && *ptr != '.' && *ptr != '-' &&
-			    *ptr != '_')
+			    *ptr != '_' && *ptr != '/')
 				failed = TRUE;
 			ptr++;
 		}
 		if (failed) {
 			error_set (error, IANJUTA_PROJECT_ERROR_VALIDATION_FAILED,
-				   _("Target name can only contain alphanumeric, '_', '-' or '.' characters"));
+				   _("Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"));
 			return NULL;
 		}
 	}
+
+	/* Skip eventual directory name */
+	basename = strrchr (name, '/');
+	basename = basename == NULL ? name : basename + 1;
+		
+	
 	if ((type & ANJUTA_PROJECT_ID_MASK) == ANJUTA_PROJECT_SHAREDLIB) {
-		if (strlen (name) < 7 ||
-		    strncmp (name, "lib", strlen("lib")) != 0 ||
-		    strcmp (&name[strlen(name) - 3], ".la") != 0) {
+		if (strlen (basename) < 7 ||
+		    strncmp (basename, "lib", strlen("lib")) != 0 ||
+		    strcmp (&basename[strlen(basename) - 3], ".la") != 0) {
 			error_set (error, IANJUTA_PROJECT_ERROR_VALIDATION_FAILED,
 				   _("Shared library target name must be of the form 'libxxx.la'"));
 			return NULL;
 		}
 	}
 	else if ((type & ANJUTA_PROJECT_ID_MASK) == ANJUTA_PROJECT_STATICLIB) {
-		if (strlen (name) < 6 ||
-		    strncmp (name, "lib", strlen("lib")) != 0 ||
-		    strcmp (&name[strlen(name) - 2], ".a") != 0) {
+		if (strlen (basename) < 6 ||
+		    strncmp (basename, "lib", strlen("lib")) != 0 ||
+		    strcmp (&basename[strlen(basename) - 2], ".a") != 0) {
 			error_set (error, IANJUTA_PROJECT_ERROR_VALIDATION_FAILED,
 				   _("Static library target name must be of the form 'libxxx.a'"));
 			return NULL;

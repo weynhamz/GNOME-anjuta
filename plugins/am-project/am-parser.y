@@ -72,6 +72,7 @@
 %token  _CFLAGS
 %token  _CXXFLAGS
 %token  _JAVACFLAGS
+%token  _VALAFLAGS
 %token  _FCFLAGS
 %token  _OBJCFLAGS
 %token  _LFLAGS
@@ -81,6 +82,7 @@
 %token  TARGET_CFLAGS
 %token  TARGET_CXXFLAGS
 %token  TARGET_JAVACFLAGS
+%token  TARGET_VALAFLAGS
 %token  TARGET_FCFLAGS
 %token  TARGET_OBJCFLAGS
 %token  TARGET_LFLAGS
@@ -139,6 +141,7 @@ amp_am_automake_variable (AnjutaToken *token)
     case _CFLAGS:               return AM_TOKEN__CFLAGS;
     case _CXXFLAGS:             return AM_TOKEN__CXXFLAGS;
     case _JAVACFLAGS:           return AM_TOKEN__JAVACFLAGS;
+    case _VALAFLAGS:           return AM_TOKEN__VALAFLAGS;
     case _FCFLAGS:              return AM_TOKEN__FCFLAGS;
     case _OBJCFLAGS:            return AM_TOKEN__OBJCFLAGS;
     case _LFLAGS:               return AM_TOKEN__LFLAGS;
@@ -148,6 +151,7 @@ amp_am_automake_variable (AnjutaToken *token)
     case TARGET_CFLAGS:         return AM_TOKEN_TARGET_CFLAGS;
     case TARGET_CXXFLAGS:       return AM_TOKEN_TARGET_CXXFLAGS;
     case TARGET_JAVACFLAGS:     return AM_TOKEN_TARGET_JAVACFLAGS;
+    case TARGET_VALAFLAGS:     return AM_TOKEN_TARGET_VALAFLAGS;
     case TARGET_FCFLAGS:        return AM_TOKEN_TARGET_FCFLAGS;
     case TARGET_OBJCFLAGS:      return AM_TOKEN_TARGET_OBJCFLAGS;
     case TARGET_LFLAGS:         return AM_TOKEN_TARGET_LFLAGS;
@@ -542,6 +546,7 @@ automake_token:
 	|  _CFLAGS
 	|  _CXXFLAGS
 	|  _JAVACFLAGS
+	|  _VALAFLAGS
 	|  _FCFLAGS
 	|  _OBJCFLAGS
 	|  _LFLAGS
@@ -551,6 +556,7 @@ automake_token:
 	|  TARGET_CFLAGS
 	|  TARGET_CXXFLAGS
 	|  TARGET_JAVACFLAGS
+	|  TARGET_VALAFLAGS
 	|  TARGET_FCFLAGS
 	|  TARGET_OBJCFLAGS
 	|  TARGET_LFLAGS
