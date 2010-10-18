@@ -820,7 +820,198 @@ amp_source_delete_token (AmpProject  *project, AnjutaAmSourceNode *source, GErro
 /* Properties
  *---------------------------------------------------------------------------*/
 
-gboolean amp_project_update_am_property (AmpProject *project, AnjutaProjectProperty *property)
+static AnjutaToken*
+amp_property_delete_token (AmpProject  *project, AnjutaToken *token)
 {
-	return TRUE;
+	AnjutaToken *list = NULL;
+	gboolean updated = FALSE;
+
+	if (token != NULL)
+	{
+		anjuta_token_set_flags (token, ANJUTA_TOKEN_REMOVED);
+		updated = TRUE;
+	}
+
+	return token;
+}
+
+static AnjutaToken *
+amp_project_write_property_list (AnjutaAmGroupNode *group, AnjutaProjectNode *node, const gchar *name)
+{
+	AnjutaToken *pos;
+	AnjutaToken *makefile;
+	AnjutaToken *token;
+	
+	makefile = amp_group_get_makefile_token (group);
+	pos = anjuta_token_first_item (makefile);
+		
+	/* Add at the end of the file */
+	while (anjuta_token_next_item (pos) != NULL)
+	{
+		pos = anjuta_token_next_item (pos);
+	}
+
+	pos = anjuta_token_insert_token_list (TRUE, pos,
+		    ANJUTA_TOKEN_EOL, "\n",
+		    NULL);
+	amp_group_update_makefile (group, pos);
+	
+	token = anjuta_token_insert_token_list (TRUE, pos,
+	    		ANJUTA_TOKEN_LIST, NULL,
+	    		ANJUTA_TOKEN_NAME, name,
+	    		ANJUTA_TOKEN_SPACE, " ",
+	    		ANJUTA_TOKEN_OPERATOR, "=",
+	    		ANJUTA_TOKEN_LIST, NULL,
+	            ANJUTA_TOKEN_SPACE, " ",
+	    		NULL);
+
+	return anjuta_token_last_item (token);
+}
+
+gboolean amp_project_update_am_property (AmpProject *project, AnjutaProjectNode *node, AnjutaProjectProperty *property)
+{
+	AnjutaAmGroupNode *group;
+	AnjutaToken *args;
+
+
+	/* Find group  of the property */
+	if (anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_GROUP)
+	{
+		group = ANJUTA_AM_GROUP_NODE (node);
+	}
+	else
+	{
+		group = ANJUTA_AM_GROUP_NODE (anjuta_project_node_parent (node));
+	}
+
+	if ((property->value == NULL) || (*property->value == '\0'))
+	{
+		/* Remove property */
+		args = amp_property_delete_token (project, ((AmpProperty *)property)->token);
+	}
+	else
+	{
+		GString *new_value;
+		AnjutaToken *arg;
+		const gchar *value;
+		AnjutaTokenStyle *style;
+
+		args = ((AmpProperty *)property)->token;
+		
+		/* Try to use the same style than the current target list */
+		style = anjuta_token_style_new_from_base (project->am_space_list);
+		anjuta_token_style_update (style, args);
+
+		if (args== NULL)
+		{
+			gchar *prop_name;
+			gchar *canon_name = NULL;
+
+			if (group == node)
+			{
+				/* Group property */
+				prop_name = g_strdup (((AmpProperty *)property->native)->suffix);
+			}
+			else
+			{
+				/* Target property */
+				canon_name = canonicalize_automake_variable (ANJUTA_AM_TARGET_NODE (node)->base.name);
+				prop_name = g_strconcat (canon_name, ((AmpProperty *)property->native)->suffix, NULL);
+			}
+			args = amp_project_write_property_list (group, node, prop_name);
+			((AmpProperty *)property)->token = args;
+			g_free (canon_name);
+			g_free (prop_name);
+		}
+		
+		switch (property->native->type)
+		{
+		case ANJUTA_PROJECT_PROPERTY_LIST:
+			new_value = g_string_new (property->value);
+			g_string_assign (new_value, "");
+			value = property->value;
+
+			for (arg = anjuta_token_first_word (args); arg != NULL;)
+			{
+				gchar *arg_value = anjuta_token_evaluate (arg);
+
+				while (isspace (*value)) value++;
+
+				if (*value == '\0')
+				{
+					AnjutaToken *next;
+					
+					next = anjuta_token_next_word (arg);
+					anjuta_token_remove_word (arg);
+					arg = next;
+				}
+				else
+				{
+					const gchar *end;
+					gchar *name;
+					
+					for (end = value; !isspace (*end) && (*end != '\0'); end++);
+					name = g_strndup (value, end - value);
+
+					if (strcmp (arg_value, name) != 0)
+					{
+						/* New argument in property list */
+						AnjutaToken *token;
+						
+						token = anjuta_token_new_string (ANJUTA_TOKEN_NAME | ANJUTA_TOKEN_ADDED, name);
+						anjuta_token_insert_word_before (args, arg, token);
+					}
+					else
+					{
+						arg = anjuta_token_next_word (arg);
+					}
+					value = end;
+					
+					if (arg_value != NULL)
+					{
+						if (new_value->len != 0) g_string_append_c (new_value, ' ');
+						g_string_append (new_value, name);
+					}
+				}
+				g_free (arg_value);
+			}
+
+			while (*value != '\0')
+			{
+				AnjutaToken *token;
+				const gchar *end;
+				gchar *name;
+				
+				while (isspace (*value)) value++;
+				if (*value == '\0') break;
+
+				for (end = value; !isspace (*end) && (*end != '\0'); end++);
+
+				name = g_strndup (value, end - value);
+				token = anjuta_token_new_string (ANJUTA_TOKEN_NAME | ANJUTA_TOKEN_ADDED, name);
+
+				anjuta_token_insert_word_before (args, NULL, token);
+				
+				if (new_value->len != 0) g_string_append_c (new_value, ' ');
+				g_string_append (new_value, name);
+				
+				g_free (name);
+				value = end;
+			}
+
+			anjuta_token_style_format (style, args);
+			anjuta_token_style_free (style);
+
+			if (property->value != property->native->value) g_free (property->value);
+			property->value = g_string_free (new_value, FALSE);
+			
+			break;
+		default:
+			break;
+		}
+	}
+
+	if (args != NULL) amp_group_update_makefile (group, args);
+	
+	return args != NULL ? TRUE : FALSE;
 }

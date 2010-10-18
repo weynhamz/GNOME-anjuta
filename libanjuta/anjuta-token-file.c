@@ -145,7 +145,7 @@ anjuta_token_file_save (AnjutaTokenFile *file, GError **error)
 	gboolean ok = TRUE;
 	GError *err = NULL;
 	AnjutaToken *token;
-	
+
 	stream = g_file_replace (file->file, NULL, FALSE, G_FILE_CREATE_NONE, NULL, &err);
 	if (stream == NULL)
 	{
@@ -232,11 +232,11 @@ anjuta_token_file_remove_token (AnjutaTokenFile *file, AnjutaToken *token)
 	if ((last != NULL) && (last != token))
 	{
 		next = anjuta_token_next (token);
-		while (next != last)
+		while ((next != last) && (next != NULL))
 		{
 			next = anjuta_token_file_remove_token (file, next);
 		}
-		anjuta_token_file_remove_token (file, next);
+		if (next != NULL) anjuta_token_file_remove_token (file, next);
 	}		
 
 	return anjuta_token_free (token);

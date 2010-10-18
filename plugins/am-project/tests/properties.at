@@ -13,13 +13,13 @@ bin_PROGRAMS = target1
 AT_DATA([expect],
 [[    GROUP (0): empty1
         TARGET (0:0): target1
+            PROPERTY (Additional libraries): $(GDL_LIBS)
 ]])
 AT_DATA([reference.am],
 [[
 bin_PROGRAMS = target1
 
-target1_LIBADD = \
-	$(GDL_LIBS)
+target1_LIBADD = $(GDL_LIBS)
 ]])
 AT_PARSER_CHECK([load empty \
 		move empty1 \
@@ -31,6 +31,79 @@ AT_CHECK([diff -b empty1/Makefile.am reference.am])
 AT_PARSER_CHECK([load empty1 \
 		 list])
 AT_CHECK([diff output expect])
+
+
+
+AT_DATA([expect],
+[[    GROUP (0): empty2
+        TARGET (0:0): target1
+            PROPERTY (Additional libraries): $(GDL_LIBS) $(GLIB_LIBS)
+]])
+AT_DATA([reference.am],
+[[
+bin_PROGRAMS = target1
+
+target1_LIBADD = $(GDL_LIBS) \
+	$(GLIB_LIBS)
+]])
+AT_PARSER_CHECK([load empty1 \
+		move empty2 \
+		set 0:0 addlib '$(GDL_LIBS) $(GLIB_LIBS)' \
+		list \
+		save])
+AT_CHECK([diff output expect])
+AT_CHECK([diff -b empty2/Makefile.am reference.am])
+AT_PARSER_CHECK([load empty2 \
+		 list])
+AT_CHECK([diff output expect])
+
+
+
+AT_DATA([expect],
+[[    GROUP (0): empty3
+        TARGET (0:0): target1
+            PROPERTY (Additional libraries): $(GLIB_LIBS)
+]])
+AT_DATA([reference.am],
+[[
+bin_PROGRAMS = target1
+
+target1_LIBADD = $(GLIB_LIBS)
+]])
+AT_PARSER_CHECK([load empty2 \
+		move empty3 \
+		set 0:0 addlib '$(GLIB_LIBS)' \
+		list \
+		save])
+AT_CHECK([diff output expect])
+AT_CHECK([diff -b empty3/Makefile.am reference.am])
+AT_PARSER_CHECK([load empty3 \
+		 list])
+AT_CHECK([diff output expect])
+
+
+
+AT_DATA([expect],
+[[    GROUP (0): empty4
+        TARGET (0:0): target1
+]])
+AT_DATA([reference.am],
+[[
+bin_PROGRAMS = target1
+
+target1_LIBADD =
+]])
+AT_PARSER_CHECK([load empty3 \
+		move empty4 \
+		clear 0:0 addlib \
+		list \
+		save])
+AT_CHECK([diff output expect])
+AT_CHECK([diff -b empty4/Makefile.am reference.am])
+AT_PARSER_CHECK([load empty4 \
+		 list])
+AT_CHECK([diff output expect])
+
 
 
 AT_CLEANUP

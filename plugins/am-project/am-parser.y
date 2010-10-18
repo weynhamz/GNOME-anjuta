@@ -157,6 +157,8 @@ amp_am_automake_variable (AnjutaToken *token)
     case TARGET_LFLAGS:         return AM_TOKEN_TARGET_LFLAGS;
     case TARGET_YFLAGS:         return AM_TOKEN_TARGET_YFLAGS;
     case TARGET_DEPENDENCIES:   return AM_TOKEN_TARGET_DEPENDENCIES;
+    case TARGET_LIBADD:         return AM_TOKEN_TARGET_LIBADD;
+    case TARGET_LDADD:  		 return AM_TOKEN_TARGET_LDADD;
 
     default: return ANJUTA_TOKEN_NAME;
     }

@@ -107,6 +107,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
         GROUP (11:4): libfoocanvas
             PROPERTY (C preprocessor flags): -I$(top_srcdir) -I$(top_builddir) $(WARN_CFLAGS) $(ANJUTA_CFLAGS) -DFOOCANVASLIBDIR=\""$(libdir)"\" -DFOOCANVASDATADIR=\""$(datadir)"\" -DFOOCANVASPIXMAPDIR=\""$(datadir)/pixmaps"\" -DFOOCANVASBINDIR=\""$(bindir)"\" -DFOOCANVASLOCALSTATEDIR=\""$(localstatedir)"\" -DFOOCANVASLOCALEDIR=\""$(gnomelocaledir)"\" -DG_LOG_DOMAIN=\"Foocanvas\" -DVERSION=\"$(VERSION)\"
             TARGET (11:4:0): libanjuta-foocanvas.la
+                PROPERTY (Additional libraries): $(ANJUTA_LIBS) $(RENDER_LIBS)
                 SOURCE (11:4:0:0): libfoocanvas/foo-canvas-line.h
                 SOURCE (11:4:0:1): libfoocanvas/foo-canvas-pixbuf.h
                 SOURCE (11:4:0:2): libfoocanvas/foo-canvas-polygon.h
@@ -259,6 +260,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                 TARGET (11:5:0:63): libanjuta.idl
             TARGET (11:5:1): libanjuta.la
                 PROPERTY (Linker flags): $(ANJUTA_LDFLAGS)
+                PROPERTY (Additional libraries): interfaces/libanjuta-interfaces.la $(ANJUTA_LIBS)
                 SOURCE (11:5:1:0): libanjuta/anjuta-enum-types.h
                 SOURCE (11:5:1:1): libanjuta/anjuta-enum-types.c
                 SOURCE (11:5:1:2): libanjuta/anjuta-marshal.h
@@ -343,6 +345,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                 SOURCE (11:5:1:81): libanjuta/anjuta-pkg-config-chooser.c
             TARGET (11:5:2): libgladeanjuta.la
                 PROPERTY (Linker flags): $(ANJUTA_LDFLAGS) -module -avoid-version
+                PROPERTY (Additional libraries): libanjuta.la $(GLADE_LIBS)
                 SOURCE (11:5:2:0): libanjuta/anjuta-glade-catalog.c
             TARGET (11:5:3): catalog
                 SOURCE (11:5:3:0): libanjuta/anjuta-glade.xml
@@ -408,6 +411,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:0:3:0): plugins/gtodo/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:0:4): libanjuta-gtodo.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GTK_LIBS) $(GIO_LIBS) $(LIBXSLT_LIBS) $(LIBANJUTA_LIBS)
                     SOURCE (11:6:0:4:0): plugins/gtodo/plugin.c
                     SOURCE (11:6:0:4:1): plugins/gtodo/plugin.h
                     SOURCE (11:6:0:4:2): plugins/gtodo/add_edit_item.c
@@ -445,6 +449,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:1:3:0): plugins/message-view/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:1:4): libanjuta-message-view.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS)
                     SOURCE (11:6:1:4:0): plugins/message-view/plugin.c
                     SOURCE (11:6:1:4:1): plugins/message-view/plugin.h
                     SOURCE (11:6:1:4:2): plugins/message-view/anjuta-msgman.c
@@ -472,6 +477,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:2:4:0): plugins/gdb/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:2:5): libanjuta-gdb.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GTK_LIBS) $(LIBANJUTA_LIBS)
                     SOURCE (11:6:2:5:0): plugins/gdb/gdbmi.c
                     SOURCE (11:6:2:5:1): plugins/gdb/gdbmi.h
                     SOURCE (11:6:2:5:2): plugins/gdb/debugger.c
@@ -483,6 +489,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:2:5:8): plugins/gdb/preferences.c
                     SOURCE (11:6:2:5:9): plugins/gdb/preferences.h
                 TARGET (11:6:2:6): gdbmi-test
+                    PROPERTY (Additional objects): $(GTK_LIBS) $(LIBANJUTA_LIBS) $(LIBXML_LIBS)
                     PROPERTY (C compiler flags): $(AM_CFLAGS)
                     SOURCE (11:6:2:6:0): plugins/gdb/gdbmi-test.c
                     SOURCE (11:6:2:6:1): plugins/gdb/gdbmi.c
@@ -528,6 +535,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:3:3:0): plugins/debug-manager/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:3:4): libanjuta-debug-manager.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS)
                     SOURCE (11:6:3:4:0): plugins/debug-manager/$(BUILT_SOURCES)
                     SOURCE (11:6:3:4:1): plugins/debug-manager/plugin.c
                     SOURCE (11:6:3:4:2): plugins/debug-manager/plugin.h
@@ -597,6 +605,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:4:3:0): plugins/file-manager/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:4:4): libfile-manager.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(LIBANJUTA_LIBS) $(GDL_LIBS) $(GIO_LIBS)
                     SOURCE (11:6:4:4:0): plugins/file-manager/plugin.c
                     SOURCE (11:6:4:4:1): plugins/file-manager/plugin.h
                     SOURCE (11:6:4:4:2): plugins/file-manager/file-view-marshal.h
@@ -619,6 +628,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:5:3:0): plugins/terminal/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:5:4): libanjuta-terminal.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GCONF_LIBS) $(VTE_LIBS) $(LIBANJUTA_LIBS)
                     SOURCE (11:6:5:4:0): plugins/terminal/terminal.c
             GROUP (11:6:6): build-basic-autotools
                 PROPERTY (Install directories): build_gladedir = $(anjuta_glade_dir) build_uidir = $(anjuta_ui_dir) build_pixmapsdir = $(anjuta_image_dir) build_plugindir = $(anjuta_plugin_dir) build_datadir = $(anjuta_data_dir)/build plugindir = $(anjuta_plugin_dir)
@@ -637,6 +647,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                 TARGET (11:6:6:4): build_data
                     SOURCE (11:6:6:4:0): plugins/build-basic-autotools/automake-c.filters
                 TARGET (11:6:6:5): libanjuta-build-basic-autotools.la
+                    PROPERTY (Additional libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS)
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
                     SOURCE (11:6:6:5:0): plugins/build-basic-autotools/plugin.c
                     SOURCE (11:6:6:5:1): plugins/build-basic-autotools/plugin.h
@@ -660,6 +671,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:7:2:0): plugins/file-loader/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:7:3): libanjuta-loader.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GTK_LIBS) $(GIO_LIBS) $(LIBANJUTA_LIBS)
                     SOURCE (11:6:7:3:0): plugins/file-loader/plugin.c
                     SOURCE (11:6:7:3:1): plugins/file-loader/plugin.h
                     SOURCE (11:6:7:3:2): plugins/file-loader/dnd.c
@@ -678,6 +690,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:8:2:0): plugins/file-wizard/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:8:3): libanjuta-file-wizard.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS)
                     SOURCE (11:6:8:3:0): plugins/file-wizard/file.c
                     SOURCE (11:6:8:3:1): plugins/file-wizard/file.h
                     SOURCE (11:6:8:3:2): plugins/file-wizard/plugin.c
@@ -969,6 +982,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:9:4:0): plugins/project-wizard/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:9:5): libanjuta-project-wizard.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(LIBANJUTA_LIBS)
                     SOURCE (11:6:9:5:0): plugins/project-wizard/plugin.c
                     SOURCE (11:6:9:5:1): plugins/project-wizard/plugin.h
                     SOURCE (11:6:9:5:2): plugins/project-wizard/druid.c
@@ -1008,6 +1022,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:10:3:0): plugins/project-manager/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:10:4): libanjuta-project-manager.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(LIBANJUTA_LIBS)
                     SOURCE (11:6:10:4:0): plugins/project-manager/plugin.c
                     SOURCE (11:6:10:4:1): plugins/project-manager/plugin.h
                     SOURCE (11:6:10:4:2): plugins/project-manager/tree-data.h
@@ -1039,6 +1054,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:11:3:0): plugins/cvs-plugin/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:11:4): libanjuta-cvs-plugin.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS)
                     SOURCE (11:6:11:4:0): plugins/cvs-plugin/plugin.c
                     SOURCE (11:6:11:4:1): plugins/cvs-plugin/plugin.h
                     SOURCE (11:6:11:4:2): plugins/cvs-plugin/cvs-actions.c
@@ -1067,6 +1083,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:12:4:0): plugins/snippets-manager/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:12:5): libanjuta-snippets-manager.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS)
                     SOURCE (11:6:12:5:0): plugins/snippets-manager/snippet.c
                     SOURCE (11:6:12:5:1): plugins/snippets-manager/snippet.h
                     SOURCE (11:6:12:5:2): plugins/snippets-manager/snippets-group.c
@@ -1108,6 +1125,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:13:3:0): plugins/class-gen/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:13:4): libanjuta-class-gen.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS)
                     SOURCE (11:6:13:4:0): plugins/class-gen/cell-renderer-flags.h
                     SOURCE (11:6:13:4:1): plugins/class-gen/cell-renderer-flags.c
                     SOURCE (11:6:13:4:2): plugins/class-gen/combo-flags.h
@@ -1138,6 +1156,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:14:1:0): plugins/class-inheritance/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:14:2): libanjuta-class-inheritance.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(LIBFOOCANVAS_LIBS) $(LIBANJUTA_LIBS) $(GRAPHVIZ_LIBS)
                     SOURCE (11:6:14:2:0): plugins/class-inheritance/plugin.c
                     SOURCE (11:6:14:2:1): plugins/class-inheritance/plugin.h
                     SOURCE (11:6:14:2:2): plugins/class-inheritance/class-inherit.c
@@ -1158,6 +1177,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:15:3:0): plugins/patch/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:15:4): libanjuta-patch.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(LIBANJUTA_LIBS)
                     SOURCE (11:6:15:4:0): plugins/patch/plugin.c
                     SOURCE (11:6:15:4:1): plugins/patch/plugin.h
                     SOURCE (11:6:15:4:2): plugins/patch/patch-plugin.c
@@ -1176,6 +1196,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:16:3:0): plugins/subversion/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:16:4): libanjuta-subversion.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS) $(SVN_LIB)
                     SOURCE (11:6:16:4:0): plugins/subversion/plugin.c
                     SOURCE (11:6:16:4:1): plugins/subversion/plugin.h
                     SOURCE (11:6:16:4:2): plugins/subversion/svn-diff-command.h
@@ -1250,6 +1271,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:17:2:0): plugins/project-import/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:17:3): libanjuta-project-import.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(PLUGIN_GNOMEBUILD_LIBS) $(GIO_LIBS) $(LIBANJUTA_LIBS)
                     SOURCE (11:6:17:3:0): plugins/project-import/plugin.c
                     SOURCE (11:6:17:3:1): plugins/project-import/plugin.h
                     SOURCE (11:6:17:3:2): plugins/project-import/project-import-dialog.h
@@ -1275,6 +1297,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:18:3:0): plugins/tools/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:18:4): libanjuta-tools.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(LIBANJUTA_LIBS)
                     SOURCE (11:6:18:4:0): plugins/tools/plugin.c
                     SOURCE (11:6:18:4:1): plugins/tools/plugin.h
                     SOURCE (11:6:18:4:2): plugins/tools/dialog.c
@@ -1346,6 +1369,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:19:3:0): plugins/document-manager/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:19:4): libanjuta-document-manager.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GDL_LIBS) $(GIO_LIBS) $(LIBANJUTA_LIBS)
                     SOURCE (11:6:19:4:0): plugins/document-manager/plugin.c
                     SOURCE (11:6:19:4:1): plugins/document-manager/plugin.h
                     SOURCE (11:6:19:4:2): plugins/document-manager/anjuta-docman.c
@@ -1370,6 +1394,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:20:2:0): plugins/search/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:20:3): libanjuta-search.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(LIBANJUTA_LIBS)
                     SOURCE (11:6:20:3:0): plugins/search/plugin.c
                     SOURCE (11:6:20:3:1): plugins/search/plugin.h
                     SOURCE (11:6:20:3:2): plugins/search/search-replace.c
@@ -1386,6 +1411,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                 GROUP (11:6:21:0): cxxparser
                     PROPERTY (C preprocessor flags): -DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" -DPACKAGE_SRC_DIR=\""$(srcdir)"\" $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS) $(EXTRA_CFLAGS) -DG_LOG_DOMAIN=\"cxxparser\"
                     TARGET (11:6:21:0:0): libcxxparser.la
+                        PROPERTY (Additional libraries): $(LIBANJUTA_LIBS) $(GTHREAD_LIBS)
                         PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
                         SOURCE (11:6:21:0:0:0): plugins/language-support-cpp-java/cxxparser/expression-lexer.cpp
                         SOURCE (11:6:21:0:0:1): plugins/language-support-cpp-java/cxxparser/expression-parser.cpp
@@ -1424,6 +1450,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:21:4:0): plugins/language-support-cpp-java/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:21:5): libanjuta-language-cpp-java.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(LIBANJUTA_LIBS) cxxparser/libcxxparser.la
                     SOURCE (11:6:21:5:0): plugins/language-support-cpp-java/plugin.c
                     SOURCE (11:6:21:5:1): plugins/language-support-cpp-java/plugin.h
                     SOURCE (11:6:21:5:2): plugins/language-support-cpp-java/cpp-java-assist.h
@@ -1442,6 +1469,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:22:2:0): plugins/glade/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:22:3): libanjuta-glade.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(PLUGIN_GLADE_LIBS) $(LIBANJUTA_LIBS)
                     SOURCE (11:6:22:3:0): plugins/glade/plugin.c
                     SOURCE (11:6:22:3:1): plugins/glade/plugin.h
                     SOURCE (11:6:22:3:2): plugins/glade/anjuta-design-document.h
@@ -1459,6 +1487,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:23:2:0): plugins/devhelp/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:23:3): libanjuta-devhelp.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GTK_LIBS) $(LIBANJUTA_LIBS) $(PLUGIN_DEVHELP_LIBS)
                     SOURCE (11:6:23:3:0): plugins/devhelp/plugin.c
                     SOURCE (11:6:23:3:1): plugins/devhelp/plugin.h
             GROUP (11:6:24): language-manager
@@ -1472,6 +1501,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                 TARGET (11:6:24:2): language_manager_plugin
                     SOURCE (11:6:24:2:0): plugins/language-manager/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:24:3): liblanguage-manager.la
+                    PROPERTY (Additional libraries): $(LIBANJUTA_LIBS)
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
                     SOURCE (11:6:24:3:0): plugins/language-manager/plugin.c
                     SOURCE (11:6:24:3:1): plugins/language-manager/plugin.h
@@ -1482,6 +1512,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     PROPERTY (C compiler flags): -I$(top_srcdir)/plugins/symbol-db/anjuta-tags/js-parser $(WARN_CFLAGS) $(ANJUTA_CFLAGS) $(VALA_CFLAGS) $(LIBXML_CFLAGS)
                     PROPERTY (C preprocessor flags): -DENABLE_VALA
                     TARGET (11:6:25:0:0): anjuta-tags
+                        PROPERTY (Additional objects): $(ANJUTA_LIBS) $(VALA_LIBS) $(LIBXML_LIBS)
                         SOURCE (11:6:25:0:0:0): plugins/symbol-db/anjuta-tags/main.c
                         SOURCE (11:6:25:0:0:1): plugins/symbol-db/anjuta-tags/acconfig.h
                         SOURCE (11:6:25:0:0:2): plugins/symbol-db/anjuta-tags/ant.c
@@ -1606,11 +1637,13 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                         PROPERTY (C preprocessor flags): $(LIBANJUTA_CFLAGS) $(PLUGIN_SYMBOL_DB_CFLAGS) -DDEBUG
                         TARGET (11:6:25:2:0:0): benchmark
                             PROPERTY (Linker flags): $(LIBANJUTA_LIBS) $(ANJUTA_LIBS) $(PLUGIN_SYMBOL_DB_LIBS)
+                            PROPERTY (Additional objects): ../../libanjuta-symbol-db.la
                             SOURCE (11:6:25:2:0:0:0): plugins/symbol-db/benchmark/symbol-db/benchmark.c
                     GROUP (11:6:25:2:1): libgda
                         PROPERTY (C preprocessor flags): $(LIBANJUTA_CFLAGS) $(PLUGIN_SYMBOL_DB_CFLAGS) -DDEBUG
                         TARGET (11:6:25:2:1:0): benchmark-libgda
                             PROPERTY (Linker flags): $(LIBANJUTA_LIBS) $(ANJUTA_LIBS) $(PLUGIN_SYMBOL_DB_LIBS)
+                            PROPERTY (Additional objects): ../../libanjuta-symbol-db.la
                             SOURCE (11:6:25:2:1:0:0): plugins/symbol-db/benchmark/libgda/libgda.c
                     GROUP (11:6:25:2:2): sqlite
                         PROPERTY (C preprocessor flags): $(LIBANJUTA_CFLAGS) $(PLUGIN_SYMBOL_DB_CFLAGS) -DDEBUG
@@ -1631,6 +1664,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:25:7:0): plugins/symbol-db/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:25:8): libanjuta-symbol-db.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GDL_LIBS) $(LIBANJUTA_LIBS) $(PLUGIN_SYMBOL_DB_LIBS)
                     SOURCE (11:6:25:8:0): plugins/symbol-db/plugin.c
                     SOURCE (11:6:25:8:1): plugins/symbol-db/plugin.h
                     SOURCE (11:6:25:8:2): plugins/symbol-db/readtags.c
@@ -1673,6 +1707,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:26:3:0): plugins/git/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:26:4): libanjuta-git.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GTK_LIBS) $(LIBANJUTA_LIBS)
                     SOURCE (11:6:26:4:0): plugins/git/plugin.c
                     SOURCE (11:6:26:4:1): plugins/git/plugin.h
                     SOURCE (11:6:26:4:2): plugins/git/git-command.c
@@ -1871,6 +1906,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:27:2:0): plugins/sourceview/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:27:3): libanjuta-sourceview.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GIO_LIBS) $(PLUGIN_SOURCEVIEW_LIBS) $(LIBANJUTA_LIBS)
                     SOURCE (11:6:27:3:0): plugins/sourceview/$(BUILT_SOURCES)
                     SOURCE (11:6:27:3:1): plugins/sourceview/plugin.c
                     SOURCE (11:6:27:3:2): plugins/sourceview/plugin.h
@@ -1904,6 +1940,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:28:3:0): plugins/run-program/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:28:4): libanjuta-run-program.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(LIBANJUTA_LIBS)
                     SOURCE (11:6:28:4:0): plugins/run-program/plugin.c
                     SOURCE (11:6:28:4:1): plugins/run-program/plugin.h
                     SOURCE (11:6:28:4:2): plugins/run-program/parameters.c
@@ -1921,6 +1958,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:29:1:0): plugins/starter/starter_logo.png
                 TARGET (11:6:29:2): libanjuta-starter.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GDL_LIBS) $(LIBANJUTA_LIBS)
                     SOURCE (11:6:29:2:0): plugins/starter/plugin.c
                     SOURCE (11:6:29:2:1): plugins/starter/plugin.h
                     SOURCE (11:6:29:2:2): plugins/starter/starter.h
@@ -1937,6 +1975,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:30:3:0): plugins/am-project/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:30:4): libam-project.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS)
                     SOURCE (11:6:30:4:0): plugins/am-project/plugin.c
                     SOURCE (11:6:30:4:1): plugins/am-project/plugin.h
                     SOURCE (11:6:30:4:2): plugins/am-project/am-project.c
@@ -1957,6 +1996,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:30:4:17): plugins/am-project/am-node.c
                     SOURCE (11:6:30:4:18): plugins/am-project/am-node.h
                 TARGET (11:6:30:5): projectparser
+                    PROPERTY (Additional objects): libam-project.la $(LIBANJUTA_LIBS)
                     SOURCE (11:6:30:5:0): plugins/am-project/projectparser.c
             GROUP (11:6:31): dir-project
                 PROPERTY (Install directories): plugin_uidir = $(anjuta_ui_dir) plugin_gladedir = $(anjuta_glade_dir) plugin_datadir = $(anjuta_data_dir) plugin_pixmapsdir = $(anjuta_image_dir) plugindir = $(anjuta_plugin_dir)
@@ -1971,6 +2011,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:31:4:0): plugins/dir-project/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:31:5): libdir-project.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS)
                     SOURCE (11:6:31:5:0): plugins/dir-project/plugin.c
                     SOURCE (11:6:31:5:1): plugins/dir-project/plugin.h
                     SOURCE (11:6:31:5:2): plugins/dir-project/dir-project.c
@@ -1986,6 +2027,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:32:1:0): plugins/js-debugger/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:32:2): libjs_debugger.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(LIBANJUTA_LIBS)
                     SOURCE (11:6:32:2:0): plugins/js-debugger/debugger-js.c
                     SOURCE (11:6:32:2:1): plugins/js-debugger/debugger-js.h
                     SOURCE (11:6:32:2:2): plugins/js-debugger/debugger-server.c
@@ -2005,6 +2047,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:33:3:0): plugins/language-support-js/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:33:4): libjs-support-plugin.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(LIBANJUTA_LIBS)
                     SOURCE (11:6:33:4:0): plugins/language-support-js/plugin.c
                     SOURCE (11:6:33:4:1): plugins/language-support-js/plugin.h
                     SOURCE (11:6:33:4:2): plugins/language-support-js/code-completion.c
@@ -2051,6 +2094,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:34:0:0): plugins/language-support-vala/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:34:1): libanjuta-language-vala.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(LIBANJUTA_LIBS) $(VALA_LIBS)
                     SOURCE (11:6:34:1:0): plugins/language-support-vala/locator.vala
                     SOURCE (11:6:34:1:1): plugins/language-support-vala/plugin.vala
                     SOURCE (11:6:34:1:2): plugins/language-support-vala/provider.vala
@@ -2068,6 +2112,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                 TARGET (11:6:35:4): python_plugin_plugin
                     SOURCE (11:6:35:4:0): plugins/language-support-python/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:35:5): libpython_plugin.la
+                    PROPERTY (Additional libraries): $(LIBANJUTA_LIBS)
                     SOURCE (11:6:35:5:0): plugins/language-support-python/plugin.c
                     SOURCE (11:6:35:5:1): plugins/language-support-python/plugin.h
                     SOURCE (11:6:35:5:2): plugins/language-support-python/python-assist.c
@@ -2081,6 +2126,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                     SOURCE (11:6:36:0:0): plugins/python-loader/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:36:1): libanjuta-python-loader.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(LIBANJUTA_LIBS) $(PYTHON_LIBS) $(PYGOBJECT_LIBS)
                     SOURCE (11:6:36:1:0): plugins/python-loader/plugin.c
                     SOURCE (11:6:36:1:1): plugins/python-loader/plugin.h
         GROUP (11:7): src
@@ -2096,6 +2142,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                 SOURCE (11:7:3:0): src/anjuta-preferences-general.svg
                 SOURCE (11:7:3:1): src/anjuta-preferences-general-48.png
             TARGET (11:7:4): anjuta
+                PROPERTY (Additional objects): $(GCONF_LIBS) $(GDL_LIBS) $(GLADE_LIBS) $(GLIB_LIBS) $(top_builddir)/libanjuta/libanjuta.la
                 PROPERTY (Linker flags): $(ANJUTA_LDFLAGS)
                 SOURCE (11:7:4:0): src/about.c
                 SOURCE (11:7:4:1): src/about.h
@@ -2108,6 +2155,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
                 SOURCE (11:7:4:8): src/action-callbacks.c
                 SOURCE (11:7:4:9): src/main.c
             TARGET (11:7:5): anjuta-shell
+                PROPERTY (Additional objects): $(top_builddir)/libanjuta/libanjuta.la
                 SOURCE (11:7:5:0): src/shell.c
                 SOURCE (11:7:5:1): src/shell.h
         GROUP (11:8): manuals
@@ -2123,6 +2171,7 @@ PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjut
         GROUP (11:10): launcher
             PROPERTY (C preprocessor flags): -I. -I.. $(ANJUTA_CFLAGS) -g -O $(DEPRECATED_FLAGS)
             TARGET (11:10:0): anjuta-launcher
+                PROPERTY (Additional objects): $(ANJUTA_LIBS)
         GROUP (11:11): po
         TARGET (11:12): anjutadoc
             SOURCE (11:12:0): MAINTAINERS

@@ -29,7 +29,7 @@
 
 G_BEGIN_DECLS
 
-gboolean amp_project_update_am_property (AmpProject *project, AnjutaProjectProperty *property); 
+gboolean amp_project_update_am_property (AmpProject *project, AnjutaProjectNode *node, AnjutaProjectProperty *property); 
 
 gboolean amp_group_create_token (AmpProject *project, AnjutaAmGroupNode *group, GError **error);
 gboolean amp_group_delete_token (AmpProject  *project, AnjutaAmGroupNode *target, GError **error);

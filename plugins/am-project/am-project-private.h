@@ -38,6 +38,7 @@ struct _AmpProperty {
 	gint position;
 	AmpPropertyFlag flags;
 	AnjutaToken *token;
+	const gchar *suffix;
 };
 
 struct _AmpProject {

@@ -582,16 +582,24 @@ anjuta_token_first_item (AnjutaToken *list)
 AnjutaToken *
 anjuta_token_next_item (AnjutaToken *item)
 {
-	AnjutaToken *last;
-	AnjutaToken *next = NULL;
+	AnjutaToken *next;
 
 	if (item != NULL)
 	{
-		if ((item->group == NULL) || (item->group->last != item))
+		do
 		{
-			for (last = item; last->last != NULL; last = last->last);
-			next = anjuta_token_next (last);
+			next = NULL;
+			if ((item->group == NULL) || (item->group->last != item))
+			{
+				AnjutaToken *last;
+				for (last = item; last->last != NULL; last = last->last);
+				next = anjuta_token_next (last);
+				if ((next != NULL) && (next->group != item->group)) next = NULL;
+			}
+			item = next;
 		}
+		/* Loop if the current item has been deleted */
+		while ((next != NULL) && (anjuta_token_get_flags (next) & ANJUTA_TOKEN_REMOVED));
 	}
 
 	return next;
@@ -600,13 +608,21 @@ anjuta_token_next_item (AnjutaToken *item)
 AnjutaToken *
 anjuta_token_previous_item (AnjutaToken *item)
 {
-	AnjutaToken *first;
+	AnjutaToken *prev = NULL;
 
-	if (item == NULL) return NULL;
+	
+	if (item != NULL)
+	{
+		do
+		{
+			for (prev = item->prev; (prev != NULL) && (prev->group != item->group); prev = prev->group);
+			item = prev;
+		}
+		/* Loop if the current item has been deleted */
+		while ((prev != NULL) && (anjuta_token_get_flags (prev) & ANJUTA_TOKEN_REMOVED));
+	}
 
-	for (first = item->prev; (first != NULL) && (first->group != item->group); first = first->group);
-
-	return first;
+	return prev;
 }
 
 /* Add/Insert/Remove tokens
@@ -1074,7 +1090,7 @@ anjuta_token_merge_previous (AnjutaToken *list, AnjutaToken *first)
 	 * if the list is already linked */
 	if ((list->prev != NULL) || (list->parent != NULL))
 	{
-		for (token = first; token != list; token = anjuta_token_next_item (token))
+		for (token = first; token != NULL; token = anjuta_token_next_item (token))
 		{
 			token->group = list;
 		}

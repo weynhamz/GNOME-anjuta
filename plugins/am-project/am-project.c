@@ -766,11 +766,13 @@ amp_project_load_properties (AmpProject *project, AnjutaToken *macro, AnjutaToke
 				amp_property_free (new_prop);
 			}
 			new_prop = amp_property_new (NULL, prop->token_type, prop->position, NULL, macro);
-			anjuta_project_node_insert_property (project->root, prop, new_prop);
-
 			arg = anjuta_token_nth_word (args, prop->position);
-			if ((new_prop->value != NULL) && (new_prop->value != prop->base.value)) g_free (new_prop->value);
+			if ((new_prop->value != NULL) && (new_prop->value != prop->base.value))
+			{
+				g_free (new_prop->value);
+			}
 			new_prop->value = anjuta_token_evaluate (arg);
+			anjuta_project_node_insert_property (project->root, prop, new_prop);
 		}
 	}
 	//g_message ("prop list %p get prop %p", *list, anjuta_project_node_get_property (project->root);
@@ -2251,7 +2253,7 @@ iproject_set_property (IAnjutaProject *obj, AnjutaProjectNode *node, AnjutaProje
 	}
 	else if (flags & AM_PROPERTY_IN_MAKEFILE)
 	{
-		amp_project_update_am_property (AMP_PROJECT (obj), new_prop);
+		amp_project_update_am_property (AMP_PROJECT (obj), node, new_prop);
 	}
 	
 	return new_prop;

@@ -583,6 +583,21 @@ main(int argc, char *argv[])
 			}
 			command += 3;
 		}
+		else if (g_ascii_strcasecmp (command[0], "clear") == 0)
+		{
+			if (AMP_IS_PROJECT (project))
+			{
+				AnjutaProjectProperty *item;
+
+				node = get_node (project, root, command[1]);
+				item = get_project_property (project, node, command[2]);
+				if (item != NULL)
+				{
+					ianjuta_project_set_property (project, node, item, NULL, NULL);
+				}
+			}
+			command += 2;
+		}
 		else
 		{
 			fprintf (stderr, "Error: unknown command %s\n", *command);
