@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2010-09-21 21:22+0000\n"
-"PO-Revision-Date: 2010-09-22 00:33+0200\n"
+"POT-Creation-Date: 2010-10-16 22:00+0000\n"
+"PO-Revision-Date: 2010-10-18 11:01+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -196,11 +196,11 @@ msgid "Thai"
 msgstr "Tailandés"
 
 #: ../libanjuta/anjuta-encodings.c:441 ../plugins/gbf-am/gbf-am-project.c:193
-#: ../plugins/gbf-am/gbf-am-project.c:3372
+#: ../plugins/gbf-am/gbf-am-project.c:3373
 #: ../plugins/gbf-am/gbf-am-properties.c:130
 #: ../plugins/gbf-am/gbf-am-properties.c:177
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:191
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3267
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3270
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:104
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:151
 #: ../plugins/dir-project/dir-project.c:802
@@ -441,7 +441,7 @@ msgid "If you do not save, all your changes will be lost."
 msgstr "Si no guarda, se perderán todos sus cambios."
 
 #: ../libanjuta/anjuta-save-prompt.c:189
-#: ../plugins/document-manager/plugin.c:605
+#: ../plugins/document-manager/plugin.c:609
 #: ../plugins/snippets-manager/snippets-editor.ui.h:11
 msgid "Save"
 msgstr "Guardar"
@@ -938,9 +938,9 @@ msgstr "No hay ejecutable para este proyecto."
 
 #: ../plugins/build-basic-autotools/executer.c:157
 #: ../plugins/gbf-am/gbf-am-project.c:196
-#: ../plugins/gbf-am/gbf-am-project.c:3362
+#: ../plugins/gbf-am/gbf-am-project.c:3363
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:194
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3261
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3264
 msgid "Program"
 msgstr "Programa"
 
@@ -1002,74 +1002,74 @@ msgstr "make(\\[\\d+\\])?:\\s+Dejando\\s+\\el\\s+directorio\\s+`(.+)'"
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+Dejando\\s+\\el\\s+directorio\\s+'(.+)'"
 
-#: ../plugins/build-basic-autotools/plugin.c:846
+#: ../plugins/build-basic-autotools/plugin.c:857
 #, c-format
 msgid "Entering: %s"
 msgstr "Entrando en: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:882
+#: ../plugins/build-basic-autotools/plugin.c:893
 #, c-format
 msgid "Leaving: %s"
 msgstr "Dejando: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:915
+#: ../plugins/build-basic-autotools/plugin.c:926
 #: ../plugins/tools/execute.c:330
 msgid "warning:"
 msgstr "aviso:"
 
-#: ../plugins/build-basic-autotools/plugin.c:921
+#: ../plugins/build-basic-autotools/plugin.c:932
 #: ../plugins/tools/execute.c:335
 msgid "error:"
 msgstr "error:"
 
-#: ../plugins/build-basic-autotools/plugin.c:1038
+#: ../plugins/build-basic-autotools/plugin.c:1049
 #, c-format
 msgid "Command exited with status %d"
 msgstr "El comando salió con estado %d"
 
-#: ../plugins/build-basic-autotools/plugin.c:1048
-#: ../plugins/build-basic-autotools/plugin.c:1527
+#: ../plugins/build-basic-autotools/plugin.c:1059
+#: ../plugins/build-basic-autotools/plugin.c:1538
 #, c-format
 msgid "Command canceled by user"
 msgstr "Comando cancelado por el usuario"
 
-#: ../plugins/build-basic-autotools/plugin.c:1053
+#: ../plugins/build-basic-autotools/plugin.c:1064
 #, c-format
 msgid "Command aborted by user"
 msgstr "Comando abortado por el usuario"
 
-#: ../plugins/build-basic-autotools/plugin.c:1058
+#: ../plugins/build-basic-autotools/plugin.c:1069
 #, c-format
 msgid "Command terminated with signal %d"
 msgstr "Comando terminado con la señal %d"
 
-#: ../plugins/build-basic-autotools/plugin.c:1066
+#: ../plugins/build-basic-autotools/plugin.c:1077
 msgid "Command terminated for an unknown reason"
 msgstr "Comando terminado por razón desconocida"
 
-#: ../plugins/build-basic-autotools/plugin.c:1084
+#: ../plugins/build-basic-autotools/plugin.c:1095
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "Tiempo total empleado: %lu segundos\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:1091
+#: ../plugins/build-basic-autotools/plugin.c:1102
 msgid "Completed unsuccessfully\n"
 msgstr "Completado incorrectamente\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:1099
+#: ../plugins/build-basic-autotools/plugin.c:1110
 #: ../plugins/tools/execute.c:516
 msgid "Completed successfully\n"
 msgstr "Completado correctamente\n"
 
 #. Translators: the first number is the number of the build attemp,
 #. the string is the directory where the build takes place
-#: ../plugins/build-basic-autotools/plugin.c:1187
+#: ../plugins/build-basic-autotools/plugin.c:1198
 #, c-format
 msgid "Build %d: %s"
 msgstr "Construir %d: %s"
 
 #. Need to run make clean before
-#: ../plugins/build-basic-autotools/plugin.c:1522
+#: ../plugins/build-basic-autotools/plugin.c:1533
 msgid ""
 "Before using this new configuration, the default one needs to be removed. Do "
 "you want to do that ?"
@@ -1077,204 +1077,204 @@ msgstr ""
 "Antes de usar esta nueva configuración necesita quitar la predeterminada. "
 "¿Quiere hacerlo?"
 
-#: ../plugins/build-basic-autotools/plugin.c:1823
+#: ../plugins/build-basic-autotools/plugin.c:1834
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 "No se puede compilar «%s»: No se definió una regla de compilación para este "
 "tipo de archivo."
 
-#: ../plugins/build-basic-autotools/plugin.c:1958
+#: ../plugins/build-basic-autotools/plugin.c:1969
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
 msgstr ""
 "No se puede configurar el proyecto: Falta el script de configuración en %s."
 
-#: ../plugins/build-basic-autotools/plugin.c:2439
-#: ../plugins/build-basic-autotools/plugin.c:2513
-#: ../plugins/build-basic-autotools/plugin.c:2523
-#: ../plugins/build-basic-autotools/plugin.c:2541
-#: ../plugins/build-basic-autotools/plugin.c:2551
-#: ../plugins/build-basic-autotools/plugin.c:2608
+#: ../plugins/build-basic-autotools/plugin.c:2450
+#: ../plugins/build-basic-autotools/plugin.c:2524
+#: ../plugins/build-basic-autotools/plugin.c:2534
+#: ../plugins/build-basic-autotools/plugin.c:2552
+#: ../plugins/build-basic-autotools/plugin.c:2562
+#: ../plugins/build-basic-autotools/plugin.c:2619
 #, c-format
 msgid "_Build"
 msgstr "_Construir"
 
-#: ../plugins/build-basic-autotools/plugin.c:2443
+#: ../plugins/build-basic-autotools/plugin.c:2454
 msgid "_Build Project"
 msgstr "_Construir proyecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2444
+#: ../plugins/build-basic-autotools/plugin.c:2455
 msgid "Build whole project"
 msgstr "Construye el proyecto completo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2449
+#: ../plugins/build-basic-autotools/plugin.c:2460
 msgid "_Install Project"
 msgstr "_Instalar proyecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2450
+#: ../plugins/build-basic-autotools/plugin.c:2461
 msgid "Install whole project"
 msgstr "Instala todo el proyecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2455
+#: ../plugins/build-basic-autotools/plugin.c:2466
 msgid "_Clean Project"
 msgstr "_Limpiar proyecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2456
+#: ../plugins/build-basic-autotools/plugin.c:2467
 msgid "Clean whole project"
 msgstr "Limpia todo el proyecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2461
+#: ../plugins/build-basic-autotools/plugin.c:2472
 msgid "C_onfigure Project…"
 msgstr "C_onfigurar el proyecto…"
 
-#: ../plugins/build-basic-autotools/plugin.c:2462
+#: ../plugins/build-basic-autotools/plugin.c:2473
 msgid "Configure project"
 msgstr "Configura el proyecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2467
+#: ../plugins/build-basic-autotools/plugin.c:2478
 msgid "Build _Tarball"
 msgstr "Construir _tarball"
 
-#: ../plugins/build-basic-autotools/plugin.c:2468
+#: ../plugins/build-basic-autotools/plugin.c:2479
 msgid "Build project tarball distribution"
 msgstr "Construye un paquete del proyecto para distribuirlo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2473
+#: ../plugins/build-basic-autotools/plugin.c:2484
 msgid "_Build Module"
 msgstr "_Construir módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2474
+#: ../plugins/build-basic-autotools/plugin.c:2485
 msgid "Build module associated with current file"
 msgstr "Construye el módulo asociado al archivo actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:2479
+#: ../plugins/build-basic-autotools/plugin.c:2490
 msgid "_Install Module"
 msgstr "_Instalar módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2480
+#: ../plugins/build-basic-autotools/plugin.c:2491
 msgid "Install module associated with current file"
 msgstr "Instala un módulo asociado al archivo actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:2485
+#: ../plugins/build-basic-autotools/plugin.c:2496
 msgid "_Clean Module"
 msgstr "_Limpiar módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2486
+#: ../plugins/build-basic-autotools/plugin.c:2497
 msgid "Clean module associated with current file"
 msgstr "Limpia el módulo asociado al archivo actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:2491
+#: ../plugins/build-basic-autotools/plugin.c:2502
 msgid "Co_mpile File"
 msgstr "Co_mpilar archivo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2492
+#: ../plugins/build-basic-autotools/plugin.c:2503
 msgid "Compile current editor file"
 msgstr "Compila el archivo actual del editor"
 
-#: ../plugins/build-basic-autotools/plugin.c:2497
+#: ../plugins/build-basic-autotools/plugin.c:2508
 msgid "Select Configuration"
 msgstr "Seleccionar configuración"
 
-#: ../plugins/build-basic-autotools/plugin.c:2498
+#: ../plugins/build-basic-autotools/plugin.c:2509
 msgid "Select current configuration"
 msgstr "Seleccionar la configuración actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:2503
+#: ../plugins/build-basic-autotools/plugin.c:2514
 msgid "Remove Configuration"
 msgstr "Eliminar configuración"
 
-#: ../plugins/build-basic-autotools/plugin.c:2504
+#: ../plugins/build-basic-autotools/plugin.c:2515
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr ""
 "Limpiar el proyecto (distclean) y eliminar el directorio de configuración si "
 "es posible"
 
-#: ../plugins/build-basic-autotools/plugin.c:2517
-#: ../plugins/build-basic-autotools/plugin.c:2545
+#: ../plugins/build-basic-autotools/plugin.c:2528
+#: ../plugins/build-basic-autotools/plugin.c:2556
 msgid "_Compile"
 msgstr "_Compilar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2518
-#: ../plugins/build-basic-autotools/plugin.c:2546
+#: ../plugins/build-basic-autotools/plugin.c:2529
+#: ../plugins/build-basic-autotools/plugin.c:2557
 msgid "Compile file"
 msgstr "Compilar el archivo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2524
-#: ../plugins/build-basic-autotools/plugin.c:2552
+#: ../plugins/build-basic-autotools/plugin.c:2535
+#: ../plugins/build-basic-autotools/plugin.c:2563
 msgid "Build module"
 msgstr "Construir un módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2529
-#: ../plugins/build-basic-autotools/plugin.c:2557
-#: ../plugins/build-basic-autotools/plugin.c:2615
+#: ../plugins/build-basic-autotools/plugin.c:2540
+#: ../plugins/build-basic-autotools/plugin.c:2568
+#: ../plugins/build-basic-autotools/plugin.c:2626
 #, c-format
 msgid "_Install"
 msgstr "_Instalar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2530
-#: ../plugins/build-basic-autotools/plugin.c:2558
+#: ../plugins/build-basic-autotools/plugin.c:2541
+#: ../plugins/build-basic-autotools/plugin.c:2569
 msgid "Install module"
 msgstr "Instalar un módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2535
-#: ../plugins/build-basic-autotools/plugin.c:2563
-#: ../plugins/build-basic-autotools/plugin.c:2622
+#: ../plugins/build-basic-autotools/plugin.c:2546
+#: ../plugins/build-basic-autotools/plugin.c:2574
+#: ../plugins/build-basic-autotools/plugin.c:2633
 #, c-format
 msgid "_Clean"
 msgstr "_Limpiar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2536
-#: ../plugins/build-basic-autotools/plugin.c:2564
+#: ../plugins/build-basic-autotools/plugin.c:2547
+#: ../plugins/build-basic-autotools/plugin.c:2575
 msgid "Clean module"
 msgstr "Limpiar un módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2569
+#: ../plugins/build-basic-autotools/plugin.c:2580
 msgid "_Cancel command"
 msgstr "Comando _cancelar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2570
+#: ../plugins/build-basic-autotools/plugin.c:2581
 msgid "Cancel build command"
 msgstr "Comando cancelar construcción"
 
-#: ../plugins/build-basic-autotools/plugin.c:2608
+#: ../plugins/build-basic-autotools/plugin.c:2619
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Construir (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2615
+#: ../plugins/build-basic-autotools/plugin.c:2626
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Instalar (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2622
+#: ../plugins/build-basic-autotools/plugin.c:2633
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Limpiar (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2630
+#: ../plugins/build-basic-autotools/plugin.c:2641
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Co_mpilar (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2630
+#: ../plugins/build-basic-autotools/plugin.c:2641
 #, c-format
 msgid "Co_mpile"
 msgstr "Co_mpilar"
 
-#: ../plugins/build-basic-autotools/plugin.c:3166
+#: ../plugins/build-basic-autotools/plugin.c:3177
 msgid "Build commands"
 msgstr "Comandos de construcción"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:3175
+#: ../plugins/build-basic-autotools/plugin.c:3186
 msgid "Build popup commands"
 msgstr "Comandos de construcción emergentes"
 
-#: ../plugins/build-basic-autotools/plugin.c:3557
-#: ../plugins/build-basic-autotools/plugin.c:3565
+#: ../plugins/build-basic-autotools/plugin.c:3568
+#: ../plugins/build-basic-autotools/plugin.c:3576
 msgid "Build Autotools"
 msgstr "Autotools de construcción"
 
@@ -1352,7 +1352,7 @@ msgid "General Class Properties"
 msgstr "Propiedades generales de la clase"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:18
-#: ../plugins/file-wizard/file.c:103
+#: ../plugins/file-wizard/file.c:104
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:15
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:15
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:15
@@ -1385,7 +1385,7 @@ msgid "Inline the declaration and implementation"
 msgstr "Declaración e implementación en línea"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:22
-#: ../plugins/file-wizard/file.c:104
+#: ../plugins/file-wizard/file.c:105
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:17
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:17
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:17
@@ -1456,7 +1456,7 @@ msgstr "Archivo en el que se escribirá la plantilla procesada"
 msgid "Failed to write autogen definition file"
 msgstr "Falló al escribir el archivo de definición de Autogen"
 
-#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1160
+#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1157
 msgid ""
 "Could not find autogen version 5; please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net."
@@ -2747,7 +2747,7 @@ msgstr "Archivo"
 
 #: ../plugins/debug-manager/stack_trace.c:675
 #: ../plugins/debug-manager/threads.c:460
-#: ../plugins/document-manager/plugin.c:945
+#: ../plugins/document-manager/plugin.c:949
 msgid "Line"
 msgstr "Línea"
 
@@ -3616,9 +3616,9 @@ msgid "Simple searching"
 msgstr "Busqueda simple"
 
 #: ../plugins/document-manager/plugin.c:419
-#: ../plugins/document-manager/plugin.c:1736
-#: ../plugins/document-manager/plugin.c:2153
-#: ../plugins/document-manager/plugin.c:2163
+#: ../plugins/document-manager/plugin.c:1769
+#: ../plugins/document-manager/plugin.c:2186
+#: ../plugins/document-manager/plugin.c:2196
 msgid "Documents"
 msgstr "Documentos"
 
@@ -3626,47 +3626,47 @@ msgstr "Documentos"
 msgid "Editor view settings"
 msgstr "Configuración de la vista del editor"
 
-#: ../plugins/document-manager/plugin.c:609
+#: ../plugins/document-manager/plugin.c:613
 msgid "Reload"
 msgstr "Recargar"
 
-#: ../plugins/document-manager/plugin.c:615
+#: ../plugins/document-manager/plugin.c:619
 msgid "Go to"
 msgstr "Ir a"
 
-#: ../plugins/document-manager/plugin.c:930
+#: ../plugins/document-manager/plugin.c:934
 msgid "OVR"
 msgstr "SOB"
 
-#: ../plugins/document-manager/plugin.c:934
+#: ../plugins/document-manager/plugin.c:938
 msgid "INS"
 msgstr "INS"
 
-#: ../plugins/document-manager/plugin.c:940
-#: ../plugins/document-manager/plugin.c:943
+#: ../plugins/document-manager/plugin.c:944
+#: ../plugins/document-manager/plugin.c:947
 msgid "Zoom"
 msgstr "Ampliación"
 
-#: ../plugins/document-manager/plugin.c:946
+#: ../plugins/document-manager/plugin.c:950
 msgid "Col"
 msgstr "Col"
 
-#: ../plugins/document-manager/plugin.c:947
+#: ../plugins/document-manager/plugin.c:951
 msgid "Mode"
 msgstr "Modo"
 
 #. Automatic highlight menu
-#: ../plugins/document-manager/plugin.c:1027
+#: ../plugins/document-manager/plugin.c:1031
 msgid "Automatic"
 msgstr "Automático"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1560
+#: ../plugins/document-manager/plugin.c:1593
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "Falló el autoguardado para el archivo %s"
 
-#: ../plugins/document-manager/plugin.c:1574
+#: ../plugins/document-manager/plugin.c:1607
 msgid "Autosave completed"
 msgstr "Completado el autoguardado"
 
@@ -4073,14 +4073,19 @@ msgid "Shell Script File"
 msgstr "Archivo de script de shell"
 
 #: ../plugins/file-wizard/file.c:92
+#| msgid "Java Source File"
+msgid "Vala Source File"
+msgstr "Archivo de código fuente Vala"
+
+#: ../plugins/file-wizard/file.c:93
 msgid "Other"
 msgstr "Otros"
 
-#: ../plugins/file-wizard/file.c:105
+#: ../plugins/file-wizard/file.c:106
 msgid "BSD Public License"
 msgstr "Licencia Pública BSD"
 
-#: ../plugins/file-wizard/file.c:183
+#: ../plugins/file-wizard/file.c:184
 msgid "Unable to build user interface for New File"
 msgstr "No se pudo construir la interfaz de usuario para «Archivo nuevo»"
 
@@ -4113,44 +4118,44 @@ msgid "Variables"
 msgstr "Variables"
 
 #: ../plugins/gbf-am/gbf-am-project.c:199
-#: ../plugins/gbf-am/gbf-am-project.c:3352
+#: ../plugins/gbf-am/gbf-am-project.c:3353
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:197
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3253
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3256
 msgid "Static Library"
 msgstr "Biblioteca estática"
 
 #: ../plugins/gbf-am/gbf-am-project.c:202
-#: ../plugins/gbf-am/gbf-am-project.c:3354
+#: ../plugins/gbf-am/gbf-am-project.c:3355
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:200
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3255
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3258
 msgid "Shared Library"
 msgstr "Biblioteca compartida"
 
 #: ../plugins/gbf-am/gbf-am-project.c:205
-#: ../plugins/gbf-am/gbf-am-project.c:3358
+#: ../plugins/gbf-am/gbf-am-project.c:3359
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:203
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3257
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3260
 msgid "Man Documentation"
 msgstr "Documentación man"
 
 #: ../plugins/gbf-am/gbf-am-project.c:208
-#: ../plugins/gbf-am/gbf-am-project.c:3360
+#: ../plugins/gbf-am/gbf-am-project.c:3361
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:206
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3259
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3262
 msgid "Miscellaneous Data"
 msgstr "Datos misceláneos"
 
 #: ../plugins/gbf-am/gbf-am-project.c:211
-#: ../plugins/gbf-am/gbf-am-project.c:3364
+#: ../plugins/gbf-am/gbf-am-project.c:3365
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:209
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3263
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3266
 msgid "Script"
 msgstr "Script"
 
 #: ../plugins/gbf-am/gbf-am-project.c:214
-#: ../plugins/gbf-am/gbf-am-project.c:3366
+#: ../plugins/gbf-am/gbf-am-project.c:3367
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:212
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3265
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3268
 msgid "Info Documentation"
 msgstr "Documentación"
 
@@ -4160,19 +4165,19 @@ msgid "Lisp Module"
 msgstr "Módulo Lisp"
 
 #: ../plugins/gbf-am/gbf-am-project.c:220
-#: ../plugins/gbf-am/gbf-am-project.c:3356
+#: ../plugins/gbf-am/gbf-am-project.c:3357
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:218
 msgid "Header Files"
 msgstr "Archivos de cabecera"
 
 #: ../plugins/gbf-am/gbf-am-project.c:223
-#: ../plugins/gbf-am/gbf-am-project.c:3368
+#: ../plugins/gbf-am/gbf-am-project.c:3369
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:221
 msgid "Java Module"
 msgstr "Módulo Java"
 
 #: ../plugins/gbf-am/gbf-am-project.c:226
-#: ../plugins/gbf-am/gbf-am-project.c:3370
+#: ../plugins/gbf-am/gbf-am-project.c:3371
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:224
 msgid "Python Module"
 msgstr "Módulo Python"
@@ -4214,48 +4219,48 @@ msgstr "Regla intl"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2559
 #: ../plugins/gbf-am/gbf-am-project.c:2637
-#: ../plugins/gbf-am/gbf-am-project.c:2846
-#: ../plugins/gbf-am/gbf-am-project.c:3055
-#: ../plugins/gbf-am/gbf-am-project.c:3205
+#: ../plugins/gbf-am/gbf-am-project.c:2847
+#: ../plugins/gbf-am/gbf-am-project.c:3056
+#: ../plugins/gbf-am/gbf-am-project.c:3206
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2506
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2584
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2812
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2998
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3146
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2815
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3001
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3149
 msgid "Group doesn't exist"
 msgstr "El grupo no existe"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2579
 #: ../plugins/gbf-am/gbf-am-project.c:2682
-#: ../plugins/gbf-am/gbf-am-project.c:3098
-#: ../plugins/gbf-am/gbf-am-project.c:3320
-#: ../plugins/gbf-am/gbf-am-project.c:3541
+#: ../plugins/gbf-am/gbf-am-project.c:3099
+#: ../plugins/gbf-am/gbf-am-project.c:3321
+#: ../plugins/gbf-am/gbf-am-project.c:3542
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2526
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2629
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3041
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3221
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3407
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3044
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3224
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3410
 msgid "Target doesn't exist"
 msgstr "El objetivo no existe"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2613
 #: ../plugins/gbf-am/gbf-am-project.c:2657
 #: ../plugins/gbf-am/gbf-am-project.c:2700
-#: ../plugins/gbf-am/gbf-am-project.c:3016
-#: ../plugins/gbf-am/gbf-am-project.c:3076
-#: ../plugins/gbf-am/gbf-am-project.c:3280
-#: ../plugins/gbf-am/gbf-am-project.c:3341
-#: ../plugins/gbf-am/gbf-am-project.c:3649
-#: ../plugins/gbf-am/gbf-am-project.c:3710
+#: ../plugins/gbf-am/gbf-am-project.c:3017
+#: ../plugins/gbf-am/gbf-am-project.c:3077
+#: ../plugins/gbf-am/gbf-am-project.c:3281
+#: ../plugins/gbf-am/gbf-am-project.c:3342
+#: ../plugins/gbf-am/gbf-am-project.c:3650
+#: ../plugins/gbf-am/gbf-am-project.c:3711
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2560
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2604
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2647
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2959
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3019
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3182
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3242
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3474
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3535
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2962
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3022
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3185
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3245
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3477
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3538
 msgid "Unable to update project"
 msgstr "No se pudo actualizar el proyecto"
 
@@ -4277,110 +4282,111 @@ msgstr "El proyecto no existe o ruta no válida"
 msgid "Malformed project"
 msgstr "Proyecto deformado"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2959
+#: ../plugins/gbf-am/gbf-am-project.c:2960
 msgid "Please specify group name"
 msgstr "Especifique el nombre del grupo"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2973
+#: ../plugins/gbf-am/gbf-am-project.c:2974
 msgid "Group name can only contain alphanumeric, '_', '-' or '.' characters"
 msgstr ""
-"El nombre del grupo sólo puede contener caracteres alfanuméricos, «_», «-» o «.»"
+"El nombre del grupo sólo puede contener caracteres alfanuméricos, «_», «-» o "
+"«.»"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2982
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2925
+#: ../plugins/gbf-am/gbf-am-project.c:2983
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2928
 msgid "Parent group doesn't exist"
 msgstr "El grupo padre no existe"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2993
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2936
+#: ../plugins/gbf-am/gbf-am-project.c:2994
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2939
 msgid "Group already exists"
 msgstr "El grupo ya existe"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3003
-#: ../plugins/gbf-am/gbf-am-project.c:3030
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2946
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2973
+#: ../plugins/gbf-am/gbf-am-project.c:3004
+#: ../plugins/gbf-am/gbf-am-project.c:3031
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2949
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2976
 msgid "Group couldn't be created"
 msgstr "No se pudo crear el grupo"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3063
+#: ../plugins/gbf-am/gbf-am-project.c:3064
 msgid "Group couldn't be removed"
 msgstr "No se pudo eliminar el grupo"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3213
+#: ../plugins/gbf-am/gbf-am-project.c:3214
 msgid "Please specify target name"
 msgstr "Especifique el nombre del objetivo"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3227
+#: ../plugins/gbf-am/gbf-am-project.c:3228
 msgid "Target name can only contain alphanumeric, '_', '-' or '.' characters"
 msgstr ""
-"El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», «-» "
-"o «.»"
+"El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», "
+"«-» o «.»"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3236
+#: ../plugins/gbf-am/gbf-am-project.c:3237
 msgid "Shared library target name must be of the form 'libxxx.la'"
 msgstr ""
 "El nombre de la biblioteca compartida del objetivo debe ser de la forma "
 "«libxxx.la»"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3245
+#: ../plugins/gbf-am/gbf-am-project.c:3246
 msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr ""
-"El nombre de la biblioteca estática del objetivo debe ser de la forma «libxxx."
-"a»"
+"El nombre de la biblioteca estática del objetivo debe ser de la forma "
+"«libxxx.a»"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3257
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3159
+#: ../plugins/gbf-am/gbf-am-project.c:3258
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3162
 msgid "Target already exists"
 msgstr "El objetivo ya existe"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3267
+#: ../plugins/gbf-am/gbf-am-project.c:3268
 msgid "General failure in target creation"
 msgstr "Fallo general al crear el objetivo"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3295
+#: ../plugins/gbf-am/gbf-am-project.c:3296
 msgid "Newly created target could not be identified"
 msgstr "No se pudo identificar el objetivo recién creado"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3328
+#: ../plugins/gbf-am/gbf-am-project.c:3329
 msgid "Target couldn't be removed"
 msgstr "El objetivo no se ha podido eliminar"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3428
-#: ../plugins/gbf-am/gbf-am-project.c:3687
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3317
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3512
+#: ../plugins/gbf-am/gbf-am-project.c:3429
+#: ../plugins/gbf-am/gbf-am-project.c:3688
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3320
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3515
 msgid "Source doesn't exist"
 msgstr "El código fuente no existe"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3532
+#: ../plugins/gbf-am/gbf-am-project.c:3533
 msgid ""
 "Source file name can only contain alphanumeric, '_', '-' or '.' characters"
 msgstr ""
 "El nombre de archivo de origen sólo puede contener caracteres alfanuméricos, "
 "«_», «-» o «.»"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3612
+#: ../plugins/gbf-am/gbf-am-project.c:3613
 msgid "Source file is already in given target"
 msgstr "El archivo fuente ya encuentra en el objetivo"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3630
+#: ../plugins/gbf-am/gbf-am-project.c:3631
 msgid "General failure in adding source file"
 msgstr "Fallo general al añadir el archivo de código"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3664
+#: ../plugins/gbf-am/gbf-am-project.c:3665
 msgid "Newly added source file could not be identified"
 msgstr "No se pudo identificar el archivo fuente recién creado"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3695
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3520
+#: ../plugins/gbf-am/gbf-am-project.c:3696
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3523
 msgid "Source couldn't be removed"
 msgstr "El código no pudo ser eliminado"
 
-#: ../plugins/gbf-am/gbf-am-project.c:4111
 #: ../plugins/gbf-am/gbf-am-project.c:4112
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3830
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3831
+#: ../plugins/gbf-am/gbf-am-project.c:4113
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3833
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3834
 msgid "Project directory"
 msgstr "Directorio del proyecto"
 
@@ -4564,29 +4570,29 @@ msgstr "Tipo GbfMkfileConfigValue no válido"
 msgid "Project doesn't exist"
 msgstr "El proyecto no existe"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3006
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3009
 msgid "Group coudn't be removed"
 msgstr "El grupo no se ha podido eliminar"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3169
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3196
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3172
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3199
 msgid "Target couldn't be created"
 msgstr "No se pudo crear el objetivo"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3229
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3232
 msgid "Target coudn't be removed"
 msgstr "No se pudo eliminar el objetivo"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3427
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3430
 msgid "Source file must be inside the project directory"
 msgstr "El archivo de código debe estar dentro del directorio del proyecto"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3439
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3442
 msgid "Source is already in target"
 msgstr "El código ya se encuentra en el objetivo"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3456
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3488
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3459
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3491
 msgid "Source couldn't be added"
 msgstr "No se pudo añadir el código"
 
@@ -6823,8 +6829,8 @@ msgid ""
 "A file named \"%s\" cannot be written: %s. Check if you have write access to "
 "the project directory."
 msgstr ""
-"No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene acceso "
-"de escritura al directorio del proyecto."
+"No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene "
+"acceso de escritura al directorio del proyecto."
 
 #: ../plugins/project-import/plugin.c:200
 #, c-format
@@ -6837,9 +6843,9 @@ msgid ""
 "Could not find a valid project backend for the given directory (%s). Please "
 "select a different directory, or try upgrading to a newer version of Anjuta."
 msgstr ""
-"No se pudo encontrar un «backend» válido del proyecto para el directorio dado "
-"(%s). Seleccione un directorio diferente, o intente actualizar a una versión "
-"más moderna de Anjuta."
+"No se pudo encontrar un «backend» válido del proyecto para el directorio "
+"dado (%s). Seleccione un directorio diferente, o intente actualizar a una "
+"versión más moderna de Anjuta."
 
 #: ../plugins/project-import/plugin.c:290
 #: ../plugins/project-import/plugin.c:346
@@ -7311,7 +7317,7 @@ msgstr "Entrada no válida"
 msgid "Dubious entry"
 msgstr "Entrada dudosa"
 
-#: ../plugins/project-wizard/druid.c:884
+#: ../plugins/project-wizard/druid.c:881
 #, c-format
 msgid ""
 "\n"
@@ -7320,7 +7326,7 @@ msgstr ""
 "\n"
 "Faltan programas: %s"
 
-#: ../plugins/project-wizard/druid.c:895
+#: ../plugins/project-wizard/druid.c:892
 #, c-format
 msgid ""
 "\n"
@@ -7329,7 +7335,7 @@ msgstr ""
 "\n"
 "Faltan paquetes: %s."
 
-#: ../plugins/project-wizard/druid.c:904
+#: ../plugins/project-wizard/druid.c:901
 msgid ""
 "Some important programs or development packages required to build this "
 "project are missing. Please make sure they are installed properly before "
@@ -7339,11 +7345,11 @@ msgstr ""
 "faltan para construir este proyecto. Asegúrese de que están instalados "
 "adecuadamente antes de generar el proyecto.\n"
 
-#: ../plugins/project-wizard/druid.c:912
+#: ../plugins/project-wizard/druid.c:909
 msgid "Install missing packages"
 msgstr "Instalar los paquetes que faltan"
 
-#: ../plugins/project-wizard/druid.c:920
+#: ../plugins/project-wizard/druid.c:917
 msgid ""
 "The missing programs are usually part of some distrubution packages and can "
 "be searched for in your Application Manager. Similarly, the development "
@@ -7359,11 +7365,11 @@ msgstr ""
 "ellos. Generalmente acaban con el sufijo «-dev» o «-devel» en el nombre del "
 "paquete y se pueden encontrar buscando en su Gestor de aplicaciones."
 
-#: ../plugins/project-wizard/druid.c:928
+#: ../plugins/project-wizard/druid.c:925
 msgid "Missing components"
 msgstr "Faltan componentes"
 
-#: ../plugins/project-wizard/druid.c:1060
+#: ../plugins/project-wizard/druid.c:1057
 #, c-format
 msgid "Unable to build project assistant user interface reading %s."
 msgstr ""
@@ -7886,8 +7892,8 @@ msgid ""
 "'libgnomeui-2.0 >= 2.2.0'"
 msgstr ""
 "Proporcione un nombre de paquete que requiere su proyecto. También puede "
-"mencionar cuál es la versión requerida del paquete. Por ejemplo, «libgnomeui-"
-"2.0» o «libgnomeui-2.0 >= 2.2.0»"
+"mencionar cuál es la versión requerida del paquete. Por ejemplo, "
+"«libgnomeui-2.0» o «libgnomeui-2.0 >= 2.2.0»"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:26
 msgid "Require Package:"
@@ -8554,8 +8560,8 @@ msgstr "Reemplazar todo"
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
 msgstr ""
-"No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde el "
-"principio del documento?"
+"No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde "
+"el principio del documento?"
 
 #: ../plugins/search/search-replace.c:1103
 #, c-format
@@ -8630,18 +8636,15 @@ msgid "Snippets Manager actions"
 msgstr "Acciones del gestor de recortes"
 
 #: ../plugins/snippets-manager/plugin.c:767
-#| msgid "Command"
 msgid "Command?"
 msgstr "¿Comando?"
 
 #: ../plugins/snippets-manager/plugin.c:783
-#| msgid "Variable list"
 msgid "Variable text"
 msgstr "Texto variable"
 
 #: ../plugins/snippets-manager/plugin.c:801
 #: ../plugins/snippets-manager/snippets-editor.c:40
-#| msgid "Inspect/Evaluate"
 msgid "Instant value"
 msgstr "Valor instantáneo"
 
@@ -8671,7 +8674,6 @@ msgid "Add Snippets Group …"
 msgstr "Añadir grupo de recortes…"
 
 #: ../plugins/snippets-manager/snippets-editor.c:39
-#| msgid "Default"
 msgid "Default value"
 msgstr "Valor predeterminado"
 
@@ -8686,10 +8688,9 @@ msgstr ""
 "<b>Error:</b> la tecla disparadora ya está en uso para uno de los lenguajes."
 
 #: ../plugins/snippets-manager/snippets-editor.c:50
-#| msgid ""
-#| "Source file name can only contain alphanumeric, '_', '-' or '.' characters"
 msgid ""
-"<b>Error:</b> The trigger key can only contain alphanumeric characters and _ !"
+"<b>Error:</b> The trigger key can only contain alphanumeric characters and "
+"_ !"
 msgstr ""
 "<b>Error:</b> la tecla disparadora sólo puede contener caracteres "
 "alfanuméricos y «_»."
