@@ -1,11 +1,10 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires anjuta 0.0 -->
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy toplevel-contextual -->
   <object class="GtkVBox" id="add_pane">
     <property name="visible">True</property>
-    <property name="orientation">vertical</property>
     <child>
       <object class="GtkFrame" id="frame1">
         <property name="visible">True</property>
@@ -18,7 +17,6 @@
             <child>
               <object class="AnjutaFileList" id="file_list">
                 <property name="visible">True</property>
-                <property name="orientation">vertical</property>
                 <property name="spacing">2</property>
               </object>
             </child>
@@ -263,7 +261,7 @@
                               <object class="GtkEntry" id="name_entry">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
-                                <property name="invisible_char">&#x25CF;</property>
+                                <property name="invisible_char">●</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -274,7 +272,7 @@
                               <object class="GtkEntry" id="email_entry">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
-                                <property name="invisible_char">&#x25CF;</property>
+                                <property name="invisible_char">●</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -550,7 +548,7 @@
                   <object class="AnjutaDropEntry" id="revision_entry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">&#x25CF;</property>
+                    <property name="invisible_char">●</property>
                   </object>
                 </child>
               </object>
@@ -727,7 +725,7 @@
                   <object class="GtkEntry" id="name_entry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">&#x25CF;</property>
+                    <property name="invisible_char">●</property>
                   </object>
                 </child>
               </object>
@@ -795,7 +793,7 @@
                             <property name="visible">True</property>
                             <property name="sensitive">False</property>
                             <property name="can_focus">True</property>
-                            <property name="invisible_char">&#x25CF;</property>
+                            <property name="invisible_char">●</property>
                           </object>
                         </child>
                       </object>
@@ -1046,7 +1044,6 @@
   </object>
   <object class="GtkVBox" id="log_pane">
     <property name="visible">True</property>
-    <property name="orientation">vertical</property>
     <child>
       <object class="GtkHBox" id="hbox1">
         <property name="visible">True</property>
@@ -1064,10 +1061,12 @@
                     <property name="visible">True</property>
                     <property name="spacing">2</property>
                     <child>
-                      <object class="GtkEntry" id="path_entry">
+                      <object class="AnjutaEntry" id="path_entry">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="invisible_char">&#x25CF;</property>
+                        <property name="invisible_char">•</property>
+                        <property name="text" translatable="yes">Whole project; Drop a file here or type a path to view a file or folder log</property>
+                        <property name="help_text" translatable="yes">Whole project; Drop a file here or type a path to view a file or folder log</property>
                       </object>
                       <packing>
                         <property name="position">0</property>
@@ -1144,13 +1143,11 @@
     <child>
       <object class="GtkVBox" id="vbox15">
         <property name="visible">True</property>
-        <property name="orientation">vertical</property>
         <property name="homogeneous">True</property>
         <child>
           <object class="GtkVPaned" id="vpaned1">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="orientation">vertical</property>
             <child>
               <object class="GtkFrame" id="frame18">
                 <property name="visible">True</property>
@@ -1177,6 +1174,7 @@
                               <object class="GtkTreeView" id="log_view">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
+                                <property name="has_focus">True</property>
                                 <property name="has_tooltip">True</property>
                                 <child>
                                   <object class="GtkTreeViewColumn" id="ref_icon_column">
@@ -1357,7 +1355,6 @@
   </object>
   <object class="GtkVBox" id="remove_pane">
     <property name="visible">True</property>
-    <property name="orientation">vertical</property>
     <child>
       <object class="GtkFrame" id="frame1">
         <property name="visible">True</property>
@@ -1370,7 +1367,6 @@
             <child>
               <object class="AnjutaFileList" id="file_list">
                 <property name="visible">True</property>
-                <property name="orientation">vertical</property>
                 <property name="spacing">2</property>
               </object>
             </child>
@@ -1465,7 +1461,6 @@
   </object>
   <object class="GtkVBox" id="remotes_pane">
     <property name="visible">True</property>
-    <property name="orientation">vertical</property>
     <child>
       <object class="GtkFrame" id="frame1">
         <property name="visible">True</property>
@@ -1521,11 +1516,9 @@
   </object>
   <object class="GtkVBox" id="push_pane">
     <property name="visible">True</property>
-    <property name="orientation">vertical</property>
     <child>
       <object class="GtkVBox" id="vbox1">
         <property name="visible">True</property>
-        <property name="orientation">vertical</property>
         <child>
           <object class="GtkFrame" id="repository_frame">
             <property name="visible">True</property>
@@ -1691,7 +1684,6 @@
                 <child>
                   <object class="GtkVBox" id="vbox3">
                     <property name="visible">True</property>
-                    <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkCheckButton" id="push_all_tags_check">
                         <property name="label" translatable="yes">Push all tags</property>
@@ -1800,11 +1792,9 @@
   </object>
   <object class="GtkVBox" id="pull_pane">
     <property name="visible">True</property>
-    <property name="orientation">vertical</property>
     <child>
       <object class="GtkVBox" id="vbox1">
         <property name="visible">True</property>
-        <property name="orientation">vertical</property>
         <child>
           <object class="GtkFrame" id="frame1">
             <property name="visible">True</property>
@@ -1846,7 +1836,6 @@
                 <child>
                   <object class="GtkVBox" id="vbox2">
                     <property name="visible">True</property>
-                    <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkCheckButton" id="rebase_check">
                         <property name="label" translatable="yes">Rebase</property>
@@ -1998,11 +1987,9 @@
   </object>
   <object class="GtkVBox" id="checkout_pane">
     <property name="visible">True</property>
-    <property name="orientation">vertical</property>
     <child>
       <object class="GtkVBox" id="vbox1">
         <property name="visible">True</property>
-        <property name="orientation">vertical</property>
         <child>
           <object class="GtkFrame" id="frame1">
             <property name="visible">True</property>
@@ -2084,11 +2071,9 @@
   </object>
   <object class="GtkVBox" id="add_remote_pane">
     <property name="visible">True</property>
-    <property name="orientation">vertical</property>
     <child>
       <object class="GtkVBox" id="vbox1">
         <property name="visible">True</property>
-        <property name="orientation">vertical</property>
         <child>
           <object class="GtkFrame" id="frame1">
             <property name="visible">True</property>
@@ -2102,7 +2087,7 @@
                   <object class="GtkEntry" id="name_entry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">&#x25CF;</property>
+                    <property name="invisible_char">●</property>
                   </object>
                 </child>
               </object>
@@ -2134,7 +2119,7 @@
                   <object class="GtkEntry" id="url_entry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">&#x25CF;</property>
+                    <property name="invisible_char">●</property>
                   </object>
                 </child>
               </object>
@@ -2235,7 +2220,6 @@
   </object>
   <object class="GtkVBox" id="tags_pane">
     <property name="visible">True</property>
-    <property name="orientation">vertical</property>
     <child>
       <object class="GtkFrame" id="frame1">
         <property name="visible">True</property>
@@ -2303,11 +2287,9 @@
   </object>
   <object class="GtkVBox" id="create_tag_pane">
     <property name="visible">True</property>
-    <property name="orientation">vertical</property>
     <child>
       <object class="GtkVBox" id="vbox1">
         <property name="visible">True</property>
-        <property name="orientation">vertical</property>
         <child>
           <object class="GtkFrame" id="frame4">
             <property name="visible">True</property>
@@ -2321,7 +2303,7 @@
                   <object class="GtkEntry" id="name_entry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">&#x25CF;</property>
+                    <property name="invisible_char">●</property>
                   </object>
                 </child>
               </object>
@@ -2351,7 +2333,6 @@
                 <child>
                   <object class="GtkVBox" id="vbox2">
                     <property name="visible">True</property>
-                    <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkRadioButton" id="repository_head_radio">
                         <property name="label" translatable="yes">Repository head</property>
@@ -2387,7 +2368,7 @@
                             <property name="visible">True</property>
                             <property name="sensitive">False</property>
                             <property name="can_focus">True</property>
-                            <property name="invisible_char">&#x25CF;</property>
+                            <property name="invisible_char">●</property>
                           </object>
                         </child>
                       </object>
@@ -2425,7 +2406,6 @@
                 <child>
                   <object class="GtkVBox" id="vbox3">
                     <property name="visible">True</property>
-                    <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkCheckButton" id="force_check">
                         <property name="label" translatable="yes">Force</property>
@@ -2477,7 +2457,6 @@
                             <property name="visible">True</property>
                             <property name="sensitive">False</property>
                             <property name="can_focus">True</property>
-                            <property name="orientation">vertical</property>
                           </object>
                         </child>
                       </object>
@@ -2549,7 +2528,6 @@
   </object>
   <object class="GtkVBox" id="stash_pane">
     <property name="visible">True</property>
-    <property name="orientation">vertical</property>
     <child>
       <object class="GtkFrame" id="frame1">
         <property name="visible">True</property>
@@ -2616,11 +2594,9 @@
   </object>
   <object class="GtkVBox" id="stash_changes_pane">
     <property name="visible">True</property>
-    <property name="orientation">vertical</property>
     <child>
       <object class="GtkVBox" id="vbox2">
         <property name="visible">True</property>
-        <property name="orientation">vertical</property>
         <child>
           <object class="GtkFrame" id="frame1">
             <property name="visible">True</property>
@@ -2634,7 +2610,6 @@
                   <object class="AnjutaColumnTextView" id="message_view">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="orientation">vertical</property>
                   </object>
                 </child>
               </object>

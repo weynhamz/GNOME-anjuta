@@ -40,6 +40,14 @@
 
 		 <glade-widget-class name="AnjutaFileDropEntry" title="File Drop Entry"
 		 generic-name="filedropentry" />
+		 
+		 <glade-widget-class name="AnjutaEntry" title="Entry" 
+		 generic-name="entry">
+		 	
+		 	<properties>
+		 		<property translatable="True" id="help-text" default="" />
+		 	</properties>
+		 </glade-widget-class>
 
 	</glade-widget-classes>
 
@@ -50,5 +58,6 @@
 		<glade-widget-class-ref name="AnjutaPkgConfigChooser" />
 		<glade-widget-class-ref name="AnjutaColumnTextView" />
 		<glade-widget-class-ref name="AnjutaFileDropEntry" />
+		<glade-widget-class-ref name="AnjutaEntry" />
 	</glade-widget-group>
 </glade-catalog>
