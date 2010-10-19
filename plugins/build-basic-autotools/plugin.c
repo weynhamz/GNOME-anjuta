@@ -1323,7 +1323,7 @@ build_execute_command_in_context (BuildContext* context, GError **err)
 	/* Send options to make */
 	if (strcmp (build_program_get_basename (context->program), "make") == 0)
 	{
-		if (g_settings_get_int (settings, PREF_PARALLEL_MAKE))
+		if (g_settings_get_boolean (settings, PREF_PARALLEL_MAKE))
 		{
 			gchar *arg = g_strdup_printf ("-j%d", g_settings_get_int (settings , PREF_PARALLEL_MAKE_JOB));
 			build_program_insert_arg (context->program, 1, arg);
