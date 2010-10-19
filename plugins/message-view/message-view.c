@@ -24,8 +24,8 @@
 #define MESSAGE_TYPE message_get_type()
 
 #define PREFERENCES_SCHEMA "org.gnome.anjuta.message-manager"
-#define COLOR_ERROR "messages.color.error"
-#define COLOR_WARNING "messages.color.warning"
+#define COLOR_ERROR "msgman-color-error"
+#define COLOR_WARNING "msgman-color-warning"
 
 struct _MessageViewPrivate
 {
@@ -952,7 +952,9 @@ prefs_init (MessageView *mview)
 static void
 prefs_finalize (MessageView *mview)
 {
-	g_object_unref (mview->privat->settings);
+	if (mview->privat->settings)
+		g_object_unref (mview->privat->settings);
+	mview->privat->settings = NULL;
 }
 
 /* IAnjutaMessageView interface implementation */
