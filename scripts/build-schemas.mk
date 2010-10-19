@@ -6,7 +6,7 @@ prefs_ui_schemas = $(prefs_ui_files:.ui=.gschema.xml)
 gsettings_SCHEMAS = $(prefs_name).gschema.xml
 
 $(prefs_name).gschema.xml: $(prefs_ui_schemas)
-	mv $< $@
+	mv -f $< $@
 
 %.gschema.xml: %.ui
 	$(AM_V_GEN)$(top_srcdir)/scripts/builder2schema.pl $< $(prefs_name) $(prefs_keyfile) >> $@
