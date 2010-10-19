@@ -1,3 +1,18 @@
 <key name="sourceview-style" type="s">
 	<default>"tango"</default>
 </key>
+<key name="sourceview-print-linewrap" type="b">
+	<default>true</default>
+</key>
+<key name="sourceview-print-header" type="b">
+	<default>false</default>
+</key>
+<key name="sourceview-print-footer" type="b">
+	<default>false</default>
+</key>
+<key name="sourceview-print-highlight" type="b">
+	<default>true</default>
+</key>
+<key name="sourceview-print-linenumbers" type="b">
+	<default>false</default>
+</key>

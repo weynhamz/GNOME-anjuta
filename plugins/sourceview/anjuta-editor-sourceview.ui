@@ -1,20 +1,7 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy toplevel-contextual -->
-  <object class="GtkAdjustment" id="adjustment1">
-    <property name="lower">1</property>
-    <property name="upper">100</property>
-    <property name="value">4</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
-  </object>
-  <object class="GtkAdjustment" id="adjustment2">
-    <property name="upper">200</property>
-    <property name="value">80</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
-  </object>
   <object class="GtkWindow" id="preferences_dialog">
     <property name="title">window1</property>
     <child>
@@ -36,7 +23,6 @@
                 <child>
                   <object class="GtkVBox" id="vbox1111">
                     <property name="visible">True</property>
-                    <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkTable" id="table15">
                         <property name="visible">True</property>
@@ -172,7 +158,6 @@
                           <object class="GtkVBox" id="vbox1120">
                             <property name="visible">True</property>
                             <property name="border_width">5</property>
-                            <property name="orientation">vertical</property>
                             <property name="spacing">5</property>
                             <child>
                               <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:sourceview-syntax-highlight">
@@ -265,7 +250,6 @@
                 <child>
                   <object class="GtkVBox" id="vbox32">
                     <property name="visible">True</property>
-                    <property name="orientation">vertical</property>
                     <property name="spacing">5</property>
                     <child>
                       <object class="GtkFrame" id="frame2">
@@ -277,7 +261,6 @@
                           <object class="GtkVBox" id="vbox2">
                             <property name="visible">True</property>
                             <property name="border_width">5</property>
-                            <property name="orientation">vertical</property>
                             <property name="spacing">5</property>
                             <child>
                               <object class="GtkCheckButton" id="preferences_toggle:bool:0:0:sourceview-currentline-highlight">
@@ -515,7 +498,6 @@
                       <object class="GtkVBox" id="vbox1">
                         <property name="visible">True</property>
                         <property name="border_width">5</property>
-                        <property name="orientation">vertical</property>
                         <child>
                           <object class="GtkComboBox" id="combo_styles">
                             <property name="visible">True</property>
@@ -567,132 +549,20 @@
             <property name="tab_fill">False</property>
           </packing>
         </child>
-        <child>
-          <object class="GtkFrame" id="page3">
-            <property name="visible">True</property>
-            <property name="border_width">5</property>
-            <property name="label_xalign">0</property>
-            <property name="label_yalign">0</property>
-            <property name="shadow_type">none</property>
-            <child>
-              <object class="GtkTable" id="table17">
-                <property name="visible">True</property>
-                <property name="border_width">10</property>
-                <property name="n_rows">6</property>
-                <property name="column_spacing">5</property>
-                <property name="row_spacing">5</property>
-                <child>
-                  <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:print-header">
-                    <property name="label" translatable="yes">Print page header</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="use_underline">True</property>
-                    <property name="draw_indicator">True</property>
-                  </object>
-                  <packing>
-                    <property name="top_attach">1</property>
-                    <property name="bottom_attach">2</property>
-                    <property name="x_options">GTK_FILL</property>
-                    <property name="y_options"></property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:print-footer">
-                    <property name="label" translatable="yes">Print page footer</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="use_underline">True</property>
-                    <property name="draw_indicator">True</property>
-                  </object>
-                  <packing>
-                    <property name="x_options">GTK_FILL</property>
-                    <property name="y_options"></property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:print-linenumbers">
-                    <property name="label" translatable="yes">Print line numbers</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="use_underline">True</property>
-                    <property name="draw_indicator">True</property>
-                  </object>
-                  <packing>
-                    <property name="top_attach">2</property>
-                    <property name="bottom_attach">3</property>
-                    <property name="x_options">GTK_FILL</property>
-                    <property name="y_options"></property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:print-highlight">
-                    <property name="label" translatable="yes">Highlight syntax</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="use_underline">True</property>
-                    <property name="draw_indicator">True</property>
-                  </object>
-                  <packing>
-                    <property name="top_attach">3</property>
-                    <property name="bottom_attach">4</property>
-                    <property name="x_options">GTK_FILL</property>
-                    <property name="y_options"></property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:print-linewrap">
-                    <property name="label" translatable="yes">Wrap long lines to fit on paper</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="use_underline">True</property>
-                    <property name="draw_indicator">True</property>
-                  </object>
-                  <packing>
-                    <property name="top_attach">4</property>
-                    <property name="bottom_attach">5</property>
-                    <property name="x_options">GTK_FILL</property>
-                    <property name="y_options"></property>
-                  </packing>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-              </object>
-            </child>
-            <child type="label">
-              <object class="GtkLabel" id="label129">
-                <property name="visible">True</property>
-                <property name="xalign">0</property>
-                <property name="yalign">0</property>
-                <property name="label" translatable="yes">Print options</property>
-                <attributes>
-                  <attribute name="weight" value="bold"/>
-                </attributes>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="position">2</property>
-          </packing>
-        </child>
-        <child type="tab">
-          <object class="GtkLabel" id="label12352">
-            <property name="visible">True</property>
-            <property name="xalign">0</property>
-            <property name="yalign">0</property>
-            <property name="label" translatable="yes">Printing</property>
-          </object>
-          <packing>
-            <property name="position">2</property>
-            <property name="tab_fill">False</property>
-          </packing>
-        </child>
       </object>
     </child>
+  </object>
+  <object class="GtkAdjustment" id="adjustment2">
+    <property name="upper">200</property>
+    <property name="value">80</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="adjustment1">
+    <property name="lower">1</property>
+    <property name="upper">100</property>
+    <property name="value">4</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
   </object>
 </interface>

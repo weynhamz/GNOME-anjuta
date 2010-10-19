@@ -337,7 +337,14 @@ sourceview_prefs_init(Sourceview* sv)
 
 void sourceview_prefs_destroy(Sourceview* sv)
 {
-	g_object_unref (sv->priv->settings);
-	g_object_unref (sv->priv->msgman_settings);
-	g_object_unref (sv->priv->docman_settings);	
+	if (sv->priv->settings)
+		g_object_unref (sv->priv->settings);
+	if (sv->priv->msgman_settings)
+		g_object_unref (sv->priv->msgman_settings);
+	if (sv->priv->docman_settings)
+		g_object_unref (sv->priv->docman_settings);
+
+	sv->priv->settings = NULL;
+	sv->priv->msgman_settings = NULL;
+	sv->priv->docman_settings = NULL;
 }
