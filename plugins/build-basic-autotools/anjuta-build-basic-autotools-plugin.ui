@@ -1,11 +1,11 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy toplevel-contextual -->
   <object class="GtkAdjustment" id="adjustment1">
-    <property name="value">4</property>
     <property name="lower">1</property>
     <property name="upper">30</property>
+    <property name="value">4</property>
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
@@ -326,13 +326,20 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkEntry" id="preferences_entry:text:sudo:0:build-install-root-command">
+                          <object class="GtkComboBox" id="preferences_combo:text:sudo, su -c:0:build-install-root-command">
                             <property name="visible">True</property>
-                            <property name="can_focus">True</property>
+                            <property name="model">install_list</property>
+                            <property name="row_span_column">0</property>
+                            <property name="column_span_column">0</property>
+                            <property name="active">0</property>
+                            <child>
+                              <object class="GtkCellRendererText" id="renderer2"/>
+                              <attributes>
+                                <attribute name="text">0</attribute>
+                              </attributes>
+                            </child>
                           </object>
                           <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">False</property>
                             <property name="position">1</property>
                           </packing>
                         </child>
@@ -375,7 +382,6 @@
     <property name="window_position">center-on-parent</property>
     <property name="default_width">450</property>
     <property name="type_hint">dialog</property>
-    <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox2">
         <property name="visible">True</property>
@@ -581,5 +587,19 @@
       <action-widget response="-6">button2</action-widget>
       <action-widget response="-5">ok_button</action-widget>
     </action-widgets>
+  </object>
+  <object class="GtkListStore" id="install_list">
+    <columns>
+      <!-- column-name gchararray1 -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">sudo</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">su -c</col>
+      </row>
+    </data>
   </object>
 </interface>

@@ -71,7 +71,7 @@
 #define BUILD_PREFS_DIALOG "preferences-dialog-build"
 #define BUILD_PREFS_ROOT "preferences-build-container"
 #define INSTALL_ROOT_CHECK "preferences_toggle:bool:0:0:build-install-root"
-#define INSTALL_ROOT_ENTRY "preferences_entry:text:sudo:0:build-install-root-command"
+#define INSTALL_ROOT_ENTRY "preferences_combo:text:sudo, su -c:0:build-install-root-command"
 #define PARALLEL_MAKE_CHECK "preferences_toggle:bool:0:0:build-parallel-make"
 #define PARALLEL_MAKE_SPIN "preferences_spin:int:1:0:build-parallel-make-job"
 
@@ -1646,10 +1646,7 @@ get_root_install_command(BasicAutotoolsPlugin *bplugin)
 	if (g_settings_get_boolean (settings, PREF_INSTALL_ROOT))
 	{
 		gchar* command = g_settings_get_string (settings, PREF_INSTALL_ROOT_COMMAND);
-		if (command != NULL)
-			return command;
-		else
-			return g_strdup("");
+		return command;
 	}
 	else
 		return g_strdup("");
@@ -1668,7 +1665,7 @@ build_install_dir (BasicAutotoolsPlugin *plugin, const gchar *dirname,
 	prog = build_program_new_with_command (build_dir,
 	                                       "%s %s",
 	                                       root,
-	                                       CHOOSE_COMMAND (plugin, INSTALL)),
+	                                       CHOOSE_COMMAND (plugin, INSTALL));
 	build_program_set_callback (prog, callback, user_data);	
 	
 	context = build_save_and_execute_command (plugin, prog, TRUE, err);
