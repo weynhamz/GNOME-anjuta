@@ -32,29 +32,17 @@
  * preferences page in #AnjutaPreferencesDialog using the function
  * anjuta_preferences_dialog_add_page(). The plugin should take
  * care of loading, saving and widgets synchronization of the
- * preferences values. It is particularly useful if the plugin
- * uses gconf system for its preferences. Also no "changed"
- * signal will be emitted from it.
+ * preferences values. This can be done using #GSettings bindings
+ * for example.
  * 
  * Second is to use anjuta_preferences_add_page(), which will
  * automatically register the preferences keys and values from
  * a glade xml file. The glade xml file contains a preferences
  * page of the plugin. The widget names in the page are
  * given in a particular way (see anjuta_preferences_add_page()) to
- * let it know property key details. Loading, saving and
- * widget synchronization are automatically done. "changed" signal is
- * emitted when a preference is changed.
+ * let it know property key details. The preference dialog will automatically
+ * setup the bindings between GSettings and the widgets.
  * 
- * anjuta_preferences_register_all_properties_from_glade_xml() only registers
- * the preferences propery keys for automatic loading, saving and widget
- * syncrhronization, but does not add the page in preferences dialog. It
- * is useful if the plugin wants to show the preferences page somewhere else.
- * 
- * anjuta_preferences_register_property_from_string() is similar to 
- * anjuta_preferences_register_all_properties_from_glade_xml(), but it only
- * registers one property, the detail of which is given in its arguments.
- * anjuta_preferences_register_property_custom() is used to register a
- * property that uses a widget which is not supported by #AnjutaPreferences.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -349,8 +337,8 @@ connect_objects (AnjutaPreferences *pr, GSettings* settings, AnjutaProperty *p)
  * @data_type: Data type of the property
  *
  * This also registers only one widget, but instead of supplying the property
- * parameters as a single parsable string (as done in previous method), it
- * takes them separately.
+ * parameters as a single parsable string (as done in #anjuta_preferences_register_property_from_string),
+ * it takes them separately.
  * 
  * Return value: TRUE if sucessful.
  */
@@ -554,7 +542,7 @@ anjuta_preferences_register_all_properties_from_builder_xml (AnjutaPreferences *
  * <programlisting>
  *     preferences_OBJECTTYPE:DATATYPE:DEFAULT:FLAGS:PROPERTYKEY
  *     where,
- *       OBJECTTYPE is 'toggle', 'spin', 'entry', 'text', 'color', 'font' or 'file' .
+ *       OBJECTTYPE is 'toggle', 'spin', 'entry', 'color', 'font' or 'file' .
  *       DATATYPE   is 'bool', 'int', 'float', 'text', 'color' or 'font'.
  *       DEFAULT    is the default value (in the appropriate format). The format
  *                     for color is '#XXXXXX' representing RGB value and for
