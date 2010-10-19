@@ -30,7 +30,7 @@
                       <object class="GtkHBox" id="hbox2">
                         <property name="visible">True</property>
                         <child>
-                          <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:symboldb.scan_prj_pkgs">
+                          <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:symboldb-scan-prj-pkgs">
                             <property name="label" translatable="yes">Automatically scan project's packages</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
@@ -52,7 +52,7 @@
                       <object class="GtkHBox" id="hbox4">
                         <property name="visible">True</property>
                         <child>
-                          <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:symboldb.parallel_scan">
+                          <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:symboldb-parallel-scan">
                             <property name="label" translatable="yes">Parallel scan of project and global symbols</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
@@ -74,7 +74,7 @@
                       <object class="GtkHBox" id="hbox5">
                         <property name="visible">True</property>
                         <child>
-                          <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:symboldb.buffer_update">
+                          <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:symboldb-buffer-update">
                             <property name="label" translatable="yes">Automatically update symbols without saving file</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>

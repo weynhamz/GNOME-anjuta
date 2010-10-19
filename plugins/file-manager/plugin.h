@@ -45,7 +45,7 @@ struct _AnjutaFileManager {
 	
 	gint uiid;
 	GtkActionGroup *action_group;
-	GList* notify_ids;
+	GSettings* settings;
 };
 
 struct _AnjutaFileManagerClass {

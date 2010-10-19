@@ -43,6 +43,7 @@ struct _SourceviewPlugin{
 	
 	GtkWidget* combo_styles;
 	GtkWidget* check_font;
+	GSettings* settings;
 };
 
 struct _SourceviewPluginClass{

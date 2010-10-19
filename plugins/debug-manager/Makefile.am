@@ -5,10 +5,10 @@ anjuta_glade_DATA = anjuta-debug-manager.ui
 anjuta_uidir = $(anjuta_ui_dir)
 anjuta_ui_DATA =  anjuta-debug-manager.xml
 
-schemadir = @GCONF_SCHEMA_FILE_DIR@
-schema_in_files = anjuta-debug-manager.schemas.in
-schema_DATA = $(schema_in_files:.schemas.in=.schemas)
-@INTLTOOL_SCHEMAS_RULE@
+schema_in_files = org.gnome.anjuta.debug-manager.gschema.xml.in
+gsettings_SCHEMAS = $(schema_in_files:.gschema.xml.in=.gschema.xml)
+@INTLTOOL_XML_NOMERGE_RULE@
+@GSETTINGS_RULES@
 
 plugin_in_files = anjuta-debug-manager.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
@@ -41,18 +41,6 @@ anjuta-marshal.h: anjuta-marshal.list
 anjuta-marshal.c: anjuta-marshal.list
 	$(AM_V_GEN)echo "#include \"anjuta-marshal.h\"" > $@ && \
 	glib-genmarshal $< --body --prefix=anjuta_marshal >> $@
-
-if GCONF_SCHEMAS_INSTALL
-install-data-local: $(schema_DATA)
-	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-install-rule $<
-
-uninstall-local: $(schema_DATA)
-	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-uninstall-rule $<
-else
-install-data-local:
-
-uninstall-local:
-endif
 
 libanjuta_debug_manager_la_SOURCES = \
 	$(BUILT_SOURCES) \

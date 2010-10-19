@@ -64,14 +64,14 @@
 
 /* Preferences keys */
 
-#define PREF_INDENT_AUTOMATIC "language.python.indent.automatic"
-#define PREF_INDENT_ADAPTIVE "language.python.indent.adaptive"
-#define PREF_INDENT_TAB_INDENTS "language.python.indent.tab.indents"
-#define PREF_INDENT_STATEMENT_SIZE "language.python.indent.statement.size"
-#define PREF_INDENT_BRACE_SIZE "language.python.indent.brace.size"
+#define PREF_INDENT_AUTOMATIC "python-indent-automatic"
+#define PREF_INDENT_ADAPTIVE "python-indent-adaptive"
+#define PREF_INDENT_TAB_INDENTS "python-indent-tab-indents"
+#define PREF_INDENT_STATEMENT_SIZE "python-indent-statement-size"
+#define PREF_INDENT_BRACE_SIZE "python-indent-brace-size"
 
-#define PREF_NO_ROPE_WARNING "language.python.no_rope_warning"
-#define PREF_INTERPRETER_PATH "language.python.interpreter.path"
+#define PREF_NO_ROPE_WARNING "python-no-rope-warning"
+#define PREF_INTERPRETER_PATH "python-interpreter.path"
 
 #define TAB_SIZE (ianjuta_editor_get_tabsize (editor, NULL))
 
@@ -939,8 +939,8 @@ on_check_finished (AnjutaLauncher* launcher,
 static void
 check_support (PythonPlugin *python_plugin)
 {
-	if (!anjuta_preferences_get_bool_with_default (anjuta_preferences_default (),
-	                                            PREF_NO_ROPE_WARNING, FALSE))
+	if (!anjuta_preferences_get_bool (anjuta_preferences_default (),
+	                                  PREF_NO_ROPE_WARNING))
 	{
 		AnjutaLauncher* launcher = anjuta_launcher_new ();
 		gchar* python_path = anjuta_preferences_get (anjuta_preferences_default(),

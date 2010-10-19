@@ -1,7 +1,6 @@
 
 ## The '.' is to make sure install-data-hook rule is executed first
 SUBDIRS = . \
-	gtodo \
 	message-view \
 	gdb \
 	debug-manager \
@@ -34,10 +33,10 @@ SUBDIRS = . \
 	gbf-mkfile \
 	dir-project \
 	starter \
-	js-debugger \
-	language-support-js \
-	language-support-vala \
-	language-support-python \
-	python-loader
+	js-debugger
+#	language-support-js \
+#	language-support-vala \
+#	language-support-python \
+#	python-loader
 
 -include $(top_srcdir)/git.mk

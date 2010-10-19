@@ -37,7 +37,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkFileChooserButton" id="preferences_folder:text:/:0:filemanager.root">
+                      <object class="GtkFileChooserButton" id="preferences_folder:text:/:0:filemanager-root">
                         <property name="visible">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                         <property name="use_preview_label">False</property>
@@ -88,7 +88,7 @@
                     <property name="visible">True</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                     <child>
-                      <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:filemanager.filter.binary">
+                      <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:filemanager-filter-binary">
                         <property name="label" translatable="yes">Do not show binary files (.o, .la, etc.)</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -103,7 +103,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:filemanager.filter.hidden">
+                      <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:filemanager-filter-hidden">
                         <property name="label" translatable="yes">Do not show hidden files</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -118,7 +118,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:filemanager.filter.backup">
+                      <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:filemanager-filter-backup">
                         <property name="label" translatable="yes">Do not show backup files</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -133,7 +133,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="preferences_toggle:bool:0:0:filemanager.filter.unversioned">
+                      <object class="GtkCheckButton" id="preferences_toggle:bool:0:0:filemanager-filter-unversioned">
                         <property name="label" translatable="yes">Do not show unversioned files</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>

@@ -1,6 +1,9 @@
 #include <gtk/gtk.h>
 #include "main.h"
 
+#define GSETTINGS_SCHEMA "org.gnome.anjuta.gtodo"
+#define PREFS_LAST_CATEGORY "gtodo-last-category"
+
 void remove_todo_item(GtkWidget *fake, gboolean internall){
 	GtkTreeSelection *selection;
 	GtkTreeIter iter;
@@ -39,12 +42,13 @@ void category_changed(void)
 {
 	if(cl != NULL)
 	{
+		GSettings *settings = g_settings_new (GSETTINGS_SCHEMA);
 		int i = gtk_combo_box_get_active(GTK_COMBO_BOX(mw.option));
 		if (i < 0) return;
 		if(i != 0)if( mw.mitems == NULL || mw.mitems[i-2] == NULL) return;
 		if(i == categorys+3)
 		{
-			int j = anjuta_preferences_get_int (preferences, "gtodo.last-category");
+			int j = g_settings_get_int (settings, PREFS_LAST_CATEGORY);
 			category_manager();
 			if(j < categorys+3 && mw.mitems != NULL && mw.mitems[j-2] != NULL) gtk_combo_box_set_active(GTK_COMBO_BOX(mw.option),j);
 			gtk_list_store_clear(mw.list);
@@ -53,7 +57,8 @@ void category_changed(void)
 		}
 		gtk_list_store_clear(mw.list);
 		load_category();
-		anjuta_preferences_set_int (preferences, "gtodo.last-category", i);
+		g_settings_set_int (settings, PREFS_LAST_CATEGORY, i);
+		g_object_unref (settings);
 	}
 }
 

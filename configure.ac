@@ -99,6 +99,9 @@ ANJUTA_PLUGIN_LDFLAGS="-module -avoid-version -no-undefined"
 AC_SUBST(ANJUTA_LDFLAGS)
 AC_SUBST(ANJUTA_PLUGIN_LDFLAGS)
 
+dnl GSettings
+GLIB_GSETTINGS
+
 dnl Disable deprecated APIs
 dnl if test x$MAINT = x; then
 dnl 	DEPRECATED_FLAGS="-DGDK_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED"

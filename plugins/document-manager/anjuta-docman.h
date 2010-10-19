@@ -22,7 +22,6 @@
 #define _ANJUTA_DOCMAN_H_
 
 #include <gtk/gtk.h>
-#include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-document.h>
@@ -56,7 +55,7 @@ struct _AnjutaDocmanClass {
 };
 
 GType anjuta_docman_get_type (void);
-GtkWidget* anjuta_docman_new (DocmanPlugin *plugin, AnjutaPreferences *pref);
+GtkWidget* anjuta_docman_new (DocmanPlugin *plugin);
 
 void anjuta_docman_set_popup_menu (AnjutaDocman *docman, GtkWidget *menu);
 

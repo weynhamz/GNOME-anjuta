@@ -24,7 +24,7 @@
 #include "plugin.h"
 #include "libgen.h"
 
-static gchar* create_cvs_command_with_cvsroot(AnjutaPreferences* prefs,
+static gchar* create_cvs_command_with_cvsroot(GSettings* settings,
 								const gchar* action, 
 								const gchar* command_options,
 								const gchar* command_arguments,
@@ -38,14 +38,14 @@ static gchar* create_cvs_command_with_cvsroot(AnjutaPreferences* prefs,
 	/* command global_options cvsroot action command_options command_arguments */
 	gchar* CVS_FORMAT = "%s %s %s %s %s %s";
 	
-	g_return_val_if_fail (prefs != NULL, NULL);
+	g_return_val_if_fail (settings != NULL, NULL);
 	g_return_val_if_fail (action != NULL, NULL);
 	g_return_val_if_fail (command_options != NULL, NULL);
 	g_return_val_if_fail (command_arguments != NULL, NULL);
 	
-	cvs = anjuta_preferences_get(prefs, "cvs.path");
-	compression = anjuta_preferences_get_int(prefs, "cvs.compression");
-	ignorerc = anjuta_preferences_get_bool(prefs, "cvs.ignorerc");
+	cvs = g_settings_get_string(settings, "cvs.path");
+	compression = g_settings_get_int(settings, "cvs.compression");
+	ignorerc = g_settings_get_boolean(settings, "cvs.ignorerc");
 	if (compression && ignorerc)
 		global_options = g_strdup_printf("-f -z%d", compression);
 	else if (compression)
@@ -66,12 +66,12 @@ static gchar* create_cvs_command_with_cvsroot(AnjutaPreferences* prefs,
 	return command;
 }
 
-inline static gchar* create_cvs_command(AnjutaPreferences* prefs,
+inline static gchar* create_cvs_command(GSettings* settings,
 								const gchar* action, 
 								const gchar* command_options,
 								const gchar* command_arguments)
 {
-	return create_cvs_command_with_cvsroot(prefs, action, command_options,
+	return create_cvs_command_with_cvsroot(settings, action, command_options,
 		command_arguments, NULL);
 }
 
@@ -122,8 +122,7 @@ void anjuta_cvs_add (AnjutaPlugin *obj, const gchar* filename,
 	
 	
 	command = create_cvs_command(
-		anjuta_shell_get_preferences (ANJUTA_PLUGIN(plugin)->shell,
-		NULL), "add", options->str, basename(file));
+		plugin->settings, "add", options->str, basename(file));
 	
 	cvs_execute(plugin, command, dirname(file));
 	g_free(command);
@@ -152,16 +151,14 @@ void anjuta_cvs_commit (AnjutaPlugin *obj, const gchar* filename, const gchar* l
 	if (!is_directory(filename))
 	{
 		gchar* file = g_strdup(filename);
-		command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(plugin)->shell,
-			NULL), "commit", options->str, basename(file));
+		command = create_cvs_command(plugin->settings, "commit", options->str, basename(file));
 		cvs_execute(plugin, command, dirname(file));
 		g_free(file);
 	}
 	else
 	{
 		gchar* dir = g_strdup(filename);
-		command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(plugin)->shell,
-			NULL), "commit", options->str, "");
+		command = create_cvs_command(plugin->settings, "commit", options->str, "");
 		cvs_execute(plugin, command, dir);
 		g_free(dir);
 	}
@@ -186,15 +183,13 @@ void anjuta_cvs_diff (AnjutaPlugin *obj, const gchar* filename, const gchar* rev
 	if (!is_directory(filename))
 	{
 		gchar* file = g_strdup(filename);
-		command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(plugin)->shell,
-								 NULL), "diff", options->str, basename(file));
+		command = create_cvs_command(plugin->settings, "diff", options->str, basename(file));
 		cvs_execute_diff(plugin, command, dirname(file));
 	}
 	else
 	{
 		gchar* dir = g_strdup(filename);
-		command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(plugin)->shell,
-								 NULL), "diff", options->str, "");
+		command = create_cvs_command(plugin->settings, "diff", options->str, "");
 		cvs_execute_diff(plugin, command, dir);
 		g_free(dir);
 	}
@@ -214,16 +209,14 @@ void anjuta_cvs_log (AnjutaPlugin *obj, const gchar* filename, gboolean recurse,
 	if (!is_directory(filename))
 	{
 		gchar* file = g_strdup(filename);
-		command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(plugin)->shell,
-								 NULL), "log", options->str, basename(file));
+		command = create_cvs_command(plugin->settings, "log", options->str, basename(file));
 		cvs_execute_log(plugin, command, dirname(file));
 		g_free(file);
 	}
 	else
 	{
 		gchar* dir = g_strdup(filename);
-		command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(plugin)->shell,
-								 NULL), "log", options->str, "");
+		command = create_cvs_command(plugin->settings, "log", options->str, "");
 		cvs_execute_log(plugin, command, dir);
 		g_free(dir);
 	}
@@ -239,8 +232,7 @@ void anjuta_cvs_remove (AnjutaPlugin *obj, const gchar* filename, GError **err)
 	gchar* file = g_strdup(filename);	
 
 	command = create_cvs_command(
-		anjuta_shell_get_preferences (ANJUTA_PLUGIN(plugin)->shell,
-		NULL), "remove", options->str, basename(file));
+		plugin->settings, "remove", options->str, basename(file));
 		
 	cvs_execute(plugin, command, dirname(file));
 	g_free(file);
@@ -260,16 +252,14 @@ void anjuta_cvs_status (AnjutaPlugin *obj, const gchar* filename, gboolean recur
 	if (!is_directory(filename))
 	{
 		gchar* file = g_strdup(filename);
-		command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(plugin)->shell,
-								 NULL), "status", options->str, basename(file));
+		command = create_cvs_command(plugin->settings, "status", options->str, basename(file));
 		cvs_execute_status(plugin, command, dirname(file));
 		g_free(file);
 	}
 	else
 	{
 		gchar* dir = g_strdup(filename);
-		command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(plugin)->shell,
-								 NULL), "status", options->str, "");
+		command = create_cvs_command(plugin->settings, "status", options->str, "");
 		cvs_execute_status(plugin, command, dir);
 		g_free(dir);
 	}
@@ -299,16 +289,14 @@ void anjuta_cvs_update (AnjutaPlugin *obj, const gchar* filename, gboolean recur
 	if (!is_directory(filename))
 	{
 		gchar* file = g_strdup(filename);
-		command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(plugin)->shell,
-								 NULL), "update", options->str, basename(file));
+		command = create_cvs_command(plugin->settings, "update", options->str, basename(file));
 		cvs_execute(plugin, command, dirname(file));
 		g_free(file);
 	}
 	else
 	{
 		gchar* dir = g_strdup(filename);
-		command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(plugin)->shell,
-								 NULL), "update", options->str, "");
+		command = create_cvs_command(plugin->settings, "update", options->str, "");
 		cvs_execute(plugin, command, dir);
 	}
 	g_free(command);
@@ -354,7 +342,7 @@ void anjuta_cvs_import (AnjutaPlugin *obj, const gchar* dir, const gchar* cvsroo
 	g_string_append_printf(options, " %s %s %s", module, vendor, release);
 	
 	cvs_command = create_cvs_command_with_cvsroot(
-		anjuta_shell_get_preferences (ANJUTA_PLUGIN(plugin)->shell, NULL),
+		plugin->settings,
 		"import", options->str, "", root);
 	cvs_execute(plugin, cvs_command, dir);
 	

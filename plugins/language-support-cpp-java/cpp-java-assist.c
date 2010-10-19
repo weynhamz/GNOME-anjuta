@@ -39,10 +39,10 @@
 #include "cpp-java-assist.h"
 #include "cpp-java-utils.h"
 
-#define PREF_AUTOCOMPLETE_ENABLE "language.cpp.code.completion.enable"
-#define PREF_AUTOCOMPLETE_SPACE_AFTER_FUNC "language.cpp.code.completion.space.after.func"
-#define PREF_AUTOCOMPLETE_BRACE_AFTER_FUNC "language.cpp.code.completion.brace.after.func"
-#define PREF_CALLTIP_ENABLE "language.cpp.code.calltip.enable"
+#define PREF_AUTOCOMPLETE_ENABLE "cpp-completion-enable"
+#define PREF_AUTOCOMPLETE_SPACE_AFTER_FUNC "cpp-completion-space-after-func"
+#define PREF_AUTOCOMPLETE_BRACE_AFTER_FUNC "cpp-completion-brace-after-func"
+#define PREF_CALLTIP_ENABLE "cpp-calltip-enable"
 #define BRACE_SEARCH_LIMIT 500
 
 static void cpp_java_assist_iface_init(IAnjutaProviderIface* iface);
@@ -62,7 +62,7 @@ typedef struct
 } CppJavaAssistTag;
 
 struct _CppJavaAssistPriv {
-	AnjutaPreferences *preferences;
+	GSettings* settings;
 	IAnjutaEditorAssist* iassist;
 	IAnjutaEditorTip* itip;
 
@@ -1090,9 +1090,8 @@ cpp_java_assist_populate (IAnjutaProvider* self, IAnjutaIterable* cursor, GError
 	CppJavaAssist* assist = CPP_JAVA_ASSIST (self);
 	
 	/* Check if we actually want autocompletion at all */
-	if (!anjuta_preferences_get_bool_with_default (anjuta_preferences_default (),
-	                                               PREF_AUTOCOMPLETE_ENABLE,
-	                                               TRUE))
+	if (!g_settings_get_boolean (assist->priv->settings,
+	                             PREF_AUTOCOMPLETE_ENABLE))
 	{
 		cpp_java_assist_none (self, assist);
 		return;
@@ -1110,9 +1109,8 @@ cpp_java_assist_populate (IAnjutaProvider* self, IAnjutaIterable* cursor, GError
 
 	/* Check for calltip */
 	if (assist->priv->itip && 
-	    anjuta_preferences_get_bool_with_default (assist->priv->preferences,
-	                                              PREF_CALLTIP_ENABLE,
-	                                              TRUE))
+	    g_settings_get_boolean (assist->priv->settings,
+	                            PREF_CALLTIP_ENABLE))
 	{	
 		assist->priv->calltip_active = cpp_java_assist_calltip (assist);
 			
@@ -1186,13 +1184,11 @@ cpp_java_assist_activate (IAnjutaProvider* self, IAnjutaIterable* iter, gpointer
 	if (prop_data->is_func)
 	{
 		add_space_after_func =
-			anjuta_preferences_get_bool_with_default (assist->priv->preferences,
-													 PREF_AUTOCOMPLETE_SPACE_AFTER_FUNC,
-													 TRUE);
+			g_settings_get_boolean (assist->priv->settings,
+			                        PREF_AUTOCOMPLETE_SPACE_AFTER_FUNC);
 		add_brace_after_func =
-			anjuta_preferences_get_bool_with_default (assist->priv->preferences,
-													 PREF_AUTOCOMPLETE_BRACE_AFTER_FUNC,
-													 TRUE);
+			g_settings_get_boolean (assist->priv->settings,
+			                        PREF_AUTOCOMPLETE_BRACE_AFTER_FUNC);
 		if (add_space_after_func)
 			g_string_append (assistance, " ");
 		
@@ -1222,9 +1218,8 @@ cpp_java_assist_activate (IAnjutaProvider* self, IAnjutaIterable* iter, gpointer
 	{
 		/* Check for calltip */
 		if (assist->priv->itip && 
-		    anjuta_preferences_get_bool_with_default (assist->priv->preferences,
-		                                              PREF_CALLTIP_ENABLE,
-		                                              TRUE))	
+		    g_settings_get_boolean (assist->priv->settings,
+		                            PREF_CALLTIP_ENABLE))	
 			assist->priv->calltip_active = cpp_java_assist_calltip (assist);
 
 	}	
@@ -1337,7 +1332,7 @@ cpp_java_assist_class_init (CppJavaAssistClass *klass)
 CppJavaAssist *
 cpp_java_assist_new (IAnjutaEditor *ieditor,
 					 IAnjutaSymbolManager *isymbol_manager,
-					 AnjutaPreferences *prefs)
+					 GSettings* settings)
 {
 	CppJavaAssist *assist;
 	static IAnjutaSymbolField calltip_fields[] = {
@@ -1360,7 +1355,7 @@ cpp_java_assist_new (IAnjutaEditor *ieditor,
 		return NULL;
 	}
 	assist = g_object_new (TYPE_CPP_JAVA_ASSIST, NULL);
-	assist->priv->preferences = prefs;
+	assist->priv->settings = settings;
 
 	/* Create call tip queries */
 	/* Calltip in file */

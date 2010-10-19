@@ -35,6 +35,8 @@
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-cvs.ui"
 #define ICON_FILE "anjuta-cvs-plugin-48.png"
 
+#define PREF_SCHEMA "org.gnome.anjuta.cvs"
+
 static gpointer parent_class;
 
 static GtkActionEntry actions_cvs[] = {
@@ -422,7 +424,10 @@ finalize (GObject *obj)
 static void
 dispose (GObject *obj)
 {
-	// CVSPlugin *plugin = ANJUTA_PLUGIN_CVS (obj);
+	CVSPlugin *plugin = ANJUTA_PLUGIN_CVS (obj);
+
+	g_object_unref (plugin->settings);
+	
 	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
@@ -438,6 +443,7 @@ cvs_plugin_instance_init (GObject *obj)
 	plugin->fm_current_filename = NULL;
 	plugin->project_root_dir = NULL;
 	plugin->current_editor_filename = NULL;
+	plugin->settings = g_settings_new (PREF_SCHEMA);
 }
 
 static void
@@ -459,12 +465,13 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 	/* Create the messages preferences page */
 	GError* error = NULL;
 	GtkBuilder *bxml = gtk_builder_new();
+	CVSPlugin *plugin = ANJUTA_PLUGIN_CVS (ipref);
 	if (!gtk_builder_add_from_file(bxml, GLADE_FILE, &error))
 	{
 		g_warning("Couldn't load builder file: %s", error->message);
 		g_error_free(error);
 	}
-	anjuta_preferences_add_from_builder (prefs, bxml, "cvs", _("CVS"), ICON_FILE);
+	anjuta_preferences_add_from_builder (prefs, bxml, plugin->settings, "cvs", _("CVS"), ICON_FILE);
 	g_object_unref (bxml);
 }
 

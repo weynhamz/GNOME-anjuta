@@ -64,6 +64,7 @@ libanjuta_language_cpp_java_la_LIBADD = \
 	cxxparser/libcxxparser.la
 	
 prefs_ui_files = anjuta-language-cpp-java.ui
+prefs_name = org.gnome.anjuta.cpp
 include $(top_srcdir)/scripts/build-schemas.mk
 
 EXTRA_DIST = \

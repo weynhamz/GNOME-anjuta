@@ -57,7 +57,7 @@ struct _SymbolDBPrefsPriv {
 	GtkListStore *prefs_list_store;
 	GtkBuilder *prefs_bxml;
 	AnjutaLauncher *pkg_config_launcher;	
-	AnjutaPreferences *prefs;
+	GSettings* settings;
 	
 	SymbolDBSystem *sdbs;
 	SymbolDBEngine *sdbe_project;
@@ -368,11 +368,12 @@ sdb_prefs_init1 (SymbolDBPrefs *sdbp)
 	/* we will reactivate it after the listall has been finished */
 	/*gtk_widget_set_sensitive (fchooser, FALSE);*/
 			
-	anjuta_preferences_add_from_builder (priv->prefs, 
-									 priv->prefs_bxml, 
-									 BUILDER_ROOT, 
-									 _("Symbol Database"),  
-									 ICON_FILE);
+	anjuta_preferences_add_from_builder (anjuta_preferences_default (), 
+	                                     priv->prefs_bxml,
+	                                     priv->settings,
+	                                     BUILDER_ROOT, 
+	                                     _("Symbol Database"),  
+	                                     ICON_FILE);
 #if 0	
 	ctags_value = anjuta_preferences_get (priv->prefs, CTAGS_PREFS_KEY);
 	
@@ -518,8 +519,7 @@ sdb_prefs_finalize (GObject *object)
 	
 	DEBUG_PRINT ("%s", "symbol_db_prefs_finalize ()");
 	
-	anjuta_preferences_notify_remove(priv->prefs, priv->prefs_notify_id);
-	anjuta_preferences_remove_page(priv->prefs, _("Symbol Database"));
+	anjuta_preferences_remove_page(anjuta_preferences_default(), _("Symbol Database"));
 
 	if (priv->pkg_config_launcher != NULL)
 		g_object_unref (priv->pkg_config_launcher);
@@ -584,7 +584,7 @@ sdb_prefs_class_init (SymbolDBPrefsClass *klass)
 
 SymbolDBPrefs *
 symbol_db_prefs_new (SymbolDBSystem *sdbs, SymbolDBEngine *sdbe_project,
-					 SymbolDBEngine *sdbe_globals, AnjutaPreferences *prefs,
+					 SymbolDBEngine *sdbe_globals, GSettings* settings,
 					 GList *enabled_packages)
 {
 	SymbolDBPrefs *sdbp;
@@ -595,7 +595,7 @@ symbol_db_prefs_new (SymbolDBSystem *sdbs, SymbolDBEngine *sdbe_project,
 	priv = sdbp->priv;	
 	
 	priv->sdbs = sdbs;
-	priv->prefs = prefs;
+	priv->settings = settings;
 	priv->sdbe_project = sdbe_project;
 	priv->sdbe_globals = sdbe_globals;
 	priv->enabled_packages_hash = g_hash_table_new_full (g_str_hash, g_str_equal, 

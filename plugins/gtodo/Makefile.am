@@ -65,6 +65,11 @@ libanjuta_gtodo_la_SOURCES=\
 	tasklists.c\
 	todo_db.c
 
+prefs_ui_files = $(gtodo_ui_DATA)
+prefs_name = org.gnome.anjuta.gtodo
+prefs_keyfile = anjuta-gtodo.gschema-part.xml
+include $(top_srcdir)/scripts/build-schemas.mk
+
 EXTRA_DIST = \
 	$(gtodo_pixmaps_DATA) \
 	$(plugin_in_files) \

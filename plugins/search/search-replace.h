@@ -57,7 +57,6 @@ typedef enum _GladeWidgetId
 	UNMATCH_DIRS,
 	REPLACE_STRING,
 	ACTIONS_MAX,
-	SETTING_PREF_ENTRY,
 
 	/* Checkboxes */
 	SEARCH_REGEX,
@@ -75,7 +74,6 @@ typedef enum _GladeWidgetId
 	SEARCH_FULL_BUFFER,
 	SEARCH_FORWARD,
 	SEARCH_BACKWARD,
-	SEARCH_BASIC,
 
 	/* Combo boxes */
 	SEARCH_STRING_COMBO,
@@ -88,9 +86,6 @@ typedef enum _GladeWidgetId
 	UNMATCH_DIRS_COMBO,
 	REPLACE_STRING_COMBO,
 	SEARCH_DIRECTION_COMBO,
-
-	/* Treeview */
-	SETTING_PREF_TREEVIEW
 } GladeWidgetId;
 
 void search_and_replace_init (IAnjutaDocumentManager* dm);

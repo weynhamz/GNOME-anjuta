@@ -79,6 +79,9 @@ struct _BasicAutotoolsPlugin{
 	
 	/* Editors that have been created so far */
 	GHashTable *editors_created;
+
+	/* Settings */
+	GSettings *settings;
 };
 
 struct _BasicAutotoolsPluginClass{

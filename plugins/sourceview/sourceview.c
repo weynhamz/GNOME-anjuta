@@ -183,15 +183,19 @@ static void sourceview_create_markers(Sourceview* sv)
 	}
 }
 
+#define PREF_COLOR_ERROR "msgman-color-error"
+#define PREF_COLOR_WARNING "msgman-color-warning"
+
+
 /* Create tags for highlighting */
-static void sourceview_create_highligth_indic(Sourceview* sv)
-{
+static void sourceview_create_highlight_indic(Sourceview* sv)
+{	
 	char* error_color =
-		anjuta_preferences_get (anjuta_preferences_default(),
-		                        "messages.color.error");
+		g_settings_get_string (sv->priv->msgman_settings,
+		                       PREF_COLOR_ERROR);
 	char* warning_color =
-		anjuta_preferences_get (anjuta_preferences_default (),
-		                        "messages.color.warning");
+		g_settings_get_string (sv->priv->msgman_settings,
+		                       PREF_COLOR_WARNING);
 	sv->priv->important_indic = 
 		gtk_text_buffer_create_tag (GTK_TEXT_BUFFER(sv->priv->document),
 									IMPORTANT_INDIC,
@@ -760,11 +764,16 @@ sourceview_instance_init(Sourceview* sv)
 
 	g_object_set (G_OBJECT (sv->priv->view), "has-tooltip", TRUE, NULL);
 	gtk_source_view_set_smart_home_end(GTK_SOURCE_VIEW(sv->priv->view), FALSE);
+
+	/* Apply Preferences */
+	sourceview_prefs_init(sv);
+
 	
 	/* Create Markers */
 	sourceview_create_markers(sv);
+
 	/* Create Higlight Tag */
-	sourceview_create_highligth_indic(sv);
+	sourceview_create_highlight_indic(sv);
 }
 
 static void
@@ -825,9 +834,6 @@ sourceview_new(GFile* file, const gchar* filename, AnjutaPlugin* plugin)
 	
 	Sourceview *sv = ANJUTA_SOURCEVIEW(g_object_new(ANJUTA_TYPE_SOURCEVIEW, NULL));
 	
-	/* Apply Preferences */
-	sv->priv->prefs = anjuta_preferences_default();
-	sourceview_prefs_init(sv);
 	sv->priv->plugin = plugin;
 	
 	/* Add View */
@@ -2050,7 +2056,9 @@ autodetect_language (Sourceview* sv)
 	
 	language = gtk_source_language_manager_guess_language (gtk_source_language_manager_get_default (), filename, io_mime_type);
 	if (!language)
+	{
 		goto out;
+	}
 	
 	detected_language = gtk_source_language_get_id (language);	
 	
