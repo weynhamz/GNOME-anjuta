@@ -278,7 +278,7 @@ amp_am_scanner_include (AmpAmScanner *scanner, AnjutaToken *list)
 	name = anjuta_token_first_item (list);
 	name = anjuta_token_next_item (name);
 	filename = g_strstrip (anjuta_token_evaluate (name));
-	g_message ("read include =%s=", filename);
+	//g_message ("read include =%s=", filename);
 	file = g_file_resolve_relative_path (anjuta_token_stream_get_current_directory (scanner->stream), filename);
 	g_free (filename);
 	include = anjuta_token_file_new (file);

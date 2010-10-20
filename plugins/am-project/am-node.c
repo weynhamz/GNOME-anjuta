@@ -523,7 +523,6 @@ amp_group_set_makefile (AnjutaAmGroupNode *group, GFile *makefile, GObject* proj
 		scanner = amp_am_scanner_new (AMP_PROJECT (project), group);
 		group->make_token = amp_am_scanner_parse_token (scanner, anjuta_token_new_static (ANJUTA_TOKEN_FILE, NULL), token, makefile, NULL);
 		amp_am_scanner_free (scanner);
-		fprintf (stderr, "group->make_token %p\n", group->make_token);
 
 		group->monitor = g_file_monitor_file (makefile, 
 						      									G_FILE_MONITOR_NONE,
@@ -531,7 +530,6 @@ amp_group_set_makefile (AnjutaAmGroupNode *group, GFile *makefile, GObject* proj
 						       									NULL);
 		if (group->monitor != NULL)
 		{
-			g_message ("add monitor %s node %p data %p project %p monitor %p", g_file_get_path (makefile), group, group, project, group->monitor);
 			group->project = project;
 			g_signal_connect (G_OBJECT (group->monitor),
 					  "changed",

@@ -1654,17 +1654,28 @@ amp_project_load_group (AmpProject *project, AnjutaProjectNode *node, GError **e
 AnjutaProjectNode *
 amp_project_load_node (AmpProject *project, AnjutaProjectNode *node, GError **error) 
 {
+	AnjutaProjectNode *loaded = NULL;
+	GTimer *timer;
+	
+	timer = g_timer_new ();		
 	switch (anjuta_project_node_get_node_type (node))
 	{
 	case ANJUTA_PROJECT_ROOT:
-		return amp_project_load_root (project, error);
+		loaded = amp_project_load_root (project, error);
+		break;
 	case ANJUTA_PROJECT_PACKAGE:
-		return amp_project_load_package (project, node, error);
+		loaded = amp_project_load_package (project, node, error);
+		break;
 	case ANJUTA_PROJECT_GROUP:
-		return amp_project_load_group (project, node, error);
+		loaded = amp_project_load_group (project, node, error);
+		break;
 	default:
-		return NULL;
+		break;
 	}
+	g_message ("Node %x loaded in %g", anjuta_project_node_get_node_type (node), g_timer_elapsed (timer, NULL));
+	g_timer_destroy (timer);
+
+	return loaded;
 }
 
 void
