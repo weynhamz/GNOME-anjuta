@@ -20,7 +20,7 @@ using Anjuta;
 
 public class ValaPlugin : Plugin {
 	internal weak IAnjuta.Editor current_editor;
-	internal Anjuta.Preferences prefs;
+	internal GLib.Settings settings = new GLib.Settings ("org.gnome.anjuta.cpp");
 	uint editor_watch_id;
 
 	Vala.CodeContext context;
@@ -43,7 +43,6 @@ public class ValaPlugin : Plugin {
 		context.report = report;
 		context.profile = Vala.Profile.GOBJECT;
 
-		prefs = shell.get_preferences ();
 		var project = (IAnjuta.ProjectManager) shell.get_object("IAnjutaProjectManager");
 		weak List<string> packages = project.get_packages();
 		add_package(context, "glib-2.0");
@@ -180,7 +179,7 @@ public class ValaPlugin : Plugin {
 	}
 
 	public void on_char_added (IAnjuta.EditorTip editor, Object position, char ch) {
-		if (!prefs.get_bool_with_default (ValaProvider.PREF_CALLTIP_ENABLE, true))
+		if (!settings.get_boolean (ValaProvider.PREF_CALLTIP_ENABLE))
 			return;
 
 		if (ch == '(') {

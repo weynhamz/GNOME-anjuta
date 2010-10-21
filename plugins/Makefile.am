@@ -34,9 +34,9 @@ SUBDIRS = . \
 	gbf-mkfile \
 	dir-project \
 	starter \
-	js-debugger
-#	language-support-js \
-#	language-support-vala \
-#	python-loader
+	js-debugger \
+	language-support-vala \
+	python-loader
+#	language-support-js
 
 -include $(top_srcdir)/git.mk

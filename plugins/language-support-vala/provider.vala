@@ -23,10 +23,10 @@ public class ValaProvider : Object, IAnjuta.Provider {
 	static Regex member_access_split;
 	static Regex function_call;
 
-	const string PREF_AUTOCOMPLETE_ENABLE = "language.cpp.code.completion.enable";
-	const string PREF_SPACE_AFTER_FUNC = "language.cpp.code.completion.space.after.func";
-	const string PREF_BRACE_AFTER_FUNC = "language.cpp.code.completion.brace.after.func";
-	const string PREF_CALLTIP_ENABLE = "language.cpp.code.calltip.enable";
+	const string PREF_AUTOCOMPLETE_ENABLE = "cpp-completion-enable";
+	const string PREF_SPACE_AFTER_FUNC = "cpp-completion-space-after-func";
+	const string PREF_BRACE_AFTER_FUNC = "cpp-code-brace-after-func";
+	const string PREF_CALLTIP_ENABLE = "cpp-calltip-enable";
 
 	static construct {
 		try {
@@ -45,7 +45,7 @@ public class ValaProvider : Object, IAnjuta.Provider {
 		return "Vala";
 	}
 	public void populate (IAnjuta.Iterable iter) throws GLib.Error {
-		if (!plugin.prefs.get_bool_with_default (PREF_AUTOCOMPLETE_ENABLE, true))
+		if (!plugin.settings.get_boolean (PREF_AUTOCOMPLETE_ENABLE))
 			return;
 
 		var editor = plugin.current_editor as IAnjuta.EditorAssist;
@@ -99,12 +99,12 @@ public class ValaProvider : Object, IAnjuta.Provider {
 		}
 
 		if (is_func) {
-			if (plugin.prefs.get_bool_with_default (PREF_SPACE_AFTER_FUNC, true)) {
+			if (plugin.settings.get_boolean (PREF_SPACE_AFTER_FUNC)) {
 				assist += " ";
 			}
-			if (plugin.prefs.get_bool_with_default (PREF_BRACE_AFTER_FUNC, true)) {
+			if (plugin.settings.get_boolean (PREF_BRACE_AFTER_FUNC)) {
 				assist += "(";
-				if (plugin.prefs.get_bool_with_default (PREF_CALLTIP_ENABLE, true)) {
+				if (plugin.settings.get_boolean (PREF_CALLTIP_ENABLE)) {
 					calltip = true;
 				}
 			}
