@@ -1159,6 +1159,34 @@ cpp_java_assist_populate (IAnjutaProvider* self, IAnjutaIterable* cursor, GError
 } 
 
 /**
+ * cpp_java_assist_find_next_brace:
+ * @self: CppJavaAssist object
+ * @iter: Iter to start searching at
+ *
+ * Returns: TRUE if the next non-whitespace character is a opening brace,
+ * FALSE otherwise
+ */
+static gboolean
+cpp_java_assist_find_next_brace (CppJavaAssist* assist,
+                                 IAnjutaIterable* iter)
+{
+	IAnjutaIterable* my_iter = ianjuta_iterable_clone (iter, NULL);
+	char ch;
+	do
+	{
+		ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (my_iter), 0, NULL);
+		if (ch == '(')
+		{
+			g_object_unref (my_iter);
+		    return TRUE;
+		}
+	}
+	while (g_ascii_isspace (ch) && ianjuta_iterable_next (my_iter, NULL));
+	
+	return FALSE;
+}
+
+/**
  * cpp_java_assist_activate:
  * @self: IAnjutaProvider object
  * @iter: cursor position when proposal was activated
@@ -1189,11 +1217,14 @@ cpp_java_assist_activate (IAnjutaProvider* self, IAnjutaIterable* iter, gpointer
 		add_brace_after_func =
 			g_settings_get_boolean (assist->priv->settings,
 			                        PREF_AUTOCOMPLETE_BRACE_AFTER_FUNC);
-		if (add_space_after_func)
-			g_string_append (assistance, " ");
-		
-		if (add_brace_after_func)
-			g_string_append (assistance, "(");
+
+		if (!cpp_java_assist_find_next_brace (assist, iter))
+		{
+			if (add_space_after_func)
+				g_string_append (assistance, " ");
+			if (add_brace_after_func)
+				g_string_append (assistance, "(");
+		}
 	}
 	
 	te = IANJUTA_EDITOR (assist->priv->iassist);
@@ -1222,7 +1253,7 @@ cpp_java_assist_activate (IAnjutaProvider* self, IAnjutaIterable* iter, gpointer
 		                            PREF_CALLTIP_ENABLE))	
 			assist->priv->calltip_active = cpp_java_assist_calltip (assist);
 
-	}	
+	}
 	g_string_free (assistance, TRUE);
 }
 
