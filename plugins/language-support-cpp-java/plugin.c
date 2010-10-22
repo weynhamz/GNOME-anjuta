@@ -55,6 +55,7 @@
 
 #define PREF_SCHEMA "org.gnome.anjuta.cpp"
 #define PREF_INDENT_AUTOMATIC "cpp-indent-automatic"
+#define PREF_INDENT_MODELINE "cpp-indent-modeline"
 #define PREF_INDENT_STATEMENT_SIZE "cpp-indent-statement-size"
 #define PREF_INDENT_BRACE_SIZE "cpp-indent-brace-size"
 #define PREF_INDENT_PARANTHESE_LINEUP "cpp-indent-paranthese-lineup"
@@ -596,84 +597,88 @@ initialize_indentation_params (CppJavaPlugin *plugin)
 	plugin->param_case_indentation = -1;
 	plugin->param_label_indentation = -1;
 	plugin->param_use_spaces = -1;
-	
-	/* Find the first comment text in the buffer */
-	comment_text = g_string_new (NULL);
-	iter = ianjuta_editor_get_start_position (IANJUTA_EDITOR (plugin->current_editor),
-											  NULL);
-	do
+
+	if (g_settings_get_boolean (plugin->settings,
+	                            PREF_INDENT_MODELINE))
 	{
-		gboolean shift_buffer = TRUE;
-		gint i;
-		gchar ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter),
-												 0, NULL);
-		
-		for (i = 0; i < MINI_BUFFER_SIZE - 1; i++)
+		/* Find the first comment text in the buffer */
+		comment_text = g_string_new (NULL);
+		iter = ianjuta_editor_get_start_position (IANJUTA_EDITOR (plugin->current_editor),
+		                                          NULL);
+		do
 		{
-			if (mini_buffer[i] == '\0')
-			{
-				mini_buffer[i] = ch;
-				shift_buffer = FALSE;
-				break;
-			}
-		}
-		if (shift_buffer == TRUE)
-		{
-			/* Shift buffer and add */
+			gboolean shift_buffer = TRUE;
+			gint i;
+			gchar ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter),
+			                                         0, NULL);
+
 			for (i = 0; i < MINI_BUFFER_SIZE - 1; i++)
-				mini_buffer [i] = mini_buffer[i+1];
-			mini_buffer[i] = ch;
-		}
-		
-		if (!comment_begun && strncmp (mini_buffer, "/*", 2) == 0)
-		{
-			comment_begun = TRUE;
-			/* Reset buffer */
-			mini_buffer[0] = mini_buffer[1] = '\0';
-		}
-		else if (!comment_begun && strncmp (mini_buffer, "//", 2) == 0)
-		{
-			comment_begun = TRUE;
-			line_comment = TRUE;
-		}
-		else if (!comment_begun && mini_buffer[1] != '\0')
-		{
-			/* The buffer doesn't begin with a comment */
-			break;
-		}
-		else if (comment_begun)
-		{
-			if ((line_comment && ch == '\n') ||
-				(!line_comment && strncmp (mini_buffer, "*/", 2) == 0))
 			{
-				break;
+				if (mini_buffer[i] == '\0')
+				{
+					mini_buffer[i] = ch;
+					shift_buffer = FALSE;
+					break;
+				}
+			}
+			if (shift_buffer == TRUE)
+			{
+				/* Shift buffer and add */
+				for (i = 0; i < MINI_BUFFER_SIZE - 1; i++)
+					mini_buffer [i] = mini_buffer[i+1];
+				mini_buffer[i] = ch;
+			}
+
+			if (!comment_begun && strncmp (mini_buffer, "/*", 2) == 0)
+			{
+				comment_begun = TRUE;
+				/* Reset buffer */
+				mini_buffer[0] = mini_buffer[1] = '\0';
+			}
+			else if (!comment_begun && strncmp (mini_buffer, "//", 2) == 0)
+			                                    {
+													comment_begun = TRUE;
+													line_comment = TRUE;
+												}
+			                                    else if (!comment_begun && mini_buffer[1] != '\0')
+			                                    {
+													/* The buffer doesn't begin with a comment */
+													break;
+												}
+			                                    else if (comment_begun)
+			                                    {
+													if ((line_comment && ch == '\n') ||
+													    (!line_comment && strncmp (mini_buffer, "*/", 2) == 0))
+													{
+														break;
+													}
+												}
+
+			                                    if (comment_begun)
+			                                    g_string_append_c (comment_text, ch);
+
+		                                    }
+		while (ianjuta_iterable_next (iter, NULL));
+
+		/* DEBUG_PRINT ("Comment text: %s", comment_text->str);*/
+		if (comment_text->len > 0)
+		{
+
+			/* First comment found */
+			gboolean vim;
+			gchar *modeline = extract_mode_line (comment_text->str, &vim);
+			if (modeline)
+			{
+				if (!vim)
+					parse_mode_line_emacs (plugin, modeline);
+				else
+					parse_mode_line_vim (plugin, modeline);
+				g_free (modeline);
 			}
 		}
-		
-		if (comment_begun)
-			g_string_append_c (comment_text, ch);
-		
+		g_string_free (comment_text, TRUE);
+		g_object_unref (iter);
 	}
-	while (ianjuta_iterable_next (iter, NULL));
-	
-	/* DEBUG_PRINT ("Comment text: %s", comment_text->str);*/
-	if (comment_text->len > 0)
-	{
-		
-		/* First comment found */
-    gboolean vim;
-		gchar *modeline = extract_mode_line (comment_text->str, &vim);
-		if (modeline)
-		{
-      if (!vim)
-			  parse_mode_line_emacs (plugin, modeline);
-      else
-        parse_mode_line_vim (plugin, modeline);
-			g_free (modeline);
-		}
-	}
-	g_string_free (comment_text, TRUE);
-	g_object_unref (iter);
 }
 
 static gint
