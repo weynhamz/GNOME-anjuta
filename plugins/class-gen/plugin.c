@@ -459,7 +459,7 @@ iwizard_activate (IAnjutaWizard *wiz, G_GNUC_UNUSED GError **err)
 
 	user_name = g_strdup(g_get_real_name ());
 	/* FIXME: */
-	user_email = NULL;
+	user_email = anjuta_util_get_user_mail();
 	
 	if (user_name != NULL)
 		cg_window_set_author (cg_plugin->window, user_name);

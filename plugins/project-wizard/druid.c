@@ -1122,7 +1122,7 @@ npw_druid_add_default_property (NPWDruid* druid)
 	value = npw_value_heap_find_value (druid->values, EMAIL_ADDRESS_PROPERTY);
 
 	/* FIXME: We need a default way for the mail */
-	s = g_strconcat(g_get_user_name (), "@", g_get_host_name (), NULL);
+	s = anjuta_util_get_user_mail();
 	npw_value_set_value (value, s, NPW_VALID_VALUE);
 	g_free (s);
 }
