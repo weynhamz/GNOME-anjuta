@@ -8,4 +8,4 @@ UserActivatable=no
 
 [Language Support]
 Languages=Python
-MimeTypes=text/x-python
+MimeTypes=text/x-python,application/x-extension-wsgi
