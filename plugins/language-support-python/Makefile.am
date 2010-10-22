@@ -42,8 +42,9 @@ libpython_plugin_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 libpython_plugin_la_LIBADD = \
 	$(LIBANJUTA_LIBS) 
 
-prefs_ui_files = $(python_plugin_glade_DATA)
-prefs_keyfile = python-plugin.gschema-part.xml
+prefs_name = org.gnome.anjuta.python
+prefs_ui_files = python-plugin-properties.ui
+prefs_keyfile = python.gschema-part.xml
 include $(top_srcdir)/scripts/build-schemas.mk
 
 EXTRA_DIST = \

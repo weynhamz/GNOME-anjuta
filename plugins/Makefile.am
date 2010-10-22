@@ -22,6 +22,7 @@ SUBDIRS = . \
 	document-manager \
 	search \
 	language-support-cpp-java \
+	language-support-python \
 	glade \
 	devhelp \
 	language-manager \
@@ -36,7 +37,6 @@ SUBDIRS = . \
 	js-debugger
 #	language-support-js \
 #	language-support-vala \
-#	language-support-python \
 #	python-loader
 
 -include $(top_srcdir)/git.mk

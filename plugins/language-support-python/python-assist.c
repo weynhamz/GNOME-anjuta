@@ -25,6 +25,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <unistd.h>
+#include <glib/gi18n.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-launcher.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
@@ -39,11 +40,11 @@
 #include "python-assist.h"
 #include "python-utils.h"
 
-#define PREF_AUTOCOMPLETE_ENABLE "language.python.code.completion.enable"
-#define PREF_AUTOCOMPLETE_SPACE_AFTER_FUNC "language.python.code.completion.space.after.func"
-#define PREF_AUTOCOMPLETE_BRACE_AFTER_FUNC "language.python.code.completion.brace.after.func"
-#define PREF_CALLTIP_ENABLE "language.python.code.calltip.enable"
-#define PREF_INTERPRETER_PATH "language.python.interpreter.path"
+#define PREF_AUTOCOMPLETE_ENABLE "python-completion-enable"
+#define PREF_AUTOCOMPLETE_SPACE_AFTER_FUNC "python-completion-func-space"
+#define PREF_AUTOCOMPLETE_BRACE_AFTER_FUNC "python-completion-func-brace"
+#define PREF_CALLTIP_ENABLE "python-calltip-enable"
+#define PREF_INTERPRETER_PATH "python-interpreter-path"
 #define MAX_COMPLETIONS 30
 #define BRACE_SEARCH_LIMIT 500
 #define SCOPE_BRACE_JUMP_LIMIT 50
@@ -68,7 +69,7 @@ typedef struct
 } PythonAssistTag;
 
 struct _PythonAssistPriv {
-	AnjutaPreferences *preferences;
+	GSettings* settings;
 	IAnjutaSymbolManager* isymbol_manager;
 	IAnjutaDocumentManager* idocument_manager;
 	IAnjutaEditorAssist* iassist;
@@ -473,8 +474,8 @@ python_assist_create_word_completion_cache (PythonAssist *assist, IAnjutaIterabl
 		project = g_get_tmp_dir ();
 	
 	/* Create rope command and temporary source file */
-	interpreter_path = anjuta_preferences_get (assist->priv->preferences,
-	                                           PREF_INTERPRETER_PATH);
+	interpreter_path = g_settings_get_string (assist->priv->settings,
+	                                          PREF_INTERPRETER_PATH);
 
 	tmp_file = create_tmp_file (source);
 	g_free (source);
@@ -577,8 +578,8 @@ python_assist_query_calltip (PythonAssist *assist, const gchar *call_context)
 	if (!project)
 		project = g_get_tmp_dir ();
 	
-	interpreter_path = anjuta_preferences_get (assist->priv->preferences,
-	                                           PREF_INTERPRETER_PATH);
+	interpreter_path = g_settings_get_string (assist->priv->settings,
+	                                          PREF_INTERPRETER_PATH);
 
 	tmp_file = create_tmp_file (source);
 	g_free (source);
@@ -790,15 +791,15 @@ python_assist_populate (IAnjutaProvider* self, IAnjutaIterable* cursor, GError**
 
 	/* Check for calltip */
 	if (assist->priv->itip && 
-	    anjuta_preferences_get_bool (assist->priv->preferences,
-	                                 PREF_CALLTIP_ENABLE))
+	    g_settings_get_boolean (assist->priv->settings,
+	                            PREF_CALLTIP_ENABLE))
 	{	
 		python_assist_calltip (assist);	
 	}
 	
 	/* Check if we actually want autocompletion at all */
-	if (!anjuta_preferences_get_bool (anjuta_preferences_default (),
-	                                  PREF_AUTOCOMPLETE_ENABLE))
+	if (!g_settings_get_string (assist->priv->settings,
+	                            PREF_AUTOCOMPLETE_ENABLE))
 	{
 		python_assist_none (self, assist);
 		return;
@@ -884,11 +885,11 @@ python_assist_activate (IAnjutaProvider* self, IAnjutaIterable* iter, gpointer d
 	if (tag->is_func)
 	{
 		add_space_after_func =
-			anjuta_preferences_get_bool (assist->priv->preferences,
-			                             PREF_AUTOCOMPLETE_SPACE_AFTER_FUNC);
+			g_settings_get_boolean (assist->priv->settings,
+			                        PREF_AUTOCOMPLETE_SPACE_AFTER_FUNC);
 		add_brace_after_func =
-			anjuta_preferences_get_bool (assist->priv->preferences,
-			                             PREF_AUTOCOMPLETE_BRACE_AFTER_FUNC);
+			g_settings_get_boolean (assist->priv->settings,
+			                        PREF_AUTOCOMPLETE_BRACE_AFTER_FUNC);
 		if (add_space_after_func)
 			g_string_append (assistance, " ");
 		
@@ -1002,7 +1003,7 @@ PythonAssist *
 python_assist_new (IAnjutaEditorAssist *iassist,
                    IAnjutaSymbolManager *isymbol_manager,
                    IAnjutaDocumentManager *idocument_manager,
-                   AnjutaPreferences *prefs,
+                   GSettings* settings,
                    const gchar *editor_filename,
                    const gchar *project_root)
 {
@@ -1010,7 +1011,7 @@ python_assist_new (IAnjutaEditorAssist *iassist,
 	assist->priv->isymbol_manager = isymbol_manager;
 	assist->priv->idocument_manager = idocument_manager;
 	assist->priv->editor_filename = editor_filename;
-	assist->priv->preferences = prefs;
+	assist->priv->settings = settings;
 	assist->priv->project_root = project_root;
 	assist->priv->editor=(IAnjutaEditor*)iassist;
 	python_assist_install (assist, IANJUTA_EDITOR (iassist));

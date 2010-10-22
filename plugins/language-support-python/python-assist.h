@@ -26,7 +26,6 @@
 #define _PYTHON_ASSIST_H_
 
 #include <glib-object.h>
-#include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/interfaces/ianjuta-editor-assist.h>
 #include <libanjuta/interfaces/ianjuta-symbol-manager.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
@@ -67,7 +66,7 @@ GType python_assist_get_type (void) G_GNUC_CONST;
 PythonAssist *python_assist_new (IAnjutaEditorAssist *assist,
                                  IAnjutaSymbolManager *isymbol_manager,
                                  IAnjutaDocumentManager *idocument_manager,
-                                 AnjutaPreferences *preferences,
+                                 GSettings* settings,
                                  const gchar *editor_filename,
                                  const gchar *project_root);
 
