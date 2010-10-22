@@ -156,8 +156,9 @@ atp_plugin_dispose (GObject *obj)
 {
 	/* Warning this function could be called several times */
 	ATPPlugin *this = ANJUTA_PLUGIN_ATP (obj);
-	g_object_unref (this->settings);
-	
+	if (this->settings)
+		g_object_unref (this->settings);
+	this->settings = NULL;
 	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
