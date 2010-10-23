@@ -339,7 +339,7 @@ gbf_project_model_remove_invalid_shortcut (GbfProjectModel *model, GtkTreeIter *
 		else
 		{
 			gbf_project_model_remove_invalid_shortcut (model, &child); 
-			valid = gtk_tree_model_iter_next (model, &child);
+			valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &child);
 		}
 	}
 		
@@ -726,9 +726,7 @@ add_root (GbfProjectModel 	*model,
     AnjutaProjectNode	*root,
     GtkTreeIter     	*parent)
 {
-	GtkTreeIter iter;
 	AnjutaProjectNode *node;
-	GtkTreePath *root_path;
 
 	if ((!root) || (anjuta_project_node_get_node_type (root) != ANJUTA_PROJECT_ROOT))
 		return;
@@ -750,7 +748,7 @@ add_root (GbfProjectModel 	*model,
 static void
 project_updated_cb (IAnjutaProject *project, GbfProjectModel *model)
 {
-	gbf_project_model_update_tree (model, NULL, NULL, NULL);
+	gbf_project_model_update_tree (model, NULL, NULL);
 }
 
 static void
@@ -844,14 +842,14 @@ recursive_find_tree_data (GtkTreeModel  *model,
 }
 
 void
-gbf_project_model_update_shortcut (GbfProjectModel *model, GtkTreeIter *iter, GHashTable *map)
+gbf_project_model_update_shortcut (GbfProjectModel *model, AnjutaProjectNode *parent)
 {
 	GtkTreeIter child;
 	gboolean valid;
 
-	/* Get all children */
-	valid = gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &child, iter);
-	
+	/* Get all root node */
+	valid = gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &child, NULL);
+
 	while (valid)
 	{
 		GbfTreeData *data;
@@ -861,42 +859,23 @@ gbf_project_model_update_shortcut (GbfProjectModel *model, GtkTreeIter *iter, GH
 		gtk_tree_model_get (GTK_TREE_MODEL (model), &child,
 	  			 GBF_PROJECT_MODEL_COLUMN_DATA, &data,
 	    			-1);
-			
+
 		/* Shortcuts are always at the beginning */
-		if ((iter == NULL) && (data->type != GBF_TREE_NODE_SHORTCUT)) break;
+		if (data->type != GBF_TREE_NODE_SHORTCUT) break;
 
 		old_node = gbf_tree_data_get_node (data);
-		if (g_hash_table_lookup_extended (map, old_node, NULL, &new_node))
+		if (old_node == parent)
 		{
-			/* Find node */
-			if (new_node != NULL)
-			{
-				/* Node has been changed */
-				gbf_tree_data_replace_node (data, new_node);
-				
-				/* update recursively */
-				gbf_project_model_update_tree (model, new_node, &child, map);
-				
-				valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &child);
-			}
-			else
-			{
-				/* Node has been removed */
-				valid = gbf_project_model_remove (model, &child);
-			}
+			/* check children */
+			gbf_project_model_update_tree (model, parent, &child);
 		}
-		else
-		{
-			/* Node has not changed */
-			gbf_project_model_update_shortcut (model, &child, map);
-			
-			valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &child);
-		}
-	}
+		valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &child);
+	}	
 }
 
+	
 void
-gbf_project_model_update_tree (GbfProjectModel *model, AnjutaProjectNode *parent, GtkTreeIter *iter, GHashTable *map)
+gbf_project_model_update_tree (GbfProjectModel *model, AnjutaProjectNode *parent, GtkTreeIter *iter)
 {
 	GtkTreeIter child;
 	GList *node;
@@ -912,39 +891,35 @@ gbf_project_model_update_tree (GbfProjectModel *model, AnjutaProjectNode *parent
 		
 		while (valid) {
 			GbfTreeData *data = NULL;
-			AnjutaProjectNode* new_node = NULL;
-			AnjutaProjectNode* old_node = NULL;
+			AnjutaProjectNode* data_node = NULL;
 
-			if (map != NULL)
-			{
-				/* Look for old node */
+			/* Look for current node */
 				
-				gtk_tree_model_get (GTK_TREE_MODEL (model), &child,
-					GBF_PROJECT_MODEL_COLUMN_DATA, &data,
-					-1);
+			gtk_tree_model_get (GTK_TREE_MODEL (model), &child,
+				GBF_PROJECT_MODEL_COLUMN_DATA, &data,
+				-1);
 
-				old_node = gbf_tree_data_get_node (data);
-				new_node = g_hash_table_lookup (map, old_node);
-			}
-			
-			if (new_node != NULL)
+			data_node = gbf_tree_data_get_node (data);
+
+			node = g_list_find (nodes, data_node);
+
+			if (node != NULL)
 			{
-				/* Remove from the new node list */
-				node = g_list_find (nodes, new_node);
-				if (node != NULL)
-				{
-					nodes = g_list_delete_link (nodes, node);
-				}
-				gbf_tree_data_replace_node (data, new_node);
-				
+				/* Node already exist, remove it from the list */
+				nodes = g_list_delete_link (nodes, node);
+
+				/* Update shortcut */
+				gbf_project_model_update_shortcut (model, data_node);
+				                                   
 				/* update recursively */
-				gbf_project_model_update_tree (model, new_node, &child, map);
+				gbf_project_model_update_tree (model, data_node, &child);
+
 				
 				valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &child);
 			}
 			else
 			{
-				/* update recursively */
+				/* Node has been deleted */
 				valid = gbf_project_model_remove (model, &child);
 			}
 		}

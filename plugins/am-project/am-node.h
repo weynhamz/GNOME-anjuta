@@ -65,6 +65,7 @@ AnjutaTokenFile* amp_group_set_makefile (AnjutaAmGroupNode *group, GFile *makefi
 AnjutaToken* amp_group_get_makefile_token (AnjutaAmGroupNode *group);
 gchar *amp_group_get_makefile_name (AnjutaAmGroupNode *group);
 gboolean amp_group_update_makefile (AnjutaAmGroupNode *group, AnjutaToken *token);
+void amp_group_update_monitor (AnjutaAmGroupNode *node);
 AnjutaAmGroupNode* amp_group_new (GFile *file, gboolean dist_only, GError **error);
 void amp_group_free (AnjutaAmGroupNode *node);
 

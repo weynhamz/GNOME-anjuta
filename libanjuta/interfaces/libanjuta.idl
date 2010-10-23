@@ -3097,13 +3097,45 @@ interface IAnjutaProject
 	/* Signals */
 	
 	/**
-	* IAnjutaProject::project_updated:
+	* IAnjutaProject::node_updated:
 	* @obj: Self
 	* @node: Updated node.
 	* 
-	* This signal is emitted when the project is changed.
+	* This signal is emitted when the project is changed on the disk.
 	*/
 	void ::node_updated (gpointer node);
+
+	/**
+	* IAnjutaProject::node_modified:
+	* @obj: Self
+	* @node: Modfied node.
+    * @error: Error while modifying node
+	* 
+	* This signal is emitted when a node is modified (by a function of this
+	* interface) and return an eventual error.
+	*/
+	void ::node_modified (gpointer node, GError *error);
+
+	/**
+	* IAnjutaProject::node_saved:
+	* @obj: Self
+	* @node: Saved node.
+    * @error: Error while saving node
+	* 
+	* This signal is emitted when a node is saved and return an eventual error
+	*/
+	void ::node_saved (gpointer node, GError *error);
+
+	/**
+	* IAnjutaProject::node_loaded:
+	* @obj: Self
+	* @node: Loaded node.
+    * @error: Error while loading node
+	* 
+	* This signal is emitted when a node is loaded and return an eventual error
+	*/
+	void ::node_loaded (gpointer node, GError *error);
+
 
 	/**
 	 * ianjuta_project_load_node:

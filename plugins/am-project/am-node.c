@@ -574,6 +574,25 @@ amp_group_get_makefile_name (AnjutaAmGroupNode *group)
 	return basename;
 }
 
+void
+amp_group_update_monitor (AnjutaAmGroupNode *group)
+{
+		if (group->monitor != NULL) g_object_unref (group->monitor);
+	
+		group->monitor = g_file_monitor_file (group->makefile, 
+						      									G_FILE_MONITOR_NONE,
+						       									NULL,
+						       									NULL);
+		if (group->monitor != NULL)
+		{
+			g_signal_connect (G_OBJECT (group->monitor),
+					  "changed",
+					  G_CALLBACK (on_group_monitor_changed),
+					  group);
+		}
+	
+}
+
 AnjutaAmGroupNode*
 amp_group_new (GFile *file, gboolean dist_only, GError **error)
 {

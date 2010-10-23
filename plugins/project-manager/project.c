@@ -32,105 +32,8 @@
 #include "dialogs.h"
 
 
-/*
-
-2 Threads: GUI and Work
-
-Add new source.
-
-1. Work add new node
- + Obvious, because it has the parent node
- - Not possible, if the GUI has to get all child of the same node
-
-2. Work add new node, GUI use tree data
-
-3. Work create new node only but doesn't add it
-
-4. GUI create a new node and call the save function later
-
-
-The GUI cannot change links, else the Work cannot follow links when getting a
-node. The Work can even need parent links.
-=> GUI cannot read links except in particular case
-
-The GUI can read and write common part
-=> We need to copy the properties anyway when changing them
-
-The GUI can only read common part
-=> 
-
-Have a proxy node for setting properties, this proxy will copy add common data
-and keep a link with the original node and reference count. The GUI can still
-read all data in the proxy without disturbing the Work which can change the
-underlines node. The proxy address is returned immediatly when the
-set_properties function is used. If another set_properties is done on the same
-node the proxy is reused, incrementing reference count.
-
-There is no need to proxy after add or remove functions, because the links are
-already copied in the module.
- 
-After changing a property should we reload automatically ?
-
-
-Reloading a node can change its property, so we need a proxy for the load too.
-
-Proxy has to be created in GUI, because we need to update tree data.
-
-Instead of using a Proxy, we can copy all data everytime, this will allow
-automatic reload.
- 
-
- 
- Work has always a full access to link
- GUI read a special GNode tree created by thread
-
- Work can always read common data, and can write them before sending them to GUI
- or in when modification are requested by the GUI (the GUI get a proxy)
- GUI can only read common data
-
- Work has always a full access to specific data.
- GUI has no access to specific data
- 
- 
-*/
- 
 /* Types
  *---------------------------------------------------------------------------*/
-
-typedef enum
-{
-	LOAD = 0,
-	RELOAD,
-	SAVE,
-	ADD,
-	REMOVE,
-	EXIT,
-	LAST_COMMAND
-} PmCommand;
-
-typedef struct _PmJob PmJob;
-
-typedef gboolean (*PmCommandFunc) (AnjutaPmProject *project, PmJob *job);
-
-typedef struct _PmCommandWork
-{
-	PmCommandFunc setup;
-	PmCommandFunc worker;
-	PmCommandFunc complete;
-} PmCommandWork;
-
-struct _PmJob
-{
-	PmCommand command;
-	AnjutaProjectNodeType type;
-	GFile *file;
-	gchar *name;
-	AnjutaProjectNode *node;
-	AnjutaProjectNode *sibling;
-	GError *error;
-	AnjutaProjectNode *proxy;
-	GHashTable *map;
-};
 
 /* Signal
  *---------------------------------------------------------------------------*/
@@ -144,259 +47,6 @@ enum
 
 static unsigned int signals[LAST_SIGNAL] = { 0 };
 
-/* Command functions
- *---------------------------------------------------------------------------*/
-
-static PmCommandWork PmCommands[LAST_COMMAND];
-
-
-/* Forward declarations
- *---------------------------------------------------------------------------*/
-
-static gboolean pm_project_idle_func (AnjutaPmProject *project);
-static gboolean pm_project_run_command (AnjutaPmProject *project);
-
-/* Job functions
- *---------------------------------------------------------------------------*/
-
-static PmJob *
-pm_job_new (PmCommand command, AnjutaProjectNode *node, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, GFile *file, const gchar *name)
-{
-	PmJob *job;
-
-	job = g_new0 (PmJob, 1);
-	job->command = command;
-	job->node = node;
-	job->sibling = sibling;
-	job->type = type;
-	if (file != NULL) job->file = g_object_ref (file);
-	if (name != NULL) job->name = g_strdup (name);
-
-	return job;
-}
-
-static void
-pm_job_free (PmJob *job)
-{
-	if (job->error != NULL) g_error_free (job->error);
-	if (job->map != NULL) g_hash_table_destroy (job->map);
-	if (job->file != NULL) g_object_unref (job->file);
-	if (job->name != NULL) g_free (job->name);
-}
-
-/* Worker thread functions
- *---------------------------------------------------------------------------*/
-
-static gint
-pm_project_compare_node (AnjutaProjectNode *old_node, AnjutaProjectNode *new_node)
-{
-	gchar *name1;
-	gchar *name2;
-	GFile *file1;
-	GFile *file2;
-
-	name1 = anjuta_project_node_get_name (old_node);
-	name2 = anjuta_project_node_get_name (new_node);
-	file1 = anjuta_project_node_get_file (old_node);
-	file2 = anjuta_project_node_get_file (new_node);
-
-	return (anjuta_project_node_get_node_type (old_node) == anjuta_project_node_get_node_type (new_node))
-		&& ((name1 == NULL) || (name2 == NULL) || (strcmp (name1, name2) == 0))
-		&& ((file1 == NULL) || (file2 == NULL) || g_file_equal (file1, file2)) ? 0 : 1;
-}
-
-static void
-pm_project_map_children (PmJob *job, AnjutaProjectNode *old_node, AnjutaProjectNode *new_node)
-{
-	GList *children = NULL;
-
-	if (new_node != NULL)
-	{
-		for (new_node = anjuta_project_node_first_child (new_node); new_node != NULL; new_node = anjuta_project_node_next_sibling (new_node))
-		{
-			children = g_list_prepend (children, new_node);
-		}
-		children = g_list_reverse (children);
-	}
-
-	for (old_node = anjuta_project_node_first_child (old_node); old_node != NULL; old_node = anjuta_project_node_next_sibling (old_node))
-	{
-		GList *same;
-
-		same = g_list_find_custom (children, old_node, (GCompareFunc)pm_project_compare_node);
-		
-		if (same != NULL)
-		{
-			g_hash_table_insert (job->map, old_node, (AnjutaProjectNode *)same->data);
-			
-			pm_project_map_children ((PmJob *)job, old_node, (AnjutaProjectNode *)same->data);
-			children = g_list_delete_link (children, same);
-		}
-		else
-		{
-			/* Mark deleted node */
-			g_hash_table_insert (job->map, old_node, NULL);
-			pm_project_map_children ((PmJob *)job, old_node, NULL);
-		}
-	}
-	
-	g_list_free (children);
-}
- 
-static void
-pm_project_map_node (PmJob *job)
-{
-	if ((job->proxy != NULL) && (job->node != NULL))
-	{
-		AnjutaProjectNode *old_node;
-		AnjutaProjectNode *new_node;
-		
-		job->map = g_hash_table_new (g_direct_hash, NULL);
-		old_node = job->proxy;
-		new_node = job->node;
-
-		g_hash_table_insert (job->map, old_node, new_node);
-			
-		pm_project_map_children (job, old_node, new_node);
-	}
-}
-
-static gboolean
-pm_command_load_work (AnjutaPmProject *project, PmJob *job)
-{
-	AnjutaProjectNode *node;
-	
-
-	if (ianjuta_project_load_node (project->project, job->node, &(job->error)))
-	{
-		pm_project_map_node (job);
-	}
-	
-	return TRUE;
-}
-
-static gboolean
-pm_command_save_work (AnjutaPmProject *project, PmJob *job)
-{
-	return ianjuta_project_save_node (project->project, job->node, &(job->error));
-}
-
-static gboolean
-pm_command_exit_work (AnjutaPmProject *project, PmJob *job)
-{
-	g_return_val_if_fail (job != NULL, FALSE);
-
-	/* Push job in complete queue as g_thread_exit will stop the thread
-	 * immediatly */
-	g_async_queue_push (project->done_queue, job);
-	g_thread_exit (0);
-	
-	return TRUE;
-}
-
-/* Run work function in worker thread */
-static gpointer
-pm_project_thread_main_loop (AnjutaPmProject *project)
-{
-	for (;;)
-	{
-		PmJob *job;
-		PmCommandFunc func;
-		
-		/* Get new job */
-		job = (PmJob *)g_async_queue_pop (project->work_queue);
-
-		/* Get work function and call it if possible */
-		func = PmCommands[job->command].worker;
-		if (func != NULL)
-		{
-			func (project, job);
-		}
-		
-		/* Push completed job in queue */
-		g_async_queue_push (project->done_queue, job);
-	}
-}
-
-/* Main thread functions
- *---------------------------------------------------------------------------*/
-
-static gboolean
-pm_project_start_thread (AnjutaPmProject *project, GError **error)
-{
-	project->done_queue = g_async_queue_new ();
-	project->work_queue = g_async_queue_new ();
-	project->job_queue = g_queue_new ();
-
-	project->worker = g_thread_create ((GThreadFunc) pm_project_thread_main_loop, project, TRUE, error);
-
-	if (project->worker == NULL) {
-		g_async_queue_unref (project->work_queue);
-		project->work_queue = NULL;
-		g_async_queue_unref (project->done_queue);
-		project->done_queue = NULL;
-		g_queue_free (project->job_queue);
-		project->job_queue = NULL;
-
-		return FALSE;
-	}
-	else
-	{
-		project->idle_func = g_idle_add ((GSourceFunc) pm_project_idle_func, project);
-		project->stopping = FALSE;
-
-		return TRUE;
-	}
-}
-
-static gboolean
-pm_project_stop_thread (AnjutaPmProject *project)
-{
-	if (project->job_queue)
-	{
-		PmJob *job;
-		
-		project->stopping = TRUE;
-
-		// Remove idle function
-		g_idle_remove_by_data (project);
-		project->idle_func = 0;
-
-		// Request to terminate thread
-		job = pm_job_new (EXIT, NULL, NULL, 0, NULL, NULL);
-		g_async_queue_push (project->work_queue, job);
-		g_thread_join (project->worker);
-		project->worker = NULL;
-
-		// Free queue
-		g_async_queue_unref (project->work_queue);
-		project->work_queue = NULL;
-		g_queue_foreach (project->job_queue, (GFunc)pm_job_free, project->project);
-		g_queue_free (project->job_queue);
-		project->job_queue = NULL;
-		for (;;)
-		{
-			job = g_async_queue_try_pop (project->done_queue);
-			if (job == NULL) break;
-			pm_job_free (job);
-		}
-		project->done_queue = NULL;
-	}
-
-	return TRUE;
-}
-
-static void
-pm_project_push_command (AnjutaPmProject *project, PmCommand command, AnjutaProjectNode *node, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, GFile *file, const gchar *name)
-{
-	PmJob *job;
-
-	job = pm_job_new (command, node, sibling, type, file, name);
-	g_queue_push_tail (project->job_queue, job);
-	
-	pm_project_run_command (project);
-}
-
 static void
 on_pm_project_load_incomplete (AnjutaProjectNode *node, AnjutaPmProject *project)
 {
@@ -408,287 +58,83 @@ on_pm_project_load_incomplete (AnjutaProjectNode *node, AnjutaPmProject *project
 		project->incomplete_node++;
 		anjuta_project_node_set_state (node, ANJUTA_PROJECT_LOADING);
 		//g_message ("load incomplete %p", node);
-		pm_project_push_command (project, RELOAD, node, NULL, 0, NULL, NULL);
+		ianjuta_project_load_node (project->project, node, NULL);
 	}
 }
 
 static gboolean
-pm_command_load_setup (AnjutaPmProject *project, PmJob *job)
+pm_command_load_complete (AnjutaPmProject *project, AnjutaProjectNode *node, GError *error)
 {
-	g_return_val_if_fail (job != NULL, FALSE);
-	g_return_val_if_fail (job->node != NULL, FALSE);
-	
-	job->proxy = anjuta_project_proxy_new (job->node);
-	anjuta_project_node_replace (job->node, job->proxy);
-	/*anjuta_project_proxy_exchange_data (job->node, job->proxy);*/
-	
-	return TRUE;
-}
-
-static void
-check_queue (GQueue *queue, GHashTable *map)
-{
-	guint i;
-	
-	//g_message ("check queue size %d", g_queue_get_length (queue));
-	for (i = 0;; i++)
-	{
-		PmJob *job = (PmJob *)g_queue_peek_nth (queue, i);
-		
-		if (job == NULL) break;
-		if (job->node != NULL)
-		{
-			AnjutaProjectNode *replace;
-			AnjutaProjectNode *node;
-			
-			/* Get original node if we have a proxy here */
-			node = anjuta_project_proxy_get_node (job->node);
-			
-			if (g_hash_table_lookup_extended (map, node, NULL, (gpointer *)&replace))
-			{
-				//g_message ("*** delete node %p used ***", job->node);
-				if (replace != NULL)
-				{
-					/* Replaced node */
-					job->node = replace;
-				}
-				else
-				{
-					/* node has been deleted */
-					g_warning ("Node %s has been delete before executing command %d", anjuta_project_node_get_name (job->node), job->command);
-					job = g_queue_pop_nth (queue, i);
-					pm_job_free (job);
-					i--;
-				}
-			}
-		}
-	}
-}
-
-static gboolean
-pm_command_load_complete (AnjutaPmProject *project, PmJob *job)
-{
-	//anjuta_project_proxy_exchange (job->proxy, job->node);
-	anjuta_project_node_exchange (job->proxy, job->node);
-
 	g_message ("pm_command_load_complete");
-	if (job->error != NULL)
+	
+	if (error != NULL)
 	{
 		g_warning ("unable to load node");
-		g_signal_emit (G_OBJECT (project), signals[job->command == LOAD ? LOADED : UPDATED], 0, job->node, job->error);
+		g_signal_emit (G_OBJECT (project), project->loaded ? LOADED : UPDATED, 0, node, error);
 	}
 	else
 	{
-		gboolean load = job->command == LOAD;
-	
-		if (job->command == LOAD)
+		if (project->root == node)
 		{
 			g_object_set (G_OBJECT (project->model), "project", project, NULL);
 			project->incomplete_node = 0;
-		}
-		
-		if (project->root == job->node)
-		{
-			gbf_project_model_update_tree (project->model, job->node, NULL, job->map);
-			gbf_project_model_update_shortcut (project->model, NULL, job->map);
+			gbf_project_model_update_tree (project->model, node, NULL);
 		}
 		else
 		{
 			GtkTreeIter iter;
 			gboolean found;
 			
-			found = gbf_project_model_find_node (project->model, &iter, NULL, job->node);
-			gbf_project_model_update_tree (project->model, job->node, found ? &iter : NULL, job->map);
-			gbf_project_model_update_shortcut (project->model, NULL, job->map);
+			found = gbf_project_model_find_node (project->model, &iter, NULL, node);
+			gbf_project_model_update_tree (project->model, node, found ? &iter : NULL);
 		}
 		
-		
 		// Check for incompletely loaded object and load them
-		if (anjuta_project_node_get_state (job->node) & ANJUTA_PROJECT_INCOMPLETE)
+		if (anjuta_project_node_get_state (node) & ANJUTA_PROJECT_INCOMPLETE)
 		{
 			project->incomplete_node--;
 			//g_message ("remaining node %d", project->incomplete_node);
-			if (project->incomplete_node == 0) load = TRUE;
 		}
-		anjuta_project_node_clear_state (job->node, ANJUTA_PROJECT_LOADING | ANJUTA_PROJECT_INCOMPLETE);
-		anjuta_project_node_foreach (job->node, G_POST_ORDER, (AnjutaProjectNodeForeachFunc)on_pm_project_load_incomplete, project);
+		anjuta_project_node_clear_state (node, ANJUTA_PROJECT_LOADING | ANJUTA_PROJECT_INCOMPLETE);
+		anjuta_project_node_foreach (node, G_POST_ORDER, (AnjutaProjectNodeForeachFunc)on_pm_project_load_incomplete, project);
 
-		g_message ("emit node %p", job->node);
-		if (load && (project->incomplete_node == 0))
+		g_message ("emit node %p", node);
+		if (!project->loaded && (project->incomplete_node == 0))
 		{
-			g_signal_emit (G_OBJECT (project), signals[LOADED], 0, job->node, NULL);
+			g_signal_emit (G_OBJECT (project), signals[LOADED], 0, node, NULL);
+			project->loaded = TRUE;
 		}
 		else
 		{
-			g_signal_emit (G_OBJECT (project), signals[UPDATED], 0, job->node, NULL);
+			g_signal_emit (G_OBJECT (project), signals[UPDATED], 0, node, NULL);
 		}
-		check_queue (project->job_queue, job->map);
 	}
-
-	anjuta_project_proxy_unref  (job->proxy);
-	//anjuta_project_node_foreach (job->proxy, G_POST_ORDER, (AnjutaProjectNodeForeachFunc)pm_free_node, project->project);
 	
 	return TRUE;
 }
 
-static gboolean
-pm_command_add_setup (AnjutaPmProject *project, PmJob *job)
+static void
+on_node_updated (IAnjutaProject *sender, AnjutaProjectNode *node, AnjutaPmProject *project)
 {
-	AnjutaProjectNode *node;
-	
-	g_return_val_if_fail (job != NULL, FALSE);
-	g_return_val_if_fail (job->node != NULL, FALSE);
-
-	node = ianjuta_project_add_node_before (project->project, job->node, job->sibling, job->type, NULL, job->name, NULL);
-	job->node = node;
-	
-	return TRUE;
+	ianjuta_project_load_node (project->project, node, NULL);
 }
 
-static gboolean
-pm_command_remove_setup (AnjutaPmProject *project, PmJob *job)
+static void
+on_node_loaded (IAnjutaProject *sender, AnjutaProjectNode *node, GError *error, AnjutaPmProject *project)
 {
-	GtkTreeIter iter;
-	
-	g_return_val_if_fail (job != NULL, FALSE);
-	g_return_val_if_fail (job->node != NULL, FALSE);
-
-	/* Remove node from project tree */
-	if (gbf_project_model_find_node (project->model, &iter, NULL, job->node))
-	{
-		gbf_project_model_remove (project->model, &iter);
-		ianjuta_project_remove_node (project->project, job->node, NULL);
-		
-		return TRUE;
-	}
-	else
-	{
-		return FALSE;
-	}
+	pm_command_load_complete (project, node, error);
 }
 
-static gboolean
-pm_command_remove_complete (AnjutaPmProject *project, PmJob *job)
+static void
+on_node_changed (IAnjutaProject *sender, AnjutaProjectNode *node, GError *error, AnjutaPmProject *project)
 {
-	g_return_val_if_fail (job != NULL, FALSE);
-	g_return_val_if_fail (job->node != NULL, FALSE);
-
-	/* Remove node from node tree */
-	//anjuta_project_node_remove (job->node);
-	//pm_free_node (job->node, project->project);
-	//anjuta_project_node_foreach (job->node, G_POST_ORDER, (AnjutaProjectNodeForeachFunc)pm_free_node, project->project);
-	
-	return TRUE;
-}
- 
-static PmCommandWork PmCommands[LAST_COMMAND] = {
-			{pm_command_load_setup,
-			pm_command_load_work,
-			pm_command_load_complete},
-			{pm_command_load_setup,
-			pm_command_load_work,
-			pm_command_load_complete},
-			{NULL,
-			pm_command_save_work,
-			NULL},
-			{pm_command_add_setup,
-			pm_command_save_work,
-			NULL},
-			{pm_command_remove_setup,
-			pm_command_save_work,
-			pm_command_remove_complete},
-			{NULL,
-			pm_command_exit_work,
-			NULL}};
-
-/* Run a command in job queue */
-static gboolean
-pm_project_run_command (AnjutaPmProject *project)
-{
-	gboolean running = TRUE;
-	
-	if (project->busy == 0)
-	{
-		/* Worker thread is waiting for new command, check job queue */
-		PmJob *job;
-		
-		do
-		{
-			PmCommandFunc func;
-			
-			/* Get next command */
-			job = g_queue_pop_head (project->job_queue);
-			running = job != NULL;
-			if (!running) break;
-			
-			/* Get setup function and call it if possible */
-			func = PmCommands[job->command].setup;
-			if (func != NULL)
-			{
-				running = func (project, job);
-			}
-				
-			if (running)
-			{
-				/* Execute work function in the worker thread */
-				project->busy = 1;
-				
-				if (project->idle_func == 0)
-				{
-					project->idle_func = g_idle_add ((GSourceFunc) pm_project_idle_func, project);
-				}
-				g_async_queue_push (project->work_queue, job);
-			}
-			else
-			{
-				/* Discard command */
-				pm_job_free (job);
-			}
-		} while (!running);
-	}
-	
-	return running;
-}
-
-static gboolean
-pm_project_idle_func (AnjutaPmProject *project)
-{
-	gboolean running;
-
-	for (;;)
-	{
-		PmCommandFunc func;
-		PmJob *job;
-		
-		/* Get completed command */
-		job = (PmJob *)g_async_queue_try_pop (project->done_queue);
-		if (job == NULL) break;
-
-		/* Get complete function and call it if possible */
-		func = PmCommands[job->command].complete;
-		if (func != NULL)
-		{
-			running = func (project, job);
-		}
-		pm_job_free (job);
-		project->busy--;
-	}
-	
-	running = pm_project_run_command (project);
-	if (!running) project->idle_func = 0;
-	
-	return running;
+	ianjuta_project_save_node (project->project, node, NULL);
 }
 
 /* Public functions
  *---------------------------------------------------------------------------*/
 
-static void
-on_node_updated (IAnjutaProject *sender, AnjutaProjectNode *node, AnjutaPmProject *project)
-{
-	pm_project_push_command (project, RELOAD, node, NULL, 0, NULL, NULL);
-}
- 
+
 gboolean 
 anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 {
@@ -696,7 +142,6 @@ anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 	GList *desc;
 	IAnjutaProjectBackend *backend;
 	gint found = 0;
-	GError *err = NULL;
 	
 	g_return_val_if_fail (file != NULL, FALSE);
 	
@@ -704,6 +149,7 @@ anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 	{
 		g_object_unref (project->project);
 		project->project = NULL;
+		project->loaded = FALSE;
 	}
 	
 	DEBUG_PRINT ("loading gbf backend…\n");
@@ -767,17 +213,21 @@ anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 		return FALSE;
 	}
 
-	if (!pm_project_start_thread(project, &err))
-	{
-		return FALSE;
-	}
 	g_signal_connect (G_OBJECT (project->project),
 						"node-updated",
 						G_CALLBACK (on_node_updated),
 						project);
+	g_signal_connect (G_OBJECT (project->project),
+						"node-loaded",
+						G_CALLBACK (on_node_loaded),
+						project);
+	g_signal_connect (G_OBJECT (project->project),
+						"node-changed",
+						G_CALLBACK (on_node_changed),
+						project);
 	
 	project->root = ianjuta_project_get_root (project->project, NULL);
-	pm_project_push_command (project, LOAD, project->root, NULL, 0, NULL, NULL);
+	ianjuta_project_load_node (project->project, project->root, NULL);
 	
 	return TRUE;
 }
@@ -785,7 +235,7 @@ anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 static gboolean
 anjuta_pm_project_reload_node (AnjutaPmProject *project, AnjutaProjectNode *node, GError **error)
 {
-	pm_project_push_command (project, RELOAD, node, NULL, 0, NULL, NULL);
+	ianjuta_project_load_node (project->project, project->root, NULL);	
 
 	return TRUE;
 }
@@ -793,11 +243,10 @@ anjuta_pm_project_reload_node (AnjutaPmProject *project, AnjutaProjectNode *node
 gboolean 
 anjuta_pm_project_unload (AnjutaPmProject *project, GError **error)
 {
-	pm_project_stop_thread (project);
-	
 	g_object_set (G_OBJECT (project->model), "project", NULL, NULL);
 	g_object_unref (project->project);
 	project->project = NULL;
+	project->loaded = FALSE;
 
 	/* Remove project properties dialogs */
 	if (project->properties_dialog != NULL) gtk_widget_destroy (project->properties_dialog);
@@ -809,9 +258,7 @@ anjuta_pm_project_unload (AnjutaPmProject *project, GError **error)
 gboolean
 anjuta_pm_project_refresh (AnjutaPmProject *project, GError **error)
 {
-	//g_message ("reload project %p", project->root);
-	
-	pm_project_push_command (project, RELOAD, project->root, NULL, 0, NULL, NULL);
+	ianjuta_project_load_node (project->project, project->root, NULL);	
 
 	return TRUE;
 }
@@ -909,7 +356,7 @@ anjuta_pm_project_add_group (AnjutaPmProject *project, AnjutaProjectNode *parent
 	
 	g_return_val_if_fail (project->project != NULL, NULL);
 	
-	pm_project_push_command (project, ADD, parent, sibling, ANJUTA_PROJECT_GROUP, NULL, name);
+	node = ianjuta_project_add_node_before (project->project, parent, sibling, ANJUTA_PROJECT_GROUP, NULL, name, NULL);
 
 	return node;
 }
@@ -921,7 +368,7 @@ anjuta_pm_project_add_target (AnjutaPmProject *project, AnjutaProjectNode *paren
 	
 	g_return_val_if_fail (project->project != NULL, NULL);
 
-	pm_project_push_command (project, ADD, parent, sibling, ANJUTA_PROJECT_TARGET | type, NULL, name);
+	node = ianjuta_project_add_node_before (project->project, parent, sibling, ANJUTA_PROJECT_TARGET | type, NULL, name, NULL);
 
 	return node;
 }
@@ -933,7 +380,7 @@ anjuta_pm_project_add_source (AnjutaPmProject *project, AnjutaProjectNode *paren
 
 	g_return_val_if_fail (project->project != NULL, NULL);
 	
-	pm_project_push_command (project, ADD, parent, sibling, ANJUTA_PROJECT_SOURCE, NULL, name);
+	node = ianjuta_project_add_node_before (project->project, parent, sibling, ANJUTA_PROJECT_SOURCE, NULL, name, NULL);
 
 	return node;
 }
@@ -941,7 +388,7 @@ anjuta_pm_project_add_source (AnjutaPmProject *project, AnjutaProjectNode *paren
 gboolean
 anjuta_pm_project_remove (AnjutaPmProject *project, AnjutaProjectNode *node, GError **error)
 {
-	pm_project_push_command (project, REMOVE, node, NULL, 0, NULL, NULL);
+	ianjuta_project_remove_node (project->project, node, NULL);
 
 	return TRUE;
 }
@@ -959,8 +406,6 @@ anjuta_pm_project_set_properties (AnjutaPmProject *project, AnjutaProjectNode *n
 		valid = ianjuta_project_set_property (project->project, node, prop->property, prop->value, error) != NULL;
 		if (!valid) break;
 	}
-	
-	if (valid) pm_project_push_command (project, SAVE, node, NULL, 0, NULL, NULL);
 	
 	return valid;
 }
@@ -981,7 +426,6 @@ anjuta_pm_project_remove_data (AnjutaPmProject *project, GbfTreeData *data, GErr
 		return FALSE;
 	}
 }
-
 
 gboolean
 anjuta_pm_project_is_open (AnjutaPmProject *project)
@@ -1088,7 +532,7 @@ anjuta_pm_project_show_properties_dialog (AnjutaPmProject *project, GbfTreeData 
 			node);
 		if (*dialog_ptr != NULL)
 		{
-			g_object_add_weak_pointer (*dialog_ptr, dialog_ptr);
+			g_object_add_weak_pointer (G_OBJECT (*dialog_ptr), (gpointer *)dialog_ptr);
 		}
 	}
 
@@ -1105,16 +549,9 @@ anjuta_pm_project_init (AnjutaPmProject *project)
 {
 	project->model = gbf_project_model_new (NULL);
 	project->plugin = NULL;
+	project->loaded = FALSE;
 
 	project->properties_dialog = NULL;
-	
-	project->job_queue = NULL;
-	project->work_queue = NULL;
-	project->done_queue = NULL;
-	project->worker = NULL;
-	project->idle_func = 0;
-	project->stopping = FALSE;
-	project->busy = 0;
 }
 
 static void

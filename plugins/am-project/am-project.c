@@ -551,7 +551,7 @@ monitor_cb (GFileMonitor *monitor,
 			/* monitor will be removed here... is this safe? */
 			//amp_project_reload (project, NULL);
 			g_message ("project updated");
-			g_signal_emit_by_name (G_OBJECT (project), "project-updated");
+			g_signal_emit_by_name (G_OBJECT (project), "node-updated");
 			break;
 		default:
 			break;
@@ -1438,6 +1438,161 @@ amp_project_set_am_variable (AmpProject* project, AnjutaAmGroupNode* group, Anju
 	}
 }
 
+/* Map function
+ *---------------------------------------------------------------------------*/
+
+static gint
+amp_project_compare_node (AnjutaProjectNode *old_node, AnjutaProjectNode *new_node)
+{
+	gchar *name1;
+	gchar *name2;
+	GFile *file1;
+	GFile *file2;
+
+	name1 = anjuta_project_node_get_name (old_node);
+	name2 = anjuta_project_node_get_name (new_node);
+	file1 = anjuta_project_node_get_file (old_node);
+	file2 = anjuta_project_node_get_file (new_node);
+
+	return (anjuta_project_node_get_node_type (old_node) == anjuta_project_node_get_node_type (new_node))
+		&& ((name1 == NULL) || (name2 == NULL) || (strcmp (name1, name2) == 0))
+		&& ((file1 == NULL) || (file2 == NULL) || g_file_equal (file1, file2)) ? 0 : 1;
+}
+
+static void
+amp_project_map_children (GHashTable *map, AnjutaProjectNode *old_node, AnjutaProjectNode *new_node)
+{
+	GList *children = NULL;
+
+	if (new_node != NULL)
+	{
+		for (new_node = anjuta_project_node_first_child (new_node); new_node != NULL; new_node = anjuta_project_node_next_sibling (new_node))
+		{
+			children = g_list_prepend (children, new_node);
+		}
+		children = g_list_reverse (children);
+	}
+
+	for (old_node = anjuta_project_node_first_child (old_node); old_node != NULL; old_node = anjuta_project_node_next_sibling (old_node))
+	{
+		GList *same;
+
+		same = g_list_find_custom (children, old_node, (GCompareFunc)amp_project_compare_node);
+
+		if (same != NULL)
+		{
+			g_hash_table_insert (map, (AnjutaProjectNode *)same->data, old_node);
+
+			amp_project_map_children (map, old_node, (AnjutaProjectNode *)same->data);
+			children = g_list_delete_link (children, same);
+		}
+		else
+		{
+			/* Mark deleted node */
+			g_hash_table_insert (map, old_node, NULL);
+		}
+	}
+
+	/* Add remaining node in hash table */
+	for (; children != NULL; children = g_list_delete_link (children,  children))
+	{
+		g_hash_table_insert (map, children->data, children->data);
+	}
+}
+
+static GHashTable *
+amp_project_map_node (AnjutaProjectNode *old_node, AnjutaProjectNode *new_node)
+{
+	GHashTable *map;
+	
+	map = g_hash_table_new (g_direct_hash, NULL);
+
+	g_hash_table_insert (map, new_node, old_node);
+
+	amp_project_map_children (map, old_node, new_node);
+
+	return map;
+}
+
+
+static void
+amp_project_replace_node (AnjutaProjectNode *new_node, AnjutaProjectNode *old_node, GHashTable *map)
+{
+	if (old_node == NULL)
+	{
+		/* Delete old node */
+		g_object_unref (old_node);
+	}
+	else
+	{
+		if (old_node != new_node)
+		{
+			GTypeQuery type_info;
+			gchar *data;
+
+			g_type_query (G_TYPE_FROM_INSTANCE (old_node), &type_info);
+
+			/* Swap new and old node */
+			data = g_new0 (gchar, type_info.instance_size - sizeof (GInitiallyUnowned));
+			memcpy (data, (gchar *)old_node + sizeof (GInitiallyUnowned), type_info.instance_size - sizeof (GInitiallyUnowned));
+			memcpy ((gchar *)old_node + sizeof (GInitiallyUnowned), (gchar *)new_node + sizeof (GInitiallyUnowned),  type_info.instance_size - sizeof (GInitiallyUnowned));
+			memcpy ((gchar *)new_node + sizeof (GInitiallyUnowned), data,  type_info.instance_size - sizeof (GInitiallyUnowned));
+			g_free (data);
+
+			/* Update file monitor if it is a group */
+			if (anjuta_project_node_get_node_type (old_node) == ANJUTA_PROJECT_GROUP)
+			{
+				amp_group_update_monitor (old_node);
+			}
+
+			/* Get old file */
+			if (old_node->file != NULL) g_object_unref (old_node->file);
+			old_node->file = new_node->file;
+			new_node->file = NULL;
+
+			/* Unlink old node and free it */
+			new_node->parent = NULL;
+			new_node->children = NULL;
+			new_node->next = NULL;
+			new_node->prev = NULL;
+			g_object_unref (new_node);
+
+			new_node = old_node;
+		}
+		
+		/* Update links */
+		old_node = g_hash_table_lookup (map, new_node->parent);
+		if (old_node != NULL) new_node->parent = old_node;
+		old_node = g_hash_table_lookup (map, new_node->children);
+		if (old_node != NULL) new_node->children = old_node;
+		old_node = g_hash_table_lookup (map, new_node->next);
+		if (old_node != NULL) new_node->next = old_node;
+		old_node = g_hash_table_lookup (map, new_node->prev);
+		if (old_node != NULL) new_node->prev = old_node;
+	}
+}
+
+static AnjutaProjectNode *
+amp_project_duplicate_node (AnjutaProjectNode *old_node)
+{
+	AnjutaProjectNode *new_node;
+	GTypeQuery type_info;
+	gchar *data;
+
+	/* Create new node */
+	new_node = g_object_new (G_TYPE_FROM_INSTANCE (old_node), NULL);
+	g_type_query (G_TYPE_FROM_INSTANCE (old_node), &type_info);
+	memcpy ((gchar *)new_node + sizeof (GInitiallyUnowned), (gchar *)old_node + sizeof (GInitiallyUnowned),  type_info.instance_size - sizeof (GInitiallyUnowned));
+	new_node->custom_properties = NULL;
+	new_node->file = g_file_dup (new_node->file);
+	new_node->name = g_strdup (new_node->name);
+	new_node->children = NULL;
+
+	/* Remove loaded node specific data */
+	memset ((gchar *)old_node + sizeof (AnjutaProjectNode), 0, type_info.instance_size - sizeof (AnjutaProjectNode));
+
+	return new_node;
+}
 
 /* Public functions
  *---------------------------------------------------------------------------*/
@@ -2116,25 +2271,43 @@ amp_project_add_file (AmpProject *project, GFile *file, AnjutaTokenFile* token)
 /* Implement IAnjutaProject
  *---------------------------------------------------------------------------*/
 
-static gboolean
-iproject_load_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
-{
-	if (node == NULL) node = AMP_PROJECT (obj)->root;
-	
-	node = amp_project_load_node (AMP_PROJECT (obj), node, err);
 
-	return node != NULL;
+static gboolean
+iproject_load_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **error)
+{
+	AnjutaProjectNode *new_node;
+	AnjutaProjectNode *proxy;
+	GHashTable *map;
+	GError *err = NULL;
+	
+	if (node == NULL) node = AMP_PROJECT (obj)->root;
+
+	proxy = amp_project_duplicate_node (node);
+	
+	new_node = amp_project_load_node (AMP_PROJECT (obj), proxy, &err);
+	map = amp_project_map_node (node, new_node);
+	g_hash_table_foreach (map, (GHFunc)amp_project_replace_node, map);
+	node->parent = new_node->parent;
+	proxy->parent = NULL;
+	g_hash_table_destroy (map);
+	g_object_unref (proxy);
+	g_signal_emit_by_name (obj, "node-loaded", node,  err);
+	g_error_free (err);
+
+	return new_node != NULL;
 }
 
 static gboolean
 iproject_save_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **error)
 {
+	GError *err = NULL;
+	
 	if (node == NULL) node = AMP_PROJECT (obj)->root;
 	
 	switch (anjuta_project_node_get_node_type (node))
 	{
 		case ANJUTA_PROJECT_ROOT:
-			if (!amp_project_save (AMP_PROJECT (obj), error))
+			if (!amp_project_save (AMP_PROJECT (obj), &err))
 			{
 				node = NULL;
 			}
@@ -2143,6 +2316,8 @@ iproject_save_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **error
 			node = project_node_save (AMP_PROJECT (obj), node, error);
 			break;
 	}
+	g_signal_emit_by_name (obj, "node-saved", node,  err);
+	g_error_free (err);
 	
 	return node != NULL;
 }
@@ -2181,6 +2356,7 @@ iproject_add_node_before (IAnjutaProject *obj, AnjutaProjectNode *parent, Anjuta
 			anjuta_project_node_insert_before (parent, sibling, node);
 			break;
 	}
+	g_signal_emit_by_name (obj, "node-modified", node,  NULL);
 	
 	return node;
 }
@@ -2219,6 +2395,7 @@ iproject_add_node_after (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaP
 			anjuta_project_node_insert_after (parent, sibling, node);
 			break;
 	}
+	g_signal_emit_by_name (obj, "node-modified", node,  NULL);
 	
 	return node;
 }
@@ -2244,6 +2421,7 @@ iproject_remove_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err
 		default:
 			break;
 	}
+	g_signal_emit_by_name (obj, "node-modified", node,  NULL);
 
 	return TRUE;
 }
@@ -2266,6 +2444,7 @@ iproject_set_property (IAnjutaProject *obj, AnjutaProjectNode *node, AnjutaProje
 	{
 		amp_project_update_am_property (AMP_PROJECT (obj), node, new_prop);
 	}
+	g_signal_emit_by_name (obj, "node-modified", node,  NULL);
 	
 	return new_prop;
 }
@@ -2277,6 +2456,7 @@ iproject_remove_property (IAnjutaProject *obj, AnjutaProjectNode *node, AnjutaPr
 
 	old_prop = anjuta_project_node_remove_property (node, property);
 	amp_property_free (old_prop);
+	g_signal_emit_by_name (obj, "node-modified", node,  NULL);
 	
 	return TRUE;
 }

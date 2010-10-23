@@ -63,18 +63,11 @@ struct _AnjutaPmProject
 	AnjutaProjectNode *root;
 	
 	guint incomplete_node;
+
+	gboolean loaded;
 	
 	/* project properties dialog */
 	GtkWidget *properties_dialog;
-	
-	/* Thread queue */
-	GQueue *job_queue;
-	GAsyncQueue *work_queue;
-	GAsyncQueue *done_queue;
-	GThread *worker;
-	guint idle_func;
-	gboolean stopping;
-	guint busy;
 };
 
 GType anjuta_pm_project_get_type (void) G_GNUC_CONST;

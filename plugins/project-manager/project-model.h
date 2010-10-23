@@ -86,11 +86,7 @@ void             gbf_project_model_add_shortcut      (GbfProjectModel *model,
 
 void            gbf_project_model_update_tree (GbfProjectModel *model,
                                                     AnjutaProjectNode *parent,
-                                                    GtkTreeIter *iter,
-                                                    GHashTable *map);
-void            gbf_project_model_update_shortcut (GbfProjectModel *model,
-                                                    GtkTreeIter *iter,
-                                                    GHashTable *map);
+                                                    GtkTreeIter *iter);
 
 
 #endif
