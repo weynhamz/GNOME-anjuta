@@ -691,24 +691,53 @@ anjuta_project_node_remove_property (AnjutaProjectNode *node, AnjutaProjectPrope
 	return removed;
 }
 
-
-/*const gchar *
-anjuta_project_node_get_property_value (AnjutaProjectNode *node, AnjutaProjectProperty prop)
+/**
+ * anjuta_project_property_new:
+ * name: (transfer none):
+ * value: (transfer none):
+ * native: (allow-none) (transfer none):
+ *
+ * Returns: (transfer full):
+ */
+AnjutaProjectProperty *
+anjuta_project_property_new (const gchar *name, AnjutaProjectValueType type,
+                             const gchar *value, AnjutaProjectProperty *native)
 {
-	GList *item;
+	AnjutaProjectProperty *prop = g_slice_new0(AnjutaProjectProperty);
+	prop->name = g_strdup (name);
+	prop->type = type;
+	prop->value = g_strdup (value);
+	prop->native = native;
+	return prop;
+}
 
-	for (item = g_list_first (NODE_DATA (node)->properties); item != NULL; item = g_list_next (item))
-	{
-		AnjutaProjectPropertyInfo *info = (AnjutaProjectPropertyInfo *)item->data;
+AnjutaProjectProperty *
+anjuta_project_property_copy (AnjutaProjectProperty *prop)
+{
+	return anjuta_project_property_new (prop->name, prop->type,
+	                                    prop->value, prop->native);
+}
 
-		if ((info == prop) || ((info->override != NULL) && (info->override->data == prop)))
-		{
-			return info->value;
-		}
-	}
-	
-	return NULL;
-}*/
+void
+anjuta_project_property_free (AnjutaProjectProperty *prop)
+{
+	g_free (prop->name);
+	g_free (prop->value);
+	g_slice_free (AnjutaProjectProperty, prop);
+}
+
+GType
+anjuta_project_property_get_type ()
+{
+	static GType type_id = 0;
+
+	if (!type_id)
+		type_id = g_boxed_type_register_static ("AnjutaProjectProperty",
+		                                        (GBoxedCopyFunc) anjuta_project_property_copy,
+		                                        (GBoxedFreeFunc) anjuta_project_property_free);
+
+	return type_id;
+}
 
 /* Group access functions
  *---------------------------------------------------------------------------*/
@@ -856,6 +885,48 @@ AnjutaProjectNodeType
 anjuta_project_node_info_type (const AnjutaProjectNodeInfo *info)
 {
 	return info->type;
+}
+
+/**
+ * anjuta_project_node_info_new:
+ * name: (transfer none):
+ * mime_type: (transfer none):
+ *
+ * Returns: (transfer full):
+ */
+AnjutaProjectNodeInfo *
+anjuta_project_node_info_new (AnjutaProjectNodeType type,
+                              const gchar *name,
+                              const gchar *mime_type)
+{
+	AnjutaProjectNodeInfo *info = g_slice_new0 (AnjutaProjectNodeInfo);
+	info->type = type;
+	info->name = g_strdup (name);
+	info->mime_type = g_strdup (mime_type);
+}
+
+AnjutaProjectNodeInfo *
+anjuta_project_node_info_copy (AnjutaProjectNodeInfo *info)
+{
+	return anjuta_project_node_info_new (info->type, info->name, info->mime_type);
+}
+
+void anjuta_project_node_info_free (AnjutaProjectNodeInfo *info)
+{
+	g_slice_free (AnjutaProjectNodeInfo, info);
+}
+
+GType
+anjuta_project_node_info_get_type ()
+{
+	static GType type_id = 0;
+
+	if (!type_id)
+		type_id = g_boxed_type_register_static ("AnjutaProjectNodeInfo",
+		                                        (GBoxedCopyFunc) anjuta_project_node_info_copy,
+		                                        (GBoxedFreeFunc) anjuta_project_node_info_free);
+
+	return type_id;
 }
 
 /* Implement GObject
@@ -1134,12 +1205,8 @@ anjuta_project_proxy_new (AnjutaProjectNode *node)
 	{
 		AnjutaProjectProperty *prop = (AnjutaProjectProperty *)item->data;
 		AnjutaProjectProperty *new_prop;
-
-		new_prop = g_slice_new0(AnjutaProjectProperty);
-		new_prop->name = g_strdup (prop->name);
-		new_prop->type = prop->type;
-		new_prop->value = g_strdup (prop->value);
-		new_prop->native = prop->native;
+		
+		new_prop = anjuta_project_property_copy (prop);
 		item->data = new_prop;
 	}
 	
@@ -1197,12 +1264,6 @@ reparent_children (AnjutaProjectNode *node, gpointer data)
 	node->parent = ANJUTA_PROJECT_NODE (data);
 }
 
-static void
-free_node_property (gpointer data, gpointer user_data)
-{
-	g_slice_free (AnjutaProjectProperty, data);
-}
-
 AnjutaProjectNode *
 anjuta_project_proxy_exchange (AnjutaProjectNode *proxy, AnjutaProjectNode *node)
 {
@@ -1236,7 +1297,7 @@ anjuta_project_proxy_exchange (AnjutaProjectNode *proxy, AnjutaProjectNode *node
 	anjuta_project_node_children_foreach (node, reparent_children, node);
 	
 	/* Delete node temporary properties */
-	g_list_foreach (node->custom_properties, free_node_property, NULL);
+	g_list_foreach (node->custom_properties, anjuta_project_property_free, NULL);
 	node->custom_properties = proxy->custom_properties;
 	proxy->custom_properties = NULL;
 	
