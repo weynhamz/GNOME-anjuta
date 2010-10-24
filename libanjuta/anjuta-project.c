@@ -400,6 +400,14 @@ anjuta_project_node_insert_after (AnjutaProjectNode *parent, AnjutaProjectNode *
 	return node;	
 }
 
+/**
+ * anjuta_project_node_remove:
+ * @parent:
+ * @sibling: (allow-none) (transfer none):
+ * @node: (transfer none):
+ *
+ * Returns: (transfer full):
+ */
 AnjutaProjectNode *
 anjuta_project_node_remove (AnjutaProjectNode *node)
 {
@@ -416,8 +424,6 @@ anjuta_project_node_remove (AnjutaProjectNode *node)
 		node->next = NULL;
 	}
     node->prev = NULL;
-
-	g_object_force_floating (node);
 	
 	return node;
 }

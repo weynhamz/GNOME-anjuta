@@ -979,9 +979,9 @@ project_load_target (AmpProject *project, AnjutaToken *name, AnjutaTokenType tok
 				/* Copy all sources */
 				while ((child = anjuta_project_node_first_child (ANJUTA_PROJECT_NODE (orphan))) != NULL)
 				{
-					/* Add a reference on the child to avoid freeing it */
 					anjuta_project_node_remove (child);
 					anjuta_project_node_append (target, child);
+					g_object_unref (child);
 				}
 				g_free (orig_key);
 				amp_target_free (orphan);
