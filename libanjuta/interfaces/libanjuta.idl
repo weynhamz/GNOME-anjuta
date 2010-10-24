@@ -3140,7 +3140,7 @@ interface IAnjutaProject
 	/**
 	 * ianjuta_project_load_node:
 	 * @obj: Self
-	 * @node: Project node to reload
+	 * @node: (transfer none): Project node to reload
 	 * @err: Error propagation and reporting
 	 *
 	 * Reload a project node
@@ -3152,7 +3152,7 @@ interface IAnjutaProject
 	/**
 	 * ianjuta_project_save_node:
 	 * @obj: Self
-	 * @node: Project node to save
+	 * @node: (transfer none): Project node to save
 	 * @err: Error propagation and reporting
 	 *
 	 * Save a project node
@@ -3164,39 +3164,39 @@ interface IAnjutaProject
 	/**
 	 * ianjuta_project_add_node_after:
 	 * @obj: Self
-	 * @parent: Parent
-	 * @sibling: Sibling
+	 * @parent: (transfer none): Parent
+	 * @sibling: (allow-none) (transfer none): Sibling
 	 * @type: Node type
-	 * @file: Optional file object for the node
-	 * @name: Optional name for the node
+	 * @file: (allow-none) (transfer none): Optional file object for the node
+	 * @name: (allow-none) (transfer none): Optional name for the node
 	 * @err: Error propagation and reporting
 	 *
 	 * Create a new node and insert it after sibling
 	 *
-	 * Return value: The new node, NULL if error
+	 * Return value: (transfer none): The new node, NULL if error
 	 */
 	AnjutaProjectNode *add_node_after (AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, GFile *file, const gchar *name);
 
 	/**
 	 * ianjuta_project_add_node_before:
 	 * @obj: Self
-	 * @parent: Parent
-	 * @sibling: Sibling
+	 * @parent: (transfer none): Parent
+	 * @sibling: (allow-none) (transfer none): Sibling
 	 * @type: Node type
-	 * @file: Optional file object for the node
-	 * @name: Optional name for the node
+	 * @file: (allow-none) (transfer none): Optional file object for the node
+	 * @name: (allow-none) (transfer none): Optional name for the node
 	 * @err: Error propagation and reporting
 	 *
 	 * Create a new node and insert it before sibling
 	 *
-	 * Return value: The new node, NULL if error
+	 * Return value: (transfer none): The new node, NULL if error
 	 */
 	AnjutaProjectNode *add_node_before (AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, GFile *file, const gchar *name);
 
 	/**
 	 * ianjuta_project_remove_node:
 	 * @obj: Self
-	 * @node: Node
+	 * @node: (transfer none): Node
 	 * @err: Error propagation and reporting
 	 *
 	 * Remove a node
@@ -3208,27 +3208,27 @@ interface IAnjutaProject
 	/**
 	 * ianjuta_project_set_property:
 	 * @obj: Self
-	 * @node: Node
-	 * @property: Property
-	 * @value: Value
+	 * @node: (transfer none): Node
+	 * @property: (transfer none): Property
+	 * @value: (transfer none): Value
 	 * @err: Error propagation and reporting
 	 *
 	 * Change a properties on node.
 	 *
-	 * Return value: The new property of NULL if the property cannot be set
+	 * Return value: (allow-none) (transfer none): The new property of NULL if the property cannot be set
 	 */
 	AnjutaProjectProperty *set_property (AnjutaProjectNode *parent, AnjutaProjectProperty* property, const gchar *value);
 
 	/**
 	 * ianjuta_project_remove_property:
 	 * @obj: Self
-	 * @node: Node
-	 * @property: Property
+	 * @node: (transfer none): Node
+	 * @property: (transfer none): Property
 	 * @err: Error propagation and reporting
 	 *
 	 * Remove a property of the node
 	 *
-	 * Return value: TRUE if the node can be removed
+	 * Return value: TRUE if the node is removed
 	 */
 	gboolean remove_property (AnjutaProjectNode *node, AnjutaProjectProperty* property);
 
@@ -3239,7 +3239,7 @@ interface IAnjutaProject
 	 *
 	 * Get root_node
 	 *
-	 * Return value: The root node
+	 * Return value: (transfer none): The root node
 	 */
 	AnjutaProjectNode *get_root ();
 
@@ -3250,7 +3250,7 @@ interface IAnjutaProject
 	 *
 	 * Return a list of possible node;
 	 *
-	 * Return value: TRUE if the property has been successfully removed
+	 * Return value: (element-type Anjuta.ProjectNodeInfo) (transfer none): TRUE if the property has been successfully removed
 	 * else FALSE
 	 */
 	List<AnjutaProjectNodeInformation *> get_node_info();
@@ -3272,12 +3272,13 @@ interface IAnjutaProjectBackend
 	/**
 	 * ianjuta_project_backend_new_project:
 	 * @obj: Self
-	 * @file: Project file or directory
+	 * @file: (transfer none): Project file or directory
 	 * @err: Error propagation and reporting
 	 *
-	 * Get a new Anjuta project.
+	 * Create a new Anjuta project.
 	 *
-	 * Return value: An object derived from GbfProject
+	 * Return value: (transfer full): An object implementing the
+	 * #IAnjutaProject interface.
 	 */
 	IAnjutaProject* new_project (GFile *file);
 
@@ -3285,14 +3286,14 @@ interface IAnjutaProjectBackend
 	/**
 	 * ianjuta_project_backend_probe:
 	 * @obj: Self
-	 * @file: Project file or directory
+	 * @file: (transfer none): Project file or directory
 	 * @err: Error propagation and reporting
 	 *
 	 * Check if the directory contains a project supported by this
-	 * backend
+	 * backend.
 	 *
-	 * Return value: 0 if the project is invalid and > 0 if the
-	 * project is valid. 
+	 * Return value: 0 if the project is invalid and > 0 if the project is
+	 * valid.
 	 */
 	gint probe (GFile *directory);
 }

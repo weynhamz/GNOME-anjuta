@@ -298,6 +298,14 @@ anjuta_project_node_append (AnjutaProjectNode *parent, AnjutaProjectNode *node)
 	return anjuta_project_node_insert_before (parent, NULL, node);
 }
 
+/**
+ * anjuta_project_node_insert_before:
+ * @parent:
+ * @sibling: (allow-none) (transfer none):
+ * @node: (transfer none):
+ *
+ * Returns: (transfer none):
+ */
 AnjutaProjectNode *
 anjuta_project_node_insert_before (AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNode *node)
 {
@@ -347,6 +355,14 @@ anjuta_project_node_insert_before (AnjutaProjectNode *parent, AnjutaProjectNode 
 	return node;	
 }
 
+/**
+ * anjuta_project_node_insert_after:
+ * @parent:
+ * @sibling: (allow-none) (transfer none):
+ * @node: (transfer none):
+ *
+ * Returns: (transfer none):
+ */
 AnjutaProjectNode *
 anjuta_project_node_insert_after (AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNode *node)
 {
