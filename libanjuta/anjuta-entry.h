@@ -53,6 +53,7 @@ GType anjuta_entry_get_type (void) G_GNUC_CONST;
 GtkWidget *anjuta_entry_new (void);
 const gchar *anjuta_entry_get_text (AnjutaEntry *self);
 gchar *anjuta_entry_dup_text (AnjutaEntry *self);
+void anjuta_entry_set_text (AnjutaEntry *self, const gchar *text);
 gboolean anjuta_entry_is_showing_help_text (AnjutaEntry *self);
 
 G_END_DECLS

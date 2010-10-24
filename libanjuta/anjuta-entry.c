@@ -53,9 +53,6 @@ struct _AnjutaEntryPriv
 
 G_DEFINE_TYPE (AnjutaEntry, anjuta_entry, GTK_TYPE_ENTRY);
 
-/* The buffer inserted/deleted handlers must be blocked before calling
- * this function. Make the calling function do the blocking so we don't have
- * to block/unblock more than once. */
 static void
 anjuta_entry_set_mode (AnjutaEntry *self, AnjutaEntryMode mode)
 {
@@ -92,52 +89,6 @@ anjuta_entry_set_mode (AnjutaEntry *self, AnjutaEntryMode mode)
 			break;
 	}
 }
-
-static void
-on_buffer_inserted_text (GtkEntryBuffer *buffer, guint position, gchar *chars, 
-                         guint n_chars, AnjutaEntry *self)
-{
-	if (n_chars > 0)
-	{
-		if (self->priv->showing_help_text)
-			anjuta_entry_set_mode (self, ANJUTA_ENTRY_NORMAL);
-	}
-}
-
-static void
-on_buffer_deleted_text (GtkEntryBuffer *buffer, guint position, guint n_chars,
-                        AnjutaEntry *self)
-{
-	const gchar *text;
-	
-	text = gtk_entry_get_text (GTK_ENTRY (self));
-
-	if (text[0] == '\0')
-		anjuta_entry_set_mode (self, ANJUTA_ENTRY_HELP);
-}
-
-
-static void
-anjuta_entry_block_change_handlers (AnjutaEntry *self)
-{
-	GtkEntryBuffer *buffer;
-
-	buffer = gtk_entry_get_buffer (GTK_ENTRY (self));
-	
-	g_signal_handlers_block_by_func (buffer, on_buffer_inserted_text, self);
-	g_signal_handlers_block_by_func (buffer, on_buffer_deleted_text, self);	
-}
-
-static void
-anjuta_entry_unbloock_change_handlers (AnjutaEntry *self)
-{
-	GtkEntryBuffer *buffer;
-
-	buffer = gtk_entry_get_buffer (GTK_ENTRY (self));
-
-	g_signal_handlers_unblock_by_func (buffer, on_buffer_inserted_text, self);
-	g_signal_handlers_unblock_by_func (buffer, on_buffer_deleted_text, self);	
-}
 		
 /* It's probably terrible practice for a subclass to be listening to the 
  * parent' class's signals, but for some reason the icon release signal 
@@ -151,33 +102,18 @@ anjuta_entry_icon_release (GtkEntry *entry, GtkEntryIconPosition icon_pos,
 	self = ANJUTA_ENTRY (entry);
 
 	if (icon_pos == GTK_ENTRY_ICON_SECONDARY)
-	{
-		anjuta_entry_block_change_handlers (self);
 		gtk_entry_set_text (entry, "");
-		anjuta_entry_unbloock_change_handlers (self);
-	}
 }
 
 static void
 anjuta_entry_init (AnjutaEntry *self)
 {
-	GtkEntryBuffer *buffer;
-
 	self->priv = g_new0 (AnjutaEntryPriv, 1);
-	buffer = gtk_entry_get_buffer (GTK_ENTRY (self));
 
 	gtk_entry_set_icon_from_stock (GTK_ENTRY (self), GTK_ENTRY_ICON_SECONDARY,
 	                               GTK_STOCK_CLEAR);
 	gtk_entry_set_icon_activatable (GTK_ENTRY (self), GTK_ENTRY_ICON_SECONDARY,
 	                                TRUE);
-
-	g_signal_connect (G_OBJECT (buffer), "inserted-text",
-	                  G_CALLBACK (on_buffer_inserted_text),
-	                  self);
-
-	g_signal_connect (G_OBJECT (buffer), "deleted-text",
-	                  G_CALLBACK (on_buffer_deleted_text),
-	                  self);
 
 	g_signal_connect (G_OBJECT (self), "icon-release",
 	                  G_CALLBACK (anjuta_entry_icon_release),
@@ -221,12 +157,8 @@ anjuta_entry_set_property (GObject *object, guint prop_id, const GValue *value,
 			{
 				if (self->priv->help_text)
 				{
-					anjuta_entry_block_change_handlers (self);
-
 					gtk_entry_set_text (GTK_ENTRY (self), 
 					                    self->priv->help_text);
-
-					anjuta_entry_unbloock_change_handlers (self);
 				}
 			}
 			break;
@@ -265,14 +197,7 @@ anjuta_entry_focus_in_event (GtkWidget *widget, GdkEventFocus *event)
 	self = ANJUTA_ENTRY (widget);
 
 	if (self->priv->showing_help_text)
-	{
-		anjuta_entry_block_change_handlers (self);
 		anjuta_entry_set_mode (self, ANJUTA_ENTRY_NORMAL);
-
-		/* Don't unblock the change handlers right away so the user can 
-		 * enter something. Unblock the change handlers again when the 
-		 * entry loses focus. */
-	}
 
 	return GTK_WIDGET_CLASS (anjuta_entry_parent_class)->focus_in_event (widget, event);
 }
@@ -288,8 +213,6 @@ anjuta_entry_focus_out_event (GtkWidget *widget, GdkEventFocus *event)
 
 	if (text == NULL || text[0] == '\0')
 		anjuta_entry_set_mode (self, ANJUTA_ENTRY_HELP);
-
-	anjuta_entry_unbloock_change_handlers (self);
 
 	return GTK_WIDGET_CLASS (anjuta_entry_parent_class)->focus_out_event (widget, event);
 }
@@ -359,6 +282,24 @@ gchar *
 anjuta_entry_dup_text (AnjutaEntry *self)
 {
 	return g_strdup (anjuta_entry_get_text (self));
+}
+
+/**
+ * anjuta_entry_set_text:
+ * @self: An AnjutaEntry
+ * @text: The new text
+ *
+ * Sets the text on the entry, showing the help text if the text is empty.
+ */
+void
+anjuta_entry_set_text (AnjutaEntry *self, const gchar *text)
+{
+	if (text != NULL && text[0] != '\0')
+		anjuta_entry_set_mode (self, ANJUTA_ENTRY_NORMAL);
+	else
+		anjuta_entry_set_mode (self, ANJUTA_ENTRY_HELP);
+
+	gtk_entry_set_text (GTK_ENTRY (self), text);
 }
 
 /**
