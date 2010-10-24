@@ -267,7 +267,7 @@ const gchar *
 anjuta_entry_get_text (AnjutaEntry *self)
 {
 	return (self->priv->showing_help_text) ? 
-		   gtk_entry_get_text (GTK_ENTRY (self)) : "";
+		    "" : gtk_entry_get_text (GTK_ENTRY (self)) ;
 }
 
 /**
