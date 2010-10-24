@@ -114,7 +114,7 @@ pm_command_load_complete (AnjutaPmProject *project, AnjutaProjectNode *node, GEr
 }
 
 static void
-on_node_updated (IAnjutaProject *sender, AnjutaProjectNode *node, AnjutaPmProject *project)
+on_file_changed (IAnjutaProject *sender, AnjutaProjectNode *node, AnjutaPmProject *project)
 {
 	ianjuta_project_load_node (project->project, node, NULL);
 }
@@ -214,8 +214,8 @@ anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 	}
 
 	g_signal_connect (G_OBJECT (project->project),
-						"node-updated",
-						G_CALLBACK (on_node_updated),
+						"file-changed",
+						G_CALLBACK (on_file_changed),
 						project);
 	g_signal_connect (G_OBJECT (project->project),
 						"node-loaded",

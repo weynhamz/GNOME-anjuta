@@ -491,7 +491,7 @@ on_group_monitor_changed (GFileMonitor *monitor,
 			 * original one is reloaded. */
 			if (!(anjuta_project_node_get_full_type (ANJUTA_PROJECT_NODE (node)) & ANJUTA_PROJECT_PROXY))
 			{
-				g_signal_emit_by_name (G_OBJECT (node->project), "node-updated", data);
+				g_signal_emit_by_name (G_OBJECT (node->project), "file-changed", data);
 			}
 			else
 			{

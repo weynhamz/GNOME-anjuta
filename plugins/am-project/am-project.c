@@ -551,7 +551,7 @@ monitor_cb (GFileMonitor *monitor,
 			/* monitor will be removed here... is this safe? */
 			//amp_project_reload (project, NULL);
 			g_message ("project updated");
-			g_signal_emit_by_name (G_OBJECT (project), "node-updated");
+			g_signal_emit_by_name (G_OBJECT (project), "file-changed");
 			break;
 		default:
 			break;
@@ -979,6 +979,7 @@ project_load_target (AmpProject *project, AnjutaToken *name, AnjutaTokenType tok
 				/* Copy all sources */
 				while ((child = anjuta_project_node_first_child (ANJUTA_PROJECT_NODE (orphan))) != NULL)
 				{
+					/* Add a reference on the child to avoid freeing it */
 					anjuta_project_node_remove (child);
 					anjuta_project_node_append (target, child);
 				}
@@ -2356,7 +2357,7 @@ iproject_add_node_before (IAnjutaProject *obj, AnjutaProjectNode *parent, Anjuta
 			anjuta_project_node_insert_before (parent, sibling, node);
 			break;
 	}
-	g_signal_emit_by_name (obj, "node-modified", node,  NULL);
+	g_signal_emit_by_name (obj, "node-changed", node,  NULL);
 	
 	return node;
 }
@@ -2395,7 +2396,7 @@ iproject_add_node_after (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaP
 			anjuta_project_node_insert_after (parent, sibling, node);
 			break;
 	}
-	g_signal_emit_by_name (obj, "node-modified", node,  NULL);
+	g_signal_emit_by_name (obj, "node-changed", node,  NULL);
 	
 	return node;
 }
@@ -2421,7 +2422,7 @@ iproject_remove_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err
 		default:
 			break;
 	}
-	g_signal_emit_by_name (obj, "node-modified", node,  NULL);
+	g_signal_emit_by_name (obj, "node-changed", node,  NULL);
 
 	return TRUE;
 }
@@ -2444,7 +2445,7 @@ iproject_set_property (IAnjutaProject *obj, AnjutaProjectNode *node, AnjutaProje
 	{
 		amp_project_update_am_property (AMP_PROJECT (obj), node, new_prop);
 	}
-	g_signal_emit_by_name (obj, "node-modified", node,  NULL);
+	g_signal_emit_by_name (obj, "node-changed", node,  NULL);
 	
 	return new_prop;
 }
@@ -2456,7 +2457,7 @@ iproject_remove_property (IAnjutaProject *obj, AnjutaProjectNode *node, AnjutaPr
 
 	old_prop = anjuta_project_node_remove_property (node, property);
 	amp_property_free (old_prop);
-	g_signal_emit_by_name (obj, "node-modified", node,  NULL);
+	g_signal_emit_by_name (obj, "node-changed", node,  NULL);
 	
 	return TRUE;
 }
