@@ -152,7 +152,7 @@ anjuta_file_drop_entry_drag_data_received (GtkWidget *widget,
 
 			if (path)
 			{
-				gtk_entry_set_text (GTK_ENTRY (self), path);
+				anjuta_entry_set_text (ANJUTA_ENTRY (self), path);
 
 				g_free (path);
 			}

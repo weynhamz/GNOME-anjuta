@@ -39,7 +39,7 @@ static GtkTargetEntry dnd_target_entries[] =
 	}
 };
 
-G_DEFINE_TYPE (AnjutaDropEntry, anjuta_drop_entry, GTK_TYPE_ENTRY);
+G_DEFINE_TYPE (AnjutaDropEntry, anjuta_drop_entry, ANJUTA_TYPE_ENTRY);
 
 static void
 anjuta_drop_entry_init (AnjutaDropEntry *self)
@@ -78,7 +78,7 @@ anjuta_drop_entry_drag_data_received (GtkWidget *widget,
 
 		if (target_type == DND_TYPE_STRING)
 		{
-			gtk_entry_set_text (GTK_ENTRY (widget), (const gchar *) data->data);
+			anjuta_entry_set_text (ANJUTA_ENTRY (widget), (const gchar *) data->data);
 			success = TRUE;
 		}
 	}

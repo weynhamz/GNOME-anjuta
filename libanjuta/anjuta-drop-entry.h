@@ -21,7 +21,7 @@
 #define _ANJUTA_DROP_ENTRY_H_
 
 #include <glib-object.h>
-#include <gtk/gtk.h>
+#include "anjuta-entry.h"
 
 G_BEGIN_DECLS
 
@@ -37,12 +37,12 @@ typedef struct _AnjutaDropEntry AnjutaDropEntry;
 
 struct _AnjutaDropEntryClass
 {
-	GtkEntryClass parent_class;
+	AnjutaEntryClass parent_class;
 };
 
 struct _AnjutaDropEntry
 {
-	GtkEntry parent_instance;
+	AnjutaEntry parent_instance;
 };
 
 GType anjuta_drop_entry_get_type (void) G_GNUC_CONST;
