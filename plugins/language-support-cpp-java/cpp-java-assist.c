@@ -619,8 +619,8 @@ on_symbol_search_complete (IAnjutaSymbolQuery *query, IAnjutaIterable* symbols,
 	g_completion_add_items (assist->priv->completion_cache, proposals);
 	gboolean running = assist->priv->async_system_id || assist->priv->async_file_id ||
 		assist->priv->async_project_id;
-	
-	cpp_java_assist_populate_real (assist, !running);
+	if (!running)
+		cpp_java_assist_populate_real (assist, TRUE);
 	g_list_free (proposals);
 }
 
