@@ -111,11 +111,10 @@ AnjutaPluginDescription* anjuta_plugin_manager_select (AnjutaPluginManager *plug
 													   gchar *title, gchar *description,
 													   GList *plugin_descriptions);
 
-/* Returns the plugin that has been selected and activated */
-GObject* anjuta_plugin_manager_select_and_activate (AnjutaPluginManager *plugin_manager,
-													gchar *title,
-													gchar *description,
-													GList *plugin_descriptions);
+
+GObject*  anjuta_plugin_manager_select_and_activate (AnjutaPluginManager *plugin_manager,
+													   gchar *title, gchar *description,
+			   GList *plugin_descriptions);
 
 void anjuta_plugin_manager_activate_plugins (AnjutaPluginManager *plugin_manager,
 											 GList *plugin_descs);
