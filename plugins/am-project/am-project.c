@@ -2278,17 +2278,19 @@ iproject_load_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **error
 {
 	AnjutaProjectNode *new_node;
 	AnjutaProjectNode *proxy;
+	AnjutaProjectNode *parent;
 	GHashTable *map;
 	GError *err = NULL;
 	
 	if (node == NULL) node = AMP_PROJECT (obj)->root;
 
+	parent = anjuta_project_node_parent (node);
 	proxy = amp_project_duplicate_node (node);
 	
 	new_node = amp_project_load_node (AMP_PROJECT (obj), proxy, &err);
 	map = amp_project_map_node (node, new_node);
 	g_hash_table_foreach (map, (GHFunc)amp_project_replace_node, map);
-	node->parent = new_node->parent;
+	node->parent = parent;
 	proxy->parent = NULL;
 	g_hash_table_destroy (map);
 	g_object_unref (proxy);
