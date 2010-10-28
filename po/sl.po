@@ -8,10 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&component=core application\n"
-"POT-Creation-Date: 2010-09-22 02:24+0000\n"
-"PO-Revision-Date: 2010-09-22 09:20+0100\n"
+"POT-Creation-Date: 2010-10-18 09:09+0000\n"
+"PO-Revision-Date: 2010-10-28 21:25+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -210,11 +211,11 @@ msgstr "tajsko"
 
 #: ../libanjuta/anjuta-encodings.c:441
 #: ../plugins/gbf-am/gbf-am-project.c:193
-#: ../plugins/gbf-am/gbf-am-project.c:3372
+#: ../plugins/gbf-am/gbf-am-project.c:3373
 #: ../plugins/gbf-am/gbf-am-properties.c:130
 #: ../plugins/gbf-am/gbf-am-properties.c:177
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:191
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3267
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3270
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:104
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:151
 #: ../plugins/dir-project/dir-project.c:802
@@ -448,7 +449,7 @@ msgid "If you do not save, all your changes will be lost."
 msgstr "V primeru, da datoteke ne shranite, bodo izgubljene vse spremembe."
 
 #: ../libanjuta/anjuta-save-prompt.c:189
-#: ../plugins/document-manager/plugin.c:605
+#: ../plugins/document-manager/plugin.c:609
 #: ../plugins/snippets-manager/snippets-editor.ui.h:11
 msgid "Save"
 msgstr "Shrani"
@@ -938,9 +939,9 @@ msgstr "V projektu ni izvršljivih datotek!"
 
 #: ../plugins/build-basic-autotools/executer.c:157
 #: ../plugins/gbf-am/gbf-am-project.c:196
-#: ../plugins/gbf-am/gbf-am-project.c:3362
+#: ../plugins/gbf-am/gbf-am-project.c:3363
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:194
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3261
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3264
 msgid "Program"
 msgstr "Program"
 
@@ -1002,269 +1003,269 @@ msgstr "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+`(.+)'"
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
 
-#: ../plugins/build-basic-autotools/plugin.c:846
+#: ../plugins/build-basic-autotools/plugin.c:857
 #, c-format
 msgid "Entering: %s"
 msgstr "Vstopanje: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:882
+#: ../plugins/build-basic-autotools/plugin.c:893
 #, c-format
 msgid "Leaving: %s"
 msgstr "Zapuščanje: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:915
+#: ../plugins/build-basic-autotools/plugin.c:926
 #: ../plugins/tools/execute.c:330
 msgid "warning:"
 msgstr "opozorilo:"
 
-#: ../plugins/build-basic-autotools/plugin.c:921
+#: ../plugins/build-basic-autotools/plugin.c:932
 #: ../plugins/tools/execute.c:335
 msgid "error:"
 msgstr "napaka:"
 
-#: ../plugins/build-basic-autotools/plugin.c:1038
+#: ../plugins/build-basic-autotools/plugin.c:1049
 #, c-format
 msgid "Command exited with status %d"
 msgstr "Ukaz zaključen s stanjem %d"
 
-#: ../plugins/build-basic-autotools/plugin.c:1048
-#: ../plugins/build-basic-autotools/plugin.c:1527
+#: ../plugins/build-basic-autotools/plugin.c:1059
+#: ../plugins/build-basic-autotools/plugin.c:1538
 #, c-format
 msgid "Command canceled by user"
 msgstr "Ukaz preklican na zahtevo uporabnika"
 
-#: ../plugins/build-basic-autotools/plugin.c:1053
+#: ../plugins/build-basic-autotools/plugin.c:1064
 #, c-format
 msgid "Command aborted by user"
 msgstr "Ukaz prekinjen na zahtevo uporabnika"
 
-#: ../plugins/build-basic-autotools/plugin.c:1058
+#: ../plugins/build-basic-autotools/plugin.c:1069
 #, c-format
 msgid "Command terminated with signal %d"
 msgstr "Ukaz zaključen s signalom %d"
 
-#: ../plugins/build-basic-autotools/plugin.c:1066
+#: ../plugins/build-basic-autotools/plugin.c:1077
 msgid "Command terminated for an unknown reason"
 msgstr "Ukaz zaključen iz neznanih razlogov"
 
-#: ../plugins/build-basic-autotools/plugin.c:1084
+#: ../plugins/build-basic-autotools/plugin.c:1095
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "Celoten čas: %lu sek\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:1091
+#: ../plugins/build-basic-autotools/plugin.c:1102
 msgid "Completed unsuccessfully\n"
 msgstr "Neuspešno zaključeno\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:1099
+#: ../plugins/build-basic-autotools/plugin.c:1110
 #: ../plugins/tools/execute.c:516
 msgid "Completed successfully\n"
 msgstr "Uspešno zaključeno.\n"
 
 #. Translators: the first number is the number of the build attemp,
 #. the string is the directory where the build takes place
-#: ../plugins/build-basic-autotools/plugin.c:1187
+#: ../plugins/build-basic-autotools/plugin.c:1198
 #, c-format
 msgid "Build %d: %s"
 msgstr "Izgradnja %d: %s"
 
 #. Need to run make clean before
-#: ../plugins/build-basic-autotools/plugin.c:1522
+#: ../plugins/build-basic-autotools/plugin.c:1533
 msgid "Before using this new configuration, the default one needs to be removed. Do you want to do that ?"
 msgstr "Pred uporabo novih nastavitev, morajo biti privzete vrednosti odstranjene. Ali želite odstraniti privzete nastavitve?"
 
-#: ../plugins/build-basic-autotools/plugin.c:1823
+#: ../plugins/build-basic-autotools/plugin.c:1834
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
 msgstr "Ni mogoče kodno prevesti \"%s\": Ni določenega pravila kodnega prevajanja za to vrsto datotek."
 
-#: ../plugins/build-basic-autotools/plugin.c:1958
+#: ../plugins/build-basic-autotools/plugin.c:1969
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
 msgstr "Ni mogoče nastaviti projekta: manjka nastavitveni skript v %s."
 
-#: ../plugins/build-basic-autotools/plugin.c:2439
-#: ../plugins/build-basic-autotools/plugin.c:2513
-#: ../plugins/build-basic-autotools/plugin.c:2523
-#: ../plugins/build-basic-autotools/plugin.c:2541
-#: ../plugins/build-basic-autotools/plugin.c:2551
-#: ../plugins/build-basic-autotools/plugin.c:2608
+#: ../plugins/build-basic-autotools/plugin.c:2450
+#: ../plugins/build-basic-autotools/plugin.c:2524
+#: ../plugins/build-basic-autotools/plugin.c:2534
+#: ../plugins/build-basic-autotools/plugin.c:2552
+#: ../plugins/build-basic-autotools/plugin.c:2562
+#: ../plugins/build-basic-autotools/plugin.c:2619
 #, c-format
 msgid "_Build"
 msgstr "_Izgradi"
 
-#: ../plugins/build-basic-autotools/plugin.c:2443
+#: ../plugins/build-basic-autotools/plugin.c:2454
 msgid "_Build Project"
 msgstr "Projekt _izgradnje"
 
-#: ../plugins/build-basic-autotools/plugin.c:2444
+#: ../plugins/build-basic-autotools/plugin.c:2455
 msgid "Build whole project"
 msgstr "Izgradnja celotnega projekta"
 
-#: ../plugins/build-basic-autotools/plugin.c:2449
+#: ../plugins/build-basic-autotools/plugin.c:2460
 msgid "_Install Project"
 msgstr "_Projekt namestitve"
 
-#: ../plugins/build-basic-autotools/plugin.c:2450
+#: ../plugins/build-basic-autotools/plugin.c:2461
 msgid "Install whole project"
 msgstr "Namestitev celotnega projekta"
 
-#: ../plugins/build-basic-autotools/plugin.c:2455
+#: ../plugins/build-basic-autotools/plugin.c:2466
 msgid "_Clean Project"
 msgstr "_Počisti projekt"
 
-#: ../plugins/build-basic-autotools/plugin.c:2456
+#: ../plugins/build-basic-autotools/plugin.c:2467
 msgid "Clean whole project"
 msgstr "Počisti celoten projekt"
 
-#: ../plugins/build-basic-autotools/plugin.c:2461
+#: ../plugins/build-basic-autotools/plugin.c:2472
 msgid "C_onfigure Project…"
 msgstr "_Nastavitve projekta ..."
 
-#: ../plugins/build-basic-autotools/plugin.c:2462
+#: ../plugins/build-basic-autotools/plugin.c:2473
 msgid "Configure project"
 msgstr "Nastavitve projekta"
 
-#: ../plugins/build-basic-autotools/plugin.c:2467
+#: ../plugins/build-basic-autotools/plugin.c:2478
 msgid "Build _Tarball"
 msgstr "Izgradi _Tar paket"
 
-#: ../plugins/build-basic-autotools/plugin.c:2468
+#: ../plugins/build-basic-autotools/plugin.c:2479
 msgid "Build project tarball distribution"
 msgstr "Izgradi distribucijski tar paket projekta"
 
-#: ../plugins/build-basic-autotools/plugin.c:2473
+#: ../plugins/build-basic-autotools/plugin.c:2484
 msgid "_Build Module"
 msgstr "_Izgradi modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2474
+#: ../plugins/build-basic-autotools/plugin.c:2485
 msgid "Build module associated with current file"
 msgstr "Izgradi modul v povezavi s trenutno datoteko"
 
-#: ../plugins/build-basic-autotools/plugin.c:2479
+#: ../plugins/build-basic-autotools/plugin.c:2490
 msgid "_Install Module"
 msgstr "_Namestitev modula"
 
-#: ../plugins/build-basic-autotools/plugin.c:2480
+#: ../plugins/build-basic-autotools/plugin.c:2491
 msgid "Install module associated with current file"
 msgstr "Namesti modul v povezavi s trenutno datoteko"
 
-#: ../plugins/build-basic-autotools/plugin.c:2485
+#: ../plugins/build-basic-autotools/plugin.c:2496
 msgid "_Clean Module"
 msgstr "_Počisti modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2486
+#: ../plugins/build-basic-autotools/plugin.c:2497
 msgid "Clean module associated with current file"
 msgstr "Počisti modul povezan s trenutno datoteko"
 
-#: ../plugins/build-basic-autotools/plugin.c:2491
+#: ../plugins/build-basic-autotools/plugin.c:2502
 msgid "Co_mpile File"
 msgstr "Kodno _prevedi datoteko"
 
-#: ../plugins/build-basic-autotools/plugin.c:2492
+#: ../plugins/build-basic-autotools/plugin.c:2503
 msgid "Compile current editor file"
 msgstr "Kodno prevedi trenutno urejevalno datoteko"
 
-#: ../plugins/build-basic-autotools/plugin.c:2497
+#: ../plugins/build-basic-autotools/plugin.c:2508
 msgid "Select Configuration"
 msgstr "Določitev nastavitev"
 
-#: ../plugins/build-basic-autotools/plugin.c:2498
+#: ../plugins/build-basic-autotools/plugin.c:2509
 msgid "Select current configuration"
 msgstr "Določi trenutne nastavitve"
 
-#: ../plugins/build-basic-autotools/plugin.c:2503
+#: ../plugins/build-basic-autotools/plugin.c:2514
 msgid "Remove Configuration"
 msgstr "Odstrani nastavitve"
 
-#: ../plugins/build-basic-autotools/plugin.c:2504
+#: ../plugins/build-basic-autotools/plugin.c:2515
 msgid "Clean project (distclean) and remove configuration directory if possible"
 msgstr "Počisti projekt (distclean) in odstrani namestitveno mapo, če je to mogoče"
 
-#: ../plugins/build-basic-autotools/plugin.c:2517
-#: ../plugins/build-basic-autotools/plugin.c:2545
+#: ../plugins/build-basic-autotools/plugin.c:2528
+#: ../plugins/build-basic-autotools/plugin.c:2556
 msgid "_Compile"
 msgstr "_Kodno prevajanje"
 
-#: ../plugins/build-basic-autotools/plugin.c:2518
-#: ../plugins/build-basic-autotools/plugin.c:2546
+#: ../plugins/build-basic-autotools/plugin.c:2529
+#: ../plugins/build-basic-autotools/plugin.c:2557
 msgid "Compile file"
 msgstr "Kodno prevedi datoteko"
 
-#: ../plugins/build-basic-autotools/plugin.c:2524
-#: ../plugins/build-basic-autotools/plugin.c:2552
+#: ../plugins/build-basic-autotools/plugin.c:2535
+#: ../plugins/build-basic-autotools/plugin.c:2563
 msgid "Build module"
 msgstr "Izgradi modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2529
-#: ../plugins/build-basic-autotools/plugin.c:2557
-#: ../plugins/build-basic-autotools/plugin.c:2615
+#: ../plugins/build-basic-autotools/plugin.c:2540
+#: ../plugins/build-basic-autotools/plugin.c:2568
+#: ../plugins/build-basic-autotools/plugin.c:2626
 #, c-format
 msgid "_Install"
 msgstr "_Namesti"
 
-#: ../plugins/build-basic-autotools/plugin.c:2530
-#: ../plugins/build-basic-autotools/plugin.c:2558
+#: ../plugins/build-basic-autotools/plugin.c:2541
+#: ../plugins/build-basic-autotools/plugin.c:2569
 msgid "Install module"
 msgstr "Namestitev modula"
 
-#: ../plugins/build-basic-autotools/plugin.c:2535
-#: ../plugins/build-basic-autotools/plugin.c:2563
-#: ../plugins/build-basic-autotools/plugin.c:2622
+#: ../plugins/build-basic-autotools/plugin.c:2546
+#: ../plugins/build-basic-autotools/plugin.c:2574
+#: ../plugins/build-basic-autotools/plugin.c:2633
 #, c-format
 msgid "_Clean"
 msgstr "_Počisti"
 
-#: ../plugins/build-basic-autotools/plugin.c:2536
-#: ../plugins/build-basic-autotools/plugin.c:2564
+#: ../plugins/build-basic-autotools/plugin.c:2547
+#: ../plugins/build-basic-autotools/plugin.c:2575
 msgid "Clean module"
 msgstr "Počisti modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2569
+#: ../plugins/build-basic-autotools/plugin.c:2580
 msgid "_Cancel command"
 msgstr "_Prekliči ukaz"
 
-#: ../plugins/build-basic-autotools/plugin.c:2570
+#: ../plugins/build-basic-autotools/plugin.c:2581
 msgid "Cancel build command"
 msgstr "Prekliči ukaz za izgradnjo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2608
+#: ../plugins/build-basic-autotools/plugin.c:2619
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Izgradi (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2615
+#: ../plugins/build-basic-autotools/plugin.c:2626
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Namesti (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2622
+#: ../plugins/build-basic-autotools/plugin.c:2633
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Počisti (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2630
+#: ../plugins/build-basic-autotools/plugin.c:2641
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Kodno _prevedi (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2630
+#: ../plugins/build-basic-autotools/plugin.c:2641
 #, c-format
 msgid "Co_mpile"
 msgstr "_Kodno prevajanje"
 
-#: ../plugins/build-basic-autotools/plugin.c:3166
+#: ../plugins/build-basic-autotools/plugin.c:3177
 msgid "Build commands"
 msgstr "Ukazi izgradnje"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:3175
+#: ../plugins/build-basic-autotools/plugin.c:3186
 msgid "Build popup commands"
 msgstr "Izgradi pojavne ukaze"
 
-#: ../plugins/build-basic-autotools/plugin.c:3557
-#: ../plugins/build-basic-autotools/plugin.c:3565
+#: ../plugins/build-basic-autotools/plugin.c:3568
+#: ../plugins/build-basic-autotools/plugin.c:3576
 msgid "Build Autotools"
 msgstr "Izgradi autotools"
 
@@ -1278,7 +1279,7 @@ msgstr "Dodaj projektu"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:2
 msgid "Add to Repository"
-msgstr "Dodaj v skladišče"
+msgstr "Dodaj v odložišče"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:3
 msgid "Author Email Address:"
@@ -1342,7 +1343,7 @@ msgid "General Class Properties"
 msgstr "Splošne lastnosti razreda"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:18
-#: ../plugins/file-wizard/file.c:103
+#: ../plugins/file-wizard/file.c:104
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:15
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:15
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:15
@@ -1375,7 +1376,7 @@ msgid "Inline the declaration and implementation"
 msgstr "Izpis določil in vključitev v vrstici"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:22
-#: ../plugins/file-wizard/file.c:104
+#: ../plugins/file-wizard/file.c:105
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:17
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:17
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:17
@@ -1448,7 +1449,7 @@ msgid "Failed to write autogen definition file"
 msgstr "Napaka med zapisovanjem autogen datoteke določitev"
 
 #: ../plugins/class-gen/plugin.c:98
-#: ../plugins/project-wizard/druid.c:1160
+#: ../plugins/project-wizard/druid.c:1157
 msgid "Could not find autogen version 5; please install the autogen package. You can get it from http://autogen.sourceforge.net."
 msgstr "Ni mogoče najti autogen različice 5. Namestite autogen paket. Paket lahko prejmete preko http://autogen.sourceforge.net"
 
@@ -1735,7 +1736,7 @@ msgstr "Oznaka objave:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:44
 msgid "Repository:"
-msgstr "Skladišče:"
+msgstr "Odložišče:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:45
 msgid "Reset sticky tags"
@@ -2753,7 +2754,7 @@ msgstr "Datoteka"
 
 #: ../plugins/debug-manager/stack_trace.c:675
 #: ../plugins/debug-manager/threads.c:460
-#: ../plugins/document-manager/plugin.c:945
+#: ../plugins/document-manager/plugin.c:949
 msgid "Line"
 msgstr "Črta"
 
@@ -3635,9 +3636,9 @@ msgid "Simple searching"
 msgstr "Enostavno iskanje"
 
 #: ../plugins/document-manager/plugin.c:419
-#: ../plugins/document-manager/plugin.c:1736
-#: ../plugins/document-manager/plugin.c:2153
-#: ../plugins/document-manager/plugin.c:2163
+#: ../plugins/document-manager/plugin.c:1769
+#: ../plugins/document-manager/plugin.c:2186
+#: ../plugins/document-manager/plugin.c:2196
 msgid "Documents"
 msgstr "Dokumenti"
 
@@ -3645,47 +3646,47 @@ msgstr "Dokumenti"
 msgid "Editor view settings"
 msgstr "Nastavitve pogleda urejevalnika"
 
-#: ../plugins/document-manager/plugin.c:609
+#: ../plugins/document-manager/plugin.c:613
 msgid "Reload"
 msgstr "Ponovno naloži"
 
-#: ../plugins/document-manager/plugin.c:615
+#: ../plugins/document-manager/plugin.c:619
 msgid "Go to"
 msgstr "Pojdi na"
 
-#: ../plugins/document-manager/plugin.c:930
+#: ../plugins/document-manager/plugin.c:934
 msgid "OVR"
 msgstr "OVR"
 
-#: ../plugins/document-manager/plugin.c:934
+#: ../plugins/document-manager/plugin.c:938
 msgid "INS"
 msgstr "INS"
 
-#: ../plugins/document-manager/plugin.c:940
-#: ../plugins/document-manager/plugin.c:943
+#: ../plugins/document-manager/plugin.c:944
+#: ../plugins/document-manager/plugin.c:947
 msgid "Zoom"
 msgstr "Približanje"
 
-#: ../plugins/document-manager/plugin.c:946
+#: ../plugins/document-manager/plugin.c:950
 msgid "Col"
 msgstr "Stolpec"
 
-#: ../plugins/document-manager/plugin.c:947
+#: ../plugins/document-manager/plugin.c:951
 msgid "Mode"
 msgstr "Način"
 
 #. Automatic highlight menu
-#: ../plugins/document-manager/plugin.c:1027
+#: ../plugins/document-manager/plugin.c:1031
 msgid "Automatic"
 msgstr "Samodejno"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1560
+#: ../plugins/document-manager/plugin.c:1593
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "Neuspešno samodejno shranjevanje %s"
 
-#: ../plugins/document-manager/plugin.c:1574
+#: ../plugins/document-manager/plugin.c:1607
 msgid "Autosave completed"
 msgstr "Samodejno shranjevanje končano"
 
@@ -4026,7 +4027,7 @@ msgstr "Dodaj projektu"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:3
 msgid "Add to repository"
-msgstr "Dodaj v skladišče"
+msgstr "Dodaj v odložišče"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:4
 msgid "Create corresponding header file"
@@ -4083,29 +4084,33 @@ msgstr "Izvorna datoteka C#"
 
 #: ../plugins/file-wizard/file.c:88
 msgid "Java Source File"
-msgstr "Java izvorna datoteka"
+msgstr "Izvorna datoteka Java"
 
 #: ../plugins/file-wizard/file.c:89
 msgid "Perl Source File"
-msgstr "Perl izvorna datoteka"
+msgstr "Izvorna datoteka Perl"
 
 #: ../plugins/file-wizard/file.c:90
 msgid "Python Source File"
-msgstr "Python izvorna datoteka"
+msgstr "Izvorna datoteka Python"
 
 #: ../plugins/file-wizard/file.c:91
 msgid "Shell Script File"
 msgstr "Datoteka skripta lupine"
 
 #: ../plugins/file-wizard/file.c:92
+msgid "Vala Source File"
+msgstr "Izvorna datoteka Vala"
+
+#: ../plugins/file-wizard/file.c:93
 msgid "Other"
 msgstr "Ostalo"
 
-#: ../plugins/file-wizard/file.c:105
+#: ../plugins/file-wizard/file.c:106
 msgid "BSD Public License"
 msgstr "BSD javno dovoljenje"
 
-#: ../plugins/file-wizard/file.c:183
+#: ../plugins/file-wizard/file.c:184
 msgid "Unable to build user interface for New File"
 msgstr "Ni mogoče izgraditi uporabniškega vmesnika za novo datoteko"
 
@@ -4139,44 +4144,44 @@ msgid "Variables"
 msgstr "Spremenljivke"
 
 #: ../plugins/gbf-am/gbf-am-project.c:199
-#: ../plugins/gbf-am/gbf-am-project.c:3352
+#: ../plugins/gbf-am/gbf-am-project.c:3353
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:197
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3253
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3256
 msgid "Static Library"
 msgstr "Samostojne knjižnice"
 
 #: ../plugins/gbf-am/gbf-am-project.c:202
-#: ../plugins/gbf-am/gbf-am-project.c:3354
+#: ../plugins/gbf-am/gbf-am-project.c:3355
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:200
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3255
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3258
 msgid "Shared Library"
 msgstr "Souporabljene knjižnice"
 
 #: ../plugins/gbf-am/gbf-am-project.c:205
-#: ../plugins/gbf-am/gbf-am-project.c:3358
+#: ../plugins/gbf-am/gbf-am-project.c:3359
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:203
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3257
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3260
 msgid "Man Documentation"
 msgstr "Man dokumentacija"
 
 #: ../plugins/gbf-am/gbf-am-project.c:208
-#: ../plugins/gbf-am/gbf-am-project.c:3360
+#: ../plugins/gbf-am/gbf-am-project.c:3361
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:206
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3259
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3262
 msgid "Miscellaneous Data"
 msgstr "Različne podrobnosti"
 
 #: ../plugins/gbf-am/gbf-am-project.c:211
-#: ../plugins/gbf-am/gbf-am-project.c:3364
+#: ../plugins/gbf-am/gbf-am-project.c:3365
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:209
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3263
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3266
 msgid "Script"
 msgstr "Skripta"
 
 #: ../plugins/gbf-am/gbf-am-project.c:214
-#: ../plugins/gbf-am/gbf-am-project.c:3366
+#: ../plugins/gbf-am/gbf-am-project.c:3367
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:212
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3265
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3268
 msgid "Info Documentation"
 msgstr "Info dokumentacija"
 
@@ -4186,19 +4191,19 @@ msgid "Lisp Module"
 msgstr "Modul Lisp"
 
 #: ../plugins/gbf-am/gbf-am-project.c:220
-#: ../plugins/gbf-am/gbf-am-project.c:3356
+#: ../plugins/gbf-am/gbf-am-project.c:3357
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:218
 msgid "Header Files"
 msgstr "Datoteke glave"
 
 #: ../plugins/gbf-am/gbf-am-project.c:223
-#: ../plugins/gbf-am/gbf-am-project.c:3368
+#: ../plugins/gbf-am/gbf-am-project.c:3369
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:221
 msgid "Java Module"
 msgstr "Java modul"
 
 #: ../plugins/gbf-am/gbf-am-project.c:226
-#: ../plugins/gbf-am/gbf-am-project.c:3370
+#: ../plugins/gbf-am/gbf-am-project.c:3371
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:224
 msgid "Python Module"
 msgstr "Python modul"
@@ -4240,48 +4245,48 @@ msgstr "Intl pravilo"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2559
 #: ../plugins/gbf-am/gbf-am-project.c:2637
-#: ../plugins/gbf-am/gbf-am-project.c:2846
-#: ../plugins/gbf-am/gbf-am-project.c:3055
-#: ../plugins/gbf-am/gbf-am-project.c:3205
+#: ../plugins/gbf-am/gbf-am-project.c:2847
+#: ../plugins/gbf-am/gbf-am-project.c:3056
+#: ../plugins/gbf-am/gbf-am-project.c:3206
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2506
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2584
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2812
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2998
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3146
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2815
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3001
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3149
 msgid "Group doesn't exist"
 msgstr "Skupina ne obstaja"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2579
 #: ../plugins/gbf-am/gbf-am-project.c:2682
-#: ../plugins/gbf-am/gbf-am-project.c:3098
-#: ../plugins/gbf-am/gbf-am-project.c:3320
-#: ../plugins/gbf-am/gbf-am-project.c:3541
+#: ../plugins/gbf-am/gbf-am-project.c:3099
+#: ../plugins/gbf-am/gbf-am-project.c:3321
+#: ../plugins/gbf-am/gbf-am-project.c:3542
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2526
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2629
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3041
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3221
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3407
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3044
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3224
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3410
 msgid "Target doesn't exist"
 msgstr "Cilj ne obstaja"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2613
 #: ../plugins/gbf-am/gbf-am-project.c:2657
 #: ../plugins/gbf-am/gbf-am-project.c:2700
-#: ../plugins/gbf-am/gbf-am-project.c:3016
-#: ../plugins/gbf-am/gbf-am-project.c:3076
-#: ../plugins/gbf-am/gbf-am-project.c:3280
-#: ../plugins/gbf-am/gbf-am-project.c:3341
-#: ../plugins/gbf-am/gbf-am-project.c:3649
-#: ../plugins/gbf-am/gbf-am-project.c:3710
+#: ../plugins/gbf-am/gbf-am-project.c:3017
+#: ../plugins/gbf-am/gbf-am-project.c:3077
+#: ../plugins/gbf-am/gbf-am-project.c:3281
+#: ../plugins/gbf-am/gbf-am-project.c:3342
+#: ../plugins/gbf-am/gbf-am-project.c:3650
+#: ../plugins/gbf-am/gbf-am-project.c:3711
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2560
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2604
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2647
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2959
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3019
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3182
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3242
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3474
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3535
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2962
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3022
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3185
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3245
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3477
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3538
 msgid "Unable to update project"
 msgstr "Ni mogoče posodobiti projekta"
 
@@ -4303,100 +4308,100 @@ msgstr "Projekt ne obstaja ali pa ni veljavna pot"
 msgid "Malformed project"
 msgstr "Slabo oblikovan projekt"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2959
+#: ../plugins/gbf-am/gbf-am-project.c:2960
 msgid "Please specify group name"
 msgstr "Določite ime skupine"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2973
+#: ../plugins/gbf-am/gbf-am-project.c:2974
 msgid "Group name can only contain alphanumeric, '_', '-' or '.' characters"
 msgstr "Ime skupine lahko vsebuje le črke, številke, '_', '-' ali '.'"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2982
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2925
+#: ../plugins/gbf-am/gbf-am-project.c:2983
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2928
 msgid "Parent group doesn't exist"
 msgstr "Nadrejena skupina ne obstaja"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2993
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2936
+#: ../plugins/gbf-am/gbf-am-project.c:2994
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2939
 msgid "Group already exists"
 msgstr "Skupina že obstaja"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3003
-#: ../plugins/gbf-am/gbf-am-project.c:3030
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2946
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2973
+#: ../plugins/gbf-am/gbf-am-project.c:3004
+#: ../plugins/gbf-am/gbf-am-project.c:3031
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2949
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2976
 msgid "Group couldn't be created"
 msgstr "Skupine ni mogoče ustvariti"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3063
+#: ../plugins/gbf-am/gbf-am-project.c:3064
 msgid "Group couldn't be removed"
 msgstr "Skupine ni mogoče odstraniti"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3213
+#: ../plugins/gbf-am/gbf-am-project.c:3214
 msgid "Please specify target name"
 msgstr "Določite ime cilja"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3227
+#: ../plugins/gbf-am/gbf-am-project.c:3228
 msgid "Target name can only contain alphanumeric, '_', '-' or '.' characters"
 msgstr "Ime cilja lahko vsebuje le črke, številke, '_', '-' ali '.'"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3236
+#: ../plugins/gbf-am/gbf-am-project.c:3237
 msgid "Shared library target name must be of the form 'libxxx.la'"
 msgstr "Ime deljene knjižnice mora biti v obliki 'libxxx.la'"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3245
+#: ../plugins/gbf-am/gbf-am-project.c:3246
 msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr "Ime samostojne knjižnice mora biti v obliki 'libxxx.a'"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3257
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3159
+#: ../plugins/gbf-am/gbf-am-project.c:3258
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3162
 msgid "Target already exists"
 msgstr "Cilj že obstaja"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3267
+#: ../plugins/gbf-am/gbf-am-project.c:3268
 msgid "General failure in target creation"
 msgstr "Splošna napaka med ustvarjanjem cilja"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3295
+#: ../plugins/gbf-am/gbf-am-project.c:3296
 msgid "Newly created target could not be identified"
 msgstr "Ni mogoče prepoznati novo ustvarjenega cilja"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3328
+#: ../plugins/gbf-am/gbf-am-project.c:3329
 msgid "Target couldn't be removed"
 msgstr "Cilja ni mogoče odstraniti"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3428
-#: ../plugins/gbf-am/gbf-am-project.c:3687
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3317
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3512
+#: ../plugins/gbf-am/gbf-am-project.c:3429
+#: ../plugins/gbf-am/gbf-am-project.c:3688
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3320
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3515
 msgid "Source doesn't exist"
 msgstr "Vir ne obstaja"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3532
+#: ../plugins/gbf-am/gbf-am-project.c:3533
 msgid "Source file name can only contain alphanumeric, '_', '-' or '.' characters"
 msgstr "Ime vira lahko vsebuje le črke, številke, '_', '-' ali '.'"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3612
+#: ../plugins/gbf-am/gbf-am-project.c:3613
 msgid "Source file is already in given target"
 msgstr "Izvorna datoteke je že v danem cilju"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3630
+#: ../plugins/gbf-am/gbf-am-project.c:3631
 msgid "General failure in adding source file"
 msgstr "Splošna napaka med dodajanjem izvorne datoteke"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3664
+#: ../plugins/gbf-am/gbf-am-project.c:3665
 msgid "Newly added source file could not be identified"
 msgstr "Ni mogoče prepoznati novo dodane datoteke virov"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3695
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3520
+#: ../plugins/gbf-am/gbf-am-project.c:3696
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3523
 msgid "Source couldn't be removed"
 msgstr "Vira ni mogoče odstraniti"
 
-#: ../plugins/gbf-am/gbf-am-project.c:4111
 #: ../plugins/gbf-am/gbf-am-project.c:4112
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3830
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3831
+#: ../plugins/gbf-am/gbf-am-project.c:4113
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3833
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3834
 msgid "Project directory"
 msgstr "Mapa projekta"
 
@@ -4577,29 +4582,29 @@ msgstr "Neveljavna vrsta GbfMkfileConfigValue"
 msgid "Project doesn't exist"
 msgstr "Projekt ne obstaja"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3006
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3009
 msgid "Group coudn't be removed"
 msgstr "Skupine ni mogoče odstraniti"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3169
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3196
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3172
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3199
 msgid "Target couldn't be created"
 msgstr "Cilja ni mogoče ustvariti"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3229
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3232
 msgid "Target coudn't be removed"
 msgstr "Cilja ni mogoče odstraniti"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3427
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3430
 msgid "Source file must be inside the project directory"
 msgstr "Izvorna datoteka mora biti znotraj mape projekta"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3439
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3442
 msgid "Source is already in target"
 msgstr "Vir je že v cilju"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3456
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3488
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3459
+#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3491
 msgid "Source couldn't be added"
 msgstr "Vira ni mogoče dodati"
 
@@ -5097,15 +5102,15 @@ msgstr "Odstrani datoteko"
 
 #: ../plugins/git/anjuta-git.ui.h:77
 msgid "Repository origin"
-msgstr "Izvor skladišča"
+msgstr "Izvor odložišča"
 
 #: ../plugins/git/anjuta-git.ui.h:78
 msgid "Repository to pull from:"
-msgstr "Skladišče za sprejemanje:"
+msgstr "Odložišče za sprejemanje:"
 
 #: ../plugins/git/anjuta-git.ui.h:79
 msgid "Repository to push to:"
-msgstr "Skladišče za objavo:"
+msgstr "Odložišče za objavo:"
 
 #: ../plugins/git/anjuta-git.ui.h:80
 msgid "Reset Tree"
@@ -5447,11 +5452,11 @@ msgstr "Git: sprejemanje je končano."
 #. * user does not properly enter anything
 #: ../plugins/git/git-pull-dialog.c:124
 msgid "Please select a remote to pull from."
-msgstr "Vnesite oddaljeni naslov skladišča za sprejemanje."
+msgstr "Vnesite oddaljeni naslov odložišča za sprejemanje."
 
 #: ../plugins/git/git-pull-dialog.c:142
 msgid "Please enter the URL of the repository to pull from."
-msgstr "Vnesite naslov URL skladišča za sprejemanje."
+msgstr "Vnesite naslov URL odložišča za sprejemanje."
 
 #: ../plugins/git/git-push-dialog.c:36
 msgid "Git: Push complete."
@@ -5461,11 +5466,11 @@ msgstr "Git: objavljanje končano."
 #. * user does not properly enter anything
 #: ../plugins/git/git-push-dialog.c:144
 msgid "Please select a remote to push to."
-msgstr "Izberite oddaljeno skladišče za objavo."
+msgstr "Izberite oddaljeno odložišče za objavo."
 
 #: ../plugins/git/git-push-dialog.c:162
 msgid "Please enter the URL of the repository to push to."
-msgstr "Vnesite naslov URL skladišča za objavo."
+msgstr "Vnesite naslov URL odložišča za objavo."
 
 #: ../plugins/git/git-push-dialog.c:197
 msgid "Git: Pushing…"
@@ -5554,7 +5559,7 @@ msgstr "_Uveljavi ..."
 #. short-cut
 #: ../plugins/git/plugin.c:89
 msgid "Commit changes to the local repository"
-msgstr "Uveljavljanje sprememb v krajevno skladišče"
+msgstr "Uveljavljanje sprememb v krajevno odložišče"
 
 #. Action name
 #. Stock icon, if any
@@ -5615,7 +5620,7 @@ msgstr "Preglej zgodovino sprememb"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:135
 msgid "_Remote repository"
-msgstr "_Oddaljeno skladišče"
+msgstr "_Oddaljeno odložišče"
 
 #. Action name
 #. Stock icon, if any
@@ -5627,7 +5632,7 @@ msgstr "_Objavi ..."
 #. short-cut
 #: ../plugins/git/plugin.c:145
 msgid "Push changes to a remote repository"
-msgstr "Objavi spremembe v oddaljeno skladišče"
+msgstr "Objavi spremembe v oddaljeno odložišče"
 
 #. Action name
 #. Stock icon, if any
@@ -5673,7 +5678,7 @@ msgstr "_Dodaj ..."
 #. short-cut
 #: ../plugins/git/plugin.c:177
 msgid "Add files to the repository"
-msgstr "Dodaj datoteke v skladišče"
+msgstr "Dodaj datoteke v odložišče"
 
 #. Action name
 #. Stock icon, if any
@@ -5688,7 +5693,7 @@ msgstr "_Odstrani ..."
 #. short-cut
 #: ../plugins/git/plugin.c:185
 msgid "Remove files from the repository"
-msgstr "Odstrani datoteke iz skladišča"
+msgstr "Odstrani datoteke iz odložišča"
 
 #. Action name
 #. Stock icon, if any
@@ -5804,7 +5809,7 @@ msgstr "_Prekliči"
 #. short-cut
 #: ../plugins/git/plugin.c:273
 msgid "Stop applying the series and return the repository to its original state"
-msgstr "Zaustavi uporabo nizov in povrni skladišče na prvotno stanje"
+msgstr "Zaustavi uporabo nizov in povrni odložišče v prvotno stanje"
 
 #. Action name
 #. Stock icon, if any
@@ -5914,7 +5919,7 @@ msgstr "Preskoči trenutno uveljavitev v sporu in nadaljuj"
 #. short-cut
 #: ../plugins/git/plugin.c:353
 msgid "Abort the rebase and put the repository in its original state"
-msgstr "Prekini vzpostavljanje izhodišča in postavi skladišče v prvotno stanje"
+msgstr "Prekini vzpostavljanje izhodišča in postavi odložišče v prvotno stanje"
 
 #. Action name
 #. Stock icon, if any
@@ -5995,7 +6000,7 @@ msgstr "_Ponovno razporedi ..."
 #. short-cut
 #: ../plugins/git/plugin.c:425
 msgid "Reset repository head to any past state"
-msgstr "Počisti glavo skladišča na predhodno stanje"
+msgstr "Počisti glavo odložišča na predhodno stanje"
 
 #. Action name
 #. Stock icon, if any
@@ -6056,13 +6061,13 @@ msgstr "Označi trenutno glavno predelavo kot slabo"
 #. Stock icon, if any
 #: ../plugins/git/plugin.c:479
 msgid "_Initialize repository"
-msgstr "_Zaženi skladišče"
+msgstr "_Zaženi odložišče"
 
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:481
 msgid "Create a new git repository or reinitialize an existing one"
-msgstr "Ustvari novo git skladišče ali pa ponovno naloži obstoječe"
+msgstr "Ustvari novo git odložišče ali pa ponovno naloži obstoječe"
 
 #. Action name
 #. Stock icon, if any
@@ -6104,7 +6109,7 @@ msgstr "Ustvari oznako te predelave"
 #. short-cut
 #: ../plugins/git/plugin.c:525
 msgid "Reset repository head to this revision"
-msgstr "Počisti glavo skladišča na to predelavo"
+msgstr "Počisti glavo odložišča na to predelavo"
 
 #. Display label
 #. short-cut
@@ -6158,13 +6163,13 @@ msgstr "Pregled sprememb te datoteke ali mape"
 #. short-cut
 #: ../plugins/git/plugin.c:593
 msgid "Add this file or folder to the repository"
-msgstr "Dodaj datoteke in mape v skladišče"
+msgstr "Dodaj datoteke in mape v odložišče"
 
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:601
 msgid "Remove this file or folder from the repository"
-msgstr "Odstrani datoteke in mape iz skladišča"
+msgstr "Odstrani datoteke in mape iz odložišča"
 
 #: ../plugins/git/plugin.c:766
 msgid "Top level git menu item"
@@ -7331,7 +7336,7 @@ msgstr "Neveljaven vnos"
 msgid "Dubious entry"
 msgstr "Dvomljiv vnos"
 
-#: ../plugins/project-wizard/druid.c:884
+#: ../plugins/project-wizard/druid.c:881
 #, c-format
 msgid ""
 "\n"
@@ -7340,7 +7345,7 @@ msgstr ""
 "\n"
 "Manjkajoči programi: %s."
 
-#: ../plugins/project-wizard/druid.c:895
+#: ../plugins/project-wizard/druid.c:892
 #, c-format
 msgid ""
 "\n"
@@ -7349,23 +7354,23 @@ msgstr ""
 "\n"
 "Manjkajoči paketi: %s."
 
-#: ../plugins/project-wizard/druid.c:904
+#: ../plugins/project-wizard/druid.c:901
 msgid "Some important programs or development packages required to build this project are missing. Please make sure they are installed properly before generating the project.\n"
 msgstr "Nekateri pomembni programi ali pa paketi za razvijanje za izgradnjo projekta niso na voljo. Prepričajte se, da so ti nameščeni preden ustvarite projekt.\n"
 
-#: ../plugins/project-wizard/druid.c:912
+#: ../plugins/project-wizard/druid.c:909
 msgid "Install missing packages"
 msgstr "Namestitev manjkajočih paketov"
 
-#: ../plugins/project-wizard/druid.c:920
+#: ../plugins/project-wizard/druid.c:917
 msgid "The missing programs are usually part of some distrubution packages and can be searched for in your Application Manager. Similarly, the development packages are contained in special packages that your distribution provides to allow development of projects based on them. They usually end with a \"-dev\" or \"-devel\" suffix in package names and can be found by searching in your Application Manager."
 msgstr "Manjkajoči programi so običajno del nekaterih paketov distribucij in jih je mogoče najti v upravljalniku programov. Podobno paketi za razvoj kode, običajno pripadajo posebnim paketom, ki so del distribucije in omogočajo razvijanje projektov. Ti so običajno poimenovani tako, da vsebujejo pripone -\"-dev\" ali \"-devel\" in imena paketov. Najdete jih lahko v upravljalniku programov."
 
-#: ../plugins/project-wizard/druid.c:928
+#: ../plugins/project-wizard/druid.c:925
 msgid "Missing components"
 msgstr "Manjkajoče enote"
 
-#: ../plugins/project-wizard/druid.c:1060
+#: ../plugins/project-wizard/druid.c:1057
 #, c-format
 msgid "Unable to build project assistant user interface reading %s."
 msgstr "Ni mogoče izgraditi uporabniškega vmesnika pomočnika %s."
@@ -8656,7 +8661,7 @@ msgstr "<b>Napaka:</b> ključ sprožilca je že v uporabi za enega izmed jezikov
 
 #: ../plugins/snippets-manager/snippets-editor.c:50
 msgid "<b>Error:</b> The trigger key can only contain alphanumeric characters and _ !"
-msgstr "<b>Napaka:</b>Ključ sprožilca lahko vsebuje le črke, številke in znak _!"
+msgstr "<b>Napaka:</b> ključ sprožilca lahko vsebuje le črke, številke in znak _!"
 
 #: ../plugins/snippets-manager/snippets-editor.c:51
 msgid "<b>Error:</b> You haven't entered a trigger key for the snippet!"
@@ -9009,11 +9014,11 @@ msgstr "Odstrani datoteko/mapo"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:33
 msgid "Repository Head"
-msgstr "Glava skladišča"
+msgstr "Glava odložišča"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:34
 msgid "Repository authorization"
-msgstr "Overitev skladišča"
+msgstr "Overitev odložišča"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:36
 msgid "Retrieving status……"
@@ -9177,7 +9182,7 @@ msgstr "Kopiraj datoteke/mape ..."
 #: ../plugins/subversion/plugin.c:110
 #: ../plugins/subversion/plugin.c:201
 msgid "Copy files/folders in the repository"
-msgstr "Kopiraj datoteke in mape v skladišče"
+msgstr "Kopiraj datoteke in mape v odložišče"
 
 #. Action name
 #. Stock icon, if any
@@ -9189,7 +9194,7 @@ msgstr "Preklopi na oznako/vejo ..."
 #. short-cut
 #: ../plugins/subversion/plugin.c:118
 msgid "Switch your local copy to a branch or tag in the repository"
-msgstr "Preklopi krajevno kopijo veje ali oznake v skladišče"
+msgstr "Preklopi krajevno kopijo veje ali oznake v odložišče"
 
 #. Action name
 #. Stock icon, if any
@@ -9228,7 +9233,7 @@ msgstr "_Primerjava ..."
 #: ../plugins/subversion/plugin.c:142
 #: ../plugins/subversion/plugin.c:209
 msgid "Diff local tree with repository"
-msgstr "Primerjaj krajevno različico s skladiščem"
+msgstr "Primerjaj krajevno različico z odložiščem"
 
 #. Action name
 #. Stock icon, if any
@@ -9264,7 +9269,7 @@ msgstr "Subversion: uveljavitev je končana."
 
 #: ../plugins/subversion/subversion-commit-dialog.c:123
 msgid "Subversion: Committing changes to the repository…"
-msgstr "Subversion: uveljavitev sprememb v skladišče ..."
+msgstr "Subversion: uveljavitev sprememb v odložišče ..."
 
 #: ../plugins/subversion/subversion-copy-dialog.c:138
 msgid "Subversion: Copy complete."
@@ -10626,11 +10631,11 @@ msgstr "Dodaj zaklepaj za samodejno dopolnjenim klicem funkcije"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:2
 msgid "Gir repository's directory:   "
-msgstr "Gir mapa skladišča:"
+msgstr "Mapa odložišča Gir:"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:3
 msgid "Gjs repository's directory:   "
-msgstr "Gjs mapa skladišča:"
+msgstr "Mapa odložišča Gjs:"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:4
 msgid "Highlight missed semicolon"
@@ -10650,7 +10655,6 @@ msgstr "Simbol"
 
 #~ msgid ""
 #~ "<b>There is %d item with unsaved changes. Save changes before closing?</b>"
-
 #~ msgid_plural ""
 #~ "<b>There are %d items with unsaved changes. Save changes before closing?</"
 #~ "b>"
@@ -10665,46 +10669,32 @@ msgstr "Simbol"
 #~ msgstr[3] ""
 #~ "<b>Odprti so %d predmeti s spremenjeno vsebino. Ali jih želite shraniti?</"
 #~ "b>"
-
 #~ msgid "<b>Autocompletion</b>"
 #~ msgstr "<b>Samodejno dopolnjevanje</b>"
-
 #~ msgid "<b>Calltips</b>"
 #~ msgstr "<b>Namigi kodnih zapisov</b>"
-
 #~ msgid "<b>Indentation parameters</b>"
 #~ msgstr "<b>Parametri zamika</b>"
-
 #~ msgid "<b>Smart Indentation</b>"
 #~ msgstr "<b>Pametno zamikanje</b>"
-
 #~ msgid "Edit…"
 #~ msgstr "Uredi ..."
-
 #~ msgid "Macro details:"
 #~ msgstr "Podrobnosti makra:"
-
 #~ msgid "Macro text:"
 #~ msgstr "Besedilo makra:"
-
 #~ msgid "Macros:"
 #~ msgstr "Makri:"
-
 #~ msgid "Shortcut:"
 #~ msgstr "Bližnjica:"
-
 #~ msgid "Press macro shortcut…"
 #~ msgstr "Pritisnite bližnjico makra ..."
-
 #~ msgid "Press shortcut"
 #~ msgstr "Pritisni bližnjico"
-
 #~ msgid "Anjuta macros"
 #~ msgstr "Anjuta makri"
-
 #~ msgid "My macros"
 #~ msgstr "Moji makri"
-
 #~ msgid ""
 #~ "Name:\t %s\n"
 #~ "Category:\t %s\n"
@@ -10713,70 +10703,48 @@ msgstr "Simbol"
 #~ "Ime:\t %s\n"
 #~ "Kategorija:\t %s\n"
 #~ "Bližnjica:\t %c\n"
-
 #~ msgid "Insert macro"
 #~ msgstr "Vstavi makro"
-
 #~ msgid "Add/Edit macro"
 #~ msgstr "Dodaj/uredi makro"
-
 #~ msgid "%Y-%m-%d"
 #~ msgstr "%d.%m.%Y"
-
 #~ msgid "%Y"
 #~ msgstr "%Y"
-
 #~ msgid "Macros"
 #~ msgstr "Makri"
-
 #~ msgid "_Insert Macro…"
 #~ msgstr "_Vstavi makro ..."
-
 #~ msgid "Insert a macro using a shortcut"
 #~ msgstr "Vstavite makro z uporabo bližnjice"
-
 #~ msgid "_Add Macro…"
 #~ msgstr "_Dodaj makro ..."
-
 #~ msgid "Add a macro"
 #~ msgstr "Dodaj makro"
-
 #~ msgid "Macros…"
 #~ msgstr "Makri ..."
-
 #~ msgid "Add/Edit/Remove macros"
 #~ msgstr "Dodaj/uredi/odstrani makro"
-
 #~ msgid "Macro operations"
 #~ msgstr "Makro opravila"
-
 #~ msgid "Autocompletion (C/C++/Java only)"
 #~ msgstr "Samodejno dopolnjevanje (le C/C++/Java)"
-
 #~ msgid "<b>Rope Options</b>"
 #~ msgstr "<b>Možnosti pritrjevanja</b>"
-
 #~ msgid "Insert predefined macros into Editor"
 #~ msgstr "Vstavi predhodno določene makre v urejevalnik"
-
 #~ msgid "Macro Plugin"
 #~ msgstr "Makro vstavek"
-
 #~ msgid "A GNOME applet project"
 #~ msgstr "Izvorni GNOME apletni projekt"
-
 #~ msgid "Applet Title:"
 #~ msgstr "Naslov apleta:"
-
 #~ msgid "Display description of the applet"
 #~ msgstr "Pokaži opis apleta"
-
 #~ msgid "Display title of the applet"
 #~ msgstr "Pokaži naslov apleta"
-
 #~ msgid "GNOME Applet"
 #~ msgstr "Gnome Aplet"
-
 #~ msgid ""
 #~ "The following pretty printers, without a register functions, have been "
 #~ "disabled:\n"
@@ -10784,3 +10752,4 @@ msgstr "Simbol"
 #~ msgstr ""
 #~ "Navedeni oblikovni tiskalniki, brez vpisnih funkcij, so onemogočeni:\n"
 #~ " %s"
+
