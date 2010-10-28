@@ -33,14 +33,13 @@ AC_SUBST(ANJUTA_VERSION)
 
 dnl Anjuta core
 GLIB_REQUIRED=2.25.15
-GTK_REQUIRED=2.20.0
+GTK_REQUIRED=2.29.1
 GTHREAD_REQUIRED=2.22.0
 GDK_PIXBUF_REQUIRED=2.0.0
-GCONF_REQUIRED=2.12.0
 GDA_REQUIRED=4.1.6
 VTE_REQUIRED=0.13.1
 LIBXML_REQUIRED=2.4.23
-GDL_REQUIRED=2.27.1
+GDL_REQUIRED=2.91.1
 LIBWNCK_REQUIRED=2.12
 UNIQUE_REQUIRED=1.0.0
 
@@ -122,14 +121,6 @@ AC_DEFINE_UNQUOTED(PREF_SUFFIX,
 LT_PREREQ([2.2])
 LT_INIT([disable-static])
 
-
-
-dnl ***************************************************************************
-dnl Check for GConf stuff to handle schema installation
-dnl ***************************************************************************
-AC_PATH_PROG(GCONFTOOL, gconftool-2)
-AM_GCONF_SOURCE_2
-
 dnl ***************************************************************************
 dnl Check for GObject-Introspection
 dnl ***************************************************************************
@@ -157,12 +148,11 @@ PKG_CHECK_MODULES([ANJUTA],
 	unique-1.0 >= $UNIQUE_REQUIRED
 	glib-2.0 >= $GLIB_REQUIRED
 	gio-2.0 >= $GLIB_REQUIRED
-	gtk+-2.0 >= $GTK_REQUIRED
+	gtk+-3.0 >= $GTK_REQUIRED
 	gdk-pixbuf-2.0 >= $GDK_PIXBUF_REQUIRED
-	gconf-2.0 >= $GCONF_REQUIRED
-	vte >= $VTE_REQUIRED
+	vte-2.90 >= $VTE_REQUIRED
 	libxml-2.0 >= $LIBXML_REQUIRED
-	gdl-1.0 >= $GDL_REQUIRED
+	gdl-3.0 >= $GDL_REQUIRED
 	libgda-4.0 >= $GDA_REQUIRED
 	libxslt])
 
@@ -268,7 +258,7 @@ else
 	AC_MSG_RESULT(no)
 	sourceview="yes"
 	PKG_CHECK_MODULES(PLUGIN_SOURCEVIEW,
-		[gtksourceview-2.0 >= $GTKSOURCEVIEW_REQUIRED])
+		[gtksourceview-3.0 >= $GTKSOURCEVIEW_REQUIRED])
 fi
 
 AM_CONDITIONAL(HAVE_PLUGIN_SOURCEVIEW, [test x$sourceview = xyes])
