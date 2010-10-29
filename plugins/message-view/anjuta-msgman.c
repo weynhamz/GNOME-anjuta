@@ -152,7 +152,7 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 	gtk_widget_set_name (page->close_button, "anjuta-tab-close-button");
 		
 	g_object_set_data (G_OBJECT (page->close_button), "message_view", page->widget);
-	g_signal_connect (GTK_OBJECT (page->close_button), "clicked",
+	g_signal_connect (page->close_button, "clicked",
 						G_CALLBACK(on_msgman_close_page),
 						msgman);
 
@@ -189,14 +189,6 @@ anjuta_msgman_page_from_widget (AnjutaMsgman * msgman, MessageView * mv)
 	return NULL;
 }
 
-static void
-on_notebook_switch_page (GtkNotebook * notebook,
-			 GtkWidget * npage,
-			 gint page_num, AnjutaMsgman * msgman)
-{
-	g_signal_emit_by_name(G_OBJECT(msgman), "view_changed");
-}
-
 static gpointer parent_class;
 
 static void
@@ -221,8 +213,6 @@ anjuta_msgman_finalize (GObject *obj)
 static void
 anjuta_msgman_instance_init (AnjutaMsgman * msgman)
 {
-	g_signal_connect_after (GTK_NOTEBOOK (msgman), "switch-page",
-			  G_CALLBACK (on_notebook_switch_page), msgman);
 	gtk_notebook_set_scrollable (GTK_NOTEBOOK (msgman), TRUE);
 	msgman->priv = g_new0(AnjutaMsgmanPriv, 1);
 	msgman->priv->views = NULL;
@@ -230,33 +220,16 @@ anjuta_msgman_instance_init (AnjutaMsgman * msgman)
 	msgman->priv->tabber = anjuta_tabber_new (GTK_NOTEBOOK (msgman));
 	msgman->priv->button_group = NULL;
 	
-	g_signal_connect(GTK_OBJECT(msgman), "popup-menu", 
+	g_signal_connect(msgman, "popup-menu", 
                        G_CALLBACK(on_msgman_popup_menu), msgman);
-    g_signal_connect(GTK_OBJECT(msgman), "button-press-event", 
+    g_signal_connect(msgman, "button-press-event", 
                        G_CALLBACK(on_tab_button_press_event), msgman);
 }
 
 static void
 anjuta_msgman_class_init (AnjutaMsgmanClass * klass)
 {
-	static gboolean initialized = FALSE;
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
-	
-	if (!initialized) {
-		/* Signal */
-		g_signal_new ("view-changed",
-			ANJUTA_TYPE_MSGMAN,
-			G_SIGNAL_RUN_LAST,
-			G_STRUCT_OFFSET (AnjutaMsgman, view_changed),
-			NULL, NULL,
-			g_cclosure_marshal_VOID__VOID,
-			G_TYPE_NONE,
-			0,
-			NULL);
-
-
-		initialized = TRUE;
-	}
 	
 	parent_class = g_type_class_peek_parent (klass);
 	gobject_class->finalize = anjuta_msgman_finalize;

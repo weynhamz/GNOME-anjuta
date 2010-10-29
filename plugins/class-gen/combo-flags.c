@@ -489,8 +489,8 @@ cg_combo_flags_treeview_key_press_cb (G_GNUC_UNUSED GtkWidget *widget,
 	
 	switch (event->keyval)
 	{
-	case GDK_space:
-	case GDK_KP_Space:
+	case GDK_KEY_space:
+	case GDK_KEY_KP_Space:
 		selection =
 			gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->treeview));
 
@@ -504,8 +504,8 @@ cg_combo_flags_treeview_key_press_cb (G_GNUC_UNUSED GtkWidget *widget,
 
 		return FALSE;
 		break;
-	case GDK_Return:
-	case GDK_KP_Enter:
+	case GDK_KEY_Return:
+	case GDK_KEY_KP_Enter:
 		selection =
 			gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->treeview));
 
@@ -557,7 +557,7 @@ cg_combo_flags_window_key_press_cb (G_GNUC_UNUSED GtkWidget *widget,
 	
 	switch (event->keyval)
 	{
-	case GDK_Escape:
+	case GDK_KEY_Escape:
 		priv->editing_canceled = TRUE;
 		cg_combo_flags_popdown (combo);
 		return TRUE;

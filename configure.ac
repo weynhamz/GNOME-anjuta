@@ -41,7 +41,7 @@ VTE_REQUIRED=0.13.1
 LIBXML_REQUIRED=2.4.23
 GDL_REQUIRED=2.91.1
 LIBWNCK_REQUIRED=2.12
-UNIQUE_REQUIRED=1.0.0
+UNIQUE_REQUIRED=2.90.1
 
 dnl GtkSourceView
 GTKSOURCEVIEW_REQUIRED=2.9.7
@@ -145,7 +145,7 @@ dnl Check base modules
 
 PKG_CHECK_MODULES([ANJUTA],
    [gthread-2.0 >= $GTHREAD_REQUIRED
-	unique-1.0 >= $UNIQUE_REQUIRED
+	unique-3.0 >= $UNIQUE_REQUIRED
 	glib-2.0 >= $GLIB_REQUIRED
 	gio-2.0 >= $GLIB_REQUIRED
 	gtk+-3.0 >= $GTK_REQUIRED
@@ -304,7 +304,7 @@ PKG_CHECK_MODULES(PLUGIN_SYMBOL_DB,
 dnl Setup Anjuta Library flags
 dnl --------------------------
 LIBANJUTA_CFLAGS='$(ANJUTA_CFLAGS) $(DEPRECATED_FLAGS) -I$(top_srcdir) -I$(top_builddir)/libanjuta -DPACKAGE_PIXMAPS_DIR=\""$(datadir)/pixmaps/$(PACKAGE)"\" -DPACKAGE_LIB_DIR=\""$(pkglibdir)"\" -DPACKAGE_DATA_DIR=\""$(datadir)/$(PACKAGE)"\"'
-LIBANJUTA_LIBS='$(top_builddir)/libanjuta/libanjuta.la'
+LIBANJUTA_LIBS='$(top_builddir)/libanjuta/libanjuta-3.la'
 AC_SUBST(LIBANJUTA_CFLAGS)
 AC_SUBST(LIBANJUTA_LIBS)
 
@@ -799,7 +799,7 @@ Makefile
 po/Makefile.in
 libfoocanvas/Makefile
 libanjuta/Makefile
-libanjuta/libanjuta-1.0.pc
+libanjuta/libanjuta-3.0.pc
 libanjuta/anjuta-version.h
 libanjuta/interfaces/Makefile
 src/Makefile

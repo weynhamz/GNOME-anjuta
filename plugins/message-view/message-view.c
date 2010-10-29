@@ -285,8 +285,8 @@ on_message_event (GObject* object, GdkEvent* event, gpointer data)
 	{
 		switch(((GdkEventKey *)event)->keyval)
 		{
-			case GDK_space:
-			case GDK_Return:
+			case GDK_KEY_space:
+			case GDK_KEY_Return:
 			{
 				const gchar* message =
 					ianjuta_message_view_get_current_message(IANJUTA_MESSAGE_VIEW (view), NULL);

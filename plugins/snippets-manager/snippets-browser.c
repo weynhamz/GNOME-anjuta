@@ -258,41 +258,41 @@ init_browser_handlers (SnippetsBrowser *snippets_browser)
 	g_return_if_fail (ANJUTA_IS_SNIPPETS_BROWSER (snippets_browser));
 	priv = ANJUTA_SNIPPETS_BROWSER_GET_PRIVATE (snippets_browser);
 
-	g_signal_connect (GTK_OBJECT (priv->snippets_view),
+	g_signal_connect (priv->snippets_view,
 	                  "row-activated",
-	                  GTK_SIGNAL_FUNC (on_snippets_view_row_activated),
+	                  G_CALLBACK (on_snippets_view_row_activated),
 	                  snippets_browser);
-	g_signal_connect (GTK_OBJECT (priv->snippets_view),
+	g_signal_connect (priv->snippets_view,
 	                  "query-tooltip",
-	                  GTK_SIGNAL_FUNC (on_snippets_view_query_tooltip),
+	                  G_CALLBACK (on_snippets_view_query_tooltip),
 	                  snippets_browser);
 	g_signal_connect (G_OBJECT (gtk_tree_view_get_selection (priv->snippets_view)),
 	                  "changed",
 	                  G_CALLBACK (on_snippets_view_selection_changed),
 	                  snippets_browser);
-	g_signal_connect (GTK_OBJECT (priv->add_button),
+	g_signal_connect (priv->add_button,
 	                  "clicked",
-	                  GTK_SIGNAL_FUNC (on_add_button_clicked),
+	                  G_CALLBACK (on_add_button_clicked),
 	                  snippets_browser);
-	g_signal_connect (GTK_OBJECT (priv->delete_button),
+	g_signal_connect (priv->delete_button,
 	                  "clicked",
-	                  GTK_SIGNAL_FUNC (on_delete_button_clicked),
+	                  G_CALLBACK (on_delete_button_clicked),
 	                  snippets_browser);
-	g_signal_connect (GTK_OBJECT (priv->insert_button),
+	g_signal_connect (priv->insert_button,
 	                  "clicked",
-	                  GTK_SIGNAL_FUNC (on_insert_button_clicked),
+	                  G_CALLBACK (on_insert_button_clicked),
 	                  snippets_browser);
-	g_signal_connect (GTK_OBJECT (priv->edit_button),
+	g_signal_connect (priv->edit_button,
 	                  "toggled",
-	                  GTK_SIGNAL_FUNC (on_edit_button_toggled),
+	                  G_CALLBACK (on_edit_button_toggled),
 	                  snippets_browser);
-	g_signal_connect (GTK_OBJECT (priv->snippets_editor),
+	g_signal_connect (priv->snippets_editor,
 	                  "snippet-saved",
-	                  GTK_SIGNAL_FUNC (on_snippets_editor_snippet_saved),
+	                  G_CALLBACK (on_snippets_editor_snippet_saved),
 	                  snippets_browser);
-	g_signal_connect (GTK_OBJECT (priv->snippets_editor),
+	g_signal_connect (priv->snippets_editor,
 	                  "close-request",
-	                  GTK_SIGNAL_FUNC (on_snippets_editor_close_request),
+	                  G_CALLBACK (on_snippets_editor_close_request),
 	                  snippets_browser);
 
 	/* Set the has-tooltip property for the query-tooltip signal */
@@ -536,9 +536,9 @@ init_snippets_view (SnippetsBrowser *snippets_browser)
 	gtk_tree_view_column_set_cell_data_func (column, text_renderer,
 	                                         snippets_view_name_text_data_func,
 	                                         snippets_browser, NULL);
-	g_signal_connect (GTK_OBJECT (text_renderer),
+	g_signal_connect (text_renderer,
 	                  "edited",
-	                  GTK_SIGNAL_FUNC (on_name_changed),
+	                  G_CALLBACK (on_name_changed),
 	                  snippets_browser);
 	g_object_set (G_OBJECT (column), "resizable", TRUE, NULL);
 	gtk_tree_view_insert_column (priv->snippets_view, column, -1);
@@ -806,9 +806,9 @@ on_add_button_clicked (GtkButton *add_button,
 
 	/* Insert the Add Snippet menu item */
 	add_snippet_menu_item = gtk_menu_item_new_with_label (_("Add Snippet …"));
-	g_signal_connect (GTK_OBJECT (add_snippet_menu_item),
+	g_signal_connect (add_snippet_menu_item,
 	                  "activate",
-	                  GTK_SIGNAL_FUNC (on_add_snippet_menu_item_activated),
+	                  G_CALLBACK (on_add_snippet_menu_item_activated),
 	                  snippets_browser);
 	gtk_menu_shell_append (GTK_MENU_SHELL (menu), 
 	                       GTK_WIDGET (add_snippet_menu_item));
@@ -816,9 +816,9 @@ on_add_button_clicked (GtkButton *add_button,
 	
 	/* Insert the Add Snippets Group menu item */
 	add_snippets_group_menu_item = gtk_menu_item_new_with_label (_("Add Snippets Group …"));
-	g_signal_connect (GTK_OBJECT (add_snippets_group_menu_item),
+	g_signal_connect (add_snippets_group_menu_item,
 	                  "activate",
-	                  GTK_SIGNAL_FUNC (on_add_snippets_group_menu_item_activated),
+	                  G_CALLBACK (on_add_snippets_group_menu_item_activated),
 	                  snippets_browser);
 	gtk_menu_shell_append (GTK_MENU_SHELL (menu), 
 	                       GTK_WIDGET (add_snippets_group_menu_item));

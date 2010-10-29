@@ -49,7 +49,7 @@ static guint signals [LAST_SIGNAL] = { 0 };
 
 static void gbf_project_view_class_init    (GbfProjectViewClass *klass);
 static void gbf_project_view_init          (GbfProjectView      *tree);
-static void destroy                        (GtkObject           *object);
+static void destroy                        (GtkWidget           *object);
 
 static void set_pixbuf                     (GtkTreeViewColumn   *tree_column,
 					    GtkCellRenderer     *cell,
@@ -105,7 +105,7 @@ row_activated (GtkTreeView       *tree_view,
 }
 
 static void
-destroy (GtkObject *object)
+destroy (GtkWidget *object)
 {
 	GbfProjectView *tree;
 	GbfProjectViewPrivate *priv;
@@ -118,8 +118,8 @@ destroy (GtkObject *object)
 		tree->priv = NULL;
 	}
 	
-	if (GTK_OBJECT_CLASS (gbf_project_view_parent_class)->destroy)
-		(* GTK_OBJECT_CLASS (gbf_project_view_parent_class)->destroy) (object);
+	if (GTK_WIDGET_CLASS (gbf_project_view_parent_class)->destroy)
+		(* GTK_WIDGET_CLASS (gbf_project_view_parent_class)->destroy) (object);
 }
 
 static GdkPixbuf*
@@ -238,19 +238,19 @@ search_equal_func (GtkTreeModel *model, gint column,
 	return ret;
 }
 
-static gint
-expose_event (GtkWidget *widget, GdkEventExpose *ev)
+static gboolean
+draw (GtkWidget *widget, cairo_t *cr)
 {
 	GtkTreeModel *model;
 	GtkTreeView *tree_view;
 	gint event_handled = FALSE;
 
-	if (GTK_WIDGET_CLASS (gbf_project_view_parent_class)->expose_event != NULL)
-		GTK_WIDGET_CLASS (gbf_project_view_parent_class)->expose_event (widget, ev);
+	if (GTK_WIDGET_CLASS (gbf_project_view_parent_class)->draw != NULL)
+		GTK_WIDGET_CLASS (gbf_project_view_parent_class)->draw (widget, cr);
 
 	tree_view = GTK_TREE_VIEW (widget);
 	model = gtk_tree_view_get_model (tree_view);
-	if (ev->window == gtk_tree_view_get_bin_window (tree_view) &&
+	if (gtk_cairo_should_draw_window (cr, gtk_tree_view_get_bin_window (tree_view)) &&
 	    model && GBF_IS_PROJECT_MODEL (model)) {
 		GtkTreePath *root;
 		GdkRectangle rect;
@@ -263,9 +263,8 @@ expose_event (GtkWidget *widget, GdkEventExpose *ev)
 			gtk_tree_view_get_background_area (
 				tree_view, root, gtk_tree_view_get_column (tree_view, 0), &rect);
 			gtk_paint_hline (gtk_widget_get_style (widget),
-					 ev->window,
+					 cr,
 					 gtk_widget_get_state (widget),
-					 &ev->area,
 					 widget,
 					 "",
 					 rect.x, rect.x + rect.width,
@@ -281,17 +280,15 @@ static void
 gbf_project_view_class_init (GbfProjectViewClass *klass)
 {
 	GObjectClass     *g_object_class;
-	GtkObjectClass   *object_class;
 	GtkWidgetClass   *widget_class;
 	GtkTreeViewClass *tree_view_class;
 
 	g_object_class = G_OBJECT_CLASS (klass);
-	object_class = (GtkObjectClass *) klass;
 	widget_class = GTK_WIDGET_CLASS (klass);
 	tree_view_class = GTK_TREE_VIEW_CLASS (klass);
 
-	object_class->destroy = destroy;
-	widget_class->expose_event = expose_event;
+	widget_class->destroy = destroy;
+	widget_class->draw = draw;
 	tree_view_class->row_activated = row_activated;
 
 	signals [URI_ACTIVATED] = 

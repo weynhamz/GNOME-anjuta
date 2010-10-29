@@ -42,11 +42,10 @@ anjuta_SOURCES = \
 	main.c
 
 anjuta_LDADD =  \
-	$(GCONF_LIBS) \
 	$(GDL_LIBS) \
 	$(GLADE_LIBS)\
 	$(GLIB_LIBS) \
-	$(top_builddir)/libanjuta/libanjuta.la
+	$(LIBANJUTA_LIBS)
 
 anjuta_LDFLAGS = $(ANJUTA_LDFLAGS)
 
@@ -59,7 +58,7 @@ noinst_PROGRAMS =  anjuta-shell
 
 anjuta_shell_SOURCES = shell.c shell.h
 anjuta_shell_LDADD =  \
-	$(top_builddir)/libanjuta/libanjuta.la
+	$(LIBANJUTA_LIBS)
 
 EXTRA_DIST = \
 	$(anjuta_ui_DATA) \

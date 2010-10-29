@@ -58,7 +58,7 @@ G_DEFINE_TYPE(ESplash, e_splash, GTK_TYPE_WINDOW)
 /* GtkObject methods.  */
 
 static void
-impl_destroy (GtkObject *object)
+impl_destroy (GtkWidget *object)
 {
 	ESplash *splash;
 	ESplashPrivate *priv;
@@ -84,10 +84,10 @@ e_splash_finalize (GObject *obj)
 static void
 e_splash_class_init (ESplashClass *klass)
 {
-	GtkObjectClass *gtkobject_class = GTK_OBJECT_CLASS (klass);;
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
+	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-	gtkobject_class->destroy = impl_destroy;
+	widget_class->destroy = impl_destroy;
 	
 	object_class->finalize = e_splash_finalize;
 }
@@ -113,19 +113,15 @@ button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 }
 
 static gboolean
-on_expose_event_cb (GtkWidget *widget, GdkEventExpose *event,
-                    ESplash *splash)
+on_draw_cb (GtkWidget *widget, cairo_t *cr,
+            ESplash *splash)
 {
 	ESplashPrivate *priv;
-	GdkWindow *window;
-	cairo_t *cr;
 	gint inc_width;
 
 	priv = splash->priv;
-	window = gtk_widget_get_window (widget);
 
 	/* draw the background pixbuf */
-	cr = gdk_cairo_create (window);
 	cairo_set_operator (cr, CAIRO_OPERATOR_SOURCE);
 	gdk_cairo_set_source_pixbuf (cr, priv->splash_image_pixbuf, 0, 0);
 
@@ -134,7 +130,6 @@ on_expose_event_cb (GtkWidget *widget, GdkEventExpose *event,
 	/* draw the plugin icon */
 	if (priv->icon_pixbuf)
 	{
-		cr = gdk_cairo_create (window);
 		gdk_cairo_set_source_pixbuf (cr, priv->icon_pixbuf, ICON_X, ICON_Y);
 
 		cairo_paint (cr);
@@ -152,7 +147,6 @@ on_expose_event_cb (GtkWidget *widget, GdkEventExpose *event,
 		pango_layout_set_markup (layout, priv->title, -1);
 		pango_layout_get_size (layout, NULL, &layout_height);
 
-		cr = gdk_cairo_create (window);
 		cairo_move_to (cr, ICON_X + ICON_SIZE + 10,
 		               ICON_Y + ICON_SIZE - PROGRESS_SIZE - PANGO_PIXELS (layout_height));
 		
@@ -165,14 +159,12 @@ on_expose_event_cb (GtkWidget *widget, GdkEventExpose *event,
 	inc_width = gdk_pixbuf_get_width (priv->splash_image_pixbuf);
 	inc_width -= (ICON_X + ICON_SIZE + 20);	
 	
-	cr = gdk_cairo_create (window);
 	cairo_set_source_rgb (cr, 0.0, 0.0, 1.0);
 	cairo_rectangle (cr, ICON_X + ICON_SIZE + 10, ICON_Y + ICON_SIZE,
 	                 inc_width, PROGRESS_SIZE);
 
 	cairo_fill (cr);
 
-	cr = gdk_cairo_create (window);
 	cairo_rectangle (cr, ICON_X + ICON_SIZE + 10, ICON_Y + ICON_SIZE,
 	                 (priv->progress_percentage * inc_width), PROGRESS_SIZE);
 
@@ -210,8 +202,8 @@ e_splash_construct (ESplash *splash,
 
 	gtk_widget_set_size_request (GTK_WIDGET (splash), image_width, image_height);
 
-	g_signal_connect (G_OBJECT (splash), "expose-event",
-	                  G_CALLBACK (on_expose_event_cb), splash);
+	g_signal_connect (G_OBJECT (splash), "draw",
+	                  G_CALLBACK (on_draw_cb), splash);
 	g_signal_connect (G_OBJECT (splash), "button-press-event",
 			  G_CALLBACK (button_press_event), splash);
 	

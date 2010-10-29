@@ -874,7 +874,7 @@ reload_snippets_group_combo_box (SnippetsEditor *snippets_editor)
 		                    SNIPPETS_DB_MODEL_COL_NAME, &cur_group_name,
 		                    -1);
 
-		gtk_combo_box_append_text (priv->snippets_group_combo_box, cur_group_name);
+		gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (priv->snippets_group_combo_box), cur_group_name);
 
 		/* If we have a snippet loaded, we search for the row. */
 		if (parent_group_name != NULL)
@@ -1273,17 +1273,17 @@ init_editor_handlers (SnippetsEditor *snippets_editor)
 	g_return_if_fail (ANJUTA_IS_SNIPPETS_EDITOR (snippets_editor));
 	priv = ANJUTA_SNIPPETS_EDITOR_GET_PRIVATE (snippets_editor);
 
-	g_signal_connect (GTK_OBJECT (priv->preview_button),
+	g_signal_connect (G_OBJECT (priv->preview_button),
 	                  "toggled",
-	                  GTK_SIGNAL_FUNC (on_preview_button_toggled),
+	                  G_CALLBACK (on_preview_button_toggled),
 	                  snippets_editor);
-	g_signal_connect (GTK_OBJECT (priv->save_button),
+	g_signal_connect (G_OBJECT (priv->save_button),
 	                  "clicked",
-	                  GTK_SIGNAL_FUNC (on_save_button_clicked),
+	                  G_CALLBACK (on_save_button_clicked),
 	                  snippets_editor);
-	g_signal_connect (GTK_OBJECT (priv->close_button),
+	g_signal_connect (G_OBJECT (priv->close_button),
 	                  "clicked",
-	                  GTK_SIGNAL_FUNC (on_close_button_clicked),
+	                  G_CALLBACK (on_close_button_clicked),
 	                  snippets_editor);
 	g_signal_connect (G_OBJECT (priv->name_combo_cell),
 	                  "edited",
@@ -1297,21 +1297,21 @@ init_editor_handlers (SnippetsEditor *snippets_editor)
 	                  "edited",
 	                  G_CALLBACK (on_default_text_cell_edited),
 	                  snippets_editor);
-	g_signal_connect (GTK_OBJECT (priv->variables_view),
+	g_signal_connect (G_OBJECT (priv->variables_view),
 	                  "row-activated",
-	                  GTK_SIGNAL_FUNC (on_variables_view_row_activated),
+	                  G_CALLBACK (on_variables_view_row_activated),
 	                  snippets_editor);
-	g_signal_connect (GTK_OBJECT (priv->variable_add_button),
+	g_signal_connect (G_OBJECT (priv->variable_add_button),
 	                  "clicked",
-	                  GTK_SIGNAL_FUNC (on_variable_add_button_clicked),
+	                  G_CALLBACK (on_variable_add_button_clicked),
 	                  snippets_editor);
-	g_signal_connect (GTK_OBJECT (priv->variable_remove_button),
+	g_signal_connect (G_OBJECT (priv->variable_remove_button),
 	                  "clicked",
-	                  GTK_SIGNAL_FUNC (on_variable_remove_button_clicked),
+	                  G_CALLBACK (on_variable_remove_button_clicked),
 	                  snippets_editor);
-	g_signal_connect (GTK_OBJECT (priv->variable_insert_button),
+	g_signal_connect (G_OBJECT (priv->variable_insert_button),
 	                  "clicked",
-	                  GTK_SIGNAL_FUNC (on_variable_insert_button_clicked),
+	                  G_CALLBACK (on_variable_insert_button_clicked),
 	                  snippets_editor);
 	g_signal_connect (G_OBJECT (gtk_tree_view_get_selection (priv->variables_view)),
 	                  "changed",

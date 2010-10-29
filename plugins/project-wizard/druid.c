@@ -770,7 +770,7 @@ static gboolean
 on_project_wizard_key_press_event(GtkWidget *widget, GdkEventKey *event,
                                NPWDruid* druid)
 {
-	if (event->keyval == GDK_Escape)
+	if (event->keyval == GDK_KEY_Escape)
 	{
 		on_druid_cancel (GTK_ASSISTANT (widget), druid);
 		return TRUE;

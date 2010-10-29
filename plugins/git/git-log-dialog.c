@@ -417,7 +417,7 @@ on_log_browse_button_clicked (GtkButton *button, LogData *data)
 }
 
 static void
-on_log_vbox_destroy (GtkObject *log_vbox, LogData *data)
+on_log_vbox_destroy (GtkWidget *log_vbox, LogData *data)
 {
 	g_free (data->path);
 	g_object_unref (data->bxml);

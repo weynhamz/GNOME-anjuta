@@ -725,18 +725,18 @@ anjuta_app_key_press_event (GtkWidget   *widget,
 
 	switch (event->keyval)
 	{
-		case GDK_F1:
-		case GDK_F2:
-		case GDK_F3:
-		case GDK_F4:
-		case GDK_F5:
-		case GDK_F6:
-		case GDK_F7:
-		case GDK_F8:
-		case GDK_F9:
-		case GDK_F10:
-		case GDK_F11:
-		case GDK_F12:
+		case GDK_KEY_F1:
+		case GDK_KEY_F2:
+		case GDK_KEY_F3:
+		case GDK_KEY_F4:
+		case GDK_KEY_F5:
+		case GDK_KEY_F6:
+		case GDK_KEY_F7:
+		case GDK_KEY_F8:
+		case GDK_KEY_F9:
+		case GDK_KEY_F10:
+		case GDK_KEY_F11:
+		case GDK_KEY_F12:
 			/* handle mnemonics and accelerators */
 			if (!handled)
 				handled = gtk_window_activate_key (window, event);

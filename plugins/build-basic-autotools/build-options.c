@@ -246,7 +246,7 @@ on_select_configuration (GtkComboBox *widget, gpointer user_data)
 	}
 	else
 	{
-		name = gtk_combo_box_get_active_text (GTK_COMBO_BOX (dlg->combo));
+		name = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (dlg->combo));
 	}
 	
 	if (*name == '\0')
@@ -285,7 +285,7 @@ fill_dialog (BuildConfigureDialog *dlg)
 	BuildConfiguration *cfg;
 
 	gtk_combo_box_set_model (GTK_COMBO_BOX(dlg->combo), GTK_TREE_MODEL(store));
-	gtk_combo_box_entry_set_text_column (GTK_COMBO_BOX_ENTRY (dlg->combo), 0);
+	gtk_combo_box_set_entry_text_column (GTK_COMBO_BOX (dlg->combo), 0);
 	
 	for (cfg = build_configuration_list_get_first (dlg->config_list); cfg != NULL; cfg = build_configuration_next (cfg))
 	{
@@ -350,7 +350,7 @@ build_dialog_configure (GtkWindow* parent, const gchar *project_root_uri, BuildC
 		}
 		else
 		{
-			name = gtk_combo_box_get_active_text (GTK_COMBO_BOX (dlg.combo));
+			name = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (dlg.combo));
 		}
 		cfg = build_configuration_list_create (config_list, name);
 		g_free (name);

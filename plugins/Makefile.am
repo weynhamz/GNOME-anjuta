@@ -3,9 +3,7 @@
 SUBDIRS = . \
 	message-view \
 	gdb \
-	debug-manager \
 	file-manager \
-	terminal \
 	build-basic-autotools \
 	file-loader \
 	file-wizard \
@@ -14,7 +12,6 @@ SUBDIRS = . \
 	cvs-plugin \
 	snippets-manager \
 	class-gen \
-	class-inheritance \
 	patch \
 	subversion \
 	project-import \

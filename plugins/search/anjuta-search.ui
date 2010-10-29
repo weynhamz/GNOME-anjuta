@@ -66,8 +66,9 @@
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkComboBoxEntry" id="replace.string.combo">
+                                      <object class="GtkComboBox" id="replace.string.combo">
                                         <property name="visible">True</property>
+                                        <property name="has-entry">True</property>
                                       </object>
                                       <packing>
                                         <property name="left_attach">1</property>
@@ -93,8 +94,9 @@
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkComboBoxEntry" id="search.string.combo">
+                                      <object class="GtkComboBox" id="search.string.combo">
                                         <property name="visible">True</property>
+                                        <property name="has-entry">True</property>
                                       </object>
                                       <packing>
                                         <property name="left_attach">1</property>
@@ -490,6 +492,7 @@
                                             <property name="receives_default">False</property>
                                             <property name="use_underline">True</property>
                                             <property name="draw_indicator">True</property>
+                                            <property name="active">True</property>
                                             <signal name="clicked" handler="on_actions_no_limit_clicked" swapped="no"/>
                                           </object>
                                           <packing>
@@ -568,8 +571,9 @@
                                 <property name="label_xalign">0</property>
                                 <property name="shadow_type">none</property>
                                 <child>
-                                  <object class="GtkComboBoxEntry" id="search.var.combo">
+                                  <object class="GtkComboBox" id="search.var.combo">
                                     <property name="visible">True</property>
+                                    <property name="has-entry">True</property>
                                     <property name="model">model1</property>
                                     <child>
                                       <object class="GtkCellRendererText" id="renderer1"/>
@@ -609,8 +613,9 @@
                                     <property name="column_spacing">5</property>
                                     <property name="row_spacing">5</property>
                                     <child>
-                                      <object class="GtkComboBoxEntry" id="dir.filter.unmatch.combo">
+                                      <object class="GtkComboBox" id="dir.filter.unmatch.combo">
                                         <property name="visible">True</property>
+                                        <property name="has-entry">True</property>
                                         <property name="model">model2</property>
                                         <child>
                                           <object class="GtkCellRendererText" id="renderer2"/>
@@ -628,8 +633,9 @@
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkComboBoxEntry" id="dir.filter.match.combo">
+                                      <object class="GtkComboBox" id="dir.filter.match.combo">
                                         <property name="visible">True</property>
+                                        <property name="has-entry">True</property>
                                       </object>
                                       <packing>
                                         <property name="left_attach">1</property>
@@ -640,8 +646,9 @@
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkComboBoxEntry" id="file.filter.unmatch.combo">
+                                      <object class="GtkComboBox" id="file.filter.unmatch.combo">
                                         <property name="visible">True</property>
+                                        <property name="has-entry">True</property>
                                         <property name="model">model3</property>
                                         <child>
                                           <object class="GtkCellRendererText" id="renderer3"/>
@@ -659,8 +666,9 @@
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkComboBoxEntry" id="file.filter.match.combo">
+                                      <object class="GtkComboBox" id="file.filter.match.combo">
                                         <property name="visible">True</property>
+                                        <property name="has-entry">True</property>
                                         <property name="model">model4</property>
                                         <child>
                                           <object class="GtkCellRendererText" id="renderer4"/>

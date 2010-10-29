@@ -55,8 +55,6 @@
 #include <glib/gstdio.h>
 #include <gtk/gtk.h>
 
-#include <gconf/gconf-client.h>
-
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-debug.h>
 
@@ -1132,7 +1130,8 @@ anjuta_util_user_shell (void)
 gchar **
 anjuta_util_user_terminal (void)
 {
-#ifndef G_OS_WIN32
+/* FIXME: GSettings */
+#if 0
 	GConfClient *client;
 	gchar *terminal = NULL;
 	gchar **argv = NULL;

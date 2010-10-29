@@ -1891,7 +1891,7 @@ on_plugin_list_selection_changed (GtkTreeSelection *tree_selection,
 	GList *list;
 	GtkButton *bt = NULL;
 
-	action_area = (GtkContainer *) dialog->action_area;
+	action_area = GTK_CONTAINER (gtk_dialog_get_action_area (dialog));
 	list = gtk_container_get_children (action_area);
 	for (; list; list = list->next) {
 		bt = list->data;

@@ -79,8 +79,8 @@ static void	anjuta_view_move_cursor	(GtkTextView     *text_view,
 static gint     anjuta_view_focus_out (GtkWidget       *widget,
 		                              GdkEventFocus   *event);
 
-static gint	anjuta_view_expose (GtkWidget       *widget,
-	                            GdkEventExpose  *event);
+static gboolean	anjuta_view_draw (GtkWidget       *widget,
+	                              cairo_t* cr);
 
 static gboolean	anjuta_view_key_press_event	(GtkWidget         *widget,
 			                                 GdkEventKey       *event);
@@ -258,7 +258,7 @@ anjuta_view_class_init (AnjutaViewClass *klass)
 	object_class->get_property = anjuta_view_get_property;	
 
 	widget_class->focus_out_event = anjuta_view_focus_out;
-	widget_class->expose_event = anjuta_view_expose;
+	widget_class->draw = anjuta_view_draw;
 	widget_class->key_press_event = anjuta_view_key_press_event;
 	widget_class->button_press_event = anjuta_view_button_press_event;
 	widget_class->drag_drop = anjuta_view_drag_drop;
@@ -638,9 +638,9 @@ anjuta_view_set_font (AnjutaView   *view,
 	}
 }
 
-static gint
-anjuta_view_expose (GtkWidget      *widget,
-                   GdkEventExpose *event)
+static gboolean
+anjuta_view_draw (GtkWidget      *widget,
+                  cairo_t *cr)
 {
 	GtkTextView *text_view;
 	GtkTextBuffer *doc;
@@ -649,7 +649,7 @@ anjuta_view_expose (GtkWidget      *widget,
 	
 	doc = gtk_text_view_get_buffer (text_view);
 	
-	if ((event->window == gtk_text_view_get_window (text_view, GTK_TEXT_WINDOW_TEXT)))
+	if (gtk_cairo_should_draw_window (cr, gtk_text_view_get_window (text_view, GTK_TEXT_WINDOW_TEXT)))
 	{
 		GdkRectangle visible_rect;
 		GtkTextIter iter1, iter2;
@@ -663,7 +663,7 @@ anjuta_view_expose (GtkWidget      *widget,
 		gtk_text_iter_forward_line (&iter2);
 	}
 
-	return (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->expose_event)(widget, event);
+	return (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->draw)(widget, cr);
 }
 
 static gboolean
@@ -678,23 +678,23 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 	assist_tip = view->priv->sv->priv->assist_tip;
     switch (event->keyval)
     {
-      case GDK_Escape:
-      case GDK_Up:
-      case GDK_Down:
-      case GDK_Page_Up:
-      case GDK_Page_Down:
+      case GDK_KEY_Escape:
+      case GDK_KEY_Up:
+      case GDK_KEY_Down:
+      case GDK_KEY_Page_Up:
+      case GDK_KEY_Page_Down:
 				if (assist_tip)
 				{
 					gtk_widget_destroy (GTK_WIDGET(assist_tip));
 					break;
 				}
 				break;
-			case GDK_F7:
+			case GDK_KEY_F7:
 				/* F7 is used to toggle cursor visibility but we rather like to
 				 * use it as shortcut for building (#611204)
 				 */
 				return FALSE;
-			case GDK_Return:
+			case GDK_KEY_Return:
 				/* Ctrl-Return is used for autocompletion */
 				if (event->state == GDK_CONTROL_MASK)
 					return FALSE;

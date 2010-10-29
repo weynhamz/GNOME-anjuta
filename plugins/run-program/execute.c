@@ -375,7 +375,6 @@ run_program (RunProgramPlugin *plugin)
 	gchar **env = NULL;
 	gchar *cmd;
 	gboolean run_in_terminal = 0;
-	AnjutaPreferences *prefs;
 	GPid pid;
 	
 	target = get_local_executable (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),

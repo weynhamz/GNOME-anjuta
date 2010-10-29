@@ -224,7 +224,7 @@ file_view_row_activated (GtkTreeView* widget, GtkTreePath* sort_path,
 static gboolean
 file_view_key_press_event (GtkWidget* widget, GdkEventKey* event)
 {
-	if (event->keyval == GDK_Return || event->keyval == GDK_KP_Enter)
+	if (event->keyval == GDK_KEY_Return || event->keyval == GDK_KEY_KP_Enter)
 	{
 		AnjutaFileView* view = ANJUTA_FILE_VIEW (widget);
 		AnjutaFileViewPrivate* priv = ANJUTA_FILE_VIEW_GET_PRIVATE (view);

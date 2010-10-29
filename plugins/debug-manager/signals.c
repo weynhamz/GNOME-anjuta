@@ -137,7 +137,7 @@ static gboolean
 on_signals_key_press_event(GtkWidget *widget, GdkEventKey *event,
 						   gpointer data)
 {
-	if (event->keyval == GDK_Escape)
+	if (event->keyval == GDK_KEY_Escape)
 	{
 		Signals* cr = (Signals*) data;
   		signals_hide(cr);
@@ -449,8 +449,8 @@ signals_hide (Signals * sg)
 		window = gtk_widget_get_window (sg->widgets.window);
 		gdk_window_get_root_origin (window, &sg->win_pos_x,
 					    &sg->win_pos_y);
-		gdk_drawable_get_size (window, &sg->win_width,
-				       &sg->win_height);
+		gdk_window_get_geometry (window, NULL, NULL, &sg->win_width,
+				       &sg->win_height, NULL);
 		gtk_widget_hide (sg->widgets.window);
 		sg->is_showing = FALSE;
 	}

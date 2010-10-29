@@ -22,8 +22,6 @@
 
 #include <libanjuta/anjuta-debug.h>
 
-#include <gconf/gconf-client.h>
-
 #define REGISTER_NOTIFY(settings, key, func) \
 	g_signal_connect (settings, "changed::" key, G_CALLBACK(func), sv);
 
@@ -185,6 +183,8 @@ on_notify_font_theme (GSettings* settings,
 	
 	if (g_settings_get_boolean (settings, key))
 	{
+		/* FIXME: GSettings */
+#if 0		 
 		GConfClient *gclient = gconf_client_get_default ();
 		gchar *desktop_fixed_font;
 		desktop_fixed_font =
@@ -194,6 +194,7 @@ on_notify_font_theme (GSettings* settings,
 		else
 			anjuta_view_set_font(sv->priv->view, TRUE, NULL);
 		g_free (desktop_fixed_font);
+#endif		
 	}
 	else
 	{
