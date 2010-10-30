@@ -201,12 +201,11 @@ anjuta_token_file_move (AnjutaTokenFile *file, GFile *new_file)
 	file->file = new_file != NULL ? g_object_ref (new_file) : NULL;
 }
 
-static AnjutaToken *
-anjuta_token_file_remove_token (AnjutaTokenFile *file, AnjutaToken *token)
+static void
+remove_raw_token (AnjutaToken *token, gpointer user_data)
 {
-	AnjutaToken *last;
-	AnjutaToken *next;
-
+	AnjutaTokenFile *file = (AnjutaTokenFile *)user_data;
+	
 	if ((anjuta_token_get_length (token) > 0))
 	{
 		AnjutaToken *pos = anjuta_token_file_find_position (file, token);
@@ -227,19 +226,19 @@ anjuta_token_file_remove_token (AnjutaTokenFile *file, AnjutaToken *token)
 			}
 		}
 	}
-	
-	last = anjuta_token_last (token); 
-	if ((last != NULL) && (last != token))
-	{
-		next = anjuta_token_next (token);
-		while ((next != last) && (next != NULL))
-		{
-			next = anjuta_token_file_remove_token (file, next);
-		}
-		if (next != NULL) anjuta_token_file_remove_token (file, next);
-	}		
+}
 
-	return anjuta_token_free (token);
+static AnjutaToken *
+anjuta_token_file_remove_token (AnjutaTokenFile *file, AnjutaToken *token)
+{
+	AnjutaToken *last;
+	AnjutaToken *next = NULL;
+
+	if (token != NULL) next = anjuta_token_foreach_post_order (token, remove_raw_token, file);
+
+	next = anjuta_token_free (token);
+
+	return next;
 }
 
 /**
@@ -276,7 +275,18 @@ anjuta_token_file_update (AnjutaTokenFile *file, AnjutaToken *token)
 	for (;;)
 	{
 		gint flags = anjuta_token_get_flags (token);
-		if (flags & (ANJUTA_TOKEN_ADDED | ANJUTA_TOKEN_REMOVED)) break;
+		if (flags & (ANJUTA_TOKEN_ADDED | ANJUTA_TOKEN_REMOVED))
+		{
+			/* Check previous token */
+			for (prev = token; prev != NULL; prev = anjuta_token_previous (prev))
+			{
+				gint flags = anjuta_token_get_flags (prev);
+				if (!(flags & (ANJUTA_TOKEN_ADDED | ANJUTA_TOKEN_REMOVED))) break;
+				token = prev;    
+			}
+				
+			break;
+		}
 		if (token == last)
 		{
 			/* No changed */
@@ -290,7 +300,6 @@ anjuta_token_file_update (AnjutaTokenFile *file, AnjutaToken *token)
 	{
 		gint flags = anjuta_token_get_flags (prev);
 		if ((anjuta_token_get_length (prev) != 0) && !(flags & (ANJUTA_TOKEN_ADDED | ANJUTA_TOKEN_REMOVED))) break;
-		token = prev;    
 	}
 	
 	/* Delete removed token and compute length of added token */
@@ -298,7 +307,7 @@ anjuta_token_file_update (AnjutaTokenFile *file, AnjutaToken *token)
 	for (next = token; (next != NULL) && (next != last);)
 	{
 		gint flags = anjuta_token_get_flags (next);
-		
+
 		if (flags & ANJUTA_TOKEN_REMOVED)
 		{
 			next = anjuta_token_file_remove_token (file, next);

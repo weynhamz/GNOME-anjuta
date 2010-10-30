@@ -560,6 +560,25 @@ main(int argc, char *argv[])
 				}
 				g_object_unref (file);
 			}
+			else if (g_ascii_strcasecmp (command[1], "module") == 0)
+			{
+				if ((command[4] != NULL) && (g_ascii_strcasecmp (command[4], "before") == 0))
+				{
+					sibling = get_node (project, root, command[5]);
+					child = ianjuta_project_add_node_before (project, node, sibling, ANJUTA_PROJECT_MODULE, NULL, command[3], &error);
+					command += 2;
+				}
+				else if ((command[4] != NULL) && (g_ascii_strcasecmp (command[4], "after") == 0))
+				{
+					sibling = get_node (project, root, command[5]);
+					child = ianjuta_project_add_node_after (project, node, sibling, ANJUTA_PROJECT_MODULE, NULL, command[3], &error);
+					command += 2;
+				}
+				else
+				{
+					child = ianjuta_project_add_node_before (project, node, NULL, ANJUTA_PROJECT_MODULE, NULL, command[3], &error);
+				}
+			}
 			else
 			{
 				fprintf (stderr, "Error: unknown command %s\n", *command);

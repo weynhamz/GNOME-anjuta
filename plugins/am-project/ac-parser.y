@@ -184,6 +184,9 @@ dnl:
 
 pkg_check_modules:
     PKG_CHECK_MODULES arg_list {
+		$$ = anjuta_token_new_static (AC_TOKEN_PKG_CHECK_MODULES, NULL);
+		anjuta_token_merge ($$, $1);
+		anjuta_token_merge ($$, $2);
         amp_ac_scanner_load_module (scanner, $2);
     }
 	;
@@ -203,6 +206,9 @@ ac_macro_with_arg:
 
 ac_init:
     AC_INIT arg_list {
+		$$ = anjuta_token_new_static (AC_TOKEN_AC_INIT, NULL);
+		anjuta_token_merge ($$, $1);
+		anjuta_token_merge ($$, $2);
         amp_ac_scanner_load_properties (scanner, $1, $2);
     }
 
@@ -214,12 +220,18 @@ ac_output:
 
 obsolete_ac_output:
     OBSOLETE_AC_OUTPUT  arg_list {
+		$$ = anjuta_token_new_static (AC_TOKEN_OBSOLETE_AC_OUTPUT, NULL);
+		anjuta_token_merge ($$, $1);
+		anjuta_token_merge ($$, $2);
         amp_ac_scanner_load_config (scanner, $2);
     }
 	;
 	
 ac_config_files:
     AC_CONFIG_FILES  arg_list {
+		$$ = anjuta_token_new_static (AC_TOKEN_AC_CONFIG_FILES, NULL);
+		anjuta_token_merge ($$, $1);
+		anjuta_token_merge ($$, $2);
         amp_ac_scanner_load_config (scanner, $2);
     }
 	;

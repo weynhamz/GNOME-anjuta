@@ -48,10 +48,6 @@ struct _AmpProject {
 	 * can only work with native local files */
 	AnjutaProjectNode			*root;
 
-	/* project data */
-	AnjutaTokenFile		*configure_file;		/* configure.in file */
-	AnjutaToken			*configure_token;
-	
 	//AmpProperty			*property;
 	GList				*properties;
 	AnjutaToken			*ac_init;
@@ -95,6 +91,7 @@ GType anjuta_am_root_node_get_type (void) G_GNUC_CONST;
 struct _AnjutaAmRootNode {
 	AnjutaProjectNode base;
 	AnjutaTokenFile *configure_file;					/* Corresponding configure file */
+	AnjutaToken *configure_token;
 };
 
 

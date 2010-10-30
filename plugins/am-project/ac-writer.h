@@ -31,6 +31,9 @@ G_BEGIN_DECLS
 
 gboolean amp_project_update_ac_property (AmpProject *project, AnjutaProjectProperty *property); 
 
+gboolean amp_module_create_token (AmpProject  *project, AnjutaAmModuleNode *module, GError **error);
+gboolean amp_module_delete_token (AmpProject  *project, AnjutaAmModuleNode *module, GError **error);
+
 G_END_DECLS
 
 #endif /* _AC_WRITER_H_ */

@@ -25,6 +25,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 /**
  * SECTION:anjuta-token
@@ -361,13 +362,51 @@ static void
 anjuta_token_show (AnjutaToken *token, gint indent, gchar parent)
 {
 	static gchar type[] = "\0";
+	const gchar *string;
+	gsize length;
+	const gchar *newline;
 	
 	type[0] = parent;
 	fprintf (stderr, "%*s%s %p", indent, "", type, token);
-	fprintf (stderr, ": %d \"%.*s\" %p/%p (%p/%p) %s\n",
-	    anjuta_token_get_type (token),
-	    anjuta_token_get_length (token),
-	    anjuta_token_get_string (token),
+	fprintf (stderr, ": %d ",
+	    anjuta_token_get_type (token));
+	string = anjuta_token_get_string (token);
+	length = anjuta_token_get_length (token);
+	newline = string == NULL ? NULL : g_strrstr_len (string, length, "\n");
+	if (newline == NULL)
+	{
+		/* Value doesn't contain a newline */	
+		fprintf (stderr, "\"%.*s\"",
+	    	length,
+	    	string);
+	}
+	else
+	{
+		/* Value contains a newline, take care of indentation */
+		newline++;
+		fprintf (stderr, "\"%.*s",
+	    	newline - string,
+	    	string);
+		for (;;)
+		{
+			length -= newline - string;
+			string = newline;
+
+			newline = g_strrstr_len (string, length, "\n");
+			if (newline == NULL) break;
+			
+			newline++;
+			fprintf (stderr, "%*s  %.*s",
+			    indent, "",
+			    newline - string,
+    			string);
+		}
+		fprintf (stderr, "%*s  %.*s\"",
+			    indent, "",
+			    length,
+    			string);
+	}
+	fprintf (stderr, " %p/%p (%p/%p) %s\n",
 	    token->last, token->children,
 		token->group, token->parent,
 	    anjuta_token_get_flags (token) & ANJUTA_TOKEN_REMOVED ? " (removed)" : "");
@@ -1167,12 +1206,13 @@ AnjutaToken *anjuta_token_cut (AnjutaToken *token, guint pos, guint size)
 /* Token foreach
  *---------------------------------------------------------------------------*/
 
-void
-anjuta_token_foreach (AnjutaToken *token, AnjutaTokenForeachFunc func, gpointer user_data)
+void 
+anjuta_token_foreach_content (AnjutaToken *token, AnjutaTokenForeachFunc func, gpointer user_data)
 {
 	if (token != NULL)
 	{
-		AnjutaToken *last_parent;
+		AnjutaToken *last_parent;	/* If not NULL, token belong to a parent and
+		 							 * are not taken into account */
 		AnjutaToken *last_token;
 		gboolean expand = TRUE;
 
@@ -1246,7 +1286,7 @@ anjuta_token_foreach (AnjutaToken *token, AnjutaTokenForeachFunc func, gpointer 
 				{
 					/* Get parent */
 					token = token->parent;
-					last_parent = token->last;
+					if (token != NULL) last_parent = token->last;
 					expand = FALSE;
 				}
 			}
@@ -1256,30 +1296,23 @@ anjuta_token_foreach (AnjutaToken *token, AnjutaTokenForeachFunc func, gpointer 
 	return;
 }
 
-void
-anjuta_token_foreach_member (AnjutaToken *token, AnjutaTokenForeachFunc func, gpointer user_data)
+AnjutaToken *
+anjuta_token_foreach_post_order (AnjutaToken *token, AnjutaTokenForeachFunc func, gpointer user_data)
 {
 	if (token != NULL)
 	{
+		AnjutaToken *last_parent;	/* If not NULL, token belong to a parent */
 		AnjutaToken *last_token;
+		AnjutaToken buffer;			/* Temporary token allowing func to destroy
+		 							 * the current token */
 		gboolean expand = TRUE;
 
+		last_parent = NULL;
 		last_token = token->last == NULL ? token : token->last;
 		while (token != NULL)
 		{
 			if (expand && (token->children != NULL))
 			{
-				/* Enumerate children */
-				token = token->children;
-			}
-			else
-			{
-				if (token->children == NULL)
-				{    
-					/* Take into account only the content of group having no children */
-					func (token, user_data);
-				}
-
 				/* Check if we have found the last token */
 				if (token == last_token)
 				{
@@ -1292,23 +1325,69 @@ anjuta_token_foreach_member (AnjutaToken *token, AnjutaTokenForeachFunc func, gp
 					last_token = token->last;
 				}
 
-				if (token->next != NULL)
+				/* Enumerate children */
+				token = token->children;
+			}
+			else
+			{
+				/* Save token data in case it is destroyed */
+				memcpy (&buffer, token, sizeof (buffer));
+				/* Take into account all token */
+				func (token, user_data);
+
+				/* Check if we have found the last token */
+				if (token == last_token)
+				{
+					/* Find last token */
+					if (buffer.last == NULL)
+					{
+						token = &buffer;
+						break;
+					}	
+					/* Last token still include additional tokens */
+					last_token = buffer.last;
+				}
+
+				if (token == last_parent)
+				{
+					/* Find last parent */
+					if (buffer.last == NULL)
+					{
+						/* Found complete group having children */
+						last_parent = NULL;
+					}
+					else
+					{
+						/* Parent group has additional token */
+						last_parent = buffer.last;
+					}
+				}
+
+				if (buffer.next != NULL)
 				{
 					/* Get next sibling */
-					token = token->next;
+					token = buffer.next;
 					expand = TRUE;
 				}
 				else
 				{
 					/* Get parent */
-					token = token->parent;
+					token = buffer.parent;
+					if (token != NULL) last_parent = token->last;
 					expand = FALSE;
 				}
 			}
 		}
+
+		while ((token != NULL) && (token->next == NULL))
+		{
+			token = token->parent;
+		};
+
+		if (token != NULL) token = token->next;
 	}
 
-	return;
+	return token;
 }
 
 /* Token evaluation
@@ -1328,7 +1407,7 @@ anjuta_token_evaluate (AnjutaToken *token)
 {
 	GString *value = g_string_new (NULL);
 
-	anjuta_token_foreach (token, evaluate_raw_token, value);
+	anjuta_token_foreach_content (token, evaluate_raw_token, value);
 	
 	/* Return NULL and free data for an empty string */
 	return g_string_free (value, *(value->str) == '\0');
@@ -1523,6 +1602,18 @@ anjuta_token_free_children (AnjutaToken *token)
 	return token;	
 }
 
+static void
+free_token (AnjutaToken *token, gpointer user_data)
+{
+	anjuta_token_unlink_token (token);
+	if ((token->data.pos != NULL) && !(token->data.flags & ANJUTA_TOKEN_STATIC))
+	{
+		g_free (token->data.pos);
+	}
+	g_slice_free (AnjutaToken, token);
+}
+ 
+
 AnjutaToken*
 anjuta_token_free (AnjutaToken *token)
 {
@@ -1530,15 +1621,7 @@ anjuta_token_free (AnjutaToken *token)
 	
 	if (token == NULL) return NULL;
 
-	anjuta_token_free_children (token);
-
-	next = anjuta_token_next (token);
-	anjuta_token_unlink_token (token);
-	if ((token->data.pos != NULL) && !(token->data.flags & ANJUTA_TOKEN_STATIC))
-	{
-		g_free (token->data.pos);
-	}
-	g_slice_free (AnjutaToken, token);
-
+	next = anjuta_token_foreach_post_order (token, free_token, NULL);
+	
 	return next;
 }

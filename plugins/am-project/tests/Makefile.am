@@ -24,7 +24,8 @@ TESTSUITE_AT = \
 	$(srcdir)/acinit.at \
 	$(srcdir)/include.at \
 	$(srcdir)/variable.at \
-	$(srcdir)/properties.at
+	$(srcdir)/properties.at \
+	$(srcdir)/module.at
 
 TESTSUITE = $(srcdir)/testsuite
 

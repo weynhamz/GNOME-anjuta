@@ -665,7 +665,7 @@ project_node_new (AmpProject *project, AnjutaProjectNodeType type, GFile *file, 
 			}
 			break;
 		case ANJUTA_PROJECT_MODULE:
-			node = amp_module_new (NULL, error);
+			node = amp_module_new (name, error);
 			break;
 		case ANJUTA_PROJECT_PACKAGE:
 			node = amp_package_new (name, error);
@@ -797,18 +797,22 @@ amp_project_load_module (AmpProject *project, AnjutaToken *module_token)
 		/* Module name */
 		arg = anjuta_token_first_item (module_token);
 		value = anjuta_token_evaluate (arg);
-		module = amp_module_new (arg, NULL);
+		module = amp_module_new (value, NULL);
+		amp_module_add_token (module, module_token);
 		anjuta_project_node_append (project->root, module);
 		if (value != NULL) g_hash_table_insert (project->modules, value, module);
 
 		/* Package list */
 		arg = anjuta_token_next_word (arg);
-		scanner = amp_ac_scanner_new (project);
-		list = amp_ac_scanner_parse_token (scanner, arg, AC_SPACE_LIST_STATE, NULL);
-		anjuta_token_free_children (arg);
-		list = anjuta_token_delete_parent (list);
-		anjuta_token_prepend_items (arg, list);
-		amp_ac_scanner_free (scanner);
+		if (arg != NULL)
+		{
+			scanner = amp_ac_scanner_new (project);
+			list = amp_ac_scanner_parse_token (scanner, arg, AC_SPACE_LIST_STATE, NULL);
+			anjuta_token_free_children (arg);
+			list = anjuta_token_delete_parent (list);
+			anjuta_token_prepend_items (arg, list);
+			amp_ac_scanner_free (scanner);
+		}
 		
 		package = NULL;
 		compare = NULL;
@@ -1619,6 +1623,7 @@ amp_project_load_root (AmpProject *project, GError **error)
 	AnjutaAmGroupNode *group;
 	GFile *root_file;
 	GFile *configure_file;
+	AnjutaTokenFile *configure_token_file;
 	gboolean ok = TRUE;
 	GError *err = NULL;
 
@@ -1658,21 +1663,21 @@ amp_project_load_root (AmpProject *project, GError **error)
 	}
 
 	/* Parse configure */
-	project->configure_file = amp_root_set_configure (project->root, configure_file);
-	g_hash_table_insert (project->files, configure_file, project->configure_file);
-	g_object_add_toggle_ref (G_OBJECT (project->configure_file), remove_config_file, project);
-	arg = anjuta_token_file_load (project->configure_file, NULL);
+	configure_token_file = amp_root_set_configure (project->root, configure_file);
+	g_hash_table_insert (project->files, configure_file, configure_token_file);
+	g_object_add_toggle_ref (G_OBJECT (configure_token_file), remove_config_file, project);
+	arg = anjuta_token_file_load (configure_token_file, NULL);
 	//fprintf (stderr, "AC file before parsing\n");
 	//anjuta_token_dump (arg);
 	//fprintf (stderr, "\n");
 	scanner = amp_ac_scanner_new (project);
-	project->configure_token = amp_ac_scanner_parse_token (scanner, arg, 0, &err);
+	AMP_ROOT_DATA (project->root)->configure_token = amp_ac_scanner_parse_token (scanner, arg, 0, &err);
 	//fprintf (stderr, "AC file after parsing\n");
 	//anjuta_token_check (arg);
 	//anjuta_token_dump (project->configure_token);
 	//fprintf (stderr, "\n");
 	amp_ac_scanner_free (scanner);
-	if (project->configure_token == NULL)
+	if (AMP_ROOT_DATA (project->root)->configure_token == NULL)
 	{
 		g_set_error (error, IANJUTA_PROJECT_ERROR, 
 						IANJUTA_PROJECT_ERROR_PROJECT_MALFORMED,
@@ -1839,10 +1844,6 @@ amp_project_unload (AmpProject *project)
 {
 	/* project data */
 	if (project->root) project_node_destroy (project, project->root);
-
-	if (project->configure_file)	g_object_unref (G_OBJECT (project->configure_file));
-	project->configure_file = NULL;
-	if (project->configure_token) anjuta_token_free (project->configure_token);
 
 	g_list_foreach (project->properties, (GFunc)amp_property_free, NULL);
 	project->properties = amp_get_project_property_list ();
@@ -2126,6 +2127,9 @@ amp_project_dump (AmpProject *project, AnjutaProjectNode *node)
 	case ANJUTA_PROJECT_GROUP:
 		anjuta_token_dump (AMP_GROUP_DATA (node)->make_token);
 		break;
+	case ANJUTA_PROJECT_ROOT:
+		anjuta_token_dump (AMP_ROOT_DATA (node)->configure_token);
+		break;
 	default:
 		break;
 	}
@@ -2354,6 +2358,11 @@ iproject_add_node_before (IAnjutaProject *obj, AnjutaProjectNode *parent, Anjuta
 			anjuta_project_node_insert_before (parent, sibling, node);
 			amp_source_create_token (AMP_PROJECT (obj), node, NULL);
 			break;
+		case ANJUTA_PROJECT_MODULE:
+			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
+			anjuta_project_node_insert_before (parent, sibling, node);
+			amp_module_create_token (AMP_PROJECT (obj), node, NULL);
+			break;
 		default:
 			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
 			anjuta_project_node_insert_before (parent, sibling, node);
@@ -2393,6 +2402,11 @@ iproject_add_node_after (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaP
 			anjuta_project_node_insert_after (parent, sibling, node);
 			amp_source_create_token (AMP_PROJECT (obj), node, NULL);
 			break;
+		case ANJUTA_PROJECT_MODULE:
+			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
+			anjuta_project_node_insert_after (parent, sibling, node);
+			amp_module_create_token (AMP_PROJECT (obj), node, NULL);
+			break;
 		default:
 			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
 			anjuta_project_node_insert_after (parent, sibling, node);
@@ -2420,6 +2434,9 @@ iproject_remove_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err
 			break;
 		case ANJUTA_PROJECT_SOURCE:
 			amp_source_delete_token (AMP_PROJECT (obj), node, NULL);
+			break;
+		case ANJUTA_PROJECT_MODULE:
+			amp_module_delete_token (AMP_PROJECT (obj), node, NULL);
 			break;
 		default:
 			break;
@@ -2611,8 +2628,6 @@ amp_project_instance_init (AmpProject *project)
 	
 	/* project data */
 	project->root = NULL;
-	project->configure_file = NULL;
-	project->configure_token = NULL;
 	project->properties = amp_get_project_property_list ();
 	project->ac_init = NULL;
 	project->args = NULL;

@@ -242,6 +242,7 @@ amp_root_clear (AnjutaAmRootNode *node)
 {
 	if (node->configure_file != NULL) anjuta_token_file_free (node->configure_file);
 	node->configure_file = NULL;
+	if (node->configure_token) anjuta_token_free (node->configure_token);
 	
 	g_list_foreach (node->base.custom_properties, (GFunc)amp_property_free, NULL);
 	node->base.custom_properties = NULL;
@@ -259,9 +260,15 @@ amp_root_set_configure (AnjutaProjectNode *node, GFile *configure)
 }
 
 gboolean
-amp_root_update_configure (AnjutaAmRootNode *group, AnjutaToken *token)
+amp_root_update_configure (AnjutaAmRootNode *root, AnjutaToken *token)
 {
-	return anjuta_token_file_update (group->configure_file, token);
+	return anjuta_token_file_update (root->configure_file, token);
+}
+
+AnjutaToken*
+amp_root_get_configure_token (AnjutaAmRootNode *root)
+{
+	return root->configure_token;
 }
 
 /* GObjet implementation
@@ -279,6 +286,7 @@ static void
 anjuta_am_root_node_init (AnjutaAmRootNode *node)
 {
 	node->configure_file = NULL;
+	node->configure_token = NULL;
 }
 
 static void
@@ -305,8 +313,22 @@ anjuta_am_root_node_class_init (AnjutaAmRootNodeClass *klass)
 /* Module objects
  *---------------------------------------------------------------------------*/
 
+void
+amp_module_add_token (AnjutaAmModuleNode *module, AnjutaToken *token)
+{
+	module->module = token;
+	g_free (module->base.name);
+	module->base.name = anjuta_token_evaluate (anjuta_token_first_item (token));
+}
+
+AnjutaToken *
+amp_module_get_token (AnjutaAmModuleNode *node)
+{
+	return node->module;
+}
+
 AnjutaProjectNode*
-amp_module_new (AnjutaToken *token, GError **error)
+amp_module_new (const gchar *name, GError **error)
 {
 	AnjutaAmModuleNode *module = NULL;
 
@@ -315,10 +337,10 @@ amp_module_new (AnjutaToken *token, GError **error)
 	module->base.native_properties = amp_get_module_property_list();
 	module->base.custom_properties = NULL;
 	module->base.file = NULL;
-	module->base.name = anjuta_token_evaluate (token);
+	module->base.name = g_strdup (name);;
 	module->base.state = ANJUTA_PROJECT_CAN_ADD_PACKAGE |
 						ANJUTA_PROJECT_CAN_REMOVE;
-	module->module = token;
+	module->module = NULL;
 
 	return ANJUTA_PROJECT_NODE (module);
 }
@@ -677,7 +699,6 @@ anjuta_am_group_node_dispose (GObject *object)
 {
 	AnjutaAmGroupNode *node = ANJUTA_AM_GROUP_NODE (object);
 
-	g_message ("anjuta_am_group_node_dispose %p monitor %p", object, node->monitor);
 	if (node->monitor) g_object_unref (node->monitor);
 	node->monitor = NULL;
 	

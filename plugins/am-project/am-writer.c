@@ -57,8 +57,10 @@ amp_project_write_config_list (AmpProject *project)
 	AnjutaToken *token;
 	static gint output_type[] = {AC_TOKEN_AC_OUTPUT, 0};
 	static gint eol_type[] = {ANJUTA_TOKEN_EOL, ANJUTA_TOKEN_SPACE, ANJUTA_TOKEN_COMMENT, 0};
+	AnjutaToken *configure;
 	
-	pos = anjuta_token_find_type (project->configure_token, 0, output_type);
+	configure = amp_root_get_configure_token (ANJUTA_AM_ROOT_NODE (project->root));
+	pos = anjuta_token_find_type (configure, 0, output_type);
 	if (pos == NULL)
 	{
 		gint other_type[] = {AC_TOKEN_AC_INIT,
@@ -68,10 +70,10 @@ amp_project_write_config_list (AmpProject *project)
 			AC_TOKEN_AC_PREREQ,
 			0};
 			
-		pos = anjuta_token_find_type (project->configure_token, ANJUTA_TOKEN_SEARCH_LAST, other_type);
+		pos = anjuta_token_find_type (configure, ANJUTA_TOKEN_SEARCH_LAST, other_type);
 		if (pos == NULL)
 		{
-			pos = anjuta_token_skip_comment (project->configure_token);
+			pos = anjuta_token_skip_comment (configure);
 		}
 		else
 		{
@@ -134,8 +136,8 @@ amp_project_write_config_file (AmpProject *project, AnjutaToken *list, gboolean 
 	
 	//fprintf (stdout, "Dump config list after format:\n");
 	//anjuta_token_dump (list);
-	
-	anjuta_token_file_update (project->configure_file, list);
+
+	amp_root_update_configure (ANJUTA_AM_ROOT_NODE (project->root), list);
 	
 	return token;
 }
