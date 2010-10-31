@@ -24,10 +24,7 @@
 
 #include "plugin.h"
 #include "util.h"
-
-#define HIGHLIGHT_MISSEDSEMICOLON "javascript-missed"
-#define GIR_DIR_KEY "javascript-girdir"
-#define GJS_DIR_KEY "javascript-gjsdir"
+#include "prefs.h"
 
 static gchar*
 get_gjs_path ()
@@ -35,7 +32,7 @@ get_gjs_path ()
 	JSLang* plugin = (JSLang*)getPlugin ();
 
 	if (!plugin->prefs)
-		plugin->prefs = g_settings_new (JAVASCRIPT_SUPPORT_SCHEMA);
+		plugin->prefs = g_settings_new (JS_SUPPORT_SCHEMA);
 
 	gchar *path = g_settings_get_string (plugin->prefs, GJS_DIR_KEY);
 	if (!path || strlen (path) < 1)

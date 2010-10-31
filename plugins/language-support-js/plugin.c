@@ -32,6 +32,7 @@
 #include <glib.h>
 #include "util.h"
 #include "plugin.h"
+#include "prefs.h"
 #include "code-completion.h"
 
 #include "gi-symbol.h"
@@ -39,10 +40,6 @@
 #define PREFS_BUILDER ANJUTA_GLADE_DIR"/anjuta-language-javascript.ui"
 #define ICON_FILE "anjuta-language-cpp-java-plugin.png"
 #define UI_FILE ANJUTA_UI_DIR"/anjuta-language-javascript.xml"
-
-#define MIN_CODECOMPLETE "javascript-min-codecomplete"
-#define ADD_BRACE_AFTER_FUNCCALL "javascript-add-brace-after-func"
-#define SHOW_CALLTIPS "javascript-show-calltips"
 
 #define JSDIRS_LISTSTORE "jsdirs_liststore"
 #define JSDIRS_TREEVIEW "jsdirs_treeview"
@@ -75,7 +72,7 @@ js_support_plugin_activate (AnjutaPlugin *plugin)
 					 on_value_removed_current_editor,
 					 plugin);
 
-	js_support_plugin->prefs = g_settings_new (JAVASCRIPT_SUPPORT_SCHEMA);
+	js_support_plugin->prefs = g_settings_new (JS_SUPPORT_SCHEMA);
 	return TRUE;
 }
 

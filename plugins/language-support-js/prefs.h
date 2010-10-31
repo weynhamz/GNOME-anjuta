@@ -1,6 +1,6 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
-    Copyright (C) 2009 Maxim Ermilov   <zaspire@rambler.ru>
+    Copyright (C) 2010 Jens Georg <mail@jensge.org>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -16,34 +16,15 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
+#ifndef _JS_SUPPORT_PREFS_H_
+#define _JS_SUPPORT_PREFS_H_
 
-#ifndef _JS_SUPPORT_PLUGIN_H_
-#define _JS_SUPPORT_PLUGIN_H_
+#define JS_SUPPORT_SCHEMA "org.gnome.anjuta.js"
+#define MIN_CODECOMPLETE "javascript-min-codecomplete"
+#define ADD_BRACE_AFTER_FUNCCALL "javascript-add-brace-after-func"
+#define SHOW_CALLTIPS "javascript-show-calltips"
+#define HIGHLIGHT_MISSEDSEMICOLON "javascript-missed"
+#define GIR_DIR_KEY "javascript-girdir"
+#define GJS_DIR_KEY "javascript-gjsdir"
 
-#include <libanjuta/anjuta-plugin.h>
-
-#include "database-symbol.h"
-
-typedef struct _JSLang JSLang;
-typedef struct _JSLangClass JSLangClass;
-
-struct _JSLang{
-	AnjutaPlugin parent;
-	gint editor_watch_id;
-	GObject *current_editor;
-//	gchar *current;
-	gpointer last;
-//	GList *complition_cache;
-//	gint uiid;
-	GSettings *prefs;
-	DatabaseSymbol* symbol;
-//	GtkActionGroup *action_group;
-};
-
-struct _JSLangClass{
-	AnjutaPluginClass parent_class;
-};
-
-GType js_support_plugin_get_type (GTypeModule *module);
-
-#endif
+#endif /* _JS_SUPPORT_PREFS_H_ */
