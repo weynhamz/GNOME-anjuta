@@ -75,7 +75,7 @@ js_support_plugin_activate (AnjutaPlugin *plugin)
 					 on_value_removed_current_editor,
 					 plugin);
 
-	js_support_plugin->prefs = g_settings_new ("org.gnome.anjuta.js");
+	js_support_plugin->prefs = g_settings_new (JAVASCRIPT_SUPPORT_SCHEMA);
 	return TRUE;
 }
 

@@ -24,6 +24,8 @@
 
 #include "database-symbol.h"
 
+#define JAVASCRIPT_SUPPORT_SCHEMA "org.gnome.anjuta.js"
+
 typedef struct _JSLang JSLang;
 typedef struct _JSLangClass JSLangClass;
 
