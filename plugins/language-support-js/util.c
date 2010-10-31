@@ -25,9 +25,9 @@
 #include "plugin.h"
 #include "util.h"
 
-#define HIGHLIGHT_MISSEDSEMICOLON "javascript_missed"
-#define GIR_DIR_KEY "javascript_girdir"
-#define GJS_DIR_KEY "javascript_gjsdir"
+#define HIGHLIGHT_MISSEDSEMICOLON "javascript-missed"
+#define GIR_DIR_KEY "javascript-girdir"
+#define GJS_DIR_KEY "javascript-gjsdir"
 
 static gchar*
 get_gjs_path ()
@@ -35,9 +35,9 @@ get_gjs_path ()
 	JSLang* plugin = (JSLang*)getPlugin ();
 
 	if (!plugin->prefs)
-		plugin->prefs = anjuta_shell_get_preferences (ANJUTA_PLUGIN (plugin)->shell, NULL);
+		plugin->prefs = g_settings_new ("org.gnome.anjuta.js");
 
-	gchar *path = anjuta_preferences_get (plugin->prefs, GJS_DIR_KEY);
+	gchar *path = g_settings_get_string (plugin->prefs, GJS_DIR_KEY);
 	if (!path || strlen (path) < 1)
 	{
 		g_free (path);
@@ -114,7 +114,7 @@ highlight_lines (GList *lines)
 	if (!plugin->prefs)
 		plugin->prefs = anjuta_shell_get_preferences (ANJUTA_PLUGIN (plugin)->shell, NULL);
 
-	if (!anjuta_preferences_get_bool (plugin->prefs, HIGHLIGHT_MISSEDSEMICOLON))
+	if (!g_settings_get_boolean (plugin->prefs, HIGHLIGHT_MISSEDSEMICOLON))
 	{
 		return;
 	}
@@ -245,7 +245,7 @@ get_gir_path ()
 	if (!plugin->prefs)
 		plugin->prefs = anjuta_shell_get_preferences (ANJUTA_PLUGIN (plugin)->shell, NULL);
 
-	gchar *path = anjuta_preferences_get (plugin->prefs, GIR_DIR_KEY);
+	gchar *path = g_settings_get_string (plugin->prefs, GIR_DIR_KEY);
 	if (!path || strlen (path) < 1)
 	{
 		g_free (path);

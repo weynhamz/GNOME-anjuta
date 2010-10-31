@@ -64,6 +64,10 @@ libjs_support_plugin_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 libjs_support_plugin_la_LIBADD = \
 	$(LIBANJUTA_LIBS) 
 
+prefs_ui_files = anjuta-language-javascript.ui
+prefs_name = org.gnome.anjuta.js
+include $(top_srcdir)/scripts/build-schemas.mk
+
 EXTRA_DIST = \
 	$(plugin_in_files)\
 	$(js_support_plugin_plugin_DATA)\
