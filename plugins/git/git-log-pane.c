@@ -47,6 +47,16 @@ enum
 	BRANCH_COL_NAME
 };
 
+/* DnD source targets */
+static GtkTargetEntry drag_source_targets[] =
+{
+	{
+		"STRING",
+		0,
+		0
+	}
+};
+
 struct _GitLogPanePriv
 {
 	GtkBuilder *builder;
@@ -614,6 +624,36 @@ on_log_view_row_selected (GtkTreeSelection *selection,
 }
 
 static void
+on_log_view_drag_data_get (GtkWidget *log_view, 
+                           GdkDragContext *drag_context,
+                           GtkSelectionData *data,
+                           guint info, guint time,
+                           GitLogPane *self)
+{
+	GtkTreeSelection *selection;
+	GtkTreeIter iter;
+	GitRevision *revision;
+	gchar *sha;
+
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (log_view));
+
+	if (gtk_tree_selection_count_selected_rows (selection) > 0)
+	{
+		gtk_tree_selection_get_selected (selection, NULL, &iter);
+
+		gtk_tree_model_get (GTK_TREE_MODEL (self->priv->log_model), &iter, 
+		                    0, &revision, -1);
+		
+		sha = git_revision_get_sha (revision);
+
+		gtk_selection_data_set_text (data, sha, -1);
+
+		g_object_unref (revision);
+		g_free (sha);
+	}
+}
+
+static void
 git_log_pane_init (GitLogPane *self)
 {
 	gchar *objects[] = {"log_pane",
@@ -741,6 +781,17 @@ git_log_pane_init (GitLogPane *self)
 	gtk_tree_view_column_add_attribute (loading_spinner_column,
 	                                    loading_indicator_renderer,
 	                                    "text", LOADING_COL_INDICATOR);
+
+	/* DnD source */
+	gtk_tree_view_enable_model_drag_source (log_view,
+	                                        GDK_BUTTON1_MASK,
+	                                        drag_source_targets,
+	                                        G_N_ELEMENTS (drag_source_targets),
+	                                        GDK_ACTION_COPY);
+
+	g_signal_connect (G_OBJECT (log_view), "drag-data-get",
+	                  G_CALLBACK (on_log_view_drag_data_get),
+	                  self);
 
 	/* The loading view always has one row. Cache a copy of its iter for easy
 	 * access. */
