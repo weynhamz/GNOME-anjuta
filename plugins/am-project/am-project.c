@@ -841,6 +841,7 @@ amp_project_load_module (AmpProject *project, AnjutaToken *module_token)
 			else
 			{
 				package = amp_package_new (value, NULL);
+				amp_package_add_token (package, item);
 				anjuta_project_node_append (module, package);
 				anjuta_project_node_set_state ((AnjutaProjectNode *)package, ANJUTA_PROJECT_INCOMPLETE);
 				g_free (value);
@@ -2363,6 +2364,11 @@ iproject_add_node_before (IAnjutaProject *obj, AnjutaProjectNode *parent, Anjuta
 			anjuta_project_node_insert_before (parent, sibling, node);
 			amp_module_create_token (AMP_PROJECT (obj), node, NULL);
 			break;
+		case ANJUTA_PROJECT_PACKAGE:
+			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
+			anjuta_project_node_insert_before (parent, sibling, node);
+			amp_package_create_token (AMP_PROJECT (obj), node, NULL);
+			break;
 		default:
 			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
 			anjuta_project_node_insert_before (parent, sibling, node);
@@ -2407,6 +2413,11 @@ iproject_add_node_after (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaP
 			anjuta_project_node_insert_after (parent, sibling, node);
 			amp_module_create_token (AMP_PROJECT (obj), node, NULL);
 			break;
+		case ANJUTA_PROJECT_PACKAGE:
+			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
+			anjuta_project_node_insert_before (parent, sibling, node);
+			amp_package_create_token (AMP_PROJECT (obj), node, NULL);
+			break;
 		default:
 			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
 			anjuta_project_node_insert_after (parent, sibling, node);
@@ -2437,6 +2448,9 @@ iproject_remove_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err
 			break;
 		case ANJUTA_PROJECT_MODULE:
 			amp_module_delete_token (AMP_PROJECT (obj), node, NULL);
+			break;
+		case ANJUTA_PROJECT_PACKAGE:
+			amp_package_delete_token (AMP_PROJECT (obj), node, NULL);
 			break;
 		default:
 			break;

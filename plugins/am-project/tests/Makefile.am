@@ -25,7 +25,8 @@ TESTSUITE_AT = \
 	$(srcdir)/include.at \
 	$(srcdir)/variable.at \
 	$(srcdir)/properties.at \
-	$(srcdir)/module.at
+	$(srcdir)/module.at \
+	$(srcdir)/package.at
 
 TESTSUITE = $(srcdir)/testsuite
 

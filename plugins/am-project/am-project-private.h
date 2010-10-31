@@ -115,6 +115,7 @@ GType anjuta_am_package_node_get_type (void) G_GNUC_CONST;
 struct _AnjutaAmPackageNode {
 	AnjutaProjectNode base;
 	gchar *version;
+	AnjutaToken *token;
 };
 
 

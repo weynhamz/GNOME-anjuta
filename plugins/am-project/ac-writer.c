@@ -267,7 +267,7 @@ amp_module_create_token (AmpProject  *project, AnjutaAmModuleNode *module, GErro
 	AnjutaProjectNode *sibling;
 	gchar *relative_name;
 
-	/* Get parent target */
+	/* Get root node */
 	root = ANJUTA_AM_ROOT_NODE (anjuta_project_node_parent (ANJUTA_PROJECT_NODE (module)));
 	if ((root == NULL) || (anjuta_project_node_get_node_type (root) != ANJUTA_PROJECT_ROOT)) return FALSE;
 
@@ -324,6 +324,133 @@ amp_module_delete_token (AmpProject  *project, AnjutaAmModuleNode *module, GErro
 		anjuta_token_set_flags (token, ANJUTA_TOKEN_REMOVED);
 
 		amp_root_update_configure (ANJUTA_AM_ROOT_NODE (root), token);
+	}
+
+	return TRUE;
+}
+
+/* Package objects
+ *---------------------------------------------------------------------------*/
+
+gboolean 
+amp_package_create_token (AmpProject  *project, AnjutaAmPackageNode *package, GError **error)
+{
+	AnjutaAmModuleNode *module;
+	AnjutaAmRootNode *root;
+	gboolean after;
+	AnjutaToken *token;
+	AnjutaToken *prev;
+	AnjutaProjectNode *sibling;
+	AnjutaToken *args;
+
+
+	/* Get parent module */
+	module = ANJUTA_AM_MODULE_NODE (anjuta_project_node_parent (ANJUTA_PROJECT_NODE (package)));
+	if ((module == NULL) || (anjuta_project_node_get_node_type (module) != ANJUTA_PROJECT_MODULE)) return FALSE;
+
+	/* Get root node */
+	root = ANJUTA_AM_ROOT_NODE (anjuta_project_node_parent (ANJUTA_PROJECT_NODE (module)));
+	if ((root == NULL) || (anjuta_project_node_get_node_type (root) != ANJUTA_PROJECT_ROOT)) return FALSE;
+
+
+	/* Add in configure.ac */
+	/* Find a sibling if possible */
+	if (package->base.prev != NULL)
+	{
+		prev = ANJUTA_AM_PACKAGE_NODE (package->base.prev)->token;
+		after = TRUE;
+		args = anjuta_token_list (prev);
+	}
+	else if (package->base.next != NULL)
+	{
+		prev = ANJUTA_AM_PACKAGE_NODE (package->base.next)->token;
+		after = FALSE;
+		args = anjuta_token_list (prev);
+	}
+	else
+	{
+		prev = NULL;
+		args = NULL;
+	}
+
+	/* Check if a valid source variable is already defined */
+	if (args == NULL)
+	{
+		args = amp_module_get_token (module);
+	}
+	
+	if (args != NULL)
+	{
+		AnjutaTokenStyle *style;
+		gchar *name;
+
+		name = anjuta_project_node_get_name (ANJUTA_PROJECT_NODE (package));
+		style = anjuta_token_style_new_from_base (project->ac_space_list);
+		//anjuta_token_style_update (style, args);
+
+		token = anjuta_token_new_string (ANJUTA_TOKEN_NAME | ANJUTA_TOKEN_ADDED, name);
+		g_free (name);
+		
+		if (after)
+		{
+			anjuta_token_insert_word_after (args, prev, token);
+		}
+		else
+		{
+			anjuta_token_insert_word_before (args, prev, token);
+		}
+
+		/* Try to use the same style than the current target list */
+		anjuta_token_style_format (style, args);
+		anjuta_token_style_free (style);
+		
+		amp_root_update_configure (root, token);
+		
+		amp_package_add_token (package, token);
+	}
+
+	return TRUE;
+}
+
+gboolean 
+amp_package_delete_token (AmpProject  *project, AnjutaAmPackageNode *package, GError **error)
+{
+	AnjutaProjectNode *root;
+	AnjutaProjectNode *module;
+	AnjutaToken *token;
+
+	/* Get parent module */
+	module = anjuta_project_node_parent (ANJUTA_PROJECT_NODE (package));
+	if ((module == NULL) || (anjuta_project_node_get_node_type (module) != ANJUTA_PROJECT_MODULE))
+	{
+		return FALSE;
+	}
+	/* Get root */
+	root = anjuta_project_node_parent (ANJUTA_PROJECT_NODE (module));
+	if ((root == NULL) || (anjuta_project_node_get_node_type (root) != ANJUTA_PROJECT_ROOT))
+	{
+		return FALSE;
+	}
+		
+	token = amp_package_get_token (package);
+	g_message ("amp_module_delete_token %p", package);
+	if (token != NULL)
+	{
+		AnjutaToken *args;
+		AnjutaTokenStyle *style;
+
+		args = anjuta_token_list (token);
+
+		/* Try to use the same style than the current target list */
+		style = anjuta_token_style_new_from_base (project->ac_space_list);
+		anjuta_token_style_update (style, args);
+		
+		anjuta_token_remove_word (token);
+		
+		anjuta_token_style_format (style, args);
+		anjuta_token_style_free (style);
+
+		amp_root_update_configure (ANJUTA_AM_ROOT_NODE (root), args);
 	}
 
 	return TRUE;

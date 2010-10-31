@@ -34,6 +34,9 @@ gboolean amp_project_update_ac_property (AmpProject *project, AnjutaProjectPrope
 gboolean amp_module_create_token (AmpProject  *project, AnjutaAmModuleNode *module, GError **error);
 gboolean amp_module_delete_token (AmpProject  *project, AnjutaAmModuleNode *module, GError **error);
 
+gboolean amp_package_create_token (AmpProject  *project, AnjutaAmPackageNode *package, GError **error);
+gboolean amp_package_delete_token (AmpProject  *project, AnjutaAmPackageNode *package, GError **error);
+
 G_END_DECLS
 
 #endif /* _AC_WRITER_H_ */

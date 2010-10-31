@@ -1,0 +1,105 @@
+AT_SETUP([Add package])
+AS_MKDIR_P([empty])
+AT_DATA([empty/configure.ac],
+[[PKG_CHECK_MODULES(MODULE1,)
+AC_CONFIG_FILES(Makefile)
+]])
+AT_DATA([empty/Makefile.am],
+[[]])
+
+
+
+AT_DATA([expect],
+[[    MODULE (): MODULE1
+        PACKAGE (): package1
+    GROUP (): empty1
+]])
+AT_DATA([reference.ac],
+[[PKG_CHECK_MODULES(MODULE1,
+package1)
+AC_CONFIG_FILES(Makefile)
+]])
+AT_PARSER_CHECK([load empty \
+		 move empty1 \
+		 add package 0 package1 \
+		 list \
+	 save])
+AT_CHECK([[sed 's/^\(\s*\w\+\s*(\)[0-9:]\+\()\)/\1\2/' output | diff - expect]])
+AT_CHECK([diff -b empty1/configure.ac reference.ac])
+AT_PARSER_CHECK([load empty1 \
+	 list])
+AT_CHECK([[sed 's/^\(\s*\w\+\s*(\)[0-9:]\+\()\)/\1\2/' output | diff - expect]])
+
+
+
+AT_DATA([expect],
+[[    MODULE (): MODULE1
+        PACKAGE (): package1
+        PACKAGE (): package2
+    GROUP (): empty2
+]])
+AT_DATA([reference.ac],
+[[PKG_CHECK_MODULES(MODULE1,
+package1
+package2)
+AC_CONFIG_FILES(Makefile)
+]])
+AT_PARSER_CHECK([load empty1 \
+	 move empty2 \
+	 add package 0 package2 after 0:1\
+	 list \
+	 save])
+AT_CHECK([[sed 's/^\(\s*\w\+\s*(\)[0-9:]\+\()\)/\1\2/' output | diff - expect]])
+AT_CHECK([diff -b empty2/configure.ac reference.ac])
+AT_PARSER_CHECK([load empty2 \
+	 list])
+AT_CHECK([[sed 's/^\(\s*\w\+\s*(\)[0-9:]\+\()\)/\1\2/' output | diff - expect]])
+
+
+
+AT_DATA([expect],
+[[    MODULE (): MODULE1
+        PACKAGE (): package2
+    GROUP (): empty3
+]])
+AT_DATA([reference.ac],
+[[PKG_CHECK_MODULES(MODULE1,
+package2)
+AC_CONFIG_FILES(Makefile)
+]])
+AT_PARSER_CHECK([load empty2 \
+	 move empty3 \
+	 remove 0:0 \
+	 list \
+	 save])
+AT_CHECK([[sed 's/^\(\s*\w\+\s*(\)[0-9:]\+\()\)/\1\2/' output | diff - expect]])
+AT_CHECK([diff -b empty3/configure.ac reference.ac])
+AT_PARSER_CHECK([load empty3 \
+	 list])
+AT_CHECK([[sed 's/^\(\s*\w\+\s*(\)[0-9:]\+\()\)/\1\2/' output | diff - expect]])
+
+
+
+AT_DATA([expect],
+[[    MODULE (): MODULE1
+    GROUP (): empty4
+]])
+AT_DATA([reference.ac],
+[[PKG_CHECK_MODULES(MODULE1,
+)
+AC_CONFIG_FILES(Makefile)
+]])
+AT_PARSER_CHECK([load empty3 \
+	 move empty4 \
+	 remove 0:0 \
+	 list \
+	 save])
+AT_CHECK([[sed 's/^\(\s*\w\+\s*(\)[0-9:]\+\()\)/\1\2/' output | diff - expect]])
+AT_CHECK([diff -b empty4/configure.ac reference.ac])
+AT_PARSER_CHECK([load empty4 \
+	 list])
+AT_CHECK([[sed 's/^\(\s*\w\+\s*(\)[0-9:]\+\()\)/\1\2/' output | diff - expect]])
+
+
+
+AT_CLEANUP

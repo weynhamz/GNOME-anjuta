@@ -425,6 +425,19 @@ amp_package_set_version (AnjutaAmPackageNode *node, const gchar *compare, const 
 	node->version = version != NULL ? g_strconcat (compare, version, NULL) : NULL;
 }
 
+AnjutaToken *
+amp_package_get_token (AnjutaAmPackageNode *node)
+{
+	return node->token;
+}
+
+void
+amp_package_add_token (AnjutaAmPackageNode *node, AnjutaToken *token)
+{
+	node->token = token;
+}
+
+
 /* GObjet implementation
  *---------------------------------------------------------------------------*/
 

@@ -59,6 +59,9 @@ void amp_module_add_token (AnjutaAmModuleNode *group, AnjutaToken *token);
 AnjutaProjectNode* amp_package_new (const gchar *name, GError **error);
 void amp_package_free (AnjutaAmPackageNode *node);
 void amp_package_set_version (AnjutaAmPackageNode *node, const gchar *compare, const gchar *version);
+AnjutaToken *amp_package_get_token (AnjutaAmPackageNode *node);
+void amp_package_add_token (AnjutaAmPackageNode *node, AnjutaToken *token);
+
 
 void amp_group_add_token (AnjutaAmGroupNode *group, AnjutaToken *token, AmpGroupTokenCategory category);
 GList * amp_group_get_token (AnjutaAmGroupNode *group, AmpGroupTokenCategory category);
