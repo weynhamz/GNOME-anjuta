@@ -98,7 +98,7 @@ on_file_changed (GFileMonitor *monitor,
 			case G_FILE_MONITOR_EVENT_CHANGED:
 			case G_FILE_MONITOR_EVENT_DELETED:
 			case G_FILE_MONITOR_EVENT_CREATED:
-				g_signal_emit_by_name (ANJUTA_DIR_GROUP_NODE (data)->emitter, "node-updated", data);
+				g_signal_emit_by_name (ANJUTA_DIR_GROUP_NODE (data)->emitter, "file-changed", data);
 				break;
 			default:
 				break;
