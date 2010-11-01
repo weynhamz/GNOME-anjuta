@@ -912,7 +912,7 @@ register_stock_icons (AnjutaPlugin *plugin)
 	END_REGISTER_ICON;
 }
 
-#define TEXT_ZOOM_FACTOR           "text_zoom_factor"
+#define TEXT_ZOOM_FACTOR           "text-zoom-factor"
 
 static void
 update_status (DocmanPlugin *plugin, IAnjutaEditor *te)

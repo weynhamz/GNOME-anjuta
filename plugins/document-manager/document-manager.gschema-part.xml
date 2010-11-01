@@ -19,3 +19,6 @@
 <key name="docman-line-wrap" type="b">
 	<default>false</default>
 </key>
+<key name="text-zoom-factor" type="i">
+	<default>0</default>
+</key>
