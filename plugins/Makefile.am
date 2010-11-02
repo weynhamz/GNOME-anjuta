@@ -19,7 +19,6 @@ SUBDIRS = . \
 	js-debugger \
 	language-manager \
 	language-support-cpp-java \
-	# language-support-js \
 	language-support-python \
 	language-support-vala \
 	message-view \

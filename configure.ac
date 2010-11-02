@@ -47,10 +47,10 @@ dnl GtkSourceView
 GTKSOURCEVIEW_REQUIRED=2.9.7
 
 dnl Devhelp
-LIBDEVHELP_REQUIRED=0.22
+LIBDEVHELP_REQUIRED=2.90.6
 
 dnl Glade
-GLADEUI_REQUIRED=3.6.7
+GLADEUI_REQUIRED=3.7.1
 
 dnl Vala
 VALA_REQUIRED=0.9.5
@@ -203,7 +203,7 @@ if test "$user_disabled_devhelp" = 1; then
 else
 	AC_MSG_RESULT(no)
 	PKG_CHECK_MODULES(PLUGIN_DEVHELP,
-				[libdevhelp-2.0 >= $LIBDEVHELP_REQUIRED webkit-1.0],
+				[libdevhelp-3.0 >= $LIBDEVHELP_REQUIRED],
 				[
 				    devhelp_enabled=yes
 				], [
@@ -230,7 +230,7 @@ if test "$user_disabled_glade" = 1; then
 else
 	AC_MSG_RESULT(no)
 	gladeui_version=0
-	PKG_CHECK_MODULES(PLUGIN_GLADE, gladeui-1.0 >= $GLADEUI_REQUIRED,
+	PKG_CHECK_MODULES(PLUGIN_GLADE, gladeui-3.0 >= $GLADEUI_REQUIRED,
 	    [
 		gladeui_found=yes
 	    ], [
@@ -962,7 +962,7 @@ if [ test x$devhelp_enabled = xyes ]; then
        echo "Building devhelp plugin: ...............................YES"
 else
        echo "Building devhelp plugin: ...............................NO"
-       echo "        Requires libdevhelp-2.0 (>= $LIBDEVHELP_REQUIRED)"
+       echo "        Requires libdevhelp-3.0 (>= $LIBDEVHELP_REQUIRED)"
 fi
 
 if [ test x$sourceview = xyes ]; then
