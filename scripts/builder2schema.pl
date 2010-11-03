@@ -3,64 +3,81 @@
 use XML::Parser;
 
 %datatypes = (
-	"bool" => "bool",
-	"int" => "int",
-	"string" => "string",
-	"text" => "string",
-	"float" => "float",
-	"color" => "string",
-	"font" => "string",
-	"folder" => "string",
-	"file" => "string"
+	"bool" => "b",
+	"int" => "i",
+	"string" => "s",
+	"text" => "s",
+	"float" => "f",
+	"color" => "s",
+	"font" => "s",
+	"folder" => "s",
+	"file" => "s"
 );
 
 %boolean = (
-	0 => "FALSE",
-	1 => "TRUE"
+	0 => "false",
+	1 => "true"
 );
 
-$schema_path = "/schemas/apps/anjuta/preferences/";
-$key_path ="/apps/anjuta/preferences/";
+print "<schemalist>\n";
+print "\t<schema id=\"$ARGV[1]\" path=\"/apps/anjuta/\">\n";
+
+if ($#ARGV == 2) {
+	open FILE, "<", $ARGV[2] or die $!;
+	while (<FILE>) { print "\t\t$_"; }
+}
 
 my $parser = new XML::Parser(Style => "Stream");
-print "<gconfschemafile>\n";
-print "\t<schemalist>\n";
-
 $parser->parsefile($ARGV[0]);
 
-print "\t</schemalist>\n";
-print "</gconfschemafile>\n";
+print "\t</schema>\n";
+print "</schemalist>";
 
 sub StartTag {
+	my %keys = {};
 	my $parser = shift;
 	my $key = shift;
 	if ($key =~ /object/) {
 		my $k = $_{"id"};
-		if ($k =~ /(preferences_color|entry|font|spin|text|toggle|menu|folder|file):(.*):(.*):(\d):(.*)/) {	
-			
-			my $type = $2;
-			my $default = $3;
-			my $flags = $4;
-			my $propkey = $5;
-			
-			
+		if ($k =~ /(preferences_(color|entry|font|spin|text|toggle|menu|folder|file|combo)):(.*):(.*):(\d):(.*)/) {
+			my $pref = $2;
+			my $type = $3;
+			my $default = $4;
+			my $flags = $5;
+			my $propkey = $6;
+			my $realtype = $datatypes{$type};
+
+			if (exists $keys{$propkey})
+			{
+				return;
+			}
+			else
+			{
+				$keys{$propkey} = 1;
+			}
+
 			if ($type =~ /bool/) {
 				$default = $boolean{$default};
 			}
-			
-			
-			
-			print "\t\t<schema>\n";
-			print "\t\t\t<key>$schema_path$propkey</key>\n";
-			print "\t\t\t<applyto>$key_path$propkey</applyto>\n";
-			print "\t\t\t<owner>anjuta</owner>\n";
-			print "\t\t\t<type>$datatypes{$type}</type>\n";
-			print "\t\t\t<default>$default</default>\n";
-			
-			# Hack to keep gconftool happy
-			print "\t\t\t<locale name=\"C\" />\n";
-			
-			print "\t\t</schema>\n\n";
+
+
+			print "\t\t<key name=\"$propkey\" type=\"$realtype\">\n";
+			if ($pref eq "combo") {
+				@values = split(',', $default);
+				print "\t\t\t<choices>\n";
+				foreach (@values) {
+					print "\t\t\t\t<choice value=\"$_\" />\n"
+				}
+				print "\t\t\t</choices>\n";
+				print "\t\t\t<default>\"$values[$flags]\"</default>\n";
+			}
+			elsif ($realtype ne "s") {
+				print "\t\t\t<default>$default</default>\n";
+			}
+			else {
+				print "\t\t\t<default>\"$default\"</default>\n";
+			}
+			print "\t\t</key>\n";
 		}
 	}
 }

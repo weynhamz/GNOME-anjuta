@@ -64,6 +64,9 @@ struct _CVSPlugin{
 	gchar *fm_current_filename;
 	gchar *project_root_dir;
 	gchar *current_editor_filename;
+
+	/* Settings */
+	GSettings* settings;
 };
 
 struct _CVSPluginClass{

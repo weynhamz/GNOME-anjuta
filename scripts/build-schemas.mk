@@ -1,29 +1,17 @@
 # Targets for handing ui-to-GConf schema conversion for prefs keys
 
-prefs_ui_schemasdir = @GCONF_SCHEMA_FILE_DIR@
-prefs_ui_schemas = $(prefs_ui_files:.ui=.schemas)
-prefs_ui_schemas_DATA = $(prefs_ui_schemas)
+prefs_ui_schemas = $(prefs_ui_files:.ui=.gschema.xml)
 
-%.schemas: %.ui
-	$(AM_V_GEN)$(top_srcdir)/scripts/builder2schema.pl $< > $@
+# gsettings_SCHEMAS is a list of all the schemas you want to install
+gsettings_SCHEMAS = $(prefs_name).gschema.xml
 
-if GCONF_SCHEMAS_INSTALL
-install-data-local: $(prefs_ui_schemas)
-	        for p in $(prefs_ui_schemas) ; do \
-	            GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-install-rule $$p ; \
-	        done
-		@killall -1 gconfd-2 || true
+$(prefs_name).gschema.xml: $(prefs_ui_schemas)
+	mv -f $< $@
 
-uninstall-local: $(prefs_ui_schemas)
-	        for p in $(prefs_ui_schemas) ; do \
-	            GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-uninstall-rule $$p ; \
-	        done
-		@killall -1 gconfd-2 || true
+%.gschema.xml: %.ui
+	$(AM_V_GEN)$(top_srcdir)/scripts/builder2schema.pl $< $(prefs_name) $(srcdir)/$(prefs_keyfile) > $@
 
-else
-install-data-local:
+# include the appropriate makefile rules for schema handling
+@GSETTINGS_RULES@
 
-uninstall-local:
-endif
-
-CLEANFILES = $(prefs_ui_schemas)
+CLEANFILES = $(prefs_ui_schemas) $(gsettings_SCHEMAS)

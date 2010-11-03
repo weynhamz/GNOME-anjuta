@@ -191,7 +191,7 @@ anjuta_msgman_page_from_widget (AnjutaMsgman * msgman, MessageView * mv)
 
 static void
 on_notebook_switch_page (GtkNotebook * notebook,
-			 GtkNotebookPage * npage,
+			 GtkWidget * npage,
 			 gint page_num, AnjutaMsgman * msgman)
 {
 	g_signal_emit_by_name(G_OBJECT(msgman), "view_changed");
@@ -264,12 +264,12 @@ anjuta_msgman_class_init (AnjutaMsgmanClass * klass)
 }
 
 static void
-set_message_tab(AnjutaPreferences *pref, GtkNotebook *msgman)
+set_message_tab(GSettings* settings, GtkNotebook *msgman)
 {
 	gchar *tab_pos; 
 	GtkPositionType pos;
-	
-	tab_pos = anjuta_preferences_get (pref, MESSAGES_TABS_POS);
+
+	tab_pos = g_settings_get_string (settings, MESSAGES_TABS_POS);
 	pos = GTK_POS_TOP;
 	if (tab_pos)
 	{
@@ -285,10 +285,10 @@ set_message_tab(AnjutaPreferences *pref, GtkNotebook *msgman)
 }
 
 void
-on_notify_message_pref (AnjutaPreferences* prefs, const gchar* key,
-                        const gchar* value, gpointer user_data)
+on_notify_message_pref (GSettings *settings, const gchar* key,
+                        gpointer user_data)
 {
-	set_message_tab(prefs, GTK_NOTEBOOK (user_data));
+	set_message_tab(settings, GTK_NOTEBOOK (user_data));
 }
 
 

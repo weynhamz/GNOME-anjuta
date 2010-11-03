@@ -1,15 +1,23 @@
 dnl Process this file with autoconf to produce a configure script.
 
-AC_PREREQ(2.59)
+AC_PREREQ([2.64])
 
 m4_define(anjuta_major_version,  2)
-m4_define(anjuta_minor_version, 31)
-m4_define(anjuta_micro_version,  91)
+m4_define(anjuta_minor_version, 32)
+m4_define(anjuta_micro_version, 0)
 m4_define(anjuta_nano_version, 0)
 m4_define(anjuta_version, anjuta_major_version.anjuta_minor_version.anjuta_micro_version.anjuta_nano_version)
 
-AC_INIT(anjuta, anjuta_version, http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta)
-AC_CONFIG_SRCDIR(src/main.c)
+AC_INIT([anjuta],
+        [anjuta_version],
+        [http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta],
+        [anjuta],
+        [http://www.anjuta.org/])
+
+AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_SRCDIR([src/main.c])
+AC_CONFIG_MACRO_DIR([m4])
+
 
 AC_DEFINE(ANJUTA_MAJOR_VERSION, anjuta_major_version, [Anjuta major version])
 AC_SUBST(ANJUTA_MAJOR_VERSION, anjuta_major_version)
@@ -62,11 +70,9 @@ SVN_PATCH=0
 SUBVERSION_REQUIRED=$SVN_MAJOR.$SVN_MINOR.$SVN_PATCH
 
 AM_INIT_AUTOMAKE([1.11 dist-bzip2 no-dist-gzip])
+AM_MAINTAINER_MODE([enable])
+
 AM_SILENT_RULES([yes])
-AC_CONFIG_HEADERS(config.h)
-AC_DISABLE_STATIC
-AM_MAINTAINER_MODE
-GNOME_DOC_INIT
 
 dnl Check for C Compiler
 AC_PROG_CC
@@ -83,13 +89,13 @@ AC_LANG_C
 AC_PROG_CXX
 AM_PROG_CC_C_O
 
-GNOME_COMPILE_WARNINGS(maximum)
+GNOME_COMPILE_WARNINGS([maximum])
 AM_CFLAGS="$AM_CFLAGS $WARN_CFLAGS"
 AM_CXXFLAGS="$AM_CXXFLAGS $WARN_CXXFLAGS"
 
 dnl Enable debugging mode
 AC_ARG_ENABLE(debug,
-  AC_HELP_STRING([--enable-debug],[Enable debug messages]),
+  AS_HELP_STRING([--enable-debug],[Enable debug messages]),
   [if test "x$enableval" = "xyes"; then
       AM_CFLAGS="$AM_CFLAGS -DDEBUG"
   fi]
@@ -102,6 +108,9 @@ ANJUTA_PLUGIN_LDFLAGS="-module -avoid-version -no-undefined"
 AC_SUBST(ANJUTA_LDFLAGS)
 AC_SUBST(ANJUTA_PLUGIN_LDFLAGS)
 
+dnl GSettings
+GLIB_GSETTINGS
+
 dnl Disable deprecated APIs
 dnl if test x$MAINT = x; then
 dnl 	DEPRECATED_FLAGS="-DGDK_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED"
@@ -110,7 +119,7 @@ dnl fi
 
 dnl Enable versioned user preferences directory
 AC_ARG_WITH(pref-suffix,
-  AC_HELP_STRING([--with-pref-suffix=VALUE],[Suffix to add to user preferences dir.]),
+  AS_HELP_STRING([--with-pref-suffix=VALUE],[Suffix to add to user preferences dir.]),
   PREF_SUFFIX="$withval")
 
 AC_SUBST(PREF_SUFFIX)
@@ -118,10 +127,11 @@ AC_DEFINE_UNQUOTED(PREF_SUFFIX,
       "${PREF_SUFFIX}",
 	  [Suffix to add to preferences directory])
 
-AM_DISABLE_STATIC
-AM_PROG_LIBTOOL
+# Initialize libtool
+LT_PREREQ([2.2])
+LT_INIT([disable-static])
 
-AC_TYPE_SIGNAL
+
 
 dnl ***************************************************************************
 dnl Check for GConf stuff to handle schema installation
@@ -132,7 +142,7 @@ AM_GCONF_SOURCE_2
 dnl ***************************************************************************
 dnl Check for GObject-Introspection
 dnl ***************************************************************************
-m4_ifdef([GOBJECT_INTROSPECTION_CHECK], [GOBJECT_INTROSPECTION_CHECK([0.6.7])], 
+m4_ifdef([GOBJECT_INTROSPECTION_CHECK], [GOBJECT_INTROSPECTION_CHECK([0.6.7])],
 [AM_CONDITIONAL(HAVE_INTROSPECTION, false)])
 
 dnl ***************************************************************************
@@ -151,8 +161,8 @@ fi
 
 dnl Check base modules
 
-PKG_CHECK_MODULES([ANJUTA], 
-   [gthread-2.0 >= $GTHREAD_REQUIRED 
+PKG_CHECK_MODULES([ANJUTA],
+   [gthread-2.0 >= $GTHREAD_REQUIRED
 	unique-1.0 >= $UNIQUE_REQUIRED
 	glib-2.0 >= $GLIB_REQUIRED
 	gio-2.0 >= $GLIB_REQUIRED
@@ -176,7 +186,7 @@ dnl Check for Devhelp
 dnl -----------------
 
 AC_ARG_ENABLE(plugin-devhelp,
-  AC_HELP_STRING([--disable-plugin-devhelp],[Disable devhelp plugin support in Anjuta.]),
+  AS_HELP_STRING([--disable-plugin-devhelp],[Disable devhelp plugin support in Anjuta.]),
   [ if test "$enableval" = "no"; then
        user_disabled_devhelp=1
     fi ],
@@ -188,7 +198,7 @@ if test "$user_disabled_devhelp" = 1; then
 	devhelp_enabled="no"
 else
 	AC_MSG_RESULT(no)
-	PKG_CHECK_MODULES(PLUGIN_DEVHELP, 
+	PKG_CHECK_MODULES(PLUGIN_DEVHELP,
 				[libdevhelp-2.0 >= $LIBDEVHELP_REQUIRED webkit-1.0],
 				[
 				    devhelp_enabled=yes
@@ -203,7 +213,7 @@ dnl Check for Glade3
 dnl ---------------------
 
 AC_ARG_ENABLE(plugin-glade,
-  AC_HELP_STRING([--disable-plugin-glade],[Disable glade plugin support in Anjuta.]),
+  AS_HELP_STRING([--disable-plugin-glade],[Disable glade plugin support in Anjuta.]),
   [ if test "$enableval" = "no"; then
        user_disabled_glade=1
     fi ],
@@ -230,7 +240,7 @@ dnl Check for gtksourceview
 dnl -------------------------------------------------------------
 
 AC_ARG_ENABLE(plugin-sourceview,
-	AC_HELP_STRING([--disable-plugin-sourceview],[Disable gtksourceview based editor in Anjuta]), 
+	AS_HELP_STRING([--disable-plugin-sourceview],[Disable gtksourceview based editor in Anjuta]),
 	[ if test "$enableval" = "no"; then
 		user_disabled_sourceview=1
 	  fi ],
@@ -303,7 +313,7 @@ AC_SUBST(LIBFOOCANVAS_LIBS)
 
 dnl Checks for Xft/XRender for foocanvas
 dnl
-AC_CHECK_LIB(Xrender, XRenderFindFormat, 
+AC_CHECK_LIB(Xrender, XRenderFindFormat,
 	[AC_SUBST(RENDER_LIBS, "-lXrender -lXext")
 	 AC_DEFINE(HAVE_RENDER, 1, [Define if libXrender is available.])],
 	[AC_SUBST(RENDER_LIBS, "")],
@@ -345,11 +355,14 @@ AC_SUBST(GLADE_CATALOG_PATH)
 dnl ***************************************************************************
 dnl Internatinalization
 dnl ***************************************************************************
+IT_PROG_INTLTOOL([0.40.1])
+
+AM_GNU_GETTEXT([external])
+AM_GNU_GETTEXT_VERSION([0.17])
+
 GETTEXT_PACKAGE=anjuta
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [GETTEXT package name])
-AM_GLIB_GNU_GETTEXT
-IT_PROG_INTLTOOL([0.40.1])
 
 BISON_I18N
 
@@ -357,6 +370,11 @@ dnl ***************************************************************************
 dnl Check for gtk-doc.
 dnl ***************************************************************************
 GTK_DOC_CHECK([1.4])
+
+dnl ***************************************************************************
+dnl User manual
+dnl ***************************************************************************
+GNOME_DOC_INIT([0.18])
 
 dnl Define convenience macros
 dnl -------------------------
@@ -384,9 +402,14 @@ AC_CHECK_HEADERS(sys/dir.h sys/stat.h sys/times.h sys/types.h)
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 
-dnl Disable cygwin check until someone fixes that stupid autoconf warnings.
-dnl AC_CYGWIN
-dnl AC_MINGW
+AC_CANONICAL_HOST
+CYGWIN=no
+MINGW32=no
+case $host_os in
+  *cygwin* ) CYGWIN=yes;;
+  *mingw32* ) MINGW32=yes;;
+esac
+
 
 AC_C_CONST
 AC_OBJEXT
@@ -416,12 +439,13 @@ CHECK_HEADER_DEFINE(INT_MAX, limits.h,,
         AC_DEFINE(INT_MAX, MAXINT, [Maximum int size]), AC_DEFINE(INT_MAX, 32767, [Maximum int size])))
 
 AC_MSG_CHECKING(if struct stat contains st_ino)
-AC_TRY_COMPILE([#include <sys/stat.h>], [
+AC_LANG([C])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <sys/stat.h>]], [[
     struct stat st;
     stat(".", &st);
     if (st.st_ino > 0)
         exit(0);
-], have_st_ino=yes, have_st_ino=no)
+]])],[have_st_ino=yes],[have_st_ino=no])
 AC_MSG_RESULT($have_st_ino)
 if test yes = "$have_st_ino"; then
     AC_DEFINE(HAVE_STAT_ST_INO,,[Have stat st_ino])
@@ -518,7 +542,7 @@ if test `uname -s` = "FreeBSD" ; then
         AC_SUBST(FREEBSD_BUILD)
 	AC_PATH_PROG(GMAKE, gmake, no)
 	if test "x$GMAKE" = "xno"; then
-		AC_ERROR(You need gmake installed to build Anjuta!)
+		AC_MSG_ERROR(You need gmake installed to build Anjuta!)
 	fi
 else
         AC_MSG_RESULT(no)
@@ -526,10 +550,10 @@ else
 fi
 
 AC_SUBST(GMAKE)
- 
+
 dnl Checks for missing prototypes
 dnl -----------------------------
-AC_CHECKING("for missing prototypes")
+AC_MSG_NOTICE([checking for missing prototypes...])
 
 AC_DEFUN([CHECK_PROTO], [AC_EGREP_HEADER([[^A-Za-z0-9_]$1([   ]+[A-Za-z0-9_]*)?\(], $2,, AC_DEFINE(patsubst([NEED_PROTO_NAME], [NAME], translit($1, [a-z], [A-Z])),,[Do not know]) AC_MSG_RESULT(adding prototype for $1))])
 
@@ -559,7 +583,7 @@ dnl  **********************************************************
 
 AC_MSG_CHECKING(for Subversion svn-config)
 AC_ARG_WITH(subversion-dir,
-		AC_HELP_STRING([--with-subversion-dir=DIR],[Where Subversion is installed ]),
+		AS_HELP_STRING([--with-subversion-dir=DIR],[Where Subversion is installed ]),
 		[
 				SVNCONFIG="$withval/bin/svn-config"
 		])
@@ -580,7 +604,7 @@ if test -x "$SVNCONFIG"; then
 		AC_MSG_RESULT(yes)
 else
 		AC_MSG_RESULT(not found)
-		
+
 		dnl just a fallback to debian's config so that it works for me :)
 		AC_ARG_WITH(svn-include,
 								[[  --with-svn-include=DIR   Use the given path to the subversion headers.]],
@@ -638,7 +662,7 @@ dnl FIXME: This should actually be done by subversion and not by us.
 dnl ******************************************************************
 
 AC_ARG_ENABLE(plugin-subversion,
-  AC_HELP_STRING([--disable-plugin-subversion],[Disable subversion support in Anjuta.]),
+  AS_HELP_STRING([--disable-plugin-subversion],[Disable subversion support in Anjuta.]),
   [ if test "$enableval" = "no"; then
         user_disabled_subversion=1
     fi ],
@@ -663,7 +687,7 @@ if test -n "$SVN_INCLUDE" ; then
 	if test x"$have_apr" = "xno"; then
 		SVN_INCLUDE=""
 	fi
-	
+
 	dnl -----------------------------------------
 	dnl APR util. Required by subversion (devel)
 	dnl------------------------------------------
@@ -673,7 +697,7 @@ if test -n "$SVN_INCLUDE" ; then
 	if test x"$have_apr_util" = "xno"; then
 		SVN_INCLUDE=""
 	fi
-	
+
 	dnl -----------------------------------------
 	dnl NEON. Required by subversion (devel)
 	dnl------------------------------------------
@@ -687,7 +711,7 @@ if test -n "$SVN_INCLUDE" ; then
 	dnl Make sure our SVN version is high enough
 	dnl Eww, eww, eww, this is dirty
 	AC_MSG_CHECKING([for subversion >= $SUBVERSION_REQUIRED])
-	AC_LANG(C)
+	AC_LANG([C])
 	dnl Temporarily set CFLAGS so that include dirs are found
 	CFLAGS_TMP=$CFLAGS
 	CFLAGS="-I$SVN_INCLUDE $APR_CFLAGS"
@@ -732,7 +756,7 @@ SYMBOL_DB_SHM="/dev/shm"
 user_specified_shm=0
 AC_MSG_CHECKING(for symbol-db shared memory)
 AC_ARG_WITH(symbol-db-shm,
-		AC_HELP_STRING([--with-symbol-db-shm=DIR],[Where shared memory is placed ]),
+		AS_HELP_STRING([--with-symbol-db-shm=DIR],[Where shared memory is placed ]),
 		[
 				user_specified_shm=1
 				SYMBOL_DB_SHM="$withval"
@@ -748,7 +772,7 @@ AC_SUBST(SYMBOL_DB_SHM)
 
 dnl Check for graphviz (class inheritance and profiler plugins)
 AC_ARG_ENABLE(graphviz,
-	AC_HELP_STRING([--disable-graphviz],[Disable GraphViz support in Anjuta]), 
+	AS_HELP_STRING([--disable-graphviz],[Disable GraphViz support in Anjuta]),
 	[ if test "$enableval" = "no"; then
 		user_disabled_graphviz=1
 	  fi ],
@@ -761,7 +785,7 @@ if test "$user_disabled_graphviz" = 1; then
 else
 	AC_MSG_RESULT(no)
 	PKG_CHECK_MODULES(GRAPHVIZ,
-		[libgvc >= $LIBGRAPHVIZ_REQUIRED libgraph >= $LIBGRAPHVIZ_REQUIRED], 
+		[libgvc >= $LIBGRAPHVIZ_REQUIRED libgraph >= $LIBGRAPHVIZ_REQUIRED],
 		[libgraphviz_found="yes"],
 		[libgraphviz_found="no"])
 fi
@@ -773,7 +797,7 @@ dnl -----------------------------
 AC_CONFIG_TESTDIR(plugins/am-project/tests)
 AM_MISSING_PROG([AUTOM4TE], [autom4te])
 
-AC_OUTPUT([
+AC_CONFIG_FILES([
 Makefile
 po/Makefile.in
 libfoocanvas/Makefile
@@ -911,6 +935,7 @@ manuals/anjuta-faqs/Makefile
 manuals/anjuta-build-tutorial/Makefile
 mime/Makefile
 ])
+AC_OUTPUT
 echo " "
 echo "-------------------------------------------------------------------"
 echo "Conditionally built plugins:"

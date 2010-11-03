@@ -11,6 +11,11 @@ anjuta_pixmapsdir = $(anjuta_image_dir)
 anjuta_pixmaps_DATA = \
         anjuta-run-program-48.png
 
+schema_in_files = org.gnome.anjuta.run.gschema.xml.in
+gsettings_SCHEMAS = $(schema_in_files:.gschema.xml.in=.gschema.xml)
+@INTLTOOL_XML_NOMERGE_RULE@
+@GSETTINGS_RULES@
+
 # Plugin description file
 plugin_in_files = anjuta-run-program.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache

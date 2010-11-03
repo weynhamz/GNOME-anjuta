@@ -75,6 +75,8 @@ struct _SnippetsManagerPlugin
 
 	gboolean browser_maximized;
 
+	/* Settings */
+	GSettings* settings;
 };
 
 

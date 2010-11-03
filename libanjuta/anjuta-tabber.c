@@ -75,7 +75,7 @@ anjuta_tabber_notebook_page_removed (GtkNotebook* notebook,
 
 static void
 anjuta_tabber_notebook_switch_page (GtkNotebook* notebook,
-                                    GtkNotebookPage* page,
+                                    GtkWidget* page,
                                     guint page_num,
                                     AnjutaTabber* tabber)
 {

@@ -67,7 +67,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkFileChooserButton" id="preferences_file:text:/usr/bin/cvs:0:cvs.path">
+              <object class="GtkFileChooserButton" id="preferences_file:text:/usr/bin/cvs:0:cvs-path">
                 <property name="visible">True</property>
               </object>
               <packing>
@@ -95,7 +95,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:cvs.ignorerc">
+                  <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:cvs-ignorerc">
                     <property name="label" translatable="yes">Ignore .cvsrc file (recommended)</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
@@ -112,7 +112,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkSpinButton" id="preferences_spin:int:3:0:cvs.compression">
+                  <object class="GtkSpinButton" id="preferences_spin:int:3:0:cvs-compression">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="adjustment">adjustment1</property>

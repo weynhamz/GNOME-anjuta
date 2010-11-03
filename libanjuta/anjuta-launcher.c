@@ -422,11 +422,12 @@ anjuta_launcher_send_stdin_eof (AnjutaLauncher *launcher)
 void
 anjuta_launcher_send_ptyin (AnjutaLauncher *launcher, const gchar * input_str)
 {
-	gsize bytes_written;
+	gsize bytes_written = 0;
 	GError *err = NULL;
 	
 	g_return_if_fail (launcher);
 	g_return_if_fail (input_str);
+	g_return_if_fail (launcher->priv->pty_channel != NULL);
 	
 	if (strlen (input_str) == 0) 
 		return;

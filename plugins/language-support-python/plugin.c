@@ -64,14 +64,15 @@
 
 /* Preferences keys */
 
-#define PREF_INDENT_AUTOMATIC "language.python.indent.automatic"
-#define PREF_INDENT_ADAPTIVE "language.python.indent.adaptive"
-#define PREF_INDENT_TAB_INDENTS "language.python.indent.tab.indents"
-#define PREF_INDENT_STATEMENT_SIZE "language.python.indent.statement.size"
-#define PREF_INDENT_BRACE_SIZE "language.python.indent.brace.size"
+#define PREF_SCHEMA "org.gnome.anjuta.python"
+#define PREF_INDENT_AUTOMATIC "python-indent-automatic"
+#define PREF_INDENT_ADAPTIVE "python-indent-adaptive"
+#define PREF_INDENT_TAB_INDENTS "python-indent-tab-indents"
+#define PREF_INDENT_STATEMENT_SIZE "python-indent-statement-size"
+#define PREF_INDENT_BRACE_SIZE "python-indent-brace-size"
 
-#define PREF_NO_ROPE_WARNING "language.python.no_rope_warning"
-#define PREF_INTERPRETER_PATH "language.python.interpreter.path"
+#define PREF_NO_ROPE_WARNING "python-no-rope-warning"
+#define PREF_INTERPRETER_PATH "python-interpreter-path"
 
 #define TAB_SIZE (ianjuta_editor_get_tabsize (editor, NULL))
 
@@ -80,12 +81,12 @@
 #define INDENT_SIZE \
 	(plugin->param_statement_indentation >= 0? \
 		plugin->param_statement_indentation : \
-		anjuta_preferences_get_int (plugin->prefs, PREF_INDENT_STATEMENT_SIZE))
+		g_settings_get_int (plugin->settings, PREF_INDENT_STATEMENT_SIZE))
 
 #define BRACE_INDENT \
 	(plugin->param_brace_indentation >= 0? \
 		plugin->param_brace_indentation : \
-		anjuta_preferences_get_int (plugin->prefs, PREF_INDENT_BRACE_SIZE))
+		g_settings_get_int (plugin->settings, PREF_INDENT_BRACE_SIZE))
 
 #define CASE_INDENT (INDENT_SIZE)
 #define LABEL_INDENT (INDENT_SIZE)
@@ -743,7 +744,7 @@ get_line_indentation_base (PythonPlugin *plugin,
 	else
 	{
 		gint line = currentline;
-		while (is_spaces_only(editor, line))
+		while (is_spaces_only(editor, line) && line >= 0)
 			line--;
 		line_indent = get_line_indentation (editor, line);
 	}
@@ -868,7 +869,7 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 	iter = ianjuta_iterable_clone (insert_pos, NULL);
 
 	/* If autoindent is enabled*/
-	if (anjuta_preferences_get_bool (plugin->prefs, PREF_INDENT_AUTOMATIC))
+	if (g_settings_get_boolean (plugin->settings, PREF_INDENT_AUTOMATIC))
 	{
 		if (iter_is_newline (iter, ch))
 		{
@@ -901,7 +902,8 @@ static void
 on_check_finished (AnjutaLauncher* launcher,
                    int child_pid, int exit_status,
                    gulong time, gpointer user_data)
-{	
+{
+	PythonPlugin* plugin = ANJUTA_PLUGIN_PYTHON (user_data);
 	if (exit_status != 0)
 	{
 		GtkWidget* dialog = gtk_dialog_new_with_buttons (_("Python support warning"),
@@ -927,9 +929,8 @@ on_check_finished (AnjutaLauncher* launcher,
 
 		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_button)))
 		{
-			anjuta_preferences_set_bool (anjuta_preferences_default (),
-			                             PREF_NO_ROPE_WARNING,
-			                             TRUE);
+			g_settings_get_boolean (plugin->settings,
+			                        PREF_NO_ROPE_WARNING);
 		}
 		gtk_widget_destroy (dialog);
 	}
@@ -939,12 +940,12 @@ on_check_finished (AnjutaLauncher* launcher,
 static void
 check_support (PythonPlugin *python_plugin)
 {
-	if (!anjuta_preferences_get_bool_with_default (anjuta_preferences_default (),
-	                                            PREF_NO_ROPE_WARNING, FALSE))
+	if (!g_settings_get_boolean (python_plugin->settings,
+	                             PREF_NO_ROPE_WARNING))
 	{
 		AnjutaLauncher* launcher = anjuta_launcher_new ();
-		gchar* python_path = anjuta_preferences_get (anjuta_preferences_default(),
-		                                             PREF_INTERPRETER_PATH);
+		gchar* python_path = g_settings_get_string (python_plugin->settings,
+		                                            PREF_INTERPRETER_PATH);
 		gchar* command = g_strdup_printf ("%s -c \"import rope\"", python_path);
 
 		g_signal_connect (launcher, "child-exited",
@@ -1029,7 +1030,9 @@ install_support (PythonPlugin *lang_plugin)
 		lang_plugin->assist = python_assist_new (iassist,
 		                                         sym_manager,
 		                                         docman,
-		                                         lang_plugin->prefs, editor_filename, project_root);
+		                                         lang_plugin->settings,
+		                                         editor_filename,
+		                                         project_root);
 	}	
 		
 	lang_plugin->support_installed = TRUE;
@@ -1322,6 +1325,12 @@ static void
 python_plugin_dispose (GObject *obj)
 {
 	/* Disposition codes */
+	PythonPlugin *plugin = (PythonPlugin*)obj;
+
+	if (plugin->settings)
+		g_object_unref (plugin->settings);
+	plugin->settings = NULL;
+	
 	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
@@ -1335,6 +1344,7 @@ python_plugin_instance_init (GObject *obj)
 	plugin->editor_watch_id = 0;
 	plugin->uiid = 0;
 	plugin->assist = NULL;
+	plugin->settings = g_settings_new (PREF_SCHEMA);
 }
 
 static void
@@ -1361,7 +1371,9 @@ ipreferences_merge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
 	plugin->bxml = gtk_builder_new();
 	gtk_builder_add_objects_from_file(plugin->bxml, PROPERTIES_FILE_UI, objects, NULL);
 	anjuta_preferences_add_from_builder (prefs,
-	                                     plugin->bxml, "preferences", _("Python"),
+	                                     plugin->bxml,
+	                                     plugin->settings,
+	                                     "preferences", _("Python"),
 	                                     ICON_FILE);
 }
 

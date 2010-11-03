@@ -19,11 +19,11 @@
 #include <gtksourceview/gtksourceprintcompositor.h>
 #include <libanjuta/interfaces/ianjuta-document.h>
 
-#define PRINT_LINEWRAP "print.linewrap"
-#define PRINT_HEADER "print.header"
-#define PRINT_FOOTER "print.footer"
-#define PRINT_HIGHLIGHT "print.highlight"
-#define PRINT_LINENUMBERS "print.linenumbers"
+#define PRINT_LINEWRAP "sourceview-print-linewrap"
+#define PRINT_HEADER "sourceview-print-header"
+#define PRINT_FOOTER "sourceview-print-footer"
+#define PRINT_HIGHLIGHT "sourceview-print-highlight"
+#define PRINT_LINENUMBERS "sourceview-print-linenumbers"
 
 typedef struct _SourceviewPrinting SourceviewPrinting;
 
@@ -66,16 +66,85 @@ draw_page (GtkPrintOperation        *operation,
 
 static void
 end_print (GtkPrintOperation        *operation, 
-					 GtkPrintContext          *context,
-					 SourceviewPrinting* printing)
+           GtkPrintContext          *context,
+           SourceviewPrinting* printing)
 {
 	g_object_unref (printing->compositor);
 	g_slice_free (SourceviewPrinting, printing);
 }
 
+static void
+custom_widget_apply (GtkPrintOperation* operation,
+                     GtkWidget* widget,
+                     SourceviewPrinting* printing)
+{
+	if (g_settings_get_boolean (printing->sv->priv->settings, PRINT_LINEWRAP))
+	{
+		gtk_source_print_compositor_set_wrap_mode (printing->compositor,
+		                                           GTK_WRAP_WORD_CHAR);
+	}
+	else
+		gtk_source_print_compositor_set_wrap_mode (printing->compositor,
+		                                           GTK_WRAP_NONE);
+
+	gtk_source_print_compositor_set_print_line_numbers (printing->compositor,
+	                                                    g_settings_get_boolean (printing->sv->priv->settings,
+	                                                                            PRINT_LINENUMBERS));
+
+	gtk_source_print_compositor_set_print_header (printing->compositor,
+	                                              g_settings_get_boolean (printing->sv->priv->settings,
+	                                                                      PRINT_HEADER));
+	gtk_source_print_compositor_set_print_footer (printing->compositor,
+	                                              g_settings_get_boolean (printing->sv->priv->settings,
+	                                                                      PRINT_FOOTER));
+	
+	gtk_source_print_compositor_set_highlight_syntax (printing->compositor,
+	                                                  g_settings_get_boolean (printing->sv->priv->settings,
+	                                                                          PRINT_HIGHLIGHT));	
+}
+
+static GObject*
+create_custom_widget (GtkPrintOperation* operation,
+                      Sourceview* sv)
+{
+	GtkWidget* toggle_linewrap = 
+		gtk_check_button_new_with_label (_("Wrap lines"));
+	GtkWidget* toggle_linenumbers = 
+		gtk_check_button_new_with_label (_("Line numbers"));
+	GtkWidget* toggle_header = 
+		gtk_check_button_new_with_label (_("Header"));
+	GtkWidget* toggle_footer = 
+		gtk_check_button_new_with_label (_("Footer"));
+	GtkWidget* toggle_highlight = 
+		gtk_check_button_new_with_label (_("Highlight source code"));
+	GtkWidget* vbox = gtk_vbox_new (TRUE, 5);
+
+	g_settings_bind (sv->priv->settings, PRINT_LINEWRAP,
+	                 toggle_linewrap, "active", G_SETTINGS_BIND_DEFAULT);
+	g_settings_bind (sv->priv->settings, PRINT_LINENUMBERS,
+	                 toggle_linenumbers, "active", G_SETTINGS_BIND_DEFAULT);
+	g_settings_bind (sv->priv->settings, PRINT_HEADER,
+	                 toggle_header, "active", G_SETTINGS_BIND_DEFAULT);
+	g_settings_bind (sv->priv->settings, PRINT_FOOTER,
+	                 toggle_footer, "active", G_SETTINGS_BIND_DEFAULT);
+	g_settings_bind (sv->priv->settings, PRINT_HIGHLIGHT,
+	                 toggle_highlight, "active", G_SETTINGS_BIND_DEFAULT);
+
+	gtk_box_pack_start (GTK_BOX (vbox), toggle_linewrap, FALSE, FALSE, 5);
+	gtk_box_pack_start (GTK_BOX (vbox), toggle_linenumbers, FALSE, FALSE, 5);
+	gtk_box_pack_start (GTK_BOX (vbox), toggle_header, FALSE, FALSE, 5);
+	gtk_box_pack_start (GTK_BOX (vbox), toggle_footer, FALSE, FALSE, 5);
+	gtk_box_pack_start (GTK_BOX (vbox), toggle_highlight, FALSE, FALSE, 5);
+
+	gtk_widget_show_all (vbox);
+
+	return G_OBJECT (vbox);
+}
+
 static GtkPrintOperation*
 print_setup (Sourceview* sv)
 {
+
 	GtkSourceView *view = GTK_SOURCE_VIEW (sv->priv->view);
 	GtkSourcePrintCompositor *compositor;
 	GtkPrintOperation *operation;
@@ -85,52 +154,27 @@ print_setup (Sourceview* sv)
 	
 	filename = ianjuta_document_get_filename (IANJUTA_DOCUMENT (sv), NULL);
 	basename = g_filename_display_basename (filename);
-	
+
 	compositor = gtk_source_print_compositor_new_from_view (view);
-	
-	if (anjuta_preferences_get_int (sv->priv->prefs, PRINT_LINEWRAP))
-	{
-		gtk_source_print_compositor_set_wrap_mode (compositor,
-																							 GTK_WRAP_WORD_CHAR);
-	}
-	else
-		gtk_source_print_compositor_set_wrap_mode (compositor,
-																						 GTK_WRAP_NONE);
-	
-	gtk_source_print_compositor_set_print_line_numbers (compositor,
-																											anjuta_preferences_get_bool (sv->priv->prefs,
-																											                             PRINT_LINENUMBERS));
-	
+
 	gtk_source_print_compositor_set_header_format (compositor,
-																								 TRUE,
-																								 "%x",
-																								 basename,
-																								 "Page %N/%Q");
-	
+	                                               TRUE,
+	                                               "%x",
+	                                               basename,
+	                                               "Page %N/%Q");
+
 	gtk_source_print_compositor_set_footer_format (compositor,
-																								 TRUE,
-																								 "%T",
-																								 basename,
-																								 "Page %N/%Q");
-	
-	gtk_source_print_compositor_set_print_header (compositor,
-																								anjuta_preferences_get_bool (sv->priv->prefs,
-																																						PRINT_HEADER));
-	gtk_source_print_compositor_set_print_footer (compositor,
-																								anjuta_preferences_get_bool (sv->priv->prefs,
-																																						PRINT_FOOTER));
-	
-	
-	gtk_source_print_compositor_set_highlight_syntax (compositor,
-																										anjuta_preferences_get_bool (sv->priv->prefs,
-																																								PRINT_HIGHLIGHT)),
+	                                               TRUE,
+	                                               "%T",
+	                                               basename,
+	                                               "Page %N/%Q");
 	
 	operation = gtk_print_operation_new ();
-	
+
 	gtk_print_operation_set_job_name (operation, basename);
-	
+
 	gtk_print_operation_set_show_progress (operation, TRUE);
-	
+
 	printing->compositor = compositor;
 	printing->sv = sv;
 	printing->status = anjuta_shell_get_status (sv->priv->plugin->shell, NULL);
@@ -141,6 +185,10 @@ print_setup (Sourceview* sv)
 										G_CALLBACK (draw_page), printing);
 	g_signal_connect (G_OBJECT (operation), "end-print", 
 										G_CALLBACK (end_print), printing);
+	g_signal_connect (G_OBJECT (operation), "create-custom-widget", 
+										G_CALLBACK (create_custom_widget), sv);
+	g_signal_connect (G_OBJECT (operation), "custom-widget-apply", 
+										G_CALLBACK (custom_widget_apply), printing);	                  
 	
 	anjuta_status_progress_reset (printing->status);
 	anjuta_status_progress_add_ticks (printing->status, 100);
@@ -153,16 +201,17 @@ void
 sourceview_print(Sourceview* sv)
 {
 	GtkPrintOperation* operation = print_setup (sv);
+	
 	gtk_print_operation_run (operation, 
-													 GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG,
-													 NULL, NULL);
-	g_object_unref (operation);	
+	                         GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG,
+	                         NULL, NULL);
+	g_object_unref (operation);
 }
 
 
 void
 sourceview_print_preview(Sourceview* sv)
-{
+{	
 	GtkPrintOperation* operation = print_setup (sv);
 	gtk_print_operation_run (operation, 
 													 GTK_PRINT_OPERATION_ACTION_PREVIEW,

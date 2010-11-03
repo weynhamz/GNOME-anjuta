@@ -141,7 +141,6 @@ libanjuta_include = \
 	anjuta-plugin-handle.h \
 	anjuta-profile.h \
 	anjuta-profile-manager.h \
-	anjuta-marshal.h \
 	anjuta-utils.h \
 	anjuta-preferences-dialog.h \
 	anjuta-preferences.h \
@@ -167,7 +166,8 @@ libanjuta_include = \
 
 libanjutainclude_HEADERS = \
 	$(libanjuta_include) \
-	anjuta-enum-types.h
+	anjuta-enum-types.h \
+	anjuta-marshal.h
 
 BUILT_SOURCES=anjuta-marshal.c anjuta-marshal.h  anjuta-enum-types.h anjuta-enum-types.c
 
@@ -226,7 +226,7 @@ DISTCLEANFILES = \
 
 -include $(INTROSPECTION_MAKEFILE)
 INTROSPECTION_GIRS =
-INTROSPECTION_SCANNER_ARGS = --add-include-path=$(srcdir)
+INTROSPECTION_SCANNER_ARGS = --add-include-path=$(builddir) -I $(top_builddir)
 INTROSPECTION_COMPILER_ARGS = --includedir=$(srcdir)
 
 if HAVE_INTROSPECTION

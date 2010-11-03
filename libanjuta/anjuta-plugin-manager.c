@@ -1355,7 +1355,7 @@ get_plugin_factory (AnjutaPluginManager *plugin_manager,
 		descs = g_list_reverse (descs);
 		obj = anjuta_plugin_manager_select_and_activate (plugin_manager,
 								  _("Select a plugin"),
-								  _("Please select a plugin to activate"),
+								  _("<b>Please select a plugin to activate</b>"),
 								  descs);
 		g_list_free (descs);
 	}
@@ -1506,7 +1506,7 @@ anjuta_plugin_manager_get_plugin (AnjutaPluginManager *plugin_manager,
 		descs = g_list_reverse (descs);
 		obj = anjuta_plugin_manager_select_and_activate (plugin_manager,
 									  _("Select a plugin"),
-									  _("Please select a plugin to activate"),
+									  _("<b>Please select a plugin to activate</b>"),
 									  descs);
 		g_list_free (descs);
 		return obj;
@@ -1871,6 +1871,51 @@ on_plugin_list_row_activated (GtkTreeView *tree_view,
 	gtk_dialog_response (dialog, GTK_RESPONSE_OK);
 }
 
+
+static void
+on_plugin_list_show (GtkTreeView *view,
+					  GtkDialog *dialog)
+{
+	GtkTreeSelection *selection;
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
+
+	g_signal_emit_by_name (G_OBJECT (selection), "changed", GTK_DIALOG(dialog), NULL);
+}
+
+
+static void
+on_plugin_list_selection_changed (GtkTreeSelection *tree_selection,
+								  GtkDialog *dialog)
+{
+	GtkContainer *action_area;
+	GList *list;
+	GtkButton *bt = NULL;
+
+	action_area = (GtkContainer *) dialog->action_area;
+	list = gtk_container_get_children (action_area);
+	for (; list; list = list->next) {
+		bt = list->data;
+		if (!strcmp("gtk-ok", gtk_button_get_label (bt)))
+		   break;
+	}
+	if (bt && gtk_tree_selection_get_selected (tree_selection, NULL, NULL))
+		gtk_widget_set_sensitive ((GtkWidget *) bt, TRUE);
+	else
+		gtk_widget_set_sensitive ((GtkWidget *) bt, FALSE);
+	g_list_free(list);
+}
+
+/*
+ * anjuta_plugin_manager_select:
+ * @plugin_manager: #AnjutaPluginManager object
+ * @title: Title of the dialog
+ * @description: label shown on the dialog
+ * @plugin_descriptions: List of #AnjutaPluginDescription
+ *
+ * Show a dialog where the user can choose between the given plugins
+ *
+ * Returns: The chosen plugin description
+ */
 AnjutaPluginDescription *
 anjuta_plugin_manager_select (AnjutaPluginManager *plugin_manager,
 							  gchar *title, gchar *description,
@@ -1910,7 +1955,6 @@ anjuta_plugin_manager_select (AnjutaPluginManager *plugin_manager,
 									   GTK_RESPONSE_CANCEL,
 									   GTK_STOCK_OK, GTK_RESPONSE_OK,
 									   NULL);
-	gtk_widget_set_size_request (dlg, 400, 300);
 	gtk_window_set_default_size (GTK_WINDOW (dlg), 400, 300);
 
 	label = gtk_label_new (description);
@@ -1958,6 +2002,14 @@ anjuta_plugin_manager_select (AnjutaPluginManager *plugin_manager,
 	g_signal_connect (view, "row-activated",
 					  G_CALLBACK (on_plugin_list_row_activated),
 					  GTK_DIALOG(dlg));
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
+	g_signal_connect(selection, "changed",
+					 G_CALLBACK(on_plugin_list_selection_changed),
+					 GTK_DIALOG(dlg));
+	g_signal_connect(view, "focus",
+					 G_CALLBACK(on_plugin_list_show),
+					 GTK_DIALOG(dlg));
+
 	remember_checkbox =
 		gtk_check_button_new_with_label (_("Remember this selection"));
 	gtk_container_set_border_width (GTK_CONTAINER (remember_checkbox), 10);

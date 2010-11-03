@@ -30,8 +30,6 @@ libanjuta_starter_la_SOURCES= \
 	starter.h \
 	starter.c
 
-include $(top_srcdir)/scripts/build-schemas.mk
-
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(starter_plugin_DATA) \

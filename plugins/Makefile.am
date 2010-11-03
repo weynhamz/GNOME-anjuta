@@ -1,7 +1,6 @@
 
 ## The '.' is to make sure install-data-hook rule is executed first
 SUBDIRS = . \
-	gtodo \
 	message-view \
 	gdb \
 	debug-manager \
@@ -23,6 +22,7 @@ SUBDIRS = . \
 	document-manager \
 	search \
 	language-support-cpp-java \
+	language-support-python \
 	glade \
 	devhelp \
 	language-manager \
@@ -34,9 +34,8 @@ SUBDIRS = . \
 	am-project \
 	dir-project \
 	js-debugger \
-	language-support-js \
 	language-support-vala \
-	language-support-python \
 	python-loader
+#	language-support-js
 
 -include $(top_srcdir)/git.mk

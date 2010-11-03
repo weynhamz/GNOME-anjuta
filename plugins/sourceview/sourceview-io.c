@@ -240,7 +240,7 @@ on_save_finished (GObject* file, GAsyncResult* result, gpointer data)
 	SourceviewIO* sio = SOURCEVIEW_IO(data);
 	AnjutaShell* shell = ANJUTA_PLUGIN (sio->sv->priv->plugin)->shell;
 	GError* err = NULL;
-	gchar* etag;
+	gchar* etag = NULL;
 	g_file_replace_contents_finish (G_FILE (file),
 	                                result,
 	                                &etag,
@@ -289,8 +289,8 @@ sourceview_io_save_as (SourceviewIO* sio, GFile* file)
 	
 	cancel_monitor (sio);
 	
-	backup = anjuta_preferences_get_bool_with_default (sio->sv->priv->prefs,
-													  "sourceview.backup", TRUE);
+	backup = g_settings_get_boolean (sio->sv->priv->settings,
+	                                 "sourceview-backup");
 	
 	if (sio->last_encoding == NULL)
 	{

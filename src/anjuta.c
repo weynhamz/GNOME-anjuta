@@ -29,9 +29,9 @@
 
 #include "anjuta.h"
 
-#define ANJUTA_REMEMBERED_PLUGINS "anjuta.remembered.plugins"
-#define ANJUTA_SESSION_SKIP_LAST "anjuta.session.skip.last"
-#define ANJUTA_SESSION_SKIP_LAST_FILES "anjuta.session.skip.last.files"
+#define ANJUTA_REMEMBERED_PLUGINS "remembered-plugins"
+#define ANJUTA_SESSION_SKIP_LAST "session-skip-last"
+#define ANJUTA_SESSION_SKIP_LAST_FILES "session-skip-last-files"
 #define USER_SESSION_PATH_NEW (anjuta_util_get_user_cache_file_path ("session/", NULL))
 
 #define DEFAULT_PROFILE "file://"PACKAGE_DATA_DIR"/profiles/default.profile"
@@ -56,9 +56,9 @@ on_anjuta_delete_event (AnjutaApp *app, GdkEvent *event, gpointer data)
 	/* Save remembered plugins */
 	remembered_plugins =
 		anjuta_plugin_manager_get_remembered_plugins (plugin_manager);
-	anjuta_preferences_set (app->preferences,
-							ANJUTA_REMEMBERED_PLUGINS,
-							remembered_plugins);
+	g_settings_set_string (app->settings,
+	                       ANJUTA_REMEMBERED_PLUGINS,
+	                       remembered_plugins);
 	g_free (remembered_plugins);
 	
 	/* Check for unsaved data */
@@ -271,7 +271,7 @@ anjuta_new (gchar *prog_name, gchar **files, gboolean no_splash,
 	
 	/* Restore remembered plugins */
 	remembered_plugins =
-		anjuta_preferences_get (app->preferences, ANJUTA_REMEMBERED_PLUGINS);
+		g_settings_get_string (app->settings, ANJUTA_REMEMBERED_PLUGINS);
 	if (remembered_plugins)
 		anjuta_plugin_manager_set_remembered_plugins (plugin_manager,
 													  remembered_plugins);
@@ -377,8 +377,8 @@ anjuta_new (gchar *prog_name, gchar **files, gboolean no_splash,
 		
 		/* If preferences is set to not load last session, clear it */
 		if (no_session ||
-			anjuta_preferences_get_bool (app->preferences,
-										ANJUTA_SESSION_SKIP_LAST))
+			g_settings_get_boolean (app->settings,
+			                        ANJUTA_SESSION_SKIP_LAST))
 		{
 			/* Reset default session */
 			session = anjuta_session_new (session_dir);
@@ -387,8 +387,8 @@ anjuta_new (gchar *prog_name, gchar **files, gboolean no_splash,
 		}
 		/* If preferences is set to not load last project, clear it */
 		else if (no_files ||
-				 anjuta_preferences_get_bool (app->preferences,
-											 ANJUTA_SESSION_SKIP_LAST_FILES))
+				g_settings_get_boolean (app->settings,
+				                        ANJUTA_SESSION_SKIP_LAST_FILES))
 		{
 			session = anjuta_session_new (session_dir);
 			anjuta_session_set_string_list (session, "File Loader",

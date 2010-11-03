@@ -2430,3 +2430,16 @@ anjuta_util_drop_get_files (GtkSelectionData *selection_data)
 
 	return files;
 }
+
+/*
+ * anjuta_util_get_user_mail:
+ *
+ * Returns: The e-mail Address of the logged-in user. The resulting string
+ * must be free'd after use.
+ */
+gchar* 
+anjuta_util_get_user_mail()
+{
+	/* FIXME: Use libfolks or something like it to query the mail address */
+	return g_strconcat(g_get_user_name (), "@", g_get_host_name (), NULL);
+}

@@ -62,6 +62,8 @@
 #define ANJUTA_STOCK_GOTO_DECLARATION		"element-interface"
 #define ANJUTA_STOCK_GOTO_IMPLEMENTATION	"element-method"
 
+#define PREF_SCHEMA "org.gnome.anjuta.symbol-db"
+
 static gpointer parent_class;
 
 /* signals */
@@ -504,7 +506,7 @@ on_editor_buffer_symbol_update_scan_end (SymbolDBEngine *dbe, gint process_id,
 		}	
 
 		/* add a default timeout to the updating of buffer symbols */	
-		tags_update = anjuta_preferences_get_bool (sdb_plugin->prefs, BUFFER_AUTOSCAN);
+		tags_update = g_settings_get_boolean (sdb_plugin->settings, BUFFER_AUTOSCAN);
 		
 		if (tags_update)
 		{
@@ -681,7 +683,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 		g_object_set (sdb_plugin->file_model, "file-path", local_path, NULL);
 		
 		/* add a default timeout to the updating of buffer symbols */	
-		tags_update = anjuta_preferences_get_bool (sdb_plugin->prefs, BUFFER_AUTOSCAN);
+		tags_update = g_settings_get_boolean (sdb_plugin->settings, BUFFER_AUTOSCAN);
 				
 		if (tags_update)
 		{
@@ -1510,8 +1512,8 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 		if (sdb_plugin->session_packages == NULL)
 		{
 			/* hey, does user want to import system sources for this project? */
-			gboolean automatic_scan = anjuta_preferences_get_bool (sdb_plugin->prefs, 
-																  PROJECT_AUTOSCAN);
+			gboolean automatic_scan = g_settings_get_boolean (sdb_plugin->settings,
+			                                                  PROJECT_AUTOSCAN);
 			
 			if (automatic_scan == TRUE)
 			{
@@ -1520,7 +1522,7 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 		}
 		
 		/* get preferences about the parallel scan */
-		gboolean parallel_scan = anjuta_preferences_get_bool (sdb_plugin->prefs, 
+		gboolean parallel_scan = g_settings_get_boolean (sdb_plugin->settings,
 															 PARALLEL_SCAN); 
 		
 		if (parallel_scan == TRUE && 
@@ -1883,7 +1885,7 @@ on_scan_end_manager (SymbolDBEngine *dbe, gint process_id,
 										  sdb_plugin);
 			
 			/* get preferences about the parallel scan */
-			gboolean parallel_scan = anjuta_preferences_get_bool (sdb_plugin->prefs, 
+			gboolean parallel_scan = g_settings_get_boolean (sdb_plugin->settings,
 														 PARALLEL_SCAN); 
 			
 			/* check the system population has a parallel fashion or not. */			 
@@ -1992,7 +1994,6 @@ symbol_db_activate (AnjutaPlugin *plugin)
 
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
 	sdb_plugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	sdb_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	sdb_plugin->project_opened = NULL;
 
 	ctags_path = NULL;
@@ -2385,8 +2386,12 @@ symbol_db_finalize (GObject *obj)
 static void
 symbol_db_dispose (GObject *obj)
 {
+	SymbolDBPlugin *plugin = (SymbolDBPlugin*)obj;
 	DEBUG_PRINT ("Symbol-DB dispose");
 	/* Disposition codes */
+	g_object_unref (plugin->settings);
+
+	
 	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
@@ -2401,6 +2406,7 @@ symbol_db_instance_init (GObject *obj)
 	plugin->files_count_system_done = 0;
 	plugin->files_count_system = 0;	
 	plugin->current_scanned_package = NULL;
+	plugin->settings = g_settings_new (PREF_SCHEMA);
 }
 
 static void
@@ -2514,7 +2520,7 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 		sdb_plugin->sdbp = symbol_db_prefs_new (sdb_plugin->sdbs, 
 												sdb_plugin->sdbe_project,
 												sdb_plugin->sdbe_globals,
-												prefs,
+												sdb_plugin->settings,
 												sdb_plugin->session_packages);
 		
 		/* connect the signals to retrieve package modifications */

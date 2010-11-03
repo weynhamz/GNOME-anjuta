@@ -48,7 +48,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:terminal.default.profile">
+              <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:terminal-default-profile">
                 <property name="label" translatable="yes">Use currently selected profile in GNOME terminal</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>

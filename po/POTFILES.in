@@ -198,6 +198,7 @@ plugins/search/search-replace.c
 plugins/search/search-replace_backend.c
 plugins/snippets-manager/plugin.c
 plugins/snippets-manager/snippets-browser.c
+plugins/snippets-manager/snippets-editor.c
 [type: gettext/glade]plugins/snippets-manager/snippets-editor.ui
 [type: gettext/glade]plugins/snippets-manager/snippets-manager-preferences.ui
 plugins/snippets-manager/snippets-import-export.c

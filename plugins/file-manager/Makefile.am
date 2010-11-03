@@ -74,6 +74,7 @@ file-view-marshal.c: $(srcdir)/file-view-marshal.list
 	else rm -f .genmarshal-$@; fi
 
 prefs_ui_files = file-manager.ui
+prefs_name = org.gnome.anjuta.file-manager
 include $(top_srcdir)/scripts/build-schemas.mk
 
 EXTRA_DIST = \

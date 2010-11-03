@@ -44,6 +44,7 @@ libanjuta_terminal_la_LIBADD = \
 	$(LIBANJUTA_LIBS)
 	
 prefs_ui_files = anjuta-terminal-plugin.ui
+prefs_name = org.gnome.anjuta.terminal
 include $(top_srcdir)/scripts/build-schemas.mk
 
 EXTRA_DIST = \

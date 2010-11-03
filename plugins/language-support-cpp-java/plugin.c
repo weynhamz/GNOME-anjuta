@@ -53,12 +53,14 @@
 
 /* Preferences keys */
 
-#define PREF_INDENT_AUTOMATIC "language.cpp.indent.automatic"
-#define PREF_INDENT_STATEMENT_SIZE "language.cpp.indent.statement.size"
-#define PREF_INDENT_BRACE_SIZE "language.cpp.indent.brace.size"
-#define PREF_INDENT_PARANTHESE_LINEUP "language.cpp.indent.paranthese.lineup"
-#define PREF_INDENT_PARANTHESE_SIZE "language.cpp.indent.paranthese.size"
-#define PREF_BRACE_AUTOCOMPLETION "language.cpp.brace.autocompletion"
+#define PREF_SCHEMA "org.gnome.anjuta.cpp"
+#define PREF_INDENT_AUTOMATIC "cpp-indent-automatic"
+#define PREF_INDENT_MODELINE "cpp-indent-modeline"
+#define PREF_INDENT_STATEMENT_SIZE "cpp-indent-statement-size"
+#define PREF_INDENT_BRACE_SIZE "cpp-indent-brace-size"
+#define PREF_INDENT_PARANTHESE_LINEUP "cpp-indent-paranthese-lineup"
+#define PREF_INDENT_PARANTHESE_SIZE "cpp-indent-paranthese-size"
+#define PREF_BRACE_AUTOCOMPLETION "cpp-brace-autocompletion"
 
 #define TAB_SIZE (ianjuta_editor_get_tabsize (editor, NULL))
 
@@ -67,12 +69,12 @@
 #define INDENT_SIZE \
 	(plugin->param_statement_indentation >= 0? \
 		plugin->param_statement_indentation : \
-		anjuta_preferences_get_int (plugin->prefs, PREF_INDENT_STATEMENT_SIZE))
+		g_settings_get_int (plugin->settings, PREF_INDENT_STATEMENT_SIZE))
 
 #define BRACE_INDENT \
 	(plugin->param_brace_indentation >= 0? \
 		plugin->param_brace_indentation : \
-		anjuta_preferences_get_int (plugin->prefs, PREF_INDENT_BRACE_SIZE))
+		g_settings_get_int (plugin->settings, PREF_INDENT_BRACE_SIZE))
 
 #define CASE_INDENT (INDENT_SIZE)
 #define LABEL_INDENT (INDENT_SIZE)
@@ -583,7 +585,7 @@ initialize_indentation_params (CppJavaPlugin *plugin)
 	gboolean line_comment = FALSE;
 	gchar mini_buffer[MINI_BUFFER_SIZE] = {0};
 	
-	plugin->smart_indentation = anjuta_preferences_get_bool (plugin->prefs, PREF_INDENT_AUTOMATIC);
+	plugin->smart_indentation = g_settings_get_boolean (plugin->settings, PREF_INDENT_AUTOMATIC);
 	/* Disable editor intern auto-indent if smart indentation is enabled */
 	ianjuta_editor_set_auto_indent (IANJUTA_EDITOR(plugin->current_editor),
 								    !plugin->smart_indentation, NULL);
@@ -595,84 +597,88 @@ initialize_indentation_params (CppJavaPlugin *plugin)
 	plugin->param_case_indentation = -1;
 	plugin->param_label_indentation = -1;
 	plugin->param_use_spaces = -1;
-	
-	/* Find the first comment text in the buffer */
-	comment_text = g_string_new (NULL);
-	iter = ianjuta_editor_get_start_position (IANJUTA_EDITOR (plugin->current_editor),
-											  NULL);
-	do
+
+	if (g_settings_get_boolean (plugin->settings,
+	                            PREF_INDENT_MODELINE))
 	{
-		gboolean shift_buffer = TRUE;
-		gint i;
-		gchar ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter),
-												 0, NULL);
-		
-		for (i = 0; i < MINI_BUFFER_SIZE - 1; i++)
+		/* Find the first comment text in the buffer */
+		comment_text = g_string_new (NULL);
+		iter = ianjuta_editor_get_start_position (IANJUTA_EDITOR (plugin->current_editor),
+		                                          NULL);
+		do
 		{
-			if (mini_buffer[i] == '\0')
-			{
-				mini_buffer[i] = ch;
-				shift_buffer = FALSE;
-				break;
-			}
-		}
-		if (shift_buffer == TRUE)
-		{
-			/* Shift buffer and add */
+			gboolean shift_buffer = TRUE;
+			gint i;
+			gchar ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter),
+			                                         0, NULL);
+
 			for (i = 0; i < MINI_BUFFER_SIZE - 1; i++)
-				mini_buffer [i] = mini_buffer[i+1];
-			mini_buffer[i] = ch;
-		}
-		
-		if (!comment_begun && strncmp (mini_buffer, "/*", 2) == 0)
-		{
-			comment_begun = TRUE;
-			/* Reset buffer */
-			mini_buffer[0] = mini_buffer[1] = '\0';
-		}
-		else if (!comment_begun && strncmp (mini_buffer, "//", 2) == 0)
-		{
-			comment_begun = TRUE;
-			line_comment = TRUE;
-		}
-		else if (!comment_begun && mini_buffer[1] != '\0')
-		{
-			/* The buffer doesn't begin with a comment */
-			break;
-		}
-		else if (comment_begun)
-		{
-			if ((line_comment && ch == '\n') ||
-				(!line_comment && strncmp (mini_buffer, "*/", 2) == 0))
 			{
-				break;
+				if (mini_buffer[i] == '\0')
+				{
+					mini_buffer[i] = ch;
+					shift_buffer = FALSE;
+					break;
+				}
+			}
+			if (shift_buffer == TRUE)
+			{
+				/* Shift buffer and add */
+				for (i = 0; i < MINI_BUFFER_SIZE - 1; i++)
+					mini_buffer [i] = mini_buffer[i+1];
+				mini_buffer[i] = ch;
+			}
+
+			if (!comment_begun && strncmp (mini_buffer, "/*", 2) == 0)
+			{
+				comment_begun = TRUE;
+				/* Reset buffer */
+				mini_buffer[0] = mini_buffer[1] = '\0';
+			}
+			else if (!comment_begun && strncmp (mini_buffer, "//", 2) == 0)
+			                                    {
+													comment_begun = TRUE;
+													line_comment = TRUE;
+												}
+			                                    else if (!comment_begun && mini_buffer[1] != '\0')
+			                                    {
+													/* The buffer doesn't begin with a comment */
+													break;
+												}
+			                                    else if (comment_begun)
+			                                    {
+													if ((line_comment && ch == '\n') ||
+													    (!line_comment && strncmp (mini_buffer, "*/", 2) == 0))
+													{
+														break;
+													}
+												}
+
+			                                    if (comment_begun)
+			                                    g_string_append_c (comment_text, ch);
+
+		                                    }
+		while (ianjuta_iterable_next (iter, NULL));
+
+		/* DEBUG_PRINT ("Comment text: %s", comment_text->str);*/
+		if (comment_text->len > 0)
+		{
+
+			/* First comment found */
+			gboolean vim;
+			gchar *modeline = extract_mode_line (comment_text->str, &vim);
+			if (modeline)
+			{
+				if (!vim)
+					parse_mode_line_emacs (plugin, modeline);
+				else
+					parse_mode_line_vim (plugin, modeline);
+				g_free (modeline);
 			}
 		}
-		
-		if (comment_begun)
-			g_string_append_c (comment_text, ch);
-		
+		g_string_free (comment_text, TRUE);
+		g_object_unref (iter);
 	}
-	while (ianjuta_iterable_next (iter, NULL));
-	
-	/* DEBUG_PRINT ("Comment text: %s", comment_text->str);*/
-	if (comment_text->len > 0)
-	{
-		
-		/* First comment found */
-    gboolean vim;
-		gchar *modeline = extract_mode_line (comment_text->str, &vim);
-		if (modeline)
-		{
-      if (!vim)
-			  parse_mode_line_emacs (plugin, modeline);
-      else
-        parse_mode_line_vim (plugin, modeline);
-			g_free (modeline);
-		}
-	}
-	g_string_free (comment_text, TRUE);
-	g_object_unref (iter);
 }
 
 static gint
@@ -1073,8 +1079,8 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 		else if (point_ch == '(' || point_ch == '[')
 		{
 			line_indent = 0;
-			if (anjuta_preferences_get_bool (plugin->prefs,
-			                                 PREF_INDENT_PARANTHESE_LINEUP))
+			if (g_settings_get_boolean (plugin->settings,
+			                            PREF_INDENT_PARANTHESE_LINEUP))
 			{
 				while (ianjuta_iterable_previous (iter, NULL))
 				{
@@ -1100,8 +1106,8 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 				line_indent = get_line_indentation (editor, line_for_indent);
 				line_indent += extra_indent;
 
-				(*line_indent_spaces) += anjuta_preferences_get_int (plugin->prefs,
-				                                                     PREF_INDENT_PARANTHESE_SIZE);
+				(*line_indent_spaces) += g_settings_get_boolean (plugin->settings,
+				                                                 PREF_INDENT_PARANTHESE_SIZE);
 			}
 			
 			/* Although statement is incomplete at this point, we don't
@@ -1484,7 +1490,7 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 		}
 	}
 	
-	if (anjuta_preferences_get_bool (plugin->prefs, PREF_BRACE_AUTOCOMPLETION))
+	if (g_settings_get_boolean (plugin->settings, PREF_BRACE_AUTOCOMPLETION))
 	{
 		if (ch == '[' || ch == '(')
 		{
@@ -1628,7 +1634,7 @@ install_support (CppJavaPlugin *lang_plugin)
 					anjuta_shell_get_interface (ANJUTA_PLUGIN (lang_plugin)->shell,
 												IAnjutaSymbolManager,
 												NULL),
-					lang_plugin->prefs);
+					lang_plugin->settings);
 		lang_plugin->assist = assist;
 	}	
 		
@@ -1923,7 +1929,6 @@ cpp_java_plugin_activate_plugin (AnjutaPlugin *plugin)
 		register_stock_icons (plugin);
 	}
 
-	lang_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	lang_plugin->action_group = 
 		anjuta_ui_add_action_group_entries (ui, "ActionGroupCppJavaAssist",
@@ -1977,7 +1982,11 @@ cpp_java_plugin_finalize (GObject *obj)
 static void
 cpp_java_plugin_dispose (GObject *obj)
 {
+	CppJavaPlugin* plugin = ANJUTA_PLUGIN_CPP_JAVA (obj);
 	/* Disposition codes */
+
+	g_object_unref (plugin->settings);
+	
 	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
@@ -1991,6 +2000,7 @@ cpp_java_plugin_instance_init (GObject *obj)
 	plugin->editor_watch_id = 0;
 	plugin->uiid = 0;
 	plugin->assist = NULL;
+	plugin->settings = g_settings_new (PREF_SCHEMA);
 }
 
 static void
@@ -2006,9 +2016,9 @@ cpp_java_plugin_class_init (GObjectClass *klass)
 	klass->dispose = cpp_java_plugin_dispose;
 }
 
-#define PREF_WIDGET_SPACE "preferences_toggle:bool:1:1:language.cpp.code.completion.space.after.func"
-#define PREF_WIDGET_BRACE "preferences_toggle:bool:1:1:language.cpp.code.completion.brace.after.func"
-#define PREF_WIDGET_AUTO "preferences_toggle:bool:1:1:language.cpp.code.completion.enable"
+#define PREF_WIDGET_SPACE "preferences_toggle:bool:1:1:cpp-completion-space-after-func"
+#define PREF_WIDGET_BRACE "preferences_toggle:bool:1:1:cpp-completion-brace-after-func"
+#define PREF_WIDGET_AUTO "preferences_toggle:bool:1:1:cpp-completion-enable"
 
 static void
 on_autocompletion_toggled (GtkToggleButton* button,
@@ -2039,8 +2049,9 @@ ipreferences_merge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
 		g_error_free (error);
 	}
 	anjuta_preferences_add_from_builder (prefs,
-								 plugin->bxml, "preferences", _("C/C++/Java/Vala"),
-								 ICON_FILE);
+	                                     plugin->bxml, plugin->settings,
+	                                     "preferences", _("C/C++/Java/Vala"),
+	                                     ICON_FILE);
 	toggle = GTK_WIDGET (gtk_builder_get_object (plugin->bxml, PREF_WIDGET_AUTO));
 	g_signal_connect (toggle, "toggled", G_CALLBACK (on_autocompletion_toggled),
 	                  plugin->bxml);

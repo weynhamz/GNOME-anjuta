@@ -825,29 +825,26 @@ on_install_button_clicked (GtkWidget *button, NPWDruid *druid)
 {
 	GList *missing_programs, *missing_packages;
 	GList *missing_files = NULL;
+	GList *node;
+	
 
 	missing_programs = npw_header_check_required_programs (druid->header);
 	missing_packages = npw_header_check_required_packages (druid->header);
 
-	/*
-	 * FIXME: packagekit only allows search by absolute path, so we must
-	 * come up one. Unfortunately, hardcoding "/usr" prefix seems to be
-	 * the only sane way since most distros install there. Using anjuta
-	 * build prefix isn't any better since anjuta can be installed any
-	 * where irrespective of distro standandard prefix. If there is a
-	 * dynamic way to know it, we should try that (perhaps by doing
-	 * `which <some ubiquitous program>`).
-	 */
 	anjuta_util_glist_strings_prefix (missing_programs, "/usr/bin/");
 
+	/* Search for "pkgconfig(pkg_name)" */
 	g_list_foreach (missing_packages, (GFunc) strip_package_version_info,
 					NULL);
-	anjuta_util_glist_strings_prefix (missing_packages,
-									  "/usr/lib/pkgconfig/");
-	anjuta_util_glist_strings_sufix (missing_packages, ".pc");
+	missing_files = g_list_concat (missing_files, missing_programs);
 
-	missing_files = g_list_concat (missing_programs, missing_packages);
-
+	for (node = missing_packages; node != NULL; node = g_list_next (missing_packages))
+	{
+		gchar* pk_pkg_config_string = g_strdup_printf ("pkgconfig(%s)", (gchar*) node->data);
+		missing_files = g_list_append (missing_files, pk_pkg_config_string);
+	}
+	g_list_free (missing_packages);
+	
 	if (missing_files)
 	{
 		gchar * missing_names = NULL;
@@ -1115,33 +1112,17 @@ npw_druid_add_default_property (NPWDruid* druid)
 
 	/* Add default base project directory */
 	value = npw_value_heap_find_value (druid->values, ANJUTA_PROJECT_DIRECTORY_PROPERTY);
-	s = anjuta_preferences_get (pref, "anjuta.project.directory");
-	npw_value_set_value (value, s == NULL ? "~" : s, NPW_VALID_VALUE);
-	g_free (s);
+	npw_value_set_value (value, g_get_home_dir (), NPW_VALID_VALUE);
 	
 	/* Add user name */
 	value = npw_value_heap_find_value (druid->values, USER_NAME_PROPERTY);
-	s = anjuta_preferences_get (pref, "anjuta.user.name");
-	if (!s || strlen(s) == 0)
-	{
-		s = (gchar *)g_get_real_name();
-		npw_value_set_value (value, s, NPW_VALID_VALUE);
-	}
-	else
-	{
-		npw_value_set_value (value, s, NPW_VALID_VALUE);
-		g_free (s);
-	}
+	s = (gchar *)g_get_real_name();
+	npw_value_set_value (value, s, NPW_VALID_VALUE);
 	/* Add Email address */
 	value = npw_value_heap_find_value (druid->values, EMAIL_ADDRESS_PROPERTY);
-	s = anjuta_preferences_get (pref, "anjuta.user.email");
-	/* If Email address not defined in Preferences */
-	if (!s || strlen(s) == 0)
-	{
-		if (!(s = getenv("USERNAME")) || strlen(s) == 0)
-			s = getenv("USER");
-		s = g_strconcat(s, "@", getenv("HOSTNAME"), NULL);
-	}
+
+	/* FIXME: We need a default way for the mail */
+	s = anjuta_util_get_user_mail();
 	npw_value_set_value (value, s, NPW_VALID_VALUE);
 	g_free (s);
 }

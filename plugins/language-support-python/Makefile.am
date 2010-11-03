@@ -36,11 +36,15 @@ plugin_LTLIBRARIES = libpython_plugin.la
 # Plugin sources
 libpython_plugin_la_SOURCES = plugin.c plugin.h python-assist.c python-assist.h python-utils.c python-utils.h
 
+libpython_plugin_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
+
 # Plugin dependencies
 libpython_plugin_la_LIBADD = \
 	$(LIBANJUTA_LIBS) 
 
-prefs_ui_files = $(python_plugin_glade_DATA)
+prefs_name = org.gnome.anjuta.python
+prefs_ui_files = python-plugin-properties.ui
+prefs_keyfile = python.gschema-part.xml
 include $(top_srcdir)/scripts/build-schemas.mk
 
 EXTRA_DIST = \

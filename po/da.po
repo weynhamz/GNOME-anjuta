@@ -31,8 +31,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-22 13:14+0200\n"
-"PO-Revision-Date: 2010-08-21 23:32+0200\n"
+"POT-Creation-Date: 2010-09-23 00:58+0200\n"
+"PO-Revision-Date: 2010-09-23 00:40+0200\n"
 "Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
 "Language-Team: <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
@@ -452,7 +452,7 @@ msgstr "Hvis du ikke gemmer, vil alle dine ændringer gå tabt."
 
 #: ../libanjuta/anjuta-save-prompt.c:189
 #: ../plugins/document-manager/plugin.c:605
-#: ../plugins/snippets-manager/snippets-editor.ui.h:12
+#: ../plugins/snippets-manager/snippets-editor.ui.h:11
 msgid "Save"
 msgstr "Gem"
 
@@ -464,20 +464,17 @@ msgstr "Element"
 msgid "_Discard changes"
 msgstr "_Kassér ændringer"
 
-#: ../libanjuta/anjuta-save-prompt.c:297
+#: ../libanjuta/anjuta-save-prompt.c:296
 #, c-format
-msgid ""
-"<b>There is %d item with unsaved changes. Save changes before closing?</b>"
+msgid "There is %d item with unsaved changes. Save changes before closing?"
 msgid_plural ""
-"<b>There are %d items with unsaved changes. Save changes before closing?</b>"
+"There are %d items with unsaved changes. Save changes before closing?"
 msgstr[0] ""
-"<b>Der er %d element med ugemte ændringer. Gem ændringer før der afsluttes?</"
-"b>"
+"Der er et element med ugemte ændringer. Gem ændringer før der afsluttes?"
 msgstr[1] ""
-"<b>Der er %d elementer med ugemte ændringer. Gem ændringer før der afsluttes?"
-"</b>"
+"Der er %d elementer med ugemte ændringer. Gem ændringer før der afsluttes?"
 
-#: ../libanjuta/anjuta-save-prompt.c:304
+#: ../libanjuta/anjuta-save-prompt.c:305
 msgid "There is an item with unsaved changes. Save changes before closing?"
 msgstr ""
 "Der er et element med ugemte ændringer. Gem ændringer før der afsluttes?"
@@ -1470,7 +1467,7 @@ msgstr "Fil hvortil den processerede skabelon skrives"
 msgid "Failed to write autogen definition file"
 msgstr "Kunne ikke skrive autogen-definitionsfil"
 
-#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1159
+#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1160
 msgid ""
 "Could not find autogen version 5; please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net."
@@ -1500,6 +1497,7 @@ msgstr "Implementation"
 #: ../plugins/class-gen/window.c:533
 #: ../plugins/debug-manager/breakpoints.c:1952
 #: ../plugins/debug-manager/debug_tree.c:128
+#: ../plugins/snippets-manager/snippets-editor.c:38
 msgid "Type"
 msgstr "Type"
 
@@ -1507,7 +1505,9 @@ msgstr "Type"
 #: ../plugins/class-gen/window.c:520 ../plugins/class-gen/window.c:534
 #: ../plugins/run-program/parameters.c:754
 #: ../plugins/search/search_preferences.c:534
+#: ../plugins/snippets-manager/plugin.c:751
 #: ../plugins/snippets-manager/snippets-browser.c:530
+#: ../plugins/snippets-manager/snippets-editor.c:37
 msgid "Name"
 msgstr "Navn"
 
@@ -1694,8 +1694,8 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "Ignorér .cvsrc-fil (anbefalet)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
-#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2052
-#: ../plugins/symbol-db/plugin.c:2094
+#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2055
+#: ../plugins/symbol-db/plugin.c:2097
 msgid "Local"
 msgstr "Lokal"
 
@@ -2753,7 +2753,7 @@ msgstr "Ramme"
 
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:664
-#: ../plugins/debug-manager/threads.c:451 ../plugins/gdb/preferences.c:360
+#: ../plugins/debug-manager/threads.c:451 ../plugins/gdb/preferences.c:363
 #: ../plugins/tools/tool.c:100 ../src/anjuta-app.c:621
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
@@ -2944,8 +2944,8 @@ msgstr "Indhold"
 #: ../plugins/search/search-replace.c:1717
 #: ../plugins/search/search-replace.c:1724
 #: ../plugins/search/search-replace.c:1736
-#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2062
-#: ../plugins/symbol-db/plugin.c:2114
+#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2065
+#: ../plugins/symbol-db/plugin.c:2117
 msgid "Search"
 msgstr "Søg"
 
@@ -2986,7 +2986,7 @@ msgstr "Omdøb"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:340
 #: ../plugins/gtodo/callback.c:20 ../plugins/gtodo/callback.c:101
-#: ../plugins/snippets-manager/snippets-editor.ui.h:11
+#: ../plugins/snippets-manager/snippets-editor.ui.h:10
 msgid "Remove"
 msgstr "Fjern"
 
@@ -3345,7 +3345,7 @@ msgstr "Gentag hurtigsøgning"
 #: ../plugins/document-manager/plugin.c:273 ../plugins/gtodo/interface.c:158
 #: ../src/anjuta-actions.h:30
 #: ../plugins/language-support-cpp-java/plugin.c:1876
-#: ../plugins/language-support-python/plugin.c:1175
+#: ../plugins/language-support-python/plugin.c:1176
 msgid "_Edit"
 msgstr "_Redigér"
 
@@ -3962,7 +3962,7 @@ msgid "Filter"
 msgstr "Filter"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2057 ../plugins/symbol-db/plugin.c:2106
+#: ../plugins/symbol-db/plugin.c:2060 ../plugins/symbol-db/plugin.c:2109
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:6
 msgid "Global"
 msgstr "Global"
@@ -4775,9 +4775,12 @@ msgid "Cannot start terminal for debugging."
 msgstr "Kan ikke starte terminal til fejlsøgning."
 
 # registrering eller register?
-#. Translators: pretty printer file is a kind of script allowing gdb to display
-#. * variable content in a simpler way, removing implementation details
-#: ../plugins/gdb/preferences.c:125
+#. Translators: pretty printer file is a script containing functions allowing gdb
+#. * to display variable content in a simpler way, typically removing
+#. * implementation details.
+#. * The register function is an additional function in the script. It defines
+#. * which function is used for each type of variables.
+#: ../plugins/gdb/preferences.c:128
 #, c-format
 msgid ""
 "The register function hasn't been found automatically in the following "
@@ -4794,19 +4797,21 @@ msgstr ""
 "rækkerne aktiveres. I de fleste tilfælde indeholder navnet på "
 "registerfunktionen ordet \"register\"."
 
-#: ../plugins/gdb/preferences.c:220
+#: ../plugins/gdb/preferences.c:223
 msgid "Select a pretty printer file"
 msgstr "Vælg en pretty printer-fil"
 
-#: ../plugins/gdb/preferences.c:355
+#: ../plugins/gdb/preferences.c:358
 msgid "Activate"
 msgstr "Aktivér"
 
-#: ../plugins/gdb/preferences.c:367
+#. Translators: The "Register Function" column contains the name of a
+#. * function used to register pretty printers in gdb.
+#: ../plugins/gdb/preferences.c:372
 msgid "Register Function"
 msgstr "Registerfunktion"
 
-#: ../plugins/gdb/preferences.c:391 ../plugins/gdb/preferences.c:399
+#: ../plugins/gdb/preferences.c:396 ../plugins/gdb/preferences.c:404
 msgid "Gdb Debugger"
 msgstr "Gdb-fejlsøger"
 
@@ -6307,33 +6312,33 @@ msgstr ""
 msgid "Export task list"
 msgstr "Eksportér opgaveliste"
 
-#: ../plugins/gtodo/export.c:158
+#: ../plugins/gtodo/export.c:159
 msgid "XML"
 msgstr "XML"
 
 # Nok ikke klartekst, da dette har kryptografiske konnotationer
-#: ../plugins/gtodo/export.c:159
+#: ../plugins/gtodo/export.c:160
 msgid "Plain Text"
 msgstr "Ren tekst"
 
-#: ../plugins/gtodo/export.c:160
+#: ../plugins/gtodo/export.c:161
 msgid "HTML"
 msgstr "HTML"
 
 #. add the embed css style sheet tb
-#: ../plugins/gtodo/export.c:167
+#: ../plugins/gtodo/export.c:168
 msgid "Export current category only"
 msgstr "Eksportér kun den aktuelle kategori"
 
-#: ../plugins/gtodo/export.c:171
-msgid "<b>HTML export options:</b>"
-msgstr "<b>Eksportindstillinger for HTML:</b>"
+#: ../plugins/gtodo/export.c:172
+msgid "HTML export options:"
+msgstr "Eksportindstillinger for HTML:"
 
-#: ../plugins/gtodo/export.c:181
+#: ../plugins/gtodo/export.c:184
 msgid "Embed default (CSS) style sheet"
 msgstr "Indlejr forvalgt (CSS-) typografiark"
 
-#: ../plugins/gtodo/export.c:185
+#: ../plugins/gtodo/export.c:188
 msgid "Custom (CSS) style sheet"
 msgstr "Tilpasset (CSS-) typografiark"
 
@@ -7255,27 +7260,23 @@ msgstr "Advarsel"
 msgid "Message"
 msgstr "Meddelelse"
 
-#: ../plugins/project-wizard/druid.c:232
-msgid ""
-"<b>Confirm the following information:</b>\n"
-"\n"
-msgstr ""
-"<b>Bekræft følgende informationer:</b>\n"
-"\n"
+#: ../plugins/project-wizard/druid.c:233
+msgid "Confirm the following information:"
+msgstr "Bekræft følgende informationer:"
 
 #. The project type is translated too, it is something like
 #. * generic, GNOME applet, Makefile project...
-#: ../plugins/project-wizard/druid.c:236
+#: ../plugins/project-wizard/druid.c:237
 #, c-format
 msgid "Project Type: %s\n"
 msgstr "Projekttype: %s\n"
 
-#: ../plugins/project-wizard/druid.c:401
+#: ../plugins/project-wizard/druid.c:402
 #, c-format
 msgid "Unable to find any project template in %s"
 msgstr "Kan ikke finde nogen projektskabelon i %s"
 
-#: ../plugins/project-wizard/druid.c:626
+#: ../plugins/project-wizard/druid.c:627
 #, c-format
 msgid ""
 "\n"
@@ -7284,7 +7285,7 @@ msgstr ""
 "\n"
 "Feltet \"%s\" er påkrævet. Udfyld det venligst."
 
-#: ../plugins/project-wizard/druid.c:641
+#: ../plugins/project-wizard/druid.c:642
 #, c-format
 msgid ""
 "Field \"%s\" must start with a letter, a digit or an underscore and contain "
@@ -7294,7 +7295,7 @@ msgstr ""
 "indeholde kun bogstaver, cifre, bundstreger, minus og punktum.  Fiks det "
 "venligst."
 
-#: ../plugins/project-wizard/druid.c:646
+#: ../plugins/project-wizard/druid.c:647
 #, c-format
 msgid ""
 "Field \"%s\" must start with a letter, a digit, an underscore or a directory "
@@ -7305,12 +7306,12 @@ msgstr ""
 "indeholde kun bogstaver, cifre, bundstreger, minus og punktum.  Fiks det "
 "venligst."
 
-#: ../plugins/project-wizard/druid.c:651
+#: ../plugins/project-wizard/druid.c:652
 #, c-format
 msgid "Unknown error."
 msgstr "Ukendt fejl."
 
-#: ../plugins/project-wizard/druid.c:678
+#: ../plugins/project-wizard/druid.c:679
 #, c-format
 msgid ""
 "Directory \"%s\" is not empty. Project creation could fail if some files "
@@ -7319,20 +7320,20 @@ msgstr ""
 "Mappen \"%s\" er ikke tom. Projektoprettelse kan slå fejl hvis der er filer, "
 "der ikke kan skrives. Vil du fortsætte?"
 
-#: ../plugins/project-wizard/druid.c:680
+#: ../plugins/project-wizard/druid.c:681
 #, c-format
 msgid "File \"%s\" already exists. Do you want to overwrite it?"
 msgstr "Filen \"%s\" findes allerede. Vil du overskrive den?"
 
-#: ../plugins/project-wizard/druid.c:711
+#: ../plugins/project-wizard/druid.c:712
 msgid "Invalid entry"
 msgstr "Ugyldig post"
 
-#: ../plugins/project-wizard/druid.c:722
+#: ../plugins/project-wizard/druid.c:723
 msgid "Dubious entry"
 msgstr "Tvivlsom post"
 
-#: ../plugins/project-wizard/druid.c:883
+#: ../plugins/project-wizard/druid.c:884
 #, c-format
 msgid ""
 "\n"
@@ -7341,7 +7342,7 @@ msgstr ""
 "\n"
 "Manglende programmer: %s."
 
-#: ../plugins/project-wizard/druid.c:894
+#: ../plugins/project-wizard/druid.c:895
 #, c-format
 msgid ""
 "\n"
@@ -7350,7 +7351,7 @@ msgstr ""
 "\n"
 "Manglende pakker: %s."
 
-#: ../plugins/project-wizard/druid.c:903
+#: ../plugins/project-wizard/druid.c:904
 msgid ""
 "Some important programs or development packages required to build this "
 "project are missing. Please make sure they are installed properly before "
@@ -7360,11 +7361,11 @@ msgstr ""
 "dette projekt, mangler. Sikr dig venligst, at de er korrekt installeret før "
 "du genererer dette projekt.\n"
 
-#: ../plugins/project-wizard/druid.c:911
+#: ../plugins/project-wizard/druid.c:912
 msgid "Install missing packages"
 msgstr "Installér manglende pakker"
 
-#: ../plugins/project-wizard/druid.c:919
+#: ../plugins/project-wizard/druid.c:920
 msgid ""
 "The missing programs are usually part of some distrubution packages and can "
 "be searched for in your Application Manager. Similarly, the development "
@@ -7380,11 +7381,11 @@ msgstr ""
 "oftest endelserne -dev eller -devel og kan findes ved at søge i din "
 "programhåndtering."
 
-#: ../plugins/project-wizard/druid.c:927
+#: ../plugins/project-wizard/druid.c:928
 msgid "Missing components"
 msgstr "Manglende komponenter"
 
-#: ../plugins/project-wizard/druid.c:1059
+#: ../plugins/project-wizard/druid.c:1060
 #, c-format
 msgid "Unable to build project assistant user interface reading %s."
 msgstr ""
@@ -7427,7 +7428,7 @@ msgstr "Eksekverer: %s"
 
 #: ../plugins/project-wizard/plugin.c:50
 #, c-format
-msgid "Unable to extrat project template %s: %s"
+msgid "Unable to extract project template %s: %s"
 msgstr "Kan ikke udtrække projektskabelon %s: %s"
 
 #: ../plugins/project-wizard/plugin.c:276
@@ -8594,50 +8595,73 @@ msgid "Unable to build user interface for Search and Replace"
 msgstr "Kan ikke bygge brugergrænsefladen for søg og erstat"
 
 #: ../plugins/snippets-manager/plugin.c:60
-#: ../plugins/snippets-manager/plugin.c:292
+#: ../plugins/snippets-manager/plugin.c:302
 #: ../plugins/snippets-manager/snippets-browser.c:208
 msgid "Snippets"
 msgstr "Tekststumper"
 
 # yuck
-#: ../plugins/snippets-manager/plugin.c:67
+#. Translator: Appears in Edit->Snippets menu. It is used mainly for providing a
+#. shortcut for the trigger-key based insertion of snippets. It's called like this
+#. because you type the trigger-key in the editor, followed by Trigger Insert and
+#. the snippet gets inserted.
+#: ../plugins/snippets-manager/plugin.c:71
 msgid "_Trigger insert"
 msgstr "_Aktivér indsætning"
 
-#: ../plugins/snippets-manager/plugin.c:69
+#: ../plugins/snippets-manager/plugin.c:73
 msgid "Insert a snippet using the trigger-key"
-msgstr "Indsæt en tekststump ved hjælp af udløserknappen"
+msgstr "Indsæt en tekststump ved hjælp af udløsernøglen"
 
-#: ../plugins/snippets-manager/plugin.c:74
+#. Translator: In a similar matter, it also appears in Edit->Snippets. It's another method
+#. for inserting snippets. In this case, you call Auto complete insert, start
+#. typing in the editor a string, the database is searched for that string and the
+#. most relevant snippets are returned in a pop-up like the auto-complete one
+#. (they are showed by their names). After selecting one of them, the snippet gets
+#. inserted.
+#: ../plugins/snippets-manager/plugin.c:84
 msgid "_Auto complete insert"
 msgstr "_Autofuldfør indsætning"
 
-#: ../plugins/snippets-manager/plugin.c:76
+#: ../plugins/snippets-manager/plugin.c:86
 msgid "Insert a snippet using auto-completion"
 msgstr "Indsæt en tekststump ved brug af autofuldførelse"
 
-#: ../plugins/snippets-manager/plugin.c:81
+#: ../plugins/snippets-manager/plugin.c:91
 msgid "_Import snippets …"
 msgstr "_Importér tekststumper …"
 
-#: ../plugins/snippets-manager/plugin.c:83
+#: ../plugins/snippets-manager/plugin.c:93
 msgid "Import snippets to the database"
 msgstr "Importér tekststumper til databasen"
 
-#: ../plugins/snippets-manager/plugin.c:88
+#: ../plugins/snippets-manager/plugin.c:98
 msgid "_Export snippets …"
 msgstr "_Eksportér tekststumper …"
 
-#: ../plugins/snippets-manager/plugin.c:90
+#: ../plugins/snippets-manager/plugin.c:100
 msgid "Export snippets from the database"
 msgstr "Eksportér tekststumper fra databasen"
 
-#: ../plugins/snippets-manager/plugin.c:317
+#: ../plugins/snippets-manager/plugin.c:327
 msgid "Snippets Manager actions"
 msgstr "Handlinger for tekststumphåndtering"
 
-#: ../plugins/snippets-manager/plugin.c:919
-#: ../plugins/snippets-manager/plugin.c:956
+#: ../plugins/snippets-manager/plugin.c:767
+msgid "Command?"
+msgstr "Kommando?"
+
+#: ../plugins/snippets-manager/plugin.c:783
+msgid "Variable text"
+msgstr "Variabel tekst"
+
+#: ../plugins/snippets-manager/plugin.c:801
+#: ../plugins/snippets-manager/snippets-editor.c:40
+msgid "Instant value"
+msgstr "Øjeblikkelig værdi"
+
+#: ../plugins/snippets-manager/plugin.c:929
+#: ../plugins/snippets-manager/plugin.c:966
 #: ../plugins/snippets-manager/snippets-provider.c:753
 #: ../plugins/snippets-manager/anjuta-snippets-manager.plugin.in.h:2
 msgid "Code Snippets"
@@ -8661,32 +8685,51 @@ msgstr "Tilføj tekststump …"
 msgid "Add Snippets Group …"
 msgstr "Tilføj stumpgruppe …"
 
+#: ../plugins/snippets-manager/snippets-editor.c:39
+msgid "Default value"
+msgstr "Standardværdi"
+
+#: ../plugins/snippets-manager/snippets-editor.c:48
+msgid "<b>Error:</b> You must choose at least one language for the snippet!"
+msgstr "<b>Fejl:</b> Du skal vælge mindst et sprog for tekststumpen!"
+
+#: ../plugins/snippets-manager/snippets-editor.c:49
+msgid ""
+"<b>Error:</b> The trigger key is already in use for one of the languages!"
+msgstr "<b>Fejl:</b> Denne udløsernøgle er allerede i brug for at af sprogene!"
+
+#: ../plugins/snippets-manager/snippets-editor.c:50
+msgid ""
+"<b>Error:</b> The trigger key can only contain alphanumeric characters and _ !"
+msgstr ""
+"<b>Fejl:</b> Udløsernøglen kan kun indeholde alfanumeriske tegn, samt _ !"
+
+#: ../plugins/snippets-manager/snippets-editor.c:51
+msgid "<b>Error:</b> You haven't entered a trigger key for the snippet!"
+msgstr "<b>Fejl:</b> Du har ikke indtastet en udløsernøgle for tekststumpen!"
+
 #: ../plugins/snippets-manager/snippets-editor.ui.h:1
-msgid "<b>Snippet Content</b>"
-msgstr "<b>Indhold af stump</b>"
+msgid "<b>Error:</b> The snippet must belong to a group!"
+msgstr "<b>Fejl:</b> Tekststumpen skal tilhøre en gruppe!"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:2
-msgid "<b>Snippet Properties</b>"
-msgstr "<b>Egenskaber for stump</b>"
+msgid "<b>Warning:</b> You should choose a name for the snippet!"
+msgstr "<b>Advarsel:</b> Du bør vælge et navn til tekststumpen!"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:3
-msgid "<b>Snippet Variables</b>"
-msgstr "<b>Stumpvariable</b>"
-
-#: ../plugins/snippets-manager/snippets-editor.ui.h:4
 msgid "Add"
 msgstr "Tilføj"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:5
+#: ../plugins/snippets-manager/snippets-editor.ui.h:4
 msgid "Close"
 msgstr "Luk"
 
 #
-#: ../plugins/snippets-manager/snippets-editor.ui.h:6
+#: ../plugins/snippets-manager/snippets-editor.ui.h:5
 msgid "Insert"
 msgstr "Indsæt"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:7
+#: ../plugins/snippets-manager/snippets-editor.ui.h:6
 msgid ""
 "Keywords are used for better searching of the snippets. They should be "
 "relevant to the snippet content. Type them separated by a single space."
@@ -8694,27 +8737,27 @@ msgstr ""
 "Nøgleord bruges til bedre at søge blandt stumperne. De bør være relevante "
 "for indholdet af en stump. Adskil dem med et enkelt mellemrum."
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:8
+#: ../plugins/snippets-manager/snippets-editor.ui.h:7
 msgid "Keywords:"
 msgstr "Nøgleord:"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:9
+#: ../plugins/snippets-manager/snippets-editor.ui.h:8
 msgid "Languages:"
 msgstr "Sprog:"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:10
+#: ../plugins/snippets-manager/snippets-editor.ui.h:9
 msgid "Preview"
 msgstr "Forhåndsvisning"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:13
+#: ../plugins/snippets-manager/snippets-editor.ui.h:12
 msgid "Select the Snippets Group to which this snippet belongs."
 msgstr "Vælg stumpgruppen som denne stump tilhører."
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:14
+#: ../plugins/snippets-manager/snippets-editor.ui.h:13
 msgid "Select the languages for which you want to use this snippet."
 msgstr "Vælg sprogene, som du vil bruge denne stump i."
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:15
+#: ../plugins/snippets-manager/snippets-editor.ui.h:14
 msgid ""
 "Select the name of the Snippet. \n"
 "The role of the name is purely informative."
@@ -8722,21 +8765,45 @@ msgstr ""
 "Vælg navnet på tekststumpen. \n"
 "Navnet tjener kun til identifikation."
 
+#: ../plugins/snippets-manager/snippets-editor.ui.h:16
+msgid "Snippet Content"
+msgstr "Indhold af stump"
+
 #: ../plugins/snippets-manager/snippets-editor.ui.h:17
 msgid "Snippet Name:"
 msgstr "Stumpnavn:"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:18
+msgid "Snippet Properties"
+msgstr "Egenskaber for stump"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:19
+msgid "Snippet Variables"
+msgstr "Stumpvariable"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:20
 msgid "Snippets Group:"
 msgstr "Stumpgruppe:"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:19
+#: ../plugins/snippets-manager/snippets-editor.ui.h:21
+msgid ""
+"The trigger key is used for fast insertion of the snippet. Type the trigger "
+"key in the editor, followed by the \"Fast Insert\" shortcut to insert a "
+"snippet.\n"
+"<b>Warning: Must be unique per language. </b>"
+msgstr ""
+"Udløsernøglen bruges til hurtig indsættelse af tekststumpen. Skriv "
+"udløsernøglen i tekstredigeringen, efterfulgt af genvejstasten for \"Hurtig "
+"indsættelse\" for at sætte en tekststump ind.\n"
+"<b>Advarsel: Skal være unik per sprog. </b>"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:23
 msgid "Trigger Key:"
-msgstr "Udløserknap:"
+msgstr "Udløsernøgle:"
 
 #: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:1
-msgid "<b>Anjuta variables</b>"
-msgstr "<b>Anjuta-variable</b>"
+msgid "Anjuta variables"
+msgstr "Anjuta-variable"
 
 #: ../plugins/snippets-manager/snippets-import-export.c:145
 msgid "Import Snippets"
@@ -9475,19 +9542,19 @@ msgstr "Genererer nedarvningsstruktur…"
 msgid "%d files scanned out of %d"
 msgstr "%d af %d filer scannet"
 
-#: ../plugins/symbol-db/plugin.c:1723
+#: ../plugins/symbol-db/plugin.c:1726
 msgid "Populating symbol database…"
 msgstr "Opbygger symboldatabase…"
 
-#: ../plugins/symbol-db/plugin.c:2042 ../plugins/symbol-db/plugin.c:2127
+#: ../plugins/symbol-db/plugin.c:2045 ../plugins/symbol-db/plugin.c:2130
 msgid "Symbols"
 msgstr "Symboler"
 
-#: ../plugins/symbol-db/plugin.c:2136
+#: ../plugins/symbol-db/plugin.c:2139
 msgid "SymbolDb popup actions"
 msgstr "Pop op-handlinger for symboldatabase"
 
-#: ../plugins/symbol-db/plugin.c:2144
+#: ../plugins/symbol-db/plugin.c:2147
 msgid "SymbolDb menu actions"
 msgstr "Menuhandlinger for symboldatabase"
 
@@ -9505,7 +9572,7 @@ msgstr "Symboldatabase"
 msgid "API Tags"
 msgstr "API-mærker"
 
-#: ../plugins/symbol-db/symbol-db-system.c:807
+#: ../plugins/symbol-db/symbol-db-system.c:817
 msgid "Resuming glb scan."
 msgstr "Fortsætter glb-scanning."
 
@@ -10201,12 +10268,12 @@ msgid "Do not display warning if not using a Debug configuration"
 msgstr "Vis ikke advarsel, når der ikke bruges en fejlsøgningskonfiguration"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:1
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:7
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:1
 msgid "Add '(' after function call autocompletion"
 msgstr "Tilføj \"(\" efter autofuldførelse af funktionskald"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:2
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:8
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:2
 msgid "Add a space after function call autocompletion"
 msgstr "Tilføj et mellemrum efter autofuldførelse af funktionskald"
 
@@ -10215,21 +10282,23 @@ msgid "Auto-complete"
 msgstr "Autofuldfør"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:4
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:4
 msgid "Autocompletion"
 msgstr "Autofuldførelse"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:5
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:10
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:5
 msgid "Brace indentation size in spaces:"
 msgstr "Indrykningsstørrelse for klammer i mellemrum:"
 
 # Det er vist noget IDE-halløj, måske noget med at anføre datatyperne af argumenterne til et funktionskald dynamisk
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:6
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:6
 msgid "Calltips"
 msgstr "Kaldetip"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:7
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:12
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:8
 msgid "Enable code completion"
 msgstr "Aktivér kodefuldførelse"
 
@@ -10238,7 +10307,7 @@ msgid "Enable smart brace completion"
 msgstr "Aktivér intelligent tuborg-parentesfuldførelse"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:9
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:13
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:9
 msgid "Enable smart indentation"
 msgstr "Aktivér smart indrykning"
 
@@ -10247,6 +10316,7 @@ msgid "Indent:"
 msgstr "Indryk:"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:11
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:11
 msgid "Indentation parameters"
 msgstr "Indrykningsparametre"
 
@@ -10259,29 +10329,29 @@ msgid "Parenthesis indentation"
 msgstr "Parentesindrykning"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:16
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:14
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:7
 msgid "Show calltips"
 msgstr "Vis funktionskalds-tips"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:17
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:15
 msgid "Smart Indentation"
 msgstr "Smart indrykning"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:18
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:16
 msgid "Statement indentation size in spaces:"
 msgstr "Størrelse af erklæringsindrykning i mellemrum:"
 
 #. ANJUTA_STOCK_AUTOINDENT,
 #: ../plugins/language-support-cpp-java/plugin.c:1882
-#: ../plugins/language-support-python/plugin.c:1181
+#: ../plugins/language-support-python/plugin.c:1182
 msgid "Auto-Indent"
 msgstr "Autoindryk"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1883
-#: ../plugins/language-support-python/plugin.c:1182
+#: ../plugins/language-support-python/plugin.c:1183
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr ""
 "Autoindryk den aktuelle linje eller markering baseret på "
@@ -10312,67 +10382,49 @@ msgstr "C/C++"
 msgid "Python support warning"
 msgstr "Advarsel for pythonunderstøttelse"
 
-#: ../plugins/language-support-python/plugin.c:914
+#: ../plugins/language-support-python/plugin.c:915
 msgid ""
-"Couldn't find python-rope (http://rope.sf.net) libraries which\n"
-"are needed for autocompletion in python files.\n"
+"Either python path is wrong or python-rope (http://rope.sf.net) libraries\n"
+"aren't installed. Both are required for autocompletion in python files.\n"
 "Please install them and check the python path in the preferences."
 msgstr ""
-"Kunne ikke finde biblioteker for python-rope (http://rope.sf.net), som "
-"kræves til autofuldførelse i pythonfiler.\n"
-"Installér dem venligst og kontrollér python-stien i indstillingerne."
+"Enten er python-stien forkert eller også er bibliotekerne til python-rope\n"
+"(http://rope.sf.net) ikke installeret. Begge dele kræves til autofuldførelse "
+"i\n"
+"pythonfiler. Installér dem venligst og kontrollér python-stien i "
+"indstillingerne."
 
-#: ../plugins/language-support-python/plugin.c:917
+#: ../plugins/language-support-python/plugin.c:918
 msgid "Do not show that warning again"
 msgstr "Vis ikke den advarsel igen"
 
-#: ../plugins/language-support-python/plugin.c:1263
+#: ../plugins/language-support-python/plugin.c:1264
 msgid "Python Assistance"
 msgstr "Python-hjælp"
 
-#: ../plugins/language-support-python/plugin.c:1362
-#: ../plugins/language-support-python/plugin.c:1371
+#: ../plugins/language-support-python/plugin.c:1364
+#: ../plugins/language-support-python/plugin.c:1373
 #: ../plugins/language-support-python/python-assist.c:937
 msgid "Python"
 msgstr "Python"
 
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:1
-msgid "<b>Autocompletion</b>"
-msgstr "<b>Autofuldførelse</b>"
-
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:2
-msgid "<b>Calltips</b>"
-msgstr "<b>Funktionskalds-tips</b>"
-
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:3
-msgid "<b>Indentation parameters</b>"
-msgstr "<b>Indrykningsparametre</b>"
-
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:4
-msgid "<b>Interpreter</b>"
-msgstr "<b>Fortolker</b>"
-
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:5
-msgid "<b>Rope Options</b>"
-msgstr "<b>Indstillinger for Rope</b>"
-
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:6
-msgid "<b>Smart Indentation</b>"
-msgstr "<b>Smart indrykning</b>"
-
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:9
 msgid "Autocomplete"
 msgstr "Autofuldfør"
 
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:11
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:7
 msgid "Enable adaptive indentation"
 msgstr "Aktivér selvjusterende indrykning"
 
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:14
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:10
 msgid "Environment"
 msgstr "Miljø"
 
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:15
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:12
+msgid "Interpreter"
+msgstr "Fortolker"
+
+#: ../plugins/language-support-python/python-plugin-properties.ui.h:13
 msgid "Path: "
 msgstr "Sti: "
 
@@ -10633,26 +10685,26 @@ msgstr "Modul til understøttelse af JS"
 msgid "JavaScript Support Plugin"
 msgstr "Modul til understøttelse af JavaScript"
 
-# ????????
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:1
-msgid "<b>JS Find dirs</b>"
-msgstr "<b>JS Find-mapper</b>"
-
-#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:2
 msgid "Add brace after function call autocompletion"
 msgstr "Tilføj parentes efter autofuldførelse af funktionskald"
 
-#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:3
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:2
 msgid "Gir repository's directory:   "
 msgstr "Gir-arkivets mappe:   "
 
-#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:4
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:3
 msgid "Gjs repository's directory:   "
 msgstr "Gjs-arkivets mappe:   "
 
-#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:5
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:4
 msgid "Highlight missed semicolon"
 msgstr "Fremhæv manglende semikolon"
+
+# ????????
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:5
+msgid "JS Find dirs"
+msgstr "JS Find-mapper"
 
 # Sikke noget sjusk med den engelske streng
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
@@ -10662,6 +10714,33 @@ msgstr "Mindste antal tegn for fuldførelse"
 #: ../plugins/symbol-db/symbol-db-views.c:182
 msgid "Symbol"
 msgstr "Symbol"
+
+#~ msgid ""
+#~ "<b>There is %d item with unsaved changes. Save changes before closing?</b>"
+#~ msgid_plural ""
+#~ "<b>There are %d items with unsaved changes. Save changes before closing?</"
+#~ "b>"
+#~ msgstr[0] ""
+#~ "<b>Der er %d element med ugemte ændringer. Gem ændringer før der "
+#~ "afsluttes?</b>"
+#~ msgstr[1] ""
+#~ "<b>Der er %d elementer med ugemte ændringer. Gem ændringer før der "
+#~ "afsluttes?</b>"
+
+#~ msgid "<b>Autocompletion</b>"
+#~ msgstr "<b>Autofuldførelse</b>"
+
+#~ msgid "<b>Calltips</b>"
+#~ msgstr "<b>Funktionskalds-tips</b>"
+
+#~ msgid "<b>Indentation parameters</b>"
+#~ msgstr "<b>Indrykningsparametre</b>"
+
+#~ msgid "<b>Rope Options</b>"
+#~ msgstr "<b>Indstillinger for Rope</b>"
+
+#~ msgid "<b>Smart Indentation</b>"
+#~ msgstr "<b>Smart indrykning</b>"
 
 #~ msgid "Online"
 #~ msgstr "Online"
