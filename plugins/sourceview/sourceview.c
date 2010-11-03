@@ -2350,7 +2350,7 @@ isearch_forward (IAnjutaEditorSearch* isearch,
 	}
 	
 	gboolean result = 
-		gtk_source_iter_forward_search (&start_iter, search, flags, &result_start, &result_end,
+		gtk_text_iter_forward_search (&start_iter, search, flags, &result_start, &result_end,
 									&end_iter);
 
 	if (result)
@@ -2401,7 +2401,7 @@ isearch_backward (IAnjutaEditorSearch* isearch,
 	}
 	
 	gboolean result = 
-		gtk_source_iter_backward_search (&start_iter, search, flags, &result_start, &result_end,
+		gtk_text_iter_backward_search (&start_iter, search, flags, &result_start, &result_end,
 									&end_iter);
 
 	if (result)
