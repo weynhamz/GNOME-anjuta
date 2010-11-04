@@ -25,7 +25,7 @@ AM_CPPFLAGS = 					\
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	$(GIO_CFLAGS) \
-	$(LIBXML_CFLAGS) \
+	$(XML_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
 	-DSCRIPTS_DIR=\"$(scriptsdir)\"
 
@@ -46,7 +46,8 @@ libgbf_mkfile_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 libgbf_mkfile_la_LIBADD = \
 	$(GIO_LIBS) \
-	$(LIBANJUTA_LIBS)
+	$(LIBANJUTA_LIBS) \
+	$(XML_LIBS)
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
@@ -58,6 +59,5 @@ DISTCLEANFILES = \
 	$(plugin_DATA)
 
 SUBDIRS = GBF
-
 
 -include $(top_srcdir)/git.mk

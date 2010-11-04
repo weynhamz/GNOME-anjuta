@@ -19,6 +19,7 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)\
 	-I.. -I. \
 	$(LIBANJUTA_CFLAGS) \
+	$(GDL_CFLAGS) \
 	-DPACKAGE_BIN_DIR=\"$(bindir)\" \
 	-DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" \
 	-DPACKAGE_DOC_DIR=\"$(docdir)\" \
@@ -43,8 +44,6 @@ anjuta_SOURCES = \
 
 anjuta_LDADD =  \
 	$(GDL_LIBS) \
-	$(GLADE_LIBS)\
-	$(GLIB_LIBS) \
 	$(LIBANJUTA_LIBS)
 
 anjuta_LDFLAGS = $(ANJUTA_LDFLAGS)
@@ -58,7 +57,8 @@ noinst_PROGRAMS =  anjuta-shell
 
 anjuta_shell_SOURCES = shell.c shell.h
 anjuta_shell_LDADD =  \
-	$(LIBANJUTA_LIBS)
+	$(LIBANJUTA_LIBS) \
+	$(GDL_LIBS)
 
 EXTRA_DIST = \
 	$(anjuta_ui_DATA) \

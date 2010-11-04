@@ -37,7 +37,7 @@ symbol_db_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
-	$(GDL_CFLAGS) \
+	$(GDA_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
 	$(PLUGIN_SYMBOL_DB_CFLAGS) \
 	-DSYMBOL_DB_SHM=\"$(SYMBOL_DB_SHM)\" \
@@ -86,7 +86,7 @@ libanjuta_symbol_db_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 # Plugin dependencies
 libanjuta_symbol_db_la_LIBADD = \
-	$(GDL_LIBS) \
+	$(GDA_LIBS) \
 	$(LIBANJUTA_LIBS) \
 	$(PLUGIN_SYMBOL_DB_LIBS)
 

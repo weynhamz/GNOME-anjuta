@@ -25,7 +25,7 @@ AM_CPPFLAGS = 					\
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	$(GIO_CFLAGS) \
-	$(LIBXML_CFLAGS) \
+	$(XML_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
 	-DSCRIPTS_DIR=\"$(scriptsdir)\"
 	-DG_LOG_DOMAIN=\"libgbf-am\"
@@ -48,7 +48,7 @@ libgbf_am_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 libgbf_am_la_LIBADD = \
 	$(GIO_LIBS) \
 	$(LIBANJUTA_LIBS) \
-  $(LIBXML_LIBS)
+  	$(XML_LIBS)
 
 # Test program
 
@@ -63,7 +63,7 @@ test_SOURCES = \
 
 test_LDADD = \
 	$(LIBANJUTA_LIBS) \
-	$(LIBXML_LIBS)
+	$(XML_LIBS)
 # This last line do nothing but it is needed to avoid the error
 # gbf-am-*.o created with both libtool and without
 # Need AM_PROG_CC_C_0 in configure.in too

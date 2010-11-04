@@ -107,6 +107,9 @@ dnl 	DEPRECATED_FLAGS="-DGDK_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED"
 dnl	AC_SUBST(DEPRECATED_FLAGS)
 dnl fi
 
+dnl Check for pkg-config
+PKG_PROG_PKG_CONFIG([0.22])
+
 dnl Enable versioned user preferences directory
 AC_ARG_WITH(pref-suffix,
   AS_HELP_STRING([--with-pref-suffix=VALUE],[Suffix to add to user preferences dir.]),
@@ -133,14 +136,6 @@ dnl ***************************************************************************
 gjsdir=`pkg-config --variable=jsdir gjs-1.0`
 AC_SUBST(gjsdir)
 
-dnl ***************************************************************************
-dnl Check for pkgconfig
-dnl ***************************************************************************
-AC_PATH_PROG(PKG_CONFIG, pkg-config,no)
-if test x$PKG_CONFIG = xno; then
-  AC_MSG_ERROR(Please install the pkg-config package from http://www.freedesktop.org/software/pkgconfig/)
-fi
-
 dnl Check base modules
 
 PKG_CHECK_MODULES([ANJUTA],
@@ -149,12 +144,20 @@ PKG_CHECK_MODULES([ANJUTA],
 	glib-2.0 >= $GLIB_REQUIRED
 	gio-2.0 >= $GLIB_REQUIRED
 	gtk+-3.0 >= $GTK_REQUIRED
-	gdk-pixbuf-2.0 >= $GDK_PIXBUF_REQUIRED
-	vte-2.90 >= $VTE_REQUIRED
-	libxml-2.0 >= $LIBXML_REQUIRED
-	gdl-3.0 >= $GDL_REQUIRED
-	libgda-4.0 >= $GDA_REQUIRED
-	libxslt])
+	gdk-pixbuf-2.0 >= $GDK_PIXBUF_REQUIRED])
+
+PKG_CHECK_MODULES([XML],
+   [libxml-2.0 >= $LIBXML_REQUIRED])
+
+PKG_CHECK_MODULES([GDL],
+   [gdl-3.0 >= $GDL_REQUIRED])
+
+PKG_CHECK_MODULES([GDA],
+   [libgda-4.0 >= $GDA_REQUIRED])
+	
+PKG_CHECK_MODULES([VTE],
+   [vte-2.90 >= $VTE_REQUIRED])
+
 
 dnl Check for autogen
 dnl -----------------
@@ -348,11 +351,6 @@ AC_SUBST(anjuta_data_dir)
 AC_SUBST(anjuta_ui_dir)
 AC_SUBST(anjuta_glade_dir)
 AC_SUBST(anjuta_image_dir)
-
-dnl ***************************************************************************
-dnl Check for old vte version
-dnl ***************************************************************************
-PKG_CHECK_MODULES(VTE, vte >= $VTE_REQUIRED)
 
 dnl ***************************************************************************
 dnl Check for marshal and enum generators

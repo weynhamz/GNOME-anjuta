@@ -34,6 +34,7 @@ AM_CPPFLAGS= \
 	$(DEPRECATED_FLAGS) \
 	$(LIBXML_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
+	$(XML_CFLAGS) \
 	-DG_LOG_DOMAIN=\"libanjuta-snippets-manager\"
 
 plugindir = $(anjuta_plugin_dir)
@@ -43,7 +44,8 @@ libanjuta_snippets_manager_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 libanjuta_snippets_manager_la_LIBADD = \
 	$(GIO_LIBS) \
-	$(LIBANJUTA_LIBS)
+	$(LIBANJUTA_LIBS) \
+	$(XML_LIBS)
 
 libanjuta_snippets_manager_la_SOURCES = \
 	snippet.c\

@@ -39,7 +39,6 @@ libanjuta_terminal_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 # Plugin dependencies
 libanjuta_terminal_la_LIBADD = \
-	$(GCONF_LIBS) \
 	$(VTE_LIBS) \
 	$(LIBANJUTA_LIBS)
 	

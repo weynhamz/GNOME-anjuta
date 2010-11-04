@@ -24,7 +24,7 @@ language_manager_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 # Include paths
 AM_CPPFLAGS = \
-	$(LIBXML_CFLAGS) \
+	$(XML_CFLAGS) \
 	$(LIBANJUTA_CFLAGS)
 
 # Where to install the plugin
@@ -38,7 +38,8 @@ liblanguage_manager_la_SOURCES = plugin.c plugin.h
 
 # Plugin dependencies
 liblanguage_manager_la_LIBADD = \
-	$(LIBANJUTA_LIBS) 
+	$(LIBANJUTA_LIBS) \
+	$(XML_LIBS) 
 
 liblanguage_manager_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
