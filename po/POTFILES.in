@@ -121,6 +121,7 @@ plugins/git/git-create-branch-dialog.c
 plugins/git/git-create-tag-dialog.c
 plugins/git/git-delete-branch-dialog.c
 plugins/git/git-delete-tag-dialog.c
+plugins/git/git-diff-dialog.c
 plugins/git/git-fetch-dialog.c
 plugins/git/git-log-dialog.c
 plugins/git/git-merge-dialog.c

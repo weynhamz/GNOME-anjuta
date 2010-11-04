@@ -38,8 +38,8 @@ git_diff (Git *plugin)
 	document_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 												   IAnjutaDocumentManager, 
 												   NULL);
-	editor = ianjuta_document_manager_add_buffer (document_manager, 
-												  "Uncommitted Changes.diff",
+	editor = ianjuta_document_manager_add_buffer (document_manager, /* Translators: default file name for git diff's output */
+												  _("Uncommitted Changes.diff"),
 												  "", NULL);
 	
 	diff_command = git_diff_command_new (plugin->project_root_directory);
@@ -73,7 +73,8 @@ git_commit_diff (Git *plugin)
 	{
 		sha = git_revision_get_sha (revision);
 		short_sha = git_revision_get_short_sha (revision);
-		editor_name = g_strdup_printf ("Commit %s.diff", short_sha);
+		/* Translators: file name for an existing commits diff, %s is an SHASUM of a commit */
+		editor_name = g_strdup_printf (_("Commit %s.diff"), short_sha);
 		
 		document_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 													   IAnjutaDocumentManager, 
