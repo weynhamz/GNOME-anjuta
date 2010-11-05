@@ -122,17 +122,21 @@ on_draw_cb (GtkWidget *widget, cairo_t *cr,
 	priv = splash->priv;
 
 	/* draw the background pixbuf */
+	cairo_save (cr);
 	cairo_set_operator (cr, CAIRO_OPERATOR_SOURCE);
 	gdk_cairo_set_source_pixbuf (cr, priv->splash_image_pixbuf, 0, 0);
 
 	cairo_paint (cr);
+	cairo_restore (cr);
 
 	/* draw the plugin icon */
 	if (priv->icon_pixbuf)
 	{
+		cairo_save (cr);
 		gdk_cairo_set_source_pixbuf (cr, priv->icon_pixbuf, ICON_X, ICON_Y);
 
 		cairo_paint (cr);
+		cairo_restore (cr);
 	}
 
 	/* draw the plugin text */
@@ -141,6 +145,8 @@ on_draw_cb (GtkWidget *widget, cairo_t *cr,
 		PangoContext *pc;
 		PangoLayout *layout;
 		gint layout_height;
+
+		cairo_save (cr);
 		
 		pc = gtk_widget_get_pango_context (widget);
 		layout = pango_layout_new (pc);
@@ -153,22 +159,27 @@ on_draw_cb (GtkWidget *widget, cairo_t *cr,
 		pango_cairo_show_layout (cr, layout);
 
 		g_object_unref (layout);
+		cairo_restore (cr);
 	}
 	
 	/* draw the progress bar */
 	inc_width = gdk_pixbuf_get_width (priv->splash_image_pixbuf);
 	inc_width -= (ICON_X + ICON_SIZE + 20);	
-	
+
+	cairo_save (cr);
 	cairo_set_source_rgb (cr, 0.0, 0.0, 1.0);
 	cairo_rectangle (cr, ICON_X + ICON_SIZE + 10, ICON_Y + ICON_SIZE,
 	                 inc_width, PROGRESS_SIZE);
 
 	cairo_fill (cr);
+	cairo_restore (cr);
 
+	cairo_save (cr);
 	cairo_rectangle (cr, ICON_X + ICON_SIZE + 10, ICON_Y + ICON_SIZE,
 	                 (priv->progress_percentage * inc_width), PROGRESS_SIZE);
 
 	cairo_fill (cr);
+	cairo_restore (cr);
 
 	return TRUE;
 }
