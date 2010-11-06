@@ -182,8 +182,6 @@ project_node_new (DirProject *project, AnjutaProjectNode *parent, AnjutaProjectN
 		ANJUTA_PROJECT_NODE_DATA (node)->parent = parent;
 	}
 	
-	//g_message ("dir new node %p type %x", node, type);
-	
 	return node;
 }
 

@@ -316,7 +316,6 @@ amp_module_delete_token (AmpProject  *project, AnjutaAmModuleNode *module, GErro
 	}
 
 	token = amp_module_get_token (module);
-	g_message ("amp_module_delete_token %p", token);
 	if (token != NULL)
 	{
 		token = anjuta_token_list (token);
@@ -431,7 +430,6 @@ amp_package_delete_token (AmpProject  *project, AnjutaAmPackageNode *package, GE
 	}
 		
 	token = amp_package_get_token (package);
-	g_message ("amp_module_delete_token %p", package);
 	if (token != NULL)
 	{
 		AnjutaToken *args;

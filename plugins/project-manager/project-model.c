@@ -318,7 +318,6 @@ gbf_project_model_remove_invalid_shortcut (GbfProjectModel *model, GtkTreeIter *
 	gboolean valid;
 	GbfTreeData *data;
 
-	g_message ("remove_invalid_shortcut %p", iter);
 	/* Get all shortcut */
 	valid = gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &child, iter);
 	while (valid)
@@ -331,7 +330,6 @@ gbf_project_model_remove_invalid_shortcut (GbfProjectModel *model, GtkTreeIter *
 		
 		if (data->shortcut->type == GBF_TREE_NODE_INVALID)
 		{
-			g_message ("remove shortcut %p", data);
 			gbf_project_model_remove_children (model, &child);
 			valid = gtk_tree_store_remove (GTK_TREE_STORE (model), &child);
 			if (data != NULL) gbf_tree_data_free (data);
@@ -470,7 +468,6 @@ add_source (GbfProjectModel    	      *model,
 	
 	data = gbf_tree_data_new_source (source);
 	gtk_tree_store_append (GTK_TREE_STORE (model), &iter, parent);
-	//g_message ("add source %p", data);
 	gtk_tree_store_set (GTK_TREE_STORE (model), &iter, 
 			    GBF_PROJECT_MODEL_COLUMN_DATA, data,
 			    -1);
@@ -513,13 +510,10 @@ add_target_shortcut (GbfProjectModel *model,
 	{
 		data = target;
 	}
-	//g_message ("add target shortcut %p", data);
 	gtk_tree_store_insert_before (GTK_TREE_STORE (model), &iter, NULL, &sibling);
-	//g_message ("insert done %p ", data);
 	gtk_tree_store_set (GTK_TREE_STORE (model), &iter, 
 			    GBF_PROJECT_MODEL_COLUMN_DATA, data,
 			    -1);
-	//g_message ("set done %p ", data);
 	
 	/* add sources */
 	parent = anjuta_pm_project_get_node (model->priv->proj, target);
@@ -575,7 +569,6 @@ move_target_shortcut (GbfProjectModel *model,
 	{
 		gtk_tree_store_remove (GTK_TREE_STORE (model), iter);			
 		gtk_tree_store_insert_before (GTK_TREE_STORE (model), iter, NULL, &sibling);
-		g_message ("move_target_shortcut %p", shortcut);
 		gtk_tree_store_set (GTK_TREE_STORE (model), iter, 
 				    GBF_PROJECT_MODEL_COLUMN_DATA, shortcut,
 				    -1);
@@ -605,7 +598,6 @@ add_package (GbfProjectModel    	      *model,
 	
 	data = gbf_tree_data_new_package (package);
 	gtk_tree_store_append (GTK_TREE_STORE (model), &iter, parent);
-	//g_message ("add package %p", data);
 	gtk_tree_store_set (GTK_TREE_STORE (model), &iter, 
 			    GBF_PROJECT_MODEL_COLUMN_DATA, data,
 			    -1);
@@ -631,7 +623,6 @@ add_module (GbfProjectModel 		*model,
 	
 	data = gbf_tree_data_new_module (module);
 	gtk_tree_store_append (GTK_TREE_STORE (model), &iter, parent);
-	//g_message ("add_module %p", data);
 	gtk_tree_store_set (GTK_TREE_STORE (model), &iter, 
 			    GBF_PROJECT_MODEL_COLUMN_DATA, data,
 			    -1);
@@ -657,7 +648,6 @@ add_target (GbfProjectModel 		*model,
 	
 	data = gbf_tree_data_new_target (target);
 	gtk_tree_store_append (GTK_TREE_STORE (model), &iter, parent);
-	//g_message("add_target %p", data);
 	gtk_tree_store_set (GTK_TREE_STORE (model), &iter, 
 			    GBF_PROJECT_MODEL_COLUMN_DATA, data,
 			    -1);
@@ -693,7 +683,6 @@ add_target_group (GbfProjectModel 	*model,
 	
 	data = gbf_tree_data_new_group (group);
 	gtk_tree_store_append (GTK_TREE_STORE (model), &iter, parent);
-	//g_message("add_target_group %p", data);
 	gtk_tree_store_set (GTK_TREE_STORE (model), &iter, 
 			    GBF_PROJECT_MODEL_COLUMN_DATA, data,
 			    -1);
@@ -774,7 +763,6 @@ insert_empty_node (GbfProjectModel *model)
 	empty_node = gbf_tree_data_new_string (_("No project loaded"));
 
 	gtk_tree_store_append (GTK_TREE_STORE (model), &iter, NULL);
-	g_message ("insert_empty_node %p", empty_node);
 	gtk_tree_store_set (GTK_TREE_STORE (model), &iter,
 			    GBF_PROJECT_MODEL_COLUMN_DATA, empty_node,
 			    -1);

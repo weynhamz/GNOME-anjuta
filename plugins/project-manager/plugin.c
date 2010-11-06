@@ -1248,7 +1248,6 @@ add_primary_target (AnjutaProjectNode *node, gpointer data)
 {
 	GList ** list = (GList **)data;
 
-	//g_message ("add_primary_target %s %x", anjuta_project_node_get_name (node), anjuta_project_node_get_full_type (node));
 	if (anjuta_project_node_get_full_type (node) & ANJUTA_PROJECT_PRIMARY)
 	{
 		gchar *path;
@@ -1257,7 +1256,6 @@ add_primary_target (AnjutaProjectNode *node, gpointer data)
 		
 		*list = g_list_prepend (*list, g_strconcat ("C ", path, NULL));
 		g_free (path);
-		g_message ("     added %s", anjuta_project_node_get_name (node));
 	}
 }
 
@@ -1297,7 +1295,6 @@ on_project_updated (AnjutaPmProject *project, AnjutaProjectNode *node, GError *e
 			GList *list = NULL;
 			
 			/* Add new shortcut for PRIMARY target */
-			g_message ("add new shortcut on project_updated");
 			anjuta_project_node_foreach (node, G_POST_ORDER, add_primary_target, &list);
 
 			if (list != NULL)
@@ -1359,7 +1356,6 @@ on_project_loaded (AnjutaPmProject *project, AnjutaProjectNode *node, GError *er
 			GList *list = NULL;
 			
 			/* Add new shortcut for PRIMARY target */
-			g_message ("add new shortcut on project_loaded");
 			anjuta_project_node_foreach (node, G_POST_ORDER, add_primary_target, &list);
 
 			if (list != NULL)
@@ -1939,17 +1935,6 @@ iproject_manager_get_elements (IAnjutaProjectManager *project_manager,
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
 
 	return gbf_project_util_replace_by_file (gbf_project_util_node_all (anjuta_pm_project_get_root (plugin->project), element_type)); 
-	/*GList *list;
-	GList *item;
-	
-	g_message ("get elements root %p", anjuta_pm_project_get_root (plugin->project));
-	list = gbf_project_util_replace_by_file (gbf_project_util_node_all (anjuta_pm_project_get_root (plugin->project), element_type)); 
-	for (item = g_list_first (list); item != NULL; item = g_list_next (item))
-	{
-		g_message ("get element type %d file %s", element_type, g_file_get_path ((GFile *)item->data));
-	}
-	
-	return list;*/
 }
 
 static AnjutaProjectNodeType
@@ -2262,16 +2247,6 @@ iproject_manager_get_packages (IAnjutaProjectManager *project_manager, GError **
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
 
 	return anjuta_pm_project_get_packages (plugin->project);
-	/*GList *list;
-	GList *item;
-	
-	list = anjuta_pm_project_get_packages (plugin->project);
-	for (item = g_list_first (list); item != NULL; item = g_list_next (item))
-	{
-		g_message ("get package %s", (const gchar *)item->data);
-	}
-	
-	return list;*/
 }
 
 static void

@@ -280,8 +280,6 @@ file_type (GFile *file, const gchar *filename)
 
 	child = filename != NULL ? g_file_get_child (file, filename) : g_object_ref (file);
 
-	//g_message ("check file %s", g_file_get_path (child));
-	
 	info = g_file_query_info (child,
 	                          G_FILE_ATTRIBUTE_STANDARD_TYPE, 
 	                          G_FILE_QUERY_INFO_NONE,
@@ -715,9 +713,6 @@ amp_project_load_properties (AmpProject *project, AnjutaToken *macro, AnjutaToke
 {
 	GList *item;
 	
-	//fprintf (stderr, "property list:\n");
-	//anjuta_token_dump (args);
-
 	project->ac_init = macro;
 	project->args = args;
 
@@ -745,7 +740,6 @@ amp_project_load_properties (AmpProject *project, AnjutaToken *macro, AnjutaToke
 			anjuta_project_node_insert_property (project->root, (AnjutaProjectProperty *)prop, new_prop);
 		}
 	}
-	//g_message ("prop list %p get prop %p", *list, anjuta_project_node_get_property (project->root);
 }
 
 void
@@ -834,7 +828,6 @@ amp_project_load_config (AmpProject *project, AnjutaToken *arg_list)
 
 		/* File list */
 		scanner = amp_ac_scanner_new (project);
-		fprintf (stderr, "\nParse list\n");
 		
 		arg = anjuta_token_first_item (arg_list);
 		list = amp_ac_scanner_parse_token (scanner, arg, AC_SPACE_LIST_STATE, NULL);
@@ -881,7 +874,6 @@ project_load_target (AmpProject *project, AnjutaToken *name, AnjutaTokenType tok
 
 	amp_group_add_token (ANJUTA_AM_GROUP_NODE (parent), name, AM_GROUP_TARGET);
 
-	//fprintf (stderr, "load_target list %p word %p next %p\n", list, anjuta_token_first_word (list), anjuta_token_next_word (anjuta_token_first_word (list)));
 	for (arg = anjuta_token_first_word (list); arg != NULL; arg = anjuta_token_next_word (arg))
 	{
 		gchar *value;
@@ -893,7 +885,6 @@ project_load_target (AmpProject *project, AnjutaToken *name, AnjutaTokenType tok
 
 		value = anjuta_token_evaluate (arg);
 
-		//fprintf (stderr, "target arg %p value =%s=\n", arg, value);
 		/* This happens for variable token which are considered as value */
 		if (value == NULL) continue;
 		canon_id = canonicalize_automake_variable (value);
@@ -911,7 +902,6 @@ project_load_target (AmpProject *project, AnjutaToken *name, AnjutaTokenType tok
 
 		/* Create target */
 		target = amp_target_new (value, info->base.type, install, flags, NULL);
-		//fprintf(stderr, "create target %s %p\n", value, target);
 		if (target != NULL)
 		{
 			amp_target_add_token (target, ANJUTA_TOKEN_ARGUMENT, arg);
@@ -1328,7 +1318,6 @@ project_load_makefile (AmpProject *project, AnjutaAmGroupNode *group)
 			g_object_unref (final_file);
 			if (config != NULL)
 			{
-				//g_message ("add group =%s= token %p group %p", *filename, config->token, anjuta_token_list (config->token));
 				amp_group_add_token (group, config->token, AM_GROUP_TOKEN_CONFIGURE);
 				break;
 			}
@@ -1634,15 +1623,8 @@ amp_project_load_root (AmpProject *project, GError **error)
 	g_hash_table_insert (project->files, configure_file, configure_token_file);
 	g_object_add_toggle_ref (G_OBJECT (configure_token_file), remove_config_file, project);
 	arg = anjuta_token_file_load (configure_token_file, NULL);
-	//fprintf (stderr, "AC file before parsing\n");
-	//anjuta_token_dump (arg);
-	//fprintf (stderr, "\n");
 	scanner = amp_ac_scanner_new (project);
 	AMP_ROOT_DATA (project->root)->configure_token = amp_ac_scanner_parse_token (scanner, arg, 0, &err);
-	//fprintf (stderr, "AC file after parsing\n");
-	//anjuta_token_check (arg);
-	//anjuta_token_dump (project->configure_token);
-	//fprintf (stderr, "\n");
 	amp_ac_scanner_free (scanner);
 	if (AMP_ROOT_DATA (project->root)->configure_token == NULL)
 	{
@@ -1783,9 +1765,9 @@ AnjutaProjectNode *
 amp_project_load_node (AmpProject *project, AnjutaProjectNode *node, GError **error) 
 {
 	AnjutaProjectNode *loaded = NULL;
-	GTimer *timer;
+	//GTimer *timer;
 	
-	timer = g_timer_new ();		
+	//timer = g_timer_new ();		
 	switch (anjuta_project_node_get_node_type (node))
 	{
 	case ANJUTA_PROJECT_ROOT:
@@ -1800,8 +1782,8 @@ amp_project_load_node (AmpProject *project, AnjutaProjectNode *node, GError **er
 	default:
 		break;
 	}
-	g_message ("Node %x loaded in %g", anjuta_project_node_get_node_type (node), g_timer_elapsed (timer, NULL));
-	g_timer_destroy (timer);
+	//g_message ("Node %x loaded in %g", anjuta_project_node_get_node_type (node), g_timer_elapsed (timer, NULL));
+	//g_timer_destroy (timer);
 
 	return loaded;
 }
@@ -2244,7 +2226,6 @@ amp_load_setup (PmJob *job)
 {
 	job->parent = anjuta_project_node_parent (job->node);
 	job->proxy = amp_project_duplicate_node (job->node);
-	// g_message ("amp_load_setup type %x proxy %x parent %p node %p proxy %p", job->node->type, job->proxy->type, job->parent, job->node, job->proxy);
 
 	return TRUE;
 }
@@ -2263,15 +2244,12 @@ amp_load_complete (PmJob *job)
 	GHashTable *map;
 
 	map = amp_project_map_node (job->node, job->proxy);
-	// g_message ("amp_load_complete type %x proxy %x", job->node->type, job->proxy->type);
 	g_hash_table_foreach (map, (GHFunc)amp_project_replace_node, map);
 	job->node->parent = job->parent;
 	job->proxy->parent = NULL;
 	g_hash_table_destroy (map);
-	//g_object_unref (job->proxy);
 	job->proxy = NULL;
 	g_signal_emit_by_name (AMP_PROJECT (job->user_data), "node-loaded", job->node,  job->error);
-	g_error_free (job->error);
 
 	return TRUE;
 }
@@ -2304,7 +2282,6 @@ static gboolean
 amp_save_complete (PmJob *job)
 {
 	g_signal_emit_by_name (AMP_PROJECT (job->user_data), "node-saved", job->node,  job->error);
-	g_error_free (job->error);
 
 	return TRUE;
 }

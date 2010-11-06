@@ -65,7 +65,7 @@ on_pm_project_load_incomplete (AnjutaProjectNode *node, AnjutaPmProject *project
 static gboolean
 pm_command_load_complete (AnjutaPmProject *project, AnjutaProjectNode *node, GError *error)
 {
-	g_message ("pm_command_load_complete");
+	//g_message ("pm_command_load_complete");
 	
 	if (error != NULL)
 	{
@@ -98,7 +98,7 @@ pm_command_load_complete (AnjutaPmProject *project, AnjutaProjectNode *node, GEr
 		anjuta_project_node_clear_state (node, ANJUTA_PROJECT_LOADING | ANJUTA_PROJECT_INCOMPLETE);
 		anjuta_project_node_foreach (node, G_POST_ORDER, (AnjutaProjectNodeForeachFunc)on_pm_project_load_incomplete, project);
 
-		g_message ("emit node %p", node);
+		//g_message ("emit node %p", node);
 		if (!project->loaded && (project->incomplete_node == 0))
 		{
 			g_signal_emit (G_OBJECT (project), signals[LOADED], 0, node, NULL);

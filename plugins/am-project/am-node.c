@@ -502,7 +502,6 @@ on_group_monitor_changed (GFileMonitor *monitor,
 											gpointer data)
 {
 	AnjutaAmGroupNode *node = ANJUTA_AM_GROUP_NODE (data);
-	g_message ("on_group_monitor_changed %p monitor %p", node, monitor);
 
 	switch (event_type) {
 		case G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
@@ -510,15 +509,7 @@ on_group_monitor_changed (GFileMonitor *monitor,
 		case G_FILE_MONITOR_EVENT_DELETED:
 			/* project can be NULL, if the node is dummy node because the
 			 * original one is reloaded. */
-			if (!(anjuta_project_node_get_full_type (ANJUTA_PROJECT_NODE (node)) & ANJUTA_PROJECT_PROXY))
-			{
-				g_signal_emit_by_name (G_OBJECT (node->project), "file-changed", data);
-			}
-			else
-			{
-				g_message ("proxy changed");
-			}
-			g_message ("signal emitted");
+			g_signal_emit_by_name (G_OBJECT (node->project), "file-changed", data);
 			break;
 		default:
 			break;
@@ -667,7 +658,6 @@ amp_group_new (GFile *file, gboolean dist_only, GError **error)
 void
 amp_group_free (AnjutaAmGroupNode *node)
 {
-	g_message ("amp_group_free %p", node);
 	g_object_unref (G_OBJECT (node));
 }
 

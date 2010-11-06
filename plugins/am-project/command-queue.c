@@ -356,7 +356,7 @@ pm_command_queue_push (PmCommandQueue *queue, PmJob *job)
 gboolean
 pm_command_queue_is_busy (PmCommandQueue *queue)
 {
-	g_message ("pm_command_queue_is_empty %d %d %d busy %d", g_queue_get_length (queue->job_queue), g_async_queue_length(queue->work_queue), g_async_queue_length(queue->done_queue), queue->busy);
+	//g_message ("pm_command_queue_is_empty %d %d %d busy %d", g_queue_get_length (queue->job_queue), g_async_queue_length(queue->work_queue), g_async_queue_length(queue->done_queue), queue->busy);
 	return queue->busy;
 }
 
