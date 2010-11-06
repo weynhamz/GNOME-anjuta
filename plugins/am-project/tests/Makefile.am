@@ -1,7 +1,7 @@
 
 EXTRA_DIST = testsuite.at $(TESTSUITE_AT) $(srcdir)/package.m4 $(TESTSUITE)
 
-$(srcdir)/package.m4: $(top_srcdir)/configure.in
+$(srcdir)/package.m4: $(top_srcdir)/configure.ac
 	rm -f $@ $@.tmp
 	{ \
 	  echo '# Signature of the current package.'; \
