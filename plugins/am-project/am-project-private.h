@@ -23,6 +23,7 @@
 #define _AM_PROJECT_PRIVATE_H_
 
 #include "am-project.h"
+#include "command-queue.h"
 
 G_BEGIN_DECLS
 
@@ -72,6 +73,9 @@ struct _AmpProject {
 	AnjutaTokenStyle *ac_space_list;
 	AnjutaTokenStyle *am_space_list;
 	AnjutaTokenStyle *arg_list;
+
+	/* Command queue */
+	PmCommandQueue *queue;
 };
 
 typedef struct _AmpNodeInfo AmpNodeInfo;

@@ -46,7 +46,9 @@ libam_project_la_SOURCES = \
 	am-properties.c \
 	am-properties.h \
 	am-node.c \
-	am-node.h
+	am-node.h \
+	command-queue.c \
+	command-queue.h
 
 libam_project_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 

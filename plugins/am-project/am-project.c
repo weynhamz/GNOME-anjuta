@@ -28,6 +28,7 @@
 
 #include "am-project-private.h"
 #include "am-node.h"
+#include "command-queue.h"
 
 #include <libanjuta/interfaces/ianjuta-project.h>
 #include <libanjuta/anjuta-debug.h>
@@ -1147,7 +1148,6 @@ project_load_data (AmpProject *project, AnjutaToken *name, AnjutaToken *list, An
 	{
 		/* Create target */
 		target = amp_target_new (target_id, info->base.type, install, flags, NULL);
-		amp_target_add_token (target, ANJUTA_TOKEN_ARGUMENT, arg);
 		anjuta_project_node_append (parent, target);
 		DEBUG_PRINT ("create target %p name %s", target, target_id);
 	}
@@ -2273,6 +2273,260 @@ amp_project_add_file (AmpProject *project, GFile *file, AnjutaTokenFile* token)
 	g_object_add_toggle_ref (G_OBJECT (token), remove_config_file, project);
 }
 
+/* Worker thread
+ *---------------------------------------------------------------------------*/
+
+static gboolean
+amp_load_setup (PmJob *job)
+{
+	job->parent = anjuta_project_node_parent (job->node);
+	job->proxy = amp_project_duplicate_node (job->node);
+	g_message ("type %x proxy %x parent %p node %p proxy %p", job->node->type, job->proxy->type, job->parent, job->node, job->proxy);
+
+	return TRUE;
+}
+
+static gboolean
+amp_load_work (PmJob *job)
+{
+	job->proxy = amp_project_load_node (AMP_PROJECT (job->user_data), job->proxy, &job->error);
+
+	return TRUE;
+}
+
+static gboolean
+amp_load_complete (PmJob *job)
+{
+	GHashTable *map;
+
+	map = amp_project_map_node (job->node, job->proxy);
+	g_message ("type %x proxy %x", job->node->type, job->proxy->type);
+	g_hash_table_foreach (map, (GHFunc)amp_project_replace_node, map);
+	job->node->parent = job->parent;
+	job->proxy->parent = NULL;
+	g_hash_table_destroy (map);
+	//g_object_unref (job->proxy);
+	job->proxy = NULL;
+	g_signal_emit_by_name (AMP_PROJECT (job->user_data), "node-loaded", job->node,  job->error);
+	g_error_free (job->error);
+
+	return TRUE;
+}
+
+static PmCommandWork amp_load_job = {amp_load_setup, amp_load_work, amp_load_complete};
+
+static gboolean
+amp_save_setup (PmJob *job)
+{
+	return TRUE;
+}
+
+static gboolean
+amp_save_work (PmJob *job)
+{
+	switch (anjuta_project_node_get_node_type (job->node))
+	{
+		case ANJUTA_PROJECT_ROOT:
+			amp_project_save (AMP_PROJECT (job->user_data), &job->error);
+			break;
+		default:
+			project_node_save (AMP_PROJECT (job->user_data), job->node, &job->error);
+			break;
+	}
+
+	return TRUE;
+}
+
+static gboolean
+amp_save_complete (PmJob *job)
+{
+	g_signal_emit_by_name (AMP_PROJECT (job->user_data), "node-saved", job->node,  job->error);
+	g_error_free (job->error);
+
+	return TRUE;
+}
+
+static PmCommandWork amp_save_job = {amp_save_setup, amp_save_work, amp_save_complete};
+
+static gboolean
+amp_add_before_setup (PmJob *job)
+{
+	anjuta_project_node_insert_before (job->parent, job->sibling, job->node);
+	
+	return TRUE;
+}
+
+static gboolean
+amp_add_after_setup (PmJob *job)
+{
+	anjuta_project_node_insert_after (job->parent, job->sibling, job->node);
+	
+	return TRUE;
+}
+
+static gboolean
+amp_add_work (PmJob *job)
+{
+	switch (anjuta_project_node_get_node_type (job->node))
+	{
+		case ANJUTA_PROJECT_GROUP:
+			amp_group_create_token (AMP_PROJECT (job->user_data), job->node, &job->error);
+			break;
+		case ANJUTA_PROJECT_TARGET:
+			amp_target_create_token (AMP_PROJECT (job->user_data), job->node, &job->error);
+			break;
+		case ANJUTA_PROJECT_SOURCE:
+			amp_source_create_token (AMP_PROJECT (job->user_data), job->node, &job->error);
+			break;
+		case ANJUTA_PROJECT_MODULE:
+			amp_module_create_token (AMP_PROJECT (job->user_data), job->node, &job->error);
+			break;
+		case ANJUTA_PROJECT_PACKAGE:
+			amp_package_create_token (AMP_PROJECT (job->user_data), job->node, &job->error);
+			break;
+		default:
+			break;
+	}
+	
+	return TRUE;
+}
+
+static gboolean
+amp_add_complete (PmJob *job)
+{
+	g_signal_emit_by_name (AMP_PROJECT (job->user_data), "node-changed", job->node,  job->error);
+
+	return TRUE;
+}
+
+static PmCommandWork amp_add_before_job = {amp_add_before_setup, amp_add_work, amp_add_complete};
+static PmCommandWork amp_add_after_job = {amp_add_after_setup, amp_add_work, amp_add_complete};
+
+
+static gboolean
+amp_remove_setup (PmJob *job)
+{
+	anjuta_project_node_set_state (job->node, ANJUTA_PROJECT_REMOVED);
+	
+	return TRUE;
+}
+
+static gboolean
+amp_remove_work (PmJob *job)
+{
+	switch (anjuta_project_node_get_node_type (job->node))
+	{
+		case ANJUTA_PROJECT_GROUP:
+			amp_group_delete_token (AMP_PROJECT (job->user_data), job->node, &job->error);
+			break;
+		case ANJUTA_PROJECT_TARGET:
+			amp_target_delete_token (AMP_PROJECT (job->user_data), job->node, &job->error);
+			break;
+		case ANJUTA_PROJECT_SOURCE:
+			amp_source_delete_token (AMP_PROJECT (job->user_data), job->node, &job->error);
+			break;
+		case ANJUTA_PROJECT_MODULE:
+			amp_module_delete_token (AMP_PROJECT (job->user_data), job->node, &job->error);
+			break;
+		case ANJUTA_PROJECT_PACKAGE:
+			amp_package_delete_token (AMP_PROJECT (job->user_data), job->node, &job->error);
+			break;
+		default:
+			break;
+	}
+	
+	return TRUE;
+}
+
+static gboolean
+amp_remove_complete (PmJob *job)
+{
+	g_signal_emit_by_name (AMP_PROJECT (job->user_data), "node-changed", job->node,  job->error);
+
+	return TRUE;
+}
+
+static PmCommandWork amp_remove_job = {amp_remove_setup, amp_remove_work, amp_remove_complete};
+
+static gboolean
+amp_set_property_setup (PmJob *job)
+{
+	return TRUE;
+}
+
+static gboolean
+amp_set_property_work (PmJob *job)
+{
+	gint flags;
+	
+	flags = ((AmpProperty *)job->property->native)->flags;
+	
+	if (flags & AM_PROPERTY_IN_CONFIGURE)
+	{
+		amp_project_update_ac_property (AMP_PROJECT (job->user_data), job->property);
+	}
+	else if (flags & AM_PROPERTY_IN_MAKEFILE)
+	{
+		amp_project_update_am_property (AMP_PROJECT (job->user_data), job->node, job->property);
+	}
+
+	return TRUE;
+}
+
+static gboolean
+amp_set_property_complete (PmJob *job)
+{
+	g_signal_emit_by_name (AMP_PROJECT (job->user_data), "node-changed", job->node,  job->error);
+
+	return TRUE;
+}
+
+static PmCommandWork amp_set_property_job = {amp_set_property_setup, amp_set_property_work, amp_set_property_complete};
+
+static gboolean
+amp_remove_property_setup (PmJob *job)
+{
+	anjuta_project_node_set_state (job->node, ANJUTA_PROJECT_REMOVED);
+	
+	return TRUE;
+}
+
+static gboolean
+amp_remove_property_work (PmJob *job)
+{
+	switch (anjuta_project_node_get_node_type (job->node))
+	{
+		case ANJUTA_PROJECT_GROUP:
+			amp_group_delete_token (AMP_PROJECT (job->user_data), job->node, &job->error);
+			break;
+		case ANJUTA_PROJECT_TARGET:
+			amp_target_delete_token (AMP_PROJECT (job->user_data), job->node, &job->error);
+			break;
+		case ANJUTA_PROJECT_SOURCE:
+			amp_source_delete_token (AMP_PROJECT (job->user_data), job->node, &job->error);
+			break;
+		case ANJUTA_PROJECT_MODULE:
+			amp_module_delete_token (AMP_PROJECT (job->user_data), job->node, &job->error);
+			break;
+		case ANJUTA_PROJECT_PACKAGE:
+			amp_package_delete_token (AMP_PROJECT (job->user_data), job->node, &job->error);
+			break;
+		default:
+			break;
+	}
+	
+	return TRUE;
+}
+
+static gboolean
+amp_remove_property_complete (PmJob *job)
+{
+	g_signal_emit_by_name (AMP_PROJECT (job->user_data), "node-changed", job->node,  job->error);
+
+	return TRUE;
+}
+
+static PmCommandWork amp_remove_property_job = {amp_remove_property_setup, amp_remove_property_work, amp_remove_property_complete};
 
 /* Implement IAnjutaProject
  *---------------------------------------------------------------------------*/
@@ -2281,53 +2535,28 @@ amp_project_add_file (AmpProject *project, GFile *file, AnjutaTokenFile* token)
 static gboolean
 iproject_load_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **error)
 {
-	AnjutaProjectNode *new_node;
-	AnjutaProjectNode *proxy;
-	AnjutaProjectNode *parent;
-	GHashTable *map;
-	GError *err = NULL;
+	PmJob *load_job;
 	
 	if (node == NULL) node = AMP_PROJECT (obj)->root;
 
-	parent = anjuta_project_node_parent (node);
-	proxy = amp_project_duplicate_node (node);
-	
-	new_node = amp_project_load_node (AMP_PROJECT (obj), proxy, &err);
-	map = amp_project_map_node (node, new_node);
-	g_hash_table_foreach (map, (GHFunc)amp_project_replace_node, map);
-	node->parent = parent;
-	proxy->parent = NULL;
-	g_hash_table_destroy (map);
-	g_object_unref (proxy);
-	g_signal_emit_by_name (obj, "node-loaded", node,  err);
-	g_error_free (err);
+	load_job = pm_job_new (&amp_load_job, node, NULL, NULL, ANJUTA_PROJECT_UNKNOWN, NULL, NULL, obj);
 
-	return new_node != NULL;
+	pm_command_queue_push (AMP_PROJECT (obj)->queue, load_job);
+
+	return TRUE;
 }
 
 static gboolean
 iproject_save_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **error)
 {
-	GError *err = NULL;
+	PmJob *save_job;
 	
 	if (node == NULL) node = AMP_PROJECT (obj)->root;
-	
-	switch (anjuta_project_node_get_node_type (node))
-	{
-		case ANJUTA_PROJECT_ROOT:
-			if (!amp_project_save (AMP_PROJECT (obj), &err))
-			{
-				node = NULL;
-			}
-			break;
-		default:
-			node = project_node_save (AMP_PROJECT (obj), node, error);
-			break;
-	}
-	g_signal_emit_by_name (obj, "node-saved", node,  err);
-	g_error_free (err);
-	
-	return node != NULL;
+
+	save_job = pm_job_new (&amp_save_job, node, NULL, NULL, ANJUTA_PROJECT_UNKNOWN, NULL, NULL, obj);
+	pm_command_queue_push (AMP_PROJECT (obj)->queue, save_job);
+
+	return TRUE;
 }
 
 static AnjutaProjectNode *
@@ -2335,6 +2564,7 @@ iproject_add_node_before (IAnjutaProject *obj, AnjutaProjectNode *parent, Anjuta
 {
 	AnjutaProjectNode *node;
 	GFile *directory = NULL;
+	PmJob *add_job;
 	
 	switch (type & ANJUTA_PROJECT_TYPE_MASK)
 	{
@@ -2346,35 +2576,34 @@ iproject_add_node_before (IAnjutaProject *obj, AnjutaProjectNode *parent, Anjuta
 			}
 			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
 			if (directory != NULL) g_object_unref (directory);
-			anjuta_project_node_insert_before (parent, sibling, node);
-			amp_group_create_token (AMP_PROJECT (obj), node, NULL);
+			add_job = pm_job_new (&amp_add_before_job, node, parent, sibling, ANJUTA_PROJECT_UNKNOWN, NULL, NULL, obj);
+			pm_command_queue_push (AMP_PROJECT (obj)->queue, add_job);
 			break;
 		case ANJUTA_PROJECT_TARGET:
 			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
-			anjuta_project_node_insert_before (parent, sibling, node);
-			amp_target_create_token (AMP_PROJECT (obj), node, NULL);
+			add_job = pm_job_new (&amp_add_before_job, node, parent, sibling, ANJUTA_PROJECT_UNKNOWN, NULL, NULL, obj);
+			pm_command_queue_push (AMP_PROJECT (obj)->queue, add_job);
 			break;
 		case ANJUTA_PROJECT_SOURCE:
 			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
-			anjuta_project_node_insert_before (parent, sibling, node);
-			amp_source_create_token (AMP_PROJECT (obj), node, NULL);
+			add_job = pm_job_new (&amp_add_before_job, node, parent, sibling, ANJUTA_PROJECT_UNKNOWN, NULL, NULL, obj);
+			pm_command_queue_push (AMP_PROJECT (obj)->queue, add_job);
 			break;
 		case ANJUTA_PROJECT_MODULE:
 			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
-			anjuta_project_node_insert_before (parent, sibling, node);
-			amp_module_create_token (AMP_PROJECT (obj), node, NULL);
+			add_job = pm_job_new (&amp_add_before_job, node, parent, sibling, ANJUTA_PROJECT_UNKNOWN, NULL, NULL, obj);
+			pm_command_queue_push (AMP_PROJECT (obj)->queue, add_job);
 			break;
 		case ANJUTA_PROJECT_PACKAGE:
 			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
-			anjuta_project_node_insert_before (parent, sibling, node);
-			amp_package_create_token (AMP_PROJECT (obj), node, NULL);
+			add_job = pm_job_new (&amp_add_before_job, node, parent, sibling, ANJUTA_PROJECT_UNKNOWN, NULL, NULL, obj);
+			pm_command_queue_push (AMP_PROJECT (obj)->queue, add_job);
 			break;
 		default:
 			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
 			anjuta_project_node_insert_before (parent, sibling, node);
 			break;
 	}
-	g_signal_emit_by_name (obj, "node-changed", node,  NULL);
 	
 	return node;
 }
@@ -2384,7 +2613,8 @@ iproject_add_node_after (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaP
 {
 	AnjutaProjectNode *node;
 	GFile *directory = NULL;
-
+	PmJob *add_job;
+	
 	switch (type & ANJUTA_PROJECT_TYPE_MASK)
 	{
 		case ANJUTA_PROJECT_GROUP:
@@ -2395,35 +2625,34 @@ iproject_add_node_after (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaP
 			}
 			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
 			if (directory != NULL) g_object_unref (directory);
-			anjuta_project_node_insert_after (parent, sibling, node);
-			amp_group_create_token (AMP_PROJECT (obj), node, NULL);
+			add_job = pm_job_new (&amp_add_after_job, node, parent, sibling, ANJUTA_PROJECT_UNKNOWN, NULL, NULL, obj);
+			pm_command_queue_push (AMP_PROJECT (obj)->queue, add_job);
 			break;
 		case ANJUTA_PROJECT_TARGET:
 			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
-			anjuta_project_node_insert_after (parent, sibling, node);
-			amp_target_create_token (AMP_PROJECT (obj), node, NULL);
+			add_job = pm_job_new (&amp_add_after_job, node, parent, sibling, ANJUTA_PROJECT_UNKNOWN, NULL, NULL, obj);
+			pm_command_queue_push (AMP_PROJECT (obj)->queue, add_job);
 			break;
 		case ANJUTA_PROJECT_SOURCE:
 			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
-			anjuta_project_node_insert_after (parent, sibling, node);
-			amp_source_create_token (AMP_PROJECT (obj), node, NULL);
+			add_job = pm_job_new (&amp_add_after_job, node, parent, sibling, ANJUTA_PROJECT_UNKNOWN, NULL, NULL, obj);
+			pm_command_queue_push (AMP_PROJECT (obj)->queue, add_job);
 			break;
 		case ANJUTA_PROJECT_MODULE:
 			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
-			anjuta_project_node_insert_after (parent, sibling, node);
-			amp_module_create_token (AMP_PROJECT (obj), node, NULL);
+			add_job = pm_job_new (&amp_add_after_job, node, parent, sibling, ANJUTA_PROJECT_UNKNOWN, NULL, NULL, obj);
+			pm_command_queue_push (AMP_PROJECT (obj)->queue, add_job);
 			break;
 		case ANJUTA_PROJECT_PACKAGE:
 			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
-			anjuta_project_node_insert_before (parent, sibling, node);
-			amp_package_create_token (AMP_PROJECT (obj), node, NULL);
+			add_job = pm_job_new (&amp_add_after_job, node, parent, sibling, ANJUTA_PROJECT_UNKNOWN, NULL, NULL, obj);
+			pm_command_queue_push (AMP_PROJECT (obj)->queue, add_job);
 			break;
 		default:
 			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
-			anjuta_project_node_insert_after (parent, sibling, node);
+			anjuta_project_node_insert_before (parent, sibling, node);
 			break;
 	}
-	g_signal_emit_by_name (obj, "node-changed", node,  NULL);
 	
 	return node;
 }
@@ -2431,31 +2660,10 @@ iproject_add_node_after (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaP
 static gboolean
 iproject_remove_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
 {
-	AnjutaProjectNodeType type = anjuta_project_node_get_node_type (node);
-	
-	anjuta_project_node_set_state (node, ANJUTA_PROJECT_REMOVED);
-	
-	switch (type & ANJUTA_PROJECT_TYPE_MASK)
-	{
-		case ANJUTA_PROJECT_GROUP:
-			amp_group_delete_token (AMP_PROJECT (obj), node, NULL);
-			break;
-		case ANJUTA_PROJECT_TARGET:
-			amp_target_delete_token (AMP_PROJECT (obj), node, NULL);
-			break;
-		case ANJUTA_PROJECT_SOURCE:
-			amp_source_delete_token (AMP_PROJECT (obj), node, NULL);
-			break;
-		case ANJUTA_PROJECT_MODULE:
-			amp_module_delete_token (AMP_PROJECT (obj), node, NULL);
-			break;
-		case ANJUTA_PROJECT_PACKAGE:
-			amp_package_delete_token (AMP_PROJECT (obj), node, NULL);
-			break;
-		default:
-			break;
-	}
-	g_signal_emit_by_name (obj, "node-changed", node,  NULL);
+	PmJob *remove_job;
+
+	remove_job = pm_job_new (&amp_remove_job, node, NULL, NULL, ANJUTA_PROJECT_UNKNOWN, NULL, NULL, obj);
+	pm_command_queue_push (AMP_PROJECT (obj)->queue, remove_job);
 
 	return TRUE;
 }
@@ -2464,21 +2672,12 @@ static AnjutaProjectProperty *
 iproject_set_property (IAnjutaProject *obj, AnjutaProjectNode *node, AnjutaProjectProperty *property, const gchar *value, GError **error)
 {
 	AnjutaProjectProperty *new_prop;
-	gint flags;
-	
-	new_prop = amp_node_property_set (node, property, value);
+	PmJob *set_property_job;
 
-	flags = ((AmpProperty *)new_prop->native)->flags;
-	
-	if (flags & AM_PROPERTY_IN_CONFIGURE)
-	{
-		amp_project_update_ac_property (AMP_PROJECT (obj), new_prop);
-	}
-	else if (flags & AM_PROPERTY_IN_MAKEFILE)
-	{
-		amp_project_update_am_property (AMP_PROJECT (obj), node, new_prop);
-	}
-	g_signal_emit_by_name (obj, "node-changed", node,  NULL);
+	new_prop = amp_node_property_set (node, property, value);
+	set_property_job = pm_job_new (&amp_set_property_job, node, NULL, NULL, ANJUTA_PROJECT_UNKNOWN, NULL, NULL, obj);
+	set_property_job->property = new_prop;
+	pm_command_queue_push (AMP_PROJECT (obj)->queue, set_property_job);
 	
 	return new_prop;
 }
@@ -2486,11 +2685,11 @@ iproject_set_property (IAnjutaProject *obj, AnjutaProjectNode *node, AnjutaProje
 static gboolean
 iproject_remove_property (IAnjutaProject *obj, AnjutaProjectNode *node, AnjutaProjectProperty *property, GError **error)
 {
-	AnjutaProjectProperty *old_prop;
+	PmJob *remove_property_job;
 
-	old_prop = anjuta_project_node_remove_property (node, property);
-	amp_property_free (old_prop);
-	g_signal_emit_by_name (obj, "node-changed", node,  NULL);
+	remove_property_job = pm_job_new (&amp_remove_property_job, node, NULL, NULL, ANJUTA_PROJECT_UNKNOWN, NULL, NULL, obj);
+	remove_property_job->property = property;
+	pm_command_queue_push (AMP_PROJECT (obj)->queue, remove_property_job);
 	
 	return TRUE;
 }
@@ -2630,6 +2829,7 @@ amp_project_dispose (GObject *object)
 	project = AMP_PROJECT (object);
 	amp_project_unload (project);
 	if (project->root) amp_root_free (project->root);
+	pm_command_queue_free (project->queue);
 
 	G_OBJECT_CLASS (parent_class)->dispose (object);	
 }
@@ -2649,6 +2849,8 @@ amp_project_instance_init (AmpProject *project)
 	project->am_space_list = NULL;
 	project->ac_space_list = NULL;
 	project->arg_list = NULL;
+
+	project->queue = pm_command_queue_new ();
 }
 
 static void
