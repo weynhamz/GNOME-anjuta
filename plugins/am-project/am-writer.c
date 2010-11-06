@@ -36,6 +36,7 @@
 #include <libanjuta/anjuta-utils.h>
 
 #include <string.h>
+#include <ctype.h>
 
 /* Types
   *---------------------------------------------------------------------------*/
@@ -95,25 +96,6 @@ amp_project_write_config_list (AmpProject *project)
 }
 
 static AnjutaToken *
-amp_project_write_subdirs_list (AnjutaAmGroupNode *project)
-{
-	AnjutaToken *pos = NULL;
-	AnjutaToken *token;
-	static gint eol_type[] = {ANJUTA_TOKEN_EOL, ANJUTA_TOKEN_SPACE, ANJUTA_TOKEN_COMMENT, 0};
-	
-	pos = anjuta_token_find_type (pos, ANJUTA_TOKEN_SEARCH_NOT, eol_type);
-
-	token = anjuta_token_insert_token_list (FALSE, pos,
-	    		AC_TOKEN_AC_CONFIG_FILES, "AC_CONFIG_FILES(",
-	    		ANJUTA_TOKEN_LIST, NULL,
-	    		ANJUTA_TOKEN_LAST, NULL,
-	    		RIGHT_PAREN, ")",
-	    		NULL);
-	
-	return token;
-}
-
-static AnjutaToken *
 amp_project_write_config_file (AmpProject *project, AnjutaToken *list, gboolean after, AnjutaToken *sibling, const gchar *filename)
 {
 	AnjutaToken *token;
@@ -149,7 +131,7 @@ amp_project_write_config_file (AmpProject *project, AnjutaToken *list, gboolean 
 gboolean 
 amp_group_create_token (AmpProject  *project, AnjutaAmGroupNode *group, GError **error)
 {
-	AnjutaAmGroupNode *last;
+	AnjutaProjectNode *last;
 	GFile *directory;
 	GFile *makefile;
 	AnjutaToken *list;
@@ -203,19 +185,19 @@ amp_group_create_token (AmpProject  *project, AnjutaAmGroupNode *group, GError *
 	if (sibling == NULL)
 	{
 		/* Find a sibling before */
-		for (last = anjuta_project_node_prev_sibling (group); (last != NULL) && (anjuta_project_node_get_node_type (last) != ANJUTA_PROJECT_GROUP); last = anjuta_project_node_prev_sibling (last));
+		for (last = anjuta_project_node_prev_sibling (ANJUTA_PROJECT_NODE (group)); (last != NULL) && (anjuta_project_node_get_node_type (last) != ANJUTA_PROJECT_GROUP); last = anjuta_project_node_prev_sibling (last));
 		if (last != NULL)
 		{
-			sibling = last;
+			sibling = ANJUTA_AM_GROUP_NODE (last);
 			after = TRUE;
 		}
 		else
 		{
 			/* Find a sibling after */
-			for (last = anjuta_project_node_next_sibling (group); (last != NULL) && (anjuta_project_node_get_node_type (last) != ANJUTA_PROJECT_GROUP); last = anjuta_project_node_next_sibling (last));
+			for (last = anjuta_project_node_next_sibling (ANJUTA_PROJECT_NODE (group)); (last != NULL) && (anjuta_project_node_get_node_type (last) != ANJUTA_PROJECT_GROUP); last = anjuta_project_node_next_sibling (last));
 			if (last != NULL)
 			{
-				sibling = last;
+				sibling = ANJUTA_AM_GROUP_NODE (last);
 				after = FALSE;
 			}
 		}
@@ -686,10 +668,10 @@ amp_source_create_token (AmpProject  *project, AnjutaAmSourceNode *source, GErro
 
 	/* Get parent target */
 	target = ANJUTA_AM_TARGET_NODE (anjuta_project_node_parent (ANJUTA_PROJECT_NODE (source)));
-	if ((target == NULL) || (anjuta_project_node_get_node_type (target) != ANJUTA_PROJECT_TARGET)) return FALSE;
+	if ((target == NULL) || (anjuta_project_node_get_node_type (ANJUTA_PROJECT_NODE (target)) != ANJUTA_PROJECT_TARGET)) return FALSE;
 	
 	group = ANJUTA_AM_GROUP_NODE (anjuta_project_node_parent (ANJUTA_PROJECT_NODE (target)));
-	relative_name = g_file_get_relative_path (anjuta_project_node_get_file (group), anjuta_project_node_get_file (source));
+	relative_name = g_file_get_relative_path (anjuta_project_node_get_file (ANJUTA_PROJECT_NODE (group)), anjuta_project_node_get_file (ANJUTA_PROJECT_NODE (source)));
 
 	/* Add in Makefile.am */
 	/* Find a sibling if possible */
@@ -825,7 +807,6 @@ amp_source_delete_token (AmpProject  *project, AnjutaAmSourceNode *source, GErro
 static AnjutaToken*
 amp_property_delete_token (AmpProject  *project, AnjutaToken *token)
 {
-	AnjutaToken *list = NULL;
 	gboolean updated = FALSE;
 
 	if (token != NULL)
@@ -872,18 +853,18 @@ amp_project_write_property_list (AnjutaAmGroupNode *group, AnjutaProjectNode *no
 
 gboolean amp_project_update_am_property (AmpProject *project, AnjutaProjectNode *node, AnjutaProjectProperty *property)
 {
-	AnjutaAmGroupNode *group;
+	AnjutaProjectNode *group;
 	AnjutaToken *args;
 
 
 	/* Find group  of the property */
 	if (anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_GROUP)
 	{
-		group = ANJUTA_AM_GROUP_NODE (node);
+		group = node;
 	}
 	else
 	{
-		group = ANJUTA_AM_GROUP_NODE (anjuta_project_node_parent (node));
+		group = anjuta_project_node_parent (node);
 	}
 
 	if ((property->value == NULL) || (*property->value == '\0'))
@@ -920,7 +901,7 @@ gboolean amp_project_update_am_property (AmpProject *project, AnjutaProjectNode 
 				canon_name = canonicalize_automake_variable (ANJUTA_AM_TARGET_NODE (node)->base.name);
 				prop_name = g_strconcat (canon_name, ((AmpProperty *)property->native)->suffix, NULL);
 			}
-			args = amp_project_write_property_list (group, node, prop_name);
+			args = amp_project_write_property_list (ANJUTA_AM_GROUP_NODE (group), node, prop_name);
 			((AmpProperty *)property)->token = args;
 			g_free (canon_name);
 			g_free (prop_name);
@@ -1013,7 +994,7 @@ gboolean amp_project_update_am_property (AmpProject *project, AnjutaProjectNode 
 		}
 	}
 
-	if (args != NULL) amp_group_update_makefile (group, args);
+	if (args != NULL) amp_group_update_makefile (ANJUTA_AM_GROUP_NODE (group), args);
 	
 	return args != NULL ? TRUE : FALSE;
 }

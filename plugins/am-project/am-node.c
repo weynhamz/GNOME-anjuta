@@ -171,18 +171,6 @@ tagged_token_list_free (GList *list)
 /* Variable object
  *---------------------------------------------------------------------------*/
 
-static const gchar *
-amp_variable_get_name (AmpVariable *variable)
-{
-	return variable->name;
-}
-
-static gchar *
-amp_variable_evaluate (AmpVariable *variable)
-{
-	return anjuta_token_evaluate (variable->value);
-}
-
 AmpVariable*
 amp_variable_new (gchar *name, AnjutaTokenType assign, AnjutaToken *value)
 {
@@ -212,7 +200,7 @@ amp_variable_free (AmpVariable *variable)
 /* Root objects
  *---------------------------------------------------------------------------*/
 
-AnjutaProjectNode*
+AnjutaAmRootNode*
 amp_root_new (GFile *file, GError **error)
 {
 	AnjutaAmRootNode *root = NULL;
@@ -228,7 +216,7 @@ amp_root_new (GFile *file, GError **error)
 						ANJUTA_PROJECT_CAN_SAVE;
 	
 
-	return ANJUTA_PROJECT_NODE (root);
+	return root;
 }
 
 void
@@ -249,10 +237,8 @@ amp_root_clear (AnjutaAmRootNode *node)
 }
 
 AnjutaTokenFile*
-amp_root_set_configure (AnjutaProjectNode *node, GFile *configure)
+amp_root_set_configure (AnjutaAmRootNode *root, GFile *configure)
 {
-    AnjutaAmRootNode *root = ANJUTA_AM_ROOT_NODE (node);
-
 	if (root->configure_file != NULL) anjuta_token_file_free (root->configure_file);
 	root->configure_file = anjuta_token_file_new (configure);
 
@@ -327,7 +313,7 @@ amp_module_get_token (AnjutaAmModuleNode *node)
 	return node->module;
 }
 
-AnjutaProjectNode*
+AnjutaAmModuleNode*
 amp_module_new (const gchar *name, GError **error)
 {
 	AnjutaAmModuleNode *module = NULL;
@@ -342,7 +328,7 @@ amp_module_new (const gchar *name, GError **error)
 						ANJUTA_PROJECT_CAN_REMOVE;
 	module->module = NULL;
 
-	return ANJUTA_PROJECT_NODE (module);
+	return module;
 }
 
 void
@@ -392,7 +378,7 @@ anjuta_am_module_node_class_init (AnjutaAmModuleNodeClass *klass)
 /* Package objects
  *---------------------------------------------------------------------------*/
 
-AnjutaProjectNode*
+AnjutaAmPackageNode*
 amp_package_new (const gchar *name, GError **error)
 {
 	AnjutaAmPackageNode *node = NULL;
@@ -406,7 +392,7 @@ amp_package_new (const gchar *name, GError **error)
 	node->base.state =  ANJUTA_PROJECT_CAN_REMOVE;
 	node->version = NULL;
 
-	return ANJUTA_PROJECT_NODE (node);
+	return node;
 }
 
 void

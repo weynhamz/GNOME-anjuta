@@ -629,8 +629,8 @@ anjuta_project_node_get_native_properties (AnjutaProjectNode *node)
 	return NODE_DATA (node)->native_properties;
 }
 
-static
-find_property (gpointer item, gpointer data)
+static gint
+find_property (gconstpointer item, gconstpointer data)
 {
 	AnjutaProjectProperty *prop_a = (AnjutaProjectProperty *)item;
 	AnjutaProjectProperty *prop_b = (AnjutaProjectProperty *)data;
@@ -733,7 +733,7 @@ anjuta_project_property_free (AnjutaProjectProperty *prop)
 }
 
 GType
-anjuta_project_property_get_type ()
+anjuta_project_property_get_type (void)
 {
 	static GType type_id = 0;
 
@@ -774,7 +774,7 @@ anjuta_project_group_get_node_from_file (const AnjutaProjectNode *root, GFile *d
 {
 	AnjutaProjectNode *node;
 
-	node = anjuta_project_node_traverse (root, G_PRE_ORDER, anjuta_project_group_compare, directory);
+	node = anjuta_project_node_traverse ((AnjutaProjectNode *)root, G_PRE_ORDER, anjuta_project_group_compare, directory);
 
 	return node;
 }
@@ -811,7 +811,7 @@ anjuta_project_target_get_node_from_name (const AnjutaProjectNode *parent, const
 {
 	AnjutaProjectNode *node;
 
-	node = anjuta_project_node_traverse (parent, G_PRE_ORDER, anjuta_project_target_compare, name);
+	node = anjuta_project_node_traverse ((AnjutaProjectNode *)parent, G_PRE_ORDER, anjuta_project_target_compare, (gpointer)name);
 
 	return node;
 }
@@ -837,7 +837,7 @@ anjuta_project_source_get_node_from_file (const AnjutaProjectNode *parent, GFile
 	AnjutaProjectNode *node;
 
 
-	node = anjuta_project_node_traverse (parent, G_PRE_ORDER, anjuta_project_source_compare, file);
+	node = anjuta_project_node_traverse ((AnjutaProjectNode *)parent, G_PRE_ORDER, anjuta_project_source_compare, (gpointer)file);
 
 	return node;
 }
@@ -909,6 +909,8 @@ anjuta_project_node_info_new (AnjutaProjectNodeType type,
 	info->type = type;
 	info->name = g_strdup (name);
 	info->mime_type = g_strdup (mime_type);
+
+	return info;
 }
 
 AnjutaProjectNodeInfo *
@@ -1014,8 +1016,6 @@ anjuta_project_node_get_gobject_property (GObject    *object,
 	      GValue     *value,
 	      GParamSpec *pspec)
 {
-	AnjutaProjectNode *node = ANJUTA_PROJECT_NODE(object);
-        
 	G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 }
 
@@ -1025,8 +1025,7 @@ anjuta_project_node_set_gobject_property (GObject      *object,
 	      const GValue *value,
 	      GParamSpec   *pspec)
 {
-	AnjutaProjectNode *node = ANJUTA_PROJECT_NODE(object);
-       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+	G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 }
 
 static void
@@ -1111,167 +1110,4 @@ anjuta_project_node_class_init (AnjutaProjectNodeClass *klass)
 				       G_TYPE_FILE,
                                        G_PARAM_READWRITE));
 
-}
-
-
-
-/* Proxy node object
- *---------------------------------------------------------------------------*/
-
-#define ANJUTA_TYPE_PROJECT_PROXY_NODE					(anjuta_project_proxy_node_get_type ())
-#define ANJUTA_PROJECT_PROXY_NODE(obj)					(G_TYPE_CHECK_INSTANCE_CAST ((obj), ANJUTA_TYPE_PROJECT_PROXY_NODE, AnjutaProjectProxyNode))
-
-typedef struct _AnjutaProjectProxyNode AnjutaProjectProxyNode;
-GType anjuta_project_proxy_node_get_type (void) G_GNUC_CONST;
-
-struct _AnjutaProjectProxyNode{
-	AnjutaProjectNode base;
-	AnjutaProjectNode *node;
-	guint reference;
-};
-
-
-AnjutaProjectNode *
-anjuta_project_proxy_new (AnjutaProjectNode *node)
-{
-	AnjutaProjectProxyNode *proxy;
-	GList *item;
-	
-	/* If the node is already a proxy get original node */
-	node = anjuta_project_proxy_get_node (node);
-	
-	/* Create proxy node */
-	proxy = g_object_new (ANJUTA_TYPE_PROJECT_PROXY_NODE, NULL);
-	proxy->reference = 1;
-	proxy->node = node;
-	proxy->base.type = node->type | ANJUTA_PROJECT_PROXY;
-	proxy->base.file = node->file != NULL ? g_object_ref (node->file) : NULL;
-	proxy->base.name = g_strdup (node->name);
-		
-	/* Shallow copy of all properties */
-	proxy->base.custom_properties = g_list_copy (node->custom_properties);
-	for (item = g_list_first (proxy->base.custom_properties); item != NULL; item = g_list_next (item))
-	{
-		AnjutaProjectProperty *prop = (AnjutaProjectProperty *)item->data;
-		AnjutaProjectProperty *new_prop;
-		
-		new_prop = anjuta_project_property_copy (prop);
-		item->data = new_prop;
-	}
-	
-	return ANJUTA_PROJECT_NODE (proxy);
-}
-
-AnjutaProjectNode *
-anjuta_project_proxy_unref (AnjutaProjectNode *node)
-{
-	g_object_unref (G_OBJECT (node));
-
-	return node;
-}
-
-/* GObjet implementation
- *---------------------------------------------------------------------------*/
-
-typedef struct _AnjutaProjectProxyNodeClass AnjutaProjectProxyNodeClass;
-
-struct _AnjutaProjectProxyNodeClass {
-	AnjutaProjectNodeClass parent_class;
-};
-
-G_DEFINE_TYPE (AnjutaProjectProxyNode, anjuta_project_proxy_node, ANJUTA_TYPE_PROJECT_NODE);
-
-static void
-anjuta_project_proxy_node_init (AnjutaProjectProxyNode *node)
-{
-}
-
-static void
-anjuta_project_proxy_node_finalize (GObject *object)
-{
-	AnjutaProjectProxyNode *proxy = ANJUTA_PROJECT_PROXY_NODE (object);
-	
-	G_OBJECT_CLASS (anjuta_project_proxy_node_parent_class)->finalize (object);
-}
-
-
-static void
-anjuta_project_proxy_node_class_init (AnjutaProjectProxyNodeClass *klass)
-{
-	GObjectClass* object_class = G_OBJECT_CLASS (klass);
-	
-	object_class->finalize = anjuta_project_proxy_node_finalize;
-}
-
-
-/* Proxy node functions
- *---------------------------------------------------------------------------*/
-
-static void
-reparent_children (AnjutaProjectNode *node, gpointer data)
-{
-	node->parent = ANJUTA_PROJECT_NODE (data);
-}
-
-AnjutaProjectNode *
-anjuta_project_proxy_exchange (AnjutaProjectNode *proxy, AnjutaProjectNode *node)
-{
-	GTypeQuery node_type_info;
-	GTypeQuery base_type_info;
-	guint extra_size;
-	AnjutaProjectNode *other;
-	
-
-	/* Swap specific data */
-	g_type_query (G_TYPE_FROM_INSTANCE (node), &node_type_info);
-	g_type_query (ANJUTA_TYPE_PROJECT_NODE, &base_type_info);
-
-	extra_size = node_type_info.instance_size - base_type_info.instance_size;
-	if (extra_size > 0)
-	{
-		gchar *data;
-
-		data = g_new (gchar , extra_size);
-		memcpy (data, ((gchar *)node) +  base_type_info.instance_size, extra_size);
-		memcpy (((gchar *)node) +  base_type_info.instance_size, ((gchar *)proxy) +  base_type_info.instance_size, extra_size);
-		memcpy (((gchar *)proxy) +  base_type_info.instance_size, data, extra_size);
-		g_free (data);
-	}
-
-	/* Exchange link */
-	other = proxy->children;
-	proxy->children = node->children;
-	node->children = other;
-	anjuta_project_node_children_foreach (proxy, reparent_children, proxy);
-	anjuta_project_node_children_foreach (node, reparent_children, node);
-	
-	/* Delete node temporary properties */
-	g_list_foreach (node->custom_properties, anjuta_project_property_free, NULL);
-	node->custom_properties = proxy->custom_properties;
-	proxy->custom_properties = NULL;
-	
-	return proxy;
-}
-
-AnjutaProjectNode *
-anjuta_project_proxy_get_node (AnjutaProjectNode *node)
-{
-	g_return_val_if_fail (node != NULL, FALSE);
-
-	if (ANJUTA_PROJECT_NODE (node)->type & ANJUTA_PROJECT_PROXY)
-	{
-		return ANJUTA_PROJECT_PROXY_NODE (node)->node;
-	}
-	else
-	{
-		return node;
-	}
-}
-
-gboolean
-anjuta_project_node_is_proxy (AnjutaProjectNode *node)
-{
-	g_return_val_if_fail (node != NULL, FALSE);
-
-	return NODE_DATA (node)->type & ANJUTA_PROJECT_PROXY ? TRUE : FALSE;
 }

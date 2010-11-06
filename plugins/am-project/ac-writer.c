@@ -265,11 +265,10 @@ amp_module_create_token (AmpProject  *project, AnjutaAmModuleNode *module, GErro
 	AnjutaToken *token;
 	AnjutaToken *prev;
 	AnjutaProjectNode *sibling;
-	gchar *relative_name;
 
 	/* Get root node */
 	root = ANJUTA_AM_ROOT_NODE (anjuta_project_node_parent (ANJUTA_PROJECT_NODE (module)));
-	if ((root == NULL) || (anjuta_project_node_get_node_type (root) != ANJUTA_PROJECT_ROOT)) return FALSE;
+	if ((root == NULL) || (anjuta_project_node_get_node_type (ANJUTA_PROJECT_NODE (root)) != ANJUTA_PROJECT_ROOT)) return FALSE;
 
 	
 	/* Add in configure.ac */
@@ -340,17 +339,16 @@ amp_package_create_token (AmpProject  *project, AnjutaAmPackageNode *package, GE
 	gboolean after;
 	AnjutaToken *token;
 	AnjutaToken *prev;
-	AnjutaProjectNode *sibling;
 	AnjutaToken *args;
 
 
 	/* Get parent module */
 	module = ANJUTA_AM_MODULE_NODE (anjuta_project_node_parent (ANJUTA_PROJECT_NODE (package)));
-	if ((module == NULL) || (anjuta_project_node_get_node_type (module) != ANJUTA_PROJECT_MODULE)) return FALSE;
+	if ((module == NULL) || (anjuta_project_node_get_node_type (ANJUTA_PROJECT_NODE (module)) != ANJUTA_PROJECT_MODULE)) return FALSE;
 
 	/* Get root node */
 	root = ANJUTA_AM_ROOT_NODE (anjuta_project_node_parent (ANJUTA_PROJECT_NODE (module)));
-	if ((root == NULL) || (anjuta_project_node_get_node_type (root) != ANJUTA_PROJECT_ROOT)) return FALSE;
+	if ((root == NULL) || (anjuta_project_node_get_node_type (ANJUTA_PROJECT_NODE (root)) != ANJUTA_PROJECT_ROOT)) return FALSE;
 
 
 	/* Add in configure.ac */

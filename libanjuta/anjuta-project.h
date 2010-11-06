@@ -231,7 +231,7 @@ AnjutaProjectProperty *anjuta_project_node_remove_property (AnjutaProjectNode *n
 AnjutaProjectProperty *anjuta_project_property_new (const gchar *name, AnjutaProjectValueType type, const gchar *value, AnjutaProjectProperty *native);
 AnjutaProjectProperty * anjuta_project_property_copy (AnjutaProjectProperty *prop);
 void anjuta_project_property_free (AnjutaProjectProperty *prop);
-GType anjuta_project_property_get_type ();
+GType anjuta_project_property_get_type (void);
 
 
 //const gchar *anjuta_project_node_get_property_value (AnjutaProjectNode *node, AnjutaProjectProperty prop);
@@ -251,19 +251,10 @@ GFile *anjuta_project_source_get_file (const AnjutaProjectNode *source);
 AnjutaProjectNodeInfo *anjuta_project_node_info_new (AnjutaProjectNodeType type, const gchar *name, const gchar *mime_type);
 AnjutaProjectNodeInfo *anjuta_project_node_info_copy (AnjutaProjectNodeInfo *info);
 void anjuta_project_node_info_free (AnjutaProjectNodeInfo *info);
-GType anjuta_project_node_info_get_type ();
+GType anjuta_project_node_info_get_type (void);
 const gchar *anjuta_project_node_info_name (const AnjutaProjectNodeInfo *info);
 const gchar *anjuta_project_node_info_mime (const AnjutaProjectNodeInfo *info);
 AnjutaProjectNodeType anjuta_project_node_info_type (const AnjutaProjectNodeInfo *info);
-
-
-
-AnjutaProjectNode *anjuta_project_proxy_new (AnjutaProjectNode *node);
-AnjutaProjectNode *anjuta_project_proxy_unref (AnjutaProjectNode *node);
-AnjutaProjectNode *anjuta_project_proxy_exchange (AnjutaProjectNode *proxy, AnjutaProjectNode *node);
-AnjutaProjectNode *anjuta_project_proxy_get_node (AnjutaProjectNode *proxy);
-
-gboolean anjuta_project_node_is_proxy (AnjutaProjectNode *node);
 
 G_END_DECLS
 

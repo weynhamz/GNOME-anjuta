@@ -633,9 +633,8 @@ on_properties_dialog_response (GtkWidget *dialog,
 					{
 						/* Remove */
 						PropertyValue *value;
-						
-						value = g_slice_new0 (PropertyValue);
-						value->property = prop;
+
+						value = pm_property_value_new (prop, NULL);
 						modified = g_list_prepend (modified, value);
 					}
 				}
@@ -646,9 +645,7 @@ on_properties_dialog_response (GtkWidget *dialog,
 						/* Modified */
 						PropertyValue *value;
 						
-						value = g_slice_new0 (PropertyValue);
-						value->property = prop;
-						value->value = text;
+						value = pm_property_value_new (prop, text);
 						modified = g_list_prepend (modified, value);
 					}
 				}
@@ -660,9 +657,7 @@ on_properties_dialog_response (GtkWidget *dialog,
 					/* Modified */
 					PropertyValue *value;
 						
-					value = g_slice_new0 (PropertyValue);
-					value->property = prop;
-					value->value = text;
+					value = pm_property_value_new (prop, text);
 					modified = g_list_prepend (modified, value);
 				}
 				break;
@@ -1377,17 +1372,9 @@ anjuta_pm_project_new_module (AnjutaPmProject *project,
 					for (node = g_list_first (list); node != NULL; node = g_list_next (node))
 					{
 						GError *err = NULL;
-						AnjutaProjectNode* selected_module = (AnjutaProjectNode *)node->data;
 						AnjutaProjectNode* new_module;
 						gchar* uri = NULL;
-						GFile* module_file;
-
-						/*module_file = gbf_tree_data_get_file (selected_module);
-						new_module = ianjuta_project_add_module (project,
-															target,
-															module_file,
-															&err);
-						g_object_unref (module_file);*/
+						
 						new_module = NULL;
 						if (err) {
 							gchar *str = g_strdup_printf ("%s: %s\n",

@@ -305,7 +305,7 @@ gbf_project_model_invalidate_children (GbfProjectModel *model, GtkTreeIter *iter
 		    	-1);
 		gbf_tree_data_invalidate (data);
 
-		valid = gtk_tree_model_iter_next (model, &child);
+		valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &child);
 	}
 
 	return valid;
@@ -746,12 +746,6 @@ add_root (GbfProjectModel 	*model,
 }
 
 static void
-project_updated_cb (IAnjutaProject *project, GbfProjectModel *model)
-{
-	gbf_project_model_update_tree (model, NULL, NULL);
-}
-
-static void
 load_project (GbfProjectModel *model, AnjutaPmProject *proj)
 {
 	model->priv->proj = proj;
@@ -841,7 +835,7 @@ recursive_find_tree_data (GtkTreeModel  *model,
 	return retval;
 }
 
-void
+static void
 gbf_project_model_update_shortcut (GbfProjectModel *model, AnjutaProjectNode *parent)
 {
 	GtkTreeIter child;
@@ -853,7 +847,6 @@ gbf_project_model_update_shortcut (GbfProjectModel *model, AnjutaProjectNode *pa
 	while (valid)
 	{
 		GbfTreeData *data;
-		AnjutaProjectNode* new_node = NULL;
 		AnjutaProjectNode* old_node = NULL;
 
 		gtk_tree_model_get (GTK_TREE_MODEL (model), &child,

@@ -45,6 +45,8 @@ void amp_am_scanner_set_am_variable (AmpAmScanner *scanner, AnjutaTokenType vari
 void amp_am_scanner_include (AmpAmScanner *scanner, AnjutaToken *name);
 void amp_am_scanner_update_variable (AmpAmScanner *scanner, AnjutaToken *variable);
 
+void amp_project_set_am_variable (AmpProject* project, AnjutaAmGroupNode* group, AnjutaTokenType variable, AnjutaToken *name, AnjutaToken *list, GHashTable *orphan_properties);
+
 
 void amp_am_yyerror (YYLTYPE *loc, AmpAmScanner *scanner, char const *s);
 

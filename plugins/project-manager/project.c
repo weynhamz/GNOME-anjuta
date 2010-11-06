@@ -232,14 +232,6 @@ anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 	return TRUE;
 }
 
-static gboolean
-anjuta_pm_project_reload_node (AnjutaPmProject *project, AnjutaProjectNode *node, GError **error)
-{
-	ianjuta_project_load_node (project->project, project->root, NULL);	
-
-	return TRUE;
-}
-
 gboolean 
 anjuta_pm_project_unload (AnjutaPmProject *project, GError **error)
 {

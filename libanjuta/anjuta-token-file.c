@@ -231,7 +231,6 @@ remove_raw_token (AnjutaToken *token, gpointer user_data)
 static AnjutaToken *
 anjuta_token_file_remove_token (AnjutaTokenFile *file, AnjutaToken *token)
 {
-	AnjutaToken *last;
 	AnjutaToken *next = NULL;
 
 	if (token != NULL) next = anjuta_token_foreach_post_order (token, remove_raw_token, file);

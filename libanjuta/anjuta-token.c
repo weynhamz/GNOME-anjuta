@@ -135,33 +135,6 @@ struct _AnjutaToken
  *---------------------------------------------------------------------------*/
 
 static AnjutaToken *
-anjuta_token_next2 (AnjutaToken *token) 
-{
-	AnjutaToken *last = token;
-	AnjutaToken *next;
-
-	while (last != NULL)
-	{
-		next = last->next;
-		if (next == NULL)
-		{
-			last = last->parent;
-			if (last != NULL)
-			{
-				for (; last->last != NULL; last = last->last);
-			}
-		}
-		else
-		{
-			for (; next->children != NULL; next = next->children);
-			break;
-		}
-	}
-	
-	return next;
-} 
- 
-static AnjutaToken *
 anjuta_token_next_child (AnjutaToken *child, AnjutaToken **last)
 {
 	if (child == NULL) return child;
@@ -208,26 +181,6 @@ anjuta_token_next_after_children (AnjutaToken *token)
 }
 
 static AnjutaToken *
-anjuta_token_next_item_after_children (AnjutaToken *parent)
-{
-	AnjutaToken *token;
-	AnjutaToken *last;
-	
-	for (last = parent; last->last != NULL; last = last->last);
-
-	for (token = last; token->parent != NULL; token = token->parent)
-	{
-		if (token->parent == parent)
-		{
-			return anjuta_token_next_after_children (parent);
-		}
-	}
-	
-	return anjuta_token_next_after_children (last);
-}
-
-
-AnjutaToken *
 anjuta_token_copy (AnjutaToken *token)
 {
 	AnjutaToken *copy = NULL;
@@ -579,12 +532,6 @@ anjuta_token_parent (AnjutaToken *token)
 
 AnjutaToken *
 anjuta_token_list (AnjutaToken *token)
-{
-	return token->group;
-}
-
-AnjutaToken *
-anjuta_token_parent_group (AnjutaToken *token)
 {
 	return token->group;
 }

@@ -92,17 +92,14 @@ on_file_changed (GFileMonitor *monitor,
 			GFileMonitorEvent event_type,
 			gpointer data)
 {
-	if (!anjuta_project_node_is_proxy (ANJUTA_PROJECT_NODE (data)))
-	{
-		switch (event_type) {
-			case G_FILE_MONITOR_EVENT_CHANGED:
-			case G_FILE_MONITOR_EVENT_DELETED:
-			case G_FILE_MONITOR_EVENT_CREATED:
-				g_signal_emit_by_name (ANJUTA_DIR_GROUP_NODE (data)->emitter, "file-changed", data);
-				break;
-			default:
-				break;
-		}
+	switch (event_type) {
+		case G_FILE_MONITOR_EVENT_CHANGED:
+		case G_FILE_MONITOR_EVENT_DELETED:
+		case G_FILE_MONITOR_EVENT_CREATED:
+			g_signal_emit_by_name (ANJUTA_DIR_GROUP_NODE (data)->emitter, "file-changed", data);
+			break;
+		default:
+			break;
 	}
 }
 

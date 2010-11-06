@@ -46,20 +46,22 @@ struct _AnjutaTokenStyle
 /* Private functions
  *---------------------------------------------------------------------------*/
 
-void free_separator (AnjutaTokenStyleSeparator *sep, gpointer user_data)
+static void
+free_separator (AnjutaTokenStyleSeparator *sep, gpointer user_data)
 {
 	g_free (sep->value);
 	g_slice_free (AnjutaTokenStyleSeparator, sep);
 }
 
-void free_separator_list (guint key, GList *value, gpointer user_data)
+static void
+free_separator_list (guint key, GList *value, gpointer user_data)
 {
 	/* Free list elements */
 	g_list_foreach (value, (GFunc)free_separator, NULL);
 	g_list_free (value);
 }
 
-AnjutaTokenStyleSeparator*
+static AnjutaTokenStyleSeparator*
 anjuta_token_style_insert_separator (AnjutaTokenStyle *style, guint key, const gchar *value)
 {
 	GList *list;
@@ -137,7 +139,7 @@ anjuta_token_style_insert_separator (AnjutaTokenStyle *style, guint key, const g
 	}
 }
 
-AnjutaTokenStyleSeparator*
+static AnjutaTokenStyleSeparator*
 anjuta_token_style_insert_separator_between (AnjutaTokenStyle *style, gint next, gint prev, const gchar *value)
 {
 	return anjuta_token_style_insert_separator (style, ((guint)prev & 0xFFFF) | (((guint)next & 0xFFFF) << 16), value);

@@ -507,15 +507,6 @@ on_each_get_iter (GtkTreeModel *model,
                         gpointer user_data)
 {
 	GList **selected = (GList **)user_data;
-	GbfTreeData *data;
-
-	/*if (GTK_IS_TREE_MODEL_FILTER (model))
-	{
-		GtkTreeIter child_iter;
-			
-		gtk_tree_model_filter_convert_iter_to_child_iter (GTK_TREE_MODEL_FILTER (model), &child_iter, iter);
-		*iter = child_iter;
-	}*/
 	
 	*selected = g_list_prepend (*selected, gtk_tree_iter_copy (iter));
 }

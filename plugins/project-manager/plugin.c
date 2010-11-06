@@ -435,7 +435,7 @@ static void
 on_add_package (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 	GtkTreeIter selected_module;
-	AnjutaProjectNode *new_module;
+	GList *new_module;
 	
 	update_operation_begin (plugin);
 	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_module);
@@ -443,6 +443,7 @@ on_add_package (GtkAction *action, ProjectManagerPlugin *plugin)
 	new_module = anjuta_pm_project_new_package (plugin->project,
 										   get_plugin_parent_window (plugin),
 										   &selected_module, NULL);
+	g_list_free (new_module);
 	update_operation_end (plugin, TRUE);
 }
 
@@ -942,7 +943,6 @@ update_ui (ProjectManagerPlugin *plugin)
 {
 	AnjutaUI *ui;
 	gint j;
-	GList *item;
 	gint caps;
 	gint main_caps;
 	gint popup_caps;
@@ -1264,7 +1264,6 @@ add_primary_target (AnjutaProjectNode *node, gpointer data)
 static void
 on_project_updated (AnjutaPmProject *project, AnjutaProjectNode *node, GError *error, ProjectManagerPlugin *plugin)
 {
-	AnjutaStatus *status;
 	gchar *dirname;
 
 	dirname = anjuta_util_get_local_path_from_uri (plugin->project_root_uri);
@@ -2071,7 +2070,7 @@ iproject_manager_get_selected (IAnjutaProjectManager *project_manager,
 	return NULL;
 }
 
-static gint
+static guint
 iproject_manager_get_capabilities (IAnjutaProjectManager *project_manager,
 								   GError **err)
 {

@@ -44,19 +44,19 @@ struct _AmpVariable {
 AmpVariable* amp_variable_new (gchar *name, AnjutaTokenType assign, AnjutaToken *value);
 
 
-AnjutaProjectNode* amp_root_new (GFile *file, GError **error);
+AnjutaAmRootNode* amp_root_new (GFile *file, GError **error);
 void amp_root_free (AnjutaAmRootNode *node);
 void amp_root_clear (AnjutaAmRootNode *node);
-AnjutaTokenFile* amp_root_set_configure (AnjutaProjectNode *node, GFile *configure);
+AnjutaTokenFile* amp_root_set_configure (AnjutaAmRootNode *node, GFile *configure);
 gboolean amp_root_update_configure (AnjutaAmRootNode *group, AnjutaToken *token);
 AnjutaToken* amp_root_get_configure_token (AnjutaAmRootNode *root);
 
-AnjutaProjectNode* amp_module_new (const gchar *name, GError **error);
+AnjutaAmModuleNode* amp_module_new (const gchar *name, GError **error);
 void amp_module_free (AnjutaAmModuleNode *node);
 AnjutaToken *amp_module_get_token (AnjutaAmModuleNode *node);
 void amp_module_add_token (AnjutaAmModuleNode *group, AnjutaToken *token);
 
-AnjutaProjectNode* amp_package_new (const gchar *name, GError **error);
+AnjutaAmPackageNode* amp_package_new (const gchar *name, GError **error);
 void amp_package_free (AnjutaAmPackageNode *node);
 void amp_package_set_version (AnjutaAmPackageNode *node, const gchar *compare, const gchar *version);
 AnjutaToken *amp_package_get_token (AnjutaAmPackageNode *node);

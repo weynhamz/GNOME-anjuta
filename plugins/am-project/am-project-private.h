@@ -53,11 +53,6 @@ struct _AmpProject {
 	GList				*properties;
 	AnjutaToken			*ac_init;
 	AnjutaToken			*args;
-	
-	AnjutaAmGroupNode              *root_node;         	/* tree containing project data;
-								 * each GNode's data is a
-								 * AmpNode, and the root of
-								 * the tree is the root group. */
 
 	/* shortcut hash tables, mapping id -> GNode from the tree above */
 	GHashTable		*groups;

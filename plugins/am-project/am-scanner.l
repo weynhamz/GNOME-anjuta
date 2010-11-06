@@ -298,7 +298,6 @@ void
 amp_am_scanner_parse_variable (AmpAmScanner *scanner, AnjutaToken *variable)
 {
 	AnjutaToken *value;
-	AnjutaToken *content;
 
 	anjuta_token_set_type (variable, ANJUTA_TOKEN_VARIABLE);
 
@@ -357,13 +356,6 @@ amp_am_scanner_parse_token (AmpAmScanner *scanner, AnjutaToken *root, AnjutaToke
 
 /* Constructor & Destructor
  *---------------------------------------------------------------------------*/
-
-static void
-free_source_list (GList *source_list)
-{
-	g_list_foreach (source_list, (GFunc)amp_source_free, NULL);
-	g_list_free (source_list);
-}
 
 AmpAmScanner *
 amp_am_scanner_new (AmpProject *project, AnjutaAmGroupNode *group)
