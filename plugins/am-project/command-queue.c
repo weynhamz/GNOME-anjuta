@@ -139,116 +139,6 @@ static gboolean pm_command_queue_idle (PmCommandQueue *queue);
 /* Worker thread functions
  *---------------------------------------------------------------------------*/
 
-static gint
-pm_project_compare_node (AnjutaProjectNode *old_node, AnjutaProjectNode *new_node)
-{
-	gchar *name1;
-	gchar *name2;
-	GFile *file1;
-	GFile *file2;
-
-	name1 = anjuta_project_node_get_name (old_node);
-	name2 = anjuta_project_node_get_name (new_node);
-	file1 = anjuta_project_node_get_file (old_node);
-	file2 = anjuta_project_node_get_file (new_node);
-
-	return (anjuta_project_node_get_node_type (old_node) == anjuta_project_node_get_node_type (new_node))
-		&& ((name1 == NULL) || (name2 == NULL) || (strcmp (name1, name2) == 0))
-		&& ((file1 == NULL) || (file2 == NULL) || g_file_equal (file1, file2)) ? 0 : 1;
-}
-
-static void
-pm_project_map_children (PmJob *job, AnjutaProjectNode *old_node, AnjutaProjectNode *new_node)
-{
-	GList *children = NULL;
-
-	if (new_node != NULL)
-	{
-		for (new_node = anjuta_project_node_first_child (new_node); new_node != NULL; new_node = anjuta_project_node_next_sibling (new_node))
-		{
-			children = g_list_prepend (children, new_node);
-		}
-		children = g_list_reverse (children);
-	}
-
-	for (old_node = anjuta_project_node_first_child (old_node); old_node != NULL; old_node = anjuta_project_node_next_sibling (old_node))
-	{
-		GList *same;
-
-		same = g_list_find_custom (children, old_node, (GCompareFunc)pm_project_compare_node);
-		
-		if (same != NULL)
-		{
-			g_hash_table_insert (job->map, old_node, (AnjutaProjectNode *)same->data);
-			
-			pm_project_map_children ((PmJob *)job, old_node, (AnjutaProjectNode *)same->data);
-			children = g_list_delete_link (children, same);
-		}
-		else
-		{
-			/* Mark deleted node */
-			g_hash_table_insert (job->map, old_node, NULL);
-			pm_project_map_children ((PmJob *)job, old_node, NULL);
-		}
-	}
-	
-	g_list_free (children);
-}
- 
-static void
-pm_project_map_node (PmJob *job)
-{
-	if ((job->proxy != NULL) && (job->node != NULL))
-	{
-		AnjutaProjectNode *old_node;
-		AnjutaProjectNode *new_node;
-		
-		job->map = g_hash_table_new (g_direct_hash, NULL);
-		old_node = job->proxy;
-		new_node = job->node;
-
-		g_hash_table_insert (job->map, old_node, new_node);
-			
-		pm_project_map_children (job, old_node, new_node);
-	}
-}
-
-
-#if 0
-static gboolean
-pm_command_load_work (AnjutaPmProject *project, PmJob *job)
-{
-	AnjutaProjectNode *node;
-	
-
-	if (ianjuta_project_load_node (project->project, job->node, &(job->error)))
-	{
-		pm_project_map_node (job);
-	}
-	
-	return TRUE;
-}
-
-static gboolean
-pm_command_save_work (AnjutaPmProject *project, PmJob *job)
-{
-	return ianjuta_project_save_node (project->project, job->node, &(job->error));
-}
-
-static gboolean
-pm_command_exit_work (AnjutaPmProject *project, PmJob *job)
-{
-	g_return_val_if_fail (job != NULL, FALSE);
-
-	/* Push job in complete queue as g_thread_exit will stop the thread
-	 * immediatly */
-	g_async_queue_push (project->done_queue, job);
-	g_thread_exit (0);
-	
-	return TRUE;
-}
-#endif
-
 /* Run work function in worker thread */
 static gpointer
 pm_command_queue_thread_main_loop (PmCommandQueue *queue)
@@ -461,6 +351,13 @@ pm_command_queue_push (PmCommandQueue *queue, PmJob *job)
 	g_queue_push_tail (queue->job_queue, job);
 	
 	pm_command_queue_run_command (queue);
+}
+
+gboolean
+pm_command_queue_is_busy (PmCommandQueue *queue)
+{
+	g_message ("pm_command_queue_is_empty %d %d %d busy %d", g_queue_get_length (queue->job_queue), g_async_queue_length(queue->work_queue), g_async_queue_length(queue->done_queue), queue->busy);
+	return queue->busy;
 }
 
 PmCommandQueue*

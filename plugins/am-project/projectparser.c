@@ -401,6 +401,15 @@ get_project_property (IAnjutaProject *project, AnjutaProjectNode *parent, const 
 	return prop;
 }
 
+static void
+amp_project_wait_ready (IAnjutaProject *project)
+{
+	while (amp_project_is_busy (AMP_PROJECT (project)))
+	{
+		g_main_context_iteration (NULL, TRUE);
+	}
+}
+
 /* Automake parsing function
  *---------------------------------------------------------------------------*/
 
@@ -642,6 +651,7 @@ main(int argc, char *argv[])
 
 			break;
 		}
+		amp_project_wait_ready (project);
 		if (error != NULL)
 		{
 			fprintf (stderr, "Error: %s\n", error->message == NULL ? "unknown error" : error->message);
@@ -654,6 +664,6 @@ main(int argc, char *argv[])
 	/* Free objects */
 	if (project) g_object_unref (project);
 	close_output ();
-	
+
 	return (0);
 }

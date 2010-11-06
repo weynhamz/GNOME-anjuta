@@ -2273,6 +2273,12 @@ amp_project_add_file (AmpProject *project, GFile *file, AnjutaTokenFile* token)
 	g_object_add_toggle_ref (G_OBJECT (token), remove_config_file, project);
 }
 
+gboolean
+amp_project_is_busy (AmpProject *project)
+{
+	return pm_command_queue_is_busy (project->queue);
+}
+
 /* Worker thread
  *---------------------------------------------------------------------------*/
 
@@ -2281,7 +2287,7 @@ amp_load_setup (PmJob *job)
 {
 	job->parent = anjuta_project_node_parent (job->node);
 	job->proxy = amp_project_duplicate_node (job->node);
-	g_message ("type %x proxy %x parent %p node %p proxy %p", job->node->type, job->proxy->type, job->parent, job->node, job->proxy);
+	// g_message ("amp_load_setup type %x proxy %x parent %p node %p proxy %p", job->node->type, job->proxy->type, job->parent, job->node, job->proxy);
 
 	return TRUE;
 }
@@ -2300,7 +2306,7 @@ amp_load_complete (PmJob *job)
 	GHashTable *map;
 
 	map = amp_project_map_node (job->node, job->proxy);
-	g_message ("type %x proxy %x", job->node->type, job->proxy->type);
+	// g_message ("amp_load_complete type %x proxy %x", job->node->type, job->proxy->type);
 	g_hash_table_foreach (map, (GHFunc)amp_project_replace_node, map);
 	job->node->parent = job->parent;
 	job->proxy->parent = NULL;

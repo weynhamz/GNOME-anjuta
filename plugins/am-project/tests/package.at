@@ -46,7 +46,7 @@ AC_CONFIG_FILES(Makefile)
 ]])
 AT_PARSER_CHECK([load empty1 \
 	 move empty2 \
-	 add package 0 package2 after 0:1\
+	 add package 0 package2 after 0:0\
 	 list \
 	 save])
 AT_CHECK([[sed 's/^\(\s*\w\+\s*(\)[0-9:]\+\()\)/\1\2/' output | diff - expect]])

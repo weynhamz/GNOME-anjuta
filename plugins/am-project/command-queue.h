@@ -66,7 +66,7 @@ PmCommandQueue*	pm_command_queue_new (void);
 void pm_command_queue_free (PmCommandQueue *queue);
 
 void pm_command_queue_push (PmCommandQueue *queue, PmJob *job);
-
+gboolean pm_command_queue_is_busy (PmCommandQueue *queue);
 
 
 G_END_DECLS
