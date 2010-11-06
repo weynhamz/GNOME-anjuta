@@ -1,4 +1,4 @@
-# translation of anjuta.master.po to Español
+# translation of anjuta.gnome-2-32.po to Español
 # traducción de Anjuta al Español
 # Copyright © 2001-2003, 2006, 2007, 2008 Free Software Foundation, Inc.
 # This file is distributed under the same license as the anjuta package.
@@ -10,11 +10,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta.master\n"
+"Project-Id-Version: anjuta.gnome-2-32\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2010-09-21 21:22+0000\n"
-"PO-Revision-Date: 2010-09-22 00:33+0200\n"
+"POT-Creation-Date: 2010-11-04 14:32+0000\n"
+"PO-Revision-Date: 2010-11-06 10:54+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -441,7 +441,7 @@ msgid "If you do not save, all your changes will be lost."
 msgstr "Si no guarda, se perderán todos sus cambios."
 
 #: ../libanjuta/anjuta-save-prompt.c:189
-#: ../plugins/document-manager/plugin.c:605
+#: ../plugins/document-manager/plugin.c:609
 #: ../plugins/snippets-manager/snippets-editor.ui.h:11
 msgid "Save"
 msgstr "Guardar"
@@ -983,7 +983,7 @@ msgstr "El ejecutable «%s» no está actualizado."
 #. * string into the second slot and then replace the first string only.
 #: ../plugins/build-basic-autotools/plugin.c:168
 msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+`(.+)'"
-msgstr "make(\\[\\d+\\])?:\\s+Entrando\\s+en\\s+\\el\\s+directorio\\s+`(.+)'"
+msgstr "make(\\[\\d+\\])?:\\s+se\\s+ingresa\\s+\\al\\s+directorio\\s+`(.+)'"
 
 #: ../plugins/build-basic-autotools/plugin.c:169
 msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+'(.+)'"
@@ -996,11 +996,11 @@ msgstr "make(\\[\\d+\\])?:\\s+Entrando\\s+en\\s+\\el\\s+directorio\\s+'(.+)'"
 #. * string into the second slot and then replace the first string only.
 #: ../plugins/build-basic-autotools/plugin.c:177
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+`(.+)'"
-msgstr "make(\\[\\d+\\])?:\\s+Dejando\\s+\\el\\s+directorio\\s+`(.+)'"
+msgstr "make(\\[\\d+\\])?:\\s+se\\s+\\sale\\s+del\\s+directorio\\s+`(.+)'"
 
 #: ../plugins/build-basic-autotools/plugin.c:178
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
-msgstr "make(\\[\\d+\\])?:\\s+Dejando\\s+\\el\\s+directorio\\s+'(.+)'"
+msgstr "make(\\[\\d+\\])?:\\s+Saliendo\\s+\\del\\s+directorio\\s+'(.+)'"
 
 #: ../plugins/build-basic-autotools/plugin.c:846
 #, c-format
@@ -1010,7 +1010,7 @@ msgstr "Entrando en: %s"
 #: ../plugins/build-basic-autotools/plugin.c:882
 #, c-format
 msgid "Leaving: %s"
-msgstr "Dejando: %s"
+msgstr "Saliendo de: %s"
 
 #: ../plugins/build-basic-autotools/plugin.c:915
 #: ../plugins/tools/execute.c:330
@@ -1456,7 +1456,7 @@ msgstr "Archivo en el que se escribirá la plantilla procesada"
 msgid "Failed to write autogen definition file"
 msgstr "Falló al escribir el archivo de definición de Autogen"
 
-#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1160
+#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1157
 msgid ""
 "Could not find autogen version 5; please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net."
@@ -2747,7 +2747,7 @@ msgstr "Archivo"
 
 #: ../plugins/debug-manager/stack_trace.c:675
 #: ../plugins/debug-manager/threads.c:460
-#: ../plugins/document-manager/plugin.c:945
+#: ../plugins/document-manager/plugin.c:949
 msgid "Line"
 msgstr "Línea"
 
@@ -3616,9 +3616,9 @@ msgid "Simple searching"
 msgstr "Busqueda simple"
 
 #: ../plugins/document-manager/plugin.c:419
-#: ../plugins/document-manager/plugin.c:1736
-#: ../plugins/document-manager/plugin.c:2153
-#: ../plugins/document-manager/plugin.c:2163
+#: ../plugins/document-manager/plugin.c:1769
+#: ../plugins/document-manager/plugin.c:2186
+#: ../plugins/document-manager/plugin.c:2196
 msgid "Documents"
 msgstr "Documentos"
 
@@ -3626,47 +3626,47 @@ msgstr "Documentos"
 msgid "Editor view settings"
 msgstr "Configuración de la vista del editor"
 
-#: ../plugins/document-manager/plugin.c:609
+#: ../plugins/document-manager/plugin.c:613
 msgid "Reload"
 msgstr "Recargar"
 
-#: ../plugins/document-manager/plugin.c:615
+#: ../plugins/document-manager/plugin.c:619
 msgid "Go to"
 msgstr "Ir a"
 
-#: ../plugins/document-manager/plugin.c:930
+#: ../plugins/document-manager/plugin.c:934
 msgid "OVR"
 msgstr "SOB"
 
-#: ../plugins/document-manager/plugin.c:934
+#: ../plugins/document-manager/plugin.c:938
 msgid "INS"
 msgstr "INS"
 
-#: ../plugins/document-manager/plugin.c:940
-#: ../plugins/document-manager/plugin.c:943
+#: ../plugins/document-manager/plugin.c:944
+#: ../plugins/document-manager/plugin.c:947
 msgid "Zoom"
 msgstr "Ampliación"
 
-#: ../plugins/document-manager/plugin.c:946
+#: ../plugins/document-manager/plugin.c:950
 msgid "Col"
 msgstr "Col"
 
-#: ../plugins/document-manager/plugin.c:947
+#: ../plugins/document-manager/plugin.c:951
 msgid "Mode"
 msgstr "Modo"
 
 #. Automatic highlight menu
-#: ../plugins/document-manager/plugin.c:1027
+#: ../plugins/document-manager/plugin.c:1031
 msgid "Automatic"
 msgstr "Automático"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1560
+#: ../plugins/document-manager/plugin.c:1593
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "Falló el autoguardado para el archivo %s"
 
-#: ../plugins/document-manager/plugin.c:1574
+#: ../plugins/document-manager/plugin.c:1607
 msgid "Autosave completed"
 msgstr "Completado el autoguardado"
 
@@ -4284,7 +4284,8 @@ msgstr "Especifique el nombre del grupo"
 #: ../plugins/gbf-am/gbf-am-project.c:2973
 msgid "Group name can only contain alphanumeric, '_', '-' or '.' characters"
 msgstr ""
-"El nombre del grupo sólo puede contener caracteres alfanuméricos, «_», «-» o «.»"
+"El nombre del grupo sólo puede contener caracteres alfanuméricos, «_», «-» o "
+"«.»"
 
 #: ../plugins/gbf-am/gbf-am-project.c:2982
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2925
@@ -4314,8 +4315,8 @@ msgstr "Especifique el nombre del objetivo"
 #: ../plugins/gbf-am/gbf-am-project.c:3227
 msgid "Target name can only contain alphanumeric, '_', '-' or '.' characters"
 msgstr ""
-"El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», «-» "
-"o «.»"
+"El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», "
+"«-» o «.»"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3236
 msgid "Shared library target name must be of the form 'libxxx.la'"
@@ -4326,8 +4327,8 @@ msgstr ""
 #: ../plugins/gbf-am/gbf-am-project.c:3245
 msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr ""
-"El nombre de la biblioteca estática del objetivo debe ser de la forma «libxxx."
-"a»"
+"El nombre de la biblioteca estática del objetivo debe ser de la forma "
+"«libxxx.a»"
 
 #: ../plugins/gbf-am/gbf-am-project.c:3257
 #: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3159
@@ -6823,8 +6824,8 @@ msgid ""
 "A file named \"%s\" cannot be written: %s. Check if you have write access to "
 "the project directory."
 msgstr ""
-"No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene acceso "
-"de escritura al directorio del proyecto."
+"No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene "
+"acceso de escritura al directorio del proyecto."
 
 #: ../plugins/project-import/plugin.c:200
 #, c-format
@@ -6837,9 +6838,9 @@ msgid ""
 "Could not find a valid project backend for the given directory (%s). Please "
 "select a different directory, or try upgrading to a newer version of Anjuta."
 msgstr ""
-"No se pudo encontrar un «backend» válido del proyecto para el directorio dado "
-"(%s). Seleccione un directorio diferente, o intente actualizar a una versión "
-"más moderna de Anjuta."
+"No se pudo encontrar un «backend» válido del proyecto para el directorio "
+"dado (%s). Seleccione un directorio diferente, o intente actualizar a una "
+"versión más moderna de Anjuta."
 
 #: ../plugins/project-import/plugin.c:290
 #: ../plugins/project-import/plugin.c:346
@@ -7311,7 +7312,7 @@ msgstr "Entrada no válida"
 msgid "Dubious entry"
 msgstr "Entrada dudosa"
 
-#: ../plugins/project-wizard/druid.c:884
+#: ../plugins/project-wizard/druid.c:881
 #, c-format
 msgid ""
 "\n"
@@ -7320,7 +7321,7 @@ msgstr ""
 "\n"
 "Faltan programas: %s"
 
-#: ../plugins/project-wizard/druid.c:895
+#: ../plugins/project-wizard/druid.c:892
 #, c-format
 msgid ""
 "\n"
@@ -7329,7 +7330,7 @@ msgstr ""
 "\n"
 "Faltan paquetes: %s."
 
-#: ../plugins/project-wizard/druid.c:904
+#: ../plugins/project-wizard/druid.c:901
 msgid ""
 "Some important programs or development packages required to build this "
 "project are missing. Please make sure they are installed properly before "
@@ -7339,11 +7340,11 @@ msgstr ""
 "faltan para construir este proyecto. Asegúrese de que están instalados "
 "adecuadamente antes de generar el proyecto.\n"
 
-#: ../plugins/project-wizard/druid.c:912
+#: ../plugins/project-wizard/druid.c:909
 msgid "Install missing packages"
 msgstr "Instalar los paquetes que faltan"
 
-#: ../plugins/project-wizard/druid.c:920
+#: ../plugins/project-wizard/druid.c:917
 msgid ""
 "The missing programs are usually part of some distrubution packages and can "
 "be searched for in your Application Manager. Similarly, the development "
@@ -7359,11 +7360,11 @@ msgstr ""
 "ellos. Generalmente acaban con el sufijo «-dev» o «-devel» en el nombre del "
 "paquete y se pueden encontrar buscando en su Gestor de aplicaciones."
 
-#: ../plugins/project-wizard/druid.c:928
+#: ../plugins/project-wizard/druid.c:925
 msgid "Missing components"
 msgstr "Faltan componentes"
 
-#: ../plugins/project-wizard/druid.c:1060
+#: ../plugins/project-wizard/druid.c:1057
 #, c-format
 msgid "Unable to build project assistant user interface reading %s."
 msgstr ""
@@ -7886,8 +7887,8 @@ msgid ""
 "'libgnomeui-2.0 >= 2.2.0'"
 msgstr ""
 "Proporcione un nombre de paquete que requiere su proyecto. También puede "
-"mencionar cuál es la versión requerida del paquete. Por ejemplo, «libgnomeui-"
-"2.0» o «libgnomeui-2.0 >= 2.2.0»"
+"mencionar cuál es la versión requerida del paquete. Por ejemplo, "
+"«libgnomeui-2.0» o «libgnomeui-2.0 >= 2.2.0»"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:26
 msgid "Require Package:"
@@ -8554,8 +8555,8 @@ msgstr "Reemplazar todo"
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
 msgstr ""
-"No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde el "
-"principio del documento?"
+"No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde "
+"el principio del documento?"
 
 #: ../plugins/search/search-replace.c:1103
 #, c-format
@@ -8630,18 +8631,15 @@ msgid "Snippets Manager actions"
 msgstr "Acciones del gestor de recortes"
 
 #: ../plugins/snippets-manager/plugin.c:767
-#| msgid "Command"
 msgid "Command?"
 msgstr "¿Comando?"
 
 #: ../plugins/snippets-manager/plugin.c:783
-#| msgid "Variable list"
 msgid "Variable text"
 msgstr "Texto variable"
 
 #: ../plugins/snippets-manager/plugin.c:801
 #: ../plugins/snippets-manager/snippets-editor.c:40
-#| msgid "Inspect/Evaluate"
 msgid "Instant value"
 msgstr "Valor instantáneo"
 
@@ -8671,7 +8669,6 @@ msgid "Add Snippets Group …"
 msgstr "Añadir grupo de recortes…"
 
 #: ../plugins/snippets-manager/snippets-editor.c:39
-#| msgid "Default"
 msgid "Default value"
 msgstr "Valor predeterminado"
 
@@ -8686,10 +8683,9 @@ msgstr ""
 "<b>Error:</b> la tecla disparadora ya está en uso para uno de los lenguajes."
 
 #: ../plugins/snippets-manager/snippets-editor.c:50
-#| msgid ""
-#| "Source file name can only contain alphanumeric, '_', '-' or '.' characters"
 msgid ""
-"<b>Error:</b> The trigger key can only contain alphanumeric characters and _ !"
+"<b>Error:</b> The trigger key can only contain alphanumeric characters and "
+"_ !"
 msgstr ""
 "<b>Error:</b> la tecla disparadora sólo puede contener caracteres "
 "alfanuméricos y «_»."
