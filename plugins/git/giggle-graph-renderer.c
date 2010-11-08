@@ -109,18 +109,17 @@ static void giggle_graph_renderer_set_property (GObject         *object,
 						GParamSpec      *pspec);
 static void giggle_graph_renderer_get_size     (GtkCellRenderer *cell,
 						GtkWidget       *widget,
-						GdkRectangle    *cell_area,
+						const GdkRectangle    *cell_area,
 						gint            *x_offset,
 						gint            *y_offset,
 						gint            *width,
 						gint            *height);
 static void giggle_graph_renderer_render       (GtkCellRenderer *cell,
-						GdkWindow       *window,
+						cairo_t         *cr,
 						GtkWidget       *widget,
-						GdkRectangle    *background_area,
-						GdkRectangle    *cell_area,
-						GdkRectangle    *expose_area,
-						guint            flags);
+						const GdkRectangle    *background_area,
+						const GdkRectangle    *cell_area,
+						GtkCellRendererState   flags);
 
 G_DEFINE_TYPE (GiggleGraphRenderer, giggle_graph_renderer, GTK_TYPE_CELL_RENDERER)
 
@@ -212,7 +211,7 @@ giggle_graph_renderer_set_property (GObject      *object,
 static void
 giggle_graph_renderer_get_size (GtkCellRenderer *cell,
 				GtkWidget       *widget,
-				GdkRectangle    *cell_area,
+				const GdkRectangle    *cell_area,
 				gint            *x_offset,
 				gint            *y_offset,
 				gint            *width,
@@ -244,19 +243,17 @@ giggle_graph_renderer_get_size (GtkCellRenderer *cell,
 
 static void
 giggle_graph_renderer_render (GtkCellRenderer *cell,
-			      GdkWindow       *window,
+			      cairo_t         *cr,
 			      GtkWidget       *widget,
-			      GdkRectangle    *background_area,
-			      GdkRectangle    *cell_area,
-			      GdkRectangle    *expose_area,
-			      guint            flags)
+			      const GdkRectangle    *background_area,
+			      const GdkRectangle    *cell_area,
+			      GtkCellRendererState flags)
 {
 	GiggleGraphRendererPrivate   *priv;
 	GiggleGraphRendererPathState *path_state;
 	GitRevision               *revision;
 	GArray                       *paths_state;
 	GHashTable                   *table;
-	cairo_t                      *cr;
 	gint                          x, y, h;
 	gint                          cur_pos, pos;
 	GList                        *children;
@@ -268,7 +265,6 @@ giggle_graph_renderer_render (GtkCellRenderer *cell,
 		return;
 	}
 
-	cr = gdk_cairo_create (window);
 	x = cell_area->x;
 	y = background_area->y;
 	h = background_area->height;
@@ -347,7 +343,6 @@ giggle_graph_renderer_render (GtkCellRenderer *cell,
 	cairo_fill (cr);
 	cairo_stroke (cr);
 
-	cairo_destroy (cr);
 	g_hash_table_destroy (table);
 }
 
