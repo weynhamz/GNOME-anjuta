@@ -56,7 +56,7 @@ dnl Vala
 VALA_REQUIRED=0.9.5
 
 dnl Introspection
-GI_REQUIRED=0.6.6
+GI_REQUIRED=0.9.5
 
 dnl Various
 LIBGRAPHVIZ_REQUIRED=1.0

@@ -19,7 +19,8 @@ lib_LTLIBRARIES = libanjuta-3.la
 libanjuta_3_la_LDFLAGS = $(ANJUTA_LDFLAGS) 
 libanjuta_3_la_LIBADD = \
 	interfaces/libanjuta-interfaces.la \
-	$(ANJUTA_LIBS)
+	$(ANJUTA_LIBS) \
+	$(XML_LIBS)
 
 libanjuta_3_la_SOURCES= \
 	anjuta-enum-types.h \
@@ -219,25 +220,27 @@ DISTCLEANFILES = \
 
 -include $(INTROSPECTION_MAKEFILE)
 INTROSPECTION_GIRS =
-INTROSPECTION_SCANNER_ARGS = --add-include-path=$(builddir) -I $(top_builddir)
+INTROSPECTION_SCANNER_ARGS = --add-include-path=$(builddir) -I $(top_builddir) --warn-all
 INTROSPECTION_COMPILER_ARGS = --includedir=$(srcdir)
 
 if HAVE_INTROSPECTION
-anjuta_introspection_sources = $(libanjuta_la_SOURCES)
+anjuta_introspection_sources = $(libanjuta_3_la_SOURCES)
 ianjuta_introspection_sources = $(srcdir)/interfaces/*.c $(srcdir)/interfaces/*.h
 
-Anjuta-3_0.gir: libanjuta-3.la
+Anjuta-3.0.gir: libanjuta-3.la
 Anjuta_3_0_gir_INCLUDES = GObject-2.0 Gtk-3.0
-Anjuta_3_0_gir_CFLAGS = $(ANJUTA_CFLAGS) -I$(top_srcdir)
-Anjuta_3_0_gir_LIBS = anjuta
+Anjuta_3_0_gir_CFLAGS = $(ANJUTA_CFLAGS) $(XML_CFLAGS) -I$(top_srcdir)
+Anjuta_3_0_gir_LIBS = anjuta-3
 Anjuta_3_0_gir_FILES = $(anjuta_introspection_sources)
+Anjuta_3_0_gir_SCANNERFLAGS = --c-include=libanjuta/libanjuta.h
 INTROSPECTION_GIRS += Anjuta-3.0.gir
 
-IAnjuta-3_0.gir: interfaces/libanjuta-interfaces.la libanjuta-3.la Anjuta-3.0.gir
+IAnjuta-3.0.gir: interfaces/libanjuta-interfaces.la libanjuta-3.la Anjuta-3.0.gir
 IAnjuta_3_0_gir_INCLUDES = GObject-2.0 Gtk-3.0 Anjuta-3.0
-IAnjuta_3_0_gir_CFLAGS = $(LIBANJUTA_CFLAGS) -I$(top_srcdir)
-IAnjuta_3_0_gir_LIBS = interfaces/libanjuta-interfaces.la anjuta
+IAnjuta_3_0_gir_CFLAGS = $(ANJUTA_CFLAGS) $(XML_CFLAGS) -I$(top_srcdir)
+IAnjuta_3_0_gir_LIBS = interfaces/libanjuta-interfaces.la anjuta-3
 IAnjuta_3_0_gir_FILES = $(ianjuta_introspection_sources)
+IAnjuta_3_0_gir_SCANNERFLAGS = --add-include-path=$(top_srcdir)/libanjuta/ --symbol-prefix=ianjuta --c-include=libanjuta/interfaces/libanjuta-interfaces.h
 INTROSPECTION_GIRS += IAnjuta-3.0.gir
 
 girdir = $(datadir)/gir-1.0
