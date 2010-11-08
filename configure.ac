@@ -68,10 +68,10 @@ SVN_MINOR=5
 SVN_PATCH=0
 SUBVERSION_REQUIRED=$SVN_MAJOR.$SVN_MINOR.$SVN_PATCH
 
-AM_INIT_AUTOMAKE([1.11 dist-bzip2 no-dist-gzip])
+AM_INIT_AUTOMAKE([1.10 dist-bzip2 no-dist-gzip])
 AM_MAINTAINER_MODE([enable])
 
-AM_SILENT_RULES([yes])
+m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
 dnl Check for C Compiler
 AC_PROG_CC
@@ -163,7 +163,8 @@ dnl Check for autogen
 dnl -----------------
 AC_PATH_PROG(AUTOGEN_PATH, autogen,no)
 if test x$AUTOGEN_PATH = xno; then
-   AC_MSG_ERROR([Couldn't find autogen, please install the autogen package. You can get it from http://autogen.sourceforge.net/])
+   AC_MSG_WARN([Couldn't find autogen. You will be able to build anjuta without autogen \
+                but several things won't work. You can get it from http://autogen.sourceforge.net/])
 fi
 
 dnl Check for perl required by gbf-am/mkfile
