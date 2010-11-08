@@ -854,7 +854,6 @@ gbf_project_model_update_shortcut (GbfProjectModel *model, AnjutaProjectNode *pa
 	}	
 }
 
-	
 void
 gbf_project_model_update_tree (GbfProjectModel *model, AnjutaProjectNode *parent, GtkTreeIter *iter)
 {
@@ -875,15 +874,20 @@ gbf_project_model_update_tree (GbfProjectModel *model, AnjutaProjectNode *parent
 			AnjutaProjectNode* data_node = NULL;
 
 			/* Look for current node */
-				
 			gtk_tree_model_get (GTK_TREE_MODEL (model), &child,
 				GBF_PROJECT_MODEL_COLUMN_DATA, &data,
 				-1);
 
 			data_node = gbf_tree_data_get_node (data);
+			
+			/* Skip shortcuts */
+			if (data->type == GBF_TREE_NODE_SHORTCUT)
+			{	
+				valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &child);
+				continue;
+			}
 
 			node = g_list_find (nodes, data_node);
-
 			if (node != NULL)
 			{
 				/* Node already exist, remove it from the list */
@@ -895,7 +899,6 @@ gbf_project_model_update_tree (GbfProjectModel *model, AnjutaProjectNode *parent
 				/* update recursively */
 				gbf_project_model_update_tree (model, data_node, &child);
 
-				
 				valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &child);
 			}
 			else
@@ -1040,12 +1043,14 @@ gbf_project_model_set_project (GbfProjectModel *model, AnjutaPmProject *project)
 {
 	g_return_if_fail (model != NULL && GBF_IS_PROJECT_MODEL (model));
 	
-	if (model->priv->proj)
+	if (model->priv->proj != project)
+	{
 		unload_project (model);
 
-	/* project can be NULL */
-	if (project)
-		load_project (model, project);
+		/* project can be NULL */
+		if (project)
+			load_project (model, project);
+	}
 }
 
 AnjutaPmProject *
