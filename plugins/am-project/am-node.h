@@ -47,9 +47,10 @@ AmpVariable* amp_variable_new (gchar *name, AnjutaTokenType assign, AnjutaToken 
 AnjutaAmRootNode* amp_root_new (GFile *file, GError **error);
 void amp_root_free (AnjutaAmRootNode *node);
 void amp_root_clear (AnjutaAmRootNode *node);
-AnjutaTokenFile* amp_root_set_configure (AnjutaAmRootNode *node, GFile *configure);
+AnjutaTokenFile* amp_root_set_configure (AnjutaAmRootNode *node, GFile *configure, GObject* project);
 gboolean amp_root_update_configure (AnjutaAmRootNode *group, AnjutaToken *token);
 AnjutaToken* amp_root_get_configure_token (AnjutaAmRootNode *root);
+void amp_root_update_monitor (AnjutaAmRootNode *node);
 
 AnjutaAmModuleNode* amp_module_new (const gchar *name, GError **error);
 void amp_module_free (AnjutaAmModuleNode *node);

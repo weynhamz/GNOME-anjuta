@@ -89,8 +89,11 @@ GType anjuta_am_root_node_get_type (void) G_GNUC_CONST;
 
 struct _AnjutaAmRootNode {
 	AnjutaProjectNode base;
+	GFile *configure;									/* GFile corresponding to root configure */
 	AnjutaTokenFile *configure_file;					/* Corresponding configure file */
 	AnjutaToken *configure_token;
+	GFileMonitor *monitor;								/* File monitor */
+	GObject *project;									/* Project used by file monitor */
 };
 
 
@@ -140,7 +143,7 @@ struct _AnjutaAmGroupNode {
 	AnjutaToken *make_token;
 	GHashTable *variables;
 	GFileMonitor *monitor;									/* File monitor */
-	GObject *project;											/* Project used by file monitor */
+	GObject *project;										/* Project used by file monitor */
 };
 
 

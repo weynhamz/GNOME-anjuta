@@ -65,7 +65,7 @@ on_pm_project_load_incomplete (AnjutaProjectNode *node, AnjutaPmProject *project
 static gboolean
 pm_command_load_complete (AnjutaPmProject *project, AnjutaProjectNode *node, GError *error)
 {
-	//g_message ("pm_command_load_complete");
+	// g_message ("pm_command_load_complete %p", node);
 	
 	if (error != NULL)
 	{

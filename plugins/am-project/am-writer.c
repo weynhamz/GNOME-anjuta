@@ -131,13 +131,12 @@ amp_project_write_config_file (AmpProject *project, AnjutaToken *list, gboolean 
 gboolean 
 amp_group_create_token (AmpProject  *project, AnjutaAmGroupNode *group, GError **error)
 {
-	AnjutaProjectNode *last;
 	GFile *directory;
 	GFile *makefile;
 	AnjutaToken *list;
 	gchar *basename;
 	AnjutaTokenFile* tfile;
-	AnjutaAmGroupNode *sibling;
+	AnjutaProjectNode *sibling;
 	AnjutaAmGroupNode *parent;
 	gboolean after;
 	gchar *name;
@@ -148,21 +147,20 @@ amp_group_create_token (AmpProject  *project, AnjutaAmGroupNode *group, GError *
 	directory = g_file_get_child (anjuta_project_node_get_file (ANJUTA_PROJECT_NODE (parent)), name);
 
 	/* Find a sibling if possible */
-	if (anjuta_project_node_prev_sibling (ANJUTA_PROJECT_NODE (group)) != NULL)
+	after = TRUE;
+	for (sibling = anjuta_project_node_prev_sibling (ANJUTA_PROJECT_NODE (group)); sibling != NULL; sibling = anjuta_project_node_prev_sibling (sibling))
 	{
-		sibling = ANJUTA_AM_GROUP_NODE (anjuta_project_node_prev_sibling (ANJUTA_PROJECT_NODE (group)));
-		after = TRUE;
+		if (anjuta_project_node_get_node_type (sibling) == ANJUTA_PROJECT_GROUP) break;
 	}
-	else if (anjuta_project_node_next_sibling (ANJUTA_PROJECT_NODE (group)) != NULL)
+	if (sibling == NULL)
 	{
-		sibling = ANJUTA_AM_GROUP_NODE (anjuta_project_node_next_sibling (ANJUTA_PROJECT_NODE (group)));
 		after = FALSE;
+		for (sibling = anjuta_project_node_next_sibling (ANJUTA_PROJECT_NODE (group)); sibling != NULL; sibling = anjuta_project_node_next_sibling (sibling))
+		{
+			if (anjuta_project_node_get_node_type (sibling) == ANJUTA_PROJECT_GROUP) break;
+		}
 	}
-	else
-	{
-		sibling = NULL;
-		after = TRUE;
-	}
+	if (sibling == NULL) after = TRUE;
 	
 	/* Create directory */
 	g_file_make_directory (directory, NULL, NULL);
@@ -179,33 +177,11 @@ amp_group_create_token (AmpProject  *project, AnjutaAmGroupNode *group, GError *
 		makefile = g_file_get_child (directory, "Makefile.am");
 	}
 	g_file_replace_contents (makefile, "", 0, NULL, FALSE, G_FILE_CREATE_NONE, NULL, NULL, NULL);
-	tfile = amp_group_set_makefile (group, makefile, G_OBJECT (project));
-	amp_project_add_file (project, makefile, tfile);
 
-	if (sibling == NULL)
-	{
-		/* Find a sibling before */
-		for (last = anjuta_project_node_prev_sibling (ANJUTA_PROJECT_NODE (group)); (last != NULL) && (anjuta_project_node_get_node_type (last) != ANJUTA_PROJECT_GROUP); last = anjuta_project_node_prev_sibling (last));
-		if (last != NULL)
-		{
-			sibling = ANJUTA_AM_GROUP_NODE (last);
-			after = TRUE;
-		}
-		else
-		{
-			/* Find a sibling after */
-			for (last = anjuta_project_node_next_sibling (ANJUTA_PROJECT_NODE (group)); (last != NULL) && (anjuta_project_node_get_node_type (last) != ANJUTA_PROJECT_GROUP); last = anjuta_project_node_next_sibling (last));
-			if (last != NULL)
-			{
-				sibling = ANJUTA_AM_GROUP_NODE (last);
-				after = FALSE;
-			}
-		}
-	}
 	
 	/* Add in configure */
 	list = NULL;
-	if (sibling) list = amp_group_get_first_token (sibling, AM_GROUP_TOKEN_CONFIGURE);
+	if (sibling) list = amp_group_get_first_token (ANJUTA_AM_GROUP_NODE (sibling), AM_GROUP_TOKEN_CONFIGURE);
 	if (list == NULL) list= amp_group_get_first_token (parent, AM_GROUP_TOKEN_CONFIGURE);
 	if (list != NULL) list = anjuta_token_list (list);
 	if (list == NULL)
@@ -222,7 +198,7 @@ amp_group_create_token (AmpProject  *project, AnjutaAmGroupNode *group, GError *
 
 		if (sibling)
 		{
-			prev = amp_group_get_first_token (sibling, AM_GROUP_TOKEN_CONFIGURE);
+			prev = amp_group_get_first_token (ANJUTA_AM_GROUP_NODE (sibling), AM_GROUP_TOKEN_CONFIGURE);
 			/*if ((prev != NULL) && after)
 			{
 				prev = anjuta_token_next_word (prev);
@@ -237,7 +213,7 @@ amp_group_create_token (AmpProject  *project, AnjutaAmGroupNode *group, GError *
 			*ext = '\0';
 		}
 		token = amp_project_write_config_file (project, list, after, prev, relative_make);
-		amp_group_add_token (group, token, AM_GROUP_TOKEN_CONFIGURE);
+		amp_group_add_token (ANJUTA_AM_GROUP_NODE (group), token, AM_GROUP_TOKEN_CONFIGURE);
 		g_free (relative_make);
 	}
 
@@ -248,17 +224,17 @@ amp_group_create_token (AmpProject  *project, AnjutaAmGroupNode *group, GError *
 		AnjutaToken *makefile;
 		static gint eol_type[] = {ANJUTA_TOKEN_EOL, ANJUTA_TOKEN_SPACE, ANJUTA_TOKEN_COMMENT, 0};
 	
-		makefile = amp_group_get_makefile_token (group);
+		makefile = amp_group_get_makefile_token (parent);
 		pos = anjuta_token_find_type (makefile, ANJUTA_TOKEN_SEARCH_NOT, eol_type);
 		if (pos == NULL)
 		{
 			pos = anjuta_token_prepend_child (makefile, anjuta_token_new_static (ANJUTA_TOKEN_SPACE, "\n"));
 		}
 
-		list = anjuta_token_insert_token_list (FALSE, pos,
-		                                       ANJUTA_TOKEN_EOL, "\n",
-		                                       NULL);
-		amp_group_update_makefile (parent, list);	
+		list = anjuta_token_new_string (ANJUTA_TOKEN_EOL | ANJUTA_TOKEN_ADDED, "\n");
+		anjuta_token_insert_after (pos, list);
+		amp_group_update_makefile (parent, list);
+		
 		list = anjuta_token_insert_token_list (FALSE, pos,
 	    		AM_TOKEN_SUBDIRS, "SUBDIRS",
 		    	ANJUTA_TOKEN_SPACE, " ",
@@ -272,7 +248,7 @@ amp_group_create_token (AmpProject  *project, AnjutaAmGroupNode *group, GError *
 	{
 		AnjutaToken *prev;
 		
-		prev = amp_group_get_first_token (sibling, AM_GROUP_TOKEN_SUBDIRS);
+		prev = amp_group_get_first_token (ANJUTA_AM_GROUP_NODE (sibling), AM_GROUP_TOKEN_SUBDIRS);
 		list = anjuta_token_list (prev);
 	}
 
@@ -287,7 +263,7 @@ amp_group_create_token (AmpProject  *project, AnjutaAmGroupNode *group, GError *
 
 		if (sibling)
 		{
-			prev = amp_group_get_first_token (sibling, AM_GROUP_TOKEN_SUBDIRS);
+			prev = amp_group_get_first_token (ANJUTA_AM_GROUP_NODE (sibling), AM_GROUP_TOKEN_SUBDIRS);
 		}
 		
 		token = anjuta_token_new_string (ANJUTA_TOKEN_NAME | ANJUTA_TOKEN_ADDED, name);
@@ -305,11 +281,14 @@ amp_group_create_token (AmpProject  *project, AnjutaAmGroupNode *group, GError *
 		anjuta_token_style_free (style);
 		
 		amp_group_update_makefile (parent, token);
-		
+
 		amp_group_add_token (group, token, AM_GROUP_TOKEN_SUBDIRS);
 	}
 	g_free (name);
 
+	tfile = amp_group_set_makefile (group, makefile, G_OBJECT (project));
+	amp_project_add_file (project, makefile, tfile);
+	
 	return TRUE;
 }
 

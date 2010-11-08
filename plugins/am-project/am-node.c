@@ -236,12 +236,59 @@ amp_root_clear (AnjutaAmRootNode *node)
 	node->base.custom_properties = NULL;
 }
 
-AnjutaTokenFile*
-amp_root_set_configure (AnjutaAmRootNode *root, GFile *configure)
+static void
+on_root_monitor_changed (GFileMonitor *monitor,
+											GFile *file,
+											GFile *other_file,
+											GFileMonitorEvent event_type,
+											gpointer data)
 {
-	if (root->configure_file != NULL) anjuta_token_file_free (root->configure_file);
-	root->configure_file = anjuta_token_file_new (configure);
+	AnjutaAmRootNode *node = ANJUTA_AM_ROOT_NODE (data);
 
+	switch (event_type) {
+		case G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
+		case G_FILE_MONITOR_EVENT_CHANGED:
+		case G_FILE_MONITOR_EVENT_DELETED:
+			/* project can be NULL, if the node is dummy node because the
+			 * original one is reloaded. */
+			if (node->project != NULL) g_signal_emit_by_name (G_OBJECT (node->project), "file-changed", data);
+			break;
+		default:
+			break;
+	}
+}
+
+AnjutaTokenFile*
+amp_root_set_configure (AnjutaAmRootNode *root, GFile *configure, GObject* project)
+{
+	if (root->configure != NULL) g_object_unref (root->configure);
+	if (root->configure_file != NULL) anjuta_token_file_free (root->configure_file);
+	if (configure != NULL)
+	{
+		root->configure_file = anjuta_token_file_new (configure);
+		root->configure = g_object_ref (configure);
+
+		root->monitor = g_file_monitor_file (configure, 
+						      									G_FILE_MONITOR_NONE,
+						       									NULL,
+						       									NULL);
+		if (root->monitor != NULL)
+		{
+			root->project = project;
+			g_signal_connect (G_OBJECT (root->monitor),
+					  "changed",
+					  G_CALLBACK (on_root_monitor_changed),
+					  root);
+		}
+	}
+	else
+	{
+		root->configure_file = NULL;
+		root->configure = NULL;
+		if (root->monitor) g_object_unref (root->monitor);
+		root->monitor = NULL;
+	}
+	
 	return root->configure_file;
 }
 
@@ -255,6 +302,27 @@ AnjutaToken*
 amp_root_get_configure_token (AnjutaAmRootNode *root)
 {
 	return root->configure_token;
+}
+
+void
+amp_root_update_monitor (AnjutaAmRootNode *root)
+{
+	if (root->monitor != NULL) g_object_unref (root->monitor);
+
+	if (root->configure != NULL)
+	{
+		root->monitor = g_file_monitor_file (root->configure,
+						      						G_FILE_MONITOR_NONE,
+						       						NULL,
+						       						NULL);
+		if (root->monitor != NULL)
+		{
+			g_signal_connect (G_OBJECT (root->monitor),
+					  "changed",
+					  G_CALLBACK (on_root_monitor_changed),
+					  root);
+		}
+	}
 }
 
 /* GObjet implementation
@@ -276,6 +344,17 @@ anjuta_am_root_node_init (AnjutaAmRootNode *node)
 }
 
 static void
+anjuta_am_root_node_dispose (GObject *object)
+{
+	AnjutaAmRootNode *root = ANJUTA_AM_ROOT_NODE (object);
+
+	if (root->monitor) g_object_unref (root->monitor);
+	root->monitor = NULL;
+	
+	G_OBJECT_CLASS (anjuta_am_root_node_parent_class)->dispose (object);
+}
+
+static void
 anjuta_am_root_node_finalize (GObject *object)
 {
 	AnjutaAmRootNode *root = ANJUTA_AM_ROOT_NODE (object);
@@ -291,6 +370,7 @@ anjuta_am_root_node_class_init (AnjutaAmRootNodeClass *klass)
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
 	
 	object_class->finalize = anjuta_am_root_node_finalize;
+	object_class->dispose = anjuta_am_root_node_dispose;
 }
 
 
@@ -509,7 +589,7 @@ on_group_monitor_changed (GFileMonitor *monitor,
 		case G_FILE_MONITOR_EVENT_DELETED:
 			/* project can be NULL, if the node is dummy node because the
 			 * original one is reloaded. */
-			g_signal_emit_by_name (G_OBJECT (node->project), "file-changed", data);
+			if (node->project != NULL) g_signal_emit_by_name (G_OBJECT (node->project), "file-changed", data);
 			break;
 		default:
 			break;
@@ -589,8 +669,10 @@ amp_group_get_makefile_name (AnjutaAmGroupNode *group)
 void
 amp_group_update_monitor (AnjutaAmGroupNode *group)
 {
-		if (group->monitor != NULL) g_object_unref (group->monitor);
-	
+	if (group->monitor != NULL) g_object_unref (group->monitor);
+
+	if (group->makefile != NULL)
+	{
 		group->monitor = g_file_monitor_file (group->makefile, 
 						      									G_FILE_MONITOR_NONE,
 						       									NULL,
@@ -602,7 +684,7 @@ amp_group_update_monitor (AnjutaAmGroupNode *group)
 					  G_CALLBACK (on_group_monitor_changed),
 					  group);
 		}
-	
+	}
 }
 
 AnjutaAmGroupNode*

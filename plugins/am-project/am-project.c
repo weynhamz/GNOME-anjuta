@@ -845,7 +845,7 @@ amp_project_load_config (AmpProject *project, AnjutaToken *arg_list)
 			if (value == NULL) continue;
 		
 			cfg = amp_config_file_new (value, anjuta_project_node_get_file (project->root), item);
-			g_hash_table_insert (project->configs, cfg->file, cfg);
+			g_hash_table_replace (project->configs, cfg->file, cfg);
 			g_free (value);
 		}
 	}
@@ -1484,7 +1484,7 @@ amp_project_replace_node (AnjutaProjectNode *new_node, AnjutaProjectNode *old_no
 	if (old_node == NULL)
 	{
 		/* Delete old node */
-		g_object_unref (old_node);
+		g_object_unref (new_node);
 	}
 	else
 	{
@@ -1502,17 +1502,21 @@ amp_project_replace_node (AnjutaProjectNode *new_node, AnjutaProjectNode *old_no
 			memcpy ((gchar *)new_node + sizeof (GInitiallyUnowned), data,  type_info.instance_size - sizeof (GInitiallyUnowned));
 			g_free (data);
 
-			/* Update file monitor if it is a group */
-			if (anjuta_project_node_get_node_type (old_node) == ANJUTA_PROJECT_GROUP)
-			{
-				amp_group_update_monitor (ANJUTA_AM_GROUP_NODE (old_node));
-			}
-
 			/* Get old file */
 			if (old_node->file != NULL) g_object_unref (old_node->file);
 			old_node->file = new_node->file;
 			new_node->file = NULL;
 
+			/* Update file monitor if it is a group */
+			if (anjuta_project_node_get_node_type (old_node) == ANJUTA_PROJECT_GROUP)
+			{
+				amp_group_update_monitor (ANJUTA_AM_GROUP_NODE (old_node));
+			}
+			else if (anjuta_project_node_get_node_type (old_node) == ANJUTA_PROJECT_ROOT)
+			{
+				amp_root_update_monitor (ANJUTA_AM_ROOT_NODE (old_node));
+			}
+			
 			/* Unlink old node and free it */
 			new_node->parent = NULL;
 			new_node->children = NULL;
@@ -1546,8 +1550,8 @@ amp_project_duplicate_node (AnjutaProjectNode *old_node)
 	g_type_query (G_TYPE_FROM_INSTANCE (old_node), &type_info);
 	memcpy ((gchar *)new_node + sizeof (GInitiallyUnowned), (gchar *)old_node + sizeof (GInitiallyUnowned),  type_info.instance_size - sizeof (GInitiallyUnowned));
 	new_node->custom_properties = NULL;
-	new_node->file = g_file_dup (new_node->file);
-	new_node->name = g_strdup (new_node->name);
+	if (new_node->file != NULL) new_node->file = g_file_dup (new_node->file);
+	if (new_node->name != NULL) new_node->name = g_strdup (new_node->name);
 	new_node->children = NULL;
 
 	/* Remove loaded node specific data */
@@ -1573,7 +1577,7 @@ amp_project_get_type_info (AmpProject *project, AnjutaProjectNodeType type)
 }
 
 static AnjutaProjectNode *
-amp_project_load_root (AmpProject *project, GError **error) 
+amp_project_load_root (AmpProject *project, AnjutaProjectNode *node, GError **error) 
 {
 	AmpAcScanner *scanner;
 	AnjutaToken *arg;
@@ -1583,11 +1587,11 @@ amp_project_load_root (AmpProject *project, GError **error)
 	AnjutaTokenFile *configure_token_file;
 	GError *err = NULL;
 
+	root_file = anjuta_project_node_get_file (node);
+	DEBUG_PRINT ("reload project %p root file %p", project, root_file);
+	
 	/* Unload current project */
 	amp_project_unload (project);
-	DEBUG_PRINT ("reload project %p root file %p", project, root_file);
-
-	root_file = anjuta_project_node_get_file (project->root);
 
 	/* shortcut hash tables */
 	project->groups = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
@@ -1619,14 +1623,14 @@ amp_project_load_root (AmpProject *project, GError **error)
 	}
 
 	/* Parse configure */
-	configure_token_file = amp_root_set_configure (ANJUTA_AM_ROOT_NODE (project->root), configure_file);
+	configure_token_file = amp_root_set_configure (ANJUTA_AM_ROOT_NODE (node), configure_file, G_OBJECT (project));
 	g_hash_table_insert (project->files, configure_file, configure_token_file);
 	g_object_add_toggle_ref (G_OBJECT (configure_token_file), remove_config_file, project);
 	arg = anjuta_token_file_load (configure_token_file, NULL);
 	scanner = amp_ac_scanner_new (project);
-	AMP_ROOT_DATA (project->root)->configure_token = amp_ac_scanner_parse_token (scanner, arg, 0, &err);
+	AMP_ROOT_DATA (node)->configure_token = amp_ac_scanner_parse_token (scanner, arg, 0, &err);
 	amp_ac_scanner_free (scanner);
-	if (AMP_ROOT_DATA (project->root)->configure_token == NULL)
+	if (AMP_ROOT_DATA (node)->configure_token == NULL)
 	{
 		g_set_error (error, IANJUTA_PROJECT_ERROR, 
 						IANJUTA_PROJECT_ERROR_PROJECT_MALFORMED,
@@ -1638,7 +1642,7 @@ amp_project_load_root (AmpProject *project, GError **error)
 	/* Load all makefiles recursively */
 	group = amp_group_new (root_file, FALSE, NULL);
 	g_hash_table_insert (project->groups, g_file_get_uri (root_file), group);
-	anjuta_project_node_append (project->root, ANJUTA_PROJECT_NODE (group));
+	anjuta_project_node_append (node, ANJUTA_PROJECT_NODE (group));
 	
 	if (project_load_makefile (project, group) == NULL)
 	{
@@ -1649,7 +1653,7 @@ amp_project_load_root (AmpProject *project, GError **error)
 		return NULL;
 	}
 
-	return project->root;
+	return node;
 }
 
 static void
@@ -1765,13 +1769,17 @@ AnjutaProjectNode *
 amp_project_load_node (AmpProject *project, AnjutaProjectNode *node, GError **error) 
 {
 	AnjutaProjectNode *loaded = NULL;
+	AnjutaProjectNode *old_root;
 	//GTimer *timer;
 	
 	//timer = g_timer_new ();		
 	switch (anjuta_project_node_get_node_type (node))
 	{
 	case ANJUTA_PROJECT_ROOT:
-		loaded = amp_project_load_root (project, error);
+		old_root = project->root;
+		project->root = node;
+		loaded = amp_project_load_root (project, project->root, error);
+		project->root = old_root;
 		break;
 	case ANJUTA_PROJECT_PACKAGE:
 		loaded = amp_project_load_package (project, node, error);
@@ -2334,7 +2342,7 @@ amp_add_work (PmJob *job)
 static gboolean
 amp_add_complete (PmJob *job)
 {
-	g_signal_emit_by_name (AMP_PROJECT (job->user_data), "node-changed", job->node,  job->error);
+	g_signal_emit_by_name (AMP_PROJECT (job->user_data), "node-changed", job->parent,  job->error);
 
 	return TRUE;
 }
@@ -2381,7 +2389,9 @@ amp_remove_work (PmJob *job)
 static gboolean
 amp_remove_complete (PmJob *job)
 {
-	g_signal_emit_by_name (AMP_PROJECT (job->user_data), "node-changed", job->node,  job->error);
+	AnjutaProjectNode *parent = anjuta_project_node_parent (job->node);
+	
+	g_signal_emit_by_name (AMP_PROJECT (job->user_data), "node-changed", parent != NULL ? parent : job->node,  job->error);
 
 	return TRUE;
 }
