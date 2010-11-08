@@ -139,7 +139,7 @@ anjuta_cell_renderer_captioned_image_render (GtkCellRenderer *gtk_cell,
 					     GtkWidget *widget,
 					     const GdkRectangle *background_area,
 					     const GdkRectangle *cell_area,
-					     guint flags)
+					     GtkCellRendererState flags)
 
 {
 	AnjutaCellRendererCaptionedImage *cell = ANJUTA_CELL_RENDERER_CAPTIONED_IMAGE (gtk_cell);
