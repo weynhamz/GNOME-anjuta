@@ -293,8 +293,6 @@ on_draw_cb (GtkWidget *widget, cairo_t *cr,
 	
 	cairo_paint (cr);
 	
-	cairo_destroy (cr);	
-
 	GList *l, *list = NULL;
 	list = gtk_container_get_children (GTK_CONTAINER (widget));
 	
