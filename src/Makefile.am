@@ -65,6 +65,7 @@ EXTRA_DIST = \
 	anjuta-shell.ui \
 	$(anjuta_layout_DATA) \
 	$(anjuta_glade_DATA) \
-	$(anjuta_pixmaps_DATA)
+	$(anjuta_pixmaps_DATA) \
+	$(prefs_keyfile)
 
 -include $(top_srcdir)/git.mk

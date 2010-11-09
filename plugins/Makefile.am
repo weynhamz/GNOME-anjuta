@@ -6,6 +6,7 @@ SUBDIRS = . \
 	class-gen \
 	cvs-plugin \
 	devhelp \
+	debug-manager \
 	dir-project \
 	document-manager \
 	file-loader \

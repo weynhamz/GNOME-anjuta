@@ -58,6 +58,7 @@ EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(document_manager_plugin_DATA) \
 	$(document_manager_ui_DATA) \
-	$(document_manager_glade_DATA)
+	$(document_manager_glade_DATA) \
+	$(prefs_keyfile)
 
 -include $(top_srcdir)/git.mk
