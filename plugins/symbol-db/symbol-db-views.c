@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License along
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <gtk/gtktreeview.h>
+#include <gtk/gtk.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-markable.h>
 #include "symbol-db-model-project.h"

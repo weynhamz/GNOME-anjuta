@@ -53,7 +53,7 @@ static gboolean
 on_sharedlibs_key_press_event (GtkWidget *widget, GdkEventKey *event,
 							  gpointer data)
 {
-	if (event->keyval == GDK_Escape)
+	if (event->keyval == GDK_KEY_Escape)
 	{
 		Sharedlibs* sl = data;
   		sharedlibs_hide(sl);
@@ -312,8 +312,8 @@ sharedlibs_hide (Sharedlibs* sl)
 		window = gtk_widget_get_window (sl->widgets.window);
 		gdk_window_get_root_origin (window,
 					    &sl->win_pos_x, &sl->win_pos_y);
-		gdk_drawable_get_size (window,
-				       &sl->win_width, &sl->win_height);
+		gdk_window_get_geometry (window, NULL, NULL,
+				       &sl->win_width, &sl->win_height, NULL);
 		gtk_widget_hide(sl->widgets.window);
 		sl->is_showing = FALSE;
 	}

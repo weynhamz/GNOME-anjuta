@@ -5,7 +5,7 @@
 	<language id="1" name="C" strings="c,chdr" mime-types="text/x-csrc,text/x-chdr" make-target=".o" />
 	<language id="2" name="C++" strings="c,cpp,c++,chdr" mime-types="text/x-c++src,text/x-c++hdr" make-target=".o" />
 	<language id="3" name="Java" strings="java" mime-types="text/x-java" make-target=".class" />
-	<language id="4" name="Python" strings="python" mime-types="text/x-python"/>
+	<language id="4" name="Python" strings="python" mime-types="text/x-python,application/x-extension-wsgi"/>
 	<language id="5" name="C#" strings="c#,csharp" mime-types="text/x-csharp" />
 	<language id="6" name="Vala" strings="vala" mime-types="text/x-vala" make-target=".o"/>
 	<language id="7" name="JavaScript" strings="js,javascript" mime-types="application/javascript"/>

@@ -136,19 +136,19 @@ dma_data_view_goto_key_press_event (GtkWidget *widget,
 	g_return_val_if_fail (IS_DMA_DATA_VIEW (view), FALSE);
 
 	/* Close window */
-	if (event->keyval == GDK_Escape ||
-		event->keyval == GDK_Tab ||
-		event->keyval == GDK_KP_Tab ||
-		event->keyval == GDK_ISO_Left_Tab)
+	if (event->keyval == GDK_KEY_Escape ||
+		event->keyval == GDK_KEY_Tab ||
+		event->keyval == GDK_KEY_KP_Tab ||
+		event->keyval == GDK_KEY_ISO_Left_Tab)
     {
 		dma_data_view_goto_window_hide (view);
 		return TRUE;
     }
 
 	/* Goto to address and close window */
-	if (event->keyval == GDK_Return ||
-		event->keyval == GDK_ISO_Enter ||
-		event->keyval == GDK_KP_Enter)
+	if (event->keyval == GDK_KEY_Return ||
+		event->keyval == GDK_KEY_ISO_Enter ||
+		event->keyval == GDK_KEY_KP_Enter)
 	{
 		gulong adr;
 		const gchar *text;
@@ -176,7 +176,7 @@ dma_data_view_goto_position_func (DmaDataView *view)
 	gint x, y;
 	gint win_x, win_y;
 	GdkWindow *window = gtk_widget_get_window (GTK_WIDGET (view));
-	GdkScreen *screen = gdk_drawable_get_screen (window);
+	GdkScreen *screen = gdk_window_get_screen (window);
 	gint monitor_num;
 	GdkRectangle monitor;
 
@@ -557,34 +557,30 @@ dma_data_view_size_allocate (GtkWidget *widget,
 
 static void
 dma_data_view_paint (GtkWidget    *widget,
-                     GdkRectangle *area)
+                     cairo_t *cr)
 {
 	DmaDataView *view = DMA_DATA_VIEW (widget);
 
 	if (view->shadow_type != GTK_SHADOW_NONE)
 	{
 		gtk_paint_shadow (gtk_widget_get_style (widget),
-				  gtk_widget_get_window (widget),
-				  GTK_STATE_NORMAL, view->shadow_type,
-				  area, widget, "dma_data_view",
-				  view->frame.x,
-				  view->frame.y,
-				  view->frame.width,
-				  view->frame.height);
+		                  cr,
+		                  GTK_STATE_NORMAL, view->shadow_type,
+		                  widget, "dma_data_view",
+		                  view->frame.x,
+		                  view->frame.y,
+		                  view->frame.width,
+		                  view->frame.height);
 	}
 }
 
 static gint
-dma_data_view_expose (GtkWidget *widget,
-                      GdkEventExpose *event)
+dma_data_view_draw (GtkWidget *widget,
+                    cairo_t *cr)
 {
-	if (gtk_widget_is_drawable (widget))
-	{
-		dma_data_view_paint (widget, &event->area);
+	dma_data_view_paint (widget, cr);
 
-		(* GTK_WIDGET_CLASS (parent_class)->expose_event) (widget, event);
-    }
-
+	(* GTK_WIDGET_CLASS (parent_class)->draw) (widget, cr);
 	return FALSE;
 }
 
@@ -802,7 +798,7 @@ dma_data_view_forall (GtkContainer *container,
  *---------------------------------------------------------------------------*/
 
 static void
-dma_data_view_destroy (GtkObject *object)
+dma_data_view_destroy (GtkWidget *object)
 {
 	DmaDataView *view;
 
@@ -826,7 +822,7 @@ dma_data_view_destroy (GtkObject *object)
 		view->goto_entry = NULL;
 	}
 	
-	GTK_OBJECT_CLASS (parent_class)->destroy (object);
+	GTK_WIDGET_CLASS (parent_class)->destroy (object);
 }
 
 
@@ -887,14 +883,12 @@ static void
 dma_data_view_class_init (DmaDataViewClass * klass)
 {
 	GObjectClass *gobject_class;
-	GtkObjectClass *object_class;
 	GtkWidgetClass   *widget_class;
 	GtkContainerClass *container_class;
 
 	g_return_if_fail (klass != NULL);
 	
 	gobject_class = G_OBJECT_CLASS (klass);
-	object_class = GTK_OBJECT_CLASS (klass);
 	widget_class = GTK_WIDGET_CLASS (klass);
 	container_class = GTK_CONTAINER_CLASS (klass);
 	parent_class = GTK_WIDGET_CLASS (g_type_class_peek_parent (klass));
@@ -902,11 +896,11 @@ dma_data_view_class_init (DmaDataViewClass * klass)
 	gobject_class->dispose = dma_data_view_dispose;
 	gobject_class->finalize = dma_data_view_finalize;
 
-	object_class->destroy = dma_data_view_destroy;
+	widget_class->destroy = dma_data_view_destroy;
 	
 	widget_class->size_request = dma_data_view_size_request;
 	widget_class->size_allocate = dma_data_view_size_allocate;
-	widget_class->expose_event = dma_data_view_expose;
+	widget_class->draw = dma_data_view_draw;
 	
 	container_class->forall = dma_data_view_forall;
 	container_class->child_type = dma_data_view_child_type;

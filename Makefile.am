@@ -1,10 +1,12 @@
 ## Process this file with automake to produce Makefile.in
 
+ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
+
 @INTLTOOL_DESKTOP_RULE@
 
 SUBDIRS = \
 	pixmaps scripts data \
-	doc libfoocanvas libanjuta plugins src manuals mime launcher po
+	doc libanjuta plugins src manuals mime launcher po
 
 anjutadocdir = $(docdir)
 anjutadoc_DATA = \

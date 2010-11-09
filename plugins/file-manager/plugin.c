@@ -39,15 +39,16 @@
 #define FILE_MANAGER_BUILDER PACKAGE_DATA_DIR"/glade/file-manager.ui"
 #define FILE_MANAGER_BUILDER_ROOT "filemanager_prefs"
 
-#define PREF_ROOT "filemanager.root"
-#define PREF_FILTER_BINARY "filemanager.filter.binary"
-#define PREF_FILTER_HIDDEN "filemanager.filter.hidden"
-#define PREF_FILTER_BACKUP "filemanager.filter.backup"
-#define PREF_FILTER_UNVERSIONED "filemanager.filter.unversioned"
+#define PREF_SCHEMA "org.gnome.anjuta.file-manager"
+#define PREF_ROOT "filemanager-root"
+#define PREF_FILTER_BINARY "filemanager-filter-binary"
+#define PREF_FILTER_HIDDEN "filemanager-filter-hidden"
+#define PREF_FILTER_BACKUP "filemanager-filter-backup"
+#define PREF_FILTER_UNVERSIONED "filemanager-filter-unversioned"
 
-#define REGISTER_NOTIFY(key, func, type) \
-	notify_id = anjuta_preferences_notify_add_##type (prefs, \
-											   key, func, file_manager, NULL); \
+#define REGISTER_NOTIFY(key, func) \
+	notify_id = anjuta_preferences_notify_add (prefs, \
+											   key, func, file_manager); \
 	file_manager->notify_ids = g_list_prepend (file_manager->notify_ids, \
 										       GUINT_TO_POINTER(notify_id));
 
@@ -80,7 +81,7 @@ static void
 file_manager_set_default_uri (AnjutaFileManager* file_manager)
 {
 	GFile *file;	
-	gchar* path = anjuta_preferences_get (anjuta_preferences_default(), PREF_ROOT);
+	gchar* path = g_settings_get_string (file_manager->settings, PREF_ROOT);
 		
 	if (path)
 	{
@@ -246,10 +247,9 @@ on_file_view_show_popup_menu (AnjutaFileView* view, GFile* file,
 }
 
 static void 
-on_notify_root(AnjutaPreferences* prefs,
-                         const gchar* key,
-                         const gchar* value,
-                         gpointer user_data)
+on_notify_root(GSettings* settings,
+               const gchar* key,
+               gpointer user_data)
 {
 	AnjutaFileManager* file_manager = (AnjutaFileManager*) user_data;
 	if (!file_manager->have_project)
@@ -260,9 +260,8 @@ on_notify_root(AnjutaPreferences* prefs,
 }
 
 static void 
-on_notify(AnjutaPreferences* prefs,
+on_notify(GSettings* settings,
           const gchar* key,
-          gboolean value,
           gpointer user_data)
 {
 	AnjutaFileManager* file_manager = (AnjutaFileManager*) user_data;
@@ -270,10 +269,10 @@ on_notify(AnjutaPreferences* prefs,
 	GtkTreeModel* file_model = gtk_tree_model_sort_get_model (GTK_TREE_MODEL_SORT(sort_model));
 	
 	g_object_set (G_OBJECT (file_model),
-				  "filter_binary", anjuta_preferences_get_bool (prefs, PREF_FILTER_BINARY),
-				  "filter_hidden", anjuta_preferences_get_bool (prefs, PREF_FILTER_HIDDEN),
-				  "filter_backup", anjuta_preferences_get_bool (prefs, PREF_FILTER_BACKUP),
-				  "filter_unversioned", anjuta_preferences_get_bool (prefs, PREF_FILTER_UNVERSIONED), NULL);
+				  "filter_binary", g_settings_get_boolean (settings, PREF_FILTER_BINARY),
+				  "filter_hidden", g_settings_get_boolean (settings, PREF_FILTER_HIDDEN),
+				  "filter_backup", g_settings_get_boolean (settings, PREF_FILTER_BACKUP),
+				  "filter_unversioned", g_settings_get_boolean (settings, PREF_FILTER_UNVERSIONED), NULL);
 	file_view_refresh (file_manager->fv);
 }
 
@@ -282,8 +281,6 @@ file_manager_activate (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui;
 	AnjutaFileManager *file_manager;
-	gint notify_id;
-	AnjutaPreferences* prefs = anjuta_preferences_default ();
 	
 	DEBUG_PRINT ("%s", "AnjutaFileManager: Activating AnjutaFileManager plugin ...");
 	file_manager = (AnjutaFileManager*) plugin;
@@ -335,13 +332,18 @@ file_manager_activate (AnjutaPlugin *plugin)
 								 project_root_added,
 								 project_root_removed, NULL);
 	
-	
-	REGISTER_NOTIFY (PREF_ROOT, on_notify_root, string);
-	REGISTER_NOTIFY (PREF_FILTER_BINARY, on_notify, bool);
-	REGISTER_NOTIFY (PREF_FILTER_BACKUP, on_notify, bool);
-	REGISTER_NOTIFY (PREF_FILTER_HIDDEN, on_notify, bool);
-	REGISTER_NOTIFY (PREF_FILTER_UNVERSIONED, on_notify, bool);
-	on_notify (prefs, NULL, FALSE, file_manager);
+
+	g_signal_connect (file_manager->settings, "changed::" PREF_ROOT, 
+	                  G_CALLBACK (on_notify_root), file_manager);
+	g_signal_connect (file_manager->settings, "changed::" PREF_FILTER_BINARY, 
+	                  G_CALLBACK (on_notify), file_manager);
+	g_signal_connect (file_manager->settings, "changed::" PREF_FILTER_HIDDEN, 
+	                  G_CALLBACK (on_notify), file_manager);
+	g_signal_connect (file_manager->settings, "changed::" PREF_FILTER_BACKUP, 
+	                  G_CALLBACK (on_notify), file_manager);
+	g_signal_connect (file_manager->settings, "changed::" PREF_FILTER_UNVERSIONED, 
+	                  G_CALLBACK (on_notify), file_manager);
+	on_notify (file_manager->settings, NULL, file_manager);
 	
 	return TRUE;
 }
@@ -367,16 +369,7 @@ file_manager_deactivate (AnjutaPlugin *plugin)
 
 static void
 file_manager_finalize (GObject *obj)
-{
-	AnjutaFileManager *plugin = (AnjutaFileManager*)obj;
-	GList* id;
-	for (id = plugin->notify_ids; id != NULL; id = id->next)
-	{
-		anjuta_preferences_notify_remove(anjuta_preferences_default (),
-		                                 GPOINTER_TO_UINT(id->data));
-	}
-	g_list_free(plugin->notify_ids);
-	
+{		
 	/* Finalization codes here */
 	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
@@ -384,6 +377,9 @@ file_manager_finalize (GObject *obj)
 static void
 file_manager_dispose (GObject *obj)
 {
+	AnjutaFileManager *plugin = (AnjutaFileManager*)obj;
+	g_object_unref (plugin->settings);
+
 	/* Disposition codes */
 	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
@@ -393,7 +389,7 @@ file_manager_instance_init (GObject *obj)
 {
 	AnjutaFileManager *plugin = (AnjutaFileManager*)obj;
 	
-	plugin->notify_ids = NULL;
+	plugin->settings = g_settings_new (PREF_SCHEMA);
 	plugin->have_project = FALSE;
 	
 	plugin->uiid = 0;
@@ -450,6 +446,7 @@ ipreferences_merge (IAnjutaPreferences* ipref,
 {
 	GError* error = NULL;
 	GtkBuilder* bxml = gtk_builder_new ();
+	AnjutaFileManager* fm = (AnjutaFileManager*) ipref;
 
 	if (!gtk_builder_add_from_file (bxml, FILE_MANAGER_BUILDER, &error))
 	{
@@ -457,7 +454,7 @@ ipreferences_merge (IAnjutaPreferences* ipref,
 		g_error_free (error);
 	}
 
-	anjuta_preferences_add_from_builder (prefs, bxml, FILE_MANAGER_BUILDER_ROOT, _("File Manager"),
+	anjuta_preferences_add_from_builder (prefs, bxml, fm->settings, FILE_MANAGER_BUILDER_ROOT, _("File Manager"),
 								 ICON_FILE);
 }
 

@@ -770,7 +770,7 @@ static gboolean
 on_project_wizard_key_press_event(GtkWidget *widget, GdkEventKey *event,
                                NPWDruid* druid)
 {
-	if (event->keyval == GDK_Escape)
+	if (event->keyval == GDK_KEY_Escape)
 	{
 		on_druid_cancel (GTK_ASSISTANT (widget), druid);
 		return TRUE;
@@ -1112,33 +1112,17 @@ npw_druid_add_default_property (NPWDruid* druid)
 
 	/* Add default base project directory */
 	value = npw_value_heap_find_value (druid->values, ANJUTA_PROJECT_DIRECTORY_PROPERTY);
-	s = anjuta_preferences_get (pref, "anjuta.project.directory");
-	npw_value_set_value (value, s == NULL ? "~" : s, NPW_VALID_VALUE);
-	g_free (s);
+	npw_value_set_value (value, g_get_home_dir (), NPW_VALID_VALUE);
 	
 	/* Add user name */
 	value = npw_value_heap_find_value (druid->values, USER_NAME_PROPERTY);
-	s = anjuta_preferences_get (pref, "anjuta.user.name");
-	if (!s || strlen(s) == 0)
-	{
-		s = (gchar *)g_get_real_name();
-		npw_value_set_value (value, s, NPW_VALID_VALUE);
-	}
-	else
-	{
-		npw_value_set_value (value, s, NPW_VALID_VALUE);
-		g_free (s);
-	}
+	s = (gchar *)g_get_real_name();
+	npw_value_set_value (value, s, NPW_VALID_VALUE);
 	/* Add Email address */
 	value = npw_value_heap_find_value (druid->values, EMAIL_ADDRESS_PROPERTY);
-	s = anjuta_preferences_get (pref, "anjuta.user.email");
-	/* If Email address not defined in Preferences */
-	if (!s || strlen(s) == 0)
-	{
-		if (!(s = getenv("USERNAME")) || strlen(s) == 0)
-			s = getenv("USER");
-		s = g_strconcat(s, "@", getenv("HOSTNAME"), NULL);
-	}
+
+	/* FIXME: We need a default way for the mail */
+	s = anjuta_util_get_user_mail();
 	npw_value_set_value (value, s, NPW_VALID_VALUE);
 	g_free (s);
 }

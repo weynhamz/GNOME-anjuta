@@ -35,7 +35,7 @@ struct _JSLang{
 	gpointer last;
 //	GList *complition_cache;
 //	gint uiid;
-	AnjutaPreferences *prefs;
+	GSettings *prefs;
 	DatabaseSymbol* symbol;
 //	GtkActionGroup *action_group;
 };

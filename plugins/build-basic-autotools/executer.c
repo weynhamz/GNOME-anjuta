@@ -222,7 +222,7 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 void
 execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 {
-	AnjutaPreferences* prefs = anjuta_shell_get_preferences (ANJUTA_PLUGIN(plugin)->shell, NULL);
+	GSettings* settings = plugin->settings;
 	gboolean run_in_terminal, error_condition;
 	gchar *target = NULL, *args = NULL, *dir = NULL, *cmd = NULL;
 
@@ -375,9 +375,9 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 	else
 		cmd = g_strdup (target);
 
-	if (anjuta_preferences_get_bool (prefs , PREF_USE_SB))
+	if (g_settings_get_boolean (settings, PREF_USE_SB))
 	{
-		const gchar* sb_path = anjuta_preferences_get(prefs, PREF_SB_PATH);
+		const gchar* sb_path = g_settings_get_string (settings, PREF_SB_PATH);
 		/* we need to skip the /scratchbox/users part, maybe could be done more clever */
 		const gchar* real_dir = strstr(target, "/home");
 		gchar* oldcmd = cmd;

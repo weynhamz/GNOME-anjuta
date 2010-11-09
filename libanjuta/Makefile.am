@@ -7,6 +7,7 @@ AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	$(ANJUTA_CFLAGS) \
+	$(XML_CFLAGS) \
 	-DDATADIR="\"$(datadir)\"" \
 	-DPACKAGE_PIXMAPS_DIR="\"$(datadir)/pixmaps/$(PACKAGE)\"" \
 	-DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" \
@@ -14,13 +15,14 @@ AM_CPPFLAGS = \
 	-DPACKAGE_DOC_DIR="\"$(docdir)\"" \
 	-DG_LOG_DOMAIN=\"libanjuta\"
 
-lib_LTLIBRARIES = libanjuta.la 
-libanjuta_la_LDFLAGS = $(ANJUTA_LDFLAGS) 
-libanjuta_la_LIBADD = \
+lib_LTLIBRARIES = libanjuta-3.la 
+libanjuta_3_la_LDFLAGS = $(ANJUTA_LDFLAGS) 
+libanjuta_3_la_LIBADD = \
 	interfaces/libanjuta-interfaces.la \
-	$(ANJUTA_LIBS)
+	$(ANJUTA_LIBS) \
+	$(XML_LIBS)
 
-libanjuta_la_SOURCES= \
+libanjuta_3_la_SOURCES= \
 	anjuta-enum-types.h \
 	anjuta-enum-types.c \
 	anjuta-marshal.h \
@@ -121,11 +123,11 @@ if HAVE_PLUGIN_GLADE
 
 gladeanjutadir = $(libdir)/glade3/modules
 
-gladeanjuta_LTLIBRARIES = libgladeanjuta.la
-libgladeanjuta_la_SOURCES = anjuta-glade-catalog.c
-libgladeanjuta_la_LDFLAGS = $(ANJUTA_LDFLAGS) -module -avoid-version
-libgladeanjuta_la_LIBADD = \
-	libanjuta.la \
+gladeanjuta_LTLIBRARIES = libgladeanjuta-3.la
+libgladeanjuta_3_la_SOURCES = anjuta-glade-catalog.c
+libgladeanjuta_3_la_LDFLAGS = $(ANJUTA_LDFLAGS) -module -avoid-version
+libgladeanjuta_3_la_LIBADD = \
+	libanjuta-3.la \
 	$(GLADE_LIBS)
 
 # For now install in our own prefix
@@ -136,7 +138,7 @@ catalog_DATA = anjuta-glade.xml
 
 endif
 
-libanjutaincludedir=$(includedir)/libanjuta-1.0/libanjuta
+libanjutaincludedir=$(includedir)/libanjuta-3.0/libanjuta
 
 libanjuta_include = \
 	libanjuta.h \
@@ -228,11 +230,11 @@ anjuta-enum-types.c: Makefile
 
 
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = libanjuta-1.0.pc
+pkgconfig_DATA = libanjuta-3.0.pc
 
 EXTRA_DIST = \
 	$(libanjutainclude_HEADERS) \
-	libanjuta-1.0.pc.in \
+	libanjuta-3.0.pc.in \
 	anjuta-marshal.list \
 	$(catalog_DATA)
 
@@ -243,26 +245,28 @@ DISTCLEANFILES = \
 
 -include $(INTROSPECTION_MAKEFILE)
 INTROSPECTION_GIRS =
-INTROSPECTION_SCANNER_ARGS = --add-include-path=$(srcdir)
+INTROSPECTION_SCANNER_ARGS = --add-include-path=$(builddir) -I $(top_builddir) --warn-all
 INTROSPECTION_COMPILER_ARGS = --includedir=$(srcdir)
 
 if HAVE_INTROSPECTION
-anjuta_introspection_sources = $(libanjuta_la_SOURCES)
+anjuta_introspection_sources = $(libanjuta_3_la_SOURCES)
 ianjuta_introspection_sources = $(srcdir)/interfaces/*.c $(srcdir)/interfaces/*.h
 
-Anjuta-1_0.gir: libanjuta.la
-Anjuta_1_0_gir_INCLUDES = GObject-2.0 Gtk-2.0
-Anjuta_1_0_gir_CFLAGS = $(ANJUTA_CFLAGS) -I$(top_srcdir)
-Anjuta_1_0_gir_LIBS = anjuta
-Anjuta_1_0_gir_FILES = $(anjuta_introspection_sources)
-INTROSPECTION_GIRS += Anjuta-1.0.gir
+Anjuta-3.0.gir: libanjuta-3.la
+Anjuta_3_0_gir_INCLUDES = GObject-2.0 Gtk-3.0
+Anjuta_3_0_gir_CFLAGS = $(ANJUTA_CFLAGS) $(XML_CFLAGS) -I$(top_srcdir)
+Anjuta_3_0_gir_LIBS = anjuta-3
+Anjuta_3_0_gir_FILES = $(anjuta_introspection_sources)
+Anjuta_3_0_gir_SCANNERFLAGS = --c-include=libanjuta/libanjuta.h
+INTROSPECTION_GIRS += Anjuta-3.0.gir
 
-IAnjuta-1_0.gir: interfaces/libanjuta-interfaces.la libanjuta.la Anjuta-1.0.gir
-IAnjuta_1_0_gir_INCLUDES = GObject-2.0 Gtk-2.0 Anjuta-1.0
-IAnjuta_1_0_gir_CFLAGS = $(LIBANJUTA_CFLAGS) -I$(top_srcdir)
-IAnjuta_1_0_gir_LIBS = interfaces/libanjuta-interfaces.la anjuta
-IAnjuta_1_0_gir_FILES = $(ianjuta_introspection_sources)
-INTROSPECTION_GIRS += IAnjuta-1.0.gir
+IAnjuta-3.0.gir: interfaces/libanjuta-interfaces.la libanjuta-3.la Anjuta-3.0.gir
+IAnjuta_3_0_gir_INCLUDES = GObject-2.0 Gtk-3.0 Anjuta-3.0
+IAnjuta_3_0_gir_CFLAGS = $(ANJUTA_CFLAGS) $(XML_CFLAGS) -I$(top_srcdir)
+IAnjuta_3_0_gir_LIBS = interfaces/libanjuta-interfaces.la anjuta-3
+IAnjuta_3_0_gir_FILES = $(ianjuta_introspection_sources)
+IAnjuta_3_0_gir_SCANNERFLAGS = --add-include-path=$(top_srcdir)/libanjuta/ --symbol-prefix=ianjuta --c-include=libanjuta/interfaces/libanjuta-interfaces.h
+INTROSPECTION_GIRS += IAnjuta-3.0.gir
 
 girdir = $(datadir)/gir-1.0
 gir_DATA = $(INTROSPECTION_GIRS)

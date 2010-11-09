@@ -48,16 +48,16 @@ enum
 };
 
 /* Preference keys */
-#define EDITOR_TABS_POS            "editor.tabs.pos"
-#define EDITOR_TABS_HIDE           "editor.tabs.hide"
-#define EDITOR_TABS_ORDERING       "editor.tabs.ordering"
-#define EDITOR_TABS_RECENT_FIRST   "editor.tabs.recent.first"
+#define EDITOR_TABS_POS            "docman-tabs-pos"
+#define EDITOR_TABS_HIDE           "docman-tabs-hide"
+#define EDITOR_TABS_ORDERING       "docman-tabs-ordering"
+#define EDITOR_TABS_RECENT_FIRST   "docman-tabs-recent-first"
 
 typedef struct _AnjutaDocmanPage AnjutaDocmanPage;
 
 struct _AnjutaDocmanPriv {
 	DocmanPlugin *plugin;
-	AnjutaPreferences *preferences;
+	GSettings* settings;
 	GList *pages;		/* list of AnjutaDocmanPage's */
 	
 	GtkWidget *fileselection;
@@ -92,7 +92,7 @@ static void anjuta_docman_update_page_label (AnjutaDocman *docman,
 											 IAnjutaDocument *doc);
 static void anjuta_docman_grab_text_focus (AnjutaDocman *docman);
 static void on_notebook_switch_page (GtkNotebook *notebook,
-									 GtkNotebookPage *page,
+									 GtkWidget *page,
 									 gint page_num, AnjutaDocman *docman);
 static AnjutaDocmanPage *
 anjuta_docman_get_page_for_document (AnjutaDocman *docman,
@@ -336,7 +336,7 @@ on_notebook_tab_btnrelease (GtkWidget *widget, GdkEventButton *event, AnjutaDocm
 	}	
 
 	/* normal button click close */
-	if (anjuta_preferences_get_bool (docman->priv->preferences, EDITOR_TABS_RECENT_FIRST))
+	if (g_settings_get_boolean (docman->priv->settings, EDITOR_TABS_RECENT_FIRST))
 	{
 		GList *node;
 
@@ -743,8 +743,8 @@ anjuta_docman_save_document_as (AnjutaDocman *docman, IAnjutaDocument *doc,
 		ianjuta_file_savable_save_as (IANJUTA_FILE_SAVABLE (doc), file, NULL);
 	}
 	
-	if (anjuta_preferences_get_bool (ANJUTA_PREFERENCES (docman->priv->preferences),
-									EDITOR_TABS_ORDERING))
+	if (g_settings_get_boolean (docman->priv->settings,
+	                            EDITOR_TABS_ORDERING))
 		anjuta_docman_order_tabs (docman);
 
 	gtk_widget_destroy (dialog);
@@ -914,7 +914,7 @@ anjuta_docman_class_init (AnjutaDocmanClass *klass)
 }
 
 GtkWidget*
-anjuta_docman_new (DocmanPlugin* plugin, AnjutaPreferences *pref)
+anjuta_docman_new (DocmanPlugin* plugin)
 {
 
 	GtkWidget *docman;
@@ -924,7 +924,7 @@ anjuta_docman_new (DocmanPlugin* plugin, AnjutaPreferences *pref)
 		AnjutaUI* ui;
 		AnjutaDocman* real_docman = ANJUTA_DOCMAN (docman);
 		real_docman->priv->plugin = plugin;
-		real_docman->priv->preferences = pref;
+		real_docman->priv->settings = plugin->settings;
 		real_docman->priv->documents_action_group = gtk_action_group_new ("ActionGroupDocument");
 		real_docman->maximized = FALSE;
 		ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
@@ -940,7 +940,7 @@ static gboolean g_tabbing = FALSE;
 
 static void
 on_notebook_switch_page (GtkNotebook *notebook,
-						 GtkNotebookPage *notebook_page,
+						 GtkWidget *notebook_page,
 						 gint page_num, AnjutaDocman *docman)
 {
 	if (!docman->priv->shutingdown)
@@ -960,8 +960,8 @@ on_notebook_switch_page (GtkNotebook *notebook,
 		 */
 		if (!docman->priv->tab_pressed	/* after a tab-click, sorting is done upon release */
 			&& !g_tabbing
-			&& !anjuta_preferences_get_bool (docman->priv->preferences, EDITOR_TABS_ORDERING)
-			&& anjuta_preferences_get_bool (docman->priv->preferences, EDITOR_TABS_RECENT_FIRST))
+			&& !g_settings_get_boolean (docman->priv->settings, EDITOR_TABS_ORDERING)
+			&& g_settings_get_boolean (docman->priv->settings, EDITOR_TABS_RECENT_FIRST))
 		{
 			gtk_notebook_reorder_child (notebook, page->widget, 0);
 		}
@@ -1224,8 +1224,8 @@ anjuta_docman_set_current_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 											  page->widget);
 			gtk_notebook_set_current_page (GTK_NOTEBOOK (docman), page_num);
 
-			if (anjuta_preferences_get_bool (ANJUTA_PREFERENCES (docman->priv->preferences),
-											EDITOR_TABS_ORDERING))
+			if (g_settings_get_boolean (docman->priv->settings,
+			                            EDITOR_TABS_ORDERING))
 				anjuta_docman_order_tabs (docman);
 
 			gtk_widget_grab_focus (GTK_WIDGET (doc));

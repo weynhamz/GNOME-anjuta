@@ -58,10 +58,10 @@
 #define GCONF_LOGIN_SHELL         "login_shell"
 #define GCONF_UPDATE_RECORDS      "update_records"
 
-#define PREFS_TERMINAL_PROFILE_USE_DEFAULT    "terminal.default.profile"
-#define PREFS_TERMINAL_PROFILE                "terminal.profile"
+#define PREF_SCHEMA                           "org.gnome.anjuta.terminal"
+#define PREFS_TERMINAL_PROFILE_USE_DEFAULT    "terminal-default-profile"
+#define PREFS_TERMINAL_PROFILE                "terminal-profile"
 
-#include <gconf/gconf-client.h>
 #include <vte/vte.h>
 #include <vte/reaper.h>
 #include <pwd.h>
@@ -85,7 +85,6 @@ struct _TerminalPlugin{
 	gint uiid;
 	GtkActionGroup *action_group;	
 	
-	AnjutaPreferences *prefs;
 	GPid child_pid;
 	GtkWidget *shell, *term;
 	GtkWidget *shell_box, *term_box;
@@ -93,7 +92,7 @@ struct _TerminalPlugin{
 	GtkWidget *pref_profile_combo;
 	GtkWidget *pref_default_button;
 	gboolean   widget_added_to_shell;
-	GList *gconf_notify_ids;
+	GSettings *settings;
 	guint root_watch_id;
 	gboolean lastlog;
 	gboolean update_records;
@@ -120,43 +119,9 @@ get_profile_key (const gchar *profile, const gchar *key)
 	return buffer;
 }
 
-static gboolean
-get_bool_default (GConfClient *client, const gchar *key, gboolean def)
-{
-	gboolean value = def;
-	GConfValue* val;
-
-	val = gconf_client_get (client, key, NULL);
-	if (val != NULL)
-	{
-	    value = gconf_value_get_bool (val);
-	    gconf_value_free (val);
-  	}
-		
-	return value;
-}
-
-#define GET_PROFILE_BOOL(key) \
-			gconf_client_get_bool (client, \
-								   get_profile_key (profile, key), \
-								   NULL);
-#define GET_PROFILE_BOOL_DEFAULT(key, value) \
-			get_bool_default (client, \
-								   get_profile_key (profile, key), \
-								   value);
-#define GET_PROFILE_INT(key) \
-			gconf_client_get_int (client, \
-								  get_profile_key (profile, key), \
-								  NULL);
-#define GET_PROFILE_STRING(key) \
-			gconf_client_get_string (client, \
-									 get_profile_key (profile, key), \
-									 NULL);
-
 static void
-terminal_set_preferences (VteTerminal *term, AnjutaPreferences *pref, TerminalPlugin *term_plugin)
+terminal_set_preferences (VteTerminal *term, GSettings* settings, TerminalPlugin *term_plugin)
 {
-	GConfClient *client;
 	char *text;
 	int value;
 	gboolean setting;
@@ -165,22 +130,21 @@ terminal_set_preferences (VteTerminal *term, AnjutaPreferences *pref, TerminalPl
 	GdkColor* background;
 	gchar *profile;
 	
-	client = gconf_client_get_default ();
-	
 	g_return_if_fail (client != NULL);
 	
 	/* Update the currently available list of terminal profiles */
-	setting = anjuta_preferences_get_bool (pref,
-										  PREFS_TERMINAL_PROFILE_USE_DEFAULT);
+	setting = g_settings_get_boolean (settings,
+	                                  PREFS_TERMINAL_PROFILE_USE_DEFAULT);
 	if (setting)
 	{
+		// TODO: Get from GSettings instead of GConf
 		/* Use the currently selected profile in gnome-terminal */
 		text = gconf_client_get_string (client, GCONF_DEFAULT_PROFILE, NULL);
 	}
 	else
 	{
 		/* Otherwise use the user selected profile */
-		text = anjuta_preferences_get (pref, PREFS_TERMINAL_PROFILE);
+		text = g_settings_get_string (settings, PREFS_TERMINAL_PROFILE);
 	}
 	if (!text || (*text == '\0')) 
 			text = g_strdup ("Default");
@@ -189,7 +153,7 @@ terminal_set_preferences (VteTerminal *term, AnjutaPreferences *pref, TerminalPl
 	vte_terminal_set_mouse_autohide (term, TRUE);
 
 	/* Set terminal font either using the desktop wide font or g-t one. */
-	setting = GET_PROFILE_BOOL (GCONF_USE_SYSTEM_FONT);
+	setting = g_settings_get_boolean (GCONF_USE_SYSTEM_FONT);
 	if (setting) {
 		text = gconf_client_get_string (client, GCONF_MONOSPACE_FONT, NULL);
 		if (!text)
@@ -281,58 +245,37 @@ terminal_set_preferences (VteTerminal *term, AnjutaPreferences *pref, TerminalPl
 }
 
 static void
-preferences_changed (AnjutaPreferences *prefs, TerminalPlugin *term)
+preferences_changed (GSettings* settings, TerminalPlugin *term)
 {
-	terminal_set_preferences (VTE_TERMINAL (term->shell), prefs, term);
-	terminal_set_preferences (VTE_TERMINAL (term->term), prefs, term);
+	terminal_set_preferences (VTE_TERMINAL (term->shell), settings, term);
+	terminal_set_preferences (VTE_TERMINAL (term->term), settings, term);
 }
 
 static void
-on_notify_prefs_profile(AnjutaPreferences* prefs,
+on_notify_prefs_profile(GSettings* settings,
                         const gchar* key,
-                        const gchar* value,
                         gpointer user_data)
 {
 	TerminalPlugin *tp = ANJUTA_PLUGIN_TERMINAL (user_data);
-	preferences_changed (tp->prefs, tp);
+	preferences_changed (settings, tp);
 }
 
 static void
-on_notify_prefs_default (AnjutaPreferences* prefs,
+on_notify_prefs_default (GSettings* settings,
                          const gchar* key,
-                         gboolean value,
                          gpointer user_data)
 {
 	TerminalPlugin *tp = ANJUTA_PLUGIN_TERMINAL (user_data);
-	preferences_changed (tp->prefs, tp);
+	preferences_changed (settings, tp);
 }
 
-#define REGISTER_NOTIFY(key, func, type) \
-	notify_id = anjuta_preferences_notify_add_##type (tp->prefs, \
-											   key, func, tp, NULL); \
-	tp->gconf_notify_ids = g_list_prepend (tp->gconf_notify_ids, \
-										   GUINT_TO_POINTER (notify_id));
 static void
 prefs_init (TerminalPlugin *tp)
 {
-	guint notify_id;
-	REGISTER_NOTIFY (PREFS_TERMINAL_PROFILE, on_notify_prefs_profile, string);
-	REGISTER_NOTIFY (PREFS_TERMINAL_PROFILE_USE_DEFAULT, on_notify_prefs_default, bool);
-}
-
-static void
-prefs_finalize (TerminalPlugin *tp)
-{
-	GList *node;
-	node = tp->gconf_notify_ids;
-	while (node)
-	{
-		anjuta_preferences_notify_remove (tp->prefs,
-										  GPOINTER_TO_UINT (node->data));
-		node = g_list_next (node);
-	}
-	g_list_free (tp->gconf_notify_ids);
-	tp->gconf_notify_ids = NULL;
+	g_signal_connect (tp->settings, "changed::" PREFS_TERMINAL_PROFILE,
+	                  G_CALLBACK (on_notify_prefs_profile), tp);
+	g_signal_connect (tp->settings, "changed::" PREFS_TERMINAL_PROFILE_USE_DEFAULT,
+	                  G_CALLBACK (on_notify_prefs_default), tp);
 }
 
 static void
@@ -780,7 +723,6 @@ activate_plugin (AnjutaPlugin *plugin)
 	DEBUG_PRINT ("%s", "TerminalPlugin: Activating Terminal plugin ...");
 	
 	term_plugin = ANJUTA_PLUGIN_TERMINAL (plugin);
-	term_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	term_plugin->widget_added_to_shell = FALSE;
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	term_plugin->action_group = anjuta_ui_add_action_group_entries (ui,
@@ -813,7 +755,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	/* Set all terminal preferences, at that time the terminal widget is
 	 * not realized, a few vte functions are not working. Another
 	 * possibility could be to call this when the widget is realized */
-	preferences_changed (term_plugin->prefs, term_plugin);
+	preferences_changed (term_plugin->settings, term_plugin);
 	
 	/* set up project directory watch */
 	term_plugin->root_watch_id = anjuta_plugin_add_watch (plugin,
@@ -839,8 +781,6 @@ deactivate_plugin (AnjutaPlugin *plugin)
 		anjuta_ui_remove_action_group (ui, term_plugin->action_group);
 		term_plugin->action_group = NULL;
 	}
-	
-	prefs_finalize (term_plugin);
 
 	/* terminal plugin widgets are destroyed as soon as it is removed */
 	anjuta_shell_remove_widget (plugin->shell, term_plugin->frame, NULL);
@@ -869,6 +809,10 @@ deactivate_plugin (AnjutaPlugin *plugin)
 static void
 terminal_plugin_dispose (GObject *obj)
 {
+	TerminalPlugin *term_plugin = ANJUTA_PLUGIN_TERMINAL (obj);
+
+	g_object_unref (term_plugin->settings);
+	
 	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
@@ -883,7 +827,7 @@ terminal_plugin_instance_init (GObject *obj)
 {
 	TerminalPlugin *term_plugin = ANJUTA_PLUGIN_TERMINAL (obj);
 	
-	term_plugin->gconf_notify_ids = NULL;
+	term_plugin->settings = g_settings_new (PREF_SCHEMA);
 	term_plugin->child_pid = 0;
 	term_plugin->pref_profile_combo = NULL;
 	term_plugin->uiid = 0;
@@ -961,6 +905,22 @@ on_concat_string (gpointer data, gpointer user_data)
 }
 
 static void
+on_pref_profile_changed (GtkComboBox* combo, TerminalPlugin* term_plugin)
+{
+	GtkTreeModel* model = gtk_combo_box_get_model (combo);
+	GtkTreeIter iter;
+	gchar* text;
+	
+	gtk_combo_box_get_active_iter (combo,
+	                               &iter);
+	gtk_tree_model_get (model, &iter, 0, &text, -1);
+	g_settings_set_string (term_plugin->settings,
+	                       PREFS_TERMINAL_PROFILE,
+	                       text);
+	g_free (text);
+}
+
+static void
 ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
 	GError* error = NULL;
@@ -978,12 +938,15 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 	}
 
 
-	anjuta_preferences_add_from_builder (term_plugin->prefs, bxml,
-									"Terminal", _("Terminal"), ICON_FILE);
+	anjuta_preferences_add_from_builder (anjuta_preferences_default (), bxml,
+	                                     term_plugin->settings,
+	                                     "Terminal", _("Terminal"), ICON_FILE);
 	
 	term_plugin->pref_profile_combo = GTK_WIDGET (gtk_builder_get_object (bxml, "profile_list_combo"));
-	term_plugin->pref_default_button = GTK_WIDGET (gtk_builder_get_object (bxml, "preferences_toggle:bool:1:0:terminal.default.profile"));
+	term_plugin->pref_default_button = GTK_WIDGET (gtk_builder_get_object (bxml, "preferences_toggle:bool:1:0:terminal-default-profile"));
 
+#if 0
+	/* FIXME: Update to GSettings */
 	/* Update the currently available list of terminal profiles */
 	client = gconf_client_get_default ();
 	profiles = gconf_client_get_list (client, GCONF_PROFILE_LIST,
@@ -991,31 +954,27 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 	if (profiles)
 	{
 		GtkListStore *store;
-		GString *default_value;
-			
-		default_value = g_string_new (NULL);
+		GString *default_value = g_string_new (NULL);
+		
 		store = GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (term_plugin->pref_profile_combo)));
 		
 		gtk_list_store_clear (store);
 		g_slist_foreach (profiles, on_add_string_in_store, store);
-		g_slist_foreach (profiles, on_concat_string, default_value);
+		g_slist_foreach (profiles, on_concat_string, default_value);		
 		g_slist_foreach (profiles, (GFunc)g_free, NULL);
 		g_slist_free (profiles);
 		
-		anjuta_preferences_register_property_raw (term_plugin->prefs,
-												  term_plugin->pref_profile_combo,
-												  PREFS_TERMINAL_PROFILE,
-												  default_value->str,
-												  1,
-												  ANJUTA_PROPERTY_OBJECT_TYPE_COMBO,
-												  ANJUTA_PROPERTY_DATA_TYPE_TEXT);
-		g_string_free (default_value, TRUE);
+		g_signal_connect (term_plugin->pref_profile_combo, "changed",
+		                  G_CALLBACK (on_pref_profile_changed), term_plugin);
 		
 		use_default_profile_cb (GTK_TOGGLE_BUTTON (term_plugin->pref_default_button), term_plugin);
 		g_signal_connect (G_OBJECT(term_plugin->pref_default_button), "toggled",
 						  G_CALLBACK (use_default_profile_cb), term_plugin);
+		
+		g_string_free (default_value, TRUE);
 	}
 	else
+#endif
 	{
 		/* No profile, perhaps GNOME Terminal is not installed,
 		 * Remove selection */

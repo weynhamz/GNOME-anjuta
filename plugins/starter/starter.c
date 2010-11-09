@@ -256,22 +256,19 @@ gnome_library_clicked_cb (GtkButton *button, gpointer useless)
 }
 
 static gboolean
-on_expose_event_cb (GtkWidget *widget, GdkEventExpose *event,
-					Starter *wcm)
+on_draw_cb (GtkWidget *widget, cairo_t *cr,
+            Starter *wcm)
 {
 	GtkAllocation allocation;
 	GdkWindow *window;
-	cairo_t *cr;
 	cairo_pattern_t *pattern;
 
 	window = gtk_widget_get_window (widget);
-	
-	cr = gdk_cairo_create (window);
 
 	gtk_widget_get_allocation (widget, &allocation);
 	pattern = cairo_pattern_create_linear (0, 0, 0, allocation.height);
 	
-	if (gdk_screen_get_rgba_colormap (gtk_widget_get_screen (widget)) &&
+	if (gdk_screen_get_rgba_visual (gtk_widget_get_screen (widget)) &&
 	    gtk_widget_is_composited (widget))
 		cairo_set_source_rgba (cr, 1.0, 1.0, 1.0, 0.0); /* transparent */
 	else
@@ -291,22 +288,16 @@ on_expose_event_cb (GtkWidget *widget, GdkEventExpose *event,
 	cairo_set_operator (cr, CAIRO_OPERATOR_OVER);
 	
 	cairo_paint (cr);
-	
-	cairo_destroy (cr);
-
-	cr = gdk_cairo_create (window);
-	
+		
 	gdk_cairo_set_source_pixbuf (cr, wcm->priv->logo, 20, 20);
 	
 	cairo_paint (cr);
 	
-	cairo_destroy (cr);	
-
 	GList *l, *list = NULL;
 	list = gtk_container_get_children (GTK_CONTAINER (widget));
 	
 	for (l = list; l != NULL; l = g_list_next (l))
-		gtk_container_propagate_expose (GTK_CONTAINER (widget), l->data, event);
+		gtk_container_propagate_draw (GTK_CONTAINER (widget), l->data, cr);
 	
 	g_list_free (list);
 	
@@ -374,8 +365,8 @@ starter_instance_init (Starter* wcm)
 
 	wcm->priv->event_box = gtk_event_box_new ();
 	gtk_widget_show (wcm->priv->event_box);
-	g_signal_connect (wcm->priv->event_box, "expose-event",
-					  G_CALLBACK (on_expose_event_cb), wcm);
+	g_signal_connect (wcm->priv->event_box, "draw",
+					  G_CALLBACK (on_draw_cb), wcm);
 
 	alignment = gtk_alignment_new (0.5, 0.5, 1.0, 1.0);
 	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment),

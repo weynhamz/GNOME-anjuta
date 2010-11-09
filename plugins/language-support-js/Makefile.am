@@ -37,7 +37,7 @@ AM_CPPFLAGS = \
 	-DANJUTA_IMAGE_DIR=\"$(anjuta_image_dir)\" \
 	-DANJUTA_GLADE_DIR=\"$(anjuta_glade_dir)\" \
 	-DANJUTA_UI_DIR=\"$(anjuta_ui_dir)\" \
-	$(LIBXML_CFLAGS) \
+	$(XML_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
 	-DPACKAGE_SRC_DIR=\"$(srcdir)\" \
 	-DGIR_PATH=\"$(INTROSPECTION_GIRDIR)\" \
@@ -62,7 +62,12 @@ libjs_support_plugin_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 # Plugin dependencies
 libjs_support_plugin_la_LIBADD = \
-	$(LIBANJUTA_LIBS) 
+	$(LIBANJUTA_LIBS) \
+	$(XML_LIBS)
+
+prefs_ui_files = anjuta-language-javascript.ui
+prefs_name = org.gnome.anjuta.js
+include $(top_srcdir)/scripts/build-schemas.mk
 
 EXTRA_DIST = \
 	$(plugin_in_files)\

@@ -16,8 +16,8 @@ typedef struct
 int check_for_notification_event(void)
 {
 	GTodoList *list = NULL;
-	int min_b_not = anjuta_preferences_get_int(preferences, "gtodo.notify_in_minutes");
-	if(!anjuta_preferences_get_bool(preferences, "gtodo.do_notification")) return TRUE;
+	int min_b_not = anjuta_preferences_get_int(preferences, "gtodo-notify_in_minutes");
+	if(!anjuta_preferences_get_bool(preferences, "gtodo-do_notification")) return TRUE;
 	list = gtodo_client_get_todo_item_list(cl, NULL);
 	if(list == NULL) return TRUE;
 	do{

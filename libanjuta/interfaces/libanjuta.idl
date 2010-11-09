@@ -2106,7 +2106,7 @@ interface IAnjutaEditor
 		 * @info: String to display
 		 * @err: Error propagation and reporting
 		 *
-     * Show @info as tooltip
+     	 * Show @info as tooltip
 		 *
 		 */
 		void display (IAnjutaIterable* position, const gchar *info);

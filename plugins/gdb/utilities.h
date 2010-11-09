@@ -33,9 +33,6 @@
 
 #include <libanjuta/anjuta-plugin.h>
 
-#define COMBO_LIST_LENGTH \
-		anjuta_preferences_get_int (app->preferences, MAXIMUM_COMBO_HISTORY)
-
 #define _STR(S) ((S)?(S):"")
 
 /* Any addition to this enum must be synced with the

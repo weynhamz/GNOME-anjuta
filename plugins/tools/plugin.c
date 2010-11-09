@@ -108,13 +108,14 @@ R7: Tool Storage
 
 struct _ATPPlugin {
 	AnjutaPlugin parent;
-	AnjutaPreferences *prefs;
 	GtkActionGroup* action_group;
 	gint uiid;
 	ATPToolList list;
 	ATPToolDialog dialog;
 	ATPVariable variable;
 	ATPContextList context;
+
+	GSettings* settings;
 };
 
 struct _ATPPluginClass {
@@ -139,9 +140,13 @@ static GtkActionEntry actions_tools[] = {
 /* Used in dispose */
 static gpointer parent_class;
 
+#define PREF_SCHEMA "org.gnome.anjuta.tools"
+
 static void
 atp_plugin_instance_init (GObject *obj)
 {
+	ATPPlugin *this = ANJUTA_PLUGIN_ATP (obj);
+	this->settings = g_settings_new (PREF_SCHEMA);
 }
 
 /* dispose is used to unref object created with instance_init */
@@ -150,7 +155,10 @@ static void
 atp_plugin_dispose (GObject *obj)
 {
 	/* Warning this function could be called several times */
-
+	ATPPlugin *this = ANJUTA_PLUGIN_ATP (obj);
+	if (this->settings)
+		g_object_unref (this->settings);
+	this->settings = NULL;
 	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
@@ -239,8 +247,6 @@ ipreferences_merge(IAnjutaPreferences* obj, AnjutaPreferences* prefs, GError** e
 	GError* error = NULL;
 
 	atp_plugin = ANJUTA_PLUGIN_ATP (obj);
-	atp_plugin->prefs = anjuta_shell_get_preferences (ANJUTA_PLUGIN(obj)->shell,
-														NULL);
 
 	/* Load glade file */
 	if (!gtk_builder_add_from_file (bxml, GLADE_FILE, &error))
@@ -252,8 +258,9 @@ ipreferences_merge(IAnjutaPreferences* obj, AnjutaPreferences* prefs, GError** e
 
 	atp_tool_dialog_show (&atp_plugin->dialog, bxml);
 
-	anjuta_preferences_add_from_builder (atp_plugin->prefs, bxml,
-									"Tools", _("Tools"), ICON_FILE);
+	anjuta_preferences_add_from_builder (anjuta_preferences_default (), bxml,
+	                                     atp_plugin->settings,
+	                                     "Tools", _("Tools"), ICON_FILE);
 	g_object_unref (bxml);
 }
 

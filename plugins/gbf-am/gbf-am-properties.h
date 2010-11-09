@@ -24,7 +24,7 @@
 #ifndef _GBF_AM_PROPERTIES_H_
 #define _GBF_AM_PROPERTIES_H_
 
-#include <gtk/gtkwidget.h>
+#include <gtk/gtk.h>
 #include "gbf-am-project.h"
 
 GtkWidget *gbf_am_properties_get_widget (GbfAmProject *project, GError **error);

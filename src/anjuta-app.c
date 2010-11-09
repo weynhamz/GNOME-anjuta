@@ -46,6 +46,11 @@
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/preferences.ui"
 #define ICON_FILE "anjuta-preferences-general-48.png"
 
+#define PREF_SCHEMA "org.gnome.anjuta"
+#define GDL_STYLE "gdl-style"
+#define TOOLBAR_VISIBLE "toolbar-visible"
+#define TOOLBAR_STYLE "toolbar-style"
+
 static void anjuta_app_layout_load (AnjutaApp *app,
 									const gchar *layout_filename,
 									const gchar *name);
@@ -249,28 +254,23 @@ anjuta_app_unmaximize (AnjutaShell *shell,
 }
 
 static void
-on_toolbar_style_changed (AnjutaPreferences* prefs,
+on_toolbar_style_changed (GSettings* settings,
                           const gchar* key,
-                          const gchar* tb_style,
                           gpointer user_data)
 {
 	AnjutaApp* app = ANJUTA_APP (user_data);
-		
-	if (tb_style)
-	{	
-		if (strcasecmp (tb_style, "Default") == 0)
-			style = -1;
-		else if (strcasecmp (tb_style, "Both") == 0)
-			style = GTK_TOOLBAR_BOTH;
-		else if (strcasecmp (tb_style, "Horiz") == 0)
-			style = GTK_TOOLBAR_BOTH_HORIZ;
-		else if (strcasecmp (tb_style, "Icons") == 0)
-			style = GTK_TOOLBAR_ICONS;
-		else if (strcasecmp (tb_style, "Text") == 0)
-			style = GTK_TOOLBAR_TEXT;
-		
-		DEBUG_PRINT ("Toolbar style: %s", tb_style);
-	}
+	gchar* tb_style = g_settings_get_string (settings, key);
+
+	if (strcasecmp (tb_style, "Default") == 0)
+		style = -1;
+	else if (strcasecmp (tb_style, "Both") == 0)
+		style = GTK_TOOLBAR_BOTH;
+	else if (strcasecmp (tb_style, "Horiz") == 0)
+		style = GTK_TOOLBAR_BOTH_HORIZ;
+	else if (strcasecmp (tb_style, "Icons") == 0)
+		style = GTK_TOOLBAR_ICONS;
+	else if (strcasecmp (tb_style, "Text") == 0)
+		style = GTK_TOOLBAR_TEXT;
 	
 	if (style != -1)
 	{
@@ -280,34 +280,33 @@ on_toolbar_style_changed (AnjutaPreferences* prefs,
 	{
 		gtk_toolbar_unset_style (GTK_TOOLBAR (app->toolbar));
 	}
+	g_free (tb_style);
 }
 
 static void
-on_gdl_style_changed (AnjutaPreferences* prefs,
+on_gdl_style_changed (GSettings* settings,
                       const gchar* key,
-                      const gchar* pr_style,
                       gpointer user_data)
 {
 	AnjutaApp* app = ANJUTA_APP (user_data);
 	GdlSwitcherStyle style = GDL_SWITCHER_STYLE_BOTH;
+
+	gchar* pr_style = g_settings_get_string (settings, key);
+
+	if (strcasecmp (pr_style, "Text") == 0)
+		style = GDL_SWITCHER_STYLE_TEXT;
+	else if (strcasecmp (pr_style, "Icon") == 0)
+		style = GDL_SWITCHER_STYLE_ICON;
+	else if (strcasecmp (pr_style, "Both") == 0)
+		style = GDL_SWITCHER_STYLE_BOTH;
+	else if (strcasecmp (pr_style, "Toolbar") == 0)
+		style = GDL_SWITCHER_STYLE_TOOLBAR;
+	else if (strcasecmp (pr_style, "Tabs") == 0)
+		style = GDL_SWITCHER_STYLE_TABS;
 	
-	if (pr_style)
-	{
-		if (strcasecmp (pr_style, "Text") == 0)
-			style = GDL_SWITCHER_STYLE_TEXT;
-		else if (strcasecmp (pr_style, "Icon") == 0)
-			style = GDL_SWITCHER_STYLE_ICON;
-		else if (strcasecmp (pr_style, "Both") == 0)
-			style = GDL_SWITCHER_STYLE_BOTH;
-		else if (strcasecmp (pr_style, "Toolbar") == 0)
-			style = GDL_SWITCHER_STYLE_TOOLBAR;
-		else if (strcasecmp (pr_style, "Tabs") == 0)
-			style = GDL_SWITCHER_STYLE_TABS;
-		
-		DEBUG_PRINT ("Switcher style: %s", pr_style);
-	}
 	g_object_set (G_OBJECT(app->layout_manager->master), "switcher-style",
 				  style, NULL);
+	g_free (pr_style);
 }
 
 static void
@@ -507,6 +506,11 @@ anjuta_app_dispose (GObject *widget)
 		app->status = NULL;
 	}
 
+	if (app->settings) {
+		g_object_unref (app->settings);
+		app->settings = NULL;
+	}
+	
 	G_OBJECT_CLASS (parent_class)->dispose (widget);
 }
 
@@ -535,7 +539,6 @@ anjuta_app_instance_init (AnjutaApp *app)
 	GtkWidget *dockbar;
 	GtkAction* action;
 	GList *plugins_dirs = NULL;
-	gchar* style;
 	GdkGeometry size_hints = {
     	100, 100, 0, 0, 100, 100, 1, 1, 0.0, 0.0, GDK_GRAVITY_NORTH_WEST
   	};
@@ -556,6 +559,9 @@ anjuta_app_instance_init (AnjutaApp *app)
 	app->values = NULL;
 	app->widgets = NULL;
 	app->maximized = FALSE;
+
+	/* Settings */
+	app->settings = g_settings_new (PREF_SCHEMA);
 	
 	/* Status bar */
 	app->status = ANJUTA_STATUS (anjuta_status_new ());
@@ -609,13 +615,9 @@ anjuta_app_instance_init (AnjutaApp *app)
 	g_object_add_weak_pointer (G_OBJECT (app->preferences),
 							   (gpointer)&app->preferences);
 	
-	anjuta_preferences_notify_add_string (app->preferences, "anjuta.gdl.style",
-	                                      on_gdl_style_changed, app, NULL);
-	style = anjuta_preferences_get (app->preferences, "anjuta.gdl.style");
-	
-	on_gdl_style_changed (app->preferences, NULL, 
-	                      style, app);
-	g_free (style);
+	g_signal_connect (app->settings, "changed::" GDL_STYLE, 
+	                  G_CALLBACK (on_gdl_style_changed), app);
+	on_gdl_style_changed (app->settings, GDL_STYLE, app);
 	
 	/* Register actions */
 	anjuta_ui_add_action_group_entries (app->ui, "ActionGroupFile", _("File"),
@@ -656,20 +658,17 @@ anjuta_app_instance_init (AnjutaApp *app)
 	/* create toolbar */	
 	app->toolbar = gtk_ui_manager_get_widget (GTK_UI_MANAGER (app->ui),
 										 "/ToolbarMain");
-    if (!anjuta_preferences_get_bool (app->preferences, "anjuta.toolbar.visible"))
+    if (!g_settings_get_boolean (app->settings, TOOLBAR_VISIBLE))
 		gtk_widget_hide (app->toolbar);
 	gtk_box_pack_start (GTK_BOX (main_box), app->toolbar, FALSE, FALSE, 0);
 	action = gtk_ui_manager_get_action (GTK_UI_MANAGER (app->ui),
 										"/MenuMain/MenuView/Toolbar");
 	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION(action),
-								  anjuta_preferences_get_bool_with_default (app->preferences,
-																		   "anjuta.toolbar.visible",
-																		   TRUE));
-	anjuta_preferences_notify_add_string (app->preferences, "anjuta.toolbar.style",
-								   on_toolbar_style_changed, app, NULL);
-	style = anjuta_preferences_get (app->preferences, "anjuta.toolbar.style");
-	on_toolbar_style_changed (app->preferences, NULL, style, app);
-	g_free (style);
+								  g_settings_get_boolean (app->settings,
+								                          TOOLBAR_VISIBLE));
+	g_signal_connect (app->settings, "changed::" TOOLBAR_STYLE,
+	                  G_CALLBACK (on_toolbar_style_changed), app);
+	on_toolbar_style_changed (app->settings, TOOLBAR_STYLE, app);
 
 	/* Create widgets menu */
 	view_menu = 
@@ -726,18 +725,18 @@ anjuta_app_key_press_event (GtkWidget   *widget,
 
 	switch (event->keyval)
 	{
-		case GDK_F1:
-		case GDK_F2:
-		case GDK_F3:
-		case GDK_F4:
-		case GDK_F5:
-		case GDK_F6:
-		case GDK_F7:
-		case GDK_F8:
-		case GDK_F9:
-		case GDK_F10:
-		case GDK_F11:
-		case GDK_F12:
+		case GDK_KEY_F1:
+		case GDK_KEY_F2:
+		case GDK_KEY_F3:
+		case GDK_KEY_F4:
+		case GDK_KEY_F5:
+		case GDK_KEY_F6:
+		case GDK_KEY_F7:
+		case GDK_KEY_F8:
+		case GDK_KEY_F9:
+		case GDK_KEY_F10:
+		case GDK_KEY_F11:
+		case GDK_KEY_F12:
 			/* handle mnemonics and accelerators */
 			if (!handled)
 				handled = gtk_window_activate_key (window, event);
@@ -917,7 +916,7 @@ anjuta_app_install_preferences (AnjutaApp *app)
 		g_error_free (error);
 		return;
 	}
-	anjuta_preferences_add_from_builder (app->preferences, builder, 
+	anjuta_preferences_add_from_builder (app->preferences, builder, app->settings,
 								 "General", _("General"), ICON_FILE);
 	notebook = 	GTK_WIDGET (gtk_builder_get_object (builder, "General"));
 	shortcuts = anjuta_ui_get_accel_editor (ANJUTA_UI (app->ui));

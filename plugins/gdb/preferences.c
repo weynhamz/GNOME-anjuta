@@ -191,10 +191,10 @@ on_add_printer_in_list (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *ite
  /* Gtk builder callbacks */
 void gdb_on_printer_add (GtkButton *button, gpointer user_data);
 void gdb_on_printer_remove (GtkButton *button, gpointer user_data);
-void gdb_on_destroy_preferences (GtkObject *object, gpointer user_data);
+void gdb_on_destroy_preferences (GtkWidget *object, gpointer user_data);
 
 void
-gdb_on_destroy_preferences (GtkObject *object, gpointer user_data)
+gdb_on_destroy_preferences (GtkWidget *object, gpointer user_data)
 {
 	PreferenceDialog *dlg = (PreferenceDialog *)user_data;
 	GList *new_list;
@@ -393,7 +393,7 @@ gdb_merge_preferences (AnjutaPreferences* prefs, GList **list)
 											-1);
 	}
 	
-	anjuta_preferences_add_from_builder (prefs, bxml, GDB_PREFS_ROOT, _("Gdb Debugger"),  ICON_FILE);
+	anjuta_preferences_add_from_builder (prefs, bxml, NULL, GDB_PREFS_ROOT, _("Gdb Debugger"),  ICON_FILE);
 
 	g_object_unref (bxml);
 }

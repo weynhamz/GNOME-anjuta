@@ -647,7 +647,7 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 	/* Fill parameter combo box */
 	model = GTK_TREE_MODEL (gtk_list_store_new (1, G_TYPE_STRING));
 	gtk_combo_box_set_model (dlg->args, model);
-	gtk_combo_box_entry_set_text_column( GTK_COMBO_BOX_ENTRY(dlg->args), 0);
+	gtk_combo_box_set_entry_text_column( GTK_COMBO_BOX(dlg->args), 0);
 	g_list_foreach (plugin->recent_args, on_add_string_in_model, model);
 	if (plugin->recent_args != NULL)
 	{
@@ -662,7 +662,7 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 	/* Fill target combo box */
 	model = GTK_TREE_MODEL (gtk_list_store_new (1, G_TYPE_STRING));
 	gtk_combo_box_set_model (dlg->target, model);
-	gtk_combo_box_entry_set_text_column( GTK_COMBO_BOX_ENTRY(dlg->target), 0);
+	gtk_combo_box_set_entry_text_column( GTK_COMBO_BOX (dlg->target), 0);
 	g_list_foreach (plugin->recent_target, on_add_uri_in_model, model);
 
     anjuta_shell_get_value (ANJUTA_PLUGIN (plugin)->shell, IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI, &value, NULL);

@@ -42,6 +42,7 @@ libanjuta_message_view_la_SOURCES = \
 	message-view.c\
 	message-view.h
 
+prefs_name = org.gnome.anjuta.message-manager
 prefs_ui_files = anjuta-message-manager-plugin.ui
 include $(top_srcdir)/scripts/build-schemas.mk
 

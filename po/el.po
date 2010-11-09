@@ -14,14 +14,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-20 17:48+0300\n"
-"PO-Revision-Date: 2010-09-13 11:20+0200\n"
-"Last-Translator: Michael Kotsarinis <mk73628@hotmail.com>\n"
+"POT-Creation-Date: 2010-09-30 14:22+0300\n"
+"PO-Revision-Date: 2010-09-23 09:46+0200\n"
+"Last-Translator: Giannis Katsampirhs <juankatsampirhs@gmail.com>\n"
 "Language-Team: Greek <team@gnome.gr>\n"
-"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Language: Greek\n"
 "X-Poedit-Country: GREECE\n"
@@ -467,7 +467,7 @@ msgstr "Αν δεν αποθηκεύσετε, όλες οι αλλαγές σα�
 #
 #: ../libanjuta/anjuta-save-prompt.c:189
 #: ../plugins/document-manager/plugin.c:605
-#: ../plugins/snippets-manager/snippets-editor.ui.h:9
+#: ../plugins/snippets-manager/snippets-editor.ui.h:11
 msgid "Save"
 msgstr "Αποθήκευση"
 
@@ -707,7 +707,6 @@ msgid "Font variant"
 msgstr "Παραλλαγή γραμματοσειράς"
 
 #: ../libfoocanvas/foo-canvas-text.c:267 ../libfoocanvas/foo-canvas-text.c:268
-#, fuzzy
 msgid "Font weight"
 msgstr "Βάρος γραμματοσειράς"
 
@@ -801,7 +800,6 @@ msgid "Height of the rendered text"
 msgstr "Ύψος του αποδιδόμενου κειμένου"
 
 #: ../libfoocanvas/foo-canvas-text.c:449
-#, fuzzy
 msgid "Font family set"
 msgstr "Ορισμός οικογένειας γραμματοσειράς"
 
@@ -810,16 +808,14 @@ msgid "Whether this tag affects the font family"
 msgstr "Αν αυτή η ετικέτα επηρεάζει την οικογένεια γραμματοσειράς"
 
 #: ../libfoocanvas/foo-canvas-text.c:453
-#, fuzzy
 msgid "Font style set"
-msgstr "Ορισμός στυλ γραμματοσειράς"
+msgstr "Ορισμός τύπου γραμματοσειράς"
 
 #: ../libfoocanvas/foo-canvas-text.c:454
 msgid "Whether this tag affects the font style"
 msgstr "Αν αυτή η ετικέτα επηρεάζει το στυλ γραμματοσειράς"
 
 #: ../libfoocanvas/foo-canvas-text.c:457
-#, fuzzy
 msgid "Font variant set"
 msgstr "Ορισμός παραλλαγής γραμματοσειράς"
 
@@ -828,17 +824,14 @@ msgid "Whether this tag affects the font variant"
 msgstr "Αν αυτή η ετικέτα επηρεάζει την παραλλαγή γραμματοσειράς"
 
 #: ../libfoocanvas/foo-canvas-text.c:461
-#, fuzzy
 msgid "Font weight set"
 msgstr "Ορισμός βάρους γραμματοσειράς"
 
 #: ../libfoocanvas/foo-canvas-text.c:462
-#, fuzzy
 msgid "Whether this tag affects the font weight"
 msgstr "Αν αυτή η ετικέτα επηρεάζει το βάρος της γραμματοσειράς"
 
 #: ../libfoocanvas/foo-canvas-text.c:465
-#, fuzzy
 msgid "Font stretch set"
 msgstr "Ορισμός έκτασης γραμματοσειράς"
 
@@ -847,7 +840,6 @@ msgid "Whether this tag affects the font stretch"
 msgstr "Αν αυτή η ετικέτα επηρεάζει την έκταση της γραμματοσειράς"
 
 #: ../libfoocanvas/foo-canvas-text.c:469
-#, fuzzy
 msgid "Font size set"
 msgstr "Ορισμός μεγέθους γραμματοσειράς"
 
@@ -856,16 +848,14 @@ msgid "Whether this tag affects the font size"
 msgstr "Αν αυτή η ετικέτα επηρεάζει το μέγεθος της γραμματοσειράς"
 
 #: ../libfoocanvas/foo-canvas-text.c:473
-#, fuzzy
 msgid "Rise set"
-msgstr "_Επαναφορά"
+msgstr "Ορισμός αύξησης"
 
 #: ../libfoocanvas/foo-canvas-text.c:474
 msgid "Whether this tag affects the rise"
 msgstr "Αν αυτή η ετικέτα επηρεάζει την ανύψωση"
 
 #: ../libfoocanvas/foo-canvas-text.c:477
-#, fuzzy
 msgid "Strikethrough set"
 msgstr "Ορισμός γραμμοδιαγραφής"
 
@@ -875,7 +865,6 @@ msgstr "Αν αυτή η ετικέτα επηρεάζει τη γραμμοδι
 
 #
 #: ../libfoocanvas/foo-canvas-text.c:481
-#, fuzzy
 msgid "Underline set"
 msgstr "Ορισμός υπογράμμισης"
 
@@ -884,7 +873,6 @@ msgid "Whether this tag affects underlining"
 msgstr "Αν αυτή η ετικέτα επηρεάζει την υπογράμμιση"
 
 #: ../libfoocanvas/foo-canvas-text.c:485
-#, fuzzy
 msgid "Scale set"
 msgstr "Ορισμός κλίμακας"
 
@@ -1526,7 +1514,7 @@ msgstr "Αρχείο στο οποίο το επεξεργασμένο πρότ�
 msgid "Failed to write autogen definition file"
 msgstr "Αδυναμία εγγραφής του αρχείου ορισμών autogen"
 
-#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1160
+#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1157
 msgid ""
 "Could not find autogen version 5; please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net."
@@ -1558,6 +1546,7 @@ msgstr "Υλοποίηση"
 #: ../plugins/class-gen/window.c:533
 #: ../plugins/debug-manager/breakpoints.c:1952
 #: ../plugins/debug-manager/debug_tree.c:128
+#: ../plugins/snippets-manager/snippets-editor.c:38
 msgid "Type"
 msgstr "Τύπος"
 
@@ -1565,7 +1554,9 @@ msgstr "Τύπος"
 #: ../plugins/class-gen/window.c:520 ../plugins/class-gen/window.c:534
 #: ../plugins/run-program/parameters.c:754
 #: ../plugins/search/search_preferences.c:534
+#: ../plugins/snippets-manager/plugin.c:751
 #: ../plugins/snippets-manager/snippets-browser.c:530
+#: ../plugins/snippets-manager/snippets-editor.c:37
 msgid "Name"
 msgstr "Όνομα"
 
@@ -1606,9 +1597,9 @@ msgid "XML description of the user interface"
 msgstr "Περιγραφή XML της διεπαφής του χρήστη"
 
 #: ../plugins/class-inheritance/class-callbacks.c:208
-#, fuzzy, c-format
+#, c-format
 msgid "Args: %s"
-msgstr "Συγχωνευμένα: %s"
+msgstr "Ορίσματα: %s"
 
 #
 #: ../plugins/class-inheritance/class-inherit.c:1213
@@ -2854,9 +2845,8 @@ msgid "View Source"
 msgstr "Προβολή πηγαίου κώδικα"
 
 #: ../plugins/debug-manager/stack_trace.c:595
-#, fuzzy
 msgid "Get Stack trace"
-msgstr "Λήψη ιχνηλάτησης στοίβας"
+msgstr "Λήψη ίχνους στοίβας"
 
 #: ../plugins/debug-manager/stack_trace.c:633
 #: ../plugins/debug-manager/threads.c:426
@@ -3125,7 +3115,7 @@ msgstr "Μετονομασία"
 #
 #: ../plugins/document-manager/anjuta-bookmarks.c:340
 #: ../plugins/gtodo/callback.c:20 ../plugins/gtodo/callback.c:101
-#: ../plugins/snippets-manager/snippets-editor.ui.h:8
+#: ../plugins/snippets-manager/snippets-editor.ui.h:10
 msgid "Remove"
 msgstr "Αφαίρεση"
 
@@ -4821,9 +4811,8 @@ msgstr "Συμπεριλαμβανόμενα"
 
 #
 #: ../plugins/gdb/anjuta-gdb.ui.h:1
-#, fuzzy
 msgid "Available pretty printers"
-msgstr "Διαθέσιμες λειτουργίες pretty printer"
+msgstr "Διαθέσιμοι pretty printer"
 
 #. The %s argument is a program name, anjuta by example
 #: ../plugins/gdb/debugger.c:729
@@ -4993,7 +4982,7 @@ msgstr "Αδυναμία εκκίνησης τερματικού για απόσ
 #. * The register function is an additional function in the script. It defines
 #. * which function is used for each type of variables.
 #: ../plugins/gdb/preferences.c:128
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The register function hasn't been found automatically in the following "
 "pretty printer files:\n"
@@ -5002,12 +4991,12 @@ msgid ""
 "rows. Most of the time the register function name contains the word "
 "\"register\"."
 msgstr ""
-"Η λειτουργία register δεν βρέθηκε αυτόματα στα ακόλουθα αρχεία pretty "
+"Η λειτουργία καταχώρησης δεν βρέθηκε αυτόματα στα ακόλουθα αρχεία pretty "
 "printer:\n"
 "%s\n"
 "Πρέπει να συμπληρώσετε μόνοι σας τις στήλες της λειτουργίας αυτής πριν "
 "ενεργοποιήσετε τις γραμμές. Τις περισσότερες φορές το όνομα της λειτουργίας "
-"register περιέχει τη λέξη \"register\"."
+"περιέχει τη λέξη \"register\"."
 
 #
 #: ../plugins/gdb/preferences.c:223
@@ -5021,9 +5010,8 @@ msgstr "Ενεργοποίηση"
 #. Translators: The "Register Function" column contains the name of a
 #. * function used to register pretty printers in gdb.
 #: ../plugins/gdb/preferences.c:372
-#, fuzzy
 msgid "Register Function"
-msgstr "Λειτουργία register"
+msgstr "Λειτουργία καταχώρησης"
 
 #
 #: ../plugins/gdb/preferences.c:396 ../plugins/gdb/preferences.c:404
@@ -7622,7 +7610,7 @@ msgstr "Μη έγκυρη καταχώρηση"
 msgid "Dubious entry"
 msgstr "Ύποπτη καταχώρηση"
 
-#: ../plugins/project-wizard/druid.c:884
+#: ../plugins/project-wizard/druid.c:881
 #, c-format
 msgid ""
 "\n"
@@ -7631,7 +7619,7 @@ msgstr ""
 "\n"
 "Λείπει το πρόγραμμα: %s"
 
-#: ../plugins/project-wizard/druid.c:895
+#: ../plugins/project-wizard/druid.c:892
 #, c-format
 msgid ""
 "\n"
@@ -7640,7 +7628,7 @@ msgstr ""
 "\n"
 "Λείπει το πακέτο: %s"
 
-#: ../plugins/project-wizard/druid.c:904
+#: ../plugins/project-wizard/druid.c:901
 msgid ""
 "Some important programs or development packages required to build this "
 "project are missing. Please make sure they are installed properly before "
@@ -7650,11 +7638,11 @@ msgstr ""
 "απαιτούνται για την κατασκευή αυτού του έργου. Παρακαλώ, ελέγξτε ότι έχουν "
 "εγκατασταθεί σωστά πριν παράγετε το έργο.\n"
 
-#: ../plugins/project-wizard/druid.c:912
+#: ../plugins/project-wizard/druid.c:909
 msgid "Install missing packages"
 msgstr "Εγκατάσταση πακέτων που λείπουν"
 
-#: ../plugins/project-wizard/druid.c:920
+#: ../plugins/project-wizard/druid.c:917
 msgid ""
 "The missing programs are usually part of some distrubution packages and can "
 "be searched for in your Application Manager. Similarly, the development "
@@ -7667,14 +7655,14 @@ msgstr ""
 "και μπορούν να βρεθούν μέσω του διαχειριστή προσθαφαίρεσης εφαρμογών. "
 "Αντίστοιχα, τα πακέτα προγραμματισμού περιλαμβάνονται σε ειδικά πακέτα της "
 "διανομής σας που επιτρέπει την ανάπτυξη έργων βασισμένων σε αυτά. Συνήθως, "
-"τα ονόματα των πακέτων λήγουν σε «-dev» ή «-devel» και μπορούν να βρεθούν "
-"μέσω του διαχειριστή προσθαφαίρεσης εφαρμογών."
+"τα ονόματα των πακέτων λήγουν σε «-dev» ή «-devel» και μπορούν να βρεθούν μέσω "
+"του διαχειριστή προσθαφαίρεσης εφαρμογών."
 
-#: ../plugins/project-wizard/druid.c:928
+#: ../plugins/project-wizard/druid.c:925
 msgid "Missing components"
 msgstr "Λείπουν συστατικά"
 
-#: ../plugins/project-wizard/druid.c:1060
+#: ../plugins/project-wizard/druid.c:1057
 #, c-format
 msgid "Unable to build project assistant user interface reading %s."
 msgstr ""
@@ -8389,9 +8377,9 @@ msgid "Main Class:"
 msgstr "Κύρια κλάση:"
 
 #: ../plugins/project-wizard/templates/java.wiz.in.h:1
-#, fuzzy
 msgid "A generic java project using automake project management"
-msgstr "Έργο Java γενικής μορφής με χρήση automake για τη διαχείριση του έργου"
+msgstr ""
+"Έργο java γενικής μορφής με χρήση διαχείρισης με αυτόματη κατασκευή έργου"
 
 #: ../plugins/project-wizard/templates/java.wiz.in.h:17
 msgid "Generic java (automake)"
@@ -8954,7 +8942,6 @@ msgid "_Auto complete insert"
 msgstr "Αυ_τόματη συμπλήρωση εισαγωγής"
 
 #: ../plugins/snippets-manager/plugin.c:86
-#, fuzzy
 msgid "Insert a snippet using auto-completion"
 msgstr "Εισαγωγή δείγματος με χρήση αυτόματης συμπλήρωσης"
 
@@ -8976,9 +8963,23 @@ msgstr "Εξαγωγή δειγμάτων κώδικα από τη βάση δε
 
 #
 #: ../plugins/snippets-manager/plugin.c:327
-#, fuzzy
 msgid "Snippets Manager actions"
 msgstr "Ενέργειες διαχειριστή δειγμάτων κώδικα"
+
+#
+#: ../plugins/snippets-manager/plugin.c:767
+msgid "Command?"
+msgstr "Εντολή;"
+
+#
+#: ../plugins/snippets-manager/plugin.c:783
+msgid "Variable text"
+msgstr "Μεταβλητό κείμενο"
+
+#: ../plugins/snippets-manager/plugin.c:801
+#: ../plugins/snippets-manager/snippets-editor.c:40
+msgid "Instant value"
+msgstr "Στιγμιαία τιμή"
 
 #: ../plugins/snippets-manager/plugin.c:929
 #: ../plugins/snippets-manager/plugin.c:966
@@ -8988,7 +8989,6 @@ msgid "Code Snippets"
 msgstr "Δείγματα κώδικα"
 
 #: ../plugins/snippets-manager/snippets-browser.c:549
-#, fuzzy
 msgid "Trigger"
 msgstr "Συντόμευση"
 
@@ -9003,25 +9003,61 @@ msgstr "Προσθήκη δείγματος …"
 
 #. Insert the Add Snippets Group menu item
 #: ../plugins/snippets-manager/snippets-browser.c:818
-#, fuzzy
 msgid "Add Snippets Group …"
 msgstr "Προσθήκη ομάδας δειγμάτων κώδικα …"
 
-#
+#: ../plugins/snippets-manager/snippets-editor.c:39
+msgid "Default value"
+msgstr "Προεπιλεγμένη τιμή"
+
+#: ../plugins/snippets-manager/snippets-editor.c:48
+msgid "<b>Error:</b> You must choose at least one language for the snippet!"
+msgstr ""
+"<b>Error:</b> Πρέπει να επιλέξετε τουλάχιστον μία γλώσσα για το δέιγμα "
+"κώδικα!"
+
+#: ../plugins/snippets-manager/snippets-editor.c:49
+msgid ""
+"<b>Error:</b> The trigger key is already in use for one of the languages!"
+msgstr ""
+"<b>Error:</b> Το πλήκτρο που ορίσατε είναι ήδη σε χρήση για κάποια από τις "
+"γλώσσες!"
+
+#: ../plugins/snippets-manager/snippets-editor.c:50
+msgid ""
+"<b>Error:</b> The trigger key can only contain alphanumeric characters and "
+"_ !"
+msgstr ""
+"<b>Error:</b> Το πλήκτρο που ορίστηκε μπορεί να περιέχει μόνο "
+"αλφαριθμητικούς χαρακτήρες και το χαρακτήρα _ !"
+
+#: ../plugins/snippets-manager/snippets-editor.c:51
+msgid "<b>Error:</b> You haven't entered a trigger key for the snippet!"
+msgstr "<b>Error:</b> Δεν έχετε καθορίσει ένα πλήκτρο για το δείγμα κώδικα!"
+
 #: ../plugins/snippets-manager/snippets-editor.ui.h:1
+msgid "<b>Error:</b> The snippet must belong to a group!"
+msgstr "<b>Error:</b> Το δείγμα πρέπει να ανήκει σε κάποια ομάδα!"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:2
+msgid "<b>Warning:</b> You should choose a name for the snippet!"
+msgstr "<b>Warning:</b> Θα πρέπει να επιλέξετε ένα όνομα από το δείγμα κώδικα!"
+
+#
+#: ../plugins/snippets-manager/snippets-editor.ui.h:3
 msgid "Add"
 msgstr "Προσθήκη"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:2
+#: ../plugins/snippets-manager/snippets-editor.ui.h:4
 msgid "Close"
 msgstr "Κλείσιμο"
 
 #
-#: ../plugins/snippets-manager/snippets-editor.ui.h:3
+#: ../plugins/snippets-manager/snippets-editor.ui.h:5
 msgid "Insert"
 msgstr "Εισαγωγή"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:4
+#: ../plugins/snippets-manager/snippets-editor.ui.h:6
 msgid ""
 "Keywords are used for better searching of the snippets. They should be "
 "relevant to the snippet content. Type them separated by a single space."
@@ -9030,28 +9066,28 @@ msgstr ""
 "κώδικα. Θα πρέπει να είναι σχετικές με το περιεχόμενο του δείγματος. "
 "Πληκτρολογήστε τις χωρισμένες με ένα διάστημα."
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:5
+#: ../plugins/snippets-manager/snippets-editor.ui.h:7
 msgid "Keywords:"
 msgstr "Λέξεις κλειδιά:"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:6
+#: ../plugins/snippets-manager/snippets-editor.ui.h:8
 msgid "Languages:"
 msgstr "Γλώσσες:"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:7
+#: ../plugins/snippets-manager/snippets-editor.ui.h:9
 msgid "Preview"
 msgstr "Προεπισκόπηση"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:10
+#: ../plugins/snippets-manager/snippets-editor.ui.h:12
 msgid "Select the Snippets Group to which this snippet belongs."
 msgstr "Επιλέξτε την ομάδα δειγμάτων κώδικα που ανήκει αυτό το δείγμα:"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:11
+#: ../plugins/snippets-manager/snippets-editor.ui.h:13
 msgid "Select the languages for which you want to use this snippet."
 msgstr ""
 "Επιλέξτε τις γλώσσες για τις οποίες θέλετε να χρησιμοποιήσετε αυτό το δείγμα."
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:12
+#: ../plugins/snippets-manager/snippets-editor.ui.h:14
 msgid ""
 "Select the name of the Snippet. \n"
 "The role of the name is purely informative."
@@ -9059,32 +9095,40 @@ msgstr ""
 "Επιλέξτε το όνομα του δείγματος. \n"
 "Ο ρόλος του ονόματος είναι καθαρά για πληροφόρηση."
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:14
-#, fuzzy
+#: ../plugins/snippets-manager/snippets-editor.ui.h:16
 msgid "Snippet Content"
-msgstr "Περιεχόμενα δειγμάτων"
+msgstr "Περιεχόμενα δείγματος"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:15
-#, fuzzy
+#: ../plugins/snippets-manager/snippets-editor.ui.h:17
 msgid "Snippet Name:"
 msgstr "Όνομα δείγματος:"
 
 #
-#: ../plugins/snippets-manager/snippets-editor.ui.h:16
-#, fuzzy
+#: ../plugins/snippets-manager/snippets-editor.ui.h:18
 msgid "Snippet Properties"
 msgstr "Ιδιότητες δείγματος"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:17
-#, fuzzy
+#: ../plugins/snippets-manager/snippets-editor.ui.h:19
 msgid "Snippet Variables"
-msgstr "Μεταβλητές δείγματος κώδικα"
+msgstr "Μεταβλητές δείγματος"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:18
+#: ../plugins/snippets-manager/snippets-editor.ui.h:20
 msgid "Snippets Group:"
 msgstr "Ομάδα δειγμάτων:"
 
-#: ../plugins/snippets-manager/snippets-editor.ui.h:19
+#: ../plugins/snippets-manager/snippets-editor.ui.h:21
+msgid ""
+"The trigger key is used for fast insertion of the snippet. Type the trigger "
+"key in the editor, followed by the \"Fast Insert\" shortcut to insert a "
+"snippet.\n"
+"<b>Warning: Must be unique per language. </b>"
+msgstr ""
+"To πλήκτρο που ορίστηκε χρησιμοποιείται για γρήγορη εισαγωγή του δείγματος "
+"κώδικα. Πληκτρολογήστε το πλήκτρο αυτό στον επεξεργαστή, ακολουθούμενο από "
+"τη συντόμευση \"Γρήγορη εισαγωγή\".\n"
+"<b>Προειδοποίηση: Πρέπει να είναι μοναδικό για κάθε γλώσσα. </b>"
+
+#: ../plugins/snippets-manager/snippets-editor.ui.h:23
 msgid "Trigger Key:"
 msgstr "Πλήκτρο εισαγωγής:"
 
@@ -9094,7 +9138,6 @@ msgstr "Μεταβλητές anjuta"
 
 #
 #: ../plugins/snippets-manager/snippets-import-export.c:145
-#, fuzzy
 msgid "Import Snippets"
 msgstr "Εισαγωγή δειγμάτων κώδικα"
 
@@ -10808,7 +10851,6 @@ msgid "Environment"
 msgstr "Περιβάλλον"
 
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:12
-#, fuzzy
 msgid "Interpreter"
 msgstr "Διερμηνέας"
 

@@ -49,6 +49,10 @@ libanjuta_tools_la_SOURCES= \
 	variable.c \
 	variable.h
 
+prefs_ui_files = anjuta-tools.ui
+prefs_name = org.gnome.anjuta.tools
+include $(top_srcdir)/scripts/build-schemas.mk
+
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(tools_pixmaps_DATA) \

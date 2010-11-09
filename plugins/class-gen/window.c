@@ -178,7 +178,7 @@ cg_window_fetch_string (CgWindow *window,
 	if (GTK_IS_ENTRY (widget))
 		return g_strdup (gtk_entry_get_text(GTK_ENTRY(widget)));
 	else if (GTK_IS_COMBO_BOX (widget))
-		return gtk_combo_box_get_active_text (GTK_COMBO_BOX(widget));
+		return gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT(widget));
 	else
 		return NULL;
 }
@@ -295,7 +295,7 @@ cg_window_validate_go (CgWindow *window)
 
 static void
 cg_window_top_notebook_switch_page_cb (G_GNUC_UNUSED GtkNotebook *notebook,
-                                       G_GNUC_UNUSED GtkNotebookPage *page,
+                                       G_GNUC_UNUSED GtkWidget *page,
                                        guint page_num,
                                        gpointer user_data)
 {

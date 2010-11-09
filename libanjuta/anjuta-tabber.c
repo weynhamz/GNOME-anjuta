@@ -75,7 +75,7 @@ anjuta_tabber_notebook_page_removed (GtkNotebook* notebook,
 
 static void
 anjuta_tabber_notebook_switch_page (GtkNotebook* notebook,
-                                    GtkNotebookPage* page,
+                                    GtkWidget* page,
                                     guint page_num,
                                     AnjutaTabber* tabber)
 {
@@ -158,7 +158,9 @@ anjuta_tabber_get_padding(GtkWidget* widget)
 }
 
 static void
-anjuta_tabber_size_request(GtkWidget* widget, GtkRequisition* req)
+anjuta_tabber_get_preferred_width (GtkWidget* widget, 
+                                    gint* minimum,
+                                    gint* preferred)
 {
 	g_return_if_fail (ANJUTA_IS_TABBER (widget));
 
@@ -168,15 +170,52 @@ anjuta_tabber_size_request(GtkWidget* widget, GtkRequisition* req)
 	
 	for (child = tabber->priv->children; child != NULL; child = g_list_next (child))
 	{
-		GtkRequisition child_req;
+		gint child_min;
+		gint child_preferred;		
 		GtkStyle *style;
 
-		gtk_widget_size_request (GTK_WIDGET (child->data), &child_req);
+		gtk_widget_get_preferred_width (GTK_WIDGET (child->data), &child_min, &child_preferred);
 		style = gtk_widget_get_style (widget);
-		req->width += child_req.width + 2 * (style->xthickness + padding);
-		req->height = MAX(req->height, child_req.height + 2 * style->ythickness);
+		if (minimum)
+		{
+			*minimum += child_min + 2 * (style->xthickness + padding);
+		}
+		if (preferred)
+		{
+			*preferred += child_preferred + 2 * (style->xthickness + padding);
+		}
 	}
 }
+
+static void
+anjuta_tabber_get_preferred_height (GtkWidget* widget, 
+                                    gint* minimum,
+                                    gint* preferred)
+{
+	g_return_if_fail (ANJUTA_IS_TABBER (widget));
+
+	AnjutaTabber* tabber = ANJUTA_TABBER (widget);
+	GList* child;
+	
+	for (child = tabber->priv->children; child != NULL; child = g_list_next (child))
+	{
+		gint child_min;
+		gint child_preferred;		
+		GtkStyle *style;
+
+		gtk_widget_get_preferred_height (GTK_WIDGET (child->data), &child_min, &child_preferred);
+		style = gtk_widget_get_style (widget);
+		if (minimum)
+		{
+			*minimum = MAX(*minimum, child_min + 2 * style->ythickness);
+		}
+		if (preferred)
+		{
+			*preferred = MAX(*preferred, child_preferred + 2 * style->ythickness);
+		}
+	}
+}
+
 
 static void
 anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
@@ -246,12 +285,15 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 }
 
 static gboolean
-anjuta_tabber_expose_event (GtkWidget* widget, GdkEventExpose *event)
+anjuta_tabber_draw (GtkWidget* widget, cairo_t* cr)
 {
 	g_return_val_if_fail (ANJUTA_IS_TABBER (widget), FALSE);
 	AnjutaTabber* tabber = ANJUTA_TABBER (widget);
 	GList* child;
 	gint padding = anjuta_tabber_get_padding (widget);
+	GtkAllocation widget_alloc;
+	
+	gtk_widget_get_allocation (widget, &widget_alloc);
 	
 	for (child = tabber->priv->children; child != NULL; child = g_list_next (child))
 	{
@@ -263,22 +305,23 @@ anjuta_tabber_expose_event (GtkWidget* widget, GdkEventExpose *event)
 
 		style = gtk_widget_get_style (widget);
 
-		alloc.x -= style->xthickness + padding;
-		alloc.y -= style->ythickness;
+		alloc.x -= style->xthickness + padding + widget_alloc.x;
+		alloc.y -= style->ythickness + widget_alloc.y;
 		alloc.width += 2 * (style->xthickness + padding);
 		alloc.height += style->ythickness;
 
 		gtk_paint_extension (style,
-		                     gtk_widget_get_window (widget),
+		                     cr,
 		                     state, GTK_SHADOW_OUT,
-		                     NULL, widget, "tab",
+		                     widget, "tab",
 		                     alloc.x, 
 		                     alloc.y,
 		                     alloc.width, 
 		                     alloc.height,
-		                     GTK_POS_BOTTOM);
-		gtk_container_propagate_expose (GTK_CONTAINER (tabber),
-		                                GTK_WIDGET(child->data), event);
+		                     GTK_POS_BOTTOM);		
+		gtk_container_propagate_draw (GTK_CONTAINER (tabber),
+		                              GTK_WIDGET(child->data), cr);
+
 	}
 	return FALSE;
 }
@@ -476,9 +519,10 @@ anjuta_tabber_class_init (AnjutaTabberClass *klass)
 	object_class->set_property = anjuta_tabber_set_property;
 	object_class->get_property = anjuta_tabber_get_property;
 
-	widget_class->size_request = anjuta_tabber_size_request;
+	widget_class->get_preferred_height = anjuta_tabber_get_preferred_height;
+	widget_class->get_preferred_width = anjuta_tabber_get_preferred_width;
 	widget_class->size_allocate = anjuta_tabber_size_allocate;
-	widget_class->expose_event = anjuta_tabber_expose_event;
+	widget_class->draw = anjuta_tabber_draw;
 	widget_class->button_press_event = anjuta_tabber_button_press_event;
 	widget_class->realize = anjuta_tabber_realize;
 	widget_class->unrealize = anjuta_tabber_unrealize;

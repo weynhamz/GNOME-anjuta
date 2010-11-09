@@ -26,7 +26,7 @@
                     <property name="column_spacing">5</property>
                     <property name="row_spacing">5</property>
                     <child>
-                      <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:language.python.indent.automatic">
+                      <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:python-indent-automatic">
                         <property name="label" translatable="yes">Enable smart indentation</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -39,7 +39,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:language.python.indent.adaptive">
+                      <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:python-indent-adaptive">
                         <property name="label" translatable="yes">Enable adaptive indentation</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -80,7 +80,7 @@
                             <property name="column_spacing">5</property>
                             <property name="row_spacing">5</property>
                             <child>
-                              <object class="GtkSpinButton" id="preferences_spin:int:0:1:language.python.indent.brace.size">
+                              <object class="GtkSpinButton" id="preferences_spin:int:0:1:python-indent-brace-size">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="climb_rate">1</property>
@@ -96,7 +96,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkSpinButton" id="preferences_spin:int:4:1:language.python.indent.statement.size">
+                              <object class="GtkSpinButton" id="preferences_spin:int:4:1:python-indent-statement-size">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="climb_rate">1</property>
@@ -205,7 +205,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:language.python.code.completion.enable">
+                      <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:python-completion-enable">
                         <property name="label" translatable="yes">Enable code completion</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -219,7 +219,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:language.python.code.completion.space.after.func">
+                      <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:python-completion-func-space">
                         <property name="label" translatable="yes">Add a space after function call autocompletion</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -233,7 +233,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:language.python.code.completion.brace.after.func">
+                      <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:python-completion-func-brace">
                         <property name="label" translatable="yes">Add '(' after function call autocompletion</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -283,7 +283,7 @@
                       <object class="GtkHBox" id="hbox1">
                         <property name="visible">True</property>
                         <child>
-                          <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:language.python.code.calltip.enable">
+                          <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:python-calltip-enable">
                             <property name="label" translatable="yes">Show calltips</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
@@ -363,7 +363,7 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkEntry" id="preferences_entry:text:/usr/bin/python:1:language.python.interpreter.path">
+                          <object class="GtkEntry" id="preferences_entry:text:/usr/bin/python:1:python-interpreter-path">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="invisible_char">&#x25CF;</property>

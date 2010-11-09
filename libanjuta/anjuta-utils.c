@@ -55,8 +55,6 @@
 #include <glib/gstdio.h>
 #include <gtk/gtk.h>
 
-#include <gconf/gconf-client.h>
-
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-debug.h>
 
@@ -1132,7 +1130,8 @@ anjuta_util_user_shell (void)
 gchar **
 anjuta_util_user_terminal (void)
 {
-#ifndef G_OS_WIN32
+/* FIXME: GSettings */
+#if 0
 	GConfClient *client;
 	gchar *terminal = NULL;
 	gchar **argv = NULL;
@@ -2429,4 +2428,17 @@ anjuta_util_drop_get_files (GtkSelectionData *selection_data)
 	}
 
 	return files;
+}
+
+/*
+ * anjuta_util_get_user_mail:
+ *
+ * Returns: The e-mail Address of the logged-in user. The resulting string
+ * must be free'd after use.
+ */
+gchar* 
+anjuta_util_get_user_mail()
+{
+	/* FIXME: Use libfolks or something like it to query the mail address */
+	return g_strconcat(g_get_user_name (), "@", g_get_host_name (), NULL);
 }

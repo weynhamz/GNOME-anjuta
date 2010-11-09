@@ -159,19 +159,19 @@ dma_sparse_view_goto_key_press_event (GtkWidget *widget,
 	g_return_val_if_fail (DMA_IS_SPARSE_VIEW (view), FALSE);
 
 	/* Close window */
-	if (event->keyval == GDK_Escape ||
-		event->keyval == GDK_Tab ||
-		event->keyval == GDK_KP_Tab ||
-		event->keyval == GDK_ISO_Left_Tab)
+	if (event->keyval == GDK_KEY_Escape ||
+		event->keyval == GDK_KEY_Tab ||
+		event->keyval == GDK_KEY_KP_Tab ||
+		event->keyval == GDK_KEY_ISO_Left_Tab)
     {
 		dma_sparse_view_goto_window_hide (view);
 		return TRUE;
     }
 
 	/* Goto to address and close window */
-	if (event->keyval == GDK_Return ||
-		event->keyval == GDK_ISO_Enter ||
-		event->keyval == GDK_KP_Enter)
+	if (event->keyval == GDK_KEY_Return ||
+		event->keyval == GDK_KEY_ISO_Enter ||
+		event->keyval == GDK_KEY_KP_Enter)
 	{
 		gulong adr;
 		const gchar *text;
@@ -199,7 +199,7 @@ dma_sparse_view_goto_position_func (DmaSparseView *view)
 	gint x, y;
 	gint win_x, win_y;
 	GdkWindow *window = gtk_widget_get_window (GTK_WIDGET (view));
-	GdkScreen *screen = gdk_drawable_get_screen (window);
+	GdkScreen *screen = gdk_window_get_screen (window);
 	gint monitor_num;
 	GdkRectangle monitor;
 
@@ -643,7 +643,7 @@ draw_line_markers (DmaSparseView *view,
 
 static void
 dma_sparse_view_paint_margin (DmaSparseView *view,
-			      GdkEventExpose *event)
+			  				  cairo_t *cr)
 {
 	GtkTextView *text_view;
 	GdkWindow *win;
@@ -673,6 +673,8 @@ dma_sparse_view_paint_margin (DmaSparseView *view,
 	win = gtk_text_view_get_window (text_view,
 					GTK_TEXT_WINDOW_LEFT);	
 
+	
+	
 	y1 = event->area.y;
 	y2 = y1 + event->area.height;
 
@@ -756,10 +758,9 @@ dma_sparse_view_paint_margin (DmaSparseView *view,
 			pango_layout_set_markup (layout, str, -1);
 
 			gtk_paint_layout (gtk_widget_get_style (GTK_WIDGET (view)),
-					  win,
+					  cr,
 					  gtk_widget_get_state (GTK_WIDGET (view)),
 					  FALSE,
-					  NULL,
 					  GTK_WIDGET (view),
 					  NULL,
 					  text_width + 2, 
@@ -834,9 +835,8 @@ dma_sparse_view_value_changed (GtkAdjustment *adj,
 }
 
 static void
-dma_sparse_view_set_scroll_adjustments (GtkTextView *text_view,
-                                      GtkAdjustment *hadj,
-                                      GtkAdjustment *vadj)
+dma_sparse_view_set_vadjustments (GtkTextView *text_view,
+                                  GtkAdjustment *vadj)
 {
 	DmaSparseView *view = DMA_SPARSE_VIEW (text_view);
 
@@ -854,7 +854,7 @@ dma_sparse_view_set_scroll_adjustments (GtkTextView *text_view,
 	if (view->priv->vadjustment != vadj)
 	{
 		
-		GTK_TEXT_VIEW_CLASS (parent_class)->set_scroll_adjustments  (GTK_TEXT_VIEW (view), hadj, NULL);
+		GTK_SCROLLABLE_CLASS (parent_class)->set_vadjustments  (GTK_TEXT_VIEW (view), vadj);
 		
 		if (vadj != NULL)
 		{
@@ -872,6 +872,7 @@ dma_sparse_view_set_scroll_adjustments (GtkTextView *text_view,
 		dma_sparse_view_update_adjustement (view);
 	}
 }
+
 
 /* Public functions
  *---------------------------------------------------------------------------*/
@@ -979,8 +980,8 @@ dma_sparse_view_get_location (DmaSparseView *view)
  *---------------------------------------------------------------------------*/
 
 static gint
-dma_sparse_view_expose (GtkWidget      *widget,
-			GdkEventExpose *event)
+dma_sparse_view_draw (GtkWidget      *widget,
+                      cairo_t *cr)
 {
 	DmaSparseView *view;
 	GtkTextView *text_view;
@@ -992,15 +993,15 @@ dma_sparse_view_expose (GtkWidget      *widget,
 	event_handled = FALSE;
 	
 	/* now check for the left window, which contains the margin */
-	if (event->window == gtk_text_view_get_window (text_view,
-						       GTK_TEXT_WINDOW_LEFT)) 
+	if (gdk_cairo_should_draw_window (cr, gtk_text_view_get_window (text_view,
+	                                                                GTK_TEXT_WINDOW_LEFT))) 
 	{
 		dma_sparse_view_paint_margin (view, event);
 		event_handled = TRUE;
-	} 
+	}
 	else
 	{
-		event_handled = GTK_WIDGET_CLASS (parent_class)->expose_event (widget, event);
+		event_handled = GTK_WIDGET_CLASS (parent_class)->draw (widget, cr);
 	}
 	
 	return event_handled;
@@ -1024,7 +1025,7 @@ dma_sparse_view_size_allocate (GtkWidget *widget,
  *---------------------------------------------------------------------------*/
 
 static void
-dma_sparse_view_destroy (GtkObject *object)
+dma_sparse_view_destroy (GtkWidget *object)
 {
 	DmaSparseView *view;
 
@@ -1175,16 +1176,16 @@ static void
 dma_sparse_view_class_init (DmaSparseViewClass * klass)
 {
 	GObjectClass *gobject_class;
-	GtkObjectClass *object_class;
 	GtkWidgetClass   *widget_class;
 	GtkTextViewClass *text_view_class;
+	GtkScrollableClass *scrollable_class;
 
 	g_return_if_fail (klass != NULL);
 	
 	gobject_class = (GObjectClass *) klass;
-	object_class = (GtkObjectClass *) klass;
 	widget_class = GTK_WIDGET_CLASS (klass);
 	text_view_class = GTK_TEXT_VIEW_CLASS (klass);
+	scrollable_class = GTK_SCROLLABLE_CLASS (klass);
 	parent_class = (GtkTextViewClass*) g_type_class_peek_parent (klass);
 	
 	gobject_class->dispose = dma_sparse_view_dispose;
@@ -1192,13 +1193,13 @@ dma_sparse_view_class_init (DmaSparseViewClass * klass)
 	gobject_class->get_property = dma_sparse_view_get_property;
 	gobject_class->set_property = dma_sparse_view_set_property;	
 
-	object_class->destroy = dma_sparse_view_destroy;
+	widget_class->destroy = dma_sparse_view_destroy;
 
 	widget_class->size_allocate = dma_sparse_view_size_allocate;
-	widget_class->expose_event = dma_sparse_view_expose;	
+	widget_class->draw = dma_sparse_view_draw;	
 	
 	text_view_class->move_cursor = dma_sparse_view_move_cursor;
-	text_view_class->set_scroll_adjustments = dma_sparse_view_set_scroll_adjustments;
+	scrollable_class->set_vadjustment = dma_sparse_view_set_vadjustment;
 	
 	g_object_class_install_property (gobject_class,
 					 PROP_SHOW_LINE_NUMBERS,

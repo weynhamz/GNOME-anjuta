@@ -19,7 +19,7 @@ typedef struct _DocmanPluginClass DocmanPluginClass;
 struct _DocmanPlugin{
 	AnjutaPlugin parent;
 	GtkWidget *docman;
-	AnjutaPreferences *prefs;
+	GSettings* settings;
 	AnjutaUI *ui;
 	gint uiid;
 	GList *action_groups;
@@ -27,7 +27,7 @@ struct _DocmanPlugin{
 	/* project_root_uri watch*/
 	gint project_watch_id;
 	gchar* project_name;
-  gchar* project_path;
+	gchar* project_path;
 	
 	/*! state flag for Ctrl-TAB */
 	gboolean g_tabbing;
@@ -43,9 +43,9 @@ struct _DocmanPlugin{
 	
 	/* Support plugins */
 	GList *support_plugins;
-  
-  /* SearchBox */
-  GtkWidget* search_box;
+
+	/* SearchBox */
+	GtkWidget* search_box;
 	
 	/* Base box of the widget */
 	GtkWidget* vbox;

@@ -79,6 +79,7 @@ struct _PythonPlugin{
 
 	/* Preferences */
 	GtkBuilder* bxml;
+	GSettings* settings;
 };
 
 struct _PythonPluginClass{

@@ -940,7 +940,7 @@ sub expand_variables
 	my $sources = join ' ', @{$targets{$target}{sources}};
 	$sources = &expand_one_var ($sources, %macros);
 	# Remove any reference to the Makefile itself
-	$sources =~ s/\s+Makefile\s+//g;
+	$sources =~ s/\s+(GNU)?Makefile\s+//g;
 	$targets{$target}{sources} = [ split '\s+', &trim ($sources) ];
 
 	# Expand built_files
@@ -1096,10 +1096,15 @@ sub create_group
 		  project  => $project };
 
     my $full_prefix = $project->{prefix} . $prefix;
-    $group->{makefile} = &parse_am_file ("${full_prefix}Makefile.am");
 
+    my $makefile_name = "${full_prefix}Makefile.am";
+    if (! -f $makefile_name) {
+        $makefile_name = "${full_prefix}GNUmakefile.am"
+    }
+
+    $group->{makefile} = &parse_am_file ($makefile_name);
     if (! $group->{makefile}) {
-	return undef;
+        return undef;
     };
 
     &group_process ($group);
@@ -1112,6 +1117,9 @@ sub create_group
 	    if ($subgroup ne ".") {
 		&debug ("${full_prefix}: Recursing into '$subgroup'");
 		my $makefile = "${full_prefix}$subgroup/Makefile.am";
+        if (! -f $makefile ) {
+            $makefile = "${full_prefix}$subgroup/GNUmakefile.am";
+        }
 		if (-f $makefile ) {
 		    my $new_prefix = $prefix ne "" ? "$prefix$subgroup/" : $subgroup;
 		    $group->{groups}{$subgroup} = &create_group ($new_prefix, 

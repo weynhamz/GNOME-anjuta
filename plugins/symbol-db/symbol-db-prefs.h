@@ -41,12 +41,12 @@ typedef struct _SymbolDBPrefsPriv SymbolDBPrefsPriv;
 
 
 /*
-#define CTAGS_PREFS			 "preferences_entry:text:/usr/bin/ctags:0:symboldb.ctags"
-#define CTAGS_PREFS_KEY		 "symboldb.ctags"
+#define CTAGS_PREFS		 "preferences_entry:text:/usr/bin/ctags:0:symboldb-ctags"
+#define CTAGS_PREFS_KEY		 "symboldb-ctags"
  */
-#define PROJECT_AUTOSCAN	 "symboldb.scan_prj_pkgs"
-#define PARALLEL_SCAN		 "symboldb.parallel_scan"
-#define BUFFER_AUTOSCAN		 "symboldb.buffer_update"
+#define PROJECT_AUTOSCAN	 "symboldb-scan-prj-pkgs"
+#define PARALLEL_SCAN		 "symboldb-parallel-scan"
+#define BUFFER_AUTOSCAN		 "symboldb-buffer-update"
 
 struct _SymbolDBPrefsClass
 {
@@ -68,7 +68,7 @@ GType sdb_prefs_get_type (void) G_GNUC_CONST;
 
 SymbolDBPrefs *
 symbol_db_prefs_new (SymbolDBSystem *sdbs, SymbolDBEngine *sdbe_project,
-					 SymbolDBEngine *sdbe_globals, AnjutaPreferences *prefs,
+					 SymbolDBEngine *sdbe_globals, GSettings* settings,
 					 GList *enabled_packages);
 
 

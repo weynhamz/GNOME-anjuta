@@ -100,7 +100,7 @@ anjuta_cell_renderer_captioned_image_new (void)
 static void
 anjuta_cell_renderer_captioned_image_get_size (GtkCellRenderer *gtk_cell,
 					       GtkWidget *widget,
-					       GdkRectangle *cell_area,
+					       const GdkRectangle *cell_area,
 					       int *x_offset,
 					       int *y_offset,
 					       int *width,
@@ -135,11 +135,10 @@ anjuta_cell_renderer_captioned_image_get_size (GtkCellRenderer *gtk_cell,
 
 static void
 anjuta_cell_renderer_captioned_image_render (GtkCellRenderer *gtk_cell,
-					     GdkWindow *window,
+					     cairo_t *cr,
 					     GtkWidget *widget,
-					     GdkRectangle *background_area,
-					     GdkRectangle *cell_area,
-					     GdkRectangle *expose_area,
+					     const GdkRectangle *background_area,
+					     const GdkRectangle *cell_area,
 					     guint flags)
 
 {
@@ -164,13 +163,11 @@ anjuta_cell_renderer_captioned_image_render (GtkCellRenderer *gtk_cell,
 	text_area.height = height;
 	text_area.width = width;
 
-	gtk_cell_renderer_render (cell->image, window, widget, 
-				  background_area, &pixbuf_area,
-				  expose_area, flags);
+	gtk_cell_renderer_render (cell->image, cr, widget, 
+				  background_area, &pixbuf_area, flags);
 
-	gtk_cell_renderer_render (cell->caption, window, widget,
-				  background_area, &text_area,
-				  expose_area, flags);
+	gtk_cell_renderer_render (cell->caption, cr, widget,
+				  background_area, &text_area, flags);
 }
 
 static void

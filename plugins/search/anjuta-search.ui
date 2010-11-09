@@ -1,71 +1,11 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy toplevel-contextual -->
-  <object class="GtkAdjustment" id="adjustment1">
-    <property name="value">100</property>
-    <property name="lower">1</property>
-    <property name="upper">400</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
-  </object>
-  <object class="GtkListStore" id="model1">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0">$(module.source.files) $(module.include.files)</col>
-      </row>
-    </data>
-  </object>
-  <object class="GtkListStore" id="model2">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0">CVS</col>
-      </row>
-      <row>
-        <col id="0">CVS intl po </col>
-      </row>
-    </data>
-  </object>
-  <object class="GtkListStore" id="model3">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0">*.so *.o *.a *.la</col>
-      </row>
-    </data>
-  </object>
-  <object class="GtkListStore" id="model4">
-    <columns>
-      <!-- column-name gchararray -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0">*\.*</col>
-      </row>
-      <row>
-        <col id="0">*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp</col>
-      </row>
-      <row>
-        <col id="0">*.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* README AUTHORS ChangeLog *.m4</col>
-      </row>
-    </data>
-  </object>
   <object class="GtkWindow" id="dialog.search.replace">
     <property name="title" translatable="yes">Find &amp; Replace</property>
-    <signal name="key_press_event" handler="on_search_dialog_key_press_event" object="dialog.search.replace" after="yes"/>
-    <signal name="delete_event" handler="on_search_replace_delete_event"/>
+    <signal name="key-press-event" handler="on_search_dialog_key_press_event" object="dialog.search.replace" after="yes" swapped="yes"/>
+    <signal name="delete-event" handler="on_search_replace_delete_event" swapped="no"/>
     <child>
       <object class="GtkFrame" id="frame9">
         <property name="visible">True</property>
@@ -126,8 +66,9 @@
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkComboBoxEntry" id="replace.string.combo">
+                                      <object class="GtkComboBox" id="replace.string.combo">
                                         <property name="visible">True</property>
+                                        <property name="has-entry">True</property>
                                       </object>
                                       <packing>
                                         <property name="left_attach">1</property>
@@ -153,8 +94,9 @@
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkComboBoxEntry" id="search.string.combo">
+                                      <object class="GtkComboBox" id="search.string.combo">
                                         <property name="visible">True</property>
+                                        <property name="has-entry">True</property>
                                       </object>
                                       <packing>
                                         <property name="left_attach">1</property>
@@ -213,7 +155,7 @@
                                         <property name="receives_default">False</property>
                                         <property name="use_underline">True</property>
                                         <property name="draw_indicator">True</property>
-                                        <signal name="toggled" handler="on_search_full_buffer_toggled"/>
+                                        <signal name="toggled" handler="on_search_full_buffer_toggled" swapped="no"/>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -230,7 +172,7 @@
                                         <property name="use_underline">True</property>
                                         <property name="draw_indicator">True</property>
                                         <property name="group">search.full_buffer</property>
-                                        <signal name="toggled" handler="on_search_forward_toggled"/>
+                                        <signal name="toggled" handler="on_search_forward_toggled" swapped="no"/>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -247,7 +189,7 @@
                                         <property name="use_underline">True</property>
                                         <property name="draw_indicator">True</property>
                                         <property name="group">search.full_buffer</property>
-                                        <signal name="toggled" handler="on_search_backward_toggled"/>
+                                        <signal name="toggled" handler="on_search_backward_toggled" swapped="no"/>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -292,7 +234,7 @@
                                         <property name="receives_default">False</property>
                                         <property name="use_underline">True</property>
                                         <property name="draw_indicator">True</property>
-                                        <signal name="toggled" handler="on_search_match_word_start_toggled"/>
+                                        <signal name="toggled" handler="on_search_match_word_start_toggled" swapped="no"/>
                                       </object>
                                       <packing>
                                         <property name="left_attach">1</property>
@@ -312,7 +254,7 @@
                                         <property name="receives_default">False</property>
                                         <property name="use_underline">True</property>
                                         <property name="draw_indicator">True</property>
-                                        <signal name="toggled" handler="on_search_match_whole_line_toggled"/>
+                                        <signal name="toggled" handler="on_search_match_whole_line_toggled" swapped="no"/>
                                       </object>
                                       <packing>
                                         <property name="left_attach">1</property>
@@ -349,7 +291,7 @@
                                         <property name="receives_default">False</property>
                                         <property name="use_underline">True</property>
                                         <property name="draw_indicator">True</property>
-                                        <signal name="toggled" handler="on_search_match_whole_word_toggled"/>
+                                        <signal name="toggled" handler="on_search_match_whole_word_toggled" swapped="no"/>
                                       </object>
                                       <packing>
                                         <property name="top_attach">2</property>
@@ -384,7 +326,7 @@
                                         <property name="receives_default">False</property>
                                         <property name="use_underline">True</property>
                                         <property name="draw_indicator">True</property>
-                                        <signal name="toggled" handler="on_search_regex_toggled"/>
+                                        <signal name="toggled" handler="on_search_regex_toggled" swapped="no"/>
                                       </object>
                                       <packing>
                                         <property name="x_options">GTK_FILL</property>
@@ -550,7 +492,8 @@
                                             <property name="receives_default">False</property>
                                             <property name="use_underline">True</property>
                                             <property name="draw_indicator">True</property>
-                                            <signal name="clicked" handler="on_actions_no_limit_clicked"/>
+                                            <property name="active">True</property>
+                                            <signal name="clicked" handler="on_actions_no_limit_clicked" swapped="no"/>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
@@ -628,8 +571,9 @@
                                 <property name="label_xalign">0</property>
                                 <property name="shadow_type">none</property>
                                 <child>
-                                  <object class="GtkComboBoxEntry" id="search.var.combo">
+                                  <object class="GtkComboBox" id="search.var.combo">
                                     <property name="visible">True</property>
+                                    <property name="has-entry">True</property>
                                     <property name="model">model1</property>
                                     <child>
                                       <object class="GtkCellRendererText" id="renderer1"/>
@@ -669,8 +613,9 @@
                                     <property name="column_spacing">5</property>
                                     <property name="row_spacing">5</property>
                                     <child>
-                                      <object class="GtkComboBoxEntry" id="dir.filter.unmatch.combo">
+                                      <object class="GtkComboBox" id="dir.filter.unmatch.combo">
                                         <property name="visible">True</property>
+                                        <property name="has-entry">True</property>
                                         <property name="model">model2</property>
                                         <child>
                                           <object class="GtkCellRendererText" id="renderer2"/>
@@ -688,8 +633,9 @@
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkComboBoxEntry" id="dir.filter.match.combo">
+                                      <object class="GtkComboBox" id="dir.filter.match.combo">
                                         <property name="visible">True</property>
+                                        <property name="has-entry">True</property>
                                       </object>
                                       <packing>
                                         <property name="left_attach">1</property>
@@ -700,8 +646,9 @@
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkComboBoxEntry" id="file.filter.unmatch.combo">
+                                      <object class="GtkComboBox" id="file.filter.unmatch.combo">
                                         <property name="visible">True</property>
+                                        <property name="has-entry">True</property>
                                         <property name="model">model3</property>
                                         <child>
                                           <object class="GtkCellRendererText" id="renderer3"/>
@@ -719,8 +666,9 @@
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkComboBoxEntry" id="file.filter.match.combo">
+                                      <object class="GtkComboBox" id="file.filter.match.combo">
                                         <property name="visible">True</property>
+                                        <property name="has-entry">True</property>
                                         <property name="model">model4</property>
                                         <child>
                                           <object class="GtkCellRendererText" id="renderer4"/>
@@ -892,193 +840,6 @@
                         <property name="tab_fill">False</property>
                       </packing>
                     </child>
-                    <child>
-                      <object class="GtkFrame" id="frame.setting">
-                        <property name="visible">True</property>
-                        <property name="label_xalign">0</property>
-                        <property name="shadow_type">none</property>
-                        <child>
-                          <object class="GtkVBox" id="vbox1124">
-                            <property name="visible">True</property>
-                            <property name="border_width">5</property>
-                            <child>
-                              <object class="GtkFrame" id="frame54">
-                                <property name="visible">True</property>
-                                <property name="border_width">3</property>
-                                <property name="label_xalign">0</property>
-                                <property name="shadow_type">none</property>
-                                <child>
-                                  <object class="GtkCheckButton" id="search.basic">
-                                    <property name="label" translatable="yes">Basic Search &amp; Replace</property>
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="receives_default">False</property>
-                                    <property name="use_underline">True</property>
-                                    <property name="draw_indicator">True</property>
-                                    <signal name="toggled" handler="on_setting_basic_search_toggled"/>
-                                  </object>
-                                </child>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">False</property>
-                                <property name="position">0</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkFrame" id="frame55">
-                                <property name="visible">True</property>
-                                <property name="border_width">3</property>
-                                <property name="label_xalign">0</property>
-                                <property name="shadow_type">none</property>
-                                <child>
-                                  <object class="GtkVBox" id="vbox1126">
-                                    <property name="visible">True</property>
-                                    <child>
-                                      <object class="GtkHBox" id="hbox1126">
-                                        <property name="visible">True</property>
-                                        <property name="border_width">3</property>
-                                        <property name="spacing">3</property>
-                                        <child>
-                                          <object class="GtkScrolledWindow" id="scrolledwindow27">
-                                            <property name="height_request">100</property>
-                                            <property name="visible">True</property>
-                                            <property name="can_focus">True</property>
-                                            <property name="hscrollbar_policy">automatic</property>
-                                            <property name="vscrollbar_policy">automatic</property>
-                                            <property name="shadow_type">in</property>
-                                            <child>
-                                              <object class="GtkTreeView" id="setting.pref.treeview">
-                                                <property name="visible">True</property>
-                                                <property name="can_focus">True</property>
-                                              </object>
-                                            </child>
-                                          </object>
-                                          <packing>
-                                            <property name="position">0</property>
-                                          </packing>
-                                        </child>
-                                        <child>
-                                          <object class="GtkVBox" id="vbox1125">
-                                            <property name="visible">True</property>
-                                            <child>
-                                              <object class="GtkLabel" id="label12343">
-                                                <property name="visible">True</property>
-                                                <property name="xalign">0</property>
-                                                <property name="yalign">0</property>
-                                                <property name="label" translatable="yes">New Name:</property>
-                                              </object>
-                                              <packing>
-                                                <property name="expand">False</property>
-                                                <property name="fill">False</property>
-                                                <property name="padding">5</property>
-                                                <property name="position">0</property>
-                                              </packing>
-                                            </child>
-                                            <child>
-                                              <object class="GtkEntry" id="setting.pref.entry">
-                                                <property name="visible">True</property>
-                                                <property name="can_focus">True</property>
-                                              </object>
-                                              <packing>
-                                                <property name="expand">False</property>
-                                                <property name="fill">False</property>
-                                                <property name="position">1</property>
-                                              </packing>
-                                            </child>
-                                          </object>
-                                          <packing>
-                                            <property name="expand">False</property>
-                                            <property name="fill">False</property>
-                                            <property name="position">1</property>
-                                          </packing>
-                                        </child>
-                                      </object>
-                                      <packing>
-                                        <property name="position">0</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkHBox" id="hbox1129">
-                                        <property name="visible">True</property>
-                                        <property name="border_width">3</property>
-                                        <property name="spacing">10</property>
-                                        <property name="homogeneous">True</property>
-                                        <child>
-                                          <object class="GtkButton" id="setting.pref.add">
-                                            <property name="label">gtk-add</property>
-                                            <property name="visible">True</property>
-                                            <property name="can_focus">True</property>
-                                            <property name="can_default">True</property>
-                                            <property name="receives_default">False</property>
-                                            <property name="use_stock">True</property>
-                                            <signal name="clicked" handler="on_setting_pref_add_clicked"/>
-                                          </object>
-                                          <packing>
-                                            <property name="position">0</property>
-                                          </packing>
-                                        </child>
-                                        <child>
-                                          <object class="GtkButton" id="setting.pref.remove">
-                                            <property name="label">gtk-remove</property>
-                                            <property name="visible">True</property>
-                                            <property name="can_focus">True</property>
-                                            <property name="can_default">True</property>
-                                            <property name="receives_default">False</property>
-                                            <property name="use_stock">True</property>
-                                            <signal name="clicked" handler="on_setting_pref_remove_clicked"/>
-                                          </object>
-                                          <packing>
-                                            <property name="position">1</property>
-                                          </packing>
-                                        </child>
-                                        <child>
-                                          <object class="GtkButton" id="setting.pref.modify">
-                                            <property name="label" translatable="yes">Modify</property>
-                                            <property name="visible">True</property>
-                                            <property name="can_focus">True</property>
-                                            <property name="can_default">True</property>
-                                            <property name="receives_default">False</property>
-                                            <property name="use_underline">True</property>
-                                            <signal name="clicked" handler="on_setting_pref_modify_clicked"/>
-                                          </object>
-                                          <packing>
-                                            <property name="position">2</property>
-                                          </packing>
-                                        </child>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">False</property>
-                                        <property name="position">1</property>
-                                      </packing>
-                                    </child>
-                                  </object>
-                                </child>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">False</property>
-                                <property name="position">1</property>
-                              </packing>
-                            </child>
-                          </object>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="position">2</property>
-                      </packing>
-                    </child>
-                    <child type="tab">
-                      <object class="GtkLabel" id="label12342">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes">Setting</property>
-                      </object>
-                      <packing>
-                        <property name="position">2</property>
-                        <property name="tab_fill">False</property>
-                      </packing>
-                    </child>
                   </object>
                 </child>
               </object>
@@ -1100,7 +861,7 @@
                     <property name="can_default">True</property>
                     <property name="receives_default">False</property>
                     <property name="use_stock">True</property>
-                    <signal name="clicked" handler="on_search_button_close_clicked"/>
+                    <signal name="clicked" handler="on_search_button_close_clicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -1116,7 +877,7 @@
                     <property name="can_default">True</property>
                     <property name="receives_default">False</property>
                     <property name="use_stock">True</property>
-                    <signal name="clicked" handler="on_search_button_stop_clicked"/>
+                    <signal name="clicked" handler="on_search_button_stop_clicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -1132,7 +893,7 @@
                     <property name="can_default">True</property>
                     <property name="receives_default">False</property>
                     <property name="use_stock">True</property>
-                    <signal name="clicked" handler="on_search_button_next_clicked"/>
+                    <signal name="clicked" handler="on_search_button_next_clicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -1148,7 +909,7 @@
                     <property name="can_default">True</property>
                     <property name="receives_default">False</property>
                     <property name="use_stock">True</property>
-                    <signal name="clicked" handler="on_search_button_jump_clicked"/>
+                    <signal name="clicked" handler="on_search_button_jump_clicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -1165,5 +926,65 @@
         </child>
       </object>
     </child>
+  </object>
+  <object class="GtkListStore" id="model4">
+    <columns>
+      <!-- column-name gchararray -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">*\.*</col>
+      </row>
+      <row>
+        <col id="0">*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp</col>
+      </row>
+      <row>
+        <col id="0">*.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* README AUTHORS ChangeLog *.m4</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkListStore" id="model3">
+    <columns>
+      <!-- column-name gchararray -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">*.so *.o *.a *.la</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkListStore" id="model2">
+    <columns>
+      <!-- column-name gchararray -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">CVS</col>
+      </row>
+      <row>
+        <col id="0">CVS intl po </col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkListStore" id="model1">
+    <columns>
+      <!-- column-name gchararray -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">$(module.source.files) $(module.include.files)</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkAdjustment" id="adjustment1">
+    <property name="lower">1</property>
+    <property name="upper">400</property>
+    <property name="value">100</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
   </object>
 </interface>

@@ -118,7 +118,7 @@
                 <property name="visible">True</property>
                 <property name="label" translatable="yes">Gir repository's directory:   </property>
                 <property name="use_underline">True</property>
-                <property name="mnemonic_widget">preferences_entry:text::0:javascript.girdir</property>
+                <property name="mnemonic_widget">preferences_entry:text::0:javascript-girdir</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -126,7 +126,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry" id="preferences_entry:text::0:javascript.girdir">
+              <object class="GtkEntry" id="preferences_entry:text::0:javascript-girdir">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="invisible_char">&#x25CF;</property>
@@ -149,7 +149,7 @@
                 <property name="visible">True</property>
                 <property name="label" translatable="yes">Gjs repository's directory:   </property>
                 <property name="use_underline">True</property>
-                <property name="mnemonic_widget">preferences_entry:text::0:javascript.girdir</property>
+                <property name="mnemonic_widget">preferences_entry:text::0:javascript-gjsdir</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -157,7 +157,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry" id="preferences_entry:text::0:javascript.gjsdir">
+              <object class="GtkEntry" id="preferences_entry:text::0:javascript-gjsdir">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="invisible_char">&#x25CF;</property>
@@ -185,7 +185,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkSpinButton" id="preferences_spin:int:3:1:javascript.min">
+              <object class="GtkSpinButton" id="preferences_spin:int:3:1:javascript-min-codecomplete">
                   <property name="visible">True</property>
                   <property name="can_focus">True</property>
                   <property name="invisible_char">&#x2022;</property>
@@ -203,7 +203,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:javascript.missed">
+          <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:javascript-missed">
             <property name="label" translatable="yes">Highlight missed semicolon</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
@@ -215,7 +215,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:javascript.add_brace_after_func">
+          <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:javascript-add-brace-after-func">
             <property name="label" translatable="yes">Add brace after function call autocompletion</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
@@ -227,7 +227,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:javascript.show_calltips">
+          <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:javascript-show-calltips">
             <property name="label" translatable="yes">Show calltips</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>

@@ -536,10 +536,10 @@ npw_property_create_widget (NPWProperty* prop)
 		GSList* node;
 		gboolean get_value = FALSE;
 
-		entry = gtk_combo_box_entry_new_text ();
+		entry = gtk_combo_box_text_new_with_entry ();
 		for (node = prop->items; node != NULL; node = node->next)
 		{
-			gtk_combo_box_append_text (GTK_COMBO_BOX (entry), npw_item_get_label((NPWItem *)node->data));
+			gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (entry), npw_item_get_label((NPWItem *)node->data));
 			if ((value != NULL) && !get_value && (strcmp (value, ((NPWItem *)node->data)->name) == 0))
 			{
 				value = npw_item_get_label ((NPWItem *)node->data);

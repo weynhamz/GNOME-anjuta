@@ -57,7 +57,7 @@ typedef struct _SymbolDBPluginClass SymbolDBPluginClass;
 struct _SymbolDBPlugin {
 	AnjutaPlugin parent;
 	AnjutaUI *ui;
-	AnjutaPreferences *prefs;
+	GSettings* settings;
 	
 	/* project monitor */
 	guint root_watch_id;

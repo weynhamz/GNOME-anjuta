@@ -2792,7 +2792,8 @@ impl_probe (GbfProject  *_project,
 	if (normalized_uri != NULL) {
 		root_path = anjuta_util_get_local_path_from_uri (normalized_uri);
 		if (root_path != NULL && g_file_test (root_path, G_FILE_TEST_IS_DIR)) {
-			retval = (file_exists (root_path, "Makefile.am") &&
+			retval = ((file_exists (root_path, "Makefile.am") ||
+				   file_exists (root_path, "GNUmakefile.am")) &&
 				  (file_exists (root_path, "configure.in") ||
 				   file_exists (root_path, "configure.ac")));
 			g_free (root_path);
@@ -4191,7 +4192,8 @@ gbf_am_project_probe (GFile *file, GError **err)
 
 	root_path = g_file_get_path (file);
 	if ((root_path != NULL) && g_file_test (root_path, G_FILE_TEST_IS_DIR)) {
-		retval = (file_exists (root_path, "Makefile.am") &&
+		retval = ((file_exists (root_path, "Makefile.am") ||
+			   file_exists (root_path, "GNUmakefile.am")) &&
 			  (file_exists (root_path, "configure.in") ||
 			   file_exists (root_path, "configure.ac")));
 	}

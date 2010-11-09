@@ -36,12 +36,9 @@
               </packing>
             </child>
             <child>
-              <object class="GtkComboBoxEntry" id="parameter_combo">
+              <object class="GtkComboBox" id="parameter_combo">
                 <property name="visible">True</property>
-                <child internal-child="entry">
-                  <object class="GtkEntry" id="comboboxentry-entry2">
-                  </object>
-                </child>
+                <property name="has-entry">True</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -66,12 +63,9 @@
               </packing>
             </child>
             <child>
-              <object class="GtkComboBoxEntry" id="target_combo">
+              <object class="GtkComboBox" id="target_combo">
                 <property name="visible">True</property>
-                <child internal-child="entry">
-                  <object class="GtkEntry" id="comboboxentry-entry1">
-                  </object>
-                </child>
+                <property name="has-entry">True</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>

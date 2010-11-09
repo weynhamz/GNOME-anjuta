@@ -3,12 +3,12 @@ exec_prefix=@exec_prefix@
 libdir=@libdir@
 datarootdir=@datarootdir@
 datadir=@datadir@
-includedir=@includedir@/libanjuta-1.0
-idldir=@datadir@/idl/libanjuta-1.0
+includedir=@includedir@/libanjuta-3.0
+idldir=@datadir@/idl/libanjuta-3.0
 
 Name: libanjuta
 Description: Libraries for developing Anjuta plugins.
 Version: @VERSION@
-Requires: gconf-2.0 gtk+-2.0
-Libs: -L${libdir} -lanjuta
+Requires: gtk+-3.0 libxml-2.0
+Libs: -L${libdir} -lanjuta-3
 Cflags: -I${includedir}
