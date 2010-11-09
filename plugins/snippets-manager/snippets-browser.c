@@ -240,7 +240,7 @@ init_browser_layout (SnippetsBrowser *snippets_browser)
 	g_return_if_fail (ANJUTA_IS_SNIPPETS_EDITOR (priv->snippets_editor));
 
 	/* Add the editor to the HPaned */	
-	priv->browser_hpaned = gtk_hpaned_new ();
+	priv->browser_hpaned = gtk_paned_new (GTK_ORIENTATION_HORIZONTAL);
 	gtk_paned_pack2 (GTK_PANED (priv->browser_hpaned),
 	                 GTK_WIDGET (priv->snippets_editor),
 	                 TRUE, FALSE);
