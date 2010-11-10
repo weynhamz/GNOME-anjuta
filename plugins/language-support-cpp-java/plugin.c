@@ -1428,6 +1428,22 @@ get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 	return line_indent;
 }
 
+static void on_editor_char_inserted_cpp (IAnjutaEditor *editor,
+                                         IAnjutaIterable *insert_pos,
+                                         gchar ch,
+                                         CppJavaPlugin *plugin);
+
+static void
+insert_editor_blocked (IAnjutaEditor* editor,
+                       IAnjutaIterable* iter,
+                       gchar* text,
+                       CppJavaPlugin* plugin)
+{
+	g_signal_handlers_block_by_func (editor, on_editor_char_inserted_cpp, plugin);
+	ianjuta_editor_insert (editor, iter, text, -1, NULL);
+	g_signal_handlers_unblock_by_func (editor, on_editor_char_inserted_cpp, plugin);
+}
+
 static void
 on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 							 IAnjutaIterable *insert_pos,
@@ -1525,12 +1541,12 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 				switch (ch)
 				{
 					case '[': 
-							  ianjuta_editor_insert (editor, iter,
-													 "]", 1, NULL);
+							  insert_editor_blocked (editor, iter,
+													 "]", plugin);
 							  break;
 					case '(': 
-							  ianjuta_editor_insert (editor, iter,
-													 ")", 1, NULL);
+							  insert_editor_blocked (editor, iter,
+													 ")", plugin);
 							  break;
 					default: 
 						       break;
@@ -1570,7 +1586,7 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 					else c = g_strdup ("'");
 					
 					ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (editor), NULL);
-					ianjuta_editor_insert (editor, iter, c, 1, NULL);
+					insert_editor_blocked (editor, iter, c, plugin);
 					ianjuta_editor_goto_position (editor, iter, NULL);
 					ianjuta_document_end_undo_action (IANJUTA_DOCUMENT (editor), NULL);	
 					
