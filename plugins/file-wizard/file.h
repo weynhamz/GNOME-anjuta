@@ -57,8 +57,7 @@ typedef enum _Lge
 	LGE_JAVA,
 	LGE_PERL,
 	LGE_PYTHON,
-	LGE_SHELL,
-	LGE_VALA
+	LGE_SHELL
 } Lge;
 
 typedef enum _Cmt
