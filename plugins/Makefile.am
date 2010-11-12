@@ -36,6 +36,7 @@ SUBDIRS = . \
 	starter \
 	subversion \
 	symbol-db \
+	terminal \
 	tools
 
 -include $(top_srcdir)/git.mk

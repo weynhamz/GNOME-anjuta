@@ -130,8 +130,9 @@ terminal_set_preferences (VteTerminal *term, GSettings* settings, TerminalPlugin
 	GdkColor* background;
 	gchar *profile;
 	
-	g_return_if_fail (client != NULL);
-	
+	g_return_if_fail (settings != NULL);
+
+#if 0
 	/* Update the currently available list of terminal profiles */
 	setting = g_settings_get_boolean (settings,
 	                                  PREFS_TERMINAL_PROFILE_USE_DEFAULT);
@@ -242,6 +243,7 @@ terminal_set_preferences (VteTerminal *term, GSettings* settings, TerminalPlugin
 	
 	g_free (profile);
 	g_object_unref (client);
+#endif
 }
 
 static void
@@ -428,7 +430,7 @@ terminal_keypress_cb (GtkWidget *widget, GdkEventKey  *event,
 		return FALSE;
 	
 	/* ctrl-d */
-	if ((event->keyval == GDK_d || event->keyval == GDK_D) &&
+	if ((event->keyval == GDK_KEY_d || event->keyval == GDK_KEY_D) &&
 		(event->state & GDK_CONTROL_MASK))
 	{
 		if (terminal_plugin->child_pid)
@@ -925,7 +927,6 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 {
 	GError* error = NULL;
 	GSList *profiles;
-	GConfClient *client;	
 	
 	/* Create the terminal preferences page */
 	TerminalPlugin* term_plugin = ANJUTA_PLUGIN_TERMINAL (ipref);

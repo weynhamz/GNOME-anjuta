@@ -867,6 +867,7 @@ plugins/cvs-plugin/Makefile
 plugins/subversion/Makefile
 plugins/git/Makefile
 plugins/sourceview/Makefile
+plugins/terminal/Makefile
 plugins/tools/Makefile
 plugins/tools/scripts/Makefile
 plugins/language-manager/Makefile
