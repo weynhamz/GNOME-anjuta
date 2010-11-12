@@ -1,3 +1,25 @@
+Anjuta 2.32.1 "2.x, we will miss you" (12 Nov 2010) -- Johannes Schmid
+
+This is a bug-fix (and probably the last) release of the Anjuta 2.32.x series.
+It fixes several annoying bugs and all users are encouraged to update to this
+version.
+
+There have been improvements in the python and C/C++ support so coding should
+be a lot more conveninent.
+
+Bugs fixed:
+file-wizard: Add support for Vala
+language-support-cpp-java: bgo#621916 - check for brace
+libanjuta: bgo#633042 New: Sensitivity off 'ok' button on the project import dialog
+language-support-cpp: Don't show duplicated results in autocompletion
+build: bgo#633661 - vala support is automagic
+language-support-cpp-java: bgo#633112 - Smart Brace Completion Quotation Mark Crash
+python-support: Fix bgo#631223 autointention causes anjuta to hang
+
+Thanks to: Carles Ferrando, Daniel Nylander, Giannis Katsampirhs, Jens Georg,
+Joan Duran, Jorge González, knight2000, Nanci de Brito Bonfim,
+Pacho Ramos, Sébastien Granjoux, Takayuki KUSANO
+
 Anjuta 2.32.0 "Goodbye Berlin" (27 Sep 2010) -- Johannes Schmid
 
 This is our new stable release. Older releases won't see any bug-fixing, support,
