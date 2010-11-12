@@ -112,7 +112,7 @@ public class CTagsVisitor : CodeVisitor {
 		}
 		return ret.str;
 	}
-	static string signature (Vala.List<Vala.FormalParameter> parameter) {
+	static string signature (Vala.List<Vala.Parameter> parameter) {
 		var ret = new StringBuilder("(");
 		var first = true;
 		foreach (var p in parameter) {
@@ -367,7 +367,7 @@ public class CTagsVisitor : CodeVisitor {
 		 * assumes that Parser.context is the same as source_file.context anyway */
 		var context = new CodeContext();
 		context.report = new DummyReport();
-		var source_file = new SourceFile(context, filename, filename.has_suffix("vapi"));
+		var source_file = new SourceFile(context, filename.has_suffix("vapi") ? SourceFileType.PACKAGE : SourceFileType.SOURCE, filename);
 
 		CodeContext.push(context);
 		context.add_source_file(source_file);
@@ -383,7 +383,7 @@ public class CTagsVisitor : CodeVisitor {
 		taglist = new GLib.List<CTagsEntry?>();
 		var context = new CodeContext();
 		context.report = new DummyReport();
-		var source_file = new SourceFile(context, filename);
+		var source_file = new SourceFile(context, SourceFileType.SOURCE, filename);
 		context.add_source_file(source_file);
 
 		CodeContext.push(context);

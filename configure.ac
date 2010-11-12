@@ -285,7 +285,7 @@ else
 	AC_MSG_RESULT(no)
 	enable_vala="yes"
 	PKG_CHECK_MODULES(VALA,
-		[vala-0.10 >= $VALA_REQUIRED])
+		[libvala-0.12 >= $VALA_REQUIRED])
 fi
 
 if test x$enable_vala = xyes; then
