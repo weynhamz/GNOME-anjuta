@@ -48,7 +48,6 @@
 #include <gtksourceview/gtksourcelanguage.h>
 #include <gtksourceview/gtksourcelanguagemanager.h>
 #include <gtksourceview/gtksourcebuffer.h>
-#include <gtksourceview/gtksourceiter.h>
 #include <gtksourceview/gtksourcecompletionitem.h>
 
 #include "config.h"
@@ -2338,7 +2337,7 @@ isearch_forward (IAnjutaEditorSearch* isearch,
 	
 	GtkTextIter result_start, result_end;
 	
-	GtkSourceSearchFlags flags = 0;
+	GtkTextSearchFlags flags = 0;
 
 	sourceview_cell_get_iter (start, &start_iter);
 	sourceview_cell_get_iter (end, &end_iter);
@@ -2346,7 +2345,7 @@ isearch_forward (IAnjutaEditorSearch* isearch,
 	
 	if (!case_sensitive)
 	{
-		flags = GTK_SOURCE_SEARCH_CASE_INSENSITIVE;
+		flags = GTK_TEXT_SEARCH_CASE_INSENSITIVE;
 	}
 	
 	gboolean result = 
@@ -2389,7 +2388,7 @@ isearch_backward (IAnjutaEditorSearch* isearch,
 	GtkTextIter end_iter;	
 	GtkTextIter result_start, result_end;
 	
-	GtkSourceSearchFlags flags = 0;
+	GtkTextSearchFlags flags = 0;
 	
 	sourceview_cell_get_iter (start, &start_iter);
 	sourceview_cell_get_iter (end, &end_iter);
@@ -2397,7 +2396,7 @@ isearch_backward (IAnjutaEditorSearch* isearch,
 	
 	if (!case_sensitive)
 	{
-		flags = GTK_SOURCE_SEARCH_CASE_INSENSITIVE;
+		flags = GTK_TEXT_SEARCH_CASE_INSENSITIVE;
 	}
 	
 	gboolean result = 
