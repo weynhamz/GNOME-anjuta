@@ -53,4 +53,5 @@ EXTRA_DIST = \
 	$(python_plugin_ui_DATA) \
 	$(python_plugin_glade_DATA) \
 	$(python_plugin_pixmaps_DATA) \
-	$(scripts_SCRIPTS)
+	$(scripts_SCRIPTS) \
+	$(prefs_keyfile)

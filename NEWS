@@ -1,3 +1,34 @@
+Anjuta 2.91.2 "Remember the days when we ported from Gtk+ 1.2 to 2.0?" -- Johannes Schmid
+
+WARNING: This is an unstable release! It's the first released based on the
+GNOME 3.x library set and a such it may kill your kitten though it's unlikely.
+
+New:
+- Everything works with gtk+-3.0 now. gconf replaced with GSettings, etc.
+- Switch to enable/disable modeline detection
+- Automatic completion of comments with "*"
+
+Regressions:
+- Glade hasn't been ported to gtk+-3.0 yet and isn't available
+- class-inheritance isn't build because of missing foocanvas for gtk+-3.0
+- gtodo is disabled and will probably be removed soon
+- terminal plugin hasn't been ported to GSettings, yet
+
+Bugs fixed:
+bgo#600407 - Missing LIBXML_CFLAGS and LIBXML_LIBS
+bgo#627105 - Mark default diff filenames for translation
+bgo#577595 - Prepend comment with *
+bgo#625903 - Port to GSettings
+bgo#625978 - configure failure in gtk+-3.0 environment
+bgo#631952 - better GObject-Introspection support for new-project branch
+bgo#633661 - vala support is automagic
+
+Thanks to: Abderrahim Kitouni, Andika Triwidada, Carles Ferrando,
+Eugenia Gabrielova, Evgeny Grablyk, Florian Ludwig, Gabor Kelemen,
+Giannis Katsampirhs, Javier Jardón, Jens Georg, Joan Duran, Jorge González,
+Josseline Mouette, knight2000, Mario Blättermann, Matej Urbančič, 
+Nanci de Brito Bonfim, Pacho Ramos, Sébastien Granjoux, Takayuki KUSANO
+
 Anjuta 2.32.0 "Goodbye Berlin" (27 Sep 2010) -- Johannes Schmid
 
 This is our new stable release. Older releases won't see any bug-fixing, support,

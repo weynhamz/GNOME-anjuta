@@ -37,10 +37,6 @@
 
 #include "anjuta.h"
 
-#ifdef ENABLE_NLS
-#include <locale.h>
-#endif
-
 #define ANJUTA_PIXMAP_SPLASH_SCREEN       "anjuta_splash.png"
 
 /* App */

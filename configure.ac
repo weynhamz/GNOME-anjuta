@@ -3,8 +3,8 @@ dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ([2.64])
 
 m4_define(anjuta_major_version,  2)
-m4_define(anjuta_minor_version, 32)
-m4_define(anjuta_micro_version, 0)
+m4_define(anjuta_minor_version, 91)
+m4_define(anjuta_micro_version, 2)
 m4_define(anjuta_nano_version, 0)
 m4_define(anjuta_version, anjuta_major_version.anjuta_minor_version.anjuta_micro_version.anjuta_nano_version)
 
@@ -285,7 +285,7 @@ else
 	AC_MSG_RESULT(no)
 	enable_vala="yes"
 	PKG_CHECK_MODULES(VALA,
-		[vala-0.10 >= $VALA_REQUIRED])
+		[libvala-0.12 >= $VALA_REQUIRED])
 fi
 
 if test x$enable_vala = xyes; then
@@ -809,7 +809,6 @@ AM_CONDITIONAL(HAVE_GRAPHVIZ, [test x$libgraphviz_found = xyes])
 AC_CONFIG_FILES([
 Makefile
 po/Makefile.in
-libfoocanvas/Makefile
 libanjuta/Makefile
 libanjuta/libanjuta-3.0.pc
 libanjuta/anjuta-version.h
@@ -830,10 +829,8 @@ doc/Makefile
 scripts/Makefile
 launcher/Makefile
 plugins/Makefile
-plugins/gtodo/Makefile
 plugins/class-gen/Makefile
 plugins/class-gen/templates/Makefile
-plugins/class-inheritance/Makefile
 plugins/patch/Makefile
 plugins/document-manager/Makefile
 plugins/document-manager/images/Makefile
@@ -849,7 +846,6 @@ plugins/js-debugger/Makefile
 plugins/file-manager/Makefile
 plugins/file-loader/Makefile
 plugins/file-wizard/Makefile
-plugins/terminal/Makefile
 plugins/build-basic-autotools/Makefile
 plugins/project-manager/Makefile
 plugins/gbf-am/Makefile
@@ -871,6 +867,7 @@ plugins/cvs-plugin/Makefile
 plugins/subversion/Makefile
 plugins/git/Makefile
 plugins/sourceview/Makefile
+plugins/terminal/Makefile
 plugins/tools/Makefile
 plugins/tools/scripts/Makefile
 plugins/language-manager/Makefile

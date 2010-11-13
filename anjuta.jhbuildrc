@@ -1,0 +1,34 @@
+# -*- mode: python -*-
+
+# edit this file to match your settings and copy it to ~/.jhbuildrc
+
+# if you have a GNOME git account, uncomment this line
+# repos['git.gnome.org'] = 'ssh://user@git.gnome.org/git/'
+
+moduleset = 'gnome-3.0'
+
+# A list of the modules to build.  Defaults to the Gnome Desktop and
+# developer platform.
+# modules = [ 'anjuta' ]
+
+# what directory should the source be checked out to?
+checkoutroot = os.path.expanduser('~/gnome-git')
+
+# the prefix to configure/install modules to (must have write access)
+prefix = '/home/user/gnome-unstable'
+
+# extra arguments to pass to all autogen.sh scripts
+# to speed up builds of gnome2, try '--disable-static --disable-gtk-doc'
+# it is also possible to set CFLAGS this way, 'CFLAGS="-g -O2"' for example
+autogenargs='--disable-gtk-doc'
+alwaysautogen=True
+
+module_autogenargs['fontconfig'] = autogenargs + ' --disable-docs'
+module_autogenargs['libgda'] = autogenargs + ' --enable-introspection=no'
+
+# Use offscreen branch of glade3
+branches['glade3'] = (None, 'offscreen')
+
+# On SMP systems you may use something like this to improve compilation time:
+# be aware that not all modules compile correctly with make -j2
+makeargs = '-j2'

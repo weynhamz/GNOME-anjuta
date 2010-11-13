@@ -6,6 +6,7 @@ SUBDIRS = . \
 	class-gen \
 	cvs-plugin \
 	devhelp \
+	debug-manager \
 	dir-project \
 	document-manager \
 	file-loader \
@@ -35,6 +36,7 @@ SUBDIRS = . \
 	starter \
 	subversion \
 	symbol-db \
+	terminal \
 	tools
 
 -include $(top_srcdir)/git.mk

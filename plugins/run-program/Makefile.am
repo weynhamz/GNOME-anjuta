@@ -51,6 +51,7 @@ EXTRA_DIST = \
 	$(anjuta_pixmaps_DATA) \
 	$(anjuta_plugin_DATA) \
 	$(anjuta_ui_DATA) \
-	$(anjuta_glade_DATA)
+	$(anjuta_glade_DATA) \
+	$(schema_in_files)
 
 -include $(top_srcdir)/git.mk
