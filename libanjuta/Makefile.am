@@ -8,6 +8,7 @@ AM_CPPFLAGS = \
 	$(DEPRECATED_FLAGS) \
 	$(ANJUTA_CFLAGS) \
 	$(XML_CFLAGS) \
+	$(GDL_CFLAGS) \
 	-DDATADIR="\"$(datadir)\"" \
 	-DPACKAGE_PIXMAPS_DIR="\"$(datadir)/pixmaps/$(PACKAGE)\"" \
 	-DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" \
@@ -20,7 +21,8 @@ libanjuta_3_la_LDFLAGS = $(ANJUTA_LDFLAGS)
 libanjuta_3_la_LIBADD = \
 	interfaces/libanjuta-interfaces.la \
 	$(ANJUTA_LIBS) \
-	$(XML_LIBS)
+	$(XML_LIBS) \
+	$(GDL_LIBS)
 
 libanjuta_3_la_SOURCES= \
 	anjuta-enum-types.h \

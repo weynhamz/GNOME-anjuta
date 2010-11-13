@@ -72,13 +72,15 @@ anjuta_drop_entry_drag_data_received (GtkWidget *widget,
 	success = FALSE;
 	delete = FALSE;
 
-	if ((data != NULL) && (data->length >= 0))
+	if ((data != NULL) && 
+	    (gtk_selection_data_get_length (data) >= 0))
 	{
-		delete = (context->action == GDK_ACTION_MOVE);
+		delete = (gdk_drag_context_get_selected_action (context) == GDK_ACTION_MOVE);
 
 		if (target_type == DND_TYPE_STRING)
 		{
-			anjuta_entry_set_text (ANJUTA_ENTRY (widget), (const gchar *) data->data);
+			anjuta_entry_set_text (ANJUTA_ENTRY (widget), 
+			                       (const gchar *) gtk_selection_data_get_data (data));
 			success = TRUE;
 		}
 	}

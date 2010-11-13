@@ -320,7 +320,7 @@ PKG_CHECK_MODULES(PLUGIN_SYMBOL_DB,
 
 dnl Setup Anjuta Library flags
 dnl --------------------------
-LIBANJUTA_CFLAGS='$(ANJUTA_CFLAGS) $(DEPRECATED_FLAGS) -I$(top_srcdir) -I$(top_builddir)/libanjuta -DPACKAGE_PIXMAPS_DIR=\""$(datadir)/pixmaps/$(PACKAGE)"\" -DPACKAGE_LIB_DIR=\""$(pkglibdir)"\" -DPACKAGE_DATA_DIR=\""$(datadir)/$(PACKAGE)"\"'
+LIBANJUTA_CFLAGS='$(ANJUTA_CFLAGS) $(GDL_CFLAGS) $(DEPRECATED_FLAGS) -I$(top_srcdir) -I$(top_builddir)/libanjuta -DPACKAGE_PIXMAPS_DIR=\""$(datadir)/pixmaps/$(PACKAGE)"\" -DPACKAGE_LIB_DIR=\""$(pkglibdir)"\" -DPACKAGE_DATA_DIR=\""$(datadir)/$(PACKAGE)"\"'
 LIBANJUTA_LIBS='$(top_builddir)/libanjuta/libanjuta-3.la'
 AC_SUBST(LIBANJUTA_CFLAGS)
 AC_SUBST(LIBANJUTA_LIBS)

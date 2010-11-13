@@ -128,7 +128,8 @@ anjuta_file_drop_entry_drag_data_received (GtkWidget *widget,
 	self = ANJUTA_FILE_DROP_ENTRY (widget);
 	success = FALSE;
 
-	if ((data != NULL) && (data->length >= 0))
+	if ((data != NULL) && 
+	    (gtk_selection_data_get_length (data) >= 0))
 	{
 		if (target_type == 0)
 		{

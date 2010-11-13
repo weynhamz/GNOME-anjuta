@@ -164,7 +164,8 @@ on_list_view_drag_data_received (GtkWidget *list_view, GdkDragContext *context,
 	
 	success = FALSE;
 
-	if ((data != NULL) && (data->length >= 0))
+	if ((data != NULL) && 
+	    (gtk_selection_data_get_length (data) >= 0))
 	{
 		if (target_type == 0)
 		{
