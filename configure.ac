@@ -53,7 +53,7 @@ dnl Glade
 GLADEUI_REQUIRED=3.7.1
 
 dnl Vala
-VALA_REQUIRED=0.9.5
+VALA_REQUIRED=0.11.2
 
 dnl Introspection
 GI_REQUIRED=0.9.5
@@ -289,7 +289,7 @@ else
 fi
 
 if test x$enable_vala = xyes; then
-	AC_PATH_PROG(VALAC, valac, valac)
+	AC_PATH_PROGS(VALAC, [valac-0.12 valac], valac)
 	AC_SUBST(VALAC)
 fi
 
