@@ -152,8 +152,8 @@ git_repository_selector_grab_focus (GtkWidget *widget)
 	GTK_WIDGET_CLASS (git_repository_selector_parent_class)->grab_focus (widget);
 
 	/* Only the URL entry can grab focus */
-	gtk_notebook_set_page (GTK_NOTEBOOK (self->priv->notebook), 
-	                       GIT_REPOSITORY_SELECTOR_URL);
+	gtk_notebook_set_current_page (GTK_NOTEBOOK (self->priv->notebook), 
+	                               GIT_REPOSITORY_SELECTOR_URL);
 	gtk_widget_grab_focus (self->priv->url_entry);
 }
 
