@@ -847,9 +847,9 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 	gboolean line_checked_for_comment = FALSE;
 
     /* Determine whether or not to add multi-line comment asterisks */
-	gchar* comment_continued = " * ";
-	IAnjutaIterable* line_begin = ianjuta_editor_get_line_begin_position (editor, line_num, NULL);
-	IAnjutaIterable* line_end = ianjuta_editor_get_line_end_position (editor, line_num, NULL);
+	const gchar *comment_continued = " * ";
+	IAnjutaIterable *line_begin = ianjuta_editor_get_line_begin_position (editor, line_num, NULL);
+	IAnjutaIterable  *line_end = ianjuta_editor_get_line_end_position (editor, line_num, NULL);
 
 	*incomplete_statement = -1;
 	*line_indent_spaces = 0;
@@ -978,9 +978,11 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 							 * only if it does not already exist there. The purpose of this fix is to avoid
 							 * extra " * " on auto-indent. */
 
-							if (g_settings_get_boolean (plugin->settings, PREF_COMMENT_LEADING_ASTERISK) &&
-									ianjuta_iterable_compare (line_end, line_begin, NULL) == 0)
+							if ((g_settings_get_boolean (plugin->settings, PREF_COMMENT_LEADING_ASTERISK)) &&
+								(ianjuta_iterable_compare (line_end, line_begin, NULL)) == 0)
+							{
 								ianjuta_editor_insert (editor, line_begin, comment_continued, -1, NULL);
+							}
 
 							/* In the middle of a comment we can't know
 						     * if the statement is incomplete
@@ -1014,7 +1016,7 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 						while (ianjuta_iterable_previous (prev, NULL))
 						{
 							prev_c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (prev), 0,
-															  NULL);
+															  	   NULL);
 							if (!isspace(prev_c))
 								break;
 							if (iter_is_newline (prev, prev_c))
