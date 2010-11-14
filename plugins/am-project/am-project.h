@@ -117,7 +117,7 @@ AnjutaAmSourceNode* amp_project_add_sibling_source (AmpProject  *project, Anjuta
 void amp_project_remove_source (AmpProject  *project, AnjutaAmSourceNode *source, GError **error);
 
 AnjutaProjectNodeInfo *amp_project_get_type_info (AmpProject *project, AnjutaProjectNodeType type);
-GList *amp_project_get_node_info (AmpProject *project, GError **error);
+const GList *amp_project_get_node_info (AmpProject *project, GError **error);
 
 GList *amp_project_get_config_modules (AmpProject *project, GError **error);
 GList *amp_project_get_config_packages  (AmpProject *project, const gchar* module, GError **error);

@@ -512,7 +512,7 @@ create_properties_table (IAnjutaProject *project, AnjutaProjectNode *node)
 	gint main_pos;
 	gint extra_pos;
 	gchar *path;
-	GList *item;
+	const GList *item;
 	AnjutaProjectNodeType type;
 	AnjutaProjectNodeInfo* node_info;
 	gboolean single;
@@ -1080,8 +1080,8 @@ build_types_store (AnjutaPmProject *project)
 {
     GtkListStore *store;
     GtkTreeIter iter;
-    GList *types;
-    GList *node;
+    const GList *types;
+    const GList *node;
 
     types = anjuta_pm_project_get_node_info (project);
     store = gtk_list_store_new (TARGET_TYPE_N_COLUMNS,
@@ -1089,7 +1089,7 @@ build_types_store (AnjutaPmProject *project)
                                 G_TYPE_STRING,
                                 GDK_TYPE_PIXBUF);
     
-    for (node = g_list_first (types); node != NULL; node = g_list_next (node)) {
+    for (node = types; node != NULL; node = g_list_next (node)) {
         GdkPixbuf *pixbuf;
         const gchar *name;
         AnjutaProjectNodeType type;
@@ -1115,8 +1115,6 @@ build_types_store (AnjutaPmProject *project)
                 g_object_unref (pixbuf);
         }
     }
-
-    g_list_free (types);
 
     return store;
 }

@@ -80,7 +80,7 @@ gboolean anjuta_pm_project_unload (AnjutaPmProject *project, GError **error);
 gboolean anjuta_pm_project_refresh (AnjutaPmProject *project, GError **error);
 
 gint anjuta_pm_project_get_capabilities (AnjutaPmProject *project);
-GList *anjuta_pm_project_get_node_info (AnjutaPmProject *project);
+const GList *anjuta_pm_project_get_node_info (AnjutaPmProject *project);
 
 GList *anjuta_pm_project_get_packages (AnjutaPmProject *project);
 

@@ -262,7 +262,7 @@ anjuta_pm_project_get_capabilities (AnjutaPmProject *project)
 
 	if (project->project != NULL)
 	{
-		GList *item;
+		const GList *item;
 
 		for (item = anjuta_pm_project_get_node_info (project); item != NULL; item = g_list_next (item))
 		{
@@ -294,7 +294,7 @@ anjuta_pm_project_get_capabilities (AnjutaPmProject *project)
 	return caps;
 }
 
-GList *
+const GList *
 anjuta_pm_project_get_node_info (AnjutaPmProject *project)
 {
 	g_return_val_if_fail (project->project != NULL, NULL);

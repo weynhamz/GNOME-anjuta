@@ -338,8 +338,8 @@ static AnjutaProjectNodeType
 get_target_type (IAnjutaProject *project, const char *id)
 {
 	AnjutaProjectNodeType type;
-	GList *list;
-	GList *item;
+	const GList *list;
+	const GList *item;
 	guint num = atoi (id);
 	
 	list = ianjuta_project_get_node_info (project, NULL);
@@ -358,7 +358,6 @@ get_target_type (IAnjutaProject *project, const char *id)
 			num--;
 		}
 	}
-	g_list_free (list);
 
 	return type;
 }

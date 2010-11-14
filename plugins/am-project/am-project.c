@@ -1918,7 +1918,7 @@ amp_project_remove_source (AmpProject  *project,
 	amp_source_free (source);
 }
 
-GList *
+const GList *
 amp_project_get_node_info (AmpProject *project, GError **error)
 {
 	static GList *info_list = NULL;
@@ -2650,7 +2650,7 @@ iproject_get_root (IAnjutaProject *obj, GError **err)
 	return AMP_PROJECT (obj)->root;
 }
 
-static GList* 
+static const GList* 
 iproject_get_node_info (IAnjutaProject *obj, GError **err)
 {
 	return amp_project_get_node_info (AMP_PROJECT (obj), err);
