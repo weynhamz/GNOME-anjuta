@@ -757,7 +757,6 @@ amp_project_load_module (AmpProject *project, AnjutaToken *module_token)
 		AnjutaAmPackageNode *package;
 		gchar *compare;
 
-
 		/* Module name */
 		arg = anjuta_token_first_item (module_token);
 		value = anjuta_token_evaluate (arg);

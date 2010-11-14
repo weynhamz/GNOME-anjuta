@@ -382,9 +382,15 @@ anjuta_am_root_node_class_init (AnjutaAmRootNodeClass *klass)
 void
 amp_module_add_token (AnjutaAmModuleNode *module, AnjutaToken *token)
 {
+	gchar *name;
+	
 	module->module = token;
-	g_free (module->base.name);
-	module->base.name = anjuta_token_evaluate (anjuta_token_first_item (token));
+	name = anjuta_token_evaluate (anjuta_token_first_item (token));
+	if (name != NULL)
+	{
+		g_free (module->base.name);
+		module->base.name = name;
+	}
 }
 
 AnjutaToken *

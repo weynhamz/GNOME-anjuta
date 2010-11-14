@@ -264,6 +264,7 @@ amp_module_create_token (AmpProject  *project, AnjutaAmModuleNode *module, GErro
 	gboolean after;
 	AnjutaToken *token;
 	AnjutaToken *prev;
+	AnjutaToken *next;
 	AnjutaProjectNode *sibling;
 
 	/* Get root node */
@@ -280,7 +281,11 @@ amp_module_create_token (AmpProject  *project, AnjutaAmModuleNode *module, GErro
 		if (anjuta_project_node_get_node_type (sibling) == ANJUTA_PROJECT_MODULE)
 		{
 			prev = amp_module_get_token (ANJUTA_AM_MODULE_NODE (sibling));
-			if (prev != NULL) break;
+			if (prev != NULL)
+			{
+				prev = anjuta_token_list (prev);
+				break;
+			}
 		}
 	}
 	if (prev == NULL)
@@ -291,12 +296,21 @@ amp_module_create_token (AmpProject  *project, AnjutaAmModuleNode *module, GErro
 			if (anjuta_project_node_get_node_type (sibling) == ANJUTA_PROJECT_MODULE)
 			{
 				prev = amp_module_get_token (ANJUTA_AM_MODULE_NODE (sibling));
-				if (prev != NULL) break;
+				if (prev != NULL)
+				{
+					prev = anjuta_token_list (prev);
+					break;
+				}
 			}
 		}
 	}
-
+	
 	token = amp_project_write_module_list (root, anjuta_project_node_get_name (ANJUTA_PROJECT_NODE (module)), after, prev);
+	next = anjuta_token_next (token);
+	next = anjuta_token_next (next);
+	next = anjuta_token_next (next);
+	amp_module_add_token (module, next);
+	
 	amp_root_update_configure (root, token);
 
 	return TRUE;

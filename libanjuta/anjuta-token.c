@@ -1527,6 +1527,7 @@ AnjutaToken*
 anjuta_token_free_children (AnjutaToken *token)
 {
 	AnjutaToken *child;
+	AnjutaToken *last;
 	
 	if (token == NULL) return NULL;
 
@@ -1538,10 +1539,11 @@ anjuta_token_free_children (AnjutaToken *token)
 	
 	if (token->last != NULL)
 	{
+		last = token->last;
 		for (child = anjuta_token_next (token); child != NULL; child = anjuta_token_next (token))
 		{
 			anjuta_token_free (child);
-			if (child == token->last) break;
+			if (child == last) break;
 		}
 	}
 	token->last = NULL;
