@@ -212,7 +212,7 @@ amp_root_new (GFile *file, GError **error)
 	root->base.file = g_file_dup (file);
 	root->base.name = NULL;
 	root->base.state = ANJUTA_PROJECT_CAN_ADD_GROUP |
-						ANJUTA_PROJECT_CAN_ADD_MODULE,
+						ANJUTA_PROJECT_CAN_ADD_PACKAGE,
 						ANJUTA_PROJECT_CAN_SAVE;
 	
 
@@ -898,8 +898,7 @@ amp_target_new (const gchar *name, AnjutaProjectNodeType type, const gchar *inst
 	node->base.custom_properties = NULL;
 	node->base.name = g_strdup (name);
 	node->base.file = NULL;
-	node->base.state = ANJUTA_PROJECT_CAN_ADD_MODULE |
-						ANJUTA_PROJECT_CAN_ADD_SOURCE |
+	node->base.state = ANJUTA_PROJECT_CAN_ADD_SOURCE |
 						ANJUTA_PROJECT_CAN_REMOVE;
 	node->install = g_strdup (install);
 	node->flags = flags;

@@ -2390,7 +2390,7 @@ static gboolean
 amp_remove_complete (PmJob *job)
 {
 	AnjutaProjectNode *parent = anjuta_project_node_parent (job->node);
-	
+
 	g_signal_emit_by_name (AMP_PROJECT (job->user_data), "node-changed", parent != NULL ? parent : job->node,  job->error);
 
 	return TRUE;

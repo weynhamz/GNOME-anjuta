@@ -651,6 +651,12 @@ confirm_removal (ProjectManagerPlugin *plugin, GList *selected)
 	case GBF_TREE_NODE_SOURCE:
 		mesg = g_string_new (_("Are you sure you want to remove the following source file from the project?\n\n"));
 		break;
+	case GBF_TREE_NODE_PACKAGE:
+		mesg = g_string_new (_("Are you sure you want to remove the following package from the project?\n\n"));
+		break;
+	case GBF_TREE_NODE_MODULE:
+		mesg = g_string_new (_("Are you sure you want to remove the following module from the project?\n\n"));
+		break;
 	case GBF_TREE_NODE_UNKNOWN:
 		mesg = g_string_new (_("Are you sure you want to remove the following elements from the project?\n\n"));
 		break;
@@ -680,6 +686,12 @@ confirm_removal (ProjectManagerPlugin *plugin, GList *selected)
 		case GBF_TREE_NODE_SHORTCUT:
 			g_string_append_printf (mesg, _("Shortcut: %s\n"), data->name);
 			return TRUE;
+		case GBF_TREE_NODE_MODULE:
+			g_string_append_printf (mesg, _("Module: %s\n"), data->name);
+			break;
+		case GBF_TREE_NODE_PACKAGE:
+			g_string_append_printf (mesg, _("Package: %s\n"), data->name);
+			break;
 		default:
 			g_warn_if_reached ();
 			return FALSE;
@@ -732,7 +744,9 @@ on_popup_remove (GtkAction *action, ProjectManagerPlugin *plugin)
 				case GBF_TREE_NODE_GROUP:
 				case GBF_TREE_NODE_TARGET:
 				case GBF_TREE_NODE_SOURCE:
-					node = anjuta_pm_project_get_node(plugin->project, data);
+				case GBF_TREE_NODE_MODULE:
+				case GBF_TREE_NODE_PACKAGE:
+					node = gbf_tree_data_get_node (data);
 					if (node != NULL)
 					{
 						if (!update) update_operation_begin (plugin);

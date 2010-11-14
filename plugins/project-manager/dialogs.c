@@ -1504,10 +1504,11 @@ anjuta_pm_project_new_package (AnjutaPmProject *project,
     gint response;
     gboolean finished = FALSE;
     GtkTreeSelection *package_selection;
-    GtkTreeIter root;
-    gboolean valid;
+    AnjutaProjectNode *root;
+	AnjutaProjectNode *node;
+	AnjutaProjectNode *module = NULL;
     gint default_pos = -1;
-    GbfProjectModel *model;
+	gint pos;
     
     g_return_val_if_fail (project != NULL, NULL);
     
@@ -1520,50 +1521,44 @@ anjuta_pm_project_new_package (AnjutaPmProject *project,
     packages_view = GTK_WIDGET (gtk_builder_get_object (gui, "packages_view"));
     ok_button = GTK_WIDGET (gtk_builder_get_object (gui, "ok_package_button"));
 
+	/* Get default parent */
+	if (default_module != NULL)
+	{
+        GbfTreeData *data;
+	    GbfProjectModel *model;
+
+		model = anjuta_pm_project_get_model(project);
+		gtk_tree_model_get (GTK_TREE_MODEL (model), default_module, GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
+		if (data != NULL)
+		{
+			module = gbf_tree_data_get_node (data);
+		}
+	}
+	
     /* Fill combo box with modules */
     store = gtk_list_store_new(1, G_TYPE_STRING);
     gtk_combo_box_entry_set_text_column (GTK_COMBO_BOX_ENTRY (module_entry), 0);
 
-    model = anjuta_pm_project_get_model(project);
-    for (valid = gtk_tree_model_get_iter_first (GTK_TREE_MODEL (model), &root); valid != FALSE; valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &root))
-    {
-        GbfTreeData *data;
-        
-        gtk_tree_model_get (GTK_TREE_MODEL (model), &root, GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
-        if (data && (data->type == GBF_TREE_NODE_GROUP)) break;
-    }
-    
-    if (valid)
-    {
-        GtkTreeIter iter;
-        gint pos = 0;
-        GbfTreeData *data;
-        GtkTreePath *default_path = default_module != NULL ? gtk_tree_model_get_path(GTK_TREE_MODEL (model), default_module) : NULL;
+	root = ianjuta_project_get_root (project->project, NULL);
+	pos = 0;
+	for (node = anjuta_project_node_first_child (root); node != NULL; node = anjuta_project_node_next_sibling (node))
+	{
+		if (anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_MODULE)
+		{
+			GtkTreeIter list_iter;
+			gchar *name;
 
-        gtk_tree_model_get (GTK_TREE_MODEL (model), &root, GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
-        
-        for (valid = gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &iter, &root); valid != FALSE; valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &iter))
-        {
-            GbfTreeData *data;
-            
-            gtk_tree_model_get (GTK_TREE_MODEL (model), &iter, GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
+			name = anjuta_project_node_get_name (node);
+			gtk_list_store_append (store, &list_iter);
+			gtk_list_store_set (store, &list_iter, 0, name, -1);
+			g_free (name);
 
-            if (data && (data->type == GBF_TREE_NODE_MODULE))
-            {
-                GtkTreeIter list_iter;
-                GtkTreePath *path = gtk_tree_model_get_path(GTK_TREE_MODEL (model), &iter);
-
-                gtk_list_store_append (store, &list_iter);
-                gtk_list_store_set (store, &list_iter, 0, data->name, -1);
-                if ((default_path != NULL) && (gtk_tree_path_compare (path, default_path) == 0))
-                {
-                    default_pos = pos;
-                }
-                gtk_tree_path_free (path);
-                pos++;
-            }
-        }
-        if (default_path != NULL) gtk_tree_path_free (default_path);
+			if (node == module)
+			{
+				default_pos = pos;
+			}
+			pos ++;
+		}
     }
     gtk_combo_box_set_model (GTK_COMBO_BOX(module_entry), GTK_TREE_MODEL(store));
     gtk_combo_box_entry_set_text_column (GTK_COMBO_BOX_ENTRY (module_entry), 0);
@@ -1619,12 +1614,45 @@ anjuta_pm_project_new_package (AnjutaPmProject *project,
         switch (response) {
             case GTK_RESPONSE_OK: 
             {
-                gchar *module;
+                gchar *name;
+				AnjutaProjectNode *module;
+				GString *error_message = g_string_new (NULL);
 
-                module = gtk_combo_box_get_active_text (GTK_COMBO_BOX (module_entry));
-                if (module)
+                name = gtk_combo_box_get_active_text (GTK_COMBO_BOX (module_entry));
+				name = g_strstrip (name);
+
+				if (*name == '\0')
+				{
+					/* Missing module name */
+					g_string_append (error_message, _("Missing module name"));
+				}
+				else
+				{
+					/* Look for already existing module */
+					module = anjuta_pm_project_get_module (project, name);
+					if (module == NULL)
+					{
+						/* Create new module */
+						AnjutaProjectNode *root;
+						GError *error = NULL;
+
+						root = ianjuta_project_get_root (project->project, NULL);
+
+						module = ianjuta_project_add_node_after (project->project, root, NULL, ANJUTA_PROJECT_MODULE, NULL, name, &error);
+						if (error != NULL)
+						{
+                    		gchar *str = g_strdup_printf ("%s: %s\n", name, error->message);
+						
+							g_string_append (error_message, str);
+                        	g_error_free (error);
+                        	g_free (str);
+						}
+					}
+				}
+				g_free (name);
+				
+                if (module != NULL)
                 {
-                    GString *err_mesg = g_string_new (NULL);
                     GList *list;
                     GList *node;
                     GtkTreeModel *model;
@@ -1637,51 +1665,42 @@ anjuta_pm_project_new_package (AnjutaPmProject *project,
                         {
                             gchar *name;
                             AnjutaProjectNode* new_package;
-                            GError *err = NULL;
+                            GError *error = NULL;
                             
                             gtk_tree_model_get (model, &iter, COL_PKG_PACKAGE, &name, -1);
 
-                            /*new_package = ianjuta_project_add_package (project,
-                                                            module,
-                                                            name,
-                                                            &err);*/
-                            new_package = NULL;
-                            if (err)
+							new_package = ianjuta_project_add_node_after (project->project, module, NULL, ANJUTA_PROJECT_PACKAGE, NULL, name, &error);
+                            if (error)
                             {
                                 gchar *str = g_strdup_printf ("%s: %s\n",
                                                                 name,
-                                                                err->message);
-                                g_string_append (err_mesg, str);
-                                g_error_free (err);
+                                                                error->message);
+                                g_string_append (error_message, str);
+                                g_error_free (error);
                                 g_free (str);
                             }
                             else
                             {
-                                packages = g_list_append (packages,
-                                                                new_package);
+                                packages = g_list_append (packages, new_package);
+								finished = TRUE;
                             }
                             g_free (name);
                         }
                     }
                     g_list_foreach (list, (GFunc)gtk_tree_path_free, NULL);
                     g_list_free (list);
-                    
-                    if (err_mesg->str && strlen (err_mesg->str) > 0)
-                    {
-                        error_dialog (parent, _("Cannot add packages"),
-                                        "%s", err_mesg->str);
-                    }
-                    else
-                    {
-                        finished = TRUE;
-                    }
-                    g_string_free (err_mesg, TRUE);
                 }
-                else
+					
+                if (error_message->len != 0)
                 {
                     error_dialog (parent, _("Cannot add packages"),
-                            "%s", _("No module has been selected"));
+                            "%s",error_message->str);
                 }
+				else
+				{
+					finished = TRUE;
+				}
+				g_string_free (error_message, TRUE);
                 break;
             }
             default:

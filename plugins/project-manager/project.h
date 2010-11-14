@@ -101,6 +101,7 @@ GbfProjectModel *anjuta_pm_project_get_model (AnjutaPmProject *project);
 
 AnjutaProjectNode *anjuta_pm_project_get_node (AnjutaPmProject *project, GbfTreeData *data);
 AnjutaProjectNode *anjuta_pm_project_get_node_from_file (AnjutaPmProject *project, AnjutaProjectNodeType type, GFile *file);
+AnjutaProjectNode *anjuta_pm_project_get_module (AnjutaPmProject *project, const gchar *name);
 
 gboolean anjuta_pm_project_show_properties_dialog (AnjutaPmProject *project, GbfTreeData *data);
 

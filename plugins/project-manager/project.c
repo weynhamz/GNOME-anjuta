@@ -279,9 +279,6 @@ anjuta_pm_project_get_capabilities (AnjutaPmProject *project)
 			case ANJUTA_PROJECT_SOURCE:
 				caps |= ANJUTA_PROJECT_CAN_ADD_SOURCE;
 				break;
-			case ANJUTA_PROJECT_MODULE:
-				caps |= ANJUTA_PROJECT_CAN_ADD_MODULE;
-				break;
 			case ANJUTA_PROJECT_PACKAGE:
 				caps |= ANJUTA_PROJECT_CAN_ADD_PACKAGE;
 				break;
@@ -483,6 +480,35 @@ anjuta_pm_project_get_node_from_file (AnjutaPmProject *project, AnjutaProjectNod
 	}
 
 	return NULL;
+}
+
+static gboolean
+find_module (AnjutaProjectNode *node, gpointer data)
+{
+	gboolean found = FALSE;
+	
+	if (anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_MODULE)
+	{
+		gchar *name = anjuta_project_node_get_name (node);
+
+		found = g_strcmp0 (name, (const gchar *)data) == 0;
+		g_free (name);
+	}
+
+	return found;
+}
+
+AnjutaProjectNode *
+anjuta_pm_project_get_module (AnjutaPmProject *project, const gchar *name)
+{
+	AnjutaProjectNode *root;
+	AnjutaProjectNode *module;
+
+	root = ianjuta_project_get_root (project->project, NULL);
+
+	module = anjuta_project_node_children_traverse (root, find_module, (gpointer)name);
+
+	return module;
 }
 
 /* Display properties dialog. These dialogs are not modal, so a pointer on each
