@@ -265,7 +265,7 @@ ianjuta_introspection_sources = $(srcdir)/interfaces/*.c $(srcdir)/interfaces/*.
 
 Anjuta-3.0.gir: libanjuta-3.la
 Anjuta_3_0_gir_INCLUDES = GObject-2.0 Gtk-3.0
-Anjuta_3_0_gir_CFLAGS = $(ANJUTA_CFLAGS) $(XML_CFLAGS) -I$(top_srcdir)
+Anjuta_3_0_gir_CFLAGS = $(ANJUTA_CFLAGS) $(XML_CFLAGS) $(GDL_CFLAGS) -I$(top_srcdir)
 Anjuta_3_0_gir_LIBS = anjuta-3
 Anjuta_3_0_gir_FILES = $(anjuta_introspection_sources)
 Anjuta_3_0_gir_SCANNERFLAGS = --c-include=libanjuta/libanjuta.h
