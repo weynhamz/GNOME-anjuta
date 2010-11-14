@@ -391,7 +391,7 @@ anjuta_pm_project_set_properties (AnjutaPmProject *project, AnjutaProjectNode *n
 	for (item = g_list_first (properties); item != NULL; item = g_list_next (item))
 	{
 		AnjutaProjectPropertyValue *prop = (AnjutaProjectPropertyValue *)item->data;
-		
+
 		valid = ianjuta_project_set_property (project->project, node, prop->property, prop->value, error) != NULL;
 		if (!valid) break;
 	}

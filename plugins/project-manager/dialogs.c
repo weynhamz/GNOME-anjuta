@@ -617,6 +617,7 @@ on_properties_dialog_response (GtkWidget *dialog,
 			PropertyEntry *entry = (PropertyEntry *)item->data;
 			AnjutaProjectProperty *prop;
 			const gchar *text;
+			gboolean active;
 			
 			/* Get property value in node */
 			prop = anjuta_project_node_get_property (table->node, entry->property);
@@ -651,8 +652,10 @@ on_properties_dialog_response (GtkWidget *dialog,
 				}
 				break;
 			case ANJUTA_PROJECT_PROPERTY_BOOLEAN:
+				active = prop->value == NULL ? FALSE : (*prop->value == '1' ? TRUE : FALSE);
 				text = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (entry->entry)) ? "1" : "0";
-				if (g_strcmp0 (prop->value, text) != 0)
+					
+				if (active != (*text == '1'))
 				{
 					/* Modified */
 					PropertyValue *value;

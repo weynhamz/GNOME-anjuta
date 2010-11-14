@@ -2417,7 +2417,10 @@ amp_set_property_work (PmJob *job)
 	}
 	else if (flags & AM_PROPERTY_IN_MAKEFILE)
 	{
-		amp_project_update_am_property (AMP_PROJECT (job->user_data), job->node, job->property);
+		if (((AmpProperty *)job->property->native)->suffix != NULL)
+		{
+			amp_project_update_am_property (AMP_PROJECT (job->user_data), job->node, job->property);
+		}
 	}
 
 	return TRUE;
