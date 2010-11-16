@@ -93,7 +93,8 @@ static GtkActionEntry actions_goto[] = {
     G_CALLBACK (on_save_message)}
 };
 
-static void on_view_changed(AnjutaMsgman* msgman, MessageViewPlugin* plugin)
+static void on_view_changed(AnjutaMsgman* msgman, GtkWidget* page,
+                            gint page_num, MessageViewPlugin* plugin)
 {
 	MessageView* view = anjuta_msgman_get_current_view (msgman);
 	AnjutaUI* ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(plugin)->shell, NULL);
@@ -173,7 +174,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	popup = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui), "/PopupMessageView");
 	mv_plugin->msgman = 
 		anjuta_msgman_new(popup);
-	g_signal_connect(G_OBJECT(mv_plugin->msgman), "view_changed", 
+	g_signal_connect(mv_plugin->msgman, "switch-page", 
 					 G_CALLBACK(on_view_changed), mv_plugin);
 	GtkAction* action_next = anjuta_ui_get_action (ui, "ActionGroupGotoMessages",
 								   "ActionMessageNext");

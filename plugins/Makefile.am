@@ -1,41 +1,41 @@
 
 ## The '.' is to make sure install-data-hook rule is executed first
+## Please keep sorted!
 SUBDIRS = . \
-	message-view \
-	gdb \
-	debug-manager \
-	file-manager \
-	terminal \
-	build-basic-autotools \
-	file-loader \
-	file-wizard \
-	project-wizard \
-	project-manager \
-	cvs-plugin \
-	snippets-manager \
-	class-gen \
-	class-inheritance \
-	patch \
-	subversion \
-	project-import \
-	tools \
-	document-manager \
-	search \
-	language-support-cpp-java \
-	language-support-python \
-	glade \
-	devhelp \
-	language-manager \
-	symbol-db \
-	git \
-	sourceview \
-	run-program \
-	starter \
 	am-project \
+	build-basic-autotools \
+	class-gen \
+	cvs-plugin \
+	devhelp \
+	debug-manager \
 	dir-project \
+	document-manager \
+	file-loader \
+	file-manager \
+	file-wizard \
+	gdb \
+	git \
+	glade \
 	js-debugger \
+	language-manager \
+	language-support-cpp-java \
+	language-support-js \
+	language-support-python \
 	language-support-vala \
-	python-loader
-#	language-support-js
+	message-view \
+	patch \
+	project-import \
+	project-manager \
+	project-wizard \
+	python-loader \
+	run-program \
+	search \
+	snippets-manager \
+	sourceview \
+	starter \
+	subversion \
+	symbol-db \
+	terminal \
+	tools
 
 -include $(top_srcdir)/git.mk

@@ -62,7 +62,6 @@
 #define PREFS_TERMINAL_PROFILE_USE_DEFAULT    "terminal-default-profile"
 #define PREFS_TERMINAL_PROFILE                "terminal-profile"
 
-#include <gconf/gconf-client.h>
 #include <vte/vte.h>
 #include <vte/reaper.h>
 #include <pwd.h>
@@ -120,43 +119,9 @@ get_profile_key (const gchar *profile, const gchar *key)
 	return buffer;
 }
 
-static gboolean
-get_bool_default (GConfClient *client, const gchar *key, gboolean def)
-{
-	gboolean value = def;
-	GConfValue* val;
-
-	val = gconf_client_get (client, key, NULL);
-	if (val != NULL)
-	{
-	    value = gconf_value_get_bool (val);
-	    gconf_value_free (val);
-  	}
-		
-	return value;
-}
-
-#define GET_PROFILE_BOOL(key) \
-			gconf_client_get_bool (client, \
-								   get_profile_key (profile, key), \
-								   NULL);
-#define GET_PROFILE_BOOL_DEFAULT(key, value) \
-			get_bool_default (client, \
-								   get_profile_key (profile, key), \
-								   value);
-#define GET_PROFILE_INT(key) \
-			gconf_client_get_int (client, \
-								  get_profile_key (profile, key), \
-								  NULL);
-#define GET_PROFILE_STRING(key) \
-			gconf_client_get_string (client, \
-									 get_profile_key (profile, key), \
-									 NULL);
-
 static void
 terminal_set_preferences (VteTerminal *term, GSettings* settings, TerminalPlugin *term_plugin)
 {
-	GConfClient *client;
 	char *text;
 	int value;
 	gboolean setting;
@@ -165,10 +130,9 @@ terminal_set_preferences (VteTerminal *term, GSettings* settings, TerminalPlugin
 	GdkColor* background;
 	gchar *profile;
 	
-	client = gconf_client_get_default ();
-	
-	g_return_if_fail (client != NULL);
-	
+	g_return_if_fail (settings != NULL);
+
+#if 0
 	/* Update the currently available list of terminal profiles */
 	setting = g_settings_get_boolean (settings,
 	                                  PREFS_TERMINAL_PROFILE_USE_DEFAULT);
@@ -190,7 +154,7 @@ terminal_set_preferences (VteTerminal *term, GSettings* settings, TerminalPlugin
 	vte_terminal_set_mouse_autohide (term, TRUE);
 
 	/* Set terminal font either using the desktop wide font or g-t one. */
-	setting = GET_PROFILE_BOOL (GCONF_USE_SYSTEM_FONT);
+	setting = g_settings_get_boolean (GCONF_USE_SYSTEM_FONT);
 	if (setting) {
 		text = gconf_client_get_string (client, GCONF_MONOSPACE_FONT, NULL);
 		if (!text)
@@ -279,6 +243,7 @@ terminal_set_preferences (VteTerminal *term, GSettings* settings, TerminalPlugin
 	
 	g_free (profile);
 	g_object_unref (client);
+#endif
 }
 
 static void
@@ -465,7 +430,7 @@ terminal_keypress_cb (GtkWidget *widget, GdkEventKey  *event,
 		return FALSE;
 	
 	/* ctrl-d */
-	if ((event->keyval == GDK_d || event->keyval == GDK_D) &&
+	if ((event->keyval == GDK_KEY_d || event->keyval == GDK_KEY_D) &&
 		(event->state & GDK_CONTROL_MASK))
 	{
 		if (terminal_plugin->child_pid)
@@ -962,7 +927,6 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 {
 	GError* error = NULL;
 	GSList *profiles;
-	GConfClient *client;	
 	
 	/* Create the terminal preferences page */
 	TerminalPlugin* term_plugin = ANJUTA_PLUGIN_TERMINAL (ipref);

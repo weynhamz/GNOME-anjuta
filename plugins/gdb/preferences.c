@@ -191,10 +191,10 @@ on_add_printer_in_list (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *ite
  /* Gtk builder callbacks */
 void gdb_on_printer_add (GtkButton *button, gpointer user_data);
 void gdb_on_printer_remove (GtkButton *button, gpointer user_data);
-void gdb_on_destroy_preferences (GtkObject *object, gpointer user_data);
+void gdb_on_destroy_preferences (GtkWidget *object, gpointer user_data);
 
 void
-gdb_on_destroy_preferences (GtkObject *object, gpointer user_data)
+gdb_on_destroy_preferences (GtkWidget *object, gpointer user_data)
 {
 	PreferenceDialog *dlg = (PreferenceDialog *)user_data;
 	GList *new_list;

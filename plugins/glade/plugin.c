@@ -382,7 +382,7 @@ activate_plugin (AnjutaPlugin *plugin)
 		                  G_CALLBACK (inspector_item_activated_cb),
 		                  plugin);
 
-		priv->paned = gtk_vpaned_new ();
+		priv->paned = gtk_paned_new (GTK_ORIENTATION_VERTICAL);
 
 		gtk_paned_add1 (GTK_PANED(priv->paned), priv->view_box);
 		gtk_paned_add2 (GTK_PANED(priv->paned), GTK_WIDGET(glade_app_get_editor()));

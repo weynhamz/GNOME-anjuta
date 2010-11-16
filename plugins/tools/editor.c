@@ -981,18 +981,18 @@ on_editor_get_keys(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
 
   	switch (event->keyval)
     	{
-	case GDK_Shift_L:
-	case GDK_Shift_R:
-	case GDK_Control_L:
-	case GDK_Control_R:
-	case GDK_Alt_L:
-	case GDK_Alt_R:
+	case GDK_KEY_Shift_L:
+	case GDK_KEY_Shift_R:
+	case GDK_KEY_Control_L:
+	case GDK_KEY_Control_R:
+	case GDK_KEY_Alt_L:
+	case GDK_KEY_Alt_R:
 		return TRUE;
-	case GDK_Escape:
+	case GDK_KEY_Escape:
 		break;
-	case GDK_Delete:
-	case GDK_KP_Delete:
-	case GDK_BackSpace:
+	case GDK_KEY_Delete:
+	case GDK_KEY_KP_Delete:
+	case GDK_KEY_BackSpace:
 		delete = TRUE;
 		break;
 	default:

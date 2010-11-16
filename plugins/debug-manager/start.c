@@ -798,11 +798,11 @@ attach_process_show (AttachProcess * ap, GtkWindow *parent)
 						  G_CALLBACK (on_selection_changed), ap);
 		g_signal_connect (G_OBJECT (ap->dialog), "delete_event",
 						  G_CALLBACK (on_delete_event), ap);
-		g_signal_connect (GTK_OBJECT (checkb_hide_paths), "toggled",
+		g_signal_connect (checkb_hide_paths, "toggled",
 							G_CALLBACK (on_toggle_hide_paths), ap);
-		g_signal_connect (GTK_OBJECT (checkb_hide_params), "toggled",
+		g_signal_connect (checkb_hide_params, "toggled",
 							G_CALLBACK (on_toggle_hide_params), ap);
-		g_signal_connect (GTK_OBJECT (checkb_process_tree), "toggled",
+		g_signal_connect (checkb_process_tree, "toggled",
 							G_CALLBACK (on_toggle_process_tree), ap);
 	}
 	

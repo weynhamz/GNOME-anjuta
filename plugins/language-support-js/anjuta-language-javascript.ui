@@ -185,7 +185,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkSpinButton" id="preferences_spin:int:3:1:javascript-min">
+              <object class="GtkSpinButton" id="preferences_spin:int:3:1:javascript-min-codecomplete">
                   <property name="visible">True</property>
                   <property name="can_focus">True</property>
                   <property name="invisible_char">&#x2022;</property>

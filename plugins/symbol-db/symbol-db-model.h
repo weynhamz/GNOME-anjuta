@@ -21,7 +21,7 @@
 #define _SYMBOL_DB_MODEL_H_
 
 #include <glib-object.h>
-#include <gtk/gtktreemodel.h>
+#include <gtk/gtk.h>
 #include <libgda/gda-data-model.h>
 #include "symbol-db-engine.h"
 

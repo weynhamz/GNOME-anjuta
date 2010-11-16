@@ -90,7 +90,8 @@ EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(sourceview_plugin_DATA) \
 	$(sourceview_pixmaps_DATA) \
-	$(sourceview_xml_DATA)
+	$(sourceview_xml_DATA) \
+	$(prefs_keyfile)
 
 
 

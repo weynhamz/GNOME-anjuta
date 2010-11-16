@@ -513,7 +513,7 @@ on_log_diff_previous_button_clicked (GtkButton *button, LogData *data)
 }
 
 static void
-on_subversion_log_vbox_destroy (GtkObject *subversion_log, LogData *data)
+on_subversion_log_vbox_destroy (GtkWidget *subversion_log, LogData *data)
 {
 	g_hash_table_destroy (data->selected_diff_revisions);
 	g_free (data->path);

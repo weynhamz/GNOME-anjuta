@@ -20,7 +20,7 @@ use XML::Parser;
 );
 
 print "<schemalist>\n";
-print "\t<schema id=\"$ARGV[1]\" path=\"/apps/anjuta/\">\n";
+print "\t<schema id=\"$ARGV[1]\" path=\"/org/gnome/anjuta/\">\n";
 
 if ($#ARGV == 2) {
 	open FILE, "<", $ARGV[2] or die $!;

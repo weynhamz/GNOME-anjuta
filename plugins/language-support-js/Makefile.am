@@ -37,7 +37,7 @@ AM_CPPFLAGS = \
 	-DANJUTA_IMAGE_DIR=\"$(anjuta_image_dir)\" \
 	-DANJUTA_GLADE_DIR=\"$(anjuta_glade_dir)\" \
 	-DANJUTA_UI_DIR=\"$(anjuta_ui_dir)\" \
-	$(LIBXML_CFLAGS) \
+	$(XML_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
 	-DPACKAGE_SRC_DIR=\"$(srcdir)\" \
 	-DGIR_PATH=\"$(INTROSPECTION_GIRDIR)\" \
@@ -56,13 +56,18 @@ js-parser-y-tab.c js-parser-y-tab.h lex.yy.c lex.yy.h js-node.c js-node.h js-con
 ijs-symbol.h ijs-symbol.c gir-symbol.c gir-symbol.h gi-symbol.c gi-symbol.h simple-symbol.c \
 simple-symbol.h local-symbol.c local-symbol.h  node-symbol.c node-symbol.h import-symbol.c \
 import-symbol.h dir-symbol.c dir-symbol.h std-symbol.c std-symbol.h database-symbol.c database-symbol.h \
-db-anjuta-symbol.c db-anjuta-symbol.h jstypes.h
+db-anjuta-symbol.c db-anjuta-symbol.h jstypes.h prefs.h
 
 libjs_support_plugin_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 # Plugin dependencies
 libjs_support_plugin_la_LIBADD = \
-	$(LIBANJUTA_LIBS) 
+	$(LIBANJUTA_LIBS) \
+	$(XML_LIBS)
+
+prefs_ui_files = anjuta-language-javascript.ui
+prefs_name = org.gnome.anjuta.js
+include $(top_srcdir)/scripts/build-schemas.mk
 
 EXTRA_DIST = \
 	$(plugin_in_files)\

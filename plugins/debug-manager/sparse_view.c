@@ -37,6 +37,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <gtk/gtk.h>
+
 /* Constants
  *---------------------------------------------------------------------------*/
 
@@ -91,8 +93,10 @@ struct _DmaSparseViewPrivate
 	GdkPixbuf *marker_pixbuf[MAX_MARKER];
 };
 
-/* Used in dispose and finalize */
-static GtkTextViewClass *parent_class = NULL;
+static void dma_sparse_view_init (DmaSparseView *view);
+
+G_DEFINE_TYPE (DmaSparseView, dma_sparse_view, GTK_TYPE_TEXT_VIEW)
+
 
 /* Helper functions
  *---------------------------------------------------------------------------*/
@@ -159,19 +163,19 @@ dma_sparse_view_goto_key_press_event (GtkWidget *widget,
 	g_return_val_if_fail (DMA_IS_SPARSE_VIEW (view), FALSE);
 
 	/* Close window */
-	if (event->keyval == GDK_Escape ||
-		event->keyval == GDK_Tab ||
-		event->keyval == GDK_KP_Tab ||
-		event->keyval == GDK_ISO_Left_Tab)
+	if (event->keyval == GDK_KEY_Escape ||
+		event->keyval == GDK_KEY_Tab ||
+		event->keyval == GDK_KEY_KP_Tab ||
+		event->keyval == GDK_KEY_ISO_Left_Tab)
     {
 		dma_sparse_view_goto_window_hide (view);
 		return TRUE;
     }
 
 	/* Goto to address and close window */
-	if (event->keyval == GDK_Return ||
-		event->keyval == GDK_ISO_Enter ||
-		event->keyval == GDK_KP_Enter)
+	if (event->keyval == GDK_KEY_Return ||
+		event->keyval == GDK_KEY_ISO_Enter ||
+		event->keyval == GDK_KEY_KP_Enter)
 	{
 		gulong adr;
 		const gchar *text;
@@ -199,7 +203,7 @@ dma_sparse_view_goto_position_func (DmaSparseView *view)
 	gint x, y;
 	gint win_x, win_y;
 	GdkWindow *window = gtk_widget_get_window (GTK_WIDGET (view));
-	GdkScreen *screen = gdk_drawable_get_screen (window);
+	GdkScreen *screen = gdk_window_get_screen (window);
 	gint monitor_num;
 	GdkRectangle monitor;
 
@@ -535,38 +539,9 @@ dma_sparse_view_move_cursor (GtkTextView *text_view,
         break;
     }
 	
-	GTK_TEXT_VIEW_CLASS (parent_class)->move_cursor (text_view,
+	GTK_TEXT_VIEW_CLASS (dma_sparse_view_parent_class)->move_cursor (text_view,
 								 step, count,
 								 extend_selection);
-}
-
-static void
-dma_sparse_view_synchronize_iter (DmaSparseView *view, DmaSparseIter *iter)
-{
-	gdouble dist;
-	gdouble pos;
-	/* Need to change iterator according to adjustment */
-	
-	pos = gtk_adjustment_get_value (view->priv->vadjustment);
-	dist = pos - (gdouble)dma_sparse_iter_get_address (iter);
-
-	if (dist != 0)
-	{
-		gdouble page_size = gtk_adjustment_get_page_size (view->priv->vadjustment);
-
-		if ((dist < 4.0 * page_size) && (dist > -4.0 * page_size))
-		{
-			gint count = (gint) (dist / gtk_adjustment_get_step_increment (view->priv->vadjustment));
-
-			dma_sparse_iter_forward_lines (iter, count);
-		}
-		else
-		{
-			dma_sparse_iter_move_at (iter, pos);
-			dma_sparse_iter_round (iter, FALSE);
-		}
-		gtk_adjustment_set_value (view->priv->vadjustment, (gdouble)dma_sparse_iter_get_address (iter));
-	}
 }
 
 static void
@@ -629,21 +604,24 @@ draw_line_markers (DmaSparseView *view,
 	if (composite)
 	{
 		GdkWindow *window;
+		cairo_t *cr;
 
 		window = gtk_text_view_get_window (GTK_TEXT_VIEW (view),
 						   GTK_TEXT_WINDOW_LEFT);
 
-		gdk_draw_pixbuf (GDK_DRAWABLE (window), NULL, composite,
-					 0, 0, x, y,
-					 width, height,
-				 	GDK_RGB_DITHER_NORMAL, 0, 0);
+		cr = gdk_cairo_create (window);
+
+		gdk_cairo_set_source_pixbuf (cr, composite, x, y);
+		cairo_paint (cr);
+
 		g_object_unref (composite);
+		cairo_destroy (cr);
 	}
 }
 
 static void
 dma_sparse_view_paint_margin (DmaSparseView *view,
-			      GdkEventExpose *event)
+			  				  cairo_t *cr)
 {
 	GtkTextView *text_view;
 	GdkWindow *win;
@@ -671,10 +649,12 @@ dma_sparse_view_paint_margin (DmaSparseView *view,
 	}
 	
 	win = gtk_text_view_get_window (text_view,
-					GTK_TEXT_WINDOW_LEFT);	
+	                                GTK_TEXT_WINDOW_LEFT);	
 
-	y1 = event->area.y;
-	y2 = y1 + event->area.height;
+	
+	/* FIXME */
+	y1 = 0;
+	y2 = gtk_widget_get_allocated_height (GTK_WIDGET (view)) + y1;
 
 	/* get the extents of the line printing */
 	gtk_text_view_window_to_buffer_coords (text_view,
@@ -756,10 +736,9 @@ dma_sparse_view_paint_margin (DmaSparseView *view,
 			pango_layout_set_markup (layout, str, -1);
 
 			gtk_paint_layout (gtk_widget_get_style (GTK_WIDGET (view)),
-					  win,
+					  cr,
 					  gtk_widget_get_state (GTK_WIDGET (view)),
 					  FALSE,
-					  NULL,
 					  GTK_WIDGET (view),
 					  NULL,
 					  text_width + 2, 
@@ -822,54 +801,6 @@ dma_sparse_view_update_adjustement (DmaSparseView *view)
 		gtk_adjustment_set_page_size (vadj, page_size);
 		gtk_adjustment_set_page_increment (vadj, page_size * 0.9);
 		gtk_adjustment_changed (vadj); 
-	}
-}
-
-static void
-dma_sparse_view_value_changed (GtkAdjustment *adj,
-                             DmaSparseView   *view)
-{
-	dma_sparse_view_synchronize_iter (view, &view->priv->start);
-	dma_sparse_view_refresh (view);
-}
-
-static void
-dma_sparse_view_set_scroll_adjustments (GtkTextView *text_view,
-                                      GtkAdjustment *hadj,
-                                      GtkAdjustment *vadj)
-{
-	DmaSparseView *view = DMA_SPARSE_VIEW (text_view);
-
-	if (vadj)
-		g_return_if_fail (GTK_IS_ADJUSTMENT (vadj));
-	
-	if (view->priv->vadjustment && (view->priv->vadjustment != vadj))
-    {
-		g_signal_handlers_disconnect_by_func (view->priv->vadjustment,
-									dma_sparse_view_value_changed,
-					    			view);
-     	g_object_unref (view->priv->vadjustment);
-	}
-	
-	if (view->priv->vadjustment != vadj)
-	{
-		
-		GTK_TEXT_VIEW_CLASS (parent_class)->set_scroll_adjustments  (GTK_TEXT_VIEW (view), hadj, NULL);
-		
-		if (vadj != NULL)
-		{
-			g_object_ref_sink (vadj);
-      
-			g_signal_connect (vadj, "value_changed",
-                        G_CALLBACK (dma_sparse_view_value_changed),
-						view);
-			
-			gtk_adjustment_set_upper (vadj, dma_sparse_buffer_get_upper (view->priv->buffer));
-			gtk_adjustment_set_lower (vadj, dma_sparse_buffer_get_lower (view->priv->buffer));
-			gtk_adjustment_set_value (vadj, 0);
-		}
-		view->priv->vadjustment = vadj;
-		dma_sparse_view_update_adjustement (view);
 	}
 }
 
@@ -979,8 +910,8 @@ dma_sparse_view_get_location (DmaSparseView *view)
  *---------------------------------------------------------------------------*/
 
 static gint
-dma_sparse_view_expose (GtkWidget      *widget,
-			GdkEventExpose *event)
+dma_sparse_view_draw (GtkWidget      *widget,
+                      cairo_t *cr)
 {
 	DmaSparseView *view;
 	GtkTextView *text_view;
@@ -992,15 +923,15 @@ dma_sparse_view_expose (GtkWidget      *widget,
 	event_handled = FALSE;
 	
 	/* now check for the left window, which contains the margin */
-	if (event->window == gtk_text_view_get_window (text_view,
-						       GTK_TEXT_WINDOW_LEFT)) 
+	if (gtk_cairo_should_draw_window (cr, gtk_text_view_get_window (text_view,
+	                                                                GTK_TEXT_WINDOW_LEFT))) 
 	{
-		dma_sparse_view_paint_margin (view, event);
+		dma_sparse_view_paint_margin (view, cr);
 		event_handled = TRUE;
-	} 
+	}
 	else
 	{
-		event_handled = GTK_WIDGET_CLASS (parent_class)->expose_event (widget, event);
+		event_handled = GTK_WIDGET_CLASS (dma_sparse_view_parent_class)->draw (widget, cr);
 	}
 	
 	return event_handled;
@@ -1014,7 +945,7 @@ dma_sparse_view_size_allocate (GtkWidget *widget,
 
 	view = DMA_SPARSE_VIEW (widget);
 	
-	GTK_WIDGET_CLASS (parent_class)->size_allocate (widget, allocation);
+	GTK_WIDGET_CLASS (dma_sparse_view_parent_class)->size_allocate (widget, allocation);
 
 	dma_sparse_view_update_adjustement (view);
 	dma_sparse_view_refresh (view);
@@ -1024,7 +955,7 @@ dma_sparse_view_size_allocate (GtkWidget *widget,
  *---------------------------------------------------------------------------*/
 
 static void
-dma_sparse_view_destroy (GtkObject *object)
+dma_sparse_view_destroy (GtkWidget *object)
 {
 	DmaSparseView *view;
 
@@ -1039,7 +970,7 @@ dma_sparse_view_destroy (GtkObject *object)
 		view->priv->goto_entry = NULL;
 	}
 	
-	GTK_OBJECT_CLASS (parent_class)->destroy (object);
+	GTK_WIDGET_CLASS (dma_sparse_view_parent_class)->destroy (object);
 }
 
 /* GObject functions
@@ -1106,7 +1037,7 @@ dma_sparse_view_dispose (GObject *object)
 	
 	view = DMA_SPARSE_VIEW (object);
 	
-	G_OBJECT_CLASS (parent_class)->dispose (object);
+	G_OBJECT_CLASS (dma_sparse_view_parent_class)->dispose (object);
 }
 
 /* finalize is the last destruction step. It must free all memory allocated
@@ -1127,14 +1058,14 @@ dma_sparse_view_finalize (GObject *object)
 
 	g_free (view->priv);
 
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (dma_sparse_view_parent_class)->finalize (object);
 }
 
 /* instance_init is the constructor. All functions should work after this
  * call. */
 
 static void
-dma_sparse_view_instance_init (DmaSparseView *view)
+dma_sparse_view_init (DmaSparseView *view)
 {
 	PangoFontDescription *font_desc;
 	
@@ -1175,30 +1106,25 @@ static void
 dma_sparse_view_class_init (DmaSparseViewClass * klass)
 {
 	GObjectClass *gobject_class;
-	GtkObjectClass *object_class;
 	GtkWidgetClass   *widget_class;
 	GtkTextViewClass *text_view_class;
-
 	g_return_if_fail (klass != NULL);
 	
 	gobject_class = (GObjectClass *) klass;
-	object_class = (GtkObjectClass *) klass;
 	widget_class = GTK_WIDGET_CLASS (klass);
 	text_view_class = GTK_TEXT_VIEW_CLASS (klass);
-	parent_class = (GtkTextViewClass*) g_type_class_peek_parent (klass);
 	
 	gobject_class->dispose = dma_sparse_view_dispose;
 	gobject_class->finalize = dma_sparse_view_finalize;
 	gobject_class->get_property = dma_sparse_view_get_property;
 	gobject_class->set_property = dma_sparse_view_set_property;	
 
-	object_class->destroy = dma_sparse_view_destroy;
+	widget_class->destroy = dma_sparse_view_destroy;
 
 	widget_class->size_allocate = dma_sparse_view_size_allocate;
-	widget_class->expose_event = dma_sparse_view_expose;	
+	widget_class->draw = dma_sparse_view_draw;	
 	
 	text_view_class->move_cursor = dma_sparse_view_move_cursor;
-	text_view_class->set_scroll_adjustments = dma_sparse_view_set_scroll_adjustments;
 	
 	g_object_class_install_property (gobject_class,
 					 PROP_SHOW_LINE_NUMBERS,
@@ -1215,34 +1141,6 @@ dma_sparse_view_class_init (DmaSparseViewClass * klass)
 							       _("Whether to display line marker pixbufs"),
 							       FALSE,
 							       G_PARAM_READWRITE));	
-}
-
-GType
-dma_sparse_view_get_type (void)
-{
-	static GType type = 0;
-
-	if (!type)
-	{
-		static const GTypeInfo type_info = 
-		{
-			sizeof (DmaSparseViewClass),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) dma_sparse_view_class_init,
-			(GClassFinalizeFunc) NULL,
-			NULL,           /* class_data */
-			sizeof (DmaSparseView),
-			0,              /* n_preallocs */
-			(GInstanceInitFunc) dma_sparse_view_instance_init,
-			NULL            /* value_table */
-		};
-
-		type = g_type_register_static (GTK_TYPE_TEXT_VIEW,
-		                            "DmaSparseView", &type_info, 0);
-	}
-	
-	return type;
 }
 
 /* Creation and Destruction

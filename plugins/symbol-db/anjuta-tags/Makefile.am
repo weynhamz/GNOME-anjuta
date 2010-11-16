@@ -12,7 +12,7 @@ AM_CFLAGS =\
 	 $(WARN_CFLAGS) \
 	 $(ANJUTA_CFLAGS) \
 	 $(VALA_CFLAGS) \
-	 $(LIBXML_CFLAGS)
+	 $(XML_CFLAGS)
 
 bin_PROGRAMS = anjuta-tags
 
@@ -31,7 +31,7 @@ js-parser/lex.yy.c : ${LEXFILE}
 	${LEXER} ${LEXCCFLAGS} ${LEXFILE}
 
 ctags-visitor.c: ctags-visitor.vala
-	$(VALAC) -g -h ctags-vala.h -C --pkg vala-0.10 $^
+	$(VALAC) -g -h ctags-vala.h -C --pkg libvala-0.12 $^
 
 anjuta_tags_SOURCES = \
 	main.c        \
@@ -130,7 +130,7 @@ anjuta_tags_SOURCES = \
 anjuta_tags_LDADD = \
 		$(ANJUTA_LIBS) \
 		$(VALA_LIBS) \
-		$(LIBXML_LIBS)
+		$(XML_LIBS)
 
 EXTRA_DIST = ${YACCFILE} ${LEXFILE} ctags-visitor.vala ctags-visitor.c ctags-vala.h
 

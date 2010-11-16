@@ -3,8 +3,8 @@ dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ([2.64])
 
 m4_define(anjuta_major_version,  2)
-m4_define(anjuta_minor_version, 32)
-m4_define(anjuta_micro_version, 0)
+m4_define(anjuta_minor_version, 91)
+m4_define(anjuta_micro_version, 2)
 m4_define(anjuta_nano_version, 0)
 m4_define(anjuta_version, anjuta_major_version.anjuta_minor_version.anjuta_micro_version.anjuta_nano_version)
 
@@ -33,31 +33,30 @@ AC_SUBST(ANJUTA_VERSION)
 
 dnl Anjuta core
 GLIB_REQUIRED=2.25.15
-GTK_REQUIRED=2.20.0
+GTK_REQUIRED=2.29.1
 GTHREAD_REQUIRED=2.22.0
 GDK_PIXBUF_REQUIRED=2.0.0
-GCONF_REQUIRED=2.12.0
 GDA_REQUIRED=4.1.6
 VTE_REQUIRED=0.13.1
 LIBXML_REQUIRED=2.4.23
-GDL_REQUIRED=2.27.1
+GDL_REQUIRED=2.91.1
 LIBWNCK_REQUIRED=2.12
-UNIQUE_REQUIRED=1.0.0
+UNIQUE_REQUIRED=2.90.1
 
 dnl GtkSourceView
 GTKSOURCEVIEW_REQUIRED=2.9.7
 
 dnl Devhelp
-LIBDEVHELP_REQUIRED=0.22
+LIBDEVHELP_REQUIRED=2.90.6
 
 dnl Glade
-GLADEUI_REQUIRED=3.6.7
+GLADEUI_REQUIRED=3.7.1
 
 dnl Vala
-VALA_REQUIRED=0.9.5
+VALA_REQUIRED=0.11.2
 
 dnl Introspection
-GI_REQUIRED=0.6.6
+GI_REQUIRED=0.9.5
 
 dnl Various
 LIBGRAPHVIZ_REQUIRED=1.0
@@ -69,10 +68,10 @@ SVN_MINOR=5
 SVN_PATCH=0
 SUBVERSION_REQUIRED=$SVN_MAJOR.$SVN_MINOR.$SVN_PATCH
 
-AM_INIT_AUTOMAKE([1.11 dist-bzip2 no-dist-gzip])
+AM_INIT_AUTOMAKE([1.10 dist-bzip2 no-dist-gzip])
 AM_MAINTAINER_MODE([enable])
 
-AM_SILENT_RULES([yes])
+m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
 dnl Check for C Compiler
 AC_PROG_CC
@@ -117,6 +116,9 @@ dnl 	DEPRECATED_FLAGS="-DGDK_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED"
 dnl	AC_SUBST(DEPRECATED_FLAGS)
 dnl fi
 
+dnl Check for pkg-config
+PKG_PROG_PKG_CONFIG([0.22])
+
 dnl Enable versioned user preferences directory
 AC_ARG_WITH(pref-suffix,
   AS_HELP_STRING([--with-pref-suffix=VALUE],[Suffix to add to user preferences dir.]),
@@ -131,14 +133,6 @@ AC_DEFINE_UNQUOTED(PREF_SUFFIX,
 LT_PREREQ([2.2])
 LT_INIT([disable-static])
 
-
-
-dnl ***************************************************************************
-dnl Check for GConf stuff to handle schema installation
-dnl ***************************************************************************
-AC_PATH_PROG(GCONFTOOL, gconftool-2)
-AM_GCONF_SOURCE_2
-
 dnl ***************************************************************************
 dnl Check for GObject-Introspection
 dnl ***************************************************************************
@@ -151,35 +145,35 @@ dnl ***************************************************************************
 gjsdir=`pkg-config --variable=jsdir gjs-1.0`
 AC_SUBST(gjsdir)
 
-dnl ***************************************************************************
-dnl Check for pkgconfig
-dnl ***************************************************************************
-AC_PATH_PROG(PKG_CONFIG, pkg-config,no)
-if test x$PKG_CONFIG = xno; then
-  AC_MSG_ERROR(Please install the pkg-config package from http://www.freedesktop.org/software/pkgconfig/)
-fi
-
 dnl Check base modules
 
 PKG_CHECK_MODULES([ANJUTA],
    [gthread-2.0 >= $GTHREAD_REQUIRED
-	unique-1.0 >= $UNIQUE_REQUIRED
+	unique-3.0 >= $UNIQUE_REQUIRED
 	glib-2.0 >= $GLIB_REQUIRED
 	gio-2.0 >= $GLIB_REQUIRED
-	gtk+-2.0 >= $GTK_REQUIRED
-	gdk-pixbuf-2.0 >= $GDK_PIXBUF_REQUIRED
-	gconf-2.0 >= $GCONF_REQUIRED
-	vte >= $VTE_REQUIRED
-	libxml-2.0 >= $LIBXML_REQUIRED
-	gdl-1.0 >= $GDL_REQUIRED
-	libgda-4.0 >= $GDA_REQUIRED
-	libxslt])
+	gtk+-3.0 >= $GTK_REQUIRED
+	gdk-pixbuf-2.0 >= $GDK_PIXBUF_REQUIRED])
+
+PKG_CHECK_MODULES([XML],
+   [libxml-2.0 >= $LIBXML_REQUIRED])
+
+PKG_CHECK_MODULES([GDL],
+   [gdl-3.0 >= $GDL_REQUIRED])
+
+PKG_CHECK_MODULES([GDA],
+   [libgda-4.0 >= $GDA_REQUIRED])
+	
+PKG_CHECK_MODULES([VTE],
+   [vte-2.90 >= $VTE_REQUIRED])
+
 
 dnl Check for autogen
 dnl -----------------
 AC_PATH_PROG(AUTOGEN_PATH, autogen,no)
 if test x$AUTOGEN_PATH = xno; then
-   AC_MSG_ERROR([Couldn't find autogen, please install the autogen package. You can get it from http://autogen.sourceforge.net/])
+   AC_MSG_WARN([Couldn't find autogen. You will be able to build anjuta without autogen \
+                but several things won't work. You can get it from http://autogen.sourceforge.net/])
 fi
 
 dnl Check for Devhelp
@@ -199,7 +193,7 @@ if test "$user_disabled_devhelp" = 1; then
 else
 	AC_MSG_RESULT(no)
 	PKG_CHECK_MODULES(PLUGIN_DEVHELP,
-				[libdevhelp-2.0 >= $LIBDEVHELP_REQUIRED webkit-1.0],
+				[libdevhelp-3.0 >= $LIBDEVHELP_REQUIRED],
 				[
 				    devhelp_enabled=yes
 				], [
@@ -226,7 +220,7 @@ if test "$user_disabled_glade" = 1; then
 else
 	AC_MSG_RESULT(no)
 	gladeui_version=0
-	PKG_CHECK_MODULES(PLUGIN_GLADE, gladeui-1.0 >= $GLADEUI_REQUIRED,
+	PKG_CHECK_MODULES(PLUGIN_GLADE, gladeui-3.0 >= $GLADEUI_REQUIRED,
 	    [
 		gladeui_found=yes
 	    ], [
@@ -254,7 +248,7 @@ else
 	AC_MSG_RESULT(no)
 	sourceview="yes"
 	PKG_CHECK_MODULES(PLUGIN_SOURCEVIEW,
-		[gtksourceview-2.0 >= $GTKSOURCEVIEW_REQUIRED])
+		[gtksourceview-3.0 >= $GTKSOURCEVIEW_REQUIRED])
 fi
 
 AM_CONDITIONAL(HAVE_PLUGIN_SOURCEVIEW, [test x$sourceview = xyes])
@@ -262,13 +256,26 @@ AM_CONDITIONAL(HAVE_PLUGIN_SOURCEVIEW, [test x$sourceview = xyes])
 dnl Check for vala
 dnl -------------------------------------------------------------
 
-PKG_CHECK_MODULES(VALA,
-	[vala-0.10 >= $VALA_REQUIRED],
-	[enable_vala="yes"],
-	[enable_vala="no"])
+AC_ARG_ENABLE(vala,
+	AC_HELP_STRING([--disable-vala],[Disable vala support]),
+	[ if test "$enableval" = "no"; then
+		user_disabled_vala=1
+	  fi ],
+	[ user_disabled_vala=0 ])
+
+AC_MSG_CHECKING(if vala support is disabled)
+if test "$user_disabled_vala" = 1; then
+        AC_MSG_RESULT(yes)
+	enable_vala="no"
+else
+	AC_MSG_RESULT(no)
+	enable_vala="yes"
+	PKG_CHECK_MODULES(VALA,
+		[libvala-0.12 >= $VALA_REQUIRED])
+fi
 
 if test x$enable_vala = xyes; then
-	AC_PATH_PROG(VALAC, valac, valac)
+	AC_PATH_PROGS(VALAC, [valac-0.12 valac], valac)
 	AC_SUBST(VALAC)
 fi
 
@@ -300,7 +307,7 @@ PKG_CHECK_MODULES(PLUGIN_SYMBOL_DB,
 dnl Setup Anjuta Library flags
 dnl --------------------------
 LIBANJUTA_CFLAGS='$(ANJUTA_CFLAGS) $(DEPRECATED_FLAGS) -I$(top_srcdir) -I$(top_builddir)/libanjuta -DPACKAGE_PIXMAPS_DIR=\""$(datadir)/pixmaps/$(PACKAGE)"\" -DPACKAGE_LIB_DIR=\""$(pkglibdir)"\" -DPACKAGE_DATA_DIR=\""$(datadir)/$(PACKAGE)"\"'
-LIBANJUTA_LIBS='$(top_builddir)/libanjuta/libanjuta.la'
+LIBANJUTA_LIBS='$(top_builddir)/libanjuta/libanjuta-3.la'
 AC_SUBST(LIBANJUTA_CFLAGS)
 AC_SUBST(LIBANJUTA_LIBS)
 
@@ -331,11 +338,6 @@ AC_SUBST(anjuta_data_dir)
 AC_SUBST(anjuta_ui_dir)
 AC_SUBST(anjuta_glade_dir)
 AC_SUBST(anjuta_image_dir)
-
-dnl ***************************************************************************
-dnl Check for old vte version
-dnl ***************************************************************************
-PKG_CHECK_MODULES(VTE, vte >= $VTE_REQUIRED)
 
 dnl ***************************************************************************
 dnl Check for marshal and enum generators
@@ -800,9 +802,8 @@ AM_MISSING_PROG([AUTOM4TE], [autom4te])
 AC_CONFIG_FILES([
 Makefile
 po/Makefile.in
-libfoocanvas/Makefile
 libanjuta/Makefile
-libanjuta/libanjuta-1.0.pc
+libanjuta/libanjuta-3.0.pc
 libanjuta/anjuta-version.h
 libanjuta/interfaces/Makefile
 src/Makefile
@@ -821,10 +822,8 @@ doc/Makefile
 scripts/Makefile
 launcher/Makefile
 plugins/Makefile
-plugins/gtodo/Makefile
 plugins/class-gen/Makefile
 plugins/class-gen/templates/Makefile
-plugins/class-inheritance/Makefile
 plugins/patch/Makefile
 plugins/document-manager/Makefile
 plugins/document-manager/images/Makefile
@@ -840,7 +839,6 @@ plugins/js-debugger/Makefile
 plugins/file-manager/Makefile
 plugins/file-loader/Makefile
 plugins/file-wizard/Makefile
-plugins/terminal/Makefile
 plugins/build-basic-autotools/Makefile
 plugins/project-manager/Makefile
 plugins/symbol-db/benchmark/Makefile
@@ -856,6 +854,7 @@ plugins/cvs-plugin/Makefile
 plugins/subversion/Makefile
 plugins/git/Makefile
 plugins/sourceview/Makefile
+plugins/terminal/Makefile
 plugins/tools/Makefile
 plugins/tools/scripts/Makefile
 plugins/language-manager/Makefile
@@ -961,7 +960,7 @@ if [ test x$devhelp_enabled = xyes ]; then
        echo "Building devhelp plugin: ...............................YES"
 else
        echo "Building devhelp plugin: ...............................NO"
-       echo "        Requires libdevhelp-2.0 (>= $LIBDEVHELP_REQUIRED)"
+       echo "        Requires libdevhelp-3.0 (>= $LIBDEVHELP_REQUIRED)"
 fi
 
 if [ test x$sourceview = xyes ]; then

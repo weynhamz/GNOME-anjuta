@@ -75,7 +75,7 @@ INCLUDES =						\
 	$(LIBANJUTA_CFLAGS)
 	
 GTKDOC_LIBS =						\
-	$(top_builddir)/libanjuta/libanjuta.la \
+	$(top_builddir)/libanjuta/libanjuta-3.la \
 	$(top_builddir)/libanjuta/interfaces/libanjuta-interfaces.la \
 	$(LIBANJUTA_LIBS)
 

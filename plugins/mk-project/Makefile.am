@@ -21,7 +21,7 @@ AM_CPPFLAGS = 					\
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	$(GIO_CFLAGS) \
-	$(LIBXML_CFLAGS) \
+	$(XML_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
 	-DG_LOG_DOMAIN=\"mk-project\"
 
@@ -44,7 +44,8 @@ libmk_project_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 libmk_project_la_LIBADD = \
 	$(GIO_LIBS) \
-	$(LIBANJUTA_LIBS)
+	$(LIBANJUTA_LIBS) \
+	$(XML_LIBS)
 
 AM_YFLAGS = -t -v -g -rall
 

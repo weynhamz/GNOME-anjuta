@@ -61,6 +61,7 @@
 #define PREF_INDENT_PARANTHESE_LINEUP "cpp-indent-paranthese-lineup"
 #define PREF_INDENT_PARANTHESE_SIZE "cpp-indent-paranthese-size"
 #define PREF_BRACE_AUTOCOMPLETION "cpp-brace-autocompletion"
+#define PREF_COMMENT_LEADING_ASTERISK "cpp-multiline-leading-asterisk"
 
 #define TAB_SIZE (ianjuta_editor_get_tabsize (editor, NULL))
 
@@ -844,7 +845,12 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 	gboolean current_line_is_preprocessor = FALSE;
 	gboolean current_line_is_continuation = FALSE;
 	gboolean line_checked_for_comment = FALSE;
-	
+
+    /* Determine whether or not to add multi-line comment asterisks */
+	gchar* comment_continued = " * ";
+	IAnjutaIterable* line_begin = ianjuta_editor_get_line_begin_position (editor, line_num, NULL);
+	IAnjutaIterable* line_end = ianjuta_editor_get_line_end_position (editor, line_num, NULL);
+
 	*incomplete_statement = -1;
 	*line_indent_spaces = 0;
 	
@@ -967,10 +973,20 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 						if (!comment_end)
 						{
 							extra_indent++;
+
+							/* If a multiline comment is continuing, check the next line and insert " * " 
+							 * only if it does not already exist there. The purpose of this fix is to avoid
+							 * extra " * " on auto-indent. */
+
+							if (g_settings_get_boolean (plugin->settings, PREF_COMMENT_LEADING_ASTERISK) &&
+									ianjuta_iterable_compare (line_end, line_begin, NULL) == 0)
+								ianjuta_editor_insert (editor, line_begin, comment_continued, -1, NULL);
+
 							/* In the middle of a comment we can't know
 						     * if the statement is incomplete
 							 */
 							*incomplete_statement = -1;
+							
 							/* ":" have to be ignored inside comments */
 							if (*colon_indent)
 							{
@@ -1412,6 +1428,22 @@ get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 	return line_indent;
 }
 
+static void on_editor_char_inserted_cpp (IAnjutaEditor *editor,
+                                         IAnjutaIterable *insert_pos,
+                                         gchar ch,
+                                         CppJavaPlugin *plugin);
+
+static void
+insert_editor_blocked (IAnjutaEditor* editor,
+                       IAnjutaIterable* iter,
+                       gchar* text,
+                       CppJavaPlugin* plugin)
+{
+	g_signal_handlers_block_by_func (editor, on_editor_char_inserted_cpp, plugin);
+	ianjuta_editor_insert (editor, iter, text, -1, NULL);
+	g_signal_handlers_unblock_by_func (editor, on_editor_char_inserted_cpp, plugin);
+}
+
 static void
 on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 							 IAnjutaIterable *insert_pos,
@@ -1509,12 +1541,12 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 				switch (ch)
 				{
 					case '[': 
-							  ianjuta_editor_insert (editor, iter,
-													 "]", 1, NULL);
+							  insert_editor_blocked (editor, iter,
+													 "]", plugin);
 							  break;
 					case '(': 
-							  ianjuta_editor_insert (editor, iter,
-													 ")", 1, NULL);
+							  insert_editor_blocked (editor, iter,
+													 ")", plugin);
 							  break;
 					default: 
 						       break;
@@ -1554,7 +1586,7 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 					else c = g_strdup ("'");
 					
 					ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (editor), NULL);
-					ianjuta_editor_insert (editor, iter, c, 1, NULL);
+					insert_editor_blocked (editor, iter, c, plugin);
 					ianjuta_editor_goto_position (editor, iter, NULL);
 					ianjuta_document_end_undo_action (IANJUTA_DOCUMENT (editor), NULL);	
 					

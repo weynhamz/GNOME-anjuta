@@ -828,7 +828,7 @@ sr_get_gladewidget(GladeWidgetId id)
 }
 
 static void
-search_set_popdown_strings (GtkComboBoxEntry *combo, GList* strings)
+search_set_popdown_strings (GtkComboBox* combo, GList* strings)
 {
 	GtkListStore *store;
 	gboolean init;
@@ -846,7 +846,7 @@ search_set_popdown_strings (GtkComboBoxEntry *combo, GList* strings)
 	gtk_combo_box_set_model (GTK_COMBO_BOX(combo), GTK_TREE_MODEL (store));
 	g_object_unref (store);
 	
-	if (init) gtk_combo_box_entry_set_text_column (combo, 0);	
+	if (init) gtk_combo_box_set_entry_text_column (combo, 0);
 }
 
 static void
@@ -1407,7 +1407,7 @@ search_update_combos(void)
 					search_word);
 				sr->search.expr_history = list_max_items(sr->search.expr_history,
 					MAX_ITEMS_SEARCH_COMBO);
-				search_set_popdown_strings(GTK_COMBO_BOX_ENTRY (search_list),
+				search_set_popdown_strings(GTK_COMBO_BOX  (search_list),
 					sr->search.expr_history);
 				
 				//search_toolbar_set_text(search_word);	
@@ -1444,7 +1444,7 @@ replace_update_combos(void)
 					replace_word);
 				sr->replace.expr_history = list_max_items(sr->replace.expr_history,
 					MAX_ITEMS_SEARCH_COMBO);
-				search_set_popdown_strings(GTK_COMBO_BOX_ENTRY (replace_list),
+				search_set_popdown_strings(GTK_COMBO_BOX (replace_list),
 					sr->replace.expr_history);
 			}
 		}
@@ -1520,7 +1520,7 @@ gboolean
 on_search_dialog_key_press_event(GtkWidget *widget, GdkEventKey *event,
                                gpointer user_data)
 {
-	if (event->keyval == GDK_Escape)
+	if (event->keyval == GDK_KEY_Escape)
 	{
 		if (user_data)
 		{
@@ -1538,7 +1538,7 @@ on_search_dialog_key_press_event(GtkWidget *widget, GdkEventKey *event,
 	else
 	{
 		if ( (event->state & GDK_CONTROL_MASK) &&
-				((event->keyval & 0x5F) == GDK_G))
+				((event->keyval & 0x5F) == GDK_KEY_G))
 		{
 			if (event->state & GDK_SHIFT_MASK)
 				search_replace_previous();

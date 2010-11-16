@@ -105,7 +105,7 @@ on_subversion_commit_response(GtkDialog* dialog, gint response,
 			if (msg_enable_selected == TRUE)
 			{
 				commit_command = svn_commit_command_new (selected_paths, 
-													 gtk_combo_box_get_active_text(GTK_COMBO_BOX(commit_prev_msg_combo)),
+													 gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT (commit_prev_msg_combo)),
 													 !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(norecurse)));
 			}
 			else
@@ -178,7 +178,7 @@ on_prev_message_enable_clicked (GtkToggleButton *button, gpointer data)
 static void
 subversion_commit_dialog_populate_logs (gpointer msg, gpointer user_data)
 {
-	gtk_combo_box_append_text(GTK_COMBO_BOX(user_data), (gchar*) msg);
+	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(user_data), (gchar*) msg);
 }
 
 static void

@@ -139,35 +139,35 @@ on_goto_key_pressed (GtkWidget* entry, GdkEventKey* event, SearchBox* search_box
 	SearchBoxPrivate* private = GET_PRIVATE(search_box);
 	switch (event->keyval)
 	{
-		case GDK_0:
-		case GDK_1:
-		case GDK_2:
-		case GDK_3:
-		case GDK_4:
-		case GDK_5:
-		case GDK_6:
-		case GDK_7:
-		case GDK_8:
-		case GDK_9:
-		case GDK_KP_0:
-		case GDK_KP_1:
-		case GDK_KP_2:
-		case GDK_KP_3:
-		case GDK_KP_4:
-		case GDK_KP_5:
-		case GDK_KP_6:
-		case GDK_KP_7:
-		case GDK_KP_8:
-		case GDK_KP_9:
-		case GDK_Return:
-		case GDK_KP_Enter:
-		case GDK_BackSpace:
-		case GDK_Delete:
+		case GDK_KEY_0:
+		case GDK_KEY_1:
+		case GDK_KEY_2:
+		case GDK_KEY_3:
+		case GDK_KEY_4:
+		case GDK_KEY_5:
+		case GDK_KEY_6:
+		case GDK_KEY_7:
+		case GDK_KEY_8:
+		case GDK_KEY_9:
+		case GDK_KEY_KP_0:
+		case GDK_KEY_KP_1:
+		case GDK_KEY_KP_2:
+		case GDK_KEY_KP_3:
+		case GDK_KEY_KP_4:
+		case GDK_KEY_KP_5:
+		case GDK_KEY_KP_6:
+		case GDK_KEY_KP_7:
+		case GDK_KEY_KP_8:
+		case GDK_KEY_KP_9:
+		case GDK_KEY_Return:
+		case GDK_KEY_KP_Enter:
+		case GDK_KEY_BackSpace:
+		case GDK_KEY_Delete:
 		{
 			/* This is a number or enter which is ok */
 			break;
 		}
-		case GDK_Escape:
+		case GDK_KEY_Escape:
 		{
 			gtk_widget_hide (GTK_WIDGET (search_box));
 			search_box_set_entry_color (search_box, TRUE);
@@ -193,7 +193,7 @@ on_entry_key_pressed (GtkWidget* entry, GdkEventKey* event, SearchBox* search_bo
 	SearchBoxPrivate* private = GET_PRIVATE(search_box);
 	switch (event->keyval)
 	{
-		case GDK_Escape:
+		case GDK_KEY_Escape:
 		{
 			gtk_widget_hide (GTK_WIDGET (search_box));
 			search_box_set_entry_color (search_box, TRUE);

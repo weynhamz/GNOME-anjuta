@@ -98,6 +98,7 @@ EXTRA_DIST = \
 	$(schema_DATA) \
 	$(anjuta_ui_DATA) \
 	$(anjuta_glade_DATA) \
+	$(schema_in_files) \
 	anjuta-marshal.list
 
 DISTCLEANFILES = \

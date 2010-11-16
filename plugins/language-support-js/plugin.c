@@ -32,6 +32,7 @@
 #include <glib.h>
 #include "util.h"
 #include "plugin.h"
+#include "prefs.h"
 #include "code-completion.h"
 
 #include "gi-symbol.h"
@@ -39,10 +40,6 @@
 #define PREFS_BUILDER ANJUTA_GLADE_DIR"/anjuta-language-javascript.ui"
 #define ICON_FILE "anjuta-language-cpp-java-plugin.png"
 #define UI_FILE ANJUTA_UI_DIR"/anjuta-language-javascript.xml"
-
-#define MIN_CODECOMPLETE "javascript.min"
-#define ADD_BRACE_AFTER_FUNCCALL "javascript.add_brace_after_func"
-#define SHOW_CALLTIPS "javascript.show_calltips"
 
 #define JSDIRS_LISTSTORE "jsdirs_liststore"
 #define JSDIRS_TREEVIEW "jsdirs_treeview"
@@ -75,7 +72,7 @@ js_support_plugin_activate (AnjutaPlugin *plugin)
 					 on_value_removed_current_editor,
 					 plugin);
 
-	js_support_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
+	js_support_plugin->prefs = g_settings_new (JS_SUPPORT_SCHEMA);
 	return TRUE;
 }
 
@@ -329,7 +326,7 @@ ipreferences_merge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
 	gtk_builder_connect_signals (bxml, tree);
 	jsdirs_init_treeview (bxml);
 	anjuta_preferences_add_from_builder (prefs,
-								 bxml, "vbox1", _("JavaScript"),
+								 bxml, NULL, "vbox1", _("JavaScript"),
 								 ICON_FILE);
 	g_object_unref (bxml);
 }
@@ -370,11 +367,11 @@ iprovider_activate (IAnjutaProvider *obj, IAnjutaIterable* iter,  gpointer data,
 	{
 		IAnjutaIterable *position = ianjuta_editor_get_position (IANJUTA_EDITOR (plugin->current_editor), NULL);
 
-		if (anjuta_preferences_get_bool (plugin->prefs, ADD_BRACE_AFTER_FUNCCALL))
+		if (g_settings_get_boolean (plugin->prefs, ADD_BRACE_AFTER_FUNCCALL))
 		{
 			ianjuta_editor_insert (IANJUTA_EDITOR (plugin->current_editor), position, " (", -1, NULL);
 		}
-		if (anjuta_preferences_get_bool (plugin->prefs, SHOW_CALLTIPS))
+		if (g_settings_get_boolean (plugin->prefs, SHOW_CALLTIPS))
 		{
 /*			GList *t = NULL;
 			gchar *args = code_completion_get_func_tooltip (plugin, sym);
@@ -435,7 +432,7 @@ iprovider_populate (IAnjutaProvider *obj, IAnjutaIterable* iter, GError **err)
 
 	g_assert (plugin->prefs);
 
-	if (strlen (str) < anjuta_preferences_get_int (plugin->prefs, MIN_CODECOMPLETE))
+	if (strlen (str) < g_settings_get_int (plugin->prefs, MIN_CODECOMPLETE))
 	{
 		ianjuta_editor_assist_proposals ( IANJUTA_EDITOR_ASSIST (plugin->current_editor), obj,  NULL,  TRUE, NULL);
 		return;

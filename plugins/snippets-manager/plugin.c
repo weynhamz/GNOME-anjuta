@@ -437,13 +437,13 @@ snippets_manager_plugin_instance_init (GObject * obj)
 		snippets_provider_new (snippets_manager->snippets_db,
 	                           snippets_manager->snippets_interaction);
  
-	g_signal_connect (GTK_OBJECT (snippets_manager->snippets_browser),
+	g_signal_connect (G_OBJECT (snippets_manager->snippets_browser),
     	              "maximize-request",
-    	              GTK_SIGNAL_FUNC (on_snippets_browser_maximize_request),
+    	              G_CALLBACK (on_snippets_browser_maximize_request),
     	              snippets_manager);
-	g_signal_connect (GTK_OBJECT (snippets_manager->snippets_browser),
+	g_signal_connect (G_OBJECT (snippets_manager->snippets_browser),
 	                  "unmaximize-request",
-	                  GTK_SIGNAL_FUNC (on_snippets_browser_unmaximize_request),
+	                  G_CALLBACK (on_snippets_browser_unmaximize_request),
 	                  snippets_manager);
 
 }
@@ -762,9 +762,9 @@ set_up_global_variables_view (SnippetsManagerPlugin *snippets_manager_plugin,
 	                                         global_vars_view_name_data_func,
 	                                         NULL, NULL);
 	gtk_tree_view_append_column (global_vars_view, col);
-	g_signal_connect (GTK_OBJECT (cell), 
+	g_signal_connect (G_OBJECT (cell), 
 	                  "edited",
-	                  GTK_SIGNAL_FUNC (on_global_vars_name_changed),
+	                  G_CALLBACK (on_global_vars_name_changed),
 	                  snippets_manager_plugin->snippets_db);
 	
 	/* Set up the type cell */
@@ -778,9 +778,9 @@ set_up_global_variables_view (SnippetsManagerPlugin *snippets_manager_plugin,
 	                                         global_vars_view_type_data_func,
 	                                         NULL, NULL);
 	gtk_tree_view_append_column (global_vars_view, col);
-	g_signal_connect (GTK_OBJECT (cell), 
+	g_signal_connect (G_OBJECT (cell), 
 	                  "toggled", 
-	                  GTK_SIGNAL_FUNC (on_global_vars_type_toggled), 
+	                  G_CALLBACK (on_global_vars_type_toggled), 
 	                  snippets_manager_plugin->snippets_db);
 
 	/* Set up the text cell */
@@ -795,9 +795,9 @@ set_up_global_variables_view (SnippetsManagerPlugin *snippets_manager_plugin,
 	                                         snippets_manager_plugin->snippets_db, 
 	                                         NULL);
 	gtk_tree_view_append_column (global_vars_view, col);
-	g_signal_connect (GTK_OBJECT (cell), 
+	g_signal_connect (G_OBJECT (cell), 
 	                  "edited",
-	                  GTK_SIGNAL_FUNC (on_global_vars_text_changed),
+	                  G_CALLBACK (on_global_vars_text_changed),
 	                  snippets_manager_plugin->snippets_db);
 
 	/* Set up the instant value cell */
@@ -952,14 +952,14 @@ ipreferences_merge (IAnjutaPreferences* ipref,
 	global_vars_update_data->snippets_db = snippets_manager_plugin->snippets_db;
 	global_vars_update_data->global_vars_view = global_vars_view;
 
-	g_signal_connect (GTK_OBJECT (add_variable_b),
+	g_signal_connect (G_OBJECT (add_variable_b),
 	                  "clicked",
-	                  GTK_SIGNAL_FUNC (on_add_variable_b_clicked),
+	                  G_CALLBACK (on_add_variable_b_clicked),
 	                  global_vars_update_data);
 
-	g_signal_connect (GTK_OBJECT (delete_variable_b),
+	g_signal_connect (G_OBJECT (delete_variable_b),
 	                  "clicked",
-	                  GTK_SIGNAL_FUNC (on_delete_variable_b_clicked),
+	                  G_CALLBACK (on_delete_variable_b_clicked),
 	                  global_vars_update_data);
 	
 	g_object_unref (bxml);

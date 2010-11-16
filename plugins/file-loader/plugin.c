@@ -278,12 +278,12 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 	gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))),
 			    hbox, FALSE, FALSE, 5);
 	label = gtk_label_new (_("Open with:"));
-	options = gtk_combo_box_new_text ();
+	options = gtk_combo_box_text_new ();
 	gtk_box_pack_end (GTK_BOX(hbox), options, FALSE, FALSE, 10);
 	gtk_box_pack_end (GTK_BOX(hbox), label, FALSE, FALSE, 10);
 	
 	/* Document manager plugin */
-	gtk_combo_box_append_text (GTK_COMBO_BOX (options), _("Document Manager"));
+	gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (options), _("Document Manager"));
 	col ++;
 	
 	/* Open with plugins menu items */
@@ -311,7 +311,7 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 			anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
 												  "Location", &name);
 		}
-		gtk_combo_box_append_text (GTK_COMBO_BOX (options), name);
+		gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (options), name);
 		col ++;
 		g_free (name);
 		snode = g_list_next (snode);
@@ -323,7 +323,7 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 	{
 		/* Separator */
 		col++;
-		gtk_combo_box_append_text (GTK_COMBO_BOX (options), "");
+		gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (options), "");
 		gtk_combo_box_set_row_separator_func (GTK_COMBO_BOX (options), RowSeparatorFunc, GINT_TO_POINTER(col), NULL);
 	}	
 	node = mime_apps;
@@ -332,7 +332,7 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 		mime_app = (GAppInfo *)(node->data);
 		if (g_app_info_should_show (mime_app))
 		{
-			gtk_combo_box_append_text (GTK_COMBO_BOX (options), g_app_info_get_name (mime_app));
+			gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (options), g_app_info_get_name (mime_app));
 		}
 		node = g_list_next (node);
 	}
@@ -608,10 +608,10 @@ create_file_open_dialog_gui(GtkWindow* parent, AnjutaFileLoaderPlugin* plugin)
 	
 	g_signal_connect(G_OBJECT(dialog), "response", 
 					G_CALLBACK(on_open_response_ok), plugin);
-	g_signal_connect_swapped (GTK_OBJECT (dialog), 
+	g_signal_connect_swapped (dialog, 
                              "response", 
                              G_CALLBACK (gtk_widget_destroy),
-                             GTK_OBJECT (dialog));
+                             dialog);
 	return dialog;
 }
 

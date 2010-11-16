@@ -19,6 +19,7 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)\
 	-I.. -I. \
 	$(LIBANJUTA_CFLAGS) \
+	$(GDL_CFLAGS) \
 	-DPACKAGE_BIN_DIR=\"$(bindir)\" \
 	-DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" \
 	-DPACKAGE_DOC_DIR=\"$(docdir)\" \
@@ -42,11 +43,8 @@ anjuta_SOURCES = \
 	main.c
 
 anjuta_LDADD =  \
-	$(GCONF_LIBS) \
 	$(GDL_LIBS) \
-	$(GLADE_LIBS)\
-	$(GLIB_LIBS) \
-	$(top_builddir)/libanjuta/libanjuta.la
+	$(LIBANJUTA_LIBS)
 
 anjuta_LDFLAGS = $(ANJUTA_LDFLAGS)
 
@@ -59,13 +57,15 @@ noinst_PROGRAMS =  anjuta-shell
 
 anjuta_shell_SOURCES = shell.c shell.h
 anjuta_shell_LDADD =  \
-	$(top_builddir)/libanjuta/libanjuta.la
+	$(LIBANJUTA_LIBS) \
+	$(GDL_LIBS)
 
 EXTRA_DIST = \
 	$(anjuta_ui_DATA) \
 	anjuta-shell.ui \
 	$(anjuta_layout_DATA) \
 	$(anjuta_glade_DATA) \
-	$(anjuta_pixmaps_DATA)
+	$(anjuta_pixmaps_DATA) \
+	$(prefs_keyfile)
 
 -include $(top_srcdir)/git.mk

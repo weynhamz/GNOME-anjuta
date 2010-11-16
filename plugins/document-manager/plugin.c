@@ -134,16 +134,16 @@ static ShortcutMapping global_keymap[] = {
 	{ m_C_, GDK_Tab,		 ID_NEXTBUFFER },
 	{ mSC_, GDK_ISO_Left_Tab, ID_PREVBUFFER },
 */
-	{ m__M, GDK_1, ID_FIRSTBUFFER },
-	{ m__M, GDK_2, ID_FIRSTBUFFER + 1},
-	{ m__M, GDK_3, ID_FIRSTBUFFER + 2},
-	{ m__M, GDK_4, ID_FIRSTBUFFER + 3},
-	{ m__M, GDK_5, ID_FIRSTBUFFER + 4},
-	{ m__M, GDK_6, ID_FIRSTBUFFER + 5},
-	{ m__M, GDK_7, ID_FIRSTBUFFER + 6},
-	{ m__M, GDK_8, ID_FIRSTBUFFER + 7},
-	{ m__M, GDK_9, ID_FIRSTBUFFER + 8},
-	{ m__M, GDK_0, ID_FIRSTBUFFER + 9},
+	{ m__M, GDK_KEY_1, ID_FIRSTBUFFER },
+	{ m__M, GDK_KEY_2, ID_FIRSTBUFFER + 1},
+	{ m__M, GDK_KEY_3, ID_FIRSTBUFFER + 2},
+	{ m__M, GDK_KEY_4, ID_FIRSTBUFFER + 3},
+	{ m__M, GDK_KEY_5, ID_FIRSTBUFFER + 4},
+	{ m__M, GDK_KEY_6, ID_FIRSTBUFFER + 5},
+	{ m__M, GDK_KEY_7, ID_FIRSTBUFFER + 6},
+	{ m__M, GDK_KEY_8, ID_FIRSTBUFFER + 7},
+	{ m__M, GDK_KEY_9, ID_FIRSTBUFFER + 8},
+	{ m__M, GDK_KEY_0, ID_FIRSTBUFFER + 9},
 	{ 0,   0,		 0 }
 };
 
@@ -1376,8 +1376,8 @@ on_window_key_release_event (AnjutaShell *shell,
 {
 	g_return_val_if_fail (event != NULL, FALSE);
 
-	if (plugin->g_tabbing && ((event->keyval == GDK_Control_L) ||
-		(event->keyval == GDK_Control_R)))
+	if (plugin->g_tabbing && ((event->keyval == GDK_KEY_Control_L) ||
+		(event->keyval == GDK_KEY_Control_R)))
 	{
 		GtkNotebook *notebook = GTK_NOTEBOOK (plugin->docman);
 		GtkWidget *widget;

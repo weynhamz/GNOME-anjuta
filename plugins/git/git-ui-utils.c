@@ -301,7 +301,6 @@ message_dialog (GtkMessageType message_type, const gchar *message)
 			break;
 	}
 
-	gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
 	gtk_widget_set_size_request (text_view, 500, 150);
 	
 	gtk_container_add (GTK_CONTAINER (scrolled_window), text_view);
