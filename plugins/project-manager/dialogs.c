@@ -1540,7 +1540,7 @@ anjuta_pm_project_new_package (AnjutaPmProject *project,
 	
     /* Fill combo box with modules */
     store = gtk_list_store_new(1, G_TYPE_STRING);
-    gtk_combo_box_entry_set_text_column (GTK_COMBO_BOX_ENTRY (module_entry), 0);
+    gtk_combo_box_set_entry_text_column (GTK_COMBO_BOX (module_entry), 0);
 
 	root = ianjuta_project_get_root (project->project, NULL);
 	pos = 0;
@@ -1564,7 +1564,7 @@ anjuta_pm_project_new_package (AnjutaPmProject *project,
 		}
     }
     gtk_combo_box_set_model (GTK_COMBO_BOX(module_entry), GTK_TREE_MODEL(store));
-    gtk_combo_box_entry_set_text_column (GTK_COMBO_BOX_ENTRY (module_entry), 0);
+    gtk_combo_box_set_entry_text_column (GTK_COMBO_BOX (module_entry), 0);
     g_object_unref (store);
     if (default_pos >= 0)
     {
@@ -1621,7 +1621,7 @@ anjuta_pm_project_new_package (AnjutaPmProject *project,
 				AnjutaProjectNode *module;
 				GString *error_message = g_string_new (NULL);
 
-                name = gtk_combo_box_get_active_text (GTK_COMBO_BOX (module_entry));
+                name = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (module_entry));
 				name = g_strstrip (name);
 
 				if (*name == '\0')
