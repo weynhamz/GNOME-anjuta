@@ -2,15 +2,15 @@
 # Copyright (C) 2009 Free Software Foundation, Inc.
 # This file is distributed under the same license as the anjuta package.
 #
-# Akom C. <knight2000@gmail.com>, 2008, 2009.
+# Akom Chotiphantawanon <knight2000@gmail.com>, 2008, 2010.
 # Theppitak Karoonboonyanan <thep@linux.thai.net>, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-manual\n"
-"POT-Creation-Date: 2009-08-24 05:40+0000\n"
-"PO-Revision-Date: 2009-09-15 13:24+0700\n"
-"Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
+"POT-Creation-Date: 2010-10-03 12:47+0000\n"
+"PO-Revision-Date: 2010-11-16 13:33+0700\n"
+"Last-Translator: Akom Chotiphantawanon <knight2000@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -64,7 +64,7 @@ msgstr "Schmid"
 msgid "2001-2002"
 msgstr "2001-2002"
 
-#: "2001-2002" C/anjuta-manual.xml:52(year)
+#: C/anjuta-manual.xml:52(year)
 msgid "2006-2008"
 msgstr "2006-2008"
 
@@ -85,8 +85,8 @@ msgid ""
 "You may obtain a copy of the <citetitle>GNU Free Documentation License</"
 "citetitle> from the Free Software Foundation by visiting <ulink type=\"http"
 "\" url=\"http://www.fsf.org\">their Web site</ulink> or by writing to: Free "
-"Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-"
-"1301, USA."
+"Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA "
+"02110-1301, USA."
 msgstr ""
 "อนุญาตให้ทำซ้ำ เผยแพร่ และ/หรือ ดัดแปลงเอกสารนี้ได้ ภายใต้เงื่อนไขของ <citetitle>GNU "
 "Free Documentation License</citetitle> รุ่น 1.1 หรือรุ่นถัดมารุ่นใด ๆ "
@@ -95,8 +95,8 @@ msgstr ""
 "\"ข้อความปกหลัง\" (Back-Cover Texts) คุณอาจรับสำเนาของ <citetitle>GNU Free "
 "Documentation License</citetitle> จากมูลนิธิซอฟต์แวร์เสรีได้ที่ <ulink type=\"http\" "
 "url=\"http://www.fsf.org\">เว็บไซต์ของมูลนิธิ</ulink> หรือโดยเขียนไปที่: Free "
-"Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-"
-"1301, USA."
+"Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA "
+"02110-1301, USA."
 
 #: C/anjuta-manual.xml:70(para)
 msgid ""
@@ -216,10 +216,6 @@ msgstr "ทำความรู้จักกับแอนจูตา"
 msgid "Menus and shortcuts"
 msgstr "เมนูและปุ่มลัด"
 
-#: msgid "" "At the top of <application>Anjuta</application> main window is "
-#: "menubar. Almost all functions are available by activating "appropriate
-#: menu item. The have been grouped according to their "type. For example,
-#: file operations into "<guisubmenu>File</guisubmenu> menu."
 #: C/anjuta-manual.xml:6(para)
 msgid ""
 "At the top of the <application>Anjuta</application> main window is the menu "
@@ -473,12 +469,11 @@ msgstr ""
 msgid "File Operations"
 msgstr "การกระทำกับแฟ้ม"
 
-#: msgid "Creating a New File and inserting texts"
 #: C/anjuta-manual.xml:6(title)
 msgid "Creating a new file and inserting text"
 msgstr "การสร้างแฟ้มใหม่และการแทรกข้อความ"
 
-#: msgid "Creating New File" C/anjuta-manual.xml:8(title)
+#: C/anjuta-manual.xml:8(title)
 msgid "Creating a New File"
 msgstr "การสร้างแฟ้มใหม่"
 
@@ -669,7 +664,7 @@ msgstr ""
 msgid "Macro Keywords"
 msgstr "คำหลักสำหรับแมโคร"
 
-#: '." C/anjuta-manual.xml:118(para)
+#: C/anjuta-manual.xml:118(para)
 msgid ""
 "Macro keywords are available. They can be included in macro definitions. "
 "These macro keywords start and finish with the character ' @ '."
@@ -774,7 +769,7 @@ msgstr ""
 "interface> ให้คุณป้อนชื่อแฟ้มแล้วคลิก <guibutton>บันทึก</guibutton> "
 "เพื่อบันทึกแฟ้มใหม่ด้วยชื่อที่กำหนด <placeholder-1/>"
 
-#: msgid "File auto save" C/anjuta-manual.xml:199(title)
+#: C/anjuta-manual.xml:199(title)
 msgid "File autosave"
 msgstr "การบันทึกแฟ้มอัตโนมัติ"
 
@@ -972,8 +967,8 @@ msgstr ""
 "สีพื้นหลังของบรรทัดจะสีฟ้าและสีเหลืองตามลำดับ ถ้าคุณไม่ชอบการแสดงแบบนี้ "
 "(อาจเนื่องมาจากชุดตกแต่งที่สีตัดกันเกินไป) คุณก็สามารถเปิดใช้ขอบเครื่องหมายได้จากเมนู "
 "<menuchoice><guimenu>มุมมอง</guimenu><guisubmenu>เครื่องมือแก้ไข</"
-"guisubmenu><guimenuitem>ขอบเครื่องหมาย</guimenuitem></menuchoice> <placeholder-"
-"1/>"
+"guisubmenu><guimenuitem>ขอบเครื่องหมาย</guimenuitem></menuchoice> "
+"<placeholder-1/>"
 
 #: C/anjuta-manual.xml:323(title)
 msgid "Editor Guides"
@@ -1099,7 +1094,7 @@ msgstr ""
 "guimenu><guimenuitem>ร่นย่อหน้าอัตโนมัติ</guimenuitem></menuchoice> ในแถบเมนู "
 "คุณสามารถเปลี่ยนแนวทางการจัดรูปแบบได้ โดยกำหนดตัวเลือกต่าง ๆ ในการปรับแต่งค่า"
 
-#: msgid "Symbol browser" C/anjuta-manual.xml:401(title)
+#: C/anjuta-manual.xml:401(title)
 msgid "The Symbol Browser"
 msgstr "เบราว์เซอร์สัญลักษณ์"
 
@@ -1134,7 +1129,7 @@ msgstr ""
 "คุณไม่จำเป็นต้องรู้แม้แต่ว่าแฟ้มใดที่มีแท็กนั้นอยู่ "
 "เบราว์เซอร์สัญลักษณ์จะแสดงสัญลักษณ์ทั้งหมดที่มีอยู่ในโครงการให้ <placeholder-1/>"
 
-#: msgid "Tags synchronization" C/anjuta-manual.xml:423(title)
+#: C/anjuta-manual.xml:423(title)
 msgid "Tag synchronization"
 msgstr "การปรับแท็กให้ตรงกัน"
 
@@ -1457,7 +1452,7 @@ msgstr ""
 msgid "Creating a New Project"
 msgstr "การสร้างโครงการใหม่"
 
-#: msgid "New project from template" C/anjuta-manual.xml:28(title)
+#: C/anjuta-manual.xml:28(title)
 msgid "Creating a project from a template"
 msgstr "การสร้างโครงการใหม่จากแม่แบบ"
 
@@ -1669,9 +1664,7 @@ msgstr "หน้าต่างโครงการ"
 msgid "The Project window"
 msgstr "หน้าต่างโครงการ"
 
-#: msgid "" "Here is the <interface>Project window</interface> with "
-#: "<guimenu>Operation menu</guimenu> (accessible by clicking on right "mouse
-#: button). <placeholder-1/>" C/anjuta-manual.xml:153(para)
+#: C/anjuta-manual.xml:153(para)
 msgid ""
 "Here is the <interface>Project window</interface> with its context menu "
 "(accessible by clicking on the right mouse button). <placeholder-1/>"
@@ -2033,11 +2026,10 @@ msgstr ""
 "emphasis> ใช้สำหรับจัดกลุ่มเอกสารแบบ man และ info ตามลำดับ โดยปกติแล้ว "
 "แฟ้มเอกสารเหล่านี้จะถูกติดตั้งในไดเรกทอรีติดตั้งมาตรฐาน"
 
-#: msgid "" "There are several target types for automake project. They are: "
-#: "<placeholder-1/>" C/anjuta-manual.xml:331(para)
+#: C/anjuta-manual.xml:331(para)
 msgid ""
-"There are several target types for automake projects. They are: <placeholder-"
-"1/>"
+"There are several target types for automake projects. They are: "
+"<placeholder-1/>"
 msgstr "มีเป้าหมายหลายชนิดสำหรับโครงการ automake คือ: <placeholder-1/>"
 
 #: C/anjuta-manual.xml:418(title)
@@ -2049,7 +2041,7 @@ msgid ""
 "Right-click the target in the <interface>Project Manager</interface> view."
 msgstr "คลิกขวาที่เป้าหมายในมุมมอง <interface>เครื่องมือจัดการโครงการ</interface>"
 
-#: msgid "To add a new target: <placeholder-1/>" C/anjuta-manual.xml:419(para)
+#: C/anjuta-manual.xml:419(para)
 msgid "To remove a target: <placeholder-1/>"
 msgstr "วิธีลบเป้าหมาย: <placeholder-1/>"
 
@@ -2267,8 +2259,8 @@ msgstr ""
 msgid ""
 "The project properties dialog can be opened only by choosing "
 "<menuchoice><guisubmenu>Project</guisubmenu><guimenuitem>Properties</"
-"guimenuitem></menuchoice> from the toplevel menu bar. You can: <placeholder-"
-"1/>"
+"guimenuitem></menuchoice> from the toplevel menu bar. You can: "
+"<placeholder-1/>"
 msgstr ""
 "กล่องโต้ตอบคุณสมบัติโครงการสามารถเปิดได้โดยเลือก <menuchoice><guisubmenu>โครงการ</"
 "guisubmenu><guimenuitem>คุณสมบัติ</guimenuitem></menuchoice> จากแถบเมนูบนสุด "
@@ -2725,7 +2717,7 @@ msgstr ""
 "ได้รับรายงานข้อผิดพลาดเกี่ยวกับการประกอบสร้าง "
 "หลังจากที่ได้ปรับเปลี่ยนแฟ้มที่เกี่ยวกับการประกอบสร้างไปมากมาย)"
 
-#: msgid "Project Configuration" C/anjuta-manual.xml:109(para)
+#: C/anjuta-manual.xml:109(para)
 msgid "The configuration name"
 msgstr "ชื่อของค่าตั้ง"
 
@@ -2797,7 +2789,7 @@ msgstr ""
 "guimenuitem></menuchoice> ซึ่งจะเปิดกล่องโต้ตอบที่คุณสามารถเลือกสิ่งต่อไปนี้ได้: "
 "<placeholder-1/>"
 
-#: msgid "Project Configuration" C/anjuta-manual.xml:140(title)
+#: C/anjuta-manual.xml:140(title)
 msgid "Select a configuration"
 msgstr "เลือกค่าตั้ง"
 
@@ -2837,7 +2829,7 @@ msgstr ""
 msgid "Compile and Build"
 msgstr "คอมไพล์และประกอบสร้าง"
 
-#: msgid "Compiling" C/anjuta-manual.xml:168(title)
+#: C/anjuta-manual.xml:168(title)
 msgid "Compiling a file"
 msgstr "การคอมไพล์แฟ้ม"
 
@@ -4725,8 +4717,8 @@ msgid ""
 "guibutton>. You can also select the document by switching to it in document "
 "manager or windows list in the main menu. The list in the middle of the "
 "dialog shows existing associations. A couple of controls below are intended "
-"for editing association properties. Here is their description: <placeholder-"
-"1/>"
+"for editing association properties. Here is their description: "
+"<placeholder-1/>"
 msgstr ""
 "ช่วยให้คุณสามารถสร้างและจัดการการเชื่อมโยงได้ การสร้างการเชื่อมโยง "
 "ทำได้โดยเลือกแฟ้มเครื่องมือแก้ไขและแฟ้มเครื่องมือออกแบบในกล่องคอมโบ แล้วกดปุ่ม "
@@ -4755,7 +4747,7 @@ msgstr ""
 "guilabel> แล้ว เค้าโครงของ handler ใหม่ก็จะถูกแทรกที่ตำแหน่งตามที่กำหนดโดยค่า "
 "<guilabel>ชนิดของตำแหน่ง</guilabel>"
 
-#: msgid "Inserting Macros" C/anjuta-manual.xml:134(title)
+#: C/anjuta-manual.xml:134(title)
 msgid "Inserting a stub"
 msgstr "การแทรกเค้าโครง"
 
@@ -4994,13 +4986,12 @@ msgstr ""
 msgid ""
 "This manual was written by Naba Kumar, Andy Piper, Biswapesh Chattopadhyay "
 "and Johannes Schmid. Please send all comments and suggestions regarding this "
-"manual to the Anjuta Devel list <email>anjuta-devel@list.sourceforge.net</"
-"email>. Comments may also be submitted via the project trackers at "
-"SourceForge."
+"manual to the Anjuta Devel list <email>anjuta-devel-list@gnome.org</email>. "
+"Comments may also be submitted via the project trackers at SourceForge."
 msgstr ""
 "คู่มือนี้เขียนโดย Naba Kumar, Andy Piper, Biswapesh Chattopadhyay และ Johannes "
 "Schmid กรุณาส่งความคิดเห็นและข้อเสนอแนะทั้งหมดเกี่ยวกับคู่มือนี้ไปที่ลิสต์ Anjuta Devel "
-"<email>anjuta-devel@list.sourceforge.net</email> หรืออาจส่งข้อคิดเห็นต่าง ๆ "
+"<email>anjuta-devel-list@gnome.org</email> หรืออาจส่งข้อคิดเห็นต่าง ๆ "
 "มาทางเครื่องมือติดตามโครงการของ SourceForge ได้เช่นกัน"
 
 #: C/anjuta-manual.xml:2(title)
@@ -5051,11 +5042,11 @@ msgstr ""
 "<state>MA</state><postcode>02110-1301</postcode><country>USA</country></"
 "address>"
 
-#. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2.
+#. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
 #: C/anjuta-manual.xml:0(None)
 msgid "translator-credits"
 msgstr ""
-"Akom C. <knight2000@gmail.com>, 2008, 2009\n"
+"Akom Chotiphantawanon <knight2000@gmail.com>, 2008, 2009\n"
 "Theppitak Karoonboonyanan <thep@linux.thai.net>, 2009"
 
 #~ msgid "2006"
