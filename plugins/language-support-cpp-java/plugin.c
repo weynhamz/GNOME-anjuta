@@ -1122,8 +1122,8 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 				line_indent = get_line_indentation (editor, line_for_indent);
 				line_indent += extra_indent;
 
-				(*line_indent_spaces) += g_settings_get_boolean (plugin->settings,
-				                                                 PREF_INDENT_PARANTHESE_SIZE);
+				(*line_indent_spaces) += g_settings_get_int (plugin->settings,
+				                                             PREF_INDENT_PARANTHESE_SIZE);
 			}
 			
 			/* Although statement is incomplete at this point, we don't
