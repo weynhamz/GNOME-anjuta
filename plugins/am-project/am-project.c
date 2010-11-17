@@ -102,6 +102,8 @@ static AmpNodeInfo AmpNodeInformations[] = {
 	NULL},
 
 	{{ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_UNKNOWN,
+	/* Translator: Unknown here is a target type, if not unknown it can
+	 * be a program or a shared library by example */
 	N_("Unknown"),
 	"text/plain"},
 	ANJUTA_TOKEN_NONE,
