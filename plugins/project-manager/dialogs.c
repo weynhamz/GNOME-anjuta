@@ -699,9 +699,9 @@ pm_project_create_properties_dialog (AnjutaPmProject *project, GtkWindow *parent
 {
 	const char *title;
 	PropertiesTable *table;
-	GtkWidget *dialog;
+	GtkWidget *dialog = NULL;
 
-	g_return_val_if_fail (node != NULL, FALSE);
+	g_return_val_if_fail (node != NULL, NULL);
 	
 	switch (anjuta_project_node_get_node_type (node))
 	{
@@ -718,7 +718,7 @@ pm_project_create_properties_dialog (AnjutaPmProject *project, GtkWindow *parent
 		title = _("Source properties");
 		break;
 	default:
-		return FALSE;
+		return NULL;
 	}
 
 	table = create_properties_table (project->project, node);

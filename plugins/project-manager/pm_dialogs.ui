@@ -720,8 +720,9 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkComboBoxEntry" id="module_entry">
+                  <object class="GtkComboBoxText" id="module_entry">
                     <property name="visible">True</property>
+                    <property name="has-entry">True</property>
                   </object>
                   <packing>
                     <property name="position">1</property>
