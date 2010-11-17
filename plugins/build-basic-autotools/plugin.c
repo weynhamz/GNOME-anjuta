@@ -924,13 +924,25 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 		IAnjutaIndicableIndicator indicator;
 	
 		if ((strstr (line, "warning:") != NULL) ||
-			(strstr (line, _("warning:")) != NULL))
+		/* The translations should match that of 'make' program.
+		 * The second string with -old should be used for an older
+		 * version of 'make' if necessary. If you update one string,
+		 * move the first one to translate the -old string and then
+		 * replace the first string only. */
+			(strstr (line, _("warning:")) != NULL) ||
+			(strstr (line, _("warning:-old")) != NULL))
 		{
 			type = IANJUTA_MESSAGE_VIEW_TYPE_WARNING;
 			indicator = IANJUTA_INDICABLE_WARNING;
 		}
 		else if ((strstr (line, "error:") != NULL) ||
-		          (strstr (line, _("error:")) != NULL))
+		/* The translations should match that of 'make' program.
+		 * The second string with -old should be used for an older
+		 * version of 'make' if necessary. If you update one string,
+		 * move the first one to translate the -old string and then
+		 * replace the first string only. */
+		          (strstr (line, _("error:")) != NULL) ||
+			  (strstr (line, _("error:-old")) != NULL))
 		{
 			type = IANJUTA_MESSAGE_VIEW_TYPE_ERROR;
 			indicator = IANJUTA_INDICABLE_CRITICAL;
