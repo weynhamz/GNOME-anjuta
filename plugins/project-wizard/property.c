@@ -251,40 +251,35 @@ npw_property_is_valid_restriction (const NPWProperty* prop)
 	case NPW_FILENAME_RESTRICTION:
 		value = npw_property_get_value (prop);
 
-		/* First character should be letters, digit or '_' */
+		/* First character should be letters, digit or "#$:%+,.=@^_`~" */
 		if (value == NULL) return TRUE;
-		if (!isalnum (*value) && (*value != '_'))
+		if (!isalnum (*value) && (strchr ("#$:%+,.=@^_`~", *value) == NULL))
 			return FALSE;
 
-		/* Following characters should be letters, digit or '_'
+		/* Following characters should be letters, digit or "#$:%+,-.=@^_`~"
 		 * or '-' or '.' */
 		for (value++; *value != '\0'; value++)
 		{
-			if (!isalnum (*value)
-			    && (*value != '_')
-			    && (*value != '-')
-			    && (*value != '.'))
+			if (!isalnum (*value) && (strchr ("#$:%+,-.=@^_`~", *value) == NULL))
 				return FALSE;
 		}
 		break;
 	case NPW_DIRECTORY_RESTRICTION:
 		value = npw_property_get_value (prop);
 
-		/* First character should be letters, digit or '_' or
+		/* First character should be letters, digit or "#$:%+,.=@^_`~" or
 		 * directory separator */
 		if (value == NULL) return TRUE;
-		if (!isalnum (*value) && (*value != '_') && (*value != G_DIR_SEPARATOR))
+		if (!isalnum (*value) && (strchr ("#$:%+,.=@^_`~", *value) == NULL) && (*value != G_DIR_SEPARATOR))
 			return FALSE;
 
-		/* Following characters should be letters, digit or '_'
-		 * directory separator or '-' or '.' */
+		/* Following characters should be letters, digit or "#$:%+,-.=@^_`~"
+		 * or directory separator */
 		for (value++; *value != '\0'; value++)
 		{
 			if (!isalnum (*value)
-			    && (*value != '_')
-			    && (*value != G_DIR_SEPARATOR)
-			    && (*value != '-')
-			    && (*value != '.'))
+			    && (strchr ("#$:%+,-.=@^_`~", *value) == NULL)
+			    && (*value != G_DIR_SEPARATOR))
 				return FALSE;
 		}
 		break;
