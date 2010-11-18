@@ -921,14 +921,7 @@ anjuta_util_glist_strings_sort (GList * list)
 void
 anjuta_util_glist_strings_free (GList * list)
 {
-	GList *node;
-	node = list;
-	while (node)
-	{
-		if (node->data)
-			g_free (node->data);
-		node = g_list_next (node);
-	}
+	g_list_foreach (list, (GFunc) g_free, NULL);
 	g_list_free (list);
 }
 
