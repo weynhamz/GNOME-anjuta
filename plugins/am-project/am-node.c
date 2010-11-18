@@ -712,15 +712,14 @@ amp_group_new (GFile *file, gboolean dist_only, GError **error)
 		gboolean failed = FALSE;
 		const gchar *ptr = name;
 		while (*ptr) {
-			if (!isalnum (*ptr) && *ptr != '.' && *ptr != '-' &&
-			    *ptr != '_')
+			if (!isalnum (*ptr) && (strchr ("#$:%+,-.=@^_`~", *ptr) == NULL))
 				failed = TRUE;
 			ptr++;
 		}
 		if (failed) {
 			g_free (name);
 			error_set (error, IANJUTA_PROJECT_ERROR_VALIDATION_FAILED,
-				   _("Group name can only contain alphanumeric, '_', '-' or '.' characters"));
+				   _("Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"));
 			return NULL;
 		}
 	}
