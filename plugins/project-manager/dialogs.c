@@ -30,10 +30,10 @@
 
 #include "project-model.h"
 #include "project-view.h"
-#include "pkg-config.h"
 
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-utils.h>
+#include <libanjuta/anjuta-pkg-config-chooser.h>
 
 #define ICON_SIZE 16
 
@@ -1273,7 +1273,7 @@ on_cursor_changed(GtkTreeView* view, gpointer data)
 {
 	GtkWidget* button = GTK_WIDGET(data);
 	GtkTreeSelection *selection = gtk_tree_view_get_selection(view);
-
+ 
 	if (gtk_tree_selection_count_selected_rows (selection) > 0)
 		gtk_widget_set_sensitive(button, TRUE);
 	else
@@ -1433,53 +1433,40 @@ static void
 on_cursor_changed_set_entry(GtkTreeView* view, gpointer data)
 {
     GtkWidget* entry = GTK_WIDGET(data);
-    GtkTreeSelection *selection = gtk_tree_view_get_selection(view);
-
-    if (gtk_tree_selection_count_selected_rows (selection) == 1)
+    AnjutaPkgConfigChooser* chooser = ANJUTA_PKG_CONFIG_CHOOSER (view);
+	GList* packages = anjuta_pkg_config_chooser_get_active_packages (chooser);
+	
+    if (packages)
     {
-        GtkTreeModel *model;
-        GList *list;
-        GtkTreeIter iter;
+		gchar* name = packages->data;
+		gchar* ptr;
+		/* Remove numeric suffix */
+		ptr = name + strlen(name) - 1;
+		while (g_ascii_isdigit (*ptr))
+		{
+			while (g_ascii_isdigit (*ptr)) ptr--;
+			if ((*ptr != '_') && (*ptr != '-') && (*ptr != '.')) break;
+			*ptr = '\0';
+			ptr--;
+		}
 
-        list = gtk_tree_selection_get_selected_rows (selection, &model);
-        if (gtk_tree_model_get_iter (model, &iter, (GtkTreePath *)(list->data)))
-        {
-            gchar *name;
-            gchar *ptr;
-            
-            gtk_tree_model_get (model, &iter, COL_PKG_PACKAGE, &name, -1);
+		/* Convert to upper case and remove invalid characters */
+		for (ptr = name; *ptr != '\0'; ptr++)
+		{
+			if (g_ascii_isalnum (*ptr))
+			{
+				*ptr = g_ascii_toupper (*ptr);
+			}
+			else
+			{
+				*ptr = '_';
+			}
+		}
 
-            /* Remove numeric suffix */
-            ptr = name + strlen(name) - 1;
-            while (g_ascii_isdigit (*ptr))
-            {
-                while (g_ascii_isdigit (*ptr)) ptr--;
-                if ((*ptr != '_') && (*ptr != '-') && (*ptr != '.')) break;
-                *ptr = '\0';
-                ptr--;
-            }
-
-            /* Convert to upper case and remove invalid characters */
-            for (ptr = name; *ptr != '\0'; ptr++)
-            {
-                if (g_ascii_isalnum (*ptr))
-                {
-                    *ptr = g_ascii_toupper (*ptr);
-                }
-                else
-                {
-                    *ptr = '_';
-                }
-            }
-
-            g_signal_handlers_block_by_func (G_OBJECT (entry), on_changed_disconnect, view);
-            gtk_entry_set_text (GTK_ENTRY (entry), name);
-            g_signal_handlers_unblock_by_func (G_OBJECT (entry), on_changed_disconnect, view);
-            g_free (name);
-        }
-        
-        g_list_foreach (list, (GFunc)gtk_tree_path_free, NULL);
-        g_list_free (list);
+		g_signal_handlers_block_by_func (G_OBJECT (entry), on_changed_disconnect, view);
+		gtk_entry_set_text (GTK_ENTRY (entry), name);
+		g_signal_handlers_unblock_by_func (G_OBJECT (entry), on_changed_disconnect, view);
+        anjuta_util_glist_strings_free (packages);
     }
 }
 
@@ -1487,6 +1474,22 @@ static void
 on_changed_disconnect (GtkEditable* entry, gpointer data)
 {
     g_signal_handlers_block_by_func (G_OBJECT (data), on_cursor_changed_set_entry, entry);
+}
+
+static void
+on_pkg_chooser_selection_changed (AnjutaPkgConfigChooser* chooser,
+                                  gchar* package,
+                                  gpointer data)
+{
+	GtkWidget* button = GTK_WIDGET(data);
+	GList* packages = anjuta_pkg_config_chooser_get_active_packages (chooser);
+
+	if (packages != NULL)
+		gtk_widget_set_sensitive(button, TRUE);
+	else
+		gtk_widget_set_sensitive(button, FALSE);
+
+	anjuta_util_glist_strings_free (packages);
 }
 
 GList* 
@@ -1500,13 +1503,10 @@ anjuta_pm_project_new_package (AnjutaPmProject *project,
     GtkWidget *ok_button;
     GtkWidget *module_entry;
     GtkWidget *packages_view;
-    GtkCellRenderer* renderer;
-    GtkListStore *store;
     GList *packages = NULL;
-    GtkTreeViewColumn *col;
     gint response;
     gboolean finished = FALSE;
-    GtkTreeSelection *package_selection;
+	GtkListStore *store;
     AnjutaProjectNode *root;
 	AnjutaProjectNode *node;
 	AnjutaProjectNode *module = NULL;
@@ -1539,7 +1539,7 @@ anjuta_pm_project_new_package (AnjutaPmProject *project,
 	}
 	
     /* Fill combo box with modules */
-    store = gtk_list_store_new(1, G_TYPE_STRING);
+    store = gtk_list_store_new(1, G_TYPE_STRING);	
     gtk_combo_box_set_entry_text_column (GTK_COMBO_BOX (module_entry), 0);
 
 	root = ianjuta_project_get_root (project->project, NULL);
@@ -1582,30 +1582,13 @@ anjuta_pm_project_new_package (AnjutaPmProject *project,
     }
     
     /* Fill package list */
-    renderer = gtk_cell_renderer_text_new ();
-    col = gtk_tree_view_column_new_with_attributes (_("Package"),
-                                                    renderer,
-                                                    "text", COL_PKG_PACKAGE,
-                                                    NULL);
-    gtk_tree_view_column_set_sort_column_id (col, COL_PKG_PACKAGE);
-    gtk_tree_view_append_column (GTK_TREE_VIEW (packages_view), col);
-    renderer = gtk_cell_renderer_text_new ();
-    col = gtk_tree_view_column_new_with_attributes (_("Description"),
-                                                    renderer,
-                                                    "text",
-                                                    COL_PKG_DESCRIPTION,
-                                                    NULL);
-    gtk_tree_view_append_column (GTK_TREE_VIEW (packages_view), col);
-    store = packages_get_pkgconfig_list ();
-    gtk_tree_view_set_model (GTK_TREE_VIEW (packages_view),
-                            GTK_TREE_MODEL (store));
-
-    on_cursor_changed (GTK_TREE_VIEW (packages_view), ok_button);
-    g_signal_connect (G_OBJECT(packages_view), "cursor-changed",
-        G_CALLBACK(on_cursor_changed), ok_button);
-    package_selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (packages_view));
-    gtk_tree_selection_set_mode (package_selection, GTK_SELECTION_MULTIPLE);
-
+	anjuta_pkg_config_chooser_show_active_column (ANJUTA_PKG_CONFIG_CHOOSER (packages_view),
+	                                              TRUE);
+    g_signal_connect (G_OBJECT(packages_view), "package-activated",
+        G_CALLBACK(on_pkg_chooser_selection_changed), ok_button);
+    g_signal_connect (G_OBJECT(packages_view), "package-deactivated",
+        G_CALLBACK(on_pkg_chooser_selection_changed), ok_button);
+	
     if (parent) {
         gtk_window_set_transient_for (GTK_WINDOW (dialog), parent);
     }
@@ -1618,7 +1601,7 @@ anjuta_pm_project_new_package (AnjutaPmProject *project,
             case GTK_RESPONSE_OK: 
             {
                 gchar *name;
-				AnjutaProjectNode *module;
+				AnjutaProjectNode *module = NULL;
 				GString *error_message = g_string_new (NULL);
 
                 name = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (module_entry));
@@ -1658,41 +1641,34 @@ anjuta_pm_project_new_package (AnjutaPmProject *project,
                 {
                     GList *list;
                     GList *node;
-                    GtkTreeModel *model;
-                    GtkTreeIter iter;
                     
-                    list = gtk_tree_selection_get_selected_rows (package_selection, &model);
+                    list = anjuta_pkg_config_chooser_get_active_packages (ANJUTA_PKG_CONFIG_CHOOSER (packages_view));
                     for (node = list; node != NULL; node = g_list_next (node))
                     {
-                        if (gtk_tree_model_get_iter (model, &iter, (GtkTreePath *)(node->data)))
-                        {
-                            gchar *name;
-                            AnjutaProjectNode* new_package;
-                            GError *error = NULL;
-                            
-                            gtk_tree_model_get (model, &iter, COL_PKG_PACKAGE, &name, -1);
+						gchar *name;
+						AnjutaProjectNode* new_package;
+						GError *error = NULL;
 
-							new_package = ianjuta_project_add_node_after (project->project, module, NULL, ANJUTA_PROJECT_PACKAGE, NULL, name, &error);
-                            if (error)
-                            {
-                                gchar *str = g_strdup_printf ("%s: %s\n",
-                                                                name,
-                                                                error->message);
-                                g_string_append (error_message, str);
-                                g_error_free (error);
-                                g_free (str);
-                            }
-                            else
-                            {
-                                packages = g_list_append (packages, new_package);
-								finished = TRUE;
-                            }
-                            g_free (name);
-                        }
-                    }
-                    g_list_foreach (list, (GFunc)gtk_tree_path_free, NULL);
-                    g_list_free (list);
-                }
+						name = node->data;
+
+						new_package = ianjuta_project_add_node_after (project->project, module, NULL, ANJUTA_PROJECT_PACKAGE, NULL, name, &error);
+						if (error)
+						{
+							gchar *str = g_strdup_printf ("%s: %s\n",
+							                              name,
+							                              error->message);
+							g_string_append (error_message, str);
+							g_error_free (error);
+							g_free (str);
+						}
+						else
+						{
+							packages = g_list_append (packages, new_package);
+							finished = TRUE;
+						}
+					}
+					anjuta_util_glist_strings_free (list);
+				}
 					
                 if (error_message->len != 0)
                 {

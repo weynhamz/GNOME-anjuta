@@ -63,8 +63,6 @@ libanjuta_project_manager_la_SOURCES = \
 	project-view.c		\
 	project-util.h		\
 	project-util.c		\
-	pkg-config.c		\
-	pkg-config.h		\
 	project.h		\
 	project.c		\
 	dialogs.c		\
