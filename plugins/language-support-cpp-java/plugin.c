@@ -23,6 +23,7 @@
 #include <stdlib.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-pkg-config-chooser.h>
 #include <libanjuta/interfaces/ianjuta-iterable.h>
 #include <libanjuta/interfaces/ianjuta-document.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
@@ -50,6 +51,8 @@
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-language-support-cpp-java.xml"
 #define PREFS_BUILDER PACKAGE_DATA_DIR"/glade/anjuta-language-cpp-java.ui"
 #define ICON_FILE "anjuta-language-cpp-java-plugin.png"
+
+#define FIXME_DEFAULT_PACKAGE_VERSION		"1.0"
 
 /* Preferences keys */
 
@@ -2051,6 +2054,7 @@ cpp_java_plugin_class_init (GObjectClass *klass)
 #define PREF_WIDGET_SPACE "preferences_toggle:bool:1:1:cpp-completion-space-after-func"
 #define PREF_WIDGET_BRACE "preferences_toggle:bool:1:1:cpp-completion-brace-after-func"
 #define PREF_WIDGET_AUTO "preferences_toggle:bool:1:1:cpp-completion-enable"
+#define PREF_WIDGET_PKG_CONFIG "pkg_config_chooser1"
 
 static void
 on_autocompletion_toggled (GtkToggleButton* button,
@@ -2066,6 +2070,47 @@ on_autocompletion_toggled (GtkToggleButton* button,
 }
 
 static void
+on_package_activated (AnjutaPkgConfigChooser *self, const gchar* package,
+    				  gpointer data)
+{
+	CppJavaPlugin* plugin;
+	IAnjutaSymbolManager *isymbol_manager;
+
+	plugin = ANJUTA_PLUGIN_CPP_JAVA (data);
+
+	DEBUG_PRINT ("activated %s", package);
+	isymbol_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+												IAnjutaSymbolManager,
+												NULL);
+	
+	ianjuta_symbol_manager_activate_package (isymbol_manager, 
+	    									 package, 
+    							  			 FIXME_DEFAULT_PACKAGE_VERSION,
+    							  			 NULL);
+	
+}
+
+static void
+on_package_deactivated (AnjutaPkgConfigChooser *self, const gchar* package,
+    					gpointer data)
+{
+	CppJavaPlugin* plugin;
+	IAnjutaSymbolManager *isymbol_manager;
+
+	plugin = ANJUTA_PLUGIN_CPP_JAVA (data);
+
+	DEBUG_PRINT ("deactivated %s", package);
+
+	isymbol_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+												IAnjutaSymbolManager,
+												NULL);
+	ianjuta_symbol_manager_deactivate_package (isymbol_manager, 
+	    									 package, 
+    							  			 FIXME_DEFAULT_PACKAGE_VERSION,
+    							  			 NULL);
+}
+
+static void
 ipreferences_merge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
 					GError** e)
 {
@@ -2073,6 +2118,7 @@ ipreferences_merge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
 	CppJavaPlugin* plugin = ANJUTA_PLUGIN_CPP_JAVA (ipref);
 	plugin->bxml = gtk_builder_new ();
 	GtkWidget* toggle;
+	GtkWidget* pkg_config;
 		
 	/* Add preferences */
 	if (!gtk_builder_add_from_file (plugin->bxml, PREFS_BUILDER, &error))
@@ -2088,6 +2134,17 @@ ipreferences_merge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
 	g_signal_connect (toggle, "toggled", G_CALLBACK (on_autocompletion_toggled),
 	                  plugin->bxml);
 	on_autocompletion_toggled (GTK_TOGGLE_BUTTON (toggle), plugin->bxml);
+
+	pkg_config = GTK_WIDGET (gtk_builder_get_object (plugin->bxml, PREF_WIDGET_PKG_CONFIG));
+	anjuta_pkg_config_chooser_show_active_column (ANJUTA_PKG_CONFIG_CHOOSER (pkg_config), 
+	    										  TRUE);
+	g_signal_connect (G_OBJECT (pkg_config), "package-activated",
+					  G_CALLBACK (on_package_activated), plugin);
+
+	g_signal_connect (G_OBJECT (pkg_config), "package-deactivated",
+					  G_CALLBACK (on_package_deactivated), plugin);
+	
+	gtk_widget_show_all (pkg_config);
 }
 
 static void

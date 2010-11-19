@@ -6075,6 +6075,67 @@ interface IAnjutaSymbolManager
 	 * Returns: A #IAnjutaSymbolQuery object
 	 */
 	IAnjutaSymbolQuery* create_query (IAnjutaSymbolQueryName name, IAnjutaSymbolQueryDb db);
+
+	/**
+	 * ianjuta_symbol_manager_add_package:
+	 * @obj: Self
+ 	 * @pkg_name: Name of the package to scan. Should be the name given by
+	 * pkg-config. The colon char must be avoided.
+ 	 * @pkg_version: Version of the package. The colon char must be avoided.
+ 	 * or by the language implementation (Python, Javascript, etc.)
+ 	 * @files: A list of GFile's to scan for this package
+ 	 *
+ 	 * Reads the package files into the database asynchronously.
+	 *
+	 * Returns: TRUE if the package will be loaded into the db, FALSE if the package
+	 * already exists
+ 	 */
+	gboolean add_package (const gchar* pkg_name, const gchar* pkg_version, GList* files);
+
+	/**
+	 * ianjuta_symbol_manager_activate_package:
+	 * @obj: Self
+ 	 * @pkg_name: Name of the package to activate. The colon char must be avoided.
+ 	 * @pkg_version: Version of the package. The colon char must be avoided.
+ 	 *
+ 	 * Activates the package for searches in the global symbol database.
+ 	 *
+ 	 * Returns: TRUE if the package was loaded (or will be loaded once scanned). 
+ 	 * FALSE if the version given was newer than the version in the database or the 
+ 	 * package was not found. In this case, add_package() should be called.
+ 	 */
+	gboolean activate_package (const gchar *pkg_name, const gchar* pkg_version);
+
+	/**
+	 * ianjuta_symbol_manager_deactivate_package:
+	 * @obj: Self
+ 	 * @pkg_name: name of the package. The colon char must be avoided.
+	 * @pkg_version: Version of the package. The colon char must be avoided.
+ 	 * 
+ 	 * Deactivates the package if it was found. If package is NULL, deactivate all
+ 	 * packages.
+	 *
+	 * Returns FALSE if the package couldn't have been deactivated.
+ 	 */
+	gboolean deactivate_package (const gchar* pkg_name, const gchar* pkg_version);
+
+	/**
+	 * ianjuta_symbol_manager_add_and_activate_package:
+	 * @obj: Self
+ 	 * @pkg_name: Name of the package to scan and add. Should be the name given by
+	 * pkg-config. The colon char must be avoided.
+ 	 * @pkg_version: Version of the package. The colon char must be avoided.
+ 	 * or by the language implementation (Python, Javascript, etc.)
+ 	 * @files: A list of GFile's to scan for this package
+ 	 *
+ 	 * Convenience function that calls #ianjuta_symbol_manager_activate_package and
+	 * #ianjuta_symbol_manager_deactivate_package.
+	 *
+	 * Returns: TRUE if the package will be loaded into the db and activated, 
+	 * FALSE if the package already exists os is already activated.
+ 	 */	
+	gboolean add_and_activate_package (const gchar* pkg_name, const gchar* pkg_version, GList* files);
+	
 }
 
 /**

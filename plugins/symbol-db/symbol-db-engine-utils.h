@@ -63,7 +63,9 @@ symbol_db_util_get_file_db_path (SymbolDBEngine *dbe, const gchar* full_local_fi
 /**
  * Try to get all the files with zero symbols: these should be the ones
  * excluded by an abort on population process.
- * @return A GPtrArray with paths on disk of the files. Must be freed by caller.
+ * @return A GPtrArray with paths on disk of the files. Must be unreffed by caller using
+ * g_ptr_array_unref (). Being created with g_ptr_array_new_with_free_func (g_free) there's
+ * no need to free its items.
  * @return NULL if no files are found.
  */
 GPtrArray *
