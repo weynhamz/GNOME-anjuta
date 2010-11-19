@@ -225,6 +225,12 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 
 	GList* child;
 	gint x;
+	gint y = allocation->y;
+	gint padding = anjuta_tabber_get_padding (widget);
+	gint n_children = g_list_length (tabber->priv->children);
+
+	gtk_widget_set_allocation (widget, allocation);
+
 	switch (gtk_widget_get_direction (widget))
 	{
 		case GTK_TEXT_DIR_RTL:
@@ -234,13 +240,6 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 		default:
 			x = allocation->x;
 	}
-
-	gint y = allocation->y;
-	gint padding = anjuta_tabber_get_padding (widget);
-	gint child_width;
-	gint n_children = g_list_length (tabber->priv->children);
-
-	gtk_widget_set_allocation (widget, allocation);
 
 	if (gtk_widget_get_realized (widget))
 	{
@@ -254,28 +253,58 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 	if (n_children > 0)
 	{
 		GtkStyle *style = gtk_widget_get_style (widget);
+		gint total_width = 0;
+		gboolean use_natural = FALSE;
+		gint child_equal;
 
-		child_width = allocation->width / n_children - 2 * (padding + style->xthickness);
+		/* Check if we have enough space for all widgets natural size */
+		for (child = tabber->priv->children; child != NULL; child = g_list_next (child))
+		{
+			GtkWidget* child_widget = GTK_WIDGET (child->data);
+			gint natural;
+			gtk_widget_get_preferred_width (child_widget, NULL,
+			                                &natural);
+
+			total_width += natural;
+		}
+		use_natural = (total_width +  2 * (padding + style->xthickness) <= allocation->width);
+		child_equal = allocation->width / n_children - 2 * (padding + style->xthickness);
 
 		for (child = tabber->priv->children; child != NULL; child = g_list_next (child))
 		{
+			GtkWidget* child_widget = GTK_WIDGET (child->data);
 			GtkRequisition child_req;
 			GtkAllocation child_alloc;
-			gtk_widget_get_child_requisition (GTK_WIDGET (child->data), &child_req);
+			gtk_widget_get_child_requisition (child_widget, &child_req);
+			gint natural;
+			gint minimal;			
 
-			child_alloc.width = child_width;
+			gtk_widget_get_preferred_width (child_widget, &minimal,
+				                            &natural);
+
+			if (use_natural)
+			{
+				child_alloc.width = natural;
+			}
+			else
+			{
+				if (natural < child_equal)
+					child_alloc.width = natural;
+				else
+					child_alloc.width = (child_equal < minimal) ? minimal : child_equal;
+			}
 			child_alloc.height = MAX(child_req.height, allocation->height);
 
 			switch (gtk_widget_get_direction (widget))
 			{
 				case GTK_TEXT_DIR_RTL:
-					child_alloc.x = x - child_width - style->xthickness - padding;
-					x -= child_width + style->xthickness + 2 * padding;
+					child_alloc.x = x - child_alloc.width - style->xthickness - 2 * padding;
+					x -= child_alloc.width + style->xthickness + 2 * padding;
 					break;
 				case GTK_TEXT_DIR_LTR:
 				default:
-					child_alloc.x = x + style->xthickness + padding;
-					x += child_width + style->xthickness + 2 * padding;
+					child_alloc.x = x + style->xthickness +  padding;
+					x += child_alloc.width + style->xthickness + 2 * padding;
 			}
 			child_alloc.y = y + style->ythickness + padding;
 
