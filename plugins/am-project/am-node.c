@@ -263,6 +263,7 @@ amp_root_set_configure (AnjutaAmRootNode *root, GFile *configure, GObject* proje
 {
 	if (root->configure != NULL) g_object_unref (root->configure);
 	if (root->configure_file != NULL) anjuta_token_file_free (root->configure_file);
+	if (root->monitor) g_object_unref (root->monitor);
 	if (configure != NULL)
 	{
 		root->configure_file = anjuta_token_file_new (configure);
@@ -285,7 +286,6 @@ amp_root_set_configure (AnjutaAmRootNode *root, GFile *configure, GObject* proje
 	{
 		root->configure_file = NULL;
 		root->configure = NULL;
-		if (root->monitor) g_object_unref (root->monitor);
 		root->monitor = NULL;
 	}
 	
@@ -305,10 +305,13 @@ amp_root_get_configure_token (AnjutaAmRootNode *root)
 }
 
 void
-amp_root_update_monitor (AnjutaAmRootNode *root)
+amp_root_update_node (AnjutaAmRootNode *root, AnjutaAmRootNode *new_root)
 {
-	if (root->monitor != NULL) g_object_unref (root->monitor);
+	if (root->configure != NULL) g_object_unref (root->configure);
+	if (root->configure_file != NULL) anjuta_token_file_free (root->configure_file);
+	if (root->monitor) g_object_unref (root->monitor);
 
+	root->configure = new_root->configure;
 	if (root->configure != NULL)
 	{
 		root->monitor = g_file_monitor_file (root->configure,
@@ -323,6 +326,15 @@ amp_root_update_monitor (AnjutaAmRootNode *root)
 					  root);
 		}
 	}
+	else
+	{
+		root->monitor = NULL;
+	}
+	new_root->configure = NULL;
+	root->configure_file = new_root->configure_file;
+	new_root->configure_file = NULL;
+	root->configure_token = new_root->configure_token;
+	root->project = new_root->project;
 }
 
 /* GObjet implementation
@@ -397,6 +409,12 @@ AnjutaToken *
 amp_module_get_token (AnjutaAmModuleNode *node)
 {
 	return node->module;
+}
+
+void
+amp_module_update_node (AnjutaAmModuleNode *node, AnjutaAmModuleNode *new_node)
+{
+	node->module = new_node->module;
 }
 
 AnjutaAmModuleNode*
@@ -507,6 +525,15 @@ void
 amp_package_add_token (AnjutaAmPackageNode *node, AnjutaToken *token)
 {
 	node->token = token;
+}
+
+void
+amp_package_update_node (AnjutaAmPackageNode *node, AnjutaAmPackageNode *new_node)
+{
+	node->token = new_node->token;
+	g_free (node->version);
+	node->version = new_node->version;
+	new_node->version = NULL;
 }
 
 
@@ -673,10 +700,30 @@ amp_group_get_makefile_name (AnjutaAmGroupNode *group)
 }
 
 void
-amp_group_update_monitor (AnjutaAmGroupNode *group)
+amp_group_update_node (AnjutaAmGroupNode *group, AnjutaAmGroupNode *new_group)
 {
+	gint i;
+	
 	if (group->monitor != NULL) g_object_unref (group->monitor);
+	if (group->makefile != NULL) g_object_unref (group->makefile);
+	if (group->tfile) anjuta_token_file_free (group->tfile);
+	for (i = 0; i < AM_GROUP_TOKEN_LAST; i++)
+	{
+		if (group->tokens[i] != NULL) g_list_free (group->tokens[i]);
+	}
+	if (group->variables) g_hash_table_destroy (group->variables);
 
+	group->dist_only = new_group->dist_only;
+	group->makefile = new_group->makefile;
+	new_group->makefile = NULL;
+	group->tfile = new_group->tfile;
+	new_group->tfile = NULL;
+	memcpy (group->tokens, new_group->tokens, sizeof (group->tokens));
+	memset (new_group->tokens, 0, sizeof (new_group->tokens));
+	group->variables = new_group->variables;
+	new_group->variables = NULL;
+	group->project = new_group->project;
+	
 	if (group->makefile != NULL)
 	{
 		group->monitor = g_file_monitor_file (group->makefile, 
@@ -691,6 +738,7 @@ amp_group_update_monitor (AnjutaAmGroupNode *group)
 					  group);
 		}
 	}
+
 }
 
 AnjutaAmGroupNode*
@@ -844,6 +892,19 @@ amp_target_get_next_token_type (AnjutaAmTargetNode *target, AnjutaTokenType type
 	return tagged_token_list_next (target->tokens, type);
 }
 
+void
+amp_target_update_node (AnjutaAmTargetNode *node, AnjutaAmTargetNode *new_node)
+{
+	g_free (node->install);
+	g_list_free (node->tokens);
+
+	node->install = new_node->install;
+	new_node->install = NULL;
+	node->flags = new_node->flags;
+	node->tokens = new_node->tokens;
+	new_node->tokens = NULL;
+}
+
 AnjutaAmTargetNode*
 amp_target_new (const gchar *name, AnjutaProjectNodeType type, const gchar *install, gint flags, GError **error)
 {
@@ -971,6 +1032,12 @@ void
 amp_source_add_token (AnjutaAmSourceNode *node, AnjutaToken *token)
 {
 	node->token = token;
+}
+
+void
+amp_source_update_node (AnjutaAmSourceNode *node, AnjutaAmSourceNode *new_node)
+{
+	node->token = new_node->token;
 }
 
 AnjutaProjectNode*
