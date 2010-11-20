@@ -70,7 +70,7 @@ msgstr ""
 msgid ""
 "Anjuta was not able to automatically determine the encoding of the file you "
 "want to open."
-msgstr ""
+msgstr "Anjuta سىز ئاچماقچى بولغان ھۆججەتنىڭ كودلىنىش ئۇسۇلىنى ئاپتوماتىك بىلەلمىدى."
 
 #: ../libanjuta/anjuta-encodings.c:137 ../libanjuta/anjuta-encodings.c:182
 #: ../libanjuta/anjuta-encodings.c:184 ../libanjuta/anjuta-encodings.c:186
@@ -200,7 +200,7 @@ msgstr "نامەلۇم"
 #: ../libanjuta/resources.c:276 ../plugins/gdb/utilities.c:282
 #, c-format
 msgid "Cannot execute command: \"%s\""
-msgstr ""
+msgstr "بۇيرۇقنى ئىجرا قىلغىلى بولمىدى: \"%s\""
 
 #: ../libanjuta/anjuta-launcher.c:1170
 msgid "execvp failed"
@@ -288,7 +288,7 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:2299
 msgid "Available plugins"
-msgstr ""
+msgstr "ئىشلەتكىلى بولىدىغان قىستۇرمىلار"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2300
 msgid "Currently available plugins found in plugin paths"
@@ -296,7 +296,7 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:2306
 msgid "Activated plugins"
-msgstr ""
+msgstr "ئاكتىپلانغان قىستۇرمىلار"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2307
 msgid "Currently activated plugins"
@@ -308,7 +308,7 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:2321
 msgid "Anjuta Status"
-msgstr ""
+msgstr "Anjuta ھالىتى"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2322
 msgid "Anjuta status to use in loading and unloading of plugins"
@@ -367,7 +367,7 @@ msgstr ""
 #: ../libanjuta/anjuta-profile.c:699
 #, c-format
 msgid "%s: Install it from '%s'\n"
-msgstr ""
+msgstr "%s: بۇنى «%s» دىن ئورنات\n"
 
 #: ../libanjuta/anjuta-profile.c:707
 #, c-format
@@ -403,7 +403,7 @@ msgstr "ئادەتتە"
 
 #: ../libanjuta/anjuta-preferences-dialog.c:236
 msgid "Anjuta Preferences"
-msgstr ""
+msgstr "Anjuta مايىللىقى"
 
 #: ../libanjuta/anjuta-save-prompt.c:157
 msgid "Select the items to save:"
@@ -488,13 +488,13 @@ msgstr ""
 #. Try xterm
 #: ../libanjuta/anjuta-utils.c:1179
 msgid "Cannot find a terminal; using xterm, even if it may not work"
-msgstr ""
+msgstr "تېرمىنالنى تاپقىلى بولمىدى؛ xterm نى ئىشلىتىڭ، ئۇ ئىشلىمەي قېلىشىمۇ مۇمكىن"
 
 #: ../libanjuta/anjuta-utils.c:1215 ../libanjuta/anjuta-utils.c:1219
 #: ../libanjuta/anjuta-utils.c:1247 ../libanjuta/anjuta-utils.c:1251
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
-msgstr ""
+msgstr "بۇيرۇقنى ئىجرا قىلغىلى بولمىدى:%s (shell %s ئىشلىتىپ)\n"
 
 #: ../libanjuta/anjuta-utils.c:1901
 msgid ""
@@ -1074,7 +1074,7 @@ msgstr ""
 
 #: ../plugins/build-basic-autotools/plugin.c:2472
 msgid "C_onfigure Project…"
-msgstr ""
+msgstr "قۇرۇلۇشنى تەڭشە(_O)..."
 
 #: ../plugins/build-basic-autotools/plugin.c:2473
 msgid "Configure project"
@@ -1230,27 +1230,27 @@ msgstr ""
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:1
 msgid "Add to Project"
-msgstr ""
+msgstr "قۇرۇلۇشقا قوشۇش"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:2
 msgid "Add to Repository"
-msgstr ""
+msgstr "خەزىنىگە قوشۇش"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:3
 msgid "Author Email Address:"
-msgstr ""
+msgstr "ئاپتورنىڭ ئېلخەت ئادرېسى:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:4
 msgid "Author Name:"
-msgstr ""
+msgstr "ئاپتور ئاتى:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:5
 msgid "Author/Date-Time"
-msgstr ""
+msgstr "ئاپتور/چېسلا-ۋاقىت"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:6
 msgid "Author/Date/Time"
-msgstr ""
+msgstr "ئاپتور/چېسلا/ۋاقىت"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:7
 msgid "Base Class Inheritance:"
@@ -1516,15 +1516,15 @@ msgstr "كۆز يۈگۈرت…"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:6
 msgid "CVS Options"
-msgstr ""
+msgstr "CVS تاللانمىلىرى"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:7
 msgid "CVS Preferences"
-msgstr ""
+msgstr "CVS تەڭشەكلىرى"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:8
 msgid "CVS: Add file/directory"
-msgstr ""
+msgstr "CVS: ھۆججەت/ مۇندەرىجە قوشۇش"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:9
 msgid "CVS: Commit file/directory"
@@ -1532,11 +1532,11 @@ msgstr ""
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:10
 msgid "CVS: Diff file/directory"
-msgstr ""
+msgstr "CVS: ھۆججەت/مۇندەرىجە سېلىشتۇرۇش"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:11
 msgid "CVS: Import"
-msgstr ""
+msgstr "CVS: ئىمپورت قىلىش"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:12
 msgid "CVS: Log file/directory"
@@ -1544,11 +1544,11 @@ msgstr ""
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:13
 msgid "CVS: Remove file/directory"
-msgstr ""
+msgstr "CVS: ھۆججەت/مۇندەرىجە چىقىرىۋېتىش"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:14
 msgid "CVS: Status"
-msgstr ""
+msgstr "CVS: ھالەت"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:15
 msgid "CVS: Status from file/directory"
@@ -1556,11 +1556,11 @@ msgstr ""
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:16
 msgid "CVS: Update file/directory"
-msgstr ""
+msgstr "CVS: ھۆججەت/مۇندەرىجە يېڭىلاش"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:17
 msgid "CVSROOT:"
-msgstr ""
+msgstr "CVSROOT:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:18
 #: ../plugins/subversion/anjuta-subversion.ui.h:5
@@ -1736,7 +1736,7 @@ msgstr ""
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:78
 msgid "CVS command is running! Please wait until it is finished!"
-msgstr ""
+msgstr "CVS بۇيرۇقى ئىجرا بولۇۋاتىدۇ! تاماملانغۇچە تەخىر قىلىڭ!"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:152
 msgid "Unable to delete file"
@@ -1748,11 +1748,11 @@ msgstr ""
 #: ../plugins/git/git-merge-dialog.c:91
 #: ../plugins/subversion/subversion-commit-dialog.c:88
 msgid "Are you sure that you want to pass an empty log message?"
-msgstr ""
+msgstr "قۇرۇق خاتىرە ئۇچۇرىنى راستلا ئەۋەتمەكچىمۇ؟"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:435
 msgid "CVSROOT"
-msgstr ""
+msgstr "CVSROOT"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:438
 #: ../plugins/gbf-am/gbf-am-properties.c:1156
@@ -1769,27 +1769,27 @@ msgstr ""
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:460
 msgid "Are you sure that you do not want a log message?"
-msgstr ""
+msgstr "خاتىرە ئۇچۇرىنى ئەمدى راستلا خالىمامسىز؟"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:125
 msgid "CVS command failed. See above for details"
-msgstr ""
+msgstr "CVS بۇيرۇقى مەغلۇپ بولدى. تەپسىلاتى ئۈچۈن يۇقىرىغا قاراڭ."
 
 #: ../plugins/cvs-plugin/cvs-execute.c:130
 #, c-format
 msgid "CVS command successful! Time taken: %ld second"
 msgid_plural "CVS command successful! Time taken: %ld seconds"
-msgstr[0] ""
+msgstr[0] "CVS بۇيرۇقى مۇۋەپپەقىيەتلىك بولدى! ئىجرا ۋاقتى: %ld سېكۇنت"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:221
 msgid "CVS command is running — please wait until it finishes!"
-msgstr ""
+msgstr "CVS بۇيرۇقى ئىجرا بولۇۋاتىدۇ—تاماملانغۇچە تەخىر قىلىڭ!"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:229
 #: ../plugins/cvs-plugin/cvs-execute.c:233 ../plugins/cvs-plugin/plugin.c:467
 #: ../plugins/cvs-plugin/plugin.c:474
 msgid "CVS"
-msgstr ""
+msgstr "CVS"
 
 #. Action name
 #. Stock icon, if any
@@ -1807,7 +1807,7 @@ msgstr "قوش(_A)"
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:54
 msgid "Add a new file/directory to the CVS tree"
-msgstr ""
+msgstr "CVS tree غا يېڭى ھۆججەت/مۇندەرىجە قوشىدۇ"
 
 #. Action name
 #. Stock icon, if any
@@ -1896,7 +1896,7 @@ msgstr ""
 
 #: ../plugins/cvs-plugin/plugin.c:360
 msgid "CVS operations"
-msgstr ""
+msgstr "CVS مەشغۇلاتى"
 
 #: ../plugins/cvs-plugin/plugin.c:366
 msgid "CVS popup operations"
@@ -1926,7 +1926,7 @@ msgstr ""
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:7
 msgid "Breakpoint properties"
-msgstr ""
+msgstr "توختاش نۇقتىسى خاسلىقلىرى"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:8
 #: ../plugins/debug-manager/breakpoints.c:2025
@@ -2122,7 +2122,7 @@ msgstr "قىممىتى(_V):"
 
 #: ../plugins/debug-manager/breakpoints.c:1718
 msgid "Are you sure you want to delete all the breakpoints?"
-msgstr ""
+msgstr "بارلىق توختاش نۇقتىسىنى راستلا ئۆچۈرەمسىز؟"
 
 #. Action name
 #. Stock icon, if any
@@ -2152,7 +2152,7 @@ msgstr ""
 #. short-cut
 #: ../plugins/debug-manager/breakpoints.c:1833
 msgid "Add a breakpoint"
-msgstr ""
+msgstr "توختاش نۇقتىسى قوشىدۇ"
 
 #. Action name
 #. Stock icon, if any
@@ -2795,7 +2795,7 @@ msgstr "ھەممىنى چىقىرىۋەت"
 #. Stock icon, if any
 #: ../plugins/debug-manager/watch.c:423
 msgid "Automatic update"
-msgstr ""
+msgstr "ئاپتوماتىك يېڭىلاش"
 
 #: ../plugins/debug-manager/watch.c:449 ../plugins/debug-manager/watch.c:455
 msgid "Watch operations"
@@ -2877,7 +2877,7 @@ msgstr "قايتا يۈكلە(_R)"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:311
 msgid "Add bookmark"
-msgstr ""
+msgstr "خەتكۈچ قوشىدۇ"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:317
 msgid "Remove bookmark"
@@ -3293,7 +3293,7 @@ msgstr "ئالدىنقى يېنىۋالغاندا پۇشايمان قىل"
 
 #: ../plugins/document-manager/plugin.c:293
 msgid "C_ut"
-msgstr ""
+msgstr "كەس(_U)"
 
 #: ../plugins/document-manager/plugin.c:294
 msgid "Cut the selected text from the editor to the clipboard"
@@ -3455,7 +3455,7 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:377
 msgid "Bookmar_k"
-msgstr ""
+msgstr "خەتكۈش"
 
 #: ../plugins/document-manager/plugin.c:378
 msgid "_Add Bookmark"
@@ -3463,7 +3463,7 @@ msgstr "خەتكۈش قوش(_A)"
 
 #: ../plugins/document-manager/plugin.c:379
 msgid "Add a bookmark at the current line position"
-msgstr ""
+msgstr "ھازىرقى قۇرغا خەتكۈچ قوشىدۇ"
 
 #: ../plugins/document-manager/plugin.c:381
 msgid "_Previous Bookmark"
@@ -3583,11 +3583,11 @@ msgstr "ئاپتوماتىك"
 #: ../plugins/document-manager/plugin.c:1593
 #, c-format
 msgid "Autosave failed for %s"
-msgstr ""
+msgstr "%s نى ئۆزلۈكىدىن ساقلاش مەغلۇپ بولدى"
 
 #: ../plugins/document-manager/plugin.c:1607
 msgid "Autosave completed"
-msgstr ""
+msgstr "ئۆزلۈكىدىن ساقلاش تاماملاندى"
 
 #: ../plugins/document-manager/search-box.c:383
 #, c-format
@@ -3668,7 +3668,9 @@ msgid ""
 "Cannot open \"%s\".\n"
 "\n"
 "%s"
-msgstr ""
+msgstr "«%s» نى ئاچقىلى بولمىدى.\n"
+"\n"
+"%s"
 
 #: ../plugins/file-loader/plugin.c:257
 #, c-format
@@ -3700,15 +3702,15 @@ msgstr "ھەممە ھۆججەتلەر"
 
 #: ../plugins/file-loader/plugin.c:502
 msgid "Anjuta Projects"
-msgstr ""
+msgstr "Anjuta قۇرۇلۇشلىرى"
 
 #: ../plugins/file-loader/plugin.c:508
 msgid "C/C++ source files"
-msgstr ""
+msgstr "C/C++مەنبە ھۆججەتلىرى"
 
 #: ../plugins/file-loader/plugin.c:520
 msgid "C# source files"
-msgstr ""
+msgstr "C# مەنبە ھۆججەتلىرى"
 
 #: ../plugins/file-loader/plugin.c:526
 msgid "Java source files"
@@ -3900,15 +3902,15 @@ msgstr "ھۆججەت باشقۇرغۇ"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:1
 msgid "Add License Information"
-msgstr ""
+msgstr "ئىجازەت ئۇچۇرى قوشۇش"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:2
 msgid "Add to project"
-msgstr ""
+msgstr "قۇرۇلۇشقا قوشىدۇ"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:3
 msgid "Add to repository"
-msgstr ""
+msgstr "خەزىنىگە قوشىدۇ"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:4
 msgid "Create corresponding header file"
@@ -3946,7 +3948,7 @@ msgstr ""
 
 #: ../plugins/file-wizard/file.c:84
 msgid "C Source File"
-msgstr ""
+msgstr "C مەنبە ھۆججىتى"
 
 #: ../plugins/file-wizard/file.c:85
 msgid "C/C++ Header File"
@@ -3954,11 +3956,11 @@ msgstr ""
 
 #: ../plugins/file-wizard/file.c:86
 msgid "C++ Source File"
-msgstr ""
+msgstr "C++مەنبە ھۆججىتى"
 
 #: ../plugins/file-wizard/file.c:87
 msgid "C# Source File"
-msgstr ""
+msgstr "C#مەنبە ھۆججىتى"
 
 #: ../plugins/file-wizard/file.c:88
 msgid "Java Source File"
@@ -3986,7 +3988,7 @@ msgstr "باشقا"
 
 #: ../plugins/file-wizard/file.c:106
 msgid "BSD Public License"
-msgstr ""
+msgstr "BSD ئاممىۋى ئىجازەتنامىسى"
 
 #: ../plugins/file-wizard/file.c:184
 msgid "Unable to build user interface for New File"
@@ -3998,7 +4000,7 @@ msgstr ""
 
 #: ../plugins/gbf-am/gbf-am-dialogs.ui.h:1
 msgid "Add _Package"
-msgstr ""
+msgstr "بوغچا قوش(_P)"
 
 #: ../plugins/gbf-am/gbf-am-dialogs.ui.h:2
 msgid "Add _module"
@@ -4298,7 +4300,7 @@ msgstr ""
 #: ../plugins/gbf-am/gbf-am-properties.c:451
 #, c-format
 msgid "Are you sure you want to remove package \"%s\"?"
-msgstr ""
+msgstr "بوغچا «%s» نى راستلا چىقىرىۋېتەمسىز؟"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:509
 #: ../plugins/gbf-am/gbf-am-properties.c:591
@@ -4308,7 +4310,7 @@ msgstr ""
 #: ../plugins/gbf-am/gbf-am-properties.c:622
 #, c-format
 msgid "Are you sure you want to remove variable \"%s\"?"
-msgstr ""
+msgstr "ئۆزگەرگۈچى «%s» نى راستلا چىقىرىۋېتەمسىز؟"
 
 #: ../plugins/gbf-am/gbf-am-properties.c:776
 #: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:180
@@ -4681,7 +4683,7 @@ msgstr ""
 
 #: ../plugins/git/anjuta-git.ui.h:1
 msgid "Add File"
-msgstr ""
+msgstr "ھۆججەت قوشۇش"
 
 #: ../plugins/git/anjuta-git.ui.h:2
 msgid "Add Remote Branch"
@@ -5536,7 +5538,7 @@ msgstr "[fuzzy]قوش(_A)"
 #. short-cut
 #: ../plugins/git/plugin.c:177
 msgid "Add files to the repository"
-msgstr ""
+msgstr "خەزىنىگە ھۆججەتلىرىنى قوشىدۇ"
 
 #. Action name
 #. Stock icon, if any
@@ -6013,7 +6015,7 @@ msgstr ""
 #. short-cut
 #: ../plugins/git/plugin.c:593
 msgid "Add this file or folder to the repository"
-msgstr ""
+msgstr "بۇ ھۆججەت ياكى مۇندەرىجىنى خەزىنىگە قوشىدۇ"
 
 #. Display label
 #. short-cut
@@ -6134,7 +6136,7 @@ msgstr ""
 #: ../plugins/gtodo/add_edit_item.c:332 ../plugins/gtodo/add_edit_item.c:333
 #, c-format
 msgid "N/A"
-msgstr "ئۇچۇر يوق"
+msgstr "N/A"
 
 #: ../plugins/gtodo/add_edit_item.c:296 ../plugins/gtodo/add_edit_item.c:339
 #: ../plugins/gtodo/add_edit_item.c:448
@@ -6147,19 +6149,19 @@ msgstr ""
 
 #: ../plugins/gtodo/callback.c:20
 msgid "Are you sure you want to remove the selected to-do item?"
-msgstr ""
+msgstr "تاللانغان to-do تۇرىنى راستلا چىقىرىۋېتەمسىز؟"
 
 #: ../plugins/gtodo/callback.c:98
 #, c-format
 msgid "Are you sure you want to remove all the completed to-do items?"
-msgstr ""
+msgstr "تاماملانغان بارلىق to-do تۇرلىرىنى راستلا چىقىرىۋېتەمسىز؟"
 
 #: ../plugins/gtodo/callback.c:99
 #, c-format
 msgid ""
 "Are you sure you want to remove all the completed to-do items in the "
 "category \"%s\"?"
-msgstr ""
+msgstr "كاتېگورىيە «%s» نىڭدىن تاماملانغان بارلىق to-do تۇرلىرىنى راستلا چىقىرىۋېتەمسىز؟"
 
 #: ../plugins/gtodo/export.c:47
 msgid "Export task list"
@@ -6285,7 +6287,7 @@ msgstr "ئۆچۈر"
 #: ../plugins/gtodo/mcategory.c:173
 #, c-format
 msgid "<New category (%d)>"
-msgstr ""
+msgstr "<يەڭى كاتەگورىيە (%d)>"
 
 #: ../plugins/gtodo/notification.c:66
 #, c-format
@@ -6753,7 +6755,7 @@ msgstr "ئەكىر"
 
 #: ../plugins/project-manager/create_dialogs.ui.h:1
 msgid "Add Source"
-msgstr ""
+msgstr "مەنبە قوشۇش"
 
 #: ../plugins/project-manager/create_dialogs.ui.h:2
 msgid "New Group"
@@ -6818,7 +6820,7 @@ msgstr ""
 #: ../plugins/project-manager/gbf-project-util.c:229
 #: ../plugins/project-manager/gbf-project-util.c:236
 msgid "Cannot add group"
-msgstr ""
+msgstr "گۇرۇپپا قوشقىلى بولمىدى"
 
 #: ../plugins/project-manager/gbf-project-util.c:237
 msgid "No parent group selected"
@@ -6827,7 +6829,7 @@ msgstr ""
 #: ../plugins/project-manager/gbf-project-util.c:407
 #: ../plugins/project-manager/gbf-project-util.c:414
 msgid "Cannot add target"
-msgstr ""
+msgstr "نىشاننى قوشقىلى بولمىدى"
 
 #: ../plugins/project-manager/gbf-project-util.c:415
 msgid "No group selected"
@@ -6840,7 +6842,7 @@ msgstr ""
 #: ../plugins/project-manager/gbf-project-util.c:744
 #: ../plugins/project-manager/gbf-project-util.c:751
 msgid "Cannot add source files"
-msgstr ""
+msgstr "مەنبە ھۆججەتلەرنى قوشقىلى بولمىدى"
 
 #: ../plugins/project-manager/gbf-project-util.c:752
 msgid "No target has been selected"
@@ -6880,25 +6882,29 @@ msgstr ""
 msgid ""
 "Are you sure you want to remove the following group from the project?\n"
 "\n"
-msgstr ""
+msgstr "ھازىرقى قۇرۇلۇشتىن تۆۋەندىكى گۇرۇپپىنى راستلا چىقىرىۋېتەمسىز؟\n"
+"\n"
 
 #: ../plugins/project-manager/plugin.c:699
 msgid ""
 "Are you sure you want to remove the following target from the project?\n"
 "\n"
-msgstr ""
+msgstr "ھازىرقى قۇرۇلۇشتىن تۆۋەندىكى نىشاننى راستلا چىقىرىۋېتەمسىز؟\n"
+"\n"
 
 #: ../plugins/project-manager/plugin.c:702
 msgid ""
 "Are you sure you want to remove the following source file from the project?\n"
 "\n"
-msgstr ""
+msgstr "ھازىرقى قۇرۇلۇشتىن تۆۋەندىكى مەنبە ھۆججەتنى راستلا چىقىرىۋېتەمسىز؟\n"
+"\n"
 
 #: ../plugins/project-manager/plugin.c:705
 msgid ""
 "Are you sure you want to remove the following elements from the project?\n"
 "\n"
-msgstr ""
+msgstr "ھازىرقى قۇرۇلۇشتىن تۆۋەندىكى ئېلېمېنتلارنى راستلا چىقىرىۋېتەمسىز؟\n"
+"\n"
 
 #: ../plugins/project-manager/plugin.c:722
 #, c-format
@@ -6963,31 +6969,31 @@ msgstr ""
 
 #: ../plugins/project-manager/plugin.c:917
 msgid "Add _Group…"
-msgstr ""
+msgstr "گۇرۇپپا قوش(_G)..."
 
 #: ../plugins/project-manager/plugin.c:917
 #: ../plugins/project-manager/plugin.c:951
 msgid "Add a group to project"
-msgstr ""
+msgstr "قۇرۇلۇشقا بىر گۇرۇپپا قوشىدۇ"
 
 #: ../plugins/project-manager/plugin.c:922
 msgid "Add _Target…"
-msgstr ""
+msgstr "نىشان قوش (_T)..."
 
 #: ../plugins/project-manager/plugin.c:922
 #: ../plugins/project-manager/plugin.c:956
 msgid "Add a target to project"
-msgstr ""
+msgstr "قۇرۇلۇشقا نىشان قوشىدۇ"
 
 #: ../plugins/project-manager/plugin.c:927
 msgid "Add _Source File…"
-msgstr ""
+msgstr "مەنبە ھۆججەت قوش (_S)..."
 
 #: ../plugins/project-manager/plugin.c:927
 #: ../plugins/project-manager/plugin.c:946
 #: ../plugins/project-manager/plugin.c:961
 msgid "Add a source file to project"
-msgstr ""
+msgstr "قۇرۇلۇشقا يېڭى مەنبە ھۆججەت قوشىدۇ"
 
 #: ../plugins/project-manager/plugin.c:932
 msgid "Close Pro_ject"
@@ -7007,15 +7013,15 @@ msgstr ""
 
 #: ../plugins/project-manager/plugin.c:951
 msgid "Add _Group"
-msgstr ""
+msgstr "گۇرۇپپا قوش(_G)"
 
 #: ../plugins/project-manager/plugin.c:956
 msgid "Add _Target"
-msgstr ""
+msgstr "نىشان قوش (_T)"
 
 #: ../plugins/project-manager/plugin.c:961
 msgid "Add _Source File"
-msgstr ""
+msgstr "مەنبە ھۆججەت قوش(_S)"
 
 #: ../plugins/project-manager/plugin.c:966
 msgid "Re_move"
@@ -7710,7 +7716,7 @@ msgstr ""
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:3
 msgid "Anjuta Plugin"
-msgstr ""
+msgstr "Anjuta قىستۇرمىسى"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:4
 msgid "Anjuta plugin project that uses libanjuta framework"
@@ -8293,11 +8299,11 @@ msgstr ""
 
 #: ../plugins/search/search-replace.c:101
 msgid "All Open Buffers"
-msgstr ""
+msgstr "بارلىق ئوچۇق يىغلەكلەر"
 
 #: ../plugins/search/search-replace.c:102
 msgid "All Project Files"
-msgstr ""
+msgstr "بارلىق قۇرۇلۇش ھۆججەتلىرى"
 
 #. {SR_VARIABLE, N_("Specify File List")},
 #: ../plugins/search/search-replace.c:104
@@ -8310,7 +8316,7 @@ msgstr ""
 
 #: ../plugins/search/search-replace.c:110
 msgid "Bookmark all matched lines"
-msgstr ""
+msgstr "ماس كەلگەن بارلىق قۇرلارنى خەتكۈچلە"
 
 #: ../plugins/search/search-replace.c:111
 msgid "Mark all matches"
@@ -8569,7 +8575,7 @@ msgstr ""
 
 #: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:1
 msgid "Anjuta variables"
-msgstr ""
+msgstr "Anjuta ئۆزگەرگۈچىلىرى"
 
 #: ../plugins/snippets-manager/snippets-import-export.c:145
 msgid "Import Snippets"
@@ -8736,11 +8742,11 @@ msgstr "ئۇلانما"
 
 #: ../plugins/starter/starter.c:487
 msgid "Anjuta Home Page"
-msgstr ""
+msgstr "Anjuta باش بېتى"
 
 #: ../plugins/starter/starter.c:493
 msgid "Anjuta Manual"
-msgstr ""
+msgstr "Anjuta قوللانمىسى"
 
 #: ../plugins/starter/starter.c:499
 msgid "GNOME Online API Documentation"
@@ -8748,7 +8754,7 @@ msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:1
 msgid "Add file/directory"
-msgstr ""
+msgstr "ھۆججەت/مۇندەرىجە قوش"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:2
 msgid "Branch/Tag URL:"
@@ -8924,7 +8930,7 @@ msgstr ""
 #. short-cut
 #: ../plugins/subversion/plugin.c:62 ../plugins/subversion/plugin.c:177
 msgid "Add a new file/directory to the Subversion tree"
-msgstr ""
+msgstr "Subversion tree غا يېڭى ھۆججەت/مۇندەرىجە قوشىدۇ"
 
 #. Display label
 #. short-cut
@@ -9214,7 +9220,7 @@ msgstr ""
 #: ../plugins/subversion/svn-command.c:397
 #, c-format
 msgid "Added: %s"
-msgstr ""
+msgstr "قوشۇلدى:  %s"
 
 #: ../plugins/subversion/svn-command.c:388
 #, c-format
@@ -9475,7 +9481,7 @@ msgstr ""
 #: ../plugins/tools/dialog.c:177
 #, c-format
 msgid "Are you sure you want to delete the '%s' tool?"
-msgstr ""
+msgstr "«%s» دېگەن قورالنى راستلا ئۆچۈرەمسىز؟"
 
 #: ../plugins/tools/dialog.c:343
 msgid "Tool"
@@ -9534,7 +9540,7 @@ msgstr "%s نى ئېچىۋاتىدۇ"
 #.
 #: ../plugins/tools/execute.c:409
 msgid "(output)"
-msgstr ""
+msgstr "(چىقىرىش)"
 
 #. This is append to the tool name to give something
 #. * like "My tools (error)". It's used to name the message
@@ -9542,7 +9548,7 @@ msgstr ""
 #.
 #: ../plugins/tools/execute.c:417
 msgid "(error)"
-msgstr ""
+msgstr "(خاتالىق)"
 
 #. Display the name of the command
 #: ../plugins/tools/execute.c:469
@@ -9712,7 +9718,7 @@ msgstr ""
 
 #: ../plugins/tools/tool.c:87
 msgid "Append to buffer"
-msgstr ""
+msgstr "يىغلەككە قوشۇش"
 
 #: ../plugins/tools/tool.c:88
 msgid "Replace selection"
@@ -9813,7 +9819,7 @@ msgstr ""
 
 #: ../src/anjuta-actions.h:64
 msgid "Anjuta user's manual"
-msgstr ""
+msgstr "Anjuta ئىشلەتكۈچى قوللانمىسى"
 
 #: ../src/anjuta-actions.h:67
 msgid "Kick start _tutorial"
@@ -9829,7 +9835,7 @@ msgstr ""
 
 #: ../src/anjuta-actions.h:72
 msgid "Anjuta advanced tutorial"
-msgstr ""
+msgstr "Anjuta ئالىي ئوقۇشلۇقى"
 
 #: ../src/anjuta-actions.h:75
 msgid "_Frequently Asked Questions"
@@ -9837,11 +9843,11 @@ msgstr ""
 
 #: ../src/anjuta-actions.h:76
 msgid "Anjuta frequently asked questions"
-msgstr ""
+msgstr "Anjuta ھەققىدە كوپ سورىلىدىغان سوئاللار"
 
 #: ../src/anjuta-actions.h:79
 msgid "Anjuta _Home Page"
-msgstr ""
+msgstr "Anjuta باش بېتى(_H)"
 
 #: ../src/anjuta-actions.h:80
 msgid "Online documentation and resources"
@@ -9857,7 +9863,7 @@ msgstr ""
 
 #: ../src/anjuta-actions.h:87
 msgid "Ask a _Question"
-msgstr ""
+msgstr "سوئال سوراش(_Q)"
 
 #: ../src/anjuta-actions.h:88
 msgid "Submit a question for FAQs"
@@ -9869,15 +9875,15 @@ msgstr "ھەققىدە(_A)"
 
 #: ../src/anjuta-actions.h:92
 msgid "About Anjuta"
-msgstr ""
+msgstr "Anjuta ھەققىدە"
 
 #: ../src/anjuta-actions.h:95
 msgid "About External _Plugins"
-msgstr ""
+msgstr "سىرتقى قىستۇرمىلار ھەققىدە(_P)"
 
 #: ../src/anjuta-actions.h:96
 msgid "About third-party Anjuta plugins"
-msgstr ""
+msgstr "ئۈچىنچى تەرەپ Anjuta قىستۇرمىلىرى ھەققىدە"
 
 #: ../src/anjuta-app.c:625
 msgid "Edit"
@@ -9928,11 +9934,11 @@ msgstr ""
 
 #: ../src/main.c:174
 msgid "- Integrated Development Environment"
-msgstr ""
+msgstr "- يۈرۈشلەشكەن ئىجادىيەت مۇھىتى"
 
 #: ../src/main.c:249
 msgid "Anjuta"
-msgstr ""
+msgstr "Anjuta"
 
 #: ../src/preferences.ui.h:1
 msgid "Appearance"
@@ -10118,11 +10124,11 @@ msgstr ""
 #: ../plugins/language-support-cpp-java/plugin.c:2042
 #: ../plugins/language-support-cpp-java/plugin.c:2055
 msgid "C/C++/Java/Vala"
-msgstr ""
+msgstr "C/C++/Java/Vala"
 
 #: ../plugins/language-support-cpp-java/cpp-java-assist.c:1258
 msgid "C/C++"
-msgstr ""
+msgstr "C/C++"
 
 #: ../plugins/language-support-python/plugin.c:907
 msgid "Python support warning"
@@ -10207,7 +10213,7 @@ msgstr ""
 
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:1
 msgid "Anjuta File Assistant Plugin"
-msgstr ""
+msgstr "Anjuta ھۆججەت ياردەمچى قىستۇرمىسى"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:3
 msgid "File Assistant"
@@ -10271,7 +10277,7 @@ msgstr ""
 
 #: ../plugins/cvs-plugin/anjuta-cvs.plugin.in.h:2
 msgid "CVS Plugin"
-msgstr ""
+msgstr "CVS قىستۇرمىسى"
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:1
 msgid "Import an existing autotools project to Anjuta"
@@ -10319,7 +10325,7 @@ msgstr "ئىزدەۋاتىدۇ"
 
 #: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:1
 msgid "Anjuta Class Generator Plugin"
-msgstr ""
+msgstr "Anjuta تىپ ھاسىل قىلىش قىستۇرمىسى"
 
 #: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:2
 msgid "C++/GObject Class"
@@ -10401,7 +10407,7 @@ msgstr ""
 
 #: ../plugins/js-debugger/js_debugger.plugin.in.h:1
 msgid "Anjuta JS Debugger Plugin"
-msgstr ""
+msgstr "Anjuta JS سازلىغۇچ قىستۇرمىسى"
 
 #: ../plugins/js-debugger/js_debugger.plugin.in.h:2
 msgid "Javascript Debugger Plugin"
