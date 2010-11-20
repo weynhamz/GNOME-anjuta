@@ -56,35 +56,11 @@ gchar *
 gbf_tree_data_get_uri (GbfTreeData *data)
 {
 	return data->node ? g_file_get_uri (anjuta_project_node_get_file (data->node)) : NULL;
-	/*
-	//return g_file_get_uri (anjuta_project_node_get_file (data->node));
-	if (data->source != NULL)
-	{
-		return g_file_get_uri (data->source);
-	}
-	else if (data->target != NULL)
-	{
-		GFile *target;
-		gchar *uri;
-
-		target = g_file_get_child (data->group, data->target);
-		uri = g_file_get_uri (target);
-		g_object_unref (target);
-		
-		return uri;
-	}
-	else if (data->group != NULL)
-	{
-		return g_file_get_uri (data->group);
-	}
-
-	return NULL;*/
 }
 
 GFile *
 gbf_tree_data_get_file (GbfTreeData *data)
 {
-	//return g_object_ref (anjuta_project_node_get_file (data->node));
 	if (data->source != NULL)
 	{
 		return g_object_ref (g_file_get_uri (data->source));
@@ -121,17 +97,6 @@ AnjutaProjectNode *
 gbf_tree_data_get_node (GbfTreeData *data)
 {
 	return data->node;
-}
-
-void
-gbf_tree_data_replace_node (GbfTreeData *data, AnjutaProjectNode *node)
-{
-	GFile *file = ANJUTA_PROJECT_NODE_DATA(node)->file;
-	
-	/* Replace file to keep the same interface */
-	ANJUTA_PROJECT_NODE_DATA(node)->file = ANJUTA_PROJECT_NODE_DATA(data->node)->file;
-	ANJUTA_PROJECT_NODE_DATA(data->node)->file = file;
-	data->node = node;
 }
 
 gboolean
@@ -270,7 +235,7 @@ gbf_tree_data_new_group (AnjutaProjectNode *group)
 	data->type = GBF_TREE_NODE_GROUP;
 	data->node = group;
 	
-	ginfo = g_file_query_info (anjuta_project_group_get_directory (group),
+	ginfo = g_file_query_info (anjuta_project_node_get_file (group),
 	    G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
 	    G_FILE_QUERY_INFO_NONE,
 	    NULL, NULL);
@@ -281,10 +246,10 @@ gbf_tree_data_new_group (AnjutaProjectNode *group)
 	}
 	else
 	{
-		data->name = g_file_get_basename (anjuta_project_group_get_directory (group));
+		data->name = g_strdup (anjuta_project_node_get_name (group));
 	}
 
-	data->group = g_object_ref (anjuta_project_group_get_directory (group));
+	data->group = g_object_ref (anjuta_project_node_get_file (group));
 	
 	return data;
 }
@@ -297,11 +262,11 @@ gbf_tree_data_new_target (AnjutaProjectNode *target)
 	
 	data->type = GBF_TREE_NODE_TARGET;
 	data->node = target;
-	data->name = g_strdup (anjuta_project_target_get_name (target));
+	data->name = g_strdup (anjuta_project_node_get_name (target));
 
 	group = anjuta_project_node_parent (target);
-	data->group = g_object_ref (anjuta_project_group_get_directory (group));	
-	data->target = g_strdup (anjuta_project_target_get_name (target));
+	data->group = g_object_ref (anjuta_project_node_get_file (group));	
+	data->target = g_strdup (anjuta_project_node_get_name (target));
 	
 	return data;
 }
@@ -316,7 +281,7 @@ gbf_tree_data_new_source (AnjutaProjectNode *source)
 	data->type = GBF_TREE_NODE_SOURCE;
 	data->node = source;
 
-	data->source = g_object_ref (anjuta_project_source_get_file (source));
+	data->source = g_object_ref (anjuta_project_node_get_file (source));
 	
 	ginfo = g_file_query_info (data->source,
 	    G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
@@ -335,15 +300,15 @@ gbf_tree_data_new_source (AnjutaProjectNode *source)
 	parent = anjuta_project_node_parent (source);
 	if (anjuta_project_node_get_node_type (parent) == ANJUTA_PROJECT_GROUP)
 	{
-		data->group = g_object_ref (anjuta_project_group_get_directory (parent));
+		data->group = g_object_ref (anjuta_project_node_get_file (parent));
 	}
 	else if (anjuta_project_node_get_node_type (parent) == ANJUTA_PROJECT_TARGET)
 	{
 		AnjutaProjectNode *group;
 		
 		group = anjuta_project_node_parent (parent);
-		data->group = g_object_ref (anjuta_project_group_get_directory (group));
-		data->target = g_strdup (anjuta_project_target_get_name (parent));
+		data->group = g_object_ref (anjuta_project_node_get_file (group));
+		data->target = g_strdup (anjuta_project_node_get_name (parent));
 	}
 
 	return data;

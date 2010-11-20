@@ -3257,7 +3257,7 @@ interface IAnjutaProject
 	 * Return value: (element-type Anjuta.ProjectNodeInfo) (transfer none): TRUE if the property has been successfully removed
 	 * else FALSE
 	 */
-	const List<AnjutaProjectNodeInformation *> get_node_info();
+	const List<AnjutaProjectNodeInfo *> get_node_info();
 }
 
 /**

@@ -138,24 +138,6 @@ pm_property_entry_free (PropertyEntry *prop)
 	g_slice_free (PropertyEntry, prop);
 }
 
-static PropertyValue*
-pm_property_value_new (AnjutaProjectProperty *property, const gchar *value)
-{
-	PropertyValue *prop;
-	
-	prop = g_slice_new0(PropertyValue);
-	prop->property = property;
-	prop->value = value;
-	
-	return prop;
-}
-
-static void
-pm_property_value_free (PropertyValue *prop)
-{
-	g_slice_free (PropertyValue, prop);
-}
- 
 static gboolean
 parent_filter_func (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
 {
@@ -609,7 +591,6 @@ on_properties_dialog_response (GtkWidget *dialog,
 	if (id == GTK_RESPONSE_APPLY)
 	{
 		GList *item;
-		GList *modified = NULL;
 		
 		/* Get all modified properties */
 		for (item = g_list_first (table->properties); item != NULL; item = g_list_next (item))
@@ -633,10 +614,7 @@ on_properties_dialog_response (GtkWidget *dialog,
 					if ((prop->value != NULL) && (*prop->value != '\0'))
 					{
 						/* Remove */
-						PropertyValue *value;
-
-						value = pm_property_value_new (prop, NULL);
-						modified = g_list_prepend (modified, value);
+						ianjuta_project_set_property (table->project->project, table->node, prop, NULL, NULL);
 					}
 				}
 				else
@@ -644,10 +622,7 @@ on_properties_dialog_response (GtkWidget *dialog,
 					if (g_strcmp0 (prop->value, text) != 0)
 					{
 						/* Modified */
-						PropertyValue *value;
-						
-						value = pm_property_value_new (prop, text);
-						modified = g_list_prepend (modified, value);
+						ianjuta_project_set_property (table->project->project, table->node, prop, text, NULL);
 					}
 				}
 				break;
@@ -658,10 +633,7 @@ on_properties_dialog_response (GtkWidget *dialog,
 				if (active != (*text == '1'))
 				{
 					/* Modified */
-					PropertyValue *value;
-						
-					value = pm_property_value_new (prop, text);
-					modified = g_list_prepend (modified, value);
+					ianjuta_project_set_property (table->project->project, table->node, prop, text, NULL);
 				}
 				break;
 			case ANJUTA_PROJECT_PROPERTY_MAP:
@@ -670,21 +642,6 @@ on_properties_dialog_response (GtkWidget *dialog,
 				break;
 			}
 		}
-
-		/* Update all modified properties */
-		anjuta_pm_project_set_properties (table->project, table->node, modified, NULL);
-
-		/* Display modified properties */
-		/*for (item = g_list_first (modified); item != NULL; item = g_list_next (item))
-		{
-			PropertyValue *value = (PropertyValue *)item->data;
-			AnjutaProjectPropertyInfo *info;
-
-			info = anjuta_project_property_get_info (value->property);
-			
-		}*/
-		
-		g_list_foreach (modified, (GFunc)pm_property_value_free, NULL);
 	}
 	g_list_foreach (table->properties, (GFunc)pm_property_entry_free, NULL);
 	g_free (table);
@@ -1549,12 +1506,11 @@ anjuta_pm_project_new_package (AnjutaPmProject *project,
 		if (anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_MODULE)
 		{
 			GtkTreeIter list_iter;
-			gchar *name;
+			const gchar *name;
 
 			name = anjuta_project_node_get_name (node);
 			gtk_list_store_append (store, &list_iter);
 			gtk_list_store_set (store, &list_iter, 0, name, -1);
-			g_free (name);
 
 			if (node == module)
 			{

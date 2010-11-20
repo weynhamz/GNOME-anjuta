@@ -178,8 +178,8 @@ project_node_new (DirProject *project, AnjutaProjectNode *parent, AnjutaProjectN
 	}
 	if (node != NULL)
 	{
-		ANJUTA_PROJECT_NODE_DATA (node)->type = type;
-		ANJUTA_PROJECT_NODE_DATA (node)->parent = parent;
+		node->type = type;
+		node->parent = parent;
 	}
 	
 	return node;
@@ -895,7 +895,7 @@ iproject_get_root (IAnjutaProject *obj, GError **error)
 	return DIR_PROJECT (obj)->root;
 }
 
-static GList* 
+static const GList* 
 iproject_get_node_info (IAnjutaProject *obj, GError **err)
 {
 	return dir_project_get_node_info (DIR_PROJECT (obj), err);

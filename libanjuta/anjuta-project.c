@@ -32,28 +32,92 @@
  * @stability: Unstable
  * @include: libanjuta/anjuta-project.h
  * 
- * A project in Anjuta is represented by a tree. There are three kinds of node.
+ * A project in Anjuta is represented by a tree. There are six kinds of node.
+ *
+ * The root node is the parent of all other nodes, it can implement
+ * IAnjutaProject interface and represent the project itself but it is not
+ * mandatory.
  * 
- * A source node represents a source file. These are lead of the tree, a source
- * node cannot have children.
+ * A module node represents a module in autotools project, it is a group of
+ * packages.
+ * 
+ * A package node represents a package in autotools project, it is library.
+ * 
+ * A group node is used to group several target or source, it can represent
+ * a directory by example.
  *
  * A target node represents an object file defined explicitely.
  * There are different kinds of target: program, library...
  * A target have as children all source needed to build it.
  *
- * A group node is used to group several target or source, it can represent
- * a directory by example. The root node of the project is a group node
- * representing the project directory.
+ * A source node represents a source file. These are lead of the tree, a source
+ * node cannot have children.
  *
  * All these nodes are base objects. They have derived in each project backend
  * to provide more specific information.
  */ 
 
-/* convenient shortcut macro the get the AnjutaProjectNode from a GNode */
-#define NODE_DATA(node)  node
-#define PROXY_DATA(node)  ((node) != NULL ? (AnjutaProjectProxyData *)((node)->data) : NULL)
+/* Node properties
+ *---------------------------------------------------------------------------*/
 
-/* Node access functions
+/* Implement Boxed type
+ *---------------------------------------------------------------------------*/
+
+/**
+ * anjuta_project_property_new:
+ * name: (transfer none):
+ * value: (transfer none):
+ * native: (allow-none) (transfer none):
+ *
+ * Returns: (transfer full):
+ */
+AnjutaProjectProperty *
+anjuta_project_property_new (const gchar *name, AnjutaProjectValueType type,
+                             const gchar *value, AnjutaProjectProperty *native)
+{
+	AnjutaProjectProperty *prop = g_slice_new0(AnjutaProjectProperty);
+	prop->name = g_strdup (name);
+	prop->type = type;
+	prop->value = g_strdup (value);
+	prop->native = native;
+	return prop;
+}
+
+AnjutaProjectProperty *
+anjuta_project_property_copy (AnjutaProjectProperty *prop)
+{
+	return anjuta_project_property_new (prop->name, prop->type,
+	                                    prop->value, prop->native);
+}
+
+void
+anjuta_project_property_free (AnjutaProjectProperty *prop)
+{
+	g_free (prop->name);
+	g_free (prop->value);
+	g_slice_free (AnjutaProjectProperty, prop);
+}
+
+GType
+anjuta_project_property_get_type (void)
+{
+	static GType type_id = 0;
+
+	if (!type_id)
+		type_id = g_boxed_type_register_static ("AnjutaProjectProperty",
+		                                        (GBoxedCopyFunc) anjuta_project_property_copy,
+		                                        (GBoxedFreeFunc) anjuta_project_property_free);
+
+	return type_id;
+}
+
+
+
+/* Node
+ *---------------------------------------------------------------------------*/
+
+
+/* Moving in tree functions
  *---------------------------------------------------------------------------*/
 
 AnjutaProjectNode *
@@ -292,11 +356,8 @@ anjuta_project_node_children_foreach (AnjutaProjectNode *node, AnjutaProjectNode
 	}
 }
 
-AnjutaProjectNode *
-anjuta_project_node_append (AnjutaProjectNode *parent, AnjutaProjectNode *node)
-{ 
-	return anjuta_project_node_insert_before (parent, NULL, node);
-}
+/* Adding node functions
+ *---------------------------------------------------------------------------*/
 
 /**
  * anjuta_project_node_insert_before:
@@ -423,94 +484,10 @@ anjuta_project_node_remove (AnjutaProjectNode *node)
 		node->next->prev = node->prev;
 		node->next = NULL;
 	}
-    node->prev = NULL;
+	node->prev = NULL;
 	
 	return node;
 }
-
-AnjutaProjectNode *
-anjuta_project_node_replace (AnjutaProjectNode *node, AnjutaProjectNode *replacement)
-{
-	AnjutaProjectNode *child;
-	AnjutaProjectNode *sibling;
-	AnjutaProjectNode *next;
-	
-	if (node->parent != NULL)
-	{
-		anjuta_project_node_insert_after (node->parent, node, replacement);
-		anjuta_project_node_remove (node);
-	}
-
-	/* Move all children from node to replacement */
-	sibling = NULL;
-	for (child = anjuta_project_node_first_child (node); child != NULL; child = next)
-	{
-		next = anjuta_project_node_next_sibling (child);
-		anjuta_project_node_remove (child);
-		sibling = anjuta_project_node_insert_after (replacement, sibling, child);
-		child = next;
-	}
-	
-	/* Move all children from replacement to node */
-	child = anjuta_project_node_next_sibling (sibling);
-	sibling = NULL;
-	for (; child != NULL; child = next)
-	{
-		next = anjuta_project_node_next_sibling (child);
-		anjuta_project_node_remove (child);
-		sibling = anjuta_project_node_insert_after (node, sibling, child);
-		child = next;
-	}
-	
-	return replacement;
-}
-
-AnjutaProjectNode *
-anjuta_project_node_exchange (AnjutaProjectNode *node, AnjutaProjectNode *replacement)
-{
-	AnjutaProjectNode *marker = g_object_new (ANJUTA_TYPE_PROJECT_NODE, NULL);
-	
-	if (node->parent != NULL)
-	{
-		anjuta_project_node_insert_after (node->parent, node, marker);
-		anjuta_project_node_remove (node);
-	}
-	if (replacement->parent != NULL)
-	{
-		anjuta_project_node_insert_after (replacement->parent, replacement, node);
-		anjuta_project_node_remove (replacement);
-	}
-	if (marker->parent != NULL)
-	{
-		anjuta_project_node_insert_after (marker->parent, marker, replacement);
-		anjuta_project_node_remove (marker);
-	}
-	g_object_unref (marker);
-
-	return replacement;
-}
-
-AnjutaProjectNode *
-anjuta_project_node_grab_children (AnjutaProjectNode *parent, AnjutaProjectNode *node)
-{
-	AnjutaProjectNode *child;
-	AnjutaProjectNode *sibling;
-	
-	sibling = anjuta_project_node_last_child (parent);
-	
-	for (child = anjuta_project_node_first_child (node); child != NULL;)
-	{
-		AnjutaProjectNode *remove;
-
-		remove = child;
-		child = anjuta_project_node_next_sibling (child);
-		anjuta_project_node_remove (remove);
-		sibling = anjuta_project_node_insert_after (parent, sibling, remove);
-	}
-	
-	return parent;
-}
-
 
 AnjutaProjectNode *
 anjuta_project_node_prepend (AnjutaProjectNode *parent, AnjutaProjectNode *node)
@@ -518,115 +495,85 @@ anjuta_project_node_prepend (AnjutaProjectNode *parent, AnjutaProjectNode *node)
 	return anjuta_project_node_insert_before (parent, parent->children, node);	
 }
 
-gboolean
-anjuta_project_node_set_state (AnjutaProjectNode *node, AnjutaProjectNodeState state)
-{
-	if (node == NULL) return FALSE;
-	NODE_DATA (node)->state |= state;
-	return TRUE;
+AnjutaProjectNode *
+anjuta_project_node_append (AnjutaProjectNode *parent, AnjutaProjectNode *node)
+{ 
+	return anjuta_project_node_insert_before (parent, NULL, node);
 }
 
-gboolean
-anjuta_project_node_clear_state (AnjutaProjectNode *node, AnjutaProjectNodeState state)
-{
-	if (node == NULL) return FALSE;
-	NODE_DATA (node)->state &= ~state;
-	return TRUE;
-}
-
-AnjutaProjectNodeState
-anjuta_project_node_get_state (const AnjutaProjectNode *node)
-{
-	return node == NULL ? ANJUTA_PROJECT_OK : (NODE_DATA (node)->state);
-}
+/* Access functions
+ *---------------------------------------------------------------------------*/
 
 AnjutaProjectNodeType
 anjuta_project_node_get_node_type (const AnjutaProjectNode *node)
 {
-	return node == NULL ? ANJUTA_PROJECT_UNKNOWN : (NODE_DATA (node)->type & ANJUTA_PROJECT_TYPE_MASK);
+	return node == NULL ? ANJUTA_PROJECT_UNKNOWN : (node->type & ANJUTA_PROJECT_TYPE_MASK);
 }
 
 AnjutaProjectNodeType
 anjuta_project_node_get_full_type (const AnjutaProjectNode *node)
 {
-	return node == NULL ? ANJUTA_PROJECT_UNKNOWN : NODE_DATA (node)->type;
+	return node == NULL ? ANJUTA_PROJECT_UNKNOWN : node->type;
 }
 
-gchar *
+
+AnjutaProjectNodeState
+anjuta_project_node_get_state (const AnjutaProjectNode *node)
+{
+	return node == NULL ? ANJUTA_PROJECT_OK : (node->state);
+}
+
+const gchar *
 anjuta_project_node_get_name (const AnjutaProjectNode *node)
 {
-	switch (NODE_DATA (node)->type & ANJUTA_PROJECT_TYPE_MASK)
+	if ((node->name == NULL) && (node->file != NULL))
 	{
-	case ANJUTA_PROJECT_GROUP:
-		return g_file_get_basename (NODE_DATA (node)->file);
-	case ANJUTA_PROJECT_SOURCE:
-		return g_file_get_basename (NODE_DATA (node)->file);
-	case ANJUTA_PROJECT_TARGET:
-	case ANJUTA_PROJECT_MODULE:
-	case ANJUTA_PROJECT_PACKAGE:
-		return g_strdup (NODE_DATA (node)->name);
-	default:
-		return NULL;
-	}
-}
-
-gchar*
-anjuta_project_node_get_uri (AnjutaProjectNode *node)
-{
-	AnjutaProjectNode *parent;
-	GFile *file;
-	gchar *uri;
-	
-	switch (NODE_DATA (node)->type & ANJUTA_PROJECT_TYPE_MASK)
-	{
-	case ANJUTA_PROJECT_GROUP:
-		uri = g_file_get_uri (NODE_DATA (node)->file);
-		break;
-	case ANJUTA_PROJECT_TARGET:
-		parent = anjuta_project_node_parent (node);
-		file = g_file_get_child (anjuta_project_group_get_directory (parent), anjuta_project_target_get_name (node));
-		uri = g_file_get_uri (file);
-		g_object_unref (file);
-		break;
-	case ANJUTA_PROJECT_SOURCE:
-		uri = g_file_get_uri (NODE_DATA (node)->file);
-		break;
-	default:
-		uri = NULL;
-		break;
+		((AnjutaProjectNode *)node)->name = g_file_get_basename (node->file);
 	}
 
-	return uri;
+	return node->name;
 }
 
 GFile*
-anjuta_project_node_get_file (AnjutaProjectNode *node)
+anjuta_project_node_get_file (const AnjutaProjectNode *node)
 {
-	if ((NODE_DATA (node)->file == NULL) && (NODE_DATA (node)->name != NULL))
+	switch (node->type & ANJUTA_PROJECT_TYPE_MASK)
 	{
-		/* Try to create a file */
-		AnjutaProjectNode *parent;
-
-		parent = anjuta_project_node_parent (node);
-		if ((parent != NULL) && (NODE_DATA (parent)->file != NULL))
+	case ANJUTA_PROJECT_TARGET:
+		if ((node->name) && (node->parent != NULL) && (node->parent->file != NULL))
 		{
-			NODE_DATA (node)->file = g_file_get_child (NODE_DATA (parent)->file, NODE_DATA (node)->name);
-		}
-	}
+			GFile *file = g_file_get_child (node->parent->file, node->name);
 
-	return NODE_DATA (node)->file;
+			if ((node->file != NULL) && g_file_equal (node->file, file))
+			{
+				/* Keep the same file */
+				g_object_unref (file);
+			}
+			else
+			{
+				/* Parent has been updated, update file */
+				if (node->file != NULL) g_object_unref (node->file);
+				((AnjutaProjectNode *)node)->file = file;
+			}
+		}
+		break;
+	default:
+		break;
+	}
+			
+	return node->file;		
 }
 
 GList *
 anjuta_project_node_get_custom_properties (AnjutaProjectNode *node)
 {
-	return NODE_DATA (node)->custom_properties;
+	return node->custom_properties;
 }
 
 GList *
 anjuta_project_node_get_native_properties (AnjutaProjectNode *node)
 {
-	return NODE_DATA (node)->native_properties;
+	return node->native_properties;
 }
 
 static gint
@@ -656,6 +603,26 @@ anjuta_project_node_get_property (AnjutaProjectNode *node, AnjutaProjectProperty
 	}
 
 	return found != NULL ? (AnjutaProjectProperty *)found->data : NULL;
+}
+
+
+/* Set functions
+ *---------------------------------------------------------------------------*/
+
+gboolean
+anjuta_project_node_set_state (AnjutaProjectNode *node, AnjutaProjectNodeState state)
+{
+	if (node == NULL) return FALSE;
+	node->state |= state;
+	return TRUE;
+}
+
+gboolean
+anjuta_project_node_clear_state (AnjutaProjectNode *node, AnjutaProjectNodeState state)
+{
+	if (node == NULL) return FALSE;
+	node->state &= ~state;
+	return TRUE;
 }
 
 AnjutaProjectProperty *
@@ -697,69 +664,16 @@ anjuta_project_node_remove_property (AnjutaProjectNode *node, AnjutaProjectPrope
 	return removed;
 }
 
-/**
- * anjuta_project_property_new:
- * name: (transfer none):
- * value: (transfer none):
- * native: (allow-none) (transfer none):
- *
- * Returns: (transfer full):
- */
-AnjutaProjectProperty *
-anjuta_project_property_new (const gchar *name, AnjutaProjectValueType type,
-                             const gchar *value, AnjutaProjectProperty *native)
-{
-	AnjutaProjectProperty *prop = g_slice_new0(AnjutaProjectProperty);
-	prop->name = g_strdup (name);
-	prop->type = type;
-	prop->value = g_strdup (value);
-	prop->native = native;
-	return prop;
-}
 
-AnjutaProjectProperty *
-anjuta_project_property_copy (AnjutaProjectProperty *prop)
-{
-	return anjuta_project_property_new (prop->name, prop->type,
-	                                    prop->value, prop->native);
-}
-
-void
-anjuta_project_property_free (AnjutaProjectProperty *prop)
-{
-	g_free (prop->name);
-	g_free (prop->value);
-	g_slice_free (AnjutaProjectProperty, prop);
-}
-
-GType
-anjuta_project_property_get_type (void)
-{
-	static GType type_id = 0;
-
-	if (!type_id)
-		type_id = g_boxed_type_register_static ("AnjutaProjectProperty",
-		                                        (GBoxedCopyFunc) anjuta_project_property_copy,
-		                                        (GBoxedFreeFunc) anjuta_project_property_free);
-
-	return type_id;
-}
-
-/* Group access functions
+/* Get node from file functions
  *---------------------------------------------------------------------------*/
-
-GFile*
-anjuta_project_group_get_directory (const AnjutaProjectNode *group)
-{
-	return NODE_DATA (group)->file;
-}
 
 static gboolean
 anjuta_project_group_compare (AnjutaProjectNode *node, gpointer data)
 {
 	GFile *file = (GFile *)data;
 
-	if (((NODE_DATA (node)->type & ANJUTA_PROJECT_TYPE_MASK) == ANJUTA_PROJECT_GROUP) && g_file_equal (NODE_DATA(node)->file, file))
+	if (((node->type & ANJUTA_PROJECT_TYPE_MASK) == ANJUTA_PROJECT_GROUP) && g_file_equal (node->file, file))
 	{
 		return TRUE;
 	}
@@ -779,24 +693,12 @@ anjuta_project_group_get_node_from_file (const AnjutaProjectNode *root, GFile *d
 	return node;
 }
 
-AnjutaProjectNode *
-anjuta_project_group_get_node_from_uri (const AnjutaProjectNode *root, const gchar *uri)
-{
-	GFile *file = g_file_new_for_uri (uri);
-	AnjutaProjectNode *node;
-
-	node = anjuta_project_group_get_node_from_file (root, file);
-	g_object_unref (file);
-
-	return node;
-}
-
 static gboolean
 anjuta_project_target_compare (AnjutaProjectNode *node, gpointer data)
 {
 	const gchar *name = (gchar *)data;
 
-	if (((NODE_DATA (node)->type & ANJUTA_PROJECT_TYPE_MASK) == ANJUTA_PROJECT_TARGET) && (strcmp (NODE_DATA(node)->name, name) == 0))
+	if (((node->type & ANJUTA_PROJECT_TYPE_MASK) == ANJUTA_PROJECT_TARGET) && (strcmp (node->name, name) == 0))
 	{
 		return TRUE;
 	}
@@ -821,7 +723,7 @@ anjuta_project_source_compare (AnjutaProjectNode *node, gpointer data)
 {
 	GFile *file = (GFile *)data;
 
-	if (((NODE_DATA (node)->type & ANJUTA_PROJECT_TYPE_MASK) == ANJUTA_PROJECT_SOURCE) && g_file_equal (NODE_DATA(node)->file, file))
+	if (((node->type & ANJUTA_PROJECT_TYPE_MASK) == ANJUTA_PROJECT_SOURCE) && g_file_equal (node->file, file))
 	{
 		return TRUE;
 	}
@@ -842,100 +744,6 @@ anjuta_project_source_get_node_from_file (const AnjutaProjectNode *parent, GFile
 	return node;
 }
 
-AnjutaProjectNode *
-anjuta_project_source_get_node_from_uri (const AnjutaProjectNode *parent, const gchar *uri)
-{
-	GFile *file = g_file_new_for_uri (uri);
-	AnjutaProjectNode *node;
-
-	node = anjuta_project_source_get_node_from_file (parent, file);
-	g_object_unref (file);
-
-	return node;
-}
-
-/* Target access functions
- *---------------------------------------------------------------------------*/
-
-const gchar *
-anjuta_project_target_get_name (const AnjutaProjectNode *target)
-{
-	return NODE_DATA (target)->name;
-}
-
-/* Source access functions
- *---------------------------------------------------------------------------*/
-
-GFile*
-anjuta_project_source_get_file (const AnjutaProjectNode *source)
-{
-	return NODE_DATA (source)->file;
-}
-
-/* Node information functions
- *---------------------------------------------------------------------------*/
-
-const gchar *
-anjuta_project_node_info_name (const AnjutaProjectNodeInfo *info)
-{
-	return info->name;
-}
-
-const gchar *   
-anjuta_project_node_info_mime (const AnjutaProjectNodeInfo *info)
-{
-	return info->mime_type;
-}
-
-AnjutaProjectNodeType
-anjuta_project_node_info_type (const AnjutaProjectNodeInfo *info)
-{
-	return info->type;
-}
-
-/**
- * anjuta_project_node_info_new:
- * name: (transfer none):
- * mime_type: (transfer none):
- *
- * Returns: (transfer full):
- */
-AnjutaProjectNodeInfo *
-anjuta_project_node_info_new (AnjutaProjectNodeType type,
-                              const gchar *name,
-                              const gchar *mime_type)
-{
-	AnjutaProjectNodeInfo *info = g_slice_new0 (AnjutaProjectNodeInfo);
-	info->type = type;
-	info->name = g_strdup (name);
-	info->mime_type = g_strdup (mime_type);
-
-	return info;
-}
-
-AnjutaProjectNodeInfo *
-anjuta_project_node_info_copy (AnjutaProjectNodeInfo *info)
-{
-	return anjuta_project_node_info_new (info->type, info->name, info->mime_type);
-}
-
-void anjuta_project_node_info_free (AnjutaProjectNodeInfo *info)
-{
-	g_slice_free (AnjutaProjectNodeInfo, info);
-}
-
-GType
-anjuta_project_node_info_get_type ()
-{
-	static GType type_id = 0;
-
-	if (!type_id)
-		type_id = g_boxed_type_register_static ("AnjutaProjectNodeInfo",
-		                                        (GBoxedCopyFunc) anjuta_project_node_info_copy,
-		                                        (GBoxedFreeFunc) anjuta_project_node_info_free);
-
-	return type_id;
-}
 
 /* Implement GObject
  *---------------------------------------------------------------------------*/
@@ -981,8 +789,6 @@ static void
 anjuta_project_node_dispose (GObject *object)
 {
 	AnjutaProjectNode *node = ANJUTA_PROJECT_NODE(object);
-
-	//g_message ("anjuta_project_node_dispose node %p children %p parent %p prev %p name %s file %s", node, node->children, node->parent, node->prev, node->name, node->file != NULL ? g_file_get_path (node->file) : "no file");
 
 	anjuta_project_node_remove (node);
 	
@@ -1110,4 +916,77 @@ anjuta_project_node_class_init (AnjutaProjectNodeClass *klass)
 				       G_TYPE_FILE,
                                        G_PARAM_READWRITE));
 
+}
+
+
+
+/* Node information
+ *---------------------------------------------------------------------------*/
+
+/* Public functions
+ *---------------------------------------------------------------------------*/
+
+const gchar *
+anjuta_project_node_info_name (const AnjutaProjectNodeInfo *info)
+{
+	return info->name;
+}
+
+const gchar *   
+anjuta_project_node_info_mime (const AnjutaProjectNodeInfo *info)
+{
+	return info->mime_type;
+}
+
+AnjutaProjectNodeType
+anjuta_project_node_info_type (const AnjutaProjectNodeInfo *info)
+{
+	return info->type;
+}
+
+/**
+ * anjuta_project_node_info_new:
+ * name: (transfer none):
+ * mime_type: (transfer none):
+ *
+ * Returns: (transfer full):
+ */
+AnjutaProjectNodeInfo *
+anjuta_project_node_info_new (AnjutaProjectNodeType type,
+                              const gchar *name,
+                              const gchar *mime_type)
+{
+	AnjutaProjectNodeInfo *info = g_slice_new0 (AnjutaProjectNodeInfo);
+	info->type = type;
+	info->name = g_strdup (name);
+	info->mime_type = g_strdup (mime_type);
+
+	return info;
+}
+
+AnjutaProjectNodeInfo *
+anjuta_project_node_info_copy (AnjutaProjectNodeInfo *info)
+{
+	return anjuta_project_node_info_new (info->type, info->name, info->mime_type);
+}
+
+void anjuta_project_node_info_free (AnjutaProjectNodeInfo *info)
+{
+	g_slice_free (AnjutaProjectNodeInfo, info);
+}
+
+/* Implement Boxed type
+ *---------------------------------------------------------------------------*/
+
+GType
+anjuta_project_node_info_get_type ()
+{
+	static GType type_id = 0;
+
+	if (!type_id)
+		type_id = g_boxed_type_register_static ("AnjutaProjectNodeInfo",
+		                                        (GBoxedCopyFunc) anjuta_project_node_info_copy,
+		                                        (GBoxedFreeFunc) anjuta_project_node_info_free);
+
+	return type_id;
 }

@@ -393,14 +393,13 @@ amp_package_create_token (AmpProject  *project, AnjutaAmPackageNode *package, GE
 	if (args != NULL)
 	{
 		AnjutaTokenStyle *style;
-		gchar *name;
+		const gchar *name;
 
 		name = anjuta_project_node_get_name (ANJUTA_PROJECT_NODE (package));
 		style = anjuta_token_style_new_from_base (project->ac_space_list);
 		//anjuta_token_style_update (style, args);
 
 		token = anjuta_token_new_string (ANJUTA_TOKEN_NAME | ANJUTA_TOKEN_ADDED, name);
-		g_free (name);
 		
 		if (after)
 		{

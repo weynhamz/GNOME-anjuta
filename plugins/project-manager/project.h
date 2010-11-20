@@ -91,8 +91,6 @@ AnjutaProjectNode *anjuta_pm_project_get_root (AnjutaPmProject *project);
 gboolean anjuta_pm_project_remove (AnjutaPmProject *project, AnjutaProjectNode *node, GError **error);
 gboolean anjuta_pm_project_remove_data (AnjutaPmProject *project, GbfTreeData *data, GError **error);
 
-gboolean anjuta_pm_project_set_properties (AnjutaPmProject *project, AnjutaProjectNode *node, GList *properties, GError **error);
-
 
 gboolean anjuta_pm_project_is_open (AnjutaPmProject *project);
 

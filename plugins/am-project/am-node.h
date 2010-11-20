@@ -94,6 +94,7 @@ typedef enum _AmpTargetFlag
 
 void amp_target_add_token (AnjutaAmTargetNode *target, AmTokenType type, AnjutaToken *token);
 GList * amp_target_get_token (AnjutaAmTargetNode *target, AmTokenType type);
+void amp_target_set_type (AnjutaAmTargetNode *target, AmTokenType type);
 AnjutaTokenType amp_target_get_first_token_type (AnjutaAmTargetNode *target);
 AnjutaTokenType amp_target_get_next_token_type (AnjutaAmTargetNode *target, AnjutaTokenType type);
 AnjutaAmTargetNode* amp_target_new (const gchar *name, AnjutaProjectNodeType type, const gchar *install, gint flags, GError **error);

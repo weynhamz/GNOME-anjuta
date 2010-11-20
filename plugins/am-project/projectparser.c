@@ -173,14 +173,14 @@ list_group (IAnjutaProject *project, AnjutaProjectNode *root, AnjutaProjectNode 
 		GFile *root;
 		
 		root = g_file_get_parent (anjuta_project_node_get_file (parent));
-		rel_path = g_file_get_relative_path (root, anjuta_project_group_get_directory (group));
+		rel_path = g_file_get_relative_path (root, anjuta_project_node_get_file (group));
 		g_object_unref (root);
 	}
 	else
 	{
 		GFile *root;
 		root = anjuta_project_node_get_file (parent);
-		rel_path = g_file_get_relative_path (root, anjuta_project_group_get_directory (group));
+		rel_path = g_file_get_relative_path (root, anjuta_project_node_get_file (group));
 	}
 	print ("%*sGROUP (%s): %s", indent * INDENT, "", path, rel_path);
 	g_free (rel_path);
@@ -331,7 +331,7 @@ get_file (AnjutaProjectNode *target, const char *id)
 {
 	AnjutaProjectNode *group = (AnjutaProjectNode *)anjuta_project_node_parent (target);
 	
-	return g_file_resolve_relative_path (anjuta_project_group_get_directory (group), id);
+	return g_file_resolve_relative_path (anjuta_project_node_get_file (group), id);
 }
 
 static AnjutaProjectNodeType

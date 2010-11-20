@@ -753,7 +753,7 @@ on_popup_remove (GtkAction *action, ProjectManagerPlugin *plugin)
 						anjuta_pm_project_remove (plugin->project, node, &err);
 						if (err)
 						{
-							gchar *name;
+							const gchar *name;
 							
 							update_operation_end (plugin, TRUE);
 							update = FALSE;
@@ -761,7 +761,6 @@ on_popup_remove (GtkAction *action, ProjectManagerPlugin *plugin)
 							anjuta_util_dialog_error (get_plugin_parent_window (plugin),
 										  _("Failed to remove '%s':\n%s"),
 										  name, err->message);
-							g_free (name);
 							g_error_free (err);
 						}
 					}
@@ -1877,28 +1876,13 @@ get_element_file_from_node (ProjectManagerPlugin *plugin, AnjutaProjectNode *nod
 					  NULL);
 	}
 
-	switch (anjuta_project_node_get_node_type (node))
-	{
-		case ANJUTA_PROJECT_GROUP:
-			file = g_object_ref (anjuta_project_group_get_directory (node));
-			break;
-		case ANJUTA_PROJECT_TARGET:
-			file = anjuta_project_group_get_directory (anjuta_project_node_parent (node));
-			file = g_file_get_child (file, anjuta_project_target_get_name (node));
-			break;
-		case ANJUTA_PROJECT_SOURCE:
-			file = g_object_ref (anjuta_project_source_get_file (node));
-			break;
-		default:
-			file = NULL;
-			break;
-	}
+	file = g_object_ref (anjuta_project_node_get_file (node));
 
 	if ((file != NULL) && (project_root != NULL))
 	{
 		gchar *rel_path;
 
-		rel_path = g_file_get_relative_path (anjuta_project_group_get_directory (anjuta_pm_project_get_root (plugin->project)), file);
+		rel_path = g_file_get_relative_path (anjuta_project_node_get_file (anjuta_pm_project_get_root (plugin->project)), file);
 
 		if (rel_path)
 		{
@@ -2049,7 +2033,7 @@ iproject_manager_get_selected (IAnjutaProjectManager *project_manager,
 										   ANJUTA_PROJECT_SOURCE);
 	if (node && anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_SOURCE)
 	{
-		return g_object_ref (anjuta_project_source_get_file (node));
+		return g_object_ref (anjuta_project_node_get_file (node));
 	}
 
 	node = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
@@ -2063,7 +2047,7 @@ iproject_manager_get_selected (IAnjutaProjectManager *project_manager,
 										   ANJUTA_PROJECT_GROUP);
 	if (node && anjuta_project_node_get_node_type (node) == GBF_TREE_NODE_GROUP)
 	{
-		return g_object_ref (anjuta_project_group_get_directory (node));
+		return g_object_ref (anjuta_project_node_get_file (node));
 	}
 	
 	return NULL;
