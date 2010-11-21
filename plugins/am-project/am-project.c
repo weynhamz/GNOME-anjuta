@@ -1408,8 +1408,8 @@ amp_project_set_am_variable (AmpProject* project, AnjutaAmGroupNode* group, Anju
 static gint
 amp_project_compare_node (AnjutaProjectNode *old_node, AnjutaProjectNode *new_node)
 {
-	gchar *name1;
-	gchar *name2;
+	const gchar *name1;
+	const gchar *name2;
 	GFile *file1;
 	GFile *file2;
 
@@ -1418,7 +1418,7 @@ amp_project_compare_node (AnjutaProjectNode *old_node, AnjutaProjectNode *new_no
 	file1 = anjuta_project_node_get_file (old_node);
 	file2 = anjuta_project_node_get_file (new_node);
 
-	return (anjuta_project_node_get_node_type (old_node) == anjuta_project_node_get_node_type (new_node))
+	return (anjuta_project_node_get_full_type (old_node) == anjuta_project_node_get_full_type (new_node))
 		&& ((name1 == NULL) || (name2 == NULL) || (strcmp (name1, name2) == 0))
 		&& ((file1 == NULL) || (file2 == NULL) || g_file_equal (file1, file2)) ? 0 : 1;
 }
@@ -1480,7 +1480,7 @@ amp_project_map_node (AnjutaProjectNode *old_node, AnjutaProjectNode *new_node)
 
 
 static void
-amp_project_replace_node (AnjutaProjectNode *new_node, AnjutaProjectNode *old_node, GHashTable *map)
+amp_project_update_node (AnjutaProjectNode *new_node, AnjutaProjectNode *old_node, GHashTable *map)
 {
 	if (old_node == NULL)
 	{
@@ -1491,33 +1491,42 @@ amp_project_replace_node (AnjutaProjectNode *new_node, AnjutaProjectNode *old_no
 	{
 		if (old_node != new_node)
 		{
-			GTypeQuery type_info;
-			gchar *data;
-
-			g_type_query (G_TYPE_FROM_INSTANCE (old_node), &type_info);
-
-			/* Swap new and old node */
-			data = g_new0 (gchar, type_info.instance_size - sizeof (GInitiallyUnowned));
-			memcpy (data, (gchar *)old_node + sizeof (GInitiallyUnowned), type_info.instance_size - sizeof (GInitiallyUnowned));
-			memcpy ((gchar *)old_node + sizeof (GInitiallyUnowned), (gchar *)new_node + sizeof (GInitiallyUnowned),  type_info.instance_size - sizeof (GInitiallyUnowned));
-			memcpy ((gchar *)new_node + sizeof (GInitiallyUnowned), data,  type_info.instance_size - sizeof (GInitiallyUnowned));
-			g_free (data);
-
-			/* Get old file */
-			if (old_node->file != NULL) g_object_unref (old_node->file);
-			old_node->file = new_node->file;
-			new_node->file = NULL;
-
-			/* Update file monitor if it is a group */
-			if (anjuta_project_node_get_node_type (old_node) == ANJUTA_PROJECT_GROUP)
+			GList *properties;
+		
+			switch (anjuta_project_node_get_node_type (old_node))
 			{
-				amp_group_update_monitor (ANJUTA_AM_GROUP_NODE (old_node));
+				case ANJUTA_PROJECT_GROUP:
+					amp_group_update_node (ANJUTA_AM_GROUP_NODE (old_node), ANJUTA_AM_GROUP_NODE (new_node));
+					break;
+				case ANJUTA_PROJECT_TARGET:
+					amp_target_update_node (ANJUTA_AM_TARGET_NODE (old_node), ANJUTA_AM_TARGET_NODE (new_node));
+					break;
+				case ANJUTA_PROJECT_SOURCE:
+					amp_source_update_node (ANJUTA_AM_SOURCE_NODE (old_node), ANJUTA_AM_SOURCE_NODE (new_node));
+					break;
+				case ANJUTA_PROJECT_MODULE:
+					amp_module_update_node (ANJUTA_AM_MODULE_NODE (old_node), ANJUTA_AM_MODULE_NODE (new_node));
+					break;
+				case ANJUTA_PROJECT_PACKAGE:
+					amp_package_update_node (ANJUTA_AM_PACKAGE_NODE (old_node), ANJUTA_AM_PACKAGE_NODE (new_node));
+					break;
+				case ANJUTA_PROJECT_ROOT:
+					amp_root_update_node (ANJUTA_AM_ROOT_NODE (old_node), ANJUTA_AM_ROOT_NODE (new_node));
+					break;
+				default:
+					break;
 			}
-			else if (anjuta_project_node_get_node_type (old_node) == ANJUTA_PROJECT_ROOT)
-			{
-				amp_root_update_monitor (ANJUTA_AM_ROOT_NODE (old_node));
-			}
-			
+
+			/* Swap custom properties */
+			properties = old_node->custom_properties;
+			old_node->custom_properties = new_node->custom_properties;
+			new_node->custom_properties = properties;
+
+			old_node->parent = new_node->parent;
+			old_node->children = new_node->children;
+			old_node->next = new_node->next;
+			old_node->prev = new_node->prev;
+		
 			/* Unlink old node and free it */
 			new_node->parent = NULL;
 			new_node->children = NULL;
@@ -1527,7 +1536,7 @@ amp_project_replace_node (AnjutaProjectNode *new_node, AnjutaProjectNode *old_no
 
 			new_node = old_node;
 		}
-		
+
 		/* Update links */
 		old_node = g_hash_table_lookup (map, new_node->parent);
 		if (old_node != NULL) new_node->parent = old_node;
@@ -1544,19 +1553,16 @@ static AnjutaProjectNode *
 amp_project_duplicate_node (AnjutaProjectNode *old_node)
 {
 	AnjutaProjectNode *new_node;
-	GTypeQuery type_info;
 
 	/* Create new node */
 	new_node = g_object_new (G_TYPE_FROM_INSTANCE (old_node), NULL);
-	g_type_query (G_TYPE_FROM_INSTANCE (old_node), &type_info);
-	memcpy ((gchar *)new_node + sizeof (GInitiallyUnowned), (gchar *)old_node + sizeof (GInitiallyUnowned),  type_info.instance_size - sizeof (GInitiallyUnowned));
-	new_node->custom_properties = NULL;
-	if (new_node->file != NULL) new_node->file = g_file_dup (new_node->file);
-	if (new_node->name != NULL) new_node->name = g_strdup (new_node->name);
-	new_node->children = NULL;
-
-	/* Remove loaded node specific data */
-	memset ((gchar *)old_node + sizeof (AnjutaProjectNode), 0, type_info.instance_size - sizeof (AnjutaProjectNode));
+	if (old_node->file != NULL) new_node->file = g_file_dup (old_node->file);
+	if (old_node->name != NULL) new_node->name = g_strdup (old_node->name);
+	if (anjuta_project_node_get_node_type (old_node) == ANJUTA_PROJECT_TARGET)
+	{
+		amp_target_set_type (ANJUTA_AM_TARGET_NODE (new_node), anjuta_project_node_get_full_type (old_node));
+	}
+	new_node->parent = old_node->parent;
 
 	return new_node;
 }
@@ -2253,7 +2259,7 @@ amp_load_complete (PmJob *job)
 	GHashTable *map;
 
 	map = amp_project_map_node (job->node, job->proxy);
-	g_hash_table_foreach (map, (GHFunc)amp_project_replace_node, map);
+	g_hash_table_foreach (map, (GHFunc)amp_project_update_node, map);
 	job->node->parent = job->parent;
 	job->proxy->parent = NULL;
 	g_hash_table_destroy (map);

@@ -50,18 +50,21 @@ void amp_root_clear (AnjutaAmRootNode *node);
 AnjutaTokenFile* amp_root_set_configure (AnjutaAmRootNode *node, GFile *configure, GObject* project);
 gboolean amp_root_update_configure (AnjutaAmRootNode *group, AnjutaToken *token);
 AnjutaToken* amp_root_get_configure_token (AnjutaAmRootNode *root);
-void amp_root_update_monitor (AnjutaAmRootNode *node);
+void amp_root_update_node (AnjutaAmRootNode *node, AnjutaAmRootNode *new_node);
+
 
 AnjutaAmModuleNode* amp_module_new (const gchar *name, GError **error);
 void amp_module_free (AnjutaAmModuleNode *node);
 AnjutaToken *amp_module_get_token (AnjutaAmModuleNode *node);
 void amp_module_add_token (AnjutaAmModuleNode *group, AnjutaToken *token);
+void amp_module_update_node (AnjutaAmModuleNode *node, AnjutaAmModuleNode *new_node);
 
 AnjutaAmPackageNode* amp_package_new (const gchar *name, GError **error);
 void amp_package_free (AnjutaAmPackageNode *node);
 void amp_package_set_version (AnjutaAmPackageNode *node, const gchar *compare, const gchar *version);
 AnjutaToken *amp_package_get_token (AnjutaAmPackageNode *node);
 void amp_package_add_token (AnjutaAmPackageNode *node, AnjutaToken *token);
+void amp_package_update_node (AnjutaAmPackageNode *node, AnjutaAmPackageNode *new_node);
 
 
 void amp_group_add_token (AnjutaAmGroupNode *group, AnjutaToken *token, AmpGroupTokenCategory category);
@@ -72,9 +75,9 @@ AnjutaTokenFile* amp_group_set_makefile (AnjutaAmGroupNode *group, GFile *makefi
 AnjutaToken* amp_group_get_makefile_token (AnjutaAmGroupNode *group);
 gchar *amp_group_get_makefile_name (AnjutaAmGroupNode *group);
 gboolean amp_group_update_makefile (AnjutaAmGroupNode *group, AnjutaToken *token);
-void amp_group_update_monitor (AnjutaAmGroupNode *node);
 AnjutaAmGroupNode* amp_group_new (GFile *file, gboolean dist_only, GError **error);
 void amp_group_free (AnjutaAmGroupNode *node);
+void amp_group_update_node (AnjutaAmGroupNode *node, AnjutaAmGroupNode *new_node);
 
 typedef enum _AmpTargetFlag
 {
@@ -91,15 +94,18 @@ typedef enum _AmpTargetFlag
 
 void amp_target_add_token (AnjutaAmTargetNode *target, AmTokenType type, AnjutaToken *token);
 GList * amp_target_get_token (AnjutaAmTargetNode *target, AmTokenType type);
+void amp_target_set_type (AnjutaAmTargetNode *target, AmTokenType type);
 AnjutaTokenType amp_target_get_first_token_type (AnjutaAmTargetNode *target);
 AnjutaTokenType amp_target_get_next_token_type (AnjutaAmTargetNode *target, AnjutaTokenType type);
 AnjutaAmTargetNode* amp_target_new (const gchar *name, AnjutaProjectNodeType type, const gchar *install, gint flags, GError **error);
 void amp_target_free (AnjutaAmTargetNode *node);
+void amp_target_update_node (AnjutaAmTargetNode *node, AnjutaAmTargetNode *new_node);
 
 AnjutaProjectNode* amp_source_new (GFile *file, GError **error);
 void amp_source_free (AnjutaAmSourceNode *node);
 AnjutaToken *amp_source_get_token (AnjutaAmSourceNode *node);
 void amp_source_add_token (AnjutaAmSourceNode *node, AnjutaToken *token);
+void amp_source_update_node (AnjutaAmSourceNode *node, AnjutaAmSourceNode *new_node);
 
 G_END_DECLS
 

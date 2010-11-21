@@ -326,7 +326,7 @@ anjuta_pm_project_get_packages (AnjutaPmProject *project)
 			{
 				if (anjuta_project_node_get_node_type (package) == ANJUTA_PROJECT_PACKAGE)
 				{
-					g_hash_table_replace (all, anjuta_project_node_get_name (package), NULL);
+					g_hash_table_replace (all, (gpointer)anjuta_project_node_get_name (package), NULL);
 				}
 			}
 		}
@@ -380,23 +380,6 @@ anjuta_pm_project_remove (AnjutaPmProject *project, AnjutaProjectNode *node, GEr
 	ianjuta_project_remove_node (project->project, node, NULL);
 
 	return TRUE;
-}
-
-gboolean
-anjuta_pm_project_set_properties (AnjutaPmProject *project, AnjutaProjectNode *node, GList *properties, GError **error)
-{
-	GList *item;
-	gboolean valid = FALSE;
-
-	for (item = g_list_first (properties); item != NULL; item = g_list_next (item))
-	{
-		AnjutaProjectPropertyValue *prop = (AnjutaProjectPropertyValue *)item->data;
-
-		valid = ianjuta_project_set_property (project->project, node, prop->property, prop->value, error) != NULL;
-		if (!valid) break;
-	}
-	
-	return valid;
 }
 
 gboolean
@@ -489,10 +472,9 @@ find_module (AnjutaProjectNode *node, gpointer data)
 	
 	if (anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_MODULE)
 	{
-		gchar *name = anjuta_project_node_get_name (node);
+		const gchar *name = anjuta_project_node_get_name (node);
 
 		found = g_strcmp0 (name, (const gchar *)data) == 0;
-		g_free (name);
 	}
 
 	return found;

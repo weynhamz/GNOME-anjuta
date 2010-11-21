@@ -924,9 +924,9 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 		IAnjutaIndicableIndicator indicator;
 	
 		if ((strstr (line, "warning:") != NULL) ||
-		/* The translations should match that of 'make' program.
+		/* The translations should match that of 'gcc' program.
 		 * The second string with -old should be used for an older
-		 * version of 'make' if necessary. If you update one string,
+		 * version of 'gcc' if necessary. If you update one string,
 		 * move the first one to translate the -old string and then
 		 * replace the first string only. */
 			(strstr (line, _("warning:")) != NULL) ||
@@ -936,9 +936,9 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 			indicator = IANJUTA_INDICABLE_WARNING;
 		}
 		else if ((strstr (line, "error:") != NULL) ||
-		/* The translations should match that of 'make' program.
+		/* The translations should match that of 'gcc' program.
 		 * The second string with -old should be used for an older
-		 * version of 'make' if necessary. If you update one string,
+		 * version of 'gcc' if necessary. If you update one string,
 		 * move the first one to translate the -old string and then
 		 * replace the first string only. */
 		          (strstr (line, _("error:")) != NULL) ||

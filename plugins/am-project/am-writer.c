@@ -139,7 +139,7 @@ amp_group_create_token (AmpProject  *project, AnjutaAmGroupNode *group, GError *
 	AnjutaProjectNode *sibling;
 	AnjutaAmGroupNode *parent;
 	gboolean after;
-	gchar *name;
+	const gchar *name;
 	
 	/* Get parent target */
 	parent = ANJUTA_AM_GROUP_NODE (anjuta_project_node_parent(ANJUTA_PROJECT_NODE (group)));
@@ -284,7 +284,6 @@ amp_group_create_token (AmpProject  *project, AnjutaAmGroupNode *group, GError *
 
 		amp_group_add_token (group, token, AM_GROUP_TOKEN_SUBDIRS);
 	}
-	g_free (name);
 
 	tfile = amp_group_set_makefile (group, makefile, G_OBJECT (project));
 	amp_project_add_file (project, makefile, tfile);
@@ -415,7 +414,7 @@ amp_target_create_token (AmpProject  *project, AnjutaAmTargetNode *target, GErro
 	AnjutaToken *prev;
 	AmpNodeInfo *info;
 	gchar *targetname;
-	gchar *name;
+	const gchar *name;
 	GList *last;
 	AnjutaAmTargetNode *sibling;
 	AnjutaAmGroupNode *parent;
@@ -536,7 +535,6 @@ amp_target_create_token (AmpProject  *project, AnjutaAmTargetNode *target, GErro
 		
 		amp_target_add_token (target, ANJUTA_TOKEN_ARGUMENT, token);
 	}
-	g_free (name);
 
 	return TRUE;
 }

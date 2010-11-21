@@ -25,17 +25,51 @@
 
 G_BEGIN_DECLS
 
-#define ANJUTA_TYPE_PROJECT_NODE 					(anjuta_project_node_get_type ())
-#define ANJUTA_PROJECT_NODE(obj)						(G_TYPE_CHECK_INSTANCE_CAST ((obj), ANJUTA_TYPE_PROJECT_NODE, AnjutaProjectNode))
-#define ANJUTA_PROJECT_NODE_CLASS(klass)		(G_TYPE_CHECK_CLASS_CAST ((klass), ANJUTA_TYPE_PROJECT_NODE, AnjutaProjectNodeClass))
-#define ANJUTA_IS_PROJECT_NODE(obj)					(G_TYPE_CHECK_INSTANCE_TYPE ((obj), ANJUTA_TYPE_PROJECT_NODE))
+#define ANJUTA_TYPE_PROJECT_PROPERTY		(anjuta_project_property_get_type ())
+#define ANJUTA_IS_PROJECT_PROPERTY
+
+typedef struct _AnjutaProjectProperty AnjutaProjectProperty;
+
+typedef enum
+{
+	ANJUTA_PROJECT_PROPERTY_STRING = 1,
+	ANJUTA_PROJECT_PROPERTY_LIST,
+	ANJUTA_PROJECT_PROPERTY_BOOLEAN,
+	ANJUTA_PROJECT_PROPERTY_MAP
+} AnjutaProjectValueType;
+
+typedef enum
+{
+	ANJUTA_PROJECT_PROPERTY_READ_ONLY = 1 << 0,
+	ANJUTA_PROJECT_PROPERTY_READ_WRITE = 1 << 1,
+} AnjutaProjectPropertyFlags;
+
+struct _AnjutaProjectProperty
+{
+	gchar *name;
+	AnjutaProjectValueType type;
+	AnjutaProjectPropertyFlags flags;
+	gchar *value;
+	AnjutaProjectProperty *native;
+};
+
+GType anjuta_project_property_get_type (void);
+
+AnjutaProjectProperty *anjuta_project_property_new (const gchar *name, AnjutaProjectValueType type, const gchar *value, AnjutaProjectProperty *native);
+AnjutaProjectProperty * anjuta_project_property_copy (AnjutaProjectProperty *prop);
+void anjuta_project_property_free (AnjutaProjectProperty *prop);
+
+
+
+#define ANJUTA_TYPE_PROJECT_NODE 			(anjuta_project_node_get_type ())
+#define ANJUTA_PROJECT_NODE(obj)			(G_TYPE_CHECK_INSTANCE_CAST ((obj), ANJUTA_TYPE_PROJECT_NODE, AnjutaProjectNode))
+#define ANJUTA_PROJECT_NODE_CLASS(klass)	(G_TYPE_CHECK_CLASS_CAST ((klass), ANJUTA_TYPE_PROJECT_NODE, AnjutaProjectNodeClass))
+#define ANJUTA_IS_PROJECT_NODE(obj)			(G_TYPE_CHECK_INSTANCE_TYPE ((obj), ANJUTA_TYPE_PROJECT_NODE))
 #define ANJUTA_IS_PROJECT_NODE_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE ((klass), ANJUTA_TYPE_PROJECT_NODE))
 #define ANJUTA_PROJECT_NODE_GET_CLASS(obj)	(G_TYPE_INSTANCE_GET_CLASS ((obj), ANJUTA_TYPE_PROJECT_NODE, AnjutaProjectNodeClass))
 
-
-typedef struct _AnjutaProjectNode			AnjutaProjectNode;
+typedef struct _AnjutaProjectNode		AnjutaProjectNode;
 typedef struct _AnjutaProjectNodeClass	AnjutaProjectNodeClass;
-
 
 typedef enum
 {
@@ -91,68 +125,6 @@ typedef enum
 	ANJUTA_PROJECT_REMOVE_FILE = 1 << 18
 } AnjutaProjectNodeState;
 
-typedef struct _AnjutaProjectTargetInformation
-{
-	AnjutaProjectNodeType type;
-	gchar *name;
-	gchar *mime_type;
-} AnjutaProjectNodeInfo;
-
-#define ANJUTA_TYPE_PROJECT_NODE_INFO (anjuta_project_node_info_get_type ())
-
-typedef enum
-{
-	ANJUTA_PROJECT_PROPERTY_STRING = 1,
-	ANJUTA_PROJECT_PROPERTY_LIST,
-	ANJUTA_PROJECT_PROPERTY_BOOLEAN,
-	ANJUTA_PROJECT_PROPERTY_MAP
-} AnjutaProjectValueType;
-
-typedef enum
-{
-	ANJUTA_PROJECT_PROPERTY_READ_ONLY = 1 << 0,
-	ANJUTA_PROJECT_PROPERTY_READ_WRITE = 1 << 1,
-} AnjutaProjectPropertyFlags;
-
-
-typedef struct _AnjutaProjectProperty AnjutaProjectProperty;
-
-struct _AnjutaProjectProperty
-{
-	gchar *name;
-	AnjutaProjectValueType type;
-	AnjutaProjectPropertyFlags flags;
-	gchar *value;
-	AnjutaProjectProperty *native;
-};
-
-#define ANJUTA_IS_PROJECT_PROPERTY
-#define ANJUTA_TYPE_PROJECT_PROPERTY (anjuta_project_property_get_type ())
-
-typedef struct
-{
-	AnjutaProjectProperty *property;
-	gchar *value;
-} AnjutaProjectPropertyValue;
-
-typedef struct _AnjutaProjectTargetInformation* AnjutaProjectTargetType;
-
-typedef struct
-{
-	AnjutaProjectNodeType type;
-	AnjutaProjectProperty *properties;
-	GFile *file;
-	gchar *name;
-	AnjutaProjectNodeState state;
-} AnjutaProjectNodeData;
-
-
-#define ANJUTA_PROJECT_NODE_DATA(node)  (node)
-
-typedef gboolean (*AnjutaProjectNodeTraverseFunc) (AnjutaProjectNode *node, gpointer data);
-typedef void (*AnjutaProjectNodeForeachFunc) (AnjutaProjectNode *node, gpointer data);
-
-
 /**
  * AnjutaProjectNode:
  *
@@ -180,14 +152,18 @@ struct _AnjutaProjectNode
 struct _AnjutaProjectNodeClass
 {
 	GInitiallyUnownedClass parent_class;
-	
-	void (*updated) (GError *error);
-	void (*loaded) (GError *error);
+
+	void				(*updated)			(GError *error);
+	void				(*loaded)			(GError *error);
 };
 
+
+
+typedef gboolean (*AnjutaProjectNodeTraverseFunc) (AnjutaProjectNode *node, gpointer data);
+typedef void (*AnjutaProjectNodeForeachFunc) (AnjutaProjectNode *node, gpointer data);
+
+
 GType      anjuta_project_node_get_type (void) G_GNUC_CONST;
-
-
 
 AnjutaProjectNode *anjuta_project_node_root (AnjutaProjectNode *node);
 AnjutaProjectNode *anjuta_project_node_parent (AnjutaProjectNode *node);
@@ -197,61 +173,56 @@ AnjutaProjectNode *anjuta_project_node_next_sibling (AnjutaProjectNode *node);
 AnjutaProjectNode *anjuta_project_node_prev_sibling (AnjutaProjectNode *node);
 AnjutaProjectNode *anjuta_project_node_nth_child (AnjutaProjectNode *node, guint n);
 
-AnjutaProjectNode *anjuta_project_node_append (AnjutaProjectNode *parent, AnjutaProjectNode *node);
-AnjutaProjectNode *anjuta_project_node_prepend (AnjutaProjectNode *parent, AnjutaProjectNode *node);
-AnjutaProjectNode *anjuta_project_node_insert_before (AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNode *node);
-AnjutaProjectNode *anjuta_project_node_insert_after (AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNode *node);
-AnjutaProjectNode *anjuta_project_node_replace (AnjutaProjectNode *node, AnjutaProjectNode *replacement);
-AnjutaProjectNode *anjuta_project_node_grab_children (AnjutaProjectNode *parent, AnjutaProjectNode *node);
-AnjutaProjectNode *anjuta_project_node_exchange (AnjutaProjectNode *node, AnjutaProjectNode *replacement);
-AnjutaProjectNode *anjuta_project_node_remove (AnjutaProjectNode *node);
-
 void anjuta_project_node_foreach (AnjutaProjectNode *node, GTraverseType order, AnjutaProjectNodeForeachFunc func, gpointer data);
 void anjuta_project_node_children_foreach (AnjutaProjectNode *node, AnjutaProjectNodeForeachFunc func, gpointer data);
 AnjutaProjectNode *anjuta_project_node_traverse (AnjutaProjectNode *node, GTraverseType order, AnjutaProjectNodeTraverseFunc func, gpointer data);
 AnjutaProjectNode *anjuta_project_node_children_traverse (AnjutaProjectNode *node, AnjutaProjectNodeTraverseFunc func, gpointer data);
 
-gboolean anjuta_project_node_set_state (AnjutaProjectNode *node, AnjutaProjectNodeState state);
-gboolean anjuta_project_node_clear_state (AnjutaProjectNode *node, AnjutaProjectNodeState state);
+AnjutaProjectNode *anjuta_project_node_insert_before (AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNode *node);
+AnjutaProjectNode *anjuta_project_node_insert_after (AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNode *node);
+AnjutaProjectNode *anjuta_project_node_remove (AnjutaProjectNode *node);
+AnjutaProjectNode *anjuta_project_node_append (AnjutaProjectNode *parent, AnjutaProjectNode *node);
+AnjutaProjectNode *anjuta_project_node_prepend (AnjutaProjectNode *parent, AnjutaProjectNode *node);
+
 
 AnjutaProjectNodeType anjuta_project_node_get_node_type (const AnjutaProjectNode *node);
 AnjutaProjectNodeType anjuta_project_node_get_full_type (const AnjutaProjectNode *node);
 AnjutaProjectNodeState anjuta_project_node_get_state (const AnjutaProjectNode *node);
-gchar *anjuta_project_node_get_name (const AnjutaProjectNode *node);
-gchar *anjuta_project_node_get_uri (AnjutaProjectNode *node);
-GFile *anjuta_project_node_get_file (AnjutaProjectNode *node);
+const gchar *anjuta_project_node_get_name (const AnjutaProjectNode *node);
+GFile *anjuta_project_node_get_file (const AnjutaProjectNode *node);
 
-//AnjutaProjectProperty *anjuta_project_node_first_property (AnjutaProjectNode *node);
-//AnjutaProjectProperty *anjuta_project_node_first_valid_property (AnjutaProjectNode *node);
 GList *anjuta_project_node_get_native_properties (AnjutaProjectNode *node);
 GList *anjuta_project_node_get_custom_properties (AnjutaProjectNode *node);
 AnjutaProjectProperty *anjuta_project_node_get_property (AnjutaProjectNode *node, AnjutaProjectProperty *property);
+
+gboolean anjuta_project_node_set_state (AnjutaProjectNode *node, AnjutaProjectNodeState state);
+gboolean anjuta_project_node_clear_state (AnjutaProjectNode *node, AnjutaProjectNodeState state);
+
 AnjutaProjectProperty *anjuta_project_node_insert_property (AnjutaProjectNode *node, AnjutaProjectProperty *native, AnjutaProjectProperty *property);
 AnjutaProjectProperty *anjuta_project_node_remove_property (AnjutaProjectNode *node, AnjutaProjectProperty *property);
-AnjutaProjectProperty *anjuta_project_property_new (const gchar *name, AnjutaProjectValueType type, const gchar *value, AnjutaProjectProperty *native);
-AnjutaProjectProperty * anjuta_project_property_copy (AnjutaProjectProperty *prop);
-void anjuta_project_property_free (AnjutaProjectProperty *prop);
-GType anjuta_project_property_get_type (void);
 
-
-//const gchar *anjuta_project_node_get_property_value (AnjutaProjectNode *node, AnjutaProjectProperty prop);
 
 AnjutaProjectNode *anjuta_project_group_get_node_from_file (const AnjutaProjectNode *root, GFile *directory);
 AnjutaProjectNode *anjuta_project_target_get_node_from_name (const AnjutaProjectNode *parent, const gchar *name);
 AnjutaProjectNode *anjuta_project_source_get_node_from_file (const AnjutaProjectNode *parent, GFile *file);
-AnjutaProjectNode *anjuta_project_group_get_node_from_uri (const AnjutaProjectNode *root, const gchar *uri);
-AnjutaProjectNode *anjuta_project_source_get_node_from_uri (const AnjutaProjectNode *parent, const gchar *uri);
 
-GFile *anjuta_project_group_get_directory (const AnjutaProjectNode *group);
 
-const gchar *anjuta_project_target_get_name (const AnjutaProjectNode *target);
 
-GFile *anjuta_project_source_get_file (const AnjutaProjectNode *source);
+#define ANJUTA_TYPE_PROJECT_NODE_INFO (anjuta_project_node_info_get_type ())
+
+typedef struct _AnjutaProjectNodeInfo
+{
+	AnjutaProjectNodeType type;
+	gchar *name;
+	gchar *mime_type;
+} AnjutaProjectNodeInfo;
+
+GType anjuta_project_node_info_get_type (void);
 
 AnjutaProjectNodeInfo *anjuta_project_node_info_new (AnjutaProjectNodeType type, const gchar *name, const gchar *mime_type);
 AnjutaProjectNodeInfo *anjuta_project_node_info_copy (AnjutaProjectNodeInfo *info);
 void anjuta_project_node_info_free (AnjutaProjectNodeInfo *info);
-GType anjuta_project_node_info_get_type (void);
+
 const gchar *anjuta_project_node_info_name (const AnjutaProjectNodeInfo *info);
 const gchar *anjuta_project_node_info_mime (const AnjutaProjectNodeInfo *info);
 AnjutaProjectNodeType anjuta_project_node_info_type (const AnjutaProjectNodeInfo *info);

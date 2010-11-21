@@ -206,14 +206,7 @@ amp_root_new (GFile *file, GError **error)
 	AnjutaAmRootNode *root = NULL;
 
 	root = g_object_new (ANJUTA_TYPE_AM_ROOT_NODE, NULL);
-	root->base.type = ANJUTA_PROJECT_ROOT;
-	root->base.native_properties = amp_get_project_property_list();
-	root->base.custom_properties = NULL;
 	root->base.file = g_file_dup (file);
-	root->base.name = NULL;
-	root->base.state = ANJUTA_PROJECT_CAN_ADD_GROUP |
-						ANJUTA_PROJECT_CAN_ADD_PACKAGE,
-						ANJUTA_PROJECT_CAN_SAVE;
 	
 
 	return root;
@@ -263,6 +256,7 @@ amp_root_set_configure (AnjutaAmRootNode *root, GFile *configure, GObject* proje
 {
 	if (root->configure != NULL) g_object_unref (root->configure);
 	if (root->configure_file != NULL) anjuta_token_file_free (root->configure_file);
+	if (root->monitor) g_object_unref (root->monitor);
 	if (configure != NULL)
 	{
 		root->configure_file = anjuta_token_file_new (configure);
@@ -285,7 +279,6 @@ amp_root_set_configure (AnjutaAmRootNode *root, GFile *configure, GObject* proje
 	{
 		root->configure_file = NULL;
 		root->configure = NULL;
-		if (root->monitor) g_object_unref (root->monitor);
 		root->monitor = NULL;
 	}
 	
@@ -305,10 +298,13 @@ amp_root_get_configure_token (AnjutaAmRootNode *root)
 }
 
 void
-amp_root_update_monitor (AnjutaAmRootNode *root)
+amp_root_update_node (AnjutaAmRootNode *root, AnjutaAmRootNode *new_root)
 {
-	if (root->monitor != NULL) g_object_unref (root->monitor);
+	if (root->configure != NULL) g_object_unref (root->configure);
+	if (root->configure_file != NULL) anjuta_token_file_free (root->configure_file);
+	if (root->monitor) g_object_unref (root->monitor);
 
+	root->configure = new_root->configure;
 	if (root->configure != NULL)
 	{
 		root->monitor = g_file_monitor_file (root->configure,
@@ -323,6 +319,15 @@ amp_root_update_monitor (AnjutaAmRootNode *root)
 					  root);
 		}
 	}
+	else
+	{
+		root->monitor = NULL;
+	}
+	new_root->configure = NULL;
+	root->configure_file = new_root->configure_file;
+	new_root->configure_file = NULL;
+	root->configure_token = new_root->configure_token;
+	root->project = new_root->project;
 }
 
 /* GObjet implementation
@@ -339,6 +344,11 @@ G_DEFINE_TYPE (AnjutaAmRootNode, anjuta_am_root_node, ANJUTA_TYPE_PROJECT_NODE);
 static void
 anjuta_am_root_node_init (AnjutaAmRootNode *node)
 {
+	node->base.type = ANJUTA_PROJECT_ROOT;
+	node->base.native_properties = amp_get_project_property_list();
+	node->base.state = ANJUTA_PROJECT_CAN_ADD_GROUP |
+						ANJUTA_PROJECT_CAN_ADD_PACKAGE,
+						ANJUTA_PROJECT_CAN_SAVE;
 	node->configure_file = NULL;
 	node->configure_token = NULL;
 }
@@ -399,20 +409,19 @@ amp_module_get_token (AnjutaAmModuleNode *node)
 	return node->module;
 }
 
+void
+amp_module_update_node (AnjutaAmModuleNode *node, AnjutaAmModuleNode *new_node)
+{
+	node->module = new_node->module;
+}
+
 AnjutaAmModuleNode*
 amp_module_new (const gchar *name, GError **error)
 {
 	AnjutaAmModuleNode *module = NULL;
 
 	module = g_object_new (ANJUTA_TYPE_AM_MODULE_NODE, NULL);
-	module->base.type = ANJUTA_PROJECT_MODULE;
-	module->base.native_properties = amp_get_module_property_list();
-	module->base.custom_properties = NULL;
-	module->base.file = NULL;
 	module->base.name = g_strdup (name);;
-	module->base.state = ANJUTA_PROJECT_CAN_ADD_PACKAGE |
-						ANJUTA_PROJECT_CAN_REMOVE;
-	module->module = NULL;
 
 	return module;
 }
@@ -438,6 +447,11 @@ G_DEFINE_TYPE (AnjutaAmModuleNode, anjuta_am_module_node, ANJUTA_TYPE_PROJECT_NO
 static void
 anjuta_am_module_node_init (AnjutaAmModuleNode *node)
 {
+	node->base.type = ANJUTA_PROJECT_MODULE;
+	node->base.native_properties = amp_get_module_property_list();
+	node->base.state = ANJUTA_PROJECT_CAN_ADD_PACKAGE |
+						ANJUTA_PROJECT_CAN_REMOVE;
+	node->module = NULL;
 }
 
 static void
@@ -470,13 +484,7 @@ amp_package_new (const gchar *name, GError **error)
 	AnjutaAmPackageNode *node = NULL;
 
 	node = g_object_new (ANJUTA_TYPE_AM_PACKAGE_NODE, NULL);
-	node->base.type = ANJUTA_PROJECT_PACKAGE;
-	node->base.native_properties = amp_get_package_property_list();
-	node->base.custom_properties = NULL;
-	node->base.file = NULL;
 	node->base.name = g_strdup (name);
-	node->base.state =  ANJUTA_PROJECT_CAN_REMOVE;
-	node->version = NULL;
 
 	return node;
 }
@@ -509,6 +517,15 @@ amp_package_add_token (AnjutaAmPackageNode *node, AnjutaToken *token)
 	node->token = token;
 }
 
+void
+amp_package_update_node (AnjutaAmPackageNode *node, AnjutaAmPackageNode *new_node)
+{
+	node->token = new_node->token;
+	g_free (node->version);
+	node->version = new_node->version;
+	new_node->version = NULL;
+}
+
 
 /* GObjet implementation
  *---------------------------------------------------------------------------*/
@@ -524,6 +541,10 @@ G_DEFINE_TYPE (AnjutaAmPackageNode, anjuta_am_package_node, ANJUTA_TYPE_PROJECT_
 static void
 anjuta_am_package_node_init (AnjutaAmPackageNode *node)
 {
+	node->base.type = ANJUTA_PROJECT_PACKAGE;
+	node->base.native_properties = amp_get_package_property_list();
+	node->base.state =  ANJUTA_PROJECT_CAN_REMOVE;
+	node->version = NULL;
 }
 
 static void
@@ -673,10 +694,30 @@ amp_group_get_makefile_name (AnjutaAmGroupNode *group)
 }
 
 void
-amp_group_update_monitor (AnjutaAmGroupNode *group)
+amp_group_update_node (AnjutaAmGroupNode *group, AnjutaAmGroupNode *new_group)
 {
+	gint i;
+	
 	if (group->monitor != NULL) g_object_unref (group->monitor);
+	if (group->makefile != NULL) g_object_unref (group->makefile);
+	if (group->tfile) anjuta_token_file_free (group->tfile);
+	for (i = 0; i < AM_GROUP_TOKEN_LAST; i++)
+	{
+		if (group->tokens[i] != NULL) g_list_free (group->tokens[i]);
+	}
+	if (group->variables) g_hash_table_destroy (group->variables);
 
+	group->dist_only = new_group->dist_only;
+	group->makefile = new_group->makefile;
+	new_group->makefile = NULL;
+	group->tfile = new_group->tfile;
+	new_group->tfile = NULL;
+	memcpy (group->tokens, new_group->tokens, sizeof (group->tokens));
+	memset (new_group->tokens, 0, sizeof (new_group->tokens));
+	group->variables = new_group->variables;
+	new_group->variables = NULL;
+	group->project = new_group->project;
+	
 	if (group->makefile != NULL)
 	{
 		group->monitor = g_file_monitor_file (group->makefile, 
@@ -691,6 +732,7 @@ amp_group_update_monitor (AnjutaAmGroupNode *group)
 					  group);
 		}
 	}
+
 }
 
 AnjutaAmGroupNode*
@@ -712,31 +754,21 @@ amp_group_new (GFile *file, gboolean dist_only, GError **error)
 		gboolean failed = FALSE;
 		const gchar *ptr = name;
 		while (*ptr) {
-			if (!isalnum (*ptr) && *ptr != '.' && *ptr != '-' &&
-			    *ptr != '_')
+			if (!isalnum (*ptr) && (strchr ("#$:%+,-.=@^_`~", *ptr) == NULL))
 				failed = TRUE;
 			ptr++;
 		}
 		if (failed) {
 			g_free (name);
 			error_set (error, IANJUTA_PROJECT_ERROR_VALIDATION_FAILED,
-				   _("Group name can only contain alphanumeric, '_', '-' or '.' characters"));
+				   _("Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"));
 			return NULL;
 		}
 	}
 	g_free (name);
 	
 	node = g_object_new (ANJUTA_TYPE_AM_GROUP_NODE, NULL);
-	node->base.type = ANJUTA_PROJECT_GROUP;
-	node->base.native_properties = amp_get_group_property_list();
-	node->base.custom_properties = NULL;
 	node->base.file = g_object_ref (file);
-	node->base.name = NULL;
-	node->base.state = ANJUTA_PROJECT_CAN_ADD_GROUP |
-						ANJUTA_PROJECT_CAN_ADD_TARGET |
-						ANJUTA_PROJECT_CAN_ADD_SOURCE |
-						ANJUTA_PROJECT_CAN_REMOVE |
-						ANJUTA_PROJECT_CAN_SAVE;
 	node->dist_only = dist_only;
 	node->variables = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, (GDestroyNotify)amp_variable_free);
 
@@ -765,6 +797,15 @@ G_DEFINE_TYPE (AnjutaAmGroupNode, anjuta_am_group_node, ANJUTA_TYPE_PROJECT_NODE
 static void
 anjuta_am_group_node_init (AnjutaAmGroupNode *node)
 {
+	node->base.type = ANJUTA_PROJECT_GROUP;
+	node->base.native_properties = amp_get_group_property_list();
+	node->base.state = ANJUTA_PROJECT_CAN_ADD_GROUP |
+						ANJUTA_PROJECT_CAN_ADD_TARGET |
+						ANJUTA_PROJECT_CAN_ADD_SOURCE |
+						ANJUTA_PROJECT_CAN_REMOVE |
+						ANJUTA_PROJECT_CAN_SAVE;
+	node->dist_only = FALSE;
+	node->variables = NULL;
 	node->makefile = NULL;
 	node->variables = NULL;
 	node->monitor = NULL;
@@ -820,6 +861,12 @@ anjuta_am_group_node_class_init (AnjutaAmGroupNodeClass *klass)
  *---------------------------------------------------------------------------*/
 
 
+void
+amp_target_set_type (AnjutaAmTargetNode *target, AmTokenType type)
+{
+	target->base.type = ANJUTA_PROJECT_TARGET | type;
+	target->base.native_properties = amp_get_target_property_list(type);
+}
 
 void
 amp_target_add_token (AnjutaAmTargetNode *target, AmTokenType type, AnjutaToken *token)
@@ -843,6 +890,19 @@ AnjutaTokenType
 amp_target_get_next_token_type (AnjutaAmTargetNode *target, AnjutaTokenType type)
 {
 	return tagged_token_list_next (target->tokens, type);
+}
+
+void
+amp_target_update_node (AnjutaAmTargetNode *node, AnjutaAmTargetNode *new_node)
+{
+	g_free (node->install);
+	g_list_free (node->tokens);
+
+	node->install = new_node->install;
+	new_node->install = NULL;
+	node->flags = new_node->flags;
+	node->tokens = new_node->tokens;
+	new_node->tokens = NULL;
 }
 
 AnjutaAmTargetNode*
@@ -899,16 +959,10 @@ amp_target_new (const gchar *name, AnjutaProjectNodeType type, const gchar *inst
 	}
 	
 	node = g_object_new (ANJUTA_TYPE_AM_TARGET_NODE, NULL);
-	node->base.type = ANJUTA_PROJECT_TARGET | type;
-	node->base.native_properties = amp_get_target_property_list(type);
-	node->base.custom_properties = NULL;
+	amp_target_set_type (node, type);
 	node->base.name = g_strdup (name);
-	node->base.file = NULL;
-	node->base.state = ANJUTA_PROJECT_CAN_ADD_SOURCE |
-						ANJUTA_PROJECT_CAN_REMOVE;
 	node->install = g_strdup (install);
 	node->flags = flags;
-	node->tokens = NULL;
 	
 	return node;
 }
@@ -934,6 +988,12 @@ G_DEFINE_TYPE (AnjutaAmTargetNode, anjuta_am_target_node, ANJUTA_TYPE_PROJECT_NO
 static void
 anjuta_am_target_node_init (AnjutaAmTargetNode *node)
 {
+	node->base.type = ANJUTA_PROJECT_TARGET;
+	node->base.state = ANJUTA_PROJECT_CAN_ADD_SOURCE |
+						ANJUTA_PROJECT_CAN_REMOVE;
+	node->install = NULL;
+	node->flags = 0;
+	node->tokens = NULL;
 }
 
 static void
@@ -974,19 +1034,19 @@ amp_source_add_token (AnjutaAmSourceNode *node, AnjutaToken *token)
 	node->token = token;
 }
 
+void
+amp_source_update_node (AnjutaAmSourceNode *node, AnjutaAmSourceNode *new_node)
+{
+	node->token = new_node->token;
+}
+
 AnjutaProjectNode*
 amp_source_new (GFile *file, GError **error)
 {
 	AnjutaAmSourceNode *node = NULL;
 
 	node = g_object_new (ANJUTA_TYPE_AM_SOURCE_NODE, NULL);
-	node->base.type = ANJUTA_PROJECT_SOURCE;
-	node->base.native_properties = amp_get_source_property_list();
-	node->base.custom_properties = NULL;
-	node->base.name = NULL;
 	node->base.file = g_object_ref (file);
-	node->base.state = ANJUTA_PROJECT_CAN_REMOVE;
-	node->token = NULL;
 
 	return ANJUTA_PROJECT_NODE (node);
 }
@@ -1012,6 +1072,10 @@ G_DEFINE_TYPE (AnjutaAmSourceNode, anjuta_am_source_node, ANJUTA_TYPE_PROJECT_NO
 static void
 anjuta_am_source_node_init (AnjutaAmSourceNode *node)
 {
+	node->base.type = ANJUTA_PROJECT_SOURCE;
+	node->base.native_properties = amp_get_source_property_list();
+	node->base.state = ANJUTA_PROJECT_CAN_REMOVE;
+	node->token = NULL;
 }
 
 static void

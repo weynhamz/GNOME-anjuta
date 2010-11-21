@@ -165,7 +165,6 @@ plugins/project-manager/dialogs.c
 plugins/project-manager/project.c
 plugins/project-manager/project-view.c
 plugins/project-manager/tree-data.c
-plugins/project-manager/pkg-config.c
 [type: gettext/glade]plugins/project-wizard/anjuta-project-wizard.ui
 plugins/project-wizard/druid.c
 plugins/project-wizard/install.c
@@ -193,9 +192,9 @@ plugins/project-wizard/property.c
 plugins/run-program/execute.c
 plugins/run-program/parameters.c
 plugins/run-program/plugin.c
+[type: gettext/xml]plugins/run-program/org.gnome.anjuta.run.gschema.xml.in
 [type: gettext/glade]plugins/search/anjuta-search.ui
 plugins/search/plugin.c
-plugins/search/search_preferences.c
 plugins/search/search-replace.c
 plugins/search/search-replace_backend.c
 plugins/snippets-manager/plugin.c
@@ -259,7 +258,7 @@ plugins/debug-manager/signals.c
 plugins/debug-manager/stack_trace.c
 plugins/debug-manager/start.c
 plugins/debug-manager/watch.c
-plugins/debug-manager/anjuta-debug-manager.schemas.in
+[type: gettext/xml]plugins/debug-manager/org.gnome.anjuta.debug-manager.gschema.xml.in
 [type: gettext/glade]plugins/language-support-cpp-java/anjuta-language-cpp-java.ui
 plugins/language-support-cpp-java/plugin.c
 plugins/language-support-cpp-java/cpp-java-assist.c
