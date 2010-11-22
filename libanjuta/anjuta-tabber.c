@@ -256,8 +256,10 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 		gint total_width = 0;
 		gboolean use_natural = FALSE;
 		gint child_equal;
+		gint extra_space = 0;
 
 		/* Check if we have enough space for all widgets natural size */
+		child_equal = allocation->width / n_children - 2 * (padding + style->xthickness);
 		for (child = tabber->priv->children; child != NULL; child = g_list_next (child))
 		{
 			GtkWidget* child_widget = GTK_WIDGET (child->data);
@@ -266,9 +268,11 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 			                                &natural);
 
 			total_width += natural;
+			if (natural < child_equal)
+				extra_space += child_equal - natural;
 		}
 		use_natural = (total_width +  2 * (padding + style->xthickness) <= allocation->width);
-		child_equal = allocation->width / n_children - 2 * (padding + style->xthickness);
+		child_equal += extra_space / n_children;
 
 		for (child = tabber->priv->children; child != NULL; child = g_list_next (child))
 		{
@@ -291,7 +295,7 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 				if (natural < child_equal)
 					child_alloc.width = natural;
 				else
-					child_alloc.width = (child_equal < minimal) ? minimal : child_equal;
+					child_alloc.width = child_equal;
 			}
 			child_alloc.height = MAX(child_req.height, allocation->height);
 
@@ -329,16 +333,15 @@ anjuta_tabber_draw (GtkWidget* widget, cairo_t* cr)
 		GtkAllocation alloc;
 		GtkStyle *style;
 		GtkStateType state = (g_list_nth (tabber->priv->children, tabber->priv->active_page) == child) ? 
-			GTK_STATE_NORMAL : GTK_STATE_ACTIVE;
+			GTK_STATE_ACTIVE : GTK_STATE_NORMAL;
 		gtk_widget_get_allocation (GTK_WIDGET (child->data), &alloc);
 
 		style = gtk_widget_get_style (widget);
 
-		alloc.x -= style->xthickness + padding + widget_alloc.x;
-		alloc.y -= style->ythickness + widget_alloc.y;
-		alloc.width += 2 * (style->xthickness + padding);
-		alloc.height += style->ythickness;
-
+		alloc.x -= widget_alloc.x + style->xthickness + padding;
+		alloc.y -= widget_alloc.y + style->ythickness;
+		alloc.width += 2 * style->xthickness + padding;
+		
 		gtk_paint_extension (style,
 		                     cr,
 		                     state, GTK_SHADOW_OUT,
