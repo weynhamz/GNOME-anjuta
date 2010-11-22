@@ -196,196 +196,6 @@ amp_variable_free (AmpVariable *variable)
 
 
 
-
-/* Root objects
- *---------------------------------------------------------------------------*/
-
-AnjutaAmRootNode*
-amp_root_new (GFile *file, GError **error)
-{
-	AnjutaAmRootNode *root = NULL;
-
-	root = g_object_new (ANJUTA_TYPE_AM_ROOT_NODE, NULL);
-	root->base.file = g_file_dup (file);
-	
-
-	return root;
-}
-
-void
-amp_root_free (AnjutaAmRootNode *node)
-{
-	g_object_unref (G_OBJECT (node));
-}
-
-void
-amp_root_clear (AnjutaAmRootNode *node)
-{
-	if (node->configure_file != NULL) anjuta_token_file_free (node->configure_file);
-	node->configure_file = NULL;
-	if (node->configure_token) anjuta_token_free (node->configure_token);
-	
-	g_list_foreach (node->base.custom_properties, (GFunc)amp_property_free, NULL);
-	node->base.custom_properties = NULL;
-}
-
-static void
-on_root_monitor_changed (GFileMonitor *monitor,
-											GFile *file,
-											GFile *other_file,
-											GFileMonitorEvent event_type,
-											gpointer data)
-{
-	AnjutaAmRootNode *node = ANJUTA_AM_ROOT_NODE (data);
-
-	switch (event_type) {
-		case G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
-		case G_FILE_MONITOR_EVENT_CHANGED:
-		case G_FILE_MONITOR_EVENT_DELETED:
-			/* project can be NULL, if the node is dummy node because the
-			 * original one is reloaded. */
-			if (node->project != NULL) g_signal_emit_by_name (G_OBJECT (node->project), "file-changed", data);
-			break;
-		default:
-			break;
-	}
-}
-
-AnjutaTokenFile*
-amp_root_set_configure (AnjutaAmRootNode *root, GFile *configure, GObject* project)
-{
-	if (root->configure != NULL) g_object_unref (root->configure);
-	if (root->configure_file != NULL) anjuta_token_file_free (root->configure_file);
-	if (root->monitor) g_object_unref (root->monitor);
-	if (configure != NULL)
-	{
-		root->configure_file = anjuta_token_file_new (configure);
-		root->configure = g_object_ref (configure);
-
-		root->monitor = g_file_monitor_file (configure, 
-						      									G_FILE_MONITOR_NONE,
-						       									NULL,
-						       									NULL);
-		if (root->monitor != NULL)
-		{
-			root->project = project;
-			g_signal_connect (G_OBJECT (root->monitor),
-					  "changed",
-					  G_CALLBACK (on_root_monitor_changed),
-					  root);
-		}
-	}
-	else
-	{
-		root->configure_file = NULL;
-		root->configure = NULL;
-		root->monitor = NULL;
-	}
-	
-	return root->configure_file;
-}
-
-gboolean
-amp_root_update_configure (AnjutaAmRootNode *root, AnjutaToken *token)
-{
-	return anjuta_token_file_update (root->configure_file, token);
-}
-
-AnjutaToken*
-amp_root_get_configure_token (AnjutaAmRootNode *root)
-{
-	return root->configure_token;
-}
-
-void
-amp_root_update_node (AnjutaAmRootNode *root, AnjutaAmRootNode *new_root)
-{
-	if (root->configure != NULL) g_object_unref (root->configure);
-	if (root->configure_file != NULL) anjuta_token_file_free (root->configure_file);
-	if (root->monitor) g_object_unref (root->monitor);
-
-	root->configure = new_root->configure;
-	if (root->configure != NULL)
-	{
-		root->monitor = g_file_monitor_file (root->configure,
-						      						G_FILE_MONITOR_NONE,
-						       						NULL,
-						       						NULL);
-		if (root->monitor != NULL)
-		{
-			g_signal_connect (G_OBJECT (root->monitor),
-					  "changed",
-					  G_CALLBACK (on_root_monitor_changed),
-					  root);
-		}
-	}
-	else
-	{
-		root->monitor = NULL;
-	}
-	new_root->configure = NULL;
-	root->configure_file = new_root->configure_file;
-	new_root->configure_file = NULL;
-	root->configure_token = new_root->configure_token;
-	root->project = new_root->project;
-}
-
-/* GObjet implementation
- *---------------------------------------------------------------------------*/
-
-typedef struct _AnjutaAmRootNodeClass AnjutaAmRootNodeClass;
-
-struct _AnjutaAmRootNodeClass {
-	AnjutaProjectNodeClass parent_class;
-};
-
-G_DEFINE_TYPE (AnjutaAmRootNode, anjuta_am_root_node, ANJUTA_TYPE_PROJECT_NODE);
-
-static void
-anjuta_am_root_node_init (AnjutaAmRootNode *node)
-{
-	node->base.type = ANJUTA_PROJECT_ROOT;
-	node->base.native_properties = amp_get_project_property_list();
-	node->base.state = ANJUTA_PROJECT_CAN_ADD_GROUP |
-						ANJUTA_PROJECT_CAN_ADD_PACKAGE,
-						ANJUTA_PROJECT_CAN_SAVE;
-	node->configure_file = NULL;
-	node->configure_token = NULL;
-}
-
-static void
-anjuta_am_root_node_dispose (GObject *object)
-{
-	AnjutaAmRootNode *root = ANJUTA_AM_ROOT_NODE (object);
-
-	if (root->monitor) g_object_unref (root->monitor);
-	root->monitor = NULL;
-	
-	G_OBJECT_CLASS (anjuta_am_root_node_parent_class)->dispose (object);
-}
-
-static void
-anjuta_am_root_node_finalize (GObject *object)
-{
-	AnjutaAmRootNode *root = ANJUTA_AM_ROOT_NODE (object);
-
-	amp_root_clear (root);
-	
-	G_OBJECT_CLASS (anjuta_am_root_node_parent_class)->finalize (object);
-}
-
-static void
-anjuta_am_root_node_class_init (AnjutaAmRootNodeClass *klass)
-{
-	GObjectClass* object_class = G_OBJECT_CLASS (klass);
-	
-	object_class->finalize = anjuta_am_root_node_finalize;
-	object_class->dispose = anjuta_am_root_node_dispose;
-}
-
-
-
-
 /* Module objects
  *---------------------------------------------------------------------------*/
 
@@ -442,7 +252,7 @@ struct _AnjutaAmModuleNodeClass {
 	AnjutaProjectNodeClass parent_class;
 };
 
-G_DEFINE_TYPE (AnjutaAmModuleNode, anjuta_am_module_node, ANJUTA_TYPE_PROJECT_NODE);
+G_DEFINE_DYNAMIC_TYPE (AnjutaAmModuleNode, anjuta_am_module_node, ANJUTA_TYPE_PROJECT_NODE);
 
 static void
 anjuta_am_module_node_init (AnjutaAmModuleNode *node)
@@ -472,6 +282,10 @@ anjuta_am_module_node_class_init (AnjutaAmModuleNodeClass *klass)
 	object_class->finalize = anjuta_am_module_node_finalize;
 }
 
+static void
+anjuta_am_module_node_class_finalize (AnjutaAmModuleNodeClass *klass)
+{
+}
 
 
 
@@ -536,7 +350,7 @@ struct _AnjutaAmPackageNodeClass {
 	AnjutaProjectNodeClass parent_class;
 };
 
-G_DEFINE_TYPE (AnjutaAmPackageNode, anjuta_am_package_node, ANJUTA_TYPE_PROJECT_NODE);
+G_DEFINE_DYNAMIC_TYPE (AnjutaAmPackageNode, anjuta_am_package_node, ANJUTA_TYPE_PROJECT_NODE);
 
 static void
 anjuta_am_package_node_init (AnjutaAmPackageNode *node)
@@ -563,6 +377,11 @@ anjuta_am_package_node_class_init (AnjutaAmPackageNodeClass *klass)
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
 	
 	object_class->finalize = anjuta_am_package_node_finalize;
+}
+
+static void
+anjuta_am_package_node_class_finalize (AnjutaAmPackageNodeClass *klass)
+{
 }
 
 
@@ -792,7 +611,7 @@ struct _AnjutaAmGroupNodeClass {
 	AnjutaProjectNodeClass parent_class;
 };
 
-G_DEFINE_TYPE (AnjutaAmGroupNode, anjuta_am_group_node, ANJUTA_TYPE_PROJECT_NODE);
+G_DEFINE_DYNAMIC_TYPE (AnjutaAmGroupNode, anjuta_am_group_node, ANJUTA_TYPE_PROJECT_NODE);
 
 static void
 anjuta_am_group_node_init (AnjutaAmGroupNode *node)
@@ -854,6 +673,10 @@ anjuta_am_group_node_class_init (AnjutaAmGroupNodeClass *klass)
 	object_class->dispose = anjuta_am_group_node_dispose;
 }
 
+static void
+anjuta_am_group_node_class_finalize (AnjutaAmGroupNodeClass *klass)
+{
+}
 
 
 
@@ -983,7 +806,7 @@ struct _AnjutaAmTargetNodeClass {
 	AnjutaProjectNodeClass parent_class;
 };
 
-G_DEFINE_TYPE (AnjutaAmTargetNode, anjuta_am_target_node, ANJUTA_TYPE_PROJECT_NODE);
+G_DEFINE_DYNAMIC_TYPE (AnjutaAmTargetNode, anjuta_am_target_node, ANJUTA_TYPE_PROJECT_NODE);
 
 static void
 anjuta_am_target_node_init (AnjutaAmTargetNode *node)
@@ -1016,6 +839,10 @@ anjuta_am_target_node_class_init (AnjutaAmTargetNodeClass *klass)
 	object_class->finalize = anjuta_am_target_node_finalize;
 }
 
+static void
+anjuta_am_target_node_class_finalize (AnjutaAmTargetNodeClass *klass)
+{
+}
 
 
 
@@ -1067,7 +894,7 @@ struct _AnjutaAmSourceNodeClass {
 	AnjutaProjectNodeClass parent_class;
 };
 
-G_DEFINE_TYPE (AnjutaAmSourceNode, anjuta_am_source_node, ANJUTA_TYPE_PROJECT_NODE);
+G_DEFINE_DYNAMIC_TYPE (AnjutaAmSourceNode, anjuta_am_source_node, ANJUTA_TYPE_PROJECT_NODE);
 
 static void
 anjuta_am_source_node_init (AnjutaAmSourceNode *node)
@@ -1093,4 +920,21 @@ anjuta_am_source_node_class_init (AnjutaAmSourceNodeClass *klass)
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
 	
 	object_class->finalize = anjuta_am_source_node_finalize;
+}
+
+static void
+anjuta_am_source_node_class_finalize (AnjutaAmSourceNodeClass *klass)
+{
+}
+
+
+/* Register all node types */
+void
+amp_project_register_nodes (GTypeModule *module)
+{
+	anjuta_am_module_node_register_type (module);
+	anjuta_am_package_node_register_type (module);
+	anjuta_am_group_node_register_type (module);
+	anjuta_am_target_node_register_type (module);
+	anjuta_am_source_node_register_type (module);
 }

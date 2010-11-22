@@ -43,14 +43,16 @@ struct _AmpProperty {
 };
 
 struct _AmpProject {
-	GObject         parent;
+	AnjutaProjectNode base;
 
-	/* uri of the project; this can be a full uri, even though we
-	 * can only work with native local files */
-	AnjutaProjectNode			*root;
+	/* GFile corresponding to root configure */
+	GFile *configure;
+	AnjutaTokenFile *configure_file;
+	AnjutaToken *configure_token;
 
-	//AmpProperty			*property;
-	GList				*properties;
+	/* File monitor */
+	GFileMonitor *monitor;
+	
 	AnjutaToken			*ac_init;
 	AnjutaToken			*args;
 
@@ -59,11 +61,6 @@ struct _AmpProject {
 	GHashTable		*files;
 	GHashTable		*configs;		/* Config file from configure_file */
 	
-	GHashTable	*modules;
-	
-	/* project files monitors */
-	GHashTable         *monitors;
-
 	/* Keep list style */
 	AnjutaTokenStyle *ac_space_list;
 	AnjutaTokenStyle *am_space_list;
@@ -81,21 +78,6 @@ struct _AmpNodeInfo {
 	const gchar *prefix;
 	const gchar *install;
 };
-
-#define ANJUTA_TYPE_AM_ROOT_NODE				(anjuta_am_root_node_get_type ())
-#define ANJUTA_AM_ROOT_NODE(obj)				(G_TYPE_CHECK_INSTANCE_CAST ((obj), ANJUTA_TYPE_AM_ROOT_NODE, AnjutaAmRootNode))
-
-GType anjuta_am_root_node_get_type (void) G_GNUC_CONST;
-
-struct _AnjutaAmRootNode {
-	AnjutaProjectNode base;
-	GFile *configure;									/* GFile corresponding to root configure */
-	AnjutaTokenFile *configure_file;					/* Corresponding configure file */
-	AnjutaToken *configure_token;
-	GFileMonitor *monitor;								/* File monitor */
-	GObject *project;									/* Project used by file monitor */
-};
-
 
 
 #define ANJUTA_TYPE_AM_MODULE_NODE			(anjuta_am_module_node_get_type ())

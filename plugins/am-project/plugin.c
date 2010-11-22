@@ -121,7 +121,8 @@ amp_plugin_class_init (GObjectClass *klass)
  *---------------------------------------------------------------------------*/
 
 ANJUTA_PLUGIN_BEGIN (AmpPlugin, amp_plugin);
-ANJUTA_PLUGIN_ADD_INTERFACE (iproject_backend, IANJUTA_TYPE_PROJECT_BACKEND);
+	ANJUTA_PLUGIN_ADD_INTERFACE (iproject_backend, IANJUTA_TYPE_PROJECT_BACKEND);
+	amp_project_register_project (module);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (AmpPlugin, amp_plugin);

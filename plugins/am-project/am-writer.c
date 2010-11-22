@@ -60,7 +60,7 @@ amp_project_write_config_list (AmpProject *project)
 	static gint eol_type[] = {ANJUTA_TOKEN_EOL, ANJUTA_TOKEN_SPACE, ANJUTA_TOKEN_COMMENT, 0};
 	AnjutaToken *configure;
 	
-	configure = amp_root_get_configure_token (ANJUTA_AM_ROOT_NODE (project->root));
+	configure = amp_project_get_configure_token (project);
 	pos = anjuta_token_find_type (configure, 0, output_type);
 	if (pos == NULL)
 	{
@@ -119,7 +119,7 @@ amp_project_write_config_file (AmpProject *project, AnjutaToken *list, gboolean 
 	//fprintf (stdout, "Dump config list after format:\n");
 	//anjuta_token_dump (list);
 
-	amp_root_update_configure (ANJUTA_AM_ROOT_NODE (project->root), list);
+	amp_project_update_configure (project, list);
 	
 	return token;
 }
@@ -206,7 +206,7 @@ amp_group_create_token (AmpProject  *project, AnjutaAmGroupNode *group, GError *
 		}
 		//prev_token = (AnjutaToken *)token_list->data;
 
-		relative_make = g_file_get_relative_path (anjuta_project_node_get_file (project->root), makefile);
+		relative_make = g_file_get_relative_path (anjuta_project_node_get_file (ANJUTA_PROJECT_NODE (project)), makefile);
 		ext = relative_make + strlen (relative_make) - 3;
 		if (strcmp (ext, ".am") == 0)
 		{
@@ -296,7 +296,6 @@ amp_group_delete_token (AmpProject  *project, AnjutaAmGroupNode *group, GError *
 {
 	GList *item;
 	AnjutaProjectNode *parent;
-	AnjutaProjectNode *root;
 
 	/* Get parent target */
 	parent =  anjuta_project_node_parent (ANJUTA_PROJECT_NODE (group));
@@ -323,8 +322,6 @@ amp_group_delete_token (AmpProject  *project, AnjutaAmGroupNode *group, GError *
 	}
 
 	/* Remove from configure file */
-	root = anjuta_project_node_root (ANJUTA_PROJECT_NODE (group));
-
 	for (item = amp_group_get_token (group, AM_GROUP_TOKEN_CONFIGURE); item != NULL; item = g_list_next (item))
 	{
 		AnjutaToken *token = (AnjutaToken *)item->data;
@@ -342,7 +339,7 @@ amp_group_delete_token (AmpProject  *project, AnjutaAmGroupNode *group, GError *
 		anjuta_token_style_format (style, args);
 		anjuta_token_style_free (style);
 
-		amp_root_update_configure (ANJUTA_AM_ROOT_NODE (root), args);
+		amp_project_update_configure (project, args);
 	}	
 	
 	return TRUE;

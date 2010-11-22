@@ -138,7 +138,7 @@ amp_project_update_ac_property (AmpProject *project, AnjutaProjectProperty *prop
 		AnjutaToken *group;
 		AnjutaToken *configure;
 
-		configure = amp_root_get_configure_token (ANJUTA_AM_ROOT_NODE (project->root));
+		configure = amp_project_get_configure_token (project);
 		token = find_tokens (configure, types);
 		if (token == NULL)
 		{
@@ -175,7 +175,7 @@ amp_project_update_ac_property (AmpProject *project, AnjutaProjectProperty *prop
 	anjuta_token_style_format (project->arg_list, project->args);
 	//fprintf(stdout, "ac_init after update link\n");
 	//anjuta_token_dump (project->args);
-	amp_root_update_configure (ANJUTA_AM_ROOT_NODE (project->root), token);
+	amp_project_update_configure (project, token);
 	
 	return TRUE;
 }
@@ -184,7 +184,7 @@ amp_project_update_ac_property (AmpProject *project, AnjutaProjectProperty *prop
  *---------------------------------------------------------------------------*/
 
 static AnjutaToken *
-amp_project_write_module_list (AnjutaAmRootNode *root, const gchar *name, gboolean after, AnjutaToken* sibling)
+amp_project_write_module_list (AmpProject *project, const gchar *name, gboolean after, AnjutaToken* sibling)
 {
 	AnjutaToken *pos;
 	AnjutaToken *token;
@@ -192,7 +192,7 @@ amp_project_write_module_list (AnjutaAmRootNode *root, const gchar *name, gboole
 	static gint eol_type[] = {ANJUTA_TOKEN_EOL, ANJUTA_TOKEN_SPACE, ANJUTA_TOKEN_COMMENT, 0};
 	AnjutaToken *configure;
 
-	configure = amp_root_get_configure_token (root);
+	configure = amp_project_get_configure_token (project);
 	
 	if (sibling == NULL)
 	{
@@ -235,14 +235,14 @@ amp_project_write_module_list (AnjutaAmRootNode *root, const gchar *name, gboole
 			pos = anjuta_token_insert_token_list (after, pos,
 			    ANJUTA_TOKEN_EOL, "\n",
 			    NULL);
-			amp_root_update_configure (root, pos);
+			amp_project_update_configure (project, pos);
 		}
 	}
 	
 	pos = anjuta_token_insert_token_list (after, pos,
 		    ANJUTA_TOKEN_EOL, "\n",
 		    NULL);
-	amp_root_update_configure (root, pos);
+	amp_project_update_configure (project, pos);
 
 	token = anjuta_token_insert_token_list (FALSE, pos,
 	    		AC_TOKEN_AC_CONFIG_FILES, "PKG_CHECK_MODULES(",
@@ -260,17 +260,11 @@ amp_project_write_module_list (AnjutaAmRootNode *root, const gchar *name, gboole
 gboolean 
 amp_module_create_token (AmpProject  *project, AnjutaAmModuleNode *module, GError **error)
 {
-	AnjutaAmRootNode *root;
 	gboolean after;
 	AnjutaToken *token;
 	AnjutaToken *prev;
 	AnjutaToken *next;
 	AnjutaProjectNode *sibling;
-
-	/* Get root node */
-	root = ANJUTA_AM_ROOT_NODE (anjuta_project_node_parent (ANJUTA_PROJECT_NODE (module)));
-	if ((root == NULL) || (anjuta_project_node_get_node_type (ANJUTA_PROJECT_NODE (root)) != ANJUTA_PROJECT_ROOT)) return FALSE;
-
 	
 	/* Add in configure.ac */
 	/* Find a sibling if possible */
@@ -305,13 +299,13 @@ amp_module_create_token (AmpProject  *project, AnjutaAmModuleNode *module, GErro
 		}
 	}
 	
-	token = amp_project_write_module_list (root, anjuta_project_node_get_name (ANJUTA_PROJECT_NODE (module)), after, prev);
+	token = amp_project_write_module_list (project, anjuta_project_node_get_name (ANJUTA_PROJECT_NODE (module)), after, prev);
 	next = anjuta_token_next (token);
 	next = anjuta_token_next (next);
 	next = anjuta_token_next (next);
 	amp_module_add_token (module, next);
 	
-	amp_root_update_configure (root, token);
+	amp_project_update_configure (project, token);
 
 	return TRUE;
 }
@@ -319,15 +313,7 @@ amp_module_create_token (AmpProject  *project, AnjutaAmModuleNode *module, GErro
 gboolean 
 amp_module_delete_token (AmpProject  *project, AnjutaAmModuleNode *module, GError **error)
 {
-	AnjutaProjectNode *root;
 	AnjutaToken *token;
-
-	/* Get root node */
-	root = anjuta_project_node_parent (ANJUTA_PROJECT_NODE (module));
-	if ((root == NULL) || (anjuta_project_node_get_node_type (root) != ANJUTA_PROJECT_ROOT))
-	{
-		return FALSE;
-	}
 
 	token = amp_module_get_token (module);
 	if (token != NULL)
@@ -335,7 +321,7 @@ amp_module_delete_token (AmpProject  *project, AnjutaAmModuleNode *module, GErro
 		token = anjuta_token_list (token);
 		anjuta_token_set_flags (token, ANJUTA_TOKEN_REMOVED);
 
-		amp_root_update_configure (ANJUTA_AM_ROOT_NODE (root), token);
+		amp_project_update_configure (project, token);
 	}
 
 	return TRUE;
@@ -348,7 +334,6 @@ gboolean
 amp_package_create_token (AmpProject  *project, AnjutaAmPackageNode *package, GError **error)
 {
 	AnjutaAmModuleNode *module;
-	AnjutaAmRootNode *root;
 	gboolean after;
 	AnjutaToken *token;
 	AnjutaToken *prev;
@@ -358,10 +343,6 @@ amp_package_create_token (AmpProject  *project, AnjutaAmPackageNode *package, GE
 	/* Get parent module */
 	module = ANJUTA_AM_MODULE_NODE (anjuta_project_node_parent (ANJUTA_PROJECT_NODE (package)));
 	if ((module == NULL) || (anjuta_project_node_get_node_type (ANJUTA_PROJECT_NODE (module)) != ANJUTA_PROJECT_MODULE)) return FALSE;
-
-	/* Get root node */
-	root = ANJUTA_AM_ROOT_NODE (anjuta_project_node_parent (ANJUTA_PROJECT_NODE (module)));
-	if ((root == NULL) || (anjuta_project_node_get_node_type (ANJUTA_PROJECT_NODE (root)) != ANJUTA_PROJECT_ROOT)) return FALSE;
 
 
 	/* Add in configure.ac */
@@ -414,7 +395,7 @@ amp_package_create_token (AmpProject  *project, AnjutaAmPackageNode *package, GE
 		anjuta_token_style_format (style, args);
 		anjuta_token_style_free (style);
 		
-		amp_root_update_configure (root, token);
+		amp_project_update_configure (project, token);
 		
 		amp_package_add_token (package, token);
 	}
@@ -425,19 +406,12 @@ amp_package_create_token (AmpProject  *project, AnjutaAmPackageNode *package, GE
 gboolean 
 amp_package_delete_token (AmpProject  *project, AnjutaAmPackageNode *package, GError **error)
 {
-	AnjutaProjectNode *root;
 	AnjutaProjectNode *module;
 	AnjutaToken *token;
 
 	/* Get parent module */
 	module = anjuta_project_node_parent (ANJUTA_PROJECT_NODE (package));
 	if ((module == NULL) || (anjuta_project_node_get_node_type (module) != ANJUTA_PROJECT_MODULE))
-	{
-		return FALSE;
-	}
-	/* Get root */
-	root = anjuta_project_node_parent (ANJUTA_PROJECT_NODE (module));
-	if ((root == NULL) || (anjuta_project_node_get_node_type (root) != ANJUTA_PROJECT_ROOT))
 	{
 		return FALSE;
 	}
@@ -459,7 +433,7 @@ amp_package_delete_token (AmpProject  *project, AnjutaAmPackageNode *package, GE
 		anjuta_token_style_format (style, args);
 		anjuta_token_style_free (style);
 
-		amp_root_update_configure (ANJUTA_AM_ROOT_NODE (root), args);
+		amp_project_update_configure (project, args);
 	}
 
 	return TRUE;

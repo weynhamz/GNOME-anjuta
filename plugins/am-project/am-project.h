@@ -41,7 +41,7 @@ typedef struct _AmpProject        AmpProject;
 typedef struct _AmpProjectClass   AmpProjectClass;
 
 struct _AmpProjectClass {
-	GObjectClass parent_class;
+	AnjutaProjectNodeClass parent_class;
 };
 
 typedef struct _AnjutaAmRootNode AnjutaAmRootNode;
@@ -53,29 +53,11 @@ typedef struct _AnjutaAmSourceNode AnjutaAmSourceNode;
 
 typedef struct _AmpProperty AmpProperty;
 
-typedef enum {
-	AMP_PROPERTY_NAME = 0,
-	AMP_PROPERTY_VERSION,
-	AMP_PROPERTY_BUG_REPORT,
-	AMP_PROPERTY_TARNAME,
-	AMP_PROPERTY_URL
-} AmpPropertyType;
-
-typedef struct _AmpPropertyInfo   AmpPropertyInfo;
-
-typedef struct _AmpTargetPropertyBuffer AmpTargetPropertyBuffer;
-
 GType         amp_project_get_type (void);
 AmpProject   *amp_project_new      (GFile *file, GError **error);
 
+void amp_project_register_project (GTypeModule *module);
 
-AmpTargetPropertyBuffer* amp_target_property_buffer_new (void);
-void amp_target_property_buffer_free (AmpTargetPropertyBuffer *buffer);
-
-void amp_target_property_buffer_add_source (AmpTargetPropertyBuffer *buffer, AnjutaAmSourceNode *source);
-void amp_target_property_buffer_add_property (AmpTargetPropertyBuffer *buffer, AnjutaProjectProperty *prop);
-GList *amp_target_property_buffer_steal_sources (AmpTargetPropertyBuffer *buffer);
-GList *amp_target_property_buffer_steal_properties (AmpTargetPropertyBuffer *buffer);
 
 gint amp_project_probe (GFile *directory, GError     **error);
 gboolean amp_project_load (AmpProject *project, GFile *directory, GError **error);
@@ -86,7 +68,12 @@ void amp_project_load_config (AmpProject *project, AnjutaToken *arg_list);
 void amp_project_load_properties (AmpProject *project, AnjutaToken *macro, AnjutaToken *list);
 void amp_project_load_module (AmpProject *project, AnjutaToken *module);
 
-AnjutaAmRootNode *amp_project_get_root (AmpProject *project);
+AnjutaTokenFile* amp_project_set_configure (AmpProject *project, GFile *configure);
+gboolean amp_project_update_configure (AmpProject *project, AnjutaToken *token);
+AnjutaToken* amp_project_get_configure_token (AmpProject *project);
+void amp_project_update_root (AmpProject *project, AmpProject *new_project);
+
+AmpProject *amp_project_get_root (AmpProject *project);
 AnjutaAmGroupNode *amp_project_get_group (AmpProject *project, const gchar *id);
 AnjutaAmTargetNode *amp_project_get_target (AmpProject *project, const gchar *id);
 AnjutaAmSourceNode *amp_project_get_source (AmpProject *project, const gchar *id);
@@ -147,6 +134,8 @@ gchar *amp_source_get_id (AnjutaAmSourceNode *source);
 GFile *amp_source_get_file (AnjutaAmSourceNode *source);
 
 gchar* canonicalize_automake_variable (gchar *name);
+
+
 
 
 G_END_DECLS

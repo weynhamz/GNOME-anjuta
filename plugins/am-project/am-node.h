@@ -33,6 +33,8 @@
 
 G_BEGIN_DECLS
 
+void amp_project_register_nodes (GTypeModule *module);
+
 typedef struct _AmpVariable AmpVariable;
 
 struct _AmpVariable {
@@ -42,16 +44,6 @@ struct _AmpVariable {
 };
 
 AmpVariable* amp_variable_new (gchar *name, AnjutaTokenType assign, AnjutaToken *value);
-
-
-AnjutaAmRootNode* amp_root_new (GFile *file, GError **error);
-void amp_root_free (AnjutaAmRootNode *node);
-void amp_root_clear (AnjutaAmRootNode *node);
-AnjutaTokenFile* amp_root_set_configure (AnjutaAmRootNode *node, GFile *configure, GObject* project);
-gboolean amp_root_update_configure (AnjutaAmRootNode *group, AnjutaToken *token);
-AnjutaToken* amp_root_get_configure_token (AnjutaAmRootNode *root);
-void amp_root_update_node (AnjutaAmRootNode *node, AnjutaAmRootNode *new_node);
-
 
 AnjutaAmModuleNode* amp_module_new (const gchar *name, GError **error);
 void amp_module_free (AnjutaAmModuleNode *node);

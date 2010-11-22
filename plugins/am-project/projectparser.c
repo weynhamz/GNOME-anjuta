@@ -409,6 +409,52 @@ amp_project_wait_ready (IAnjutaProject *project)
 	}
 }
 
+/* Dummy type module
+ *---------------------------------------------------------------------------*/
+
+typedef struct
+{
+	GTypeModuleClass parent;
+} DummyTypeModuleClass;
+
+typedef struct
+{
+	GTypeModule parent;
+} DummyTypeModule;
+
+static GType dummy_type_module_get_type (void);
+
+G_DEFINE_TYPE (DummyTypeModule, dummy_type_module, G_TYPE_TYPE_MODULE)
+
+static gboolean
+dummy_type_module_load (GTypeModule *gmodule)
+{
+	return TRUE;
+}
+
+static void
+dummy_type_module_unload (GTypeModule *gmodule)
+{
+}
+
+/* GObject functions
+ *---------------------------------------------------------------------------*/
+
+static void
+dummy_type_module_class_init (DummyTypeModuleClass *klass)
+{
+	GTypeModuleClass *gmodule_class = (GTypeModuleClass *)klass;
+
+	gmodule_class->load = dummy_type_module_load;
+	gmodule_class->unload = dummy_type_module_unload;
+}
+
+static void
+dummy_type_module_init (DummyTypeModule *module)
+{
+}
+
+
 /* Automake parsing function
  *---------------------------------------------------------------------------*/
 
@@ -455,6 +501,11 @@ main(int argc, char *argv[])
 				gint best = 0;
 				gint probe;
 				GType type;
+				GTypeModule *module;
+
+				/* Register project types */
+				module = g_object_new (dummy_type_module_get_type (), NULL);
+				amp_project_register_project (module);
 				
 				/* Check for project type */
 				probe = amp_project_probe (file, NULL);
