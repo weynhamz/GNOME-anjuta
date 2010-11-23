@@ -1652,19 +1652,23 @@ on_project_loaded (IAnjutaProjectManager *pm, GError *error,
 		gboolean flag_offline;
 		gboolean flag_update;
 		
+		DEBUG_PRINT ("Checking for files with zero symbols.");
 		sources_array = 
 			symbol_db_util_get_files_with_zero_symbols (sdb_plugin->sdbe_project);
 
 		if (sources_array != NULL && sources_array->len > 0) 
 		{				
+			DEBUG_PRINT ("Importing files after abort.");
 			do_import_project_sources_after_abort (sdb_plugin, sources_array);
 			
 			g_ptr_array_unref (sources_array);
 		}
-			
+
+		DEBUG_PRINT ("Checking for offline changes.");
 		/* check for offline changes */				
 		flag_offline = do_check_offline_files_changed (sdb_plugin);
-			
+
+		DEBUG_PRINT ("Updating project symbols.");
 		/* update any files of the project which isn't up-to-date */
 		flag_update = do_update_project_symbols (sdb_plugin, sdb_plugin->project_root_dir);		
 	}
@@ -1800,13 +1804,6 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	}
 	/* this is uri */
 	sdb_plugin->project_root_uri = g_strdup (root_uri);	
-
-	g_signal_connect (G_OBJECT (pm), "element_added",
-					  G_CALLBACK (on_project_element_added), sdb_plugin);
-	g_signal_connect (G_OBJECT (pm), "element_removed",
-					  G_CALLBACK (on_project_element_removed), sdb_plugin);
-	g_signal_connect (G_OBJECT (pm), "project_loaded",
-					  G_CALLBACK (on_project_loaded), sdb_plugin);
 }
 
 static void
@@ -1984,6 +1981,7 @@ on_isymbol_manager_sys_scan_end (SymbolDBEngine *dbe,
 static gboolean
 symbol_db_activate (AnjutaPlugin *plugin)
 {
+	IAnjutaProjectManager *pm;
 	SymbolDBPlugin *sdb_plugin;
 	gchar *anjuta_cache_path;
 	gchar *ctags_path;
@@ -2000,6 +1998,9 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	sdb_plugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	sdb_plugin->project_opened = NULL;
 
+	pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (sdb_plugin)->shell,
+									 IAnjutaProjectManager, NULL);
+	
 	ctags_path = NULL;
 
 	/* leaving here this code. Maybe in future ctags-devs will include our patches
@@ -2096,6 +2097,14 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	
 	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_project), "scan-end",
 				G_CALLBACK (on_isymbol_manager_prj_scan_end), sdb_plugin);
+
+	/* connect signals for project loading and element adding */
+	g_signal_connect (G_OBJECT (pm), "element-added",
+					  G_CALLBACK (on_project_element_added), sdb_plugin);
+	g_signal_connect (G_OBJECT (pm), "element-removed",
+					  G_CALLBACK (on_project_element_removed), sdb_plugin);
+	g_signal_connect (G_OBJECT (pm), "project-loaded",
+					  G_CALLBACK (on_project_loaded), sdb_plugin);
 	
 	/* Create widgets */
 	sdb_plugin->dbv_main = gtk_vbox_new(FALSE, 5);
@@ -2296,6 +2305,15 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	
 	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->sdbe_project),
 				G_CALLBACK (on_isymbol_manager_prj_scan_end), plugin);
+
+	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->sdbe_project),
+	    		G_CALLBACK (on_project_element_added), plugin);
+
+	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->sdbe_project),
+	    		G_CALLBACK (on_project_element_removed), plugin);
+
+	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->sdbe_project),
+	    		G_CALLBACK (on_project_loaded), plugin);
 	
 	if (sdb_plugin->update_timer)
 	{
