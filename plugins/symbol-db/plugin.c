@@ -2262,8 +2262,14 @@ static gboolean
 symbol_db_deactivate (AnjutaPlugin *plugin)
 {
 	SymbolDBPlugin *sdb_plugin;
+	IAnjutaProjectManager *pm;
 	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
+		
+	pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (sdb_plugin)->shell,
+									 IAnjutaProjectManager, NULL);	
+									 	
+
 
 	DEBUG_PRINT ("%s", "SymbolDBPlugin: Dectivating SymbolDBPlugin plugin …");
 
@@ -2306,13 +2312,13 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->sdbe_project),
 				G_CALLBACK (on_isymbol_manager_prj_scan_end), plugin);
 
-	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->sdbe_project),
+	g_signal_handlers_disconnect_by_func (G_OBJECT (pm),
 	    		G_CALLBACK (on_project_element_added), plugin);
 
-	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->sdbe_project),
+	g_signal_handlers_disconnect_by_func (G_OBJECT (pm),
 	    		G_CALLBACK (on_project_element_removed), plugin);
 
-	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->sdbe_project),
+	g_signal_handlers_disconnect_by_func (G_OBJECT (pm),
 	    		G_CALLBACK (on_project_loaded), plugin);
 	
 	if (sdb_plugin->update_timer)
