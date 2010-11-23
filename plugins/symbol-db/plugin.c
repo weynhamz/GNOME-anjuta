@@ -1652,7 +1652,6 @@ on_project_loaded (IAnjutaProjectManager *pm, GError *error,
 		gboolean flag_offline;
 		gboolean flag_update;
 		
-		
 		sources_array = 
 			symbol_db_util_get_files_with_zero_symbols (sdb_plugin->sdbe_project);
 
@@ -1660,25 +1659,14 @@ on_project_loaded (IAnjutaProjectManager *pm, GError *error,
 		{				
 			do_import_project_sources_after_abort (sdb_plugin, sources_array);
 			
-			g_ptr_array_foreach (sources_array, (GFunc)g_free, NULL);
-			g_ptr_array_free (sources_array, TRUE);
+			g_ptr_array_unref (sources_array);
 		}
 			
 		/* check for offline changes */				
 		flag_offline = do_check_offline_files_changed (sdb_plugin);
 			
 		/* update any files of the project which isn't up-to-date */
-		flag_update = do_update_project_symbols (sdb_plugin, sdb_plugin->project_root_dir);
-		
-		/* if they're both false then there won't be a place where
-		 * the do_check_languages_count () is called. Check the returns
-		 * and to it here
-		 */
-		if (flag_offline == FALSE && flag_update == FALSE)
-		{
-			/* check for the number of languages used in the opened project. */
-			//do_check_languages_count (sdb_plugin);				
-		}				
+		flag_update = do_update_project_symbols (sdb_plugin, sdb_plugin->project_root_dir);		
 	}
 }
 
@@ -1799,41 +1787,6 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 			    							  "1.0");
 		}
 
-		/*
-		 * we need an initial import 
-		 */
-		if (needs_sources_scan == TRUE)
-		{
-			DEBUG_PRINT ("Importing sources.");
-			do_import_project_sources (ANJUTA_PLUGIN_SYMBOL_DB(plugin), pm, root_dir);
-		}
-		else	
-		{
-			/*
-			 * no import needed. But we may have aborted the scan of sources in 
-			 * a previous session..
-			 */				
-			GPtrArray *sources_array = NULL;				
-			gboolean flag_offline;
-			gboolean flag_update;
-			
-			
-			sources_array = 
-				symbol_db_util_get_files_with_zero_symbols (sdb_plugin->sdbe_project);
-
-			if (sources_array != NULL && sources_array->len > 0) 
-			{				
-				do_import_project_sources_after_abort (ANJUTA_PLUGIN_SYMBOL_DB (plugin), 
-				                                       sources_array);				
-				g_ptr_array_unref (sources_array);
-			}
-
-			/* check for offline changes */				
-			flag_offline = do_check_offline_files_changed (sdb_plugin);
-
-			/* update any files of the project which isn't up-to-date */
-			flag_update = do_update_project_symbols (sdb_plugin, root_dir);
-		}
 		gtk_progress_bar_set_text (GTK_PROGRESS_BAR (sdb_plugin->progress_bar_project),
 								   _("Populating symbol database…"));
 		id = g_idle_add ((GSourceFunc) gtk_progress_bar_pulse, 
