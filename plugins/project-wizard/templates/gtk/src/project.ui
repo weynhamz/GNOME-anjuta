@@ -7,7 +7,7 @@
     <property name="title" translatable="yes">window</property>
     <property name="default_width">500</property>
     <property name="default_height">400</property>
-    <signal name="destroy" handler="destroy" object="NULL"/>
+    <signal name="destroy" handler="destroy"/>
     <child>
       <placeholder/>
     </child>
