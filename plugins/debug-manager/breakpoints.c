@@ -380,7 +380,7 @@ breakpoints_dbase_set_in_editor (BreakpointsDBase *bd, BreakpointItem *bi)
 	}
 	
 	/* Add new mark */
-	bi->handle = ianjuta_markable_mark (ed, line, bi->bp.enable ? BREAKPOINT_ENABLED : BREAKPOINT_DISABLED, NULL);
+	bi->handle = ianjuta_markable_mark (ed, line, bi->bp.enable ? BREAKPOINT_ENABLED : BREAKPOINT_DISABLED, NULL, NULL);
 }
 
 static void

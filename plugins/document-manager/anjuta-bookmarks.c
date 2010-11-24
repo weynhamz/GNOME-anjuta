@@ -222,7 +222,7 @@ on_document_added (AnjutaDocman* docman, IAnjutaDocument* doc,
 			{
 				int handle = ianjuta_markable_mark (markable, line,
 												   IANJUTA_MARKABLE_BOOKMARK,
-												   NULL);
+												   NULL, NULL);
 				gtk_list_store_set (GTK_LIST_STORE(priv->model),
 									&iter,
 									COLUMN_HANDLE,
@@ -492,7 +492,7 @@ anjuta_bookmarks_add (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor, gint li
 	if (ianjuta_markable_is_marker_set (markable, line, IANJUTA_MARKABLE_BOOKMARK, NULL))
 		return;
 	
-	handle = ianjuta_markable_mark (markable, line, IANJUTA_MARKABLE_BOOKMARK, NULL);
+	handle = ianjuta_markable_mark (markable, line, IANJUTA_MARKABLE_BOOKMARK, NULL, NULL);
 	
 	gtk_list_store_append (GTK_LIST_STORE(priv->model), &iter);
 	if (title == NULL)
