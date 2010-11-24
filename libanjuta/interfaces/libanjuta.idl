@@ -1,3 +1,4 @@
+
 // -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 // -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 //
@@ -227,6 +228,7 @@ interface IAnjutaMarkable
    * IAnjutaMarkableMarker:
    * @IANJUTA_MARKABLE_LINEMARKER: Mark a particular line
    * @IANJUTA_MARKABLE_BOOKMARK: A bookmark
+   * @IANJUTA_MARKABLE_MESSAGE: An (error) message
    * @IANJUTA_MARKABLE_BREAKPOINT_DISABLED: a disabled breakpoint
    * @IANJUTA_MARKABLE_BREAKPOINT_ENABLED: a enabled breakpoint
    * @IANJUTA_MARKABLE_PROGRAM_COUNTER: Marks the program counter position
@@ -237,6 +239,7 @@ interface IAnjutaMarkable
 	{
 		LINEMARKER,
 		BOOKMARK,
+		MESSAGE,
 		BREAKPOINT_DISABLED,
 		BREAKPOINT_ENABLED,
 		PROGRAM_COUNTER
@@ -257,6 +260,7 @@ interface IAnjutaMarkable
 	 * @obj: Self
 	 * @location: Location at which the marker to set.
 	 * @marker: Type of marker to be used
+	 * @tooltip: (allow-none): optional tooltip displayed with the marker
 	 * @err: Error propagation and reporting
 	 *
 	 * Marks the specified location with the given marker type. Location is
@@ -267,7 +271,7 @@ interface IAnjutaMarkable
 	 * new location, if it has been moved due to addetions/deletions in the
 	 * implementor object.
 	 */
-	gint mark (gint location, Marker marker);
+	gint mark (gint location, Marker marker, const gchar* tooltip);
 
 	/**
 	 * ianjuta_markable_location_from_handle:

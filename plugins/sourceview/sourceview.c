@@ -88,10 +88,12 @@ static gboolean on_sourceview_hover_over (GtkWidget *widget, gint x, gint y,
 
 #define MARKER_PIXMAP_LINEMARKER "anjuta-linemark-16.png"
 #define MARKER_PIXMAP_PROGRAM_COUNTER "anjuta-pcmark-16.png"
+#define MARKER_PIXMAP_MESSAGE "anjuta-message-16.png"
 #define MARKER_PIXMAP_BREAKPOINT_DISABLED "anjuta-breakpoint-disabled-16.png"
 #define MARKER_PIXMAP_BREAKPOINT_ENABLED "anjuta-breakpoint-enabled-16.png"
 #define MARKER_PIXMAP_BOOKMARK "anjuta-bookmark-16.png"
 
+#define MARKER_TOOLTIP_DATA "__tooltip"
 
 /* Keep in sync with IAnjutaMarkableMarker */
 
@@ -99,6 +101,7 @@ static const gchar* marker_types [] =
 {
 	"sv-linemarker",
 	"sv-bookmark",
+	"sv-message",
 	"sv-breakpoint-enabled",
 	"sv-breakpoint-disabled",
 	"sv-program-counter",
@@ -132,54 +135,51 @@ anjuta_message_area_new (const gchar    *text,
 	return GTK_WIDGET (message_area);
 }
 
-/* Create pixmaps for the markers */
-static void sourceview_create_markers(Sourceview* sv)
+static gchar*
+on_marker_tooltip (GtkSourceMark* mark, gpointer data)
+{
+	//Sourceview* sv = ANJUTA_SOURCEVIEW (data);
+	gchar* tooltip;
+	tooltip = g_object_get_data (G_OBJECT (mark), MARKER_TOOLTIP_DATA);
+	if (tooltip)
+		return g_strdup (tooltip);
+	else
+		return g_strdup ("");
+}
+
+static void 
+sourceview_create_marker_category (Sourceview* sv, const gchar* marker_pixbuf,
+                                   IAnjutaMarkableMarker marker_type)
 {
 	GdkPixbuf * pixbuf;
 	GtkSourceView* view = 	GTK_SOURCE_VIEW(sv->priv->view);
+	if ((pixbuf = gdk_pixbuf_new_from_file (marker_pixbuf, NULL)))
+	{
+		gtk_source_view_set_mark_category_icon_from_pixbuf (view, 
+		    marker_types[marker_type], pixbuf);
+		gtk_source_view_set_mark_category_priority (view, marker_types[marker_type],
+		                                            marker_type);
+		gtk_source_view_set_mark_category_tooltip_func (view, marker_types[marker_type],
+		                                                on_marker_tooltip, sv, NULL);
+		g_object_unref (pixbuf);
+	}
+}
 
-	
-	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_BOOKMARK, NULL)))
-	{
-		gtk_source_view_set_mark_category_icon_from_pixbuf (view, 
-		    marker_types[IANJUTA_MARKABLE_BOOKMARK], pixbuf);
-		gtk_source_view_set_mark_category_priority (view, marker_types [IANJUTA_MARKABLE_BOOKMARK],
-											 IANJUTA_MARKABLE_BOOKMARK);
-		g_object_unref (pixbuf);
-	}
-	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_BREAKPOINT_DISABLED, NULL)))
-	{
-		gtk_source_view_set_mark_category_icon_from_pixbuf (view, 
-			marker_types[IANJUTA_MARKABLE_BREAKPOINT_DISABLED], pixbuf);
-		gtk_source_view_set_mark_category_priority (view, marker_types [IANJUTA_MARKABLE_BREAKPOINT_DISABLED],
-											 IANJUTA_MARKABLE_BREAKPOINT_DISABLED);
-
-		g_object_unref (pixbuf);
-	}
-	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_BREAKPOINT_ENABLED, NULL)))
-	{
-		gtk_source_view_set_mark_category_icon_from_pixbuf (view, 
-			marker_types[IANJUTA_MARKABLE_BREAKPOINT_ENABLED], pixbuf);
-		gtk_source_view_set_mark_category_priority (view, marker_types [IANJUTA_MARKABLE_BREAKPOINT_ENABLED],
-											 IANJUTA_MARKABLE_BREAKPOINT_ENABLED);
-		g_object_unref (pixbuf);
-	}
-	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_PROGRAM_COUNTER, NULL)))
-	{
-		gtk_source_view_set_mark_category_icon_from_pixbuf (view, 
-			marker_types[IANJUTA_MARKABLE_PROGRAM_COUNTER], pixbuf);
-		gtk_source_view_set_mark_category_priority (view, marker_types [IANJUTA_MARKABLE_PROGRAM_COUNTER],
-											 IANJUTA_MARKABLE_PROGRAM_COUNTER);
-		g_object_unref (pixbuf);
-	}
-	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_LINEMARKER, NULL)))
-	{
-		gtk_source_view_set_mark_category_icon_from_pixbuf (view, 
-			marker_types[IANJUTA_MARKABLE_LINEMARKER], pixbuf);
-		gtk_source_view_set_mark_category_priority (view, marker_types [IANJUTA_MARKABLE_LINEMARKER],
-											 IANJUTA_MARKABLE_LINEMARKER);
-		g_object_unref (pixbuf);
-	}
+/* Create pixmaps for the markers */
+static void sourceview_create_markers(Sourceview* sv)
+{
+	sourceview_create_marker_category (sv, PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_BOOKMARK,
+	                                   IANJUTA_MARKABLE_BOOKMARK);
+	sourceview_create_marker_category (sv, PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_BREAKPOINT_DISABLED,
+	                                   IANJUTA_MARKABLE_BREAKPOINT_DISABLED);
+	sourceview_create_marker_category (sv, PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_BREAKPOINT_ENABLED,
+	                                   IANJUTA_MARKABLE_BREAKPOINT_ENABLED);
+	sourceview_create_marker_category (sv, PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_PROGRAM_COUNTER,
+	                                   IANJUTA_MARKABLE_PROGRAM_COUNTER);
+	sourceview_create_marker_category (sv, PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_LINEMARKER,
+	                                   IANJUTA_MARKABLE_LINEMARKER);
+	sourceview_create_marker_category (sv, PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_MESSAGE,
+	                                   IANJUTA_MARKABLE_MESSAGE);
 }
 
 #define PREF_COLOR_ERROR "msgman-color-error"
@@ -1782,6 +1782,7 @@ typedef struct
 	gint location;
 	gint handle;
 	guint source;
+	gchar* tooltip;
 	Sourceview* sv;
 } SVMark;
 
@@ -1794,6 +1795,7 @@ static gboolean mark_real (gpointer data)
 	const gchar* category;
 	gint location = svmark->location;
 	gint marker_count = svmark->handle;
+	gchar* tooltip = svmark->tooltip;
 	IAnjutaMarkableMarker marker = svmark->marker;
 	gchar* name;
 	
@@ -1812,6 +1814,8 @@ static gboolean mark_real (gpointer data)
 	
 	source_mark = gtk_source_buffer_create_source_mark(GTK_SOURCE_BUFFER(sv->priv->document), 
 												name, category, &iter);
+	g_object_set_data_full (G_OBJECT (source_mark), MARKER_TOOLTIP_DATA, tooltip,
+	                        (GDestroyNotify) g_free);
 	
 	g_source_remove (svmark->source);
 	
@@ -1822,7 +1826,7 @@ static gboolean mark_real (gpointer data)
 
 static gint
 imark_mark(IAnjutaMarkable* mark, gint location, IAnjutaMarkableMarker marker,
-		   GError **e)
+           const gchar* tooltip, GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(mark);
 	SVMark* svmark = g_slice_new0 (SVMark);
@@ -1842,6 +1846,7 @@ imark_mark(IAnjutaMarkable* mark, gint location, IAnjutaMarkableMarker marker,
 	svmark->location = location;
 	svmark->handle = marker_count;
 	svmark->marker = marker;
+	svmark->tooltip = tooltip ? g_strdup (tooltip) : NULL;
 	svmark->source = g_idle_add (mark_real, svmark);
 	
 	sv->priv->idle_sources = g_slist_prepend (sv->priv->idle_sources,
