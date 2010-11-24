@@ -993,7 +993,7 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 			DEBUG_PRINT ("dummy int: %d", dummy_int);
 			
 			loc = build_indicator_location_new (mid_str, dummy_int,
-												indicator, line);
+												indicator, end_str);
 			context->locations = g_slist_prepend (context->locations, loc);
 			
 			/* If current editor file is same as indicator file, set indicator */
