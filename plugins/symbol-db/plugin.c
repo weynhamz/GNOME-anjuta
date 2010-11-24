@@ -2123,12 +2123,12 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	                    FALSE, FALSE, 0);	
 
 	sdb_plugin->tabber = anjuta_tabber_new (GTK_NOTEBOOK (sdb_plugin->dbv_notebook));
-	label = gtk_label_new (_("Local"));
+	label = gtk_label_new (_("File"));
 	gtk_label_set_ellipsize (GTK_LABEL (label),
 	                         PANGO_ELLIPSIZE_END);
 	anjuta_tabber_add_tab (ANJUTA_TABBER (sdb_plugin->tabber),
 	                       label);
-	label = gtk_label_new (_("Global"));
+	label = gtk_label_new (_("Project"));
 	gtk_label_set_ellipsize (GTK_LABEL (label),
 	                         PANGO_ELLIPSIZE_END);
 	anjuta_tabber_add_tab (ANJUTA_TABBER (sdb_plugin->tabber),
