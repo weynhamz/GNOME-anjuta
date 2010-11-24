@@ -254,8 +254,8 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="preferences_toggle:bool:0:0:build-indicators-automatic">
-                        <property name="label" translatable="yes">Highlight message locations in editor</property>
+                      <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:build-indicators-automatic">
+                        <property name="label" translatable="yes">Highlight build warnings and errors in editor</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
