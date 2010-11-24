@@ -180,7 +180,8 @@ gbf_tree_data_equal_file (GbfTreeData *data, AnjutaProjectNodeType type, GFile *
 		{
 			if ((type == ANJUTA_PROJECT_UNKNOWN) || (type == anjuta_project_node_get_node_type (node)))
 			{
-				if (g_file_equal (anjuta_project_node_get_file (node), file))
+				GFile* node_file = anjuta_project_node_get_file (node);
+				if (node_file && g_file_equal (node_file, file))
 				{
 					equal = TRUE;
 				}
