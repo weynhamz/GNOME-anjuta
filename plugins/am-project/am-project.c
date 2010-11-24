@@ -123,7 +123,7 @@ static AmpNodeInfo AmpNodeInformations[] = {
 	"_LIBRARIES",
 	"lib"},
 
-	{{ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_PRIMARY | ANJUTA_PROJECT_EXECUTABLE | ANJUTA_PROJECT_BINARY,
+	{{ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_PRIMARY | ANJUTA_PROJECT_PROGRAM | ANJUTA_PROJECT_EXECUTABLE,
 	N_("Program"),
 	"application/x-executable"},
 	AM_TOKEN__PROGRAMS,
@@ -1355,6 +1355,110 @@ project_load_group_properties (AmpProject *project, AnjutaToken *token, AnjutaTo
 	return NULL;
 }
 
+/* Find if pkg-config modules are used in group targets */
+static gboolean
+project_load_group_module (AmpProject *project, AnjutaAmGroupNode *group)
+{
+	AnjutaProjectNode *target;
+	AnjutaProjectProperty *prop;
+	gchar **group_cpp = NULL;
+
+	prop = amp_node_get_property_from_token (ANJUTA_PROJECT_NODE (group), AM_TOKEN__CPPFLAGS);
+	if (prop) group_cpp = g_strsplit_set (prop->value, " \t", 0);
+	
+	/* Check all targets */
+	for (target = anjuta_project_node_first_child (ANJUTA_PROJECT_NODE (group)); target != NULL; target = anjuta_project_node_next_sibling (target))
+	{
+		gint type = anjuta_project_node_get_full_type (target) & (ANJUTA_PROJECT_ID_MASK | ANJUTA_PROJECT_TYPE_MASK);
+		gchar **target_lib = NULL;
+		gchar **target_cpp = NULL;
+
+		prop = NULL;
+		switch (type)
+		{
+		case ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_PROGRAM:
+			prop = amp_node_get_property_from_token (target, AM_TOKEN_TARGET_LDADD);
+			break;
+		case ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_STATICLIB:
+		case ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_SHAREDLIB:
+			prop = amp_node_get_property_from_token (target, AM_TOKEN_TARGET_LIBADD);
+			break;
+		default:
+			break;
+		}
+		if (prop) target_lib = g_strsplit_set (prop->value, " \t", 0);
+
+		/* Check if targets use libraries */
+		if (target_lib != NULL)
+		{
+			AnjutaProjectNode *module;
+
+			prop = amp_node_get_property_from_token (target, AM_TOKEN_TARGET_CPPFLAGS);
+			if (prop) target_cpp = g_strsplit_set (prop->value, " \t", 0);
+						
+			for (module = anjuta_project_node_first_child (ANJUTA_PROJECT_NODE (project)); module != NULL; module = anjuta_project_node_next_sibling (module))
+			{
+				if (anjuta_project_node_get_node_type (module) == ANJUTA_PROJECT_MODULE)
+				{
+					const gchar *name = anjuta_project_node_get_name (module);
+					gchar *lib_flags = g_strconcat ("$(", name, "_LIBS)", NULL);
+					gchar **flags;
+
+					for (flags = target_lib; *flags != NULL; flags++)
+					{
+
+						if (strcmp (*flags, lib_flags) == 0)
+						{
+							gchar *cpp_flags = g_strconcat ("$(", name, "_CFLAGS)", NULL);
+							gchar **cflags;
+							gboolean found = FALSE;
+
+							if (group_cpp != NULL)
+							{
+								for (cflags = group_cpp; *cflags != NULL; cflags++)
+								{
+									if (strcmp (*cflags, cpp_flags) == 0)
+									{
+										found = TRUE;
+										break;
+									}
+								}
+							}
+							if ((target_cpp != NULL) && !found)
+							{
+								for (cflags = target_cpp; *cflags != NULL; cflags++)
+								{
+									if (strcmp (*cflags, cpp_flags) == 0)
+									{
+										found = TRUE;
+										break;
+									}
+								}
+							}
+							if (found)
+							{
+								/* Add new module */
+								AnjutaProjectNode *new_module;
+
+								new_module = project_node_new (project, ANJUTA_PROJECT_MODULE, NULL, name, NULL);
+								anjuta_project_node_append (target, new_module);
+							}
+							g_free (cpp_flags);
+						}
+					}
+					g_free (lib_flags);
+				}
+			}		
+			g_strfreev (target_cpp);
+			g_strfreev (target_lib);
+		}
+	}
+	g_strfreev (group_cpp);
+
+	return TRUE;
+}
+
+
 static AnjutaAmGroupNode* project_load_makefile (AmpProject *project, AnjutaAmGroupNode *group);
 
 static gboolean
@@ -1461,6 +1565,7 @@ project_load_makefile (AmpProject *project, AnjutaAmGroupNode *group)
 	DEBUG_PRINT ("Parse: %s", g_file_get_uri (makefile));
 	tfile = amp_group_set_makefile (group, makefile, G_OBJECT (project));
 
+	project_load_group_module (project, group);
 	
 	return group;
 }

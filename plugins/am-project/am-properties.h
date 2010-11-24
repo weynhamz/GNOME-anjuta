@@ -33,7 +33,8 @@ void amp_property_free (AnjutaProjectProperty *prop);
 
 gboolean amp_node_property_load (AnjutaProjectNode *target, gint token_type, gint position, const gchar *value, AnjutaToken *token);
 gboolean amp_node_property_add (AnjutaProjectNode *node, AnjutaProjectProperty *prop);
-AnjutaProjectProperty * amp_node_property_set (AnjutaProjectNode *node, AnjutaProjectProperty *prop, const gchar* value);
+AnjutaProjectProperty *amp_node_property_set (AnjutaProjectNode *node, AnjutaProjectProperty *prop, const gchar* value);
+AnjutaProjectProperty *amp_node_get_property_from_token (AnjutaProjectNode *node, gint token);
 
 GList* amp_get_project_property_list (void);
 GList* amp_get_group_property_list (void);
