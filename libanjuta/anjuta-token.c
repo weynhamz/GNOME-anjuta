@@ -1347,14 +1347,22 @@ evaluate_raw_token (AnjutaToken *token, gpointer user_data)
 	
 	anjuta_token_evaluate_token (token, value, TRUE);
 }
+
+static void
+evaluate_token (AnjutaToken *token, gpointer user_data)
+{
+	GString *value = (GString *)user_data;
 	
+	anjuta_token_evaluate_token (token, value, FALSE);
+}
+
 
 gchar *
 anjuta_token_evaluate (AnjutaToken *token)
 {
 	GString *value = g_string_new (NULL);
 
-	anjuta_token_foreach_content (token, evaluate_raw_token, value);
+	anjuta_token_foreach_content (token, evaluate_token, value);
 	
 	/* Return NULL and free data for an empty string */
 	return g_string_free (value, *(value->str) == '\0');
