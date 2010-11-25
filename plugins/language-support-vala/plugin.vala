@@ -25,7 +25,6 @@ public class ValaPlugin : Plugin {
 
 	Vala.CodeContext context;
 	Cancellable cancel;
-	Vala.Map<string,Vala.SourceFile> source_files;
 	BlockLocator locator = new BlockLocator ();
 
 	AnjutaReport report;
@@ -33,8 +32,6 @@ public class ValaPlugin : Plugin {
 
 	Vala.Parser parser;
 	Vala.Genie.Parser genie_parser;
-	Vala.SymbolResolver resolver;
-	Vala.SemanticAnalyzer analyzer;
 
 	ValaPlugin () {
 		Object ();
@@ -50,8 +47,6 @@ public class ValaPlugin : Plugin {
 		cancel = new Cancellable ();
 		parser = new Vala.Parser ();
 		genie_parser = new Vala.Genie.Parser ();
-		resolver = new Vala.SymbolResolver ();
-		analyzer = new Vala.SemanticAnalyzer ();
 
 		/* This doesn't actually parse anything as there are no files yet,
 		   it's just to set the context in the parsers */
@@ -70,24 +65,13 @@ public class ValaPlugin : Plugin {
 
 		Vala.CodeContext.pop ();
 
-		source_files = new Vala.HashMap<string, Vala.SourceFile>(str_hash, str_equal, direct_equal);
-
 		var sources = project.get_elements(Anjuta.ProjectNodeType.SOURCE);
 		foreach (var src in sources) {
-			if (src.get_path() != null && !source_files.contains(src.get_path())) {
-				if (src.get_basename().has_suffix("vala") || src.get_basename().has_suffix("gs")) {
-					var vsrc = new Vala.SourceFile(context, Vala.SourceFileType.SOURCE, src.get_path());
-					context.add_source_file(vsrc);
-					var ns_ref = new Vala.UsingDirective (new Vala.UnresolvedSymbol (null, "GLib", null));
-					vsrc.add_using_directive (ns_ref);
-					context.root.add_using_directive (ns_ref);
-					source_files[src.get_path()] = vsrc;
-				} else if (src.get_basename().has_suffix("vapi")) {
-					var vsrc = new Vala.SourceFile (context, Vala.SourceFileType.PACKAGE, src.get_path());
-					context.add_source_file(vsrc);
-					source_files[src.get_path()] = vsrc;
-				}
-			}
+			var path = src.get_path();
+			if (path == null)
+				continue;
+			if (path.has_suffix (".vala") || path.has_suffix (".vapi") || path.has_suffix (".gs"))
+				context.add_source_filename (src.get_path ());
 		}
 		ThreadFunc<void*> parse = () => {
 			lock (context) {
@@ -109,14 +93,7 @@ public class ValaPlugin : Plugin {
 					return null;
 				}
 
-				resolver.resolve (context);
-				if (report.errors_found () || cancel.is_cancelled ()) {
-					Vala.CodeContext.pop();
-					/* TODO: there may be missing packages */
-					return null;
-				}
-
-				analyzer.analyze (context);
+				context.check ();
 
 				Vala.CodeContext.pop();
 			}
@@ -144,7 +121,6 @@ public class ValaPlugin : Plugin {
 		cancel.cancel ();
 		lock (context) {
 			context = null;
-			source_files = null;
 		}
 
 		return true;
@@ -167,15 +143,20 @@ public class ValaPlugin : Plugin {
 				file_savable.saved += (savable, gfile) => {
 					/* gfile's type is Object, should be File */
 					var file = (File) gfile;
-					var source_file = source_files.get(file.get_path());
-					string contents;
-					try {
-						file.load_contents (null, out contents, null, null);
-					} catch (Error e) {
-						// ignore
+					foreach (var source_file in context.get_source_files ()) {
+						if (source_file.filename != file.get_path())
+							continue;
+
+						string contents;
+						try {
+							file.load_contents (null, out contents, null, null);
+							source_file.content = contents;
+							update_file (source_file);
+						} catch (Error e) {
+							// ignore
+						}
+						return;
 					}
-					source_file.content = contents;
-					update_file (source_file);
 				};
 			}
 		}
@@ -209,16 +190,22 @@ public class ValaPlugin : Plugin {
 
 		var path = file.get_file().get_path();
 		lock (context) {
-			if (!(path in source_files)) {
-				var src = new Vala.SourceFile(context,
+			Vala.SourceFile source = null;
+			foreach (var src in context.get_source_files()) {
+				if (src.filename == path) {
+					source = src;
+					break;
+				}
+			}
+			if (source == null) {
+				source = new Vala.SourceFile (context,
 				                              path.has_suffix("vapi") ? Vala.SourceFileType.PACKAGE:
 					                                                    Vala.SourceFileType.SOURCE,
 				                              path);
-				context.add_source_file(src);
-				source_files[path] = src;
-				update_file(src);
+				context.add_source_file(source);
+				update_file(source);
 			}
-			return locator.locate(source_files[path], editor.get_lineno(), editor.get_column());
+			return locator.locate(source, editor.get_lineno(), editor.get_column());
 		}
 	}
 
@@ -332,11 +319,8 @@ public class ValaPlugin : Plugin {
 			parser.visit_source_file (file);
 			genie_parser.visit_source_file (file);
 
-			if (!report.errors_found ()) {
-				resolver.resolve (context);
-				if (!report.errors_found ())
-					analyzer.visit_source_file (file);
-			}
+			if (!report.errors_found ())
+				context.check ();
 
 			Vala.CodeContext.pop ();
 
