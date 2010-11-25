@@ -364,7 +364,8 @@ build_indicator_location_set (BuildIndicatorLocation *loc,
 		g_object_unref (line_end);
 	}
 	if (editor && editor_filename &&
-	    IANJUTA_IS_MARKABLE (editor))
+	    IANJUTA_IS_MARKABLE (editor) &&
+		strcmp (editor_filename, loc->filename) == 0)
 	{
 		ianjuta_markable_mark (IANJUTA_MARKABLE (editor),
 		                       loc->line, IANJUTA_MARKABLE_MESSAGE,
