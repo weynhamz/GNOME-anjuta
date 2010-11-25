@@ -1563,7 +1563,7 @@ project_load_makefile (AmpProject *project, AnjutaAmGroupNode *group)
 
 	/* Parse makefile.am */
 	DEBUG_PRINT ("Parse: %s", g_file_get_uri (makefile));
-	tfile = amp_group_set_makefile (group, makefile, G_OBJECT (project));
+	tfile = amp_group_set_makefile (group, makefile, project);
 
 	project_load_group_module (project, group);
 	
@@ -2466,10 +2466,12 @@ amp_load_complete (PmJob *job)
 	GHashTable *map;
 
 	map = amp_project_map_node (job->node, job->proxy);
+	g_object_ref (job->proxy);
 	g_hash_table_foreach (map, (GHFunc)amp_project_update_node, map);
 	job->node->parent = job->parent;
 	job->proxy->parent = NULL;
 	g_hash_table_destroy (map);
+	g_object_unref (job->proxy);
 	job->proxy = NULL;
 	g_signal_emit_by_name (AMP_PROJECT (job->user_data), "node-loaded", job->node,  job->error);
 
@@ -3023,7 +3025,6 @@ amp_project_dispose (GObject *object)
 	if (project->monitor) g_object_unref (project->monitor);
 	project->monitor = NULL;
 
-	
 	G_OBJECT_CLASS (parent_class)->dispose (object);	
 }
 

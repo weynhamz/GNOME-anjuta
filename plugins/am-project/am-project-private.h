@@ -125,7 +125,6 @@ struct _AnjutaAmGroupNode {
 	AnjutaToken *make_token;
 	GHashTable *variables;
 	GFileMonitor *monitor;									/* File monitor */
-	GObject *project;										/* Project used by file monitor */
 };
 
 

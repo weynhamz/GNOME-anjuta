@@ -427,7 +427,8 @@ on_group_monitor_changed (GFileMonitor *monitor,
 											GFileMonitorEvent event_type,
 											gpointer data)
 {
-	AnjutaAmGroupNode *node = ANJUTA_AM_GROUP_NODE (data);
+	AnjutaProjectNode *node = ANJUTA_PROJECT_NODE (data);
+	AnjutaProjectNode *root;
 
 	switch (event_type) {
 		case G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
@@ -435,7 +436,8 @@ on_group_monitor_changed (GFileMonitor *monitor,
 		case G_FILE_MONITOR_EVENT_DELETED:
 			/* project can be NULL, if the node is dummy node because the
 			 * original one is reloaded. */
-			if (node->project != NULL) g_signal_emit_by_name (G_OBJECT (node->project), "file-changed", data);
+			root = anjuta_project_node_root (node);
+			if (root != NULL) g_signal_emit_by_name (G_OBJECT (root), "file-changed", data);
 			break;
 		default:
 			break;
@@ -443,7 +445,7 @@ on_group_monitor_changed (GFileMonitor *monitor,
 }
 
 AnjutaTokenFile*
-amp_group_set_makefile (AnjutaAmGroupNode *group, GFile *makefile, GObject* project)
+amp_group_set_makefile (AnjutaAmGroupNode *group, GFile *makefile, AmpProject *project)
 {
 	if (group->makefile != NULL) g_object_unref (group->makefile);
 	if (group->tfile != NULL) anjuta_token_file_free (group->tfile);
@@ -456,9 +458,9 @@ amp_group_set_makefile (AnjutaAmGroupNode *group, GFile *makefile, GObject* proj
 		group->tfile = anjuta_token_file_new (makefile);
 
 		token = anjuta_token_file_load (group->tfile, NULL);
-		amp_project_add_file (AMP_PROJECT (project), makefile, group->tfile);
+		amp_project_add_file (project, makefile, group->tfile);
 			
-		scanner = amp_am_scanner_new (AMP_PROJECT (project), group);
+		scanner = amp_am_scanner_new (project, group);
 		group->make_token = amp_am_scanner_parse_token (scanner, anjuta_token_new_static (ANJUTA_TOKEN_FILE, NULL), token, makefile, NULL);
 		amp_am_scanner_free (scanner);
 
@@ -468,7 +470,6 @@ amp_group_set_makefile (AnjutaAmGroupNode *group, GFile *makefile, GObject* proj
 						       									NULL);
 		if (group->monitor != NULL)
 		{
-			group->project = project;
 			g_signal_connect (G_OBJECT (group->monitor),
 					  "changed",
 					  G_CALLBACK (on_group_monitor_changed),
@@ -516,7 +517,8 @@ void
 amp_group_update_node (AnjutaAmGroupNode *group, AnjutaAmGroupNode *new_group)
 {
 	gint i;
-	
+	GHashTable *hash;
+
 	if (group->monitor != NULL) g_object_unref (group->monitor);
 	if (group->makefile != NULL) g_object_unref (group->makefile);
 	if (group->tfile) anjuta_token_file_free (group->tfile);
@@ -524,7 +526,7 @@ amp_group_update_node (AnjutaAmGroupNode *group, AnjutaAmGroupNode *new_group)
 	{
 		if (group->tokens[i] != NULL) g_list_free (group->tokens[i]);
 	}
-	if (group->variables) g_hash_table_destroy (group->variables);
+	if (group->variables) g_hash_table_remove_all (group->variables);
 
 	group->dist_only = new_group->dist_only;
 	group->makefile = new_group->makefile;
@@ -533,16 +535,16 @@ amp_group_update_node (AnjutaAmGroupNode *group, AnjutaAmGroupNode *new_group)
 	new_group->tfile = NULL;
 	memcpy (group->tokens, new_group->tokens, sizeof (group->tokens));
 	memset (new_group->tokens, 0, sizeof (new_group->tokens));
+	hash = group->variables;
 	group->variables = new_group->variables;
-	new_group->variables = NULL;
-	group->project = new_group->project;
+	new_group->variables = hash;
 	
 	if (group->makefile != NULL)
 	{
 		group->monitor = g_file_monitor_file (group->makefile, 
-						      									G_FILE_MONITOR_NONE,
-						       									NULL,
-						       									NULL);
+					      									G_FILE_MONITOR_NONE,
+					       									NULL,
+					       									NULL);
 		if (group->monitor != NULL)
 		{
 			g_signal_connect (G_OBJECT (group->monitor),
@@ -551,7 +553,6 @@ amp_group_update_node (AnjutaAmGroupNode *group, AnjutaAmGroupNode *new_group)
 					  group);
 		}
 	}
-
 }
 
 AnjutaAmGroupNode*
@@ -589,7 +590,6 @@ amp_group_new (GFile *file, gboolean dist_only, GError **error)
 	node = g_object_new (ANJUTA_TYPE_AM_GROUP_NODE, NULL);
 	node->base.file = g_object_ref (file);
 	node->dist_only = dist_only;
-	node->variables = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, (GDestroyNotify)amp_variable_free);
 
     return node;	
 }
@@ -626,7 +626,7 @@ anjuta_am_group_node_init (AnjutaAmGroupNode *node)
 	node->dist_only = FALSE;
 	node->variables = NULL;
 	node->makefile = NULL;
-	node->variables = NULL;
+	node->variables = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, (GDestroyNotify)amp_variable_free);
 	node->monitor = NULL;
 	memset (node->tokens, 0, sizeof (node->tokens));
 }

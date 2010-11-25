@@ -413,7 +413,7 @@ amp_target_create_token (AmpProject  *project, AnjutaAmTargetNode *target, GErro
 	gchar *targetname;
 	const gchar *name;
 	GList *last;
-	AnjutaAmTargetNode *sibling;
+	AnjutaProjectNode *sibling;
 	AnjutaAmGroupNode *parent;
 	gboolean after;
 
@@ -424,21 +424,20 @@ amp_target_create_token (AmpProject  *project, AnjutaAmTargetNode *target, GErro
 	name = anjuta_project_node_get_name (ANJUTA_PROJECT_NODE (target));
 
 	/* Find a sibling if possible */
-	if (target->base.prev != NULL)
+	after = TRUE;
+	for (sibling = anjuta_project_node_prev_sibling (ANJUTA_PROJECT_NODE (target)); sibling != NULL; sibling = anjuta_project_node_prev_sibling (sibling))
 	{
-		sibling = ANJUTA_AM_TARGET_NODE (target->base.prev);
-		after = TRUE;
+		if (anjuta_project_node_get_node_type (sibling) == ANJUTA_PROJECT_TARGET) break;
 	}
-	else if (target->base.next != NULL)
+	if (sibling == NULL)
 	{
-		sibling = ANJUTA_AM_TARGET_NODE (target->base.next);
 		after = FALSE;
+		for (sibling = anjuta_project_node_next_sibling (ANJUTA_PROJECT_NODE (target)); sibling != NULL; sibling = anjuta_project_node_next_sibling (sibling))
+		{
+			if (anjuta_project_node_get_node_type (sibling) == ANJUTA_PROJECT_TARGET) break;
+		}
 	}
-	else
-	{
-		sibling = NULL;
-		after = TRUE;
-	}
+	if (sibling == NULL) after = TRUE;
 	
 	/* Add in Makefile.am */
 	targetname = g_strconcat (info->install, info->prefix, NULL);
@@ -449,7 +448,7 @@ amp_target_create_token (AmpProject  *project, AnjutaAmTargetNode *target, GErro
 	prev = NULL;
 	if (sibling != NULL)
 	{
-		last = amp_target_get_token (sibling, ANJUTA_TOKEN_ARGUMENT);
+		last = amp_target_get_token (ANJUTA_AM_TARGET_NODE (sibling), ANJUTA_TOKEN_ARGUMENT);
 
 		if (last != NULL) 
 		{
@@ -634,6 +633,7 @@ amp_source_create_token (AmpProject  *project, AnjutaAmSourceNode *source, GErro
 {
 	AnjutaAmGroupNode *group;
 	AnjutaAmTargetNode *target;
+	AnjutaProjectNode *sibling;
 	gboolean after;
 	AnjutaToken *token;
 	AnjutaToken *prev;
@@ -649,22 +649,29 @@ amp_source_create_token (AmpProject  *project, AnjutaAmSourceNode *source, GErro
 
 	/* Add in Makefile.am */
 	/* Find a sibling if possible */
-	if (source->base.prev != NULL)
+	after = TRUE;
+	for (sibling = anjuta_project_node_prev_sibling (ANJUTA_PROJECT_NODE (source)); sibling != NULL; sibling = anjuta_project_node_prev_sibling (sibling))
 	{
-		prev =  ANJUTA_AM_SOURCE_NODE (source->base.prev)->token;
-		after = TRUE;
-		args = anjuta_token_list (prev);
+		if (anjuta_project_node_get_node_type (sibling) == ANJUTA_PROJECT_SOURCE) break;
 	}
-	else if (source->base.next != NULL)
+	if (sibling == NULL)
 	{
-		prev = ANJUTA_AM_SOURCE_NODE (source->base.next)->token;
 		after = FALSE;
-		args = anjuta_token_list (prev);
+		for (sibling = anjuta_project_node_next_sibling (ANJUTA_PROJECT_NODE (source)); sibling != NULL; sibling = anjuta_project_node_next_sibling (sibling))
+		{
+			if (anjuta_project_node_get_node_type (sibling) == ANJUTA_PROJECT_SOURCE) break;
+		}
+	}
+	if (sibling == NULL)
+	{
+		after = TRUE;
+		prev = NULL;
+		args = NULL;
 	}
 	else
 	{
-		prev = NULL;
-		args = NULL;
+		prev = ANJUTA_AM_SOURCE_NODE (sibling)->token;
+		args = anjuta_token_list (prev);
 	}
 
 	/* Check if a valid source variable is already defined */
