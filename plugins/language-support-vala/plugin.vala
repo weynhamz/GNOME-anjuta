@@ -158,8 +158,6 @@ public class ValaPlugin : Plugin {
 				(current_editor as IAnjuta.EditorAssist).add(provider);
 			if (current_editor is IAnjuta.EditorTip)
 				(current_editor as IAnjuta.EditorTip).char_added += on_char_added;
-			if (current_editor is IAnjuta.EditorHover)
-				(current_editor as IAnjuta.EditorHover).hover_over += report.on_hover_over;
 			if (current_editor is IAnjuta.FileSavable) {
 				var file_savable = (IAnjuta.FileSavable) current_editor;
 				file_savable.saved += (savable, gfile) => {
@@ -185,8 +183,6 @@ public class ValaPlugin : Plugin {
 			(current_editor as IAnjuta.EditorAssist).remove(provider);
 		if (current_editor is IAnjuta.EditorTip)
 			(current_editor as IAnjuta.EditorTip).char_added -= on_char_added;
-		if (current_editor is IAnjuta.EditorHover)
-			(current_editor as IAnjuta.EditorHover).hover_over -= report.on_hover_over;
 		if (current_editor is IAnjuta.FileSavable)
 			assert (SignalHandler.disconnect_matched (current_editor, SignalMatchType.DATA,
 													  0, 0, null, null, this) == 1);

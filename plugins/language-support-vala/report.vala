@@ -26,20 +26,31 @@ public class AnjutaReport : Vala.Report {
 	Vala.List<Error?> errors = new Vala.ArrayList<Error?>();
 	public void update_errors (IAnjuta.Editor editor) {
 		var ind = editor as IAnjuta.Indicable;
-		if (ind == null)
+		var mark = editor as IAnjuta.Markable;
+		if (ind == null && mark == null)
 			return;
-		ind.clear ();
+
+		if (ind != null)
+			ind.clear ();
+		if (mark != null)
+			mark.delete_all_markers (IAnjuta.MarkableMarker.MESSAGE);
+
 		foreach (var e in errors) {
 			if (e.source.file.filename.has_suffix (((IAnjuta.Document)editor).get_filename ())) {
-				/* begin_iter should be one cell before to select the first character */
-				var begin_iter = editor.get_line_begin_position (e.source.first_line);
-				for (var i = 1; i < e.source.first_column; i++)
-					begin_iter.next ();
-				var end_iter = editor.get_line_begin_position (e.source.last_line);
-				for (var i = 0; i < e.source.last_column; i++)
-					end_iter.next ();
-				ind.set(begin_iter, end_iter, e.error ? IAnjuta.IndicableIndicator.CRITICAL :
-														IAnjuta.IndicableIndicator.WARNING);
+				if (ind != null) {
+					/* begin_iter should be one cell before to select the first character */
+					var begin_iter = editor.get_line_begin_position (e.source.first_line);
+					for (var i = 1; i < e.source.first_column; i++)
+						begin_iter.next ();
+					var end_iter = editor.get_line_begin_position (e.source.last_line);
+					for (var i = 0; i < e.source.last_column; i++)
+						end_iter.next ();
+					ind.set(begin_iter, end_iter, e.error ? IAnjuta.IndicableIndicator.CRITICAL :
+					                                        IAnjuta.IndicableIndicator.WARNING);
+				}
+				if (editor is IAnjuta.Markable) {
+					mark.mark(e.source.first_line, IAnjuta.MarkableMarker.MESSAGE, e.message);
+				}
 			}
 
 		}
@@ -49,28 +60,8 @@ public class AnjutaReport : Vala.Report {
 		foreach (var doc in (List<Gtk.Widget>)docman.get_doc_widgets ()) {
 			if (doc is IAnjuta.Indicable)
 				((IAnjuta.Indicable)doc).clear ();
-		}
-	}
-	public void on_hover_over (IAnjuta.EditorHover editor, Object pos) {
-		var position = (IAnjuta.Iterable) pos;
-		lock (errors) {
-			foreach (var error in errors) {
-				if (!error.source.file.filename.has_suffix (((IAnjuta.Document)editor).get_filename ()))
-					continue;
-
-				var begin = editor.get_line_begin_position (error.source.first_line);
-				for (var i = 0; i < error.source.first_column; i++)
-					begin.next();
-
-				var end = editor.get_line_begin_position (error.source.last_line);
-				for (var i = 0; i < error.source.last_column; i++)
-					end.next();
-
-				if (position.compare(begin) >= 0 && position.compare(end) <= 0) {
-					editor.display(position, error.message);
-					return;
-				}
-			}
+			if (doc is IAnjuta.Markable)
+				((IAnjuta.Markable)doc).delete_all_markers (IAnjuta.MarkableMarker.MESSAGE);
 		}
 	}
 	public override void warn (Vala.SourceReference? source, string message) {
