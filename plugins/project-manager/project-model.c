@@ -516,7 +516,7 @@ add_target_shortcut (GbfProjectModel *model,
 			    -1);
 	
 	/* add sources */
-	parent = anjuta_pm_project_get_node (model->priv->proj, target);
+	parent = gbf_tree_data_get_node (target);
 	for (node = anjuta_project_node_first_child (parent); node; node = anjuta_project_node_next_sibling (node))
 		add_source (model, node, &iter);
 
@@ -574,7 +574,7 @@ move_target_shortcut (GbfProjectModel *model,
 				    -1);
 
 		/* add sources */
-		parent = anjuta_pm_project_get_node (model->priv->proj, shortcut->shortcut);
+		parent = gbf_tree_data_get_node (shortcut->shortcut);
 		for (node = anjuta_project_node_first_child (parent); node; node = anjuta_project_node_next_sibling (node))
 			add_source (model, node, iter);
 	}

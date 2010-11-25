@@ -490,6 +490,7 @@ create_properties_table (IAnjutaProject *project, AnjutaProjectNode *node)
 	GtkWidget *main_table;
 	GtkWidget *extra_table;
 	GtkWidget *extra_expand;
+	GFile *file;
 
 	gint main_pos;
 	gint extra_pos;
@@ -517,9 +518,17 @@ create_properties_table (IAnjutaProject *project, AnjutaProjectNode *node)
 	extra_pos = 0;
 
 	/* Always display node name */
-	path = g_file_get_path (anjuta_project_node_get_file (node));
-	add_label (_("Full Name:"), path, main_table, &main_pos);
-	g_free (path);
+	file = anjuta_project_node_get_file (node);
+	if (file != NULL)
+	{
+		path = g_file_get_path (file);
+		add_label (_("Path:"), path, main_table, &main_pos);
+		g_free (path);
+	}
+	else
+	{
+		add_label (_("Name:"), anjuta_project_node_get_name (node), main_table, &main_pos);
+	}
 
 	/* Display node type only if several types are possible */
 	node_info = NULL;
@@ -673,6 +682,12 @@ pm_project_create_properties_dialog (AnjutaPmProject *project, GtkWindow *parent
 		break;
 	case ANJUTA_PROJECT_SOURCE:
 		title = _("Source properties");
+		break;
+	case ANJUTA_PROJECT_MODULE:
+		title = _("Module properties");
+		break;
+	case ANJUTA_PROJECT_PACKAGE:
+		title = _("Package properties");
 		break;
 	default:
 		return NULL;
