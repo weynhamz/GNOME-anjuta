@@ -144,7 +144,7 @@ on_marker_tooltip (GtkSourceMark* mark, gpointer data)
 	if (tooltip)
 		return g_strdup (tooltip);
 	else
-		return g_strdup ("");
+		return NULL;
 }
 
 static void 
