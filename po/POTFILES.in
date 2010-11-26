@@ -22,6 +22,10 @@ libanjuta/anjuta-status.c
 libanjuta/anjuta-ui.c
 libanjuta/anjuta-utils.c
 libanjuta/anjuta-vcs-status-tree-view.c
+libanjuta/anjuta-column-text-view.c
+libanjuta/anjuta-entry.c
+libanjuta/anjuta-file-drop-entry.c
+libanjuta/anjuta-file-list.c
 libanjuta/cell-renderer-captioned-image.c
 libanjuta/e-splash.c
 libanjuta/resources.c
@@ -34,6 +38,8 @@ libfoocanvas/foo-canvas-text.c
 libfoocanvas/foo-canvas-util.c
 libfoocanvas/foo-canvas-widget.c
 libfoocanvas/libfoocanvastypes.c
+plugins/am-project/ac-parser.c
+plugins/am-project/am-parser.c
 [type: gettext/glade]plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui
 plugins/build-basic-autotools/build-options.c
 plugins/build-basic-autotools/configuration-list.c
@@ -57,6 +63,8 @@ plugins/cvs-plugin/cvs-actions.c
 plugins/cvs-plugin/cvs-callbacks.c
 plugins/cvs-plugin/cvs-execute.c
 plugins/cvs-plugin/plugin.c
+[type: gettext/glade]plugins/code-analyzer/code-analyzer.ui
+plugins/code-analyzer/plugin.c
 [type: gettext/glade]plugins/debug-manager/anjuta-debug-manager.ui
 plugins/debug-manager/breakpoints.c
 plugins/debug-manager/chunk_view.c
@@ -105,33 +113,29 @@ plugins/gdb/plugin.c
 plugins/gdb/utilities.c
 plugins/gdb/preferences.c
 [type: gettext/glade]plugins/git/anjuta-git.ui
-plugins/git/git-add-dialog.c
-plugins/git/git-add-remote-dialog.c
-plugins/git/git-apply-mailbox-dialog.c
-plugins/git/git-bisect-dialog.c
-plugins/git/git-cat-file-menu.c
-plugins/git/git-checkout-files-dialog.c
-plugins/git/git-cherry-pick-dialog.c
-plugins/git/git-commit-dialog.c
-plugins/git/git-create-branch-dialog.c
-plugins/git/git-create-tag-dialog.c
-plugins/git/git-delete-branch-dialog.c
-plugins/git/git-delete-tag-dialog.c
-plugins/git/git-diff-dialog.c
-plugins/git/git-fetch-dialog.c
-plugins/git/git-log-dialog.c
-plugins/git/git-merge-dialog.c
-plugins/git/git-pull-dialog.c
-plugins/git/git-push-dialog.c
-plugins/git/git-rebase-dialog.c
-plugins/git/git-remove-dialog.c
-plugins/git/git-reset-dialog.c
-plugins/git/git-resolve-dialog.c
-plugins/git/git-revert-dialog.c
-plugins/git/git-stash-widget.c
-plugins/git/git-switch-dialog.c
-plugins/git/git-ui-utils.c
-plugins/git/git-unstage-dialog.c
+plugins/git/git-add-files-pane.c
+plugins/git/git-add-remote-pane.c
+plugins/git/git-apply-stash-pane.c
+plugins/git/git-checkout-pane.c
+plugins/git/git-commit-pane.c
+plugins/git/git-create-branch-pane.c
+plugins/git/git-create-tag-pane.c
+plugins/git/git-delete-remote-pane.c
+plugins/git/git-delete-tags-pane.c
+plugins/git/git-diff-stash-pane.c
+plugins/git/git-drop-stash-pane.c
+plugins/git/git-log-pane.c
+plugins/git/git-merge-pane.c
+plugins/git/git-pane.c
+plugins/git/git-pull-pane.c
+plugins/git/git-push-pane.c
+plugins/git/git-rebase-pane.c
+plugins/git/git-remove-files-pane.c
+plugins/git/git-repository-selector.c
+plugins/git/git-resolve-conflicts-pane.c
+plugins/git/git-stash-changes-pane.c
+plugins/git/git-status-pane.c
+plugins/git/git-unstage-pane.c
 plugins/git/plugin.c
 plugins/glade/plugin.c
 plugins/glade/anjuta-design-document.c
@@ -151,6 +155,8 @@ plugins/gtodo/todo_db.c
 plugins/message-view/anjuta-msgman.c
 plugins/message-view/message-view.c
 plugins/message-view/plugin.c
+plugins/mk-project/mk-project.c
+[type: gettext/glade]plugins/mk-project/mk-project.ui
 plugins/patch/patch-plugin.c
 [type: gettext/glade]plugins/patch/patch-plugin.ui
 plugins/patch/plugin.c
@@ -226,7 +232,6 @@ plugins/subversion/subversion-ui-utils.c
 plugins/subversion/subversion-update-dialog.c
 plugins/subversion/svn-command.c
 plugins/symbol-db/plugin.c
-plugins/symbol-db/symbol-db-prefs.c
 plugins/symbol-db/symbol-db-system.c
 [type: gettext/glade]plugins/symbol-db/anjuta-symbol-db.ui
 [type: gettext/glade]plugins/terminal/anjuta-terminal-plugin.ui
