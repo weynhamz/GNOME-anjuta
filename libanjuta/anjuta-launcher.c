@@ -461,7 +461,8 @@ anjuta_launcher_send_ptyin (AnjutaLauncher *launcher, const gchar * input_str)
 void
 anjuta_launcher_reset (AnjutaLauncher *launcher)
 {
-	if (anjuta_launcher_is_busy (launcher))
+	if (anjuta_launcher_is_busy (launcher) &&
+	    launcher->priv->child_pid)
 		kill (launcher->priv->child_pid, SIGTERM);
 }
 
@@ -475,7 +476,8 @@ anjuta_launcher_reset (AnjutaLauncher *launcher)
 void
 anjuta_launcher_signal (AnjutaLauncher *launcher, int sig)
 {
-	kill (launcher->priv->child_pid, sig);
+	if (launcher->priv->child_pid)
+		kill (launcher->priv->child_pid, sig);
 }
 
 /**
