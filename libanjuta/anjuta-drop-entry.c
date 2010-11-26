@@ -105,13 +105,20 @@ anjuta_drop_entry_drag_drop (GtkWidget *widget, GdkDragContext *context,
 }
 
 static void
-anjuta_drop_entry_size_request (GtkWidget *widget, GtkRequisition *requisition)
+anjuta_drop_entry_get_preferred_height (GtkWidget *widget, gint *min_height,
+                                        gint *nat_height)
 {
-	GTK_WIDGET_CLASS (anjuta_drop_entry_parent_class)->size_request (widget,
-	                                                                 requisition);
+	GTK_WIDGET_CLASS (anjuta_drop_entry_parent_class)->get_preferred_height (widget,
+	                                                                         min_height,
+	                                                                         nat_height);
 
-	/* Make the entry box 40 pixels tall so that it is easier to drag into. */
-	requisition->height = 40;
+	/* Make the entry a minimum of 40 pixels tall so that it is easier to drag
+	 * into. */
+	if (*min_height < 40)
+		*min_height = 40;
+
+	if (*nat_height < 40)
+		*nat_height = 40;
 }
 
 static void
@@ -123,7 +130,7 @@ anjuta_drop_entry_class_init (AnjutaDropEntryClass *klass)
 	object_class->finalize = anjuta_drop_entry_finalize;
 	widget_class->drag_data_received = anjuta_drop_entry_drag_data_received;
 	widget_class->drag_drop = anjuta_drop_entry_drag_drop;
-	widget_class->size_request = anjuta_drop_entry_size_request;
+	widget_class->get_preferred_height = anjuta_drop_entry_get_preferred_height;
 	
 }
 
