@@ -41,6 +41,7 @@
 #include <libanjuta/interfaces/ianjuta-language.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-indicable.h>
+#include <libanjuta/interfaces/ianjuta-markable.h>
 #include <libanjuta/interfaces/ianjuta-preferences.h>
 
 #include "plugin.h"
@@ -112,6 +113,7 @@ typedef struct
 typedef struct
 {
 	gchar *filename;
+	gchar *tooltip;
 	gint line;
 	IAnjutaIndicableIndicator indicator;
 } BuildIndicatorLocation;
@@ -324,12 +326,14 @@ shell_quotef (const gchar *format,...)
 
 static BuildIndicatorLocation*
 build_indicator_location_new (const gchar *filename, gint line,
-							  IAnjutaIndicableIndicator indicator)
+							  IAnjutaIndicableIndicator indicator,
+                              const gchar* tooltip)
 {
 	BuildIndicatorLocation *loc = g_new0 (BuildIndicatorLocation, 1);
 	loc->filename = g_strdup (filename);
 	loc->line = line;
 	loc->indicator = indicator;
+	loc->tooltip = g_strdup (tooltip);
 	return loc;
 }
 
@@ -359,12 +363,21 @@ build_indicator_location_set (BuildIndicatorLocation *loc,
 		g_object_unref (line_start);
 		g_object_unref (line_end);
 	}
+	if (editor && editor_filename &&
+	    IANJUTA_IS_MARKABLE (editor) &&
+		strcmp (editor_filename, loc->filename) == 0)
+	{
+		ianjuta_markable_mark (IANJUTA_MARKABLE (editor),
+		                       loc->line, IANJUTA_MARKABLE_MESSAGE,
+		                       loc->tooltip, NULL);
+	}
 }
 
 static void
 build_indicator_location_free (BuildIndicatorLocation *loc)
 {
 	g_free (loc->filename);
+	g_free (loc->tooltip);
 	g_free (loc);
 }
 
@@ -924,13 +937,25 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 		IAnjutaIndicableIndicator indicator;
 	
 		if ((strstr (line, "warning:") != NULL) ||
-			(strstr (line, _("warning:")) != NULL))
+		/* The translations should match that of 'gcc' program.
+		 * The second string with -old should be used for an older
+		 * version of 'gcc' if necessary. If you update one string,
+		 * move the first one to translate the -old string and then
+		 * replace the first string only. */
+			(strstr (line, _("warning:")) != NULL) ||
+			(strstr (line, _("warning:-old")) != NULL))
 		{
 			type = IANJUTA_MESSAGE_VIEW_TYPE_WARNING;
 			indicator = IANJUTA_INDICABLE_WARNING;
 		}
 		else if ((strstr (line, "error:") != NULL) ||
-		          (strstr (line, _("error:")) != NULL))
+		/* The translations should match that of 'gcc' program.
+		 * The second string with -old should be used for an older
+		 * version of 'gcc' if necessary. If you update one string,
+		 * move the first one to translate the -old string and then
+		 * replace the first string only. */
+		          (strstr (line, _("error:")) != NULL) ||
+			  (strstr (line, _("error:-old")) != NULL))
 		{
 			type = IANJUTA_MESSAGE_VIEW_TYPE_ERROR;
 			indicator = IANJUTA_INDICABLE_CRITICAL;
@@ -969,7 +994,7 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 			DEBUG_PRINT ("dummy int: %d", dummy_int);
 			
 			loc = build_indicator_location_new (mid_str, dummy_int,
-												indicator);
+												indicator, end_str);
 			context->locations = g_slist_prepend (context->locations, loc);
 			
 			/* If current editor file is same as indicator file, set indicator */
@@ -1136,12 +1161,6 @@ on_message_view_destroyed (BuildContext *context, GtkWidget *view)
 	build_context_destroy_view (context);
 }
 
-static gboolean
-g_hashtable_foreach_true (gpointer key, gpointer value, gpointer user_data)
-{
-	return TRUE;
-}
-
 static void
 build_set_animation (IAnjutaMessageManager* mesg_manager, BuildContext* context)
 {
@@ -1258,11 +1277,11 @@ build_get_context_with_message(BasicAutotoolsPlugin *plugin, const gchar *dir)
 	if (IANJUTA_IS_INDICABLE (plugin->current_editor))
 		ianjuta_indicable_clear (IANJUTA_INDICABLE (plugin->current_editor),
 								 NULL);
-	/* This is only since glib 2.12.
+	if (IANJUTA_IS_MARKABLE (plugin->current_editor))
+		ianjuta_markable_delete_all_markers (IANJUTA_MARKABLE (plugin->current_editor),
+		                                     IANJUTA_MARKABLE_MESSAGE, NULL);
 	g_hash_table_remove_all (context->indicators_updated_editors);
-	*/
-	g_hash_table_foreach_remove (context->indicators_updated_editors,
-								 g_hashtable_foreach_true, NULL);
+
 	
 	return context;
 }

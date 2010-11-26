@@ -639,12 +639,12 @@ cb_save_valid_property (NPWProperty* property, gpointer user_data)
 		{
 		case NPW_FILENAME_RESTRICTION:
 			g_string_append_printf (data->error,
-									_("Field \"%s\" must start with a letter, a digit or an underscore and contain only letters, digits, underscore, minus and dot. Please fix it."),
+									_("Field \"%s\" must contains only letters, digits or the following characters \"#$:%+,.=@^_`~\". In addition you cannot have a leading dash. Please fix it."),
 									npw_property_get_label (property));
 			break;
 		case NPW_DIRECTORY_RESTRICTION:
 			g_string_append_printf (data->error,
-									_("Field \"%s\" must start with a letter, a digit, an underscore or a directory separator and contain only letters, digits, underscore, directory separator, minus and dot. Please fix it."),
+									_("Field \"%s\" must contains only letters, digits, the following characters \"#$:%+,.=@^_`~\" or directory separators. In addition you cannot have a leading dash. Please fix it."),
 									npw_property_get_label (property));
 			break;
 		default:

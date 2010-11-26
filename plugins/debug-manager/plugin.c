@@ -157,7 +157,7 @@ show_program_counter_in_editor(DebugManagerPlugin *self)
 	{
 		if (IANJUTA_IS_MARKABLE (editor))
 		{
-			ianjuta_markable_mark(IANJUTA_MARKABLE (editor), self->pc_line, IANJUTA_MARKABLE_PROGRAM_COUNTER, NULL);
+			ianjuta_markable_mark(IANJUTA_MARKABLE (editor), self->pc_line, IANJUTA_MARKABLE_PROGRAM_COUNTER, NULL, NULL);
 		}
 		if (IANJUTA_IS_INDICABLE(editor))
 		{

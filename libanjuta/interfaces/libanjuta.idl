@@ -1,3 +1,4 @@
+
 // -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 // -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 //
@@ -227,6 +228,7 @@ interface IAnjutaMarkable
    * IAnjutaMarkableMarker:
    * @IANJUTA_MARKABLE_LINEMARKER: Mark a particular line
    * @IANJUTA_MARKABLE_BOOKMARK: A bookmark
+   * @IANJUTA_MARKABLE_MESSAGE: An (error) message
    * @IANJUTA_MARKABLE_BREAKPOINT_DISABLED: a disabled breakpoint
    * @IANJUTA_MARKABLE_BREAKPOINT_ENABLED: a enabled breakpoint
    * @IANJUTA_MARKABLE_PROGRAM_COUNTER: Marks the program counter position
@@ -237,6 +239,7 @@ interface IAnjutaMarkable
 	{
 		LINEMARKER,
 		BOOKMARK,
+		MESSAGE,
 		BREAKPOINT_DISABLED,
 		BREAKPOINT_ENABLED,
 		PROGRAM_COUNTER
@@ -257,6 +260,7 @@ interface IAnjutaMarkable
 	 * @obj: Self
 	 * @location: Location at which the marker to set.
 	 * @marker: Type of marker to be used
+	 * @tooltip: (allow-none): optional tooltip displayed with the marker
 	 * @err: Error propagation and reporting
 	 *
 	 * Marks the specified location with the given marker type. Location is
@@ -267,7 +271,7 @@ interface IAnjutaMarkable
 	 * new location, if it has been moved due to addetions/deletions in the
 	 * implementor object.
 	 */
-	gint mark (gint location, Marker marker);
+	gint mark (gint location, Marker marker, const gchar* tooltip);
 
 	/**
 	 * ianjuta_markable_location_from_handle:
@@ -3084,6 +3088,7 @@ interface IAnjutaProject
 		ERROR_ALREADY_EXISTS,
 		ERROR_VALIDATION_FAILED,
 		ERROR_PROJECT_MALFORMED,
+		ERROR_NOT_SUPPORTED,
 		ERROR_GENERAL_FAILURE
 	}
 
@@ -3093,165 +3098,170 @@ interface IAnjutaProject
 		PROBE_PROJECT_FILES = 200
 	}
 
-	enum Capabilities
-	{
-		CAN_ADD_NONE	= 0,
-		CAN_ADD_GROUP	= 1 << 0,
-		CAN_ADD_TARGET	= 1 << 1,
-		CAN_ADD_SOURCE	= 1 << 2,
-		HAS_PACKAGES	= 1 << 3
-	}
-	
 	/* Signals */
 	
 	/**
-	* IAnjutaProject::project_updated:
+	* IAnjutaProject::file-changed:
 	* @obj: Self
+	* @node: Node to be reloaded.
 	* 
-	* This signal is emitted when the project is changed.
+	* This signal is emitted when the project is changed on the disk. The
+	* corresponding node has to be reloaded.
 	*/
-	void ::project_updated ();
+	void ::file_changed (gpointer node);
 
 	/**
-	 * ianjuta_project_load:
+	* IAnjutaProject::node-changed:
+	* @obj: Self
+	* @node: Changed node.
+    * @error: Error while changing node
+	* 
+	* This signal is emitted when a node is changed by a function of this
+	* interface. The error argument is not NULL if the change was not
+ 	* possible. The corresponding node need to be saved.
+	*/
+	void ::node_changed (gpointer node, GError *error);
+
+	/**
+	* IAnjutaProject::node-saved:
+	* @obj: Self
+	* @node: Saved node.
+    * @error: Error while saving node
+	* 
+	* This signal is emitted when a node is saved. It returns an error if the
+ 	* save operation fail.
+	*/
+	void ::node_saved (gpointer node, GError *error);
+
+	/**
+	* IAnjutaProject::node-loaded:
+	* @obj: Self
+	* @node: Loaded node.
+    * @error: Error while loading node
+	* 
+	* This signal is emitted when a node is loaded. It returns an error if the
+ 	* load operation fail.
+	*/
+	void ::node_loaded (gpointer node, GError *error);
+
+
+	/**
+	 * ianjuta_project_load_node:
 	 * @obj: Self
-	 * @file: Project directory
+	 * @node: (transfer none): Project node to reload
 	 * @err: Error propagation and reporting
 	 *
-	 * Load a project
+	 * Reload a project node
 	 *
-	 * Return value: TRUE is loaded without errors
+	 * Return value: TRUE if the node has been loaded without error
 	 */
-	gboolean load (GFile *file);
+	gboolean load_node (AnjutaProjectNode *node);
 
 	/**
-	 * ianjuta_project_refresh:
+	 * ianjuta_project_save_node:
 	 * @obj: Self
+	 * @node: (transfer none): Project node to save
 	 * @err: Error propagation and reporting
 	 *
-	 * Reload the current project
+	 * Save a project node
 	 *
-	 * Return value: TRUE is loaded without errors
+	 * Return value: TRUE if the node has been saved without error
 	 */
-	gboolean refresh ();
+	gboolean save_node (AnjutaProjectNode *node);
 
 	/**
-	* ianjuta_project_get_capabilities:
-	* @obj: Self
-	* @err: Error propagation and reporting.
-	*
-	* Returns the capabilites of project whether it can add group, target
-	* sources etc.
-	*
-	* Returns: Supported capabilites.
-	*/
-	guint get_capabilities ();
-
-	/**
-	 * ianjuta_project_get_target_types:
+	 * ianjuta_project_add_node_after:
 	 * @obj: Self
-	 * @err: Error propagation and reporting.
+	 * @parent: (transfer none): Parent
+	 * @sibling: (allow-none) (transfer none): Sibling
+	 * @type: Node type
+	 * @file: (allow-none) (transfer none): Optional file object for the node
+	 * @name: (allow-none) (transfer none): Optional name for the node
+	 * @err: Error propagation and reporting
 	 *
-	 * Returns: (element-type Anjuta.ProjectTargetInformation): the list of supported target types
+	 * Create a new node and insert it after sibling
+	 *
+	 * Return value: (transfer none): The new node, NULL if error
 	 */
-	List<AnjutaProjectTargetType> get_target_types();
-	
-	/**
-	* ianjuta_project_configure:
-	* @obj: Self
-	* @err: Error propagation and reporting.
-	*
-	* Return a widget that can be use to set any options needed by the project
-	*
-	* Returns: A GtkWidget
-	*/
-	GtkWidget* configure ();
-	
-	/**
-	* ianjuta_project_get_root:
-	* @obj: Self
-	* @err: Error propagation and reporting.
-	*
-	* Get the root node of the project (always a group)
-	*
-	* Returns: The new group or NULL on error.
-	*/
-	AnjutaProjectGroup* get_root ();
+	AnjutaProjectNode *add_node_after (AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, GFile *file, const gchar *name);
 
 	/**
-	 * ianjuta_project_get_packages:
+	 * ianjuta_project_add_node_before:
 	 * @obj: Self
-	 * @err: Error propagation and reporting.
+	 * @parent: (transfer none): Parent
+	 * @sibling: (allow-none) (transfer none): Sibling
+	 * @type: Node type
+	 * @file: (allow-none) (transfer none): Optional file object for the node
+	 * @name: (allow-none) (transfer none): Optional name for the node
+	 * @err: Error propagation and reporting
 	 *
-	 * Returns: (element-type utf8): the list of pkg-config packages that the current project
-	 * requires in it's configure.ac. Can be NULL if there is no project
-	 * opened currently or no package is required.
+	 * Create a new node and insert it before sibling
+	 *
+	 * Return value: (transfer none): The new node, NULL if error
 	 */
-	List<gchar*> get_packages();
-	
-	/**
-	* ianjuta_project_add_group:
-	* @obj: Self
-	* @parent: parent group
-	* @name: new group name
-	* @err: Error propagation and reporting.
-	*
-	* Create a new group, parent can be NULL.
-	*
-	* Returns: The new group or NULL on error.
-	*/
-	AnjutaProjectGroup* add_group (AnjutaProjectGroup *parent, const gchar *name);
+	AnjutaProjectNode *add_node_before (AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, GFile *file, const gchar *name);
 
 	/**
-	* ianjuta_project_add_target:
-	* @obj: Self
-	* @parent: parent group
-	* @name: new target name
-	* @type: new target type
-	* @err: Error propagation and reporting.
-	*
-	* Create a new target, parent cannot be NULL
-	*
-	* Returns: The new target or NULL on error.
-	*/
-	AnjutaProjectTarget* add_target (AnjutaProjectGroup *parent, const gchar *name, AnjutaProjectTargetType type);
-
-	/**
-	* ianjuta_project_add_source:
-	* @obj: Self
-	* @parent: parent target
-	* @file: source file
-	* @err: Error propagation and reporting.
-	*
-	* Create a new source, parent cannot be NULL
-	*
-	* Returns: The new source or NULL on error.
-	*/
-	AnjutaProjectSource* add_source (AnjutaProjectTarget *parent, GFile *file);
-
-	/**
-	* ianjuta_project_remove_node:
-	* @obj: Self
-	* @node: node to configure
-	* @err: Error propagation and reporting.
-	*
-	* Remove a node (a group, a target or a source) from the project.
-	*
-	* Returns: TRUE if the node has been removed
-	*/
+	 * ianjuta_project_remove_node:
+	 * @obj: Self
+	 * @node: (transfer none): Node
+	 * @err: Error propagation and reporting
+	 *
+	 * Remove a node
+	 *
+	 * Return value: TRUE if the node can be removed
+	 */
 	gboolean remove_node (AnjutaProjectNode *node);
 
 	/**
-	* ianjuta_project_configure_node:
-	* @obj: Self
-	* @node: node to configure
-	* @err: Error propagation and reporting.
-	*
-	* Return a widget that can be use to set any options needed by this node
-	*
-	* Returns: A GtkWidget
-	*/
-	GtkWidget* configure_node (AnjutaProjectNode *node);
+	 * ianjuta_project_set_property:
+	 * @obj: Self
+	 * @node: (transfer none): Node
+	 * @property: (transfer none): Property
+	 * @value: (transfer none): Value
+	 * @err: Error propagation and reporting
+	 *
+	 * Change a properties on node.
+	 *
+	 * Return value: (allow-none) (transfer none): The new property of NULL if the property cannot be set
+	 */
+	AnjutaProjectProperty *set_property (AnjutaProjectNode *parent, AnjutaProjectProperty* property, const gchar *value);
+
+	/**
+	 * ianjuta_project_remove_property:
+	 * @obj: Self
+	 * @node: (transfer none): Node
+	 * @property: (transfer none): Property
+	 * @err: Error propagation and reporting
+	 *
+	 * Remove a property of the node
+	 *
+	 * Return value: TRUE if the node is removed
+	 */
+	gboolean remove_property (AnjutaProjectNode *node, AnjutaProjectProperty* property);
+
+	/**
+	 * ianjuta_project_get_root:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Get root_node
+	 *
+	 * Return value: (transfer none): The root node
+	 */
+	AnjutaProjectNode *get_root ();
+
+	/**
+	 * ianjuta_project_get_node_info:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Return a list of possible node;
+	 *
+	 * Return value: (element-type Anjuta.ProjectNodeInfo) (transfer none): TRUE if the property has been successfully removed
+	 * else FALSE
+	 */
+	const List<AnjutaProjectNodeInfo *> get_node_info();
 }
 
 /**
@@ -3270,26 +3280,28 @@ interface IAnjutaProjectBackend
 	/**
 	 * ianjuta_project_backend_new_project:
 	 * @obj: Self
+	 * @file: (transfer none): Project file or directory
 	 * @err: Error propagation and reporting
 	 *
-	 * Get a new GbfProject
+	 * Create a new Anjuta project.
 	 *
-	 * Return value: An object derived from GbfProject
+	 * Return value: (transfer full): An object implementing the
+	 * #IAnjutaProject interface.
 	 */
-	IAnjutaProject* new_project ();
+	IAnjutaProject* new_project (GFile *file);
 
 	
 	/**
 	 * ianjuta_project_backend_probe:
 	 * @obj: Self
-	 * @file: Project directory
+	 * @file: (transfer none): Project file or directory
 	 * @err: Error propagation and reporting
 	 *
 	 * Check if the directory contains a project supported by this
-	 * backend
+	 * backend.
 	 *
-	 * Return value: 0 if the project is invalid and > 0 if the
-	 * project is valid. 
+	 * Return value: 0 if the project is invalid and > 0 if the project is
+	 * valid.
 	 */
 	gint probe (GFile *directory);
 }
@@ -3324,7 +3336,19 @@ interface IAnjutaProjectManager
 	#define CURRENT_URI		"project_manager_current_uri"
 
 	// Signals
-	
+
+	/**
+	* IAnjutaProjectManager::project_loaded:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* Emitted when the project is fully loaded. It can takes a quite long
+	* time if the project is big. The project is loaded in several parts
+	* in a thread. All functions are available before having the project
+	* fully loaded.
+	*/
+	void ::project_loaded (GError *error);
+
 	/**
 	* IAnjutaProjectManager::element_added:
 	* @obj: Self
@@ -3386,7 +3410,7 @@ interface IAnjutaProjectManager
 	* 
 	* Returns: Return the type of the target.
 	*/
-	AnjutaProjectTargetClass get_target_type (GFile *target);
+	AnjutaProjectNodeType get_target_type (GFile *target);
 	
 	/**
 	 * ianjuta_project_manager_get_targets:
@@ -3400,7 +3424,7 @@ interface IAnjutaProjectManager
 	 * each target of the requested type or %NULL if none exists. Free the returned list
 	 * with g_list_free() and the files with g_object_unref().
 	 */
-	List<GFile *> get_targets (AnjutaProjectTargetClass target_type);
+	List<GFile *> get_targets (AnjutaProjectNodeType target_type);
 	
 	/**
 	* ianjuta_project_manager_get_parent:
@@ -6055,6 +6079,67 @@ interface IAnjutaSymbolManager
 	 * Returns: A #IAnjutaSymbolQuery object
 	 */
 	IAnjutaSymbolQuery* create_query (IAnjutaSymbolQueryName name, IAnjutaSymbolQueryDb db);
+
+	/**
+	 * ianjuta_symbol_manager_add_package:
+	 * @obj: Self
+ 	 * @pkg_name: Name of the package to scan. Should be the name given by
+	 * pkg-config. The colon char must be avoided.
+ 	 * @pkg_version: Version of the package. The colon char must be avoided.
+ 	 * or by the language implementation (Python, Javascript, etc.)
+ 	 * @files: A list of GFile's to scan for this package
+ 	 *
+ 	 * Reads the package files into the database asynchronously.
+	 *
+	 * Returns: TRUE if the package will be loaded into the db, FALSE if the package
+	 * already exists
+ 	 */
+	gboolean add_package (const gchar* pkg_name, const gchar* pkg_version, GList* files);
+
+	/**
+	 * ianjuta_symbol_manager_activate_package:
+	 * @obj: Self
+ 	 * @pkg_name: Name of the package to activate. The colon char must be avoided.
+ 	 * @pkg_version: Version of the package. The colon char must be avoided.
+ 	 *
+ 	 * Activates the package for searches in the global symbol database.
+ 	 *
+ 	 * Returns: TRUE if the package was loaded (or will be loaded once scanned). 
+ 	 * FALSE if the version given was newer than the version in the database or the 
+ 	 * package was not found. In this case, add_package() should be called.
+ 	 */
+	gboolean activate_package (const gchar *pkg_name, const gchar* pkg_version);
+
+	/**
+	 * ianjuta_symbol_manager_deactivate_package:
+	 * @obj: Self
+ 	 * @pkg_name: name of the package. The colon char must be avoided.
+	 * @pkg_version: Version of the package. The colon char must be avoided.
+ 	 * 
+ 	 * Deactivates the package if it was found. If package is NULL, deactivate all
+ 	 * packages.
+	 *
+	 * Returns FALSE if the package couldn't have been deactivated.
+ 	 */
+	gboolean deactivate_package (const gchar* pkg_name, const gchar* pkg_version);
+
+	/**
+	 * ianjuta_symbol_manager_add_and_activate_package:
+	 * @obj: Self
+ 	 * @pkg_name: Name of the package to scan and add. Should be the name given by
+	 * pkg-config. The colon char must be avoided.
+ 	 * @pkg_version: Version of the package. The colon char must be avoided.
+ 	 * or by the language implementation (Python, Javascript, etc.)
+ 	 * @files: A list of GFile's to scan for this package
+ 	 *
+ 	 * Convenience function that calls #ianjuta_symbol_manager_activate_package and
+	 * #ianjuta_symbol_manager_deactivate_package.
+	 *
+	 * Returns: TRUE if the package will be loaded into the db and activated, 
+	 * FALSE if the package already exists os is already activated.
+ 	 */	
+	gboolean add_and_activate_package (const gchar* pkg_name, const gchar* pkg_version, GList* files);
+	
 }
 
 /**

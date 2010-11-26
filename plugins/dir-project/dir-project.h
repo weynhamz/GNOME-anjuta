@@ -1,5 +1,5 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4; coding: utf-8 -*- */
-/* am-project.h
+/* dir-project.h
  *
  * Copyright (C) 2009  Sébastien Granjoux
  *
@@ -46,76 +46,16 @@ struct _DirProjectClass {
 	GObjectClass parent_class;
 };
 
-typedef AnjutaProjectGroup DirGroup;
-typedef AnjutaProjectTarget DirTarget;
-typedef AnjutaProjectSource DirSource;
-
-
 GType         dir_project_get_type (void);
-DirProject   *dir_project_new      (void);
+DirProject   *dir_project_new      (GFile *directory, GError **error);
 
 gint dir_project_probe (GFile *directory, GError     **error);
 
 gboolean dir_project_load (DirProject *project, GFile *directory, GError **error);
+AnjutaProjectNode *dir_project_load_node (DirProject *project, AnjutaProjectNode *node, GError **error);
+AnjutaProjectNode *dir_project_save_node (DirProject *project, AnjutaProjectNode *node, GError **error);
 gboolean dir_project_reload (DirProject *project, GError **error);
 void dir_project_unload (DirProject *project);
-
-#if 0
-AmpGroup *amp_project_get_root (AmpProject *project);
-AmpGroup *amp_project_get_group (AmpProject *project, const gchar *id);
-AmpTarget *amp_project_get_target (AmpProject *project, const gchar *id);
-AmpSource *amp_project_get_source (AmpProject *project, const gchar *id);
-gboolean amp_project_get_token_location (AmpProject *project, AnjutaTokenFileLocation *location, AnjutaToken *token);
-
-gboolean amp_project_move (AmpProject *project, const gchar *path);
-gboolean amp_project_save (AmpProject *project, GError **error);
-
-gchar * amp_project_get_uri (AmpProject *project);
-GFile* amp_project_get_file (AmpProject *project);
-
-AmpGroup* amp_project_add_group (AmpProject  *project, AmpGroup *parent, const gchar *name, GError **error);
-AmpGroup* amp_project_add_sibling_group (AmpProject  *project, AmpGroup *parent, const gchar *name, gboolean after, AmpGroup *sibling, GError **error);
-void amp_project_remove_group (AmpProject  *project, AmpGroup *group, GError **error);
-
-AmpTarget* amp_project_add_target (AmpProject  *project, AmpGroup *parent, const gchar *name, AnjutaProjectTargetType type, GError **error);
-AmpTarget* amp_project_add_sibling_target (AmpProject  *project, AmpGroup *parent, const gchar *name, AnjutaProjectTargetType type, gboolean after, AmpTarget *sibling, GError **error);
-void amp_project_remove_target (AmpProject  *project, AmpTarget *target, GError **error);
-
-AmpSource* amp_project_add_source (AmpProject  *project, AmpTarget *parent, GFile *file, GError **error);
-AmpSource* amp_project_add_sibling_source (AmpProject  *project, AmpTarget *parent, GFile *file, gboolean after, AmpSource *sibling, GError **error);
-void amp_project_remove_source (AmpProject  *project, AmpSource *source, GError **error);
-
-
-GList *amp_project_get_config_modules (AmpProject *project, GError **error);
-GList *amp_project_get_config_packages  (AmpProject *project, const gchar* module, GError **error);
-
-GList *amp_project_get_target_types (AmpProject *project, GError **error);
-
-gchar* amp_project_get_property (AmpProject *project, AmpPropertyType type);
-gboolean amp_project_set_property (AmpProject *project, AmpPropertyType type, const gchar* value);
-
-gchar * amp_project_get_node_id (AmpProject *project, const gchar *path);
-
-AnjutaProjectNode *amp_node_parent (AnjutaProjectNode *node);
-AnjutaProjectNode *amp_node_first_child (AnjutaProjectNode *node);
-AnjutaProjectNode *amp_node_last_child (AnjutaProjectNode *node);
-AnjutaProjectNode *amp_node_next_sibling (AnjutaProjectNode *node);
-AnjutaProjectNode *amp_node_prev_sibling (AnjutaProjectNode *node);
-AnjutaProjectNodeType amp_node_get_type (AnjutaProjectNode *node);
-void amp_node_all_foreach (AnjutaProjectNode *node, AnjutaProjectNodeFunc func, gpointer data);
-
-GFile *amp_group_get_directory (AmpGroup *group);
-GFile *amp_group_get_makefile (AmpGroup *group);
-gchar *amp_group_get_id (AmpGroup *group);
-
-const gchar *amp_target_get_name (AmpTarget *target);
-AnjutaProjectTargetType amp_target_get_type (AmpTarget *target);
-gchar *amp_target_get_id (AmpTarget *target);
-
-void amp_source_free (AmpSource *node);
-gchar *amp_source_get_id (AmpSource *source);
-GFile *amp_source_get_file (AmpSource *source);
-#endif
 
 G_END_DECLS
 

@@ -1,0 +1,2100 @@
+PROPERTY (Name): [anjuta]
+PROPERTY (Version): [anjuta_version]
+PROPERTY (Bug report URL): [http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta]
+PROPERTY (Package name): [anjuta]
+PROPERTY (URL): [http://www.anjuta.org/]
+    MODULE (0): [ANJUTA]
+        PACKAGE (0:0): gthread-2.0
+        PACKAGE (0:1): unique-1.0
+        PACKAGE (0:2): glib-2.0
+        PACKAGE (0:3): gio-2.0
+        PACKAGE (0:4): gtk+-2.0
+        PACKAGE (0:5): gdk-pixbuf-2.0
+        PACKAGE (0:6): gconf-2.0
+        PACKAGE (0:7): vte
+        PACKAGE (0:8): libxml-2.0
+        PACKAGE (0:9): gdl-1.0
+        PACKAGE (0:10): libgda-4.0
+        PACKAGE (0:11): libxslt
+    MODULE (1): PLUGIN_DEVHELP
+        PACKAGE (1:0): libdevhelp-2.0
+        PACKAGE (1:1): webkit-1.0
+    MODULE (2): PLUGIN_GLADE
+        PACKAGE (2:0): gladeui-1.0
+    MODULE (3): PLUGIN_SOURCEVIEW
+        PACKAGE (3:0): gtksourceview-2.0
+    MODULE (4): VALA
+        PACKAGE (4:0): vala-0.10
+    MODULE (5): PLUGIN_SYMBOL_DB
+        PACKAGE (5:0): libgda-4.0
+    MODULE (6): VTE
+        PACKAGE (6:0): vte
+    MODULE (7): APR
+        PACKAGE (7:0): apr-1
+    MODULE (8): APR_UTILS
+        PACKAGE (8:0): apr-util-1
+    MODULE (9): NEON
+        PACKAGE (9:0): neon
+    MODULE (10): GRAPHVIZ
+        PACKAGE (10:0): libgvc
+        PACKAGE (10:1): libgraph
+    GROUP (11): anjuta-npm_rw
+        PROPERTY (Install directories): anjutadocdir = $(docdir) anjuta_datadir = $(datadir)/anjuta gnomemenudir = $(datadir)/applications
+        GROUP (11:0): pixmaps
+            PROPERTY (Install directories): anjuta_pixmapsdir = $(anjuta_image_dir) anjuta_glade_pixmapsdir = $(anjuta_glade_dir)
+            GROUP (11:0:0): 16x16
+                PROPERTY (Install directories): icondir = $(datadir)/icons/hicolor/16x16/apps mimepngicondir = $(datadir)/icons/gnome/16x16/mimetypes
+                TARGET (11:0:0:0): icon
+                    SOURCE (11:0:0:0:0): pixmaps/16x16/anjuta.png
+                TARGET (11:0:0:1): mimepngicon
+                    SOURCE (11:0:0:1:0): pixmaps/16x16/gnome-mime-application-x-anjuta.png
+            GROUP (11:0:1): 22x22
+                PROPERTY (Install directories): icondir = $(datadir)/icons/hicolor/22x22/apps mimepngicondir = $(datadir)/icons/gnome/22x22/mimetypes
+                TARGET (11:0:1:0): icon
+                    SOURCE (11:0:1:0:0): pixmaps/22x22/anjuta.png
+                TARGET (11:0:1:1): mimepngicon
+                    SOURCE (11:0:1:1:0): pixmaps/22x22/gnome-mime-application-x-anjuta.png
+            GROUP (11:0:2): 24x24
+                PROPERTY (Install directories): icondir = $(datadir)/icons/hicolor/24x24/apps mimepngicondir = $(datadir)/icons/gnome/24x24/mimetypes
+                TARGET (11:0:2:0): icon
+                    SOURCE (11:0:2:0:0): pixmaps/24x24/anjuta.png
+                TARGET (11:0:2:1): mimepngicon
+                    SOURCE (11:0:2:1:0): pixmaps/24x24/gnome-mime-application-x-anjuta.png
+            GROUP (11:0:3): 32x32
+                PROPERTY (Install directories): icondir = $(datadir)/icons/hicolor/32x32/apps mimepngicondir = $(datadir)/icons/gnome/32x32/mimetypes
+                TARGET (11:0:3:0): icon
+                    SOURCE (11:0:3:0:0): pixmaps/32x32/anjuta.png
+                TARGET (11:0:3:1): mimepngicon
+                    SOURCE (11:0:3:1:0): pixmaps/32x32/gnome-mime-application-x-anjuta.png
+            GROUP (11:0:4): 48x48
+                PROPERTY (Install directories): icondir = $(datadir)/icons/hicolor/48x48/apps mimepngicondir = $(datadir)/icons/gnome/48x48/mimetypes
+                TARGET (11:0:4:0): icon
+                    SOURCE (11:0:4:0:0): pixmaps/48x48/anjuta.png
+                TARGET (11:0:4:1): mimepngicon
+                    SOURCE (11:0:4:1:0): pixmaps/48x48/gnome-mime-application-x-anjuta.png
+            GROUP (11:0:5): scalable
+                PROPERTY (Install directories): svgicondir = $(datadir)/icons/hicolor/scalable/apps mimesvgicondir = $(datadir)/icons/gnome/scalable/mimetypes
+                TARGET (11:0:5:0): svgicon
+                    SOURCE (11:0:5:0:0): pixmaps/scalable/anjuta.svg
+                TARGET (11:0:5:1): mimesvgicon
+                    SOURCE (11:0:5:1:0): pixmaps/scalable/gnome-mime-application-x-anjuta.svg
+            TARGET (11:0:6): anjuta_pixmaps
+                SOURCE (11:0:6:0): pixmaps/madeinanjuta.xcf
+                SOURCE (11:0:6:1): pixmaps/anjuta_logo.png
+                SOURCE (11:0:6:2): pixmaps/anjuta_splash.png
+                SOURCE (11:0:6:3): pixmaps/directory.png
+                SOURCE (11:0:6:4): pixmaps/directory-accept.png
+                SOURCE (11:0:6:5): pixmaps/password.png
+                SOURCE (11:0:6:6): pixmaps/start-with-import.png
+            TARGET (11:0:7): anjuta_glade_pixmaps
+                SOURCE (11:0:7:0): pixmaps/start-with-wizard.png
+                SOURCE (11:0:7:1): pixmaps/start-with-import.png
+                SOURCE (11:0:7:2): pixmaps/start-with-open.png
+        GROUP (11:1): scripts
+            PROPERTY (Install directories): anjuta_datadir = $(anjuta_data_dir)
+            TARGET (11:1:0): anjuta_data
+                SOURCE (11:1:0:0): scripts/anjuta_project.template
+        GROUP (11:2): data
+            PROPERTY (Install directories): anjuta_datadir = $(anjuta_data_dir) anjuta_profiledir = $(anjuta_data_dir)/profiles
+            TARGET (11:2:0): anjuta_data
+                SOURCE (11:2:0:0): data/welcome.txt
+            TARGET (11:2:1): anjuta_profile
+                SOURCE (11:2:1:0): data/default.profile
+        GROUP (11:3): doc
+            PROPERTY (Install directories): anjuta_docdir = $(docdir)
+            TARGET (11:3:0): anjuta_doc
+                SOURCE (11:3:0:0): doc/ScintillaDoc.html
+            TARGET (11:3:1): anjuta.1
+            TARGET (11:3:2): anjuta-launcher.1
+        GROUP (11:4): libfoocanvas
+            PROPERTY (C preprocessor flags): -I$(top_srcdir) -I$(top_builddir) $(WARN_CFLAGS) $(ANJUTA_CFLAGS) -DFOOCANVASLIBDIR=\""$(libdir)"\" -DFOOCANVASDATADIR=\""$(datadir)"\" -DFOOCANVASPIXMAPDIR=\""$(datadir)/pixmaps"\" -DFOOCANVASBINDIR=\""$(bindir)"\" -DFOOCANVASLOCALSTATEDIR=\""$(localstatedir)"\" -DFOOCANVASLOCALEDIR=\""$(gnomelocaledir)"\" -DG_LOG_DOMAIN=\"Foocanvas\" -DVERSION=\"$(VERSION)\"
+            TARGET (11:4:0): libanjuta-foocanvas.la
+                PROPERTY (Additional libraries): $(ANJUTA_LIBS) $(RENDER_LIBS)
+                SOURCE (11:4:0:0): libfoocanvas/foo-canvas-line.h
+                SOURCE (11:4:0:1): libfoocanvas/foo-canvas-pixbuf.h
+                SOURCE (11:4:0:2): libfoocanvas/foo-canvas-polygon.h
+                SOURCE (11:4:0:3): libfoocanvas/foo-canvas-rect-ellipse.h
+                SOURCE (11:4:0:4): libfoocanvas/foo-canvas-text.h
+                SOURCE (11:4:0:5): libfoocanvas/foo-canvas-util.h
+                SOURCE (11:4:0:6): libfoocanvas/foo-canvas-widget.h
+                SOURCE (11:4:0:7): libfoocanvas/foo-canvas.h
+                SOURCE (11:4:0:8): libfoocanvas/libfoocanvas.h
+                SOURCE (11:4:0:9): libfoocanvas/foo-canvas-marshal.list
+                SOURCE (11:4:0:10): libfoocanvas/foo-canvas-i18n.h
+                SOURCE (11:4:0:11): libfoocanvas/foo-canvas-line.c
+                SOURCE (11:4:0:12): libfoocanvas/foo-canvas-pixbuf.c
+                SOURCE (11:4:0:13): libfoocanvas/foo-canvas-polygon.c
+                SOURCE (11:4:0:14): libfoocanvas/foo-canvas-rect-ellipse.c
+                SOURCE (11:4:0:15): libfoocanvas/foo-canvas-text.c
+                SOURCE (11:4:0:16): libfoocanvas/foo-canvas-util.c
+                SOURCE (11:4:0:17): libfoocanvas/foo-canvas-widget.c
+                SOURCE (11:4:0:18): libfoocanvas/foo-canvas.c
+                SOURCE (11:4:0:19): libfoocanvas/libfoocanvastypes.c
+        GROUP (11:5): libanjuta
+            PROPERTY (C preprocessor flags): -I$(top_srcdir) -I . $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(ANJUTA_CFLAGS) -DDATADIR="\"$(datadir)\"" -DPACKAGE_PIXMAPS_DIR="\"$(datadir)/pixmaps/$(PACKAGE)\"" -DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" -DPACKAGE_HELP_DIR="\"$(datadir)/gnome/help/$(PACKAGE)\"" -DPACKAGE_DOC_DIR="\"$(docdir)\"" -DG_LOG_DOMAIN=\"libanjuta\"
+            PROPERTY (Install directories): gladeanjutadir = $(libdir)/glade3/modules catalogdir = $(datadir)/glade3/catalogs libanjutaincludedir = $(includedir)/libanjuta-1.0/libanjuta pkgconfigdir = $(libdir)/pkgconfig girdir = $(datadir)/gir-1.0 typelibdir = $(libdir)/girepository-1.0
+            GROUP (11:5:0): interfaces
+                PROPERTY (Install directories): libanjuta_interfaces_includedir = /libanjuta-1.0/libanjuta/interfaces idldir = /libanjuta-1.0/libanjuta/interfaces
+                TARGET (11:5:0:0): libanjuta-interfaces.la
+                    SOURCE (11:5:0:0:0): libanjuta/interfaces/ianjuta-buildable.c
+                    SOURCE (11:5:0:0:1): libanjuta/interfaces/ianjuta-builder.c
+                    SOURCE (11:5:0:0:2): libanjuta/interfaces/ianjuta-debug-manager.c
+                    SOURCE (11:5:0:0:3): libanjuta/interfaces/ianjuta-debugger.c
+                    SOURCE (11:5:0:0:4): libanjuta/interfaces/ianjuta-debugger-breakpoint.c
+                    SOURCE (11:5:0:0:5): libanjuta/interfaces/ianjuta-debugger-instruction.c
+                    SOURCE (11:5:0:0:6): libanjuta/interfaces/ianjuta-debugger-memory.c
+                    SOURCE (11:5:0:0:7): libanjuta/interfaces/ianjuta-debugger-register.c
+                    SOURCE (11:5:0:0:8): libanjuta/interfaces/ianjuta-debugger-variable.c
+                    SOURCE (11:5:0:0:9): libanjuta/interfaces/ianjuta-document.c
+                    SOURCE (11:5:0:0:10): libanjuta/interfaces/ianjuta-document-manager.c
+                    SOURCE (11:5:0:0:11): libanjuta/interfaces/ianjuta-editor.c
+                    SOURCE (11:5:0:0:12): libanjuta/interfaces/ianjuta-editor-assist.c
+                    SOURCE (11:5:0:0:13): libanjuta/interfaces/ianjuta-editor-cell.c
+                    SOURCE (11:5:0:0:14): libanjuta/interfaces/ianjuta-editor-cell-style.c
+                    SOURCE (11:5:0:0:15): libanjuta/interfaces/ianjuta-editor-comment.c
+                    SOURCE (11:5:0:0:16): libanjuta/interfaces/ianjuta-editor-convert.c
+                    SOURCE (11:5:0:0:17): libanjuta/interfaces/ianjuta-editor-factory.c
+                    SOURCE (11:5:0:0:18): libanjuta/interfaces/ianjuta-editor-folds.c
+                    SOURCE (11:5:0:0:19): libanjuta/interfaces/ianjuta-editor-goto.c
+                    SOURCE (11:5:0:0:20): libanjuta/interfaces/ianjuta-editor-hover.c
+                    SOURCE (11:5:0:0:21): libanjuta/interfaces/ianjuta-editor-language.c
+                    SOURCE (11:5:0:0:22): libanjuta/interfaces/ianjuta-editor-line-mode.c
+                    SOURCE (11:5:0:0:23): libanjuta/interfaces/ianjuta-editor-search.c
+                    SOURCE (11:5:0:0:24): libanjuta/interfaces/ianjuta-editor-selection.c
+                    SOURCE (11:5:0:0:25): libanjuta/interfaces/ianjuta-editor-tip.c
+                    SOURCE (11:5:0:0:26): libanjuta/interfaces/ianjuta-editor-view.c
+                    SOURCE (11:5:0:0:27): libanjuta/interfaces/ianjuta-editor-zoom.c
+                    SOURCE (11:5:0:0:28): libanjuta/interfaces/ianjuta-environment.c
+                    SOURCE (11:5:0:0:29): libanjuta/interfaces/ianjuta-file.c
+                    SOURCE (11:5:0:0:30): libanjuta/interfaces/ianjuta-file-loader.c
+                    SOURCE (11:5:0:0:31): libanjuta/interfaces/ianjuta-file-manager.c
+                    SOURCE (11:5:0:0:32): libanjuta/interfaces/ianjuta-file-savable.c
+                    SOURCE (11:5:0:0:33): libanjuta/interfaces/ianjuta-help.c
+                    SOURCE (11:5:0:0:34): libanjuta/interfaces/ianjuta-indicable.c
+                    SOURCE (11:5:0:0:35): libanjuta/interfaces/ianjuta-iterable.c
+                    SOURCE (11:5:0:0:36): libanjuta/interfaces/ianjuta-iterable-tree.c
+                    SOURCE (11:5:0:0:37): libanjuta/interfaces/ianjuta-language.c
+                    SOURCE (11:5:0:0:38): libanjuta/interfaces/ianjuta-loader.c
+                    SOURCE (11:5:0:0:39): libanjuta/interfaces/ianjuta-markable.c
+                    SOURCE (11:5:0:0:40): libanjuta/interfaces/ianjuta-message-manager.c
+                    SOURCE (11:5:0:0:41): libanjuta/interfaces/ianjuta-message-view.c
+                    SOURCE (11:5:0:0:42): libanjuta/interfaces/ianjuta-plugin-factory.c
+                    SOURCE (11:5:0:0:43): libanjuta/interfaces/ianjuta-preferences.c
+                    SOURCE (11:5:0:0:44): libanjuta/interfaces/ianjuta-print.c
+                    SOURCE (11:5:0:0:45): libanjuta/interfaces/ianjuta-project.c
+                    SOURCE (11:5:0:0:46): libanjuta/interfaces/ianjuta-project-backend.c
+                    SOURCE (11:5:0:0:47): libanjuta/interfaces/ianjuta-project-manager.c
+                    SOURCE (11:5:0:0:48): libanjuta/interfaces/ianjuta-provider.c
+                    SOURCE (11:5:0:0:49): libanjuta/interfaces/ianjuta-snippets-manager.c
+                    SOURCE (11:5:0:0:50): libanjuta/interfaces/ianjuta-stream.c
+                    SOURCE (11:5:0:0:51): libanjuta/interfaces/ianjuta-stream-loader.c
+                    SOURCE (11:5:0:0:52): libanjuta/interfaces/ianjuta-stream-savable.c
+                    SOURCE (11:5:0:0:53): libanjuta/interfaces/ianjuta-symbol.c
+                    SOURCE (11:5:0:0:54): libanjuta/interfaces/ianjuta-symbol-manager.c
+                    SOURCE (11:5:0:0:55): libanjuta/interfaces/ianjuta-symbol-query.c
+                    SOURCE (11:5:0:0:56): libanjuta/interfaces/ianjuta-terminal.c
+                    SOURCE (11:5:0:0:57): libanjuta/interfaces/ianjuta-todo.c
+                    SOURCE (11:5:0:0:58): libanjuta/interfaces/ianjuta-vcs.c
+                    SOURCE (11:5:0:0:59): libanjuta/interfaces/ianjuta-wizard.c
+                    SOURCE (11:5:0:0:60): libanjuta/interfaces/libanjuta-iface-marshallers.c
+                TARGET (11:5:0:1): ianjuta-buildable.h
+                TARGET (11:5:0:2): ianjuta-builder.h
+                TARGET (11:5:0:3): ianjuta-debug-manager.h
+                TARGET (11:5:0:4): ianjuta-debugger.h
+                TARGET (11:5:0:5): ianjuta-debugger-breakpoint.h
+                TARGET (11:5:0:6): ianjuta-debugger-instruction.h
+                TARGET (11:5:0:7): ianjuta-debugger-memory.h
+                TARGET (11:5:0:8): ianjuta-debugger-register.h
+                TARGET (11:5:0:9): ianjuta-debugger-variable.h
+                TARGET (11:5:0:10): ianjuta-document.h
+                TARGET (11:5:0:11): ianjuta-document-manager.h
+                TARGET (11:5:0:12): ianjuta-editor.h
+                TARGET (11:5:0:13): ianjuta-editor-assist.h
+                TARGET (11:5:0:14): ianjuta-editor-cell.h
+                TARGET (11:5:0:15): ianjuta-editor-cell-style.h
+                TARGET (11:5:0:16): ianjuta-editor-comment.h
+                TARGET (11:5:0:17): ianjuta-editor-convert.h
+                TARGET (11:5:0:18): ianjuta-editor-factory.h
+                TARGET (11:5:0:19): ianjuta-editor-folds.h
+                TARGET (11:5:0:20): ianjuta-editor-goto.h
+                TARGET (11:5:0:21): ianjuta-editor-hover.h
+                TARGET (11:5:0:22): ianjuta-editor-language.h
+                TARGET (11:5:0:23): ianjuta-editor-line-mode.h
+                TARGET (11:5:0:24): ianjuta-editor-search.h
+                TARGET (11:5:0:25): ianjuta-editor-selection.h
+                TARGET (11:5:0:26): ianjuta-editor-tip.h
+                TARGET (11:5:0:27): ianjuta-editor-view.h
+                TARGET (11:5:0:28): ianjuta-editor-zoom.h
+                TARGET (11:5:0:29): ianjuta-environment.h
+                TARGET (11:5:0:30): ianjuta-file.h
+                TARGET (11:5:0:31): ianjuta-file-loader.h
+                TARGET (11:5:0:32): ianjuta-file-manager.h
+                TARGET (11:5:0:33): ianjuta-file-savable.h
+                TARGET (11:5:0:34): ianjuta-help.h
+                TARGET (11:5:0:35): ianjuta-indicable.h
+                TARGET (11:5:0:36): ianjuta-iterable.h
+                TARGET (11:5:0:37): ianjuta-iterable-tree.h
+                TARGET (11:5:0:38): ianjuta-language.h
+                TARGET (11:5:0:39): ianjuta-loader.h
+                TARGET (11:5:0:40): ianjuta-markable.h
+                TARGET (11:5:0:41): ianjuta-message-manager.h
+                TARGET (11:5:0:42): ianjuta-message-view.h
+                TARGET (11:5:0:43): ianjuta-plugin-factory.h
+                TARGET (11:5:0:44): ianjuta-preferences.h
+                TARGET (11:5:0:45): ianjuta-print.h
+                TARGET (11:5:0:46): ianjuta-project.h
+                TARGET (11:5:0:47): ianjuta-project-backend.h
+                TARGET (11:5:0:48): ianjuta-project-manager.h
+                TARGET (11:5:0:49): ianjuta-provider.h
+                TARGET (11:5:0:50): ianjuta-snippets-manager.h
+                TARGET (11:5:0:51): ianjuta-stream.h
+                TARGET (11:5:0:52): ianjuta-stream-loader.h
+                TARGET (11:5:0:53): ianjuta-stream-savable.h
+                TARGET (11:5:0:54): ianjuta-symbol.h
+                TARGET (11:5:0:55): ianjuta-symbol-manager.h
+                TARGET (11:5:0:56): ianjuta-symbol-query.h
+                TARGET (11:5:0:57): ianjuta-terminal.h
+                TARGET (11:5:0:58): ianjuta-todo.h
+                TARGET (11:5:0:59): ianjuta-vcs.h
+                TARGET (11:5:0:60): ianjuta-wizard.h
+                TARGET (11:5:0:61): libanjuta-iface-marshallers.h
+                TARGET (11:5:0:62): libanjuta-interfaces.h
+                TARGET (11:5:0:63): libanjuta.idl
+            TARGET (11:5:1): libanjuta.la
+                PROPERTY (Linker flags): $(ANJUTA_LDFLAGS)
+                PROPERTY (Additional libraries): interfaces/libanjuta-interfaces.la $(ANJUTA_LIBS)
+                SOURCE (11:5:1:0): libanjuta/anjuta-enum-types.h
+                SOURCE (11:5:1:1): libanjuta/anjuta-enum-types.c
+                SOURCE (11:5:1:2): libanjuta/anjuta-marshal.h
+                SOURCE (11:5:1:3): libanjuta/anjuta-marshal.c
+                SOURCE (11:5:1:4): libanjuta/anjuta-shell.c
+                SOURCE (11:5:1:5): libanjuta/anjuta-shell.h
+                SOURCE (11:5:1:6): libanjuta/anjuta-status.c
+                SOURCE (11:5:1:7): libanjuta/anjuta-status.h
+                SOURCE (11:5:1:8): libanjuta/anjuta-encodings.c
+                SOURCE (11:5:1:9): libanjuta/anjuta-encodings.h
+                SOURCE (11:5:1:10): libanjuta/anjuta-convert.c
+                SOURCE (11:5:1:11): libanjuta/anjuta-convert.h
+                SOURCE (11:5:1:12): libanjuta/anjuta-preferences-dialog.c
+                SOURCE (11:5:1:13): libanjuta/anjuta-preferences-dialog.h
+                SOURCE (11:5:1:14): libanjuta/anjuta-preferences.c
+                SOURCE (11:5:1:15): libanjuta/anjuta-preferences.h
+                SOURCE (11:5:1:16): libanjuta/anjuta-plugin.c
+                SOURCE (11:5:1:17): libanjuta/anjuta-plugin.h
+                SOURCE (11:5:1:18): libanjuta/anjuta-plugin-handle.h
+                SOURCE (11:5:1:19): libanjuta/anjuta-plugin-handle.c
+                SOURCE (11:5:1:20): libanjuta/anjuta-plugin-description.c
+                SOURCE (11:5:1:21): libanjuta/anjuta-plugin-description.h
+                SOURCE (11:5:1:22): libanjuta/anjuta-plugin-manager.c
+                SOURCE (11:5:1:23): libanjuta/anjuta-plugin-manager.h
+                SOURCE (11:5:1:24): libanjuta/anjuta-profile.c
+                SOURCE (11:5:1:25): libanjuta/anjuta-profile.h
+                SOURCE (11:5:1:26): libanjuta/anjuta-profile-manager.c
+                SOURCE (11:5:1:27): libanjuta/anjuta-profile-manager.h
+                SOURCE (11:5:1:28): libanjuta/anjuta-ui.c
+                SOURCE (11:5:1:29): libanjuta/anjuta-ui.h
+                SOURCE (11:5:1:30): libanjuta/anjuta-launcher.c
+                SOURCE (11:5:1:31): libanjuta/anjuta-launcher.h
+                SOURCE (11:5:1:32): libanjuta/anjuta-utils.c
+                SOURCE (11:5:1:33): libanjuta/anjuta-utils.h
+                SOURCE (11:5:1:34): libanjuta/anjuta-utils-priv.h
+                SOURCE (11:5:1:35): libanjuta/anjuta-session.c
+                SOURCE (11:5:1:36): libanjuta/anjuta-session.h
+                SOURCE (11:5:1:37): libanjuta/anjuta-save-prompt.c
+                SOURCE (11:5:1:38): libanjuta/anjuta-save-prompt.h
+                SOURCE (11:5:1:39): libanjuta/anjuta-serializer.c
+                SOURCE (11:5:1:40): libanjuta/anjuta-serializer.h
+                SOURCE (11:5:1:41): libanjuta/resources.c
+                SOURCE (11:5:1:42): libanjuta/resources.h
+                SOURCE (11:5:1:43): libanjuta/anjuta-c-plugin-factory.c
+                SOURCE (11:5:1:44): libanjuta/anjuta-c-plugin-factory.h
+                SOURCE (11:5:1:45): libanjuta/anjuta-c-module.c
+                SOURCE (11:5:1:46): libanjuta/anjuta-c-module.h
+                SOURCE (11:5:1:47): libanjuta/cell-renderer-captioned-image.c
+                SOURCE (11:5:1:48): libanjuta/cell-renderer-captioned-image.h
+                SOURCE (11:5:1:49): libanjuta/e-splash.h
+                SOURCE (11:5:1:50): libanjuta/e-splash.c
+                SOURCE (11:5:1:51): libanjuta/anjuta-vcs-status.h
+                SOURCE (11:5:1:52): libanjuta/anjuta-vcs-status-tree-view.c
+                SOURCE (11:5:1:53): libanjuta/anjuta-vcs-status-tree-view.h
+                SOURCE (11:5:1:54): libanjuta/anjuta-command.c
+                SOURCE (11:5:1:55): libanjuta/anjuta-command.h
+                SOURCE (11:5:1:56): libanjuta/anjuta-async-command.c
+                SOURCE (11:5:1:57): libanjuta/anjuta-async-command.h
+                SOURCE (11:5:1:58): libanjuta/anjuta-sync-command.c
+                SOURCE (11:5:1:59): libanjuta/anjuta-sync-command.h
+                SOURCE (11:5:1:60): libanjuta/anjuta-async-notify.h
+                SOURCE (11:5:1:61): libanjuta/anjuta-async-notify.c
+                SOURCE (11:5:1:62): libanjuta/anjuta-debug.c
+                SOURCE (11:5:1:63): libanjuta/anjuta-debug.h
+                SOURCE (11:5:1:64): libanjuta/gbf-project.c
+                SOURCE (11:5:1:65): libanjuta/gbf-project.h
+                SOURCE (11:5:1:66): libanjuta/anjuta-command-queue.c
+                SOURCE (11:5:1:67): libanjuta/anjuta-command-queue.h
+                SOURCE (11:5:1:68): libanjuta/anjuta-token.c
+                SOURCE (11:5:1:69): libanjuta/anjuta-token.h
+                SOURCE (11:5:1:70): libanjuta/anjuta-token-list.h
+                SOURCE (11:5:1:71): libanjuta/anjuta-token-list.c
+                SOURCE (11:5:1:72): libanjuta/anjuta-token-file.h
+                SOURCE (11:5:1:73): libanjuta/anjuta-token-file.c
+                SOURCE (11:5:1:74): libanjuta/anjuta-token-stream.c
+                SOURCE (11:5:1:75): libanjuta/anjuta-token-stream.h
+                SOURCE (11:5:1:76): libanjuta/anjuta-project.c
+                SOURCE (11:5:1:77): libanjuta/anjuta-project.h
+                SOURCE (11:5:1:78): libanjuta/anjuta-tabber.c
+                SOURCE (11:5:1:79): libanjuta/anjuta-tabber.h
+                SOURCE (11:5:1:80): libanjuta/anjuta-pkg-config-chooser.h
+                SOURCE (11:5:1:81): libanjuta/anjuta-pkg-config-chooser.c
+            TARGET (11:5:2): libgladeanjuta.la
+                PROPERTY (Linker flags): $(ANJUTA_LDFLAGS) -module -avoid-version
+                PROPERTY (Additional libraries): libanjuta.la $(GLADE_LIBS)
+                SOURCE (11:5:2:0): libanjuta/anjuta-glade-catalog.c
+            TARGET (11:5:3): catalog
+                SOURCE (11:5:3:0): libanjuta/anjuta-glade.xml
+            TARGET (11:5:4): libanjuta.h
+            TARGET (11:5:5): anjuta-debug.h
+            TARGET (11:5:6): anjuta-shell.h
+            TARGET (11:5:7): anjuta-status.h
+            TARGET (11:5:8): anjuta-encodings.h
+            TARGET (11:5:9): anjuta-convert.h
+            TARGET (11:5:10): anjuta-plugin.h
+            TARGET (11:5:11): anjuta-plugin-description.h
+            TARGET (11:5:12): anjuta-plugin-manager.h
+            TARGET (11:5:13): anjuta-plugin-handle.h
+            TARGET (11:5:14): anjuta-profile.h
+            TARGET (11:5:15): anjuta-profile-manager.h
+            TARGET (11:5:16): anjuta-utils.h
+            TARGET (11:5:17): anjuta-preferences-dialog.h
+            TARGET (11:5:18): anjuta-preferences.h
+            TARGET (11:5:19): anjuta-ui.h
+            TARGET (11:5:20): anjuta-launcher.h
+            TARGET (11:5:21): anjuta-session.h
+            TARGET (11:5:22): anjuta-save-prompt.h
+            TARGET (11:5:23): anjuta-serializer.h
+            TARGET (11:5:24): resources.h
+            TARGET (11:5:25): anjuta-vcs-status-tree-view.h
+            TARGET (11:5:26): anjuta-vcs-status.h
+            TARGET (11:5:27): anjuta-command.h
+            TARGET (11:5:28): anjuta-async-command.h
+            TARGET (11:5:29): anjuta-async-notify.h
+            TARGET (11:5:30): anjuta-sync-command.h
+            TARGET (11:5:31): anjuta-version.h
+            TARGET (11:5:32): gbf-project.h
+            TARGET (11:5:33): anjuta-project.h
+            TARGET (11:5:34): anjuta-command-queue.h
+            TARGET (11:5:35): anjuta-tabber.h
+            TARGET (11:5:36): anjuta-token.h
+            TARGET (11:5:37): anjuta-pkg-config-chooser.h
+            TARGET (11:5:38): anjuta-enum-types.h
+            TARGET (11:5:39): anjuta-marshal.h
+            TARGET (11:5:40): pkgconfig
+                SOURCE (11:5:40:0): libanjuta/libanjuta-1.0.pc
+            TARGET (11:5:41): gir
+                SOURCE (11:5:41:0): libanjuta/IAnjuta-1.0.gir
+            TARGET (11:5:42): typelib
+                SOURCE (11:5:42:0): libanjuta/$(INTROSPECTION_GIRS:.gir=.typelib)
+        GROUP (11:6): plugins
+            GROUP (11:6:0): message-view
+                PROPERTY (Install directories): message_view_gladedir = $(anjuta_glade_dir) message_view_pixmapsdir = $(anjuta_image_dir) message_view_uidir = $(anjuta_ui_dir) message_view_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS)
+                TARGET (11:6:0:0): message_view_glade
+                    SOURCE (11:6:0:0:0): plugins/message-view/anjuta-message-manager-plugin.ui
+                TARGET (11:6:0:1): message_view_pixmaps
+                    SOURCE (11:6:0:1:0): plugins/message-view/anjuta-messages-plugin.svg
+                    SOURCE (11:6:0:1:1): plugins/message-view/anjuta-messages-plugin-48.png
+                    SOURCE (11:6:0:1:2): plugins/message-view/anjuta-go-message-prev-16.png
+                    SOURCE (11:6:0:1:3): plugins/message-view/anjuta-go-message-prev-24.png
+                    SOURCE (11:6:0:1:4): plugins/message-view/anjuta-go-message-next-16.png
+                    SOURCE (11:6:0:1:5): plugins/message-view/anjuta-go-message-next-24.png
+                TARGET (11:6:0:2): message_view_ui
+                    SOURCE (11:6:0:2:0): plugins/message-view/anjuta-message-manager.xml
+                TARGET (11:6:0:3): message_view_plugin
+                    SOURCE (11:6:0:3:0): plugins/message-view/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:0:4): libanjuta-message-view.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS)
+                    SOURCE (11:6:0:4:0): plugins/message-view/plugin.c
+                    SOURCE (11:6:0:4:1): plugins/message-view/plugin.h
+                    SOURCE (11:6:0:4:2): plugins/message-view/anjuta-msgman.c
+                    SOURCE (11:6:0:4:3): plugins/message-view/anjuta-msgman.h
+                    SOURCE (11:6:0:4:4): plugins/message-view/message-view.c
+                    SOURCE (11:6:0:4:5): plugins/message-view/message-view.h
+            GROUP (11:6:1): gdb
+                PROPERTY (Install directories): gdb_uidir = $(anjuta_ui_dir) anjuta_gladedir = $(anjuta_glade_dir) anjuta_datadir = $(anjuta_data_dir) plugin_pixmapsdir = $(anjuta_image_dir) anjuta_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS) -DG_LOG_DOMAIN=\"libanjuta-gdb\"
+                GROUP (11:6:1:7): images
+                    PROPERTY (Install directories): imagesdir = $(anjuta_image_dir)
+                    TARGET (11:6:1:7:0): images
+                        SOURCE (11:6:1:7:0:0): plugins/gdb/images/breakpoint.png
+                        SOURCE (11:6:1:7:0:1): plugins/gdb/images/locals.png
+                        SOURCE (11:6:1:7:0:2): plugins/gdb/images/stack.png
+                TARGET (11:6:1:0): gdb_ui
+                TARGET (11:6:1:1): anjuta_glade
+                    SOURCE (11:6:1:1:0): plugins/gdb/anjuta-gdb.ui
+                TARGET (11:6:1:2): anjuta_data
+                    SOURCE (11:6:1:2:0): plugins/gdb/gdb.init
+                TARGET (11:6:1:3): plugin_pixmaps
+                    SOURCE (11:6:1:3:0): plugins/gdb/anjuta-gdb.plugin.png
+                    SOURCE (11:6:1:3:1): plugins/gdb/pointer.png
+                TARGET (11:6:1:4): anjuta_plugin
+                    SOURCE (11:6:1:4:0): plugins/gdb/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:1:5): libanjuta-gdb.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GTK_LIBS) $(LIBANJUTA_LIBS)
+                    SOURCE (11:6:1:5:0): plugins/gdb/gdbmi.c
+                    SOURCE (11:6:1:5:1): plugins/gdb/gdbmi.h
+                    SOURCE (11:6:1:5:2): plugins/gdb/debugger.c
+                    SOURCE (11:6:1:5:3): plugins/gdb/debugger.h
+                    SOURCE (11:6:1:5:4): plugins/gdb/plugin.c
+                    SOURCE (11:6:1:5:5): plugins/gdb/plugin.h
+                    SOURCE (11:6:1:5:6): plugins/gdb/utilities.c
+                    SOURCE (11:6:1:5:7): plugins/gdb/utilities.h
+                    SOURCE (11:6:1:5:8): plugins/gdb/preferences.c
+                    SOURCE (11:6:1:5:9): plugins/gdb/preferences.h
+                TARGET (11:6:1:6): gdbmi-test
+                    PROPERTY (Additional objects): $(GTK_LIBS) $(LIBANJUTA_LIBS) $(LIBXML_LIBS)
+                    PROPERTY (C compiler flags): $(AM_CFLAGS)
+                    SOURCE (11:6:1:6:0): plugins/gdb/gdbmi-test.c
+                    SOURCE (11:6:1:6:1): plugins/gdb/gdbmi.c
+                    SOURCE (11:6:1:6:2): plugins/gdb/gdbmi.h
+                    SOURCE (11:6:1:6:3): plugins/gdb/debugger.h
+            GROUP (11:6:2): debug-manager
+                PROPERTY (Install directories): anjuta_gladedir = $(anjuta_glade_dir) anjuta_uidir = $(anjuta_ui_dir) anjuta_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(GIO_CFLAGS) $(LIBANJUTA_CFLAGS)
+                GROUP (11:6:2:4): images
+                    PROPERTY (Install directories): imagesdir = $(anjuta_image_dir)
+                    TARGET (11:6:2:4:0): images
+                        SOURCE (11:6:2:4:0:0): plugins/debug-manager/images/anjuta-attach-16.png
+                        SOURCE (11:6:2:4:0:1): plugins/debug-manager/images/anjuta-attach-24.png
+                        SOURCE (11:6:2:4:0:2): plugins/debug-manager/images/anjuta-step-into-16.png
+                        SOURCE (11:6:2:4:0:3): plugins/debug-manager/images/anjuta-step-into-24.png
+                        SOURCE (11:6:2:4:0:4): plugins/debug-manager/images/anjuta-step-out-16.png
+                        SOURCE (11:6:2:4:0:5): plugins/debug-manager/images/anjuta-step-out-24.png
+                        SOURCE (11:6:2:4:0:6): plugins/debug-manager/images/anjuta-step-over-16.png
+                        SOURCE (11:6:2:4:0:7): plugins/debug-manager/images/anjuta-step-over-24.png
+                        SOURCE (11:6:2:4:0:8): plugins/debug-manager/images/anjuta-run-to-cursor-16.png
+                        SOURCE (11:6:2:4:0:9): plugins/debug-manager/images/anjuta-run-to-cursor-24.png
+                        SOURCE (11:6:2:4:0:10): plugins/debug-manager/images/anjuta-debug-manager-plugin.svg
+                        SOURCE (11:6:2:4:0:11): plugins/debug-manager/images/anjuta-debug-manager-plugin-48.png
+                        SOURCE (11:6:2:4:0:12): plugins/debug-manager/images/anjuta-breakpoint-disabled-16.png
+                        SOURCE (11:6:2:4:0:13): plugins/debug-manager/images/anjuta-breakpoint-enabled-16.png
+                        SOURCE (11:6:2:4:0:14): plugins/debug-manager/images/anjuta-breakpoint-toggle-16.png
+                        SOURCE (11:6:2:4:0:15): plugins/debug-manager/images/anjuta-breakpoint-toggle-24.png
+                        SOURCE (11:6:2:4:0:16): plugins/debug-manager/images/anjuta-breakpoint-clear-16.png
+                        SOURCE (11:6:2:4:0:17): plugins/debug-manager/images/anjuta-breakpoint-clear-24.png
+                        SOURCE (11:6:2:4:0:18): plugins/debug-manager/images/anjuta-linemark-16.png
+                        SOURCE (11:6:2:4:0:19): plugins/debug-manager/images/anjuta-pcmark-16.png
+                        SOURCE (11:6:2:4:0:20): plugins/debug-manager/images/anjuta-bookmark-16.png
+                        SOURCE (11:6:2:4:0:21): plugins/debug-manager/images/anjuta-watch-16.png
+                        SOURCE (11:6:2:4:0:22): plugins/debug-manager/images/anjuta-watch-24.png
+                        SOURCE (11:6:2:4:0:23): plugins/debug-manager/images/anjuta-watch.svg
+                TARGET (11:6:2:0): anjuta_glade
+                    SOURCE (11:6:2:0:0): plugins/debug-manager/anjuta-debug-manager.ui
+                TARGET (11:6:2:1): anjuta_ui
+                    SOURCE (11:6:2:1:0): plugins/debug-manager/anjuta-debug-manager.xml
+                TARGET (11:6:2:2): anjuta_plugin
+                    SOURCE (11:6:2:2:0): plugins/debug-manager/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:2:3): libanjuta-debug-manager.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS)
+                    SOURCE (11:6:2:3:0): plugins/debug-manager/$(BUILT_SOURCES)
+                    SOURCE (11:6:2:3:1): plugins/debug-manager/plugin.c
+                    SOURCE (11:6:2:3:2): plugins/debug-manager/plugin.h
+                    SOURCE (11:6:2:3:3): plugins/debug-manager/start.c
+                    SOURCE (11:6:2:3:4): plugins/debug-manager/start.h
+                    SOURCE (11:6:2:3:5): plugins/debug-manager/utilities.c
+                    SOURCE (11:6:2:3:6): plugins/debug-manager/utilities.h
+                    SOURCE (11:6:2:3:7): plugins/debug-manager/breakpoints.c
+                    SOURCE (11:6:2:3:8): plugins/debug-manager/breakpoints.h
+                    SOURCE (11:6:2:3:9): plugins/debug-manager/watch.c
+                    SOURCE (11:6:2:3:10): plugins/debug-manager/watch.h
+                    SOURCE (11:6:2:3:11): plugins/debug-manager/debug_tree.c
+                    SOURCE (11:6:2:3:12): plugins/debug-manager/debug_tree.h
+                    SOURCE (11:6:2:3:13): plugins/debug-manager/locals.c
+                    SOURCE (11:6:2:3:14): plugins/debug-manager/locals.h
+                    SOURCE (11:6:2:3:15): plugins/debug-manager/stack_trace.c
+                    SOURCE (11:6:2:3:16): plugins/debug-manager/stack_trace.h
+                    SOURCE (11:6:2:3:17): plugins/debug-manager/signals.c
+                    SOURCE (11:6:2:3:18): plugins/debug-manager/signals.h
+                    SOURCE (11:6:2:3:19): plugins/debug-manager/sharedlib.c
+                    SOURCE (11:6:2:3:20): plugins/debug-manager/sharedlib.h
+                    SOURCE (11:6:2:3:21): plugins/debug-manager/registers.c
+                    SOURCE (11:6:2:3:22): plugins/debug-manager/registers.h
+                    SOURCE (11:6:2:3:23): plugins/debug-manager/memory.c
+                    SOURCE (11:6:2:3:24): plugins/debug-manager/memory.h
+                    SOURCE (11:6:2:3:25): plugins/debug-manager/info.c
+                    SOURCE (11:6:2:3:26): plugins/debug-manager/info.h
+                    SOURCE (11:6:2:3:27): plugins/debug-manager/queue.c
+                    SOURCE (11:6:2:3:28): plugins/debug-manager/queue.h
+                    SOURCE (11:6:2:3:29): plugins/debug-manager/data_view.c
+                    SOURCE (11:6:2:3:30): plugins/debug-manager/data_view.h
+                    SOURCE (11:6:2:3:31): plugins/debug-manager/chunk_view.c
+                    SOURCE (11:6:2:3:32): plugins/debug-manager/chunk_view.h
+                    SOURCE (11:6:2:3:33): plugins/debug-manager/data_buffer.c
+                    SOURCE (11:6:2:3:34): plugins/debug-manager/data_buffer.h
+                    SOURCE (11:6:2:3:35): plugins/debug-manager/disassemble.c
+                    SOURCE (11:6:2:3:36): plugins/debug-manager/disassemble.h
+                    SOURCE (11:6:2:3:37): plugins/debug-manager/sparse_buffer.c
+                    SOURCE (11:6:2:3:38): plugins/debug-manager/sparse_buffer.h
+                    SOURCE (11:6:2:3:39): plugins/debug-manager/sparse_view.c
+                    SOURCE (11:6:2:3:40): plugins/debug-manager/sparse_view.h
+                    SOURCE (11:6:2:3:41): plugins/debug-manager/threads.c
+                    SOURCE (11:6:2:3:42): plugins/debug-manager/threads.h
+                    SOURCE (11:6:2:3:43): plugins/debug-manager/command.c
+                    SOURCE (11:6:2:3:44): plugins/debug-manager/command.h
+                    SOURCE (11:6:2:3:45): plugins/debug-manager/variable.c
+                    SOURCE (11:6:2:3:46): plugins/debug-manager/variable.h
+            GROUP (11:6:3): file-manager
+                PROPERTY (Install directories): file_manager_gladedir = $(anjuta_glade_dir) file_manager_uidir = $(anjuta_ui_dir) file_manager_pixmapsdir = $(anjuta_image_dir) file_manager_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(LIBANJUTA_CFLAGS) $(GDL_CFLAGS) $(GIO_CFLAGS)
+                TARGET (11:6:3:0): file_manager_glade
+                    SOURCE (11:6:3:0:0): plugins/file-manager/file-manager.ui
+                TARGET (11:6:3:1): file_manager_ui
+                    SOURCE (11:6:3:1:0): plugins/file-manager/file-manager.xml
+                TARGET (11:6:3:2): file_manager_pixmaps
+                    SOURCE (11:6:3:2:0): plugins/file-manager/anjuta-file-manager-plugin.svg
+                    SOURCE (11:6:3:2:1): plugins/file-manager/anjuta-file-manager-plugin-48.png
+                    SOURCE (11:6:3:2:2): plugins/file-manager/anjuta-file-manager-plugin-16.png
+                    SOURCE (11:6:3:2:3): plugins/file-manager/vcs-added.png
+                    SOURCE (11:6:3:2:4): plugins/file-manager/vcs-conflict.png
+                    SOURCE (11:6:3:2:5): plugins/file-manager/vcs-deleted.png
+                    SOURCE (11:6:3:2:6): plugins/file-manager/vcs-ignored.png
+                    SOURCE (11:6:3:2:7): plugins/file-manager/vcs-modified.png
+                    SOURCE (11:6:3:2:8): plugins/file-manager/vcs-unversioned.png
+                    SOURCE (11:6:3:2:9): plugins/file-manager/vcs-updated.png
+                TARGET (11:6:3:3): file_manager_plugin
+                    SOURCE (11:6:3:3:0): plugins/file-manager/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:3:4): libfile-manager.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(LIBANJUTA_LIBS) $(GDL_LIBS) $(GIO_LIBS)
+                    SOURCE (11:6:3:4:0): plugins/file-manager/plugin.c
+                    SOURCE (11:6:3:4:1): plugins/file-manager/plugin.h
+                    SOURCE (11:6:3:4:2): plugins/file-manager/file-view-marshal.h
+                    SOURCE (11:6:3:4:3): plugins/file-manager/file-view-marshal.c
+                    SOURCE (11:6:3:4:4): plugins/file-manager/file-view.h
+                    SOURCE (11:6:3:4:5): plugins/file-manager/file-view.c
+                    SOURCE (11:6:3:4:6): plugins/file-manager/file-model.c
+                    SOURCE (11:6:3:4:7): plugins/file-manager/file-model.h
+            GROUP (11:6:4): terminal
+                PROPERTY (Install directories): terminal_gladedir = $(anjuta_glade_dir) terminal_uidir = $(anjuta_ui_dir) terminal_pixmapsdir = $(anjuta_image_dir) terminal_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(VTE_CFLAGS) $(LIBANJUTA_CFLAGS)
+                TARGET (11:6:4:0): terminal_glade
+                    SOURCE (11:6:4:0:0): plugins/terminal/anjuta-terminal-plugin.ui
+                TARGET (11:6:4:1): terminal_ui
+                    SOURCE (11:6:4:1:0): plugins/terminal/anjuta-terminal-plugin.xml
+                TARGET (11:6:4:2): terminal_pixmaps
+                    SOURCE (11:6:4:2:0): plugins/terminal/anjuta-terminal-plugin.svg
+                    SOURCE (11:6:4:2:1): plugins/terminal/anjuta-terminal-plugin-48.png
+                TARGET (11:6:4:3): terminal_plugin
+                    SOURCE (11:6:4:3:0): plugins/terminal/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:4:4): libanjuta-terminal.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GCONF_LIBS) $(VTE_LIBS) $(LIBANJUTA_LIBS)
+                    SOURCE (11:6:4:4:0): plugins/terminal/terminal.c
+            GROUP (11:6:5): build-basic-autotools
+                PROPERTY (Install directories): build_gladedir = $(anjuta_glade_dir) build_uidir = $(anjuta_ui_dir) build_pixmapsdir = $(anjuta_image_dir) build_plugindir = $(anjuta_plugin_dir) build_datadir = $(anjuta_data_dir)/build plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS)
+                TARGET (11:6:5:0): build_glade
+                    SOURCE (11:6:5:0:0): plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui
+                TARGET (11:6:5:1): build_ui
+                    SOURCE (11:6:5:1:0): plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.xml
+                TARGET (11:6:5:2): build_pixmaps
+                    SOURCE (11:6:5:2:0): plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin-48.png
+                    SOURCE (11:6:5:2:1): plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.svg
+                    SOURCE (11:6:5:2:2): plugins/build-basic-autotools/anjuta-build-16.png
+                    SOURCE (11:6:5:2:3): plugins/build-basic-autotools/anjuta-build-24.png
+                TARGET (11:6:5:3): build_plugin
+                    SOURCE (11:6:5:3:0): plugins/build-basic-autotools/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:5:4): build_data
+                    SOURCE (11:6:5:4:0): plugins/build-basic-autotools/automake-c.filters
+                TARGET (11:6:5:5): libanjuta-build-basic-autotools.la
+                    PROPERTY (Additional libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS)
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    SOURCE (11:6:5:5:0): plugins/build-basic-autotools/plugin.c
+                    SOURCE (11:6:5:5:1): plugins/build-basic-autotools/plugin.h
+                    SOURCE (11:6:5:5:2): plugins/build-basic-autotools/executer.c
+                    SOURCE (11:6:5:5:3): plugins/build-basic-autotools/executer.h
+                    SOURCE (11:6:5:5:4): plugins/build-basic-autotools/build-options.c
+                    SOURCE (11:6:5:5:5): plugins/build-basic-autotools/build-options.h
+                    SOURCE (11:6:5:5:6): plugins/build-basic-autotools/configuration-list.c
+                    SOURCE (11:6:5:5:7): plugins/build-basic-autotools/configuration-list.h
+                    SOURCE (11:6:5:5:8): plugins/build-basic-autotools/program.c
+                    SOURCE (11:6:5:5:9): plugins/build-basic-autotools/program.h
+            GROUP (11:6:6): file-loader
+                PROPERTY (Install directories): loader_uidir = $(anjuta_ui_dir) loader_pixmapsdir = $(anjuta_image_dir) loader_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS) -DG_LOG_DOMAIN=\"libanjuta-loader\"
+                TARGET (11:6:6:0): loader_ui
+                    SOURCE (11:6:6:0:0): plugins/file-loader/anjuta-loader-plugin.ui
+                TARGET (11:6:6:1): loader_pixmaps
+                    SOURCE (11:6:6:1:0): plugins/file-loader/anjuta-loader-plugin.svg
+                    SOURCE (11:6:6:1:1): plugins/file-loader/anjuta-loader-plugin-48.png
+                TARGET (11:6:6:2): loader_plugin
+                    SOURCE (11:6:6:2:0): plugins/file-loader/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:6:3): libanjuta-loader.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GTK_LIBS) $(GIO_LIBS) $(LIBANJUTA_LIBS)
+                    SOURCE (11:6:6:3:0): plugins/file-loader/plugin.c
+                    SOURCE (11:6:6:3:1): plugins/file-loader/plugin.h
+                    SOURCE (11:6:6:3:2): plugins/file-loader/dnd.c
+                    SOURCE (11:6:6:3:3): plugins/file-loader/dnd.h
+                    SOURCE (11:6:6:3:4): plugins/file-loader/anjuta-recent-chooser-menu.c
+                    SOURCE (11:6:6:3:5): plugins/file-loader/anjuta-recent-chooser-menu.h
+            GROUP (11:6:7): file-wizard
+                PROPERTY (Install directories): wizard_gladedir = $(anjuta_glade_dir) wizard_pixmapsdir = $(anjuta_image_dir) wizard_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS)
+                TARGET (11:6:7:0): wizard_glade
+                    SOURCE (11:6:7:0:0): plugins/file-wizard/anjuta-file-wizard.ui
+                TARGET (11:6:7:1): wizard_pixmaps
+                    SOURCE (11:6:7:1:0): plugins/file-wizard/anjuta-file-wizard-plugin.svg
+                    SOURCE (11:6:7:1:1): plugins/file-wizard/anjuta-file-wizard-plugin-48.png
+                TARGET (11:6:7:2): wizard_plugin
+                    SOURCE (11:6:7:2:0): plugins/file-wizard/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:7:3): libanjuta-file-wizard.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS)
+                    SOURCE (11:6:7:3:0): plugins/file-wizard/file.c
+                    SOURCE (11:6:7:3:1): plugins/file-wizard/file.h
+                    SOURCE (11:6:7:3:2): plugins/file-wizard/plugin.c
+                    SOURCE (11:6:7:3:3): plugins/file-wizard/plugin.h
+            GROUP (11:6:8): project-wizard
+                PROPERTY (Install directories): wizard_gladedir = $(anjuta_glade_dir) wizard_uidir = $(anjuta_ui_dir) wizard_pixmapsdir = $(anjuta_image_dir) wizard_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS) -DANJUTA_BINDIR=\"$(bindir)\" -DANJUTA_LIBDIR=\"$(libdir)\" -DG_LOG_DOMAIN=\"libanjuta-project-wizard\"
+                GROUP (11:6:8:0): templates
+                    PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project
+                    GROUP (11:6:8:0:0): minimal
+                        PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/minimal
+                        TARGET (11:6:8:0:0:0): wizard_files
+                            SOURCE (11:6:8:0:0:0:0): plugins/project-wizard/templates/minimal/autogen.sh
+                            SOURCE (11:6:8:0:0:0:1): plugins/project-wizard/templates/minimal/configure.ac.tpl
+                            SOURCE (11:6:8:0:0:0:2): plugins/project-wizard/templates/minimal/Makefile.am.tpl
+                            SOURCE (11:6:8:0:0:0:3): plugins/project-wizard/templates/minimal/project.anjuta
+                            SOURCE (11:6:8:0:0:0:4): plugins/project-wizard/templates/minimal/anjuta.session
+                    GROUP (11:6:8:0:1): terminal
+                        PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/terminal
+                        GROUP (11:6:8:0:1:0): src
+                            PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/terminal/src
+                            TARGET (11:6:8:0:1:0:0): wizard_files
+                                SOURCE (11:6:8:0:1:0:0:0): plugins/project-wizard/templates/terminal/src/main.c
+                                SOURCE (11:6:8:0:1:0:0:1): plugins/project-wizard/templates/terminal/src/Makefile.am.tpl
+                        GROUP (11:6:8:0:1:1): po
+                            PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/terminal/po
+                            TARGET (11:6:8:0:1:1:0): wizard_files
+                                SOURCE (11:6:8:0:1:1:0:0): plugins/project-wizard/templates/terminal/po/ChangeLog
+                                SOURCE (11:6:8:0:1:1:0:1): plugins/project-wizard/templates/terminal/po/POTFILES.in
+                                SOURCE (11:6:8:0:1:1:0:2): plugins/project-wizard/templates/terminal/po/LINGUAS
+                        TARGET (11:6:8:0:1:2): wizard_files
+                            SOURCE (11:6:8:0:1:2:0): plugins/project-wizard/templates/terminal/AUTHORS
+                            SOURCE (11:6:8:0:1:2:1): plugins/project-wizard/templates/terminal/ChangeLog
+                            SOURCE (11:6:8:0:1:2:2): plugins/project-wizard/templates/terminal/autogen.sh
+                            SOURCE (11:6:8:0:1:2:3): plugins/project-wizard/templates/terminal/configure.ac.tpl
+                            SOURCE (11:6:8:0:1:2:4): plugins/project-wizard/templates/terminal/Makefile.am.tpl
+                            SOURCE (11:6:8:0:1:2:5): plugins/project-wizard/templates/terminal/NEWS
+                            SOURCE (11:6:8:0:1:2:6): plugins/project-wizard/templates/terminal/project.anjuta
+                            SOURCE (11:6:8:0:1:2:7): plugins/project-wizard/templates/terminal/README
+                    GROUP (11:6:8:0:2): cpp
+                        PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/cpp
+                        GROUP (11:6:8:0:2:0): src
+                            PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/cpp/src
+                            TARGET (11:6:8:0:2:0:0): wizard_files
+                                SOURCE (11:6:8:0:2:0:0:0): plugins/project-wizard/templates/cpp/src/main.cc
+                                SOURCE (11:6:8:0:2:0:0:1): plugins/project-wizard/templates/cpp/src/Makefile.am.tpl
+                        GROUP (11:6:8:0:2:1): po
+                            PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/cpp/po
+                            TARGET (11:6:8:0:2:1:0): wizard_files
+                                SOURCE (11:6:8:0:2:1:0:0): plugins/project-wizard/templates/cpp/po/POTFILES.in
+                        TARGET (11:6:8:0:2:2): wizard_files
+                            SOURCE (11:6:8:0:2:2:0): plugins/project-wizard/templates/cpp/configure.ac.tpl
+                    GROUP (11:6:8:0:3): gtk
+                        GROUP (11:6:8:0:3:0): src
+                            PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/gtk/src
+                            TARGET (11:6:8:0:3:0:0): wizard_files
+                                SOURCE (11:6:8:0:3:0:0:0): plugins/project-wizard/templates/gtk/src/main.c
+                                SOURCE (11:6:8:0:3:0:0:1): plugins/project-wizard/templates/gtk/src/callbacks.c
+                                SOURCE (11:6:8:0:3:0:0:2): plugins/project-wizard/templates/gtk/src/callbacks.h
+                                SOURCE (11:6:8:0:3:0:0:3): plugins/project-wizard/templates/gtk/src/Makefile.am.tpl
+                                SOURCE (11:6:8:0:3:0:0:4): plugins/project-wizard/templates/gtk/src/project.ui
+                        GROUP (11:6:8:0:3:1): po
+                            PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/gtk/po
+                            TARGET (11:6:8:0:3:1:0): wizard_files
+                                SOURCE (11:6:8:0:3:1:0:0): plugins/project-wizard/templates/gtk/po/POTFILES.in
+                    GROUP (11:6:8:0:4): anjuta-plugin
+                        PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/anjuta-plugin
+                        GROUP (11:6:8:0:4:0): src
+                            PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/anjuta-plugin/src
+                            TARGET (11:6:8:0:4:0:0): wizard_files
+                                SOURCE (11:6:8:0:4:0:0:0): plugins/project-wizard/templates/anjuta-plugin/src/Makefile.am.tpl
+                                SOURCE (11:6:8:0:4:0:0:1): plugins/project-wizard/templates/anjuta-plugin/src/plugin.c
+                                SOURCE (11:6:8:0:4:0:0:2): plugins/project-wizard/templates/anjuta-plugin/src/plugin.ui
+                                SOURCE (11:6:8:0:4:0:0:3): plugins/project-wizard/templates/anjuta-plugin/src/plugin.h
+                                SOURCE (11:6:8:0:4:0:0:4): plugins/project-wizard/templates/anjuta-plugin/src/plugin.plugin.in
+                                SOURCE (11:6:8:0:4:0:0:5): plugins/project-wizard/templates/anjuta-plugin/src/plugin.xml
+                        GROUP (11:6:8:0:4:1): po
+                            PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/anjuta-plugin/po
+                            TARGET (11:6:8:0:4:1:0): wizard_files
+                                SOURCE (11:6:8:0:4:1:0:0): plugins/project-wizard/templates/anjuta-plugin/po/POTFILES.in
+                        TARGET (11:6:8:0:4:2): wizard_files
+                            SOURCE (11:6:8:0:4:2:0): plugins/project-wizard/templates/anjuta-plugin/configure.ac.tpl
+                    GROUP (11:6:8:0:5): gtkmm
+                        PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/gtkmm
+                        GROUP (11:6:8:0:5:0): src
+                            PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/gtkmm/src
+                            TARGET (11:6:8:0:5:0:0): wizard_files
+                                SOURCE (11:6:8:0:5:0:0:0): plugins/project-wizard/templates/gtkmm/src/main.cc
+                                SOURCE (11:6:8:0:5:0:0:1): plugins/project-wizard/templates/gtkmm/src/Makefile.am.tpl
+                                SOURCE (11:6:8:0:5:0:0:2): plugins/project-wizard/templates/gtkmm/src/project.ui
+                        GROUP (11:6:8:0:5:1): po
+                            PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/gtkmm/po
+                            TARGET (11:6:8:0:5:1:0): wizard_files
+                                SOURCE (11:6:8:0:5:1:0:0): plugins/project-wizard/templates/gtkmm/po/POTFILES.in
+                        TARGET (11:6:8:0:5:2): wizard_files
+                    GROUP (11:6:8:0:6): wxwin
+                        PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/wxwin
+                        GROUP (11:6:8:0:6:0): src
+                            PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/wxwin/src
+                            TARGET (11:6:8:0:6:0:0): wizard_files
+                                SOURCE (11:6:8:0:6:0:0:0): plugins/project-wizard/templates/wxwin/src/main.cc
+                                SOURCE (11:6:8:0:6:0:0:1): plugins/project-wizard/templates/wxwin/src/Makefile.am.tpl
+                        GROUP (11:6:8:0:6:1): po
+                            PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/wxwin/po
+                            TARGET (11:6:8:0:6:1:0): wizard_files
+                                SOURCE (11:6:8:0:6:1:0:0): plugins/project-wizard/templates/wxwin/po/POTFILES.in
+                        TARGET (11:6:8:0:6:2): wizard_files
+                            SOURCE (11:6:8:0:6:2:0): plugins/project-wizard/templates/wxwin/configure.ac.tpl
+                    GROUP (11:6:8:0:7): xlib
+                        PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/xlib
+                        GROUP (11:6:8:0:7:0): src
+                            PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/xlib/src
+                            TARGET (11:6:8:0:7:0:0): wizard_files
+                                SOURCE (11:6:8:0:7:0:0:0): plugins/project-wizard/templates/xlib/src/main.c
+                                SOURCE (11:6:8:0:7:0:0:1): plugins/project-wizard/templates/xlib/src/Makefile.am.tpl
+                        GROUP (11:6:8:0:7:1): po
+                            PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/xlib/po
+                            TARGET (11:6:8:0:7:1:0): wizard_files
+                                SOURCE (11:6:8:0:7:1:0:0): plugins/project-wizard/templates/xlib/po/POTFILES.in
+                        TARGET (11:6:8:0:7:2): wizard_files
+                            SOURCE (11:6:8:0:7:2:0): plugins/project-wizard/templates/xlib/configure.ac.tpl
+                    GROUP (11:6:8:0:8): xlib-dock
+                        GROUP (11:6:8:0:8:0): src
+                            PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/xlib-dock/src
+                            TARGET (11:6:8:0:8:0:0): wizard_files
+                                SOURCE (11:6:8:0:8:0:0:0): plugins/project-wizard/templates/xlib-dock/src/main.c
+                                SOURCE (11:6:8:0:8:0:0:1): plugins/project-wizard/templates/xlib-dock/src/wmgeneral.c
+                                SOURCE (11:6:8:0:8:0:0:2): plugins/project-wizard/templates/xlib-dock/src/wmgeneral.h
+                                SOURCE (11:6:8:0:8:0:0:3): plugins/project-wizard/templates/xlib-dock/src/pixmaps.h
+                                SOURCE (11:6:8:0:8:0:0:4): plugins/project-wizard/templates/xlib-dock/src/Makefile.am.tpl
+                        GROUP (11:6:8:0:8:1): po
+                            PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/xlib-dock/po
+                            TARGET (11:6:8:0:8:1:0): wizard_files
+                                SOURCE (11:6:8:0:8:1:0:0): plugins/project-wizard/templates/xlib-dock/po/POTFILES.in
+                    GROUP (11:6:8:0:9): gcj
+                        PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/gcj
+                        GROUP (11:6:8:0:9:0): src
+                            PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/gcj/src
+                            TARGET (11:6:8:0:9:0:0): wizard_files
+                                SOURCE (11:6:8:0:9:0:0:0): plugins/project-wizard/templates/gcj/src/Makefile.am.tpl
+                        TARGET (11:6:8:0:9:1): wizard_files
+                            SOURCE (11:6:8:0:9:1:0): plugins/project-wizard/templates/gcj/configure.ac.tpl
+                    GROUP (11:6:8:0:10): java
+                        PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/java
+                        GROUP (11:6:8:0:10:0): src
+                            PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/java/src
+                            TARGET (11:6:8:0:10:0:0): wizard_files
+                                SOURCE (11:6:8:0:10:0:0:0): plugins/project-wizard/templates/java/src/main.java
+                                SOURCE (11:6:8:0:10:0:0:1): plugins/project-wizard/templates/java/src/Makefile.am.tpl
+                        GROUP (11:6:8:0:10:1): po
+                            PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/java/po
+                            TARGET (11:6:8:0:10:1:0): wizard_files
+                                SOURCE (11:6:8:0:10:1:0:0): plugins/project-wizard/templates/java/po/POTFILES.in
+                        TARGET (11:6:8:0:10:2): wizard_files
+                            SOURCE (11:6:8:0:10:2:0): plugins/project-wizard/templates/java/configure.ac.tpl
+                            SOURCE (11:6:8:0:10:2:1): plugins/project-wizard/templates/java/project.anjuta
+                    GROUP (11:6:8:0:11): pygtk
+                        PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/pygtk
+                        GROUP (11:6:8:0:11:0): src
+                            PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/pygtk/src
+                            TARGET (11:6:8:0:11:0:0): wizard_files
+                                SOURCE (11:6:8:0:11:0:0:0): plugins/project-wizard/templates/pygtk/src/main.py
+                                SOURCE (11:6:8:0:11:0:0:1): plugins/project-wizard/templates/pygtk/src/Makefile.am.tpl
+                        GROUP (11:6:8:0:11:1): po
+                            PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/python/po
+                            TARGET (11:6:8:0:11:1:0): wizard_files
+                                SOURCE (11:6:8:0:11:1:0:0): plugins/project-wizard/templates/pygtk/po/POTFILES.in
+                        GROUP (11:6:8:0:11:2): data
+                            PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/pygtk/data
+                            TARGET (11:6:8:0:11:2:0): wizard_files
+                                SOURCE (11:6:8:0:11:2:0:0): plugins/project-wizard/templates/pygtk/data/project.ui
+                        TARGET (11:6:8:0:11:3): wizard_files
+                            SOURCE (11:6:8:0:11:3:0): plugins/project-wizard/templates/pygtk/configure.ac.tpl
+                            SOURCE (11:6:8:0:11:3:1): plugins/project-wizard/templates/pygtk/project.anjuta
+                    GROUP (11:6:8:0:12): python
+                        PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/python
+                        GROUP (11:6:8:0:12:0): src
+                            PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/python/src
+                            TARGET (11:6:8:0:12:0:0): wizard_files
+                                SOURCE (11:6:8:0:12:0:0:0): plugins/project-wizard/templates/python/src/main.py
+                                SOURCE (11:6:8:0:12:0:0:1): plugins/project-wizard/templates/python/src/Makefile.am.tpl
+                        GROUP (11:6:8:0:12:1): po
+                            PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/python/po
+                            TARGET (11:6:8:0:12:1:0): wizard_files
+                                SOURCE (11:6:8:0:12:1:0:0): plugins/project-wizard/templates/python/po/POTFILES.in
+                        TARGET (11:6:8:0:12:2): wizard_files
+                            SOURCE (11:6:8:0:12:2:0): plugins/project-wizard/templates/python/configure.ac.tpl
+                            SOURCE (11:6:8:0:12:2:1): plugins/project-wizard/templates/python/project.anjuta
+                    GROUP (11:6:8:0:13): mkfile
+                        PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/mkfile
+                        GROUP (11:6:8:0:13:0): src
+                            PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/mkfile/src
+                            TARGET (11:6:8:0:13:0:0): wizard_files
+                                SOURCE (11:6:8:0:13:0:0:0): plugins/project-wizard/templates/mkfile/src/Makefile.tpl
+                                SOURCE (11:6:8:0:13:0:0:1): plugins/project-wizard/templates/mkfile/src/main.c
+                        GROUP (11:6:8:0:13:1): po
+                            PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/mkfile/po
+                            TARGET (11:6:8:0:13:1:0): wizard_files
+                                SOURCE (11:6:8:0:13:1:0:0): plugins/project-wizard/templates/mkfile/po/ChangeLog
+                                SOURCE (11:6:8:0:13:1:0:1): plugins/project-wizard/templates/mkfile/po/POTFILES.in
+                        TARGET (11:6:8:0:13:2): wizard_files
+                            SOURCE (11:6:8:0:13:2:0): plugins/project-wizard/templates/mkfile/project.anjuta
+                    GROUP (11:6:8:0:14): sdl
+                        PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/sdl
+                        GROUP (11:6:8:0:14:0): src
+                            PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/sdl/src
+                            TARGET (11:6:8:0:14:0:0): wizard_files
+                                SOURCE (11:6:8:0:14:0:0:0): plugins/project-wizard/templates/sdl/src/main.c
+                                SOURCE (11:6:8:0:14:0:0:1): plugins/project-wizard/templates/sdl/src/Makefile.am.tpl
+                        GROUP (11:6:8:0:14:1): po
+                            PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/sdl/po
+                            TARGET (11:6:8:0:14:1:0): wizard_files
+                                SOURCE (11:6:8:0:14:1:0:0): plugins/project-wizard/templates/sdl/po/POTFILES.in
+                        TARGET (11:6:8:0:14:2): wizard_files
+                            SOURCE (11:6:8:0:14:2:0): plugins/project-wizard/templates/sdl/configure.ac.tpl
+                            SOURCE (11:6:8:0:14:2:1): plugins/project-wizard/templates/sdl/acinclude.m4.tpl
+                    GROUP (11:6:8:0:15): library
+                        PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/library
+                        GROUP (11:6:8:0:15:0): src
+                            PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/library/src
+                            TARGET (11:6:8:0:15:0:0): wizard_files
+                                SOURCE (11:6:8:0:15:0:0:0): plugins/project-wizard/templates/library/src/lib.c
+                                SOURCE (11:6:8:0:15:0:0:1): plugins/project-wizard/templates/library/src/lib.h
+                                SOURCE (11:6:8:0:15:0:0:2): plugins/project-wizard/templates/library/src/Makefile.am.tpl
+                                SOURCE (11:6:8:0:15:0:0:3): plugins/project-wizard/templates/library/src/library.pc.in
+                        GROUP (11:6:8:0:15:1): po
+                            PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/library/po
+                            TARGET (11:6:8:0:15:1:0): wizard_files
+                                SOURCE (11:6:8:0:15:1:0:0): plugins/project-wizard/templates/library/po/POTFILES.in
+                        TARGET (11:6:8:0:15:2): wizard_files
+                            SOURCE (11:6:8:0:15:2:0): plugins/project-wizard/templates/library/configure.ac.tpl
+                    GROUP (11:6:8:0:16): directory
+                        PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/directory
+                        TARGET (11:6:8:0:16:0): wizard_files
+                            SOURCE (11:6:8:0:16:0:0): plugins/project-wizard/templates/directory/project.anjuta
+                    GROUP (11:6:8:0:17): licenses
+                        PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/licenses
+                        TARGET (11:6:8:0:17:0): wizard_files
+                            SOURCE (11:6:8:0:17:0:0): plugins/project-wizard/templates/licenses/BSD
+                            SOURCE (11:6:8:0:17:0:1): plugins/project-wizard/templates/licenses/GPL
+                            SOURCE (11:6:8:0:17:0:2): plugins/project-wizard/templates/licenses/LGPL
+                            SOURCE (11:6:8:0:17:0:3): plugins/project-wizard/templates/licenses/None
+                    GROUP (11:6:8:0:18): m4
+                        PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/m4
+                        TARGET (11:6:8:0:18:0): wizard_files
+                            SOURCE (11:6:8:0:18:0:0): plugins/project-wizard/templates/m4/as-ac-expand.m4
+                            SOURCE (11:6:8:0:18:0:1): plugins/project-wizard/templates/m4/ac-define-dir.m4
+                    GROUP (11:6:8:0:19): js_minimal
+                        PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/js_minimal
+                        GROUP (11:6:8:0:19:0): src
+                            PROPERTY (Install directories): wizard_filesdir = $(anjuta_data_dir)/project/js_minimal/src
+                            TARGET (11:6:8:0:19:0:0): wizard_files
+                                SOURCE (11:6:8:0:19:0:0:0): plugins/project-wizard/templates/js_minimal/src/main.c
+                                SOURCE (11:6:8:0:19:0:0:1): plugins/project-wizard/templates/js_minimal/src/main.js
+                                SOURCE (11:6:8:0:19:0:0:2): plugins/project-wizard/templates/js_minimal/src/Makefile.am.tpl
+                                SOURCE (11:6:8:0:19:0:0:3): plugins/project-wizard/templates/js_minimal/src/debug.c
+                                SOURCE (11:6:8:0:19:0:0:4): plugins/project-wizard/templates/js_minimal/src/debug.h
+                        TARGET (11:6:8:0:19:1): wizard_files
+                            SOURCE (11:6:8:0:19:1:0): plugins/project-wizard/templates/js_minimal/autogen.sh
+                            SOURCE (11:6:8:0:19:1:1): plugins/project-wizard/templates/js_minimal/configure.ac.tpl
+                            SOURCE (11:6:8:0:19:1:2): plugins/project-wizard/templates/js_minimal/Makefile.am.tpl
+                            SOURCE (11:6:8:0:19:1:3): plugins/project-wizard/templates/js_minimal/project.anjuta
+                    TARGET (11:6:8:0:20): wizard_files
+                        SOURCE (11:6:8:0:20:0): plugins/project-wizard/templates/terminal-logo.png
+                        SOURCE (11:6:8:0:20:1): plugins/project-wizard/templates/cpp-logo.png
+                        SOURCE (11:6:8:0:20:2): plugins/project-wizard/templates/django-logo.png
+                        SOURCE (11:6:8:0:20:3): plugins/project-wizard/templates/gtk-logo.png
+                        SOURCE (11:6:8:0:20:4): plugins/project-wizard/templates/anjuta-plugin-logo.png
+                        SOURCE (11:6:8:0:20:5): plugins/project-wizard/templates/gnome-logo.png
+                        SOURCE (11:6:8:0:20:6): plugins/project-wizard/templates/gtkmm-logo.png
+                        SOURCE (11:6:8:0:20:7): plugins/project-wizard/templates/wxwin-logo.png
+                        SOURCE (11:6:8:0:20:8): plugins/project-wizard/templates/xlib-logo.png
+                        SOURCE (11:6:8:0:20:9): plugins/project-wizard/templates/gcj-logo.png
+                        SOURCE (11:6:8:0:20:10): plugins/project-wizard/templates/java-logo.png
+                        SOURCE (11:6:8:0:20:11): plugins/project-wizard/templates/python-logo.png
+                        SOURCE (11:6:8:0:20:12): plugins/project-wizard/templates/pygtk-logo.png
+                        SOURCE (11:6:8:0:20:13): plugins/project-wizard/templates/mkfile-logo.png
+                        SOURCE (11:6:8:0:20:14): plugins/project-wizard/templates/appwiz_sdl.png
+                        SOURCE (11:6:8:0:20:15): plugins/project-wizard/templates/$(template_in_files:.wiz.in=.wiz)
+                TARGET (11:6:8:1): wizard_glade
+                    SOURCE (11:6:8:1:0): plugins/project-wizard/anjuta-project-wizard.ui
+                    SOURCE (11:6:8:1:1): plugins/project-wizard/applogo.png
+                    SOURCE (11:6:8:1:2): plugins/project-wizard/appwizard.png
+                TARGET (11:6:8:2): wizard_ui
+                TARGET (11:6:8:3): wizard_pixmaps
+                    SOURCE (11:6:8:3:0): plugins/project-wizard/anjuta-project-wizard-plugin.svg
+                    SOURCE (11:6:8:3:1): plugins/project-wizard/anjuta-project-wizard-plugin-48.png
+                TARGET (11:6:8:4): wizard_plugin
+                    SOURCE (11:6:8:4:0): plugins/project-wizard/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:8:5): libanjuta-project-wizard.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(LIBANJUTA_LIBS)
+                    SOURCE (11:6:8:5:0): plugins/project-wizard/plugin.c
+                    SOURCE (11:6:8:5:1): plugins/project-wizard/plugin.h
+                    SOURCE (11:6:8:5:2): plugins/project-wizard/druid.c
+                    SOURCE (11:6:8:5:3): plugins/project-wizard/druid.h
+                    SOURCE (11:6:8:5:4): plugins/project-wizard/header.c
+                    SOURCE (11:6:8:5:5): plugins/project-wizard/header.h
+                    SOURCE (11:6:8:5:6): plugins/project-wizard/property.c
+                    SOURCE (11:6:8:5:7): plugins/project-wizard/property.h
+                    SOURCE (11:6:8:5:8): plugins/project-wizard/values.c
+                    SOURCE (11:6:8:5:9): plugins/project-wizard/values.h
+                    SOURCE (11:6:8:5:10): plugins/project-wizard/file.c
+                    SOURCE (11:6:8:5:11): plugins/project-wizard/file.h
+                    SOURCE (11:6:8:5:12): plugins/project-wizard/action.c
+                    SOURCE (11:6:8:5:13): plugins/project-wizard/action.h
+                    SOURCE (11:6:8:5:14): plugins/project-wizard/parser.c
+                    SOURCE (11:6:8:5:15): plugins/project-wizard/parser.h
+                    SOURCE (11:6:8:5:16): plugins/project-wizard/install.c
+                    SOURCE (11:6:8:5:17): plugins/project-wizard/install.h
+                    SOURCE (11:6:8:5:18): plugins/project-wizard/autogen.c
+                    SOURCE (11:6:8:5:19): plugins/project-wizard/autogen.h
+                    SOURCE (11:6:8:5:20): plugins/project-wizard/tar.c
+                    SOURCE (11:6:8:5:21): plugins/project-wizard/tar.h
+            GROUP (11:6:9): project-manager
+                PROPERTY (Install directories): project_uidir = $(anjuta_ui_dir) project_gladedir = $(anjuta_glade_dir) project_pixmapsdir = $(anjuta_image_dir) project_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS) -DG_LOG_DOMAIN=\"libanjuta-project-manager\"
+                TARGET (11:6:9:0): project_ui
+                    SOURCE (11:6:9:0:0): plugins/project-manager/anjuta-project-manager.xml
+                TARGET (11:6:9:1): project_glade
+                    SOURCE (11:6:9:1:0): plugins/project-manager/pm_dialogs.ui
+                TARGET (11:6:9:2): project_pixmaps
+                    SOURCE (11:6:9:2:0): plugins/project-manager/anjuta-project-manager-plugin.svg
+                    SOURCE (11:6:9:2:1): plugins/project-manager/anjuta-project-manager-plugin-48.png
+                    SOURCE (11:6:9:2:2): plugins/project-manager/anjuta-project-manager-plugin-16.png
+                    SOURCE (11:6:9:2:3): plugins/project-manager/gbf-build.png
+                    SOURCE (11:6:9:2:4): plugins/project-manager/gbf-install.png
+                TARGET (11:6:9:3): project_plugin
+                    SOURCE (11:6:9:3:0): plugins/project-manager/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:9:4): libanjuta-project-manager.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(LIBANJUTA_LIBS)
+                    SOURCE (11:6:9:4:0): plugins/project-manager/plugin.c
+                    SOURCE (11:6:9:4:1): plugins/project-manager/plugin.h
+                    SOURCE (11:6:9:4:2): plugins/project-manager/tree-data.h
+                    SOURCE (11:6:9:4:3): plugins/project-manager/tree-data.c
+                    SOURCE (11:6:9:4:4): plugins/project-manager/project-model.h
+                    SOURCE (11:6:9:4:5): plugins/project-manager/project-model.c
+                    SOURCE (11:6:9:4:6): plugins/project-manager/project-view.h
+                    SOURCE (11:6:9:4:7): plugins/project-manager/project-view.c
+                    SOURCE (11:6:9:4:8): plugins/project-manager/project-util.h
+                    SOURCE (11:6:9:4:9): plugins/project-manager/project-util.c
+                    SOURCE (11:6:9:4:10): plugins/project-manager/pkg-config.c
+                    SOURCE (11:6:9:4:11): plugins/project-manager/pkg-config.h
+                    SOURCE (11:6:9:4:12): plugins/project-manager/project.h
+                    SOURCE (11:6:9:4:13): plugins/project-manager/project.c
+                    SOURCE (11:6:9:4:14): plugins/project-manager/dialogs.c
+                    SOURCE (11:6:9:4:15): plugins/project-manager/dialogs.h
+                    SOURCE (11:6:9:4:16): plugins/project-manager/$(BUILT_SOURCES)
+            GROUP (11:6:10): cvs-plugin
+                PROPERTY (Install directories): cvs_plugin_gladedir = $(anjuta_glade_dir) cvs_plugin_pixmapsdir = $(anjuta_image_dir) cvs_plugin_uidir = $(anjuta_ui_dir) cvs_plugin_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS)
+                TARGET (11:6:10:0): cvs_plugin_glade
+                    SOURCE (11:6:10:0:0): plugins/cvs-plugin/anjuta-cvs-plugin.ui
+                TARGET (11:6:10:1): cvs_plugin_pixmaps
+                    SOURCE (11:6:10:1:0): plugins/cvs-plugin/anjuta-cvs-plugin.svg
+                    SOURCE (11:6:10:1:1): plugins/cvs-plugin/anjuta-cvs-plugin-48.png
+                TARGET (11:6:10:2): cvs_plugin_ui
+                    SOURCE (11:6:10:2:0): plugins/cvs-plugin/anjuta-cvs.ui
+                TARGET (11:6:10:3): cvs_plugin_plugin
+                    SOURCE (11:6:10:3:0): plugins/cvs-plugin/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:10:4): libanjuta-cvs-plugin.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS)
+                    SOURCE (11:6:10:4:0): plugins/cvs-plugin/plugin.c
+                    SOURCE (11:6:10:4:1): plugins/cvs-plugin/plugin.h
+                    SOURCE (11:6:10:4:2): plugins/cvs-plugin/cvs-actions.c
+                    SOURCE (11:6:10:4:3): plugins/cvs-plugin/cvs-actions.h
+                    SOURCE (11:6:10:4:4): plugins/cvs-plugin/cvs-execute.c
+                    SOURCE (11:6:10:4:5): plugins/cvs-plugin/cvs-execute.h
+                    SOURCE (11:6:10:4:6): plugins/cvs-plugin/cvs-callbacks.c
+                    SOURCE (11:6:10:4:7): plugins/cvs-plugin/cvs-callbacks.h
+                    SOURCE (11:6:10:4:8): plugins/cvs-plugin/cvs-interface.c
+                    SOURCE (11:6:10:4:9): plugins/cvs-plugin/cvs-interface.h
+            GROUP (11:6:11): snippets-manager
+                PROPERTY (Install directories): snippets_manager_gladedir = $(anjuta_glade_dir) default_snippetsdir = $(anjuta_data_dir) snippets_manager_pixmapsdir = $(anjuta_image_dir) snippets_manager_uidir = $(anjuta_ui_dir) snippets_manager_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBXML_CFLAGS) $(LIBANJUTA_CFLAGS) -DG_LOG_DOMAIN=\"libanjuta-snippets-manager\"
+                TARGET (11:6:11:0): snippets_manager_glade
+                    SOURCE (11:6:11:0:0): plugins/snippets-manager/snippets-manager-preferences.ui
+                    SOURCE (11:6:11:0:1): plugins/snippets-manager/snippets-browser.ui
+                    SOURCE (11:6:11:0:2): plugins/snippets-manager/snippets-editor.ui
+                TARGET (11:6:11:1): default_snippets
+                    SOURCE (11:6:11:1:0): plugins/snippets-manager/snippets.anjuta-snippets
+                    SOURCE (11:6:11:1:1): plugins/snippets-manager/snippets-global-variables.xml
+                TARGET (11:6:11:2): snippets_manager_pixmaps
+                    SOURCE (11:6:11:2:0): plugins/snippets-manager/anjuta-snippets-manager.png
+                TARGET (11:6:11:3): snippets_manager_ui
+                    SOURCE (11:6:11:3:0): plugins/snippets-manager/snippets-manager-ui.xml
+                TARGET (11:6:11:4): snippets_manager_plugin
+                    SOURCE (11:6:11:4:0): plugins/snippets-manager/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:11:5): libanjuta-snippets-manager.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS)
+                    SOURCE (11:6:11:5:0): plugins/snippets-manager/snippet.c
+                    SOURCE (11:6:11:5:1): plugins/snippets-manager/snippet.h
+                    SOURCE (11:6:11:5:2): plugins/snippets-manager/snippets-group.c
+                    SOURCE (11:6:11:5:3): plugins/snippets-manager/snippets-group.h
+                    SOURCE (11:6:11:5:4): plugins/snippets-manager/snippets-db.c
+                    SOURCE (11:6:11:5:5): plugins/snippets-manager/snippets-db.h
+                    SOURCE (11:6:11:5:6): plugins/snippets-manager/snippets-xml-parser.c
+                    SOURCE (11:6:11:5:7): plugins/snippets-manager/snippets-xml-parser.h
+                    SOURCE (11:6:11:5:8): plugins/snippets-manager/snippets-browser.c
+                    SOURCE (11:6:11:5:9): plugins/snippets-manager/snippets-browser.h
+                    SOURCE (11:6:11:5:10): plugins/snippets-manager/snippets-editor.c
+                    SOURCE (11:6:11:5:11): plugins/snippets-manager/snippets-editor.h
+                    SOURCE (11:6:11:5:12): plugins/snippets-manager/snippets-interaction-interpreter.c
+                    SOURCE (11:6:11:5:13): plugins/snippets-manager/snippets-interaction-interpreter.h
+                    SOURCE (11:6:11:5:14): plugins/snippets-manager/plugin.c
+                    SOURCE (11:6:11:5:15): plugins/snippets-manager/plugin.h
+                    SOURCE (11:6:11:5:16): plugins/snippets-manager/snippet-variables-store.c
+                    SOURCE (11:6:11:5:17): plugins/snippets-manager/snippet-variables-store.h
+                    SOURCE (11:6:11:5:18): plugins/snippets-manager/snippets-provider.c
+                    SOURCE (11:6:11:5:19): plugins/snippets-manager/snippets-provider.h
+                    SOURCE (11:6:11:5:20): plugins/snippets-manager/snippets-import-export.c
+                    SOURCE (11:6:11:5:21): plugins/snippets-manager/snippets-import-export.h
+            GROUP (11:6:12): class-gen
+                PROPERTY (Install directories): clsgen_gladedir = $(anjuta_glade_dir) clsgen_pixmapsdir = $(anjuta_image_dir) clsgen_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): -I${top_srcdir} $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS)
+                GROUP (11:6:12:1): templates
+                    PROPERTY (Install directories): clsgen_appdatadir = "$(datadir)/anjuta/class-templates/"
+                    TARGET (11:6:12:1:0): clsgen_appdata
+                        SOURCE (11:6:12:1:0:0): plugins/class-gen/templates/cc-header.tpl
+                        SOURCE (11:6:12:1:0:1): plugins/class-gen/templates/cc-source.tpl
+                        SOURCE (11:6:12:1:0:2): plugins/class-gen/templates/go-header.tpl
+                        SOURCE (11:6:12:1:0:3): plugins/class-gen/templates/go-source.tpl
+                TARGET (11:6:12:0): clsgen_glade
+                    SOURCE (11:6:12:0:0): plugins/class-gen/anjuta-class-gen-plugin.ui
+                TARGET (11:6:12:2): clsgen_pixmaps
+                    SOURCE (11:6:12:2:0): plugins/class-gen/anjuta-class-gen-plugin.svg
+                    SOURCE (11:6:12:2:1): plugins/class-gen/anjuta-class-gen-plugin-48.png
+                TARGET (11:6:12:3): clsgen_plugin
+                    SOURCE (11:6:12:3:0): plugins/class-gen/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:12:4): libanjuta-class-gen.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS)
+                    SOURCE (11:6:12:4:0): plugins/class-gen/cell-renderer-flags.h
+                    SOURCE (11:6:12:4:1): plugins/class-gen/cell-renderer-flags.c
+                    SOURCE (11:6:12:4:2): plugins/class-gen/combo-flags.h
+                    SOURCE (11:6:12:4:3): plugins/class-gen/combo-flags.c
+                    SOURCE (11:6:12:4:4): plugins/class-gen/element-editor.c
+                    SOURCE (11:6:12:4:5): plugins/class-gen/element-editor.h
+                    SOURCE (11:6:12:4:6): plugins/class-gen/generator.c
+                    SOURCE (11:6:12:4:7): plugins/class-gen/generator.h
+                    SOURCE (11:6:12:4:8): plugins/class-gen/plugin.c
+                    SOURCE (11:6:12:4:9): plugins/class-gen/plugin.h
+                    SOURCE (11:6:12:4:10): plugins/class-gen/transform.c
+                    SOURCE (11:6:12:4:11): plugins/class-gen/transform.h
+                    SOURCE (11:6:12:4:12): plugins/class-gen/validator.c
+                    SOURCE (11:6:12:4:13): plugins/class-gen/validator.h
+                    SOURCE (11:6:12:4:14): plugins/class-gen/window.c
+                    SOURCE (11:6:12:4:15): plugins/class-gen/window.h
+                    SOURCE (11:6:12:4:16): plugins/project-wizard/autogen.c
+                    SOURCE (11:6:12:4:17): plugins/project-wizard/autogen.h
+                    SOURCE (11:6:12:4:18): plugins/project-wizard/values.c
+                    SOURCE (11:6:12:4:19): plugins/project-wizard/values.h
+            GROUP (11:6:13): class-inheritance
+                PROPERTY (Install directories): cls_inheritance_pixmapsdir = $(anjuta_image_dir) cls_inheritance_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(LIBFOOCANVAS_CFLAGS) $(LIBANJUTA_CFLAGS) $(EXTRA_CFLAGS) $(GRAPHVIZ_CFLAGS) -DG_LOG_DOMAIN=\"libanjuta-class-inheritance\"
+                TARGET (11:6:13:0): cls_inheritance_pixmaps
+                    SOURCE (11:6:13:0:0): plugins/class-inheritance/anjuta-class-inheritance-plugin.svg
+                    SOURCE (11:6:13:0:1): plugins/class-inheritance/anjuta-class-inheritance-plugin-48.png
+                TARGET (11:6:13:1): cls_inheritance_plugin
+                    SOURCE (11:6:13:1:0): plugins/class-inheritance/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:13:2): libanjuta-class-inheritance.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(LIBFOOCANVAS_LIBS) $(LIBANJUTA_LIBS) $(GRAPHVIZ_LIBS)
+                    SOURCE (11:6:13:2:0): plugins/class-inheritance/plugin.c
+                    SOURCE (11:6:13:2:1): plugins/class-inheritance/plugin.h
+                    SOURCE (11:6:13:2:2): plugins/class-inheritance/class-inherit.c
+                    SOURCE (11:6:13:2:3): plugins/class-inheritance/class-inherit.h
+                    SOURCE (11:6:13:2:4): plugins/class-inheritance/class-callbacks.c
+                    SOURCE (11:6:13:2:5): plugins/class-inheritance/class-callbacks.h
+            GROUP (11:6:14): patch
+                PROPERTY (Install directories): patch_uidir = $(anjuta_ui_dir) patch_gladedir = $(anjuta_glade_dir) patch_pixmapsdir = $(anjuta_image_dir) patch_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS)
+                TARGET (11:6:14:0): patch_ui
+                    SOURCE (11:6:14:0:0): plugins/patch/anjuta-patch.xml
+                TARGET (11:6:14:1): patch_glade
+                    SOURCE (11:6:14:1:0): plugins/patch/patch-plugin.ui
+                TARGET (11:6:14:2): patch_pixmaps
+                    SOURCE (11:6:14:2:0): plugins/patch/anjuta-patch-plugin.svg
+                    SOURCE (11:6:14:2:1): plugins/patch/anjuta-patch-plugin-48.png
+                TARGET (11:6:14:3): patch_plugin
+                    SOURCE (11:6:14:3:0): plugins/patch/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:14:4): libanjuta-patch.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(LIBANJUTA_LIBS)
+                    SOURCE (11:6:14:4:0): plugins/patch/plugin.c
+                    SOURCE (11:6:14:4:1): plugins/patch/plugin.h
+                    SOURCE (11:6:14:4:2): plugins/patch/patch-plugin.c
+                    SOURCE (11:6:14:4:3): plugins/patch/patch-plugin.h
+            GROUP (11:6:15): subversion
+                PROPERTY (Install directories): subversion_gladedir = $(anjuta_glade_dir) subversion_pixmapsdir = $(anjuta_image_dir) subversion_uidir = $(anjuta_ui_dir) subversion_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS) $(SVN_CFLAGS) $(SVN_INCLUDE)
+                TARGET (11:6:15:0): subversion_glade
+                    SOURCE (11:6:15:0:0): plugins/subversion/anjuta-subversion.ui
+                TARGET (11:6:15:1): subversion_pixmaps
+                    SOURCE (11:6:15:1:0): plugins/subversion/anjuta-subversion-plugin.svg
+                    SOURCE (11:6:15:1:1): plugins/subversion/anjuta-subversion-plugin-48.png
+                TARGET (11:6:15:2): subversion_ui
+                    SOURCE (11:6:15:2:0): plugins/subversion/anjuta-subversion.xml
+                TARGET (11:6:15:3): subversion_plugin
+                    SOURCE (11:6:15:3:0): plugins/subversion/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:15:4): libanjuta-subversion.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS) $(SVN_LIB)
+                    SOURCE (11:6:15:4:0): plugins/subversion/plugin.c
+                    SOURCE (11:6:15:4:1): plugins/subversion/plugin.h
+                    SOURCE (11:6:15:4:2): plugins/subversion/svn-diff-command.h
+                    SOURCE (11:6:15:4:3): plugins/subversion/svn-diff-command.c
+                    SOURCE (11:6:15:4:4): plugins/subversion/svn-command.h
+                    SOURCE (11:6:15:4:5): plugins/subversion/svn-command.c
+                    SOURCE (11:6:15:4:6): plugins/subversion/svn-update-command.h
+                    SOURCE (11:6:15:4:7): plugins/subversion/svn-update-command.c
+                    SOURCE (11:6:15:4:8): plugins/subversion/svn-remove-command.h
+                    SOURCE (11:6:15:4:9): plugins/subversion/svn-remove-command.c
+                    SOURCE (11:6:15:4:10): plugins/subversion/svn-add-command.h
+                    SOURCE (11:6:15:4:11): plugins/subversion/svn-add-command.c
+                    SOURCE (11:6:15:4:12): plugins/subversion/svn-commit-command.h
+                    SOURCE (11:6:15:4:13): plugins/subversion/svn-commit-command.c
+                    SOURCE (11:6:15:4:14): plugins/subversion/svn-status.h
+                    SOURCE (11:6:15:4:15): plugins/subversion/svn-status.c
+                    SOURCE (11:6:15:4:16): plugins/subversion/svn-status-command.h
+                    SOURCE (11:6:15:4:17): plugins/subversion/svn-status-command.c
+                    SOURCE (11:6:15:4:18): plugins/subversion/subversion-ui-utils.h
+                    SOURCE (11:6:15:4:19): plugins/subversion/subversion-ui-utils.c
+                    SOURCE (11:6:15:4:20): plugins/subversion/subversion-revert-dialog.c
+                    SOURCE (11:6:15:4:21): plugins/subversion/svn-revert-command.h
+                    SOURCE (11:6:15:4:22): plugins/subversion/svn-revert-command.c
+                    SOURCE (11:6:15:4:23): plugins/subversion/subversion-revert-dialog.h
+                    SOURCE (11:6:15:4:24): plugins/subversion/subversion-commit-dialog.h
+                    SOURCE (11:6:15:4:25): plugins/subversion/subversion-commit-dialog.c
+                    SOURCE (11:6:15:4:26): plugins/subversion/subversion-update-dialog.h
+                    SOURCE (11:6:15:4:27): plugins/subversion/subversion-update-dialog.c
+                    SOURCE (11:6:15:4:28): plugins/subversion/subversion-diff-dialog.h
+                    SOURCE (11:6:15:4:29): plugins/subversion/subversion-diff-dialog.c
+                    SOURCE (11:6:15:4:30): plugins/subversion/subversion-add-dialog.h
+                    SOURCE (11:6:15:4:31): plugins/subversion/subversion-add-dialog.c
+                    SOURCE (11:6:15:4:32): plugins/subversion/subversion-remove-dialog.h
+                    SOURCE (11:6:15:4:33): plugins/subversion/subversion-remove-dialog.c
+                    SOURCE (11:6:15:4:34): plugins/subversion/svn-log-entry.h
+                    SOURCE (11:6:15:4:35): plugins/subversion/svn-log-entry.c
+                    SOURCE (11:6:15:4:36): plugins/subversion/svn-log-command.h
+                    SOURCE (11:6:15:4:37): plugins/subversion/svn-log-command.c
+                    SOURCE (11:6:15:4:38): plugins/subversion/subversion-log-dialog.h
+                    SOURCE (11:6:15:4:39): plugins/subversion/subversion-log-dialog.c
+                    SOURCE (11:6:15:4:40): plugins/subversion/svn-cat-command.h
+                    SOURCE (11:6:15:4:41): plugins/subversion/svn-cat-command.c
+                    SOURCE (11:6:15:4:42): plugins/subversion/svn-copy-command.h
+                    SOURCE (11:6:15:4:43): plugins/subversion/svn-copy-command.c
+                    SOURCE (11:6:15:4:44): plugins/subversion/subversion-copy-dialog.c
+                    SOURCE (11:6:15:4:45): plugins/subversion/subversion-copy-dialog.h
+                    SOURCE (11:6:15:4:46): plugins/subversion/svn-switch-command.h
+                    SOURCE (11:6:15:4:47): plugins/subversion/svn-switch-command.c
+                    SOURCE (11:6:15:4:48): plugins/subversion/subversion-switch-dialog.c
+                    SOURCE (11:6:15:4:49): plugins/subversion/subversion-switch-dialog.h
+                    SOURCE (11:6:15:4:50): plugins/subversion/svn-merge-command.h
+                    SOURCE (11:6:15:4:51): plugins/subversion/svn-merge-command.c
+                    SOURCE (11:6:15:4:52): plugins/subversion/subversion-merge-dialog.c
+                    SOURCE (11:6:15:4:53): plugins/subversion/subversion-merge-dialog.h
+                    SOURCE (11:6:15:4:54): plugins/subversion/subversion-resolve-dialog.c
+                    SOURCE (11:6:15:4:55): plugins/subversion/subversion-resolve-dialog.h
+                    SOURCE (11:6:15:4:56): plugins/subversion/svn-resolve-command.h
+                    SOURCE (11:6:15:4:57): plugins/subversion/svn-resolve-command.c
+                    SOURCE (11:6:15:4:58): plugins/subversion/subversion-vcs-interface.c
+                    SOURCE (11:6:15:4:59): plugins/subversion/subversion-vcs-interface.h
+                    SOURCE (11:6:15:4:60): plugins/subversion/svn-checkout-command.c
+                    SOURCE (11:6:15:4:61): plugins/subversion/svn-checkout-command.h
+            GROUP (11:6:16): project-import
+                PROPERTY (Install directories): wizard_gladedir = $(anjuta_glade_dir) wizard_pixmapsdir = $(anjuta_image_dir) wizard_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(PLUGIN_GNOMEBUILD_CFLAGS) $(LIBANJUTA_CFLAGS)
+                TARGET (11:6:16:0): wizard_glade
+                    SOURCE (11:6:16:0:0): plugins/project-import/project-import.ui
+                TARGET (11:6:16:1): wizard_pixmaps
+                    SOURCE (11:6:16:1:0): plugins/project-import/anjuta-project-import-plugin.svg
+                    SOURCE (11:6:16:1:1): plugins/project-import/anjuta-project-import-plugin-48.png
+                TARGET (11:6:16:2): wizard_plugin
+                    SOURCE (11:6:16:2:0): plugins/project-import/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:16:3): libanjuta-project-import.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(PLUGIN_GNOMEBUILD_LIBS) $(GIO_LIBS) $(LIBANJUTA_LIBS)
+                    SOURCE (11:6:16:3:0): plugins/project-import/plugin.c
+                    SOURCE (11:6:16:3:1): plugins/project-import/plugin.h
+                    SOURCE (11:6:16:3:2): plugins/project-import/project-import-dialog.h
+                    SOURCE (11:6:16:3:3): plugins/project-import/project-import-dialog.c
+            GROUP (11:6:17): tools
+                PROPERTY (Install directories): tools_gladedir = $(anjuta_glade_dir) tools_uidir = $(anjuta_ui_dir) tools_pixmapsdir = $(anjuta_image_dir) tools_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS)
+                GROUP (11:6:17:5): scripts
+                    PROPERTY (Install directories): toolsdir = $(anjuta_data_dir)/tools
+                    TARGET (11:6:17:5:0): prepare-changelog.pl
+                    TARGET (11:6:17:5:1): find-fixmes.pl
+                    TARGET (11:6:17:5:2): translation-status.pl
+                    TARGET (11:6:17:5:3): tools
+                        SOURCE (11:6:17:5:3:0): plugins/tools/scripts/tools-2.xml
+                TARGET (11:6:17:0): tools_glade
+                    SOURCE (11:6:17:0:0): plugins/tools/anjuta-tools.ui
+                TARGET (11:6:17:1): tools_ui
+                    SOURCE (11:6:17:1:0): plugins/tools/anjuta-tools.xml
+                TARGET (11:6:17:2): tools_pixmaps
+                    SOURCE (11:6:17:2:0): plugins/tools/anjuta-tools-plugin.svg
+                    SOURCE (11:6:17:2:1): plugins/tools/anjuta-tools-plugin-48.png
+                TARGET (11:6:17:3): tools_plugin
+                    SOURCE (11:6:17:3:0): plugins/tools/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:17:4): libanjuta-tools.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(LIBANJUTA_LIBS)
+                    SOURCE (11:6:17:4:0): plugins/tools/plugin.c
+                    SOURCE (11:6:17:4:1): plugins/tools/plugin.h
+                    SOURCE (11:6:17:4:2): plugins/tools/dialog.c
+                    SOURCE (11:6:17:4:3): plugins/tools/dialog.h
+                    SOURCE (11:6:17:4:4): plugins/tools/fileop.c
+                    SOURCE (11:6:17:4:5): plugins/tools/fileop.h
+                    SOURCE (11:6:17:4:6): plugins/tools/tool.c
+                    SOURCE (11:6:17:4:7): plugins/tools/tool.h
+                    SOURCE (11:6:17:4:8): plugins/tools/editor.c
+                    SOURCE (11:6:17:4:9): plugins/tools/editor.h
+                    SOURCE (11:6:17:4:10): plugins/tools/execute.c
+                    SOURCE (11:6:17:4:11): plugins/tools/execute.h
+                    SOURCE (11:6:17:4:12): plugins/tools/variable.c
+                    SOURCE (11:6:17:4:13): plugins/tools/variable.h
+            GROUP (11:6:18): document-manager
+                PROPERTY (Install directories): document_manager_gladedir = $(anjuta_glade_dir) document_manager_uidir = $(anjuta_ui_dir) document_manager_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(GDL_CFLAGS) $(GIO_CFLAGS) $(LIBXML_CFLAGS) $(LIBANJUTA_CFLAGS) -DG_LOG_DOMAIN=\"libanjuta-document-manager\"
+                GROUP (11:6:18:0): images
+                    PROPERTY (Install directories): document_manager_pixmapsdir = $(anjuta_image_dir)
+                    TARGET (11:6:18:0:0): document_manager_pixmaps
+                        SOURCE (11:6:18:0:0:0): plugins/document-manager/images/anjuta-document-manager-plugin.svg
+                        SOURCE (11:6:18:0:0:1): plugins/document-manager/images/anjuta-document-manager-plugin-48.png
+                        SOURCE (11:6:18:0:0:2): plugins/document-manager/images/preferences-editor.png
+                        SOURCE (11:6:18:0:0:3): plugins/document-manager/images/anjuta-swap-16.png
+                        SOURCE (11:6:18:0:0:4): plugins/document-manager/images/anjuta-swap-24.png
+                        SOURCE (11:6:18:0:0:5): plugins/document-manager/images/anjuta-fold-toggle-16.png
+                        SOURCE (11:6:18:0:0:6): plugins/document-manager/images/anjuta-fold-toggle-24.png
+                        SOURCE (11:6:18:0:0:7): plugins/document-manager/images/anjuta-fold-open-16.png
+                        SOURCE (11:6:18:0:0:8): plugins/document-manager/images/anjuta-fold-open-24.png
+                        SOURCE (11:6:18:0:0:9): plugins/document-manager/images/anjuta-fold-close-16.png
+                        SOURCE (11:6:18:0:0:10): plugins/document-manager/images/anjuta-fold-close-24.png
+                        SOURCE (11:6:18:0:0:11): plugins/document-manager/images/anjuta-indent-less-16.png
+                        SOURCE (11:6:18:0:0:12): plugins/document-manager/images/anjuta-indent-less-24.png
+                        SOURCE (11:6:18:0:0:13): plugins/document-manager/images/anjuta-indent-more-16.png
+                        SOURCE (11:6:18:0:0:14): plugins/document-manager/images/anjuta-indent-more-24.png
+                        SOURCE (11:6:18:0:0:15): plugins/document-manager/images/anjuta-block-select-16.png
+                        SOURCE (11:6:18:0:0:16): plugins/document-manager/images/anjuta-block-select-24.png
+                        SOURCE (11:6:18:0:0:17): plugins/document-manager/images/anjuta-block-end-16.png
+                        SOURCE (11:6:18:0:0:18): plugins/document-manager/images/anjuta-block-end-24.png
+                        SOURCE (11:6:18:0:0:19): plugins/document-manager/images/anjuta-block-start-16.png
+                        SOURCE (11:6:18:0:0:20): plugins/document-manager/images/anjuta-block-start-24.png
+                        SOURCE (11:6:18:0:0:21): plugins/document-manager/images/anjuta-bookmark-first-16.png
+                        SOURCE (11:6:18:0:0:22): plugins/document-manager/images/anjuta-bookmark-prev-16.png
+                        SOURCE (11:6:18:0:0:23): plugins/document-manager/images/anjuta-bookmark-next-16.png
+                        SOURCE (11:6:18:0:0:24): plugins/document-manager/images/anjuta-bookmark-last-16.png
+                        SOURCE (11:6:18:0:0:25): plugins/document-manager/images/anjuta-bookmark-toggle-16.png
+                        SOURCE (11:6:18:0:0:26): plugins/document-manager/images/anjuta-bookmark-clear-16.png
+                        SOURCE (11:6:18:0:0:27): plugins/document-manager/images/anjuta-bookmark-first-24.png
+                        SOURCE (11:6:18:0:0:28): plugins/document-manager/images/anjuta-bookmark-prev-24.png
+                        SOURCE (11:6:18:0:0:29): plugins/document-manager/images/anjuta-bookmark-next-24.png
+                        SOURCE (11:6:18:0:0:30): plugins/document-manager/images/anjuta-bookmark-last-24.png
+                        SOURCE (11:6:18:0:0:31): plugins/document-manager/images/anjuta-bookmark-toggle-24.png
+                        SOURCE (11:6:18:0:0:32): plugins/document-manager/images/anjuta-bookmark-clear-24.png
+                        SOURCE (11:6:18:0:0:33): plugins/document-manager/images/anjuta-go-line-16.png
+                        SOURCE (11:6:18:0:0:34): plugins/document-manager/images/anjuta-go-line-24.png
+                        SOURCE (11:6:18:0:0:35): plugins/document-manager/images/anjuta-go-history-next-16.png
+                        SOURCE (11:6:18:0:0:36): plugins/document-manager/images/anjuta-go-history-next-24.png
+                        SOURCE (11:6:18:0:0:37): plugins/document-manager/images/anjuta-go-history-prev-16.png
+                        SOURCE (11:6:18:0:0:38): plugins/document-manager/images/anjuta-go-history-prev-24.png
+                        SOURCE (11:6:18:0:0:39): plugins/document-manager/images/anjuta-complete-16.png
+                        SOURCE (11:6:18:0:0:40): plugins/document-manager/images/anjuta-complete-24.png
+                        SOURCE (11:6:18:0:0:41): plugins/document-manager/images/anjuta-complete-auto-16.png
+                        SOURCE (11:6:18:0:0:42): plugins/document-manager/images/anjuta-complete-auto-24.png
+                TARGET (11:6:18:1): document_manager_glade
+                    SOURCE (11:6:18:1:0): plugins/document-manager/anjuta-document-manager.ui
+                TARGET (11:6:18:2): document_manager_ui
+                    SOURCE (11:6:18:2:0): plugins/document-manager/anjuta-document-manager.xml
+                TARGET (11:6:18:3): document_manager_plugin
+                    SOURCE (11:6:18:3:0): plugins/document-manager/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:18:4): libanjuta-document-manager.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GDL_LIBS) $(GIO_LIBS) $(LIBANJUTA_LIBS)
+                    SOURCE (11:6:18:4:0): plugins/document-manager/plugin.c
+                    SOURCE (11:6:18:4:1): plugins/document-manager/plugin.h
+                    SOURCE (11:6:18:4:2): plugins/document-manager/anjuta-docman.c
+                    SOURCE (11:6:18:4:3): plugins/document-manager/anjuta-docman.h
+                    SOURCE (11:6:18:4:4): plugins/document-manager/action-callbacks.c
+                    SOURCE (11:6:18:4:5): plugins/document-manager/action-callbacks.h
+                    SOURCE (11:6:18:4:6): plugins/document-manager/file_history.c
+                    SOURCE (11:6:18:4:7): plugins/document-manager/file_history.h
+                    SOURCE (11:6:18:4:8): plugins/document-manager/search-box.h
+                    SOURCE (11:6:18:4:9): plugins/document-manager/search-box.c
+                    SOURCE (11:6:18:4:10): plugins/document-manager/anjuta-bookmarks.h
+                    SOURCE (11:6:18:4:11): plugins/document-manager/anjuta-bookmarks.c
+            GROUP (11:6:19): search
+                PROPERTY (Install directories): search_gladedir = $(anjuta_glade_dir) search_pixmapsdir = $(anjuta_image_dir) search_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir) search_uidir = $(anjuta_ui_dir)
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS) -DG_LOG_DOMAIN=\"libanjuta-search\"
+                TARGET (11:6:19:0): search_glade
+                    SOURCE (11:6:19:0:0): plugins/search/anjuta-search.ui
+                TARGET (11:6:19:1): search_pixmaps
+                    SOURCE (11:6:19:1:0): plugins/search/anjuta-search-plugin.svg
+                    SOURCE (11:6:19:1:1): plugins/search/anjuta-search-plugin-48.png
+                TARGET (11:6:19:2): search_plugin
+                    SOURCE (11:6:19:2:0): plugins/search/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:19:3): libanjuta-search.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(LIBANJUTA_LIBS)
+                    SOURCE (11:6:19:3:0): plugins/search/plugin.c
+                    SOURCE (11:6:19:3:1): plugins/search/plugin.h
+                    SOURCE (11:6:19:3:2): plugins/search/search-replace.c
+                    SOURCE (11:6:19:3:3): plugins/search/search-replace.h
+                    SOURCE (11:6:19:3:4): plugins/search/search-replace_backend.c
+                    SOURCE (11:6:19:3:5): plugins/search/search-replace_backend.h
+                TARGET (11:6:19:4): search_ui
+                    SOURCE (11:6:19:4:0): plugins/search/anjuta-search.xml
+            GROUP (11:6:20): language-support-cpp-java
+                PROPERTY (Install directories): cpp_java_gladedir = $(anjuta_glade_dir) cpp_java_uidir = $(anjuta_ui_dir) cpp_java_pixmapsdir = $(anjuta_image_dir) cpp_java_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS) $(EXTRA_CFLAGS) -DG_LOG_DOMAIN=\"language-support-cpp-java\"
+                GROUP (11:6:20:0): cxxparser
+                    PROPERTY (C preprocessor flags): -DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" -DPACKAGE_SRC_DIR=\""$(srcdir)"\" $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS) $(EXTRA_CFLAGS) -DG_LOG_DOMAIN=\"cxxparser\"
+                    TARGET (11:6:20:0:0): libcxxparser.la
+                        PROPERTY (Additional libraries): $(LIBANJUTA_LIBS) $(GTHREAD_LIBS)
+                        PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                        SOURCE (11:6:20:0:0:0): plugins/language-support-cpp-java/cxxparser/expression-lexer.cpp
+                        SOURCE (11:6:20:0:0:1): plugins/language-support-cpp-java/cxxparser/expression-parser.cpp
+                        SOURCE (11:6:20:0:0:2): plugins/language-support-cpp-java/cxxparser/expression-result.cpp
+                        SOURCE (11:6:20:0:0:3): plugins/language-support-cpp-java/cxxparser/expression-result.h
+                        SOURCE (11:6:20:0:0:4): plugins/language-support-cpp-java/cxxparser/flex-lexer-klass.cpp
+                        SOURCE (11:6:20:0:0:5): plugins/language-support-cpp-java/cxxparser/flex-lexer-klass.h
+                        SOURCE (11:6:20:0:0:6): plugins/language-support-cpp-java/cxxparser/flex-lexer-klass-tab.h
+                        SOURCE (11:6:20:0:0:7): plugins/language-support-cpp-java/cxxparser/flex-lexer-plain.cpp
+                        SOURCE (11:6:20:0:0:8): plugins/language-support-cpp-java/cxxparser/flex-lexer-plain-tab.h
+                        SOURCE (11:6:20:0:0:9): plugins/language-support-cpp-java/cxxparser/variable-parser.cpp
+                        SOURCE (11:6:20:0:0:10): plugins/language-support-cpp-java/cxxparser/variable-result.cpp
+                        SOURCE (11:6:20:0:0:11): plugins/language-support-cpp-java/cxxparser/variable-result.h
+                        SOURCE (11:6:20:0:0:12): plugins/language-support-cpp-java/cxxparser/scope-parser.cpp
+                        SOURCE (11:6:20:0:0:13): plugins/language-support-cpp-java/cxxparser/function-result.cpp
+                        SOURCE (11:6:20:0:0:14): plugins/language-support-cpp-java/cxxparser/function-result.h
+                        SOURCE (11:6:20:0:0:15): plugins/language-support-cpp-java/cxxparser/function-parser.cpp
+                        SOURCE (11:6:20:0:0:16): plugins/language-support-cpp-java/cxxparser/cpp-flex-tokenizer.cpp
+                        SOURCE (11:6:20:0:0:17): plugins/language-support-cpp-java/cxxparser/cpp-flex-tokenizer.h
+                        SOURCE (11:6:20:0:0:18): plugins/language-support-cpp-java/cxxparser/expression-parser.h
+                        SOURCE (11:6:20:0:0:19): plugins/language-support-cpp-java/cxxparser/engine-parser.cpp
+                        SOURCE (11:6:20:0:0:20): plugins/language-support-cpp-java/cxxparser/engine-parser-priv.h
+                        SOURCE (11:6:20:0:0:21): plugins/language-support-cpp-java/cxxparser/engine-parser.h
+                        SOURCE (11:6:20:0:0:22): plugins/language-support-cpp-java/cxxparser/scope-parser.h
+                        SOURCE (11:6:20:0:0:23): plugins/language-support-cpp-java/cxxparser/variable-parser.h
+                        SOURCE (11:6:20:0:0:24): plugins/language-support-cpp-java/cxxparser/function-parser.h
+                TARGET (11:6:20:1): cpp_java_glade
+                    SOURCE (11:6:20:1:0): plugins/language-support-cpp-java/anjuta-language-cpp-java.ui
+                TARGET (11:6:20:2): cpp_java_ui
+                    SOURCE (11:6:20:2:0): plugins/language-support-cpp-java/anjuta-language-support-cpp-java.xml
+                TARGET (11:6:20:3): cpp_java_pixmaps
+                    SOURCE (11:6:20:3:0): plugins/language-support-cpp-java/anjuta-language-cpp-java-plugin.png
+                    SOURCE (11:6:20:3:1): plugins/language-support-cpp-java/anjuta-indent-auto-16.png
+                    SOURCE (11:6:20:3:2): plugins/language-support-cpp-java/anjuta-indent-auto-24.png
+                TARGET (11:6:20:4): cpp_java_plugin
+                    SOURCE (11:6:20:4:0): plugins/language-support-cpp-java/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:20:5): libanjuta-language-cpp-java.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(LIBANJUTA_LIBS) cxxparser/libcxxparser.la
+                    SOURCE (11:6:20:5:0): plugins/language-support-cpp-java/plugin.c
+                    SOURCE (11:6:20:5:1): plugins/language-support-cpp-java/plugin.h
+                    SOURCE (11:6:20:5:2): plugins/language-support-cpp-java/cpp-java-assist.h
+                    SOURCE (11:6:20:5:3): plugins/language-support-cpp-java/cpp-java-assist.c
+                    SOURCE (11:6:20:5:4): plugins/language-support-cpp-java/cpp-java-utils.c
+                    SOURCE (11:6:20:5:5): plugins/language-support-cpp-java/cpp-java-utils.h
+            GROUP (11:6:21): language-support-python
+                PROPERTY (Install directories): python_plugin_uidir = $(anjuta_ui_dir) python_plugin_gladedir = $(anjuta_glade_dir) python_plugin_pixmapsdir = $(anjuta_image_dir) scriptsdir = $(anjuta_plugin_dir) python_plugin_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(LIBXML_CFLAGS) $(LIBANJUTA_CFLAGS) -DSCRIPTS_DIR=\"$(scriptsdir)\" -DG_LOG_DOMAIN=\"language-support-python\"
+                TARGET (11:6:21:0): python_plugin_ui
+                    SOURCE (11:6:21:0:0): plugins/language-support-python/python-plugin.xml
+                TARGET (11:6:21:1): python_plugin_glade
+                    SOURCE (11:6:21:1:0): plugins/language-support-python/python-plugin-properties.ui
+                TARGET (11:6:21:2): python_plugin_pixmaps
+                    SOURCE (11:6:21:2:0): plugins/language-support-python/python_plugin.png
+                TARGET (11:6:21:3): anjuta-python-autocomplete.py
+                TARGET (11:6:21:4): python_plugin_plugin
+                    SOURCE (11:6:21:4:0): plugins/language-support-python/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:21:5): libpython_plugin.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(LIBANJUTA_LIBS)
+                    SOURCE (11:6:21:5:0): plugins/language-support-python/plugin.c
+                    SOURCE (11:6:21:5:1): plugins/language-support-python/plugin.h
+                    SOURCE (11:6:21:5:2): plugins/language-support-python/python-assist.c
+                    SOURCE (11:6:21:5:3): plugins/language-support-python/python-assist.h
+                    SOURCE (11:6:21:5:4): plugins/language-support-python/python-utils.c
+                    SOURCE (11:6:21:5:5): plugins/language-support-python/python-utils.h
+            GROUP (11:6:22): glade
+                PROPERTY (Install directories): glade_uidir = $(anjuta_ui_dir) glade_pixmapsdir = $(anjuta_image_dir) glade_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(PLUGIN_GLADE_CFLAGS) $(LIBANJUTA_CFLAGS)
+                TARGET (11:6:22:0): glade_ui
+                    SOURCE (11:6:22:0:0): plugins/glade/anjuta-glade.xml
+                TARGET (11:6:22:1): glade_pixmaps
+                    SOURCE (11:6:22:1:0): plugins/glade/anjuta-glade-plugin.svg
+                    SOURCE (11:6:22:1:1): plugins/glade/anjuta-glade-plugin-48.png
+                TARGET (11:6:22:2): glade_plugin
+                    SOURCE (11:6:22:2:0): plugins/glade/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:22:3): libanjuta-glade.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(PLUGIN_GLADE_LIBS) $(LIBANJUTA_LIBS)
+                    SOURCE (11:6:22:3:0): plugins/glade/plugin.c
+                    SOURCE (11:6:22:3:1): plugins/glade/plugin.h
+                    SOURCE (11:6:22:3:2): plugins/glade/anjuta-design-document.h
+                    SOURCE (11:6:22:3:3): plugins/glade/anjuta-design-document.c
+            GROUP (11:6:23): devhelp
+                PROPERTY (Install directories): devhelp_uidir = $(anjuta_ui_dir) devhelp_pixmapsdir = $(anjuta_image_dir) devhelp_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): -DDISABLE_EMBEDDED_DEVHELP
+                TARGET (11:6:23:0): devhelp_ui
+                    SOURCE (11:6:23:0:0): plugins/devhelp/anjuta-devhelp.ui
+                    SOURCE (11:6:23:0:1): plugins/devhelp/anjuta-devhelp-simple.ui
+                TARGET (11:6:23:1): devhelp_pixmaps
+                    SOURCE (11:6:23:1:0): plugins/devhelp/anjuta-devhelp-plugin.svg
+                    SOURCE (11:6:23:1:1): plugins/devhelp/anjuta-devhelp-plugin-48.png
+                TARGET (11:6:23:2): devhelp_plugin
+                    SOURCE (11:6:23:2:0): plugins/devhelp/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:23:3): libanjuta-devhelp.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GTK_LIBS) $(LIBANJUTA_LIBS) $(PLUGIN_DEVHELP_LIBS)
+                    SOURCE (11:6:23:3:0): plugins/devhelp/plugin.c
+                    SOURCE (11:6:23:3:1): plugins/devhelp/plugin.h
+            GROUP (11:6:24): language-manager
+                PROPERTY (Install directories): language_manager_pixmapsdir = $(anjuta_image_dir) language_manager_xmldir = $(anjuta_data_dir) language_manager_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(LIBXML_CFLAGS) $(LIBANJUTA_CFLAGS)
+                TARGET (11:6:24:0): language_manager_pixmaps
+                    SOURCE (11:6:24:0:0): plugins/language-manager/anjuta-language-manager-plugin.svg
+                    SOURCE (11:6:24:0:1): plugins/language-manager/anjuta-language-manager-plugin-48.png
+                TARGET (11:6:24:1): language_manager_xml
+                    SOURCE (11:6:24:1:0): plugins/language-manager/languages.xml
+                TARGET (11:6:24:2): language_manager_plugin
+                    SOURCE (11:6:24:2:0): plugins/language-manager/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:24:3): liblanguage-manager.la
+                    PROPERTY (Additional libraries): $(LIBANJUTA_LIBS)
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    SOURCE (11:6:24:3:0): plugins/language-manager/plugin.c
+                    SOURCE (11:6:24:3:1): plugins/language-manager/plugin.h
+            GROUP (11:6:25): symbol-db
+                PROPERTY (Install directories): symbol_db_datadir = $(anjuta_data_dir) symbol_db_uidir = $(anjuta_ui_dir) symbol_db_gladedir = $(anjuta_glade_dir) symbol_db_pixmapsdir = $(anjuta_image_dir) symbol_db_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(GDL_CFLAGS) $(LIBANJUTA_CFLAGS) $(PLUGIN_SYMBOL_DB_CFLAGS) -DSYMBOL_DB_SHM=\"$(SYMBOL_DB_SHM)\" -DPACKAGE_BIN_DIR=\"$(bindir)\" -DG_LOG_DOMAIN=\"libanjuta-symbol-db\"
+                GROUP (11:6:25:0): anjuta-tags
+                    PROPERTY (C compiler flags): -I$(top_srcdir)/plugins/symbol-db/anjuta-tags/js-parser $(WARN_CFLAGS) $(ANJUTA_CFLAGS) $(VALA_CFLAGS) $(LIBXML_CFLAGS)
+                    PROPERTY (C preprocessor flags): -DENABLE_VALA
+                    TARGET (11:6:25:0:0): anjuta-tags
+                        PROPERTY (Additional objects): $(ANJUTA_LIBS) $(VALA_LIBS) $(LIBXML_LIBS)
+                        SOURCE (11:6:25:0:0:0): plugins/symbol-db/anjuta-tags/main.c
+                        SOURCE (11:6:25:0:0:1): plugins/symbol-db/anjuta-tags/acconfig.h
+                        SOURCE (11:6:25:0:0:2): plugins/symbol-db/anjuta-tags/ant.c
+                        SOURCE (11:6:25:0:0:3): plugins/symbol-db/anjuta-tags/args.c
+                        SOURCE (11:6:25:0:0:4): plugins/symbol-db/anjuta-tags/args.h
+                        SOURCE (11:6:25:0:0:5): plugins/symbol-db/anjuta-tags/asm.c
+                        SOURCE (11:6:25:0:0:6): plugins/symbol-db/anjuta-tags/asp.c
+                        SOURCE (11:6:25:0:0:7): plugins/symbol-db/anjuta-tags/awk.c
+                        SOURCE (11:6:25:0:0:8): plugins/symbol-db/anjuta-tags/basic.c
+                        SOURCE (11:6:25:0:0:9): plugins/symbol-db/anjuta-tags/beta.c
+                        SOURCE (11:6:25:0:0:10): plugins/symbol-db/anjuta-tags/c.c
+                        SOURCE (11:6:25:0:0:11): plugins/symbol-db/anjuta-tags/cobol.c
+                        SOURCE (11:6:25:0:0:12): plugins/symbol-db/anjuta-tags/config.h
+                        SOURCE (11:6:25:0:0:13): plugins/symbol-db/anjuta-tags/ctags.h
+                        SOURCE (11:6:25:0:0:14): plugins/symbol-db/anjuta-tags/debug.c
+                        SOURCE (11:6:25:0:0:15): plugins/symbol-db/anjuta-tags/debug.h
+                        SOURCE (11:6:25:0:0:16): plugins/symbol-db/anjuta-tags/dosbatch.c
+                        SOURCE (11:6:25:0:0:17): plugins/symbol-db/anjuta-tags/e_amiga.h
+                        SOURCE (11:6:25:0:0:18): plugins/symbol-db/anjuta-tags/e_djgpp.h
+                        SOURCE (11:6:25:0:0:19): plugins/symbol-db/anjuta-tags/eiffel.c
+                        SOURCE (11:6:25:0:0:20): plugins/symbol-db/anjuta-tags/e_mac.h
+                        SOURCE (11:6:25:0:0:21): plugins/symbol-db/anjuta-tags/e_msoft.h
+                        SOURCE (11:6:25:0:0:22): plugins/symbol-db/anjuta-tags/entry.c
+                        SOURCE (11:6:25:0:0:23): plugins/symbol-db/anjuta-tags/entry.h
+                        SOURCE (11:6:25:0:0:24): plugins/symbol-db/anjuta-tags/e_os2.h
+                        SOURCE (11:6:25:0:0:25): plugins/symbol-db/anjuta-tags/e_qdos.h
+                        SOURCE (11:6:25:0:0:26): plugins/symbol-db/anjuta-tags/e_riscos.h
+                        SOURCE (11:6:25:0:0:27): plugins/symbol-db/anjuta-tags/erlang.c
+                        SOURCE (11:6:25:0:0:28): plugins/symbol-db/anjuta-tags/e_vms.h
+                        SOURCE (11:6:25:0:0:29): plugins/symbol-db/anjuta-tags/flex.c
+                        SOURCE (11:6:25:0:0:30): plugins/symbol-db/anjuta-tags/fortran.c
+                        SOURCE (11:6:25:0:0:31): plugins/symbol-db/anjuta-tags/general.h
+                        SOURCE (11:6:25:0:0:32): plugins/symbol-db/anjuta-tags/get.c
+                        SOURCE (11:6:25:0:0:33): plugins/symbol-db/anjuta-tags/get.h
+                        SOURCE (11:6:25:0:0:34): plugins/symbol-db/anjuta-tags/gir.c
+                        SOURCE (11:6:25:0:0:35): plugins/symbol-db/anjuta-tags/html.c
+                        SOURCE (11:6:25:0:0:36): plugins/symbol-db/anjuta-tags/jscript.c
+                        SOURCE (11:6:25:0:0:37): plugins/symbol-db/anjuta-tags/keyword.c
+                        SOURCE (11:6:25:0:0:38): plugins/symbol-db/anjuta-tags/keyword.h
+                        SOURCE (11:6:25:0:0:39): plugins/symbol-db/anjuta-tags/lisp.c
+                        SOURCE (11:6:25:0:0:40): plugins/symbol-db/anjuta-tags/lregex.c
+                        SOURCE (11:6:25:0:0:41): plugins/symbol-db/anjuta-tags/lua.c
+                        SOURCE (11:6:25:0:0:42): plugins/symbol-db/anjuta-tags/main.h
+                        SOURCE (11:6:25:0:0:43): plugins/symbol-db/anjuta-tags/make.c
+                        SOURCE (11:6:25:0:0:44): plugins/symbol-db/anjuta-tags/Makefile.am
+                        SOURCE (11:6:25:0:0:45): plugins/symbol-db/anjuta-tags/matlab.c
+                        SOURCE (11:6:25:0:0:46): plugins/symbol-db/anjuta-tags/ocaml.c
+                        SOURCE (11:6:25:0:0:47): plugins/symbol-db/anjuta-tags/options.c
+                        SOURCE (11:6:25:0:0:48): plugins/symbol-db/anjuta-tags/options.h
+                        SOURCE (11:6:25:0:0:49): plugins/symbol-db/anjuta-tags/parse.c
+                        SOURCE (11:6:25:0:0:50): plugins/symbol-db/anjuta-tags/parse.h
+                        SOURCE (11:6:25:0:0:51): plugins/symbol-db/anjuta-tags/parsers.h
+                        SOURCE (11:6:25:0:0:52): plugins/symbol-db/anjuta-tags/pascal.c
+                        SOURCE (11:6:25:0:0:53): plugins/symbol-db/anjuta-tags/perl.c
+                        SOURCE (11:6:25:0:0:54): plugins/symbol-db/anjuta-tags/php.c
+                        SOURCE (11:6:25:0:0:55): plugins/symbol-db/anjuta-tags/python.c
+                        SOURCE (11:6:25:0:0:56): plugins/symbol-db/anjuta-tags/read.c
+                        SOURCE (11:6:25:0:0:57): plugins/symbol-db/anjuta-tags/read.h
+                        SOURCE (11:6:25:0:0:58): plugins/symbol-db/anjuta-tags/rexx.c
+                        SOURCE (11:6:25:0:0:59): plugins/symbol-db/anjuta-tags/routines.c
+                        SOURCE (11:6:25:0:0:60): plugins/symbol-db/anjuta-tags/routines.h
+                        SOURCE (11:6:25:0:0:61): plugins/symbol-db/anjuta-tags/ruby.c
+                        SOURCE (11:6:25:0:0:62): plugins/symbol-db/anjuta-tags/scheme.c
+                        SOURCE (11:6:25:0:0:63): plugins/symbol-db/anjuta-tags/sh.c
+                        SOURCE (11:6:25:0:0:64): plugins/symbol-db/anjuta-tags/slang.c
+                        SOURCE (11:6:25:0:0:65): plugins/symbol-db/anjuta-tags/sml.c
+                        SOURCE (11:6:25:0:0:66): plugins/symbol-db/anjuta-tags/sort.c
+                        SOURCE (11:6:25:0:0:67): plugins/symbol-db/anjuta-tags/sort.h
+                        SOURCE (11:6:25:0:0:68): plugins/symbol-db/anjuta-tags/sql.c
+                        SOURCE (11:6:25:0:0:69): plugins/symbol-db/anjuta-tags/strlist.c
+                        SOURCE (11:6:25:0:0:70): plugins/symbol-db/anjuta-tags/strlist.h
+                        SOURCE (11:6:25:0:0:71): plugins/symbol-db/anjuta-tags/tcl.c
+                        SOURCE (11:6:25:0:0:72): plugins/symbol-db/anjuta-tags/tex.c
+                        SOURCE (11:6:25:0:0:73): plugins/symbol-db/anjuta-tags/verilog.c
+                        SOURCE (11:6:25:0:0:74): plugins/symbol-db/anjuta-tags/vhdl.c
+                        SOURCE (11:6:25:0:0:75): plugins/symbol-db/anjuta-tags/vim.c
+                        SOURCE (11:6:25:0:0:76): plugins/symbol-db/anjuta-tags/vstring.c
+                        SOURCE (11:6:25:0:0:77): plugins/symbol-db/anjuta-tags/vstring.h
+                        SOURCE (11:6:25:0:0:78): plugins/symbol-db/anjuta-tags/yacc.c
+                        SOURCE (11:6:25:0:0:79): plugins/symbol-db/anjuta-tags/js-parser/js-parser-y-tab.c
+                        SOURCE (11:6:25:0:0:80): plugins/symbol-db/anjuta-tags/js-parser/js-parser-y-tab.h
+                        SOURCE (11:6:25:0:0:81): plugins/symbol-db/anjuta-tags/js-parser/lex.yy.c
+                        SOURCE (11:6:25:0:0:82): plugins/symbol-db/anjuta-tags/js-parser/lex.yy.h
+                        SOURCE (11:6:25:0:0:83): plugins/symbol-db/anjuta-tags/js-parser/jsparse.c
+                        SOURCE (11:6:25:0:0:84): plugins/symbol-db/anjuta-tags/js-parser/jsparse.h
+                        SOURCE (11:6:25:0:0:85): plugins/symbol-db/anjuta-tags/js-parser/js-context.c
+                        SOURCE (11:6:25:0:0:86): plugins/symbol-db/anjuta-tags/js-parser/js-context.h
+                        SOURCE (11:6:25:0:0:87): plugins/symbol-db/anjuta-tags/js-parser/js-node.c
+                        SOURCE (11:6:25:0:0:88): plugins/symbol-db/anjuta-tags/js-parser/js-node.h
+                        SOURCE (11:6:25:0:0:89): plugins/symbol-db/anjuta-tags/js-parser/jstypes.h
+                        SOURCE (11:6:25:0:0:90): plugins/symbol-db/anjuta-tags/ctags-utils.c
+                        SOURCE (11:6:25:0:0:91): plugins/symbol-db/anjuta-tags/ctags-utils.h
+                        SOURCE (11:6:25:0:0:92): plugins/symbol-db/anjuta-tags/vala.c
+                        SOURCE (11:6:25:0:0:93): plugins/symbol-db/anjuta-tags/ctags-visitor.c
+                GROUP (11:6:25:1): images
+                    PROPERTY (Install directories): symbol_browser_iconsdir = $(anjuta_image_dir)
+                    TARGET (11:6:25:1:0): symbol_browser_icons
+                        SOURCE (11:6:25:1:0:0): plugins/symbol-db/images/element-literal-16.png
+                        SOURCE (11:6:25:1:0:1): plugins/symbol-db/images/element-class-16.png
+                        SOURCE (11:6:25:1:0:2): plugins/symbol-db/images/element-delegate-16.png
+                        SOURCE (11:6:25:1:0:3): plugins/symbol-db/images/element-enumeration-16.png
+                        SOURCE (11:6:25:1:0:4): plugins/symbol-db/images/element-event-16.png
+                        SOURCE (11:6:25:1:0:5): plugins/symbol-db/images/element-field-16.png
+                        SOURCE (11:6:25:1:0:6): plugins/symbol-db/images/element-interface-16.png
+                        SOURCE (11:6:25:1:0:7): plugins/symbol-db/images/element-interface-24.png
+                        SOURCE (11:6:25:1:0:8): plugins/symbol-db/images/element-interface-private-16.png
+                        SOURCE (11:6:25:1:0:9): plugins/symbol-db/images/element-interface-protected-16.png
+                        SOURCE (11:6:25:1:0:10): plugins/symbol-db/images/element-interface-public-16.png
+                        SOURCE (11:6:25:1:0:11): plugins/symbol-db/images/element-method-16.png
+                        SOURCE (11:6:25:1:0:12): plugins/symbol-db/images/element-method-private-16.png
+                        SOURCE (11:6:25:1:0:13): plugins/symbol-db/images/element-method-protected-16.png
+                        SOURCE (11:6:25:1:0:14): plugins/symbol-db/images/element-method-public-16.png
+                        SOURCE (11:6:25:1:0:15): plugins/symbol-db/images/element-method-24.png
+                        SOURCE (11:6:25:1:0:16): plugins/symbol-db/images/element-namespace-16.png
+                        SOURCE (11:6:25:1:0:17): plugins/symbol-db/images/element-property-16.png
+                        SOURCE (11:6:25:1:0:18): plugins/symbol-db/images/element-property-private-16.png
+                        SOURCE (11:6:25:1:0:19): plugins/symbol-db/images/element-property-protected-16.png
+                        SOURCE (11:6:25:1:0:20): plugins/symbol-db/images/element-property-public-16.png
+                        SOURCE (11:6:25:1:0:21): plugins/symbol-db/images/element-structure-16.png
+                GROUP (11:6:25:2): benchmark
+                    GROUP (11:6:25:2:0): symbol-db
+                        PROPERTY (C preprocessor flags): $(LIBANJUTA_CFLAGS) $(PLUGIN_SYMBOL_DB_CFLAGS) -DDEBUG
+                        TARGET (11:6:25:2:0:0): benchmark
+                            PROPERTY (Linker flags): $(LIBANJUTA_LIBS) $(ANJUTA_LIBS) $(PLUGIN_SYMBOL_DB_LIBS)
+                            PROPERTY (Additional objects): ../../libanjuta-symbol-db.la
+                            SOURCE (11:6:25:2:0:0:0): plugins/symbol-db/benchmark/symbol-db/benchmark.c
+                    GROUP (11:6:25:2:1): libgda
+                        PROPERTY (C preprocessor flags): $(LIBANJUTA_CFLAGS) $(PLUGIN_SYMBOL_DB_CFLAGS) -DDEBUG
+                        TARGET (11:6:25:2:1:0): benchmark-libgda
+                            PROPERTY (Linker flags): $(LIBANJUTA_LIBS) $(ANJUTA_LIBS) $(PLUGIN_SYMBOL_DB_LIBS)
+                            PROPERTY (Additional objects): ../../libanjuta-symbol-db.la
+                            SOURCE (11:6:25:2:1:0:0): plugins/symbol-db/benchmark/libgda/libgda.c
+                    GROUP (11:6:25:2:2): sqlite
+                        PROPERTY (C preprocessor flags): $(LIBANJUTA_CFLAGS) $(PLUGIN_SYMBOL_DB_CFLAGS) -DDEBUG
+                        TARGET (11:6:25:2:2:0): benchmark-sqlite
+                            PROPERTY (Linker flags): $(LIBANJUTA_LIBS) $(ANJUTA_LIBS) $(PLUGIN_SYMBOL_DB_LIBS) `pkg-config --libs sqlite3`
+                            SOURCE (11:6:25:2:2:0:0): plugins/symbol-db/benchmark/sqlite/sqlite.c
+                TARGET (11:6:25:3): symbol_db_data
+                    SOURCE (11:6:25:3:0): plugins/symbol-db/tables.sql
+                TARGET (11:6:25:4): symbol_db_ui
+                    SOURCE (11:6:25:4:0): plugins/symbol-db/anjuta-symbol-db-plugin.xml
+                TARGET (11:6:25:5): symbol_db_glade
+                    SOURCE (11:6:25:5:0): plugins/symbol-db/anjuta-symbol-db.ui
+                TARGET (11:6:25:6): symbol_db_pixmaps
+                    SOURCE (11:6:25:6:0): plugins/symbol-db/anjuta-symbol-db-plugin.svg
+                    SOURCE (11:6:25:6:1): plugins/symbol-db/anjuta-symbol-db-plugin-48.png
+                    SOURCE (11:6:25:6:2): plugins/symbol-db/anjuta-symbol-db-plugin-16.png
+                TARGET (11:6:25:7): symbol_db_plugin
+                    SOURCE (11:6:25:7:0): plugins/symbol-db/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:25:8): libanjuta-symbol-db.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GDL_LIBS) $(LIBANJUTA_LIBS) $(PLUGIN_SYMBOL_DB_LIBS)
+                    SOURCE (11:6:25:8:0): plugins/symbol-db/plugin.c
+                    SOURCE (11:6:25:8:1): plugins/symbol-db/plugin.h
+                    SOURCE (11:6:25:8:2): plugins/symbol-db/readtags.c
+                    SOURCE (11:6:25:8:3): plugins/symbol-db/readtags.h
+                    SOURCE (11:6:25:8:4): plugins/symbol-db/symbol-db-system.h
+                    SOURCE (11:6:25:8:5): plugins/symbol-db/symbol-db-system.c
+                    SOURCE (11:6:25:8:6): plugins/symbol-db/symbol-db-prefs.h
+                    SOURCE (11:6:25:8:7): plugins/symbol-db/symbol-db-prefs.c
+                    SOURCE (11:6:25:8:8): plugins/symbol-db/symbol-db-engine-utils.c
+                    SOURCE (11:6:25:8:9): plugins/symbol-db/symbol-db-engine-utils.h
+                    SOURCE (11:6:25:8:10): plugins/symbol-db/symbol-db-engine-priv.h
+                    SOURCE (11:6:25:8:11): plugins/symbol-db/symbol-db-engine-core.c
+                    SOURCE (11:6:25:8:12): plugins/symbol-db/symbol-db-engine-core.h
+                    SOURCE (11:6:25:8:13): plugins/symbol-db/symbol-db-engine.h
+                    SOURCE (11:6:25:8:14): plugins/symbol-db/symbol-db-query.h
+                    SOURCE (11:6:25:8:15): plugins/symbol-db/symbol-db-query.c
+                    SOURCE (11:6:25:8:16): plugins/symbol-db/symbol-db-query-result.h
+                    SOURCE (11:6:25:8:17): plugins/symbol-db/symbol-db-query-result.c
+                    SOURCE (11:6:25:8:18): plugins/symbol-db/symbol-db-model.c
+                    SOURCE (11:6:25:8:19): plugins/symbol-db/symbol-db-model.h
+                    SOURCE (11:6:25:8:20): plugins/symbol-db/symbol-db-model-project.c
+                    SOURCE (11:6:25:8:21): plugins/symbol-db/symbol-db-model-project.h
+                    SOURCE (11:6:25:8:22): plugins/symbol-db/symbol-db-model-file.c
+                    SOURCE (11:6:25:8:23): plugins/symbol-db/symbol-db-model-file.h
+                    SOURCE (11:6:25:8:24): plugins/symbol-db/symbol-db-model-search.c
+                    SOURCE (11:6:25:8:25): plugins/symbol-db/symbol-db-model-search.h
+                    SOURCE (11:6:25:8:26): plugins/symbol-db/symbol-db-views.c
+                    SOURCE (11:6:25:8:27): plugins/symbol-db/symbol-db-views.h
+                    SOURCE (11:6:25:8:28): plugins/symbol-db/$(BUILT_SOURCES)
+            GROUP (11:6:26): git
+                PROPERTY (Install directories): git_gladedir = $(anjuta_glade_dir) git_uidir = $(anjuta_ui_dir) git_pixmapsdir = $(anjuta_image_dir) git_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS)
+                TARGET (11:6:26:0): git_glade
+                    SOURCE (11:6:26:0:0): plugins/git/anjuta-git.ui
+                TARGET (11:6:26:1): git_ui
+                    SOURCE (11:6:26:1:0): plugins/git/anjuta-git.xml
+                TARGET (11:6:26:2): git_pixmaps
+                    SOURCE (11:6:26:2:0): plugins/git/anjuta-git-plugin-48.png
+                TARGET (11:6:26:3): git_plugin
+                    SOURCE (11:6:26:3:0): plugins/git/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:26:4): libanjuta-git.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GTK_LIBS) $(LIBANJUTA_LIBS)
+                    SOURCE (11:6:26:4:0): plugins/git/plugin.c
+                    SOURCE (11:6:26:4:1): plugins/git/plugin.h
+                    SOURCE (11:6:26:4:2): plugins/git/git-command.c
+                    SOURCE (11:6:26:4:3): plugins/git/git-command.h
+                    SOURCE (11:6:26:4:4): plugins/git/git-ui-utils.c
+                    SOURCE (11:6:26:4:5): plugins/git/git-ui-utils.h
+                    SOURCE (11:6:26:4:6): plugins/git/git-diff-command.c
+                    SOURCE (11:6:26:4:7): plugins/git/git-diff-command.h
+                    SOURCE (11:6:26:4:8): plugins/git/git-diff-dialog.c
+                    SOURCE (11:6:26:4:9): plugins/git/git-diff-dialog.h
+                    SOURCE (11:6:26:4:10): plugins/git/git-status.c
+                    SOURCE (11:6:26:4:11): plugins/git/git-status.h
+                    SOURCE (11:6:26:4:12): plugins/git/git-status-command.c
+                    SOURCE (11:6:26:4:13): plugins/git/git-status-command.h
+                    SOURCE (11:6:26:4:14): plugins/git/git-commit-command.h
+                    SOURCE (11:6:26:4:15): plugins/git/git-commit-command.c
+                    SOURCE (11:6:26:4:16): plugins/git/git-commit-dialog.c
+                    SOURCE (11:6:26:4:17): plugins/git/git-commit-dialog.h
+                    SOURCE (11:6:26:4:18): plugins/git/git-add-command.h
+                    SOURCE (11:6:26:4:19): plugins/git/git-add-command.c
+                    SOURCE (11:6:26:4:20): plugins/git/git-add-dialog.c
+                    SOURCE (11:6:26:4:21): plugins/git/git-add-dialog.h
+                    SOURCE (11:6:26:4:22): plugins/git/git-remove-command.c
+                    SOURCE (11:6:26:4:23): plugins/git/git-remove-command.h
+                    SOURCE (11:6:26:4:24): plugins/git/git-remove-dialog.c
+                    SOURCE (11:6:26:4:25): plugins/git/git-remove-dialog.h
+                    SOURCE (11:6:26:4:26): plugins/git/git-resolve-dialog.c
+                    SOURCE (11:6:26:4:27): plugins/git/git-resolve-dialog.h
+                    SOURCE (11:6:26:4:28): plugins/git/git-branch.h
+                    SOURCE (11:6:26:4:29): plugins/git/git-branch.c
+                    SOURCE (11:6:26:4:30): plugins/git/git-branch-list-command.h
+                    SOURCE (11:6:26:4:31): plugins/git/git-branch-list-command.c
+                    SOURCE (11:6:26:4:32): plugins/git/git-merge-command.h
+                    SOURCE (11:6:26:4:33): plugins/git/git-merge-command.c
+                    SOURCE (11:6:26:4:34): plugins/git/git-merge-dialog.h
+                    SOURCE (11:6:26:4:35): plugins/git/git-merge-dialog.c
+                    SOURCE (11:6:26:4:36): plugins/git/git-branch-checkout-command.h
+                    SOURCE (11:6:26:4:37): plugins/git/git-branch-checkout-command.c
+                    SOURCE (11:6:26:4:38): plugins/git/git-switch-dialog.c
+                    SOURCE (11:6:26:4:39): plugins/git/git-switch-dialog.h
+                    SOURCE (11:6:26:4:40): plugins/git/git-branch-create-command.h
+                    SOURCE (11:6:26:4:41): plugins/git/git-branch-create-command.c
+                    SOURCE (11:6:26:4:42): plugins/git/git-create-branch-dialog.c
+                    SOURCE (11:6:26:4:43): plugins/git/git-create-branch-dialog.h
+                    SOURCE (11:6:26:4:44): plugins/git/git-branch-delete-command.c
+                    SOURCE (11:6:26:4:45): plugins/git/git-branch-delete-command.h
+                    SOURCE (11:6:26:4:46): plugins/git/git-delete-branch-dialog.c
+                    SOURCE (11:6:26:4:47): plugins/git/git-delete-branch-dialog.h
+                    SOURCE (11:6:26:4:48): plugins/git/git-reset-files-command.c
+                    SOURCE (11:6:26:4:49): plugins/git/git-reset-files-command.h
+                    SOURCE (11:6:26:4:50): plugins/git/git-unstage-dialog.c
+                    SOURCE (11:6:26:4:51): plugins/git/git-unstage-dialog.h
+                    SOURCE (11:6:26:4:52): plugins/git/git-checkout-files-command.c
+                    SOURCE (11:6:26:4:53): plugins/git/git-checkout-files-command.h
+                    SOURCE (11:6:26:4:54): plugins/git/git-checkout-files-dialog.c
+                    SOURCE (11:6:26:4:55): plugins/git/git-checkout-files-dialog.h
+                    SOURCE (11:6:26:4:56): plugins/git/giggle-graph-renderer.c
+                    SOURCE (11:6:26:4:57): plugins/git/giggle-graph-renderer.h
+                    SOURCE (11:6:26:4:58): plugins/git/git-log-command.c
+                    SOURCE (11:6:26:4:59): plugins/git/git-log-command.h
+                    SOURCE (11:6:26:4:60): plugins/git/git-log-dialog.c
+                    SOURCE (11:6:26:4:61): plugins/git/git-log-dialog.h
+                    SOURCE (11:6:26:4:62): plugins/git/git-revision.c
+                    SOURCE (11:6:26:4:63): plugins/git/git-revision.h
+                    SOURCE (11:6:26:4:64): plugins/git/git-log-message-command.c
+                    SOURCE (11:6:26:4:65): plugins/git/git-log-message-command.h
+                    SOURCE (11:6:26:4:66): plugins/git/git-ref.h
+                    SOURCE (11:6:26:4:67): plugins/git/git-ref.c
+                    SOURCE (11:6:26:4:68): plugins/git/git-ref-command.c
+                    SOURCE (11:6:26:4:69): plugins/git/git-ref-command.h
+                    SOURCE (11:6:26:4:70): plugins/git/git-raw-output-command.c
+                    SOURCE (11:6:26:4:71): plugins/git/git-raw-output-command.h
+                    SOURCE (11:6:26:4:72): plugins/git/git-diff-tree-command.c
+                    SOURCE (11:6:26:4:73): plugins/git/git-diff-tree-command.h
+                    SOURCE (11:6:26:4:74): plugins/git/git-create-tag-dialog.c
+                    SOURCE (11:6:26:4:75): plugins/git/git-create-tag-dialog.h
+                    SOURCE (11:6:26:4:76): plugins/git/git-tag-create-command.c
+                    SOURCE (11:6:26:4:77): plugins/git/git-tag-create-command.h
+                    SOURCE (11:6:26:4:78): plugins/git/git-reset-dialog.c
+                    SOURCE (11:6:26:4:79): plugins/git/git-reset-dialog.h
+                    SOURCE (11:6:26:4:80): plugins/git/git-reset-tree-command.c
+                    SOURCE (11:6:26:4:81): plugins/git/git-reset-tree-command.h
+                    SOURCE (11:6:26:4:82): plugins/git/git-revert-command.c
+                    SOURCE (11:6:26:4:83): plugins/git/git-revert-command.h
+                    SOURCE (11:6:26:4:84): plugins/git/git-revert-dialog.c
+                    SOURCE (11:6:26:4:85): plugins/git/git-revert-dialog.h
+                    SOURCE (11:6:26:4:86): plugins/git/git-fetch-command.c
+                    SOURCE (11:6:26:4:87): plugins/git/git-fetch-command.h
+                    SOURCE (11:6:26:4:88): plugins/git/git-fetch-dialog.c
+                    SOURCE (11:6:26:4:89): plugins/git/git-fetch-dialog.h
+                    SOURCE (11:6:26:4:90): plugins/git/git-rebase-continue-command.c
+                    SOURCE (11:6:26:4:91): plugins/git/git-rebase-continue-command.h
+                    SOURCE (11:6:26:4:92): plugins/git/git-rebase-dialog.c
+                    SOURCE (11:6:26:4:93): plugins/git/git-rebase-dialog.h
+                    SOURCE (11:6:26:4:94): plugins/git/git-rebase-start-command.c
+                    SOURCE (11:6:26:4:95): plugins/git/git-rebase-start-command.h
+                    SOURCE (11:6:26:4:96): plugins/git/git-bisect-dialog.c
+                    SOURCE (11:6:26:4:97): plugins/git/git-bisect-dialog.h
+                    SOURCE (11:6:26:4:98): plugins/git/git-bisect-reset-command.c
+                    SOURCE (11:6:26:4:99): plugins/git/git-bisect-reset-command.h
+                    SOURCE (11:6:26:4:100): plugins/git/git-bisect-start-command.c
+                    SOURCE (11:6:26:4:101): plugins/git/git-bisect-start-command.h
+                    SOURCE (11:6:26:4:102): plugins/git/git-bisect-state-command.c
+                    SOURCE (11:6:26:4:103): plugins/git/git-bisect-state-command.h
+                    SOURCE (11:6:26:4:104): plugins/git/git-file-command.c
+                    SOURCE (11:6:26:4:105): plugins/git/git-file-command.h
+                    SOURCE (11:6:26:4:106): plugins/git/git-ignore-command.c
+                    SOURCE (11:6:26:4:107): plugins/git/git-ignore-command.h
+                    SOURCE (11:6:26:4:108): plugins/git/git-ignore-dialog.c
+                    SOURCE (11:6:26:4:109): plugins/git/git-ignore-dialog.h
+                    SOURCE (11:6:26:4:110): plugins/git/git-add-remote-dialog.c
+                    SOURCE (11:6:26:4:111): plugins/git/git-add-remote-dialog.h
+                    SOURCE (11:6:26:4:112): plugins/git/git-remote-add-command.c
+                    SOURCE (11:6:26:4:113): plugins/git/git-remote-add-command.h
+                    SOURCE (11:6:26:4:114): plugins/git/git-delete-remote-dialog.c
+                    SOURCE (11:6:26:4:115): plugins/git/git-delete-remote-dialog.h
+                    SOURCE (11:6:26:4:116): plugins/git/git-remote-delete-command.c
+                    SOURCE (11:6:26:4:117): plugins/git/git-remote-delete-command.h
+                    SOURCE (11:6:26:4:118): plugins/git/git-remote-list-command.c
+                    SOURCE (11:6:26:4:119): plugins/git/git-remote-list-command.h
+                    SOURCE (11:6:26:4:120): plugins/git/git-format-patch-command.h
+                    SOURCE (11:6:26:4:121): plugins/git/git-format-patch-command.c
+                    SOURCE (11:6:26:4:122): plugins/git/git-create-patch-series-dialog.c
+                    SOURCE (11:6:26:4:123): plugins/git/git-create-patch-series-dialog.h
+                    SOURCE (11:6:26:4:124): plugins/git/git-pull-command.c
+                    SOURCE (11:6:26:4:125): plugins/git/git-pull-command.h
+                    SOURCE (11:6:26:4:126): plugins/git/git-pull-dialog.c
+                    SOURCE (11:6:26:4:127): plugins/git/git-pull-dialog.h
+                    SOURCE (11:6:26:4:128): plugins/git/git-list-tree-command.c
+                    SOURCE (11:6:26:4:129): plugins/git/git-list-tree-command.h
+                    SOURCE (11:6:26:4:130): plugins/git/git-cat-blob-command.c
+                    SOURCE (11:6:26:4:131): plugins/git/git-cat-blob-command.h
+                    SOURCE (11:6:26:4:132): plugins/git/git-cat-file-menu.c
+                    SOURCE (11:6:26:4:133): plugins/git/git-cat-file-menu.h
+                    SOURCE (11:6:26:4:134): plugins/git/git-vcs-interface.c
+                    SOURCE (11:6:26:4:135): plugins/git/git-vcs-interface.h
+                    SOURCE (11:6:26:4:136): plugins/git/git-clone-command.h
+                    SOURCE (11:6:26:4:137): plugins/git/git-clone-command.c
+                    SOURCE (11:6:26:4:138): plugins/git/git-push-command.c
+                    SOURCE (11:6:26:4:139): plugins/git/git-push-command.h
+                    SOURCE (11:6:26:4:140): plugins/git/git-push-dialog.c
+                    SOURCE (11:6:26:4:141): plugins/git/git-push-dialog.h
+                    SOURCE (11:6:26:4:142): plugins/git/git-apply-mailbox-command.c
+                    SOURCE (11:6:26:4:143): plugins/git/git-apply-mailbox-command.h
+                    SOURCE (11:6:26:4:144): plugins/git/git-apply-mailbox-continue-command.c
+                    SOURCE (11:6:26:4:145): plugins/git/git-apply-mailbox-continue-command.h
+                    SOURCE (11:6:26:4:146): plugins/git/git-apply-mailbox-dialog.c
+                    SOURCE (11:6:26:4:147): plugins/git/git-apply-mailbox-dialog.h
+                    SOURCE (11:6:26:4:148): plugins/git/git-cherry-pick-command.c
+                    SOURCE (11:6:26:4:149): plugins/git/git-cherry-pick-command.h
+                    SOURCE (11:6:26:4:150): plugins/git/git-cherry-pick-dialog.c
+                    SOURCE (11:6:26:4:151): plugins/git/git-cherry-pick-dialog.h
+                    SOURCE (11:6:26:4:152): plugins/git/git-delete-tag-dialog.c
+                    SOURCE (11:6:26:4:153): plugins/git/git-delete-tag-dialog.h
+                    SOURCE (11:6:26:4:154): plugins/git/git-tag-delete-command.c
+                    SOURCE (11:6:26:4:155): plugins/git/git-tag-delete-command.h
+                    SOURCE (11:6:26:4:156): plugins/git/git-tag-list-command.c
+                    SOURCE (11:6:26:4:157): plugins/git/git-tag-list-command.h
+                    SOURCE (11:6:26:4:158): plugins/git/git-stash-save-command.h
+                    SOURCE (11:6:26:4:159): plugins/git/git-stash-save-command.c
+                    SOURCE (11:6:26:4:160): plugins/git/git-stash-changes-dialog.c
+                    SOURCE (11:6:26:4:161): plugins/git/git-stash-changes-dialog.h
+                    SOURCE (11:6:26:4:162): plugins/git/git-stash-widget.c
+                    SOURCE (11:6:26:4:163): plugins/git/git-stash-widget.h
+                    SOURCE (11:6:26:4:164): plugins/git/git-stash.c
+                    SOURCE (11:6:26:4:165): plugins/git/git-stash.h
+                    SOURCE (11:6:26:4:166): plugins/git/git-stash-list-command.c
+                    SOURCE (11:6:26:4:167): plugins/git/git-stash-list-command.h
+                    SOURCE (11:6:26:4:168): plugins/git/git-stash-apply-command.c
+                    SOURCE (11:6:26:4:169): plugins/git/git-stash-apply-command.h
+                    SOURCE (11:6:26:4:170): plugins/git/git-apply-stash-dialog.c
+                    SOURCE (11:6:26:4:171): plugins/git/git-apply-stash-dialog.h
+                    SOURCE (11:6:26:4:172): plugins/git/git-stash-show-command.c
+                    SOURCE (11:6:26:4:173): plugins/git/git-stash-show-command.h
+                    SOURCE (11:6:26:4:174): plugins/git/git-stash-drop-command.c
+                    SOURCE (11:6:26:4:175): plugins/git/git-stash-drop-command.h
+                    SOURCE (11:6:26:4:176): plugins/git/git-stash-clear-command.c
+                    SOURCE (11:6:26:4:177): plugins/git/git-stash-clear-command.h
+                    SOURCE (11:6:26:4:178): plugins/git/git-init-command.c
+                    SOURCE (11:6:26:4:179): plugins/git/git-init-command.h
+                    SOURCE (11:6:26:4:180): plugins/git/git-init-dialog.c
+                    SOURCE (11:6:26:4:181): plugins/git/git-init-dialog.h
+            GROUP (11:6:27): sourceview
+                PROPERTY (Install directories): sourceview_xmldir = $(anjuta_glade_dir) sourceview_pixmapsdir = $(anjuta_image_dir) sourceview_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(GIO_CFLAGS) $(PLUGIN_SOURCEVIEW_CFLAGS) $(LIBANJUTA_CFLAGS) -DG_LOG_DOMAIN=\"sourceview\"
+                TARGET (11:6:27:0): sourceview_xml
+                    SOURCE (11:6:27:0:0): plugins/sourceview/anjuta-editor-sourceview.ui
+                TARGET (11:6:27:1): sourceview_pixmaps
+                    SOURCE (11:6:27:1:0): plugins/sourceview/anjuta-editor-sourceview-plugin-48.png
+                    SOURCE (11:6:27:1:1): plugins/sourceview/anjuta-linemark-16.png
+                    SOURCE (11:6:27:1:2): plugins/sourceview/anjuta-pcmark-16.png
+                    SOURCE (11:6:27:1:3): plugins/sourceview/anjuta-breakpoint-disabled-16.png
+                    SOURCE (11:6:27:1:4): plugins/sourceview/anjuta-breakpoint-enabled-16.png
+                    SOURCE (11:6:27:1:5): plugins/sourceview/anjuta-bookmark-16.png
+                TARGET (11:6:27:2): sourceview_plugin
+                    SOURCE (11:6:27:2:0): plugins/sourceview/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:27:3): libanjuta-sourceview.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GIO_LIBS) $(PLUGIN_SOURCEVIEW_LIBS) $(LIBANJUTA_LIBS)
+                    SOURCE (11:6:27:3:0): plugins/sourceview/$(BUILT_SOURCES)
+                    SOURCE (11:6:27:3:1): plugins/sourceview/plugin.c
+                    SOURCE (11:6:27:3:2): plugins/sourceview/plugin.h
+                    SOURCE (11:6:27:3:3): plugins/sourceview/sourceview.c
+                    SOURCE (11:6:27:3:4): plugins/sourceview/sourceview.h
+                    SOURCE (11:6:27:3:5): plugins/sourceview/anjuta-view.h
+                    SOURCE (11:6:27:3:6): plugins/sourceview/anjuta-view.c
+                    SOURCE (11:6:27:3:7): plugins/sourceview/sourceview-prefs.h
+                    SOURCE (11:6:27:3:8): plugins/sourceview/sourceview-prefs.c
+                    SOURCE (11:6:27:3:9): plugins/sourceview/sourceview-private.h
+                    SOURCE (11:6:27:3:10): plugins/sourceview/sourceview-cell.c
+                    SOURCE (11:6:27:3:11): plugins/sourceview/sourceview-cell.h
+                    SOURCE (11:6:27:3:12): plugins/sourceview/sourceview-print.h
+                    SOURCE (11:6:27:3:13): plugins/sourceview/sourceview-print.c
+                    SOURCE (11:6:27:3:14): plugins/sourceview/assist-tip.h
+                    SOURCE (11:6:27:3:15): plugins/sourceview/assist-tip.c
+                    SOURCE (11:6:27:3:16): plugins/sourceview/sourceview-io.h
+                    SOURCE (11:6:27:3:17): plugins/sourceview/sourceview-io.c
+                    SOURCE (11:6:27:3:18): plugins/sourceview/sourceview-provider.h
+                    SOURCE (11:6:27:3:19): plugins/sourceview/sourceview-provider.c
+            GROUP (11:6:28): run-program
+                PROPERTY (Install directories): anjuta_gladedir = $(anjuta_glade_dir) anjuta_uidir = $(anjuta_ui_dir) anjuta_pixmapsdir = $(anjuta_image_dir) anjuta_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS)
+                TARGET (11:6:28:0): anjuta_glade
+                    SOURCE (11:6:28:0:0): plugins/run-program/anjuta-run-program.ui
+                TARGET (11:6:28:1): anjuta_ui
+                    SOURCE (11:6:28:1:0): plugins/run-program/anjuta-run-program.xml
+                TARGET (11:6:28:2): anjuta_pixmaps
+                    SOURCE (11:6:28:2:0): plugins/run-program/anjuta-run-program-48.png
+                TARGET (11:6:28:3): anjuta_plugin
+                    SOURCE (11:6:28:3:0): plugins/run-program/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:28:4): libanjuta-run-program.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(LIBANJUTA_LIBS)
+                    SOURCE (11:6:28:4:0): plugins/run-program/plugin.c
+                    SOURCE (11:6:28:4:1): plugins/run-program/plugin.h
+                    SOURCE (11:6:28:4:2): plugins/run-program/parameters.c
+                    SOURCE (11:6:28:4:3): plugins/run-program/parameters.h
+                    SOURCE (11:6:28:4:4): plugins/run-program/execute.c
+                    SOURCE (11:6:28:4:5): plugins/run-program/execute.h
+                    SOURCE (11:6:28:4:6): plugins/run-program/utils.c
+                    SOURCE (11:6:28:4:7): plugins/run-program/utils.h
+            GROUP (11:6:29): starter
+                PROPERTY (Install directories): starter_plugindir = $(anjuta_plugin_dir) starter_pixmapsdir = $(anjuta_image_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(GDL_CFLAGS) $(LIBANJUTA_CFLAGS) -DG_LOG_DOMAIN=\"starter\"
+                TARGET (11:6:29:0): starter_plugin
+                    SOURCE (11:6:29:0:0): plugins/starter/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:29:1): starter_pixmaps
+                    SOURCE (11:6:29:1:0): plugins/starter/starter_logo.png
+                TARGET (11:6:29:2): libanjuta-starter.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GDL_LIBS) $(LIBANJUTA_LIBS)
+                    SOURCE (11:6:29:2:0): plugins/starter/plugin.c
+                    SOURCE (11:6:29:2:1): plugins/starter/plugin.h
+                    SOURCE (11:6:29:2:2): plugins/starter/starter.h
+                    SOURCE (11:6:29:2:3): plugins/starter/starter.c
+            GROUP (11:6:30): am-project
+                PROPERTY (Install directories): plugin_uidir = $(anjuta_ui_dir) plugin_gladedir = $(anjuta_glade_dir) plugin_pixmapsdir = $(anjuta_image_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(GIO_CFLAGS) $(LIBANJUTA_CFLAGS) -DG_LOG_DOMAIN=\"am-project\"
+                PROPERTY (Yacc/Bison flags): -t -v -g -rall -r lookahead,itemset
+                TARGET (11:6:30:0): plugin_ui
+                TARGET (11:6:30:1): plugin_glade
+                TARGET (11:6:30:2): plugin_pixmaps
+                    SOURCE (11:6:30:2:0): plugins/am-project/am-project-plugin-48.png
+                TARGET (11:6:30:3): plugin
+                    SOURCE (11:6:30:3:0): plugins/am-project/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:30:4): libam-project.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS)
+                    SOURCE (11:6:30:4:0): plugins/am-project/plugin.c
+                    SOURCE (11:6:30:4:1): plugins/am-project/plugin.h
+                    SOURCE (11:6:30:4:2): plugins/am-project/am-project.c
+                    SOURCE (11:6:30:4:3): plugins/am-project/am-project.h
+                    SOURCE (11:6:30:4:4): plugins/am-project/am-scanner.l
+                    SOURCE (11:6:30:4:5): plugins/am-project/am-parser.y
+                    SOURCE (11:6:30:4:6): plugins/am-project/am-scanner.h
+                    SOURCE (11:6:30:4:7): plugins/am-project/ac-scanner.l
+                    SOURCE (11:6:30:4:8): plugins/am-project/ac-parser.y
+                    SOURCE (11:6:30:4:9): plugins/am-project/ac-scanner.h
+                    SOURCE (11:6:30:4:10): plugins/am-project/ac-writer.h
+                    SOURCE (11:6:30:4:11): plugins/am-project/ac-writer.c
+                    SOURCE (11:6:30:4:12): plugins/am-project/am-writer.h
+                    SOURCE (11:6:30:4:13): plugins/am-project/am-writer.c
+                    SOURCE (11:6:30:4:14): plugins/am-project/am-project-private.h
+                    SOURCE (11:6:30:4:15): plugins/am-project/am-properties.c
+                    SOURCE (11:6:30:4:16): plugins/am-project/am-properties.h
+                    SOURCE (11:6:30:4:17): plugins/am-project/am-node.c
+                    SOURCE (11:6:30:4:18): plugins/am-project/am-node.h
+                    SOURCE (11:6:30:4:19): plugins/am-project/command-queue.c
+                    SOURCE (11:6:30:4:20): plugins/am-project/command-queue.h
+                TARGET (11:6:30:5): projectparser
+                    PROPERTY (Additional objects): libam-project.la $(LIBANJUTA_LIBS)
+                    SOURCE (11:6:30:5:0): plugins/am-project/projectparser.c
+            GROUP (11:6:31): dir-project
+                PROPERTY (Install directories): plugin_uidir = $(anjuta_ui_dir) plugin_gladedir = $(anjuta_glade_dir) plugin_datadir = $(anjuta_data_dir) plugin_pixmapsdir = $(anjuta_image_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(GIO_CFLAGS) $(LIBANJUTA_CFLAGS) -DG_LOG_DOMAIN=\"dir-project\"
+                TARGET (11:6:31:0): plugin_ui
+                TARGET (11:6:31:1): plugin_glade
+                TARGET (11:6:31:2): plugin_data
+                    SOURCE (11:6:31:2:0): plugins/dir-project/sources.list
+                TARGET (11:6:31:3): plugin_pixmaps
+                    SOURCE (11:6:31:3:0): plugins/dir-project/dir-project-plugin-48.png
+                TARGET (11:6:31:4): plugin
+                    SOURCE (11:6:31:4:0): plugins/dir-project/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:31:5): libdir-project.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS)
+                    SOURCE (11:6:31:5:0): plugins/dir-project/plugin.c
+                    SOURCE (11:6:31:5:1): plugins/dir-project/plugin.h
+                    SOURCE (11:6:31:5:2): plugins/dir-project/dir-project.c
+                    SOURCE (11:6:31:5:3): plugins/dir-project/dir-project.h
+                    SOURCE (11:6:31:5:4): plugins/dir-project/dir-node.c
+                    SOURCE (11:6:31:5:5): plugins/dir-project/dir-node.h
+            GROUP (11:6:32): js-debugger
+                PROPERTY (Install directories): js_debugger_pixmapsdir = $(anjuta_image_dir) js_debugger_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) -DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" -DANJUTA_DATA_DIR=\"$(anjuta_data_dir)\" -DANJUTA_PLUGIN_DIR=\"$(anjuta_plugin_dir)\" -DANJUTA_IMAGE_DIR=\"$(anjuta_image_dir)\" -DANJUTA_GLADE_DIR=\"$(anjuta_glade_dir)\" -DANJUTA_UI_DIR=\"$(anjuta_ui_dir)\" -DPACKAGE_SRC_DIR=\"$(srcdir)\" $(LIBANJUTA_CFLAGS)
+                TARGET (11:6:32:0): js_debugger_pixmaps
+                    SOURCE (11:6:32:0:0): plugins/js-debugger/js_debugger.png
+                TARGET (11:6:32:1): js_debugger_plugin
+                    SOURCE (11:6:32:1:0): plugins/js-debugger/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:32:2): libjs_debugger.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(LIBANJUTA_LIBS)
+                    SOURCE (11:6:32:2:0): plugins/js-debugger/debugger-js.c
+                    SOURCE (11:6:32:2:1): plugins/js-debugger/debugger-js.h
+                    SOURCE (11:6:32:2:2): plugins/js-debugger/debugger-server.c
+                    SOURCE (11:6:32:2:3): plugins/js-debugger/debugger-server.h
+                    SOURCE (11:6:32:2:4): plugins/js-debugger/plugin.c
+                    SOURCE (11:6:32:2:5): plugins/js-debugger/plugin.h
+            GROUP (11:6:33): language-support-vala
+                PROPERTY (Install directories): vala_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) -DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" -DANJUTA_DATA_DIR=\"$(anjuta_data_dir)\" -DANJUTA_PLUGIN_DIR=\"$(anjuta_plugin_dir)\" -DANJUTA_IMAGE_DIR=\"$(anjuta_image_dir)\" -DANJUTA_GLADE_DIR=\"$(anjuta_glade_dir)\" -DANJUTA_UI_DIR=\"$(anjuta_ui_dir)\" $(LIBANJUTA_CFLAGS) $(VALA_CFLAGS) -DPACKAGE_SRC_DIR=\"$(srcdir)\" -DG_LOG_DOMAIN=\"language-support-vala\" --no-warn
+                TARGET (11:6:33:0): vala_plugin
+                    SOURCE (11:6:33:0:0): plugins/language-support-vala/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:33:1): libanjuta-language-vala.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(LIBANJUTA_LIBS) $(VALA_LIBS)
+                    SOURCE (11:6:33:1:0): plugins/language-support-vala/locator.vala
+                    SOURCE (11:6:33:1:1): plugins/language-support-vala/plugin.vala
+                    SOURCE (11:6:33:1:2): plugins/language-support-vala/provider.vala
+                    SOURCE (11:6:33:1:3): plugins/language-support-vala/report.vala
+            GROUP (11:6:34): python-loader
+                PROPERTY (Install directories): plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) -DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" -DANJUTA_DATA_DIR=\"$(anjuta_data_dir)\" -DANJUTA_PLUGIN_DIR=\"$(anjuta_plugin_dir)\" -DANJUTA_IMAGE_DIR=\"$(anjuta_image_dir)\" -DANJUTA_GLADE_DIR=\"$(anjuta_glade_dir)\" -DANJUTA_UI_DIR=\"$(anjuta_ui_dir)\" $(LIBANJUTA_CFLAGS) $(PYTHON_CFLAGS) $(PYGOBJECT_CFLAGS) -DPACKAGE_SRC_DIR=\"$(srcdir)\" -DG_LOG_DOMAIN=\"python-loader\"
+                TARGET (11:6:34:0): plugin
+                    SOURCE (11:6:34:0:0): plugins/python-loader/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (11:6:34:1): libanjuta-python-loader.la
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Additional libraries): $(LIBANJUTA_LIBS) $(PYTHON_LIBS) $(PYGOBJECT_LIBS)
+                    SOURCE (11:6:34:1:0): plugins/python-loader/plugin.c
+                    SOURCE (11:6:34:1:1): plugins/python-loader/plugin.h
+        GROUP (11:7): src
+            PROPERTY (Install directories): anjuta_gladedir = $(anjuta_glade_dir) anjuta_uidir = $(anjuta_ui_dir) anjuta_layoutdir = $(anjuta_data_dir) anjuta_pixmapsdir = $(anjuta_image_dir)
+            PROPERTY (C preprocessor flags): -I$(top_srcdir) -I.. -I. $(LIBANJUTA_CFLAGS) -DPACKAGE_BIN_DIR=\"$(bindir)\" -DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" -DPACKAGE_DOC_DIR=\"$(docdir)\" -DPACKAGE_PIXMAPS_DIR=\"$(datadir)/pixmaps/$(PACKAGE)\" -DPACKAGE_PLUGIN_DIR=\"$(libdir)/$(PACKAGE)\" -DPACKAGE_LOCALE_DIR=\"$(datadir)/locale\" -DG_LOG_DOMAIN=\"Anjuta\"
+            TARGET (11:7:0): anjuta_glade
+                SOURCE (11:7:0:0): src/preferences.ui
+            TARGET (11:7:1): anjuta_ui
+                SOURCE (11:7:1:0): src/anjuta.xml
+            TARGET (11:7:2): anjuta_layout
+                SOURCE (11:7:2:0): src/layout.xml
+            TARGET (11:7:3): anjuta_pixmaps
+                SOURCE (11:7:3:0): src/anjuta-preferences-general.svg
+                SOURCE (11:7:3:1): src/anjuta-preferences-general-48.png
+            TARGET (11:7:4): anjuta
+                PROPERTY (Additional objects): $(GCONF_LIBS) $(GDL_LIBS) $(GLADE_LIBS) $(GLIB_LIBS) $(top_builddir)/libanjuta/libanjuta.la
+                PROPERTY (Linker flags): $(ANJUTA_LDFLAGS)
+                SOURCE (11:7:4:0): src/about.c
+                SOURCE (11:7:4:1): src/about.h
+                SOURCE (11:7:4:2): src/anjuta.c
+                SOURCE (11:7:4:3): src/anjuta.h
+                SOURCE (11:7:4:4): src/anjuta-app.c
+                SOURCE (11:7:4:5): src/anjuta-app.h
+                SOURCE (11:7:4:6): src/anjuta-actions.h
+                SOURCE (11:7:4:7): src/action-callbacks.h
+                SOURCE (11:7:4:8): src/action-callbacks.c
+                SOURCE (11:7:4:9): src/main.c
+            TARGET (11:7:5): anjuta-shell
+                PROPERTY (Additional objects): $(top_builddir)/libanjuta/libanjuta.la
+                SOURCE (11:7:5:0): src/shell.c
+                SOURCE (11:7:5:1): src/shell.h
+        GROUP (11:8): manuals
+            GROUP (11:8:0): reference
+                GROUP (11:8:0:0): libanjuta
+            GROUP (11:8:1): anjuta-manual
+            GROUP (11:8:2): anjuta-faqs
+            GROUP (11:8:3): anjuta-build-tutorial
+        GROUP (11:9): mime
+            PROPERTY (Install directories): mimexmldir = $(datadir)/mime/packages
+            TARGET (11:9:0): mimexml
+                SOURCE (11:9:0:0): mime/anjuta.xml
+        GROUP (11:10): launcher
+            PROPERTY (C preprocessor flags): -I. -I.. $(ANJUTA_CFLAGS) -g -O $(DEPRECATED_FLAGS)
+            TARGET (11:10:0): anjuta-launcher
+                PROPERTY (Additional objects): $(ANJUTA_LIBS)
+        GROUP (11:11): po
+        TARGET (11:12): anjutadoc
+            SOURCE (11:12:0): MAINTAINERS
+            SOURCE (11:12:1): README
+            SOURCE (11:12:2): COPYING
+            SOURCE (11:12:3): AUTHORS
+            SOURCE (11:12:4): ChangeLog
+            SOURCE (11:12:5): INSTALL
+            SOURCE (11:12:6): NEWS
+            SOURCE (11:12:7): TODO
+            SOURCE (11:12:8): FUTURE
+            SOURCE (11:12:9): ROADMAP
+            SOURCE (11:12:10): THANKS
+        TARGET (11:13): anjuta_data
+            SOURCE (11:13:0): AUTHORS
+        TARGET (11:14): gnomemenu
+            SOURCE (11:14:0): $(gnomemenu_premerge_file:.desktop.in=.desktop)

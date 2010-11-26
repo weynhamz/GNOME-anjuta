@@ -120,7 +120,7 @@ symbol_db_util_get_files_with_zero_symbols (SymbolDBEngine *dbe)
 	}	
 		
 	/* initialize the array */
-	files_to_scan = g_ptr_array_new ();
+	files_to_scan = g_ptr_array_new_with_free_func (g_free);
 
 	/* we can now scan each filename entry to check the last modification time. */
 	for (i = 0; i < num_rows; i++)

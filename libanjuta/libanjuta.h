@@ -55,5 +55,6 @@
 #include <libanjuta/anjuta-command-bar.h>
 #include <libanjuta/anjuta-dock.h>
 #include <libanjuta/anjuta-dock-pane.h>
+#include <libanjuta/anjuta-token.h>
 
 #endif

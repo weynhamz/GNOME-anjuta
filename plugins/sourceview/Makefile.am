@@ -12,7 +12,8 @@ sourceview_pixmaps_DATA = \
 	anjuta-pcmark-16.png \
 	anjuta-breakpoint-disabled-16.png \
 	anjuta-breakpoint-enabled-16.png \
-	anjuta-bookmark-16.png
+	anjuta-bookmark-16.png \
+	anjuta-message-16.png
 
 # Plugin description file
 plugin_in_files = sourceview.plugin.in

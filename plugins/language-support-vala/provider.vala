@@ -26,7 +26,7 @@ public class ValaProvider : Object, IAnjuta.Provider {
 	const string PREF_AUTOCOMPLETE_ENABLE = "cpp-completion-enable";
 	const string PREF_SPACE_AFTER_FUNC = "cpp-completion-space-after-func";
 	const string PREF_BRACE_AFTER_FUNC = "cpp-code-brace-after-func";
-	const string PREF_CALLTIP_ENABLE = "cpp-calltip-enable";
+	internal const string PREF_CALLTIP_ENABLE = "cpp-calltip-enable";
 
 	static construct {
 		try {
@@ -137,7 +137,7 @@ public class ValaProvider : Object, IAnjuta.Provider {
 		                                 false, plugin.get_current_block (editor));
 
 		foreach (var sym in syms) {
-			Vala.List<Vala.FormalParameter> parameters = null;
+			Vala.List<Vala.Parameter> parameters = null;
 			if (sym is Vala.Method) {
 				parameters = ((Vala.Method) sym).get_parameters ();
 			} else if (sym is Vala.Signal) {

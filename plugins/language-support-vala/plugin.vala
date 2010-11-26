@@ -35,6 +35,9 @@ public class ValaPlugin : Plugin {
 	Vala.SymbolResolver resolver;
 	Vala.SemanticAnalyzer analyzer;
 
+	ValaPlugin () {
+		Object ();
+	}
 	public override bool activate () {
 		//debug("Activating ValaPlugin");
 		context = new Vala.CodeContext();
@@ -45,14 +48,12 @@ public class ValaPlugin : Plugin {
 
 		var project = (IAnjuta.ProjectManager) shell.get_object("IAnjutaProjectManager");
 		weak List<string> packages = project.get_packages();
-		add_package(context, "glib-2.0");
-		add_package(context, "gobject-2.0");
+		context.add_package("glib-2.0");
+		context.add_package("gobject-2.0");
 
 		var status = shell.get_status ();
-		foreach(var pkg in packages) {
-			if (!add_package(context, pkg))
-				status.set("Package %s not found", pkg);
-		}
+		foreach (var pkg in packages)
+			context.add_package(pkg);
 
 		source_files = new Vala.HashMap<string, Vala.SourceFile>(str_hash, str_equal, direct_equal);
 
@@ -60,20 +61,20 @@ public class ValaPlugin : Plugin {
 		foreach (var src in sources) {
 			if (src.get_path() != null && !source_files.contains(src.get_path())) {
 				if (src.get_basename().has_suffix("vala") || src.get_basename().has_suffix("gs")) {
-					var vsrc = new Vala.SourceFile(context, src.get_path());
+					var vsrc = new Vala.SourceFile(context, Vala.SourceFileType.SOURCE, src.get_path());
 					context.add_source_file(vsrc);
 					var ns_ref = new Vala.UsingDirective (new Vala.UnresolvedSymbol (null, "GLib", null));
 					vsrc.add_using_directive (ns_ref);
 					context.root.add_using_directive (ns_ref);
 					source_files[src.get_path()] = vsrc;
 				} else if (src.get_basename().has_suffix("vapi")) {
-					var vsrc = new Vala.SourceFile (context, src.get_path(), true);
+					var vsrc = new Vala.SourceFile (context, Vala.SourceFileType.PACKAGE, src.get_path());
 					context.add_source_file(vsrc);
 					source_files[src.get_path()] = vsrc;
 				}
 			}
 		}
-		ThreadFunc parse = () => {
+		ThreadFunc<void*> parse = () => {
 			lock (context) {
 				Vala.CodeContext.push(context);
 				var report = context.report as AnjutaReport;
@@ -104,7 +105,7 @@ public class ValaPlugin : Plugin {
 		};
 
 		try {
-			Thread.create(parse, false);
+			Thread.create<void*>(parse, false);
 			debug("Using threads");
 		} catch (ThreadError err) {
 			parse();
@@ -194,7 +195,10 @@ public class ValaPlugin : Plugin {
 		var path = file.get_file().get_path();
 		lock (context) {
 			if (!(path in source_files)) {
-				var src = new Vala.SourceFile(context, path, path.has_suffix("vapi"));
+				var src = new Vala.SourceFile(context,
+				                              path.has_suffix("vapi") ? Vala.SourceFileType.PACKAGE:
+					                                                    Vala.SourceFileType.SOURCE,
+				                              path);
 				context.add_source_file(src);
 				source_files[path] = src;
 				update_file(src);
@@ -275,8 +279,8 @@ public class ValaPlugin : Plugin {
 		} else if (sym is Vala.Property) {
 			var prop = (Vala.Property) sym;
 			result.concat (symbol_lookup_inherited (prop.property_type.data_type, name, prefix_match));
-		} else if (sym is Vala.FormalParameter) {
-			var fp = (Vala.FormalParameter) sym;
+		} else if (sym is Vala.Parameter) {
+			var fp = (Vala.Parameter) sym;
 			result.concat (symbol_lookup_inherited (fp.variable_type.data_type, name, prefix_match));
 		}
 
@@ -324,44 +328,6 @@ public class ValaPlugin : Plugin {
 			report.update_errors(current_editor);
 		}
 	}
-}
-
-
-/* Copied from valac */
-public bool add_package (Vala.CodeContext context, string pkg) {
-	if (context.has_package (pkg)) {
-		// ignore multiple occurences of the same package
-		return true;
-	}
-	var package_path = context.get_package_path (pkg, new string[]{});
-
-	if (package_path == null) {
-		return false;
-	}
-
-	context.add_package (pkg);
-
-	context.add_source_file (new Vala.SourceFile (context, package_path, true));
-
-	var deps_filename = Path.build_filename (Path.get_dirname (package_path), "%s.deps".printf (pkg));
-	if (FileUtils.test (deps_filename, FileTest.EXISTS)) {
-		try {
-			string deps_content;
-			ulong deps_len;
-			FileUtils.get_contents (deps_filename, out deps_content, out deps_len);
-			foreach (string dep in deps_content.split ("\n")) {
-				if (dep != "") {
-					if (!add_package (context, dep)) {
-						context.report.err (null, "%s, dependency of %s, not found in specified Vala API directories".printf (dep, pkg));
-					}
-				}
-			}
-		} catch (FileError e) {
-			context.report.err (null, "Unable to read dependency file: %s".printf (e.message));
-		}
-	}
-
-	return true;
 }
 
 [ModuleInit]

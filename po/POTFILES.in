@@ -95,14 +95,10 @@ plugins/file-manager/plugin.c
 [type: gettext/glade]plugins/file-wizard/anjuta-file-wizard.ui
 plugins/file-wizard/file.c
 plugins/file-wizard/plugin.c
-plugins/gbf-am/gbf-am-config.c
-[type: gettext/glade]plugins/gbf-am/gbf-am-dialogs.ui
-plugins/gbf-am/gbf-am-project.c
-plugins/gbf-am/gbf-am-properties.c
-plugins/gbf-mkfile/gbf-mkfile-config.c
-plugins/gbf-mkfile/gbf-mkfile-project.c
-plugins/gbf-mkfile/gbf-mkfile-properties.c
 plugins/dir-project/dir-project.c
+plugins/am-project/am-node.c
+plugins/am-project/am-project.c
+plugins/am-project/am-properties.c
 [type: gettext/glade]plugins/gdb/anjuta-gdb.ui
 plugins/gdb/debugger.c
 plugins/gdb/plugin.c
@@ -161,10 +157,14 @@ plugins/patch/plugin.c
 plugins/project-import/plugin.c
 [type: gettext/glade]plugins/project-import/project-import.ui
 plugins/project-import/project-import-dialog.c
-[type: gettext/glade]plugins/project-manager/create_dialogs.ui
-plugins/project-manager/gbf-project-model.c
-plugins/project-manager/gbf-project-util.c
+[type: gettext/glade]plugins/project-manager/pm_dialogs.ui
+plugins/project-manager/project-model.c
+plugins/project-manager/project-util.c
 plugins/project-manager/plugin.c
+plugins/project-manager/dialogs.c
+plugins/project-manager/project.c
+plugins/project-manager/project-view.c
+plugins/project-manager/tree-data.c
 [type: gettext/glade]plugins/project-wizard/anjuta-project-wizard.ui
 plugins/project-wizard/druid.c
 plugins/project-wizard/install.c
@@ -192,9 +192,9 @@ plugins/project-wizard/property.c
 plugins/run-program/execute.c
 plugins/run-program/parameters.c
 plugins/run-program/plugin.c
+[type: gettext/xml]plugins/run-program/org.gnome.anjuta.run.gschema.xml.in
 [type: gettext/glade]plugins/search/anjuta-search.ui
 plugins/search/plugin.c
-plugins/search/search_preferences.c
 plugins/search/search-replace.c
 plugins/search/search-replace_backend.c
 plugins/snippets-manager/plugin.c
@@ -258,7 +258,7 @@ plugins/debug-manager/signals.c
 plugins/debug-manager/stack_trace.c
 plugins/debug-manager/start.c
 plugins/debug-manager/watch.c
-plugins/debug-manager/anjuta-debug-manager.schemas.in
+[type: gettext/xml]plugins/debug-manager/org.gnome.anjuta.debug-manager.gschema.xml.in
 [type: gettext/glade]plugins/language-support-cpp-java/anjuta-language-cpp-java.ui
 plugins/language-support-cpp-java/plugin.c
 plugins/language-support-cpp-java/cpp-java-assist.c
@@ -296,8 +296,7 @@ plugins/sourceview/plugin.c
 [type: gettext/ini]plugins/debug-manager/anjuta-debug-manager.plugin.in
 [type: gettext/ini]plugins/run-program/anjuta-run-program.plugin.in
 [type: gettext/ini]plugins/language-manager/language-manager.plugin.in
-[type: gettext/ini]plugins/gbf-mkfile/gbf-mkfile.plugin.in
-[type: gettext/ini]plugins/gbf-am/gbf-am.plugin.in
+[type: gettext/ini]plugins/am-project/am-project.plugin.in
 plugins/js-debugger/plugin.c
 plugins/js-debugger/debugger-js.c
 [type: gettext/ini]plugins/js-debugger/js_debugger.plugin.in

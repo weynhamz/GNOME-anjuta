@@ -1320,7 +1320,7 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, GFile* file,
 													IANJUTA_MARKABLE_LINEMARKER,
 													NULL);
 				ianjuta_markable_mark (IANJUTA_MARKABLE (doc), line,
-									  IANJUTA_MARKABLE_LINEMARKER, NULL);
+									  IANJUTA_MARKABLE_LINEMARKER, NULL, NULL);
 			}
 		}
 	}

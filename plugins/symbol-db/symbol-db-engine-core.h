@@ -92,8 +92,7 @@ symbol_db_engine_new_full (const gchar * ctags_path, const gchar * database_name
  * Set a new path for ctags executable.
  */ 
 gboolean
-symbol_db_engine_set_ctags_path (SymbolDBEngine *dbe,
-								  const gchar * ctags_path);
+symbol_db_engine_set_ctags_path (SymbolDBEngine *dbe, const gchar * ctags_path);
 
 /**
  * Open, create or upgrade a database at given directory. 
@@ -161,10 +160,12 @@ symbol_db_engine_add_new_workspace (SymbolDBEngine *dbe, const gchar* workspace)
  * @param workspace Can be NULL. In that case a default workspace will be created, 
  * 					and project will depend on that.
  * @param project Project name. Must NOT be NULL.
+ * @param version Version of the project, or of the package that project represents. 
+ * If not sure pass "1.0".
  */
 gboolean 
 symbol_db_engine_add_new_project (SymbolDBEngine *dbe, const gchar* workspace, 
-								  const gchar* project);
+								  const gchar* project, const gchar* version);
 
 /** 
  * Test project existence. 
@@ -172,17 +173,19 @@ symbol_db_engine_add_new_project (SymbolDBEngine *dbe, const gchar* workspace,
  */
 gboolean 
 symbol_db_engine_project_exists (SymbolDBEngine *dbe, /*gchar* workspace, */
-								  const gchar* project_name);
+								const gchar* project_name,
+    							const gchar* project_version);
 
 
 /** 
- * Add a group of files of a single language to a project. It will perform also 
- * a symbols scannig/populating of db if scan_symbols is TRUE.
- * This function requires an opened db, i.e. You must call 
+ * Add a group of files to a project. It will perform also 
+ * a symbols scannig/populating of db if force_scan is TRUE.
+ * This function requires an opened db, i.e. You must test db ststus with  
  * symbol_db_engine_open_db () before.
+ * The function must be called from within the main thread.
  * 
- * @note if some file fails to enter the db the function will return without
- * processing the remaining files.
+ * @note if some file fails to enter into the db the function will return without
+ * 		  processing the remaining files.
  * @param project_name something like 'foo_project', or 'helloworld_project'. Can be NULL,
  *        for example when you're populating after abort.
  * @param project_directory something like the base path '/home/user/projects/foo_project/'
@@ -199,18 +202,26 @@ symbol_db_engine_project_exists (SymbolDBEngine *dbe, /*gchar* workspace, */
  *        this function. The function'll write entries on the db.
  * @param languages is an array of 'languages'. It must have the same number of 
  *		  elments that files_path has. It should be populated like this: "C", "C++",
- *		  "Java"
- * 		  This is done to be uniform to the language-manager plugin.
+ *		  "Java" etc.
+ * 		  This is done to be normalized with the language-manager plugin.
  * @param force_scan If FALSE a check on db will be done to see
- *		  whether the file is already present or not.
+ *		  whether the file is already present or not. In the latter care the scan will begin.
+ *
+ * The function is suffixed with 'async'. This means that the scanning of the files is delayed
+ * until the scanner is available. So you should use the gint id returned to identify
+ * if a 'scan-end' signal is the one that you were expecting. 
+ * Please note also that, if db is disconnected before the waiting queue is processed,
+ * the scan of those files won't be performed.
+ *
  * @return scan process id if insertion is successful, -1 on error.
  */
 gint
-symbol_db_engine_add_new_files_full (SymbolDBEngine *dbe, 
-									const gchar * project_name,
-							    	const GPtrArray *files_path,
-									const GPtrArray *languages,
-									gboolean force_scan);
+symbol_db_engine_add_new_files_full_async (SymbolDBEngine *dbe, 
+										   const gchar * project_name,
+    									   const gchar * project_version,
+							    		   const GPtrArray *files_path,
+										   const GPtrArray *languages,
+										   gboolean force_scan);
 
 /**
  * See symbol_db_engine_add_new_files_full () for doc.
@@ -218,13 +229,22 @@ symbol_db_engine_add_new_files_full (SymbolDBEngine *dbe,
  * symbol_db_engine_add_new_files_full because you won't have to specify the
  * GPtrArray of languages, but it'll try to autodetect them.
  * When added, the files are forced to be scanned.
+ *
+ *
+ * The function is suffixed with 'async'. This means that the scanning of the files is delayed
+ * until the scanner is available. So you should use the gint id returned to identify
+ * if a 'scan-end' signal is the one that you were expecting. 
+ * Please note also that, if db is disconnected before the waiting queue is processed,
+ * the scan of those files won't be performed.
+ *
+ * @return scan process id if insertion is successful, -1 on error.
  */
-/* !!!! FIXME: not yet tested !!!! */
 gint
-symbol_db_engine_add_new_files (SymbolDBEngine *dbe, 
-    							IAnjutaLanguage* lang_manager,
-								const gchar * project_name,
-							    const GPtrArray *files_path);
+symbol_db_engine_add_new_files_async (SymbolDBEngine *dbe, 
+    								  IAnjutaLanguage* lang_manager,
+									  const gchar * project_name,
+    								  const gchar * project_version,
+							    	  const GPtrArray *files_path);
 
 /**
  * Update symbols of the whole project. It scans all file symbols etc. 
@@ -246,26 +266,23 @@ symbol_db_engine_remove_files (SymbolDBEngine * dbe, const gchar *project,
 
 /**
  * Update symbols of saved files. 
- * @note WARNING: files_path and it's contents will be freed on 
- * on_scan_update_files_symbols_end () callback.
  * @return scan process id if insertion is successful, -1 on 'no files scanned'.
  */
 gint
 symbol_db_engine_update_files_symbols (SymbolDBEngine *dbe, const gchar *project, 
-									   GPtrArray *files_path,
+									   const GPtrArray *files_path,
 									   gboolean update_prj_analyse_time);
 
 /**
  * Update symbols of a file by a memory-buffer to perform a real-time updating 
  * of symbols. 
  * @param real_files_list: full path on disk to 'real file' to update. e.g.
- * /home/foouser/fooproject/src/main.c. They'll be freed inside this function 
- * when the scan has ended. 
+ * /home/foouser/fooproject/src/main.c. 
  * @return scan process id if insertion is successful, -1 on error.
  */
 gint
 symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar * project,
-										GPtrArray * real_files_list,
+										const GPtrArray * real_files_list,
 										const GPtrArray * text_buffers,
 										const GPtrArray * buffer_sizes);
 

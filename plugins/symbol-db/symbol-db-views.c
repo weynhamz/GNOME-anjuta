@@ -68,7 +68,7 @@ on_treeview_row_activated (GtkTreeView *view, GtkTreePath *arg1,
 		                                     NULL);
 
 		ianjuta_markable_mark (IANJUTA_MARKABLE (plugin->current_editor),
-		                       line, IANJUTA_MARKABLE_LINEMARKER, NULL);
+		                       line, IANJUTA_MARKABLE_LINEMARKER, NULL, NULL);
 	}
 }
 

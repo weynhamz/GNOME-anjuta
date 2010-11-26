@@ -127,8 +127,7 @@ void
 display_new_file(AnjutaFileWizardPlugin *plugin,
 				 IAnjutaDocumentManager *docman)
 {
-	IAnjutaProjectCapabilities caps =
-		IANJUTA_PROJECT_CAN_ADD_NONE;
+	gint caps = 0;
 	
 	if (!nfg)
 		if (!create_new_file_dialog (docman))
@@ -149,7 +148,7 @@ display_new_file(AnjutaFileWizardPlugin *plugin,
 	                  G_CALLBACK(on_add_to_project_toggled),
 	                  nfg);
 	
-	if ((caps & IANJUTA_PROJECT_CAN_ADD_SOURCE) == FALSE) {
+	if ((caps & ANJUTA_PROJECT_CAN_ADD_SOURCE) == FALSE) {
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (nfg->add_to_project),
 									  FALSE);
 		gtk_widget_set_sensitive (nfg->add_to_project, FALSE);

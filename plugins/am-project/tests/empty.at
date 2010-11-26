@@ -1,0 +1,15 @@
+AT_SETUP([Load empty project])
+AS_MKDIR_P([empty])
+AT_DATA([empty/configure.ac],
+[[AC_CONFIG_FILES(Makefile)
+]])
+AT_DATA([empty/Makefile.am],
+[[
+]])
+AT_DATA([expect],
+[[    GROUP (0): empty
+]])
+AT_PARSER_CHECK([load empty \
+		 list])
+AT_CHECK([diff output expect])
+AT_CLEANUP

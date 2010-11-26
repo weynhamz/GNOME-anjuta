@@ -396,6 +396,7 @@ dma_data_view_populate_popup (GtkTextView *widget,
 	gtk_widget_show (menu_item);
 }
 
+#if 0
 static void
 dma_data_view_size_request (GtkWidget *widget,
                        GtkRequisition *requisition)
@@ -428,6 +429,7 @@ dma_data_view_size_request (GtkWidget *widget,
 	}
 	requisition->width += SCROLLBAR_SPACING;
 }
+#endif
 
 static void
 dma_data_view_size_allocate (GtkWidget *widget,
@@ -897,8 +899,6 @@ dma_data_view_class_init (DmaDataViewClass * klass)
 	gobject_class->finalize = dma_data_view_finalize;
 
 	widget_class->destroy = dma_data_view_destroy;
-	
-	widget_class->size_request = dma_data_view_size_request;
 	widget_class->size_allocate = dma_data_view_size_allocate;
 	widget_class->draw = dma_data_view_draw;
 	

@@ -93,6 +93,14 @@ libanjuta_3_la_SOURCES= \
 	gbf-project.h \
 	anjuta-command-queue.c \
 	anjuta-command-queue.h \
+	anjuta-token.c \
+	anjuta-token.h \
+	anjuta-token-list.h \
+	anjuta-token-list.c \
+	anjuta-token-file.h \
+	anjuta-token-file.c \
+	anjuta-token-stream.c \
+	anjuta-token-stream.h \
 	anjuta-project.c \
 	anjuta-project.h \
 	anjuta-drop-entry.c \
@@ -115,7 +123,6 @@ libanjuta_3_la_SOURCES= \
 	anjuta-file-drop-entry.c \
 	anjuta-entry.h \
 	anjuta-entry.c
-
 
 
 if HAVE_PLUGIN_GLADE
@@ -184,6 +191,8 @@ libanjuta_include = \
 	anjuta-column-text-view.h \
 	anjuta-file-drop-entry.h \
 	anjuta-entry.h
+	anjuta-token.h \
+	anjuta-pkg-config-chooser.h
 
 libanjutainclude_HEADERS = \
 	$(libanjuta_include) \

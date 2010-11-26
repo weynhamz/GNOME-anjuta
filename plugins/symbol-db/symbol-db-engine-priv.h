@@ -38,7 +38,7 @@
 #define ANJUTA_DB_FILE	".anjuta_sym_db"
 
 /* if tables.sql changes or general db structure changes modify also the value here */
-#define SYMBOL_DB_VERSION	"300.6"
+#define SYMBOL_DB_VERSION	"300.8"
 
 #define TABLES_SQL			PACKAGE_DATA_DIR"/tables.sql"
 
@@ -61,6 +61,10 @@
 	g_value_init (&value, G_TYPE_INT); \
 	g_value_set_int (&value, (int_value));
 
+#define SDB_GVALUE_SET_DOUBLE(value, double_value) \
+	g_value_init (&value, G_TYPE_DOUBLE); \
+	g_value_set_double (&value, (double_value));
+
 #define SDB_GVALUE_SET_STRING(value, str_value) \
 	g_value_init (&value, G_TYPE_STRING); \
 	g_value_set_string (&value, (str_value));
@@ -72,6 +76,11 @@
 
 #define SDB_PARAM_SET_INT(gda_param, int_value) \
 	SDB_GVALUE_SET_INT(v, int_value); \
+	gda_holder_set_value ((gda_param), &v, NULL); \
+	g_value_unset (&v);
+
+#define SDB_PARAM_SET_DOUBLE(gda_param, double_value) \
+	SDB_GVALUE_SET_DOUBLE(v, double_value); \
 	gda_holder_set_value ((gda_param), &v, NULL); \
 	g_value_unset (&v);
 
@@ -141,6 +150,7 @@ typedef struct _static_query_node
 
 } static_query_node;
 
+/* normalize with iface naming */
 typedef IAnjutaSymbolType SymType;
 
 /* the SymbolDBEngine Private structure */
@@ -148,21 +158,23 @@ struct _SymbolDBEnginePriv
 {
 	gchar *anjuta_db_file;
 	gchar *ctags_path;
-	
+
+	/* Database tools */
 	GdaConnection *db_connection;
 	GdaSqlParser *sql_parser;
 	gchar *db_directory;
 	gchar *project_directory;
 	gchar *cnc_string;
 
+	/* Scanning */
 	gint scan_process_id;
-	GAsyncQueue *scan_process_id_queue;
+	GAsyncQueue *scan_process_id_aqueue;
 	
-	GAsyncQueue *scan_queue;	
-	GAsyncQueue *updated_symbols_id;
-	GAsyncQueue *updated_scope_symbols_id;
-	GAsyncQueue *inserted_symbols_id;
-	gint scanning;
+	GAsyncQueue *scan_aqueue;	
+	GAsyncQueue *updated_syms_id_aqueue;
+	GAsyncQueue *updated_scope_syms_id_aqueue;
+	GAsyncQueue *inserted_syms_id_aqueue;
+	gboolean is_scanning;
 	
 	gchar *shared_mem_str;
 	FILE *shared_mem_file;
@@ -172,17 +184,20 @@ struct _SymbolDBEnginePriv
 	gboolean shutting_down;
 	gboolean is_first_population;
 	gsize symbols_scanned_count;
-	
+
+	GAsyncQueue *waiting_scan_aqueue;
+	gulong waiting_scan_handler;
+
+	/* Threads management */
 	GMutex* mutex;
-	GAsyncQueue* signals_queue;
+	GAsyncQueue* signals_aqueue;
 	
-	GThreadPool *thread_pool;
-	
-	gint timeout_trigger_handler;
-	
+	GThreadPool *thread_pool;	
+	gint timeout_trigger_handler;	
 	gint trigger_closure_retries;
 	gint thread_closure_retries;
-	
+
+	/* Miscellanea */
 	GHashTable *sym_type_conversion_hash;
 	GHashTable *garbage_shared_mem_files;
 	

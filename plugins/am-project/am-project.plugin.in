@@ -1,0 +1,11 @@
+[Anjuta Plugin]
+_Name=Autotools backend
+_Description=New Autotools backend for project manager
+Location=am-project:AmpPlugin
+Icon=gbf-am-plugin-48.png
+Interfaces=IAnjutaProjectBackend
+Dependencies=anjuta-project-manager:ProjectManagerPlugin
+UserActivatable=no
+
+[Project]
+Supported-Project-Types=automake

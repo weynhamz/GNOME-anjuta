@@ -2,6 +2,7 @@
 ## The '.' is to make sure install-data-hook rule is executed first
 ## Please keep sorted!
 SUBDIRS = . \
+	am-project \
 	build-basic-autotools \
 	class-gen \
 	cvs-plugin \
@@ -12,8 +13,6 @@ SUBDIRS = . \
 	file-loader \
 	file-manager \
 	file-wizard \
-	gbf-am \
-	gbf-mkfile \
 	gdb \
 	git \
 	glade \

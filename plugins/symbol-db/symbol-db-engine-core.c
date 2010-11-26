@@ -94,6 +94,14 @@ typedef struct _TableMapSymbol {
 
 } TableMapSymbol;
 
+typedef struct _EngineScanDataAsync {
+	GPtrArray *files_list;
+	GPtrArray *real_files_list;
+	gboolean symbols_update;
+	
+} EngineScanDataAsync;
+
+
 typedef void (SymbolDBEngineCallback) (SymbolDBEngine * dbe,
 									   gpointer user_data);
 
@@ -221,6 +229,17 @@ sdb_engine_tablemap_tmp_heritage_destroy (TableMapTmpHeritage *node)
 	g_free (node->field_namespace);
 
 	g_slice_free (TableMapTmpHeritage, node);
+}
+
+static void
+sdb_engine_scan_data_destroy (gpointer data)
+{
+	EngineScanDataAsync *esda =  (EngineScanDataAsync *)data;
+
+	g_ptr_array_unref (esda->files_list);
+	g_ptr_array_unref (esda->real_files_list);
+
+	g_free (esda);
 }
 
 static void
@@ -557,7 +576,7 @@ sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, static_query_type 
 
 	gda_holder_set_value (param, param_value, NULL);
 	
-	/* execute the query with parametes just set */
+	/* execute the query with parameters just set */
 	data_model = gda_connection_statement_execute_select (priv->db_connection, 
 														  (GdaStatement*)stmt, 
 														  (GdaSet*)plist, NULL);
@@ -651,7 +670,7 @@ sdb_engine_get_tuple_id_by_unique_name4 (SymbolDBEngine * dbe,
 
 	gda_holder_set_value (param, value4, NULL);	
 			
-	/* execute the query with parametes just set */
+	/* execute the query with parameters just set */
 	data_model = gda_connection_statement_execute_select (priv->db_connection, 
 														  (GdaStatement*)stmt, 
 														  (GdaSet*)plist, NULL);
@@ -843,7 +862,7 @@ sdb_engine_populate_db_by_tags (SymbolDBEngine * dbe, FILE* fd,
 #endif
 	
 	/* notify listeners that another file has been scanned */
-	g_async_queue_push (priv->signals_queue, GINT_TO_POINTER (SINGLE_FILE_SCAN_END +1));
+	g_async_queue_push (priv->signals_aqueue, GINT_TO_POINTER (SINGLE_FILE_SCAN_END +1));
 	
 	/* we've done with tag_file but we don't need to tagsClose (tag_file); */
 }
@@ -900,8 +919,8 @@ sdb_engine_ctags_output_thread (gpointer data, gpointer user_data)
 				
 				/* get the scan flag from the queue. We need it to know whether
 				 * an update of symbols must be done or not */
-				scan_flag = GPOINTER_TO_INT(g_async_queue_try_pop (priv->scan_queue));
-				real_file = g_async_queue_try_pop (priv->scan_queue);
+				scan_flag = GPOINTER_TO_INT(g_async_queue_try_pop (priv->scan_aqueue));
+				real_file = g_async_queue_try_pop (priv->scan_aqueue);
 				
 				/* and now call the populating function */
 				if (scan_flag == DO_UPDATE_SYMS ||
@@ -947,39 +966,39 @@ sdb_engine_ctags_output_thread (gpointer data, gpointer user_data)
 					 * Go on by emitting them.
 					 */
 					while ((tmp_inserted = GPOINTER_TO_INT(
-							g_async_queue_try_pop (priv->inserted_symbols_id))) > 0)
+							g_async_queue_try_pop (priv->inserted_syms_id_aqueue))) > 0)
 					{
 						/* we must be sure to insert both signals at once */
-						g_async_queue_lock (priv->signals_queue);
+						g_async_queue_lock (priv->signals_aqueue);
 						
 						/* the +1 is because asyn_queue doesn't want NULL values */
-						g_async_queue_push_unlocked (priv->signals_queue, 
+						g_async_queue_push_unlocked (priv->signals_aqueue, 
 													 GINT_TO_POINTER(SYMBOL_INSERTED + 1));
-						g_async_queue_push_unlocked (priv->signals_queue, 
+						g_async_queue_push_unlocked (priv->signals_aqueue, 
 													 GINT_TO_POINTER(tmp_inserted));
-						g_async_queue_unlock (priv->signals_queue);
+						g_async_queue_unlock (priv->signals_aqueue);
 					}
 					
 					while ((tmp_updated = GPOINTER_TO_INT(
-							g_async_queue_try_pop (priv->updated_symbols_id))) > 0)
+							g_async_queue_try_pop (priv->updated_syms_id_aqueue))) > 0)
 					{
-						g_async_queue_lock (priv->signals_queue);
-						g_async_queue_push_unlocked (priv->signals_queue, GINT_TO_POINTER
+						g_async_queue_lock (priv->signals_aqueue);
+						g_async_queue_push_unlocked (priv->signals_aqueue, GINT_TO_POINTER
 													 (SYMBOL_UPDATED + 1));
-						g_async_queue_push_unlocked (priv->signals_queue, 
+						g_async_queue_push_unlocked (priv->signals_aqueue, 
 													 GINT_TO_POINTER(tmp_updated));
-						g_async_queue_unlock (priv->signals_queue);
+						g_async_queue_unlock (priv->signals_aqueue);
 					}
 
 					while ((tmp_updated = GPOINTER_TO_INT(
-							g_async_queue_try_pop (priv->updated_scope_symbols_id))) > 0)
+							g_async_queue_try_pop (priv->updated_scope_syms_id_aqueue))) > 0)
 					{
-						g_async_queue_lock (priv->signals_queue);
-						g_async_queue_push_unlocked (priv->signals_queue, GINT_TO_POINTER (
+						g_async_queue_lock (priv->signals_aqueue);
+						g_async_queue_push_unlocked (priv->signals_aqueue, GINT_TO_POINTER (
 													 SYMBOL_SCOPE_UPDATED + 1));
-						g_async_queue_push_unlocked (priv->signals_queue, 
+						g_async_queue_push_unlocked (priv->signals_aqueue, 
 													GINT_TO_POINTER(tmp_updated));
-						g_async_queue_unlock (priv->signals_queue);
+						g_async_queue_unlock (priv->signals_aqueue);
 					}
 					
 					
@@ -997,7 +1016,7 @@ sdb_engine_ctags_output_thread (gpointer data, gpointer user_data)
 					}
 #endif
 					
-					g_async_queue_push (priv->signals_queue, GINT_TO_POINTER(SCAN_END + 1));
+					g_async_queue_push (priv->signals_aqueue, GINT_TO_POINTER(SCAN_END + 1));
 				}
 				
 				/* truncate the file to 0 length */
@@ -1037,19 +1056,19 @@ sdb_engine_timeout_trigger_signals (gpointer user_data)
 	g_return_val_if_fail (user_data != NULL, FALSE);	
 	priv = dbe->priv;		
 
-	if (priv->signals_queue != NULL && 
-	    g_async_queue_length (priv->signals_queue) > 0)
+	if (priv->signals_aqueue != NULL && 
+	    g_async_queue_length (priv->signals_aqueue) > 0)
 	{
 		gpointer tmp;
 		gpointer sign = NULL;
 		gsize real_signal;
 
-		while (priv->signals_queue != NULL &&  
-		    (sign = g_async_queue_try_pop (priv->signals_queue)) != NULL)  
+		while (priv->signals_aqueue != NULL &&  
+		    (sign = g_async_queue_try_pop (priv->signals_aqueue)) != NULL)  
 		{
 			if (sign == NULL) 
 			{
-				return g_async_queue_length (priv->signals_queue) > 0 ? TRUE : FALSE;
+				return g_async_queue_length (priv->signals_aqueue) > 0 ? TRUE : FALSE;
 			}
 	
 			real_signal = (gsize)sign -1;
@@ -1078,29 +1097,29 @@ sdb_engine_timeout_trigger_signals (gpointer user_data)
 					}
 
 					/* get the process id from the queue */
-					gint int_tmp = GPOINTER_TO_INT(g_async_queue_pop (priv->scan_process_id_queue));
-					priv->scanning--;
+					gint int_tmp = GPOINTER_TO_INT(g_async_queue_pop (priv->scan_process_id_aqueue));
+					priv->is_scanning = FALSE;
 					g_signal_emit (dbe, signals[SCAN_END], 0, int_tmp);
 				}
 					break;
 	
 				case SYMBOL_INSERTED:
-					tmp = g_async_queue_try_pop (priv->signals_queue);
+					tmp = g_async_queue_try_pop (priv->signals_aqueue);
 					g_signal_emit (dbe, signals[SYMBOL_INSERTED], 0, tmp);
 					break;
 	
 				case SYMBOL_UPDATED:
-					tmp = g_async_queue_try_pop (priv->signals_queue);
+					tmp = g_async_queue_try_pop (priv->signals_aqueue);
 					g_signal_emit (dbe, signals[SYMBOL_UPDATED], 0, tmp);
 					break;
 	
 				case SYMBOL_SCOPE_UPDATED:
-					tmp = g_async_queue_try_pop (priv->signals_queue);
+					tmp = g_async_queue_try_pop (priv->signals_aqueue);
 					g_signal_emit (dbe, signals[SYMBOL_SCOPE_UPDATED], 0, tmp);
 					break;
 	
 				case SYMBOL_REMOVED:
-					tmp = g_async_queue_try_pop (priv->signals_queue);
+					tmp = g_async_queue_try_pop (priv->signals_aqueue);
 					g_signal_emit (dbe, signals[SYMBOL_REMOVED], 0, tmp);
 					break;
 			}
@@ -1146,7 +1165,7 @@ sdb_engine_ctags_output_callback_1 (AnjutaLauncher * launcher,
 	if (priv->timeout_trigger_handler <= 0)
 	{
 		priv->timeout_trigger_handler = 
-			g_timeout_add_full (G_PRIORITY_LOW, TRIGGER_SIGNALS_DELAY, 
+			g_timeout_add_full (G_PRIORITY_DEFAULT_IDLE, TRIGGER_SIGNALS_DELAY, 
 						   sdb_engine_timeout_trigger_signals, user_data, NULL);
 		priv->trigger_closure_retries = 0;
 	}
@@ -1260,12 +1279,12 @@ sdb_engine_scan_files_2 (GFile *gfile,
 		if (partial_count + 1 >= files_list_len) 
 		{
 			/* yes */
-			g_async_queue_push (priv->scan_queue, GINT_TO_POINTER (DO_UPDATE_SYMS_AND_EXIT));
+			g_async_queue_push (priv->scan_aqueue, GINT_TO_POINTER (DO_UPDATE_SYMS_AND_EXIT));
 		}
 		else 
 		{
 			/* no */
-			g_async_queue_push (priv->scan_queue, GINT_TO_POINTER (DO_UPDATE_SYMS));
+			g_async_queue_push (priv->scan_aqueue, GINT_TO_POINTER (DO_UPDATE_SYMS));
 		}
 	}
 	else 
@@ -1273,11 +1292,11 @@ sdb_engine_scan_files_2 (GFile *gfile,
 		if (partial_count + 1 >= files_list_len) 
 		{
 			/* yes */
-			g_async_queue_push (priv->scan_queue, GINT_TO_POINTER (DONT_UPDATE_SYMS_AND_EXIT));
+			g_async_queue_push (priv->scan_aqueue, GINT_TO_POINTER (DONT_UPDATE_SYMS_AND_EXIT));
 		}
 		else {
 			/* no */
-			g_async_queue_push (priv->scan_queue, GINT_TO_POINTER (DONT_UPDATE_SYMS));
+			g_async_queue_push (priv->scan_aqueue, GINT_TO_POINTER (DONT_UPDATE_SYMS));
 		}
 	}
 
@@ -1285,7 +1304,7 @@ sdb_engine_scan_files_2 (GFile *gfile,
 	 * them! */
 	if (real_file != NULL)
 	{
-		g_async_queue_push (priv->scan_queue, 
+		g_async_queue_push (priv->scan_aqueue, 
 							real_file);
 	}
 	else 
@@ -1293,7 +1312,7 @@ sdb_engine_scan_files_2 (GFile *gfile,
 		/* else add a DONT_FAKE_UPDATE_SYMS marker, just to notify that this 
 		 * is not a fake file scan 
 		 */
-		g_async_queue_push (priv->scan_queue, GINT_TO_POINTER (DONT_FAKE_UPDATE_SYMS));
+		g_async_queue_push (priv->scan_aqueue, GINT_TO_POINTER (DONT_FAKE_UPDATE_SYMS));
 	}	
 	
 	/* we don't need ginfo object anymore, bye */
@@ -1321,7 +1340,6 @@ sdb_engine_scan_files_2 (GFile *gfile,
  * on db. In this mode files_list and real_files_list must have the same size.
  *
  */
-/* server mode version */
 static gboolean
 sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 						 const GPtrArray *real_files_list, gboolean symbols_update)
@@ -1329,19 +1347,7 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 	SymbolDBEnginePriv *priv;
 	gint i;
 
-	g_return_val_if_fail (files_list != NULL, FALSE);
-	
-	if (files_list->len == 0)
-		return FALSE;	
-	
-	/* start process in server mode */
 	priv = dbe->priv;
-
-	if (real_files_list != NULL && (files_list->len != real_files_list->len)) 
-	{
-		g_warning ("no matched size between real_files_list and files_list");		
-		return FALSE;
-	}
 	
 	/* if ctags_launcher isn't initialized, then do it now. */
 	/* lazy initialization */
@@ -1350,7 +1356,9 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 		sdb_engine_ctags_launcher_create (dbe);
 	}
 
-	priv->scanning++; /* Enter scanning state */
+	
+	/* Enter scanning state */
+	priv->is_scanning = TRUE; 
 	DEBUG_PRINT ("%s", "EMITTING scan begin.");
 	g_signal_emit_by_name (dbe, "scan-begin",
 	                       anjuta_launcher_get_child_pid (priv->ctags_launcher));
@@ -1373,7 +1381,7 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 			test = g_strconcat (SHARED_MEMORY_PREFIX, temp_file, NULL);
 			if (g_file_test (test, G_FILE_TEST_EXISTS) == TRUE)
 			{
-				DEBUG_PRINT ("file %s already exists... retrying", test);
+				DEBUG_PRINT ("Temp file %s already exists... retrying", test);
 				g_free (test);
 				g_free (temp_file);
 				continue;
@@ -1395,7 +1403,6 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 		}
 	
 		priv->shared_mem_file = fdopen (priv->shared_mem_fd, "a+b");
-		/*DEBUG_PRINT ("temp_file %s", temp_file);*/
 
 		/* no need to free temp_file (alias shared_mem_str). It will be freed on plugin finalize */
 	}
@@ -1432,6 +1439,68 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 								 (GAsyncReadyCallback)sdb_engine_scan_files_2,
 								 sf_data);
 	}
+
+	return TRUE;
+}
+
+static void
+on_scan_files_async_end (SymbolDBEngine *dbe, gint process_id, gpointer user_data)
+{
+	SymbolDBEnginePriv *priv;
+	EngineScanDataAsync *esda;
+
+	priv = dbe->priv;
+	
+	/* fine, check on the queue if there's something left to scan */
+	if ((esda = g_async_queue_try_pop (priv->waiting_scan_aqueue)) == NULL)
+		return;
+
+	sdb_engine_scan_files_1 (dbe, esda->files_list, esda->real_files_list, 
+	    esda->symbols_update);
+
+	sdb_engine_scan_data_destroy (esda);	
+}
+
+static gboolean
+sdb_engine_scan_files_async (SymbolDBEngine * dbe, const GPtrArray * files_list,
+						 const GPtrArray *real_files_list, gboolean symbols_update)
+{
+	SymbolDBEnginePriv *priv;
+	g_return_val_if_fail (files_list != NULL, FALSE);
+	
+	if (files_list->len == 0)
+		return FALSE;	
+	
+	priv = dbe->priv;
+
+	if (real_files_list != NULL && (files_list->len != real_files_list->len)) 
+	{
+		g_warning ("no matched size between real_files_list and files_list");		
+		return FALSE;
+	}
+
+	/* is the engine scanning or is there already something waiting on the queue? */
+	if (symbol_db_engine_is_scanning (dbe) == TRUE ||
+	    g_async_queue_length (priv->waiting_scan_aqueue) > 0)
+	{
+		/* push the data into the queue for later retrieval */
+		EngineScanDataAsync * esda = g_new0 (EngineScanDataAsync, 1);
+
+		esda->files_list = anjuta_util_clone_string_gptrarray (files_list);
+		if (real_files_list)
+			esda->real_files_list = anjuta_util_clone_string_gptrarray (real_files_list);
+		else
+			esda->real_files_list = NULL;
+		esda->symbols_update = symbols_update;
+
+		g_async_queue_push (priv->waiting_scan_aqueue, esda);
+		return TRUE;
+	}
+
+	/* there's no scan active right now nor data waiting on the queue. 
+	 * Proceed with normal scan.
+	 */
+	sdb_engine_scan_files_1 (dbe, files_list, real_files_list, symbols_update);
 
 	return TRUE;
 }
@@ -1541,13 +1610,13 @@ sdb_engine_init (SymbolDBEngine * object)
 	 * within a process. A call to scan_files () will put inside the queue an id
 	 * returned and emitted by scan-end.
 	 */
-	sdbe->priv->scan_process_id_queue = g_async_queue_new ();
+	sdbe->priv->scan_process_id_aqueue = g_async_queue_new ();
 	sdbe->priv->scan_process_id = 1;
 	
-	/* the scan_queue? It will contain mainly 
+	/* the scan_aqueue? It will contain mainly 
 	 * ints that refer to the force_update status.
 	 */
-	sdbe->priv->scan_queue = g_async_queue_new ();
+	sdbe->priv->scan_aqueue = g_async_queue_new ();
 
 	/* the thread pool for tags scannning */
 	sdbe->priv->thread_pool = g_thread_pool_new (sdb_engine_ctags_output_thread,
@@ -1555,11 +1624,16 @@ sdb_engine_init (SymbolDBEngine * object)
 												 FALSE, NULL);
 	
 	/* some signals queues */
-	sdbe->priv->signals_queue = g_async_queue_new ();
-	sdbe->priv->updated_symbols_id = g_async_queue_new ();
-	sdbe->priv->updated_scope_symbols_id = g_async_queue_new ();
-	sdbe->priv->inserted_symbols_id = g_async_queue_new ();
-	sdbe->priv->scanning = 0;
+	sdbe->priv->signals_aqueue = g_async_queue_new ();
+	sdbe->priv->updated_syms_id_aqueue = g_async_queue_new ();
+	sdbe->priv->updated_scope_syms_id_aqueue = g_async_queue_new ();
+	sdbe->priv->inserted_syms_id_aqueue = g_async_queue_new ();
+	sdbe->priv->is_scanning = FALSE;
+
+	sdbe->priv->waiting_scan_aqueue = g_async_queue_new_full (sdb_engine_scan_data_destroy);
+	sdbe->priv->waiting_scan_handler = g_signal_connect (G_OBJECT (sdbe), "scan-end",
+ 				G_CALLBACK (on_scan_files_async_end), NULL);
+
 	
 	/*
 	 * STATIC QUERY STRUCTURE INITIALIZE
@@ -1581,8 +1655,9 @@ sdb_engine_init (SymbolDBEngine * object)
 	/* -- project -- */
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 									PREP_QUERY_PROJECT_NEW, 
-	 	"INSERT INTO project (project_name, wrkspace_id, analyse_time) VALUES (\
+	 	"INSERT INTO project (project_name, project_version, wrkspace_id, analyse_time) VALUES (\
 		 	## /* name:'prjname' type:gchararray */, \
+			## /* name:'prjversion' type:gchararray */, \
 	 		(SELECT workspace_id FROM workspace \
 	    	 WHERE \
 	    			workspace_name = ## /* name:'wsname' type:gchararray */ LIMIT 1), \
@@ -1592,7 +1667,9 @@ sdb_engine_init (SymbolDBEngine * object)
 									PREP_QUERY_GET_PROJECT_ID_BY_UNIQUE_NAME, 
 	 	"SELECT project_id FROM project \
 	     WHERE \
-	    	project_name = ## /* name:'prjname' type:gchararray */ LIMIT 1");
+	    	project_name = ## /* name:'prjname' type:gchararray */ AND \
+	    	project_version = ## /* name:'prjversion' type:gchararray */ \
+	     LIMIT 1");
 
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 									PREP_QUERY_UPDATE_PROJECT_ANALYSE_TIME, 
@@ -1608,7 +1685,9 @@ sdb_engine_init (SymbolDBEngine * object)
 	 	  ## /* name:'filepath' type:gchararray */, \
 		  (SELECT project_id FROM project \
 	     	WHERE \
-	    		project_name = ## /* name:'prjname' type:gchararray */ LIMIT 1), \
+	    		project_name = ## /* name:'prjname' type:gchararray */ AND \
+	    		project_version = ## /* name:'prjversion' type:gchararray */ \
+	    		LIMIT 1), \
 		  ## /* name:'langid' type:gint */, \
 	 	  datetime ('now', 'localtime'))");
 	
@@ -1834,6 +1913,9 @@ sdb_engine_finalize (GObject * object)
 	
 	dbe = SYMBOL_DB_ENGINE (object);
 	priv = dbe->priv;
+
+	g_signal_handler_disconnect (dbe, priv->waiting_scan_handler);
+	priv->waiting_scan_handler = 0;
 	
 	if (priv->thread_pool)
 	{
@@ -1869,35 +1951,41 @@ sdb_engine_finalize (GObject * object)
 	
 	sdb_engine_free_cached_queries (dbe);
 	
-	if (priv->scan_process_id_queue)
+	if (priv->scan_process_id_aqueue)
 	{
-		g_async_queue_unref (priv->scan_process_id_queue);
-		priv->scan_process_id_queue = NULL;
+		g_async_queue_unref (priv->scan_process_id_aqueue);
+		priv->scan_process_id_aqueue = NULL;
 	}
 	
-	if (priv->scan_queue)
+	if (priv->scan_aqueue)
 	{
-		g_async_queue_unref (priv->scan_queue);
-		priv->scan_queue = NULL;
+		g_async_queue_unref (priv->scan_aqueue);
+		priv->scan_aqueue = NULL;
 	}
 	
-	if (priv->updated_symbols_id)
+	if (priv->updated_syms_id_aqueue)
 	{
-		g_async_queue_unref (priv->updated_symbols_id);
-		priv->updated_symbols_id = NULL;
+		g_async_queue_unref (priv->updated_syms_id_aqueue);
+		priv->updated_syms_id_aqueue = NULL;
 	}	
 
-	if (priv->updated_scope_symbols_id)
+	if (priv->updated_scope_syms_id_aqueue)
 	{
-		g_async_queue_unref (priv->updated_scope_symbols_id);
-		priv->updated_scope_symbols_id = NULL;
+		g_async_queue_unref (priv->updated_scope_syms_id_aqueue);
+		priv->updated_scope_syms_id_aqueue = NULL;
 	}	
 	
-	if (priv->inserted_symbols_id)
+	if (priv->inserted_syms_id_aqueue)
 	{
-		g_async_queue_unref (priv->inserted_symbols_id);
-		priv->inserted_symbols_id = NULL;
+		g_async_queue_unref (priv->inserted_syms_id_aqueue);
+		priv->inserted_syms_id_aqueue = NULL;
 	}	
+
+	if (priv->waiting_scan_aqueue)
+	{
+		g_async_queue_unref (priv->waiting_scan_aqueue);
+		priv->waiting_scan_aqueue = NULL;
+	}
 	
 	if (priv->shared_mem_file) 
 	{
@@ -1926,9 +2014,9 @@ sdb_engine_finalize (GObject * object)
 		g_hash_table_destroy (priv->sym_type_conversion_hash);
 	priv->sym_type_conversion_hash = NULL;
 	
-	if (priv->signals_queue)
-		g_async_queue_unref (priv->signals_queue);
-	priv->signals_queue = NULL;
+	if (priv->signals_aqueue)
+		g_async_queue_unref (priv->signals_aqueue);
+	priv->signals_aqueue = NULL;
 	
 	sdb_engine_clear_caches (dbe);
 	sdb_engine_clear_tablemaps (dbe);
@@ -2229,7 +2317,7 @@ gboolean
 symbol_db_engine_is_scanning (SymbolDBEngine *dbe)
 {
 	g_return_val_if_fail (SYMBOL_IS_DB_ENGINE (dbe), FALSE);
-	return (dbe->priv->scanning > 0);
+	return dbe->priv->is_scanning;
 }
 
 /**
@@ -2582,7 +2670,7 @@ symbol_db_engine_add_new_workspace (SymbolDBEngine * dbe,
 	}
 	SDB_PARAM_SET_STRING(param, workspace_name);
 
-	/* execute the query with parametes just set */
+	/* execute the query with parameters just set */
 	if (gda_connection_statement_execute_non_select (priv->db_connection, 
 														  (GdaStatement*)stmt, 
 														  (GdaSet*)plist, NULL, NULL) == -1)
@@ -2597,39 +2685,82 @@ symbol_db_engine_add_new_workspace (SymbolDBEngine * dbe,
 
 /* ~~~ Thread note: this function locks the mutex ~~~ */ 
 gboolean
-symbol_db_engine_project_exists (SymbolDBEngine * dbe,	/*gchar* workspace, */
-							   	const gchar * project_name)
+symbol_db_engine_project_exists (SymbolDBEngine * dbe,
+							   	const gchar * project_name,
+    							const gchar * project_version)
 {
 	SymbolDBEnginePriv *priv;
-	gint prj_id;
 	GValue v = {0};
+	const GdaSet *plist;
+	const GdaStatement *stmt;
+	GdaHolder *param;
+	GdaDataModel *data_model;
 
 	priv = dbe->priv;
 
 	SDB_LOCK(priv);
 	
 	g_return_val_if_fail (priv->db_connection != NULL, FALSE);
-	SDB_GVALUE_SET_STATIC_STRING(v, project_name);
-
+	
 	/* test the existence of the project in db */
-	if ((prj_id = sdb_engine_get_tuple_id_by_unique_name (dbe,
-				PREP_QUERY_GET_PROJECT_ID_BY_UNIQUE_NAME,
-				"prjname",
-				 &v)) <= 0)
+	/* get prepared query */
+	if ((stmt = sdb_engine_get_statement_by_query_id (dbe, 
+	    PREP_QUERY_GET_PROJECT_ID_BY_UNIQUE_NAME)) == NULL)
 	{
+		g_warning ("Query is null");
 		SDB_UNLOCK(priv);
 		return FALSE;
 	}
 
+	plist = sdb_engine_get_query_parameters_list (dbe, 
+	    PREP_QUERY_GET_PROJECT_ID_BY_UNIQUE_NAME);
+	
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "prjname")) == NULL)
+	{
+		g_warning ("sdb_engine_get_tuple_id_by_unique_name: param is NULL "
+				   "from pquery!\n");
+		SDB_UNLOCK(priv);
+		return FALSE;
+	}
+
+	SDB_PARAM_SET_STRING (param, project_name);
+
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "prjversion")) == NULL)
+	{
+		g_warning ("sdb_engine_get_tuple_id_by_unique_name: param is NULL "
+				   "from pquery!\n");
+		SDB_UNLOCK(priv);
+		return FALSE;
+	}
+
+	SDB_PARAM_SET_STRING (param, project_version);
+	    
+	/* execute the query with parameters just set */
+	data_model = gda_connection_statement_execute_select (priv->db_connection, 
+														  (GdaStatement*)stmt, 
+														  (GdaSet*)plist, NULL);
+		
+	if (!GDA_IS_DATA_MODEL (data_model) ||
+		gda_data_model_get_n_rows (GDA_DATA_MODEL (data_model)) <= 0)
+	{
+		if (data_model != NULL)
+			g_object_unref (data_model);
+		SDB_UNLOCK(priv);
+		return FALSE;
+	}
+
+	/* we found it and we can return */
+	g_object_unref (data_model);
+
 	SDB_UNLOCK(priv);
-	/* we found it */
+
 	return TRUE;
 }
 
 /* ~~~ Thread note: this function locks the mutex ~~~ */ 
 gboolean
 symbol_db_engine_add_new_project (SymbolDBEngine * dbe, const gchar * workspace,
-								  const gchar * project)
+								  const gchar * project, const gchar* version)
 {
 	const GdaSet *plist;
 	const GdaStatement *stmt;
@@ -2694,9 +2825,18 @@ symbol_db_engine_add_new_project (SymbolDBEngine * dbe, const gchar * workspace,
 		g_warning ("param prjname is NULL from pquery!");
 		SDB_UNLOCK(priv);
 		return FALSE;
-	}
+	}	
 
 	SDB_PARAM_SET_STRING(param, project);
+
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "prjversion")) == NULL)
+	{
+		g_warning ("param prjversion is NULL from pquery!");
+		SDB_UNLOCK(priv);
+		return FALSE;
+	}	
+
+	SDB_PARAM_SET_STRING(param, version);	
 		
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "wsname")) == NULL)
 	{
@@ -2707,7 +2847,7 @@ symbol_db_engine_add_new_project (SymbolDBEngine * dbe, const gchar * workspace,
 
 	SDB_PARAM_SET_STRING(param, workspace_name);
 
-	/* execute the query with parametes just set */
+	/* execute the query with parameters just set */
 	if (gda_connection_statement_execute_non_select (priv->db_connection, 
 														  (GdaStatement*)stmt, 
 														  (GdaSet*)plist, NULL, NULL) == -1)
@@ -2773,7 +2913,7 @@ sdb_engine_add_new_language (SymbolDBEngine * dbe, const gchar *language)
 
 		SDB_PARAM_SET_STRING(param, language);
 				
-		/* execute the query with parametes just set */
+		/* execute the query with parameters just set */
 		if (gda_connection_statement_execute_non_select (priv->db_connection, 
 														 (GdaStatement*)stmt, 
 														 (GdaSet*)plist, &last_inserted,
@@ -2811,7 +2951,8 @@ sdb_engine_add_new_language (SymbolDBEngine * dbe, const gchar *language)
  */
 static gboolean
 sdb_engine_add_new_db_file (SymbolDBEngine * dbe, const gchar * project_name,
-						 const gchar * local_filepath, const gchar * language)
+    					const gchar *project_version,  const gchar * local_filepath, 
+    					const gchar * language)
 {
 	const GdaSet *plist;
 	const GdaStatement *stmt;
@@ -2873,6 +3014,16 @@ sdb_engine_add_new_db_file (SymbolDBEngine * dbe, const gchar * project_name,
 	}
 
 	SDB_PARAM_SET_STRING(param, project_name);
+	
+	/* prjversion parameter */
+	if ((param = gda_set_get_holder ((GdaSet*)plist, "prjversion")) == NULL)
+	{
+		g_warning ("param prjversion is NULL from pquery!");
+		SDB_UNLOCK(priv);
+		return FALSE;
+	}
+
+	SDB_PARAM_SET_STRING(param, project_version);
 		
 	/* language id parameter */
 	if ((param = gda_set_get_holder ((GdaSet*)plist, "langid")) == NULL)
@@ -2884,7 +3035,7 @@ sdb_engine_add_new_db_file (SymbolDBEngine * dbe, const gchar * project_name,
 
 	SDB_PARAM_SET_INT(param, language_id);
 
-	/* execute the query with parametes just set */
+	/* execute the query with parameters just set */
 	if (gda_connection_statement_execute_non_select (priv->db_connection, 
 													 (GdaStatement*)stmt, 
 													 (GdaSet*)plist, NULL,
@@ -2923,7 +3074,7 @@ sdb_engine_get_unique_scan_id (SymbolDBEngine * dbe)
 	ret_id = priv->scan_process_id;
 	
 	/* add the current scan_process id into a queue */
-	g_async_queue_push (priv->scan_process_id_queue, 
+	g_async_queue_push (priv->scan_process_id_aqueue, 
 						GINT_TO_POINTER(priv->scan_process_id));
 
 	SDB_UNLOCK(priv);
@@ -2931,9 +3082,10 @@ sdb_engine_get_unique_scan_id (SymbolDBEngine * dbe)
 }
 
 gint
-symbol_db_engine_add_new_files (SymbolDBEngine *dbe, 
+symbol_db_engine_add_new_files_async (SymbolDBEngine *dbe, 
     							IAnjutaLanguage* lang_manager,
 								const gchar * project_name,
+    							const gchar * project_version,
 							    const GPtrArray *sources_array)
 {
 	SymbolDBEnginePriv *priv;
@@ -2946,7 +3098,7 @@ symbol_db_engine_add_new_files (SymbolDBEngine *dbe,
 
 	priv = dbe->priv;
 
-	lang_array = g_ptr_array_new ();
+	lang_array = g_ptr_array_new_with_free_func (g_free);
 
 	for (i = 0; i < sources_array->len; i++)
 	{		
@@ -2991,19 +3143,19 @@ symbol_db_engine_add_new_files (SymbolDBEngine *dbe,
 		g_object_unref (gfile_info);
 	}
 
-	gint res = symbol_db_engine_add_new_files_full (dbe, project_name, sources_array,
-	    lang_array, TRUE);
+	gint res = symbol_db_engine_add_new_files_full_async (dbe, project_name, project_version, 
+	    sources_array, lang_array, TRUE);
 
 	/* free resources */
-	g_ptr_array_foreach (lang_array, (GFunc)g_free, NULL);
-	g_ptr_array_free (lang_array, TRUE);
+	g_ptr_array_unref (lang_array);
 
 	return res;
 }
 
 gint
-symbol_db_engine_add_new_files_full (SymbolDBEngine * dbe, 
+symbol_db_engine_add_new_files_full_async (SymbolDBEngine * dbe, 
 								const gchar * project_name,
+    							const gchar * project_version,
 								const GPtrArray * files_path, 
 								const GPtrArray * languages,
 								gboolean force_scan)
@@ -3043,13 +3195,13 @@ symbol_db_engine_add_new_files_full (SymbolDBEngine * dbe,
 		}
 		
 		if (project_name != NULL && 
-			sdb_engine_add_new_db_file (dbe, project_name, node_file, 
+			sdb_engine_add_new_db_file (dbe, project_name, project_version, node_file, 
 									 node_lang) == FALSE)
 		{
-			DEBUG_PRINT ("symbol_db_engine_add_new_files (): "
-					   "Error processing file %s, db_directory %s, project_name %s, "
-					   "project_directory %s", node_file, 
-					   priv->db_directory, project_name, priv->project_directory);
+			DEBUG_PRINT ("Error processing file %s, db_directory %s, project_name %s, "
+			    		"project_version %s, project_directory %s", node_file, 
+					   	priv->db_directory, project_name, project_version, 
+			    		priv->project_directory);
 			return -1;
 		}
 		
@@ -3063,14 +3215,15 @@ symbol_db_engine_add_new_files_full (SymbolDBEngine * dbe,
 	 * AnjutaLauncher and ctags in server mode. After the ctags cmd has been 
 	 * executed, the populating process'll take place.
 	 */
-	ret_code = sdb_engine_scan_files_1 (dbe, filtered_files_path, NULL, FALSE);
+	ret_code = sdb_engine_scan_files_async (dbe, filtered_files_path, NULL, FALSE);
 	
 	if (ret_code == TRUE)
 		ret_id = sdb_engine_get_unique_scan_id (dbe);
 	else
 		ret_id = -1;
-	
-	g_ptr_array_free (filtered_files_path, TRUE);
+
+	/* no need to free the items contained in the array */
+	g_ptr_array_unref (filtered_files_path);
 	return ret_id;
 }
 
@@ -3245,7 +3398,7 @@ sdb_engine_add_new_sym_kind (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 
 		SDB_PARAM_SET_INT (param, is_container);
 
-		/* execute the query with parametes just set */
+		/* execute the query with parameters just set */
 		if (gda_connection_statement_execute_non_select(priv->db_connection, 
 														 (GdaStatement*)stmt, 
 														 (GdaSet*)plist, &last_inserted,
@@ -3334,7 +3487,7 @@ sdb_engine_add_new_sym_access (SymbolDBEngine * dbe, const tagEntry * tag_entry)
 
 		SDB_PARAM_SET_STRING (param, access);
 		
-		/* execute the query with parametes just set */
+		/* execute the query with parameters just set */
 		if (gda_connection_statement_execute_non_select (priv->db_connection, 
 														 (GdaStatement*)stmt, 
 														 (GdaSet*)plist, &last_inserted,
@@ -3419,7 +3572,7 @@ sdb_engine_add_new_sym_implementation (SymbolDBEngine * dbe,
 
 		SDB_PARAM_SET_STRING(param, implementation);
 		
-		/* execute the query with parametes just set */
+		/* execute the query with parameters just set */
 		if (gda_connection_statement_execute_non_select (priv->db_connection, 
 														 (GdaStatement*)stmt, 
 														 (GdaSet*)plist, &last_inserted,
@@ -3485,7 +3638,7 @@ sdb_engine_add_new_heritage (SymbolDBEngine * dbe, gint base_symbol_id,
 
 	SDB_PARAM_SET_INT(param, derived_symbol_id);	
 
-	/* execute the query with parametes just set */
+	/* execute the query with parameters just set */
 	if (gda_connection_statement_execute_non_select (priv->db_connection, 
 													 (GdaStatement*)stmt, 
 													 (GdaSet*)plist, NULL,
@@ -3729,7 +3882,7 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 
 	SDB_PARAM_SET_INT(param, symbol_referer_id);
 
-	/* execute the query with parametes just set */
+	/* execute the query with parameters just set */
 	gda_connection_statement_execute_non_select (priv->db_connection, 
 													 (GdaStatement*)stmt, 
 													 (GdaSet*)plist, NULL,
@@ -4423,7 +4576,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
     									 	 access_kind_id, implementation_kind_id,
     									 	 update_flag);
 	
-	/* execute the query with parametes just set */
+	/* execute the query with parameters just set */
 	nrows = gda_connection_statement_execute_non_select (priv->db_connection, 
 													 (GdaStatement*)stmt, 
 													 (GdaSet*)plist, &last_inserted,
@@ -4447,7 +4600,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 		 	 * *not* calculated.
 		 	 * So add the symbol id into a queue that will be parsed once and emitted.
 		 	 */		
-			g_async_queue_push (priv->inserted_symbols_id, GINT_TO_POINTER(table_id));			
+			g_async_queue_push (priv->inserted_syms_id_aqueue, GINT_TO_POINTER(table_id));			
 		}
 		else
 		{
@@ -4460,7 +4613,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 		{
 			table_id = symbol_id;
 						
-			g_async_queue_push (priv->updated_symbols_id, GINT_TO_POINTER(table_id));
+			g_async_queue_push (priv->updated_syms_id_aqueue, GINT_TO_POINTER(table_id));
 		}
 		else 
 		{
@@ -4538,8 +4691,8 @@ sdb_engine_detects_removed_ids (SymbolDBEngine *dbe)
 		val = gda_data_model_get_value_at (data_model, 0, i, NULL);
 		tmp = g_value_get_int (val);	
 		
-		g_async_queue_push (priv->signals_queue, GINT_TO_POINTER(SYMBOL_REMOVED + 1));
-		g_async_queue_push (priv->signals_queue, GINT_TO_POINTER(tmp));
+		g_async_queue_push (priv->signals_aqueue, GINT_TO_POINTER(SYMBOL_REMOVED + 1));
+		g_async_queue_push (priv->signals_aqueue, GINT_TO_POINTER(tmp));
 	}
 
 	g_object_unref (data_model);
@@ -4713,7 +4866,6 @@ on_scan_update_files_symbols_end (SymbolDBEngine * dbe,
 					   strlen (priv->project_directory));
 			return;
 		}
-		g_free (node);
 	}
 		
 	g_signal_handlers_disconnect_by_func (dbe, on_scan_update_files_symbols_end,
@@ -4760,7 +4912,7 @@ on_scan_update_files_symbols_end (SymbolDBEngine * dbe,
 	}	
 	
 	/* free the GPtrArray. */
-	g_ptr_array_free (files_to_scan, TRUE);
+	g_ptr_array_unref (files_to_scan);
 
 	g_free (update_data->project);
 	g_free (update_data);
@@ -4768,7 +4920,7 @@ on_scan_update_files_symbols_end (SymbolDBEngine * dbe,
 
 gint
 symbol_db_engine_update_files_symbols (SymbolDBEngine * dbe, const gchar * project, 
-									   GPtrArray * files_path,
+									   const GPtrArray * files_path,
 									   gboolean update_prj_analyse_time)
 {
 	SymbolDBEnginePriv *priv;
@@ -4783,14 +4935,14 @@ symbol_db_engine_update_files_symbols (SymbolDBEngine * dbe, const gchar * proje
 	g_return_val_if_fail (priv->db_connection != NULL, FALSE);
 	g_return_val_if_fail (project != NULL, FALSE);
 
-	ready_files = g_ptr_array_new ();
+	ready_files = g_ptr_array_new_with_free_func (g_free);
 	
 	/* check if the files exist in db before passing them to the scan procedure */
 	for (i = 0; i < files_path->len; i++) 
 	{
 		gchar *curr_abs_file;
 		
-		curr_abs_file = g_ptr_array_index (files_path, i);
+		curr_abs_file = g_strdup (g_ptr_array_index (files_path, i));
 		/* check if the file exists in db. We will not scan buffers for files
 		 * which aren't already in db
 		 */
@@ -4806,14 +4958,11 @@ symbol_db_engine_update_files_symbols (SymbolDBEngine * dbe, const gchar * proje
 		/* ok the file exists in db. Add it to ready_files */
 		g_ptr_array_add (ready_files, curr_abs_file);
 	}
-	
-	/* free just the array but not its values */
-	g_ptr_array_free (files_path, FALSE);
-	
+		
 	/* if no file has been added to the array then bail out here */
 	if (ready_files->len <= 0)
 	{
-		g_ptr_array_free (ready_files, TRUE);
+		g_ptr_array_unref (ready_files);
 		DEBUG_PRINT ("not enough files to update");
 		return -1;
 	}
@@ -4830,8 +4979,8 @@ symbol_db_engine_update_files_symbols (SymbolDBEngine * dbe, const gchar * proje
 	 */
 	g_signal_connect (G_OBJECT (dbe), "scan-end",
 					  G_CALLBACK (on_scan_update_files_symbols_end), update_data);
-	
-	ret_code = sdb_engine_scan_files_1 (dbe, ready_files, NULL, TRUE);
+
+	ret_code = sdb_engine_scan_files_async (dbe, ready_files, NULL, TRUE);
 	if (ret_code == TRUE)
 		ret_id = sdb_engine_get_unique_scan_id (dbe);
 	else
@@ -4891,7 +5040,7 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe,
 
 	SDB_PARAM_SET_STRING(param, project_name);	
 	
-	/* execute the query with parametes just set */
+	/* execute the query with parameters just set */
 	GType gtype_array [6] = {	G_TYPE_INT, 
 								G_TYPE_STRING, 
 								G_TYPE_INT, 
@@ -4920,7 +5069,7 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe,
 	}
 
 	/* initialize the array */
-	files_to_scan = g_ptr_array_new ();
+	files_to_scan = g_ptr_array_new_with_free_func (g_free);
 
 	/* we can now scan each filename entry to check the last modification time. */
 	for (i = 0; i < num_rows; i++)
@@ -5020,10 +5169,13 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe,
 	if (files_to_scan->len > 0)
 	{
 		SDB_UNLOCK(priv);
-		
+
 		/* at the end let the scanning function do its job */
-		return symbol_db_engine_update_files_symbols (dbe, project_name,
+		gint id = symbol_db_engine_update_files_symbols (dbe, project_name,
 											   files_to_scan, TRUE);
+
+		g_ptr_array_unref (files_to_scan);
+		return id;
 	}
 	
 	SDB_UNLOCK(priv);
@@ -5145,20 +5297,19 @@ on_scan_update_buffer_end (SymbolDBEngine * dbe, gint process_id, gpointer data)
 				return;
 			}
 		}
-		g_free (node);
 	}
 		
 	g_signal_handlers_disconnect_by_func (dbe, on_scan_update_buffer_end,
 										  files_to_scan);
 
 	/* free the GPtrArray. */
-	g_ptr_array_free (files_to_scan, TRUE);
+	g_ptr_array_unref (files_to_scan);
 	data = files_to_scan = NULL;
 }
 
 gint
 symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *project,
-										GPtrArray * real_files_list,
+										const GPtrArray * real_files,
 										const GPtrArray * text_buffers,
 										const GPtrArray * buffer_sizes)
 {
@@ -5168,6 +5319,7 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 	gboolean ret_code;
 	/* array that'll represent the /dev/shm/anjuta-XYZ files */
 	GPtrArray *temp_files;
+	GPtrArray *real_files_list;
 	GPtrArray *real_files_on_db;
 	
 	g_return_val_if_fail (dbe != NULL, FALSE);
@@ -5175,12 +5327,13 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 	
 	g_return_val_if_fail (priv->db_connection != NULL, FALSE);
 	g_return_val_if_fail (project != NULL, FALSE);
-	g_return_val_if_fail (real_files_list != NULL, FALSE);
+	g_return_val_if_fail (real_files != NULL, FALSE);
 	g_return_val_if_fail (text_buffers != NULL, FALSE);
 	g_return_val_if_fail (buffer_sizes != NULL, FALSE);
 	
-	temp_files = g_ptr_array_new();	
-	real_files_on_db = g_ptr_array_new();
+	temp_files = g_ptr_array_new_with_free_func (g_free);	
+	real_files_on_db = g_ptr_array_new_with_free_func (g_free);
+	real_files_list = anjuta_util_clone_string_gptrarray (real_files);
 	
 	/* obtain a GPtrArray with real_files on database */
 	for (i=0; i < real_files_list->len; i++) 
@@ -5205,11 +5358,10 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 			continue;
 		}		
 		
-		relative_path = symbol_db_util_get_file_db_path (dbe, curr_abs_file);
+		relative_path = g_strdup (symbol_db_util_get_file_db_path (dbe, curr_abs_file));
 		if (relative_path == NULL)
 		{
-			g_warning ("symbol_db_engine_update_buffer_symbols  (): "
-					   "relative_path is NULL");
+			g_warning ("relative_path is NULL");
 			continue;
 		}
 		g_ptr_array_add (real_files_on_db, (gpointer) relative_path);
@@ -5272,20 +5424,16 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 		g_signal_connect (G_OBJECT (dbe), "scan-end",
 						  G_CALLBACK (on_scan_update_buffer_end), real_files_list);
 	
-		ret_code = sdb_engine_scan_files_1 (dbe, temp_files, real_files_on_db, TRUE);
+		ret_code = sdb_engine_scan_files_async (dbe, temp_files, real_files_on_db, TRUE);
 		if (ret_code == TRUE)
 			ret_id = sdb_engine_get_unique_scan_id (dbe);
 		else
 			ret_id = -1;
 	}
 	
-	/* let's free the temp_files array */
-	for (i=0; i < temp_files->len; i++)
-		g_free (g_ptr_array_index (temp_files, i));
 	
-	g_ptr_array_free (temp_files, TRUE);
-	
-	g_ptr_array_free (real_files_on_db, TRUE);
+	g_ptr_array_unref (temp_files);	
+	g_ptr_array_unref (real_files_on_db);
 	return ret_id;
 }
 

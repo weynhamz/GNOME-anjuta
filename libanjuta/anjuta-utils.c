@@ -921,14 +921,7 @@ anjuta_util_glist_strings_sort (GList * list)
 void
 anjuta_util_glist_strings_free (GList * list)
 {
-	GList *node;
-	node = list;
-	while (node)
-	{
-		if (node->data)
-			g_free (node->data);
-		node = g_list_next (node);
-	}
+	g_list_foreach (list, (GFunc) g_free, NULL);
 	g_list_free (list);
 }
 
@@ -2441,4 +2434,33 @@ anjuta_util_get_user_mail()
 {
 	/* FIXME: Use libfolks or something like it to query the mail address */
 	return g_strconcat(g_get_user_name (), "@", g_get_host_name (), NULL);
+}
+
+/**
+ * anjuta_utils_clone_string_gptrarray:
+ * @source: The source GPtrArray containing items representing strings
+ *
+ * Clones the contents of source GPtrArray into a new allocated GPtrArray.
+ *
+ * Return a new allocated GPtrArray with strings g_strdup (), NULL on error.
+ * The returned array has set g_free as GDestroyNotity function, so that user
+ * should only care to g_ptr_array_unref () without freeing the strings.
+ */
+GPtrArray *
+anjuta_util_clone_string_gptrarray (const GPtrArray* source)
+{
+	gint i;
+	GPtrArray *dest;
+	
+	g_return_val_if_fail (source != NULL, NULL);
+		
+	dest = g_ptr_array_sized_new (source->len);
+	g_ptr_array_set_free_func (dest, g_free);
+
+	for (i = 0; i < source->len; i++)
+	{
+		g_ptr_array_add (dest, g_strdup (g_ptr_array_index (source, i)));
+	}
+
+	return dest;
 }

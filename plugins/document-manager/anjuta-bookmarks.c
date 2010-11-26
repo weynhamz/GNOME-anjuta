@@ -70,6 +70,9 @@ enum
 
 G_DEFINE_TYPE (AnjutaBookmarks, anjuta_bookmarks, G_TYPE_OBJECT);
 
+static gchar*
+anjuta_bookmarks_get_text (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor, gint line, gboolean use_selection);
+
 static void
 on_document_changed (AnjutaDocman *docman, IAnjutaDocument *doc,
 					 AnjutaBookmarks *bookmarks)
@@ -136,14 +139,34 @@ on_row_activate (GtkTreeView* view, GtkTreePath* path,
 	GtkTreeIter iter;
 	GFile* file;
 	gint line;
+	gint handle;
 	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);
 	IAnjutaEditor* editor;
 	gtk_tree_model_get_iter (priv->model, &iter, path);
 	gtk_tree_model_get (priv->model, &iter,
 						COLUMN_FILE, &file,
 						COLUMN_LINE, &line,
+	                    COLUMN_HANDLE, &handle,
 						-1);
+	
 	editor = anjuta_docman_goto_file_line (ANJUTA_DOCMAN(priv->docman->docman), file, line);
+	if (editor)
+	{
+		line = ianjuta_markable_location_from_handle (IANJUTA_MARKABLE (editor),
+		                                                        handle, NULL);
+		if (line >= 0)
+		{
+			gchar* new_title = anjuta_bookmarks_get_text (bookmarks,
+			                                              editor,
+			                                              line,
+			                                              FALSE);
+			anjuta_docman_goto_file_line (ANJUTA_DOCMAN(priv->docman->docman), file, line);
+			gtk_list_store_set (GTK_LIST_STORE (priv->model), &iter,
+			                    COLUMN_TEXT, new_title,
+			                    COLUMN_LINE, line, -1);
+			g_free (new_title);
+		}
+	}
 	g_object_unref (file);
 }
 
@@ -222,7 +245,7 @@ on_document_added (AnjutaDocman* docman, IAnjutaDocument* doc,
 			{
 				int handle = ianjuta_markable_mark (markable, line,
 												   IANJUTA_MARKABLE_BOOKMARK,
-												   NULL);
+												   NULL, NULL);
 				gtk_list_store_set (GTK_LIST_STORE(priv->model),
 									&iter,
 									COLUMN_HANDLE,
@@ -429,9 +452,12 @@ anjuta_bookmarks_get_text_from_file (AnjutaBookmarks* bookmarks, GFile* file, gi
 		g_free (path);
 		if (iter)
 		{
-			text = g_strdup (ianjuta_symbol_get_string (IANJUTA_SYMBOL(iter),
-														IANJUTA_SYMBOL_FIELD_NAME,
-														NULL));
+			const gchar* symbol_name;
+			symbol_name = ianjuta_symbol_get_string (IANJUTA_SYMBOL(iter),
+			                                         IANJUTA_SYMBOL_FIELD_NAME,
+			                                         NULL);
+			text = g_strdup_printf ("%s:%d", symbol_name,
+			                        line);
 			g_object_unref (iter);
 			return text;
 		}
@@ -492,7 +518,7 @@ anjuta_bookmarks_add (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor, gint li
 	if (ianjuta_markable_is_marker_set (markable, line, IANJUTA_MARKABLE_BOOKMARK, NULL))
 		return;
 	
-	handle = ianjuta_markable_mark (markable, line, IANJUTA_MARKABLE_BOOKMARK, NULL);
+	handle = ianjuta_markable_mark (markable, line, IANJUTA_MARKABLE_BOOKMARK, NULL, NULL);
 	
 	gtk_list_store_append (GTK_LIST_STORE(priv->model), &iter);
 	if (title == NULL)

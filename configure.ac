@@ -53,7 +53,7 @@ dnl Glade
 GLADEUI_REQUIRED=3.7.1
 
 dnl Vala
-VALA_REQUIRED=0.9.5
+VALA_REQUIRED=0.11.2
 
 dnl Introspection
 GI_REQUIRED=0.9.5
@@ -76,6 +76,15 @@ m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 dnl Check for C Compiler
 AC_PROG_CC
 AC_PROG_CPP
+AC_PROG_LEX
+if [["$LEX" != "flex"]]; then
+	AC_MSG_ERROR(flex is required)
+fi
+AC_PROG_YACC
+if [["$YACC" != "bison"]]; then
+	AC_MSG_ERROR(bison is required)
+fi
+AC_LANG_C
 AC_PROG_CXX
 AM_PROG_CC_C_O
 
@@ -165,29 +174,6 @@ AC_PATH_PROG(AUTOGEN_PATH, autogen,no)
 if test x$AUTOGEN_PATH = xno; then
    AC_MSG_WARN([Couldn't find autogen. You will be able to build anjuta without autogen \
                 but several things won't work. You can get it from http://autogen.sourceforge.net/])
-fi
-
-dnl Check for perl required by gbf-am/mkfile
-dnl ----------------------------------------
-# Automake backend requirements
-# Also needed by Makefile backend
-AC_PATH_PROG(PERL, perl)
-if test -z "$PERL"; then
-   AC_MSG_ERROR([perl not found])
-fi
-$PERL -e 'require 5.005;' || {
-   AC_MSG_ERROR([perl 5.005 or better is required])
-}
-
-# Check for perl Locale::gettext module
-if test "x$PERL" != x; then
-        AC_MSG_CHECKING(for perl module Locale::gettext)
-        $PERL "-MLocale::gettext" -e exit > /dev/null 2>&1
-        if test $? -ne 0; then
-                AC_MSG_ERROR([not found, you should installed perl-gettext package for your distribution]);
-        else
-        AC_MSG_RESULT(ok);
-        fi
 fi
 
 dnl Check for Devhelp
@@ -289,7 +275,7 @@ else
 fi
 
 if test x$enable_vala = xyes; then
-	AC_PATH_PROG(VALAC, valac, valac)
+	AC_PATH_PROGS(VALAC, [valac-0.12 valac], valac)
 	AC_SUBST(VALAC)
 fi
 
@@ -379,6 +365,8 @@ AM_GNU_GETTEXT_VERSION([0.17])
 GETTEXT_PACKAGE=anjuta
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [GETTEXT package name])
+
+BISON_I18N
 
 dnl ***************************************************************************
 dnl Check for gtk-doc.
@@ -806,6 +794,11 @@ fi
 
 AM_CONDITIONAL(HAVE_GRAPHVIZ, [test x$libgraphviz_found = xyes])
 
+dnl Test using autotest
+dnl -----------------------------
+AC_CONFIG_TESTDIR(plugins/am-project/tests)
+AM_MISSING_PROG([AUTOM4TE], [autom4te])
+
 AC_CONFIG_FILES([
 Makefile
 po/Makefile.in
@@ -848,12 +841,6 @@ plugins/file-loader/Makefile
 plugins/file-wizard/Makefile
 plugins/build-basic-autotools/Makefile
 plugins/project-manager/Makefile
-plugins/gbf-am/Makefile
-plugins/gbf-am/gbf-am-parse
-plugins/gbf-am/GBF/Makefile
-plugins/gbf-mkfile/Makefile
-plugins/gbf-mkfile/gbf-mkfile-parse
-plugins/gbf-mkfile/GBF/Makefile
 plugins/symbol-db/benchmark/Makefile
 plugins/symbol-db/benchmark/symbol-db/Makefile
 plugins/symbol-db/benchmark/libgda/Makefile
@@ -924,6 +911,10 @@ plugins/project-wizard/templates/library/src/Makefile
 plugins/project-wizard/templates/library/po/Makefile
 plugins/project-wizard/templates/directory/Makefile
 plugins/project-wizard/templates/m4/Makefile
+plugins/am-project/Makefile
+plugins/am-project/tests/atlocal
+plugins/am-project/tests/Makefile
+plugins/mk-project/Makefile
 plugins/dir-project/Makefile
 plugins/language-support-cpp-java/Makefile
 plugins/language-support-cpp-java/cxxparser/Makefile
@@ -944,8 +935,6 @@ manuals/anjuta-build-tutorial/Makefile
 mime/Makefile
 ])
 AC_OUTPUT
-chmod +x ${ac_top_build_dir}plugins/gbf-am/gbf-am-parse
-chmod +x ${ac_top_build_dir}plugins/gbf-mkfile/gbf-mkfile-parse
 echo " "
 echo "-------------------------------------------------------------------"
 echo "Conditionally built plugins:"

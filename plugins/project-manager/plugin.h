@@ -24,8 +24,9 @@
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/anjuta-project.h>
 #include <libanjuta/interfaces/ianjuta-project.h>
-#include "gbf-project-model.h"
-#include "gbf-project-view.h"
+#include "project-model.h"
+#include "project-view.h"
+#include "project.h"
 
 extern GType project_manager_plugin_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_PROJECT_MANAGER         (project_manager_plugin_get_type (NULL))
@@ -40,12 +41,12 @@ typedef struct _ProjectManagerPluginClass ProjectManagerPluginClass;
 
 struct _ProjectManagerPlugin{
 	AnjutaPlugin parent;
+
+	AnjutaPmProject *project;
 	
 	AnjutaUI *ui;
 	AnjutaPreferences *prefs;
-	IAnjutaProject *project;
 	GtkWidget *view;
-	GbfProjectModel *model;
 	GtkWidget *scrolledwindow;
 	
 	GtkActionGroup *pm_action_group;
@@ -59,6 +60,9 @@ struct _ProjectManagerPlugin{
 	gchar *current_editor_uri;
 	gchar *project_root_uri;
 	gchar *project_uri;
+
+	/* Target shortcuts */
+	GList *shortcuts;
 	
 	/* Update state recording */
 	GList *pre_update_sources;
@@ -71,8 +75,8 @@ struct _ProjectManagerPlugin{
 	/* Idle callback id */
 	guint close_project_idle;
 	
-	/* project properties dialog */
-	GtkWidget *properties_dialog;
+	/* project is loading */
+	gboolean busy;
 };
 
 struct _ProjectManagerPluginClass{

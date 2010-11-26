@@ -438,6 +438,8 @@ anjuta_encoding_get_name (const AnjutaEncoding* enc)
 
 	anjuta_encoding_lazy_init ();
 
+	/* Translator: Unknown refers to a character encoding like UTF8,
+	 * ISO8859-1 */
 	return (enc->name == NULL) ? _("Unknown") : enc->name;
 }
 

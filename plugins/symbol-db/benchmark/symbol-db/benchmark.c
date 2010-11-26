@@ -115,13 +115,13 @@ int main (int argc, char** argv)
 		return -1;
 	}
 
-	symbol_db_engine_add_new_project (engine, NULL, root_dir);
+	symbol_db_engine_add_new_project (engine, NULL, root_dir, "1.0");
 			
 	mimes = g_hash_table_new (g_str_hash, g_str_equal);
 	g_hash_table_insert (mimes, "text/x-csrc", "text/x-csrc");
 	g_hash_table_insert (mimes, "text/x-chdr", "text/x-chdr");
 	g_hash_table_insert (mimes, "text/x-c++src", "text/x-c++src");
-	g_hash_table_insert (mimes, "text/x-c+++hdr", "text/x-c++hdr");
+	g_hash_table_insert (mimes, "text/x-c++hdr", "text/x-c++hdr");
 	
 	files = get_source_files_by_mime (root_dir, mimes);
 	g_hash_table_destroy (mimes);
@@ -133,7 +133,7 @@ int main (int argc, char** argv)
 	g_signal_connect (G_OBJECT (engine), "single-file-scan-end",
 		  G_CALLBACK (on_single_file_scan_end), files);
 	
-	symbol_db_engine_add_new_files_full (engine, root_dir, files, languages, TRUE);	
+	symbol_db_engine_add_new_files_full_async (engine, root_dir, "1.0", files, languages, TRUE);	
 
 	g_free (root_dir);
 	g_object_unref (g_dir);

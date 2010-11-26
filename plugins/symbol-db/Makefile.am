@@ -58,8 +58,6 @@ libanjuta_symbol_db_la_SOURCES = \
 	readtags.h \
 	symbol-db-system.h \
 	symbol-db-system.c \
-	symbol-db-prefs.h \
-	symbol-db-prefs.c \
 	symbol-db-engine-utils.c \
 	symbol-db-engine-utils.h \
 	symbol-db-engine-priv.h \
