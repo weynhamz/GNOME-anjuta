@@ -1373,7 +1373,11 @@ build_execute_command_in_context (BuildContext* context, GError **err)
 		build_program_add_env (context->program, "LANGUAGE", "C");
 	}
 	
-	build_program_override (context->program, context->environment);
+	if (!build_program_override (context->program, context->environment))
+	{
+		build_context_destroy_command (context);
+		return FALSE;
+	}
 	
 	if (context->message_view)
 	{

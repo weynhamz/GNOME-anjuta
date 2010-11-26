@@ -53,7 +53,7 @@ gboolean build_program_remove_arg (BuildProgram *proc, gint pos);
 gboolean build_program_add_env (BuildProgram *proc, const gchar *name, const gchar *value);
 gboolean build_program_remove_env (BuildProgram *proc, const gchar *name);
 
-void build_program_override (BuildProgram *proc, IAnjutaEnvironment *env);
+gboolean build_program_override (BuildProgram *proc, IAnjutaEnvironment *env);
 
 void build_program_set_callback (BuildProgram *proc, IAnjutaBuilderCallback callback, gpointer user_data);
 void build_program_callback (BuildProgram *proc, GObject *sender, IAnjutaBuilderHandle handle, GError *err); 

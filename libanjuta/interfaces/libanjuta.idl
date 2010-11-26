@@ -1,4 +1,3 @@
-
 // -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 // -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 //
@@ -782,6 +781,19 @@ interface IAnjutaBuilder
  */
 interface IAnjutaEnvironment
 {
+	/**
+   * IAnjutaEnvironmentError:
+   * @IANJUTA_BUILDER_CONFIG: Configuration of the environment is wrong
+   * @IANJUTA_BUILDER_OTHER_ERROR: Other Error (no unknown ;-))   
+   *
+   * Possible build errors
+   */	 
+	enum Error
+	{
+		CONFIG,
+		OTHER_ERROR
+	}
+
 	/**
 	* ianjuta_environment_override:
 	* @obj: Self

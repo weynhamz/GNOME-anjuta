@@ -249,14 +249,30 @@ build_program_remove_env (BuildProgram *prog, const gchar *name)
 	}
 }
 
-void
+gboolean
 build_program_override (BuildProgram *prog, IAnjutaEnvironment *env)
 {
 	gboolean ok;
+	GError* error = NULL;
 	
-	if (env == NULL) return;
+	if (env == NULL) return TRUE;
 	
-	ok = ianjuta_environment_override (env, &prog->work_dir, &prog->argv, &prog->envp, NULL);
+	ok = ianjuta_environment_override (env, &prog->work_dir, &prog->argv, &prog->envp, &error);
+	if (!ok && error)
+	{
+		GtkWidget* dialog;
+		g_message ("ENV error!");
+		dialog = gtk_message_dialog_new (NULL,
+		                                 0,
+		                                 GTK_MESSAGE_ERROR,
+		                                 GTK_BUTTONS_OK,
+		                                 _("Error while setting up build environment:\n %s"),
+		                                 error->message);
+		g_signal_connect (dialog, "response", G_CALLBACK (gtk_widget_destroy), NULL);
+		gtk_widget_show (dialog);
+		g_error_free (error);
+	}
+	return ok;
 }	
 
 void
