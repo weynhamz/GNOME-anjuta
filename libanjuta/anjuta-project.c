@@ -599,7 +599,7 @@ anjuta_project_node_get_property (AnjutaProjectNode *node, AnjutaProjectProperty
 	if (found == NULL)
 	{
 		/* Search in native properties */
-		found = g_list_find_custom (node->custom_properties, property, find_property);
+		found = g_list_find_custom (node->native_properties, property, find_property);
 	}
 
 	return found != NULL ? (AnjutaProjectProperty *)found->data : NULL;

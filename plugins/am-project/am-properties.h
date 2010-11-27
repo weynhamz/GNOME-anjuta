@@ -36,6 +36,10 @@ gboolean amp_node_property_add (AnjutaProjectNode *node, AnjutaProjectProperty *
 AnjutaProjectProperty *amp_node_property_set (AnjutaProjectNode *node, AnjutaProjectProperty *prop, const gchar* value);
 AnjutaProjectProperty *amp_node_get_property_from_token (AnjutaProjectNode *node, gint token);
 
+gboolean amp_node_property_has_flags (AnjutaProjectNode *node, AnjutaProjectProperty *prop, const gchar *value);
+AnjutaProjectProperty *amp_node_property_remove_flags (AnjutaProjectNode *node, AnjutaProjectProperty *prop, const gchar *value);
+AnjutaProjectProperty *amp_node_property_add_flags (AnjutaProjectNode *node, AnjutaProjectProperty *prop, const gchar *value);
+
 GList* amp_get_project_property_list (void);
 GList* amp_get_group_property_list (void);
 GList* amp_get_target_property_list (AnjutaProjectNodeType type);

@@ -10,3 +10,5 @@ m4_include([variable.at])
 m4_include([properties.at])
 m4_include([module.at])
 m4_include([package.at])
+m4_include([target_module.at])
+

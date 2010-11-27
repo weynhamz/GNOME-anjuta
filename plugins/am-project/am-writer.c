@@ -285,7 +285,7 @@ amp_group_create_token (AmpProject  *project, AnjutaAmGroupNode *group, GError *
 		amp_group_add_token (group, token, AM_GROUP_TOKEN_SUBDIRS);
 	}
 
-	tfile = amp_group_set_makefile (group, makefile, G_OBJECT (project));
+	tfile = amp_group_set_makefile (group, makefile, project);
 	amp_project_add_file (project, makefile, tfile);
 	
 	return TRUE;
@@ -837,7 +837,6 @@ gboolean amp_project_update_am_property (AmpProject *project, AnjutaProjectNode 
 	AnjutaProjectNode *group;
 	AnjutaToken *args;
 
-
 	/* Find group  of the property */
 	if (anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_GROUP)
 	{
@@ -847,6 +846,7 @@ gboolean amp_project_update_am_property (AmpProject *project, AnjutaProjectNode 
 	{
 		group = anjuta_project_node_parent (node);
 	}
+	
 
 	if ((property->value == NULL) || (*property->value == '\0'))
 	{
@@ -887,7 +887,7 @@ gboolean amp_project_update_am_property (AmpProject *project, AnjutaProjectNode 
 			g_free (canon_name);
 			g_free (prop_name);
 		}
-		
+
 		switch (property->native->type)
 		{
 		case ANJUTA_PROJECT_PROPERTY_LIST:

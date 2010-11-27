@@ -1364,7 +1364,7 @@ project_load_group_module (AmpProject *project, AnjutaAmGroupNode *group)
 	gchar **group_cpp = NULL;
 
 	prop = amp_node_get_property_from_token (ANJUTA_PROJECT_NODE (group), AM_TOKEN__CPPFLAGS);
-	if (prop) group_cpp = g_strsplit_set (prop->value, " \t", 0);
+	if (prop && (prop->value != NULL)) group_cpp = g_strsplit_set (prop->value, " \t", 0);
 	
 	/* Check all targets */
 	for (target = anjuta_project_node_first_child (ANJUTA_PROJECT_NODE (group)); target != NULL; target = anjuta_project_node_next_sibling (target))
@@ -1386,7 +1386,7 @@ project_load_group_module (AmpProject *project, AnjutaAmGroupNode *group)
 		default:
 			break;
 		}
-		if (prop) target_lib = g_strsplit_set (prop->value, " \t", 0);
+		if (prop && (prop->value != NULL)) target_lib = g_strsplit_set (prop->value, " \t", 0);
 
 		/* Check if targets use libraries */
 		if (target_lib != NULL)
@@ -1394,8 +1394,8 @@ project_load_group_module (AmpProject *project, AnjutaAmGroupNode *group)
 			AnjutaProjectNode *module;
 
 			prop = amp_node_get_property_from_token (target, AM_TOKEN_TARGET_CPPFLAGS);
-			if (prop) target_cpp = g_strsplit_set (prop->value, " \t", 0);
-						
+			if (prop && (prop->value != NULL)) target_cpp = g_strsplit_set (prop->value, " \t", 0);
+
 			for (module = anjuta_project_node_first_child (ANJUTA_PROJECT_NODE (project)); module != NULL; module = anjuta_project_node_next_sibling (module))
 			{
 				if (anjuta_project_node_get_node_type (module) == ANJUTA_PROJECT_MODULE)
@@ -2543,7 +2543,58 @@ amp_add_work (PmJob *job)
 			amp_source_create_token (AMP_PROJECT (job->user_data), ANJUTA_AM_SOURCE_NODE (job->node), &job->error);
 			break;
 		case ANJUTA_PROJECT_MODULE:
-			amp_module_create_token (AMP_PROJECT (job->user_data), ANJUTA_AM_MODULE_NODE (job->node), &job->error);
+			if ((job->parent != NULL) && (anjuta_project_node_get_node_type (job->parent) == ANJUTA_PROJECT_TARGET))
+			{
+				AnjutaProjectNode *group = anjuta_project_node_parent (job->parent);
+				AnjutaProjectProperty *group_cpp;
+				AnjutaProjectProperty *target_cpp;
+				AnjutaProjectProperty *target_lib;
+				gchar *lib_flags;
+				gchar *cpp_flags;
+				gint type;
+				
+				group_cpp = amp_node_get_property_from_token (group, AM_TOKEN__CPPFLAGS); 
+					
+				type = anjuta_project_node_get_full_type (job->parent) & (ANJUTA_PROJECT_ID_MASK | ANJUTA_PROJECT_TYPE_MASK);
+				switch (type)
+				{
+				case ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_PROGRAM:
+					target_lib = amp_node_get_property_from_token (job->parent, AM_TOKEN_TARGET_LDADD);
+					break;
+				case ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_STATICLIB:
+				case ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_SHAREDLIB:
+					target_lib = amp_node_get_property_from_token (job->parent, AM_TOKEN_TARGET_LIBADD);
+					break;
+				default:
+					break;
+				}
+				target_cpp = amp_node_get_property_from_token (job->parent, AM_TOKEN_TARGET_CPPFLAGS);
+
+				lib_flags = g_strconcat ("$(", anjuta_project_node_get_name (job->node), "_LIBS)", NULL);
+				cpp_flags = g_strconcat ("$(", anjuta_project_node_get_name (job->node), "_CFLAGS)", NULL);
+
+				if (!amp_node_property_has_flags (group, group_cpp, cpp_flags) && !amp_node_property_has_flags (job->parent, target_cpp, cpp_flags))
+				{
+					AnjutaProjectProperty *prop;
+					prop = amp_node_property_add_flags (group, group_cpp, cpp_flags);
+					amp_project_update_am_property (AMP_PROJECT (job->user_data), group, prop);				
+				}
+					
+				if (!amp_node_property_has_flags (job->parent, target_lib, lib_flags))
+				{
+					AnjutaProjectProperty *prop;
+					prop = amp_node_property_add_flags (job->parent, target_lib, lib_flags);
+					amp_project_update_am_property (AMP_PROJECT (job->user_data), job->parent, prop);				
+				}
+
+				g_free (lib_flags);
+				g_free (cpp_flags);
+				job->parent = group;
+			}
+			else
+			{
+				amp_module_create_token (AMP_PROJECT (job->user_data), ANJUTA_AM_MODULE_NODE (job->node), &job->error);
+			}
 			break;
 		case ANJUTA_PROJECT_PACKAGE:
 			amp_package_create_token (AMP_PROJECT (job->user_data), ANJUTA_AM_PACKAGE_NODE (job->node), &job->error);
@@ -2570,6 +2621,8 @@ static PmCommandWork amp_add_after_job = {amp_add_after_setup, amp_add_work, amp
 static gboolean
 amp_remove_setup (PmJob *job)
 {
+	job->parent = anjuta_project_node_parent (job->node);
+	if (job->parent == NULL) job->parent = job->node;
 	anjuta_project_node_set_state (job->node, ANJUTA_PROJECT_REMOVED);
 	
 	return TRUE;
@@ -2590,7 +2643,84 @@ amp_remove_work (PmJob *job)
 			amp_source_delete_token (AMP_PROJECT (job->user_data), ANJUTA_AM_SOURCE_NODE (job->node), &job->error);
 			break;
 		case ANJUTA_PROJECT_MODULE:
-			amp_module_delete_token (AMP_PROJECT (job->user_data), ANJUTA_AM_MODULE_NODE (job->node), &job->error);
+			if ((job->parent != NULL) && (anjuta_project_node_get_node_type (job->parent) == ANJUTA_PROJECT_TARGET))
+			{
+				AnjutaProjectNode *group = anjuta_project_node_parent (job->parent);
+				AnjutaProjectProperty *prop;
+				AnjutaProjectProperty *group_cpp;
+				AnjutaProjectProperty *target_cpp;
+				AnjutaProjectProperty *target_lib;
+				gchar *lib_flags;
+				gchar *cpp_flags;
+				gint type;
+
+				lib_flags = g_strconcat ("$(", anjuta_project_node_get_name (job->node), "_LIBS)", NULL);
+				cpp_flags = g_strconcat ("$(", anjuta_project_node_get_name (job->node), "_CFLAGS)", NULL);
+				
+				group_cpp = amp_node_get_property_from_token (group, AM_TOKEN__CPPFLAGS); 
+				if (amp_node_property_has_flags (group, group_cpp, cpp_flags))
+				{
+					/* Remove flags in group variable if not more target has this module */
+					gboolean used = FALSE;
+					AnjutaProjectNode *target;
+					
+					for (target = anjuta_project_node_first_child (ANJUTA_PROJECT_NODE (group)); target != NULL; target = anjuta_project_node_next_sibling (target))
+					{
+						if (anjuta_project_node_get_node_type (target) == ANJUTA_PROJECT_TARGET)
+						{
+							AnjutaProjectNode *module;
+
+							for (module = anjuta_project_node_first_child (target); module != NULL; module = anjuta_project_node_next_sibling (module))
+							{
+								if ((anjuta_project_node_get_node_type (module) == ANJUTA_PROJECT_MODULE) &&
+								    (module != job->node) &&
+								    (strcmp (anjuta_project_node_get_name (module), anjuta_project_node_get_name (job->node)) == 0))
+								{
+									used = TRUE;
+									break;
+								}
+							}
+						}
+						if (used) break;
+					}
+
+					if (!used)
+					{
+						AnjutaProjectProperty *prop;
+
+						prop = amp_node_property_remove_flags (group, group_cpp, cpp_flags);
+						if (prop != NULL) amp_project_update_am_property (AMP_PROJECT (job->user_data), group, prop);
+					}
+				}
+					
+				type = anjuta_project_node_get_full_type (job->parent) & (ANJUTA_PROJECT_ID_MASK | ANJUTA_PROJECT_TYPE_MASK);
+				switch (type)
+				{
+				case ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_PROGRAM:
+					target_lib = amp_node_get_property_from_token (job->parent, AM_TOKEN_TARGET_LDADD);
+					break;
+				case ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_STATICLIB:
+				case ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_SHAREDLIB:
+					target_lib = amp_node_get_property_from_token (job->parent, AM_TOKEN_TARGET_LIBADD);
+					break;
+				default:
+					break;
+				}
+				target_cpp = amp_node_get_property_from_token (job->parent, AM_TOKEN_TARGET_CPPFLAGS);
+
+				prop = amp_node_property_remove_flags (job->parent, target_cpp, cpp_flags);
+				if (prop != NULL) amp_project_update_am_property (AMP_PROJECT (job->user_data), job->parent, prop);
+				prop = amp_node_property_remove_flags (job->parent, target_lib, lib_flags);
+				if (prop != NULL) amp_project_update_am_property (AMP_PROJECT (job->user_data), job->parent, prop);
+
+				g_free (lib_flags);
+				g_free (cpp_flags);
+				job->parent = group;	
+			}
+			else
+			{
+				amp_module_delete_token (AMP_PROJECT (job->user_data), ANJUTA_AM_MODULE_NODE (job->node), &job->error);
+			}
 			break;
 		case ANJUTA_PROJECT_PACKAGE:
 			amp_package_delete_token (AMP_PROJECT (job->user_data), ANJUTA_AM_PACKAGE_NODE (job->node), &job->error);
@@ -2605,9 +2735,7 @@ amp_remove_work (PmJob *job)
 static gboolean
 amp_remove_complete (PmJob *job)
 {
-	AnjutaProjectNode *parent = anjuta_project_node_parent (job->node);
-
-	g_signal_emit_by_name (AMP_PROJECT (job->user_data), "node-changed", parent != NULL ? parent : job->node,  job->error);
+	g_signal_emit_by_name (AMP_PROJECT (job->user_data), "node-changed", job->parent,  job->error);
 
 	return TRUE;
 }
@@ -2719,7 +2847,7 @@ static gboolean
 iproject_save_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **error)
 {
 	PmJob *save_job;
-	
+
 	if (node == NULL) node = ANJUTA_PROJECT_NODE (obj);
 	if (AMP_PROJECT (obj)->queue == NULL) AMP_PROJECT (obj)->queue = pm_command_queue_new ();
 

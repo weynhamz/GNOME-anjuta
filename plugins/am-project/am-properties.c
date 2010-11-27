@@ -34,6 +34,7 @@
 
 #include <glib/gi18n.h>
 
+#include <ctype.h>
 
 /* Types
   *---------------------------------------------------------------------------*/
@@ -314,7 +315,7 @@ AnjutaProjectProperty *
 amp_node_property_set (AnjutaProjectNode *node, AnjutaProjectProperty *prop, const gchar* value)
 {
 	AnjutaProjectProperty *new_prop;
-		
+
 	new_prop = anjuta_project_node_get_property (node, prop);
 	if ((new_prop != NULL) && (new_prop->native != NULL))
 	{
@@ -347,6 +348,111 @@ amp_node_get_property_from_token (AnjutaProjectNode *node, gint token)
 
 	return NULL;
 }
+
+
+
+/* Modify flags value
+ *---------------------------------------------------------------------------*/
+
+static const gchar *
+am_node_property_find_flags (AnjutaProjectProperty *prop, const gchar *value, gsize len)
+{
+	const gchar *found;
+	
+	for (found = prop->value; found != NULL;)
+	{
+		found = strstr (found, value);
+		if (found != NULL)
+		{
+			/* Check that flags is alone */
+			if (((found == prop->value) || isspace (*(found - 1))) &&
+			     ((*(found + len) == '\0') || isspace (*(found + len))))
+			{
+				return found;
+			}
+			found += len;
+		}
+	}
+
+	return NULL;
+}
+
+gboolean
+amp_node_property_has_flags (AnjutaProjectNode *node, AnjutaProjectProperty *prop, const gchar *value)
+{
+	return am_node_property_find_flags (prop, value, strlen (value)) != NULL ? TRUE : FALSE;
+}
+
+AnjutaProjectProperty *
+amp_node_property_remove_flags (AnjutaProjectNode *node, AnjutaProjectProperty *prop, const gchar *value)
+{
+	AnjutaProjectProperty *new_prop = NULL;
+	const gchar *found;
+	gsize len = strlen (value);
+	
+	found = am_node_property_find_flags (prop, value, len);
+
+	if (found != NULL)
+	{
+		gsize new_len;
+		
+		if (found == prop->value)
+		{
+			while (isspace (*(found + len))) len++;
+		}
+		else if (*(found + len) == '\0')
+		{
+			while ((found != prop->value) && isspace(*(found - 1))) found--;
+		}
+		else
+		{
+			while (isspace (*(found + len))) len++;
+		}
+
+		new_len = strlen (prop->value) - len;
+
+		if (new_len == 0)
+		{
+			new_prop = amp_node_property_set (node, prop, NULL);			
+		}
+		else
+		{
+			gchar *new_value;
+
+			new_value = g_new(gchar, new_len + 1);
+
+			if (found != prop->value) memcpy (new_value, prop->value, found - prop->value);
+			memcpy (new_value + (found - prop->value), found + len, new_len + 1 - (found - prop->value)); 
+			new_prop = amp_node_property_set (node, prop, new_value);
+			g_free (new_value);
+		}
+	}
+
+	return new_prop;
+}
+
+AnjutaProjectProperty *
+amp_node_property_add_flags (AnjutaProjectNode *node, AnjutaProjectProperty *prop, const gchar *value)
+{
+	AnjutaProjectProperty *new_prop;
+	
+	if (prop->value == NULL)
+	{
+		new_prop = amp_node_property_set (node, prop, value);
+	}
+	else
+	{
+		gchar *new_value;
+
+		new_value = g_strconcat (prop->value, " ", value, NULL);
+		new_prop = amp_node_property_set (node, prop, new_value);
+		g_free (new_value);
+	}
+
+	return new_prop;
+}
+
+
 
 /* Get property list
  *---------------------------------------------------------------------------*/
