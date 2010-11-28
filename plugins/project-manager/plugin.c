@@ -436,13 +436,14 @@ on_add_package (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 	GtkTreeIter selected_module;
 	GList *new_module;
+	GbfTreeData *data;
 	
 	update_operation_begin (plugin);
-	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_module);
+	data = gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_module);
 	
 	new_module = anjuta_pm_project_new_package (plugin->project,
 										   get_plugin_parent_window (plugin),
-										   &selected_module, NULL);
+										   data == NULL ? NULL : &selected_module, NULL);
 	g_list_free (new_module);
 	update_operation_end (plugin, TRUE);
 }
@@ -452,13 +453,14 @@ on_add_module (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 	GtkTreeIter selected_target;
 	GList *new_modules;
+	GbfTreeData *data;
 	
 	update_operation_begin (plugin);
-	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_target);
-	
+	data = gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_target);
+
 	new_modules = anjuta_pm_project_new_module (plugin->project,
 										   get_plugin_parent_window (plugin),
-										   &selected_target, NULL);
+										   data == NULL ? NULL : &selected_target, NULL);
 	g_list_free (new_modules);
 	update_operation_end (plugin, TRUE);
 }

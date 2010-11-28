@@ -434,8 +434,8 @@ gbf_project_view_get_first_selected (GbfProjectView *view, GtkTreeIter* selected
 	GtkTreeModel *model;
 	GList *list;
 
-	g_return_val_if_fail (view != NULL, FALSE);
-	g_return_val_if_fail (GBF_IS_PROJECT_VIEW (view), FALSE);
+	g_return_val_if_fail (view != NULL, NULL);
+	g_return_val_if_fail (GBF_IS_PROJECT_VIEW (view), NULL);
 	
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
 	list = gtk_tree_selection_get_selected_rows(selection, &model);

@@ -279,6 +279,9 @@ anjuta_pm_project_get_capabilities (AnjutaPmProject *project)
 			case ANJUTA_PROJECT_SOURCE:
 				caps |= ANJUTA_PROJECT_CAN_ADD_SOURCE;
 				break;
+			case ANJUTA_PROJECT_MODULE:
+				caps |= ANJUTA_PROJECT_CAN_ADD_MODULE;
+				break;
 			case ANJUTA_PROJECT_PACKAGE:
 				caps |= ANJUTA_PROJECT_CAN_ADD_PACKAGE;
 				break;

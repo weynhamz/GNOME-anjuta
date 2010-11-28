@@ -813,6 +813,7 @@ anjuta_am_target_node_init (AnjutaAmTargetNode *node)
 {
 	node->base.type = ANJUTA_PROJECT_TARGET;
 	node->base.state = ANJUTA_PROJECT_CAN_ADD_SOURCE |
+						ANJUTA_PROJECT_CAN_ADD_MODULE |
 						ANJUTA_PROJECT_CAN_REMOVE;
 	node->install = NULL;
 	node->flags = 0;

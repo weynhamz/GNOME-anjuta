@@ -160,7 +160,10 @@ parent_filter_func (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
 		need = ANJUTA_PROJECT_CAN_ADD_SOURCE;
 		break;
 	case ANJUTA_PROJECT_MODULE:
-		need = ANJUTA_PROJECT_CAN_ADD_MODULE;
+		/* Add node containing target too because target can contains module 
+		 * It would be probably better to check recursively if any children
+		 * can accept a module and keep all parents then. */	
+		need = ANJUTA_PROJECT_CAN_ADD_MODULE | ANJUTA_PROJECT_CAN_ADD_TARGET;
 		break;
 	case ANJUTA_PROJECT_PACKAGE:
 		need = ANJUTA_PROJECT_CAN_ADD_PACKAGE;
@@ -172,7 +175,7 @@ parent_filter_func (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
 	
 	gtk_tree_model_get (model, iter,
 						GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
-	node = gbf_tree_data_get_node (data);
+	node = data == NULL ? NULL : gbf_tree_data_get_node (data);
 	if (node != NULL)
 	{
 		if (anjuta_project_node_get_state (node) & need)
@@ -201,7 +204,7 @@ module_filter_func (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
 
 	gtk_tree_model_get (model, iter,
 						GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
-	node = gbf_tree_data_get_node (data);
+	node = data == NULL ? NULL : gbf_tree_data_get_node (data);
 	if (node != NULL)
 	{
 		AnjutaProjectNodeType type = anjuta_project_node_get_node_type (node);
@@ -232,7 +235,7 @@ setup_nodes_treeview (GbfProjectModel         *model,
 	gtk_tree_view_set_model (GTK_TREE_VIEW (view), GTK_TREE_MODEL (filter));
 	g_object_unref (filter);
 
-	/* select default group */
+	/* select default node */
 	if (selected && gtk_tree_model_filter_convert_child_iter_to_iter (
 			GTK_TREE_MODEL_FILTER (filter), &iter_filter, selected))
 	{
@@ -257,10 +260,13 @@ setup_nodes_treeview (GbfProjectModel         *model,
 		}
 	}
 
-	gtk_tree_view_set_cursor (GTK_TREE_VIEW (view), path, NULL, FALSE);
-	gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW (view), path, NULL,
+	if (path)
+	{
+		gtk_tree_view_set_cursor (GTK_TREE_VIEW (view), path, NULL, FALSE);
+		gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW (view), path, NULL,
 									TRUE, 0.5, 0.0);
-	gtk_tree_path_free (path);
+		gtk_tree_path_free (path);
+	}
 }
 
 static void
@@ -1344,23 +1350,24 @@ anjuta_pm_project_new_module (AnjutaPmProject *project,
 					list = gbf_project_view_get_all_selected (GBF_PROJECT_VIEW (modules_view));
 					for (node = g_list_first (list); node != NULL; node = g_list_next (node))
 					{
-						GError *err = NULL;
+						GError *error = NULL;
 						AnjutaProjectNode* new_module;
-						gchar* uri = NULL;
-						
-						new_module = NULL;
-						if (err) {
+						const gchar *name;
+
+						new_module = gbf_tree_data_get_node (node->data);
+						name = anjuta_project_node_get_name (new_module);
+
+						new_module = ianjuta_project_add_node_after (project->project, target, NULL, ANJUTA_PROJECT_MODULE, NULL, name, &error);
+						if (error) {
 							gchar *str = g_strdup_printf ("%s: %s\n",
-															uri,
-															err->message);
+															name,
+															error->message);
 							g_string_append (err_mesg, str);
-							g_error_free (err);
+							g_error_free (error);
 							g_free (str);
 						}
 						else
 							new_modules = g_list_append (new_modules, new_module);
-
-						g_free (uri);
 					}
 					g_list_free (list);
 
@@ -1575,10 +1582,10 @@ anjuta_pm_project_new_package (AnjutaPmProject *project,
 				AnjutaProjectNode *module = NULL;
 				GString *error_message = g_string_new (NULL);
 
-                name = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (module_entry));
-				name = g_strstrip (name);
+				name = g_strdup (gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (module_entry)))));
+				if (name != NULL) name = g_strstrip (name);
 
-				if (*name == '\0')
+				if ((name == NULL) || (*name == '\0'))
 				{
 					/* Missing module name */
 					g_string_append (error_message, _("Missing module name"));

@@ -402,7 +402,11 @@ amp_node_property_remove_flags (AnjutaProjectNode *node, AnjutaProjectProperty *
 		}
 		else if (*(found + len) == '\0')
 		{
-			while ((found != prop->value) && isspace(*(found - 1))) found--;
+			while ((found != prop->value) && isspace(*(found - 1)))
+			{
+				found--;
+				len++;
+			}
 		}
 		else
 		{
