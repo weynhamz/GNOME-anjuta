@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <glade-catalog name="anjuta" supports="gtkbuilder" 
- library="gladeanjuta" depends="gtk+">
+ library="gladeanjuta-3" depends="gtk+">
 
 	<glade-widget-classes>
 		<glade-widget-class name="AnjutaVcsStatusTreeView" title="Status Tree View" 
