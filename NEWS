@@ -1,3 +1,29 @@
+Anjuta 2.91.3 "Lebkuchen - yay!" (30 November 2010) -- Johannes Schmid
+
+WARNING: This is an unstable development snapshot
+
+New:
+- Git Shell: Git interface has changed to be context sensitive (James)
+- Project Manager: New project manager landed with much better capabilities (Sébastien)
+- clang-analyzer: New plugin to use the clang analyzer
+
+Bugs fixed:
+615345 Tabs in AnjutaTabber should not expand to all available space
+631213 locale.h included twice in main.c
+633112 Smart Brace Completion Quotation Mark Crash
+633911 Unknown (translation)
+635121 language-support-cpp-java: fix invalid read of paranthese-size setting
+635795 Editing configure.ac crashes anjuta
+631521 create project in folder c++
+
+Thanks to: Abderrahim Kitouni,Akom Chotiphantawanon, Alexander Shopov,
+Antonio Fernandes C. Neto, Ask H. Larsen, Bruno Brouard, Carl-Anton Ingmarsson,
+Claude Paroz, Daniel Nylander, Duarte Loreto, Fran Diéguez, Gabor Kelemen,
+Gheyret T.Kenji, James Liggett, Joan Duran, Jonh Wendell, Jorge González,
+Kjartan Maraas, Leonid Kanter, Mario Blättermann, Massimo Corà, Matej Urbančič
+Milo Casagrande, Nikos Bakaoukas, Petr Kovar, Philip Withnall, Saleem Ansari
+Sébastien Granjoux, Simos Xenitellis, Yang Hong
+
 Anjuta 2.91.2 "Remember the days when we ported from Gtk+ 1.2 to 2.0?" -- Johannes Schmid
 
 WARNING: This is an unstable release! It's the first released based on the

@@ -4,7 +4,7 @@ AC_PREREQ([2.64])
 
 m4_define(anjuta_major_version,  2)
 m4_define(anjuta_minor_version, 91)
-m4_define(anjuta_micro_version, 2)
+m4_define(anjuta_micro_version, 3)
 m4_define(anjuta_nano_version, 0)
 m4_define(anjuta_version, anjuta_major_version.anjuta_minor_version.anjuta_micro_version.anjuta_nano_version)
 
@@ -44,7 +44,7 @@ LIBWNCK_REQUIRED=2.12
 UNIQUE_REQUIRED=2.90.1
 
 dnl GtkSourceView
-GTKSOURCEVIEW_REQUIRED=2.91.1
+GTKSOURCEVIEW_REQUIRED=2.91.2
 
 dnl Devhelp
 LIBDEVHELP_REQUIRED=2.90.6
