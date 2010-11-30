@@ -219,7 +219,7 @@ anjuta_view_drag_data_received (GtkWidget        *widget,
 	/* If this is an URL emit DROP_URIS, otherwise chain up the signal */
 	if (info == TARGET_URI_LIST)
 	{
-		files = anjuta_util_drop_get_files (selection_data);
+		files = anjuta_utils_drop_get_files (selection_data);
 
 		if (files != NULL)
 		{
