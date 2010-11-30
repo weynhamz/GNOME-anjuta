@@ -41,10 +41,9 @@ prefs_ui_files = code-analyzer.ui
 include $(top_srcdir)/scripts/build-schemas.mk
 
 EXTRA_DIST = \
-	anjuta-marshal.list \
 	$(plugin_in_files) \
-	$(sourceview_plugin_DATA) \
-	$(sourceview_pixmaps_DATA) \
-	$(sourceview_ui_DATA)
+	$(code_analyzer_plugin_DATA) \
+	$(code_analyzer_pixmaps_DATA) \
+	$(code_analyzer_ui_DATA)
 
 -include $(top_srcdir)/git.mk

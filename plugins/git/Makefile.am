@@ -161,7 +161,7 @@ libanjuta_git_la_SOURCES = \
 	git-create-branch-pane.c \
 	git-create-branch-pane.h \
 	git-delete-branches-pane.c \
-	git-delete-branch-pane.h \
+	git-delete-branches-pane.h \
 	git-switch-branch-pane.c \
 	git-switch-branch-pane.h \
 	git-merge-pane.c \

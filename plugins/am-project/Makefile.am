@@ -1,3 +1,5 @@
+SUBDIRS = tests
+
 # Plugin UI file
 plugin_uidir = $(anjuta_ui_dir)
 plugin_ui_DATA = 

@@ -915,7 +915,6 @@ plugins/project-wizard/templates/m4/Makefile
 plugins/am-project/Makefile
 plugins/am-project/tests/atlocal
 plugins/am-project/tests/Makefile
-plugins/mk-project/Makefile
 plugins/dir-project/Makefile
 plugins/language-support-cpp-java/Makefile
 plugins/language-support-cpp-java/cxxparser/Makefile

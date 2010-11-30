@@ -1,5 +1,6 @@
 
-EXTRA_DIST = testsuite.at $(TESTSUITE_AT) $(srcdir)/package.m4 $(TESTSUITE)
+EXTRA_DIST = testsuite.at $(TESTSUITE_AT) $(srcdir)/package.m4 $(TESTSUITE) \
+	atlocal.in
 
 $(srcdir)/package.m4: $(top_srcdir)/configure.ac
 	rm -f $@ $@.tmp
