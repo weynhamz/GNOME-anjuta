@@ -49,7 +49,6 @@
 #include <libanjuta/anjuta-async-command.h>
 #include <libanjuta/anjuta-async-notify.h>
 #include <libanjuta/anjuta-sync-command.h>
-#include <libanjuta/gbf-project.h>
 #include <libanjuta/anjuta-project.h>
 #include <libanjuta/anjuta-command-queue.h>
 #include <libanjuta/anjuta-command-bar.h>
