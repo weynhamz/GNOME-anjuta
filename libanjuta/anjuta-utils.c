@@ -2397,7 +2397,7 @@ anjuta_util_builder_get_objects (GtkBuilder *builder, const gchar *first_widget,
 }
 
 /**
- * anjuta_util_drop_get_files:
+ * anjuta_utils_drop_get_files:
  * @selection_data: the #GtkSelectionData from drag_data_received
  * @info: the info from drag_data_received
  *
@@ -2406,7 +2406,7 @@ anjuta_util_builder_get_objects (GtkBuilder *builder, const gchar *first_widget,
  * Return value: a list of GFiles
  */
 GSList*
-anjuta_util_drop_get_files (GtkSelectionData *selection_data)
+anjuta_utils_drop_get_files (GtkSelectionData *selection_data)
 {
 	gchar **uris;
 	gint i;

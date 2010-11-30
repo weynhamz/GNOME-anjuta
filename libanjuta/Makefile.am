@@ -89,8 +89,6 @@ libanjuta_3_la_SOURCES= \
 	anjuta-async-notify.c \
 	anjuta-debug.c \
 	anjuta-debug.h \
-	gbf-project.c \
-	gbf-project.h \
 	anjuta-command-queue.c \
 	anjuta-command-queue.h \
 	anjuta-token.c \
@@ -178,7 +176,6 @@ libanjuta_include = \
 	anjuta-async-notify.h \
 	anjuta-sync-command.h \
 	anjuta-version.h \
-	gbf-project.h \
 	anjuta-project.h \
 	anjuta-command-queue.h \
 	anjuta-drop-entry.h \
