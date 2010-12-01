@@ -46,6 +46,8 @@ anjuta-marshal.c: anjuta-marshal.h anjuta-marshal.list
 	&& cp xgenc-gmc $(@F) \
 	&& rm -f xgenc-gmc
 
+CLEANFILES = ianjuta*.[ch] libanjuta-interfaces.h
+
 EXTRA_DIST = \
 	iface-built.stamp \
 	$(libanjuta_interfaces_include) \

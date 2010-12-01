@@ -258,7 +258,7 @@ INTROSPECTION_COMPILER_ARGS = --includedir=$(srcdir)
 
 if HAVE_INTROSPECTION
 anjuta_introspection_sources = $(libanjuta_3_la_SOURCES)
-ianjuta_introspection_sources = $(srcdir)/interfaces/*.c $(srcdir)/interfaces/*.h
+ianjuta_introspection_sources = $(srcdir)/interfaces/ianjuta-*.c $(srcdir)/interfaces/ianjuta-*.h
 
 Anjuta-3.0.gir: libanjuta-3.la
 Anjuta_3_0_gir_INCLUDES = GObject-2.0 Gtk-3.0
