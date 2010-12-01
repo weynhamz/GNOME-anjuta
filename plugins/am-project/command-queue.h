@@ -61,6 +61,7 @@ struct _PmJob
 
 PmJob * pm_job_new (PmCommandWork *work, AnjutaProjectNode *node, AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, GFile *file, const gchar *name, gpointer user_data);
 void pm_job_free (PmJob *job);
+void pm_job_set_parent (PmJob *job, AnjutaProjectNode *parent);
 
 PmCommandQueue*	pm_command_queue_new (void);
 void pm_command_queue_free (PmCommandQueue *queue);

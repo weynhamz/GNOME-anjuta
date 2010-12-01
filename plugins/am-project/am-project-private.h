@@ -56,9 +56,11 @@ struct _AmpProject {
 	AnjutaToken			*ac_init;
 	AnjutaToken			*args;
 
+	/* Project file list */
+	GList	   *files;
+
 	/* shortcut hash tables, mapping id -> GNode from the tree above */
 	GHashTable		*groups;
-	GHashTable		*files;
 	GHashTable		*configs;		/* Config file from configure_file */
 	
 	/* Keep list style */

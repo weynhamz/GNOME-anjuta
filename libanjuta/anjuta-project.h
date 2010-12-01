@@ -178,12 +178,13 @@ void anjuta_project_node_children_foreach (AnjutaProjectNode *node, AnjutaProjec
 AnjutaProjectNode *anjuta_project_node_traverse (AnjutaProjectNode *node, GTraverseType order, AnjutaProjectNodeTraverseFunc func, gpointer data);
 AnjutaProjectNode *anjuta_project_node_children_traverse (AnjutaProjectNode *node, AnjutaProjectNodeTraverseFunc func, gpointer data);
 
+void anjuta_project_node_check (AnjutaProjectNode *parent);
+
 AnjutaProjectNode *anjuta_project_node_insert_before (AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNode *node);
 AnjutaProjectNode *anjuta_project_node_insert_after (AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNode *node);
 AnjutaProjectNode *anjuta_project_node_remove (AnjutaProjectNode *node);
 AnjutaProjectNode *anjuta_project_node_append (AnjutaProjectNode *parent, AnjutaProjectNode *node);
 AnjutaProjectNode *anjuta_project_node_prepend (AnjutaProjectNode *parent, AnjutaProjectNode *node);
-
 
 AnjutaProjectNodeType anjuta_project_node_get_node_type (const AnjutaProjectNode *node);
 AnjutaProjectNodeType anjuta_project_node_get_full_type (const AnjutaProjectNode *node);

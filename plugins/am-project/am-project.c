@@ -526,25 +526,22 @@ amp_project_get_configure_token (AmpProject *project)
 }
 
 static void
-remove_config_file (gpointer data, GObject *object, gboolean is_last_ref)
+remove_config_file (gpointer data, GObject *object)
 {
-	if (is_last_ref)
-	{
-		AmpProject *project = (AmpProject *)data;
-		if (project->files)
-			g_hash_table_remove (project->files, anjuta_token_file_get_file (ANJUTA_TOKEN_FILE (object)));
-	}
+	AmpProject *project = (AmpProject *)data;
+	
+	g_return_if_fail (project->files != NULL);
+
+	project->files = g_list_remove (project->files, object);
 }
 
 void
 amp_project_update_root (AmpProject *project, AmpProject *new_project)
 {
 	GHashTable *hash;
-	GHashTableIter iter;
-	gpointer key;
-	AnjutaTokenFile *tfile;
+	GList *list;
 	AnjutaTokenStyle *style;
-	
+
 	if (project->configure != NULL) g_object_unref (project->configure);
 	if (project->configure_file != NULL) anjuta_token_file_free (project->configure_file);
 	if (project->monitor) g_object_unref (project->monitor);
@@ -580,21 +577,23 @@ amp_project_update_root (AmpProject *project, AmpProject *new_project)
 	project->groups = new_project->groups;
 	new_project->groups = hash;
 
-	hash = project->files;
+	list = project->files;
 	project->files = new_project->files;
-	new_project->files = hash;
+	new_project->files = list;
 
-	g_hash_table_iter_init (&iter, project->files);
-	while (g_hash_table_iter_next (&iter, &key, (gpointer *)&tfile))
+	for (list = project->files; list != NULL; list = g_list_next (list))
 	{
-		g_object_remove_toggle_ref (G_OBJECT (tfile), remove_config_file, new_project);
-		g_object_add_toggle_ref (G_OBJECT (tfile), remove_config_file, project);
+		GObject *tfile = (GObject *)list->data;
+		
+		g_object_weak_unref (tfile, remove_config_file, new_project);
+		g_object_weak_ref (tfile, remove_config_file, project);
 	}
-	g_hash_table_iter_init (&iter, new_project->files);
-	while (g_hash_table_iter_next (&iter, &key, (gpointer *)&tfile))
+	for (list = new_project->files; list != NULL; list = g_list_next (list))
 	{
-		g_object_remove_toggle_ref (G_OBJECT (tfile), remove_config_file, project);
-		g_object_add_toggle_ref (G_OBJECT (tfile), remove_config_file, new_project);
+		GObject *tfile = (GObject *)list->data;
+		
+		g_object_weak_unref (tfile, remove_config_file, project);
+		g_object_weak_ref (tfile, remove_config_file, new_project);
 	}
 	
 	hash = project->configs;
@@ -782,6 +781,7 @@ project_node_new (AmpProject *project, AnjutaProjectNodeType type, GFile *file, 
 static AnjutaProjectNode *
 project_node_save (AmpProject *project, AnjutaProjectNode *node, GError **error)
 {
+	GList *list;
 	GHashTableIter iter;
 	GHashTable *files;
 	AnjutaProjectNode *parent;
@@ -811,11 +811,9 @@ project_node_save (AmpProject *project, AnjutaProjectNode *node, GError **error)
 			break;
 		case ANJUTA_PROJECT_ROOT:
 			/* Get all project files */
-			g_hash_table_iter_init (&iter, project->files);
-			while (g_hash_table_iter_next (&iter, &key, &value))
+			for (list = project->files; list != NULL; list = g_list_next (list))
 			{
-				AnjutaTokenFile *tfile = (AnjutaTokenFile *)value;
-				g_hash_table_insert (files, tfile, NULL);
+				g_hash_table_insert (files, list->data, NULL);
 			}
 			break;
 		default:
@@ -1675,6 +1673,7 @@ amp_project_map_children (GHashTable *map, AnjutaProjectNode *old_node, AnjutaPr
 
 		if (same != NULL)
 		{
+			/* Add new to old node mapping */
 			g_hash_table_insert (map, (AnjutaProjectNode *)same->data, old_node);
 
 			amp_project_map_children (map, old_node, (AnjutaProjectNode *)same->data);
@@ -1682,7 +1681,8 @@ amp_project_map_children (GHashTable *map, AnjutaProjectNode *old_node, AnjutaPr
 		}
 		else
 		{
-			/* Mark deleted node */
+			/* Keep old_node to be deleted in the hash table as a key with a NULL
+			 * value */
 			g_hash_table_insert (map, old_node, NULL);
 		}
 	}
@@ -1690,10 +1690,14 @@ amp_project_map_children (GHashTable *map, AnjutaProjectNode *old_node, AnjutaPr
 	/* Add remaining node in hash table */
 	for (; children != NULL; children = g_list_delete_link (children,  children))
 	{
+		/* Keep new node without a corresponding old node as a key and a identical
+		 * value */
 		g_hash_table_insert (map, children->data, children->data);
 	}
 }
 
+/* Find the correspondance between the new loaded node (new_node) and the
+ * original node currently in the tree (old_node) */
 static GHashTable *
 amp_project_map_node (AnjutaProjectNode *old_node, AnjutaProjectNode *new_node)
 {
@@ -1710,72 +1714,91 @@ amp_project_map_node (AnjutaProjectNode *old_node, AnjutaProjectNode *new_node)
 
 
 static void
-amp_project_update_node (AnjutaProjectNode *new_node, AnjutaProjectNode *old_node, GHashTable *map)
+amp_project_update_node (AnjutaProjectNode *key, AnjutaProjectNode *value, GHashTable *map)
 {
-	if (old_node == NULL)
+	AnjutaProjectNode *old_node = NULL;	 /* The node that will be deleted */
+	
+	if (value == NULL)
 	{
-		/* Delete old node */
-		g_object_unref (new_node);
+		/* if value is NULL, delete the old node which is the key */
+		old_node = key;
 	}
 	else
 	{
-		if (old_node != new_node)
+		AnjutaProjectNode *node = value;	/* The node that we keep in the tree */
+		AnjutaProjectNode *new_node = key;  /* The node with the new data */
+		
+		if (new_node != node)
 		{
 			GList *properties;
 		
-			switch (anjuta_project_node_get_node_type (old_node))
+			switch (anjuta_project_node_get_node_type (node))
 			{
 				case ANJUTA_PROJECT_GROUP:
-					amp_group_update_node (ANJUTA_AM_GROUP_NODE (old_node), ANJUTA_AM_GROUP_NODE (new_node));
+					amp_group_update_node (ANJUTA_AM_GROUP_NODE (node), ANJUTA_AM_GROUP_NODE (new_node));
 					break;
 				case ANJUTA_PROJECT_TARGET:
-					amp_target_update_node (ANJUTA_AM_TARGET_NODE (old_node), ANJUTA_AM_TARGET_NODE (new_node));
+					amp_target_update_node (ANJUTA_AM_TARGET_NODE (node), ANJUTA_AM_TARGET_NODE (new_node));
 					break;
 				case ANJUTA_PROJECT_SOURCE:
-					amp_source_update_node (ANJUTA_AM_SOURCE_NODE (old_node), ANJUTA_AM_SOURCE_NODE (new_node));
+					amp_source_update_node (ANJUTA_AM_SOURCE_NODE (node), ANJUTA_AM_SOURCE_NODE (new_node));
 					break;
 				case ANJUTA_PROJECT_MODULE:
-					amp_module_update_node (ANJUTA_AM_MODULE_NODE (old_node), ANJUTA_AM_MODULE_NODE (new_node));
+					amp_module_update_node (ANJUTA_AM_MODULE_NODE (node), ANJUTA_AM_MODULE_NODE (new_node));
 					break;
 				case ANJUTA_PROJECT_PACKAGE:
-					amp_package_update_node (ANJUTA_AM_PACKAGE_NODE (old_node), ANJUTA_AM_PACKAGE_NODE (new_node));
+					amp_package_update_node (ANJUTA_AM_PACKAGE_NODE (node), ANJUTA_AM_PACKAGE_NODE (new_node));
 					break;
 				case ANJUTA_PROJECT_ROOT:
-					amp_project_update_root (AMP_PROJECT (old_node), AMP_PROJECT (new_node));
+					amp_project_update_root (AMP_PROJECT (node), AMP_PROJECT (new_node));
 					break;
 				default:
 					break;
 			}
 
 			/* Swap custom properties */
-			properties = old_node->custom_properties;
-			old_node->custom_properties = new_node->custom_properties;
+			properties = node->custom_properties;
+			node->custom_properties = new_node->custom_properties;
 			new_node->custom_properties = properties;
 
-			old_node->parent = new_node->parent;
-			old_node->children = new_node->children;
-			old_node->next = new_node->next;
-			old_node->prev = new_node->prev;
-		
-			/* Unlink old node and free it */
-			new_node->parent = NULL;
-			new_node->children = NULL;
-			new_node->next = NULL;
-			new_node->prev = NULL;
-			g_object_unref (new_node);
+			if (new_node->parent == NULL)
+			{
+				/* This is the root node, update only the children */
+				node->children = new_node->children;
+			}
+			else
+			{
+				/* Other node update all pointers */
+				node->parent = new_node->parent;
+				node->children = new_node->children;
+				node->next = new_node->next;
+				node->prev = new_node->prev;
+			}
 
-			new_node = old_node;
+			/* Destroy node with data */
+			old_node = new_node;
 		}
 
-		/* Update links */
-		old_node = g_hash_table_lookup (map, new_node->parent);
-		if (old_node != NULL) new_node->parent = old_node;
-		old_node = g_hash_table_lookup (map, new_node->children);
-		if (old_node != NULL) new_node->children = old_node;
-		old_node = g_hash_table_lookup (map, new_node->next);
-		if (old_node != NULL) new_node->next = old_node;
-		old_node = g_hash_table_lookup (map, new_node->prev);
-		if (old_node != NULL) new_node->prev = old_node;
+		/* Update links, using original node address if they stay in the tree */
+		new_node = g_hash_table_lookup (map, node->parent);
+		if (new_node != NULL) node->parent = new_node;
+		new_node = g_hash_table_lookup (map, node->children);
+		if (new_node != NULL) node->children = new_node;
+		new_node = g_hash_table_lookup (map, node->next);
+		if (new_node != NULL) node->next = new_node;
+		new_node = g_hash_table_lookup (map, node->prev);
+		if (new_node != NULL) node->prev = new_node;
+	}
+
+		
+	/* Unlink old node and free it */
+	if (old_node != NULL)
+	{
+		old_node->parent = NULL;
+		old_node->children = NULL;
+		old_node->next = NULL;
+		old_node->prev = NULL;
+		g_object_unref (old_node);
 	}
 }
 
@@ -1792,7 +1815,6 @@ amp_project_duplicate_node (AnjutaProjectNode *old_node)
 	{
 		amp_target_set_type (ANJUTA_AM_TARGET_NODE (new_node), anjuta_project_node_get_full_type (old_node));
 	}
-	new_node->parent = old_node->parent;
 
 	return new_node;
 }
@@ -1855,8 +1877,7 @@ amp_project_load_root (AmpProject *project, GError **error)
 
 	/* Parse configure */
 	configure_token_file = amp_project_set_configure (project, configure_file);
-	g_hash_table_insert (project->files, configure_file, configure_token_file);
-	g_object_add_toggle_ref (G_OBJECT (configure_token_file), remove_config_file, project);
+	amp_project_add_file (project, configure_file, configure_token_file);
 	arg = anjuta_token_file_load (configure_token_file, NULL);
 	scanner = amp_ac_scanner_new (project);
 	project->configure_token = amp_ac_scanner_parse_token (scanner, arg, 0, &err);
@@ -1997,7 +2018,7 @@ amp_project_load_group (AmpProject *project, AnjutaAmGroupNode *group, GError **
 }
 
 AnjutaProjectNode *
-amp_project_load_node (AmpProject *project, AnjutaProjectNode *node, GError **error) 
+amp_project_load_node (AmpProject *project, AnjutaProjectNode *node, AnjutaProjectNode *parent, GError **error) 
 {
 	AnjutaProjectNode *loaded = NULL;
 	//GTimer *timer;
@@ -2031,7 +2052,16 @@ amp_project_unload (AmpProject *project)
 	
 	/* shortcut hash tables */
 	if (project->groups) g_hash_table_remove_all (project->groups);
-	if (project->files) g_hash_table_remove_all (project->files);
+	if (project->files != NULL)
+	{
+		GList *list;
+
+		for (list = project->files; list != NULL; list = g_list_delete_link (list, list))
+		{
+			g_object_weak_unref (G_OBJECT (list->data), remove_config_file, project);
+		}
+		project->files = NULL;
+	}
 	if (project->configs) g_hash_table_remove_all (project->configs);
 
 	/* List styles */
@@ -2084,14 +2114,11 @@ amp_project_probe (GFile *file,
 gboolean
 amp_project_get_token_location (AmpProject *project, AnjutaTokenFileLocation *location, AnjutaToken *token)
 {
-	GHashTableIter iter;
-	gpointer key;
-	gpointer value;
+	GList *list;
 
-	g_hash_table_iter_init (&iter, project->files);
-	while (g_hash_table_iter_next (&iter, &key, &value))
+	for (list = project->files; list != NULL; list = g_list_next (list))
 	{
-		if (anjuta_token_file_get_token_location ((AnjutaTokenFile *)value, location, token))
+		if (anjuta_token_file_get_token_location ((AnjutaTokenFile *)list->data, location, token))
 		{
 			return TRUE;
 		}
@@ -2163,17 +2190,14 @@ amp_project_get_node_info (AmpProject *project, GError **error)
 gboolean
 amp_project_save (AmpProject *project, GError **error)
 {
-	gpointer key;
-	gpointer value;
-	GHashTableIter iter;
+	GList *list;
 
 	g_return_val_if_fail (project != NULL, FALSE);
 
-	g_hash_table_iter_init (&iter, project->files);
-	while (g_hash_table_iter_next (&iter, &key, &value))
+	for (list = project->files; list != NULL; list = g_list_next (list))
 	{
 		GError *error = NULL;
-		AnjutaTokenFile *tfile = (AnjutaTokenFile *)value;
+		AnjutaTokenFile *tfile = (AnjutaTokenFile *)list->data;
 
 		anjuta_token_file_save (tfile, &error);
 	}
@@ -2224,11 +2248,11 @@ amp_project_move (AmpProject *project, const gchar *path)
 	GFile *new_file;
 	GFile *root_file;
 	gchar *relative;
-	GHashTableIter iter;
+	GList *list;
 	gpointer key;
-	AnjutaTokenFile *tfile;
 	AmpConfigFile *cfg;
 	GHashTable* old_hash;
+	GHashTableIter iter;
 	AmpMovePacket packet= {project, NULL};
 
 	/* Change project root directory */
@@ -2244,21 +2268,15 @@ amp_project_move (AmpProject *project, const gchar *path)
 	g_hash_table_destroy (old_hash);
 
 	/* Change all files */
-	old_hash = project->files;
-	project->files = g_hash_table_new_full (g_file_hash, (GEqualFunc)g_file_equal, g_object_unref, NULL);
-	g_hash_table_iter_init (&iter, old_hash);
-	while (g_hash_table_iter_next (&iter, &key, (gpointer *)&tfile))
+	for (list = project->files; list != NULL; list = g_list_next (list))
 	{
+		AnjutaTokenFile *tfile = (AnjutaTokenFile *)list->data;
+		
 		relative = get_relative_path (packet.old_root_file, anjuta_token_file_get_file (tfile));
 		new_file = g_file_resolve_relative_path (root_file, relative);
 		g_free (relative);
 		anjuta_token_file_move (tfile, new_file);
-
-		g_hash_table_insert (project->files, new_file, tfile);
-		g_object_unref (key);
 	}
-	g_hash_table_steal_all (old_hash);
-	g_hash_table_destroy (old_hash);
 
 	/* Change all configs */
 	old_hash = project->configs;
@@ -2428,8 +2446,8 @@ amp_project_get_file (AmpProject *project)
 void
 amp_project_add_file (AmpProject *project, GFile *file, AnjutaTokenFile* token)
 {
-	g_hash_table_insert (project->files, file, token);
-	g_object_add_toggle_ref (G_OBJECT (token), remove_config_file, project);
+	project->files = g_list_prepend (project->files, token);
+	g_object_weak_ref (G_OBJECT (token), remove_config_file, project);
 }
 
 gboolean
@@ -2446,7 +2464,8 @@ amp_project_is_busy (AmpProject *project)
 static gboolean
 amp_load_setup (PmJob *job)
 {
-	job->parent = anjuta_project_node_parent (job->node);
+	//anjuta_project_node_check (job->node);
+	pm_job_set_parent (job, anjuta_project_node_parent (job->node));
 	job->proxy = amp_project_duplicate_node (job->node);
 
 	return TRUE;
@@ -2455,9 +2474,9 @@ amp_load_setup (PmJob *job)
 static gboolean
 amp_load_work (PmJob *job)
 {
-	job->proxy = amp_project_load_node (AMP_PROJECT (job->user_data), job->proxy, &job->error);
+	job->proxy = amp_project_load_node (AMP_PROJECT (job->user_data), job->proxy, job->parent, &job->error);
 
-	return TRUE;
+	return job->proxy != NULL;
 }
 
 static gboolean
@@ -2465,11 +2484,11 @@ amp_load_complete (PmJob *job)
 {
 	GHashTable *map;
 
+	//anjuta_project_node_check (job->node);
 	map = amp_project_map_node (job->node, job->proxy);
 	g_object_ref (job->proxy);
 	g_hash_table_foreach (map, (GHFunc)amp_project_update_node, map);
-	job->node->parent = job->parent;
-	job->proxy->parent = NULL;
+	//anjuta_project_node_check (job->node);
 	g_hash_table_destroy (map);
 	g_object_unref (job->proxy);
 	job->proxy = NULL;
@@ -2589,7 +2608,7 @@ amp_add_work (PmJob *job)
 
 				g_free (lib_flags);
 				g_free (cpp_flags);
-				job->parent = group;
+				pm_job_set_parent (job, group);
 			}
 			else
 			{
@@ -2621,8 +2640,11 @@ static PmCommandWork amp_add_after_job = {amp_add_after_setup, amp_add_work, amp
 static gboolean
 amp_remove_setup (PmJob *job)
 {
-	job->parent = anjuta_project_node_parent (job->node);
-	if (job->parent == NULL) job->parent = job->node;
+	AnjutaProjectNode *parent;
+
+	parent = anjuta_project_node_parent (job->node);
+	if (parent == NULL) parent = job->node;
+	pm_job_set_parent (job, parent);
 	anjuta_project_node_set_state (job->node, ANJUTA_PROJECT_REMOVED);
 	
 	return TRUE;
@@ -2715,7 +2737,7 @@ amp_remove_work (PmJob *job)
 
 				g_free (lib_flags);
 				g_free (cpp_flags);
-				job->parent = group;	
+				pm_job_set_parent (job, group);
 			}
 			else
 			{
@@ -3132,7 +3154,7 @@ static void
 amp_project_dispose (GObject *object)
 {
 	AmpProject *project;
-	
+
 	g_return_if_fail (AMP_IS_PROJECT (object));
 
 	project = AMP_PROJECT (object);
@@ -3142,8 +3164,6 @@ amp_project_dispose (GObject *object)
 
 	if (project->groups) g_hash_table_destroy (project->groups);
 	project->groups = NULL;
-	if (project->files) g_hash_table_destroy (project->files);
-	project->files = NULL;
 	if (project->configs) g_hash_table_destroy (project->configs);
 	project->configs = NULL;
 	
@@ -3177,7 +3197,7 @@ amp_project_init (AmpProject *project)
 
 	/* Hash tables */
 	project->groups = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
-	project->files = g_hash_table_new_full (g_file_hash, (GEqualFunc)g_file_equal, g_object_unref, NULL);
+	project->files = NULL;
 	project->configs = g_hash_table_new_full (g_file_hash, (GEqualFunc)g_file_equal, NULL, (GDestroyNotify)amp_config_file_free);
 
 	/* Default style */

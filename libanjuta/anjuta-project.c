@@ -356,6 +356,46 @@ anjuta_project_node_children_foreach (AnjutaProjectNode *node, AnjutaProjectNode
 	}
 }
 
+
+/* Debugging functions
+ *---------------------------------------------------------------------------*/
+
+static gboolean check_node (AnjutaProjectNode *node, gpointer data)
+{
+	if (!ANJUTA_IS_PROJECT_NODE (node)) g_critical ("    Node %p of %p is not a AnjutaProjectNode", node, data);
+	if (node->prev == NULL)
+	{
+		if ((node->parent != NULL) && (node->parent->children != node)) g_critical ("    Node %p of %p has the wrong parent", node, data);
+	}
+	else
+	{
+		if (node->prev->next != node) g_critical ("    Node %p of %p has the wrong predecessor", node, data);
+		if (node->prev->parent != node->parent) g_critical ("    Node %p of %p has the wrong parent", node, data);
+	}
+	if (node->next != NULL)
+	{
+		if (node->next->prev != node) g_critical ("    Node %p of %p has the wrong successor", node, data);
+	}
+	if (node->children != NULL)
+	{
+		if (node->children->parent != node) g_critical ("    Node %p of %p has the wrong children", node, data);
+	}
+
+	return FALSE;
+}
+
+void
+anjuta_project_node_check (AnjutaProjectNode *parent)
+{
+	AnjutaProjectNode *node;
+	
+	g_message ("Check node %p", parent);
+	node = anjuta_project_node_traverse (parent, G_POST_ORDER, check_node, parent);
+	if (node == NULL) g_message ("    Node %p is valid", parent);
+}
+
+
+
 /* Adding node functions
  *---------------------------------------------------------------------------*/
 

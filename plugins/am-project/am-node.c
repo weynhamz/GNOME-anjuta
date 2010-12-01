@@ -519,8 +519,16 @@ amp_group_update_node (AnjutaAmGroupNode *group, AnjutaAmGroupNode *new_group)
 	gint i;
 	GHashTable *hash;
 
-	if (group->monitor != NULL) g_object_unref (group->monitor);
-	if (group->makefile != NULL) g_object_unref (group->makefile);
+	if (group->monitor != NULL)
+	{
+		g_object_unref (group->monitor);
+		group->monitor = NULL;
+	}
+	if (group->makefile != NULL)	
+	{
+		g_object_unref (group->makefile);
+		group->monitor = NULL;
+	}
 	if (group->tfile) anjuta_token_file_free (group->tfile);
 	for (i = 0; i < AM_GROUP_TOKEN_LAST; i++)
 	{
@@ -658,9 +666,6 @@ anjuta_am_group_node_finalize (GObject *object)
 	}
 	if (node->variables) g_hash_table_destroy (node->variables);
 
-	if (node->monitor) g_object_unref (node->monitor);
-	node->monitor = NULL;
-	
 	G_OBJECT_CLASS (anjuta_am_group_node_parent_class)->finalize (object);
 }
 

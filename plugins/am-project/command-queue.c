@@ -322,9 +322,9 @@ pm_job_new (PmCommandWork* work, AnjutaProjectNode *node, AnjutaProjectNode *par
 
 	job = g_new0 (PmJob, 1);
 	job->work = work;
-	job->node = node;
-	job->parent = parent;
-	job->sibling = sibling;
+	if (node != NULL) job->node = g_object_ref (node);
+	if (parent != NULL) job->parent = g_object_ref (parent);
+	if (sibling != NULL) job->sibling = g_object_ref (sibling);
 	job->type = type;
 	if (file != NULL) job->file = g_object_ref (file);
 	if (name != NULL) job->name = g_strdup (name);
@@ -340,6 +340,17 @@ pm_job_free (PmJob *job)
 	if (job->map != NULL) g_hash_table_destroy (job->map);
 	if (job->file != NULL) g_object_unref (job->file);
 	if (job->name != NULL) g_free (job->name);
+	if (job->sibling != NULL) g_object_unref (job->sibling);
+	if (job->parent != NULL) g_object_unref (job->parent);
+	if (job->node != NULL) g_object_unref (job->node);
+}
+
+void
+pm_job_set_parent (PmJob *job, AnjutaProjectNode *parent)
+{
+	if (job->parent != NULL) g_object_unref (job->parent);
+	if (parent != NULL) g_object_ref (parent);
+	job->parent = parent;
 }
 
 /* Public functions
