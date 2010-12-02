@@ -501,69 +501,72 @@ on_log_view_query_tooltip (GtkWidget *log_view, gint x, gint y,
 	
 	gtk_tree_view_convert_widget_to_bin_window_coords (GTK_TREE_VIEW (log_view),
 													   x, y, &bin_x, &bin_y);
-	gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW (log_view), bin_x, 
-								   bin_y, &path, &current_column, NULL, NULL);
-	
-	/* We need to be in the ref icon column */
-	if (current_column == ref_icon_column)
+	if (gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW (log_view), bin_x, 
+									   bin_y, &path, &current_column, NULL, 
+	                                   NULL))
 	{
-		model = gtk_tree_view_get_model (GTK_TREE_VIEW (log_view));
-		gtk_tree_model_get_iter (model, &iter, path);
-		
-		gtk_tree_model_get (model, &iter, LOG_COL_REVISION, &revision, -1);
-		sha = git_revision_get_sha (revision);
-		
-		g_object_unref (revision);
-		
-		ref_list = g_hash_table_lookup (self->priv->refs, sha);
-		g_free (sha);
-		
-		if (ref_list)
+		/* We need to be in the ref icon column */
+		if (current_column == ref_icon_column)
 		{
-			current_ref = ref_list;
-			tooltip_string = g_string_new ("");
-			
-			while (current_ref)
+			model = gtk_tree_view_get_model (GTK_TREE_VIEW (log_view));
+			gtk_tree_model_get_iter (model, &iter, path);
+
+			gtk_tree_model_get (model, &iter, LOG_COL_REVISION, &revision, -1);
+			sha = git_revision_get_sha (revision);
+
+			g_object_unref (revision);
+
+			ref_list = g_hash_table_lookup (self->priv->refs, sha);
+			g_free (sha);
+
+			if (ref_list)
 			{
-				ref_name = git_ref_get_name (GIT_REF (current_ref->data));
-				ref_type = git_ref_get_ref_type (GIT_REF (current_ref->data));
-				
-				if (tooltip_string->len > 0)
-					g_string_append (tooltip_string, "\n");
-				
-				switch (ref_type)
+				current_ref = ref_list;
+				tooltip_string = g_string_new ("");
+
+				while (current_ref)
 				{
-					case GIT_REF_TYPE_BRANCH:
-						g_string_append_printf (tooltip_string,
-												_("<b>Branch:</b> %s"),
-												ref_name);
-						break;
-					case GIT_REF_TYPE_TAG:
-						g_string_append_printf (tooltip_string,
-												_("<b>Tag:</b> %s"),
-												ref_name);
-						break;
-					case GIT_REF_TYPE_REMOTE:
-						g_string_append_printf (tooltip_string,
-												_("<b>Remote:</b> %s"),
-												ref_name);
-						break;
-					default:
-						break;
+					ref_name = git_ref_get_name (GIT_REF (current_ref->data));
+					ref_type = git_ref_get_ref_type (GIT_REF (current_ref->data));
+
+					if (tooltip_string->len > 0)
+						g_string_append (tooltip_string, "\n");
+
+					switch (ref_type)
+					{
+						case GIT_REF_TYPE_BRANCH:
+							g_string_append_printf (tooltip_string,
+							                        _("<b>Branch:</b> %s"),
+							                        ref_name );
+							break;
+						case GIT_REF_TYPE_TAG:
+							g_string_append_printf (tooltip_string,
+							                        _("<b>Tag:</b> %s"),
+							                        ref_name);
+							break;
+						case GIT_REF_TYPE_REMOTE:
+							g_string_append_printf (tooltip_string,
+							                        _("<b>Remote:</b> %s"),
+							                        ref_name);
+							break;
+						default:
+							break;
+					}
+
+					g_free (ref_name);
+					current_ref = g_list_next (current_ref);
 				}
-				
-				g_free (ref_name);
-				current_ref = g_list_next (current_ref);
+
+				gtk_tooltip_set_markup (tooltip, tooltip_string->str);
+				g_string_free (tooltip_string, TRUE);
+
+				ret = TRUE;
 			}
-			
-			gtk_tooltip_set_markup (tooltip, tooltip_string->str);
-			g_string_free (tooltip_string, TRUE);
-			
-			ret = TRUE;
 		}
+
+		gtk_tree_path_free (path);
 	}
 	
-	gtk_tree_path_free (path);
 	return ret;	
 }
 
