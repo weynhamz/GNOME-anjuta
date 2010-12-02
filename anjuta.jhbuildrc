@@ -5,7 +5,7 @@
 # if you have a GNOME git account, uncomment this line
 # repos['git.gnome.org'] = 'ssh://user@git.gnome.org/git/'
 
-moduleset = 'gnome-3.0'
+moduleset = 'gnome-apps-3.0'
 
 # A list of the modules to build.  Defaults to the Gnome Desktop and
 # developer platform.
