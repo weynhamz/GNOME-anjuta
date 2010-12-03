@@ -1,0 +1,70 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="index">
+  <info>
+    <desc>Frequently asked questions</desc>
+    
+    <revision pkgversion="0.1" version="0.1" date="2010-12-02" status="stub"/>
+    <credit type="author">
+      <name>GNOME Documentation Project</name>
+      <email>gnome-doc-list@gnome.org</email>
+    </credit>
+    <credit type="author">
+      <name>Andy Piper</name>
+    </credit>
+    <credit type="author">
+      <name>Naba Kumar</name>
+      <email>naba@gnome.org</email>
+    </credit>
+    <credit type="author">
+      <name>Biswapesh Chattopadhyayr</name>
+    </credit>
+  </info>
+<title>FAQ</title>
+  <p>
+  This is a list of the most frequently asked questions for the
+  <app>Anjuta</app> C/C++ IDE. If you have got a question which
+  is not listed, feel free to contact the <app>Anjuta</app> developers 
+  via the mailing lists
+  </p>
+
+<section>
+<title>Frequently asked questions</title>
+<terms>
+    <item>
+        <title>What does the name <app>Anjuta</app> stand for? It does 
+      not look like one of those recursive names</title>
+        <p><app>Anjuta</app> is the name of Naba Kumar's (founder) girlfriend
+      - this software is dedicated to her.</p>
+    </item>
+    <item>
+        <title>Is here/will there ever be <app>Anjuta</app> for MS Windows?</title>
+        <p>There is no native port for Windows and it most likely won't ever be.
+           However, if you are interested, feel free to contact us.</p>
+    </item>
+    <item>
+        <title>How can I use the <app href="http://www.scintilla.org">Scintilla editor</app></title>
+        <p>It is available through the <app>anjuta-extras</app> package with can be download 
+           from the anjuta website. After you installed it you will be prompted to choose
+           an editor and you can change it in the preferences.</p>
+    </item>    
+    <item>
+        <title>Why doesn't <app>Anjuta</app> have my favourite XYZ feature?</title>
+        <p>Because you haven't added them ? This is free software. You are free to, even encouraged
+	  to take the source code and add the features you need. If you don't think yourself to
+	  be capable of doing that, file a request for enhancement or send a mail to the devel list.</p>
+    </item>
+    <item>
+        <title>Where can I report bugs?</title>
+        <p>Please report bugs in <app href="http://bugzilla.gnome.org/browse.cgi?product=anjuta">GNOME Bugzilla</app>.</p>
+    </item>
+    <item>
+        <title>How can I use anjuta with an existing project?</title>
+        <p>Simply run <guiseq><gui>File</gui><gui>New</gui><gui>Project from existing sources</gui></guiseq></p>
+    </item>
+</terms>
+
+</section>
+
+
+</page>
