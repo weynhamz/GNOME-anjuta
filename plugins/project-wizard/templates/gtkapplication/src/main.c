@@ -18,10 +18,6 @@
 #include <glib/gi18n.h>
 [+ENDIF+]
 
-/* For testing propose use the local (not installed) ui file */
-/* #define UI_FILE PACKAGE_DATA_DIR"/[+NameHLower+]/ui/[+NameHLower+].ui" */
-#define UI_FILE "src/[+NameHLower+].ui"
-
 int
 main (int argc, char *argv[])
 {
@@ -36,7 +32,7 @@ main (int argc, char *argv[])
 #endif
 [+ENDIF+]
 	
-  app = [+NameCLower+]_pad_new ();
+  app = [+NameCLower+]_new ();
   status = g_application_run (G_APPLICATION (app), argc, argv);
   g_object_unref (app);
 

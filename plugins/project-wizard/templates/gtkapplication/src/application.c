@@ -14,7 +14,9 @@
 #include <glib/gi18n.h>
 [+ENDIF+]
 
-
+/* For testing propose use the local (not installed) ui file */
+/* #define UI_FILE PACKAGE_DATA_DIR"/[+NameHLower+]/ui/[+NameHLower+].ui" */
+#define UI_FILE "src/[+NameHLower+].ui"
 
 G_DEFINE_TYPE ([+NameCClass+], [+NameCLower+], GTK_TYPE_APPLICATION);
 
@@ -56,7 +58,7 @@ static void
 static void
 [+NameCLower+]_activate (GApplication *application)
 {
-  new_window (application, NULL);
+  [+NameCLower+]_new_window (application, NULL);
 }
 
 static void
@@ -68,7 +70,7 @@ static void
   gint i;
 
   for (i = 0; i < n_files; i++)
-    new_window (application, files[i]);
+    [+NameCLower+]_new_window (application, files[i]);
 }
 
 static void
@@ -81,17 +83,16 @@ static void
 [+NameCLower+]_finalize (GObject *object)
 {
 
-	G_OBJECT_CLASS (application_parent_class)->finalize (object);
+	G_OBJECT_CLASS ([+NameCLower+]_parent_class)->finalize (object);
 }
 
 static void
 [+NameCLower+]_class_init ([+NameCClass+]Class *klass)
 {
-	GObjectClass* object_class = G_OBJECT_CLASS (klass);
-	GApplicationClass* parent_class = G_APPLICATION_CLASS (klass);
-
 	G_APPLICATION_CLASS (klass)->activate = [+NameCLower+]_activate;
 	G_APPLICATION_CLASS (klass)->open = [+NameCLower+]_open;
+
+	G_OBJECT_CLASS (klass)->finalize = [+NameCLower+]_finalize;
 }
 
 [+NameCClass+] *
@@ -99,7 +100,7 @@ static void
 {
 	g_type_init ();
 
-	return g_object_new (bloat_pad_get_type (),
+	return g_object_new ([+NameCLower+]_get_type (),
 	                     "application-id", "org.gnome.[+NameCLower+]",
 	                     "flags", G_APPLICATION_HANDLES_OPEN,
 	                     NULL);
