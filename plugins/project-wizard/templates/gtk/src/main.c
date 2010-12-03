@@ -10,55 +10,37 @@
 [+ == "GPL"  +][+(gpl  (get "Name")                " * ")+]
 [+ESAC+] */
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdio.h>
-
 #include <config.h>
-
 #include <gtk/gtk.h>
 
-
 [+IF (=(get "HaveI18n") "1")+]
-/*
- * Standard gettext macros.
- */
-#ifdef ENABLE_NLS
-#  include <libintl.h>
-#  undef _
-#  define _(String) dgettext (PACKAGE, String)
-#  ifdef gettext_noop
-#    define N_(String) gettext_noop (String)
-#  else
-#    define N_(String) (String)
-#  endif
-#else
-#  define textdomain(String) (String)
-#  define gettext(String) (String)
-#  define dgettext(Domain,Message) (Message)
-#  define dcgettext(Domain,Message,Type) (Message)
-#  define bindtextdomain(Domain,Directory) (Domain)
-#  define _(String) (String)
-#  define N_(String) (String)
-#endif
+#include <glib/gi18n.h>
 [+ENDIF+]
-
-
-#include "callbacks.h"
 
 /* For testing propose use the local (not installed) ui file */
 /* #define UI_FILE PACKAGE_DATA_DIR"/[+NameHLower+]/ui/[+NameHLower+].ui" */
 #define UI_FILE "src/[+NameHLower+].ui"
-	
-GtkWidget*
+
+/* Signal handlers */
+/* Note: These may not be declared static because signal autoconnection
+ * only works with non-static methods
+ */
+
+/* Called when the window is closed */
+void
+destroy (GtkWidget *widget, gpointer data)
+{
+	gtk_main_quit ();
+}
+
+static GtkWidget*
 create_window (void)
 {
 	GtkWidget *window;
 	GtkBuilder *builder;
 	GError* error = NULL;
 
+	/* Load UI from file */
 	builder = gtk_builder_new ();
 	if (!gtk_builder_add_from_file (builder, UI_FILE, &error))
 	{
@@ -66,15 +48,15 @@ create_window (void)
 		g_error_free (error);
 	}
 
-	/* This is important */
+	/* Auto-connect signal handlers */
 	gtk_builder_connect_signals (builder, NULL);
-	window = GTK_WIDGET (gtk_builder_get_object (builder, "window"));
 
+	/* Get the window object from the ui file */
+	window = GTK_WIDGET (gtk_builder_get_object (builder, "window"));
 	g_object_unref (builder);
 	
 	return window;
 }
-
 
 int
 main (int argc, char *argv[])

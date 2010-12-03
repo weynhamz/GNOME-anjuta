@@ -19,8 +19,6 @@ AM_CFLAGS =\
 bin_PROGRAMS = [+NameHLower+]
 
 [+NameCLower+]_SOURCES = \
-	callbacks.c \
-	callbacks.h \
 	main.c
 
 [+NameCLower+]_LDFLAGS = \

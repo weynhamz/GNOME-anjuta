@@ -1,13 +1,13 @@
 <project-template>
 	<project-wizard>
-		<_name>GTK+</_name>
-		<_description>A generic GTK+ project</_description>
+		<_name>GTK+ (simple)</_name>
+		<_description>Simple GTK+ project</_description>
 		<icon>gtk-logo.png</icon>
 		<category>C</category>
 		<required-program>automake</required-program>
 		<required-program>autoconf</required-program>
 		<required-program>make</required-program>
-		<required-package>gtk+-2.0 >= 2.16</required-package>
+		<required-package>gtk+-3.0 >= 2.90.3</required-package>
 	</project-wizard>
 	
 	<page name="basic" _label="Basic information" _description="General Project Information">
@@ -66,8 +66,6 @@
 		<directory source="gtk" destination="[+Destination+]">
 			<directory source="src">
 				<file source="main.c"/>
-				<file source="callbacks.c"/>
-				<file source="callbacks.h"/>
 				<file source="project.ui" destination="[+NameHLower+].ui"/>
 				<file source="Makefile.am.tpl" destination="Makefile.am"/>
 			</directory>
