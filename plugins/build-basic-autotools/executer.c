@@ -64,7 +64,7 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 		g_return_val_if_fail (pm != NULL, FALSE);
 		exec_targets =
 		ianjuta_project_manager_get_targets (pm, 
-							ANJUTA_PROJECT_EXECUTABLE,
+							ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_EXECUTABLE,
                             NULL);
 		if (!exec_targets)
 		{

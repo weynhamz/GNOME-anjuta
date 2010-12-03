@@ -208,11 +208,11 @@ get_source_directories (AnjutaPlugin *plugin)
 		{
 			slibs_dirs =
 				ianjuta_project_manager_get_targets (pm,
-					ANJUTA_PROJECT_SHAREDLIB,
+					ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_SHAREDLIB,
 				    NULL);
 			libs_dirs =
 				ianjuta_project_manager_get_targets (pm,
-					ANJUTA_PROJECT_STATICLIB,
+					ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_STATICLIB,
 				    NULL);
 		}
 	}
