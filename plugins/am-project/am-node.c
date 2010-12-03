@@ -334,6 +334,8 @@ amp_package_add_token (AnjutaAmPackageNode *node, AnjutaToken *token)
 void
 amp_package_update_node (AnjutaAmPackageNode *node, AnjutaAmPackageNode *new_node)
 {
+	g_return_if_fail (new_node != NULL);	
+
 	node->token = new_node->token;
 	g_free (node->version);
 	node->version = new_node->version;

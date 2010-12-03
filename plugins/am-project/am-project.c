@@ -1728,7 +1728,7 @@ amp_project_update_node (AnjutaProjectNode *key, AnjutaProjectNode *value, GHash
 		AnjutaProjectNode *node = value;	/* The node that we keep in the tree */
 		AnjutaProjectNode *new_node = key;  /* The node with the new data */
 		
-		if (new_node != node)
+		if (new_node && new_node != node)
 		{
 			GList *properties;
 		
@@ -2483,6 +2483,8 @@ static gboolean
 amp_load_complete (PmJob *job)
 {
 	GHashTable *map;
+
+	g_return_if_fail (job->proxy != NULL);
 
 	//anjuta_project_node_check (job->node);
 	map = amp_project_map_node (job->node, job->proxy);
