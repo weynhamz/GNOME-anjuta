@@ -539,7 +539,7 @@ create_properties_table (IAnjutaProject *project, AnjutaProjectNode *node)
 	/* Display node type only if several types are possible */
 	node_info = NULL;
 	single = TRUE;
-	type = anjuta_project_node_get_node_type (node);
+	type = anjuta_project_node_get_full_type (node);
 	for (item = ianjuta_project_get_node_info (project, NULL); item != NULL; item = g_list_next (item))
 	{
 		AnjutaProjectNodeInfo* info = (AnjutaProjectNodeInfo *)item->data;
@@ -552,11 +552,10 @@ create_properties_table (IAnjutaProject *project, AnjutaProjectNode *node)
 		{
 			single = FALSE;
 		}
-		if (!single && (node_info != NULL))
-		{
-			add_label (_("Type:"), anjuta_project_node_info_name (node_info), main_table, &main_pos);
-			break;
-		}
+	}
+	if (!single && (node_info != NULL))
+	{
+		add_label (_("Type:"), anjuta_project_node_info_name (node_info), main_table, &main_pos);
 	}
 
 	/* Display other node properties */
