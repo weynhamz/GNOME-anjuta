@@ -639,12 +639,12 @@ cb_save_valid_property (NPWProperty* property, gpointer user_data)
 		{
 		case NPW_FILENAME_RESTRICTION:
 			g_string_append_printf (data->error,
-									_("Field \"%s\" must contains only letters, digits or the following characters \"#$:%+,.=@^_`~\". In addition you cannot have a leading dash. Please fix it."),
+									_("Field \"%s\" must contains only letters, digits or the following characters \"#$:%%+,.=@^_`~\". In addition you cannot have a leading dash. Please fix it."),
 									npw_property_get_label (property));
 			break;
 		case NPW_DIRECTORY_RESTRICTION:
 			g_string_append_printf (data->error,
-									_("Field \"%s\" must contains only letters, digits, the following characters \"#$:%+,.=@^_`~\" or directory separators. In addition you cannot have a leading dash. Please fix it."),
+									_("Field \"%s\" must contains only letters, digits, the following characters \"#$:%%+,.=@^_`~\" or directory separators. In addition you cannot have a leading dash. Please fix it."),
 									npw_property_get_label (property));
 			break;
 		default:
@@ -1091,6 +1091,9 @@ npw_druid_create_assistant (NPWDruid* druid, const gchar *directory)
 	
 	/* Add dialog widget to anjuta status. */
 	anjuta_status_add_widget (anjuta_shell_get_status (shell, NULL), GTK_WIDGET (assistant));
+
+	gtk_window_set_default_size (GTK_WINDOW (assistant),
+	                             600, 500);
 	
 	gtk_widget_show_all (GTK_WIDGET (assistant));
 	
