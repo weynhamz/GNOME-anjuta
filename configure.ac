@@ -876,6 +876,9 @@ plugins/project-wizard/templates/cpp/po/Makefile
 plugins/project-wizard/templates/gtk/Makefile
 plugins/project-wizard/templates/gtk/src/Makefile
 plugins/project-wizard/templates/gtk/po/Makefile
+plugins/project-wizard/templates/gtkapplication/Makefile
+plugins/project-wizard/templates/gtkapplication/src/Makefile
+plugins/project-wizard/templates/gtkapplication/po/Makefile
 plugins/project-wizard/templates/anjuta-plugin/Makefile
 plugins/project-wizard/templates/anjuta-plugin/src/Makefile
 plugins/project-wizard/templates/anjuta-plugin/po/Makefile

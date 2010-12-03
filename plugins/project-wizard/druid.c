@@ -805,9 +805,16 @@ on_druid_get_new_page (NPWAutogen* gen, gpointer data)
 static void
 on_druid_parse_page (const gchar* output, gpointer data)
 {
+	GError *error = NULL;
 	NPWPageParser* parser = (NPWPageParser*)data;
 	
-	npw_page_parser_parse (parser, output, strlen (output), NULL);
+	npw_page_parser_parse (parser, output, strlen (output), &error);
+
+	if (error)
+	{
+		g_warning ("Parser error: %s", error->message);
+		g_error_free (error);
+	}
 }
 
 static void

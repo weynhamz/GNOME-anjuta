@@ -1,5 +1,5 @@
 
-SUBDIRS = minimal terminal cpp gtk anjuta-plugin \
+SUBDIRS = minimal terminal cpp gtk gtkapplication anjuta-plugin \
 	gtkmm wxwin xlib xlib-dock gcj java pygtk \
 	python mkfile sdl library directory licenses m4 js_minimal
 
@@ -9,6 +9,7 @@ template_in_files = \
 	cpp.wiz.in \
 	django.wiz.in \
 	gtk.wiz.in \
+	gtkapplication.wiz.in \
 	anjuta-plugin.wiz.in \
 	gtkmm.wiz.in \
 	wxwin.wiz.in \
