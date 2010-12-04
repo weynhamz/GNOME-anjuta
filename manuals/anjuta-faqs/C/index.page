@@ -62,6 +62,11 @@
         <title>How can I use anjuta with an existing project?</title>
         <p>Simply run <guiseq><gui>File</gui><gui>New</gui><gui>Project from existing sources</gui></guiseq></p>
     </item>
+    <item>
+        <title>How can I maximize the editor window?</title>
+        <p>Double-click on the current tab to maximize the document window.
+        Do the same again restore the previous state of all docked windows.</p>
+    </item>
 </terms>
 
 </section>

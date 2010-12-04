@@ -1,7 +1,7 @@
 include $(top_srcdir)/gnome-doc-utils.make
 
 
-DOC_ID = anjuta
+DOC_ID = anjuta-faqs
 DOC_PAGES = index.page 
 DOC_LINGUAS =
 DOC_FIGURES =

@@ -147,7 +147,13 @@ on_help_advanced_tutorial_activate (GtkAction *action, gpointer data)
 void
 on_help_faqs_activate (GtkAction *action, gpointer data)
 {
-	help_activate (data, "anjuta-faqs", "index.page");
+	GError* error = NULL;
+	if (!g_spawn_command_line_async ("yelp ghelp:anjuta-faqs", &error) &&
+	    error)
+	{
+		g_warning ("Could open FAQ: %s", error->message);
+		g_error_free (error);
+	}
 }
 
 void
