@@ -1122,63 +1122,18 @@ static gint ieditor_get_length(IAnjutaEditor *editor, GError **e)
 	return length;
 }
 
-static gboolean
-wordcharacters_contains (gchar c)
-{
-	const gchar* wordcharacters =
-		"_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-	gint pos;
-	
-	for (pos = 0; pos < strlen(wordcharacters); pos++)
-	{
-		if (wordcharacters[pos] == c)
-		{
-			return TRUE;
-		}
-	}
-	return FALSE;
-}
-
 /* Return word on cursor position */
 static gchar* ieditor_get_current_word(IAnjutaEditor *editor, GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
-	GtkTextIter begin;
+	GtkTextIter start;
 	GtkTextIter end;
-	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(sv->priv->document);
-	gchar* region;
-	gchar* word;
-	gint startword;
-	gint endword;
-	int cplen;
-	const int maxlength = 100;
-	
-	gtk_text_buffer_get_iter_at_mark (buffer, &begin, 
-									  gtk_text_buffer_get_insert(buffer));
-	gtk_text_buffer_get_iter_at_mark (buffer, &end, 
-									  gtk_text_buffer_get_insert(buffer));
-	startword = gtk_text_iter_get_line_offset (&begin);	
-	endword = gtk_text_iter_get_line_offset (&end);
-	
-	gtk_text_iter_set_line_offset (&begin, 0);
-	gtk_text_iter_forward_to_line_end (&end);
-	
-	region = gtk_text_buffer_get_text (buffer, &begin, &end, FALSE);
-	
-	while (startword> 0 && wordcharacters_contains(region[startword - 1]))
-		startword--;
-	while (region[endword] && wordcharacters_contains(region[endword]))
-		endword++;
-	if(startword == endword)
-		return NULL;
-	
-	region[endword] = '\0';
-	cplen = (maxlength < (endword-startword+1))?maxlength:(endword-startword+1);
-	word = g_strndup (region + startword, cplen);
-	
-	g_free(region);
-	
-	return word;
+
+	anjuta_view_get_current_word (sv->priv->view,
+	                              &start, &end);
+
+	return gtk_text_buffer_get_text (gtk_text_iter_get_buffer (&start),
+	                                 &start, &end, FALSE);
 }
 
 /* Insert text at position */

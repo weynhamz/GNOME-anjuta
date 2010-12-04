@@ -96,6 +96,9 @@ void		 anjuta_view_scroll_to_cursor 	(AnjutaView       *view);
 void 		 anjuta_view_set_font		(AnjutaView       *view,
 						 gboolean         def,
 						 const gchar     *font_name);
+void		 anjuta_view_get_current_word (AnjutaView  *view,
+		                                   GtkTextIter *start,
+		                                   GtkTextIter *end);
 
 G_END_DECLS
 

@@ -716,6 +716,16 @@ anjuta_view_button_press_event	(GtkWidget *widget, GdkEventButton *event)
   
 	switch(event->button)
 	{
+		case 1: /* Handle double clicks to select complete word */
+			if (event->type == GDK_2BUTTON_PRESS)
+			{
+				GtkTextIter start, end;
+				anjuta_view_get_current_word (view, &start, &end);
+				gtk_text_buffer_select_range (gtk_text_iter_get_buffer (&start),
+				                              &start, &end);
+				return TRUE;
+			}
+			break;
 		case 3: /* Right Button */
 		{
 			GtkTextBuffer* buffer = GTK_TEXT_BUFFER (view->priv->sv->priv->document);
@@ -741,6 +751,60 @@ anjuta_view_button_press_event	(GtkWidget *widget, GdkEventButton *event)
 			return TRUE;
 		}
 		default:
-			return (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->button_press_event)(widget, event);
+			break;
 	}
+	return (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->button_press_event)(widget, event);
+}
+
+static gboolean
+wordcharacters_contains (gchar c)
+{
+	if (g_ascii_isalnum(c) ||
+	    c == '_')
+		return TRUE;
+	else
+		return FALSE;
+}
+
+void
+anjuta_view_get_current_word (AnjutaView  *view,
+                              GtkTextIter *start,
+                              GtkTextIter *end)
+{
+	GtkTextBuffer *buffer =
+		gtk_text_view_get_buffer (GTK_TEXT_VIEW (view));
+	gchar c;
+	
+	gtk_text_buffer_get_iter_at_mark (buffer, start,
+	                                  gtk_text_buffer_get_insert (buffer));
+	gtk_text_buffer_get_iter_at_mark (buffer, end,
+	                                  gtk_text_buffer_get_insert (buffer));
+
+	do
+	{
+		gunichar uni = gtk_text_iter_get_char (start);
+		gchar* outbuf = g_new0(gchar, 6);
+		gint len = g_unichar_to_utf8 (uni, outbuf);
+		/* Check for non-ascii */
+		if (len > 1)
+			break;
+		c = outbuf[0];
+		g_free (outbuf);
+	}
+	while (wordcharacters_contains (c) && gtk_text_iter_backward_char (start));
+	do
+	{
+		gunichar uni = gtk_text_iter_get_char (end);
+		gchar* outbuf = g_new0(gchar, 6);
+		gint len = g_unichar_to_utf8 (uni, outbuf);
+		/* Check for non-ascii */
+		if (len > 1)
+			break;
+		c = outbuf[0];
+		g_free (outbuf);
+	}
+	while (wordcharacters_contains (c) && gtk_text_iter_forward_char (end));
+
+	/* Point to the correct start character (not the character before) */
+	gtk_text_iter_forward_char (start);
 }
