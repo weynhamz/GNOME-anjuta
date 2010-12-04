@@ -136,7 +136,7 @@ assist_tip_get_coordinates(GtkWidget* view, int* x, int* y, GtkTextIter* iter, G
 	gtk_widget_size_request(entry, &entry_req);
 	
 	/* ensure that the tip is inside the text_view */
-	gdk_window_get_geometry (GDK_DRAWABLE(window), NULL, NULL, &view_width, NULL, NULL);
+	gdk_window_get_geometry (window, NULL, NULL, &view_width, NULL, NULL);
 	width_left = (xor + view_width) - (*x + entry_req.width);
 	DEBUG_PRINT ("width_left: %d", width_left);
 	if (width_left < 0)
