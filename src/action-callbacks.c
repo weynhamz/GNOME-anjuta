@@ -147,7 +147,7 @@ on_help_advanced_tutorial_activate (GtkAction *action, gpointer data)
 void
 on_help_faqs_activate (GtkAction *action, gpointer data)
 {
-	help_activate (data, "anjuta-faqs", "anjuta-faqs.xml");
+	help_activate (data, "anjuta-faqs", "index.page");
 }
 
 void
