@@ -434,7 +434,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Add C++ support:" description="Adds C++ support to the project so that C++ source files can be built"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Add internationalization:" description="Adds support for internationalization so that your project can have translations in different languages"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Add shared library support:" description="Adds support for building shared libraries in your project"></property>
@@ -476,7 +476,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Add C++ support:" description="Adds C++ support to the project so that C++ source files can be built" xml:lang="az"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Add internationalization:" description="Adds support for internationalization so that your project can have translations in different languages" xml:lang="az"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Add shared library support:" description="Adds support for building shared libraries in your project" xml:lang="az"></property>
@@ -497,7 +497,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Add C++ support:" description="Adds C++ support to the project so that C++ source files can be built" xml:lang="be"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Add internationalization:" description="Adds support for internationalization so that your project can have translations in different languages" xml:lang="be"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Add shared library support:" description="Adds support for building shared libraries in your project" xml:lang="be"></property>
@@ -518,7 +518,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Dadaj padtrymku C++:" description="Dadaj dla prajektu padtrymku C++, kab mahčy zbudoŭvać kryničnyja fajły C++" xml:lang="be@latin"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Dadaj internacyjanalizacyju:" description="Dadaje dla prajektu padtrymku internacyjanalizacyi, kab mahčy pierakładać prahramu na roznyja movy" xml:lang="be@latin"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Dadaj padtrymku supolnych biblijatek:" description="Dadaje dla prajektu padtrymku zbudavańnia supolnych biblijatek" xml:lang="be@latin"></property>
@@ -539,7 +539,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Добавяне на поддръжка за C++:" description="Добавя поддръжка за C++ към проекта, така че файлове с изходен код на C++ да могат да бъдат компилирани" xml:lang="bg"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Добавяне на интернационализация:" description="Добавя поддръжка за интернационализация, така че проекта да може да бъде превеждан на различни езици" xml:lang="bg"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Добавяне на поддръжка за споделени библиотеки:" description="Добавя поддръжка за компилиране на споделени библиотеки" xml:lang="bg"></property>
@@ -560,7 +560,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Afegeix compatibilitat C++:" description="Afegeix compatibilitat C++ al projecte de manera que es puguin construir els fitxers de codi C++" xml:lang="ca"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Afegeix internacionalització:" description="Afegeix compatibilitat per a la internacionalització de manera que el projecte pugui traduir-se en diferents idiomes" xml:lang="ca"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Afegeix compatibilitat per a les biblioteques compartides:" description="Afegeix compatibilitat per muntar biblioteques compartides en el projecte" xml:lang="ca"></property>
@@ -581,7 +581,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Afig compatibilitat C++:" description="Afig compatibilitat C++ al projecte de manera que es puguen construir els fitxers de codi C++" xml:lang="ca@valencia"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Afig internacionalització:" description="Afig compatibilitat per a la internacionalització de manera que el projecte puga traduir-se en diferents idiomes" xml:lang="ca@valencia"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Afig compatibilitat per a les biblioteques compartides:" description="Afig compatibilitat per muntar biblioteques compartides en el projecte" xml:lang="ca@valencia"></property>
@@ -602,7 +602,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Přidat podporu C++:" description="Přidává do projektu podporu C++, což umožňuje sestavování zdrojových kódů v jazyce C++" xml:lang="cs"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Přidat internacionalizaci:" description="Přidává do projektu podporu internacionalizace, takže projekt může být lokalizován do různých jazyků" xml:lang="cs"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Přidat podporu pro sdílené knihovny:" description="Přidává do projektu podporu sestavování sdílených knihoven" xml:lang="cs"></property>
@@ -623,7 +623,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Tilføj C++-understøttelse:" description="Tilføjer C++-understøttelse til projektet således at C++-kildefiler kan bygges" xml:lang="da"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Tilføj internationalisering:" description="Tilføjer understøttelse af internationalisering så dit projekt kan have oversættelser på forskellige sprog" xml:lang="da"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Tilføj understøttelse for delte biblioteker:" description="Tilføjer understøttelse for bygning af delte biblioteker i dit projekt" xml:lang="da"></property>
@@ -644,7 +644,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Unterstützung für C++ hinzufügen" description="Fügt Unterstützung für C++ zum Projekt hinzu, so dass C++-Quellen erstellt werden können" xml:lang="de"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Internationalisierung hinzufügen" description="Fügt Unterstützung für Internationalisierung zum Projekt hinzu, so dass es in verschiedene Sprachen übersetzt werden kann" xml:lang="de"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Unterstützung für gemeinsam verwendete Bibliotheken hinzufügen:" description="Fügt Unterstützung für das Erstellen von gemeinsamen Bibliotheken zum Projekt hinzu" xml:lang="de"></property>
@@ -665,7 +665,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="སི་++རྒྱབ་སྐྱོར་ཁ་སྐོང་འབད།" description="Adds C++ support to the project so that C++ source files can be built" xml:lang="dz"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="རྒྱལ་སྤྱི་བཟོ་ནི་ཁ་སྐོང་འབད།" description="Adds support for internationalization so that your project can have translations in different languages" xml:lang="dz"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="རུབ་སྤྱོད་འབད་ཡོད་པའི་རྒྱབ་སྐྱོར་ཁ་སྐོང་འབད།" description="Adds support for building shared libraries in your project" xml:lang="dz"></property>
@@ -686,7 +686,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Προσθήκη υποστήριξης για C++:" description="Προσθέτει υποστήριξη για C++ στο έργο έτσι ώστε τα αρχεία πηγαίου κώδικα της C++ να μπορούν να σχεδιαστούν" xml:lang="el"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Προσθήκη διεθνοποίησης:" description="Προσθέτει υποστήριξη για διεθνοποίηση έτσι ώστε το έργο σας να μπορεί να έχει μεταφράσεις σε διαφορετικές γλώσσες" xml:lang="el"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Προσθήκη υποστήριξης βιβλιοθήκης κοινής χρήσης:" description="Προσθέτει υποστήριξη για κατασκευή βιβλιοθηκών κοινής χρήσης στο έργο σας" xml:lang="el"></property>
@@ -707,7 +707,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="𐑨𐑛 C++ 𐑕𐑩𐑐𐑹𐑑:" description="𐑨𐑛𐑟 C++ 𐑕𐑩𐑐𐑹𐑑 𐑑 𐑞 𐑐𐑮𐑪𐑡𐑧𐑒𐑑 𐑕𐑴 𐑞𐑨𐑑 C++ 𐑕𐑹𐑕 𐑓𐑲𐑤𐑟 𐑒𐑨𐑯 𐑚𐑰 𐑚𐑦𐑤𐑑" xml:lang="en@shaw"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="𐑨𐑛 𐑦𐑯𐑑𐑻𐑯𐑨𐑖𐑩𐑯𐑩𐑤𐑦𐑟𐑱𐑖𐑩𐑯:" description="𐑨𐑛𐑟 𐑕𐑩𐑐𐑹𐑑 𐑓𐑹 𐑦𐑯𐑑𐑻𐑯𐑨𐑖𐑩𐑯𐑩𐑤𐑦𐑟𐑱𐑖𐑩𐑯 𐑕𐑴 𐑞𐑨𐑑 𐑿𐑼 𐑐𐑮𐑩𐑡𐑧𐑒𐑑 𐑒𐑨𐑯 𐑣𐑨𐑝 𐑑𐑮𐑩𐑯𐑕𐑤𐑱𐑖𐑩𐑯𐑟 𐑦𐑯 𐑛𐑦𐑓𐑼𐑩𐑯𐑑 𐑤𐑨𐑙𐑜𐑢𐑩𐑡𐑩𐑟" xml:lang="en@shaw"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="𐑨𐑛 𐑖𐑺𐑛 𐑤𐑲𐑚𐑮𐑼𐑦 𐑕𐑩𐑐𐑹𐑑:" description="𐑨𐑛𐑟 𐑕𐑩𐑐𐑹𐑑 𐑓𐑹 𐑚𐑦𐑤𐑛𐑦𐑙 𐑖𐑺𐑛 𐑤𐑲𐑚𐑮𐑼𐑦𐑟 𐑦𐑯 𐑿𐑼 𐑐𐑮𐑩𐑡𐑧𐑒𐑑" xml:lang="en@shaw"></property>
@@ -728,7 +728,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Add C++ support:" description="Adds C++ support to the project so that C++ source files can be built" xml:lang="en_CA"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Add internationalization:" description="Adds support for internationalization so that your project can have translations in different languages" xml:lang="en_CA"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Add shared library support:" description="Adds support for building shared libraries in your project" xml:lang="en_CA"></property>
@@ -749,7 +749,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Add C++ support:" description="Adds C++ support to the project so that C++ source files can be built" xml:lang="en_GB"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Add internationalisation:" description="Adds support for internationalisation so that your project can have translations in different languages" xml:lang="en_GB"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Add shared library support:" description="Adds support for building shared libraries in your project" xml:lang="en_GB"></property>
@@ -770,7 +770,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Añadir soporte C++:" description="Añade soporte para C++ al proyecto de tal forma que se pueden construir archivos fuente C++" xml:lang="es"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Añadir internacionalización:" description="Añade soporte para internacionalización de tal forma que su proyecto puede traducirse a diferentes idiomas" xml:lang="es"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Añadir soporte para bibliotecas compartidas:" description="Añade soporte para construir bibliotecas compartidas en su proyecto" xml:lang="es"></property>
@@ -791,7 +791,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Gehitu C++ euskarria:" description="Proiektuak C++ euskarria gehitzen du, C++ iturburu-fitxategiak konpila ahal izan daitezen" xml:lang="eu"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Gehitu nazioartekotzea:" description="Nazioartekotzea onartzea gehitzen du, proiektuak beste hizkuntzetara itzultzeko aukera izateko" xml:lang="eu"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Gehitu liburutegi partekatuak onartzea:" description="Proiektuan liburutegi partekatuak konpilatu ahal izatea gehitzen du" xml:lang="eu"></property>
@@ -812,7 +812,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Lisää C++-tuki:" description="Lisää C++-tuen projektiin, jolloin C++-tiedostoja voidaan kääntää" xml:lang="fi"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Lisää kotoistamistuki:" description="Lisää tuen kotoistamiselle, jolloin projekti voidaan kääntää eri kielille" xml:lang="fi"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Lisää jaettujen tiedostojen tuki:" description="Lisää projektiin tuen jaettujen kirjastojen kääntämiselle" xml:lang="fi"></property>
@@ -833,7 +833,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Ajouter la prise en charge du C++ :" description="Ajoute la prise en charge du C++ au projet afin que les fichiers sources C++ puissent être compilés" xml:lang="fr"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Ajouter l&apos;internationalisation :" description="Ajoute la prise en charge de l&apos;internationalisation au projet afin qu&apos;il puisse être traduit dans différentes langues" xml:lang="fr"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Ajouter la prise en charge des bibliothèques partagées :" description="Ajoute la prise en charge de la compilation des bibliothèques partagées au projet" xml:lang="fr"></property>
@@ -854,7 +854,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Add C++ support:" description="Adds C++ support to the project so that C++ source files can be built" xml:lang="ga"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Add internationalization:" description="Adds support for internationalization so that your project can have translations in different languages" xml:lang="ga"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Add shared library support:" description="Adds support for building shared libraries in your project" xml:lang="ga"></property>
@@ -875,7 +875,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Engadir a compatibilidade para C++:" description="Engade a compatibilidade de C++ ao proxecto para que se poida construír o ficheiro fonte C++" xml:lang="gl"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Engadir a internacionalización:" description="Engade a compatibilidade para a internacionalización de forma que o seu proxecto poderá ser traducido a diferentes idiomas" xml:lang="gl"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Engadir a compatibilidde de biblioteca compartida:" description="Engade a compatibilidade para construír bibliotecas compartidas no seu proxecto" xml:lang="gl"></property>
@@ -896,7 +896,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="C++ આધાર ને ઉમેરો:" description="Adds C++ support to the project so that C++ source files can be built" xml:lang="gu"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Add internationalization:" description="Adds support for internationalization so that your project can have translations in different languages" xml:lang="gu"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Add shared library support:" description="Adds support for building shared libraries in your project" xml:lang="gu"></property>
@@ -917,7 +917,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="הוסף תמיכה ב־++C:" description="הוסף לפרויקט תמיכה ב־++C כך שניתן יהיה לבנות קבצי מקור של ++C" xml:lang="he"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="הוסף בנאום:" description="Adds support for internationalization so that your project can have translations in different languages" xml:lang="he"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="הוסף תמיכה בספריות משותפות:" description="הוסף לפרויקט תמיכה בבניית ספריות משותפות" xml:lang="he"></property>
@@ -938,7 +938,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="C++ समर्थन जोड़ें:" description="Adds C++ support to the project so that C++ source files can be built" xml:lang="hi"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="अंतराष्ट्रीयकरण जोड़ें:" description="Adds support for internationalization so that your project can have translations in different languages" xml:lang="hi"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Add shared library support:" description="Adds support for building shared libraries in your project" xml:lang="hi"></property>
@@ -959,7 +959,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Add C++ support:" description="Adds C++ support to the project so that C++ source files can be built" xml:lang="hr"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Add internationalization:" description="Adds support for internationalization so that your project can have translations in different languages" xml:lang="hr"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Add shared library support:" description="Adds support for building shared libraries in your project" xml:lang="hr"></property>
@@ -980,7 +980,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="C++ támogatás:" description="C++ támogatás hozzáadása a projekthez, így C++ fájlok is használhatók lesznek" xml:lang="hu"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Nemzetköziség támogatása:" description="Támogatást ad a nemzetköziséghez, így a projekt lefordítható különböző nyelvekre" xml:lang="hu"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Osztott programkönyvtárak támogatása:" description="Támogatást ad osztott programkönyvtárak felépítéséhez a projektben" xml:lang="hu"></property>
@@ -1001,7 +1001,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Ավելացնել C++ աջակցում․" description="Նախագծին ավելացնել C++ աջակցում, որպեսզի հնարավոր լինի կազմարկել C++ սկզբնական կոդով ֆայլերը" xml:lang="hy"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Ավելացնել միջազգայնացում․" description="Ավելացնում է միջազգայնացման աջակցում, որպեսզի ձեր նախագիծն ունենա թարգմանություններ տարբեր լեզուներով" xml:lang="hy"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Ավելացնել համօգտագործվող գրադարանի աջակցում․" description="Ձեր նախագծում ավելացնում է համօգտագործվող գրադարանների կազմարկման աջակցում" xml:lang="hy"></property>
@@ -1022,7 +1022,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Tambah dukungan C++:" description="Tambahkan dukungan C++ ke projek sehingga berkas sumber C++ dapat dibangun" xml:lang="id"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Tambah internasionalisasi:" description="Tambahkan dukungan internasionalisasi sehingga projek Anda dapat memiliki terjemahan dalam berbagai bahasa" xml:lang="id"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Tambahkan dukungan pustaka bersama:" description="Tambahkan dukungan pembangunan pustaka yang dipakai bersama ke projek" xml:lang="id"></property>
@@ -1043,7 +1043,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Aggiungi supporto a C++:" description="Aggiunge il supporto del C++ al progetto così che i file sorgenti C++ possono essere generati" xml:lang="it"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Aggiungi internazionalizzazione:" description="Aggiunge il supporto per l&apos;internazionalizzazione così che il proprio progetto possa essere tradotto in altre lingue" xml:lang="it"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Aggiungi il supporto alle librerie condivise:" description="Aggiunge il supporto per generare librerie condivise nel proprio progetto" xml:lang="it"></property>
@@ -1064,7 +1064,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="C++言語のサポート:" description="C++のソース・ファイルもコンパイルできるようになります" xml:lang="ja"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="国際化のサポート:" description="プロジェクトをいろいろな言語で利用できるようにします" xml:lang="ja"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="共有ライブラリのサポート:" description="プロジェクトの中で共有ライブラリを作成しビルドできるようになります" xml:lang="ja"></property>
@@ -1085,7 +1085,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="C++ ಬೆಂಬಲವನ್ನು ಸೇರಿಸು:" description="C++ ಕಡತಗಳು ನಿರ್ಮಿಸಲು ಅನುವಾಗಲು ಪರಿಯೋಜನೆಗೆ C++ ಬೆಂಬಲವನ್ನು ಸೇರಿಸು" xml:lang="kn"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="ಅಂತರಾಷ್ಟ್ರೀಕರಣವನ್ನು ಸೇರಿಸು:" description="ನಿಮ್ಮ ಪರಿಯೋಜನೆಯು ವಿವಿಧ ಭಾಷೆಗಳಿಗೆ ಅನುವಾದಿತಗೊಳ್ಳಲು ಸಹಾಯವಾಗುವಂತೆ ಅಂತರಾಷ್ಟ್ರೀಕರಣಕ್ಕೆ ಬೆಂಬಲವನ್ನು ಒದಗಿಸುತ್ತದೆ" xml:lang="kn"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="ಹಂಚಿಕಾ ಲೈಬ್ರರಿ ಬೆಂಬಲವನ್ನು ಸೇರಿಸು:" description="ನಿಮ್ಮ ಪರಿಯೋಜನೆಯಲ್ಲಿ ಹಂಚಿಕಾ ಲೈಬ್ರರಿಯನ್ನು ನಿರ್ಮಿಸುವಲ್ಲಿ ಬೆಂಬಲವನ್ನು ಒದಗಿಸುತ್ತದೆ" xml:lang="kn"></property>
@@ -1106,7 +1106,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="C++ 지원 더하기:" description="Adds C++ support to the project so that C++ source files can be built" xml:lang="ko"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="국제화 더하기:" description="Adds support for internationalization so that your project can have translations in different languages" xml:lang="ko"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="공유 라이브러리 지원 더하기:" description="Adds support for building shared libraries in your project" xml:lang="ko"></property>
@@ -1127,7 +1127,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Add C++ support:" description="Adds C++ support to the project so that C++ source files can be built" xml:lang="lt"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Add internationalization:" description="Adds support for internationalization so that your project can have translations in different languages" xml:lang="lt"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Add shared library support:" description="Adds support for building shared libraries in your project" xml:lang="lt"></property>
@@ -1148,7 +1148,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Add C++ support:" description="Adds C++ support to the project so that C++ source files can be built" xml:lang="lv"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Add internationalization:" description="Adds support for internationalization so that your project can have translations in different languages" xml:lang="lv"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Add shared library support:" description="Adds support for building shared libraries in your project" xml:lang="lv"></property>
@@ -1169,7 +1169,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Add C++ support:" description="Adds C++ support to the project so that C++ source files can be built" xml:lang="mai"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Add internationalization:" description="Adds support for internationalization so that your project can have translations in different languages" xml:lang="mai"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Add shared library support:" description="Adds support for building shared libraries in your project" xml:lang="mai"></property>
@@ -1190,7 +1190,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Додај поддршка за C++:" description="Додава поддршка за C++ на проект, така што C++ изворните датотеки можат да се компајлираат" xml:lang="mk"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Додај интернационализација:" description="Додава поддршка за интернационализација на Вашиот проект така што ќе може да се преведува на разни јазици" xml:lang="mk"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Додај поддршка за споделени бибилиотеки:" description="Додава поддршка за споделени библиотеки во Вашиот проект" xml:lang="mk"></property>
@@ -1211,7 +1211,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="C++ പിന്തുണ കൂട്ടിച്ചേര്‍ക്കുക:" description="പദ്ധതിയില്‍ C++പിന്തുണ കൂട്ടിച്ചേര്ക്കുന്നു അതുകൊണ്ട് C++ഉറവിട ഫയലുകള്‍ നിര്മ്മിക്കാന്‍ കഴിയും" xml:lang="ml"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="അന്തര്ദ്ദേശീയവല്‍‌ക്കരണം കൂട്ടിച്ചേര്‍ക്കുക:" description="നിങ്ങളുടെ പദ്ധതിക്ക് വ്യ‌‌ത്യ‌‌സ്ത ഭാഷകളില്‍ പരിഭാഷകള്‍ ഉണ്ടാകത്തക്കവിധം അന്താരാഷ്ട്രവല്‍‌ക്കരണ പിന്തുണ കൂട്ടിച്ചേര്ക്കുന്നു" xml:lang="ml"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="പങ്കാളിത്ത ഗ്രന്ഥാലയ പിന്തുണ കൂട്ടിച്ചേര്‍ക്കുക:" description="നിങ്ങളുടെ പദ്ധതിയില്‍ പങ്കാളിത്ത ഗ്രന്ഥാലയങ്ങള്‍ നിര്മ്മിക്കാനുള്ള പിന്തുണ കൂട്ടിച്ചേര്ക്കുന്നു" xml:lang="ml"></property>
@@ -1232,7 +1232,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="C++ समर्थन जोडा:" description="प्रकल्प करीता C++ समर्थन जोडा ज्यामुळे C++ स्त्रोत फाइल बांधले जातील" xml:lang="mr"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="अंतरराष्ट्रीयकरन जोडा:" description="प्रकल्प विविध भाषा अंतर्गत दाखल व्हावे याकरीता अंतरराष्ट्रीयकरन समर्थन जोडतो" xml:lang="mr"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="सहभागीय लायब्ररी समर्थन जोडा:" description="प्रकल्प अंतर्गत सहभागीय लायब्ररी बांधण्याकरीता समर्थन जोडा" xml:lang="mr"></property>
@@ -1253,7 +1253,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Add C++ support:" description="Adds C++ support to the project so that C++ source files can be built" xml:lang="ms"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Add internationalization:" description="Adds support for internationalization so that your project can have translations in different languages" xml:lang="ms"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Add shared library support:" description="Adds support for building shared libraries in your project" xml:lang="ms"></property>
@@ -1274,7 +1274,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Legg til C++-støtte:" description="Adds C++ support to the project so that C++ source files can be built" xml:lang="nb"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Legg til internasjonalisering:" description="Adds support for internationalization so that your project can have translations in different languages" xml:lang="nb"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Legg til støtte for delte biblioteker:" description="Adds support for building shared libraries in your project" xml:lang="nb"></property>
@@ -1295,7 +1295,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="C++ समर्थन थप्नुहोस्:" description="Adds C++ support to the project so that C++ source files can be built" xml:lang="ne"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="अन्तराष्ट्रियकरण थप्नुहोस्:" description="Adds support for internationalization so that your project can have translations in different languages" xml:lang="ne"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="साझेदारी लाइब्रेरी समर्थन थप्नुहोस्:" description="Adds support for building shared libraries in your project" xml:lang="ne"></property>
@@ -1316,7 +1316,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Add C++ support:" description="Adds C++ support to the project so that C++ source files can be built" xml:lang="nl"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Add internationalization:" description="Adds support for internationalization so that your project can have translations in different languages" xml:lang="nl"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Add shared library support:" description="Adds support for building shared libraries in your project" xml:lang="nl"></property>
@@ -1337,7 +1337,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Add C++ support:" description="Adds C++ support to the project so that C++ source files can be built" xml:lang="oc"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Add internationalization:" description="Adds support for internationalization so that your project can have translations in different languages" xml:lang="oc"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Add shared library support:" description="Adds support for building shared libraries in your project" xml:lang="oc"></property>
@@ -1358,7 +1358,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Add C++ support:" description="Adds C++ support to the project so that C++ source files can be built" xml:lang="or"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Add internationalization:" description="Adds support for internationalization so that your project can have translations in different languages" xml:lang="or"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Add shared library support:" description="Adds support for building shared libraries in your project" xml:lang="or"></property>
@@ -1379,7 +1379,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Add C++ support:" description="Adds C++ support to the project so that C++ source files can be built" xml:lang="pa"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Add internationalization:" description="Adds support for internationalization so that your project can have translations in different languages" xml:lang="pa"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Add shared library support:" description="Adds support for building shared libraries in your project" xml:lang="pa"></property>
@@ -1400,7 +1400,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Obsługa języka C++:" description="Dodaje do projektu obsługę języka C++, aby można było budować pliki źródłowe C++" xml:lang="pl"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Umiędzynaradawianie:" description="Dodaje obsługę umiędzynaradawiania, aby można było tworzyć tłumaczenia projektu w różnych językach" xml:lang="pl"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Obsługa bibliotek współdzielonych:" description="Dodaje do projektu obsługę budowania bibliotek współdzielonych" xml:lang="pl"></property>
@@ -1421,7 +1421,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Adicionar suporte para C++:" description="Adiciona suporte para C++ ao projecto para que os ficheiros C++ possam ser compilados" xml:lang="pt"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Adicionar internacionalização" description="Adiciona suporte para internacionalização para que o seu projecto possa ser traduzido para vários idiomas" xml:lang="pt"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Adicionar suporte para biblioteca partilhada:" description="Adiciona suporte para poder compilar bibliotecas partilhadas no seu projecto" xml:lang="pt"></property>
@@ -1442,7 +1442,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Adicionar suporte C++:" description="Adiciona suporte a C++ ao projeto de forma que arquivos C++ possam ser compilados" xml:lang="pt_BR"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Adicionar internacionalização:" description="Adiciona suporte a internacionalização de modo que seu projeto possa ser traduzido em diferentes idiomas" xml:lang="pt_BR"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Adicionar suporte a bibliotecas compartilhadas:" description="Adiciona o suporte à construção de bibliotecas compartilhadas em seu projeto" xml:lang="pt_BR"></property>
@@ -1463,7 +1463,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Add C++ support:" description="Adds C++ support to the project so that C++ source files can be built" xml:lang="ro"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Add internationalization:" description="Adds support for internationalization so that your project can have translations in different languages" xml:lang="ro"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Add shared library support:" description="Adds support for building shared libraries in your project" xml:lang="ro"></property>
@@ -1484,7 +1484,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Поддержка C++:" description="Добавить поддержку C++ в проект. С ней вы можете собирать проект с файлами С++." xml:lang="ru"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Поддержка локализации:" description="Добавить поддержку локализации, чтобы проект мог быть переведён на различные языки" xml:lang="ru"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Поддержка разделяемых библиотек:" description="Добавить возможность сборки в проекте разделяемых библиотек" xml:lang="ru"></property>
@@ -1505,7 +1505,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Add C++ support:" description="Adds C++ support to the project so that C++ source files can be built" xml:lang="rw"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Add internationalization:" description="Adds support for internationalization so that your project can have translations in different languages" xml:lang="rw"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Add shared library support:" description="Adds support for building shared libraries in your project" xml:lang="rw"></property>
@@ -1526,7 +1526,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Add C++ support:" description="Adds C++ support to the project so that C++ source files can be built" xml:lang="si"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Add internationalization:" description="Adds support for internationalization so that your project can have translations in different languages" xml:lang="si"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Add shared library support:" description="Adds support for building shared libraries in your project" xml:lang="si"></property>
@@ -1547,7 +1547,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Add C++ support:" description="Adds C++ support to the project so that C++ source files can be built" xml:lang="sk"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Add internationalization:" description="Adds support for internationalization so that your project can have translations in different languages" xml:lang="sk"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Add shared library support:" description="Adds support for building shared libraries in your project" xml:lang="sk"></property>
@@ -1568,7 +1568,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Dodaj C++ podporo:" description="Doda C++ podporo projektu, da je mogoče izgraditi tudi C++ datoteke" xml:lang="sl"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Dodaj mednarodne jezikovne možnosti:" description="Doda podporo za mednarodno jezikovno prilagoditev (i18n), da bo mogoče projekt prevesti v druge jezike." xml:lang="sl"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Dodaj podporo souporabe knjižnic:" description="Doda podporo za izgradnjo deljenih knjižnic projekta" xml:lang="sl"></property>
@@ -1589,7 +1589,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Add C++ support:" description="Adds C++ support to the project so that C++ source files can be built" xml:lang="sq"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Add internationalization:" description="Adds support for internationalization so that your project can have translations in different languages" xml:lang="sq"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Add shared library support:" description="Adds support for building shared libraries in your project" xml:lang="sq"></property>
@@ -1610,7 +1610,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Add C++ support:" description="Adds C++ support to the project so that C++ source files can be built" xml:lang="sr"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Додатне опције" description="Adds support for internationalization so that your project can have translations in different languages" xml:lang="sr"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Дељене библиотеке" description="Adds support for building shared libraries in your project" xml:lang="sr"></property>
@@ -1631,7 +1631,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Add C++ support:" description="Adds C++ support to the project so that C++ source files can be built" xml:lang="sr@latin"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Dodatne opcije" description="Adds support for internationalization so that your project can have translations in different languages" xml:lang="sr@latin"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Deljene biblioteke" description="Adds support for building shared libraries in your project" xml:lang="sr@latin"></property>
@@ -1652,7 +1652,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Lägg till C++-stöd:" description="Lägger till C++-stöd till projektet så att C++-källkodsfiler kan byggas" xml:lang="sv"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Lägg till internationalisering:" description="Lägger till stöd för internationalisering så att ditt projekt kan innehålla översättningar på olika språk" xml:lang="sv"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Lägg till stöd för delade bibliotek:" description="Lägger till stöd för att bygga delade bibliotek i ditt projekt" xml:lang="sv"></property>
@@ -1673,7 +1673,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Add C++ support:" description="Adds C++ support to the project so that C++ source files can be built" xml:lang="te"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Add internationalization:" description="Adds support for internationalization so that your project can have translations in different languages" xml:lang="te"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Add shared library support:" description="Adds support for building shared libraries in your project" xml:lang="te"></property>
@@ -1694,7 +1694,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="เพิ่มการรองรับ C++:" description="เพิ่มการรองรับ C++ เข้าในโครงการ เพื่อให้สามารถประกอบสร้างจากแฟ้มซอร์ส C++ ได้" xml:lang="th"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="เพิ่มการรองรับนานาภาษา:" description="เพิ่มการรองรับการรองรับนานาภาษา เพื่อให้โครงการของคุณสามารถแปลเป็นภาษาต่างๆ ได้" xml:lang="th"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="เพิ่มการรองรับไลบรารีใช้ร่วม:" description="เพิ่มการรองรับการสร้างไลบรารีใช้ร่วมในโครงการของคุณ" xml:lang="th"></property>
@@ -1715,7 +1715,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="C++ desteği ekle:" description="Projeye C++ desteği ekler bu sayede C++ kaynak dosyaları inşa edilebilir" xml:lang="tr"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Uluslarlarasılaştırma ekle:" description="Projenize uluslararasılaştırma desteği ekler, böylelikle projenizin farklı dillerde tercümeleri olabilirfarklı dillere tercüme edilebilir" xml:lang="tr"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Paylaşılan kütüphane desteği ekle:" description="Projenize paylaşılan kütüphane inşa etme desteğini ekler" xml:lang="tr"></property>
@@ -1736,7 +1736,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Add C++ support:" description="Adds C++ support to the project so that C++ source files can be built" xml:lang="ug"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Add internationalization:" description="Adds support for internationalization so that your project can have translations in different languages" xml:lang="ug"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Add shared library support:" description="Adds support for building shared libraries in your project" xml:lang="ug"></property>
@@ -1757,7 +1757,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Підтримка C++:" description="Додати підтримку C++ до проекту. З нею ви зможете збирати проект з файлами С++." xml:lang="uk"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Підтримка локалізації:" description="Додати підтримку локалізації, щоб проект можна буде перекласти різними мовами" xml:lang="uk"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Підтримка спільних бібліотек:" description="Додати можливість збирання спільних бібліотек" xml:lang="uk"></property>
@@ -1778,7 +1778,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="Thêm hỗ trợ C++:" description="Thêm hỗ trợ C++ vào dự án, để xây dựng các tập tin mã nguồn C++" xml:lang="vi"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="Thêm quốc tế hoá:" description="Thêm hỗ trợ chức năng quốc tế hoá, để dự án có bản dịch bằng các ngôn ngữ khác nhau" xml:lang="vi"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="Thêm hỗ trợ thư viện dùng chung:" description="Thêm hỗ trợ để xây dựng thư viện dùng chung trong dự án" xml:lang="vi"></property>
@@ -1799,7 +1799,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="添加 C++ 支持：" description="为项目添加 C++ 支持，以便创建 C++ 源文件。" xml:lang="zh_CN"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="添加国际化：" description="添加国际化支持，让您项目能够被翻译成不同的语言" xml:lang="zh_CN"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="添加共享库支持：" description="在您的项目中添加创建共享库的支持" xml:lang="zh_CN"></property>
@@ -1811,7 +1811,7 @@
 		<property type="list" name="License" editable="no" default="GPL" label="授權條款" description="選擇原始碼授權" xml:lang="zh_HK">
 			<item name="GPL" label="GNU 通用公共許可證 (GPL)" xml:lang="zh_HK"></item>
 			<item name="LGPL" label="GNU 寬通用公共許可證 (LGPL)" xml:lang="zh_HK"></item>
-			<item name="BSD" label="柏克萊軟件散佈許可證 （BSD）" xml:lang="zh_HK"></item>
+			<item name="BSD" label="柏克萊軟件散布許可證 （BSD）" xml:lang="zh_HK"></item>
 			<item name="None" label="沒有授權" xml:lang="zh_HK"></item>
 		</property>
 		<property type="hidden" name="NameUpper" default='[+(string-upcase (get "Name"))+]'/>
@@ -1820,7 +1820,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="加入 C++ 支援：" description="在專案加入 C++ 支援以便編譯 C++ 原始碼檔案" xml:lang="zh_HK"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="加入國際化功能：" description="加入國際化支援，讓你的專案可以翻譯成不同的語言" xml:lang="zh_HK"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="加入共享程式庫支援：" description="在你的專案中加入編譯共享程式庫的支援" xml:lang="zh_HK"></property>
@@ -1832,7 +1832,7 @@
 		<property type="list" name="License" editable="no" default="GPL" label="授權條款" description="選擇原始碼授權" xml:lang="zh_TW">
 			<item name="GPL" label="GNU 通用公共許可證 (GPL)" xml:lang="zh_TW"></item>
 			<item name="LGPL" label="GNU 寬通用公共許可證 (LGPL)" xml:lang="zh_TW"></item>
-			<item name="BSD" label="柏克萊軟體散佈許可證 （BSD）" xml:lang="zh_TW"></item>
+			<item name="BSD" label="柏克萊軟體散布許可證 （BSD）" xml:lang="zh_TW"></item>
 			<item name="None" label="沒有授權" xml:lang="zh_TW"></item>
 		</property>
 		<property type="hidden" name="NameUpper" default='[+(string-upcase (get "Name"))+]'/>
@@ -1841,7 +1841,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0 >= 2.90.3"/>
 		<property type="boolean" name="HaveLangCPP" default="0" label="加入 C++ 支援：" description="在專案加入 C++ 支援以便編譯 C++ 原始碼檔案" xml:lang="zh_TW"></property>
 		<property type="boolean" name="HaveI18n" default="1" label="加入國際化功能：" description="加入國際化支援，讓您的專案可以翻譯成不同的語言" xml:lang="zh_TW"></property>
 		<property type="boolean" name="HaveSharedlib" default="1" label="加入共享程式庫支援：" description="在您的專案中加入編譯共享程式庫的支援" xml:lang="zh_TW"></property>

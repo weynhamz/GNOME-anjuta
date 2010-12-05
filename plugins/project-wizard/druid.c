@@ -436,6 +436,7 @@ cb_druid_add_property (NPWProperty* property, gpointer user_data)
 	GtkWidget* entry;
 	NPWDruidAddPropertyData* data = (NPWDruidAddPropertyData *)user_data;
 	const gchar* description;
+	GtkAttachOptions attach = GTK_EXPAND|GTK_FILL;
 
 
 	entry = npw_property_create_widget (property);
@@ -455,7 +456,7 @@ cb_druid_add_property (NPWProperty* property, gpointer user_data)
 		gtk_misc_set_padding (GTK_MISC (label), 6, 6);
 		
 		switch (npw_property_get_type (property))
-		{
+		{				
 			case NPW_PACKAGE_PROPERTY:
 				gtk_table_resize (data->table, data->row + 2, 1);
 				gtk_table_attach (data->table, label, 0, 1, data->row, data->row + 1,
@@ -465,13 +466,16 @@ cb_druid_add_property (NPWProperty* property, gpointer user_data)
 				                  (GtkAttachOptions)(GTK_EXPAND|GTK_FILL), 0, 0);
 				data->row += 2;
 				break;
+			case NPW_BOOLEAN_PROPERTY:
+				attach = 0;
+				/* Fall through */
 			default:
 				/* Add label and entry */
 				gtk_table_resize (data->table, data->row + 1, 2);
 				gtk_table_attach (data->table, label, 0, 1, data->row, data->row + 1,
 				                  (GtkAttachOptions)(GTK_FILL), 0, 0, 0);
 				gtk_table_attach (data->table, entry, 1, 2, data->row, data->row + 1,
-				                  (GtkAttachOptions)(GTK_EXPAND|GTK_FILL), 0, 0, 0);
+				                  (GtkAttachOptions)(attach), 0, 0, 0);
 				data->row++;
 		}
 		

@@ -330,15 +330,6 @@ npw_property_get_description (const NPWProperty* prop)
 }
 
 static void
-cb_boolean_button_toggled (GtkButton *button, gpointer data)
-{
-	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (button)))
-		gtk_button_set_label (button, _("Yes"));
-	else
-		gtk_button_set_label (button, _("No"));
-}
-
-static void
 cb_browse_button_clicked (GtkButton *button, NPWProperty* prop)
 {
 	GtkWidget *dialog;
@@ -446,13 +437,11 @@ npw_property_create_widget (NPWProperty* prop)
 	switch (prop->type)
 	{
 	case NPW_BOOLEAN_PROPERTY:
-		entry = gtk_toggle_button_new_with_label (_("No"));
-		g_signal_connect (G_OBJECT (entry), "toggled",
-						  G_CALLBACK (cb_boolean_button_toggled), NULL);
+		entry = gtk_switch_new ();
 		if (value)
 		{
-			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (entry),
-										  (gboolean)atoi (value));
+			gtk_switch_set_active (GTK_SWITCH (entry),
+			                      (gboolean)atoi (value));
 		}
 		break;
 	case NPW_INTEGER_PROPERTY:
@@ -638,7 +627,7 @@ npw_property_set_value_from_widget (NPWProperty* prop, NPWValueTag tag)
 		value = alloc_value;
 		break;
 	case NPW_BOOLEAN_PROPERTY:
-		alloc_value = g_strdup_printf("%d", gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop->widget)));
+		alloc_value = g_strdup_printf("%d", gtk_switch_get_active (GTK_SWITCH (prop->widget)));
 		value = alloc_value;
 		break;
 	case NPW_STRING_PROPERTY:
