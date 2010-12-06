@@ -212,6 +212,15 @@ static AmpNodeInfo AmpNodeInformations[] = {
  *---------------------------------------------------------------------------*/
 
 
+/* Blacklist for packages that shouldn't be parsed. Those packages
+ * usually contain the same include paths as their top-level package
+ * Checked with g_str_has_prefix() so partial names are ok!
+ */
+const gchar* ignore_packages[] = 
+{
+	"gdk-x11-",
+	NULL
+};
 
 
 /* ----- Standard GObject types and variables ----- */
@@ -1947,17 +1956,19 @@ list_all_children (GList **children, GFile *dir)
 	}
 }
 
-static AnjutaProjectNode *
-amp_project_load_package (AmpProject *project, AnjutaProjectNode *node, GError **error)
+static GList*
+amp_project_get_includes (const gchar* pkg_name)
 {
 	gchar *cmd;
 	gchar *err;
 	gchar *out;
+	GError *error;
 	gint status;
+	GList *dirs = NULL;
+	
+	cmd = g_strdup_printf ("pkg-config --cflags-only-I %s", pkg_name);
 
-	cmd = g_strdup_printf ("pkg-config --cflags %s", anjuta_project_node_get_name (node));
-
-	if (g_spawn_command_line_sync (cmd, &out, &err, &status, error))
+	if (g_spawn_command_line_sync (cmd, &out, &err, &status, &error))
 	{
 		gchar **flags;
 
@@ -1971,34 +1982,112 @@ amp_project_load_package (AmpProject *project, AnjutaProjectNode *node, GError *
 			{
 				if (g_regex_match_simple ("\\.*/include/\\w+", *flag, 0, 0) == TRUE)
                 {
-                    /* FIXME the +2. It's to skip the -I */
-					GFile *dir;
-					GList *children = NULL;
-					GList *file;
-					
-					dir = g_file_new_for_path (*flag + 2);
-					list_all_children (&children, dir);
-					for (file = g_list_first (children); file != NULL; file = g_list_next (file))
-					{
-						/* Create a source for files */
-						AnjutaProjectNode *source;
-
-						source = project_node_new (project, ANJUTA_PROJECT_SOURCE, (GFile *)file->data, NULL, NULL);
-						anjuta_project_node_append (node, source);
-						g_object_unref ((GObject *)file->data);
-					}
-					g_list_free (children);
-					g_object_unref (dir);
+					dirs = g_list_prepend (dirs, g_strdup (*flag + 2));
 				}
 			}
+			g_strfreev (flags);
 		}
 	}
 	else
 	{
-		node = NULL;
+		if (error)
+		{
+			g_warning ("Could not query dependencies: %s",
+			           error->message);
+			g_error_free (error);
+		}
 	}
 	g_free (cmd);
+	return dirs;
+}
 
+static GList*
+amp_project_remove_includes (GList* includes, GList* dependencies)
+{
+	GList* dir;
+	for (dir = dependencies; dir != NULL; dir = g_list_next (dir))
+	{
+		GList* find = g_list_find_custom (includes, dir->data, (GCompareFunc)strcmp);
+		if (find)
+		{
+			g_free (find->data);
+			includes = g_list_delete_link (includes, find);
+		}
+	}
+	return includes;
+}
+
+static gboolean
+amp_project_ignore_package (const gchar* name)
+{
+	const gchar** pkg;
+	for (pkg = ignore_packages; *pkg != NULL; pkg++)
+	{
+		if (g_str_has_prefix (name, *pkg))
+			return TRUE;
+	}
+	return FALSE;
+}
+
+static AnjutaProjectNode *
+amp_project_load_package (AmpProject *project, AnjutaProjectNode *node, GError **error)
+{
+	gchar *cmd;
+	gchar *err;
+	gchar *out;
+	gint status;
+	GList* dependency_dirs = NULL;
+	GList* include_dirs = NULL;
+	
+	/* list package depencies */
+	cmd = g_strdup_printf ("pkg-config --print-requires --print-requires-private %s",
+	                       anjuta_project_node_get_name (node));
+	if (g_spawn_command_line_sync (cmd, &out, &err, &status, NULL))
+	{
+		gchar** depends = g_strsplit (out, "\n", -1);
+		if (depends != NULL)
+		{
+			gchar** depend;
+			for (depend = depends; *depend != NULL; depend++)
+			{
+				if (strlen (*depend) && !amp_project_ignore_package (*depend))
+				{
+					dependency_dirs = g_list_concat (dependency_dirs,
+					                                 amp_project_get_includes (*depend));
+				}
+			}
+		}
+	}
+
+	if ((include_dirs = amp_project_get_includes (anjuta_project_node_get_name (node))))
+	{
+		GList* include_dir;
+		
+		include_dirs = amp_project_remove_includes (include_dirs, dependency_dirs);
+		
+		for (include_dir = include_dirs; include_dir != NULL; include_dir = g_list_next (include_dir))
+		{
+			GList* children = NULL;
+			GList* file = NULL;
+			GFile* dir = g_file_new_for_path (include_dir->data);
+
+			list_all_children (&children, dir);
+			for (file = g_list_first (children); file != NULL; file = g_list_next (file))
+			{
+				/* Create a source for files */
+				AnjutaProjectNode *source;
+
+				source = project_node_new (project, ANJUTA_PROJECT_SOURCE, (GFile *)file->data, NULL, NULL);
+				anjuta_project_node_append (node, source);
+				g_object_unref ((GObject *)file->data);
+			}
+			g_list_free (children);
+			g_object_unref (dir);
+		}
+	}
+	anjuta_util_glist_strings_free (include_dirs);
+	anjuta_util_glist_strings_free (dependency_dirs);
+	
 	return node;
 }
 
@@ -2484,7 +2573,7 @@ amp_load_complete (PmJob *job)
 {
 	GHashTable *map;
 
-	g_return_if_fail (job->proxy != NULL);
+	g_return_val_if_fail (job->proxy != NULL, FALSE);
 
 	//anjuta_project_node_check (job->node);
 	map = amp_project_map_node (job->node, job->proxy);
