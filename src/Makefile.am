@@ -43,6 +43,7 @@ anjuta_SOURCES = \
 	main.c
 
 anjuta_LDADD =  \
+	$(ANJUTA_LIBS) \
 	$(GDL_LIBS) \
 	$(LIBANJUTA_LIBS)
 
