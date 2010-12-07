@@ -2052,10 +2052,16 @@ amp_project_load_package (AmpProject *project, AnjutaProjectNode *node, GError *
 			{
 				if (strlen (*depend) && !amp_project_ignore_package (*depend))
 				{
+					AnjutaProjectNode *pkg;
 					dependency_dirs = g_list_concat (dependency_dirs,
 					                                 amp_project_get_includes (*depend));
+					/* Create a package node for the depedencies */
+
+					pkg = project_node_new (project, ANJUTA_PROJECT_PACKAGE, NULL, *depend, NULL);
+					anjuta_project_node_append (node, pkg);
 				}
 			}
+			g_strfreev (depends);
 		}
 	}
 
