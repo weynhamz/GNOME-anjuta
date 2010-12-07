@@ -544,7 +544,8 @@ on_editor_destroy (SymbolDBPlugin *sdb_plugin, IAnjutaEditor *editor)
 	if (g_hash_table_size (sdb_plugin->editor_connected) <= 0)
 	{
 		DEBUG_PRINT ("%s", "displaying nothing…");
-		g_object_set (sdb_plugin->file_model, "file-path", NULL, NULL);
+		if (sdb_plugin->file_model)
+			g_object_set (sdb_plugin->file_model, "file-path", NULL, NULL);
 	}
 }
 
