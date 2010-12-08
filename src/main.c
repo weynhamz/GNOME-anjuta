@@ -30,17 +30,13 @@
 #include <stdlib.h>
 
 #include <gtk/gtk.h>
-#include <unique/unique.h>
-#include <libanjuta/resources.h>
 #include <libanjuta/anjuta-debug.h>
-#include <libanjuta/interfaces/ianjuta-file-loader.h>
 
 #include "anjuta.h"
 
-#define ANJUTA_PIXMAP_SPLASH_SCREEN       "anjuta_splash.png"
-
-/* App */
-static AnjutaApp *app = NULL;
+#ifdef ENABLE_NLS
+#include <locale.h>
+#endif
 
 /* Command line options */
 static gboolean no_splash = 0;
@@ -117,55 +113,26 @@ static const GOptionEntry anjuta_options[] = {
 	{NULL}
 };
 
-static UniqueResponse
-message_received_cb (UniqueApp         *unique,
-					 UniqueCommand      command,
-					 UniqueMessageData *message,
-					 guint              time_,
-					 gpointer           user_data)
+static void
+free_files (GFile** files, gint n_files)
 {
-	UniqueResponse res;
-	
-	switch (command)
+	gint i;
+	for (i = 0; i < n_files; i++)
 	{
-		case UNIQUE_ACTIVATE:
-			/* move the main window to the screen that sent us the command */
-			gtk_window_set_screen (GTK_WINDOW (app), unique_message_data_get_screen (message));
-			gtk_window_present (GTK_WINDOW (app));
-			res = UNIQUE_RESPONSE_OK;
-			break;
-		case UNIQUE_OPEN:
-		{
-			gchar** uris = unique_message_data_get_uris(message);
-			gchar** uri;
-			for (uri = uris; *uri != NULL; uri++)
-			{
-				IAnjutaFileLoader* loader =
-					anjuta_shell_get_interface(ANJUTA_SHELL(app), IAnjutaFileLoader, NULL);
-				GFile* gfile = g_file_new_for_uri(*uri);
-				ianjuta_file_loader_load(loader, gfile, FALSE, NULL);
-				g_object_unref (gfile);
-			}
-			g_strfreev(uris);
-			res = UNIQUE_RESPONSE_OK;
-			break;
-		}
-		default:
-			res = UNIQUE_RESPONSE_OK;
-			break;
+		g_object_unref (files[i]);
 	}
-	
-	return res;
+	g_free (files);
 }
-
 
 int
 main (int argc, char *argv[])
 {
 	GOptionContext *context;
 	GError* error = NULL;
-	gchar* im_file;
-	UniqueApp* unique;
+	Anjuta* anjuta;
+	GFile** files = NULL;
+	gint n_files = 0;
+	gint status;
 	
 	context = g_option_context_new (_("- Integrated Development Environment"));
 #ifdef ENABLE_NLS
@@ -179,13 +146,6 @@ main (int argc, char *argv[])
 #endif
 	
 	g_option_context_add_group (context, gtk_get_option_group (TRUE));
-	
-    /* Initialize threads, if possible */
-#ifdef G_THREADS_ENABLED    
-    if (!g_thread_supported()) g_thread_init(NULL);
-#else
-#warning "Some plugins won't work without thread support"
-#endif
     
 	/* Initialize gnome program */
 	if (!g_option_context_parse (context, &argc, &argv, &error))
@@ -193,6 +153,11 @@ main (int argc, char *argv[])
 		g_debug ("Option parsing failed: %s", error->message);
 		exit(1);
 	}
+	
+	/* Init gtk+ */
+	gtk_init (&argc, &argv);
+    /* Initialize threads */
+	g_thread_init(NULL);
 	
 	/* Init debug helpers */
 	anjuta_debug_init ();
@@ -202,63 +167,42 @@ main (int argc, char *argv[])
 	 * directory can still open the files */
 	if (anjuta_filenames)
 	{
+		files = g_new0 (GFile*, 1);
 		gchar** filename;
 		for (filename = anjuta_filenames; *filename != NULL; filename++)
 		{
-			GFile* file = anjuta_util_file_new_for_commandline_arg(*filename);
-			g_free (*filename);
-			*filename = g_file_get_uri (file);
-			g_object_unref (file);
+			GFile* file = g_file_new_for_commandline_arg(*filename);
+			files = g_realloc (files, (n_files + 1) * sizeof (GFile*));
+			files[n_files++] = file;
 		}
 	}
 
-	unique = unique_app_new ("org.gnome.anjuta", NULL);
+	g_set_application_name (_("Anjuta"));
+	anjuta = anjuta_new ();
+	g_application_register (G_APPLICATION (anjuta), NULL, NULL);
+
 	
-	if (unique_app_is_running(unique))
-	{
-		UniqueResponse response;
-		
-		if (!no_client)
+	if (g_application_get_is_remote (G_APPLICATION (anjuta)) && !no_client)
+	{	
+		if (files)
 		{
-			if (anjuta_filenames)
-			{
-				UniqueMessageData* message = unique_message_data_new();
-				if (!unique_message_data_set_uris (message, anjuta_filenames))
-					g_warning("Set uris failed");
-				response = unique_app_send_message (unique, UNIQUE_OPEN, message);
-				unique_message_data_free(message);
-			}
-			response = unique_app_send_message (unique, UNIQUE_ACTIVATE, NULL);
-			
-			/* we don't need the application instance anymore */
-			g_object_unref (unique);
-			
-			if (response == UNIQUE_RESPONSE_OK)
-				return 0;
-			else
-				DEBUG_PRINT("Failed to contact first instance, starting up normally");
+			g_application_open (G_APPLICATION (anjuta), files, n_files, "");
+			free_files (files, n_files);
 		}
 	}
+	else
+	{
+		AnjutaApp *app = create_window (files, n_files,
+										no_session, no_client, no_files,
+										proper_shutdown, anjuta_geometry);
+		gtk_window_set_application (GTK_WINDOW (app), GTK_APPLICATION (anjuta));
+		gtk_widget_show (GTK_WIDGET (app));
+		
+		free_files (files, n_files);
+	}
 	
-	/* Init gtk+ */
-	gtk_init (&argc, &argv);
-	g_set_application_name (_("Anjuta"));
-	gtk_window_set_default_icon_name ("anjuta");
-	gtk_window_set_auto_startup_notification(FALSE);
+	status = g_application_run (G_APPLICATION (anjuta), argc, argv);
+	g_object_unref (anjuta);
 	
-	/* Initialize application */
-	im_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_SPLASH_SCREEN);
-	app = anjuta_new (argv[0], anjuta_filenames, no_splash, no_session, no_files,
-					  im_file, proper_shutdown, anjuta_geometry);
-	g_signal_connect (unique, "message-received", G_CALLBACK (message_received_cb), NULL);
-	
-	g_free (im_file);
-	gtk_window_set_role (GTK_WINDOW (app), "anjuta-app");
-	
-	/* Run Anjuta application */
-	gtk_window_set_auto_startup_notification(TRUE);
-	gtk_widget_show (GTK_WIDGET (app));
-	gtk_main();
-	
-	return 0;
+	return status;
 }

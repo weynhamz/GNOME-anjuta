@@ -24,9 +24,31 @@
 #include <libanjuta/e-splash.h>
 #include "anjuta-app.h"
 
-AnjutaApp* anjuta_new (gchar *prog_name, gchar **files, gboolean no_splash,
-					   gboolean no_session, gboolean no_files,
-					   const gchar *im_file, gboolean proper_shutdown,
-					   const gchar *geometry);
+#define ANJUTA_TYPE_ANJUTA     (anjuta_get_type ())
+#define ANJUTA(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_ANJUTA, Anjuta))
+#define ANJUTA_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), ANJUTA_TYPE_APP, AnjutaClass))
+#define ANJUTA_IS_ANJUTA(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), ANJUTA_TYPE_APP))
+#define ANJUTA_IS_ANJUTA_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), ANJUTA_TYPE_APP))
+
+typedef struct _Anjuta Anjuta;
+typedef struct _AnjutaClass AnjutaClass;
+
+struct _AnjutaClass
+{
+	GtkApplicationClass parent;
+};
+
+struct _Anjuta
+{
+	GtkApplication parent;
+};
+
+GType anjuta_get_type (void);
+Anjuta *anjuta_new (void);
+
+AnjutaApp*
+create_window (GFile **files, int n_files, gboolean no_splash,
+			gboolean no_session, gboolean no_files,
+			gboolean proper_shutdown, const gchar *geometry);
 
 #endif
