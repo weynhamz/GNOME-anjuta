@@ -313,7 +313,7 @@ sharedlibs_hide (Sharedlibs* sl)
 		gdk_window_get_root_origin (window,
 					    &sl->win_pos_x, &sl->win_pos_y);
 		gdk_window_get_geometry (window, NULL, NULL,
-				       &sl->win_width, &sl->win_height, NULL);
+				       &sl->win_width, &sl->win_height);
 		gtk_widget_hide(sl->widgets.window);
 		sl->is_showing = FALSE;
 	}

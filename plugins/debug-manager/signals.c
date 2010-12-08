@@ -450,7 +450,7 @@ signals_hide (Signals * sg)
 		gdk_window_get_root_origin (window, &sg->win_pos_x,
 					    &sg->win_pos_y);
 		gdk_window_get_geometry (window, NULL, NULL, &sg->win_width,
-				       &sg->win_height, NULL);
+				       &sg->win_height);
 		gtk_widget_hide (sg->widgets.window);
 		sg->is_showing = FALSE;
 	}
