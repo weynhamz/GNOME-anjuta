@@ -47,8 +47,7 @@ struct _AnjutaPmProjectClass
 {
 	GObjectClass parent_class;
 
-	void (*updated) (GError *error);
-	void (*loaded) (GError *error);
+	void (*loaded) (AnjutaPmProject* project, AnjutaProjectNode *node, gboolean complete, GError *error);
 };
 
 struct _AnjutaPmProject
@@ -58,7 +57,6 @@ struct _AnjutaPmProject
 	AnjutaPlugin *plugin;
 	
 	IAnjutaProject *project;
-	GbfProjectModel *model;
 
 	AnjutaProjectNode *root;
 	
@@ -98,6 +96,7 @@ IAnjutaProject *anjuta_pm_project_get_project (AnjutaPmProject *project);
 GbfProjectModel *anjuta_pm_project_get_model (AnjutaPmProject *project);
 
 AnjutaProjectNode *anjuta_pm_project_get_node_from_file (AnjutaPmProject *project, AnjutaProjectNodeType type, GFile *file);
+AnjutaProjectNode *anjuta_pm_project_get_node_from_iter (AnjutaPmProject *project, GtkTreeIter *iter);
 AnjutaProjectNode *anjuta_pm_project_get_module (AnjutaPmProject *project, const gchar *name);
 
 gboolean anjuta_pm_project_show_properties_dialog (AnjutaPmProject *project, GbfTreeData *data);

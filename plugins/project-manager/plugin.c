@@ -181,7 +181,7 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 	}
 
 	/* Save shortcuts */
-	list = gbf_project_view_get_shortcut_list (GBF_PROJECT_VIEW (plugin->view));
+	list = gbf_project_view_get_shortcut_list (plugin->view);
 	if (list != NULL)
 	{
     	anjuta_session_set_string_list (session, "Project Manager", "Shortcut", list);
@@ -439,9 +439,9 @@ on_add_package (GtkAction *action, ProjectManagerPlugin *plugin)
 	GbfTreeData *data;
 	
 	update_operation_begin (plugin);
-	data = gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_module);
+	data = gbf_project_view_get_first_selected (plugin->view, &selected_module);
 	
-	new_module = anjuta_pm_project_new_package (plugin->project,
+	new_module = anjuta_pm_project_new_package (plugin,
 										   get_plugin_parent_window (plugin),
 										   data == NULL ? NULL : &selected_module, NULL);
 	g_list_free (new_module);
@@ -456,9 +456,9 @@ on_add_module (GtkAction *action, ProjectManagerPlugin *plugin)
 	GbfTreeData *data;
 	
 	update_operation_begin (plugin);
-	data = gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_target);
+	data = gbf_project_view_get_first_selected (plugin->view, &selected_target);
 
-	new_modules = anjuta_pm_project_new_module (plugin->project,
+	new_modules = anjuta_pm_project_new_module (plugin,
 										   get_plugin_parent_window (plugin),
 										   data == NULL ? NULL : &selected_target, NULL);
 	g_list_free (new_modules);
@@ -513,7 +513,7 @@ on_popup_properties (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 	GList *selected;
 	
-	selected = gbf_project_view_get_all_selected (GBF_PROJECT_VIEW (plugin->view));
+	selected = gbf_project_view_get_all_selected (plugin->view);
 
 	if (selected != NULL)
 	{
@@ -536,9 +536,9 @@ on_popup_add_package (GtkAction *action, ProjectManagerPlugin *plugin)
 	GList *packages;
 	
 	update_operation_begin (plugin);
-	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_module);
+	gbf_project_view_get_first_selected (plugin->view, &selected_module);
 	
-	packages = anjuta_pm_project_new_package (plugin->project,
+	packages = anjuta_pm_project_new_package (plugin,
 										   get_plugin_parent_window (plugin),
 										   &selected_module, NULL);
 	update_operation_end (plugin, TRUE);
@@ -551,9 +551,9 @@ on_popup_add_module (GtkAction *action, ProjectManagerPlugin *plugin)
 	GList *new_modules;
 	
 	update_operation_begin (plugin);
-	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_target);
+	gbf_project_view_get_first_selected (plugin->view, &selected_target);
 	
-	new_modules = anjuta_pm_project_new_module (plugin->project,
+	new_modules = anjuta_pm_project_new_module (plugin,
 										   get_plugin_parent_window (plugin),
 										   &selected_target, NULL);
 	g_list_free (new_modules);
@@ -567,9 +567,9 @@ on_popup_add_group (GtkAction *action, ProjectManagerPlugin *plugin)
 	AnjutaProjectNode *new_group;
 	
 	update_operation_begin (plugin);
-	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_group);
+	gbf_project_view_get_first_selected (plugin->view, &selected_group);
 	
-	new_group = anjuta_pm_project_new_group (plugin->project,
+	new_group = anjuta_pm_project_new_group (plugin,
 										   get_plugin_parent_window (plugin),
 										   &selected_group, NULL);
 	update_operation_end (plugin, TRUE);
@@ -582,9 +582,9 @@ on_popup_add_target (GtkAction *action, ProjectManagerPlugin *plugin)
 	AnjutaProjectNode *new_target;
 
 	update_operation_begin (plugin);
-	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_group);
+	gbf_project_view_get_first_selected (plugin->view, &selected_group);
 
-	new_target = anjuta_pm_project_new_target (plugin->project,
+	new_target = anjuta_pm_project_new_target (plugin,
 											 get_plugin_parent_window (plugin),
 											 &selected_group, NULL);
 	
@@ -598,9 +598,9 @@ on_popup_add_source (GtkAction *action, ProjectManagerPlugin *plugin)
 	AnjutaProjectNode *new_source;
 	
 	update_operation_begin (plugin);
-	gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (plugin->view), &selected_target);
+	gbf_project_view_get_first_selected (plugin->view, &selected_target);
 
-	new_source = anjuta_pm_project_new_source (plugin->project,
+	new_source = anjuta_pm_project_new_source (plugin,
 											 get_plugin_parent_window (plugin),
 											 &selected_target, NULL);
 
@@ -726,7 +726,7 @@ on_popup_remove (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 	GList *selected;
 	
-	selected = gbf_project_view_get_all_selected (GBF_PROJECT_VIEW (plugin->view));
+	selected = gbf_project_view_get_all_selected (plugin->view);
 
 	if (selected != NULL)
 	{
@@ -768,7 +768,7 @@ on_popup_remove (GtkAction *action, ProjectManagerPlugin *plugin)
 					}
 					break;
 				case GBF_TREE_NODE_SHORTCUT:
-					anjuta_pm_project_remove_data (plugin->project, data, NULL);
+					gbf_project_view_remove_data (plugin->view, data, NULL);
 					break;
 				default:
 					break;
@@ -1037,7 +1037,7 @@ on_treeview_selection_changed (GtkTreeSelection *sel,
 	GFile *selected_file;
 	
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
-	node = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
+	node = gbf_project_view_find_selected (plugin->view,
 										   ANJUTA_PROJECT_UNKNOWN);
 
 	if (node != NULL)
@@ -1275,34 +1275,54 @@ add_primary_target (AnjutaProjectNode *node, gpointer data)
 }
 
 static void
-on_project_updated (AnjutaPmProject *project, AnjutaProjectNode *node, GError *error, ProjectManagerPlugin *plugin)
+on_project_loaded (AnjutaPmProject *project, GtkTreeIter *parent, gboolean complete, GError *error, ProjectManagerPlugin *plugin)
 {
+	AnjutaStatus *status;
 	gchar *dirname;
+	AnjutaProjectNode *node;
 
+	node = gbf_project_view_get_node_from_iter (plugin->view, parent);
+	
 	dirname = anjuta_util_get_local_path_from_uri (plugin->project_root_uri);
-	if (!error)
+	status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL);
+	if (error)
 	{
+		if (complete)
+		{
+			GtkWidget *toplevel;
+			GtkWindow *win;
+		
+			toplevel = gtk_widget_get_toplevel (plugin->scrolledwindow);
+			if (toplevel && GTK_IS_WINDOW (toplevel))
+				win = GTK_WINDOW (toplevel);
+			else
+				win = GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell);
+
+			anjuta_util_dialog_error (win, _("Failed to parse project (the project is opened, but there will be no project view) %s: %s\n"
+										 ""),
+									  dirname, error->message);
+		}
+	}
+	else
+	{
+		/* Restore existing shortcut */
 		if (plugin->shortcuts != NULL)
 		{
-			/* Restore existing shortcut */
 			GList *item;
 			
-			gbf_project_view_set_shortcut_list (GBF_PROJECT_VIEW (plugin->view), plugin->shortcuts);
-			/* Remove used shortcuts */
+			gbf_project_view_set_shortcut_list (plugin->view, plugin->shortcuts);
+			/* Remove used or all shortcuts if loading is completed*/
 			for (item = g_list_first (plugin->shortcuts); item != NULL;)
 			{
-				if (*((char *)item->data) == 'U')
+				GList *next = g_list_next (item);
+
+				if (complete || (*((char *)item->data) == 'U'))
 				{
-					GList *next = g_list_next (item);
 					
 					g_free (item->data);
 					plugin->shortcuts = g_list_remove_link (plugin->shortcuts, item);
-					item = next;
 				}
-				else
-				{
-					item = g_list_next (item);
-				}
+				item = next;
 			}
 		}
 		else
@@ -1315,72 +1335,16 @@ on_project_updated (AnjutaPmProject *project, AnjutaProjectNode *node, GError *e
 			if (list != NULL)
 			{
 				list = g_list_reverse (list);
-				gbf_project_view_set_shortcut_list (GBF_PROJECT_VIEW (plugin->view), list);
+				gbf_project_view_set_shortcut_list (plugin->view, list);
+				g_list_foreach (list, (GFunc)g_free, NULL);
 				g_list_free (list);
 			}
 		}
 	}
 	g_free (dirname);
-}
 
-static void
-on_project_loaded (AnjutaPmProject *project, AnjutaProjectNode *node, GError *error, ProjectManagerPlugin *plugin)
-{
-	AnjutaStatus *status;
-	gchar *dirname;
-
-	dirname = anjuta_util_get_local_path_from_uri (plugin->project_root_uri);
-	status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL);
-	if (error)
+	if (complete)
 	{
-		GtkWidget *toplevel;
-		GtkWindow *win;
-		
-		toplevel = gtk_widget_get_toplevel (plugin->scrolledwindow);
-		if (toplevel && GTK_IS_WINDOW (toplevel))
-			win = GTK_WINDOW (toplevel);
-		else
-			win = GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell);
-
-		anjuta_util_dialog_error (win, _("Failed to parse project (the project is opened, but there will be no project view) %s: %s\n"
-										 ""),
-								  dirname, error->message);
-	}
-	else
-	{
-		/* Restore existing shortcut */
-#if 0
-		if (plugin->shortcuts != NULL)
-		{
-			GList *item;
-			
-			gbf_project_view_set_shortcut_list (GBF_PROJECT_VIEW (plugin->view), plugin->shortcuts);
-			/* Remove all shortcuts, as the project is completely loaded */
-			for (item = g_list_first (plugin->shortcuts); item != NULL;)
-			{
-				GList *next = g_list_next (item);
-					
-				g_free (item->data);
-				plugin->shortcuts = g_list_remove_link (plugin->shortcuts, item);
-				item = next;
-			}
-		}
-		else
-#endif
-		{
-			GList *list = NULL;
-			
-			/* Add new shortcut for PRIMARY target */
-			anjuta_project_node_foreach (node, G_POST_ORDER, add_primary_target, &list);
-
-			if (list != NULL)
-			{
-				list = g_list_reverse (list);
-				gbf_project_view_set_shortcut_list (GBF_PROJECT_VIEW (plugin->view), list);
-				g_list_foreach (list, (GFunc)g_free, NULL);
-				g_list_free (list);
-			}
-		}
 		gchar *basename = g_path_get_basename (dirname);
 		
 		anjuta_status_progress_tick (status, NULL, _("Update project view…"));
@@ -1390,18 +1354,18 @@ on_project_loaded (AnjutaPmProject *project, AnjutaProjectNode *node, GError *er
 									NULL);
 		anjuta_status_set_default (status, _("Project"), basename);
 		g_free (basename);
-	}
-	g_free (dirname);
+		
+		if (plugin->busy)
+		{
+			anjuta_status_pop (status);
+			anjuta_status_busy_pop (status);
+			plugin->busy = FALSE;
+		}
+		
+		/* Emit loaded signal for other plugins */
+		g_signal_emit_by_name (G_OBJECT (plugin), "project_loaded", error);
 
-	if (plugin->busy)
-	{
-		anjuta_status_pop (status);
-		anjuta_status_busy_pop (status);
-		plugin->busy = FALSE;
 	}
-
-	/* Emit loaded signal for other plugins */
-	g_signal_emit_by_name (G_OBJECT (plugin), "project_loaded", error);
 }
 
 static void
@@ -1604,7 +1568,8 @@ static gboolean
 project_manager_plugin_activate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaProfileManager *profile_manager;
-	GtkWidget *view, *scrolled_window;
+	GtkWidget *scrolled_window;
+	GtkWidget *view;
 	static gboolean initialized = FALSE;
 	GtkTreeSelection *selection;
 	/* GladeXML *gxml; */
@@ -1621,14 +1586,16 @@ project_manager_plugin_activate_plugin (AnjutaPlugin *plugin)
 
 	/* Create project */
 	pm_plugin->project = anjuta_pm_project_new (plugin);
-	g_signal_connect (pm_plugin->project, "updated", G_CALLBACK (on_project_updated), plugin);
-	g_signal_connect (pm_plugin->project, "loaded", G_CALLBACK (on_project_loaded), plugin);
 	
 	/* create model & view and bind them */
 	view = gbf_project_view_new ();
+
+	/* Add project to view */
+	gbf_project_view_set_project (GBF_PROJECT_VIEW (view), pm_plugin->project);
+	g_signal_connect (view, "node-loaded", G_CALLBACK (on_project_loaded), plugin);
 	
-	gtk_tree_view_set_model (GTK_TREE_VIEW (view),
-							 GTK_TREE_MODEL (anjuta_pm_project_get_model (pm_plugin->project)));
+	/*gtk_tree_view_set_model (GTK_TREE_VIEW (view),
+							 GTK_TREE_MODEL (anjuta_pm_project_get_model (pm_plugin->project)));*/
 	
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
 	gtk_tree_selection_set_mode (selection, GTK_SELECTION_MULTIPLE);
@@ -1656,7 +1623,7 @@ project_manager_plugin_activate_plugin (AnjutaPlugin *plugin)
 	gtk_widget_show (scrolled_window);
 	
 	pm_plugin->scrolledwindow = scrolled_window;
-	pm_plugin->view = view;
+	pm_plugin->view = GBF_PROJECT_VIEW (view);
 	
 	/* Action groups */
 	pm_plugin->pm_action_group = 
@@ -1907,8 +1874,8 @@ static GtkTreeIter*
 get_tree_iter_from_file (ProjectManagerPlugin *plugin, GtkTreeIter* iter, GFile *file, GbfTreeNodeType type)
 {
 	gboolean found;
-	
-	found = gbf_project_model_find_file (anjuta_pm_project_get_model (plugin->project), iter, NULL, type, file);
+
+	found = gbf_project_view_find_file (plugin->view, iter, file, type);
 
 	return found ? iter : NULL;
 }
@@ -1918,7 +1885,7 @@ get_element_type (ProjectManagerPlugin *plugin, GFile *element)
 {
 	AnjutaProjectNode *node;
 	
-	node = anjuta_pm_project_get_node_from_file (plugin->project, ANJUTA_PROJECT_UNKNOWN,  element);
+	node = gbf_project_view_get_node_from_file (plugin->view, ANJUTA_PROJECT_UNKNOWN,  element);
 
 	return node == NULL ? ANJUTA_PROJECT_UNKNOWN : anjuta_project_node_get_node_type (node);
 }
@@ -1953,7 +1920,7 @@ iproject_manager_get_target_type (IAnjutaProjectManager *project_manager,
 	g_return_val_if_fail (file_is_inside_project (plugin, target_file),
 						  ANJUTA_PROJECT_UNKNOWN);
 	
-	target = anjuta_pm_project_get_node_from_file (plugin->project, ANJUTA_PROJECT_TARGET,  target_file);
+	target = gbf_project_view_get_node_from_file (plugin->view, ANJUTA_PROJECT_TARGET,  target_file);
 
 	if (target != NULL)
 	{
@@ -2031,21 +1998,21 @@ iproject_manager_get_selected (IAnjutaProjectManager *project_manager,
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
 	if (!anjuta_pm_project_is_open (plugin->project)) return NULL;
 	
-	node = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
+	node = gbf_project_view_find_selected (plugin->view,
 										   ANJUTA_PROJECT_SOURCE);
 	if (node && anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_SOURCE)
 	{
 		return g_object_ref (anjuta_project_node_get_file (node));
 	}
 
-	node = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
+	node = gbf_project_view_find_selected (plugin->view,
 										   ANJUTA_PROJECT_TARGET);
 	if (node && anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_TARGET)
 	{
 		return get_element_file_from_node (plugin, node, IANJUTA_BUILDER_ROOT_URI);
 	}
 
-	node = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
+	node = gbf_project_view_find_selected (plugin->view,
 										   ANJUTA_PROJECT_GROUP);
 	if (node && anjuta_project_node_get_node_type (node) == GBF_TREE_NODE_GROUP)
 	{
@@ -2088,7 +2055,7 @@ iproject_manager_add_source (IAnjutaProjectManager *project_manager,
 	{
 		iter = get_tree_iter_from_file (plugin, &target_iter, default_target_file, GBF_TREE_NODE_TARGET);
 	}
-	source_id = anjuta_pm_project_new_source (plugin->project,
+	source_id = anjuta_pm_project_new_source (plugin,
 										     get_plugin_parent_window (plugin),
 											 iter,
 											 source_uri_to_add);
@@ -2113,7 +2080,7 @@ iproject_manager_add_source_quiet (IAnjutaProjectManager *project_manager,
 	
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
 
-	target = anjuta_pm_project_get_node_from_file (plugin->project, ANJUTA_PROJECT_TARGET,  location_file);
+	target = gbf_project_view_get_node_from_file (plugin->view, ANJUTA_PROJECT_TARGET,  location_file);
 	update_operation_begin (plugin);
 	source_id = anjuta_pm_project_add_source (plugin->project,
 	    								target,
@@ -2147,7 +2114,7 @@ iproject_manager_add_source_multi (IAnjutaProjectManager *project_manager,
 		iter = get_tree_iter_from_file (plugin, &target_iter, default_target_file, GBF_TREE_NODE_TARGET);
 	}
 
-	source_ids = anjuta_pm_project_new_multiple_source (plugin->project,
+	source_ids = anjuta_pm_project_new_multiple_source (plugin,
 										 get_plugin_parent_window (plugin),
 										 iter,
 										 source_add_uris);
@@ -2187,7 +2154,7 @@ iproject_manager_add_target (IAnjutaProjectManager *project_manager,
 	}
 	
 	update_operation_begin (plugin);
-	target_id = anjuta_pm_project_new_target (plugin->project,
+	target_id = anjuta_pm_project_new_target (plugin,
 											 get_plugin_parent_window (plugin),
 											 iter,
 											 target_name_to_add);
@@ -2219,7 +2186,7 @@ iproject_manager_add_group (IAnjutaProjectManager *project_manager,
 	}
 	
 	update_operation_begin (plugin);
-	group_id = anjuta_pm_project_new_group (plugin->project,
+	group_id = anjuta_pm_project_new_group (plugin,
 										   get_plugin_parent_window (plugin),
 										   iter,
 										   group_name_to_add);

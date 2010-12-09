@@ -37,6 +37,7 @@
 #include "tree-data.h"
 #include "project-model.h"
 #include "project-view.h"
+#include "project-marshal.h"
 
 #define ICON_SIZE 16
 
@@ -44,6 +45,7 @@ enum {
 	URI_ACTIVATED,
 	TARGET_SELECTED,
 	GROUP_SELECTED,
+	NODE_LOADED,
 	LAST_SIGNAL
 };
 
@@ -107,18 +109,26 @@ row_activated (GtkTreeView       *tree_view,
 }
 
 static void
+dispose (GObject *object)
+{
+	GbfProjectView *view;
+	
+	view = GBF_PROJECT_VIEW (object);
+	if (view->model)
+	{
+		g_object_unref (G_OBJECT (view->model));
+		view->model = NULL;
+	}
+	
+	G_OBJECT_CLASS (gbf_project_view_parent_class)->dispose (object);
+}
+
+static void
 destroy (GtkWidget *object)
 {
 	GbfProjectView *tree;
-	GbfProjectViewPrivate *priv;
 	
 	tree = GBF_PROJECT_VIEW (object);
-	priv = tree->priv;
-	
-	if (priv) {
-		g_free (priv);
-		tree->priv = NULL;
-	}
 	
 	if (GTK_WIDGET_CLASS (gbf_project_view_parent_class)->destroy)
 		(* GTK_WIDGET_CLASS (gbf_project_view_parent_class)->destroy) (object);
@@ -315,6 +325,7 @@ gbf_project_view_class_init (GbfProjectViewClass *klass)
 	widget_class = GTK_WIDGET_CLASS (klass);
 	tree_view_class = GTK_TREE_VIEW_CLASS (klass);
 
+	g_object_class->dispose = dispose;
 	widget_class->destroy = destroy;
 	widget_class->draw = draw;
 	tree_view_class->row_activated = row_activated;
@@ -347,6 +358,19 @@ gbf_project_view_class_init (GbfProjectViewClass *klass)
 			      NULL, NULL,
 			      g_cclosure_marshal_VOID__POINTER,
 			      G_TYPE_NONE, 1, G_TYPE_POINTER);
+	signals[NODE_LOADED] =
+		g_signal_new ("node-loaded",
+				GBF_TYPE_PROJECT_VIEW,
+				G_SIGNAL_RUN_LAST,
+				G_STRUCT_OFFSET (GbfProjectViewClass,
+				                 node_loaded),
+				NULL, NULL,
+				pm_cclosure_marshal_VOID__POINTER_BOOLEAN_BOXED,
+				G_TYPE_NONE, 3,
+				G_TYPE_POINTER,
+				G_TYPE_BOOLEAN,
+				G_TYPE_ERROR);
+	
 }
 
 static void 
@@ -386,6 +410,10 @@ gbf_project_view_init (GbfProjectView *tree)
 	gtk_tree_view_column_set_cell_data_func (column, renderer, set_text, tree, NULL);
 
 	gtk_tree_view_append_column (GTK_TREE_VIEW (tree), column);
+
+	/* Create model */
+	tree->model = gbf_project_model_new (NULL);
+	gtk_tree_view_set_model (GTK_TREE_VIEW (tree), GTK_TREE_MODEL (tree->model));
 }
 
 GtkWidget *
@@ -671,4 +699,87 @@ gbf_project_view_set_shortcut_list (GbfProjectView *view, GList *shortcuts)
 	}
 	
 	return;
+}
+
+AnjutaProjectNode *
+gbf_project_view_get_node_from_iter (GbfProjectView *view, GtkTreeIter *iter)
+{
+	return gbf_project_model_get_node (view->model, iter);
+}
+
+AnjutaProjectNode *
+gbf_project_view_get_node_from_file (GbfProjectView *view, AnjutaProjectNodeType type, GFile *file)
+{
+	GtkTreeIter iter;
+	AnjutaProjectNode *node = NULL;
+	
+	if (gbf_project_model_find_file (view->model, &iter, NULL, type, file))
+	{
+		
+		node = gbf_project_model_get_node (view->model, &iter);
+	}
+
+	return NULL;
+}
+
+gboolean
+gbf_project_view_remove_data (GbfProjectView *view, GbfTreeData *data, GError **error)
+{
+	GtkTreeIter iter;
+	
+	if (gbf_project_model_find_tree_data (view->model, &iter, data))
+	{
+		gbf_project_model_remove (view->model, &iter);
+
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+
+static void
+on_node_loaded (AnjutaPmProject *sender, AnjutaProjectNode *node, gboolean complete, GError *error, GbfProjectView *view)
+{
+	if (error != NULL)
+	{
+		g_warning ("unable to load node");
+		g_signal_emit (G_OBJECT (view), NODE_LOADED, 0, NULL, complete, error);
+	}
+	else
+	{
+		GtkTreeIter iter;
+		gboolean found;
+			
+		found = gbf_project_model_find_node (view->model, &iter, NULL, node);
+		gbf_project_model_update_tree (view->model, node, found ? &iter : NULL);
+		if (!found)
+		{
+			gtk_tree_model_get_iter_first (GTK_TREE_MODEL (view->model), &iter);
+		}
+
+		g_signal_emit (G_OBJECT (view), signals[NODE_LOADED], 0, &iter, complete, NULL);
+	}
+}
+
+
+void 
+gbf_project_view_set_project (GbfProjectView *view, AnjutaPmProject *project)
+{
+	g_signal_connect (project, "loaded", G_CALLBACK (on_node_loaded), view);
+
+	gbf_project_model_set_project (view->model, project);
+}
+
+gboolean
+gbf_project_view_find_file (GbfProjectView *view, GtkTreeIter* iter, GFile *file, GbfTreeNodeType type)
+{
+	return gbf_project_model_find_file (view->model, iter, NULL, type, file);	
+}
+
+GbfProjectModel *
+gbf_project_view_get_model (GbfProjectView *view)
+{
+	return view->model;
 }

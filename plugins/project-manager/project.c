@@ -40,7 +40,6 @@
 
 enum
 {
-	UPDATED,
 	LOADED,
 	LAST_SIGNAL
 };
@@ -66,27 +65,13 @@ static gboolean
 pm_command_load_complete (AnjutaPmProject *project, AnjutaProjectNode *node, GError *error)
 {
 	// g_message ("pm_command_load_complete %p", node);
-	
-	if (error != NULL)
-	{
-		g_warning ("unable to load node");
-		g_signal_emit (G_OBJECT (project), project->loaded ? LOADED : UPDATED, 0, node, error);
-	}
-	else
+	gboolean complete = FALSE;
+
+	if (error == NULL)
 	{
 		if (project->root == node)
 		{
-			g_object_set (G_OBJECT (project->model), "project", project, NULL);
 			project->incomplete_node = 0;
-			gbf_project_model_update_tree (project->model, node, NULL);
-		}
-		else
-		{
-			GtkTreeIter iter;
-			gboolean found;
-			
-			found = gbf_project_model_find_node (project->model, &iter, NULL, node);
-			gbf_project_model_update_tree (project->model, node, found ? &iter : NULL);
 		}
 		
 		// Check for incompletely loaded object and load them
@@ -98,17 +83,12 @@ pm_command_load_complete (AnjutaPmProject *project, AnjutaProjectNode *node, GEr
 		anjuta_project_node_clear_state (node, ANJUTA_PROJECT_LOADING | ANJUTA_PROJECT_INCOMPLETE);
 		anjuta_project_node_foreach (node, G_POST_ORDER, (AnjutaProjectNodeForeachFunc)on_pm_project_load_incomplete, project);
 
-		//g_message ("emit node %p", node);
-		if (!project->loaded && (project->incomplete_node == 0))
-		{
-			g_signal_emit (G_OBJECT (project), signals[LOADED], 0, node, NULL);
-			project->loaded = TRUE;
-		}
-		else
-		{
-			g_signal_emit (G_OBJECT (project), signals[UPDATED], 0, node, NULL);
-		}
+		complete = !project->loaded && (project->incomplete_node == 0);
+		if (complete) project->loaded = TRUE;
 	}
+
+	g_signal_emit (G_OBJECT (project), signals[LOADED], 0, node, complete, error);
+
 	
 	return TRUE;
 }
@@ -235,7 +215,6 @@ anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 gboolean 
 anjuta_pm_project_unload (AnjutaPmProject *project, GError **error)
 {
-	g_object_set (G_OBJECT (project->model), "project", NULL, NULL);
 	g_object_unref (project->project);
 	project->project = NULL;
 	project->loaded = FALSE;
@@ -386,23 +365,6 @@ anjuta_pm_project_remove (AnjutaPmProject *project, AnjutaProjectNode *node, GEr
 }
 
 gboolean
-anjuta_pm_project_remove_data (AnjutaPmProject *project, GbfTreeData *data, GError **error)
-{
-	GtkTreeIter iter;
-	
-	if (gbf_project_model_find_tree_data (project->model, &iter, data))
-	{
-		gbf_project_model_remove (project->model, &iter);
-
-		return TRUE;
-	}
-	else
-	{
-		return FALSE;
-	}
-}
-
-gboolean
 anjuta_pm_project_is_open (AnjutaPmProject *project)
 {
 	return project->project != NULL;
@@ -412,27 +374,6 @@ IAnjutaProject *
 anjuta_pm_project_get_project (AnjutaPmProject *project)
 {
 	return project->project;
-}
-
-GbfProjectModel *
-anjuta_pm_project_get_model (AnjutaPmProject *project)
-{
-	return project->model;
-}
-
-AnjutaProjectNode *
-anjuta_pm_project_get_node_from_file (AnjutaPmProject *project, AnjutaProjectNodeType type, GFile *file)
-{
-	GtkTreeIter iter;
-	AnjutaProjectNode *node = NULL;
-	
-	if (gbf_project_model_find_file (project->model, &iter, NULL, type, file))
-	{
-		
-		node = gbf_project_model_get_node (project->model, &iter);
-	}
-
-	return NULL;
 }
 
 static gboolean
@@ -517,7 +458,6 @@ G_DEFINE_TYPE (AnjutaPmProject, anjuta_pm_project, G_TYPE_OBJECT);
 static void
 anjuta_pm_project_init (AnjutaPmProject *project)
 {
-	project->model = gbf_project_model_new (NULL);
 	project->plugin = NULL;
 	project->loaded = FALSE;
 
@@ -527,10 +467,6 @@ anjuta_pm_project_init (AnjutaPmProject *project)
 static void
 anjuta_pm_project_finalize (GObject *object)
 {
-	AnjutaPmProject *project = ANJUTA_PM_PROJECT(object);
-	
-	g_object_unref (G_OBJECT (project->model));
-	
 	G_OBJECT_CLASS (anjuta_pm_project_parent_class)->finalize (object);
 }
 
@@ -555,26 +491,16 @@ anjuta_pm_project_class_init (AnjutaPmProjectClass *klass)
 	 AnjutaProjectNode object and then use a function
 	 in project-view.c to create the corresponding shortcut*/
 	
-	signals[UPDATED] = g_signal_new ("updated",
-	    G_OBJECT_CLASS_TYPE (object_class),
-	    G_SIGNAL_RUN_LAST,
-	    G_STRUCT_OFFSET (AnjutaPmProjectClass, updated),
-	    NULL, NULL,
-	    pm_cclosure_marshal_VOID__POINTER_BOXED,
-	    G_TYPE_NONE,
-	    2,
-	    G_TYPE_POINTER,
-	    G_TYPE_ERROR);
-	
 	signals[LOADED] = g_signal_new ("loaded",
 		G_OBJECT_CLASS_TYPE (object_class),
 		G_SIGNAL_RUN_LAST,
 		G_STRUCT_OFFSET (AnjutaPmProjectClass, loaded),
 		NULL, NULL,
-		pm_cclosure_marshal_VOID__POINTER_BOXED,
+		pm_cclosure_marshal_VOID__POINTER_BOOLEAN_BOXED,
 		G_TYPE_NONE,
-		2,
+		3,
 	    G_TYPE_POINTER,
+	    G_TYPE_BOOLEAN,
 		G_TYPE_ERROR);
 }
 

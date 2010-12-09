@@ -728,7 +728,7 @@ pm_project_create_properties_dialog (AnjutaPmProject *project, GtkWindow *parent
  *---------------------------------------------------------------------------*/
 
 AnjutaProjectNode*
-anjuta_pm_project_new_group (AnjutaPmProject *project, GtkWindow *parent, GtkTreeIter *selected, const gchar *default_name)
+anjuta_pm_project_new_group (ProjectManagerPlugin *plugin, GtkWindow *parent, GtkTreeIter *selected, const gchar *default_name)
 {
 	GtkBuilder *gui;
 	GtkWidget *dialog, *group_name_entry, *ok_button;
@@ -737,7 +737,7 @@ anjuta_pm_project_new_group (AnjutaPmProject *project, GtkWindow *parent, GtkTre
 	gboolean finished = FALSE;
 	AnjutaProjectNode *new_group = NULL;
 
-	g_return_val_if_fail (project != NULL, NULL);
+	g_return_val_if_fail (plugin->project != NULL, NULL);
 
 	gui = load_interface ("new_group_dialog");
 	g_return_val_if_fail (gui != NULL, NULL);
@@ -759,7 +759,7 @@ anjuta_pm_project_new_group (AnjutaPmProject *project, GtkWindow *parent, GtkTre
 	else
 		gtk_widget_set_sensitive (ok_button, FALSE);
 
-	setup_nodes_treeview (anjuta_pm_project_get_model (project),
+	setup_nodes_treeview (gbf_project_view_get_model (plugin->view),
 							groups_view,
 							parent_filter_func,
 							GINT_TO_POINTER (ANJUTA_PROJECT_GROUP),
@@ -790,7 +790,7 @@ anjuta_pm_project_new_group (AnjutaPmProject *project, GtkWindow *parent, GtkTre
 														ANJUTA_PROJECT_GROUP);
 				if (group)
 				{
-					new_group = anjuta_pm_project_add_group (project, group, NULL, name, &err);
+					new_group = anjuta_pm_project_add_group (plugin->project, group, NULL, name, &err);
 					if (err)
 					{
 						error_dialog (parent, _("Cannot add group"), "%s",
@@ -827,7 +827,7 @@ anjuta_pm_project_new_group (AnjutaPmProject *project, GtkWindow *parent, GtkTre
  *---------------------------------------------------------------------------*/
 
 AnjutaProjectNode*
-anjuta_pm_project_new_source (AnjutaPmProject *project,
+anjuta_pm_project_new_source (ProjectManagerPlugin *plugin,
 							GtkWindow           *parent,
 							GtkTreeIter         *default_parent,
 							const gchar         *default_uri)
@@ -842,7 +842,7 @@ anjuta_pm_project_new_source (AnjutaPmProject *project,
 		uris = g_list_append (NULL, uri);
 	}
 	new_sources = 
-		anjuta_pm_project_new_multiple_source (project, parent,
+		anjuta_pm_project_new_multiple_source (plugin, parent,
 										default_parent, uris);
 	g_free (uri);
 	g_list_free (uris);
@@ -858,7 +858,7 @@ anjuta_pm_project_new_source (AnjutaPmProject *project,
 }
 
 GList* 
-anjuta_pm_project_new_multiple_source (AnjutaPmProject *project,
+anjuta_pm_project_new_multiple_source (ProjectManagerPlugin *plugin,
 								GtkWindow           *top_window,
 								GtkTreeIter         *default_parent,
 								GList               *uris_to_add)
@@ -875,7 +875,7 @@ anjuta_pm_project_new_multiple_source (AnjutaPmProject *project,
 	GList* new_sources = NULL;
 	GList* uri_node;
 
-	g_return_val_if_fail (project != NULL, NULL);
+	g_return_val_if_fail (plugin->project != NULL, NULL);
 
 	gui = load_interface ("add_source_dialog");
 	g_return_val_if_fail (gui != NULL, NULL);
@@ -931,7 +931,7 @@ anjuta_pm_project_new_multiple_source (AnjutaPmProject *project,
 	/*project_root = g_file_get_uri (anjuta_project_node_get_file (anjuta_pm_project_get_root (project)));
 	g_object_set_data_full (G_OBJECT (browse_button), "root", project_root, g_free);*/
 
-	setup_nodes_treeview (anjuta_pm_project_get_model (project),
+	setup_nodes_treeview (gbf_project_view_get_model (plugin->view),
 							targets_view,
 							parent_filter_func,
 							GINT_TO_POINTER (ANJUTA_PROJECT_SOURCE),
@@ -992,7 +992,7 @@ anjuta_pm_project_new_multiple_source (AnjutaPmProject *project,
 					gtk_tree_model_get (GTK_TREE_MODEL(list), &iter,
 						COLUMN_URI, &uri, -1);
 
-					new_source = anjuta_pm_project_add_source (project,
+					new_source = anjuta_pm_project_add_source (plugin->project,
 									parent,
 									sibling,
 									uri,
@@ -1100,7 +1100,7 @@ build_types_store (AnjutaPmProject *project)
 }
 
 AnjutaProjectNode* 
-anjuta_pm_project_new_target (AnjutaPmProject *project,
+anjuta_pm_project_new_target (ProjectManagerPlugin *plugin,
                              GtkWindow       *parent,
                              GtkTreeIter     *default_group,
                              const gchar     *default_target_name_to_add)
@@ -1114,7 +1114,7 @@ anjuta_pm_project_new_target (AnjutaPmProject *project,
 	gboolean finished = FALSE;
 	AnjutaProjectNode *new_target = NULL;
 
-	g_return_val_if_fail (project != NULL, NULL);
+	g_return_val_if_fail (plugin->project != NULL, NULL);
 
 	gui = load_interface ("new_target_dialog");
 	g_return_val_if_fail (gui != NULL, NULL);
@@ -1137,7 +1137,7 @@ anjuta_pm_project_new_target (AnjutaPmProject *project,
 	else
 		gtk_widget_set_sensitive (ok_button, FALSE);
 
-	setup_nodes_treeview (anjuta_pm_project_get_model (project),
+	setup_nodes_treeview (gbf_project_view_get_model (plugin->view),
 							groups_view,
 							parent_filter_func,
 							GINT_TO_POINTER (ANJUTA_PROJECT_TARGET),
@@ -1145,7 +1145,7 @@ anjuta_pm_project_new_target (AnjutaPmProject *project,
 	gtk_widget_show (groups_view);
 
 	/* setup target types combo box */
-	types_store = build_types_store (project);
+	types_store = build_types_store (plugin->project);
 	gtk_combo_box_set_model (GTK_COMBO_BOX (target_type_combo), 
 							GTK_TREE_MODEL (types_store));
 
@@ -1205,7 +1205,7 @@ anjuta_pm_project_new_target (AnjutaPmProject *project,
 
 				if (group && type)
 				{
-					new_target = anjuta_pm_project_add_target (project, group, NULL, name, type, &err);
+					new_target = anjuta_pm_project_add_target (plugin->project, group, NULL, name, type, &err);
 					if (err)
 					{
 						error_dialog (parent, _("Cannot add target"), "%s",
@@ -1258,7 +1258,7 @@ on_cursor_changed(GtkTreeView* view, gpointer data)
 }
 
 GList*
-anjuta_pm_project_new_module (AnjutaPmProject *project,
+anjuta_pm_project_new_module (ProjectManagerPlugin *plugin,
                              GtkWindow          *parent,
                              GtkTreeIter        *default_target,
                              const gchar        *default_module)
@@ -1273,7 +1273,7 @@ anjuta_pm_project_new_module (AnjutaPmProject *project,
 	GList* new_modules = NULL;
 	GtkTreeSelection *module_selection;
 
-	g_return_val_if_fail (project != NULL, NULL);
+	g_return_val_if_fail (plugin->project != NULL, NULL);
 
 	gui = load_interface ("add_module_dialog");
 	g_return_val_if_fail (gui != NULL, NULL);
@@ -1285,13 +1285,13 @@ anjuta_pm_project_new_module (AnjutaPmProject *project,
 	new_button = GTK_WIDGET (gtk_builder_get_object (gui, "new_package_button"));
 	ok_button = GTK_WIDGET (gtk_builder_get_object (gui, "ok_module_button"));
 
-	setup_nodes_treeview (anjuta_pm_project_get_model (project),
+	setup_nodes_treeview (gbf_project_view_get_model (plugin->view),
 							targets_view,
 							parent_filter_func,
 							GINT_TO_POINTER (ANJUTA_PROJECT_MODULE),
 							default_target);
 	gtk_widget_show (targets_view);
-	setup_nodes_treeview (anjuta_pm_project_get_model (project),
+	setup_nodes_treeview (gbf_project_view_get_model (plugin->view),
 							modules_view,
 							module_filter_func,
 							NULL,
@@ -1330,7 +1330,7 @@ anjuta_pm_project_new_module (AnjutaPmProject *project,
 		switch (response) {
 			case 1:
 			{
-				anjuta_pm_project_new_package (project, parent, NULL, NULL);
+				anjuta_pm_project_new_package (plugin, parent, NULL, NULL);
 
 				break;
 			}
@@ -1356,7 +1356,7 @@ anjuta_pm_project_new_module (AnjutaPmProject *project,
 						new_module = gbf_tree_data_get_node (node->data);
 						name = anjuta_project_node_get_name (new_module);
 
-						new_module = ianjuta_project_add_node_after (project->project, target, NULL, ANJUTA_PROJECT_MODULE, NULL, name, &error);
+						new_module = ianjuta_project_add_node_after (plugin->project->project, target, NULL, ANJUTA_PROJECT_MODULE, NULL, name, &error);
 						if (error) {
 							gchar *str = g_strdup_printf ("%s: %s\n",
 															name,
@@ -1471,7 +1471,7 @@ on_pkg_chooser_selection_changed (AnjutaPkgConfigChooser* chooser,
 }
 
 GList* 
-anjuta_pm_project_new_package (AnjutaPmProject *project,
+anjuta_pm_project_new_package (ProjectManagerPlugin *plugin,
                               GtkWindow        *parent,
                               GtkTreeIter      *default_module,
                               GList            *packages_to_add)
@@ -1491,7 +1491,7 @@ anjuta_pm_project_new_package (AnjutaPmProject *project,
     gint default_pos = -1;
 	gint pos;
     
-    g_return_val_if_fail (project != NULL, NULL);
+    g_return_val_if_fail (plugin->project != NULL, NULL);
     
     gui = load_interface ("add_package_dialog");
     g_return_val_if_fail (gui != NULL, NULL);
@@ -1508,7 +1508,7 @@ anjuta_pm_project_new_package (AnjutaPmProject *project,
         GbfTreeData *data;
 	    GbfProjectModel *model;
 
-		model = anjuta_pm_project_get_model(project);
+		model = gbf_project_view_get_model(plugin->view);
 		gtk_tree_model_get (GTK_TREE_MODEL (model), default_module, GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
 		if (data != NULL)
 		{
@@ -1520,7 +1520,7 @@ anjuta_pm_project_new_package (AnjutaPmProject *project,
     store = gtk_list_store_new(1, G_TYPE_STRING);	
     gtk_combo_box_set_entry_text_column (GTK_COMBO_BOX (module_entry), 0);
 
-	root = ianjuta_project_get_root (project->project, NULL);
+	root = ianjuta_project_get_root (plugin->project->project, NULL);
 	pos = 0;
 	for (node = anjuta_project_node_first_child (root); node != NULL; node = anjuta_project_node_next_sibling (node))
 	{
@@ -1592,16 +1592,16 @@ anjuta_pm_project_new_package (AnjutaPmProject *project,
 				else
 				{
 					/* Look for already existing module */
-					module = anjuta_pm_project_get_module (project, name);
+					module = anjuta_pm_project_get_module (plugin->project, name);
 					if (module == NULL)
 					{
 						/* Create new module */
 						AnjutaProjectNode *root;
 						GError *error = NULL;
 
-						root = ianjuta_project_get_root (project->project, NULL);
+						root = ianjuta_project_get_root (plugin->project->project, NULL);
 
-						module = ianjuta_project_add_node_after (project->project, root, NULL, ANJUTA_PROJECT_MODULE, NULL, name, &error);
+						module = ianjuta_project_add_node_after (plugin->project->project, root, NULL, ANJUTA_PROJECT_MODULE, NULL, name, &error);
 						if (error != NULL)
 						{
                     		gchar *str = g_strdup_printf ("%s: %s\n", name, error->message);
@@ -1628,7 +1628,7 @@ anjuta_pm_project_new_package (AnjutaPmProject *project,
 
 						name = node->data;
 
-						new_package = ianjuta_project_add_node_after (project->project, module, NULL, ANJUTA_PROJECT_PACKAGE, NULL, name, &error);
+						new_package = ianjuta_project_add_node_after (plugin->project->project, module, NULL, ANJUTA_PROJECT_PACKAGE, NULL, name, &error);
 						if (error)
 						{
 							gchar *str = g_strdup_printf ("%s: %s\n",

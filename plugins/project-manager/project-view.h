@@ -36,19 +36,23 @@ G_BEGIN_DECLS
 #define GBF_IS_PROJECT_VIEW_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((obj), GBF_TYPE_PROJECT_VIEW))
 
 typedef struct _GbfProjectView        GbfProjectView;
-typedef struct _GbfProjectViewPrivate GbfProjectViewPrivate;
 typedef struct _GbfProjectViewClass   GbfProjectViewClass;
 
 
 struct _GbfProjectView {
 	GtkTreeView parent;
 
-	GbfProjectViewPrivate *priv;
+	GbfProjectModel *model;
 };
 
 struct _GbfProjectViewClass {
 	GtkTreeViewClass parent_class;
 
+	void (*node_loaded) (GbfProjectView *project_view,
+	                     GtkTreeIter *iter,
+	                     gboolean complete,
+	                     GError *error);
+	
 	void (* uri_activated)    (GbfProjectView *project_view,
 				   const char     *uri);
 
@@ -72,6 +76,18 @@ GList                      *gbf_project_view_get_shortcut_list (GbfProjectView *
 void			gbf_project_view_remove_all_shortcut (GbfProjectView* view);
 void                        gbf_project_view_set_shortcut_list (GbfProjectView *view,
                                                                  GList          *shortcuts);
+
+AnjutaProjectNode *gbf_project_view_get_node_from_iter (GbfProjectView *view, GtkTreeIter *iter);
+
+AnjutaProjectNode *gbf_project_view_get_node_from_file (GbfProjectView *view, AnjutaProjectNodeType type, GFile *file);
+
+gboolean gbf_project_view_remove_data (GbfProjectView *view, GbfTreeData *data, GError **error);
+
+void gbf_project_view_set_project (GbfProjectView *view, AnjutaPmProject *project);
+
+gboolean gbf_project_view_find_file (GbfProjectView *view, GtkTreeIter* iter, GFile *file, GbfTreeNodeType type);
+
+GbfProjectModel *gbf_project_view_get_model (GbfProjectView *view);
 
 G_END_DECLS
 

@@ -24,16 +24,16 @@
 
 #include <gtk/gtk.h>
 #include <libanjuta/interfaces/ianjuta-project.h>
-#include "project.h"
+#include "plugin.h"
 
 G_BEGIN_DECLS
 
-AnjutaProjectNode* anjuta_pm_project_new_group (AnjutaPmProject *project, GtkWindow *parent, GtkTreeIter *default_parent, const gchar *name);
-AnjutaProjectNode* anjuta_pm_project_new_target (AnjutaPmProject *project, GtkWindow *parent, GtkTreeIter *default_group, const gchar *name);
-AnjutaProjectNode* anjuta_pm_project_new_source (AnjutaPmProject *project, GtkWindow *parent, GtkTreeIter *default_parent, const gchar *name);
-GList* anjuta_pm_project_new_multiple_source (AnjutaPmProject *project, GtkWindow *parent, GtkTreeIter *default_parent, GList *name);
-GList* anjuta_pm_project_new_module (AnjutaPmProject *project, GtkWindow *parent, GtkTreeIter *default_target, const gchar *default_module);
-GList* anjuta_pm_project_new_package (AnjutaPmProject *project, GtkWindow *parent, GtkTreeIter *default_module, GList *packages_to_add);
+AnjutaProjectNode* anjuta_pm_project_new_group (ProjectManagerPlugin *plugin, GtkWindow *parent, GtkTreeIter *default_parent, const gchar *name);
+AnjutaProjectNode* anjuta_pm_project_new_target (ProjectManagerPlugin *plugin, GtkWindow *parent, GtkTreeIter *default_group, const gchar *name);
+AnjutaProjectNode* anjuta_pm_project_new_source (ProjectManagerPlugin *plugin, GtkWindow *parent, GtkTreeIter *default_parent, const gchar *name);
+GList* anjuta_pm_project_new_multiple_source (ProjectManagerPlugin *plugin, GtkWindow *parent, GtkTreeIter *default_parent, GList *name);
+GList* anjuta_pm_project_new_module (ProjectManagerPlugin *plugin, GtkWindow *parent, GtkTreeIter *default_target, const gchar *default_module);
+GList* anjuta_pm_project_new_package (ProjectManagerPlugin *plugin, GtkWindow *parent, GtkTreeIter *default_module, GList *packages_to_add);
 
 
 GtkWidget *pm_project_create_properties_dialog (AnjutaPmProject *project, GtkWindow *parent, AnjutaProjectNode *node);
