@@ -925,7 +925,7 @@ check_and_warn_missing (NPWDruid *druid)
 
 		npw_druid_fill_error_page (druid, hbox,
 								   GTK_MESSAGE_WARNING,
-								  _("The missing programs are usually part of some distrubution "
+								  _("The missing programs are usually part of some distribution "
 									"packages and can be searched for in your Application Manager. "
 									"Similarly, the development packages are contained in special "
 									"packages that your distribution provides to allow development "
