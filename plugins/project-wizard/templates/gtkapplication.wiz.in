@@ -38,6 +38,7 @@
 		<property type="boolean" name="HaveSharedlib" _label="Add shared library support:" _description="Adds support for building shared libraries in your project" default="1"/>
 		<property type="boolean" name="HaveGtkDoc" _label="Add gtk-doc system:" _description="gtk-doc is used to compile API documentations for GObject based classes" default="0"/>
 		<property type="boolean" name="HavePackageExtra" _label="Configure external packages:" _description="Use pkg-config to add library support from other packages" default="0"/>
+		<property type="boolean" name="HaveBuilderUI" _label="Use GtkBuilder for user interface:" _description="Use GtkBuilder to create the user-interface in a graphical way and load it from xml files at runtime" default="1"/>
 	</page>
 	
 	[+IF (=(get "HavePackageExtra") "1")+]
@@ -69,7 +70,9 @@
 				<file source="main.c"/>
 				<file source="application.h" destination="[+NameLower+].h"/>
 				<file source="application.c" destination="[+NameLower+].c"/>
+		[+IF (=(get "HaveBuilderUI") "1")+]				
 				<file source="project.ui" destination="[+NameHLower+].ui"/>
+		[+ENDIF+]
 				<file source="Makefile.am.tpl" destination="Makefile.am"/>
 			</directory>
 		</directory>

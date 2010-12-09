@@ -1,6 +1,6 @@
 [+ autogen5 template +]
 # List of source files containing translatable strings.
-
 src/main.c
-src/callbacks.c
-src/callbacks.h
+src/application.c
+src/application.h
+[type: gettext/glade]src/[+NameHLower+].ui

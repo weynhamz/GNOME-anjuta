@@ -14,9 +14,11 @@
 #include <glib/gi18n.h>
 [+ENDIF+]
 
+[+IF (=(get "HaveBuilderUI") "1")+]
 /* For testing propose use the local (not installed) ui file */
 /* #define UI_FILE PACKAGE_DATA_DIR"/[+NameHLower+]/ui/[+NameHLower+].ui" */
 #define UI_FILE "src/[+NameHLower+].ui"
+[+ENDIF+]
 
 G_DEFINE_TYPE ([+NameCClass+], [+NameCLower+], GTK_TYPE_APPLICATION);
 
@@ -26,6 +28,7 @@ static void
                            GFile        *file)
 {
 	GtkWidget *window;
+[+IF (=(get "HaveBuilderUI") "1")+]
 	GtkBuilder *builder;
 	GError* error = NULL;
 
@@ -43,8 +46,11 @@ static void
 	/* Get the window object from the ui file */
 	window = GTK_WIDGET (gtk_builder_get_object (builder, "window"));
 	g_object_unref (builder);
-
-
+[+ELSE+]
+	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_title (GTK_WINDOW (window), "[+Name+]");
+[+ENDIF+]	
+	
 	gtk_window_set_application (GTK_WINDOW (window), GTK_APPLICATION (app));
 	if (file != NULL)
 	{

@@ -17,6 +17,7 @@
 #include <glib/gi18n.h>
 [+ENDIF+]
 
+[+IF (=(get "HaveBuilderUI") "1")+]
 /* For testing propose use the local (not installed) ui file */
 /* #define UI_FILE PACKAGE_DATA_DIR"/[+NameHLower+]/ui/[+NameHLower+].ui" */
 #define UI_FILE "src/[+NameHLower+].ui"
@@ -57,6 +58,21 @@ create_window (void)
 	
 	return window;
 }
+[+ELSE+]
+static GtkWidget*
+create_window (void)
+{
+	GtkWidget *window;
+
+	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_title (GTK_WINDOW (window), "[+Name+]");
+
+	/* Exit when the window is closed */
+	g_signal_connect (window, "destroy", G_CALLBACK (gtk_main_quit), NULL);
+	
+	return window;
+}
+[+ENDIF+]
 
 int
 main (int argc, char *argv[])

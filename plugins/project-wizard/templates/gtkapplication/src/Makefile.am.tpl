@@ -3,8 +3,10 @@
 
 ## Created by Anjuta
 
+[+IF (=(get "HaveBuilderUI") "1")+]
 uidir = $(datadir)/[+NameHLower+]/ui
 ui_DATA = [+NameHLower+].ui
+[+ENDIF+]
 
 AM_CPPFLAGS = \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
@@ -28,9 +30,11 @@ bin_PROGRAMS = [+NameHLower+]
 
 [+NameCLower+]_LDADD = $([+NameCUpper+]_LIBS)
 
+[+IF (=(get "HaveBuilderUI") "1")+]
 EXTRA_DIST = $(ui_DATA)
 
 # Remove ui directory on uninstall
 uninstall-local:
 	-rm -r $(uidir)
 	-rm -r $(datadir)/[+NameHLower+]
+[+ENDIF+]
