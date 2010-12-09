@@ -193,7 +193,7 @@ main (int argc, char *argv[])
 	else
 	{
 		AnjutaApp *app = create_window (files, n_files,
-										no_session, no_client, no_files,
+										no_splash, no_session, no_files,
 										proper_shutdown, anjuta_geometry);
 		gtk_window_set_application (GTK_WINDOW (app), GTK_APPLICATION (anjuta));
 		gtk_widget_show (GTK_WIDGET (app));
