@@ -1,6 +1,6 @@
 [+ autogen5 template +]
 # List of source files containing translatable strings.
-
-src/main.c
-src/callbacks.c
-src/callbacks.h
+src/main.cc
+[+IF (=(get "HaveBuilderUI") "1")+]
+[type: gettext/glade]src/[+NameHLower+].ui
+[+ENDIF+]

@@ -34,7 +34,6 @@ wizard_files_DATA = \
 	gtk-logo.png \
 	anjuta-plugin-logo.png \
 	gnome-logo.png \
-	gtkmm-logo.png \
 	wxwin-logo.png \
 	xlib-logo.png \
 	gcj-logo.png \
