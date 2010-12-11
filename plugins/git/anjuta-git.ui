@@ -1066,7 +1066,8 @@
                         <property name="can_focus">True</property>
                         <property name="invisible_char">•</property>
                         <property name="text" translatable="yes">Whole project; Drop a file here or type a path to view a file or folder log</property>
-                        <property name="help_text" translatable="yes">Whole project; Drop a file here or type a path to view a file or folder log</property>
+                        <property name="help_text" translatable="yes">Whole project; Drop a file here to view a file or folder log</property>
+                        <property name="editable">False</property>
                       </object>
                       <packing>
                         <property name="position">0</property>

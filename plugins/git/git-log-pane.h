@@ -21,6 +21,7 @@
 #define _GIT_LOG_PANE_H_
 
 #include <glib-object.h>
+#include <libanjuta/anjuta-entry.h>
 #include "git-pane.h"
 #include "git-log-command.h"
 #include "git-log-message-command.h"

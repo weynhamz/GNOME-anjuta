@@ -57,12 +57,23 @@ static GtkTargetEntry drag_source_targets[] =
 	}
 };
 
+/* DnD target targets */
+static GtkTargetEntry drag_target_targets[] =
+{
+	{
+		"text/uri-list",
+		0,
+		0
+	}
+};
+
 struct _GitLogPanePriv
 {
 	GtkBuilder *builder;
 	GtkListStore *log_model;
 	GtkCellRenderer *graph_renderer;
 	GHashTable *refs;
+	gchar *path;
 
 	/* This table maps branch names and iters in the branch combo model. When
 	 * branches get refreshed, use this to make sure that the same branch the
@@ -302,20 +313,30 @@ static void
 refresh_log (GitLogPane *self)
 {
 	Git *plugin;
+	GtkTreeViewColumn *graph_column;
 	GitLogCommand *log_command;
 
 	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
+	graph_column = GTK_TREE_VIEW_COLUMN (gtk_builder_get_object (self->priv->builder,
+	                                                             "graph_column"));
 	
 	/* We don't support filters for now */
 	log_command = git_log_command_new (plugin->project_root_directory,
 	                                   self->priv->selected_branch,
-	                                   NULL,
+	                                   self->priv->path,
 	                                   NULL,
 	                                   NULL,
 	                                   NULL,
 	                                   NULL,
 	                                   NULL,
 	                                   NULL);
+
+	/* Hide the graph column if we're looking at the log of a path. The graph
+	 * won't be correct in this case. */
+	if (self->priv->path)
+		gtk_tree_view_column_set_visible (graph_column, FALSE);
+	else
+		gtk_tree_view_column_set_visible (graph_column, TRUE);
 
 	g_signal_connect (G_OBJECT (log_command), "command-finished",
 	                  G_CALLBACK (on_log_command_finished),
@@ -657,6 +678,105 @@ on_log_view_drag_data_get (GtkWidget *log_view,
 }
 
 static void
+on_log_pane_drag_data_received (GtkWidget *widget,
+                                GdkDragContext *context, gint x, gint y,
+                                GtkSelectionData *data, guint target_type,
+                                guint time, GitLogPane *self)
+{
+	Git *plugin;
+	AnjutaEntry *path_entry;
+	gboolean success;
+	gchar **uri_list;
+	GFile *parent_file;
+	GFile *file;
+	gchar *path;
+
+	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
+	path_entry = ANJUTA_ENTRY (gtk_builder_get_object (self->priv->builder,
+	                                                   "path_entry"));
+	success = FALSE;
+
+	if ((data != NULL) && 
+	    (gtk_selection_data_get_length (data) >= 0))
+	{
+		if (target_type == 0)
+		{
+			uri_list = gtk_selection_data_get_uris (data);
+			parent_file = NULL;
+			
+			parent_file = g_file_new_for_path (plugin->project_root_directory);
+
+			/* Take only the first file */
+			file = g_file_new_for_uri (uri_list[0]);
+
+			if (parent_file)
+			{
+				path = g_file_get_relative_path (parent_file, file);
+
+				g_object_unref (parent_file);
+			}
+			else
+				path = g_file_get_path (file);
+
+			if (path)
+			{
+				anjuta_entry_set_text (path_entry, path);
+
+				g_free (self->priv->path);
+				self->priv->path = g_strdup (path);
+
+				refresh_log (self);
+
+				g_free (path);
+			}
+			
+			success = TRUE;
+
+			g_object_unref (file);
+			g_strfreev (uri_list);
+		}
+	}
+
+	/* Do not delete source data */
+	gtk_drag_finish (context, success, FALSE, time);
+}
+
+static gboolean
+on_log_pane_drag_drop (GtkWidget *widget, GdkDragContext *context, 
+                       gint x, gint y, guint time,
+                       GitLogPane *self)
+{
+	GdkAtom target_type;
+
+	target_type = gtk_drag_dest_find_target (widget, context, NULL);
+
+	if (target_type != GDK_NONE)
+		gtk_drag_get_data (widget, context, target_type, time);
+	else
+		gtk_drag_finish (context, FALSE, FALSE, time);
+
+	return TRUE;
+}
+
+static void
+on_path_entry_icon_release (GtkEntry *entry, 
+                            GtkEntryIconPosition position,
+                            GdkEvent *event,
+                            GitLogPane *self)
+{	
+	if (position == GTK_ENTRY_ICON_SECONDARY)
+	{
+		if (self->priv->path)
+		{
+			g_free (self->priv->path);
+			self->priv->path = NULL;
+
+			refresh_log (self);
+		}
+	}
+}
+
+static void
 git_log_pane_init (GitLogPane *self)
 {
 	gchar *objects[] = {"log_pane",
@@ -665,6 +785,8 @@ git_log_pane_init (GitLogPane *self)
 						"find_button_image",
 						NULL};
 	GError *error = NULL;
+	GtkWidget *log_pane;
+	GtkWidget *path_entry;
 	GtkTreeView *log_view;
 	GtkTreeViewColumn *ref_icon_column;
 	GtkTreeViewColumn *graph_column;
@@ -695,6 +817,10 @@ git_log_pane_init (GitLogPane *self)
 		g_error_free (error);
 	}
 
+	log_pane = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
+	                                               "log_pane"));
+	path_entry = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
+	                                                 "path_entry"));
 	log_view = GTK_TREE_VIEW (gtk_builder_get_object (self->priv->builder,
 	                                                  "log_view"));
 	ref_icon_column = GTK_TREE_VIEW_COLUMN (gtk_builder_get_object (self->priv->builder,
@@ -718,6 +844,11 @@ git_log_pane_init (GitLogPane *self)
 	loading_spinner_column = GTK_TREE_VIEW_COLUMN (gtk_builder_get_object (self->priv->builder,
 	                                                                       "loading_spinner_column"));
 	selection = gtk_tree_view_get_selection (log_view);
+
+	/* Path entry */
+	g_signal_connect (G_OBJECT (path_entry), "icon-release",
+	                  G_CALLBACK (on_path_entry_icon_release),
+	                  self);
 
 	/* Set up the log model */
 	self->priv->log_model = gtk_list_store_new (1, GIT_TYPE_REVISION);
@@ -796,6 +927,23 @@ git_log_pane_init (GitLogPane *self)
 	                  G_CALLBACK (on_log_view_drag_data_get),
 	                  self);
 
+	/* DnD target. Use this as a means of selecting a file to view the 
+	 * log of. Files or folders would normally be dragged in from the file 
+	 * manager, but they can come from any source that supports URI's. */
+	gtk_drag_dest_set (log_pane, 
+	                   GTK_DEST_DEFAULT_MOTION | GTK_DEST_DEFAULT_HIGHLIGHT, 
+	                   drag_target_targets,
+	                   G_N_ELEMENTS (drag_target_targets), 
+	                   GDK_ACTION_COPY | GDK_ACTION_MOVE);
+
+	g_signal_connect (G_OBJECT (log_pane), "drag-data-received",
+	                  G_CALLBACK (on_log_pane_drag_data_received),
+	                  self);
+
+	g_signal_connect (G_OBJECT (log_pane), "drag-drop",
+	                  G_CALLBACK (on_log_pane_drag_drop),
+	                  self);
+
 	/* The loading view always has one row. Cache a copy of its iter for easy
 	 * access. */
 	gtk_tree_model_get_iter_first (GTK_TREE_MODEL (self->priv->log_loading_model), 
@@ -842,6 +990,7 @@ git_log_pane_finalize (GObject *object)
 	self = GIT_LOG_PANE (object);
 
 	g_object_unref (self->priv->builder);
+	g_free (self->priv->path);
 	g_hash_table_destroy (self->priv->branches_table);
 	g_hash_table_unref (self->priv->refs);
 	g_free (self->priv->selected_branch);
