@@ -52,6 +52,7 @@ struct _GbfTreeData
 	gchar			*target;
 	GFile			*source;
 	gboolean		is_shortcut;
+	gboolean		expanded;
 	GbfTreeData		*shortcut;
 	GtkWidget		*properties_dialog;
 };
@@ -68,14 +69,18 @@ gboolean       gbf_tree_data_equal              (GbfTreeData           *data_a,
 gboolean       gbf_tree_data_equal_file         (GbfTreeData           *data,
                                                  AnjutaProjectNodeType type,
                                                  GFile                 *file);
+gboolean       gbf_tree_data_equal_name         (GbfTreeData           *data,
+                                                 const gchar           *name);
 
 GbfTreeData   *gbf_tree_data_new_string         (const gchar           *string);
 GbfTreeData   *gbf_tree_data_new_shortcut       (GbfTreeData		   *src);
+GbfTreeData   *gbf_tree_data_new_proxy   					(const gchar           *name, gboolean expanded);
 GbfTreeData   *gbf_tree_data_new_group          (AnjutaProjectNode     *group);
 GbfTreeData   *gbf_tree_data_new_target         (AnjutaProjectNode     *target);
 GbfTreeData   *gbf_tree_data_new_source         (AnjutaProjectNode     *source);
 GbfTreeData   *gbf_tree_data_new_module         (AnjutaProjectNode     *module);
 GbfTreeData   *gbf_tree_data_new_package        (AnjutaProjectNode     *package);
+GbfTreeData			*gbf_tree_data_new_node							(AnjutaProjectNode     *node);
 void				gbf_tree_data_invalidate (GbfTreeData *data);
 void           gbf_tree_data_free               (GbfTreeData           *data);
 

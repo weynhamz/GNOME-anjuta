@@ -189,17 +189,33 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 		g_list_free (list);
 	}
 
+	/* Save expanded node */
+	list = gbf_project_view_get_expanded_list (GBF_PROJECT_VIEW (plugin->view));
+	if (list != NULL)
+	{
+    	anjuta_session_set_string_list (session, "Project Manager", "Expand", list);
+		g_list_foreach (list, (GFunc)g_free, NULL);
+		g_list_free (list);
+	}
+	
 }
 
 static void
 on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, AnjutaSession *session, ProjectManagerPlugin *plugin)
 {
+	GList *list;
+	
 	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
 		return;
 
 	g_list_foreach (plugin->shortcuts, (GFunc)g_free, NULL);
 	g_list_free (plugin->shortcuts);
 	plugin->shortcuts = anjuta_session_get_string_list (session, "Project Manager", "Shortcut");
+
+	list = anjuta_session_get_string_list (session, "Project Manager", "Expand");
+	gbf_project_view_set_expanded_list (GBF_PROJECT_VIEW (plugin->view), list);
+	g_list_foreach (list, (GFunc)g_free, NULL);
+	g_list_free (list);
 }
 
 static void

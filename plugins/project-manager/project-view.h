@@ -43,6 +43,9 @@ struct _GbfProjectView {
 	GtkTreeView parent;
 
 	GbfProjectModel *model;
+	GtkTreeModelFilter *filter;
+
+	GNode *expanded;
 };
 
 struct _GbfProjectViewClass {
@@ -65,6 +68,11 @@ struct _GbfProjectViewClass {
 GType                       gbf_project_view_get_type          (void);
 GtkWidget                  *gbf_project_view_new               (void);
 
+AnjutaProjectNode          *gbf_project_filter_view_find_selected     (GtkTreeView *view,
+									AnjutaProjectNodeType type);
+GList                      *gbf_project_filter_view_get_all_selected  (GtkTreeView *view);
+
+
 AnjutaProjectNode          *gbf_project_view_find_selected     (GbfProjectView *view,
 							        AnjutaProjectNodeType type);
 GbfTreeData                *gbf_project_view_get_first_selected(GbfProjectView *view,
@@ -72,11 +80,20 @@ GbfTreeData                *gbf_project_view_get_first_selected(GbfProjectView *
 GList                      *gbf_project_view_get_all_selected  (GbfProjectView *view);
 GList                      *gbf_project_view_get_all_selected_iter  (GbfProjectView *view);
 
-GList                      *gbf_project_view_get_shortcut_list (GbfProjectView *view);
-void			gbf_project_view_remove_all_shortcut (GbfProjectView* view);
-void                        gbf_project_view_set_shortcut_list (GbfProjectView *view,
-                                                                 GList          *shortcuts);
+GList			*gbf_project_view_get_shortcut_list (GbfProjectView *view);
+GList			*gbf_project_view_get_expanded_list (GbfProjectView *view);
 
+void			gbf_project_view_remove_all_shortcut (GbfProjectView* view);
+void			gbf_project_view_set_shortcut_list (GbfProjectView *view,
+								GList          *shortcuts);
+void			gbf_project_view_set_expanded_list (GbfProjectView *view,
+								GList   *expanded);
+
+void            gbf_project_view_update_tree (GbfProjectView *view,
+                                                    AnjutaProjectNode *parent,
+                                                    GtkTreeIter *iter);
+
+			                                       
 AnjutaProjectNode *gbf_project_view_get_node_from_iter (GbfProjectView *view, GtkTreeIter *iter);
 
 AnjutaProjectNode *gbf_project_view_get_node_from_file (GbfProjectView *view, AnjutaProjectNodeType type, GFile *file);
@@ -88,6 +105,8 @@ void gbf_project_view_set_project (GbfProjectView *view, AnjutaPmProject *projec
 gboolean gbf_project_view_find_file (GbfProjectView *view, GtkTreeIter* iter, GFile *file, GbfTreeNodeType type);
 
 GbfProjectModel *gbf_project_view_get_model (GbfProjectView *view);
+
+
 
 G_END_DECLS
 
