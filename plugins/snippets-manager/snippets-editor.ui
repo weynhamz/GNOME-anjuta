@@ -94,10 +94,12 @@ The role of the name is purely informative.</property>
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkComboBox" id="snippets_group_combo_box">
+                              <object class="GtkComboBoxText" id="snippets_group_combo_box">
                                 <property name="width_request">180</property>
                                 <property name="visible">True</property>
                                 <property name="tooltip_text" translatable="yes">Select the Snippets Group to which this snippet belongs.</property>
+                                <property name="has-entry">True</property>
+                                <property name="entry-text-column">0</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
