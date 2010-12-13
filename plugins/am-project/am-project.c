@@ -33,6 +33,7 @@
 #include <libanjuta/interfaces/ianjuta-project.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-utils.h>
+#include <libanjuta/anjuta-pkg-config.h>
 
 #include <string.h>
 #include <memory.h>
@@ -210,17 +211,6 @@ static AmpNodeInfo AmpNodeInformations[] = {
 
 /* Properties
  *---------------------------------------------------------------------------*/
-
-
-/* Blacklist for packages that shouldn't be parsed. Those packages
- * usually contain the same include paths as their top-level package
- * Checked with g_str_has_prefix() so partial names are ok!
- */
-const gchar* ignore_packages[] = 
-{
-	"gdk-x11-",
-	NULL
-};
 
 
 /* ----- Standard GObject types and variables ----- */
@@ -1956,120 +1946,36 @@ list_all_children (GList **children, GFile *dir)
 	}
 }
 
-static GList*
-amp_project_get_includes (const gchar* pkg_name)
-{
-	gchar *cmd;
-	gchar *err;
-	gchar *out;
-	GError *error;
-	gint status;
-	GList *dirs = NULL;
-	
-	cmd = g_strdup_printf ("pkg-config --cflags-only-I %s", pkg_name);
-
-	if (g_spawn_command_line_sync (cmd, &out, &err, &status, &error))
-	{
-		gchar **flags;
-
-		flags = g_strsplit (out, " ", -1);
-
-		if (flags != NULL)
-		{
-			gchar **flag;
-			
-			for (flag = flags; *flag != NULL; flag++)
-			{
-				if (g_regex_match_simple ("\\.*/include/\\w+", *flag, 0, 0) == TRUE)
-                {
-					dirs = g_list_prepend (dirs, g_strdup (*flag + 2));
-				}
-			}
-			g_strfreev (flags);
-		}
-	}
-	else
-	{
-		if (error)
-		{
-			g_warning ("Could not query dependencies: %s",
-			           error->message);
-			g_error_free (error);
-		}
-	}
-	g_free (cmd);
-	return dirs;
-}
-
-static GList*
-amp_project_remove_includes (GList* includes, GList* dependencies)
-{
-	GList* dir;
-	for (dir = dependencies; dir != NULL; dir = g_list_next (dir))
-	{
-		GList* find = g_list_find_custom (includes, dir->data, (GCompareFunc)strcmp);
-		if (find)
-		{
-			g_free (find->data);
-			includes = g_list_delete_link (includes, find);
-		}
-	}
-	return includes;
-}
-
-static gboolean
-amp_project_ignore_package (const gchar* name)
-{
-	const gchar** pkg;
-	for (pkg = ignore_packages; *pkg != NULL; pkg++)
-	{
-		if (g_str_has_prefix (name, *pkg))
-			return TRUE;
-	}
-	return FALSE;
-}
-
 static AnjutaProjectNode *
 amp_project_load_package (AmpProject *project, AnjutaProjectNode *node, GError **error)
 {
-	gchar *cmd;
-	gchar *err;
-	gchar *out;
-	gint status;
-	GList* dependency_dirs = NULL;
+	GList* deps;
+	GList* dep;
 	GList* include_dirs = NULL;
 	
-	/* list package depencies */
-	cmd = g_strdup_printf ("pkg-config --print-requires --print-requires-private %s",
-	                       anjuta_project_node_get_name (node));
-	if (g_spawn_command_line_sync (cmd, &out, &err, &status, NULL))
+	deps = anjuta_pkg_config_list_dependencies (anjuta_project_node_get_name (node),
+	                                            error);
+	for (dep = deps; dep != NULL; dep = g_list_next (dep))
 	{
-		gchar** depends = g_strsplit (out, "\n", -1);
-		if (depends != NULL)
-		{
-			gchar** depend;
-			for (depend = depends; *depend != NULL; depend++)
-			{
-				if (strlen (*depend) && !amp_project_ignore_package (*depend))
-				{
-					AnjutaProjectNode *pkg;
-					dependency_dirs = g_list_concat (dependency_dirs,
-					                                 amp_project_get_includes (*depend));
-					/* Create a package node for the depedencies */
+		/* Create a package node for the depedencies */
+		AnjutaProjectNode *pkg;
 
-					pkg = project_node_new (project, ANJUTA_PROJECT_PACKAGE, NULL, *depend, NULL);
-					anjuta_project_node_append (node, pkg);
-				}
-			}
-			g_strfreev (depends);
-		}
+		pkg = project_node_new (project, ANJUTA_PROJECT_PACKAGE, NULL, dep->data, NULL);
+		anjuta_project_node_append (node, pkg);
 	}
+	anjuta_util_glist_strings_free (deps);
 
-	if ((include_dirs = amp_project_get_includes (anjuta_project_node_get_name (node))))
+	if (*error != NULL)
+	{
+		g_warning ("Error getting dependencies: %s", (*error)->message);
+		g_error_free (*error);
+		*error = NULL;
+	}
+	
+	if ((include_dirs = anjuta_pkg_config_get_directories (anjuta_project_node_get_name (node),
+	                                                       TRUE, error)))
 	{
 		GList* include_dir;
-		
-		include_dirs = amp_project_remove_includes (include_dirs, dependency_dirs);
 		
 		for (include_dir = include_dirs; include_dir != NULL; include_dir = g_list_next (include_dir))
 		{
@@ -2092,7 +1998,6 @@ amp_project_load_package (AmpProject *project, AnjutaProjectNode *node, GError *
 		}
 	}
 	anjuta_util_glist_strings_free (include_dirs);
-	anjuta_util_glist_strings_free (dependency_dirs);
 	
 	return node;
 }
