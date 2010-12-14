@@ -50,7 +50,10 @@ endif # ENABLE_VALA
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
-	$(vala_plugin_DATA)
+	$(vala_plugin_DATA) \
+	libanjuta-1.0.deps \
+	libanjuta-1.0.vapi
+
 
 -include $(top_srcdir)/git.mk
 
