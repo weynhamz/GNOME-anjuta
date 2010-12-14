@@ -22,24 +22,13 @@
  * 	Boston, MA  02110-1301, USA.
  */
 
-#define COMMIT_REGEX "^commit ([[:xdigit:]]{40})"
-#define PARENT_REGEX "^parents (.*)"
-#define AUTHOR_REGEX "^author (.*)"
-#define TIME_REGEX "^time (\\d*)"
-#define SHORT_LOG_REGEX "^(?:short log) (.*)"
-
 #include "git-log-command.h"
 
 struct _GitLogCommandPriv
 {
-	GQueue *output_queue;
-	GHashTable *revisions;
-	GitRevision *current_revision;
-	GRegex *commit_regex;
-	GRegex *parent_regex;
-	GRegex *author_regex;
-	GRegex *time_regex;
-	GRegex *short_log_regex;
+	GitLogDataCommand *data_command;
+	guint return_code;
+
 	gchar *branch;
 	gchar *path;
 	
@@ -55,44 +44,43 @@ struct _GitLogCommandPriv
 G_DEFINE_TYPE (GitLogCommand, git_log_command, GIT_TYPE_COMMAND);
 
 static void
+on_data_command_data_arrived (AnjutaCommand *command, GitLogCommand *self)
+{
+	anjuta_command_notify_data_arrived (command);
+}
+
+static void
+on_data_command_finished (AnjutaCommand *command, guint return_code,
+                          GitLogCommand *self)
+{
+	ANJUTA_COMMAND_CLASS (git_log_command_parent_class)->notify_complete (ANJUTA_COMMAND (self),
+	                                                                      self->priv->return_code);
+}
+
+static void
 git_log_command_init (GitLogCommand *self)
 {
 	self->priv = g_new0 (GitLogCommandPriv, 1);
-	self->priv->output_queue = g_queue_new ();
-	self->priv->revisions = g_hash_table_new_full (g_str_hash, g_str_equal,
-												   g_free, g_object_unref);
-	self->priv->commit_regex = g_regex_new (COMMIT_REGEX, 0, 0, NULL);
-	self->priv->parent_regex = g_regex_new (PARENT_REGEX, 0, 0, NULL);
-	self->priv->author_regex = g_regex_new (AUTHOR_REGEX, 0, 0, NULL);
-	self->priv->time_regex = g_regex_new (TIME_REGEX, 0, 0, NULL);
-	self->priv->short_log_regex = g_regex_new (SHORT_LOG_REGEX, 0, 0, NULL);
+
+	self->priv->data_command = git_log_data_command_new ();
+
+	g_signal_connect (G_OBJECT (self->priv->data_command), "data-arrived",
+	                  G_CALLBACK (on_data_command_data_arrived),
+	                  self);
+
+	g_signal_connect (G_OBJECT (self->priv->data_command), "command-finished",
+	                  G_CALLBACK (on_data_command_finished),
+	                  self);
 }
 
 static void
 git_log_command_finalize (GObject *object)
 {
 	GitLogCommand *self;
-	GList *current_output;
 	
 	self = GIT_LOG_COMMAND (object);
-	current_output = self->priv->output_queue->head;
 	
-	while (current_output)
-	{
-		g_object_unref (current_output->data);
-		current_output = g_list_next (current_output);
-	}
-	
-	g_queue_free (self->priv->output_queue);
-	g_hash_table_destroy (self->priv->revisions);
-	g_regex_unref (self->priv->commit_regex);
-	g_regex_unref (self->priv->parent_regex);
-	g_regex_unref (self->priv->author_regex);
-	g_regex_unref (self->priv->time_regex);
-	g_regex_unref (self->priv->short_log_regex);
-	g_free (self->priv->branch);
-	g_free (self->priv->path);
-	
+	g_object_unref (self->priv->data_command);
 	g_free (self->priv->author);
 	g_free (self->priv->grep);
 	g_free (self->priv->since_date);
@@ -177,127 +165,37 @@ git_log_command_run (AnjutaCommand *command)
 		git_command_add_arg (GIT_COMMAND (command), "--");
 		git_command_add_arg (GIT_COMMAND (command), self->priv->path);
 	}
+
+	/* Start the data processing task */
+	anjuta_command_start (ANJUTA_COMMAND (self->priv->data_command));
 	
 	return 0;
+}
+
+static void
+git_log_command_notify_complete (AnjutaCommand *command, guint return_code)
+{
+	GitLogCommand *self;
+
+	self = GIT_LOG_COMMAND (command);
+
+	/* Send an empty string to the data processing command so that it knows
+	 * to stop when it's done processing data. The command will finish when 
+	 * the processing thread finishes, and not when git stops executing */
+	git_log_data_command_push_line (self->priv->data_command, "");
+
+	/* Use the git return code */
+	self->priv->return_code = return_code;
 }
 
 static void
 git_log_command_handle_output (GitCommand *git_command, const gchar *output)
 {
 	GitLogCommand *self;
-	GMatchInfo *commit_match_info;
-	GMatchInfo *parent_match_info;
-	GMatchInfo *author_match_info;
-	GMatchInfo *time_match_info;
-	GMatchInfo *short_log_match_info;
-	gchar *commit_sha;
-	gchar *parents;
-	gchar **parent_shas;
-	gint i;
-	GitRevision *parent_revision;
-	gchar *author;
-	gchar *time;
-	gchar *short_log;
 	
 	self = GIT_LOG_COMMAND (git_command);
 
-	commit_match_info = NULL;
-	parent_match_info = NULL;
-	author_match_info = NULL;
-	time_match_info = NULL;
-	short_log_match_info = NULL;
-	
-	/* Entries are delimited by the hex value 0x0c */
-	if (*output == 0x0c && self->priv->current_revision)
-	{	
-		g_queue_push_tail (self->priv->output_queue, 
-						   self->priv->current_revision);
-		anjuta_command_notify_data_arrived (ANJUTA_COMMAND (git_command));
-	}
-	
-	if (g_regex_match (self->priv->commit_regex, output, 0, &commit_match_info))
-	{
-		commit_sha = g_match_info_fetch (commit_match_info, 1);
-		
-		self->priv->current_revision = g_hash_table_lookup (self->priv->revisions, 
-															commit_sha);
-		
-		if (!self->priv->current_revision)
-		{
-			self->priv->current_revision = git_revision_new ();
-			git_revision_set_sha (self->priv->current_revision, commit_sha);
-			g_hash_table_insert (self->priv->revisions, g_strdup (commit_sha),
-								 g_object_ref (self->priv->current_revision));
-		}
-		
-		g_free (commit_sha);
-	}
-	else if (g_regex_match (self->priv->parent_regex, output, 0, 
-							&parent_match_info))
-	{	
-		parents = g_match_info_fetch (parent_match_info, 1);
-		parent_shas = g_strsplit (parents, " ", -1);
-		
-		for (i = 0; parent_shas[i]; i++)
-		{
-			parent_revision = g_hash_table_lookup (self->priv->revisions,
-												   parent_shas[i]);
-			
-			if (!parent_revision)
-			{
-				parent_revision = git_revision_new ();
-				git_revision_set_sha (parent_revision, parent_shas[i]);
-				g_hash_table_insert (self->priv->revisions,
-									 g_strdup (parent_shas[i]),
-									 g_object_ref (parent_revision));
-			}
-			
-			git_revision_add_child (parent_revision,
-									self->priv->current_revision);
-		}
-		
-		g_free (parents);
-		g_strfreev (parent_shas);
-	}
-	else if (g_regex_match (self->priv->author_regex, output, 0, 
-			 &author_match_info))
-	{
-		author = g_match_info_fetch (author_match_info, 1);
-		git_revision_set_author (self->priv->current_revision, author);
-		
-		g_free (author);
-	}
-	else if (g_regex_match (self->priv->time_regex, output, 0, 
-			 &time_match_info))
-	{
-		time = g_match_info_fetch (time_match_info, 1);
-		git_revision_set_date (self->priv->current_revision, atol (time));
-		
-		g_free (time);
-	}
-	else if (g_regex_match (self->priv->short_log_regex, output, 0, 
-							&short_log_match_info))
-	{
-		short_log = g_match_info_fetch (short_log_match_info, 1);
-		git_revision_set_short_log (self->priv->current_revision, short_log);
-		
-		g_free (short_log);
-	}
-	
-	if (commit_match_info)
-		g_match_info_free (commit_match_info);
-
-	if (parent_match_info)
-		g_match_info_free (parent_match_info);
-
-	if (author_match_info)
-		g_match_info_free (author_match_info);
-
-	if (time_match_info)
-		g_match_info_free (time_match_info);
-
-	if (short_log_match_info)
-		g_match_info_free (short_log_match_info);
+	git_log_data_command_push_line (self->priv->data_command, output);
 }
 
 static void
@@ -310,6 +208,7 @@ git_log_command_class_init (GitLogCommandClass *klass)
 	object_class->finalize = git_log_command_finalize;
 	parent_class->output_handler = git_log_command_handle_output;
 	command_class->run = git_log_command_run;
+	command_class->notify_complete = git_log_command_notify_complete;
 }
 
 
@@ -343,5 +242,5 @@ git_log_command_new (const gchar *working_directory,
 GQueue *
 git_log_command_get_output_queue (GitLogCommand *self)
 {
-	return self->priv->output_queue;
+	return git_log_data_command_get_output (self->priv->data_command);
 }

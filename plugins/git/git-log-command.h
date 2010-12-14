@@ -28,6 +28,7 @@
 #include <glib-object.h>
 #include <stdlib.h>
 #include "git-command.h"
+#include "git-log-data-command.h"
 #include "git-revision.h"
 
 G_BEGIN_DECLS
