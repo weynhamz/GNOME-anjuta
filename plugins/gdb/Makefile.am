@@ -33,7 +33,6 @@ plugin_LTLIBRARIES = libanjuta-gdb.la
 libanjuta_gdb_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 libanjuta_gdb_la_LIBADD = \
-	$(GTK_LIBS) \
 	$(LIBANJUTA_LIBS) \
 	$(XML_LIBS)
 

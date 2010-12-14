@@ -44,7 +44,6 @@ libanjuta_devhelp_la_SOURCES = \
 
 # Plugin dependencies
 libanjuta_devhelp_la_LIBADD = \
-	$(GTK_LIBS) \
 	$(LIBANJUTA_LIBS) \
 	$(PLUGIN_DEVHELP_LIBS)
 

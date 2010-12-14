@@ -440,7 +440,7 @@ PROPERTY (URL): [http://www.anjuta.org/]
                     SOURCE (11:6:1:4:0): plugins/gdb/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:1:5): libanjuta-gdb.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
-                    PROPERTY (Additional libraries): $(GTK_LIBS) $(LIBANJUTA_LIBS)
+                    PROPERTY (Additional libraries): $(LIBANJUTA_LIBS)
                     SOURCE (11:6:1:5:0): plugins/gdb/gdbmi.c
                     SOURCE (11:6:1:5:1): plugins/gdb/gdbmi.h
                     SOURCE (11:6:1:5:2): plugins/gdb/debugger.c
@@ -452,7 +452,7 @@ PROPERTY (URL): [http://www.anjuta.org/]
                     SOURCE (11:6:1:5:8): plugins/gdb/preferences.c
                     SOURCE (11:6:1:5:9): plugins/gdb/preferences.h
                 TARGET (11:6:1:6): gdbmi-test
-                    PROPERTY (Additional objects): $(GTK_LIBS) $(LIBANJUTA_LIBS) $(LIBXML_LIBS)
+                    PROPERTY (Additional objects): $(LIBANJUTA_LIBS) $(LIBXML_LIBS)
                     PROPERTY (C compiler flags): $(AM_CFLAGS)
                     SOURCE (11:6:1:6:0): plugins/gdb/gdbmi-test.c
                     SOURCE (11:6:1:6:1): plugins/gdb/gdbmi.c
@@ -632,7 +632,7 @@ PROPERTY (URL): [http://www.anjuta.org/]
                     SOURCE (11:6:6:2:0): plugins/file-loader/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:6:3): libanjuta-loader.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
-                    PROPERTY (Additional libraries): $(GTK_LIBS) $(GIO_LIBS) $(LIBANJUTA_LIBS)
+                    PROPERTY (Additional libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS)
                     SOURCE (11:6:6:3:0): plugins/file-loader/plugin.c
                     SOURCE (11:6:6:3:1): plugins/file-loader/plugin.h
                     SOURCE (11:6:6:3:2): plugins/file-loader/dnd.c
@@ -1467,7 +1467,7 @@ PROPERTY (URL): [http://www.anjuta.org/]
                     SOURCE (11:6:23:2:0): plugins/devhelp/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:23:3): libanjuta-devhelp.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
-                    PROPERTY (Additional libraries): $(GTK_LIBS) $(LIBANJUTA_LIBS) $(PLUGIN_DEVHELP_LIBS)
+                    PROPERTY (Additional libraries): $(LIBANJUTA_LIBS) $(PLUGIN_DEVHELP_LIBS)
                     SOURCE (11:6:23:3:0): plugins/devhelp/plugin.c
                     SOURCE (11:6:23:3:1): plugins/devhelp/plugin.h
             GROUP (11:6:24): language-manager
@@ -1687,7 +1687,7 @@ PROPERTY (URL): [http://www.anjuta.org/]
                     SOURCE (11:6:26:3:0): plugins/git/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (11:6:26:4): libanjuta-git.la
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
-                    PROPERTY (Additional libraries): $(GTK_LIBS) $(LIBANJUTA_LIBS)
+                    PROPERTY (Additional libraries): $(LIBANJUTA_LIBS)
                     SOURCE (11:6:26:4:0): plugins/git/plugin.c
                     SOURCE (11:6:26:4:1): plugins/git/plugin.h
                     SOURCE (11:6:26:4:2): plugins/git/git-command.c
