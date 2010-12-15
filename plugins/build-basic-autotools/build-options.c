@@ -351,7 +351,8 @@ build_dialog_configure (GtkWindow* parent, const gchar *project_root_uri, BuildC
 		}
 		else
 		{
-			name = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (dlg.combo));
+			GtkWidget* entry = gtk_bin_get_child (GTK_BIN (dlg.combo));
+			name = g_strdup (gtk_entry_get_text (GTK_ENTRY (entry)));
 		}
 		cfg = build_configuration_list_create (config_list, name);
 		g_free (name);
