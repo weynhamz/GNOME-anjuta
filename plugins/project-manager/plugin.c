@@ -208,9 +208,10 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, AnjutaSession *se
 	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
 		return;
 
-	g_list_foreach (plugin->shortcuts, (GFunc)g_free, NULL);
-	g_list_free (plugin->shortcuts);
-	plugin->shortcuts = anjuta_session_get_string_list (session, "Project Manager", "Shortcut");
+	list = anjuta_session_get_string_list (session, "Project Manager", "Shortcut");
+	gbf_project_view_set_shortcut_list (GBF_PROJECT_VIEW (plugin->view), list);
+	g_list_foreach (list, (GFunc)g_free, NULL);
+	g_list_free (list);
 
 	list = anjuta_session_get_string_list (session, "Project Manager", "Expand");
 	gbf_project_view_set_expanded_list (GBF_PROJECT_VIEW (plugin->view), list);
@@ -1317,44 +1318,6 @@ on_project_loaded (AnjutaPmProject *project, GtkTreeIter *parent, gboolean compl
 			anjuta_util_dialog_error (win, _("Failed to parse project (the project is opened, but there will be no project view) %s: %s\n"
 										 ""),
 									  dirname, error->message);
-		}
-	}
-	else
-	{
-		/* Restore existing shortcut */
-		if (plugin->shortcuts != NULL)
-		{
-			GList *item;
-			
-			gbf_project_view_set_shortcut_list (plugin->view, plugin->shortcuts);
-			/* Remove used or all shortcuts if loading is completed*/
-			for (item = g_list_first (plugin->shortcuts); item != NULL;)
-			{
-				GList *next = g_list_next (item);
-
-				if (complete || (*((char *)item->data) == 'U'))
-				{
-					
-					g_free (item->data);
-					plugin->shortcuts = g_list_remove_link (plugin->shortcuts, item);
-				}
-				item = next;
-			}
-		}
-		else
-		{
-			GList *list = NULL;
-			
-			/* Add new shortcut for PRIMARY target */
-			anjuta_project_node_foreach (node, G_POST_ORDER, add_primary_target, &list);
-
-			if (list != NULL)
-			{
-				list = g_list_reverse (list);
-				gbf_project_view_set_shortcut_list (plugin->view, list);
-				g_list_foreach (list, (GFunc)g_free, NULL);
-				g_list_free (list);
-			}
 		}
 	}
 	g_free (dirname);

@@ -53,6 +53,7 @@ struct _GbfTreeData
 	GFile			*source;
 	gboolean		is_shortcut;
 	gboolean		expanded;
+	gboolean		has_shortcut;
 	GbfTreeData		*shortcut;
 	GtkWidget		*properties_dialog;
 };

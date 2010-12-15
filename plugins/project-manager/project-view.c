@@ -667,7 +667,10 @@ gbf_project_view_update_tree (GbfProjectView *view, AnjutaProjectNode *parent, G
 					GtkTreePath *child_path;
 					GtkTreeModelFilter *filter;
 					gboolean expanded;
+					gboolean shortcut;
 
+					expanded = data->expanded;
+					shortcut = data->has_shortcut;
 					data_node = (AnjutaProjectNode *)node->data;
 					gbf_tree_data_free (data);
 					data = gbf_tree_data_new_node (data_node);
@@ -684,13 +687,20 @@ gbf_project_view_update_tree (GbfProjectView *view, AnjutaProjectNode *parent, G
 					/* update recursively */
 					gbf_project_view_update_tree (view, data_node, &child);
 
-					filter = GTK_TREE_MODEL_FILTER (gtk_tree_view_get_model (GTK_TREE_VIEW (view)));
-					path = gtk_tree_model_get_path (GTK_TREE_MODEL (view->model), &child);
-					child_path = gtk_tree_model_filter_convert_child_path_to_path (filter, path);
-					gtk_tree_view_expand_to_path (GTK_TREE_VIEW (view), child_path);
-					expanded = gtk_tree_view_row_expanded (GTK_TREE_VIEW (view), child_path);
-					gtk_tree_path_free (child_path);
-					gtk_tree_path_free (path);
+					if (shortcut)
+					{
+						gbf_project_model_add_target_shortcut (view->model, NULL, data, NULL);
+					}
+					if (expanded)
+					{
+						filter = GTK_TREE_MODEL_FILTER (gtk_tree_view_get_model (GTK_TREE_VIEW (view)));
+						path = gtk_tree_model_get_path (GTK_TREE_MODEL (view->model), &child);
+						child_path = gtk_tree_model_filter_convert_child_path_to_path (filter, path);
+						gtk_tree_view_expand_to_path (GTK_TREE_VIEW (view), child_path);
+						expanded = gtk_tree_view_row_expanded (GTK_TREE_VIEW (view), child_path);
+						gtk_tree_path_free (child_path);
+						gtk_tree_path_free (path);
+					}
 				}
 				valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (view->model), &child);
 			}
@@ -759,7 +769,7 @@ gbf_project_view_get_shortcut_list (GbfProjectView *view)
 	gboolean valid;
 	GtkTreeIter iter;
 
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW (view));
+	model = GTK_TREE_MODEL (view->model);
 	if (model != NULL)
 	{
 		for (valid = gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &iter, NULL);
@@ -773,18 +783,32 @@ gbf_project_view_get_shortcut_list (GbfProjectView *view)
 
 			if ((data->type == GBF_TREE_NODE_SHORTCUT) && (data->shortcut != NULL))
 			{
-				gchar *uri;
-				GtkTreePath *path;
-				gboolean expand;
-
-				uri = gbf_tree_data_get_uri (data);
-				path = gtk_tree_model_get_path (GTK_TREE_MODEL (model), &iter);
-				expand = gtk_tree_view_row_expanded (GTK_TREE_VIEW (view), path);
-				gtk_tree_path_free (path);
-
-				if (uri != NULL)
+				GtkTreeIter iter;
+				
+				if (gbf_project_model_find_tree_data (view->model, &iter, data->shortcut))
 				{
-					list = g_list_prepend (list, g_strconcat (expand ? "E " : "C ", uri, NULL));
+					GString *str;
+					GtkTreeIter child;
+					
+					str = g_string_new (NULL);
+					do
+					{
+						GbfTreeData *data;
+
+						child = iter;
+						gtk_tree_model_get (GTK_TREE_MODEL (model), &iter, 
+								GBF_PROJECT_MODEL_COLUMN_DATA, &data,
+								-1);
+
+						if (data->node != NULL)
+						{
+							if (str->len != 0) g_string_prepend (str, "//");
+							g_string_prepend (str, anjuta_project_node_get_name (data->node));
+						}
+					}
+					while (gtk_tree_model_iter_parent (model, &iter, &child));
+					list = g_list_prepend (list, str->str);
+					g_string_free (str, FALSE);
 				}
 			}
 		}
@@ -876,67 +900,51 @@ gbf_project_view_remove_all_shortcut (GbfProjectView* view)
 void
 gbf_project_view_set_shortcut_list (GbfProjectView *view, GList *shortcuts)
 {
-	if (shortcuts != NULL)
+	GList *item;
+
+	for (item = g_list_first (shortcuts); item != NULL; item = g_list_next (item))
 	{
-		gboolean valid;
+		gchar *name = (gchar *)item->data;
+		gchar *end;
 		GtkTreeIter iter;
-		
-		valid = gtk_tree_model_iter_children (GTK_TREE_MODEL (view->model), &iter, NULL);
+		GtkTreeIter *parent = NULL;
 
-		if (valid)
+		do
 		{
-			GList *node;
-			
-			for (node = g_list_first (shortcuts); node != NULL; node = g_list_next (node))
+			end = strstr (name, "/" "/");   /* Avoid troubles with auto indent */
+			if (end != NULL) *end = '\0';
+			if (*name != '\0')
 			{
-				GFile *file;
-				GtkTreeIter shortcut;
-				gboolean expand = FALSE;
-				gchar *uri = (gchar *)node->data;
-
-				if (strncmp (uri, "E ", 2) == 0)
+				if (!gbf_project_model_find_child_name (view->model, &iter, parent, name))
 				{
-					expand = TRUE;
-					uri += 2;
+					GbfTreeData *data;
+					
+					/* Create proxy node */
+					data = gbf_tree_data_new_proxy (name, FALSE);
+					gtk_tree_store_append (GTK_TREE_STORE (view->model), &iter, parent);
+					gtk_tree_store_set (GTK_TREE_STORE (view->model), &iter, 
+							    GBF_PROJECT_MODEL_COLUMN_DATA, data,
+							    -1);
+					if (end == NULL) data->has_shortcut = TRUE;
 				}
-				else if (strncmp (uri, "C ", 2) == 0)
-				{
-					expand = FALSE;
-					uri += 2;
-				}
-				file = g_file_new_for_uri (uri);
-
-				if (gbf_project_model_find_file  (GBF_PROJECT_MODEL (view->model), &shortcut, NULL, ANJUTA_PROJECT_UNKNOWN, file))
+				else
 				{
 					GbfTreeData *data;
 
-					gtk_tree_model_get (GTK_TREE_MODEL (view->model), &shortcut, 
+					gtk_tree_model_get (GTK_TREE_MODEL (view->model), &iter, 
 			    			GBF_PROJECT_MODEL_COLUMN_DATA, &data,
 		    				-1);
-
-					/* Avoid duplicated shortcuts */
-					if (data->type != GBF_TREE_NODE_SHORTCUT)
-					{
-						gbf_project_model_add_shortcut (GBF_PROJECT_MODEL (view->model),
-					    		&shortcut,
-					    		&iter,
-					    		data);
-
-						if (expand)
-						{
-							GtkTreePath *path;
-
-							path = gtk_tree_model_get_path (GTK_TREE_MODEL (view->model), &shortcut);
-							gtk_tree_view_expand_row (GTK_TREE_VIEW (view), path, FALSE);
-							gtk_tree_path_free (path);
-						}
-						/* Mark the shortcut as used */
-						*uri = 'U';
-					}
+					if (end == NULL) data->has_shortcut = TRUE;
 				}
-				g_object_unref (file);
+				parent = &iter;
+			}
+			if (end != NULL)
+			{
+				*end = '/';
+				name = end + 2;
 			}
 		}
+		while (end != NULL);
 	}
 	
 	return;
@@ -970,6 +978,15 @@ gbf_project_view_set_expanded_list (GbfProjectView *view, GList *expand)
 					gtk_tree_store_set (GTK_TREE_STORE (view->model), &iter, 
 							    GBF_PROJECT_MODEL_COLUMN_DATA, data,
 							    -1);
+				}
+				else
+				{
+					GbfTreeData *data;
+
+					gtk_tree_model_get (GTK_TREE_MODEL (view->model), &iter, 
+			    			GBF_PROJECT_MODEL_COLUMN_DATA, &data,
+		    				-1);
+					data->expanded = TRUE;
 				}
 				parent = &iter;
 			}
