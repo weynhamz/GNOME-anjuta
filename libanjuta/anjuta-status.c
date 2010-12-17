@@ -610,7 +610,10 @@ anjuta_status_timeout (AnjutaStatus *status)
 	return FALSE;
 }
 
-/* Display message in status until timeout (secondes) */
+/**
+ * anjuta_status: (skip)
+ * Display message in status until timeout (seconds)
+ */
 void
 anjuta_status (AnjutaStatus *status, const gchar *mesg, gint timeout)
 {

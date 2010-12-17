@@ -212,12 +212,14 @@ AnjutaProjectNode *anjuta_project_source_get_node_from_file (const AnjutaProject
 
 #define ANJUTA_TYPE_PROJECT_NODE_INFO (anjuta_project_node_info_get_type ())
 
-typedef struct _AnjutaProjectNodeInfo
+typedef struct _AnjutaProjectNodeInfo  AnjutaProjectNodeInfo;
+
+struct _AnjutaProjectNodeInfo
 {
 	AnjutaProjectNodeType type;
 	gchar *name;
 	gchar *mime_type;
-} AnjutaProjectNodeInfo;
+};
 
 GType anjuta_project_node_info_get_type (void);
 

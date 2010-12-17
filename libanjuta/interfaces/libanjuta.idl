@@ -53,7 +53,7 @@ interface IAnjutaFile
 	 *
 	 * Returns the file that was opened with ianjuta_file_open().
 	 *
-	 * Return value: The last file opened.
+	 * Return value: (transfer full): The last file opened.
 	 */
 	GFile* get_file ();
 	
@@ -498,15 +498,15 @@ interface IAnjutaIterable
 	gint get_length ();
 
 	/**
-	* ianjuta_iterable_clone:
-	* @obj: Self
-	* @err: Error propagation and reporting
-	* 
-	* Clones the iterable. The returned iterable object must be unreffed
-	* when done.
-	*
-	* Returns: A new instance of this iterable pointing at the same location.
-	*/
+	 * ianjuta_iterable_clone:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 * 
+	 * Clones the iterable. The returned iterable object must be unreffed
+	 * when done.
+	 *
+	 * Returns: (transfer full): A new instance of this iterable pointing at the same location.
+	 */
 	IAnjutaIterable *clone ();
 
 	/**
@@ -1566,15 +1566,15 @@ interface IAnjutaEditor
 	gint get_column ();
 	
 	/**
-	* ianjuta_editor_get_line_begin_position:
-	* @obj: Self
-	* @line: fixme
-	* @err: Error propagation and reporting.
-	*
-	* fixme
-	*
-	* Returns: fixme
-	*/
+	 * ianjuta_editor_get_line_begin_position:
+	 * @obj: Self
+	 * @line: fixme
+	 * @err: Error propagation and reporting.
+	 *
+	 * fixme
+	 *
+	 * Returns: (transfer full): fixme
+	 */
 	IAnjutaIterable* get_line_begin_position (gint line);
 	
 	/**
@@ -1625,14 +1625,14 @@ interface IAnjutaEditor
 	 */
 	gint   get_offset ();
 	
-	/*
+	/**
 	 * ianjuta_editor_get_position:
 	 * @obj: Self
 	 * @err: Error propagation and reporting
 	 *
 	 * Get current caret position.
 	 *
-	 * Returns: Iterator that points to the current position.
+	 * Returns: (transfer full): Iterator that points to the current position.
 	 */
 	IAnjutaIterable*   get_position ();
 	
@@ -3618,7 +3618,7 @@ interface IAnjutaProjectManager
 	 * @obj: Self
 	 * @err: Error propagation and reporting.
 	 *
-	 * Returns: (element-type utf8): the list of pkg-config packages that the current project
+	 * Returns: (element-type utf8) (transfer full): the list of pkg-config packages that the current project
 	 * requires in it's configure.ac. Can be NULL if there is no project
 	 * opened currently or no package is required.
 	 */

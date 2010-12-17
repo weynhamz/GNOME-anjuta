@@ -405,8 +405,8 @@ value_removed_cb (AnjutaShell *shell,
  * anjuta_plugin_add_watch:
  * @plugin: a #AnjutaPlugin derived class object.
  * @name: Name of the value to watch.
- * @added: Callback to call when the value is added.
- * @removed: Callback to call when the value is removed.
+ * @added: (closure user_data) (scope call): Callback to call when the value is added.
+ * @removed: (closure user_data) (scope call): Callback to call when the value is removed.
  * @user_data: User data to pass to callbacks.
  * 
  * Adds a watch for @name value. When the value is added in shell, the @added

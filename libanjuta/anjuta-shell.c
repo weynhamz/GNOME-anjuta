@@ -756,7 +756,7 @@ anjuta_shell_remove_value (AnjutaShell *shell,
  * Notice that this function takes the interface name string as string, unlike
  * anjuta_plugins_get_interface() which takes the type directly.
  *
- * Return value: A plugin object implementing the primary interface or NULL.
+ * Return value: (transfer none): A plugin object implementing the primary interface or NULL.
  */
 GObject*
 anjuta_shell_get_object (AnjutaShell *shell, const gchar *iface_name,
