@@ -139,18 +139,6 @@ plugins/git/git-unstage-pane.c
 plugins/git/plugin.c
 plugins/glade/plugin.c
 plugins/glade/anjuta-design-document.c
-plugins/gtodo/add_edit_item.c
-plugins/gtodo/callback.c
-plugins/gtodo/export.c
-plugins/gtodo/interface.c
-plugins/gtodo/libgtodo.c
-plugins/gtodo/list_tooltip.c
-plugins/gtodo/mcategory.c
-plugins/gtodo/notification.c
-plugins/gtodo/plugin.c
-plugins/gtodo/preferences.c
-plugins/gtodo/tasklists.c
-plugins/gtodo/todo_db.c
 [type: gettext/glade]plugins/message-view/anjuta-message-manager-plugin.ui
 plugins/message-view/anjuta-msgman.c
 plugins/message-view/message-view.c
@@ -280,7 +268,6 @@ plugins/sourceview/plugin.c
 [type: gettext/ini]plugins/file-manager/file-manager.plugin.in
 [type: gettext/ini]plugins/subversion/anjuta-subversion.plugin.in
 [type: gettext/ini]plugins/glade/anjuta-glade.plugin.in
-[type: gettext/ini]plugins/gtodo/anjuta-gtodo.plugin.in
 [type: gettext/ini]plugins/patch/anjuta-patch.plugin.in
 [type: gettext/ini]plugins/tools/anjuta-tools.plugin.in
 [type: gettext/ini]plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in
