@@ -107,7 +107,7 @@
 				<menuitem name="CloseOther" action="ActionFileCloseOther" />
 				<separator />
 				<menu name="DocumentsBookmarks" action="ActionMenuBookmark">
-				  <menuitem name="AddBookmark" action="ActionBookmarkAdd" />
+				  <menuitem name="ToggleBookmark" action="ActionBookmarkToggle" />
 				  <separator />
 				  <menuitem name="NextBookmark" action="ActionBookmarkNext" />				  
 				  <menuitem name="PrevBookmark" action="ActionBookmarkPrev" />

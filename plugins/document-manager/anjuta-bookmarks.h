@@ -54,6 +54,7 @@ void anjuta_bookmarks_add (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor, gi
 						   const gchar* title, gboolean use_selection);
 void anjuta_bookmarks_add_file (AnjutaBookmarks* bookmarks, GFile* file, 
 								gint line, const gchar* title);
+void anjuta_bookmarks_toggle (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor, gint line);
 void anjuta_bookmarks_remove (AnjutaBookmarks* bookmarks);
 void anjuta_bookmarks_session_save (AnjutaBookmarks* bookmarks, AnjutaSession* session);
 void anjuta_bookmarks_session_load (AnjutaBookmarks* bookmarks, AnjutaSession* session);

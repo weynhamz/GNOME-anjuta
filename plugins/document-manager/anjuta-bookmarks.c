@@ -324,7 +324,7 @@ anjuta_bookmarks_init (AnjutaBookmarks *bookmarks)
 					  bookmarks);
 	
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(priv->tree));
-	gtk_tree_selection_set_mode (selection, GTK_SELECTION_MULTIPLE);
+	gtk_tree_selection_set_mode (selection, GTK_SELECTION_BROWSE);
 	g_signal_connect (G_OBJECT(selection), "changed", G_CALLBACK(on_selection_changed),
 					  bookmarks);
 	
@@ -740,6 +740,51 @@ anjuta_bookmarks_session_save (AnjutaBookmarks* bookmarks, AnjutaSession* sessio
 	
 	/* Clear the model */
 	gtk_list_store_clear (GTK_LIST_STORE (priv->model));
+}
+
+void 
+anjuta_bookmarks_toggle (AnjutaBookmarks* bookmarks, 
+                         IAnjutaEditor* editor, 
+                         gint line)
+{
+	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);
+	
+	g_return_if_fail (bookmarks != NULL);
+	g_return_if_fail (editor != NULL);
+
+	/* Check if there is a bookmark in that line already */
+	if (ianjuta_markable_is_marker_set (IANJUTA_MARKABLE (editor),
+	                                    line, IANJUTA_MARKABLE_BOOKMARK, NULL))
+	{
+		GtkTreeIter iter;
+		if (gtk_tree_model_get_iter_first (priv->model, &iter))
+		{
+			do
+			{
+				gint handle;
+				gint location;
+				gtk_tree_model_get (priv->model, &iter,
+				                    COLUMN_HANDLE, &handle, -1);
+
+				/* Update location if necessary */
+				location = ianjuta_markable_location_from_handle (IANJUTA_MARKABLE (editor),
+				                                                  handle, NULL);
+				gtk_list_store_set (GTK_LIST_STORE (priv->model), &iter,
+					                    COLUMN_LINE, location, -1 );
+				if (line == location)
+				{
+					GtkTreeSelection* selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree));
+					gtk_tree_selection_select_iter (selection, &iter);
+					anjuta_bookmarks_remove (bookmarks);
+				}
+			}
+			while (gtk_tree_model_iter_next (priv->model, &iter));
+		}
+	}
+	else
+	{
+		anjuta_bookmarks_add (bookmarks, editor, line, NULL, TRUE);
+	}
 }
 
 static void

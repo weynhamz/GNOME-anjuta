@@ -377,9 +377,9 @@ static GtkActionEntry actions_documents[] = {
 
 static GtkActionEntry actions_bookmarks[] = {
 	{ "ActionMenuBookmark", NULL, N_("Bookmar_k"), NULL, NULL, NULL},
- 	{ "ActionBookmarkAdd", GTK_STOCK_ADD, N_("_Add Bookmark"),
-		 "<control>k", N_("Add a bookmark at the current line position"),
-	G_CALLBACK (on_bookmark_add_activate)},
+ 	{ "ActionBookmarkToggle", GTK_STOCK_ADD, N_("_Toggle Bookmark"),
+		 "<control>k", N_("Toggle bookmark at the current line position"),
+	G_CALLBACK (on_bookmark_toggle_activate)},
 	{ "ActionBookmarkPrev", ANJUTA_STOCK_BOOKMARK_PREV, N_("_Previous Bookmark"),
 	"<control>comma", N_("Jump to the previous bookmark in the file"),
 	G_CALLBACK (on_bookmark_prev_activate)},

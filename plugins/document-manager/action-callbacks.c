@@ -943,7 +943,7 @@ on_previous_document (GtkAction *action, gpointer user_data)
 }
 
 void
-on_bookmark_add_activate (GtkAction *action, gpointer user_data)
+on_bookmark_toggle_activate (GtkAction *action, gpointer user_data)
 {
 	IAnjutaDocument *doc;
 	DocmanPlugin *plugin;
@@ -952,8 +952,8 @@ on_bookmark_add_activate (GtkAction *action, gpointer user_data)
 	if (doc && IANJUTA_IS_EDITOR(doc))
 	{
 		IAnjutaEditor* editor = IANJUTA_EDITOR(doc);
-		anjuta_bookmarks_add (ANJUTA_BOOKMARKS (plugin->bookmarks), editor, 
-							  ianjuta_editor_get_lineno (editor, NULL), NULL, TRUE);
+		anjuta_bookmarks_toggle (ANJUTA_BOOKMARKS (plugin->bookmarks), editor, 
+							  ianjuta_editor_get_lineno (editor, NULL));
 	}
 }
 
