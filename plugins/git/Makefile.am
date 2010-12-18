@@ -219,7 +219,9 @@ libanjuta_git_la_SOURCES = \
 	git-log-pane.c \
 	git-log-pane.h \
 	git-log-data-command.c \
-	git-log-data-command.h
+	git-log-data-command.h \
+	git-revert-pane.c \
+	git-revert-pane.h
 	
 
 libanjuta_git_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)

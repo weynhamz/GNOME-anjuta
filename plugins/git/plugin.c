@@ -51,6 +51,7 @@
 #include "git-clear-stash-pane.h"
 #include "git-rebase-pane.h"
 #include "git-log-pane.h"
+#include "git-revert-pane.h"
 
 AnjutaCommandBarEntry branch_entries[] =
 {
@@ -353,6 +354,26 @@ AnjutaCommandBarEntry stash_entries[] =
 	}
 };
 
+static AnjutaCommandBarEntry log_entries[] = 
+{
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_FRAME,
+		"NULL",
+		N_("Reset/Revert"),
+		NULL,
+		NULL,
+		NULL
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"Revert",
+		N_("Revert commit"),
+		N_("Revert a commit"),
+		GTK_STOCK_UNDO,
+		G_CALLBACK (on_revert_button_clicked)
+	}
+};
+
 static gpointer parent_class;
 
 static void
@@ -631,7 +652,8 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	git_plugin->log_pane = git_log_pane_new (git_plugin);
 	anjuta_dock_add_pane (ANJUTA_DOCK (git_plugin->dock), "Log",
 	                      _("Log"), NULL, git_plugin->log_pane,
-	                      GDL_DOCK_CENTER, NULL, 0, NULL);
+	                      GDL_DOCK_CENTER, log_entries,
+	                      G_N_ELEMENTS (log_entries), git_plugin);
 	
 	git_plugin->branches_pane = git_branches_pane_new (git_plugin);
 	anjuta_dock_add_pane (ANJUTA_DOCK (git_plugin->dock), "Branches", 
