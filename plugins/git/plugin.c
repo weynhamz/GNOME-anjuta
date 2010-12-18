@@ -51,6 +51,7 @@
 #include "git-clear-stash-pane.h"
 #include "git-rebase-pane.h"
 #include "git-log-pane.h"
+#include "git-reset-pane.h"
 #include "git-revert-pane.h"
 
 AnjutaCommandBarEntry branch_entries[] =
@@ -363,6 +364,14 @@ static AnjutaCommandBarEntry log_entries[] =
 		NULL,
 		NULL,
 		NULL
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"Reset",
+		N_("Reset tree"),
+		N_("Reset tree to a previous revision"),
+		GTK_STOCK_REFRESH,
+		G_CALLBACK (on_reset_button_clicked)
 	},
 	{
 		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
