@@ -2483,19 +2483,19 @@ static gboolean
 amp_load_complete (PmJob *job)
 {
 	GHashTable *map;
-	static GTimer *timer = NULL;
+	//static GTimer *timer = NULL;
 
 	g_return_val_if_fail (job->proxy != NULL, FALSE);
 
 	//anjuta_project_node_check (job->node);
-	if (timer == NULL)
+	/*if (timer == NULL)
 	{
 		timer = g_timer_new ();		
 	}
 	else
 	{
 		g_timer_continue (timer);
-	}
+	}*/
 	map = amp_project_map_node (job->node, job->proxy);
 	g_object_ref (job->proxy);
 	g_hash_table_foreach (map, (GHFunc)amp_project_update_node, map);
@@ -2504,8 +2504,8 @@ amp_load_complete (PmJob *job)
 	g_object_unref (job->proxy);
 	job->proxy = NULL;
 	g_signal_emit_by_name (AMP_PROJECT (job->user_data), "node-loaded", job->node,  job->error);
-	g_timer_stop (timer);
-	g_message ("amp_load_complete completed in %g", g_timer_elapsed (timer, NULL));
+	//g_timer_stop (timer);
+	//g_message ("amp_load_complete completed in %g", g_timer_elapsed (timer, NULL));
 
 	return TRUE;
 }
