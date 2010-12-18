@@ -2176,6 +2176,16 @@ iproject_manager_get_packages (IAnjutaProjectManager *project_manager, GError **
 	return anjuta_pm_project_get_packages (plugin->project);
 }
 
+static IAnjutaProject*
+iproject_manager_get_current_project (IAnjutaProjectManager *project_manager, GError **err)
+{
+	ProjectManagerPlugin *plugin;
+
+	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
+
+	return anjuta_pm_project_get_project (plugin->project);
+}
+
 static void
 iproject_manager_iface_init(IAnjutaProjectManagerIface *iface)
 {
@@ -2193,6 +2203,7 @@ iproject_manager_iface_init(IAnjutaProjectManagerIface *iface)
 	iface->add_group = iproject_manager_add_group;
 	iface->is_open = iproject_manager_is_open;
 	iface->get_packages = iproject_manager_get_packages;
+	iface->get_current_project = iproject_manager_get_current_project;
 }
 
 static void

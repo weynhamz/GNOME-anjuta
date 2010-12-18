@@ -3341,6 +3341,14 @@ interface IAnjutaProjectManager
 	#define PROJECT_ROOT_URI	"project_root_uri"
 
 	/**
+	* IANJUTA_PROJECT_MANAGER_CURRENT_PROJECT
+	*
+	* Anjuta shell value set by project manager to the current project object
+	* which implement #IAnjutaProject interface.
+	*/
+	#define CURRENT_PROJECT	"project_manager_current_project"
+
+	/**
 	* IANJUTA_PROJECT_MANAGER_CURRENT_URI
 	*
 	* Anjuta shell value set by project manager to the current uri.
@@ -3604,6 +3612,17 @@ interface IAnjutaProjectManager
 	 * opened currently or no package is required.
 	 */
 	List<gchar*> get_packages();
+	
+	/**
+	* ianjuta_project_manager_get_current_project:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* Gets the current project.
+	* 
+	* Return value: the currently active project. NULL if none is there.
+	*/
+	IAnjutaProject* get_current_project ();
 }
 
 /**

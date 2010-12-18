@@ -27,6 +27,7 @@
 #include "project-marshal.h"
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-project-backend.h>
+#include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include "project-model.h"
 #include "project-view.h"
 #include "dialogs.h"
@@ -122,15 +123,11 @@ anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 	GList *desc;
 	IAnjutaProjectBackend *backend;
 	gint found = 0;
+	GValue value = {0, };
 	
 	g_return_val_if_fail (file != NULL, FALSE);
-	
-	if (project->project != NULL)
-	{
-		g_object_unref (project->project);
-		project->project = NULL;
-		project->loaded = FALSE;
-	}
+
+	anjuta_pm_project_unload (project, NULL);
 	
 	DEBUG_PRINT ("loading gbf backend…\n");
 	plugin_manager = anjuta_shell_get_plugin_manager (project->plugin->shell, NULL);
@@ -207,6 +204,14 @@ anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 						project);
 	
 	project->root = ianjuta_project_get_root (project->project, NULL);
+
+	g_value_init (&value, G_TYPE_OBJECT);
+	g_value_set_object (&value, project->project);
+	anjuta_shell_add_value (project->plugin->shell,
+	                        IANJUTA_PROJECT_MANAGER_CURRENT_PROJECT,
+	                        &value, NULL);
+	g_value_unset(&value);
+	
 	ianjuta_project_load_node (project->project, project->root, NULL);
 	
 	return TRUE;
@@ -215,7 +220,12 @@ anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 gboolean 
 anjuta_pm_project_unload (AnjutaPmProject *project, GError **error)
 {
-	g_object_unref (project->project);
+	/* Remove value from Anjuta shell */
+	anjuta_shell_remove_value (project->plugin->shell,
+	                           IANJUTA_PROJECT_MANAGER_CURRENT_PROJECT,
+	                           NULL);
+	
+	if (project->project) g_object_unref (project->project);
 	project->project = NULL;
 	project->loaded = FALSE;
 
