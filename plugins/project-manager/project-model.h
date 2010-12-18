@@ -92,9 +92,10 @@ void            gbf_project_model_add_source                (GbfProjectModel    
                                                 	    AnjutaProjectNode *source,
                                                 	    GtkTreeIter               *parent);
 void            gbf_project_model_add_target_shortcut       (GbfProjectModel *model,
-                                                     GtkTreeIter     *shortcut,
-                                                		     GbfTreeData     *target,
-                                            		     GtkTreePath     *before_path);
+                                                             GtkTreeIter     *shortcut,
+                                                             GbfTreeData     *target,
+                                                             GtkTreePath     *before_path,
+                                                             gboolean *expanded);
 void            gbf_project_model_add_package               (GbfProjectModel    	      *model,
 	                                                    AnjutaProjectNode *package,
                                                 	    GtkTreeIter               *parent);
@@ -110,6 +111,12 @@ void            gbf_project_model_add_target_group          (GbfProjectModel 	*m
 void            gbf_project_model_add_root                  (GbfProjectModel 	*model,
                                                         AnjutaProjectNode	*root,
                                                         GtkTreeIter     	*parent);
+void            gbf_project_model_move_target_shortcut    (GbfProjectModel *model,
+                                                           GtkTreeIter     *iter,
+                                                           GbfTreeData     *shortcut,
+                                                           GtkTreePath     *before_path);
+GtkTreeRowReference * gbf_project_model_get_root    (GbfProjectModel *model);
+
 
 
 #endif

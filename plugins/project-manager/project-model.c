@@ -56,8 +56,6 @@ enum {
 
 static void     gbf_project_model_class_init         (GbfProjectModelClass   *klass);
 static void     gbf_project_model_instance_init      (GbfProjectModel        *tree);
-static void     gbf_project_model_drag_source_init   (GtkTreeDragSourceIface *iface);
-static void     gbf_project_model_drag_dest_init     (GtkTreeDragDestIface   *iface);
 
 static void     load_project                         (GbfProjectModel        *model,
 						      AnjutaPmProject  *proj);
@@ -69,23 +67,6 @@ static gint     default_sort_func                    (GtkTreeModel           *mo
 						      GtkTreeIter            *iter_b,
 						      gpointer                user_data);
 
-/* DND functions */
-
-static gboolean row_draggable                        (GtkTreeDragSource      *drag_source,
-						      GtkTreePath            *path);
-
-static gboolean drag_data_delete                     (GtkTreeDragSource      *drag_source,
-						      GtkTreePath            *path);
-
-static gboolean drag_data_received                   (GtkTreeDragDest        *drag_dest,
-						      GtkTreePath            *dest,
-						      GtkSelectionData       *selection_data);
-
-static gboolean row_drop_possible                    (GtkTreeDragDest        *drag_dest,
-						      GtkTreePath            *dest_path,
-						      GtkSelectionData       *selection_data);
-
-
 static GtkTreeStoreClass *parent_class = NULL;
 
 
@@ -94,20 +75,6 @@ static GtkTreeStoreClass *parent_class = NULL;
 /* Helper functions */
 
 /* Type & interfaces initialization */
-
-static void
-gbf_project_model_drag_source_init (GtkTreeDragSourceIface *iface)
-{
-	iface->row_draggable = row_draggable;
-	iface->drag_data_delete = drag_data_delete;
-}
-
-static void
-gbf_project_model_drag_dest_init (GtkTreeDragDestIface *iface)
-{
-	iface->drag_data_received = drag_data_received;
-	iface->row_drop_possible = row_drop_possible;
-}
 
 static void
 gbf_project_model_class_init_trampoline (gpointer klass,
@@ -133,28 +100,10 @@ gbf_project_model_get_type (void)
 		    0,                  /* n_preallocs */
 		    (GInstanceInitFunc) gbf_project_model_instance_init
 		};
-		static const GInterfaceInfo drag_source_info = {
-			(GInterfaceInitFunc) gbf_project_model_drag_source_init,
-			NULL,
-			NULL
-		};
-		static const GInterfaceInfo drag_dest_info = {
-			(GInterfaceInitFunc) gbf_project_model_drag_dest_init,
-			NULL,
-			NULL
-		};
 
 		object_type = g_type_register_static (
 			GTK_TYPE_TREE_STORE, "GbfProjectModel",
 			&object_info, 0);
-
-		g_type_add_interface_static (object_type,
-					     GTK_TYPE_TREE_DRAG_SOURCE,
-					     &drag_source_info);
-
-		g_type_add_interface_static (object_type,
-					     GTK_TYPE_TREE_DRAG_DEST,
-					     &drag_dest_info);
 	}
 	return object_type;
 }
@@ -259,7 +208,7 @@ gbf_project_model_instance_init (GbfProjectModel *model)
 	insert_empty_node (model);
 }
 
-static GtkTreeRowReference *
+GtkTreeRowReference *
 gbf_project_model_get_root (GbfProjectModel *model)
 {
 	if (model->priv->root_group == NULL)
@@ -432,6 +381,7 @@ default_sort_func (GtkTreeModel *model,
 {
 	GbfTreeData *data_a, *data_b;
 	gint retval = 0;
+	gboolean unsorted_a, unsorted_b;
 	
 	gtk_tree_model_get (model, iter_a,
 			    GBF_PROJECT_MODEL_COLUMN_DATA, &data_a,
@@ -440,7 +390,9 @@ default_sort_func (GtkTreeModel *model,
 			    GBF_PROJECT_MODEL_COLUMN_DATA, &data_b,
 			    -1);
 
-	if (data_a->is_shortcut && data_b->is_shortcut) {
+	unsorted_a = (data_a->type == GBF_TREE_NODE_SHORTCUT) || (data_a->type == GBF_TREE_NODE_UNKNOWN) || (data_a->is_shortcut);
+	unsorted_b = (data_b->type == GBF_TREE_NODE_SHORTCUT) || (data_b->type == GBF_TREE_NODE_UNKNOWN) || (data_b->is_shortcut);
+	if (unsorted_a && unsorted_b) {
 		GtkTreeIter iter;
 		gboolean valid;
 		
@@ -467,10 +419,10 @@ default_sort_func (GtkTreeModel *model,
 			}
 		}
 		
-	} else if (data_a->is_shortcut && !data_b->is_shortcut) {
+	} else if (unsorted_a && !unsorted_b) {
 		retval = -1;
 	 
-	} else if (!data_a->is_shortcut && data_b->is_shortcut) {
+	} else if (!unsorted_a && unsorted_b) {
 		retval = 1;
 	 
 	} else if (data_a->type == data_b->type) {
@@ -508,43 +460,81 @@ void
 gbf_project_model_add_target_shortcut (GbfProjectModel *model,
                      GtkTreeIter     *shortcut,
 		     GbfTreeData     *target,
-		     GtkTreePath     *before_path)
+		     GtkTreePath     *before_path,
+                     gboolean	     *expanded)
 {
 	AnjutaProjectNode *node;
 	GtkTreeIter iter, sibling;
 	GtkTreePath *root_path;
 	GbfTreeData *data;
 	AnjutaProjectNode *parent;
+	gboolean valid = FALSE;
 	
 	if (!target)
 		return;
 
-	root_path = gtk_tree_row_reference_get_path (gbf_project_model_get_root (model));
-	/* check before_path */
-	if (!before_path ||
-	    gtk_tree_path_get_depth (before_path) > 1 ||
-	    gtk_tree_path_compare (before_path, root_path) > 0) {
-		before_path = root_path;
-	}
-		
-	/* get the tree iter for the row before which to insert the shortcut */
-	if (!gtk_tree_model_get_iter (GTK_TREE_MODEL (model), &sibling, before_path)) {
-		gtk_tree_path_free (root_path);
-		return;
-	}
+	if (expanded != NULL) *expanded = FALSE;
 
-	if (target->type != GBF_TREE_NODE_SHORTCUT)
+	root_path = gtk_tree_row_reference_get_path (gbf_project_model_get_root (model));
+	if ((before_path == NULL) && (target->type != GBF_TREE_NODE_SHORTCUT))
 	{
-		data = gbf_tree_data_new_shortcut (target);
+		/* Check is a proxy node is not already existing. It is used to
+		 * save the shortcut order */
+
+		for (valid = gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &iter, NULL);
+			valid;
+			valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &iter))
+		{
+			GbfTreeData *data;
+
+			/* Look for current node */
+			gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
+				GBF_PROJECT_MODEL_COLUMN_DATA, &data,
+				-1);
+
+			if (((data->type == GBF_TREE_NODE_UNKNOWN) || (data->type == GBF_TREE_NODE_SHORTCUT)) && (g_strcmp0 (target->name, data->name) == 0))
+			{
+				/* Find already existing node and replace it */
+				if (expanded != NULL) *expanded = data->expanded;
+				gbf_tree_data_free (data);
+				
+				data = gbf_tree_data_new_shortcut (target);
+				gtk_tree_store_set (GTK_TREE_STORE (model), &iter, 
+				    GBF_PROJECT_MODEL_COLUMN_DATA, data,
+				    -1);
+				break;
+			}
+		}
 	}
-	else
+	if (!valid)
 	{
-		data = target;
+		/* check before_path */
+		if ((before_path == NULL) ||
+		    gtk_tree_path_get_depth (before_path) > 1 ||
+		    gtk_tree_path_compare (before_path, root_path) > 0)
+		{
+			before_path = root_path;
+		}
+		
+		/* get the tree iter for the row before which to insert the shortcut */
+		if (!gtk_tree_model_get_iter (GTK_TREE_MODEL (model), &sibling, before_path)) {
+			gtk_tree_path_free (root_path);
+			return;
+		}
+
+		if (target->type != GBF_TREE_NODE_SHORTCUT)
+		{
+			data = gbf_tree_data_new_shortcut (target);
+		}
+		else
+		{
+			data = target;
+		}
+		gtk_tree_store_insert_before (GTK_TREE_STORE (model), &iter, NULL, &sibling);
+		gtk_tree_store_set (GTK_TREE_STORE (model), &iter, 
+				    GBF_PROJECT_MODEL_COLUMN_DATA, data,
+				    -1);
 	}
-	gtk_tree_store_insert_before (GTK_TREE_STORE (model), &iter, NULL, &sibling);
-	gtk_tree_store_set (GTK_TREE_STORE (model), &iter, 
-			    GBF_PROJECT_MODEL_COLUMN_DATA, data,
-			    -1);
 	
 	/* add sources */
 	parent = gbf_tree_data_get_node (target);
@@ -556,8 +546,8 @@ gbf_project_model_add_target_shortcut (GbfProjectModel *model,
 	if (shortcut) *shortcut = iter;
 }
 
-static void 
-move_target_shortcut (GbfProjectModel *model,
+void 
+gbf_project_model_move_target_shortcut (GbfProjectModel *model,
 		     GtkTreeIter     *iter,
     		     GbfTreeData     *shortcut,
 		     GtkTreePath     *before_path)
@@ -1019,142 +1009,6 @@ gbf_project_model_add_shortcut (GbfProjectModel *model,
 	GtkTreePath *path;
 
 	path = gtk_tree_model_get_path (GTK_TREE_MODEL (model), before);
-	gbf_project_model_add_target_shortcut (model, iter, target, path);
+	gbf_project_model_add_target_shortcut (model, iter, target, path, NULL);
 	gtk_tree_path_free (path);
-}
-
-/* DND stuff ------------- */
-
-static gboolean
-row_draggable (GtkTreeDragSource *drag_source, GtkTreePath *path)
-{
-	GtkTreeIter iter;
-	GbfTreeData *data;
-	gboolean retval = FALSE;
-	
-	if (!gtk_tree_model_get_iter (GTK_TREE_MODEL (drag_source), &iter, path))
-		return FALSE;
-
-	gtk_tree_model_get (GTK_TREE_MODEL (drag_source), &iter,
-			    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
-			    -1);
-
-	if (data->is_shortcut) {
-		/* shortcuts can be moved */
-		retval = TRUE;
-
-	} else if (data->type == GBF_TREE_NODE_TARGET) {
-		/* don't allow duplicate shortcuts */
-		if (data->shortcut == NULL)
-			retval = TRUE;
-	}
-
-	return retval;
-}
-
-static gboolean 
-drag_data_delete (GtkTreeDragSource *drag_source, GtkTreePath *path)
-{
-	return FALSE;
-}
-
-static gboolean
-drag_data_received (GtkTreeDragDest  *drag_dest,
-		    GtkTreePath      *dest,
-		    GtkSelectionData *selection_data)
-{
-	GtkTreeModel *src_model = NULL;
-	GtkTreePath *src_path = NULL;
-	gboolean retval = FALSE;
-
-	g_return_val_if_fail (GBF_IS_PROJECT_MODEL (drag_dest), FALSE);
-
-	if (gtk_tree_get_row_drag_data (selection_data,
-					&src_model,
-					&src_path) &&
-	    src_model == GTK_TREE_MODEL (drag_dest)) {
-
-		GtkTreeIter iter;
-		GbfTreeData *data = NULL;
-		
-		if (gtk_tree_model_get_iter (src_model, &iter, src_path)) {
-			gtk_tree_model_get (src_model, &iter,
-					    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
-					    -1);
-			if (data != NULL)
-			{
-				if (data->type == GBF_TREE_NODE_SHORTCUT)
-				{
-					move_target_shortcut (GBF_PROJECT_MODEL (drag_dest),
-					    		&iter, data, dest);
-				}
-				else
-				{
-					gbf_project_model_add_target_shortcut (GBF_PROJECT_MODEL (drag_dest),
-						     	NULL, data, dest);
-				}
-				retval = TRUE;
-			}
-		}
-	}
-
-	if (src_path)
-		gtk_tree_path_free (src_path);
-
-	return retval;
-}
-
-static gboolean
-row_drop_possible (GtkTreeDragDest  *drag_dest,
-		   GtkTreePath      *dest_path,
-		   GtkSelectionData *selection_data)
-{
-	GtkTreeModel *src_model;
-	GtkTreePath *src_path;
-	GbfProjectModel *model;
-	GtkTreeIter iter;
-	gboolean retval = FALSE;
-  
-	g_return_val_if_fail (GBF_IS_PROJECT_MODEL (drag_dest), FALSE);
-
-	model = GBF_PROJECT_MODEL (drag_dest);
-
-	if (!gtk_tree_get_row_drag_data (selection_data,
-					 &src_model,
-					 &src_path))
-		return FALSE;
-	
-		
-	if (gtk_tree_model_get_iter (src_model, &iter, src_path))
-	{
-		GbfTreeData *data = NULL;
-		
-		gtk_tree_model_get (src_model, &iter,
-		    GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
-
-		if (data != NULL)
-		{
-			/* can only drag to ourselves and only new toplevel nodes will
-			 * be created */
-			if (src_model == GTK_TREE_MODEL (drag_dest) &&
-	    			gtk_tree_path_get_depth (dest_path) == 1)
-			{
-				if (data->type == GBF_TREE_NODE_SHORTCUT)
-				{
-					retval = TRUE;
-				}
-				else
-				{
-					GtkTreePath *root_path;
-					
-					root_path = gtk_tree_row_reference_get_path (gbf_project_model_get_root (model));
-					retval = gtk_tree_path_compare (dest_path, root_path) <= 0;
-					gtk_tree_path_free (root_path);
-				}
-			}
-		}
-	}
-	gtk_tree_path_free (src_path);
-
-	return retval;
 }
