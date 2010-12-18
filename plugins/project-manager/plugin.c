@@ -1276,29 +1276,10 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 }
 
 static void
-add_primary_target (AnjutaProjectNode *node, gpointer data)
-{
-	GList ** list = (GList **)data;
-
-	if (anjuta_project_node_get_full_type (node) & ANJUTA_PROJECT_PRIMARY)
-	{
-		gchar *path;
-		
-		path = g_file_get_uri (anjuta_project_node_get_file (node));
-		
-		*list = g_list_prepend (*list, g_strconcat ("C ", path, NULL));
-		g_free (path);
-	}
-}
-
-static void
 on_project_loaded (AnjutaPmProject *project, GtkTreeIter *parent, gboolean complete, GError *error, ProjectManagerPlugin *plugin)
 {
 	AnjutaStatus *status;
 	gchar *dirname;
-	AnjutaProjectNode *node;
-
-	node = gbf_project_view_get_node_from_iter (plugin->view, parent);
 	
 	dirname = anjuta_util_get_local_path_from_uri (plugin->project_root_uri);
 	status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL);
