@@ -44,6 +44,7 @@ struct _GbfProjectModelPrivate {
 	GtkTreeRowReference *root_group;
 	GList               *shortcuts;
 
+	gboolean default_shortcut;	   /* Add shortcut for each primary node */
 };
 
 enum {
@@ -196,6 +197,7 @@ gbf_project_model_instance_init (GbfProjectModel *model)
 					 types);
 
 	model->priv = g_new0 (GbfProjectModelPrivate, 1);
+	model->priv->default_shortcut = TRUE;
 
 	/* sorting function */
 	gtk_tree_sortable_set_default_sort_func (GTK_TREE_SORTABLE (model),
@@ -438,7 +440,7 @@ default_sort_func (GtkTreeModel *model,
 }
 
 
-void 
+void
 gbf_project_model_add_source (GbfProjectModel    	      *model,
 	    AnjutaProjectNode *source,
 	    GtkTreeIter               *parent)
@@ -605,7 +607,7 @@ gbf_project_model_move_target_shortcut (GbfProjectModel *model,
 
 }
 
-void 
+void
 gbf_project_model_add_package (GbfProjectModel    	      *model,
 	    AnjutaProjectNode *package,
 	    GtkTreeIter               *parent)
@@ -630,7 +632,7 @@ gbf_project_model_add_package (GbfProjectModel    	      *model,
 	}
 }
 
-void 
+void
 gbf_project_model_add_module (GbfProjectModel 		*model,
 	    AnjutaProjectNode   *module,
 	    GtkTreeIter     	        *parent)
@@ -655,7 +657,7 @@ gbf_project_model_add_module (GbfProjectModel 		*model,
 	}
 }
 
-void 
+void
 gbf_project_model_add_target (GbfProjectModel 		*model,
 	    AnjutaProjectNode   *target,
 	    GtkTreeIter     	        *parent)
@@ -679,18 +681,14 @@ gbf_project_model_add_target (GbfProjectModel 		*model,
 		gbf_project_model_add_source (model, l, &iter);
 	}
 
-	/* add a shortcut to the target if the target's type is a primary */
-	/* FIXME: this shouldn't be here.  We would rather provide a
-	 * set of public functions to add/remove shortcuts to save
-	 * this information in the project metadata (when that's
-	 * implemented) */
-	/*if (anjuta_project_node_get_full_type (target) & ANJUTA_PROJECT_PRIMARY)
+	/* Add shortcut if needed */
+	if ((data != NULL) && model->priv->default_shortcut && (anjuta_project_node_get_full_type (target) & ANJUTA_PROJECT_PRIMARY))
 	{
-		add_target_shortcut (model, NULL, data, NULL);
-	}*/
+		gbf_project_model_add_target_shortcut (model, NULL, data, NULL, NULL);
+	}
 }
 
-void 
+void
 gbf_project_model_add_target_group (GbfProjectModel 	*model,
 		  AnjutaProjectNode	*group,
 		  GtkTreeIter     	*parent)
@@ -1011,4 +1009,11 @@ gbf_project_model_add_shortcut (GbfProjectModel *model,
 	path = gtk_tree_model_get_path (GTK_TREE_MODEL (model), before);
 	gbf_project_model_add_target_shortcut (model, iter, target, path, NULL);
 	gtk_tree_path_free (path);
+}
+
+void
+gbf_project_model_set_default_shortcut (GbfProjectModel *model,
+                                        gboolean enable)
+{
+	model->priv->default_shortcut = enable;
 }

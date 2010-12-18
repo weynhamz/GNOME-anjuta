@@ -116,6 +116,7 @@ void            gbf_project_model_move_target_shortcut    (GbfProjectModel *mode
                                                            GbfTreeData     *shortcut,
                                                            GtkTreePath     *before_path);
 GtkTreeRowReference * gbf_project_model_get_root    (GbfProjectModel *model);
+void            gbf_project_model_set_default_shortcut    (GbfProjectModel *model, gboolean enable);
 
 
 

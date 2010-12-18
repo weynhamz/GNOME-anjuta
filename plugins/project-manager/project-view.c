@@ -337,23 +337,11 @@ row_activated (GtkTreeView       *tree_view,
 }
 
 static void
-free_expanded_node (GNode *node, gpointer data)
-{
-	g_free (node->data);
-}
-
-static void
 dispose (GObject *object)
 {
 	GbfProjectView *view;
 	
 	view = GBF_PROJECT_VIEW (object);
-	if (view->expanded != NULL)
-	{
-		g_node_children_foreach (view->expanded, G_TRAVERSE_ALL, free_expanded_node, NULL);
-		g_node_destroy (view->expanded);
-		view->expanded = NULL;
-	}
 
 	if (view->filter)
 	{
@@ -672,8 +660,6 @@ gbf_project_view_init (GbfProjectView *tree)
 	gtk_tree_view_column_set_cell_data_func (column, renderer, set_text, tree, NULL);
 
 	gtk_tree_view_append_column (GTK_TREE_VIEW (tree), column);
-
-	tree->expanded = NULL;
 
 	/* Create model */
 	tree->model = gbf_project_model_new (NULL);
@@ -1146,6 +1132,8 @@ gbf_project_view_set_shortcut_list (GbfProjectView *view, GList *shortcuts)
 {
 	GList *item;
 
+	gbf_project_model_set_default_shortcut (view->model, shortcuts == NULL);
+
 	for (item = g_list_first (shortcuts); item != NULL; item = g_list_next (item))
 	{
 		gchar *name = (gchar *)item->data;
@@ -1322,6 +1310,12 @@ on_node_loaded (AnjutaPmProject *sender, AnjutaProjectNode *node, gboolean compl
 		                                      GTK_SORT_ASCENDING);
 
 		g_signal_emit (G_OBJECT (view), signals[NODE_LOADED], 0, &iter, complete, NULL);
+	}
+	
+	if (complete)
+	{
+		// Add shortcut for all new primary targets
+		gbf_project_model_set_default_shortcut (view->model, TRUE);
 	}
 }
 

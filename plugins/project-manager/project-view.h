@@ -44,8 +44,6 @@ struct _GbfProjectView {
 
 	GbfProjectModel *model;
 	GtkTreeModelFilter *filter;
-
-	GNode *expanded;
 };
 
 struct _GbfProjectViewClass {
