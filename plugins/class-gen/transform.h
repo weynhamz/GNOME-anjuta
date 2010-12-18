@@ -70,6 +70,10 @@ cg_transform_arguments (GHashTable *table,
                         gboolean make_void);
 
 void
+cg_transform_python_arguments (GHashTable *table,
+                               const gchar *index);
+
+void
 cg_transform_string_to_identifier (GHashTable *table,
                                    const gchar *string_index,
                                    const gchar *identifier_index);

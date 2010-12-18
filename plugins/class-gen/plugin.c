@@ -199,8 +199,19 @@ cg_plugin_add_to_project (AnjutaClassGenPlugin *plugin,
 	result = g_list_length (added_files) == 2;
 	if (result)
 	{
-		*new_header_file = g_file_get_path((GFile *)added_files->data);
-		*new_source_file = g_file_get_path((GFile *)g_list_next (added_files)->data);
+		/*
+		 * Check if we're dealing with a programming language not having header
+		 * files.
+		 */
+		if (strcmp (header_file, source_file) == 0)
+		{
+			*new_source_file = g_file_get_path((GFile *)g_list_next (added_files)->data);
+		}
+		else
+		{
+			*new_header_file = g_file_get_path((GFile *)added_files->data);
+			*new_source_file = g_file_get_path((GFile *)g_list_next (added_files)->data);
+		}
 	}
 
 	g_list_foreach (added_files, (GFunc)g_object_unref, NULL);
@@ -290,6 +301,7 @@ cg_plugin_generator_created_cb (CgGenerator *generator,
 	const gchar *header_file;
 	const gchar *source_file;
 	IAnjutaFileLoader *loader;
+        gboolean header_is_source = FALSE;
 
 	plugin = (AnjutaClassGenPlugin *) user_data;
 	header_file = cg_generator_get_header_destination (generator);
@@ -298,14 +310,30 @@ cg_plugin_generator_created_cb (CgGenerator *generator,
 	loader = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 	                                     IAnjutaFileLoader, NULL);
 	
+        /*
+         * Check if we're workign with a programming language that
+         * doesn't need header files.  If yes, don't create two tabs,
+         * as the header and source will be the same file.
+         */
+        if (g_strcmp0 (header_file, source_file) == 0)
+        {
+                header_is_source = TRUE;
+        }
+
 	if (cg_window_get_add_to_project (plugin->window))
 	{
 		GFile* header = g_file_new_for_path (header_file);
 		GFile* source = g_file_new_for_path (source_file);
 		IAnjutaProjectManager *manager;
-
-		ianjuta_file_loader_load (loader, header, FALSE, NULL);
-		ianjuta_file_loader_load (loader, source, FALSE, NULL);
+		if (header_is_source == TRUE)
+		{
+			ianjuta_file_loader_load (loader, source, FALSE, NULL);
+		}
+		else
+		{
+			ianjuta_file_loader_load (loader, header, FALSE, NULL);
+			ianjuta_file_loader_load (loader, source, FALSE, NULL);
+		}
 
 		if (cg_window_get_add_to_repository (plugin->window))
 		{
@@ -315,8 +343,16 @@ cg_plugin_generator_created_cb (CgGenerator *generator,
 		manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell, IAnjutaProjectManager, NULL);
 		if (manager)
 		{
-			g_signal_emit_by_name (G_OBJECT (manager), "element_added", header);
-			g_signal_emit_by_name (G_OBJECT (manager), "element_added", source);
+			if (header_is_source == TRUE)
+			{
+			    g_signal_emit_by_name (G_OBJECT (manager), "element_added", source);
+			}
+			else
+			{
+			    g_signal_emit_by_name (G_OBJECT (manager), "element_added", header);
+			    g_signal_emit_by_name (G_OBJECT (manager), "element_added", source);
+			}
+
 		}
 
 		g_object_unref (header);
@@ -324,11 +360,18 @@ cg_plugin_generator_created_cb (CgGenerator *generator,
 	}
 	else
 	{
-		/* We do not just use ianjuta_file_leader_load here to ensure that
-		 * the new documents are flagged as changed and no path is
-		 * already set. */
-		cg_plugin_load (plugin, generator, header_file, NULL);
-		cg_plugin_load (plugin, generator, source_file, NULL);
+		if (header_is_source == TRUE)
+		{
+			/* We do not just use ianjuta_file_leader_load here to ensure that
+			 * the new documents are flagged as changed and no path is
+			 * already set. */
+			cg_plugin_load (plugin, generator, source_file, NULL);
+		}
+		else
+		{
+			cg_plugin_load (plugin, generator, header_file, NULL);
+			cg_plugin_load (plugin, generator, source_file, NULL);
+		}
 	}
 
 	g_object_unref (G_OBJECT (plugin->window));
@@ -356,24 +399,24 @@ cg_plugin_window_response_cb (G_GNUC_UNUSED GtkDialog *dialog,
 
 	if (response_id == GTK_RESPONSE_ACCEPT)
 	{
-    	if (cg_window_get_add_to_project (plugin->window))
-	    {
-		    result = cg_plugin_add_to_project (
-		    	plugin, cg_window_get_header_file (plugin->window),
-				cg_window_get_source_file (plugin->window),
-				&header_file, &source_file);
+		if (cg_window_get_add_to_project (plugin->window))
+		{
+			result = cg_plugin_add_to_project (
+				plugin, cg_window_get_header_file (plugin->window),
+					cg_window_get_source_file (plugin->window),
+					&header_file, &source_file);
 		}
 		else
 		{
-		    header_file = g_build_filename (g_get_tmp_dir (),
-		    	cg_window_get_header_file (plugin->window), NULL);
-		    source_file = g_build_filename (g_get_tmp_dir (),
-		    	cg_window_get_source_file (plugin->window), NULL);
+			header_file = g_build_filename (g_get_tmp_dir (),
+				cg_window_get_header_file (plugin->window), NULL);
+			source_file = g_build_filename (g_get_tmp_dir (),
+				cg_window_get_source_file (plugin->window), NULL);
 
-		    result = TRUE;
+			result = TRUE;
 		}
-    	
-		if(result == TRUE)
+
+		if (result == TRUE)
 		{
 			values = cg_window_create_value_heap (plugin->window);
 

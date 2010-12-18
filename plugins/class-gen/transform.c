@@ -437,6 +437,65 @@ cg_transform_arguments (GHashTable *table,
 	}
 }
 
+/** 
+ * Add a self reference to the arguments list, if necessary. Python only.
+ */
+void
+cg_transform_python_arguments (GHashTable *table,
+			       const gchar *index)
+{
+	gchar *arg_res;
+	gchar *arguments;
+	size_t len;
+
+	arguments = g_hash_table_lookup (table, index);
+
+	arg_res = NULL;
+	if (arguments != NULL)
+	{
+		g_strstrip (arguments);
+		len = strlen (arguments);
+		/* Do nothing if the field was left empty */
+		if (len > 0)
+		{
+			if (arguments[0] != '(')
+			{
+				/* Check if self is in arguments. If yes,
+				 * cg_transform_arguments will take care of the
+				 * rest, if not then add the self argument. */
+				if (g_strcmp0 (arguments, "self") != 0)
+				{
+					g_hash_table_insert (table, (gpointer) index,
+							     g_strdup_printf ("(self, %s)", arguments));
+
+					g_free (arg_res);
+					arg_res = NULL;
+				}
+			}
+			else
+			{
+				if (g_strcmp0 (arguments, "()") == 0)
+				{
+					g_hash_table_insert (table, (gpointer) index,
+							     g_strdup ("(self)"));
+
+					g_free (arg_res);
+					arg_res = NULL;
+				}
+			}
+		}
+		else
+		{
+			g_hash_table_insert (table, (gpointer) index,
+						     g_strdup_printf ("%s", "(self)"));
+			g_free (arg_res);
+			arg_res = NULL;
+		}
+	}
+
+	cg_transform_arguments (table, index, FALSE);
+}
+
 /* This function makes a valid C identifier out of a string. It does this
  * by ignoring anything but digits, letters, hyphens and underscores. Digits
  * at the beginning of the string are also ignored. Hpyhens are transformed

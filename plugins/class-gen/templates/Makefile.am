@@ -4,7 +4,8 @@ clsgen_appdata_DATA = \
 	cc-header.tpl \
 	cc-source.tpl \
 	go-header.tpl \
-	go-source.tpl
+	go-source.tpl \
+	py-source.tpl
 
 EXTRA_DIST = \
 	$(clsgen_appdata_DATA)

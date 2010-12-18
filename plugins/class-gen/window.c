@@ -36,6 +36,8 @@
 #define GO_HEADER_TEMPLATE PACKAGE_DATA_DIR"/class-templates/go-header.tpl"
 #define GO_SOURCE_TEMPLATE PACKAGE_DATA_DIR"/class-templates/go-source.tpl"
 
+#define PY_SOURCE_TEMPLATE PACKAGE_DATA_DIR"/class-templates/py-source.tpl"
+
 typedef struct _CgWindowPrivate CgWindowPrivate;
 struct _CgWindowPrivate
 {
@@ -46,6 +48,8 @@ struct _CgWindowPrivate
 	CgElementEditor *editor_go_members;
 	CgElementEditor *editor_go_properties;
 	CgElementEditor *editor_go_signals;
+	CgElementEditor *editor_py_methods;
+	CgElementEditor *editor_py_constvars;
 	
 	CgValidator *validator;
 };
@@ -294,6 +298,35 @@ cg_window_validate_go (CgWindow *window)
 }
 
 static void
+cg_window_validate_py (CgWindow *window)
+{
+	CgWindowPrivate *priv;
+	priv = CG_WINDOW_PRIVATE (window);
+	
+	if (priv->validator != NULL) g_object_unref (G_OBJECT (priv->validator));
+	
+	priv->validator = cg_validator_new (
+		GTK_WIDGET (gtk_builder_get_object (priv->bxml, "create_button")),
+		GTK_ENTRY (gtk_builder_get_object (priv->bxml, "py_name")), NULL);
+}
+
+static void
+cg_window_header_file_entry_set_sensitive (gpointer user_data, gboolean sensitive)
+{
+	CgWindow *window;
+	CgWindowPrivate *priv;
+
+	GtkWidget *file_header;
+
+	window = CG_WINDOW (user_data);
+	priv = CG_WINDOW_PRIVATE (window);
+
+	file_header = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "header_file"));
+
+	gtk_widget_set_sensitive (file_header, sensitive);
+}
+
+static void
 cg_window_top_notebook_switch_page_cb (G_GNUC_UNUSED GtkNotebook *notebook,
                                        G_GNUC_UNUSED GtkWidget *page,
                                        guint page_num,
@@ -305,10 +338,16 @@ cg_window_top_notebook_switch_page_cb (G_GNUC_UNUSED GtkNotebook *notebook,
 	switch(page_num)
 	{
 	case 0:
+		cg_window_header_file_entry_set_sensitive (user_data, TRUE);
 		cg_window_validate_cc (window);
 		break;
 	case 1:
+		cg_window_header_file_entry_set_sensitive (user_data, TRUE);
 		cg_window_validate_go (window);
+		break;
+	case 2: /* Python */
+		cg_window_header_file_entry_set_sensitive (user_data, FALSE);
+		cg_window_validate_py (window);
 		break;
 	default:
 		g_assert_not_reached ();
@@ -452,6 +491,36 @@ cg_window_go_name_changed_cb (GtkEntry *entry,
 	g_free (str_filesource);
 }
 
+static void
+cg_window_py_name_changed_cb (GtkEntry *entry,
+			      gpointer user_data)
+{
+	CgWindow *window;
+	CgWindowPrivate *priv;
+
+	GtkWidget *file_header;
+	GtkWidget *file_source;
+	gchar* str_filebase;
+	gchar* str_filesource;
+
+	window = CG_WINDOW (user_data);
+	priv = CG_WINDOW_PRIVATE (window);
+
+	file_header = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "header_file"));
+	file_source = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "source_file"));
+
+	str_filebase = cg_window_class_name_to_file_name (
+		gtk_entry_get_text (GTK_ENTRY (entry)));
+
+	str_filesource = g_strconcat (str_filebase, ".py", NULL);
+	g_free (str_filebase);
+	
+	gtk_entry_set_text (GTK_ENTRY (file_header), str_filesource);
+	gtk_entry_set_text (GTK_ENTRY (file_source), str_filesource);
+	
+	g_free (str_filesource);
+}
+
 #if 0
 static void
 cg_window_associate_browse_button (GladeXML *xml,
@@ -536,6 +605,23 @@ cg_window_set_builder (CgWindow *window,
 		_("Flags"), CG_ELEMENT_EDITOR_COLUMN_FLAGS, GO_SIGNAL_FLAGS,
 		_("Marshaller"), CG_ELEMENT_EDITOR_COLUMN_STRING);
 
+	priv->editor_py_methods = cg_element_editor_new (
+		GTK_TREE_VIEW (gtk_builder_get_object (priv->bxml, "py_methods")),
+		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "py_methods_add")),
+		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "py_methods_remove")),
+		2,
+		_("Name"), CG_ELEMENT_EDITOR_COLUMN_STRING,
+		_("Arguments"), CG_ELEMENT_EDITOR_COLUMN_ARGUMENTS);
+
+	priv->editor_py_constvars = cg_element_editor_new (
+		GTK_TREE_VIEW (gtk_builder_get_object (priv->bxml, "py_constvars")),
+		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "py_constvars_add")),
+		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "py_constvars_remove")),
+		2,
+		_("Name"), CG_ELEMENT_EDITOR_COLUMN_STRING,
+		_("Value"), CG_ELEMENT_EDITOR_COLUMN_STRING);
+
+
 	/* Active item property in glade cannot be set because no GtkTreeModel
 	 * is assigned. */
 	gtk_combo_box_set_active (
@@ -544,6 +630,9 @@ cg_window_set_builder (CgWindow *window,
 	gtk_combo_box_set_active (
 		GTK_COMBO_BOX (gtk_builder_get_object (priv->bxml, "cc_inheritance")),
 		0);
+	g_signal_connect (
+		G_OBJECT (gtk_builder_get_object (priv->bxml, "py_name")), "changed",
+		G_CALLBACK (cg_window_py_name_changed_cb), window);
 
 	/* This revalidates the appropriate validator */
 	g_signal_connect (
@@ -668,6 +757,20 @@ cg_window_go_signals_transform_func (GHashTable *table,
 	cg_transform_flags (table, "Flags", GO_SIGNAL_FLAGS);
 }
 
+static void
+cg_window_py_methods_transform_func (GHashTable *table,
+			     G_GNUC_UNUSED gpointer user_data)
+{
+	cg_transform_python_arguments (table, "Arguments");
+}
+
+static void
+cg_window_py_constvars_transform_func (GHashTable *table,
+                                       G_GNUC_UNUSED gpointer user_data)
+{
+	cg_transform_string (table, "Value");
+}
+
 #if 0
 static gboolean
 cg_window_scope_condition_func (const gchar **elements,
@@ -715,6 +818,8 @@ cg_window_init (CgWindow *window)
 	priv->editor_go_members = NULL;
 	priv->editor_go_properties = NULL;
 	priv->editor_go_signals = NULL;
+	priv->editor_py_methods = NULL;
+	priv->editor_py_constvars = NULL;
 	
 	priv->validator = NULL;
 }
@@ -736,6 +841,10 @@ cg_window_finalize (GObject *object)
 		g_object_unref (G_OBJECT (priv->editor_go_properties));
 	if (priv->editor_go_signals != NULL)
 		g_object_unref (G_OBJECT (priv->editor_go_signals));
+	if (priv->editor_py_methods != NULL)
+		g_object_unref (G_OBJECT (priv->editor_py_methods));
+	if (priv->editor_py_constvars != NULL)
+		g_object_unref (G_OBJECT (priv->editor_py_constvars));
 
 	if (priv->validator != NULL)
 		g_object_unref (G_OBJECT (priv->validator));
@@ -995,6 +1104,21 @@ cg_window_create_value_heap (CgWindow *window)
 		                              "Flags", "Marshaller");
 
 		break;
+	case 2: /* Python */
+		cg_window_set_heap_value (window, values, G_TYPE_STRING,
+					  "ClassName", "py_name");
+		cg_window_set_heap_value (window, values, G_TYPE_STRING,
+					  "BaseClass", "py_base");
+		cg_window_set_heap_value (window, values, G_TYPE_BOOLEAN,
+					  "Headings", "py_headings");
+		cg_element_editor_set_values (priv->editor_py_methods, "Methods", values,
+					      cg_window_py_methods_transform_func,
+                                              window, "Name", "Arguments");
+		cg_element_editor_set_values (priv->editor_py_constvars, "Constvars",
+					      values,
+					      cg_window_py_constvars_transform_func,
+					      window, "Name", "Value");
+		break;
 	default:
 		g_assert_not_reached ();
 		break;
@@ -1045,6 +1169,8 @@ cg_window_get_header_template (CgWindow *window)
 		return CC_HEADER_TEMPLATE;
 	case 1:
 		return GO_HEADER_TEMPLATE;
+	case 2: /* Python */
+		return PY_SOURCE_TEMPLATE;
 	default:
 		g_assert_not_reached ();
 		return NULL;
@@ -1082,6 +1208,8 @@ cg_window_get_source_template(CgWindow *window)
 		return CC_SOURCE_TEMPLATE;
 	case 1:
 		return GO_SOURCE_TEMPLATE;
+	case 2:
+		return PY_SOURCE_TEMPLATE;
 	default:
 		g_assert_not_reached ();
 		return NULL;
