@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2010-11-20 11:47+0000\n"
-"PO-Revision-Date: 2010-12-05 19:05+0100\n"
+"POT-Creation-Date: 2010-11-21 11:57+0000\n"
+"PO-Revision-Date: 2010-12-18 18:34+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -280,7 +280,6 @@ msgstr "Seleccionar un complemento"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1358
 #: ../libanjuta/anjuta-plugin-manager.c:1509
-#| msgid "Please select a plugin to activate"
 msgid "<b>Please select a plugin to activate</b>"
 msgstr "<b>Seleccionar un complemento para activar</b>"
 
@@ -997,9 +996,9 @@ msgstr "Entrando en: %s"
 msgid "Leaving: %s"
 msgstr "Saliendo de: %s"
 
-#. The translations should match that of 'make' program.
+#. The translations should match that of 'gcc' program.
 #. * The second string with -old should be used for an older
-#. * version of 'make' if necessary. If you update one string,
+#. * version of 'gcc' if necessary. If you update one string,
 #. * move the first one to translate the -old string and then
 #. * replace the first string only.
 #: ../plugins/build-basic-autotools/plugin.c:932
@@ -1008,13 +1007,12 @@ msgid "warning:"
 msgstr "aviso:"
 
 #: ../plugins/build-basic-autotools/plugin.c:933
-#| msgid "warning:"
 msgid "warning:-old"
 msgstr "aviso:-old"
 
-#. The translations should match that of 'make' program.
+#. The translations should match that of 'gcc' program.
 #. * The second string with -old should be used for an older
-#. * version of 'make' if necessary. If you update one string,
+#. * version of 'gcc' if necessary. If you update one string,
 #. * move the first one to translate the -old string and then
 #. * replace the first string only.
 #: ../plugins/build-basic-autotools/plugin.c:944
@@ -1023,7 +1021,6 @@ msgid "error:"
 msgstr "error:"
 
 #: ../plugins/build-basic-autotools/plugin.c:945
-#| msgid "error:"
 msgid "error:-old"
 msgstr "error:-old"
 
@@ -1497,7 +1494,7 @@ msgstr "Tipo"
 
 #: ../plugins/class-gen/window.c:502 ../plugins/class-gen/window.c:512
 #: ../plugins/class-gen/window.c:520 ../plugins/class-gen/window.c:534
-#: ../plugins/project-manager/dialogs.c:452
+#: ../plugins/project-manager/dialogs.c:434
 #: ../plugins/run-program/parameters.c:754
 #: ../plugins/snippets-manager/plugin.c:757
 #: ../plugins/snippets-manager/snippets-browser.c:530
@@ -2349,7 +2346,7 @@ msgstr "Variable"
 
 #: ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/debug-manager/registers.c:469
-#: ../plugins/project-manager/dialogs.c:459
+#: ../plugins/project-manager/dialogs.c:441
 #: ../plugins/run-program/parameters.c:763 ../plugins/tools/editor.c:474
 msgid "Value"
 msgstr "Valor"
@@ -3926,7 +3923,6 @@ msgid "Please select a plugin to open <b>%s</b>."
 msgstr "Seleccione un complemento para abrir. <b>%s</b>."
 
 #: ../plugins/file-loader/plugin.c:1441
-#| msgid "Open With"
 msgid "<b>Open With</b>"
 msgstr "<b>Abrir con</b>"
 
@@ -4041,7 +4037,7 @@ msgid "New File"
 msgstr "Archivo nuevo"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:12
-#: ../plugins/project-manager/dialogs.c:560
+#: ../plugins/project-manager/dialogs.c:542
 msgid "Type:"
 msgstr "Tipo:"
 
@@ -4100,71 +4096,64 @@ msgstr "No se pudo construir la interfaz de usuario para «Archivo nuevo»"
 #: ../plugins/dir-project/dir-project.c:133
 #: ../plugins/dir-project/dir-project.c:156
 #, c-format
-#| msgid "Missing tool name"
 msgid "Missing name"
 msgstr "Falta el nombre"
 
 #: ../plugins/dir-project/dir-project.c:649
 #: ../plugins/dir-project/dir-project.c:762
-#: ../plugins/am-project/am-project.c:1621
-#: ../plugins/am-project/am-project.c:1652
-#: ../plugins/am-project/am-project.c:1761
-#: ../plugins/am-project/am-project.c:1837
+#: ../plugins/am-project/am-project.c:1627
+#: ../plugins/am-project/am-project.c:1658
+#: ../plugins/am-project/am-project.c:1767
+#: ../plugins/am-project/am-project.c:1843
 #, c-format
 msgid "Project doesn't exist or invalid path"
 msgstr "El proyecto no existe o ruta no válida"
 
 #: ../plugins/dir-project/dir-project.c:773
 #: ../plugins/am-project/am-project.c:91
-#| msgid "Group:"
 msgid "Group"
 msgstr "Grupo"
 
 #: ../plugins/dir-project/dir-project.c:776
 #: ../plugins/am-project/am-project.c:98
-#| msgid "Source:"
 msgid "Source"
 msgstr "Origen"
 
 #: ../plugins/dir-project/dir-project.c:877
 #: ../plugins/dir-project/dir-project.c:887
 #, c-format
-#| msgid "Project doesn't exist"
 msgid "Project doesn't allow to set properties"
 msgstr "El proyecto no permite configurar las propiedades"
 
-#: ../plugins/am-project/am-node.c:708
+#: ../plugins/am-project/am-node.c:750
 msgid "Please specify group name"
 msgstr "Especifique el nombre del grupo"
 
-#: ../plugins/am-project/am-node.c:722
-#| msgid "Group name can only contain alphanumeric, '_', '-' or '.' characters"
+#: ../plugins/am-project/am-node.c:764
 msgid ""
 "Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"
 msgstr ""
 "El nombre del grupo sólo puede contener caracteres alfanuméricos o los "
 "caracteres «#$:%+,-.=@^_`~»"
 
-#: ../plugins/am-project/am-node.c:857
+#: ../plugins/am-project/am-node.c:918
 msgid "Please specify target name"
 msgstr "Especifique el nombre del objetivo"
 
-#: ../plugins/am-project/am-node.c:871
-#| msgid ""
-#| "Target name can only contain alphanumeric, '_', '-' or '.' characters"
+#: ../plugins/am-project/am-node.c:932
 msgid ""
 "Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
 msgstr ""
 "El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», "
 "«-», «/» o «.»"
 
-#: ../plugins/am-project/am-node.c:886
+#: ../plugins/am-project/am-node.c:947
 msgid "Shared library target name must be of the form 'libxxx.la'"
 msgstr ""
 "El nombre de la biblioteca compartida del objetivo debe ser de la forma "
 "«libxxx.la»"
 
-#: ../plugins/am-project/am-node.c:895
+#: ../plugins/am-project/am-node.c:956
 msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr ""
 "El nombre de la biblioteca estática del objetivo debe ser de la forma "
@@ -4211,16 +4200,15 @@ msgid "Script"
 msgstr "Script"
 
 #: ../plugins/am-project/am-project.c:198
-#, fuzzy
 #| msgid "Packages"
 msgid "Package"
-msgstr "Paquetes"
+msgstr "Paquete"
 
-#: ../plugins/am-project/am-project.c:1638
-#, fuzzy, c-format
+#: ../plugins/am-project/am-project.c:1644
+#, c-format
 #| msgid "Unable to update project"
 msgid "Unable to parse project file"
-msgstr "No se pudo actualizar el proyecto"
+msgstr "No se pudo analizar el archivo de proyecto"
 
 #: ../plugins/am-project/am-properties.c:46
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:26
@@ -4244,7 +4232,7 @@ msgstr "Versión:"
 
 #: ../plugins/am-project/am-properties.c:47
 msgid "Bug report URL:"
-msgstr ""
+msgstr "URL de informe de errores:"
 
 #: ../plugins/am-project/am-properties.c:48
 msgid "Package name:"
@@ -4276,107 +4264,93 @@ msgstr "Opciones del compilador de C++:"
 
 #: ../plugins/am-project/am-properties.c:60
 #: ../plugins/am-project/am-properties.c:81
-#, fuzzy
 #| msgid "C compiler flags:"
 msgid "Java compiler flags:"
-msgstr "Opciones del compilador de C:"
+msgstr "Opciones del compilador de Java:"
 
 #: ../plugins/am-project/am-properties.c:61
 #: ../plugins/am-project/am-properties.c:82
-#, fuzzy
 #| msgid "C compiler flags:"
 msgid "Vala compiler flags:"
-msgstr "Opciones del compilador de C:"
+msgstr "Opciones del compilador de Vala:"
 
 #: ../plugins/am-project/am-properties.c:62
 #: ../plugins/am-project/am-properties.c:83
-#, fuzzy
 #| msgid "Fortran compiler flags:"
 msgid "Fortan compiler flags:"
 msgstr "Opciones del compilador de Fortran:"
 
 #: ../plugins/am-project/am-properties.c:63
 #: ../plugins/am-project/am-properties.c:84
-#, fuzzy
 #| msgid "C compiler flags:"
 msgid "Objective C compiler flags:"
 msgstr "Opciones del compilador de C:"
 
 #: ../plugins/am-project/am-properties.c:64
 #: ../plugins/am-project/am-properties.c:85
-#, fuzzy
 #| msgid "Linker flags:"
 msgid "Lex/Flex flags:"
-msgstr "Opciones del enlazador:"
+msgstr "Opciones de Lex/Flex:"
 
 #: ../plugins/am-project/am-properties.c:65
 #: ../plugins/am-project/am-properties.c:86
-#, fuzzy
 #| msgid "Linker flags:"
 msgid "Yacc/Bison flags:"
-msgstr "Opciones del enlazador:"
+msgstr "Opciones de Yacc/Bison:"
 
 #: ../plugins/am-project/am-properties.c:66
 msgid "Install directories:"
 msgstr "Directorios de instalación:"
 
 #: ../plugins/am-project/am-properties.c:73
-#, fuzzy
 #| msgid "Do not show tabs"
 msgid "Do not install:"
-msgstr "No mostrar tabuladores"
+msgstr "No instalar:"
 
 #: ../plugins/am-project/am-properties.c:74
-#, fuzzy
 #| msgid "Install directory:"
 msgid "Installation directory:"
 msgstr "Directorio de instalación:"
 
 #: ../plugins/am-project/am-properties.c:76
-#, fuzzy
 #| msgid "Add internationalization:"
 msgid "Additional libraries:"
-msgstr "Añadir internacionalización:"
+msgstr "Bibliotecas adicionales:"
 
 #: ../plugins/am-project/am-properties.c:77
-#, fuzzy
 #| msgid "Add to Project"
 msgid "Additional objects:"
-msgstr "Añadir al proyecto"
+msgstr "Objetos adicionales:"
 
 #: ../plugins/am-project/am-properties.c:87
 #: ../plugins/am-project/am-properties.c:97
-#, fuzzy
 #| msgid "Plugin Dependencies:"
 msgid "Additional dependencies:"
-msgstr "Dependencias del complemento:"
+msgstr "Dependencias adicionales:"
 
 #: ../plugins/am-project/am-properties.c:88
-#, fuzzy
 #| msgid "Plugin Description:"
 msgid "Include in distribution:"
-msgstr "Descripción del complemento:"
+msgstr "Incluir en la distribución:"
 
 #: ../plugins/am-project/am-properties.c:89
-#, fuzzy
 #| msgid "Build Directory:"
 msgid "Build for check only:"
-msgstr "Directorio de construcción:"
+msgstr "Construir sólo para comprar:"
 
 #: ../plugins/am-project/am-properties.c:90
 #: ../plugins/am-project/am-properties.c:98
 msgid "Do not use prefix:"
-msgstr ""
+msgstr "No usar prefijo:"
 
 #: ../plugins/am-project/am-properties.c:91
 msgid "Keep target path:"
-msgstr ""
+msgstr "Mantener la ruta objetivo:"
 
 #: ../plugins/am-project/am-properties.c:99
-#, fuzzy
 #| msgid "Maximum Actions"
 msgid "Manual section:"
-msgstr "Acciones máximas"
+msgstr "Selección manual:"
 
 #: ../plugins/gdb/anjuta-gdb.ui.h:1
 msgid "Available pretty printers"
@@ -6680,32 +6654,28 @@ msgid "Import"
 msgstr "Importar"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:1
-#, fuzzy
 #| msgid "Add _module"
 msgid "Add Module"
-msgstr "Añadir _módulo"
+msgstr "Añadir módulo"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:2
-#, fuzzy
 #| msgid "Add _Package"
 msgid "Add Package"
-msgstr "Añadir _paquete"
+msgstr "Añadir paquete"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:3
 msgid "Add Source"
 msgstr "Añadir fuente"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:4
-#, fuzzy
 #| msgid "Module"
 msgid "Modules:"
-msgstr "Módulo"
+msgstr "Módulos:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:5
-#, fuzzy
 #| msgid "Import options"
 msgid "More options:"
-msgstr "Opciones de importación"
+msgstr "Más opciones:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:6
 msgid "New Group"
@@ -6716,16 +6686,14 @@ msgid "New Target"
 msgstr "Objetivo nuevo"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:8
-#, fuzzy
 #| msgid "Packages"
 msgid "Package list:"
-msgstr "Paquetes"
+msgstr "Lista de paquetes:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:9
-#, fuzzy
 #| msgid "Select the _target for the new source files:"
 msgid "Select the _target for the module:"
-msgstr "Seleccionar el _objetivo para los nuevos archivos de código:"
+msgstr "Seleccionar el _objetivo para el módulo:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:10
 msgid "Select the _target for the new source files:"
@@ -6756,31 +6724,28 @@ msgid "TargetTypes"
 msgstr "Tipos de objetivo"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:17
-#, fuzzy
 #| msgid "Add _Package"
 msgid "_Add package&#x2026;"
-msgstr "Añadir _paquete"
+msgstr "_Añadir paquete&#x2026;"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:18
 msgid "_Group name:"
 msgstr "Nombre del _grupo:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:19
-#, fuzzy
 #| msgid "Module name:"
 msgid "_Module name:"
-msgstr "Nombre del módulo:"
+msgstr "Nombre del _módulo:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:20
-#, fuzzy
 #| msgid "Select file to add:"
 msgid "_Select file to add&#x2026;"
-msgstr "Seleccionar archivo para añadir:"
+msgstr "_Seleccionar archivo para añadir&#x2026;"
 
 #: ../plugins/project-manager/project-model.c:233
-#: ../plugins/project-manager/plugin.c:1390
-#: ../plugins/project-manager/plugin.c:1508
-#: ../plugins/project-manager/plugin.c:1685
+#: ../plugins/project-manager/plugin.c:1389
+#: ../plugins/project-manager/plugin.c:1507
+#: ../plugins/project-manager/plugin.c:1684
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 msgid "Project"
 msgstr "Proyecto"
@@ -6879,36 +6844,34 @@ msgid "Shortcut: %s\n"
 msgstr "Tecla rápida: %s\n"
 
 #: ../plugins/project-manager/plugin.c:690
-#, fuzzy, c-format
+#, c-format
 #| msgid "Source: %s\n"
 msgid "Module: %s\n"
-msgstr "Origen: %s\n"
+msgstr "Módulo: %s\n"
 
 #: ../plugins/project-manager/plugin.c:693
-#, fuzzy, c-format
+#, c-format
 #| msgid "Packages"
 msgid "Package: %s\n"
-msgstr "Paquetes"
+msgstr "Pquete: %s\n"
 
 #: ../plugins/project-manager/plugin.c:705
-#, fuzzy
 #| msgid "The group will not be deleted from the file system."
 msgid "The group will be deleted from the file system."
-msgstr "El grupo no se borrará del sistema de archivos."
+msgstr "El grupo se eliminará del sistema de archivos."
 
 #: ../plugins/project-manager/plugin.c:707
 msgid "The group will not be deleted from the file system."
-msgstr "El grupo no se borrará del sistema de archivos."
+msgstr "El grupo no se eliminará del sistema de archivos."
 
 #: ../plugins/project-manager/plugin.c:709
-#, fuzzy
 #| msgid "The source file will not be deleted from the file system."
 msgid "The source file will be deleted from the file system."
-msgstr "El archivo fuente no se borrará del sistema de archivos."
+msgstr "El archivo fuente se eliminará del sistema de archivos."
 
 #: ../plugins/project-manager/plugin.c:711
 msgid "The source file will not be deleted from the file system."
-msgstr "El archivo fuente no se borrará del sistema de archivos."
+msgstr "El archivo fuente no se eliminará del sistema de archivos."
 
 #: ../plugins/project-manager/plugin.c:716
 msgid "Confirm remove"
@@ -6923,139 +6886,138 @@ msgstr ""
 "Falló al eliminar «%s»:\n"
 "%s"
 
-#: ../plugins/project-manager/plugin.c:829
+#: ../plugins/project-manager/plugin.c:828
 #, c-format
 msgid "Failed to retrieve URI info of %s: %s"
 msgstr "Falló al obtener el URI info de %s: %s"
 
-#: ../plugins/project-manager/plugin.c:867
+#: ../plugins/project-manager/plugin.c:866
 msgid "_Project"
 msgstr "_Proyecto"
 
-#: ../plugins/project-manager/plugin.c:871
+#: ../plugins/project-manager/plugin.c:870
 msgid "Add _Group…"
 msgstr "Añadir _grupo…"
 
-#: ../plugins/project-manager/plugin.c:871
-#: ../plugins/project-manager/plugin.c:915
+#: ../plugins/project-manager/plugin.c:870
+#: ../plugins/project-manager/plugin.c:914
 msgid "Add a group to project"
 msgstr "Añade un grupo a un proyecto"
 
-#: ../plugins/project-manager/plugin.c:876
+#: ../plugins/project-manager/plugin.c:875
 msgid "Add _Target…"
 msgstr "Añadir _objetivo…"
 
-#: ../plugins/project-manager/plugin.c:876
-#: ../plugins/project-manager/plugin.c:920
+#: ../plugins/project-manager/plugin.c:875
+#: ../plugins/project-manager/plugin.c:919
 msgid "Add a target to project"
 msgstr "Añadir un objetivo al proyecto"
 
-#: ../plugins/project-manager/plugin.c:881
+#: ../plugins/project-manager/plugin.c:880
 msgid "Add _Source File…"
 msgstr "Añadir archivo _fuente…"
 
-#: ../plugins/project-manager/plugin.c:881
-#: ../plugins/project-manager/plugin.c:925
-#: ../plugins/project-manager/plugin.c:940
+#: ../plugins/project-manager/plugin.c:880
+#: ../plugins/project-manager/plugin.c:924
+#: ../plugins/project-manager/plugin.c:939
 msgid "Add a source file to project"
 msgstr "Añade un archivo fuente al proyecto"
 
-#: ../plugins/project-manager/plugin.c:886
-#, fuzzy
+#: ../plugins/project-manager/plugin.c:885
 #| msgid "Add _module"
 msgid "Add _Module…"
-msgstr "Añadir _módulo"
+msgstr "Añadir _módulo…"
 
-#: ../plugins/project-manager/plugin.c:886
+#: ../plugins/project-manager/plugin.c:885
 #, fuzzy
 #| msgid "Add a source file to project"
 msgid "Add a module to a target"
 msgstr "Añade un archivo fuente al proyecto"
 
-#: ../plugins/project-manager/plugin.c:891
+#: ../plugins/project-manager/plugin.c:890
 #, fuzzy
 #| msgid "Add _Package"
 msgid "Add _Package…"
 msgstr "Añadir _paquete"
 
-#: ../plugins/project-manager/plugin.c:891
-#: ../plugins/project-manager/plugin.c:935
+#: ../plugins/project-manager/plugin.c:890
+#: ../plugins/project-manager/plugin.c:934
 #, fuzzy
 #| msgid "Add a target to project"
 msgid "Add a package to project"
 msgstr "Añadir un objetivo al proyecto"
 
-#: ../plugins/project-manager/plugin.c:896
-#: ../plugins/project-manager/plugin.c:945
+#: ../plugins/project-manager/plugin.c:895
+#: ../plugins/project-manager/plugin.c:944
 msgid "_Properties"
 msgstr "_Propiedades"
 
-#: ../plugins/project-manager/plugin.c:896
-#: ../plugins/project-manager/dialogs.c:709
+#: ../plugins/project-manager/plugin.c:895
+#: ../plugins/project-manager/dialogs.c:666
 msgid "Project properties"
 msgstr "Propiedades del proyecto"
 
-#: ../plugins/project-manager/plugin.c:901
+#: ../plugins/project-manager/plugin.c:900
 msgid "_Refresh"
 msgstr "_Refrescar"
 
-#: ../plugins/project-manager/plugin.c:901
+#: ../plugins/project-manager/plugin.c:900
 msgid "Refresh project manager tree"
 msgstr "Refrescar el árbol del adm. de proyectos"
 
-#: ../plugins/project-manager/plugin.c:906
+#: ../plugins/project-manager/plugin.c:905
 msgid "Close Pro_ject"
 msgstr "Cerrar pro_yecto"
 
-#: ../plugins/project-manager/plugin.c:906
+#: ../plugins/project-manager/plugin.c:905
 msgid "Close project"
 msgstr "Cerrar proyecto"
 
-#: ../plugins/project-manager/plugin.c:915
+#: ../plugins/project-manager/plugin.c:914
 msgid "Add _Group"
 msgstr "Añadir _grupo"
 
-#: ../plugins/project-manager/plugin.c:920
+#: ../plugins/project-manager/plugin.c:919
 msgid "Add _Target"
 msgstr "Añadir _objetivo"
 
-#: ../plugins/project-manager/plugin.c:925
+#: ../plugins/project-manager/plugin.c:924
 msgid "Add _Source File"
 msgstr "Añadir archivo _fuente"
 
-#: ../plugins/project-manager/plugin.c:930
+#: ../plugins/project-manager/plugin.c:929
 #, fuzzy
 #| msgid "Add _module"
 msgid "Add _Module"
 msgstr "Añadir _módulo"
 
-#: ../plugins/project-manager/plugin.c:930
+#: ../plugins/project-manager/plugin.c:929
 #, fuzzy
 #| msgid "Add a group to project"
 msgid "Add a module to target"
 msgstr "Añade un grupo a un proyecto"
 
-#: ../plugins/project-manager/plugin.c:935
+#: ../plugins/project-manager/plugin.c:934
 msgid "Add _Package"
 msgstr "Añadir _paquete"
 
-#: ../plugins/project-manager/plugin.c:940
+#: ../plugins/project-manager/plugin.c:939
 msgid "_Add to Project"
 msgstr "_Añadir al proyecto"
 
-#: ../plugins/project-manager/plugin.c:945
+#: ../plugins/project-manager/plugin.c:944
 msgid "Properties of group/target/source"
 msgstr "Propiedades del grupo/objetivo/fuente"
 
-#: ../plugins/project-manager/plugin.c:950
+#: ../plugins/project-manager/plugin.c:949
 msgid "Re_move"
 msgstr "Qui_tar"
 
-#: ../plugins/project-manager/plugin.c:950
+#: ../plugins/project-manager/plugin.c:949
 msgid "Remove from project"
 msgstr "Quita del proyecto"
 
-#: ../plugins/project-manager/plugin.c:1344
+#: ../plugins/project-manager/plugin.c:1343
 #, c-format
 msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
@@ -7064,35 +7026,35 @@ msgstr ""
 "Falló al analalizar el proyecto (el proyecto está abierto pero no habrá "
 "ninguna vista de proyecto) %s: %s\n"
 
-#: ../plugins/project-manager/plugin.c:1385
+#: ../plugins/project-manager/plugin.c:1384
 #, fuzzy
 #| msgid "Created project view…"
 msgid "Update project view…"
 msgstr "Vista de proyecto creada…"
 
-#: ../plugins/project-manager/plugin.c:1426
+#: ../plugins/project-manager/plugin.c:1425
 #, c-format
 msgid "Loading project: %s"
 msgstr "Cargando proyecto: %s"
 
-#: ../plugins/project-manager/plugin.c:1596
+#: ../plugins/project-manager/plugin.c:1595
 #, c-format
 msgid "Error closing project: %s"
 msgstr "Error al cerrar el proyecto: %s"
 
-#: ../plugins/project-manager/plugin.c:1664
+#: ../plugins/project-manager/plugin.c:1663
 msgid "Project manager actions"
 msgstr "Acciones del administrador de proyectos"
 
-#: ../plugins/project-manager/plugin.c:1672
+#: ../plugins/project-manager/plugin.c:1671
 msgid "Project manager popup actions"
 msgstr "Acciones emergentes el administrador de proyectos"
 
-#: ../plugins/project-manager/plugin.c:2400
+#: ../plugins/project-manager/plugin.c:2384
 msgid "Initializing Project…"
 msgstr "Inicializando el proyecto…"
 
-#: ../plugins/project-manager/plugin.c:2403
+#: ../plugins/project-manager/plugin.c:2387
 msgid "Project Loaded"
 msgstr "Proyecto cargado"
 
@@ -7103,76 +7065,76 @@ msgstr "Proyecto cargado"
 #. }
 #. else
 #. uri = g_strdup("");
-#: ../plugins/project-manager/dialogs.c:334
+#: ../plugins/project-manager/dialogs.c:316
 msgid "Select sources…"
 msgstr "Seleccionar fuentes…"
 
-#: ../plugins/project-manager/dialogs.c:539
+#: ../plugins/project-manager/dialogs.c:521
 #, fuzzy
 #| msgid "Rule name:"
 msgid "Full Name:"
 msgstr "Nombre de la regla:"
 
-#: ../plugins/project-manager/dialogs.c:712
+#: ../plugins/project-manager/dialogs.c:669
 msgid "Group properties"
 msgstr "Propiedades del grupo"
 
-#: ../plugins/project-manager/dialogs.c:715
+#: ../plugins/project-manager/dialogs.c:672
 msgid "Target properties"
 msgstr "Propiedades del objetivo"
 
-#: ../plugins/project-manager/dialogs.c:718
+#: ../plugins/project-manager/dialogs.c:675
 #, fuzzy
 #| msgid "Group properties"
 msgid "Source properties"
 msgstr "Propiedades del grupo"
 
-#: ../plugins/project-manager/dialogs.c:819
-#: ../plugins/project-manager/dialogs.c:830
+#: ../plugins/project-manager/dialogs.c:776
+#: ../plugins/project-manager/dialogs.c:787
 msgid "Cannot add group"
 msgstr "No se puede añadir el grupo"
 
-#: ../plugins/project-manager/dialogs.c:831
+#: ../plugins/project-manager/dialogs.c:788
 msgid "No parent group selected"
 msgstr "No ha seleccionado el grupo padre"
 
-#: ../plugins/project-manager/dialogs.c:1041
-#: ../plugins/project-manager/dialogs.c:1051
+#: ../plugins/project-manager/dialogs.c:998
+#: ../plugins/project-manager/dialogs.c:1008
 msgid "Cannot add source files"
 msgstr "No se pueden añadir los archivos de código"
 
-#: ../plugins/project-manager/dialogs.c:1052
+#: ../plugins/project-manager/dialogs.c:1009
 msgid "The selected node cannot contains source files."
-msgstr ""
+msgstr "El nodo seleccionado no puede contener archivos de fuentes."
 
-#: ../plugins/project-manager/dialogs.c:1234
-#: ../plugins/project-manager/dialogs.c:1245
+#: ../plugins/project-manager/dialogs.c:1191
+#: ../plugins/project-manager/dialogs.c:1202
 msgid "Cannot add target"
 msgstr "No se puede añadir el objetivo"
 
-#: ../plugins/project-manager/dialogs.c:1246
+#: ../plugins/project-manager/dialogs.c:1203
 msgid "No group selected"
 msgstr "No se ha seleccionado ningún grupo"
 
-#: ../plugins/project-manager/dialogs.c:1397
-#: ../plugins/project-manager/dialogs.c:1408
+#: ../plugins/project-manager/dialogs.c:1354
+#: ../plugins/project-manager/dialogs.c:1365
 #, fuzzy
 #| msgid "Cannot add source files"
 msgid "Cannot add modules"
 msgstr "No se pueden añadir los archivos de código"
 
-#: ../plugins/project-manager/dialogs.c:1409
+#: ../plugins/project-manager/dialogs.c:1366
 msgid "No target has been selected"
 msgstr "No se ha seleccionado ningún objetivo"
 
 #. Missing module name
-#: ../plugins/project-manager/dialogs.c:1613
+#: ../plugins/project-manager/dialogs.c:1569
 #, fuzzy
 #| msgid "Missing tool name"
 msgid "Missing module name"
 msgstr "Falta el nombre de la herramienta"
 
-#: ../plugins/project-manager/dialogs.c:1675
+#: ../plugins/project-manager/dialogs.c:1631
 #, fuzzy
 #| msgid "Cannot add target"
 msgid "Cannot add packages"
@@ -8233,7 +8195,7 @@ msgstr "Ejecutar operaciones"
 
 #: ../plugins/run-program/org.gnome.anjuta.run.gschema.xml.in.h:1
 msgid "Command used for starting a terminal"
-msgstr ""
+msgstr "Comando usado para iniciar una terminal"
 
 #: ../plugins/search/anjuta-search.ui.h:1
 msgid "Actions"
