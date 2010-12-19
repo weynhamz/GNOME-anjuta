@@ -395,6 +395,33 @@ anjuta_project_node_check (AnjutaProjectNode *parent)
 }
 
 
+static void
+anjuta_project_node_show (AnjutaProjectNode *node, gint indent)
+{
+	g_message("%*s %p: %s", indent, "", node, node != NULL ? anjuta_project_node_get_name (node) : NULL);
+}
+
+static void
+anjuta_project_node_dump_child (AnjutaProjectNode *parent, gint indent)
+{
+	AnjutaProjectNode *child;
+	
+	anjuta_project_node_show (parent, indent);
+	indent += 4;
+	
+	for (child = anjuta_project_node_first_child (parent); child != NULL; child = anjuta_project_node_next_sibling (child))
+	{
+		anjuta_project_node_dump_child (child, indent);
+	}
+}
+
+void
+anjuta_project_node_dump (AnjutaProjectNode *parent)
+{
+		anjuta_project_node_dump_child (parent, 0);
+}
+
+
 
 /* Adding node functions
  *---------------------------------------------------------------------------*/

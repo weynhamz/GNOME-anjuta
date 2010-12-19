@@ -848,6 +848,7 @@ gbf_project_view_update_tree (GbfProjectView *view, AnjutaProjectNode *parent, G
 	GtkTreeIter child;
 	GList *node;
 	GList *nodes;
+	GbfTreeData *data = NULL;
 
 	/* Get all new nodes */
 	nodes = gbf_project_util_all_child (parent, ANJUTA_PROJECT_UNKNOWN);
@@ -858,7 +859,7 @@ gbf_project_view_update_tree (GbfProjectView *view, AnjutaProjectNode *parent, G
 		gboolean valid = TRUE;
 		
 		while (valid) {
-			GbfTreeData *data = NULL;
+			data = NULL;
 			AnjutaProjectNode* data_node = NULL;
 
 			/* Look for current node */
@@ -874,7 +875,7 @@ gbf_project_view_update_tree (GbfProjectView *view, AnjutaProjectNode *parent, G
 				valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (view->model), &child);
 				continue;
 			}
-			
+
 			if (data->type == GBF_TREE_NODE_UNKNOWN)
 			{
 				node = g_list_find_custom (nodes, data->name, compare_node_name);
@@ -921,6 +922,7 @@ gbf_project_view_update_tree (GbfProjectView *view, AnjutaProjectNode *parent, G
 							gtk_tree_path_free (path);
 						}
 					}
+					data->expanded = expanded;
 					if (expanded)
 					{
 						filter = GTK_TREE_MODEL_FILTER (gtk_tree_view_get_model (GTK_TREE_VIEW (view)));
@@ -984,6 +986,29 @@ gbf_project_view_update_tree (GbfProjectView *view, AnjutaProjectNode *parent, G
 			break;
 		default:
 			break;
+		}
+	}
+
+	/* Expand parent, needed if the parent hasn't any children when it was created */
+	if (iter != NULL)
+	{
+		/* Check parent data */
+		gtk_tree_model_get (GTK_TREE_MODEL (view->model), iter,
+			GBF_PROJECT_MODEL_COLUMN_DATA, &data,
+			-1);
+		if (data->expanded)
+		{
+			GtkTreePath *path;
+			GtkTreePath *child_path;
+			GtkTreeModelFilter *filter;
+
+			filter = GTK_TREE_MODEL_FILTER (gtk_tree_view_get_model (GTK_TREE_VIEW (view)));
+			path = gtk_tree_model_get_path (GTK_TREE_MODEL (view->model), iter);
+			child_path = gtk_tree_model_filter_convert_child_path_to_path (filter, path);
+			gtk_tree_view_expand_to_path (GTK_TREE_VIEW (view), child_path);
+			gtk_tree_path_free (child_path);
+			gtk_tree_path_free (path);
+			data->expanded = FALSE;
 		}
 	}
 }

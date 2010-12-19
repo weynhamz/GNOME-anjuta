@@ -508,8 +508,15 @@ dir_project_load_directory_callback (GObject      *source_object,
 					g_object_unref (remove);
 				}
 			}
-			anjuta_project_node_clear_state (data->parent, ANJUTA_PROJECT_INCOMPLETE);
-			g_signal_emit_by_name (data->proj, "node-loaded", data->parent, NULL);
+			if (anjuta_project_node_parent (data->parent) == data->proj->root)
+			{
+				/* Emit signal on root node instead of the first group */
+				g_signal_emit_by_name (data->proj, "node-loaded", data->proj->root, NULL);
+			}
+			else
+			{
+				g_signal_emit_by_name (data->proj, "node-loaded", data->parent, NULL);
+			}
 		}
 		g_object_unref (data->parent);
 		g_slice_free (DirData, data);
@@ -834,7 +841,6 @@ static gboolean
 iproject_load_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
 {
 	node = dir_project_load_node (DIR_PROJECT (obj), node, err);
-	g_signal_emit_by_name (obj, "node-loaded", node, NULL);
 
 	return node != NULL;
 }

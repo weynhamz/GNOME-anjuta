@@ -179,6 +179,7 @@ AnjutaProjectNode *anjuta_project_node_traverse (AnjutaProjectNode *node, GTrave
 AnjutaProjectNode *anjuta_project_node_children_traverse (AnjutaProjectNode *node, AnjutaProjectNodeTraverseFunc func, gpointer data);
 
 void anjuta_project_node_check (AnjutaProjectNode *parent);
+void anjuta_project_node_dump (AnjutaProjectNode *parent);
 
 AnjutaProjectNode *anjuta_project_node_insert_before (AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNode *node);
 AnjutaProjectNode *anjuta_project_node_insert_after (AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNode *node);
@@ -201,7 +202,6 @@ gboolean anjuta_project_node_clear_state (AnjutaProjectNode *node, AnjutaProject
 
 AnjutaProjectProperty *anjuta_project_node_insert_property (AnjutaProjectNode *node, AnjutaProjectProperty *native, AnjutaProjectProperty *property);
 AnjutaProjectProperty *anjuta_project_node_remove_property (AnjutaProjectNode *node, AnjutaProjectProperty *property);
-
 
 AnjutaProjectNode *anjuta_project_group_get_node_from_file (const AnjutaProjectNode *root, GFile *directory);
 AnjutaProjectNode *anjuta_project_target_get_node_from_name (const AnjutaProjectNode *parent, const gchar *name);
