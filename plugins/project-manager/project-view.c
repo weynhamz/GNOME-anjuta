@@ -1303,13 +1303,13 @@ on_node_loaded (AnjutaPmProject *sender, AnjutaProjectNode *node, gboolean compl
 		gbf_project_view_update_tree (view, node, found ? &iter : NULL);
 		if (!found)
 		{
-			gtk_tree_model_get_iter_first (GTK_TREE_MODEL (view->model), &iter);
+			found = !gtk_tree_model_get_iter_first (GTK_TREE_MODEL (view->model), &iter);
 		}
 		gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (view->model),
 		                                      GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID,
 		                                      GTK_SORT_ASCENDING);
 
-		g_signal_emit (G_OBJECT (view), signals[NODE_LOADED], 0, &iter, complete, NULL);
+		g_signal_emit (G_OBJECT (view), signals[NODE_LOADED], 0, found ? &iter : NULL, complete, NULL);
 	}
 	
 	if (complete)

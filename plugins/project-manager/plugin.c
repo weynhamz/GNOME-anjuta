@@ -1280,7 +1280,7 @@ on_project_loaded (AnjutaPmProject *project, GtkTreeIter *parent, gboolean compl
 {
 	AnjutaStatus *status;
 	gchar *dirname;
-	
+
 	dirname = anjuta_util_get_local_path_from_uri (plugin->project_root_uri);
 	status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL);
 	if (error)
