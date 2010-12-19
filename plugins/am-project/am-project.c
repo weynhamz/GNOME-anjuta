@@ -2070,6 +2070,12 @@ amp_project_unload (AmpProject *project)
 	if (project->arg_list) anjuta_token_style_free (project->arg_list);
 }
 
+gboolean
+amp_project_is_loaded (AmpProject *project)
+{
+	return project->loading == 0;
+}
+
 gint
 amp_project_probe (GFile *file,
 	    GError     **error)
@@ -2503,6 +2509,7 @@ amp_load_complete (PmJob *job)
 	g_hash_table_destroy (map);
 	g_object_unref (job->proxy);
 	job->proxy = NULL;
+	AMP_PROJECT (job->user_data)->loading--;
 	g_signal_emit_by_name (AMP_PROJECT (job->user_data), "node-loaded", job->node,  job->error);
 	//g_timer_stop (timer);
 	//g_message ("amp_load_complete completed in %g", g_timer_elapsed (timer, NULL));
@@ -2871,6 +2878,7 @@ iproject_load_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **error
 	if (node == NULL) node = ANJUTA_PROJECT_NODE (obj);
 	if (AMP_PROJECT (obj)->queue == NULL) AMP_PROJECT (obj)->queue = pm_command_queue_new ();
 
+	AMP_PROJECT (obj)->loading++;
 	load_job = pm_job_new (&amp_load_job, node, NULL, NULL, ANJUTA_PROJECT_UNKNOWN, NULL, NULL, obj);
 
 	pm_command_queue_push (AMP_PROJECT (obj)->queue, load_job);
@@ -3050,6 +3058,12 @@ iproject_get_node_info (IAnjutaProject *obj, GError **err)
 	return amp_project_get_node_info (AMP_PROJECT (obj), err);
 }
 
+static gboolean
+iproject_is_loaded (IAnjutaProject *obj, GError **err)
+{
+	return amp_project_is_loaded (AMP_PROJECT (obj));
+}
+
 static void
 iproject_iface_init(IAnjutaProjectIface* iface)
 {
@@ -3062,6 +3076,7 @@ iproject_iface_init(IAnjutaProjectIface* iface)
 	iface->remove_property = iproject_remove_property;
 	iface->get_root = iproject_get_root;
 	iface->get_node_info = iproject_get_node_info;
+	iface->is_loaded = iproject_is_loaded;
 }
 
 /* Group access functions
@@ -3219,6 +3234,7 @@ amp_project_init (AmpProject *project)
 	project->arg_list = NULL;
 
 	project->queue = NULL;
+	project->loading = 0;
 }
 
 static void

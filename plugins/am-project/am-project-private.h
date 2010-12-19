@@ -62,6 +62,9 @@ struct _AmpProject {
 	/* shortcut hash tables, mapping id -> GNode from the tree above */
 	GHashTable		*groups;
 	GHashTable		*configs;		/* Config file from configure_file */
+
+	/* Number of not loaded node */
+	gint				loading;
 	
 	/* Keep list style */
 	AnjutaTokenStyle *ac_space_list;

@@ -63,6 +63,8 @@ gint amp_project_probe (GFile *directory, GError     **error);
 gboolean amp_project_load (AmpProject *project, GFile *directory, GError **error);
 AnjutaProjectNode *amp_project_load_node (AmpProject *project, AnjutaProjectNode *node, AnjutaProjectNode *parent, GError **error);
 void amp_project_unload (AmpProject *project);
+gboolean amp_project_is_loaded (AmpProject *project);
+
 
 void amp_project_load_config (AmpProject *project, AnjutaToken *arg_list);
 void amp_project_load_properties (AmpProject *project, AnjutaToken *macro, AnjutaToken *list);

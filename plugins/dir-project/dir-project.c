@@ -795,6 +795,22 @@ dir_project_get_node_info (DirProject *project, GError **error)
 	return info_list;
 }
 
+static gboolean
+find_not_loaded_node (gpointer key, gpointer value, gpointer user_data)
+{
+	AnjutaProjectNode *node = (AnjutaProjectNode *)value;
+	gboolean found;
+	
+	found = anjuta_project_node_get_state (node) & (ANJUTA_PROJECT_LOADING | ANJUTA_PROJECT_INCOMPLETE);
+
+	return found;
+}
+ 
+static gboolean
+dir_project_is_loaded (DirProject *project)
+{
+	return g_hash_table_find (project->groups, find_not_loaded_node, NULL) == NULL;
+}
 
 /* Public functions
  *---------------------------------------------------------------------------*/
@@ -901,6 +917,12 @@ iproject_get_node_info (IAnjutaProject *obj, GError **err)
 	return dir_project_get_node_info (DIR_PROJECT (obj), err);
 }
 
+static gboolean
+iproject_is_loaded (IAnjutaProject *obj, GError **err)
+{
+	return dir_project_is_loaded (DIR_PROJECT (obj));
+}
+
 static void
 iproject_iface_init(IAnjutaProjectIface* iface)
 {
@@ -913,6 +935,7 @@ iproject_iface_init(IAnjutaProjectIface* iface)
 	iface->remove_property = iproject_remove_property;
 	iface->get_root = iproject_get_root;
 	iface->get_node_info = iproject_get_node_info;
+	iface->is_loaded = iproject_is_loaded;
 }
 
 /* GbfProject implementation

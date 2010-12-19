@@ -3270,10 +3270,21 @@ interface IAnjutaProject
 	 *
 	 * Return a list of possible node;
 	 *
-	 * Return value: (element-type Anjuta.ProjectNodeInfo) (transfer none): TRUE if the property has been successfully removed
-	 * else FALSE
+	 * Return value: (element-type Anjuta.ProjectNodeInfo) (transfer none): A list
+	 * containing information on all node supported by the project.
 	 */
 	const List<AnjutaProjectNodeInfo *> get_node_info();
+	
+	/**
+	 * ianjuta_project_is_loaded:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Return TRUE if the project is loaded;
+	 *
+	 * Return value: TRUE if the project is completely loaded.
+	 */
+	 gboolean is_loaded ();
 }
 
 /**
