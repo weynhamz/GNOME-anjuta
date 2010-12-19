@@ -360,6 +360,22 @@ static AnjutaCommandBarEntry log_entries[] =
 	{
 		ANJUTA_COMMAND_BAR_ENTRY_FRAME,
 		"NULL",
+		N_("Revision tools"),
+		NULL,
+		NULL,
+		NULL
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"ShowCommitDiff",
+		N_("Show commit diff"),
+		N_("Show a diff of the selected revision"),
+		GTK_STOCK_ZOOM_100,
+		G_CALLBACK (on_commit_diff_button_clicked)
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_FRAME,
+		"NULL",
 		N_("Reset/Revert"),
 		NULL,
 		NULL,

@@ -1042,3 +1042,25 @@ git_log_pane_set_working_directory (GitLogPane *self,
 {
 	/* TODO: Add public function implementation here */
 }
+
+GitRevision *
+git_log_pane_get_selected_revision (GitLogPane *self)
+{
+	GtkTreeView *log_view;
+	GtkTreeSelection *selection;
+	GitRevision *revision;
+	GtkTreeIter iter;
+
+	log_view = GTK_TREE_VIEW (gtk_builder_get_object (self->priv->builder,
+	                                                  "log_view"));
+	selection = gtk_tree_view_get_selection (log_view);
+	revision = NULL;
+
+	if (gtk_tree_selection_get_selected (selection, NULL, &iter))
+	{
+		gtk_tree_model_get (GTK_TREE_MODEL (self->priv->log_model), &iter,
+		                    LOG_COL_REVISION, &revision, -1);
+	}
+
+	return revision;
+}

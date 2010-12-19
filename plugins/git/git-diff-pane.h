@@ -23,8 +23,12 @@
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include "git-pane.h"
+#include "git-log-pane.h"
 #include "git-diff-command.h"
+#include "git-diff-tree-command.h"
+#include "git-revision.h"
 
 void on_diff_button_clicked (GtkAction *action, Git *plugin);
+void on_commit_diff_button_clicked (GtkAction *action, Git *plugin);
 
 #endif

@@ -57,6 +57,7 @@ GType git_log_pane_get_type (void) G_GNUC_CONST;
 AnjutaDockPane *git_log_pane_new (Git *plugin);
 void git_log_pane_set_working_directory (GitLogPane *self, 
                                          const gchar *working_directory);
+GitRevision *git_log_pane_get_selected_revision (GitLogPane *self);
 
 G_END_DECLS
 
