@@ -223,7 +223,9 @@ libanjuta_git_la_SOURCES = \
 	git-revert-pane.c \
 	git-revert-pane.h \
 	git-reset-pane.c \
-	git-reset-pane.h
+	git-reset-pane.h \
+	git-cherry-pick-pane.c \
+	git-cherry-pick-pane.h
 	
 
 libanjuta_git_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)

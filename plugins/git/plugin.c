@@ -53,6 +53,7 @@
 #include "git-log-pane.h"
 #include "git-reset-pane.h"
 #include "git-revert-pane.h"
+#include "git-cherry-pick-pane.h"
 
 AnjutaCommandBarEntry branch_entries[] =
 {
@@ -372,6 +373,14 @@ static AnjutaCommandBarEntry log_entries[] =
 		N_("Show a diff of the selected revision"),
 		GTK_STOCK_ZOOM_100,
 		G_CALLBACK (on_commit_diff_button_clicked)
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"CherryPick",
+		N_("Cherry pick"),
+		N_("Merge an individual commit from another branch"),
+		NULL,
+		G_CALLBACK (on_cherry_pick_button_clicked)
 	},
 	{
 		ANJUTA_COMMAND_BAR_ENTRY_FRAME,
