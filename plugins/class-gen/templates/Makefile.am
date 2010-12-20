@@ -5,6 +5,7 @@ clsgen_appdata_DATA = \
 	cc-source.tpl \
 	go-header.tpl \
 	go-source.tpl \
+	js-source.tpl \
 	py-source.tpl
 
 EXTRA_DIST = \

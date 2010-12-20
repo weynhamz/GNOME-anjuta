@@ -38,6 +38,8 @@
 
 #define PY_SOURCE_TEMPLATE PACKAGE_DATA_DIR"/class-templates/py-source.tpl"
 
+#define JS_SOURCE_TEMPLATE PACKAGE_DATA_DIR"/class-templates/js-source.tpl"
+
 typedef struct _CgWindowPrivate CgWindowPrivate;
 struct _CgWindowPrivate
 {
@@ -46,10 +48,16 @@ struct _CgWindowPrivate
 	
 	CgElementEditor *editor_cc;
 	CgElementEditor *editor_go_members;
+
 	CgElementEditor *editor_go_properties;
 	CgElementEditor *editor_go_signals;
+
 	CgElementEditor *editor_py_methods;
 	CgElementEditor *editor_py_constvars;
+
+	CgElementEditor *editor_js_methods;
+	CgElementEditor *editor_js_variables;
+	CgElementEditor *editor_js_imports;
 	
 	CgValidator *validator;
 };
@@ -311,6 +319,20 @@ cg_window_validate_py (CgWindow *window)
 }
 
 static void
+cg_window_validate_js (CgWindow *window)
+{
+	CgWindowPrivate *priv;
+	priv = CG_WINDOW_PRIVATE (window);
+
+	if (priv->validator != NULL) g_object_unref (G_OBJECT (priv->validator));
+
+	priv->validator = cg_validator_new (
+		GTK_WIDGET (gtk_builder_get_object (priv->bxml, "create_button")),
+		GTK_ENTRY (gtk_builder_get_object (priv->bxml, "js_name")),
+		GTK_ENTRY (gtk_builder_get_object (priv->bxml, "source_file")), NULL);
+}
+
+static void
 cg_window_header_file_entry_set_sensitive (gpointer user_data, gboolean sensitive)
 {
 	CgWindow *window;
@@ -348,6 +370,10 @@ cg_window_top_notebook_switch_page_cb (G_GNUC_UNUSED GtkNotebook *notebook,
 	case 2: /* Python */
 		cg_window_header_file_entry_set_sensitive (user_data, FALSE);
 		cg_window_validate_py (window);
+		break;
+	case 3: /* JavaScript */
+		cg_window_header_file_entry_set_sensitive (user_data, FALSE);
+		cg_window_validate_js (window);
 		break;
 	default:
 		g_assert_not_reached ();
@@ -492,8 +518,9 @@ cg_window_go_name_changed_cb (GtkEntry *entry,
 }
 
 static void
-cg_window_py_name_changed_cb (GtkEntry *entry,
-			      gpointer user_data)
+cg_window_dynamic_name_changed_cb (GtkEntry *entry,
+				   gpointer user_data,
+				   const gchar *file_ending)
 {
 	CgWindow *window;
 	CgWindowPrivate *priv;
@@ -512,13 +539,57 @@ cg_window_py_name_changed_cb (GtkEntry *entry,
 	str_filebase = cg_window_class_name_to_file_name (
 		gtk_entry_get_text (GTK_ENTRY (entry)));
 
-	str_filesource = g_strconcat (str_filebase, ".py", NULL);
+	str_filesource = g_strconcat (str_filebase, file_ending, NULL);
 	g_free (str_filebase);
 	
 	gtk_entry_set_text (GTK_ENTRY (file_header), str_filesource);
 	gtk_entry_set_text (GTK_ENTRY (file_source), str_filesource);
 	
 	g_free (str_filesource);
+}
+
+static void
+cg_window_py_name_changed_cb (GtkEntry *entry,
+			      gpointer user_data)
+{
+	cg_window_dynamic_name_changed_cb (entry, user_data, ".py");
+}
+
+static void
+cg_window_js_name_changed_cb (GtkEntry *entry,
+			      gpointer user_data)
+{
+	cg_window_dynamic_name_changed_cb (entry, user_data, ".js");
+}
+
+static void
+cg_window_js_is_subclass_changed_cb (GtkEntry *entry,
+				     gpointer user_data)
+{
+	CgWindow *window;
+	CgWindowPrivate *priv;
+
+	GtkWidget *is_subclass;
+	GtkWidget *entry_base_class;
+	GtkWidget *label_base_class;
+
+	window = CG_WINDOW (user_data);
+	priv = CG_WINDOW_PRIVATE (window);
+
+	is_subclass = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "js_is_subclass"));
+	entry_base_class = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "js_base"));
+	label_base_class = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "lbl_js_base"));
+
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (is_subclass)) == TRUE)
+	{
+		gtk_editable_set_editable (GTK_EDITABLE (entry_base_class), TRUE);
+		gtk_widget_set_sensitive (label_base_class, TRUE);
+	}
+	else
+	{
+		gtk_editable_set_editable (GTK_EDITABLE (entry_base_class), FALSE);
+		gtk_widget_set_sensitive (label_base_class, FALSE);
+	}
 }
 
 #if 0
@@ -621,6 +692,29 @@ cg_window_set_builder (CgWindow *window,
 		_("Name"), CG_ELEMENT_EDITOR_COLUMN_STRING,
 		_("Value"), CG_ELEMENT_EDITOR_COLUMN_STRING);
 
+	priv->editor_js_methods = cg_element_editor_new (
+		GTK_TREE_VIEW (gtk_builder_get_object (priv->bxml, "js_methods")),
+		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "js_methods_add")),
+		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "js_methods_remove")),
+		2,
+		_("Name"), CG_ELEMENT_EDITOR_COLUMN_STRING,
+		_("Arguments"), CG_ELEMENT_EDITOR_COLUMN_ARGUMENTS);
+
+	priv->editor_js_variables = cg_element_editor_new (
+		GTK_TREE_VIEW (gtk_builder_get_object (priv->bxml, "js_variables")),
+		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "js_variables_add")),
+		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "js_variables_remove")),
+		2,
+		_("Name"), CG_ELEMENT_EDITOR_COLUMN_STRING,
+		_("Value"), CG_ELEMENT_EDITOR_COLUMN_STRING);
+
+	priv->editor_js_imports = cg_element_editor_new (
+		GTK_TREE_VIEW (gtk_builder_get_object (priv->bxml, "js_imports")),
+		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "js_imports_add")),
+		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "js_imports_remove")),
+		2,
+		_("Name"), CG_ELEMENT_EDITOR_COLUMN_STRING,
+		_("Module"), CG_ELEMENT_EDITOR_COLUMN_STRING);
 
 	/* Active item property in glade cannot be set because no GtkTreeModel
 	 * is assigned. */
@@ -647,6 +741,14 @@ cg_window_set_builder (CgWindow *window,
 	g_signal_connect (
 		G_OBJECT (gtk_builder_get_object (priv->bxml, "cc_name")), "changed",
 		G_CALLBACK (cg_window_cc_name_changed_cb), window);
+
+	g_signal_connect (
+		G_OBJECT (gtk_builder_get_object (priv->bxml, "js_name")), "changed",
+		G_CALLBACK (cg_window_js_name_changed_cb), window);
+
+	g_signal_connect (
+		G_OBJECT (gtk_builder_get_object (priv->bxml, "js_is_subclass")), "toggled",
+		G_CALLBACK (cg_window_js_is_subclass_changed_cb), window);
 
 	g_signal_connect (
 		G_OBJECT (gtk_builder_get_object (priv->bxml, "add_project")), "toggled",
@@ -771,6 +873,28 @@ cg_window_py_constvars_transform_func (GHashTable *table,
 	cg_transform_string (table, "Value");
 }
 
+static void
+cg_window_js_methods_transform_func (GHashTable *table,
+                                     G_GNUC_UNUSED gpointer user_data)
+{
+	cg_transform_arguments (table, "Arguments", FALSE);
+}
+
+static void
+cg_window_js_variables_transform_func (GHashTable *table,
+                                     G_GNUC_UNUSED gpointer user_data)
+{
+	
+	cg_transform_string (table, "Name");
+}
+
+static void
+cg_window_js_imports_transform_func (GHashTable *table,
+                                     G_GNUC_UNUSED gpointer user_data)
+{
+	cg_transform_string (table, "Name");
+}
+
 #if 0
 static gboolean
 cg_window_scope_condition_func (const gchar **elements,
@@ -820,6 +944,9 @@ cg_window_init (CgWindow *window)
 	priv->editor_go_signals = NULL;
 	priv->editor_py_methods = NULL;
 	priv->editor_py_constvars = NULL;
+	priv->editor_js_methods = NULL;
+	priv->editor_js_variables = NULL;
+	priv->editor_js_imports = NULL;
 	
 	priv->validator = NULL;
 }
@@ -845,6 +972,12 @@ cg_window_finalize (GObject *object)
 		g_object_unref (G_OBJECT (priv->editor_py_methods));
 	if (priv->editor_py_constvars != NULL)
 		g_object_unref (G_OBJECT (priv->editor_py_constvars));
+	if (priv->editor_js_methods != NULL)
+		g_object_unref (G_OBJECT (priv->editor_js_methods));
+	if (priv->editor_js_variables != NULL)
+		g_object_unref (G_OBJECT (priv->editor_js_variables));
+	if (priv->editor_js_imports != NULL)
+		g_object_unref (G_OBJECT (priv->editor_js_imports));
 
 	if (priv->validator != NULL)
 		g_object_unref (G_OBJECT (priv->validator));
@@ -1119,6 +1252,27 @@ cg_window_create_value_heap (CgWindow *window)
 					      cg_window_py_constvars_transform_func,
 					      window, "Name", "Value");
 		break;
+	case 3: /* JavaScript */
+		cg_window_set_heap_value (window, values, G_TYPE_STRING,
+					  "ClassName", "js_name");
+		cg_window_set_heap_value (window, values, G_TYPE_STRING,
+					  "BaseClass", "js_base");
+		cg_window_set_heap_value (window, values, G_TYPE_STRING,
+					  "Initargs", "js_initargs");
+		cg_window_set_heap_value (window, values, G_TYPE_BOOLEAN,
+					  "Headings", "js_headings");
+		cg_element_editor_set_values (priv->editor_js_methods, "Methods", values,
+					      cg_window_js_methods_transform_func,
+                                              window, "Name", "Arguments");
+		cg_element_editor_set_values (priv->editor_js_variables, "Variables",
+					      values,
+					      cg_window_js_variables_transform_func,
+					      window, "Name", "Value");
+		cg_element_editor_set_values (priv->editor_js_imports, "Imports",
+					      values,
+					      cg_window_js_imports_transform_func,
+					      window, "Name", "Module");
+		break;
 	default:
 		g_assert_not_reached ();
 		break;
@@ -1171,6 +1325,8 @@ cg_window_get_header_template (CgWindow *window)
 		return GO_HEADER_TEMPLATE;
 	case 2: /* Python */
 		return PY_SOURCE_TEMPLATE;
+	case 3: /* JavaScript */
+		return JS_SOURCE_TEMPLATE;
 	default:
 		g_assert_not_reached ();
 		return NULL;
@@ -1210,6 +1366,8 @@ cg_window_get_source_template(CgWindow *window)
 		return GO_SOURCE_TEMPLATE;
 	case 2:
 		return PY_SOURCE_TEMPLATE;
+	case 3: /* JavaScript */
+		return JS_SOURCE_TEMPLATE;
 	default:
 		g_assert_not_reached ();
 		return NULL;
