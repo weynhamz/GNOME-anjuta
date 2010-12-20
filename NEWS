@@ -1,3 +1,27 @@
+Anjuta 2.91.4 "Merry X-mas" (21 December 2010) -- Johannes Schmid
+
+New:
+- Project Manager: Lots of work improving the new project manager. Special
+thanks to Sébastien Granjoux for all the time he invests here
+- Git Shell: More panes for git features (James)
+
+Bugs fixed:
+636665 	[PATCH] .vapi file not distributed
+609213 	Anjuta FAQ
+636667  [PATCH] Plugins require GTK_LIBS to link against, but this is not in configure.ac
+637249 	[class-gen] Python wizard
+621424 	No easy way to delete a bookmark
+636312 	Double click fails to select entire word if it contains _ or digits
+619592 	crash in autocompletion
+636084 	Crash Anjuta when typing in Build->Configure->Configuration combo box
+636666 	[PATCH] Introspection fails to build with recent gobject-introspection
+636668 	[PATCH] Link against the libraries anjuta and anjuta-shell are using
+584060 	Project manager hangs anjuta when the contents of project files changes 
+
+Thanks to:
+Chao-Hsiung Liao, James Liggett, Jorge González, Kenny Meyer, Robert Ancell,
+Sébastien Granjoux
+
 Anjuta 2.91.3 "Lebkuchen - yay!" (30 November 2010) -- Johannes Schmid
 
 WARNING: This is an unstable development snapshot

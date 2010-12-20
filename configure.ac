@@ -4,7 +4,7 @@ AC_PREREQ([2.64])
 
 m4_define(anjuta_major_version,  2)
 m4_define(anjuta_minor_version, 91)
-m4_define(anjuta_micro_version, 3)
+m4_define(anjuta_micro_version, 4)
 m4_define(anjuta_nano_version, 0)
 m4_define(anjuta_version, anjuta_major_version.anjuta_minor_version.anjuta_micro_version.anjuta_nano_version)
 
@@ -33,7 +33,7 @@ AC_SUBST(ANJUTA_VERSION)
 
 dnl Anjuta core
 GLIB_REQUIRED=2.25.15
-GTK_REQUIRED=2.29.1
+GTK_REQUIRED=2.29.4
 GTHREAD_REQUIRED=2.22.0
 GDK_PIXBUF_REQUIRED=2.0.0
 GDA_REQUIRED=4.1.6
