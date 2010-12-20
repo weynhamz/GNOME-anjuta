@@ -736,13 +736,22 @@ project_node_destroy (AmpProject *project, AnjutaProjectNode *g_node)
 }
 
 static AnjutaProjectNode *
-project_node_new (AmpProject *project, AnjutaProjectNodeType type, GFile *file, const gchar *name, GError **error)
+project_node_new (AmpProject *project, AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile *file, const gchar *name, GError **error)
 {
 	AnjutaProjectNode *node = NULL;
 	
 	switch (type & ANJUTA_PROJECT_TYPE_MASK) {
 		case ANJUTA_PROJECT_GROUP:
-			node = ANJUTA_PROJECT_NODE (amp_group_new (file, FALSE, error));
+			if ((file == NULL) && (name != NULL))
+			{
+				file = g_file_get_child (AMP_GROUP_DATA (parent)->base.file, name);
+				node = ANJUTA_PROJECT_NODE (amp_group_new (file, FALSE, error));
+				g_object_unref (file);
+			}
+			else
+			{
+				node = ANJUTA_PROJECT_NODE (amp_group_new (file, FALSE, error));
+			}
 			break;
 		case ANJUTA_PROJECT_TARGET:
 			node = ANJUTA_PROJECT_NODE (amp_target_new (name, 0, NULL, 0, error));
@@ -750,8 +759,20 @@ project_node_new (AmpProject *project, AnjutaProjectNodeType type, GFile *file, 
 		case ANJUTA_PROJECT_SOURCE:
 			if (file == NULL)
 			{
-				file = g_file_new_for_commandline_arg (name);
-				node = amp_source_new (file, error);
+				/* Look for parent */
+				if (anjuta_project_node_get_node_type (parent) == ANJUTA_PROJECT_TARGET)
+				{
+					parent = anjuta_project_node_parent (parent);
+				}
+				if (anjuta_project_node_get_node_type (parent) == ANJUTA_PROJECT_GROUP)
+				{
+					file = g_file_get_child (anjuta_project_node_get_file (parent), name);
+				}
+				else
+				{
+					file = g_file_new_for_commandline_arg (name);
+				}
+				node = ANJUTA_PROJECT_NODE (amp_source_new (file, error));
 				g_object_unref (file);
 			}
 			else
@@ -1173,7 +1194,7 @@ project_load_sources (AmpProject *project, AnjutaToken *name, AnjutaToken *list,
 
 			/* Create source */
 			src_file = g_file_get_child (parent_file, value);
-			source = project_node_new (project, ANJUTA_PROJECT_SOURCE | ANJUTA_PROJECT_PROJECT, src_file, NULL, NULL);
+			source = project_node_new (project, NULL, ANJUTA_PROJECT_SOURCE | ANJUTA_PROJECT_PROJECT, src_file, NULL, NULL);
 			g_object_unref (src_file);
 			AMP_SOURCE_DATA(source)->token = arg;
 	
@@ -1254,7 +1275,7 @@ project_load_data (AmpProject *project, AnjutaToken *name, AnjutaToken *list, An
 
 			/* Create source */
 			src_file = g_file_get_child (parent_file, value);
-			source = project_node_new (project, ANJUTA_PROJECT_SOURCE | ANJUTA_PROJECT_PROJECT, src_file, NULL, NULL);
+			source = project_node_new (project, NULL, ANJUTA_PROJECT_SOURCE | ANJUTA_PROJECT_PROJECT, src_file, NULL, NULL);
 			g_object_unref (src_file);
 			AMP_SOURCE_DATA(source)->token = arg;
 
@@ -1437,7 +1458,7 @@ project_load_group_module (AmpProject *project, AnjutaAmGroupNode *group)
 								/* Add new module */
 								AnjutaProjectNode *new_module;
 
-								new_module = project_node_new (project, ANJUTA_PROJECT_MODULE, NULL, name, NULL);
+								new_module = project_node_new (project, NULL, ANJUTA_PROJECT_MODULE, NULL, name, NULL);
 								anjuta_project_node_append (target, new_module);
 							}
 							g_free (cpp_flags);
@@ -1960,7 +1981,7 @@ amp_project_load_package (AmpProject *project, AnjutaProjectNode *node, GError *
 		/* Create a package node for the depedencies */
 		AnjutaProjectNode *pkg;
 
-		pkg = project_node_new (project, ANJUTA_PROJECT_PACKAGE, NULL, dep->data, NULL);
+		pkg = project_node_new (project, NULL, ANJUTA_PROJECT_PACKAGE, NULL, dep->data, NULL);
 		anjuta_project_node_append (node, pkg);
 	}
 	anjuta_util_glist_strings_free (deps);
@@ -1989,7 +2010,7 @@ amp_project_load_package (AmpProject *project, AnjutaProjectNode *node, GError *
 				/* Create a source for files */
 				AnjutaProjectNode *source;
 
-				source = project_node_new (project, ANJUTA_PROJECT_SOURCE, (GFile *)file->data, NULL, NULL);
+				source = project_node_new (project, NULL, ANJUTA_PROJECT_SOURCE, (GFile *)file->data, NULL, NULL);
 				anjuta_project_node_append (node, source);
 				g_object_unref ((GObject *)file->data);
 			}
@@ -2904,49 +2925,15 @@ static AnjutaProjectNode *
 iproject_add_node_before (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, GFile *file, const gchar *name, GError **err)
 {
 	AnjutaProjectNode *node;
-	GFile *directory = NULL;
 	PmJob *add_job;
 
 	if (AMP_PROJECT (obj)->queue == NULL) AMP_PROJECT (obj)->queue = pm_command_queue_new ();
 
-	
-	switch (type & ANJUTA_PROJECT_TYPE_MASK)
-	{
-		case ANJUTA_PROJECT_GROUP:
-			if ((file == NULL) && (name != NULL))
-			{
-				directory = g_file_get_child (AMP_GROUP_DATA (parent)->base.file, name);
-				file = directory;
-			}
-			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
-			if (directory != NULL) g_object_unref (directory);
-			add_job = pm_job_new (&amp_add_before_job, node, parent, sibling, ANJUTA_PROJECT_UNKNOWN, NULL, NULL, obj);
-			pm_command_queue_push (AMP_PROJECT (obj)->queue, add_job);
-			break;
-		case ANJUTA_PROJECT_TARGET:
-			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
-			add_job = pm_job_new (&amp_add_before_job, node, parent, sibling, ANJUTA_PROJECT_UNKNOWN, NULL, NULL, obj);
-			pm_command_queue_push (AMP_PROJECT (obj)->queue, add_job);
-			break;
-		case ANJUTA_PROJECT_SOURCE:
-			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
-			add_job = pm_job_new (&amp_add_before_job, node, parent, sibling, ANJUTA_PROJECT_UNKNOWN, NULL, NULL, obj);
-			pm_command_queue_push (AMP_PROJECT (obj)->queue, add_job);
-			break;
-		case ANJUTA_PROJECT_MODULE:
-			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
-			add_job = pm_job_new (&amp_add_before_job, node, parent, sibling, ANJUTA_PROJECT_UNKNOWN, NULL, NULL, obj);
-			pm_command_queue_push (AMP_PROJECT (obj)->queue, add_job);
-			break;
-		case ANJUTA_PROJECT_PACKAGE:
-			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
-			add_job = pm_job_new (&amp_add_before_job, node, parent, sibling, ANJUTA_PROJECT_UNKNOWN, NULL, NULL, obj);
-			pm_command_queue_push (AMP_PROJECT (obj)->queue, add_job);
-			break;
-		default:
-			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
-			anjuta_project_node_insert_before (parent, sibling, node);
-			break;
+	node = project_node_new (AMP_PROJECT (obj), parent, type, file, name, err);
+	if (node != NULL)
+	{	
+		add_job = pm_job_new (&amp_add_before_job, node, parent, sibling, ANJUTA_PROJECT_UNKNOWN, NULL, NULL, obj);
+		pm_command_queue_push (AMP_PROJECT (obj)->queue, add_job);
 	}
 	
 	return node;
@@ -2956,48 +2943,15 @@ static AnjutaProjectNode *
 iproject_add_node_after (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, GFile *file, const gchar *name, GError **err)
 {
 	AnjutaProjectNode *node;
-	GFile *directory = NULL;
 	PmJob *add_job;
 
 	if (AMP_PROJECT (obj)->queue == NULL) AMP_PROJECT (obj)->queue = pm_command_queue_new ();
-	
-	switch (type & ANJUTA_PROJECT_TYPE_MASK)
-	{
-		case ANJUTA_PROJECT_GROUP:
-			if ((file == NULL) && (name != NULL))
-			{
-				directory = g_file_get_child (AMP_GROUP_DATA (parent)->base.file, name);
-				file = directory;
-			}
-			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
-			if (directory != NULL) g_object_unref (directory);
-			add_job = pm_job_new (&amp_add_after_job, node, parent, sibling, ANJUTA_PROJECT_UNKNOWN, NULL, NULL, obj);
-			pm_command_queue_push (AMP_PROJECT (obj)->queue, add_job);
-			break;
-		case ANJUTA_PROJECT_TARGET:
-			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
-			add_job = pm_job_new (&amp_add_after_job, node, parent, sibling, ANJUTA_PROJECT_UNKNOWN, NULL, NULL, obj);
-			pm_command_queue_push (AMP_PROJECT (obj)->queue, add_job);
-			break;
-		case ANJUTA_PROJECT_SOURCE:
-			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
-			add_job = pm_job_new (&amp_add_after_job, node, parent, sibling, ANJUTA_PROJECT_UNKNOWN, NULL, NULL, obj);
-			pm_command_queue_push (AMP_PROJECT (obj)->queue, add_job);
-			break;
-		case ANJUTA_PROJECT_MODULE:
-			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
-			add_job = pm_job_new (&amp_add_after_job, node, parent, sibling, ANJUTA_PROJECT_UNKNOWN, NULL, NULL, obj);
-			pm_command_queue_push (AMP_PROJECT (obj)->queue, add_job);
-			break;
-		case ANJUTA_PROJECT_PACKAGE:
-			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
-			add_job = pm_job_new (&amp_add_after_job, node, parent, sibling, ANJUTA_PROJECT_UNKNOWN, NULL, NULL, obj);
-			pm_command_queue_push (AMP_PROJECT (obj)->queue, add_job);
-			break;
-		default:
-			node = project_node_new (AMP_PROJECT (obj), type, file, name, err);
-			anjuta_project_node_insert_before (parent, sibling, node);
-			break;
+
+	node = project_node_new (AMP_PROJECT (obj), parent, type, file, name, err);
+	if (node != NULL)
+	{	
+		add_job = pm_job_new (&amp_add_after_job, node, parent, sibling, ANJUTA_PROJECT_UNKNOWN, NULL, NULL, obj);
+		pm_command_queue_push (AMP_PROJECT (obj)->queue, add_job);
 	}
 	
 	return node;
