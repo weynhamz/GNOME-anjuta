@@ -1,17 +1,5 @@
 anjuta.glade
 anjuta.desktop.in
-plugins/build/build_file.c
-plugins/build/build_project.c
-plugins/build/clean_project.c
-plugins/build/compile.c
-plugins/build/compiler_options.c
-plugins/build/configurer.c
-plugins/build/executer.c
-plugins/gtodo/egg-datetime.c
-plugins/gtodo/eggtrayicon.c
-plugins/macro/macros.xml
-plugins/profiler/gprof-function-call-chart-view.c
-plugins/profiler/main.c
 plugins/project-wizard/templates/anjuta-plugin/src/plugin.c
 plugins/project-wizard/templates/anjuta-plugin/src/plugin.ui
 plugins/project-wizard/templates/gnome/src/main.c
@@ -19,7 +7,8 @@ plugins/project-wizard/templates/gnome/src/project.ui
 plugins/project-wizard/templates/gtk/src/project.ui
 plugins/project-wizard/templates/gtkmm/src/project.ui
 plugins/project-wizard/templates/pygtk/data/project.ui
-plugins/scintilla/text_editor_cbs.c
+plugins/project-wizard/templates/gtkapplication/src/project.ui
+plugins/project-wizard/templates/vala-gtk/src/project.ui
 plugins/symbol-db/symbol-db.glade
 src/anjuta_cbs.c
 src/utilities.c

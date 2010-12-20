@@ -118,6 +118,10 @@ plugins/git/git-add-remote-pane.c
 plugins/git/git-apply-stash-pane.c
 plugins/git/git-checkout-pane.c
 plugins/git/git-commit-pane.c
+plugins/git/git-cherry-pick-pane.c
+plugins/git/git-diff-pane.c
+plugins/git/git-reset-pane.c
+plugins/git/git-revert-pane.c
 plugins/git/git-create-branch-pane.c
 plugins/git/git-create-tag-pane.c
 plugins/git/git-delete-remote-pane.c
