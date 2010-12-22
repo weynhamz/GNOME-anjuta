@@ -27,15 +27,15 @@
 [+ == "LGPL" +][+(lgpl (get "ProjectName") (get "AuthorName") " * ")+]
 [+ == "GPL"  +][+(gpl  (get "ProjectName")                    " * ")+]
 [+ESAC+] */
-
 [+
 FOR Imports +][+
     IF (not (=(get "Name") "")) +]
 const [+Name+] = imports.[+Module+];[+
-    ENDIF+][+
-ENDFOR+]
-
+    IF (last-for?) +]
 [+
+        ENDIF+][+
+    ENDIF+][+
+ENDFOR+][+
 IF (not (=(get "BaseClass") "")) +]
 function [+BaseClass+]([+Initargs+]){
     this._init([+Initargs+]);
