@@ -6,7 +6,8 @@ clsgen_appdata_DATA = \
 	go-header.tpl \
 	go-source.tpl \
 	js-source.tpl \
-	py-source.tpl
+	py-source.tpl \
+	vala-source.tpl
 
 EXTRA_DIST = \
 	$(clsgen_appdata_DATA)

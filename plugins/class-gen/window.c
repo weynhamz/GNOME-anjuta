@@ -47,8 +47,8 @@ struct _CgWindowPrivate
 	GtkWidget *window;
 	
 	CgElementEditor *editor_cc;
-	CgElementEditor *editor_go_members;
 
+	CgElementEditor *editor_go_members;
 	CgElementEditor *editor_go_properties;
 	CgElementEditor *editor_go_signals;
 
@@ -58,7 +58,11 @@ struct _CgWindowPrivate
 	CgElementEditor *editor_js_methods;
 	CgElementEditor *editor_js_variables;
 	CgElementEditor *editor_js_imports;
-	
+
+	CgElementEditor *editor_vala_methods;
+	CgElementEditor *editor_vala_properties;
+	CgElementEditor *editor_vala_signals;
+
 	CgValidator *validator;
 };
 
@@ -135,6 +139,21 @@ static const CgElementEditorFlags GO_SIGNAL_FLAGS[] =
 	{ "G_SIGNAL_ACTION", "A" },
 	{ "G_SIGNAL_NO_HOOKS", "NH" },
 	{ NULL, NULL }
+};
+
+static const gchar *VALA_BOOLEAN_LIST[] =
+{
+	"Yes",
+	"No",
+	NULL
+};
+
+static const gchar *VALA_SCOPE_LIST[] =
+{
+	"public",
+	"private",
+	"protected",
+	NULL
 };
 
 #if 0
@@ -333,6 +352,21 @@ cg_window_validate_js (CgWindow *window)
 }
 
 static void
+cg_window_validate_vala (CgWindow *window)
+{
+	CgWindowPrivate *priv;
+	priv = CG_WINDOW_PRIVATE (window);
+
+	if (priv->validator != NULL) g_object_unref (G_OBJECT (priv->validator));
+
+	priv->validator = cg_validator_new (
+		GTK_WIDGET (gtk_builder_get_object (priv->bxml, "create_button")),
+		GTK_ENTRY (gtk_builder_get_object (priv->bxml, "vala_name")),
+		GTK_ENTRY (gtk_builder_get_object (priv->bxml, "source_file")), NULL);
+}
+
+
+static void
 cg_window_header_file_entry_set_sensitive (gpointer user_data, gboolean sensitive)
 {
 	CgWindow *window;
@@ -374,6 +408,10 @@ cg_window_top_notebook_switch_page_cb (G_GNUC_UNUSED GtkNotebook *notebook,
 	case 3: /* JavaScript */
 		cg_window_header_file_entry_set_sensitive (user_data, FALSE);
 		cg_window_validate_js (window);
+		break;
+	case 4: /* Vala */
+		cg_window_header_file_entry_set_sensitive (user_data, FALSE);
+		cg_window_validate_vala (window);
 		break;
 	default:
 		g_assert_not_reached ();
@@ -592,6 +630,43 @@ cg_window_js_is_subclass_changed_cb (GtkEntry *entry,
 	}
 }
 
+static void
+cg_window_vala_name_changed_cb (GtkEntry *entry,
+			      gpointer user_data)
+{
+	cg_window_dynamic_name_changed_cb (entry, user_data, ".vala");
+}
+
+static void
+cg_window_vala_derive_from_glib (GtkEntry *entry,
+				 gpointer user_data)
+{
+	CgWindow *window;
+	CgWindowPrivate *priv;
+
+	GtkWidget *derive_from_glib;
+	GtkWidget *entry_base_class;
+	GtkWidget *label_base_class;
+
+	window = CG_WINDOW (user_data);
+	priv = CG_WINDOW_PRIVATE (window);
+
+	derive_from_glib = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "vala_derive_from_glib"));
+	entry_base_class = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "vala_base"));
+	label_base_class = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "lbl_vala_base"));
+
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (derive_from_glib)) == FALSE)
+	{
+		gtk_editable_set_editable (GTK_EDITABLE (entry_base_class), TRUE);
+		gtk_widget_set_sensitive (label_base_class, TRUE);
+	}
+	else
+	{
+		gtk_editable_set_editable (GTK_EDITABLE (entry_base_class), FALSE);
+		gtk_widget_set_sensitive (label_base_class, FALSE);
+	}
+}
+
 #if 0
 static void
 cg_window_associate_browse_button (GladeXML *xml,
@@ -716,6 +791,37 @@ cg_window_set_builder (CgWindow *window,
 		_("Name"), CG_ELEMENT_EDITOR_COLUMN_STRING,
 		_("Module"), CG_ELEMENT_EDITOR_COLUMN_STRING);
 
+	priv->editor_vala_methods = cg_element_editor_new (
+		GTK_TREE_VIEW (gtk_builder_get_object (priv->bxml, "vala_methods")),
+		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "vala_methods_add")),
+		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "vala_methods_remove")),
+		4,
+		_("Scope"), CG_ELEMENT_EDITOR_COLUMN_LIST, VALA_SCOPE_LIST,
+		_("Type"), CG_ELEMENT_EDITOR_COLUMN_STRING,
+		_("Name"), CG_ELEMENT_EDITOR_COLUMN_STRING,
+		_("Arguments"), CG_ELEMENT_EDITOR_COLUMN_ARGUMENTS);
+
+	priv->editor_vala_properties = cg_element_editor_new (
+		GTK_TREE_VIEW (gtk_builder_get_object (priv->bxml, "vala_properties")),
+		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "vala_properties_add")),
+		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "vala_properties_remove")),
+		5,
+		_("Scope"), CG_ELEMENT_EDITOR_COLUMN_LIST, VALA_SCOPE_LIST,
+		_("Type"), CG_ELEMENT_EDITOR_COLUMN_STRING,
+		_("Name"), CG_ELEMENT_EDITOR_COLUMN_STRING,
+		_("Value"), CG_ELEMENT_EDITOR_COLUMN_STRING,
+		_("Setter"), CG_ELEMENT_EDITOR_COLUMN_LIST, VALA_BOOLEAN_LIST);
+
+	priv->editor_vala_signals = cg_element_editor_new (
+		GTK_TREE_VIEW (gtk_builder_get_object (priv->bxml, "vala_signals")),
+		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "vala_signals_add")),
+		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "vala_signals_remove")),
+		4,
+		_("Scope"), CG_ELEMENT_EDITOR_COLUMN_LIST, VALA_SCOPE_LIST,
+		_("Type"), CG_ELEMENT_EDITOR_COLUMN_STRING,
+		_("Name"), CG_ELEMENT_EDITOR_COLUMN_STRING,
+		_("Arguments"), CG_ELEMENT_EDITOR_COLUMN_ARGUMENTS);
+
 	/* Active item property in glade cannot be set because no GtkTreeModel
 	 * is assigned. */
 	gtk_combo_box_set_active (
@@ -727,6 +833,17 @@ cg_window_set_builder (CgWindow *window,
 	g_signal_connect (
 		G_OBJECT (gtk_builder_get_object (priv->bxml, "py_name")), "changed",
 		G_CALLBACK (cg_window_py_name_changed_cb), window);
+
+	g_signal_connect (
+		G_OBJECT (gtk_builder_get_object (priv->bxml, "vala_name")), "changed",
+		G_CALLBACK (cg_window_vala_name_changed_cb), window);
+
+	g_signal_connect (
+		G_OBJECT (gtk_builder_get_object (priv->bxml, "vala_derive_from_glib")), "toggled",
+		G_CALLBACK (cg_window_vala_derive_from_glib), window);
+	gtk_combo_box_set_active (
+		GTK_COMBO_BOX (gtk_builder_get_object (priv->bxml, "vala_class_scope")),
+		0);
 
 	/* This revalidates the appropriate validator */
 	g_signal_connect (
@@ -895,6 +1012,29 @@ cg_window_js_imports_transform_func (GHashTable *table,
 	cg_transform_string (table, "Name");
 }
 
+static void
+cg_window_vala_methods_transform_func (GHashTable *table,
+                                       G_GNUC_UNUSED gpointer user_data)
+{
+	cg_transform_string (table, "Name");
+	cg_transform_arguments (table, "Arguments", FALSE);
+}
+
+static void
+cg_window_vala_signals_transform_func (GHashTable *table,
+                                          G_GNUC_UNUSED gpointer user_data)
+{
+	cg_transform_string (table, "Name");
+	cg_transform_arguments (table, "Arguments", FALSE);
+}
+
+static void
+cg_window_vala_properties_transform_func (GHashTable *table,
+                                          G_GNUC_UNUSED gpointer user_data)
+{
+	cg_transform_string (table, "Name");
+}
+
 #if 0
 static gboolean
 cg_window_scope_condition_func (const gchar **elements,
@@ -947,6 +1087,9 @@ cg_window_init (CgWindow *window)
 	priv->editor_js_methods = NULL;
 	priv->editor_js_variables = NULL;
 	priv->editor_js_imports = NULL;
+	priv->editor_vala_methods = NULL;
+	priv->editor_vala_properties = NULL;
+	priv->editor_vala_signals = NULL;
 	
 	priv->validator = NULL;
 }
@@ -978,6 +1121,12 @@ cg_window_finalize (GObject *object)
 		g_object_unref (G_OBJECT (priv->editor_js_variables));
 	if (priv->editor_js_imports != NULL)
 		g_object_unref (G_OBJECT (priv->editor_js_imports));
+	if (priv->editor_vala_methods != NULL)
+		g_object_unref (G_OBJECT (priv->editor_vala_methods));
+	if (priv->editor_vala_properties != NULL)
+		g_object_unref (G_OBJECT (priv->editor_vala_properties));
+	if (priv->editor_vala_signals != NULL)
+		g_object_unref (G_OBJECT (priv->editor_vala_signals));
 
 	if (priv->validator != NULL)
 		g_object_unref (G_OBJECT (priv->validator));
@@ -1273,6 +1422,28 @@ cg_window_create_value_heap (CgWindow *window)
 					      cg_window_js_imports_transform_func,
 					      window, "Name", "Module");
 		break;
+	case 4: /* Vala */
+		cg_window_set_heap_value (window, values, G_TYPE_STRING,
+					  "ClassName", "vala_name");
+		cg_window_set_heap_value (window, values, G_TYPE_STRING,
+				  "BaseClass", "vala_base");
+		cg_window_set_heap_value (window, values, G_TYPE_STRING,
+		                          "ClassScope", "vala_class_scope");
+		cg_window_set_heap_value (window, values, G_TYPE_BOOLEAN,
+					  "Headings", "vala_headings");
+		cg_window_set_heap_value (window, values, G_TYPE_BOOLEAN,
+					  "DeriveFromGlib", "vala_derive_from_glib");
+		cg_element_editor_set_values (priv->editor_vala_methods, "Methods", values,
+					      cg_window_vala_methods_transform_func,
+					      window, "Scope", "Type", "Name", "Arguments");
+		cg_element_editor_set_values (priv->editor_vala_properties, "Properties", values,
+					      cg_window_vala_properties_transform_func,
+					      window, "Scope", "Type", "Name", "Value",
+					      "Setter");
+		cg_element_editor_set_values (priv->editor_vala_signals, "Signals", values,
+					      cg_window_vala_signals_transform_func,
+					      window, "Scope", "Type", "Name", "Arguments");
+		break;
 	default:
 		g_assert_not_reached ();
 		break;
@@ -1327,6 +1498,8 @@ cg_window_get_header_template (CgWindow *window)
 		return PY_SOURCE_TEMPLATE;
 	case 3: /* JavaScript */
 		return JS_SOURCE_TEMPLATE;
+	case 4: /* Vala */
+		return VALA_SOURCE_TEMPLATE;
 	default:
 		g_assert_not_reached ();
 		return NULL;
@@ -1368,6 +1541,8 @@ cg_window_get_source_template(CgWindow *window)
 		return PY_SOURCE_TEMPLATE;
 	case 3: /* JavaScript */
 		return JS_SOURCE_TEMPLATE;
+	case 4: /* Vala */
+		return VALA_SOURCE_TEMPLATE;
 	default:
 		g_assert_not_reached ();
 		return NULL;
