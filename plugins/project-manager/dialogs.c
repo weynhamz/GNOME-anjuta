@@ -392,6 +392,10 @@ add_entry (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProper
 	{
 		label = gtk_label_new (_(prop->name));
 	}
+	if (prop->detail != NULL)
+	{
+		gtk_widget_set_tooltip_markup (label, _(prop->detail));
+	}
 	gtk_misc_set_alignment (GTK_MISC (label), 0, -1);
 	gtk_widget_show (label);
 	gtk_table_attach (GTK_TABLE (table), label, 0, 1, *position, *position+1,
@@ -458,6 +462,10 @@ add_entry (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProper
 	default:
 		return NULL;
 	}		
+	if (prop->detail != NULL)
+	{
+		gtk_widget_set_tooltip_markup (entry, _(prop->detail));
+	}
 	gtk_widget_show (entry);
 	gtk_table_attach (GTK_TABLE (table), entry, 1, 2, *position, *position+1,
 			  GTK_FILL | GTK_EXPAND, GTK_FILL, 5, 3);

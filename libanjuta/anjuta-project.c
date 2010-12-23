@@ -80,6 +80,7 @@ anjuta_project_property_new (const gchar *name, AnjutaProjectValueType type,
 	prop->type = type;
 	prop->value = g_strdup (value);
 	prop->native = native;
+	prop->detail = native->detail;
 	return prop;
 }
 
@@ -702,6 +703,7 @@ anjuta_project_node_insert_property (AnjutaProjectNode *node, AnjutaProjectPrope
 	if (property->name == NULL) property->name = native->name;
 	property->type = native->type;
 	property->native = native;
+	property->detail = native->detail;
 
 	/* Get properties list */
 	node->custom_properties = g_list_append (node->custom_properties, property);

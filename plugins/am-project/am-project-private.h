@@ -37,9 +37,9 @@ struct _AmpProperty {
 	AnjutaProjectProperty base;
 	gint token_type;
 	gint position;
+	const gchar *suffix;
 	AmpPropertyFlag flags;
 	AnjutaToken *token;
-	const gchar *suffix;
 };
 
 struct _AmpProject {

@@ -42,109 +42,647 @@
 /* Constants
   *---------------------------------------------------------------------------*/
 
-static AmpProperty AmpProjectProperties[] = {
-	{{N_("Name:"), 					ANJUTA_PROJECT_PROPERTY_STRING, 	ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL, 	NULL}, 	AC_TOKEN_AC_INIT, 	0, 	AM_PROPERTY_IN_CONFIGURE,	NULL,	NULL},
-	{{N_("Version:"), 					ANJUTA_PROJECT_PROPERTY_STRING,  	ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL, 	NULL}, 	AC_TOKEN_AC_INIT, 	1, 	AM_PROPERTY_IN_CONFIGURE,	NULL,	NULL},
-	{{N_("Bug report URL:"), 		ANJUTA_PROJECT_PROPERTY_STRING, 	ANJUTA_PROJECT_PROPERTY_READ_WRITE, 	NULL, 	NULL}, 	AC_TOKEN_AC_INIT, 	2, 	AM_PROPERTY_IN_CONFIGURE,	NULL,	NULL},
-	{{N_("Package name:"), 		ANJUTA_PROJECT_PROPERTY_STRING, 	ANJUTA_PROJECT_PROPERTY_READ_WRITE, 	NULL, 	NULL}, 	AC_TOKEN_AC_INIT, 	3, 	AM_PROPERTY_IN_CONFIGURE,	NULL,	NULL},
-	{{N_("URL:"), 						ANJUTA_PROJECT_PROPERTY_STRING, 	ANJUTA_PROJECT_PROPERTY_READ_WRITE, 	NULL, 	NULL}, 	AC_TOKEN_AC_INIT, 	4,		AM_PROPERTY_IN_CONFIGURE, 	NULL,	NULL},
-	{{NULL, 								ANJUTA_PROJECT_PROPERTY_STRING, 	0,															 	NULL, 	NULL}, 	AC_TOKEN_AC_INIT, 	5, 	0,												NULL,	NULL}};
+static AmpProperty AmpProjectProperties[] =
+{
+	{
+		{N_("Name:"),
+			ANJUTA_PROJECT_PROPERTY_STRING,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+		N_("Project name, it can contain spaces by example 'GNU Autoconf'")},
+		AC_TOKEN_AC_INIT, 0, NULL,
+		AM_PROPERTY_IN_CONFIGURE
+	},
+	{
+		{N_("Version:"),
+			ANJUTA_PROJECT_PROPERTY_STRING,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+		N_("Project version, typically a few numbers separated by dot by example '1.0.0'")},
+		AC_TOKEN_AC_INIT, 1, NULL,
+		AM_PROPERTY_IN_CONFIGURE
+	},
+	{
+		{N_("Bug report URL:"),
+			ANJUTA_PROJECT_PROPERTY_STRING,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+		N_("An email address or a link to a web page where the user can report bug. It is optional.")},
+		AC_TOKEN_AC_INIT, 2, NULL,
+		AM_PROPERTY_IN_CONFIGURE
+	},
+	{
+		{N_("Package name:"),
+			ANJUTA_PROJECT_PROPERTY_STRING,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+		N_("Package name, it can contains only alphanumerics and underscore characters."
+		   "It is generated from the project name if not provided.")},
+		AC_TOKEN_AC_INIT, 3, NULL,
+		AM_PROPERTY_IN_CONFIGURE
+	},
+	{
+		{N_("URL:"),
+			ANJUTA_PROJECT_PROPERTY_STRING,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+		N_("An link to the project web page if provided.")},
+		AC_TOKEN_AC_INIT, 4, NULL,
+		AM_PROPERTY_IN_CONFIGURE
+	},
+	{}
+};
 
 static GList* AmpProjectPropertyList = NULL;
 
 
-static AmpProperty AmpGroupProperties[] = {
-	{{N_("Linker flags:"), 						ANJUTA_PROJECT_PROPERTY_LIST,  	ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL, 	NULL}, 	AM_TOKEN__LDFLAGS, 			0, 	AM_PROPERTY_IN_MAKEFILE,	NULL, 	"AM_LDFLAGS"},
-	{{N_("C preprocessor flags:"),			ANJUTA_PROJECT_PROPERTY_LIST,  	ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL, 	NULL}, 	AM_TOKEN__CPPFLAGS, 		0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"AM_CPPFLAGS"},
-	{{N_("C compiler flags:"), 				ANJUTA_PROJECT_PROPERTY_LIST, 	ANJUTA_PROJECT_PROPERTY_READ_WRITE, 	NULL, 	NULL}, 	AM_TOKEN__CFLAGS, 			0, 	AM_PROPERTY_IN_MAKEFILE, 	NULL,	"AM_CFLAGS"},
-	{{N_("C++ compiler flags:"), 			ANJUTA_PROJECT_PROPERTY_LIST, 	ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL, 	NULL}, 	AM_TOKEN__CXXFLAGS, 		0, 	AM_PROPERTY_IN_MAKEFILE, 	NULL,	"AM_CXXFLAGS"},
-	{{N_("Java compiler flags:"), 			ANJUTA_PROJECT_PROPERTY_LIST,  	ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL, 	NULL}, 	AM_TOKEN__JAVACFLAGS,		0, 	AM_PROPERTY_IN_MAKEFILE, 	NULL,	"AM_JAVAFLAGS"},
-	{{N_("Vala compiler flags:"), 			ANJUTA_PROJECT_PROPERTY_LIST, 	ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL, 	NULL}, 	AM_TOKEN__VALAFLAGS, 		0, 	AM_PROPERTY_IN_MAKEFILE, 	NULL,	"AM_VALAFLAGS"},
-	{{N_("Fortan compiler flags:"), 			ANJUTA_PROJECT_PROPERTY_LIST, 	ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL, 	NULL}, 	AM_TOKEN__FCFLAGS, 			0, 	AM_PROPERTY_IN_MAKEFILE, 	NULL,	"AM_FCFLAGS"},
-	{{N_("Objective C compiler flags:"),	ANJUTA_PROJECT_PROPERTY_LIST, 	ANJUTA_PROJECT_PROPERTY_READ_WRITE, 	NULL, 	NULL}, 	AM_TOKEN__OBJCFLAGS, 		0, 	AM_PROPERTY_IN_MAKEFILE, 	NULL,	"AM_OBJCFLAGS"},
-	{{N_("Lex/Flex flags:"), 					ANJUTA_PROJECT_PROPERTY_LIST, 	ANJUTA_PROJECT_PROPERTY_READ_WRITE, 	NULL, 	NULL}, 	AM_TOKEN__LFLAGS, 			0, 	AM_PROPERTY_IN_MAKEFILE, 	NULL,	"AM_LFLAGS"},
-	{{N_("Yacc/Bison flags:"), 					ANJUTA_PROJECT_PROPERTY_LIST,  	ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL, 	NULL},	AM_TOKEN__YFLAGS, 			0, 	AM_PROPERTY_IN_MAKEFILE, 	NULL,	"AM_YFLAGS"},
-	{{N_("Install directories:"), 				ANJUTA_PROJECT_PROPERTY_MAP,  	ANJUTA_PROJECT_PROPERTY_READ_ONLY,		NULL, 	NULL}, 	AM_TOKEN_DIR, 					0, 	AM_PROPERTY_IN_MAKEFILE, 	NULL,	NULL},
-	{{NULL, 											ANJUTA_PROJECT_PROPERTY_STRING, 0,															NULL, 	NULL}, 	0, 										0, 	0,											NULL,	NULL}};
+static AmpProperty AmpGroupProperties[] =
+{
+	{
+		{N_("Linker flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Common additional linker flags for all targets in this group.")},
+		AM_TOKEN__LDFLAGS,	0, "AM_LDFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("C preprocessor flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Common additional C preprocessor flags for all targets in this group.")},
+		AM_TOKEN__CPPFLAGS, 0, "AM_CPPFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("C compiler flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Common additional C compiler flags for all targets in this group.")},
+		AM_TOKEN__CFLAGS, 0, "AM_CFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("C++ compiler flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Common additional C++ compiler flags for all targets in this group.")},
+		AM_TOKEN__CXXFLAGS, 0, "AM_CXXFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Java compiler flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Common additional Java compiler flags for all targets in this group.")},
+		AM_TOKEN__JAVACFLAGS, 0, "AM_JAVAFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Vala compiler flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Common additional Vala compiler flags for all targets in this group.")},
+		AM_TOKEN__VALAFLAGS, 0, "AM_VALAFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Fortan compiler flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Common additional Fortran compiler flags for all targets in this group.")},
+		AM_TOKEN__FCFLAGS, 0, "AM_FCFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Objective C compiler flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Common additional Objective C compiler flags for all targets in this group.")},
+		AM_TOKEN__OBJCFLAGS,	0, "AM_OBJCFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Lex/Flex flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Common additional Lex or Flex lexical analyser generator flags for all targets in this group.")},
+		AM_TOKEN__LFLAGS, 0, "AM_LFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Yacc/Bison flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE, 
+			N_("Common additional Yacc or Bison parser generator flags for all targets in this group.")},
+		AM_TOKEN__YFLAGS, 0, "AM_YFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Install directories:"),
+			ANJUTA_PROJECT_PROPERTY_MAP,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
+			N_("List of custom installation directories used by targets in this group. This property is not modifiable.")},
+		AM_TOKEN_DIR, 0, NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{}
+};
 
 static GList* AmpGroupPropertyList = NULL;
 
 
 static AmpProperty AmpTargetProperties[] = {
-	{{N_("Do not install:"), 						ANJUTA_PROJECT_PROPERTY_BOOLEAN,  	ANJUTA_PROJECT_PROPERTY_READ_ONLY,		NULL,	NULL},	AM_TOKEN__PROGRAMS,			3, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	NULL},
-	{{N_("Installation directory:"),			ANJUTA_PROJECT_PROPERTY_STRING,		ANJUTA_PROJECT_PROPERTY_READ_ONLY,		NULL,	NULL},	AM_TOKEN__PROGRAMS,			6, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	NULL},
-	{{N_("Linker flags:"),							ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_LDFLAGS,	0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_LDFLAGS"},
-	{{N_("Additional libraries:"),				ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_LIBADD,		0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_LIBADD"},
-	{{N_("Additional objects:"),				ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_LDADD,		0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_LDADD"},
-	{{N_("C preprocessor flags:"),			ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_CPPFLAGS,	0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_CPPFLAGS"},
-	{{N_("C compiler flags:"),					ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_CFLAGS,		0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_CFLAGS"},
-	{{N_("C++ compiler flags:"),			ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_CXXFLAGS,	0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_CXXFLAGS"},
-	{{N_("Java compiler flags:"),				ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_JAVACFLAGS,0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_JAVACFLAGS"},
-	{{N_("Vala compiler flags:"),				ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_VALAFLAGS,0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_VALAFLAGS"},
-	{{N_("Fortan compiler flags:"),			ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_FCFLAGS,	0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_FCFLAGS"},
-	{{N_("Objective C compiler flags:"),	ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_OBJCFLAGS,0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_OBJCFLAGS"},
-	{{N_("Lex/Flex flags:"),						ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_LFLAGS,		0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_LFLAGS"},
-	{{N_("Yacc/Bison flags:"),					ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_YFLAGS,		0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_YFLAGS"},
-	{{N_("Additional dependencies:"),	ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_DEPENDENCIES, 0, 	AM_PROPERTY_IN_MAKEFILE, NULL,	"EXTRA_DIST"},
-	{{N_("Include in distribution:"),			ANJUTA_PROJECT_PROPERTY_BOOLEAN,	ANJUTA_PROJECT_PROPERTY_READ_ONLY,		NULL,	NULL},	AM_TOKEN__PROGRAMS, 			2, 	AM_PROPERTY_IN_MAKEFILE, 	NULL,	NULL},
-	{{N_("Build for check only:"),			ANJUTA_PROJECT_PROPERTY_BOOLEAN,	ANJUTA_PROJECT_PROPERTY_READ_ONLY,		NULL,	NULL},	AM_TOKEN__PROGRAMS,			4, 	AM_PROPERTY_IN_MAKEFILE, 	NULL,	NULL},
-	{{N_("Do not use prefix:"),				ANJUTA_PROJECT_PROPERTY_BOOLEAN,	ANJUTA_PROJECT_PROPERTY_READ_ONLY,		NULL,	NULL},	AM_TOKEN__PROGRAMS, 			1, 	AM_PROPERTY_IN_MAKEFILE, 	NULL,	NULL},
-	{{N_("Keep target path:"),					ANJUTA_PROJECT_PROPERTY_BOOLEAN,	ANJUTA_PROJECT_PROPERTY_READ_ONLY,		NULL,	NULL},	AM_TOKEN__PROGRAMS, 			0, 	AM_PROPERTY_IN_MAKEFILE, 	NULL,	NULL},
-	{{NULL,											ANJUTA_PROJECT_PROPERTY_STRING, 		0,																NULL,	NULL}, 	0, 											0,		0,											NULL,	NULL}};
+	{
+		{N_("Do not install:"),
+			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
+			N_("Build but do not install the target. This property is not modifiable.")},
+		AM_TOKEN__PROGRAMS,	 3, NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Installation directory:"),
+			ANJUTA_PROJECT_PROPERTY_STRING,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
+			N_("Installation directory, standard directories are: bin, sbin, libexec, pkglib, pkglibexe. This property is not modifiable.")},
+		AM_TOKEN__PROGRAMS, 	6, NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Linker flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE, 
+			N_("Additional linker flags for this target.")},
+		AM_TOKEN_TARGET_LDFLAGS, 0, "_LDFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Additional libraries:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Additional libraries for this target.")},
+		AM_TOKEN_TARGET_LIBADD, 0, "_LIBADD",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Additional objects:"),	
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Additional object files for this target.")},
+		AM_TOKEN_TARGET_LDADD,	0, "_LDADD",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("C preprocessor flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Additional C preprocessor flags for this target.")},
+		AM_TOKEN_TARGET_CPPFLAGS,	0, "_CPPFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("C compiler flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Additional C compiler flags for this target.")},
+		AM_TOKEN_TARGET_CFLAGS, 0, 	"_CFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("C++ compiler flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	
+			N_("Additional C++ compiler flags for this target.")},
+		AM_TOKEN_TARGET_CXXFLAGS,	0, "_CXXFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Java compiler flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Additional Java compiler flags for this target.")},
+		AM_TOKEN_TARGET_JAVACFLAGS, 0, "_JAVACFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Vala compiler flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE, 
+			N_("Additional Vala compiler flags for this target.")},
+		AM_TOKEN_TARGET_VALAFLAGS,0, "_VALAFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Fortan compiler flags:"),	
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Additional Fortran compiler flags for this target.")},
+		AM_TOKEN_TARGET_FCFLAGS, 0, "_FCFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Objective C compiler flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Additional Objective C compiler flags for this target.")},
+		AM_TOKEN_TARGET_OBJCFLAGS, 0, "_OBJCFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Lex/Flex flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Additional Lex or Flex lexical analyser generator flags for this target.")},
+		AM_TOKEN_TARGET_LFLAGS, 0, "_LFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Yacc/Bison flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Additional Yac or Bison parser generator flags for this target.")},
+		AM_TOKEN_TARGET_YFLAGS,	0, 	"_YFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Additional dependencies:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	
+			N_("Additional dependencies for this target.")},
+		AM_TOKEN_TARGET_DEPENDENCIES, 0, "EXTRA_DIST",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Include in distribution:"),
+			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
+			N_("Include this target in the distributed package. This property is not modifiable.")},
+		AM_TOKEN__PROGRAMS, 	2, NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Build for check only:"),
+			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
+			N_("Build this target only when running automatic tests. This property is not modifiable.")},
+		AM_TOKEN__PROGRAMS, 	4, 	NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Do not use prefix:"),
+			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
+			N_("Do not rename the target with an optional prefix, used to avoid overwritting system program. "
+			   " This property is not modifiable.")},
+		AM_TOKEN__PROGRAMS, 	1, NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Keep target path:"),
+			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY, 
+			N_("Keep relative target path for installing it. "
+			   "By example if you have a program subdir/app installed in bin directory it will be installed in bin/subdir/app not in bin/app."
+			   " This property is not modifiable.")},
+		AM_TOKEN__PROGRAMS, 	0, NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{}
+};
 
 static GList* AmpTargetPropertyList = NULL;
 
 static AmpProperty AmpProgramTargetProperties[] = {
-	{{N_("Do not install:"), 						ANJUTA_PROJECT_PROPERTY_BOOLEAN,  	ANJUTA_PROJECT_PROPERTY_READ_ONLY,		NULL,	NULL},	AM_TOKEN__PROGRAMS,			3, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	NULL},
-	{{N_("Installation directory:"),			ANJUTA_PROJECT_PROPERTY_STRING,		ANJUTA_PROJECT_PROPERTY_READ_ONLY,		NULL,	NULL},	AM_TOKEN__PROGRAMS,			6, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	NULL},
-	{{N_("Linker flags:"),							ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_LDFLAGS,	0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_LDFLAGS"},
-	{{N_("Libraries:"),						ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_LDADD,		0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_LDADD"},
-	{{N_("C preprocessor flags:"),			ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_CPPFLAGS,	0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_CPPFLAGS"},
-	{{N_("C compiler flags:"),					ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_CFLAGS,		0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_CFLAGS"},
-	{{N_("C++ compiler flags:"),			ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_CXXFLAGS,	0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_CXXFLAGS"},
-	{{N_("Java compiler flags:"),				ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_JAVACFLAGS,0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_JAVACFLAGS"},
-	{{N_("Vala compiler flags:"),				ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_VALAFLAGS,0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_VALAFLAGS"},
-	{{N_("Fortan compiler flags:"),			ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_FCFLAGS,	0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_FCFLAGS"},
-	{{N_("Objective C compiler flags:"),	ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_OBJCFLAGS,0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_OBJCFLAGS"},
-	{{N_("Lex/Flex flags:"),						ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_LFLAGS,		0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_LFLAGS"},
-	{{N_("Yacc/Bison flags:"),					ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_YFLAGS,		0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_YFLAGS"},
-	{{N_("Additional dependencies:"),	ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_DEPENDENCIES, 0, 	AM_PROPERTY_IN_MAKEFILE, NULL,	"EXTRA_DIST"},
-	{{N_("Include in distribution:"),			ANJUTA_PROJECT_PROPERTY_BOOLEAN,	ANJUTA_PROJECT_PROPERTY_READ_ONLY,		NULL,	NULL},	AM_TOKEN__PROGRAMS, 			2, 	AM_PROPERTY_IN_MAKEFILE, 	NULL,	NULL},
-	{{N_("Build for check only:"),			ANJUTA_PROJECT_PROPERTY_BOOLEAN,	ANJUTA_PROJECT_PROPERTY_READ_ONLY,		NULL,	NULL},	AM_TOKEN__PROGRAMS,			4, 	AM_PROPERTY_IN_MAKEFILE, 	NULL,	NULL},
-	{{N_("Do not use prefix:"),				ANJUTA_PROJECT_PROPERTY_BOOLEAN,	ANJUTA_PROJECT_PROPERTY_READ_ONLY,		NULL,	NULL},	AM_TOKEN__PROGRAMS, 			1, 	AM_PROPERTY_IN_MAKEFILE, 	NULL,	NULL},
-	{{N_("Keep target path:"),					ANJUTA_PROJECT_PROPERTY_BOOLEAN,	ANJUTA_PROJECT_PROPERTY_READ_ONLY,		NULL,	NULL},	AM_TOKEN__PROGRAMS, 			0, 	AM_PROPERTY_IN_MAKEFILE, 	NULL,	NULL},
-	{{NULL,											ANJUTA_PROJECT_PROPERTY_STRING, 		0,																NULL,	NULL}, 	0, 											0,		0,											NULL,	NULL}};
+	{
+		{N_("Do not install:"),
+			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
+			N_("Build but do not install the target. This property is not modifiable.")},
+		AM_TOKEN__PROGRAMS,	 3, NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Installation directory:"),
+			ANJUTA_PROJECT_PROPERTY_STRING,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
+			N_("Installation directory, standard directories are: bin, sbin, libexec, pkglib, pkglibexe. This property is not modifiable.")},
+		AM_TOKEN__PROGRAMS, 	6, NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Linker flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE, 
+			N_("Additional linker flags for this target.")},
+		AM_TOKEN_TARGET_LDFLAGS, 0, "_LDFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Libraries:"),	
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Additional libraries for this target.")},
+		AM_TOKEN_TARGET_LDADD,	0, "_LDADD",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("C preprocessor flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Additional C preprocessor flags for this target.")},
+		AM_TOKEN_TARGET_CPPFLAGS,	0, "_CPPFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("C compiler flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Additional C compiler flags for this target.")},
+		AM_TOKEN_TARGET_CFLAGS, 0, 	"_CFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("C++ compiler flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	
+			N_("Additional C++ compiler flags for this target.")},
+		AM_TOKEN_TARGET_CXXFLAGS,	0, "_CXXFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Java compiler flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Additional Java compiler flags for this target.")},
+		AM_TOKEN_TARGET_JAVACFLAGS, 0, "_JAVACFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Vala compiler flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE, 
+			N_("Additional Vala compiler flags for this target.")},
+		AM_TOKEN_TARGET_VALAFLAGS,0, "_VALAFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Fortan compiler flags:"),	
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Additional Fortran compiler flags for this target.")},
+		AM_TOKEN_TARGET_FCFLAGS, 0, "_FCFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Objective C compiler flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Additional Objective C compiler flags for this target.")},
+		AM_TOKEN_TARGET_OBJCFLAGS, 0, "_OBJCFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Lex/Flex flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Additional Lex or Flex lexical analyser generator flags for this target.")},
+		AM_TOKEN_TARGET_LFLAGS, 0, "_LFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Yacc/Bison flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Additional Yac or Bison parser generator flags for this target.")},
+		AM_TOKEN_TARGET_YFLAGS,	0, 	"_YFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Additional dependencies:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	
+			N_("Additional dependencies for this target.")},
+		AM_TOKEN_TARGET_DEPENDENCIES, 0, "EXTRA_DIST",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Include in distribution:"),
+			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
+			N_("Include this target in the distributed package. This property is not modifiable.")},
+		AM_TOKEN__PROGRAMS, 	2, NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Build for check only:"),
+			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
+			N_("Build this target only when running automatic tests. This property is not modifiable.")},
+		AM_TOKEN__PROGRAMS, 	4, 	NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Do not use prefix:"),
+			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
+			N_("Do not rename the target with an optional prefix, used to avoid overwritting system program. "
+			   " This property is not modifiable.")},
+		AM_TOKEN__PROGRAMS, 	1, NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Keep target path:"),
+			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY, 
+			N_("Keep relative target path for installing it. "
+			   "By example if you have a program subdir/app installed in bin directory it will be installed in bin/subdir/app not in bin/app."
+			   " This property is not modifiable.")},
+		AM_TOKEN__PROGRAMS, 	0, NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{}
+};
 
 static GList* AmpProgramTargetPropertyList = NULL;
 
 static AmpProperty AmpLibraryTargetProperties[] = {
-	{{N_("Do not install:"), 						ANJUTA_PROJECT_PROPERTY_BOOLEAN,  	ANJUTA_PROJECT_PROPERTY_READ_ONLY,		NULL,	NULL},	AM_TOKEN__PROGRAMS,			3, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	NULL},
-	{{N_("Installation directory:"),			ANJUTA_PROJECT_PROPERTY_STRING,		ANJUTA_PROJECT_PROPERTY_READ_ONLY,		NULL,	NULL},	AM_TOKEN__PROGRAMS,			6, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	NULL},
-	{{N_("Linker flags:"),							ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_LDFLAGS,	0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_LDFLAGS"},
-	{{N_("Libraries:"),							ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_LIBADD,		0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_LIBADD"},
-	{{N_("C preprocessor flags:"),			ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_CPPFLAGS,	0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_CPPFLAGS"},
-	{{N_("C compiler flags:"),					ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_CFLAGS,		0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_CFLAGS"},
-	{{N_("C++ compiler flags:"),			ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_CXXFLAGS,	0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_CXXFLAGS"},
-	{{N_("Java compiler flags:"),				ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_JAVACFLAGS,0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_JAVACFLAGS"},
-	{{N_("Vala compiler flags:"),				ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_VALAFLAGS,0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_VALAFLAGS"},
-	{{N_("Fortan compiler flags:"),			ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_FCFLAGS,	0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_FCFLAGS"},
-	{{N_("Objective C compiler flags:"),	ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_OBJCFLAGS,0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_OBJCFLAGS"},
-	{{N_("Lex/Flex flags:"),						ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_LFLAGS,		0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_LFLAGS"},
-	{{N_("Yacc/Bison flags:"),					ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_YFLAGS,		0, 	AM_PROPERTY_IN_MAKEFILE,	NULL,	"_YFLAGS"},
-	{{N_("Additional dependencies:"),	ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	NULL,	NULL},	AM_TOKEN_TARGET_DEPENDENCIES, 0, 	AM_PROPERTY_IN_MAKEFILE, NULL,	"EXTRA_DIST"},
-	{{N_("Include in distribution:"),			ANJUTA_PROJECT_PROPERTY_BOOLEAN,	ANJUTA_PROJECT_PROPERTY_READ_ONLY,		NULL,	NULL},	AM_TOKEN__PROGRAMS, 			2, 	AM_PROPERTY_IN_MAKEFILE, 	NULL,	NULL},
-	{{N_("Build for check only:"),			ANJUTA_PROJECT_PROPERTY_BOOLEAN,	ANJUTA_PROJECT_PROPERTY_READ_ONLY,		NULL,	NULL},	AM_TOKEN__PROGRAMS,			4, 	AM_PROPERTY_IN_MAKEFILE, 	NULL,	NULL},
-	{{N_("Do not use prefix:"),				ANJUTA_PROJECT_PROPERTY_BOOLEAN,	ANJUTA_PROJECT_PROPERTY_READ_ONLY,		NULL,	NULL},	AM_TOKEN__PROGRAMS, 			1, 	AM_PROPERTY_IN_MAKEFILE, 	NULL,	NULL},
-	{{N_("Keep target path:"),					ANJUTA_PROJECT_PROPERTY_BOOLEAN,	ANJUTA_PROJECT_PROPERTY_READ_ONLY,		NULL,	NULL},	AM_TOKEN__PROGRAMS, 			0, 	AM_PROPERTY_IN_MAKEFILE, 	NULL,	NULL},
-	{{NULL,											ANJUTA_PROJECT_PROPERTY_STRING, 		0,																NULL,	NULL}, 	0, 											0,		0,											NULL,	NULL}};
+		{
+		{N_("Do not install:"),
+			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
+			N_("Build but do not install the target. This property is not modifiable.")},
+		AM_TOKEN__PROGRAMS,	 3, NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Installation directory:"),
+			ANJUTA_PROJECT_PROPERTY_STRING,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
+			N_("Installation directory, standard directories are: bin, sbin, libexec, pkglib, pkglibexe. This property is not modifiable.")},
+		AM_TOKEN__PROGRAMS, 	6, NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Linker flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE, 
+			N_("Additional linker flags for this target.")},
+		AM_TOKEN_TARGET_LDFLAGS, 0, "_LDFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Libraries:"),	
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Additional libraries for this target.")},
+		AM_TOKEN_TARGET_LIBADD,	0, "_LIBADD",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("C preprocessor flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Additional C preprocessor flags for this target.")},
+		AM_TOKEN_TARGET_CPPFLAGS,	0, "_CPPFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("C compiler flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Additional C compiler flags for this target.")},
+		AM_TOKEN_TARGET_CFLAGS, 0, 	"_CFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("C++ compiler flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	
+			N_("Additional C++ compiler flags for this target.")},
+		AM_TOKEN_TARGET_CXXFLAGS,	0, "_CXXFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Java compiler flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Additional Java compiler flags for this target.")},
+		AM_TOKEN_TARGET_JAVACFLAGS, 0, "_JAVACFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Vala compiler flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE, 
+			N_("Additional Vala compiler flags for this target.")},
+		AM_TOKEN_TARGET_VALAFLAGS,0, "_VALAFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Fortan compiler flags:"),	
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Additional Fortran compiler flags for this target.")},
+		AM_TOKEN_TARGET_FCFLAGS, 0, "_FCFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Objective C compiler flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Additional Objective C compiler flags for this target.")},
+		AM_TOKEN_TARGET_OBJCFLAGS, 0, "_OBJCFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Lex/Flex flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Additional Lex or Flex lexical analyser generator flags for this target.")},
+		AM_TOKEN_TARGET_LFLAGS, 0, "_LFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Yacc/Bison flags:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Additional Yac or Bison parser generator flags for this target.")},
+		AM_TOKEN_TARGET_YFLAGS,	0, 	"_YFLAGS",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Additional dependencies:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	
+			N_("Additional dependencies for this target.")},
+		AM_TOKEN_TARGET_DEPENDENCIES, 0, "EXTRA_DIST",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Include in distribution:"),
+			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
+			N_("Include this target in the distributed package. This property is not modifiable.")},
+		AM_TOKEN__PROGRAMS, 	2, NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Build for check only:"),
+			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
+			N_("Build this target only when running automatic tests. This property is not modifiable.")},
+		AM_TOKEN__PROGRAMS, 	4, 	NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Do not use prefix:"),
+			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
+			N_("Do not rename the target with an optional prefix, used to avoid overwritting system program. "
+			   " This property is not modifiable.")},
+		AM_TOKEN__PROGRAMS, 	1, NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Keep target path:"),
+			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY, 
+			N_("Keep relative target path for installing it. "
+			   "By example if you have a program subdir/app installed in bin directory it will be installed in bin/subdir/app not in bin/app."
+			   " This property is not modifiable.")},
+		AM_TOKEN__PROGRAMS, 	0, NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{}
+};
 
 static GList* AmpLibraryTargetPropertyList = NULL;
 
 static AmpProperty AmpManTargetProperties[] = {
-	{{N_("Additional dependencies:"),	ANJUTA_PROJECT_PROPERTY_LIST, 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,		NULL,	NULL},	0, 									0, 	AM_PROPERTY_IN_MAKEFILE, NULL,	NULL},
-	{{N_("Do not use prefix:"), 				ANJUTA_PROJECT_PROPERTY_BOOLEAN, 	ANJUTA_PROJECT_PROPERTY_READ_ONLY,		NULL,	NULL},	AM_TOKEN__PROGRAMS,	1, 	AM_PROPERTY_IN_MAKEFILE, NULL,	NULL},
-	{{N_("Manual section:"), 					ANJUTA_PROJECT_PROPERTY_STRING, 		ANJUTA_PROJECT_PROPERTY_READ_ONLY,		NULL,	NULL},	AM_TOKEN__PROGRAMS,	5, 	AM_PROPERTY_IN_MAKEFILE, NULL,	NULL},
-	{{NULL, 											ANJUTA_PROJECT_PROPERTY_STRING, 		0,																NULL,	NULL},	0,										0, 	0,										 NULL,	NULL}};
+	{
+		{N_("Additional dependencies:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
+			N_("Additional dependencies for this target.")},
+		0, 0, NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Do not use prefix:"),
+			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
+			N_("Do not rename the target with an optional prefix, used to avoid overwritting system program. "
+			   " This property is not modifiable.")},
+		AM_TOKEN__PROGRAMS,	1, NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Manual section:"),
+			ANJUTA_PROJECT_PROPERTY_STRING,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
+			N_("Section where are installed the man pages. Valid section names are the digits ‘0’ through ‘9’, and the letters ‘l’ and ‘n’. "
+			   " This property is not modifiable.")},
+		AM_TOKEN__PROGRAMS,	 5, NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{}
+};
 
 static GList* AmpManTargetPropertyList = NULL;
 

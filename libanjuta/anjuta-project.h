@@ -49,6 +49,7 @@ struct _AnjutaProjectProperty
 	gchar *name;
 	AnjutaProjectValueType type;
 	AnjutaProjectPropertyFlags flags;
+	const gchar *detail;
 	gchar *value;
 	AnjutaProjectProperty *native;
 };
