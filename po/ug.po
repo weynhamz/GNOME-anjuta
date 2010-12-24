@@ -8,8 +8,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&component=core application\n"
-"POT-Creation-Date: 2010-11-20 11:47+0000\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=anjuta&component=core application\n"
+"POT-Creation-Date: 2010-11-21 11:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Gheyret Kenji<gheyret@yahoo.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -44,6 +45,7 @@ msgstr ""
 #, c-format
 msgid "Unknown error in module %s"
 msgstr ""
+""
 
 #: ../libanjuta/anjuta-c-plugin-factory.c:108
 #, c-format
@@ -64,13 +66,15 @@ msgstr ""
 #, c-format
 msgid "The file you are trying to open contains an invalid byte sequence."
 msgstr ""
+"سىز ئاچماقچى بولغان ھۆججەتتە ئىناۋەتسىي بازتلار بار. "
 
 #: ../libanjuta/anjuta-convert.c:168 ../libanjuta/anjuta-convert.c:207
 #, c-format
 msgid ""
 "Anjuta was not able to automatically determine the encoding of the file you "
 "want to open."
-msgstr "Anjuta سىز ئاچماقچى بولغان ھۆججەتنىڭ كودلىنىش ئۇسۇلىنى ئاپتوماتىك بىلەلمىدى."
+msgstr ""
+"Anjuta سىز ئاچماقچى بولغان ھۆججەتنىڭ كودلىنىش ئۇسۇلىنى ئاپتوماتىك بىلەلمىدى."
 
 #: ../libanjuta/anjuta-encodings.c:137 ../libanjuta/anjuta-encodings.c:182
 #: ../libanjuta/anjuta-encodings.c:184 ../libanjuta/anjuta-encodings.c:186
@@ -261,7 +265,6 @@ msgstr "قىستۇرما تاللاڭ"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1358
 #: ../libanjuta/anjuta-plugin-manager.c:1509
-#| msgid "Please select a plugin to activate"
 msgid "<b>Please select a plugin to activate</b>"
 msgstr ""
 
@@ -357,7 +360,9 @@ msgstr "تىزىملىكتىن بىر قىستۇرما تاللاڭ"
 msgid ""
 "Failed to read '%s': XML parse error. Invalid or corrupted Anjuta plugins "
 "profile."
-msgstr "'%s' نى ئوقۇش مەغلۇپ بولدى. XML نى تەھلىل قىلىشتا خاتالىق كۆرۈلدى. Anjuta قىستۇرمىلىرىنىڭ profile سى خاتا ياكى بۇزۇلغان."
+msgstr ""
+"'%s' نى ئوقۇش مەغلۇپ بولدى. XML نى تەھلىل قىلىشتا خاتالىق كۆرۈلدى. Anjuta "
+"قىستۇرمىلىرىنىڭ profile سى خاتا ياكى بۇزۇلغان."
 
 #. <Pluginname>: Install it from <some location on the web>
 #: ../libanjuta/anjuta-profile.c:699
@@ -370,7 +375,8 @@ msgstr "%s: بۇنى «%s» دىن ئورنات\n"
 msgid ""
 "Failed to read '%s': Following mandatory plugins are missing:\n"
 "%s"
-msgstr "'%s' نى ئوقۇش مەغلۇپ بولدى: تۆۋەندىكى مۇھىم قىستۇرمىلار يوق: \n"
+msgstr ""
+"'%s' نى ئوقۇش مەغلۇپ بولدى: تۆۋەندىكى مۇھىم قىستۇرمىلار يوق: \n"
 "%s"
 
 #: ../libanjuta/anjuta-preferences-dialog.c:95
@@ -472,7 +478,8 @@ msgstr ""
 #. Try xterm
 #: ../libanjuta/anjuta-utils.c:1171
 msgid "Cannot find a terminal; using xterm, even if it may not work"
-msgstr "تېرمىنالنى تاپقىلى بولمىدى؛ xterm نى ئىشلىتىڭ، ئۇ ئىشلىمەي قېلىشىمۇ مۇمكىن"
+msgstr ""
+"تېرمىنالنى تاپقىلى بولمىدى؛ xterm نى ئىشلىتىڭ، ئۇ ئىشلىمەي قېلىشىمۇ مۇمكىن"
 
 #: ../libanjuta/anjuta-utils.c:1207 ../libanjuta/anjuta-utils.c:1211
 #: ../libanjuta/anjuta-utils.c:1239 ../libanjuta/anjuta-utils.c:1243
@@ -953,9 +960,9 @@ msgstr ""
 msgid "Leaving: %s"
 msgstr ""
 
-#. The translations should match that of 'make' program.
+#. The translations should match that of 'gcc' program.
 #. * The second string with -old should be used for an older
-#. * version of 'make' if necessary. If you update one string,
+#. * version of 'gcc' if necessary. If you update one string,
 #. * move the first one to translate the -old string and then
 #. * replace the first string only.
 #: ../plugins/build-basic-autotools/plugin.c:932
@@ -964,13 +971,12 @@ msgid "warning:"
 msgstr ""
 
 #: ../plugins/build-basic-autotools/plugin.c:933
-#| msgid "Warning"
 msgid "warning:-old"
 msgstr ""
 
-#. The translations should match that of 'make' program.
+#. The translations should match that of 'gcc' program.
 #. * The second string with -old should be used for an older
-#. * version of 'make' if necessary. If you update one string,
+#. * version of 'gcc' if necessary. If you update one string,
 #. * move the first one to translate the -old string and then
 #. * replace the first string only.
 #: ../plugins/build-basic-autotools/plugin.c:944
@@ -1443,7 +1449,7 @@ msgstr "تىپى"
 
 #: ../plugins/class-gen/window.c:502 ../plugins/class-gen/window.c:512
 #: ../plugins/class-gen/window.c:520 ../plugins/class-gen/window.c:534
-#: ../plugins/project-manager/dialogs.c:452
+#: ../plugins/project-manager/dialogs.c:434
 #: ../plugins/run-program/parameters.c:754
 #: ../plugins/snippets-manager/plugin.c:757
 #: ../plugins/snippets-manager/snippets-browser.c:530
@@ -2283,7 +2289,7 @@ msgstr "ئۆزگىرىشچان"
 
 #: ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/debug-manager/registers.c:469
-#: ../plugins/project-manager/dialogs.c:459
+#: ../plugins/project-manager/dialogs.c:441
 #: ../plugins/run-program/parameters.c:763 ../plugins/tools/editor.c:474
 msgid "Value"
 msgstr "قىممىتى"
@@ -3678,7 +3684,8 @@ msgid ""
 "Cannot open \"%s\".\n"
 "\n"
 "%s"
-msgstr "«%s» نى ئاچقىلى بولمىدى.\n"
+msgstr ""
+"«%s» نى ئاچقىلى بولمىدى.\n"
 "\n"
 "%s"
 
@@ -3836,7 +3843,6 @@ msgid "Please select a plugin to open <b>%s</b>."
 msgstr ""
 
 #: ../plugins/file-loader/plugin.c:1441
-#| msgid "Open With"
 msgid "<b>Open With</b>"
 msgstr ""
 
@@ -3931,7 +3937,8 @@ msgstr ""
 msgid ""
 "Enter the File name.\n"
 "The extension will be added according to the type."
-msgstr "ھۆججەت ئاتىنى كىرگۈزۈڭ.\n"
+msgstr ""
+"ھۆججەت ئاتىنى كىرگۈزۈڭ.\n"
 "كېڭەيتىلمە ئاتى تىپىغا ئاساسەن قوشۇلىدۇ."
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:7
@@ -3950,7 +3957,7 @@ msgid "New File"
 msgstr "يېڭى ھۆججەت"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:12
-#: ../plugins/project-manager/dialogs.c:560
+#: ../plugins/project-manager/dialogs.c:542
 msgid "Type:"
 msgstr "تىپى:"
 
@@ -4009,29 +4016,26 @@ msgstr ""
 #: ../plugins/dir-project/dir-project.c:133
 #: ../plugins/dir-project/dir-project.c:156
 #, c-format
-#| msgid "Missing"
 msgid "Missing name"
 msgstr ""
 
 #: ../plugins/dir-project/dir-project.c:649
 #: ../plugins/dir-project/dir-project.c:762
-#: ../plugins/am-project/am-project.c:1621
-#: ../plugins/am-project/am-project.c:1652
-#: ../plugins/am-project/am-project.c:1761
-#: ../plugins/am-project/am-project.c:1837
+#: ../plugins/am-project/am-project.c:1627
+#: ../plugins/am-project/am-project.c:1658
+#: ../plugins/am-project/am-project.c:1767
+#: ../plugins/am-project/am-project.c:1843
 #, c-format
 msgid "Project doesn't exist or invalid path"
 msgstr ""
 
 #: ../plugins/dir-project/dir-project.c:773
 #: ../plugins/am-project/am-project.c:91
-#| msgid "Group:"
 msgid "Group"
 msgstr "گۇرۇپپا"
 
 #: ../plugins/dir-project/dir-project.c:776
 #: ../plugins/am-project/am-project.c:98
-#| msgid "Source:"
 msgid "Source"
 msgstr "مەنبە"
 
@@ -4041,29 +4045,29 @@ msgstr "مەنبە"
 msgid "Project doesn't allow to set properties"
 msgstr ""
 
-#: ../plugins/am-project/am-node.c:708
+#: ../plugins/am-project/am-node.c:750
 msgid "Please specify group name"
 msgstr ""
 
-#: ../plugins/am-project/am-node.c:722
+#: ../plugins/am-project/am-node.c:764
 msgid ""
 "Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"
 msgstr ""
 
-#: ../plugins/am-project/am-node.c:857
+#: ../plugins/am-project/am-node.c:918
 msgid "Please specify target name"
 msgstr ""
 
-#: ../plugins/am-project/am-node.c:871
+#: ../plugins/am-project/am-node.c:932
 msgid ""
 "Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
 msgstr ""
 
-#: ../plugins/am-project/am-node.c:886
+#: ../plugins/am-project/am-node.c:947
 msgid "Shared library target name must be of the form 'libxxx.la'"
 msgstr ""
 
-#: ../plugins/am-project/am-node.c:895
+#: ../plugins/am-project/am-node.c:956
 msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr ""
 
@@ -4108,11 +4112,10 @@ msgid "Script"
 msgstr "قوليازما"
 
 #: ../plugins/am-project/am-project.c:198
-#| msgid "Packages"
 msgid "Package"
 msgstr "بوغچا"
 
-#: ../plugins/am-project/am-project.c:1638
+#: ../plugins/am-project/am-project.c:1644
 #, c-format
 msgid "Unable to parse project file"
 msgstr ""
@@ -4208,7 +4211,6 @@ msgid "Do not install:"
 msgstr ""
 
 #: ../plugins/am-project/am-properties.c:74
-#| msgid "Select directory"
 msgid "Installation directory:"
 msgstr ""
 
@@ -4217,13 +4219,11 @@ msgid "Additional libraries:"
 msgstr ""
 
 #: ../plugins/am-project/am-properties.c:77
-#| msgid "Add to Project"
 msgid "Additional objects:"
 msgstr ""
 
 #: ../plugins/am-project/am-properties.c:87
 #: ../plugins/am-project/am-properties.c:97
-#| msgid "Dependencies:"
 msgid "Additional dependencies:"
 msgstr ""
 
@@ -4286,7 +4286,8 @@ msgstr ""
 
 #: ../plugins/gdb/debugger.c:1148
 msgid "Open an executable or attach to a process to start debugging.\n"
-msgstr "سازلاشنى باشلاش ئۈچۈن بىر پروگراممىنى ئېچىڭ ياكى بىر پروگراممىغا قوشۇلۇڭ.\n"
+msgstr ""
+"سازلاشنى باشلاش ئۈچۈن بىر پروگراممىنى ئېچىڭ ياكى بىر پروگراممىغا قوشۇلۇڭ.\n"
 
 #: ../plugins/gdb/debugger.c:1157
 msgid "There was an error whilst launching the debugger.\n"
@@ -5928,7 +5929,9 @@ msgstr "تاماملانغان بارلىق to-do تۇرلىرىنى راستل�
 msgid ""
 "Are you sure you want to remove all the completed to-do items in the "
 "category \"%s\"?"
-msgstr "كاتېگورىيە «%s» نىڭدىن تاماملانغان بارلىق to-do تۇرلىرىنى راستلا چىقىرىۋېتەمسىز؟"
+msgstr ""
+"كاتېگورىيە «%s» نىڭدىن تاماملانغان بارلىق to-do تۇرلىرىنى راستلا "
+"چىقىرىۋېتەمسىز؟"
 
 #: ../plugins/gtodo/export.c:47
 msgid "Export task list"
@@ -6501,12 +6504,10 @@ msgid "Import"
 msgstr "ئەكىر"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:1
-#| msgid "Module"
 msgid "Add Module"
 msgstr ""
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:2
-#| msgid "Add _Package"
 msgid "Add Package"
 msgstr ""
 
@@ -6515,12 +6516,10 @@ msgid "Add Source"
 msgstr "مەنبە قوشۇش"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:4
-#| msgid "Module"
 msgid "Modules:"
 msgstr ""
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:5
-#| msgid "Print options"
 msgid "More options:"
 msgstr ""
 
@@ -6533,7 +6532,6 @@ msgid "New Target"
 msgstr "يېڭى نىشان"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:8
-#| msgid "Packages"
 msgid "Package list:"
 msgstr ""
 
@@ -6570,7 +6568,6 @@ msgid "TargetTypes"
 msgstr ""
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:17
-#| msgid "Add _Package"
 msgid "_Add package&#x2026;"
 msgstr ""
 
@@ -6579,7 +6576,6 @@ msgid "_Group name:"
 msgstr ""
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:19
-#| msgid "Module"
 msgid "_Module name:"
 msgstr ""
 
@@ -6588,9 +6584,9 @@ msgid "_Select file to add&#x2026;"
 msgstr ""
 
 #: ../plugins/project-manager/project-model.c:233
-#: ../plugins/project-manager/plugin.c:1390
-#: ../plugins/project-manager/plugin.c:1508
-#: ../plugins/project-manager/plugin.c:1685
+#: ../plugins/project-manager/plugin.c:1389
+#: ../plugins/project-manager/plugin.c:1507
+#: ../plugins/project-manager/plugin.c:1684
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 msgid "Project"
 msgstr "قۇرۇلۇش"
@@ -6616,36 +6612,33 @@ msgstr "قۇرۇلۇشنى يېڭىلاش مەغلۇپ بولدى: %s"
 msgid ""
 "Are you sure you want to remove the following group from the project?\n"
 "\n"
-msgstr "ھازىرقى قۇرۇلۇشتىن تۆۋەندىكى گۇرۇپپىنى راستلا چىقىرىۋېتەمسىز؟\n"
+msgstr ""
+"ھازىرقى قۇرۇلۇشتىن تۆۋەندىكى گۇرۇپپىنى راستلا چىقىرىۋېتەمسىز؟\n"
 "\n"
 
 #: ../plugins/project-manager/plugin.c:649
 msgid ""
 "Are you sure you want to remove the following target from the project?\n"
 "\n"
-msgstr "ھازىرقى قۇرۇلۇشتىن تۆۋەندىكى نىشاننى راستلا چىقىرىۋېتەمسىز؟\n"
+msgstr ""
+"ھازىرقى قۇرۇلۇشتىن تۆۋەندىكى نىشاننى راستلا چىقىرىۋېتەمسىز؟\n"
 "\n"
 
 #: ../plugins/project-manager/plugin.c:652
 msgid ""
 "Are you sure you want to remove the following source file from the project?\n"
 "\n"
-msgstr "ھازىرقى قۇرۇلۇشتىن تۆۋەندىكى مەنبە ھۆججەتنى راستلا چىقىرىۋېتەمسىز؟\n"
+msgstr ""
+"ھازىرقى قۇرۇلۇشتىن تۆۋەندىكى مەنبە ھۆججەتنى راستلا چىقىرىۋېتەمسىز؟\n"
 "\n"
 
 #: ../plugins/project-manager/plugin.c:655
-#| msgid ""
-#| "Are you sure you want to remove the following target from the project?\n"
-#| "\n"
 msgid ""
 "Are you sure you want to remove the following package from the project?\n"
 "\n"
 msgstr ""
 
 #: ../plugins/project-manager/plugin.c:658
-#| msgid ""
-#| "Are you sure you want to remove the following group from the project?\n"
-#| "\n"
 msgid ""
 "Are you sure you want to remove the following module from the project?\n"
 "\n"
@@ -6655,7 +6648,8 @@ msgstr ""
 msgid ""
 "Are you sure you want to remove the following elements from the project?\n"
 "\n"
-msgstr "ھازىرقى قۇرۇلۇشتىن تۆۋەندىكى ئېلېمېنتلارنى راستلا چىقىرىۋېتەمسىز؟\n"
+msgstr ""
+"ھازىرقى قۇرۇلۇشتىن تۆۋەندىكى ئېلېمېنتلارنى راستلا چىقىرىۋېتەمسىز؟\n"
 "\n"
 
 #: ../plugins/project-manager/plugin.c:678
@@ -6680,13 +6674,11 @@ msgstr ""
 
 #: ../plugins/project-manager/plugin.c:690
 #, c-format
-#| msgid "Module"
 msgid "Module: %s\n"
 msgstr ""
 
 #: ../plugins/project-manager/plugin.c:693
 #, c-format
-#| msgid "Packages"
 msgid "Package: %s\n"
 msgstr ""
 
@@ -6715,169 +6707,164 @@ msgstr ""
 msgid ""
 "Failed to remove '%s':\n"
 "%s"
-msgstr "'%s' چىقىرىۋېتىش مەغلۇپ بولدى:\n"
+msgstr ""
+"'%s' چىقىرىۋېتىش مەغلۇپ بولدى:\n"
 "%s"
 
-#: ../plugins/project-manager/plugin.c:829
+#: ../plugins/project-manager/plugin.c:828
 #, c-format
 msgid "Failed to retrieve URI info of %s: %s"
 msgstr ""
 
-#: ../plugins/project-manager/plugin.c:867
+#: ../plugins/project-manager/plugin.c:866
 msgid "_Project"
 msgstr "قۇرۇلۇش(_P)"
 
-#: ../plugins/project-manager/plugin.c:871
+#: ../plugins/project-manager/plugin.c:870
 msgid "Add _Group…"
 msgstr "گۇرۇپپا قوش(_G)..."
 
-#: ../plugins/project-manager/plugin.c:871
-#: ../plugins/project-manager/plugin.c:915
+#: ../plugins/project-manager/plugin.c:870
+#: ../plugins/project-manager/plugin.c:914
 msgid "Add a group to project"
 msgstr "قۇرۇلۇشقا بىر گۇرۇپپا قوشىدۇ"
 
-#: ../plugins/project-manager/plugin.c:876
+#: ../plugins/project-manager/plugin.c:875
 msgid "Add _Target…"
 msgstr "نىشان قوش (_T)..."
 
-#: ../plugins/project-manager/plugin.c:876
-#: ../plugins/project-manager/plugin.c:920
+#: ../plugins/project-manager/plugin.c:875
+#: ../plugins/project-manager/plugin.c:919
 msgid "Add a target to project"
 msgstr "قۇرۇلۇشقا نىشان قوشىدۇ"
 
-#: ../plugins/project-manager/plugin.c:881
+#: ../plugins/project-manager/plugin.c:880
 msgid "Add _Source File…"
 msgstr "مەنبە ھۆججەت قوش (_S)..."
 
-#: ../plugins/project-manager/plugin.c:881
-#: ../plugins/project-manager/plugin.c:925
-#: ../plugins/project-manager/plugin.c:940
+#: ../plugins/project-manager/plugin.c:880
+#: ../plugins/project-manager/plugin.c:924
+#: ../plugins/project-manager/plugin.c:939
 msgid "Add a source file to project"
 msgstr "قۇرۇلۇشقا يېڭى مەنبە ھۆججەت قوشىدۇ"
 
-#: ../plugins/project-manager/plugin.c:886
-#| msgid "Add _Group…"
+#: ../plugins/project-manager/plugin.c:885
 msgid "Add _Module…"
 msgstr ""
 
-#: ../plugins/project-manager/plugin.c:886
-#| msgid "Add a source file to project"
+#: ../plugins/project-manager/plugin.c:885
 msgid "Add a module to a target"
 msgstr ""
 
-#: ../plugins/project-manager/plugin.c:891
-#| msgid "Add _Package"
+#: ../plugins/project-manager/plugin.c:890
 msgid "Add _Package…"
 msgstr ""
 
-#: ../plugins/project-manager/plugin.c:891
-#: ../plugins/project-manager/plugin.c:935
-#| msgid "Add a target to project"
+#: ../plugins/project-manager/plugin.c:890
+#: ../plugins/project-manager/plugin.c:934
 msgid "Add a package to project"
 msgstr ""
 
-#: ../plugins/project-manager/plugin.c:896
-#: ../plugins/project-manager/plugin.c:945
+#: ../plugins/project-manager/plugin.c:895
+#: ../plugins/project-manager/plugin.c:944
 msgid "_Properties"
 msgstr "خاسلىق(_P)"
 
-#: ../plugins/project-manager/plugin.c:896
-#: ../plugins/project-manager/dialogs.c:709
+#: ../plugins/project-manager/plugin.c:895
+#: ../plugins/project-manager/dialogs.c:666
 msgid "Project properties"
 msgstr ""
 
-#: ../plugins/project-manager/plugin.c:901
+#: ../plugins/project-manager/plugin.c:900
 msgid "_Refresh"
 msgstr "يېڭىلا(_R)"
 
-#: ../plugins/project-manager/plugin.c:901
+#: ../plugins/project-manager/plugin.c:900
 msgid "Refresh project manager tree"
 msgstr ""
 
-#: ../plugins/project-manager/plugin.c:906
+#: ../plugins/project-manager/plugin.c:905
 msgid "Close Pro_ject"
 msgstr "قۇرۇلۇش يېپىش(_J)"
 
-#: ../plugins/project-manager/plugin.c:906
+#: ../plugins/project-manager/plugin.c:905
 msgid "Close project"
 msgstr ""
 
-#: ../plugins/project-manager/plugin.c:915
+#: ../plugins/project-manager/plugin.c:914
 msgid "Add _Group"
 msgstr "گۇرۇپپا قوش(_G)"
 
-#: ../plugins/project-manager/plugin.c:920
+#: ../plugins/project-manager/plugin.c:919
 msgid "Add _Target"
 msgstr "نىشان قوش (_T)"
 
-#: ../plugins/project-manager/plugin.c:925
+#: ../plugins/project-manager/plugin.c:924
 msgid "Add _Source File"
 msgstr "مەنبە ھۆججەت قوش(_S)"
 
-#: ../plugins/project-manager/plugin.c:930
-#| msgid "Module"
+#: ../plugins/project-manager/plugin.c:929
 msgid "Add _Module"
 msgstr ""
 
-#: ../plugins/project-manager/plugin.c:930
-#| msgid "Add a group to project"
+#: ../plugins/project-manager/plugin.c:929
 msgid "Add a module to target"
 msgstr ""
 
-#: ../plugins/project-manager/plugin.c:935
+#: ../plugins/project-manager/plugin.c:934
 msgid "Add _Package"
 msgstr "بوغچا قوش(_P)"
 
-#: ../plugins/project-manager/plugin.c:940
+#: ../plugins/project-manager/plugin.c:939
 msgid "_Add to Project"
 msgstr ""
 
-#: ../plugins/project-manager/plugin.c:945
+#: ../plugins/project-manager/plugin.c:944
 msgid "Properties of group/target/source"
 msgstr ""
 
-#: ../plugins/project-manager/plugin.c:950
+#: ../plugins/project-manager/plugin.c:949
 msgid "Re_move"
 msgstr "چىقىرىۋەت(_M)"
 
-#: ../plugins/project-manager/plugin.c:950
+#: ../plugins/project-manager/plugin.c:949
 msgid "Remove from project"
 msgstr "قۇرۇلۇشتىن چىقىرىۋەت"
 
-#: ../plugins/project-manager/plugin.c:1344
+#: ../plugins/project-manager/plugin.c:1343
 #, c-format
 msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
 "view) %s: %s\n"
 msgstr ""
 
-#: ../plugins/project-manager/plugin.c:1385
+#: ../plugins/project-manager/plugin.c:1384
 msgid "Update project view…"
 msgstr ""
 
-#: ../plugins/project-manager/plugin.c:1426
+#: ../plugins/project-manager/plugin.c:1425
 #, c-format
 msgid "Loading project: %s"
 msgstr ""
 
-#: ../plugins/project-manager/plugin.c:1596
+#: ../plugins/project-manager/plugin.c:1595
 #, c-format
 msgid "Error closing project: %s"
 msgstr "قۇرۇلۇشنى يېپىۋاتقاندا خاتالىق كۆرۈلدى: %s"
 
-#: ../plugins/project-manager/plugin.c:1664
+#: ../plugins/project-manager/plugin.c:1663
 msgid "Project manager actions"
 msgstr ""
 
-#: ../plugins/project-manager/plugin.c:1672
+#: ../plugins/project-manager/plugin.c:1671
 msgid "Project manager popup actions"
 msgstr ""
 
-#: ../plugins/project-manager/plugin.c:2400
+#: ../plugins/project-manager/plugin.c:2384
 msgid "Initializing Project…"
 msgstr "قۇرۇلۇشنى دەسلەپلەشتۈرۈۋاتىدۇ…"
 
-#: ../plugins/project-manager/plugin.c:2403
+#: ../plugins/project-manager/plugin.c:2387
 msgid "Project Loaded"
 msgstr ""
 
@@ -6888,72 +6875,68 @@ msgstr ""
 #. }
 #. else
 #. uri = g_strdup("");
-#: ../plugins/project-manager/dialogs.c:334
+#: ../plugins/project-manager/dialogs.c:316
 msgid "Select sources…"
 msgstr ""
 
-#: ../plugins/project-manager/dialogs.c:539
-#| msgid "Name:"
+#: ../plugins/project-manager/dialogs.c:521
 msgid "Full Name:"
 msgstr ""
 
-#: ../plugins/project-manager/dialogs.c:712
+#: ../plugins/project-manager/dialogs.c:669
 msgid "Group properties"
 msgstr "گۇرۇپپا خاسلىقى"
 
-#: ../plugins/project-manager/dialogs.c:715
+#: ../plugins/project-manager/dialogs.c:672
 msgid "Target properties"
 msgstr ""
 
-#: ../plugins/project-manager/dialogs.c:718
-#| msgid "Group properties"
+#: ../plugins/project-manager/dialogs.c:675
 msgid "Source properties"
 msgstr ""
 
-#: ../plugins/project-manager/dialogs.c:819
-#: ../plugins/project-manager/dialogs.c:830
+#: ../plugins/project-manager/dialogs.c:776
+#: ../plugins/project-manager/dialogs.c:787
 msgid "Cannot add group"
 msgstr "گۇرۇپپا قوشقىلى بولمىدى"
 
-#: ../plugins/project-manager/dialogs.c:831
+#: ../plugins/project-manager/dialogs.c:788
 msgid "No parent group selected"
 msgstr ""
 
-#: ../plugins/project-manager/dialogs.c:1041
-#: ../plugins/project-manager/dialogs.c:1051
+#: ../plugins/project-manager/dialogs.c:998
+#: ../plugins/project-manager/dialogs.c:1008
 msgid "Cannot add source files"
 msgstr "مەنبە ھۆججەتلەرنى قوشقىلى بولمىدى"
 
-#: ../plugins/project-manager/dialogs.c:1052
+#: ../plugins/project-manager/dialogs.c:1009
 msgid "The selected node cannot contains source files."
 msgstr ""
 
-#: ../plugins/project-manager/dialogs.c:1234
-#: ../plugins/project-manager/dialogs.c:1245
+#: ../plugins/project-manager/dialogs.c:1191
+#: ../plugins/project-manager/dialogs.c:1202
 msgid "Cannot add target"
 msgstr "نىشاننى قوشقىلى بولمىدى"
 
-#: ../plugins/project-manager/dialogs.c:1246
+#: ../plugins/project-manager/dialogs.c:1203
 msgid "No group selected"
 msgstr "گۇرۇپپا تاللانمىدى"
 
-#: ../plugins/project-manager/dialogs.c:1397
-#: ../plugins/project-manager/dialogs.c:1408
-#| msgid "Cannot add source files"
+#: ../plugins/project-manager/dialogs.c:1354
+#: ../plugins/project-manager/dialogs.c:1365
 msgid "Cannot add modules"
 msgstr ""
 
-#: ../plugins/project-manager/dialogs.c:1409
+#: ../plugins/project-manager/dialogs.c:1366
 msgid "No target has been selected"
 msgstr "نىشان تاللانمىغان"
 
 #. Missing module name
-#: ../plugins/project-manager/dialogs.c:1613
+#: ../plugins/project-manager/dialogs.c:1569
 msgid "Missing module name"
 msgstr ""
 
-#: ../plugins/project-manager/dialogs.c:1675
-#| msgid "Cannot add target"
+#: ../plugins/project-manager/dialogs.c:1631
 msgid "Cannot add packages"
 msgstr ""
 
@@ -7744,7 +7727,8 @@ msgstr ""
 
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:14
 msgid "GCJ needs to know which class contains the main() function"
-msgstr "main() فۇنكسىيىسىنىڭ ئىچىدە قانداق تىپلارنىڭ بارلىقىنى GCJ بىلىشى كېرەك"
+msgstr ""
+"main() فۇنكسىيىسىنىڭ ئىچىدە قانداق تىپلارنىڭ بارلىقىنى GCJ بىلىشى كېرەك"
 
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:17
 msgid "Generic gcj compiled java"
@@ -8506,22 +8490,18 @@ msgid "Wrap lines"
 msgstr ""
 
 #: ../plugins/sourceview/sourceview-print.c:113
-#| msgid "Show Line Numbers"
 msgid "Line numbers"
 msgstr ""
 
 #: ../plugins/sourceview/sourceview-print.c:115
-#| msgid "Hard"
 msgid "Header"
 msgstr "ماۋزۇ"
 
 #: ../plugins/sourceview/sourceview-print.c:117
-#| msgid "Filter"
 msgid "Footer"
 msgstr "بەت ئاستى"
 
 #: ../plugins/sourceview/sourceview-print.c:119
-#| msgid "_Highlight Mode"
 msgid "Highlight source code"
 msgstr ""
 
