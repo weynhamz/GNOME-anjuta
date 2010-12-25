@@ -334,32 +334,27 @@ get_file (AnjutaProjectNode *target, const char *id)
 	return g_file_resolve_relative_path (anjuta_project_node_get_file (group), id);
 }
 
-static AnjutaProjectNodeType
-get_target_type (IAnjutaProject *project, const char *id)
+static gint
+compare_id (const gchar *id, const gchar *name)
 {
-	AnjutaProjectNodeType type;
-	const GList *list;
-	const GList *item;
-	guint num = atoi (id);
-	
-	list = ianjuta_project_get_node_info (project, NULL);
-	type = 0;
-	for (item = list; item != NULL; item = g_list_next (item))
-	{
-		AnjutaProjectNodeInfo *info = (AnjutaProjectNodeInfo *)item->data;
+		const gchar *ptr;
+		gboolean next = FALSE;
+		gint miss = 0;
 
-		if ((info->type & ANJUTA_PROJECT_TYPE_MASK) == ANJUTA_PROJECT_TARGET)
+		for (ptr = name; *ptr != '\0'; ptr++)
 		{
-			if (num == 0)
-			{
-				type = info->type;
-				break;
-			}
-			num--;
+				if (!next && (*id != '\0') && (g_ascii_toupper (*ptr) == g_ascii_toupper (*id)))
+				{
+					id++;
+				}
+				else
+				{
+					miss++;
+					next = !g_ascii_isspace (*ptr);
+				}
 		}
-	}
 
-	return type;
+		return (*id == '\0') ? miss : -1;
 }
 
 static AnjutaProjectProperty *
@@ -371,26 +366,11 @@ get_project_property (IAnjutaProject *project, AnjutaProjectNode *parent, const 
 
 	for (item = anjuta_project_node_get_native_properties (parent); item != NULL; item = g_list_next (item))
 	{
-		const gchar *name = ((AnjutaProjectProperty *)item->data)->name;
-		const gchar *ptr;
-		const gchar *iptr = id;
-		gboolean next = FALSE;
-		gint miss = 0;
+		gint miss;
 
-		for (ptr = name; *ptr != '\0'; ptr++)
-		{
-				if (!next && (*iptr != '\0') && (g_ascii_toupper (*ptr) == g_ascii_toupper (*iptr)))
-				{
-					iptr++;
-				}
-				else
-				{
-					miss++;
-					next = !g_ascii_isspace (*ptr);
-				}
-		}
-
-		if ((*iptr == '\0') && (miss < best))
+		miss = compare_id (id, ((AnjutaProjectProperty *)item->data)->name);
+		
+		if ((miss >= 0) && (miss < best))
 		{
 			best = miss;
 			prop =  ((AnjutaProjectProperty *)item->data);
@@ -398,6 +378,37 @@ get_project_property (IAnjutaProject *project, AnjutaProjectNode *parent, const 
 	}
 
 	return prop;
+}
+
+static AnjutaProjectNodeType
+get_target_type (IAnjutaProject *project, const char *id)
+{
+	AnjutaProjectNodeType type;
+	const GList *list;
+	const GList *item;
+	gint best = G_MAXINT;
+	
+	list = ianjuta_project_get_node_info (project, NULL);
+	type = 0;
+	for (item = list; item != NULL; item = g_list_next (item))
+	{
+		AnjutaProjectNodeInfo *info = (AnjutaProjectNodeInfo *)item->data;
+
+		if ((info->type & ANJUTA_PROJECT_TYPE_MASK) == ANJUTA_PROJECT_TARGET)
+		{
+			gint miss;
+
+			miss = compare_id (id, info->name);
+
+			if ((miss >= 0) && (miss < best))
+			{
+				best = miss;
+				type = info->type;
+			}
+		}
+	}
+
+	return type;
 }
 
 static void

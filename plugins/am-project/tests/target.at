@@ -20,7 +20,7 @@ bin_PROGRAMS = target1
 ]])
 AT_PARSER_CHECK([load empty \
 		 move empty1 \
-		 add target 0 target1 3 \
+		 add target 0 target1 prog \
 		 list \
 		 save])
 AT_CHECK([diff -b empty1/Makefile.am reference])
@@ -45,7 +45,7 @@ bin_PROGRAMS = target1 \
 ]])
 AT_PARSER_CHECK([load empty1 \
 		 move empty2 \
-		 add target 0 target2 3 after 0:0\
+		 add target 0 target2 prog after 0:0\
 		 list \
 		 save])
 AT_CHECK([diff -b empty2/Makefile.am reference])
@@ -110,7 +110,7 @@ bin_PROGRAMS = target1
 ]])
 AT_PARSER_CHECK([load empty4 \
 		 move empty5 \
-		 add target 0 target1 3 \
+		 add target 0 target1 prog \
 		 list \
 		 save])
 AT_CHECK([diff -b empty5/Makefile.am reference])
