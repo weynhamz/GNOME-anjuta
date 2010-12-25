@@ -18,16 +18,15 @@ msgstr ""
 "Project-Id-Version: anjuta 2.2.6\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2010-09-25 09:32+0000\n"
-"PO-Revision-Date: 2010-09-25 16:57+0000\n"
+"POT-Creation-Date: 2010-11-21 11:57+0000\n"
+"PO-Revision-Date: 2010-12-25 20:27+0800\n"
 "Last-Translator: Aron Xu <happyaron.xu@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Poedit-Language: Chinese\n"
-"X-Poedit-Country: CHINA\n"
 
 #: ../anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
@@ -195,29 +194,25 @@ msgstr "越南"
 msgid "Thai"
 msgstr "泰国"
 
-#: ../libanjuta/anjuta-encodings.c:441 ../plugins/gbf-am/gbf-am-project.c:193
-#: ../plugins/gbf-am/gbf-am-project.c:3372
-#: ../plugins/gbf-am/gbf-am-properties.c:130
-#: ../plugins/gbf-am/gbf-am-properties.c:177
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:191
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3267
-#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:104
-#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:151
-#: ../plugins/dir-project/dir-project.c:802
+#. Translator: Unknown refers to a character encoding like UTF8,
+#. * ISO8859-1
+#. Translator: Unknown here is a target type, if not unknown it can
+#. * be a program or a shared library by example
+#: ../libanjuta/anjuta-encodings.c:443 ../plugins/am-project/am-project.c:107
 msgid "Unknown"
 msgstr "未知"
 
-#: ../libanjuta/anjuta-launcher.c:1169 ../libanjuta/resources.c:267
+#: ../libanjuta/anjuta-launcher.c:1170 ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276 ../plugins/gdb/utilities.c:282
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "无法执行命令：“%s”"
 
-#: ../libanjuta/anjuta-launcher.c:1170
+#: ../libanjuta/anjuta-launcher.c:1171
 msgid "execvp failed"
 msgstr "执行文件(execvp)失败"
 
-#: ../libanjuta/anjuta-plugin.c:326 ../libanjuta/anjuta-plugin-manager.c:2312
+#: ../libanjuta/anjuta-plugin.c:326 ../libanjuta/anjuta-plugin-manager.c:2364
 msgid "Anjuta Shell"
 msgstr "Anjuta Shell"
 
@@ -243,16 +238,16 @@ msgstr ""
 "%s"
 
 #: ../libanjuta/anjuta-plugin-manager.c:901
-#: ../plugins/symbol-db/symbol-db-prefs.c:463
+#: ../plugins/symbol-db/symbol-db-prefs.c:464
 msgid "Load"
 msgstr "加载"
 
 #: ../libanjuta/anjuta-plugin-manager.c:923
-#: ../libanjuta/anjuta-plugin-manager.c:1943
+#: ../libanjuta/anjuta-plugin-manager.c:1987
 msgid "Available Plugins"
 msgstr "可用插件"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:934
+#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:933
 msgid "Preferred plugins"
 msgstr "首选插件"
 
@@ -281,58 +276,57 @@ msgstr "选择插件"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1358
 #: ../libanjuta/anjuta-plugin-manager.c:1509
-#: ../plugins/debug-manager/queue.c:530
-msgid "Please select a plugin to activate"
-msgstr "请选择要激活的插件"
+msgid "<b>Please select a plugin to activate</b>"
+msgstr "<b>请选择要激活的插件</b>"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1372
 #, c-format
 msgid "No plugin is able to load other plugins in %s"
 msgstr "没有插件可以在 %s 内加载其它插件"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1962
+#: ../libanjuta/anjuta-plugin-manager.c:2014
 msgid "Remember this selection"
 msgstr "记住此选项"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2293
+#: ../libanjuta/anjuta-plugin-manager.c:2345
 msgid "Profiles"
 msgstr "配置文件"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2294
+#: ../libanjuta/anjuta-plugin-manager.c:2346
 msgid "Current stack of profiles"
 msgstr "当前配置文件栈"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2299
+#: ../libanjuta/anjuta-plugin-manager.c:2351
 msgid "Available plugins"
 msgstr "可用插件"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2300
+#: ../libanjuta/anjuta-plugin-manager.c:2352
 msgid "Currently available plugins found in plugin paths"
 msgstr "在插件路径下发现的当前可用插件"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2306
+#: ../libanjuta/anjuta-plugin-manager.c:2358
 msgid "Activated plugins"
 msgstr "已激活插件"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2307
+#: ../libanjuta/anjuta-plugin-manager.c:2359
 msgid "Currently activated plugins"
 msgstr "当前已激活的插件"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2313
+#: ../libanjuta/anjuta-plugin-manager.c:2365
 msgid "Anjuta shell for which the plugins are made"
 msgstr "制作插件的 Anjuta Shell"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2321
+#: ../libanjuta/anjuta-plugin-manager.c:2373
 msgid "Anjuta Status"
 msgstr "Anjuta 状态"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2322
+#: ../libanjuta/anjuta-plugin-manager.c:2374
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "加载和卸载插件时 Anjuta 的状态"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
-#: ../libanjuta/anjuta-plugin-manager.c:2482
+#: ../libanjuta/anjuta-plugin-manager.c:2534
 msgid "Loaded:"
 msgstr "已加载："
 
@@ -394,28 +388,15 @@ msgstr ""
 "无法读入 %s：下列必备插件缺失：\n"
 "%s"
 
-#: ../libanjuta/anjuta-preferences.c:1534
-msgid ""
-"Are you sure you want to reset the preferences to\n"
-"their default settings?"
-msgstr "您确定想要将首选项重置为默认设置吗？"
-
-#. Action name
-#. Stock icon, if any
-#: ../libanjuta/anjuta-preferences.c:1538 ../plugins/git/plugin.c:455
-msgid "_Reset"
-msgstr "重置(_R)"
-
 #: ../libanjuta/anjuta-preferences-dialog.c:95
-#: ../plugins/gtodo/interface.c:219 ../plugins/gtodo/mcategory.c:36
+#: ../plugins/gtodo/interface.c:202 ../plugins/gtodo/mcategory.c:36
 msgid "Category"
 msgstr "类别"
 
 #. FIXME: Make the general page first
 #: ../libanjuta/anjuta-preferences-dialog.c:138
-#: ../libanjuta/anjuta-preferences-dialog.c:141
-#: ../plugins/gbf-am/gbf-am-dialogs.ui.h:3 ../src/anjuta-app.c:921
-#: ../src/preferences.ui.h:11
+#: ../libanjuta/anjuta-preferences-dialog.c:141 ../src/anjuta-app.c:920
+#: ../src/preferences.ui.h:8
 msgid "General"
 msgstr "常规"
 
@@ -432,7 +413,7 @@ msgid "If you do not save, all your changes will be lost."
 msgstr "如果您没有进行保存，未保存的任何更改都将丢失。"
 
 #: ../libanjuta/anjuta-save-prompt.c:189
-#: ../plugins/document-manager/plugin.c:605
+#: ../plugins/document-manager/plugin.c:611
 #: ../plugins/snippets-manager/snippets-editor.ui.h:11
 msgid "Save"
 msgstr "保存"
@@ -473,11 +454,11 @@ msgid "Shortcut"
 msgstr "快捷方式"
 
 #. Avoid space in translated string
-#: ../libanjuta/anjuta-utils.c:359
+#: ../libanjuta/anjuta-utils.c:357
 msgid "System:"
 msgstr "系统："
 
-#: ../libanjuta/anjuta-utils.c:505
+#: ../libanjuta/anjuta-utils.c:503
 msgid ""
 "You do not seem to have PackageKit installed. PackageKit is required for "
 "installing missing packages. Please install \"packagekit-gnome\" package "
@@ -486,12 +467,12 @@ msgstr ""
 "似乎您没有安装 PackageKit。需要使用 PackageKit 来安装缺失的软件包。请从您的系"
 "统中安装“packagekit-gnome”，或者手动安装缺失的软件包。"
 
-#: ../libanjuta/anjuta-utils.c:514
+#: ../libanjuta/anjuta-utils.c:512
 #, c-format
 msgid "Installation failed: %s"
 msgstr "安装失败：%s"
 
-#: ../libanjuta/anjuta-utils.c:582
+#: ../libanjuta/anjuta-utils.c:580
 #, c-format
 msgid ""
 "The \"%s\" package is not installed.\n"
@@ -500,7 +481,7 @@ msgstr ""
 "尚未安装“%s”软件包。\n"
 "请安装该工具。"
 
-#: ../libanjuta/anjuta-utils.c:600
+#: ../libanjuta/anjuta-utils.c:598
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -510,24 +491,24 @@ msgstr ""
 "请安装该工具。"
 
 #. Try xterm
-#: ../libanjuta/anjuta-utils.c:1179
+#: ../libanjuta/anjuta-utils.c:1171
 msgid "Cannot find a terminal; using xterm, even if it may not work"
 msgstr "无法找到可用的终端；使用 xterm，即使它可能无法正常工作"
 
-#: ../libanjuta/anjuta-utils.c:1215 ../libanjuta/anjuta-utils.c:1219
-#: ../libanjuta/anjuta-utils.c:1247 ../libanjuta/anjuta-utils.c:1251
+#: ../libanjuta/anjuta-utils.c:1207 ../libanjuta/anjuta-utils.c:1211
+#: ../libanjuta/anjuta-utils.c:1239 ../libanjuta/anjuta-utils.c:1243
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "无法执行命令：%s(使用 Shell %s)\n"
 
-#: ../libanjuta/anjuta-utils.c:1901
+#: ../libanjuta/anjuta-utils.c:1893
 msgid ""
 "Unable to display help. Please make sure the Anjuta documentation package is "
 "installed. It can be downloaded from http://anjuta.org."
 msgstr ""
 "无法显示帮助。请确定已经安装了 Anjuta 文档包。您可从 http://anjuta.org 下载。"
 
-#: ../libanjuta/anjuta-utils.c:2340
+#: ../libanjuta/anjuta-utils.c:2332
 #, c-format
 msgid "Unable to load user interface file: %s"
 msgstr "无法加载用户界面文件：%s"
@@ -577,21 +558,21 @@ msgstr "未受版本"
 msgid "Ignored"
 msgstr "已忽略"
 
-#: ../libanjuta/cell-renderer-captioned-image.c:218
-#: ../libfoocanvas/foo-canvas-text.c:177 ../src/preferences.ui.h:18
+#: ../libanjuta/cell-renderer-captioned-image.c:215
+#: ../libfoocanvas/foo-canvas-text.c:177 ../src/preferences.ui.h:13
 msgid "Text"
 msgstr "文本"
 
-#: ../libanjuta/cell-renderer-captioned-image.c:219
+#: ../libanjuta/cell-renderer-captioned-image.c:216
 #: ../libfoocanvas/foo-canvas-text.c:178
 msgid "Text to render"
 msgstr "要执行的文本"
 
-#: ../libanjuta/cell-renderer-captioned-image.c:225
+#: ../libanjuta/cell-renderer-captioned-image.c:222
 msgid "Pixbuf Object"
 msgstr "Pixbuf 对象"
 
-#: ../libanjuta/cell-renderer-captioned-image.c:226
+#: ../libanjuta/cell-renderer-captioned-image.c:223
 msgid "The pixbuf to render."
 msgstr "被绘制的 Pixbuf 对象。"
 
@@ -884,15 +865,22 @@ msgstr "选择要运行的程序："
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:16
 msgid "Select a build directory"
-msgstr "选择一个创建目录"
+msgstr "选择一个构建目录"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:17
 msgid "Translate messages"
 msgstr "翻译信息"
 
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:18
+msgid "su -c"
+msgstr "su -c"
+
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:19
+msgid "sudo"
+msgstr "sudo"
+
 #: ../plugins/build-basic-autotools/configuration-list.c:68
 #: ../plugins/class-gen/window.c:525
-#: ../plugins/search/search_preferences.c:523
 #: ../plugins/terminal/anjuta-terminal-plugin.ui.h:1 ../src/preferences.ui.h:2
 msgid "Default"
 msgstr "默认"
@@ -915,10 +903,7 @@ msgid "No executables in this project!"
 msgstr "项目中没有可执行文件！"
 
 #: ../plugins/build-basic-autotools/executer.c:157
-#: ../plugins/gbf-am/gbf-am-project.c:196
-#: ../plugins/gbf-am/gbf-am-project.c:3362
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:194
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3261
+#: ../plugins/am-project/am-project.c:128
 msgid "Program"
 msgstr "程序"
 
@@ -928,19 +913,19 @@ msgstr "当前没有打开的文件或项目。"
 
 #. Only local program are supported
 #: ../plugins/build-basic-autotools/executer.c:298
-#: ../plugins/run-program/execute.c:70
+#: ../plugins/run-program/execute.c:71
 #, c-format
 msgid "Program '%s' is not a local file"
 msgstr "程序“%s”不是本地文件"
 
 #: ../plugins/build-basic-autotools/executer.c:313
-#: ../plugins/run-program/execute.c:76
+#: ../plugins/run-program/execute.c:77
 #, c-format
 msgid "Program '%s' does not exist"
 msgstr "程序“%s”不存在"
 
 #: ../plugins/build-basic-autotools/executer.c:321
-#: ../plugins/run-program/execute.c:80
+#: ../plugins/run-program/execute.c:81
 #, c-format
 msgid "Program '%s' does not have execution permission"
 msgstr "程序“%s”没有可执行权限"
@@ -959,11 +944,11 @@ msgstr "可执行文件“%s”不是最新的。"
 #. * 2 similar strings are used in order to parse the output of 2 different
 #. * version of make if necessary. If you update one string, move the first
 #. * string into the second slot and then replace the first string only.
-#: ../plugins/build-basic-autotools/plugin.c:168
+#: ../plugins/build-basic-autotools/plugin.c:169
 msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+`(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+正在进入目录\\s+`(.+)'"
 
-#: ../plugins/build-basic-autotools/plugin.c:169
+#: ../plugins/build-basic-autotools/plugin.c:170
 msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+'(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+正在进入目录\\s+'(.+)'"
 
@@ -972,282 +957,300 @@ msgstr "make(\\[\\d+\\])?:\\s+正在进入目录\\s+'(.+)'"
 #. * 2 similar strings are used in order to parse the output of 2 different
 #. * version of make if necessary. If you update one string, move the first
 #. * string into the second slot and then replace the first string only.
-#: ../plugins/build-basic-autotools/plugin.c:177
+#: ../plugins/build-basic-autotools/plugin.c:178
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+`(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+正在离开目录\\s+`(.+)'"
 
-#: ../plugins/build-basic-autotools/plugin.c:178
+#: ../plugins/build-basic-autotools/plugin.c:179
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
 msgstr "make(\\[\\d+\\])?:\\s+正在离开目录\\s+'(.+)'"
 
-#: ../plugins/build-basic-autotools/plugin.c:846
+#: ../plugins/build-basic-autotools/plugin.c:858
 #, c-format
 msgid "Entering: %s"
 msgstr "正在进入： %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:882
+#: ../plugins/build-basic-autotools/plugin.c:894
 #, c-format
 msgid "Leaving: %s"
 msgstr "正在离开：%s"
 
-#: ../plugins/build-basic-autotools/plugin.c:915
+#. The translations should match that of 'gcc' program.
+#. * The second string with -old should be used for an older
+#. * version of 'gcc' if necessary. If you update one string,
+#. * move the first one to translate the -old string and then
+#. * replace the first string only.
+#: ../plugins/build-basic-autotools/plugin.c:932
 #: ../plugins/tools/execute.c:330
 msgid "warning:"
 msgstr "警告："
 
-#: ../plugins/build-basic-autotools/plugin.c:921
+#: ../plugins/build-basic-autotools/plugin.c:933
+msgid "warning:-old"
+msgstr "警告：-old"
+
+#. The translations should match that of 'gcc' program.
+#. * The second string with -old should be used for an older
+#. * version of 'gcc' if necessary. If you update one string,
+#. * move the first one to translate the -old string and then
+#. * replace the first string only.
+#: ../plugins/build-basic-autotools/plugin.c:944
 #: ../plugins/tools/execute.c:335
 msgid "error:"
 msgstr "错误："
 
-#: ../plugins/build-basic-autotools/plugin.c:1038
+#: ../plugins/build-basic-autotools/plugin.c:945
+msgid "error:-old"
+msgstr "错误：-old"
+
+#: ../plugins/build-basic-autotools/plugin.c:1062
 #, c-format
 msgid "Command exited with status %d"
 msgstr "命令以状态 %d 退出"
 
-#: ../plugins/build-basic-autotools/plugin.c:1048
-#: ../plugins/build-basic-autotools/plugin.c:1527
+#: ../plugins/build-basic-autotools/plugin.c:1072
+#: ../plugins/build-basic-autotools/plugin.c:1551
 #, c-format
 msgid "Command canceled by user"
 msgstr "命令被用户终止"
 
-#: ../plugins/build-basic-autotools/plugin.c:1053
+#: ../plugins/build-basic-autotools/plugin.c:1077
 #, c-format
 msgid "Command aborted by user"
 msgstr "命令被用户退出"
 
-#: ../plugins/build-basic-autotools/plugin.c:1058
+#: ../plugins/build-basic-autotools/plugin.c:1082
 #, c-format
 msgid "Command terminated with signal %d"
 msgstr "命令以信号 %d 终止"
 
-#: ../plugins/build-basic-autotools/plugin.c:1066
+#: ../plugins/build-basic-autotools/plugin.c:1090
 msgid "Command terminated for an unknown reason"
 msgstr "命令无故结束"
 
-#: ../plugins/build-basic-autotools/plugin.c:1084
+#: ../plugins/build-basic-autotools/plugin.c:1108
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "总共耗时：%lu 秒\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:1091
+#: ../plugins/build-basic-autotools/plugin.c:1115
 msgid "Completed unsuccessfully\n"
 msgstr "已完成...失败\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:1099
+#: ../plugins/build-basic-autotools/plugin.c:1123
 #: ../plugins/tools/execute.c:516
 msgid "Completed successfully\n"
 msgstr "已完成...成功\n"
 
 #. Translators: the first number is the number of the build attemp,
 #. the string is the directory where the build takes place
-#: ../plugins/build-basic-autotools/plugin.c:1187
+#: ../plugins/build-basic-autotools/plugin.c:1211
 #, c-format
 msgid "Build %d: %s"
 msgstr "构建 %d: %s"
 
 #. Need to run make clean before
-#: ../plugins/build-basic-autotools/plugin.c:1522
+#: ../plugins/build-basic-autotools/plugin.c:1546
 msgid ""
 "Before using this new configuration, the default one needs to be removed. Do "
 "you want to do that ?"
 msgstr "在使用这个新的设置前，需要删除默认的设置。您想这样做吗？"
 
-#: ../plugins/build-basic-autotools/plugin.c:1823
+#: ../plugins/build-basic-autotools/plugin.c:1843
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
 msgstr "不能编译“%s”：没有定义对此文件类型的编译规则。"
 
-#: ../plugins/build-basic-autotools/plugin.c:1958
+#: ../plugins/build-basic-autotools/plugin.c:1978
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
 msgstr "不能配置项目：在 %s 缺少配置脚本。"
 
-#: ../plugins/build-basic-autotools/plugin.c:2439
-#: ../plugins/build-basic-autotools/plugin.c:2513
-#: ../plugins/build-basic-autotools/plugin.c:2523
-#: ../plugins/build-basic-autotools/plugin.c:2541
-#: ../plugins/build-basic-autotools/plugin.c:2551
-#: ../plugins/build-basic-autotools/plugin.c:2608
+#: ../plugins/build-basic-autotools/plugin.c:2459
+#: ../plugins/build-basic-autotools/plugin.c:2533
+#: ../plugins/build-basic-autotools/plugin.c:2543
+#: ../plugins/build-basic-autotools/plugin.c:2561
+#: ../plugins/build-basic-autotools/plugin.c:2571
+#: ../plugins/build-basic-autotools/plugin.c:2628
 #, c-format
 msgid "_Build"
-msgstr "创建(_B)"
+msgstr "构建(_B)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2443
+#: ../plugins/build-basic-autotools/plugin.c:2463
 msgid "_Build Project"
-msgstr "创建项目(_B)"
+msgstr "构建项目(_B)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2444
+#: ../plugins/build-basic-autotools/plugin.c:2464
 msgid "Build whole project"
-msgstr "创建整个项目"
+msgstr "构建整个项目"
 
-#: ../plugins/build-basic-autotools/plugin.c:2449
+#: ../plugins/build-basic-autotools/plugin.c:2469
 msgid "_Install Project"
 msgstr "安装项目(_I)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2450
+#: ../plugins/build-basic-autotools/plugin.c:2470
 msgid "Install whole project"
 msgstr "安装整个项目"
 
-#: ../plugins/build-basic-autotools/plugin.c:2455
+#: ../plugins/build-basic-autotools/plugin.c:2475
 msgid "_Clean Project"
 msgstr "清理项目(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2456
+#: ../plugins/build-basic-autotools/plugin.c:2476
 msgid "Clean whole project"
 msgstr "清理整个项目"
 
-#: ../plugins/build-basic-autotools/plugin.c:2461
+#: ../plugins/build-basic-autotools/plugin.c:2481
 msgid "C_onfigure Project…"
 msgstr "配置项目(_O)..."
 
-#: ../plugins/build-basic-autotools/plugin.c:2462
+#: ../plugins/build-basic-autotools/plugin.c:2482
 msgid "Configure project"
 msgstr "配置项目"
 
-#: ../plugins/build-basic-autotools/plugin.c:2467
+#: ../plugins/build-basic-autotools/plugin.c:2487
 msgid "Build _Tarball"
-msgstr "创建 Tarball(_T)"
+msgstr "构建 _Tarball"
 
-#: ../plugins/build-basic-autotools/plugin.c:2468
+#: ../plugins/build-basic-autotools/plugin.c:2488
 msgid "Build project tarball distribution"
-msgstr "创建项目 tarball 发行包"
+msgstr "构建项目 tarball 发行包"
 
-#: ../plugins/build-basic-autotools/plugin.c:2473
+#: ../plugins/build-basic-autotools/plugin.c:2493
 msgid "_Build Module"
-msgstr "创建模块(_B)"
+msgstr "构建模块(_B)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2474
+#: ../plugins/build-basic-autotools/plugin.c:2494
 msgid "Build module associated with current file"
-msgstr "创建与当前文件关联的模块"
+msgstr "构建与当前文件关联的模块"
 
-#: ../plugins/build-basic-autotools/plugin.c:2479
+#: ../plugins/build-basic-autotools/plugin.c:2499
 msgid "_Install Module"
 msgstr "安装模块(_I)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2480
+#: ../plugins/build-basic-autotools/plugin.c:2500
 msgid "Install module associated with current file"
 msgstr "安装与当前文件关联的模块"
 
-#: ../plugins/build-basic-autotools/plugin.c:2485
+#: ../plugins/build-basic-autotools/plugin.c:2505
 msgid "_Clean Module"
 msgstr "清理模块(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2486
+#: ../plugins/build-basic-autotools/plugin.c:2506
 msgid "Clean module associated with current file"
 msgstr "清理与当前文件关联的模块"
 
-#: ../plugins/build-basic-autotools/plugin.c:2491
+#: ../plugins/build-basic-autotools/plugin.c:2511
 msgid "Co_mpile File"
 msgstr "编译文件(_M)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2492
+#: ../plugins/build-basic-autotools/plugin.c:2512
 msgid "Compile current editor file"
 msgstr "编译当前编辑器中的文件"
 
-#: ../plugins/build-basic-autotools/plugin.c:2497
+#: ../plugins/build-basic-autotools/plugin.c:2517
 msgid "Select Configuration"
 msgstr "选择配置"
 
-#: ../plugins/build-basic-autotools/plugin.c:2498
+#: ../plugins/build-basic-autotools/plugin.c:2518
 msgid "Select current configuration"
 msgstr "选择当前配置"
 
-#: ../plugins/build-basic-autotools/plugin.c:2503
+#: ../plugins/build-basic-autotools/plugin.c:2523
 msgid "Remove Configuration"
 msgstr "删除配置"
 
-#: ../plugins/build-basic-autotools/plugin.c:2504
+#: ../plugins/build-basic-autotools/plugin.c:2524
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr "清理项目(distclean)并在可能的情况下删除配置目录"
 
-#: ../plugins/build-basic-autotools/plugin.c:2517
-#: ../plugins/build-basic-autotools/plugin.c:2545
+#: ../plugins/build-basic-autotools/plugin.c:2537
+#: ../plugins/build-basic-autotools/plugin.c:2565
 msgid "_Compile"
 msgstr "编译(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2518
-#: ../plugins/build-basic-autotools/plugin.c:2546
+#: ../plugins/build-basic-autotools/plugin.c:2538
+#: ../plugins/build-basic-autotools/plugin.c:2566
 msgid "Compile file"
 msgstr "编译文件"
 
-#: ../plugins/build-basic-autotools/plugin.c:2524
-#: ../plugins/build-basic-autotools/plugin.c:2552
+#: ../plugins/build-basic-autotools/plugin.c:2544
+#: ../plugins/build-basic-autotools/plugin.c:2572
 msgid "Build module"
-msgstr "生成模块"
+msgstr "构建模块"
 
-#: ../plugins/build-basic-autotools/plugin.c:2529
-#: ../plugins/build-basic-autotools/plugin.c:2557
-#: ../plugins/build-basic-autotools/plugin.c:2615
+#: ../plugins/build-basic-autotools/plugin.c:2549
+#: ../plugins/build-basic-autotools/plugin.c:2577
+#: ../plugins/build-basic-autotools/plugin.c:2635
 #, c-format
 msgid "_Install"
 msgstr "安装(_I)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2530
-#: ../plugins/build-basic-autotools/plugin.c:2558
+#: ../plugins/build-basic-autotools/plugin.c:2550
+#: ../plugins/build-basic-autotools/plugin.c:2578
 msgid "Install module"
 msgstr "安装模块"
 
-#: ../plugins/build-basic-autotools/plugin.c:2535
-#: ../plugins/build-basic-autotools/plugin.c:2563
-#: ../plugins/build-basic-autotools/plugin.c:2622
+#: ../plugins/build-basic-autotools/plugin.c:2555
+#: ../plugins/build-basic-autotools/plugin.c:2583
+#: ../plugins/build-basic-autotools/plugin.c:2642
 #, c-format
 msgid "_Clean"
 msgstr "清理(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2536
-#: ../plugins/build-basic-autotools/plugin.c:2564
+#: ../plugins/build-basic-autotools/plugin.c:2556
+#: ../plugins/build-basic-autotools/plugin.c:2584
 msgid "Clean module"
 msgstr "清理模块"
 
-#: ../plugins/build-basic-autotools/plugin.c:2569
+#: ../plugins/build-basic-autotools/plugin.c:2589
 msgid "_Cancel command"
 msgstr "取消命令(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2570
+#: ../plugins/build-basic-autotools/plugin.c:2590
 msgid "Cancel build command"
-msgstr "取消创建命令"
+msgstr "取消构建命令"
 
-#: ../plugins/build-basic-autotools/plugin.c:2608
+#: ../plugins/build-basic-autotools/plugin.c:2628
 #, c-format
 msgid "_Build (%s)"
-msgstr "创建 (%s)(_B)"
+msgstr "构建(%s)(_B)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2615
+#: ../plugins/build-basic-autotools/plugin.c:2635
 #, c-format
 msgid "_Install (%s)"
-msgstr "安装 (%s)(_I)"
+msgstr "安装(%s)(_I)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2622
+#: ../plugins/build-basic-autotools/plugin.c:2642
 #, c-format
 msgid "_Clean (%s)"
-msgstr "清理 (%s)(_C)"
+msgstr "清理(%s)(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2630
+#: ../plugins/build-basic-autotools/plugin.c:2650
 #, c-format
 msgid "Co_mpile (%s)"
-msgstr "编译 (%s)(_M)"
+msgstr "编译(%s)(_M)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2630
+#: ../plugins/build-basic-autotools/plugin.c:2650
 #, c-format
 msgid "Co_mpile"
 msgstr "编译(_M)"
 
-#: ../plugins/build-basic-autotools/plugin.c:3166
+#: ../plugins/build-basic-autotools/plugin.c:3184
 msgid "Build commands"
-msgstr "创建命令"
+msgstr "构建命令"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:3175
+#: ../plugins/build-basic-autotools/plugin.c:3193
 msgid "Build popup commands"
-msgstr "创建弹出命令"
+msgstr "构建弹出命令"
 
-#: ../plugins/build-basic-autotools/plugin.c:3557
-#: ../plugins/build-basic-autotools/plugin.c:3565
+#: ../plugins/build-basic-autotools/plugin.c:3582
+#: ../plugins/build-basic-autotools/plugin.c:3590
 msgid "Build Autotools"
-msgstr "创建 Autotools"
+msgstr "构建 Autotools"
 
 #: ../plugins/build-basic-autotools/program.c:326
 msgid "Command aborted"
@@ -1323,7 +1326,7 @@ msgid "General Class Properties"
 msgstr "一般类属性"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:18
-#: ../plugins/file-wizard/file.c:103
+#: ../plugins/file-wizard/file.c:104
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:15
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:15
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:15
@@ -1356,7 +1359,7 @@ msgid "Inline the declaration and implementation"
 msgstr "内嵌声明和实现"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:22
-#: ../plugins/file-wizard/file.c:104
+#: ../plugins/file-wizard/file.c:105
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:17
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:17
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:17
@@ -1427,7 +1430,7 @@ msgstr "处理后的模板将要写入的文件"
 msgid "Failed to write autogen definition file"
 msgstr "创建 Autogen 定义文件失败"
 
-#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1160
+#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1141
 msgid ""
 "Could not find autogen version 5; please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net."
@@ -1445,7 +1448,7 @@ msgid "Guess from type"
 msgstr "从类型猜测"
 
 #: ../plugins/class-gen/window.c:499 ../plugins/class-gen/window.c:510
-#: ../plugins/search/anjuta-search.ui.h:29
+#: ../plugins/search/anjuta-search.ui.h:26
 msgid "Scope"
 msgstr "范围"
 
@@ -1463,9 +1466,9 @@ msgstr "类型"
 
 #: ../plugins/class-gen/window.c:502 ../plugins/class-gen/window.c:512
 #: ../plugins/class-gen/window.c:520 ../plugins/class-gen/window.c:534
+#: ../plugins/project-manager/dialogs.c:434
 #: ../plugins/run-program/parameters.c:754
-#: ../plugins/search/search_preferences.c:534
-#: ../plugins/snippets-manager/plugin.c:751
+#: ../plugins/snippets-manager/plugin.c:757
 #: ../plugins/snippets-manager/snippets-browser.c:530
 #: ../plugins/snippets-manager/snippets-editor.c:37
 msgid "Name"
@@ -1653,8 +1656,8 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "忽略 .cvsrc 文件(推荐)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
-#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2055
-#: ../plugins/symbol-db/plugin.c:2097
+#: ../plugins/git/anjuta-git.ui.h:57 ../plugins/symbol-db/plugin.c:2116
+#: ../plugins/symbol-db/plugin.c:2158
 msgid "Local"
 msgstr "本地"
 
@@ -1673,7 +1676,7 @@ msgstr "模块名称："
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:36
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:11
-#: ../plugins/git/anjuta-git.ui.h:65 ../plugins/search/anjuta-search.ui.h:25
+#: ../plugins/git/anjuta-git.ui.h:65 ../plugins/search/anjuta-search.ui.h:22
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:11
 #: ../plugins/subversion/anjuta-subversion.ui.h:23
 msgid "Options"
@@ -1786,7 +1789,7 @@ msgid "CVSROOT"
 msgstr "CVSROOT"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:438
-#: ../plugins/gbf-am/gbf-am-properties.c:1156
+#: ../plugins/am-project/am-project.c:191
 msgid "Module"
 msgstr "模块"
 
@@ -1817,119 +1820,119 @@ msgid "CVS command is running — please wait until it finishes!"
 msgstr "CVS 命令仍在运行中 - 请等待它们完成！"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:229
-#: ../plugins/cvs-plugin/cvs-execute.c:233 ../plugins/cvs-plugin/plugin.c:467
-#: ../plugins/cvs-plugin/plugin.c:474
+#: ../plugins/cvs-plugin/cvs-execute.c:233 ../plugins/cvs-plugin/plugin.c:474
+#: ../plugins/cvs-plugin/plugin.c:481
 msgid "CVS"
 msgstr "CVS"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:44 ../plugins/cvs-plugin/plugin.c:119
+#: ../plugins/cvs-plugin/plugin.c:46 ../plugins/cvs-plugin/plugin.c:121
 msgid "_CVS"
 msgstr "_CVS"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:52
+#: ../plugins/cvs-plugin/plugin.c:54
 msgid "_Add"
 msgstr "添加(_A)"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:54
+#: ../plugins/cvs-plugin/plugin.c:56
 msgid "Add a new file/directory to the CVS tree"
 msgstr "添加一个新文件/目录到 CVS 源码树"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:60
+#: ../plugins/cvs-plugin/plugin.c:62
 msgid "_Remove"
 msgstr "删除(_R)"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:62
+#: ../plugins/cvs-plugin/plugin.c:64
 msgid "Remove a file/directory from CVS tree"
 msgstr "从 CVS 源码树删除一个文件/目录"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:68 ../plugins/cvs-plugin/plugin.c:127
+#: ../plugins/cvs-plugin/plugin.c:70 ../plugins/cvs-plugin/plugin.c:129
 msgid "_Commit"
 msgstr "提交(_C)"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:70 ../plugins/cvs-plugin/plugin.c:129
+#: ../plugins/cvs-plugin/plugin.c:72 ../plugins/cvs-plugin/plugin.c:131
 msgid "Commit your changes to the CVS tree"
 msgstr "将更改提交到 CVS 源码树"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:76 ../plugins/cvs-plugin/plugin.c:135
+#: ../plugins/cvs-plugin/plugin.c:78 ../plugins/cvs-plugin/plugin.c:137
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:54
 msgid "_Update"
 msgstr "更新(_U)"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:78 ../plugins/cvs-plugin/plugin.c:137
+#: ../plugins/cvs-plugin/plugin.c:80 ../plugins/cvs-plugin/plugin.c:139
 msgid "Syncronize your local copy with the CVS tree"
 msgstr "本地副本与 CVS 源码树同步"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:84 ../plugins/cvs-plugin/plugin.c:143
+#: ../plugins/cvs-plugin/plugin.c:86 ../plugins/cvs-plugin/plugin.c:145
 msgid "_Diff"
 msgstr "_Diff"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:86 ../plugins/cvs-plugin/plugin.c:145
+#: ../plugins/cvs-plugin/plugin.c:88 ../plugins/cvs-plugin/plugin.c:147
 msgid "Show differences between your local copy and the tree"
 msgstr "显示本地副本与 CVS 源码树的差异"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:92 ../plugins/cvs-plugin/plugin.c:151
+#: ../plugins/cvs-plugin/plugin.c:94 ../plugins/cvs-plugin/plugin.c:153
 msgid "_Show Status"
 msgstr "显示状态(_S)"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:94 ../plugins/cvs-plugin/plugin.c:153
+#: ../plugins/cvs-plugin/plugin.c:96 ../plugins/cvs-plugin/plugin.c:155
 msgid "Show the status of a file/directory"
 msgstr "显示文件/目录的状态"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:100 ../plugins/cvs-plugin/plugin.c:159
+#: ../plugins/cvs-plugin/plugin.c:102 ../plugins/cvs-plugin/plugin.c:161
 msgid "_Show Log"
 msgstr "显示日志(_S)"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:102 ../plugins/cvs-plugin/plugin.c:161
+#: ../plugins/cvs-plugin/plugin.c:104 ../plugins/cvs-plugin/plugin.c:163
 msgid "Show the log of a file/directory"
 msgstr "显示一个文件/目录的日志"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:108
+#: ../plugins/cvs-plugin/plugin.c:110
 msgid "_Import Tree"
 msgstr "导入源码树(_I)"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:110
+#: ../plugins/cvs-plugin/plugin.c:112
 msgid "Import a new source tree to CVS"
 msgstr "导入新的源码树到 CVS"
 
-#: ../plugins/cvs-plugin/plugin.c:360
+#: ../plugins/cvs-plugin/plugin.c:362
 msgid "CVS operations"
 msgstr "CVS 操作"
 
-#: ../plugins/cvs-plugin/plugin.c:366
+#: ../plugins/cvs-plugin/plugin.c:368
 msgid "CVS popup operations"
 msgstr "CVS 弹出操作"
 
@@ -2107,7 +2110,7 @@ msgid "TCP/IP Connection"
 msgstr "TCP/IP 连接"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:42
-#: ../plugins/project-wizard/property.c:341
+#: ../plugins/project-wizard/property.c:336
 msgid "Yes"
 msgstr "是"
 
@@ -2302,18 +2305,17 @@ msgstr "断点操作"
 
 #. create goto menu_item.
 #: ../plugins/debug-manager/data_view.c:392
-#: ../plugins/debug-manager/sparse_view.c:497
+#: ../plugins/debug-manager/sparse_view.c:501
 msgid "_Go to address"
 msgstr "跳转到地址(_G)"
 
-#: ../plugins/debug-manager/debug_tree.c:128
-#: ../plugins/gbf-am/gbf-am-properties.c:893 ../plugins/tools/editor.c:468
+#: ../plugins/debug-manager/debug_tree.c:128 ../plugins/tools/editor.c:468
 msgid "Variable"
 msgstr "变量"
 
 #: ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/debug-manager/registers.c:469
-#: ../plugins/gbf-am/gbf-am-properties.c:903
+#: ../plugins/project-manager/dialogs.c:441
 #: ../plugins/run-program/parameters.c:763 ../plugins/tools/editor.c:474
 msgid "Value"
 msgstr "数值"
@@ -2597,6 +2599,10 @@ msgstr "调试器操作"
 msgid "Unable to find a debugger plugin supporting a target with %s MIME type"
 msgstr "找不到支持 %s MIME 类型目标的调试器插件"
 
+#: ../plugins/debug-manager/queue.c:530
+msgid "Please select a plugin to activate"
+msgstr "请选择要激活的插件"
+
 #: ../plugins/debug-manager/registers.c:462
 msgid "Register"
 msgstr "寄存器"
@@ -2660,19 +2666,19 @@ msgstr "内核信号"
 msgid "Signal operations"
 msgstr "信号操作"
 
-#: ../plugins/debug-manager/sparse_view.c:1206
+#: ../plugins/debug-manager/sparse_view.c:1132
 msgid "Show Line Numbers"
 msgstr "显示行号"
 
-#: ../plugins/debug-manager/sparse_view.c:1207
+#: ../plugins/debug-manager/sparse_view.c:1133
 msgid "Whether to display line numbers"
 msgstr "显示/隐藏行号"
 
-#: ../plugins/debug-manager/sparse_view.c:1214
+#: ../plugins/debug-manager/sparse_view.c:1140
 msgid "Show Line Markers"
 msgstr "显示行标记"
 
-#: ../plugins/debug-manager/sparse_view.c:1215
+#: ../plugins/debug-manager/sparse_view.c:1141
 msgid "Whether to display line marker pixbufs"
 msgstr "显示/隐藏图标在标号区"
 
@@ -2703,14 +2709,14 @@ msgstr "帧"
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:664
 #: ../plugins/debug-manager/threads.c:451 ../plugins/gdb/preferences.c:363
-#: ../plugins/tools/tool.c:100 ../src/anjuta-app.c:621
+#: ../plugins/tools/tool.c:100 ../src/anjuta-app.c:623
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
 msgstr "文件"
 
 #: ../plugins/debug-manager/stack_trace.c:675
 #: ../plugins/debug-manager/threads.c:460
-#: ../plugins/document-manager/plugin.c:945
+#: ../plugins/document-manager/plugin.c:951
 msgid "Line"
 msgstr "行"
 
@@ -2743,31 +2749,31 @@ msgstr "时间"
 msgid "Command"
 msgstr "命令"
 
-#: ../plugins/debug-manager/start.c:628
+#: ../plugins/debug-manager/start.c:629
 #, c-format
 msgid "Unable to execute: %s."
 msgstr "无法执行：%s。"
 
-#: ../plugins/debug-manager/start.c:642
+#: ../plugins/debug-manager/start.c:643
 #, c-format
 msgid "Unable to open the file: %s\n"
 msgstr "无法打开文件：%s\n"
 
-#: ../plugins/debug-manager/start.c:966
+#: ../plugins/debug-manager/start.c:969
 #, c-format
 msgid "Unable to open %s. Debugger cannot start."
 msgstr "无法打开 %s 。调试器不能启动。"
 
-#: ../plugins/debug-manager/start.c:976
+#: ../plugins/debug-manager/start.c:979
 #, c-format
 msgid "Unable to detect MIME type of %s. Debugger cannot start."
 msgstr "无法检测 %s 的 MIME 类型，调试器无法启动。"
 
-#: ../plugins/debug-manager/start.c:1337
+#: ../plugins/debug-manager/start.c:1340
 msgid "Path"
 msgstr "路径"
 
-#: ../plugins/debug-manager/start.c:1386 ../plugins/gdb/debugger.c:1929
+#: ../plugins/debug-manager/start.c:1389 ../plugins/gdb/debugger.c:1929
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -2847,8 +2853,8 @@ msgstr "监视"
 msgid "Search Help:"
 msgstr "搜索帮助："
 
-#: ../plugins/devhelp/plugin.c:223 ../plugins/document-manager/plugin.c:241
-#: ../plugins/message-view/plugin.c:76 ../plugins/symbol-db/plugin.c:311
+#: ../plugins/devhelp/plugin.c:223 ../plugins/document-manager/plugin.c:243
+#: ../plugins/message-view/plugin.c:77 ../plugins/symbol-db/plugin.c:313
 msgid "_Go to"
 msgstr "转到(_G)"
 
@@ -2881,7 +2887,7 @@ msgid "Help operations"
 msgstr "帮助操作"
 
 #: ../plugins/devhelp/plugin.c:345 ../plugins/devhelp/plugin.c:462
-#: ../src/anjuta-app.c:638
+#: ../src/anjuta-app.c:640
 msgid "Help"
 msgstr "帮助"
 
@@ -2889,12 +2895,12 @@ msgstr "帮助"
 msgid "Contents"
 msgstr "目录"
 
-#: ../plugins/devhelp/plugin.c:362 ../plugins/search/search-replace.c:1041
-#: ../plugins/search/search-replace.c:1717
-#: ../plugins/search/search-replace.c:1724
-#: ../plugins/search/search-replace.c:1736
-#: ../plugins/search/search-replace.c:2065 ../plugins/symbol-db/plugin.c:2065
-#: ../plugins/symbol-db/plugin.c:2117
+#: ../plugins/devhelp/plugin.c:362 ../plugins/search/search-replace.c:1034
+#: ../plugins/search/search-replace.c:1700
+#: ../plugins/search/search-replace.c:1707
+#: ../plugins/search/search-replace.c:1719
+#: ../plugins/search/search-replace.c:2037 ../plugins/symbol-db/plugin.c:2126
+#: ../plugins/symbol-db/plugin.c:2178
 msgid "Search"
 msgstr "搜索"
 
@@ -2925,7 +2931,7 @@ msgstr "清除书签"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:331
 #: ../plugins/document-manager/anjuta-bookmarks.c:404
-#: ../plugins/document-manager/plugin.c:420
+#: ../plugins/document-manager/plugin.c:422
 msgid "Bookmarks"
 msgstr "书签"
 
@@ -2934,7 +2940,7 @@ msgid "Rename"
 msgstr "重命名(_R)"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:340
-#: ../plugins/gtodo/callback.c:20 ../plugins/gtodo/callback.c:101
+#: ../plugins/gtodo/callback.c:23 ../plugins/gtodo/callback.c:106
 #: ../plugins/snippets-manager/snippets-editor.ui.h:10
 msgid "Remove"
 msgstr "删除"
@@ -2954,7 +2960,7 @@ msgid "Open file"
 msgstr "打开文件"
 
 #: ../plugins/document-manager/anjuta-docman.c:641
-#: ../plugins/message-view/message-view.c:97
+#: ../plugins/message-view/message-view.c:100
 msgid "Save file as"
 msgstr "文件另存为"
 
@@ -3006,7 +3012,7 @@ msgid "Position:"
 msgstr "位置："
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:8
-#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:13
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:10
 msgid "Right"
 msgstr "右侧"
 
@@ -3031,180 +3037,180 @@ msgid "Sorted in opening order"
 msgstr "以打开顺序排序"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:14
-#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:16
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:13
 msgid "Top"
 msgstr "顶部"
 
-#: ../plugins/document-manager/plugin.c:149
+#: ../plugins/document-manager/plugin.c:151
 msgid "_Save"
 msgstr "保存(_S)"
 
-#: ../plugins/document-manager/plugin.c:150
+#: ../plugins/document-manager/plugin.c:152
 msgid "Save current file"
 msgstr "保存当前文件"
 
-#: ../plugins/document-manager/plugin.c:151
+#: ../plugins/document-manager/plugin.c:153
 msgid "Save _As…"
 msgstr "另存为(_A)..."
 
-#: ../plugins/document-manager/plugin.c:152
+#: ../plugins/document-manager/plugin.c:154
 msgid "Save the current file with a different name"
 msgstr "用另一名称保存当前文件"
 
-#: ../plugins/document-manager/plugin.c:154
+#: ../plugins/document-manager/plugin.c:156
 msgid "Save A_ll"
 msgstr "全部保存(_L)"
 
-#: ../plugins/document-manager/plugin.c:155
+#: ../plugins/document-manager/plugin.c:157
 msgid "Save all currently open files, except new files"
 msgstr "将当前全部打开的文件保存，新文件除外"
 
-#: ../plugins/document-manager/plugin.c:157
+#: ../plugins/document-manager/plugin.c:159
 msgid "_Close File"
 msgstr "关闭文件(_C)"
 
-#: ../plugins/document-manager/plugin.c:158
+#: ../plugins/document-manager/plugin.c:160
 msgid "Close current file"
 msgstr "关闭当前文件"
 
-#: ../plugins/document-manager/plugin.c:160
+#: ../plugins/document-manager/plugin.c:162
 msgid "Close All"
 msgstr "全部关闭"
 
-#: ../plugins/document-manager/plugin.c:161
+#: ../plugins/document-manager/plugin.c:163
 msgid "Close all files"
 msgstr "关闭全部文件"
 
-#: ../plugins/document-manager/plugin.c:163
+#: ../plugins/document-manager/plugin.c:165
 msgid "Close Other"
 msgstr "关闭其它"
 
-#: ../plugins/document-manager/plugin.c:164
+#: ../plugins/document-manager/plugin.c:166
 msgid "Close other documents"
 msgstr "关闭其它文件"
 
-#: ../plugins/document-manager/plugin.c:166
+#: ../plugins/document-manager/plugin.c:168
 msgid "Reload F_ile"
 msgstr "重新加载文件(_I)"
 
-#: ../plugins/document-manager/plugin.c:167
+#: ../plugins/document-manager/plugin.c:169
 msgid "Reload current file"
 msgstr "重新加载当前文件"
 
-#: ../plugins/document-manager/plugin.c:169
+#: ../plugins/document-manager/plugin.c:171
 msgid "Recent _Files"
 msgstr "最近使用的文件(_F)"
 
-#: ../plugins/document-manager/plugin.c:173
+#: ../plugins/document-manager/plugin.c:175
 msgid "_Print…"
 msgstr "打印(_P)..."
 
-#: ../plugins/document-manager/plugin.c:174
+#: ../plugins/document-manager/plugin.c:176
 msgid "Print the current file"
 msgstr "打印当前文件"
 
-#: ../plugins/document-manager/plugin.c:181
+#: ../plugins/document-manager/plugin.c:183
 msgid "_Print Preview"
 msgstr "打印预览(_P)"
 
-#: ../plugins/document-manager/plugin.c:182
+#: ../plugins/document-manager/plugin.c:184
 msgid "Preview the current file in print format"
 msgstr "当前文件的打印预览"
 
-#: ../plugins/document-manager/plugin.c:187
+#: ../plugins/document-manager/plugin.c:189
 msgid "_Transform"
 msgstr "转换(_T)"
 
 #. menu title
-#: ../plugins/document-manager/plugin.c:188
+#: ../plugins/document-manager/plugin.c:190
 msgid "_Make Selection Uppercase"
 msgstr "选定范围变为大写(_M)"
 
-#: ../plugins/document-manager/plugin.c:189
+#: ../plugins/document-manager/plugin.c:191
 msgid "Make the selected text uppercase"
 msgstr "将选定范围内的字母转为大写字母"
 
-#: ../plugins/document-manager/plugin.c:191
+#: ../plugins/document-manager/plugin.c:193
 msgid "Make Selection Lowercase"
 msgstr "选定范围变为小写"
 
-#: ../plugins/document-manager/plugin.c:192
+#: ../plugins/document-manager/plugin.c:194
 msgid "Make the selected text lowercase"
 msgstr "将选定范围内的字母转为小写字母"
 
-#: ../plugins/document-manager/plugin.c:194
+#: ../plugins/document-manager/plugin.c:196
 msgid "Convert EOL to CRLF"
 msgstr "转换 EOL 为 CRLF"
 
-#: ../plugins/document-manager/plugin.c:195
+#: ../plugins/document-manager/plugin.c:197
 msgid "Convert End Of Line characters to DOS EOL (CRLF)"
 msgstr "将字符串的结束字符 EOL 转换为 DOS EOL (CRLF)"
 
-#: ../plugins/document-manager/plugin.c:197
+#: ../plugins/document-manager/plugin.c:199
 msgid "Convert EOL to LF"
 msgstr "转换 EOL 为 LF"
 
-#: ../plugins/document-manager/plugin.c:198
+#: ../plugins/document-manager/plugin.c:200
 msgid "Convert End Of Line characters to Unix EOL (LF)"
 msgstr "将字符串的结束字符 EOL 转换为 Unix EOL (LF)"
 
-#: ../plugins/document-manager/plugin.c:200
+#: ../plugins/document-manager/plugin.c:202
 msgid "Convert EOL to CR"
 msgstr "转换 EOL 为 CR"
 
-#: ../plugins/document-manager/plugin.c:201
+#: ../plugins/document-manager/plugin.c:203
 msgid "Convert End Of Line characters to Mac OS EOL (CR)"
 msgstr "将字符串的结束字符 EOL 转换为 Mac OS EOL (CR)"
 
-#: ../plugins/document-manager/plugin.c:203
+#: ../plugins/document-manager/plugin.c:205
 msgid "Convert EOL to Majority EOL"
 msgstr "转换 EOL 为主要 EOL"
 
-#: ../plugins/document-manager/plugin.c:204
+#: ../plugins/document-manager/plugin.c:206
 msgid "Convert End Of Line characters to the most common EOL found in the file"
 msgstr "将行结束字符(EOL)转换为文件中使用最多的 EOL。"
 
-#: ../plugins/document-manager/plugin.c:209
+#: ../plugins/document-manager/plugin.c:211
 msgid "_Select"
 msgstr "选择(_S)"
 
-#: ../plugins/document-manager/plugin.c:211
+#: ../plugins/document-manager/plugin.c:213
 msgid "Select _All"
 msgstr "全选(_A)"
 
-#: ../plugins/document-manager/plugin.c:212
+#: ../plugins/document-manager/plugin.c:214
 msgid "Select all text in the editor"
 msgstr "选取编辑器内的全部文字"
 
-#: ../plugins/document-manager/plugin.c:214
+#: ../plugins/document-manager/plugin.c:216
 msgid "Select _Code Block"
 msgstr "选择代码块(_C)"
 
-#: ../plugins/document-manager/plugin.c:215
+#: ../plugins/document-manager/plugin.c:217
 msgid "Select the current code block"
 msgstr "选择当前代码块"
 
-#: ../plugins/document-manager/plugin.c:220
+#: ../plugins/document-manager/plugin.c:222
 msgid "Co_mment"
 msgstr "注释(_M)"
 
 #. Block comment: Uses line-comment (comment that affects only single line
 #. such as '//' or '#') and comments a block of lines.
-#: ../plugins/document-manager/plugin.c:223
+#: ../plugins/document-manager/plugin.c:225
 msgid "_Block Comment/Uncomment"
 msgstr "设置/取消块注释(_B)"
 
-#: ../plugins/document-manager/plugin.c:224
+#: ../plugins/document-manager/plugin.c:226
 msgid "Block comment the selected text"
 msgstr "将选中文字设置为块注释"
 
 #. Box comment: Uses stream-comment to comment a block of lines, usually with
 #. some decorations, to give an appearance of box.
-#: ../plugins/document-manager/plugin.c:228
+#: ../plugins/document-manager/plugin.c:230
 msgid "Bo_x Comment/Uncomment"
 msgstr "设置/取消盒注释(_X)"
 
-#: ../plugins/document-manager/plugin.c:229
+#: ../plugins/document-manager/plugin.c:231
 msgid "Box comment the selected text"
 msgstr "将选中文字设置为段注释"
 
@@ -3212,422 +3218,422 @@ msgstr "将选中文字设置为段注释"
 #. characters -- has start and end comment code) and comments any code from
 #. arbitrary start position to arbitrary end position (can be in middle of
 #. lines).
-#: ../plugins/document-manager/plugin.c:235
+#: ../plugins/document-manager/plugin.c:237
 msgid "_Stream Comment/Uncomment"
 msgstr "设置/取消流注释(_S)"
 
-#: ../plugins/document-manager/plugin.c:236
+#: ../plugins/document-manager/plugin.c:238
 msgid "Stream comment the selected text"
 msgstr "将选中文本设置为流注释"
 
 #. menu title
-#: ../plugins/document-manager/plugin.c:242
+#: ../plugins/document-manager/plugin.c:244
 msgid "_Line Number…"
 msgstr "行号(_L)..."
 
-#: ../plugins/document-manager/plugin.c:243
+#: ../plugins/document-manager/plugin.c:245
 msgid "Go to a particular line in the editor"
 msgstr "转到编辑器中指定行"
 
-#: ../plugins/document-manager/plugin.c:245
+#: ../plugins/document-manager/plugin.c:247
 msgid "Matching _Brace"
 msgstr "匹配括号(_B)"
 
-#: ../plugins/document-manager/plugin.c:246
+#: ../plugins/document-manager/plugin.c:248
 msgid "Go to the matching brace in the editor"
 msgstr "从当前括号转到另一面对应的括号"
 
-#: ../plugins/document-manager/plugin.c:248
+#: ../plugins/document-manager/plugin.c:250
 msgid "_Start of Block"
 msgstr "块首(_S)"
 
-#: ../plugins/document-manager/plugin.c:249
+#: ../plugins/document-manager/plugin.c:251
 msgid "Go to the start of the current block"
 msgstr "转到当前区块的开始位置"
 
-#: ../plugins/document-manager/plugin.c:251
+#: ../plugins/document-manager/plugin.c:253
 msgid "_End of Block"
 msgstr "块尾(_E)"
 
-#: ../plugins/document-manager/plugin.c:252
+#: ../plugins/document-manager/plugin.c:254
 msgid "Go to the end of the current block"
 msgstr "转到当前区块的结束位置"
 
-#: ../plugins/document-manager/plugin.c:254
+#: ../plugins/document-manager/plugin.c:256
 msgid "Previous _History"
 msgstr "上一条历史(_P)"
 
-#: ../plugins/document-manager/plugin.c:255
+#: ../plugins/document-manager/plugin.c:257
 msgid "Go to previous history"
 msgstr "转到上一条历史"
 
-#: ../plugins/document-manager/plugin.c:257
+#: ../plugins/document-manager/plugin.c:259
 msgid "Next Histor_y"
 msgstr "下一条历史(_Y)"
 
-#: ../plugins/document-manager/plugin.c:258
+#: ../plugins/document-manager/plugin.c:260
 msgid "Go to next history"
 msgstr "转到下一条历史"
 
-#: ../plugins/document-manager/plugin.c:263 ../plugins/search/plugin.c:67
+#: ../plugins/document-manager/plugin.c:265 ../plugins/search/plugin.c:67
 msgid "_Search"
 msgstr "搜索(_S)"
 
-#: ../plugins/document-manager/plugin.c:264
+#: ../plugins/document-manager/plugin.c:266
 msgid "_Quick Search"
 msgstr "快速搜索(_Q)"
 
-#: ../plugins/document-manager/plugin.c:265
+#: ../plugins/document-manager/plugin.c:267
 msgid "Quick editor embedded search"
 msgstr "编辑器内嵌的快速搜索"
 
-#: ../plugins/document-manager/plugin.c:267
+#: ../plugins/document-manager/plugin.c:269
 msgid "Quick _ReSearch"
 msgstr "快速重新搜索(_R)"
 
-#: ../plugins/document-manager/plugin.c:268
+#: ../plugins/document-manager/plugin.c:270
 msgid "Repeat quick search"
 msgstr "重复快速搜索"
 
-#: ../plugins/document-manager/plugin.c:273 ../plugins/gtodo/interface.c:158
+#: ../plugins/document-manager/plugin.c:275 ../plugins/gtodo/interface.c:141
 #: ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:1876
-#: ../plugins/language-support-python/plugin.c:1176
+#: ../plugins/language-support-cpp-java/plugin.c:1914
+#: ../plugins/language-support-python/plugin.c:1179
 msgid "_Edit"
 msgstr "编辑(_E)"
 
 #. menu title
-#: ../plugins/document-manager/plugin.c:274
+#: ../plugins/document-manager/plugin.c:276
 msgid "_Editor"
 msgstr "编辑器(_E)"
 
-#: ../plugins/document-manager/plugin.c:281
+#: ../plugins/document-manager/plugin.c:283
 msgid "_Add Editor View"
 msgstr "添加编辑器视图(_A)"
 
-#: ../plugins/document-manager/plugin.c:282
+#: ../plugins/document-manager/plugin.c:284
 msgid "Add one more view of current document"
 msgstr "为当前文档添加一个或多个视图"
 
-#: ../plugins/document-manager/plugin.c:284
+#: ../plugins/document-manager/plugin.c:286
 msgid "_Remove Editor View"
 msgstr "删除编辑器视图(_R)"
 
-#: ../plugins/document-manager/plugin.c:285
+#: ../plugins/document-manager/plugin.c:287
 msgid "Remove current view of the document"
 msgstr "从文档中删除当前视图"
 
-#: ../plugins/document-manager/plugin.c:287
+#: ../plugins/document-manager/plugin.c:289
 msgid "U_ndo"
 msgstr "撤消(_N)"
 
-#: ../plugins/document-manager/plugin.c:288
+#: ../plugins/document-manager/plugin.c:290
 msgid "Undo the last action"
 msgstr "撤消上次操作"
 
-#: ../plugins/document-manager/plugin.c:290
+#: ../plugins/document-manager/plugin.c:292
 msgid "_Redo"
 msgstr "重做(_R)"
 
-#: ../plugins/document-manager/plugin.c:291
+#: ../plugins/document-manager/plugin.c:293
 msgid "Redo the last undone action"
 msgstr "重复刚取消的动作"
 
-#: ../plugins/document-manager/plugin.c:293
+#: ../plugins/document-manager/plugin.c:295
 msgid "C_ut"
 msgstr "剪切(_U)"
 
-#: ../plugins/document-manager/plugin.c:294
+#: ../plugins/document-manager/plugin.c:296
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "将选中文字剪切到剪贴板"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/document-manager/plugin.c:296 ../plugins/terminal/terminal.c:616
+#: ../plugins/document-manager/plugin.c:298 ../plugins/terminal/terminal.c:561
 msgid "_Copy"
 msgstr "复制(_C)"
 
-#: ../plugins/document-manager/plugin.c:297
+#: ../plugins/document-manager/plugin.c:299
 msgid "Copy the selected text to the clipboard"
 msgstr "将选中文字复制到剪贴板"
 
-#: ../plugins/document-manager/plugin.c:299 ../plugins/terminal/terminal.c:624
+#: ../plugins/document-manager/plugin.c:301 ../plugins/terminal/terminal.c:569
 msgid "_Paste"
 msgstr "粘贴(_P)"
 
-#: ../plugins/document-manager/plugin.c:300
+#: ../plugins/document-manager/plugin.c:302
 msgid "Paste the content of clipboard at the current position"
 msgstr "将剪贴板上的文字复制到当前光标的位置"
 
-#: ../plugins/document-manager/plugin.c:308
+#: ../plugins/document-manager/plugin.c:310
 msgid "_Clear"
 msgstr "清除(_C)"
 
-#: ../plugins/document-manager/plugin.c:309
+#: ../plugins/document-manager/plugin.c:311
 msgid "Delete the selected text from the editor"
 msgstr "将选中文字从编辑器删除"
 
-#: ../plugins/document-manager/plugin.c:312
+#: ../plugins/document-manager/plugin.c:314
 msgid "_Auto-Complete"
 msgstr "自动补全(_A)"
 
-#: ../plugins/document-manager/plugin.c:313
+#: ../plugins/document-manager/plugin.c:315
 msgid "Auto-complete the current word"
 msgstr "自动补全当前的词"
 
-#: ../plugins/document-manager/plugin.c:318
+#: ../plugins/document-manager/plugin.c:320
 msgid "_Line Number Margin"
 msgstr "行号区(_L)"
 
-#: ../plugins/document-manager/plugin.c:319
+#: ../plugins/document-manager/plugin.c:321
 msgid "Show/Hide line numbers"
 msgstr "显示/隐藏行号区"
 
-#: ../plugins/document-manager/plugin.c:321
+#: ../plugins/document-manager/plugin.c:323
 msgid "_Marker Margin"
 msgstr "标号区(_M)"
 
-#: ../plugins/document-manager/plugin.c:322
+#: ../plugins/document-manager/plugin.c:324
 msgid "Show/Hide marker margin"
 msgstr "显示/隐藏标号区"
 
-#: ../plugins/document-manager/plugin.c:324
+#: ../plugins/document-manager/plugin.c:326
 msgid "_Code Fold Margin"
 msgstr "代码展叠区(_C)"
 
-#: ../plugins/document-manager/plugin.c:325
+#: ../plugins/document-manager/plugin.c:327
 msgid "Show/Hide code fold margin"
 msgstr "显示/隐藏代码展叠区"
 
-#: ../plugins/document-manager/plugin.c:327
+#: ../plugins/document-manager/plugin.c:329
 msgid "_Indentation Guides"
 msgstr "缩进导线(_I)"
 
-#: ../plugins/document-manager/plugin.c:328
+#: ../plugins/document-manager/plugin.c:330
 msgid "Show/Hide indentation guides"
 msgstr "显示/隐藏缩进导线"
 
-#: ../plugins/document-manager/plugin.c:330
+#: ../plugins/document-manager/plugin.c:332
 msgid "_White Space"
 msgstr "空白字符(_W)"
 
-#: ../plugins/document-manager/plugin.c:331
+#: ../plugins/document-manager/plugin.c:333
 msgid "Show/Hide white spaces"
 msgstr "显示/隐藏空白字符"
 
-#: ../plugins/document-manager/plugin.c:333
+#: ../plugins/document-manager/plugin.c:335
 msgid "_Line End Characters"
 msgstr "行尾字符(_L)"
 
-#: ../plugins/document-manager/plugin.c:334
+#: ../plugins/document-manager/plugin.c:336
 msgid "Show/Hide line end characters"
 msgstr "显示/隐藏行尾字符"
 
-#: ../plugins/document-manager/plugin.c:336
+#: ../plugins/document-manager/plugin.c:338
 msgid "Line _Wrapping"
 msgstr "自动换行(_W)"
 
-#: ../plugins/document-manager/plugin.c:337
+#: ../plugins/document-manager/plugin.c:339
 msgid "Enable/disable line wrapping"
 msgstr "启用/禁用自动换行"
 
-#: ../plugins/document-manager/plugin.c:342
+#: ../plugins/document-manager/plugin.c:344
 msgid "Zoom In"
 msgstr "放大"
 
-#: ../plugins/document-manager/plugin.c:343
+#: ../plugins/document-manager/plugin.c:345
 msgid "Zoom in: Increase font size"
 msgstr "放大：增大字号"
 
-#: ../plugins/document-manager/plugin.c:345
+#: ../plugins/document-manager/plugin.c:347
 msgid "Zoom Out"
 msgstr "缩小"
 
-#: ../plugins/document-manager/plugin.c:346
+#: ../plugins/document-manager/plugin.c:348
 msgid "Zoom out: Decrease font size"
 msgstr "缩小：减小字号"
 
-#: ../plugins/document-manager/plugin.c:351
+#: ../plugins/document-manager/plugin.c:353
 msgid "_Highlight Mode"
 msgstr "高亮模式(_H)"
 
-#: ../plugins/document-manager/plugin.c:355
+#: ../plugins/document-manager/plugin.c:357
 msgid "_Close All Folds"
 msgstr "关闭全部折叠区域(_C)"
 
-#: ../plugins/document-manager/plugin.c:356
+#: ../plugins/document-manager/plugin.c:358
 msgid "Close all code folds in the editor"
 msgstr "将全部源代码折叠"
 
-#: ../plugins/document-manager/plugin.c:358
+#: ../plugins/document-manager/plugin.c:360
 msgid "_Open All Folds"
 msgstr "打开全部折叠区域(_O)"
 
-#: ../plugins/document-manager/plugin.c:359
+#: ../plugins/document-manager/plugin.c:361
 msgid "Open all code folds in the editor"
 msgstr "将全部源代码展开"
 
-#: ../plugins/document-manager/plugin.c:361
+#: ../plugins/document-manager/plugin.c:363
 msgid "_Toggle Current Fold"
 msgstr "切换当前折叠区域(_T)"
 
-#: ../plugins/document-manager/plugin.c:362
+#: ../plugins/document-manager/plugin.c:364
 msgid "Toggle current code fold in the editor"
 msgstr "切换当前代码的折叠与展开状态"
 
-#: ../plugins/document-manager/plugin.c:367
+#: ../plugins/document-manager/plugin.c:369
 msgid "_Documents"
 msgstr "文档(_D)"
 
-#: ../plugins/document-manager/plugin.c:368
+#: ../plugins/document-manager/plugin.c:370
 msgid "Previous Document"
 msgstr "上一个文档"
 
-#: ../plugins/document-manager/plugin.c:369
+#: ../plugins/document-manager/plugin.c:371
 msgid "Switch to previous document"
 msgstr "切换到上一个文档"
 
-#: ../plugins/document-manager/plugin.c:371
+#: ../plugins/document-manager/plugin.c:373
 msgid "Next Document"
 msgstr "下一个文档"
 
-#: ../plugins/document-manager/plugin.c:372
+#: ../plugins/document-manager/plugin.c:374
 msgid "Switch to next document"
 msgstr "切换到下一个文档"
 
-#: ../plugins/document-manager/plugin.c:377
+#: ../plugins/document-manager/plugin.c:379
 msgid "Bookmar_k"
 msgstr "书签(_K)"
 
-#: ../plugins/document-manager/plugin.c:378
+#: ../plugins/document-manager/plugin.c:380
 msgid "_Add Bookmark"
 msgstr "添加书签(_A)"
 
-#: ../plugins/document-manager/plugin.c:379
+#: ../plugins/document-manager/plugin.c:381
 msgid "Add a bookmark at the current line position"
 msgstr "在当前行添加一个书签"
 
-#: ../plugins/document-manager/plugin.c:381
+#: ../plugins/document-manager/plugin.c:383
 msgid "_Previous Bookmark"
 msgstr "上一个书签(_P)"
 
-#: ../plugins/document-manager/plugin.c:382
+#: ../plugins/document-manager/plugin.c:384
 msgid "Jump to the previous bookmark in the file"
 msgstr "转到当前文件内的上一个书签"
 
-#: ../plugins/document-manager/plugin.c:384
+#: ../plugins/document-manager/plugin.c:386
 msgid "_Next Bookmark"
 msgstr "下一个书签(_N)"
 
-#: ../plugins/document-manager/plugin.c:385
+#: ../plugins/document-manager/plugin.c:387
 msgid "Jump to the next bookmark in the file"
 msgstr "转到当前文件内的下一个书签"
 
-#: ../plugins/document-manager/plugin.c:387
+#: ../plugins/document-manager/plugin.c:389
 msgid "_Clear All Bookmarks"
 msgstr "清除全部书签(_C)"
 
-#: ../plugins/document-manager/plugin.c:388
+#: ../plugins/document-manager/plugin.c:390
 msgid "Clear bookmarks"
 msgstr "清除书签"
 
-#: ../plugins/document-manager/plugin.c:407
+#: ../plugins/document-manager/plugin.c:409
 msgid "Editor file operations"
 msgstr "编辑器文件操作"
 
-#: ../plugins/document-manager/plugin.c:408
+#: ../plugins/document-manager/plugin.c:410
 msgid "Editor print operations"
 msgstr "编辑器打印操作"
 
-#: ../plugins/document-manager/plugin.c:409
+#: ../plugins/document-manager/plugin.c:411
 msgid "Editor text transformation"
 msgstr "编辑器文本转换"
 
-#: ../plugins/document-manager/plugin.c:410
+#: ../plugins/document-manager/plugin.c:412
 msgid "Editor text selection"
 msgstr "编辑器文本选择"
 
 #. { actions_insert, G_N_ELEMENTS (actions_insert), "ActionGroupEditorInsert", N_("Editor text insertions") },
-#: ../plugins/document-manager/plugin.c:412
+#: ../plugins/document-manager/plugin.c:414
 msgid "Editor code commenting"
 msgstr "编辑器代码注释"
 
-#: ../plugins/document-manager/plugin.c:413
+#: ../plugins/document-manager/plugin.c:415
 msgid "Editor navigations"
 msgstr "编辑器导航"
 
-#: ../plugins/document-manager/plugin.c:414
+#: ../plugins/document-manager/plugin.c:416
 msgid "Editor edit operations"
 msgstr "编辑器编辑操作"
 
-#: ../plugins/document-manager/plugin.c:415
+#: ../plugins/document-manager/plugin.c:417
 msgid "Editor zoom operations"
 msgstr "编辑器缩放操作"
 
-#: ../plugins/document-manager/plugin.c:416
+#: ../plugins/document-manager/plugin.c:418
 msgid "Editor syntax highlighting styles"
 msgstr "编辑器语法高亮样式"
 
-#: ../plugins/document-manager/plugin.c:417
+#: ../plugins/document-manager/plugin.c:419
 msgid "Editor text formating"
 msgstr "编辑器文本格式"
 
-#: ../plugins/document-manager/plugin.c:418
+#: ../plugins/document-manager/plugin.c:420
 msgid "Simple searching"
 msgstr "简单搜索"
 
-#: ../plugins/document-manager/plugin.c:419
-#: ../plugins/document-manager/plugin.c:1736
-#: ../plugins/document-manager/plugin.c:2153
-#: ../plugins/document-manager/plugin.c:2163
+#: ../plugins/document-manager/plugin.c:421
+#: ../plugins/document-manager/plugin.c:1750
+#: ../plugins/document-manager/plugin.c:2172
+#: ../plugins/document-manager/plugin.c:2181
 msgid "Documents"
 msgstr "文档"
 
-#: ../plugins/document-manager/plugin.c:424
+#: ../plugins/document-manager/plugin.c:426
 msgid "Editor view settings"
 msgstr "编辑器视图设置"
 
-#: ../plugins/document-manager/plugin.c:609
+#: ../plugins/document-manager/plugin.c:615
 msgid "Reload"
 msgstr "重新加载"
 
-#: ../plugins/document-manager/plugin.c:615
+#: ../plugins/document-manager/plugin.c:621
 msgid "Go to"
 msgstr "转到"
 
-#: ../plugins/document-manager/plugin.c:930
+#: ../plugins/document-manager/plugin.c:936
 msgid "OVR"
 msgstr "覆盖"
 
-#: ../plugins/document-manager/plugin.c:934
+#: ../plugins/document-manager/plugin.c:940
 msgid "INS"
 msgstr "插入"
 
-#: ../plugins/document-manager/plugin.c:940
-#: ../plugins/document-manager/plugin.c:943
+#: ../plugins/document-manager/plugin.c:946
+#: ../plugins/document-manager/plugin.c:949
 msgid "Zoom"
 msgstr "缩放"
 
-#: ../plugins/document-manager/plugin.c:946
+#: ../plugins/document-manager/plugin.c:952
 msgid "Col"
 msgstr "列"
 
-#: ../plugins/document-manager/plugin.c:947
+#: ../plugins/document-manager/plugin.c:953
 msgid "Mode"
 msgstr "模式"
 
 #. Automatic highlight menu
-#: ../plugins/document-manager/plugin.c:1027
+#: ../plugins/document-manager/plugin.c:1033
 msgid "Automatic"
 msgstr "自动"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1560
+#: ../plugins/document-manager/plugin.c:1592
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "自动保存 “%s” 失败"
 
-#: ../plugins/document-manager/plugin.c:1574
+#: ../plugins/document-manager/plugin.c:1606
 msgid "Autosave completed"
 msgstr "自动保存完成"
 
@@ -3644,7 +3650,7 @@ msgid ""
 msgstr "搜索“%s”时达到末尾，从顶部继续搜索。但未找到新的匹配结果。"
 
 #: ../plugins/document-manager/search-box.c:446
-#: ../plugins/search/anjuta-search.ui.h:18
+#: ../plugins/search/anjuta-search.ui.h:17
 msgid "Match case"
 msgstr "区分大小写"
 
@@ -3875,9 +3881,9 @@ msgstr "找不到文件"
 msgid "Please select a plugin to open <b>%s</b>."
 msgstr "请选择用于打开 <b>%s</b> 的插件。"
 
-#: ../plugins/file-loader/plugin.c:1441 ../plugins/project-import/plugin.c:205
-msgid "Open With"
-msgstr "打开方式(_W)"
+#: ../plugins/file-loader/plugin.c:1441
+msgid "<b>Open With</b>"
+msgstr "<b>打开方式</b>"
 
 #: ../plugins/file-manager/file-manager.ui.h:1
 msgid "Choose Directory to show if no project is open"
@@ -3904,7 +3910,7 @@ msgid "Filter"
 msgstr "过滤器"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2060 ../plugins/symbol-db/plugin.c:2109
+#: ../plugins/symbol-db/plugin.c:2121 ../plugins/symbol-db/plugin.c:2170
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:6
 msgid "Global"
 msgstr "全局"
@@ -3929,23 +3935,23 @@ msgstr "基础 URI"
 msgid "URI of the top-most path displayed"
 msgstr "已显示到 URI 的最顶层目录"
 
-#: ../plugins/file-manager/plugin.c:74
+#: ../plugins/file-manager/plugin.c:75
 msgid "_Rename"
 msgstr "重命名(_R)"
 
-#: ../plugins/file-manager/plugin.c:74
+#: ../plugins/file-manager/plugin.c:75
 msgid "Rename file or directory"
 msgstr "重命名文件或目录"
 
-#: ../plugins/file-manager/plugin.c:297
+#: ../plugins/file-manager/plugin.c:294
 msgid "File manager popup actions"
 msgstr "文件管理器弹出式动作"
 
-#: ../plugins/file-manager/plugin.c:330
+#: ../plugins/file-manager/plugin.c:327
 msgid "Files"
 msgstr "文件"
 
-#: ../plugins/file-manager/plugin.c:460 ../plugins/file-manager/plugin.c:469
+#: ../plugins/file-manager/plugin.c:457 ../plugins/file-manager/plugin.c:466
 #: ../plugins/file-manager/file-manager.plugin.in.h:1
 msgid "File Manager"
 msgstr "文件管理器"
@@ -3979,18 +3985,18 @@ msgid "File Information"
 msgstr "文件信息"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:9
-#: ../plugins/git/anjuta-git.ui.h:64 ../plugins/tools/anjuta-tools.ui.h:6
+#: ../plugins/am-project/am-properties.c:45 ../plugins/git/anjuta-git.ui.h:64
+#: ../plugins/tools/anjuta-tools.ui.h:6
 msgid "Name:"
 msgstr "名称："
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:10
-#: ../plugins/starter/starter.c:422
+#: ../plugins/starter/starter.c:413
 msgid "New File"
 msgstr "新建文件"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:12
-#: ../plugins/gbf-am/gbf-am-properties.c:1446
-#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:353
+#: ../plugins/project-manager/dialogs.c:542
 msgid "Type:"
 msgstr "类型："
 
@@ -4031,345 +4037,129 @@ msgid "Shell Script File"
 msgstr "Shell 脚本文件"
 
 #: ../plugins/file-wizard/file.c:92
+msgid "Vala Source File"
+msgstr "Vala 源文件"
+
+#: ../plugins/file-wizard/file.c:93
 msgid "Other"
 msgstr "其它"
 
-#: ../plugins/file-wizard/file.c:105
+#: ../plugins/file-wizard/file.c:106
 msgid "BSD Public License"
 msgstr "BSD 公共许可证"
 
 #: ../plugins/file-wizard/file.c:183
 msgid "Unable to build user interface for New File"
-msgstr "无法为新建文件生成用户界面"
+msgstr "无法为新建文件构建用户界面"
 
-#: ../plugins/gbf-am/gbf-am-config.c:98 ../plugins/gbf-am/gbf-am-config.c:132
-msgid "Invalid GbfAmConfigValue type"
-msgstr "无效的 GbfAmConfigValue 类型"
+#: ../plugins/dir-project/dir-project.c:133
+#: ../plugins/dir-project/dir-project.c:156
+#, c-format
+msgid "Missing name"
+msgstr "缺少名称"
 
-#: ../plugins/gbf-am/gbf-am-dialogs.ui.h:1
-msgid "Add _Package"
-msgstr "添加包(_P)"
-
-#: ../plugins/gbf-am/gbf-am-dialogs.ui.h:2
-msgid "Add _module"
-msgstr "添加模块(_M)"
-
-#: ../plugins/gbf-am/gbf-am-dialogs.ui.h:4
-msgid "Packages"
-msgstr "包"
-
-#: ../plugins/gbf-am/gbf-am-dialogs.ui.h:5
-msgid "Select Package to add:"
-msgstr "选择要添加的包："
-
-#: ../plugins/gbf-am/gbf-am-dialogs.ui.h:6
-msgid "Select package"
-msgstr "选择包"
-
-#: ../plugins/gbf-am/gbf-am-dialogs.ui.h:7
-msgid "Variables"
-msgstr "变量"
-
-#: ../plugins/gbf-am/gbf-am-project.c:199
-#: ../plugins/gbf-am/gbf-am-project.c:3352
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:197
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3253
-msgid "Static Library"
-msgstr "静态函数库"
-
-#: ../plugins/gbf-am/gbf-am-project.c:202
-#: ../plugins/gbf-am/gbf-am-project.c:3354
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:200
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3255
-msgid "Shared Library"
-msgstr "共享函数库"
-
-#: ../plugins/gbf-am/gbf-am-project.c:205
-#: ../plugins/gbf-am/gbf-am-project.c:3358
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:203
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3257
-msgid "Man Documentation"
-msgstr "Man 文档"
-
-#: ../plugins/gbf-am/gbf-am-project.c:208
-#: ../plugins/gbf-am/gbf-am-project.c:3360
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:206
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3259
-msgid "Miscellaneous Data"
-msgstr "杂项数据"
-
-#: ../plugins/gbf-am/gbf-am-project.c:211
-#: ../plugins/gbf-am/gbf-am-project.c:3364
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:209
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3263
-msgid "Script"
-msgstr "脚本"
-
-#: ../plugins/gbf-am/gbf-am-project.c:214
-#: ../plugins/gbf-am/gbf-am-project.c:3366
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:212
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3265
-msgid "Info Documentation"
-msgstr "Info 文档"
-
-#: ../plugins/gbf-am/gbf-am-project.c:217
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:215
-msgid "Lisp Module"
-msgstr "Lisp 模块"
-
-#: ../plugins/gbf-am/gbf-am-project.c:220
-#: ../plugins/gbf-am/gbf-am-project.c:3356
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:218
-msgid "Header Files"
-msgstr "头文件"
-
-#: ../plugins/gbf-am/gbf-am-project.c:223
-#: ../plugins/gbf-am/gbf-am-project.c:3368
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:221
-msgid "Java Module"
-msgstr "Java 模块"
-
-#: ../plugins/gbf-am/gbf-am-project.c:226
-#: ../plugins/gbf-am/gbf-am-project.c:3370
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:224
-msgid "Python Module"
-msgstr "Python 模块"
-
-#: ../plugins/gbf-am/gbf-am-project.c:229
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:227
-msgid "Generic rule"
-msgstr "通用规则"
-
-#: ../plugins/gbf-am/gbf-am-project.c:232
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:230
-msgid "Extra target"
-msgstr "额外目标"
-
-#: ../plugins/gbf-am/gbf-am-project.c:235
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:233
-msgid "Configure file"
-msgstr "配置文件"
-
-#: ../plugins/gbf-am/gbf-am-project.c:238
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:236
-msgid "Interface file"
-msgstr "界面文件"
-
-#: ../plugins/gbf-am/gbf-am-project.c:241
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:239
-msgid "GLib mkenums"
-msgstr "GLib mkenums"
-
-#: ../plugins/gbf-am/gbf-am-project.c:244
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:242
-msgid "GLib genmarshal"
-msgstr "GLib genmarshal"
-
-#: ../plugins/gbf-am/gbf-am-project.c:247
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:245
-msgid "Intl rule"
-msgstr "安装规则"
-
-#: ../plugins/gbf-am/gbf-am-project.c:2559
-#: ../plugins/gbf-am/gbf-am-project.c:2637
-#: ../plugins/gbf-am/gbf-am-project.c:2846
-#: ../plugins/gbf-am/gbf-am-project.c:3055
-#: ../plugins/gbf-am/gbf-am-project.c:3205
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2506
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2584
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2812
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2998
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3146
-msgid "Group doesn't exist"
-msgstr "组不存在"
-
-#: ../plugins/gbf-am/gbf-am-project.c:2579
-#: ../plugins/gbf-am/gbf-am-project.c:2682
-#: ../plugins/gbf-am/gbf-am-project.c:3098
-#: ../plugins/gbf-am/gbf-am-project.c:3320
-#: ../plugins/gbf-am/gbf-am-project.c:3541
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2526
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2629
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3041
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3221
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3407
-msgid "Target doesn't exist"
-msgstr "目标不存在"
-
-#: ../plugins/gbf-am/gbf-am-project.c:2613
-#: ../plugins/gbf-am/gbf-am-project.c:2657
-#: ../plugins/gbf-am/gbf-am-project.c:2700
-#: ../plugins/gbf-am/gbf-am-project.c:3016
-#: ../plugins/gbf-am/gbf-am-project.c:3076
-#: ../plugins/gbf-am/gbf-am-project.c:3280
-#: ../plugins/gbf-am/gbf-am-project.c:3341
-#: ../plugins/gbf-am/gbf-am-project.c:3649
-#: ../plugins/gbf-am/gbf-am-project.c:3710
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2560
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2604
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2647
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2959
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3019
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3182
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3242
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3474
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3535
-msgid "Unable to update project"
-msgstr "无法更新项目"
-
-#: ../plugins/gbf-am/gbf-am-project.c:2743
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2692
-msgid "Invalid or remote path (only local paths supported)"
-msgstr "非法的或远程的路径(仅支持本地路径)"
-
-#: ../plugins/gbf-am/gbf-am-project.c:2751
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2713
-#: ../plugins/dir-project/dir-project.c:693
-#: ../plugins/dir-project/dir-project.c:765
+#: ../plugins/dir-project/dir-project.c:649
+#: ../plugins/dir-project/dir-project.c:762
+#: ../plugins/am-project/am-project.c:1627
+#: ../plugins/am-project/am-project.c:1658
+#: ../plugins/am-project/am-project.c:1767
+#: ../plugins/am-project/am-project.c:1843
 #, c-format
 msgid "Project doesn't exist or invalid path"
 msgstr "项目不存在或非法路径"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2762
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2727
-msgid "Malformed project"
-msgstr "异常项目"
+#: ../plugins/dir-project/dir-project.c:773
+#: ../plugins/am-project/am-project.c:91
+msgid "Group"
+msgstr "组"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2959
+#: ../plugins/dir-project/dir-project.c:776
+#: ../plugins/am-project/am-project.c:98
+msgid "Source"
+msgstr "来源"
+
+#: ../plugins/dir-project/dir-project.c:877
+#: ../plugins/dir-project/dir-project.c:887
+#, c-format
+msgid "Project doesn't allow to set properties"
+msgstr "项目不允许设置属性"
+
+#: ../plugins/am-project/am-node.c:750
 msgid "Please specify group name"
 msgstr "请指定组名"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2973
-msgid "Group name can only contain alphanumeric, '_', '-' or '.' characters"
-msgstr "组名只能由字母、数字、“_”、“-”或“.”组成"
+#: ../plugins/am-project/am-node.c:764
+msgid ""
+"Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"
+msgstr "组名只能包含字母或“#$:%+,-.=@^_`~”这些字符"
 
-#: ../plugins/gbf-am/gbf-am-project.c:2982
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2925
-msgid "Parent group doesn't exist"
-msgstr "父组不存在"
-
-#: ../plugins/gbf-am/gbf-am-project.c:2993
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2936
-msgid "Group already exists"
-msgstr "组已经存在"
-
-#: ../plugins/gbf-am/gbf-am-project.c:3003
-#: ../plugins/gbf-am/gbf-am-project.c:3030
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2946
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2973
-msgid "Group couldn't be created"
-msgstr "不能创建组"
-
-#: ../plugins/gbf-am/gbf-am-project.c:3063
-msgid "Group couldn't be removed"
-msgstr "不能删除组"
-
-#: ../plugins/gbf-am/gbf-am-project.c:3213
+#: ../plugins/am-project/am-node.c:918
 msgid "Please specify target name"
 msgstr "请指定目标名称"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3227
-msgid "Target name can only contain alphanumeric, '_', '-' or '.' characters"
-msgstr "目标名只能由字母、数字、“_”、“-”或“.”组成"
+#: ../plugins/am-project/am-node.c:932
+msgid ""
+"Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
+msgstr "目标名只能由字母、“_”、“-”、“/”或“.”组成"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3236
+#: ../plugins/am-project/am-node.c:947
 msgid "Shared library target name must be of the form 'libxxx.la'"
 msgstr "共享库目标名必须是“libxxx.la”的形式"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3245
+#: ../plugins/am-project/am-node.c:956
 msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr "静态库目标名必须是“libxxx.a”的形式"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3257
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3159
-msgid "Target already exists"
-msgstr "目标已存在"
+#: ../plugins/am-project/am-project.c:114
+msgid "Shared Library"
+msgstr "共享函数库"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3267
-msgid "General failure in target creation"
-msgstr "目标创建中时发生一般性错误"
+#: ../plugins/am-project/am-project.c:121
+msgid "Static Library"
+msgstr "静态函数库"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3295
-msgid "Newly created target could not be identified"
-msgstr "不能识别新创建的目标"
+#: ../plugins/am-project/am-project.c:135
+msgid "Python Module"
+msgstr "Python 模块"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3328
-msgid "Target couldn't be removed"
-msgstr "不能删除目标"
+#: ../plugins/am-project/am-project.c:142
+msgid "Java Module"
+msgstr "Java 模块"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3428
-#: ../plugins/gbf-am/gbf-am-project.c:3687
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3317
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3512
-msgid "Source doesn't exist"
-msgstr "源文件不存在"
+#: ../plugins/am-project/am-project.c:149
+msgid "Lisp Module"
+msgstr "Lisp 模块"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3532
-msgid ""
-"Source file name can only contain alphanumeric, '_', '-' or '.' characters"
-msgstr "源文件名只能由字母、数字、“_”、“-”或“.”组成"
+#: ../plugins/am-project/am-project.c:156
+msgid "Header Files"
+msgstr "头文件"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3612
-msgid "Source file is already in given target"
-msgstr "源文件已经在给定的目标中"
+#: ../plugins/am-project/am-project.c:163
+msgid "Man Documentation"
+msgstr "Man 文档"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3630
-msgid "General failure in adding source file"
-msgstr "添加源文件时发生一般性错误"
+#: ../plugins/am-project/am-project.c:170
+msgid "Info Documentation"
+msgstr "Info 文档"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3664
-msgid "Newly added source file could not be identified"
-msgstr "不能识别新添加的源文件"
+#: ../plugins/am-project/am-project.c:177
+msgid "Miscellaneous Data"
+msgstr "杂项数据"
 
-#: ../plugins/gbf-am/gbf-am-project.c:3695
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3520
-msgid "Source couldn't be removed"
-msgstr "源文件不能被删除"
+#: ../plugins/am-project/am-project.c:184
+msgid "Script"
+msgstr "脚本"
 
-#: ../plugins/gbf-am/gbf-am-project.c:4111
-#: ../plugins/gbf-am/gbf-am-project.c:4112
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3830
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3831
-msgid "Project directory"
-msgstr "项目目录"
+#: ../plugins/am-project/am-project.c:198
+msgid "Package"
+msgstr "包"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:289
-#: ../plugins/gbf-am/gbf-am-properties.c:341
-msgid "Enter new module"
-msgstr "进入新模块"
-
-#: ../plugins/gbf-am/gbf-am-properties.c:449
+#: ../plugins/am-project/am-project.c:1644
 #, c-format
-msgid ""
-"Are you sure you want to remove module \"%s\" and all its associated "
-"packages?"
-msgstr "您真的要删除模块“%s”及其相关联的包吗？"
+msgid "Unable to parse project file"
+msgstr "无法解析项目文件"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:451
-#, c-format
-msgid "Are you sure you want to remove package \"%s\"?"
-msgstr "您真的要删除“%s”包吗？"
-
-#: ../plugins/gbf-am/gbf-am-properties.c:509
-#: ../plugins/gbf-am/gbf-am-properties.c:591
-msgid "Enter new variable"
-msgstr "输入新变量"
-
-#: ../plugins/gbf-am/gbf-am-properties.c:622
-#, c-format
-msgid "Are you sure you want to remove variable \"%s\"?"
-msgstr "您真的要删除变量“%s”吗？"
-
-#: ../plugins/gbf-am/gbf-am-properties.c:776
-#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:180
-msgid "Project:"
-msgstr "项目："
-
-#: ../plugins/gbf-am/gbf-am-properties.c:779
-msgid "Package name:"
-msgstr "包名称："
-
-#: ../plugins/gbf-am/gbf-am-properties.c:782
+#: ../plugins/am-project/am-properties.c:46
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:26
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:26
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:26
@@ -4389,158 +4179,113 @@ msgstr "包名称："
 msgid "Version:"
 msgstr "版本："
 
-#: ../plugins/gbf-am/gbf-am-properties.c:785
-msgid "URI:"
-msgstr "URI:"
+#: ../plugins/am-project/am-properties.c:47
+msgid "Bug report URL:"
+msgstr "Bug 报告 URL："
 
-#: ../plugins/gbf-am/gbf-am-properties.c:852
-msgid "Module/Packages"
-msgstr "模块/包"
+#: ../plugins/am-project/am-properties.c:48
+msgid "Package name:"
+msgstr "包名称："
 
-#: ../plugins/gbf-am/gbf-am-properties.c:861
-msgid "Version"
-msgstr "版本"
+#: ../plugins/am-project/am-properties.c:49 ../plugins/git/anjuta-git.ui.h:117
+msgid "URL:"
+msgstr "URL:"
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1151
-msgid "Use"
-msgstr "使用"
-
-#: ../plugins/gbf-am/gbf-am-properties.c:1243
-#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:247
-msgid "Group name:"
-msgstr "组名称："
-
-#: ../plugins/gbf-am/gbf-am-properties.c:1246
-msgid "Advanced"
-msgstr "高级"
-
-#: ../plugins/gbf-am/gbf-am-properties.c:1251
-#: ../plugins/gbf-am/gbf-am-properties.c:1341
-msgid "C compiler flags:"
-msgstr "C 编译器参数："
-
-#: ../plugins/gbf-am/gbf-am-properties.c:1253
-msgid "C preprocessor flags:"
-msgstr "C 预处理器参数："
-
-#: ../plugins/gbf-am/gbf-am-properties.c:1255
-msgid "C++ compiler flags:"
-msgstr "C++ 编译器参数："
-
-#: ../plugins/gbf-am/gbf-am-properties.c:1257
-msgid "gcj compiler flags (ahead-of-time):"
-msgstr "gcj 编译器参数 (预先)："
-
-#: ../plugins/gbf-am/gbf-am-properties.c:1259
-msgid "Java compiler flags (just-in-time):"
-msgstr "Java 编译器参数 (实时)："
-
-#: ../plugins/gbf-am/gbf-am-properties.c:1261
-#: ../plugins/gbf-am/gbf-am-properties.c:1349
-msgid "Fortran compiler flags:"
-msgstr "Fortran 编译器参数："
-
-#: ../plugins/gbf-am/gbf-am-properties.c:1264
-msgid "Includes (deprecated):"
-msgstr "Includes (过时的):"
-
-#: ../plugins/gbf-am/gbf-am-properties.c:1275
-#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:261
-msgid "Install directories:"
-msgstr "安装目录："
-
-#: ../plugins/gbf-am/gbf-am-properties.c:1343
-msgid "C preprocessor flags"
-msgstr "C 预处理器参数"
-
-#: ../plugins/gbf-am/gbf-am-properties.c:1345
-msgid "C++ compiler flags"
-msgstr "C++ 编译器参数"
-
-#: ../plugins/gbf-am/gbf-am-properties.c:1347
-msgid "gcj compiler flags (ahead-of-time)"
-msgstr "gcj 编译器参数 (预先)"
-
-#: ../plugins/gbf-am/gbf-am-properties.c:1353
-#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:413
+#: ../plugins/am-project/am-properties.c:56
+#: ../plugins/am-project/am-properties.c:75
 msgid "Linker flags:"
 msgstr "连接器参数："
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1359
-#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:419
-msgid "Libraries:"
-msgstr "函数库："
+#: ../plugins/am-project/am-properties.c:57
+#: ../plugins/am-project/am-properties.c:78
+msgid "C preprocessor flags:"
+msgstr "C 预处理器参数："
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1365
-#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:425
-msgid "Dependencies:"
-msgstr "依赖关系："
+#: ../plugins/am-project/am-properties.c:58
+#: ../plugins/am-project/am-properties.c:79
+msgid "C compiler flags:"
+msgstr "C 编译器参数："
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1368
-msgid "Advanced options"
-msgstr "高级选项"
+#: ../plugins/am-project/am-properties.c:59
+#: ../plugins/am-project/am-properties.c:80
+msgid "C++ compiler flags:"
+msgstr "C++ 编译器参数："
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1443
-#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:350
-msgid "Target name:"
-msgstr "目标名称："
+#: ../plugins/am-project/am-properties.c:60
+#: ../plugins/am-project/am-properties.c:81
+msgid "Java compiler flags:"
+msgstr "Java 编译器参数："
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1452
-#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:359
-msgid "Group:"
-msgstr "组："
+#: ../plugins/am-project/am-properties.c:61
+#: ../plugins/am-project/am-properties.c:82
+msgid "Vala compiler flags:"
+msgstr "Vala 编译器参数："
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1470
-#: ../plugins/gbf-am/gbf-am-properties.c:1486
-#: ../plugins/gbf-am/gbf-am-properties.c:1493
-#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:377
-#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:394
-#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:401
-msgid "Install directory:"
+#: ../plugins/am-project/am-properties.c:62
+#: ../plugins/am-project/am-properties.c:83
+msgid "Fortan compiler flags:"
+msgstr "Fortran 编译器参数："
+
+#: ../plugins/am-project/am-properties.c:63
+#: ../plugins/am-project/am-properties.c:84
+msgid "Objective C compiler flags:"
+msgstr "Objective C 编译器参数："
+
+#: ../plugins/am-project/am-properties.c:64
+#: ../plugins/am-project/am-properties.c:85
+msgid "Lex/Flex flags:"
+msgstr "Lex/Flex 参数："
+
+#: ../plugins/am-project/am-properties.c:65
+#: ../plugins/am-project/am-properties.c:86
+msgid "Yacc/Bison flags:"
+msgstr "Yacc/Bison 参数："
+
+#: ../plugins/am-project/am-properties.c:66
+msgid "Install directories:"
 msgstr "安装目录："
 
-#: ../plugins/gbf-am/gbf-am-properties.c:1505
-msgid "Advanced…"
-msgstr "高级..."
+#: ../plugins/am-project/am-properties.c:73
+msgid "Do not install:"
+msgstr "不安装："
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-config.c:102
-#: ../plugins/gbf-mkfile/gbf-mkfile-config.c:136
-msgid "Invalid GbfMkfileConfigValue type"
-msgstr "无效的 GbfMkfileConfigValue 类型"
+#: ../plugins/am-project/am-properties.c:74
+msgid "Installation directory:"
+msgstr "安装目录："
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:2699
-msgid "Project doesn't exist"
-msgstr "项目不存在"
+#: ../plugins/am-project/am-properties.c:76
+msgid "Additional libraries:"
+msgstr "附加库："
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3006
-msgid "Group coudn't be removed"
-msgstr "不能删除组"
+#: ../plugins/am-project/am-properties.c:77
+msgid "Additional objects:"
+msgstr "附加目标文件："
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3169
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3196
-msgid "Target couldn't be created"
-msgstr "不能创建目标"
+#: ../plugins/am-project/am-properties.c:87
+#: ../plugins/am-project/am-properties.c:97
+msgid "Additional dependencies:"
+msgstr "附加依赖："
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3229
-msgid "Target coudn't be removed"
-msgstr "不能删除目标"
+#: ../plugins/am-project/am-properties.c:88
+msgid "Include in distribution:"
+msgstr "包含在发行版中："
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3427
-msgid "Source file must be inside the project directory"
-msgstr "源文件必须在项目目录内"
+#: ../plugins/am-project/am-properties.c:89
+msgid "Build for check only:"
+msgstr "只为检查而构建："
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3439
-msgid "Source is already in target"
-msgstr "源文件已经在目标中"
+#: ../plugins/am-project/am-properties.c:90
+#: ../plugins/am-project/am-properties.c:98
+msgid "Do not use prefix:"
+msgstr "不使用前缀："
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3456
-#: ../plugins/gbf-mkfile/gbf-mkfile-project.c:3488
-msgid "Source couldn't be added"
-msgstr "不能添加源文件"
+#: ../plugins/am-project/am-properties.c:91
+msgid "Keep target path:"
+msgstr "保持目标路径："
 
-#: ../plugins/gbf-mkfile/gbf-mkfile-properties.c:250
-msgid "Includes:"
-msgstr "Includes:"
+#: ../plugins/am-project/am-properties.c:99
+msgid "Manual section:"
+msgstr "手册章节："
 
 #: ../plugins/gdb/anjuta-gdb.ui.h:1
 msgid "Available pretty printers"
@@ -4694,13 +4439,13 @@ msgstr "正在将信号 %s 发送给进程：%d"
 msgid "Error whilst signaling the process."
 msgstr "给进程发送信号时出错。"
 
-#: ../plugins/gdb/plugin.c:117
+#: ../plugins/gdb/plugin.c:118
 #, c-format
 msgid ""
 "Failed to create FIFO file named %s. The program will run without a terminal."
 msgstr "创建管道(FIFO)文件 %s 失败。程序将会脱离终端运行。"
 
-#: ../plugins/gdb/plugin.c:203
+#: ../plugins/gdb/plugin.c:202
 msgid "Cannot start terminal for debugging."
 msgstr "无法启动终端进行调试。"
 
@@ -5190,10 +4935,6 @@ msgstr "到："
 msgid "URL"
 msgstr "URL"
 
-#: ../plugins/git/anjuta-git.ui.h:117
-msgid "URL:"
-msgstr "URL:"
-
 #: ../plugins/git/anjuta-git.ui.h:118
 msgid "Unstage Files"
 msgstr "取消缓存文件"
@@ -5313,6 +5054,17 @@ msgstr "请选择要删除的分支"
 #: ../plugins/git/git-delete-tag-dialog.c:37
 msgid "Git: Deleted selected tags."
 msgstr "Git：已删除选中的标签。"
+
+#. Translators: default file name for git diff's output
+#: ../plugins/git/git-diff-dialog.c:42
+msgid "Uncommitted Changes.diff"
+msgstr "未提交的 Changes.diff"
+
+#. Translators: file name for an existing commits diff, %s is an SHASUM of a commit
+#: ../plugins/git/git-diff-dialog.c:77
+#, c-format
+msgid "Commit %s.diff"
+msgstr "提交 %s.diff"
 
 #: ../plugins/git/git-fetch-dialog.c:40
 msgid "Git: Fetch complete."
@@ -5440,19 +5192,19 @@ msgstr "没有可用分支。"
 msgid "Please select a stash"
 msgstr "请选择一个临时存储"
 
-#: ../plugins/git/git-ui-utils.c:604
+#: ../plugins/git/git-ui-utils.c:603
 msgid "Git: Changes stored in a stash."
 msgstr "Git：更改保存到了临时存储。"
 
-#: ../plugins/git/git-ui-utils.c:620
+#: ../plugins/git/git-ui-utils.c:619
 msgid "Git: Stashed changes applied."
 msgstr "Git：已应用临时存储的更改。"
 
-#: ../plugins/git/git-ui-utils.c:744
+#: ../plugins/git/git-ui-utils.c:743
 msgid "Git: Diff complete."
 msgstr "Git：Diff 完成。"
 
-#: ../plugins/git/git-ui-utils.c:760
+#: ../plugins/git/git-ui-utils.c:759
 #, c-format
 msgid "Column %i"
 msgstr "列 %i"
@@ -5940,6 +5692,12 @@ msgstr "平分"
 msgid "Start a bisect operation"
 msgstr "开始一个平分操作"
 
+#. Action name
+#. Stock icon, if any
+#: ../plugins/git/plugin.c:455
+msgid "_Reset"
+msgstr "重置(_R)"
+
 #. Display label
 #. short-cut
 #: ../plugins/git/plugin.c:457
@@ -6204,20 +5962,20 @@ msgstr "不可用"
 msgid "stopped:"
 msgstr "结束于："
 
-#: ../plugins/gtodo/callback.c:17
+#: ../plugins/gtodo/callback.c:20
 msgid "You need to select a to-do item before you can remove it"
 msgstr "删除前需要选择一个任务项"
 
-#: ../plugins/gtodo/callback.c:20
+#: ../plugins/gtodo/callback.c:23
 msgid "Are you sure you want to remove the selected to-do item?"
 msgstr "您确定想要删除选中的任务项吗？"
 
-#: ../plugins/gtodo/callback.c:98
+#: ../plugins/gtodo/callback.c:103
 #, c-format
 msgid "Are you sure you want to remove all the completed to-do items?"
 msgstr "您真的要删除所有已完成的任务项吗？"
 
-#: ../plugins/gtodo/callback.c:99
+#: ../plugins/gtodo/callback.c:104
 #, c-format
 msgid ""
 "Are you sure you want to remove all the completed to-do items in the "
@@ -6257,27 +6015,23 @@ msgstr "嵌入默认(CSS)样式表"
 msgid "Custom (CSS) style sheet"
 msgstr "定制(CSS)样式表"
 
-#: ../plugins/gtodo/interface.c:35 ../src/anjuta-actions.h:38
-msgid "_View"
-msgstr "查看(_V)"
-
-#: ../plugins/gtodo/interface.c:136
+#: ../plugins/gtodo/interface.c:119
 msgid "All"
 msgstr "显示所有"
 
-#: ../plugins/gtodo/interface.c:161
+#: ../plugins/gtodo/interface.c:144
 msgid "_Export"
 msgstr "导出(_E)"
 
-#: ../plugins/gtodo/interface.c:205
+#: ../plugins/gtodo/interface.c:188
 msgid "Priority"
 msgstr "优先级"
 
-#: ../plugins/gtodo/interface.c:212
+#: ../plugins/gtodo/interface.c:195
 msgid "Due date"
 msgstr "预定日期"
 
-#: ../plugins/gtodo/interface.c:226
+#: ../plugins/gtodo/interface.c:209
 msgid "Summary"
 msgstr "概要"
 
@@ -6413,78 +6167,74 @@ msgstr "任务管理器"
 msgid "To-do List Preferences"
 msgstr "任务列表首选项"
 
-#: ../plugins/gtodo/preferences.c:84
+#: ../plugins/gtodo/preferences.c:89
 msgid "Interface"
 msgstr "界面"
 
-#: ../plugins/gtodo/preferences.c:88
+#: ../plugins/gtodo/preferences.c:93
 msgid "Show due date column"
 msgstr "显示到期时间栏"
 
-#: ../plugins/gtodo/preferences.c:96
+#: ../plugins/gtodo/preferences.c:101
 msgid "Show category column"
 msgstr "显示类别栏"
 
-#: ../plugins/gtodo/preferences.c:101
+#: ../plugins/gtodo/preferences.c:107
 msgid "Show priority column"
 msgstr "显示优先级栏"
 
-#: ../plugins/gtodo/preferences.c:106
-msgid "Tooltips in list"
-msgstr "在列表中的工具提示"
-
-#: ../plugins/gtodo/preferences.c:117 ../plugins/gtodo/preferences.c:119
+#: ../plugins/gtodo/preferences.c:115 ../plugins/gtodo/preferences.c:117
 msgid "Show in main window"
 msgstr "在主窗口显示"
 
-#: ../plugins/gtodo/preferences.c:130 ../plugins/gtodo/preferences.c:132
+#: ../plugins/gtodo/preferences.c:128 ../plugins/gtodo/preferences.c:130
 msgid "Highlight"
 msgstr "高亮"
 
 #. tb for highlighting due today
-#: ../plugins/gtodo/preferences.c:142
+#: ../plugins/gtodo/preferences.c:140
 msgid "Items that are due today"
 msgstr "今日到期的任务"
 
 #. tb for highlighting due
-#: ../plugins/gtodo/preferences.c:148
+#: ../plugins/gtodo/preferences.c:146
 msgid "Items that are past due"
 msgstr "超期的任务"
 
 #. tb for highlighting in x days
-#: ../plugins/gtodo/preferences.c:154
+#: ../plugins/gtodo/preferences.c:152
 #, c-format
 msgid "Items that are due in the next %i day"
 msgid_plural "Items that are due in the next %i days"
 msgstr[0] "将在 %i 天后到期的任务"
 
-#: ../plugins/gtodo/preferences.c:168
+#: ../plugins/gtodo/preferences.c:166
 msgid "Miscellaneous"
 msgstr "杂项"
 
-#: ../plugins/gtodo/preferences.c:171
+#: ../plugins/gtodo/preferences.c:169
 msgid "Auto-purge completed items"
 msgstr "自动清除已完成的项目"
 
 #. Translators: First part of the sentence "Purge items after %d days"
-#: ../plugins/gtodo/preferences.c:177
+#: ../plugins/gtodo/preferences.c:175
 msgid "Purge items after"
 msgstr "在"
 
 #. Translators: Second part of the sentence "Purge items after %d days"
-#: ../plugins/gtodo/preferences.c:182
+#: ../plugins/gtodo/preferences.c:180
 msgid "days."
 msgstr "天后清除项目。"
 
-#: ../plugins/gtodo/preferences.c:195 ../plugins/gtodo/preferences.c:197
+#: ../plugins/gtodo/preferences.c:193 ../plugins/gtodo/preferences.c:195
 msgid "Auto-Purge"
 msgstr "自动清除"
 
-#: ../plugins/gtodo/preferences.c:209 ../plugins/gtodo/preferences.c:211
+#: ../plugins/gtodo/preferences.c:207 ../plugins/gtodo/preferences.c:209
 msgid "Notification"
 msgstr "提醒"
 
-#: ../plugins/gtodo/preferences.c:218
+#: ../plugins/gtodo/preferences.c:216
 #, c-format
 msgid "Allow to-do items to notify me when they are due in %i minute"
 msgid_plural "Allow to-do items to notify me when they are due in %i minutes"
@@ -6524,50 +6274,34 @@ msgid "Message colors"
 msgstr "消息颜色"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:9
-msgid "Messages options"
-msgstr "消息选项"
-
-#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:10
 msgid "Normal message indicator style:"
 msgstr "普通信息指示符样式："
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:11
-msgid "Number of first characters to show:"
-msgstr "要显示的首字符数："
-
-#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:12
-msgid "Number of last characters to show:"
-msgstr "要显示的末字符数："
-
 #. text style in editor
-#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:15
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:12
 msgid "Strike-Out"
 msgstr "步出(_O)"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:17
-msgid "Truncate long messages"
-msgstr "缩短过长的信息"
-
 #. text style in editor
-#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:19
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:15
 msgid "Underline-Plain"
 msgstr "下划线"
 
 #. text style in editor
-#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:21
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:17
 msgid "Underline-Squiggle"
 msgstr "下划线"
 
 #. text style in editor, TT is for typewriter text
-#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:23
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:19
 msgid "Underline-TT"
 msgstr "下划线"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:24
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:20
 msgid "Warning message indicator style:"
 msgstr "警告信息指示符样式："
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:25
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:21
 msgid "Warnings:"
 msgstr "警告："
 
@@ -6575,76 +6309,76 @@ msgstr "警告："
 msgid "Close all message tabs"
 msgstr "关闭所有消息标签"
 
-#: ../plugins/message-view/message-view.c:498
+#: ../plugins/message-view/message-view.c:497
 msgid "Icon"
 msgstr "图标"
 
-#: ../plugins/message-view/message-view.c:512
-#: ../plugins/message-view/plugin.c:455 ../plugins/message-view/plugin.c:468
-#: ../plugins/message-view/plugin.c:588 ../plugins/message-view/plugin.c:600
+#: ../plugins/message-view/message-view.c:511
+#: ../plugins/message-view/plugin.c:383 ../plugins/message-view/plugin.c:396
+#: ../plugins/message-view/plugin.c:515 ../plugins/message-view/plugin.c:526
 msgid "Messages"
 msgstr "信息"
 
-#: ../plugins/message-view/message-view.c:857
+#: ../plugins/message-view/message-view.c:856
 #, c-format
 msgid "Error writing %s"
 msgstr "写入 %s 时出错"
 
-#: ../plugins/message-view/plugin.c:78
+#: ../plugins/message-view/plugin.c:79
 msgid "_Copy Message"
 msgstr "复制消息(_C)"
 
-#: ../plugins/message-view/plugin.c:79
+#: ../plugins/message-view/plugin.c:80
 msgid "Copy message"
 msgstr "复制消息"
 
-#: ../plugins/message-view/plugin.c:82
+#: ../plugins/message-view/plugin.c:83
 msgid "_Next Message"
 msgstr "下一条消息(_N)"
 
-#: ../plugins/message-view/plugin.c:83
+#: ../plugins/message-view/plugin.c:84
 msgid "Next message"
 msgstr "下一条消息"
 
-#: ../plugins/message-view/plugin.c:86
+#: ../plugins/message-view/plugin.c:87
 msgid "_Previous Message"
 msgstr "上一条消息(_P)"
 
-#: ../plugins/message-view/plugin.c:87
+#: ../plugins/message-view/plugin.c:88
 msgid "Previous message"
 msgstr "上一条消息"
 
-#: ../plugins/message-view/plugin.c:90
+#: ../plugins/message-view/plugin.c:91
 msgid "_Save Message"
 msgstr "保存消息(_S)"
 
-#: ../plugins/message-view/plugin.c:91
+#: ../plugins/message-view/plugin.c:92
 msgid "Save message"
 msgstr "保存消息"
 
-#: ../plugins/message-view/plugin.c:228
+#: ../plugins/message-view/plugin.c:169
 msgid "Next/Previous Message"
 msgstr "上一条/下一条消息"
 
-#: ../plugins/message-view/plugin.c:341
+#: ../plugins/message-view/plugin.c:269
 #, c-format
 msgid "%d Message"
 msgid_plural "%d Messages"
 msgstr[0] "%d 条消息"
 
-#: ../plugins/message-view/plugin.c:350
+#: ../plugins/message-view/plugin.c:278
 #, c-format
 msgid "%d Info"
 msgid_plural "%d Infos"
 msgstr[0] "%d 条信息"
 
-#: ../plugins/message-view/plugin.c:359
+#: ../plugins/message-view/plugin.c:287
 #, c-format
 msgid "%d Warning"
 msgid_plural "%d Warnings"
 msgstr[0] "%d 个警告"
 
-#: ../plugins/message-view/plugin.c:368
+#: ../plugins/message-view/plugin.c:296
 #, c-format
 msgid "%d Error"
 msgid_plural "%d Errors"
@@ -6716,7 +6450,7 @@ msgstr "补丁等级："
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/patch/plugin.c:53 ../plugins/tools/plugin.c:130
+#: ../plugins/patch/plugin.c:53 ../plugins/tools/plugin.c:131
 msgid "_Tools"
 msgstr "工具(_T)"
 
@@ -6753,6 +6487,10 @@ msgstr "名为“%s”的文件不可写入：%s。检查您是否具有该项�
 #, c-format
 msgid "Please select a project backend to open %s."
 msgstr "请选择用于打开 %s 的项目后端。"
+
+#: ../plugins/project-import/plugin.c:205
+msgid "Open With"
+msgstr "打开方式(_W)"
 
 #: ../plugins/project-import/plugin.c:220
 #, c-format
@@ -6820,132 +6558,112 @@ msgstr "导入项目"
 msgid "Import"
 msgstr "导入"
 
-#: ../plugins/project-manager/create_dialogs.ui.h:1
+#: ../plugins/project-manager/pm_dialogs.ui.h:1
+msgid "Add Module"
+msgstr "添加模块"
+
+#: ../plugins/project-manager/pm_dialogs.ui.h:2
+msgid "Add Package"
+msgstr "添加包"
+
+#: ../plugins/project-manager/pm_dialogs.ui.h:3
 msgid "Add Source"
 msgstr "添加源文件"
 
-#: ../plugins/project-manager/create_dialogs.ui.h:2
+#: ../plugins/project-manager/pm_dialogs.ui.h:4
+msgid "Modules:"
+msgstr "模块："
+
+#: ../plugins/project-manager/pm_dialogs.ui.h:5
+msgid "More options:"
+msgstr "更多选项："
+
+#: ../plugins/project-manager/pm_dialogs.ui.h:6
 msgid "New Group"
 msgstr "新建组"
 
-#: ../plugins/project-manager/create_dialogs.ui.h:3
+#: ../plugins/project-manager/pm_dialogs.ui.h:7
 msgid "New Target"
 msgstr "新建目标"
 
-#: ../plugins/project-manager/create_dialogs.ui.h:4
+#: ../plugins/project-manager/pm_dialogs.ui.h:8
+msgid "Package list:"
+msgstr "包列表："
+
+#: ../plugins/project-manager/pm_dialogs.ui.h:9
+msgid "Select the _target for the module:"
+msgstr "为模块选择目标(_T)："
+
+#: ../plugins/project-manager/pm_dialogs.ui.h:10
 msgid "Select the _target for the new source files:"
 msgstr "为新的源文件选择目标(_T)："
 
-#: ../plugins/project-manager/create_dialogs.ui.h:5
+#: ../plugins/project-manager/pm_dialogs.ui.h:11
 msgid "Source files:"
 msgstr "源文件："
 
-#: ../plugins/project-manager/create_dialogs.ui.h:6
+#: ../plugins/project-manager/pm_dialogs.ui.h:12
 msgid "Specify _where to create the group:"
 msgstr "指定创建组的位置(_W)："
 
-#: ../plugins/project-manager/create_dialogs.ui.h:7
+#: ../plugins/project-manager/pm_dialogs.ui.h:13
 msgid "Specify _where to create the target:"
 msgstr "指定创建目标的位置(_W)："
 
-#: ../plugins/project-manager/create_dialogs.ui.h:8
+#: ../plugins/project-manager/pm_dialogs.ui.h:14
 msgid "Target _name:"
 msgstr "目标名称(_N)："
 
-#: ../plugins/project-manager/create_dialogs.ui.h:9
+#: ../plugins/project-manager/pm_dialogs.ui.h:15
 msgid "Target _type:"
 msgstr "目标类型(_T)："
 
-#: ../plugins/project-manager/create_dialogs.ui.h:10
+#: ../plugins/project-manager/pm_dialogs.ui.h:16
 msgid "TargetTypes"
 msgstr "目标类型"
 
-#: ../plugins/project-manager/create_dialogs.ui.h:11
+#: ../plugins/project-manager/pm_dialogs.ui.h:17
+msgid "_Add package&#x2026;"
+msgstr "添加包(_A)..."
+
+#: ../plugins/project-manager/pm_dialogs.ui.h:18
 msgid "_Group name:"
 msgstr "组名(_G)："
 
-#: ../plugins/project-manager/create_dialogs.ui.h:12
-msgid "_Select file to add…"
+#: ../plugins/project-manager/pm_dialogs.ui.h:19
+msgid "_Module name:"
+msgstr "模块名称(_M)："
+
+#: ../plugins/project-manager/pm_dialogs.ui.h:20
+msgid "_Select file to add&#x2026;"
 msgstr "选择要添加的文件(_S)..."
 
-#: ../plugins/project-manager/gbf-project-model.c:231
-#: ../plugins/project-manager/plugin.c:1430
-#: ../plugins/project-manager/plugin.c:1513
-#: ../plugins/project-manager/plugin.c:1689
+#: ../plugins/project-manager/project-model.c:233
+#: ../plugins/project-manager/plugin.c:1389
+#: ../plugins/project-manager/plugin.c:1507
+#: ../plugins/project-manager/plugin.c:1684
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 msgid "Project"
 msgstr "项目"
 
-#: ../plugins/project-manager/gbf-project-model.c:232
+#: ../plugins/project-manager/project-model.c:234
 msgid "GbfProject Object"
 msgstr "GbfProject 对象"
 
-#: ../plugins/project-manager/gbf-project-model.c:677
+#: ../plugins/project-manager/project-model.c:763
 msgid "No project loaded"
 msgstr "没有项目被加载"
 
-#: ../plugins/project-manager/gbf-project-util.c:229
-#: ../plugins/project-manager/gbf-project-util.c:236
-msgid "Cannot add group"
-msgstr "不能添加组"
-
-#: ../plugins/project-manager/gbf-project-util.c:237
-msgid "No parent group selected"
-msgstr "没有选中父组"
-
-#: ../plugins/project-manager/gbf-project-util.c:407
-#: ../plugins/project-manager/gbf-project-util.c:414
-msgid "Cannot add target"
-msgstr "不能添加目标"
-
-#: ../plugins/project-manager/gbf-project-util.c:415
-msgid "No group selected"
-msgstr "没有选择组"
-
-#: ../plugins/project-manager/gbf-project-util.c:510
-msgid "Select sources…"
-msgstr "选择源..."
-
-#: ../plugins/project-manager/gbf-project-util.c:744
-#: ../plugins/project-manager/gbf-project-util.c:751
-msgid "Cannot add source files"
-msgstr "不能添加源文件"
-
-#: ../plugins/project-manager/gbf-project-util.c:752
-msgid "No target has been selected"
-msgstr "没有选中的目标"
-
-#: ../plugins/project-manager/plugin.c:437
-msgid "Group properties"
-msgstr "组属性"
-
-#: ../plugins/project-manager/plugin.c:446
-msgid "No properties available for this group"
-msgstr "没有这个组可用的属性"
-
-#: ../plugins/project-manager/plugin.c:451
-msgid "Target properties"
-msgstr "目标属性"
-
-#: ../plugins/project-manager/plugin.c:460
-msgid "No properties available for this target"
-msgstr "没有这个目标可用的属性"
-
-#: ../plugins/project-manager/plugin.c:492
-#: ../plugins/project-manager/plugin.c:907
-msgid "Project properties"
-msgstr "项目属性"
-
-#: ../plugins/project-manager/plugin.c:511
+#: ../plugins/project-manager/plugin.c:385
 msgid "Refreshing symbol tree…"
 msgstr "刷新符号树..."
 
-#: ../plugins/project-manager/plugin.c:518
+#: ../plugins/project-manager/plugin.c:392
 #, c-format
 msgid "Failed to refresh project: %s"
 msgstr "项目刷新失败：%s"
 
-#: ../plugins/project-manager/plugin.c:696
+#: ../plugins/project-manager/plugin.c:646
 msgid ""
 "Are you sure you want to remove the following group from the project?\n"
 "\n"
@@ -6953,7 +6671,7 @@ msgstr ""
 "您真的要从项目中删除这些组吗？\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:699
+#: ../plugins/project-manager/plugin.c:649
 msgid ""
 "Are you sure you want to remove the following target from the project?\n"
 "\n"
@@ -6961,7 +6679,7 @@ msgstr ""
 "您真的要从项目中删除这些目标吗？\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:702
+#: ../plugins/project-manager/plugin.c:652
 msgid ""
 "Are you sure you want to remove the following source file from the project?\n"
 "\n"
@@ -6969,7 +6687,23 @@ msgstr ""
 "您真的要从项目中删除这些源文件吗？\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:705
+#: ../plugins/project-manager/plugin.c:655
+msgid ""
+"Are you sure you want to remove the following package from the project?\n"
+"\n"
+msgstr ""
+"您真的要从项目中删除这些包吗？\n"
+"\n"
+
+#: ../plugins/project-manager/plugin.c:658
+msgid ""
+"Are you sure you want to remove the following module from the project?\n"
+"\n"
+msgstr ""
+"您真的要从项目中删除这些模块吗？\n"
+"\n"
+
+#: ../plugins/project-manager/plugin.c:661
 msgid ""
 "Are you sure you want to remove the following elements from the project?\n"
 "\n"
@@ -6977,39 +6711,57 @@ msgstr ""
 "您真的要从项目中删除这些元素吗？\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:722
+#: ../plugins/project-manager/plugin.c:678
 #, c-format
 msgid "Group: %s\n"
 msgstr "组：%s\n"
 
-#: ../plugins/project-manager/plugin.c:725
+#: ../plugins/project-manager/plugin.c:681
 #, c-format
 msgid "Target: %s\n"
 msgstr "目标：%s\n"
 
-#: ../plugins/project-manager/plugin.c:728
+#: ../plugins/project-manager/plugin.c:684
 #, c-format
 msgid "Source: %s\n"
 msgstr "源文件：%s\n"
 
-#: ../plugins/project-manager/plugin.c:731
+#: ../plugins/project-manager/plugin.c:687
 #, c-format
 msgid "Shortcut: %s\n"
 msgstr "快捷方式：%s\n"
 
-#: ../plugins/project-manager/plugin.c:743
+#: ../plugins/project-manager/plugin.c:690
+#, c-format
+msgid "Module: %s\n"
+msgstr "模块：%s\n"
+
+#: ../plugins/project-manager/plugin.c:693
+#, c-format
+msgid "Package: %s\n"
+msgstr "包：%s\n"
+
+#: ../plugins/project-manager/plugin.c:705
+msgid "The group will be deleted from the file system."
+msgstr "该组将从文件系统中删除。"
+
+#: ../plugins/project-manager/plugin.c:707
 msgid "The group will not be deleted from the file system."
 msgstr "组不会从文件系统中删除。"
 
-#: ../plugins/project-manager/plugin.c:745
+#: ../plugins/project-manager/plugin.c:709
+msgid "The source file will be deleted from the file system."
+msgstr "该源文件将从文件系统中删除。"
+
+#: ../plugins/project-manager/plugin.c:711
 msgid "The source file will not be deleted from the file system."
 msgstr "源文件将不会从文件系统中删除。"
 
-#: ../plugins/project-manager/plugin.c:750
+#: ../plugins/project-manager/plugin.c:716
 msgid "Confirm remove"
 msgstr "确认删除"
 
-#: ../plugins/project-manager/plugin.c:795
+#: ../plugins/project-manager/plugin.c:762
 #, c-format
 msgid ""
 "Failed to remove '%s':\n"
@@ -7018,128 +6770,234 @@ msgstr ""
 "删除“%s”失败：\n"
 "%s"
 
-#: ../plugins/project-manager/plugin.c:865
+#: ../plugins/project-manager/plugin.c:828
 #, c-format
 msgid "Failed to retrieve URI info of %s: %s"
 msgstr "检索 URI 信息失败 %s：%s"
 
-#: ../plugins/project-manager/plugin.c:903
+#: ../plugins/project-manager/plugin.c:866
 msgid "_Project"
 msgstr "项目(_P)"
 
-#: ../plugins/project-manager/plugin.c:907
-#: ../plugins/project-manager/plugin.c:941
-msgid "_Properties"
-msgstr "属性(_P)"
-
-#: ../plugins/project-manager/plugin.c:912
-msgid "_Refresh"
-msgstr "刷新(_R)"
-
-#: ../plugins/project-manager/plugin.c:912
-msgid "Refresh project manager tree"
-msgstr "刷新项目管理器树"
-
-#: ../plugins/project-manager/plugin.c:917
+#: ../plugins/project-manager/plugin.c:870
 msgid "Add _Group…"
 msgstr "添加组(_G)..."
 
-#: ../plugins/project-manager/plugin.c:917
-#: ../plugins/project-manager/plugin.c:951
+#: ../plugins/project-manager/plugin.c:870
+#: ../plugins/project-manager/plugin.c:914
 msgid "Add a group to project"
 msgstr "向项目添加组"
 
-#: ../plugins/project-manager/plugin.c:922
+#: ../plugins/project-manager/plugin.c:875
 msgid "Add _Target…"
 msgstr "添加目标(_T)..."
 
-#: ../plugins/project-manager/plugin.c:922
-#: ../plugins/project-manager/plugin.c:956
+#: ../plugins/project-manager/plugin.c:875
+#: ../plugins/project-manager/plugin.c:919
 msgid "Add a target to project"
 msgstr "向项目添加目标"
 
-#: ../plugins/project-manager/plugin.c:927
+#: ../plugins/project-manager/plugin.c:880
 msgid "Add _Source File…"
 msgstr "添加源文件(_S)..."
 
-#: ../plugins/project-manager/plugin.c:927
-#: ../plugins/project-manager/plugin.c:946
-#: ../plugins/project-manager/plugin.c:961
+#: ../plugins/project-manager/plugin.c:880
+#: ../plugins/project-manager/plugin.c:924
+#: ../plugins/project-manager/plugin.c:939
 msgid "Add a source file to project"
 msgstr "向项目添加源文件"
 
-#: ../plugins/project-manager/plugin.c:932
+#: ../plugins/project-manager/plugin.c:885
+msgid "Add _Module…"
+msgstr "添加模块(_M)..."
+
+#: ../plugins/project-manager/plugin.c:885
+msgid "Add a module to a target"
+msgstr "向目标添加模块"
+
+#: ../plugins/project-manager/plugin.c:890
+msgid "Add _Package…"
+msgstr "添加包(_P)..."
+
+#: ../plugins/project-manager/plugin.c:890
+#: ../plugins/project-manager/plugin.c:934
+msgid "Add a package to project"
+msgstr "向项目添加包"
+
+#: ../plugins/project-manager/plugin.c:895
+#: ../plugins/project-manager/plugin.c:944
+msgid "_Properties"
+msgstr "属性(_P)"
+
+#: ../plugins/project-manager/plugin.c:895
+#: ../plugins/project-manager/dialogs.c:666
+msgid "Project properties"
+msgstr "项目属性"
+
+#: ../plugins/project-manager/plugin.c:900
+msgid "_Refresh"
+msgstr "刷新(_R)"
+
+#: ../plugins/project-manager/plugin.c:900
+msgid "Refresh project manager tree"
+msgstr "刷新项目管理器树"
+
+#: ../plugins/project-manager/plugin.c:905
 msgid "Close Pro_ject"
 msgstr "关闭项目(_J)"
 
-#: ../plugins/project-manager/plugin.c:932
+#: ../plugins/project-manager/plugin.c:905
 msgid "Close project"
 msgstr "关闭项目"
 
-#: ../plugins/project-manager/plugin.c:941
-msgid "Properties of group/target/source"
-msgstr "组/目标/源 属性"
-
-#: ../plugins/project-manager/plugin.c:946
-msgid "_Add to Project"
-msgstr "添加至项目(_A)"
-
-#: ../plugins/project-manager/plugin.c:951
+#: ../plugins/project-manager/plugin.c:914
 msgid "Add _Group"
 msgstr "添加组(_G)"
 
-#: ../plugins/project-manager/plugin.c:956
+#: ../plugins/project-manager/plugin.c:919
 msgid "Add _Target"
 msgstr "添加目标(_T)"
 
-#: ../plugins/project-manager/plugin.c:961
+#: ../plugins/project-manager/plugin.c:924
 msgid "Add _Source File"
 msgstr "添加源文件(_S)"
 
-#: ../plugins/project-manager/plugin.c:966
+#: ../plugins/project-manager/plugin.c:929
+msgid "Add _Module"
+msgstr "添加模块(_M)"
+
+#: ../plugins/project-manager/plugin.c:929
+msgid "Add a module to target"
+msgstr "向目标添加模块"
+
+#: ../plugins/project-manager/plugin.c:934
+msgid "Add _Package"
+msgstr "添加包(_P)"
+
+#: ../plugins/project-manager/plugin.c:939
+msgid "_Add to Project"
+msgstr "添加至项目(_A)"
+
+#: ../plugins/project-manager/plugin.c:944
+msgid "Properties of group/target/source"
+msgstr "组/目标/源 属性"
+
+#: ../plugins/project-manager/plugin.c:949
 msgid "Re_move"
 msgstr "删除(_M)"
 
-#: ../plugins/project-manager/plugin.c:966
+#: ../plugins/project-manager/plugin.c:949
 msgid "Remove from project"
 msgstr "从项目中删除"
 
-#: ../plugins/project-manager/plugin.c:1387
-#, c-format
-msgid "Loading project: %s"
-msgstr "正在加载项目：%s"
-
-#: ../plugins/project-manager/plugin.c:1395
-msgid "Created project view…"
-msgstr "已创建的项目视图..."
-
-#: ../plugins/project-manager/plugin.c:1408
+#: ../plugins/project-manager/plugin.c:1343
 #, c-format
 msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
 "view) %s: %s\n"
 msgstr "解析项目失败(项目已经打开，但看不到项目视图) %s： %s\n"
 
-#: ../plugins/project-manager/plugin.c:1601
+#: ../plugins/project-manager/plugin.c:1384
+msgid "Update project view…"
+msgstr "更新项目视图..."
+
+#: ../plugins/project-manager/plugin.c:1425
+#, c-format
+msgid "Loading project: %s"
+msgstr "正在加载项目：%s"
+
+#: ../plugins/project-manager/plugin.c:1595
 #, c-format
 msgid "Error closing project: %s"
 msgstr "关闭项目时出错：%s"
 
-#: ../plugins/project-manager/plugin.c:1668
+#: ../plugins/project-manager/plugin.c:1663
 msgid "Project manager actions"
 msgstr "项目管理器动作"
 
-#: ../plugins/project-manager/plugin.c:1676
+#: ../plugins/project-manager/plugin.c:1671
 msgid "Project manager popup actions"
 msgstr "项目管理器弹出式动作"
 
-#: ../plugins/project-manager/plugin.c:2471
+#: ../plugins/project-manager/plugin.c:2384
 msgid "Initializing Project…"
 msgstr "初始化项目..."
 
-#: ../plugins/project-manager/plugin.c:2474
+#: ../plugins/project-manager/plugin.c:2387
 msgid "Project Loaded"
 msgstr "项目已被加载"
+
+#. if (gtk_tree_model_get_iter_first(model, &iter))
+#. {
+#. gtk_tree_model_get(model, &iter, COLUMN_URI, &file, -1);
+#. uri = g_strdup(file);
+#. }
+#. else
+#. uri = g_strdup("");
+#: ../plugins/project-manager/dialogs.c:316
+msgid "Select sources…"
+msgstr "选择源..."
+
+#: ../plugins/project-manager/dialogs.c:521
+msgid "Full Name:"
+msgstr "完整名称："
+
+#: ../plugins/project-manager/dialogs.c:669
+msgid "Group properties"
+msgstr "组属性"
+
+#: ../plugins/project-manager/dialogs.c:672
+msgid "Target properties"
+msgstr "目标属性"
+
+#: ../plugins/project-manager/dialogs.c:675
+msgid "Source properties"
+msgstr "来源属性"
+
+#: ../plugins/project-manager/dialogs.c:776
+#: ../plugins/project-manager/dialogs.c:787
+msgid "Cannot add group"
+msgstr "不能添加组"
+
+#: ../plugins/project-manager/dialogs.c:788
+msgid "No parent group selected"
+msgstr "没有选中父组"
+
+#: ../plugins/project-manager/dialogs.c:998
+#: ../plugins/project-manager/dialogs.c:1008
+msgid "Cannot add source files"
+msgstr "不能添加源文件"
+
+#: ../plugins/project-manager/dialogs.c:1009
+msgid "The selected node cannot contains source files."
+msgstr "选择的节点不能包含源文件。"
+
+#: ../plugins/project-manager/dialogs.c:1191
+#: ../plugins/project-manager/dialogs.c:1202
+msgid "Cannot add target"
+msgstr "不能添加目标"
+
+#: ../plugins/project-manager/dialogs.c:1203
+msgid "No group selected"
+msgstr "没有选择组"
+
+#: ../plugins/project-manager/dialogs.c:1354
+#: ../plugins/project-manager/dialogs.c:1365
+msgid "Cannot add modules"
+msgstr "不能添加模块"
+
+#: ../plugins/project-manager/dialogs.c:1366
+msgid "No target has been selected"
+msgstr "没有选中的目标"
+
+#. Missing module name
+#: ../plugins/project-manager/dialogs.c:1569
+msgid "Missing module name"
+msgstr "缺少模块名称"
+
+#: ../plugins/project-manager/dialogs.c:1631
+msgid "Cannot add packages"
+msgstr "不能添加包"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.ui.h:1
 msgid "Details"
@@ -7184,23 +7042,21 @@ msgstr ""
 "“%s”是必填的。请填上它。"
 
 #: ../plugins/project-wizard/druid.c:642
-#, c-format
 msgid ""
-"Field \"%s\" must start with a letter, a digit or an underscore and contain "
-"only letters, digits, underscore, minus and dot. Please fix it."
+"Field \"%s\" must contains only letters, digits or the following characters "
+"\"#$:%+,.=@^_`~\". In addition you cannot have a leading dash. Please fix it."
 msgstr ""
-"“%s”字段必须以字母、数字和下划线开头，并且只能包含字母、数字、下划线、减号和"
-"英文句号。请改正。"
+"“%s”字段只能包含字母、数字或以下字符“#$:%+,.=@^_`~”。另外您不能用下划线开头。"
+"请更正。"
 
 #: ../plugins/project-wizard/druid.c:647
-#, c-format
 msgid ""
-"Field \"%s\" must start with a letter, a digit, an underscore or a directory "
-"separator and contain only letters, digits, underscore, directory separator, "
-"minus and dot. Please fix it."
+"Field \"%s\" must contains only letters, digits, the following characters \"#"
+"$:%+,.=@^_`~\" or directory separators. In addition you cannot have a "
+"leading dash. Please fix it."
 msgstr ""
-"“%s”字段必须以字母、数字、下划线或目录分隔符开头，并且只能包含字母、数字、下"
-"划线、目录分隔符、减号和英文句号。请改正。"
+"“%s”字段只能包含字母、数字、以下字符“#$:%+,.=@^_`~”或目录分隔符。另外您不能用"
+"下划线开头。请更正。"
 
 #: ../plugins/project-wizard/druid.c:652
 #, c-format
@@ -7227,7 +7083,7 @@ msgstr "无效的条目"
 msgid "Dubious entry"
 msgstr "含糊的条目"
 
-#: ../plugins/project-wizard/druid.c:884
+#: ../plugins/project-wizard/druid.c:881
 #, c-format
 msgid ""
 "\n"
@@ -7236,7 +7092,7 @@ msgstr ""
 "\n"
 "缺少程序：%s。"
 
-#: ../plugins/project-wizard/druid.c:895
+#: ../plugins/project-wizard/druid.c:892
 #, c-format
 msgid ""
 "\n"
@@ -7245,20 +7101,20 @@ msgstr ""
 "\n"
 "缺失这些包： %s."
 
-#: ../plugins/project-wizard/druid.c:904
+#: ../plugins/project-wizard/druid.c:901
 msgid ""
 "Some important programs or development packages required to build this "
 "project are missing. Please make sure they are installed properly before "
 "generating the project.\n"
 msgstr ""
-"创建这个项目所需的一些重要程序或开发包缺失。请在生成项目之前确认它们是否被正"
+"构建这个项目所需的一些重要程序或开发包缺失。请在生成项目之前确认它们是否被正"
 "确的安装。\n"
 
-#: ../plugins/project-wizard/druid.c:912
+#: ../plugins/project-wizard/druid.c:909
 msgid "Install missing packages"
 msgstr "安装缺失的软件包"
 
-#: ../plugins/project-wizard/druid.c:920
+#: ../plugins/project-wizard/druid.c:917
 msgid ""
 "The missing programs are usually part of some distrubution packages and can "
 "be searched for in your Application Manager. Similarly, the development "
@@ -7272,11 +7128,11 @@ msgstr ""
 "包名一般会以 -dev 或 -devel 后缀结尾，并且可以在应用程序管理器中通过搜索找"
 "到。"
 
-#: ../plugins/project-wizard/druid.c:928
+#: ../plugins/project-wizard/druid.c:925
 msgid "Missing components"
 msgstr "缺少组件"
 
-#: ../plugins/project-wizard/druid.c:1060
+#: ../plugins/project-wizard/druid.c:1057
 #, c-format
 msgid "Unable to build project assistant user interface reading %s."
 msgstr "无法构建项目助手用户界面读取 %s。"
@@ -7325,34 +7181,34 @@ msgstr "无法提取项目模板 %s：%s"
 msgid "New Project Assistant"
 msgstr "新建项目向导"
 
-#: ../plugins/project-wizard/property.c:343
-#: ../plugins/project-wizard/property.c:454
+#: ../plugins/project-wizard/property.c:338
+#: ../plugins/project-wizard/property.c:449
 msgid "No"
 msgstr "否"
 
-#: ../plugins/project-wizard/property.c:354
+#: ../plugins/project-wizard/property.c:349
 msgid "Select directory"
 msgstr "选择目录"
 
-#: ../plugins/project-wizard/property.c:362
+#: ../plugins/project-wizard/property.c:357
 msgid "Select file"
 msgstr "选择文件"
 
-#: ../plugins/project-wizard/property.c:412 ../plugins/tools/editor.c:522
+#: ../plugins/project-wizard/property.c:407 ../plugins/tools/editor.c:522
 msgid "Select an Image File"
 msgstr "选择一个图像文件"
 
-#: ../plugins/project-wizard/property.c:437
-#: ../plugins/project-wizard/property.c:527 ../plugins/tools/editor.c:556
+#: ../plugins/project-wizard/property.c:432
+#: ../plugins/project-wizard/property.c:522 ../plugins/tools/editor.c:556
 #: ../plugins/tools/editor.c:703
 msgid "Choose Icon"
 msgstr "选择图标"
 
-#: ../plugins/project-wizard/property.c:497
+#: ../plugins/project-wizard/property.c:492
 msgid "Choose directory"
 msgstr "选择目录"
 
-#: ../plugins/project-wizard/property.c:501
+#: ../plugins/project-wizard/property.c:496
 msgid "Choose file"
 msgstr "选择文件"
 
@@ -7407,7 +7263,7 @@ msgstr "为项目添加 C++ 支持，以便创建 C++ 源文件。"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:5
 #: ../plugins/project-wizard/templates/python.wiz.in.h:5
 msgid "Adds support for building shared libraries in your project"
-msgstr "在您的项目中添加创建共享库的支持"
+msgstr "在您的项目中添加构建共享库的支持"
 
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:7
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:7
@@ -7595,7 +7451,7 @@ msgstr "无许可"
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:17
 #: ../plugins/project-wizard/templates/library.wiz.in.h:23
 msgid "Options for project build system"
-msgstr "项目创建系统选项"
+msgstr "项目构建系统选项"
 
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:21
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:21
@@ -7822,11 +7678,11 @@ msgstr ""
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:12
 msgid "Create Gtk Builder interface file"
-msgstr "创建 Gtk Builder 界面文件"
+msgstr "构建 Gtk Builder 界面文件"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:13
 msgid "Create a template Gtk Builder interface file"
-msgstr "创建一个 Gtk Builder 界面文件模板"
+msgstr "构建一个 Gtk Builder 界面文件模板"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:15
 msgid "Display description of the plugin"
@@ -7893,7 +7749,7 @@ msgid ""
 "Project name must not contain spaces, because it will be the name of the "
 "project build target (executable, library etc.)"
 msgstr ""
-"项目名称不能包含空格，因为它同样是项目创建目标的名称(可执行文件、库等。)"
+"项目名称不能包含空格，因为它同样是项目构建目标的名称(可执行文件、库等。)"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:42
 msgid "Shell values to watch"
@@ -8122,7 +7978,7 @@ msgid "Working Directory:"
 msgstr "工作目录："
 
 #. Only local directory are supported
-#: ../plugins/run-program/execute.c:107
+#: ../plugins/run-program/execute.c:108
 #, c-format
 msgid "Program directory '%s' is not local"
 msgstr "程序目录“%s”文件不是本地路径"
@@ -8179,153 +8035,141 @@ msgstr "设置当前程序、参数等"
 msgid "Run operations"
 msgstr "运行操作"
 
+#: ../plugins/run-program/org.gnome.anjuta.run.gschema.xml.in.h:1
+msgid "Command used for starting a terminal"
+msgstr "用于启动终端的命令"
+
 #: ../plugins/search/anjuta-search.ui.h:1
 msgid "Actions"
 msgstr "动作"
 
 #: ../plugins/search/anjuta-search.ui.h:2
-#: ../plugins/search/search-replace.c:92
+#: ../plugins/search/search-replace.c:91
 msgid "Backward"
 msgstr "向后"
 
 #: ../plugins/search/anjuta-search.ui.h:3
-msgid "Basic Search & Replace"
-msgstr "基本查找和替换"
-
-#: ../plugins/search/anjuta-search.ui.h:4
 msgid "Choose Directories:"
 msgstr "选择目录："
 
-#: ../plugins/search/anjuta-search.ui.h:5
+#: ../plugins/search/anjuta-search.ui.h:4
 msgid "Choose Files:"
 msgstr "选择文件："
 
-#: ../plugins/search/anjuta-search.ui.h:6
+#: ../plugins/search/anjuta-search.ui.h:5
 msgid "Expand regex back references"
 msgstr "扩展正则表达式的反向引用"
 
-#: ../plugins/search/anjuta-search.ui.h:7
+#: ../plugins/search/anjuta-search.ui.h:6
 msgid "File Filter"
 msgstr "文件过滤器"
 
-#: ../plugins/search/anjuta-search.ui.h:8
+#: ../plugins/search/anjuta-search.ui.h:7
 msgid "Find & Replace"
 msgstr "查找并替换"
 
-#: ../plugins/search/anjuta-search.ui.h:9
-#: ../plugins/search/search-replace.c:91
+#: ../plugins/search/anjuta-search.ui.h:8
+#: ../plugins/search/search-replace.c:90
 msgid "Forward"
 msgstr "向前"
 
 #. the order of these matters - it must match the order of the corresponding
 #. radio buttons on another page
-#: ../plugins/search/anjuta-search.ui.h:10
-#: ../plugins/search/search-replace.c:90
+#: ../plugins/search/anjuta-search.ui.h:9
+#: ../plugins/search/search-replace.c:89
 msgid "Full Buffer"
 msgstr "完整缓冲区"
 
-#: ../plugins/search/anjuta-search.ui.h:11
+#: ../plugins/search/anjuta-search.ui.h:10
 msgid "Greedy matching"
 msgstr "贪婪匹配"
 
-#: ../plugins/search/anjuta-search.ui.h:12
+#: ../plugins/search/anjuta-search.ui.h:11
 msgid "Ignore Binary Files"
 msgstr "忽略二进制文件"
 
-#: ../plugins/search/anjuta-search.ui.h:13
+#: ../plugins/search/anjuta-search.ui.h:12
 msgid "Ignore Directories:"
 msgstr "忽略目录："
 
-#: ../plugins/search/anjuta-search.ui.h:14
+#: ../plugins/search/anjuta-search.ui.h:13
 msgid "Ignore Files:"
 msgstr "忽略文件："
 
-#: ../plugins/search/anjuta-search.ui.h:15
+#: ../plugins/search/anjuta-search.ui.h:14
 msgid "Ignore Hidden Directories"
 msgstr "忽略隐藏目录"
 
-#: ../plugins/search/anjuta-search.ui.h:16
+#: ../plugins/search/anjuta-search.ui.h:15
 msgid "Ignore Hidden Files"
 msgstr "忽略隐藏文件"
 
-#: ../plugins/search/anjuta-search.ui.h:17
+#: ../plugins/search/anjuta-search.ui.h:16
 msgid "Match at start of word"
 msgstr "匹配词首"
 
-#: ../plugins/search/anjuta-search.ui.h:19
+#: ../plugins/search/anjuta-search.ui.h:18
 msgid "Match complete lines"
 msgstr "匹配整行"
 
-#: ../plugins/search/anjuta-search.ui.h:20
+#: ../plugins/search/anjuta-search.ui.h:19
 msgid "Match complete words"
 msgstr "匹配整个单词"
 
-#: ../plugins/search/anjuta-search.ui.h:21
+#: ../plugins/search/anjuta-search.ui.h:20
 msgid "Maximum Actions"
 msgstr "最多动作数"
 
-#: ../plugins/search/anjuta-search.ui.h:22
-msgid "Modify"
-msgstr "修改"
-
-#: ../plugins/search/anjuta-search.ui.h:23
-msgid "New Name:"
-msgstr "新名称："
-
-#: ../plugins/search/anjuta-search.ui.h:24
+#: ../plugins/search/anjuta-search.ui.h:21
 msgid "No Limit"
 msgstr "无限制"
 
-#: ../plugins/search/anjuta-search.ui.h:26
+#: ../plugins/search/anjuta-search.ui.h:23
 msgid "Parameters"
 msgstr "参数"
 
-#: ../plugins/search/anjuta-search.ui.h:27
+#: ../plugins/search/anjuta-search.ui.h:24
 msgid "Regular expression"
 msgstr "正则表达式"
 
-#: ../plugins/search/anjuta-search.ui.h:28
+#: ../plugins/search/anjuta-search.ui.h:25
 msgid "Replace With:"
 msgstr "替换为："
 
-#: ../plugins/search/anjuta-search.ui.h:30
+#: ../plugins/search/anjuta-search.ui.h:27
 msgid "Search Action:"
 msgstr "搜索动作："
 
-#: ../plugins/search/anjuta-search.ui.h:31
+#: ../plugins/search/anjuta-search.ui.h:28
 msgid "Search Direction:"
 msgstr "搜索方向："
 
 #. This is "the search expression" (noun)
-#: ../plugins/search/anjuta-search.ui.h:33
+#: ../plugins/search/anjuta-search.ui.h:30
 msgid "Search Expression"
 msgstr "搜索表达式"
 
 #. This is "the search expression" (noun)
-#: ../plugins/search/anjuta-search.ui.h:35
+#: ../plugins/search/anjuta-search.ui.h:32
 msgid "Search Expression:"
 msgstr "搜索表达式："
 
-#: ../plugins/search/anjuta-search.ui.h:36
+#: ../plugins/search/anjuta-search.ui.h:33
 msgid "Search In:"
 msgstr "搜索范围："
 
-#: ../plugins/search/anjuta-search.ui.h:37
+#: ../plugins/search/anjuta-search.ui.h:34
 msgid "Search Recursively"
 msgstr "递归搜索"
 
-#: ../plugins/search/anjuta-search.ui.h:38
+#: ../plugins/search/anjuta-search.ui.h:35
 msgid "Search Target"
 msgstr "搜索目标"
 
 #. User can select variables that contain lists of files, so this is a combined noun
-#: ../plugins/search/anjuta-search.ui.h:40
+#: ../plugins/search/anjuta-search.ui.h:37
 msgid "Search variable"
 msgstr "搜索变量"
-
-#: ../plugins/search/anjuta-search.ui.h:41
-msgid "Setting"
-msgstr "设置"
 
 #: ../plugins/search/plugin.c:68
 msgid "_Find…"
@@ -8372,107 +8216,103 @@ msgstr "在多个文件或目录内搜索指定字符串"
 msgid "Searching…"
 msgstr "正在搜索..."
 
-#: ../plugins/search/search_preferences.c:44
-msgid "Basic Search"
-msgstr "基本搜索"
-
-#: ../plugins/search/search-replace.c:97
+#: ../plugins/search/search-replace.c:96
 msgid "Current Buffer"
 msgstr "当前缓冲区"
 
-#: ../plugins/search/search-replace.c:98
+#: ../plugins/search/search-replace.c:97
 msgid "Current Selection"
 msgstr "当前选择"
 
-#: ../plugins/search/search-replace.c:99
+#: ../plugins/search/search-replace.c:98
 msgid "Current Block"
 msgstr "当前块"
 
-#: ../plugins/search/search-replace.c:100
+#: ../plugins/search/search-replace.c:99
 msgid "Current Function"
 msgstr "当前函数"
 
-#: ../plugins/search/search-replace.c:101
+#: ../plugins/search/search-replace.c:100
 msgid "All Open Buffers"
 msgstr "所有打开的缓冲区"
 
-#: ../plugins/search/search-replace.c:102
+#: ../plugins/search/search-replace.c:101
 msgid "All Project Files"
 msgstr "所有项目文件"
 
 #. {SR_VARIABLE, N_("Specify File List")},
-#: ../plugins/search/search-replace.c:104
+#: ../plugins/search/search-replace.c:103
 msgid "Specify File Patterns"
 msgstr "指定文件模式"
 
-#: ../plugins/search/search-replace.c:109
+#: ../plugins/search/search-replace.c:108
 msgid "Select next match"
 msgstr "选择下一个匹配"
 
-#: ../plugins/search/search-replace.c:110
+#: ../plugins/search/search-replace.c:109
 msgid "Bookmark all matched lines"
 msgstr "将所有匹配加入书签"
 
-#: ../plugins/search/search-replace.c:111
+#: ../plugins/search/search-replace.c:110
 msgid "Mark all matches"
 msgstr "标记所有匹配"
 
-#: ../plugins/search/search-replace.c:112
+#: ../plugins/search/search-replace.c:111
 msgid "List matches in find pane"
 msgstr "在查找框中列出匹配"
 
-#: ../plugins/search/search-replace.c:113
+#: ../plugins/search/search-replace.c:112
 msgid "Replace next match"
 msgstr "替换下一个匹配"
 
-#: ../plugins/search/search-replace.c:114
+#: ../plugins/search/search-replace.c:113
 msgid "Replace all matches"
 msgstr "替换所有"
 
 #. Avoid space in translated string
-#: ../plugins/search/search-replace.c:319
+#: ../plugins/search/search-replace.c:312
 msgid "Find:"
 msgstr "查找："
 
-#: ../plugins/search/search-replace.c:501
+#: ../plugins/search/search-replace.c:494
 msgid "Replace"
 msgstr "替换"
 
-#: ../plugins/search/search-replace.c:630
+#: ../plugins/search/search-replace.c:623
 msgid "Search complete"
 msgstr "搜索完成"
 
-#: ../plugins/search/search-replace.c:1044
-#: ../plugins/search/search-replace.c:1731
+#: ../plugins/search/search-replace.c:1037
+#: ../plugins/search/search-replace.c:1714
 msgid "Replace All"
 msgstr "替换所有"
 
-#: ../plugins/search/search-replace.c:1083
+#: ../plugins/search/search-replace.c:1076
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
 msgstr "找不到满足条件“%s”的匹配。是否要从文档头开始寻找？"
 
-#: ../plugins/search/search-replace.c:1103
+#: ../plugins/search/search-replace.c:1096
 #, c-format
 msgid "The match \"%s\" was not found."
 msgstr "找不到满足条件“%s”的匹配。"
 
-#: ../plugins/search/search-replace.c:1118
+#: ../plugins/search/search-replace.c:1111
 msgid "The maximum number of results has been reached."
 msgstr "已经达到最大的结果数目"
 
-#: ../plugins/search/search-replace.c:1131
+#: ../plugins/search/search-replace.c:1124
 #, c-format
 msgid "%d match has been replaced."
 msgid_plural "%d matches have been replaced."
 msgstr[0] "%d 个匹配项被替换。"
 
-#: ../plugins/search/search-replace.c:1298
+#: ../plugins/search/search-replace.c:1289
 msgid "Unable to build user interface for Search and Replace"
-msgstr "无法为搜索和替换生成用户界面"
+msgstr "无法为搜索和替换构建用户界面"
 
-#: ../plugins/snippets-manager/plugin.c:60
-#: ../plugins/snippets-manager/plugin.c:302
+#: ../plugins/snippets-manager/plugin.c:62
+#: ../plugins/snippets-manager/plugin.c:304
 #: ../plugins/snippets-manager/snippets-browser.c:208
 msgid "Snippets"
 msgstr "片段"
@@ -8481,11 +8321,11 @@ msgstr "片段"
 #. shortcut for the trigger-key based insertion of snippets. It's called like this
 #. because you type the trigger-key in the editor, followed by Trigger Insert and
 #. the snippet gets inserted.
-#: ../plugins/snippets-manager/plugin.c:71
+#: ../plugins/snippets-manager/plugin.c:73
 msgid "_Trigger insert"
 msgstr "热键插入(_T)"
 
-#: ../plugins/snippets-manager/plugin.c:73
+#: ../plugins/snippets-manager/plugin.c:75
 msgid "Insert a snippet using the trigger-key"
 msgstr "使用热键插入片段"
 
@@ -8495,49 +8335,49 @@ msgstr "使用热键插入片段"
 #. most relevant snippets are returned in a pop-up like the auto-complete one
 #. (they are showed by their names). After selecting one of them, the snippet gets
 #. inserted.
-#: ../plugins/snippets-manager/plugin.c:84
+#: ../plugins/snippets-manager/plugin.c:86
 msgid "_Auto complete insert"
 msgstr "自动补全插入(_A)"
 
-#: ../plugins/snippets-manager/plugin.c:86
+#: ../plugins/snippets-manager/plugin.c:88
 msgid "Insert a snippet using auto-completion"
 msgstr "采用自动补全插入片段"
 
-#: ../plugins/snippets-manager/plugin.c:91
+#: ../plugins/snippets-manager/plugin.c:93
 msgid "_Import snippets …"
 msgstr "导入片段(_I)..."
 
-#: ../plugins/snippets-manager/plugin.c:93
+#: ../plugins/snippets-manager/plugin.c:95
 msgid "Import snippets to the database"
 msgstr "将片段导入数据库"
 
-#: ../plugins/snippets-manager/plugin.c:98
+#: ../plugins/snippets-manager/plugin.c:100
 msgid "_Export snippets …"
 msgstr "导出片段(_E)..."
 
-#: ../plugins/snippets-manager/plugin.c:100
+#: ../plugins/snippets-manager/plugin.c:102
 msgid "Export snippets from the database"
 msgstr "从数据库导出片段"
 
-#: ../plugins/snippets-manager/plugin.c:327
+#: ../plugins/snippets-manager/plugin.c:329
 msgid "Snippets Manager actions"
 msgstr "片段管理器动作"
 
-#: ../plugins/snippets-manager/plugin.c:767
+#: ../plugins/snippets-manager/plugin.c:773
 msgid "Command?"
 msgstr "命令?"
 
-#: ../plugins/snippets-manager/plugin.c:783
+#: ../plugins/snippets-manager/plugin.c:789
 msgid "Variable text"
 msgstr "变量文本"
 
-#: ../plugins/snippets-manager/plugin.c:801
+#: ../plugins/snippets-manager/plugin.c:807
 #: ../plugins/snippets-manager/snippets-editor.c:40
 msgid "Instant value"
 msgstr "常量值"
 
-#: ../plugins/snippets-manager/plugin.c:929
-#: ../plugins/snippets-manager/plugin.c:966
+#: ../plugins/snippets-manager/plugin.c:936
+#: ../plugins/snippets-manager/plugin.c:973
 #: ../plugins/snippets-manager/snippets-provider.c:753
 #: ../plugins/snippets-manager/anjuta-snippets-manager.plugin.in.h:2
 msgid "Code Snippets"
@@ -8575,9 +8415,6 @@ msgid ""
 msgstr "<b>错误：</b> 热键已被其它语言使用！"
 
 #: ../plugins/snippets-manager/snippets-editor.c:50
-#| msgid ""
-#| "<b>Error:</b> The trigger key can only contain alfanumeric characters and "
-#| "_ !"
 msgid ""
 "<b>Error:</b> The trigger key can only contain alphanumeric characters and "
 "_ !"
@@ -8668,8 +8505,8 @@ msgid ""
 "snippet.\n"
 "<b>Warning: Must be unique per language. </b>"
 msgstr ""
-"热键用于代码片段的快速插入。在编辑器中按热键，紧接着按“快速插入”的快捷键"
-"插入代码片段。\n"
+"热键用于代码片段的快速插入。在编辑器中按热键，紧接着按“快速插入”的快捷键插入"
+"代码片段。\n"
 "<b>警告：在每类语言中必须是唯一的。</b>"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:23
@@ -8688,7 +8525,7 @@ msgstr "导入片段"
 msgid "Export Snippets"
 msgstr "导出片段"
 
-#: ../plugins/sourceview/sourceview.c:478
+#: ../plugins/sourceview/sourceview.c:481
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
@@ -8697,7 +8534,7 @@ msgstr ""
 "在磁盘内文件“%s”的内容比当前的文件内容还要新。\n"
 "是否需要重新加载这个文件？ "
 
-#: ../plugins/sourceview/sourceview.c:515
+#: ../plugins/sourceview/sourceview.c:518
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -8707,18 +8544,18 @@ msgstr ""
 "要关闭它吗？"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:552
+#: ../plugins/sourceview/sourceview.c:555
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "无法打开 %s： %s"
 
-#: ../plugins/sourceview/sourceview.c:606
+#: ../plugins/sourceview/sourceview.c:609
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr "文件“%s”是只读的！仍然要编辑吗？"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:665
+#: ../plugins/sourceview/sourceview.c:668
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "无法保存 %s：%s"
@@ -8736,6 +8573,26 @@ msgstr "新建文件 %d"
 #: ../plugins/sourceview/sourceview-print.c:47
 msgid "Preparing pages for printing"
 msgstr "准备打印页面"
+
+#: ../plugins/sourceview/sourceview-print.c:111
+msgid "Wrap lines"
+msgstr "自动换行"
+
+#: ../plugins/sourceview/sourceview-print.c:113
+msgid "Line numbers"
+msgstr "行号"
+
+#: ../plugins/sourceview/sourceview-print.c:115
+msgid "Header"
+msgstr "页眉"
+
+#: ../plugins/sourceview/sourceview-print.c:117
+msgid "Footer"
+msgstr "页脚"
+
+#: ../plugins/sourceview/sourceview-print.c:119
+msgid "Highlight source code"
+msgstr "高亮显示源代码"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:1
 msgid "Color scheme:"
@@ -8774,88 +8631,64 @@ msgid "Indentation and auto-format options"
 msgstr "缩进和自动格式化选项"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:12
-msgid "Print line numbers"
-msgstr "打印行号"
-
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:13
-msgid "Print options"
-msgstr "打印选项"
-
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:14
-msgid "Print page footer"
-msgstr "打印页脚"
-
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:15
-msgid "Print page header"
-msgstr "打印页眉"
-
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:16
-msgid "Printing"
-msgstr "打印"
-
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:17
 msgid "Right margin position in characters"
 msgstr "右边距的宽度(字符)"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:18
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:13
 msgid "Show line numbers"
 msgstr "显示行号"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:19
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:14
 msgid "Show marks"
 msgstr "显示标记"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:20
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:15
 msgid "Show right margin"
 msgstr "显示右边距"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:21
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:16
 msgid "Tab size in spaces:"
 msgstr "Tab 字符长度："
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:22
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:17
 msgid "Use tabs for indentation"
 msgstr "缩进时使用 Tab 字符"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:23
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:18
 msgid "Use theme font"
 msgstr "使用主题字体"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:24
-#: ../src/anjuta-app.c:629 ../src/anjuta-app.c:634
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:19
+#: ../src/anjuta-app.c:631 ../src/anjuta-app.c:636
 msgid "View"
 msgstr "查看"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:25
-msgid "Wrap long lines to fit on paper"
-msgstr "在纸上对较长的行自动换行"
-
-#: ../plugins/starter/plugin.c:70 ../plugins/starter/starter.c:362
+#: ../plugins/starter/plugin.c:70 ../plugins/starter/starter.c:353
 #: ../plugins/starter/anjuta-starter.plugin.in.h:1
 msgid "Starter"
 msgstr "起点"
 
-#: ../plugins/starter/starter.c:403
+#: ../plugins/starter/starter.c:394
 msgid "Create File/Project"
 msgstr "创建文件/项目"
 
-#: ../plugins/starter/starter.c:437
+#: ../plugins/starter/starter.c:428
 msgid "Recent Projects"
 msgstr "最近的项目"
 
-#: ../plugins/starter/starter.c:468
+#: ../plugins/starter/starter.c:459
 msgid "Links"
 msgstr "链接"
 
-#: ../plugins/starter/starter.c:487
+#: ../plugins/starter/starter.c:478
 msgid "Anjuta Home Page"
 msgstr "Anjuta 主页"
 
-#: ../plugins/starter/starter.c:493
+#: ../plugins/starter/starter.c:484
 msgid "Anjuta Manual"
 msgstr "Anjuta 用户手册"
 
-#: ../plugins/starter/starter.c:499
+#: ../plugins/starter/starter.c:490
 msgid "GNOME Online API Documentation"
 msgstr "Gnome 在线 API 文档"
 
@@ -9369,64 +9202,64 @@ msgstr "缺少：%s"
 msgid "Obstructed: %s"
 msgstr "阻塞： %s"
 
-#: ../plugins/symbol-db/plugin.c:315
+#: ../plugins/symbol-db/plugin.c:317
 msgid "Tag De_claration"
 msgstr "标签声明(_C)"
 
-#: ../plugins/symbol-db/plugin.c:317
+#: ../plugins/symbol-db/plugin.c:319
 msgid "Go to symbol declaration"
 msgstr "转到符号声明"
 
 #. Translators: Go to the line where the tag is implemented
-#: ../plugins/symbol-db/plugin.c:324
+#: ../plugins/symbol-db/plugin.c:326
 msgid "Tag _Implementation"
 msgstr "标签定义(_I)"
 
-#: ../plugins/symbol-db/plugin.c:326
+#: ../plugins/symbol-db/plugin.c:328
 msgid "Go to symbol definition"
 msgstr "转到符号定义"
 
-#: ../plugins/symbol-db/plugin.c:333
+#: ../plugins/symbol-db/plugin.c:335
 msgid "_Find Symbol…"
 msgstr "查找符号(_F)..."
 
-#: ../plugins/symbol-db/plugin.c:334
+#: ../plugins/symbol-db/plugin.c:336
 msgid "Find Symbol"
 msgstr "查找符号"
 
-#: ../plugins/symbol-db/plugin.c:1011
+#: ../plugins/symbol-db/plugin.c:1013
 #, c-format
 msgid "%s: Generating inheritances…"
 msgstr "%s：正在生成继承..."
 
-#: ../plugins/symbol-db/plugin.c:1016
+#: ../plugins/symbol-db/plugin.c:1018
 #, c-format
 msgid "%s: %d files scanned out of %d"
 msgstr "%1$s：自 %3$d 个文件中扫描了 %2$d 个"
 
-#: ../plugins/symbol-db/plugin.c:1047
+#: ../plugins/symbol-db/plugin.c:1049
 #, c-format
 msgid "Generating inheritances…"
 msgstr "正在生成继承..."
 
-#: ../plugins/symbol-db/plugin.c:1049
+#: ../plugins/symbol-db/plugin.c:1051
 #, c-format
 msgid "%d files scanned out of %d"
 msgstr "自 %2$d 个文件中扫描了 %1$d 个"
 
-#: ../plugins/symbol-db/plugin.c:1726
+#: ../plugins/symbol-db/plugin.c:1786
 msgid "Populating symbol database…"
 msgstr "正在填充符号库..."
 
-#: ../plugins/symbol-db/plugin.c:2045 ../plugins/symbol-db/plugin.c:2130
+#: ../plugins/symbol-db/plugin.c:2106 ../plugins/symbol-db/plugin.c:2191
 msgid "Symbols"
 msgstr "符号"
 
-#: ../plugins/symbol-db/plugin.c:2139
+#: ../plugins/symbol-db/plugin.c:2200
 msgid "SymbolDb popup actions"
 msgstr "SymbolDb 弹出动作"
 
-#: ../plugins/symbol-db/plugin.c:2147
+#: ../plugins/symbol-db/plugin.c:2208
 msgid "SymbolDb menu actions"
 msgstr "SymbolDb 菜单动作"
 
@@ -9434,13 +9267,13 @@ msgstr "SymbolDb 菜单动作"
 msgid "Package is not parseable"
 msgstr "包不可解析"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:374
+#: ../plugins/symbol-db/symbol-db-prefs.c:375
 #: ../plugins/symbol-db/symbol-db-prefs.c:522
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "符号库"
 
-#: ../plugins/symbol-db/symbol-db-prefs.c:471
+#: ../plugins/symbol-db/symbol-db-prefs.c:472
 msgid "API Tags"
 msgstr "API 标签"
 
@@ -9500,29 +9333,29 @@ msgstr "使用 GNOME 终端配置文件："
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "使用 GNOME 终端目前所选的配置"
 
-#: ../plugins/terminal/terminal.c:633
+#: ../plugins/terminal/terminal.c:578
 msgid "Ctrl-C"
 msgstr "Ctrl-C"
 
-#: ../plugins/terminal/terminal.c:641
+#: ../plugins/terminal/terminal.c:586
 msgid "Ctrl-X"
 msgstr "Ctrl-X"
 
-#: ../plugins/terminal/terminal.c:649
+#: ../plugins/terminal/terminal.c:594
 msgid "Ctrl-Z"
 msgstr "Ctrl-Z"
 
-#: ../plugins/terminal/terminal.c:788
+#: ../plugins/terminal/terminal.c:732
 msgid "terminal operations"
 msgstr "终端操作"
 
-#: ../plugins/terminal/terminal.c:806 ../plugins/terminal/terminal.c:982
-#: ../plugins/terminal/terminal.c:1035
+#: ../plugins/terminal/terminal.c:750 ../plugins/terminal/terminal.c:944
+#: ../plugins/terminal/terminal.c:995
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
 msgid "Terminal"
 msgstr "终端"
 
-#: ../plugins/terminal/terminal.c:931
+#: ../plugins/terminal/terminal.c:877
 #, c-format
 msgid "Unable to execute command"
 msgstr "无法执行命令"
@@ -9570,8 +9403,8 @@ msgstr "标准输出："
 msgid "Tool Editor"
 msgstr "工具编辑器"
 
-#: ../plugins/tools/anjuta-tools.ui.h:18 ../plugins/tools/plugin.c:256
-#: ../plugins/tools/plugin.c:263 ../plugins/tools/anjuta-tools.plugin.in.h:1
+#: ../plugins/tools/anjuta-tools.ui.h:18 ../plugins/tools/plugin.c:263
+#: ../plugins/tools/plugin.c:270 ../plugins/tools/anjuta-tools.plugin.in.h:1
 msgid "Tools"
 msgstr "工具"
 
@@ -9701,7 +9534,7 @@ msgstr "加载外部工具时发生错误"
 msgid "Unable to open %s for writing"
 msgstr "无法打开 %s 执行写入操作"
 
-#: ../plugins/tools/plugin.c:179
+#: ../plugins/tools/plugin.c:187
 msgid "Tool operations"
 msgstr "工具操作"
 
@@ -9886,6 +9719,10 @@ msgstr "首选项(_P)"
 msgid "Do you prefer coffee to tea? Check it out."
 msgstr "您是喜欢咖啡还是茶？在这里选择。"
 
+#: ../src/anjuta-actions.h:38
+msgid "_View"
+msgstr "查看(_V)"
+
 #: ../src/anjuta-actions.h:40
 msgid "_Reset Dock Layout"
 msgstr "重置停靠布局(_R)"
@@ -9994,58 +9831,58 @@ msgstr "关于外部插件(_P)"
 msgid "About third-party Anjuta plugins"
 msgstr "关于 Anjuta 第三方插件"
 
-#: ../src/anjuta-app.c:625
+#: ../src/anjuta-app.c:627
 msgid "Edit"
 msgstr "编辑"
 
-#: ../src/anjuta-app.c:932
+#: ../src/anjuta-app.c:931
 msgid "Installed plugins"
 msgstr "已安装的插件"
 
-#: ../src/anjuta-app.c:936
+#: ../src/anjuta-app.c:935
 msgid "Shortcuts"
 msgstr "快捷方式"
 
-#: ../src/anjuta-app.c:1008
+#: ../src/anjuta-app.c:1007
 #, c-format
 msgid "Value doesn't exist"
 msgstr "值不存在"
 
-#: ../src/main.c:74
+#: ../src/main.c:70
 msgid "Specify the size and location of the main window"
 msgstr "指定主窗口的大小和位置"
 
 #. This is the format you can specify the size andposition
 #. * of the window on command line
-#: ../src/main.c:77
+#: ../src/main.c:73
 msgid "WIDTHxHEIGHT+XOFF+YOFF"
 msgstr "宽度x高度+横偏移+纵偏移"
 
-#: ../src/main.c:82
+#: ../src/main.c:78
 msgid "Do not show the splash screen"
 msgstr "不显示启动屏幕"
 
-#: ../src/main.c:88
+#: ../src/main.c:84
 msgid "Start a new instance and do not open the file in an existing instance"
 msgstr "启动一个新的实例，不打开现有实例中所打开的文件"
 
-#: ../src/main.c:94
+#: ../src/main.c:90
 msgid "Do not open last session on startup"
 msgstr "启动时不打开上一次会话"
 
-#: ../src/main.c:100
+#: ../src/main.c:96
 msgid "Do not open last project and files on startup"
 msgstr "启动时不再打开上次的项目和文件"
 
-#: ../src/main.c:106
+#: ../src/main.c:102
 msgid "Shut down Anjuta properly, releasing all resources (for debugging)"
 msgstr "正常关闭 Anjuta 并释放所有资源(作为调试)"
 
-#: ../src/main.c:174
+#: ../src/main.c:170
 msgid "- Integrated Development Environment"
 msgstr "- 集成开发环境"
 
-#: ../src/main.c:249
+#: ../src/main.c:245
 msgid "Anjuta"
 msgstr "Anjuta"
 
@@ -10054,80 +9891,60 @@ msgid "Appearance"
 msgstr "外观"
 
 #: ../src/preferences.ui.h:3
-msgid "Default project directory:"
-msgstr "默认项目目录："
-
-#: ../src/preferences.ui.h:4
-msgid "Developer email address:"
-msgstr "开发者电子邮件地址："
-
-#: ../src/preferences.ui.h:5
-msgid "Developer name:"
-msgstr "开发者姓名："
-
-#: ../src/preferences.ui.h:6
 msgid "Do not load last project and files on startup"
 msgstr "启动时不要加载上一次的项目和文件"
 
-#: ../src/preferences.ui.h:7
+#: ../src/preferences.ui.h:4
 msgid "Do not load last session on startup"
 msgstr "启动时不要加载上一次会话"
 
 #. Style of the buttons/tabs used to select docked windows in anjuta
-#: ../src/preferences.ui.h:9
+#: ../src/preferences.ui.h:6
 msgid "Dock switcher style:"
 msgstr "停靠切换样式："
 
-#: ../src/preferences.ui.h:10
+#: ../src/preferences.ui.h:7
 msgid "GNOME toolbar setting"
 msgstr "GNOME 工具栏设置"
 
-#: ../src/preferences.ui.h:12
+#: ../src/preferences.ui.h:9
 msgid "Icons"
 msgstr "图标"
 
-#: ../src/preferences.ui.h:13
+#: ../src/preferences.ui.h:10
 msgid "Icons only"
 msgstr "图标文件："
 
-#: ../src/preferences.ui.h:14
-msgid "Project Defaults"
-msgstr "项目默认值"
-
-#: ../src/preferences.ui.h:15
-msgid "Select project directory"
-msgstr "选择项目目录"
-
-#: ../src/preferences.ui.h:16
+#: ../src/preferences.ui.h:11
 msgid "Session"
 msgstr "会话"
 
-#: ../src/preferences.ui.h:17
+#: ../src/preferences.ui.h:12
 msgid "Tabs"
 msgstr "Tabs"
 
-#: ../src/preferences.ui.h:19
+#: ../src/preferences.ui.h:14
 msgid "Text + Icons"
 msgstr "文字+图标"
 
-#: ../src/preferences.ui.h:20
+#: ../src/preferences.ui.h:15
 msgid "Text below icons"
 msgstr "文字在图标下"
 
-#: ../src/preferences.ui.h:21
+#: ../src/preferences.ui.h:16
 msgid "Text beside icons"
 msgstr "文字在图标旁"
 
-#: ../src/preferences.ui.h:22
+#: ../src/preferences.ui.h:17
 msgid "Text only"
 msgstr "仅文字"
 
 #. translators: translate the same as in gnome-control-center
-#: ../src/preferences.ui.h:24
+#: ../src/preferences.ui.h:19
 msgid "Toolbar button labels:"
 msgstr "工具栏按钮标签："
 
-#: ../plugins/debug-manager/anjuta-debug-manager.schemas.in.h:1
+#: ../plugins/debug-manager/org.gnome.anjuta.debug-manager.gschema.xml.in.h:1
 msgid "Do not display warning if not using a Debug configuration"
 msgstr "如果没有使用调试选项就不显示警告信息"
 
@@ -10184,66 +10001,74 @@ msgid "Indentation parameters"
 msgstr "缩进参数"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:12
+msgid "Leading asterisk in multi-line comment"
+msgstr "多行注释用星号开头"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:13
 msgid "Line up parentheses"
 msgstr "对齐括号"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:13
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
 msgid "Parenthesis indentation"
 msgstr "括号缩进"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
+msgid "Prefer vim/emacs modelines over indentation settings"
+msgstr "优先使用 vim/emacs 方式行缩进代替缩进设置"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:14
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:7
 msgid "Show calltips"
 msgstr "显示调用提示"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:17
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:15
 msgid "Smart Indentation"
 msgstr "智能缩进"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:18
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:16
 msgid "Statement indentation size in spaces:"
 msgstr "智能缩进的空白长度："
 
 #. ANJUTA_STOCK_AUTOINDENT,
-#: ../plugins/language-support-cpp-java/plugin.c:1882
-#: ../plugins/language-support-python/plugin.c:1182
+#: ../plugins/language-support-cpp-java/plugin.c:1920
+#: ../plugins/language-support-python/plugin.c:1185
 msgid "Auto-Indent"
 msgstr "自动缩进"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1883
-#: ../plugins/language-support-python/plugin.c:1183
+#: ../plugins/language-support-cpp-java/plugin.c:1921
+#: ../plugins/language-support-python/plugin.c:1186
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr "根据缩进设置自动缩进当前或选中行"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1888
+#: ../plugins/language-support-cpp-java/plugin.c:1926
 msgid "Swap .h/.c"
 msgstr "切换 .h /.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1889
+#: ../plugins/language-support-cpp-java/plugin.c:1927
 msgid "Swap C header and source files"
 msgstr "切换 C 头文件和源文件"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1930
+#: ../plugins/language-support-cpp-java/plugin.c:1967
 msgid "C++/Java Assistance"
 msgstr "C++/Java 辅助"
 
-#: ../plugins/language-support-cpp-java/plugin.c:2042
-#: ../plugins/language-support-cpp-java/plugin.c:2055
+#: ../plugins/language-support-cpp-java/plugin.c:2085
+#: ../plugins/language-support-cpp-java/plugin.c:2098
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
-#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1258
+#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1284
 msgid "C/C++"
 msgstr "C/C++"
 
-#: ../plugins/language-support-python/plugin.c:907
+#: ../plugins/language-support-python/plugin.c:909
 msgid "Python support warning"
 msgstr "Python 支持警告"
 
-#: ../plugins/language-support-python/plugin.c:915
+#: ../plugins/language-support-python/plugin.c:917
 msgid ""
 "Either python path is wrong or python-rope (http://rope.sf.net) libraries\n"
 "aren't installed. Both are required for autocompletion in python files.\n"
@@ -10253,17 +10078,17 @@ msgstr ""
 "两者对 python 文件的自动补全均必需。\n"
 "请安装他们后检查首选项中的 python 路径。"
 
-#: ../plugins/language-support-python/plugin.c:918
+#: ../plugins/language-support-python/plugin.c:920
 msgid "Do not show that warning again"
 msgstr "不再显示该警告"
 
-#: ../plugins/language-support-python/plugin.c:1264
+#: ../plugins/language-support-python/plugin.c:1267
 msgid "Python Assistance"
 msgstr "Python 辅助"
 
-#: ../plugins/language-support-python/plugin.c:1364
-#: ../plugins/language-support-python/plugin.c:1373
-#: ../plugins/language-support-python/python-assist.c:937
+#: ../plugins/language-support-python/plugin.c:1376
+#: ../plugins/language-support-python/plugin.c:1385
+#: ../plugins/language-support-python/python-assist.c:934
 msgid "Python"
 msgstr "Python"
 
@@ -10287,7 +10112,7 @@ msgstr "解析器"
 msgid "Path: "
 msgstr "路径："
 
-#: ../plugins/sourceview/plugin.c:232 ../plugins/sourceview/plugin.c:273
+#: ../plugins/sourceview/plugin.c:238 ../plugins/sourceview/plugin.c:279
 msgid "GtkSourceView Editor"
 msgstr "GtkSourceView 编辑器"
 
@@ -10373,7 +10198,7 @@ msgstr "从 Anjuta 中使用外部程序"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in.h:1
 msgid "Automake Build"
-msgstr "Automake 创建"
+msgstr "Automake 构建"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in.h:2
 msgid "Basic autotools build plugin."
@@ -10491,21 +10316,13 @@ msgstr "语言管理器"
 msgid "Plugin to keep track of multiple programming languages"
 msgstr "用于追踪多种编程语言的插件"
 
-#: ../plugins/gbf-mkfile/gbf-mkfile.plugin.in.h:1
-msgid "Makefile backend"
-msgstr "Makefile 后端"
-
-#: ../plugins/gbf-mkfile/gbf-mkfile.plugin.in.h:2
-msgid "Makefile backend for project manager"
-msgstr "项目管理器的 Makefile 后端"
-
-#: ../plugins/gbf-am/gbf-am.plugin.in.h:1
+#: ../plugins/am-project/am-project.plugin.in.h:1
 msgid "Autotools backend"
 msgstr "Autotools 后端"
 
-#: ../plugins/gbf-am/gbf-am.plugin.in.h:2
-msgid "Autotools backend for project manager"
-msgstr "项目管理器的 Autotools 后端"
+#: ../plugins/am-project/am-project.plugin.in.h:2
+msgid "New Autotools backend for project manager"
+msgstr "新的项目管理器 Autotools 后端"
 
 #: ../plugins/js-debugger/plugin.c:122
 #, c-format
@@ -10525,12 +10342,12 @@ msgstr "Anjuta JS 调试器插件"
 msgid "Javascript Debugger Plugin"
 msgstr "JavaScript 调试器插件"
 
-#: ../plugins/language-support-js/plugin.c:332
-#: ../plugins/language-support-js/plugin.c:341
+#: ../plugins/language-support-js/plugin.c:329
+#: ../plugins/language-support-js/plugin.c:338
 msgid "JavaScript"
 msgstr "JavaScript"
 
-#: ../plugins/language-support-js/plugin.c:397
+#: ../plugins/language-support-js/plugin.c:394
 msgid "JS"
 msgstr "JS"
 
@@ -10569,6 +10386,290 @@ msgstr "代码补全的最少字符"
 #: ../plugins/symbol-db/symbol-db-views.c:182
 msgid "Symbol"
 msgstr "符号"
+
+#~ msgid ""
+#~ "Are you sure you want to reset the preferences to\n"
+#~ "their default settings?"
+#~ msgstr "您确定想要将首选项重置为默认设置吗？"
+
+#~ msgid "Invalid GbfAmConfigValue type"
+#~ msgstr "无效的 GbfAmConfigValue 类型"
+
+#~ msgid "Select Package to add:"
+#~ msgstr "选择要添加的包："
+
+#~ msgid "Select package"
+#~ msgstr "选择包"
+
+#~ msgid "Variables"
+#~ msgstr "变量"
+
+#~ msgid "Generic rule"
+#~ msgstr "通用规则"
+
+#~ msgid "Extra target"
+#~ msgstr "额外目标"
+
+#~ msgid "Configure file"
+#~ msgstr "配置文件"
+
+#~ msgid "Interface file"
+#~ msgstr "界面文件"
+
+#~ msgid "GLib mkenums"
+#~ msgstr "GLib mkenums"
+
+#~ msgid "GLib genmarshal"
+#~ msgstr "GLib genmarshal"
+
+#~ msgid "Intl rule"
+#~ msgstr "安装规则"
+
+#~ msgid "Group doesn't exist"
+#~ msgstr "组不存在"
+
+#~ msgid "Target doesn't exist"
+#~ msgstr "目标不存在"
+
+#~ msgid "Invalid or remote path (only local paths supported)"
+#~ msgstr "非法的或远程的路径(仅支持本地路径)"
+
+#~ msgid "Malformed project"
+#~ msgstr "异常项目"
+
+#~ msgid "Parent group doesn't exist"
+#~ msgstr "父组不存在"
+
+#~ msgid "Group already exists"
+#~ msgstr "组已经存在"
+
+#~ msgid "Group couldn't be created"
+#~ msgstr "不能创建组"
+
+#~ msgid "Group couldn't be removed"
+#~ msgstr "不能删除组"
+
+#~ msgid "Target already exists"
+#~ msgstr "目标已存在"
+
+#~ msgid "General failure in target creation"
+#~ msgstr "目标创建中时发生一般性错误"
+
+#~ msgid "Newly created target could not be identified"
+#~ msgstr "不能识别新创建的目标"
+
+#~ msgid "Target couldn't be removed"
+#~ msgstr "不能删除目标"
+
+#~ msgid "Source doesn't exist"
+#~ msgstr "源文件不存在"
+
+#~ msgid ""
+#~ "Source file name can only contain alphanumeric, '_', '-' or '.' characters"
+#~ msgstr "源文件名只能由字母、数字、“_”、“-”或“.”组成"
+
+#~ msgid "Source file is already in given target"
+#~ msgstr "源文件已经在给定的目标中"
+
+#~ msgid "General failure in adding source file"
+#~ msgstr "添加源文件时发生一般性错误"
+
+#~ msgid "Newly added source file could not be identified"
+#~ msgstr "不能识别新添加的源文件"
+
+#~ msgid "Source couldn't be removed"
+#~ msgstr "源文件不能被删除"
+
+#~ msgid "Project directory"
+#~ msgstr "项目目录"
+
+#~ msgid "Enter new module"
+#~ msgstr "进入新模块"
+
+#~ msgid ""
+#~ "Are you sure you want to remove module \"%s\" and all its associated "
+#~ "packages?"
+#~ msgstr "您真的要删除模块“%s”及其相关联的包吗？"
+
+#~ msgid "Are you sure you want to remove package \"%s\"?"
+#~ msgstr "您真的要删除“%s”包吗？"
+
+#~ msgid "Enter new variable"
+#~ msgstr "输入新变量"
+
+#~ msgid "Are you sure you want to remove variable \"%s\"?"
+#~ msgstr "您真的要删除变量“%s”吗？"
+
+#~ msgid "Project:"
+#~ msgstr "项目："
+
+#~ msgid "URI:"
+#~ msgstr "URI:"
+
+#~ msgid "Module/Packages"
+#~ msgstr "模块/包"
+
+#~ msgid "Version"
+#~ msgstr "版本"
+
+#~ msgid "Use"
+#~ msgstr "使用"
+
+#~ msgid "Group name:"
+#~ msgstr "组名称："
+
+#~ msgid "Advanced"
+#~ msgstr "高级"
+
+#~ msgid "gcj compiler flags (ahead-of-time):"
+#~ msgstr "gcj 编译器参数 (预先)："
+
+#~ msgid "Java compiler flags (just-in-time):"
+#~ msgstr "Java 编译器参数 (实时)："
+
+#~ msgid "Includes (deprecated):"
+#~ msgstr "Includes (过时的):"
+
+#~ msgid "C preprocessor flags"
+#~ msgstr "C 预处理器参数"
+
+#~ msgid "C++ compiler flags"
+#~ msgstr "C++ 编译器参数"
+
+#~ msgid "gcj compiler flags (ahead-of-time)"
+#~ msgstr "gcj 编译器参数 (预先)"
+
+#~ msgid "Libraries:"
+#~ msgstr "函数库："
+
+#~ msgid "Dependencies:"
+#~ msgstr "依赖关系："
+
+#~ msgid "Advanced options"
+#~ msgstr "高级选项"
+
+#~ msgid "Target name:"
+#~ msgstr "目标名称："
+
+#~ msgid "Advanced…"
+#~ msgstr "高级..."
+
+#~ msgid "Invalid GbfMkfileConfigValue type"
+#~ msgstr "无效的 GbfMkfileConfigValue 类型"
+
+#~ msgid "Group coudn't be removed"
+#~ msgstr "不能删除组"
+
+#~ msgid "Target couldn't be created"
+#~ msgstr "不能创建目标"
+
+#~ msgid "Target coudn't be removed"
+#~ msgstr "不能删除目标"
+
+#~ msgid "Source file must be inside the project directory"
+#~ msgstr "源文件必须在项目目录内"
+
+#~ msgid "Source is already in target"
+#~ msgstr "源文件已经在目标中"
+
+#~ msgid "Source couldn't be added"
+#~ msgstr "不能添加源文件"
+
+#~ msgid "Includes:"
+#~ msgstr "Includes:"
+
+#~ msgid "Tooltips in list"
+#~ msgstr "在列表中的工具提示"
+
+#~ msgid "Messages options"
+#~ msgstr "消息选项"
+
+#~ msgid "Number of first characters to show:"
+#~ msgstr "要显示的首字符数："
+
+#~ msgid "Number of last characters to show:"
+#~ msgstr "要显示的末字符数："
+
+#~ msgid "Truncate long messages"
+#~ msgstr "缩短过长的信息"
+
+#~ msgid "_Select file to add…"
+#~ msgstr "选择要添加的文件(_S)..."
+
+#~ msgid "No properties available for this group"
+#~ msgstr "没有这个组可用的属性"
+
+#~ msgid "No properties available for this target"
+#~ msgstr "没有这个目标可用的属性"
+
+#~ msgid ""
+#~ "Field \"%s\" must start with a letter, a digit or an underscore and "
+#~ "contain only letters, digits, underscore, minus and dot. Please fix it."
+#~ msgstr ""
+#~ "“%s”字段必须以字母、数字和下划线开头，并且只能包含字母、数字、下划线、减号"
+#~ "和英文句号。请改正。"
+
+#~ msgid ""
+#~ "Field \"%s\" must start with a letter, a digit, an underscore or a "
+#~ "directory separator and contain only letters, digits, underscore, "
+#~ "directory separator, minus and dot. Please fix it."
+#~ msgstr ""
+#~ "“%s”字段必须以字母、数字、下划线或目录分隔符开头，并且只能包含字母、数字、"
+#~ "下划线、目录分隔符、减号和英文句号。请改正。"
+
+#~ msgid "Basic Search & Replace"
+#~ msgstr "基本查找和替换"
+
+#~ msgid "Modify"
+#~ msgstr "修改"
+
+#~ msgid "New Name:"
+#~ msgstr "新名称："
+
+#~ msgid "Setting"
+#~ msgstr "设置"
+
+#~ msgid "Basic Search"
+#~ msgstr "基本搜索"
+
+#~ msgid "Print line numbers"
+#~ msgstr "打印行号"
+
+#~ msgid "Print options"
+#~ msgstr "打印选项"
+
+#~ msgid "Print page footer"
+#~ msgstr "打印页脚"
+
+#~ msgid "Print page header"
+#~ msgstr "打印页眉"
+
+#~ msgid "Printing"
+#~ msgstr "打印"
+
+#~ msgid "Wrap long lines to fit on paper"
+#~ msgstr "在纸上对较长的行自动换行"
+
+#~ msgid "Default project directory:"
+#~ msgstr "默认项目目录："
+
+#~ msgid "Developer email address:"
+#~ msgstr "开发者电子邮件地址："
+
+#~ msgid "Developer name:"
+#~ msgstr "开发者姓名："
+
+#~ msgid "Project Defaults"
+#~ msgstr "项目默认值"
+
+#~ msgid "Select project directory"
+#~ msgstr "选择项目目录"
+
+#~ msgid "Makefile backend"
+#~ msgstr "Makefile 后端"
+
+#~ msgid "Makefile backend for project manager"
+#~ msgstr "项目管理器的 Makefile 后端"
 
 #~ msgid ""
 #~ "<b>There is %d item with unsaved changes. Save changes before closing?</b>"
@@ -11747,10 +11848,6 @@ msgstr "符号"
 #, fuzzy
 #~ msgid "Grow"
 #~ msgstr "执行"
-
-#, fuzzy
-#~ msgid "Rule name:"
-#~ msgstr "模块名："
 
 #, fuzzy
 #~ msgid "System call:"
