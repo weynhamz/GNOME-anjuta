@@ -999,9 +999,9 @@ static AnjutaToken*
 project_load_target (AmpProject *project, AnjutaToken *name, AnjutaTokenType token_type, AnjutaToken *list, AnjutaProjectNode *parent, GHashTable *orphan_properties)
 {
 	AnjutaToken *arg;
-	gchar *install;
+	gchar *install = NULL;
 	gchar *value;
-	gint flags;
+	gint flags = 0;
 	AmpNodeInfo *info = AmpNodeInformations; 
 
 	while (info->base.type != 0)
@@ -1109,9 +1109,9 @@ project_load_target (AmpProject *project, AnjutaToken *name, AnjutaTokenType tok
 			{
 				amp_node_property_load (ANJUTA_PROJECT_NODE (target), AM_TOKEN__PROGRAMS, 3, "1", arg);
 			}
-			else
+			else if (install != NULL)
 			{
-				gchar *instdir = g_strconcat ("$(", install, "dir)", NULL);
+				gchar *instdir = g_strconcat (install, "dir", NULL);
 				amp_node_property_load (ANJUTA_PROJECT_NODE (target), AM_TOKEN__PROGRAMS, 6, instdir, arg);
 				g_free (instdir);
 			}
@@ -1214,11 +1214,11 @@ project_load_sources (AmpProject *project, AnjutaToken *name, AnjutaToken *list,
 static AnjutaToken*
 project_load_data (AmpProject *project, AnjutaToken *name, AnjutaToken *list, AnjutaProjectNode *parent, GHashTable *orphan_properties)
 {
-	gchar *install;
+	gchar *install = NULL;
 	AnjutaAmTargetNode *target;
 	gchar *target_id;
 	gpointer find;
-	gint flags;
+	gint flags = 0;
 	AmpNodeInfo *info = AmpNodeInformations; 
 	AnjutaToken *arg;
 
@@ -1258,9 +1258,8 @@ project_load_data (AmpProject *project, AnjutaToken *name, AnjutaToken *list, An
 	{
 		target = ANJUTA_AM_TARGET_NODE (find);
 	}
-	g_free (target_id);
 
-	if (target)
+	if (target != NULL)
 	{
 		GFile *parent_file = g_object_ref (AMP_GROUP_DATA (parent)->base.file);
 		
@@ -1286,8 +1285,29 @@ project_load_data (AmpProject *project, AnjutaToken *name, AnjutaToken *list, An
 			g_free (value);
 		}
 		g_object_unref (parent_file);
-	}
 
+		/* Set target properties */
+		if (flags & AM_TARGET_NOBASE) 
+			amp_node_property_load (ANJUTA_PROJECT_NODE (target), AM_TOKEN__PROGRAMS, 0, "1", arg);
+		if (flags & AM_TARGET_NOTRANS) 
+			amp_node_property_load (ANJUTA_PROJECT_NODE (target), AM_TOKEN__PROGRAMS, 1, "1", arg);
+		if (flags & AM_TARGET_DIST) 
+			amp_node_property_load (ANJUTA_PROJECT_NODE (target), AM_TOKEN__PROGRAMS, 2, "1", arg);
+		if (flags & AM_TARGET_NODIST) 
+			amp_node_property_load (ANJUTA_PROJECT_NODE (target), AM_TOKEN__PROGRAMS, 2, "0", arg);
+		if (flags & AM_TARGET_NOINST) 
+		{
+			amp_node_property_load (ANJUTA_PROJECT_NODE (target), AM_TOKEN__PROGRAMS, 3, "1", arg);
+		}
+		else if (install != NULL)
+		{
+				gchar *instdir = g_strconcat (install, "dir", NULL);
+				amp_node_property_load (ANJUTA_PROJECT_NODE (target), AM_TOKEN__PROGRAMS, 6, instdir, arg);
+				g_free (instdir);
+		}
+	}
+	g_free (target_id);
+	
 	return NULL;
 }
 

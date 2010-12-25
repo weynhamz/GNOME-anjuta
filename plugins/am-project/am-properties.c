@@ -174,7 +174,7 @@ static AmpProperty AmpGroupProperties[] =
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Install directories:"),
+		{N_("Installation directories:"),
 			ANJUTA_PROJECT_PROPERTY_MAP,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
 			N_("List of custom installation directories used by targets in this group. This property is not modifiable.")},
@@ -200,7 +200,7 @@ static AmpProperty AmpTargetProperties[] = {
 		{N_("Installation directory:"),
 			ANJUTA_PROJECT_PROPERTY_STRING,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
-			N_("Installation directory, standard directories are: bin, sbin, libexec, pkglib, pkglibexe. This property is not modifiable.")},
+			N_("It has to be a standard directory or a custom one defined in group properties. This property is not modifiable.")},
 		AM_TOKEN__PROGRAMS, 	6, NULL,
 		AM_PROPERTY_IN_MAKEFILE
 	},
@@ -348,6 +348,7 @@ static AmpProperty AmpTargetProperties[] = {
 
 static GList* AmpTargetPropertyList = NULL;
 
+
 static AmpProperty AmpProgramTargetProperties[] = {
 	{
 		{N_("Do not install:"),
@@ -361,7 +362,7 @@ static AmpProperty AmpProgramTargetProperties[] = {
 		{N_("Installation directory:"),
 			ANJUTA_PROJECT_PROPERTY_STRING,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
-			N_("Installation directory, standard directories are: bin, sbin, libexec, pkglib, pkglibexe. This property is not modifiable.")},
+			N_("It has to be a standard directory or a custom one defined in group properties. This property is not modifiable.")},
 		AM_TOKEN__PROGRAMS, 	6, NULL,
 		AM_PROPERTY_IN_MAKEFILE
 	},
@@ -501,6 +502,7 @@ static AmpProperty AmpProgramTargetProperties[] = {
 
 static GList* AmpProgramTargetPropertyList = NULL;
 
+
 static AmpProperty AmpLibraryTargetProperties[] = {
 		{
 		{N_("Do not install:"),
@@ -514,7 +516,7 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 		{N_("Installation directory:"),
 			ANJUTA_PROJECT_PROPERTY_STRING,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
-			N_("Installation directory, standard directories are: bin, sbin, libexec, pkglib, pkglibexe. This property is not modifiable.")},
+			N_("It has to be a standard directory or a custom one defined in group properties. This property is not modifiable.")},
 		AM_TOKEN__PROGRAMS, 	6, NULL,
 		AM_PROPERTY_IN_MAKEFILE
 	},
@@ -654,6 +656,7 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 
 static GList* AmpLibraryTargetPropertyList = NULL;
 
+
 static AmpProperty AmpManTargetProperties[] = {
 	{
 		{N_("Additional dependencies:"),
@@ -685,6 +688,73 @@ static AmpProperty AmpManTargetProperties[] = {
 };
 
 static GList* AmpManTargetPropertyList = NULL;
+
+
+static AmpProperty AmpDataTargetProperties[] = {
+	{
+		{N_("Do not install:"),
+			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
+			N_("Build but do not install the target. This property is not modifiable.")},
+		AM_TOKEN__PROGRAMS,	 3, NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Installation directory:"),
+			ANJUTA_PROJECT_PROPERTY_STRING,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
+			N_("It has to be a standard directory or a custom one defined in group properties. This property is not modifiable.")},
+		AM_TOKEN__PROGRAMS, 	6, NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Additional dependencies:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	
+			N_("Additional dependencies for this target.")},
+		AM_TOKEN_TARGET_DEPENDENCIES, 0, "EXTRA_DIST",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Include in distribution:"),
+			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
+			N_("Include this target in the distributed package. This property is not modifiable.")},
+		AM_TOKEN__PROGRAMS, 	2, NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Build for check only:"),
+			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
+			N_("Build this target only when running automatic tests. This property is not modifiable.")},
+		AM_TOKEN__PROGRAMS, 	4, 	NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Do not use prefix:"),
+			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
+			N_("Do not rename the target with an optional prefix, used to avoid overwritting system program. "
+			   " This property is not modifiable.")},
+		AM_TOKEN__PROGRAMS, 	1, NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Keep target path:"),
+			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY, 
+			N_("Keep relative target path for installing it. "
+			   "By example if you have a program subdir/app installed in bin directory it will be installed in bin/subdir/app not in bin/app."
+			   " This property is not modifiable.")},
+		AM_TOKEN__PROGRAMS, 	0, NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{}
+};
+
+static GList* AmpDataTargetPropertyList = NULL;
+
 
 /* Helper functions
  *---------------------------------------------------------------------------*/
@@ -755,7 +825,7 @@ amp_node_property_load (AnjutaProjectNode *node, gint token_type, gint position,
 {
 	GList *item;
 	gboolean set = FALSE;
-	
+
 	for (item = anjuta_project_node_get_native_properties (node); item != NULL; item = g_list_next (item))
 	{
 		AmpProperty *prop = (AmpProperty *)item->data;
@@ -765,10 +835,9 @@ amp_node_property_load (AnjutaProjectNode *node, gint token_type, gint position,
 			AnjutaProjectProperty *new_prop;
 
 			new_prop = anjuta_project_node_get_property (node, (AnjutaProjectProperty *)prop);
-			if (new_prop == NULL)
+			if (new_prop->native == NULL)
 			{
-				new_prop = amp_property_new (NULL, token_type, position, NULL, token);
-				node->custom_properties = g_list_prepend (node->custom_properties, new_prop);
+				new_prop = anjuta_project_node_insert_property (node, new_prop, amp_property_new (NULL, token_type, position, NULL, token));
 			}
 	
 			if ((new_prop->value != NULL) && (new_prop->value != prop->base.value)) g_free (new_prop->value);
@@ -1023,6 +1092,8 @@ amp_get_target_property_list (AnjutaProjectNodeType type)
 		return amp_create_property_list (&AmpLibraryTargetPropertyList, AmpLibraryTargetProperties);
 	case ANJUTA_PROJECT_MAN:
 		return amp_create_property_list (&AmpManTargetPropertyList, AmpManTargetProperties);
+	case ANJUTA_PROJECT_DATA:
+		return amp_create_property_list (&AmpDataTargetPropertyList, AmpDataTargetProperties);
 	default:
 		return amp_create_property_list (&AmpTargetPropertyList, AmpTargetProperties);
 	}
