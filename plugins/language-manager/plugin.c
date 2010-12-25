@@ -130,7 +130,6 @@ load_languages (LanguageManager* language_manager)
 		g_free (strings);
 	}	
 	xmlFreeDoc(doc);
-	xmlCleanupParser();
 }
 
 static gboolean

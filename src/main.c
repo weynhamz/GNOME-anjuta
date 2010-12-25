@@ -31,6 +31,7 @@
 
 #include <gtk/gtk.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libxml/parser.h>
 
 #include "anjuta.h"
 
@@ -203,6 +204,9 @@ main (int argc, char *argv[])
 	
 	status = g_application_run (G_APPLICATION (anjuta), argc, argv);
 	g_object_unref (anjuta);
-	
+
+	/* xmlCleanupParser must be called only one time in the application */
+	if (proper_shutdown) xmlCleanupParser ();
+
 	return status;
 }
