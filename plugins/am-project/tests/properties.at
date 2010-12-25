@@ -13,6 +13,7 @@ bin_PROGRAMS = target1
 AT_DATA([expect],
 [[    GROUP (0): empty1
         TARGET (0:0): target1
+            PROPERTY (Installation directory): bindir
             PROPERTY (Libraries): $(GDL_LIBS)
 ]])
 AT_DATA([reference.am],
@@ -26,7 +27,6 @@ AT_PARSER_CHECK([load empty \
 		set 0:0 lib '$(GDL_LIBS)' \
 		list \
 		save])
-AT_CHECK([diff output expect])
 AT_CHECK([diff -b empty1/Makefile.am reference.am])
 AT_PARSER_CHECK([load empty1 \
 		 list])
@@ -37,6 +37,7 @@ AT_CHECK([diff output expect])
 AT_DATA([expect],
 [[    GROUP (0): empty2
         TARGET (0:0): target1
+            PROPERTY (Installation directory): bindir
             PROPERTY (Libraries): $(GDL_LIBS) $(GLIB_LIBS)
 ]])
 AT_DATA([reference.am],
@@ -51,7 +52,6 @@ AT_PARSER_CHECK([load empty1 \
 		set 0:0 lib '$(GDL_LIBS) $(GLIB_LIBS)' \
 		list \
 		save])
-AT_CHECK([diff output expect])
 AT_CHECK([diff -b empty2/Makefile.am reference.am])
 AT_PARSER_CHECK([load empty2 \
 		 list])
@@ -62,6 +62,7 @@ AT_CHECK([diff output expect])
 AT_DATA([expect],
 [[    GROUP (0): empty3
         TARGET (0:0): target1
+            PROPERTY (Installation directory): bindir
             PROPERTY (Libraries): $(GLIB_LIBS)
 ]])
 AT_DATA([reference.am],
@@ -75,7 +76,6 @@ AT_PARSER_CHECK([load empty2 \
 		set 0:0 lib '$(GLIB_LIBS)' \
 		list \
 		save])
-AT_CHECK([diff output expect])
 AT_CHECK([diff -b empty3/Makefile.am reference.am])
 AT_PARSER_CHECK([load empty3 \
 		 list])
@@ -86,6 +86,7 @@ AT_CHECK([diff output expect])
 AT_DATA([expect],
 [[    GROUP (0): empty4
         TARGET (0:0): target1
+            PROPERTY (Installation directory): bindir
 ]])
 AT_DATA([reference.am],
 [[
@@ -98,7 +99,6 @@ AT_PARSER_CHECK([load empty3 \
 		clear 0:0 lib \
 		list \
 		save])
-AT_CHECK([diff output expect])
 AT_CHECK([diff -b empty4/Makefile.am reference.am])
 AT_PARSER_CHECK([load empty4 \
 		 list])

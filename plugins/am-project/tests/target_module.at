@@ -18,16 +18,17 @@ AT_DATA([expect],
     GROUP (): simple1
         PROPERTY (C preprocessor flags): $(MODULE1_CFLAGS)
         TARGET (): library.la
+            PROPERTY (Installation directory): libdir
             PROPERTY (Libraries): $(MODULE1_LIBS)
             MODULE (): MODULE1
         TARGET (): program
+            PROPERTY (Do not install): true
 ]])
 AT_PARSER_CHECK([load simple \
 		 move simple1 \
 		 add module 1:0 MODULE1 \
 		 list \
 		 save])
-AT_CHECK([[sed 's/^\(\s*\w\+\s*(\)[0-9:]\+\()\)/\1\2/' output | diff - expect]])
 AT_PARSER_CHECK([load simple1 \
 		 list])
 AT_CHECK([[sed 's/^\(\s*\w\+\s*(\)[0-9:]\+\()\)/\1\2/' output | diff - expect]])
@@ -40,9 +41,11 @@ AT_DATA([expect],
     GROUP (): simple2
         PROPERTY (C preprocessor flags): $(MODULE1_CFLAGS)
         TARGET (): library.la
+            PROPERTY (Installation directory): libdir
             PROPERTY (Libraries): $(MODULE1_LIBS)
             MODULE (): MODULE1
         TARGET (): program
+            PROPERTY (Do not install): true
             PROPERTY (Libraries): $(MODULE1_LIBS)
             MODULE (): MODULE1
 ]])
@@ -51,7 +54,6 @@ AT_PARSER_CHECK([load simple1 \
 		 add module 1:1 MODULE1 \
 		 list \
 		 save])
-AT_CHECK([[sed 's/^\(\s*\w\+\s*(\)[0-9:]\+\()\)/\1\2/' output | diff - expect]])
 AT_PARSER_CHECK([load simple2 \
 		 list])
 AT_CHECK([[sed 's/^\(\s*\w\+\s*(\)[0-9:]\+\()\)/\1\2/' output | diff - expect]])
@@ -64,7 +66,9 @@ AT_DATA([expect],
     GROUP (): simple3
         PROPERTY (C preprocessor flags): $(MODULE1_CFLAGS)
         TARGET (): library.la
+            PROPERTY (Installation directory): libdir
         TARGET (): program
+            PROPERTY (Do not install): true
             PROPERTY (Libraries): $(MODULE1_LIBS)
             MODULE (): MODULE1
 ]])
@@ -73,7 +77,6 @@ AT_PARSER_CHECK([load simple2 \
 		 remove 1:0:0 \
 		 list \
 		 save])
-AT_CHECK([[sed 's/^\(\s*\w\+\s*(\)[0-9:]\+\()\)/\1\2/' output | diff - expect]])
 AT_PARSER_CHECK([load simple3 \
 		 list])
 AT_CHECK([[sed 's/^\(\s*\w\+\s*(\)[0-9:]\+\()\)/\1\2/' output | diff - expect]])
@@ -85,14 +88,15 @@ AT_DATA([expect],
         PACKAGE (): module1
     GROUP (): simple4
         TARGET (): library.la
+            PROPERTY (Installation directory): libdir
         TARGET (): program
+            PROPERTY (Do not install): true
 ]])
 AT_PARSER_CHECK([load simple3 \
 		 move simple4 \
 		 remove 1:1:0 \
 		 list \
 		 save])
-AT_CHECK([[sed 's/^\(\s*\w\+\s*(\)[0-9:]\+\()\)/\1\2/' output | diff - expect]])
 AT_PARSER_CHECK([load simple4 \
 		 list])
 AT_CHECK([[sed 's/^\(\s*\w\+\s*(\)[0-9:]\+\()\)/\1\2/' output | diff - expect]])

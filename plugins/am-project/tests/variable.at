@@ -11,6 +11,7 @@ bin_PROGRAMS = $(TARGETS)
 AT_DATA([expect],
 [[    GROUP (0): variable
         TARGET (0:0): target1
+            PROPERTY (Installation directory): bindir
 ]])
 AT_PARSER_CHECK([load variable \
 		 list])
