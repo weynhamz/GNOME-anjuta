@@ -44,7 +44,7 @@
 /* Types
  *---------------------------------------------------------------------------*/
 
-struct _AnjutaAmSourceNode {
+struct _AmpSourceNode {
 	AnjutaProjectNode base;
 	AnjutaToken* token;	
 };
@@ -56,36 +56,36 @@ struct _AnjutaAmSourceNode {
  *---------------------------------------------------------------------------*/
 
 AnjutaToken *
-amp_source_get_token (AnjutaAmSourceNode *node)
+amp_source_node_get_token (AmpSourceNode *node)
 {
 	return node->token;
 }
 
 void
-amp_source_add_token (AnjutaAmSourceNode *node, AnjutaToken *token)
+amp_source_node_add_token (AmpSourceNode *node, AnjutaToken *token)
 {
 	node->token = token;
 }
 
 void
-amp_source_update_node (AnjutaAmSourceNode *node, AnjutaAmSourceNode *new_node)
+amp_source_node_update_node (AmpSourceNode *node, AmpSourceNode *new_node)
 {
 	node->token = new_node->token;
 }
 
 AnjutaProjectNode*
-amp_source_new (GFile *file, GError **error)
+amp_source_node_new (GFile *file, GError **error)
 {
-	AnjutaAmSourceNode *node = NULL;
+	AmpSourceNode *node = NULL;
 
-	node = g_object_new (ANJUTA_TYPE_AM_SOURCE_NODE, NULL);
+	node = g_object_new (AMP_TYPE_SOURCE_NODE, NULL);
 	node->base.file = g_object_ref (file);
 
 	return ANJUTA_PROJECT_NODE (node);
 }
 
 gboolean
-amp_source_set_file (AnjutaAmSourceNode *source, GFile *new_file)
+amp_source_node_set_file (AmpSourceNode *source, GFile *new_file)
 {
 	g_object_unref (source->base.file);
 	source->base.file = g_object_ref (new_file);
@@ -94,7 +94,7 @@ amp_source_set_file (AnjutaAmSourceNode *source, GFile *new_file)
 }
 
 void
-amp_source_free (AnjutaAmSourceNode *node)
+amp_source_node_free (AmpSourceNode *node)
 {
 	g_object_unref (G_OBJECT (node));
 }
@@ -103,16 +103,16 @@ amp_source_free (AnjutaAmSourceNode *node)
 /* GObjet implementation
  *---------------------------------------------------------------------------*/
 
-typedef struct _AnjutaAmSourceNodeClass AnjutaAmSourceNodeClass;
+typedef struct _AmpSourceNodeClass AmpSourceNodeClass;
 
-struct _AnjutaAmSourceNodeClass {
+struct _AmpSourceNodeClass {
 	AmpNodeClass parent_class;
 };
 
-G_DEFINE_DYNAMIC_TYPE (AnjutaAmSourceNode, anjuta_am_source_node, AMP_TYPE_NODE);
+G_DEFINE_DYNAMIC_TYPE (AmpSourceNode, amp_source_node, AMP_TYPE_NODE);
 
 static void
-anjuta_am_source_node_init (AnjutaAmSourceNode *node)
+amp_source_node_init (AmpSourceNode *node)
 {
 	node->base.type = ANJUTA_PROJECT_SOURCE;
 	node->base.native_properties = amp_get_source_property_list();
@@ -121,30 +121,30 @@ anjuta_am_source_node_init (AnjutaAmSourceNode *node)
 }
 
 static void
-anjuta_am_source_node_finalize (GObject *object)
+amp_source_node_finalize (GObject *object)
 {
-	AnjutaAmSourceNode *node = ANJUTA_AM_SOURCE_NODE (object);
+	AmpSourceNode *node = AMP_SOURCE_NODE (object);
 
 	g_list_foreach (node->base.custom_properties, (GFunc)amp_property_free, NULL);
-	G_OBJECT_CLASS (anjuta_am_source_node_parent_class)->finalize (object);
+	G_OBJECT_CLASS (amp_source_node_parent_class)->finalize (object);
 }
 
 static void
-anjuta_am_source_node_class_init (AnjutaAmSourceNodeClass *klass)
+amp_source_node_class_init (AmpSourceNodeClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
 	
-	object_class->finalize = anjuta_am_source_node_finalize;
+	object_class->finalize = amp_source_node_finalize;
 }
 
 static void
-anjuta_am_source_node_class_finalize (AnjutaAmSourceNodeClass *klass)
+amp_source_node_class_finalize (AmpSourceNodeClass *klass)
 {
 }
 
 void
-anjuta_am_source_node_register (GTypeModule *module)
+amp_source_node_register (GTypeModule *module)
 {
-	anjuta_am_source_node_register_type (module);
+	amp_source_node_register_type (module);
 }
 

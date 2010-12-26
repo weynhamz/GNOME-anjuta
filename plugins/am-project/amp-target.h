@@ -36,18 +36,18 @@ G_BEGIN_DECLS
 /* Type macros
  *---------------------------------------------------------------------------*/
 
-#define ANJUTA_TYPE_AM_TARGET_NODE			(anjuta_am_target_node_get_type ())
-#define ANJUTA_AM_TARGET_NODE(obj)				(G_TYPE_CHECK_INSTANCE_CAST ((obj), ANJUTA_TYPE_AM_TARGET_NODE, AnjutaAmTargetNode))
+#define AMP_TYPE_TARGET_NODE							(amp_target_node_get_type ())
+#define AMP_TARGET_NODE(obj)							(G_TYPE_CHECK_INSTANCE_CAST ((obj), AMP_TYPE_TARGET_NODE, AmpTargetNode))
 
-GType anjuta_am_target_node_get_type (void) G_GNUC_CONST;
+GType amp_target_node_get_type (void) G_GNUC_CONST;
 
 typedef enum {
 	AM_TARGET_TOKEN_TARGET,
 	AM_TARGET_TOKEN_SOURCES,
 	AM_TARGET_TOKEN_LAST
-} AmpTargetTokenCategory;
+} AmpTargetNodeTokenCategory;
 
-typedef enum _AmpTargetFlag
+typedef enum _AmpTargetNodeFlag
 {
 	AM_TARGET_CHECK = 1 << 0,
 	AM_TARGET_NOINST = 1 << 1,
@@ -57,18 +57,18 @@ typedef enum _AmpTargetFlag
 	AM_TARGET_NOTRANS = 1 << 5,
 	AM_TARGET_MAN = 1 << 6,
 	AM_TARGET_MAN_SECTION = 31 << 7
-} AmpTargetFlag;
+} AmpTargetNodeFlag;
 
-void anjuta_am_target_node_register (GTypeModule *module);
+void amp_target_node_register (GTypeModule *module);
 
-void amp_target_add_token (AnjutaAmTargetNode *target, AmTokenType type, AnjutaToken *token);
-GList * amp_target_get_token (AnjutaAmTargetNode *target, AmTokenType type);
-void amp_target_set_type (AnjutaAmTargetNode *target, AmTokenType type);
-AnjutaTokenType amp_target_get_first_token_type (AnjutaAmTargetNode *target);
-AnjutaTokenType amp_target_get_next_token_type (AnjutaAmTargetNode *target, AnjutaTokenType type);
-AnjutaAmTargetNode* amp_target_new (const gchar *name, AnjutaProjectNodeType type, const gchar *install, gint flags, GError **error);
-void amp_target_free (AnjutaAmTargetNode *node);
-void amp_target_update_node (AnjutaAmTargetNode *node, AnjutaAmTargetNode *new_node);
+void amp_target_node_add_token (AmpTargetNode *target, AmTokenType type, AnjutaToken *token);
+GList * amp_target_node_get_token (AmpTargetNode *target, AmTokenType type);
+void amp_target_node_set_type (AmpTargetNode *target, AmTokenType type);
+AnjutaTokenType amp_target_node_get_first_token_type (AmpTargetNode *target);
+AnjutaTokenType amp_target_node_get_next_token_type (AmpTargetNode *target, AnjutaTokenType type);
+AmpTargetNode* amp_target_node_new (const gchar *name, AnjutaProjectNodeType type, const gchar *install, gint flags, GError **error);
+void amp_target_node_free (AmpTargetNode *node);
+void amp_target_node_update_node (AmpTargetNode *node, AmpTargetNode *new_node);
 
 G_END_DECLS
 

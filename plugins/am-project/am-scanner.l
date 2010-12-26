@@ -51,7 +51,7 @@ struct _AmpAmScanner
 	AnjutaTokenStream *stream;
 
 	AmpProject *project;
-	AnjutaAmGroupNode *group;
+	AmpGroupNode *group;
 	GHashTable *orphan_properties;
 	gboolean eof;		/* TRUE to emit EOF at the end */
 };
@@ -291,7 +291,7 @@ amp_am_scanner_include (AmpAmScanner *scanner, AnjutaToken *list)
 void
 amp_am_scanner_update_variable (AmpAmScanner *scanner, AnjutaToken *variable)
 {
-    amp_group_update_variable (scanner->group, variable);
+    amp_group_node_update_variable (scanner->group, variable);
 }
 
 
@@ -302,7 +302,7 @@ amp_am_scanner_parse_variable (AmpAmScanner *scanner, AnjutaToken *variable)
 
 	anjuta_token_set_type (variable, ANJUTA_TOKEN_VARIABLE);
 
-	value = amp_group_get_variable_token (scanner->group, variable);
+	value = amp_group_node_get_variable_token (scanner->group, variable);
 	if (value != NULL)
 	{
 		amp_am_scanner_parse_token (scanner, variable, value, NULL, NULL);
@@ -359,7 +359,7 @@ amp_am_scanner_parse_token (AmpAmScanner *scanner, AnjutaToken *root, AnjutaToke
  *---------------------------------------------------------------------------*/
 
 AmpAmScanner *
-amp_am_scanner_new (AmpProject *project, AnjutaAmGroupNode *group)
+amp_am_scanner_new (AmpProject *project, AmpGroupNode *group)
 {
 	AmpAmScanner *scanner;
 
@@ -370,7 +370,7 @@ amp_am_scanner_new (AmpProject *project, AnjutaAmGroupNode *group)
 	scanner->eof = FALSE;
 
 	/* Create hash table for sources list */
-	scanner->orphan_properties = g_hash_table_new_full (g_str_hash, g_str_equal, (GDestroyNotify)g_free, (GDestroyNotify)amp_target_free);
+	scanner->orphan_properties = g_hash_table_new_full (g_str_hash, g_str_equal, (GDestroyNotify)g_free, (GDestroyNotify)amp_target_node_free);
 
     yylex_init(&scanner->scanner);
     yyset_extra (scanner, scanner->scanner);

@@ -35,19 +35,19 @@ G_BEGIN_DECLS
 /* Type macros
  *---------------------------------------------------------------------------*/
 
-#define ANJUTA_TYPE_AM_MODULE_NODE			(anjuta_am_module_node_get_type ())
-#define ANJUTA_AM_MODULE_NODE(obj)				(G_TYPE_CHECK_INSTANCE_CAST ((obj), ANJUTA_TYPE_AM_MODULE_NODE, AnjutaAmModuleNode))
+#define AMP_TYPE_MODULE_NODE							(amp_module_node_get_type ())
+#define AMP_MODULE_NODE(obj)							(G_TYPE_CHECK_INSTANCE_CAST ((obj), AMP_TYPE_MODULE_NODE, AmpModuleNode))
 
-GType anjuta_am_module_node_get_type (void) G_GNUC_CONST;
+GType amp_module_node_get_type (void) G_GNUC_CONST;
 
 
-void anjuta_am_module_node_register (GTypeModule *module);
+void amp_module_node_register (GTypeModule *module);
 
-AnjutaAmModuleNode* amp_module_new (const gchar *name, GError **error);
-void amp_module_free (AnjutaAmModuleNode *node);
-AnjutaToken *amp_module_get_token (AnjutaAmModuleNode *node);
-void amp_module_add_token (AnjutaAmModuleNode *group, AnjutaToken *token);
-void amp_module_update_node (AnjutaAmModuleNode *node, AnjutaAmModuleNode *new_node);
+AmpModuleNode* amp_module_node_new (const gchar *name, GError **error);
+void amp_module_node_free (AmpModuleNode *node);
+AnjutaToken *amp_module_node_get_token (AmpModuleNode *node);
+void amp_module_node_add_token (AmpModuleNode *group, AnjutaToken *token);
+void amp_module_node_update_node (AmpModuleNode *node, AmpModuleNode *new_node);
 
 G_END_DECLS
 

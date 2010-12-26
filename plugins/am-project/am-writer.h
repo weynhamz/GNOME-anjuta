@@ -31,14 +31,14 @@ G_BEGIN_DECLS
 
 gboolean amp_project_update_am_property (AmpProject *project, AnjutaProjectNode *node, AnjutaProjectProperty *property); 
 
-gboolean amp_group_create_token (AmpProject *project, AnjutaAmGroupNode *group, GError **error);
-gboolean amp_group_delete_token (AmpProject  *project, AnjutaAmGroupNode *group, GError **error);
+gboolean amp_group_node_create_token (AmpProject *project, AmpGroupNode *group, GError **error);
+gboolean amp_group_node_delete_token (AmpProject  *project, AmpGroupNode *group, GError **error);
 
-gboolean amp_target_create_token (AmpProject  *project, AnjutaAmTargetNode *target, GError **error);
-gboolean amp_target_delete_token (AmpProject  *project, AnjutaAmTargetNode *target, GError **error);
+gboolean amp_target_node_create_token (AmpProject  *project, AmpTargetNode *target, GError **error);
+gboolean amp_target_node_delete_token (AmpProject  *project, AmpTargetNode *target, GError **error);
 
-gboolean amp_source_create_token (AmpProject  *project, AnjutaAmSourceNode *source, GError **error);
-gboolean amp_source_delete_token (AmpProject  *project, AnjutaAmSourceNode *source, GError **error);
+gboolean amp_source_node_create_token (AmpProject  *project, AmpSourceNode *source, GError **error);
+gboolean amp_source_node_delete_token (AmpProject  *project, AmpSourceNode *source, GError **error);
 
 G_END_DECLS
 

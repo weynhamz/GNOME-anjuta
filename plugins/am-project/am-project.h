@@ -47,11 +47,11 @@ struct _AmpProjectClass {
 };
 
 typedef struct _AnjutaAmRootNode AnjutaAmRootNode;
-typedef struct _AnjutaAmModuleNode AnjutaAmModuleNode;
-typedef struct _AnjutaAmPackageNode AnjutaAmPackageNode;
-typedef struct _AnjutaAmGroupNode AnjutaAmGroupNode;
-typedef struct _AnjutaAmTargetNode AnjutaAmTargetNode;
-typedef struct _AnjutaAmSourceNode AnjutaAmSourceNode;
+typedef struct _AmpModuleNode AmpModuleNode;
+typedef struct _AmpPackageNode AmpPackageNode;
+typedef struct _AmpGroupNode AmpGroupNode;
+typedef struct _AmpTargetNode AmpTargetNode;
+typedef struct _AmpSourceNode AmpSourceNode;
 
 typedef struct _AmpProperty AmpProperty;
 
@@ -78,9 +78,9 @@ AnjutaToken* amp_project_get_configure_token (AmpProject *project);
 void amp_project_update_root (AmpProject *project, AmpProject *new_project);
 
 AmpProject *amp_project_get_root (AmpProject *project);
-AnjutaAmGroupNode *amp_project_get_group (AmpProject *project, const gchar *id);
-AnjutaAmTargetNode *amp_project_get_target (AmpProject *project, const gchar *id);
-AnjutaAmSourceNode *amp_project_get_source (AmpProject *project, const gchar *id);
+AmpGroupNode *amp_project_get_group (AmpProject *project, const gchar *id);
+AmpTargetNode *amp_project_get_target (AmpProject *project, const gchar *id);
+AmpSourceNode *amp_project_get_source (AmpProject *project, const gchar *id);
 gboolean amp_project_get_token_location (AmpProject *project, AnjutaTokenFileLocation *location, AnjutaToken *token);
 
 gboolean amp_project_move (AmpProject *project, const gchar *path);
@@ -95,17 +95,17 @@ gboolean amp_project_is_busy (AmpProject *project);
 
 void amp_project_add_file (AmpProject *project, GFile *file, AnjutaTokenFile* token);
 
-AnjutaAmGroupNode* amp_project_add_group (AmpProject  *project, AnjutaAmGroupNode *parent, const gchar *name, GError **error);
-AnjutaAmGroupNode* amp_project_add_sibling_group (AmpProject  *project, AnjutaAmGroupNode *parent, const gchar *name, gboolean after, AnjutaAmGroupNode *sibling, GError **error);
-void amp_project_remove_group (AmpProject  *project, AnjutaAmGroupNode *group, GError **error);
+AmpGroupNode* amp_project_add_group (AmpProject  *project, AmpGroupNode *parent, const gchar *name, GError **error);
+AmpGroupNode* amp_project_add_sibling_group (AmpProject  *project, AmpGroupNode *parent, const gchar *name, gboolean after, AmpGroupNode *sibling, GError **error);
+void amp_project_remove_group (AmpProject  *project, AmpGroupNode *group, GError **error);
 
-AnjutaAmTargetNode* amp_project_add_target (AmpProject  *project, AnjutaAmGroupNode *parent, const gchar *name, AnjutaProjectNodeType type, GError **error);
-AnjutaAmTargetNode* amp_project_add_sibling_target (AmpProject  *project, AnjutaAmGroupNode *parent, const gchar *name, AnjutaProjectNodeType type, gboolean after, AnjutaAmTargetNode *sibling, GError **error);
-void amp_project_remove_target (AmpProject  *project, AnjutaAmTargetNode *target, GError **error);
+AmpTargetNode* amp_project_add_target (AmpProject  *project, AmpGroupNode *parent, const gchar *name, AnjutaProjectNodeType type, GError **error);
+AmpTargetNode* amp_project_add_sibling_target (AmpProject  *project, AmpGroupNode *parent, const gchar *name, AnjutaProjectNodeType type, gboolean after, AmpTargetNode *sibling, GError **error);
+void amp_project_remove_target (AmpProject  *project, AmpTargetNode *target, GError **error);
 
-AnjutaAmSourceNode* amp_project_add_source (AmpProject  *project, AnjutaAmTargetNode *parent, GFile *file, GError **error);
-AnjutaAmSourceNode* amp_project_add_sibling_source (AmpProject  *project, AnjutaAmTargetNode *parent, GFile *file, gboolean after, AnjutaAmSourceNode *sibling, GError **error);
-void amp_project_remove_source (AmpProject  *project, AnjutaAmSourceNode *source, GError **error);
+AmpSourceNode* amp_project_add_source (AmpProject  *project, AmpTargetNode *parent, GFile *file, GError **error);
+AmpSourceNode* amp_project_add_sibling_source (AmpProject  *project, AmpTargetNode *parent, GFile *file, gboolean after, AmpSourceNode *sibling, GError **error);
+void amp_project_remove_source (AmpProject  *project, AmpSourceNode *source, GError **error);
 
 AnjutaProjectNodeInfo *amp_project_get_type_info (AmpProject *project, AnjutaProjectNodeType type);
 const GList *amp_project_get_node_info (AmpProject *project, GError **error);
@@ -124,17 +124,17 @@ AnjutaProjectNode *amp_node_next_sibling (AnjutaProjectNode *node);
 AnjutaProjectNode *amp_node_prev_sibling (AnjutaProjectNode *node);
 //void amp_node_all_foreach (AnjutaProjectNode *node, AnjutaProjectNodeFunc func, gpointer data);
 
-GFile *amp_group_get_directory (AnjutaAmGroupNode *group);
-gchar *amp_group_get_id (AnjutaAmGroupNode *group);
-void amp_group_update_variable (AnjutaAmGroupNode *group, AnjutaToken *variable);
-AnjutaToken* amp_group_get_variable_token (AnjutaAmGroupNode *group, AnjutaToken *variable);
+GFile *amp_group_node_get_directory (AmpGroupNode *group);
+gchar *amp_group_node_get_id (AmpGroupNode *group);
+void amp_group_node_update_variable (AmpGroupNode *group, AnjutaToken *variable);
+AnjutaToken* amp_group_node_get_variable_token (AmpGroupNode *group, AnjutaToken *variable);
 
-const gchar *amp_target_get_name (AnjutaAmTargetNode *target);
-gchar *amp_target_get_id (AnjutaAmTargetNode *target);
+const gchar *amp_target_node_get_name (AmpTargetNode *target);
+gchar *amp_target_node_get_id (AmpTargetNode *target);
 
-void amp_source_free (AnjutaAmSourceNode *node);
-gchar *amp_source_get_id (AnjutaAmSourceNode *source);
-GFile *amp_source_get_file (AnjutaAmSourceNode *source);
+void amp_source_node_free (AmpSourceNode *node);
+gchar *amp_source_node_get_id (AmpSourceNode *source);
+GFile *amp_source_node_get_file (AmpSourceNode *source);
 
 gchar* canonicalize_automake_variable (const gchar *name);
 

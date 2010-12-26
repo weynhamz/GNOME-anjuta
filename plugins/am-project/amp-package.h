@@ -35,20 +35,20 @@ G_BEGIN_DECLS
 /* Type macros
  *---------------------------------------------------------------------------*/
 
-#define ANJUTA_TYPE_AM_PACKAGE_NODE			(anjuta_am_package_node_get_type ())
-#define ANJUTA_AM_PACKAGE_NODE(obj)				(G_TYPE_CHECK_INSTANCE_CAST ((obj), ANJUTA_TYPE_AM_PACKAGE_NODE, AnjutaAmPackageNode))
+#define AMP_TYPE_PACKAGE_NODE			(amp_package_node_get_type ())
+#define AMP_PACKAGE_NODE(obj)			(G_TYPE_CHECK_INSTANCE_CAST ((obj), AMP_TYPE_PACKAGE_NODE, AmpPackageNode))
 
-GType anjuta_am_package_node_get_type (void) G_GNUC_CONST;
+GType amp_package_node_get_type (void) G_GNUC_CONST;
 
 
-void anjuta_am_package_node_register (GTypeModule *module);
+void amp_package_node_register (GTypeModule *module);
 
-AnjutaAmPackageNode* amp_package_new (const gchar *name, GError **error);
-void amp_package_free (AnjutaAmPackageNode *node);
-void amp_package_set_version (AnjutaAmPackageNode *node, const gchar *compare, const gchar *version);
-AnjutaToken *amp_package_get_token (AnjutaAmPackageNode *node);
-void amp_package_add_token (AnjutaAmPackageNode *node, AnjutaToken *token);
-void amp_package_update_node (AnjutaAmPackageNode *node, AnjutaAmPackageNode *new_node);
+AmpPackageNode* amp_package_node_new (const gchar *name, GError **error);
+void amp_package_node_free (AmpPackageNode *node);
+void amp_package_node_set_version (AmpPackageNode *node, const gchar *compare, const gchar *version);
+AnjutaToken *amp_package_node_get_token (AmpPackageNode *node);
+void amp_package_node_add_token (AmpPackageNode *node, AnjutaToken *token);
+void amp_package_node_update_node (AmpPackageNode *node, AmpPackageNode *new_node);
 
 G_END_DECLS
 

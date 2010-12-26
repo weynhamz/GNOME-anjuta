@@ -91,7 +91,7 @@ static AmpProperty AmpProjectProperties[] =
 static GList* AmpProjectPropertyList = NULL;
 
 
-static AmpProperty AmpGroupProperties[] =
+static AmpProperty AmpGroupNodeProperties[] =
 {
 	{
 		{N_("Linker flags:"),
@@ -184,10 +184,10 @@ static AmpProperty AmpGroupProperties[] =
 	{}
 };
 
-static GList* AmpGroupPropertyList = NULL;
+static GList* AmpGroupNodePropertyList = NULL;
 
 
-static AmpProperty AmpTargetProperties[] = {
+static AmpProperty AmpTargetNodeProperties[] = {
 	{
 		{N_("Do not install:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
@@ -346,7 +346,7 @@ static AmpProperty AmpTargetProperties[] = {
 	{}
 };
 
-static GList* AmpTargetPropertyList = NULL;
+static GList* AmpTargetNodePropertyList = NULL;
 
 
 static AmpProperty AmpProgramTargetProperties[] = {
@@ -1077,7 +1077,7 @@ amp_get_project_property_list (void)
 GList*
 amp_get_group_property_list (void)
 {
-	return amp_create_property_list (&AmpGroupPropertyList, AmpGroupProperties);
+	return amp_create_property_list (&AmpGroupNodePropertyList, AmpGroupNodeProperties);
 }
 
 GList*
@@ -1095,7 +1095,7 @@ amp_get_target_property_list (AnjutaProjectNodeType type)
 	case ANJUTA_PROJECT_DATA:
 		return amp_create_property_list (&AmpDataTargetPropertyList, AmpDataTargetProperties);
 	default:
-		return amp_create_property_list (&AmpTargetPropertyList, AmpTargetProperties);
+		return amp_create_property_list (&AmpTargetNodePropertyList, AmpTargetNodeProperties);
 	}
 }
 

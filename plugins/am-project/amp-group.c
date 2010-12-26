@@ -44,7 +44,7 @@
 /* Types
  *---------------------------------------------------------------------------*/
 
-struct _AnjutaAmGroupNode {
+struct _AmpGroupNode {
 	AnjutaProjectNode base;
 	gboolean dist_only;										/* TRUE if the group is distributed but not built */
 	GFile *makefile;												/* GFile corresponding to group makefile */
@@ -115,30 +115,30 @@ amp_variable_free (AmpVariable *variable)
 
 
 void
-amp_group_add_token (AnjutaAmGroupNode *group, AnjutaToken *token, AmpGroupTokenCategory category)
+amp_group_node_add_token (AmpGroupNode *group, AnjutaToken *token, AmpGroupNodeTokenCategory category)
 {
 	group->tokens[category] = g_list_prepend (group->tokens[category], token);
 }
 
 GList *
-amp_group_get_token (AnjutaAmGroupNode *group, AmpGroupTokenCategory category)
+amp_group_node_get_token (AmpGroupNode *group, AmpGroupNodeTokenCategory category)
 {
 	return group->tokens[category];
 }
 
 AnjutaToken*
-amp_group_get_first_token (AnjutaAmGroupNode *group, AmpGroupTokenCategory category)
+amp_group_node_get_first_token (AmpGroupNode *group, AmpGroupNodeTokenCategory category)
 {
 	GList *list;
 	
-	list = amp_group_get_token (group, category);
+	list = amp_group_node_get_token (group, category);
 	if (list == NULL) return NULL;
 
 	return (AnjutaToken *)list->data;
 }
 
 void
-amp_group_set_dist_only (AnjutaAmGroupNode *group, gboolean dist_only)
+amp_group_node_set_dist_only (AmpGroupNode *group, gboolean dist_only)
 {
  	group->dist_only = dist_only;
 }
@@ -168,7 +168,7 @@ on_group_monitor_changed (GFileMonitor *monitor,
 }
 
 AnjutaTokenFile*
-amp_group_set_makefile (AnjutaAmGroupNode *group, GFile *makefile, AmpProject *project)
+amp_group_node_set_makefile (AmpGroupNode *group, GFile *makefile, AmpProject *project)
 {
 	if (group->makefile != NULL) g_object_unref (group->makefile);
 	if (group->tfile != NULL) anjuta_token_file_free (group->tfile);
@@ -212,25 +212,25 @@ amp_group_set_makefile (AnjutaAmGroupNode *group, GFile *makefile, AmpProject *p
 }
 
 AnjutaToken*
-amp_group_get_makefile_token (AnjutaAmGroupNode *group)
+amp_group_node_get_makefile_token (AmpGroupNode *group)
 {
 	return group->make_token;
 }
 
 AnjutaTokenFile *
-amp_group_get_make_token_file (AnjutaAmGroupNode *group)
+amp_group_node_get_make_token_file (AmpGroupNode *group)
 {
 	return group->tfile;
 }
 
 gboolean
-amp_group_update_makefile (AnjutaAmGroupNode *group, AnjutaToken *token)
+amp_group_node_update_makefile (AmpGroupNode *group, AnjutaToken *token)
 {
 	return anjuta_token_file_update (group->tfile, token);
 }
 
 gchar *
-amp_group_get_makefile_name (AnjutaAmGroupNode *group)
+amp_group_node_get_makefile_name (AmpGroupNode *group)
 {
 	gchar *basename = NULL;
 	
@@ -243,7 +243,7 @@ amp_group_get_makefile_name (AnjutaAmGroupNode *group)
 }
 
 void
-amp_group_update_node (AnjutaAmGroupNode *group, AnjutaAmGroupNode *new_group)
+amp_group_node_update_node (AmpGroupNode *group, AmpGroupNode *new_group)
 {
 	gint i;
 	GHashTable *hash;
@@ -293,7 +293,7 @@ amp_group_update_node (AnjutaAmGroupNode *group, AnjutaAmGroupNode *new_group)
 }
 
 void
-amp_group_update_variable (AnjutaAmGroupNode *group, AnjutaToken *variable)
+amp_group_node_update_variable (AmpGroupNode *group, AnjutaToken *variable)
 {
 	AnjutaToken *arg;
 	char *name = NULL;
@@ -320,7 +320,7 @@ amp_group_update_variable (AnjutaAmGroupNode *group, AnjutaToken *variable)
 }
 
 AnjutaToken*
-amp_group_get_variable_token (AnjutaAmGroupNode *group, AnjutaToken *variable)
+amp_group_node_get_variable_token (AmpGroupNode *group, AnjutaToken *variable)
 {
 	guint length;
 	const gchar *string;
@@ -344,7 +344,7 @@ amp_group_get_variable_token (AnjutaAmGroupNode *group, AnjutaToken *variable)
 }
 
 gboolean
-amp_group_set_file (AnjutaAmGroupNode *group, GFile *new_file)
+amp_group_node_set_file (AmpGroupNode *group, GFile *new_file)
 {
 	g_object_unref (group->base.file);
 	group->base.file = g_object_ref (new_file);
@@ -352,10 +352,10 @@ amp_group_set_file (AnjutaAmGroupNode *group, GFile *new_file)
 	return TRUE;
 }
 
-AnjutaAmGroupNode*
-amp_group_new (GFile *file, gboolean dist_only, GError **error)
+AmpGroupNode*
+amp_group_node_new (GFile *file, gboolean dist_only, GError **error)
 {
-	AnjutaAmGroupNode *node = NULL;
+	AmpGroupNode *node = NULL;
 	gchar *name;
 
 	/* Validate group name */
@@ -384,7 +384,7 @@ amp_group_new (GFile *file, gboolean dist_only, GError **error)
 	}
 	g_free (name);
 	
-	node = g_object_new (ANJUTA_TYPE_AM_GROUP_NODE, NULL);
+	node = g_object_new (AMP_TYPE_GROUP_NODE, NULL);
 	node->base.file = g_object_ref (file);
 	node->dist_only = dist_only;
 
@@ -392,7 +392,7 @@ amp_group_new (GFile *file, gboolean dist_only, GError **error)
 }
 
 void
-amp_group_free (AnjutaAmGroupNode *node)
+amp_group_node_free (AmpGroupNode *node)
 {
 	g_object_unref (G_OBJECT (node));
 }
@@ -402,16 +402,16 @@ amp_group_free (AnjutaAmGroupNode *node)
  *---------------------------------------------------------------------------*/
 
 
-typedef struct _AnjutaAmGroupNodeClass AnjutaAmGroupNodeClass;
+typedef struct _AmpGroupNodeClass AmpGroupNodeClass;
 
-struct _AnjutaAmGroupNodeClass {
+struct _AmpGroupNodeClass {
 	AmpNodeClass parent_class;
 };
 
-G_DEFINE_DYNAMIC_TYPE (AnjutaAmGroupNode, anjuta_am_group_node, AMP_TYPE_NODE);
+G_DEFINE_DYNAMIC_TYPE (AmpGroupNode, amp_group_node, AMP_TYPE_NODE);
 
 static void
-anjuta_am_group_node_init (AnjutaAmGroupNode *node)
+amp_group_node_init (AmpGroupNode *node)
 {
 	node->base.type = ANJUTA_PROJECT_GROUP;
 	node->base.native_properties = amp_get_group_property_list();
@@ -429,20 +429,20 @@ anjuta_am_group_node_init (AnjutaAmGroupNode *node)
 }
 
 static void
-anjuta_am_group_node_dispose (GObject *object)
+amp_group_node_dispose (GObject *object)
 {
-	AnjutaAmGroupNode *node = ANJUTA_AM_GROUP_NODE (object);
+	AmpGroupNode *node = AMP_GROUP_NODE (object);
 
 	if (node->monitor) g_object_unref (node->monitor);
 	node->monitor = NULL;
 	
-	G_OBJECT_CLASS (anjuta_am_group_node_parent_class)->dispose (object);
+	G_OBJECT_CLASS (amp_group_node_parent_class)->dispose (object);
 }
 
 static void
-anjuta_am_group_node_finalize (GObject *object)
+amp_group_node_finalize (GObject *object)
 {
-	AnjutaAmGroupNode *node = ANJUTA_AM_GROUP_NODE (object);
+	AmpGroupNode *node = AMP_GROUP_NODE (object);
 	gint i;
 	
 	g_list_foreach (node->base.custom_properties, (GFunc)amp_property_free, NULL);
@@ -455,25 +455,25 @@ anjuta_am_group_node_finalize (GObject *object)
 	}
 	if (node->variables) g_hash_table_destroy (node->variables);
 
-	G_OBJECT_CLASS (anjuta_am_group_node_parent_class)->finalize (object);
+	G_OBJECT_CLASS (amp_group_node_parent_class)->finalize (object);
 }
 
 static void
-anjuta_am_group_node_class_init (AnjutaAmGroupNodeClass *klass)
+amp_group_node_class_init (AmpGroupNodeClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
 	
-	object_class->finalize = anjuta_am_group_node_finalize;
-	object_class->dispose = anjuta_am_group_node_dispose;
+	object_class->finalize = amp_group_node_finalize;
+	object_class->dispose = amp_group_node_dispose;
 }
 
 static void
-anjuta_am_group_node_class_finalize (AnjutaAmGroupNodeClass *klass)
+amp_group_node_class_finalize (AmpGroupNodeClass *klass)
 {
 }
 
 void
-anjuta_am_group_node_register (GTypeModule *module)
+amp_group_node_register (GTypeModule *module)
 {
-	anjuta_am_group_node_register_type (module);
+	amp_group_node_register_type (module);
 }

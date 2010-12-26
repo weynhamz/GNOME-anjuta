@@ -45,7 +45,7 @@
 /* Types
  *---------------------------------------------------------------------------*/
 
-struct _AnjutaAmTargetNode {
+struct _AmpTargetNode {
 	AnjutaProjectNode base;
 	gchar *install;
 	gint flags;
@@ -188,38 +188,38 @@ tagged_token_list_free (GList *list)
  *---------------------------------------------------------------------------*/
 
 void
-amp_target_set_type (AnjutaAmTargetNode *target, AmTokenType type)
+amp_target_node_set_type (AmpTargetNode *target, AmTokenType type)
 {
 	target->base.type = ANJUTA_PROJECT_TARGET | type;
 	target->base.native_properties = amp_get_target_property_list(type);
 }
 
 void
-amp_target_add_token (AnjutaAmTargetNode *target, AmTokenType type, AnjutaToken *token)
+amp_target_node_add_token (AmpTargetNode *target, AmTokenType type, AnjutaToken *token)
 {
 	target->tokens = tagged_token_list_insert (target->tokens, type, token);
 }
 
 GList *
-amp_target_get_token (AnjutaAmTargetNode *target, AmTokenType type)
+amp_target_node_get_token (AmpTargetNode *target, AmTokenType type)
 {
 	return tagged_token_list_get	(target->tokens, type);
 }
 
 AnjutaTokenType
-amp_target_get_first_token_type (AnjutaAmTargetNode *target)
+amp_target_node_get_first_token_type (AmpTargetNode *target)
 {
 	return tagged_token_list_next (target->tokens, 0);
 }
 
 AnjutaTokenType
-amp_target_get_next_token_type (AnjutaAmTargetNode *target, AnjutaTokenType type)
+amp_target_node_get_next_token_type (AmpTargetNode *target, AnjutaTokenType type)
 {
 	return tagged_token_list_next (target->tokens, type);
 }
 
 void
-amp_target_update_node (AnjutaAmTargetNode *node, AnjutaAmTargetNode *new_node)
+amp_target_node_update_node (AmpTargetNode *node, AmpTargetNode *new_node)
 {
 	g_free (node->install);
 	g_list_free (node->tokens);
@@ -231,10 +231,10 @@ amp_target_update_node (AnjutaAmTargetNode *node, AnjutaAmTargetNode *new_node)
 	new_node->tokens = NULL;
 }
 
-AnjutaAmTargetNode*
-amp_target_new (const gchar *name, AnjutaProjectNodeType type, const gchar *install, gint flags, GError **error)
+AmpTargetNode*
+amp_target_node_new (const gchar *name, AnjutaProjectNodeType type, const gchar *install, gint flags, GError **error)
 {
-	AnjutaAmTargetNode *node = NULL;
+	AmpTargetNode *node = NULL;
 	const gchar *basename;
 
 	/* Validate target name */
@@ -284,8 +284,8 @@ amp_target_new (const gchar *name, AnjutaProjectNodeType type, const gchar *inst
 		}
 	}
 	
-	node = g_object_new (ANJUTA_TYPE_AM_TARGET_NODE, NULL);
-	amp_target_set_type (node, type);
+	node = g_object_new (AMP_TYPE_TARGET_NODE, NULL);
+	amp_target_node_set_type (node, type);
 	node->base.name = g_strdup (name);
 	node->install = g_strdup (install);
 	node->flags = flags;
@@ -294,7 +294,7 @@ amp_target_new (const gchar *name, AnjutaProjectNodeType type, const gchar *inst
 }
 
 void
-amp_target_free (AnjutaAmTargetNode *node)
+amp_target_node_free (AmpTargetNode *node)
 {
 	g_object_unref (G_OBJECT (node));
 }
@@ -303,16 +303,16 @@ amp_target_free (AnjutaAmTargetNode *node)
 /* GObjet implementation
  *---------------------------------------------------------------------------*/
 
-typedef struct _AnjutaAmTargetNodeClass AnjutaAmTargetNodeClass;
+typedef struct _AmpTargetNodeClass AmpTargetNodeClass;
 
-struct _AnjutaAmTargetNodeClass {
+struct _AmpTargetNodeClass {
 	AmpNodeClass parent_class;
 };
 
-G_DEFINE_DYNAMIC_TYPE (AnjutaAmTargetNode, anjuta_am_target_node, AMP_TYPE_NODE);
+G_DEFINE_DYNAMIC_TYPE (AmpTargetNode, amp_target_node, AMP_TYPE_NODE);
 
 static void
-anjuta_am_target_node_init (AnjutaAmTargetNode *node)
+amp_target_node_init (AmpTargetNode *node)
 {
 	node->base.type = ANJUTA_PROJECT_TARGET;
 	node->base.state = ANJUTA_PROJECT_CAN_ADD_SOURCE |
@@ -324,32 +324,32 @@ anjuta_am_target_node_init (AnjutaAmTargetNode *node)
 }
 
 static void
-anjuta_am_target_node_finalize (GObject *object)
+amp_target_node_finalize (GObject *object)
 {
-	AnjutaAmTargetNode *node = ANJUTA_AM_TARGET_NODE (object);
+	AmpTargetNode *node = AMP_TARGET_NODE (object);
 
 	g_list_foreach (node->base.custom_properties, (GFunc)amp_property_free, NULL);
 	tagged_token_list_free (node->tokens);
 	node->tokens = NULL;
 	
-	G_OBJECT_CLASS (anjuta_am_target_node_parent_class)->finalize (object);
+	G_OBJECT_CLASS (amp_target_node_parent_class)->finalize (object);
 }
 
 static void
-anjuta_am_target_node_class_init (AnjutaAmTargetNodeClass *klass)
+amp_target_node_class_init (AmpTargetNodeClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
 	
-	object_class->finalize = anjuta_am_target_node_finalize;
+	object_class->finalize = amp_target_node_finalize;
 }
 
 static void
-anjuta_am_target_node_class_finalize (AnjutaAmTargetNodeClass *klass)
+amp_target_node_class_finalize (AmpTargetNodeClass *klass)
 {
 }
 
 void
-anjuta_am_target_node_register (GTypeModule *module)
+amp_target_node_register (GTypeModule *module)
 {
-	anjuta_am_target_node_register_type (module);
+	amp_target_node_register_type (module);
 }

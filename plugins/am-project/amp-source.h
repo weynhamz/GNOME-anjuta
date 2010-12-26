@@ -36,21 +36,21 @@ G_BEGIN_DECLS
 /* Type macros
  *---------------------------------------------------------------------------*/
 
-#define ANJUTA_TYPE_AM_SOURCE_NODE			(anjuta_am_source_node_get_type ())
-#define ANJUTA_AM_SOURCE_NODE(obj)			(G_TYPE_CHECK_INSTANCE_CAST ((obj), ANJUTA_TYPE_AM_SOURCE_NODE, AnjutaAmSourceNode))
+#define AMP_TYPE_SOURCE_NODE						(amp_source_node_get_type ())
+#define AMP_SOURCE_NODE(obj)						(G_TYPE_CHECK_INSTANCE_CAST ((obj), AMP_TYPE_SOURCE_NODE, AmpSourceNode))
 
-GType anjuta_am_source_node_get_type (void) G_GNUC_CONST;
+GType amp_source_node_get_type (void) G_GNUC_CONST;
 
 
 
-void anjuta_am_source_node_register (GTypeModule *module);
+void amp_source_node_register (GTypeModule *module);
 
-AnjutaProjectNode* amp_source_new (GFile *file, GError **error);
-void amp_source_free (AnjutaAmSourceNode *node);
-AnjutaToken *amp_source_get_token (AnjutaAmSourceNode *node);
-void amp_source_add_token (AnjutaAmSourceNode *node, AnjutaToken *token);
-void amp_source_update_node (AnjutaAmSourceNode *node, AnjutaAmSourceNode *new_node);
-gboolean amp_source_set_file (AnjutaAmSourceNode *source, GFile *new_file);
+AnjutaProjectNode* amp_source_node_new (GFile *file, GError **error);
+void amp_source_node_free (AmpSourceNode *node);
+AnjutaToken *amp_source_node_get_token (AmpSourceNode *node);
+void amp_source_node_add_token (AmpSourceNode *node, AnjutaToken *token);
+void amp_source_node_update_node (AmpSourceNode *node, AmpSourceNode *new_node);
+gboolean amp_source_node_set_file (AmpSourceNode *source, GFile *new_file);
 
 
 G_END_DECLS

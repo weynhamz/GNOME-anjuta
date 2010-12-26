@@ -261,7 +261,7 @@ amp_project_write_module_list (AmpProject *project, const gchar *name, gboolean 
 
 
 gboolean 
-amp_module_create_token (AmpProject  *project, AnjutaAmModuleNode *module, GError **error)
+amp_module_node_create_token (AmpProject  *project, AmpModuleNode *module, GError **error)
 {
 	gboolean after;
 	AnjutaToken *token;
@@ -277,7 +277,7 @@ amp_module_create_token (AmpProject  *project, AnjutaAmModuleNode *module, GErro
 	{
 		if (anjuta_project_node_get_node_type (sibling) == ANJUTA_PROJECT_MODULE)
 		{
-			prev = amp_module_get_token (ANJUTA_AM_MODULE_NODE (sibling));
+			prev = amp_module_node_get_token (AMP_MODULE_NODE (sibling));
 			if (prev != NULL)
 			{
 				prev = anjuta_token_list (prev);
@@ -292,7 +292,7 @@ amp_module_create_token (AmpProject  *project, AnjutaAmModuleNode *module, GErro
 		{
 			if (anjuta_project_node_get_node_type (sibling) == ANJUTA_PROJECT_MODULE)
 			{
-				prev = amp_module_get_token (ANJUTA_AM_MODULE_NODE (sibling));
+				prev = amp_module_node_get_token (AMP_MODULE_NODE (sibling));
 				if (prev != NULL)
 				{
 					prev = anjuta_token_list (prev);
@@ -306,7 +306,7 @@ amp_module_create_token (AmpProject  *project, AnjutaAmModuleNode *module, GErro
 	next = anjuta_token_next (token);
 	next = anjuta_token_next (next);
 	next = anjuta_token_next (next);
-	amp_module_add_token (module, next);
+	amp_module_node_add_token (module, next);
 	
 	amp_project_update_configure (project, token);
 
@@ -314,11 +314,11 @@ amp_module_create_token (AmpProject  *project, AnjutaAmModuleNode *module, GErro
 }
 
 gboolean 
-amp_module_delete_token (AmpProject  *project, AnjutaAmModuleNode *module, GError **error)
+amp_module_node_delete_token (AmpProject  *project, AmpModuleNode *module, GError **error)
 {
 	AnjutaToken *token;
 
-	token = amp_module_get_token (module);
+	token = amp_module_node_get_token (module);
 	if (token != NULL)
 	{
 		token = anjuta_token_list (token);
@@ -334,9 +334,9 @@ amp_module_delete_token (AmpProject  *project, AnjutaAmModuleNode *module, GErro
  *---------------------------------------------------------------------------*/
 
 gboolean 
-amp_package_create_token (AmpProject  *project, AnjutaAmPackageNode *package, GError **error)
+amp_package_node_create_token (AmpProject  *project, AmpPackageNode *package, GError **error)
 {
-	AnjutaAmModuleNode *module;
+	AmpModuleNode *module;
 	AnjutaProjectNode *sibling;
 	gboolean after;
 	AnjutaToken *token;
@@ -345,7 +345,7 @@ amp_package_create_token (AmpProject  *project, AnjutaAmPackageNode *package, GE
 
 
 	/* Get parent module */
-	module = ANJUTA_AM_MODULE_NODE (anjuta_project_node_parent (ANJUTA_PROJECT_NODE (package)));
+	module = AMP_MODULE_NODE (anjuta_project_node_parent (ANJUTA_PROJECT_NODE (package)));
 	if ((module == NULL) || (anjuta_project_node_get_node_type (ANJUTA_PROJECT_NODE (module)) != ANJUTA_PROJECT_MODULE)) return FALSE;
 
 
@@ -353,13 +353,13 @@ amp_package_create_token (AmpProject  *project, AnjutaAmPackageNode *package, GE
 	/* Find a sibling if possible */
 	if ((sibling = anjuta_project_node_prev_sibling (ANJUTA_PROJECT_NODE (package))) != NULL)
 	{
-		prev = amp_package_get_token (ANJUTA_AM_PACKAGE_NODE (sibling));
+		prev = amp_package_node_get_token (AMP_PACKAGE_NODE (sibling));
 		after = TRUE;
 		args = anjuta_token_list (prev);
 	}
 	else if ((sibling = anjuta_project_node_next_sibling (ANJUTA_PROJECT_NODE (package))) != NULL)
 	{
-		prev = amp_package_get_token (ANJUTA_AM_PACKAGE_NODE (sibling));
+		prev = amp_package_node_get_token (AMP_PACKAGE_NODE (sibling));
 		after = FALSE;
 		args = anjuta_token_list (prev);
 	}
@@ -372,7 +372,7 @@ amp_package_create_token (AmpProject  *project, AnjutaAmPackageNode *package, GE
 	/* Check if a valid source variable is already defined */
 	if (args == NULL)
 	{
-		args = amp_module_get_token (module);
+		args = amp_module_node_get_token (module);
 	}
 	
 	if (args != NULL)
@@ -401,14 +401,14 @@ amp_package_create_token (AmpProject  *project, AnjutaAmPackageNode *package, GE
 		
 		amp_project_update_configure (project, token);
 		
-		amp_package_add_token (package, token);
+		amp_package_node_add_token (package, token);
 	}
 
 	return TRUE;
 }
 
 gboolean 
-amp_package_delete_token (AmpProject  *project, AnjutaAmPackageNode *package, GError **error)
+amp_package_node_delete_token (AmpProject  *project, AmpPackageNode *package, GError **error)
 {
 	AnjutaProjectNode *module;
 	AnjutaToken *token;
@@ -420,7 +420,7 @@ amp_package_delete_token (AmpProject  *project, AnjutaAmPackageNode *package, GE
 		return FALSE;
 	}
 		
-	token = amp_package_get_token (package);
+	token = amp_package_node_get_token (package);
 	if (token != NULL)
 	{
 		AnjutaToken *args;

@@ -44,7 +44,7 @@
 /* Types
  *---------------------------------------------------------------------------*/
 
-struct _AnjutaAmPackageNode {
+struct _AmpPackageNode {
 	AnjutaProjectNode base;
 	gchar *version;
 	AnjutaToken *token;
@@ -55,25 +55,25 @@ struct _AnjutaAmPackageNode {
 /* Package objects
  *---------------------------------------------------------------------------*/
 
-AnjutaAmPackageNode*
-amp_package_new (const gchar *name, GError **error)
+AmpPackageNode*
+amp_package_node_new (const gchar *name, GError **error)
 {
-	AnjutaAmPackageNode *node = NULL;
+	AmpPackageNode *node = NULL;
 
-	node = g_object_new (ANJUTA_TYPE_AM_PACKAGE_NODE, NULL);
+	node = g_object_new (AMP_TYPE_PACKAGE_NODE, NULL);
 	node->base.name = g_strdup (name);
 
 	return node;
 }
 
 void
-amp_package_free (AnjutaAmPackageNode *node)
+amp_package_node_free (AmpPackageNode *node)
 {
 	g_object_unref (G_OBJECT (node));
 }
 
 void
-amp_package_set_version (AnjutaAmPackageNode *node, const gchar *compare, const gchar *version)
+amp_package_node_set_version (AmpPackageNode *node, const gchar *compare, const gchar *version)
 {
 	g_return_if_fail (node != NULL);
 	g_return_if_fail ((version == NULL) || (compare != NULL));
@@ -83,19 +83,19 @@ amp_package_set_version (AnjutaAmPackageNode *node, const gchar *compare, const 
 }
 
 AnjutaToken *
-amp_package_get_token (AnjutaAmPackageNode *node)
+amp_package_node_get_token (AmpPackageNode *node)
 {
 	return node->token;
 }
 
 void
-amp_package_add_token (AnjutaAmPackageNode *node, AnjutaToken *token)
+amp_package_node_add_token (AmpPackageNode *node, AnjutaToken *token)
 {
 	node->token = token;
 }
 
 void
-amp_package_update_node (AnjutaAmPackageNode *node, AnjutaAmPackageNode *new_node)
+amp_package_node_update_node (AmpPackageNode *node, AmpPackageNode *new_node)
 {
 	g_return_if_fail (new_node != NULL);	
 
@@ -109,16 +109,16 @@ amp_package_update_node (AnjutaAmPackageNode *node, AnjutaAmPackageNode *new_nod
 /* GObjet implementation
  *---------------------------------------------------------------------------*/
 
-typedef struct _AnjutaAmPackageNodeClass AnjutaAmPackageNodeClass;
+typedef struct _AmpPackageNodeClass AmpPackageNodeClass;
 
-struct _AnjutaAmPackageNodeClass {
+struct _AmpPackageNodeClass {
 	AmpNodeClass parent_class;
 };
 
-G_DEFINE_DYNAMIC_TYPE (AnjutaAmPackageNode, anjuta_am_package_node, AMP_TYPE_NODE);
+G_DEFINE_DYNAMIC_TYPE (AmpPackageNode, amp_package_node, AMP_TYPE_NODE);
 
 static void
-anjuta_am_package_node_init (AnjutaAmPackageNode *node)
+amp_package_node_init (AmpPackageNode *node)
 {
 	node->base.type = ANJUTA_PROJECT_PACKAGE;
 	node->base.native_properties = amp_get_package_property_list();
@@ -127,30 +127,30 @@ anjuta_am_package_node_init (AnjutaAmPackageNode *node)
 }
 
 static void
-anjuta_am_package_node_finalize (GObject *object)
+amp_package_node_finalize (GObject *object)
 {
-	AnjutaAmPackageNode *node = ANJUTA_AM_PACKAGE_NODE (object);
+	AmpPackageNode *node = AMP_PACKAGE_NODE (object);
 
 	g_list_foreach (node->base.custom_properties, (GFunc)amp_property_free, NULL);
 	
-	G_OBJECT_CLASS (anjuta_am_package_node_parent_class)->finalize (object);
+	G_OBJECT_CLASS (amp_package_node_parent_class)->finalize (object);
 }
 
 static void
-anjuta_am_package_node_class_init (AnjutaAmPackageNodeClass *klass)
+amp_package_node_class_init (AmpPackageNodeClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
 	
-	object_class->finalize = anjuta_am_package_node_finalize;
+	object_class->finalize = amp_package_node_finalize;
 }
 
 static void
-anjuta_am_package_node_class_finalize (AnjutaAmPackageNodeClass *klass)
+amp_package_node_class_finalize (AmpPackageNodeClass *klass)
 {
 }
 
 void
-anjuta_am_package_node_register (GTypeModule *module)
+amp_package_node_register (GTypeModule *module)
 {
-	anjuta_am_package_node_register_type (module);
+	amp_package_node_register_type (module);
 }

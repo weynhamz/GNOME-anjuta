@@ -31,11 +31,11 @@ G_BEGIN_DECLS
 
 gboolean amp_project_update_ac_property (AmpProject *project, AnjutaProjectProperty *property); 
 
-gboolean amp_module_create_token (AmpProject  *project, AnjutaAmModuleNode *module, GError **error);
-gboolean amp_module_delete_token (AmpProject  *project, AnjutaAmModuleNode *module, GError **error);
+gboolean amp_module_node_create_token (AmpProject  *project, AmpModuleNode *module, GError **error);
+gboolean amp_module_node_delete_token (AmpProject  *project, AmpModuleNode *module, GError **error);
 
-gboolean amp_package_create_token (AmpProject  *project, AnjutaAmPackageNode *package, GError **error);
-gboolean amp_package_delete_token (AmpProject  *project, AnjutaAmPackageNode *package, GError **error);
+gboolean amp_package_node_create_token (AmpProject  *project, AmpPackageNode *package, GError **error);
+gboolean amp_package_node_delete_token (AmpProject  *project, AmpPackageNode *package, GError **error);
 
 G_END_DECLS
 
