@@ -40,6 +40,8 @@
 
 #define JS_SOURCE_TEMPLATE PACKAGE_DATA_DIR"/class-templates/js-source.tpl"
 
+#define VALA_SOURCE_TEMPLATE PACKAGE_DATA_DIR"/class-templates/vala-source.tpl"
+
 typedef struct _CgWindowPrivate CgWindowPrivate;
 struct _CgWindowPrivate
 {

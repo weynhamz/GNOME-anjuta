@@ -1998,7 +1998,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkTable" id="table2">
+              <object class="GtkTable" id="table4">
                 <property name="visible">True</property>
                 <property name="n_rows">4</property>
                 <property name="n_columns">4</property>
@@ -2019,7 +2019,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label17">
+                  <object class="GtkLabel" id="label18">
                     <property name="visible">True</property>
                     <property name="xalign">1</property>
                     <property name="label" translatable="yes">Author Email Address:</property>
@@ -2048,7 +2048,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label18">
+                  <object class="GtkLabel" id="label26">
                     <property name="visible">True</property>
                     <property name="xalign">1</property>
                     <property name="label" translatable="yes">Author Name:</property>
@@ -2065,7 +2065,7 @@
                     <property name="visible">True</property>
                     <property name="model">model2</property>
                     <child>
-                      <object class="GtkCellRendererText" id="renderer2"/>
+                      <object class="GtkCellRendererText" id="renderer3"/>
                       <attributes>
                         <attribute name="text">0</attribute>
                       </attributes>
@@ -2080,7 +2080,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label19">
+                  <object class="GtkLabel" id="label30">
                     <property name="visible">True</property>
                     <property name="xalign">1</property>
                     <property name="label" translatable="yes">License:</property>
@@ -2093,7 +2093,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label20">
+                  <object class="GtkLabel" id="label31">
                     <property name="visible">True</property>
                     <property name="xalign">1</property>
                     <property name="label" translatable="yes">Header File:</property>
@@ -2125,7 +2125,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label21">
+                  <object class="GtkLabel" id="label32">
                     <property name="visible">True</property>
                     <property name="xalign">1</property>
                     <property name="label" translatable="yes">Source File:</property>
@@ -2246,7 +2246,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkLabel" id="label22">
+                      <object class="GtkLabel" id="label33">
                         <property name="visible">True</property>
                         <property name="label" translatable="yes">Create</property>
                       </object>
