@@ -1862,7 +1862,6 @@ anjuta_util_help_display (GtkWidget   *parent,
 {
 
 	GError *error = NULL;
-	GdkScreen *screen;
 	gchar *command;
 	const gchar *lang;
 	const gchar * const *langs;
@@ -1900,8 +1899,7 @@ anjuta_util_help_display (GtkWidget   *parent,
 	command = g_strconcat ("gnome-help ghelp://", uri,  NULL);
 	g_free (uri);
 
-	screen = gtk_widget_get_screen (GTK_WIDGET (parent));
-	gdk_spawn_command_line_on_screen (screen, command, &error);
+	g_spawn_command_line_async (command, &error);
 	if (error != NULL)
 	{
 		g_warning ("Error executing help application: %s",

@@ -291,6 +291,5 @@ anjuta_res_url_show (const gchar *url)
 	open[1] = (gchar *)url;
 	open[2] = NULL;
 					
-	gdk_spawn_on_screen (gdk_screen_get_default (), NULL, open, NULL,
-						 G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, NULL);
+	g_spawn_async (NULL, open, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, NULL);
 }
