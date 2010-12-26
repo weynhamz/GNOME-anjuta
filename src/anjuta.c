@@ -230,7 +230,6 @@ extract_project_from_session (const gchar* session_dir)
 	return project_uri;
 }
 
-/* FIXME: Clean this mess */
 AnjutaApp*
 create_window (GFile **files, int n_files, gboolean no_splash,
 			gboolean no_session, gboolean no_files,
@@ -243,8 +242,8 @@ create_window (GFile **files, int n_files, gboolean no_splash,
 	AnjutaProfile *profile;
 	GFile *session_profile;
 	gchar *remembered_plugins;
-	gchar *project_uri = NULL;
-	gchar *template_uri = NULL;
+	GFile *project = NULL;
+	GFile *template = NULL;
 	gchar *profile_name = NULL;
 	gchar *im_file = NULL;
 	GError *error = NULL;
@@ -254,7 +253,6 @@ create_window (GFile **files, int n_files, gboolean no_splash,
 	status = anjuta_shell_get_status (ANJUTA_SHELL (app), NULL);
 	anjuta_status_progress_add_ticks (status, 1);
 
-	/* Initialize application */
 	im_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_SPLASH_SCREEN);
 	
 	gtk_window_set_role (GTK_WINDOW (app), "anjuta-app");
@@ -278,6 +276,8 @@ create_window (GFile **files, int n_files, gboolean no_splash,
 					  G_CALLBACK (on_anjuta_delete_event), NULL);
 	g_signal_connect (G_OBJECT (app), "destroy",
 					  G_CALLBACK (on_anjuta_destroy), NULL);
+
+	/* Setup application framework */
 	plugin_manager  = anjuta_shell_get_plugin_manager (ANJUTA_SHELL (app),
 													   NULL);
 	profile_manager = anjuta_shell_get_profile_manager (ANJUTA_SHELL (app),
@@ -335,6 +335,7 @@ create_window (GFile **files, int n_files, gboolean no_splash,
 	if (files || geometry)
 	{
 		gchar *session_dir;
+		gchar *project_uri;
 		AnjutaSession *session;
 		gint i;
 		GList *files_load = NULL;
@@ -343,7 +344,10 @@ create_window (GFile **files, int n_files, gboolean no_splash,
 		session_dir = USER_SESSION_PATH_NEW;
 
 		project_uri = extract_project_from_session (session_dir);
-		template_uri = NULL;
+		template = NULL;
+		if (project_uri)
+			project = g_file_new_for_uri (project_uri);
+		g_free (project_uri);
 
 		session = anjuta_session_new (session_dir);
 		anjuta_session_clear (session);
@@ -360,13 +364,13 @@ create_window (GFile **files, int n_files, gboolean no_splash,
 			if (anjuta_util_is_project_file (file))
 			{
 				/* Pick up the first project file for loading later */
-				g_free (project_uri);
-				project_uri = g_strdup (file);
+				project = files[i];
+				g_object_ref (project);
 			}
 			else if (anjuta_util_is_template_file (file))
 			{
-				g_free (template_uri);
-				template_uri = g_strdup (file);
+				template = files[i];
+				g_object_ref (template);
 			}
 			else
 			{
@@ -416,7 +420,10 @@ create_window (GFile **files, int n_files, gboolean no_splash,
 		/* Otherwise, load session normally */
 		else
 		{
-			project_uri = extract_project_from_session (session_dir);
+			gchar *project_uri = extract_project_from_session (session_dir);
+			if (project_uri)
+				project = g_file_new_for_uri (project_uri);
+			g_free (project_uri);
 		}
 		g_free (session_dir);
 	}
@@ -425,16 +432,14 @@ create_window (GFile **files, int n_files, gboolean no_splash,
 	g_signal_connect (profile_manager, "profile-scoped",
 					  G_CALLBACK (on_profile_scoped), app);
 	/* Load project file */
-	if ((project_uri != NULL) && (template_uri == NULL))
+	if ((project != NULL) && (template == NULL))
 	{
-		GFile* file = g_file_new_for_uri (project_uri);
 		IAnjutaFileLoader *loader;
 		loader = anjuta_shell_get_interface (ANJUTA_SHELL (app),
 											 IAnjutaFileLoader, NULL);
-		ianjuta_file_loader_load (loader, file, FALSE, NULL);
-		g_object_unref (file);
+		ianjuta_file_loader_load (loader, project, FALSE, NULL);
+		g_object_unref (project);
 	}
-	g_free (project_uri);
 	anjuta_profile_manager_thaw (profile_manager, &error);
 
 	if (error)
@@ -450,15 +455,13 @@ create_window (GFile **files, int n_files, gboolean no_splash,
 	anjuta_status_disable_splash (status, TRUE);
 
 	/* Load template file */
-	if (template_uri != NULL)
+	if (template != NULL)
 	{
-		GFile* file = g_file_new_for_uri (template_uri);
 		IAnjutaFileLoader *loader;
 		loader = anjuta_shell_get_interface (ANJUTA_SHELL (app),
 											 IAnjutaFileLoader, NULL);
-		ianjuta_file_loader_load (loader, file, FALSE, NULL);
-		g_free (template_uri);
-		g_object_unref (file);
+		ianjuta_file_loader_load (loader, template, FALSE, NULL);
+		g_object_unref (template);
 	}
 
 	return app;
@@ -488,7 +491,26 @@ anjuta_open (GApplication *application,
 	
 	if (!loader)
 		return;
-		
+
+	/* Identify non-project files and set them for loading in session */
+	for (i = 0; i < n_files; i++)
+	{
+		gchar* file = g_file_get_path (files[i]);
+		if (!file)
+			continue;
+		if (anjuta_util_is_project_file (file))
+		{
+			AnjutaApp* new_app = create_window (files, n_files,
+			                                    TRUE, TRUE, FALSE, FALSE, NULL);
+			gtk_application_add_window (GTK_APPLICATION (application),
+			                            GTK_WINDOW (new_app));
+			gtk_widget_show (GTK_WIDGET (new_app));
+			g_free (file);
+			return;                     
+		}
+		g_free (file);
+	}				
+	
 	for (i = 0; i < n_files; i++)
 	{
 		ianjuta_file_loader_load(loader, files[i], FALSE, NULL);
@@ -501,7 +523,7 @@ anjuta_activate (GApplication *application)
 	/* Show first window */
 	GList* windows = gtk_application_get_windows (GTK_APPLICATION (application));
 	
-	gtk_window_present (GTK_WINDOW (windows->data));
+	gtk_window_present (GTK_WINDOW (g_list_last (windows)->data));
 }
 
 static void
@@ -532,6 +554,4 @@ anjuta_new (void)
                        "flags", G_APPLICATION_HANDLES_OPEN,
                        NULL);
 }
-
-/* End */
 
