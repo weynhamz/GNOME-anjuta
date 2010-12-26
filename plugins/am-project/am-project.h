@@ -24,6 +24,8 @@
 
 #include <glib-object.h>
 
+#include "amp-node.h"
+
 #include <libanjuta/anjuta-project.h>
 #include <libanjuta/anjuta-token.h>
 #include <libanjuta/anjuta-token-file.h>
@@ -41,7 +43,7 @@ typedef struct _AmpProject        AmpProject;
 typedef struct _AmpProjectClass   AmpProjectClass;
 
 struct _AmpProjectClass {
-	AnjutaProjectNodeClass parent_class;
+	AmpNodeClass parent_class;
 };
 
 typedef struct _AnjutaAmRootNode AnjutaAmRootNode;
@@ -120,7 +122,6 @@ AnjutaProjectNode *amp_node_first_child (AnjutaProjectNode *node);
 AnjutaProjectNode *amp_node_last_child (AnjutaProjectNode *node);
 AnjutaProjectNode *amp_node_next_sibling (AnjutaProjectNode *node);
 AnjutaProjectNode *amp_node_prev_sibling (AnjutaProjectNode *node);
-AnjutaProjectNodeType amp_node_get_type (AnjutaProjectNode *node);
 //void amp_node_all_foreach (AnjutaProjectNode *node, AnjutaProjectNodeFunc func, gpointer data);
 
 GFile *amp_group_get_directory (AnjutaAmGroupNode *group);
@@ -135,7 +136,7 @@ void amp_source_free (AnjutaAmSourceNode *node);
 gchar *amp_source_get_id (AnjutaAmSourceNode *source);
 GFile *amp_source_get_file (AnjutaAmSourceNode *source);
 
-gchar* canonicalize_automake_variable (gchar *name);
+gchar* canonicalize_automake_variable (const gchar *name);
 
 
 

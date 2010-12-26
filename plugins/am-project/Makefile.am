@@ -47,8 +47,18 @@ libam_project_la_SOURCES = \
 	am-project-private.h \
 	am-properties.c \
 	am-properties.h \
-	am-node.c \
-	am-node.h \
+	amp-node.c \
+	amp-node.h \
+	amp-module.h \
+	amp-module.c \
+	amp-package.h \
+	amp-package.c \
+	amp-group.h \
+	amp-group.c \
+	amp-target.h \
+	amp-target.c \
+	amp-source.h \
+	amp-source.c \
 	command-queue.c \
 	command-queue.h
 

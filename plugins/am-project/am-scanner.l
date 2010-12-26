@@ -21,7 +21,8 @@
 
 #include "am-scanner.h"
 #include "am-parser.h"
-#include "am-node.h"
+#include "amp-node.h"
+#include "amp-target.h"
 
 #include "libanjuta/anjuta-debug.h"
 #include "libanjuta/anjuta-token-stream.h"

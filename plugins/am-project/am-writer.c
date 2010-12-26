@@ -29,7 +29,10 @@
 #include "ac-parser.h"
 
 #include "am-project-private.h"
-#include "am-node.h"
+#include "amp-node.h"
+#include "amp-group.h"
+#include "amp-target.h"
+#include "amp-source.h"
 #include "am-scanner.h"
 
 #include <libanjuta/anjuta-debug.h>
@@ -670,7 +673,7 @@ amp_source_create_token (AmpProject  *project, AnjutaAmSourceNode *source, GErro
 	}
 	else
 	{
-		prev = ANJUTA_AM_SOURCE_NODE (sibling)->token;
+		prev = amp_source_get_token (ANJUTA_AM_SOURCE_NODE (sibling));
 		args = anjuta_token_list (prev);
 	}
 
@@ -692,7 +695,7 @@ amp_source_create_token (AmpProject  *project, AnjutaAmSourceNode *source, GErro
 		AnjutaToken *var;
 		GList *list;
 		
-		canon_name = canonicalize_automake_variable (ANJUTA_AM_TARGET_NODE (target)->base.name);
+		canon_name = canonicalize_automake_variable (anjuta_project_node_get_name (ANJUTA_PROJECT_NODE (target)));
 		target_var = g_strconcat (canon_name,  "_SOURCES", NULL);
 
 		/* Search where the target is declared */
@@ -879,7 +882,7 @@ gboolean amp_project_update_am_property (AmpProject *project, AnjutaProjectNode 
 			else
 			{
 				/* Target property */
-				canon_name = canonicalize_automake_variable (ANJUTA_AM_TARGET_NODE (node)->base.name);
+				canon_name = canonicalize_automake_variable (anjuta_project_node_get_name (ANJUTA_PROJECT_NODE (node)));
 				prop_name = g_strconcat (canon_name, ((AmpProperty *)property->native)->suffix, NULL);
 			}
 			args = amp_project_write_property_list (ANJUTA_AM_GROUP_NODE (group), node, prop_name);

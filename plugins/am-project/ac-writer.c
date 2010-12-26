@@ -27,7 +27,10 @@
 #include "ac-writer.h"
 #include "ac-scanner.h"
 #include "ac-parser.h"
-#include "am-node.h"
+#include "amp-node.h"
+#include "amp-module.h"
+#include "amp-package.h"
+
 
 #include "am-project-private.h"
 
@@ -334,6 +337,7 @@ gboolean
 amp_package_create_token (AmpProject  *project, AnjutaAmPackageNode *package, GError **error)
 {
 	AnjutaAmModuleNode *module;
+	AnjutaProjectNode *sibling;
 	gboolean after;
 	AnjutaToken *token;
 	AnjutaToken *prev;
@@ -347,15 +351,15 @@ amp_package_create_token (AmpProject  *project, AnjutaAmPackageNode *package, GE
 
 	/* Add in configure.ac */
 	/* Find a sibling if possible */
-	if (package->base.prev != NULL)
+	if ((sibling = anjuta_project_node_prev_sibling (ANJUTA_PROJECT_NODE (package))) != NULL)
 	{
-		prev = ANJUTA_AM_PACKAGE_NODE (package->base.prev)->token;
+		prev = amp_package_get_token (ANJUTA_AM_PACKAGE_NODE (sibling));
 		after = TRUE;
 		args = anjuta_token_list (prev);
 	}
-	else if (package->base.next != NULL)
+	else if ((sibling = anjuta_project_node_next_sibling (ANJUTA_PROJECT_NODE (package))) != NULL)
 	{
-		prev = ANJUTA_AM_PACKAGE_NODE (package->base.next)->token;
+		prev = amp_package_get_token (ANJUTA_AM_PACKAGE_NODE (sibling));
 		after = FALSE;
 		args = anjuta_token_list (prev);
 	}
