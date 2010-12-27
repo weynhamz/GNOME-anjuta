@@ -150,11 +150,19 @@ static const gchar *VALA_BOOLEAN_LIST[] =
 	NULL
 };
 
-static const gchar *VALA_SCOPE_LIST[] =
+static const gchar *VALA_METHSIG_SCOPE_LIST[] =
 {
 	"public",
 	"private",
 	"protected",
+	NULL
+}
+;
+static const gchar *VALA_PROP_SCOPE_LIST[] =
+{
+	"public",
+	"protected",
+	"internal",
 	NULL
 };
 
@@ -639,36 +647,6 @@ cg_window_vala_name_changed_cb (GtkEntry *entry,
 	cg_window_dynamic_name_changed_cb (entry, user_data, ".vala");
 }
 
-static void
-cg_window_vala_derive_from_glib (GtkEntry *entry,
-				 gpointer user_data)
-{
-	CgWindow *window;
-	CgWindowPrivate *priv;
-
-	GtkWidget *derive_from_glib;
-	GtkWidget *entry_base_class;
-	GtkWidget *label_base_class;
-
-	window = CG_WINDOW (user_data);
-	priv = CG_WINDOW_PRIVATE (window);
-
-	derive_from_glib = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "vala_derive_from_glib"));
-	entry_base_class = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "vala_base"));
-	label_base_class = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "lbl_vala_base"));
-
-	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (derive_from_glib)) == FALSE)
-	{
-		gtk_editable_set_editable (GTK_EDITABLE (entry_base_class), TRUE);
-		gtk_widget_set_sensitive (label_base_class, TRUE);
-	}
-	else
-	{
-		gtk_editable_set_editable (GTK_EDITABLE (entry_base_class), FALSE);
-		gtk_widget_set_sensitive (label_base_class, FALSE);
-	}
-}
-
 #if 0
 static void
 cg_window_associate_browse_button (GladeXML *xml,
@@ -798,7 +776,7 @@ cg_window_set_builder (CgWindow *window,
 		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "vala_methods_add")),
 		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "vala_methods_remove")),
 		4,
-		_("Scope"), CG_ELEMENT_EDITOR_COLUMN_LIST, VALA_SCOPE_LIST,
+		_("Scope"), CG_ELEMENT_EDITOR_COLUMN_LIST, VALA_METHSIG_SCOPE_LIST,
 		_("Type"), CG_ELEMENT_EDITOR_COLUMN_STRING,
 		_("Name"), CG_ELEMENT_EDITOR_COLUMN_STRING,
 		_("Arguments"), CG_ELEMENT_EDITOR_COLUMN_ARGUMENTS);
@@ -807,20 +785,21 @@ cg_window_set_builder (CgWindow *window,
 		GTK_TREE_VIEW (gtk_builder_get_object (priv->bxml, "vala_properties")),
 		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "vala_properties_add")),
 		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "vala_properties_remove")),
-		5,
-		_("Scope"), CG_ELEMENT_EDITOR_COLUMN_LIST, VALA_SCOPE_LIST,
+		7,
+		_("Scope"), CG_ELEMENT_EDITOR_COLUMN_LIST, VALA_PROP_SCOPE_LIST,
 		_("Type"), CG_ELEMENT_EDITOR_COLUMN_STRING,
 		_("Name"), CG_ELEMENT_EDITOR_COLUMN_STRING,
-		_("Value"), CG_ELEMENT_EDITOR_COLUMN_STRING,
-		_("Setter"), CG_ELEMENT_EDITOR_COLUMN_LIST, VALA_BOOLEAN_LIST);
+		_("Automatic"), CG_ELEMENT_EDITOR_COLUMN_LIST, VALA_BOOLEAN_LIST,
+		_("Getter"), CG_ELEMENT_EDITOR_COLUMN_LIST, VALA_BOOLEAN_LIST,
+		_("Setter"), CG_ELEMENT_EDITOR_COLUMN_LIST, VALA_BOOLEAN_LIST,
+		_("Value"), CG_ELEMENT_EDITOR_COLUMN_STRING);
 
 	priv->editor_vala_signals = cg_element_editor_new (
 		GTK_TREE_VIEW (gtk_builder_get_object (priv->bxml, "vala_signals")),
 		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "vala_signals_add")),
 		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "vala_signals_remove")),
-		4,
-		_("Scope"), CG_ELEMENT_EDITOR_COLUMN_LIST, VALA_SCOPE_LIST,
-		_("Type"), CG_ELEMENT_EDITOR_COLUMN_STRING,
+		3,
+		_("Scope"), CG_ELEMENT_EDITOR_COLUMN_LIST, VALA_METHSIG_SCOPE_LIST,
 		_("Name"), CG_ELEMENT_EDITOR_COLUMN_STRING,
 		_("Arguments"), CG_ELEMENT_EDITOR_COLUMN_ARGUMENTS);
 
@@ -840,9 +819,6 @@ cg_window_set_builder (CgWindow *window,
 		G_OBJECT (gtk_builder_get_object (priv->bxml, "vala_name")), "changed",
 		G_CALLBACK (cg_window_vala_name_changed_cb), window);
 
-	g_signal_connect (
-		G_OBJECT (gtk_builder_get_object (priv->bxml, "vala_derive_from_glib")), "toggled",
-		G_CALLBACK (cg_window_vala_derive_from_glib), window);
 	gtk_combo_box_set_active (
 		GTK_COMBO_BOX (gtk_builder_get_object (priv->bxml, "vala_class_scope")),
 		0);
@@ -1015,19 +991,37 @@ cg_window_js_imports_transform_func (GHashTable *table,
 }
 
 static void
+vala_transform_scope_func (GHashTable *table,
+                           G_GNUC_UNUSED gpointer user_data)
+{
+	gchar *scope;
+
+	scope = g_hash_table_lookup (table, "Scope");
+	if (scope == NULL)
+	{
+		g_hash_table_insert (table, "Scope",
+				     g_strdup_printf("public"));
+	}
+}
+
+static void
 cg_window_vala_methods_transform_func (GHashTable *table,
                                        G_GNUC_UNUSED gpointer user_data)
 {
 	cg_transform_string (table, "Name");
 	cg_transform_arguments (table, "Arguments", FALSE);
+
+	vala_transform_scope_func (table, user_data);
 }
 
 static void
 cg_window_vala_signals_transform_func (GHashTable *table,
-                                          G_GNUC_UNUSED gpointer user_data)
+                                       G_GNUC_UNUSED gpointer user_data)
 {
 	cg_transform_string (table, "Name");
 	cg_transform_arguments (table, "Arguments", FALSE);
+
+	vala_transform_scope_func (table, user_data);
 }
 
 static void
@@ -1035,6 +1029,9 @@ cg_window_vala_properties_transform_func (GHashTable *table,
                                           G_GNUC_UNUSED gpointer user_data)
 {
 	cg_transform_string (table, "Name");
+	cg_transform_string (table, "Value");
+
+	vala_transform_scope_func (table, user_data);
 }
 
 #if 0
@@ -1433,18 +1430,16 @@ cg_window_create_value_heap (CgWindow *window)
 		                          "ClassScope", "vala_class_scope");
 		cg_window_set_heap_value (window, values, G_TYPE_BOOLEAN,
 					  "Headings", "vala_headings");
-		cg_window_set_heap_value (window, values, G_TYPE_BOOLEAN,
-					  "DeriveFromGlib", "vala_derive_from_glib");
 		cg_element_editor_set_values (priv->editor_vala_methods, "Methods", values,
 					      cg_window_vala_methods_transform_func,
 					      window, "Scope", "Type", "Name", "Arguments");
 		cg_element_editor_set_values (priv->editor_vala_properties, "Properties", values,
 					      cg_window_vala_properties_transform_func,
-					      window, "Scope", "Type", "Name", "Value",
-					      "Setter");
+					      window, "Scope", "Type", "Name", "Automatic",
+					      "Getter", "Setter", "Value");
 		cg_element_editor_set_values (priv->editor_vala_signals, "Signals", values,
 					      cg_window_vala_signals_transform_func,
-					      window, "Scope", "Type", "Name", "Arguments");
+					      window, "Scope", "Name", "Arguments");
 		break;
 	default:
 		g_assert_not_reached ();

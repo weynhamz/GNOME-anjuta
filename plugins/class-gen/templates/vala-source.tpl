@@ -28,37 +28,39 @@
 [+ == "GPL"  +][+(gpl  (get "ProjectName")                    " * ")+]
 [+ESAC+] */
 
-[+ClassScope+] class [+ClassName+][+
-IF (=(get "DeriveFromGlib") "1") +] : GLib.Object[+
-ELIF (not (=(get "BaseClass") "")) +] : [+BaseClass+][+
-ENDIF+] {[+
-FOR Properties+]
-    [+Scope+] [+Type+] _[+Name+] = [+Value+];[+
+[+ClassScope+] class [+ClassName+] : [+BaseClass+] {[+
+FOR Properties+][+
+    IF (=(get "Automatic") "Yes") +]
+    [+Scope+] [+Type+] [+Name+] { get; set; }[+
+    ELSE+]
+    private [+Type+] _[+Name+] = [+Value+];[+
+    ENDIF+][+
     IF (last-for?) +]
 [+
+    ENDIF+][+
+ENDFOR+][+
+FOR Properties+][+
+    IF (=(get "Automatic") "No") +]
+    [+Scope+] [+Type+] [+Name+] {[+
+        IF (=(get "Getter") "YES")+]
+        get { return _[+Name+] }[+
+        ENDIF+][+
+        IF (=(get "Setter") "YES")+]
+        set { _[+Name+] = value }[+
+        ENDIF+]
+    }[+
     ENDIF+][+
 ENDFOR+][+
 FOR Signals+][+
     IF (first-for?) +]
     /* Signal definitions */[+ENDIF+]
-    [+Scope+] signal [+Type+] [+Name+] [+Arguments+];[+
-    IF (last-for?) +]
-
-[+
-    ENDIF+][+
+    [+Scope+] signal void [+Name+] [+Arguments+];[+
 ENDFOR+]
+
     // Constructor
     public [+ClassName+] () {
+        
     }
-[+
-FOR Properties+]
-    public int [+Name+] {
-        get { return _[+Name+] }[+
-    IF (not (=(get "Setter") "")) +]
-        set { _[+Name+] = value }[+
-    ENDIF+]
-    }[+
-ENDFOR+]
 [+
 FOR Methods+][+
     IF (first-for?) +]
