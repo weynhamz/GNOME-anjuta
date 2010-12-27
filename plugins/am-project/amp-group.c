@@ -29,6 +29,7 @@
 #include "amp-node.h"
 #include "am-scanner.h"
 #include "am-properties.h"
+#include "am-writer.h"
 
 
 #include <libanjuta/interfaces/ianjuta-project.h>
@@ -81,6 +82,166 @@ error_set (GError **error, gint code, const gchar *message)
         }
 }
                                                       
+/* Private functions
+ *---------------------------------------------------------------------------*/
+
+/* Find if pkg-config modules are used in group targets */
+static gboolean
+project_load_group_module (AmpProject *project, AmpGroupNode *group)
+{
+	AnjutaProjectNode *target;
+	AnjutaProjectProperty *prop;
+	gchar **group_cpp = NULL;
+
+	prop = amp_node_get_property_from_token (ANJUTA_PROJECT_NODE (group), AM_TOKEN__CPPFLAGS);
+	if (prop && (prop->value != NULL)) group_cpp = g_strsplit_set (prop->value, " \t", 0);
+	
+	/* Check all targets */
+	for (target = anjuta_project_node_first_child (ANJUTA_PROJECT_NODE (group)); target != NULL; target = anjuta_project_node_next_sibling (target))
+	{
+		gint type = anjuta_project_node_get_full_type (target) & (ANJUTA_PROJECT_ID_MASK | ANJUTA_PROJECT_TYPE_MASK);
+		gchar **target_lib = NULL;
+		gchar **target_cpp = NULL;
+
+		prop = NULL;
+		switch (type)
+		{
+		case ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_PROGRAM:
+			prop = amp_node_get_property_from_token (target, AM_TOKEN_TARGET_LDADD);
+			break;
+		case ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_STATICLIB:
+		case ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_SHAREDLIB:
+			prop = amp_node_get_property_from_token (target, AM_TOKEN_TARGET_LIBADD);
+			break;
+		default:
+			break;
+		}
+		if (prop && (prop->value != NULL)) target_lib = g_strsplit_set (prop->value, " \t", 0);
+
+		/* Check if targets use libraries */
+		if (target_lib != NULL)
+		{
+			AnjutaProjectNode *module;
+
+			prop = amp_node_get_property_from_token (target, AM_TOKEN_TARGET_CPPFLAGS);
+			if (prop && (prop->value != NULL)) target_cpp = g_strsplit_set (prop->value, " \t", 0);
+
+			for (module = anjuta_project_node_first_child (ANJUTA_PROJECT_NODE (project)); module != NULL; module = anjuta_project_node_next_sibling (module))
+			{
+				if (anjuta_project_node_get_node_type (module) == ANJUTA_PROJECT_MODULE)
+				{
+					const gchar *name = anjuta_project_node_get_name (module);
+					gchar *lib_flags = g_strconcat ("$(", name, "_LIBS)", NULL);
+					gchar **flags;
+
+					for (flags = target_lib; *flags != NULL; flags++)
+					{
+
+						if (strcmp (*flags, lib_flags) == 0)
+						{
+							gchar *cpp_flags = g_strconcat ("$(", name, "_CFLAGS)", NULL);
+							gchar **cflags;
+							gboolean found = FALSE;
+
+							if (group_cpp != NULL)
+							{
+								for (cflags = group_cpp; *cflags != NULL; cflags++)
+								{
+									if (strcmp (*cflags, cpp_flags) == 0)
+									{
+										found = TRUE;
+										break;
+									}
+								}
+							}
+							if ((target_cpp != NULL) && !found)
+							{
+								for (cflags = target_cpp; *cflags != NULL; cflags++)
+								{
+									if (strcmp (*cflags, cpp_flags) == 0)
+									{
+										found = TRUE;
+										break;
+									}
+								}
+							}
+							if (found)
+							{
+								/* Add new module */
+								AnjutaProjectNode *new_module;
+
+								new_module = amp_node_new (NULL, ANJUTA_PROJECT_MODULE, NULL, name, NULL);
+								anjuta_project_node_append (target, new_module);
+							}
+							g_free (cpp_flags);
+						}
+					}
+					g_free (lib_flags);
+				}
+			}		
+			g_strfreev (target_cpp);
+			g_strfreev (target_lib);
+		}
+	}
+	g_strfreev (group_cpp);
+
+	return TRUE;
+}
+
+
+extern const gchar *valid_am_makefiles[];
+
+static AmpGroupNode*
+project_load_makefile (AmpProject *project, AmpGroupNode *group)
+{
+	const gchar **filename;
+	AnjutaTokenFile *tfile;
+	GFile *makefile = NULL;
+	GFile *file = anjuta_project_node_get_file ((AnjutaProjectNode *)group);
+
+	/* Find makefile name
+	 * It has to be in the config_files list with .am extension */
+	for (filename = valid_am_makefiles; *filename != NULL; filename++)
+	{
+		makefile = g_file_get_child (file, *filename);
+		if (file_type (file, *filename) == G_FILE_TYPE_REGULAR)
+		{
+			gchar *final_filename = g_strdup (*filename);
+			gchar *ptr;
+			GFile *final_file;
+			AnjutaToken *token;
+
+			ptr = g_strrstr (final_filename,".am");
+			if (ptr != NULL) *ptr = '\0';
+			final_file = g_file_get_child (file, final_filename);
+			g_free (final_filename);
+
+			token = amp_project_get_config_token (project, final_file);
+			g_object_unref (final_file);
+			if (token != NULL)
+			{
+				amp_group_node_add_token (group, token, AM_GROUP_TOKEN_CONFIGURE);
+				break;
+			}
+		}
+		g_object_unref (makefile);
+	}
+
+	if (*filename == NULL)
+	{
+		/* Unable to find automake file */
+		return group;
+	}
+
+	/* Parse makefile.am */
+	DEBUG_PRINT ("Parse: %s", g_file_get_uri (makefile));
+	tfile = amp_group_node_set_makefile (group, makefile, project);
+
+	project_load_group_module (project, group);
+	
+	return group;
+}
+
 
 /* Variable object
  *---------------------------------------------------------------------------*/
@@ -397,6 +558,45 @@ amp_group_node_free (AmpGroupNode *node)
 	g_object_unref (G_OBJECT (node));
 }
 
+/* AmpNode implementation
+ *---------------------------------------------------------------------------*/
+
+static gboolean
+amp_group_node_load (AmpNode *group, AmpNode *parent, AmpProject *project, GError **error)
+{
+	if (project_load_makefile (project, AMP_GROUP_NODE (group)) == NULL)
+	{
+		g_set_error (error, IANJUTA_PROJECT_ERROR, 
+					IANJUTA_PROJECT_ERROR_DOESNT_EXIST,
+			_("Project doesn't exist or invalid path"));
+
+		return FALSE;
+	}
+
+	return TRUE;
+}
+
+static gboolean
+amp_group_node_update (AmpNode *node, AmpNode *new_node)
+{
+	amp_group_node_update_node (AMP_GROUP_NODE (node), AMP_GROUP_NODE (new_node));
+
+	return TRUE;
+}
+
+static gboolean
+amp_group_node_write (AmpNode *node, AmpNode *parent, AmpProject *project, GError **error)
+{
+	return amp_group_node_create_token (project, AMP_GROUP_NODE (node), error);
+}
+
+static gboolean
+amp_group_node_erase (AmpNode *node, AmpNode *parent, AmpProject *project, GError **error)
+{
+	return amp_group_node_delete_token (project, AMP_GROUP_NODE (node), error);
+}
+
+
 
 /* GObjet implementation
  *---------------------------------------------------------------------------*/
@@ -462,9 +662,16 @@ static void
 amp_group_node_class_init (AmpGroupNodeClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
+	AmpNodeClass* node_class;
 	
 	object_class->finalize = amp_group_node_finalize;
 	object_class->dispose = amp_group_node_dispose;
+
+	node_class = AMP_NODE_CLASS (klass);
+	node_class->load = amp_group_node_load;
+	node_class->update = amp_group_node_update;
+	node_class->write = amp_group_node_write;
+	node_class->erase = amp_group_node_erase;
 }
 
 static void

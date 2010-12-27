@@ -516,7 +516,7 @@ main(int argc, char *argv[])
 
 				/* Register project types */
 				module = g_object_new (dummy_type_module_get_type (), NULL);
-				amp_project_register_project (module);
+				amp_project_register (module);
 				
 				/* Check for project type */
 				probe = amp_project_probe (file, NULL);

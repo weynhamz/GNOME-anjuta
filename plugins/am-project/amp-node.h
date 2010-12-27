@@ -44,6 +44,7 @@ G_BEGIN_DECLS
 typedef struct _AmpNode                 AmpNode;
 typedef struct _AmpNodeClass            AmpNodeClass;
 
+typedef struct _AmpProject        AmpProject;
 
 /**
  * AmpNode:
@@ -58,9 +59,53 @@ struct _AmpNode
 struct _AmpNodeClass
 {
 	AnjutaProjectNodeClass  parent_class;
+
+	gboolean					(*load)					(AmpNode *node,
+											                AmpNode *parent,
+											                AmpProject *project,
+											                GError **error);
+
+	gboolean					(*update)				(AmpNode *node,
+											                AmpNode *parent);
+
+	gboolean					(*erase)				(AmpNode *node,
+											                AmpNode *parent,
+											                AmpProject *project,
+											                GError **error);
+	
+	gboolean					(*write)				(AmpNode *node,
+											                AmpNode *parent,
+											                AmpProject *project,
+											                GError **error);
 };
 
 GType amp_node_get_type (void) G_GNUC_CONST;
+
+
+AnjutaProjectNode * amp_node_new				(AnjutaProjectNode *parent,
+				                                 AnjutaProjectNodeType type,
+				                                 GFile *file,
+				                                 const gchar *name,
+				                                 GError **error);
+
+gboolean						amp_node_load					(AmpNode *node,
+											                      AmpNode *parent,
+											                      AmpProject *project,
+											                      GError **error);
+
+gboolean						amp_node_update					(AmpNode *node,
+											                      AmpNode *new_node);
+
+gboolean						amp_node_write					(AmpNode *node,
+											                       AmpNode *parent,
+											                       AmpProject *project,
+											                       GError **error);
+
+gboolean						amp_node_erase					(AmpNode *node,
+											                       AmpNode *parent,
+											                       AmpProject *project,
+											                       GError **error);
+
 
 void amp_node_register (GTypeModule *module);
 

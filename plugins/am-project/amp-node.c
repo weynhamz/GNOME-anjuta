@@ -25,11 +25,13 @@
 #endif
 
 #include "amp-node.h"
-#include "am-scanner.h"
-#include "am-properties.h"
 
-
-#include <libanjuta/interfaces/ianjuta-project.h>
+#include "amp-root.h"
+#include "amp-module.h"
+#include "amp-package.h"
+#include "amp-group.h"
+#include "amp-target.h"
+#include "amp-source.h"
 
 #include <libanjuta/anjuta-debug.h>
 
@@ -39,6 +41,142 @@
 #include <string.h>
 #include <ctype.h>
 
+
+/* Public functions
+ *---------------------------------------------------------------------------*/
+
+AnjutaProjectNode *
+amp_node_new (AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile *file, const gchar *name, GError **error)
+{
+	AnjutaProjectNode *node = NULL;
+	GFile *new_file = NULL;
+	
+	switch (type & ANJUTA_PROJECT_TYPE_MASK) {
+		case ANJUTA_PROJECT_GROUP:
+			if ((file == NULL) && (name != NULL))
+			{
+				new_file = g_file_get_child (anjuta_project_node_get_file (parent), name);
+				file = new_file;
+			}
+			node = ANJUTA_PROJECT_NODE (amp_group_node_new (file, FALSE, error));
+			break;
+		case ANJUTA_PROJECT_TARGET:
+			node = ANJUTA_PROJECT_NODE (amp_target_node_new (name, 0, NULL, 0, error));
+			break;
+		case ANJUTA_PROJECT_SOURCE:
+			if ((file == NULL) && (name != NULL))
+			{
+				/* Look for parent */
+				if (anjuta_project_node_get_node_type (parent) == ANJUTA_PROJECT_TARGET)
+				{
+					parent = anjuta_project_node_parent (parent);
+				}
+				if (anjuta_project_node_get_node_type (parent) == ANJUTA_PROJECT_GROUP)
+				{
+					new_file = g_file_get_child (anjuta_project_node_get_file (parent), name);
+				}
+				else
+				{
+					new_file = g_file_new_for_commandline_arg (name);
+				}
+				file = new_file;
+			}
+			node = ANJUTA_PROJECT_NODE (amp_source_node_new (file, error));
+			break;
+		case ANJUTA_PROJECT_MODULE:
+			node = ANJUTA_PROJECT_NODE (amp_module_node_new (name, error));
+			break;
+		case ANJUTA_PROJECT_PACKAGE:
+			node = ANJUTA_PROJECT_NODE (amp_package_node_new (name, error));
+			break;
+		default:
+			g_assert_not_reached ();
+			break;
+	}
+	if (node != NULL) node->type = type;
+	if (new_file != NULL) g_object_unref (new_file);
+	
+	return node;
+}
+
+gboolean
+amp_node_load (AmpNode *node,
+               AmpNode *parent,
+               AmpProject *project,
+               GError **error)
+{
+  g_return_val_if_fail (AMP_IS_NODE (node), FALSE);
+
+  return AMP_NODE_GET_CLASS (node)->load (node, parent, project, error);
+}
+
+gboolean
+amp_node_update (AmpNode *node,
+                 AmpNode *new_node)
+{
+  g_return_val_if_fail (AMP_IS_NODE (node), FALSE);
+
+  return AMP_NODE_GET_CLASS (node)->update (node, new_node);
+}
+
+gboolean
+amp_node_write (AmpNode *node,
+                AmpNode *parent,
+                AmpProject *project,
+                GError **error)
+{
+  g_return_val_if_fail (AMP_IS_NODE (node), FALSE);
+
+  return AMP_NODE_GET_CLASS (node)->write (node, parent, project, error);
+}
+
+gboolean
+amp_node_erase (AmpNode *node,
+                AmpNode *parent,
+                AmpProject *project,
+                GError **error)
+{
+  g_return_val_if_fail (AMP_IS_NODE (node), FALSE);
+
+  return AMP_NODE_GET_CLASS (node)->erase (node, parent, project, error);
+}
+
+/* AmpNode implementation
+ *---------------------------------------------------------------------------*/
+
+static gboolean 
+amp_node_real_load (AmpNode *node,
+                    AmpNode *parent,
+                    AmpProject *project,
+                    GError **error)
+{
+		return FALSE;
+}
+
+static gboolean
+amp_node_real_update (AmpNode *node,
+                      AmpNode *new_node)
+{
+	return FALSE;
+}
+
+static gboolean
+amp_node_real_write (AmpNode *node,
+                     AmpNode *parent,
+                     AmpProject *project,
+                     GError **error)
+{
+		return FALSE;
+}
+
+static gboolean
+amp_node_real_erase (AmpNode *node,
+                     AmpNode *parent,
+                     AmpProject *project,
+                     GError **error)
+{
+		return FALSE;
+}
 
 
 /* GObjet implementation
@@ -67,6 +205,11 @@ amp_node_class_init (AmpNodeClass *klass)
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
 	
 	object_class->finalize = amp_node_finalize;
+
+	klass->load = amp_node_real_load;
+	klass->update = amp_node_real_update;
+	klass->write = amp_node_real_write;
+	klass->erase = amp_node_real_erase;
 }
 
 static void
@@ -75,8 +218,18 @@ amp_node_class_finalize (AmpNodeClass *klass)
 }
 
 
+
+/* Register function
+ *---------------------------------------------------------------------------*/
+
 void
 amp_node_register (GTypeModule *module)
 {
 	amp_node_register_type (module);
+	amp_root_node_register (module);
+	amp_module_node_register (module);
+	amp_package_node_register (module);
+	amp_group_node_register (module);
+	amp_target_node_register (module);
+	amp_source_node_register (module);
 }

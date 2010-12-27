@@ -29,6 +29,7 @@
 #include "amp-node.h"
 #include "am-scanner.h"
 #include "am-properties.h"
+#include "am-writer.h"
 
 
 #include <libanjuta/interfaces/ianjuta-project.h>
@@ -99,6 +100,31 @@ amp_source_node_free (AmpSourceNode *node)
 	g_object_unref (G_OBJECT (node));
 }
 
+/* AmpNode implementation
+ *---------------------------------------------------------------------------*/
+
+static gboolean
+amp_source_node_update (AmpNode *node, AmpNode *new_node)
+{
+	amp_source_node_update_node (AMP_SOURCE_NODE (node), AMP_SOURCE_NODE (new_node));
+
+	return TRUE;
+}
+
+static gboolean
+amp_source_node_write (AmpNode *node, AmpNode *parent, AmpProject *project, GError **error)
+{
+	return amp_source_node_create_token (project, AMP_SOURCE_NODE (node), error);
+}
+
+static gboolean
+amp_source_node_erase (AmpNode *node, AmpNode *parent, AmpProject *project, GError **error)
+{
+	return amp_source_node_delete_token (project, AMP_SOURCE_NODE (node), error);
+}
+
+
+
 
 /* GObjet implementation
  *---------------------------------------------------------------------------*/
@@ -133,8 +159,14 @@ static void
 amp_source_node_class_init (AmpSourceNodeClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
+	AmpNodeClass* node_class;
 	
 	object_class->finalize = amp_source_node_finalize;
+
+	node_class = AMP_NODE_CLASS (klass);
+	node_class->update = amp_source_node_update;
+	node_class->write = amp_source_node_write;
+	node_class->erase = amp_source_node_erase;	
 }
 
 static void

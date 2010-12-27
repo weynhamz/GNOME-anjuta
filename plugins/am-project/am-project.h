@@ -39,7 +39,7 @@ G_BEGIN_DECLS
 #define AMP_IS_PROJECT(obj)		(G_TYPE_CHECK_INSTANCE_TYPE ((obj), AMP_TYPE_PROJECT))
 #define AMP_IS_PROJECT_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE ((obj), AMP_TYPE_PROJECT))
 
-typedef struct _AmpProject        AmpProject;
+
 typedef struct _AmpProjectClass   AmpProjectClass;
 
 typedef struct _AmpModuleNode AmpModuleNode;
@@ -57,12 +57,10 @@ typedef struct _AmpProperty AmpProperty;
 GType         amp_project_get_type (void);
 AmpProject   *amp_project_new      (GFile *file, GError **error);
 
-void amp_project_register_project (GTypeModule *module);
+void amp_project_register (GTypeModule *module);
 
 
 gint amp_project_probe (GFile *directory, GError     **error);
-gboolean amp_project_load (AmpProject *project, GFile *directory, GError **error);
-AnjutaProjectNode *amp_project_load_node (AmpProject *project, AnjutaProjectNode *node, AnjutaProjectNode *parent, GError **error);
 void amp_project_unload (AmpProject *project);
 gboolean amp_project_is_loaded (AmpProject *project);
 
@@ -70,6 +68,8 @@ gboolean amp_project_is_loaded (AmpProject *project);
 void amp_project_load_config (AmpProject *project, AnjutaToken *arg_list);
 void amp_project_load_properties (AmpProject *project, AnjutaToken *macro, AnjutaToken *list);
 void amp_project_load_module (AmpProject *project, AnjutaToken *module);
+
+AnjutaToken *amp_project_get_config_token (AmpProject *project, GFile *file);
 
 AnjutaTokenFile* amp_project_set_configure (AmpProject *project, GFile *configure);
 gboolean amp_project_update_configure (AmpProject *project, AnjutaToken *token);
@@ -114,8 +114,6 @@ GList *amp_project_get_config_packages  (AmpProject *project, const gchar* modul
 
 GList *amp_project_get_target_types (AmpProject *project, GError **error);
 
-gchar * amp_project_get_node_id (AmpProject *project, const gchar *path);
-
 AnjutaProjectNode *amp_node_parent (AnjutaProjectNode *node);
 AnjutaProjectNode *amp_node_first_child (AnjutaProjectNode *node);
 AnjutaProjectNode *amp_node_last_child (AnjutaProjectNode *node);
@@ -136,6 +134,8 @@ gchar *amp_source_node_get_id (AmpSourceNode *source);
 GFile *amp_source_node_get_file (AmpSourceNode *source);
 
 gchar* canonicalize_automake_variable (const gchar *name);
+gchar* get_relative_path (GFile *parent, GFile *file);
+GFileType file_type (GFile *file, const gchar *filename);
 
 
 

@@ -348,9 +348,12 @@ pm_job_free (PmJob *job)
 void
 pm_job_set_parent (PmJob *job, AnjutaProjectNode *parent)
 {
-	if (job->parent != NULL) g_object_unref (job->parent);
-	if (parent != NULL) g_object_ref (parent);
-	job->parent = parent;
+	if (job->parent != parent)
+	{
+		if (job->parent != NULL) g_object_unref (job->parent);
+		if (parent != NULL) g_object_ref (parent);
+		job->parent = parent;
+	}
 }
 
 /* Public functions

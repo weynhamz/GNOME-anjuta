@@ -29,9 +29,12 @@
 #include "amp-node.h"
 #include "am-scanner.h"
 #include "am-properties.h"
+#include "ac-writer.h"
 
 
 #include <libanjuta/interfaces/ianjuta-project.h>
+#include <libanjuta/anjuta-utils.h>
+#include <libanjuta/anjuta-pkg-config.h>
 
 #include <libanjuta/anjuta-debug.h>
 
@@ -49,6 +52,49 @@ struct _AmpPackageNode {
 	gchar *version;
 	AnjutaToken *token;
 };
+
+
+/* Helper functions
+ *---------------------------------------------------------------------------*/
+
+static void
+list_all_children (GList **children, GFile *dir)
+{
+	GFileEnumerator *list;
+					
+	list = g_file_enumerate_children (dir,
+	    G_FILE_ATTRIBUTE_STANDARD_NAME,
+	    G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+	    NULL,
+	    NULL);
+
+	if (list != NULL)
+	{
+		GFileInfo *info;
+		
+		while ((info = g_file_enumerator_next_file (list, NULL, NULL)) != NULL)
+		{
+			const gchar *name;
+			GFile *file;
+
+			name = g_file_info_get_name (info);
+			file = g_file_get_child (dir, name);
+			g_object_unref (info);
+
+			if (g_file_query_file_type (file, G_FILE_QUERY_INFO_NONE, NULL) == G_FILE_TYPE_DIRECTORY)
+			{
+				list_all_children (children, file);
+				g_object_unref (file);
+			}
+			else
+			{
+				*children = g_list_prepend (*children, file);
+			}
+		}
+		g_file_enumerator_close (list, NULL, NULL);
+		g_object_unref (list);
+	}
+}
 
 
 
@@ -105,6 +151,85 @@ amp_package_node_update_node (AmpPackageNode *node, AmpPackageNode *new_node)
 	new_node->version = NULL;
 }
 
+/* AmpNode implementation
+ *---------------------------------------------------------------------------*/
+
+static gboolean
+amp_package_node_load (AmpNode *node, AmpNode *parent, AmpProject *project, GError **error)
+{
+	GList* deps;
+	GList* dep;
+	GList* include_dirs = NULL;
+	
+	deps = anjuta_pkg_config_list_dependencies (anjuta_project_node_get_name (ANJUTA_PROJECT_NODE (node)),
+	                                            error);
+	for (dep = deps; dep != NULL; dep = g_list_next (dep))
+	{
+		/* Create a package node for the depedencies */
+		AnjutaProjectNode *pkg;
+
+		pkg = amp_node_new (NULL, ANJUTA_PROJECT_PACKAGE, NULL, dep->data, NULL);
+		anjuta_project_node_append (ANJUTA_PROJECT_NODE (node), pkg);
+	}
+	anjuta_util_glist_strings_free (deps);
+
+	if (*error != NULL)
+	{
+		g_warning ("Error getting dependencies: %s", (*error)->message);
+		g_error_free (*error);
+		*error = NULL;
+	}
+	
+	if ((include_dirs = anjuta_pkg_config_get_directories (anjuta_project_node_get_name (ANJUTA_PROJECT_NODE (node)),
+	                                                       TRUE, error)))
+	{
+		GList* include_dir;
+		
+		for (include_dir = include_dirs; include_dir != NULL; include_dir = g_list_next (include_dir))
+		{
+			GList* children = NULL;
+			GList* file = NULL;
+			GFile* dir = g_file_new_for_path (include_dir->data);
+
+			list_all_children (&children, dir);
+			for (file = g_list_first (children); file != NULL; file = g_list_next (file))
+			{
+				/* Create a source for files */
+				AnjutaProjectNode *source;
+
+				source = amp_node_new (NULL, ANJUTA_PROJECT_SOURCE, (GFile *)file->data, NULL, NULL);
+				anjuta_project_node_append (ANJUTA_PROJECT_NODE (node), source);
+				g_object_unref ((GObject *)file->data);
+			}
+			g_list_free (children);
+			g_object_unref (dir);
+		}
+	}
+	anjuta_util_glist_strings_free (include_dirs);
+	
+	return TRUE;
+}
+
+static gboolean
+amp_package_node_update (AmpNode *node, AmpNode *new_node)
+{
+	amp_package_node_update_node (AMP_PACKAGE_NODE (node), AMP_PACKAGE_NODE (new_node));
+
+	return TRUE;
+}
+
+static gboolean
+amp_package_node_write (AmpNode *node, AmpNode *parent, AmpProject *project, GError **error)
+{
+	return amp_package_node_create_token (project, AMP_PACKAGE_NODE (node), error);
+}
+
+static gboolean
+amp_package_node_erase (AmpNode *node, AmpNode *parent, AmpProject *project, GError **error)
+{
+			return amp_package_node_delete_token (project, AMP_PACKAGE_NODE (node), error);
+}
+
 
 /* GObjet implementation
  *---------------------------------------------------------------------------*/
@@ -140,8 +265,15 @@ static void
 amp_package_node_class_init (AmpPackageNodeClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
+	AmpNodeClass* node_class;
 	
 	object_class->finalize = amp_package_node_finalize;
+	
+	node_class = AMP_NODE_CLASS (klass);
+	node_class->load = amp_package_node_load;
+	node_class->update = amp_package_node_update;
+	node_class->erase = amp_package_node_erase;
+	node_class->write = amp_package_node_write;
 }
 
 static void
