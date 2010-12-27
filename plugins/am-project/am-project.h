@@ -24,7 +24,7 @@
 
 #include <glib-object.h>
 
-#include "amp-node.h"
+#include "amp-root.h"
 
 #include <libanjuta/anjuta-project.h>
 #include <libanjuta/anjuta-token.h>
@@ -42,16 +42,15 @@ G_BEGIN_DECLS
 typedef struct _AmpProject        AmpProject;
 typedef struct _AmpProjectClass   AmpProjectClass;
 
-struct _AmpProjectClass {
-	AmpNodeClass parent_class;
-};
-
-typedef struct _AnjutaAmRootNode AnjutaAmRootNode;
 typedef struct _AmpModuleNode AmpModuleNode;
 typedef struct _AmpPackageNode AmpPackageNode;
 typedef struct _AmpGroupNode AmpGroupNode;
 typedef struct _AmpTargetNode AmpTargetNode;
 typedef struct _AmpSourceNode AmpSourceNode;
+
+struct _AmpProjectClass {
+	AmpRootNodeClass parent_class;
+};
 
 typedef struct _AmpProperty AmpProperty;
 

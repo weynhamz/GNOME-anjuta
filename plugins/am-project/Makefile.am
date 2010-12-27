@@ -49,6 +49,8 @@ libam_project_la_SOURCES = \
 	am-properties.h \
 	amp-node.c \
 	amp-node.h \
+	amp-root.c \
+	amp-root.h \
 	amp-module.h \
 	amp-module.c \
 	amp-package.h \

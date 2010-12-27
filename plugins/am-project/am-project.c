@@ -450,9 +450,6 @@ amp_project_clear (AmpProject *project)
 	if (project->configure_file != NULL) anjuta_token_file_free (project->configure_file);
 	project->configure_file = NULL;
 	if (project->configure_token) anjuta_token_free (project->configure_token);
-	
-	g_list_foreach (project->base.custom_properties, (GFunc)amp_property_free, NULL);
-	project->base.custom_properties = NULL;
 }
 
 static void
@@ -2300,8 +2297,7 @@ amp_project_move (AmpProject *project, const gchar *path)
 	/* Change project root directory */
 	packet.old_root_file = g_object_ref (anjuta_project_node_get_file (ANJUTA_PROJECT_NODE (project)));
 	root_file = g_file_new_for_path (path);
-	g_object_unref (project->base.file);
-	project->base.file = g_object_ref (root_file);
+	amp_root_node_set_file (AMP_ROOT_NODE (project), root_file);
 	
 	/* Change project root directory in groups */
 	old_hash = project->groups;
@@ -2370,9 +2366,12 @@ AmpProject *
 amp_project_new (GFile *file, GError **error)
 {
 	AmpProject *project;
+	GFile *new_file;
 	
 	project = AMP_PROJECT (g_object_new (AMP_TYPE_PROJECT, NULL));
-	project->base.file = g_file_dup (file);
+	new_file = g_file_dup (file);
+	amp_root_node_set_file (AMP_ROOT_NODE (project), new_file);
+	g_object_unref (new_file);
 	
 	return project;
 }
@@ -3086,12 +3085,6 @@ amp_project_init (AmpProject *project)
 	g_return_if_fail (project != NULL);
 	g_return_if_fail (AMP_IS_PROJECT (project));
 
-	project->base.type = ANJUTA_PROJECT_ROOT;
-	project->base.native_properties = amp_get_project_property_list();
-	project->base.state = ANJUTA_PROJECT_CAN_ADD_GROUP |
-						ANJUTA_PROJECT_CAN_ADD_PACKAGE,
-						ANJUTA_PROJECT_CAN_SAVE;
-	
 	/* project data */
 	project->configure_file = NULL;
 	project->configure_token = NULL;
@@ -3131,7 +3124,7 @@ amp_project_class_finalize (AmpProjectClass *klass)
 
 G_DEFINE_DYNAMIC_TYPE_EXTENDED (AmpProject,
                                 amp_project,
-                                AMP_TYPE_NODE,
+                                AMP_TYPE_ROOT_NODE,
                                 0,
                                 G_IMPLEMENT_INTERFACE_DYNAMIC (IANJUTA_TYPE_PROJECT,
                                                                iproject_iface_init));
@@ -3140,6 +3133,7 @@ void
 amp_project_register_project (GTypeModule *module)
 {
 	amp_node_register (module);
+	amp_root_node_register (module);
 	amp_module_node_register (module);
 	amp_package_node_register (module);
 	amp_group_node_register (module);

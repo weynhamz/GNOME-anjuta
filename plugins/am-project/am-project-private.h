@@ -43,7 +43,7 @@ struct _AmpProperty {
 };
 
 struct _AmpProject {
-	AnjutaProjectNode base;
+	AmpRootNode base;
 
 	/* GFile corresponding to root configure */
 	GFile *configure;
