@@ -25,7 +25,7 @@ public class ValaProvider : Object, IAnjuta.Provider {
 
 	const string PREF_AUTOCOMPLETE_ENABLE = "cpp-completion-enable";
 	const string PREF_SPACE_AFTER_FUNC = "cpp-completion-space-after-func";
-	const string PREF_BRACE_AFTER_FUNC = "cpp-code-brace-after-func";
+	const string PREF_BRACE_AFTER_FUNC = "cpp-completion-brace-after-func";
 	internal const string PREF_CALLTIP_ENABLE = "cpp-calltip-enable";
 
 	static construct {
