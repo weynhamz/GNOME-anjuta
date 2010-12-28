@@ -59,17 +59,16 @@ public class ValaPlugin : Plugin {
 		genie_parser.parse (context);
 
 		var project = (IAnjuta.ProjectManager) shell.get_object("IAnjutaProjectManager");
-		weak List<string> packages = project.get_packages();
+		var packages = project.get_packages();
 		context.add_package("glib-2.0");
 		context.add_package("gobject-2.0");
 
-		var status = shell.get_status ();
 		foreach (var pkg in packages)
 			context.add_package(pkg);
 
 		source_files = new Vala.HashMap<string, Vala.SourceFile>(str_hash, str_equal, direct_equal);
 
-		weak List<File> sources = project.get_elements(Anjuta.ProjectNodeType.SOURCE);
+		var sources = project.get_elements(Anjuta.ProjectNodeType.SOURCE);
 		foreach (var src in sources) {
 			if (src.get_path() != null && !source_files.contains(src.get_path())) {
 				if (src.get_basename().has_suffix("vala") || src.get_basename().has_suffix("gs")) {
