@@ -34,6 +34,7 @@
 #include <libanjuta/resources.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
+#include <libxml/parser.h>
 
 #include "anjuta.h"
 
@@ -264,5 +265,9 @@ main (int argc, char *argv[])
 	gtk_widget_show (GTK_WIDGET (app));
 	gtk_main();
 	
+	/* xmlCleanupParser must be called only one time in the application */
+	if (proper_shutdown) 
+		xmlCleanupParser ();
+
 	return 0;
 }

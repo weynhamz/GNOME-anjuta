@@ -19,6 +19,8 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)\
 	-I.. -I. \
 	$(LIBANJUTA_CFLAGS) \
+	$(GDL_CFLAGS) \
+	$(XML_CFLAGS) \
 	-DPACKAGE_BIN_DIR=\"$(bindir)\" \
 	-DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" \
 	-DPACKAGE_DOC_DIR=\"$(docdir)\" \
@@ -47,6 +49,8 @@ anjuta_LDADD =  \
 	$(GLADE_LIBS)\
 	$(GLIB_LIBS) \
 	$(top_builddir)/libanjuta/libanjuta.la
+	$(LIBANJUTA_LIBS) \
+	$(XML_LIBS)
 
 anjuta_LDFLAGS = $(ANJUTA_LDFLAGS)
 

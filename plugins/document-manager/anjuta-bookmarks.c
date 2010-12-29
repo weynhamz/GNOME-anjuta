@@ -774,7 +774,6 @@ anjuta_bookmarks_session_load (AnjutaBookmarks* bookmarks, AnjutaSession* sessio
 		read_bookmarks (bookmarks, cur->children);
 	
 	xmlFreeDoc (doc);
-	xmlCleanupParser();
 }
 
 static gint
