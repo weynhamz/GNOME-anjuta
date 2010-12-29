@@ -1,3 +1,12 @@
+Anjuta 2.32.1.1 "2.x, still alive (29 Dec 2010) -- Johannes Schmid
+
+Bugs fixed:
+bgo#636665 - [PATCH] .vapi file not distributed
+lp#448126 - The "Report bugs" menu entry does not work
+bgo#636312 - Double click fails to select entire word if it contains _ or digits
+
+Thanks to: Robert Ancell
+
 Anjuta 2.32.1 "2.x, we will miss you" (12 Nov 2010) -- Johannes Schmid
 
 This is a bug-fix (and probably the last) release of the Anjuta 2.32.x series.
