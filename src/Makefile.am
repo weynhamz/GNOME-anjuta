@@ -48,7 +48,7 @@ anjuta_LDADD =  \
 	$(GDL_LIBS) \
 	$(GLADE_LIBS)\
 	$(GLIB_LIBS) \
-	$(top_builddir)/libanjuta/libanjuta.la
+	$(top_builddir)/libanjuta/libanjuta.la \
 	$(LIBANJUTA_LIBS) \
 	$(XML_LIBS)
 
