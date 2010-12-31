@@ -965,6 +965,8 @@ static const gchar *
 am_node_property_find_flags (AnjutaProjectProperty *prop, const gchar *value, gsize len)
 {
 	const gchar *found;
+
+	g_return_val_if_fail (prop != NULL, NULL);
 	
 	for (found = prop->value; found != NULL;)
 	{

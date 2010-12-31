@@ -1,4 +1,4 @@
-SUBDIRS = tests
+SUBDIRS = . tests
 
 # Plugin UI file
 plugin_uidir = $(anjuta_ui_dir)
@@ -96,8 +96,7 @@ projectparser_SOURCES = \
 	projectparser.c
 
 projectparser_LDADD = \
-	libam-project.la \
-	$(LIBANJUTA_LIBS)
+	libam-project.la
 
 
 EXTRA_DIST = \

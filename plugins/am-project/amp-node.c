@@ -61,7 +61,7 @@ amp_node_new (AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile *file
 			node = ANJUTA_PROJECT_NODE (amp_group_node_new (file, FALSE, error));
 			break;
 		case ANJUTA_PROJECT_TARGET:
-			node = ANJUTA_PROJECT_NODE (amp_target_node_new (name, 0, NULL, 0, error));
+			node = ANJUTA_PROJECT_NODE (amp_target_node_new (name, type, NULL, 0, error));
 			break;
 		case ANJUTA_PROJECT_SOURCE:
 			if ((file == NULL) && (name != NULL))

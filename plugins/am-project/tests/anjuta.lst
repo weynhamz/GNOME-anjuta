@@ -557,13 +557,25 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (14:5:0:5:14): plugins/am-project/am-project-private.h
                     SOURCE (14:5:0:5:15): plugins/am-project/am-properties.c
                     SOURCE (14:5:0:5:16): plugins/am-project/am-properties.h
-                    SOURCE (14:5:0:5:17): plugins/am-project/am-node.c
-                    SOURCE (14:5:0:5:18): plugins/am-project/am-node.h
-                    SOURCE (14:5:0:5:19): plugins/am-project/command-queue.c
-                    SOURCE (14:5:0:5:20): plugins/am-project/command-queue.h
+                    SOURCE (14:5:0:5:17): plugins/am-project/amp-node.c
+                    SOURCE (14:5:0:5:18): plugins/am-project/amp-node.h
+                    SOURCE (14:5:0:5:19): plugins/am-project/amp-root.c
+                    SOURCE (14:5:0:5:20): plugins/am-project/amp-root.h
+                    SOURCE (14:5:0:5:21): plugins/am-project/amp-module.h
+                    SOURCE (14:5:0:5:22): plugins/am-project/amp-module.c
+                    SOURCE (14:5:0:5:23): plugins/am-project/amp-package.h
+                    SOURCE (14:5:0:5:24): plugins/am-project/amp-package.c
+                    SOURCE (14:5:0:5:25): plugins/am-project/amp-group.h
+                    SOURCE (14:5:0:5:26): plugins/am-project/amp-group.c
+                    SOURCE (14:5:0:5:27): plugins/am-project/amp-target.h
+                    SOURCE (14:5:0:5:28): plugins/am-project/amp-target.c
+                    SOURCE (14:5:0:5:29): plugins/am-project/amp-source.h
+                    SOURCE (14:5:0:5:30): plugins/am-project/amp-source.c
+                    SOURCE (14:5:0:5:31): plugins/am-project/command-queue.c
+                    SOURCE (14:5:0:5:32): plugins/am-project/command-queue.h
                 TARGET (14:5:0:6): projectparser
                     PROPERTY (Do not install): true
-                    PROPERTY (Libraries): libam-project.la $(LIBANJUTA_LIBS)
+                    PROPERTY (Libraries): libam-project.la
                     SOURCE (14:5:0:6:0): plugins/am-project/projectparser.c
             GROUP (14:5:1): build-basic-autotools
                 PROPERTY (Installation directories): build_gladedir = $(anjuta_glade_dir) build_uidir = $(anjuta_ui_dir) build_pixmapsdir = $(anjuta_image_dir) build_plugindir = $(anjuta_plugin_dir) build_datadir = $(anjuta_data_dir)/build plugindir = $(anjuta_plugin_dir)
@@ -613,6 +625,7 @@ PROPERTY (URL): http://www.anjuta.org/
                         SOURCE (14:5:2:1:0:3): plugins/class-gen/templates/go-source.tpl
                         SOURCE (14:5:2:1:0:4): plugins/class-gen/templates/js-source.tpl
                         SOURCE (14:5:2:1:0:5): plugins/class-gen/templates/py-source.tpl
+                        SOURCE (14:5:2:1:0:6): plugins/class-gen/templates/vala-source.tpl
                 TARGET (14:5:2:0): clsgen_glade
                     PROPERTY (Installation directory): clsgen_gladedir
                     SOURCE (14:5:2:0:0): plugins/class-gen/anjuta-class-gen-plugin.ui
@@ -1456,6 +1469,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (14:5:20:0:0): plugins/language-support-vala/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (14:5:20:1): libanjuta-language-vala.la
                     PROPERTY (Installation directory): plugindir
+                    PROPERTY (Vala compiler flags): --pkg libvala-0.12 --pkg libanjuta-3.0
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
                     PROPERTY (Libraries): $(LIBANJUTA_LIBS) $(VALA_LIBS)
                     MODULE (14:5:20:1:4): VALA

@@ -226,7 +226,7 @@ amp_module_node_erase (AmpNode *node, AmpNode *amp_parent, AmpProject *project, 
 			}
 		}
 					
-		type = anjuta_project_node_get_full_type (ANJUTA_PROJECT_NODE (node)) & (ANJUTA_PROJECT_ID_MASK | ANJUTA_PROJECT_TYPE_MASK);
+		type = anjuta_project_node_get_full_type (ANJUTA_PROJECT_NODE (parent)) & (ANJUTA_PROJECT_ID_MASK | ANJUTA_PROJECT_TYPE_MASK);
 		switch (type)
 		{
 		case ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_PROGRAM:
@@ -237,6 +237,7 @@ amp_module_node_erase (AmpNode *node, AmpNode *amp_parent, AmpProject *project, 
 			target_lib = amp_node_get_property_from_token (parent, AM_TOKEN_TARGET_LIBADD);
 			break;
 		default:
+			target_lib = NULL;
 			break;
 		}
 		target_cpp = amp_node_get_property_from_token (parent, AM_TOKEN_TARGET_CPPFLAGS);
