@@ -57,11 +57,14 @@ public class ValaPlugin : Plugin {
 		var packages = project.get_packages();
 
 		Vala.CodeContext.push (context);
-		context.add_package("glib-2.0");
-		context.add_package("gobject-2.0");
+		context.add_external_package("glib-2.0");
+		context.add_external_package("gobject-2.0");
 
-		foreach (var pkg in packages)
-			context.add_package(pkg);
+		foreach (var pkg in packages) {
+			if (!context.add_external_package(pkg))
+				/* TODO: try to look at VALAFLAGS */
+				debug ("package %s not found", pkg);
+		}
 
 		Vala.CodeContext.pop ();
 
