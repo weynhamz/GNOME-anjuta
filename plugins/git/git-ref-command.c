@@ -339,24 +339,28 @@ git_ref_command_start_automatic_monitor (AnjutaCommand *command)
 	                                                G_FILE_ATTRIBUTE_STANDARD_TYPE,
 	                                                0, NULL, NULL);
 
-	remotes_info = g_file_enumerator_next_file (remotes_enumerator, NULL, NULL);
-
-	while (remotes_info)
+	if (remotes_enumerator)
 	{
-		/* Monitor each remote folder for changes */
-		if (g_file_info_get_attribute_uint32 (remotes_info, 
-		                                      G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
+		remotes_info = g_file_enumerator_next_file (remotes_enumerator, NULL, NULL);
+
+		while (remotes_info)
 		{
-			current_remote_file = g_file_get_child (remotes_file,
-			                                        g_file_info_get_name (remotes_info));
+			/* Monitor each remote folder for changes */
+			if (g_file_info_get_attribute_uint32 (remotes_info,
+				                                  G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
+			{
+				current_remote_file = g_file_get_child (remotes_file,
+				                                        g_file_info_get_name (remotes_info));
 
-			git_ref_command_add_file_monitor (self, current_remote_file);
+				git_ref_command_add_file_monitor (self, current_remote_file);
+			}
+
+			g_object_unref (remotes_info);
+
+			remotes_info = g_file_enumerator_next_file (remotes_enumerator, NULL,
+			                                            NULL);
 		}
-
-		g_object_unref (remotes_info);
-		
-		remotes_info = g_file_enumerator_next_file (remotes_enumerator, NULL, 
-		                                            NULL);
+		g_object_unref (remotes_enumerator);
 	}
 
 	g_free (working_directory);
@@ -365,8 +369,7 @@ git_ref_command_start_automatic_monitor (AnjutaCommand *command)
 	g_free (git_branches_path);
 	g_free (git_tags_path);
 	g_free (git_remotes_path);
-	g_object_unref (remotes_enumerator);
-	
+
 	return TRUE;
 }
 
