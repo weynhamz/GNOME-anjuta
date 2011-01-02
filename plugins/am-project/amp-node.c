@@ -111,6 +111,17 @@ amp_node_load (AmpNode *node,
 }
 
 gboolean
+amp_node_save (AmpNode *node,
+               AmpNode *parent,
+               AmpProject *project,
+               GError **error)
+{
+  g_return_val_if_fail (AMP_IS_NODE (node), FALSE);
+
+  return AMP_NODE_GET_CLASS (node)->save (node, parent, project, error);
+}
+
+gboolean
 amp_node_update (AmpNode *node,
                  AmpNode *new_node)
 {
@@ -150,7 +161,17 @@ amp_node_real_load (AmpNode *node,
                     AmpProject *project,
                     GError **error)
 {
-		return FALSE;
+	return FALSE;
+}
+
+static gboolean 
+amp_node_real_save (AmpNode *node,
+                    AmpNode *parent,
+                    AmpProject *project,
+                    GError **error)
+{
+	/* Save nothing by default */
+	return TRUE;
 }
 
 static gboolean
@@ -207,6 +228,7 @@ amp_node_class_init (AmpNodeClass *klass)
 	object_class->finalize = amp_node_finalize;
 
 	klass->load = amp_node_real_load;
+	klass->save = amp_node_real_save;
 	klass->update = amp_node_real_update;
 	klass->write = amp_node_real_write;
 	klass->erase = amp_node_real_erase;

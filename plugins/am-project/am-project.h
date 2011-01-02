@@ -83,7 +83,6 @@ AmpSourceNode *amp_project_get_source (AmpProject *project, const gchar *id);
 gboolean amp_project_get_token_location (AmpProject *project, AnjutaTokenFileLocation *location, AnjutaToken *token);
 
 gboolean amp_project_move (AmpProject *project, const gchar *path);
-gboolean amp_project_save (AmpProject *project, GError **error);
 
 gboolean amp_project_dump (AmpProject *project, AnjutaProjectNode *node);
 

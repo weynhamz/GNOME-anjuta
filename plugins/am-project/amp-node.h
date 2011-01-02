@@ -65,6 +65,11 @@ struct _AmpNodeClass
 											                AmpProject *project,
 											                GError **error);
 
+	gboolean					(*save)					(AmpNode *node,
+											                AmpNode *parent,
+											                AmpProject *project,
+											                GError **error);
+	
 	gboolean					(*update)				(AmpNode *node,
 											                AmpNode *parent);
 
@@ -89,6 +94,11 @@ AnjutaProjectNode * amp_node_new				(AnjutaProjectNode *parent,
 				                                 GError **error);
 
 gboolean						amp_node_load					(AmpNode *node,
+											                      AmpNode *parent,
+											                      AmpProject *project,
+											                      GError **error);
+
+gboolean						amp_node_save					(AmpNode *node,
 											                      AmpNode *parent,
 											                      AmpProject *project,
 											                      GError **error);

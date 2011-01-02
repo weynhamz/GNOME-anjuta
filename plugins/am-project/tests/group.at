@@ -30,6 +30,7 @@ AT_PARSER_CHECK([load empty \
 AT_CHECK([diff output expect])
 AT_CHECK([diff -b empty1/configure.ac reference.ac])
 AT_CHECK([diff -b empty1/Makefile.am reference.am])
+AT_CHECK([test -e empty1/group1/Makefile.am])
 AT_PARSER_CHECK([load empty1 \
 		 list])
 AT_CHECK([diff output expect])

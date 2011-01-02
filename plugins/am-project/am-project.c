@@ -668,65 +668,6 @@ find_canonical_target (AnjutaProjectNode *node, gpointer data)
  * ---------------- Data structures managment
  */
 
-/* Save a node. If the node doesn't correspond to a file, get its parent until
- * a file node is found and save it. The node returned correspond to the
- * file node */
-static AnjutaProjectNode *
-project_node_save (AmpProject *project, AnjutaProjectNode *node, GError **error)
-{
-	GList *list;
-	GHashTableIter iter;
-	GHashTable *files;
-	AnjutaProjectNode *parent;
-	gpointer key;
-	gpointer value;
-
-	g_return_val_if_fail (project != NULL, FALSE);
-
-	/* Create a hash table because some node can be split in several files and to
-	 * avoid duplicate, not sure if it is really necessary */
-	files = 	g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, NULL);
-	
-	switch (anjuta_project_node_get_node_type (node)) {
-		case ANJUTA_PROJECT_GROUP:
-			g_hash_table_insert (files, amp_group_node_get_make_token_file (AMP_GROUP_NODE (node)), NULL);
-			g_hash_table_insert (files, project->configure_file, NULL);
-			break;
-		case ANJUTA_PROJECT_TARGET:
-		case ANJUTA_PROJECT_SOURCE:
-			for (parent = node; anjuta_project_node_get_node_type (parent) != ANJUTA_PROJECT_GROUP; parent = anjuta_project_node_parent (parent));
-			g_hash_table_insert (files, amp_group_node_get_make_token_file (AMP_GROUP_NODE (parent)), NULL);
-			break;
-		case ANJUTA_PROJECT_MODULE:
-		case ANJUTA_PROJECT_PACKAGE:
-			/* Save only configure file */
-			g_hash_table_insert (files, project->configure_file, NULL);
-			break;
-		case ANJUTA_PROJECT_ROOT:
-			/* Get all project files */
-			for (list = project->files; list != NULL; list = g_list_next (list))
-			{
-				g_hash_table_insert (files, list->data, NULL);
-			}
-			break;
-		default:
-			g_assert_not_reached ();
-			break;
-	}
-
-	/* Save all files */
-	g_hash_table_iter_init (&iter, files);
-	while (g_hash_table_iter_next (&iter, &key, &value))
-	{
-		GError *error = NULL;
-		AnjutaTokenFile *tfile = (AnjutaTokenFile *)key;
-
-		anjuta_token_file_save (tfile, &error);
-	}
-
-	return node;
-}
-
 void
 amp_project_load_properties (AmpProject *project, AnjutaToken *macro, AnjutaToken *args)
 {
@@ -1793,24 +1734,6 @@ amp_project_get_node_info (AmpProject *project, GError **error)
 /* Public functions
  *---------------------------------------------------------------------------*/
 
-gboolean
-amp_project_save (AmpProject *project, GError **error)
-{
-	GList *list;
-
-	g_return_val_if_fail (project != NULL, FALSE);
-
-	for (list = project->files; list != NULL; list = g_list_next (list))
-	{
-		GError *error = NULL;
-		AnjutaTokenFile *tfile = (AnjutaTokenFile *)list->data;
-
-		anjuta_token_file_save (tfile, &error);
-	}
-
-	return TRUE;
-}
-
 typedef struct _AmpMovePacket {
 	AmpProject *project;
 	GFile *old_root_file;
@@ -2012,7 +1935,7 @@ amp_project_add_file (AmpProject *project, GFile *file, AnjutaTokenFile* token)
 gboolean
 amp_project_is_busy (AmpProject *project)
 {
-	if (project->queue == NULL) project->queue = pm_command_queue_new ();
+	if (project->queue == NULL) return FALSE;
 
 	return pm_command_queue_is_busy (project->queue);
 }
@@ -2079,15 +2002,8 @@ amp_save_setup (PmJob *job)
 static gboolean
 amp_save_work (PmJob *job)
 {
-	switch (anjuta_project_node_get_node_type (job->node))
-	{
-		case ANJUTA_PROJECT_ROOT:
-			amp_project_save (AMP_PROJECT (job->user_data), &job->error);
-			break;
-		default:
-			project_node_save (AMP_PROJECT (job->user_data), job->node, &job->error);
-			break;
-	}
+	/* It is difficult to save only a particular node, so the whole project is saved */
+	amp_node_save (AMP_NODE (job->user_data), NULL, AMP_PROJECT (job->user_data), &job->error);
 
 	return TRUE;
 }
@@ -2392,6 +2308,29 @@ amp_project_load (AmpNode *root, AmpNode *parent, AmpProject *project, GError **
 }
 
 static gboolean
+amp_project_save (AmpNode *root, AmpNode *parent, AmpProject *project, GError **error)
+{
+	AnjutaTokenFile *tfile;
+	AnjutaProjectNode *child;
+
+	/* Save node */
+	tfile = AMP_PROJECT (root)->configure_file;
+	if (anjuta_token_file_is_dirty (tfile))
+	{
+		if (!anjuta_token_file_save (tfile, error)) return FALSE;
+	}
+
+	/* Save all children */
+	for (child = anjuta_project_node_first_child (ANJUTA_PROJECT_NODE (root)); child != NULL; child = anjuta_project_node_next_sibling (child))
+	{
+		if (!amp_node_save (AMP_NODE (child), root, project, error)) return FALSE;
+	}
+
+	return TRUE;
+}
+
+
+static gboolean
 amp_project_update (AmpNode *node, AmpNode *new_node)
 {
 	amp_project_update_root (AMP_PROJECT (node), AMP_PROJECT (new_node));
@@ -2469,6 +2408,7 @@ amp_project_class_init (AmpProjectClass *klass)
 
 	node_class = AMP_NODE_CLASS (klass);
 	node_class->load = amp_project_load;
+	node_class->save = amp_project_save;
 	node_class->update = amp_project_update;
 }
 

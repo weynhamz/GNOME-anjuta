@@ -539,7 +539,7 @@ amp_group_node_new (GFile *file, gboolean dist_only, GError **error)
 		if (failed) {
 			g_free (name);
 			error_set (error, IANJUTA_PROJECT_ERROR_VALIDATION_FAILED,
-				   _("Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"));
+			           _("Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"));
 			return NULL;
 		}
 	}
@@ -571,6 +571,29 @@ amp_group_node_load (AmpNode *group, AmpNode *parent, AmpProject *project, GErro
 			_("Project doesn't exist or invalid path"));
 
 		return FALSE;
+	}
+
+	return TRUE;
+}
+
+static gboolean
+amp_group_node_save (AmpNode *group, AmpNode *parent, AmpProject *project, GError **error)
+{
+	AnjutaTokenFile *tfile;
+	AnjutaProjectNode *child;
+
+	/* Save group */
+	tfile = AMP_GROUP_NODE (group)->tfile;
+	if (tfile == NULL) return FALSE;
+	if (anjuta_token_file_is_dirty (tfile))
+	{
+		if (!anjuta_token_file_save (tfile, error)) return FALSE;
+	}
+
+	/* Save all children */
+	for (child = anjuta_project_node_first_child (ANJUTA_PROJECT_NODE (group)); child != NULL; child = anjuta_project_node_next_sibling (child))
+	{
+		if (!amp_node_save (AMP_NODE (child), group, project, error)) return FALSE;
 	}
 
 	return TRUE;
@@ -669,6 +692,7 @@ amp_group_node_class_init (AmpGroupNodeClass *klass)
 
 	node_class = AMP_NODE_CLASS (klass);
 	node_class->load = amp_group_node_load;
+	node_class->save = amp_group_node_save;
 	node_class->update = amp_group_node_update;
 	node_class->write = amp_group_node_write;
 	node_class->erase = amp_group_node_erase;

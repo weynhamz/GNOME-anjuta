@@ -1,5 +1,4 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * anjuta-token-file.c
  * Copyright (C) Sébastien Granjoux 2009 <seb.sfo@free.fr>
@@ -39,6 +38,8 @@ struct _AnjutaTokenFile
 	AnjutaToken *content;		/* Current file content */
 
 	AnjutaToken *save;			/* List of memory block used */
+
+	gboolean dirty;					/* Set when the file has been modified */
 };
 
 struct _AnjutaTokenFileClass
@@ -111,7 +112,7 @@ anjuta_token_file_load (AnjutaTokenFile *file, GError **error)
 	
 	file->save = anjuta_token_new_static (ANJUTA_TOKEN_FILE,  NULL);
 	file->content = anjuta_token_new_static (ANJUTA_TOKEN_FILE,  NULL);
-	
+
 	if (g_file_load_contents (file->file, NULL, &content, &length, NULL, error))
 	{
 		AnjutaToken *token;
@@ -121,6 +122,7 @@ anjuta_token_file_load (AnjutaTokenFile *file, GError **error)
 		
 		token =	anjuta_token_new_static (ANJUTA_TOKEN_FILE, content);
 		anjuta_token_prepend_child (file->content, token);
+		file->dirty = FALSE;
 	}
 	
 	return file->content;
@@ -153,7 +155,7 @@ anjuta_token_file_save (AnjutaTokenFile *file, GError **error)
 		{
 			/* Perhaps parent directory is missing, try to create it */
 			GFile *parent = g_file_get_parent (file->file);
-			
+
 			if (g_file_make_directory_with_parents (parent, NULL, NULL))
 			{
 				g_object_unref (parent);
@@ -190,6 +192,7 @@ anjuta_token_file_save (AnjutaTokenFile *file, GError **error)
 		
 	ok = ok && g_output_stream_close (G_OUTPUT_STREAM (stream), NULL, NULL);
 	g_object_unref (stream);
+	file->dirty = FALSE;
 	
 	return ok;
 }
@@ -199,6 +202,7 @@ anjuta_token_file_move (AnjutaTokenFile *file, GFile *new_file)
 {
 	if (file->file) g_object_unref (file->file);
 	file->file = new_file != NULL ? g_object_ref (new_file) : NULL;
+	file->dirty = new_file != NULL;
 }
 
 static void
@@ -236,6 +240,7 @@ anjuta_token_file_remove_token (AnjutaTokenFile *file, AnjutaToken *token)
 	if (token != NULL) next = anjuta_token_foreach_post_order (token, remove_raw_token, file);
 
 	next = anjuta_token_free (token);
+	file->dirty = TRUE;
 
 	return next;
 }
@@ -366,7 +371,7 @@ anjuta_token_file_update (AnjutaTokenFile *file, AnjutaToken *token)
 			}
 		}
 	}
-
+	file->dirty = TRUE;
 	
 	return TRUE;
 }
@@ -445,6 +450,12 @@ anjuta_token_file_get_content (AnjutaTokenFile *file)
 	}
 	
 	return file->content;
+}
+
+gboolean
+anjuta_token_file_is_dirty (AnjutaTokenFile *file)
+{
+	return file->dirty;
 }
 
 /* GObject functions
@@ -532,6 +543,7 @@ anjuta_token_file_new (GFile *gfile)
 	AnjutaTokenFile *file = g_object_new (ANJUTA_TOKEN_FILE_TYPE, NULL);
 
 	if (gfile) file->file =  g_object_ref (gfile);
+	file->dirty = gfile != NULL;
 	
 	return file;
 };
