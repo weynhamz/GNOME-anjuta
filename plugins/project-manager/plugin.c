@@ -1301,7 +1301,6 @@ on_project_loaded (AnjutaPmProject *project, GtkTreeIter *parent, gboolean compl
 									  dirname, error->message);
 		}
 	}
-	g_free (dirname);
 
 	if (complete)
 	{
@@ -1326,6 +1325,8 @@ on_project_loaded (AnjutaPmProject *project, GtkTreeIter *parent, gboolean compl
 		g_signal_emit_by_name (G_OBJECT (plugin), "project_loaded", error);
 
 	}
+
+	g_free (dirname);
 }
 
 static void
