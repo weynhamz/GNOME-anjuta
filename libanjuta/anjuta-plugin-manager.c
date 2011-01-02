@@ -1874,7 +1874,8 @@ on_plugin_list_row_activated (GtkTreeView *tree_view,
 
 static void
 on_plugin_list_show (GtkTreeView *view,
-					  GtkDialog *dialog)
+                     GtkDirectionType direction,
+                     GtkDialog *dialog)
 {
 	GtkTreeSelection *selection;
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
