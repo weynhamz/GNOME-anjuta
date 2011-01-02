@@ -121,9 +121,7 @@ PROPERTY (URL): http://www.anjuta.org/
                 PROPERTY (Installation directory): anjuta_docdir
                 SOURCE (14:3:0:0): doc/ScintillaDoc.html
             TARGET (14:3:1): anjuta.1
-                PROPERTY (Build for check only): false
             TARGET (14:3:2): anjuta-launcher.1
-                PROPERTY (Build for check only): false
         GROUP (14:4): libanjuta
             PROPERTY (C preprocessor flags): -I$(top_srcdir) -I . $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(ANJUTA_CFLAGS) $(XML_CFLAGS) $(GDL_CFLAGS) -DDATADIR="\"$(datadir)\"" -DPACKAGE_PIXMAPS_DIR="\"$(datadir)/pixmaps/$(PACKAGE)\"" -DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" -DPACKAGE_HELP_DIR="\"$(datadir)/gnome/help/$(PACKAGE)\"" -DPACKAGE_DOC_DIR="\"$(docdir)\"" -DG_LOG_DOMAIN=\"libanjuta\"
             PROPERTY (Installation directories): gladeanjutadir = $(libdir)/glade3/modules catalogdir = $(datadir)/glade3/catalogs libanjutaincludedir = $(includedir)/libanjuta-3.0/libanjuta pkgconfigdir = $(libdir)/pkgconfig girdir = $(datadir)/gir-1.0 typelibdir = $(libdir)/girepository-1.0
