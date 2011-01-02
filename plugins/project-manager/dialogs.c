@@ -383,6 +383,7 @@ add_entry (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProper
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 	GList *item;
+	gchar *tooltip = NULL;
 
 	if (prop->native != NULL)
 	{
@@ -392,9 +393,22 @@ add_entry (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProper
 	{
 		label = gtk_label_new (_(prop->name));
 	}
+
 	if (prop->detail != NULL)
 	{
-		gtk_widget_set_tooltip_markup (label, _(prop->detail));
+		if (prop->flags & ANJUTA_PROJECT_PROPERTY_READ_ONLY)
+		{
+			tooltip = g_strconcat (_(prop->detail), _(" This property is not modifiable."), NULL);
+		}
+		else
+		{
+			tooltip = g_strdup (_(prop->detail));
+		}
+	}
+	
+	if (tooltip != NULL)
+	{
+		gtk_widget_set_tooltip_markup (label, tooltip);
 	}
 	gtk_misc_set_alignment (GTK_MISC (label), 0, -1);
 	gtk_widget_show (label);
@@ -462,10 +476,12 @@ add_entry (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProper
 	default:
 		return NULL;
 	}		
-	if (prop->detail != NULL)
+	if (tooltip != NULL)
 	{
-		gtk_widget_set_tooltip_markup (entry, _(prop->detail));
+		gtk_widget_set_tooltip_markup (entry, tooltip);
 	}
+	g_free (tooltip);
+	
 	gtk_widget_show (entry);
 	gtk_table_attach (GTK_TABLE (table), entry, 1, 2, *position, *position+1,
 			  GTK_FILL | GTK_EXPAND, GTK_FILL, 5, 3);
