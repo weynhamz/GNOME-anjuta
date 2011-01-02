@@ -126,22 +126,22 @@ amp_module_node_write (AmpNode *node, AmpNode *amp_parent, AmpProject *project, 
 		gchar *cpp_flags;
 		gint type;
 				
-		group_cpp = amp_node_get_property_from_token (group, AM_TOKEN__CPPFLAGS); 
+		group_cpp = amp_node_get_property_from_token (group, AM_TOKEN__CPPFLAGS, 0); 
 					
 		type = anjuta_project_node_get_full_type (parent) & (ANJUTA_PROJECT_ID_MASK | ANJUTA_PROJECT_TYPE_MASK);
 		switch (type)
 		{
 		case ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_PROGRAM:
-			target_lib = amp_node_get_property_from_token (parent, AM_TOKEN_TARGET_LDADD);
+			target_lib = amp_node_get_property_from_token (parent, AM_TOKEN_TARGET_LDADD, 0);
 			break;
 		case ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_STATICLIB:
 		case ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_SHAREDLIB:
-			target_lib = amp_node_get_property_from_token (parent, AM_TOKEN_TARGET_LIBADD);
+			target_lib = amp_node_get_property_from_token (parent, AM_TOKEN_TARGET_LIBADD, 0);
 			break;
 		default:
 			break;
 		}
-		target_cpp = amp_node_get_property_from_token (parent, AM_TOKEN_TARGET_CPPFLAGS);
+		target_cpp = amp_node_get_property_from_token (parent, AM_TOKEN_TARGET_CPPFLAGS, 0);
 
 		lib_flags = g_strconcat ("$(", anjuta_project_node_get_name (ANJUTA_PROJECT_NODE (node)), "_LIBS)", NULL);
 		cpp_flags = g_strconcat ("$(", anjuta_project_node_get_name (ANJUTA_PROJECT_NODE (node)), "_CFLAGS)", NULL);
@@ -190,7 +190,7 @@ amp_module_node_erase (AmpNode *node, AmpNode *amp_parent, AmpProject *project, 
 		lib_flags = g_strconcat ("$(", anjuta_project_node_get_name (ANJUTA_PROJECT_NODE (node)), "_LIBS)", NULL);
 		cpp_flags = g_strconcat ("$(", anjuta_project_node_get_name (ANJUTA_PROJECT_NODE (node)), "_CFLAGS)", NULL);
 				
-		group_cpp = amp_node_get_property_from_token (group, AM_TOKEN__CPPFLAGS); 
+		group_cpp = amp_node_get_property_from_token (group, AM_TOKEN__CPPFLAGS, 0); 
 		if (amp_node_property_has_flags (group, group_cpp, cpp_flags))
 		{
 			/* Remove flags in group variable if not more target has this module */
@@ -230,17 +230,17 @@ amp_module_node_erase (AmpNode *node, AmpNode *amp_parent, AmpProject *project, 
 		switch (type)
 		{
 		case ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_PROGRAM:
-			target_lib = amp_node_get_property_from_token (parent, AM_TOKEN_TARGET_LDADD);
+			target_lib = amp_node_get_property_from_token (parent, AM_TOKEN_TARGET_LDADD, 0);
 			break;
 		case ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_STATICLIB:
 		case ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_SHAREDLIB:
-			target_lib = amp_node_get_property_from_token (parent, AM_TOKEN_TARGET_LIBADD);
+			target_lib = amp_node_get_property_from_token (parent, AM_TOKEN_TARGET_LIBADD, 0);
 			break;
 		default:
 			target_lib = NULL;
 			break;
 		}
-		target_cpp = amp_node_get_property_from_token (parent, AM_TOKEN_TARGET_CPPFLAGS);
+		target_cpp = amp_node_get_property_from_token (parent, AM_TOKEN_TARGET_CPPFLAGS, 0);
 
 		prop = amp_node_property_remove_flags (parent, target_cpp, cpp_flags);
 		if (prop != NULL) amp_project_update_am_property (project, parent, prop);

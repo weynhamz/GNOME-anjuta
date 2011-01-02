@@ -35,7 +35,7 @@
 %token	END_OF_LINE	'\n'
 %token	SPACE
 %token	TAB '\t'
-%token	HASH '#'
+%token	COMMENT '#'
 %token	MACRO
 %token	VARIABLE
 %token	COLON ':'
@@ -257,18 +257,16 @@ line:
  
 end_of_line:
 	END_OF_LINE {
+		anjuta_token_set_type ($1, ANJUTA_TOKEN_EOL);
 		$$ = NULL;
 	}
 	| END_OF_FILE {
 		$$ = NULL;
 	}
-	| comment {
+	| COMMENT {
+		anjuta_token_set_type ($1, ANJUTA_TOKEN_COMMENT);
 		$$ = NULL;
 	}
-	;
-
-comment:
-	HASH not_eol_list END_OF_LINE
 	;
 
 not_eol_list:
@@ -471,6 +469,7 @@ command_token:
 	| rule_token
 	| depend_token
 	| space_token
+	| comment_token
 	;
 
 value_token:
@@ -490,6 +489,10 @@ head_token:
 space_token:
 	SPACE
 	| TAB
+	;
+
+comment_token:
+	COMMENT
 	;
 
 equal_token:

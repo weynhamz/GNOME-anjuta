@@ -30,6 +30,7 @@
 #include "am-scanner.h"
 #include "am-properties.h"
 #include "am-writer.h"
+#include "amp-group.h"
 
 #include <libanjuta/interfaces/ianjuta-project.h>
 
@@ -181,10 +182,11 @@ tagged_token_list_free (GList *list)
 	return NULL;
 }
 
+/* Public functions
+ *---------------------------------------------------------------------------*/
 
 
-
-/* Target object
+/* Public functions
  *---------------------------------------------------------------------------*/
 
 void
@@ -319,9 +321,57 @@ amp_target_node_write (AmpNode *node, AmpNode *parent, AmpProject *project, GErr
 }
 
 static gboolean
-amp_target_node_erase (AmpNode *node, AmpNode *parent, AmpProject *project, GError **error)
+amp_target_node_erase (AmpNode *target, AmpNode *parent, AmpProject *project, GError **error)
 {
-	return amp_target_node_delete_token (project, AMP_TARGET_NODE (node), error);
+	gboolean ok;
+	
+	ok = amp_target_node_delete_token (project, AMP_TARGET_NODE (target), error);
+	
+	/* Remove installation directory variable if the removed target was the
+	 * only one using it */
+	if (ok)
+	{
+		AnjutaProjectNode *node;
+		const gchar *installdir;
+		AnjutaProjectProperty *prop;
+		gboolean used = FALSE;
+
+		prop = amp_node_get_property_from_token (ANJUTA_PROJECT_NODE (target), AM_TOKEN__PROGRAMS, 6);
+		installdir = prop->value;
+
+		for (node = anjuta_project_node_first_child (ANJUTA_PROJECT_NODE (parent)); node != NULL; node = anjuta_project_node_next_sibling (node))
+		{
+			if (node != ANJUTA_PROJECT_NODE (target))
+			{
+				prop = amp_node_get_property_from_token (node, AM_TOKEN__PROGRAMS, 6);
+				if (g_strcmp0 (installdir, prop->value) == 0)
+				{
+					used = TRUE;
+					break;
+				}
+			}
+		}
+
+		if (!used)
+		{
+			GList *item;
+
+			for (item = ANJUTA_PROJECT_NODE (parent)->custom_properties; item != NULL; item = g_list_next (item))
+			{
+				AmpProperty *prop = (AmpProperty *)item->data;
+
+				if ((prop->token_type == AM_TOKEN_DIR) && (g_strcmp0 (prop->base.name, installdir) == 0))
+				{
+					/* Remove directory variable */
+					anjuta_token_remove_list (prop->token);
+					amp_group_node_update_makefile (AMP_GROUP_NODE (parent), prop->token);
+					break;
+				}
+			}
+		}
+	};
+
+	return ok;
 }
 
 

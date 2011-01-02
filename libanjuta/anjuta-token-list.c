@@ -648,6 +648,56 @@ anjuta_token_remove_word (AnjutaToken *token)
 }
 
 AnjutaToken *
+anjuta_token_remove_list (AnjutaToken *token)
+{
+	AnjutaToken *list;
+	AnjutaToken *next;
+	AnjutaToken *prev;
+
+	list = anjuta_token_list (token);
+	anjuta_token_set_flags (list, ANJUTA_TOKEN_REMOVED);
+
+	prev = anjuta_token_previous_item (list);
+	if (anjuta_token_get_type (prev) == ANJUTA_TOKEN_EOL)
+	{
+		/* Remove line above if empty */
+		if (anjuta_token_get_type (anjuta_token_previous_item (prev)) == ANJUTA_TOKEN_EOL)
+		{
+			anjuta_token_set_flags (prev, ANJUTA_TOKEN_REMOVED);
+		}
+	}
+	else if (anjuta_token_get_type (prev) == ANJUTA_TOKEN_COMMENT)
+	{
+		/* Remove comment above if there is an empty line after it */
+		do
+		{
+			prev = anjuta_token_previous_item (prev);
+		}
+		while ((prev != NULL) && (anjuta_token_get_type (prev) == ANJUTA_TOKEN_COMMENT));
+
+		if ((prev != NULL) && (anjuta_token_get_type (prev) == ANJUTA_TOKEN_EOL))
+		{
+			prev = list;
+			do
+			{
+				anjuta_token_set_flags (prev, ANJUTA_TOKEN_REMOVED);
+				prev = anjuta_token_previous_item (prev);
+			}
+			while ((prev != NULL) && (anjuta_token_get_type (prev) == ANJUTA_TOKEN_COMMENT));
+		}
+	}
+	
+	next = anjuta_token_next_item (list);
+	if (anjuta_token_get_type (next) == ANJUTA_TOKEN_EOL)
+	{
+		anjuta_token_set_flags (next, ANJUTA_TOKEN_REMOVED);
+	}
+	next = anjuta_token_next_item (next);
+	
+	return next;
+}
+
+AnjutaToken *
 anjuta_token_insert_token_list (gboolean after, AnjutaToken *pos,...)
 {
 	AnjutaToken *first = NULL;

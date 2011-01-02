@@ -939,7 +939,7 @@ amp_node_property_set (AnjutaProjectNode *node, AnjutaProjectProperty *prop, con
 }
 
 AnjutaProjectProperty *
-amp_node_get_property_from_token (AnjutaProjectNode *node, gint token)
+amp_node_get_property_from_token (AnjutaProjectNode *node, gint token, gint pos)
 {
 	GList *item;
 
@@ -947,7 +947,7 @@ amp_node_get_property_from_token (AnjutaProjectNode *node, gint token)
 	{
 		AmpProperty *prop = (AmpProperty *)item->data;
 
-		if (prop->token_type == token)
+		if ((prop->token_type == token) && (prop->position == pos))
 		{
 			return anjuta_project_node_get_property (node, (AnjutaProjectProperty *)prop);
 		}

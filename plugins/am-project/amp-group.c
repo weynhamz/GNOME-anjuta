@@ -93,7 +93,7 @@ project_load_group_module (AmpProject *project, AmpGroupNode *group)
 	AnjutaProjectProperty *prop;
 	gchar **group_cpp = NULL;
 
-	prop = amp_node_get_property_from_token (ANJUTA_PROJECT_NODE (group), AM_TOKEN__CPPFLAGS);
+	prop = amp_node_get_property_from_token (ANJUTA_PROJECT_NODE (group), AM_TOKEN__CPPFLAGS, 0);
 	if (prop && (prop->value != NULL)) group_cpp = g_strsplit_set (prop->value, " \t", 0);
 	
 	/* Check all targets */
@@ -107,11 +107,11 @@ project_load_group_module (AmpProject *project, AmpGroupNode *group)
 		switch (type)
 		{
 		case ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_PROGRAM:
-			prop = amp_node_get_property_from_token (target, AM_TOKEN_TARGET_LDADD);
+			prop = amp_node_get_property_from_token (target, AM_TOKEN_TARGET_LDADD, 0);
 			break;
 		case ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_STATICLIB:
 		case ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_SHAREDLIB:
-			prop = amp_node_get_property_from_token (target, AM_TOKEN_TARGET_LIBADD);
+			prop = amp_node_get_property_from_token (target, AM_TOKEN_TARGET_LIBADD, 0);
 			break;
 		default:
 			break;
@@ -123,7 +123,7 @@ project_load_group_module (AmpProject *project, AmpGroupNode *group)
 		{
 			AnjutaProjectNode *module;
 
-			prop = amp_node_get_property_from_token (target, AM_TOKEN_TARGET_CPPFLAGS);
+			prop = amp_node_get_property_from_token (target, AM_TOKEN_TARGET_CPPFLAGS, 0);
 			if (prop && (prop->value != NULL)) target_cpp = g_strsplit_set (prop->value, " \t", 0);
 
 			for (module = anjuta_project_node_first_child (ANJUTA_PROJECT_NODE (project)); module != NULL; module = anjuta_project_node_next_sibling (module))

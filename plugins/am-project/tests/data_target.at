@@ -1,0 +1,125 @@
+AT_SETUP([Add and Remove data target])
+AS_MKDIR_P([data])
+AT_DATA([data/configure.ac],
+[[AC_CONFIG_FILES(Makefile)
+]])
+AT_DATA([data/Makefile.am],
+[[## Process this file with automake to produce Makefile.in
+
+# Target comment
+target1dir = $(target_dir)
+target1_DATA = data1.txt
+
+target2dir = $(target_dir)
+target2_DATA = data2.txt \
+	data3.txt
+]])
+
+
+
+AT_DATA([expect],
+[[    GROUP (0): data
+        PROPERTY (Installation directories): target1dir = $(target_dir) target2dir = $(target_dir)
+        TARGET (0:0): target1
+            PROPERTY (Installation directory): target1dir
+            SOURCE (0:0:0): data1.txt
+        TARGET (0:1): target2
+            PROPERTY (Installation directory): target2dir
+            SOURCE (0:1:0): data2.txt
+            SOURCE (0:1:1): data3.txt
+]])
+AT_PARSER_CHECK([load data \
+		 list \
+		 save])
+AT_CHECK([diff -b output expect])
+
+
+
+AT_DATA([expect],
+[[    GROUP (0): data1
+        PROPERTY (Installation directories): target1dir = $(target_dir)
+        TARGET (0:0): target1
+            PROPERTY (Installation directory): target1dir
+            SOURCE (0:0:0): data1.txt
+]])
+AT_DATA([reference],
+[[## Process this file with automake to produce Makefile.in
+
+# Target comment
+target1dir = $(target_dir)
+target1_DATA = data1.txt
+]])
+AT_PARSER_CHECK([load data \
+	 move data1 \
+	 remove 0:1 \
+	 list \
+	 save])
+AT_CHECK([diff -b data1/Makefile.am reference])
+AT_PARSER_CHECK([load data1 \
+		 list])
+AT_CHECK([diff -b output expect])
+
+
+
+AT_DATA([expect],
+[[    GROUP (0): data2
+        PROPERTY (Installation directories): target1dir = $(target_dir)
+        TARGET (0:0): target1
+            PROPERTY (Installation directory): target1dir
+            SOURCE (0:0:0): data1.txt
+        TARGET (0:1): data
+            PROPERTY (Installation directory): datadir
+            SOURCE (0:1:0): data4.txt
+            SOURCE (0:1:1): data5.txt
+]])
+AT_DATA([reference],
+[[## Process this file with automake to produce Makefile.in
+
+# Target comment
+target1dir = $(target_dir)
+target1_DATA = data1.txt
+
+data_DATA = data4.txt \
+	data5.txt
+]])
+AT_PARSER_CHECK([load data1 \
+		 move data2 \
+		 add target 0 target3 data \
+		 add source 0:1 data4.txt \
+		 add source 0:1 data5.txt \
+		 list \
+		 save])
+AT_CHECK([diff -b data2/Makefile.am reference])
+AT_PARSER_CHECK([load data2 \
+		 list])
+AT_CHECK([diff -b output expect])
+
+
+
+AT_DATA([expect],
+[[    GROUP (0): data3
+        TARGET (0:0): data
+            PROPERTY (Installation directory): datadir
+            SOURCE (0:0:0): data4.txt
+            SOURCE (0:0:1): data5.txt
+]])
+AT_DATA([reference],
+[[## Process this file with automake to produce Makefile.in
+
+
+data_DATA = data4.txt \
+	data5.txt
+]])
+AT_PARSER_CHECK([load data2 \
+		 move data3 \
+		 remove 0:0 \
+		 list \
+		 save])
+AT_CHECK([diff -b data3/Makefile.am reference])
+AT_PARSER_CHECK([load data3 \
+		 list])
+AT_CHECK([diff -b output expect])
+
+
+
+AT_CLEANUP

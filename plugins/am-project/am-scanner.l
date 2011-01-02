@@ -83,11 +83,7 @@ NAME          [^ \t\n\r:#=$"'`&@\\]*
 
 <INITIAL>([ ]|\\\n)([ \t]|\\\n)*	{ RETURN (SPACE); }
 
-<INITIAL>#							{ RETURN (HASH); }
-
-<INITIAL>([ ]|\\\n)([ \t]|\\\n)* 	{ RETURN (SPACE); }
-
-<INITIAL>([ \t])*#.*\n 				{ RETURN (END_OF_LINE); }
+<INITIAL>([ \t])*#.*\n 				{ RETURN (COMMENT); }
 
 <INITIAL>\t 						{ RETURN (TAB); }
 

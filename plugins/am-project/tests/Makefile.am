@@ -28,7 +28,8 @@ TESTSUITE_AT = \
 	$(srcdir)/properties.at \
 	$(srcdir)/module.at \
 	$(srcdir)/package.at \
-	$(srcdir)/target_module.at
+	$(srcdir)/target_module.at \
+	$(srcdir)/data_target.at
 
 TESTSUITE = $(srcdir)/testsuite
 

@@ -401,6 +401,7 @@ amp_project_write_target (AmpGroupNode *group, gint type, const gchar *name, gbo
 	            ANJUTA_TOKEN_SPACE, " ",
 	    		NULL);
 	token = anjuta_token_last_item (token);
+	amp_group_node_update_makefile (group, token);
 	
 	return token;
 }
@@ -509,30 +510,43 @@ amp_target_node_create_token (AmpProject  *project, AmpTargetNode *target, GErro
 	}
 	g_free (targetname);
 
-	if (args != NULL)
+	switch (anjuta_project_node_get_full_type (ANJUTA_PROJECT_NODE (target)) & ANJUTA_PROJECT_ID_MASK)
 	{
-		AnjutaTokenStyle *style;
-
-		style = anjuta_token_style_new_from_base (project->am_space_list);
-		anjuta_token_style_update (style, args);
-		
-		token = anjuta_token_new_string (ANJUTA_TOKEN_ARGUMENT | ANJUTA_TOKEN_ADDED, name);
-		if (after)
+	case ANJUTA_PROJECT_SHAREDLIB:
+	case ANJUTA_PROJECT_STATICLIB:
+	case ANJUTA_PROJECT_PROGRAM:
+		if (args != NULL)
 		{
-			anjuta_token_insert_word_after (args, prev, token);
-		}
-		else
-		{
-			anjuta_token_insert_word_before (args, prev, token);
-		}
+			AnjutaTokenStyle *style;
 
-		/* Try to use the same style than the current target list */
-		anjuta_token_style_format (style, args);
-		anjuta_token_style_free (style);
+			style = anjuta_token_style_new_from_base (project->am_space_list);
+			anjuta_token_style_update (style, args);
 		
-		amp_group_node_update_makefile (parent, token);
+			token = anjuta_token_new_string (ANJUTA_TOKEN_ARGUMENT | ANJUTA_TOKEN_ADDED, name);
+			if (after)
+			{
+				anjuta_token_insert_word_after (args, prev, token);
+			}
+			else
+			{
+				anjuta_token_insert_word_before (args, prev, token);
+			}
+
+			/* Try to use the same style than the current target list */
+			anjuta_token_style_format (style, args);
+			anjuta_token_style_free (style);
 		
-		amp_target_node_add_token (target, ANJUTA_TOKEN_ARGUMENT, token);
+			amp_group_node_update_makefile (parent, token);
+		
+			amp_target_node_add_token (target, ANJUTA_TOKEN_ARGUMENT, token);
+		}
+		break;
+	default:
+		if (args != NULL)
+		{
+			amp_target_node_add_token (target, AM_TOKEN__SOURCES, args);
+		}
+		break;
 	}
 
 	return TRUE;
@@ -546,6 +560,15 @@ amp_target_node_delete_token (AmpProject  *project, AmpTargetNode *target, GErro
 
 	/* Get parent target */
 	parent = AMP_GROUP_NODE (anjuta_project_node_parent (ANJUTA_PROJECT_NODE (target)));
+
+	/* Remove list for data target */
+	for (item = amp_target_node_get_token (target, AM_TOKEN__DATA); item != NULL; item = g_list_next (item))
+	{
+		AnjutaToken *token = (AnjutaToken *)item->data;
+		
+		anjuta_token_remove_list (token);
+		amp_group_node_update_makefile (parent, token);
+	}
 
 	for (item = amp_target_node_get_token (target, ANJUTA_TOKEN_ARGUMENT); item != NULL; item = g_list_next (item))
 	{
@@ -569,6 +592,11 @@ amp_target_node_delete_token (AmpProject  *project, AmpTargetNode *target, GErro
 
 	return TRUE;
 }
+
+
+
+/* Source objects
+ *---------------------------------------------------------------------------*/
 
 static AnjutaToken *
 amp_project_write_source_list (AmpGroupNode *group, const gchar *name, gboolean after, AnjutaToken* sibling)

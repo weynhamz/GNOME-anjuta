@@ -143,35 +143,35 @@ static AmpNodeInfo AmpNodeInformations[] = {
 	"_JAVA",
 	NULL},
 	
-	{{ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_UNKNOWN,
+	{{ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_LISP,
 	N_("Lisp Module"),
 	"text/plain"},
 	AM_TOKEN__LISP,
 	"_LISP",
 	"lisp"},
 	
-	{{ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_UNKNOWN,
+	{{ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_HEADER,
 	N_("Header Files"),
 	"text/x-chdr"},
 	AM_TOKEN__HEADERS,
 	"_HEADERS",
 	"include"},
 	
-	{{ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_UNKNOWN,
+	{{ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_MAN,
 	N_("Man Documentation"),
 	"text/x-troff-man"},
 	AM_TOKEN__MANS,
 	"_MANS",
 	"man"},
 
-	{{ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_UNKNOWN,
+	{{ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_INFO,
 	N_("Info Documentation"),
 	"application/x-tex-info"},
 	AM_TOKEN__TEXINFOS,
 	"_TEXINFOS",
 	"info"},
 	
-	{{ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_UNKNOWN,
+	{{ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_DATA,
 	N_("Miscellaneous Data"),
 	"application/octet-stream"},
 	AM_TOKEN__DATA,
@@ -1136,6 +1136,7 @@ project_load_data (AmpProject *project, AnjutaToken *name, AnjutaToken *list, An
 	{
 		GFile *parent_file = g_object_ref (anjuta_project_node_get_file (parent));
 		
+		amp_target_node_add_token (AMP_TARGET_NODE (target), AM_TOKEN__DATA, name);
 		for (arg = anjuta_token_first_word (list); arg != NULL; arg = anjuta_token_next_word (arg))
 		{
 			gchar *value;
@@ -2223,28 +2224,7 @@ amp_remove_property_setup (PmJob *job)
 static gboolean
 amp_remove_property_work (PmJob *job)
 {
-	switch (anjuta_project_node_get_node_type (job->node))
-	{
-		case ANJUTA_PROJECT_GROUP:
-			amp_group_node_delete_token (AMP_PROJECT (job->user_data), AMP_GROUP_NODE (job->node), &job->error);
-			break;
-		case ANJUTA_PROJECT_TARGET:
-			amp_target_node_delete_token (AMP_PROJECT (job->user_data), AMP_TARGET_NODE (job->node), &job->error);
-			break;
-		case ANJUTA_PROJECT_SOURCE:
-			amp_source_node_delete_token (AMP_PROJECT (job->user_data), AMP_SOURCE_NODE (job->node), &job->error);
-			break;
-		case ANJUTA_PROJECT_MODULE:
-			amp_module_node_delete_token (AMP_PROJECT (job->user_data), AMP_MODULE_NODE (job->node), &job->error);
-			break;
-		case ANJUTA_PROJECT_PACKAGE:
-			amp_package_node_delete_token (AMP_PROJECT (job->user_data), AMP_PACKAGE_NODE (job->node), &job->error);
-			break;
-		default:
-			break;
-	}
-	
-	return TRUE;
+	return FALSE;
 }
 
 static gboolean
