@@ -26,8 +26,8 @@ alwaysautogen=True
 module_autogenargs['fontconfig'] = autogenargs + ' --disable-docs'
 module_autogenargs['libgda'] = autogenargs + ' --enable-introspection=no'
 
-# Use offscreen branch of glade3
-branches['glade3'] = (None, 'offscreen')
+# Use toplevel-embedding branch of gtk+-3
+branches['gtk+-3'] = (None, 'toplevel-embedding')
 
 # On SMP systems you may use something like this to improve compilation time:
 # be aware that not all modules compile correctly with make -j2
