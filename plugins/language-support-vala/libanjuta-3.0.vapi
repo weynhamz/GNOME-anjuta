@@ -114,7 +114,11 @@ namespace Anjuta {
 		public Anjuta.Encoding copy ();
 		public void free ();
 		public unowned string get_charset ();
+		public static unowned Anjuta.Encoding get_current ();
+		public static unowned Anjuta.Encoding get_from_charset (string charset);
+		public static unowned Anjuta.Encoding get_from_index (int index);
 		public unowned string get_name ();
+		public static unowned Anjuta.Encoding get_utf8 ();
 		public string to_string ();
 	}
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
@@ -236,6 +240,7 @@ namespace Anjuta {
 		[CCode (has_construct_function = false)]
 		public PluginManager (GLib.Object shell, Anjuta.Status status, GLib.List<weak void*> plugin_search_paths);
 		public void activate_plugins (GLib.List<weak void*> plugin_descs);
+		public static GLib.Quark error_quark ();
 		public string get_remembered_plugins ();
 		public bool is_active_plugin (string iface_name);
 		public void set_remembered_plugins (string remembered_plugins);
@@ -279,6 +284,7 @@ namespace Anjuta {
 		public Profile (string name, Anjuta.PluginManager plugin_manager);
 		public void add_plugin (Anjuta.PluginDescription plugin);
 		public bool add_plugins_from_xml (GLib.File profile_xml_file, bool exclude_from_sync) throws GLib.Error;
+		public static GLib.Quark error_quark ();
 		public unowned string get_name ();
 		public bool has_plugin (Anjuta.PluginDescription plugin);
 		public void remove_plugin (Anjuta.PluginDescription plugin);
@@ -441,6 +447,7 @@ namespace Anjuta {
 		public TokenFile (GLib.File file);
 		public void free ();
 		public bool get_token_location (Anjuta.TokenFileLocation location, Anjuta.Token token);
+		public bool is_dirty ();
 		public void move (GLib.File new_file);
 		public bool save () throws GLib.Error;
 		public bool unload ();
@@ -482,6 +489,7 @@ namespace Anjuta {
 		public void add_widget (Gtk.Widget widget, string name, string title, string stock_id, Anjuta.ShellPlacement placement) throws GLib.Error;
 		public abstract void add_widget_custom (Gtk.Widget widget, string name, string title, string stock_id, Gtk.Widget label, Anjuta.ShellPlacement placement) throws GLib.Error;
 		public abstract void add_widget_full (Gtk.Widget widget, string name, string title, string stock_id, Anjuta.ShellPlacement placement, bool locked) throws GLib.Error;
+		public static GLib.Quark error_quark ();
 		public void freeze () throws GLib.Error;
 		public abstract unowned GLib.Object get_object (string iface_name) throws GLib.Error;
 		public abstract void get_value (string name, GLib.Value value) throws GLib.Error;
@@ -560,6 +568,7 @@ namespace Anjuta {
 		public bool get_locale_string (string section, string keyname, string val);
 		public bool get_raw (string section_name, string keyname, string locale, string val);
 		public bool get_string (string section, string keyname, string val);
+		public static GLib.Quark parse_error_quark ();
 		public string to_string ();
 	}
 	[CCode (type_id = "ANJUTA_TYPE_PLUGIN_HANDLE_PRIV", cheader_filename = "libanjuta/libanjuta.h")]
@@ -600,6 +609,7 @@ namespace Anjuta {
 		public int get_flags ();
 		public uint get_length ();
 		public unowned string get_string ();
+		public int get_type ();
 		public bool is_empty ();
 		public void set_flags (int flags);
 		public void set_string (string value, uint length);
@@ -820,27 +830,27 @@ namespace Anjuta {
 		IGNORED,
 		ALL
 	}
-	[CCode (cprefix = "CONVERT_ERROR_", cheader_filename = "libanjuta/libanjuta.h")]
+	[CCode (cprefix = "ANJUTA_CONVERT_ERROR_AUTO_DETECTION_", cheader_filename = "libanjuta/libanjuta.h")]
 	public errordomain ConvertError {
 		FAILED,
 	}
-	[CCode (cprefix = "PLUGIN_DESCRIPTION_PARSE_ERROR_", cheader_filename = "libanjuta/libanjuta.h")]
+	[CCode (cprefix = "ANJUTA_PLUGIN_DESCRIPTION_PARSE_ERROR_INVALID_", cheader_filename = "libanjuta/libanjuta.h")]
 	public errordomain PluginDescriptionParseError {
 		SYNTAX,
 		ESCAPES,
 		CHARS,
 	}
-	[CCode (cprefix = "PLUGIN_MANAGER_ERROR_", cheader_filename = "libanjuta/libanjuta.h")]
+	[CCode (cprefix = "ANJUTA_PLUGIN_MANAGER_", cheader_filename = "libanjuta/libanjuta.h")]
 	public errordomain PluginManagerError {
 		MISSING_FACTORY,
 		ERROR_UNKNOWN,
 	}
-	[CCode (cprefix = "PROFILE_ERROR_", cheader_filename = "libanjuta/libanjuta.h")]
+	[CCode (cprefix = "ANJUTA_PROFILE_ERROR_URI_", cheader_filename = "libanjuta/libanjuta.h")]
 	public errordomain ProfileError {
 		READ_FAILED,
 		WRITE_FAILED,
 	}
-	[CCode (cprefix = "SHELL_ERROR_", cheader_filename = "libanjuta/libanjuta.h")]
+	[CCode (cprefix = "ANJUTA_SHELL_ERROR_DOESNT_", cheader_filename = "libanjuta/libanjuta.h")]
 	public errordomain ShellError {
 		EXIST,
 	}
@@ -895,21 +905,7 @@ namespace Anjuta {
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
 	public static void debug_init ();
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
-	public static unowned Anjuta.Encoding encoding_get_current ();
-	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
-	public static unowned Anjuta.Encoding encoding_get_from_charset (string charset);
-	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
-	public static unowned Anjuta.Encoding encoding_get_from_index (int index);
-	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
-	public static unowned Anjuta.Encoding encoding_get_utf8 ();
-	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
 	public static bool pkg_config_ignore_package (string name);
-	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
-	public static GLib.Quark plugin_description_parse_error_quark ();
-	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
-	public static GLib.Quark plugin_manager_error_quark ();
-	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
-	public static GLib.Quark profile_error_quark ();
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
 	public static string res_get_data_dir ();
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
@@ -934,10 +930,6 @@ namespace Anjuta {
 	public static void res_help_search (string word);
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
 	public static void res_url_show (string url);
-	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
-	public static GLib.Quark shell_error_quark ();
-	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
-	public static int token_get_type (Anjuta.Token token);
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
 	public static void util_color_from_string (string val, uint16 r, uint16 g, uint16 b);
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
@@ -1010,6 +1002,7 @@ namespace IAnjuta {
 		public abstract void build (string uri) throws GLib.Error;
 		public abstract void clean (string uri) throws GLib.Error;
 		public abstract void configure (string uri) throws GLib.Error;
+		public static GLib.Quark error_quark ();
 		public abstract void execute (string uri) throws GLib.Error;
 		public abstract void generate (string uri) throws GLib.Error;
 		public abstract unowned string get_command (IAnjuta.BuildableCommand command_id) throws GLib.Error;
@@ -1020,11 +1013,13 @@ namespace IAnjuta {
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface Builder : GLib.Object {
 		public abstract void cancel (IAnjuta.BuilderHandle handle) throws GLib.Error;
+		public static GLib.Quark error_quark ();
 		public abstract unowned string get_uri_configuration (string uri) throws GLib.Error;
 		public abstract GLib.List<weak string> list_configuration () throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface DebugManager : GLib.Object {
+		public static GLib.Quark error_quark ();
 		public abstract bool quit () throws GLib.Error;
 		public abstract bool start (string uri) throws GLib.Error;
 		public abstract bool start_remote (string server, string uri) throws GLib.Error;
@@ -1050,6 +1045,7 @@ namespace IAnjuta {
 		public abstract bool connect (string server, string args, bool terminal, bool stop) throws GLib.Error;
 		public abstract void disable_log () throws GLib.Error;
 		public abstract void enable_log (IAnjuta.MessageView log) throws GLib.Error;
+		public static GLib.Quark error_quark ();
 		public abstract bool exit () throws GLib.Error;
 		public abstract IAnjuta.DebuggerState get_state () throws GLib.Error;
 		public abstract bool handle_signal (string name, bool stop, bool print, bool ignore) throws GLib.Error;
@@ -1083,10 +1079,12 @@ namespace IAnjuta {
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface DebuggerBreakpoint : IAnjuta.Debugger, GLib.Object {
+		public static GLib.Quark error_quark ();
 		public abstract int implement_breakpoint () throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface DebuggerInstruction : IAnjuta.Debugger, GLib.Object {
+		public static GLib.Quark error_quark ();
 		public abstract bool run_from_address (ulong address) throws GLib.Error;
 		public abstract bool run_to_address (ulong address) throws GLib.Error;
 		public abstract bool step_in_instruction () throws GLib.Error;
@@ -1094,15 +1092,18 @@ namespace IAnjuta {
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface DebuggerMemory : IAnjuta.Debugger, GLib.Object {
+		public static GLib.Quark error_quark ();
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface DebuggerRegister : IAnjuta.Debugger, GLib.Object {
+		public static GLib.Quark error_quark ();
 		public abstract bool write_register (IAnjuta.DebuggerRegisterData value) throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface DebuggerVariable : IAnjuta.Debugger, GLib.Object {
 		public abstract bool assign (string name, string value) throws GLib.Error;
 		public abstract bool destroy (string name) throws GLib.Error;
+		public static GLib.Quark error_quark ();
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface Document : GLib.Object {
@@ -1113,6 +1114,7 @@ namespace IAnjuta {
 		public abstract void copy () throws GLib.Error;
 		public abstract void cut () throws GLib.Error;
 		public abstract void end_undo_action () throws GLib.Error;
+		public static GLib.Quark error_quark ();
 		public abstract unowned string get_filename () throws GLib.Error;
 		public abstract void grab_focus () throws GLib.Error;
 		public abstract void paste () throws GLib.Error;
@@ -1124,6 +1126,7 @@ namespace IAnjuta {
 	public interface DocumentManager : GLib.Object {
 		public abstract void add_bookmark (GLib.File file, int line) throws GLib.Error;
 		public abstract void add_document (IAnjuta.Document document) throws GLib.Error;
+		public static GLib.Quark error_quark ();
 		public abstract GLib.List<weak Gtk.Widget> get_doc_widgets () throws GLib.Error;
 		public abstract bool remove_document (IAnjuta.Document document, bool save_before) throws GLib.Error;
 		public abstract void set_current_document (IAnjuta.Document document) throws GLib.Error;
@@ -1133,6 +1136,7 @@ namespace IAnjuta {
 		public abstract void append (string text, int length) throws GLib.Error;
 		public abstract void erase (IAnjuta.Iterable position_start, IAnjuta.Iterable position_end) throws GLib.Error;
 		public abstract void erase_all () throws GLib.Error;
+		public static GLib.Quark error_quark ();
 		public abstract int get_column () throws GLib.Error;
 		public abstract string get_current_word () throws GLib.Error;
 		public abstract int get_length () throws GLib.Error;
@@ -1156,14 +1160,15 @@ namespace IAnjuta {
 		public abstract void set_tabsize (int tabsize) throws GLib.Error;
 		public abstract void set_use_spaces (bool use_spaces) throws GLib.Error;
 		public virtual signal void backspace ();
-		public virtual signal void changed (GLib.Object position, bool added, int length, int lines, string text);
-		public virtual signal void char_added (GLib.Object position, char ch);
+		public virtual signal void changed (IAnjuta.Iterable position, bool added, int length, int lines, string text);
+		public virtual signal void char_added (IAnjuta.Iterable position, char ch);
 		public virtual signal void cursor_moved ();
 		public virtual signal void line_marks_gutter_clicked (int location);
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface EditorAssist : IAnjuta.Editor, GLib.Object {
 		public abstract void add (IAnjuta.Provider provider) throws GLib.Error;
+		public static GLib.Quark error_quark ();
 		public abstract void invoke (IAnjuta.Provider provider) throws GLib.Error;
 		public abstract void proposals (IAnjuta.Provider provider, GLib.List<weak IAnjuta.EditorAssistProposal> proposals, bool finished) throws GLib.Error;
 		public abstract void remove (IAnjuta.Provider provider) throws GLib.Error;
@@ -1171,6 +1176,7 @@ namespace IAnjuta {
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface EditorCell : GLib.Object {
+		public static GLib.Quark error_quark ();
 		public abstract IAnjuta.EditorAttribute get_attribute () throws GLib.Error;
 		public abstract char get_char (int char_index) throws GLib.Error;
 		public abstract string get_character () throws GLib.Error;
@@ -1178,6 +1184,7 @@ namespace IAnjuta {
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface EditorCellStyle : IAnjuta.EditorCell, GLib.Object {
+		public static GLib.Quark error_quark ();
 		public abstract string get_background_color () throws GLib.Error;
 		public abstract string get_color () throws GLib.Error;
 		public abstract string get_font_description () throws GLib.Error;
@@ -1186,36 +1193,43 @@ namespace IAnjuta {
 	public interface EditorComment : IAnjuta.Editor, GLib.Object {
 		public abstract void block () throws GLib.Error;
 		public abstract void box () throws GLib.Error;
+		public static GLib.Quark error_quark ();
 		public abstract void stream () throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface EditorConvert : IAnjuta.Editor, GLib.Object {
+		public static GLib.Quark error_quark ();
 		public abstract void to_lower (IAnjuta.Iterable start_position, IAnjuta.Iterable end_position) throws GLib.Error;
 		public abstract void to_upper (IAnjuta.Iterable start_position, IAnjuta.Iterable end_position) throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface EditorFactory : GLib.Object {
+		public static GLib.Quark error_quark ();
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface EditorFolds : IAnjuta.Editor, GLib.Object {
 		public abstract void close_all () throws GLib.Error;
+		public static GLib.Quark error_quark ();
 		public abstract void open_all () throws GLib.Error;
 		public abstract void toggle_current () throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface EditorGoto : IAnjuta.Editor, GLib.Object {
 		public abstract void end_block () throws GLib.Error;
+		public static GLib.Quark error_quark ();
 		public abstract void matching_brace () throws GLib.Error;
 		public abstract void start_block () throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface EditorHover : IAnjuta.Editor, GLib.Object {
 		public abstract void display (IAnjuta.Iterable position, string info) throws GLib.Error;
-		public virtual signal void hover_leave (GLib.Object position);
-		public virtual signal void hover_over (GLib.Object position);
+		public static GLib.Quark error_quark ();
+		public virtual signal void hover_leave (IAnjuta.Iterable position);
+		public virtual signal void hover_over (IAnjuta.Iterable position);
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface EditorLanguage : IAnjuta.Editor, GLib.Object {
+		public static GLib.Quark error_quark ();
 		public abstract unowned string get_language () throws GLib.Error;
 		public abstract unowned string get_language_name (string language) throws GLib.Error;
 		public abstract unowned GLib.List<weak string> get_supported_languages () throws GLib.Error;
@@ -1225,6 +1239,7 @@ namespace IAnjuta {
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface EditorLineMode : IAnjuta.Editor, GLib.Object {
 		public abstract void convert (IAnjuta.EditorLineModeType mode) throws GLib.Error;
+		public static GLib.Quark error_quark ();
 		public abstract void fix () throws GLib.Error;
 		public abstract IAnjuta.EditorLineModeType @get () throws GLib.Error;
 		public abstract void @set (IAnjuta.EditorLineModeType mode) throws GLib.Error;
@@ -1232,10 +1247,12 @@ namespace IAnjuta {
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface EditorSearch : IAnjuta.Editor, GLib.Object {
 		public abstract bool backward (string search, bool case_sensitive, IAnjuta.EditorCell start, IAnjuta.EditorCell end, IAnjuta.EditorCell result_start, IAnjuta.EditorCell result_end) throws GLib.Error;
+		public static GLib.Quark error_quark ();
 		public abstract bool forward (string search, bool case_sensitive, IAnjuta.EditorCell start, IAnjuta.EditorCell end, IAnjuta.EditorCell result_start, IAnjuta.EditorCell result_end) throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface EditorSelection : IAnjuta.Editor, GLib.Object {
+		public static GLib.Quark error_quark ();
 		public abstract string @get () throws GLib.Error;
 		public abstract bool has_selection () throws GLib.Error;
 		public abstract void replace (string text, int length) throws GLib.Error;
@@ -1247,58 +1264,68 @@ namespace IAnjuta {
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface EditorTip : IAnjuta.Editor, GLib.Object {
 		public abstract void cancel () throws GLib.Error;
+		public static GLib.Quark error_quark ();
 		public abstract void show (GLib.List<weak string> tips, IAnjuta.Iterable position) throws GLib.Error;
 		public abstract bool visible () throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface EditorView : IAnjuta.Editor, GLib.Object {
 		public abstract void create () throws GLib.Error;
+		public static GLib.Quark error_quark ();
 		public abstract int get_count () throws GLib.Error;
 		public abstract void remove_current () throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface EditorZoom : IAnjuta.Editor, GLib.Object {
+		public static GLib.Quark error_quark ();
 		public abstract void @in () throws GLib.Error;
 		public abstract void @out () throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface Environment : GLib.Object {
+		public static GLib.Quark error_quark ();
 		public abstract string get_real_directory (string dir) throws GLib.Error;
 		public abstract bool @override (string dirp, string argvp, string envp) throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface File : GLib.Object {
+		public static GLib.Quark error_quark ();
 		public abstract GLib.File get_file () throws GLib.Error;
 		public abstract void open (GLib.File file) throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface FileLoader : IAnjuta.Loader, GLib.Object {
+		public static GLib.Quark error_quark ();
 		public abstract string peek_interface (GLib.File file) throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface FileManager : GLib.Object {
+		public static GLib.Quark error_quark ();
 		public abstract void set_root (string root_uri) throws GLib.Error;
 		public abstract void set_selected (GLib.File file) throws GLib.Error;
-		public virtual signal void section_changed (GLib.Object file);
+		public virtual signal void section_changed (GLib.File file);
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface FileSavable : IAnjuta.File, GLib.Object {
+		public static GLib.Quark error_quark ();
 		public abstract bool is_conflict () throws GLib.Error;
 		public abstract bool is_dirty () throws GLib.Error;
 		public abstract bool is_read_only () throws GLib.Error;
 		public abstract void save () throws GLib.Error;
 		public abstract void save_as (GLib.File file) throws GLib.Error;
 		public abstract void set_dirty (bool dirty) throws GLib.Error;
-		public virtual signal void saved (GLib.Object file);
+		public virtual signal void saved (GLib.File file);
 		public virtual signal void update_save_ui ();
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface Help : GLib.Object {
+		public static GLib.Quark error_quark ();
 		public abstract void search (string query) throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface Indicable : GLib.Object {
 		public abstract void clear () throws GLib.Error;
+		public static GLib.Quark error_quark ();
 		public abstract void @set (IAnjuta.Iterable begin_location, IAnjuta.Iterable end_location, IAnjuta.IndicableIndicator indicator) throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
@@ -1307,6 +1334,7 @@ namespace IAnjuta {
 		public abstract IAnjuta.Iterable clone () throws GLib.Error;
 		public abstract int compare (IAnjuta.Iterable iter2) throws GLib.Error;
 		public abstract int diff (IAnjuta.Iterable iter2) throws GLib.Error;
+		public static GLib.Quark error_quark ();
 		public abstract bool first () throws GLib.Error;
 		public abstract int get_length () throws GLib.Error;
 		public abstract int get_position () throws GLib.Error;
@@ -1318,11 +1346,13 @@ namespace IAnjuta {
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface IterableTree : IAnjuta.Iterable, GLib.Object {
 		public abstract bool children () throws GLib.Error;
+		public static GLib.Quark error_quark ();
 		public abstract bool has_children () throws GLib.Error;
 		public abstract bool parent () throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface Language : GLib.Object {
+		public static GLib.Quark error_quark ();
 		public abstract IAnjuta.LanguageId get_from_editor (IAnjuta.EditorLanguage editor) throws GLib.Error;
 		public abstract IAnjuta.LanguageId get_from_mime_type (string mime_type) throws GLib.Error;
 		public abstract IAnjuta.LanguageId get_from_string (string string) throws GLib.Error;
@@ -1333,10 +1363,12 @@ namespace IAnjuta {
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface Loader : GLib.Object {
+		public static GLib.Quark error_quark ();
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface Markable : GLib.Object {
 		public abstract void delete_all_markers (IAnjuta.MarkableMarker marker) throws GLib.Error;
+		public static GLib.Quark error_quark ();
 		public abstract bool is_marker_set (int location, IAnjuta.MarkableMarker marker) throws GLib.Error;
 		public abstract int location_from_handle (int handle) throws GLib.Error;
 		public abstract int mark (int location, IAnjuta.MarkableMarker marker, string? tooltip) throws GLib.Error;
@@ -1345,6 +1377,7 @@ namespace IAnjuta {
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface MessageManager : GLib.Object {
+		public static GLib.Quark error_quark ();
 		public abstract void remove_view (IAnjuta.MessageView view) throws GLib.Error;
 		public abstract void set_current_view (IAnjuta.MessageView view) throws GLib.Error;
 		public abstract void set_view_icon (IAnjuta.MessageView view, Gdk.PixbufAnimation icon) throws GLib.Error;
@@ -1356,6 +1389,7 @@ namespace IAnjuta {
 		public abstract void append (IAnjuta.MessageViewType type, string summary, string details) throws GLib.Error;
 		public abstract void buffer_append (string text) throws GLib.Error;
 		public abstract void clear () throws GLib.Error;
+		public static GLib.Quark error_quark ();
 		public abstract unowned string get_current_message () throws GLib.Error;
 		public abstract void select_next () throws GLib.Error;
 		public abstract void select_previous () throws GLib.Error;
@@ -1364,14 +1398,17 @@ namespace IAnjuta {
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface PluginFactory : GLib.Object {
+		public static GLib.Quark error_quark ();
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface Preferences : GLib.Object {
+		public static GLib.Quark error_quark ();
 		public abstract void merge (Anjuta.Preferences prefs) throws GLib.Error;
 		public abstract void unmerge (Anjuta.Preferences prefs) throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface Print : GLib.Object {
+		public static GLib.Quark error_quark ();
 		public abstract void print () throws GLib.Error;
 		public abstract void print_preview () throws GLib.Error;
 	}
@@ -1379,6 +1416,7 @@ namespace IAnjuta {
 	public interface Project : GLib.Object {
 		public abstract unowned Anjuta.ProjectNode add_node_after (Anjuta.ProjectNode parent, Anjuta.ProjectNode? sibling, Anjuta.ProjectNodeType type, GLib.File? file, string? name) throws GLib.Error;
 		public abstract unowned Anjuta.ProjectNode add_node_before (Anjuta.ProjectNode parent, Anjuta.ProjectNode? sibling, Anjuta.ProjectNodeType type, GLib.File? file, string? name) throws GLib.Error;
+		public static GLib.Quark error_quark ();
 		public abstract unowned GLib.List<weak Anjuta.ProjectNodeInfo> get_node_info () throws GLib.Error;
 		public abstract unowned Anjuta.ProjectNode get_root () throws GLib.Error;
 		public abstract bool is_loaded () throws GLib.Error;
@@ -1394,12 +1432,14 @@ namespace IAnjuta {
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface ProjectBackend : GLib.Object {
+		public static GLib.Quark error_quark ();
 		public abstract IAnjuta.Project new_project (GLib.File file) throws GLib.Error;
 		public abstract int probe (GLib.File directory) throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface ProjectManager : GLib.Object {
 		public abstract GLib.List<GLib.File> add_sources (GLib.List<weak string> names, GLib.File default_target) throws GLib.Error;
+		public static GLib.Quark error_quark ();
 		public abstract uint get_capabilities () throws GLib.Error;
 		public abstract GLib.List<GLib.File> get_children (GLib.File element) throws GLib.Error;
 		public abstract GLib.List<GLib.File> get_elements (Anjuta.ProjectNodeType element_type) throws GLib.Error;
@@ -1407,35 +1447,41 @@ namespace IAnjuta {
 		public abstract Anjuta.ProjectNodeType get_target_type (GLib.File target) throws GLib.Error;
 		public abstract GLib.List<GLib.File> get_targets (Anjuta.ProjectNodeType target_type) throws GLib.Error;
 		public abstract bool is_open () throws GLib.Error;
-		public virtual signal void element_added (GLib.Object element);
-		public virtual signal void element_removed (GLib.Object element);
-		public virtual signal void element_selected (GLib.Object element);
+		public virtual signal void element_added (GLib.File element);
+		public virtual signal void element_removed (GLib.File element);
+		public virtual signal void element_selected (GLib.File element);
 		public virtual signal void project_loaded (GLib.Error error);
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface Provider : GLib.Object {
 		public abstract void activate (IAnjuta.Iterable iter, void* data) throws GLib.Error;
+		public static GLib.Quark error_quark ();
 		public abstract unowned string get_name () throws GLib.Error;
 		public abstract void populate (IAnjuta.Iterable iter) throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface SnippetsManager : GLib.Object {
+		public static GLib.Quark error_quark ();
 		public abstract bool insert (string key) throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface Stream : GLib.Object {
+		public static GLib.Quark error_quark ();
 		public abstract void open (void* stream) throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface StreamLoader : IAnjuta.Loader, GLib.Object {
+		public static GLib.Quark error_quark ();
 		public abstract string peek_interface (void* stream) throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface StreamSavable : IAnjuta.Stream, GLib.Object {
+		public static GLib.Quark error_quark ();
 		public abstract void save (void* stream) throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface Symbol : GLib.Object {
+		public static GLib.Quark error_quark ();
 		public abstract bool get_boolean (IAnjuta.SymbolField field) throws GLib.Error;
 		public abstract unowned Gdk.Pixbuf get_icon () throws GLib.Error;
 		public abstract int get_int (IAnjuta.SymbolField field) throws GLib.Error;
@@ -1448,12 +1494,14 @@ namespace IAnjuta {
 		public abstract bool add_and_activate_package (string pkg_name, string pkg_version, GLib.List<weak void*> files) throws GLib.Error;
 		public abstract bool add_package (string pkg_name, string pkg_version, GLib.List<weak void*> files) throws GLib.Error;
 		public abstract bool deactivate_package (string pkg_name, string pkg_version) throws GLib.Error;
+		public static GLib.Quark error_quark ();
 		public virtual signal void prj_scan_end (int process_id);
 		public virtual signal void sys_scan_end (int process_id);
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface SymbolQuery : GLib.Object {
 		public abstract void cancel () throws GLib.Error;
+		public static GLib.Quark error_quark ();
 		public abstract void set_fields (int n_fields, IAnjuta.SymbolField fields) throws GLib.Error;
 		public abstract void set_file_scope (IAnjuta.SymbolQueryFileScope filescope_search) throws GLib.Error;
 		public abstract void set_filters (IAnjuta.SymbolType filters, bool includes_types) throws GLib.Error;
@@ -1466,22 +1514,26 @@ namespace IAnjuta {
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface Terminal : GLib.Object {
+		public static GLib.Quark error_quark ();
 		public abstract int execute_command (string directory, string command, string environment) throws GLib.Error;
 		public virtual signal void child_exited (int pid, int status);
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface Todo : GLib.Object {
+		public static GLib.Quark error_quark ();
 		public abstract void load (GLib.File file) throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface Vcs : GLib.Object {
 		public abstract void add (GLib.List<weak GLib.File> files, Anjuta.AsyncNotify notify) throws GLib.Error;
 		public abstract void checkout (string repository_location, GLib.File dest, GLib.Cancellable? cancel, Anjuta.AsyncNotify notify) throws GLib.Error;
+		public static GLib.Quark error_quark ();
 		public abstract void remove (GLib.List<weak GLib.File> files, Anjuta.AsyncNotify notify) throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface Wizard : GLib.Object {
 		public abstract void activate () throws GLib.Error;
+		public static GLib.Quark error_quark ();
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	[SimpleType]
@@ -1907,124 +1959,4 @@ namespace IAnjuta {
 	public const string PROJECT_MANAGER_CURRENT_URI;
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public const string PROJECT_MANAGER_PROJECT_ROOT_URI;
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark buildable_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark builder_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark debug_manager_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark debugger_breakpoint_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark debugger_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark debugger_instruction_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark debugger_memory_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark debugger_register_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark debugger_variable_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark document_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark document_manager_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark editor_assist_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark editor_cell_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark editor_cell_style_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark editor_comment_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark editor_convert_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark editor_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark editor_factory_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark editor_folds_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark editor_goto_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark editor_hover_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark editor_language_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark editor_line_mode_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark editor_search_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark editor_selection_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark editor_tip_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark editor_view_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark editor_zoom_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark environment_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark file_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark file_loader_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark file_manager_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark file_savable_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark help_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark indicable_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark iterable_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark iterable_tree_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark language_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark loader_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark markable_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark message_manager_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark message_view_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark plugin_factory_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark preferences_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark print_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark project_backend_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark project_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark project_manager_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark provider_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark snippets_manager_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark stream_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark stream_loader_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark stream_savable_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark symbol_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark symbol_manager_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark symbol_query_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark terminal_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark todo_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark vcs_error_quark ();
-	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
-	public static GLib.Quark wizard_error_quark ();
 }

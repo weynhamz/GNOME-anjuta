@@ -1284,7 +1284,7 @@ interface IAnjutaEditor
 	 * This signal is emitted when any character is added inside the editor.
 	 * The newly added character is @ch which has been inserted at @position.
 	 */
-	void   ::char_added (GObject *position, gchar ch);
+	void   ::char_added (IAnjutaIterable *position, gchar ch);
 
 	/**
 	 * IAnjutaEditor::backspace:
@@ -1308,7 +1308,7 @@ interface IAnjutaEditor
 	 * terminated. Use @length to read the text. @lines represent the
 	 * number of line breaks in the added or removed text.
 	 */
-	void   ::changed (GObject *position, gboolean added, gint length, gint lines, const gchar *text);
+	void   ::changed (IAnjutaIterable *position, gboolean added, gint length, gint lines, const gchar *text);
 
 	/**
 	 * IAnjutaEditor::cursor-moved:
@@ -2105,7 +2105,7 @@ interface IAnjutaEditor
 		 * The mouse is held for a moment over @position. This can be used to show
 		 * all tooltip.
 		 */
-		void ::hover_over (GObject* position);
+		void ::hover_over (IAnjutaIterable* position);
 
 	  /* IAnjutaEditorHover::hover-leave
 		 * @obj: self
@@ -2114,7 +2114,7 @@ interface IAnjutaEditor
 		 * User moved the mouse away - can be used to clean up things done in 
 		 * #IAnjutaEditorHover::hover-over
 		 */
-		void ::hover_leave (GObject* position);
+		void ::hover_leave (IAnjutaIterable* position);
 		
 		/**
 		 * ianjuta_editor_hover_display:
