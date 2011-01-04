@@ -38,8 +38,9 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
 
-#include <cell-renderer-captioned-image.h>
+#include <libanjuta/anjuta-cell-renderer-captioned-image.h>
 #include <libanjuta/anjuta-preferences-dialog.h>
+
 struct _AnjutaPreferencesDialogPrivate {
 	GtkWidget *treeview;
 	GtkListStore *store;

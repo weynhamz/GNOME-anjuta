@@ -23,14 +23,14 @@
  * @short_description: Captioned image cell renderer
  * @see_also: 
  * @stability: Unstable
- * @include: libanjuta/cell-renderer-captioned-image.h
+ * @include: libanjuta/anjuta-cell-renderer-captioned-image.h
  * 
  */
 
 #include <stdlib.h>
 #include <glib/gi18n.h>
 
-#include "cell-renderer-captioned-image.h"
+#include "anjuta-cell-renderer-captioned-image.h"
 
 enum {
 	PROP_0,
@@ -98,38 +98,60 @@ anjuta_cell_renderer_captioned_image_new (void)
 }
 
 static void
-anjuta_cell_renderer_captioned_image_get_size (GtkCellRenderer *gtk_cell,
-					       GtkWidget *widget,
-					       const GdkRectangle *cell_area,
-					       int *x_offset,
-					       int *y_offset,
-					       int *width,
-					       int *height)
+anjuta_cell_renderer_captioned_image_get_preferred_height (GtkCellRenderer *gtk_cell,
+                                                           GtkWidget *widget,
+                                                           gint *minimum,
+                                                           gint *natural)
 {
-	int text_x_offset;
-	int text_y_offset;
-	int text_width;
-	int text_height;
-	
+	gint text_min;
+	gint text_nat;
+	gint image_min;
+	gint image_nat;
+    
 	AnjutaCellRendererCaptionedImage *cell = ANJUTA_CELL_RENDERER_CAPTIONED_IMAGE (gtk_cell);
 	
-	gtk_cell_renderer_get_size (cell->image, widget, cell_area, 
-				    NULL, NULL, width, height);
+	gtk_cell_renderer_get_preferred_height (cell->image, widget, &image_min, &image_nat);
 	
-	gtk_cell_renderer_get_size (cell->caption, widget, cell_area,
-				    &text_x_offset, 
-				    &text_y_offset,
-				    &text_width,
-				    &text_height);
+	gtk_cell_renderer_get_preferred_height (cell->caption, widget,
+	                                        &text_min, &text_nat);
 
 
-	if (height) {
-		*height = *height + text_height + PAD;
+	if (minimum) {
+		*minimum = image_min + text_min + PAD;
 	}
 	
-	if (width) {
-		*width = MAX (*width, text_width);
-		*width += SPACE * 2;
+	if (natural) {
+		*natural = image_nat + text_nat + PAD;
+	}
+}
+
+static void
+anjuta_cell_renderer_captioned_image_get_preferred_width (GtkCellRenderer *gtk_cell,
+                                                          GtkWidget *widget,
+                                                          gint *minimum,
+                                                          gint *natural)
+{
+	gint text_min;
+	gint text_nat;
+	gint image_min;
+	gint image_nat;
+    
+	AnjutaCellRendererCaptionedImage *cell = ANJUTA_CELL_RENDERER_CAPTIONED_IMAGE (gtk_cell);
+	
+	gtk_cell_renderer_get_preferred_width (cell->image, widget, &image_min, &image_nat);
+	
+	gtk_cell_renderer_get_preferred_width (cell->caption, widget,
+	                                      &text_min, &text_nat);
+
+
+	if (minimum) {
+		*minimum = MAX (image_min, text_min);
+		*minimum += SPACE * 2;
+	}
+	
+	if (natural) {
+		*natural = MAX (image_nat, text_nat);
+		*natural += SPACE * 2;
 	}
 }
 
@@ -145,18 +167,18 @@ anjuta_cell_renderer_captioned_image_render (GtkCellRenderer *gtk_cell,
 	AnjutaCellRendererCaptionedImage *cell = ANJUTA_CELL_RENDERER_CAPTIONED_IMAGE (gtk_cell);
 	GdkRectangle text_area;
 	GdkRectangle pixbuf_area;
-	int width, height;
+	gint width, height;
 	
-	gtk_cell_renderer_get_size (cell->image, widget, cell_area, 
-				    NULL, NULL, &width, &height);
+	gtk_cell_renderer_get_preferred_width (cell->image, widget, NULL, &width);
+	gtk_cell_renderer_get_preferred_height (cell->image, widget, NULL, &height);
 	
 	pixbuf_area.y = cell_area->y;
 	pixbuf_area.x = cell_area->x;
 	pixbuf_area.height = height;
 	pixbuf_area.width = cell_area->width;
-
-	gtk_cell_renderer_get_size (cell->caption, widget, cell_area, 
-				    NULL, NULL, &width, &height);
+    
+	gtk_cell_renderer_get_preferred_width (cell->caption, widget, NULL, &width);
+	gtk_cell_renderer_get_preferred_height (cell->caption, widget, NULL, &height);
 
 	text_area.x = cell_area->x + (cell_area->width - width) / 2;
 	text_area.y = cell_area->y + (pixbuf_area.height + PAD);
@@ -206,7 +228,9 @@ anjuta_cell_renderer_captioned_image_class_init (AnjutaCellRendererCaptionedImag
 	object_class->get_property = anjuta_cell_renderer_captioned_image_get_property;
 	object_class->set_property = anjuta_cell_renderer_captioned_image_set_property;
 	
-	cell_class->get_size = anjuta_cell_renderer_captioned_image_get_size;
+	cell_class->get_preferred_height = anjuta_cell_renderer_captioned_image_get_preferred_height;
+	cell_class->get_preferred_width = anjuta_cell_renderer_captioned_image_get_preferred_width;
+    
 	cell_class->render = anjuta_cell_renderer_captioned_image_render;
 
 	g_object_class_install_property (object_class,

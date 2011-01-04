@@ -72,8 +72,8 @@ libanjuta_3_la_SOURCES= \
 	anjuta-c-plugin-factory.h \
 	anjuta-c-module.c \
 	anjuta-c-module.h \
-	cell-renderer-captioned-image.c	\
-	cell-renderer-captioned-image.h \
+	anjuta-cell-renderer-captioned-image.c	\
+	anjuta-cell-renderer-captioned-image.h \
 	e-splash.h \
 	e-splash.c \
 	anjuta-vcs-status.h \
