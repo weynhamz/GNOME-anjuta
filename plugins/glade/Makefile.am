@@ -1,15 +1,10 @@
+SUBDIRS = images
 
 if HAVE_PLUGIN_GLADE
 
 # Plugin UI file
 glade_uidir = $(anjuta_ui_dir)
 glade_ui_DATA = anjuta-glade.xml
-
-# Plugin Icon file
-glade_pixmapsdir = $(anjuta_image_dir)
-glade_pixmaps_DATA = \
-	anjuta-glade-plugin.svg \
-	anjuta-glade-plugin-48.png
 
 # Plugin description file
 plugin_in_files = anjuta-glade.plugin.in

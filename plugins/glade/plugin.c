@@ -179,6 +179,10 @@ register_stock_icons (AnjutaPlugin *plugin)
 	BEGIN_REGISTER_ICON (plugin);
 	REGISTER_ICON ("anjuta-glade-plugin-48.png",
 	               "glade-plugin-icon");
+	REGISTER_ICON ("anjuta-glade-widgets-24.png",
+	               "glade-plugin-widgets");
+	REGISTER_ICON ("anjuta-glade-palette-24.png",
+	               "glade-plugin-palette");
 	END_REGISTER_ICON;
 }
 
@@ -373,6 +377,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	{
 		anjuta_status_busy_push (status);
 		anjuta_status_set (status, "%s", _("Loading Glade…"));
+
 		priv->app = glade_app_new ();
 
 		glade_app_set_window (GTK_WIDGET (ANJUTA_PLUGIN(plugin)->shell));
@@ -396,7 +401,7 @@ activate_plugin (AnjutaPlugin *plugin)
 		
 		gtk_widget_show_all (priv->paned);
 
-		anjuta_status_pop (status);
+		anjuta_status_busy_pop (status);
 	}
 
 	g_signal_connect(plugin->shell, "destroy",
@@ -413,12 +418,12 @@ activate_plugin (AnjutaPlugin *plugin)
 	anjuta_shell_add_widget (ANJUTA_PLUGIN (plugin)->shell,
 	                         priv->paned,
 	                         "AnjutaGladeTree", _("Widgets"),
-	                         "glade-plugin-icon",
+	                         "glade-plugin-widgets",
 	                         ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
 	anjuta_shell_add_widget (ANJUTA_PLUGIN (plugin)->shell,
 	                         priv->palette,
 	                         "AnjutaGladePalette", _("Palette"),
-	                         "glade-plugin-icon",
+	                         "glade-plugin-palette",
 	                         ANJUTA_SHELL_PLACEMENT_RIGHT, NULL);
 	/* Connect to save session */
 	g_signal_connect (G_OBJECT (plugin->shell), "save_session",

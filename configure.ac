@@ -834,6 +834,7 @@ plugins/debug-manager/Makefile
 plugins/debug-manager/images/Makefile
 plugins/devhelp/Makefile
 plugins/glade/Makefile
+plugins/glade/images/Makefile
 plugins/js-debugger/Makefile
 plugins/file-manager/Makefile
 plugins/file-loader/Makefile
