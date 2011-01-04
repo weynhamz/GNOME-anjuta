@@ -1,5 +1,5 @@
 [Anjuta Plugin]
-_Name=Gdb
+_Name=GNU Debugger
 _Description=GNU Debugger Plugin
 Location=anjuta-gdb:GdbPlugin
 Icon=anjuta-gdb.plugin.png
