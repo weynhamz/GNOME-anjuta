@@ -218,7 +218,7 @@ if test "$user_disabled_glade" = 1; then
 else
 	AC_MSG_RESULT(no)
 	gladeui_version=0
-	PKG_CHECK_MODULES(PLUGIN_GLADE, gladeui-3.0 >= $GLADEUI_REQUIRED,
+	PKG_CHECK_MODULES(PLUGIN_GLADE, gladeui-2.0 >= $GLADEUI_REQUIRED,
 	    [
 		gladeui_found=yes
 	    ], [

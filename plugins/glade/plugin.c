@@ -42,13 +42,19 @@ struct _GladePluginPriv
 {
 	gint uiid;
 	GtkActionGroup *action_group;
-	GladeApp  *gpw;
+	GladeApp  *app;
+
 	GtkWidget *inspector;
+	GtkWidget *palette;
+	GtkWidget *editor;
+	
 	GtkWidget *view_box;
 	GtkWidget *paned;
-	GtkWidget *projects_combo;
 	gint editor_watch_id;
 	gboolean destroying;
+
+	/* File count, disable plugin when NULL */
+	guint file_count;
 };
 
 enum {
@@ -57,32 +63,12 @@ enum {
 	N_COLUMNS
 };
 
-static void 
-update_current_project (GtkComboBox *projects_combo,
-                        GladeProject* project)
-{	
-	GtkTreeIter iter;
-	GladeProject *cur_project;	
-	GtkTreeModel* model = gtk_combo_box_get_model (projects_combo);
-
-	if (gtk_tree_model_get_iter_first (model, &iter))
-		do
-	{
-		gtk_tree_model_get (model, &iter, PROJECT_COL, &cur_project, -1);
-		if (project == cur_project)
-		{
-			gtk_combo_box_set_active_iter (projects_combo, &iter);
-			break;
-		}
-	}
-	while (gtk_tree_model_iter_next (model, &iter));
-}
-
 static void
 value_added_current_editor (AnjutaPlugin *plugin, const char *name,
                             const GValue *value, gpointer data)
 {
-	//GladePlugin* glade_plugin = ANJUTA_PLUGIN_GLADE(plugin);
+	GladePlugin* glade_plugin = ANJUTA_PLUGIN_GLADE(plugin);
+	GladePluginPriv* priv = glade_plugin->priv;
 	GObject *editor;	
 	editor = g_value_get_object (value);
 	if (ANJUTA_IS_DESIGN_DOCUMENT(editor))
@@ -94,7 +80,9 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 			glade_app_add_project (project);
 			view->is_project_added = TRUE;
 		}
-		glade_app_set_project (project);
+		/* Change view components */
+		glade_palette_set_project (GLADE_PALETTE (priv->palette), project);
+		glade_inspector_set_project (GLADE_INSPECTOR (priv->inspector), project);
 	}
 }
 
@@ -102,25 +90,6 @@ static void
 value_removed_current_editor (AnjutaPlugin *plugin,
                               const char *name, gpointer data)
 {
-
-}
-
-static void
-glade_update_ui (GladeApp *app, GladePlugin *plugin)
-{
-	IAnjutaDocument* doc;
-	IAnjutaDocumentManager* docman = 
-		anjuta_shell_get_interface(ANJUTA_PLUGIN(plugin)->shell,
-		                           IAnjutaDocumentManager, NULL);
-
-	update_current_project (GTK_COMBO_BOX (plugin->priv->projects_combo), glade_app_get_project ());
-	/* Emit IAnjutaDocument signal */	
-	doc = ianjuta_document_manager_get_current_document(docman, NULL);
-	if (doc && ANJUTA_IS_DESIGN_DOCUMENT(doc))
-	{
-		g_signal_emit_by_name (G_OBJECT(doc), "update_ui");
-		g_signal_emit_by_name (G_OBJECT(doc), "update-save-ui");
-	}
 
 }
 
@@ -167,8 +136,6 @@ static void
 on_document_destroy (GtkWidget* document, GladePlugin *plugin)
 {
 	GladeProject *project;
-	GtkTreeModel *model;
-	GtkTreeIter iter;
 
 	DEBUG_PRINT ("%s", "Destroying Document");
 
@@ -178,32 +145,15 @@ on_document_destroy (GtkWidget* document, GladePlugin *plugin)
 	}
 
 	project = glade_design_view_get_project(GLADE_DESIGN_VIEW(document));
-
 	if (!project)
 	{
 		return;
 	}
 
-	/* Remove project from our list */
-	model = gtk_combo_box_get_model (GTK_COMBO_BOX (plugin->priv->projects_combo));
-	if (gtk_tree_model_get_iter_first (model, &iter))
-	{
-		do
-		{
-			GladeProject *project_node;
-
-			gtk_tree_model_get (model, &iter, PROJECT_COL, &project_node, -1);
-			if (project == project_node)
-			{
-				gtk_list_store_remove (GTK_LIST_STORE (model), &iter);
-				break;
-			}
-		}
-		while (gtk_tree_model_iter_next (model, &iter));
-	}
 	glade_do_close (plugin, project);
 
-	if (gtk_tree_model_iter_n_children (model, NULL) <= 0)
+	plugin->priv->file_count--;
+	if (plugin->priv->file_count <= 0)
 		anjuta_plugin_deactivate (ANJUTA_PLUGIN (plugin));
 }
 
@@ -211,31 +161,6 @@ static void
 on_shell_destroy (AnjutaShell* shell, GladePlugin *glade_plugin)
 {
 	glade_plugin->priv->destroying = TRUE;
-}
-
-static void
-on_glade_project_changed (GtkComboBox *combo, GladePlugin *plugin)
-{
-	GtkTreeModel *model;
-	GtkTreeIter iter;
-	IAnjutaDocumentManager* docman = 
-		anjuta_shell_get_interface(ANJUTA_PLUGIN(plugin)->shell,
-		                           IAnjutaDocumentManager, NULL);
-
-	model = gtk_combo_box_get_model (GTK_COMBO_BOX (plugin->priv->projects_combo));
-	if (gtk_combo_box_get_active_iter (combo, &iter))
-	{
-		GladeProject *project;
-
-		GtkWidget *design_view;
-		gtk_tree_model_get (model, &iter, PROJECT_COL, &project, -1);
-		glade_app_set_project (project);
-
-		design_view = g_object_get_data (G_OBJECT (project), "design_view");
-		ianjuta_document_manager_set_current_document(docman, IANJUTA_DOCUMENT(design_view), NULL);
-
-		glade_inspector_set_project (GLADE_INSPECTOR (plugin->priv->inspector), project);
-	}
 }
 
 static void
@@ -301,6 +226,25 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 }
 
 static void
+glade_plugin_selection_changed (GladeProject *project, 
+                                GladePlugin *plugin)
+{
+	GladeWidget  *glade_widget = NULL;
+
+	if (glade_project_get_has_selection (project))
+	{
+		GList        *list;
+
+		list = glade_project_selection_get (project);
+
+		glade_widget = glade_widget_get_from_gobject (G_OBJECT (list->data));
+
+		glade_widget_show (glade_widget);
+	}
+	glade_editor_load_widget (GLADE_EDITOR (plugin->priv->editor), glade_widget);
+}
+
+static void
 glade_plugin_add_project (GladePlugin *glade_plugin, GladeProject *project)
 {
 	GtkWidget *view;
@@ -312,11 +256,25 @@ glade_plugin_add_project (GladePlugin *glade_plugin, GladeProject *project)
 	g_return_if_fail (GLADE_IS_PROJECT (project));
 
 	priv = glade_plugin->priv;
+
+	/* Create document */
 	view = anjuta_design_document_new(glade_plugin, project);
 	g_signal_connect (G_OBJECT(view), "destroy",
 	                  G_CALLBACK (on_document_destroy), glade_plugin);
 	gtk_widget_show (view);
 	g_object_set_data (G_OBJECT (project), "design_view", view);
+
+	/* Change view components */
+	glade_palette_set_project (GLADE_PALETTE (priv->palette), project);
+	glade_inspector_set_project (GLADE_INSPECTOR (priv->inspector), project);
+
+	/* Connect signal */
+	g_signal_connect (project, "selection-changed",
+	                  G_CALLBACK (glade_plugin_selection_changed),
+	                  glade_plugin);
+	
+	priv->file_count++;
+	
 	ianjuta_document_manager_add_document(docman, IANJUTA_DOCUMENT(view), NULL);
 }
 
@@ -339,8 +297,6 @@ activate_plugin (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 	GladePlugin *glade_plugin;
 	GladePluginPriv *priv;
-	GtkListStore *store;
-	GtkCellRenderer *renderer;
 
 	DEBUG_PRINT ("%s", "GladePlugin: Activating Glade plugin…");
 
@@ -351,32 +307,14 @@ activate_plugin (AnjutaPlugin *plugin)
 
 	register_stock_icons (plugin);
 
-	if (!priv->gpw)
+	if (!priv->app)
 	{
-		priv->gpw = g_object_new(GLADE_TYPE_APP, NULL);
+		priv->app = g_object_new(GLADE_TYPE_APP, NULL);
 
 		glade_app_set_window (GTK_WIDGET (ANJUTA_PLUGIN(plugin)->shell));
 		glade_app_set_transient_parent (GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell));
-
-		/* Create a view for us */
-		priv->view_box = gtk_vbox_new (FALSE, 0);
-		store = gtk_list_store_new (N_COLUMNS, G_TYPE_STRING,
-		                            G_TYPE_POINTER, NULL);
-
-		priv->projects_combo = gtk_combo_box_new ();
-		renderer = gtk_cell_renderer_text_new ();
-		gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (priv->projects_combo),
-		                            renderer, TRUE);
-		gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (priv->projects_combo),
-		                                renderer, "text", NAME_COL, NULL);
-		gtk_combo_box_set_model (GTK_COMBO_BOX (priv->projects_combo),
-		                         GTK_TREE_MODEL (store));
-		g_object_unref (G_OBJECT (store));
-		gtk_box_pack_start (GTK_BOX (priv->view_box), priv->projects_combo,
-		                    FALSE, FALSE, 0);
+		
 		priv->inspector = glade_inspector_new ();
-		gtk_box_pack_start (GTK_BOX (priv->view_box), GTK_WIDGET (priv->inspector),
-		                    TRUE, TRUE, 0);
 
 		g_signal_connect (priv->inspector, "item-activated",
 		                  G_CALLBACK (inspector_item_activated_cb),
@@ -384,40 +322,35 @@ activate_plugin (AnjutaPlugin *plugin)
 
 		priv->paned = gtk_paned_new (GTK_ORIENTATION_VERTICAL);
 
-		gtk_paned_add1 (GTK_PANED(priv->paned), priv->view_box);
-		gtk_paned_add2 (GTK_PANED(priv->paned), GTK_WIDGET(glade_app_get_editor()));
+		priv->editor = GTK_WIDGET(glade_editor_new());
+		priv->palette = glade_palette_new();
 
-		gtk_widget_set_size_request (priv->view_box, -1, 300);
+		gtk_paned_add1 (GTK_PANED(priv->paned), priv->inspector);
+		gtk_paned_add2 (GTK_PANED(priv->paned), priv->editor);
+
+		gtk_widget_set_size_request (priv->inspector, -1, 300);
 		
 		gtk_widget_show_all (priv->paned);
-		gtk_notebook_set_scrollable (GTK_NOTEBOOK (glade_app_get_editor ()->notebook),
-		                             TRUE);
-		gtk_notebook_popup_enable (GTK_NOTEBOOK (glade_app_get_editor ()->notebook));
 	}
 
-	g_signal_connect(G_OBJECT(plugin->shell), "destroy",
+	g_signal_connect(plugin->shell, "destroy",
 	                 G_CALLBACK(on_shell_destroy), plugin);
 
-	g_signal_connect (G_OBJECT (priv->projects_combo), "changed",
-	                  G_CALLBACK (on_glade_project_changed), plugin);
-	g_signal_connect (G_OBJECT (priv->gpw), "update-ui",
-	                  G_CALLBACK (glade_update_ui), plugin);
-
-	g_signal_connect(G_OBJECT(glade_app_get_editor()), "gtk-doc-search",
+	g_signal_connect(priv->app, "doc-search",
 	                 G_CALLBACK(on_api_help), plugin);
 
-	gtk_widget_show (GTK_WIDGET (glade_app_get_palette ()));
-	gtk_widget_show (GTK_WIDGET (glade_app_get_editor ()));
-	gtk_widget_show (GTK_WIDGET (priv->inspector));
+	gtk_widget_show (priv->palette);
+	gtk_widget_show (priv->editor);
+	gtk_widget_show (priv->inspector);
 	
 	/* Add widgets */
 	anjuta_shell_add_widget (ANJUTA_PLUGIN (plugin)->shell,
-	                         GTK_WIDGET (priv->paned),
+	                         priv->paned,
 	                         "AnjutaGladeTree", _("Widgets"),
 	                         "glade-plugin-icon",
 	                         ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
 	anjuta_shell_add_widget (ANJUTA_PLUGIN (plugin)->shell,
-	                         GTK_WIDGET (glade_app_get_palette ()),
+	                         priv->palette,
 	                         "AnjutaGladePalette", _("Palette"),
 	                         "glade-plugin-icon",
 	                         ANJUTA_SHELL_PLACEMENT_RIGHT, NULL);
@@ -444,37 +377,30 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	DEBUG_PRINT ("%s", "GladePlugin: Dectivating Glade plugin…");
 
 	/* Disconnect signals */
-	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
+	g_signal_handlers_disconnect_by_func (plugin->shell,
 	                                      G_CALLBACK (on_shell_destroy),
 	                                      plugin);
 
-	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
+	g_signal_handlers_disconnect_by_func (plugin->shell,
 	                                      G_CALLBACK (on_session_save), plugin);
 
-	g_signal_handlers_disconnect_by_func (G_OBJECT (priv->projects_combo),
-	                                      G_CALLBACK (on_glade_project_changed),
-	                                      plugin);
-	g_signal_handlers_disconnect_by_func (G_OBJECT (priv->gpw),
-	                                      G_CALLBACK (glade_update_ui),
-	                                      plugin);
-
-	g_signal_handlers_disconnect_by_func (G_OBJECT(glade_app_get_editor()),
+	g_signal_handlers_disconnect_by_func (priv->editor,
 	                                      G_CALLBACK(on_api_help), plugin);
 
 	/* Remove widgets */
 	anjuta_shell_remove_widget (plugin->shell,
-	                            GTK_WIDGET (glade_app_get_palette ()),
+	                            priv->palette,
 	                            NULL);
 	anjuta_shell_remove_widget (plugin->shell,
-	                            GTK_WIDGET (priv->paned),
+	                            priv->paned,
 	                            NULL);
 
 	priv->uiid = 0;
 	priv->action_group = NULL;
 
-	g_object_unref (priv->gpw);
+	g_object_unref (priv->app);
 	
-	priv->gpw = NULL;
+	priv->app = NULL;
 
 	return TRUE;
 }
@@ -504,6 +430,7 @@ glade_plugin_instance_init (GObject *obj)
 	plugin->priv = (GladePluginPriv *) g_new0 (GladePluginPriv, 1);
 	priv = plugin->priv;
 	priv->destroying = FALSE;
+	priv->file_count = 0;
 
 	DEBUG_PRINT ("%s", "Intializing Glade plugin");
 }
@@ -521,19 +448,12 @@ glade_plugin_class_init (GObjectClass *klass)
 	klass->finalize = glade_plugin_finalize;
 }
 
-gchar* glade_get_filename(GladePlugin *plugin)
-{
-	return glade_project_get_name(glade_app_get_project());
-}
-
 static void
 ifile_open (IAnjutaFile *ifile, GFile* file, GError **err)
 {
 	AnjutaPlugin* plugin = ANJUTA_PLUGIN (ifile);
 	GladePluginPriv *priv;
 	GladeProject *project;
-	GtkListStore *store;
-	GtkTreeIter iter;
 	gchar *filename;
 	IAnjutaDocumentManager* docman;
 	GList* docwids, *node;
@@ -542,7 +462,6 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **err)
 	g_return_if_fail (file != NULL);
 
 	priv = ANJUTA_PLUGIN_GLADE (ifile)->priv;
-	store = GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (priv->projects_combo)));
 
 	filename = g_file_get_path (file);
 	if (!filename)
@@ -550,7 +469,7 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **err)
 		gchar* uri = g_file_get_parse_name(file);
 		anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN (ifile)->shell),
 		                            _("Not local file: %s"), uri);
-		if (gtk_tree_model_iter_n_children (GTK_TREE_MODEL (store), NULL) <= 0)
+		if (priv->file_count <= 0)
 			anjuta_plugin_deactivate (ANJUTA_PLUGIN (plugin));
 		
 		g_free (uri);
@@ -591,16 +510,13 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **err)
 		gchar* name = g_file_get_parse_name (file);
 		anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN (ifile)->shell),
 		                            _("Could not open %s"), name);
-		if (gtk_tree_model_iter_n_children (GTK_TREE_MODEL (store), NULL) <= 0)
+		if (priv->file_count <= 0)
 			anjuta_plugin_deactivate (ANJUTA_PLUGIN (plugin));
 		g_free (name);
 		return;
 	}
-	gtk_list_store_append (store, &iter);
-	gtk_list_store_set (store, &iter, NAME_COL, glade_project_get_name(project),
-	                    PROJECT_COL, project, -1);
 	glade_plugin_add_project (ANJUTA_PLUGIN_GLADE (ifile), project);
-
+	
 	/* Select the first window in the project */
 	for (glade_obj_node = (GList *) glade_project_get_objects (project);
 	     glade_obj_node != NULL;
@@ -617,9 +533,11 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **err)
 static GFile*
 ifile_get_file (IAnjutaFile* ifile, GError** e)
 {
-	const gchar* path = glade_project_get_path(glade_app_get_project());
+	/*FIXME: const gchar* path = glade_project_get_path(glade_app_get_project());
 	GFile* file = g_file_new_for_path (path);
 	return file;
+	*/
+	return NULL;
 }
 
 static void
@@ -634,8 +552,6 @@ iwizard_activate (IAnjutaWizard *iwizard, GError **err)
 {
 	GladePluginPriv *priv;
 	GladeProject *project;
-	GtkListStore *store;
-	GtkTreeIter iter;
 
 	priv = ANJUTA_PLUGIN_GLADE (iwizard)->priv;
 
@@ -646,13 +562,9 @@ iwizard_activate (IAnjutaWizard *iwizard, GError **err)
 		                            _("Could not create a new glade project."));
 		return;
 	}
-	store = GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (priv->projects_combo)));
-	gtk_list_store_append (store, &iter);
-	gtk_list_store_set (store, &iter, NAME_COL, glade_project_get_name(project),
-	                    PROJECT_COL, project, -1);
 	glade_plugin_add_project (ANJUTA_PLUGIN_GLADE (iwizard), project);
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (iwizard)->shell,
-	                             GTK_WIDGET (glade_app_get_palette ()), NULL);
+	                            priv->palette, NULL);
 }
 
 static void

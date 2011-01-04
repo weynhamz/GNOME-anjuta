@@ -295,13 +295,15 @@ static void idocument_end_undo_action (IAnjutaDocument *editor, GError **e)
 static void 
 idocument_undo(IAnjutaDocument* edit, GError** ee)
 {
-	glade_app_command_undo();
+	GladeDesignView* view = GLADE_DESIGN_VIEW (edit);
+	glade_project_undo (glade_design_view_get_project (view));
 }
 
 static void 
 idocument_redo(IAnjutaDocument* edit, GError** ee)
 {
-	glade_app_command_redo();
+	GladeDesignView* view = GLADE_DESIGN_VIEW (edit);
+	glade_project_undo (glade_design_view_get_project (view));
 }
 
 /* Grab focus */
@@ -321,25 +323,30 @@ static const gchar* idocument_get_filename(IAnjutaDocument *editor, GError **e)
 static void 
 idocument_cut(IAnjutaDocument* edit, GError** ee)
 {
-	glade_app_command_cut();
+	GladeDesignView* view = GLADE_DESIGN_VIEW (edit);
+	glade_project_command_cut (glade_design_view_get_project (view));
 }
 
 static void 
 idocument_copy(IAnjutaDocument* edit, GError** ee)
 {
- 	glade_app_command_copy();
+	GladeDesignView* view = GLADE_DESIGN_VIEW (edit);
+	glade_project_copy_selection (glade_design_view_get_project (view));
 }
 
 static void 
 idocument_paste(IAnjutaDocument* edit, GError** ee)
 {
-	glade_app_command_paste(NULL);
+	GladeDesignView* view = GLADE_DESIGN_VIEW (edit);
+	glade_project_command_paste (glade_design_view_get_project (view), NULL);
 }
 
 static void 
 idocument_clear(IAnjutaDocument* edit, GError** ee)
 {
-	glade_app_command_delete();
+	GladeDesignView* view = GLADE_DESIGN_VIEW (edit);
+	glade_project_command_delete (glade_design_view_get_project (view));
+
 }
 
 
