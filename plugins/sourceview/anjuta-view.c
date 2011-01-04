@@ -381,22 +381,6 @@ anjuta_view_init (AnjutaView *view)
   GtkTargetList* tl;
   view->priv = ANJUTA_VIEW_GET_PRIVATE (view);
 
-  /*
-   *  Set tab, fonts, wrap mode, colors, etc. according
-   *  to preferences 
-   */
-
-  g_object_set (G_OBJECT (view), 
-                "wrap-mode", FALSE,
-                "show-line-numbers", TRUE,
-                "auto-indent", TRUE,
-                "tab-width", 4,
-                "insert-spaces-instead-of-tabs", FALSE,
-                "highlight-current-line", TRUE, 
-                "indent-on-tab", TRUE, /* Fix #388727 */
-                "smart-home-end", FALSE, /* Never changes this */
-                NULL);
-
   /* Drag and drop support */	
   tl = gtk_drag_dest_get_target_list (GTK_WIDGET (view));
 
@@ -467,7 +451,17 @@ anjuta_view_new (Sourceview *sv)
 {
 	GtkWidget *view;
 
-	view = GTK_WIDGET (g_object_new (ANJUTA_TYPE_VIEW, NULL));
+	/* Create widget with sane defaults */
+	view = GTK_WIDGET (g_object_new (ANJUTA_TYPE_VIEW, 
+	                                 "wrap-mode", FALSE,
+	                                 "show-line-numbers", TRUE,
+	                                 "auto-indent", TRUE,
+	                                 "tab-width", 4,
+	                                 "insert-spaces-instead-of-tabs", FALSE,
+	                                 "highlight-current-line", TRUE, 
+	                                 "indent-on-tab", TRUE, /* Fix #388727 */
+	                                 "smart-home-end", FALSE, /* Never changes this */
+	                                 NULL));
 	
 	gtk_text_view_set_buffer (GTK_TEXT_VIEW (view),
 				  GTK_TEXT_BUFFER (sv->priv->document));
