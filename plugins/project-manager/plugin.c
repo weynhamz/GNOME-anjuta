@@ -885,8 +885,8 @@ static GtkActionEntry pm_actions[] =
 		N_("_Project"), NULL, NULL, NULL
 	},
 	{
-		"ActionProjectAddGroup", GTK_STOCK_ADD,
-		N_("Add _Group…"), NULL, N_("Add a group to project"),
+		"ActionProjectAddSubdirectory", GTK_STOCK_ADD,
+		N_("Add _Subdirectory…"), NULL, N_("Add a subdirectory to project"),
 		G_CALLBACK (on_add_group)
 	},
 	{
@@ -915,11 +915,6 @@ static GtkActionEntry pm_actions[] =
 		G_CALLBACK (on_properties)
 	},
 	{
-		"ActionProjectRefresh", GTK_STOCK_REFRESH,
-		N_("_Refresh"), NULL, N_("Refresh project manager tree"),
-		G_CALLBACK (on_refresh)
-	},
-	{
 		"ActionFileCloseProject", NULL,
 		N_("Close Pro_ject"), NULL, N_("Close project"),
 		G_CALLBACK (on_close_project)
@@ -929,8 +924,8 @@ static GtkActionEntry pm_actions[] =
 static GtkActionEntry popup_actions[] = 
 {
 	{
-		"ActionPopupProjectAddGroup", GTK_STOCK_ADD,
-		N_("Add _Group"), NULL, N_("Add a group to project"),
+		"ActionPopupProjectAddSubdirectory", GTK_STOCK_ADD,
+		N_("Add _Subdirectory"), NULL, N_("Add a subdirectory to project"),
 		G_CALLBACK (on_popup_add_group)
 	},
 	{
@@ -1072,7 +1067,7 @@ on_treeview_selection_changed (GtkTreeSelection *sel,
 
 	/* Popup menu */
 	action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
-								   "ActionPopupProjectAddGroup");
+								   "ActionPopupProjectAddSubdirectory");
 	g_object_set (G_OBJECT (action), "sensitive", INT_TO_GBOOLEAN (state & ANJUTA_PROJECT_CAN_ADD_GROUP), NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
 								   "ActionPopupProjectAddTarget");

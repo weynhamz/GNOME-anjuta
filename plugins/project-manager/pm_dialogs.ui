@@ -5,7 +5,7 @@
   <object class="GtkDialog" id="new_group_dialog">
     <property name="can_default">True</property>
     <property name="border_width">5</property>
-    <property name="title" translatable="yes">New Group</property>
+    <property name="title" translatable="yes">New Subdirectory</property>
     <property name="modal">True</property>
     <property name="default_width">400</property>
     <property name="default_height">450</property>

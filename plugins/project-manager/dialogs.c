@@ -704,7 +704,7 @@ pm_project_create_properties_dialog (AnjutaPmProject *project, GtkWindow *parent
 		title = _("Project properties");
 		break;
 	case ANJUTA_PROJECT_GROUP:
-		title = _("Group properties");
+		title = _("Directory properties");
 		break;
 	case ANJUTA_PROJECT_TARGET:
 		title = _("Target properties");

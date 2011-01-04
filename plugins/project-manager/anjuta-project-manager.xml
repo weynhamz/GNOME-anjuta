@@ -9,30 +9,31 @@
 	</menu>
 	<placeholder name="PlaceHolderProjectMenus">
 		<menu name="MenuProject" action="ActionMenuProject">
-				<menuitem name="AddPackage" action="ActionProjectAddPackage" />
-				<menuitem name="AddGroup" action="ActionProjectAddGroup" />
-				<menuitem name="AddTarget" action="ActionProjectAddTarget" />
-				<menuitem name="AddModule" action="ActionProjectAddModule" />
 				<menuitem name="AddSource" action="ActionProjectAddSource" />
+				<menuitem name="AddTarget" action="ActionProjectAddTarget" />
+				<menuitem name="AddSubdirectory" action="ActionProjectAddSubdirectory" />
+				<separator name="separator2"/>
+				<menuitem name="AddPackage" action="ActionProjectAddPackage" />
+				<menuitem name="AddModule" action="ActionProjectAddModule" />
 				<separator name="separator1"/>
 				<menuitem name="Properties" action="ActionProjectProperties"/>
-				<menuitem name="Refresh" action="ActionProjectRefresh"/>
 		</menu>
 	</placeholder>
 	</menubar>
 	<popup name="PopupProjectManager">
 		<placeholder name="PlaceholderPopupProjectOpen"/>
 		<placeholder name="PlaceholderPopupProjectBuild"/>
-		<menuitem name="AddPackage" action="ActionPopupProjectAddPackage"/>
-		<menuitem name="AddGroup" action="ActionPopupProjectAddGroup"/>
-		<menuitem name="AddTarget" action="ActionPopupProjectAddTarget"/>
-		<menuitem name="AddModule" action="ActionPopupProjectAddModule"/>
+		<separator name="separator0"/>
 		<menuitem name="AddSource" action="ActionPopupProjectAddSource"/>
+		<menuitem name="AddTarget" action="ActionPopupProjectAddTarget"/>
+		<menuitem name="AddSubdirectory" action="ActionPopupProjectAddSubdirectory"/>
 		<separator name="separator1"/>
-		<menuitem name="Remove" action="ActionPopupProjectRemove"/>
+		<menuitem name="AddPackage" action="ActionPopupProjectAddPackage"/>
+		<menuitem name="AddModule" action="ActionPopupProjectAddModule"/>
 		<separator name="separator2"/>
+		<menuitem name="Remove" action="ActionPopupProjectRemove"/>
+		<separator name="separator3"/>
 		<menuitem name="Properties" action="ActionPopupProjectProperties"/>
-		<menuitem name="Refresh" action="ActionProjectRefresh"/>
 	</popup>
 	<popup name="PopupFileManager">
 		<placeholder name="PlaceholderPopupFileProject">
