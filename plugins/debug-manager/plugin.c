@@ -142,6 +142,8 @@ register_stock_icons (AnjutaPlugin *plugin)
 		REGISTER_ICON_FULL ("anjuta-step-out", "debugger-step-out");
 		REGISTER_ICON_FULL ("anjuta-step-over", "debugger-step-over");
 		REGISTER_ICON_FULL ("anjuta-run-to-cursor", "debugger-run-to-cursor");
+		REGISTER_ICON_FULL ("anjuta-memory", "debugger-memory");
+		REGISTER_ICON_FULL ("anjuta-disassembly", "debugger-disassembly");
 		END_REGISTER_ICON
 }
 
