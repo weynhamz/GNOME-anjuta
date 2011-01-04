@@ -140,27 +140,10 @@ public class ValaPlugin : Plugin {
 			if (current_editor is IAnjuta.EditorAssist)
 				(current_editor as IAnjuta.EditorAssist).add(provider);
 			if (current_editor is IAnjuta.EditorTip)
-				(current_editor as IAnjuta.EditorTip).char_added += on_char_added;
+				current_editor.char_added.connect (on_char_added);
 			if (current_editor is IAnjuta.FileSavable) {
 				var file_savable = (IAnjuta.FileSavable) current_editor;
-				file_savable.saved += (savable, gfile) => {
-					/* gfile's type is Object, should be File */
-					var file = (File) gfile;
-					foreach (var source_file in context.get_source_files ()) {
-						if (source_file.filename != file.get_path())
-							continue;
-
-						string contents;
-						try {
-							file.load_contents (null, out contents, null, null);
-							source_file.content = contents;
-							update_file (source_file);
-						} catch (Error e) {
-							// ignore
-						}
-						return;
-					}
-				};
+				file_savable.saved.connect (on_file_saved);
 			}
 		}
 		report.update_errors (current_editor);
@@ -170,24 +153,44 @@ public class ValaPlugin : Plugin {
 		if (current_editor is IAnjuta.EditorAssist)
 			(current_editor as IAnjuta.EditorAssist).remove(provider);
 		if (current_editor is IAnjuta.EditorTip)
-			(current_editor as IAnjuta.EditorTip).char_added -= on_char_added;
-		if (current_editor is IAnjuta.FileSavable)
-			assert (SignalHandler.disconnect_matched (current_editor, SignalMatchType.DATA,
-													  0, 0, null, null, this) == 1);
+			current_editor.char_added.disconnect (on_char_added);
+		if (current_editor is IAnjuta.FileSavable) {
+			var file_savable = (IAnjuta.FileSavable) current_editor;
+			file_savable.saved.disconnect (on_file_saved);
+		}
 
 		current_editor = null;
 	}
 
-	public void on_char_added (IAnjuta.EditorTip editor, Object position, char ch) {
+	public void on_file_saved (IAnjuta.FileSavable savable, File file) {
+		foreach (var source_file in context.get_source_files ()) {
+			if (source_file.filename != file.get_path())
+				continue;
+
+			string contents;
+			try {
+				file.load_contents (null, out contents, null, null);
+				source_file.content = contents;
+				update_file (source_file);
+			} catch (Error e) {
+				// ignore
+			}
+			return;
+		}
+	}
+
+	public void on_char_added (IAnjuta.Editor editor, IAnjuta.Iterable position, char ch) {
 		if (!settings.get_boolean (ValaProvider.PREF_CALLTIP_ENABLE))
 			return;
 
+		var editortip = editor as IAnjuta.EditorTip;
 		if (ch == '(') {
-			provider.show_call_tip (editor);
+			provider.show_call_tip (editortip);
 		} else if (ch == ')') {
-			editor.cancel ();
+			editortip.cancel ();
 		}
 	}
+
 	internal Vala.Block get_current_block (IAnjuta.Editor editor) requires (editor is IAnjuta.File) {
 		var file = editor as IAnjuta.File;
 
