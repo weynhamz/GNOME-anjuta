@@ -55,6 +55,9 @@ struct _GladePluginPriv
 
 	/* File count, disable plugin when NULL */
 	guint file_count;
+
+	/* for status */
+	gboolean add_ticks;
 };
 
 enum {
@@ -291,25 +294,86 @@ inspector_item_activated_cb (GladeInspector     *inspector,
 	g_list_free (item);
 }
 
+/* Progress callbacks */
+static void
+glade_plugin_parse_began (GladeProject *project,
+                           GladePlugin *plugin)
+{
+	AnjutaStatus *status = anjuta_shell_get_status (ANJUTA_PLUGIN(plugin)->shell,  
+	                                                NULL);
+	anjuta_status_busy_push (status);
+	plugin->priv->add_ticks = TRUE;
+}
+
+static void
+glade_plugin_parse_finished (GladeProject *project,
+                              AnjutaPlugin *plugin)
+{
+	AnjutaStatus *status = anjuta_shell_get_status (ANJUTA_PLUGIN(plugin)->shell,                                                
+	                                                NULL);
+	anjuta_status_busy_pop (status);
+}
+
+static void
+glade_plugin_load_progress (GladeProject *project,
+                             gint total_ticks,
+                             gint current_ticks,
+                             AnjutaPlugin *plugin)
+{
+	GladePlugin *glade_plugin = ANJUTA_PLUGIN_GLADE (plugin);
+	AnjutaStatus *status = anjuta_shell_get_status (plugin->shell,
+	                                                NULL);
+	gchar *text;
+	gchar *project_name;
+	static GdkPixbuf* icon = NULL;
+
+	if (!icon)
+	{
+		icon = gtk_icon_theme_load_icon (gtk_icon_theme_get_default(),
+		                                 "glade-plugin-icon",
+		                                 GTK_ICON_SIZE_BUTTON,
+		                                 0, NULL);
+	}
+		                              
+	
+	if (glade_plugin->priv->add_ticks)
+	{
+		glade_plugin->priv->add_ticks = FALSE;
+		anjuta_status_progress_add_ticks (status, total_ticks);
+	}
+	
+	project_name = glade_project_get_name (project);
+	text = g_strdup_printf ("Loading %s…", project_name);
+	anjuta_status_progress_tick (status,
+	                             icon,
+	                             text);
+	g_free (text);
+	g_free (project_name);                  
+}
+
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui;
 	GladePlugin *glade_plugin;
 	GladePluginPriv *priv;
+	AnjutaStatus* status;
 
 	DEBUG_PRINT ("%s", "GladePlugin: Activating Glade plugin…");
 
 	glade_plugin = ANJUTA_PLUGIN_GLADE (plugin);
 
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	status = anjuta_shell_get_status (plugin->shell, NULL);
 	priv = glade_plugin->priv;
 
 	register_stock_icons (plugin);
 
 	if (!priv->app)
 	{
-		priv->app = g_object_new(GLADE_TYPE_APP, NULL);
+		anjuta_status_busy_push (status);
+		anjuta_status_set (status, "%s", _("Loading Glade…"));
+		priv->app = glade_app_new ();
 
 		glade_app_set_window (GTK_WIDGET (ANJUTA_PLUGIN(plugin)->shell));
 		glade_app_set_transient_parent (GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell));
@@ -331,6 +395,8 @@ activate_plugin (AnjutaPlugin *plugin)
 		gtk_widget_set_size_request (priv->inspector, -1, 300);
 		
 		gtk_widget_show_all (priv->paned);
+
+		anjuta_status_pop (status);
 	}
 
 	g_signal_connect(plugin->shell, "destroy",
@@ -431,6 +497,7 @@ glade_plugin_instance_init (GObject *obj)
 	priv = plugin->priv;
 	priv->destroying = FALSE;
 	priv->file_count = 0;
+	priv->add_ticks = FALSE;
 
 	DEBUG_PRINT ("%s", "Intializing Glade plugin");
 }
@@ -503,9 +570,14 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **err)
 		g_list_free (docwids);
 	}
 
-	project = glade_project_load (filename);
-	g_free (filename);
-	if (!project)
+	project = glade_project_new ();
+	g_signal_connect (project, "parse-began", 
+	                  G_CALLBACK (glade_plugin_parse_began), plugin);
+	g_signal_connect (project, "parse-finished", 
+	                  G_CALLBACK (glade_plugin_parse_finished), plugin);
+	g_signal_connect (project, "load-progress", 
+	                  G_CALLBACK (glade_plugin_load_progress), plugin);
+	if (!glade_project_load_from_file (project, filename))
 	{
 		gchar* name = g_file_get_parse_name (file);
 		anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN (ifile)->shell),
@@ -513,8 +585,11 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **err)
 		if (priv->file_count <= 0)
 			anjuta_plugin_deactivate (ANJUTA_PLUGIN (plugin));
 		g_free (name);
+		g_free (filename);
 		return;
 	}
+	g_free (filename);
+	
 	glade_plugin_add_project (ANJUTA_PLUGIN_GLADE (ifile), project);
 	
 	/* Select the first window in the project */
