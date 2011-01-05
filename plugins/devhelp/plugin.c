@@ -346,7 +346,7 @@ devhelp_activate (AnjutaPlugin *plugin)
 	                    gtk_image_new_from_stock (ANJUTA_STOCK_DEVHELP_SEARCH,
 	                                              GTK_ICON_SIZE_MENU),
 	                    FALSE, FALSE, 0);
-	label = gtk_label_new (_("Help"));
+	label = gtk_label_new (_("API Browser"));
 	devhelp->tabber = anjuta_tabber_new (GTK_NOTEBOOK(devhelp->control_notebook));
 	
 	
@@ -381,7 +381,7 @@ devhelp_activate (AnjutaPlugin *plugin)
 	                    gtk_image_new_from_stock (ANJUTA_STOCK_DEVHELP_VIEW,
 	                                              GTK_ICON_SIZE_MENU),
 	                    FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (devhelp->custom_label), gtk_label_new (_("Help display")),
+	gtk_box_pack_start (GTK_BOX (devhelp->custom_label), gtk_label_new (_("API")),
 	                    FALSE, FALSE, 0);	
 	
 	devhelp->go_back = gtk_button_new ();
@@ -463,12 +463,12 @@ devhelp_activate (AnjutaPlugin *plugin)
 	gtk_container_add (GTK_CONTAINER (devhelp->view_sw), devhelp->view);
 
 	anjuta_shell_add_widget_custom (plugin->shell, devhelp->control_notebook,
-	                                "AnjutaDevhelpIndex", _("Help"), ANJUTA_STOCK_DEVHELP_SEARCH,
+	                                "AnjutaDevhelpIndex", _("API Browser"), ANJUTA_STOCK_DEVHELP_SEARCH,
 	                                devhelp->tab_hbox,
 	                                ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
 	/* This is the window that show the html help text */
 	anjuta_shell_add_widget_custom (plugin->shell, devhelp->view_sw,
-							 "AnjutaDevhelpDisplay", _("Help display"),
+							 "AnjutaDevhelpDisplay", _("API"),
 							 ANJUTA_STOCK_DEVHELP_VIEW, devhelp->custom_label,
 							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL);
 								 
