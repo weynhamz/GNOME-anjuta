@@ -800,9 +800,6 @@ git_log_pane_init (GitLogPane *self)
 	GtkTreeViewColumn *loading_spinner_column;
 	GtkCellRenderer *loading_spinner_renderer;
 	GtkCellRenderer *loading_indicator_renderer;
-	GtkStyle *style;
-	GValue cycle_duration_value = {0,};
-	GValue num_steps_value = {0,};
 	GtkComboBox *branch_combo;
 	GtkTreeSelection *selection;
 
@@ -949,22 +946,10 @@ git_log_pane_init (GitLogPane *self)
 	gtk_tree_model_get_iter_first (GTK_TREE_MODEL (self->priv->log_loading_model), 
 	                               &(self->priv->spinner_iter));
 
-	/* Get some information about spinner cycles from the theme */
-	style = gtk_widget_get_style (GTK_WIDGET (log_view));
-	g_value_init (&cycle_duration_value, G_TYPE_UINT);
-	g_value_init (&num_steps_value, G_TYPE_UINT);
+	/* FIXME: GtkSpinner doesn't have those anymore */
+	self->priv->spin_cycle_duration = 1000;
+	self->priv->spin_cycle_steps =  12;
 	
-	gtk_style_get_style_property (style, GTK_TYPE_SPINNER, "cycle-duration",
-	                              &cycle_duration_value);
-	gtk_style_get_style_property (style, GTK_TYPE_SPINNER, "num_steps",
-	                              &num_steps_value);
-
-	self->priv->spin_cycle_duration = g_value_get_uint (&cycle_duration_value);
-	self->priv->spin_cycle_steps = g_value_get_uint (&num_steps_value);
-
-	g_value_unset (&cycle_duration_value);
-	g_value_unset (&num_steps_value);
-
 	g_object_set (G_OBJECT (loading_spinner_renderer), "active", TRUE, NULL);
 
 	/* Log message display */
