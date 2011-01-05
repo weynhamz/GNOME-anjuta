@@ -833,6 +833,7 @@ plugins/gdb/images/Makefile
 plugins/debug-manager/Makefile
 plugins/debug-manager/images/Makefile
 plugins/devhelp/Makefile
+plugins/devhelp/images/Makefile
 plugins/glade/Makefile
 plugins/glade/images/Makefile
 plugins/js-debugger/Makefile

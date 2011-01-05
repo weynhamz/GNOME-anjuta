@@ -53,16 +53,18 @@ static gpointer parent_class;
 
 #ifndef DISABLE_EMBEDDED_DEVHELP
 
-#define ANJUTA_PIXMAP_DEVHELP "anjuta-devhelp-plugin-48.png"
+#define ANJUTA_PIXMAP_DEVHELP "anjuta-devhelp-plugin"
+#define ANJUTA_PIXMAP_DEVHELP_SEARCH "anjuta-devhelp-search"
+#define ANJUTA_PIXMAP_DEVHELP_VIEW "anjuta-devhelp-view"
+
 
 #define ANJUTA_STOCK_DEVHELP "anjuta-devhelp"
+#define ANJUTA_STOCK_DEVHELP_SEARCH "anjuta-devhelp-search"
+#define ANJUTA_STOCK_DEVHELP_VIEW "anjuta-devhelp-view"
 
 static void
 register_stock_icons (AnjutaPlugin *plugin)
 {
-	AnjutaUI *ui;
-	GtkIconFactory *icon_factory;
-	GtkIconSet *icon_set;
 	static gboolean registered = FALSE;
 
 	if (registered)
@@ -70,9 +72,11 @@ register_stock_icons (AnjutaPlugin *plugin)
 	registered = TRUE;
 
 	/* Register stock icons */
-	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	icon_factory = anjuta_ui_get_icon_factory (ui);
-	REGISTER_ICON (ANJUTA_PIXMAP_DEVHELP, ANJUTA_STOCK_DEVHELP);
+	BEGIN_REGISTER_ICON (plugin);
+	REGISTER_ICON_FULL (ANJUTA_PIXMAP_DEVHELP, ANJUTA_STOCK_DEVHELP);
+	REGISTER_ICON_FULL (ANJUTA_PIXMAP_DEVHELP_VIEW, ANJUTA_STOCK_DEVHELP_VIEW);
+	REGISTER_ICON_FULL (ANJUTA_PIXMAP_DEVHELP_SEARCH, ANJUTA_STOCK_DEVHELP_SEARCH);
+	END_REGISTER_ICON
 }
 
 static void

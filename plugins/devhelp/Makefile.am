@@ -1,14 +1,8 @@
-# Sample Makefile for a anjuta plugin.
+SUBDIRS = images
 
 # Plugin UI file
 devhelp_uidir = $(anjuta_ui_dir)
 devhelp_ui_DATA = anjuta-devhelp.ui anjuta-devhelp-simple.ui
-
-# Plugin Icon file
-devhelp_pixmapsdir = $(anjuta_image_dir)
-devhelp_pixmaps_DATA = \
-	anjuta-devhelp-plugin.svg \
-	anjuta-devhelp-plugin-48.png
 
 # Plugin description file
 plugin_in_files = anjuta-devhelp.plugin.in
@@ -50,7 +44,6 @@ libanjuta_devhelp_la_LIBADD = \
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(devhelp_plugin_DATA) \
-	$(devhelp_ui_DATA) \
-	$(devhelp_pixmaps_DATA)
+	$(devhelp_ui_DATA)
 
 -include $(top_srcdir)/git.mk
