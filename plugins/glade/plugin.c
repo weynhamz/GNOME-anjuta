@@ -177,12 +177,12 @@ register_stock_icons (AnjutaPlugin *plugin)
 
 	/* Register stock icons */
 	BEGIN_REGISTER_ICON (plugin);
-	REGISTER_ICON ("anjuta-glade-plugin-48.png",
-	               "glade-plugin-icon");
-	REGISTER_ICON ("anjuta-glade-widgets-24.png",
-	               "glade-plugin-widgets");
-	REGISTER_ICON ("anjuta-glade-palette-24.png",
-	               "glade-plugin-palette");
+	REGISTER_ICON_FULL ("anjuta-glade-plugin",
+	                    "glade-plugin-icon");
+	REGISTER_ICON_FULL ("anjuta-glade-widgets",
+	                    "glade-plugin-widgets");
+	REGISTER_ICON_FULL ("anjuta-glade-palette",
+	                    "glade-plugin-palette");
 	END_REGISTER_ICON;
 }
 

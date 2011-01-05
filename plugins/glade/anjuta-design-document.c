@@ -243,7 +243,6 @@ static gboolean idocument_can_redo(IAnjutaDocument *editor, GError **e)
 {
 	AnjutaDesignDocument* self = ANJUTA_DESIGN_DOCUMENT(editor);
 	GladeCommand *redo_item;
-	const gchar *redo_description = NULL;
 
 	GladeProject* project = glade_design_view_get_project(GLADE_DESIGN_VIEW(self));
 	if (!project)
@@ -253,10 +252,8 @@ static gboolean idocument_can_redo(IAnjutaDocument *editor, GError **e)
 	else
 	{
 		redo_item = glade_project_next_redo_item(project);
-		if (redo_item)
-			redo_description = redo_item->description;
 	}
-	return (redo_description != NULL);
+	return (redo_item != NULL);
 }
 
 /* Return true if editor can undo */
@@ -264,7 +261,6 @@ static gboolean idocument_can_undo(IAnjutaDocument *editor, GError **e)
 {
 	AnjutaDesignDocument* self = ANJUTA_DESIGN_DOCUMENT(editor);
 	GladeCommand *undo_item;
-	const gchar *undo_description = NULL;
 	GladeProject* project = glade_design_view_get_project(GLADE_DESIGN_VIEW(self));
 	if (!project)
 	{
@@ -273,10 +269,9 @@ static gboolean idocument_can_undo(IAnjutaDocument *editor, GError **e)
 	else
 	{
 		undo_item = glade_project_next_undo_item(project);
-		if (undo_item)
-			undo_description = undo_item->description;
+
 	}
-	return (undo_description != NULL);
+	return (undo_item != NULL);
 }
 
 /* Return true if editor can undo */
