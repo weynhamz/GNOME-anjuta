@@ -853,6 +853,7 @@ plugins/snippets-manager/Makefile
 plugins/cvs-plugin/Makefile
 plugins/subversion/Makefile
 plugins/git/Makefile
+plugins/git/images/Makefile
 plugins/sourceview/Makefile
 plugins/terminal/Makefile
 plugins/tools/Makefile

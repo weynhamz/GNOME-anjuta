@@ -1,13 +1,8 @@
-# Sample Makefile for a anjuta plugin.
+SUBDIRS = images
 
 # Plugin glade file
 git_gladedir = $(anjuta_glade_dir)
 git_glade_DATA = anjuta-git.ui
-
-# Plugin Icon file
-git_pixmapsdir = $(anjuta_image_dir)
-git_pixmaps_DATA = \
-	anjuta-git-plugin-48.png
 
 # Plugin description file
 plugin_in_files = git.plugin.in
@@ -235,10 +230,6 @@ libanjuta_git_la_LIBADD = \
 	$(LIBANJUTA_LIBS)
 
 EXTRA_DIST = \
-	$(plugin_in_files) \
-	$(git_plugin_DATA) \
-	$(git_ui_DATA) \
-	$(git_glade_DATA) \
 	$(git_pixmaps_DATA)
 
 -include $(top_srcdir)/git.mk

@@ -574,6 +574,22 @@ on_branch_list_command_data_arrived (AnjutaCommand *command, Git *plugin)
 	}
 }
 
+static void
+git_register_stock_icons (AnjutaPlugin *plugin)
+{
+        static gboolean registered = FALSE;
+
+        if (registered)
+                return;
+        registered = TRUE;
+
+        /* Register stock icons */
+		BEGIN_REGISTER_ICON (plugin)
+		REGISTER_ICON_FULL ("anjuta-git-plugin", "git-plugin");
+		REGISTER_ICON_FULL ("anjuta-git-tasks", "git-tasks");
+		END_REGISTER_ICON
+}
+
 static gboolean
 git_activate_plugin (AnjutaPlugin *plugin)
 {
@@ -585,6 +601,8 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	
 	git_plugin = ANJUTA_PLUGIN_GIT (plugin);
 
+	git_register_stock_icons (plugin);
+	
 	/* Command bar and dock */
 	git_plugin->command_bar = anjuta_command_bar_new ();
 	git_plugin->dock = anjuta_dock_new ();
@@ -617,11 +635,11 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	                             ANJUTA_COMMAND_BAR (git_plugin->command_bar));
 
 	anjuta_shell_add_widget (plugin->shell, git_plugin->command_bar_window, 
-	                         "GitCommandBar", _("Git Tasks"), NULL,
+	                         "GitCommandBar", _("Git Tasks"), "git-tasks",
 	                         ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
 
 	anjuta_shell_add_widget (plugin->shell, git_plugin->dock_window, "GitDock", 
-	                         _("Git"), NULL, ANJUTA_SHELL_PLACEMENT_CENTER,
+	                         _("Git"), "git-plugin", ANJUTA_SHELL_PLACEMENT_CENTER,
 	                         NULL);
 
 	/* Create the branch list commands. There are two commands because some 
