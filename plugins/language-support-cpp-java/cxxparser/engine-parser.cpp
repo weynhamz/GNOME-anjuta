@@ -823,11 +823,18 @@ IAnjutaIterable *
 engine_parser_process_expression (const gchar *stmt, const gchar * above_text,
     const gchar * full_file_path, gulong linenum)
 {
-	IAnjutaIterable *iter = 
-		EngineParser::getInstance ()->processExpression (stmt, 
-		    											above_text,  
-	    												full_file_path, 
-		    											linenum);
-
-	return iter;
+	try
+	{
+		IAnjutaIterable *iter = 
+			EngineParser::getInstance ()->processExpression (stmt, 
+			                                                 above_text,  
+			                                                 full_file_path, 
+			                                                 linenum);
+		return iter;
+	}
+	catch (const std::exception& error)
+	{
+		g_critical ("cxxparser error: %s", error.what());
+		return NULL;
+	}
 }
