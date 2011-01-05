@@ -53,7 +53,7 @@ static gpointer parent_class;
 
 #ifndef DISABLE_EMBEDDED_DEVHELP
 
-#define ANJUTA_PIXMAP_DEVHELP "anjuta-devhelp-plugin"
+#define ANJUTA_PIXMAP_DEVHELP "anjuta-devhelp-plugin-48.png"
 #define ANJUTA_PIXMAP_DEVHELP_SEARCH "anjuta-devhelp-search"
 #define ANJUTA_PIXMAP_DEVHELP_VIEW "anjuta-devhelp-view"
 
@@ -73,7 +73,7 @@ register_stock_icons (AnjutaPlugin *plugin)
 
 	/* Register stock icons */
 	BEGIN_REGISTER_ICON (plugin);
-	REGISTER_ICON_FULL (ANJUTA_PIXMAP_DEVHELP, ANJUTA_STOCK_DEVHELP);
+	REGISTER_ICON (ANJUTA_PIXMAP_DEVHELP, ANJUTA_STOCK_DEVHELP);
 	REGISTER_ICON_FULL (ANJUTA_PIXMAP_DEVHELP_VIEW, ANJUTA_STOCK_DEVHELP_VIEW);
 	REGISTER_ICON_FULL (ANJUTA_PIXMAP_DEVHELP_SEARCH, ANJUTA_STOCK_DEVHELP_SEARCH);
 	END_REGISTER_ICON
@@ -241,7 +241,7 @@ static GtkActionEntry actions[] = {
 	{
 		"ActionHelpContext",
 #ifndef DISABLE_EMBEDDED_DEVHELP
-		ANJUTA_STOCK_DEVHELP,
+		ANJUTA_STOCK_DEVHELP_VIEW,
 #else
 		NULL,
 #endif /* DISABLE_EMBEDDED_DEVHELP */
@@ -252,7 +252,7 @@ static GtkActionEntry actions[] = {
 	},
 	{
 		"ActionHelpSearch",
-		NULL,
+		ANJUTA_STOCK_DEVHELP_SEARCH,
 		N_("_Search Help"),
 		NULL,
 		N_("Search for a term in help"),
@@ -343,7 +343,7 @@ devhelp_activate (AnjutaPlugin *plugin)
 	devhelp->tab_hbox = gtk_hbox_new (FALSE, 1);	
 
 	gtk_box_pack_start (GTK_BOX (devhelp->tab_hbox),
-	                    gtk_image_new_from_stock (ANJUTA_STOCK_DEVHELP,
+	                    gtk_image_new_from_stock (ANJUTA_STOCK_DEVHELP_SEARCH,
 	                                              GTK_ICON_SIZE_MENU),
 	                    FALSE, FALSE, 0);
 	label = gtk_label_new (_("Help"));
@@ -378,7 +378,7 @@ devhelp_activate (AnjutaPlugin *plugin)
 	gtk_widget_show (devhelp->custom_label);
 
 	gtk_box_pack_start (GTK_BOX (devhelp->custom_label), 
-	                    gtk_image_new_from_stock (ANJUTA_STOCK_DEVHELP,
+	                    gtk_image_new_from_stock (ANJUTA_STOCK_DEVHELP_VIEW,
 	                                              GTK_ICON_SIZE_MENU),
 	                    FALSE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (devhelp->custom_label), gtk_label_new (_("Help display")),
@@ -463,13 +463,13 @@ devhelp_activate (AnjutaPlugin *plugin)
 	gtk_container_add (GTK_CONTAINER (devhelp->view_sw), devhelp->view);
 
 	anjuta_shell_add_widget_custom (plugin->shell, devhelp->control_notebook,
-	                                "AnjutaDevhelpIndex", _("Help"), ANJUTA_STOCK_DEVHELP,
+	                                "AnjutaDevhelpIndex", _("Help"), ANJUTA_STOCK_DEVHELP_SEARCH,
 	                                devhelp->tab_hbox,
 	                                ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
 	/* This is the window that show the html help text */
 	anjuta_shell_add_widget_custom (plugin->shell, devhelp->view_sw,
 							 "AnjutaDevhelpDisplay", _("Help display"),
-							 ANJUTA_STOCK_DEVHELP, devhelp->custom_label,
+							 ANJUTA_STOCK_DEVHELP_VIEW, devhelp->custom_label,
 							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL);
 								 
 #endif /* DISABLE_EMBEDDED_DEVHELP */
