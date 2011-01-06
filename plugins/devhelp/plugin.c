@@ -252,7 +252,11 @@ static GtkActionEntry actions[] = {
 	},
 	{
 		"ActionHelpSearch",
+#ifndef DISABLE_EMBEDDED_DEVHELP
 		ANJUTA_STOCK_DEVHELP_SEARCH,
+#else
+		NULL,
+#endif
 		N_("_Search Help"),
 		NULL,
 		N_("Search for a term in help"),
