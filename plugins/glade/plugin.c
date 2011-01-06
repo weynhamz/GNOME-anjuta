@@ -378,7 +378,7 @@ activate_plugin (AnjutaPlugin *plugin)
 		anjuta_status_busy_push (status);
 		anjuta_status_set (status, "%s", _("Loading Glade…"));
 
-		priv->app = glade_app_new ();
+		priv->app = glade_app_get ();
 
 		glade_app_set_window (GTK_WIDGET (ANJUTA_PLUGIN(plugin)->shell));
 		glade_app_set_transient_parent (GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell));
@@ -469,8 +469,6 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	priv->uiid = 0;
 	priv->action_group = NULL;
 
-	g_object_unref (priv->app);
-	
 	priv->app = NULL;
 
 	return TRUE;
