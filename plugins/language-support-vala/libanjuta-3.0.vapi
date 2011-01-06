@@ -1438,12 +1438,18 @@ namespace IAnjuta {
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface ProjectManager : GLib.Object {
-		public abstract GLib.List<GLib.File> add_sources (GLib.List<weak string> names, GLib.File default_target) throws GLib.Error;
+		public abstract GLib.File add_group (string name, GLib.File? default_group) throws GLib.Error;
+		public abstract GLib.File add_source (string name, GLib.File? default_target) throws GLib.Error;
+		public abstract GLib.File add_source_quiet (string name, GLib.File target) throws GLib.Error;
+		public abstract GLib.List<GLib.File> add_sources (GLib.List<weak string> names, GLib.File? default_target) throws GLib.Error;
+		public abstract GLib.File add_target (string name, GLib.File? default_group) throws GLib.Error;
 		public static GLib.Quark error_quark ();
 		public abstract uint get_capabilities () throws GLib.Error;
 		public abstract GLib.List<GLib.File> get_children (GLib.File element) throws GLib.Error;
+		public abstract unowned IAnjuta.Project get_current_project () throws GLib.Error;
 		public abstract GLib.List<GLib.File> get_elements (Anjuta.ProjectNodeType element_type) throws GLib.Error;
-		public abstract GLib.List<string> get_packages () throws GLib.Error;
+		public abstract GLib.List<weak string> get_packages () throws GLib.Error;
+		public abstract GLib.File get_selected () throws GLib.Error;
 		public abstract Anjuta.ProjectNodeType get_target_type (GLib.File target) throws GLib.Error;
 		public abstract GLib.List<GLib.File> get_targets (Anjuta.ProjectNodeType target_type) throws GLib.Error;
 		public abstract bool is_open () throws GLib.Error;

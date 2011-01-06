@@ -3484,15 +3484,15 @@ interface IAnjutaProjectManager
 	List<GFile*> get_children (GFile *element);
 	
 	/**
-	* ianjuta_project_manager_get_selected:
-	* @obj: Self
-	* @err: Error propagation and reporting.
-	* 
-	* Gets the currently selected element in the project manager view.
-	*
-	* Returns: A #GFile corresponding to the selected element in the project
-	* view. You own the returned file; use g_object_unref() to release it.
-	*/
+	 * ianjuta_project_manager_get_selected:
+	 * @obj: Self
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Gets the currently selected element in the project manager view.
+	 *
+	 * Returns: (transfer full): A #GFile corresponding to the selected element in the project
+	 * view. You own the returned file; use g_object_unref() to release it.
+	 */
 	GFile* get_selected ();
 	
 	/**
@@ -3508,50 +3508,50 @@ interface IAnjutaProjectManager
 	guint get_capabilities ();
 
 	/**
-	* ianjuta_project_manager_add_source:
-	* @obj: Self.
-	* @name: Source name or URI.
-	* @default_target: A #GFile corresponding to the default target or group or
-	*					%NULL if you don't care.
-	* @err: Error propagation and reporting.
-	*
-	* Prompts the user to add a file to the project. If the user selects
-	* multiple files only the first source file is returned.
-	*
-	* You can add non existing file. In this case the element_added
-	* signal will be emitted with a non existing file. So it is
-	* up to the caller to reemit this signal later when the file
-	* is created.
-	*
-	* Returns: A #GFile corresponding to the new source file in the project
-	* view. You own the returned file; use g_object_unref() to release it.
-	*/
+	 * ianjuta_project_manager_add_source:
+	 * @obj: Self.
+	 * @name: Source name or URI.
+	 * @default_target: (allow-none): A #GFile corresponding to the default target or group or
+	 *					%NULL if you don't care.
+	 * @err: Error propagation and reporting.
+	 *
+	 * Prompts the user to add a file to the project. If the user selects
+	 * multiple files only the first source file is returned.
+	 *
+	 * You can add non existing file. In this case the element_added
+	 * signal will be emitted with a non existing file. So it is
+	 * up to the caller to reemit this signal later when the file
+	 * is created.
+	 *
+	 * Returns: (transfer full): A #GFile corresponding to the new source file in the
+	 * project view. You own the returned file; use g_object_unref() to release it.
+	 */
 	GFile* add_source (const gchar *name, GFile *default_target);
 
 	/**
-	* ianjuta_project_manager_add_source_quiet:
-	* @obj: Self.
-	* @name: Source name or URI.
-	* @target: A #GFile corresponding to the parent target or group.
-	* @err: Error propagation and reporting.
-	*
-	* Adds a file to the project without prompting the user.
-	*
-	* You can add non existing file. In this case the element_added
-	* signal will be emitted with a non existing file. So it is
-	* up to the caller to reemit this signal later when the file
-	* is created.
-	*
-	* Returns: A #GFile corresponding to the new source file in the project
-	* view. You own the returned file; use g_object_unref() to release it.
-	*/
+	 * ianjuta_project_manager_add_source_quiet:
+	 * @obj: Self.
+	 * @name: Source name or URI.
+	 * @target: A #GFile corresponding to the parent target or group.
+	 * @err: Error propagation and reporting.
+	 *
+	 * Adds a file to the project without prompting the user.
+	 *
+	 * You can add non existing file. In this case the element_added
+	 * signal will be emitted with a non existing file. So it is
+	 * up to the caller to reemit this signal later when the file
+	 * is created.
+	 *
+	 * Returns: (transfer full): A #GFile corresponding to the new source file in the project
+	 * view. You own the returned file; use g_object_unref() to release it.
+	 */
 	GFile* add_source_quiet (const gchar *name, GFile *target);
 	
 	/**
 	 * ianjuta_project_manager_add_sources:
 	 * @obj: Self.
 	 * @names: (element-type utf8): Sources name or URI to add.
-	 * @default_target: A #GFile corresponding to the default target or group or
+	 * @default_target: (allow-none): A #GFile corresponding to the default target or group or
 	 *					%NULL if don't care.
 	 * @err: Error propagation and reporting.
 	 *
@@ -3571,35 +3571,35 @@ interface IAnjutaProjectManager
 	List<GFile*> add_sources (List<const gchar*> names, GFile *default_target);
 	
 	/**
-	* ianjuta_project_manager_add_target:
-	* @obj: Self
-	* @name: Target name or URI.
-	* @default_group: A #GFile corresponding to the default parent group or
-	*					%NULL if don't care.
-	* @err: Error propagation and reporting.
-	* 
-	* Prompts the user to add a new target to the project. The user can select
-	* a parent group different from the one set as default.
-	* 
-	* Returns: A #GFile corresponding to the new target added in the project.
-	* You own the returned file; use g_object_unref() to release it.
-	*/
+	 * ianjuta_project_manager_add_target:
+	 * @obj: Self
+	 * @name: Target name or URI.
+	 * @default_group: (allow-none): A #GFile corresponding to the default parent group or
+	 *					%NULL if don't care.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Prompts the user to add a new target to the project. The user can select
+	 * a parent group different from the one set as default.
+	 * 
+	 * Returns: (transfer full): A #GFile corresponding to the new target added in the project.
+	 * You own the returned file; use g_object_unref() to release it.
+	 */
 	GFile* add_target (const gchar *name, GFile *default_group);
 	
 	/**
-	* ianjuta_project_manager_add_group:
-	* @obj: Self.
-	* @name: Group name or URI.
-	* @default_group: A #GFile corresponding to the default parent group or
-	*					%NULL if don't care.
-	* @err: Error propagation and reporting.
-	* 
-	* Prompts the user to add a new group to the project. The user can select
-	* a parent group different from the one set as default.
-	* 
-	* Returns: A #GFile corresponding to the new group added in the project.
-	* You own the returned file; use g_object_unref() to release it.
-	*/
+	 * ianjuta_project_manager_add_group:
+	 * @obj: Self.
+	 * @name: Group name or URI.
+	 * @default_group: (allow-none): A #GFile corresponding to the default parent group or
+	 *					%NULL if don't care.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Prompts the user to add a new group to the project. The user can select
+	 * a parent group different from the one set as default.
+	 * 
+	 * Returns: (transfer full): A #GFile corresponding to the new group added in the project.
+	 * You own the returned file; use g_object_unref() to release it.
+	 */
 	GFile* add_group (const gchar *name, GFile *default_group);
 	
 	/**
@@ -3618,21 +3618,21 @@ interface IAnjutaProjectManager
 	 * @obj: Self
 	 * @err: Error propagation and reporting.
 	 *
-	 * Returns: (element-type utf8) (transfer full): the list of pkg-config packages that the current project
+	 * Returns: (element-type utf8) (transfer container): the list of pkg-config packages that the current project
 	 * requires in it's configure.ac. Can be NULL if there is no project
 	 * opened currently or no package is required.
 	 */
 	List<gchar*> get_packages();
 	
 	/**
-	* ianjuta_project_manager_get_current_project:
-	* @obj: Self
-	* @err: Error propagation and reporting.
-	* 
-	* Gets the current project.
-	* 
-	* Return value: the currently active project. NULL if none is there.
-	*/
+	 * ianjuta_project_manager_get_current_project:
+	 * @obj: Self
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Gets the current project.
+	 * 
+	 * Return value: (transfer none): the currently active project. NULL if none is there.
+	 */
 	IAnjutaProject* get_current_project ();
 }
 
