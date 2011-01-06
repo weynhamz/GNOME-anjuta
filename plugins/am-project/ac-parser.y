@@ -416,8 +416,8 @@ arg_part_or_space:
 
 arg_part:
     arg_string
-    | expression { $$ = NULL;}
-    | dnl
+    | expression
+    | macro
     | arg_token {
         $$ = anjuta_token_new_static (ANJUTA_TOKEN_ITEM, NULL);
         anjuta_token_merge ($$, $1);
@@ -456,8 +456,6 @@ separator:
 
 expression:
     LEFT_PAREN  expression_body  RIGHT_PAREN {
-        anjuta_token_set_type ($1, ANJUTA_TOKEN_OPEN_QUOTE);
-        anjuta_token_set_type ($3, ANJUTA_TOKEN_CLOSE_QUOTE);
         $$ = anjuta_token_merge_previous ($2, $1);
         anjuta_token_merge ($2, $3);
     }
@@ -494,6 +492,9 @@ expression_body:
     }
     | expression_body macro
     | expression_body expression {
+        anjuta_token_merge ($1, $2);
+    }
+    | expression_body arg_string {
         anjuta_token_merge ($1, $2);
     }
     ;
