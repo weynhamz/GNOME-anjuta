@@ -2502,14 +2502,13 @@ sdb_engine_check_db_version_and_upgrade (SymbolDBEngine *dbe,
 	if (version <= 0) 
 	{
 		/* some error occurred */
-		g_warning ("No version of db detected. This can produce many errors.");
-		return FALSE;
+		g_warning ("No version of db detected. This can produce many errors. DB"
+		           "will be recreated from scratch.");
+
+		/* force version to 0 */
+		version = 0;
 	}
-	
-	/* FIXME: in the future versions, if the changes grow up, add a better 
-	 * automatic upgrading system. Deleting & recreating the db is anyway
-	 * the best option to do.
-	 */
+		
 	if (version < atof (SYMBOL_DB_VERSION))
 	{
 		DEBUG_PRINT	 ("Upgrading from version %f to "SYMBOL_DB_VERSION, version);
