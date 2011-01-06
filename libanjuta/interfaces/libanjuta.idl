@@ -2591,72 +2591,72 @@ interface IAnjutaDocumentManager
 	}
 
 	/**
-	* ianjuta_document_manager_get_file:
-	* @obj: Self
-	* @filename: short filename
-	* @err: Error propagation and reporting.
-	* 
-	* Given the short filename, finds the file of the filename, if the
-	* editor that has it loaded is found. If there is no editor that has
-	* this file opened, returns NULL.
-	* 
-	* Return value: the GFile for the given short filename
-	*/
+	 * ianjuta_document_manager_get_file:
+	 * @obj: Self
+	 * @filename: short filename
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Given the short filename, finds the file of the filename, if the
+	 * editor that has it loaded is found. If there is no editor that has
+	 * this file opened, returns NULL.
+	 * 
+	 * Return value: (transfer full): the GFile for the given short filename
+	 */
 	GFile* get_file (const gchar *filename);
 	
 	/**
-	* ianjuta_document_manager_find_document_with_file:
-	* @obj: Self
-	* @file: The file to find.
-	* @err: Error propagation and reporting.
-	* 
-	* Finds the document that has the file  loaded. Only
-	* the editor that matches the file will be searched.
-	* 
-	* Return value: the document that corresponds to given file. NULL if
-	* there is no editor loaded with this file.
-	*/
+	 * ianjuta_document_manager_find_document_with_file:
+	 * @obj: Self
+	 * @file: The file to find.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Finds the document that has the file  loaded. Only
+	 * the editor that matches the file will be searched.
+	 * 
+	 * Return value: (transfer none): the document that corresponds to given file. NULL if
+	 * there is no editor loaded with this file.
+	 */
 	IAnjutaDocument* find_document_with_file (GFile* file);
 	
 	/**
-	* ianjuta_document_manager_goto_file_line:
-	* @obj: Self
-	* @file: file to go to.
-	* @lineno: the line number in the file to go to.
-	* @err: Error propagation and reporting.
-	* 
-	* Loads the given file if not loaded yet, set its editor as current editor
-	* and moves cursor to the given line in the editor.
-	* 
-	* Return value: the editor where the mark has been put. NULL if none.
-	*/
+	 * ianjuta_document_manager_goto_file_line:
+	 * @obj: Self
+	 * @file: file to go to.
+	 * @lineno: the line number in the file to go to.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Loads the given file if not loaded yet, set its editor as current editor
+	 * and moves cursor to the given line in the editor.
+	 * 
+	 * Return value: (transfer none): the editor where the mark has been put. NULL if none.
+	 */
 	IAnjutaEditor* goto_file_line (GFile* file, gint lineno);
 	
 	/** 
-	* ianjuta_document_manager_goto_file_line_mark:
-	* @obj: Self
-	* @file: file to go to.
-	* @lineno: the line number in the file to go to.
-	* @mark: TRUE if the line should be marked with a marker.
-	* @err: Error propagation and reporting
-	* 
-	* Loads the given file if not loaded yet, set its editor as current editor
-	* and moves cursor to the given line in the editor. Optionally also marks
-	* the line with line marker if @mark is given TRUE.
-	* 
-	* Return value: the editor where the mark has been put. NULL if none.
-	*/
+	 * ianjuta_document_manager_goto_file_line_mark:
+	 * @obj: Self
+	 * @file: file to go to.
+	 * @lineno: the line number in the file to go to.
+	 * @mark: TRUE if the line should be marked with a marker.
+	 * @err: Error propagation and reporting
+	 * 
+	 * Loads the given file if not loaded yet, set its editor as current editor
+	 * and moves cursor to the given line in the editor. Optionally also marks
+	 * the line with line marker if @mark is given TRUE.
+	 * 
+	 * Return value: (transfer none): the editor where the mark has been put. NULL if none.
+	 */
 	IAnjutaEditor* goto_file_line_mark (GFile* file, gint lineno, gboolean mark);
 	
 	/**
-	* ianjuta_document_manager_get_current_document:
-	* @obj: Self
-	* @err: Error propagation and reporting.
-	* 
-	* Gets the current document.
-	* 
-	* Return value: the currently active document. NULL if none is there.
-	*/
+	 * ianjuta_document_manager_get_current_document:
+	 * @obj: Self
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Gets the current document.
+	 * 
+	 * Return value: (transfer none): the currently active document. NULL if none is there.
+	 */
 	IAnjutaDocument* get_current_document ();
 	
 	/** 
@@ -2684,17 +2684,17 @@ interface IAnjutaDocumentManager
 	List<GtkWidget*> get_doc_widgets ();
 
 	/**
-	* ianjuta_document_manager_add_buffer:
-	* @obj: Self
-	* @name: Name of the editor buffer.
-	* @content: Initial content of the buffer.
-	* @err: Error propagation and reporting.
-	* 
-	* Creates a new editor buffer of the given name and sets the given
-	* content as its initial content.
-	* 
-	* Return value: the IAnjutaEditor instance that has been added.
-	*/
+	 * ianjuta_document_manager_add_buffer:
+	 * @obj: Self
+	 * @name: Name of the editor buffer.
+	 * @content: Initial content of the buffer.
+	 * @err: Error propagation and reporting.
+	 * 
+	 * Creates a new editor buffer of the given name and sets the given
+	 * content as its initial content.
+	 * 
+	 * Return value: (transfer full): the IAnjutaEditor instance that has been added.
+	 */
 	IAnjutaEditor* add_buffer (const gchar *name, const gchar* content);
 	
 	/**

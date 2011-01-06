@@ -1125,9 +1125,15 @@ namespace IAnjuta {
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface DocumentManager : GLib.Object {
 		public abstract void add_bookmark (GLib.File file, int line) throws GLib.Error;
+		public abstract IAnjuta.Editor add_buffer (string name, string content) throws GLib.Error;
 		public abstract void add_document (IAnjuta.Document document) throws GLib.Error;
 		public static GLib.Quark error_quark ();
+		public abstract unowned IAnjuta.Document find_document_with_file (GLib.File file) throws GLib.Error;
+		public abstract unowned IAnjuta.Document get_current_document () throws GLib.Error;
 		public abstract GLib.List<weak Gtk.Widget> get_doc_widgets () throws GLib.Error;
+		public abstract GLib.File get_file (string filename) throws GLib.Error;
+		public abstract unowned IAnjuta.Editor goto_file_line (GLib.File file, int lineno) throws GLib.Error;
+		public abstract unowned IAnjuta.Editor goto_file_line_mark (GLib.File file, int lineno, bool mark) throws GLib.Error;
 		public abstract bool remove_document (IAnjuta.Document document, bool save_before) throws GLib.Error;
 		public abstract void set_current_document (IAnjuta.Document document) throws GLib.Error;
 	}
