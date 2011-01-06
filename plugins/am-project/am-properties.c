@@ -142,7 +142,7 @@ static AmpProperty AmpGroupNodeProperties[] =
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Fortan compiler flags:"),
+		{N_("Fortran compiler flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Common additional Fortran compiler flags for all targets in this group.")},
@@ -269,7 +269,7 @@ static AmpProperty AmpTargetNodeProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Fortan compiler flags:"),	
+		{N_("Fortran compiler flags:"),	
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional Fortran compiler flags for this target.")},
@@ -421,7 +421,7 @@ static AmpProperty AmpProgramTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Fortan compiler flags:"),	
+		{N_("Fortran compiler flags:"),	
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional Fortran compiler flags for this target.")},
@@ -573,7 +573,7 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Fortan compiler flags:"),	
+		{N_("Fortran compiler flags:"),	
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional Fortran compiler flags for this target.")},
