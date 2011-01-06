@@ -1345,9 +1345,43 @@ static void
 cpp_java_assist_finalize (GObject *object)
 {
 	CppJavaAssist *assist = CPP_JAVA_ASSIST (object);
+	CppJavaAssistPriv* priv = assist->priv;
+	
 	cpp_java_assist_uninstall (assist);
 	cpp_java_assist_clear_completion_cache (assist);
 	cpp_java_assist_clear_calltip_context (assist);
+
+
+	if (priv->calltip_query_file)
+		g_object_unref (priv->calltip_query_file);
+	priv->calltip_query_file = NULL;
+		                
+	if (priv->calltip_query_system)
+		g_object_unref (priv->calltip_query_system);
+	priv->calltip_query_system = NULL;
+	
+	if (priv->calltip_query_project)
+		g_object_unref (priv->calltip_query_project);
+	priv->calltip_query_project = NULL;
+	
+	if (priv->ac_query_file)
+		g_object_unref (priv->ac_query_file);
+	priv->ac_query_file = NULL;
+	
+	if (priv->ac_query_system)
+		g_object_unref (priv->ac_query_system);
+	priv->ac_query_system = NULL;
+		                
+	if (priv->ac_query_project)
+		g_object_unref (priv->ac_query_project);
+	priv->ac_query_project = NULL;
+		                
+	if (priv->query_members)
+		g_object_unref (priv->query_members);
+	priv->query_members = NULL;
+
+	engine_parser_deinit ();
+	
 	g_free (assist->priv);
 	G_OBJECT_CLASS (cpp_java_assist_parent_class)->finalize (object);
 }

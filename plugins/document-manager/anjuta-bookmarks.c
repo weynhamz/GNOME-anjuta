@@ -54,8 +54,8 @@ struct _AnjutaBookmarksPrivate
 	GtkWidget* button_remove;
 	GtkWidget* grip;
 
+	IAnjutaSymbolQuery* query_scope;
 	GtkWidget* menu;
-	IAnjutaSymbolQuery *query_scope;
 	DocmanPlugin* docman;
 };
 
@@ -379,8 +379,7 @@ anjuta_bookmarks_finalize (GObject *object)
 {
 	AnjutaBookmarks* bookmarks = ANJUTA_BOOKMARKS (object);
 	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);
-
-	g_object_unref (priv->query_scope);
+	
 	gtk_widget_destroy (priv->menu);
 	
 	anjuta_shell_remove_widget (ANJUTA_PLUGIN(priv->docman)->shell,
@@ -409,18 +408,6 @@ anjuta_bookmarks_new (DocmanPlugin* docman)
 	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);
 	priv->docman = docman;
 
-	IAnjutaSymbolManager* sym_manager;
-	static IAnjutaSymbolField fields[] = {IANJUTA_SYMBOL_FIELD_NAME};
-	
-	sym_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN(priv->docman)->shell,
-											  IAnjutaSymbolManager, NULL);
-	priv->query_scope =
-		ianjuta_symbol_manager_create_query (sym_manager,
-											 IANJUTA_SYMBOL_QUERY_SEARCH_SCOPE,
-											  IANJUTA_SYMBOL_QUERY_DB_PROJECT,
-											  NULL);
-	ianjuta_symbol_query_set_fields (priv->query_scope, 1, fields, NULL);
-	
 	anjuta_shell_add_widget_custom (ANJUTA_PLUGIN(docman)->shell,
 	                                priv->window,
 	                                "bookmarks",
@@ -437,12 +424,33 @@ anjuta_bookmarks_new (DocmanPlugin* docman)
 	return bookmarks;
 }
 
+static IAnjutaSymbolQuery*
+anjuta_bookmarks_create_query (AnjutaBookmarks* bookmarks)
+{
+	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);
+	IAnjutaSymbolManager* sym_manager;
+	static IAnjutaSymbolField fields[] = {IANJUTA_SYMBOL_FIELD_NAME};
+	
+	sym_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN(priv->docman)->shell,
+											  IAnjutaSymbolManager, NULL);
+	
+	IAnjutaSymbolQuery * query_scope =
+		ianjuta_symbol_manager_create_query (sym_manager,
+											 IANJUTA_SYMBOL_QUERY_SEARCH_SCOPE,
+											  IANJUTA_SYMBOL_QUERY_DB_PROJECT,
+											  NULL);
+	ianjuta_symbol_query_set_fields (query_scope, 1, fields, NULL);
+	
+	return query_scope;
+}
+
 static gchar*
 anjuta_bookmarks_get_text_from_file (AnjutaBookmarks* bookmarks, GFile* file, gint line)
 {
-	gchar* text;
 	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);
-
+	gchar* text;
+	
+	
 	if (priv->query_scope != NULL)
 	{
 		gchar* path = g_file_get_path (file);
@@ -458,7 +466,7 @@ anjuta_bookmarks_get_text_from_file (AnjutaBookmarks* bookmarks, GFile* file, gi
 			                                         NULL);
 			text = g_strdup_printf ("%s:%d", symbol_name,
 			                        line);
-			g_object_unref (iter);
+			g_object_unref (iter);			
 			return text;
 		}
 	}
@@ -740,6 +748,9 @@ anjuta_bookmarks_session_save (AnjutaBookmarks* bookmarks, AnjutaSession* sessio
 	
 	/* Clear the model */
 	gtk_list_store_clear (GTK_LIST_STORE (priv->model));
+
+	if (priv->query_scope)
+		g_object_unref (priv->query_scope);
 }
 
 void 
@@ -822,6 +833,7 @@ read_bookmarks (AnjutaBookmarks* bookmarks, xmlNodePtr marks)
 void
 anjuta_bookmarks_session_load (AnjutaBookmarks* bookmarks, AnjutaSession* session)
 {
+	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);	
 	gchar* xml_string = anjuta_session_get_string (session,
 												   "Document Manager",
 												   "bookmarks");
@@ -845,6 +857,8 @@ anjuta_bookmarks_session_load (AnjutaBookmarks* bookmarks, AnjutaSession* sessio
 		read_bookmarks (bookmarks, cur->children);
 	
 	xmlFreeDoc (doc);
+
+	priv->query_scope = anjuta_bookmarks_create_query (bookmarks);
 }
 
 static gint

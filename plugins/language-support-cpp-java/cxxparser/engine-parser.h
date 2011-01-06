@@ -28,6 +28,8 @@ extern "C" {
 
 void engine_parser_init (IAnjutaSymbolManager * manager);
 
+void engine_parser_deinit ();
+	
 /**
  * The function parse the C++ statement, try to get the type of objects to be
  * completed and returns an iterator with those symbols.

@@ -44,6 +44,7 @@ public:
 
 	/* setter for the IAnjutaSymbolManager. */
 	void setSymbolManager (IAnjutaSymbolManager *manager);
+	void unsetSymbolManager ();
 
 	void getNearestClassInCurrentScopeChainByFileLine (const char* full_file_path,
 	                                                   unsigned long linenum,

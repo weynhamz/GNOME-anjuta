@@ -2328,6 +2328,13 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 		sdb_plugin->update_timer = NULL;
 	}
 
+	/* destroy search query */
+	if (sdb_plugin->search_query)
+	{
+		g_object_unref (sdb_plugin->search_query);
+	}
+	sdb_plugin->search_query = NULL;
+	
 	/* destroy objects */
 	if (sdb_plugin->sdbe_project) 
 	{

@@ -62,6 +62,7 @@ struct _SymbolDBQueryPriv {
 
 	SymbolDBEngine *dbe_system;
 	SymbolDBEngine *dbe_project;
+	/* a reference to dbe_system or dbe_project */
 	SymbolDBEngine *dbe_selected;
 	
 	/* Param holders */
@@ -764,7 +765,7 @@ sdb_query_dispose (GObject *object)
 		g_signal_handlers_disconnect_by_func (priv->dbe_selected,
 		                                      on_sdb_query_dbe_disconnected,
 		                                      object);
-		g_object_unref (priv->dbe_selected);
+		/* no need to unref dbe_selected */
 		priv->dbe_selected = NULL;
 	}
 	if (priv->dbe_system)
@@ -872,7 +873,9 @@ sdb_query_set_property (GObject *object, guint prop_id, const GValue *value, GPa
 				priv->dbe_selected = priv->dbe_system;
 				break;
 		}
-		g_object_ref (priv->dbe_selected);
+		g_object_ref (priv->dbe_project);
+		g_object_ref (priv->dbe_system);
+			
 		g_signal_connect (priv->dbe_selected, "scan-end",
 		                  G_CALLBACK (on_sdb_query_dbe_scan_end), query);
 		g_signal_connect (priv->dbe_selected, "db-connected",
