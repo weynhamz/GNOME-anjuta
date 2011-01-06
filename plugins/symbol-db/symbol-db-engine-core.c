@@ -2297,7 +2297,6 @@ sdb_engine_connect_to_db (SymbolDBEngine * dbe, const gchar *cnc_string)
 	}
 	
 	DEBUG_PRINT ("Connected to database %s", cnc_string);
-	g_signal_emit_by_name (dbe, "db-connected", NULL);
 	return TRUE;
 }
 
@@ -2619,6 +2618,11 @@ symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
 
 	g_free (cnc_string);
 	g_free (db_file);
+
+	/* we're now able to emit the db-connected signal: tables should be created
+	 * and libgda should be connected to an usable db.
+	 */
+	g_signal_emit_by_name (dbe, "db-connected", NULL);
 	
 	return ret_status;
 }
