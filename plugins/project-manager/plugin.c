@@ -428,7 +428,7 @@ on_properties (GtkAction *action, ProjectManagerPlugin *plugin)
 }
 
 static void
-on_add_group (GtkAction *action, ProjectManagerPlugin *plugin)
+on_new_group (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 	GFile *group;
 	GFile *default_group = NULL;
@@ -449,7 +449,7 @@ on_add_group (GtkAction *action, ProjectManagerPlugin *plugin)
 }
 
 static void
-on_add_package (GtkAction *action, ProjectManagerPlugin *plugin)
+on_new_package (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 	GtkTreeIter selected_module;
 	GList *new_module;
@@ -483,7 +483,7 @@ on_add_module (GtkAction *action, ProjectManagerPlugin *plugin)
 }
 
 static void
-on_add_target (GtkAction *action, ProjectManagerPlugin *plugin)
+on_new_target (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 	GFile *target;
 	GFile *default_group = NULL;
@@ -547,7 +547,7 @@ on_popup_properties (GtkAction *action, ProjectManagerPlugin *plugin)
 }
 
 static void
-on_popup_add_package (GtkAction *action, ProjectManagerPlugin *plugin)
+on_popup_new_package (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 	GtkTreeIter selected_module;
 	GList *packages;
@@ -578,7 +578,7 @@ on_popup_add_module (GtkAction *action, ProjectManagerPlugin *plugin)
 }
 
 static void
-on_popup_add_group (GtkAction *action, ProjectManagerPlugin *plugin)
+on_popup_new_group (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 	GtkTreeIter selected_group;
 	AnjutaProjectNode *new_group;
@@ -593,7 +593,7 @@ on_popup_add_group (GtkAction *action, ProjectManagerPlugin *plugin)
 }
 
 static void
-on_popup_add_target (GtkAction *action, ProjectManagerPlugin *plugin)
+on_popup_new_target (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 	GtkTreeIter selected_group;
 	AnjutaProjectNode *new_target;
@@ -885,29 +885,29 @@ static GtkActionEntry pm_actions[] =
 		N_("_Project"), NULL, NULL, NULL
 	},
 	{
-		"ActionProjectAddSubdirectory", GTK_STOCK_ADD,
-		N_("Add _Subdirectory…"), NULL, N_("Add a subdirectory to project"),
-		G_CALLBACK (on_add_group)
+		"ActionProjectNewDirectory", GTK_STOCK_ADD,
+		N_("New _Directory…"), NULL, N_("Add a new directory to the project"),
+		G_CALLBACK (on_new_group)
 	},
 	{
-		"ActionProjectAddTarget", GTK_STOCK_ADD,
-		N_("Add _Target…"), NULL, N_("Add a target to project"),
-		G_CALLBACK (on_add_target)
+		"ActionProjectNewTarget", GTK_STOCK_ADD,
+		N_("New _Target…"), NULL, N_("Add a new target to the project"),
+		G_CALLBACK (on_new_target)
 	},
 	{
 		"ActionProjectAddSource", GTK_STOCK_ADD,
-		N_("Add _Source File…"), NULL, N_("Add a source file to project"),
+		N_("Add _Source File…"), NULL, N_("Add a source file to a target"),
 		G_CALLBACK (on_add_source)
 	},
 	{
-		"ActionProjectAddModule", GTK_STOCK_ADD,
-		N_("Add _Module…"), NULL, N_("Add a module to a target"),
+		"ActionProjectAddLibrary", GTK_STOCK_ADD,
+		N_("Add _Library…"), NULL, N_("Add a module to a target"),
 		G_CALLBACK (on_add_module)
 	},
 	{
-		"ActionProjectAddPackage", GTK_STOCK_ADD,
-		N_("Add _Package…"), NULL, N_("Add a package to project"),
-		G_CALLBACK (on_add_package)
+		"ActionProjectNewLibrary", GTK_STOCK_ADD,
+		N_("New _Library…"), NULL, N_("Add a new package to the project"),
+		G_CALLBACK (on_new_package)
 	},
 	{
 		"ActionProjectProperties", GTK_STOCK_PROPERTIES,
@@ -924,33 +924,33 @@ static GtkActionEntry pm_actions[] =
 static GtkActionEntry popup_actions[] = 
 {
 	{
-		"ActionPopupProjectAddSubdirectory", GTK_STOCK_ADD,
-		N_("Add _Subdirectory"), NULL, N_("Add a subdirectory to project"),
-		G_CALLBACK (on_popup_add_group)
+		"ActionPopupProjectNewDirectory", GTK_STOCK_ADD,
+		N_("New _Directory"), NULL, N_("Add a new directory to the project"),
+		G_CALLBACK (on_popup_new_group)
 	},
 	{
-		"ActionPopupProjectAddTarget", GTK_STOCK_ADD,
-		N_("Add _Target"), NULL, N_("Add a target to project"),
-		G_CALLBACK (on_popup_add_target)
+		"ActionPopupProjectNewTarget", GTK_STOCK_ADD,
+		N_("New _Target"), NULL, N_("Add a new target to the project"),
+		G_CALLBACK (on_popup_new_target)
 	},
 	{
 		"ActionPopupProjectAddSource", GTK_STOCK_ADD,
-		N_("Add _Source File"), NULL, N_("Add a source file to project"),
+		N_("Add _Source File"), NULL, N_("Add a source file to a target"),
 		G_CALLBACK (on_popup_add_source)
 	},
 	{
-		"ActionPopupProjectAddModule", GTK_STOCK_ADD,
-		N_("Add _Module"), NULL, N_("Add a module to target"),
+		"ActionPopupProjectAddLibrary", GTK_STOCK_ADD,
+		N_("Add _Library"), NULL, N_("Add a library to a target"),
 		G_CALLBACK (on_popup_add_module)
 	},
 	{
-		"ActionPopupProjectAddPackage", GTK_STOCK_ADD,
-		N_("Add _Package"), NULL, N_("Add a package to project"),
-		G_CALLBACK (on_popup_add_package)
+		"ActionPopupProjectNewLibrary", GTK_STOCK_ADD,
+		N_("New _Library"), NULL, N_("Add a new library to the project"),
+		G_CALLBACK (on_popup_new_package)
 	},
 	{
 		"ActionPopupProjectAddToProject", GTK_STOCK_ADD,
-		N_("_Add to Project"), NULL, N_("Add a source file to project"),
+		N_("_Add to Project"), NULL, N_("Add a source file to a target"),
 		G_CALLBACK (on_popup_add_to_project)
 	},
 	{
@@ -1067,19 +1067,19 @@ on_treeview_selection_changed (GtkTreeSelection *sel,
 
 	/* Popup menu */
 	action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
-								   "ActionPopupProjectAddSubdirectory");
+								   "ActionPopupProjectNewDirectory");
 	g_object_set (G_OBJECT (action), "sensitive", INT_TO_GBOOLEAN (state & ANJUTA_PROJECT_CAN_ADD_GROUP), NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
-								   "ActionPopupProjectAddTarget");
+								   "ActionPopupProjectNewTarget");
 	g_object_set (G_OBJECT (action), "sensitive", INT_TO_GBOOLEAN (state & ANJUTA_PROJECT_CAN_ADD_TARGET), NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
 								   "ActionPopupProjectAddSource");
 	g_object_set (G_OBJECT (action), "sensitive", INT_TO_GBOOLEAN (state & ANJUTA_PROJECT_CAN_ADD_SOURCE), NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
-								   "ActionPopupProjectAddModule");
+								   "ActionPopupProjectAddLibrary");
 	g_object_set (G_OBJECT (action), "sensitive", INT_TO_GBOOLEAN (state & ANJUTA_PROJECT_CAN_ADD_MODULE), NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
-								   "ActionPopupProjectAddPackage");
+								   "ActionPopupProjectNewLibrary");
 	g_object_set (G_OBJECT (action), "sensitive", INT_TO_GBOOLEAN (state & ANJUTA_PROJECT_CAN_ADD_PACKAGE), NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
 								   "ActionPopupProjectRemove");

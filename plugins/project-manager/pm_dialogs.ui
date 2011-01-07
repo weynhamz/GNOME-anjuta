@@ -5,7 +5,7 @@
   <object class="GtkDialog" id="new_group_dialog">
     <property name="can_default">True</property>
     <property name="border_width">5</property>
-    <property name="title" translatable="yes">New Subdirectory</property>
+    <property name="title" translatable="yes">New Directory</property>
     <property name="modal">True</property>
     <property name="default_width">400</property>
     <property name="default_height">450</property>
@@ -27,7 +27,7 @@
                 <child>
                   <object class="GtkLabel" id="label1">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">_Group name:</property>
+                    <property name="label" translatable="yes">_Directory name:</property>
                     <property name="use_underline">True</property>
                     <property name="mnemonic_widget">group_name_entry</property>
                   </object>
@@ -62,7 +62,7 @@
                   <object class="GtkLabel" id="label2">
                     <property name="visible">True</property>
                     <property name="xalign">0</property>
-                    <property name="label" translatable="yes">Specify _where to create the group:</property>
+                    <property name="label" translatable="yes">Specify _where to create the directory:</property>
                     <property name="use_underline">True</property>
                   </object>
                   <packing>
@@ -513,7 +513,7 @@
   <object class="GtkDialog" id="add_module_dialog">
     <property name="can_default">True</property>
     <property name="border_width">5</property>
-    <property name="title" translatable="yes">Add Module</property>
+    <property name="title" translatable="yes">Add Library</property>
     <property name="modal">True</property>
     <property name="default_width">400</property>
     <property name="default_height">550</property>
@@ -540,7 +540,7 @@
                   <object class="GtkLabel" id="label6">
                     <property name="visible">True</property>
                     <property name="xalign">0</property>
-                    <property name="label" translatable="yes">Select the _target for the module:</property>
+                    <property name="label" translatable="yes">Select the _target for the library:</property>
                     <property name="use_underline">True</property>
                   </object>
                   <packing>
@@ -600,7 +600,7 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="new_package_button">
-                    <property name="label" translatable="yes">_Add package&#x2026;</property>
+                    <property name="label" translatable="yes">_New library&#x2026;</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -692,7 +692,7 @@
   <object class="GtkDialog" id="add_package_dialog">
     <property name="can_default">True</property>
     <property name="border_width">5</property>
-    <property name="title" translatable="yes">Add Package</property>
+    <property name="title" translatable="yes">New Library</property>
     <property name="modal">True</property>
     <property name="default_width">400</property>
     <property name="default_height">550</property>
@@ -710,38 +710,6 @@
             <property name="border_width">5</property>
             <property name="orientation">vertical</property>
             <property name="spacing">12</property>
-            <child>
-              <object class="GtkHBox" id="hbox2">
-                <property name="visible">True</property>
-                <property name="spacing">6</property>
-                <child>
-                  <object class="GtkLabel" id="label11">
-                    <property name="visible">True</property>
-                    <property name="label" translatable="yes">_Module name:</property>
-                    <property name="use_underline">True</property>
-                    <property name="mnemonic_widget">group_name_entry</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">False</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkComboBoxText" id="module_entry">
-                    <property name="visible">True</property>
-                    <property name="has-entry">True</property>
-                  </object>
-                  <packing>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
             <child>
               <object class="GtkVBox" id="vbox12">
                 <property name="visible">True</property>
@@ -780,6 +748,38 @@
                 </child>
               </object>
               <packing>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkHBox" id="hbox2">
+                <property name="visible">True</property>
+                <property name="spacing">6</property>
+                <child>
+                  <object class="GtkLabel" id="label11">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">_Module name:</property>
+                    <property name="use_underline">True</property>
+                    <property name="mnemonic_widget">group_name_entry</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkComboBoxText" id="module_entry">
+                    <property name="visible">True</property>
+                    <property name="has-entry">True</property>
+                  </object>
+                  <packing>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
                 <property name="position">1</property>
               </packing>
             </child>

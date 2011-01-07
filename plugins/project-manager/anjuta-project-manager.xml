@@ -10,11 +10,11 @@
 	<placeholder name="PlaceHolderProjectMenus">
 		<menu name="MenuProject" action="ActionMenuProject">
 				<menuitem name="AddSource" action="ActionProjectAddSource" />
-				<menuitem name="AddTarget" action="ActionProjectAddTarget" />
-				<menuitem name="AddSubdirectory" action="ActionProjectAddSubdirectory" />
+				<menuitem name="AddLibrary" action="ActionProjectAddLibrary" />
 				<separator name="separator2"/>
-				<menuitem name="AddPackage" action="ActionProjectAddPackage" />
-				<menuitem name="AddModule" action="ActionProjectAddModule" />
+				<menuitem name="NewTarget" action="ActionProjectNewTarget" />
+				<menuitem name="NewDirectory" action="ActionProjectNewDirectory" />
+				<menuitem name="NewLibrary" action="ActionProjectNewLibrary" />
 				<separator name="separator1"/>
 				<menuitem name="Properties" action="ActionProjectProperties"/>
 		</menu>
@@ -25,11 +25,11 @@
 		<placeholder name="PlaceholderPopupProjectBuild"/>
 		<separator name="separator0"/>
 		<menuitem name="AddSource" action="ActionPopupProjectAddSource"/>
-		<menuitem name="AddTarget" action="ActionPopupProjectAddTarget"/>
-		<menuitem name="AddSubdirectory" action="ActionPopupProjectAddSubdirectory"/>
+		<menuitem name="AddLibrary" action="ActionPopupProjectAddLibrary"/>
 		<separator name="separator1"/>
-		<menuitem name="AddPackage" action="ActionPopupProjectAddPackage"/>
-		<menuitem name="AddModule" action="ActionPopupProjectAddModule"/>
+		<menuitem name="NewTarget" action="ActionPopupProjectNewTarget"/>
+		<menuitem name="NewDirectory" action="ActionPopupProjectNewDirectory"/>
+		<menuitem name="NewLibrary" action="ActionPopupProjectNewLibrary"/>
 		<separator name="separator2"/>
 		<menuitem name="Remove" action="ActionPopupProjectRemove"/>
 		<separator name="separator3"/>
