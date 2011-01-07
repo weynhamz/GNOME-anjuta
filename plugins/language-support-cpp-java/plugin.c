@@ -47,6 +47,7 @@
 #define ANJUTA_STOCK_SWAP                 "anjuta-swap"
 #define ANJUTA_STOCK_COMPLETE         	  "anjuta-complete"
 #define ANJUTA_STOCK_AUTOINDENT           "anjuta-indent"
+#define ANJUTA_STOCK_COMMENT              "anjuta-comment"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-language-support-cpp-java.xml"
 #define PREFS_BUILDER PACKAGE_DATA_DIR"/glade/anjuta-language-cpp-java.ui"
@@ -1433,6 +1434,137 @@ get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 	return line_indent;
 }
 
+static gboolean
+is_commented_multiline (IAnjutaEditor *editor,
+						IAnjutaIterable *start,
+						IAnjutaIterable *end)
+{
+	gchar *text;
+	gboolean is_commented = TRUE;
+
+	text = ianjuta_editor_get_text (editor, start, end, NULL);
+	while (is_commented && !g_str_has_prefix (text, "/*"))
+	{
+		if (!ianjuta_iterable_previous (start, NULL))
+			is_commented = FALSE;
+		g_free (text);
+		text = ianjuta_editor_get_text (editor, start, end, NULL);
+		if (g_str_has_prefix (text, "*/"))
+			is_commented = FALSE;
+	}
+	while (is_commented && !g_str_has_suffix (text, "*/"))
+	{
+		if (!ianjuta_iterable_next (end, NULL))
+			is_commented = FALSE;
+		g_free (text);
+		text = ianjuta_editor_get_text (editor, start, end, NULL);
+		if (g_str_has_suffix (text, "/*"))
+			is_commented = FALSE;
+	}
+
+	g_free (text);
+	return is_commented;
+}
+
+static void
+toggle_comment_multiline (IAnjutaEditor *editor,
+					      IAnjutaIterable *start,
+					      IAnjutaIterable *end)
+{
+	IAnjutaIterable *start_copy, *end_copy;
+	gchar *text;
+	gboolean is_commented;
+
+	start_copy = ianjuta_iterable_clone (start, NULL);
+	end_copy = ianjuta_iterable_clone (end, NULL);
+	is_commented = is_commented_multiline (editor, start_copy, end_copy);
+	text = ianjuta_editor_get_text (editor, start_copy, end_copy, NULL);	
+
+	if (is_commented)
+	{
+		ianjuta_editor_erase (editor, start_copy, end_copy, NULL);
+		ianjuta_editor_insert (editor, start_copy, text + 2,
+							   (strlen (text) - 4), NULL);
+	}
+	else
+	{
+		ianjuta_editor_insert (editor, end, "*/", -1, NULL);
+		ianjuta_editor_insert (editor, start, "/*", -1, NULL);
+	}
+
+	g_object_unref (start_copy);
+	g_object_unref (end_copy);
+	g_free (text);
+}
+
+static void
+toggle_comment_singleline (CppJavaPlugin *plugin, IAnjutaEditor *editor,
+						   gint line)
+{
+	IAnjutaIterable *begin, *end, *begin_copy, *end_copy;
+	gchar *text, *text_stripped, **text_diff = NULL;
+
+	begin = ianjuta_editor_get_line_begin_position (editor, line, NULL);
+	end = ianjuta_editor_get_line_end_position (editor, line, NULL);
+	begin_copy = ianjuta_iterable_clone (begin, NULL);
+	end_copy = ianjuta_iterable_clone (end, NULL);
+
+	if (is_commented_multiline (editor, begin_copy, end_copy))
+	{
+		toggle_comment_multiline (editor, begin_copy, end_copy);
+		g_object_unref (begin);
+		g_object_unref (end);
+		g_object_unref (begin_copy);
+		g_object_unref (end_copy);
+		return;
+	}
+	g_object_unref (begin_copy);
+	g_object_unref (end_copy);
+
+	text = ianjuta_editor_get_text (editor, begin, end, NULL);
+	text_stripped = g_strstrip (g_strdup (text));
+	text_diff = g_strsplit (text, text_stripped, 2);
+
+	if (plugin->current_language &&
+		(g_str_equal (plugin->current_language, "C")))
+	{
+		if (g_str_has_prefix (text_stripped, "/*") &&
+			g_str_has_suffix (text_stripped, "*/"))
+		{
+			ianjuta_editor_erase (editor, begin, end, NULL);
+			ianjuta_editor_insert (editor, begin, text_stripped + 2,
+								   (strlen (text_stripped) - 4), NULL);
+			if (text_diff != NULL)
+				ianjuta_editor_insert (editor, begin, *text_diff, -1, NULL);
+		}
+		else
+		{
+			ianjuta_editor_insert (editor, end, "*/", -1, NULL);
+			ianjuta_editor_insert (editor, begin, "/*", -1, NULL);
+		}
+	}
+	else
+	{
+		if (g_str_has_prefix (text_stripped, "//"))
+		{
+			ianjuta_editor_erase (editor, begin, end, NULL);
+			ianjuta_editor_insert (editor, begin, text_stripped + 2, -1, NULL);
+			if (text_diff != NULL)
+				ianjuta_editor_insert (editor, begin, *text_diff, -1, NULL);
+		}
+		else
+		{
+			ianjuta_editor_insert (editor, begin, "//", -1, NULL);
+		}
+	}
+
+	g_object_unref (begin);
+	g_object_unref (end);
+	g_free (text);
+	g_free (text_stripped);
+	g_strfreev (text_diff);
+}
+
 static void on_editor_char_inserted_cpp (IAnjutaEditor *editor,
                                          IAnjutaIterable *insert_pos,
                                          gchar ch,
@@ -1913,6 +2045,40 @@ on_auto_indent (GtkAction *action, gpointer data)
 	ianjuta_document_end_undo_action (IANJUTA_DOCUMENT(editor), NULL);
 }
 
+static void
+on_toggle_comment (GtkAction *action, gpointer data)
+{
+	gint line;
+	gboolean has_selection;
+	
+	CppJavaPlugin *lang_plugin;
+	IAnjutaEditor *editor;
+	lang_plugin = ANJUTA_PLUGIN_CPP_JAVA (data);
+	editor = IANJUTA_EDITOR (lang_plugin->current_editor);
+	
+	ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT(editor), NULL);
+	
+	has_selection = ianjuta_editor_selection_has_selection
+						(IANJUTA_EDITOR_SELECTION (editor), NULL);
+	if (has_selection)
+	{
+		IAnjutaIterable *sel_start, *sel_end;
+		sel_start = ianjuta_editor_selection_get_start (IANJUTA_EDITOR_SELECTION (editor),
+														NULL);
+		sel_end = ianjuta_editor_selection_get_end (IANJUTA_EDITOR_SELECTION (editor),
+													NULL);
+		toggle_comment_multiline (editor, sel_start, sel_end);
+		g_object_unref (sel_start);
+		g_object_unref (sel_end);
+	}
+	else
+	{
+		line = ianjuta_editor_get_lineno (IANJUTA_EDITOR(editor), NULL);
+		toggle_comment_singleline (lang_plugin, editor, line);
+	}
+	ianjuta_document_end_undo_action (IANJUTA_DOCUMENT(editor), NULL);
+}
+
 static GtkActionEntry actions[] = {
 	{
 		"ActionMenuEdit",
@@ -1925,6 +2091,13 @@ static GtkActionEntry actions[] = {
 		N_("Auto-Indent"), "<control>i",
 		N_("Auto-indent current line or selection based on indentation settings"),
 		G_CALLBACK (on_auto_indent)
+	},
+	{
+		"ActionEditToggleComment",
+		ANJUTA_STOCK_COMMENT,
+		N_("Comment/Uncomment"), "<control>m",
+		N_("Comment or uncomment current selection"),
+		G_CALLBACK (on_toggle_comment)
 	},
 	{   "ActionFileSwap", 
 		ANJUTA_STOCK_SWAP, 
