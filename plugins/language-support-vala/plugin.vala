@@ -22,6 +22,7 @@ public class ValaPlugin : Plugin {
 	internal weak IAnjuta.Editor current_editor;
 	internal GLib.Settings settings = new GLib.Settings ("org.gnome.anjuta.cpp");
 	uint editor_watch_id;
+	ulong project_loaded_id;
 
 	Vala.CodeContext context;
 	Cancellable cancel;
@@ -33,92 +34,29 @@ public class ValaPlugin : Plugin {
 	Vala.Parser parser;
 	Vala.Genie.Parser genie_parser;
 
+	Vala.Set<string> current_sources = new Vala.HashSet<string> (str_hash, str_equal);
 	ValaPlugin () {
 		Object ();
 	}
 	public override bool activate () {
-		//debug("Activating ValaPlugin");
-		context = new Vala.CodeContext();
+		debug("Activating ValaPlugin");
 		report = new AnjutaReport();
 		report.docman = (IAnjuta.DocumentManager) shell.get_object("IAnjutaDocumentManager");
-		context.report = report;
-		context.profile = Vala.Profile.GOBJECT;
-
-		cancel = new Cancellable ();
 		parser = new Vala.Parser ();
 		genie_parser = new Vala.Genie.Parser ();
 
-		/* This doesn't actually parse anything as there are no files yet,
-		   it's just to set the context in the parsers */
-		parser.parse (context);
-		genie_parser.parse (context);
-
-		var project = (IAnjuta.ProjectManager) shell.get_object("IAnjutaProjectManager");
-		var packages = project.get_packages();
-
-		Vala.CodeContext.push (context);
-		context.add_external_package("glib-2.0");
-		context.add_external_package("gobject-2.0");
-
-		foreach (var pkg in packages) {
-			if (!context.add_external_package(pkg))
-				/* TODO: try to look at VALAFLAGS */
-				debug ("package %s not found", pkg);
-		}
-
-		Vala.CodeContext.pop ();
-
-		var sources = project.get_elements(Anjuta.ProjectNodeType.SOURCE);
-		foreach (var src in sources) {
-			var path = src.get_path();
-			if (path == null)
-				continue;
-			if (path.has_suffix (".vala") || path.has_suffix (".vapi") || path.has_suffix (".gs"))
-				context.add_source_filename (src.get_path ());
-		}
-		ThreadFunc<void*> parse = () => {
-			lock (context) {
-				Vala.CodeContext.push(context);
-				var report = context.report as AnjutaReport;
-
-				foreach (var src in context.get_source_files ()) {
-					parser.visit_source_file (src);
-					genie_parser.visit_source_file (src);
-
-					if (cancel.is_cancelled ()) {
-						Vala.CodeContext.pop();
-						return null;
-					}
-				}
-
-				if (report.errors_found () || cancel.is_cancelled ()) {
-					Vala.CodeContext.pop();
-					return null;
-				}
-
-				context.check ();
-
-				Vala.CodeContext.pop();
-			}
-		};
-
-		try {
-			Thread.create<void*>(parse, false);
-			debug("Using threads");
-		} catch (ThreadError err) {
-			parse();
-		}
+		init_context ();
 
 		provider = new ValaProvider(this);
 		editor_watch_id = add_watch("document_manager_current_document",
-									(PluginValueAdded) editor_value_added,
-									(PluginValueRemoved) editor_value_removed);
+		                            editor_value_added,
+		                            editor_value_removed);
 
 		return true;
 	}
 
 	public override bool deactivate () {
-		//debug("Deactivating ValaPlugin");
+		debug("Deactivating ValaPlugin");
 		remove_watch(editor_watch_id, true);
 
 		cancel.cancel ();
@@ -129,13 +67,141 @@ public class ValaPlugin : Plugin {
 		return true;
 	}
 
+	void init_context () {
+		context = new Vala.CodeContext();
+		context.profile = Vala.Profile.GOBJECT;
+		context.report = report;
+		report.clear_error_indicators ();
+
+		cancel = new Cancellable ();
+
+		/* This doesn't actually parse anything as there are no files yet,
+		   it's just to set the context in the parsers */
+		parser.parse (context);
+		genie_parser.parse (context);
+
+		current_sources = new Vala.HashSet<string> (str_hash, str_equal);
+
+	}
+
+	void parse () {
+		try {
+			Thread.create<void>(() => {
+				lock (context) {
+					Vala.CodeContext.push(context);
+					var report = context.report as AnjutaReport;
+
+					foreach (var src in context.get_source_files ()) {
+						if (src.get_nodes ().size == 0) {
+							debug ("parsing file %s", src.filename);
+							genie_parser.visit_source_file (src);
+							parser.visit_source_file (src);
+						}
+
+						if (cancel.is_cancelled ()) {
+							Vala.CodeContext.pop();
+							return;
+						}
+					}
+
+					if (report.errors_found () || cancel.is_cancelled ()) {
+						Vala.CodeContext.pop();
+						return;
+					}
+
+					context.check ();
+					Vala.CodeContext.pop();
+				}
+			}, false);
+		} catch (ThreadError err) {
+			warning ("cannot create thread : %s", err.message);
+		}
+	}
+
+	void add_project_files () {
+		var project = (IAnjuta.ProjectManager) shell.get_object("IAnjutaProjectManager");
+		Vala.CodeContext.push (context);
+
+		var sources = project.get_elements(Anjuta.ProjectNodeType.SOURCE);
+		foreach (var src in sources) {
+			var path = src.get_path();
+			if (path == null)
+				continue;
+			if (path.has_suffix (".vala") || path.has_suffix (".vapi") || path.has_suffix (".gs")) {
+				if (path in current_sources) {
+					debug ("file %s already added", path);
+				} else {
+					context.add_source_filename (path);
+					current_sources.add (path);
+					debug ("file %s added", path);
+				}
+			} else {
+				debug ("file %s skipped", path);
+			}
+		}
+		if (!context.has_package ("gobject-2.0")) {
+			context.add_external_package("glib-2.0");
+			context.add_external_package("gobject-2.0");
+			debug ("standard packages added");
+		} else {
+			debug ("standard packages already added");
+		}
+
+		var packages = project.get_packages();
+		foreach (var pkg in packages) {
+			if (context.has_package (pkg)) {
+				debug ("package %s skipped", pkg);
+			} else if (context.add_external_package(pkg)) {
+				debug ("package %s added", pkg);
+			} else {
+				/* TODO: try to look at VALAFLAGS */
+				debug ("package %s not found", pkg);
+			}
+		}
+		Vala.CodeContext.pop();
+	}
+
+	public void on_project_loaded (IAnjuta.ProjectManager pm, Error? e) {
+		if (context == null)
+			return;
+		add_project_files ();
+		parse ();
+		pm.disconnect (project_loaded_id);
+		project_loaded_id = 0;
+	}
+
 	/* "document_manager_current_document" watch */
-	public void editor_value_added(string name, Value value) {
-		//debug("editor value added");
+	public void editor_value_added (Anjuta.Plugin plugin, string name, Value value) {
+		debug("editor value added");
 		assert (current_editor == null);
 		assert (value.get_object() is IAnjuta.Editor);
 
 		current_editor = value.get_object() as IAnjuta.Editor;
+		var current_file = value.get_object() as IAnjuta.File;
+
+		var pm = (IAnjuta.ProjectManager) shell.get_object("IAnjutaProjectManager");
+		var project = pm.get_current_project ();
+
+		if (!project.is_loaded()) {
+			if (project_loaded_id == 0)
+				project_loaded_id = pm.project_loaded.connect (on_project_loaded);
+		} else {
+			var cur_gfile = current_file.get_file ();
+			if (cur_gfile == null) {
+				// File hasn't been saved yet
+				return;
+			}
+
+			if (!(cur_gfile.get_path () in current_sources)) {
+				cancel.cancel ();
+				lock (context) {
+					init_context ();
+					add_project_files ();
+				}
+
+				parse ();
+			}
+		}
 		if (current_editor != null) {
 			if (current_editor is IAnjuta.EditorAssist)
 				(current_editor as IAnjuta.EditorAssist).add(provider);
@@ -148,8 +214,8 @@ public class ValaPlugin : Plugin {
 		}
 		report.update_errors (current_editor);
 	}
-	public void editor_value_removed(string name) {
-		//debug("editor value removed");
+	public void editor_value_removed (Anjuta.Plugin plugin, string name) {
+		debug("editor value removed");
 		if (current_editor is IAnjuta.EditorAssist)
 			(current_editor as IAnjuta.EditorAssist).remove(provider);
 		if (current_editor is IAnjuta.EditorTip)
@@ -315,20 +381,10 @@ public class ValaPlugin : Plugin {
 			file.current_using_directives = new Vala.ArrayList<Vala.UsingDirective>();
 			var ns_ref = new Vala.UsingDirective (new Vala.UnresolvedSymbol (null, "GLib"));
 			file.add_using_directive (ns_ref);
-			context.root.add_using_directive (ns_ref);
 
 			report.clear_error_indicators ();
 
-			Vala.CodeContext.push (context);
-
-			/* visit_source_file checks for the file extension */
-			parser.visit_source_file (file);
-			genie_parser.visit_source_file (file);
-
-			if (!report.errors_found ())
-				context.check ();
-
-			Vala.CodeContext.pop ();
+			parse ();
 
 			report.update_errors(current_editor);
 		}

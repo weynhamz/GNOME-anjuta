@@ -57,7 +57,7 @@ public class AnjutaReport : Vala.Report {
 	}
 	public void clear_error_indicators () {
 		errors = new Vala.ArrayList<Error?>();
-		foreach (var doc in (List<Gtk.Widget>)docman.get_doc_widgets ()) {
+		foreach (var doc in docman.get_doc_widgets ()) {
 			if (doc is IAnjuta.Indicable)
 				((IAnjuta.Indicable)doc).clear ();
 			if (doc is IAnjuta.Markable)
