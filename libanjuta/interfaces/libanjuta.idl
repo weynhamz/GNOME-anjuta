@@ -2514,52 +2514,51 @@ interface IAnjutaEditorFactory
  */
 interface IAnjutaProvider
 {
-  #include "ianjuta-iterable.h"
-  
- /**
-	* ianjuta_provider_populate
-	* @obj: Self
-	* @iter: the text iter where the provider should be populated
-	* @err: Error propagation and reporting.
-	* 
- 	* Show completion for the context at position @iter. The provider should
- 	* call ianjuta_editor_assist_proposals here to add proposals to the list.
- 	*
- 	* Note that this is called after every character typed and the list of proposals
- 	* has to be completely renewed.
-	*/
-  void populate(IAnjutaIterable* iter);
-  
- /**
-	* ianjuta_provider_get_start_iter
-	* @obj: Self
-	* @err: Error propagation and reporting.
-	* 
- 	* Get the iter where the current completion started
- 	*
- 	* Returns: current start iter
-	*/
-  IAnjutaIterable* get_start_iter();
- 
- /**
-	* ianjuta_provider_activate
-	* @obj: Self
-	* @iter: position where the completion occurs
-	* @data: data assigned to the proposal
-	* @err: Error propagation and reporting.
-	* 
- 	* Show completion for the context at position @iter
-	*/
-  void activate(IAnjutaIterable* iter, gpointer data);
+	#include "ianjuta-iterable.h"
 
 	/**
-	 * ianjuta_provider_get_name
+	 * ianjuta_provider_populate:
+	 * @obj: Self
+	 * @iter: the text iter where the provider should be populated
+	 * @err: Error propagation and reporting.
+	 *
+	 * Show completion for the context at position @iter. The provider should
+	 * call ianjuta_editor_assist_proposals here to add proposals to the list.
+	 *
+	 * Note that this is called after every character typed and the list of proposals
+	 * has to be completely renewed.
+	 */
+	void populate(IAnjutaIterable* iter);
+
+	/**
+	 * ianjuta_provider_get_start_iter:
+	 * @obj: Self
+	 * @err: Error propagation and reporting.
+	 *
+	 * Get the iter where the current completion started
+	 *
+	 * Returns: (transfer none): current start iter
+	 */
+	IAnjutaIterable* get_start_iter();
+
+	/**
+	 * ianjuta_provider_activate:
+	 * @obj: Self
+	 * @iter: position where the completion occurs
+	 * @data: data assigned to the proposal
+	 * @err: Error propagation and reporting.
+	 *
+	 * Show completion for the context at position @iter
+	 */
+	void activate(IAnjutaIterable* iter, gpointer data);
+
+	/**
+	 * ianjuta_provider_get_name:
 	 * @obj: Self
 	 *
 	 * Return a (translatable) name for the provider
 	 */
 	const gchar* get_name();
- 
 
 }
 

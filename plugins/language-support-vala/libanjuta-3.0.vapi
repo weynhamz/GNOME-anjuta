@@ -1469,6 +1469,7 @@ namespace IAnjuta {
 		public abstract void activate (IAnjuta.Iterable iter, void* data) throws GLib.Error;
 		public static GLib.Quark error_quark ();
 		public abstract unowned string get_name () throws GLib.Error;
+		public abstract unowned IAnjuta.Iterable get_start_iter () throws GLib.Error;
 		public abstract void populate (IAnjuta.Iterable iter) throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
