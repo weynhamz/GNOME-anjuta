@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anjuta trunk\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&component=core application\n"
 "POT-Creation-Date: 2010-09-22 11:58+0000\n"
-"PO-Revision-Date: 2010-09-22 18:19+0300\n"
+"PO-Revision-Date: 2011-01-08 17:54+0300\n"
 "Last-Translator: Yuri Myasoedov <omerta13@yandex.ru>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -8572,7 +8572,7 @@ msgstr "Не удалось построить интерфейс пользов
 #: ../plugins/snippets-manager/plugin.c:302
 #: ../plugins/snippets-manager/snippets-browser.c:208
 msgid "Snippets"
-msgstr "Сниппеты"
+msgstr "Фрагменты кода"
 
 #. Translator: Appears in Edit->Snippets menu. It is used mainly for providing a
 #. shortcut for the trigger-key based insertion of snippets. It's called like this
@@ -8584,7 +8584,7 @@ msgstr "Вставка _триггера"
 
 #: ../plugins/snippets-manager/plugin.c:73
 msgid "Insert a snippet using the trigger-key"
-msgstr "Вставлять сниппет с помощью ключа триггера"
+msgstr "Вставлять фрагмент кода с помощью ключа триггера"
 
 #. Translator: In a similar matter, it also appears in Edit->Snippets. It's another method
 #. for inserting snippets. In this case, you call Auto complete insert, start
@@ -8600,28 +8600,28 @@ msgstr "Вставка _автодополнения"
 #: ../plugins/snippets-manager/plugin.c:86
 #| msgid "Insert handler stub, autoposition"
 msgid "Insert a snippet using auto-completion"
-msgstr "Вставлять сниппет с использованием автодополнения"
+msgstr "Вставлять фрагмент кода с использованием автодополнения"
 
 #: ../plugins/snippets-manager/plugin.c:91
 msgid "_Import snippets …"
-msgstr "_Импортировать сниппеты…"
+msgstr "_Импортировать фрагменты кода…"
 
 #: ../plugins/snippets-manager/plugin.c:93
 msgid "Import snippets to the database"
-msgstr "Импортировать сниппеты в базу данных"
+msgstr "Импортировать фрагменты кода в базу данных"
 
 #: ../plugins/snippets-manager/plugin.c:98
 msgid "_Export snippets …"
-msgstr "_Экспортировать сниппеты…"
+msgstr "_Экспортировать фрагменты кода…"
 
 #: ../plugins/snippets-manager/plugin.c:100
 msgid "Export snippets from the database"
-msgstr "Экспортировать сниппеты из базы данных"
+msgstr "Экспортировать фрагменты кода из базы данных"
 
 #: ../plugins/snippets-manager/plugin.c:327
 #| msgid "Project manager actions"
 msgid "Snippets Manager actions"
-msgstr "Действия диспетчера сниппетов"
+msgstr "Действия диспетчера фрагментов кода"
 
 #: ../plugins/snippets-manager/plugin.c:767
 #| msgid "Command"
@@ -8644,7 +8644,7 @@ msgstr "Мгновенное значение"
 #: ../plugins/snippets-manager/snippets-provider.c:753
 #: ../plugins/snippets-manager/anjuta-snippets-manager.plugin.in.h:2
 msgid "Code Snippets"
-msgstr "Сниппеты кода"
+msgstr "Фрагменты кода"
 
 #: ../plugins/snippets-manager/snippets-browser.c:549
 msgid "Trigger"
@@ -8659,13 +8659,13 @@ msgstr "Языки"
 #: ../plugins/snippets-manager/snippets-browser.c:808
 #| msgid "Add _Target…"
 msgid "Add Snippet …"
-msgstr "Добавить сниппет…"
+msgstr "Добавить фрагмент кода…"
 
 #. Insert the Add Snippets Group menu item
 #: ../plugins/snippets-manager/snippets-browser.c:818
 #| msgid "Add _Group…"
 msgid "Add Snippets Group …"
-msgstr "Добавить группу сниппетов…"
+msgstr "Добавить группу фрагментов кода…"
 
 #: ../plugins/snippets-manager/snippets-editor.c:39
 #| msgid "Default"
@@ -8674,7 +8674,7 @@ msgstr "Значение по умолчанию"
 
 #: ../plugins/snippets-manager/snippets-editor.c:48
 msgid "<b>Error:</b> You must choose at least one language for the snippet!"
-msgstr "<b>Ошибка:</b> выберите хотя бы один язык для сниппета!"
+msgstr "<b>Ошибка:</b> выберите хотя бы один язык для фрагмента кода!"
 
 #: ../plugins/snippets-manager/snippets-editor.c:49
 msgid "<b>Error:</b> The trigger key is already in use for one of the languages!"
@@ -8688,15 +8688,15 @@ msgstr "<b>Ошибка:</b> ключ триггера может содержа
 
 #: ../plugins/snippets-manager/snippets-editor.c:51
 msgid "<b>Error:</b> You haven't entered a trigger key for the snippet!"
-msgstr "<b>Ошибка:</b> не указан ключ триггера для сниппета!"
+msgstr "<b>Ошибка:</b> не указан ключ триггера для фрагмента кода!"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:1
 msgid "<b>Error:</b> The snippet must belong to a group!"
-msgstr "<b>Ошибка:</b> сниппет должен входить в группу!"
+msgstr "<b>Ошибка:</b> фрагмент кода должен входить в группу!"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:2
 msgid "<b>Warning:</b> You should choose a name for the snippet!"
-msgstr "<b>Внимание:</b> необходимо выбрать название для сниппета!"
+msgstr "<b>Внимание:</b> необходимо выбрать название для фрагмента кода!"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:3
 #| msgid "_Add"
@@ -8714,7 +8714,7 @@ msgstr "Вставить"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:6
 msgid "Keywords are used for better searching of the snippets. They should be relevant to the snippet content. Type them separated by a single space."
-msgstr "Ключевые слова используются для улучшенного поиска сниппетов. Они должны иметь отношение к содержимому сниппетов. Введите их, разделив одним пробелом."
+msgstr "Ключевые слова используются для улучшенного поиска фрагментов кода. Они должны иметь отношение к содержимому фрагментов кода. Введите их, разделив одним пробелом."
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:7
 msgid "Keywords:"
@@ -8732,50 +8732,50 @@ msgstr "Предварительный просмотр"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:12
 msgid "Select the Snippets Group to which this snippet belongs."
-msgstr "Выберите группу сниппетов, к которой принадлежит этот сниппет."
+msgstr "Выберите группу фрагментов кода, к которой принадлежит этот фрагмент кода."
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:13
 msgid "Select the languages for which you want to use this snippet."
-msgstr "Выберите языки, для которых вы хотите использовать этот сниппет."
+msgstr "Выберите языки, для которых вы хотите использовать этот фрагмент кода."
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:14
 msgid ""
 "Select the name of the Snippet. \n"
 "The role of the name is purely informative."
 msgstr ""
-"Выберите название сниппета. \n"
+"Выберите название фрагмента кода. \n"
 "Название играет чисто информативную роль."
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:16
 #| msgid "Contents"
 msgid "Snippet Content"
-msgstr "Содержание сниппета"
+msgstr "Содержание фрагмента кода"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:17
 #| msgid "New Name:"
 msgid "Snippet Name:"
-msgstr "Название сниппета:"
+msgstr "Название фрагмента кода:"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:18
 #| msgid "Properties"
 msgid "Snippet Properties"
-msgstr "Свойства сниппета"
+msgstr "Свойства фрагмента кода"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:19
 #| msgid "Environment Variables:"
 msgid "Snippet Variables"
-msgstr "Переменные сниппета"
+msgstr "Переменные фрагмента кода"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:20
 msgid "Snippets Group:"
-msgstr "Группа сниппетов:"
+msgstr "Группа фрагментов кода:"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:21
 msgid ""
 "The trigger key is used for fast insertion of the snippet. Type the trigger key in the editor, followed by the \"Fast Insert\" shortcut to insert a snippet.\n"
 "<b>Warning: Must be unique per language. </b>"
 msgstr ""
-"Ключ триггера используется для быстрой вставки сниппета. Чтобы вставить сниппет, используйте сочетание клавиш «Быстрая вставка», введите ключ триггера в редакторе.\n"
+"Ключ триггера используется для быстрой вставки фрагмента кода. Чтобы вставить фрагмент кода, используйте сочетание клавиш «Быстрая вставка», введите ключ триггера в редакторе.\n"
 "<b>Внимание: должно быть уникальным для каждого языка. </b>"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:23
@@ -8790,11 +8790,11 @@ msgstr "Переменные Anjuta"
 #: ../plugins/snippets-manager/snippets-import-export.c:145
 #| msgid "Import options"
 msgid "Import Snippets"
-msgstr "Импортировать сниппеты"
+msgstr "Импортировать фрагменты кода"
 
 #: ../plugins/snippets-manager/snippets-import-export.c:190
 msgid "Export Snippets"
-msgstr "Экспортировать сниппеты"
+msgstr "Экспортировать фрагменты кода"
 
 #: ../plugins/sourceview/sourceview.c:478
 #, c-format
@@ -10583,7 +10583,7 @@ msgstr "Модуль базы символьных данных для Anjuta."
 
 #: ../plugins/snippets-manager/anjuta-snippets-manager.plugin.in.h:1
 msgid "Allows insertion of snippets into the editor."
-msgstr "Разрешить вставку сниппетов в редактор."
+msgstr "Разрешить вставку фрагментов кода в редактор."
 
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Manages messages from external apps"
@@ -10696,3 +10696,4 @@ msgstr "Минимальное число символов для дополне
 #: ../plugins/symbol-db/symbol-db-views.c:182
 msgid "Symbol"
 msgstr "Символ"
+
