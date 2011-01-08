@@ -55,7 +55,14 @@ amp_node_new (AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile *file
 		case ANJUTA_PROJECT_GROUP:
 			if ((file == NULL) && (name != NULL))
 			{
-				new_file = g_file_get_child (anjuta_project_node_get_file (parent), name);
+				if (g_path_is_absolute (name))
+				{
+					new_file = g_file_new_for_path (name);
+				}
+				else
+				{
+					new_file = g_file_get_child (anjuta_project_node_get_file (parent), name);
+				}
 				file = new_file;
 			}
 			node = ANJUTA_PROJECT_NODE (amp_group_node_new (file, FALSE, error));
@@ -64,16 +71,25 @@ amp_node_new (AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile *file
 			node = ANJUTA_PROJECT_NODE (amp_target_node_new (name, type, NULL, 0, error));
 			break;
 		case ANJUTA_PROJECT_SOURCE:
+			/* Look for parent */
+			if (anjuta_project_node_get_node_type (parent) == ANJUTA_PROJECT_TARGET)
+			{
+				parent = anjuta_project_node_parent (parent);
+			}
+			
 			if ((file == NULL) && (name != NULL))
 			{
-				/* Look for parent */
-				if (anjuta_project_node_get_node_type (parent) == ANJUTA_PROJECT_TARGET)
-				{
-					parent = anjuta_project_node_parent (parent);
-				}
+				/* Find file from name */
 				if (anjuta_project_node_get_node_type (parent) == ANJUTA_PROJECT_GROUP)
 				{
-					new_file = g_file_get_child (anjuta_project_node_get_file (parent), name);
+					if (g_path_is_absolute (name))
+					{
+						new_file = g_file_new_for_path (name);
+					}
+					else
+					{
+						new_file = g_file_get_child (anjuta_project_node_get_file (parent), name);
+					}
 				}
 				else
 				{
@@ -81,6 +97,33 @@ amp_node_new (AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile *file
 				}
 				file = new_file;
 			}
+
+			/* Check that source file is inside the project if it is not belonging to a package */
+			if (anjuta_project_node_get_node_type (parent) == ANJUTA_PROJECT_GROUP)
+			{
+				AnjutaProjectNode *root;
+				gchar *relative;
+				
+				root = anjuta_project_node_root (parent);
+				relative = g_file_get_relative_path (anjuta_project_node_get_file (root), file);
+				g_free (relative);
+				if (relative == NULL)
+				{
+					/* Source outside the project directory, so copy the file */
+					GFile *dest;
+					gchar *basename;
+
+					basename = g_file_get_basename (file);
+					dest = g_file_get_child (anjuta_project_node_get_file (parent), basename);
+					g_free (basename);
+
+					g_file_copy_async (file, dest, G_FILE_COPY_BACKUP, G_PRIORITY_DEFAULT, NULL, NULL, NULL, NULL, NULL);
+					if (new_file != NULL) g_object_unref (new_file);
+					new_file = dest;
+					file = dest;
+				}
+			}
+	
 			node = ANJUTA_PROJECT_NODE (amp_source_node_new (file, error));
 			break;
 		case ANJUTA_PROJECT_MODULE:

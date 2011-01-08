@@ -969,33 +969,34 @@ project_load_sources (AmpProject *project, AnjutaToken *name, AnjutaToken *list,
 	if (target_id)
 	{
 		gpointer find;
+		AnjutaProjectNode *target;
 		
 		find = target_id;
 		DEBUG_PRINT ("search for canonical %s", target_id);
 		anjuta_project_node_children_traverse (parent, find_canonical_target, &find);
-		parent = (gchar *)find != target_id ? (AnjutaProjectNode *)find : NULL;
+		target = (gchar *)find != target_id ? (AnjutaProjectNode *)find : NULL;
 
 		/* Get orphan buffer if there is no target */
-		if (parent == NULL)
+		if (target == NULL)
 		{
 			gchar *orig_key;
 			
-			if (g_hash_table_lookup_extended (orphan_properties, target_id, (gpointer *)&orig_key, (gpointer *)&parent))
+			if (g_hash_table_lookup_extended (orphan_properties, target_id, (gpointer *)&orig_key, (gpointer *)&target))
 			{
 				g_hash_table_steal (orphan_properties, target_id);
 				g_free (orig_key);
 			}
 			else
 			{
-				parent = ANJUTA_PROJECT_NODE (amp_target_node_new ("dummy", 0, NULL, 0, NULL));
+				target = ANJUTA_PROJECT_NODE (amp_target_node_new ("dummy", 0, NULL, 0, NULL));
 			}
-			g_hash_table_insert (orphan_properties, target_id, parent);
+			g_hash_table_insert (orphan_properties, target_id, target);
 		}
 		else
 		{
 			g_free (target_id);
 		}
-		amp_target_node_add_token (AMP_TARGET_NODE (parent), AM_TOKEN__SOURCES, name);
+		amp_target_node_add_token (AMP_TARGET_NODE (target), AM_TOKEN__SOURCES, name);
 		
 		for (arg = anjuta_token_first_word (list); arg != NULL; arg = anjuta_token_next_word (arg))
 		{
@@ -1008,13 +1009,13 @@ project_load_sources (AmpProject *project, AnjutaToken *name, AnjutaToken *list,
 
 			/* Create source */
 			src_file = g_file_get_child (parent_file, value);
-			source = amp_node_new (NULL, ANJUTA_PROJECT_SOURCE | ANJUTA_PROJECT_PROJECT, src_file, NULL, NULL);
+			source = amp_node_new (parent, ANJUTA_PROJECT_SOURCE | ANJUTA_PROJECT_PROJECT, src_file, NULL, NULL);
 			g_object_unref (src_file);
 			amp_source_node_add_token (AMP_SOURCE_NODE (source), arg);
 	
-			DEBUG_PRINT ("add target child %p", parent);
+			DEBUG_PRINT ("add target child %p", target);
 			/* Add as target child */
-			anjuta_project_node_append (parent, source);
+			anjuta_project_node_append (target, source);
 
 			g_free (value);
 		}
@@ -1078,6 +1079,8 @@ project_load_data (AmpProject *project, AnjutaToken *name, AnjutaToken *list, An
 		GFile *parent_file = g_object_ref (anjuta_project_node_get_file (parent));
 		
 		amp_target_node_add_token (AMP_TARGET_NODE (target), AM_TOKEN__DATA, name);
+		amp_target_node_add_token (AMP_TARGET_NODE (target), AM_TOKEN__SOURCES, name);
+		
 		for (arg = anjuta_token_first_word (list); arg != NULL; arg = anjuta_token_next_word (arg))
 		{
 			gchar *value;
@@ -1089,7 +1092,7 @@ project_load_data (AmpProject *project, AnjutaToken *name, AnjutaToken *list, An
 
 			/* Create source */
 			src_file = g_file_get_child (parent_file, value);
-			source = amp_node_new (NULL, ANJUTA_PROJECT_SOURCE | ANJUTA_PROJECT_PROJECT, src_file, NULL, NULL);
+			source = amp_node_new (parent, ANJUTA_PROJECT_SOURCE | ANJUTA_PROJECT_PROJECT, src_file, NULL, NULL);
 			g_object_unref (src_file);
 			amp_source_node_add_token (AMP_SOURCE_NODE(source), arg);
 
@@ -1492,6 +1495,8 @@ amp_project_duplicate_node (AnjutaProjectNode *old_node)
 	{
 		amp_target_node_set_type (AMP_TARGET_NODE (new_node), anjuta_project_node_get_full_type (old_node));
 	}
+	/* Keep old parent, Needed for source node to find project root node */
+	new_node->parent = old_node->parent;
 
 	return new_node;
 }

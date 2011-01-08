@@ -168,7 +168,7 @@ amp_package_node_load (AmpNode *node, AmpNode *parent, AmpProject *project, GErr
 		/* Create a package node for the depedencies */
 		AnjutaProjectNode *pkg;
 
-		pkg = amp_node_new (NULL, ANJUTA_PROJECT_PACKAGE, NULL, dep->data, NULL);
+		pkg = amp_node_new (ANJUTA_PROJECT_NODE (parent), ANJUTA_PROJECT_PACKAGE, NULL, dep->data, NULL);
 		anjuta_project_node_append (ANJUTA_PROJECT_NODE (node), pkg);
 	}
 	anjuta_util_glist_strings_free (deps);
@@ -197,7 +197,7 @@ amp_package_node_load (AmpNode *node, AmpNode *parent, AmpProject *project, GErr
 				/* Create a source for files */
 				AnjutaProjectNode *source;
 
-				source = amp_node_new (NULL, ANJUTA_PROJECT_SOURCE, (GFile *)file->data, NULL, NULL);
+				source = amp_node_new (ANJUTA_PROJECT_NODE (parent), ANJUTA_PROJECT_SOURCE, (GFile *)file->data, NULL, NULL);
 				anjuta_project_node_append (ANJUTA_PROJECT_NODE (node), source);
 				g_object_unref ((GObject *)file->data);
 			}

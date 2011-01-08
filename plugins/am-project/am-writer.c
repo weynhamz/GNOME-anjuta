@@ -676,8 +676,8 @@ amp_source_node_create_token (AmpProject  *project, AmpSourceNode *source, GErro
 	if ((target == NULL) || (anjuta_project_node_get_node_type (ANJUTA_PROJECT_NODE (target)) != ANJUTA_PROJECT_TARGET)) return FALSE;
 	
 	group = AMP_GROUP_NODE (anjuta_project_node_parent (ANJUTA_PROJECT_NODE (target)));
-	relative_name = g_file_get_relative_path (anjuta_project_node_get_file (ANJUTA_PROJECT_NODE (group)), anjuta_project_node_get_file (ANJUTA_PROJECT_NODE (source)));
-
+	relative_name = get_relative_path (anjuta_project_node_get_file (ANJUTA_PROJECT_NODE (group)), anjuta_project_node_get_file (ANJUTA_PROJECT_NODE (source)));
+	
 	/* Add in Makefile.am */
 	/* Find a sibling if possible */
 	after = TRUE;

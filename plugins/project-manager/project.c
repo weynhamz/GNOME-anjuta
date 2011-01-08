@@ -359,10 +359,19 @@ AnjutaProjectNode *
 anjuta_pm_project_add_source (AnjutaPmProject *project, AnjutaProjectNode *parent, AnjutaProjectNode *sibling, const gchar *name, GError **error)
 {
 	AnjutaProjectNode *node;
+	gchar *scheme;
+	GFile *file = NULL;
 
 	g_return_val_if_fail (project->project != NULL, NULL);
+
+	scheme = g_uri_parse_scheme (name);
+	if (scheme != NULL)
+	{
+		g_free (scheme);
+		file = g_file_new_for_uri (name);
+	}
 	
-	node = ianjuta_project_add_node_before (project->project, parent, sibling, ANJUTA_PROJECT_SOURCE, NULL, name, NULL);
+	node = ianjuta_project_add_node_before (project->project, parent, sibling, ANJUTA_PROJECT_SOURCE, file, file == NULL ? name : NULL, NULL);
 
 	return node;
 }

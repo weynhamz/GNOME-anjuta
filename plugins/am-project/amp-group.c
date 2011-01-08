@@ -170,7 +170,7 @@ project_load_group_module (AmpProject *project, AmpGroupNode *group)
 								/* Add new module */
 								AnjutaProjectNode *new_module;
 
-								new_module = amp_node_new (NULL, ANJUTA_PROJECT_MODULE, NULL, name, NULL);
+								new_module = amp_node_new (target, ANJUTA_PROJECT_MODULE, NULL, name, NULL);
 								anjuta_project_node_append (target, new_module);
 							}
 							g_free (cpp_flags);
