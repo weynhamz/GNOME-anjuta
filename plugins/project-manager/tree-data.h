@@ -75,13 +75,14 @@ gboolean       gbf_tree_data_equal_name         (GbfTreeData           *data,
 
 GbfTreeData   *gbf_tree_data_new_string         (const gchar           *string);
 GbfTreeData   *gbf_tree_data_new_shortcut       (GbfTreeData		   *src);
-GbfTreeData   *gbf_tree_data_new_proxy   					(const gchar           *name, gboolean expanded);
+GbfTreeData   *gbf_tree_data_new_proxy   		(const gchar           *name, gboolean expanded);
 GbfTreeData   *gbf_tree_data_new_group          (AnjutaProjectNode     *group);
 GbfTreeData   *gbf_tree_data_new_target         (AnjutaProjectNode     *target);
 GbfTreeData   *gbf_tree_data_new_source         (AnjutaProjectNode     *source);
 GbfTreeData   *gbf_tree_data_new_module         (AnjutaProjectNode     *module);
+GbfTreeData   *gbf_tree_data_new_root           (AnjutaProjectNode     *root);
 GbfTreeData   *gbf_tree_data_new_package        (AnjutaProjectNode     *package);
-GbfTreeData			*gbf_tree_data_new_node							(AnjutaProjectNode     *node);
+GbfTreeData	  *gbf_tree_data_new_node			(AnjutaProjectNode     *node);
 void				gbf_tree_data_invalidate (GbfTreeData *data);
 void           gbf_tree_data_free               (GbfTreeData           *data);
 

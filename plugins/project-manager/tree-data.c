@@ -131,36 +131,9 @@ gbf_tree_data_equal (GbfTreeData *data_a, GbfTreeData *data_b)
 				}
 			}
 		}
-		else
+		else if ((data_a->type == GBF_TREE_NODE_UNKNOWN) || (data_b->type == GBF_TREE_NODE_UNKNOWN))
 		{
-			if (data_b->type == GBF_TREE_NODE_UNKNOWN)
-			{
-				GbfTreeNodeType type = data_a->type;
-
-				data_a->type = data_b->type;
-				data_b->type = type;
-			}
-
-			equal = data_a->type == GBF_TREE_NODE_UNKNOWN;
-			if (equal)
-			{
-				if (data_b->source != NULL) 
-				{
-					equal = g_file_equal (data_a->group, data_b->source);
-				}
-				else if (data_b->target != NULL)
-				{
-					gchar *name;
-
-					name = g_file_get_basename (data_a->group);
-					equal = strcmp (name, data_b->target) == 0;
-					g_free (name);
-				}
-				else if (data_b->group != NULL)
-				{
-					equal = g_file_equal (data_a->group, data_b->group);
-				}
-			}
+			equal = strcmp (data_b->name, data_a->name);
 		}
 	}
 
@@ -335,6 +308,18 @@ gbf_tree_data_new_source (AnjutaProjectNode *source)
 }
 
 GbfTreeData *
+gbf_tree_data_new_root (AnjutaProjectNode *root)
+{
+	GbfTreeData *data = g_slice_new0 (GbfTreeData);
+	
+	data->type = GBF_TREE_NODE_ROOT;
+	data->node = root;
+	data->name = g_strdup (anjuta_project_node_get_name (root));
+
+	return data;
+}
+
+GbfTreeData *
 gbf_tree_data_new_module (AnjutaProjectNode *module)
 {
 	GbfTreeData *data = g_slice_new0 (GbfTreeData);
@@ -381,7 +366,7 @@ gbf_tree_data_new_node (AnjutaProjectNode *node)
 			data = gbf_tree_data_new_package (node);
 			break;
 		case ANJUTA_PROJECT_ROOT:
-			data = NULL;
+			data = gbf_tree_data_new_root (node);
 			break;
 		default:
 			break;

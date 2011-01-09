@@ -387,7 +387,7 @@ get_icon (GFile *file)
 	if (!file_info)
 	{
 		gchar *name = g_file_get_parse_name (file);
-		
+
 		g_warning (G_STRLOC ": Unable to query information for URI: %s: %s", name, error->message);
 		g_free (name);
 		g_clear_error (&error);
@@ -435,6 +435,13 @@ set_pixbuf (GtkTreeViewColumn *tree_column,
 			pixbuf = get_icon (data->source);
 			break;
 		}
+		case GBF_TREE_NODE_ROOT:
+			pixbuf = gtk_icon_theme_load_icon (gtk_icon_theme_get_default(),
+							   GTK_STOCK_OPEN,
+							   ICON_SIZE,
+							   GTK_ICON_LOOKUP_GENERIC_FALLBACK,
+							   NULL);
+			break;
 		case GBF_TREE_NODE_GROUP:
 			pixbuf = gtk_icon_theme_load_icon (gtk_icon_theme_get_default(),
 							   GTK_STOCK_DIRECTORY,
@@ -513,6 +520,7 @@ search_equal_func (GtkTreeModel *model, gint column,
 static gboolean
 draw (GtkWidget *widget, cairo_t *cr)
 {
+	GtkTreeModel *view_model;
 	GtkTreeModel *model;
 	GtkTreeView *tree_view;
 	gint event_handled = FALSE;
@@ -521,10 +529,10 @@ draw (GtkWidget *widget, cairo_t *cr)
 		GTK_WIDGET_CLASS (gbf_project_view_parent_class)->draw (widget, cr);
 
 	tree_view = GTK_TREE_VIEW (widget);
-	model = gtk_tree_view_get_model (tree_view);
-	if (GTK_IS_TREE_MODEL_FILTER (model))
+	view_model = gtk_tree_view_get_model (tree_view);
+	if (GTK_IS_TREE_MODEL_FILTER (view_model))
 	{
-		model = gtk_tree_model_filter_get_model (GTK_TREE_MODEL_FILTER (model));
+		model = gtk_tree_model_filter_get_model (GTK_TREE_MODEL_FILTER (view_model));
 	}
 	if (gtk_cairo_should_draw_window (cr, gtk_tree_view_get_bin_window (tree_view)) &&
 	    model && GBF_IS_PROJECT_MODEL (model)) {
@@ -536,6 +544,15 @@ draw (GtkWidget *widget, cairo_t *cr)
 		
 		root = gbf_project_model_get_project_root (GBF_PROJECT_MODEL (model));
 		if (root) {
+			if (view_model != model)
+			{
+				/* Convert path */
+				GtkTreePath *child_path;
+				
+				child_path = gtk_tree_model_filter_convert_child_path_to_path (GTK_TREE_MODEL_FILTER (view_model), root);
+				gtk_tree_path_free (root);
+				root = child_path;
+			}
 			gtk_tree_view_get_background_area (
 				tree_view, root, gtk_tree_view_get_column (tree_view, 0), &rect);
 			gtk_paint_hline (gtk_widget_get_style (widget),
@@ -548,7 +565,7 @@ draw (GtkWidget *widget, cairo_t *cr)
 			gtk_tree_path_free (root);
 		}
 	}
-	
+
 	return event_handled;
 }
 
@@ -615,7 +632,7 @@ static gboolean
 is_project_node_visible (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
 {
 	GbfTreeData *data;
-	
+
 	gtk_tree_model_get (GTK_TREE_MODEL (model), iter,
 		    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
 		    -1);
@@ -1325,10 +1342,55 @@ on_node_loaded (AnjutaPmProject *sender, AnjutaProjectNode *node, gboolean compl
 		                                      GTK_SORT_ASCENDING);
 		                                      
 		found = gbf_project_model_find_node (view->model, &iter, NULL, node);
-		gbf_project_view_update_tree (view, node, found ? &iter : NULL);
 		if (!found)
 		{
-			found = !gtk_tree_model_get_iter_first (GTK_TREE_MODEL (view->model), &iter);
+			if (anjuta_project_node_get_node_type (node) != ANJUTA_PROJECT_ROOT)
+			{
+				g_critical ("Unable to find node %s", anjuta_project_node_get_name (node));
+			}
+			else
+			{
+				GtkTreePath *path;
+				GtkTreePath *child_path;
+				GtkTreeModelFilter *filter;
+
+				if (!gbf_project_model_find_child_name (view->model, &iter, NULL, anjuta_project_node_get_name (node)))
+				{
+					gbf_project_model_add_root (view->model, node, &iter);
+				}
+				else
+				{
+					GbfTreeData *data;
+					
+					gtk_tree_model_get (GTK_TREE_MODEL (view->model), &iter, 
+						GBF_PROJECT_MODEL_COLUMN_DATA, &data,
+						-1);
+					if (data->type == GBF_TREE_NODE_UNKNOWN)
+					{
+						/* Replace with real node */
+						GbfTreeData *new_data;
+
+						new_data = gbf_tree_data_new_node (node);
+						gtk_tree_store_set (GTK_TREE_STORE (view->model), &iter,
+									GBF_PROJECT_MODEL_COLUMN_DATA, new_data,
+									-1);
+						gbf_tree_data_free (data);
+					}
+					gbf_project_view_update_tree (view, node, &iter);
+				}
+
+				/* Expand root node */
+				path = gtk_tree_model_get_path (GTK_TREE_MODEL (view->model), &iter);
+				filter = GTK_TREE_MODEL_FILTER (gtk_tree_view_get_model (GTK_TREE_VIEW (view)));
+				child_path = gtk_tree_model_filter_convert_child_path_to_path (filter, path);
+				gtk_tree_view_expand_row (GTK_TREE_VIEW (view), child_path, FALSE);
+				gtk_tree_path_free (child_path);
+				gtk_tree_path_free (path);
+			}
+		}
+		else
+		{
+			gbf_project_view_update_tree (view, node, &iter);
 		}
 		gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (view->model),
 		                                      GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID,
