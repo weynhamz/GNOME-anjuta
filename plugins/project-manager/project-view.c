@@ -384,25 +384,26 @@ get_icon (GFile *file)
 				       NULL,
 				       &error);
 
-	if (!file_info)
+	if (file_info == NULL)
 	{
-		gchar *name = g_file_get_parse_name (file);
-
-		g_warning (G_STRLOC ": Unable to query information for URI: %s: %s", name, error->message);
-		g_free (name);
-		g_clear_error (&error);
-		return NULL;
+		pixbuf = gtk_icon_theme_load_icon (gtk_icon_theme_get_default(),
+						   GTK_STOCK_MISSING_IMAGE,
+						   ICON_SIZE,
+						   GTK_ICON_LOOKUP_GENERIC_FALLBACK,
+						   NULL);
 	}
-	
-	icon = g_file_info_get_icon(file_info);
-	g_object_get (icon, "names", &icon_names, NULL);
-	icon_info = gtk_icon_theme_choose_icon (gtk_icon_theme_get_default(),
-						icon_names,
-						ICON_SIZE,
-						GTK_ICON_LOOKUP_GENERIC_FALLBACK);
-	pixbuf = gtk_icon_info_load_icon (icon_info, NULL);
-	gtk_icon_info_free(icon_info);
-	g_object_unref (file_info);
+	else
+	{
+		icon = g_file_info_get_icon(file_info);
+		g_object_get (icon, "names", &icon_names, NULL);
+		icon_info = gtk_icon_theme_choose_icon (gtk_icon_theme_get_default(),
+							icon_names,
+							ICON_SIZE,
+							GTK_ICON_LOOKUP_GENERIC_FALLBACK);
+		pixbuf = gtk_icon_info_load_icon (icon_info, NULL);
+		gtk_icon_info_free(icon_info);
+		g_object_unref (file_info);
+	}
 	
 	return pixbuf;
 }
