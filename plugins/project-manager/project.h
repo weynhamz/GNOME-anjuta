@@ -99,8 +99,6 @@ AnjutaProjectNode *anjuta_pm_project_get_node_from_file (AnjutaPmProject *projec
 AnjutaProjectNode *anjuta_pm_project_get_node_from_iter (AnjutaPmProject *project, GtkTreeIter *iter);
 AnjutaProjectNode *anjuta_pm_project_get_module (AnjutaPmProject *project, const gchar *name);
 
-gboolean anjuta_pm_project_show_properties_dialog (AnjutaPmProject *project, GbfTreeData *data);
-
 G_END_DECLS
 
 #endif /* _PROJECT_H_ */

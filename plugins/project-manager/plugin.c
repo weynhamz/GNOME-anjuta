@@ -424,7 +424,12 @@ on_refresh (GtkAction *action, ProjectManagerPlugin *plugin)
 static void
 on_properties (GtkAction *action, ProjectManagerPlugin *plugin)
 {
-	anjuta_pm_project_show_properties_dialog (plugin->project, NULL);
+	GtkTreeIter selected;
+	gboolean found;
+
+	found = gbf_project_view_get_first_selected (plugin->view, &selected);
+
+	anjuta_pm_project_show_properties_dialog (plugin, found ? &selected : NULL);
 }
 
 static void
@@ -528,22 +533,14 @@ on_add_source (GtkAction *action, ProjectManagerPlugin *plugin)
 static void
 on_popup_properties (GtkAction *action, ProjectManagerPlugin *plugin)
 {
-	GList *selected;
-	
-	selected = gbf_project_view_get_all_selected (plugin->view);
+	GtkTreeIter selected;
+	gboolean found;
 
-	if (selected != NULL)
-	{
-		GList *item;
-		
-		for (item = g_list_first (selected); item != NULL; item = g_list_next (item))
-		{
-			GbfTreeData *data = (GbfTreeData *)(item->data);
+	/* FIXME: Perhaps it would be better to open a dialog for each
+	 * selected node ? */
+	found = gbf_project_view_get_first_selected (plugin->view, &selected);
 
-			anjuta_pm_project_show_properties_dialog (plugin->project, data);
-		}
-		g_list_free (selected);
-	}
+	anjuta_pm_project_show_properties_dialog (plugin, found ? &selected : NULL);
 }
 
 static void

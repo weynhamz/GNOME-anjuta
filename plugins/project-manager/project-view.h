@@ -104,7 +104,7 @@ gboolean gbf_project_view_find_file (GbfProjectView *view, GtkTreeIter* iter, GF
 
 GbfProjectModel *gbf_project_view_get_model (GbfProjectView *view);
 
-
+gboolean gbf_project_view_get_project_root (GbfProjectView *view, GtkTreeIter *iter);
 
 G_END_DECLS
 

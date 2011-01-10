@@ -496,7 +496,7 @@ set_text (GtkTreeViewColumn *tree_column,
 	  gpointer           user_data)
 {
 	GbfTreeData *data;
-  
+
 	gtk_tree_model_get (model, iter, GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
 	/* data can be NULL just after gtk_tree_store_insert before
 	calling gtk_tree_store_set */ 
@@ -1426,4 +1426,29 @@ GbfProjectModel *
 gbf_project_view_get_model (GbfProjectView *view)
 {
 	return view->model;
+}
+
+gboolean
+gbf_project_view_get_project_root (GbfProjectView *view, GtkTreeIter *iter)
+{
+	GtkTreeModel *model;
+	GtkTreeModel *view_model;
+	GtkTreePath *path;
+	gboolean ok = FALSE;
+
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (view));
+	view_model = model;
+	if (GTK_IS_TREE_MODEL_FILTER (model))
+	{
+		model = gtk_tree_model_filter_get_model (GTK_TREE_MODEL_FILTER (view_model));
+	}
+		
+	path = gbf_project_model_get_project_root (GBF_PROJECT_MODEL (model));
+	if (path)
+	{
+		ok = gtk_tree_model_get_iter (model, iter, path);
+		gtk_tree_path_free (path);
+	}
+
+	return ok;
 }

@@ -45,7 +45,13 @@
 typedef struct _PropertiesTable
 {
 	AnjutaPmProject *project;
+	GtkWidget *dialog;
 	GtkWidget *table;
+	GtkWidget *head;
+	GtkWidget *main;
+	GtkWidget *expand;
+	GtkWidget *extra;
+	GbfTreeData *data;
 	AnjutaProjectNode *node;
 	GList *properties;
 } PropertiesTable;
@@ -511,60 +517,100 @@ add_label (const gchar *display_name, const gchar *value, GtkWidget *table, gint
 	*position = *position + 1;
 }
 
-static PropertiesTable*
-create_properties_table (IAnjutaProject *project, AnjutaProjectNode *node)
+static gboolean
+is_project_node_but_shortcut (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
 {
-	GtkBuilder *bxml;
-	PropertiesTable *table;
-	GtkWidget *properties;
-	GtkWidget *main_table;
-	GtkWidget *extra_table;
-	GtkWidget *extra_expand;
-	GFile *file;
+	GbfTreeData *data;
 
+	gtk_tree_model_get (GTK_TREE_MODEL (model), iter,
+		    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
+		    -1);
+
+	return (data != NULL) && (data->shortcut == NULL) && (gbf_tree_data_get_node (data) != NULL);
+}
+
+static void
+update_properties (PropertiesTable *table)
+{
+	GFile *file;
+	const gchar *title;
+	gint head_pos;
 	gint main_pos;
 	gint extra_pos;
-	gchar *path;
 	const GList *item;
 	AnjutaProjectNodeType type;
 	AnjutaProjectNodeInfo* node_info;
 	gboolean single;
+	GList *children;
+	GList *last;
 
-	bxml = anjuta_util_builder_new (GLADE_FILE, NULL);
-	if (!bxml) return NULL;
-
-	table = g_new0 (PropertiesTable, 1);
-	table->node = node;
-	anjuta_util_builder_get_objects (bxml,
-									"properties", &properties,
-									"main_table", &main_table,
-									"extra_table", &extra_table,
-									"extra_expand", &extra_expand,
-									NULL);
-	table->table = properties;
-	g_object_ref (properties);
-
+	head_pos = 0;
 	main_pos = 0;
 	extra_pos = 0;
 
-	/* Always display node name */
-	file = anjuta_project_node_get_file (node);
+	/* Update dialog type */
+	switch (anjuta_project_node_get_node_type (table->node))
+	{
+	case ANJUTA_PROJECT_ROOT:
+		title = _("Project properties");
+		break;
+	case ANJUTA_PROJECT_GROUP:
+		title = _("Directory properties");
+		break;
+	case ANJUTA_PROJECT_TARGET:
+		title = _("Target properties");
+		break;
+	case ANJUTA_PROJECT_SOURCE:
+		title = _("Source properties");
+		break;
+	case ANJUTA_PROJECT_MODULE:
+		title = _("Module properties");
+		break;
+	case ANJUTA_PROJECT_PACKAGE:
+		title = _("Package properties");
+		break;
+	default:
+		title = _("Unknown properties");
+		break;
+	}
+	gtk_window_set_title (GTK_WINDOW (table->dialog), title);
+
+	/* Clear table */
+	children = gtk_container_get_children (GTK_CONTAINER (table->head));
+	/* Clear only the first 4 widgets */
+	while ((last = g_list_nth (children, 4)) != NULL) children = g_list_delete_link (children, last);
+	g_list_foreach (children, (GFunc)gtk_widget_destroy, NULL);
+	g_list_free (children);
+	children = gtk_container_get_children (GTK_CONTAINER (table->main));
+	g_list_foreach (children, (GFunc)gtk_widget_destroy, NULL);
+	g_list_free (children);
+	children = gtk_container_get_children (GTK_CONTAINER (table->extra));
+	g_list_foreach (children, (GFunc)gtk_widget_destroy, NULL);
+	g_list_free (children);
+	g_list_foreach (table->properties, (GFunc)pm_property_entry_free, NULL);
+	g_list_free (table->properties);
+	table->properties = NULL;
+	
+	/* Update node name */
+	file = anjuta_project_node_get_file (table->node);
 	if (file != NULL)
 	{
+		gchar *path;
+		
 		path = g_file_get_path (file);
-		add_label (_("Path:"), path, main_table, &main_pos);
+		add_label (_("Path:"), path, table->head, &head_pos);
 		g_free (path);
 	}
 	else
 	{
-		add_label (_("Name:"), anjuta_project_node_get_name (node), main_table, &main_pos);
+		add_label (_("Name:"), anjuta_project_node_get_name (table->node), table->head, &head_pos);
 	}
-
+	
 	/* Display node type only if several types are possible */
 	node_info = NULL;
 	single = TRUE;
-	type = anjuta_project_node_get_full_type (node);
-	for (item = ianjuta_project_get_node_info (project, NULL); item != NULL; item = g_list_next (item))
+	type = anjuta_project_node_get_full_type (table->node);
+	for (item = ianjuta_project_get_node_info (table->project->project, NULL); item != NULL; item = g_list_next (item))
 	{
 		AnjutaProjectNodeInfo* info = (AnjutaProjectNodeInfo *)item->data;
 
@@ -579,28 +625,28 @@ create_properties_table (IAnjutaProject *project, AnjutaProjectNode *node)
 	}
 	if (!single && (node_info != NULL))
 	{
-		add_label (_("Type:"), anjuta_project_node_info_name (node_info), main_table, &main_pos);
+		add_label (_("Type:"), anjuta_project_node_info_name (node_info), table->main, &main_pos);
 	}
 
 	/* Display other node properties */
 	single = FALSE;
 
-	for (item = anjuta_project_node_get_native_properties (node); item != NULL; item = g_list_next (item))
+	for (item = anjuta_project_node_get_native_properties (table->node); item != NULL; item = g_list_next (item))
 	{
 		AnjutaProjectProperty *valid_prop = (AnjutaProjectProperty *)item->data; 
 		AnjutaProjectProperty *prop; 
 		GtkWidget *entry;
 
-		prop = anjuta_project_node_get_property (node, valid_prop);
-		if (prop != NULL)
+		prop = anjuta_project_node_get_property (table->node, valid_prop);
+		if (prop->native != NULL)
 		{
 			/* This property has been set, display it in the main part */
-			entry = add_entry (project, node, prop, main_table, &main_pos);
+			entry = add_entry (table->project->project, table->node, prop, table->main, &main_pos);
 		}
 		else
 		{
 			/* This property has not been set, hide it by default */
-			entry = add_entry (project, node, valid_prop, extra_table, &extra_pos);
+			entry = add_entry (table->project->project, table->node, valid_prop, table->extra, &extra_pos);
 			single = TRUE;
 		}
 
@@ -611,14 +657,13 @@ create_properties_table (IAnjutaProject *project, AnjutaProjectNode *node)
 		}
 	}
 	table->properties = g_list_reverse (table->properties);
-	gtk_widget_show_all (properties);
+	gtk_widget_show_all (table->table);
 	
 	/* Hide expander if it is empty */
-	if (!single) gtk_widget_hide (extra_expand);
-	
-	g_object_unref (bxml);
-	
-	return table;
+	if (single)
+		gtk_widget_show (table->expand);
+	else
+		gtk_widget_hide (table->expand);
 }
 
 static void
@@ -686,67 +731,165 @@ on_properties_dialog_response (GtkWidget *dialog,
 	gtk_widget_destroy (dialog);
 }
 
+static void
+on_node_changed (GtkTreeView       *view,
+                 gpointer           user_data)     
+{
+	PropertiesTable *table = (PropertiesTable *)user_data;
+	GtkTreeIter iter;
+	GtkTreePath *path;
+	GtkTreeModel *model;
+
+	model = gtk_tree_view_get_model (view);
+	gtk_tree_view_get_cursor (view, &path, NULL);
+	
+	if (gtk_tree_model_get_iter (model, &iter, path))
+	{
+		GbfTreeData *data;
+		
+		gtk_tree_model_get (model, &iter, GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
+
+		if (table->data->properties_dialog != NULL)
+		{
+			g_object_remove_weak_pointer (G_OBJECT (table->dialog), (gpointer *)&table->data->properties_dialog);
+			table->data->properties_dialog = NULL;
+		}
+		if (data->properties_dialog != NULL)
+		{
+			g_object_unref (data->properties_dialog);
+		}
+		table->data = data;
+		data->properties_dialog = table->dialog;
+		g_object_add_weak_pointer (G_OBJECT (table->dialog), (gpointer *)&table->data->properties_dialog);
+
+		table->node = gbf_tree_data_get_node (data);
+		update_properties (table);
+	}
+
+	if (path != NULL) gtk_tree_path_free (path);
+}
+
+static GtkWidget *
+pm_project_create_properties_dialog (AnjutaPmProject *project, GtkWindow *parent, GbfProjectView *view, GbfTreeData *data, GtkTreeIter *selected)
+{
+	PropertiesTable *table;
+	GtkWidget *dialog = NULL;
+	GtkBuilder *bxml;
+	GtkWidget *node_view;
+	
+	g_return_val_if_fail (data != NULL, NULL);
+	
+	bxml = anjuta_util_builder_new (GLADE_FILE, NULL);
+	if (!bxml) return NULL;
+
+	table = g_new0 (PropertiesTable, 1);
+	table->data = data;
+	table->node = gbf_tree_data_get_node (data);
+	table->project = project;
+	anjuta_util_builder_get_objects (bxml,
+									"properties", &table->table,
+									"head_table", &table->head,
+	                                "nodes_view", &node_view,
+									"main_table", &table->main,
+									"extra_table", &table->extra,
+									"extra_expand", &table->expand,
+									NULL);
+	g_object_ref (table->table);
+	g_object_unref (bxml);
+
+	/* Add tree view */
+	setup_nodes_treeview (gbf_project_view_get_model (view),
+							node_view,
+							is_project_node_but_shortcut,
+							NULL,
+							selected);
+	gtk_widget_show (node_view);
+
+	dialog = gtk_dialog_new_with_buttons (NULL,
+						   parent,
+						   GTK_DIALOG_DESTROY_WITH_PARENT,
+						   GTK_STOCK_CANCEL,
+						   GTK_RESPONSE_CANCEL,
+						   GTK_STOCK_APPLY,
+						   GTK_RESPONSE_APPLY, NULL);
+	table->dialog = dialog;
+
+	update_properties (table);
+	
+	g_signal_connect (node_view, "cursor-changed",
+					G_CALLBACK (on_node_changed),
+					table);
+	
+	g_signal_connect (dialog, "response",
+					G_CALLBACK (on_properties_dialog_response),
+					table);
+
+	gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG(dialog))),
+					table->table);
+	gtk_window_set_default_size (GTK_WINDOW (dialog), 450, -1);
+	gtk_widget_show (dialog);
+	
+	return dialog;
+}
+
+
 /* Properties dialog
  *---------------------------------------------------------------------------*/
 
-GtkWidget *
-pm_project_create_properties_dialog (AnjutaPmProject *project, GtkWindow *parent, AnjutaProjectNode *node)
+/* Display properties dialog. These dialogs are not modal, so a pointer on each
+ * dialog is kept with in node data to be able to destroy them if the node is
+ * removed. It is useful to put the dialog at the top if the same target is
+ * selected while the corresponding dialog already exist instead of creating
+ * two times the same dialog.
+ * The project properties dialog is display if the node iterator is NULL. */
+
+gboolean
+anjuta_pm_project_show_properties_dialog (ProjectManagerPlugin *plugin, GtkTreeIter *selected)
 {
-	const char *title;
-	PropertiesTable *table;
-	GtkWidget *dialog = NULL;
-
-	g_return_val_if_fail (node != NULL, NULL);
+	GtkWidget **dialog_ptr;
+	GtkTreeIter iter;
 	
-	switch (anjuta_project_node_get_node_type (node))
+	if (selected == NULL)
 	{
-	case ANJUTA_PROJECT_ROOT:
-		title = _("Project properties");
-		break;
-	case ANJUTA_PROJECT_GROUP:
-		title = _("Directory properties");
-		break;
-	case ANJUTA_PROJECT_TARGET:
-		title = _("Target properties");
-		break;
-	case ANJUTA_PROJECT_SOURCE:
-		title = _("Source properties");
-		break;
-	case ANJUTA_PROJECT_MODULE:
-		title = _("Module properties");
-		break;
-	case ANJUTA_PROJECT_PACKAGE:
-		title = _("Package properties");
-		break;
-	default:
-		return NULL;
+		/* Display root properties by default */
+		if (gbf_project_view_get_project_root (plugin->view, &iter))
+		{
+			selected = &iter;
+		}
 	}
 
-	table = create_properties_table (project->project, node);
-
-	if (table != NULL)
+	if (selected)
 	{
-		table->project = project;
-		dialog = gtk_dialog_new_with_buttons (title,
-							   parent,
-							   GTK_DIALOG_DESTROY_WITH_PARENT,
-							   GTK_STOCK_CANCEL,
-							   GTK_RESPONSE_CANCEL,
-							   GTK_STOCK_APPLY,
-							   GTK_RESPONSE_APPLY, NULL);
+		GbfTreeData *data;
+		
+		gtk_tree_model_get (GTK_TREE_MODEL (gbf_project_view_get_model (plugin->view)), selected, GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
 
-		g_signal_connect (dialog, "response",
-						G_CALLBACK (on_properties_dialog_response),
-						table);
-
-		gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG(dialog))),
-				table->table);
-		gtk_window_set_default_size (GTK_WINDOW (dialog), 450, -1);
-		gtk_widget_show (dialog);
+		dialog_ptr = &data->properties_dialog;
+	
+		if (*dialog_ptr != NULL)
+		{
+			/* Show already existing dialog */
+			gtk_window_present (GTK_WINDOW (*dialog_ptr));
+		}
+		else
+		{
+			*dialog_ptr = pm_project_create_properties_dialog (
+				plugin->project,
+				GTK_WINDOW (plugin->project->plugin->shell),
+			    plugin->view,
+			    data,                                               
+				selected);
+			if (*dialog_ptr != NULL)
+			{
+				g_object_add_weak_pointer (G_OBJECT (*dialog_ptr), (gpointer *)dialog_ptr);
+			}
+		}
 	}
 
-	return dialog;
+	return selected != NULL;
 }
+
+
 
 /* Group dialog
  *---------------------------------------------------------------------------*/

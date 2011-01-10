@@ -424,52 +424,6 @@ anjuta_pm_project_get_module (AnjutaPmProject *project, const gchar *name)
 	return module;
 }
 
-/* Display properties dialog. These dialogs are not modal, so a pointer on each
- * dialog is kept with in node data to be able to destroy them if the node is
- * removed. It is useful to put the dialog at the top if the same target is
- * selected while the corresponding dialog already exist instead of creating
- * two times the same dialog.
- * The project properties dialog is display if the node iterator is NULL. */
-
-gboolean
-anjuta_pm_project_show_properties_dialog (AnjutaPmProject *project, GbfTreeData *data)
-{
-	GtkWidget **dialog_ptr;
-	AnjutaProjectNode *node;
-	
-	if (data == NULL)
-	{
-		/* Show project properties dialog */
-		dialog_ptr = &project->properties_dialog;
-		node = project->root;
-	}
-	else
-	{
-		/* Show node properties dialog */
-		dialog_ptr = &data->properties_dialog;
-		node = gbf_tree_data_get_node (data);
-	}
-	
-	if (*dialog_ptr != NULL)
-	{
-		/* Show already existing dialog */
-		gtk_window_present (GTK_WINDOW (*dialog_ptr));
-	}
-	else
-	{
-		*dialog_ptr = pm_project_create_properties_dialog (
-			project,
-			GTK_WINDOW (project->plugin->shell),
-			node);
-		if (*dialog_ptr != NULL)
-		{
-			g_object_add_weak_pointer (G_OBJECT (*dialog_ptr), (gpointer *)dialog_ptr);
-		}
-	}
-
-	return TRUE;
-}
-
 /* Implement GObject
  *---------------------------------------------------------------------------*/
 

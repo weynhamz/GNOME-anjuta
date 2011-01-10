@@ -35,8 +35,8 @@ GList* anjuta_pm_project_new_multiple_source (ProjectManagerPlugin *plugin, GtkW
 GList* anjuta_pm_project_new_module (ProjectManagerPlugin *plugin, GtkWindow *parent, GtkTreeIter *default_target, const gchar *default_module);
 GList* anjuta_pm_project_new_package (ProjectManagerPlugin *plugin, GtkWindow *parent, GtkTreeIter *default_module, GList *packages_to_add);
 
+gboolean anjuta_pm_project_show_properties_dialog (ProjectManagerPlugin *plugin, GtkTreeIter *selected);
 
-GtkWidget *pm_project_create_properties_dialog (AnjutaPmProject *project, GtkWindow *parent, AnjutaProjectNode *node);
 
 G_END_DECLS
 
