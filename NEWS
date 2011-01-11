@@ -1,3 +1,32 @@
+Anjuta 2.91.5 "Moving forward" (11 Januar 2010) -- Johannes Schmid
+
+Updates:
+- Glade integration is working again and far more stable
+- Devhelp plugin is here gain
+- New class generation for Vala, Python and Javascript (Kenny)
+- New artwork (Samuel)
+- Comment/Uncomment feature for C/C++
+- Various improvements in vala support
+
+Bugs fixed:
+638228 language-support-vala: interrupt parsing if user switches to another file
+638252 language-support-vala: use the new markers to show error tooltips
+511000 Icons needed
+638532 crash in plugin list when pressing cursor-down
+637699 JavaScript wizard
+637774 Add Vala class wizard to class-gen
+638534 Criticals with local-only repositories
+616426 model wants symbols before db creation.
+625399 Attempt to make a query when database is not connected
+633018 crash in Anjuta IDE: I closed a project, wich...
+637695 allow comment/uncomment with gtksourceview editor
+638097 Remove deprecated gdk_spawn_command_line_on_screen gdk_spawn_on_screen
+638347 Incorrect makefile
+638830 Fortan typo?
+638878 $(BUILT_SOURCES): No such file or directory
+638034 Unable to create new project
+638524 Syntax error on valid configure.ac files 
+
 Anjuta 2.91.4 "Merry X-mas" (21 December 2010) -- Johannes Schmid
 
 New:
