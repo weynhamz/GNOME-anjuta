@@ -349,14 +349,15 @@ npw_autogen_execute (NPWAutogen* this, NPWAutogenFunc func, gpointer data, GErro
 		}
 		this->empty = TRUE;
 	}
+
+	/* The template and definition file are in UTF-8 so the output too */
+	anjuta_launcher_set_encoding (this->launcher, "UTF-8");
 	
 	this->busy = TRUE;
 	if (!anjuta_launcher_execute_v (this->launcher, NULL, args, NULL, on_autogen_output, this))
 	{
 		return FALSE;
 	}
-	/* Keep output as it is */
-	anjuta_launcher_set_encoding (this->launcher, NULL);
 
 	return TRUE;
 }
