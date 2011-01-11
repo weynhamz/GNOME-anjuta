@@ -5,7 +5,7 @@ Updates:
 - Devhelp plugin is here gain
 - New class generation for Vala, Python and Javascript (Kenny)
 - New artwork (Samuel)
-- Comment/Uncomment feature for C/C++
+- Comment/Uncomment feature for C/C++ (Peter)
 - Various improvements in vala support
 
 Bugs fixed:
@@ -26,6 +26,11 @@ Bugs fixed:
 638878 $(BUILT_SOURCES): No such file or directory
 638034 Unable to create new project
 638524 Syntax error on valid configure.ac files 
+
+Thanks to: Abderrahim Kitouni, Akom Chotiphantawanon, Andika Triwidada, 
+Aron Xu, Bekhtiyar Ghulam, Daniel Nylander, Gheyret T.Kenji, James Liggett,
+Jens Georg, Johannes Schmid, Kenny Meyer, Kjartan Maraas, Massimo Corà,
+Matej Urbančič, Peter Hoffmann, Sébastien Granjoux, Yuri Myasoedov
 
 Anjuta 2.91.4 "Merry X-mas" (21 December 2010) -- Johannes Schmid
 
