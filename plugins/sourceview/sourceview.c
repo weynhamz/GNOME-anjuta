@@ -136,7 +136,7 @@ anjuta_message_area_new (const gchar    *text,
 }
 
 static gchar*
-on_marker_tooltip (GtkSourceMarkCategory* cat, GtkSourceMark* mark, gpointer data)
+on_marker_tooltip (GtkSourceMarkAttributes* cat, GtkSourceMark* mark, gpointer data)
 {
 	//Sourceview* sv = ANJUTA_SOURCEVIEW (data);
 	gchar* tooltip;
@@ -155,10 +155,10 @@ sourceview_create_marker_category (Sourceview* sv, const gchar* marker_pixbuf,
 	GtkSourceView* view = 	GTK_SOURCE_VIEW(sv->priv->view);
 	if ((pixbuf = gdk_pixbuf_new_from_file (marker_pixbuf, NULL)))
 	{
-		GtkSourceMarkCategory* cat = gtk_source_view_get_mark_category (view, marker_types[marker_type]);
-		gtk_source_mark_category_set_pixbuf (cat, pixbuf);
-		gtk_source_mark_category_set_priority (cat, marker_type);
+		GtkSourceMarkAttributes* cat = gtk_source_mark_attributes_new ();
+		gtk_source_mark_attributes_set_pixbuf (cat, pixbuf);
 		g_signal_connect (cat, "query-tooltip-text", G_CALLBACK (on_marker_tooltip), sv);
+		gtk_source_view_set_mark_attributes (view, marker_types [marker_type], cat, marker_type);
 		g_object_unref (pixbuf);
 	}
 }
