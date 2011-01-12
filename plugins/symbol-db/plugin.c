@@ -28,10 +28,12 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-tabber.h>
+#include <libanjuta/anjuta-project.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-symbol-manager.h>
 #include <libanjuta/interfaces/ianjuta-symbol.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
+#include <libanjuta/interfaces/ianjuta-project.h>
 #include <libanjuta/interfaces/ianjuta-file-manager.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
@@ -1625,10 +1627,6 @@ static void
 on_project_loaded (IAnjutaProjectManager *pm, GError *error,
 						  SymbolDBPlugin *sdb_plugin)
 {
-	gchar *filename;
-	gint real_added;
-	GPtrArray *files_array;			
-		
 	g_return_if_fail (sdb_plugin->project_root_uri != NULL);
 	g_return_if_fail (sdb_plugin->project_root_dir != NULL);
 
@@ -1685,6 +1683,9 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	const gchar *root_uri;
 	gchar *root_dir;
 	GFile *gfile;
+	IAnjutaProject *project;
+	AnjutaProjectNode *root;
+	const gchar *root_name;
 	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
 
@@ -1742,14 +1743,15 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 				 name);
 		
 	g_object_unref (gfile);
-		
-	/* FIXME: where's the project name itself? */
-	DEBUG_PRINT ("FIXME: where's the project name itself? using %s", root_dir);
-	sdb_plugin->project_opened = g_strdup (root_dir);
+
+	project = ianjuta_project_manager_get_current_project (pm, NULL);
+	root = ianjuta_project_get_root (project, NULL);
+	root_name = anjuta_project_node_get_name (root);
+
+	sdb_plugin->project_opened = g_strdup (root_name);
 	
 	if (root_dir)
 	{
-		gboolean needs_sources_scan = FALSE;
 		gboolean project_exist = FALSE;
 		guint id;
 			
