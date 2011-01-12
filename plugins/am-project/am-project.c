@@ -1011,11 +1011,14 @@ project_load_sources (AmpProject *project, AnjutaToken *name, AnjutaToken *list,
 			src_file = g_file_get_child (parent_file, value);
 			source = amp_node_new (parent, ANJUTA_PROJECT_SOURCE | ANJUTA_PROJECT_PROJECT, src_file, NULL, NULL);
 			g_object_unref (src_file);
-			amp_source_node_add_token (AMP_SOURCE_NODE (source), arg);
+			if (source != NULL)
+			{
+				amp_source_node_add_token (AMP_SOURCE_NODE (source), arg);
 	
-			DEBUG_PRINT ("add target child %p", target);
-			/* Add as target child */
-			anjuta_project_node_append (target, source);
+				DEBUG_PRINT ("add target child %p", target);
+				/* Add as target child */
+				anjuta_project_node_append (target, source);
+			}
 
 			g_free (value);
 		}
@@ -1066,8 +1069,11 @@ project_load_data (AmpProject *project, AnjutaToken *name, AnjutaToken *list, An
 	{
 		/* Create target */
 		target = amp_target_node_new (target_id, info->base.type, install, flags, NULL);
-		anjuta_project_node_append (parent, ANJUTA_PROJECT_NODE (target));
-		DEBUG_PRINT ("create target %p name %s", target, target_id);
+		if (target != NULL)
+		{
+			anjuta_project_node_append (parent, ANJUTA_PROJECT_NODE (target));
+			DEBUG_PRINT ("create target %p name %s", target, target_id);
+		}
 	}
 	else
 	{
@@ -1094,11 +1100,14 @@ project_load_data (AmpProject *project, AnjutaToken *name, AnjutaToken *list, An
 			src_file = g_file_get_child (parent_file, value);
 			source = amp_node_new (parent, ANJUTA_PROJECT_SOURCE | ANJUTA_PROJECT_PROJECT, src_file, NULL, NULL);
 			g_object_unref (src_file);
-			amp_source_node_add_token (AMP_SOURCE_NODE(source), arg);
+			if (source != NULL)
+			{
+				amp_source_node_add_token (AMP_SOURCE_NODE(source), arg);
 
-			/* Add as target child */
-			DEBUG_PRINT ("add target child %p", target);
-			anjuta_project_node_append (ANJUTA_PROJECT_NODE (target), source);
+				/* Add as target child */
+				DEBUG_PRINT ("add target child %p", target);
+				anjuta_project_node_append (ANJUTA_PROJECT_NODE (target), source);
+			}
 
 			g_free (value);
 		}
@@ -1237,7 +1246,7 @@ project_load_subdirs (AmpProject *project, AnjutaToken *list, AnjutaProjectNode 
 		
 		value = anjuta_token_evaluate (arg);
 		if (value == NULL) continue;		/* Empty value, a comment of a quote by example */
-		
+
 		/* Skip ., it is a special case, used to defined build order */
 		if (strcmp (value, ".") != 0)
 		{
@@ -1258,12 +1267,17 @@ project_load_subdirs (AmpProject *project, AnjutaToken *list, AnjutaProjectNode 
 			{
 				/* Create new group */
 				group = amp_group_node_new (subdir, dist_only, NULL);
-				g_hash_table_insert (project->groups, g_file_get_uri (subdir), group);
-				anjuta_project_node_append (parent, ANJUTA_PROJECT_NODE (group));
+				
+				/* Group can be NULL if the name is not valid */
+				if (group != NULL)
+				{
+					g_hash_table_insert (project->groups, g_file_get_uri (subdir), group);
+					anjuta_project_node_append (parent, ANJUTA_PROJECT_NODE (group));
 
-				amp_node_load (AMP_NODE (group), NULL, project, NULL);
+					amp_node_load (AMP_NODE (group), NULL, project, NULL);
+				}
 			}
-			amp_group_node_add_token (group, arg, dist_only ? AM_GROUP_TOKEN_DIST_SUBDIRS : AM_GROUP_TOKEN_SUBDIRS);
+			if (group) amp_group_node_add_token (group, arg, dist_only ? AM_GROUP_TOKEN_DIST_SUBDIRS : AM_GROUP_TOKEN_SUBDIRS);
 			g_object_unref (subdir);
 		}
 		g_free (value);
