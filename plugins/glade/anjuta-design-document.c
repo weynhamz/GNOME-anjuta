@@ -44,9 +44,16 @@ struct _AnjutaDesignDocumentPrivate
 	(G_TYPE_INSTANCE_GET_PRIVATE ((o), ANJUTA_TYPE_DESIGN_DOCUMENT, AnjutaDesignDocumentPrivate))
 
 static void
+on_project_changed (GladeProject* project, GladeCommand* command, gboolean forward, AnjutaDesignDocument* doc)
+{
+	g_signal_emit_by_name (doc, "update-save-ui", NULL);
+	g_signal_emit_by_name (doc, "update-ui", NULL);
+}
+
+static void
 anjuta_design_document_instance_init (AnjutaDesignDocument *object)
 {
-	
+
 }
 
 static void
@@ -102,10 +109,13 @@ anjuta_design_document_class_init (AnjutaDesignDocumentClass *klass)
 GtkWidget*
 anjuta_design_document_new (GladePlugin* glade_plugin, GladeProject* project)
 {
-	return GTK_WIDGET(g_object_new(ANJUTA_TYPE_DESIGN_DOCUMENT, 
-								   "plugin", glade_plugin,
-								   "project", project,
-								   NULL));
+	GObject* doc = g_object_new(ANJUTA_TYPE_DESIGN_DOCUMENT, 
+	                            "plugin", glade_plugin,
+	                            "project", project,
+	                            NULL);
+	g_signal_connect (project, "changed", G_CALLBACK (on_project_changed), doc);
+
+	return GTK_WIDGET (doc);
 }
 
 static void ifile_open(IAnjutaFile* ifile, GFile* file, GError **e)

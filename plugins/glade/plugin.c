@@ -373,36 +373,36 @@ activate_plugin (AnjutaPlugin *plugin)
 
 	register_stock_icons (plugin);
 
+	anjuta_status_busy_push (status);
+	anjuta_status_set (status, "%s", _("Loading Glade…"));
+	
+	priv->app = glade_app_get ();
 	if (!priv->app)
 	{
-		anjuta_status_busy_push (status);
-		anjuta_status_set (status, "%s", _("Loading Glade…"));
-
-		priv->app = glade_app_get ();
-
-		glade_app_set_window (GTK_WIDGET (ANJUTA_PLUGIN(plugin)->shell));
-		glade_app_set_transient_parent (GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell));
-		
-		priv->inspector = glade_inspector_new ();
-
-		g_signal_connect (priv->inspector, "item-activated",
-		                  G_CALLBACK (inspector_item_activated_cb),
-		                  plugin);
-
-		priv->paned = gtk_paned_new (GTK_ORIENTATION_VERTICAL);
-
-		priv->editor = GTK_WIDGET(glade_editor_new());
-		priv->palette = glade_palette_new();
-
-		gtk_paned_add1 (GTK_PANED(priv->paned), priv->inspector);
-		gtk_paned_add2 (GTK_PANED(priv->paned), priv->editor);
-
-		gtk_widget_set_size_request (priv->inspector, -1, 300);
-		
-		gtk_widget_show_all (priv->paned);
-
-		anjuta_status_busy_pop (status);
+		priv->app = glade_app_new ();
 	}
+
+	glade_app_set_window (GTK_WIDGET (ANJUTA_PLUGIN(plugin)->shell));
+
+	priv->inspector = glade_inspector_new ();
+
+	g_signal_connect (priv->inspector, "item-activated",
+	                  G_CALLBACK (inspector_item_activated_cb),
+	                  plugin);
+
+	priv->paned = gtk_paned_new (GTK_ORIENTATION_VERTICAL);
+
+	priv->editor = GTK_WIDGET(glade_editor_new());
+	priv->palette = glade_palette_new();
+
+	gtk_paned_add1 (GTK_PANED(priv->paned), priv->inspector);
+	gtk_paned_add2 (GTK_PANED(priv->paned), priv->editor);
+
+	gtk_widget_set_size_request (priv->inspector, -1, 300);
+
+	gtk_widget_show_all (priv->paned);
+
+	anjuta_status_busy_pop (status);
 
 	g_signal_connect(plugin->shell, "destroy",
 	                 G_CALLBACK(on_shell_destroy), plugin);
@@ -419,12 +419,12 @@ activate_plugin (AnjutaPlugin *plugin)
 	                         priv->paned,
 	                         "AnjutaGladeTree", _("Widgets"),
 	                         "glade-plugin-widgets",
-	                         ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
+	                         ANJUTA_SHELL_PLACEMENT_RIGHT, NULL);
 	anjuta_shell_add_widget (ANJUTA_PLUGIN (plugin)->shell,
 	                         priv->palette,
 	                         "AnjutaGladePalette", _("Palette"),
 	                         "glade-plugin-palette",
-	                         ANJUTA_SHELL_PLACEMENT_RIGHT, NULL);
+	                         ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
 	/* Connect to save session */
 	g_signal_connect (G_OBJECT (plugin->shell), "save_session",
 	                  G_CALLBACK (on_session_save), plugin);
@@ -611,11 +611,11 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **err)
 static GFile*
 ifile_get_file (IAnjutaFile* ifile, GError** e)
 {
-	/*FIXME: const gchar* path = glade_project_get_path(glade_app_get_project());
+	GladePlugin* plugin = (GladePlugin*) ifile;
+	const gchar* path = 
+		glade_project_get_path(glade_inspector_get_project(GLADE_INSPECTOR (plugin->priv->inspector)));
 	GFile* file = g_file_new_for_path (path);
 	return file;
-	*/
-	return NULL;
 }
 
 static void
