@@ -648,13 +648,13 @@ snippets_provider_populate (IAnjutaProvider *self,
 	if (priv->request)
 	{
 		/* Save the new cursor as the starting one */
-/*		priv->start_iter = get_start_iter_for_cursor (IANJUTA_EDITOR (priv->editor_assist),*/
-/*		                                              cursor);*/
+		priv->start_iter = get_start_iter_for_cursor (IANJUTA_EDITOR (priv->editor_assist),
+		                                              cursor);
 		/* TODO - seems to feel better if it starts at the current cursor position.
 		   Keeping the old method also if it will be decided to use that method.
 		   Note: get_start_iter_for_cursor goes back in the text until it finds a
 		   separator. */
-		priv->start_iter = ianjuta_iterable_clone (cursor, NULL);
+		// priv->start_iter = ianjuta_iterable_clone (cursor, NULL);
 		priv->request = FALSE;
 
 	}
