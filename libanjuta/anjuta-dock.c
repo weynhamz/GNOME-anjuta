@@ -38,6 +38,7 @@
 struct _AnjutaDockPriv
 {
 	GHashTable *panes;
+	GHashTable *dock_items;
 	GtkWidget *command_bar;
 };
 
@@ -49,6 +50,7 @@ anjuta_dock_init (AnjutaDock *self)
 	self->priv = g_new0 (AnjutaDockPriv, 1);
 	self->priv->panes = g_hash_table_new_full (g_str_hash, g_str_equal, 
 	                                           NULL, g_object_unref);
+	self->priv->dock_items = g_hash_table_new (g_str_hash, g_str_equal); 
 }
 
 static void
@@ -59,9 +61,29 @@ anjuta_dock_finalize (GObject *object)
 	self = ANJUTA_DOCK (object);
 
 	g_hash_table_destroy (self->priv->panes);
+	g_hash_table_destroy (self->priv->dock_items);
 	g_free (self->priv);
 
 	G_OBJECT_CLASS (anjuta_dock_parent_class)->finalize (object);
+}
+
+static void
+on_pane_selected (GdlDockItem *item, AnjutaCommandBar *command_bar)
+{
+	const gchar *pane_name;
+
+	pane_name = (const gchar *) g_object_get_data (G_OBJECT (item), 
+	                                               "pane-name");
+	anjuta_command_bar_show_action_group (command_bar, pane_name);
+}
+	
+
+static void
+disconnect_select_signals (gpointer key, GdlDockItem *value, 
+                           AnjutaCommandBar *command_bar)
+{
+	g_signal_handlers_disconnect_by_func (value, G_CALLBACK (on_pane_selected),
+	                                      command_bar);
 }
 
 static void
@@ -73,6 +95,15 @@ anjuta_dock_dispose (GObject *object)
 
 	if (self->priv->command_bar)
 	{
+		/* Disconnect pane selection signals before dropping the command bar 
+		 * reference. It is possible that we may be holding the last reference
+		 * of the bar, creating the possibility that the parent implementation
+		 * of dispose might do something that would call the signal handler that
+		 * would reference the already destroyed command bar. */
+		g_hash_table_foreach (self->priv->dock_items, 
+		                      (GHFunc) disconnect_select_signals,
+		                      self->priv->command_bar);
+
 		g_object_unref (self->priv->command_bar);
 		self->priv->command_bar = NULL;
 	}
@@ -137,16 +168,6 @@ anjuta_dock_add_pane (AnjutaDock *self, const gchar *pane_name,
 	                           user_data, behavior);
 }
 
-static void
-on_pane_selected (GdlDockItem *item, AnjutaCommandBar *command_bar)
-{
-	const gchar *pane_name;
-
-	pane_name = (const gchar *) g_object_get_data (G_OBJECT (item), 
-	                                               "pane-name");
-	anjuta_command_bar_show_action_group (command_bar, pane_name);
-}
-
 /**
  * anjuta_dock_add_pane_full:
  * @self: An AnjutaDock
@@ -203,6 +224,9 @@ anjuta_dock_add_pane_full (AnjutaDock *self, const gchar *pane_name,
 			g_signal_connect (G_OBJECT (dock_item), "selected",
 			                  G_CALLBACK (on_pane_selected),
 			                  self->priv->command_bar);
+
+			g_hash_table_insert (self->priv->dock_items, (gchar *) pane_name,
+			                     dock_item);
 
 			/* Show the new pane's commands in the command bar */
 			anjuta_command_bar_show_action_group (ANJUTA_COMMAND_BAR (self->priv->command_bar),
