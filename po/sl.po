@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&component=core application\n"
 "POT-Creation-Date: 2010-11-21 11:57+0000\n"
-"PO-Revision-Date: 2010-12-28 23:25+0100\n"
+"PO-Revision-Date: 2011-01-15 20:33+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: \n"
@@ -7156,11 +7156,11 @@ msgstr ""
 
 #: ../plugins/project-wizard/druid.c:642
 msgid "Field \"%s\" must contains only letters, digits or the following characters \"#$:%+,.=@^_`~\". In addition you cannot have a leading dash. Please fix it."
-msgstr ""
+msgstr "Polje \"%s\" sme vsebovati le črke, številke in znake \"#$:%+,.=@^_`~\". Pri tem prva črka ne sme biti vezaj."
 
 #: ../plugins/project-wizard/druid.c:647
 msgid "Field \"%s\" must contains only letters, digits, the following characters \"#$:%+,.=@^_`~\" or directory separators. In addition you cannot have a leading dash. Please fix it."
-msgstr ""
+msgstr "Polje \"%s\" sme vsebovati le črke, številke, znake \"#$:%+,.=@^_`~\" in ločilnike map. Pri tem prva črka ne sme biti vezaj."
 
 #: ../plugins/project-wizard/druid.c:652
 #, c-format
@@ -10080,7 +10080,7 @@ msgstr "Parametri zamika"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:12
 msgid "Leading asterisk in multi-line comment"
-msgstr ""
+msgstr "Začetni znak zvezdica (*) v večvrstičnih opombah"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:13
 msgid "Line up parentheses"
@@ -10092,7 +10092,7 @@ msgstr "Zamikanje oklepajev"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
 msgid "Prefer vim/emacs modelines over indentation settings"
-msgstr ""
+msgstr "Prednostno upoštevaj vim/emacs vrstične nastavitve pred nastavitvami zamikanja"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:14
