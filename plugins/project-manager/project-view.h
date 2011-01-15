@@ -66,10 +66,20 @@ struct _GbfProjectViewClass {
 GType                       gbf_project_view_get_type          (void);
 GtkWidget                  *gbf_project_view_new               (void);
 
+void			    gbf_project_view_set_parent_view (GbfProjectView *view,
+			                                      GbfProjectView *parent,
+			                                      GtkTreePath *root);
+void			    gbf_project_view_set_visible_func (GbfProjectView *view,
+			                                       GtkTreeModelFilterVisibleFunc func,
+			                                       gpointer data,
+			                                       GDestroyNotify destroy);
+
 AnjutaProjectNode          *gbf_project_filter_view_find_selected     (GtkTreeView *view,
 									AnjutaProjectNodeType type);
 GList                      *gbf_project_filter_view_get_all_selected  (GtkTreeView *view);
 
+void			    gbf_project_view_set_cursor_to_iter (GbfProjectView *view,
+			                                         GtkTreeIter *selected);
 
 AnjutaProjectNode          *gbf_project_view_find_selected     (GbfProjectView *view,
 							        AnjutaProjectNodeType type);

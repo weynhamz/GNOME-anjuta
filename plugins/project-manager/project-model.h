@@ -62,6 +62,7 @@ void             gbf_project_model_set_project       (GbfProjectModel   *model,
 AnjutaPmProject *gbf_project_model_get_project       (GbfProjectModel   *model);
 
 GtkTreePath     *gbf_project_model_get_project_root  (GbfProjectModel   *model);
+GtkTreePath     *gbf_project_model_get_project_root_group  (GbfProjectModel   *model);
 gboolean         gbf_project_model_remove            (GbfProjectModel *model,
                                                       GtkTreeIter *iter);
 gboolean         gbf_project_model_find_tree_data    (GbfProjectModel   *model,
@@ -115,7 +116,6 @@ void            gbf_project_model_move_target_shortcut    (GbfProjectModel *mode
                                                            GtkTreeIter     *iter,
                                                            GbfTreeData     *shortcut,
                                                            GtkTreePath     *before_path);
-GtkTreeRowReference * gbf_project_model_get_root    (GbfProjectModel *model);
 void            gbf_project_model_set_default_shortcut    (GbfProjectModel *model, gboolean enable);
 
 

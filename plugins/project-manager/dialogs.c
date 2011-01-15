@@ -207,14 +207,14 @@ module_filter_func (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
 	GbfTreeData *data = NULL;
 	gboolean visible = FALSE;
 	AnjutaProjectNode *node;
-
+	
 	gtk_tree_model_get (model, iter,
 						GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
 	node = data == NULL ? NULL : gbf_tree_data_get_node (data);
 	if (node != NULL)
 	{
 		AnjutaProjectNodeType type = anjuta_project_node_get_node_type (node);
-		
+
 		visible = (type == ANJUTA_PROJECT_MODULE) || (type == ANJUTA_PROJECT_PACKAGE);
 	}
 	
@@ -222,57 +222,19 @@ module_filter_func (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
 }
 
 static void 
-setup_nodes_treeview (GbfProjectModel         *model,
-						GtkWidget              *view,
+setup_nodes_treeview (GbfProjectView           *view,
+						GbfProjectView		   *parent,
+                  	    GtkTreePath            *root,
 						GtkTreeModelFilterVisibleFunc func,
 						gpointer               data,
 						GtkTreeIter            *selected)
 {
-	GtkTreeModel *filter;
-	GtkTreeIter iter_filter;
-	GtkTreePath *path;
-
-	g_return_if_fail (model != NULL);
 	g_return_if_fail (view != NULL && GBF_IS_PROJECT_VIEW (view));
+	g_return_if_fail (parent != NULL);
 
-	filter = gtk_tree_model_filter_new (GTK_TREE_MODEL (model), NULL);
-	gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (filter),
-											func, data, NULL);
-	gtk_tree_view_set_model (GTK_TREE_VIEW (view), GTK_TREE_MODEL (filter));
-	g_object_unref (filter);
-
-	/* select default node */
-	if (selected && gtk_tree_model_filter_convert_child_iter_to_iter (
-			GTK_TREE_MODEL_FILTER (filter), &iter_filter, selected))
-	{
-		path = gtk_tree_model_get_path (filter, &iter_filter);
-		gtk_tree_view_expand_to_path (GTK_TREE_VIEW (view), path);
-	}
-	else
-	{
-		GtkTreePath *root_path;
-
-		gtk_tree_view_expand_all (GTK_TREE_VIEW (view));
-		root_path = gbf_project_model_get_project_root (model);
-		if (root_path)
-		{
-			path = gtk_tree_model_filter_convert_child_path_to_path (
-						GTK_TREE_MODEL_FILTER (filter), root_path);
-			gtk_tree_path_free (root_path);
-		}
-		else
-		{
-			path = gtk_tree_path_new_first ();
-		}
-	}
-
-	if (path)
-	{
-		gtk_tree_view_set_cursor (GTK_TREE_VIEW (view), path, NULL, FALSE);
-		gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW (view), path, NULL,
-									TRUE, 0.5, 0.0);
-		gtk_tree_path_free (path);
-	}
+	gbf_project_view_set_parent_view (view, parent, root);
+	gbf_project_view_set_visible_func (view, func, data, NULL);
+	gbf_project_view_set_cursor_to_iter (view, selected);
 }
 
 static void
@@ -798,8 +760,9 @@ pm_project_create_properties_dialog (AnjutaPmProject *project, GtkWindow *parent
 	g_object_unref (bxml);
 
 	/* Add tree view */
-	setup_nodes_treeview (gbf_project_view_get_model (view),
-							node_view,
+	setup_nodes_treeview (GBF_PROJECT_VIEW (node_view),
+	                        view,
+	                        NULL,
 							is_project_node_but_shortcut,
 							NULL,
 							selected);
@@ -900,6 +863,7 @@ anjuta_pm_project_new_group (ProjectManagerPlugin *plugin, GtkWindow *parent, Gt
 	GtkBuilder *gui;
 	GtkWidget *dialog, *group_name_entry, *ok_button;
 	GtkWidget *groups_view;
+	GtkTreePath *root;
 	gint response;
 	gboolean finished = FALSE;
 	AnjutaProjectNode *new_group = NULL;
@@ -926,11 +890,14 @@ anjuta_pm_project_new_group (ProjectManagerPlugin *plugin, GtkWindow *parent, Gt
 	else
 		gtk_widget_set_sensitive (ok_button, FALSE);
 
-	setup_nodes_treeview (gbf_project_view_get_model (plugin->view),
-							groups_view,
+	root = gbf_project_model_get_project_root (gbf_project_view_get_model (plugin->view));
+	setup_nodes_treeview (GBF_PROJECT_VIEW (groups_view),
+	                        plugin->view,
+	                      	root,
 							parent_filter_func,
 							GINT_TO_POINTER (ANJUTA_PROJECT_GROUP),
 							selected);
+	gtk_tree_path_free (root);
 	gtk_widget_show (groups_view);
 
 	if (parent)
@@ -1041,6 +1008,7 @@ anjuta_pm_project_new_multiple_source (ProjectManagerPlugin *plugin,
 	GtkTreeViewColumn* column_filename;
 	GList* new_sources = NULL;
 	GList* uri_node;
+	GtkTreePath *root;
 
 	g_return_val_if_fail (plugin->project != NULL, NULL);
 
@@ -1098,11 +1066,14 @@ anjuta_pm_project_new_multiple_source (ProjectManagerPlugin *plugin,
 	/*project_root = g_file_get_uri (anjuta_project_node_get_file (anjuta_pm_project_get_root (project)));
 	g_object_set_data_full (G_OBJECT (browse_button), "root", project_root, g_free);*/
 
-	setup_nodes_treeview (gbf_project_view_get_model (plugin->view),
-							targets_view,
+	root = gbf_project_model_get_project_root_group (gbf_project_view_get_model (plugin->view));
+	setup_nodes_treeview (GBF_PROJECT_VIEW (targets_view),
+	                        plugin->view,
+	                       	root,
 							parent_filter_func,
 							GINT_TO_POINTER (ANJUTA_PROJECT_SOURCE),
 							default_parent);
+	gtk_tree_path_free (root);
 	gtk_widget_show (targets_view);
 
 	if (top_window) {
@@ -1275,6 +1246,7 @@ anjuta_pm_project_new_target (ProjectManagerPlugin *plugin,
 	GtkBuilder *gui;
 	GtkWidget *dialog, *target_name_entry, *ok_button;
 	GtkWidget *target_type_combo, *groups_view;
+	GtkTreePath *root;
 	GtkListStore *types_store;
 	GtkCellRenderer *renderer;
 	gint response;
@@ -1304,11 +1276,14 @@ anjuta_pm_project_new_target (ProjectManagerPlugin *plugin,
 	else
 		gtk_widget_set_sensitive (ok_button, FALSE);
 
-	setup_nodes_treeview (gbf_project_view_get_model (plugin->view),
-							groups_view,
+	root = gbf_project_model_get_project_root_group (gbf_project_view_get_model (plugin->view));
+	setup_nodes_treeview (GBF_PROJECT_VIEW (groups_view),
+	                        plugin->view,
+	                       	root,
 							parent_filter_func,
 							GINT_TO_POINTER (ANJUTA_PROJECT_TARGET),
 							default_group);
+	gtk_tree_path_free (root);
 	gtk_widget_show (groups_view);
 
 	/* setup target types combo box */
@@ -1435,6 +1410,7 @@ anjuta_pm_project_new_module (ProjectManagerPlugin *plugin,
 	GtkWidget *ok_button, *new_button;
 	GtkWidget *targets_view;
 	GtkWidget *modules_view;
+	GtkTreePath *root;
 	gint response;
 	gboolean finished = FALSE;
 	GList* new_modules = NULL;
@@ -1452,17 +1428,23 @@ anjuta_pm_project_new_module (ProjectManagerPlugin *plugin,
 	new_button = GTK_WIDGET (gtk_builder_get_object (gui, "new_package_button"));
 	ok_button = GTK_WIDGET (gtk_builder_get_object (gui, "ok_module_button"));
 
-	setup_nodes_treeview (gbf_project_view_get_model (plugin->view),
-							targets_view,
+	root = gbf_project_model_get_project_root_group (gbf_project_view_get_model (plugin->view));
+	setup_nodes_treeview (GBF_PROJECT_VIEW (targets_view),
+	                        plugin->view,
+	                       	root,
 							parent_filter_func,
 							GINT_TO_POINTER (ANJUTA_PROJECT_MODULE),
 							default_target);
+	gtk_tree_path_free (root);
 	gtk_widget_show (targets_view);
-	setup_nodes_treeview (gbf_project_view_get_model (plugin->view),
-							modules_view,
+	root = gbf_project_model_get_project_root (gbf_project_view_get_model (plugin->view));
+	setup_nodes_treeview (GBF_PROJECT_VIEW (modules_view),
+	                        plugin->view,
+	                        root,
 							module_filter_func,
 							NULL,
 							NULL);
+	gtk_tree_path_free (root);
 	gtk_widget_show (modules_view);
 	module_selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (modules_view));
 	gtk_tree_selection_set_mode (module_selection, GTK_SELECTION_MULTIPLE);

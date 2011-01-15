@@ -42,6 +42,7 @@ struct _GbfProjectModelPrivate {
 	gulong               project_updated_handler;
 	
 	GtkTreeRowReference *root;
+	GtkTreeRowReference *root_group;
 	GList               *shortcuts;
 
 	gboolean default_shortcut;	   /* Add shortcut for each primary node */
@@ -208,37 +209,6 @@ gbf_project_model_instance_init (GbfProjectModel *model)
 					      GTK_SORT_ASCENDING);
 
 	insert_empty_node (model);
-}
-
-GtkTreeRowReference *
-gbf_project_model_get_root (GbfProjectModel *model)
-{
-	if (model->priv->root == NULL)
-	{
-		GtkTreeIter iter;
-		gboolean valid;
-
-		/* Search root group */
-		for (valid = gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &iter, NULL); valid; valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &iter))
-		{
-			GbfTreeData *data;
-			
-			gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
-	   			 GBF_PROJECT_MODEL_COLUMN_DATA, &data,
-		    		-1);
-
-			if (data->type == GBF_TREE_NODE_ROOT)
-			{
-				GtkTreePath *path;
-				
-				path = gtk_tree_model_get_path (GTK_TREE_MODEL (model), &iter);
-				model->priv->root = gtk_tree_row_reference_new (GTK_TREE_MODEL (model), path);
-				gtk_tree_path_free (path);
-			}
-		}
-	}
-
-	return model->priv->root;
 }
 
 /* Model data functions ------------ */
@@ -477,7 +447,7 @@ gbf_project_model_add_target_shortcut (GbfProjectModel *model,
 
 	if (expanded != NULL) *expanded = FALSE;
 
-	root_path = gtk_tree_row_reference_get_path (gbf_project_model_get_root (model));
+	root_path = gbf_project_model_get_project_root (model);
 	if ((before_path == NULL) && (target->type != GBF_TREE_NODE_SHORTCUT))
 	{
 		/* Check is a proxy node is not already existing. It is used to
@@ -563,7 +533,7 @@ gbf_project_model_move_target_shortcut (GbfProjectModel *model,
 	if (!shortcut)
 		return;
 
-	root_path = gtk_tree_row_reference_get_path (gbf_project_model_get_root (model));
+	root_path = gbf_project_model_get_project_root (model);
 	
 	/* check before_path */
 	if (!before_path ||
@@ -983,8 +953,74 @@ gbf_project_model_get_project_root (GbfProjectModel *model)
 	
 	g_return_val_if_fail (GBF_IS_PROJECT_MODEL (model), NULL);
 
-	if (gbf_project_model_get_root (model))
+	if (model->priv->root == NULL)
+	{
+		GtkTreeIter iter;
+		gboolean valid;
+
+		/* Search root group */
+		for (valid = gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &iter, NULL); valid; valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &iter))
+		{
+			GbfTreeData *data;
+			
+			gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
+	   			 GBF_PROJECT_MODEL_COLUMN_DATA, &data,
+		    		-1);
+
+			if (data->type == GBF_TREE_NODE_ROOT)
+			{
+				path = gtk_tree_model_get_path (GTK_TREE_MODEL (model), &iter);
+				model->priv->root = gtk_tree_row_reference_new (GTK_TREE_MODEL (model), path);
+			}
+		}
+	}
+	else
+	{
 		path = gtk_tree_row_reference_get_path (model->priv->root);
+	}
+	
+	return path;
+}
+
+GtkTreePath *
+gbf_project_model_get_project_root_group (GbfProjectModel *model)
+{
+	GtkTreePath *path = NULL;
+	
+	g_return_val_if_fail (GBF_IS_PROJECT_MODEL (model), NULL);
+
+	if (model->priv->root_group == NULL)
+	{
+		GtkTreeIter root;
+
+		path = gbf_project_model_get_project_root (model);
+		if ((path != NULL) && gtk_tree_model_get_iter (GTK_TREE_MODEL (model), &root, path))
+		{
+			gboolean valid;
+			GtkTreeIter iter;
+
+			
+			/* Search root group */
+			for (valid = gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &iter, &root); valid; valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &iter))
+			{
+				GbfTreeData *data;
+			
+				gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
+	   				 GBF_PROJECT_MODEL_COLUMN_DATA, &data,
+		    			-1);
+
+				if (data->type == GBF_TREE_NODE_GROUP)
+				{
+					path = gtk_tree_model_get_path (GTK_TREE_MODEL (model), &iter);
+					model->priv->root_group = gtk_tree_row_reference_new (GTK_TREE_MODEL (model), path);
+				}
+			}
+		}
+	}
+	else
+	{
+		path = gtk_tree_row_reference_get_path (model->priv->root_group);
+	}
 	
 	return path;
 }

@@ -222,7 +222,7 @@ idrag_dest_row_drop_possible (GtkTreeDragDest  *drag_dest,
 					GtkTreePath *root_path;
 					GtkTreePath *child_path;
 					
-					root_path = gtk_tree_row_reference_get_path (gbf_project_model_get_root (GBF_PROJECT_MODEL (project_model)));
+					root_path = gbf_project_model_get_project_root (GBF_PROJECT_MODEL (project_model));
 					child_path = gtk_tree_model_filter_convert_path_to_child_path (GTK_TREE_MODEL_FILTER (drag_dest), dest_path);
 					retval = gtk_tree_path_compare (child_path, root_path) <= 0;
 					gtk_tree_path_free (child_path);
@@ -762,6 +762,79 @@ gbf_project_view_get_first_selected (GbfProjectView *view, GtkTreeIter* selected
 
 	return data;
 }
+
+void
+gbf_project_view_set_cursor_to_iter (GbfProjectView *view,
+                                     GtkTreeIter *selected)
+{
+	GtkTreePath *path = NULL;
+	GtkTreeIter view_iter;
+	
+	/* select node if we find it in the view*/
+	if ((selected != NULL) && gtk_tree_model_filter_convert_child_iter_to_iter (
+			GTK_TREE_MODEL_FILTER (view->filter), &view_iter, selected))
+	{
+		path = gtk_tree_model_get_path (GTK_TREE_MODEL (view->filter), &view_iter);
+	}
+	else
+	{
+		/* Check if it is a shortcut */
+		if (selected !=NULL)
+		{
+			GbfTreeData *data;
+
+			gtk_tree_model_get (GTK_TREE_MODEL (view->model), selected,
+			                    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
+			                    -1);
+
+			if ((data != NULL) && (data->shortcut != NULL))
+			{
+				/* Select the corresponding node */
+				GtkTreeIter iter;
+				
+				if (gbf_project_model_find_tree_data (view->model, &iter, data->shortcut))
+				{
+					if (gtk_tree_model_filter_convert_child_iter_to_iter (
+					         GTK_TREE_MODEL_FILTER (view->filter), &view_iter, &iter))
+					{
+						path = gtk_tree_model_get_path (GTK_TREE_MODEL (view->filter), &view_iter);
+					}
+				}
+			}
+		}
+
+		/* Try to select root node */
+		if (path == NULL)
+		{
+			GtkTreePath *root_path;
+
+			root_path = gbf_project_model_get_project_root (view->model);
+			if (root_path)
+			{
+				path = gtk_tree_model_filter_convert_child_path_to_path (
+							GTK_TREE_MODEL_FILTER (view->filter), root_path);
+				gtk_tree_path_free (root_path);
+			}
+		}
+
+		/* Take the first node */
+		if (path == NULL)
+		{
+			path = gtk_tree_path_new_first ();
+		}
+	}
+
+	if (path)
+	{
+		gtk_tree_view_expand_to_path (GTK_TREE_VIEW (view), path);
+		
+		gtk_tree_view_set_cursor (GTK_TREE_VIEW (view), path, NULL, FALSE);
+		gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW (view), path, NULL,
+									TRUE, 0.5, 0.0);
+		gtk_tree_path_free (path);
+	}
+}
+
 
 static void
 on_each_get_data (GtkTreeModel *model,
@@ -1414,6 +1487,37 @@ gbf_project_view_set_project (GbfProjectView *view, AnjutaPmProject *project)
 	g_signal_connect (project, "loaded", G_CALLBACK (on_node_loaded), view);
 
 	gbf_project_model_set_project (view->model, project);
+}
+
+void 
+gbf_project_view_set_parent_view (GbfProjectView *view,
+                                  GbfProjectView *parent,
+                                  GtkTreePath *root)
+{
+	
+	if (view->model != NULL) g_object_unref (view->model);
+	if (view->filter != NULL) g_object_unref (view->model);
+	
+	view->model = g_object_ref (parent->model);
+	view->filter = GTK_TREE_MODEL_FILTER (pm_project_model_filter_new (GTK_TREE_MODEL (view->model), root));
+	gtk_tree_view_set_model (GTK_TREE_VIEW (view), GTK_TREE_MODEL (view->filter));
+}
+
+void 
+gbf_project_view_set_visible_func (GbfProjectView *view,
+                                   GtkTreeModelFilterVisibleFunc func,
+                                   gpointer data,
+                                   GDestroyNotify destroy)
+{
+	if (func == NULL)
+	{
+		gtk_tree_model_filter_set_visible_func (view->filter, is_project_node_visible, view, NULL);
+	}
+	else
+	{
+		gtk_tree_model_filter_set_visible_func (view->filter, func, data, destroy);
+	}
+	gtk_tree_model_filter_refilter (view->filter);
 }
 
 gboolean
