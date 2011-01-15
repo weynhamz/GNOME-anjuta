@@ -55,6 +55,7 @@
 #define ANJUTA_VIEW_SCROLL_MARGIN 0.02
 
 #define TARGET_URI_LIST 100
+#define TARGET_GLADE 101
 
 #define ANJUTA_VIEW_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE ((object), ANJUTA_TYPE_VIEW, AnjutaViewPrivate))
 
@@ -163,17 +164,15 @@ anjuta_view_get_property (GObject * object,
 }
 
 static GdkAtom
-drag_get_uri_target (GtkWidget      *widget,
+drag_get_target (GtkWidget      *widget,
 		     GdkDragContext *context)
 {
 	GdkAtom target;
 	GtkTargetList *tl;
 	
-	tl = gtk_target_list_new (NULL, 0);
-	gtk_target_list_add_uri_targets (tl, 0);
+	tl = gtk_drag_dest_get_target_list (widget);	
 	
 	target = gtk_drag_dest_find_target (widget, context, tl);
-	gtk_target_list_unref (tl);
 	
 	return target;	
 }
@@ -189,7 +188,7 @@ anjuta_view_drag_drop (GtkWidget      *widget,
 	GdkAtom target;
 
 	/* If this is a URL, just get the drag data */
-	target = drag_get_uri_target (widget, context);
+	target = drag_get_target (widget, context);
 
 	if (target != GDK_NONE)
 	{
@@ -205,6 +204,56 @@ anjuta_view_drag_drop (GtkWidget      *widget,
 	return result;
 }
 
+static SourceviewCell*
+get_cell_from_position (GtkTextView* view,
+                        gint x,
+                        gint y)
+{
+	gint buffer_x, buffer_y;
+	GtkTextIter iter;
+	SourceviewCell* cell;
+	
+	gtk_text_view_window_to_buffer_coords (view,
+	                                       GTK_TEXT_WINDOW_WIDGET,
+	                                       x, y, &buffer_x, &buffer_y);
+
+	gtk_text_view_get_iter_at_location (view,
+	                                    &iter, buffer_x, buffer_y);
+
+	cell = sourceview_cell_new (&iter, view);
+
+	return cell;
+}
+
+static gboolean
+anjuta_view_drag_motion (GtkWidget        *widget,
+                         GdkDragContext   *context,
+                         gint              x,
+                         gint              y,
+                         guint  		   timestamp)
+{
+	AnjutaView* view = ANJUTA_VIEW (widget);
+	SourceviewCell* cell;
+	gboolean retval;
+
+	cell = get_cell_from_position (GTK_TEXT_VIEW(view->priv->sv->priv->view), x, y);
+	
+	g_signal_emit_by_name (view->priv->sv,
+	                       "drop-possible",
+	                       cell, &retval);
+
+	g_object_unref (cell);
+	
+	if (retval)
+	{
+		gdk_drag_status (context, GDK_ACTION_COPY, timestamp);
+	}
+
+	GTK_WIDGET_CLASS (anjuta_view_parent_class)->drag_motion (widget, context, x, y, timestamp);
+	
+	return retval;
+}
+                         
 static void
 anjuta_view_drag_data_received (GtkWidget        *widget,
                                 GdkDragContext   *context,
@@ -237,6 +286,18 @@ anjuta_view_drag_data_received (GtkWidget        *widget,
 		}
 		gtk_drag_finish (context, FALSE, FALSE, timestamp);
 	}
+	else if (info == TARGET_GLADE)
+	{
+		const gchar* signal_data = (gchar*) gtk_selection_data_get_data (selection_data);
+		SourceviewCell* cell = get_cell_from_position (GTK_TEXT_VIEW (view->priv->sv->priv->view),
+		                                               x, y);
+		g_signal_emit_by_name (view->priv->sv,
+		                       "drop",
+		                       cell,
+		                       signal_data);
+		g_object_unref (cell);
+		gtk_drag_finish (context, TRUE, FALSE, timestamp);
+	}
 	else
 	{
 		GTK_WIDGET_CLASS (anjuta_view_parent_class)->drag_data_received (widget, context, x, y, selection_data, info, timestamp);
@@ -263,6 +324,7 @@ anjuta_view_class_init (AnjutaViewClass *klass)
 	widget_class->button_press_event = anjuta_view_button_press_event;
 	widget_class->drag_drop = anjuta_view_drag_drop;
 	widget_class->drag_data_received = anjuta_view_drag_data_received;
+	widget_class->drag_motion = anjuta_view_drag_motion;
   
 	textview_class->move_cursor = anjuta_view_move_cursor;
 
@@ -385,8 +447,11 @@ anjuta_view_init (AnjutaView *view)
   tl = gtk_drag_dest_get_target_list (GTK_WIDGET (view));
 
   if (tl != NULL)
+  {
+	GdkAtom target = gdk_atom_intern_static_string ("application/x-glade-signal");
 	gtk_target_list_add_uri_targets (tl, TARGET_URI_LIST);
-  
+	gtk_target_list_add (tl, target, GTK_TARGET_OTHER_WIDGET, TARGET_GLADE);
+  }
 }
 
 static void

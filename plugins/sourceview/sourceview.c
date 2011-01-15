@@ -42,6 +42,7 @@
 #include <libanjuta/interfaces/ianjuta-editor-language.h>
 #include <libanjuta/interfaces/ianjuta-editor-search.h>
 #include <libanjuta/interfaces/ianjuta-editor-hover.h>
+#include <libanjuta/interfaces/ianjuta-editor-glade-signal.h>
 #include <libanjuta/interfaces/ianjuta-provider.h>
 
 #include <gtksourceview/gtksourceview.h>
@@ -2459,6 +2460,12 @@ ihover_iface_init(IAnjutaEditorHoverIface* iface)
 	iface->display = ihover_display;
 }
 
+static void
+iglade_iface_init(IAnjutaEditorGladeSignalIface* iface)
+{
+	/* only signals */
+}
+
 ANJUTA_TYPE_BEGIN(Sourceview, sourceview, GTK_TYPE_VBOX);
 ANJUTA_TYPE_ADD_INTERFACE(idocument, IANJUTA_TYPE_DOCUMENT);
 ANJUTA_TYPE_ADD_INTERFACE(ifile, IANJUTA_TYPE_FILE);
@@ -2474,4 +2481,5 @@ ANJUTA_TYPE_ADD_INTERFACE(iprint, IANJUTA_TYPE_PRINT);
 ANJUTA_TYPE_ADD_INTERFACE(ilanguage, IANJUTA_TYPE_EDITOR_LANGUAGE);
 ANJUTA_TYPE_ADD_INTERFACE(isearch, IANJUTA_TYPE_EDITOR_SEARCH);
 ANJUTA_TYPE_ADD_INTERFACE(ihover, IANJUTA_TYPE_EDITOR_HOVER);
+ANJUTA_TYPE_ADD_INTERFACE(iglade, IANJUTA_TYPE_EDITOR_GLADE_SIGNAL);
 ANJUTA_TYPE_END;

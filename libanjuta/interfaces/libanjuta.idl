@@ -2392,6 +2392,39 @@ interface IAnjutaEditor
 		void matching_brace();
 		
 	}
+	
+	/**
+	 * SECTION:ianjuta-editor-glade-signal
+	 * @title: IAnjutaEditorGladeSignal
+	 * @short_description: Interface for dropping signal handlers
+	 * @see_also: 
+	 * @stability: Unstable
+	 * @include: libanjuta/interfaces/ianjuta-editor-goto.h
+	 * 
+	 */
+	interface IAnjutaEditorGladeSignal
+	{
+		/* IAnjutaEditorGladeSignal::drop-possible
+		 * @obj: self
+		 * @iter: a IAnjutaIterator of the position where drop would happen
+		 *
+		 * Emitted when a signal is dragged over the editor
+		 *
+		 * Return value: TRUE if a signal handler can be dropped, FALSE otherwise
+		 */
+		gboolean ::drop_possible (GObject* iterator);
+		
+		/* IAnjutaEditorGladeSignal::drop
+		 * @obj: self
+		 * @iter: a IAnjutaIterator of the position where drop happens
+		 * @signal_data: Signal data in form "widget:signal:handler", e.g.
+		 * "GtkToggleButton:toggled:on_toggle_button_toggled"
+		 *
+		 * Emitted when a signal was received per drag & drop
+		 *
+		 */
+		void ::drop (GObject* iterator, const gchar* signal_data);
+	}	
 }
 
 /**

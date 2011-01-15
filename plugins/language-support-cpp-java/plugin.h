@@ -34,6 +34,15 @@ extern GType cpp_java_plugin_get_type (GTypeModule *module);
 typedef struct _CppJavaPlugin CppJavaPlugin;
 typedef struct _CppJavaPluginClass CppJavaPluginClass;
 
+typedef enum
+{
+	LS_FILE_C,
+	LS_FILE_CHDR,
+	LS_FILE_CPP,
+	LS_FILE_CPPHDR,
+	LS_FILE_OTHER
+} CppFileType;
+
 struct _CppJavaPlugin {
 	AnjutaPlugin parent;
 	
@@ -57,6 +66,7 @@ struct _CppJavaPlugin {
 	
 	/* Assist */
 	CppJavaAssist *assist;
+	CppFileType filetype;
 
 	/* Preferences */
 	GtkBuilder* bxml;

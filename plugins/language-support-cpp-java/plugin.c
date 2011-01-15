@@ -33,6 +33,7 @@
 #include <libanjuta/interfaces/ianjuta-editor-language.h>
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
 #include <libanjuta/interfaces/ianjuta-editor-assist.h>
+#include <libanjuta/interfaces/ianjuta-editor-glade-signal.h>
 #include <libanjuta/interfaces/ianjuta-editor-tip.h>
 #include <libanjuta/interfaces/ianjuta-preferences.h>
 #include <libanjuta/interfaces/ianjuta-symbol.h>
@@ -1749,6 +1750,172 @@ on_editor_char_inserted_java (IAnjutaEditor *editor,
 }
 
 static void
+init_file_type (CppJavaPlugin* lang_plugin)
+{
+	GFile* file = ianjuta_file_get_file (IANJUTA_FILE (lang_plugin->current_editor),
+	                                     NULL);
+
+	if (file)
+	{
+		gchar* mime_type = anjuta_util_get_file_mime_type (file);
+		if (mime_type)
+		{
+			if (g_str_equal (mime_type, "text/x-csrc"))
+				lang_plugin->filetype = LS_FILE_C;
+			else if (g_str_equal (mime_type, "text/x-chdr"))
+				lang_plugin->filetype = LS_FILE_CHDR;
+			else if (g_str_equal (mime_type, "text/x-c++src"))
+				lang_plugin->filetype = LS_FILE_CPP;
+			else if (g_str_equal (mime_type, "text/x-c++hdr"))
+				lang_plugin->filetype = LS_FILE_CPPHDR;
+			else
+				lang_plugin->filetype = LS_FILE_OTHER;
+			return;
+		}
+	}
+	lang_plugin->filetype = LS_FILE_OTHER;
+}
+
+static gboolean
+on_glade_drop_possible (IAnjutaEditor* editor,
+                        IAnjutaIterable* iterator,
+                        CppJavaPlugin* lang_plugin)
+{
+	switch (lang_plugin->filetype)
+	{
+		case LS_FILE_C:
+		case LS_FILE_CHDR:
+			return TRUE;
+		default:
+			return FALSE;
+	}
+}
+
+static gchar*
+language_support_check_param_name (const gchar* name,
+                                   GList** names)
+{
+	gint index = 0;
+	GString* real_name = g_string_new (name);
+	while (g_list_find_custom (*names, real_name->str, (GCompareFunc) strcmp))
+	{
+		g_string_free (real_name, TRUE);
+		real_name = g_string_new (name);
+		g_string_append_printf (real_name, "%d", ++index);
+	}
+	*names = g_list_append (*names, real_name->str);
+	return g_string_free (real_name, FALSE);
+}
+
+static const gchar*
+language_support_get_signal_parameter (const gchar* type_name, GList** names)
+{
+	const gchar* c;
+	const gchar* param_name = NULL;
+	GString* param_string;
+	gchar* real_name;
+	/* Search for the second upper character */
+	for (c = type_name + 1; *c != '\0'; c++)
+	{
+		if (g_ascii_isupper (*c))
+		{
+			param_name = c;
+			break;
+		}
+	}
+	if (param_name && strlen (param_name))
+	{
+		param_string = g_string_new (param_name);
+		g_string_down (param_string);
+	}
+	else
+	{
+		param_string = g_string_new ("arg");
+	}
+	real_name = language_support_check_param_name (g_string_free (param_string, FALSE), names);
+
+	return real_name;
+}
+
+static void
+on_glade_drop (IAnjutaEditor* editor,
+               IAnjutaIterable* iterator,
+               const gchar* signal_data,
+               CppJavaPlugin* lang_plugin)
+{
+	GSignalQuery query;
+	GType type;
+	guint id;
+	
+	const gchar* widget;
+	const gchar* signal;
+	const gchar* handler;
+	const gchar* user_data;
+	gboolean swapped;
+
+	GStrv data = g_strsplit(signal_data, ":", 5);
+	
+	widget = data[0];
+	signal = data[1];
+	handler = data[2];
+	user_data = data[3];
+	swapped = g_str_equal (data[4], "1");
+	
+	type = g_type_from_name (widget);
+	id = g_signal_lookup (signal, type);
+
+	g_signal_query (id, &query);
+	
+	switch (lang_plugin->filetype)
+	{
+		case LS_FILE_C:
+		{
+			GList* names = NULL;
+			GString* str = g_string_new ("\nstatic ");
+			const gchar* widget_param = language_support_get_signal_parameter (widget,
+			                                                                   &names);
+			int i;
+			g_string_append (str, g_type_name (query.return_type));
+			if (!swapped)
+				g_string_append_printf (str, "\n%s (%s *%s", handler, widget, widget_param);
+			else
+				g_string_append_printf (str, "\n%s (gpointer user_data, %s *%s", handler, widget, widget_param);				
+			for (i = 0; i < query.n_params; i++)
+			{
+				const gchar* type_name = g_type_name (query.param_types[i]);
+				const gchar* param_name = language_support_get_signal_parameter (type_name,
+				                                                                 &names);
+				
+				if (query.param_types[i] <= G_TYPE_DOUBLE)
+				{	                                                                
+					g_string_append_printf (str, ", %s %s", type_name, param_name);
+				}
+				else
+				{	                                                                
+					g_string_append_printf (str, ", %s *%s", type_name, param_name);
+				}
+			}
+			if (!swapped)
+				g_string_append (str, ", gpointer user_data)");
+			else
+				g_string_append (str, ")");
+
+			g_string_append (str, "\n{\n\n}\n");
+
+			ianjuta_editor_insert (editor, iterator,
+			                       str->str, -1, NULL);
+			g_string_free (str, TRUE);
+			anjuta_util_glist_strings_free (names);
+			break;
+		}
+		case LS_FILE_CHDR:
+		default:
+			break;
+	}
+	g_strfreev (data);
+}
+
+static void
 install_support (CppJavaPlugin *lang_plugin)
 {	
 	IAnjutaLanguage* lang_manager =
@@ -1792,6 +1959,8 @@ install_support (CppJavaPlugin *lang_plugin)
 	}
 	
 	initialize_indentation_params (lang_plugin);
+	init_file_type (lang_plugin);
+
 	
 	if (!g_str_equal (lang_plugin->current_language, "Vala"))
 	{
@@ -1805,6 +1974,17 @@ install_support (CppJavaPlugin *lang_plugin)
 												NULL),
 					lang_plugin->settings);
 		lang_plugin->assist = assist;
+
+
+		if (IANJUTA_IS_EDITOR_GLADE_SIGNAL (lang_plugin->current_editor))
+		{
+			g_signal_connect (lang_plugin->current_editor,
+			                  "drop-possible", G_CALLBACK (on_glade_drop_possible),
+			                  lang_plugin);
+			g_signal_connect (lang_plugin->current_editor,
+			                  "drop", G_CALLBACK (on_glade_drop),
+			                  lang_plugin);
+		}
 	}	
 		
 	lang_plugin->support_installed = TRUE;
@@ -1838,6 +2018,12 @@ uninstall_support (CppJavaPlugin *lang_plugin)
 		g_object_unref (lang_plugin->assist);
 		lang_plugin->assist = NULL;
 	}
+
+	g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
+	                                      on_glade_drop_possible, lang_plugin);
+	g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
+	                                      on_glade_drop, lang_plugin);
+	
 	
 	lang_plugin->support_installed = FALSE;
 }

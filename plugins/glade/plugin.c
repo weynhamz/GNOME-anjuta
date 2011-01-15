@@ -97,14 +97,20 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 }
 
 static void
+on_signal_editor_created (GladeApp* app,
+                          GladeSignalEditor* seditor,
+                          gpointer data)
+{
+	glade_signal_editor_enable_dnd (seditor, TRUE);
+}
+
+static void
 on_api_help (GladeEditor* editor, 
              const gchar* book,
              const gchar* page,
              const gchar* search,
              GladePlugin* plugin)
 {
-	gchar *book_comm = NULL, *page_comm = NULL;
-	gchar *string;
 
 	AnjutaPlugin* aplugin = ANJUTA_PLUGIN(plugin);
 	AnjutaShell* shell = aplugin->shell;
@@ -116,17 +122,9 @@ on_api_help (GladeEditor* editor,
 	if (help == NULL)
 		return;
 
-	if (book) book_comm = g_strdup_printf ("book:%s ", book);
-	if (page) page_comm = g_strdup_printf ("page:%s ", page);
 
-	string = g_strdup_printf ("%s%s%s",
-	                          book_comm ? book_comm : "",
-	                          page_comm ? page_comm : "",
-	                          search ? search : "");
-
-	ianjuta_help_search(help, string, NULL);
-
-	g_free (string);
+	if (search)
+		ianjuta_help_search(help, search, NULL);
 }
 
 static void
@@ -393,12 +391,11 @@ activate_plugin (AnjutaPlugin *plugin)
 	priv->paned = gtk_paned_new (GTK_ORIENTATION_VERTICAL);
 
 	priv->editor = GTK_WIDGET(glade_editor_new());
+	
 	priv->palette = glade_palette_new();
 
 	gtk_paned_add1 (GTK_PANED(priv->paned), priv->inspector);
 	gtk_paned_add2 (GTK_PANED(priv->paned), priv->editor);
-
-	gtk_widget_set_size_request (priv->inspector, -1, 300);
 
 	gtk_widget_show_all (priv->paned);
 
@@ -409,6 +406,9 @@ activate_plugin (AnjutaPlugin *plugin)
 
 	g_signal_connect(priv->app, "doc-search",
 	                 G_CALLBACK(on_api_help), plugin);
+
+	g_signal_connect(priv->app, "signal-editor-created",
+	                 G_CALLBACK(on_signal_editor_created), plugin);
 
 	gtk_widget_show (priv->palette);
 	gtk_widget_show (priv->editor);
@@ -602,8 +602,10 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **err)
 	{
 		GObject *glade_obj = G_OBJECT (glade_obj_node->data);
 		if (GTK_IS_WINDOW (glade_obj))
-			glade_widget_show (glade_widget_get_from_gobject (glade_obj));
-		break;
+		{
+			glade_project_selection_set (project, glade_obj, TRUE);
+			break;
+		}
 	}
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (ifile)->shell, priv->paned, NULL);
 }
