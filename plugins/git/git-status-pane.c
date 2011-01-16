@@ -29,12 +29,12 @@ enum
 
 /* Status item type flags. These help reliably determine which section a status
  * item belongs to */
-enum
+typedef enum
 {
 	STATUS_TYPE_NONE,
 	STATUS_TYPE_COMMIT,
 	STATUS_TYPE_NOT_UPDATED
-};
+} StatusType;
 
 /* Data for generating lists of selected items */
 typedef struct
@@ -226,6 +226,36 @@ path_renderer_data_func (GtkTreeViewColumn *tree_column,
 }
 
 static void
+git_status_pane_set_path_selection_state (GitStatusPane *self,  
+                                          const gchar *path, 
+                                          AnjutaVcsStatus status, 
+                                          StatusType type, gboolean state)
+{
+	GHashTable *selection_table;
+
+	switch (type)
+	{
+		case STATUS_TYPE_COMMIT:
+			selection_table = self->priv->selected_commit_items;
+			break;
+		case STATUS_TYPE_NOT_UPDATED:
+			selection_table = self->priv->selected_not_updated_items;
+			break;
+		default:
+			return;
+			break;
+	}
+
+	if (state)
+	{
+		g_hash_table_insert (selection_table, g_strdup (path), 
+		                     GINT_TO_POINTER (status));
+	}
+	else
+		g_hash_table_remove (selection_table, path);
+}
+
+static void
 on_selected_renderer_toggled (GtkCellRendererToggle *renderer, gchar *tree_path,
                               GitStatusPane *self)
 {
@@ -234,7 +264,7 @@ on_selected_renderer_toggled (GtkCellRendererToggle *renderer, gchar *tree_path,
 	gboolean selected;
 	AnjutaVcsStatus status;
 	gchar *path;
-	gint type;
+	StatusType type;
 	
 	status_model = GTK_TREE_MODEL (gtk_builder_get_object (self->priv->builder,
 	                                                       "status_model"));
@@ -254,24 +284,15 @@ on_selected_renderer_toggled (GtkCellRendererToggle *renderer, gchar *tree_path,
 	                    COL_SELECTED, selected,
 	                    -1);
 
-	switch (type)
-	{
-		case STATUS_TYPE_COMMIT:
-			g_hash_table_insert (self->priv->selected_commit_items, 
-		                 		 g_strdup (path), GINT_TO_POINTER (status));
-			break;
-		case STATUS_TYPE_NOT_UPDATED:
-			g_hash_table_insert (self->priv->selected_not_updated_items,
-			                     g_strdup (path), GINT_TO_POINTER (status));
-			break;
-		default:
-			break;
-	}
+	git_status_pane_set_path_selection_state (self, path, status, type, 
+	                                          selected);
+
+	g_free (path);
 }
 
 static void
 add_status_items (GQueue *output, GtkTreeStore *status_model, 
-                  GtkTreeIter *parent_iter, gint type)
+                  GtkTreeIter *parent_iter, StatusType type)
 {
 	GitStatus *status_object;
 	AnjutaVcsStatus status;
@@ -364,6 +385,70 @@ git_status_pane_clear (GitStatusPane *self)
 }
 
 static void
+git_status_pane_set_selected_column_state (GitStatusPane *self, 
+                                           StatusType type, 
+                                           gboolean state)
+{
+	GtkTreeModel *status_model;
+	GtkTreeIter *parent_iter;
+	gint i;
+	GtkTreeIter iter;
+	gchar *path;
+	AnjutaVcsStatus status;
+
+	status_model = GTK_TREE_MODEL (gtk_builder_get_object (self->priv->builder,
+	                                                       "status_model"));
+	switch (type)
+	{
+		case STATUS_TYPE_COMMIT:
+			parent_iter = &(self->priv->commit_iter);
+			break;
+		case STATUS_TYPE_NOT_UPDATED:
+			parent_iter = &(self->priv->not_updated_iter);
+			break;
+		default:
+			return;
+			break;
+	}
+	
+	i = 0;
+
+	while (gtk_tree_model_iter_nth_child (status_model, &iter, parent_iter,
+	                                      i++))
+	{
+		gtk_tree_store_set (GTK_TREE_STORE (status_model), &iter, 
+		                    COL_SELECTED, state, 
+		                    -1);
+
+		gtk_tree_model_get (status_model, &iter,
+		                    COL_PATH, &path,
+		                    COL_STATUS, &status,
+		                    -1);
+
+		git_status_pane_set_path_selection_state (self, path, status, type,
+		                                          state);
+
+		g_free (path);
+	}
+}
+
+static void
+on_select_all_button_clicked (GtkButton *button, GitStatusPane *self)
+{
+	git_status_pane_set_selected_column_state (self, STATUS_TYPE_COMMIT, TRUE);
+	git_status_pane_set_selected_column_state (self, STATUS_TYPE_NOT_UPDATED, 
+	                                           TRUE);
+}
+
+static void
+on_clear_button_clicked (GtkButton *button, GitStatusPane *self)
+{
+	git_status_pane_set_selected_column_state (self, STATUS_TYPE_COMMIT, FALSE);
+	git_status_pane_set_selected_column_state (self, STATUS_TYPE_NOT_UPDATED, 
+	                                           FALSE);
+}
+
+static void
 git_status_pane_init (GitStatusPane *self)
 {
 	gchar *objects[] = {"status_pane",
@@ -376,6 +461,8 @@ git_status_pane_init (GitStatusPane *self)
 	GtkCellRenderer *status_name_renderer;
 	GtkCellRenderer *path_renderer;
 	GtkWidget *refresh_button;
+	GtkWidget *select_all_button;
+	GtkWidget *clear_button;
 
 	self->priv = g_new0 (GitStatusPanePriv, 1);
 	self->priv->builder = gtk_builder_new ();
@@ -408,6 +495,10 @@ git_status_pane_init (GitStatusPane *self)
 	                                                           "path_renderer"));
 	refresh_button = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
 	                                                     "refresh_button"));
+	select_all_button = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
+	                                                        "select_all_button"));
+	clear_button = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
+	                                                   "clear_button"));
 										   
 	gtk_tree_view_column_set_cell_data_func (status_column, selected_renderer,
 	                                         (GtkTreeCellDataFunc) selected_renderer_data_func,
@@ -432,6 +523,14 @@ git_status_pane_init (GitStatusPane *self)
 	g_signal_connect_swapped (G_OBJECT (refresh_button), "clicked",
 	                          G_CALLBACK (anjuta_dock_pane_refresh),
 	                          self);
+
+	g_signal_connect (G_OBJECT (select_all_button), "clicked",
+	                  G_CALLBACK (on_select_all_button_clicked),
+	                  self);
+
+	g_signal_connect (G_OBJECT (clear_button), "clicked",
+	                  G_CALLBACK (on_clear_button_clicked),
+	                  self);
 }
 
 static void
