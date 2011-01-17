@@ -365,6 +365,8 @@ update_variables_values (SnippetsInteraction *snippets_interaction,
 		}
 	}
 	
+
+
 	priv->changing_values_blocker = FALSE;
 }
 
@@ -404,6 +406,7 @@ on_cur_editor_changed (IAnjutaEditor *cur_editor,
 {
 	SnippetsInteractionPrivate *priv = NULL;
 	gint sign = 0;
+	IAnjutaIterable *iter = NULL;
 
 	/* Assertions */
 	g_return_if_fail (ANJUTA_IS_SNIPPETS_INTERACTION (user_data));
@@ -425,6 +428,11 @@ on_cur_editor_changed (IAnjutaEditor *cur_editor,
 	                         IANJUTA_ITERABLE (position),
 	                         sign * length,
 	                         text);
+
+	/* Clear the selection (if any) */
+	iter = ianjuta_editor_get_position (cur_editor, NULL);
+	ianjuta_editor_selection_set (IANJUTA_EDITOR_SELECTION(cur_editor),
+	                              iter, iter, FALSE, NULL);
 
 }
 
@@ -448,6 +456,7 @@ on_cur_editor_cursor_moved (IAnjutaEditor *cur_editor,
 		return;
 	g_return_if_fail (priv->editing_info != NULL);
 	cur_pos = ianjuta_editor_get_position (priv->cur_editor, NULL);
+
 	if (!IANJUTA_IS_EDITOR_SELECTION (priv->cur_editor))
 		return;
 
