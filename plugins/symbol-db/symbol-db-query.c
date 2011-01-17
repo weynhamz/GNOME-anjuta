@@ -279,7 +279,7 @@ sdb_query_build_sql_kind_filter (SymbolDBQuery *query, GString *sql)
  * @query: The query.
  * @field: The field to add.
  * 
- * Adds @field to current list of fields if it does not already is there.
+ * Adds @field to current list of fields if it isn't already there.
  * It is used to add additional required fields for some queries which the
  * user may not have set himself.
  */
@@ -321,7 +321,7 @@ sdb_query_reset (SymbolDBQuery *query)
  * 
  * Updates the SQL query based on latest set paramenters. Usually called
  * after some parameter influencing the SQL contruct is changed. It will
- * also attempt of compile the resulting SQL statement if possible, otherwise
+ * also attempt to compile the resulting SQL statement if possible, otherwise
  * defer it for later when for database connection is established.
  */
 static void
@@ -545,7 +545,7 @@ sdb_query_handle_result (SymbolDBQuery *query, SymbolDBQueryResult *result)
  * The callback from async command. Reduces the currently pending async
  * command invocation counts. If there are no more pending canceled commands
  * anymore, then emits the "async-result" signal (because its not covered by
- * the cancelatoin), otherwise, it reduces cancelable commands count.
+ * the cancelation), otherwise, it reduces cancelable commands count.
  */
 static gboolean
 on_sdb_query_async_poll (gpointer data)
@@ -657,8 +657,8 @@ on_sdb_query_dbe_scan_end (SymbolDBEngine *dbe, gint something,
  * it is defered until the DB is done scanning (at which point "async-result"
  * will be emitted).
  *
- * Returns: The resultset iterator for sync or sucessful queued queries,
- * otherwise returns NULL for async or unsuccessful queued queires (their
+ * Returns: The resultset iterator for sync or successful queued queries,
+ * otherwise returns NULL for async or unsuccessful queued queries (their
  * results will be delivered via "async-result" signal).
  */
 static IAnjutaIterable*
@@ -692,6 +692,8 @@ sdb_query_execute (SymbolDBQuery *query)
 			return NULL;
 		case IANJUTA_SYMBOL_QUERY_MODE_QUEUED:
 			query->priv->query_queued = TRUE;
+
+			/* FIXME: shoudn't be called with g_idle_add ? */
 			on_sdb_query_dbe_scan_end (NULL, 0, query);
 			break;
 		default:
