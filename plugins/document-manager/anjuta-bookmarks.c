@@ -510,6 +510,26 @@ anjuta_bookmarks_get_text (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor, gi
 	}								  
 }
 
+static void
+anjuta_bookmarks_check_selection (AnjutaBookmarks* bookmarks,
+                                  GtkTreePath* path)
+{
+	AnjutaBookmarksPrivate* priv = BOOKMARKS_GET_PRIVATE(bookmarks);
+	GtkTreeSelection* selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(priv->tree));
+	GList* selected = gtk_tree_selection_get_selected_rows (selection,
+															NULL);
+	if (!selected)
+	{
+		GtkTreeIter iter;
+		if (!path || !gtk_tree_model_get_iter (priv->model, &iter, path))
+		{
+			if (!gtk_tree_model_get_iter_first (priv->model, &iter))
+				return;
+		}
+		gtk_tree_selection_select_iter (selection, &iter);
+	}	
+}
+
 void
 anjuta_bookmarks_add (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor, gint line, 
 					  const gchar* title, gboolean use_selection)
@@ -556,6 +576,7 @@ anjuta_bookmarks_remove (AnjutaBookmarks* bookmarks)
 															NULL);
 	GList* node;
 	GList* refs = NULL;
+	GtkTreePath* first_path = NULL;
 	for (node = selected; node != NULL; node = g_list_next (node))
 	{
 		GtkTreeRowReference* ref = gtk_tree_row_reference_new (priv->model,
@@ -575,7 +596,14 @@ anjuta_bookmarks_remove (AnjutaBookmarks* bookmarks)
 		gtk_tree_model_get_iter (priv->model,
 								 &iter,
 								 path);
-		gtk_tree_path_free (path);
+		if (!first_path)
+		{
+			first_path = path;
+		}
+		else
+		{
+			gtk_tree_path_free (path);
+		}
 		gtk_tree_model_get (priv->model, &iter, 
 							COLUMN_FILE, &file,
 							COLUMN_LINE, &line,
@@ -595,6 +623,11 @@ anjuta_bookmarks_remove (AnjutaBookmarks* bookmarks)
 		
 		gtk_list_store_remove (GTK_LIST_STORE (priv->model), &iter);
 	}
+
+	anjuta_bookmarks_check_selection (bookmarks, first_path);
+	if (first_path)
+		gtk_tree_path_free (first_path);
+	
 	g_list_foreach (refs, (GFunc)gtk_tree_row_reference_free, NULL);
 	g_list_free (refs);
 }
