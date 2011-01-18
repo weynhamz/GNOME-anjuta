@@ -227,7 +227,7 @@ message_dialog (GtkMessageType message_type, const gchar *message, Git *plugin)
 	text_view = gtk_text_view_new ();
 	text_buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text_view));
 
-	gtk_widget_set_size_request (text_view, 500, 150);
+	gtk_window_set_default_size (GTK_WINDOW (dialog), 550, 200);
 	
 	gtk_container_add (GTK_CONTAINER (scrolled_window), text_view);
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_window),
