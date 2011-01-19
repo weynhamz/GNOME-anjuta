@@ -22,7 +22,7 @@ python_plugin_plugindir = $(anjuta_plugin_dir)
 python_plugin_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 AM_CPPFLAGS = \
-	$(LIBXML_CFLAGS) \
+	$(XML_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
 	-DSCRIPTS_DIR=\"$(scriptsdir)\" \
 	-DG_LOG_DOMAIN=\"language-support-python\"
