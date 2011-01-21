@@ -54,6 +54,7 @@
 #include "git-reset-pane.h"
 #include "git-revert-pane.h"
 #include "git-cherry-pick-pane.h"
+#include "git-patch-series-pane.h"
 
 AnjutaCommandBarEntry branch_entries[] =
 {
@@ -405,7 +406,23 @@ static AnjutaCommandBarEntry log_entries[] =
 		N_("Revert a commit"),
 		GTK_STOCK_UNDO,
 		G_CALLBACK (on_revert_button_clicked)
-	}
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_FRAME,
+		"NULL",
+		N_("Patch series"),
+		NULL,
+		NULL,
+		NULL
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"GeneratePatchSeries",
+		N_("Generate a patch series"),
+		N_("Generate a patch series"),
+		NULL,
+		G_CALLBACK (on_patch_series_button_clicked)
+	},
 };
 
 static gpointer parent_class;
