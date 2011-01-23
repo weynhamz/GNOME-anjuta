@@ -30,7 +30,12 @@
 		 generic-name="dropentry" />
 
 		 <glade-widget-class name="AnjutaFileList" title="File List"
-		 generic-name="filelist" />
+		 generic-name="filelist">
+		 
+		 	<properties>
+		 		<property id="show-add-button" default="False" />
+		 	</properties>
+		 </glade-widget-class>
 		 
 	     <glade-widget-class name="AnjutaPkgConfigChooser" title="pkg-config chooser" 
 		 generic-name="pkg_config_chooser" />
