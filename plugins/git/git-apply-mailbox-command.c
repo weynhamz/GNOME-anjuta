@@ -26,7 +26,7 @@
 
 struct _GitApplyMailboxCommandPriv
 {
-	gchar *path;
+	GList *mailbox_paths;
 	gboolean add_signoff;
 };
 
@@ -46,7 +46,7 @@ git_apply_mailbox_command_finalize (GObject *object)
 	
 	self = GIT_APPLY_MAILBOX_COMMAND (object);
 	
-	g_free (self->priv->path);
+	git_command_free_string_list (self->priv->mailbox_paths);
 	g_free (self->priv);
 
 	G_OBJECT_CLASS (git_apply_mailbox_command_parent_class)->finalize (object);
@@ -64,7 +64,8 @@ git_apply_mailbox_command_run (AnjutaCommand *command)
 	if (self->priv->add_signoff)
 		git_command_add_arg (GIT_COMMAND (command), "--signoff");
 
-	git_command_add_arg (GIT_COMMAND (command), self->priv->path);
+	git_command_add_list_to_args (GIT_COMMAND (command), 
+	                              self->priv->mailbox_paths);
 	
 	return 0;
 }
@@ -84,8 +85,8 @@ git_apply_mailbox_command_class_init (GitApplyMailboxCommandClass *klass)
 
 GitApplyMailboxCommand *
 git_apply_mailbox_command_new (const gchar *working_directory, 
-							  const gchar *path,
-							  gboolean add_signoff)
+                               GList *mailbox_paths,
+                               gboolean add_signoff)
 {
 	GitApplyMailboxCommand *self;
 	
@@ -94,7 +95,7 @@ git_apply_mailbox_command_new (const gchar *working_directory,
 						 "single-line-output", TRUE,
 						 NULL);
 	
-	self->priv->path = g_strdup (path);
+	self->priv->mailbox_paths = git_command_copy_string_list (mailbox_paths);
 	self->priv->add_signoff = add_signoff;
 	
 	return self;

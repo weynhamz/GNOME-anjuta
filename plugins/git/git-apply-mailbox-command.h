@@ -55,7 +55,7 @@ struct _GitApplyMailboxCommand
 
 GType git_apply_mailbox_command_get_type (void) G_GNUC_CONST;
 GitApplyMailboxCommand *git_apply_mailbox_command_new (const gchar *working_directory, 
-													   const gchar *path, 
+													   GList *mailbox_paths, 
 													   gboolean add_signoff);
 
 G_END_DECLS
