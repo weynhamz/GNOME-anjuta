@@ -187,10 +187,10 @@ libanjuta_include = \
 	anjuta-dock-pane.h \
 	anjuta-file-list.h \
 	anjuta-pkg-config-chooser.h \
-	anjuta-pkg-config.h \	
+	anjuta-pkg-config.h \
 	anjuta-column-text-view.h \
 	anjuta-file-drop-entry.h \
-	anjuta-entry.h
+	anjuta-entry.h \
 	anjuta-token.h \
 	anjuta-pkg-config-chooser.h
 
