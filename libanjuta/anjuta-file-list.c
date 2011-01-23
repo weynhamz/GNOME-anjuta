@@ -23,7 +23,8 @@ enum
 {
 	PROP_0,
 
-	PROP_RELATIVE_PATH
+	PROP_RELATIVE_PATH,
+	PROP_SHOW_ADD_BUTTON
 };
 
 enum
@@ -48,6 +49,7 @@ struct _AnjutaFileListPriv
 	gchar *relative_path;
 	GtkWidget *list_view;
 	GtkListStore *list_model;
+	GtkWidget *add_button;
 	GtkWidget *copy_button;
 	GtkWidget *remove_button;
 
@@ -262,6 +264,52 @@ on_list_view_item_selected (GtkTreeSelection *selection, GtkTreeModel *model,
 }
 
 static void
+on_add_button_clicked (GtkButton *button, AnjutaFileList *self)
+{
+	GtkWidget *file_dialog;
+	GSList *paths;
+	GSList *current_path;
+	GtkTreeIter iter;
+
+	file_dialog = gtk_file_chooser_dialog_new (_("Select Files"),
+	                                           GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (button))),
+	                                           GTK_FILE_CHOOSER_ACTION_OPEN,
+	                                           GTK_STOCK_CANCEL,
+	                                           GTK_RESPONSE_CANCEL,
+	                                           GTK_STOCK_OPEN,
+	                                           GTK_RESPONSE_ACCEPT,
+	                                           NULL);
+
+	gtk_file_chooser_set_select_multiple (GTK_FILE_CHOOSER (file_dialog),
+	                                      TRUE);
+
+	if (gtk_dialog_run (GTK_DIALOG (file_dialog)) == GTK_RESPONSE_ACCEPT)
+	{
+		paths = gtk_file_chooser_get_filenames (GTK_FILE_CHOOSER (file_dialog));
+		current_path = paths;
+
+		while (current_path)
+		{
+			gtk_list_store_insert_before (self->priv->list_model, &iter,
+			                              &(self->priv->placeholder));
+			gtk_list_store_set (self->priv->list_model, &iter, 
+			                    COL_PATH, current_path->data,
+			                    -1);
+
+			g_free (current_path->data);
+
+			current_path = g_slist_next (current_path);
+		}
+
+		g_slist_free (paths);
+
+		
+	}
+
+	gtk_widget_destroy (file_dialog);
+}
+
+static void
 on_copy_button_clicked (GtkButton *button, GtkTreeSelection *selection)
 {
 	GtkTreeModel *list_model;
@@ -306,6 +354,7 @@ anjuta_file_list_init (AnjutaFileList *self)
 	self->priv = g_new0 (AnjutaFileListPriv, 1);
 	self->priv->list_view = gtk_tree_view_new ();
 	self->priv->list_model = gtk_list_store_new (NUM_COLS, G_TYPE_STRING);
+	self->priv->add_button = gtk_button_new_from_stock (GTK_STOCK_ADD);
 	self->priv->copy_button = gtk_button_new_from_stock (GTK_STOCK_COPY);
 	self->priv->remove_button = gtk_button_new_from_stock (GTK_STOCK_REMOVE);
 
@@ -371,6 +420,10 @@ anjuta_file_list_init (AnjutaFileList *self)
 	                                        (GtkTreeSelectionFunc) on_list_view_item_selected,
 	                                        self, NULL);
 
+	g_signal_connect (G_OBJECT (self->priv->add_button), "clicked",
+	                  G_CALLBACK (on_add_button_clicked),
+	                  self);
+
 	g_signal_connect (G_OBJECT (self->priv->copy_button), "clicked",
 	                  G_CALLBACK (on_copy_button_clicked),
 	                  selection);
@@ -392,6 +445,7 @@ anjuta_file_list_init (AnjutaFileList *self)
 	gtk_button_box_set_layout (GTK_BUTTON_BOX (button_box), 
 	                           GTK_BUTTONBOX_START);
 
+	gtk_container_add (GTK_CONTAINER (button_box), self->priv->add_button);
 	gtk_container_add (GTK_CONTAINER (button_box), self->priv->copy_button);
 	gtk_container_add (GTK_CONTAINER (button_box), self->priv->remove_button);
 	gtk_container_add (GTK_CONTAINER (button_box), clear_button);
@@ -400,6 +454,9 @@ anjuta_file_list_init (AnjutaFileList *self)
 	anjuta_file_list_append_placeholder (self);
 
 	gtk_widget_show_all (GTK_WIDGET (self));
+
+	/* Don't show the Add button by default */
+	gtk_widget_set_visible (self->priv->add_button, FALSE);
 }
 
 static void
@@ -432,6 +489,10 @@ anjuta_file_list_set_property (GObject *object, guint prop_id,
 
 			self->priv->relative_path = g_value_dup_string (value);
 			break;
+		case PROP_SHOW_ADD_BUTTON:
+			gtk_widget_set_visible (self->priv->add_button,
+			                        g_value_get_boolean (value));
+			break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 			break;
@@ -452,6 +513,10 @@ anjuta_file_list_get_property (GObject *object, guint prop_id, GValue *value,
 	{
 		case PROP_RELATIVE_PATH:
 			g_value_set_string (value, self->priv->relative_path);
+			break;
+		case PROP_SHOW_ADD_BUTTON:
+			g_value_set_boolean (value, 
+			                     gtk_widget_get_visible (self->priv->add_button));
 			break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -475,6 +540,14 @@ anjuta_file_list_class_init (AnjutaFileListClass *klass)
 	                                                      _("Path that all files in the list should be relative to"),
 	                                                      "",
 	                                                      G_PARAM_READWRITE));
+
+	g_object_class_install_property (object_class,
+	                                 PROP_SHOW_ADD_BUTTON,
+	                                 g_param_spec_boolean ("show-add-button",
+	                                                       _("Show Add button"),
+	                                                       _("Display an Add button"),
+	                                                       FALSE,
+	                                                       G_PARAM_READWRITE));
 }
 
 
