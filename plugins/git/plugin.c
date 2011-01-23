@@ -55,6 +55,7 @@
 #include "git-revert-pane.h"
 #include "git-cherry-pick-pane.h"
 #include "git-patch-series-pane.h"
+#include "git-apply-mailbox-pane.h"
 
 AnjutaCommandBarEntry branch_entries[] =
 {
@@ -423,6 +424,46 @@ static AnjutaCommandBarEntry log_entries[] =
 		NULL,
 		G_CALLBACK (on_patch_series_button_clicked)
 	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_FRAME,
+		"NULL",
+		N_("Mailbox files"),
+		NULL,
+		NULL,
+		NULL
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"ApplyMailboxFiles",
+		N_("Apply mailbox files"),
+		N_("Apply patches from mailbox files"),
+		NULL,
+		G_CALLBACK (on_apply_mailbox_button_clicked)
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"ApplyMailboxContinue",
+		N_("Continue"),
+		N_("Continue applying patches with resolved conflicts"),
+		NULL,
+		G_CALLBACK (on_apply_mailbox_continue_button_clicked)
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"ApplyMailboxSkip",
+		N_("Skip"),
+		N_("Skip the current patch in the series"),
+		NULL,
+		G_CALLBACK (on_apply_mailbox_skip_button_clicked)
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"ApplyMailboxAbort",
+		N_("Abort"),
+		N_("Stop applying the patch series and return the tree to its previous state"),
+		NULL,
+		G_CALLBACK (on_apply_mailbox_abort_button_clicked)
+	}
 };
 
 static gpointer parent_class;

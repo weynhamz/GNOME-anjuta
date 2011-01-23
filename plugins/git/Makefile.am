@@ -222,7 +222,9 @@ libanjuta_git_la_SOURCES = \
 	git-cherry-pick-pane.c \
 	git-cherry-pick-pane.h \
 	git-patch-series-pane.c \
-	git-patch-series-pane.h
+	git-patch-series-pane.h \
+	git-apply-mailbox-pane.c \
+	git-apply-mailbox-pane.h
 	
 
 libanjuta_git_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
