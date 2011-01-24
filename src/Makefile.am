@@ -19,6 +19,7 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)\
 	-I.. -I. \
 	$(LIBANJUTA_CFLAGS) \
+	$(SOURCEVIEW_CFLAGS) \
 	$(GDL_CFLAGS) \
 	$(XML_CFLAGS) \
 	-DPACKAGE_BIN_DIR=\"$(bindir)\" \
@@ -45,6 +46,7 @@ anjuta_SOURCES = \
 
 anjuta_LDADD =  \
 	$(ANJUTA_LIBS) \
+	$(SOURCEVIEW_LIBS) \
 	$(GDL_LIBS) \
 	$(LIBANJUTA_LIBS) \
 	$(XML_LIBS)

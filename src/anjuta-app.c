@@ -31,6 +31,8 @@
 
 #include <gdl/gdl.h>
 
+#include <gtksourceview/gtksourceview.h>
+
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-ui.h>
 #include <libanjuta/anjuta-utils.h>
@@ -718,11 +720,16 @@ anjuta_app_key_press_event (GtkWidget   *widget,
 {
 	static gpointer grand_parent_class = NULL;
 	GtkWindow *window = GTK_WINDOW (widget);
+	GtkWidget *focus = gtk_window_get_focus (window);
 	gboolean handled = FALSE;
 
 	if (grand_parent_class == NULL)
 		grand_parent_class = g_type_class_peek_parent (parent_class);
 
+	/* Special case the editor - it catches all shortcuts otherwise */
+	if (GTK_IS_SOURCE_VIEW (focus))
+		if (gtk_window_activate_key (window, event))
+			return TRUE;
 	switch (event->keyval)
 	{
 		case GDK_KEY_F1:
@@ -746,11 +753,11 @@ anjuta_app_key_press_event (GtkWidget   *widget,
 			if (!handled)
 				handled = gtk_window_propagate_key_event (window, event);
 	}
-	
+
 	/* handle mnemonics and accelerators */
 	if (!handled)
 		handled = gtk_window_activate_key (window, event);
-
+	
 	/* Chain up, invokes binding set */
 	if (!handled)
 		handled = GTK_WIDGET_CLASS (grand_parent_class)->key_press_event (widget, event);
