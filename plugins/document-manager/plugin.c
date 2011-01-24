@@ -368,10 +368,10 @@ static GtkActionEntry actions_format[] = {
 static GtkActionEntry actions_documents[] = {
   {"ActionMenuDocuments", NULL, N_("_Documents"), NULL, NULL, NULL},
   { "ActionDocumentsPrevious", GTK_STOCK_GO_BACK, N_("Previous Document"),
-	"<control><alt>Page_Up", N_("Switch to previous document"),
+	"<control>Page_Up", N_("Switch to previous document"),
     G_CALLBACK (on_previous_document)},
   { "ActionDocumentsNext", GTK_STOCK_GO_FORWARD, N_("Next Document"),
-	"<control><alt>Page_Down", N_("Switch to next document"),
+	"<control>Page_Down", N_("Switch to next document"),
     G_CALLBACK (on_next_document)},
 };
 
