@@ -1,5 +1,3 @@
-if HAVE_PLUGIN_SOURCEVIEW
-
 # Plugin glade file
 sourceview_xmldir = $(anjuta_glade_dir)
 sourceview_xml_DATA = anjuta-editor-sourceview.ui
@@ -26,7 +24,7 @@ AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	$(GIO_CFLAGS) \
-	$(PLUGIN_SOURCEVIEW_CFLAGS) \
+	$(SOURCEVIEW_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
 	-DG_LOG_DOMAIN=\"sourceview\"
 
@@ -76,15 +74,13 @@ libanjuta_sourceview_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 # Plugin dependencies
 libanjuta_sourceview_la_LIBADD = \
 	$(GIO_LIBS) \
-	$(PLUGIN_SOURCEVIEW_LIBS) \
+	$(SOURCEVIEW_LIBS) \
 	$(LIBANJUTA_LIBS)
 
 prefs_name = org.gnome.anjuta.sourceview
 prefs_keyfile = sourceview.gschema-part.xml
 prefs_ui_files = anjuta-editor-sourceview.ui
 include $(top_srcdir)/scripts/build-schemas.mk
-
-endif
 
 EXTRA_DIST = \
 	anjuta-marshal.list \

@@ -230,26 +230,8 @@ AM_CONDITIONAL(HAVE_PLUGIN_GLADE, [test x$gladeui_found = xyes])
 
 dnl Check for gtksourceview
 dnl -------------------------------------------------------------
-
-AC_ARG_ENABLE(plugin-sourceview,
-	AS_HELP_STRING([--disable-plugin-sourceview],[Disable gtksourceview based editor in Anjuta]),
-	[ if test "$enableval" = "no"; then
-		user_disabled_sourceview=1
-	  fi ],
-	[ user_disabled_sourceview=0 ])
-
-AC_MSG_CHECKING(if sourceview plugin is disabled)
-if test "$user_disabled_sourceview" = 1; then
-	AC_MSG_RESULT(yes)
-	sourceview="no"
-else
-	AC_MSG_RESULT(no)
-	sourceview="yes"
-	PKG_CHECK_MODULES(PLUGIN_SOURCEVIEW,
+PKG_CHECK_MODULES(SOURCEVIEW,
 		[gtksourceview-3.0 >= $GTKSOURCEVIEW_REQUIRED])
-fi
-
-AM_CONDITIONAL(HAVE_PLUGIN_SOURCEVIEW, [test x$sourceview = xyes])
 
 dnl Check for vala
 dnl -------------------------------------------------------------
@@ -967,12 +949,6 @@ if [ test x$devhelp_enabled = xyes ]; then
 else
        echo "Building devhelp plugin: ...............................NO"
        echo "        Requires libdevhelp-3.0 (>= $LIBDEVHELP_REQUIRED)"
-fi
-
-if [ test x$sourceview = xyes ]; then
-        echo "Building GtkSourceView based editor: ...................YES"
-else
-        echo "Building GtkSourceView based editor: ...................NO"
 fi
 if [ test x$enable_vala = xyes ]; then
         echo "Building Vala support: .................................YES"
