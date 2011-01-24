@@ -1164,7 +1164,7 @@ anjuta_pm_project_new_multiple_source (ProjectManagerPlugin *plugin,
 			else 
 			{
 				error_dialog (top_window, _("Cannot add source files"),
-						"%s", _("The selected node cannot contains source files."));
+						"%s", _("The selected node cannot contain source files."));
 			}
 			break;
 		}
