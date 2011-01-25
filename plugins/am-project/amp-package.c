@@ -54,50 +54,6 @@ struct _AmpPackageNode {
 };
 
 
-/* Helper functions
- *---------------------------------------------------------------------------*/
-
-static void
-list_all_children (GList **children, GFile *dir)
-{
-	GFileEnumerator *list;
-					
-	list = g_file_enumerate_children (dir,
-	    G_FILE_ATTRIBUTE_STANDARD_NAME,
-	    G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
-	    NULL,
-	    NULL);
-
-	if (list != NULL)
-	{
-		GFileInfo *info;
-		
-		while ((info = g_file_enumerator_next_file (list, NULL, NULL)) != NULL)
-		{
-			const gchar *name;
-			GFile *file;
-
-			name = g_file_info_get_name (info);
-			file = g_file_get_child (dir, name);
-			g_object_unref (info);
-
-			if (g_file_query_file_type (file, G_FILE_QUERY_INFO_NONE, NULL) == G_FILE_TYPE_DIRECTORY)
-			{
-				list_all_children (children, file);
-				g_object_unref (file);
-			}
-			else
-			{
-				*children = g_list_prepend (*children, file);
-			}
-		}
-		g_file_enumerator_close (list, NULL, NULL);
-		g_object_unref (list);
-	}
-}
-
-
-
 /* Package objects
  *---------------------------------------------------------------------------*/
 
@@ -191,7 +147,7 @@ amp_package_node_load (AmpNode *node, AmpNode *parent, AmpProject *project, GErr
 			GList* file = NULL;
 			GFile* dir = g_file_new_for_path (include_dir->data);
 
-			list_all_children (&children, dir);
+			anjuta_util_list_all_dir_children (&children, dir);
 			for (file = g_list_first (children); file != NULL; file = g_list_next (file))
 			{
 				/* Create a source for files */

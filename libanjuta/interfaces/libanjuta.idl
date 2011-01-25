@@ -5631,6 +5631,8 @@ interface IAnjutaSymbol
 	 *     Namely, the arguments list of the funtion.
 	 * @IANJUTA_SYMBOL_FIELD_RETURNTYPE: String. Return type of a method, if symbol is a function.
 	 * @IANJUTA_SYMBOL_FIELD_FILE_PATH: String. The relative path to the file where the symbol is found.
+	 * @IANJUTA_SYMBOL_FIELD_PROJECT_NAME: String. The project name to which the symbol belongs to.
+	 * @IANJUTA_SYMBOL_FIELD_PROJECT_VERSION: String. The project version to which the symbol belongs to.
 	 * @IANJUTA_SYMBOL_FIELD_IMPLEMENTATION: String. Implementation attribute of a symbol. It may be
 	 *     "pure virtual", "virtual", etc.
 	 * @IANJUTA_SYMBOL_FIELD_ACCESS: String. Access attribute of a symbol.
@@ -5666,6 +5668,8 @@ interface IAnjutaSymbol
 		FIELD_TYPE,
 		FIELD_TYPE_NAME,		
 		FIELD_FILE_PATH,
+		FIELD_PROJECT_NAME,
+		FIELD_PROJECT_VERSION,
 		FIELD_IMPLEMENTATION,
 		FIELD_ACCESS,
 		FIELD_KIND,

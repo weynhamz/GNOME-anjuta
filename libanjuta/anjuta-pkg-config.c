@@ -50,15 +50,7 @@ remove_includes (GList* includes, GList* dependencies)
 	return includes;
 }
 
-/*
- * anjuta_pkg_config_list_dependencies:
- * @pkg_name: Name of the package to get the include directories for
- * @error: Error handling
- * 
- * This does (potentially) blocking, call from a thread if necessary
- * 
- * Returns: a list of packages @pkg depends on
- */
+
 GList*
 anjuta_pkg_config_list_dependencies (const gchar* package, GError** error)
 {
@@ -92,16 +84,105 @@ anjuta_pkg_config_list_dependencies (const gchar* package, GError** error)
 	return deps;
 }
 
-/*
- * anjuta_pkg_config_get_directories:
- * @pkg_name: Name of the package to get the include directories for
- * @no_deps: Don't include directories of the dependencies
- * @error: Error handling
- * 
- * This does (potentially) blocking, call from a thread if necessary
- * 
- * Returns: a list of include directories of the package
- */
+
+static GList **
+sdb_system_files_visit_dir (GList **files_list, GFile *file)
+{
+	GFileEnumerator *enumerator;
+	
+	if ((enumerator = g_file_enumerate_children (file, "standard::name,standard::type",
+												G_FILE_QUERY_INFO_NONE, NULL, NULL)))
+	{
+		GFileInfo *info;
+		
+		info = g_file_enumerator_next_file (enumerator, NULL, NULL);
+		while (info)
+		{
+			GFileType type;
+			GFile *child_file;
+
+			problemi qui.
+			type = g_file_info_get_file_type (info);
+			child_file = g_file_resolve_relative_path (file, g_file_info_get_name (info));
+
+			g_message ("child name %s", g_file_info_get_name (info));
+			if (type == G_FILE_TYPE_DIRECTORY)
+			{
+				/* recurse */
+				files_list = sdb_system_files_visit_dir (files_list, child_file);
+				
+				g_object_unref (child_file);
+			}
+			else
+				*files_list = g_list_prepend (*files_list, child_file);
+			
+			g_object_unref (info);
+			
+			info = g_file_enumerator_next_file (enumerator, NULL, NULL);
+		}
+		
+		g_object_unref (enumerator);
+	}	 
+
+	g_message ("file_list length %d", g_list_length (files_list));
+	
+	return files_list;
+}
+
+GList*		
+anjuta_pkg_config_get_abs_headers (const gchar* pkg_name, gboolean no_deps, GError** error)
+{
+	g_return_val_if_fail (pkg_name != NULL, NULL);
+	GList *directories = NULL;
+	GList *dir_node = NULL;
+	/* a GList list of all headers found */
+	GList *headers = NULL;
+	/* a gchar version of headers list */
+	GList *abs_headers;
+
+	/* get a GList of gchar(s) */
+	directories = anjuta_pkg_config_get_directories (pkg_name, no_deps, error);
+	
+	if (error != NULL)
+		return NULL;
+	
+	dir_node = directories;
+	while (dir_node != NULL)
+	{
+		GList *children = NULL;
+		GFile *file;
+
+		g_message ("creating gfile for %s", dir_node->data);
+		file = g_file_new_for_path (dir_node->data);
+		sdb_system_files_visit_dir (&children, file);
+		g_object_unref (file);
+		
+		if (children != NULL)
+		{
+			GList *foo_node;
+			foo_node = children;
+
+			while (foo_node != NULL)
+			{
+				g_message ("children %s", g_file_get_path (foo_node->data));
+
+				foo_node = g_list_next (foo_node);
+			}
+			
+			headers = g_list_concat (headers, children);
+			g_list_free (children);
+		}
+		dir_node = g_list_next (dir_node);
+	}	
+
+	abs_headers = anjuta_util_convert_gfile_list_to_path_list (headers);
+
+	g_list_foreach (headers, (GFunc) g_object_unref, NULL);
+	g_list_free (headers);	
+	
+	return abs_headers;
+}
+
 GList*
 anjuta_pkg_config_get_directories (const gchar* pkg_name, gboolean no_deps, GError** error)
 {
@@ -152,14 +233,6 @@ anjuta_pkg_config_get_directories (const gchar* pkg_name, gboolean no_deps, GErr
 	return dirs;
 }
 
-/*
- * anjuta_pkg_config_ignore_package:
- * @name: Name of the package to ignore
- * 
- * Returns: TRUE if the package does not contain
- * valid information for the build system and should be
- * ignored.
- */
 gboolean
 anjuta_pkg_config_ignore_package (const gchar* name)
 {
@@ -209,4 +282,3 @@ gchar* anjuta_pkg_config_get_version (const gchar* package)
     return NULL;
   }
 }
-

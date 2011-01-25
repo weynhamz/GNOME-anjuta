@@ -1539,6 +1539,31 @@ on_project_loaded (IAnjutaProjectManager *pm, GError *error,
 	/* Malformed project abort */
 	if (error != NULL) return;
 
+	// DEBUG FIXME
+	GList *pkgs = ianjuta_project_manager_get_packages (pm, NULL);
+	GList *node;
+
+	node = pkgs;
+/*/
+	while (node != NULL)
+	{
+		DEBUG_PRINT ("-------------------");
+		DEBUG_PRINT ("package is %s", node->data);
+
+		GList * headers = anjuta_pkg_config_get_abs_headers (node->data, FALSE, NULL);
+		GList *hnode = headers;
+
+		while (hnode != NULL)
+		{
+			DEBUG_PRINT ("header %s", hnode->data);
+			
+			hnode = g_list_next (hnode);
+		}
+		
+		node = g_list_next (node);
+	}
+//*/	
+
 	/*
 	 * we need an initial import 
 	 */
@@ -1628,7 +1653,8 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	
 	pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (sdb_plugin)->shell,
 									 IAnjutaProjectManager, NULL);
-	
+
+
 	/*
 	 *   The Project thing
 	 */	
@@ -2466,7 +2492,11 @@ isymbol_manager_create_query (IAnjutaSymbolManager *isymbol_manager,
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (isymbol_manager);
 	
 	query = symbol_db_query_new (sdb_plugin->sdbe_globals,
-	                             sdb_plugin->sdbe_project, query_name, db);
+	                             sdb_plugin->sdbe_project, 
+	                             query_name, 
+	                             db,
+	                             db == IANJUTA_SYMBOL_QUERY_DB_PROJECT ? 
+	                         			NULL : sdb_plugin->session_packages);
 	return IANJUTA_SYMBOL_QUERY (query);
 }
 

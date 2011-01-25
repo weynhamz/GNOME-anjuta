@@ -1,7 +1,8 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * symbol-db-query.c
- * Copyright (C) Naba Kumar 2010 <naba@gnome.org>
+ * Copyright (C) Naba Kumar		2010 <naba@gnome.org>
+ * Copyright (C) Massimo Cora'  2011 <maxcvs@email.it>
  * 
  * anjuta is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -45,7 +46,8 @@ enum
 	PROP_GROUP_BY,
 	PROP_DB_ENGINE_SYSTEM,
 	PROP_DB_ENGINE_PROJECT,
-	PROP_DB_ENGINE_SELECTED
+	PROP_DB_ENGINE_SELECTED,
+	PROP_SESSION_PACKAGES
 };
 
 struct _SymbolDBQueryPriv {
@@ -64,6 +66,7 @@ struct _SymbolDBQueryPriv {
 	SymbolDBEngine *dbe_project;
 	/* a reference to dbe_system or dbe_project */
 	SymbolDBEngine *dbe_selected;
+	GHashTable *session_packages;
 	
 	/* Param holders */
 	GdaSet *params;
@@ -87,6 +90,7 @@ typedef enum
 	SDB_QUERY_TABLE_IMPLEMENTATION,
 	SDB_QUERY_TABLE_ACCESS,
 	SDB_QUERY_TABLE_KIND,
+	SDB_QUERY_TABLE_PROJECT,
 	SDB_QUERY_TABLE_MAX,
 }  SdbQueryTable;
 
@@ -97,7 +101,9 @@ static gchar *table_joins[] =
 	"LEFT JOIN file ON symbol.file_defined_id = file.file_id",
 	"LEFT JOIN sym_implementation ON symbol.implementation_kind_id = sym_implementation.sym_impl_id",
 	"LEFT JOIN sym_access ON symbol.access_kind_id = sym_access.access_kind_id",
-	"LEFT JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id"
+	"LEFT JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id",
+	"LEFT JOIN file ON symbol.file_defined_id = file.file_id \
+	 LEFT JOIN project ON file.prj_id = project.project_id",
 };
 
 /* Spec to associate a coloum to its table */
@@ -118,13 +124,15 @@ SdbQueryFieldSpec field_specs[] = {
 	{"symbol.is_file_scope ", SDB_QUERY_TABLE_SYMBOL},
 	{"symbol.signature ", SDB_QUERY_TABLE_SYMBOL},
 	{"symbol.returntype ", SDB_QUERY_TABLE_SYMBOL},
-	{"symbol.type_type", SDB_QUERY_TABLE_SYMBOL},
-	{"symbol.type_name", SDB_QUERY_TABLE_SYMBOL},
-	{"file.file_path", SDB_QUERY_TABLE_FILE},
-	{"sym_implementation.implementation_name", SDB_QUERY_TABLE_IMPLEMENTATION},
-	{"sym_access.access_name", SDB_QUERY_TABLE_ACCESS},
+	{"symbol.type_type ", SDB_QUERY_TABLE_SYMBOL},
+	{"symbol.type_name ", SDB_QUERY_TABLE_SYMBOL},
+	{"file.file_path ", SDB_QUERY_TABLE_FILE},
+	{"project.project_name ", SDB_QUERY_TABLE_PROJECT},
+	{"project.project_version ", SDB_QUERY_TABLE_PROJECT},
+	{"sym_implementation.implementation_name ", SDB_QUERY_TABLE_IMPLEMENTATION},
+	{"sym_access.access_name ", SDB_QUERY_TABLE_ACCESS},
 	{"sym_kind.kind_name ", SDB_QUERY_TABLE_KIND},
-	{"sym_kind.is_container", SDB_QUERY_TABLE_KIND}
+	{"sym_kind.is_container ", SDB_QUERY_TABLE_KIND}
 };
 
 /* FIXME: This maps to the bit position of IAnjutaSymbolType enum. This can
@@ -291,12 +299,27 @@ sdb_query_add_field (SymbolDBQuery *query, IAnjutaSymbolField field)
 	/* Iterate until the given field is found in the list, otherwise add it */
 	while (query->priv->fields[idx] != IANJUTA_SYMBOL_FIELD_END)
 	{
-		if (query->priv->fields[idx]  == field)
+		if (query->priv->fields[idx] == field)
 			return;
 		idx++;
 	}
 	query->priv->fields[idx] = field;
 	query->priv->fields[idx + 1] = IANJUTA_SYMBOL_FIELD_END;
+}
+
+static gboolean
+sdb_query_is_field_set (SymbolDBQuery *query, IAnjutaSymbolField field)
+{
+	gint i;
+
+	for (i = 0; i < IANJUTA_SYMBOL_FIELD_END; i++)
+	{
+		if (query->priv->fields[i] == field)
+			return TRUE;
+	}
+
+	/* not found */
+	return FALSE;
 }
 
 /**
@@ -885,6 +908,9 @@ sdb_query_set_property (GObject *object, guint prop_id, const GValue *value, GPa
 		g_signal_connect (priv->dbe_selected, "db-disconnected",
 		                  G_CALLBACK (on_sdb_query_dbe_disconnected), query);
 		break;
+	case PROP_SESSION_PACKAGES:
+		priv->session_packages = g_value_get_pointer (value);
+		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 		break;
@@ -1070,6 +1096,16 @@ sdb_query_class_init (SymbolDBQueryClass *klass)
 	                                                      "The selected SymbolDBEngine",
 	                                                      SYMBOL_TYPE_DB_ENGINE,
 	                                                      G_PARAM_READABLE));
+
+	g_object_class_install_property (object_class,
+	                                 PROP_SESSION_PACKAGES,
+	                                 g_param_spec_pointer ("session-packages",
+	                                                       "Session Packages",
+	                                                       "The session packages",
+	                                                       G_PARAM_READABLE |
+	                                                       G_PARAM_WRITABLE));
+	
+	// FIXMEPROP_SESSION_PACKAGES	
 }
 
 /* IAnjutaSymbolQuery implementation */
@@ -1296,11 +1332,14 @@ SymbolDBQuery *
 symbol_db_query_new (SymbolDBEngine *system_db_engine,
                      SymbolDBEngine *project_db_engine,
                      IAnjutaSymbolQueryName name,
-                     IAnjutaSymbolQueryDb db)
+                     IAnjutaSymbolQueryDb db,
+                 	 GHashTable *session_packages)
 {
 	return g_object_new (SYMBOL_DB_TYPE_QUERY,
 	                     "db-engine-system", system_db_engine,
 	                     "db-engine-project", project_db_engine,
-	                     "query-db", db, "query-name", name,
+	                     "query-db", db, 
+	                     "query-name", name,
+	                     "session-packages", session_packages,
 	                      NULL);
 }

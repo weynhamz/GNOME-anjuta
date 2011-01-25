@@ -52,7 +52,8 @@ GType sdb_query_get_type (void) G_GNUC_CONST;
 SymbolDBQuery* symbol_db_query_new (SymbolDBEngine *system_db_engine,
                                     SymbolDBEngine *project_db_engine,
                                     IAnjutaSymbolQueryName name,
-                                    IAnjutaSymbolQueryDb db);
+                                    IAnjutaSymbolQueryDb db,
+                                	GHashTable *session_packages);
 
 G_END_DECLS
 
