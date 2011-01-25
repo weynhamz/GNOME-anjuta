@@ -18,6 +18,9 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+#ifndef _PLUGIN_H_
+#define _PLUGIN_H_
+
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-symbol-manager.h>
@@ -75,3 +78,5 @@ struct _CppJavaPlugin {
 struct _CppJavaPluginClass {
 	AnjutaPluginClass parent_class;
 };
+
+#endif

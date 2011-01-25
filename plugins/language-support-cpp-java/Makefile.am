@@ -51,7 +51,9 @@ libanjuta_language_cpp_java_la_SOURCES = \
 	cpp-java-assist.h \
 	cpp-java-assist.c \
 	cpp-java-utils.c \
-	cpp-java-utils.h 
+	cpp-java-utils.h \
+	cpp-java-indentation.c \
+	cpp-java-indentation.h 
 
 libanjuta_language_cpp_java_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
