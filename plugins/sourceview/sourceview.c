@@ -1148,9 +1148,17 @@ static void ieditor_insert(IAnjutaEditor *editor, IAnjutaIterable* icell,
 	GtkTextIter iter;
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
 	sourceview_cell_get_iter (cell, &iter);
+
+	/* Avoid processing text that is inserted programatically */
+	g_signal_handlers_block_by_func (sv->priv->document,
+	                                 on_insert_text,
+	                                 sv);
 	
 	gtk_text_buffer_insert(GTK_TEXT_BUFFER(sv->priv->document),
 						   &iter, text, length);
+	g_signal_handlers_unblock_by_func (sv->priv->document,
+	                                   on_insert_text,
+	                                   sv);
 }
 
 /* Append text to buffer */
@@ -1162,8 +1170,16 @@ static void ieditor_append(IAnjutaEditor *editor, const gchar* text,
 
 	gtk_text_buffer_get_end_iter(GTK_TEXT_BUFFER(sv->priv->document),
 									   &iter);
+
+	/* Avoid processing text that is inserted programatically */
+	g_signal_handlers_block_by_func (sv->priv->document,
+	                                 on_insert_text,
+	                                 sv);
 	gtk_text_buffer_insert(GTK_TEXT_BUFFER(sv->priv->document),
 						   &iter, text, length);
+	g_signal_handlers_unblock_by_func (sv->priv->document,
+	                                   on_insert_text,
+	                                   sv);
 }
 
 static void ieditor_erase(IAnjutaEditor* editor, IAnjutaIterable* istart_cell, 
