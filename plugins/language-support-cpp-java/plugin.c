@@ -62,6 +62,7 @@
 #define PREF_SCHEMA "org.gnome.anjuta.cpp"
 #define PREF_INDENT_AUTOMATIC "cpp-indent-automatic"
 #define PREF_INDENT_MODELINE "cpp-indent-modeline"
+#define PREF_PROJECT_PACKAGES "cpp-load-project-packages"
 
 static gpointer parent_class;
 
@@ -1104,6 +1105,7 @@ cpp_java_plugin_class_init (GObjectClass *klass)
 #define PREF_WIDGET_SPACE "preferences_toggle:bool:1:1:cpp-completion-space-after-func"
 #define PREF_WIDGET_BRACE "preferences_toggle:bool:1:1:cpp-completion-brace-after-func"
 #define PREF_WIDGET_AUTO "preferences_toggle:bool:1:1:cpp-completion-enable"
+#define PREF_WIDGET_PACKAGES "preferences_toggle:bool:1:1:cpp-load-project-packages"
 #define PREF_WIDGET_PKG_CONFIG "pkg_config_chooser1"
 
 static void
@@ -1117,6 +1119,19 @@ on_autocompletion_toggled (GtkToggleButton* button,
 	gtk_widget_set_sensitive (widget, sensitive);
 	widget = GTK_WIDGET (gtk_builder_get_object (bxml, PREF_WIDGET_BRACE));
 	gtk_widget_set_sensitive (widget, sensitive);
+}
+
+static void
+on_project_packages_toggled (GtkToggleButton* button,
+                             GtkBuilder* bxml)
+{
+	GtkWidget* pkg_config;
+	gboolean sensitive = !gtk_toggle_button_get_active (button);
+	pkg_config = GTK_WIDGET (gtk_builder_get_object (bxml, PREF_WIDGET_PKG_CONFIG));
+
+	gtk_widget_set_sensitive (pkg_config, sensitive);
+	anjuta_pkg_config_chooser_show_active_only (ANJUTA_PKG_CONFIG_CHOOSER (pkg_config),
+	                                            !sensitive);
 }
 
 static void
@@ -1185,6 +1200,12 @@ ipreferences_merge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
 	                  plugin->bxml);
 	on_autocompletion_toggled (GTK_TOGGLE_BUTTON (toggle), plugin->bxml);
 
+	toggle = GTK_WIDGET (gtk_builder_get_object (plugin->bxml, PREF_WIDGET_PACKAGES));
+	g_signal_connect (toggle, "toggled", G_CALLBACK (on_project_packages_toggled),
+	                  plugin->bxml);
+	on_autocompletion_toggled (GTK_TOGGLE_BUTTON (toggle), plugin->bxml);
+	on_project_packages_toggled (GTK_TOGGLE_BUTTON (toggle), plugin->bxml);
+	
 	pkg_config = GTK_WIDGET (gtk_builder_get_object (plugin->bxml, PREF_WIDGET_PKG_CONFIG));
 	anjuta_pkg_config_chooser_show_active_column (ANJUTA_PKG_CONFIG_CHOOSER (pkg_config), 
 	    										  TRUE);
