@@ -1107,10 +1107,12 @@ unload_unused_support_plugins (DocmanPlugin* docman_plugin,
 {
 	GList* plugins = g_list_copy (docman_plugin->support_plugins);
 	GList* node;
+	DEBUG_PRINT ("Unloading plugins");
 	for (node = plugins; node != NULL; node = g_list_next (node))
 	{
 		AnjutaPlugin* plugin = ANJUTA_PLUGIN (node->data);
-		if (!g_list_find (needed_plugins, plugin))
+		DEBUG_PRINT ("Checking plugin: %p", plugin);
+		if (g_list_find (needed_plugins, plugin) == NULL)
 		{
 			DEBUG_PRINT ("%s", "Unloading plugin");
 			anjuta_plugin_deactivate (plugin);
@@ -1123,11 +1125,12 @@ static void
 update_language_plugin (AnjutaDocman *docman, IAnjutaDocument *doc,
                         AnjutaPlugin *plugin)
 {
-	if (IANJUTA_IS_EDITOR_LANGUAGE (doc))
+	DocmanPlugin* docman_plugin = ANJUTA_PLUGIN_DOCMAN (plugin);
+
+	DEBUG_PRINT("%s", "Beginning language support");
+	if (doc && IANJUTA_IS_EDITOR_LANGUAGE (doc))
 	{
-		DEBUG_PRINT("%s", "Beginning language support");
 		AnjutaPluginManager *plugin_manager;
-		DocmanPlugin* docman_plugin = ANJUTA_PLUGIN_DOCMAN (plugin);
 		IAnjutaLanguage *lang_manager;
 		GList *new_support_plugins, *support_plugin_descs, *needed_plugins, *node;
 		const gchar *language;
@@ -1149,13 +1152,7 @@ update_language_plugin (AnjutaDocman *docman, IAnjutaDocument *doc,
 		
 		if (!language)
 		{
-			DEBUG_PRINT ("%s", "Unloading all language support plugins");
-			/* Unload all language support plugins */
-			/* Copy the list because the "deactivate"-signal handler modifies
-			 * the original list */
-			GList* plugins = g_list_copy (docman_plugin->support_plugins);
-			g_list_foreach (plugins, (GFunc) anjuta_plugin_deactivate, NULL);
-			g_list_free (plugins);
+			unload_unused_support_plugins (docman_plugin, NULL);
 			return;
 		}
 
@@ -1194,12 +1191,12 @@ update_language_plugin (AnjutaDocman *docman, IAnjutaDocument *doc,
 		g_list_free (docman_plugin->support_plugins);
 		docman_plugin->support_plugins = needed_plugins;
 
-		if (new_support_plugins)
-		{
-			g_list_foreach (new_support_plugins, (GFunc) g_free, NULL);
-			g_list_free (new_support_plugins);
-		}
-	}				 
+		anjuta_util_glist_strings_free (new_support_plugins);
+	}
+	else
+	{
+		unload_unused_support_plugins (docman_plugin, NULL);
+	}
 }
 
 static void
@@ -1233,8 +1230,10 @@ on_document_changed (AnjutaDocman *docman, IAnjutaDocument *doc,
 		update_language_plugin (docman, doc, plugin);
 	}
 	else
+	{
 		update_status (docman_plugin, NULL);
-
+		update_language_plugin (docman, NULL, plugin);
+	}
 	update_title (ANJUTA_PLUGIN_DOCMAN (plugin));
 }
 
