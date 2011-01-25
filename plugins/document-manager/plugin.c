@@ -1131,8 +1131,6 @@ update_language_plugin (AnjutaDocman *docman, IAnjutaDocument *doc,
 		IAnjutaLanguage *lang_manager;
 		GList *new_support_plugins, *support_plugin_descs, *needed_plugins, *node;
 		const gchar *language;
-
-		g_signal_handlers_block_by_func (doc, on_editor_lang_changed, plugin);
 		
 		lang_manager = anjuta_shell_get_interface (plugin->shell,
 		                                           IAnjutaLanguage,
@@ -1142,9 +1140,13 @@ update_language_plugin (AnjutaDocman *docman, IAnjutaDocument *doc,
 			g_warning ("Could not load language manager!");
 			return;
 		}
+
+		g_signal_handlers_block_by_func (doc, on_editor_lang_changed, plugin);
 		language = ianjuta_language_get_name_from_editor (lang_manager,
 		                                                  IANJUTA_EDITOR_LANGUAGE (doc),
 		                                                  NULL);
+		g_signal_handlers_unblock_by_func (doc, on_editor_lang_changed, plugin);
+		
 		if (!language)
 		{
 			DEBUG_PRINT ("%s", "Unloading all language support plugins");
@@ -1197,8 +1199,6 @@ update_language_plugin (AnjutaDocman *docman, IAnjutaDocument *doc,
 			g_list_foreach (new_support_plugins, (GFunc) g_free, NULL);
 			g_list_free (new_support_plugins);
 		}
-
-		g_signal_handlers_unblock_by_func (doc, on_editor_lang_changed, plugin);
 	}				 
 }
 
@@ -2177,7 +2177,7 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 static void
 ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
-	DocmanPlugin* plugin = ANJUTA_PLUGIN_DOCMAN (ipref);
+	/*	DocmanPlugin* plugin = ANJUTA_PLUGIN_DOCMAN (ipref);*/
 	anjuta_preferences_remove_page(prefs, _("Documents"));
 }
 
