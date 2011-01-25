@@ -1,29 +1,34 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk+" version="2.16"/>
-  <!-- interface-naming-policy toplevel-contextual -->
   <object class="GtkDialog" id="dialog.new.file">
+    <property name="can_focus">False</property>
     <property name="border_width">5</property>
     <property name="title" translatable="yes">New File</property>
     <property name="resizable">False</property>
     <property name="window_position">center-on-parent</property>
     <property name="type_hint">dialog</property>
-    <signal name="delete_event" handler="on_new_file_cancelbutton_clicked"/>
+    <signal name="delete-event" handler="on_new_file_cancelbutton_clicked" swapped="no"/>
     <child internal-child="vbox">
-      <object class="GtkVBox" id="dialog-vbox1">
+      <object class="GtkBox" id="dialog-vbox1">
         <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
         <property name="spacing">5</property>
         <child>
           <object class="GtkVBox" id="vbox1124">
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
             <property name="spacing">10</property>
             <child>
               <object class="GtkVBox" id="vbox1126">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="spacing">12</property>
                 <child>
                   <object class="GtkLabel" id="label12346">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="xalign">0</property>
                     <property name="label" translatable="yes">File Information</property>
                     <attributes>
@@ -39,9 +44,11 @@
                 <child>
                   <object class="GtkHBox" id="hbox1127">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <child>
                       <object class="GtkLabel" id="label12347">
                         <property name="visible">True</property>
+                        <property name="can_focus">False</property>
                         <property name="xpad">4</property>
                       </object>
                       <packing>
@@ -53,6 +60,7 @@
                     <child>
                       <object class="GtkTable" id="table33">
                         <property name="visible">True</property>
+                        <property name="can_focus">False</property>
                         <property name="n_rows">3</property>
                         <property name="n_columns">2</property>
                         <property name="column_spacing">6</property>
@@ -60,6 +68,7 @@
                         <child>
                           <object class="GtkLabel" id="label3">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                             <property name="xpad">10</property>
                             <property name="ypad">5</property>
                             <property name="label" translatable="yes">Enter the File name.
@@ -75,6 +84,7 @@ The extension will be added according to the type.</property>
                         <child>
                           <object class="GtkLabel" id="label1">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                             <property name="xalign">0</property>
                             <property name="label" translatable="yes">Name:</property>
                           </object>
@@ -86,6 +96,7 @@ The extension will be added according to the type.</property>
                         <child>
                           <object class="GtkLabel" id="label12349">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                             <property name="xalign">0</property>
                             <property name="label" translatable="yes">Type:</property>
                           </object>
@@ -100,7 +111,7 @@ The extension will be added according to the type.</property>
                           <object class="GtkEntry" id="new.file.entry">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <signal name="changed" handler="on_new_file_entry_changed"/>
+                            <signal name="changed" handler="on_new_file_entry_changed" swapped="no"/>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -113,7 +124,7 @@ The extension will be added according to the type.</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="model">new.file.type.store</property>
-                            <signal name="changed" handler="on_new_file_type_changed"/>
+                            <signal name="changed" handler="on_new_file_type_changed" swapped="no"/>
                             <child>
                               <object class="GtkCellRendererText" id="cellrenderertext1"/>
                               <attributes>
@@ -132,26 +143,34 @@ The extension will be added according to the type.</property>
                         </child>
                       </object>
                       <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
                         <property name="position">1</property>
                       </packing>
                     </child>
                   </object>
                   <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
               </object>
               <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
                 <property name="position">0</property>
               </packing>
             </child>
             <child>
               <object class="GtkVBox" id="vbox1125">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="spacing">6</property>
                 <child>
                   <object class="GtkLabel" id="label12342">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="xalign">0</property>
                     <property name="label" translatable="yes">Options</property>
                     <attributes>
@@ -167,9 +186,11 @@ The extension will be added according to the type.</property>
                 <child>
                   <object class="GtkHBox" id="hbox1126">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <child>
                       <object class="GtkLabel" id="label12343">
                         <property name="visible">True</property>
+                        <property name="can_focus">False</property>
                         <property name="xpad">4</property>
                       </object>
                       <packing>
@@ -181,6 +202,7 @@ The extension will be added according to the type.</property>
                     <child>
                       <object class="GtkTable" id="table32">
                         <property name="visible">True</property>
+                        <property name="can_focus">False</property>
                         <property name="n_rows">5</property>
                         <property name="n_columns">2</property>
                         <property name="column_spacing">6</property>
@@ -191,9 +213,10 @@ The extension will be added according to the type.</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
+                            <property name="use_action_appearance">False</property>
                             <property name="use_underline">True</property>
                             <property name="draw_indicator">True</property>
-                            <signal name="toggled" handler="on_new_file_license_toggled"/>
+                            <signal name="toggled" handler="on_new_file_license_toggled" swapped="no"/>
                           </object>
                           <packing>
                             <property name="right_attach">2</property>
@@ -203,6 +226,7 @@ The extension will be added according to the type.</property>
                         <child>
                           <object class="GtkLabel" id="label12344">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                             <property name="xalign">0</property>
                             <property name="label" translatable="yes">License:</property>
                           </object>
@@ -241,6 +265,7 @@ The extension will be added according to the type.</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
+                            <property name="use_action_appearance">False</property>
                             <property name="use_underline">True</property>
                             <property name="draw_indicator">True</property>
                           </object>
@@ -258,6 +283,7 @@ The extension will be added according to the type.</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
+                            <property name="use_action_appearance">False</property>
                             <property name="use_underline">True</property>
                             <property name="draw_indicator">True</property>
                           </object>
@@ -272,7 +298,7 @@ The extension will be added according to the type.</property>
                         <child>
                           <object class="GtkHBox" id="hbox1129">
                             <property name="visible">True</property>
-                            <property name="border_width">2</property>
+                            <property name="can_focus">False</property>
                             <property name="homogeneous">True</property>
                             <child>
                               <object class="GtkCheckButton" id="add_to_project">
@@ -280,11 +306,14 @@ The extension will be added according to the type.</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
+                                <property name="use_action_appearance">False</property>
                                 <property name="use_underline">True</property>
                                 <property name="active">True</property>
                                 <property name="draw_indicator">True</property>
                               </object>
                               <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
                                 <property name="position">0</property>
                               </packing>
                             </child>
@@ -294,11 +323,14 @@ The extension will be added according to the type.</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
+                                <property name="use_action_appearance">False</property>
                                 <property name="use_underline">True</property>
                                 <property name="active">True</property>
                                 <property name="draw_indicator">True</property>
                               </object>
                               <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
                                 <property name="position">1</property>
                               </packing>
                             </child>
@@ -312,27 +344,36 @@ The extension will be added according to the type.</property>
                         </child>
                       </object>
                       <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
                         <property name="position">1</property>
                       </packing>
                     </child>
                   </object>
                   <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
               </object>
               <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
                 <property name="position">1</property>
               </packing>
             </child>
           </object>
           <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
             <property name="position">2</property>
           </packing>
         </child>
         <child internal-child="action_area">
-          <object class="GtkHButtonBox" id="dialog-action_area1">
+          <object class="GtkButtonBox" id="dialog-action_area1">
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="cancelbutton1">
@@ -341,8 +382,9 @@ The extension will be added according to the type.</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
                 <property name="receives_default">False</property>
+                <property name="use_action_appearance">False</property>
                 <property name="use_stock">True</property>
-                <signal name="clicked" handler="on_new_file_cancelbutton_clicked"/>
+                <signal name="clicked" handler="on_new_file_cancelbutton_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -357,8 +399,9 @@ The extension will be added according to the type.</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
                 <property name="receives_default">False</property>
+                <property name="use_action_appearance">False</property>
                 <property name="use_stock">True</property>
-                <signal name="clicked" handler="on_new_file_okbutton_clicked"/>
+                <signal name="clicked" handler="on_new_file_okbutton_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -367,28 +410,23 @@ The extension will be added according to the type.</property>
               </packing>
             </child>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="pack_type">end</property>
-            <property name="position">0</property>
-          </packing>
         </child>
       </object>
     </child>
     <action-widgets>
-      <action-widget response="-6">cancelbutton1</action-widget>
-      <action-widget response="-5">okbutton1</action-widget>
+      <action-widget response="0">cancelbutton1</action-widget>
+      <action-widget response="0">okbutton1</action-widget>
     </action-widgets>
-  </object>
-  <object class="GtkListStore" id="new.file.type.store">
-    <columns>
-      <!-- column-name type -->
-      <column type="gchararray"/>
-    </columns>
   </object>
   <object class="GtkListStore" id="new.file.menu.license.store">
     <columns>
       <!-- column-name license -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkListStore" id="new.file.type.store">
+    <columns>
+      <!-- column-name type -->
       <column type="gchararray"/>
     </columns>
   </object>
