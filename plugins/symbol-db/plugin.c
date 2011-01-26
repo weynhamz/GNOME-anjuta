@@ -2581,7 +2581,7 @@ isymbol_manager_add_package (IAnjutaSymbolManager *isymbol_manager,
     						 const gchar* pkg_name, 
     						 const gchar* pkg_version, 
     						 GList* files,
-    						 GError *err)
+    						 GError **err)
 {
 	SymbolDBPlugin *sdb_plugin;
 	IAnjutaLanguage *lang_manager;
@@ -2623,7 +2623,7 @@ static gboolean
 isymbol_manager_activate_package (IAnjutaSymbolManager *isymbol_manager,
     							  const gchar *pkg_name, 
     							  const gchar *pkg_version,
-    							  GError *err)
+    							  GError **err)
 {
 	SymbolDBPlugin *sdb_plugin;
 	GList *versions;
@@ -2692,6 +2692,9 @@ static void
 isymbol_manager_iface_init (IAnjutaSymbolManagerIface *iface)
 {
 	iface->create_query = isymbol_manager_create_query;
+	iface->activate_package = isymbol_manager_activate_package;
+	//iface->deactivate_package = isymbol_manager_deactivate_package;
+	iface->add_package = isymbol_manager_add_package;
 }
 
 ANJUTA_PLUGIN_BEGIN (SymbolDBPlugin, symbol_db);
