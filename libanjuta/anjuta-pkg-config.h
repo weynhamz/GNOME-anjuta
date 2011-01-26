@@ -25,3 +25,5 @@ GList* anjuta_pkg_config_get_directories (const gchar* pkg_name,
                                           gboolean no_deps, 
                                           GError** error);
 gboolean anjuta_pkg_config_ignore_package (const gchar* name);
+
+gchar* anjuta_pkg_config_get_version (const gchar* package);

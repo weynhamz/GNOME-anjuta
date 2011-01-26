@@ -22,6 +22,7 @@
 
 #include <libanjuta/anjuta-pkg-config.h>
 #include <libanjuta/anjuta-utils.h>
+#include <libanjuta/anjuta-debug.h>
 
 /* Blacklist for packages that shouldn't be parsed. Those packages
  * usually contain the same include paths as their top-level package
@@ -152,7 +153,7 @@ anjuta_pkg_config_get_directories (const gchar* pkg_name, gboolean no_deps, GErr
 }
 
 /*
- * anjuta_pkg_config_ignore_package
+ * anjuta_pkg_config_ignore_package:
  * @name: Name of the package to ignore
  * 
  * Returns: TRUE if the package does not contain
@@ -170,3 +171,42 @@ anjuta_pkg_config_ignore_package (const gchar* name)
 	}
 	return FALSE;
 }
+
+/*
+ * anjuta_pkg_config_get_version:
+ * @package: Name of the package
+ * 
+ * This does sync io, call from a thread if necessary
+ * 
+ * Returns: (transfer full) the version of the package or NULL
+ */
+gchar* anjuta_pkg_config_get_version (const gchar* package)
+{
+  gchar *cmd;
+	gchar *err;
+	gchar *out;
+	gint status;
+  GError* error;
+
+	cmd = g_strdup_printf ("pkg-config --modversion %s", package);
+
+	if (g_spawn_command_line_sync (cmd, &out, &err, &status, &error))
+  {
+    g_free (err);
+    g_free (cmd);
+    return out;
+  }
+  else
+  {
+    g_free (out);
+    g_free (err);
+    g_free (cmd);
+    if (error)
+    {
+      DEBUG_PRINT ("Could query package version: %s", error->message);
+      g_error_free (error);
+    }
+    return NULL;
+  }
+}
+
