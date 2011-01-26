@@ -237,7 +237,8 @@ sdb_engine_scan_data_destroy (gpointer data)
 	EngineScanDataAsync *esda =  (EngineScanDataAsync *)data;
 
 	g_ptr_array_unref (esda->files_list);
-	g_ptr_array_unref (esda->real_files_list);
+	if (esda->real_files_list)
+		g_ptr_array_unref (esda->real_files_list);
 
 	g_free (esda);
 }
