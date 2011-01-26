@@ -26,7 +26,7 @@ libanjuta/anjuta-column-text-view.c
 libanjuta/anjuta-entry.c
 libanjuta/anjuta-file-drop-entry.c
 libanjuta/anjuta-file-list.c
-libanjuta/cell-renderer-captioned-image.c
+libanjuta/anjuta-cell-renderer-captioned-image.c
 libanjuta/e-splash.c
 libanjuta/resources.c
 libfoocanvas/foo-canvas.c
@@ -38,8 +38,8 @@ libfoocanvas/foo-canvas-text.c
 libfoocanvas/foo-canvas-util.c
 libfoocanvas/foo-canvas-widget.c
 libfoocanvas/libfoocanvastypes.c
-plugins/am-project/ac-parser.c
-plugins/am-project/am-parser.c
+plugins/am-project/amp-group.c
+plugins/am-project/amp-target.c
 [type: gettext/glade]plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui
 plugins/build-basic-autotools/build-options.c
 plugins/build-basic-autotools/configuration-list.c
@@ -104,7 +104,6 @@ plugins/file-manager/plugin.c
 plugins/file-wizard/file.c
 plugins/file-wizard/plugin.c
 plugins/dir-project/dir-project.c
-plugins/am-project/am-node.c
 plugins/am-project/am-project.c
 plugins/am-project/am-properties.c
 [type: gettext/glade]plugins/gdb/anjuta-gdb.ui
@@ -115,6 +114,7 @@ plugins/gdb/preferences.c
 [type: gettext/glade]plugins/git/anjuta-git.ui
 plugins/git/git-add-files-pane.c
 plugins/git/git-add-remote-pane.c
+plugins/git/git-apply-mailbox-pane.c
 plugins/git/git-apply-stash-pane.c
 plugins/git/git-checkout-pane.c
 plugins/git/git-commit-pane.c
@@ -131,6 +131,7 @@ plugins/git/git-drop-stash-pane.c
 plugins/git/git-log-pane.c
 plugins/git/git-merge-pane.c
 plugins/git/git-pane.c
+plugins/git/git-patch-series-pane.c
 plugins/git/git-pull-pane.c
 plugins/git/git-push-pane.c
 plugins/git/git-rebase-pane.c
