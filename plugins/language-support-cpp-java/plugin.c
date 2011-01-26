@@ -42,6 +42,7 @@
 #include "plugin.h"
 #include "cpp-java-utils.h"
 #include "cpp-java-indentation.h"
+#include "cpp-packages.h"
 
 /* Pixmaps */
 #define ANJUTA_PIXMAP_SWAP                "anjuta-swap"
@@ -1031,6 +1032,9 @@ cpp_java_plugin_activate_plugin (AnjutaPlugin *plugin)
 								 on_value_added_current_editor,
 								 on_value_removed_current_editor,
 								 plugin);
+
+	cpp_packages_load (lang_plugin);
+	
 	initialized = FALSE;
 	return TRUE;
 }
