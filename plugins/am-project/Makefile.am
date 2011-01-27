@@ -96,7 +96,9 @@ projectparser_SOURCES = \
 	projectparser.c
 
 projectparser_LDADD = \
-	libam-project.la
+	libam-project.la \
+	$(GIO_LIBS) \
+	$(LIBANJUTA_LIBS)
 
 
 EXTRA_DIST = \

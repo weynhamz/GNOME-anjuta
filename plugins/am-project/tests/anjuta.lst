@@ -20,8 +20,8 @@ PROPERTY (URL): http://www.anjuta.org/
     MODULE (5): PLUGIN_DEVHELP
         PACKAGE (5:0): libdevhelp-3.0
     MODULE (6): PLUGIN_GLADE
-        PACKAGE (6:0): gladeui-3.0
-    MODULE (7): PLUGIN_SOURCEVIEW
+        PACKAGE (6:0): gladeui-2.0
+    MODULE (7): SOURCEVIEW
         PACKAGE (7:0): gtksourceview-3.0
     MODULE (8): VALA
         PACKAGE (8:0): libvala-0.12
@@ -124,7 +124,7 @@ PROPERTY (URL): http://www.anjuta.org/
             TARGET (14:3:2): anjuta-launcher.1
         GROUP (14:4): libanjuta
             PROPERTY (C preprocessor flags): -I$(top_srcdir) -I . $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(ANJUTA_CFLAGS) $(XML_CFLAGS) $(GDL_CFLAGS) -DDATADIR="\"$(datadir)\"" -DPACKAGE_PIXMAPS_DIR="\"$(datadir)/pixmaps/$(PACKAGE)\"" -DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" -DPACKAGE_HELP_DIR="\"$(datadir)/gnome/help/$(PACKAGE)\"" -DPACKAGE_DOC_DIR="\"$(docdir)\"" -DG_LOG_DOMAIN=\"libanjuta\"
-            PROPERTY (Installation directories): gladeanjutadir = $(libdir)/glade3/modules catalogdir = $(datadir)/glade3/catalogs libanjutaincludedir = $(includedir)/libanjuta-3.0/libanjuta pkgconfigdir = $(libdir)/pkgconfig girdir = $(datadir)/gir-1.0 typelibdir = $(libdir)/girepository-1.0
+            PROPERTY (Installation directories): gladeanjutadir = $(libdir)/glade/modules catalogdir = $(datadir)/glade/catalogs libanjutaincludedir = $(includedir)/libanjuta-3.0/libanjuta pkgconfigdir = $(libdir)/pkgconfig girdir = $(datadir)/gir-1.0 typelibdir = $(libdir)/girepository-1.0
             GROUP (14:4:0): interfaces
                 PROPERTY (Installation directories): libanjuta_interfaces_includedir = /libanjuta-3.0/libanjuta/interfaces idldir = /libanjuta-3.0/libanjuta/interfaces
                 TARGET (14:4:0:0): libanjuta-interfaces.la
@@ -148,48 +148,49 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (14:4:0:0:16): libanjuta/interfaces/ianjuta-editor-convert.c
                     SOURCE (14:4:0:0:17): libanjuta/interfaces/ianjuta-editor-factory.c
                     SOURCE (14:4:0:0:18): libanjuta/interfaces/ianjuta-editor-folds.c
-                    SOURCE (14:4:0:0:19): libanjuta/interfaces/ianjuta-editor-goto.c
-                    SOURCE (14:4:0:0:20): libanjuta/interfaces/ianjuta-editor-hover.c
-                    SOURCE (14:4:0:0:21): libanjuta/interfaces/ianjuta-editor-language.c
-                    SOURCE (14:4:0:0:22): libanjuta/interfaces/ianjuta-editor-line-mode.c
-                    SOURCE (14:4:0:0:23): libanjuta/interfaces/ianjuta-editor-search.c
-                    SOURCE (14:4:0:0:24): libanjuta/interfaces/ianjuta-editor-selection.c
-                    SOURCE (14:4:0:0:25): libanjuta/interfaces/ianjuta-editor-tip.c
-                    SOURCE (14:4:0:0:26): libanjuta/interfaces/ianjuta-editor-view.c
-                    SOURCE (14:4:0:0:27): libanjuta/interfaces/ianjuta-editor-zoom.c
-                    SOURCE (14:4:0:0:28): libanjuta/interfaces/ianjuta-environment.c
-                    SOURCE (14:4:0:0:29): libanjuta/interfaces/ianjuta-file.c
-                    SOURCE (14:4:0:0:30): libanjuta/interfaces/ianjuta-file-loader.c
-                    SOURCE (14:4:0:0:31): libanjuta/interfaces/ianjuta-file-manager.c
-                    SOURCE (14:4:0:0:32): libanjuta/interfaces/ianjuta-file-savable.c
-                    SOURCE (14:4:0:0:33): libanjuta/interfaces/ianjuta-help.c
-                    SOURCE (14:4:0:0:34): libanjuta/interfaces/ianjuta-indicable.c
-                    SOURCE (14:4:0:0:35): libanjuta/interfaces/ianjuta-iterable.c
-                    SOURCE (14:4:0:0:36): libanjuta/interfaces/ianjuta-iterable-tree.c
-                    SOURCE (14:4:0:0:37): libanjuta/interfaces/ianjuta-language.c
-                    SOURCE (14:4:0:0:38): libanjuta/interfaces/ianjuta-loader.c
-                    SOURCE (14:4:0:0:39): libanjuta/interfaces/ianjuta-markable.c
-                    SOURCE (14:4:0:0:40): libanjuta/interfaces/ianjuta-message-manager.c
-                    SOURCE (14:4:0:0:41): libanjuta/interfaces/ianjuta-message-view.c
-                    SOURCE (14:4:0:0:42): libanjuta/interfaces/ianjuta-plugin-factory.c
-                    SOURCE (14:4:0:0:43): libanjuta/interfaces/ianjuta-preferences.c
-                    SOURCE (14:4:0:0:44): libanjuta/interfaces/ianjuta-print.c
-                    SOURCE (14:4:0:0:45): libanjuta/interfaces/ianjuta-project.c
-                    SOURCE (14:4:0:0:46): libanjuta/interfaces/ianjuta-project-backend.c
-                    SOURCE (14:4:0:0:47): libanjuta/interfaces/ianjuta-project-manager.c
-                    SOURCE (14:4:0:0:48): libanjuta/interfaces/ianjuta-provider.c
-                    SOURCE (14:4:0:0:49): libanjuta/interfaces/ianjuta-snippets-manager.c
-                    SOURCE (14:4:0:0:50): libanjuta/interfaces/ianjuta-stream.c
-                    SOURCE (14:4:0:0:51): libanjuta/interfaces/ianjuta-stream-loader.c
-                    SOURCE (14:4:0:0:52): libanjuta/interfaces/ianjuta-stream-savable.c
-                    SOURCE (14:4:0:0:53): libanjuta/interfaces/ianjuta-symbol.c
-                    SOURCE (14:4:0:0:54): libanjuta/interfaces/ianjuta-symbol-manager.c
-                    SOURCE (14:4:0:0:55): libanjuta/interfaces/ianjuta-symbol-query.c
-                    SOURCE (14:4:0:0:56): libanjuta/interfaces/ianjuta-terminal.c
-                    SOURCE (14:4:0:0:57): libanjuta/interfaces/ianjuta-todo.c
-                    SOURCE (14:4:0:0:58): libanjuta/interfaces/ianjuta-vcs.c
-                    SOURCE (14:4:0:0:59): libanjuta/interfaces/ianjuta-wizard.c
-                    SOURCE (14:4:0:0:60): libanjuta/interfaces/libanjuta-iface-marshallers.c
+                    SOURCE (14:4:0:0:19): libanjuta/interfaces/ianjuta-editor-glade-signal.c
+                    SOURCE (14:4:0:0:20): libanjuta/interfaces/ianjuta-editor-goto.c
+                    SOURCE (14:4:0:0:21): libanjuta/interfaces/ianjuta-editor-hover.c
+                    SOURCE (14:4:0:0:22): libanjuta/interfaces/ianjuta-editor-language.c
+                    SOURCE (14:4:0:0:23): libanjuta/interfaces/ianjuta-editor-line-mode.c
+                    SOURCE (14:4:0:0:24): libanjuta/interfaces/ianjuta-editor-search.c
+                    SOURCE (14:4:0:0:25): libanjuta/interfaces/ianjuta-editor-selection.c
+                    SOURCE (14:4:0:0:26): libanjuta/interfaces/ianjuta-editor-tip.c
+                    SOURCE (14:4:0:0:27): libanjuta/interfaces/ianjuta-editor-view.c
+                    SOURCE (14:4:0:0:28): libanjuta/interfaces/ianjuta-editor-zoom.c
+                    SOURCE (14:4:0:0:29): libanjuta/interfaces/ianjuta-environment.c
+                    SOURCE (14:4:0:0:30): libanjuta/interfaces/ianjuta-file.c
+                    SOURCE (14:4:0:0:31): libanjuta/interfaces/ianjuta-file-loader.c
+                    SOURCE (14:4:0:0:32): libanjuta/interfaces/ianjuta-file-manager.c
+                    SOURCE (14:4:0:0:33): libanjuta/interfaces/ianjuta-file-savable.c
+                    SOURCE (14:4:0:0:34): libanjuta/interfaces/ianjuta-help.c
+                    SOURCE (14:4:0:0:35): libanjuta/interfaces/ianjuta-indicable.c
+                    SOURCE (14:4:0:0:36): libanjuta/interfaces/ianjuta-iterable.c
+                    SOURCE (14:4:0:0:37): libanjuta/interfaces/ianjuta-iterable-tree.c
+                    SOURCE (14:4:0:0:38): libanjuta/interfaces/ianjuta-language.c
+                    SOURCE (14:4:0:0:39): libanjuta/interfaces/ianjuta-loader.c
+                    SOURCE (14:4:0:0:40): libanjuta/interfaces/ianjuta-markable.c
+                    SOURCE (14:4:0:0:41): libanjuta/interfaces/ianjuta-message-manager.c
+                    SOURCE (14:4:0:0:42): libanjuta/interfaces/ianjuta-message-view.c
+                    SOURCE (14:4:0:0:43): libanjuta/interfaces/ianjuta-plugin-factory.c
+                    SOURCE (14:4:0:0:44): libanjuta/interfaces/ianjuta-preferences.c
+                    SOURCE (14:4:0:0:45): libanjuta/interfaces/ianjuta-print.c
+                    SOURCE (14:4:0:0:46): libanjuta/interfaces/ianjuta-project.c
+                    SOURCE (14:4:0:0:47): libanjuta/interfaces/ianjuta-project-backend.c
+                    SOURCE (14:4:0:0:48): libanjuta/interfaces/ianjuta-project-manager.c
+                    SOURCE (14:4:0:0:49): libanjuta/interfaces/ianjuta-provider.c
+                    SOURCE (14:4:0:0:50): libanjuta/interfaces/ianjuta-snippets-manager.c
+                    SOURCE (14:4:0:0:51): libanjuta/interfaces/ianjuta-stream.c
+                    SOURCE (14:4:0:0:52): libanjuta/interfaces/ianjuta-stream-loader.c
+                    SOURCE (14:4:0:0:53): libanjuta/interfaces/ianjuta-stream-savable.c
+                    SOURCE (14:4:0:0:54): libanjuta/interfaces/ianjuta-symbol.c
+                    SOURCE (14:4:0:0:55): libanjuta/interfaces/ianjuta-symbol-manager.c
+                    SOURCE (14:4:0:0:56): libanjuta/interfaces/ianjuta-symbol-query.c
+                    SOURCE (14:4:0:0:57): libanjuta/interfaces/ianjuta-terminal.c
+                    SOURCE (14:4:0:0:58): libanjuta/interfaces/ianjuta-todo.c
+                    SOURCE (14:4:0:0:59): libanjuta/interfaces/ianjuta-vcs.c
+                    SOURCE (14:4:0:0:60): libanjuta/interfaces/ianjuta-wizard.c
+                    SOURCE (14:4:0:0:61): libanjuta/interfaces/libanjuta-iface-marshallers.c
                 TARGET (14:4:0:1): ianjuta-buildable.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
                 TARGET (14:4:0:2): ianjuta-builder.h
@@ -228,93 +229,95 @@ PROPERTY (URL): http://www.anjuta.org/
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
                 TARGET (14:4:0:19): ianjuta-editor-folds.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:20): ianjuta-editor-goto.h
+                TARGET (14:4:0:20): ianjuta-editor-glade-signal.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:21): ianjuta-editor-hover.h
+                TARGET (14:4:0:21): ianjuta-editor-goto.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:22): ianjuta-editor-language.h
+                TARGET (14:4:0:22): ianjuta-editor-hover.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:23): ianjuta-editor-line-mode.h
+                TARGET (14:4:0:23): ianjuta-editor-language.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:24): ianjuta-editor-search.h
+                TARGET (14:4:0:24): ianjuta-editor-line-mode.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:25): ianjuta-editor-selection.h
+                TARGET (14:4:0:25): ianjuta-editor-search.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:26): ianjuta-editor-tip.h
+                TARGET (14:4:0:26): ianjuta-editor-selection.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:27): ianjuta-editor-view.h
+                TARGET (14:4:0:27): ianjuta-editor-tip.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:28): ianjuta-editor-zoom.h
+                TARGET (14:4:0:28): ianjuta-editor-view.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:29): ianjuta-environment.h
+                TARGET (14:4:0:29): ianjuta-editor-zoom.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:30): ianjuta-file.h
+                TARGET (14:4:0:30): ianjuta-environment.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:31): ianjuta-file-loader.h
+                TARGET (14:4:0:31): ianjuta-file.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:32): ianjuta-file-manager.h
+                TARGET (14:4:0:32): ianjuta-file-loader.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:33): ianjuta-file-savable.h
+                TARGET (14:4:0:33): ianjuta-file-manager.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:34): ianjuta-help.h
+                TARGET (14:4:0:34): ianjuta-file-savable.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:35): ianjuta-indicable.h
+                TARGET (14:4:0:35): ianjuta-help.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:36): ianjuta-iterable.h
+                TARGET (14:4:0:36): ianjuta-indicable.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:37): ianjuta-iterable-tree.h
+                TARGET (14:4:0:37): ianjuta-iterable.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:38): ianjuta-language.h
+                TARGET (14:4:0:38): ianjuta-iterable-tree.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:39): ianjuta-loader.h
+                TARGET (14:4:0:39): ianjuta-language.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:40): ianjuta-markable.h
+                TARGET (14:4:0:40): ianjuta-loader.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:41): ianjuta-message-manager.h
+                TARGET (14:4:0:41): ianjuta-markable.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:42): ianjuta-message-view.h
+                TARGET (14:4:0:42): ianjuta-message-manager.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:43): ianjuta-plugin-factory.h
+                TARGET (14:4:0:43): ianjuta-message-view.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:44): ianjuta-preferences.h
+                TARGET (14:4:0:44): ianjuta-plugin-factory.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:45): ianjuta-print.h
+                TARGET (14:4:0:45): ianjuta-preferences.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:46): ianjuta-project.h
+                TARGET (14:4:0:46): ianjuta-print.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:47): ianjuta-project-backend.h
+                TARGET (14:4:0:47): ianjuta-project.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:48): ianjuta-project-manager.h
+                TARGET (14:4:0:48): ianjuta-project-backend.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:49): ianjuta-provider.h
+                TARGET (14:4:0:49): ianjuta-project-manager.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:50): ianjuta-snippets-manager.h
+                TARGET (14:4:0:50): ianjuta-provider.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:51): ianjuta-stream.h
+                TARGET (14:4:0:51): ianjuta-snippets-manager.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:52): ianjuta-stream-loader.h
+                TARGET (14:4:0:52): ianjuta-stream.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:53): ianjuta-stream-savable.h
+                TARGET (14:4:0:53): ianjuta-stream-loader.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:54): ianjuta-symbol.h
+                TARGET (14:4:0:54): ianjuta-stream-savable.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:55): ianjuta-symbol-manager.h
+                TARGET (14:4:0:55): ianjuta-symbol.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:56): ianjuta-symbol-query.h
+                TARGET (14:4:0:56): ianjuta-symbol-manager.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:57): ianjuta-terminal.h
+                TARGET (14:4:0:57): ianjuta-symbol-query.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:58): ianjuta-todo.h
+                TARGET (14:4:0:58): ianjuta-terminal.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:59): ianjuta-vcs.h
+                TARGET (14:4:0:59): ianjuta-todo.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:60): ianjuta-wizard.h
+                TARGET (14:4:0:60): ianjuta-vcs.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:61): libanjuta-iface-marshallers.h
+                TARGET (14:4:0:61): ianjuta-wizard.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:62): libanjuta-interfaces.h
+                TARGET (14:4:0:62): libanjuta-iface-marshallers.h
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (14:4:0:63): libanjuta.idl
+                TARGET (14:4:0:63): libanjuta-interfaces.h
+                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
+                TARGET (14:4:0:64): libanjuta.idl
                     PROPERTY (Installation directory): idldir
             TARGET (14:4:1): libanjuta-3.la
                 PROPERTY (Installation directory): libdir
@@ -370,8 +373,8 @@ PROPERTY (URL): http://www.anjuta.org/
                 SOURCE (14:4:1:44): libanjuta/anjuta-c-plugin-factory.h
                 SOURCE (14:4:1:45): libanjuta/anjuta-c-module.c
                 SOURCE (14:4:1:46): libanjuta/anjuta-c-module.h
-                SOURCE (14:4:1:47): libanjuta/cell-renderer-captioned-image.c
-                SOURCE (14:4:1:48): libanjuta/cell-renderer-captioned-image.h
+                SOURCE (14:4:1:47): libanjuta/anjuta-cell-renderer-captioned-image.c
+                SOURCE (14:4:1:48): libanjuta/anjuta-cell-renderer-captioned-image.h
                 SOURCE (14:4:1:49): libanjuta/e-splash.h
                 SOURCE (14:4:1:50): libanjuta/e-splash.c
                 SOURCE (14:4:1:51): libanjuta/anjuta-vcs-status.h
@@ -421,7 +424,7 @@ PROPERTY (URL): http://www.anjuta.org/
                 SOURCE (14:4:1:95): libanjuta/anjuta-file-drop-entry.c
                 SOURCE (14:4:1:96): libanjuta/anjuta-entry.h
                 SOURCE (14:4:1:97): libanjuta/anjuta-entry.c
-            TARGET (14:4:2): libgladeanjuta-3.la
+            TARGET (14:4:2): libgladeanjuta.la
                 PROPERTY (Installation directory): gladeanjutadir
                 PROPERTY (Linker flags): $(ANJUTA_LDFLAGS) -module -avoid-version
                 PROPERTY (Libraries): libanjuta-3.la $(GLADE_LIBS)
@@ -573,7 +576,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (14:5:0:5:32): plugins/am-project/command-queue.h
                 TARGET (14:5:0:6): projectparser
                     PROPERTY (Do not install): true
-                    PROPERTY (Libraries): libam-project.la
+                    PROPERTY (Libraries): libam-project.la $(GIO_LIBS) $(LIBANJUTA_LIBS)
                     SOURCE (14:5:0:6:0): plugins/am-project/projectparser.c
             GROUP (14:5:1): build-basic-autotools
                 PROPERTY (Installation directories): build_gladedir = $(anjuta_glade_dir) build_uidir = $(anjuta_ui_dir) build_pixmapsdir = $(anjuta_image_dir) build_plugindir = $(anjuta_plugin_dir) build_datadir = $(anjuta_data_dir)/build plugindir = $(anjuta_plugin_dir)
@@ -707,16 +710,26 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (14:5:4:4:8): plugins/cvs-plugin/cvs-interface.c
                     SOURCE (14:5:4:4:9): plugins/cvs-plugin/cvs-interface.h
             GROUP (14:5:5): devhelp
-                PROPERTY (Installation directories): devhelp_uidir = $(anjuta_ui_dir) devhelp_pixmapsdir = $(anjuta_image_dir) devhelp_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (Installation directories): devhelp_uidir = $(anjuta_ui_dir) devhelp_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
                 PROPERTY (C preprocessor flags): -DDISABLE_EMBEDDED_DEVHELP
-                TARGET (14:5:5:0): devhelp_ui
+                GROUP (14:5:5:0): images
+                    PROPERTY (Installation directories): devhelp_pixmapsdir = $(anjuta_image_dir)
+                    TARGET (14:5:5:0:0): devhelp_pixmaps
+                        PROPERTY (Installation directory): devhelp_pixmapsdir
+                        SOURCE (14:5:5:0:0:0): plugins/devhelp/images/anjuta-devhelp-plugin.svg
+                        SOURCE (14:5:5:0:0:1): plugins/devhelp/images/anjuta-devhelp-plugin-48.png
+                        SOURCE (14:5:5:0:0:2): plugins/devhelp/images/anjuta-devhelp-search.svg
+                        SOURCE (14:5:5:0:0:3): plugins/devhelp/images/anjuta-devhelp-search-48.png
+                        SOURCE (14:5:5:0:0:4): plugins/devhelp/images/anjuta-devhelp-search-24.png
+                        SOURCE (14:5:5:0:0:5): plugins/devhelp/images/anjuta-devhelp-search-16.png
+                        SOURCE (14:5:5:0:0:6): plugins/devhelp/images/anjuta-devhelp-view.svg
+                        SOURCE (14:5:5:0:0:7): plugins/devhelp/images/anjuta-devhelp-view-48.png
+                        SOURCE (14:5:5:0:0:8): plugins/devhelp/images/anjuta-devhelp-view-24.png
+                        SOURCE (14:5:5:0:0:9): plugins/devhelp/images/anjuta-devhelp-view-16.png
+                TARGET (14:5:5:1): devhelp_ui
                     PROPERTY (Installation directory): devhelp_uidir
-                    SOURCE (14:5:5:0:0): plugins/devhelp/anjuta-devhelp.ui
-                    SOURCE (14:5:5:0:1): plugins/devhelp/anjuta-devhelp-simple.ui
-                TARGET (14:5:5:1): devhelp_pixmaps
-                    PROPERTY (Installation directory): devhelp_pixmapsdir
-                    SOURCE (14:5:5:1:0): plugins/devhelp/anjuta-devhelp-plugin.svg
-                    SOURCE (14:5:5:1:1): plugins/devhelp/anjuta-devhelp-plugin-48.png
+                    SOURCE (14:5:5:1:0): plugins/devhelp/anjuta-devhelp.ui
+                    SOURCE (14:5:5:1:1): plugins/devhelp/anjuta-devhelp-simple.ui
                 TARGET (14:5:5:2): devhelp_plugin
                     PROPERTY (Installation directory): devhelp_plugindir
                     SOURCE (14:5:5:2:0): plugins/devhelp/$(plugin_in_files:.plugin.in=.plugin)
@@ -757,6 +770,12 @@ PROPERTY (URL): http://www.anjuta.org/
                         SOURCE (14:5:6:4:0:21): plugins/debug-manager/images/anjuta-watch-16.png
                         SOURCE (14:5:6:4:0:22): plugins/debug-manager/images/anjuta-watch-24.png
                         SOURCE (14:5:6:4:0:23): plugins/debug-manager/images/anjuta-watch.svg
+                        SOURCE (14:5:6:4:0:24): plugins/debug-manager/images/anjuta-disassembly-16.png
+                        SOURCE (14:5:6:4:0:25): plugins/debug-manager/images/anjuta-disassembly-24.png
+                        SOURCE (14:5:6:4:0:26): plugins/debug-manager/images/anjuta-disassembly.svg
+                        SOURCE (14:5:6:4:0:27): plugins/debug-manager/images/anjuta-memory-16.png
+                        SOURCE (14:5:6:4:0:28): plugins/debug-manager/images/anjuta-memory-24.png
+                        SOURCE (14:5:6:4:0:29): plugins/debug-manager/images/anjuta-memory.svg
                 TARGET (14:5:6:0): anjuta_glade
                     PROPERTY (Installation directory): anjuta_gladedir
                     SOURCE (14:5:6:0:0): plugins/debug-manager/anjuta-debug-manager.ui
@@ -845,7 +864,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (14:5:7:5:5): plugins/dir-project/dir-node.h
             GROUP (14:5:8): document-manager
                 PROPERTY (Installation directories): document_manager_gladedir = $(anjuta_glade_dir) document_manager_uidir = $(anjuta_ui_dir) document_manager_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
-                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(GDL_CFLAGS) $(GIO_CFLAGS) $(LIBXML_CFLAGS) $(LIBANJUTA_CFLAGS) -DG_LOG_DOMAIN=\"libanjuta-document-manager\"
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(GDL_CFLAGS) $(GIO_CFLAGS) $(XML_CFLAGS) $(LIBANJUTA_CFLAGS) -DG_LOG_DOMAIN=\"libanjuta-document-manager\"
                 GROUP (14:5:8:0): images
                     PROPERTY (Installation directories): document_manager_pixmapsdir = $(anjuta_image_dir)
                     TARGET (14:5:8:0:0): document_manager_pixmaps
@@ -1050,14 +1069,20 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (14:5:12:6:2): plugins/gdb/gdbmi.h
                     SOURCE (14:5:12:6:3): plugins/gdb/debugger.h
             GROUP (14:5:13): git
-                PROPERTY (Installation directories): git_gladedir = $(anjuta_glade_dir) git_pixmapsdir = $(anjuta_image_dir) git_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (Installation directories): git_gladedir = $(anjuta_glade_dir) git_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
                 PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS)
-                TARGET (14:5:13:0): git_glade
+                GROUP (14:5:13:0): images
+                    PROPERTY (Installation directories): git_pixmapsdir = $(anjuta_image_dir)
+                    TARGET (14:5:13:0:0): git_pixmaps
+                        PROPERTY (Installation directory): git_pixmapsdir
+                        SOURCE (14:5:13:0:0:0): plugins/git/images/anjuta-git-plugin-16.png
+                        SOURCE (14:5:13:0:0:1): plugins/git/images/anjuta-git-plugin-24.png
+                        SOURCE (14:5:13:0:0:2): plugins/git/images/anjuta-git-plugin-48.png
+                        SOURCE (14:5:13:0:0:3): plugins/git/images/anjuta-git-plugin.svg
+                        SOURCE (14:5:13:0:0:4): plugins/git/images/\
+                TARGET (14:5:13:1): git_glade
                     PROPERTY (Installation directory): git_gladedir
-                    SOURCE (14:5:13:0:0): plugins/git/anjuta-git.ui
-                TARGET (14:5:13:1): git_pixmaps
-                    PROPERTY (Installation directory): git_pixmapsdir
-                    SOURCE (14:5:13:1:0): plugins/git/anjuta-git-plugin-48.png
+                    SOURCE (14:5:13:1:0): plugins/git/anjuta-git.ui
                 TARGET (14:5:13:2): git_plugin
                     PROPERTY (Installation directory): git_plugindir
                     SOURCE (14:5:13:2:0): plugins/git/$(plugin_in_files:.plugin.in=.plugin)
@@ -1253,16 +1278,25 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (14:5:13:3:185): plugins/git/git-reset-pane.h
                     SOURCE (14:5:13:3:186): plugins/git/git-cherry-pick-pane.c
                     SOURCE (14:5:13:3:187): plugins/git/git-cherry-pick-pane.h
+                    SOURCE (14:5:13:3:188): plugins/git/git-patch-series-pane.c
+                    SOURCE (14:5:13:3:189): plugins/git/git-patch-series-pane.h
+                    SOURCE (14:5:13:3:190): plugins/git/git-apply-mailbox-pane.c
+                    SOURCE (14:5:13:3:191): plugins/git/git-apply-mailbox-pane.h
             GROUP (14:5:14): glade
-                PROPERTY (Installation directories): glade_uidir = $(anjuta_ui_dir) glade_pixmapsdir = $(anjuta_image_dir) glade_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (Installation directories): glade_uidir = $(anjuta_ui_dir) glade_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
                 PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(PLUGIN_GLADE_CFLAGS) $(LIBANJUTA_CFLAGS)
-                TARGET (14:5:14:0): glade_ui
+                GROUP (14:5:14:0): images
+                    PROPERTY (Installation directories): glade_pixmapsdir = $(anjuta_image_dir)
+                    TARGET (14:5:14:0:0): glade_pixmaps
+                        PROPERTY (Installation directory): glade_pixmapsdir
+                        SOURCE (14:5:14:0:0:0): plugins/glade/images/anjuta-glade-plugin.svg
+                        SOURCE (14:5:14:0:0:1): plugins/glade/images/anjuta-glade-plugin-48.png
+                        SOURCE (14:5:14:0:0:2): plugins/glade/images/anjuta-glade-palette-16.png
+                        SOURCE (14:5:14:0:0:3): plugins/glade/images/anjuta-glade-palette-24.png
+                        SOURCE (14:5:14:0:0:4): plugins/glade/images/\
+                TARGET (14:5:14:1): glade_ui
                     PROPERTY (Installation directory): glade_uidir
-                    SOURCE (14:5:14:0:0): plugins/glade/anjuta-glade.xml
-                TARGET (14:5:14:1): glade_pixmaps
-                    PROPERTY (Installation directory): glade_pixmapsdir
-                    SOURCE (14:5:14:1:0): plugins/glade/anjuta-glade-plugin.svg
-                    SOURCE (14:5:14:1:1): plugins/glade/anjuta-glade-plugin-48.png
+                    SOURCE (14:5:14:1:0): plugins/glade/anjuta-glade.xml
                 TARGET (14:5:14:2): glade_plugin
                     PROPERTY (Installation directory): glade_plugindir
                     SOURCE (14:5:14:2:0): plugins/glade/$(plugin_in_files:.plugin.in=.plugin)
@@ -1372,6 +1406,8 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (14:5:17:5:3): plugins/language-support-cpp-java/cpp-java-assist.c
                     SOURCE (14:5:17:5:4): plugins/language-support-cpp-java/cpp-java-utils.c
                     SOURCE (14:5:17:5:5): plugins/language-support-cpp-java/cpp-java-utils.h
+                    SOURCE (14:5:17:5:6): plugins/language-support-cpp-java/cpp-java-indentation.c
+                    SOURCE (14:5:17:5:7): plugins/language-support-cpp-java/cpp-java-indentation.h
             GROUP (14:5:18): language-support-js
                 PROPERTY (Installation directories): js_support_plugin_gladedir = $(anjuta_glade_dir) js_support_plugin_uidir = $(anjuta_ui_dir) js_support_plugin_pixmapsdir = $(anjuta_image_dir) js_support_plugin_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
                 PROPERTY (C preprocessor flags): -I$(top_srcdir)/plugins/symbol-db/anjuta-tags/ $(WARN_CFLAGS) -DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" -DANJUTA_DATA_DIR=\"$(anjuta_data_dir)\" -DANJUTA_PLUGIN_DIR=\"$(anjuta_plugin_dir)\" -DANJUTA_IMAGE_DIR=\"$(anjuta_image_dir)\" -DANJUTA_GLADE_DIR=\"$(anjuta_glade_dir)\" -DANJUTA_UI_DIR=\"$(anjuta_ui_dir)\" $(XML_CFLAGS) $(LIBANJUTA_CFLAGS) -DPACKAGE_SRC_DIR=\"$(srcdir)\" -DGIR_PATH=\"$(INTROSPECTION_GIRDIR)\" -DGJS_PATH=\"$(gjsdir)\" -DG_LOG_DOMAIN=\"language-support-js\"
@@ -1434,7 +1470,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (14:5:18:4:39): plugins/language-support-js/prefs.h
             GROUP (14:5:19): language-support-python
                 PROPERTY (Installation directories): python_plugin_uidir = $(anjuta_ui_dir) python_plugin_gladedir = $(anjuta_glade_dir) python_plugin_pixmapsdir = $(anjuta_image_dir) scriptsdir = $(anjuta_plugin_dir) python_plugin_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
-                PROPERTY (C preprocessor flags): $(LIBXML_CFLAGS) $(LIBANJUTA_CFLAGS) -DSCRIPTS_DIR=\"$(scriptsdir)\" -DG_LOG_DOMAIN=\"language-support-python\"
+                PROPERTY (C preprocessor flags): $(XML_CFLAGS) $(LIBANJUTA_CFLAGS) -DSCRIPTS_DIR=\"$(scriptsdir)\" -DG_LOG_DOMAIN=\"language-support-python\"
                 TARGET (14:5:19:0): python_plugin_ui
                     PROPERTY (Installation directory): python_plugin_uidir
                     SOURCE (14:5:19:0:0): plugins/language-support-python/python-plugin.xml
@@ -2044,7 +2080,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (14:5:28:4:0): plugins/search/anjuta-search.xml
             GROUP (14:5:29): snippets-manager
                 PROPERTY (Installation directories): snippets_manager_gladedir = $(anjuta_glade_dir) default_snippetsdir = $(anjuta_data_dir) snippets_manager_pixmapsdir = $(anjuta_image_dir) snippets_manager_uidir = $(anjuta_ui_dir) snippets_manager_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
-                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBXML_CFLAGS) $(LIBANJUTA_CFLAGS) $(XML_CFLAGS) -DG_LOG_DOMAIN=\"libanjuta-snippets-manager\"
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(XML_CFLAGS) $(LIBANJUTA_CFLAGS) $(XML_CFLAGS) -DG_LOG_DOMAIN=\"libanjuta-snippets-manager\"
                 TARGET (14:5:29:0): snippets_manager_glade
                     PROPERTY (Installation directory): snippets_manager_gladedir
                     SOURCE (14:5:29:0:0): plugins/snippets-manager/snippets-manager-preferences.ui
@@ -2092,7 +2128,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (14:5:29:5:21): plugins/snippets-manager/snippets-import-export.h
             GROUP (14:5:30): sourceview
                 PROPERTY (Installation directories): sourceview_xmldir = $(anjuta_glade_dir) sourceview_pixmapsdir = $(anjuta_image_dir) sourceview_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
-                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(GIO_CFLAGS) $(PLUGIN_SOURCEVIEW_CFLAGS) $(LIBANJUTA_CFLAGS) -DG_LOG_DOMAIN=\"sourceview\"
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(GIO_CFLAGS) $(SOURCEVIEW_CFLAGS) $(LIBANJUTA_CFLAGS) -DG_LOG_DOMAIN=\"sourceview\"
                 TARGET (14:5:30:0): sourceview_xml
                     PROPERTY (Installation directory): sourceview_xmldir
                     SOURCE (14:5:30:0:0): plugins/sourceview/anjuta-editor-sourceview.ui
@@ -2111,8 +2147,8 @@ PROPERTY (URL): http://www.anjuta.org/
                 TARGET (14:5:30:3): libanjuta-sourceview.la
                     PROPERTY (Installation directory): plugindir
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
-                    PROPERTY (Libraries): $(GIO_LIBS) $(PLUGIN_SOURCEVIEW_LIBS) $(LIBANJUTA_LIBS)
-                    MODULE (14:5:30:3:20): PLUGIN_SOURCEVIEW
+                    PROPERTY (Libraries): $(GIO_LIBS) $(SOURCEVIEW_LIBS) $(LIBANJUTA_LIBS)
+                    MODULE (14:5:30:3:20): SOURCEVIEW
                     SOURCE (14:5:30:3:0): plugins/sourceview/$(BUILT_SOURCES)
                     SOURCE (14:5:30:3:1): plugins/sourceview/plugin.c
                     SOURCE (14:5:30:3:2): plugins/sourceview/plugin.h
@@ -2502,7 +2538,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (14:5:35:4:13): plugins/tools/variable.h
         GROUP (14:6): src
             PROPERTY (Installation directories): anjuta_gladedir = $(anjuta_glade_dir) anjuta_uidir = $(anjuta_ui_dir) anjuta_layoutdir = $(anjuta_data_dir) anjuta_pixmapsdir = $(anjuta_image_dir)
-            PROPERTY (C preprocessor flags): -I$(top_srcdir) -I.. -I. $(LIBANJUTA_CFLAGS) $(GDL_CFLAGS) $(XML_CFLAGS) -DPACKAGE_BIN_DIR=\"$(bindir)\" -DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" -DPACKAGE_DOC_DIR=\"$(docdir)\" -DPACKAGE_PIXMAPS_DIR=\"$(datadir)/pixmaps/$(PACKAGE)\" -DPACKAGE_PLUGIN_DIR=\"$(libdir)/$(PACKAGE)\" -DPACKAGE_LOCALE_DIR=\"$(datadir)/locale\" -DG_LOG_DOMAIN=\"Anjuta\"
+            PROPERTY (C preprocessor flags): -I$(top_srcdir) -I.. -I. $(LIBANJUTA_CFLAGS) $(SOURCEVIEW_CFLAGS) $(GDL_CFLAGS) $(XML_CFLAGS) -DPACKAGE_BIN_DIR=\"$(bindir)\" -DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" -DPACKAGE_DOC_DIR=\"$(docdir)\" -DPACKAGE_PIXMAPS_DIR=\"$(datadir)/pixmaps/$(PACKAGE)\" -DPACKAGE_PLUGIN_DIR=\"$(libdir)/$(PACKAGE)\" -DPACKAGE_LOCALE_DIR=\"$(datadir)/locale\" -DG_LOG_DOMAIN=\"Anjuta\"
             TARGET (14:6:0): anjuta_glade
                 PROPERTY (Installation directory): anjuta_gladedir
                 SOURCE (14:6:0:0): src/preferences.ui
@@ -2518,10 +2554,11 @@ PROPERTY (URL): http://www.anjuta.org/
                 SOURCE (14:6:3:1): src/anjuta-preferences-general-48.png
             TARGET (14:6:4): anjuta
                 PROPERTY (Installation directory): bindir
-                PROPERTY (Libraries): $(ANJUTA_LIBS) $(GDL_LIBS) $(LIBANJUTA_LIBS) $(XML_LIBS)
+                PROPERTY (Libraries): $(ANJUTA_LIBS) $(SOURCEVIEW_LIBS) $(GDL_LIBS) $(LIBANJUTA_LIBS) $(XML_LIBS)
                 PROPERTY (Linker flags): $(ANJUTA_LDFLAGS)
                 MODULE (14:6:4:10): XML
                 MODULE (14:6:4:11): GDL
+                MODULE (14:6:4:12): SOURCEVIEW
                 SOURCE (14:6:4:0): src/about.c
                 SOURCE (14:6:4:1): src/about.h
                 SOURCE (14:6:4:2): src/anjuta.c
