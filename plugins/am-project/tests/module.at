@@ -14,6 +14,7 @@ AT_DATA([expect],
 ]])
 AT_DATA([reference.ac],
 [[PKG_CHECK_MODULES(MODULE1,)
+
 AC_CONFIG_FILES(Makefile)
 ]])
 AT_PARSER_CHECK([load empty \
@@ -36,6 +37,7 @@ AT_DATA([expect],
 ]])
 AT_DATA([reference.ac],
 [[PKG_CHECK_MODULES(MODULE1,)
+
 PKG_CHECK_MODULES(MODULE2,)
 
 AC_CONFIG_FILES(Makefile)
@@ -58,8 +60,7 @@ AT_DATA([expect],
     GROUP (): empty3
 ]])
 AT_DATA([reference.ac],
-[[
-PKG_CHECK_MODULES(MODULE2,)
+[[PKG_CHECK_MODULES(MODULE2,)
 
 AC_CONFIG_FILES(Makefile)
 ]])
@@ -80,10 +81,7 @@ AT_DATA([expect],
 [[    GROUP (): empty4
 ]])
 AT_DATA([reference.ac],
-[[
-
-
-AC_CONFIG_FILES(Makefile)
+[[AC_CONFIG_FILES(Makefile)
 ]])
 AT_PARSER_CHECK([load empty3 \
 		 move empty4 \

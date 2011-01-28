@@ -47,6 +47,79 @@
 /* Private functions
  *---------------------------------------------------------------------------*/
 
+static AnjutaToken *
+anjuta_token_find_position (AnjutaToken *list, gboolean after, AnjutaTokenType type, AnjutaToken *sibling)
+{
+	AnjutaToken *tok;
+	AnjutaToken *pos = sibling;
+
+	if (sibling == NULL)
+	{
+		AnjutaToken *last = NULL;
+		gboolean found = FALSE;
+		
+		for (tok = list; tok != NULL; tok = anjuta_token_next (tok))
+		{
+			AnjutaTokenType current = anjuta_token_get_type (tok);
+
+			if ((current >= AC_TOKEN_FIRST_ORDERED_MACRO) && (current <= AC_TOKEN_LAST_ORDERED_MACRO))
+			{
+				/* Find a valid position */
+				if (after)
+				{
+					/*  1. After the last similar macro
+					 *  2. After the last macro with a higher priority
+					 *  3. At the end of the file
+					 */ 
+					if (current == type)
+					{
+						pos = tok;
+						found = TRUE;
+					}
+					else if (!found && (current < type))
+					{
+						pos = tok;
+					}
+				}
+				else
+				{
+					/*  1. Before the first similar macro
+					 *  2. Before the first macro with an lower priority
+					 *  3. At the beginning of the file
+					 */
+					if (current == type)
+					{
+						pos = tok;
+						break;
+					}
+					else if (!found && (current > type))
+					{
+						pos = tok;
+						found = TRUE;
+					}
+				}
+			}
+			last = tok;
+		}
+
+
+		if (after && (pos == NULL)) pos = last;
+	}
+
+	if (after)
+	{
+		for (; pos != NULL; pos = anjuta_token_next (pos))
+		{
+			AnjutaTokenType current = anjuta_token_get_type (pos);
+
+			if (current == ANJUTA_TOKEN_EOL) break;
+		}
+	}
+
+	
+	return pos;
+}
+
 static AnjutaToken*
 find_tokens (AnjutaToken *list, AnjutaTokenType* types)
 {
@@ -65,21 +138,6 @@ find_tokens (AnjutaToken *list, AnjutaTokenType* types)
 	}
 
 	return NULL;
-}
-
-static AnjutaToken *
-find_next_eol (AnjutaToken *token)
-{
-	if (token == NULL) return NULL;
-	
-	for (;;)
-	{
-		AnjutaToken *next = anjuta_token_next (token);
-
-		if (next == NULL) return token;
-		token = next;
-		if (anjuta_token_get_type (token) == EOL) return token;
-	}
 }
 
 static AnjutaToken *
@@ -191,56 +249,15 @@ amp_project_write_module_list (AmpProject *project, const gchar *name, gboolean 
 {
 	AnjutaToken *pos;
 	AnjutaToken *token;
-	static gint pkg_type[] = {AC_TOKEN_PKG_CHECK_MODULES, 0};
-	static gint eol_type[] = {ANJUTA_TOKEN_EOL, ANJUTA_TOKEN_SPACE, ANJUTA_TOKEN_COMMENT, 0};
 	AnjutaToken *configure;
 
 	configure = amp_project_get_configure_token (project);
-	
-	if (sibling == NULL)
-	{
-		pos = anjuta_token_find_type (configure, 0, pkg_type);
-		if (pos == NULL)
-		{
-			gint other_type[] = {AC_TOKEN_AC_INIT,
-				AC_TOKEN_PKG_CHECK_MODULES,
-				AC_TOKEN_AC_PREREQ,
-				0};
-			
-			pos = anjuta_token_find_type (configure, ANJUTA_TOKEN_SEARCH_LAST, other_type);
-			if (pos == NULL)
-			{
-				pos = anjuta_token_skip_comment (configure);
-			}
-			else
-			{
-				AnjutaToken* next;
 
-				next = anjuta_token_find_type (pos, ANJUTA_TOKEN_SEARCH_NOT, eol_type);
-			}
-		}
-		
-	}
-	else
-	{
-		pos = sibling;
-	}
+	pos = anjuta_token_find_position (configure, after, AC_TOKEN_PKG_CHECK_MODULES, sibling);
 
-	if (after && (pos != NULL))
-	{
-		token = anjuta_token_find_type (pos, 0, eol_type);
-		if (token != NULL)
-		{
-			pos = token;
-		}
-		else
-		{
-			pos = anjuta_token_insert_token_list (after, pos,
-			    ANJUTA_TOKEN_EOL, "\n",
-			    NULL);
-			amp_project_update_configure (project, pos);
-		}
-	}
+	pos = anjuta_token_insert_token_list (after, pos,
+		    ANJUTA_TOKEN_EOL, "\n",
+		    NULL);
 	
 	pos = anjuta_token_insert_token_list (after, pos,
 		    ANJUTA_TOKEN_EOL, "\n",
@@ -323,6 +340,16 @@ amp_module_node_delete_token (AmpProject  *project, AmpModuleNode *module, GErro
 	{
 		token = anjuta_token_list (token);
 		anjuta_token_set_flags (token, ANJUTA_TOKEN_REMOVED);
+		token = anjuta_token_next_item (token);
+		if (anjuta_token_get_type (token) == ANJUTA_TOKEN_EOL)
+		{
+			anjuta_token_set_flags (token, ANJUTA_TOKEN_REMOVED);
+		}
+		token = anjuta_token_next_item (token);
+		if (anjuta_token_get_type (token) == ANJUTA_TOKEN_EOL)
+		{
+			anjuta_token_set_flags (token, ANJUTA_TOKEN_REMOVED);
+		}
 
 		amp_project_update_configure (project, token);
 	}
