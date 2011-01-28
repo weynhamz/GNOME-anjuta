@@ -31,24 +31,20 @@ on_ok_button_clicked (GtkButton *button, GitCreateBranchPane *self)
 {
 	Git *plugin;
 	GtkEntry *name_entry;
-	GtkToggleButton *revision_radio;
-	GtkEntry *revision_entry;
+	AnjutaEntry *revision_entry;
 	GtkToggleButton *checkout_check;
 	gchar *name;
-	gchar *revision;
+	const gchar *revision;
 	GitBranchCreateCommand *create_command;
 
 	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
 	name_entry = GTK_ENTRY (gtk_builder_get_object (self->priv->builder,
 	                                                "name_entry"));
-	revision_radio = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
-	                                                            "revision_radio"));
-	revision_entry = GTK_ENTRY (gtk_builder_get_object (self->priv->builder,
-	                                                    "revision_entry"));
+	revision_entry = ANJUTA_ENTRY (gtk_builder_get_object (self->priv->builder,
+	                                                       "revision_entry"));
 	checkout_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
 	                                                            "checkout_check"));
 	name = gtk_editable_get_chars (GTK_EDITABLE (name_entry), 0, -1);
-	revision = NULL;
 
 	if (!git_pane_check_input (GTK_WIDGET (ANJUTA_PLUGIN (plugin)->shell),
 	                           GTK_WIDGET (name_entry), name,
@@ -59,22 +55,11 @@ on_ok_button_clicked (GtkButton *button, GitCreateBranchPane *self)
 		return;
 	}
 
-	if (gtk_toggle_button_get_active (revision_radio))
-	{
-		revision = gtk_editable_get_chars (GTK_EDITABLE (revision_entry), 0, 
-		                                   -1);
+	revision = anjuta_entry_get_text (revision_entry);
 
-		if (!git_pane_check_input (GTK_WIDGET (ANJUTA_PLUGIN (plugin)->shell),
-		                           GTK_WIDGET (revision_entry), revision,
-		                           _("Please enter a revision.")))
-		{
-			g_free (name);
-			g_free (revision);
-
-			return;
-		}
-	}
-
+	if (g_utf8_strlen (revision, -1) == 0)
+		revision = NULL;
+	
 	create_command = git_branch_create_command_new (plugin->project_root_directory,
 	                                                name,
 	                                                revision,
@@ -93,21 +78,8 @@ on_ok_button_clicked (GtkButton *button, GitCreateBranchPane *self)
 
 
 	g_free (name);
-	g_free (revision);
 
 	git_pane_remove_from_dock (GIT_PANE (self));
-}
-
-static void
-on_revision_radio_toggled (GtkToggleButton *button, GitCreateBranchPane *self)
-{
-	GtkWidget *revision_entry;
-
-	revision_entry = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
-	                                                     "revision_entry"));
-
-	gtk_widget_set_sensitive (revision_entry,
-	                          gtk_toggle_button_get_active (button));
 }
 
 static void
@@ -118,7 +90,6 @@ git_create_branch_pane_init (GitCreateBranchPane *self)
 	GError *error = NULL;
 	GtkWidget *ok_button;
 	GtkWidget *cancel_button;
-	GtkWidget *revision_radio;
 
 	self->priv = g_new0 (GitCreateBranchPanePriv, 1);
 	self->priv->builder = gtk_builder_new ();
@@ -135,8 +106,6 @@ git_create_branch_pane_init (GitCreateBranchPane *self)
 	                                                "ok_button"));
 	cancel_button = GTK_WIDGET (gtk_builder_get_object (self->priv->builder, 
 	                                                    "cancel_button"));
-	revision_radio = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
-	                                                     "revision_radio"));
 
 	g_signal_connect (G_OBJECT (ok_button), "clicked",
 	                  G_CALLBACK (on_ok_button_clicked),
@@ -145,10 +114,6 @@ git_create_branch_pane_init (GitCreateBranchPane *self)
 	g_signal_connect_swapped (G_OBJECT (cancel_button), "clicked",
 	                          G_CALLBACK (git_pane_remove_from_dock),
 	                          self);
-
-	g_signal_connect (G_OBJECT (revision_radio), "toggled",
-	                  G_CALLBACK (on_revision_radio_toggled),
-	                  self);
 }
 
 static void

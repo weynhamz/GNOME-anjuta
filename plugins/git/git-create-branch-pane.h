@@ -21,6 +21,7 @@
 #define _GIT_CREATE_BRANCH_PANE_H_
 
 #include <glib-object.h>
+#include <libanjuta/anjuta-entry.h>
 #include "git-pane.h"
 #include "plugin.h"
 #include "git-branch-create-command.h"
