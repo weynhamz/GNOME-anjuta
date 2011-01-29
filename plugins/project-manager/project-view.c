@@ -1107,6 +1107,19 @@ gbf_project_view_update_tree (GbfProjectView *view, AnjutaProjectNode *parent, G
 /* Shorcuts functions
  *---------------------------------------------------------------------------*/
 
+void
+gbf_project_view_sort_shortcuts (GbfProjectView *view)
+{
+	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (view->model),
+	                                      GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID,
+	                                      GTK_SORT_ASCENDING);
+	gbf_project_model_sort_shortcuts (view->model);
+	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (view->model),
+	                                      GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID,
+	                                      GTK_SORT_ASCENDING);
+	
+}
+
 GList *
 gbf_project_view_get_shortcut_list (GbfProjectView *view)
 {

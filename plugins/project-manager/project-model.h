@@ -118,6 +118,7 @@ void            gbf_project_model_move_target_shortcut    (GbfProjectModel *mode
                                                            GtkTreePath     *before_path);
 void            gbf_project_model_set_default_shortcut    (GbfProjectModel *model, gboolean enable);
 
+void            gbf_project_model_sort_shortcuts            (GbfProjectModel *model);
 
 
 #endif

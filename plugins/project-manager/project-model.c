@@ -296,6 +296,110 @@ gbf_project_model_remove_invalid_shortcut (GbfProjectModel *model, GtkTreeIter *
 	return FALSE;
 }
 
+/* Sort model
+ *---------------------------------------------------------------------------*/
+
+static gint 
+sort_by_name (GtkTreeModel *model,
+              GtkTreeIter  *iter_a,
+              GtkTreeIter  *iter_b,
+              gpointer      user_data)
+{
+	GbfTreeData *data_a, *data_b;
+	
+	gtk_tree_model_get (model, iter_a,
+			    GBF_PROJECT_MODEL_COLUMN_DATA, &data_a,
+			    -1);
+	gtk_tree_model_get (model, iter_b,
+			    GBF_PROJECT_MODEL_COLUMN_DATA, &data_b,
+			    -1);
+
+	return strcmp (data_a->name, data_b->name);
+}
+
+
+static void
+gbf_project_model_merge (GtkTreeModel *model,
+                         GtkTreePath *begin,
+                         GtkTreePath *half,
+                         GtkTreePath *end,
+                         GtkTreeIterCompareFunc compare_func,
+                         gpointer user_data)
+{
+	GtkTreeIter right;
+	GtkTreeIter left;
+
+	if (gtk_tree_model_get_iter (model, &left, begin) &&
+	    gtk_tree_model_get_iter (model, &right, half))
+	{
+		gint depth;
+		gint ll, lr;
+
+		
+		/* Get number of elements in both list */
+		ll = (gtk_tree_path_get_indices_with_depth (half, &depth)[depth - 1]
+		      - gtk_tree_path_get_indices_with_depth (begin, &depth)[depth - 1]);
+		lr = (gtk_tree_path_get_indices_with_depth (end, &depth)[depth - 1]
+		      - gtk_tree_path_get_indices_with_depth (half, &depth)[depth - 1]);
+
+		while (ll && lr)
+		{
+			if (compare_func (model, &left, &right, user_data) <= 0)
+			{
+				gtk_tree_model_iter_next (model, &left);
+				ll--;
+			}
+			else
+			{
+				GtkTreeIter iter;
+
+				iter = right;
+				gtk_tree_model_iter_next (model, &right);
+				lr--;
+				gtk_tree_store_move_before (GTK_TREE_STORE (model), &iter, &left);
+			}
+		}
+	}
+}
+
+/* sort using merge sort */
+static void
+gbf_project_model_sort (GtkTreeModel *model,
+                        GtkTreePath *begin,
+                        GtkTreePath *end,
+                        GtkTreeIterCompareFunc compare_func,
+                        gpointer user_data)
+{
+	GtkTreePath *half;
+	gint depth;
+
+	/* Empty list are sorted */
+	if (gtk_tree_path_compare (begin, end) >= 0)
+	{
+		return;
+	}
+
+	/* Split the list in two */
+	half = gtk_tree_path_copy (begin);
+	gtk_tree_path_up (half);
+	gtk_tree_path_append_index (half, (gtk_tree_path_get_indices_with_depth (begin, &depth)[depth -1] +
+	                                   gtk_tree_path_get_indices_with_depth (end, &depth)[depth - 1]) / 2);
+
+	/* List with a single element are sorted too */
+	if (gtk_tree_path_compare (begin, half) < 0)
+	{
+		gbf_project_model_sort (model, begin, half, compare_func, user_data);
+		gbf_project_model_sort (model, half, end, compare_func, user_data);
+		gbf_project_model_merge (model, begin, half, end, compare_func, user_data);
+	}
+	
+	gtk_tree_path_free (half);
+}
+
+
+/* Public function
+ *---------------------------------------------------------------------------*/
+
 gboolean
 gbf_project_model_remove (GbfProjectModel *model, GtkTreeIter *iter)
 {
@@ -1056,4 +1160,41 @@ gbf_project_model_set_default_shortcut (GbfProjectModel *model,
                                         gboolean enable)
 {
 	model->priv->default_shortcut = enable;
+}
+
+void
+gbf_project_model_sort_shortcuts (GbfProjectModel *model)
+{
+	GtkTreeIter iter;
+
+	/* Get all shortcut */
+	if (gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &iter, NULL))
+	{
+		GtkTreePath *begin;
+		GtkTreePath *end;
+		gboolean valid;
+
+		begin = gtk_tree_model_get_path (GTK_TREE_MODEL (model), &iter);
+		do
+		{
+			GbfTreeData *data;
+			
+			gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
+	   			 GBF_PROJECT_MODEL_COLUMN_DATA, &data,
+		    		-1);
+
+			/* Shortcuts are always at the beginning */
+			if (data->type != GBF_TREE_NODE_SHORTCUT) break;
+			
+			valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &iter);
+		}
+		while (valid);
+
+
+		
+		end = gtk_tree_model_get_path (GTK_TREE_MODEL (model), &iter);
+		gbf_project_model_sort (GTK_TREE_MODEL (model), begin, end, sort_by_name, NULL);
+		gtk_tree_path_free (begin);
+		gtk_tree_path_free (end);
+	}
 }

@@ -544,6 +544,12 @@ on_popup_properties (GtkAction *action, ProjectManagerPlugin *plugin)
 }
 
 static void
+on_popup_sort_shortcuts (GtkAction *action, ProjectManagerPlugin *plugin)
+{
+	gbf_project_view_sort_shortcuts (plugin->view);
+}
+
+static void
 on_popup_new_package (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 	GtkTreeIter selected_module;
@@ -959,6 +965,11 @@ static GtkActionEntry popup_actions[] =
 		"ActionPopupProjectRemove", GTK_STOCK_REMOVE,
 		N_("Re_move"), NULL, N_("Remove from project"),
 		G_CALLBACK (on_popup_remove)
+	},
+	{
+		"ActionPopupProjectSortShortcut", GTK_STOCK_SORT_ASCENDING,
+		N_("_Sort"), NULL, N_("Sort shortcuts"),
+		G_CALLBACK (on_popup_sort_shortcuts)
 	}
 };
 
@@ -973,7 +984,7 @@ update_ui (ProjectManagerPlugin *plugin)
 	
 	/* Close project is always here */
 	main_caps = 0x101;
-	popup_caps = 0x000;
+	popup_caps = 0x100;
 	
 	/* Check for supported node */
 	caps = anjuta_pm_project_get_capabilities (plugin->project);
@@ -1044,10 +1055,12 @@ on_treeview_selection_changed (GtkTreeSelection *sel,
 	AnjutaProjectNode *node;
 	gint state = 0;
 	GFile *selected_file;
+	GbfTreeData *data;
 	
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
 	node = gbf_project_view_find_selected (plugin->view,
 										   ANJUTA_PROJECT_UNKNOWN);
+	data = gbf_project_view_get_first_selected (plugin->view, NULL);
 
 	if (node != NULL)
 	{
@@ -1081,6 +1094,9 @@ on_treeview_selection_changed (GtkTreeSelection *sel,
 	action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
 								   "ActionPopupProjectRemove");
 	g_object_set (G_OBJECT (action), "sensitive", INT_TO_GBOOLEAN (state & ANJUTA_PROJECT_CAN_REMOVE), NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
+								   "ActionPopupProjectSortShortcut");
+	g_object_set (G_OBJECT (action), "sensitive", (data != NULL) && (data->type == GBF_TREE_NODE_SHORTCUT), NULL);
 	
 	selected_file = node != NULL ? anjuta_project_node_get_file (node) : NULL;
 	if (selected_file)
