@@ -577,7 +577,10 @@ install_support (CppJavaPlugin *lang_plugin)
 			                  lang_plugin);
 		}
 	}	
-		
+
+	lang_plugin->packages = cpp_packages_new (ANJUTA_PLUGIN (lang_plugin));
+	cpp_packages_load (lang_plugin->packages);
+	
 	lang_plugin->support_installed = TRUE;
 }
 
@@ -614,8 +617,9 @@ uninstall_support (CppJavaPlugin *lang_plugin)
 	                                      on_glade_drop_possible, lang_plugin);
 	g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
 	                                      on_glade_drop, lang_plugin);
-	
-	
+
+	g_object_unref (lang_plugin->packages);
+	lang_plugin->packages = NULL;
 	lang_plugin->support_installed = FALSE;
 }
 
@@ -1033,8 +1037,6 @@ cpp_java_plugin_activate_plugin (AnjutaPlugin *plugin)
 								 on_value_removed_current_editor,
 								 plugin);
 
-	cpp_packages_load (lang_plugin);
-	
 	initialized = FALSE;
 	return TRUE;
 }
@@ -1091,6 +1093,7 @@ cpp_java_plugin_instance_init (GObject *obj)
 	plugin->uiid = 0;
 	plugin->assist = NULL;
 	plugin->settings = g_settings_new (PREF_SCHEMA);
+	plugin->packages = NULL;
 }
 
 static void
