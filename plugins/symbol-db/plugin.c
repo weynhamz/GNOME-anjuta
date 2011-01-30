@@ -1544,7 +1544,7 @@ on_project_loaded (IAnjutaProjectManager *pm, GError *error,
 	GList *node;
 
 	node = pkgs;
-//*/
+/*/
 	while (node != NULL)
 	{
 		DEBUG_PRINT ("-------------------");
@@ -2500,7 +2500,7 @@ isymbol_manager_create_query (IAnjutaSymbolManager *isymbol_manager,
 	                             query_name, 
 	                             db,
 	                             db == IANJUTA_SYMBOL_QUERY_DB_PROJECT ? 
-	                         			NULL : sdb_plugin->session_packages);
+	                         			NULL : /* FIXME */ NULL);
 	return IANJUTA_SYMBOL_QUERY (query);
 }
 
