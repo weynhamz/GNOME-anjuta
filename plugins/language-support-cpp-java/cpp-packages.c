@@ -25,6 +25,28 @@
 #include <libanjuta/anjuta-pkg-config.h>
 #include <libanjuta/anjuta-debug.h>
 
+typedef struct
+{
+	gchar* pkg;
+	gchar* version;
+} PackageData;
+
+static int
+pkg_data_compare (gpointer data1, gpointer pkg2)
+{
+	PackageData* pkg_data1 = data1;
+
+	return strcmp (pkg_data1->pkg, (const gchar*) pkg2);
+}
+
+static void
+pkg_data_free (PackageData* data)
+{
+	g_free (data->pkg);
+	g_free (data->version);
+	g_free (data);
+}
+
 static void
 list_all_children (GList **children, GFile *dir)
 {
@@ -66,38 +88,55 @@ list_all_children (GList **children, GFile *dir)
 }
 
 static void
-cpp_packages_activate_package (IAnjutaSymbolManager* sm, const gchar* pkg, const gchar* version)
+cpp_packages_add_package (IAnjutaSymbolManager* sm,
+                          const gchar* pkg,
+                          const gchar* version)
+{
+	GList* dirs = anjuta_pkg_config_get_directories (pkg, TRUE, NULL);
+	GList* dir;
+	GList* children = NULL;
+	for (dir = dirs; dir != NULL; dir = g_list_next (dir))
+	{
+		GFile* file = g_file_new_for_path (dir->data);
+		list_all_children (&children, file);
+	}
+	g_message ("Adding package: %s", pkg);
+	if (children)
+		ianjuta_symbol_manager_add_package (sm, pkg, version, children, NULL);
+	anjuta_util_glist_strings_free (children);
+	anjuta_util_glist_strings_free (dirs);
+}
+
+static GList*
+cpp_packages_activate_package (IAnjutaSymbolManager* sm, const gchar* pkg, const gchar* version, 
+                               GList** packages_to_add)
 {
 	g_message ("Activate package: %s", pkg);
+	/* Only query each package once */
+	if (g_list_find_custom (*packages_to_add,
+	                        pkg, (GCompareFunc) pkg_data_compare))
+		return *packages_to_add;
 	if (!ianjuta_symbol_manager_activate_package (sm, pkg, version, NULL))
 	{
 		GList* deps = anjuta_pkg_config_list_dependencies (pkg, NULL);
 		GList* dep;
+		PackageData* data = g_new0 (PackageData, 1);
 		for (dep = deps; dep != NULL; dep = g_list_next (dep))
 		{
 			g_message ("Adding dependency: %s", dep->data);
 			gchar* dep_version =
 				anjuta_pkg_config_get_version (dep->data);
 			if (dep_version)
-				cpp_packages_activate_package (sm, dep->data, dep_version);
+				cpp_packages_activate_package (sm, dep->data, dep_version, packages_to_add);
 			g_free (dep_version);
 		}
 		anjuta_util_glist_strings_free (deps);
-		GList* dirs = anjuta_pkg_config_get_directories (pkg, TRUE, NULL);
-		GList* dir;
-		GList* children = NULL;
-		for (dir = dirs; dir != NULL; dir = g_list_next (dir))
-		{
-			GFile* file = g_file_new_for_path (dir->data);
-			list_all_children (&children, file);
-		}
-		g_message ("Adding package: %s", pkg);
-		if (children)
-			ianjuta_symbol_manager_add_package (sm, pkg, version, children, NULL);
-		anjuta_util_glist_strings_free (children);
-		anjuta_util_glist_strings_free (dirs);
+		data->pkg = g_strdup(pkg);
+		data->version = g_strdup (version);
+		*packages_to_add = g_list_prepend (*packages_to_add,
+		                                   data);
 	}
-	
+	return *packages_to_add;
 }
 
 static void
@@ -107,6 +146,7 @@ cpp_packages_load_real (AnjutaShell* shell, GError* error, IAnjutaProjectManager
 		anjuta_shell_get_interface (shell, IAnjutaSymbolManager, NULL);		
 	GList* packages;
 	GList* pkg;
+	GList* packages_to_add = NULL;
 
 	g_message ("Project loaded");
 	
@@ -120,11 +160,18 @@ cpp_packages_load_real (AnjutaShell* shell, GError* error, IAnjutaProjectManager
 			anjuta_pkg_config_get_version (pkg->data);
 		if (version)
 		{
-			cpp_packages_activate_package (sm, pkg->data, version);
+			cpp_packages_activate_package (sm, pkg->data, version, &packages_to_add);
 		}
 		g_free (version);
 	}
 	g_list_free (packages);
+	for (pkg = packages_to_add; pkg != NULL; pkg = g_list_next (pkg))
+	{
+		PackageData* pkg_data = pkg->data;
+		cpp_packages_add_package (sm, pkg_data->pkg, pkg_data->version);
+	}
+	g_list_foreach (packages_to_add, (GFunc) pkg_data_free, NULL);
+	g_list_free (packages_to_add);
 }
 
 void 
