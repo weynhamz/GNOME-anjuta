@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2011-01-30 00:08+0000\n"
-"PO-Revision-Date: 2011-01-30 13:08+0100\n"
+"POT-Creation-Date: 2011-01-30 12:10+0000\n"
+"PO-Revision-Date: 2011-01-30 18:08+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -943,10 +943,9 @@ msgid "Continue on errors"
 msgstr "Continuar en errores"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:8
-#, fuzzy
 #| msgid "Highlight message locations in editor"
 msgid "Highlight build warnings and errors in editor"
-msgstr "Resaltar mensajes de ubicación en el editor"
+msgstr "Resaltar mensajes de construcción y de errores en el editor"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:9
 msgid "Install"
@@ -1375,7 +1374,6 @@ msgstr "Autotools de construcción"
 
 #: ../plugins/build-basic-autotools/program.c:269
 #, c-format
-#| msgid "Error closing project: %s"
 msgid ""
 "Error while setting up build environment:\n"
 " %s"
@@ -1449,7 +1447,6 @@ msgid "Class Options:"
 msgstr "Opciones de clase:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:16
-#| msgid "Class Name:"
 msgid "Class Scope:"
 msgstr "Rango de la clase:"
 
@@ -1511,7 +1508,6 @@ msgid "Imports"
 msgstr "Importaciones"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:27
-#| msgid "_Initialize repository"
 msgid "Initializer Arguments:"
 msgstr "Argumentos del inicializador:"
 
@@ -1582,7 +1578,6 @@ msgid "Source/Header Headings:"
 msgstr "Titulares de Fuente/Cabecera:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:40
-#| msgid "Base Class:"
 msgid "Vala Class"
 msgstr "Clase Vala"
 
@@ -1592,7 +1587,6 @@ msgid "Variables"
 msgstr "Variables"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:42
-#| msgid "Base Class:"
 msgid "is Sub-Class"
 msgstr "es una subclase"
 
@@ -2152,10 +2146,9 @@ msgid "CVS popup operations"
 msgstr "Operaciones emergentes de CVS"
 
 #: ../plugins/code-analyzer/code-analyzer.ui.h:1
-#, fuzzy
 #| msgid "Change Watch"
 msgid "CLang Paths"
-msgstr "Cambiar vigilancia"
+msgstr "Rutas de CLang"
 
 #: ../plugins/code-analyzer/code-analyzer.ui.h:2
 msgid "Enable CLang code analyzer"
@@ -3759,10 +3752,9 @@ msgid "_Toggle Bookmark"
 msgstr "Cam_biar marcador"
 
 #: ../plugins/document-manager/plugin.c:381
-#, fuzzy
 #| msgid "Add a bookmark at the current line position"
 msgid "Toggle bookmark at the current line position"
-msgstr "Añadir un marcador en la posición de línea actual"
+msgstr "Conmutar un marcador en la posición de línea actual"
 
 #: ../plugins/document-manager/plugin.c:383
 msgid "_Previous Bookmark"
@@ -4380,6 +4372,7 @@ msgstr "No se pudo analizar el archivo de proyecto"
 #: ../plugins/am-project/am-properties.c:51
 msgid "Project name, it can contain spaces by example 'GNU Autoconf'"
 msgstr ""
+"Nombre del proyecto; puede contener espacios, por ejemplo «Autoconf de GNU»"
 
 #: ../plugins/am-project/am-properties.c:56
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:26
@@ -4405,6 +4398,8 @@ msgstr "Versión:"
 msgid ""
 "Project version, typically a few numbers separated by dot by example '1.0.0'"
 msgstr ""
+"Versión del proyecto; generalmente unos números separados por un punto, por "
+"ejemplo «1.0.0»"
 
 #: ../plugins/am-project/am-properties.c:64
 msgid "Bug report URL:"
@@ -4427,6 +4422,8 @@ msgid ""
 "Package name, it can contains only alphanumerics and underscore characters."
 "It is generated from the project name if not provided."
 msgstr ""
+"Nombre del paquete; sólo puede contener caracteres alfanuméricos y guiones "
+"bajos. Si no se proporciona se generará desde el nombre del proyecto."
 
 #: ../plugins/am-project/am-properties.c:81
 msgid "URL:"
@@ -4506,7 +4503,6 @@ msgstr ""
 #: ../plugins/am-project/am-properties.c:272
 #: ../plugins/am-project/am-properties.c:424
 #: ../plugins/am-project/am-properties.c:576
-#, fuzzy
 #| msgid "Fortan compiler flags:"
 msgid "Fortran compiler flags:"
 msgstr "Opciones del compilador de Fortran:"
@@ -5691,10 +5687,9 @@ msgid "Start a rebase operation relative to the selected remote repository"
 msgstr ""
 
 #: ../plugins/git/plugin.c:278 ../plugins/git/plugin.c:446
-#, fuzzy
 #| msgid "_Continue"
 msgid "Continue"
-msgstr "_Continuar"
+msgstr "Continuar"
 
 #: ../plugins/git/plugin.c:279
 #, fuzzy
@@ -5863,13 +5858,11 @@ msgid "Patch series"
 msgstr "Parches"
 
 #: ../plugins/git/plugin.c:422 ../plugins/git/plugin.c:423
-#, fuzzy
 #| msgid "Create patch series"
 msgid "Generate a patch series"
-msgstr "Crear serie de parches"
+msgstr "Generar una serie de parches"
 
 #: ../plugins/git/plugin.c:430
-#, fuzzy
 #| msgid "Apply mailbox files"
 msgid "Mailbox files"
 msgstr "Aplicar archivos del buzón de correo"
@@ -5920,10 +5913,9 @@ msgid "Status"
 msgstr "Estado"
 
 #: ../plugins/git/plugin.c:764
-#, fuzzy
 #| msgid "Low"
 msgid "Log"
-msgstr "Baja"
+msgstr "Registro"
 
 #: ../plugins/git/plugin.c:770
 msgid "Branches"
@@ -5934,20 +5926,18 @@ msgid "Tags"
 msgstr "Etiquetas"
 
 #: ../plugins/git/plugin.c:781
-#, fuzzy
 #| msgid "Remote"
 msgid "Remotes"
-msgstr "Remota"
+msgstr "Remotas"
 
 #: ../plugins/git/plugin.c:787
 msgid "Stash"
 msgstr "Guardar (stash)"
 
 #: ../plugins/glade/plugin.c:375
-#, fuzzy
 #| msgid "Loading…"
 msgid "Loading Glade…"
-msgstr "Cargando…"
+msgstr "Cargando Glade…"
 
 #: ../plugins/glade/plugin.c:420
 msgid "Widgets"
@@ -6426,7 +6416,7 @@ msgstr "Nombre del _módulo:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:20
 msgid "_New library&#x2026;"
-msgstr ""
+msgstr "Biblioteca _nueva&#x2026;"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:21
 msgid "_Select file to add&#x2026;"
@@ -6606,32 +6596,28 @@ msgstr "Añadir archivo _fuente…"
 #: ../plugins/project-manager/plugin.c:902
 #: ../plugins/project-manager/plugin.c:941
 #: ../plugins/project-manager/plugin.c:956
-#, fuzzy
 #| msgid "Add a source file to project"
 msgid "Add a source file to a target"
-msgstr "Añade un archivo fuente al proyecto"
+msgstr "Añadir un archivo de fuentes a un objetivo"
 
 #: ../plugins/project-manager/plugin.c:907
-#, fuzzy
 #| msgid "Add _Target…"
 msgid "Add _Library…"
-msgstr "Añadir _objetivo…"
+msgstr "Añadir _biblioteca…"
 
 #: ../plugins/project-manager/plugin.c:907
 msgid "Add a module to a target"
 msgstr "Añadir un módulo a un objetivo"
 
 #: ../plugins/project-manager/plugin.c:912
-#, fuzzy
 #| msgid "Library"
 msgid "New _Library…"
-msgstr "Biblioteca"
+msgstr "_Biblioteca nueva…"
 
 #: ../plugins/project-manager/plugin.c:912
-#, fuzzy
 #| msgid "Add a package to project"
 msgid "Add a new package to the project"
-msgstr "Añadir un paquete al proyecto"
+msgstr "Añadir paquetes nuevos al proyecto"
 
 #: ../plugins/project-manager/plugin.c:917
 #: ../plugins/project-manager/plugin.c:961
@@ -6652,44 +6638,38 @@ msgid "Close project"
 msgstr "Cerrar proyecto"
 
 #: ../plugins/project-manager/plugin.c:931
-#, fuzzy
 #| msgid "Directory"
 msgid "New _Directory"
-msgstr "Directorio"
+msgstr "_Directorio nuevo"
 
 #: ../plugins/project-manager/plugin.c:936
-#, fuzzy
 #| msgid "New Target"
 msgid "New _Target"
-msgstr "Objetivo nuevo"
+msgstr "_Objetivo nuevo"
 
 #: ../plugins/project-manager/plugin.c:941
 msgid "Add _Source File"
 msgstr "Añadir archivo _fuente"
 
 #: ../plugins/project-manager/plugin.c:946
-#, fuzzy
 #| msgid "Library"
 msgid "Add _Library"
-msgstr "Biblioteca"
+msgstr "Añadir _biblioteca"
 
 #: ../plugins/project-manager/plugin.c:946
-#, fuzzy
 #| msgid "Add a module to a target"
 msgid "Add a library to a target"
-msgstr "Añadir un módulo a un objetivo"
+msgstr "Añadir una biblioteca al objetivo"
 
 #: ../plugins/project-manager/plugin.c:951
-#, fuzzy
 #| msgid "Library"
 msgid "New _Library"
-msgstr "Biblioteca"
+msgstr "_Biblioteca nueva"
 
 #: ../plugins/project-manager/plugin.c:951
-#, fuzzy
 #| msgid "Add a new file/directory to the CVS tree"
 msgid "Add a new library to the project"
-msgstr "Añadir un archivo/directorio nuevo al árbol CVS"
+msgstr "Añadir una biblioteca nueva al proyecto"
 
 #: ../plugins/project-manager/plugin.c:956
 msgid "_Add to Project"
@@ -6708,16 +6688,14 @@ msgid "Remove from project"
 msgstr "Quita del proyecto"
 
 #: ../plugins/project-manager/plugin.c:971
-#, fuzzy
 #| msgid "Soft"
 msgid "_Sort"
-msgstr "Blando"
+msgstr "_Ordenar"
 
 #: ../plugins/project-manager/plugin.c:971
-#, fuzzy
 #| msgid "Shortcuts"
 msgid "Sort shortcuts"
-msgstr "Combinaciones de teclas"
+msgstr "Ordenar atajos"
 
 #: ../plugins/project-manager/plugin.c:1307
 #, c-format
@@ -6774,10 +6752,9 @@ msgid " This property is not modifiable."
 msgstr "Esta propiedad no es modificable."
 
 #: ../plugins/project-manager/dialogs.c:520
-#, fuzzy
 #| msgid "Project properties"
 msgid "Directory properties"
-msgstr "Propiedades del proyecto"
+msgstr "Propiedades del directorio"
 
 #: ../plugins/project-manager/dialogs.c:523
 msgid "Target properties"
@@ -6788,22 +6765,19 @@ msgid "Source properties"
 msgstr "Propiedades de los fuentes"
 
 #: ../plugins/project-manager/dialogs.c:529
-#, fuzzy
 #| msgid "Source properties"
 msgid "Module properties"
-msgstr "Propiedades de los fuentes"
+msgstr "Propiedades del módulo"
 
 #: ../plugins/project-manager/dialogs.c:532
-#, fuzzy
 #| msgid "Target properties"
 msgid "Package properties"
-msgstr "Propiedades del objetivo"
+msgstr "Propiedades del paquete"
 
 #: ../plugins/project-manager/dialogs.c:535
-#, fuzzy
 #| msgid "Breakpoint properties"
 msgid "Unknown properties"
-msgstr "Propiedades de los puntos de parada"
+msgstr "Propiedades desconocidas"
 
 #: ../plugins/project-manager/dialogs.c:930
 #: ../plugins/project-manager/dialogs.c:941
@@ -6820,7 +6794,6 @@ msgid "Cannot add source files"
 msgstr "No se pueden añadir los archivos de código"
 
 #: ../plugins/project-manager/dialogs.c:1167
-#, fuzzy
 #| msgid "The selected node cannot contains source files."
 msgid "The selected node cannot contain source files."
 msgstr "El nodo seleccionado no puede contener archivos de fuentes."
@@ -6895,7 +6868,7 @@ msgstr ""
 "El campo «%s» es obligatorio. Introdúzcalo."
 
 #: ../plugins/project-wizard/druid.c:646
-#, fuzzy, c-format
+#, c-format
 #| msgid ""
 #| "Field \"%s\" must contains only letters, digits or the following "
 #| "characters \"#$:%+,.=@^_`~\". In addition you cannot have a leading dash. "
@@ -6906,11 +6879,11 @@ msgid ""
 "it."
 msgstr ""
 "El campo «%s» debe contener sólo letras, dígitos o cualquiera de los "
-"siguientes caracteres «#$:%+,.=@^_`~». Además, no puede tener un guión "
+"siguientes caracteres «#$:%%+,.=@^_`~». Además, no puede tener un guión "
 "precedente. Arréglelo."
 
 #: ../plugins/project-wizard/druid.c:651
-#, fuzzy, c-format
+#, c-format
 #| msgid ""
 #| "Field \"%s\" must contains only letters, digits, the following characters "
 #| "\"#$:%+,.=@^_`~\" or directory separators. In addition you cannot have a "
@@ -6921,8 +6894,8 @@ msgid ""
 "leading dash. Please fix it."
 msgstr ""
 "El campo «%s» debe contener sólo letras, dígitos, los siguientes caracteres "
-"«#$:%+,.=@^_`~» o separadores de directorio. Además, no puede tener un guión "
-"precedente. Arréglelo."
+"«#$:%%+,.=@^_`~» o separadores de directorio. Además, no puede tener un "
+"guión precedente. Arréglelo."
 
 #: ../plugins/project-wizard/druid.c:656
 #, c-format
@@ -7557,10 +7530,9 @@ msgstr "Proyecto GTK+ sencillo"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:28
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:26
-#, fuzzy
 #| msgid "Create Gtk Builder interface file"
 msgid "Use GtkBuilder for user interface:"
-msgstr "Crear un archivo de interfaz de constructor Gtk "
+msgstr "Usar GtkBuilder para la interfaz del usuario:"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:29
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:27
@@ -7568,6 +7540,8 @@ msgid ""
 "Use GtkBuilder to create the user-interface in a graphical way and load it "
 "from xml files at runtime"
 msgstr ""
+"Usar GtkBuilder para crear la interfaz de usuario de una forma gráfica y "
+"cargarla desde un XML en el momento de ejecución"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:32
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:30
@@ -7689,10 +7663,9 @@ msgid "Whether the plugin has menus or toolbars"
 msgstr "Indica si el complemento tiene menús o barras de herramientas"
 
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:1
-#, fuzzy
 #| msgid "A generic GTK+ project"
 msgid "A minimal GTKmm project"
-msgstr "Un proyecto GTK+ genérico"
+msgstr "Un proyecto GTKmm mínimo"
 
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:15
 msgid "GTKmm (Simple)"
@@ -9964,10 +9937,9 @@ msgid "Autocompletion"
 msgstr "Autocompletado"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:6
-#, fuzzy
 #| msgid "Automatically add resources"
 msgid "Automatically load required libraries of the project"
-msgstr "Añadir recursos automáticamente"
+msgstr "Cargar automáticamente las bibliotecas necesarias para el proyecto"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:7
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:5
@@ -10048,16 +10020,14 @@ msgstr ""
 "sangrado"
 
 #: ../plugins/language-support-cpp-java/plugin.c:974
-#, fuzzy
 #| msgid "Bo_x Comment/Uncomment"
 msgid "Comment/Uncomment"
-msgstr "Comentar/Descomentar en _caja"
+msgstr "Comentar/Descomentar"
 
 #: ../plugins/language-support-cpp-java/plugin.c:975
-#, fuzzy
 #| msgid "Current selection"
 msgid "Comment or uncomment current selection"
-msgstr "Selección actual"
+msgstr "Comentar o descomentar la selección actual"
 
 #: ../plugins/language-support-cpp-java/plugin.c:980
 msgid "Swap .h/.c"
@@ -10135,10 +10105,9 @@ msgid "GtkSourceView Editor"
 msgstr "Editor GtkSourceView"
 
 #: ../plugins/gdb/anjuta-gdb.plugin.in.h:1
-#, fuzzy
 #| msgid "Gdb Debugger"
 msgid "GNU Debugger"
-msgstr "Depurador Gdb"
+msgstr "Depurador GNU"
 
 #: ../plugins/gdb/anjuta-gdb.plugin.in.h:2
 msgid "GNU Debugger Plugin"
