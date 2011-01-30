@@ -21,6 +21,7 @@
 #define _GIT_CREATE_TAG_PANE_H_
 
 #include <glib-object.h>
+#include <libanjuta/anjuta-entry.h>
 #include <libanjuta/anjuta-column-text-view.h>
 #include "git-pane.h"
 #include "plugin.h"
