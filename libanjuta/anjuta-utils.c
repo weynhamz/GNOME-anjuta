@@ -2262,7 +2262,7 @@ anjuta_util_convert_gfile_list_to_path_list (GList *list)
 	for (current_file = list; current_file != NULL; current_file = g_list_next (current_file))
 	{
 		path = g_file_get_path (current_file->data);
-		
+
 		/* Ignore files with invalid paths */
 		if (path)
 			path_list = g_list_append (path_list, path);

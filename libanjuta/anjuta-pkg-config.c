@@ -85,61 +85,57 @@ anjuta_pkg_config_list_dependencies (const gchar* package, GError** error)
 }
 
 
-static GList **
-sdb_system_files_visit_dir (GList **files_list, GFile *file)
+static void
+fixme_files_visit_dir (GList **children, GFile *dir)
 {
-	GFileEnumerator *enumerator;
-	
-	if ((enumerator = g_file_enumerate_children (file, "standard::name,standard::type",
-												G_FILE_QUERY_INFO_NONE, NULL, NULL)))
+	GFileEnumerator *list;
+
+	list = g_file_enumerate_children (dir,
+	    G_FILE_ATTRIBUTE_STANDARD_NAME,
+	    G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+	    NULL,
+	    NULL);
+
+	if (list != NULL)
 	{
 		GFileInfo *info;
-		
-		info = g_file_enumerator_next_file (enumerator, NULL, NULL);
-		while (info)
+
+		while ((info = g_file_enumerator_next_file (list, NULL, NULL)) != NULL)
 		{
-			GFileType type;
-			GFile *child_file;
+			const gchar *name;
+			GFile *file;
 
-			problemi qui.
-			type = g_file_info_get_file_type (info);
-			child_file = g_file_resolve_relative_path (file, g_file_info_get_name (info));
+			name = g_file_info_get_name (info);
+			file = g_file_get_child (dir, name);
+			g_object_unref (info);
 
-			g_message ("child name %s", g_file_info_get_name (info));
-			if (type == G_FILE_TYPE_DIRECTORY)
+			if (g_file_query_file_type (file, G_FILE_QUERY_INFO_NONE, NULL) == G_FILE_TYPE_DIRECTORY)
 			{
-				/* recurse */
-				files_list = sdb_system_files_visit_dir (files_list, child_file);
-				
-				g_object_unref (child_file);
+				fixme_files_visit_dir (children, file);
+				g_object_unref (file);
 			}
 			else
-				*files_list = g_list_prepend (*files_list, child_file);
-			
-			g_object_unref (info);
-			
-			info = g_file_enumerator_next_file (enumerator, NULL, NULL);
+			{
+				*children = g_list_prepend (*children, file);
+			}
 		}
-		
-		g_object_unref (enumerator);
-	}	 
-
-	g_message ("file_list length %d", g_list_length (files_list));
-	
-	return files_list;
+		g_file_enumerator_close (list, NULL, NULL);
+		g_object_unref (list);
+	}
 }
 
 GList*		
 anjuta_pkg_config_get_abs_headers (const gchar* pkg_name, gboolean no_deps, GError** error)
 {
-	g_return_val_if_fail (pkg_name != NULL, NULL);
 	GList *directories = NULL;
 	GList *dir_node = NULL;
 	/* a GList list of all headers found */
 	GList *headers = NULL;
 	/* a gchar version of headers list */
-	GList *abs_headers;
+	GList *abs_headers = NULL;
 
+	g_return_val_if_fail (pkg_name != NULL, NULL);
+	
 	/* get a GList of gchar(s) */
 	directories = anjuta_pkg_config_get_directories (pkg_name, no_deps, error);
 	
@@ -152,34 +148,59 @@ anjuta_pkg_config_get_abs_headers (const gchar* pkg_name, gboolean no_deps, GErr
 		GList *children = NULL;
 		GFile *file;
 
-		g_message ("creating gfile for %s", dir_node->data);
+		g_message ("creating gfile for %s", (gchar*)dir_node->data);
 		file = g_file_new_for_path (dir_node->data);
-		sdb_system_files_visit_dir (&children, file);
+		fixme_files_visit_dir (&children, file);
 		g_object_unref (file);
 		
 		if (children != NULL)
 		{
 			GList *foo_node;
 			foo_node = children;
-
+/*/
 			while (foo_node != NULL)
 			{
 				g_message ("children %s", g_file_get_path (foo_node->data));
 
 				foo_node = g_list_next (foo_node);
 			}
-			
+
+			foo_node = headers;
+			while (foo_node != NULL)
+			{
+				g_message ("headers %s", g_file_get_path (foo_node->data));
+
+				foo_node = g_list_next (foo_node);
+			}
+/*/
 			headers = g_list_concat (headers, children);
-			g_list_free (children);
+		
 		}
 		dir_node = g_list_next (dir_node);
 	}	
 
+	GList *foo_node;	
+	foo_node = headers;
+	while (foo_node != NULL)
+	{
+		g_message ("headers %s", g_file_get_path (foo_node->data));
+		foo_node = g_list_next (foo_node);
+	}
+	
 	abs_headers = anjuta_util_convert_gfile_list_to_path_list (headers);
 
+	GList *hnode = abs_headers;
+	while (hnode != NULL)
+	{
+//			DEBUG_PRINT ("ready header %s", g_file_get_path (hnode->data));
+
+		g_message ("ready header %s", hnode->data);
+		hnode = g_list_next (hnode);
+	}
+	
 	g_list_foreach (headers, (GFunc) g_object_unref, NULL);
 	g_list_free (headers);	
-	
+
 	return abs_headers;
 }
 
