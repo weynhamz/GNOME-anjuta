@@ -1465,7 +1465,6 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 				 AnjutaSession *session,
 				 SymbolDBPlugin *sdb_plugin)
 {
-	GList *pkgs;
 	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
 		return;
 
@@ -2538,11 +2537,44 @@ isymbol_manager_activate_package (IAnjutaSymbolManager *isymbol_manager,
 }
 
 static void
+isymbol_manager_deactivate_package (IAnjutaSymbolManager *isymbol_manager,
+                                    const gchar *pkg_name, 
+                                    const gchar *pkg_version,
+                                    GError **err)
+{
+	SymbolDBPlugin *sdb_plugin;
+
+	g_return_if_fail (isymbol_manager != NULL);
+	
+	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (isymbol_manager);
+
+	if (symbol_db_engine_project_exists (sdb_plugin->sdbe_globals, pkg_name, 
+	    								 pkg_version) == TRUE)
+	{
+		/* FIXME: deactivate package in database */
+	}
+}
+
+static void
+isymbol_manager_deactivate_all (IAnjutaSymbolManager *isymbol_manager,
+                                GError **err)
+{
+	SymbolDBPlugin *sdb_plugin;
+
+	g_return_if_fail (isymbol_manager != NULL);
+	
+	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (isymbol_manager);
+
+	/* FIXME: deactivate all packages in database */
+}
+
+static void
 isymbol_manager_iface_init (IAnjutaSymbolManagerIface *iface)
 {
 	iface->create_query = isymbol_manager_create_query;
 	iface->activate_package = isymbol_manager_activate_package;
-	//iface->deactivate_package = isymbol_manager_deactivate_package;
+	iface->deactivate_package = isymbol_manager_deactivate_package;
+	iface->deactivate_all = isymbol_manager_deactivate_all;
 	iface->add_package = isymbol_manager_add_package;
 }
 

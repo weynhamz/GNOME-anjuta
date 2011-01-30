@@ -6193,9 +6193,17 @@ interface IAnjutaSymbolManager
  	 * Deactivates the package if it was found. If package is NULL, deactivate all
  	 * packages.
 	 *
-	 * Returns FALSE if the package couldn't have been deactivated.
  	 */
-	gboolean deactivate_package (const gchar* pkg_name, const gchar* pkg_version);
+	void deactivate_package (const gchar* pkg_name, const gchar* pkg_version);
+
+	/**
+	 * ianjuta_symbol_manager_deactivate_all:
+	 * @obj: Self
+ 	 * 
+ 	 * Deactivates all activate packages
+	 *
+ 	 */
+	void deactivate_all ();
 }
 
 /**
