@@ -336,6 +336,8 @@ row_activated (GtkTreeView       *tree_view,
 	g_free (uri);
 }
 
+static void on_node_loaded (AnjutaPmProject *sender, AnjutaProjectNode *node, gboolean complete, GError *error, GbfProjectView *view);
+
 static void
 dispose (GObject *object)
 {
@@ -350,6 +352,13 @@ dispose (GObject *object)
 	}
 	if (view->model)
 	{
+		AnjutaPmProject *old_project;
+
+		old_project = gbf_project_model_get_project (view->model);
+		if (old_project != NULL)
+		{
+			g_signal_handlers_disconnect_by_func (old_project, G_CALLBACK (on_node_loaded), view);
+		}
 		g_object_unref (G_OBJECT (view->model));
 		view->model = NULL;
 	}
@@ -1497,6 +1506,14 @@ on_node_loaded (AnjutaPmProject *sender, AnjutaProjectNode *node, gboolean compl
 void 
 gbf_project_view_set_project (GbfProjectView *view, AnjutaPmProject *project)
 {
+	AnjutaPmProject *old_project;
+
+	old_project = gbf_project_model_get_project (view->model);
+	if (old_project != NULL)
+	{
+		g_signal_handlers_disconnect_by_func (old_project, G_CALLBACK (on_node_loaded), view);
+	}
+
 	g_signal_connect (project, "loaded", G_CALLBACK (on_node_loaded), view);
 
 	gbf_project_model_set_project (view->model, project);

@@ -189,8 +189,8 @@ pm_command_queue_start_thread (PmCommandQueue *queue, GError **error)
 	}
 	else
 	{
-		queue->idle_func = g_idle_add ((GSourceFunc) pm_command_queue_idle, queue);
 		queue->stopping = FALSE;
+		queue->idle_func = g_idle_add ((GSourceFunc) pm_command_queue_idle, queue);
 
 		return TRUE;
 	}
@@ -203,10 +203,8 @@ pm_command_queue_stop_thread (PmCommandQueue *queue)
 	{
 		PmJob *job;
 		
-		queue->stopping = TRUE;
-
 		// Remove idle function
-		g_idle_remove_by_data (queue);
+		queue->stopping = TRUE;
 		queue->idle_func = 0;
 
 		// Request to terminate thread
@@ -292,6 +290,9 @@ pm_command_queue_idle (PmCommandQueue *queue)
 		PmCommandFunc func;
 		PmJob *job;
 		
+		/* Remove idle handler if queue is destroyed */
+		if (queue->stopping) return FALSE;
+
 		/* Get completed command */
 		job = (PmJob *)g_async_queue_try_pop (queue->done_queue);
 		if (job == NULL) break;
@@ -394,11 +395,19 @@ pm_command_queue_new (void)
 	return queue;
 }
 
+static gboolean
+pm_command_queue_delayed_free (gpointer data)
+{
+	g_free (data);
+
+	return FALSE;
+}
+
 void
 pm_command_queue_free (PmCommandQueue *queue)
 {
 	pm_command_queue_stop_thread (queue);
 
-	g_free (queue);
+	g_idle_add (pm_command_queue_delayed_free, queue);
 }
 

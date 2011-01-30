@@ -374,8 +374,12 @@ comment:
     ;
 
 not_eol_list:
-    /* empty */
-    | not_eol_list not_eol_token
+    /* empty */ {
+    	$$ = NULL;
+    }
+    | not_eol_list not_eol_token {
+    	$$ = $2;
+    }
     ;
 
 
