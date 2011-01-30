@@ -98,9 +98,7 @@ AT_DATA([expect],
 [[    GROUP (0): empty4
 ]])
 AT_DATA([reference.am],
-[[SUBDIRS = \ 
-
-
+[[ 
 ]])
 AT_DATA([reference.ac],
 [[AC_CONFIG_FILES(Makefile)

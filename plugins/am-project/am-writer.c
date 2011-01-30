@@ -309,6 +309,7 @@ amp_group_node_delete_token (AmpProject  *project, AmpGroupNode *group, GError *
 		AnjutaToken *token = (AnjutaToken *)item->data;
 		AnjutaToken *args;
 		AnjutaTokenStyle *style;
+		AnjutaToken *list;
 
 		args = anjuta_token_list (token);
 
@@ -317,10 +318,16 @@ amp_group_node_delete_token (AmpProject  *project, AmpGroupNode *group, GError *
 		anjuta_token_style_update (style, args);
 		
 		anjuta_token_remove_word (token);
-		
 		anjuta_token_style_format (style, args);
 		anjuta_token_style_free (style);
 
+		/* Remove whole variable if empty */
+		list = anjuta_token_list (token);
+		if (anjuta_token_first_word (list) == NULL)
+		{
+			anjuta_token_remove_list (list);
+		}
+		
 		amp_group_node_update_makefile (AMP_GROUP_NODE (parent), args);
 	}
 
@@ -387,12 +394,15 @@ amp_project_write_target (AmpGroupNode *group, gint type, const gchar *name, gbo
 		pos = sibling;
 	}
 
-	token = anjuta_token_new_string (ANJUTA_TOKEN_EOL | ANJUTA_TOKEN_ADDED, "\n");
-	anjuta_token_insert_after (pos, token);
-	amp_group_node_update_makefile (group, token);
-	pos = token;
+	pos = anjuta_token_insert_token_list (after, pos,
+		    ANJUTA_TOKEN_EOL, "\n",
+		    NULL);
+	pos = anjuta_token_insert_token_list (after, pos,
+		    ANJUTA_TOKEN_EOL, "\n",
+		    NULL);
+	amp_group_node_update_makefile (group, pos);
 	
-	token = anjuta_token_insert_token_list (after, pos,
+	token = anjuta_token_insert_token_list (FALSE, pos,
 	    		ANJUTA_TOKEN_LIST, NULL,
 	    		type, name,
 	    		ANJUTA_TOKEN_SPACE, " ",
@@ -574,6 +584,7 @@ amp_target_node_delete_token (AmpProject  *project, AmpTargetNode *target, GErro
 	{
 		AnjutaToken *token = (AnjutaToken *)item->data;
 		AnjutaToken *args;
+		AnjutaToken *list;
 		AnjutaTokenStyle *style;
 
 		args = anjuta_token_list (token);
@@ -583,9 +594,15 @@ amp_target_node_delete_token (AmpProject  *project, AmpTargetNode *target, GErro
 		anjuta_token_style_update (style, args);
 		
 		anjuta_token_remove_word (token);
-		
 		anjuta_token_style_format (style, args);
 		anjuta_token_style_free (style);
+
+		/* Remove whole variable if empty */
+		list = anjuta_token_list (token);
+		if (anjuta_token_first_word (list) == NULL)
+		{
+			anjuta_token_remove_list (list);
+		}
 
 		amp_group_node_update_makefile (parent, args);
 	}
@@ -629,21 +646,17 @@ amp_project_write_source_list (AmpGroupNode *group, const gchar *name, gboolean 
 		{
 			pos = token;
 		}
-		else
-		{
-			pos = anjuta_token_insert_token_list (after, pos,
-			    ANJUTA_TOKEN_EOL, "\n",
-			    NULL);
-			amp_group_node_update_makefile (group, pos);
-		}
 	}
-	
+
+	pos = anjuta_token_insert_token_list (after, pos,
+		    ANJUTA_TOKEN_EOL, "\n",
+		    NULL);
 	pos = anjuta_token_insert_token_list (after, pos,
 		    ANJUTA_TOKEN_EOL, "\n",
 		    NULL);
 	amp_group_node_update_makefile (group, pos);
 	
-	token = anjuta_token_insert_token_list (after, pos,
+	token = anjuta_token_insert_token_list (FALSE, pos,
 	    		ANJUTA_TOKEN_LIST, NULL,
 	    		ANJUTA_TOKEN_NAME, name,
 	    		ANJUTA_TOKEN_SPACE, " ",
@@ -766,7 +779,7 @@ amp_source_node_create_token (AmpProject  *project, AmpSourceNode *source, GErro
 		/* Try to use the same style than the current target list */
 		anjuta_token_style_format (style, args);
 		anjuta_token_style_free (style);
-		
+
 		amp_group_node_update_makefile (group, token);
 		
 		amp_source_node_add_token (source, token);
@@ -794,18 +807,25 @@ amp_source_node_delete_token (AmpProject  *project, AmpSourceNode *source, GErro
 	{
 		AnjutaToken *args;
 		AnjutaTokenStyle *style;
+		AnjutaToken *list;
 
 		args = anjuta_token_list (token);
 
 		/* Try to use the same style than the current target list */
 		style = anjuta_token_style_new_from_base (project->am_space_list);
 		anjuta_token_style_update (style, args);
-		
+
 		anjuta_token_remove_word (token);
-		
 		anjuta_token_style_format (style, args);
 		anjuta_token_style_free (style);
 
+		/* Remove whole variable if empty */
+		list = anjuta_token_list (token);
+		if (anjuta_token_first_word (list) == NULL)
+		{
+			anjuta_token_remove_list (list);
+		}
+		
 		amp_group_node_update_makefile (AMP_GROUP_NODE (group), args);
 	}
 

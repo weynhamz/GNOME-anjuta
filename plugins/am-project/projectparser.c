@@ -686,7 +686,9 @@ main(int argc, char *argv[])
 				item = get_project_property (project, node, command[2]);
 				if (item != NULL)
 				{
-					ianjuta_project_set_property (project, node, item, command[3], NULL);
+					gchar *value = g_shell_unquote (command[3], NULL);
+					ianjuta_project_set_property (project, node, item, value, NULL);
+					g_free (value);
 				}
 			}
 			command += 3;

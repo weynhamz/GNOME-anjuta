@@ -20,7 +20,8 @@ AT_DATA([reference],
 [[
 bin_PROGRAMS = target1
 
-target1_SOURCES = source1
+target1_SOURCES = \
+	source1
 ]])
 AT_PARSER_CHECK([load empty \
 		 move empty1 \
@@ -45,7 +46,8 @@ AT_DATA([reference],
 [[
 bin_PROGRAMS = target1
 
-target1_SOURCES = source1 \
+target1_SOURCES = \
+	source1 \
 	source2
 ]])
 AT_PARSER_CHECK([load empty1 \
@@ -70,7 +72,8 @@ AT_DATA([reference],
 [[
 bin_PROGRAMS = target1
 
-target1_SOURCES =	source2
+target1_SOURCES = \
+	source2
 ]])
 AT_PARSER_CHECK([load empty2 \
 		 move empty3 \
@@ -93,8 +96,6 @@ AT_DATA([expect],
 AT_DATA([reference],
 [[
 bin_PROGRAMS = target1
-
-target1_SOURCES =
 ]])
 AT_PARSER_CHECK([load empty3 \
 		 move empty4 \
@@ -118,7 +119,8 @@ AT_DATA([reference],
 [[
 bin_PROGRAMS = target1
 
-target1_SOURCES = source1
+target1_SOURCES = \
+	source1
 ]])
 AT_PARSER_CHECK([load empty4 \
 		 move empty5 \
