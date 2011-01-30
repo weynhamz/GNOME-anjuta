@@ -1460,45 +1460,6 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 	return real_added > 0 ? TRUE : FALSE;	
 }
 
-/**
- * Session saved string will have the form:
- * pkg_name1:version1:version2:version3
- */
-static GList * 
-save_session_packages (SymbolDBPlugin *sdb_plugin)
-{
-	GHashTableIter iter;
-	gpointer key, versions;
-	GList *pkg_list;
-
-	pkg_list = NULL;
-
-	g_return_val_if_fail (sdb_plugin->session_packages != NULL, NULL);
-	
-	g_hash_table_iter_init (&iter, sdb_plugin->session_packages);
-	while (g_hash_table_iter_next (&iter, &key, &versions)) 
-  	{
-    	GList *node;
-		GString *result;
-
-		result = g_string_new (key);
-				  
-		node = versions;
-		while (node != NULL)
-		{
-			result = g_string_append (result, ":");
-			result = g_string_append (result, node->data);
-			
-			node = g_list_next (node);
-		}
-
-		pkg_list = g_list_prepend (pkg_list, g_strdup (result->str));
-		g_string_free (result, TRUE);
-  	}	
-
-	return pkg_list;
-}
-
 static void
 on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 				 AnjutaSession *session,
@@ -1509,52 +1470,6 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 		return;
 
 	DEBUG_PRINT ("%s", "SymbolDB: session_save");
-
-	pkgs = save_session_packages (sdb_plugin);
-	
-	anjuta_session_set_string_list (session, 
-									SESSION_SECTION, 
-									SESSION_KEY,
-									pkgs);	
-}
-
-static void 
-load_session_packages (SymbolDBPlugin *sdb_plugin, GList *hash_glist)
-{
-	GList *node;
-
-	node = hash_glist;
-	while (node != NULL)
-	{
-		if (node->data != NULL)
-		{
-			gchar **split;
-			gint i;
-			gint len;
-			GList *versions;
-			split = g_strsplit (node->data, ":", 0);
-
-			len = g_strv_length (split);
-			if (len <= 1)
-			{
-				g_strfreev(split);
-				node = g_list_next (node);
-				continue;
-			}
-
-			/* add items to glist, skipping first splitted item (the pkg name) */
-			for (i = 1; i < len; i++)
-			{
-				versions = g_list_prepend (versions, strdup (split[i]));
-			}
-
-			/* finally add key and value to hash table */
-			g_hash_table_insert (sdb_plugin->session_packages, 
-			    g_strdup (split[0]), versions);
-		}			
-		
-		node = g_list_next (node);
-	}
 }
 
 static void
@@ -1568,14 +1483,6 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 	
 	if (phase == ANJUTA_SESSION_PHASE_START)
 	{
-		GList *hash_glist = anjuta_session_get_string_list (session, 
-														   SESSION_SECTION, 
-														   SESSION_KEY);
-
-		load_session_packages (sdb_plugin, hash_glist);
-
-		anjuta_util_glist_strings_free (hash_glist);
-	
 		DEBUG_PRINT ("SymbolDB: session_loading started. Getting info from %s",
 					 anjuta_session_get_session_directory (session));
 		sdb_plugin->session_loading = TRUE;
@@ -2015,13 +1922,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 				   CTAGS_PATH);
 		ctags_path = g_strdup (CTAGS_PATH);
 	}
-	
-	/* initialize the session packages. We'll store there the user 
-	 * preferences for the session about global-system packages 
-	 */
-	sdb_plugin->session_packages = g_hash_table_new_full (g_str_hash, 
-						g_str_equal, g_free, (GDestroyNotify)anjuta_util_glist_strings_free);
-	
+		
 	sdb_plugin->buf_update_timeout_id = 0;
 	sdb_plugin->need_symbols_update = FALSE;
 	/* creates and start a new timer. */
@@ -2369,12 +2270,6 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	{
 		g_ptr_array_unref (sdb_plugin->buffer_update_ids);
 		sdb_plugin->buffer_update_ids = NULL;		
-	}	
-		
-	if (sdb_plugin->session_packages)
-	{
-		g_hash_table_destroy (sdb_plugin->session_packages);
-		sdb_plugin->session_packages = NULL;
 	}
 	
 	/* Ensure all editor cached info are released */
@@ -2626,61 +2521,15 @@ isymbol_manager_activate_package (IAnjutaSymbolManager *isymbol_manager,
     							  GError **err)
 {
 	SymbolDBPlugin *sdb_plugin;
-	GList *versions;
 
 	g_return_val_if_fail (isymbol_manager != NULL, FALSE);
 	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (isymbol_manager);
 
-	/* check whether the package already exists in the session packages. */
-	if ((versions = g_hash_table_lookup (sdb_plugin->session_packages, pkg_name)) != NULL)
-	{
-		GList *node;
-		
-		/* if the package is already activated return true */
-		node = versions;
-		while (node != NULL)
-		{
-			if (g_strcmp0 (node->data, pkg_version) == 0)
-				return TRUE;
-
-			node = g_list_next (node);
-		}
-
-		/* check in the db: it may have a different version from the one already activated */
-		if (symbol_db_engine_project_exists (sdb_plugin->sdbe_globals, pkg_name, 
-		    								 pkg_version) == TRUE)
-		{
-			GList *new_versions;
-
-			/* this is a rare case so the performance playing with glist should not be
-			 taken into consideration */			
-			new_versions = anjuta_util_glist_strings_dup (versions);
-			
-			/* ok, the package version exists in db. Append it to the versions glist */
-			new_versions = g_list_prepend (new_versions, g_strdup (pkg_version));
-
-			/* go ahead and insert it, replacing the old one */
-			g_hash_table_insert (sdb_plugin->session_packages, g_strdup (pkg_name), 
-			    new_versions);
-			
-			return TRUE;
-		}
-
-		/* nothing found on db. This is hopeless */
-		return FALSE;
-	}
-
 	if (symbol_db_engine_project_exists (sdb_plugin->sdbe_globals, pkg_name, 
 	    								 pkg_version) == TRUE)
 	{
-		GList *versions = NULL;
-
-		versions = g_list_append (versions, g_strdup (pkg_version));
-		/* ok, package exists in db. Add it to session packages */
-		g_hash_table_insert (sdb_plugin->session_packages, 
-		    				 g_strdup (pkg_name), 
-		    				 versions);
+		/* FIXME: Activate package in database */
 		return TRUE;
 	}
 

@@ -127,7 +127,6 @@ struct _SymbolDBPlugin {
 	gint files_count_system;
 	gint files_count_system_done;
 	gchar *current_scanned_package;
-	GHashTable *session_packages;
 
 	IAnjutaSymbolQuery *search_query;
 	
