@@ -1539,35 +1539,6 @@ on_project_loaded (IAnjutaProjectManager *pm, GError *error,
 	/* Malformed project abort */
 	if (error != NULL) return;
 
-	// DEBUG FIXME
-	GList *pkgs = ianjuta_project_manager_get_packages (pm, NULL);
-	GList *node;
-
-	node = pkgs;
-/*/
-	while (node != NULL)
-	{
-		DEBUG_PRINT ("-------------------");
-		DEBUG_PRINT ("package is %s", node->data);
-
-		GList *headers = anjuta_pkg_config_get_abs_headers (node->data, TRUE, NULL);
-
-		DEBUG_PRINT ("-------------------");
-		DEBUG_PRINT ("package is %s", node->data);
-
-		GList *hnode = headers;		
-		while (hnode != NULL)
-		{
-//			DEBUG_PRINT ("ready header %s", g_file_get_path (hnode->data));
-
-			DEBUG_PRINT ("ready header#2 %s", hnode->data);
-			hnode = g_list_next (hnode);
-		}
-
-		node = g_list_next (node);
-	}
-//*/	
-
 	/*
 	 * we need an initial import 
 	 */
