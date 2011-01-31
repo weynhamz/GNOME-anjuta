@@ -117,6 +117,8 @@ libanjuta_3_la_SOURCES= \
 	anjuta-pkg-config-chooser.c \
 	anjuta-pkg-config.h \
 	anjuta-pkg-config.c \
+	anjuta-pkg-scanner.h \
+	anjuta-pkg-scanner.c \	
 	anjuta-column-text-view.h \
 	anjuta-column-text-view.c \
 	anjuta-file-drop-entry.h \
@@ -187,13 +189,12 @@ libanjuta_include = \
 	anjuta-dock-pane.h \
 	anjuta-file-list.h \
 	anjuta-pkg-config-chooser.h \
-	anjuta-pkg-config.h \	
+	anjuta-pkg-config.h \
+	anjuta-pkg-scanner.h \
 	anjuta-column-text-view.h \
 	anjuta-file-drop-entry.h \
 	anjuta-entry.h
-	anjuta-token.h \
-	anjuta-pkg-config-chooser.h
-
+	anjuta-token.h
 libanjutainclude_HEADERS = \
 	$(libanjuta_include) \
 	anjuta-enum-types.h \

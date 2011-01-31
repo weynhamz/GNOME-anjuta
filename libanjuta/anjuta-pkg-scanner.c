@@ -17,7 +17,18 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "cpp-package-scanner.h"
+/**
+ * SECTION: anjuta-pkg-scanner
+ * @short_description: Scan files contained by a library using pkg-config
+ * @see_also: #AnjutaAsyncCommand
+ * @include libanjuta/anjuta-pkg-scanner.h
+ *
+ * #AnjutaPkgScanner is an async command that can be used to query the list
+ * of files and the version of a package.
+ * 
+ */
+
+#include <libanjuta/anjuta-pkg-scanner.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-pkg-config.h>
 #include <gio/gio.h>
@@ -26,44 +37,56 @@ enum
 {
 	PROP_0,
 	PROP_PACKAGE,
-	PROP_VERSION	
+	PROP_VERSION
 };
 
-G_DEFINE_TYPE (CppPackageScanner, cpp_package_scanner, ANJUTA_TYPE_ASYNC_COMMAND);
+struct _AnjutaPkgScannerPrivate
+{
+	gchar* package;
+	gchar* version;
+	GList* files;
+};
+
+G_DEFINE_TYPE (AnjutaPkgScanner, anjuta_pkg_scanner, ANJUTA_TYPE_ASYNC_COMMAND);
+
+
 
 static void
-cpp_package_scanner_init (CppPackageScanner *object)
+anjuta_pkg_scanner_init (AnjutaPkgScanner *object)
 {
-	object->files = NULL;
+	object->priv = G_TYPE_INSTANCE_GET_PRIVATE (object,
+	                                            ANJUTA_TYPE_PKG_SCANNER,
+	                                            AnjutaPkgScannerPrivate);
+	object->priv->files = NULL;
 }
 
 static void
-cpp_package_scanner_finalize (GObject *object)
+anjuta_pkg_scanner_finalize (GObject *object)
 {
-	CppPackageScanner* scanner = CPP_PACKAGE_SCANNER (object);
-	g_free (scanner->package);
-	g_free (scanner->version);
-	anjuta_util_glist_strings_free (scanner->files);
+	AnjutaPkgScanner* scanner = ANJUTA_PKG_SCANNER (object);
+	g_free (scanner->priv->package);
+	g_free (scanner->priv->version);
+	anjuta_util_glist_strings_free (scanner->priv->files);
 	
-	G_OBJECT_CLASS (cpp_package_scanner_parent_class)->finalize (object);
+	G_OBJECT_CLASS (anjuta_pkg_scanner_parent_class)->finalize (object);
 }
 
 static void
-cpp_package_scanner_set_property (GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec)
+anjuta_pkg_scanner_set_property (GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec)
 {
-	CppPackageScanner* scanner;
+	AnjutaPkgScanner* scanner;
 
-	g_return_if_fail (CPP_IS_PACKAGE_SCANNER (object));
+	g_return_if_fail (ANJUTA_IS_PKG_SCANNER (object));
 
-	scanner = CPP_PACKAGE_SCANNER(object);
+	scanner = ANJUTA_PKG_SCANNER(object);
 
 	switch (prop_id)
 	{
 	case PROP_PACKAGE:
-		scanner->package = g_value_dup_string (value);
+		scanner->priv->package = g_value_dup_string (value);
 		break;
 	case PROP_VERSION:
-		scanner->version = g_value_dup_string (value);
+		scanner->priv->version = g_value_dup_string (value);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -72,21 +95,21 @@ cpp_package_scanner_set_property (GObject *object, guint prop_id, const GValue *
 }
 
 static void
-cpp_package_scanner_get_property (GObject *object, guint prop_id, GValue *value, GParamSpec *pspec)
+anjuta_pkg_scanner_get_property (GObject *object, guint prop_id, GValue *value, GParamSpec *pspec)
 {
-	CppPackageScanner* scanner;
+	AnjutaPkgScanner* scanner;
 
-	g_return_if_fail (CPP_IS_PACKAGE_SCANNER (object));
+	g_return_if_fail (ANJUTA_IS_PKG_SCANNER (object));
 
-	scanner = CPP_PACKAGE_SCANNER(object);
+	scanner = ANJUTA_PKG_SCANNER(object);
 	
 	switch (prop_id)
 	{
 		case PROP_PACKAGE:
-			g_value_set_string (value, scanner->package);
+			g_value_set_string (value, scanner->priv->package);
 			break;
 		case PROP_VERSION:
-			g_value_set_string (value, scanner->version);
+			g_value_set_string (value, scanner->priv->version);
 			break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -95,7 +118,7 @@ cpp_package_scanner_get_property (GObject *object, guint prop_id, GValue *value,
 }
 
 static void
-cpp_package_scanner_list_files (GList **children, GFile *dir)
+anjuta_pkg_scanner_list_files (GList **children, GFile *dir)
 {
 	GFileEnumerator *list;
 					
@@ -120,7 +143,7 @@ cpp_package_scanner_list_files (GList **children, GFile *dir)
 
 			if (g_file_query_file_type (file, G_FILE_QUERY_INFO_NONE, NULL) == G_FILE_TYPE_DIRECTORY)
 			{
-				cpp_package_scanner_list_files (children, file);
+				anjuta_pkg_scanner_list_files (children, file);
 			}
 			else
 			{
@@ -135,32 +158,32 @@ cpp_package_scanner_list_files (GList **children, GFile *dir)
 }
 
 static guint
-cpp_package_scanner_run (AnjutaCommand* command)
+anjuta_pkg_scanner_run (AnjutaCommand* command)
 {
-	CppPackageScanner* scanner = CPP_PACKAGE_SCANNER (command);
-	GList* dirs = anjuta_pkg_config_get_directories (scanner->package, TRUE, NULL);
+	AnjutaPkgScanner* scanner = ANJUTA_PKG_SCANNER (command);
+	GList* dirs = anjuta_pkg_config_get_directories (scanner->priv->package, TRUE, NULL);
 	GList* dir;
 
-	g_message ("Scanning package: %s", scanner->package);
+	g_message ("Scanning package: %s", scanner->priv->package);
 	
 	for (dir = dirs; dir != NULL; dir = g_list_next (dir))
 	{
 		GFile* file = g_file_new_for_path (dir->data);
-		cpp_package_scanner_list_files (&scanner->files, file);
+		anjuta_pkg_scanner_list_files (&scanner->priv->files, file);
 	}
 	anjuta_util_glist_strings_free (dirs);
 	return 0;
 }
 
 static void
-cpp_package_scanner_class_init (CppPackageScannerClass *klass)
+anjuta_pkg_scanner_class_init (AnjutaPkgScannerClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
 	AnjutaCommandClass* command_class = ANJUTA_COMMAND_CLASS (klass);
 
-	object_class->finalize = cpp_package_scanner_finalize;
-	object_class->set_property = cpp_package_scanner_set_property;
-	object_class->get_property = cpp_package_scanner_get_property;
+	object_class->finalize = anjuta_pkg_scanner_finalize;
+	object_class->set_property = anjuta_pkg_scanner_set_property;
+	object_class->get_property = anjuta_pkg_scanner_get_property;
 
 	g_object_class_install_property (object_class,
 	                                 PROP_PACKAGE,
@@ -178,15 +201,23 @@ cpp_package_scanner_class_init (CppPackageScannerClass *klass)
 	                                                      NULL, 
 	                                                      G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
 
-	command_class->run = cpp_package_scanner_run;
+	command_class->run = anjuta_pkg_scanner_run;
+
+	g_type_class_add_private (klass, sizeof (AnjutaPkgScannerPrivate));
 }
 
-
+/*
+ * anjuta_pkg_scanner_new:
+ * @package: Name of the package to scan
+ * @version: Version of the package
+ *
+ * Returns: a new #AnjutaCommand to scan for files.
+ */
 AnjutaCommand*
-cpp_package_scanner_new (const gchar* package, const gchar* version)
+anjuta_pkg_scanner_new (const gchar* package, const gchar* version)
 {
 	GObject* object =
-		g_object_new (CPP_TYPE_PACKAGE_SCANNER,
+		g_object_new (ANJUTA_TYPE_PKG_SCANNER,
 		              "package", package,
 		              "version", version,
 		              NULL);
@@ -195,18 +226,18 @@ cpp_package_scanner_new (const gchar* package, const gchar* version)
 }
 
 const gchar* 
-cpp_package_scanner_get_package (CppPackageScanner* scanner)
+anjuta_pkg_scanner_get_package (AnjutaPkgScanner* scanner)
 {
-	return scanner->package;
+	return scanner->priv->package;
 }
 const gchar* 
-cpp_package_scanner_get_version (CppPackageScanner* scanner)
+anjuta_pkg_scanner_get_version (AnjutaPkgScanner* scanner)
 {
-	return scanner->version;
+	return scanner->priv->version;
 }
 
 GList*
-cpp_package_scanner_get_files (CppPackageScanner* scanner)
+anjuta_pkg_scanner_get_files (AnjutaPkgScanner* scanner)
 {
-	return scanner->files;
+	return scanner->priv->files;
 }

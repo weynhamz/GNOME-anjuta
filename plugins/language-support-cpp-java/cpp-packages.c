@@ -18,11 +18,11 @@
  */
 
 #include "cpp-packages.h"
-#include "cpp-package-scanner.h"
 
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-symbol-manager.h>
 #include <libanjuta/anjuta-pkg-config.h>
+#include <libanjuta/anjuta-pkg-scanner.h>
 #include <libanjuta/anjuta-debug.h>
 
 enum
@@ -109,14 +109,14 @@ on_package_ready (AnjutaCommand* command,
                   gint return_code,
                   IAnjutaSymbolManager* sm)
 {
-	CppPackageScanner* scanner = CPP_PACKAGE_SCANNER (command);
-	if (g_list_length (cpp_package_scanner_get_files (scanner)))
+	AnjutaPkgScanner* scanner = ANJUTA_PKG_SCANNER (command);
+	if (g_list_length (anjuta_pkg_scanner_get_files (scanner)))
 	{
-		g_message ("Adding package: %s", cpp_package_scanner_get_package (scanner));
+		g_message ("Adding package: %s", anjuta_pkg_scanner_get_package (scanner));
 		ianjuta_symbol_manager_add_package (sm,
-		                                    cpp_package_scanner_get_package (scanner),
-		                                    cpp_package_scanner_get_version (scanner),
-		                                    cpp_package_scanner_get_files (scanner),
+		                                    anjuta_pkg_scanner_get_package (scanner),
+		                                    anjuta_pkg_scanner_get_version (scanner),
+		                                    anjuta_pkg_scanner_get_files (scanner),
 		                                    NULL);
 	}
 	g_object_unref (command);
@@ -144,7 +144,7 @@ cpp_packages_load_real (CppPackages* packages, GError* error, IAnjutaProjectMana
 	{
 		PackageData* pkg_data = pkg->data;
 		AnjutaCommand* command =
-			cpp_package_scanner_new (pkg_data->pkg, pkg_data->version);
+			anjuta_pkg_scanner_new (pkg_data->pkg, pkg_data->version);
 		g_signal_connect (command, "command-finished",
 		                  G_CALLBACK (on_package_ready), sm);
 		anjuta_command_queue_push (packages->queue, command);
