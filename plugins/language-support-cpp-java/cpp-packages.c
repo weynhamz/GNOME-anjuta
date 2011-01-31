@@ -119,7 +119,12 @@ on_package_ready (AnjutaCommand* command,
 		                                    anjuta_pkg_scanner_get_files (scanner),
 		                                    NULL);
 	}
-	g_object_unref (command);
+}
+
+static void
+on_queue_finished (AnjutaCommandQueue* queue, gpointer unused)
+{
+	g_object_unref (queue);
 }
 
 static void
@@ -152,6 +157,7 @@ cpp_packages_load_real (CppPackages* packages, GError* error, IAnjutaProjectMana
 	g_list_foreach (packages_to_add, (GFunc) pkg_data_free, NULL);
 	g_list_free (packages_to_add);
 
+	g_signal_connect (packages->queue, "finished", G_CALLBACK (on_queue_finished), NULL);
 	anjuta_command_queue_start (packages->queue);
 }
 
@@ -191,7 +197,6 @@ cpp_packages_finalize (GObject* object)
 	IAnjutaProjectManager* pm =
 		anjuta_shell_get_interface (shell, IAnjutaProjectManager, NULL);
 	
-	g_object_unref (packages->queue);
 	g_signal_handlers_disconnect_by_func (pm, cpp_packages_load_real, packages);
 
 	G_OBJECT_CLASS (cpp_packages_parent_class)->finalize (object);
