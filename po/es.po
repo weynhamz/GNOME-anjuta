@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
 "POT-Creation-Date: 2011-01-30 17:10+0000\n"
-"PO-Revision-Date: 2011-01-31 14:57+0100\n"
+"PO-Revision-Date: 2011-01-31 19:31+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -898,8 +898,8 @@ msgstr "Especifique el nombre del objetivo"
 msgid ""
 "Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
 msgstr ""
-"El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», «-», "
-"«/» o «.»"
+"El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», "
+"«-», «/» o «.»"
 
 #: ../plugins/am-project/amp-target.c:275
 msgid "Shared library target name must be of the form 'libxxx.la'"
@@ -910,8 +910,8 @@ msgstr ""
 #: ../plugins/am-project/amp-target.c:284
 msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr ""
-"El nombre de la biblioteca estática del objetivo debe ser de la forma «libxxx."
-"a»"
+"El nombre de la biblioteca estática del objetivo debe ser de la forma "
+"«libxxx.a»"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:1
 #: ../plugins/run-program/anjuta-run-program.ui.h:1
@@ -5456,7 +5456,7 @@ msgstr "URL"
 #: ../plugins/git/git-repository-selector.c:100
 #| msgid "<b>Remote:</b> %s"
 msgid "<b>Selected Remote:</b>"
-msgstr "<b>Seleccionar remota:</b>"
+msgstr "<b>Remota seleccionada:</b>"
 
 #: ../plugins/git/git-repository-selector.c:199
 msgid ""
@@ -6214,8 +6214,8 @@ msgid ""
 "A file named \"%s\" cannot be written: %s. Check if you have write access to "
 "the project directory."
 msgstr ""
-"No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene acceso "
-"de escritura al directorio del proyecto."
+"No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene "
+"acceso de escritura al directorio del proyecto."
 
 #: ../plugins/project-import/plugin.c:200
 #, c-format
@@ -6232,9 +6232,9 @@ msgid ""
 "Could not find a valid project backend for the given directory (%s). Please "
 "select a different directory, or try upgrading to a newer version of Anjuta."
 msgstr ""
-"No se pudo encontrar un «backend» válido del proyecto para el directorio dado "
-"(%s). Seleccione un directorio diferente, o intente actualizar a una versión "
-"más moderna de Anjuta."
+"No se pudo encontrar un «backend» válido del proyecto para el directorio "
+"dado (%s). Seleccione un directorio diferente, o intente actualizar a una "
+"versión más moderna de Anjuta."
 
 #: ../plugins/project-import/plugin.c:290
 #: ../plugins/project-import/plugin.c:346
@@ -6838,9 +6838,9 @@ msgid ""
 "$:%%+,.=@^_`~\" or directory separators. In addition you cannot have a "
 "leading dash. Please fix it."
 msgstr ""
-"El campo «%s» debe contener sólo letras, dígitos, los siguientes caracteres «#"
-"$:%%+,.=@^_`~» o separadores de directorio. Además, no puede tener un guión "
-"precedente. Arréglelo."
+"El campo «%s» debe contener sólo letras, dígitos, los siguientes caracteres "
+"«#$:%%+,.=@^_`~» o separadores de directorio. Además, no puede tener un "
+"guión precedente. Arréglelo."
 
 #: ../plugins/project-wizard/druid.c:656
 #, c-format
@@ -7462,8 +7462,8 @@ msgid ""
 "'libgnomeui-2.0 >= 2.2.0'"
 msgstr ""
 "Proporcione un nombre de paquete que requiere su proyecto. También puede "
-"mencionar cuál es la versión requerida del paquete. Por ejemplo, «libgnomeui-"
-"2.0» o «libgnomeui-2.0 >= 2.2.0»"
+"mencionar cuál es la versión requerida del paquete. Por ejemplo, "
+"«libgnomeui-2.0» o «libgnomeui-2.0 >= 2.2.0»"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:25
 msgid "Require Package:"
@@ -8132,8 +8132,8 @@ msgstr "Reemplazar todo"
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
 msgstr ""
-"No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde el "
-"principio del documento?"
+"No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde "
+"el principio del documento?"
 
 #: ../plugins/search/search-replace.c:1096
 #, c-format
