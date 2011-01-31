@@ -36,7 +36,7 @@ PROPERTY (URL): http://www.anjuta.org/
     MODULE (13): GRAPHVIZ
         PACKAGE (13:0): libgvc
         PACKAGE (13:1): libgraph
-    GROUP (14): anjuta-npm_rw
+    GROUP (14): anjuta
         PROPERTY (Installation directories): anjutadocdir = $(docdir) anjuta_datadir = $(datadir)/anjuta gnomemenudir = $(datadir)/applications
         GROUP (14:0): pixmaps
             PROPERTY (Installation directories): anjuta_pixmapsdir = $(anjuta_image_dir) anjuta_glade_pixmapsdir = $(anjuta_glade_dir)

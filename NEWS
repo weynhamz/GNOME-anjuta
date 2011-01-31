@@ -1,3 +1,35 @@
+Anjuta 2.91.6 "To all the dead poets" (31 January 2010) -- Johannes Schmid
+
+New:
+- Support for dragging signals from glade into the code (C only)
+- Improvements in project-manager
+- More features in git-plugin
+
+Bugs fixed:
+638506 Homepage: FAQ Mailinglist link is wrong
+639786 quick bookmark deletion
+640277 editor position history doesn't work with shortcut
+618142 Anjuta Snippets Plug-in
+627131 Autocompletion duplicates characters
+639795 Editing variabile after inserting snippet bug
+638980 Crash when closing project
+608578 Anjuta is unable to import Gnumeric source tree
+611206 doesn't recognize newer AC_INIT
+615990 path is missing when add a source to the target
+616041 Add Source -> Cannot add source files -> Core Dump
+618617 Project view doesn't make sense
+638368 test-suite fails
+639342 Anjuta crash when loading libgee
+640348 minor mistake in UI string
+640726 anjuta stops updating session information
+581613 Unable to import a tarball into Anjuta 2.4.2
+639093 I can't start a new project properly 
+
+Thanks to: Chao-Hsiung Liao, Christian Kirbach, Daniel Muestieles,
+Daniel Mustieles, Dragos Dena, Fran Diéguez, James Liggett, 
+Jorge González, Kjartan Maraas, Massimo Corà, Matej Urbančič, 
+Michael Kotsarinis, Rakesh Pandit, Sébastien Granjoux
+
 Anjuta 2.91.5 "Moving forward" (11 Januar 2010) -- Johannes Schmid
 
 Updates:
