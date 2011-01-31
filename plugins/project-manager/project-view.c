@@ -1064,29 +1064,7 @@ gbf_project_view_update_tree (GbfProjectView *view, AnjutaProjectNode *parent, G
 	/* add the remaining sources, targets and groups */
 	for (node = nodes; node; node = node->next)
 	{
-		switch (anjuta_project_node_get_node_type (node->data))
-		{
-		case ANJUTA_PROJECT_GROUP:
-			gbf_project_model_add_target_group (view->model, node->data, iter);
-			break;
-		case ANJUTA_PROJECT_TARGET:
-			gbf_project_model_add_target (view->model, node->data, iter);
-			break;
-		case ANJUTA_PROJECT_SOURCE:
-			gbf_project_model_add_source (view->model, node->data, iter);
-			break;
-		case ANJUTA_PROJECT_MODULE:
-			gbf_project_model_add_module (view->model, node->data, iter);
-			break;
-		case ANJUTA_PROJECT_PACKAGE:
-			gbf_project_model_add_package (view->model, node->data, iter);
-			break;
-		case ANJUTA_PROJECT_ROOT:
-			gbf_project_model_add_root (view->model, node->data, iter);
-			break;
-		default:
-			break;
-		}
+		gbf_project_model_add_node (view->model, node->data, iter);
 	}
 
 	/* Expand parent, needed if the parent hasn't any children when it was created */
@@ -1452,7 +1430,8 @@ on_node_loaded (AnjutaPmProject *sender, AnjutaProjectNode *node, gboolean compl
 
 				if (!gbf_project_model_find_child_name (view->model, &iter, NULL, anjuta_project_node_get_name (node)))
 				{
-					gbf_project_model_add_root (view->model, node, &iter);
+					gbf_project_model_add_node (view->model, node, NULL);
+					gtk_tree_model_get_iter_first (GTK_TREE_MODEL (view->model), &iter);
 				}
 				else
 				{

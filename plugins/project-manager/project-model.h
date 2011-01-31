@@ -84,34 +84,15 @@ gboolean         gbf_project_model_find_child_name   (GbfProjectModel   *model,
 AnjutaProjectNode *gbf_project_model_get_node        (GbfProjectModel *model,
                                                       GtkTreeIter     *iter);
 
-void             gbf_project_model_add_shortcut      (GbfProjectModel *model,
-                                                      GtkTreeIter     *iter,
-                                                      GtkTreeIter     *before, 
-                                                      GbfTreeData     *target);
+void             gbf_project_model_add_node         (GbfProjectModel    	   *model,
+                                                     AnjutaProjectNode	   *package,
+                                                     GtkTreeIter            *parent);
 
-void            gbf_project_model_add_source                (GbfProjectModel    	      *model,
-                                                	    AnjutaProjectNode *source,
-                                                	    GtkTreeIter               *parent);
 void            gbf_project_model_add_target_shortcut       (GbfProjectModel *model,
                                                              GtkTreeIter     *shortcut,
                                                              GbfTreeData     *target,
                                                              GtkTreePath     *before_path,
                                                              gboolean *expanded);
-void            gbf_project_model_add_package               (GbfProjectModel    	      *model,
-	                                                    AnjutaProjectNode *package,
-                                                	    GtkTreeIter               *parent);
-void            gbf_project_model_add_module                (GbfProjectModel 		*model,
-                                                	    AnjutaProjectNode   *module,
-                                                	    GtkTreeIter     	        *parent);
-void            gbf_project_model_add_target                (GbfProjectModel 		*model,
-                                                	    AnjutaProjectNode   *target,
-                                                	    GtkTreeIter     	        *parent);
-void            gbf_project_model_add_target_group          (GbfProjectModel 	*model,
-                                                		  AnjutaProjectNode	*group,
-                                                		  GtkTreeIter     	*parent);
-void            gbf_project_model_add_root                  (GbfProjectModel 	*model,
-                                                        AnjutaProjectNode	*root,
-                                                        GtkTreeIter     	*parent);
 void            gbf_project_model_move_target_shortcut    (GbfProjectModel *model,
                                                            GtkTreeIter     *iter,
                                                            GbfTreeData     *shortcut,
