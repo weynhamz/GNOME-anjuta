@@ -40,7 +40,6 @@ struct _AnjutaProjectImportPlugin
 {
 	AnjutaPlugin parent;
 	AnjutaPreferences *prefs;
-	gchar *backend_id;
 };
 
 struct _AnjutaProjectImportPluginClass
