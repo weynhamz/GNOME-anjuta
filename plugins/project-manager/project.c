@@ -51,6 +51,9 @@ static void
 on_pm_project_load_incomplete (AnjutaProjectNode *node, AnjutaPmProject *project)
 {
 	gint state = anjuta_project_node_get_state (node);
+
+	/* Get capabilities for all existing node */
+	project->node_capabilities |= state;
 	
 	if ((state & ANJUTA_PROJECT_INCOMPLETE) && !(state & ANJUTA_PROJECT_LOADING))
 	{
@@ -229,7 +232,8 @@ anjuta_pm_project_unload (AnjutaPmProject *project, GError **error)
 	if (project->project) g_object_unref (project->project);
 	project->project = NULL;
 	project->loaded = FALSE;
-
+	project->node_capabilities = 0;
+	
 	/* Remove project properties dialogs */
 	if (project->properties_dialog != NULL) gtk_widget_destroy (project->properties_dialog);
 	project->properties_dialog = NULL;
@@ -281,6 +285,9 @@ anjuta_pm_project_get_capabilities (AnjutaPmProject *project)
 		}
 	}
 
+	/* Make sure that at least one node can do it */
+	caps &= project->node_capabilities;
+	
 	return caps;
 }
 
