@@ -843,7 +843,8 @@ amp_property_delete_token (AmpProject  *project, AnjutaToken *token)
 
 	if (token != NULL)
 	{
-		anjuta_token_set_flags (token, ANJUTA_TOKEN_REMOVED);
+		anjuta_token_remove_list (token);
+		
 		updated = TRUE;
 	}
 
@@ -888,6 +889,8 @@ gboolean amp_project_update_am_property (AmpProject *project, AnjutaProjectNode 
 	AnjutaProjectNode *group;
 	AnjutaToken *args;
 
+	g_return_val_if_fail (property->native != NULL, FALSE);
+	
 	/* Find group  of the property */
 	if (anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_GROUP)
 	{
@@ -897,12 +900,14 @@ gboolean amp_project_update_am_property (AmpProject *project, AnjutaProjectNode 
 	{
 		group = anjuta_project_node_parent (node);
 	}
-	
 
-	if ((property->value == NULL) || (*property->value == '\0'))
+	if (((property->native->value == NULL) && ((property->value == NULL) || (*property->value == '\0'))) ||
+	    (g_strcmp0 (property->native->value, property->value) == 0))
 	{
 		/* Remove property */
 		args = amp_property_delete_token (project, ((AmpProperty *)property)->token);
+		
+		anjuta_project_node_remove_property (node, property);
 	}
 	else
 	{
