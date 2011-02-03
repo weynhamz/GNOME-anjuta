@@ -91,8 +91,6 @@ AT_DATA([expect],
 AT_DATA([reference.am],
 [[
 bin_PROGRAMS = target1
-
-target1_LDADD =
 ]])
 AT_PARSER_CHECK([load empty3 \
 		move empty4 \

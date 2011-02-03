@@ -508,19 +508,27 @@ PROPERTY (URL): http://www.anjuta.org/
                 PROPERTY (Installation directory): libanjutaincludedir
             TARGET (14:4:41): anjuta-pkg-config.h
                 PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (14:4:42): anjuta-enum-types.h
+            TARGET (14:4:42): anjuta-column-text-view.h
                 PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (14:4:43): anjuta-marshal.h
+            TARGET (14:4:43): anjuta-file-drop-entry.h
                 PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (14:4:44): pkgconfig
+            TARGET (14:4:44): anjuta-entry.h
+                PROPERTY (Installation directory): libanjutaincludedir
+            TARGET (14:4:45): anjuta-token.h
+                PROPERTY (Installation directory): libanjutaincludedir
+            TARGET (14:4:46): anjuta-enum-types.h
+                PROPERTY (Installation directory): libanjutaincludedir
+            TARGET (14:4:47): anjuta-marshal.h
+                PROPERTY (Installation directory): libanjutaincludedir
+            TARGET (14:4:48): pkgconfig
                 PROPERTY (Installation directory): pkgconfigdir
-                SOURCE (14:4:44:0): libanjuta/libanjuta-3.0.pc
-            TARGET (14:4:45): gir
+                SOURCE (14:4:48:0): libanjuta/libanjuta-3.0.pc
+            TARGET (14:4:49): gir
                 PROPERTY (Installation directory): girdir
-                SOURCE (14:4:45:0): libanjuta/IAnjuta-3.0.gir
-            TARGET (14:4:46): typelib
+                SOURCE (14:4:49:0): libanjuta/IAnjuta-3.0.gir
+            TARGET (14:4:50): typelib
                 PROPERTY (Installation directory): typelibdir
-                SOURCE (14:4:46:0): libanjuta/$(INTROSPECTION_GIRS:.gir=.typelib)
+                SOURCE (14:4:50:0): libanjuta/$(INTROSPECTION_GIRS:.gir=.typelib)
         GROUP (14:5): plugins
             GROUP (14:5:0): am-project
                 PROPERTY (Installation directories): plugin_uidir = $(anjuta_ui_dir) plugin_gladedir = $(anjuta_glade_dir) plugin_pixmapsdir = $(anjuta_image_dir) plugindir = $(anjuta_plugin_dir)
