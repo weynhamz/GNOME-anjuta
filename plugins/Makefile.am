@@ -24,6 +24,7 @@ SUBDIRS = . \
 	language-support-python \
 	language-support-vala \
 	message-view \
+	mk-project \
 	patch \
 	project-import \
 	project-manager \

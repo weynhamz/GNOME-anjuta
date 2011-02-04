@@ -23,7 +23,7 @@
 
 #include <libanjuta/anjuta-plugin.h>
 
-extern GType amp_plugin_get_type (GTypeModule *module);
+extern GType mkp_plugin_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_MKP         (mkp_plugin_get_type (NULL))
 #define ANJUTA_PLUGIN_MKP(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_MKP, MkpPlugin))
 #define ANJUTA_PLUGIN_MKP_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_MKP, MkpPluginClass))

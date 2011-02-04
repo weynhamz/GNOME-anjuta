@@ -125,7 +125,7 @@ mkp_project_find_source (MkpProject *project, gchar *target, AnjutaProjectNode *
 		}
 	}
 		
-	child = g_file_get_child (anjuta_project_group_get_directory (parent), target);
+	child = g_file_get_child (anjuta_project_node_get_file (parent), target);
 	exist = g_file_query_exists (child, NULL);
 	g_message ("target =%s= filename =%s=", target, g_file_get_parse_name (child));
 	g_object_unref (child);
@@ -162,11 +162,11 @@ mkp_project_add_rule (MkpProject *project, AnjutaToken *group)
 	dep = anjuta_token_next_word (arg);
 	for (arg = anjuta_token_first_word (targ); arg != NULL; arg = anjuta_token_next_word (arg))
 	{
-		AnjutaToken *src;
-		gchar *target;
+		AnjutaToken *src = NULL;
+		gchar *target = NULL;
 		gboolean order = FALSE;
 		gboolean no_token = TRUE;
-		MkpRule *rule;
+		MkpRule *rule = NULL;
 
 		switch (anjuta_token_get_type (arg))
 		{
@@ -325,9 +325,9 @@ mkp_project_enumerate_targets (MkpProject *project, AnjutaProjectNode *parent)
 		if (rule->phony || rule->pattern) continue;
 		
 		/* Create target */
-		target = mkp_target_new (rule->name, ANJUTA_PROJECT_UNKNOWN);
+		target = MKP_TARGET(mkp_target_new (rule->name, ANJUTA_PROJECT_UNKNOWN));
 		mkp_target_add_token (target, rule->rule);
-		anjuta_project_node_append (parent, target);
+		anjuta_project_node_append (parent, ANJUTA_PROJECT_NODE(target));
 
 		/* Get prerequisite */
 		prerequisite = anjuta_token_first_word (rule->rule);
@@ -351,9 +351,9 @@ mkp_project_enumerate_targets (MkpProject *project, AnjutaProjectNode *parent)
 			if (name != NULL)
 			{
 				src_file = g_file_get_child (project->root_file, name);
-				source = mkp_source_new (src_file);
+				source = MKP_SOURCE(mkp_source_new (src_file));
 				g_object_unref (src_file);
-				anjuta_project_node_append (target, source);
+				anjuta_project_node_append (ANJUTA_PROJECT_NODE(target), ANJUTA_PROJECT_NODE(source));
 
 				g_free (name);
 			}

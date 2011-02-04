@@ -39,23 +39,96 @@ G_BEGIN_DECLS
 #define MKP_IS_PROJECT(obj)		(G_TYPE_CHECK_INSTANCE_TYPE ((obj), MKP_TYPE_PROJECT))
 #define MKP_IS_PROJECT_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE ((obj), MKP_TYPE_PROJECT))
 
-#define MKP_GROUP(obj)		((MkpGroup *)obj)
-#define MKP_TARGET(obj)		((MkpTarget *)obj)
-#define MKP_SOURCE(obj)		((MkpSource *)obj)
+#define MKP_TYPE_GROUP					   (mkp_group_get_type ())
+#define MKP_GROUP(obj)							(G_TYPE_CHECK_INSTANCE_CAST ((obj), MKP_TYPE_GROUP, MkpGroup))
+#define MKP_TYPE_TARGET					   (mkp_target_get_type ())
+#define MKP_TARGET(obj)							(G_TYPE_CHECK_INSTANCE_CAST ((obj), MKP_TYPE_TARGET, MkpTarget))
+#define MKP_TYPE_SOURCE					   (mkp_source_get_type ())
+#define MKP_SOURCE(obj)							(G_TYPE_CHECK_INSTANCE_CAST ((obj), MKP_TYPE_SOURCE, MkpSource))
+
+
+GType mkp_source_get_type (void) G_GNUC_CONST;
+GType mkp_target_get_type (void) G_GNUC_CONST;
+GType mkp_group_get_type (void) G_GNUC_CONST;
+GType mkp_project_get_type (void) G_GNUC_CONST;
 
 typedef struct _MkpProject        MkpProject;
 typedef struct _MkpProjectClass   MkpProjectClass;
 
-struct _MkpProjectClass {
-	GObjectClass parent_class;
-};
-
-typedef AnjutaProjectNode MkpGroup;
-typedef AnjutaProjectNode MkpTarget;
-typedef AnjutaProjectNode MkpSource;
+typedef struct _MkpGroup MkpGroup;
+typedef struct _MkpTarget MkpTarget;
+typedef struct _MkpSource MkpSource;
 typedef struct _MkpProperty MkpProperty;
 typedef struct _MkpVariable MkpVariable;
 typedef struct _MkpRule MkpRule;
+
+typedef struct _MkpClass MkpSourceClass;
+typedef struct _MkpClass MkpTargetClass;
+typedef struct _MkpClass MkpGroupClass;
+
+struct _MkpVariable {
+	gchar *name;
+	AnjutaTokenType assign;
+	AnjutaToken *value;
+};
+
+typedef enum {
+	AM_GROUP_TOKEN_CONFIGURE,
+	AM_GROUP_TOKEN_SUBDIRS,
+	AM_GROUP_TOKEN_DIST_SUBDIRS,
+	AM_GROUP_TARGET,
+	AM_GROUP_TOKEN_LAST
+} MkpGroupTokenCategory;
+
+struct _MkpGroup {
+	AnjutaProjectNode base;		/* Common node data */
+	gboolean dist_only;			/* TRUE if the group is distributed but not built */
+	GFile *makefile;				/* GFile corresponding to group makefile */
+	AnjutaTokenFile *tfile;		/* Corresponding Makefile */
+	GList *tokens[AM_GROUP_TOKEN_LAST];					/* List of token used by this group */
+};
+
+typedef enum _MkpTargetFlag
+{
+	AM_TARGET_CHECK = 1 << 0,
+	AM_TARGET_NOINST = 1 << 1,
+	AM_TARGET_DIST = 1 << 2,
+	AM_TARGET_NODIST = 1 << 3,
+	AM_TARGET_NOBASE = 1 << 4,
+	AM_TARGET_NOTRANS = 1 << 5,
+	AM_TARGET_MAN = 1 << 6,
+	AM_TARGET_MAN_SECTION = 31 << 7
+} MkpTargetFlag;
+
+struct _MkpTarget {
+	AnjutaProjectNode base;
+	gchar *install;
+	gint flags;
+	GList* tokens;
+};
+
+struct _MkpSource {
+	AnjutaProjectNode base;
+	AnjutaToken* token;
+};
+
+typedef struct _MkpNodeInfo MkpNodeInfo;
+
+struct _MkpNodeInfo {
+	AnjutaProjectNodeInfo base;
+	AnjutaTokenType token;
+	const gchar *prefix;
+	const gchar *install;
+};
+
+struct _MkpClass {
+	AnjutaProjectNodeClass parent_class;
+};
+
+struct _MkpProjectClass {
+	AnjutaProjectNodeClass parent_class;
+};
+
 
 typedef enum {
 	MKP_PROPERTY_NAME = 0,
@@ -67,16 +140,16 @@ typedef enum {
 
 
 GType         mkp_project_get_type (void);
-MkpProject   *mkp_project_new      (void);
+MkpProject   *mkp_project_new (GFile *file, GError  **error);
 
 
 gint mkp_project_probe (GFile *directory, GError     **error);
 gboolean mkp_project_load (MkpProject *project, GFile *directory, GError **error);
-AnjutaProjectNode *mkp_project_load_node (MkpProject *project, AnjutaProjectNode *node, GError **error);
+AnjutaProjectNode* mkp_project_load_node (MkpProject *project, AnjutaProjectNode *node, GError **error);
 gboolean mkp_project_reload (MkpProject *project, GError **error);
 void mkp_project_unload (MkpProject *project);
 
-MkpGroup *mkp_project_get_root (MkpProject *project);
+MkpProject *mkp_project_get_root (MkpProject *project);
 MkpVariable *mkp_project_get_variable (MkpProject *project, const gchar *name);
 GList *mkp_project_list_variable (MkpProject *project);
 AnjutaToken* mkp_project_get_variable_token (MkpProject *project, AnjutaToken *variable);

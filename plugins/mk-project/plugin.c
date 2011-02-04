@@ -20,7 +20,6 @@
 
 #include <config.h>
 #include <libanjuta/anjuta-debug.h>
-#include <libanjuta/gbf-project.h>
 #include <libanjuta/interfaces/ianjuta-project-backend.h>
 
 #include "plugin.h"
@@ -52,11 +51,11 @@ deactivate_plugin (AnjutaPlugin *plugin)
  *---------------------------------------------------------------------------*/
 
 static IAnjutaProject*
-iproject_backend_new_project (IAnjutaProjectBackend* backend, GError** err)
+iproject_backend_new_project (IAnjutaProjectBackend* backend, GFile *file, GError** err)
 {
 	IAnjutaProject *project;
 	DEBUG_PRINT("create new mkp project");	
-	project = (IAnjutaProject *)(g_object_new (MKP_TYPE_PROJECT, NULL));	
+	project = (IAnjutaProject *) mkp_project_new(file, err);
 		
 	return project;
 }
