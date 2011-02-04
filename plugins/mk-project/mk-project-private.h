@@ -42,9 +42,6 @@ struct _MkpProject {
 	 * can only work with native local files */
 	GFile				*root_file;
 
-	/* project data */
-	MkpProperty		*property;
-
 	/* shortcut hash tables, mapping id -> GNode from the tree above */
 	GHashTable			*groups;
 	GHashTable			*files;
