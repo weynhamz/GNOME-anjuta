@@ -1549,7 +1549,37 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (14:5:21:4:3): plugins/message-view/anjuta-msgman.h
                     SOURCE (14:5:21:4:4): plugins/message-view/message-view.c
                     SOURCE (14:5:21:4:5): plugins/message-view/message-view.h
-            GROUP (14:5:22): patch
+            GROUP (14:5:22): mk-project
+                PROPERTY (Installation directories): plugin_uidir = $(anjuta_ui_dir) plugin_gladedir = $(anjuta_glade_dir) plugin_pixmapsdir = $(anjuta_image_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(GIO_CFLAGS) $(XML_CFLAGS) $(LIBANJUTA_CFLAGS) -DG_LOG_DOMAIN=\"mk-project\"
+                PROPERTY (Yacc/Bison flags): -t -v -g -rall
+                TARGET (14:5:22:0): plugin_ui
+                    PROPERTY (Installation directory): plugin_uidir
+                TARGET (14:5:22:1): plugin_glade
+                    PROPERTY (Installation directory): plugin_gladedir
+                    SOURCE (14:5:22:1:0): plugins/mk-project/mk-project.ui
+                TARGET (14:5:22:2): plugin_pixmaps
+                    PROPERTY (Installation directory): plugin_pixmapsdir
+                    SOURCE (14:5:22:2:0): plugins/mk-project/mk-project-plugin-48.png
+                TARGET (14:5:22:3): plugin
+                    PROPERTY (Installation directory): plugindir
+                    SOURCE (14:5:22:3:0): plugins/mk-project/$(plugin_in_files:.plugin.in=.plugin)
+                TARGET (14:5:22:4): libmk-project.la
+                    PROPERTY (Installation directory): plugindir
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS) $(XML_LIBS)
+                    MODULE (14:5:22:4:10): XML
+                    SOURCE (14:5:22:4:0): plugins/mk-project/plugin.c
+                    SOURCE (14:5:22:4:1): plugins/mk-project/plugin.h
+                    SOURCE (14:5:22:4:2): plugins/mk-project/mk-project.c
+                    SOURCE (14:5:22:4:3): plugins/mk-project/mk-project.h
+                    SOURCE (14:5:22:4:4): plugins/mk-project/mk-scanner.l
+                    SOURCE (14:5:22:4:5): plugins/mk-project/mk-parser.y
+                    SOURCE (14:5:22:4:6): plugins/mk-project/mk-scanner.h
+                    SOURCE (14:5:22:4:7): plugins/mk-project/mk-rule.c
+                    SOURCE (14:5:22:4:8): plugins/mk-project/mk-rule.h
+                    SOURCE (14:5:22:4:9): plugins/mk-project/mk-project-private.h
+            GROUP (14:5:23): patch
                 PROPERTY (Installation directories): patch_uidir = $(anjuta_ui_dir) patch_gladedir = $(anjuta_glade_dir) patch_pixmapsdir = $(anjuta_image_dir) patch_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
                 PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS)
                 TARGET (14:5:22:0): patch_ui
