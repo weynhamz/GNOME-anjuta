@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-master-po-gl-1952\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-30 01:30+0100\n"
-"PO-Revision-Date: 2011-01-30 02:25+0100\n"
+"POT-Creation-Date: 2011-02-06 00:27+0100\n"
+"PO-Revision-Date: 2011-02-06 00:29+0100\n"
 "Last-Translator: Fran Diéguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Galician <gnome-gl-list@gnome.org>\n"
 "Language: gl\n"
@@ -201,7 +201,7 @@ msgstr "Tailandés"
 #. Translator: Unknown here is a target type, if not unknown it can
 #. * be a program or a shared library by example
 #: ../libanjuta/anjuta-encodings.c:443 ../plugins/am-project/am-project.c:105
-#: ../plugins/mk-project/mk-project.c:152
+#: ../plugins/mk-project/mk-project.c:74
 msgid "Unknown"
 msgstr "Descoñecido"
 
@@ -596,7 +596,7 @@ msgstr "Texto que lle mostra ao usuario que ten que escribir nun campo"
 
 #: ../libanjuta/anjuta-file-drop-entry.c:206
 msgid "Path that droppedfiles should be relative to"
-msgstr ""
+msgstr "Ruta á que os ficheiros soltados deberían ser relativos"
 
 #: ../libanjuta/anjuta-file-list.c:101
 msgid "Drop a file or enter a path here"
@@ -880,9 +880,9 @@ msgstr ""
 #: ../plugins/am-project/am-project.c:1569
 #: ../plugins/am-project/am-project.c:1599
 #: ../plugins/am-project/am-project.c:1651
-#: ../plugins/mk-project/mk-project.c:1109
-#: ../plugins/mk-project/mk-project.c:1182
-#: ../plugins/mk-project/mk-project.c:1259
+#: ../plugins/mk-project/mk-project.c:678
+#: ../plugins/mk-project/mk-project.c:755
+#: ../plugins/mk-project/mk-project.c:829
 #, c-format
 msgid "Project doesn't exist or invalid path"
 msgstr "O proxecto non existe ou a ruta non é válida"
@@ -4293,20 +4293,19 @@ msgid "Missing name"
 msgstr "Falta o nome"
 
 #: ../plugins/dir-project/dir-project.c:780
-#: ../plugins/am-project/am-project.c:89
-#: ../plugins/mk-project/mk-project.c:138
+#: ../plugins/am-project/am-project.c:89 ../plugins/mk-project/mk-project.c:66
 msgid "Group"
 msgstr "Grupo"
 
 #: ../plugins/dir-project/dir-project.c:783
-#: ../plugins/am-project/am-project.c:96
-#: ../plugins/mk-project/mk-project.c:145
+#: ../plugins/am-project/am-project.c:96 ../plugins/mk-project/mk-project.c:70
 msgid "Source"
 msgstr "Orixe"
 
 #: ../plugins/dir-project/dir-project.c:899
 #: ../plugins/dir-project/dir-project.c:909
-#: ../plugins/mk-project/mk-project.c:1385
+#: ../plugins/mk-project/mk-project.c:977
+#: ../plugins/mk-project/mk-project.c:987
 #, c-format
 msgid "Project doesn't allow to set properties"
 msgstr "O proxecto non permite estabelecer propiedades"
@@ -4361,9 +4360,8 @@ msgid "Unable to parse project file"
 msgstr "Non foi posíbel analizar o ficheiro do proxecto"
 
 #: ../plugins/am-project/am-properties.c:51
-#, fuzzy
 msgid "Project name, it can contain spaces by example 'GNU Autoconf'"
-msgstr "Nome do proxecto, pode conter espacios p.ex. "
+msgstr "Nombre do proxecto; pode conter espazos, por exemplo «Autoconf de GNU»"
 
 #: ../plugins/am-project/am-properties.c:56
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:26
@@ -4389,6 +4387,8 @@ msgstr "Versión:"
 msgid ""
 "Project version, typically a few numbers separated by dot by example '1.0.0'"
 msgstr ""
+"Versión do proxecto; xeralmente uns números separados por un punto, por "
+"exemplo «1.0.0»"
 
 #: ../plugins/am-project/am-properties.c:64
 msgid "Bug report URL:"
@@ -4427,11 +4427,13 @@ msgstr "Unha ligazón á páxina web do proxecto, se a ten."
 #: ../plugins/am-project/am-properties.c:368
 #: ../plugins/am-project/am-properties.c:520
 msgid "Linker flags:"
-msgstr "Parámetros do vinculador:"
+msgstr "Parámetros do enlazador:"
 
 #: ../plugins/am-project/am-properties.c:100
 msgid "Common additional linker flags for all targets in this group."
 msgstr ""
+"Parámetros adicionais comúns do vinculador para tódolos obxectivos neste "
+"grupo."
 
 #: ../plugins/am-project/am-properties.c:105
 #: ../plugins/am-project/am-properties.c:232
@@ -4443,6 +4445,8 @@ msgstr "Parámetros do preprocesador de C:"
 #: ../plugins/am-project/am-properties.c:108
 msgid "Common additional C preprocessor flags for all targets in this group."
 msgstr ""
+"Parámetros adicionais comúns do preprocesador de C para tódolos obxectivos "
+"neste grupo."
 
 #: ../plugins/am-project/am-properties.c:113
 #: ../plugins/am-project/am-properties.c:240
@@ -4454,6 +4458,8 @@ msgstr "Parámetros do compilador de C:"
 #: ../plugins/am-project/am-properties.c:116
 msgid "Common additional C compiler flags for all targets in this group."
 msgstr ""
+"Parámetros adicionais comúns do compilador de C para tódolos obxectivos "
+"neste grupo."
 
 #: ../plugins/am-project/am-properties.c:121
 #: ../plugins/am-project/am-properties.c:248
@@ -4465,6 +4471,8 @@ msgstr "Parámetros do compilador de C++:"
 #: ../plugins/am-project/am-properties.c:124
 msgid "Common additional C++ compiler flags for all targets in this group."
 msgstr ""
+"Parámetros adicionais comúns do compilador de C++ para tódolos obxectivos "
+"neste grupo."
 
 #: ../plugins/am-project/am-properties.c:129
 #: ../plugins/am-project/am-properties.c:256
@@ -4476,6 +4484,8 @@ msgstr "Parámetros do compilador de Java:"
 #: ../plugins/am-project/am-properties.c:132
 msgid "Common additional Java compiler flags for all targets in this group."
 msgstr ""
+"Parámetros adicionais comúns do compilador de Java para tódolos obxectivos "
+"neste grupo."
 
 #: ../plugins/am-project/am-properties.c:137
 #: ../plugins/am-project/am-properties.c:264
@@ -4487,6 +4497,8 @@ msgstr "Parámetros do compilador de Vala:"
 #: ../plugins/am-project/am-properties.c:140
 msgid "Common additional Vala compiler flags for all targets in this group."
 msgstr ""
+"Parámetros adicionais comúns do compilador de Vala para tódolos obxectivos "
+"neste grupo."
 
 #: ../plugins/am-project/am-properties.c:145
 #: ../plugins/am-project/am-properties.c:272
@@ -4498,6 +4510,8 @@ msgstr "Parámetros do compilador de Fortran:"
 #: ../plugins/am-project/am-properties.c:148
 msgid "Common additional Fortran compiler flags for all targets in this group."
 msgstr ""
+"Parámetros adicionais comúns do compilador de Fortran para tódolos "
+"obxectivos neste grupo."
 
 #: ../plugins/am-project/am-properties.c:153
 #: ../plugins/am-project/am-properties.c:280
@@ -4510,6 +4524,8 @@ msgstr "Parámetros do compilador de Objective C:"
 msgid ""
 "Common additional Objective C compiler flags for all targets in this group."
 msgstr ""
+"Parámetros adicionais comúns do compilador de Objective C para tódolos "
+"obxectivos neste grupo."
 
 #: ../plugins/am-project/am-properties.c:161
 #: ../plugins/am-project/am-properties.c:288
@@ -4523,6 +4539,8 @@ msgid ""
 "Common additional Lex or Flex lexical analyser generator flags for all "
 "targets in this group."
 msgstr ""
+"Parámetros adicionais comúns do xerador de analizadores léxicos Lex ou Flex "
+"para tódolos obxectivos neste grupo."
 
 #: ../plugins/am-project/am-properties.c:169
 #: ../plugins/am-project/am-properties.c:296
@@ -4536,6 +4554,8 @@ msgid ""
 "Common additional Yacc or Bison parser generator flags for all targets in "
 "this group."
 msgstr ""
+"Parámetros adicionais do xerador do analizador Yacc ou Bison para tódolos "
+"obxectivos neste grupo."
 
 #: ../plugins/am-project/am-properties.c:177
 msgid "Installation directories:"
@@ -4544,6 +4564,8 @@ msgstr "Cartafoles de instalación:"
 #: ../plugins/am-project/am-properties.c:180
 msgid "List of custom installation directories used by targets in this group."
 msgstr ""
+"Lista de cartafoles de instalacións comúns usados polos obxectivos de este "
+"grupo."
 
 #: ../plugins/am-project/am-properties.c:192
 #: ../plugins/am-project/am-properties.c:352
@@ -4557,7 +4579,7 @@ msgstr "Non instalar:"
 #: ../plugins/am-project/am-properties.c:507
 #: ../plugins/am-project/am-properties.c:690
 msgid "Build but do not install the target."
-msgstr ""
+msgstr "Construír pero non instalar o obxectivo."
 
 #: ../plugins/am-project/am-properties.c:200
 #: ../plugins/am-project/am-properties.c:360
@@ -4753,13 +4775,12 @@ msgid "Manual section:"
 msgstr "Sección manual:"
 
 #: ../plugins/am-project/am-properties.c:675
-#, fuzzy
 msgid ""
 "Section where are installed the man pages. Valid section names are the "
 "digits ‘0’ through ‘9’, and the letters ‘l’ and ‘n’. "
 msgstr ""
 "Sección onde están instalados as paxinas man. Os nomes de sección válidos "
-"son díxitos desde 0 até 9, e letras desde o l até o n."
+"son díxitos desde «0» até «9», e letras desde o «l» até o «n»."
 
 #: ../plugins/gdb/anjuta-gdb.ui.h:1
 msgid "Available pretty printers"
@@ -5408,7 +5429,7 @@ msgstr ""
 
 #: ../plugins/git/git-resolve-conflicts-pane.c:50
 msgid "No conflicted files selected."
-msgstr ""
+msgstr "Non se seleccionou ningún ficheiro conflitivo."
 
 #: ../plugins/git/git-stash-changes-pane.c:158
 msgid "Stash Uncommitted Changes"
@@ -5425,7 +5446,7 @@ msgstr "Cambiado pero non actualizado"
 #: ../plugins/git/git-unstage-pane.c:51
 #, fuzzy
 msgid "No staged files selected."
-msgstr "Non se seleccionou ningún destino"
+msgstr "Non se seleccionou ningún ficheiro no índice."
 
 #: ../plugins/git/plugin.c:65
 msgid "Branch tools"
@@ -5456,29 +5477,24 @@ msgid "Create a tag"
 msgstr "Crear a etiqueta"
 
 #: ../plugins/git/plugin.c:125 ../plugins/git/plugin.c:126
-#, fuzzy
 msgid "Delete selected tags"
-msgstr "Git: Elimináronse as etiquetas seleccionadas."
+msgstr "Eliminar as etiquetas seleccionadas"
 
 #: ../plugins/git/plugin.c:138
-#, fuzzy
 msgid "Changes"
-msgstr "Cambios:"
+msgstr "Cambios"
 
 #: ../plugins/git/plugin.c:147
-#, fuzzy
 msgid "Commit changes"
 msgstr "Remitir os cambios"
 
 #: ../plugins/git/plugin.c:154
-#, fuzzy
 msgid "Diff uncommitted changes"
-msgstr "Facer un _diferencial cos cambios non remitidos"
+msgstr "_Diff dos cambios sen remitir"
 
 #: ../plugins/git/plugin.c:155
-#, fuzzy
 msgid "Show a diff of uncommitted changes in an editor"
-msgstr "Mostrar os cambios non remitidos"
+msgstr "Mostrar un diff dos cambios non remitidos nun editor"
 
 #: ../plugins/git/plugin.c:170
 #: ../plugins/snippets-manager/snippets-editor.ui.h:3
@@ -5494,14 +5510,12 @@ msgid "Remove files from the repository"
 msgstr "Eliminar ficheiros do repositorio"
 
 #: ../plugins/git/plugin.c:186
-#, fuzzy
 msgid "Check out"
-msgstr "Extraer os ficheiros (check out)"
+msgstr ""
 
 #: ../plugins/git/plugin.c:187
-#, fuzzy
 msgid "Revert changes in unstaged files"
-msgstr "Reverter os cambios non remitidos a ficheiros"
+msgstr "Reverter os cambios nos ficheiros non engadidos ao índice"
 
 #: ../plugins/git/plugin.c:194
 #, fuzzy
@@ -5922,7 +5936,7 @@ msgid_plural "%d Errors"
 msgstr[0] "%d erro"
 msgstr[1] "%d erros"
 
-#: ../plugins/mk-project/mk-project.c:715
+#: ../plugins/mk-project/mk-project.c:460
 #, c-format
 msgid "Unable to parse make file"
 msgstr "Non foi posíbel analizar o ficheiro make"
@@ -6031,21 +6045,13 @@ msgstr "_Parchear…"
 msgid "Patch files/directories"
 msgstr "Parchear ficheiros/cartafoles"
 
-#: ../plugins/project-import/plugin.c:68
-msgid ""
-"Generation of project file failed. Cannot find an appropriate project "
-"template to use. Please make sure your version of Anjuta is up-to-date."
-msgstr ""
-"Fallou a xeración do ficheiro de proxecto. Non é posíbel atopar un modelo de "
-"proxecto apropiado para usar. Asegúrese de que a súa versión do Anjuta está "
-"actualizada."
-
-#: ../plugins/project-import/plugin.c:88
+#: ../plugins/project-import/plugin.c:79
+#: ../plugins/project-import/plugin.c:183
 #, c-format
 msgid "A file named \"%s\" already exists. Do you want to replace it?"
 msgstr "Xa existe un ficheiro chamado \"%s\". Quere substituílo?"
 
-#: ../plugins/project-import/plugin.c:136
+#: ../plugins/project-import/plugin.c:218
 #, c-format
 msgid ""
 "A file named \"%s\" cannot be written: %s. Check if you have write access to "
@@ -6054,16 +6060,16 @@ msgstr ""
 "Non é posíbel escribir un ficheiro chamado \"%s\": %s. Verifique que ten "
 "acceso de escritura no cartafol do proxecto."
 
-#: ../plugins/project-import/plugin.c:200
+#: ../plugins/project-import/plugin.c:282
 #, c-format
 msgid "Please select a project backend to open %s."
 msgstr "Seleccione un backend do proxecto para abrir <b>%s</b>."
 
-#: ../plugins/project-import/plugin.c:205
+#: ../plugins/project-import/plugin.c:287
 msgid "Open With"
 msgstr "Abrir con"
 
-#: ../plugins/project-import/plugin.c:220
+#: ../plugins/project-import/plugin.c:302
 #, c-format
 msgid ""
 "Could not find a valid project backend for the given directory (%s). Please "
@@ -6073,8 +6079,8 @@ msgstr ""
 "indicado (%s). Seleccione un cartafol diferente ou tente actualizar a unha "
 "versión do Anjuta máis nova."
 
-#: ../plugins/project-import/plugin.c:290
-#: ../plugins/project-import/plugin.c:346
+#: ../plugins/project-import/plugin.c:368
+#: ../plugins/project-import/plugin.c:424
 #, c-format
 msgid ""
 "Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
@@ -6217,9 +6223,9 @@ msgid "_Select file to add&#x2026;"
 msgstr "_Seleccione o ficheiro para engadir&#x2026;"
 
 #: ../plugins/project-manager/project-model.c:184
-#: ../plugins/project-manager/plugin.c:1322
-#: ../plugins/project-manager/plugin.c:1442
-#: ../plugins/project-manager/plugin.c:1622 ../plugins/symbol-db/plugin.c:2134
+#: ../plugins/project-manager/plugin.c:1324
+#: ../plugins/project-manager/plugin.c:1446
+#: ../plugins/project-manager/plugin.c:1618 ../plugins/symbol-db/plugin.c:2134
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 msgid "Project"
 msgstr "Proxecto"
@@ -6228,7 +6234,7 @@ msgstr "Proxecto"
 msgid "GbfProject Object"
 msgstr "Obxecto GbfProject"
 
-#: ../plugins/project-manager/project-model.c:839
+#: ../plugins/project-manager/project-model.c:727
 msgid "No project loaded"
 msgstr "Non se cargou ningún proxecto"
 
@@ -6471,7 +6477,7 @@ msgstr "_Ordenar"
 msgid "Sort shortcuts"
 msgstr "Ordenar atallos"
 
-#: ../plugins/project-manager/plugin.c:1307
+#: ../plugins/project-manager/plugin.c:1309
 #, c-format
 msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
@@ -6480,33 +6486,33 @@ msgstr ""
 "Produciuse un fallo ao analizar o proxecto (o ficheiro está aberto, mais non "
 "haberá ningunha visualización de proxecto) %s: %s\n"
 
-#: ../plugins/project-manager/plugin.c:1317
+#: ../plugins/project-manager/plugin.c:1319
 msgid "Update project view…"
 msgstr "Actualizar a visualización de proxecto…"
 
-#: ../plugins/project-manager/plugin.c:1360
+#: ../plugins/project-manager/plugin.c:1362
 #, c-format
 msgid "Loading project: %s"
 msgstr "Cargando o proxecto: %s"
 
-#: ../plugins/project-manager/plugin.c:1530
+#: ../plugins/project-manager/plugin.c:1526
 #, c-format
 msgid "Error closing project: %s"
 msgstr "Produciuse un erro ao pechar o proxecto: %s"
 
-#: ../plugins/project-manager/plugin.c:1601
+#: ../plugins/project-manager/plugin.c:1597
 msgid "Project manager actions"
 msgstr "Accións do xestor de proxectos"
 
-#: ../plugins/project-manager/plugin.c:1609
+#: ../plugins/project-manager/plugin.c:1605
 msgid "Project manager popup actions"
 msgstr "Accións en xanelas emerxentes do xestor de proxectos"
 
-#: ../plugins/project-manager/plugin.c:2333
+#: ../plugins/project-manager/plugin.c:2329
 msgid "Initializing Project…"
 msgstr "Inicializando o proxecto…"
 
-#: ../plugins/project-manager/plugin.c:2336
+#: ../plugins/project-manager/plugin.c:2332
 msgid "Project Loaded"
 msgstr "Proxecto cargado"
 
@@ -6718,7 +6724,6 @@ msgstr "Instalar os paquetes que faltan"
 
 # erro no msgid: distrubution
 #: ../plugins/project-wizard/druid.c:928
-#, fuzzy
 msgid ""
 "The missing programs are usually part of some distribution packages and can "
 "be searched for in your Application Manager. Similarly, the development "
@@ -6731,8 +6736,8 @@ msgstr ""
 "distribución e pódense buscar no seu Xestor de aplicativos. De maneira "
 "semellante, os paquetes en desenvolvemento están contidos en paquetes "
 "especiais que fornece a súa distribución para permitir os proxectos baseados "
-"neles. Normalmente acaban co sufixo -dev ou -devel nos nomes dos paquetes e "
-"pódense atopar buscando no seu Xestor de aplicativos."
+"neles. Normalmente acaban co sufixo «-dev» ou «-devel» nos nomes dos "
+"paquetes e pódense atopar buscando no seu Xestor de aplicativos."
 
 #: ../plugins/project-wizard/druid.c:936
 msgid "Missing components"
@@ -10112,6 +10117,14 @@ msgstr "Mínimo de caracteres para o completado "
 #: ../plugins/symbol-db/symbol-db-views.c:182
 msgid "Symbol"
 msgstr "Símbolo"
+
+#~ msgid ""
+#~ "Generation of project file failed. Cannot find an appropriate project "
+#~ "template to use. Please make sure your version of Anjuta is up-to-date."
+#~ msgstr ""
+#~ "Fallou a xeración do ficheiro de proxecto. Non é posíbel atopar un modelo "
+#~ "de proxecto apropiado para usar. Asegúrese de que a súa versión do Anjuta "
+#~ "está actualizada."
 
 #, fuzzy
 #~ msgid "Repository head"
