@@ -322,10 +322,8 @@ monitor_cb (GFileMonitor *monitor,
 
 	switch (event_type) {
 		case G_FILE_MONITOR_EVENT_CHANGED:
-		case G_FILE_MONITOR_EVENT_DELETED:
-			/* monitor will be removed here... is this safe? */
-			//mkp_project_reload (project, NULL);
-			g_signal_emit_by_name (G_OBJECT (project), "project-updated");
+		case G_FILE_MONITOR_EVENT_CREATED:
+			g_signal_emit_by_name (G_OBJECT (project), "file-changed", data);
 			break;
 		default:
 			break;
@@ -381,14 +379,14 @@ monitors_remove (MkpProject *project)
 }
 
 static void
-group_hash_foreach_monitor (gpointer key,
+files_hash_foreach_monitor (gpointer key,
 				gpointer value,
 				gpointer user_data)
 {
-	MkpGroup *group_node = value;
+	GFile *makefile = (GFile *)key;
 	MkpProject *project = user_data;
 
-	monitor_add (project, group_node->base.file);
+	monitor_add (project, makefile);
 }
 
 static void
@@ -402,9 +400,8 @@ monitors_setup (MkpProject *project)
 	project->monitors = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL,
 						   (GDestroyNotify) g_file_monitor_cancel);
 
-	//monitor_add (project, anjuta_token_file_get_file (project->make_file));
-	if (project->groups)
-		g_hash_table_foreach (project->groups, group_hash_foreach_monitor, project);
+	if (project->files)
+		g_hash_table_foreach (project->files, files_hash_foreach_monitor, project);
 }
 
 
@@ -788,12 +785,20 @@ mkp_project_load (MkpProject  *project,
 void
 mkp_project_unload (MkpProject *project)
 {
+	AnjutaProjectNode *node;
+	
 	monitors_remove (project);
 
 	/* project data */
 	if (project->root_file) g_object_unref (project->root_file);
 	project->root_file = NULL;
 
+	/* Remove all children */
+	while ((node = anjuta_project_node_first_child (ANJUTA_PROJECT_NODE (project))) != NULL)
+	{
+		g_object_unref (node);
+	}
+	
 	/* shortcut hash tables */
 	if (project->groups) g_hash_table_destroy (project->groups);
 	project->groups = NULL;
