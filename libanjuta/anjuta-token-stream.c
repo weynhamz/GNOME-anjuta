@@ -315,7 +315,7 @@ anjuta_token_stream_push (AnjutaTokenStream *parent, AnjutaToken *root, AnjutaTo
 	child->root = root == NULL ? anjuta_token_new_static (ANJUTA_TOKEN_FILE, NULL) : root;
 	if (filename == NULL)
 	{
-		child->current_directory = parent == NULL ? NULL : g_object_ref (parent->current_directory);
+		child->current_directory = parent == NULL ? NULL : (parent->current_directory == NULL ? NULL : g_object_ref (parent->current_directory));
 	}
 	else
 	{

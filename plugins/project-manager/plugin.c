@@ -427,7 +427,7 @@ on_properties (GtkAction *action, ProjectManagerPlugin *plugin)
 	GtkTreeIter selected;
 	gboolean found;
 
-	found = gbf_project_view_get_first_selected (plugin->view, &selected);
+	found = gbf_project_view_get_first_selected (plugin->view, &selected) != NULL;
 
 	anjuta_pm_project_show_properties_dialog (plugin, found ? &selected : NULL);
 }
@@ -538,7 +538,7 @@ on_popup_properties (GtkAction *action, ProjectManagerPlugin *plugin)
 
 	/* FIXME: Perhaps it would be better to open a dialog for each
 	 * selected node ? */
-	found = gbf_project_view_get_first_selected (plugin->view, &selected);
+	found = gbf_project_view_get_first_selected (plugin->view, &selected) != NULL;
 
 	anjuta_pm_project_show_properties_dialog (plugin, found ? &selected : NULL);
 }
@@ -1015,11 +1015,13 @@ update_ui (ProjectManagerPlugin *plugin)
 			main_caps |= 0x20;
 			popup_caps |= 0x10;
 		}
-		/* Keep properties and refresh if a project is opened */
-		main_caps |= 0x0C0;
-		/* Keep properties and remove if a project is opened */
-		popup_caps |= 0x0C0;
+		/* Keep remove if a project is opened */
+		popup_caps |= 0x080;
 	}
+	/* Keep properties and refresh if a project is opened */
+	main_caps |= 0x0C0;
+	/* Keep properties and remove if a project is opened */
+	popup_caps |= 0x040;
 
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
 
@@ -1346,7 +1348,7 @@ project_manager_load_gbf (ProjectManagerPlugin *pm_plugin)
 	gchar *basename;
 	const gchar *root_uri;
 	GError *error = NULL;
-	
+
 	root_uri = pm_plugin->project_root_uri;
 	
 	dirname = anjuta_util_get_local_path_from_uri (root_uri);
@@ -1361,6 +1363,8 @@ project_manager_load_gbf (ProjectManagerPlugin *pm_plugin)
 	anjuta_status_busy_push (status);
 	pm_plugin->busy = TRUE;
 
+	anjuta_pm_project_unload (pm_plugin->project, NULL);
+	
 	DEBUG_PRINT ("loading project %s\n\n", dirname);
 	anjuta_pm_project_load (pm_plugin->project, dirfile, &error);
 	update_ui (pm_plugin);
@@ -1447,26 +1451,18 @@ static void
 on_profile_scoped (AnjutaProfileManager *profile_manager,
 				   AnjutaProfile *profile, ProjectManagerPlugin *plugin)
 {
-	GValue *value;
 	gchar *session_dir;
 	DEBUG_PRINT ("Profile scoped: %s", anjuta_profile_get_name (profile));
 	if (strcmp (anjuta_profile_get_name (profile), PROJECT_PROFILE_NAME) != 0)
 		return;
 	
 	DEBUG_PRINT ("%s", "Project profile loaded; Restoring project session");
-	
+
 	/* Load gbf project */
 	project_manager_load_gbf (plugin);
 	
-	/* Export project */
-	value = g_new0 (GValue, 1);
-	g_value_init (value, G_TYPE_STRING);
-	g_value_set_string (value, plugin->project_root_uri);
 	
 	update_title (plugin, plugin->project_root_uri);
-	anjuta_shell_add_value (ANJUTA_PLUGIN(plugin)->shell,
-							IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
-							value, NULL);
 	
 	/* If profile scoped to "project", restore project session */
 	session_dir = get_session_dir (plugin);

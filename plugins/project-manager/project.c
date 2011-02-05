@@ -131,8 +131,6 @@ anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 	
 	g_return_val_if_fail (file != NULL, FALSE);
 
-	anjuta_pm_project_unload (project, NULL);
-	
 	DEBUG_PRINT ("loading gbf backend…\n");
 	plugin_manager = anjuta_shell_get_plugin_manager (project->plugin->shell, NULL);
 
@@ -209,11 +207,18 @@ anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 	
 	project->root = ianjuta_project_get_root (project->project, NULL);
 
+	/* Export project root shell variable */
 	g_value_init (&value, G_TYPE_OBJECT);
 	g_value_set_object (&value, project->project);
 	anjuta_shell_add_value (project->plugin->shell,
 	                        IANJUTA_PROJECT_MANAGER_CURRENT_PROJECT,
 	                        &value, NULL);
+	g_value_unset(&value);
+	g_value_init (&value, G_TYPE_STRING);
+	g_value_set_string (&value, ANJUTA_PLUGIN_PROJECT_MANAGER (project->plugin)->project_root_uri);
+	anjuta_shell_add_value (project->plugin->shell,
+							IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
+							&value, NULL);
 	g_value_unset(&value);
 	
 	ianjuta_project_load_node (project->project, project->root, NULL);

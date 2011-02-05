@@ -1458,7 +1458,7 @@ on_node_loaded (AnjutaPmProject *sender, AnjutaProjectNode *node, gboolean compl
 				path = gtk_tree_model_get_path (GTK_TREE_MODEL (view->model), &iter);
 				filter = GTK_TREE_MODEL_FILTER (gtk_tree_view_get_model (GTK_TREE_VIEW (view)));
 				child_path = gtk_tree_model_filter_convert_child_path_to_path (filter, path);
-				gtk_tree_view_expand_row (GTK_TREE_VIEW (view), child_path, FALSE);
+				if (child_path != NULL) gtk_tree_view_expand_row (GTK_TREE_VIEW (view), child_path, FALSE);
 				gtk_tree_path_free (child_path);
 				gtk_tree_path_free (path);
 			}
