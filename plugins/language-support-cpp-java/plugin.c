@@ -553,7 +553,8 @@ install_support (CppJavaPlugin *lang_plugin)
 	init_file_type (lang_plugin);
 
 	
-	if (!g_str_equal (lang_plugin->current_language, "Vala"))
+	if (g_str_equal (lang_plugin->current_language, "C" ) ||
+	    g_str_equal (lang_plugin->current_language, "C++"))
 	{
 		CppJavaAssist *assist;
 
@@ -576,10 +577,10 @@ install_support (CppJavaPlugin *lang_plugin)
 			                  "drop", G_CALLBACK (on_glade_drop),
 			                  lang_plugin);
 		}
-	}	
 
-	lang_plugin->packages = cpp_packages_new (ANJUTA_PLUGIN (lang_plugin));
-	cpp_packages_load (lang_plugin->packages);
+		lang_plugin->packages = cpp_packages_new (ANJUTA_PLUGIN (lang_plugin));
+		cpp_packages_load(lang_plugin->packages);
+	}
 	
 	lang_plugin->support_installed = TRUE;
 }
@@ -617,9 +618,11 @@ uninstall_support (CppJavaPlugin *lang_plugin)
 	                                      on_glade_drop_possible, lang_plugin);
 	g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
 	                                      on_glade_drop, lang_plugin);
-
-	g_object_unref (lang_plugin->packages);
-	lang_plugin->packages = NULL;
+	if (lang_plugin->packages)
+	{
+		g_object_unref (lang_plugin->packages);
+		lang_plugin->packages = NULL;
+	}
 	lang_plugin->support_installed = FALSE;
 }
 
