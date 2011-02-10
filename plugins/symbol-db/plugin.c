@@ -774,7 +774,7 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 
 /**
  * Perform the real add to the db and also checks that no dups are inserted.
- * Return the real number of files added.
+ * Return the real number of files added or -1 on error.
  */
 static gint
 do_add_new_files (SymbolDBPlugin *sdb_plugin, const GPtrArray *sources_array, 
@@ -787,6 +787,7 @@ do_add_new_files (SymbolDBPlugin *sdb_plugin, const GPtrArray *sources_array,
 	AnjutaPlugin *plugin;
 	gint added_num;
 	gint i;
+	gint proc_id;
 	
 	plugin = ANJUTA_PLUGIN (sdb_plugin);
 
@@ -884,12 +885,16 @@ do_add_new_files (SymbolDBPlugin *sdb_plugin, const GPtrArray *sources_array,
 	/* last but not least check if we had some files in that GPtrArray. It that's not
 	 * the case just pass over
 	 */
+	proc_id = 0;
 	if (to_scan_array->len > 0)
 	{		
-		gint proc_id = 	symbol_db_engine_add_new_files_full_async (sdb_plugin->sdbe_project, 
+		proc_id = 	symbol_db_engine_add_new_files_full_async (sdb_plugin->sdbe_project, 
 					sdb_plugin->project_opened, "1.0", to_scan_array, languages_array, 
 														   TRUE);
-		
+	}
+
+	if (proc_id > 0)
+	{
 		/* insert the proc id associated within the task */
 		g_tree_insert (sdb_plugin->proc_id_tree, GINT_TO_POINTER (proc_id),
 					   GINT_TO_POINTER (task));
@@ -903,7 +908,7 @@ do_add_new_files (SymbolDBPlugin *sdb_plugin, const GPtrArray *sources_array,
 	
 	g_hash_table_destroy (check_unique_file_hash);
 	
-	return added_num;
+	return proc_id > 0 ? added_num : -1;
 }
 
 static void
@@ -2492,7 +2497,7 @@ isymbol_manager_add_package (IAnjutaSymbolManager *isymbol_manager,
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (isymbol_manager);
 	lang_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (sdb_plugin)->shell, IAnjutaLanguage, 
 										NULL);	
-	
+
 	if (symbol_db_engine_add_new_project (sdb_plugin->sdbe_globals, NULL, pkg_name, 
 	    pkg_version) == FALSE)
 	{
@@ -2518,6 +2523,7 @@ isymbol_manager_add_package (IAnjutaSymbolManager *isymbol_manager,
 	return TRUE;
 }
 
+/* FIXME: do this thread safe */
 static gboolean
 isymbol_manager_activate_package (IAnjutaSymbolManager *isymbol_manager,
     							  const gchar *pkg_name, 
