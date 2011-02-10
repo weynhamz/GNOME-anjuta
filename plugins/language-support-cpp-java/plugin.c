@@ -24,6 +24,7 @@
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-pkg-config-chooser.h>
+#include <libanjuta/anjuta-pkg-config.h>
 #include <libanjuta/interfaces/ianjuta-iterable.h>
 #include <libanjuta/interfaces/ianjuta-document.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
@@ -56,14 +57,12 @@
 #define PREFS_BUILDER PACKAGE_DATA_DIR"/glade/anjuta-language-cpp-java.ui"
 #define ICON_FILE "anjuta-language-cpp-java-plugin.png"
 
-#define FIXME_DEFAULT_PACKAGE_VERSION		"1.0"
-
 /* Preferences keys */
 
 #define PREF_SCHEMA "org.gnome.anjuta.cpp"
 #define PREF_INDENT_AUTOMATIC "cpp-indent-automatic"
 #define PREF_INDENT_MODELINE "cpp-indent-modeline"
-#define PREF_PROJECT_PACKAGES "cpp-load-project-packages"
+#define PREF_USER_PACKAGES "cpp-user-packages"
 
 static gpointer parent_class;
 
@@ -1145,24 +1144,39 @@ on_project_packages_toggled (GtkToggleButton* button,
 }
 
 static void
+cpp_java_plugin_update_user_packages (CppJavaPlugin* plugin,
+                                      AnjutaPkgConfigChooser* chooser)
+{
+	GList* pkg;
+	GList* packages = anjuta_pkg_config_chooser_get_active_packages (chooser);
+	GString* pkg_string = g_string_new (NULL);
+
+	for (pkg = packages; pkg != NULL; pkg = g_list_next (pkg))
+	{
+		if (strlen (pkg_string->str))
+		{
+				pkg_string = g_string_append_c (pkg_string, ';');
+		}
+		pkg_string = g_string_append (pkg_string, pkg->data);
+	}
+	g_message ("Packages: %s", pkg_string->str);
+	g_settings_set_string (plugin->settings, PREF_USER_PACKAGES,
+	                       pkg_string->str);
+	g_string_free (pkg_string, TRUE);
+}
+
+static void
 on_package_activated (AnjutaPkgConfigChooser *self, const gchar* package,
     				  gpointer data)
 {
 	CppJavaPlugin* plugin;
-	IAnjutaSymbolManager *isymbol_manager;
 
 	plugin = ANJUTA_PLUGIN_CPP_JAVA (data);
 
-	DEBUG_PRINT ("activated %s", package);
-	isymbol_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
-												IAnjutaSymbolManager,
-												NULL);
+	g_message ("Activate package");
 	
-	ianjuta_symbol_manager_activate_package (isymbol_manager, 
-	    									 package, 
-    							  			 FIXME_DEFAULT_PACKAGE_VERSION,
-    							  			 NULL);
-	
+	cpp_java_plugin_update_user_packages (plugin, self);
+	cpp_packages_load (plugin->packages);
 }
 
 static void
@@ -1171,7 +1185,8 @@ on_package_deactivated (AnjutaPkgConfigChooser *self, const gchar* package,
 {
 	CppJavaPlugin* plugin;
 	IAnjutaSymbolManager *isymbol_manager;
-
+	gchar* version;
+	
 	plugin = ANJUTA_PLUGIN_CPP_JAVA (data);
 
 	DEBUG_PRINT ("deactivated %s", package);
@@ -1179,12 +1194,18 @@ on_package_deactivated (AnjutaPkgConfigChooser *self, const gchar* package,
 	isymbol_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 												IAnjutaSymbolManager,
 												NULL);
-	ianjuta_symbol_manager_deactivate_package (isymbol_manager, 
-	    									 package, 
-    							  			 FIXME_DEFAULT_PACKAGE_VERSION,
-    							  			 NULL);
-}
+	version = anjuta_pkg_config_get_version (package);
+	if (version)
+	{
+		ianjuta_symbol_manager_deactivate_package (isymbol_manager, 
+		                                           package, 
+		                                           version,
+		                                           NULL);
+	}
+	g_free (version);
 
+	cpp_java_plugin_update_user_packages (plugin, self);
+}
 static void
 ipreferences_merge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
 					GError** e)

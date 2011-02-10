@@ -18,12 +18,17 @@
  */
 
 #include "cpp-packages.h"
+#include "plugin.h"
 
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-symbol-manager.h>
 #include <libanjuta/anjuta-pkg-config.h>
 #include <libanjuta/anjuta-pkg-scanner.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-preferences.h>
+
+#define PREF_PROJECT_PACKAGES "cpp-load-project-packages"
+#define PREF_USER_PACKAGES "cpp-user-packages"
 
 enum
 {
@@ -138,6 +143,8 @@ cpp_packages_load_real (CppPackages* packages, GError* error, IAnjutaProjectMana
 	
 	if (!pm || !sm)
 		return;
+
+	ianjuta_symbol_manager_deactivate_all (sm, NULL);
 	
 	pkgs = ianjuta_project_manager_get_packages (pm, NULL);
 	for (pkg = pkgs; pkg != NULL; pkg = g_list_next (pkg))
@@ -161,26 +168,71 @@ cpp_packages_load_real (CppPackages* packages, GError* error, IAnjutaProjectMana
 	anjuta_command_queue_start (packages->queue);
 }
 
+static void
+cpp_packages_load_user (CppPackages* packages)
+{
+	CppJavaPlugin* plugin = (CppJavaPlugin*) packages->plugin;
+	IAnjutaSymbolManager* sm =
+		anjuta_shell_get_interface (packages->plugin->shell, IAnjutaSymbolManager, NULL);
+	gchar* packages_str = g_settings_get_string (plugin->settings,
+	                                             PREF_USER_PACKAGES);
+	GStrv pkgs = g_strsplit (packages_str, ";", -1);
+	gchar** package;
+	GList* packages_to_add = NULL;
+	GList* pkg;
+	
+	ianjuta_symbol_manager_deactivate_all (sm, NULL);
+
+	for (package = pkgs; *package != NULL; package++)
+	{
+		g_message ("Activating: %s", *package);
+		cpp_packages_activate_package (sm, *package, &packages_to_add);
+	}
+	g_strfreev (pkgs);
+	g_free (packages_str);
+
+	for (pkg = packages_to_add; pkg != NULL; pkg = g_list_next (pkg))
+	{
+		PackageData* pkg_data = pkg->data;
+		AnjutaCommand* command =
+			anjuta_pkg_scanner_new (pkg_data->pkg, pkg_data->version);
+		g_signal_connect (command, "command-finished",
+		                  G_CALLBACK (on_package_ready), sm);
+		anjuta_command_queue_push (packages->queue, command);
+	}
+	g_list_foreach (packages_to_add, (GFunc) pkg_data_free, NULL);
+	g_list_free (packages_to_add);
+}
+
 void 
 cpp_packages_load (CppPackages* packages)
 {
+	CppJavaPlugin* plugin = (CppJavaPlugin*) packages->plugin;
 	IAnjutaProjectManager* pm =
 		anjuta_shell_get_interface (packages->plugin->shell, IAnjutaProjectManager, NULL);
 	IAnjutaProject* project;
-	
-	g_signal_connect_swapped (pm, "project-loaded", G_CALLBACK (cpp_packages_load_real), packages);
 
-	project = ianjuta_project_manager_get_current_project (pm, NULL);
-	/* Only load the packages if necessary */
-	if (project && ianjuta_project_is_loaded (project, NULL))
+	if (g_settings_get_boolean (plugin->settings,
+	                            PREF_PROJECT_PACKAGES))
 	{
-		gboolean loaded = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (project), "__cpp_packages_loaded"));
-		if (!loaded)
+		g_signal_connect_swapped (pm, "project-loaded", G_CALLBACK (cpp_packages_load_real), packages);
+
+		project = ianjuta_project_manager_get_current_project (pm, NULL);
+		/* Only load the packages if necessary */
+		if (project && ianjuta_project_is_loaded (project, NULL))
 		{
-			cpp_packages_load_real (packages, NULL, pm);
-			g_object_set_data (G_OBJECT (project), "__cpp_packages_loaded", GINT_TO_POINTER (TRUE));
+			gboolean loaded = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (project), "__cpp_packages_loaded"));
+			if (!loaded)
+			{
+				cpp_packages_load_real (packages, NULL, pm);
+				g_object_set_data (G_OBJECT (project), "__cpp_packages_loaded", GINT_TO_POINTER (TRUE));
+			}
 		}
-	}		
+	}
+	else
+	{
+		cpp_packages_load_user (packages);
+	}
 }
 
 static void
