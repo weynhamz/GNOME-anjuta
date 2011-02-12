@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2011-01-30 17:10+0000\n"
-"PO-Revision-Date: 2011-01-31 19:31+0100\n"
+"POT-Creation-Date: 2011-01-31 18:30+0000\n"
+"PO-Revision-Date: 2011-02-01 12:30+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -898,8 +898,8 @@ msgstr "Especifique el nombre del objetivo"
 msgid ""
 "Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
 msgstr ""
-"El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», "
-"«-», «/» o «.»"
+"El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», «-», "
+"«/» o «.»"
 
 #: ../plugins/am-project/amp-target.c:275
 msgid "Shared library target name must be of the form 'libxxx.la'"
@@ -910,8 +910,8 @@ msgstr ""
 #: ../plugins/am-project/amp-target.c:284
 msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr ""
-"El nombre de la biblioteca estática del objetivo debe ser de la forma "
-"«libxxx.a»"
+"El nombre de la biblioteca estática del objetivo debe ser de la forma «libxxx."
+"a»"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:1
 #: ../plugins/run-program/anjuta-run-program.ui.h:1
@@ -5002,12 +5002,10 @@ msgid "<b>Commit to revert:</b>"
 msgstr "<b>Commit que revertir:</b>"
 
 #: ../plugins/git/anjuta-git.ui.h:7
-#| msgid "Folder to create patches in:"
 msgid "<b>Folder to create patches in:</b>"
 msgstr "<b>Carpeta donde crear los parches:</b>"
 
 #: ../plugins/git/anjuta-git.ui.h:8
-#| msgid "Generate patches relative to:"
 msgid "<b>Generate patches relative to:</b>"
 msgstr "<b>Generar parches relativos a:</b>"
 
@@ -5034,7 +5032,6 @@ msgid "<b>Options</b>"
 msgstr "<b>Opciones</b>"
 
 #: ../plugins/git/anjuta-git.ui.h:14
-#| msgid "<b>Repository: </b>"
 msgid "<b>Remote Repositories:</b>"
 msgstr "<b>Repositorios remotos:</b>"
 
@@ -5051,7 +5048,6 @@ msgid "<b>Repository Status:</b>"
 msgstr "<b>Estado del repositorio:</b>"
 
 #: ../plugins/git/anjuta-git.ui.h:18
-#| msgid "Repository to pull from:"
 msgid "<b>Repository to pull from:</b>"
 msgstr "<b>Repositorio desde el que actualizar:</b>"
 
@@ -5273,12 +5269,10 @@ msgid "Please enter a remote name."
 msgstr "Introduzca un nombre de etiqueta."
 
 #: ../plugins/git/git-add-remote-pane.c:55
-#| msgid "Please enter a URL."
 msgid "Please enter a URL"
 msgstr "Introduzca un URL"
 
 #: ../plugins/git/git-add-remote-pane.c:179
-#| msgid "Remote"
 msgid "Add Remote"
 msgstr "Añadir remota"
 
@@ -5318,7 +5312,6 @@ msgid "Please enter the commit author's e-mail address."
 msgstr "Introduzca el correo-e del autor del cambio."
 
 #: ../plugins/git/git-commit-pane.c:304 ../plugins/git/plugin.c:146
-#| msgid "_Commit"
 msgid "Commit"
 msgstr "Efectuar"
 
@@ -5333,22 +5326,18 @@ msgid "Cherry Pick"
 msgstr "Cherry Pick"
 
 #: ../plugins/git/git-diff-pane.c:103
-#| msgid "No group selected"
 msgid "No revision selected"
 msgstr "No se seleccionó ninguna revisión"
 
 #: ../plugins/git/git-reset-pane.c:167
-#| msgid "_Reset"
 msgid "Reset"
 msgstr "Restablecer"
 
 #: ../plugins/git/git-revert-pane.c:48
-#| msgid "Please enter a path."
 msgid "Please enter a commit."
 msgstr "Introduzca un commit."
 
 #: ../plugins/git/git-revert-pane.c:162
-#| msgid "_Revert…"
 msgid "Revert"
 msgstr "Revertir"
 
@@ -5371,7 +5360,6 @@ msgid "No remote selected."
 msgstr "No se ha seleccionado ningún grupo"
 
 #: ../plugins/git/git-delete-tags-pane.c:49
-#| msgid "No group selected"
 msgid "No tags selected."
 msgstr "No se seleccionó ninguna etiqueta"
 
@@ -5406,7 +5394,6 @@ msgid "Git"
 msgstr "Git"
 
 #: ../plugins/git/git-pane.c:204
-#| msgid "Error"
 msgid "Git Error"
 msgstr "Error de git"
 
@@ -5417,10 +5404,9 @@ msgid "Git Warning"
 msgstr "Advertencia"
 
 #: ../plugins/git/git-patch-series-pane.c:167
-#, fuzzy
 #| msgid "Create patch series"
 msgid "Generate Patch Series"
-msgstr "Crear serie de parches"
+msgstr "Generar series de parches"
 
 #: ../plugins/git/git-pull-pane.c:66 ../plugins/git/git-push-pane.c:94
 msgid "Please enter a URL."
@@ -5441,7 +5427,6 @@ msgid "No remote selected"
 msgstr "No se ha seleccionado ningún grupo"
 
 #: ../plugins/git/git-remove-files-pane.c:157
-#| msgid "Remove File"
 msgid "Remove Files"
 msgstr "Quitar archivos"
 
@@ -5454,7 +5439,6 @@ msgid "URL"
 msgstr "URL"
 
 #: ../plugins/git/git-repository-selector.c:100
-#| msgid "<b>Remote:</b> %s"
 msgid "<b>Selected Remote:</b>"
 msgstr "<b>Remota seleccionada:</b>"
 
@@ -5489,10 +5473,9 @@ msgid "No staged files selected."
 msgstr "No se ha seleccionado ningún objetivo"
 
 #: ../plugins/git/plugin.c:65
-#, fuzzy
 #| msgid "Branches"
 msgid "Branch tools"
-msgstr "Ramas"
+msgstr "Herramientas de ramas"
 
 #: ../plugins/git/plugin.c:73 ../plugins/git/plugin.c:74
 msgid "Create a branch"
@@ -5505,10 +5488,9 @@ msgid "Delete selected branches"
 msgstr "Git: Ramas seleccionadas borradas."
 
 #: ../plugins/git/plugin.c:89 ../plugins/git/plugin.c:90
-#, fuzzy
 #| msgid "Switch to another branch"
 msgid "Switch to the selected branch"
-msgstr "Cambiar a otra rama"
+msgstr "Cambiar a la rama seleccionada"
 
 #: ../plugins/git/plugin.c:98
 #, fuzzy
@@ -5517,28 +5499,24 @@ msgid "Merge a revision into the current branch"
 msgstr "Mezclar este «commit» en la rama actual"
 
 #: ../plugins/git/plugin.c:109
-#, fuzzy
 #| msgid "Tools"
 msgid "Tag tools"
-msgstr "Herramientas"
+msgstr "Herramientas de etiqueta"
 
 #: ../plugins/git/plugin.c:117 ../plugins/git/plugin.c:118
 msgid "Create a tag"
 msgstr "Crear una etiqueta"
 
 #: ../plugins/git/plugin.c:125 ../plugins/git/plugin.c:126
-#, fuzzy
 #| msgid "Git: Deleted selected tags."
 msgid "Delete selected tags"
-msgstr "Git: Etiquetas seleccionadas borradas."
+msgstr "Eliminar las etiquetas seleccionadas"
 
 #: ../plugins/git/plugin.c:138
-#| msgid "Changes:"
 msgid "Changes"
 msgstr "Cambios"
 
 #: ../plugins/git/plugin.c:147
-#| msgid "Commit Changes"
 msgid "Commit changes"
 msgstr "Efectuar cambios"
 
@@ -5560,32 +5538,28 @@ msgid "Add"
 msgstr "Añadir"
 
 #: ../plugins/git/plugin.c:171
-#, fuzzy
 #| msgid "Add files to the repository"
 msgid "Add files to the index"
-msgstr "Añadir archivos al repositorio"
+msgstr "Añadir archivos al índice"
 
 #: ../plugins/git/plugin.c:179
 msgid "Remove files from the repository"
 msgstr "Quitar archivos del repositorio"
 
 #: ../plugins/git/plugin.c:186
-#, fuzzy
 #| msgid "Check Out Files"
 msgid "Check out"
-msgstr "Descargar (checkout) archivos"
+msgstr "Descargar"
 
 #: ../plugins/git/plugin.c:187
-#, fuzzy
 #| msgid "Revert uncommitted changes to files"
 msgid "Revert changes in unstaged files"
-msgstr "Revertir los cambios sin subir en los archivos"
+msgstr "Revertir los cambios en los archivos no reservados"
 
 #: ../plugins/git/plugin.c:194
-#, fuzzy
 #| msgid "Unstage Files"
 msgid "Unstage"
-msgstr "Realizar «unstage» de archivos"
+msgstr "Quitar la reserva"
 
 #: ../plugins/git/plugin.c:195
 #, fuzzy
@@ -5594,7 +5568,6 @@ msgid "Remove staged files from the index"
 msgstr "Quitar archivos del índice del commit"
 
 #: ../plugins/git/plugin.c:202
-#| msgid "_Resolve conflicts…"
 msgid "Resolve conflicts"
 msgstr "Resolver conflictos"
 
@@ -5611,10 +5584,9 @@ msgid "Remote repository tools"
 msgstr "Repositorio _remoto"
 
 #: ../plugins/git/plugin.c:222
-#, fuzzy
 #| msgid "Add a remote branch"
 msgid "Add a remote"
-msgstr "Añadir una rama remota"
+msgstr "Añadir una remota"
 
 #: ../plugins/git/plugin.c:223
 #, fuzzy
@@ -5623,13 +5595,11 @@ msgid "Add a remote repository"
 msgstr "Añadir al repositorio"
 
 #: ../plugins/git/plugin.c:230
-#, fuzzy
 #| msgid "Git: Deleted selected tags."
 msgid "Delete selected remote"
-msgstr "Git: Etiquetas seleccionadas borradas."
+msgstr "Eliminar la remota seleccionada"
 
 #: ../plugins/git/plugin.c:231
-#| msgid "Delete a remote branch"
 msgid "Delete a remote"
 msgstr "Eliminar una remota"
 
@@ -5644,7 +5614,6 @@ msgid "Pull changes from a remote repository"
 msgstr "Empujar los cambios contra un repositorio remoto"
 
 #: ../plugins/git/plugin.c:254
-#| msgid "_Fetch"
 msgid "Fetch"
 msgstr "Obtener"
 
@@ -5673,22 +5642,19 @@ msgid "Continue a rebase with resolved conflicts"
 msgstr "_Continuar con los conflictos resueltos…"
 
 #: ../plugins/git/plugin.c:286 ../plugins/git/plugin.c:454
-#, fuzzy
 #| msgid "_Skip"
 msgid "Skip"
-msgstr "_Saltar"
+msgstr "Omitir"
 
 #: ../plugins/git/plugin.c:287
-#, fuzzy
 #| msgid "Mark the current head revision as bad"
 msgid "Skip the current revision"
-msgstr "Marcar la revisión de la cabecera actual como mala"
+msgstr "Omitir la revisión actual"
 
 #: ../plugins/git/plugin.c:294 ../plugins/git/plugin.c:462
-#, fuzzy
 #| msgid "_Abort"
 msgid "Abort"
-msgstr "_Abortar"
+msgstr "Abortar"
 
 #: ../plugins/git/plugin.c:295
 #, fuzzy
@@ -5773,10 +5739,9 @@ msgid "Delete all stashes in this repository"
 msgstr "Selecciona todo el texto en el editor"
 
 #: ../plugins/git/plugin.c:366
-#, fuzzy
 #| msgid "Revision: "
 msgid "Revision tools"
-msgstr "Revisión: "
+msgstr "Herramientas de revisión"
 
 #: ../plugins/git/plugin.c:374
 #, fuzzy
@@ -6214,8 +6179,8 @@ msgid ""
 "A file named \"%s\" cannot be written: %s. Check if you have write access to "
 "the project directory."
 msgstr ""
-"No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene "
-"acceso de escritura al directorio del proyecto."
+"No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene acceso "
+"de escritura al directorio del proyecto."
 
 #: ../plugins/project-import/plugin.c:200
 #, c-format
@@ -6232,9 +6197,9 @@ msgid ""
 "Could not find a valid project backend for the given directory (%s). Please "
 "select a different directory, or try upgrading to a newer version of Anjuta."
 msgstr ""
-"No se pudo encontrar un «backend» válido del proyecto para el directorio "
-"dado (%s). Seleccione un directorio diferente, o intente actualizar a una "
-"versión más moderna de Anjuta."
+"No se pudo encontrar un «backend» válido del proyecto para el directorio dado "
+"(%s). Seleccione un directorio diferente, o intente actualizar a una versión "
+"más moderna de Anjuta."
 
 #: ../plugins/project-import/plugin.c:290
 #: ../plugins/project-import/plugin.c:346
@@ -6838,9 +6803,9 @@ msgid ""
 "$:%%+,.=@^_`~\" or directory separators. In addition you cannot have a "
 "leading dash. Please fix it."
 msgstr ""
-"El campo «%s» debe contener sólo letras, dígitos, los siguientes caracteres "
-"«#$:%%+,.=@^_`~» o separadores de directorio. Además, no puede tener un "
-"guión precedente. Arréglelo."
+"El campo «%s» debe contener sólo letras, dígitos, los siguientes caracteres «#"
+"$:%%+,.=@^_`~» o separadores de directorio. Además, no puede tener un guión "
+"precedente. Arréglelo."
 
 #: ../plugins/project-wizard/druid.c:656
 #, c-format
@@ -7462,8 +7427,8 @@ msgid ""
 "'libgnomeui-2.0 >= 2.2.0'"
 msgstr ""
 "Proporcione un nombre de paquete que requiere su proyecto. También puede "
-"mencionar cuál es la versión requerida del paquete. Por ejemplo, "
-"«libgnomeui-2.0» o «libgnomeui-2.0 >= 2.2.0»"
+"mencionar cuál es la versión requerida del paquete. Por ejemplo, «libgnomeui-"
+"2.0» o «libgnomeui-2.0 >= 2.2.0»"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:25
 msgid "Require Package:"
@@ -8132,8 +8097,8 @@ msgstr "Reemplazar todo"
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
 msgstr ""
-"No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde "
-"el principio del documento?"
+"No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde el "
+"principio del documento?"
 
 #: ../plugins/search/search-replace.c:1096
 #, c-format
