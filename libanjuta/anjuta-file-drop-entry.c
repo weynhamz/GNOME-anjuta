@@ -203,7 +203,7 @@ anjuta_file_drop_entry_class_init (AnjutaFileDropEntryClass *klass)
 	                                 PROP_RELATIVE_PATH,
 	                                 g_param_spec_string ("relative-path",
 	                                                      "relative-path",
-	                                                      _("Path that droppedfiles should be relative to"),
+	                                                      _("Path that dropped files should be relative to"),
 	                                                      "",
 	                                                      0));
 }
