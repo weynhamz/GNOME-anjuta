@@ -34,7 +34,7 @@ plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libpython_plugin.la
 
 # Plugin sources
-libpython_plugin_la_SOURCES = plugin.c plugin.h python-assist.c python-assist.h python-utils.c python-utils.h
+libpython_plugin_la_SOURCES = plugin.c plugin.h python-assist.c python-assist.h python-utils.c python-utils.h python-indentation.c python-indentation.h
 
 libpython_plugin_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
