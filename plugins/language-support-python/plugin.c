@@ -486,9 +486,8 @@ ipreferences_merge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
 {
 	/* Add preferences */
 	PythonPlugin* plugin = ANJUTA_PLUGIN_PYTHON (ipref);
-	gchar *objects[] = {"python_preferences_dialog", NULL};
-	plugin->bxml = gtk_builder_new();
-	gtk_builder_add_objects_from_file(plugin->bxml, PROPERTIES_FILE_UI, objects, NULL);
+	plugin->bxml = gtk_builder_new ();
+	gtk_builder_add_from_file (plugin->bxml, PROPERTIES_FILE_UI, NULL);
 	anjuta_preferences_add_from_builder (prefs,
 	                                     plugin->bxml,
 	                                     plugin->settings,
