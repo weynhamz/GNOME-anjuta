@@ -121,7 +121,7 @@ anjuta_token_stream_tokenize (AnjutaTokenStream *stream, gint type, gsize length
     AnjutaToken *frag;
     AnjutaToken *end;
 
-    frag = anjuta_token_new_fragment (type, NULL, 0);
+    frag = anjuta_token_new_static (type, NULL);
 
     for (end = stream->start; end != NULL;)
     {
