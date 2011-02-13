@@ -6,7 +6,7 @@ m4_version_prereq([2.58])
 # Run AT_CHECK on projectparser, ignoring stdout and stderr and putting the
 # result in a file named output
 m4_define([AT_PARSER_CHECK],
-[AT_CHECK([$abs_builddir/../projectparser -o output] m4_quote($1),
+[AT_CHECK([$abs_builddir/../projectparser --no-id -o output] m4_quote($1),
 		 0,
 		 ignore,
 		 ignore)])

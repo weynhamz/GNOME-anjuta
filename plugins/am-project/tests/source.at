@@ -11,10 +11,10 @@ bin_PROGRAMS = target1
 
 
 AT_DATA([expect],
-[[    GROUP (0): empty1
-        TARGET (0:0): target1
+[[    GROUP (): empty1
+        TARGET (): target1
           PROPERTY (Installation directory): bindir
-          SOURCE (0:0:0): source1
+          SOURCE (): source1
 ]])
 AT_DATA([reference],
 [[
@@ -36,11 +36,11 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (0): empty2
-        TARGET (0:0): target1
+[[    GROUP (): empty2
+        TARGET (): target1
           PROPERTY (Installation directory): bindir
-          SOURCE (0:0:0): source1
-          SOURCE (0:0:1): source2
+          SOURCE (): source1
+          SOURCE (): source2
 ]])
 AT_DATA([reference],
 [[
@@ -63,10 +63,10 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (0): empty3
-        TARGET (0:0): target1
+[[    GROUP (): empty3
+        TARGET (): target1
           PROPERTY (Installation directory): bindir
-          SOURCE (0:0:0): source2
+          SOURCE (): source2
 ]])
 AT_DATA([reference],
 [[
@@ -89,8 +89,8 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (0): empty4
-        TARGET (0:0): target1
+[[    GROUP (): empty4
+        TARGET (): target1
           PROPERTY (Installation directory): bindir
 ]])
 AT_DATA([reference],
@@ -110,10 +110,10 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (0): empty5
-        TARGET (0:0): target1
+[[    GROUP (): empty5
+        TARGET (): target1
           PROPERTY (Installation directory): bindir
-          SOURCE (0:0:0): source1
+          SOURCE (): source1
 ]])
 AT_DATA([reference],
 [[
