@@ -36,7 +36,7 @@ on_ok_button_clicked (GtkButton *button, GitMergePane *self)
 	GtkToggleButton *use_custom_log_check;
 	gchar *revision;
 	gchar *log;
-	GtkTextView *log_view;
+	AnjutaColumnTextView *log_view;
 	GitMergeCommand *merge_command;
 
 	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
@@ -61,9 +61,9 @@ on_ok_button_clicked (GtkButton *button, GitMergePane *self)
 
 	if (gtk_toggle_button_get_active (use_custom_log_check))
 	{
-		log_view = GTK_TEXT_VIEW (gtk_builder_get_object (self->priv->builder,
-		                                                  "log_view"));
-		log = git_pane_get_log_from_text_view (log_view);
+		log_view = ANJUTA_COLUMN_TEXT_VIEW (gtk_builder_get_object (self->priv->builder,
+		                                                            "log_view"));
+		log = anjuta_column_text_view_get_text (log_view);
 
 		if (!git_pane_check_input (GTK_WIDGET (ANJUTA_PLUGIN (plugin)->shell),
 		                           GTK_WIDGET (log_view), log,
@@ -125,9 +125,6 @@ git_merge_pane_init (GitMergePane *self)
 	GtkWidget *ok_button;
 	GtkWidget *cancel_button;
 	GtkWidget *use_custom_log_check;
-	GtkTextView *log_text_view;
-	GtkTextBuffer *log_buffer;
-	GtkWidget *column_label;
 
 	self->priv = g_new0 (GitMergePanePriv, 1);
 	self->priv->builder = gtk_builder_new ();
@@ -146,11 +143,6 @@ git_merge_pane_init (GitMergePane *self)
 	                                                    "cancel_button"));
 	use_custom_log_check = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
 	                                                           "use_custom_log_check"));
-	log_text_view = GTK_TEXT_VIEW (gtk_builder_get_object (self->priv->builder,
-	                                                       "log_text_view"));
-	log_buffer = gtk_text_view_get_buffer (log_text_view);
-	column_label = GTK_WIDGET (gtk_builder_get_object (self->priv->builder, 
-	                                                   "column_label"));
 
 	g_signal_connect (G_OBJECT (ok_button), "clicked",
 	                  G_CALLBACK (on_ok_button_clicked),
@@ -163,10 +155,6 @@ git_merge_pane_init (GitMergePane *self)
 	g_signal_connect (G_OBJECT (use_custom_log_check), "toggled",
 	                  G_CALLBACK (on_use_custom_log_check_toggled),
 	                  self);
-
-	g_signal_connect (G_OBJECT (log_buffer), "mark-set",
-	                  G_CALLBACK (git_pane_set_log_view_column_label),
-	                  column_label);
 }
 
 static void
