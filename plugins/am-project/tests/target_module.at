@@ -45,8 +45,8 @@ AT_DATA([expect],
             PROPERTY (Libraries): $(MODULE1_LIBS)
             MODULE (): MODULE1
         TARGET (): program
-            PROPERTY (Do not install): true
             PROPERTY (Libraries): $(MODULE1_LIBS)
+            PROPERTY (Do not install): true
             MODULE (): MODULE1
 ]])
 AT_PARSER_CHECK([load simple1 \
@@ -68,8 +68,8 @@ AT_DATA([expect],
         TARGET (): library.la
             PROPERTY (Installation directory): libdir
         TARGET (): program
-            PROPERTY (Do not install): true
             PROPERTY (Libraries): $(MODULE1_LIBS)
+            PROPERTY (Do not install): true
             MODULE (): MODULE1
 ]])
 AT_PARSER_CHECK([load simple2 \

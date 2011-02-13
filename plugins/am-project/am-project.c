@@ -895,7 +895,7 @@ project_load_target (AmpProject *project, AnjutaToken *name, AnjutaTokenType tok
 					AnjutaProjectProperty *prop;
 					
 					prop = (AnjutaProjectProperty *)anjuta_project_node_remove_property (ANJUTA_PROJECT_NODE (orphan), (AnjutaProjectProperty *)properties->data);
-					
+
 					amp_node_property_add (ANJUTA_PROJECT_NODE (target), prop);
 				}
 

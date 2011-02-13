@@ -104,4 +104,135 @@ AT_CHECK([diff output expect])
 
 
 
+AT_DATA([expect],
+[[    GROUP (0): empty5
+        TARGET (0:0): target1
+            PROPERTY (Installation directory): bindir
+            PROPERTY (Libraries): $(GDL_LIBS)
+        TARGET (0:1): target2
+            PROPERTY (Installation directory): bindir
+]])
+AT_DATA([reference.am],
+[[
+bin_PROGRAMS = target1 \
+	target2
+
+target1_LDADD = $(GDL_LIBS)
+]])
+AT_PARSER_CHECK([load empty4 \
+		move empty5 \
+		set 0:0 lib '$(GDL_LIBS)' \
+		add target 0 target2 prog \
+		list \
+		save])
+AT_CHECK([diff -b empty5/Makefile.am reference.am])
+AT_PARSER_CHECK([load empty5 \
+		 list])
+AT_CHECK([diff output expect])
+
+
+
+AT_DATA([expect],
+[[    GROUP (0): empty6
+        TARGET (0:0): target1
+            PROPERTY (Installation directory): bindir
+            PROPERTY (Libraries): $(GDL_LIBS)
+        TARGET (0:1): target2
+            PROPERTY (Installation directory): bindir
+            SOURCE (0:1:0): source1
+]])
+AT_DATA([reference.am],
+[[
+bin_PROGRAMS = target1 \
+	target2
+
+target1_LDADD = $(GDL_LIBS)
+
+target2_SOURCES =  \
+	source1
+]])
+AT_PARSER_CHECK([load empty5 \
+		move empty6 \
+		add source 0:1 source1 \
+		list \
+		save])
+AT_CHECK([diff -b empty6/Makefile.am reference.am])
+AT_PARSER_CHECK([load empty6 \
+		 list])
+AT_CHECK([diff output expect])
+
+
+
+AT_DATA([expect],
+[[    GROUP (0): empty7
+        TARGET (0:0): target1
+            PROPERTY (Installation directory): bindir
+            PROPERTY (Libraries): $(GDL_LIBS)
+        TARGET (0:1): target2
+            PROPERTY (Installation directory): bindir
+            PROPERTY (Libraries): $(GDL_LIBS)
+            SOURCE (0:1:0): source1
+]])
+AT_DATA([reference.am],
+[[
+bin_PROGRAMS = target1 \
+	target2
+
+target1_LDADD = $(GDL_LIBS)
+
+target2_SOURCES =  \
+	source1
+
+target2_LDADD = $(GDL_LIBS)
+]])
+AT_PARSER_CHECK([load empty6 \
+		move empty7 \
+		set 0:1 lib '$(GDL_LIBS)' \
+		list \
+		save])
+AT_CHECK([diff -b empty7/Makefile.am reference.am])
+AT_PARSER_CHECK([load empty7 \
+		 list])
+AT_CHECK([diff output expect])
+
+
+
+AT_DATA([expect],
+[[    GROUP (0): empty8
+        TARGET (0:0): target1
+            PROPERTY (Installation directory): bindir
+            PROPERTY (Libraries): $(GDL_LIBS)
+            SOURCE (0:0:0): source2
+        TARGET (0:1): target2
+            PROPERTY (Installation directory): bindir
+            PROPERTY (Libraries): $(GDL_LIBS)
+            SOURCE (0:1:0): source1
+]])
+AT_DATA([reference.am],
+[[
+bin_PROGRAMS = target1 \
+	target2
+
+target1_SOURCES =  \
+	source2
+
+target1_LDADD = $(GDL_LIBS)
+
+target2_SOURCES =  \
+	source1
+
+target2_LDADD = $(GDL_LIBS)
+]])
+AT_PARSER_CHECK([load empty7 \
+		move empty8 \
+		add source 0:0 source2 \
+		list \
+		save])
+AT_CHECK([diff -b empty8/Makefile.am reference.am])
+AT_PARSER_CHECK([load empty8 \
+		 list])
+AT_CHECK([diff output expect])
+
+
+
 AT_CLEANUP

@@ -16,6 +16,7 @@ AT_DATA([expect],
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
 
+
 bin_PROGRAMS = \
 	target1
 ]])
@@ -41,6 +42,7 @@ AT_DATA([expect],
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
 
+
 bin_PROGRAMS = \
 	target1 \
 	target2
@@ -65,6 +67,7 @@ AT_DATA([expect],
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
 
+
 bin_PROGRAMS = \
 	target2
 ]])
@@ -85,6 +88,7 @@ AT_DATA([expect],
 ]])
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
+
 ]])
 AT_PARSER_CHECK([load empty3 \
 		 move empty4 \
@@ -106,6 +110,7 @@ AT_DATA([expect],
 ]])
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
+
 
 bin_PROGRAMS = \
 	target1
@@ -133,11 +138,12 @@ AT_DATA([expect],
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
 
-bin_PROGRAMS = \
+
+bin_PROGRAMS =  \
 	target1 \
 	target2
 
-target1_SOURCES = \
+target1_SOURCES =  \
 	source1
 ]])
 AT_PARSER_CHECK([load empty5 \
@@ -165,11 +171,12 @@ AT_DATA([expect],
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
 
-bin_PROGRAMS = \
+
+bin_PROGRAMS =  \
 	target1 \
 	target2
 
-target1_SOURCES = \
+target1_SOURCES =  \
 	source1
 
 target2_CFLAGS = -g

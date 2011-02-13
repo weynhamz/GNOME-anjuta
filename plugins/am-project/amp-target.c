@@ -155,6 +155,20 @@ tagged_token_list_get (GList *list, AmTokenType type)
 	return tokens;
 }
 
+/* The returned list must be freed */
+static GList*
+tagged_token_list_get_all (GList *list)
+{
+	GList *tokens = NULL;
+
+	for (; list != NULL; list = g_list_next (list))
+	{
+		tokens = g_list_concat (tokens, g_list_copy (((TaggedTokenItem *)list->data)->tokens));
+	}
+	
+	return tokens;
+}
+
 static AnjutaTokenType
 tagged_token_list_next (GList *list, AmTokenType type)
 {
@@ -206,6 +220,12 @@ GList *
 amp_target_node_get_token (AmpTargetNode *target, AmTokenType type)
 {
 	return tagged_token_list_get	(target->tokens, type);
+}
+
+GList*
+amp_target_node_get_all_token (AmpTargetNode *target)
+{
+	return tagged_token_list_get_all (target->tokens);
 }
 
 AnjutaTokenType
