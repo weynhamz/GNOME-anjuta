@@ -60,7 +60,6 @@ anjuta_token_find_target_property_position (AmpTargetNode *target,
 	GList *list;
 	AmpGroupNode *group;
 	AnjutaToken *makefile;
-
 	
 	group = AMP_GROUP_NODE (anjuta_project_node_parent (ANJUTA_PROJECT_NODE (target)));
 	
@@ -115,9 +114,17 @@ anjuta_token_find_target_property_position (AmpTargetNode *target,
 	{
 		AnjutaProjectNode *prev = ANJUTA_PROJECT_NODE (target);
 		AnjutaProjectNode *next = ANJUTA_PROJECT_NODE (target);
+		AmpTargetNode *sibling;
 		AnjutaTokenFile *makefile;
+		AnjutaToken *target_list = NULL;
 		GList *link;
 
+		link = amp_target_node_get_token (target, ANJUTA_TOKEN_ARGUMENT);
+		if ((link != NULL) && (link->data != NULL))
+		{
+			target_list = anjuta_token_list ((AnjutaToken *)link->data);
+		}
+		
 		makefile = amp_group_node_get_make_token_file (group);
 
 		if (makefile != NULL)
@@ -133,7 +140,7 @@ anjuta_token_find_target_property_position (AmpTargetNode *target,
 						prev = anjuta_project_node_prev_sibling (prev);
 						if (anjuta_project_node_get_node_type (prev) == ANJUTA_PROJECT_TARGET) break;
 					}
-					list = prev == NULL ? NULL : amp_target_node_get_all_token (AMP_TARGET_NODE (prev));
+					sibling = AMP_TARGET_NODE (prev);
 				}
 				else
 				{
@@ -142,9 +149,36 @@ anjuta_token_find_target_property_position (AmpTargetNode *target,
 						next = anjuta_project_node_next_sibling (next);
 						if (anjuta_project_node_get_node_type (next) == ANJUTA_PROJECT_TARGET) break;
 					}
-					list = next == NULL ? NULL : amp_target_node_get_all_token (AMP_TARGET_NODE (next));
+					sibling = AMP_TARGET_NODE (next);
 				}
+				list = sibling == NULL ? NULL : amp_target_node_get_all_token (sibling);
 
+				/* Check that the target is in the same list */
+				if ((list != NULL) && (target_list != NULL))
+				{
+					AnjutaToken *token;
+
+					link = amp_target_node_get_token (sibling, ANJUTA_TOKEN_ARGUMENT);
+					if ((link != NULL) && (link->data != NULL))
+					{
+						token = anjuta_token_list ((AnjutaToken *)link->data);
+					}
+
+					if ((token != NULL) && (target_list != token))
+					{
+						/* Target is in another list, do not use it, nor following ones */
+						list = NULL;
+						if (after)
+						{
+							prev = NULL;
+						}
+						else
+						{
+							next = NULL;
+						}
+					}
+				}
+				
 				if (list != NULL)
 				{
 					gsize best = 0;
