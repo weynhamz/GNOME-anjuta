@@ -319,6 +319,11 @@ anjuta_plugin_class_init (AnjutaPluginClass *class)
 	class->activate = NULL;
 	class->deactivate = NULL;
 
+	/**
+	 * AnjutaPlugin:shell:
+	 *
+	 * The #AnjutaShell object associated with this plugin
+	 */
 	g_object_class_install_property
 		(object_class,
 		 PROP_SHELL,
@@ -585,3 +590,16 @@ anjuta_plugin_is_active (AnjutaPlugin *plugin)
 {
 	return plugin->priv->activated;
 }
+
+/**
+ * anjuta_plugin_get_shell:
+ * @plugin: a #AnjutaPlugin
+ * 
+ * Returns: The #AnjutaShell object associated with this plugin
+ */
+AnjutaShell *
+anjuta_plugin_get_shell (AnjutaPlugin* plugin)
+{
+	return plugin->shell;
+}
+

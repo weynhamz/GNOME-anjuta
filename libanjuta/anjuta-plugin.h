@@ -116,6 +116,8 @@ guint anjuta_plugin_add_watch (AnjutaPlugin *plugin,
 void anjuta_plugin_remove_watch (AnjutaPlugin *plugin, guint id,
 								 gboolean send_remove);
 
+AnjutaShell *anjuta_plugin_get_shell (AnjutaPlugin* plugin);
+
 /**
  * ANJUTA_PLUGIN_BEGIN:
  * @class_name: Name of the class. e.g. EditorPlugin
