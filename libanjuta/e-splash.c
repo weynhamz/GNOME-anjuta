@@ -50,10 +50,10 @@ G_DEFINE_TYPE(ESplash, e_splash, GTK_TYPE_WINDOW)
 
 /* Layout constants.  These need to be changed if the splash changes.  */
 
-#define ICON_Y    priv->progressbar_position
-#define ICON_X    15
+#define ICON_Y    80
+#define ICON_X    32
 #define ICON_SIZE 48
-#define PROGRESS_SIZE 5
+#define PROGRESS_SIZE 10
 
 /* GtkObject methods.  */
 
@@ -98,7 +98,7 @@ e_splash_init (ESplash *splash)
 	ESplashPrivate *priv;
 
 	priv = g_new0 (ESplashPrivate, 1);
-	priv->progressbar_position = 100;
+	priv->progressbar_position = ICON_Y;
 	splash->priv = priv;
 }
 
@@ -123,7 +123,6 @@ on_draw_cb (GtkWidget *widget, cairo_t *cr,
 
 	/* draw the background pixbuf */
 	cairo_save (cr);
-	cairo_set_operator (cr, CAIRO_OPERATOR_SOURCE);
 	gdk_cairo_set_source_pixbuf (cr, priv->splash_image_pixbuf, 0, 0);
 
 	cairo_paint (cr);
@@ -138,7 +137,7 @@ on_draw_cb (GtkWidget *widget, cairo_t *cr,
 		cairo_paint (cr);
 		cairo_restore (cr);
 	}
-
+	
 	/* draw the plugin text */
 	if (priv->title)
 	{
@@ -147,14 +146,16 @@ on_draw_cb (GtkWidget *widget, cairo_t *cr,
 		gint layout_height;
 
 		cairo_save (cr);
+		/* Aluminium 6 Tango */
+		cairo_set_source_rgba (cr, 46/255, 52/255, 54/255, 1.0);
 		
 		pc = gtk_widget_get_pango_context (widget);
 		layout = pango_layout_new (pc);
 		pango_layout_set_markup (layout, priv->title, -1);
 		pango_layout_get_size (layout, NULL, &layout_height);
 
-		cairo_move_to (cr, ICON_X + ICON_SIZE + 10,
-		               ICON_Y + ICON_SIZE - PROGRESS_SIZE - PANGO_PIXELS (layout_height));
+		cairo_move_to (cr, ICON_X + ICON_SIZE + 25,
+		               ICON_Y + ICON_SIZE - PANGO_PIXELS (layout_height) - 5);
 		
 		pango_cairo_show_layout (cr, layout);
 
@@ -164,22 +165,14 @@ on_draw_cb (GtkWidget *widget, cairo_t *cr,
 	
 	/* draw the progress bar */
 	inc_width = gdk_pixbuf_get_width (priv->splash_image_pixbuf);
-	inc_width -= (ICON_X + ICON_SIZE + 20);	
+	inc_width -= (ICON_X + ICON_SIZE + 35);	
 
-	cairo_save (cr);
-	cairo_set_source_rgb (cr, 0.0, 0.0, 1.0);
-	cairo_rectangle (cr, ICON_X + ICON_SIZE + 10, ICON_Y + ICON_SIZE,
-	                 inc_width, PROGRESS_SIZE);
-
-	cairo_fill (cr);
-	cairo_restore (cr);
-
-	cairo_save (cr);
-	cairo_rectangle (cr, ICON_X + ICON_SIZE + 10, ICON_Y + ICON_SIZE,
+	/* Aluminium 6 (Tango) */
+	cairo_set_source_rgba (cr, 46/255, 52/255, 54/255, 1.0);
+	cairo_rectangle (cr, ICON_X + ICON_SIZE + 25, ICON_Y + ICON_SIZE - 5,
 	                 (priv->progress_percentage * inc_width), PROGRESS_SIZE);
 
 	cairo_fill (cr);
-	cairo_restore (cr);
 
 	return TRUE;
 }
