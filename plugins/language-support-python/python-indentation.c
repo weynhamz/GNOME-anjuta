@@ -880,24 +880,32 @@ python_indent_auto (PythonPlugin* lang_plugin,
 	IAnjutaEditor *editor;
 	editor = IANJUTA_EDITOR (lang_plugin->current_editor);
 
-	has_selection = ianjuta_editor_selection_has_selection
-		(IANJUTA_EDITOR_SELECTION (editor), NULL);
-	if (has_selection)
+	if (!start || !end)
 	{
-		IAnjutaIterable *sel_start, *sel_end;
-		sel_start = ianjuta_editor_selection_get_start (IANJUTA_EDITOR_SELECTION (editor),
-		                                                NULL);
-		sel_end = ianjuta_editor_selection_get_end (IANJUTA_EDITOR_SELECTION (editor),
-		                                            NULL);
-		line_start = ianjuta_editor_get_line_from_position (editor, sel_start, NULL);
-		line_end = ianjuta_editor_get_line_from_position (editor, sel_end, NULL);
-		g_object_unref (sel_start);
-		g_object_unref (sel_end);
+		has_selection = ianjuta_editor_selection_has_selection
+			(IANJUTA_EDITOR_SELECTION (editor), NULL);
+		if (has_selection)
+		{
+			IAnjutaIterable *sel_start, *sel_end;
+			sel_start = ianjuta_editor_selection_get_start (IANJUTA_EDITOR_SELECTION (editor),
+				                                            NULL);
+			sel_end = ianjuta_editor_selection_get_end (IANJUTA_EDITOR_SELECTION (editor),
+				                                        NULL);
+			line_start = ianjuta_editor_get_line_from_position (editor, sel_start, NULL);
+			line_end = ianjuta_editor_get_line_from_position (editor, sel_end, NULL);
+			g_object_unref (sel_start);
+			g_object_unref (sel_end);
+		}
+		else
+		{
+			line_start = ianjuta_editor_get_lineno (IANJUTA_EDITOR(editor), NULL);
+			line_end = line_start;
+		}
 	}
 	else
 	{
-		line_start = ianjuta_editor_get_lineno (IANJUTA_EDITOR(editor), NULL);
-		line_end = line_start;
+		line_start = ianjuta_editor_get_line_from_position (editor, start, NULL);
+		line_end = ianjuta_editor_get_line_from_position (editor, end, NULL);
 	}
 	ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT(editor), NULL);
 	python_indent_init (lang_plugin);
