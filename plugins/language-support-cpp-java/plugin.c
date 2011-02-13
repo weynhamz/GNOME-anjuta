@@ -38,6 +38,7 @@
 #include <libanjuta/interfaces/ianjuta-preferences.h>
 #include <libanjuta/interfaces/ianjuta-symbol.h>
 #include <libanjuta/interfaces/ianjuta-language.h>
+#include <libanjuta/interfaces/ianjuta-indenter.h>
 
 #include "plugin.h"
 #include "cpp-java-utils.h"
@@ -782,7 +783,7 @@ on_auto_indent (GtkAction *action, gpointer data)
 	lang_plugin = ANJUTA_PLUGIN_CPP_JAVA (data);
 	editor = IANJUTA_EDITOR (lang_plugin->current_editor);
 
-	cpp_auto_indentation (editor, lang_plugin);
+	cpp_auto_indentation (editor, lang_plugin, NULL, NULL);
 }
 
 /* Automatic comments */
@@ -1234,8 +1235,28 @@ ipreferences_iface_init (IAnjutaPreferencesIface* iface)
 	iface->unmerge = ipreferences_unmerge;	
 }
 
+static void
+iindenter_indent (IAnjutaIndenter* indenter,
+                  IAnjutaIterable* start,
+                  IAnjutaIterable* end,
+                  GError** e)
+{
+	CppJavaPlugin* plugin = ANJUTA_PLUGIN_CPP_JAVA (indenter);
+
+	cpp_auto_indentation (IANJUTA_EDITOR (plugin->current_editor),
+	                      plugin,
+	                      start, end);
+}
+
+static void
+iindenter_iface_init (IAnjutaIndenterIface* iface)
+{
+	iface->indent = iindenter_indent;
+}
+
 ANJUTA_PLUGIN_BEGIN (CppJavaPlugin, cpp_java_plugin);
 ANJUTA_PLUGIN_ADD_INTERFACE(ipreferences, IANJUTA_TYPE_PREFERENCES);
+ANJUTA_PLUGIN_ADD_INTERFACE(iindenter, IANJUTA_TYPE_INDENTER);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (CppJavaPlugin, cpp_java_plugin);

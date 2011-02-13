@@ -28,7 +28,9 @@ cpp_indentation (IAnjutaEditor *editor,
 
 void
 cpp_auto_indentation (IAnjutaEditor *editor,
-                      CppJavaPlugin *plugin);
+                      CppJavaPlugin *plugin,
+                      IAnjutaIterable *start,
+                      IAnjutaIterable *end);
 
 void
 java_indentation (IAnjutaEditor *editor,
