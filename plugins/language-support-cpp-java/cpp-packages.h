@@ -50,7 +50,7 @@ struct _CppPackages
 
 GType cpp_packages_get_type (void) G_GNUC_CONST;
 CppPackages* cpp_packages_new (AnjutaPlugin* plugin);
-void cpp_packages_load (CppPackages* packages);
+void cpp_packages_load (CppPackages* packages, gboolean force);
 
 G_END_DECLS
 

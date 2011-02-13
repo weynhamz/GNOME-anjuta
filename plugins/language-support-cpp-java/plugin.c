@@ -63,6 +63,7 @@
 #define PREF_INDENT_AUTOMATIC "cpp-indent-automatic"
 #define PREF_INDENT_MODELINE "cpp-indent-modeline"
 #define PREF_USER_PACKAGES "cpp-user-packages"
+#define PREF_PROJECT_PACKAGES "cpp-load-project-packages"
 
 static gpointer parent_class;
 
@@ -578,7 +579,7 @@ install_support (CppJavaPlugin *lang_plugin)
 		}
 
 		lang_plugin->packages = cpp_packages_new (ANJUTA_PLUGIN (lang_plugin));
-		cpp_packages_load(lang_plugin->packages);
+		cpp_packages_load(lang_plugin->packages, FALSE);
 	}
 	
 	lang_plugin->support_installed = TRUE;
@@ -1119,28 +1120,61 @@ cpp_java_plugin_class_init (GObjectClass *klass)
 
 static void
 on_autocompletion_toggled (GtkToggleButton* button,
-                           GtkBuilder* bxml)
+                           CppJavaPlugin* plugin)
 {
 	GtkWidget* widget;
 	gboolean sensitive = gtk_toggle_button_get_active (button);
 
-	widget = GTK_WIDGET (gtk_builder_get_object (bxml, PREF_WIDGET_SPACE));
+	widget = GTK_WIDGET (gtk_builder_get_object (plugin->bxml, PREF_WIDGET_SPACE));
 	gtk_widget_set_sensitive (widget, sensitive);
-	widget = GTK_WIDGET (gtk_builder_get_object (bxml, PREF_WIDGET_BRACE));
+	widget = GTK_WIDGET (gtk_builder_get_object (plugin->bxml, PREF_WIDGET_BRACE));
 	gtk_widget_set_sensitive (widget, sensitive);
+}
+
+static void 
+cpp_java_plugin_select_user_packages (CppJavaPlugin* plugin,
+                                      AnjutaPkgConfigChooser* chooser)
+{
+	gchar* user_packages = g_settings_get_string (plugin->settings,
+	                                              PREF_USER_PACKAGES);
+	GStrv pkgs = g_strsplit (user_packages, ";", -1);
+	gchar** pkg;
+	GList* packages = NULL;
+	for (pkg = pkgs; *pkg != NULL; pkg++)
+	{
+		packages = g_list_append (packages, *pkg);
+	}
+	anjuta_pkg_config_chooser_set_active_packages (chooser,
+	                                               packages);
+	g_strfreev (pkgs);
+	g_free (user_packages);
+	g_list_free (packages);
 }
 
 static void
 on_project_packages_toggled (GtkToggleButton* button,
-                             GtkBuilder* bxml)
+                             CppJavaPlugin* plugin)
 {
 	GtkWidget* pkg_config;
 	gboolean sensitive = !gtk_toggle_button_get_active (button);
-	pkg_config = GTK_WIDGET (gtk_builder_get_object (bxml, PREF_WIDGET_PKG_CONFIG));
+	pkg_config = GTK_WIDGET (gtk_builder_get_object (plugin->bxml, PREF_WIDGET_PKG_CONFIG));
 
 	gtk_widget_set_sensitive (pkg_config, sensitive);
 	anjuta_pkg_config_chooser_show_active_only (ANJUTA_PKG_CONFIG_CHOOSER (pkg_config),
 	                                            !sensitive);
+
+	anjuta_pkg_config_chooser_set_active_packages (ANJUTA_PKG_CONFIG_CHOOSER (pkg_config),
+	                                               NULL);
+	if (!sensitive)
+	{
+		cpp_java_plugin_select_user_packages (plugin, ANJUTA_PKG_CONFIG_CHOOSER (pkg_config));
+		cpp_packages_load (plugin->packages, TRUE);
+	}
+	else
+	{
+		anjuta_pkg_config_chooser_set_active_packages (ANJUTA_PKG_CONFIG_CHOOSER (pkg_config),
+		                                               NULL);
+	}
 }
 
 static void
@@ -1176,7 +1210,7 @@ on_package_activated (AnjutaPkgConfigChooser *self, const gchar* package,
 	g_message ("Activate package");
 	
 	cpp_java_plugin_update_user_packages (plugin, self);
-	cpp_packages_load (plugin->packages);
+	cpp_packages_load (plugin->packages, TRUE);
 }
 
 static void
@@ -1228,25 +1262,30 @@ ipreferences_merge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
 	                                     ICON_FILE);
 	toggle = GTK_WIDGET (gtk_builder_get_object (plugin->bxml, PREF_WIDGET_AUTO));
 	g_signal_connect (toggle, "toggled", G_CALLBACK (on_autocompletion_toggled),
-	                  plugin->bxml);
-	on_autocompletion_toggled (GTK_TOGGLE_BUTTON (toggle), plugin->bxml);
+	                  plugin);
+	on_autocompletion_toggled (GTK_TOGGLE_BUTTON (toggle), plugin);
 
 	toggle = GTK_WIDGET (gtk_builder_get_object (plugin->bxml, PREF_WIDGET_PACKAGES));
 	g_signal_connect (toggle, "toggled", G_CALLBACK (on_project_packages_toggled),
-	                  plugin->bxml);
-	on_autocompletion_toggled (GTK_TOGGLE_BUTTON (toggle), plugin->bxml);
-	on_project_packages_toggled (GTK_TOGGLE_BUTTON (toggle), plugin->bxml);
+	                  plugin);
+	on_autocompletion_toggled (GTK_TOGGLE_BUTTON (toggle), plugin);
+	on_project_packages_toggled (GTK_TOGGLE_BUTTON (toggle), plugin);
 	
 	pkg_config = GTK_WIDGET (gtk_builder_get_object (plugin->bxml, PREF_WIDGET_PKG_CONFIG));
 	anjuta_pkg_config_chooser_show_active_column (ANJUTA_PKG_CONFIG_CHOOSER (pkg_config), 
 	    										  TRUE);
+	
 	g_signal_connect (G_OBJECT (pkg_config), "package-activated",
-					  G_CALLBACK (on_package_activated), plugin);
+	                  G_CALLBACK (on_package_activated), plugin);
 
 	g_signal_connect (G_OBJECT (pkg_config), "package-deactivated",
 					  G_CALLBACK (on_package_deactivated), plugin);
 	
-	gtk_widget_show_all (pkg_config);
+	if (!g_settings_get_boolean (plugin->settings,
+	                             PREF_PROJECT_PACKAGES))
+		cpp_java_plugin_select_user_packages (plugin, ANJUTA_PKG_CONFIG_CHOOSER (pkg_config));
+	
+	gtk_widget_show (pkg_config);
 }
 
 static void
