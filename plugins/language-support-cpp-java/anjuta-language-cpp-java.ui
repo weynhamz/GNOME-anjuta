@@ -575,6 +575,7 @@
             <child>
               <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:cpp-load-libc">
                 <property name="label" translatable="yes">Load API tags for C standard library</property>
+                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="use_action_appearance">False</property>

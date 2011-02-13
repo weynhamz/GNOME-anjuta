@@ -29,9 +29,50 @@
 
 #define PREF_PROJECT_PACKAGES "cpp-load-project-packages"
 #define PREF_USER_PACKAGES "cpp-user-packages"
+#define PREF_LIBC "cpp-load-libc"
 
 #define PROJECT_LOADED "__cpp_packages_loaded"
 #define USER_LOADED "__cpp_user_packages_loaded"
+
+/**
+ * Standard files of the C library (according to
+ * https://secure.wikimedia.org/wikipedia/en/wiki/C_standard_library)
+ */
+const gchar* libc_files[] =
+{
+	"assert.h",
+	"complex.h",
+	"ctype.h",
+	"errno.h",
+	"fenv.h",
+	"float.h",
+	"inttypes.h",
+	"iso646.h",
+	"limits.h",
+	"locale.h",
+	"math.h",
+	"setjmp.h",
+	"signal.h",
+	"stdarg.h",
+	"stdbool.h",
+	"stddef.h",
+	"stdint.h",
+	"stdio.h",
+	"stdlib.h",
+	"string.h",
+	"tgmath.h",
+	"time.h",
+	"wchar.h",
+	"wctype.h",
+	NULL
+};
+
+/**
+ * Standard location of libc on UNIX systems
+ */
+#define LIBC_LOCATION "/usr/include"
+#define LIBC_VERSION "C99"
+#define LIBC "libc"
 
 enum
 {
@@ -130,16 +171,70 @@ on_package_ready (AnjutaCommand* command,
 }
 
 static void
-on_queue_finished (AnjutaCommandQueue* queue, gpointer unused)
+on_queue_finished (AnjutaCommandQueue* queue, CppPackages* packages)
 {
 	g_object_unref (queue);
+	packages->loading = FALSE;
+}
+
+static void
+cpp_packages_activate_libc (CppPackages* packages)
+{
+	IAnjutaSymbolManager* sm =
+		anjuta_shell_get_interface (anjuta_plugin_get_shell (ANJUTA_PLUGIN(packages->plugin)),
+		                            IAnjutaSymbolManager, NULL);
+
+	if (!ianjuta_symbol_manager_activate_package (sm, LIBC, LIBC_VERSION, NULL))
+	{
+		/* Create file list*/
+		GList* files = NULL;
+		const gchar** file;
+		for (file = libc_files; *file != NULL; file++)
+		{
+			gchar* real_file = g_build_filename (LIBC_LOCATION, *file, NULL);
+			if (g_file_test (real_file, G_FILE_TEST_EXISTS))
+				files = g_list_append (files, real_file);
+			else
+				g_free (real_file);
+		}
+
+		/* Add package */
+		ianjuta_symbol_manager_add_package (sm,
+		                                    LIBC,
+		                                    LIBC_VERSION,
+		                                    files,
+		                                    NULL);
+		anjuta_util_glist_strings_free (files);
+	}
+}
+
+static void
+on_load_libc (GSettings* settings,
+              gchar* key,
+              CppPackages* packages)
+{
+	gboolean load =
+		g_settings_get_boolean (ANJUTA_PLUGIN_CPP_JAVA(packages->plugin)->settings,
+		                        key);
+	if (load)
+	{
+		cpp_packages_activate_libc (packages);
+	}
+	else
+	{
+		IAnjutaSymbolManager* sm =
+			anjuta_shell_get_interface (anjuta_plugin_get_shell (ANJUTA_PLUGIN(packages->plugin)),
+			                            IAnjutaSymbolManager, NULL);
+		ianjuta_symbol_manager_deactivate_package (sm, LIBC, LIBC_VERSION, NULL);
+	}	
 }
 
 static void
 cpp_packages_load_real (CppPackages* packages, GError* error, IAnjutaProjectManager* pm)
 {
 	IAnjutaSymbolManager* sm =
-		anjuta_shell_get_interface (packages->plugin->shell, IAnjutaSymbolManager, NULL);		
+		anjuta_shell_get_interface (anjuta_plugin_get_shell (ANJUTA_PLUGIN(packages->plugin)),
+		                            IAnjutaSymbolManager, NULL);		
 	GList* pkgs;
 	GList* pkg;
 	GList* packages_to_add = NULL;
@@ -148,6 +243,7 @@ cpp_packages_load_real (CppPackages* packages, GError* error, IAnjutaProjectMana
 		return;
 
 	ianjuta_symbol_manager_deactivate_all (sm, NULL);
+	packages->loading = TRUE;
 	
 	pkgs = ianjuta_project_manager_get_packages (pm, NULL);
 	for (pkg = pkgs; pkg != NULL; pkg = g_list_next (pkg))
@@ -167,7 +263,7 @@ cpp_packages_load_real (CppPackages* packages, GError* error, IAnjutaProjectMana
 	g_list_foreach (packages_to_add, (GFunc) pkg_data_free, NULL);
 	g_list_free (packages_to_add);
 
-	g_signal_connect (packages->queue, "finished", G_CALLBACK (on_queue_finished), NULL);
+	g_signal_connect (packages->queue, "finished", G_CALLBACK (on_queue_finished), packages);
 	anjuta_command_queue_start (packages->queue);
 }
 
@@ -190,6 +286,8 @@ cpp_packages_load_user (CppPackages* packages, gboolean force)
 		GList* packages_to_add = NULL;
 		GList* pkg;
 
+		packages->loading = TRUE;
+		
 		ianjuta_symbol_manager_deactivate_all (sm, NULL);
 
 		for (package = pkgs; *package != NULL; package++)
@@ -223,7 +321,7 @@ cpp_packages_load_user (CppPackages* packages, gboolean force)
 void 
 cpp_packages_load (CppPackages* packages, gboolean force)
 {
-	CppJavaPlugin* plugin = (CppJavaPlugin*) packages->plugin;
+	CppJavaPlugin* plugin = ANJUTA_PLUGIN_CPP_JAVA(packages->plugin);
 
 	if (g_settings_get_boolean (plugin->settings,
 	                            PREF_PROJECT_PACKAGES))
@@ -240,7 +338,7 @@ cpp_packages_load (CppPackages* packages, gboolean force)
 		{
 			gboolean loaded = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (project), 
 			                                                      PROJECT_LOADED));
-			if (!loaded)
+			if (!loaded && !packages->loading)
 			{
 				cpp_packages_load_real (packages, NULL, pm);
 				g_object_set_data (G_OBJECT (project), PROJECT_LOADED, GINT_TO_POINTER (TRUE));
@@ -249,14 +347,23 @@ cpp_packages_load (CppPackages* packages, gboolean force)
 	}
 	else
 	{
+		if (packages->loading)
+			return;
 		cpp_packages_load_user (packages, force);
 	}
+
+	g_signal_connect (plugin->settings, "changed::PREF_LIBC",
+	                  G_CALLBACK (on_load_libc), packages);
+	on_load_libc (plugin->settings,
+	              PREF_LIBC,
+	              packages);
 }
 
 static void
 cpp_packages_init (CppPackages *packages)
 {	
 	packages->queue = anjuta_command_queue_new (ANJUTA_COMMAND_QUEUE_EXECUTE_MANUAL);
+	packages->loading = FALSE;
 }
 
 static void
