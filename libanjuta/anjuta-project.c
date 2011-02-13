@@ -82,6 +82,7 @@ anjuta_project_property_new (const gchar *name, AnjutaProjectValueType type,
 	prop->value = g_strdup (value);
 	prop->native = native;
 	prop->detail = native->detail;
+	
 	return prop;
 }
 
@@ -729,7 +730,15 @@ anjuta_project_node_remove_property (AnjutaProjectNode *node, AnjutaProjectPrope
 	{
 		removed = (AnjutaProjectProperty *)found->data;
 		node->custom_properties = g_list_delete_link (node->custom_properties, found);
+		/* If name is not owned by the property, remove it as the
+		 * property can be associated with another one, having a
+		 * different name */
+		if ((removed->native != NULL) && (removed->name == removed->native->name))
+		{
+			removed->name = NULL;
+		}
 	}
+
 
 	return removed;
 }
