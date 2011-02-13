@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-master-po-gl-1952\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-06 00:27+0100\n"
-"PO-Revision-Date: 2011-02-06 00:29+0100\n"
+"POT-Creation-Date: 2011-02-13 13:45+0100\n"
+"PO-Revision-Date: 2011-02-13 13:50+0100\n"
 "Last-Translator: Fran Diéguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Galician <gnome-gl-list@gnome.org>\n"
 "Language: gl\n"
@@ -595,7 +595,8 @@ msgid "Text to show the user what to enter into the entry"
 msgstr "Texto que lle mostra ao usuario que ten que escribir nun campo"
 
 #: ../libanjuta/anjuta-file-drop-entry.c:206
-msgid "Path that droppedfiles should be relative to"
+#, fuzzy
+msgid "Path that dropped files should be relative to"
 msgstr "Ruta á que os ficheiros soltados deberían ser relativos"
 
 #: ../libanjuta/anjuta-file-list.c:101
@@ -5191,64 +5192,69 @@ msgid "Repository head; Drop or type a different revision here"
 msgstr "Cabeza do repositorio; Arrastre ou escriba unha revisión distinta aquí"
 
 #: ../plugins/git/anjuta-git.ui.h:55
+#, fuzzy
+msgid "Repository head; Drop or type a different revision here "
+msgstr "Cabeza do repositorio; Arrastre ou escriba unha revisión distinta aquí"
+
+#: ../plugins/git/anjuta-git.ui.h:56
 msgid "Repository origin; Drop or type a different revision here"
 msgstr "Orixe do repositorio; Arrastre ou escriba aquí unha revisión distinta"
 
-#: ../plugins/git/anjuta-git.ui.h:56
+#: ../plugins/git/anjuta-git.ui.h:57
 msgid "Show source revision in log message"
 msgstr "Mostrar revisión da fonte na mensaxe de rexistro"
 
-#: ../plugins/git/anjuta-git.ui.h:57
+#: ../plugins/git/anjuta-git.ui.h:58
 msgid "Sign this tag"
 msgstr "Asinar esta etiqueta"
 
-#: ../plugins/git/anjuta-git.ui.h:58
+#: ../plugins/git/anjuta-git.ui.h:59
 msgid "Soft"
 msgstr "Soft"
 
-#: ../plugins/git/anjuta-git.ui.h:59
+#: ../plugins/git/anjuta-git.ui.h:60
 msgid "Squash"
 msgstr "Comprimir (squash)"
 
-#: ../plugins/git/anjuta-git.ui.h:60
+#: ../plugins/git/anjuta-git.ui.h:61
 msgid "Stash indexed changes"
 msgstr "Reservar os cambios indexados"
 
-#: ../plugins/git/anjuta-git.ui.h:61
+#: ../plugins/git/anjuta-git.ui.h:62
 msgid "This commit concludes a failed merged (use -i)"
 msgstr "Esta remisión remata cunha combinación con fállos (use -i)"
 
-#: ../plugins/git/anjuta-git.ui.h:62
+#: ../plugins/git/anjuta-git.ui.h:63
 msgid "Use a custom log message:"
 msgstr "Usar unha mensaxe de rexistro personalizada:"
 
-#: ../plugins/git/anjuta-git.ui.h:63
+#: ../plugins/git/anjuta-git.ui.h:64
 msgid "Use custom author information:"
 msgstr "Usar información de autor personalizada:"
 
-#: ../plugins/git/anjuta-git.ui.h:64
+#: ../plugins/git/anjuta-git.ui.h:65
 #: ../plugins/subversion/anjuta-subversion.ui.h:59
 msgid "View the Log for File/Folder:"
 msgstr "Ver o rexistro para o ficheiro/cartafol:"
 
-#: ../plugins/git/anjuta-git.ui.h:65
+#: ../plugins/git/anjuta-git.ui.h:66
 msgid ""
 "Whole project; Drop a file here or type a path to view a file or folder log"
 msgstr ""
 "Proxecto completo; Arrastre un ficheiro aquí ou escriba unha ruta para ver "
 "un ficheiro ou cartafol de rexistro"
 
-#: ../plugins/git/anjuta-git.ui.h:66
+#: ../plugins/git/anjuta-git.ui.h:67
 msgid "Whole project; Drop a file here to view a file or folder log"
 msgstr ""
 "Proxecto completo; Arrastre un ficheiro aquí para ver un ficheiro ou "
 "cartafol de rexistro"
 
-#: ../plugins/git/anjuta-git.ui.h:67
+#: ../plugins/git/anjuta-git.ui.h:68
 msgid "page 1"
 msgstr "páxina 1"
 
-#: ../plugins/git/anjuta-git.ui.h:68
+#: ../plugins/git/anjuta-git.ui.h:69
 msgid "page 2"
 msgstr "páxina 2"
 
@@ -5444,9 +5450,8 @@ msgid "Changed but not updated"
 msgstr "Cambiado pero non actualizado"
 
 #: ../plugins/git/git-unstage-pane.c:51
-#, fuzzy
 msgid "No staged files selected."
-msgstr "Non se seleccionou ningún ficheiro no índice."
+msgstr "Non se seleccionou ningún ficheiro do índice."
 
 #: ../plugins/git/plugin.c:65
 msgid "Branch tools"
@@ -5511,14 +5516,13 @@ msgstr "Eliminar ficheiros do repositorio"
 
 #: ../plugins/git/plugin.c:186
 msgid "Check out"
-msgstr ""
+msgstr "Descargar (checkout)"
 
 #: ../plugins/git/plugin.c:187
 msgid "Revert changes in unstaged files"
 msgstr "Reverter os cambios nos ficheiros non engadidos ao índice"
 
 #: ../plugins/git/plugin.c:194
-#, fuzzy
 msgid "Unstage"
 msgstr "Deseleccionar ficheiros (unstage)"
 
