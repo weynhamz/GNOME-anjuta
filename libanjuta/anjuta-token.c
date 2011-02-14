@@ -326,7 +326,7 @@ anjuta_token_show (AnjutaToken *token, gint indent, gchar parent)
 	if (string == NULL)
 	{
 		/* Value doesn't contain a newline */	
-		fprintf (stderr, "(%d)", length);
+		fprintf (stderr, "(%lu)", length);
 	}
 	else
 	{
@@ -481,7 +481,7 @@ anjuta_token_set_length (AnjutaToken *token, gsize length)
 	token->data.length = length;
 }
 
-guint
+gsize
 anjuta_token_get_length (AnjutaToken *token)
 {
 	return token->data.length;
