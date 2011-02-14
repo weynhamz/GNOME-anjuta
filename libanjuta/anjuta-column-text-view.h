@@ -52,6 +52,7 @@ struct _AnjutaColumnTextView
 GType anjuta_column_text_view_get_type (void) G_GNUC_CONST;
 GtkWidget *anjuta_column_text_view_new (void);
 gchar *anjuta_column_text_view_get_text (AnjutaColumnTextView *self);
+GtkTextBuffer *anjuta_column_text_view_get_buffer (AnjutaColumnTextView *self);
 
 G_END_DECLS
 

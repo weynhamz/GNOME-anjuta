@@ -143,3 +143,9 @@ anjuta_column_text_view_get_text (AnjutaColumnTextView *self)
 	
 	return text;
 }
+
+GtkTextBuffer *
+anjuta_column_text_view_get_buffer (AnjutaColumnTextView *self)
+{
+	return gtk_text_view_get_buffer (GTK_TEXT_VIEW (self->priv->text_view));
+} 
